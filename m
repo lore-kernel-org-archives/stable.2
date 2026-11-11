@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794357198;
-	b=V2IkfI+IyPiWLwacbBshBJTdeoN1bkNZQ8ycXad/lBWFSdM0Yes6NdjJJ/jdFkYpHgqn
-	 vO/n+B7os+CVLQF+kceWJ1kzZmfbMysGw5i47Bfj5m9kRu06m7617bErYPP060NtcZtnJ
-	 xg8cJCL6dXHZcybkza6pxDZ7/4A+nSEyHJYXt2Q8jqKfVky2bsm9IR8AUgM1+HoO/+7Mb
-	 wjx1OOSft9UZLC9+PHowgZ7UJH8Ks8JrXmKRcvR0e2fT/v8YCg/FjZK8PUdFh1cpFITMN
-	 2cInJqB4WOv4AkGH9ibi/epTaNYQvjqmMN+iC8MOti0yJfFXLfiH56Z0NaSghr+8N9g==
+	t=1794357200;
+	b=PHmFI6W/irg5lse/krPycf2Y7mlG0p7qGw/YNsajrzLSbpJqhmQ7OxoaGrEboPnLQdiz
+	 M8qDJ6ZB4P/5omKkezbvd0eZrnGRujYdvk2jZCa225PSIFPDYG5PD/B4Kh4Bi4eho4qXK
+	 3d70I5Jrnt3i022anOpRgbbCXBJN53gOqqBHLDXk9u/68LYp0NoZvcDyIwNpWD696M9LE
+	 u0cFLnNSnMNprvXnYqsCEEnZJ8UyHnoNd1DjYt6Teh8Psh8xmSs7nYE905+bw1yAC6Iq2
+	 njiEcmY3sY/y+2azojdjcE8uAhDe4ffUeLXGDOT6wRm6aKmyY4zDbsHDYD+GdBOut7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357200;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QohPPlAGfu016FwPlR95b/xS0RQTMVipfNxGG9JDiPM=;
-	b=wb32dpCjRHwHQqHhlwj47CYrbGpB9xU23UChlQBn8j7NdFUahVbI1nOITNPPL0jvD9vJ
-	 DWQe9VNBXkSeOXx58dBdZg5CBIwov3gS7eBEYyJgW8G9DqZHBXKGuRZhhG3aMc+MbD7yB
-	 TVn0n9+jAUbJm4+zRHs0oXPQ0aAzW500T6q2oPFxjf8OHlFKDD05vNA2rPKM1wXr5mb5I
-	 Y0b3n7C5c7rJd0ciy1ufHxMzIio0Ugl5dLEsrEsepnQV0+VfLbMRi8GjCepzvpAgvJBy8
-	 RTBiDdjSwql5Qijv9FRpHn8x2nIWo2lnf7KHCf/Xb/lzH3TsbcY6pF3Acr97cVYT1JQ==
+	bh=5ejJedGb4c2HWFJx8OCG6dQjAPGEQ6uVcNvGD7Rkeho=;
+	b=lVbgYMHIFddGy7+7a/7sKfoX3TKvkZ0LmzV/guwo+RR/4Y0jpTH208F6t8YLp93kdEF6
+	 FtT0Ae3Gm9oYdy+R1laOS6Wyrrca0wtHFAz/FoCD8OYlCeWS6Xx7Pre7Eq/IfwkuoBDcT
+	 U3BQSuEwPfTs+lDF0GwnCdv2t1WWy3Yhavx+pJk1tPN6hRG8H8PTKGAnDVmoI7Yvn5TOP
+	 P8aIQYeNTl8zgDJ0pj4BrDMfHQBfKO6nGRjvGHMT9Lqqm8wErxmxgvncwa9u7JeJ0XvEb
+	 kuucajFZoILqwM03LupliEsZF2/mngyheRyouMSYR4WNOMjoqFEfloUjQtQIlyHNQNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AM+WRYRm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q2w4x+Ay;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6CA606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:33:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE03F606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:33:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AM+WRYRm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA2091F0089F;
-	Wed, 11 Nov 2026 00:33:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q2w4x+Ay
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78DAD1F00A06;
+	Wed, 11 Nov 2026 00:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794357198;
-	bh=QohPPlAGfu016FwPlR95b/xS0RQTMVipfNxGG9JDiPM=;
+	s=k20260515; t=1794357200;
+	bh=5ejJedGb4c2HWFJx8OCG6dQjAPGEQ6uVcNvGD7Rkeho=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AM+WRYRm07wWUE1Lgu7Vr0RcHD5ko1+TzHeU8eawN9QSqOjgAU7iaw1doSfF9n32O
-	 T2whqslB0OnmoQHNd3+wzl+tb1z0y+ZSCGRssZSk8/wllf92un6YW5yRMq9lJaw5jx
-	 oOqoC9slQcFOMMH6bC7YU2a2XtfmZLx27nL1aJcNY+ayCRuY3O5aanLnzuHZ3GHa1Y
-	 wqQb/+a+PJTpCPcreQU/YyXx2HGMVgoMfX0sKFVUK+dbfEk9pQwJ7+G7W8sFWLF0v/
-	 IBY2H+jceh4r7/jPYb27XMxx3CnNu6BlR+yeX3+9tzsJNPvwL448qjuRUJy7ts7HfB
-	 KCCuP0pX8fMqg==
+	b=Q2w4x+AyThF8dlhLbdC9ZMQPxj6poIbdJ3lQLS57UB9aUmv2WYCdAf9r2qvXgD8Qk
+	 Gwa5HEYcAYepk5L+V3KpabGhB26NCIhFNm9vtDmLqEfxoy0ru9U5eMBSyV+Km5p3VI
+	 jZ59Ay8K+orDhnd92GFpN+ATxiJBYTUHSCehrV8bxlV8hkmmmbGq0bw72hxwFtvFtJ
+	 J1xGJElw8oTF6wCJtSnpLsAUby+OEWaAc/79ehGM67uvJXth+Pc8JSN8I5YVgozRSD
+	 CmMZ75CQYXaaTu9kT/hCQYd8qVT7e+WKjxjmoyHixI15JBvK4xWSc6LfE7fcOfO0FC
+	 0FT2AySjsj15w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Usama Arif <usama.arif@linux.dev>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Zi Yan <ziy@nvidia.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: Gregory Price <gourry@gourry.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Balbir Singh <balbirs@nvidia.com>,
-	Gregory Price <gourry@gourry.net>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
 	Alistair Popple <apopple@nvidia.com>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Barry Song <baohua@kernel.org>,
@@ -55,24 +54,21 @@ Cc: Usama Arif <usama.arif@linux.dev>,
 	Dev Jain <dev.jain@arm.com>,
 	"Huang, Ying" <ying.huang@linux.alibaba.com>,
 	Jann Horn <jannh@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Lance Yang <lance.yang@linux.dev>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
 	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
 	Matthew Brost <matthew.brost@intel.com>,
-	Nico Pache <npache@redhat.com>,
 	Rakie Kim <rakie.kim@sk.com>,
 	Ryan Roberts <ryan.roberts@arm.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
 	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] mm/mempolicy: skip non-present PMDs when queueing folios
-Date: Tue, 10 Nov 2026 19:33:12 -0500
-Message-ID: <20261111003308.271305-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] mm/mempolicy: skip zone device folios when queueing folios
+Date: Tue, 10 Nov 2026 19:33:13 -0500
+Message-ID: <20261111003308.271305-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050938-failed-6.18-9057170a941f@kernel.org>
+In-Reply-To: <20261111003308.271305-1-sashal@kernel.org>
 References: <20261107050938-failed-6.18-9057170a941f@kernel.org>
+ <20261111003308.271305-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,51 +80,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Usama Arif <usama.arif@linux.dev>
+From: Gregory Price <gourry@gourry.net>
 
-[ Upstream commit 2858b4027f491e6fdb8ee2d8923798b619bf2791 ]
+[ Upstream commit 1f834ba9b42e3f3c298c7e8ef1df21b9947c92b4 ]
 
-Patch series "mm: handle device-private PMDs in walk callbacks", v3.
+queue_folios_pte_range() already pairs vm_normal_folio() with an explicit
+folio_is_zone_device() check before adding folios to the migration
+pagelist.
 
-Since commit 368076f52ebe ("mm/huge_memory: add device-private THP support
-to PMD operations") a PMD may hold a device-private swap entry whenever an
-HMM-based GPU driver migrates an anonymous THP folio to device memory via
-migrate_vma_pages().
+vm_normal_folio() alone does not reject zone device memory (a present
+device-coherent page in a normal VMA is returned as "normal").
 
-pmd_trans_huge_lock() succeeds for such PMDs (pmd_is_huge() returns true
-for any non-present, non-none huge PMD), so several MM walk callbacks that
-used to assume present THP or migration entry are now reachable with a
-device-private PMD.  The results range from a VM_BUG_ON() firing on debug
-kernels, to an oops on a bogus vmemmap dereference, to silently isolating
-an unrelated live folio from LRU in the aliasing case.
+Mirror the explicit check in queue_folios_pmd() as well.
 
-This patch (of 3):
+queue_folios_pmd() uses pmd_folio() directly and can encounter a present
+zone device PMD - e.g. a device-coherent THP.
 
-queue_folios_pmd() is called under pmd_trans_huge_lock(), whose
-pmd_is_huge() check returns true for any non-present, non-none PMD
-softleaf.  Passing such a PMD to pmd_folio() treats the softleaf encoding
-as a hardware PFN and can return a bogus folio pointer.
+This is not filtered by existing checks:
+  !pmd_present()   - only rejects non-present device-private and
+                     migration entries
 
-Mirror queue_folios_pte_range(): handle non-present entries before looking
-up a folio.  Keep migration entries counted as failures, but skip other
-non-present PMDs such as device-private entries.
+  vma_migratable() - excludes DAX and VM_PFNMAP.
 
-Potential trigger: an HMM-based GPU driver migrates an anonymous THP folio
-to device memory via migrate_vma_pages(), leaving a device-private PMD.
-Userspace then calls mbind(), migrate_pages() or set_mempolicy_home_node()
-on that range.
+The early return also means such a folio is no longer counted in
+qp->nr_failed under MPOL_MF_STRICT.  This is the same pattern used by
+queue_folios_pte_range() (skipping zone device without failing).
 
-Link: https://lore.kernel.org/20260710105557.1987433-1-usama.arif@linux.dev
-Link: https://lore.kernel.org/20260710105557.1987433-2-usama.arif@linux.dev
-Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD operations")
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260703173903.3789516-1-usama.arif%40linux.dev?part=6
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://lore.kernel.org/20260817220810.1175596-4-gourry@gourry.net
+Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Reviewed-by: Balbir Singh <balbirs@nvidia.com>
-Reviewed-by: Gregory Price <gourry@gourry.net>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
 Cc: Alistair Popple <apopple@nvidia.com>
 Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
 Cc: Barry Song <baohua@kernel.org>
@@ -136,43 +121,30 @@ Cc: Byungchul Park <byungchul@sk.com>
 Cc: Dev Jain <dev.jain@arm.com>
 Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
 Cc: Jann Horn <jannh@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
 Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Nico Pache <npache@redhat.com>
 Cc: Rakie Kim <rakie.kim@sk.com>
 Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
 Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
 Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: 9057170a941f ("mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mempolicy.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ mm/mempolicy.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 3dfd20b55a9d7..adc52341c97cf 100644
+index adc52341c97cf..a6ee9526dc25e 100644
 --- a/mm/mempolicy.c
 +++ b/mm/mempolicy.c
-@@ -650,12 +650,14 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
- {
- 	struct folio *folio;
- 	struct queue_pages *qp = walk->private;
-+	pmd_t pmdval = pmdp_get(pmd);
- 
--	if (unlikely(pmd_is_migration_entry(*pmd))) {
--		qp->nr_failed++;
-+	if (unlikely(!pmd_present(pmdval))) {
-+		if (pmd_is_migration_entry(pmdval))
-+			qp->nr_failed++;
+@@ -658,6 +658,8 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
  		return;
  	}
--	folio = pmd_folio(*pmd);
-+	folio = pmd_folio(pmdval);
+ 	folio = pmd_folio(pmdval);
++	if (folio_is_zone_device(folio))
++		return;
  	if (is_huge_zero_folio(folio)) {
  		walk->action = ACTION_CONTINUE;
  		return;
