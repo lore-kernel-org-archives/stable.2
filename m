@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794410153;
-	b=b/lvPxuPmOnh1OdGawXsuZccjvVoMEe9TgYJGLR+8kbXfWJe+kPTet4zAohfD14ioeW8
-	 /+pMTrqY2mW9KwRbd/bCpbpCXBK0jLkUdZ2DwaHG2JDRsxk/JpzSsmMNZ2HTKzFeTNILB
-	 WajTXEOM3AzfxbWehlIrA9StZDvE4EJSDBopcWOBkGbemyn3tuZ5g2swvtNmg4GFIhrHX
-	 rRsooMqMRkB5abx/hEUI2lSvKYmlo4tU7nIx2SoH5AmoZ3VsfZGzn1swdPHMTPsmyPNa4
-	 r4aDLx9T2AKcxelgTm/EZ7hwFlpByKxo8CGtOj53qkJyFtLXd2j2hNBmg4TGpfvBsWg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410153;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794410257;
+	b=PFnkL2Xm+h4QdGotkMrDGmgv97oXoPbkA8EjUjAp59j/iFDu5AZg0te34biirjQAqDUz
+	 trjEF5Mv/DGS6JK1d5WU+FZmaFFEengZd9wa2lo+CKNJ3ONtC8bYlqgok2ctt5Bb5FdOm
+	 bywlR+ZW3RWhmwaRXqSi/DuPG9C9FW/kYEHs2kEOEu46KLu6Dn72vof6Vdm97pefNGe9G
+	 IxG1neOW1+QijMP08QnSAOM6ETXJdxK10cd6Fv73R0E9A088ShihOVlKwc+m12Z5fYNvd
+	 ITA1l1L1HdJMvHahwPgE31mnUBp0s9A7PmNCppoXZttws9eyHKY2gT961MsrDfcg1xA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410257;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=12qva3kO9NMXV3ZjsX8ymdd40I9ua49Cy0e6eRmwhRg=;
-	b=3jE6QoRAHL1UIkbEu5hxgo8hCr+Na+asv+Li0TUZ5+2yboAKhutBaq0GQOPCrlw8QDPZ
-	 qJtzuiJIUqsI+FnX9g6gT1GkOG+u66+W9daunYhFXrMXdjY7o2oAtkqE9eItuZ/PUmX80
-	 Zzp8i1VjftqYjStq0eU4d26GjiIHeVkxEqQVfn4r/BTQb1/ETiXkH/BE4DZb0HniHG1ap
-	 q86XIcEv7PGEmWAFm8hjK6rTcaLjPTqeqrUlzJ9CRSZpprS0lEuoBQe2zlW/CpY4yZThu
-	 SQGP5ap1EuxGXdHHHKUfkneYia2yLoFnL6FOKE6SzMGQkvQaqO0UObJcKnRyEp2UkPQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MqTZa1Co;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.51
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sbLdhSc5U9J/jxHyWnd4AxLJmzxGq1Euqj3lOEEmTkg=;
+	b=zBiGM5mLGEyuOByVs5eJ3mgacPQau9O87hRc5EHCtDaq8Z479fcicJigHaKGreL6GhYI
+	 74v7p46gGKAyKpaCWp/E24mwGaLMWwl7z/r8F9T32dpRsw00aNiZTuujZCQYvRqNIvxb4
+	 NxjwDC5R6tZleX+gUhreFycjTFaommzmlXUkLD4rbXyD8is3MedHhgZ1X4gBnqSfJZgiT
+	 QFWCOUrYBoaroN99SUzDW20TDqorSYAnmQ9MHqOsPDNXlBzqnX29G9Oo0N5BZw7IjGzVR
+	 3xP6z+BAROYxGUdc2X1mh+6Bo6nKFy49zFGxJNm2u6/yAaXxSSdsAarGdN1YYvRKYMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=xHafV8Qv;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67642606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:15:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67642606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21355606A32A
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:17:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21355606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MqTZa1Co
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6d290b10a35so1329511eaf.2
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:15:53 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794410152; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TRvYdAD2egypNPUA7zcR1fofM4Vlhw2ULwGqFQyLEMeNjLSDP8nNWVGMcolpmt/dX0
-         IFK70dyJ1ZwK8Q5jw+YkUUwcswBfoMCaSEyDBiO2jEu8Jnt9qzv8kRHzYi/b7uMp+EbQ
-         GhlfXkf6s8NcLPiHEGCuxYkcTQhuZA/rf/WvQwef+UJiC4gneDZt8+mKVGlJ7/lKcmOr
-         eBGD1q9RVLli3xmunHJzhPckSr3RArpGSlArv3ifwxN+V4nCQxgUPwFlwMBxs6NjYFV5
-         W5v1pjakRLIjtvmovpk8LyX4drnP7mF1cA0+NCuE5fZIGNPxqNuL46zwqker5dPHCUgD
-         jy+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=12qva3kO9NMXV3ZjsX8ymdd40I9ua49Cy0e6eRmwhRg=;
-        fh=Qn1nBKhrkgufsknsxmBVzBTckyfaTl0APy7EOy9Eofg=;
-        b=JvDtfQNXGO8PT9ap2C8FmWyrR/N9c2LMrMmLa8LiG6uU1g4U1r6loKo8lj23Mrj/i0
-         r17PMG8oqmnZn5VGOGExvfdoeQobDPv3bWldugGIL78ciacAu2lS8TkxDrjrsfFxPqTV
-         WN04zsEOP0X4uuxeI/BCUe20kByNT8V99Ryue0HZdnjhobPFhSmQbNLbs34FDWfe0VHr
-         RjioeqMvKrBgm/Bz/fH4Ho8Bu9F4XKNCQeLXqCe73m/vqn9un+9H6hGAShIMmlyuWGwY
-         sSmmavCnkEq/iZtiQ+tsKRNiGewVExJnnxERX3N2T9Cwu8tr/wV5s8pg6Dmwr0fxfNju
-         jITQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=xHafV8Qv
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b349d21fd1so24719097b3.2
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:17:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794410152; x=1795014952; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=12qva3kO9NMXV3ZjsX8ymdd40I9ua49Cy0e6eRmwhRg=;
-        b=MqTZa1CoC8/Oi9lstEeTqcF692a0bT+fIapN4rv19/TQHhwrz1q0ulMKA2wMWg1mXI
-         jm1bE17u6V/U05pmSrgpCLVMzWh1S8l/fk1Lmy0znbgHyB3Wq7Ya4GFh6F1uN1JlYp2U
-         aFzFej0+eeLFPwQBJjbJITFPErKDXki5IkFPhMyRvEengDJJwyPy2WvhB72tqnL9Gn5w
-         1XTOaHkElyQKa20nHI7EoxL+BApLl8G+POluGQBHx53OLEzZjGpcDT2UBko4iIUaiFSs
-         nsoNjOMiRC5y+tmBHF4KmEc47foCT8XCWHJ6+U4peSj5GKGk8iNub6GtTUNX3F/Cydq+
-         jHJw==
+        d=mojatatu.com; s=google; t=1794410255; x=1795015055; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sbLdhSc5U9J/jxHyWnd4AxLJmzxGq1Euqj3lOEEmTkg=;
+        b=xHafV8QvPAPS0wmqNcRvcX4vJ2/brD72r6SyMudAQpf6u8hDjeTktS2nrreEE/jbal
+         NcnWc1ZNJKWf1PaG+jvqJalk+nZcKfSFO7GhSyWm5pv+I90fwTb/zJiCa654A7x6SIhd
+         GfvppRqTWeQoRyIj4mp2JG3M5BbtamXSG+jkM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794410152; x=1795014952;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=12qva3kO9NMXV3ZjsX8ymdd40I9ua49Cy0e6eRmwhRg=;
-        b=UkcEutqJu/07FfRWAQHqfYTHiXBl6ll2WorJCzs9aKK+cVS9H7FbVF+s8tnICHKBHZ
-         Z7KKkDzJY3X+xfNZ5g7W9iH4ROiMr7HXczbqBxJ2WXJ0MN4PpTUMRIfq8jIgeB/VGmbU
-         GYK+ad9hCgMgohnGw3B++DgnPly+CiW+tlsq9uysLP2tlOCW2ToHNQYQ9yblE5VV2S7K
-         z8cdDIazewI20IXFEDan8pNnwwuVGC6KaNkY9gE4AvvHF2c4pt9UPtuH0S1UCO+MCLWL
-         gIluYO5IG+4/RJdTFRrsy6btqWQUQbwEhWo6luK7Coudi78Zp48/PKICZ0Qe96nNAQ12
-         1SOg==
-X-Forwarded-Encrypted: i=1; AL+hErF5j1FcR84OQOTPEpbos3y3YZItClSU/fbWPtZJ/DnccR+Y+XiYVjjDefeUBvC9n484DCfvDHc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OswVn12l2Y1NCtZpTXK0ndaelvfZSlJcarVdysG1v9iuRLvTf
-	BOpCfPww3byJREpiwBqqm38sWspw9HKW39DADA+HSaZA9V0cHmc35VFZms7/Y9dp0MiG0pw0rSI
-	+L91a6GC8/Nh0+rmoHN1kt1acbidkHCdxEgJ84a04
-X-Gm-Gg: AYBFou0OH8ZUPgJH20ltYfQzz1GHsGtDkuD+YGYBO1Cv2J7nVPWbUSyM8JsvzQ5awt8
-	oeGgs/EuLEt3ZUFFve+w5Mcq/ZojahxCQD7sj9EpnmS/IAMupxBXndJv7hgD24pEovhsa1Sag+2
-	dVayfXVOo0hW1tK2VRmAvcTr7vWiOhax7zR5ry6IbQ6zHrROJS6tgbU8izOp4W0TujYJEd9eMWF
-	s+T0rOGUoGaXROSGx1uFNcRE8n09xq6gz+lJMwESJG6BnkGDI8RpKHx7P9kdTF6zyrGwfS9auaB
-	777LUIJ32OUpqab1MC3sx2qoSNrS5ot8knDBCN/W7PA6ah7eRMQnxHCCSrEg44MFx+hWlza1DSj
-	5la//HJgzxCXdD16ETAmmtMq+zBDQ80dvLwwNAPUE3JuvfO4BGCUW1oIXOm+Q6xTbVDnl1aOa1H
-	AA3lJOjw==
-X-Received: by 2002:a05:6820:1341:b0:6dd:1d43:8cd0 with SMTP id
- 006d021491bc7-719179ad6dfmr1495859eaf.80.1794410151612; Wed, 11 Nov 2026
- 07:15:51 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794410255; x=1795015055;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sbLdhSc5U9J/jxHyWnd4AxLJmzxGq1Euqj3lOEEmTkg=;
+        b=pEX2HtG0PCaFKfCu0+JHARctNPMkoT4eonl2IXqZFaasOhokw9C8zJd86TWZPjp2ZD
+         2lEZPI7xFAwTCTNYxrD93UGftQTC6soje74fXiDdQDO+esQk3mGUh1k+gZLy4RyLacxg
+         5I03SGzO+hgL//7ewcp5q7mYQ69052joH/dyXH9o0IhGs5gxAwyaHEhhIaIDIMC4mkgO
+         di/yjcd/03EzM4CpywWAuHIpBs5MjE8xWtnU5+vfHHrrR1Ke3z5RUm0qzMMiRFC5ub+Z
+         r3Um0E49Rlu/Af68XYgRMV6BBB9oQ/jW/HfLFUlURvJI+ZpXcGg53g2DCDNxgq4aAwT5
+         F8DA==
+X-Forwarded-Encrypted: i=1; AL+hErE8CYFIKoxUHHMoMIidU8TbtkPhbPY16djWMLtrPqir+N4JltgOy4C/gmuzDO7YQUf3w3abqoE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99BCDuqFe/A75SZJl5HcwoSOfl3bvqfkcQ3r1oAvfg8fkmp1kc
+	ACf3jAoumRh5Y7J9oOk/81iqDxYYxjvnxg/OmFW2nOX8Fo1TcBSb+Fvn1YwxwwUg7Q==
+X-Gm-Gg: AYBFou2YRwGbg+VPcZ6NCMV7kJXyeViD6jyaQtOYuXq1YkDR7a9kI0ncBrqwwQT1kqH
+	uwedHYaCtFIii3nPo+SHV5ZsoC0KMe+v2dbW8BVgrLyf9BTezsHaKlIZz6b046rihY19pZc+ENq
+	VUx5GrTKcCm2XKh0fX8pqlIZ/2iYbn5bQJFjsud04CZVthBh48fJrHnjy5wxeYrpap9FArg33xQ
+	KjxTITnM3eC5hVQhEKGQSPimcjhsMfh3roJS1tjuaCaeZ1fkZc6FMKx/c022Uc1xLN//NetK2Ke
+	I7ifXS3dztCNQCzybwqI470dOsRzw+3/PJvQtM0v0NFdIu1vn2IVR2HJ07mT4RCgW4RB+RB9XTo
+	tbu5kbeVTEP6rGPAJr8RiH94vxseHAVrZ8OvjnfNyapOO5o8J0B/Pnx7pxRh+nxEuH0a+E8YLgG
+	pupSgSSYHYc9SgVbOJH82Nq2cwt4UZc7zPl+IFY5jf8CttXpoGfGVt+G0coNon0KCiTtSjXosKz
+	jwlctTJfnTFTWirNFkoRq0LGIAxJQdbW0z8kXzpchjF71S4eqSGEp37jMj0pA5bTZMv8jE8dWUX
+	jju6nsWyP/S6fW5SMpdYXMP+PF+a0/tmrHSn4xYaPCcwhT/zhSZ1GMvUNmVOenhN6/mS8FrDjKC
+	liBd/OREIXkBSXA==
+X-Received: by 2002:a05:690c:4484:b0:8b1:3606:65f6 with SMTP id 00721157ae682-8b3a81469bfmr17915477b3.64.1794410254970;
+        Wed, 11 Nov 2026 07:17:34 -0800 (PST)
+Received: from localhost.localdomain ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b393409120sm46499187b3.27.2026.11.11.07.17.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 07:17:34 -0800 (PST)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: [PATCH net v4 0/3] net/sched: sch_teql: keep the transmit path's skb geometry and device lifetime intact
+Date: Wed, 11 Nov 2026 10:17:27 -0500
+Message-Id: <QDISC-6HS9.v4.r0.20261111094338@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,26 +103,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111092505.3121847-1-lee@jaeyeong.cc>
-In-Reply-To: <20261111092505.3121847-1-lee@jaeyeong.cc>
-From: Jacob Moroni <jmoroni@google.com>
-Date: Wed, 11 Nov 2026 10:15:40 -0500
-X-Gm-Features: AclHuK98LgEQHpnp7gUNAvVHjaxsZ5PsQKymcaEXqojXPpEtvDXgfkwqN8-1VGc
-Message-ID: <CAHYDg1SDOd_0ukm=7AX029Cr7Oc1UKoSpmd=iBz55C3DFzv_hA@mail.gmail.com>
-Subject: Re: [PATCH] RDMA/irdma: publish APBVT entries after hardware setup
-To: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, linux-rdma@vger.kernel.org, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Shiraz Saleem <shiraz.saleem@intel.com>, 
-	Mustafa Ismail <mustafa.ismail@intel.com>, "Gustavo A . R . Silva" <gustavoars@kernel.org>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Thanks. Looks good.
+Three pre-existing defects on the teql transmit path, all around
+teql_master_xmit() -> teql_resolve(), plus the core helper they depend on
+all derived from sashiko reports.
 
-> +       entry = kzalloc_obj(*entry, GFP_KERNEL);
-> +       if (!entry)
-> +               goto out;
+Patch 1 makes the headroom private before the slave's header write and
+pulls back only the header that slave added, so a header-cloned skb is not
+corrupted and a userspace-supplied link header survives a retry.
 
-I think the GFP_KERNEL argument can be omitted here.
+Patch 2 restores skb->dev at the arp-queue reinjection point when the
+neighbour's device builds no link header. It is the neighbour half of the
+version 3 patch 2, split out on review so it gets its own commit
+log and its own Cc set; requested by Jakub.
 
-Reviewed-by: Jacob Moroni <jmoroni@google.com>
+Patch 3 moves skb->dev = slave ahead of teql_resolve() so a skb parked on a
+slave's neighbour arp_queue names the device whose neighbour took it, and
+so cannot outlive the master it came from.  With patch 2 in place it is
+reinjected through the master and leaves with a link header.  Its commit
+log carries the KASAN report the unfixed kernel prints when that queue is
+drained.
+
+Patch 3 is a follow-up to commit dc4b95b8fee9 ("net/sched: sch_teql:
+restore skb->dev on the slave failure path") by Victor. Patch 1 is the
+same commit's sibling on the successful-transmit path.
+
+To prempt the sashikos:
+- The pre-existing teql issues reported alongside this series are fixed
+separately. For "the lower-qdisc drop use-after-free" see:
+https://lore.kernel.org/netdev/QDISC-Y0BY.v2.r0.20261024060625-2@mojatatu.com/
+
+- For the pre-existing consumer nft/bpf complaint see:
+https://lore.kernel.org/netdev/CORE-9NOG.v1.r0.20261111073528@mojatatu.com/
+Note: nft/bpf combination _has never worked_: it is a producer-side
+mismatch on two separate entry points, not a regression of anything here -
+hence the net-next target.
+
+Hope the sashikos read these and dont complain again about those issues.
+
+Note also: part of the testing of patch 2 runs for packets that reach
+neigh_xmit() from nft's `fwd ... neigh` statement, or from
+bpf_redirect_neigh() with explicit nexthop parameters. Both keep the
+route's dst attached while replacing skb->dev, so the neighbour that
+queues the packet is not the one the dst names.
+
+Changes v3 -> v4:
+- patch 1, no code changes. Reviewed-by from Simon Horman stays, and a
+  Link to the review of the v3 posting is added.
+- patch 2 is new: the net/core/neighbour.c hunk of the v3 patch 2 is split
+  out into its own fix, with the neighbour maintainers Cc'd.  Asked for on
+  the v3 posting by Jakub.
+- patch 3 is the v3 patch 2 with that hunk removed; the sch_teql change is
+  unchanged in approach. Reviewed-by from Simon Horman stays.
+
+Changes v2 -> v3:
+- patch 1, no code changes.
+- patch 2 corrects the conditions to recreate the bug: reaching a freed
+  master needs sch_teql built as a module, the slave qdisc removed and the
+  module unloaded while the skb still waits.  The message now says which
+  part of it reproduces without the unload, and names the neighbour failure
+  path that drains the same parked skb.  Considered comments from
+  Sashiko (nipa).
+
+Changes v1 -> v2:
+- patch 1, no code changes.
+- patch 2 limits the reinjection restore to a top-level neighbour whose
+  device has no header_ops, the shaper/eql/sch_teql class.  Commit message
+  also describes how a master is freed.  Considered comments from
+  Sashiko (nipa) and Sashiko (gemini).
+
+Jamal Hadi Salim (3):
+  net/sched: sch_teql: unshare the header before writing and fix retry
+    strip
+  net: neighbour: reinject a parked skb through a headerless output
+    device
+  net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
+
+ net/core/neighbour.c |  3 +++
+ net/sched/sch_teql.c | 26 ++++++++++++++++++++------
+ 2 files changed, 23 insertions(+), 6 deletions(-)
+
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+-- 
+2.43.0
