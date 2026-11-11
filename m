@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368685;
-	b=leprqRWLh46CDP9pkPLIkTcCOiJ8t1h8Y6ADZp/uXJyYSEKPcJt7H8gjUiZe6CmA2kLY
-	 cMAsf2YLtKLWFto/hMdY/Ih+MKy1YBpcZ3kCBu53b02c0dYBqEN0u/zOF750FJt0iZrVZ
-	 v31RyAom6eKmZ0FVnLPVguyxSnJS9xMJxNq4SVPqW5/cvtxRwyoUCigrHeaJPEpJDWRkJ
-	 AA98s3UUK+nXbwTOPOy5iIZvlakXbUys/R2mKMDMbbynAl4mvhDubN0rPUJZTTqUIIjB7
-	 QZ7qyDw2Jb0+y+CM3uMZs35FQEAIOUNcGSLFtuXE/2EZAPebOyaGJ4TeDGoE5U7DRbQ==
+	t=1794368694;
+	b=01ZLxj2tlkGxWnnufy8/Vtn1hWRQUau8Vgq02ADnJ4vrAZmszql71Adc9O4MxRiPkkE3
+	 ViCws2/FP6Oh1hH6kNuATROlTCoTSQFzR2P+zR8+PqV8BPSGnuVzQqhCLH7DYuLGAp0zR
+	 6W5zPRv3DpYbTMLaNd02OLm4yQXL42owBlqrNrKlciT8PvfywrAUN01ynZrPqPsrhMe4N
+	 ES/QuCosPkSzex6J/yAz6SjFIHulA17EN6FzHVmb8vNQvmNtCZ8q1RnWL8cp6ITdSlSQB
+	 vnc8DFFn5tdtKi4ntoshbwcWUj6+Fbi10sog5/OPnLl1KG+uPM3ew5Vx2wRVCQQpC0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368685;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368694;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KejB8p1CjeOEKnMuvka7Q/QkWOCkXxMKkTGxxu4Ihmc=;
-	b=LwnS3v/DOj0+X1qhWvW8XEeBRTTf1UOybKU8R5dNzpzyzQ2bAuPlnsZsMubnkEI6hcyh
-	 rbYyomAzHg+YMFj8d/REj8j1RPmjE7A8CN/UQ3coNzrGAOXNG0FMq9RTVRlBLF/zVokdD
-	 /RKhC+jYMM4vEeBaQapP4g3dNsAsLc88oBDyL/k60UYQmxZKhxfiSDDLglFvEUHBnhhlJ
-	 EAC/1yCDWp4aNs7WJOb4q/4QwziCai1VnKzmJGtzVStgUJvx3gu0GHw6CrPjNGhdOdGH6
-	 YFA10tPtH499Q+9yDVe7Dmo48PC7n1u1cCxcd6F3lysngdbRVA8mpjtXun0Xr3CS4Kw==
+	bh=ZX6IgVEXdPny64lozd3pvKBInDCrU4XMeg44/GjvRig=;
+	b=t/H4nmMuPkTmdA67Ap0cmuAKCkGpSOtMGd0eVT4ibR03zeowgU6zFjVixhKlCNlRJTa4
+	 7UYtHb9EnaOtIrhKxQ1vWL/H3qdr06K7v3xtnonXBISQJzXu3N9e6x5AU0gMBU3pK6wi5
+	 AOOclGoDQ1EJ3mDkH1FkBbvRV3E4HwH9nJeaIQ52hQ/OQBFBBbQE6ZpvVjsWrljCG4HkS
+	 XPyzkaN6xZxcCvisXvhQHODw+htKBV4O7TcNn+P/LKJAS+PwZM+eSsIBXv3xHNyDDkxPZ
+	 NKXCltJ1x4KyBeZ3eSLcy5T8ut4kUBrhH1VNrgUDu3xlLN5446c6w0HYWZZ9c0/K9jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RZ/cjqsN";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luOtTWBB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4133A606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:44:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5669E606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:44:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ/cjqsN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8923E1F0089F;
-	Wed, 11 Nov 2026 03:44:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luOtTWBB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9D31F0089F;
+	Wed, 11 Nov 2026 03:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794368685;
-	bh=KejB8p1CjeOEKnMuvka7Q/QkWOCkXxMKkTGxxu4Ihmc=;
+	s=k20260515; t=1794368693;
+	bh=ZX6IgVEXdPny64lozd3pvKBInDCrU4XMeg44/GjvRig=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RZ/cjqsN44sI1qWT0bFCFTwqsBn7NM654XTlIcRMifmtXytYnR1vnL9q/T11saxcg
-	 XkPLG0OpyrAMBx1UOa+o8+5OWJ5l+eSvzpjkUDKm9ktDL1sSf9TWr3g2YvOzwdv2Fe
-	 Pf8luewjPQG7zGzgkZ5p5BLls61H2Thcwq7eNKgmcX0EW/BwYhHID703glCUJyWC69
-	 51y4bfotBfDyyE4LlTaK4+sDoX/Mjvvgha0zgfjjqbYHDjViVS5gOsSzzEM9iMF4XD
-	 kjUuGmsYqK0XGcgilrJ6sfeDjKrudFfvEiFYeiHvssZ0I0uDoJrhJRE2x54A6E5Csb
-	 jOVE9GVN/r8sg==
+	b=luOtTWBByh43FgA07Am/OUYdzpjxXteV6uibarYunfzvxDNd9wpWsDk4wzr7K0f0/
+	 4TMZ2kvlDZvEXIfmkSGA+ZAl9OEnMYx/PhygExamhKk7Pm3GpgqAZBMUmmYgn3TUxj
+	 oFj6wbe2Uf13ur4o2lOtC6626SgSY6YG4qJG5+0TJOL/7iM57YfOhfnTXRZd+3CeGt
+	 Az9zHp/be8B2YcC3AhGAeJLayktyTdiEzYBedqyD+Nbw0fldK5dN0BHd18JQQFjLG4
+	 UKTRVgAhjk5C7HsjshZYNaVZIzMjS/BCv8EuzuHcaxQ3eyB6g9PxsMwmKODTU1QXMa
+	 8sR2ZpxbuQYWQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
+Cc: Armaan Sandhu <armaan.sandhu0504@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Leizhen Zhang <lzsx618@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] media: qcom: camss: vfe: Fix VFE reset while another line is streaming
-Date: Tue, 10 Nov 2026 22:44:41 -0500
-Message-ID: <20261111034413.979341-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y] lib/cmdline: fix get_options() count and overflow with large ranges
+Date: Tue, 10 Nov 2026 22:44:51 -0500
+Message-ID: <20261111034221.930771-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111034413.979341-1-sashal@kernel.org>
-References: <20261107053039-failed-6.6-e5d4b0e69a40@kernel.org>
- <20261111034413.979341-1-sashal@kernel.org>
+In-Reply-To: <20261107061013-failed-5.15-5d72266218b1@kernel.org>
+References: <20261107061013-failed-5.15-5d72266218b1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,90 +63,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hitesh Patel <hitesh@ebytelogic.com>
+From: Armaan Sandhu <armaan.sandhu0504@gmail.com>
 
-[ Upstream commit e5d4b0e69a4017fd39354499c9d7583f625f0524 ]
+[ Upstream commit 5d72266218b1c4dd2917f1df2b86f3b0e0a605c9 ]
 
-vfe_disable_output() stops the write masters of the line being
-disabled and then resets the whole VFE. The reset is not limited to
-that line.
+get_range() stops writing once the array is full, but get_options() still
+advances its index by the whole range.  So "1-100" parsed into four ints
+reports 99 numbers, and a range like "0-2147483647" wraps the index
+negative and writes outside the array.
 
-When two lines of one VFE stream at the same time, which is the case
-whenever a CSID demultiplexes several virtual channels to different
-RDIs, stopping the first line resets the VFE underneath the second
-line. The second line's write master configuration is wiped, the
-buffers it had in flight are never completed, and the VFE is left in
-a state in which the next global reset is not acknowledged. Stopping
-or restarting the second line then fails with:
+Stop once a range fills the array, bail out in validation mode before the
+count overflows, and saturate the range length in get_range().  Add KUnit
+cases; without the fix "0-2147483647" panics the test kernel.
 
-  VFE reset timeout
+Only root can supply this input, so this is a robustness fix.
 
-Move the reset to vfe_disable() and do it under stream_lock, as part
-of the decrement that makes the count reach zero, so that exactly one
-caller resets and no line can be enabled while the reset runs.
-Stopping the line's write masters is enough to quiesce that line on
-its own. With a single line streaming, the reset happens exactly as
-before.
-
-Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
-Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-[bod: Converted vfe_disable_output to void]
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+[akpm@linux-foundation.org: add additional test case from Leizhen]
+Link: https://lore.kernel.org/20261005213945.359905-1-armaan.sandhu0504@gmail.com
+Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
+Signed-off-by: Armaan Sandhu <armaan.sandhu0504@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Leizhen Zhang <lzsx618@gmail.com>
+Reviewed-by: Leizhen Zhang <lzsx618@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adapted KUnit test placement to the existing layout lacking next_arg() and memparse() tests ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
+ lib/cmdline.c       | 13 ++++++++++++-
+ lib/cmdline_kunit.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 51 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index f4a4f0fda45db..10095818cfb23 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -407,7 +407,7 @@ int vfe_put_output(struct vfe_line *line)
- 	return 0;
+diff --git a/lib/cmdline.c b/lib/cmdline.c
+index 5546bf5887806..04661bd4f40d7 100644
+--- a/lib/cmdline.c
++++ b/lib/cmdline.c
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/export.h>
+ #include <linux/kernel.h>
++#include <linux/overflow.h>
+ #include <linux/string.h>
+ #include <linux/ctype.h>
+ 
+@@ -26,7 +27,9 @@ static int get_range(char **str, int *pint, int n)
+ 
+ 	(*str)++;
+ 	upper_range = simple_strtol((*str), NULL, 0);
+-	inc_counter = upper_range - *pint;
++	/* Keep the sign of the result when the difference doesn't fit */
++	if (check_sub_overflow(upper_range, *pint, &inc_counter))
++		inc_counter = upper_range < *pint ? -1 : INT_MAX;
+ 	for (x = *pint; n && x < upper_range; x++, n--)
+ 		*pint++ = x;
+ 	return inc_counter;
+@@ -122,6 +125,14 @@ char *get_options(const char *str, int nints, int *ints)
+ 			range_nums = get_range((char **)&str, pint, n);
+ 			if (range_nums < 0)
+ 				break;
++			/* The range didn't fit, so the array is full */
++			if (!validate && range_nums > n) {
++				i = nints;
++				break;
++			}
++			/* Leave room for the upper number of the range */
++			if (range_nums >= INT_MAX - i)
++				break;
+ 			/*
+ 			 * Decrement the result by one to leave out the
+ 			 * last number in the range.  The next iteration
+diff --git a/lib/cmdline_kunit.c b/lib/cmdline_kunit.c
+index de7fb7476cb9a..205a2cb542436 100644
+--- a/lib/cmdline_kunit.c
++++ b/lib/cmdline_kunit.c
+@@ -139,11 +139,50 @@ static void cmdline_test_range(struct kunit *test)
+ 	} while (++i < ARRAY_SIZE(cmdline_test_range_strings));
  }
  
--static int vfe_disable_output(struct vfe_line *line)
-+static void vfe_disable_output(struct vfe_line *line)
- {
- 	struct vfe_device *vfe = to_vfe(line);
- 	struct vfe_output *output = &line->output;
-@@ -419,8 +419,6 @@ static int vfe_disable_output(struct vfe_line *line)
- 		vfe->ops->vfe_wm_stop(vfe, output->wm_idx[i]);
- 	output->gen2.active_num = 0;
- 	spin_unlock_irqrestore(&vfe->output_lock, flags);
--
--	return vfe_reset(vfe);
- }
- 
- /*
-@@ -432,21 +430,19 @@ static int vfe_disable_output(struct vfe_line *line)
- int vfe_disable(struct vfe_line *line)
- {
- 	struct vfe_device *vfe = to_vfe(line);
--	int ret;
-+	int ret = 0;
- 
--	ret = vfe_disable_output(line);
--	if (ret)
--		goto error;
-+	vfe_disable_output(line);
- 
- 	vfe_put_output(line);
- 
- 	mutex_lock(&vfe->stream_lock);
- 
--	vfe->stream_count--;
-+	if (--vfe->stream_count == 0)
-+		ret = vfe_reset(vfe);
- 
- 	mutex_unlock(&vfe->stream_lock);
- 
--error:
- 	return ret;
- }
++static const struct {
++	const char *in;
++	int parsed[4];
++	int validated;
++} cmdline_test_range_overflow_cases[] = {
++	{ "1-100",         { 3, 1, 2, 3, },    100,        },
++	{ "1,5-100,7",     { 3, 1, 5, 6, },    98,         },
++	{ "1-2147483646",  { 3, 1, 2, 3, },    2147483646, },
++	{ "0-2147483647",  { 3, 0, 1, 2, },    0,          },
++	{ "-5-2147483647", { 3, -5, -4, -3, }, 0,          },
++	{ "2147483647--5", { 0, 2147483647, }, 0,          },
++	{ "1,0-2147483647", { 3, 1, 0, 1, },   1, },
++};
++
++static void cmdline_test_range_overflow(struct kunit *test)
++{
++	unsigned int i, j;
++
++	for (i = 0; i < ARRAY_SIZE(cmdline_test_range_overflow_cases); i++) {
++		const char *in = cmdline_test_range_overflow_cases[i].in;
++		const int *e = cmdline_test_range_overflow_cases[i].parsed;
++		/* Two guard elements past the array handed to get_options() */
++		int r[ARRAY_SIZE(cmdline_test_range_overflow_cases[0].parsed) + 2];
++		int n;
++
++		memset(r, 0, sizeof(r));
++		get_options(in, ARRAY_SIZE(r) - 2, r);
++		for (j = 0; j < ARRAY_SIZE(r) - 2; j++)
++			KUNIT_EXPECT_EQ_MSG(test, r[j], e[j], "Pattern: %s at %u", in, j);
++		for (; j < ARRAY_SIZE(r); j++)
++			KUNIT_EXPECT_EQ_MSG(test, r[j], 0, "Pattern: %s out of bound at %u", in, j);
++
++		get_options(in, 0, &n);
++		KUNIT_EXPECT_EQ_MSG(test, n, cmdline_test_range_overflow_cases[i].validated,
++				    "Pattern: %s (validated)", in);
++	}
++}
++
+ static struct kunit_case cmdline_test_cases[] = {
+ 	KUNIT_CASE(cmdline_test_noint),
+ 	KUNIT_CASE(cmdline_test_lead_int),
+ 	KUNIT_CASE(cmdline_test_tail_int),
+ 	KUNIT_CASE(cmdline_test_range),
++	KUNIT_CASE(cmdline_test_range_overflow),
+ 	{}
+ };
  
 -- 
 2.53.0
