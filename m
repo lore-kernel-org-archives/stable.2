@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417417;
-	b=IuEI9pPWOQF1gMWDsMJakVVy7QPJBbIAJ7V13M5IJl1dJ31yz/sNegnEpInWGb2b/pTv
-	 q3431WMczSKSWG2ESNiUTmQSdO9Yi0ySxkcBH0bxCiEuRQLdvI5D1MSoXmhUU3oMJQj5p
-	 xx5j10dHEmIglkRAR1//lDNAfBP8vZpth5FdheN/7wN5JP1MHEhpJaaFZmNNNGqbVl1nT
-	 HMbjJ1qc2d4YMeweJkg1KGTx9CXXUJ9aO49YYqi8MNOszf7EDhzTQb04D7M0dAMEyZrf0
-	 FCQKVgBhBzDIlzbKBjaKOTSZAhvRO/EOaKkfTygx5K3uBqXOVBA9HZZ/hZLt+x5NEGQ==
+	t=1794417522;
+	b=RnyX3ri+FuZ/UG+fqBgjB6cGfYS+gXfljnf6zA5bHvMNolH1EVyODt2ljEj2Gk4cHjCR
+	 M8naOWke41OlyX0zKa562XKJOgN+voyUCd5by4n5omrD/pZudBSK0g0Rau9qDCOtAzLfR
+	 Ju3Xw8ysZIrfnjVSdWH23/sdJdsySLy/cJ2ZMl10mPhPHMhL/O6o3v1eFRmFQd9ahE6Xl
+	 QmHsIzfSUldkwgJBwn0r9ftsauqX5Scm9wNq76qsN3/0n4YR9RIBSvM6lPsMvj70QMcGy
+	 oZX+oO43UgmnVkf8jDtUuww0n/SZkKny3eEvOdeFan17/6G4Qv+pM10Li1vfiZjoOeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417417;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417522;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=haIcw2YpBt4Ff6R3Olp6+WvHy0jtAzVPVFQ/TW3VJEA=;
-	b=kuaBBvTFRaagygBBxOR/hK3LiUTzHigsOm/yArcTsT3s6MTDLEBLRw7zyvosqHBmzI7m
-	 Xz29G8IaXmfnNHpfxRykpkXbq2ow7foQTrmGU5+1akxk8ucHaWwazEAk/q6jYkrO0ctYW
-	 FOrWov/tmCjGS6MH9sMfkQ8gBd20As9ewWDyY5KmQPkZ7ODsri0OlCWsM23PkUSwvqlLE
-	 oAlCP50X/l6OJKF4AX1lYJvN67GTTR637WgKJl3LPao3Qg6j9ahH46vbyFfWwFRkB4YFw
-	 6O4mMjoibmG5KIUakoCxUCdMTFUxvkAGcDKyX7u2vQdx6nGMnxOiC0b6czIZgy31Iag==
+	bh=mR4wbsXPZmMIqqMTGvsE9rw5EE8vN45O/IeKcFdGVTE=;
+	b=dQstRTXwo+jbaOo9RfL+X5TOOsVr7PYo94wdx+YIIWJDGQFlbsogpemJZPZdZZzx6pyM
+	 llbwX4jqvPjNlK202qifHKjqy0csiRUXb/bsOZ9KVIunWCnQ95SWeklo9sE2fCniAPX/Z
+	 teIwUOF+dbUi7ByoZoQVNG3mSXzxGmBxa6Xt5sbAT2NuMT1PUtFswQoRZuAcktU6hIsDq
+	 JaD28gjFzIRaPPRyWFtr9aFKQ9wP5QvgKj3pMO3Vd5v/PAdo3/mdVw4bRJY7xrJI+Jpwa
+	 WhdTHRfOImHM+8+lsRtJnCvi64yOHIXxSazxu+Oc33g7c0EP2JUnSchWcvN2EE1/UfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAC9Sj7c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OX3TJtFd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84BC606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B19606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:18:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAC9Sj7c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E371F00A05;
-	Wed, 11 Nov 2026 17:16:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OX3TJtFd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99EAC1F00A05;
+	Wed, 11 Nov 2026 17:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417416;
-	bh=haIcw2YpBt4Ff6R3Olp6+WvHy0jtAzVPVFQ/TW3VJEA=;
+	s=k20260515; t=1794417522;
+	bh=mR4wbsXPZmMIqqMTGvsE9rw5EE8vN45O/IeKcFdGVTE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cAC9Sj7c+6MApM89RmbG+448zrJRXkFZFMR8aBPYL4HYdQpLilnh3guWNAJd3V4ll
-	 gbxtx3fyMq+q7V/4mVGxhDsplovemEktuLp8KjUlFZ3L3zeNi+kRkkDOUec+MkyKRa
-	 sOXD91kaNCD3Lxowi0d9SZIZsslTCmOtAjRt7Nsirfm3WoN/AAe3E8C6/fG1BiLvn+
-	 4gUbuVPRO6iv/a6sJShYelSsVtZaEq2cWLMXo2fueXlavhCKq4vMvnlS3rOo+d5wAs
-	 v9aTCt1OudqqhJlOAaTLHvL+/8rx1EKkiKbaeUhgx1oAr6oLymZPUb2CEm9nq6a+fb
-	 Nb2EzDHbvbmbQ==
+	b=OX3TJtFdd+nMUNzmz7ckNJxOhgQ6U8lpYbdSGOuPVqaZS/Jn3dNSRFSmc/1QSgzgI
+	 3bXnFvFSpPMNpQ7WBPI+JnOp00Tb3TGeUqw5WKOdVvLJi77TUzSlb15Ws4UMIhHcuN
+	 QqCYGobM4ug59VQ+ta9iE9rl7Q962zq18MBTORtUtINqPVUau2N2p77r31JbZLSfFR
+	 XoxnoSXY4TVTSoAMBSuMG73gEUunlw/MaklwqNRRLLdG+CkHIsS4rnYX30O/uWe1gs
+	 Gy33AfBkGsz233TVZCWTwneA+HMBHcFFNqOjiZRbybmV+A29ityW6Jg+47s8/O4YFK
+	 qDf7SeC+Kgsdg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Xu Xin <xu.xin@linux.dev>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Daeho Jeong <daehojeong@google.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/madvise: fix data loss from MADV_FREE on a KSM page
-Date: Wed, 11 Nov 2026 12:16:54 -0500
-Message-ID: <20261111171619.3501435-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] f2fs: release a removed xattr node in roll-forward recovery
+Date: Wed, 11 Nov 2026 12:18:40 -0500
+Message-ID: <20261111171738.3482274-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201349-failed-6.6-22d043c1da48@kernel.org>
-References: <20261109201349-failed-6.6-22d043c1da48@kernel.org>
+In-Reply-To: <20261107052314-failed-6.12-f5924de8867c@kernel.org>
+References: <20261107052314-failed-6.12-f5924de8867c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,58 +62,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Daeho Jeong <daehojeong@google.com>
 
-[ Upstream commit 22d043c1da48d6c7274f9dd900714b6d58b7b9c6 ]
+[ Upstream commit f5924de8867c09206ba631b9faed63862ec00a10 ]
 
-MADV_FREE can clear the dirty flag of a singly mapped KSM folio. The
-folio remains in the stable tree and can gain new mappings without being
-dirtied again. Once marked lazyfree, reclaim can discard data that those
-mappings still need.
+When xattrs shrink enough to fit in the inline xattr area,
+write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
+the file is then fsynced without a checkpoint, only the inode block is
+written, with i_xattr_nid of 0.
 
-KSM always marks a folio dirty when converting it to a KSM folio in
-try_to_merge_one_page(). Marking a folio lazyfree clears PG_swapbacked
-but leaves PG_dirty unchanged. Preserving PG_dirty makes reclaim restore
-PG_swapbacked instead of discarding the folio. This also protects folios
-that were already lazyfree when KSM converted them.
+Roll-forward recovery starts from the checkpointed inode, whose
+i_xattr_nid still points to the old xattr node.
+f2fs_recover_inline_xattr() copies only the inline xattr area, and
+f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
+the stale xattr node:
 
-Skip KSM folios before clearing their dirty flag, checking under the
-folio lock to serialize with KSM conversion.
+ - The node block is never released, and fsck reports "nonzero bytes in
+   xattr space after end of list".
+ - If the inline xattr list ends exactly at the end of the inline area,
+   its terminator is read from the stale node, and the removed xattrs
+   come back after recovery.
 
-Fixes: 854e9ed09ded ("mm: support madvise(MADV_FREE)")
+When the fsynced inode has no xattr node but the checkpointed one has,
+release the old xattr node as truncate_node() does: check its block
+address, invalidate the block and drop its node cache, which may still
+be dirty.
+
+Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Xu Xin <xu.xin@linux.dev>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-34-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adjusted surrounding comment context for the existing single-page folio mapcount check. ]
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: adapted upstream API calls to the existing page-based cache and single-block invalidation interfaces ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/madvise.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ fs/f2fs/node.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 209d0cc950139..9640a13699f5d 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -710,6 +710,15 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
- 		if (folio_test_swapcache(folio) || folio_test_dirty(folio)) {
- 			if (!folio_trylock(folio))
- 				continue;
-+			/*
-+			 * KSM folios can gain new mappings at any time, so we must
-+			 * not clear their dirty flag.
-+			 */
-+			if (folio_test_ksm(folio)) {
-+				folio_unlock(folio);
-+				continue;
-+			}
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 8a11623dbf1ef..0247720432778 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2767,6 +2767,45 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct page *page)
+ 	f2fs_wait_on_page_writeback(ipage, NODE, true, true);
+ 	memcpy(dst_addr, src_addr, inline_size);
+ update_inode:
++	/*
++	 * The xattr node of the checkpoint was removed before fsync, e.g. the
++	 * xattrs became small enough to fit inline. Release it as well, or
++	 * the inode keeps pointing to the stale xattrs.
++	 */
++	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
++		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++		struct node_info ni;
++		int err;
 +
- 			/*
- 			 * If folio is shared with others, we mustn't clear
- 			 * the folio's dirty flag.
++		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
++								&ni, false);
++		if (err) {
++			f2fs_put_page(ipage, 1);
++			return err;
++		}
++
++		if (ni.blk_addr != NEW_ADDR &&
++		    !f2fs_is_valid_blkaddr(sbi, ni.blk_addr,
++					   DATA_GENERIC_ENHANCE)) {
++			f2fs_err_ratelimited(sbi,
++				"nat entry is corrupted, run fsck to fix it, ino:%u, nid:%u, blkaddr:%u",
++				ni.ino, ni.nid, ni.blk_addr);
++			set_sbi_flag(sbi, SBI_NEED_FSCK);
++			f2fs_handle_error(sbi, ERROR_INCONSISTENT_NAT);
++			f2fs_put_page(ipage, 1);
++			return -EFSCORRUPTED;
++		}
++
++		f2fs_invalidate_blocks(sbi, ni.blk_addr);
++		dec_valid_node_count(sbi, inode, false);
++		set_node_addr(sbi, &ni, NULL_ADDR, false);
++		/* drop the cached xattr node, which may be dirty */
++		truncate_inode_pages_range(NODE_MAPPING(sbi),
++				F2FS_BLK_TO_BYTES((loff_t)ni.nid),
++				F2FS_BLK_END_BYTES((loff_t)ni.nid));
++		f2fs_i_xnid_write(inode, 0);
++	}
++
+ 	f2fs_update_inode(inode, ipage);
+ 	f2fs_put_page(ipage, 1);
+ 	return 0;
 -- 
 2.53.0
 
