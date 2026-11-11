@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403548;
-	b=d4f1BAMgTZaYoQnH+uh+O4D5Th2tHSZ9j5EPADChWnwYNLPXI4sZWLyXbzuGj8GtkG6z
-	 rKZIHU+YTvED7vtZDBViWFSDxAU1yZIL8bkwpS3uthThHjMCa0e3DHZYq7GjBscJugJSA
-	 loln+UDTBlI9hde2h1vIkCR3KZI4/x8KmxWdNoutAIQ9Q9H5APcn0TLcQaiUJk50rCrWR
-	 xD15iGG/3LtXz30D1+WsGt6qLd75dl90m2J4GDdM/3gN9LNkVCWmk3ntJsQSCz/OZeHyR
-	 IrXvezwDa++8ai9l/2UQOMJ9TjpLBTgcGWH1ee9k3NEo6Rqkd8MuWa2mgDYhf2VLvVQ==
+	t=1794403579;
+	b=hmimo5xvcon1zV+vdG8bSjGpXYB7Z1RT7tSaNgRoeLTgggF1qUt1TiVdeJGzONjCt9Of
+	 A/oALOf7b+Y3tQE+m+EKK2OEY4VtKoMAABA9qkc7+qkNUD9k9vrVXFNj79A9RRVn7Onrd
+	 jT0WmGTPttlEeGEDA7VSWhGijy3JeW3vm/wSLnjXkY+Em6jyiowngNYqS4fChOVB77UNw
+	 UPiNpRyjp5rszKWL9PNRaWgyM+tuv0CCWA1xm7r0Y9/ATzOcy5VZGQ0IEA6gXenTEWDFa
+	 LOBOr16O+0/h0zdbs+2SYLAOJgb1IjgkphqYXCbX4glN6xAcF9gX0cEB3znTkshqmWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403579;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7j6K4ymAuzBMX9W5WRAXhD0XKR3tDm8GZC3I5ImshWs=;
-	b=3KOGuGTlUbLtwAYQylVDndcf1B8pnbmHF8p7t+LW/FFOzRK73jmO4sVKxIUVnc5EyGa0
-	 VklxjNwrpzxlNf/8Y5KCkpzbd7tA3xjSRQwTbovVxzCFEB20vWz9ogK5RHbap156FyNya
-	 rOoe/CHVBALJxGhcNQ//3yV0qFmYvAtRVTr818esM6yeuDTZxk33hwIeFN3G50+KiZouA
-	 APbcRZlzNkON+m/qsH6hXzizJ60f0hNjpChWJCPvE3FGosR4ebtmPTGXipEBIm2DHxeO/
-	 khpvQS0zdQ1JdTvxdYAovMlM8VeQwC8NqwJE/pUCu4nHKEAryY3Qpwr7i7Rt7rmIqvg==
+	bh=yqaceEAEsX0llWUjkrvAFRFx+MyCmZ1dx+MeqRjKWo4=;
+	b=dq4c+Acq5MBbRFl3j/N2nkRaaKFkJbrd8gIv4184DyE+zXTP7S2VEcdX3ktRREtl331T
+	 oIYMtFFLkf4m+UNXZNHRxqJpdoV75kqwEMaLtEjW015/nLhQ04iWYsfy2Pl0K3wpsAtkk
+	 mevVBJknFtxAr/vg6ty0OXxoFo+PxIKPA7Ok7UcGeSjCjGD1ekGY1Ye6k88A8FHXI5/YI
+	 GGAK7hQhOVSaN6hRZS+1S/dKKpWNc3stla1Ou/Dh0DkMvfLjz5h5FiPHlBQsQz803qKHq
+	 W5hdevGPle0TTHII/m7BqStyHpGNpXTHoIyT1AdOrjP90d8qVjEkaYdOBj/4umpMAOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ttEE+jcA;
-	arc=none smtp.remote-ip=95.215.58.198
-Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LAgrwL9C;
+	arc=none smtp.remote-ip=95.215.58.236
+Received: from mta1.migadu.com (out-236.mta1.migadu.com [95.215.58.236])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C647E606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:25:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C647E606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E506F606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:26:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E506F606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ttEE+jcA
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LAgrwL9C
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pZ1tVJT3sizNNG5ieAh672I7HNNd/9qK1uI+Hcm/IN0=;
+DKIM-Signature: a=rsa-sha256; bh=WoLLWbuKRMhcKeu8sGGV56fP4gqbpfql+s/1EAbwlb8=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794403545; v=1; x=1795008345;
- b=ttEE+jcAp8sv2SM7hjB3TvOqI/mYGu8jVHq00g8sWEXUA/63W2oC/htGPIvaWgLOzpKgQQVC
- nkoPHrC391xRg9nnK6BVOuVfAastBV3GldlSwGumzKcMB5geCLxZQRGrlaYMbQ3tmPKBgl/h/ja
- bNyrDEp9j6W6FZZyCmxKKWWc=
+ t=1794403577; v=1; x=1795008377;
+ b=LAgrwL9Cfbc2n8d+zMzU/2nTQ5hU5Ianu1jf4ZzDwETBuIfQfrXXVgtkftB6sa1eikqR+xyX
+ OOKwyYsFrSww/t40aprZEPSKDBOaRqjNXcFwZIKTVPTedYHD0ZkeiAvdc/nAmIrGmRvfCJDdZoY
+ tXFqpNMgFbU7CBmGAt32I6GA=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 30e8c23962f2caf9;
-	Wed, 11 Nov 2026 13:25:45 +0000
-X-Mizu-Trace-ID: 30e8c23962f2caf9
+Received: by smtp.migadu.com with ESMTPS id d7d8bc716077fab9;
+	Wed, 11 Nov 2026 13:26:17 +0000
+X-Mizu-Trace-ID: d7d8bc716077fab9
 X-Migadu-Flow: FLOW_OUT
 From: Lance Yang <lance.yang@linux.dev>
 To: stable@vger.kernel.org
@@ -55,12 +55,12 @@ Cc: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Zi Yan <ziy@nvidia.com>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>
-Subject: [PATCH 6.6.y] khugepaged: fix readahead lock inversion in collapse_file()
-Date: Wed, 11 Nov 2026 21:25:33 +0800
-Message-ID: <20261111132533.88889-1-lance.yang@linux.dev>
+Subject: [PATCH 6.12.y] khugepaged: fix readahead lock inversion in collapse_file()
+Date: Wed, 11 Nov 2026 21:26:05 +0800
+Message-ID: <20261111132605.88959-1-lance.yang@linux.dev>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261109201407-failed-6.6-eadce52a9ef6@kernel.org>
-References: <20261109201407-failed-6.6-eadce52a9ef6@kernel.org>
+In-Reply-To: <20261109200933-failed-6.12-eadce52a9ef6@kernel.org>
+References: <20261109200933-failed-6.12-eadce52a9ef6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,18 +104,20 @@ Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
 (cherry picked from commit eadce52a9ef657d561b3e76c9b5f178bd99735f5)
 ---
-Backport to 6.6:
-- Use find_lock_page(), unlock_page() and put_page() for the existing
-  page-based collapse code.
+Backport to 6.12:
+- 6.12 still takes invalidate_lock in collapse_file() after locking the
+  source folios. Use filemap_invalidate_trylock_shared() and roll back
+  on contention, otherwise the same deadlock is possible even after
+  moving readahead.
 
- mm/khugepaged.c | 44 +++++++++++++++++++++++++++++++++-----------
- 1 file changed, 33 insertions(+), 11 deletions(-)
+ mm/khugepaged.c | 49 +++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 37 insertions(+), 12 deletions(-)
 
 diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 42330aeb7638..396963ced1ce 100644
+index 7a54ce0f126b..e783a15f30ec 100644
 --- a/mm/khugepaged.c
 +++ b/mm/khugepaged.c
-@@ -1793,6 +1793,8 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+@@ -1817,6 +1817,8 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
  	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
  	int nr_none = 0, result = SCAN_SUCCEED;
  	bool is_shmem = shmem_file(file);
@@ -124,7 +126,7 @@ index 42330aeb7638..396963ced1ce 100644
  
  	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
  	VM_BUG_ON(start & (HPAGE_PMD_NR - 1));
-@@ -1803,6 +1805,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+@@ -1828,6 +1830,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
  
  	mapping_set_update(&xas, mapping);
  
@@ -135,48 +137,60 @@ index 42330aeb7638..396963ced1ce 100644
  	__folio_set_locked(new_folio);
  	if (is_shmem)
  		__folio_set_swapbacked(new_folio);
-@@ -1867,17 +1873,9 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+@@ -1892,17 +1898,9 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
  			}
  		} else {	/* !is_shmem */
- 			if (!page || xa_is_value(page)) {
+ 			if (!folio || xa_is_value(folio)) {
 -				xas_unlock_irq(&xas);
 -				page_cache_sync_readahead(mapping, &file->f_ra,
 -							  file, index,
 -							  end - index);
--				/* drain lru cache to help isolate_lru_page() */
+-				/* drain lru cache to help folio_isolate_lru() */
 -				lru_add_drain();
--				page = find_lock_page(mapping, index);
--				if (unlikely(page == NULL)) {
+-				folio = filemap_lock_folio(mapping, index);
+-				if (IS_ERR(folio)) {
 -					result = SCAN_FAIL;
 -					goto xa_unlocked;
 -				}
 +				do_readahead = !readahead_done;
 +				result = SCAN_FAIL;
 +				goto xa_locked;
- 			} else if (PageDirty(page)) {
+ 			} else if (folio_test_dirty(folio)) {
  				/*
  				 * khugepaged only works on read-only fd,
-@@ -2204,6 +2202,30 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+@@ -2040,7 +2038,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		 * in do_dentry_open() truncating the page cache. This is
+ 		 * particularly important if there are dirty folios in transit.
+ 		 */
+-		filemap_invalidate_lock_shared(mapping);
++		if (!filemap_invalidate_trylock_shared(mapping)) {
++			result = SCAN_FAIL;
++			goto rollback;
++		}
+ 		filemap_nr_thps_inc(mapping);
+ 		/*
+ 		 * Paired with the fence in do_dentry_open() -> get_write_access()
+@@ -2241,6 +2242,30 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
  	new_folio->mapping = NULL;
  
  	folio_unlock(new_folio);
 +
-+	/* Readahead may take invalidate_lock; source pages are unlocked. */
++	/* Readahead may take invalidate_lock; source folios are unlocked. */
 +	if (do_readahead) {
-+		for (index = start; index < end; index++) {
-+			struct page *page = find_lock_page(mapping, index);
-+
-+			if (!page) {
++		for (index = start; index < end;) {
++			folio = filemap_lock_folio(mapping, index);
++			if (IS_ERR(folio)) {
 +				page_cache_sync_readahead(mapping, &file->f_ra,
 +							  file, index, end - index);
-+				page = find_lock_page(mapping, index);
-+				if (!page) {
++				folio = filemap_lock_folio(mapping, index);
++				if (IS_ERR(folio)) {
 +					result = SCAN_FAIL;
 +					goto out_put;
 +				}
 +			}
-+			unlock_page(page);
-+			put_page(page);
++			index = folio_next_index(folio);
++			folio_unlock(folio);
++			folio_put(folio);
 +		}
 +		/* Drain the local LRU batch before retrying isolation. */
 +		lru_add_drain();
