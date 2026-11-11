@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437719;
-	b=oN8kGZg9qrCmRkkpqGeSloKpKnxaNl/MZSwOuCi8XKzenGQTP9WFy8dL4xGs8ZpKRZLa
-	 Hb8cJRYih/MbSSMDmNyylYzzCWX4pHeUtL1l/9HNFQisIzM3Bhu3zRuCnIk7bH+PhfppO
-	 tCSn+XsaRfOyWonQ/lcHUBo9awiGdbjQqItAZkoXJlJrmc25Xta2u5DhJ9jcz9YJYZkkm
-	 DSm8WpYmkmRaxA3V9EXhcpGVRVX6cE4j8pbrL8uRTAQbyrHx2btWlSic/xcW3Sx1EJtac
-	 nm2Mi5LV59QASWOg4P8exMIVYYECvqwBxqmSbT0z8RG/T0mF353F0KMPnHv62PH6xTQ==
+	t=1794437762;
+	b=CPkWTsLDu5Ja0K43nHTW4PbYdT8E7MnNHsU22n/Uq1gft6SjuhO/xZRTmHEzeAycj+Gm
+	 +C+UJQxP/BZnWjpNhc2gklt7oOJK2SJjOj9QvwzhgXfvzrLf7X3mF9ZcQM+IoCzEXVCLL
+	 awxQT2hCPNAoUnbxUF01oob8XskbpVzGkYWwgEzdpWae+lXWrZEhI76hX/J+QDfOUzhbJ
+	 LplyrqHi/2l4VuhdLTgdirUDveGefLhd5rpSiez3BDTTluas4h9EMQXP1denxyiTldtFT
+	 lq+3GcxMa+uW6EZLLulJ87lRRl8OcJwXISKDYPurLnpTLpVZZw6A+Hd4C5KgN6LcItg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437719;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437762;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1gdf9Bq6jlJ/Em8YXNZn+PhSzP7XddBcL4qXg1rgFGs=;
-	b=P8u7SpGSZMaZH43dXpycRXMTll8zYIPjk0GVfUwdTLlhTuUNBjaAt7jjFopMkEH/+D9u
-	 qZ+eGk1N0Xl4L+HfV1StMy10xMICd9QeDuc/FykqRkX6B7BY54qjjMzEjEbPjHesjBDSP
-	 evrVe2ov+90Y6BITSk7/3N7vuRW38UPHlI0qexagGNv5+HA3kuA+QdpOWtOAjwZkbX1LW
-	 T18sjAHElftUXaIetVGT8h6OB0dSq4aX+uXRenEHARObRTBpo9c9/u1uA8cefZji3S/BT
-	 WZzsy0gHf5E6eaNw6GqWewi7f+FHoTa7UExep5Szmskd/XCT+CAriTHmiZHPEmI/PjA==
+	bh=6tdn3maK/d3oaxNfJio4R1UMJBBh1kUOfnJqTUOSOKM=;
+	b=oT4kie3h8ihOKwGnt0+70v3sRo7AAQ9Jo2VriAmjuMKSC8bh+oNvIuG/RZ2F2NgdgNFN
+	 TTeUmkWlk1TNwFbxpi26DOIvToBxm6NxtsrqndbsEV/VYliy29cJCTHs/jqZpNw9NCNt4
+	 000fDiTFBFvIiCGMQF7Ke6IsnjR7xs90B1qyHNEONdGNmt5Wsu+EoQNpKi7HPASJXTDoG
+	 cwVgEHOEVBQP9FJLAuXi+eY2Ea8SULvcGYPjm0GN/oPPIE5KSyX5WN3ogf/T4HVxcPCl/
+	 MYPZaHoNLlTVnj0pmIx1BKuUxGImJKrE2Z6mPajzFyBpWqgipdc+UIU8T9XbCWNxlZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oy5NH1hS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J8/BrU67";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3D3606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:55:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF32606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:56:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oy5NH1hS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0221F00A05;
-	Wed, 11 Nov 2026 22:55:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8/BrU67
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300E41F00A08;
+	Wed, 11 Nov 2026 22:56:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437718;
-	bh=1gdf9Bq6jlJ/Em8YXNZn+PhSzP7XddBcL4qXg1rgFGs=;
+	s=k20260515; t=1794437761;
+	bh=6tdn3maK/d3oaxNfJio4R1UMJBBh1kUOfnJqTUOSOKM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Oy5NH1hSiBF8Q8rG86XY878Qbqwqwf7RQTl7C5TBLEd9SORpohB+s7FM9isTGuIgQ
-	 hcrEhDkw57tBtA14HeKPpRW0EL6WLsUgCL3yjr5Lvmx9wiwvQHqQh3m5fbKlanU1Wi
-	 snOLU+59dY7aa7TDQxj274YTRZpEnsfyz56MReDyUpeXbNy6NUklduRQ4Rs3+PqxRs
-	 ZMDBxiac+EZzMFEAh95zojrt+tgK+tMhsH2a6CNvFLys+g+4/aevlOjR1hTHEQf4R6
-	 n8Q5FKmxAPWrhZlcGmyw3C7T22fusjEEVAqqjumZqquU8xhJFAFqqXExZ3wkirw/BB
-	 TySBSAjmakQ0A==
+	b=J8/BrU67qxmiDO0iDnmKBqqdTGHC1I2L82uZlfqIi8ltzekzmpMTxPeYdc2lRrnRC
+	 nbHovxxCZOmIBLAmqhrwF9RNPsm6VKho48aUg2Whv9WP0+EAAwGEfOA3wlzEw5pqD6
+	 vMs5z7uXi0HtOJflBEgTb3ndesf9Nx62SujOSU04cPCUxQhbmpkI/rhdHSmXn4GqKC
+	 KsPBH19u61xlCf9elFI8x3f3c+NMbK8imeSWKwyQwCA4n7+PweCB4uflDJiRrm9cnI
+	 O7nQDpR3qRaNaLtzjxnAy/NZBXnv7FzOOhQjGcp/jhjiWiYkB0UVJINHNdBVCMwNny
+	 FfPmDx+URqjIg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Georgia Garcia <georgia.garcia@canonical.com>,
+	John Johansen <john.johansen@canonical.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] mm/userfaultfd: wake waiters when registration modes are removed
-Date: Wed, 11 Nov 2026 17:55:16 -0500
-Message-ID: <20261111225453.188656-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] apparmor: remove fs entries created by a failed policy load
+Date: Wed, 11 Nov 2026 17:55:59 -0500
+Message-ID: <20261111225527.191760-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200156-failed-7.3-4eee9c389b07@kernel.org>
-References: <20261109200156-failed-7.3-4eee9c389b07@kernel.org>
+In-Reply-To: <20261107061341-failed-5.15-6ec46f8f1977@kernel.org>
+References: <20261107061341-failed-5.15-6ec46f8f1977@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,92 +61,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Georgia Garcia <georgia.garcia@canonical.com>
 
-[ Upstream commit 4eee9c389b072e161549d46dcb1ae10b0222717e ]
+[ Upstream commit 6ec46f8f1977d218bf2494ce276152b2d01424af ]
 
-UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
-faults that are already queued. For example, switching an anonymous
-range from MISSING to WP leaves a missing-fault waiter asleep until
-userspace explicitly wakes it.
+aa_replace_profiles() creates the raw_data/<rev> directory for the
+loaddata and the profile directories for new profiles before the last
+checks that can fail. When one of those checks fails, the fail path
+releases the ns lock without removing what this load created.
 
-When a registration change removes a UFFD mode, wake waiters in the
-affected interval after updating the VMA. The VMA is write-locked at
-this point, so no new faults can queue under the old modes and woken
-threads cannot retry until mmap_write_unlock(). Waiters for retained
-modes in the same interval may also wake and refault.
+The raw_data directory is named after the current ns revision, and the
+revision is only bumped by a successful load. The stale directory is
+only removed once the loaddata's last profile reference is dropped, from
+a workqueue. Until then, every load fails to create raw_data/<rev> with
+-EEXIST. If the new profiles are never freed, which is the case when
+their dents are left behind pinning the proxy, that never happens and no
+policy can be loaded until reboot.
 
-The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
-with both read and unread fault events.
+While still holding the ns lock in the fail path, remove the profile
+directories of the new profiles and, if this load created it, the
+raw_data directory.
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: 5d5182cae401 ("apparmor: move to per loaddata files, instead of replicating in profiles")
 Cc: stable@vger.kernel.org
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adjusted context to retain is_vm_hugetlb_page() instead of vma_is_hugetlb(). ]
+Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+[ sashal: adjusted declaration context to add rawdata_created beside the existing udata_sz declaration at function entry ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/userfaultfd.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ security/apparmor/policy.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index cc37b60fc3e81..d94ca9d8a9d5f 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2287,6 +2287,9 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
- 	return ret;
- }
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index f3592af433553..dd8439e9cf55b 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -923,6 +923,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 	const char *op;
+ 	ssize_t count, error;
+ 	ssize_t udata_sz;
++	bool rawdata_created = false;
+ 	LIST_HEAD(lh);
  
-+static void wake_userfault_range(struct userfaultfd_ctx *ctx,
-+		unsigned long start, unsigned long end);
-+
- /* Assumes mmap write lock taken, and mm_struct pinned. */
- static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 			       struct vm_area_struct *vma,
-@@ -2304,6 +2307,8 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		prev = vma;
+ 	op = mask & AA_MAY_REPLACE_POLICY ? OP_PROF_REPL : OP_PROF_LOAD;
+@@ -1041,6 +1042,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 			ent = NULL;
+ 			goto fail_lock;
+ 		}
++		rawdata_created = true;
+ 	}
+ 	list_for_each_entry(ent, &lh, list) {
+ 		if (!ent->old) {
+@@ -1119,6 +1121,18 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 	return udata_sz;
  
- 	for_each_vma_range(vmi, vma, end) {
-+		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
-+
- 		cond_resched();
+ fail_lock:
++	/*
++	 * Remove fs entries created by this load. Nothing else references
++	 * them yet, and leaving them behind would leak the new profiles
++	 * (their dents pin the proxy) and make the next load at the same,
++	 * unbumped ns revision fail with -EEXIST on its raw_data dir.
++	 */
++	list_for_each_entry(tmp, &lh, list) {
++		if (!tmp->old)
++			__aafs_profile_rmdir(tmp->new);
++	}
++	if (rawdata_created)
++		__aa_fs_remove_rawdata(udata);
+ 	mutex_unlock(&ns->lock);
  
- 		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
-@@ -2349,6 +2354,10 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		 */
- 		userfaultfd_set_ctx(vma, ctx, vm_flags);
- 
-+		/* Retry faults for removed modes while the VMA is write-locked. */
-+		if (any_mode_removed)
-+			wake_userfault_range(ctx, start, vma_end);
-+
- 		if (is_vm_hugetlb_page(vma) && uffd_disable_huge_pmd_share(vma))
- 			hugetlb_unshare_all_pmds(vma);
- 
-@@ -3665,6 +3674,17 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
- 		__wake_userfault(ctx, range);
- }
- 
-+static void wake_userfault_range(struct userfaultfd_ctx *ctx,
-+		unsigned long start, unsigned long end)
-+{
-+	struct userfaultfd_wake_range range = {
-+		.start = start,
-+		.len = end - start,
-+	};
-+
-+	wake_userfault(ctx, &range);
-+}
-+
- static __always_inline int validate_unaligned_range(
- 	struct mm_struct *mm, __u64 start, __u64 len)
- {
+ 	/* audit cause of failure */
 -- 
 2.53.0
 
