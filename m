@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409452;
-	b=mLRUy7HNVa6ZSWF6UmA+dUzJw8Mkqs7czE07fyJyE4YlphQ09qO6NN50P7rqO/AB3rnH
-	 1MSnkIzJexQLpv1g9IYQskiKk6uZLJvD7C89m+IwGwKcqno/T+JbNVfRf+6Qrx9r9xnh9
-	 TtWeWLSYgfxY44mJvFqEj6PBkpEMfjLmWHb5X8NFrecWghCTzmYUL+Hv4qH+5t7eHO7Vw
-	 XR/B8gKZYOL98FLPKxPjnAZLFozbrL9NXsV9YNm3ohoGNof0hbwKd6NhGmJnWEIC3j4Rf
-	 +7WivnyZUYC9DoTPJMIJDynLU6vs4/Hlv6FPnjzGDipDZ6iFrpEVjFGewRTWGaGCAUA==
+	t=1794409456;
+	b=P9o1kmu35vGmq1xTWroZ/prAdL2Y3v9oMG8dNcJy+mKpLrGn1dSRlQjMBxbL4OqyBJJ6
+	 yC7kWXSwCE1y0om8i90mGrYJdEXqLEbkOUYY3pDWaE47E2P1YMfcRNRyQ6JIZvcL4OY8u
+	 Uu4qtguIEt3GWHCFCgeo4/glRWHl9eZF3TsydOBQkQxPjlFwMwFZOegDeKFTx/3UQN0eT
+	 bdk6gpmz32uadgCBQpOkILw71vX02xv3TxXkYVoj68CLibQnwjSIH3yspFcGR0tSZFp7g
+	 gjDghkIc7GYxyG0gmlXV31ff+E62/QAQaSNa/nTLIt1RC15nul0wrxI8Lgw4C5i4SRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409452;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409456;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=p4E2pH0lSmH4FLNSMno5m5zDMA9lipwOMSDm6hv5rFI=;
-	b=xorktBscXK0dpf1GRzlyykXmXQXdUxzpnKGg/74m2i8bdjBGH9HR3DaXRqeQjGC7KfW6
-	 eHg7cRMmobAvDBIBWwmMxEiWdfzuY8DucJgQq95AGaUn28xxGekRXeUbcX19hYDt0zXjW
-	 8gw93GPv7rKZXuqzL48DQu5koCfVy5xAGLWrYVAeoOd/tqh8p5abNvqhr3zfyhfoN75AK
-	 LneV5SoB0nkBi4YWcsCEZZfY/silgHxOmXCdPCyHehdRqYgR8+S88i2PfCCZrX/6gsBy3
-	 otpfg6eOkdEeQHFx4PZVW0V2lp8uU7wdjrNaQsWoFGmKzmLildMX8ceFuxw54Dhpclg==
+	bh=1SrMy78WN+D7w1ldPRMqbrq2PWQNKruxDxGSvs2zDKE=;
+	b=mSpPDp4qT9By68hzHZnRO4HD4SV/GJcBxGo4ac4l8DCTQZgvM7xa27/wJcQjLHuwuyFi
+	 cAsDwAUneZ3av0/gatziL6kqq6vJ8/0e+4TA94riX68SjTAQ5qsaOGPpjKX5UTwD2FfLF
+	 ePVy+N2k0pgbof82tPub9j0HeofYtVd7xmj76y2RmI0znPZYWCL37pW4yUlmUqT9sZwOY
+	 kVWZQuEoXIyhgJ5kEIKmgRA4DqgrJy8D0HCLu59btUBw1EVinM+A99J16Ajq+IELm8vOB
+	 oP2QAio4b/4Xok/BFLnoKg6hZ4tq4Bm0hBcZBodt4NBvlhcy6hMMm5y8/6vZKzDGodg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSsyCSS1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=co4noC81;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFD1606A32D
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:04:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C445D606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSsyCSS1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E982C1F00A05;
-	Wed, 11 Nov 2026 15:04:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=co4noC81
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2964C1F00A05;
+	Wed, 11 Nov 2026 15:04:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409451;
-	bh=p4E2pH0lSmH4FLNSMno5m5zDMA9lipwOMSDm6hv5rFI=;
+	s=k20260515; t=1794409456;
+	bh=1SrMy78WN+D7w1ldPRMqbrq2PWQNKruxDxGSvs2zDKE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lSsyCSS1RsLte4AtdQZF3fmLCzs30BSWdXucJjKzcoXcmQASrTVATlxnlRxzoPJcA
-	 DeFtmtxBYIz/QiN5t4/o2EGbom+JcOBANyDaWv7jc2aMsATeRxINvJd5OInBkhaQGc
-	 eFeDHDnhSoDOPopql51Tg9Q+422h865BVwc8iDWuy8r5XSQAAOsxgipd5iL3xrcVdE
-	 43N+GhMwJziNuihvR/hpvbgUqdpm5D9KcAkFEioUHHjjDL5YHOHuf76vwi5GX0HxhS
-	 hO0RJ6eP0WIrdAOJFIcab605eGXCqncmseBou8lzoJsHTzzl+PKD9Ke4CR2YnnNrf6
-	 2v6yh3NAcXo0A==
+	b=co4noC819ZVt0GXPCUvqgq9nBFLk8KForMwNnfKXq+WJt+TM+I5uCWoR8Mi1eBrwX
+	 F/vvE6rgWp9x9ORTIyRv8plY20CAsk9EmfEiXxJ3XFkK2iGmF4oYWS91NqzCBFM0fZ
+	 PQYzbX22A2a94Kbrq5QRXqrASPJ2U08ABwPr/oZro+9lc91Er75AjQpt0lHosI2PdV
+	 qJfmnIX9TgFyErwoI3vHbmwA7pd1pP8KsBu2ShWUWiahcE/CshT/vO0qjgCNCXpLIv
+	 AzZRNpdzEYQ6Gc/EoBHcdsbn+epUGqmet66pPoSmVTjeo/j8kPjoIgPKHZWi/9EHNX
+	 MAbKeBX42wvUg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] f2fs: fix to use bio_in_atomic() in f2fs_write_end_io()
-Date: Wed, 11 Nov 2026 10:04:09 -0500
-Message-ID: <20261111150349.2541166-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] iomap: don't mark unwritten parts of a folio uptodate
+Date: Wed, 11 Nov 2026 10:04:15 -0500
+Message-ID: <20261111150357.2481521-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050441-failed-7.3-e4582e5f3b43@kernel.org>
-References: <20261107050441-failed-7.3-e4582e5f3b43@kernel.org>
+In-Reply-To: <20261107061328-failed-5.15-a4193b4af359@kernel.org>
+References: <20261107061328-failed-5.15-a4193b4af359@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,62 +61,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit e4582e5f3b439228d4e900edcf8225aa89be32b4 ]
+[ Upstream commit a4193b4af359db84b2cdf3a040752861984c636b ]
 
-f2fs_write_end_io() uses in_atomic() to decide whether a write bio which
-exceeds max_atc_write_bio_size or max_atc_write_bio_entry_cnt should be
-completed in sbi->wq rather than in the current context.
+For a buffered write into a hole, an unwritten or new extent, or past
+EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
+write and then marks the blocks uptodate. That includes the range of the
+write itself which still holds whatever was in the folio before. It only
+becomes valid once the copy from userspace has filled it in.
 
-However, in_atomic() is not meant to be used outside core kernel code
-(checkpatch.pl warns about it), as it only looks at preempt_count(): it
-misses irqs-disabled and RCU read-side critical sections, and on kernels
-without CONFIG_PREEMPT_COUNT it cannot see spinlock-held sections at all.
-In those contexts, a large write bio will still be completed inline,
-which defeats the purpose of the above knobs.
+But the copy can come up short and __iomap_write_end() only rejects a
+short copy if the folio isn't uptodate. If the zeroed blocks were all
+that was missing the folio is uptodate by then, the short copy is
+accepted, and the rest of the range is exposed to readers and can end up
+on disk. A source buffer that ends in an unmapped page is enough:
 
-The block layer provides bio_in_atomic() for exactly this purpose, it
-checks rcu_preempt_depth() and preemptible(), and conservatively returns
-true if CONFIG_PREEMPT_COUNT is disabled, let's use it instead. The
-difference is as below:
+        ftruncate(fd, 4096);
+        pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
+        pread(fd, buf, 4096, 0);
 
- Context                              | in_atomic()    | bio_in_atomic()
- -------------------------------------+----------------+----------------
- Hard IRQ / softirq                   | true           | true
- IRQs disabled, preempt count 0       | false (missed) | true
- RCU read lock (CONFIG_PREEMPTION)    | false (missed) | true
- Kernel w/o CONFIG_PREEMPT_COUNT      | IRQ ctx only   | always true
+The write returns 16 and the read returns 2984 bytes of whatever was in
+that page before. If other blocks of the folio aren't uptodate the short
+copy is rejected but the zeroed blocks keep their uptodate bits and the
+retry with the copied length leaves the same bytes behind.
 
-Note that on kernels without CONFIG_PREEMPT_COUNT, write bios exceeding
-the thresholds will always be offloaded to sbi->wq, since there is no way
-to tell whether the current context is atomic. The thresholds default to
-UINT_MAX, so the default behavior is not changed.
+Only mark blocks uptodate in __iomap_write_begin() after reading them.
+__iomap_write_end() marks the zeroed blocks uptodate once the copy has
+succeeded and rejects a short copy.
 
-Cc: stable@kernel.org
-Fixes: 3de6b8094115 ("f2fs: Run f2fs_write_end_io() asynchronously")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: Retained the bio-size check without the entry-count condition because the required fields are absent. ]
+Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
+fix (cf. [2]) but it never got merged.
+
+[1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
+[2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
+
+Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: changed the iomap_set_range_uptodate() argument from folio to page ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c | 3 ++-
+ fs/iomap/buffered-io.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index cfd81bfc28a22..43e623a0bd30a 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -399,7 +399,8 @@ static void f2fs_write_end_io(struct bio *bio)
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index 2d65616762ba9..6c7b3791c4953 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -579,14 +579,15 @@ static int __iomap_write_begin(const struct iomap_iter *iter, loff_t pos,
+ 		if (iomap_block_needs_zeroing(iter, block_start)) {
+ 			if (WARN_ON_ONCE(iter->flags & IOMAP_UNSHARE))
+ 				return -EIO;
++			/* uptodate once copied, see __iomap_write_end() */
+ 			zero_user_segments(page, poff, from, to, poff + plen);
+ 		} else {
+ 			int status = iomap_read_page_sync(block_start, page,
+ 					poff, plen, srcmap);
+ 			if (status)
+ 				return status;
++			iomap_set_range_uptodate(page, poff, plen);
+ 		}
+-		iomap_set_range_uptodate(page, poff, plen);
+ 	} while ((block_start += plen) < block_end);
  
- 	sbi = bio->bi_private;
- 
--	if (in_atomic() && bio->bi_iter.bi_size > sbi->max_atc_write_bio_size) {
-+	if (bio_in_atomic() &&
-+	    bio->bi_iter.bi_size > sbi->max_atc_write_bio_size) {
- 		struct work_struct *w;
- 
- 		w = &container_of(bio, struct f2fs_bio, bio)->work;
+ 	return 0;
 -- 
 2.53.0
 
