@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794427951;
-	b=Qydo6U2g9gKgor/n0NgVmwceD5e/hLZQcvZjsJCA80y5ziYumKvfo7A3FUe+RtkQ8992
-	 Kk2bA4Sz6xxNjuK1Bup7ku9oTFBPEZyODQJQrivi41AJsAmsaivt2V+M/T1UFIDM80z7D
-	 a3RS5D+jMkX7eKnkhbCg6f+isY09hjBjVpZ7zzvF+oKEWejdlpJ2It2NFoRuPyhVaQO8h
-	 MuZkjDGleYGeum4ah/3tV8guMjoM+aY3aRR+DMVwGyuybNsQoHEBvnjZJeMoByvgc6Eod
-	 wWzowVjoRsRDPtX6N5RcG8dEk8o0zHQMLbexd35M1+ItWgGQqm5CImCvg10depDa9zA==
+	t=1794428359;
+	b=mFvsM6LOw3rSv3i1T+zcXZvn5f8F6XT8BOquDs5JDjj4B+DszmlSpHgCBgVfhwvomoZG
+	 7Gip00zy46+7BTAtJaeroYiXDuWD9AI/beO0T+8s4PSlzX98O4gpMsIfOUjSrarBR6+Fr
+	 qM07teufz/cUHHDLgMUNizjdC6zOSLokb7DnVA3EL/HM3PcYDLX94k8HdiRD4xluWa4eL
+	 7otGXxQ3W+2DTDBPaaR3i6/J8fIV/Rjjoo8FIhEbzrF5qFxF8AZkLczURall9x/2+IOiM
+	 bVOfNPfTHIq9lhA7qiPI/Kf22hkwccWcLbalCCO+neHFvQotcpbhTAdtrAXAgx6oErg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794427951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794428359;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=79H8btPJKwYyRTPxXXyFtbZEGb1tE2bRM37OBxqjI2o=;
-	b=WSud0IKb5E2va5kkcKavvpXYB3okyNsNl2zA1QUfVhOEh+8tpSlslzi3PtzpBepZskDG
-	 Fu6Abf7RuH3zp6fmNOspVB1tq6fzC6IybCTNrgCuE0/4BIC0D3Uq9dvFlBDymLgaGSCnS
-	 iVvNlBjA+S8dCJmI5uqPUppU9qWMfw7fYNN+5c+H2J66jHkm/FYTdr0TfKeZJJlNNvNnD
-	 ZC4PhVDmk9YOP6dmzIMu2FKcU9y0xYUStTsD6ppiZ8nFx91iMmc7Kojc6GovEJSv8/qQN
-	 pp6Y1w5SD2/dEKSUmdGQAlZ6NON9rzwnzU5PvNnO0P0CFOc4uMeonrzubTAypIQBcEA==
+	bh=MnULtRKQZcE1HvWaJ1JqZ4TIIeEBkGZYPKYG54U1zJI=;
+	b=nrzu5lPE0C20B5Dmtd2owkKoYcsem0ttgDDVOQHDV5y+oWeUyXWOMgab6N+dH9RlOJTR
+	 aS/MdB1iFXoNO7xNHW03Tip87x4Skwf2gOdXz8HrMAjBJfN4o1MqagFTxWNbJqYp2TeDF
+	 VyO2x610YRe4SdFjrFdSnCqHH90KAk4eTIH+qB9tjU/Cw0WCrwVzeyhB6X0GZCQvvLadH
+	 NocHDGqz/ZCfjvh/WwPaS7KrYap+Szpn3EAinZx2BJAK07htssi2zgVI5qxdlgEvXfQJI
+	 adbMB/PB/Hgi3sXxvuWsL/ilft9htZC8S2nkHmJiGn0+Q/eYT/FMLrxrsQE24i6BGJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0CgGpHx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="C5M/5Eqs";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C158D606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 20:12:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C05C606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 20:19:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0CgGpHx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C111F00A05;
-	Wed, 11 Nov 2026 20:12:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5M/5Eqs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726DC1F00A05;
+	Wed, 11 Nov 2026 20:19:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794427951;
-	bh=79H8btPJKwYyRTPxXXyFtbZEGb1tE2bRM37OBxqjI2o=;
+	s=k20260515; t=1794428359;
+	bh=MnULtRKQZcE1HvWaJ1JqZ4TIIeEBkGZYPKYG54U1zJI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n0CgGpHxOIEoP0QinBMNXpvN3OPrK6rK9lVho9pySlNsUBAkfkqb+SsA6UavKb3qm
-	 HsqA9wAYAXsLVcQArTf8981eDUmnUvYGAkrW9fKjCo/z8eb2LywKsjq3WnpgBf1rR5
-	 qWUBktwDSnQLpVhoM0Sy5AJ19gW+2HeQnDbg261mNFFUXS8DvkQPcRmiNdC7BLqx35
-	 OK0dGEnP+nrO3v7lyIn/ho6J6uAX7pScLs0zm+Gl75/iTy3wiKa2sAS9xvUsRyJ4N3
-	 RlFvZMj1a0/HFC0QDFozCU1GXHVLZXDSBs2UbzjJWcwMXK2Xd50yD8I6NpokTiCOEG
-	 y5No/xoEY6Pdw==
+	b=C5M/5EqsaJmwFyks+KfUxCPqvH9x9zfcEw7wpvP44dwdJJMysXVCToziTnQ4buPKB
+	 4uuQUk2TWOvGbZ4is5ZAEHq0pGcl74gQXNBAUyUxn81mIdcQ6n/mHAUYF1nDr3lYKk
+	 rCQC7MGht6V+s2QhVrP+6MankGJ1Mg2xSab/ZrRnVeVoGxN6OnZzYyeGoq4PqKX2VR
+	 aDUhlPhWPgGzuxRf/dDQ4l8cvIGeWGKGOPkTa3N3anxb00G7clJF9k4i2JlH14zlfW
+	 /GhmfAcEANvYbrLybmrcxJlv/mjKmOFg7KOKqZa0Flh3McAHmgy1fXjdkoY0hoYEVZ
+	 YU8wlPnFp9iNg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>,
-	Kyle Zeng <kylebot@openai.com>,
-	Florian Westphal <fw@strlen.de>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Wang Zhan <wang.zhan@smartx.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: guolingxing <guolingxing@tju.edu.cn>,
+	Qu Wenruo <wqu@suse.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] inet: frags: limit the truesize of a reassembly queue
-Date: Wed, 11 Nov 2026 15:12:29 -0500
-Message-ID: <20261111201210.4044623-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] btrfs: prevent deleting the wrong subvolume by ID
+Date: Wed, 11 Nov 2026 15:19:17 -0500
+Message-ID: <20261111201853.4048606-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201643-failed-6.1-3ae20e4697eb@kernel.org>
-References: <20261109201643-failed-6.1-3ae20e4697eb@kernel.org>
+In-Reply-To: <20261109200236-failed-6.18-1960146913b3@kernel.org>
+References: <20261109200236-failed-6.18-1960146913b3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,113 +62,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@kernel.org>
+From: guolingxing <guolingxing@tju.edu.cn>
 
-[ Upstream commit 3ae20e4697eb969104fe4b1e98a675f0100382b6 ]
+[ Upstream commit 1960146913b31b288ed2cd607d103ee3b41681d4 ]
 
-The truesize of fragments in a reassembly queue is only bounded by
-the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
+resolves the requested ID to a name, then looks up that name again
+under the parent directory lock.
 
-inet_frag_reasm_finish() sums the truesize of all fragments in an int.
-If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
-adjustment of the socket owning the reassembled skb can cancel its own
-reference, leading to a use-after-free of this socket.
+A concurrent rename can change which subvolume is associated with
+the name between these operations. Since the deletion path does not
+verify the ID of the resolved subvolume, it can delete a different
+subvolume while leaving the requested one intact.
 
-This can be triggered from an unprivileged user/network namespace,
-raising ipfrag_high_thresh and using padded TUN packets, which keep
-a large truesize after being trimmed by ip_rcv_core().
+This was reproduced by repeatedly exchanging the names of two
+subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
+them by ID. The wrong subvolume was deleted in 9 out of 14 independent
+tests.
 
-Track the sum of the truesize of fragments in each queue, and refuse
-a fragment that would make it bigger than INT_MAX / 2. Callers kill
-the queue on this error. This bound is far above the needs of
-legitimate traffic.
+Fix this by checking that the resolved subvolume ID matches the
+requested ID while holding the parent directory lock. Return -EAGAIN
+on a mismatch so that userspace can retry the operation instead of
+being told that the requested subvolume does not exist.
 
-Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
-Cc: stable@vger.kernel.org
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Cc: Florian Westphal <fw@strlen.de>
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Tested-by: Wang Zhan <wang.zhan@smartx.com>
-Link: https://patch.msgid.link/20261030081225.2575462-1-edumazet@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: moved the truesize reset to ip_frag_reinit() because inet_frag_queue_flush() is absent ]
+Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
+CC: stable@vger.kernel.org
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+Signed-off-by: David Sterba <dsterba@suse.com>
+[ sashal: Replaced goto out_end_removing with goto out_dput to use the existing cleanup path. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/inet_frag.h  | 9 +++++++++
- net/ipv4/inet_fragment.c | 4 ++++
- net/ipv4/ip_fragment.c   | 1 +
- 3 files changed, 14 insertions(+)
+ fs/btrfs/ioctl.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
-index 0b0876610553f..2ed882dd089a7 100644
---- a/include/net/inet_frag.h
-+++ b/include/net/inet_frag.h
-@@ -76,6 +76,7 @@ struct frag_v6_compare_key {
-  * @mono_delivery_time: stamp has a mono delivery time (EDT)
-  * @flags: fragment queue flags
-  * @max_size: maximum received fragment size
-+ * @truesize: sum of the truesize of queued fragments
-  * @fqdir: pointer to struct fqdir
-  * @rcu: rcu head for freeing deferall
-  */
-@@ -97,6 +98,7 @@ struct inet_frag_queue {
- 	u8			mono_delivery_time;
- 	__u8			flags;
- 	u16			max_size;
-+	unsigned int		truesize;
- 	struct fqdir		*fqdir;
- 	struct rcu_head		rcu;
- };
-@@ -179,6 +181,13 @@ extern const u8 ip_frag_ecn_table[16];
- #define IPFRAG_OK	0
- #define IPFRAG_DUP	1
- #define IPFRAG_OVERLAP	2
-+#define IPFRAG_TOOBIG	4
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index 9a8902012ae6d..84305ed0dc70e 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -2413,6 +2413,17 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
+ 
+ 	inode = d_inode(dentry);
+ 	dest = BTRFS_I(inode)->root;
 +
-+/* Max sum of the truesize of fragments in a queue. This keeps the sums
-+ * done in inet_frag_reasm_prepare() and inet_frag_reasm_finish() well
-+ * below INT_MAX. Legitimate traffic stays far below this limit.
-+ */
-+#define INET_FRAG_MAX_TRUESIZE	(INT_MAX / 2)
- int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 			   int offset, int end);
- void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index 9586bbbe92f9c..ba1e851257002 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -384,6 +384,9 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- {
- 	struct sk_buff *last = q->fragments_tail;
- 
-+	if (skb->truesize > INET_FRAG_MAX_TRUESIZE - q->truesize)
-+		return IPFRAG_TOOBIG;
++	/*
++	 * A concurrent rename may have changed which subvolume the name
++	 * refers to. Verify that the resolved ID still matches the requested ID.
++	 */
++	if (destroy_v2 && (vol_args2->flags & BTRFS_SUBVOL_SPEC_BY_ID) &&
++	    btrfs_root_id(dest) != vol_args2->subvolid) {
++		ret = -EAGAIN;
++		goto out_dput;
++	}
 +
- 	/* An IP fragment is never a GSO packet, but an untrusted source
- 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
- 	 * that reach the reassembled skb, whose head keeps the first
-@@ -446,6 +449,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 
- 	FRAG_CB(skb)->ip_defrag_offset = offset;
- 
-+	q->truesize += skb->truesize;
- 	return IPFRAG_OK;
- }
- EXPORT_SYMBOL(inet_frag_queue_insert);
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index 43b1265f5ac19..be83c4b74036b 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -268,6 +268,7 @@ static int ip_frag_reinit(struct ipq *qp)
- 	qp->q.rb_fragments = RB_ROOT;
- 	qp->q.fragments_tail = NULL;
- 	qp->q.last_run_head = NULL;
-+	qp->q.truesize = 0;
- 	qp->iif = 0;
- 	qp->ecn = 0;
- 
+ 	if (!capable(CAP_SYS_ADMIN)) {
+ 		/*
+ 		 * Regular user.  Only allow this with a special mount
 -- 
 2.53.0
 
