@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368157;
-	b=NAyDEZsNuy+w25s88E6eQiyoesYEBgN0RDaZyxIeOnuFK2q35+MPxOrDRcYmy+wemiSm
-	 U42z/WUE0LOjAx9B0WUSOcvVZgJTeB86EG+ANIYhyFhdTezK5VA2cWQHQ9ipEtxyql2hm
-	 CRTPgKRNIz5E16verfiu50J/DY3gxe98fHjlUB76JpRaEsRY1zDbtrfd44UesiZ+qbLlq
-	 O79ieSdZMtXsyrxXXLhC98AZ2PBaHXKbWS3aVj9Yqev3Hve/IFKxTELeiNnYQ/+sc/FdK
-	 NQ5H0Rni99FS1omAZ/RjF0rzhqhVHrpMe69Mfgj+8y0u+jY//0kXwSYIG1y2zZ0MVRA==
+	t=1794368196;
+	b=igu+ojnquT8Iy3vYkabJlZ/RGxu2//B6sLkhmbi76w8fhqyTORie40Jh6rf6UitkGDiN
+	 jFiNcy039vFqr3lu5grqafjMBd1yrDREG2DrAWtYwIEv/+T9TvDfitnfIkJMs6hMar2UL
+	 Y2L4Yapq8y1EIIKUJQ2KYJ8x87gdwhXD4WIjbJvbnxiWU4AwDeW0Wx/571tcifRy+8Kw5
+	 Z9TclLoWodoJflnSBcmffjhoneqTyL3IVJNv8AUP7rVkIHOycdyRm+z1nVU1RVT87aDIp
+	 GbBqS2rf97jz/DTT+/jEqgYD38eVpfCmVlXUCy2GcvzDu9TO2NGfukKYo6Mhv872IjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368157;
-	h=DMARC-Filter:DKIM-Signature:From:Content-Type:Cc:Subject:
-	 Mime-Version:X-Mailer:X-Original-From:To:Message-Id:X-Lms-Return-Path:
-	 Date:Content-Transfer-Encoding;
-	bh=kEBFFd8yOCT0rbB3iMwZuBjqlBV1Cjt28vL9qjdrsTE=;
-	b=Qs5vaicu3jIZzDHobsWybTItyZKcM2nPtiMXrvOh0CLTTAREVu346PGcFLG7eAWPqK7g
-	 bd3Hx+kxd1rCxmJMk2hFbFKy2vy2gyPdIPkWk/ab9r6jLM/8o884rWd6gCjBiUoI2OPml
-	 r/vdveZuuHUhL6RHdOkZiBt6lEKN2Y72yA5GkQ31jn9oWJa8eL4rdev+Vud5RX55J2rJv
-	 zGEXlhXnHOfvBbpk698J6cF5eykjCheiKrR3MyygxsHM7pj0wwclvXeoUiZTU44+e3l/H
-	 VJwWQyA7V7wBdKzcolRMI1xeDkpqcF2IRcRhRF50BJS4anNcazAiS85iz7NOlgFPqDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368196;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=+YlCBYU4pgZ/OuDSXNDp8Y5Rr4KMbnziRpXpv25dBYU=;
+	b=yeWPLx7AIMX7U9fILzc/xLmWPEIuGkAlkdeoKCmv8PywI9CcsFH9ClZcd9wqzgtaAmcP
+	 Lx31RgpsuhRKWeC0B8KrEB/9cEQ4aZhjhGP7OpFgEeGHI3z1M2JTHQfXr7iPNVxk1sHNF
+	 Aw2V1YrcXPuyU3af6TI+7MU08SH5mceHyw/BvO5/YEYRNtQyzsiIx9R2R7r4jgXbuECx1
+	 lEXl36mR8fvtJspfeURxM6jRR5L/HuNNygKbNZEDRYWHWPycDXXG6JCX+QfZmgVCmxq2E
+	 kvckMawJBcLogHICljTtbihqIkDPtBamAUuRh7hmIpzaBVvABhYebiHr8W9MMEWepfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=XgbOw9xW;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BClTl1eN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEBD606A33A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:35:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDEBD606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F41606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:36:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=XgbOw9xW
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794368151; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=kEBFFd8yOCT0rbB3iMwZuBjqlBV1Cjt28vL9qjdrsTE=;
- b=XgbOw9xWcHRzNDHTcHV/X01sL1Ra9EVahKncVbg82soOrqxHWifXFfpmC5cnZ+EgduWunp
- 8RPvcSo4cj50JkV2LTg6uJPaZ8ZABjaszpvfDd+QiGRa5M9s9/27YL869h/G4MWacB2nRd
- KpmKN4hDRwYdTD1DXTK0ZjWmmKbV8O42d12PCS+MBK1hpjsy5cFuO1rOSdYcezx/ypocQL
- 5vdfpN4WKcLSZ8j+kxk4iS95lxY3Mu2NUymUrUNjIk5pVlorlFs+W5fcpUkbBfgBk9A1dK
- zJlWpK+849oOU8vhjxtKm6SJ40UxlfPlm7TJwScGhaB3QILsdFVT5aMfkO7I8A==
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>, 
-	<pabeni@redhat.com>, <horms@kernel.org>, <kuniyu@google.com>, 
-	<realwujing@gmail.com>, <stable@vger.kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>
-Subject: [PATCH net] net: netns: fix INT_MAX nsid cleanup
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BClTl1eN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832791F0089F;
+	Wed, 11 Nov 2026 03:36:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794368196;
+	bh=+YlCBYU4pgZ/OuDSXNDp8Y5Rr4KMbnziRpXpv25dBYU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BClTl1eNP3UTcXkoO6qON6bB0EYTMiNP5uuO+OUKiVR4C3kj2qB0uxFcQDHJ6AB32
+	 tSVs6Xxs5x9iV8t2WFTyOwDoKoVePlAZHdB6Ft2yaMWiWPzkxiAzDpBCusJcjTgOgn
+	 zriOA1fgLU1tVzrrSdHn9WcUhHNjIxB7kPM4iFEQxcA9ImWLqwbCIRcYa6erZR4Imx
+	 7sCE1nUwCYRlEEw7fZVGLhKIxPcrnySCXn0AYVWJ26mBaTwcXNw/tatQznvyN4op34
+	 +5NDf3Xal33Nvvzso6QgoRbUuqMavsXFFbK7sExQJiUSpxucJfBXcbsdqELqm4jH8o
+	 nkJptT5lOIUbA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ridham Khurana <khurana.ridham222@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] hwmon: (lm70) Fix rounding of negative temperatures
+Date: Tue, 10 Nov 2026 22:36:34 -0500
+Message-ID: <20261111033619.949527-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061702-failed-5.10-eddb0aaacce4@kernel.org>
+References: <20261107061702-failed-5.10-eddb0aaacce4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,76 +58,65 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-To: <netdev@vger.kernel.org>
-Message-Id: <20261111033525.65828-1-zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26af3e295+5ef86d+vger.kernel.org+zhaogongyi@bytedance.com>
-Date: Wed, 11 Nov 2026 11:35:25 +0800
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-A syzkaller reproducer assigning INT_MAX as a peer nsid triggers an
-idr_get_next() warning during netns cleanup. With panic_on_warn, this
-panics the kernel.
+From: Ridham Khurana <khurana.ridham222@gmail.com>
 
-alloc_netid() also overflows reqid + 1 for this nsid. Use
-idr_alloc_u32() for requested IDs and idr_get_next_ul() for cleanup so
-the cursor can advance past INT_MAX.
+[ Upstream commit eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc ]
 
-QEMU/KVM reproduced the warning without kernel changes or fault
-injection. The same reproducer ran without warnings after this change.
-Kernel selftests were not run.
+temp1_input_show() drops the low bits of the temperature register by
+dividing the raw value (raw / 32 on the LM70). These bits are not part
+of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
+return some of them as 1, and the TMP125 fills them with copies of the
+temperature LSB. Division rounds toward zero, so a negative temperature
+with any of these bits set is reported one LSB too high.
 
-Fixes: 7acee67a6bce ("netns: optimize netns cleaning by batching unhash_nsid calls")
+For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
+driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
+the driver reports as -24750.
+
+Use an arithmetic right shift instead, which drops the low bits and
+rounds down.
+
+Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
+Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
+Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+Link: https://patch.msgid.link/20260924205326.1739229-1-khurana.ridham222@gmail.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: omitted the change to the absent LM70_CHIP_TMP125 case ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/net_namespace.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/hwmon/lm70.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
-index 52c2bd447..9d530ac41 100644
---- a/net/core/net_namespace.c
-+++ b/net/core/net_namespace.c
-@@ -270,14 +270,19 @@ static void ops_undo_single(struct pernet_operations *ops,
- /* should be called with nsid_lock held */
- static int alloc_netid(struct net *net, struct net *peer, int reqid)
- {
--	int min = 0, max = 0;
-+	u32 id;
-+	int ret;
+diff --git a/drivers/hwmon/lm70.c b/drivers/hwmon/lm70.c
+index 6b884ea009877..a9e3b69075d64 100644
+--- a/drivers/hwmon/lm70.c
++++ b/drivers/hwmon/lm70.c
+@@ -90,17 +90,17 @@ static ssize_t temp1_input_show(struct device *dev,
+ 	 */
+ 	switch (p_lm70->chip) {
+ 	case LM70_CHIP_LM70:
+-		val = ((int)raw / 32) * 250;
++		val = ((int)raw >> 5) * 250;
+ 		break;
  
- 	if (reqid >= 0) {
--		min = reqid;
--		max = reqid + 1;
-+		id = reqid;
-+		ret = idr_alloc_u32(&net->netns_ids, peer, &id, id,
-+				    GFP_ATOMIC);
-+		if (ret)
-+			return ret;
-+		return id;
+ 	case LM70_CHIP_TMP121:
+ 	case LM70_CHIP_TMP122:
+ 	case LM70_CHIP_LM74:
+-		val = ((int)raw / 8) * 625 / 10;
++		val = ((int)raw >> 3) * 625 / 10;
+ 		break;
+ 
+ 	case LM70_CHIP_LM71:
+-		val = ((int)raw / 4) * 3125 / 100;
++		val = ((int)raw >> 2) * 3125 / 100;
+ 		break;
  	}
  
--	return idr_alloc(&net->netns_ids, peer, min, max, GFP_ATOMIC);
-+	return idr_alloc(&net->netns_ids, peer, 0, 0, GFP_ATOMIC);
- }
- 
- /* This function is used by idr_for_each(). If net is equal to peer, the
-@@ -639,10 +644,10 @@ static void unhash_nsid(struct net *last)
- 	 * use for_each_net_rcu() or net_rwsem.
- 	 */
- 	for_each_net(tmp) {
--		int id = 0;
-+		unsigned long id = 0;
- 
- 		spin_lock(&tmp->nsid_lock);
--		while ((peer = idr_get_next(&tmp->netns_ids, &id))) {
-+		while ((peer = idr_get_next_ul(&tmp->netns_ids, &id))) {
- 			int curr_id = id;
- 
- 			id++;
-
-base-commit: 070411c1590c8172eb4d86f045d99c372f22fe23
 -- 
-2.39.5 (Apple Git-154)
+2.53.0
+
