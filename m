@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417676;
-	b=HDOCsh/7pMjFfI3XIAn1PpFNiDrf+ymYo3hi+Y2Ch5x9pf7DUNnbQbBKxNTm/sZCBJWH
-	 R0M2r8apUml89tFQHPg9Zd8wIS0IMAlZnBGLwwj8J5HF1UfZ0mCV/8CES7TD9RhIIVP8D
-	 WsX94TBJxCesvpn45J+c9lsEnNES2hn+dkfYEPD659bXqWyb7tUkTM1RzmTR9GZ58LnPF
-	 h3aFnnaZOSO+flPZPshEqMb4C2rInu6UfJgcLfBsnddtO8Cu33OclfgqYkYVyy8/pN94L
-	 egZEtASSldCPAtnqUS0Jyf6xMxuqIvGKDvGYsHrXPA/F3xjRfUVkCuhdRgjg37TRSOg==
+	t=1794417688;
+	b=pV0ZIyqWRX2pyG3+L4By22P4K1Py5lnudz2hfS/2kWkZVBkXEgoJmqPkJ/gZWjbMw3Jm
+	 vTMyZB4NBMPVgAmr6mkhaNnpoLqJe7xMJsF0P2Pq05aHm+w8bAqNQQLvouHZgBpLPWItX
+	 3vp831uAnx1SpXTf2cgsGQB0YijGaTJAqptZURHVXzODa29xemT2/67BgNF7hL2ZZ8x1x
+	 VF4DwJ2vImrpeKiwgEnKRFGmfzRQ9ck4X3q4ed3DnQrvlMMgpuedNGh2ejQybeM2tCMr2
+	 fTGhwzWE+8xe0MGWQkgaXBHP/Z8BW5QhHxIGAszXDNi0KN+2alWLyFq8cda1Ype9Yuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417676;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417688;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AKs9Bq1KjPccAx9nuTC/RQwvD+9uS4xwtSevlDBDrT8=;
-	b=e18P+nAOOMrpytWQt9+c8xJvPvufAw4vbJ2j9IKfudWgI0olPxjAY7MLRcZ1x8ofc6f5
-	 1TsZzXYlzs5oC+ThwajGnzoS1joHweTkNWHAtedyxqd0zwlSlJPK1sBFai2IKX2Z+Vrd0
-	 HePpRZynNHxvbcWlCGxuzlxotYYd7m1/04qgITB0kLUBAlJK4qQbi5y8xPRkeMcn9HnmE
-	 swGZc68BCS4rP1XiKtLsJ8V68caYKTOb1xaY5+4vpSf7Zm21Ca/u7lu8S4m+m8Nme+blJ
-	 mSX9UsiTapLbMTfVW5wrAQ7MyYSlgcszE7xPOoJc+Qkil+chhg22u8pFtWXfVzWyL3w==
+	bh=ENOsAwUgOtjk93lwtX6V7opei7ACxFQvTcMESJMSCZA=;
+	b=h1NXRa0PfW8Gvwjhsb2Dn0zKpOdp9GAE+KkhNSRZOBpAZF5PYMBFlx5x3rrJDnePrfIp
+	 Exjy/pBWAUxpj/LPb6WtevUHDYXZRkqn0yXSRuUnZPhS+Zrk8zP8katX0/JYnFdpOHxws
+	 MAMo1P4BARnde9swH57oOf73YjcpNrIiWyNAyno1bj1TJD3kxVKwFcVq8GN6ccMZcsq4I
+	 O68NDcQxri/Aqv6KGFq1iyUNpkKKnE8A81T0ylNl97oczRFleHnxP3BRvoAm51sLIYBF+
+	 HjGZtVr+G0QReVmCNgjlMtA3w1wEYsGdcmOEznCIJJQg2p/hoiwsChZN25OyWOFsi7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYR6m9Xe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3750Wmm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9A9606A88A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:21:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEB4606A333
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:21:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYR6m9Xe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F4D1F00A0E;
-	Wed, 11 Nov 2026 17:21:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3750Wmm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25B351F00A05;
+	Wed, 11 Nov 2026 17:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417675;
-	bh=AKs9Bq1KjPccAx9nuTC/RQwvD+9uS4xwtSevlDBDrT8=;
+	s=k20260515; t=1794417687;
+	bh=ENOsAwUgOtjk93lwtX6V7opei7ACxFQvTcMESJMSCZA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dYR6m9XeFSbSBZz1BOEFLjSLjYYtVnXgQPQcnlexVwTqsc6pvE6Kju2f+CNBAdk81
-	 Np5bIc7rEtV/lhgwUl31ppiO76IZL3c6Ayagfd2WMzttgXkgTcE5qMCk24tl1Vf9jc
-	 bJP5z2+p1laAiS7mYK/UaCUZrvAoOVCdNaHGXvxqR6AGEMaj9YV3kPfH6ekIgaEcW6
-	 PmXPJjhl+7Lu3DCU/1Pt/nNi3qpB8uBy68Gn6EnivVvJCSeoUbK4WC6W9Ff8kHFsj8
-	 8lE5i3UHHKP0gNsG7x3u8Ps3SFqyEfiv0xl+zxWNn7nkm84iZhIVpiy4MzY4o/fwV6
-	 2A5B/Zkws6V9A==
+	b=Y3750Wmm37UEI3MZ/XtntU57xAiuDWB6n8nb8/q5pCQc9wdcda+lL2ulg3WiNYQI5
+	 ygkozT6vqggZ5tqnz2en9iyqHdFdCYRyLPQkHW+JDayqXl9VVbZYsGoeyr36Vci7Qz
+	 cPbnFGIXJkJ4fBGKRpJ/Wd2fIWMdufplhuYZWRW/5jCcduR9G1fp1LMWUWbfZtyuda
+	 Og5oCLb7LEPpksPhkScKHgKfZzvMOACA9xlYTheEuSAy1fhLrJrItscusue5pk6uXn
+	 4kCTv7oQapXQfxE3xwTbcKri7PS4czc2zlEKDBMyxSELuizkIQGK5uiulwoyZgE+Xm
+	 2orKUQjXbJV8A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Carlier <devnexen@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Xu Xin <xu.xin@linux.dev>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] media: ipu6: Fix firmware config leak on stream start
-Date: Wed, 11 Nov 2026 12:21:13 -0500
-Message-ID: <20261111172105.3535158-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/madvise: fix data loss from MADV_FREE on a KSM page
+Date: Wed, 11 Nov 2026 12:21:25 -0500
+Message-ID: <20261111172054.3555823-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111172105.3535158-1-sashal@kernel.org>
-References: <20261107050352-failed-7.3-d3d9bc694fe0@kernel.org>
- <20261111172105.3535158-1-sashal@kernel.org>
+In-Reply-To: <20261109201844-failed-6.1-22d043c1da48@kernel.org>
+References: <20261109201844-failed-6.1-22d043c1da48@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,112 +64,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Carlier <devnexen@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit d3d9bc694fe087c672c3ad5871984dc45cd9f425 ]
+[ Upstream commit 22d043c1da48d6c7274f9dd900714b6d58b7b9c6 ]
 
-ipu6_isys_fwcom_cfg_init() runs on every first stream start and allocates
-the firmware config and queue configs with devm, so each STREAMON/STREAMOFF
-cycle leaks them. They are only needed until ipu6_fw_com_prepare() has
-copied them, so free them right after. Also check the return value, an
-allocation failure would otherwise make ipu6_fw_com_prepare() dereference
-a NULL queue config.
+MADV_FREE can clear the dirty flag of a singly mapped KSM folio. The
+folio remains in the stable tree and can gain new mappings without being
+dirtied again. Once marked lazyfree, reclaim can discard data that those
+mappings still need.
 
-Fixes: f625e8d7ffc1 ("media: intel/ipu6: input system ABI between firmware and driver")
+KSM always marks a folio dirty when converting it to a KSM folio in
+try_to_merge_one_page(). Marking a folio lazyfree clears PG_swapbacked
+but leaves PG_dirty unchanged. Preserving PG_dirty makes reclaim restore
+PG_swapbacked instead of discarding the folio. This also protects folios
+that were already lazyfree when KSM converted them.
+
+Skip KSM folios before clearing their dirty flag, checking under the
+folio lock to serialize with KSM conversion.
+
+Fixes: 854e9ed09ded ("mm: support madvise(MADV_FREE)")
 Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Xu Xin <xu.xin@linux.dev>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-34-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adjusted context to match the existing shared-folio dirty-flag comment ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 34 +++++++++++++++------
- 1 file changed, 24 insertions(+), 10 deletions(-)
+ mm/madvise.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-index a65e9f1aa1042..9f5bd9c4ddf91 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-@@ -218,7 +218,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	unsigned int max_send_queues, max_sram_blocks, max_devq_size;
- 	struct ipu6_fw_syscom_queue_config *input_queue_cfg;
- 	struct ipu6_fw_syscom_queue_config *output_queue_cfg;
--	struct device *dev = &isys->adev->auxdev.dev;
- 	int type_proxy = IPU6_FW_ISYS_QUEUE_TYPE_PROXY;
- 	int type_dev = IPU6_FW_ISYS_QUEUE_TYPE_DEV;
- 	int type_msg = IPU6_FW_ISYS_QUEUE_TYPE_MSG;
-@@ -228,7 +227,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	struct ipu6_fw_isys_fw_config *isys_fw_cfg;
- 	u32 num_in_message_queues;
- 	unsigned int max_streams;
--	unsigned int size;
- 	unsigned int i;
- 
- 	max_streams = isys->pdata->ipdata->max_streams;
-@@ -236,7 +234,7 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	max_sram_blocks = isys->pdata->ipdata->max_sram_blocks;
- 	max_devq_size = isys->pdata->ipdata->max_devq_size;
- 	num_in_message_queues = clamp(num_streams, 1U, max_streams);
--	isys_fw_cfg = devm_kzalloc(dev, sizeof(*isys_fw_cfg), GFP_KERNEL);
-+	isys_fw_cfg = kzalloc_obj(*isys_fw_cfg);
- 	if (!isys_fw_cfg)
- 		return -ENOMEM;
- 
-@@ -248,15 +246,14 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	isys_fw_cfg->num_recv_queues[type_dev] = 0;
- 	isys_fw_cfg->num_recv_queues[type_msg] = 1;
- 
--	size = sizeof(*input_queue_cfg) * max_send_queues;
--	input_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
-+	input_queue_cfg = kzalloc_objs(*input_queue_cfg, max_send_queues);
- 	if (!input_queue_cfg)
--		return -ENOMEM;
-+		goto err_free_fw_cfg;
- 
--	size = sizeof(*output_queue_cfg) * IPU6_N_MAX_RECV_QUEUES;
--	output_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
-+	output_queue_cfg = kzalloc_objs(*output_queue_cfg,
-+					IPU6_N_MAX_RECV_QUEUES);
- 	if (!output_queue_cfg)
--		return -ENOMEM;
-+		goto err_free_input_queue_cfg;
- 
- 	fwcom_cfg->input = input_queue_cfg;
- 	fwcom_cfg->output = output_queue_cfg;
-@@ -321,6 +318,20 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	fwcom_cfg->specific_size = sizeof(*isys_fw_cfg);
- 
- 	return 0;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index b271cc1b48edb..4f70ca597a878 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -678,6 +678,15 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+ 		if (folio_test_swapcache(folio) || folio_test_dirty(folio)) {
+ 			if (!folio_trylock(folio))
+ 				continue;
++			/*
++			 * KSM folios can gain new mappings at any time, so we must
++			 * not clear their dirty flag.
++			 */
++			if (folio_test_ksm(folio)) {
++				folio_unlock(folio);
++				continue;
++			}
 +
-+err_free_input_queue_cfg:
-+	kfree(input_queue_cfg);
-+err_free_fw_cfg:
-+	kfree(isys_fw_cfg);
-+
-+	return -ENOMEM;
-+}
-+
-+static void ipu6_isys_fwcom_cfg_free(struct ipu6_fw_com_cfg *fwcom_cfg)
-+{
-+	kfree(fwcom_cfg->specific_addr);
-+	kfree(fwcom_cfg->output);
-+	kfree(fwcom_cfg->input);
- }
- 
- int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
-@@ -334,10 +345,13 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- 	};
- 	int ret;
- 
--	ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
-+	ret = ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
-+	if (ret)
-+		return ret;
- 
- 	isys->fwctx = ipu6_fw_com_prepare(&fwcom_cfg, isys->adev,
- 					  isys->pdata->base);
-+	ipu6_isys_fwcom_cfg_free(&fwcom_cfg);
- 	if (!isys->fwctx) {
- 		dev_err(dev, "isys fw com prepare failed\n");
- 		return -EIO;
+ 			/*
+ 			 * If folio is shared with others, we mustn't clear
+ 			 * the folio's dirty flag.
 -- 
 2.53.0
 
