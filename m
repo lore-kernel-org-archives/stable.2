@@ -1,63 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794410029;
-	b=hzR4lRP5y3Yk/dI6py6k4Lra2E5Z8aq1R5ixm36J1ga/7v/iM6fXHpBPEfscYV1mNtc1
-	 9njGrs8ujDiEmP9Bn1Xk5UzeANiGLaSuw8J3pl+CGdP6rkf7SWOrpsnXUvl3FdU8rCZVb
-	 w2PYcxKVt9JoSEhMB+kUHsq79MoYKp2egQ36nY5XefL/rN8DXl6BzVPOEPmwdT0aVOlMk
-	 jHGjiPjPpQ3dOwYi0A024q0obMy7PlHgyGtDGsKdHh6lYWWp1sgAKK0vSce3QhMSqalAs
-	 ris7WQGWthtJnZHnlbBr6ZMQeJI0tckCG7h5oPbkOXFFCdWdvI2xcVwsZT/ejmlCdig==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410029;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6qJwxRU63re4ZfoPGRp4wvYjHv1QncT8JH8MGj94LOA=;
-	b=YqP/EVQVp+pyBEoNtlOUDRWBOChUdFVhFhjWLydl+xY6h/IrBjSLAm9H2xpwqkn6RQmi
-	 Iz9YhuWAt+Zx386kfRsvkd/hWEnoTLDVKTzQhyW3EsuvpFdi9cBNbERtIFlAsJCcgG3o4
-	 z4k7YFBBzaOLWRZsg0i/G297G85FyFGUE75TT7YuEcJsLG2lExy5JwOGJ0F8rT7hMsgo1
-	 Ju5ZjjDaVS7/H3ruExeunbkwoZDe7P+pGNZWQ7CDzXqRn9MDFX7h6k4exBWwpOLUggmyM
-	 umEp6i18HYO5r8FhD3RjhY0ItQpyJcaNAFRY7iVRes1Qv/H8LBh39LDMvD29so7RviQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHXWEZcQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794410153;
+	b=b/lvPxuPmOnh1OdGawXsuZccjvVoMEe9TgYJGLR+8kbXfWJe+kPTet4zAohfD14ioeW8
+	 /+pMTrqY2mW9KwRbd/bCpbpCXBK0jLkUdZ2DwaHG2JDRsxk/JpzSsmMNZ2HTKzFeTNILB
+	 WajTXEOM3AzfxbWehlIrA9StZDvE4EJSDBopcWOBkGbemyn3tuZ5g2swvtNmg4GFIhrHX
+	 rRsooMqMRkB5abx/hEUI2lSvKYmlo4tU7nIx2SoH5AmoZ3VsfZGzn1swdPHMTPsmyPNa4
+	 r4aDLx9T2AKcxelgTm/EZ7hwFlpByKxo8CGtOj53qkJyFtLXd2j2hNBmg4TGpfvBsWg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410153;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=12qva3kO9NMXV3ZjsX8ymdd40I9ua49Cy0e6eRmwhRg=;
+	b=3jE6QoRAHL1UIkbEu5hxgo8hCr+Na+asv+Li0TUZ5+2yboAKhutBaq0GQOPCrlw8QDPZ
+	 qJtzuiJIUqsI+FnX9g6gT1GkOG+u66+W9daunYhFXrMXdjY7o2oAtkqE9eItuZ/PUmX80
+	 Zzp8i1VjftqYjStq0eU4d26GjiIHeVkxEqQVfn4r/BTQb1/ETiXkH/BE4DZb0HniHG1ap
+	 q86XIcEv7PGEmWAFm8hjK6rTcaLjPTqeqrUlzJ9CRSZpprS0lEuoBQe2zlW/CpY4yZThu
+	 SQGP5ap1EuxGXdHHHKUfkneYia2yLoFnL6FOKE6SzMGQkvQaqO0UObJcKnRyEp2UkPQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MqTZa1Co;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.51
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FCD606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67642606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:15:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67642606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHXWEZcQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72981F00A05;
-	Wed, 11 Nov 2026 15:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794410029;
-	bh=6qJwxRU63re4ZfoPGRp4wvYjHv1QncT8JH8MGj94LOA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FHXWEZcQj8Fe4yLaOBml5Ta1W1MhkpuSotA5J0U3ZO4h0cf8tQbWhAttyrnXZmLD7
-	 6aVXmIVW3umYk8IE0W70PnZDki5ua83lLFVBstY5hx8ITdWljyy6uDRGcgLIW0a4w1
-	 Ln9pzV0SAAEgrVPcS/ocrY2igsAfLS1T0KNkEif38cwGOnTRh1kCwbMlJFonPJZsG2
-	 5nfHBHu6wkj95JySrhiCInocp/RLFY4Qbypff/mAVsOFIcnQuchGdBnQuZZ0PW6H//
-	 6wyLVVjkJ47ZkA1x62+nPJhjZxsCY0hrexkB/PxSAlwaFOAMx6mP5oaQ7OdTSY/SGQ
-	 2bLANBHlAOp9g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Rik van Riel <riel@surriel.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/page_vma_mapped: continue past nonmatching huge PMDs
-Date: Wed, 11 Nov 2026 10:13:46 -0500
-Message-ID: <20261111151326.2627805-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053904-failed-6.6-1a2993227e8a@kernel.org>
-References: <20261107053904-failed-6.6-1a2993227e8a@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MqTZa1Co
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6d290b10a35so1329511eaf.2
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:15:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794410152; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TRvYdAD2egypNPUA7zcR1fofM4Vlhw2ULwGqFQyLEMeNjLSDP8nNWVGMcolpmt/dX0
+         IFK70dyJ1ZwK8Q5jw+YkUUwcswBfoMCaSEyDBiO2jEu8Jnt9qzv8kRHzYi/b7uMp+EbQ
+         GhlfXkf6s8NcLPiHEGCuxYkcTQhuZA/rf/WvQwef+UJiC4gneDZt8+mKVGlJ7/lKcmOr
+         eBGD1q9RVLli3xmunHJzhPckSr3RArpGSlArv3ifwxN+V4nCQxgUPwFlwMBxs6NjYFV5
+         W5v1pjakRLIjtvmovpk8LyX4drnP7mF1cA0+NCuE5fZIGNPxqNuL46zwqker5dPHCUgD
+         jy+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=12qva3kO9NMXV3ZjsX8ymdd40I9ua49Cy0e6eRmwhRg=;
+        fh=Qn1nBKhrkgufsknsxmBVzBTckyfaTl0APy7EOy9Eofg=;
+        b=JvDtfQNXGO8PT9ap2C8FmWyrR/N9c2LMrMmLa8LiG6uU1g4U1r6loKo8lj23Mrj/i0
+         r17PMG8oqmnZn5VGOGExvfdoeQobDPv3bWldugGIL78ciacAu2lS8TkxDrjrsfFxPqTV
+         WN04zsEOP0X4uuxeI/BCUe20kByNT8V99Ryue0HZdnjhobPFhSmQbNLbs34FDWfe0VHr
+         RjioeqMvKrBgm/Bz/fH4Ho8Bu9F4XKNCQeLXqCe73m/vqn9un+9H6hGAShIMmlyuWGwY
+         sSmmavCnkEq/iZtiQ+tsKRNiGewVExJnnxERX3N2T9Cwu8tr/wV5s8pg6Dmwr0fxfNju
+         jITQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794410152; x=1795014952; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=12qva3kO9NMXV3ZjsX8ymdd40I9ua49Cy0e6eRmwhRg=;
+        b=MqTZa1CoC8/Oi9lstEeTqcF692a0bT+fIapN4rv19/TQHhwrz1q0ulMKA2wMWg1mXI
+         jm1bE17u6V/U05pmSrgpCLVMzWh1S8l/fk1Lmy0znbgHyB3Wq7Ya4GFh6F1uN1JlYp2U
+         aFzFej0+eeLFPwQBJjbJITFPErKDXki5IkFPhMyRvEengDJJwyPy2WvhB72tqnL9Gn5w
+         1XTOaHkElyQKa20nHI7EoxL+BApLl8G+POluGQBHx53OLEzZjGpcDT2UBko4iIUaiFSs
+         nsoNjOMiRC5y+tmBHF4KmEc47foCT8XCWHJ6+U4peSj5GKGk8iNub6GtTUNX3F/Cydq+
+         jHJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794410152; x=1795014952;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=12qva3kO9NMXV3ZjsX8ymdd40I9ua49Cy0e6eRmwhRg=;
+        b=UkcEutqJu/07FfRWAQHqfYTHiXBl6ll2WorJCzs9aKK+cVS9H7FbVF+s8tnICHKBHZ
+         Z7KKkDzJY3X+xfNZ5g7W9iH4ROiMr7HXczbqBxJ2WXJ0MN4PpTUMRIfq8jIgeB/VGmbU
+         GYK+ad9hCgMgohnGw3B++DgnPly+CiW+tlsq9uysLP2tlOCW2ToHNQYQ9yblE5VV2S7K
+         z8cdDIazewI20IXFEDan8pNnwwuVGC6KaNkY9gE4AvvHF2c4pt9UPtuH0S1UCO+MCLWL
+         gIluYO5IG+4/RJdTFRrsy6btqWQUQbwEhWo6luK7Coudi78Zp48/PKICZ0Qe96nNAQ12
+         1SOg==
+X-Forwarded-Encrypted: i=1; AL+hErF5j1FcR84OQOTPEpbos3y3YZItClSU/fbWPtZJ/DnccR+Y+XiYVjjDefeUBvC9n484DCfvDHc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OswVn12l2Y1NCtZpTXK0ndaelvfZSlJcarVdysG1v9iuRLvTf
+	BOpCfPww3byJREpiwBqqm38sWspw9HKW39DADA+HSaZA9V0cHmc35VFZms7/Y9dp0MiG0pw0rSI
+	+L91a6GC8/Nh0+rmoHN1kt1acbidkHCdxEgJ84a04
+X-Gm-Gg: AYBFou0OH8ZUPgJH20ltYfQzz1GHsGtDkuD+YGYBO1Cv2J7nVPWbUSyM8JsvzQ5awt8
+	oeGgs/EuLEt3ZUFFve+w5Mcq/ZojahxCQD7sj9EpnmS/IAMupxBXndJv7hgD24pEovhsa1Sag+2
+	dVayfXVOo0hW1tK2VRmAvcTr7vWiOhax7zR5ry6IbQ6zHrROJS6tgbU8izOp4W0TujYJEd9eMWF
+	s+T0rOGUoGaXROSGx1uFNcRE8n09xq6gz+lJMwESJG6BnkGDI8RpKHx7P9kdTF6zyrGwfS9auaB
+	777LUIJ32OUpqab1MC3sx2qoSNrS5ot8knDBCN/W7PA6ah7eRMQnxHCCSrEg44MFx+hWlza1DSj
+	5la//HJgzxCXdD16ETAmmtMq+zBDQ80dvLwwNAPUE3JuvfO4BGCUW1oIXOm+Q6xTbVDnl1aOa1H
+	AA3lJOjw==
+X-Received: by 2002:a05:6820:1341:b0:6dd:1d43:8cd0 with SMTP id
+ 006d021491bc7-719179ad6dfmr1495859eaf.80.1794410151612; Wed, 11 Nov 2026
+ 07:15:51 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,107 +104,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111092505.3121847-1-lee@jaeyeong.cc>
+In-Reply-To: <20261111092505.3121847-1-lee@jaeyeong.cc>
+From: Jacob Moroni <jmoroni@google.com>
+Date: Wed, 11 Nov 2026 10:15:40 -0500
+X-Gm-Features: AclHuK98LgEQHpnp7gUNAvVHjaxsZ5PsQKymcaEXqojXPpEtvDXgfkwqN8-1VGc
+Message-ID: <CAHYDg1SDOd_0ukm=7AX029Cr7Oc1UKoSpmd=iBz55C3DFzv_hA@mail.gmail.com>
+Subject: Re: [PATCH] RDMA/irdma: publish APBVT entries after hardware setup
+To: Jaeyeong Lee <lee@jaeyeong.cc>
+Cc: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, linux-rdma@vger.kernel.org, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Shiraz Saleem <shiraz.saleem@intel.com>, 
+	Mustafa Ismail <mustafa.ismail@intel.com>, "Gustavo A . R . Silva" <gustavoars@kernel.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Kyle Zeng <kylebot@openai.com>
+Thanks. Looks good.
 
-[ Upstream commit 1a2993227e8a27fc4cdea305bbdae82d290bc885 ]
+> +       entry = kzalloc_obj(*entry, GFP_KERNEL);
+> +       if (!entry)
+> +               goto out;
 
-A PTE-mapped large folio can straddle PMD boundaries after an unaligned
-mremap().  If the first part is discarded and replaced with an unrelated
-huge PMD, page_vma_mapped_walk() stops instead of looking for the rest of
-the folio in subsequent PMDs.
+I think the GFP_KERNEL argument can be omitted here.
 
-This also affects migration entries.  A walk that stops at an unrelated
-huge PMD can leave migration PTEs behind when migration or an anonymous
-folio split restores the mappings.  Those entries do not hold mapping
-references and can outlive the source folio.
-
-This issue can lead to memory corruption and I have a reproducer for
-it.
-
-Skip the current PMD rather than ending the walk on a flag or PFN
-mismatch.  Do the same if the PMD became nonpresent before the locked
-recheck.  Release the PMD lock, clear the per-PMD state and advance with
-step_forward(), so the existing range limit controls termination.  This
-covers present, migration and device-private huge PMDs while preserving
-the matching-PMD and split-to-PTE paths.
-
-Link: https://lore.kernel.org/20261016011549.61146-1-kylebot@openai.com
-Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: <stable@vger.kernel.org>
-[ sashal: adapted PMD checks to the existing swap-entry-based migration handling ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/page_vma_mapped.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
-
-diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-index c7e8ccd1aa06f..70769e270c04d 100644
---- a/mm/page_vma_mapped.c
-+++ b/mm/page_vma_mapped.c
-@@ -254,18 +254,18 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 
- 				if (!thp_migration_supported() ||
- 				    !(pvmw->flags & PVMW_MIGRATION))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				entry = pmd_to_swp_entry(pmde);
- 				if (!is_migration_entry(entry) ||
- 				    !check_pmd(swp_offset_pfn(entry), pvmw))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				return true;
- 			}
- 			if (likely(pmd_trans_huge(pmde) || pmd_devmap(pmde))) {
- 				if (pvmw->flags & PVMW_MIGRATION)
--					return not_found(pvmw);
-+					goto next_pmd;
- 				if (!check_pmd(pmd_pfn(pmde), pvmw))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				return true;
- 			}
- 			/* THP pmd was split under us: handle on pte level */
-@@ -284,8 +284,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 
- 				spin_unlock(ptl);
- 			}
--			step_forward(pvmw, PMD_SIZE);
--			continue;
-+			goto next_pmd;
- 		}
- 		if (!map_pte(pvmw, &ptl)) {
- 			if (!pvmw->pte)
-@@ -318,6 +317,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 			spin_lock(pvmw->ptl);
- 		}
- 		goto this_pte;
-+next_pmd:
-+		/*
-+		 * A large folio can be PTE-mapped across PMDs, so a
-+		 * nonmatching PMD does not end the walk.
-+		 */
-+		if (pvmw->ptl) {
-+			spin_unlock(pvmw->ptl);
-+			pvmw->ptl = NULL;
-+		}
-+		pvmw->pmd = NULL;
-+		step_forward(pvmw, PMD_SIZE);
- 	} while (pvmw->address < end);
- 
- 	return false;
--- 
-2.53.0
-
+Reviewed-by: Jacob Moroni <jmoroni@google.com>
