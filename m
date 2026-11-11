@@ -1,56 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419879;
-	b=Lg1wEfZAR8b0ChmRbS+k3JiFPvES2WlMcAWyMkYz+m4I9MDSBz6etlY4jWr2fMEUzFH2
-	 45VXeWRyH5PZtgUvdrzcyPqUhyn3okG76A/QwQ/270alHWb9x2iZgn7/4V31nnZJU00oP
-	 FtNxVxkYM+m/i/GlJcfxKeJw1eURmtOzMuSy8NR0W0dc0BlgJBdMCbBYfcc8EVSCVWSsX
-	 unHXx4jrb3++WdPpqB29cW2mDU8DHR1hprSasl5ZdArTjEq4yG4nHaDyIc+Rv2XJkF2PK
-	 cK3Jhb5z3VC7MKcfh9VT904peU6lb6VwSPQU3PVJkjXQhstEoCDyDS6slo3nrgISxgQ==
+	t=1794419915;
+	b=XgMDnSlFOAqa+xHD6QTnPn76fN9Ne4UuyPg7HZP1ilBr9GMwpV2rAIt5G/Nc3TosFR2i
+	 6eFuzv2DQvzU28Fs9Ug12JPRJ+86fXtp9Wbn+WTKFIKIfo1MQxnsv4xfOhVllxJYetEEI
+	 TCHnSOk8j7vX6MeLeTgNuvYPR3AyM5MqG67EcaJUdroMepax3odXyZsmMTViF5Y2/IQSq
+	 PmErDUv14PJMN590gmFXSeOv8Nt4k+rQ38UUYeMlz8rKZ+MD5V77DicfdHuub4YYEwVGX
+	 SsPwHOVVNW95N6CWB5nbV+n+x3cbW7UOuCjBYeypGHuZ3522hLGB/D23Q3IX8RHw/sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419879;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SiFG6pSRXdcbsZBtAKrMVKtxtU4JX4oJC56har4e01M=;
-	b=R6banAxCsBcEfDg4SpnIoEZOfHJTcxJaHKuRnuXCD6Vj6TIJfBt+nJgRC4ccbm+0OOoz
-	 zoSoiw3KTCpD3YANED4XBCLxdQjuQOPCOPTCT45oVid94HidPBrPPzUTzMYMJhLti74c7
-	 kfKXyQ2r4cAABNEwWHxE3QgwDqVlett5mHy1hKebTB/20eRJLTwdTqTeSU6jQ9ztJJ8e6
-	 0DWv0GiNwYF1iqAWRdc1cnzc2XosJjsBDTu8qXq3XXPkcxpbqmzMgYgU5N+XHmXlKc/tr
-	 odP/r8WSJ7INU9NxYey380qrNYq1P8xIHzy3GNeabUMgdp2qxDz3cDLrZqHLWf9YAGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419915;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0AT16HpCenv9V5s/DWiwuIRpV3ZuP5YVzN8/m3WI64E=;
+	b=0KT9N5P1jwanuI7V8hCplWao0fYK/Eo7gnyCcOv+psTagK/FeJNFxFhTm4PaUGj88BOO
+	 2zUjz0qpHp/TQhsxf/WpdFiYLNA4mIu3xXG/a1WZJ2xSwkfkgUALxOUs4i5ac3SUPlB1X
+	 1PSO6zEJPI3VIV+BjpjspuDW2tx7V/zQZWUtc9NVJF875iauHlD0N+A5cP1eqm95idSDI
+	 lO/c6KjPCB6EF5CqGcPuTN+8O2crfd84PjJ/bYNEAWkpbwKvo4BdU+iQYk+Z+g2/3cG2X
+	 UXfb1OB5wAZit6oi4oPQzINrehwYW+STNih2BdZeGpeuiFuHR0Y+xcOveNFsU8W7BCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jz9CxTiY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rfQBMvwJ;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB9A60A6F4C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:57:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02233606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:58:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02233606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jz9CxTiY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39AD11F00A07;
-	Wed, 11 Nov 2026 17:57:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419879;
-	bh=SiFG6pSRXdcbsZBtAKrMVKtxtU4JX4oJC56har4e01M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jz9CxTiY424oVdvSZvUsmKd0x/0pPclnAoGJ6w7E3KAZ20j/EjmaVriSugjKYWoo7
-	 c6B9YiEBR4bE1Rd2yqYUv6/MBHPAKQDTs8Tj/YGzfGVNvdtwZvRb6m0mG3xp9NSgx1
-	 5+GRNcLYfL64jHNzPbXYMgUjJNtq1P91RjPPDhMLXQR78KMOx6tZayaM7bty0BoGGV
-	 90GcV7MVqjrtPpBbzanIH65ld6xMOXsJkozJ3jxRGIVM8gLOSE0NJuusokEGQBwPTt
-	 yrCK0+dt91oRKOtcS0ST8x6oWuPWBPKp7VDL5/o7Gg8VwrWP+40j9CeT5gjI0Lxpj+
-	 +vQcwB9+PA5Eg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rfQBMvwJ
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4682977f9aso440760766b.1
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:58:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794419913; x=1795024713; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0AT16HpCenv9V5s/DWiwuIRpV3ZuP5YVzN8/m3WI64E=;
+        b=rfQBMvwJG1+xG12ND5VK0UmgIJJGBdrsl9M1zEO4iXIg3lgEb4sS7hwJRCIhXOfNI2
+         diaVyPvG6QcwHM+VJ+GMCytpYu5ufzERoijcfV6BmmxWkgbJ50Od7jyhgWHQMtO9hWff
+         HeB0Q6MCD5CwHmoWn4+Es60Zlajzk03pfXFt7gbj0rR6vtS5i2E51OzNLIweTojBGvVo
+         Ke9ojgJ412bdegUfIHc3rDhvfsrP04pIq4vei2QCKrM+leVl6cFIXYCEpVgIs2IYR/Uz
+         dwC6h4XCjY7XS1OdQT2V6SkN9DJdNSzBPh4m9MqU8C5C7n+AgUQZrI1BTmEcG1wjsY0R
+         DVdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794419913; x=1795024713;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0AT16HpCenv9V5s/DWiwuIRpV3ZuP5YVzN8/m3WI64E=;
+        b=ZqTbE6f0Xv9mN0lzbQvpI40PoXbvK0KOtMIjo+N/OUFSRYdmbxzHbt8rPYsAIIaigz
+         s3vmt3HUZl5bJRE2meW0UkPqmYkD58qBY6BilIdB5BV8cXhNXFiaMUYdro343QY3BC66
+         3Ld2vqYM2vsGwHzIH3TUPdxY48frdSGQKvdkxBTOgujyvZd4haBMcqJzfMhKnv7EcC8l
+         n0Mxh22sjpgPlACiaScLTshXGexaxgNYme7VxKG74RQhpQw1FGRfQj0YXl2Gzay98Etr
+         8jasl5FGkmBRvErSTeEdoPlI3RR3OpCezZS8LW5vTDYG1Zm0nuf/QBVtVWKuBAk38lK5
+         p55Q==
+X-Gm-Message-State: APuU4Z9WA49wp2Oib9dAx5eopbdgdW2f2cfEBrNQpSyWjEYRG+IwU6e2
+	pkK70SgNicBsKB6PFQv7YQ0hiceehi/7j0ibPRopuQympEx9fE5cP19+i0kbJQUXXeg=
+X-Gm-Gg: AYBFou0/pwcRmiH6Ay8pJmUDNMXTg0N/i9j4IYdZwU1AAbDcPHDepqAWpnA5lfvwlQu
+	dPQ5F61gLs6gB1+UA0DZtFhEUsY/xe1NL4vo90oLVNAE0JvHSd7VCf1nbtbDX4/o6OKtQQ/ZrIY
+	W+gyFJKt6cf+7CONJyBOEX1wRsdu0E2/gdRxsbgO6fO8Delg+vSGPhGlnfdKBvsl0qwV7gTdLOe
+	3iLdNQF1Q2KlpiqUoOr+igo0lmY+WiYO7wok8MLub56ejSw0wvWoiAhGfNqKEQ92m5Qo9bo1s1b
+	QcNXJt5TgRSwB95wtJLYYuQB+6c72vfTe5mhKU2u0H5lxfaWUDHMVVx7xweTnuujKcG73gqB1jO
+	DExOHAgGK1DZkgVjSZY9ZmlB869/8CUtTMUthVeCkRub+TEWrdPr2c3eFCCjngvM5x0pWlTOO4F
+	0TGfkY3BZja3Se5pZl+wM9IwYj+dcMOg0AdPPGKtyjpFClQ5T0Bv4A8vrfeqsZwMbEW7Y6Sugz0
+	UZYhWRQBtqcnd5Qj6VVSeu9teF6QFHKc2lYeKv0aA0Rrjv+fCMYGJl/LaEJX4XjKRDWJ17ZuvQ7
+	RnrLmm4x7RDxBKa2+qfSfPUU228wq13ROyWv34AZ9LnCApvj/NIXLPys0cmBjTN0Ipbj3pk=
+X-Received: by 2002:a17:907:9447:b0:c3f:dce3:20d5 with SMTP id a640c23a62f3a-c5066b155f9mr269975066b.22.1794419913013;
+        Wed, 11 Nov 2026 09:58:33 -0800 (PST)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a591485sm255131266b.32.2026.11.11.09.58.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 09:58:32 -0800 (PST)
+From: Magnus Lindholm <linmag7@gmail.com>
 To: stable@vger.kernel.org
 Cc: Magnus Lindholm <linmag7@gmail.com>,
-	Matt Turner <mattst88@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] alpha: do not skip TLB shootdown IPIs for kthread-borrowed mms
-Date: Wed, 11 Nov 2026 12:57:54 -0500
-Message-ID: <20261111175746.3724675-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111175746.3724675-1-sashal@kernel.org>
-References: <20261107060811-failed-5.15-fe221b7b2d3e@kernel.org>
- <20261111175746.3724675-1-sashal@kernel.org>
+	Matt Turner <mattst88@gmail.com>
+Subject: [PATCH 6.1.y] alpha: do not skip TLB shootdown IPIs for kthread-borrowed mms
+Date: Wed, 11 Nov 2026 18:58:09 +0100
+Message-ID: <20261111175819.1156018-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107055102-failed-6.1-fe221b7b2d3e@kernel.org>
+References: <20261107055102-failed-6.1-fe221b7b2d3e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,9 +98,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Magnus Lindholm <linmag7@gmail.com>
-
 [ Upstream commit fe221b7b2d3ecd042dd391f74ff6a6fdeb7c2038 ]
+
+Keep the older 6.1.y callback argument cast.  The Alpha migration
+callback is present here, so that hunk is retained.  The prerequisite
+which stops clearing remote MMU contexts is already in the 6.1.y base;
+the remaining stale-TLB prerequisites are in the current stable queue.
 
 flush_tlb_mm(), flush_tlb_page() and flush_icache_user_page() skip the
 shootdown IPI when mm_users <= 1, on the assumption that no other CPU can
@@ -144,7 +183,8 @@ Reviewed-by: Matt Turner <mattst88@gmail.com>
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 Link: https://lore.kernel.org/r/20261010144621.974850-3-linmag7@gmail.com
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+(cherry picked from commit fe221b7b2d3ecd042dd391f74ff6a6fdeb7c2038)
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
  arch/alpha/include/asm/mmu_context.h |  7 +++-
  arch/alpha/kernel/smp.c              | 52 ++++++++++++++--------------
@@ -153,10 +193,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  4 files changed, 36 insertions(+), 29 deletions(-)
 
 diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
-index 7aeee0846dc9d..42c9ab7624224 100644
+index 14f85e7e8838..723dc3821c42 100644
 --- a/arch/alpha/include/asm/mmu_context.h
 +++ b/arch/alpha/include/asm/mmu_context.h
-@@ -149,7 +149,12 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+@@ -160,7 +160,12 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
  	mmc = next_mm->context[cpu];
  	if ((mmc ^ asn) & ~HARDWARE_ASN_MASK) {
  		mmc = __get_new_mm_context(next_mm, cpu);
@@ -171,13 +211,13 @@ index 7aeee0846dc9d..42c9ab7624224 100644
  #ifdef CONFIG_SMP
  	/* A deferred shootdown can also invalidate a newly allocated ASN. */
 diff --git a/arch/alpha/kernel/smp.c b/arch/alpha/kernel/smp.c
-index 8fa4345306a53..f5f34eaf92bb4 100644
+index afa4b990f922..530825b0fa8e 100644
 --- a/arch/alpha/kernel/smp.c
 +++ b/arch/alpha/kernel/smp.c
-@@ -635,12 +635,30 @@ static void
+@@ -629,12 +629,30 @@ static void
  ipi_flush_tlb_mm(void *x)
  {
- 	struct mm_struct *mm = x;
+ 	struct mm_struct *mm = (struct mm_struct *) x;
 -	if (mm == current->active_mm && !asn_locked())
 +	if (mm == current->mm && !asn_locked())
  		flush_tlb_current(mm);
@@ -206,7 +246,7 @@ index 8fa4345306a53..f5f34eaf92bb4 100644
  void
  flush_tlb_mm(struct mm_struct *mm)
  {
-@@ -648,14 +666,8 @@ flush_tlb_mm(struct mm_struct *mm)
+@@ -642,14 +660,8 @@ flush_tlb_mm(struct mm_struct *mm)
  
  	if (mm == current->active_mm) {
  		flush_tlb_current(mm);
@@ -223,7 +263,7 @@ index 8fa4345306a53..f5f34eaf92bb4 100644
  			preempt_enable();
  			return;
  		}
-@@ -700,14 +712,8 @@ flush_tlb_page(struct vm_area_struct *vma, unsigned long addr)
+@@ -694,14 +706,8 @@ flush_tlb_page(struct vm_area_struct *vma, unsigned long addr)
  	/* As in ipi_flush_tlb_page(): a targeted tbi() needs MM current.  */
  	if (mm == current->mm) {
  		flush_tlb_current_page(mm, vma, addr);
@@ -240,7 +280,7 @@ index 8fa4345306a53..f5f34eaf92bb4 100644
  			preempt_enable();
  			return;
  		}
-@@ -738,7 +744,7 @@ static void
+@@ -732,7 +738,7 @@ static void
  ipi_flush_icache_page(void *x)
  {
  	struct mm_struct *mm = (struct mm_struct *) x;
@@ -249,7 +289,7 @@ index 8fa4345306a53..f5f34eaf92bb4 100644
  		__load_new_mm_context(mm);
  	else
  		flush_tlb_other(mm);
-@@ -757,14 +763,8 @@ flush_icache_user_page(struct vm_area_struct *vma, struct page *page,
+@@ -751,14 +757,8 @@ flush_icache_user_page(struct vm_area_struct *vma, struct page *page,
  
  	if (mm == current->active_mm) {
  		__load_new_mm_context(mm);
@@ -267,7 +307,7 @@ index 8fa4345306a53..f5f34eaf92bb4 100644
  			return;
  		}
 diff --git a/arch/alpha/mm/fault.c b/arch/alpha/mm/fault.c
-index 56ea2856e4888..14c56512bddac 100644
+index 1179b7df4af9..de5e04dd8893 100644
 --- a/arch/alpha/mm/fault.c
 +++ b/arch/alpha/mm/fault.c
 @@ -45,7 +45,9 @@ __load_new_mm_context(struct mm_struct *next_mm)
@@ -282,7 +322,7 @@ index 56ea2856e4888..14c56512bddac 100644
  	pcb = &current_thread_info()->pcb;
  	pcb->asn = mmc & HARDWARE_ASN_MASK;
 diff --git a/arch/alpha/mm/tlbflush.c b/arch/alpha/mm/tlbflush.c
-index ccbc317b9a348..7fa36d0eb4622 100644
+index 239c72b8a741..a2aef90e6234 100644
 --- a/arch/alpha/mm/tlbflush.c
 +++ b/arch/alpha/mm/tlbflush.c
 @@ -66,7 +66,7 @@ static void ipi_flush_mm_and_page(void *x)
@@ -294,6 +334,3 @@ index ccbc317b9a348..7fa36d0eb4622 100644
  		__load_new_mm_context(d->mm);
  	else
  		flush_tlb_other(d->mm);
--- 
-2.53.0
-
