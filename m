@@ -1,73 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368033;
-	b=wD5AzN1Lb1x2KW7ftmNyZzeCIOumZ14WXtNBJ/rDj1C41SodA64Jm666DbBJWoAzLXwS
-	 8s1o+3SSCng7lU3cDumgjdsyyPeylc29vBz+9OfAB2QGMAol8MWTxAEhVU4ypbtV4JQ8U
-	 CDPi2X9f3NOYicj5nMio7Hv/GamTmhhAlIrEO2qhiXGfALckzK7Hh+2qufELWjn/TDgrP
-	 VkaIa5z0NwA0ScfPD2sdTWSYjxNTgQIvG7iKAIgU8iTXJDtc1ghhIZE5xKyI4N1n8MvND
-	 LQAgYBmdv4g4ydbNT/z7dbiT3AUTaHrGTAuTnjsv/wRC3XStjYvrLqvUx/ZbLoQTPbw==
+	t=1794368050;
+	b=QyE+tkOCB9CAWHAojahkzqt9oOEJeIYArb+2HFleOQebF26va+XLhkV8Z8P2L0P7aPRC
+	 BWfpEcjmqpGom9TPCFqxGvlT6fAchFa51Ud1BBeYO8Sd8jK2lj567Xp4A4A8mj8oOWFGN
+	 w7PFdSDbflRpdM9hGJGBO2DRajAM2faem0jrubGluY2OnuC3N5JWvmZf41iaEyTskhlda
+	 cATFu5I/qAov/9ljmo6sxLmRg815DB1IciJ/RC3tE04eodiae/7PXMPDUm1Vx0EYkfpM2
+	 cdLK7gMlFGoydoRJvwyaTsi40iXbfnrbLyiShrSr73mGsPGt03SnY3Rz7Qie9+uAb/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368033;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ZZMaJa7A8btflg6fzjNWikrxEkfZP7b5T+vroRVbtbs=;
-	b=i9mybpqsAEITqvRVmDyjvpBSYn1VVEel0MXYBDWRiFshLj12AHvIp5t6WHqdZyhjCDi3
-	 ZN6bQJfFg8cU67EvMasDkbJOhy3oUELEWRCMm5buGEJxDtsUqv/15dm1Ifz4lSa2nt/zN
-	 nXty16AnMBeTAOWVdE+IhqrLfu2NUOfPTkRgQ9ImA/D4+KsB9aOrYF1bKb6pHqLAMRaM3
-	 3mHH55K5/aIm6+UtSBabvN78jqf0gUKEHXi+zc+CZycr6+ecccztzVuWdroprSw2eQviC
-	 bTgb6IjcQhhYi7Zg8uwXoYxkSnSQmm/ZidYsDTDz8MSVjgkYUtA2dBGjAGWz+lllKMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368050;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=V+M/f6mVh6jxfTVe/Ebx6CPlmmG/gPSQ6YtXy0KYSZo=;
+	b=OlHkmb9QH85C6g5/oDC0Xx/1tdktANxiriEqT7By5L8vmm28j5MPxX03BTXtytQRexFN
+	 nBKf6M3btiPXIuVWT4P/bW/eyvu5iFtWvH1esAyG6M1FV8C8gZcjjsazy5y3P2cqeNRkY
+	 E6tcwmwHeAntZanm6YuNM1a/wWz1fOp2wHlvv6pDHRC5OK/bDrrE+mPs7QTExyvxpglnU
+	 hphR2mZ4mXxqQP3ojtxNZ1zUS8fbTYQ0oaPiSzY3JqD86JSA88/FBi/6w0N3sK9pfFs6L
+	 tXYMucrCmrQ/TNhpMwNcC4hZL8S+VZXHdlHO4J2Vuaklp5irJDiTbynVg6+7Vm9QCAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LQTv4+r+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34B0606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LQTv4+r+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F38C1F0089F;
-	Wed, 11 Nov 2026 03:33:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794368033;
-	bh=ZZMaJa7A8btflg6fzjNWikrxEkfZP7b5T+vroRVbtbs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LQTv4+r+EJsQKUO3bD2JVnb+sheUjhvc/y4IOntPLl9i3/+OiipKlgI2jv4fD5eO2
-	 pkxnA3n3K1SL2ixhtW98rYfIzEI7JLnFw3b5hcEQZD2JF/OwK9KliwFd7Jgan3NdO/
-	 d/CcUYxBcYiggLKhS5oum/QqTPPxkZ4nh02cKP/CfcgoULB3LVkX8wq8t7tTSZmU2B
-	 E+KnYfXwJyrlUxR39BW9NVblOKrMWkVGmX9IjcqMk0TW4qs/+8qBMhJWG0NugkAT2W
-	 Rle0Bu5k9qNJOqRP6IfsPur9KZmNTOOdO3W3f2hNjfiLaTPgnLMJRJK5JKRnnu4ioE
-	 +CX1FCybYfjvQ==
-From: Sasha Levin <sashal@kernel.org>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D56C6606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:34:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D56C6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=V+M/f6mVh6jxfTVe/Ebx6CPlmmG/gPSQ6Y
+	tXy0KYSZo=; b=6HiB4PeW/jwFbWvwZWY4Ryq3ShE49lMLy4ERpa8E38R0I+dAhl
+	97hjmbwL7FtpuU3BZwKR5z5AJWPixbgxkdCkV92Rs+a/l4kwh+sW/V3TfuAnVc/Y
+	wptjrxbNb3LfiqoYb4StCqmhgYbZwl9+5L35/oXdFiZy7tX932E5wR9kk=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.33])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkB2uP0m4vNqakhyAQ--.59640S2;
+	Wed, 11 Nov 2026 11:33:58 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Adam Litke <agl@us.ibm.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Rik van Riel <riel@surriel.com>,
-	Peter Xu <peterx@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/vma: don't leak the commit charge on mmap failure
-Date: Tue, 10 Nov 2026 22:33:50 -0500
-Message-ID: <20261111033332.882078-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051410-failed-6.18-aa09311c40f6@kernel.org>
-References: <20261107051410-failed-6.18-aa09311c40f6@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: usx2y: Refuse a retried DSP load after a failure
+Date: Wed, 11 Nov 2026 11:33:58 +0800
+Message-Id: <20261111033358.14851-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261109202438-failed-5.15-1f8101b6adc8@kernel.org>
+References: <20261109202438-failed-5.15-1f8101b6adc8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,130 +56,87 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkB2uP0m4vNqakhyAQ--.59640S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr1UAr13Kw15tr43ZFWrXwb_yoW5Gry7p3
+	909rWDtrWDJw4qga1DXwsFk3WFywsYyFW3JrZYyw18Ar1DAFyfCryFgw129r42yrW8A34F
+	qFW2qr1UGFW5Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r
+	15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVWUJVWUXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyT
+	uYvjxUyoanUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUOD2rzM1Z-AQACsF
 
-From: Josef Bacik <josef@toxicpanda.com>
+snd_usx2y_hwdep_dsp_load() sets up the asynchronous sequence URBs and
+the interrupt URB when the FPGA firmware image with index 1 is loaded,
+and then creates the ALSA devices.  If usx2y_in04_init() or
+usx2y_create_alsa_devices() fails, the URBs that were already set up
+are left in place.
 
-[ Upstream commit aa09311c40f6d3aa6037065e17d257ffa48b9402 ]
+The core keeps the index unloaded when the callback fails, so user
+space may issue the same request again.  The second attempt then enters
+usx2y_async_seq04_init() or usx2y_in04_init() with the URBs still
+allocated and trips WARN_ON(usx2y->as04.buffer) or
+WARN_ON(usx2y->in04_urb).
 
-Patch series "mm: various (urgent?) fixes", v1.
+The URBs cannot be released at this point: the card may already have
+registered PCM devices that user space can still open, and the
+disconnect handler accesses the URBs without holding the DSP lock.
+Mark the chip as hung instead, so that a retried request is refused
+with -ENODEV and the assertions keep their meaning.  The URBs are
+released by snd_usx2y_card_private_free() when the card is freed.
 
-Here are various MM fixes.  The majority was reported by Josef at
-Anthrophic, the remainder was found while reviewing/overhauling them.
+A failing usx2y_async_seq04_init() still releases its own URBs, so that
+path remains retryable.
 
-Two issues/fixes reported are not included, as we are discussing
-(better) alternatives on the list already.
-
-I left most of the original commit messages as schloppy as they are: I
-don't particularly care as long as the code is in good shape and as long
-as they are not actively wrong.  But I (and Mike) could not be stopped
-from overhauling at least some of them.
-
-While I don't think there is anything too critical in here, I think this
-is a good opportunity to see how fast we can get pre-screened/pre-reviewed
-fixes upstream that might be security-related.
-
-The majority are hugetlb + uffd issues, that are not actually that
-relevant for most installations.  But all things that should just get
-fixed.  Some uffd fixes need proper follow ups to fix some more of the
-root causes of leftover UFFD PTE bits (or proof that there are none
-remaining).
-
-This patch (of 10):
-
-When an accountable mapping replaces existing mappings (MAP_FIXED),
-__mmap_setup() only charges the difference between the size of the new
-mapping and the VM_ACCOUNT pages it replaces. It then zeroes
-vms->nr_accounted so that unmapping the old VMAs does not return their
-charge, which now backs the new mapping.
-
-If the operation fails after that point, the error path returns
-map->charged, i.e. only the difference. By then vms_clean_up_area() has
-zapped the page tables and closed the old VMAs, so
-vms_abort_munmap_vmas() cannot reattach them. It leaves a gap and
-finishes the unmap with vms_complete_munmap_vmas(), which uncharges
-vms->nr_accounted == 0 pages. The old VMAs are gone, the new one was
-never created, and the charge of the old ones is never returned, not
-even when the process exits.
-
-No privilege is needed to hit this, only a file whose mmap hook fails,
-for example a socket (sock_no_mmap() returns -ENODEV):
-
-	p = mmap(NULL, len, PROT_READ | PROT_WRITE,
-		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	mmap(p, len, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_FIXED,
-	     socket_fd, 0);
-
-Every iteration adds len to Committed_AS for good. With
-vm.overcommit_memory=2 this lets any user make all further accountable
-allocations in the system fail with -ENOMEM.
-
-Once the new mapping has taken over the charge of the mappings it
-replaces, it owns the charge for all of its pages. Record that in
-map->charged, so that the error path returns all of it.
-
-A failure in __mmap_setup() itself is not affected: it happens before
-the charge is taken over and the old VMAs are reattached with their
-charge intact.
-
-Original fix generated by an LLM and sent in private by Josef.
-
-[david@kernel.org: call variable "uncharged" and make it const, adjust/simplify comments]
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-0-42796911043b@kernel.org
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-1-42796911043b@kernel.org
-Fixes: 4f87153e82c4 ("mm: change failure of MAP_FIXED to restoring the gap on failure")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Adam Litke <agl@us.ibm.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: Adapted accountable_mapping(map) to the existing accountable_mapping(map->file, map->vm_flags) signature. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+(cherry picked from commit 1f8101b6adc87a3ddbd51fcb6609251591758026)
 ---
- mm/vma.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ sound/usb/usx2y/usX2Yhwdep.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 8669da66edc5c..3710cb70ca682 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2462,14 +2462,17 @@ static int __mmap_setup(struct mmap_state *map, struct list_head *uf)
+diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
+index c0293af44..89c7ff597 100644
+--- a/sound/usb/usx2y/usX2Yhwdep.c
++++ b/sound/usb/usx2y/usX2Yhwdep.c
+@@ -185,6 +185,9 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
+ 	int lret, err;
+ 	char *buf;
  
- 	/* Private writable mapping: check memory availability. */
- 	if (accountable_mapping(map->file, map->vm_flags)) {
--		map->charged = map->pglen;
--		map->charged -= vms->nr_accounted;
--		if (map->charged) {
--			error = security_vm_enough_memory_mm(map->mm, map->charged);
-+		const unsigned long uncharged = map->pglen - vms->nr_accounted;
++	if (priv->chip_status & USX2Y_STAT_CHIP_HUP)
++		return -ENODEV;
 +
-+		/* Charge only what's not already charged by mappings we replace. */
-+		if (uncharged) {
-+			error = security_vm_enough_memory_mm(map->mm, uncharged);
- 			if (error)
- 				return error;
- 		}
+ 	snd_printdd("dsp_load %s\n", dsp->name);
  
-+		/* Our new mapping owns the entire charge now. */
-+		map->charged = map->pglen;
- 		vms->nr_accounted = 0;
- 		map->vm_flags |= VM_ACCOUNT;
- 	}
+ 	buf = memdup_user(dsp->image, dsp->length);
+@@ -209,11 +212,13 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
+ 		err = usx2y_in04_init(priv);
+ 		if (err) {
+ 			snd_printk(KERN_ERR "usx2y_in04_init error\n");
++			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
+ 			return err;
+ 		}
+ 		err = usx2y_create_alsa_devices(hw->card);
+ 		if (err) {
+ 			snd_printk(KERN_ERR "usx2y_create_alsa_devices error %i\n", err);
++			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
+ 			return err;
+ 		}
+ 		priv->chip_status |= USX2Y_STAT_CHIP_INIT;
 -- 
-2.53.0
+2.34.1
 
