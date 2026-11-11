@@ -1,61 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794361874;
-	b=p6Vru7KTWPcOiHnlrMJqJsV4Fn2B3jUFd4GymLsVyzGiSAz1Y1gev7/v9lvB536ZP93p
-	 B2BCgBnNuO/bUwDVW1ojN3QizXXevi71CiBS5oHUiE+07PpcPSKnzzsZbxJ3sR6JmUu9X
-	 Q34pQLTFipEdpwsYpXg/2gXMA8guDkoHOXjUbHCEeM1WL79s5ODIbSqq9gANw4Gml1d+s
-	 X+Fhl0eZcAoXT42ZpUyvHod4QvhYtg18Ta52+5V+AVLWtFnE/t+YDJ3zWlRmBzPV1glv1
-	 OKPbJbJNZASI3l4/HjKF0Uvo0maXHwnkav+hfL1OcQ8WrZ4aoNFBT2EdIrzgBZbj1Yg==
+	t=1794361998;
+	b=zMF6NBmyp5uXXjAxxhZJva9/t+PAN3kIGkuMdSpipXefIpW1a3ER70RnVhtbe1mt1pX/
+	 kKPfW9jLaFJH6l1Mx7ab8lB4HDjnz7WTm2KycjrXXphvyMoA9381cDE0ObGxsSWDpVbQ3
+	 8uPgGTKZkgObFkOeVmys5di4hUt0L67NYzW+E60J1GUsgRYY/+w3jkif57wxylAY1Rg2W
+	 WjUNmZMNVKbZxLvSl9YgdFTBSI3C83PtBqfQzipo/GrmczUOTZwoRKg9n7DSN3J7OgjCd
+	 U1AZcxZjIe+CvpLYqrG+b2ObLrQJ6T+armbTo5a1Gjb+hPAPQMXmEyaou9YyGT5tgqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361874;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=y9Dwl1B/SkeBN/qAYgB/RrFCJLIxenUFUX+kaToQpxY=;
-	b=oxhwdSQFO97xj+8LarLIP1VZQaOii8PvmJHMSj2RiyurzwEY8RLDe3Ja+abU/eBbl39R
-	 V6qwg7nOx3LLqDkE42PpsG0+davmfL9KHkTguLUtDLw1GbWU+3Cacgh7ujjQjP8uKIFbe
-	 k58Wv22ZWEbkxdc445R9fBCNCCosBbT+dP6dtvxcIU8liA0DjJzCyd3CZYh5Y+k/1zFfW
-	 kP+O9u7IqtWqvlTnaHpR3llCZgUImWdbQLkNmDVlTdmXH2SPURPOzoECWSNhphFIrau/6
-	 LwQEkJmTBd7Ft8+yrAWyOSXf/7El159m11ft9CpJ8MwI+giNoQ0RRR3Pk8KEcWGtIsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361998;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=xt2+ynV2kO2k4hVadIUYpDDpvvqZrunIUfTT0Mvogzg=;
+	b=u7ykiux7VzeVlgglm/ari+yWKl0/yUHJpuF7/owrQq3nAYaytO38oviZbvvmrvjiilQ7
+	 IQ1UqrAgN6r3UBITOEM/dsYJdFcN7dS6HCY1mre/Zerw0j8HQVsyV/MaRYhqdBXw0LyXR
+	 JUPJn2gVtV/TssV2tR/wYEq+CTQxL1+F+DeQz/QD+svM/0hWqR28bO00ZvsO+DaTHrXBx
+	 aYA30cikLlMUczyiQx6tGQ6OZMXupMD1lVZv3b8EJXAE5qvFlEziZQ/V+Eoo71jypoWGR
+	 ch+gktNeeqAhjYlCRO3dUpUbFYSYK7D5a+1t2D5301717c73Z1FzdZVdH1GjQGJQHcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TjRlamZO;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=FdRFPWPk;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0AA606A31C;
-	Wed, 11 Nov 2026 01:51:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A0AA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB62D606A334;
+	Wed, 11 Nov 2026 01:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB62D606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TjRlamZO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=y9
-	Dwl1B/SkeBN/qAYgB/RrFCJLIxenUFUX+kaToQpxY=; b=TjRlamZO9AI9+dcsNd
-	K6UMwCWTLBZ0MUQUGC483aMSNlypG17Jwbpq2BfO/9mj5RPhp+AXW03N+p19ECBe
-	SanZ9qm+7lDMcmlg8WpX56DQhhBf2mOsKcCwzR+lGXCCUv4VY7tooHjY+BN6fpBW
-	Jwafk8kfZ9m/ksJpIrkW7z/lM=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3Xx_kyfNqrtbZHA--.39564S2;
-	Wed, 11 Nov 2026 09:50:29 +0800 (CST)
-From: "Li Youhong" <dayou5941@163.com>
-To: song@kernel.org,
-	yukuai@fygo.io
-Cc: magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Li Youhong <liyouhong@kylinos.cn>,
-	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v4] md: fix sync_work vs array teardown races
-Date: Wed, 11 Nov 2026 09:50:27 +0800
-Message-Id: <20261111015027.4029184-1-dayou5941@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=FdRFPWPk
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=xt2+ynV2kO2k4hVadIUYpDDpvvqZrunIUfTT0Mvogzg=;
+	b=FdRFPWPkgVFYh8w+jeEZeAlWSa9HDIrxskl1ET0o3PrJfOL4MhZJNtu9VRrWRBgApRQnyJFjS
+	F7AeB9iYKcK/sx//99EghOfTf8jFNXSz0INkTmxJs/ROvUiIloiCg5sb4iO8jifIVO597DnV61t
+	kMtjQ4ZaUiPq3haVhc9doCg=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jPRP769kfz1cys1;
+	Wed, 11 Nov 2026 09:52:59 +0800 (CST)
+Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
+	by mail.maildlp.com (Postfix) with ESMTPS id 306DB40586;
+	Wed, 11 Nov 2026 09:53:15 +0800 (CST)
+Received: from localhost.localdomain (10.50.85.180) by
+ dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 11 Nov 2026 09:53:14 +0800
+From: Yao Kai <yaokai34@huawei.com>
+To: Vinicius Costa Gomes <vinicius.gomes@intel.com>, Vinod Koul
+	<vkoul@kernel.org>
+CC: Dave Jiang <dave.jiang@intel.com>, Frank Li <Frank.Li@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <dmaengine@vger.kernel.org>,
+	<liuyongqiang13@huawei.com>, Yao Kai <yaokai34@huawei.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] dmaengine: idxd: Avoid destroying the device workqueue twice
+Date: Wed, 11 Nov 2026 10:10:26 +0800
+Message-ID: <20261111021026.3354620-1-yaokai34@huawei.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,130 +72,64 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3Xx_kyfNqrtbZHA--.39564S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF15AF4xZry3KF47uw4DJwb_yoWrtr1fp3
-	yfJFn8GrW8t3yfZF9rKFyDWayUZw1IqrZrJryxWa4fAw1fAF4xWryY9F10vFWDJas3tay5
-	Za1rJFZxua4v9F7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjE_NUUUUU=
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+QdD8WrzyeeDoAAA3Y
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ dggpemr500006.china.huawei.com (7.185.36.185)
 
-From: Li Youhong <liyouhong@kylinos.cn>
+If idxd_probe() fails after idxd_setup_internals() succeeds,
+idxd_cleanup_internals() destroys idxd->wq. The PCI probe error path
+then calls idxd_free(), whose put_device() invokes
+idxd_conf_device_release() and destroys the same workqueue again.
+The err_evl path in idxd_setup_internals() has the same problem.
+This can corrupt the workqueue list or access freed memory.
 
-dm-raid tears down arrays via md_stop(), which cleared mddev->pers
-without waiting for previously queued sync_work. That work could
-then call remove_spares() with pers == NULL, or keep using mddev
-after raid_dtr() frees it.
+Clear idxd->wq after both error-path destroy_workqueue() calls and
+only destroy a non-NULL workqueue in the release callback. The NULL
+check also handles failures before the workqueue is created, while
+preserving its destruction on normal device removal.
 
-do_md_stop()/md_stop_writes() already call stop_sync_thread() before
-teardown. Do the same in md_stop().
-
-Also fix two related holes that made that wait unreliable:
-
-- md_start_sync() may still use mddev after unlocking. Checking
-  work_pending() in stop_sync_thread() is not enough once the work
-  is running, so always flush_work() and wait for it to return
-  before teardown.
-
-- The read-only path in md_check_recovery() queued sync_work without
-  honouring MD_RECOVERY_FROZEN, unlike the read-write path. Check
-  FROZEN so freeze/stop cannot race with a new queue while
-  stop_sync_thread() drops reconfig_mutex.
-
-Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
-Fixes: 81e2ce1b3d5a ("md: delay remove_and_add_spares() for read only array to md_start_sync()")
-Reported-by: syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a53c2918175b36cfd601
+Fixes: 3d33de353b1f ("dmaengine: idxd: Fix not releasing workqueue on .release()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+Signed-off-by: Yao Kai <yaokai34@huawei.com>
 ---
-v4:
-- Always flush_work(&sync_work) in stop_sync_thread(); do not delay
-  clearing MD_RECOVERY_RUNNING (that can drop MD_RECOVERY_NEEDED via
-  md_check_recovery, and does not cover the successful sync_thread
-  registration path).
-- v3: https://lore.kernel.org/linux-raid/20261110063045.912703-1-dayou5941@163.com
-v3:
-- Honour MD_RECOVERY_FROZEN before queueing sync_work on the
-  read-only md_check_recovery() path.
-- (superseded) delayed MD_RECOVERY_RUNNING clear on not_running.
-- v2: https://lore.kernel.org/linux-raid/20261109023055.2164333-1-dayou5941@163.com
-v2:
-- Drop the pers NULL check in md_start_sync().
-- Call stop_sync_thread() from md_stop() before clearing pers,
-  matching do_md_stop()/md_stop_writes().
-- v1: https://lore.kernel.org/linux-raid/20261106083543.249267-1-dayou5941@163.com
+ drivers/dma/idxd/init.c  | 2 ++
+ drivers/dma/idxd/sysfs.c | 3 ++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
- drivers/md/md.c | 38 ++++++++++++++++++++++++--------------
- 1 file changed, 24 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..68a72513e884 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -5184,22 +5184,22 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
+diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
+index 4b827a329756..ffbc5a74be6e 100644
+--- a/drivers/dma/idxd/init.c
++++ b/drivers/dma/idxd/init.c
+@@ -389,6 +389,7 @@ static void idxd_cleanup_internals(struct idxd_device *idxd)
+ 	idxd_clean_engines(idxd);
+ 	idxd_clean_wqs(idxd);
+ 	destroy_workqueue(idxd->wq);
++	idxd->wq = NULL;
+ }
+ 
+ static int idxd_init_evl(struct idxd_device *idxd)
+@@ -460,6 +461,7 @@ static int idxd_setup_internals(struct idxd_device *idxd)
+ 
+  err_evl:
+ 	destroy_workqueue(idxd->wq);
++	idxd->wq = NULL;
+  err_wkq_create:
+ 	idxd_clean_groups(idxd);
+  err_group:
+diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
+index 6d251095c350..d5ffc641c856 100644
+--- a/drivers/dma/idxd/sysfs.c
++++ b/drivers/dma/idxd/sysfs.c
+@@ -1836,7 +1836,8 @@ static void idxd_conf_device_release(struct device *dev)
  {
- 	int sync_seq = atomic_read(&mddev->sync_seq);
+ 	struct idxd_device *idxd = confdev_to_idxd(dev);
  
--	if (!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
--		if (!locked)
--			mddev_unlock(mddev);
--		return;
--	}
--
- 	mddev_unlock(mddev);
- 
--	set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-+	if (test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
-+		set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-+		/*
-+		 * Thread might be blocked waiting for metadata update which
-+		 * will now never happen
-+		 */
-+		md_wakeup_thread_directly(&mddev->sync_thread);
-+	}
- 	/*
--	 * Thread might be blocked waiting for metadata update which will now
--	 * never happen
-+	 * md_start_sync() may still use mddev after unlocking. Always
-+	 * flush so teardown waits for that work to return; checking
-+	 * work_pending() is not enough once the work is running.
- 	 */
--	md_wakeup_thread_directly(&mddev->sync_thread);
--	if (work_pending(&mddev->sync_work))
--		flush_work(&mddev->sync_work);
-+	flush_work(&mddev->sync_work);
- 
- 	wait_event(resync_wait,
- 		   !test_bit(MD_RECOVERY_RUNNING, &mddev->recovery) ||
-@@ -7101,6 +7101,14 @@ void md_stop(struct mddev *mddev)
- {
- 	lockdep_assert_held(&mddev->reconfig_mutex);
- 
-+	/*
-+	 * md_check_recovery() may have queued sync_work; that work accesses
-+	 * pers. Wait for it here before __md_stop() clears pers, as
-+	 * do_md_stop()/md_stop_writes() do.
-+	 */
-+	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
-+	stop_sync_thread(mddev, true);
-+
- 	/* stop the array and free an attached data structures.
- 	 * This is called from dm-raid
- 	 */
-@@ -10494,9 +10502,11 @@ void md_check_recovery(struct mddev *mddev)
- 
- 			/*
- 			 * Let md_start_sync() to remove and add rdevs to the
--			 * array.
-+			 * array. Honour MD_RECOVERY_FROZEN like the read-write
-+			 * path so freeze/stop does not race with a new queue.
- 			 */
--			if (md_spares_need_change(mddev)) {
-+			if (md_spares_need_change(mddev) &&
-+			    !test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)) {
- 				set_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
- 				queue_work(md_misc_wq, &mddev->sync_work);
- 			}
+-	destroy_workqueue(idxd->wq);
++	if (idxd->wq)
++		destroy_workqueue(idxd->wq);
+ 	kfree(idxd->groups);
+ 	bitmap_free(idxd->wq_enable_map);
+ 	kfree(idxd->wqs);
 -- 
-2.25.1
+2.43.0
 
