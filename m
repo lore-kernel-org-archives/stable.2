@@ -1,61 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439867;
-	b=L77JvqAPQZ3xArHpOmIE1cZw5iUpDR0eBOWmBBScMgm4uSRDpIG5GXM+oa7Lt48lrMWa
-	 OonOn9Xs90mAH/Ox4mcCH+tmLdYy74Ryml0I3kQxoyZ5H4mzzg6D0S9uvwO0wbDMIIni+
-	 +rjxmUmejNAW+uul4VegjR7fEerK4VQ90x5m/HkzY9BxeuW/MLV1Tn5M2rD6FdW+vJalj
-	 3xbC5oI5WFB6clnjbJO/khDzVFoWyPqNaNSklsjmlLuOyHu9W9ty5prxJUCaJctKRXoPP
-	 aqIvsikdL+0gIWN/zghE7LEtwwEGtcEezC/sFWsfoJ5NX9cIxoN6TfAexnElKy7L3ow==
+	t=1794440102;
+	b=FwRbvZbORmIqK6qQ4ab1eO21UJ6MLx0eArgFSOCrIEjUNuba+pK+IEVDANUKN7Ss6Jss
+	 zT4pAEfogQzLoCpOGxGoXO89f7LbAlotCBz1z8SSn1V6jM+n0/wxA78NcNQPXBM74ofgh
+	 A092PGYWEME29e3W2u9123UXbv/QLXBXzQV9dTb7N53prJ0FcwOOwxYVR9POitYxOFb+C
+	 qbS6dLsvZmhs4BbGM58Qcc+hiyveFO22v1IhFOCfQ5USxLe/fq7FBRUqGpn/BEoBLR7rh
+	 tPZ2PtLdvw7shkOrLzpPG0IxtV0du6V9aH1q6Ss3byqk5oO+EM1bImWIe50E9wiQ6HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439867;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=k+1O9jPeELVKycW88hpFgQtUmLFKkI8Ct3uwvEaLDCU=;
-	b=4bTWuh5gkxZozH8myQ1yPeR1aDNkFr37xR7j1WT90QM+FAq5zd2uQnTPWbAKgdb0yIjP
-	 elbq3tcw1eWvwqdJKQLWhZ1zhxZbrhpm0bsTPgHSuJ2Vb4qa3jkniH09dBT5UO5LbR1Nj
-	 LkWhY2Cjs6Rld7EvWjWQSdfqvI1OI7488pT6DNpxvNICzmvMnXr+V+XG2WfQ0eti2Dh+F
-	 PBCvHlP/Jm4IEyOHLkn/AZcuLPoEO5Ov8WE2d5aZGfLTjRk3kEAW1B9ET3Ew2yhLpZQga
-	 0PZkwm/r08jW+uFC8LNuwoaab7G7S+PjVGJhkOFyEQzMoCEld9jFtDE0PuFQOdjRPtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440102;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=/saIjk+/mSYq8iZPgFXOiIKZ5cwgIKJ/PXOQnMC6enM=;
+	b=2I9TYsVQ8CveweESzni3bQWjNP/86RvgTRVeZQTHOEQwOLh0tt1uP0I+mupEKMNMQ3pp
+	 TkRIFkZHApx3Gu1hNd2lkmWB13yqo3VKtjlFeBIpYUkMFfPxb5hMvOrBMRgSSmKiXRhBV
+	 q5KHejlA12qtGrNfhzJsbw5R+02BMcaElo7+bUXfw1arbNsTtLR33QcQd6Xt9OX04A37g
+	 y8HDexET1d+AYg0w0Ishe2IjK/6buLSiDsh2J+Th6MrBqO2QDbIYYQDn3x773P/qalKbC
+	 Nk3dFzPgXTZHpJXkWGKc+mqIVUUWpyDgdaw4jVVyA/rC8Ixi2iVmZNlebRJMiNgADaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V+S4epV/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Xp4Yhy+Y;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4DD606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:31:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0A0606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:35:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC0A0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+S4epV/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731F71F00A05;
-	Wed, 11 Nov 2026 23:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439867;
-	bh=k+1O9jPeELVKycW88hpFgQtUmLFKkI8Ct3uwvEaLDCU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V+S4epV/FRUEMrFql1rt7W1/h5eYa7kvDD40nEcY105JloUbjP1RIMqYMYggURstf
-	 rCvmGln5hnnVsoBC+1+dKvIbfkV9Ik7c9/wHpQLnxbkWnS/NMlzfporptjCMO+JHzm
-	 +ifxGK8wxEaXU8TaIj+9rGqohUintkTXY2DYO5joD2X7mC5tvw290HEVd04jxI0pQI
-	 GmQpajZEGvQW7Y72muOa5hOV29GyPqeA1f2X8FqOU68jAL7gp2k1hRfwaOGUUljlf5
-	 XBudyYpmdjw1kIntB8eC3h0DfseMMDp3hT4kbNlcW8hxKKLRiS27RG/7vXEzuoai3W
-	 Cwajudf4U7ceQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Wei Yang <albinwyang@tencent.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/madvise: add cond_resched() in THP branch of madvise_cold_or_pageout_pte_range()
-Date: Wed, 11 Nov 2026 18:31:05 -0500
-Message-ID: <20261111233039.627729-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062828-failed-5.10-f5cfc8e3b20a@kernel.org>
-References: <20261107062828-failed-5.10-f5cfc8e3b20a@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Xp4Yhy+Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794440100;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/saIjk+/mSYq8iZPgFXOiIKZ5cwgIKJ/PXOQnMC6enM=;
+	b=Xp4Yhy+YIvpi3JUP+bBCVlNhRud0NcKMbeaFKgrXMUaKDyiaueamIFZW82W7KTicHcrn42
+	xR/TewgJtEaIXzKeGpch0nnRD7QedRoZSOZ3gkud6yAWMyq9vaSzknXdeqofTuM5GjMjv2
+	AX1pLcZ6V3AvyFMfu8DSArqMVi732QI=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-104-pXEQOR1MOveyCYTcvZquSA-1; Wed,
+ 11 Nov 2026 18:34:59 -0500
+X-MC-Unique: pXEQOR1MOveyCYTcvZquSA-1
+X-Mimecast-MFC-AGG-ID: pXEQOR1MOveyCYTcvZquSA_1794440097
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4670719560B5;
+	Wed, 11 Nov 2026 23:34:57 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id BBD27410;
+	Wed, 11 Nov 2026 23:34:54 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Thu, 12 Nov 2026 00:34:56 +0100 (CET)
+Date: Thu, 12 Nov 2026 00:34:53 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tz2294@columbia.edu, stable@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+Message-ID: <avT7nQs7zYseYtMw@redhat.com>
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,85 +81,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-From: Wei Yang <albinwyang@tencent.com>
+On 11/11, Mani Tofigh via B4 Relay wrote:
+>
+> From: Mani Tofigh <mt4022@columbia.edu>
+>
+> A task blocked in read() on a pipe can sleep while the pipe holds data,
+> when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
+> it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
+> reader, so a write into an empty pipe wakes only the watcher.
 
-[ Upstream commit f5cfc8e3b20ad71949a1e5623ff45882c063a71b ]
+I am already sleeping, but at first glance this is already wrong?
 
-During stress testing with stress-ng on a 256-CPU system, a softlockup was
-observed when madvise(MADV_COLD) was called on a 31GB memory region backed
-by transparent hugepages.  The region contains 15935 THP PMD entries, and
-the softlockup was triggered after 14485 of them had been processed.
+I mean, a WQ_FLAG_EXCLUSIVE waiter should not sit ahead of non-exclusive
+waiter, no?
 
-The THP branch of madvise_cold_or_pageout_pte_range() has no scheduling
-point.  walk_pmd_range() invokes it once per 2MB PMD entry with no
-cond_resched() anywhere in the loop.  Each iteration calls
-pmdp_invalidate() which issues a synchronous TLB shootdown (dsb ish)
-waiting for all CPUs to acknowledge.  This operation can be time-consuming
-under heavy system load, causing the accumulated time across all PMD
-entries to exceed the softlockup threshold (20s) and panic when
-softlockup_panic=1.  On a CONFIG_PREEMPT_NONE=y kernel, there is no other
-opportunity to reschedule during this entire traversal.
-
-The regular PTE path already has an unconditional cond_resched() at the
-function tail (introduced by commit 9c276cc65a58 ("mm: introduce
-MADV_COLD") and commit 1a4e58cce84e ("mm: introduce MADV_PAGEOUT") when
-MADV_COLD and MADV_PAGEOUT were first introduced) and a conditional one
-inside the loop (commit b2f557a21bc8 ("mm/madvise: add cond_resched() in
-madvise_cold_or_pageout_pte_range()")).  The THP branch never received
-equivalent treatment.
-
-Fix by adding cond_resched() at the huge_unlock exit path after
-spin_unlock(ptl) and reclaim_pages(), which is the single exit point for
-all goto paths in the THP branch.
-
-Crash log:
-  watchdog: BUG: soft lockup - CPU#63 stuck for 23s! [stress-ng-vm:1665914]
-  ...
-  Call trace:
-  pmdp_invalidate+0x48/0x68
-  madvise_cold_or_pageout_pte_range+0x84c/0xb00
-  walk_pmd_range.isra.0+0x1ac/0x3b0
-  walk_pud_range+0x120/0x190
-  walk_pgd_range+0x170/0x1b8
-  __walk_page_range+0x184/0x198
-  walk_page_range_vma+0x94/0x128
-  madvise_cold+0xd8/0x198
-  madvise_vma_behavior+0x234/0x638
-  madvise_walk_vmas.constprop.0+0xdc/0x210
-  madvise_do_behavior+0xa8/0x328
-  do_madvise+0xd8/0x140
-  __arm64_sys_madvise+0x2c/0xe0
-
-Link: https://lore.kernel.org/20261010024042.4070048-1-albin_yang@163.com
-Signed-off-by: Wei Yang <albinwyang@tencent.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context for reclaim_pages() using page_list instead of folio_list ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/madvise.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 8b6ed35c1d265..e98256595fdd0 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -383,6 +383,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 		spin_unlock(ptl);
- 		if (pageout)
- 			reclaim_pages(&page_list);
-+		cond_resched();
- 		return 0;
- 	}
- 
--- 
-2.53.0
+Oleg.
 
