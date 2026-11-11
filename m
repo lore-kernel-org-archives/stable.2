@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794434108;
-	b=sy8FVQ9Syu6IiRhpTfyq/sM2UqZsXTg7CkOFSIYNyauMhzKkTkQL+x5iX3ZA4fD2gxmR
-	 4rulnYK0H6hOj80lvEMOVyDW9lP0FNvLyVMWV7e75iGkLIaiRvcnxQ/Iifu/uP1GSytIR
-	 0ZJca6xkSZjf635YRoTYMqYzYGlIMF79HKXaf3rl4Am/Lw96Afdg5pH2ff3L9X7+NrIoR
-	 VmEOfWt+1VGLKiSqo0xXgWKJggpxs0LbkO2xxVNuFksnaDOxoMywD0EtybE/YuT82lz1s
-	 pvaZsotoFoiiUvLnTh/zO8RAZeY5zxfUGmNO0ShbfVK8O+N+NSoJV3zxVy8JQ6pXHtA==
+	b=5X1GHiMp5bPPYajv7vIeri1s1X6nEFdUCP6nIqabX3TzpkAfSkmA8vY79jiMY7X6jldo
+	 VezIJWnZQvjMvVPGNUbk4GWY70My725uxWUBiqbWGKb0z+kEL9cUH7qV5t776swiDo5un
+	 0SNGwPDCr2n3sLbD0kQT9gMimu/uo3o0uuXeCKvSMk86F3Wy0oN9KqpGCMEuvqBXVpAR1
+	 PfuT2pAa7vHOx/LQNGUF+AjNzROw9beucrpdWnX0VI34VeQ5SkH/c7Bvq1v85S8sIi7I6
+	 ruarDBLteFEHfUjvfrRQqMRiTNIYvMtg2ET01qY2eOCYEPN5zmZc8oatLAT6wjDD7/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794434108;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iNNTkeUPlZofGTcR4AVLM6WXSL0ltbTteyIwZ+bm5Cg=;
-	b=cMV/8cgo2qIQ4GI6SboiAiwKPaZaXZhv5RIYh/F1ei0zkhqYTT0jc/XdrVXx5spdaRnC
-	 QJjjShRp7pvhQCNzQjxHWrVdBg4CWHCgeeIvEHo4rlXAzviSJYaXtwY7JH/5M1Rh6ww3/
-	 BN7jygcDGZt9h9YEsjsxsIWJ3kn6v+6UGhxTA0v2XCkUBFOeCoVxgv4aHOOdEqOIJOtPN
-	 2RJbndqUf49wcCDg17DNV0h77UL6LmMmOxGhg1W63JwRqodRGuT2a7jt2T4H42FDIHoQl
-	 wXlldRBaWKV42g6QxLtHxTYSiUvwNiTBTnila5VCAD4SxA3Qwwcdac6HYUpppZNNbMQ==
+	bh=UbcRgDNyFh2F21x4S6JQgGB3dfqH18NzrdPOEQs1GiM=;
+	b=C5LyzZk7MC4g26zsLyEfRx3rfmjBoTCoRWXTLnU+QtZ5oc3bM4C+tJhw8Vq/z5hFK1U8
+	 X4VXp/i1aD1aD3xLUs2BScWgPHjrVJgSTTVmvUq6Z1A7xsiePfxSdqIMaaY5vzamSsVs1
+	 fiIWIOkvrXW/oY9dskDIRXGZObXafF9HdQ74WwnbHv/GfzIHpJbknKi3iIrXBjNEV91B6
+	 z3gAPJ1UmmF9wWzS8Yw9HAQJj5ARWIh77+DWx6wSFw+Bhj/kEcCrf5ehx5rjFGgB9uacl
+	 Tm86X1/l59rFutGu5AejbVdGHkmvULAKWPnfjhOzvUqT8yzqODQXS1YXMK0+DK335+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B+rRBwNT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0n8z6+3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11864606A8B1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A3D606A8B1
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B+rRBwNT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AD91F00A05;
-	Wed, 11 Nov 2026 21:55:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0n8z6+3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BEDD1F00A08;
+	Wed, 11 Nov 2026 21:55:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434107;
-	bh=iNNTkeUPlZofGTcR4AVLM6WXSL0ltbTteyIwZ+bm5Cg=;
+	s=k20260515; t=1794434108;
+	bh=UbcRgDNyFh2F21x4S6JQgGB3dfqH18NzrdPOEQs1GiM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B+rRBwNTZPCP3GkczldNb1gp7x8p+J2N1ZhdeYUkY/2kdTtyshwQyH2xgahMTf5qV
-	 mjRUvfgQlOH4qSs+Sh00RH4QXGgrdcRIPwc1LplBlCtp1P4qiqEyAmcmu7kNzmELXe
-	 YvV1yIHzX7YwcP1h95N/kLWcmIQOXMmk5R4tPw0vcn2O5wrlGqMoZBCJScIogBBTWr
-	 NL9Whbj+XEYx90iI3i+FZV9QbusqxhQa+eyTB/Sixw8NA82xmT3QhYv2PjD+6O1Ua1
-	 VMvar3NKucj85ieoCNFydKTjeuAVVIN8/bjwVoFARkZ76FGBzBOREr5k/snfZt5Wac
-	 biTc1NAnlHuWA==
+	b=V0n8z6+3B3sy03CTecoveioMuXVqbOaEHM59QJq8yzLqwwf4KXkvO0n38vv8RgcSM
+	 hmuyypGTRNAD6lSJ+oNuhuy+HsWhaid8nuy7jYPVTehM3vGQWg+iwMJxZ+pEY2PAM3
+	 BbZ4o4axENWhbNDSw6kWDwiuE5QNnKRfyOaxUNtDHC/6zJwwd7zrhjTvB6hKonIni5
+	 4Z+7MnV22pDxf2HkT2A+V4pXWkTkg45Jl1s7jIYuMsWXV35lvNhCw3wEgieUUPjQFP
+	 pT87HdnUa2CAKlmOv080D77dS6tNeNQ1WaQ74RNR8CdbW89aiFCI2whn8bnXMGvhjR
+	 ogSGjdYrHEY+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 6.12.y] batman-adv: tpmeter: fix u32 truncation of reported bytes
-Date: Wed, 11 Nov 2026 16:54:41 -0500
-Message-ID: <2026-11-11-1-daily-reply-0008-b7bf3299f24cb4de7601@kernel.org>
+	Sven Eckelmann <sven@narfation.org>
+Subject: Re: [PATCH 6.12.y] batman-adv: tt: ignore ROAM flag of received ADD changes
+Date: Wed, 11 Nov 2026 16:54:42 -0500
+Message-ID: <2026-11-11-1-daily-reply-0009-c7eb754b3d704d721e03@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110190100.108068-1-sven@narfation.org>
-References: <20261110190100.108068-1-sven@narfation.org>
+In-Reply-To: <20261110190434.114342-1-sven@narfation.org>
+References: <20261110190434.114342-1-sven@narfation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,7 +60,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [PATCH 6.12.y] batman-adv: tpmeter: fix u32 truncation of reported bytes
+> [PATCH 6.12.y] batman-adv: tt: ignore ROAM flag of received ADD changes
 Queued for 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
