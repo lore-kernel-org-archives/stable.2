@@ -1,56 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794424579;
-	b=ve+2MzPaNQUKAvsr+uNzIBI1eaUx/eX6hLk1SDyfZDVIpt9L2/M+EQazBqN4Cd1dOjZl
-	 HOBuoTBse3L82gKj/4QBcppBL8bnuYFtNq8K6LKZufwcXnTPt/eVp5CA6V1HsPFk/z0gA
-	 A1HuMhu2s85zK/JzcY+A8Zgai6tTBscGHRKKaMWwfEHdWDl0XXpBGb+QSXlipxljWJLOG
-	 SXyBcaSDv0KclfDir6ameNa0/+PFRMZ95EyZtXrTlJ+jCjirPFnJzmj4VkKHZtIa2Qx8h
-	 +bZyf0xXxwzpYiRagtVXfOCvtOwzhvz1vXZJOEgcypCVG/QC9H6pxd4RmkdfqwBw06A==
+	t=1794424749;
+	b=BK3QP/H5UB+0vwEH9jssFhWOXJW+xyLHNRGaiaHj4R+3OSYFbdg4Bh4lyHjtj8qRIpyJ
+	 3dfFUwL7B9HytRqmZ5re+Xeb7AEuj5mOCkicXr46z0HN8lnQCVfk50PhzVxkqxQJAD/TU
+	 7s0mpicpe6jRefKeM8T7RcB9jCEIJ7Ykbm4o7JxLfKf04VuVjiaQJ4ZSEtSA2hfPFuDEc
+	 fHW3dXxEjMnaOyq6CkiOSTpEJaP9Jdq0cDxTn5RWPWbAJqZ8RG0bWPNeT6EPSwcrAZHx+
+	 WZ/7G29IkUIL4Al83A3tj/OPg3VXpD3KdYr24r4ksXTf6M1Pe9S0dls13zFr0JViNoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794424579;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=i2O5pYSAR+99dFr01TS/jsnlEsmaV7synN3xLbqvvDg=;
-	b=SVfhzDG+lB/s4lU6y2CqC9a0j1uZBSXB4Zl0tw45+9kq7jbpkIGV36PPpU2SSW0oXOK7
-	 iYM7rvNDKepv633/jT1aOoqWD1C4rlht2PdwaITf1G3Uj/WcPDLRzCofefGuEQDcoFl5V
-	 7f/3Eguum/I7aC4uLtcCaxFdMsBiXNTmZwMGYopvpTn9sdf1lBnt99OxYW32ZTXsNHVkn
-	 6F1aBR7JOqOq+YcYBEcsUeIrAVgAkMp0QbLlIkTaUd8Vgr11SDB0YtSAoCdrmrtBkCpsW
-	 pwpOZ0n08Fcav6coWjW4Gw3JJbsbULIoai+p1MHuCE+stpafidqDuGL5kFJ7ymU7ChQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794424749;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=qAPPZVTkRlTwW1+3PqzGIZjGZrGorIqtZwoux0Jo1t8=;
+	b=zfbnwGFYkht28CO4QVqwRKw+YOGI0B0kd1fasA0jco//IRXfenZwrLfPg/kldBdNL/1L
+	 VVCG07SB8NzoYH5PqYhUs51k9yTG+0RZfyTsbcWLOPUbw3IBh/ZcHN4I8T0vNp6goXbGI
+	 /Q5lPTGhNRPtW+6U8uSU6//w2mBb3iFyBUi0uc0Zsx+53iSU0CKgSMrVuJm6mJal2fmRF
+	 RnVx7VuZAmcuV8sWLAPTpZ2LnnGZgBl+rDTc8NZkSRMBAlE76OTlcEeJkXOx2P1bcU0fn
+	 pnq4bzGzS8FEW7aOPavUeD3fRJEPXOBoHV5G+ikPqZf7Ee9pdrz9bWl5hEyCL6GadUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cjz3YCE5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TDDO4vWy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9835E606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:16:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3A5606A334;
+	Wed, 11 Nov 2026 19:19:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cjz3YCE5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FAE1F00A06;
-	Wed, 11 Nov 2026 19:16:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TDDO4vWy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9A51F00A05;
+	Wed, 11 Nov 2026 19:19:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794424579;
-	bh=i2O5pYSAR+99dFr01TS/jsnlEsmaV7synN3xLbqvvDg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cjz3YCE5PAESFAuOuAh7g/HpUYSmByHhZIQVCskcsnx+6BdG8IuUIz+Fv5LNiw7Bq
-	 m5JW7r6cp6KX7l7taVELQYEY6fysKqB9PqgxSn6CG7Xd3rIFi7Nml1y1ND9ImfcvID
-	 TfEe87g2vjCoy0hjhM4n4u6sfQM+Bs2dWO3FRYsEJkX7vyWlB7OIer9FDhALzQt+K2
-	 xxdkQyDTeIYZGfyz9+rH9h59Z/bFJxVxcqe6Ly9LUUqcvYe9hQdjJygRkkzhtPyjHR
-	 oRrEYChN7/e+S/SgjtX+ldi8FAQrEWcu8EvGVAxfdWrX/H+C/MbS+QX00LICHkJzlZ
-	 PHPANWenlVUzg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yao Yiqi <yaoyiqi3@huawei.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Helge Deller <deller@gmx.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] fbcon: Rebuild rotated font buffer on font change
-Date: Wed, 11 Nov 2026 14:16:17 -0500
-Message-ID: <20261111191546.3930787-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062707-failed-5.10-e4b6b865d45d@kernel.org>
-References: <20261107062707-failed-5.10-e4b6b865d45d@kernel.org>
+	s=k20260515; t=1794424748;
+	bh=qAPPZVTkRlTwW1+3PqzGIZjGZrGorIqtZwoux0Jo1t8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TDDO4vWyt2A9yv+0p0q/FA45O0rd06kdgQKObSVxLFxHyenMzI02gn6sP+gDkcrUZ
+	 qo55JCTgqKyPSNRQcg9Ja5Pt8x0nn9Nat7EWGgERyPLQ4IwerQeXgshj+6dkkihAWC
+	 PrJKETiUpBW3F9j9DHkKsQTsjCKxaaVnlXpACNlSJofkotFprXYZbxqSM878SyppZZ
+	 3K+2xrDwmLLa4CJZ0F7KAHAjgj0AR2H3b0djolb0/r99Ao2bnFPDPXBehPW+kP/Bv5
+	 HoQ6Voiiw0/kZwYv2T1MvHcB+UWZc9PAzLo3nurtuuM7vDU8gxjlgQpgVvPVjNplHA
+	 MsW10zis9Xmeg==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 29859198003A;
+	Wed, 11 Nov 2026 14:19:02 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Wed, 11 Nov 2026 14:19:05 -0500
+X-ME-Sender: <xms:pb_0anxl5grZleYVCEAHUdoMH_SIdXgNi3YSamqe-e5ICnkz1tGVgw>
+    <xme:pb_0anj4-ow4J-Se1P-HX4G-18PohrUySEMfY_cCS7lwhGvvhDfrubhKQv0XyM6vC
+    PENWpNMYUejKoGDTcfI4npDv7t9ZqBXQy1cNES9UyrELkCHzVW2KG4>
+X-ME-Received: <xmr:pb_0avL9ISgP6BHP6GeBHZCV9oJpcCy0y8t1mPqxNIyK1fbV2GJABeZC8i0>
+X-ME-Proxy-Cause: dmFkZTEN7KIAjWcjeVWSiqg1tb1AV3/0ocRjzhPZnrhv3Y9U5nJDiFMvHQfgcNVbET2IHS
+    V4PgnXLV9GMRFgEU71pzcq6gDDgB+miAQQzBL2ylvgYsAvj0QwsytTmr4w0cUsyke60eOy
+    uJ6Hvpqb7Yanyi8J+98etPY14DsAqvHzmY5dXKhYnySsPS3S7QJZ/cGuW3BHs8xDfim0NH
+    MUNL9Qj6r+CWWTM1Cj+OeR2EF3jO1lP67NDR8ZmuFyjEXx8bdLK1a9V7dJK+wa1ehM6+lI
+    pj6EITLBXH0M9k7DH7EEEU3dSIOSx0j0jWAnqHk/C2/g4M6eZpEQa7nxOkec3pGqah7MS8
+    eerAnsVmA/fyaJ7yTNv6jfnGcFrsI2GHWkfZXfUCLJpXT2qURk1xU83UgPK+e+gvCXUz4z
+    nuMl5ejEY1zX8zCH9Q6C7PlXbAgwKNDJ8VDGKcAZvL6VHUw9t+lWjBJpRGJ8Za1Lb+P6vM
+    49kWRACh9Tdxm2S4cXwNPUtrTngDa7lskaOikaGR4VI+Y9r4nFTlvEklE/yCMmbGpk0R7A
+    9qhI9mAw/GZWRLLTTQdklNUxuAFU3ccIPHnjNF0BINrY4KEHMNMh+9EVJNv1DG12kcYOPl
+    zamrk15mS2yRIKoeTbObYg6PttDCkx6vUt9yHNXH+OLLP5esTe3qIo1MqZiA
+X-ME-Proxy: <xmx:pb_0amfQkex2AYXXuqLj5bosFxgke5x06wC7JqYEKkSx_dz-wO57fQ>
+    <xmx:pb_0ajg02CKYIzWlBSgSCGDx37QItlV9TVwSxDOJWHWiO0zyd9xSuw>
+    <xmx:pb_0ark10NYuWkVCt-oUoafq6WDDt67eV93dfUXX1vf-hCtqLpjPIw>
+    <xmx:pb_0aqVfRrB4FhOwkLuDgt4nXNI86V05WUNmvz2UCGKQ4OzjjMmvfQ>
+    <xmx:pb_0aoo61dkYFNf3bBx8bvoZ1ywawEbkp1leS6v-OghpHYIw8xqMxwFP>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Nov 2026 14:19:00 -0500 (EST)
+Date: Wed, 11 Nov 2026 19:19:00 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, stable@vger.kernel.org, 
+	Sashiko AI review <sashiko-bot@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 1/6] fs/proc/task_mmu: fix make_uffd_wp_huge_pte()
+ prot-update race
+Message-ID: <avS_WaLHYxvwoZXM@thinkstation>
+References: <20260529172331.356655-1-kas@kernel.org>
+ <20260529172331.356655-2-kas@kernel.org>
+ <avNEgmvYdoukt6MS@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,140 +93,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avNEgmvYdoukt6MS@gmail.com>
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+On Tue, Nov 10, 2026 at 08:23:11AM -0800, Breno Leitao wrote:
+> Hello Kiryl,
+> 
+> On Fri, May 29, 2026 at 06:23:25PM +0100, Kiryl Shutsemau (Meta) wrote:
+> > The non-hugetlb sibling make_uffd_wp_pte() does this correctly via
+> > ptep_modify_prot_start() / ptep_modify_prot_commit(). Mirror that
+> > pattern for the present-PTE branch. The migration case stays as-is --
+> > migration entries are non-present, so there's no hardware update to
+> > race against.
+> 
+> I am  seeing this on next-20261109 (arm64, PAGE_TABLE_CHECK) while the
+> pagemap_ioctl kselftest runs next to a workload that migrates pages:
+> 
+>     WARNING: mm/page_table_check.c:206 at __page_table_check_ptes_set+0x168/0x178, CPU#21: pagemap_ioctl/894691
+>     Call trace:
+>      __page_table_check_ptes_set+0x168/0x178 (P)
+>      __set_ptes_anysz+0x50/0x240
+>      make_uffd_wp_pte+0x104/0x1c8
+>      pagemap_scan_pmd_entry+0x1b98/0x1df8
+>      walk_pgd_range+0x7b4/0xd00
+>      __walk_page_range+0x108/0x510
+>      walk_page_range_mm_unsafe+0x150/0x3e8
+>      do_pagemap_cmd+0x418/0x7d0
+>      __arm64_sys_ioctl+0xc08/0x1338
+> 
+> given you've touched this recently, I am wondering if you've seen it.
 
-[ Upstream commit e4b6b865d45d8dafb6c6f28c8a993a5b4431d25a ]
+I have not. But I think this patch should help:
 
-fbcon_rotate_font() caches a rotated copy of the console font in
-par->rotated.buf. The buffer is sized from the font's width, height
-and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
-fbcon_modechanged(), but not in fbcon_do_set_font().
+https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-3-00713d368976@columbia.edu
 
-When the font is changed through KDFONTOP, the new geometry is
-installed and vc_resize() redraws before the buffer is rebuilt. The
-rotated putcs/cursor ops then index the old buffer with the new cell
-size; KASAN reports a slab-out-of-bounds read in soft_cursor().
-
-Rebuild the buffer for the visible console before the redraw, as the
-other callers do: select the console's blitting state with
-set_blitting_type() (which also uploads the new font's map on
-tile-blitting hardware), then rebuild. Background consoles keep
-their rebuild at fbcon_switch() time, as the buffer is shared per
-framebuffer and must not be updated for a console that is not being
-displayed.
-
-To ensure a correct rollback when the rebuild or the following
-vc_resize() fails, save the rotated font state, clear it before
-rebuilding, and restore it in the error path of
-fbcon_do_set_font().
-
-Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Helge Deller <deller@gmx.de>
-[ sashal: adapted rotated-cache handling to the individual fields stored in fbcon_ops ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/video/fbdev/core/fbcon.c | 57 ++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
-
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 41720de26eee4..779e648aeaffc 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2434,6 +2434,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	int resize, ret, old_userfont, old_width, old_height, old_charcount;
- 	u8 *old_data = vc->vc_font.data;
- 	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+	u8 *saved_fontdata = NULL, *saved_fontbuffer = NULL;
-+	u32 saved_fd_size = 0;
-+	int saved_cur_rotate = 0;
-+	bool rotated_saved = false;
-+#endif
- 
- 	resize = (w != vc->vc_font.width) || (h != vc->vc_font.height);
- 	vc->vc_font.data = (void *)(p->fontdata = data);
-@@ -2453,6 +2459,33 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!vc->vc_hi_font_mask && charcount == 512)
- 		set_vc_hi_font(vc, true);
- 
-+	/*
-+	 * Select the console's blitting state and update the rotated font buffer
-+	 * to match the new font, so that the rendering below does not use a
-+	 * cache that was built for the old font. Clear the cached state so
-+	 * the rebuild allocates a fresh buffer; the old state is kept until
-+	 * the font change can no longer fail.
-+	 */
-+	if (con_is_visible(vc)) {
-+		set_blitting_type(vc, info);
-+		if (ops->rotate_font) {
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+			saved_fontdata = ops->fontdata;
-+			saved_fontbuffer = ops->fontbuffer;
-+			saved_fd_size = ops->fd_size;
-+			saved_cur_rotate = ops->cur_rotate;
-+			ops->fontdata = NULL;
-+			ops->fontbuffer = NULL;
-+			ops->fd_size = 0;
-+			ops->cur_rotate = 0;
-+			rotated_saved = true;
-+#endif
-+			ret = ops->rotate_font(info, vc);
-+			if (ret)
-+				goto err_out;
-+		}
-+	}
-+
- 	if (resize) {
- 		int cols, rows;
- 
-@@ -2469,11 +2502,28 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 		update_screen(vc);
- 	}
- 
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+	if (rotated_saved)
-+		kfree(saved_fontbuffer);
-+#endif
- 	if (old_userfont && (--REFCOUNT(old_data) == 0))
- 		kfree(old_data - FONT_EXTRA_WORDS * sizeof(int));
- 	return 0;
- 
- err_out:
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+	/*
-+	 * Drop the buffer built for the new font and restore the saved
-+	 * state.
-+	 */
-+	if (rotated_saved) {
-+		kfree(ops->fontbuffer);
-+		ops->fontdata = saved_fontdata;
-+		ops->fontbuffer = saved_fontbuffer;
-+		ops->fd_size = saved_fd_size;
-+		ops->cur_rotate = saved_cur_rotate;
-+	}
-+#endif
- 	p->fontdata = old_data;
- 	vc->vc_font.data = old_data;
- 
-@@ -2493,6 +2543,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
- 		set_vc_hi_font(vc, false);
- 
-+	/*
-+	 * Re-select the blitting type, which re-uploads the font map on
-+	 * tile-blitting hardware.
-+	 */
-+	if (con_is_visible(vc))
-+		set_blitting_type(vc, info);
-+
- 	return ret;
- }
- 
 -- 
-2.53.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
