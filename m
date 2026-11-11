@@ -1,70 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794357200;
-	b=PHmFI6W/irg5lse/krPycf2Y7mlG0p7qGw/YNsajrzLSbpJqhmQ7OxoaGrEboPnLQdiz
-	 M8qDJ6ZB4P/5omKkezbvd0eZrnGRujYdvk2jZCa225PSIFPDYG5PD/B4Kh4Bi4eho4qXK
-	 3d70I5Jrnt3i022anOpRgbbCXBJN53gOqqBHLDXk9u/68LYp0NoZvcDyIwNpWD696M9LE
-	 u0cFLnNSnMNprvXnYqsCEEnZJ8UyHnoNd1DjYt6Teh8Psh8xmSs7nYE905+bw1yAC6Iq2
-	 njiEcmY3sY/y+2azojdjcE8uAhDe4ffUeLXGDOT6wRm6aKmyY4zDbsHDYD+GdBOut7g==
+	t=1794357202;
+	b=2vCdLLeIMiLyTdtbQzSQ4KF4vibK6Ci5hqHru6p9xbTJsk1Si8mPthiFClWL/CAW8Af5
+	 /0RgZdpeEjW4ouAaPrJiHL2rTqadGB/TbTSL3zyk46TaIms9NmqP2675BRfmwKy5ewIsV
+	 +OhSGpcTTNByBsm6TWmdNNv67GBbXhXx+JLGZGFITnEW8IVm/EmSZ/lu66Fr13UOvrrLk
+	 wkzGAp1Lhs6v2wWj975HA1Rin+cSmw3kseV2FBK2ZllS/5XyKSttIU2hpXRhq3+Wtnaeu
+	 TJteocOHJOGjIvicuEtbvCKsfQXHPWNefy7VKfry9N/QgnyzOXzb2PBCS1gqIyFucog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357202;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5ejJedGb4c2HWFJx8OCG6dQjAPGEQ6uVcNvGD7Rkeho=;
-	b=lVbgYMHIFddGy7+7a/7sKfoX3TKvkZ0LmzV/guwo+RR/4Y0jpTH208F6t8YLp93kdEF6
-	 FtT0Ae3Gm9oYdy+R1laOS6Wyrrca0wtHFAz/FoCD8OYlCeWS6Xx7Pre7Eq/IfwkuoBDcT
-	 U3BQSuEwPfTs+lDF0GwnCdv2t1WWy3Yhavx+pJk1tPN6hRG8H8PTKGAnDVmoI7Yvn5TOP
-	 P8aIQYeNTl8zgDJ0pj4BrDMfHQBfKO6nGRjvGHMT9Lqqm8wErxmxgvncwa9u7JeJ0XvEb
-	 kuucajFZoILqwM03LupliEsZF2/mngyheRyouMSYR4WNOMjoqFEfloUjQtQIlyHNQNw==
+	bh=eEZIh2kyoqLICwfQ+Hvy4psKSq+1bL/BIx/ExrFnqsc=;
+	b=2cowrkfUu6HoXznymyyYLOedfFCx828su9lZqwQTsnkpF747rzVU8GANxMV67MDd42Hi
+	 cRzeoEzPo224E5d9DuFEwfOrKAwwZjEkUROUD5cKzok6emLr2EhnhhM65y9CDA9pwG9W3
+	 wu1Jn3KvjkoB6XTG9It+cF62nR25hLRL3KVyD+ofzG7IBowApmLW4HSCBfd/TLn4NA7jO
+	 +cQCJE0aQzJztWsAC5M3todOcWNG1CzhvjBf2ZuNEvo/ticBDFPgPBBIbpiQgw15EVe2j
+	 EWBU3J0dwZpOuqT/lMHe/efA1lXcEFhpi80iDOdJKnEnpsWmd2x5RwxuNiomUC0D0Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q2w4x+Ay;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GiUzUSyL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE03F606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:33:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86FC606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:33:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q2w4x+Ay
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78DAD1F00A06;
-	Wed, 11 Nov 2026 00:33:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GiUzUSyL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B106B1F0089F;
+	Wed, 11 Nov 2026 00:33:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794357200;
-	bh=5ejJedGb4c2HWFJx8OCG6dQjAPGEQ6uVcNvGD7Rkeho=;
+	s=k20260515; t=1794357202;
+	bh=eEZIh2kyoqLICwfQ+Hvy4psKSq+1bL/BIx/ExrFnqsc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q2w4x+AyThF8dlhLbdC9ZMQPxj6poIbdJ3lQLS57UB9aUmv2WYCdAf9r2qvXgD8Qk
-	 Gwa5HEYcAYepk5L+V3KpabGhB26NCIhFNm9vtDmLqEfxoy0ru9U5eMBSyV+Km5p3VI
-	 jZ59Ay8K+orDhnd92GFpN+ATxiJBYTUHSCehrV8bxlV8hkmmmbGq0bw72hxwFtvFtJ
-	 J1xGJElw8oTF6wCJtSnpLsAUby+OEWaAc/79ehGM67uvJXth+Pc8JSN8I5YVgozRSD
-	 CmMZ75CQYXaaTu9kT/hCQYd8qVT7e+WKjxjmoyHixI15JBvK4xWSc6LfE7fcOfO0FC
-	 0FT2AySjsj15w==
+	b=GiUzUSyLsf5wbrFDCLMxOwikH2QbzCdAiPE5aY2J4Eejt2swlACA2ZVWFns2V/7dY
+	 v9WihY+srbBLBlcrQrN8YElMSyL2hClOXdvOwcJNRbCJHrDflB9bTxg85XFRUEh5g0
+	 kPR2/lkuUVbKzzhl5Kt+I6eiUTqpBFWnSdhziL8wyuPvNdRC/BPiFEAbdF1FsNAd/x
+	 otS42kOJ+nnPhkAzvE7Yt4vvSLxVC9ELqokYfIuw+TLx05QFASDB9E6Q31qDupwB9O
+	 g2Af0qtFJqacdhlPm49+YVNUdjbPw/nzqm4jBPi+c2FXBs1z8a98wimIeaPKA9wukk
+	 xMVHbdkwiTtzg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Gregory Price <gourry@gourry.net>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Balbir Singh <balbirs@nvidia.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	sashiko-bot <sashiko-bot@kernel.org>,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Alistair Popple <apopple@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>,
-	Byungchul Park <byungchul@sk.com>,
-	Dev Jain <dev.jain@arm.com>,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Zi Yan <ziy@nvidia.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
 	Jann Horn <jannh@google.com>,
 	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Matthew Brost <matthew.brost@intel.com>,
 	Rakie Kim <rakie.kim@sk.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Peter Xu <peterx@redhat.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] mm/mempolicy: skip zone device folios when queueing folios
-Date: Tue, 10 Nov 2026 19:33:13 -0500
-Message-ID: <20261111003308.271305-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
+Date: Tue, 10 Nov 2026 19:33:14 -0500
+Message-ID: <20261111003308.271305-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111003308.271305-1-sashal@kernel.org>
 References: <20261107050938-failed-6.18-9057170a941f@kernel.org>
@@ -82,72 +76,180 @@ Content-Transfer-Encoding: 8bit
 
 From: Gregory Price <gourry@gourry.net>
 
-[ Upstream commit 1f834ba9b42e3f3c298c7e8ef1df21b9947c92b4 ]
+[ Upstream commit 9057170a941f0c5f4058f6fb9ab5d5fc9fcc9e83 ]
 
-queue_folios_pte_range() already pairs vm_normal_folio() with an explicit
-folio_is_zone_device() check before adding folios to the migration
-pagelist.
+Patch series "mm: stop calling pmd_folio() on special PMDs", v3.
 
-vm_normal_folio() alone does not reject zone device memory (a present
-device-coherent page in a normal VMA is returned as "normal").
+Two page table walkers resolve the folio behind a PMD with pmd_folio(),
+which is only valid for a PMD mapping a refcounted struct page:
 
-Mirror the explicit check in queue_folios_pmd() as well.
+  madvise_cold_or_pageout_pte_range() mm/madvise.c
+  queue_folios_pmd() mm/mempolicy.c
 
-queue_folios_pmd() uses pmd_folio() directly and can encounter a present
-zone device PMD - e.g. a device-coherent THP.
+vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
+have a memmap entry at all.  Both walkers can reach one and fault on the
+first folio field read.  The PTE halves of both already use
+vm_normal_folio(); these two patches make the PMD halves match.
 
-This is not filtered by existing checks:
-  !pmd_present()   - only rejects non-present device-private and
-                     migration entries
+The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
 
-  vma_migratable() - excludes DAX and VM_PFNMAP.
+  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
+  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
+  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
+  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
 
-The early return also means such a folio is no longer counted in
-qp->nr_failed under MPOL_MF_STRICT.  This is the same pattern used by
-queue_folios_pte_range() (skipping zone device without failing).
+can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
+madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
+supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
+never runs and vfio-pci is reachable by any process holding the device fd.
+Hence the different stable tags.
 
-Link: https://lore.kernel.org/20260817220810.1175596-4-gourry@gourry.net
-Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
+region now returns 0 rather than -EIO.  The PTE loop already returned 0
+there.  drm_gem_shmem and panthor are where this is observable, since they
+PMD map pages that do have a memmap entry and so never faulted.
+
+Reproducer
+==========
+
+No hardware needed.  An out of tree module stands in for the drivers
+above: three misc devices, each with a ->huge_fault calling
+vmf_insert_pfn_pmd(), plus VM_HUGEPAGE so the fault path takes the PMD
+branch.
+
+  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
+
+Userspace maps the device into a PMD aligned window, reads one byte to
+fault the PMD in, checks a module parameter to confirm it went in, then
+issues the operation.
+
+  vng --run <bzImage> --user root --memory 4G --verbose \
+      --append "numa=fake=2" \
+      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
+
+numa=fake=2 gives a node 1 to bind to; the module allocates its real page
+on node 0, which is what makes queue_folio_required() true.
+
+  subtest        operation                              parent   series
+  --------------------------------------------------------------------
+  madv_cold      madvise(MADV_COLD)                     oops     ret=0
+  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
+  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
+  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
+  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
+
+Two things the table shows that are easy to miss in the code:
+
+  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
+    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
+    vma_migratable() is true for VM_MIXEDMAP.
+
+  - mbind_real demonstrates the user visible change (-EIO -> 0)
+
+This patch (of 2):
+
+mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
+vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
+
+	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
+
+With a stand-in module for the driver:
+
+  BUG: unable to handle page fault for address: fffff96dc0000008
+  RIP: 0010:queue_folios_pte_range+0xaf/0x440
+   walk_pgd_range+0x52b/0xaf0
+   __walk_page_range+0x6a/0x1d0
+   walk_page_range_mm_unsafe+0x193/0x230
+   queue_pages_range+0x64/0xa0
+   do_mbind+0x25e/0x640
+
+queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
+is raw MMIO with no memmap entry, so the folio lands in unpopulated
+vmemmap.  Neither guard stops the walk:
+
+  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
+                           supplies ->test_walk, so it never runs
+  queue_pages_test_walk()  honours vma_migratable(), but only while
+                           MPOL_MF_STRICT is clear
+
+A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
+mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
+into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
+mapping.
+
+Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
+queue_folios_pte_range() already does with vm_normal_folio().  This also
+filters the huge zero PMD, so its separate check is no longer needed.
+
+mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
+rather than -EIO.  The PTE loop already returned 0 there.
+
+Link: https://lore.kernel.org/20260926105110.2156652-1-gourry@gourry.net
+Link: https://lore.kernel.org/20260926105110.2156652-2-gourry@gourry.net
+Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Balbir Singh <balbirs@nvidia.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Assisted-by: LLM
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
 Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
 Cc: <stable@vger.kernel.org>
-Stable-dep-of: 9057170a941f ("mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mempolicy.c | 2 ++
- 1 file changed, 2 insertions(+)
+ mm/mempolicy.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
 diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index adc52341c97cf..a6ee9526dc25e 100644
+index a6ee9526dc25e..4ceffb524c57b 100644
 --- a/mm/mempolicy.c
 +++ b/mm/mempolicy.c
-@@ -658,6 +658,8 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
+@@ -646,7 +646,8 @@ static inline bool queue_folio_required(struct folio *folio,
+ 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
+ }
+ 
+-static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
++static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
++		struct mm_walk *walk)
+ {
+ 	struct folio *folio;
+ 	struct queue_pages *qp = walk->private;
+@@ -657,13 +658,9 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
+ 			qp->nr_failed++;
  		return;
  	}
- 	folio = pmd_folio(pmdval);
-+	if (folio_is_zone_device(folio))
-+		return;
- 	if (is_huge_zero_folio(folio)) {
- 		walk->action = ACTION_CONTINUE;
+-	folio = pmd_folio(pmdval);
+-	if (folio_is_zone_device(folio))
++	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
++	if (!folio || folio_is_zone_device(folio))
  		return;
+-	if (is_huge_zero_folio(folio)) {
+-		walk->action = ACTION_CONTINUE;
+-		return;
+-	}
+ 	if (!queue_folio_required(folio, qp))
+ 		return;
+ 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
+@@ -696,7 +693,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
+ 
+ 	ptl = pmd_trans_huge_lock(pmd, vma);
+ 	if (ptl) {
+-		queue_folios_pmd(pmd, walk);
++		queue_folios_pmd(pmd, addr, walk);
+ 		spin_unlock(ptl);
+ 		goto out;
+ 	}
 -- 
 2.53.0
 
