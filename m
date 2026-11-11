@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416811;
-	b=u4XWZdpGxrvBWiFxmR8eEm1q3HKCToopBLUTgHmDhX2VzjK5QX6LKAT5okCsFe3WAuEi
-	 PQ6GnSnNZ1aZc31Nac4B9mQi6Ie+OzikkRQolE0ISF5zZPI9RLxe133qfJxlOfLZ3UUlO
-	 /ZOfTW19IpWG6qxtJE1NkvSBDbwXOmrvPvVNSXxPyiQMMf8lWAveSKWR36w8s80MFl3cY
-	 IajXt+GzAwsX6fVtBfaPEXLzD6m0ZBU+e6O2F0z32PTTNabtv/UB8ho1YxuDrf+bim/Al
-	 ouAFZAfedfomXegH6aiv//+nV/YmyUmL1ZSdsUtosStrw50HA3NgHWJzJgfDN0sFo3A==
+	t=1794416813;
+	b=DYfMPnH5kAhf+TrXIJtogb7R/pKJH2n39ObTPmeP8pUarWLCqOU8nU801pBVi8xYJVeg
+	 59h8uAJvxOBhN206GBcHOkjZV95JuUrv/QKnsip+K6YqvWgp5ol10gSDJp1U4/zTHA3Mj
+	 YXsJx3BmVDwm7hUR9eo7AoDiW2TFWC2hinQWRFtldpbdZrYQ9gpy8yS/48rrssc8NpdEd
+	 bbk19M2loRKwhrpLy6AEVzpKnotl5O67MKqqlBgorWRRkI0/e+XWFpybgSiYEyGW/oo/G
+	 PI2N7YP6U9LW3QCR5ct77Akyus75Pi1fuAJawcL0VvDy8ugSEZh4Qh9LsCcnfi7su/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416811;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416813;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z+ORvXgi1LbZOEvwI1ZM4L6LkhBJUEFOx8QQSqzi1Cg=;
-	b=oxUBm5pDztX954nVambKMtU9m6ebwDYrYJhFfOKCjLhTy5yEG5vVPS9axUTGRwfGevqX
-	 LRFjK3R3QWEewpxUvEIimW15mzebjv7/kv0Kfzbw2VRHDXz/Im1Ze299eB10r6DLRJTU5
-	 ibM+HGgVeuguboXWGM3fD+vmAb1kABaLoaHsiI95ss1K5Lcg1mY5Hv78omo1i6tPXh7lw
-	 /FZZtp0mb1rJDB90EaczkB45aDF5uBayNF/oJzzeZltLxpKZF2Z7RWhla70cpGYq6ddVZ
-	 +bLrhyQJFhZQpYRfGGOYoXS4uipYjjd870H7fL1CSMhZ1g7ctWsO7/WIDsFzfOC9BJA==
+	bh=xF6KUOYa5j/uJ3jpM45br7D0iPl99/Qm8tZ2TKVwEp8=;
+	b=d7NhX9y2NeqZjSe8uNRBEmkpfmXMEwls7BWBe9nGAciJUHw3hPbR58TO3s+pWfZItfjs
+	 FXlSOqr/s+qFck7OKJrjZoBR2BR0gUnqFRbdXRZDra6rmnVU5dia1zULH1+Qbm1zsH+Jf
+	 Kk4L0GS2yvP5NXXZx97kh2JKrhlrcnGwlzqVWJh9c3VS22FXt2wtE8ratAtK6+FGW+QOY
+	 v9aNjPwCB6JU5V4dGTUlHG/GyvA+pdHudnhAB3kGioZCaXDlYxp0PwjbToCsa//+9LriR
+	 vNILeuvwGA8Kr90TPCCrq2+MFXfvkLjR7M/nTOmj65bZ0/soWJn7NUCyk/h4AHA6obA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2G8SuCY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6P713pf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B40C606A8AC
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:06:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C96606A887
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V2G8SuCY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063B81F00A08;
-	Wed, 11 Nov 2026 17:06:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6P713pf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF3C1F00A06;
+	Wed, 11 Nov 2026 17:06:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416811;
-	bh=Z+ORvXgi1LbZOEvwI1ZM4L6LkhBJUEFOx8QQSqzi1Cg=;
+	s=k20260515; t=1794416813;
+	bh=xF6KUOYa5j/uJ3jpM45br7D0iPl99/Qm8tZ2TKVwEp8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V2G8SuCYJ34G05DzMI6PvGWhLNNNyrLJhbg3Z4RxQvCLH40lRD2Y6oD49hgINSRqF
-	 hAlcJmqapT/R35D/NGCpqdkOYZdMz9SJzjpwjEYeqnRGP5h8RHgKvWqG2YVNz2V6Lw
-	 es8ySaVGQx9khV1OGzfMi7v/6KhNyIkn3FueQbdfonGUxoKWBM/ZuVxHmYaWqH5fha
-	 UpRiA8h+pmD1ij586aIBPlW+ONZxil/Djzegcla+y1wD0YNttAEy02SQ7ToXImQJED
-	 yALvYZq0tBk+VWohj/ET4ObDY1kYyfjB2q8OzX6F4ljyR/55mBYLG2vCGLKE9M3bmo
-	 VAaj2Gp7JS1Hw==
+	b=A6P713pfyrMLDQ9G8JIrBJYPvEfprinfOuysed+l6Iyb7zosrRLRPTG0QIbJ4GoNa
+	 I3dxcnEJGVcpPxbZF+NY0ZVKNKb2d06dSxi/gGbaybE4M/rFpudRE3+Ho4N6Nl4317
+	 fGf12tcgIXpvP00iB4du+O1wkn8p5nvkZUgcd011rpuuVhJcQelyifcJp/Te85OIlb
+	 GCVG+T6BgmT0sq/iwmmOCC+cpWg/NHT3vqCtnC5gOkAD9OO0m9fV4Q1QCswNdvwcWY
+	 IR2/xlTDN7phcHrxXpEf1einF/eZjZQEKLQf7MMHcOcKWB2EAyfuU526xfKFk6LE5j
+	 6UGYhMq7GweMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Weibin Liu <liuwb@xiaopeng.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Daeho Jeong <daehojeong@google.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] spi: cadence-xspi: reject SDMA transfers larger than the requested length
-Date: Wed, 11 Nov 2026 12:06:49 -0500
-Message-ID: <20261111170612.3392578-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y] f2fs: release a removed xattr node in roll-forward recovery
+Date: Wed, 11 Nov 2026 12:06:51 -0500
+Message-ID: <20261111170435.3358982-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054911-failed-6.1-ea9854a169e9@kernel.org>
-References: <20261107054911-failed-6.1-ea9854a169e9@kernel.org>
+In-Reply-To: <20261107050503-failed-7.3-f5924de8867c@kernel.org>
+References: <20261107050503-failed-7.3-f5924de8867c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,101 +62,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weibin Liu <liuwb@xiaopeng.com>
+From: Daeho Jeong <daehojeong@google.com>
 
-[ Upstream commit ea9854a169e9c1437df8829bea21c2f2e80b137c ]
+[ Upstream commit f5924de8867c09206ba631b9faed63862ec00a10 ]
 
-The XSPI controller reports the size of the slave-DMA transaction
-through SDMA_SIZE_REG. Both SDMA handlers take this register at face
-value and copy the reported number of bytes between the SDMA FIFO and
-the transfer buffers, without checking it against the length of the
-transfer that was actually requested.
+When xattrs shrink enough to fit in the inline xattr area,
+write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
+the file is then fsynced without a checkpoint, only the inode block is
+written, with i_xattr_nid of 0.
 
-While cdns_xspi_adjust_mem_op_size() clamps the size of the operations
-issued by the SPI core, the device can still report a bigger SDMA size
-than what was programmed, which makes the handlers read from or write
-to memory beyond the end of the transfer buffers.
+Roll-forward recovery starts from the checkpointed inode, whose
+i_xattr_nid still points to the old xattr node.
+f2fs_recover_inline_xattr() copies only the inline xattr area, and
+f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
+the stale xattr node:
 
-Track the number of bytes requested for the current data phase in a new
-sdma_xfer_len field, set by cdns_xspi_send_stig_command() and by the
-Marvell b0 transfer path, and reject any SDMA size that exceeds it.
+ - The node block is never released, and fsck reports "nonzero bytes in
+   xattr space after end of list".
+ - If the inline xattr list ends exactly at the end of the inline area,
+   its terminator is read from the stale node, and the removed xattrs
+   come back after recovery.
 
-Fixes: a16cc8077627 ("spi: cadence: add support for Cadence XSPI controller")
-Cc: stable@vger.kernel.org # 5.16+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Link: https://patch.msgid.link/20260929081146.41041-2-liuwb@xiaopeng.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: Adapted SDMA handling to the existing direct-call and byte-wise I/O implementation without Marvell support. ]
+When the fsynced inode has no xattr node but the checkpointed one has,
+release the old xattr node as truncate_node() does: check its block
+address, invalidate the block and drop its node cache, which may still
+be dirty.
+
+Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: Replaced newer node-cache helpers with f2fs_folio_put() and truncate_inode_pages_range(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-cadence-xspi.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ fs/f2fs/node.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index b8bed8f39d2ae..d5e3bd2cb7722 100644
---- a/drivers/spi/spi-cadence-xspi.c
-+++ b/drivers/spi/spi-cadence-xspi.c
-@@ -221,6 +221,7 @@ struct cdns_xspi_dev {
- 	int irq;
- 	int cur_cs;
- 	unsigned int sdmasize;
-+	unsigned int sdma_xfer_len;
- 
- 	struct completion cmd_complete;
- 	struct completion auto_cmd_complete;
-@@ -327,7 +328,7 @@ static int cdns_xspi_controller_init(struct cdns_xspi_dev *cdns_xspi)
- 	return 0;
- }
- 
--static void cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
-+static int cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
- {
- 	u32 sdma_size, sdma_trd_info;
- 	u8 sdma_dir;
-@@ -336,6 +337,13 @@ static void cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
- 	sdma_trd_info = readl(cdns_xspi->iobase + CDNS_XSPI_SDMA_TRD_INFO_REG);
- 	sdma_dir = FIELD_GET(CDNS_XSPI_SDMA_DIR, sdma_trd_info);
- 
-+	if (sdma_size > cdns_xspi->sdma_xfer_len) {
-+		dev_err(cdns_xspi->dev,
-+			"SDMA size %u exceeds the requested length %u\n",
-+			sdma_size, cdns_xspi->sdma_xfer_len);
-+		return -EINVAL;
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index b23fe1383009a..a0bd7bbb5cc0c 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2871,6 +2871,45 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct folio *folio)
+ 	f2fs_folio_wait_writeback(ifolio, NODE, true, true);
+ 	memcpy(dst_addr, src_addr, inline_size);
+ update_inode:
++	/*
++	 * The xattr node of the checkpoint was removed before fsync, e.g. the
++	 * xattrs became small enough to fit inline. Release it as well, or
++	 * the inode keeps pointing to the stale xattrs.
++	 */
++	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
++		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++		struct node_info ni;
++		int err;
++
++		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
++								&ni, false);
++		if (err) {
++			f2fs_folio_put(ifolio, true);
++			return err;
++		}
++
++		if (ni.blk_addr != NEW_ADDR &&
++		    !f2fs_is_valid_blkaddr(sbi, ni.blk_addr,
++					   DATA_GENERIC_ENHANCE)) {
++			f2fs_err_ratelimited(sbi,
++				"nat entry is corrupted, run fsck to fix it, ino:%u, nid:%u, blkaddr:%u",
++				ni.ino, ni.nid, ni.blk_addr);
++			set_sbi_flag(sbi, SBI_NEED_FSCK);
++			f2fs_handle_error(sbi, ERROR_INCONSISTENT_NAT);
++			f2fs_folio_put(ifolio, true);
++			return -EFSCORRUPTED;
++		}
++
++		f2fs_invalidate_blocks(sbi, ni.blk_addr, 1);
++		dec_valid_node_count(sbi, inode, false);
++		set_node_addr(sbi, &ni, NULL_ADDR, false);
++		/* drop the cached xattr node, which may be dirty */
++		truncate_inode_pages_range(NODE_MAPPING(sbi),
++				F2FS_BLK_TO_BYTES((loff_t)ni.nid),
++				F2FS_BLK_END_BYTES((loff_t)ni.nid));
++		f2fs_i_xnid_write(inode, 0);
 +	}
 +
- 	switch (sdma_dir) {
- 	case CDNS_XSPI_SDMA_DIR_READ:
- 		ioread8_rep(cdns_xspi->sdmabase,
-@@ -347,6 +355,8 @@ static void cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
- 			     cdns_xspi->out_buffer, sdma_size);
- 		break;
- 	}
-+
-+	return 0;
- }
- 
- static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
-@@ -392,6 +402,7 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
- 
- 		cdns_xspi->in_buffer = op->data.buf.in;
- 		cdns_xspi->out_buffer = op->data.buf.out;
-+		cdns_xspi->sdma_xfer_len = op->data.nbytes;
- 
- 		cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
- 
-@@ -400,7 +411,11 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
- 			cdns_xspi_set_interrupts(cdns_xspi, false);
- 			return -EIO;
- 		}
--		cdns_xspi_sdma_handle(cdns_xspi);
-+		ret = cdns_xspi_sdma_handle(cdns_xspi);
-+		if (ret) {
-+			cdns_xspi_set_interrupts(cdns_xspi, false);
-+			return ret;
-+		}
- 	}
- 
- 	wait_for_completion(&cdns_xspi->cmd_complete);
+ 	f2fs_update_inode(inode, ifolio);
+ 	f2fs_folio_put(ifolio, true);
+ 	return 0;
 -- 
 2.53.0
 
