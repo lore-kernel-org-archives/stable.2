@@ -1,53 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407428;
-	b=fw4rD61oCfZ2TDsBP85PH4uBNpBqtqMAeN9FvTIvjJki8o/x+jSEF+byZu0yaF0oEDSD
-	 ggDu347fk36iktwMcpGFLgxbmmGVB1WXAdIeeWPcfWFcldjbYwUA60DpAklTbM9rPWpsD
-	 e5mhDBHuuOMnOCZbTgYbOYyyeM7XSWVeTyB6QSi+WssHcl76SXLpXxDKEJecLO1s4b9wf
-	 TlW7eJALc9Gg9z2T4XLS4/f2n9XZtyo67JBsbEvYp9VdWa9ANQjAVQwYZ0SgUw+eiRePI
-	 Ht88KDqyjIftcb6U20axDUXQost3lE+CSEN/WXcRUy5KOez6NDcZSTRyCrFlwTQw57Q==
+	t=1794407475;
+	b=E86oGfAZdOO3PmKkBKY7NMdkSoPMazExgqQIw2ppOri36Xz2bbUNRaa3L09fF/u71sRE
+	 HQn2IEQo+TeP+7K2aP2EWGbyehWx+uCqJ8+2VfuqT706xzYgC9KZwO5Xn2CEXisHHwnKY
+	 Ilws+DRqDf4s7sI9B28WAkn3It0Bd4IWta3sKanRwOSDzacgMbmGvVhXVcgO1A7lzGaQD
+	 36HX0JOTw0hHczYcKCG6o2hB+tdMZqqdL1CbfnsTwEnjggBHnlV6LxogaQ+pFAFKELn4q
+	 u0O4HPxIiEbA563c2z/yXdz6XTJRcXgKagiutcbfX5BKLT8v7gu5DoaDYHDkSqziL0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407428;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hl6P/qIPzgssqPnaK+FHoZEtoJEOWAXytEPxMQqQpG8=;
-	b=eJ2IRyyjWnb3QPX/T+FT3SSdHV5tP2HeBPTClm2nKNUbN2LmIx4U+W2qH1K95rKOZc/o
-	 5CdYKJ94x57Y5qdHOtio1o8jaIlvKnYcFX7HzNo9xrkrB/QujCIePj2WOaGoXkO6ECFGI
-	 MImTR/0kkA/OpHi7aNTYwF2OzLd4R/G9l7bqeJN8ozNUFktCLbB9S25ohNlQLOgR5YVXB
-	 aW5ERc51fzbIqfPwqeFWknT6RD3JJnaEN+r0Eae5aYocWb6WdwMUTDzYVVhxOaKT0GYY5
-	 z8fS0kBbONqlvyalSgzOjM/T29kbX0eqJE3WMdkfZOEOF2Zx2SBZbr8e7Kd7/Hgm2uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407475;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kKF0mQvreptZsa+2Q5R7ql2D+DQU1Mo/aazddJSC2Ig=;
+	b=uFGxNITr2VkDS5K1cycJl/DwyDC594wLiAJPzdTOS02MMwO79qLSL4Ib99SNshTYtYar
+	 ATIlJyIZMjS9Upz4S9KQBWHnDpAc9ajjNJMIJaW02QT+yxFe9Fo/HAo09DR+6hmQ3Bt59
+	 8RzgvKXBubcTP+oHZCkp7JEtujKg8lRnpjhdiwNQ8tnLjqZEi8zyQF91JREpBY/pQU+NS
+	 NisqP6Agt49NzqZuaseO7/E2T7+3aRSLUSptiEkoW30jMzvfcWzci9dyHbPUWbB5xl6DL
+	 knMqrCb8WirnXxcyl5xZ+VgSMO2SFt7O1fy7kXReY4IaaBY/8pddg2jWNYJfwSGFQ6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVGAohVR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cl16buCh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C9E606A326;
-	Wed, 11 Nov 2026 14:30:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099C7606A330
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:31:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVGAohVR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B831F00A05;
-	Wed, 11 Nov 2026 14:30:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cl16buCh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECE871F00A08;
+	Wed, 11 Nov 2026 14:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794407428;
-	bh=hl6P/qIPzgssqPnaK+FHoZEtoJEOWAXytEPxMQqQpG8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iVGAohVR/WW8AesjJ4/F4CEf1WLU8bl4pYUgUt991gPtj4Odkyd4qY30lpF07ajnw
-	 s29SHfSJ8wuBjKM4wkU2gGMDIREwWNxgUGYHul9w5fiF1XqRVIT9ed7+egXyxX7UqU
-	 /Kp02xz0crC0LcA5hYdNnYff9I+ltB0OJJEGYU0xS6iRGPfS8fC68DkGb+pG38jjaV
-	 krCl78zEGGsOKc9RxoW8eclQuPj6wLmpbzr9gHxmrXl5EMjqxHawS7TWd2M5CHJr6M
-	 cXpUILzNdIn6h6BxCjJG76muhqQYkE/UmqZQlfvRucBgGZy9in8PR0SpuTsHK/aGUb
-	 kqciCVs60z8CQ==
-Date: Wed, 11 Nov 2026 15:30:24 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, stable@vger.kernel.org
-Subject: Re: [PATCH] fs: fix the SEEK_CUR f_lock condition
-Message-ID: <20261111-aufhalten-erwerben-abmontieren-41386b5caab9@brauner>
-References: <20261106-work-file-seek_f_lock-v1-1-5b9a6c2928d4@kernel.org>
- <7vzn53nez54u2ps3z7eb2v7vqca3sitzhhu7epk2lrrkt6l32o@hxboo6t23vow>
+	s=k20260515; t=1794407474;
+	bh=kKF0mQvreptZsa+2Q5R7ql2D+DQU1Mo/aazddJSC2Ig=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cl16buChDScZJ0a5ldj4PaazobIsxw4sE+471wxgVikbzlBYvzHCqLsZ44GONYSSx
+	 HR+FMBZEP8oHFskQr5jyQX9ZNrmAwCF9vU+w0phh0cz8Z9eKpeAs7UsQsdv+QmEdIt
+	 ZXAQZxG/76iu5bmK1mthgbE31nBObaVHSeaILkrlFFJwt5cae7w9tK+cTnkOp62sYm
+	 rW+MkKGqDQ1UHdaNgA1WtUWslO3kcdisYW3gKmvbznnKnWOUe1bVoE9DrAMneiiPpX
+	 ycQYLtHhdy3bNxqsBEddFRERrceKfSvajZvSHscDZm3RJ19BMxZOD4J1+gOJLLNBNZ
+	 U1gHz2x3U3cmA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Hitesh Patel <hitesh@ebytelogic.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] media: qcom: camss: vfe-17x: Fix write master selection for RDI lines
+Date: Wed, 11 Nov 2026 09:31:12 -0500
+Message-ID: <20261111143027.2361667-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060046-failed-5.15-fc02156a3efb@kernel.org>
+References: <20261107060046-failed-5.15-fc02156a3efb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,13 +61,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7vzn53nez54u2ps3z7eb2v7vqca3sitzhhu7epk2lrrkt6l32o@hxboo6t23vow>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 03:51:26PM +0100, Jan Kara wrote:
-> Isn't the iterate_shared check moot now? Because all directories will have
-> FMODE_ATOMIC_POS set AFAICS do_dentry_open(). But regardless feel free to
-> add:
+From: Hitesh Patel <hitesh@ebytelogic.com>
 
-True.
+[ Upstream commit fc02156a3efb747b724a490cc50e1ad8c28a3b23 ]
+
+On the gen2 VFE bus there is no crossbar between the RDI paths and
+the bus write masters: RDI n is served by write master n. The common
+vfe_get_output_v2() reflects this by mapping line->id to write master
+line->id, and every gen2 VFE except 17x uses it.
+
+The 17x code kept its own vfe_get_output(), which reserves whichever
+write master is free first. That happens to be the right one as long
+as a single line streams and it is RDI0. As soon as two lines of the
+same VFE stream, for instance two virtual channels demultiplexed by
+the CSID to RDI0 and RDI1, the second line to start is given the
+write master of the other RDI. Both write masters are then programmed
+with the buffer address and frame size of the wrong line. The frames
+are truncated to the smaller of the two buffers and the SMMU faults
+on the larger one.
+
+Use vfe_get_output_v2() on 17x like the other gen2 VFEs and drop the
+duplicate. This also removes an error path that released
+output->wm_idx[0] before it had been assigned.
+
+The gen1 VFEs are not affected: they have a bus crossbar and any write
+master can serve any line, so vfe_reserve_wm() is correct there.
+
+Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
+Cc: stable@vger.kernel.org
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+[ sashal: adapted the switch to vfe_get_output_v2() by updating the existing local vfe_get_output() implementation ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../media/platform/qcom/camss/camss-vfe-170.c   | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-170.c b/drivers/media/platform/qcom/camss/camss-vfe-170.c
+index 44223c08b87af..c7196b698bed2 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-170.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-170.c
+@@ -406,7 +406,6 @@ static int vfe_get_output(struct vfe_line *line)
+ 	struct vfe_device *vfe = to_vfe(line);
+ 	struct vfe_output *output;
+ 	unsigned long flags;
+-	int wm_idx;
+ 
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 
+@@ -418,12 +417,12 @@ static int vfe_get_output(struct vfe_line *line)
+ 
+ 	output->wm_num = 1;
+ 
+-	wm_idx = vfe_reserve_wm(vfe, line->id);
+-	if (wm_idx < 0) {
+-		dev_err(vfe->camss->dev, "Can not reserve wm\n");
+-		goto error_get_wm;
+-	}
+-	output->wm_idx[0] = wm_idx;
++	/* Correspondence between VFE line number and WM number.
++	 * line 0 -> RDI 0, line 1 -> RDI1, line 2 -> RDI2, line 3 -> PIX/RDI3
++	 * Note this 1:1 mapping will not work for PIX streams.
++	 */
++	output->wm_idx[0] = line->id;
++	vfe->wm_output_map[line->id] = line->id;
+ 
+ 	output->drop_update_idx = 0;
+ 
+@@ -431,11 +430,9 @@ static int vfe_get_output(struct vfe_line *line)
+ 
+ 	return 0;
+ 
+-error_get_wm:
+-	vfe_release_wm(vfe, output->wm_idx[0]);
+-	output->state = VFE_OUTPUT_OFF;
+ error:
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
++	output->state = VFE_OUTPUT_OFF;
+ 
+ 	return -EINVAL;
+ }
+-- 
+2.53.0
+
