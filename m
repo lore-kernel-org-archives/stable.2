@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416958;
-	b=IkKuhi4shAXsjVkGXA8WBcFraNOVEbPvAkYvRFV6KgA9A7xVz6Y8wQ+Mer3hGm7yUmRq
-	 a6DBFIlmtqI6AKktDlDIxPwNuiQPlE2hTC5cQ9k8E0ffY4gY3QSfV4Dt0TEnpWVxiQ21C
-	 kTXmmpg9dvM+3u7O8+04kV5zqenXDygN1INJbwr6TaGyU0Rt2b+872hIW0OFBUiUyNZx5
-	 7/pWJby//fqlA70c7bpf4tYfsVmVFli2SZvdFBQIDkOLP4GBhFgEw627KcgFaMq+kIRBd
-	 YdFHCF2lBCA2Oy3FemWIQ0q8CZZ9cYTtJzyYawgWmA0MCqTN6YLZe2Xn+cWSq27zpjQ==
+	t=1794417030;
+	b=CcnIEyjzRcndYROBOF289hZtiN57WJwiuCLMCUZpXNDMlTw3+bhjjumrv7AFbht0QI4B
+	 /YpckoOd8bqLPWVkXKHyzKqCJWkT2GAFee0LXLRVz3WR7GKL+dMQXbmtO1rWEASUHP681
+	 HgoGNP4qYPwL3JhDLJIXU8C54y4Z3qwbihW4jV3ZghxPDOlj0S1aZargGsxLYhEGLTABK
+	 QNOIf5is3EzzHKE40JS0WkkKA26WieIRbmUBR2LIzrc9Mus2PgybxsbArnT6K59XQymqX
+	 z02Ho+AR09WotRtECrgGAF8OnjXJuVrtJHPrL/XjPvCL03heZ+68A41bU10o4hwNAfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416958;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417030;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=urDA6C1JjTDAH2WHQRgpAUYLXru2Vn1kByj4L4mX4Rs=;
-	b=Ho6aUt4v7lKl/OKkJZTL4UqtVzBLydyDm52FOUAT1mN21gXflRbWTMsNdcr9lK6EPBlg
-	 eR9bpOZ88ARENcVnXpT6GfPVuuIdaOXXEIdnXfbG50YnW9kfFC9y7IxuUqF4cgK+7Mgis
-	 rbtnw36Yv467OOpYpm/0sVMS2Lw1Ac87Og4cFwJ03FTyYuvVWMHJQ5m+LMC5eO4l6wpKZ
-	 /FbI0AbDJ2Xpii9q5yRlTUYqqgoUnUz6jwujmIBe4sypUJucLsxF2W0TJeWpWBlBBf2YD
-	 lqPst/jSgBgAY13okcIrg9Ud7ZcXtqJxkxhTREq14KB35sQNQEgTBnmo58cZrGBP9kA==
+	bh=iIllfBexUi+CTvPur5g3gbtHo87MuDi3xBXZ879+RLo=;
+	b=yfKIKL49x841+O4gaNCYq6DlfMwDro+bl/OfQHUr4goHOJv0gyXCvI6HeleTtTwtdaR+
+	 T/FZBe4sEwGrlhv0cQAjUO58fUuqJrDnPvzlAtVhV1WeVjq+Xr3NlI0vMBAUblBQ57Dqf
+	 FBoaboCd8nCc4pxAMqGN1p62Xr/6kM4REbbVWFXweShTsw5ycAYlkisM/FrHVcowzHcNG
+	 IpTp9jk/DdZfyAEmzd2vFBn0yoa92rLeJIUzvmnOK42V448R+gKk6BdQEw7JiaX2R+Yk7
+	 j24X1D5L4OsfRxcF1MbuLHJwYJBa3VPA4azfuOZigL9BkdOiLcEC9VuUVH7jAAYFAAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4lHOxgH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isofeEyp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F0B606A32A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8525E606A327
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:10:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4lHOxgH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6989B1F00A0B;
-	Wed, 11 Nov 2026 17:09:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isofeEyp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76DC71F00A05;
+	Wed, 11 Nov 2026 17:10:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416958;
-	bh=urDA6C1JjTDAH2WHQRgpAUYLXru2Vn1kByj4L4mX4Rs=;
+	s=k20260515; t=1794417030;
+	bh=iIllfBexUi+CTvPur5g3gbtHo87MuDi3xBXZ879+RLo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C4lHOxgH475ehW0g8TsXwdSD2n0p5NDjWA+THO82OYJu1rLXbt38XduTuzLLRtq35
-	 wOtEkDgCkK89bJgkWV84J1ZN39uvJiSj3dAY9km0blS4Wc2Jzo4k7JC5T4Yq6cCtTu
-	 QpLFZ4iGhAWJ4fyKuSImckQnK19vEn7c+yhafWBTTsV2/NHzRN6SoGYCh5XSHdPr3/
-	 ZMFy2VA+Yf3/aVfw7qSwDBIwY1k1/c+Q9c5mo/GJ8Vf10P7t1oLUjx8uuFln9F6xRr
-	 eBDq6PM9dWd4ksJ9wEJjoeKdyD6ASPNUHVkk5Nbkh4s2saRECBHddKEMe58pUzqT5C
-	 6Y5d/687tNLWw==
+	b=isofeEypOx5UcGxdgUtH+YMg7GT7nRYgvtTPckdtsc76FZ/VIZrklE14EGfrkcm6T
+	 drtE+9Umbt7W5h2mJQLpypuDtDKTxardMQWoueZ0BGkxIfzwpBDfx8xqhAx8jmXz1t
+	 znZxhTzXUE7+TXJy2dbJeZ1683to8b0XNpM5pSWmTBdjPkqPtBL7VLlokVk4OLC2iE
+	 mHKorNt85RJsv/6CPsiskbuKAGeTF5tta80DxiV+xDYicWHWWt8DXJnV4x1fGLEFpy
+	 gCOLU4wpelfCeC2y2hg4V2GySHUX52KNs0NZlRY4Hov9bVotA+YuADgOXsv15p0xeG
+	 3GXsuQn51w8Qw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Brian Geffon <bgeffon@google.com>,
-	Dmitry Safonov <0x7f454c46@gmail.com>,
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Stephen Boyd <swboyd@chromium.org>,
+	Abhinav Kumar <abhinavk@codeaurora.org>,
+	Rob Clark <robdclark@chromium.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/mremap: correctly uncharge accountable VMAs in error path
-Date: Wed, 11 Nov 2026 12:09:16 -0500
-Message-ID: <20261111170857.3427359-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] drm/msm/hdmi: use bulk regulator API
+Date: Wed, 11 Nov 2026 12:10:27 -0500
+Message-ID: <20261111171012.3471965-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053909-failed-6.6-65e722a74df9@kernel.org>
-References: <20261107053909-failed-6.6-65e722a74df9@kernel.org>
+In-Reply-To: <20261107061756-failed-5.10-d27f831aaf20@kernel.org>
+References: <20261107061756-failed-5.10-d27f831aaf20@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,69 +63,254 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-[ Upstream commit 65e722a74df992719676ead85a9e93fb2b5a0983 ]
+[ Upstream commit 31b3b1f5e35252b255f2a0d6a3883b09b5c4af97 ]
 
-The mremap error path is a fragile and unwieldy beast - it reverses the
-page table move then updates vma_remap_struct state to swap VMA, length and
-address between old and new VMAs in copy_vma_and_data().
+Switch to using bulk regulator API instead of hand coding loops.
 
-If the mremap() operation didn't specify MREMAP_DONTUNMAP then its caller,
-move_vma(), invokes unmap_source_vma(), which unmaps the new VMA rather
-than the old one.
-
-For accountable VMAs when MREMAP_DONTUNMAP is not specified,
-unmap_source_vma() unsets VMA_ACCOUNT_BIT during this unmap in order that
-only the delta of a VMA expansion is charged (performed by
-vrm_calc_charge() earlier).
-
-Therefore nothing uncharges the expanded VMA size, and there is a permanent
-leak in global Committed_AS.
-
-Resolve the issue by uncharging when MREMAP_DONTUNMAP is not specified.
-
-Link: https://lore.kernel.org/20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org
-Fixes: fdbef6149135 ("mm/mremap: don't account pages in vma_to_resize()")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Dmitry Safonov <0x7f454c46@gmail.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: Replaced vrm_uncharge() with a VM_ACCOUNT-guarded vm_unacct_memory(to_account >> PAGE_SHIFT) call in move_vma(). ]
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+Link: https://lore.kernel.org/r/20211015001100.4193241-1-dmitry.baryshkov@linaro.org
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Stable-dep-of: d27f831aaf20 ("drm/msm/hdmi_phy: Cleanup after msm_hdmi_phy_resource_enable() failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mremap.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/gpu/drm/msm/hdmi/hdmi.c        | 34 ++++++++------------------
+ drivers/gpu/drm/msm/hdmi/hdmi.h        |  6 ++---
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 20 +++++----------
+ drivers/gpu/drm/msm/hdmi/hdmi_hpd.c    | 24 +++++++-----------
+ drivers/gpu/drm/msm/hdmi/hdmi_phy.c    | 33 +++++++++----------------
+ 5 files changed, 40 insertions(+), 77 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 0739a31b54eed..26d3cb46f6ec1 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -715,6 +715,19 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 		 */
- 		move_page_tables(new_vma, new_addr, vma, old_addr, moved_len,
- 				 true);
-+
-+		/*
-+		 * The new VMA will be unmapped rather than the old one.
-+		 *
-+		 * When an accountable move is being performed, this unmapping
-+		 * will not uncharge any expansion, so do that now.
-+		 *
-+		 * A move is accountable if the VMA is accountable and
-+		 * MREMAP_DONTUNMAP is not specified.
-+		 */
-+		if (vm_flags & VM_ACCOUNT && !(flags & MREMAP_DONTUNMAP))
-+			vm_unacct_memory(to_account >> PAGE_SHIFT);
-+
- 		vma = new_vma;
- 		old_len = new_len;
- 		old_addr = new_addr;
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index bee208773beec..6cfd9bbd5b104 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -165,19 +165,13 @@ static struct hdmi *msm_hdmi_init(struct platform_device *pdev)
+ 		ret = -ENOMEM;
+ 		goto fail;
+ 	}
+-	for (i = 0; i < config->hpd_reg_cnt; i++) {
+-		struct regulator *reg;
+-
+-		reg = devm_regulator_get(&pdev->dev,
+-				config->hpd_reg_names[i]);
+-		if (IS_ERR(reg)) {
+-			ret = PTR_ERR(reg);
+-			DRM_DEV_ERROR(&pdev->dev, "failed to get hpd regulator: %s (%d)\n",
+-					config->hpd_reg_names[i], ret);
+-			goto fail;
+-		}
++	for (i = 0; i < config->hpd_reg_cnt; i++)
++		hdmi->hpd_regs[i].supply = config->hpd_reg_names[i];
+ 
+-		hdmi->hpd_regs[i] = reg;
++	ret = devm_regulator_bulk_get(&pdev->dev, config->hpd_reg_cnt, hdmi->hpd_regs);
++	if (ret) {
++		DRM_DEV_ERROR(&pdev->dev, "failed to get hpd regulator: %d\n", ret);
++		goto fail;
+ 	}
+ 
+ 	hdmi->pwr_regs = devm_kcalloc(&pdev->dev,
+@@ -188,19 +182,11 @@ static struct hdmi *msm_hdmi_init(struct platform_device *pdev)
+ 		ret = -ENOMEM;
+ 		goto fail;
+ 	}
+-	for (i = 0; i < config->pwr_reg_cnt; i++) {
+-		struct regulator *reg;
+ 
+-		reg = devm_regulator_get(&pdev->dev,
+-				config->pwr_reg_names[i]);
+-		if (IS_ERR(reg)) {
+-			ret = PTR_ERR(reg);
+-			DRM_DEV_ERROR(&pdev->dev, "failed to get pwr regulator: %s (%d)\n",
+-					config->pwr_reg_names[i], ret);
+-			goto fail;
+-		}
+-
+-		hdmi->pwr_regs[i] = reg;
++	ret = devm_regulator_bulk_get(&pdev->dev, config->pwr_reg_cnt, hdmi->pwr_regs);
++	if (ret) {
++		DRM_DEV_ERROR(&pdev->dev, "failed to get pwr regulator: %d\n", ret);
++		goto fail;
+ 	}
+ 
+ 	hdmi->hpd_clks = devm_kcalloc(&pdev->dev,
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
+index 20f554312b17c..a6c88d157bc3a 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.h
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
+@@ -48,8 +48,8 @@ struct hdmi {
+ 	void __iomem *qfprom_mmio;
+ 	phys_addr_t mmio_phy_addr;
+ 
+-	struct regulator **hpd_regs;
+-	struct regulator **pwr_regs;
++	struct regulator_bulk_data *hpd_regs;
++	struct regulator_bulk_data *pwr_regs;
+ 	struct clk **hpd_clks;
+ 	struct clk **pwr_clks;
+ 
+@@ -161,7 +161,7 @@ struct hdmi_phy {
+ 	void __iomem *mmio;
+ 	struct hdmi_phy_cfg *cfg;
+ 	const struct hdmi_phy_funcs *funcs;
+-	struct regulator **regs;
++	struct regulator_bulk_data *regs;
+ 	struct clk **clks;
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+index 11b1919e37b1c..dcfefc12385ab 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+@@ -27,13 +27,9 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
+ 
+ 	pm_runtime_get_sync(&hdmi->pdev->dev);
+ 
+-	for (i = 0; i < config->pwr_reg_cnt; i++) {
+-		ret = regulator_enable(hdmi->pwr_regs[i]);
+-		if (ret) {
+-			DRM_DEV_ERROR(dev->dev, "failed to enable pwr regulator: %s (%d)\n",
+-					config->pwr_reg_names[i], ret);
+-		}
+-	}
++	ret = regulator_bulk_enable(config->pwr_reg_cnt, hdmi->pwr_regs);
++	if (ret)
++		DRM_DEV_ERROR(dev->dev, "failed to enable pwr regulator: %d\n", ret);
+ 
+ 	if (config->pwr_clk_cnt > 0) {
+ 		DBG("pixclock: %lu", hdmi->pixclock);
+@@ -69,13 +65,9 @@ static void power_off(struct drm_bridge *bridge)
+ 	for (i = 0; i < config->pwr_clk_cnt; i++)
+ 		clk_disable_unprepare(hdmi->pwr_clks[i]);
+ 
+-	for (i = 0; i < config->pwr_reg_cnt; i++) {
+-		ret = regulator_disable(hdmi->pwr_regs[i]);
+-		if (ret) {
+-			DRM_DEV_ERROR(dev->dev, "failed to disable pwr regulator: %s (%d)\n",
+-					config->pwr_reg_names[i], ret);
+-		}
+-	}
++	ret = regulator_bulk_disable(config->pwr_reg_cnt, hdmi->pwr_regs);
++	if (ret)
++		DRM_DEV_ERROR(dev->dev, "failed to disable pwr regulator: %d\n", ret);
+ 
+ 	pm_runtime_put_autosuspend(&hdmi->pdev->dev);
+ }
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
+index 52ebe562ca9be..68f5254632c37 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
+@@ -97,16 +97,13 @@ int msm_hdmi_hpd_enable(struct drm_bridge *bridge)
+ 	const struct hdmi_platform_config *config = hdmi->config;
+ 	struct device *dev = &hdmi->pdev->dev;
+ 	uint32_t hpd_ctrl;
+-	int i, ret;
++	int ret;
+ 	unsigned long flags;
+ 
+-	for (i = 0; i < config->hpd_reg_cnt; i++) {
+-		ret = regulator_enable(hdmi->hpd_regs[i]);
+-		if (ret) {
+-			DRM_DEV_ERROR(dev, "failed to enable hpd regulator: %s (%d)\n",
+-					config->hpd_reg_names[i], ret);
+-			goto fail;
+-		}
++	ret = regulator_bulk_enable(config->hpd_reg_cnt, hdmi->hpd_regs);
++	if (ret) {
++		DRM_DEV_ERROR(dev, "failed to enable hpd regulators: %d\n", ret);
++		goto fail;
+ 	}
+ 
+ 	ret = pinctrl_pm_select_default_state(dev);
+@@ -155,7 +152,7 @@ void msm_hdmi_hpd_disable(struct hdmi_bridge *hdmi_bridge)
+ 	struct hdmi *hdmi = hdmi_bridge->hdmi;
+ 	const struct hdmi_platform_config *config = hdmi->config;
+ 	struct device *dev = &hdmi->pdev->dev;
+-	int i, ret = 0;
++	int ret;
+ 
+ 	/* Disable HPD interrupt */
+ 	hdmi_write(hdmi, REG_HDMI_HPD_INT_CTRL, 0);
+@@ -169,12 +166,9 @@ void msm_hdmi_hpd_disable(struct hdmi_bridge *hdmi_bridge)
+ 	if (ret)
+ 		dev_warn(dev, "pinctrl state chg failed: %d\n", ret);
+ 
+-	for (i = 0; i < config->hpd_reg_cnt; i++) {
+-		ret = regulator_disable(hdmi->hpd_regs[i]);
+-		if (ret)
+-			dev_warn(dev, "failed to disable hpd regulator: %s (%d)\n",
+-					config->hpd_reg_names[i], ret);
+-	}
++	ret = regulator_bulk_disable(config->hpd_reg_cnt, hdmi->hpd_regs);
++	if (ret)
++		dev_warn(dev, "failed to disable hpd regulator: %d\n", ret);
+ }
+ 
+ void msm_hdmi_hpd_irq(struct drm_bridge *bridge)
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+index cfaf9c26a9054..326b43c803f09 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+@@ -23,22 +23,15 @@ static int msm_hdmi_phy_resource_init(struct hdmi_phy *phy)
+ 	if (!phy->clks)
+ 		return -ENOMEM;
+ 
+-	for (i = 0; i < cfg->num_regs; i++) {
+-		struct regulator *reg;
+-
+-		reg = devm_regulator_get(dev, cfg->reg_names[i]);
+-		if (IS_ERR(reg)) {
+-			ret = PTR_ERR(reg);
+-			if (ret != -EPROBE_DEFER) {
+-				DRM_DEV_ERROR(dev,
+-					      "failed to get phy regulator: %s (%d)\n",
+-					      cfg->reg_names[i], ret);
+-			}
++	for (i = 0; i < cfg->num_regs; i++)
++		phy->regs[i].supply = cfg->reg_names[i];
+ 
+-			return ret;
+-		}
++	ret = devm_regulator_bulk_get(dev, cfg->num_regs, phy->regs);
++	if (ret) {
++		if (ret != -EPROBE_DEFER)
++			DRM_DEV_ERROR(dev, "failed to get phy regulators: %d\n", ret);
+ 
+-		phy->regs[i] = reg;
++		return ret;
+ 	}
+ 
+ 	for (i = 0; i < cfg->num_clks; i++) {
+@@ -66,11 +59,10 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
+ 
+ 	pm_runtime_get_sync(dev);
+ 
+-	for (i = 0; i < cfg->num_regs; i++) {
+-		ret = regulator_enable(phy->regs[i]);
+-		if (ret)
+-			DRM_DEV_ERROR(dev, "failed to enable regulator: %s (%d)\n",
+-				cfg->reg_names[i], ret);
++	ret = regulator_bulk_enable(cfg->num_regs, phy->regs);
++	if (ret) {
++		DRM_DEV_ERROR(dev, "failed to enable regulators: (%d)\n", ret);
++		return ret;
+ 	}
+ 
+ 	for (i = 0; i < cfg->num_clks; i++) {
+@@ -92,8 +84,7 @@ void msm_hdmi_phy_resource_disable(struct hdmi_phy *phy)
+ 	for (i = cfg->num_clks - 1; i >= 0; i--)
+ 		clk_disable_unprepare(phy->clks[i]);
+ 
+-	for (i = cfg->num_regs - 1; i >= 0; i--)
+-		regulator_disable(phy->regs[i]);
++	regulator_bulk_disable(cfg->num_regs, phy->regs);
+ 
+ 	pm_runtime_put_sync(dev);
+ }
 -- 
 2.53.0
 
