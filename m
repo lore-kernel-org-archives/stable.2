@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415625;
-	b=NaOsFU3opGS8KL30GPEBBSp4NpMs9LPN5i7ysxr8ENSY3FKkKsrCtv5ORin0Dp6vYdde
-	 qj2JXyULGzySADbVMxpK0MzV9Iwyz2QBrH/XAmJ2jq3NW6eF8pMBS7vNzN1nFpcCQLXhj
-	 CX56Xs312yp0Y94XOmUjRlHS6X0zECsoAmBclWbAUq8esuww6Fx+xkRUFRgDhc8e+PZgs
-	 ot48gBqcY3pXRyqOm5fbo99m5/bZ/bxrvEMk4HqVIdSbkBOIzvmqqWztUm8RmMuV2uGvV
-	 PmM60p6nn8YXvJNIaumR2cJMVEAb4aSRn06qSsKKLpBffGPyImIhxtepPsIr6q3DGDQ==
+	t=1794415666;
+	b=F+U+dzTzuqH1+df7n5+A+0GZKEor+m/zyQsXiRKT5yK3q/jzQDTwAqzyxTazMzKKz10/
+	 BkxyuHuwvYZ3x6GtDO9tziITgR16liLbXvqWTzZS7N/zHprWgeXm62fxgiLIqUGViTm04
+	 Jj1JiCyVhS06uI6iMuwzzYLSvEqNLZChW0bYCtnfotE8Fvp6yg4z9dzaBaTOKCwxsP/EK
+	 gMTTDaLmZq2J5VVB9q1Av74piusnrvQ/br+vy5O5ly8zXLrvOKPnwPd3UlnW3jNICVzme
+	 sz0h1yUZWy1Yn+A8+PdDixE9M85Ag/+QJjymXzl+mCwjVVXgiWpN9rv2w0gjVCrq3Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415625;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415666;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=acUTaLVZawELkqDVJjma8sc44X5J8d/WCDKIT0gnGvw=;
-	b=Rn4nd47O2qt8XMtvpnG5dowrlmtvVRdw8mwS8bhfyMdjM9+H6GeE9CP8WLYrscfimzYm
-	 1gL8ubU0qpLeoYhV80ChLvrGvkcJq/f5hOmQ19rZe3LcdwUrJzUfOL0gYZkaq2Px6Ynwj
-	 joQp7mji5NcMTmMR1TO143q9JLPwJi5Ua2h/2n4XDNc6Xb+KNDbNn6VBOLQ6Q546QZ7FK
-	 LnlCjgh0INrIZ6c5Z1nFT9gXuy6BKWUzjkJYxX3L1jGgjl9eWSbGtsA/rdieAQaLQe9Zi
-	 jmXQ3u2gNrVYg7PWSj3SeEhjSRyOsaUtSC3cFpw+AaipuDSpCLdq+E+D1bceDpiopOA==
+	bh=J3tpifRijT4+pk7e2hNJcEEFVR4m4Uqn25qM1IhLC4U=;
+	b=AVMByA4er7JRoEbs7CYaaFtJGMrH0pcorUzvPA0e7zTGmfoXTSj2z6okNDxDAFkGoYrx
+	 ElQWukZbclhWweCDKKURhNMqeLv4tb/9XbJtv2WElqmOI0bKOntUfd0S+z9yS5UycaDJt
+	 z6oDDQQ1YKebp3eVOpz1z2vGkTHSWlf75RY10LbLCfW0xUmRjqTJVcr9Cfk2Lz2qwGU9m
+	 7tjhBU9RQvuIIX+LquBeCqjMpQRqUykLWSD9lyDUOSboH12ZMDeqOXo0vLgoGgbUZyVXe
+	 oZaGhYBiAQ0qJwR9yV4At/0iBe1FEJxBlOUGCg2b0f9gOkoej2twa/pta3l0T4sTnjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8XEYeWO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jq9QCUb6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B11C606A32A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:47:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7C5606A88E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:47:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8XEYeWO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7051F00A05;
-	Wed, 11 Nov 2026 16:47:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jq9QCUb6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77EF01F00A0C;
+	Wed, 11 Nov 2026 16:47:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794415624;
-	bh=acUTaLVZawELkqDVJjma8sc44X5J8d/WCDKIT0gnGvw=;
+	s=k20260515; t=1794415666;
+	bh=J3tpifRijT4+pk7e2hNJcEEFVR4m4Uqn25qM1IhLC4U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m8XEYeWOEfSQaFWY0iR5CKvqKipRxgG0tM+AZYK3VWfrB5fTXwZyypCXok557/PfB
-	 XEXygFDUnvZIBe99JkYThaNqc5WVZYoFu7GDBALo1Nf/ttxIUeu1oUzgFIswTn2IKn
-	 dG5FLB/SMD6ElhJytWTCeFVM3dwrB+CSRd+5lEj7jvaHOzEmn3xy0IqZhOwVbfiVrP
-	 fNxXBkW4G0BfanDLhkTXwy4wQOEuqVRrEsMfiEwbpa/jEXZmAtFuETYLo5WydUhhCi
-	 hb5oQlY+rIsTIN93bPq0Gl7xdB6zoCGQBmS3UrMvxviaj1XMeiWZ54kqC1fpVEuwmi
-	 mKIcXP1ni0SKQ==
+	b=jq9QCUb6jlJA851gnLI25IT549uDAfAXyY7+OVkialmRoCsjPd3GHv3L7coTt8JAD
+	 cm/eHAuw9JbKGo3zBRj5gcoW0+ok7I7GF/+YZIzOKg3/Xl62hRuLJW32j2sUjDEH9A
+	 HSSLRyNFnDTIovwoIgXwpRKJrN5waic4jvg5vA7WvK3duIzzZ0M/Ou9XSjaepp+a6f
+	 38ujFHDNJE/V8kJRKzh/3y+avqx0hVMBV8G6Y7OOPBVbjPs2rmlWXQz8hIjPxS1kby
+	 yZewNu6McT+vH1eKZG9FAAghJpEOMBDe3anqWdYezD5MRiBMj2EyT7zPY2H9kIV79D
+	 Bbou2Tq2ShssA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: Hung-Jui Lin <alex.lin.programmer@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/shmem: honour F_SEAL_EXEC when an ACL is set
-Date: Wed, 11 Nov 2026 11:47:02 -0500
-Message-ID: <20261111164624.3308020-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] posix-timers: Report zero remaining time for disarmed SIGEV_NONE timers
+Date: Wed, 11 Nov 2026 11:47:44 -0500
+Message-ID: <20261111164724.3309939-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200656-failed-6.12-0237c47ca170@kernel.org>
-References: <20261109200656-failed-6.12-0237c47ca170@kernel.org>
+In-Reply-To: <20261107055507-failed-6.1-141a27750ec3@kernel.org>
+References: <20261107055507-failed-6.1-141a27750ec3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,128 +61,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+From: Hung-Jui Lin <alex.lin.programmer@gmail.com>
 
-[ Upstream commit 0237c47ca17005ea41b510c6116f0257dbf84eab ]
+[ Upstream commit 141a27750ec3d91ad9d1ad1764ebb5e51b963478 ]
 
-The owner of a memfd sealed with F_SEAL_EXEC can still change its
-execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-this lets an unprivileged owner make a non-executable memfd executable,
-bypassing vm.memfd_noexec=2.
+SIGEV_NONE timers are never queued. common_timer_get() emulates their
+expiry by computing the remaining time from the stored expiry value.
+Because an armed SIGEV_NONE oneshot timer is not queued, its it_status
+stays POSIX_TIMER_DISARMED. So common_timer_get() cannot use it_status to
+skip a disarmed SIGEV_NONE timer and evaluates the stored expiry value for
+all SIGEV_NONE timers.
 
-simple_set_acl() updates i_mode directly, bypassing the seal check in
-shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-in include/linux/memfd.h.
+Disarming a timer with timer_settime() and a zero it_value cancels the
+timer and sets it_status to POSIX_TIMER_DISARMED, but leaves the expiry
+value unchanged. As a consequence, timer_gettime() on a disarmed SIGEV_NONE
+timer reports the remaining time of the previous arming until that time has
+passed, instead of zero as POSIX requires for a disarmed timer. Example
+with a CLOCK_MONOTONIC timer armed with it_value = 10ms and it_interval =
+100ms, then disarmed with an all-zero itimerspec:
 
-Fix generated by an LLM and sent by Chris Mason in private.
+  armed:    it_value = 0.009999000  it_interval = 0.100000000
+  disarmed: it_value = 0.008700792  it_interval = 0.000000000
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+SIGEV_SIGNAL timers and SIGEV_NONE CPU timers report zero in the same
+situation. All clocks which use common_timer_get() are affected, including
+the alarm timer clocks.
+
+Mark SIGEV_NONE timers as POSIX_TIMER_ARMED when they are armed, so that
+common_timer_get() returns early for every disarmed timer. Forward
+SIGEV_NONE interval timers in common_timer_get() regardless of it_status,
+as they are never queued and therefore never forwarded by the expiry code.
+
+After the change the disarmed timer above reports zero. Armed SIGEV_NONE
+oneshot and interval timers on CLOCK_MONOTONIC, CLOCK_REALTIME,
+CLOCK_BOOTTIME and CLOCK_BOOTTIME_ALARM still report their remaining time,
+and the posix_timers selftest passes.
+
+Fixes: becf8b5d00f4 ("[PATCH] hrtimer: convert posix timers completely")
+Signed-off-by: Hung-Jui Lin <alex.lin.programmer@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: use common helper; simplify description ]
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-4-392fc715d8f6@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: removed const from the mnt_idmap parameter of shmem_set_acl() to match the existing ACL interface ]
+Link: https://patch.msgid.link/20261023151411.28685-1-alex.lin.programmer@gmail.com
+[ sashal: adapted it_status-based state handling to it_active around the void-returning timer_arm() callback ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/memfd.h |  9 +++++++++
- mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
- 2 files changed, 39 insertions(+), 5 deletions(-)
+ kernel/time/posix-timers.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/memfd.h b/include/linux/memfd.h
-index 246daadbfde82..bb07ba2992908 100644
---- a/include/linux/memfd.h
-+++ b/include/linux/memfd.h
-@@ -2,8 +2,17 @@
- #ifndef __LINUX_MEMFD_H
- #define __LINUX_MEMFD_H
- 
-+#include <linux/fcntl.h>
- #include <linux/file.h>
- 
-+static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
-+		umode_t new_mode)
-+{
-+	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
-+		return -EPERM;
-+	return 0;
-+}
-+
- #ifdef CONFIG_MEMFD_CREATE
- extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
- struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 881cbeaf3f747..8de38d7a98f92 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -75,6 +75,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
- #include <linux/magic.h>
- #include <linux/syscalls.h>
- #include <linux/fcntl.h>
-+#include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
- #include <linux/rmap.h>
- #include <linux/uuid.h>
-@@ -1255,10 +1256,11 @@ static int shmem_setattr(struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
- 
--	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
--		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
--			return -EPERM;
--		}
-+	if (attr->ia_valid & ATTR_MODE) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
+diff --git a/kernel/time/posix-timers.c b/kernel/time/posix-timers.c
+index fc08d4ccdeeb9..23683372ddcb1 100644
+--- a/kernel/time/posix-timers.c
++++ b/kernel/time/posix-timers.c
+@@ -686,12 +686,8 @@ void common_timer_get(struct k_itimer *timr, struct itimerspec64 *cur_setting)
+ 	if (iv) {
+ 		cur_setting->it_interval = ktime_to_timespec64(iv);
+ 	} else if (!timr->it_active) {
+-		/*
+-		 * SIGEV_NONE oneshot timers are never queued. Check them
+-		 * below.
+-		 */
+-		if (!sig_none)
+-			return;
++		/* Nothing to update for a disarmed timer */
++		return;
  	}
  
- 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
-@@ -4939,12 +4941,35 @@ static const struct file_operations shmem_file_operations = {
- #endif
- };
+ 	now = kc->clock_get_ktime(timr->it_clock);
+@@ -901,7 +897,15 @@ int common_timer_set(struct k_itimer *timr, int flags,
+ 	sigev_none = timr->it_sigev_notify == SIGEV_NONE;
  
-+#ifdef CONFIG_TMPFS_POSIX_ACL
-+static int shmem_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
-+		struct posix_acl *acl, int type)
-+{
-+	struct inode *inode = d_inode(dentry);
-+	umode_t mode = inode->i_mode;
-+	int error;
-+
-+	if (type == ACL_TYPE_ACCESS) {
-+		error = posix_acl_equiv_mode(acl, &mode);
-+		if (error < 0)
-+			return error;
-+		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
-+					       inode->i_mode, mode);
-+		if (error)
-+			return error;
-+	}
-+	return simple_set_acl(idmap, dentry, acl, type);
-+}
-+#else
-+#define shmem_set_acl simple_set_acl
-+#endif
-+
- static const struct inode_operations shmem_inode_operations = {
- 	.getattr	= shmem_getattr,
- 	.setattr	= shmem_setattr,
- #ifdef CONFIG_TMPFS_XATTR
- 	.listxattr	= shmem_listxattr,
--	.set_acl	= simple_set_acl,
-+	.set_acl	= shmem_set_acl,
- 	.fileattr_get	= shmem_fileattr_get,
- 	.fileattr_set	= shmem_fileattr_set,
- #endif
+ 	kc->timer_arm(timr, expires, flags & TIMER_ABSTIME, sigev_none);
+-	timr->it_active = !sigev_none;
++	/*
++	 * SIGEV_NONE timers are not queued, but mark them armed
++	 * so that common_timer_get() can tell them apart from
++	 * disarmed timers. An expired SIGEV_NONE timer stays
++	 * armed, which is harmless: common_timer_get() reports
++	 * zero remaining time for it and it never reaches the
++	 * signal delivery code.
++	 */
++	timr->it_active = 1;
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
