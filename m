@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417030;
-	b=CcnIEyjzRcndYROBOF289hZtiN57WJwiuCLMCUZpXNDMlTw3+bhjjumrv7AFbht0QI4B
-	 /YpckoOd8bqLPWVkXKHyzKqCJWkT2GAFee0LXLRVz3WR7GKL+dMQXbmtO1rWEASUHP681
-	 HgoGNP4qYPwL3JhDLJIXU8C54y4Z3qwbihW4jV3ZghxPDOlj0S1aZargGsxLYhEGLTABK
-	 QNOIf5is3EzzHKE40JS0WkkKA26WieIRbmUBR2LIzrc9Mus2PgybxsbArnT6K59XQymqX
-	 z02Ho+AR09WotRtECrgGAF8OnjXJuVrtJHPrL/XjPvCL03heZ+68A41bU10o4hwNAfg==
+	t=1794417031;
+	b=DEAZkWWoISMlXy4GHidM92HjjfcBoYniCx/p6DN4uu67xLCuqp+iWLZyP5upKRFgnwrJ
+	 je5CvUaHWT+shlTYD+RE31LTlSurl+23nWQRa4TpfVQxQBF6MQjS9yNKgVvKBz+CZQ9xH
+	 YTYs9cVMIFW9gGcl3RODbNX1LdmRgfbTlsYIXHcp0VUnxQDjxRjuf+qzzyyhLIS3B7Ut4
+	 SjJmeGPNl8d/W04/rMngN7Ucg7Gm3aIcUeRlaSd2Lg2bi0tR5mwYV4HxlrLKE6TjnYnLx
+	 ggyuu2Y5SO9EqD4PdVcdQs3Cs6mwBTzin9AhWpX2KQDiEXwNNzOtkvXwYm94KFsA5Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417030;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417031;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iIllfBexUi+CTvPur5g3gbtHo87MuDi3xBXZ879+RLo=;
-	b=yfKIKL49x841+O4gaNCYq6DlfMwDro+bl/OfQHUr4goHOJv0gyXCvI6HeleTtTwtdaR+
-	 T/FZBe4sEwGrlhv0cQAjUO58fUuqJrDnPvzlAtVhV1WeVjq+Xr3NlI0vMBAUblBQ57Dqf
-	 FBoaboCd8nCc4pxAMqGN1p62Xr/6kM4REbbVWFXweShTsw5ycAYlkisM/FrHVcowzHcNG
-	 IpTp9jk/DdZfyAEmzd2vFBn0yoa92rLeJIUzvmnOK42V448R+gKk6BdQEw7JiaX2R+Yk7
-	 j24X1D5L4OsfRxcF1MbuLHJwYJBa3VPA4azfuOZigL9BkdOiLcEC9VuUVH7jAAYFAAQ==
+	bh=QzcudBV4MnTxAthGSwaebNiGUIppXdtoTg9qGoQa4AI=;
+	b=giFni7u98Rdno518rIh8dHVYngXOulbofPxIj7/2TVTevyp24nsqxLECohYwqEQBorXb
+	 gdNmrCX1n06DAmMHcAqvlO7GEaRhzfnTZ5kjSu5tpsl/TPjSjSiYVrgEaLTFHxuhpPGLn
+	 8eLv5dnwDoHzTR2YmaYSq6AeS5j7crgk5HJdY4UgOmfCOMSPVAez+PFFvvtYfsHhE/P3S
+	 iP/XilDAbRmeJRgKQhfumpnqDF2Whelj9kGoKLODimAPB1RejC3j5TidrWCRYqgNVG5Xx
+	 YFbvQmj4pD5nYIX3490yNOND43dmuMZk3EC48VdEhAG32UwbrEdhUH8hfZRPNKaZysw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isofeEyp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3ZYdKDd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8525E606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:10:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C45E606A327
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:10:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isofeEyp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76DC71F00A05;
-	Wed, 11 Nov 2026 17:10:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3ZYdKDd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 612ED1F00A0B;
+	Wed, 11 Nov 2026 17:10:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794417030;
-	bh=iIllfBexUi+CTvPur5g3gbtHo87MuDi3xBXZ879+RLo=;
+	bh=QzcudBV4MnTxAthGSwaebNiGUIppXdtoTg9qGoQa4AI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=isofeEypOx5UcGxdgUtH+YMg7GT7nRYgvtTPckdtsc76FZ/VIZrklE14EGfrkcm6T
-	 drtE+9Umbt7W5h2mJQLpypuDtDKTxardMQWoueZ0BGkxIfzwpBDfx8xqhAx8jmXz1t
-	 znZxhTzXUE7+TXJy2dbJeZ1683to8b0XNpM5pSWmTBdjPkqPtBL7VLlokVk4OLC2iE
-	 mHKorNt85RJsv/6CPsiskbuKAGeTF5tta80DxiV+xDYicWHWWt8DXJnV4x1fGLEFpy
-	 gCOLU4wpelfCeC2y2hg4V2GySHUX52KNs0NZlRY4Hov9bVotA+YuADgOXsv15p0xeG
-	 3GXsuQn51w8Qw==
+	b=Y3ZYdKDdjvPvi17guP0nLDG8ndSYrMGlq0h6xa93ChiaRSEK5cJ7dJgDZZAQmZBR9
+	 2Cc2HeZVon4KeCWPU8UiWlLD2ysG5vL3blCtFRtSyqVOqZ1KdITkEnPda48mqibylW
+	 sAkEOFVCmQMwrVwXy5nQCD+sCwLHFcue7jvv/tQwBQTvx6z0sbTOE5MwoJS9OxEzUj
+	 fhLWarIJUqmcxRcp/tGYE38xZSEk0NSKAumqff6HCVhGNuS9FKNGXbGyxVkeFVtlhz
+	 mf6VOV42uFK5GUHijYlC7SZcu9VOdpTzYyCOeNJ3fW4wz+VstHZSL63WfUFhpSb7Cj
+	 mDW7Z6VVJNlnQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	Stephen Boyd <swboyd@chromium.org>,
-	Abhinav Kumar <abhinavk@codeaurora.org>,
-	Rob Clark <robdclark@chromium.org>,
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] drm/msm/hdmi: use bulk regulator API
-Date: Wed, 11 Nov 2026 12:10:27 -0500
-Message-ID: <20261111171012.3471965-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] drm/msm/hdmi_phy: Cleanup after msm_hdmi_phy_resource_enable() failure
+Date: Wed, 11 Nov 2026 12:10:28 -0500
+Message-ID: <20261111171012.3471965-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061756-failed-5.10-d27f831aaf20@kernel.org>
+In-Reply-To: <20261111171012.3471965-1-sashal@kernel.org>
 References: <20261107061756-failed-5.10-d27f831aaf20@kernel.org>
+ <20261111171012.3471965-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,254 +63,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-[ Upstream commit 31b3b1f5e35252b255f2a0d6a3883b09b5c4af97 ]
+[ Upstream commit d27f831aaf20aaf06e41ceb1b260e10672269155 ]
 
-Switch to using bulk regulator API instead of hand coding loops.
+If msm_hdmi_phy_resource_enable() fails, e.g. when enabling regulators,
+it should reverse the state of things already changed.
+msm_hdmi_phy_resource_enable() is used also in probe path, thus such
+failure, which could be simple deferred probe, would leave these
+resources permanently enabled for the rest of the runtime.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-Link: https://lore.kernel.org/r/20211015001100.4193241-1-dmitry.baryshkov@linaro.org
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Stable-dep-of: d27f831aaf20 ("drm/msm/hdmi_phy: Cleanup after msm_hdmi_phy_resource_enable() failure")
+Cc: <stable@vger.kernel.org>
+Fixes: 15b4a4523859 ("drm/msm/hdmi: Create a separate HDMI PHY driver")
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Patchwork: https://patchwork.freedesktop.org/patch/752654/
+Link: https://lore.kernel.org/r/20260911-drm-msm-hdmi-fixes-before-eliza-v4-1-87bdb9f1987f@oss.qualcomm.com
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi.c        | 34 ++++++++------------------
- drivers/gpu/drm/msm/hdmi/hdmi.h        |  6 ++---
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 20 +++++----------
- drivers/gpu/drm/msm/hdmi/hdmi_hpd.c    | 24 +++++++-----------
- drivers/gpu/drm/msm/hdmi/hdmi_phy.c    | 33 +++++++++----------------
- 5 files changed, 40 insertions(+), 77 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi_phy.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index bee208773beec..6cfd9bbd5b104 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -165,19 +165,13 @@ static struct hdmi *msm_hdmi_init(struct platform_device *pdev)
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
--	for (i = 0; i < config->hpd_reg_cnt; i++) {
--		struct regulator *reg;
--
--		reg = devm_regulator_get(&pdev->dev,
--				config->hpd_reg_names[i]);
--		if (IS_ERR(reg)) {
--			ret = PTR_ERR(reg);
--			DRM_DEV_ERROR(&pdev->dev, "failed to get hpd regulator: %s (%d)\n",
--					config->hpd_reg_names[i], ret);
--			goto fail;
--		}
-+	for (i = 0; i < config->hpd_reg_cnt; i++)
-+		hdmi->hpd_regs[i].supply = config->hpd_reg_names[i];
- 
--		hdmi->hpd_regs[i] = reg;
-+	ret = devm_regulator_bulk_get(&pdev->dev, config->hpd_reg_cnt, hdmi->hpd_regs);
-+	if (ret) {
-+		DRM_DEV_ERROR(&pdev->dev, "failed to get hpd regulator: %d\n", ret);
-+		goto fail;
- 	}
- 
- 	hdmi->pwr_regs = devm_kcalloc(&pdev->dev,
-@@ -188,19 +182,11 @@ static struct hdmi *msm_hdmi_init(struct platform_device *pdev)
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
--	for (i = 0; i < config->pwr_reg_cnt; i++) {
--		struct regulator *reg;
- 
--		reg = devm_regulator_get(&pdev->dev,
--				config->pwr_reg_names[i]);
--		if (IS_ERR(reg)) {
--			ret = PTR_ERR(reg);
--			DRM_DEV_ERROR(&pdev->dev, "failed to get pwr regulator: %s (%d)\n",
--					config->pwr_reg_names[i], ret);
--			goto fail;
--		}
--
--		hdmi->pwr_regs[i] = reg;
-+	ret = devm_regulator_bulk_get(&pdev->dev, config->pwr_reg_cnt, hdmi->pwr_regs);
-+	if (ret) {
-+		DRM_DEV_ERROR(&pdev->dev, "failed to get pwr regulator: %d\n", ret);
-+		goto fail;
- 	}
- 
- 	hdmi->hpd_clks = devm_kcalloc(&pdev->dev,
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.h b/drivers/gpu/drm/msm/hdmi/hdmi.h
-index 20f554312b17c..a6c88d157bc3a 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.h
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.h
-@@ -48,8 +48,8 @@ struct hdmi {
- 	void __iomem *qfprom_mmio;
- 	phys_addr_t mmio_phy_addr;
- 
--	struct regulator **hpd_regs;
--	struct regulator **pwr_regs;
-+	struct regulator_bulk_data *hpd_regs;
-+	struct regulator_bulk_data *pwr_regs;
- 	struct clk **hpd_clks;
- 	struct clk **pwr_clks;
- 
-@@ -161,7 +161,7 @@ struct hdmi_phy {
- 	void __iomem *mmio;
- 	struct hdmi_phy_cfg *cfg;
- 	const struct hdmi_phy_funcs *funcs;
--	struct regulator **regs;
-+	struct regulator_bulk_data *regs;
- 	struct clk **clks;
- };
- 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 11b1919e37b1c..dcfefc12385ab 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -27,13 +27,9 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
- 
- 	pm_runtime_get_sync(&hdmi->pdev->dev);
- 
--	for (i = 0; i < config->pwr_reg_cnt; i++) {
--		ret = regulator_enable(hdmi->pwr_regs[i]);
--		if (ret) {
--			DRM_DEV_ERROR(dev->dev, "failed to enable pwr regulator: %s (%d)\n",
--					config->pwr_reg_names[i], ret);
--		}
--	}
-+	ret = regulator_bulk_enable(config->pwr_reg_cnt, hdmi->pwr_regs);
-+	if (ret)
-+		DRM_DEV_ERROR(dev->dev, "failed to enable pwr regulator: %d\n", ret);
- 
- 	if (config->pwr_clk_cnt > 0) {
- 		DBG("pixclock: %lu", hdmi->pixclock);
-@@ -69,13 +65,9 @@ static void power_off(struct drm_bridge *bridge)
- 	for (i = 0; i < config->pwr_clk_cnt; i++)
- 		clk_disable_unprepare(hdmi->pwr_clks[i]);
- 
--	for (i = 0; i < config->pwr_reg_cnt; i++) {
--		ret = regulator_disable(hdmi->pwr_regs[i]);
--		if (ret) {
--			DRM_DEV_ERROR(dev->dev, "failed to disable pwr regulator: %s (%d)\n",
--					config->pwr_reg_names[i], ret);
--		}
--	}
-+	ret = regulator_bulk_disable(config->pwr_reg_cnt, hdmi->pwr_regs);
-+	if (ret)
-+		DRM_DEV_ERROR(dev->dev, "failed to disable pwr regulator: %d\n", ret);
- 
- 	pm_runtime_put_autosuspend(&hdmi->pdev->dev);
- }
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-index 52ebe562ca9be..68f5254632c37 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
-@@ -97,16 +97,13 @@ int msm_hdmi_hpd_enable(struct drm_bridge *bridge)
- 	const struct hdmi_platform_config *config = hdmi->config;
- 	struct device *dev = &hdmi->pdev->dev;
- 	uint32_t hpd_ctrl;
--	int i, ret;
-+	int ret;
- 	unsigned long flags;
- 
--	for (i = 0; i < config->hpd_reg_cnt; i++) {
--		ret = regulator_enable(hdmi->hpd_regs[i]);
--		if (ret) {
--			DRM_DEV_ERROR(dev, "failed to enable hpd regulator: %s (%d)\n",
--					config->hpd_reg_names[i], ret);
--			goto fail;
--		}
-+	ret = regulator_bulk_enable(config->hpd_reg_cnt, hdmi->hpd_regs);
-+	if (ret) {
-+		DRM_DEV_ERROR(dev, "failed to enable hpd regulators: %d\n", ret);
-+		goto fail;
- 	}
- 
- 	ret = pinctrl_pm_select_default_state(dev);
-@@ -155,7 +152,7 @@ void msm_hdmi_hpd_disable(struct hdmi_bridge *hdmi_bridge)
- 	struct hdmi *hdmi = hdmi_bridge->hdmi;
- 	const struct hdmi_platform_config *config = hdmi->config;
- 	struct device *dev = &hdmi->pdev->dev;
--	int i, ret = 0;
-+	int ret;
- 
- 	/* Disable HPD interrupt */
- 	hdmi_write(hdmi, REG_HDMI_HPD_INT_CTRL, 0);
-@@ -169,12 +166,9 @@ void msm_hdmi_hpd_disable(struct hdmi_bridge *hdmi_bridge)
- 	if (ret)
- 		dev_warn(dev, "pinctrl state chg failed: %d\n", ret);
- 
--	for (i = 0; i < config->hpd_reg_cnt; i++) {
--		ret = regulator_disable(hdmi->hpd_regs[i]);
--		if (ret)
--			dev_warn(dev, "failed to disable hpd regulator: %s (%d)\n",
--					config->hpd_reg_names[i], ret);
--	}
-+	ret = regulator_bulk_disable(config->hpd_reg_cnt, hdmi->hpd_regs);
-+	if (ret)
-+		dev_warn(dev, "failed to disable hpd regulator: %d\n", ret);
- }
- 
- void msm_hdmi_hpd_irq(struct drm_bridge *bridge)
 diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-index cfaf9c26a9054..326b43c803f09 100644
+index 326b43c803f09..1bdaa1f94c29b 100644
 --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
 +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-@@ -23,22 +23,15 @@ static int msm_hdmi_phy_resource_init(struct hdmi_phy *phy)
- 	if (!phy->clks)
- 		return -ENOMEM;
- 
--	for (i = 0; i < cfg->num_regs; i++) {
--		struct regulator *reg;
--
--		reg = devm_regulator_get(dev, cfg->reg_names[i]);
--		if (IS_ERR(reg)) {
--			ret = PTR_ERR(reg);
--			if (ret != -EPROBE_DEFER) {
--				DRM_DEV_ERROR(dev,
--					      "failed to get phy regulator: %s (%d)\n",
--					      cfg->reg_names[i], ret);
--			}
-+	for (i = 0; i < cfg->num_regs; i++)
-+		phy->regs[i].supply = cfg->reg_names[i];
- 
--			return ret;
--		}
-+	ret = devm_regulator_bulk_get(dev, cfg->num_regs, phy->regs);
-+	if (ret) {
-+		if (ret != -EPROBE_DEFER)
-+			DRM_DEV_ERROR(dev, "failed to get phy regulators: %d\n", ret);
- 
--		phy->regs[i] = reg;
-+		return ret;
+@@ -62,16 +62,28 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
+ 	ret = regulator_bulk_enable(cfg->num_regs, phy->regs);
+ 	if (ret) {
+ 		DRM_DEV_ERROR(dev, "failed to enable regulators: (%d)\n", ret);
+-		return ret;
++		goto err_pm_put;
  	}
  
  	for (i = 0; i < cfg->num_clks; i++) {
-@@ -66,11 +59,10 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
- 
- 	pm_runtime_get_sync(dev);
- 
--	for (i = 0; i < cfg->num_regs; i++) {
--		ret = regulator_enable(phy->regs[i]);
+ 		ret = clk_prepare_enable(phy->clks[i]);
 -		if (ret)
--			DRM_DEV_ERROR(dev, "failed to enable regulator: %s (%d)\n",
--				cfg->reg_names[i], ret);
-+	ret = regulator_bulk_enable(cfg->num_regs, phy->regs);
-+	if (ret) {
-+		DRM_DEV_ERROR(dev, "failed to enable regulators: (%d)\n", ret);
-+		return ret;
++		if (ret) {
+ 			DRM_DEV_ERROR(dev, "failed to enable clock: %s (%d)\n",
+ 				cfg->clk_names[i], ret);
++			goto err_clk_unprepare;
++		}
  	}
  
- 	for (i = 0; i < cfg->num_clks; i++) {
-@@ -92,8 +84,7 @@ void msm_hdmi_phy_resource_disable(struct hdmi_phy *phy)
- 	for (i = cfg->num_clks - 1; i >= 0; i--)
- 		clk_disable_unprepare(phy->clks[i]);
- 
--	for (i = cfg->num_regs - 1; i >= 0; i--)
--		regulator_disable(phy->regs[i]);
++	return 0;
++
++err_clk_unprepare:
++	for (; i > 0; i--)
++		clk_disable_unprepare(phy->clks[i - 1]);
 +	regulator_bulk_disable(cfg->num_regs, phy->regs);
- 
- 	pm_runtime_put_sync(dev);
++
++err_pm_put:
++	pm_runtime_put_sync(dev);
++
+ 	return ret;
  }
+ 
 -- 
 2.53.0
 
