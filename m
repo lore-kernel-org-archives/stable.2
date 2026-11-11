@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407475;
-	b=E86oGfAZdOO3PmKkBKY7NMdkSoPMazExgqQIw2ppOri36Xz2bbUNRaa3L09fF/u71sRE
-	 HQn2IEQo+TeP+7K2aP2EWGbyehWx+uCqJ8+2VfuqT706xzYgC9KZwO5Xn2CEXisHHwnKY
-	 Ilws+DRqDf4s7sI9B28WAkn3It0Bd4IWta3sKanRwOSDzacgMbmGvVhXVcgO1A7lzGaQD
-	 36HX0JOTw0hHczYcKCG6o2hB+tdMZqqdL1CbfnsTwEnjggBHnlV6LxogaQ+pFAFKELn4q
-	 u0O4HPxIiEbA563c2z/yXdz6XTJRcXgKagiutcbfX5BKLT8v7gu5DoaDYHDkSqziL0g==
+	t=1794407499;
+	b=YDjsK1Y0yzY5AgbrTEcatrxKFyYiy88/FcU5AG1G624VkA5DXKGTsZLIdQzzjuhhnMrB
+	 Nk/GB+zR31OgB6jHO/5WV0liWGtP+x2YAhAACpuNjm3ChOxB8T+I8sSy8M/KOn26aOiqV
+	 J6HIE1NP8il9p5ekPHRJEqVOGbJV1HQT+SobGREVyi6gSTI2UeMya+kU4Fd5LL+xVxUph
+	 qcimws3nSvH641oyQL3cr2abZbk0AgqdO9AR9TqtwcRbYkHOxs3QUyqeIb0KFLmqnCmQH
+	 XE3r/otcX4+CaRGdnM2euljaYnSmGx+097of2/OKBkd8gKSS23YRzee/uGgdiNprP5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407475;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407499;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kKF0mQvreptZsa+2Q5R7ql2D+DQU1Mo/aazddJSC2Ig=;
-	b=uFGxNITr2VkDS5K1cycJl/DwyDC594wLiAJPzdTOS02MMwO79qLSL4Ib99SNshTYtYar
-	 ATIlJyIZMjS9Upz4S9KQBWHnDpAc9ajjNJMIJaW02QT+yxFe9Fo/HAo09DR+6hmQ3Bt59
-	 8RzgvKXBubcTP+oHZCkp7JEtujKg8lRnpjhdiwNQ8tnLjqZEi8zyQF91JREpBY/pQU+NS
-	 NisqP6Agt49NzqZuaseO7/E2T7+3aRSLUSptiEkoW30jMzvfcWzci9dyHbPUWbB5xl6DL
-	 knMqrCb8WirnXxcyl5xZ+VgSMO2SFt7O1fy7kXReY4IaaBY/8pddg2jWNYJfwSGFQ6A==
+	bh=xPeE28alTEMgn8FyNRYKBpwJZrlqqxPdPlc7ZC1crn8=;
+	b=t1ipLmLGCEaczY+Jl1U8jBjscQbkBmaWSe5p5e773NJVcN/zvI5st42Jdsh1T9WuseYy
+	 0Kc3qdScRyNmNfTxSnxxh3NG7wmLYg6fZVl0nBv+yMZ18A/lskw80kho5d6afJCQSJC8D
+	 avCG7LiO74J0IXNAtSnqZGOcEs+EhBKtgBBJ+20wNXSig2gN/ULkBmNLEUU9ghlx9vO5w
+	 Cmgwf2p7/NjnE3B2QxpJ2XF5xdoLpsduC+YZjlS/W51sioe1SxthCHGKKvB9yDhhiRAbN
+	 A8Lm0XAlbcuIlpZzTjxGOKbgepWCnHkH/oqmtamrGBMtLLPTMmrHno1kSmaVkpR6lEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cl16buCh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDPghvNh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099C7606A330
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:31:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DDC606A8BD
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:31:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cl16buCh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECE871F00A08;
-	Wed, 11 Nov 2026 14:31:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDPghvNh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F43D1F00A11;
+	Wed, 11 Nov 2026 14:31:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794407474;
-	bh=kKF0mQvreptZsa+2Q5R7ql2D+DQU1Mo/aazddJSC2Ig=;
+	s=k20260515; t=1794407499;
+	bh=xPeE28alTEMgn8FyNRYKBpwJZrlqqxPdPlc7ZC1crn8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cl16buChDScZJ0a5ldj4PaazobIsxw4sE+471wxgVikbzlBYvzHCqLsZ44GONYSSx
-	 HR+FMBZEP8oHFskQr5jyQX9ZNrmAwCF9vU+w0phh0cz8Z9eKpeAs7UsQsdv+QmEdIt
-	 ZXAQZxG/76iu5bmK1mthgbE31nBObaVHSeaILkrlFFJwt5cae7w9tK+cTnkOp62sYm
-	 rW+MkKGqDQ1UHdaNgA1WtUWslO3kcdisYW3gKmvbznnKnWOUe1bVoE9DrAMneiiPpX
-	 ycQYLtHhdy3bNxqsBEddFRERrceKfSvajZvSHscDZm3RJ19BMxZOD4J1+gOJLLNBNZ
-	 U1gHz2x3U3cmA==
+	b=YDPghvNhsR5JD90EeVoQp4pxFjKDLhM8V269rmy+L3CVNfpc2kLcwuTTJT4JOsOY3
+	 0ovZ5gDz+8KZoL5Cia050QWRjODOMebpP002/c+TzQ/mOrTFBKcTCe09J5XbCCAAuV
+	 snKOLPIJkS9UF0s1n54g/p2aKxa5yjQWWptoo1tBKwLw7IH69vDm9LGQWbTr3fyUp1
+	 KWFxRrydv65l7HhO+Zy7rCJhn+7Nzn3K68nbx/2K2m9nwU5L3o3/ouDxe4c2JFJ+LE
+	 30dLhiJ25WfjvBIS/leW3273jVl21ag6Hl82Uh36tu5gO3fQN6yiW41DA5Wcy+HxvY
+	 y8AktpH6fNsxA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
+Cc: Stanley Jhu <stanleyjhu@google.com>,
+	Bean Huo <beanhuo@micron.com>,
+	Peter Wang <peter.wang@mediatek.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] media: qcom: camss: vfe-17x: Fix write master selection for RDI lines
-Date: Wed, 11 Nov 2026 09:31:12 -0500
-Message-ID: <20261111143027.2361667-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] scsi: ufs: bsg: Reject UIC commands with a non-zero result byte
+Date: Wed, 11 Nov 2026 09:31:37 -0500
+Message-ID: <20261111143048.2325330-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060046-failed-5.15-fc02156a3efb@kernel.org>
-References: <20261107060046-failed-5.15-fc02156a3efb@kernel.org>
+In-Reply-To: <20261107055402-failed-6.1-1ae42513205a@kernel.org>
+References: <20261107055402-failed-6.1-1ae42513205a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,88 +64,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hitesh Patel <hitesh@ebytelogic.com>
+From: Stanley Jhu <stanleyjhu@google.com>
 
-[ Upstream commit fc02156a3efb747b724a490cc50e1ad8c28a3b23 ]
+[ Upstream commit 1ae42513205a38b811afedb6797f9f9c4de37b90 ]
 
-On the gen2 VFE bus there is no crossbar between the RDI paths and
-the bus write masters: RDI n is served by write master n. The common
-vfe_get_output_v2() reflects this by mapping line->id to write master
-line->id, and every gen2 VFE except 17x uses it.
+ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
+including the result byte (bits 7:0) that only the host controller
+writes. A non-zero value triggers the WARN_ON_ONCE() in
+ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
+syzkaller.
 
-The 17x code kept its own vfe_get_output(), which reserves whichever
-write master is free first. That happens to be the right one as long
-as a single line streams and it is RDI0. As soon as two lines of the
-same VFE stream, for instance two virtual channels demultiplexed by
-the CSID to RDI0 and RDI1, the second line to start is given the
-write master of the other RDI. Both write masters are then programmed
-with the buffer address and frame size of the wrong line. The frames
-are truncated to the smaller of the two buffers and the SMMU faults
-on the larger one.
+Reject UIC commands that have the result byte set with -EINVAL.
 
-Use vfe_get_output_v2() on 17x like the other gen2 VFEs and drop the
-duplicate. This also removes an error path that released
-output->wm_idx[0] before it had been assigned.
-
-The gen1 VFEs are not affected: they have a bus crossbar and any write
-master can serve any line, so vfe_reserve_wm() is correct there.
-
-Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
+Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in ufs_bsg_request()")
+Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is invalid")
 Cc: stable@vger.kernel.org
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-[ sashal: adapted the switch to vfe_get_output_v2() by updating the existing local vfe_get_output() implementation ]
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261015001855.3450573-5-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: adjusted context to retain ufshcd_send_uic_cmd() instead of ufshcd_send_bsg_uic_cmd() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../media/platform/qcom/camss/camss-vfe-170.c   | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ drivers/ufs/core/ufs_bsg.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-170.c b/drivers/media/platform/qcom/camss/camss-vfe-170.c
-index 44223c08b87af..c7196b698bed2 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-170.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-170.c
-@@ -406,7 +406,6 @@ static int vfe_get_output(struct vfe_line *line)
- 	struct vfe_device *vfe = to_vfe(line);
- 	struct vfe_output *output;
- 	unsigned long flags;
--	int wm_idx;
- 
- 	spin_lock_irqsave(&vfe->output_lock, flags);
- 
-@@ -418,12 +417,12 @@ static int vfe_get_output(struct vfe_line *line)
- 
- 	output->wm_num = 1;
- 
--	wm_idx = vfe_reserve_wm(vfe, line->id);
--	if (wm_idx < 0) {
--		dev_err(vfe->camss->dev, "Can not reserve wm\n");
--		goto error_get_wm;
--	}
--	output->wm_idx[0] = wm_idx;
-+	/* Correspondence between VFE line number and WM number.
-+	 * line 0 -> RDI 0, line 1 -> RDI1, line 2 -> RDI2, line 3 -> PIX/RDI3
-+	 * Note this 1:1 mapping will not work for PIX streams.
-+	 */
-+	output->wm_idx[0] = line->id;
-+	vfe->wm_output_map[line->id] = line->id;
- 
- 	output->drop_update_idx = 0;
- 
-@@ -431,11 +430,9 @@ static int vfe_get_output(struct vfe_line *line)
- 
- 	return 0;
- 
--error_get_wm:
--	vfe_release_wm(vfe, output->wm_idx[0]);
--	output->state = VFE_OUTPUT_OFF;
- error:
- 	spin_unlock_irqrestore(&vfe->output_lock, flags);
-+	output->state = VFE_OUTPUT_OFF;
- 
- 	return -EINVAL;
- }
+diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
+index 118172fd66176..89cb6825dd531 100644
+--- a/drivers/ufs/core/ufs_bsg.c
++++ b/drivers/ufs/core/ufs_bsg.c
+@@ -129,6 +129,10 @@ static int ufs_bsg_request(struct bsg_job *job)
+ 		break;
+ 	case UPIU_TRANSACTION_UIC_CMD:
+ 		memcpy(&uc, &bsg_request->upiu_req.uc, UIC_CMD_SIZE);
++		if (uc.argument2 & MASK_UIC_COMMAND_RESULT) {
++			ret = -EINVAL;
++			break;
++		}
+ 		ret = ufshcd_send_uic_cmd(hba, &uc);
+ 		if (ret)
+ 			dev_err(hba->dev,
 -- 
 2.53.0
 
