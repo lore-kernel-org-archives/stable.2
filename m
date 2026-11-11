@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794427024;
-	b=OEfj1hEs0nprUIci24YEn1UJPKhSBH+px/Q6QfHgH+RzmmVUfi2RW4BVP2umE2mOd+bv
-	 sNinXb6HoYRNkK3Uh/U54gwr0oiaphwNS0uz9lgz8Q9tbj7ggPZjUeBamWbzI/dmDIl4V
-	 KWV+3GUnxaI+y+0wCRS+Pcs08eogtyHN4s9cYshJw1ah2SJ7qQalzTlJ/wFrLfQ6MK7P2
-	 bFxZ/TtnY8WhfFZSUXJRbLTv3lYniSJ1Hn1nvMXG9dL6KZZ9V643Y/Q6LshsXIhEKHt3q
-	 v/GCMKE8bByjr1tD2yI3n/S0Cr+jhKrWAkZc0ywmOn/0fbcaOjRZFpejMJf+l0S4Ofg==
+	t=1794427247;
+	b=vzy4St+BLmPwpKAlsnLSrnada8g/OpT0dxz3mLPXBNnkhp0PudH64zvDS0Ppyokt6E/A
+	 EGTF9Eg7iksBIlJdUUv2S5NI5G5hDGLsaC31ztkzOvDoPf1d2lV0svGc/umSQ7LnX2KyD
+	 JmMHSyt8kSA+e2fwk9VKR2SEVsm1cJZYu5NoZ8E2m0SypYAn4J+O4DAUFIEHdVOhtgp2o
+	 K/ZdVs8yzBwVIkATQo4Rw/4R7aJmHMnqvQMo/5xP0l2K84fA5LRWN9WXb2raRVxsxMX1l
+	 LLDNdFmb/nHRlDLCzKmY4T63I7hFFmyQe24nPl2aQ39ri4A+zvDG++VHt3+V3a0U3Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794427024;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794427247;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mIFFtbmOH3eZubxic4r1Rejdm5axbV+yGjFNjnBjhjY=;
-	b=U7yFFTKRkl5n4IZlSl5ph9f1CyJQdarOjIpWqwenZXfYu7O6hPPnnyALWQ6zltf6plbc
-	 ay+ZrjMBWBHBBZ+cq+2gWW8yLxZy5Nvj6FWypPSEEAqw7qpv2OZPrZxLYV6yITEBoT9RG
-	 cO2SDeMOHrezh7JTh+bODshVrpv/2keuNewrkjvbs4ccCACtizIX85rRW9yJYqn3klgZP
-	 7QThrFk+SK5nC7Rz7rgfhsKzmBiWu7Y7W6JzJLYADcVm0udUvTXZVnAMuT9NeOJHfhpoq
-	 yQTyK9AqJi2ZhP4YEcs9TV99uY+Kdl22qasLu7FbPXgoGBX9EHNKKY8Y6nNwNZCGbkA==
+	bh=UaefB8A3yTLegoLwLnY17kIeCgiwMftxOiYmoejib2c=;
+	b=Uhwm1SgJEBR2VuCiSw7+gAsMdLpYCeqKF/OALOIh2lFEgiORRatLUKIxz+ak9EmXak4e
+	 EREgxrH5Icf075vuWJcg6xE0ntk7p+8sRto0K7nSKn6VjzjDlH4bnUgYkv1pOluv9fflW
+	 0ZNYZNGMLc7No7ANBl21mB2Yf0cDw/8yxirZ2ZBtuCwMtFjQU1f+a2X0PE+NGXYI+pmTV
+	 hlbaA+NUteE8XI1Royq3pzhCl7sPNLVacGiWmjQ3taIM1N2exAqd8zswyWeJ6BBWnbavg
+	 xloWwZIzK3n6UXqHwP4nwVIbEFN7a1nlK3JkiLfVJjZWJST4z2n7iiYEqNh3nddbZXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNvflJtW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtCdaC6h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA15606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:57:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD157606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 20:00:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNvflJtW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D91E1F00A05;
-	Wed, 11 Nov 2026 19:57:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtCdaC6h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9C61F00A05;
+	Wed, 11 Nov 2026 20:00:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794427023;
-	bh=mIFFtbmOH3eZubxic4r1Rejdm5axbV+yGjFNjnBjhjY=;
+	s=k20260515; t=1794427247;
+	bh=UaefB8A3yTLegoLwLnY17kIeCgiwMftxOiYmoejib2c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JNvflJtW8Skv5Se9Zdv3vgXLDs4tZNIU7raffgE+7wJGSNyfdcZB5wL6KPA1UNYfZ
-	 gJR7qIvjVbB3rWqc7mLlF0Cva/K+tk6atsxdqhCQWNsFngydPAlcCDPWPJVr8FzwWk
-	 dsaD8/38WEMfAx5Whcb+7mHXl9WEjXzfm7gHhJyFJgV7XRqNdONiWr/XrvyTpavUbD
-	 2rlIIS/6s1U51IQOfarj+Uw4atFdHZvDiyz8M6BCquIw6aJPcKKaLhg7nxWdUL6qMi
-	 /UOY4kG7A2fvwsoR4P4dmXhuz9sB8Y+7OBnSQZdYm8WoZCrKZt2B/EJ3454xsiPC1Z
-	 SjgLa9jizLR4Q==
+	b=dtCdaC6h4OM8lxmJ/GN/aBb9Ank2XXIrsaGJc7Qvzlx1Ck4JrzriptyLu38xmBF5s
+	 5d6FlJHGsdmgczpHFGLUU7HPifZZTOSwlysJBQFcS9wM/jBLtyT567JhA/8EGadWmx
+	 5ch3VaDA4lJFdxl9UZEepBt/RIzFUeSOp0WA1Ch1UbS8YVJ2xdhuvr8brgGHcWGiRa
+	 JmlZQiMWO6moaJbRLIptI427sPukCTBFNj8YEssLPLq1Sbora87TKwxW0Fwaolcn9Y
+	 UC/aerD+Wtj/CtuF154T429UegRX36vO7qAetfGWfjDyGCXzddErkB5RX17SmDEaVR
+	 GA8iAL20+28HA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@kernel.org>,
@@ -49,12 +49,12 @@ Cc: Eric Dumazet <edumazet@kernel.org>,
 	Wang Zhan <wang.zhan@smartx.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] inet: frags: limit the truesize of a reassembly queue
-Date: Wed, 11 Nov 2026 14:57:01 -0500
-Message-ID: <20261111195642.4032404-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] inet: frags: limit the truesize of a reassembly queue
+Date: Wed, 11 Nov 2026 15:00:45 -0500
+Message-ID: <20261111200025.4039824-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200740-failed-6.12-3ae20e4697eb@kernel.org>
-References: <20261109200740-failed-6.12-3ae20e4697eb@kernel.org>
+In-Reply-To: <20261109201201-failed-6.6-3ae20e4697eb@kernel.org>
+References: <20261109201201-failed-6.6-3ae20e4697eb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,7 +97,7 @@ Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 Tested-by: Wang Zhan <wang.zhan@smartx.com>
 Link: https://patch.msgid.link/20261030081225.2575462-1-edumazet@kernel.org
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: adjusted context for missing secpath validation and conditional nf_reset_ct() call ]
+[ sashal: adjusted context for missing security-path checks and nf_reset_ct() in inet_frag_queue_insert() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  include/net/inet_frag.h  | 9 +++++++++
@@ -139,7 +139,7 @@ index 365925c9d2628..6aea2d1ac376f 100644
  			   int offset, int end);
  void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
 diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index 33b490165f4bb..0224440720e12 100644
+index 90709f2fdab88..c7be3060698ba 100644
 --- a/net/ipv4/inet_fragment.c
 +++ b/net/ipv4/inet_fragment.c
 @@ -337,6 +337,7 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
