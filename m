@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794394462;
-	b=BkmxNxklSkR4VNeYzWE/xNU456n+4WXB+e3EDIbsFGm0EH6+hA4piGqKtN8aMdxw0Pwu
-	 NZvT/wjmj1WSRO4PaJwUDjzU2h5Ojsgzeg4nthZr85vSVkcSbSextw2KqTErZg1IW6Dnc
-	 Mx8qBcCnpIN7GkbaWUg2JMS695vCewTGRrXpQNegZHQtbrX5TEGmMIDgMwQWizfU4BzGp
-	 fxkDf8FLsX2B4vzSvI+EKb0hZ9QKVopzmpPsy8D/+MGWE3gAIVOyALvRD/Y9c/R5WkZFU
-	 vu190uZ+g4yMYGifmvn9l99pvkh5sZSQs4/NdJ/tf50NE+2L1ZnJ1KCHaCmPC5uRI7A==
+	b=UHqRFUy3Dlv/H63IFjLnmEaRaJ6DzeAvLxNJTXQQY7HGFbXqwae3+39npmCwqGRzt1C7
+	 ALG3ETHJDJyCQww2/VVGv4f2FiOy/o3kZca4hvo79p+PYbWF302V4uV+ShnG6HqDlILGJ
+	 amnifs2W8H0aJ8n8+ZklsXZ2EE4XM0Rf/RgjREdRX2SWDw+PgY0w15DNLVR399RGU0HNi
+	 zLuOl/HBXGAqtaC4y+4m1q3BybqmpUynYlpJrGx1TME7DXSUHjX72obhxqHgJN1wL1iz5
+	 GUerJsY7DqM+1+A5vzChnxn2II3ICwy93nk3hz63ed/63itB4HTDR5pHTpg5p3fU/IA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794394462;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OX7IpMmXUp0KPJ3z8EWnOu2drVlPXmpVczD5dg0rV7o=;
-	b=1I9ggcDYljdgHpOCiuaS+4mDDVQVq8QM/51EF29+TFCDRIbqAhiAWyZhrRNxJ827yjfB
-	 OOQ7fJjfl/tACjE4RscfVmjveV1iUXmvvFfMd4PtB1wXP+MWVJSkGAxkHiJOMyEoQ2OEW
-	 ZcdFgA0DzfZvMSKRvKW1pT13USqdILWz5MwIX8rPo8h0NMMxzRiapDAagERWU+X+rayli
-	 SEGNP6sXrf/WI3aGxAQU3kZAAB1w6SzsGUfTLCFQNYRp7BJMGMB6RZi/n1l02rqxjCPuA
-	 YwuWcj7+TmVj74IsCcwt8Hvt65LAovjnPWLusNSU+I8+g7VxcTWJhgRm0gZxB1Zm3rw==
+	bh=4SvOebTKFMbQya7gCBewPTnTPz0HZqTShakBlkHoz88=;
+	b=nRSTY+MuiccpjToWYH7tnRBLNiE6jvty5apQqoTvL2com6pNKwBTsGia6t/E7sdQvyHM
+	 53kaEw8lQmVCBw7SiS6r7wbblP/n32Rv5ggTwtZQAFmQlxQNZyycjxarvmvnAMMcCTWbA
+	 UFzpG92KLOpuQNmpyXFiKZoaGw0FUrxT67NjYVHsBXHBr5fTlzZ30U+A0Q0P0cWUtZZ9E
+	 Qmp6xaYiMebuaNZvPxaGEgSOeyEUnSvTbryUxlhBCMBmWSYx+MFxjPmNjh42FwoLZYLVt
+	 hiZeGGScaEE0M/T7M+OJ+Zw32E9Chf6UmnKYLhcdOHV+yEV/fvY8t+RkzT49sWiaYrA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMbiL2mA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeCNeuyb;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C2D606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8953E606A334;
 	Wed, 11 Nov 2026 10:54:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMbiL2mA
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeCNeuyb
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794394462;
-	b=DoyfVsXmWR6rtb5DQe+rTEgzmQsgIvylVlJKyoKNUmiyTWrf0J74VVVK7AkggDUjtbe4
-	 /tVBcYeoEBCvNH9pT7IcEYm9zQcjiVMB+rPoI9EkjJlavIifiVU6ZPOg6BssOhCPMfZwS
-	 0uzKGu8BMC4XgduWYutgCNI9CWyb2Mt+4kult75eEslota1kQMBXQaiBZWGL7tmRNhPbV
-	 rTVcDHVxBL4eRATgc811xGTjMZ7UlOvTVgkZiIQtp5kJjEoysP0H6DaWDA4o19PuBo9Xr
-	 PMGvD+yYwowHP7cmRKhsbHbLnx9dmwGgCVcr7yeByqNnpbAAeRlylvJG0J5syihnhfQ==
+	b=2ibMg6OIntHZ+s2Q+CGBOPao/gmpIiXZ1by7Mz0LS3qpRdEDrwiej0pNZ/Sy3KIC0+nO
+	 3O7YtWNGw7Lakiowf7YMrNYoJkzuWNPVGnaiTIHFH/jJZNg6jPnJOf5emui6+SmDGlCwd
+	 R4nhw7vZDw2sNOaPr2aiFe+zkjZKtR7QCiOJ7jK/a+DwOcrTGB4UPYOIncoDKp1YDSymS
+	 GB+5Lsz3rAO7G0jIs0eMlWDiUo/CkxG/Rpt+77jYHoHZSV7VtrDPlr30ObobCf9ZrZbMx
+	 yXMyFEpsnIENFPmV4R+nq6CFyBCqer2EgxDHCmoxo8nD7UxNYYAEqyMLdfeRMdUgP4Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794394462;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OX7IpMmXUp0KPJ3z8EWnOu2drVlPXmpVczD5dg0rV7o=;
-	b=r4nMX4eNs8C7LZVRRXsDngv7kcAbyI7xDn2o09/BsefiPD/ZvuC7IhkrqWdJoQ4g+RIC
-	 EpQw7KpEmK/1uRv80W14tHsxitQsq1AaJ8tH58RBUuhs53ivh5XxIvTNH4baiDmvo3iHF
-	 SjL/d+yj1FKUk33+U1i4YpqonPP4iANoan9R1clvX8gVMHzjRqVEpkBQ+UJ2SF0PrnXsX
-	 ghVZk7hZwcwXFIcsd7nUa7g44vSJrBpvzk+gs6WoZSDPsYUeD4xu1IEDakHDJ5w+BeUsY
-	 pAFoGrtJBH0t1rBc1ArQAWK3HQjXUi0j3vbtt6w06IOklvF3XdozIQCVuUoMxSqz6EQ==
+	bh=4SvOebTKFMbQya7gCBewPTnTPz0HZqTShakBlkHoz88=;
+	b=bgLpOmzJYhKRk5Io0+0fPF68Eeel76gwlfRjy4HOfTGKzH3YEnqOVxlS8OFNtWpCNkdL
+	 3+K6jLgz9xH7bg+ZZo9Q3h2EyjWN4QLFd0xfE8HeE0IMz4P3chfWISE+fwEFtLJZJmUuD
+	 k7uJqiASOJi7CIDhYZ6W/jdOyM7IXi52mkDG0hXwIbQuZGf6U9niAylGiSrAd/kSdNJhy
+	 5tC5R8Tb/q0ti+yU/x6yzE53kvSNyyZ9Why/NefvIqKskl++7bvVGb2mcx7/TmkkdGRbP
+	 qpD+X5s/CIexb7Clkhu+u5DeU1KURHPK0TkfQJTIEEPfUb+CpgV4nPrj5asMSSUA0ww==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 906161F00A06;
+	by smtp.kernel.org (Postfix) with ESMTPS id B47501F00A07;
 	Wed, 11 Nov 2026 10:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794394462;
-	bh=OX7IpMmXUp0KPJ3z8EWnOu2drVlPXmpVczD5dg0rV7o=;
+	bh=4SvOebTKFMbQya7gCBewPTnTPz0HZqTShakBlkHoz88=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=PMbiL2mAFWk9Pr8RHLczrJSxI7iNEuwSwbHfIQ3usuytLL+Akms9Cd2K2TFukLRsk
-	 tDqiUZ3AZmoHOKd1lYn2i/5+xSS7SYs8JdtZHPim/EEDpBURy+QKeRknPqmaPXqxN2
-	 cIotzePBfW657gZHgsaRglr5NQLEe1j4FOpC/H1UJrerEG542r+MhYQbsdbhYVtQnD
-	 aIaC4l6JdCvN2ihs68pCof41ZhKjVzC+Xb/laGmEVRLf7S+wsVmHiaLuWghvUTOU9P
-	 yukECJ3n/mekx6AxptWYjduk3lGvYx+c538O36IACwKfwBGPDpw1RHyAsNqIz6K9JF
-	 Ai0xGaxDzFM6g==
+	b=LeCNeuybQ+iH1kwOsw76u3jCz6tZ1Ad789hIGy8LGg1RfCpXa1E6reUnHJxnAjz/9
+	 njYW6M1W059Q2KljpwUlho8iFIEIf605iWpwd1XPks05qaAErdju/1l/w9IEhOwYUD
+	 p0ntnSgaZ0A4auSgeAawNe1IV03AbeL1VEnC7fuhCSECQYpyPm1ns53DoIJX+0LOAd
+	 Qz9JjcBC3WLS7M+Jm9fr2mJJOMBFx7tW6w78Q9PEyCjjULzaVUhQqOb/dio66b9zQd
+	 ajR9LRnrQ3YjbFSmUQgTbGTpgWFoq6982QH5PPQtarfYCwPLwSv5/2nd3HWwPP4M3H
+	 wcMuKH3OvCQlg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1B8C448F37;
+	by lkml.kernel.org (Postfix) with ESMTP id 436DE48F58;
 	Wed, 11 Nov 2026 10:54:21 +0000 (UTC)
 From: Marc Herrero via B4 Relay <devnull+marcht.proton.me@kernel.org>
-Date: Wed, 11 Nov 2026 10:54:17 +0000
-Subject: [PATCH 1/2] ASoC: qcom: audioreach: use a 32-bit container for
- S24_LE PCM
+Date: Wed, 11 Nov 2026 10:54:18 +0000
+Subject: [PATCH 2/2] ASoC: qcom: audioreach: only disconnect the route a
+ mixer control owns
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-q6apm-fixes-v1-1-1beb5702b372@proton.me>
+Message-Id: <20261111-q6apm-fixes-v1-2-1beb5702b372@proton.me>
 References: <20261111-q6apm-fixes-v1-0-1beb5702b372@proton.me>
 In-Reply-To: <20261111-q6apm-fixes-v1-0-1beb5702b372@proton.me>
 To: Srinivas Kandagatla <srini@kernel.org>, 
@@ -95,11 +95,11 @@ Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
  Marc Herrero <marcht@proton.me>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794394460; l=2662;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794394460; l=2173;
  i=marcht@proton.me; s=20261111; h=from:subject:message-id;
- bh=9fJzhmYUq3LyiOGxgqaMh+RyxTe6x0FH/AqCa9i1ZJM=;
- b=NtdgL1f71BjOhvSO6cGEs3Y0JCeTj7nkuY/GfIZ8t79gXECCYHSjzYDo0uZRZv7MAS9Tw2yc3
- 9Lyi4UzXau6AZvA0ybFKjLsuIRUx4d8yHM9uan0px5Qi7g04YJJFc84
+ bh=uwHreXeheF+PY4xZ0ZasSUnOSnlXrONYE6C8uZecUBM=;
+ b=bLkWe0qoIIXe4vR/PnbDWg1bBcDb3ZcqkOH4+4smFjsy+J+H3bp+7RMSHR6hsb0g8jz20cm6Y
+ IZlTr6OAuUaBpTR2JKIdOEDdty12wfeTZAMyPw/715ULBSQFkVIhSYd
 X-Developer-Key: i=marcht@proton.me; a=ed25519;
  pk=pIPy6L+INgiuJt7L7umVilPgpzy/Ni3QS77ToLj/H9c=
 X-Endpoint-Received: by B4 Relay for marcht@proton.me/20261111 with
@@ -110,58 +110,48 @@ Content-Transfer-Encoding: 7bit
 
 From: Marc Herrero <marcht@proton.me>
 
-SNDRV_PCM_FORMAT_S24_LE carries 24 valid bits in a 32-bit container, but
-audioreach_shmem_set_media_format() and audioreach_pcm_set_media_format()
-set bits_per_sample = bit_width = 24 in PARAM_ID_MEDIA_FORMAT and
-PARAM_ID_PCM_OUTPUT_FORMAT_CFG, which tells the DSP that the samples are
-packed 3-byte words.
+Each AudioReach virtual mixer route control ("<BE> Audio Mixer <FE>")
+connects a front-end stream graph to a back-end device graph by storing
+the source module in the device graph's audioreach_graph_info. Writing 0
+to any of these controls clears that link unconditionally, even when the
+device graph is connected to a different front end.
 
-q6apm-dai advertises S24_LE, so with a topology that allows it on a
-playback front end the DSP walks the buffer with the wrong stride. On
-QCS6490 (Radxa Dragon Q6A) this crashes the ADSP audio_process:
+When two front ends can feed the same back end the result therefore
+depends on write order. On QCS6490 (Radxa Dragon Q6A):
 
-  PDM: service 'audio_process' crash: 'EX:audio_process:0x2:...'
-  q6apm-lpass-dais ...: Failed to start APM port 113
-  remoteproc remoteproc0: crash detected in adsp: type fatal error
+ - alsactl restore writes 'DISPLAY_PORT_RX_0 Audio Mixer MultiMedia2' = 1
+   and then 'DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' = 0, which leaves
+   DisplayPort disconnected although the saved state has it connected;
+ - the UCM HDMI enable sequence writes
+   'RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia2' = 0, which disconnects
+   MultiMedia1 from the headphones. A PCM started on MultiMedia1 after
+   that never advances (hw_ptr stays at 0).
 
-Use the container size (32) for 24-bit data and keep bit_width = 24,
-alignment = PCM_LSB_ALIGNED and q_factor = 23. With this change S24_LE
-playback works on the headphone path (codec DMA RX -> LPASS RX macro ->
-WCD9385), tested with the back end at S16_LE, S24_LE and S32_LE and at
-48, 96 and 192 kHz.
+Only drop the link when it belongs to the control being cleared, that is
+when audioreach_is_vmixer_connected() reports it as connected. Writing 0
+to a control that is not the active route becomes a no-op, which matches
+what its get() callback already returns.
 
-The DSP then reads each 32-bit word as Q23, so S24_LE samples must be
-sign-extended into the top byte, as alsa-lib's conversions do.
-
-Fixes: 25ab80db6b13 ("ASoC: qdsp6: audioreach: add module configuration command helpers")
+Fixes: e4977b91cff8 ("ASoC: qdsp6: audioreach: Simplify handing FE and BE graph connections")
 Cc: stable@vger.kernel.org
 Signed-off-by: Marc Herrero <marcht@proton.me>
 ---
- sound/soc/qcom/qdsp6/audioreach.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/qcom/qdsp6/topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
-index d2dc5d37bccf..937506edf34a 100644
---- a/sound/soc/qcom/qdsp6/audioreach.c
-+++ b/sound/soc/qcom/qdsp6/audioreach.c
-@@ -1216,7 +1216,7 @@ static int audioreach_pcm_set_media_format(struct q6apm_graph *graph,
- 	media_cfg->interleaved = module->interleave_type;
- 	media_cfg->num_channels = mcfg->num_channels;
- 	media_cfg->q_factor = mcfg->bit_width - 1;
--	media_cfg->bits_per_sample = mcfg->bit_width;
-+	media_cfg->bits_per_sample = mcfg->bit_width == 24 ? 32 : mcfg->bit_width;
- 	/* Convert the physical mapping to a logical mapping of the channels */
- 	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < mcfg->num_channels; i++) {
- 		if (!mcfg->channel_map[i])
-@@ -1308,7 +1308,7 @@ static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
- 		cfg->sample_rate = mcfg->sample_rate;
- 		cfg->bit_width = mcfg->bit_width;
- 		cfg->alignment = PCM_LSB_ALIGNED;
--		cfg->bits_per_sample = mcfg->bit_width;
-+		cfg->bits_per_sample = mcfg->bit_width == 24 ? 32 : mcfg->bit_width;
- 		cfg->q_factor = mcfg->bit_width - 1;
- 		cfg->endianness = PCM_LITTLE_ENDIAN;
- 		cfg->num_channels = mcfg->num_channels;
+diff --git a/sound/soc/qcom/qdsp6/topology.c b/sound/soc/qcom/qdsp6/topology.c
+index 612d8f03e6e9..e92408e09bac 100644
+--- a/sound/soc/qcom/qdsp6/topology.c
++++ b/sound/soc/qcom/qdsp6/topology.c
+@@ -1300,7 +1300,7 @@ static int audioreach_put_audio_mixer(struct snd_kcontrol *kcontrol,
+ 	if (ucontrol->value.integer.value[0]) {
+ 		audioreach_connect_sub_graphs(data, scontrol, dapm_scontrol, true);
+ 		snd_soc_dapm_mixer_update_power(dapm, kcontrol, 1, NULL);
+-	} else {
++	} else if (audioreach_is_vmixer_connected(data, scontrol, dapm_scontrol)) {
+ 		audioreach_connect_sub_graphs(data, scontrol, dapm_scontrol, false);
+ 		snd_soc_dapm_mixer_update_power(dapm, kcontrol, 0, NULL);
+ 	}
 
 -- 
 2.53.0
