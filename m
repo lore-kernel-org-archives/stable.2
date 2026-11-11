@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434806;
-	b=NKCmftBF4yUCUl9lEBsgmD5yPku8S/pKNqJHr6t3hbpgyKJbBwtywZa/HJTLuynQUVmq
-	 HKF4k/He6IOoBQuXo+JOdts0lmLKl/IXgDlhFLpmcNJr2oBwZ2pKRe4BEAOw49tDvY7vN
-	 caDaOrAa5pkek+3ioe3NUsqcMjNiWP/AUzFB/pYrtbP3BhmulMCZXzkgisLILoOrOkaD0
-	 myqoKY/ouq9seKEGjow+i5Pt77Cl+YxQWgM6ZefK3E3xK2MqJQHI6/FWq8FPP+0lp+U2r
-	 XeELqByAxbQCzX6KJeOEUej5Kt1mU2+Uw4XSt75WbaKfkEuqvQ8Plp3mzX5sQNx3YXg==
+	t=1794434859;
+	b=HfdP/CKtZbiaj+LAgKKRDhNBNJyo0Zfd9kSHgXKPtXSsAPM81gmL79Z2EFKrqYI8HQ3u
+	 A2M6m/8u1gI9B+Q+wM4vNuPNY/S4DEd3JKVX4oQ0sz4m2AsM7YGPkAB9v1ceS+yqLdHOF
+	 GCehiY4y9LansiUQUes5iL+D/vPbwMF0IBZqfBfTr9azJ9fhGAgUveL5jHTdqRhMjXdY6
+	 a5ztu7nmlzC6AVRAZwgWr5lWIS+7kSd2OS+pn8NIBeyxw23oi2XCMV7ULzLe7mfzNq2Kz
+	 zXVTIXAjTv8WyyqLN6KuUB+3j4AOH7GhahhqsAf6xp7NA8Ke/rQEHMwEPlx/j0xT5pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434806;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434859;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HoWw2LtXhaLTvRjoyzf/GLGky1XfPZvo/+Hksni2ztQ=;
-	b=dP4N+YxrORUzAAErdl5SI3IS9ucvGAQQgGmi16GW0iQ6lf30GhKJLed5EgKMyOVhaOT7
-	 v84g+50WIqR/qK/d0YFrEtteAZAz+3WCmk+B+zXUtN9sGqCFQwfXPp4nDJBT9ZFxyD4iy
-	 bIL44Qy87k6J7kKLgLZKaL7dyP3GxefSApFlHvnv4g1l0PEIhg2e2dI5PsqMVw3BJjATG
-	 C0zlg45e7hRxoo7fv7neHbmAhz5UweHFV01DXsCGQY7Ex63qMPdahhEsL4CPLcyzUTVmf
-	 Atm1oAk3PHQpTTVmttnmfd/WS2uZpO3sIUYvGzBqMJiGGUdvL47GQ/LCPrgu4CNbAvA==
+	bh=3qDGkW2OjJFIOcxWFACkjDYLdGgX5aKdiQkAl6PJNA0=;
+	b=PC/QfThiigsLVlffSaEUvBvwUIhaNZutfZkRqyaTp5jdltHnpkt3olJEzgIc2L81ZC6l
+	 OLE1FKqJQEyp1z7D0e+gfzQP+OhdLWgzmofnJu6DnMK6ohbZHf6M1l7403bl86ktWfLgA
+	 a7PGheNZxImBKFbM/FeFuaiIyXBC3aW1RYek7v6tZI+CQB3S14tVwDxcxcwcJAUdx9rOP
+	 9YmPNydRYUtIp4d97lq84FNduYER7ezevh2FgYa4rCfJlgckijQkfya8ysc8vkHTKaoGI
+	 nhuBzLEj8aStYGGbVBJly2KWbf69OrIOYcES6EwZOP0PWc1zEMSI+HBuWQlghi8Pk8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Th3NVFqJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJa2caZP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C47606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:06:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1116B606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:07:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Th3NVFqJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F141F00A08;
-	Wed, 11 Nov 2026 22:06:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJa2caZP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81D61F00A05;
+	Wed, 11 Nov 2026 22:07:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434806;
-	bh=HoWw2LtXhaLTvRjoyzf/GLGky1XfPZvo/+Hksni2ztQ=;
+	s=k20260515; t=1794434858;
+	bh=3qDGkW2OjJFIOcxWFACkjDYLdGgX5aKdiQkAl6PJNA0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Th3NVFqJrOjvo/+vsEMje7t1IqOaWSM46wpjpIT8Ml8qK/g1y3KVAQR3noXTokQJ0
-	 0N/vT+vJC+EFdNe2MYvgaY2KlEQb/Be/Cp1LR8oFrf6rhtJ3bTlMPfVaeAA1Qa/GZ0
-	 orbnUxEDOq4wT81g7TTccSYKiTLma749nzrhdHXh3HbMJzvUJE3f1qSK2VBnPzqsC9
-	 SXzEWO3NNYsv7kqUWVrZPp7oqATI7kOcvAE1CGENFCdL5P4I69UlpludJo0Ci4xn4c
-	 DoBUQp+p9KkMjBOEKf7pATL0hldhwX7wSU2f8JFhFHfRLIBO7Gw63aGMfpVLM+T5yQ
-	 WXqQx/2QbEjnw==
+	b=ZJa2caZP3gHyUZq8pKT4KdADzJtBKA+w4pdp1/IOmRcPukDOTmi7/1YYJGt0z5vwb
+	 mQ6H2bvXzeG+krWp8GGznl1S8tuJeFQpRry+D4aVRP3iD7iNCIxiL5JseXp8H+gbrn
+	 h3afqmEwW6/2qv4GhgRV/khRqL8DiVoOkswLyyoH3M+krik1sD8qBk99iAdc9kF9mq
+	 AvlSu+FTHUuRgdqjVNFoJ8uCxyzHL6HWvi8jriuqoKIL6aC3P9/FZguJQkwC22tKKp
+	 SJO6XOLKoxCjLtJz6t6D7Ynfvj0q2aivy09LgtP51v0BdyPgYASZQKJ+ytyCpRr0PB
+	 jm642cmdT44TA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Konstantin Khorenko <khorenko@virtuozzo.com>,
-	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] selftests/core: fix unshare_test with large fs.nr_open
-Date: Wed, 11 Nov 2026 17:06:44 -0500
-Message-ID: <20261111220634.4105723-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ALSA: compress: fix buffer leak on failed SET_PARAMS
+Date: Wed, 11 Nov 2026 17:07:36 -0500
+Message-ID: <20261111220710.4083903-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111220634.4105723-1-sashal@kernel.org>
-References: <20261107054501-failed-6.1-df0b7e0ea59c@kernel.org>
- <20261111220634.4105723-1-sashal@kernel.org>
+In-Reply-To: <20261107055123-failed-6.1-fbc74ca9fbf7@kernel.org>
+References: <20261107055123-failed-6.1-fbc74ca9fbf7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,86 +61,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit df0b7e0ea59c43708cff8c7e34da5e2f8d430e5e ]
+[ Upstream commit fbc74ca9fbf7e0b8f6872ccac62f9f4a1f3b5e53 ]
 
-The test assumes fs.nr_open is close to the default 1048576, but some
-systems set it much higher (e.g.  1073741816).  This is systemd's doing:
-since systemd v240 (2018), PID 1 bumps fs.nr_open and fs.file-max to their
-largest possible values on boot, as file descriptors are already accounted
-for by memcg [1].
+When the driver has neither ops->copy nor a preallocated dma_buffer_p,
+snd_compr_allocate_buffer() kmallocs runtime->buffer. If
+ops->set_params() then rejects the parameters, SET_PARAMS fails, the
+stream stays in the OPEN state and keeps the buffer. The next
+SET_PARAMS allocates a new buffer and overwrites the pointer, so
+repeated SET_PARAMS calls with parameters that the driver rejects leak
+one buffer per call.
 
-In that case, dup2() to nr_open + 64 requires the kernel to allocate a
-file descriptor table with ~1 billion entries, which fails with ENOMEM.
+Release the framework-owned buffer when ops->set_params() fails on an
+OPEN stream, so that a failed SET_PARAMS leaves no buffer behind and
+the buffer is allocated only once per successful setup. Use the same
+ownership check as snd_compr_free().
 
-On a kernel that already carries 04a2c4b4511d1, dup2() no longer fails
-with ENOMEM.  The allocation is now rejected up front and the caller
-gets EMFILE instead, without the WARNING, but the test still fails.
-
-Cap the nr_open value used for the test's own arithmetic to a known
-reasonable base value (1048576) and restore the true original value once
-the test has completed.
-
-Link: https://lore.kernel.org/20260814165709.513263-1-khorenko@virtuozzo.com
-Link: https://github.com/systemd/systemd/commit/a8b627aaed409a15260c25988970c795bf963812 [1]
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Wei Yang <richard.weiyang@gmail.com>
-Cc: <stable@vger.kernel.org>
+Fixes: b21c60a4edd2 ("ALSA: core: add support for compress_offload")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261019144533.30665-2-peter.ujfalusi@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: Retained goto out instead of a direct return to preserve explicit params cleanup. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/core/unshare_test.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ sound/core/compress_offload.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/core/unshare_test.c b/tools/testing/selftests/core/unshare_test.c
-index 7fec9dfb1b0e3..6716e0f74d7da 100644
---- a/tools/testing/selftests/core/unshare_test.c
-+++ b/tools/testing/selftests/core/unshare_test.c
-@@ -40,6 +40,14 @@ TEST(unshare_EMFILE)
+diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index e961d79f076bb..08289fe8d5519 100644
+--- a/sound/core/compress_offload.c
++++ b/sound/core/compress_offload.c
+@@ -602,8 +602,15 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
+ 		}
  
- 	ASSERT_EQ(sscanf(buf, "%d", &nr_open), 1);
+ 		retval = stream->ops->set_params(stream, params);
+-		if (retval)
++		if (retval) {
++			/* the stream stays OPEN: drop the buffer of the rejected setup */
++			if (stream->runtime->state == SNDRV_PCM_STATE_OPEN &&
++			    !stream->runtime->dma_buffer_p) {
++				kfree(stream->runtime->buffer);
++				stream->runtime->buffer = NULL;
++			}
+ 			goto out;
++		}
  
-+	/*
-+	 * Cap nr_open for the duration of the test to avoid ENOMEM from a
-+	 * huge fd table allocation; buf/n keep the real original value so
-+	 * fs.nr_open can be restored to it once the test is done.
-+	 */
-+	if (nr_open > 1024 * 1024)
-+		nr_open = 1024 * 1024;
-+
- 	ASSERT_EQ(0, getrlimit(RLIMIT_NOFILE, &rlimit));
- 
- 	/* bump fs.nr_open */
-@@ -73,10 +81,13 @@ TEST(unshare_EMFILE)
- 
- 	if (pid == 0) {
- 		int err;
-+		char buf3[32];
-+		ssize_t n3;
- 
--		/* restore fs.nr_open */
-+		/* restore fs.nr_open to the (possibly capped) test baseline */
-+		n3 = sprintf(buf3, "%d\n", nr_open);
- 		lseek(fd, 0, SEEK_SET);
--		write(fd, buf, n);
-+		write(fd, buf3, n3);
- 		/* ... and now unshare(CLONE_FILES) must fail with EMFILE */
- 		err = unshare(CLONE_FILES);
- 		EXPECT_EQ(err, -1)
-@@ -89,6 +100,10 @@ TEST(unshare_EMFILE)
- 	EXPECT_EQ(waitpid(pid, &status, 0), pid);
- 	EXPECT_EQ(true, WIFEXITED(status));
- 	EXPECT_EQ(0, WEXITSTATUS(status));
-+
-+	/* restore the real fs.nr_open value */
-+	lseek(fd, 0, SEEK_SET);
-+	write(fd, buf, n);
- }
- 
- TEST_HARNESS_MAIN
+ 		stream->metadata_set = false;
+ 		stream->next_track = false;
 -- 
 2.53.0
 
