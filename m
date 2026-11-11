@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412947;
-	b=VfEVrc1QZIVkRAPTLwAfsVXdeoxf2iHzPWcy7S34qOy1vS9YD/2+tC1Q5R2yH15Tzm3s
-	 daS3XUyIOKExwgM6ULTdG97uWYWZKgjkvoZDqtuzwEDopdCEcGvdtavGnWoRlPJ1AQl2Z
-	 6Tl+FXelDjHJM6ufu8SmDglrRTxExLK/pON9q+D2TYYgWCd1vX4PL74uHqXMmM2NoLZJB
-	 uBm+D5BJanXBc7KX8HtP7BW+0PayoDoCSekuH0++1K1Lfy1XlB8czkUw2sq465wayakxR
-	 Hb/x5id44E9CiwlSJLeIR8N/hQLqd4xtlnTcoW/AxOd97znmU8kLq6MxwtsWRQN10zw==
+	t=1794412948;
+	b=jMcInrN+rFkUoE6RQwaDJlsooP7TXArJ+JXmPVT1sCy0xLFeUv4Ad/5PSOgjveba+66a
+	 DLLw6G3i5do8WGZUASGPHNFteGsB92JRrTzdZERFjFLnW4V6HUPVIfJZE/ie0yDLOY5IY
+	 4x6QxdEKD+e8L2iMaf1yXmnPQ5837+6Vz8J3rcM62vGKVqivJtb3KuPn9isG37dUlPYCF
+	 9jffnJ2+7oyicnXOTdxvVSLkwCgHowFltEbDWv7Jt2y4DbXZnDHxDOwNOo3ttK59PNk27
+	 otCndRaj93Xl7ys9UUnhEqakEamyAGusAL3SWfPsqxBDb/aH3rK9mVzRJ+OrnsqkmeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412947;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794412948;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UeVL5tFMMwezuNQAA/rFonblZS/6GeGknSarzUeypvE=;
-	b=1HWr4rISz1XZQVzxE0mHLjYySv/NvM05Vvv5pUErUl1p2X8dm9oo8Ga7bB49/brT4bZI
-	 ST0XGZXVAg4JIph9ijnpq62/MP0PSzz9UEmX19qq/wNfuRKVI+QYdWOZQcNofBGJ6btxm
-	 YJu7PGLGPlUhS7LmPtirsQIN5Noc2qYm+ngxaOfjdXIRapRBQf/hNDTg8oE1WOmfj3wRj
-	 NbuDLoKHP8hVP6gHhsQa04CXuYVUrOSKhWb3yc8YVbyIZavcEASwMvYArMKmPy0IF4hpJ
-	 3Lcpjq3wKkQdPKSO0FHkPOlCZ84FB53ke3F71Hl1SnrXobZg7oYBMUfPmIkB12X88PA==
+	bh=ijVgasQsq9xLD0klwP3IcP1AwgWi9fGcelR+Pqmv83o=;
+	b=TTdE/ZnNLfNp/m0oaFoJ/AEpEFMCli8NsCRi82bsJmur9/4q5LvLK93iZaGnWsvQaSPm
+	 wrgVug4msLPh9Zxc7Gk6Xa1qKe6Fyi+zaKhywXAwFEkmPfwqT/8YngXIOUwTUKPuwKM+5
+	 ndDSkUbY3l9sZgKTOTcvn9AvKWb+gfLecS1JNapaQljqZpX7dwiBGq4docOoyRvk6g1b2
+	 SUw+a9iS68LbNmhh+gjbS7Kqc/bWQwe4//HrKDaq0xwxRad4sO7NnzivBUnwWGHWJIOBT
+	 G8FH7o5EezmMllBZwyniJ4O48uwdiX+TyCDoplCZNPnW/hTVP1YTlsN0P38hm155yYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M6/Pv+Rr";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ozzv0T3b;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACA1606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:02:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC1C606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:02:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M6/Pv+Rr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55B7F1F00A05;
-	Wed, 11 Nov 2026 16:02:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ozzv0T3b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15DDD1F00A07;
+	Wed, 11 Nov 2026 16:02:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794412946;
-	bh=UeVL5tFMMwezuNQAA/rFonblZS/6GeGknSarzUeypvE=;
+	s=k20260515; t=1794412947;
+	bh=ijVgasQsq9xLD0klwP3IcP1AwgWi9fGcelR+Pqmv83o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M6/Pv+RrOtTNeeLs+FbKLKOTSLkyUjQD1zSPnMkn/rcgzW6IItgsg6BTNuIwyL9fC
-	 erjEWhFMAxli8a9oDx8CibQlW3oM8sIPvPuNHfJ8q8fGfOtNkOhGziPEKY0WvV4BXl
-	 7AVCIvVYReuBO2uPS17s/3u9hUK3nALxArwrlJ7BxHnapHnSgXIo1Og5dI+Uw58s1i
-	 xvoZPujI6uJML00FsWlhVo672rfEQhsSLgIObhBNhI/bwRuAMPUvPP2fuAXNOZsQmr
-	 W+TDsc7uoTzh0Ch/HLEtNwcC94iJuXjY8c0WTEuIKe1hVwY4HwhuN0gixzWM+Tebvv
-	 MH8Y11qXiu6oQ==
+	b=ozzv0T3bulkFQ2Hl2wCEGv+F6MsatUl+F95/OyZGI1NXRNu125W/mB9a7RWKnxttt
+	 TtXijnMBXOK8wlA1tYbYphxi3wEXzyXZsU/BYsTcyCLzTsljIAUUmzIh7DIv9LG7WO
+	 1j9JLRZpu8pYORjwUsUUh3b624UevSvMZEna6bIssQP4oY5jc6BbGiIXMJLFiJaU6A
+	 EjM8L3jw8hSqktAoSMM2JozHjL7QGRfmvzYcybAFGOTXVACPvZYNIoU2kJDH36jPJg
+	 ICd4r2m6gQf8fQMZ3Lr2RrbDhuC9aP6Cy4i8Ou8y1j+3q3viDR9s6pck9m3XqC2I9A
+	 9u4V46XcCarQQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
+	syzbot <syzkaller@googlegroups.com>,
 	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/4] ip6mr: ip6mr_sk_done() can exit early in common cases
-Date: Wed, 11 Nov 2026 11:02:21 -0500
-Message-ID: <20261111160144.2767084-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/4] ip6mr: fix use-after-free in ip6mr_sk_done()
+Date: Wed, 11 Nov 2026 11:02:22 -0500
+Message-ID: <20261111160144.2767084-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060950-failed-5.15-6ace56ed7b13@kernel.org>
+In-Reply-To: <20261111160144.2767084-1-sashal@kernel.org>
 References: <20261107060950-failed-5.15-6ace56ed7b13@kernel.org>
+ <20261111160144.2767084-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,38 +65,141 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit f2f2325ec79970807012dfc9e716cdbb02d9b574 ]
+[ Upstream commit 7d9b1b578d67a14ae7a7a526ee115b233fa264c4 ]
 
-In many cases, ip6mr_sk_done() is called while no ipmr socket
-has been registered.
+Apparently addrconf_exit_net() is called before igmp6_net_exit()
+and ndisc_net_exit() at netns dismantle time:
 
-This removes 4 rtnl acquisitions per netns dismantle,
-with following callers:
+ net_namespace: call ip6table_mangle_net_exit()
+ net_namespace: call ip6_tables_net_exit()
+ net_namespace: call ipv6_sysctl_net_exit()
+ net_namespace: call ioam6_net_exit()
+ net_namespace: call seg6_net_exit()
+ net_namespace: call ping_v6_proc_exit_net()
+ net_namespace: call tcpv6_net_exit()
+ ip6mr_sk_done sk=ffffa354c78a74c0
+ net_namespace: call ipv6_frags_exit_net()
+ net_namespace: call addrconf_exit_net()
+ net_namespace: call ip6addrlbl_net_exit()
+ net_namespace: call ip6_flowlabel_net_exit()
+ net_namespace: call ip6_route_net_exit_late()
+ net_namespace: call fib6_rules_net_exit()
+ net_namespace: call xfrm6_net_exit()
+ net_namespace: call fib6_net_exit()
+ net_namespace: call ip6_route_net_exit()
+ net_namespace: call ipv6_inetpeer_exit()
+ net_namespace: call if6_proc_net_exit()
+ net_namespace: call ipv6_proc_exit_net()
+ net_namespace: call udplite6_proc_exit_net()
+ net_namespace: call raw6_exit_net()
+ net_namespace: call igmp6_net_exit()
+ ip6mr_sk_done sk=ffffa35472b2a180
+ ip6mr_sk_done sk=ffffa354c78a7980
+ net_namespace: call ndisc_net_exit()
+ ip6mr_sk_done sk=ffffa35472b2ab00
+ net_namespace: call ip6mr_net_exit()
+ net_namespace: call inet6_net_exit()
 
-igmp6_net_exit(), tcpv6_net_exit(), ndisc_net_exit()
+This was fine because ip6mr_sk_done() would not reach the point decreasing
+net->ipv6.devconf_all->mc_forwarding until my patch in ip6mr_sk_done().
 
+To fix this without changing struct pernet_operations ordering,
+we can clear net->ipv6.devconf_dflt and net->ipv6.devconf_all
+when they are freed from addrconf_exit_net()
+
+BUG: KASAN: use-after-free in instrument_atomic_read include/linux/instrumented.h:71 [inline]
+BUG: KASAN: use-after-free in atomic_read include/linux/atomic/atomic-instrumented.h:27 [inline]
+BUG: KASAN: use-after-free in ip6mr_sk_done+0x11b/0x410 net/ipv6/ip6mr.c:1578
+Read of size 4 at addr ffff88801ff08688 by task kworker/u4:4/963
+
+CPU: 0 PID: 963 Comm: kworker/u4:4 Not tainted 5.17.0-rc2-syzkaller-00650-g5a8fb33e5305 #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Workqueue: netns cleanup_net
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0xcd/0x134 lib/dump_stack.c:106
+ print_address_description.constprop.0.cold+0x8d/0x336 mm/kasan/report.c:255
+ __kasan_report mm/kasan/report.c:442 [inline]
+ kasan_report.cold+0x83/0xdf mm/kasan/report.c:459
+ check_region_inline mm/kasan/generic.c:183 [inline]
+ kasan_check_range+0x13d/0x180 mm/kasan/generic.c:189
+ instrument_atomic_read include/linux/instrumented.h:71 [inline]
+ atomic_read include/linux/atomic/atomic-instrumented.h:27 [inline]
+ ip6mr_sk_done+0x11b/0x410 net/ipv6/ip6mr.c:1578
+ rawv6_close+0x58/0x80 net/ipv6/raw.c:1201
+ inet_release+0x12e/0x280 net/ipv4/af_inet.c:428
+ inet6_release+0x4c/0x70 net/ipv6/af_inet6.c:478
+ __sock_release net/socket.c:650 [inline]
+ sock_release+0x87/0x1b0 net/socket.c:678
+ inet_ctl_sock_destroy include/net/inet_common.h:65 [inline]
+ igmp6_net_exit+0x6b/0x170 net/ipv6/mcast.c:3173
+ ops_exit_list+0xb0/0x170 net/core/net_namespace.c:168
+ cleanup_net+0x4ea/0xb00 net/core/net_namespace.c:600
+ process_one_work+0x9ac/0x1650 kernel/workqueue.c:2307
+ worker_thread+0x657/0x1110 kernel/workqueue.c:2454
+ kthread+0x2e9/0x3a0 kernel/kthread.c:377
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+ </TASK>
+
+Fixes: f2f2325ec799 ("ip6mr: ip6mr_sk_done() can exit early in common cases")
 Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reported-by: syzbot <syzkaller@googlegroups.com>
 Signed-off-by: David S. Miller <davem@davemloft.net>
 Stable-dep-of: 6ace56ed7b13 ("ipv6: remove ifaddr from hash during ifdown list cleanup")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/ip6mr.c | 3 +++
- 1 file changed, 3 insertions(+)
+ net/ipv6/addrconf.c | 2 ++
+ net/ipv6/ip6mr.c    | 8 +++++---
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
+diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+index b4ad40641d249..9bfb98add9889 100644
+--- a/net/ipv6/addrconf.c
++++ b/net/ipv6/addrconf.c
+@@ -7278,7 +7278,9 @@ static void __net_exit addrconf_exit_net(struct net *net)
+ 				     NETCONFA_IFINDEX_ALL);
+ #endif
+ 	kfree(net->ipv6.devconf_dflt);
++	net->ipv6.devconf_dflt = NULL;
+ 	kfree(net->ipv6.devconf_all);
++	net->ipv6.devconf_all = NULL;
+ }
+ 
+ static struct pernet_operations addrconf_ops = {
 diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index a793dcd24813e..0e2c566ec04b8 100644
+index 0e2c566ec04b8..aa77c4afd7694 100644
 --- a/net/ipv6/ip6mr.c
 +++ b/net/ipv6/ip6mr.c
-@@ -1581,6 +1581,9 @@ int ip6mr_sk_done(struct sock *sk)
+@@ -1573,15 +1573,17 @@ static int ip6mr_sk_init(struct mr_table *mrt, struct sock *sk)
+ 
+ int ip6mr_sk_done(struct sock *sk)
+ {
+-	int err = -EACCES;
+ 	struct net *net = sock_net(sk);
++	struct ipv6_devconf *devconf;
+ 	struct mr_table *mrt;
++	int err = -EACCES;
+ 
+ 	if (sk->sk_type != SOCK_RAW ||
  	    inet_sk(sk)->inet_num != IPPROTO_ICMPV6)
  		return err;
  
-+	if (!atomic_read(&net->ipv6.devconf_all->mc_forwarding))
-+		return err;
-+
+-	if (!atomic_read(&net->ipv6.devconf_all->mc_forwarding))
++	devconf = net->ipv6.devconf_all;
++	if (!devconf || !atomic_read(&devconf->mc_forwarding))
+ 		return err;
+ 
  	rtnl_lock();
- 	ip6mr_for_each_table(mrt, net) {
- 		if (sk == rtnl_dereference(mrt->mroute_sk)) {
+@@ -1593,7 +1595,7 @@ int ip6mr_sk_done(struct sock *sk)
+ 			 * so the RCU grace period before sk freeing
+ 			 * is guaranteed by sk_destruct()
+ 			 */
+-			atomic_dec(&net->ipv6.devconf_all->mc_forwarding);
++			atomic_dec(&devconf->mc_forwarding);
+ 			write_unlock_bh(&mrt_lock);
+ 			inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,
+ 						     NETCONFA_MC_FORWARDING,
 -- 
 2.53.0
 
