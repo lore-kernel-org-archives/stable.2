@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411677;
-	b=yyobQTdoN4wBSCSAt3M1//w4F8mj4UgmGMPzexS1uzVTZ+pxG3cmMxPIa0OidhGD+ZCe
-	 SanCGmUXLfL6vHvmUbT6EJRjvPxUudpHmkRvR78WwjN4eNMlxcjYjY0+Xr/0SXoC7Pl2v
-	 LxiY3wRliWC75gqwhVNiIPfwPa3y8E8kCQ/6Up5fKdjZ7InGtmuNn0f+JYJ/7jPZ+NH/U
-	 /+4ndTvM+PGxpFeRs1TJtMS+tGz8k6cmjTqL5J55WmqA5uC7+qGbzOfC/03GNQ0zRdvxW
-	 8VyARgd0B4r1UXLwdy+ExNcq7tt+DRWNbnke98RCrHUWf8NiR2bAzu7qzFnAD6BfIQQ==
+	t=1794411678;
+	b=rlceEqLjJY1k+Hi0xKtuDi/Kgw8sJrFt5lf+FFQtx8TC0VILPlrXt69HK2w19R9iA4RW
+	 ZaHbH/80a/6Oou0wIoybuxnINGpRdNEof5D+Q6in8yVwq6IfyDM5SMAzMBcqOjcXLyyVo
+	 lGKLXzrvlB1bvEjncwFvYup0aCv70xMqUF57trX2fG4gsLh2THhiHPOEUWIrWxib3d4jD
+	 JlpLKjcJ2SigmkIO48DvcWR37azfVDgRZtpwTNliqvghGJR/IKXIKC87g5X3V3IWq7coL
+	 cCxeQZIbDKjxi7WTlygXoMN7xvb9P1coW8/4yoV2kuZ+bd8D/E81mLbKmjA02VUMNrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411677;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411678;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=k7vY/es2cdaQx6kNqyTY+a1zou8OPKAapNdREd4ObsU=;
-	b=liZ1O7sVt0QIuuJxUfKmMuhOcxhsdl3chUOG5x+xCdWJP1qb0OiSlSGchAiBdJnZDPIp
-	 9Z5emSjO3Ys8gxaucOIuJSrIX1HfeQeW1cPK7MEKBp6ETE0vwDFvhpU1qOXNYn6kOSjD0
-	 6e4TPXKT7CFwRT6eSaxNaxkCNwWTVlf0vIZy/zbG/nqGSszjMqepVOr270mpIJuBB713F
-	 79+UTI6J79Edl8l7xOk9M77IWCvIrCJ39yYX36R2Xlhsy8KA+C0vAX6VKRSvKImQ0WPKo
-	 zrx8yD8mp3YrDtNXG+GNPq5MkyeNOcPQUcrrTlCqUhiOF0JPG9w+T6tfpB2xjie9ONw==
+	bh=Ego8NFzf0UiBGElCelqndbspHpdeql7WuUYaP89/+j4=;
+	b=aRDTg+AbyqIpIS2eRNBHnd+WlYtWkf3c7u/gcudm1260WigEe3nHJIjfQps4SNk2ciGB
+	 oFNyIwUoGQs2BcdU4VisNevdTKzT+70g3SQ8MGzVm6O0h3e0rkTklg/hEMu2Sdpen/GiB
+	 5UE1s/xEJ8n5mmbz/9EUk623AgFFjKRVJdbPDSHuSKAob41d05MhuBq9q0GB24PyLpWtu
+	 QeSrrX/uGEqpGnLd/BBFS92hxHQrGehWOJLZqUsOWQmItUUQXmccZ5ExAbP6Io3vN9uPo
+	 HeA/Ir+MJOQHmsIpZ9YrB4NFNNlkX8YEBkELfvv96hqfUzp+OD2qrhbGThsG4EHIWHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxJNtKDP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQlPwk+P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20246606A88D
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:41:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D5D606A88B
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:41:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxJNtKDP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BEBA1F00A07;
-	Wed, 11 Nov 2026 15:41:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQlPwk+P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7491F00A09;
+	Wed, 11 Nov 2026 15:41:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794411677;
-	bh=k7vY/es2cdaQx6kNqyTY+a1zou8OPKAapNdREd4ObsU=;
+	bh=Ego8NFzf0UiBGElCelqndbspHpdeql7WuUYaP89/+j4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SxJNtKDP28CVigAmYhZ+IbRwsb3oGkvwdMDTPa9HoVFGlDpcHphhHrhGAHwqqVrAm
-	 Jd+VegxVUBOi2AezDlucsYkVJXc495kzoczjTCYgwRF+VJ0V5oySTzVQWpLnVgL5M4
-	 95v1MAy+qTV4RVyvi+33LumD3Hj+xVGxczuRaVJXgcRqL9vqCJIlt0grTi+RztC1yJ
-	 Hm56oO5wYpWX1shYg0v1lzq0H8c+XMLTPvIy2DrdZsOb3T9QzbQKPJfbS6xJzD/Qva
-	 IO0ic8vlNAc0D6Vdk6vIl+nKA6p8NqvTvq2r1b4vzz2yEjvQ6zeE5qpWgoVffDI6hG
-	 u3FttbTaGtMTQ==
+	b=CQlPwk+PW5aCdRBp6lzFuOJF/6sfEQ24WKi1ABbTfH5HiIY72SYYCfqM1FER1/2wP
+	 2V1dbL6i4432vRiBUlkyktzXdXNcMWkHhnQV+xfl9LWyBcQYb2e1YFqXYAUCvvK6FG
+	 pFWvq4+j3OloBTj5YTi1qw1VzMlaLplXZswZgH9EO8L7mGnx0QfdDZfuoJFfEZSp2h
+	 NfZV39SIJZUTW+9YpWD9xPkkooFIDRygfvcQg45SpNUF+U57tT34DIBkmwRZKXVQdz
+	 AF8kbki5Cizkvb5+lvQXoEdAMFTdZAOTAb3p0V/MW0UdtzGIdCNemOTYmJaMWbSTEB
+	 s593/a91zheHw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Biggers <ebiggers@google.com>,
+Cc: Seongjae Jeong <jsjlee1020@gmail.com>,
+	stable@kernel.org,
+	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/4] f2fs: remove allow_outplace_dio()
-Date: Wed, 11 Nov 2026 10:41:12 -0500
-Message-ID: <20261111154005.2482659-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y 4/4] f2fs: fix submit accounting for IPU writeback
+Date: Wed, 11 Nov 2026 10:41:13 -0500
+Message-ID: <20261111154005.2482659-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111154005.2482659-1-sashal@kernel.org>
 References: <20261107062516-failed-5.10-6d1f622b9c06@kernel.org>
@@ -62,72 +64,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Biggers <ebiggers@google.com>
+From: Seongjae Jeong <jsjlee1020@gmail.com>
 
-[ Upstream commit 6de8687ccdefed40d617492f4e1b3962eb577b6b ]
+[ Upstream commit 6d1f622b9c069378cdb83088be2b15a9b480b8a3 ]
 
-We can just check f2fs_lfs_mode() directly.  The block_unaligned_IO()
-check is redundant because in LFS mode, f2fs doesn't do direct I/O
-writes that aren't block-aligned (due to f2fs_force_buffered_io()
-returning true in this case, triggering the fallback to buffered I/O).
+f2fs_write_cache_pages() uses the submitted count, which is set to
+fio.submitted in f2fs_write_single_data_page(), to update nwritten
+and decrement wbc->nr_to_write.
 
-Signed-off-by: Eric Biggers <ebiggers@google.com>
+In the OPU path, f2fs_submit_page_write() sets fio->submitted to 1.
+However, in the IPU path, fio->submitted is never set and remains zero.
+As a result, successful IPU writes are not accounted for.
+This can cause asynchronous writeback to continue beyond its budget.
+
+Set fio->submitted in f2fs_inplace_write_data() after a page is
+successfully merged into a bio or submitted, so that successful
+IPU writes are included in the writeback accounting.
+
+Cc: stable@kernel.org
+Fixes: d68f735b3bc9 ("f2fs: check io submission more precisely")
+Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Stable-dep-of: 6d1f622b9c06 ("f2fs: fix submit accounting for IPU writeback")
+[ sashal: Adjusted context to preserve the older device-state and I/O-statistics calls. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c |  2 +-
- fs/f2fs/f2fs.h | 10 ----------
- fs/f2fs/file.c |  2 +-
- 3 files changed, 2 insertions(+), 12 deletions(-)
+ fs/f2fs/segment.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index e033c8dfb0348..3f7056f9971f5 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -3725,7 +3725,7 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
- 	if (f2fs_force_buffered_io(inode, iocb, iter))
- 		return 0;
- 
--	do_opu = allow_outplace_dio(inode, iocb, iter);
-+	do_opu = rw == WRITE && f2fs_lfs_mode(sbi);
- 
- 	trace_f2fs_direct_IO_enter(inode, offset, count, rw);
- 
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index cead30cab94bc..43f14bbfef49b 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -4135,16 +4135,6 @@ static inline int block_unaligned_IO(struct inode *inode,
- 	return align & blocksize_mask;
- }
- 
--static inline int allow_outplace_dio(struct inode *inode,
--				struct kiocb *iocb, struct iov_iter *iter)
--{
--	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
--	int rw = iov_iter_rw(iter);
--
--	return (f2fs_lfs_mode(sbi) && (rw == WRITE) &&
--				!block_unaligned_IO(inode, iocb, iter));
--}
--
- static inline bool f2fs_force_buffered_io(struct inode *inode,
- 				struct kiocb *iocb, struct iov_iter *iter)
- {
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 9c12691ace0b6..f43cc0ba83837 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -4250,7 +4250,7 @@ static ssize_t f2fs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 			 * back to buffered IO.
- 			 */
- 			if (!f2fs_force_buffered_io(inode, iocb, from) &&
--					allow_outplace_dio(inode, iocb, from))
-+					f2fs_lfs_mode(F2FS_I_SB(inode)))
- 				goto write;
- 		}
- 		preallocated = true;
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index fec3b4a9e9542..4d759917c2849 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -3563,6 +3563,7 @@ int f2fs_inplace_write_data(struct f2fs_io_info *fio)
+ 	else
+ 		err = f2fs_submit_page_bio(fio);
+ 	if (!err) {
++		fio->submitted = 1;
+ 		update_device_state(fio);
+ 		f2fs_update_iostat(fio->sbi, fio->io_type, F2FS_BLKSIZE);
+ 	}
 -- 
 2.53.0
 
