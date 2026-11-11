@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794394278;
-	b=ZGf9BKFPdjVm6sTsigtbVlaqV3Ln5aqzdBh4OKOy+0ARRAHkVyCenkkL+Ul04C/Xis9o
-	 mXwCABzcGRXb+CzzYAiS/X6v/LoMDuEG9Ombu9kvFFWgJgdZRvAbyGi0A2nEwxLxOJaiV
-	 mU9hxyhGkx2zWeBeq+qE1QBaB2BQMDesyzfMc89spFJYKN81yTiuk+5xIHPUdhFBdknic
-	 aZVYn/+TgLw7V05SM71x2M7cFpC6va6V7a+amuwOl79aXOyyg82gAkPv+4K74zQiarZt3
-	 6M+D8D1ouhRPtEu7Zz3XbRyqpEjIkOnkra9ZNilTn/StftsCi7oUptf27HB4/dGmf1A==
+	t=1794394442;
+	b=FWByqdY2otyUFCSe6drn9Ljn0Y5XfH4kEG1dDNqnetI1VEGMnMUh6jKCcYBK0LeFHrXk
+	 TcRZpfhDFNkzEDgwlIot9oEeWzTqJWI6ojm6LVfO1xoUCt+lQkaJsdHjesB2WSiQ4p4mb
+	 fuavpqkJJAl79wVnQd7wUGybQs3oPYJqDNyiYK+QEUggsc6xboBjw9icFmBIiPbpLBjXB
+	 e7m2wGC6roC8bl+E9JQ/j3KJyR3jUO/kwHCfavL+aiURkFe82VOA/Y8FCLOiutpRj+Wms
+	 PvLO9dDFFYRnw8tYD0eyoZARbOn/IiYi7+ckwKOcrXb141pDSJjq7Pzrl9beYv/dlpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394278;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394442;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=zlaGDXenXs2WnOuYAO4yuwNGMasd1sp10+9WQn/o4CA=;
-	b=LrWf+uoFt4EMjKKx13m/eifgC8Jk9kdblQ8A1xIbeJvWJQPDF0wKmewlxV8oOqkX6MS8
-	 P/rJV/bcy8zOpxWiNw4mmpM9Heoz+KpQVzvrv+AbbM7Y0fD41M2Jkc/9g2CBnjP0cwHir
-	 KdkWAxrG2KJNi//kiFmhpQXT4p0RpLtI3gdXNwnAYvevLMvo0dh6oXV390Ks7n2qbjxFr
-	 +wPyqMrEW1YqK/2rgvilHQVE9yuOt1A6aKhjqy6cGXC8EIhXDhGBHG6+GgN0oUngnr94r
-	 htFObyNqCM7YlIBlqKOhL2bTBJetRj/bBXhsELTUD5KEvunRR5uwfoz3Bkshn0SW7vw==
+	bh=iXFYm1rwpINzGOBrnIKYtrC/8IaweHvoD3rwqbZJT3w=;
+	b=Ze5PeF5vE3bE9cnA3MDZTNEVkizXzBHE2fYBZSZwHNtDMqYFE88N7jWg/X97aXXxdpJn
+	 E82mlhfS4WzYGMUvpMdmQkIO3uOln5HtQf98Z2cMdum0yovFw0rnXuOxdsYRANAOSFVWV
+	 8n2xDD5BwJ6Wq/bpKn0p7w9F0fuFJWraPGfm8x5Rr2lMk36xj8wLbHLCmtZetEJzXPjSO
+	 sKTzIb4xH6EqhqmrFIhd6N/JJwD89miaWmqBS4EHtebddP7zhAD77Li3u18CJD4QEplfS
+	 a1q7xd9iPEdpmVkKn88PnBAC+TdDtgXQN39df8LnQ9e71Wb6O4vjLI0d+hFYCW5VTBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mmo8Y1GX;
-	arc=none smtp.remote-ip=91.218.175.38
-Received: from mta0.migadu.com (out-38.mta0.migadu.com [91.218.175.38])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=jaeyeong.cc;
+	spf=pass smtp.mailfrom=jaeyeong.cc;
+	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=nyOFvRuQ;
+	arc=none smtp.remote-ip=185.70.43.17
+Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC943606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:51:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC943606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328D2606A337;
+	Wed, 11 Nov 2026 10:54:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 328D2606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mmo8Y1GX
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fJMpLHXJ3OMWwjsPOjW0na7I13zrAGAWG+nW9/yEEP4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794394275; v=1; x=1794999075;
- b=mmo8Y1GXusPnat7zHzGuHNTZRisJ8E9V7q1g1cUNks1AE+rkYpz+epFX1nb63bw9vTNJvVDP
- B6Q867ry6GAtOxaJptjrcLPPJVOwWB416R+bYaB/Q4n41lw25ux3Yr2Kpbw4mgE3c12WkcUoQ8n
- yG8JxAv1T6p5cGO3WhtNmJx8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c024eae9af748c53;
-	Wed, 11 Nov 2026 10:51:10 +0000
-X-Mizu-Trace-ID: c024eae9af748c53
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: stable@vger.kernel.org,
-	sashal@kernel.org
-Cc: Samarth Narang <samarth.colleges@gmail.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	=?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>,
-	Andrea Arcangeli <aarcange@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	Bobby Powers <bobbypowers@gmail.com>,
-	Brian Geffon <bgeffon@google.com>,
-	Denis Plotnikov <dplotnikov@virtuozzo.com>,
-	Doug Gilbert <dgilbert@interlog.com>,
-	Hugh Dickins <hughd@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Martin Cracauer <cracauer@cons.org>,
-	Marty McFadden <mcfadden8@llnl.gov>,
-	Maya Gokhale <gokhale2@llnl.gov>,
-	Pavel Emelyanov <xemul@openvz.org>,
-	Rik van Riel <riel@surriel.com>,
-	Shaohua Li <shli@fb.com>,
-	James Houghton <jthoughton@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	SJ Park <sj@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Subject: [PATCH 6.1.y 3/3] mm/ksm: fix userfaultfd protection during merge and unmerge
-Date: Wed, 11 Nov 2026 18:50:34 +0800
-Message-ID: <20261111105034.51632-4-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261111105034.51632-1-lance.yang@linux.dev>
-References: <20261109201707-failed-6.1-990d6c2194a9@kernel.org>
- <20261111105034.51632-1-lance.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=nyOFvRuQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
+	s=protonmail2; t=1794394438; x=1794653638;
+	bh=iXFYm1rwpINzGOBrnIKYtrC/8IaweHvoD3rwqbZJT3w=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=nyOFvRuQ29bk1lrgmZExUrXRbNuK71Vqa7ubroVA1Ac5Jy5AaE6FaUlxKvcPib8q3
+	 aXY47sBnzv5kTHAaP6QH5B98DwhS0KxhcV5RciyqRojxdx+MkD6NctAhgzVrxuBYl1
+	 RFGPARs8ufw7CfQb9dFNPyOHqRrGD2/b9htBgYdbC54n5vo4OTVlVItUNpW+NR3KBO
+	 sKw/kFKUgA2ekwCxMV89NUK/sJhtTdTUHrjBojEbnK6x49n3MSMpPsAWnDoX8PhzP/
+	 8/2MCbhO8AawznbSk06Y0GGykJoQTAAsSpAoLKpDFcXaTMDpR3iv6TDiWzGDNiHA8J
+	 YrCppiCU9vVxQ==
+Date: Wed, 11 Nov 2026 10:53:54 +0000
+To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+From: Jaeyeong Lee <lee@jaeyeong.cc>
+Cc: Artemy Kovalyov <artemyko@mellanox.com>, Yishai Hadas <yishaih@mellanox.com>, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, Jaeyeong Lee <lee@jaeyeong.cc>, stable@vger.kernel.org
+Subject: [PATCH] RDMA/mlx5: Fix UAF after DEVX DCT create failure
+Message-ID: <20261111105346.3220427-1-lee@jaeyeong.cc>
+Feedback-ID: 177356447:user:proton
+X-Pm-Message-ID: d781ec1a4076d205e8c9fc3bd603d023538d5b66
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,105 +61,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-KSM loses userfaultfd protection when replace_page() builds a new PTE from
-vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
-through ordinary COW instead of userfaultfd write protection handling.
-For RWP, a merged page also becomes readable without faulting.
+The DEVX object create handler destroys and frees a hardware object itself
+when copying the command output or setting up an indirect mkey fails.
 
-Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
-have to handle unmerging.  An existing KSM page can be protected with RWP
-before MADV_UNMERGEABLE, so unmerging already needs fixing independently
-of preserving RWP during merging.
+For DCT objects, mlx5_core_destroy_dct() can fail while leaving the DCT in
+qp_table.dct_xa. The error is ignored and the enclosing devx_obj is freed.
+A later DCT_DRAINED event then loads the stale xarray entry and calls
+complete() on freed memory.
 
-Unsharing replaces a shared page with a private one and should leave
-userfaultfd protection in place, as do_wp_page() already does for write
-protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
-can proceed to do_wp_page().
+Mark the uobject as holding a valid hardware object immediately after the
+DEVX object is initialized. Let the uverbs abort path invoke
+devx_obj_cleanup() for subsequent failures. If hardware destruction fails,
+rdma_alloc_abort_uobject() commits the uobject instead of freeing it. This
+keeps the object alive for cleanup at file close.
 
-- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
-  break_ksm() then reports success with a KSM page still merged.
+A KASAN QEMU reproducer that forces DRAIN_DCT to fail and delivers a
+DCT_DRAINED event reports:
 
-- With asynchronous RWP, protection is cleared before unsharing.
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave
+  complete
+  rsc_event_notifier
 
-Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
-FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
-private copy as well.  Unsharing can then complete with RWP still armed
-for a subsequent access.
+The issue was found with a static analysis tool. OpenAI Codex assisted with
+reproducer validation and patch preparation.
 
-Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
-Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Xu Xin <xu.xin@linux.dev>"
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jérôme Glisse <jglisse@redhat.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Bobby Powers <bobbypowers@gmail.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
-Cc: Doug Gilbert <dgilbert@interlog.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Martin Cracauer <cracauer@cons.org>
-Cc: Marty McFadden <mcfadden8@llnl.gov>
-Cc: Maya Gokhale <gokhale2@llnl.gov>
-Cc: Pavel Emelyanov <xemul@openvz.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Shaohua Li <shli@fb.com>
-Cc: James Houghton <jthoughton@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>
-Cc: SJ Park <sj@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Cc: <stable@vger.kernel.org>
-
-(cherry picked from commit 990d6c2194a938a19a8cf94c6cfd75171345089b)
+Fixes: c5ae1954c47d3 ("IB/mlx5: Use mlx5 core to create/destroy a DEVX DCT"=
+)
+Cc: stable@vger.kernel.org
+Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
 ---
-Depends on patches 1 and 2, which backport 58f595c66591 and
-6cce3314b928.
+ drivers/infiniband/hw/mlx5/devx.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
-Backport to 6.1:
-- Use the older pte_uffd_wp()/pte_mkuffd_wp() helpers.
-- Omit the mm/memory.c changes, since 6.1 has no RWP support.
-
- mm/ksm.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index b052f6141b6e..65da88db632f 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1176,6 +1176,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 		dec_mm_counter(mm, MM_ANONPAGES);
- 	}
- 
-+	/* Preserve uffd-wp when replacing the page. */
-+	if (pte_uffd_wp(orig_pte))
-+		newpte = pte_mkuffd_wp(newpte);
-+
- 	flush_cache_page(vma, addr, pte_pfn(*ptep));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
--- 
-2.49.0
+diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5=
+/devx.c
+index fc6f793dcc658..037c2b6ff9714 100644
+--- a/drivers/infiniband/hw/mlx5/devx.c
++++ b/drivers/infiniband/hw/mlx5/devx.c
+@@ -1535,7 +1535,6 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_CRE=
+ATE)(
+ =09struct mlx5_ib_ucontext *c =3D rdma_udata_to_drv_context(
+ =09=09&attrs->driver_udata, struct mlx5_ib_ucontext, ibucontext);
+ =09struct mlx5_ib_dev *dev =3D to_mdev(c->ibucontext.device);
+-=09u32 out[MLX5_ST_SZ_DW(general_obj_out_cmd_hdr)];
+ =09struct devx_obj *obj;
+ =09u16 obj_type =3D 0;
+ =09int err, err2 =3D 0;
+@@ -1613,10 +1612,11 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_C=
+REATE)(
+ =09devx_obj_build_destroy_cmd(cmd_in, cmd_out, obj->dinbox, &obj->dinlen,
+ =09=09=09=09   &obj_id);
+ =09WARN_ON(obj->dinlen > MLX5_MAX_DESTROY_INBOX_SIZE_DW * sizeof(u32));
++=09uverbs_finalize_uobj_create(attrs, MLX5_IB_ATTR_DEVX_OBJ_CREATE_HANDLE)=
+;
+=20
+ =09err =3D uverbs_copy_to(attrs, MLX5_IB_ATTR_DEVX_OBJ_CREATE_CMD_OUT, cmd=
+_out, cmd_out_len);
+ =09if (err)
+-=09=09goto obj_destroy;
++=09=09return err;
+=20
+ =09if (opcode =3D=3D MLX5_CMD_OP_CREATE_GENERAL_OBJECT)
+ =09=09obj_type =3D MLX5_GET(general_obj_in_cmd_hdr, cmd_in, obj_type);
+@@ -1625,18 +1625,10 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_DEVX_OBJ_C=
+REATE)(
+ =09if (obj->flags & DEVX_OBJ_FLAGS_INDIRECT_MKEY) {
+ =09=09err =3D devx_handle_mkey_indirect(obj, dev, cmd_in, cmd_out);
+ =09=09if (err)
+-=09=09=09goto obj_destroy;
++=09=09=09return err;
+ =09}
+ =09return 0;
+=20
+-obj_destroy:
+-=09if (obj->flags & DEVX_OBJ_FLAGS_DCT)
+-=09=09mlx5_core_destroy_dct(obj->ib_dev, &obj->core_dct);
+-=09else if (obj->flags & DEVX_OBJ_FLAGS_CQ)
+-=09=09mlx5_core_destroy_cq(obj->ib_dev->mdev, &obj->core_cq);
+-=09else
+-=09=09mlx5_cmd_exec(obj->ib_dev->mdev, obj->dinbox, obj->dinlen, out,
+-=09=09=09      sizeof(out));
+ obj_free:
+ =09kfree(obj);
+ =09return err2 ?: err;
 
