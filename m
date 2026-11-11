@@ -1,96 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794397785;
-	b=kxrEoUn47ABaq+0vTTuBkO/t93KVgUSoI7oVnBU3GwqPde0RQPRve9mhY8Fm1VKsJ5X5
-	 CAxI8A+EZ1UexLSCXNfH3u0+k53zIDxJtYkdGMQr3kjdW6eT02urgltsKmNkdhUj78eVT
-	 pOCCTWK7CeRB6dI4bFW9OP7mn/049KYLkFHqEk9YkV13Nb3HEoIAl+GdbuJL1N3vcJQL1
-	 2AdPJGKv0qZd1pA+uDxwHShJGAcaWe4hgbawYYblvrJrh9RgprOJ7AkA+AOyTM/5ahaMS
-	 WiNCoXzBnJ09htiokYGiYmmfWV9MhdcoV6h61U52mUZlEcd2bxZgT9UYeCk4CnKq30Q==
+	t=1794398064;
+	b=eBaSdccKQpBHGgvYilgSk5nY1nsrRJApqPHXTfJqLhJbAXt6oWRDVwg2DIna5NpEJxFx
+	 3PjRg2F53FP/ohb3jalNgRok/rLnQsc66QQA6Y3nchx7q2odXZ1sjSGdGvTlvvuzGIfoH
+	 pAvhCYUPKpxYBXYkzJKJhcUXtZlqjT1cvy8TZJFspFZnnT84yEmOkVavMvvWca7aUKN3j
+	 5SDwW/Zk9ZM6n2XxKNu2NgoujIBAwl5c7ZXpvP2rNVQaiwo4QfdsOnjqFk684yzx6qpii
+	 93eE1ac5INl/0t0Qy8DbyVy9UUgiH4i/uZ5FBkWpsT+pPSPipJ20xZOGXq5Lm43r0Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794397785;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jO0VjvUkoXke5VYihliU8dcf5tAfDK0cqhQxSUbr4I4=;
-	b=QUhcJAw32nYjen2e92x0bmOF/77iEzgKQ8Ak94DvBSf9OewBP8cv+5GZkWcsJonYrffu
-	 k6ml5036zIYsEVnbX7q8J+RWem0fpPU+fx+N5xxdPofb58vfpMsaweh/vDyDDRaqIwghq
-	 xKYw/zlDwVOI1M5nMZj1zMpcQUconMf1VM75JTHrhfloYPA2oFL6iqWHFvwTLZEkI0Aje
-	 uIespbr8bARLLr+27ZNzNxJHZT9+y8RKH/5mUTLgXvot6rKfUDv/KrH2v0RKpCEG4NWUg
-	 FLymSRyzGB3Efz3BoScFvDXy9PLpfpxMkS/n39dcXGc57VNQwV7WA6izyxBXA2rNygQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398064;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=Ep5AJlsUvRo/Sl9Rg+NwP6D7Lq/wQPVEaLy1Gie9QQ4=;
+	b=kSLfRzPZ+UKsasYkIbpqJ/vITapkU0elP5o0JXeuaDjOpN+g3TP59lLBg2hg5PXjNGJt
+	 vwgPYlXZR1d9ZvixRGmUHeOkWt+tsdyV0qBn9ZAY5xzYVzXf7hmuGyTFX6S57GOTnpIzF
+	 AcnCBHNlTmWJ5edE+ZyX1yJLTuL6ve8DMStbkxWbSK+bfFfRnr8+kFgNTssE4l4ykYMFS
+	 M6LTGpqnK4ylkmAdd9kx7/CPXQ14EKwSdB/OAXpAMzpoK7U+2i6ZyeY1r7zS9k45HxshI
+	 LG6WpR1UQ4lYITagxJN5ayExy30UWYFegZa4g5E4JZiBEI2ZpVK+KshwtMpXC/95joA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CI5THnCx;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vV5nh+mu;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCBD606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:49:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FCBD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E310B606A321;
+	Wed, 11 Nov 2026 11:54:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E310B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CI5THnCx
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso2725286f8f.2
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:49:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794397784; x=1795002584; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jO0VjvUkoXke5VYihliU8dcf5tAfDK0cqhQxSUbr4I4=;
-        b=CI5THnCx9XHPclhLPwF+qhxFNve7iO55qXN6ZeydaXGA7rrp4RHQPgx0ZTCGaL22CU
-         dTjyYelltz9wk6HtVEIsn0OA2ruDBC+XDnxoyg6vRxET9ZH8ILgBrGyWrguecPkxKzvD
-         bL9JlXWROMq4CDaKThyGwLsg98zk2F4HwpNvFXyhpFp3tAWBX7mPogFw3ubbn2YP8qyI
-         kaQaMrU9ztB55Zt01SyeeF0qi7IteQgWldgKVTV1l7aZ5+dKVGsWtDRxSNBMccgf6C6L
-         LOcmjz//kyFCQtn/RrO9BJbeLVYTPofalS02+CFzdRgbwCPRsbKk4yBw7WfdOHG0E3Ps
-         crkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794397784; x=1795002584;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jO0VjvUkoXke5VYihliU8dcf5tAfDK0cqhQxSUbr4I4=;
-        b=b8sXOJY+SrNP0fC3VErp70VW/onChhw8qjTkkTKQ06jZFn5NiBJvYFyKWtuYqRGfl4
-         PvxzqH2e959EQYC58XaJigpY1WgGbmTBlVl9cefEy9+o/qOQ/4CbXFaKZrcgFKpzN163
-         A/L9A6lj8uS7mnu4e69mdvTGWR41gFb0VIqW4gL5TgJEPqXTZfkIDmikq+c5yfjPQfr3
-         oSDTp3jmVMSA6l2OQAOV0U+6TvdJWjh1xE5+AONq93bVwMLH3GfJRPWooaGAOSqIJYk5
-         I6LC4Ukx4LFwjym7cmEFwS2OVw8/hyQXkBGjA+YwAh9prp8j/U05zCMB4abLfQuPopRl
-         FOcA==
-X-Forwarded-Encrypted: i=1; AL+hErG1zZO8I/kaq0aMUeKU0rX0Aj4Bo5D7I1x3/PWErCDAOCK+TkNhHQnb5esr9U2ugLgWm3Nwc7w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Rockh+rOpnhg6wMHY1RXYvwbwhS76sv66Ub5l+Urb7daUqRM0
-	oe4sIUFJx1w56Dw5BBV8gku80QRpuizhzfM1DVAOPtSBqA5l58ri0mo=
-X-Gm-Gg: AYBFou3+6VUhpwVdQlFmQNOsa07U7xTACIjCKOitWP3I9XTh1ifO+FL+GiwltjK1Jsy
-	6RyzZRbnyaweEtSNx8+b73pAoAjkHmPVQXwMjTWMlQv86A9nNkIir0LyF6oFoOPennzLi4hdlPb
-	IHfMg29swGPy7a4SkqkDYHMBkRLbN3iNXQc3Q3s85wszSbxEMsUX87JycgZ24rh5cf6YP3BV5kU
-	XWoSYwbj/sFvb+G2uY/icdCM5O4MVF/vLsiWeIV+DEeQl96ac/UudX5SKoWXc/1EeIUwpYb2Uh0
-	NFuQ5wJW99G/KGZDZxoNDyBBpMVfWCt/+5yHCB0Br+683u1GJC9a90rylo0BFHX3oXJwyjx1RoV
-	BP2sOPQpsYYsHhWg7G3DEPmthc9kCj6PcgZ0o/C12Dps5xh2P7zeZrGkZ9dKB5mTsV3cyQwQJk7
-	5gnK0PDjbnN6EzxPrcC792gg8qa5XBd388LuSoXMCfYYP7dzHW4hjVulnI8DWS+emFqiOJjGXbt
-	tJlXPykmb0WU9aLbVks7JWUqBzalw/8J7nktrS3lwzzqD5uFs/Ch0iAP5dBfFRmfqjQN1t4h5zJ
-	LzybOSEdtEEBpvfO8r8TnxgTAA09hYwro/7F
-X-Received: by 2002:a05:6000:387:b0:490:6e0f:a02e with SMTP id ffacd0b85a97d-499c69cae59mr3687287f8f.17.1794397783745;
-        Wed, 11 Nov 2026 03:49:43 -0800 (PST)
-Received: from localhost.localdomain ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4982eedfb36sm10789106f8f.0.2026.11.11.03.49.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:49:43 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-To: Oder Chiou <oder_chiou@realtek.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH] ASoC: rt5668: initialize calibrate_mutex before first use
-Date: Wed, 11 Nov 2026 11:49:19 +0000
-Message-ID: <20261111114919.95639-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vV5nh+mu
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Ep5AJlsUvRo/Sl9Rg+NwP6D7Lq/wQPVEaLy1Gie9QQ4=; b=vV5nh+muii9KUwMXfoK65C9FPK
+	aNSl0OiG0j4I+LFXc7WeA74kYOFf834TBtI7qS+ZEF0cf7hSHSrnoI47iOSAXQPCAXQU9fne6O/8R
+	G2wk/XluU5ugbAZ7f5jU4JBscAk6nd/VyyPFhAk65/tq7U9wZjt9SJD8a8A/m2R6Cxj7l7C76kg9H
+	1KIPLAQYQ/Fv+JWvD04uouKwGYT/8gu4uHiCPUf9Bg4PxVdqeWdNvrfltP4AIW+MdO1/5WBfOmizl
+	DellelcAiKmJM9KaaC82wP83/72jAdgWurCb/I4tMo/beG16KgajqNT/PO+VCT1shIIGmoQlyuzr0
+	Arg3hVEA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xR6u3-00DA6f-37;
+	Wed, 11 Nov 2026 11:54:12 +0000
+Date: Wed, 11 Nov 2026 03:54:00 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 25/38] powerpc/crash_dump: check ioremap_cache() in
+ copy_oldmem_page()
+Message-ID: <avRXHYDKemkiDvoj@gmail.com>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-25-59422ed3e465@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,51 +88,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-25-59422ed3e465@kernel.org>
+X-Debian-User: leitao
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On Mon, Nov 02, 2026 at 03:21:40PM +0100, Christian Brauner wrote:
+> copy_oldmem_page() maps a page of the old kernel that isn't in the
+> linear mapping with ioremap_cache() and copies from it without checking
+> whether the mapping worked. If it didn't, the copy reads from an offset
+> into the NULL page. That oopses unless the copy happens to be a user
+> copy, whose exception table entries turn the fault into a short copy.
+> 
+> Return -ENOMEM like the other architectures do. read_from_oldmem()
+> turns that into -EFAULT like any other short copy.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: 54c32021eb6f ("[PATCH] powerpc: Add arch-dependent copy_oldmem_page")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-rt5668_calibrate() is called during i2c_probe() and takes
-calibrate_mutex. However, mutex_init() for that mutex is not called
-until later in the probe sequence, after the INIT_DELAYED_WORK calls.
-This means the first calibration locks an uninitialized mutex.
-
-While this works by accident because devm_kzalloc zeroes the struct
-memory, it is incorrect and triggers warnings with
-CONFIG_DEBUG_MUTEXES=y.
-
-Move the mutex_init() call to before rt5668_calibrate() so the mutex
-is properly initialized before its first use.
-
-Fixes: d59fb2856223 ("ASoC: rt5668: add rt5668B codec driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- sound/soc/codecs/rt5668.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/codecs/rt5668.c b/sound/soc/codecs/rt5668.c
-index cd6245d6b91af..6748bcc63ac39 100644
---- a/sound/soc/codecs/rt5668.c
-+++ b/sound/soc/codecs/rt5668.c
-@@ -2490,6 +2490,8 @@ static int rt5668_i2c_probe(struct i2c_client *i2c)
- 
- 	rt5668_reset(rt5668->regmap);
- 
-+	mutex_init(&rt5668->calibrate_mutex);
-+
- 	rt5668_calibrate(rt5668);
- 
- 	regmap_write(rt5668->regmap, RT5668_DEPOP_1, 0x0000);
-@@ -2547,8 +2549,6 @@ static int rt5668_i2c_probe(struct i2c_client *i2c)
- 	INIT_DELAYED_WORK(&rt5668->jd_check_work,
- 				rt5668_jd_check_handler);
- 
--	mutex_init(&rt5668->calibrate_mutex);
--
- 	if (i2c->irq) {
- 		ret = devm_request_threaded_irq(&i2c->dev, i2c->irq, NULL,
- 			rt5668_irq, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING
--- 
-2.47.3
-
+Reviewed-by: Breno Leitao <leitao@debian.org>
