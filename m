@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362626;
-	b=WjgLlbMRh9z6treczwKMN2G1O/EEDdokS/NFIsCHyk7yBAt/Z7VxmmKgSVt2bK9OLIaF
-	 AZyT46Ul2GdjOj6w+8XTLBZzyZoTzsFGOePBHlgE1474HZm0OmYT9vvhYlamitHnsXQEs
-	 c/n74IIM8A/Wshq5/fjQJUAJi/rNLsf0Iz5dCnJLLEOQexu+rqqz7l3S6DBs+JWptMk2w
-	 Y3YngwE2SeToB9oofP1oHnOwgDVeWsidmvFi6tKed7/h6WKXvqbxwwqutetbcuteIV+sc
-	 zlgyFw0Xygk+ce5QTdmMxeagglbaNT32tdwij5SkrD+Wc+3Oa9Bq8N6n8t9bXGyEVEw==
+	t=1794362651;
+	b=xtm98UFoNZhaH+KNL5AzbTrUMtk/VdC8ng104GrT9lYgFXw5STw166cIdnXdWt/xeYbf
+	 +qhN3i/GB1m4XUqsXOx5C9jW7fLA15te0284uYutYFifQFwb0/W7vqAFAbiUQZ/icZgBJ
+	 S2VR6zrycHOVs8lsh2k7HWpGV6ViN5hBV0RBZD5MIFiAAjfA7bfXzZp+3U24JbtgdqQAt
+	 VKyR/Ux7wO5Ev+UH7hUU6l29oMTKa6IeIGfHVolIPu1Dgiq2jNxTbMPAo1YYRITgaXgoh
+	 37M8j5TGHxcM/oEsSMTq+zcD4x46xJ0fb3XwZOwhEHIMq14oB/SUT60cPWE8yizkiNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362651;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2l+YGQvm1ChHVVlAuapuk7z9Cf3SKBOcoBB0EQWRCoc=;
-	b=zoNQqc30VCehq8bGdLDNyz2hPqoTCRA+IW6Bf76NlLnSLjqwm3dd5/r2KhUu+1s1J8QU
-	 U3Gfa8peqSe5xZEbGC3GLpUh9yoMNOWmTFApS/OpHZo+HS4V6zHwo3FPZfguYI+qVQQhl
-	 7UiUVs5d3rSbD2q7mjbqrrWhHnsKUI4GP/GY0gsO52CCK3CHuCGyggV44bo92fQAzmU9P
-	 mbPMD37V/P6MM+BcyEniCtJlgLEjcySKC4+3wr0b+t55DkM4yudBC5Q87G03glCQLvyF3
-	 20rOdEAfM5AqSagptSOfALtDK5/OQ31ozP/w/xdd38EBgRkA5IP19sL08aWj+q48NjA==
+	bh=oOR6pv3hSaUwwtcIy4ooAFAyWOKEyjKFNFsw30A6fiQ=;
+	b=vBbB5Qc2N4ZwOVWqv3ap334NqK+NRho2cIFFBThRYo8q6j9QGwACb5yWgHFZIiZe7xSH
+	 X4lUSPq3H4owDnH2TmuAq6lREwEF4FUnx1qv0r4SCZZd7SAbW41bURIrBXfypohnQZwua
+	 iRRI+0PUcwEe5CE58rQgOxgyGN37GD7vTFoAExYxCK0814tuh0ZemQUomfGKExjQ6V7zw
+	 DlEzGWzLoxfKC8X+wCQKtCEqaUnYLKkeiRWdWItgqJQGRLNLV23A8WTqSdc/uOiADqy2J
+	 c66am/Pjp8rI7RBFmFa2AUUpWxXhEqMxz+OVtc1+otPTLHHzjJtffXYvo/BP2d6gr+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZTAVW18L;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhsGLl2Y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAF460A260D
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:03:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B748F606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:04:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZTAVW18L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFED01F00A06;
-	Wed, 11 Nov 2026 02:03:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhsGLl2Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A841E1F0089F;
+	Wed, 11 Nov 2026 02:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794362626;
-	bh=2l+YGQvm1ChHVVlAuapuk7z9Cf3SKBOcoBB0EQWRCoc=;
+	s=k20260515; t=1794362651;
+	bh=oOR6pv3hSaUwwtcIy4ooAFAyWOKEyjKFNFsw30A6fiQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZTAVW18LZy5AMNgix3o8EQl3EBDQ6WgHt+3ryn0UrjVX332tEq2NUGndTCSzZO0oQ
-	 ZAp0YzFGny2olNJvBwuVfKRgazLBdKR0XNU6V0LgiyO289qPijGxPDbVBFZqQVEQDP
-	 1g4T090q952vmqip5CguWIOuvyl2sIWBv2oQmykZ4K/gQ7o2yjuvnHcWrfMyzdiUTE
-	 E9N30WCXxopDCc7UKp09m3CWV44CN78zhyt4U7BU8/hvQ77OimifVJmp4CF6RVt8w9
-	 YXDCk4VB/1/4djz0Yzf71aWCrS8MMnp0+7cowPK0USE9KS9T5RqyJ85y1iCPJ2ILSA
-	 Q9PHuB8sLGf5A==
+	b=NhsGLl2Y1Q6mhFQxcKZH+pVk569hRCN0lNSAVkrJfPxgjwR+BWeDgPMONb4yhRKz5
+	 DC4gt6gqWGkhOhc1evfo/M2LcqznZ9FAUcfDzGibtOIXGcjVCUXOaIfRFlw3keSaZn
+	 UycFiMWxf3VPcLEZhWbSeuXr7crDXggTrzdURs1v5iVwXOJiijiqTSQirtsajcbARl
+	 816IsrddCIRtIcoIxXFY5eG4sw4gq/nWU7nMCK/mQ1gD54O8ec6tvI8/ndz9gRgFVb
+	 YNAVmeO1go229VaDzDMeGUlgME0MOLoEvA4MK//jGmEHjxX2TeXnkNlL5reay7+1Kj
+	 EGFb8nUQ8e9XA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alexander Kochetkov <al.kochet@gmail.com>,
-	Siarhei Volkau <lis8215@gmail.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+Cc: Armin Wolf <W_Armin@gmx.de>,
+	Grant Slater <github@firefishy.com>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 6/6] Revert "Input: matrix_keypad - force switch rows to input mode"
-Date: Tue, 10 Nov 2026 21:03:41 -0500
-Message-ID: <20261111020056.444668-6-sashal@kernel.org>
+Subject: [PATCH 6.6.y] hwmon: (acpi_power_meter) Fix 18.45 TW bug
+Date: Tue, 10 Nov 2026 21:04:09 -0500
+Message-ID: <20261111020349.542990-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111020056.444668-1-sashal@kernel.org>
-References: <20261107053642-failed-6.6-1527451f87df@kernel.org>
- <20261111020056.444668-1-sashal@kernel.org>
+In-Reply-To: <20261107053646-failed-6.6-0b6eda22f9ab@kernel.org>
+References: <20261107053646-failed-6.6-0b6eda22f9ab@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,52 +62,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alexander Kochetkov <al.kochet@gmail.com>
+From: Armin Wolf <W_Armin@gmx.de>
 
-[ Upstream commit 1527451f87dfe368b8ddeeb501c24ac9bde6b589 ]
+[ Upstream commit 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e ]
 
-This reverts commit 01c84b03d80aab9f04c4e3e1f9085f4202ff7c29.
+The ACPI specification says:
 
-The commit makes every scan call gpiod_direction_input() on the row
-GPIOs. On pin controllers where GPIO input and interrupt are separate
-pinmux functions this switches the row pins out of interrupt mode, and
-enable_row_irqs() does not switch them back: it only unmasks the
-interrupts. Row interrupts then never arrive and the keypad stops
-working. Seen with a matrix keypad on an Allwinner A64 board (PINE
-A64-LTS); it works again with the commit reverted.
+"If an error occurs while obtaining the meter reading or if the value
+is not available then an Integer with all bits set is returned"
 
-The workaround is not needed on Ingenic either: the author of the
-reverted commit re-tested all available JZ47xx SoCs and they all report
-the live pin state in interrupt mode, see the thread in Link.
+This integer can also be 64-bit wide on ACPI 2.0 and later systems,
+so we have to check for that too.
 
-Fixes: 01c84b03d80a ("Input: matrix_keypad - force switch rows to input mode")
-Link: https://lore.kernel.org/all/4130C026-2A83-408B-836A-ECA044491C47@gmail.com/
+Compile-tested only.
+
+Reported-by: Grant Slater <github@firefishy.com>
+Closes: https://github.com/lm-sensors/lm-sensors/issues/460
+Fixes: 1fefca6c57fb ("hwmon: (acpi_power_meter) Fix 4.29 MW bug")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Kochetkov <al.kochet@gmail.com>
-Acked-by: Siarhei Volkau <lis8215@gmail.com>
-Acked-by: Paul Cercueil <paul@crapouillou.net>
-Link: https://patch.msgid.link/20261002100935.449473-1-al.kochet@gmail.com
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-[ sashal: Adapted the loop removal from gpiod_direction_input() with keypad fields to gpio_direction_input() with pdata fields. ]
+Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+Link: https://patch.msgid.link/20261006234618.10943-1-W_Armin@gmx.de
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: adapted the power check from power_meter_read() to show_power() using resource instead of res ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/keyboard/matrix_keypad.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/hwmon/acpi_power_meter.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/input/keyboard/matrix_keypad.c b/drivers/input/keyboard/matrix_keypad.c
-index 9e6837217f441..d0787a568058d 100644
---- a/drivers/input/keyboard/matrix_keypad.c
-+++ b/drivers/input/keyboard/matrix_keypad.c
-@@ -118,9 +118,6 @@ static void matrix_keypad_scan(struct work_struct *work)
+diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
+index b772c076a5aed..1743467e65db9 100644
+--- a/drivers/hwmon/acpi_power_meter.c
++++ b/drivers/hwmon/acpi_power_meter.c
+@@ -10,6 +10,7 @@
+ #include <linux/hwmon.h>
+ #include <linux/hwmon-sysfs.h>
+ #include <linux/jiffies.h>
++#include <linux/limits.h>
+ #include <linux/mutex.h>
+ #include <linux/dmi.h>
+ #include <linux/slab.h>
+@@ -31,7 +32,12 @@
+ #define POWER_METER_CAN_NOTIFY	(1 << 3)
+ #define POWER_METER_IS_BATTERY	(1 << 8)
+ #define UNKNOWN_HYSTERESIS	0xFFFFFFFF
+-#define UNKNOWN_POWER		0xFFFFFFFF
++/*
++ * ACPI integers can either be 32-bit or 64-bit wide, so
++ * we have to check for both values.
++ */
++#define UNKNOWN_POWER_32	U32_MAX
++#define UNKNOWN_POWER_64	U64_MAX
  
- 	memset(new_state, 0, sizeof(new_state));
+ #define METER_NOTIFY_CONFIG	0x80
+ #define METER_NOTIFY_TRIP	0x81
+@@ -349,7 +355,7 @@ static ssize_t show_power(struct device *dev,
+ 	update_meter(resource);
+ 	mutex_unlock(&resource->lock);
  
--	for (row = 0; row < pdata->num_row_gpios; row++)
--		gpio_direction_input(pdata->row_gpios[row]);
--
- 	/* assert each column and read the row status out */
- 	for (col = 0; col < pdata->num_col_gpios; col++) {
+-	if (resource->power == UNKNOWN_POWER)
++	if (resource->power == UNKNOWN_POWER_32 || resource->power == UNKNOWN_POWER_64)
+ 		return -ENODATA;
  
+ 	return sprintf(buf, "%llu\n", resource->power * 1000);
 -- 
 2.53.0
 
