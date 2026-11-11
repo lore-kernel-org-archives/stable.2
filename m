@@ -1,78 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391797;
-	b=zr87JlSFilCyxxxCOctODG6OyrC7bs1nvCFpQzNsbY9bEt4/sBdDp7WrETqYBkvaMd2V
-	 QkczPBSBrRNwKfm6SPJYdT9v6SLzDJreqY7NqRB0JZzl6+NGcH4YijXhXbDOl/I+MsFD3
-	 q0oySP2R+1zgOIKG/Ww2D2uQrPdQpBqCQkHl1EGBZma4QNT6NQmffPCimrkoBnDwznb7z
-	 doXMNh4n1P2Y81oyd1j10t0CNnzonPiFFNBnH0zeXJRARIP0Mav71B5R1lgbgiJimJ0LF
-	 qM6WLFwNF8kHzvsKlIAl8/MM3ImI1pMNdMtlqSx+RSHueZtkbmEkRr0EI9vxDKNMwQw==
+	t=1794391855;
+	b=Ane+olb7ZSIkHQXBtUYOMtP4ovY2kD9rV8uEn/mL86HURoOk4XBwAYhMqvpKbjioqd6r
+	 wR2LT61Br0k1bR1S7HHDP/Wda6c7NeWbj1MDo0jNqVBTJCZqUcNzol6yRLXbT/5Q7bPkq
+	 lfRPnK7b8g/jYq4gGyWF2A/WjtBDzmOOA/Gc8DlSZTeM5pcbvXiUtVXlKLWN5ZNdhOvy4
+	 qRNjALVQAGgY74wLjySeHfxV95/DdJ8gQaqBPx3nZIRoFoKYdbxyeZoZXfgT+bF4M5PJN
+	 wQ4ID+aX7Adv3zxAdPfx7N8Cv3skrxqZsmo1wVAvIe6j9ogIgYeeAatycxJT0vCDVbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391797;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=uxr7prCY9LatADsHmzQTgGcMcdgC/63WFi/9+V6VH44=;
-	b=Mn/cLfVAGRlpBTRXmHEl8Rbc45CFZG5wiAZepn+oUBnrLzExxNaHaVlYiQ2q8Mtk0Ms/
-	 UfNjKuvx6dX9Kixo06m6IttI/IdfZJh2ym0zzhm48e7MfUMte/JNDRdt1z8QpIH0KrH35
-	 W3EDQPy2Lsp0zU2T1pLIdNo/9Jp1O0jI+tSvydnuq56fH46FTIR4H3aihW6QoV11n+IsW
-	 b6+mcaskePhjj2PbUpr68UoSIOk85odqD/WG2WUcrO2kvQ0PbwMSrPNX+ocoz/n9L2T8W
-	 kOoEk69OZKNejp+K/f8vrmCzQNIQBKvcVv/Of2DLHe/EAM9BhgIhjQZJcba/p+4ZRUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391855;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=3jmYuqK+pQF0PqyrxCK+pZjUR5xDVd0PTykcrV14pak=;
+	b=EaJLR5lzZxwFurOUHX09A8CrhckwTxa1H9ZfRUw+XusgMmAJF7FOsY36c2hG8zuq8X4k
+	 MzLjjeYbYkqLw2nvbUdoPaDZfocGTYtV7fVFWJxs2YVX2AiA109j7jvWzgk3VtSRN8UsJ
+	 YXSQ3USM1+XIiEvg5tkuq1GDM4wGZamWOmR/cAYIBUlxHtKHut2IZPGKKXHvcfNc2PRFd
+	 gYdT/O1JQ3g2TYOoh0kNYutWYIrVCaHoWFoLQFoaNVNrdDwsBHALRSVbjfyS7jr0BBOLi
+	 3r7gGOxUq8eGM1vgAz1t7HPrwfP46ERld6s0UeHRgNS3J+rRBQblIIjUOTua7xr2ciw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="GHEXUGY/";
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osTPVFOa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A2B606A332
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:09:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A2B606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041FC606A331
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:10:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GHEXUGY/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794391797; x=1825927797;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=BMnxFsvhvEsTr3QuL/lZAYvYXC/iz08U4mMni2SukH4=;
-  b=GHEXUGY/Euud4zzP2XY4gUqJifNR4CGLDV/f4kPZqhjnKa3410V8pAJP
-   GIPPNjzIakoIAInsQ1UK9pgcP8brJYjPTayTu5rsuGSxaecHH7uoFHvYK
-   1VqaQpyLJGlUyc7KWrUQy4TYH+SVKsZ+l3/x4rFRRyQl+ItU5cYMywM4V
-   XeF9u8dobC0SUG/8j0nS8XSyAujp3ZhGwhNrItBng6Uap6eRb7cMDq8FG
-   YrazLeXhiqwPHsw2IDUo+JO9cCSbZcMSAq1vqpXSy7EbFI8YWvOQqu9l+
-   2ZnotTgJEEuPRjwtug4qYqV38H7KLvTEEHjTndYz6ZmM/0noun5QPQNgS
-   A==;
-X-CSE-ConnectionGUID: v96CoodESkijIv60eqd8XQ==
-X-CSE-MsgGUID: bkyUEB6sRYSuu4FihG4W4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3158170"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3158170"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 02:09:57 -0800
-X-CSE-ConnectionGUID: 3Cx5tL99R46FTssmG1yh2Q==
-X-CSE-MsgGUID: VXyJeHEyRfCDOYqjyT6g4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8812997"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO fedora) ([10.245.245.171])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 02:09:54 -0800
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Dave Airlie <airlied@redhat.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/xe/dma-buf: Validate BOs on export to charge the exporter
-Date: Wed, 11 Nov 2026 11:09:29 +0100
-Message-ID: <20261111100929.2228-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osTPVFOa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0751E1F00A05;
+	Wed, 11 Nov 2026 10:10:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794391854;
+	bh=3jmYuqK+pQF0PqyrxCK+pZjUR5xDVd0PTykcrV14pak=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=osTPVFOaUEuhQ3YtY5Ci/Cvdnaj1zBZR5lC3PH0YCoJJOUuFYqe/4AHysT9CsWxaD
+	 Qn14kJeUDWtcPWtmKfDn3PzgRquQoFF6jSkXNMqg1f/vH7RXbqQEOXzLndvHQNFVlf
+	 lhBGPDHa0TUrZQ0+6mJGv4UXf1vLR6UDS7jmqHkgjJ21GMCjmqEfsOedEx9uHd1qAy
+	 cV3qkL8G2txrHc3cKNj6gx+kimi9JttKyymLVULdhQGJTt8cOs9VKRkkaTYDqiH0Hn
+	 FNSUu0jKmAMVJ3g6n4aCDZEaNgDlFklYTchn8Ne9smIivHHCoaEVr0ZtfY1on946sU
+	 z5fyGCYmd6cZg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: sung byeongchan <tjdqudcks0424@naver.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] ceph: validate MDS reply fragtree split array length
+Date: Wed, 11 Nov 2026 05:10:52 -0500
+Message-ID: <20261111101034.1490144-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107062912-failed-5.10-8cab7e7461f8@kernel.org>
+References: <20261107062912-failed-5.10-8cab7e7461f8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,142 +60,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-xe_gem_prime_export() calls ttm_bo_setup_export() to make sure the
-exporter is charged for the memory backing an exported BO. However,
-that only populates a TTM_PL_SYSTEM tt. A BO that has been evicted, or
-that has deferred backing, will instead get its memory allocated when
-the importer maps it. For p2p imports this happens through
-xe_bo_validate() in xe_dma_buf_map(), so the importer, not the
-exporter, is charged for the allocation.
+From: sung byeongchan <tjdqudcks0424@naver.com>
 
-Call xe_bo_validate() at export time instead, so that the BO is moved
-into its preferred placement and the exporter is charged.
+[ Upstream commit 8cab7e7461f81ea1e0fd45082b50bb3c04c0bb10 ]
 
-Do the purgeable checks and the validation in the same
-xe_validation_guard() transaction, to avoid locking the BO twice.
+parse_reply_info_in() advances over the fragtree split array using an
+unchecked count multiplication.  On a 32-bit client, nsplits=0x20000000
+wraps the byte length to zero, so the reply is accepted and
+ceph_fill_fragtree() sorts far beyond the message front.
 
-The commit message and code was drafted using LLM.
+Compute the split length with size_mul() and require the complete array to
+remain in the inode record before advancing the cursor.
 
-Link: https://patchwork.freedesktop.org/patch/747480/?series=172524&rev=1
-Fixes: 91494dee1091 ("xe: populate buffers before exporting them.")
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-xe@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.18+
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+The malformed reply faulted in frag_tree_split_cmp() twice on the tested
+i386 baseline.  It was rejected without a fault twice after this change,
+while a normal reply and a one-split control remained functional.
+
+Cc: stable@vger.kernel.org
+Fixes: 2f2dc053404f ("ceph: MDS client")
+Assisted-by: LLM
+Signed-off-by: sung byeongchan <tjdqudcks0424@naver.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ sashal: Adjusted include placement to account for missing bitmap and mount ID mapping headers. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_dma_buf.c | 76 +++++++++++++++++----------------
- 1 file changed, 39 insertions(+), 37 deletions(-)
+ fs/ceph/mds_client.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-index 5bf13dc4b61d..90c9b90de552 100644
---- a/drivers/gpu/drm/xe/xe_dma_buf.c
-+++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-@@ -263,60 +263,62 @@ struct drm_gem_object *xe_dma_buf_to_gem(struct drm_device *dev,
- struct dma_buf *xe_gem_prime_export(struct drm_gem_object *obj, int flags)
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index 8154c08d54977..b7daa7d76dea5 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -12,6 +12,7 @@
+ #include <linux/ratelimit.h>
+ #include <linux/bits.h>
+ #include <linux/ktime.h>
++#include <linux/overflow.h>
+ 
+ #include "super.h"
+ #include "mds_client.h"
+@@ -101,6 +102,7 @@ static int parse_reply_info_in(void **p, void *end,
+ 			       u64 features)
  {
- 	struct xe_bo *bo = gem_to_xe_bo(obj);
-+	struct xe_validation_ctx ctx;
-+	struct drm_exec exec;
- 	struct dma_buf *buf;
--	struct ttm_operation_ctx ctx = {
--		.interruptible = true,
--		.no_wait_gpu = true,
--		/* We opt to avoid OOM on system pages allocations */
--		.gfp_retry_mayfail = true,
--		.allow_res_evict = false,
--	};
--	int ret;
-+	int ret = 0;
+ 	int err = 0;
++	size_t splits_len;
+ 	u8 struct_v = 0;
  
- 	if (bo->vm)
- 		return ERR_PTR(-EPERM);
+ 	if (features == (u64)-1) {
+@@ -119,9 +121,11 @@ static int parse_reply_info_in(void **p, void *end,
  
--	/*
--	 * Reject exporting purgeable BOs. DONTNEED BOs can be purged
--	 * at any time, making the exported dma-buf unusable. Purged BOs
--	 * have no backing store and are permanently invalid.
--	 */
--	ret = xe_bo_lock(bo, true);
--	if (ret)
--		return ERR_PTR(ret);
-+	xe_validation_guard(&ctx, &xe_bo_device(bo)->val, &exec,
-+			    (struct xe_val_flags) {.interruptible = true}, ret) {
-+		ret = drm_exec_lock_obj(&exec, &bo->ttm.base);
-+		drm_exec_retry_on_contention(&exec);
-+		if (ret)
-+			break;
+ 	ceph_decode_need(p, end, sizeof(struct ceph_mds_reply_inode), bad);
+ 	info->in = *p;
+-	*p += sizeof(struct ceph_mds_reply_inode) +
+-		sizeof(*info->in->fragtree.splits) *
+-		le32_to_cpu(info->in->fragtree.nsplits);
++	splits_len = size_mul(sizeof(*info->in->fragtree.splits),
++			      le32_to_cpu(info->in->fragtree.nsplits));
++	*p += sizeof(struct ceph_mds_reply_inode);
++	ceph_decode_need(p, end, splits_len, bad);
++	*p += splits_len;
  
--	if (xe_bo_madv_is_dontneed(bo)) {
--		ret = -EBUSY;
--		goto out_unlock;
--	}
-+		/*
-+		 * Reject exporting purgeable BOs. DONTNEED BOs can be purged
-+		 * at any time, making the exported dma-buf unusable. Purged BOs
-+		 * have no backing store and are permanently invalid.
-+		 */
-+		if (xe_bo_madv_is_dontneed(bo)) {
-+			ret = -EBUSY;
-+			break;
-+		}
- 
--	if (xe_bo_is_purged(bo)) {
--		ret = -EINVAL;
--		goto out_unlock;
--	}
-+		if (xe_bo_is_purged(bo)) {
-+			ret = -EINVAL;
-+			break;
-+		}
- 
--	xe_bo_willneed_get_locked(bo);
--	xe_bo_unlock(bo);
-+		/*
-+		 * Make sure the BO is backed in its preferred placement so that
-+		 * the exporter, rather than the importer, is charged for the
-+		 * memory allocation.
-+		 */
-+		ret = xe_bo_validate(bo, NULL, false, &exec);
-+		drm_exec_retry_on_contention(&exec);
-+		xe_validation_retry_on_oom(&ctx, &ret);
-+		if (ret)
-+			break;
- 
--	ret = ttm_bo_setup_export(&bo->ttm, &ctx);
-+		xe_bo_willneed_get_locked(bo);
-+	}
- 	if (ret)
--		goto out_put;
-+		return ERR_PTR(ret);
- 
- 	buf = drm_gem_prime_export(obj, flags);
- 	if (IS_ERR(buf)) {
--		ret = PTR_ERR(buf);
--		goto out_put;
-+		xe_bo_lock(bo, false);
-+		xe_bo_willneed_put_locked(bo);
-+		xe_bo_unlock(bo);
-+		return buf;
- 	}
- 
- 	buf->ops = &xe_dmabuf_ops;
- 	return buf;
--
--out_put:
--	xe_bo_lock(bo, false);
--	xe_bo_willneed_put_locked(bo);
--out_unlock:
--	xe_bo_unlock(bo);
--	return ERR_PTR(ret);
- }
- 
- static struct drm_gem_object *
+ 	ceph_decode_32_safe(p, end, info->symlink_len, bad);
+ 	ceph_decode_need(p, end, info->symlink_len, bad);
 -- 
-2.56.0
+2.53.0
 
