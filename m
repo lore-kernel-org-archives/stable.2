@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409456;
-	b=P9o1kmu35vGmq1xTWroZ/prAdL2Y3v9oMG8dNcJy+mKpLrGn1dSRlQjMBxbL4OqyBJJ6
-	 yC7kWXSwCE1y0om8i90mGrYJdEXqLEbkOUYY3pDWaE47E2P1YMfcRNRyQ6JIZvcL4OY8u
-	 Uu4qtguIEt3GWHCFCgeo4/glRWHl9eZF3TsydOBQkQxPjlFwMwFZOegDeKFTx/3UQN0eT
-	 bdk6gpmz32uadgCBQpOkILw71vX02xv3TxXkYVoj68CLibQnwjSIH3yspFcGR0tSZFp7g
-	 gjDghkIc7GYxyG0gmlXV31ff+E62/QAQaSNa/nTLIt1RC15nul0wrxI8Lgw4C5i4SRQ==
+	t=1794409516;
+	b=0VZKEkgYAPAKlkCfnWM8xKlC5/NMgtThVNpkQJvOAX6mZgAQ0hR4b3ENz4Sg6LA2Wpvt
+	 9bUljnQQSQKrmiow+nd1TAv6swfuXx/B0FzGor8DSBZHtxtZO7mPgferHBnZb31TEBjl/
+	 RZfpY7jq8tvfjyQ/aWNMI2S9CWxxJTd+Wg5anoijJHv8ngRUtg4wNn6l6zXJnmwgnyHfO
+	 sNk1JAi/rdA4y5VaoQ3DkJdFyNLVeUSlIl2+c05jh0IVnymam3qFVfkNnRFgxUIoh4gHN
+	 YSyhVCAREiqV8epAzr4FTXf74NnQOgvdGLi7SdG65fJ4i5B5eopo1u775kpM10njL0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409456;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409516;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1SrMy78WN+D7w1ldPRMqbrq2PWQNKruxDxGSvs2zDKE=;
-	b=mSpPDp4qT9By68hzHZnRO4HD4SV/GJcBxGo4ac4l8DCTQZgvM7xa27/wJcQjLHuwuyFi
-	 cAsDwAUneZ3av0/gatziL6kqq6vJ8/0e+4TA94riX68SjTAQ5qsaOGPpjKX5UTwD2FfLF
-	 ePVy+N2k0pgbof82tPub9j0HeofYtVd7xmj76y2RmI0znPZYWCL37pW4yUlmUqT9sZwOY
-	 kVWZQuEoXIyhgJ5kEIKmgRA4DqgrJy8D0HCLu59btUBw1EVinM+A99J16Ajq+IELm8vOB
-	 oP2QAio4b/4Xok/BFLnoKg6hZ4tq4Bm0hBcZBodt4NBvlhcy6hMMm5y8/6vZKzDGodg==
+	bh=RboT5c/q3EdDmPo820n//UBSK2TPF1Wbdvkbvf/YKK0=;
+	b=ltE+dZ7Le9ZAuDF/gAdmxbPO4k3xklwAE/7+wth7lksrDPjMjfW2KAwocp4izJY8//L5
+	 OxRU1JODDaCjNNOOQ0NV7KhCYZeBfftlXT0GIKZQgpniIHk/lAveOtnjCviDEppyRGIN0
+	 LdIOCgRLOcK9WsyEKven1Fc1tixX8VlnvXsEWw3SvhDw59OBwVZlykftv9U8rX8tdLa3c
+	 nwaWKHSpEHN7CnfSlICMbK3k4JMp9MjQ28XUYZANtU4qyP90ugb/2rWAweumyjO6pfItD
+	 JsU023Lt8NhEsHkDirha73qTTcHbB3bt9bsu+C4+dxSflhetsI2320z1PqnzDfNj/UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=co4noC81;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdQud5GZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C445D606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:04:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69930606A33B
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:05:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=co4noC81
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2964C1F00A05;
-	Wed, 11 Nov 2026 15:04:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdQud5GZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97DFB1F00A05;
+	Wed, 11 Nov 2026 15:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409456;
-	bh=1SrMy78WN+D7w1ldPRMqbrq2PWQNKruxDxGSvs2zDKE=;
+	s=k20260515; t=1794409516;
+	bh=RboT5c/q3EdDmPo820n//UBSK2TPF1Wbdvkbvf/YKK0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=co4noC819ZVt0GXPCUvqgq9nBFLk8KForMwNnfKXq+WJt+TM+I5uCWoR8Mi1eBrwX
-	 F/vvE6rgWp9x9ORTIyRv8plY20CAsk9EmfEiXxJ3XFkK2iGmF4oYWS91NqzCBFM0fZ
-	 PQYzbX22A2a94Kbrq5QRXqrASPJ2U08ABwPr/oZro+9lc91Er75AjQpt0lHosI2PdV
-	 qJfmnIX9TgFyErwoI3vHbmwA7pd1pP8KsBu2ShWUWiahcE/CshT/vO0qjgCNCXpLIv
-	 AzZRNpdzEYQ6Gc/EoBHcdsbn+epUGqmet66pPoSmVTjeo/j8kPjoIgPKHZWi/9EHNX
-	 MAbKeBX42wvUg==
+	b=MdQud5GZeLrBpWVomjSnipl/TLYn2O3m097/9e7/583mTl0O7RbzbYgS3ZsxIhBlK
+	 WKQg68XmTocv7NdIkj/Tk6nELxdQ5A7i4XteqK1gPA3IF9Te7X4gbDn4gWahFTTmZZ
+	 aPEdjYY1gzOMi8ID2Q0H5j1ZP2/5Z4dG49171yb9v2hxu3pnf3n4FW7EJkE/hPx9Jx
+	 H0EgjF4c5q2iDia+kJr+oFFa+b2F3bnJbwNFueZ1+/2hKvbDd9z11e/rIIOC7mIunN
+	 TLZutTAy2k+5r/u8S0sFmGPKg0Umcv0gALTDRT+jYjMZYOymBmawlIFeNW+IralkQT
+	 iaepZ7s8AridA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] iomap: don't mark unwritten parts of a folio uptodate
-Date: Wed, 11 Nov 2026 10:04:15 -0500
-Message-ID: <20261111150357.2481521-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] media: sti: delta: use unaligned accessors for MJPEG SOF fields
+Date: Wed, 11 Nov 2026 10:05:14 -0500
+Message-ID: <20261111150457.2488898-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061328-failed-5.15-a4193b4af359@kernel.org>
-References: <20261107061328-failed-5.15-a4193b4af359@kernel.org>
+In-Reply-To: <20261107061823-failed-5.10-fdc5bf02aeae@kernel.org>
+References: <20261107061823-failed-5.10-fdc5bf02aeae@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,73 +62,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit a4193b4af359db84b2cdf3a040752861984c636b ]
+[ Upstream commit fdc5bf02aeaef04e7d13895db9b6eaf8083953f9 ]
 
-For a buffered write into a hole, an unwritten or new extent, or past
-EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
-write and then marks the blocks uptodate. That includes the range of the
-write itself which still holds whatever was in the folio before. It only
-becomes valid once the copy from userspace has filled it in.
+delta_mjpeg_read_header() scans a compressed MJPEG access unit byte by
+byte and passes the bytes after an SOF marker to delta_mjpeg_read_sof().
+The SOF parser then reads 16-bit big-endian fields directly from that
+byte stream.
 
-But the copy can come up short and __iomap_write_end() only rejects a
-short copy if the folio isn't uptodate. If the zeroed blocks were all
-that was missing the folio is uptodate by then, the short copy is
-accepted, and the rest of the range is exposed to readers and can end up
-on disk. A source buffer that ends in an unmapped page is enough:
+The SOF payload is not an aligned object. The marker scan can find the
+payload at any byte position, and the SOF layout also puts frame_height
+and frame_width after a one-byte sample_precision field. Those fields
+therefore sit at odd offsets within the payload even when the payload
+base happens to be 2-byte aligned.
 
-        ftruncate(fd, 4096);
-        pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
-        pread(fd, buf, 4096, 0);
+Avoid casting the byte stream to __be16 pointers and use
+get_unaligned_be16() for the SOF length, height, and width fields.
 
-The write returns 16 and the read returns 2984 bytes of whatever was in
-that page before. If other blocks of the folio aren't uptodate the short
-copy is rejected but the zeroed blocks keep their uptodate bits and the
-retry with the copied length leaves the same bytes behind.
+This issue was detected by our static analysis tool and confirmed by
+manual audit. A focused UBSAN alignment validation of the same typed
+load shape reported a misaligned __be16 access in delta_mjpeg_read_sof().
 
-Only mark blocks uptodate in __iomap_write_begin() after reading them.
-__iomap_write_end() marks the zeroed blocks uptodate once the copy has
-succeeded and rejects a short copy.
-
-Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
-fix (cf. [2]) but it never got merged.
-
-[1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
-[2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
-
-Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
-Reported-by: Josef Bacik <josef@toxicpanda.com>
+Fixes: 433ff5b4a29b ("[media] st-delta: add mjpeg support")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: changed the iomap_set_range_uptodate() argument from folio to page ]
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: replaced the generic unaligned access header with the available architecture-specific header ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/iomap/buffered-io.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/platform/sti/delta/delta-mjpeg-hdr.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 2d65616762ba9..6c7b3791c4953 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -579,14 +579,15 @@ static int __iomap_write_begin(const struct iomap_iter *iter, loff_t pos,
- 		if (iomap_block_needs_zeroing(iter, block_start)) {
- 			if (WARN_ON_ONCE(iter->flags & IOMAP_UNSHARE))
- 				return -EIO;
-+			/* uptodate once copied, see __iomap_write_end() */
- 			zero_user_segments(page, poff, from, to, poff + plen);
- 		} else {
- 			int status = iomap_read_page_sync(block_start, page,
- 					poff, plen, srcmap);
- 			if (status)
- 				return status;
-+			iomap_set_range_uptodate(page, poff, plen);
- 		}
--		iomap_set_range_uptodate(page, poff, plen);
- 	} while ((block_start += plen) < block_end);
+diff --git a/drivers/media/platform/sti/delta/delta-mjpeg-hdr.c b/drivers/media/platform/sti/delta/delta-mjpeg-hdr.c
+index 90e5b2f72c82b..6e156cd806bb5 100644
+--- a/drivers/media/platform/sti/delta/delta-mjpeg-hdr.c
++++ b/drivers/media/platform/sti/delta/delta-mjpeg-hdr.c
+@@ -4,6 +4,7 @@
+  * Author: Hugues Fruchet <hugues.fruchet@st.com> for STMicroelectronics.
+  */
  
- 	return 0;
++#include <asm/unaligned.h>
+ #include "delta.h"
+ #include "delta-mjpeg.h"
+ 
+@@ -48,13 +49,13 @@ static int delta_mjpeg_read_sof(struct delta_ctx *pctx,
+ 		goto err_no_more;
+ 
+ 	memset(header, 0, sizeof(*header));
+-	header->length           = be16_to_cpu(*(__be16 *)(data + offset));
++	header->length           = get_unaligned_be16(data + offset);
+ 	offset += sizeof(u16);
+ 	header->sample_precision = *(u8 *)(data + offset);
+ 	offset += sizeof(u8);
+-	header->frame_height     = be16_to_cpu(*(__be16 *)(data + offset));
++	header->frame_height     = get_unaligned_be16(data + offset);
+ 	offset += sizeof(u16);
+-	header->frame_width      = be16_to_cpu(*(__be16 *)(data + offset));
++	header->frame_width      = get_unaligned_be16(data + offset);
+ 	offset += sizeof(u16);
+ 	header->nb_of_components = *(u8 *)(data + offset);
+ 	offset += sizeof(u8);
 -- 
 2.53.0
 
