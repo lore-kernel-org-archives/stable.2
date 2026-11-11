@@ -1,68 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794357202;
-	b=2vCdLLeIMiLyTdtbQzSQ4KF4vibK6Ci5hqHru6p9xbTJsk1Si8mPthiFClWL/CAW8Af5
-	 /0RgZdpeEjW4ouAaPrJiHL2rTqadGB/TbTSL3zyk46TaIms9NmqP2675BRfmwKy5ewIsV
-	 +OhSGpcTTNByBsm6TWmdNNv67GBbXhXx+JLGZGFITnEW8IVm/EmSZ/lu66Fr13UOvrrLk
-	 wkzGAp1Lhs6v2wWj975HA1Rin+cSmw3kseV2FBK2ZllS/5XyKSttIU2hpXRhq3+Wtnaeu
-	 TJteocOHJOGjIvicuEtbvCKsfQXHPWNefy7VKfry9N/QgnyzOXzb2PBCS1gqIyFucog==
+	t=1794357279;
+	b=LD4bpEslSVnq2ASKZytiJxxlXn/k7pjbBEhR0Ra5xm+c3ZCs5ZRn13Ufb8JEyMByAo+P
+	 hb52uhrT6gJKst84qgm9hevY8lh87M0fKujFQWG7Czrz9IlohOm2xXDnhWmEWX3o5Pt/0
+	 b17EsUow3l5MaCWtkOJAGGbUj2gwneSF0BRIcpsVBsIxU/B7mbkau6pdq3csXBbNENrV+
+	 zEaSpZ4+cA8teSFLt1Hm2iezm6ElacaAMx/fMvVAKaT8AQQ0CFrp5a36yKRPSosn8QdsQ
+	 ZZ1TRgWDIrGjkxeMQMZJemB6a/JN4RQ8vgyfReFuZe6at287+k5uaXqNSFmadTRwHHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357202;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357279;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=eEZIh2kyoqLICwfQ+Hvy4psKSq+1bL/BIx/ExrFnqsc=;
-	b=2cowrkfUu6HoXznymyyYLOedfFCx828su9lZqwQTsnkpF747rzVU8GANxMV67MDd42Hi
-	 cRzeoEzPo224E5d9DuFEwfOrKAwwZjEkUROUD5cKzok6emLr2EhnhhM65y9CDA9pwG9W3
-	 wu1Jn3KvjkoB6XTG9It+cF62nR25hLRL3KVyD+ofzG7IBowApmLW4HSCBfd/TLn4NA7jO
-	 +cQCJE0aQzJztWsAC5M3todOcWNG1CzhvjBf2ZuNEvo/ticBDFPgPBBIbpiQgw15EVe2j
-	 EWBU3J0dwZpOuqT/lMHe/efA1lXcEFhpi80iDOdJKnEnpsWmd2x5RwxuNiomUC0D0Dw==
+	bh=mOeOrKDK7VmuXaQeqvHqVVlA9MuWRlaud1l5If6tQ+0=;
+	b=RCY0Vbn7AcTtv8M5/fzQ/upHnUbwu5b0Hm/uk6D42BJYzRMjVk24i/qW+iaFZ/BkKxiG
+	 Nqwk1/N1eER+p6VYo0PNpYXL1cEE8sJ1dHMdpsi3giWQoBPQwhkGgyjHcx4Q+QTTF7w08
+	 yeIZmabtLb5S2U5OSTAXQ4A0PWudDtLrE/g46JmsVz8cFQPY1s/QZhHdMQtCsgZBmiTpo
+	 4twg/J/EprzSFOhVGO12ESvsQowl9GV0lSthClgEcDIQ7VKaL7l7yqaApM/9ZBMeyjOQN
+	 SY5eQyjHWhN3GdpTKPsYD7eVpxFq5OcaJc6+0BQ9lX4GcSR8RXWp4GT+s2WdBmdd/xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GiUzUSyL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlfPFtIe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86FC606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:33:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48607606A325
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:34:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GiUzUSyL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B106B1F0089F;
-	Wed, 11 Nov 2026 00:33:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlfPFtIe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E696F1F0089F;
+	Wed, 11 Nov 2026 00:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794357202;
-	bh=eEZIh2kyoqLICwfQ+Hvy4psKSq+1bL/BIx/ExrFnqsc=;
+	s=k20260515; t=1794357278;
+	bh=mOeOrKDK7VmuXaQeqvHqVVlA9MuWRlaud1l5If6tQ+0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GiUzUSyLsf5wbrFDCLMxOwikH2QbzCdAiPE5aY2J4Eejt2swlACA2ZVWFns2V/7dY
-	 v9WihY+srbBLBlcrQrN8YElMSyL2hClOXdvOwcJNRbCJHrDflB9bTxg85XFRUEh5g0
-	 kPR2/lkuUVbKzzhl5Kt+I6eiUTqpBFWnSdhziL8wyuPvNdRC/BPiFEAbdF1FsNAd/x
-	 otS42kOJ+nnPhkAzvE7Yt4vvSLxVC9ELqokYfIuw+TLx05QFASDB9E6Q31qDupwB9O
-	 g2Af0qtFJqacdhlPm49+YVNUdjbPw/nzqm4jBPi+c2FXBs1z8a98wimIeaPKA9wukk
-	 xMVHbdkwiTtzg==
+	b=FlfPFtIegO/0zPEpWYbS7TZbuSyuhuScdep3O3aJhcURft8Y10/0yevz1hPAWT/Fq
+	 xt0AVeiUi/krgVi0w2/NJuJXrj1rkm/GIrh0W9RlrsGzGa2gjtO2D+FCNlsVvIehXr
+	 aBxW97LjdrfUXr4IYZTfLtrr8wQNkzYHZVyduWe/vFRHWdXwjgCK1zwzKcGbRxb0gj
+	 IvC2eZqmGUAftI+jXazovmIIKH+O9fwHSANlrhfXgPQL8rBJqSIXDXsYqqAZyUqClX
+	 jBFUB2I7dc1QHAcF+qRxjusViw3jcFavfEDNM5Eenb9Pux/1SSICyDdZZ6imsDGSKN
+	 /Dz9JTXD067Hg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gregory Price <gourry@gourry.net>,
+Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
+	Pedro Falcato <pfalcato@suse.de>,
 	"Liam R. Howlett" <liam@infradead.org>,
 	Lorenzo Stoakes <ljs@kernel.org>,
 	Vlastimil Babka <vbabka@kernel.org>,
 	Jann Horn <jannh@google.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Peter Xu <peterx@redhat.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
-Date: Tue, 10 Nov 2026 19:33:14 -0500
-Message-ID: <20261111003308.271305-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/mlock: use a long for the page count in mlock_fixup()
+Date: Tue, 10 Nov 2026 19:34:36 -0500
+Message-ID: <20261111003410.283410-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111003308.271305-1-sashal@kernel.org>
-References: <20261107050938-failed-6.18-9057170a941f@kernel.org>
- <20261111003308.271305-1-sashal@kernel.org>
+In-Reply-To: <20261107061136-failed-5.15-3ae91e3079b1@kernel.org>
+References: <20261107061136-failed-5.15-3ae91e3079b1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,182 +66,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gregory Price <gourry@gourry.net>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
 
-[ Upstream commit 9057170a941f0c5f4058f6fb9ab5d5fc9fcc9e83 ]
+[ Upstream commit 3ae91e3079b1504ef162b2884454d5f1421f4eb9 ]
 
-Patch series "mm: stop calling pmd_folio() on special PMDs", v3.
+mlock_fixup() adjusts mm->locked_vm, an unsigned long, by the number of
+pages whose VM_LOCKED state it changes, but computes that number in an
+int:
 
-Two page table walkers resolve the folio behind a PMD with pmd_folio(),
-which is only valid for a PMD mapping a refcounted struct page:
+	int nr_pages;
+	...
+	nr_pages = (end - start) >> PAGE_SHIFT;
+	...
+	mm->locked_vm += nr_pages;
 
-  madvise_cold_or_pageout_pte_range() mm/madvise.c
-  queue_folios_pmd() mm/mempolicy.c
+When a single VMA range of 2^31 pages (8 TiB with 4 KiB pages) or more
+is locked or unlocked, the count is truncated to 32 bits and then
+sign-extended, so locked_vm is changed by the wrong amount, while
+munmap(), mremap() and the other paths that maintain locked_vm use the
+full unsigned long page count.
 
-vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
-have a memmap entry at all.  Both walkers can reach one and fault on the
-first folio field read.  The PTE halves of both already use
-vm_normal_folio(); these two patches make the PMD halves match.
+Such a range is reachable on 64-bit architectures with a 47-bit or
+larger user address space (x86_64, arm64 with 48-bit VA, riscv64 Sv48)
+by a task with CAP_IPC_LOCK or a raised RLIMIT_MEMLOCK, which do_mlock()
+checks against the full untruncated length.  It costs nothing with
+MAP_NORESERVE and MLOCK_ONFAULT/MCL_ONFAULT, since then no page is
+populated.  On x86_64, after
 
-The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
+	p = mmap(NULL, 8UL << 40, PROT_READ | PROT_WRITE,
+		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
+	mlock2(p, 8UL << 40, MLOCK_ONFAULT);
 
-  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
-  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
-  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
-  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
+VmLck in /proc/self/status reads 18446744065119617024 kB instead of
+8589934592 kB; munmap() of the region then subtracts the true size and
+leaves VmLck at 18446744056529682432 kB instead of 0.  With 16 TiB,
+locked_vm is not changed at all, VmLck stays 0 kB, and after the task
+drops CAP_IPC_LOCK or lowers RLIMIT_MEMLOCK, mlock(), mmap(MAP_LOCKED)
+and the other mlock_future_ok() and account_locked_vm() users enforce
+RLIMIT_MEMLOCK against that count, so they let the task lock memory
+beyond its limit (or, in the 8 TiB case, refuse every further lock).
+The error persists for the life of the mm; unlocking the range in pieces
+skews it further.  The wrong count is per-mm accounting only: it does
+not change which pages are locked.
 
-can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
-madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
-supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
-never runs and vfio-pci is reachable by any process holding the device fd.
-Hence the different stable tags.
+The int has been there since before git history (the variable was named
+"pages" until it was renamed in 2.6.28); every other updater of
+locked_vm uses an unsigned long or long count.  Make nr_pages a long,
+which holds the page count of any user range and its negation, so the
+existing sign handling is unchanged.
 
-One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
-region now returns 0 rather than -EIO.  The PTE loop already returned 0
-there.  drm_gem_shmem and panthor are where this is observable, since they
-PMD map pages that do have a memmap entry and so never faulted.
+Found by formal verification of mm/mlock.c against the kernel binary.
 
-Reproducer
-==========
-
-No hardware needed.  An out of tree module stands in for the drivers
-above: three misc devices, each with a ->huge_fault calling
-vmf_insert_pfn_pmd(), plus VM_HUGEPAGE so the fault path takes the PMD
-branch.
-
-  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
-
-Userspace maps the device into a PMD aligned window, reads one byte to
-fault the PMD in, checks a module parameter to confirm it went in, then
-issues the operation.
-
-  vng --run <bzImage> --user root --memory 4G --verbose \
-      --append "numa=fake=2" \
-      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
-
-numa=fake=2 gives a node 1 to bind to; the module allocates its real page
-on node 0, which is what makes queue_folio_required() true.
-
-  subtest        operation                              parent   series
-  --------------------------------------------------------------------
-  madv_cold      madvise(MADV_COLD)                     oops     ret=0
-  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
-  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
-  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
-  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
-
-Two things the table shows that are easy to miss in the code:
-
-  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
-    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
-    vma_migratable() is true for VM_MIXEDMAP.
-
-  - mbind_real demonstrates the user visible change (-EIO -> 0)
-
-This patch (of 2):
-
-mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
-vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
-
-	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
-
-With a stand-in module for the driver:
-
-  BUG: unable to handle page fault for address: fffff96dc0000008
-  RIP: 0010:queue_folios_pte_range+0xaf/0x440
-   walk_pgd_range+0x52b/0xaf0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_mm_unsafe+0x193/0x230
-   queue_pages_range+0x64/0xa0
-   do_mbind+0x25e/0x640
-
-queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
-is raw MMIO with no memmap entry, so the folio lands in unpopulated
-vmemmap.  Neither guard stops the walk:
-
-  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
-                           supplies ->test_walk, so it never runs
-  queue_pages_test_walk()  honours vma_migratable(), but only while
-                           MPOL_MF_STRICT is clear
-
-A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
-mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
-into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
-mapping.
-
-Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
-queue_folios_pte_range() already does with vm_normal_folio().  This also
-filters the huge zero PMD, so its separate check is no longer needed.
-
-mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
-rather than -EIO.  The PTE loop already returned 0 there.
-
-Link: https://lore.kernel.org/20260926105110.2156652-1-gourry@gourry.net
-Link: https://lore.kernel.org/20260926105110.2156652-2-gourry@gourry.net
-Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://lore.kernel.org/20261014131358.780240-1-nickolai@csail.mit.edu
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Assisted-by: LLM
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
 Cc: <stable@vger.kernel.org>
+[ sashal: adjusted context for the older mlock_fixup() signature and local variable declarations ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mempolicy.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ mm/mlock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index a6ee9526dc25e..4ceffb524c57b 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -646,7 +646,8 @@ static inline bool queue_folio_required(struct folio *folio,
- 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
- }
- 
--static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
-+static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
-+		struct mm_walk *walk)
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 0cee3f97d3df7..0b9b3ce7a5e4b 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -497,7 +497,7 @@ static int mlock_fixup(struct vm_area_struct *vma, struct vm_area_struct **prev,
  {
- 	struct folio *folio;
- 	struct queue_pages *qp = walk->private;
-@@ -657,13 +658,9 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
- 			qp->nr_failed++;
- 		return;
- 	}
--	folio = pmd_folio(pmdval);
--	if (folio_is_zone_device(folio))
-+	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
-+	if (!folio || folio_is_zone_device(folio))
- 		return;
--	if (is_huge_zero_folio(folio)) {
--		walk->action = ACTION_CONTINUE;
--		return;
--	}
- 	if (!queue_folio_required(folio, qp))
- 		return;
- 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
-@@ -696,7 +693,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
- 
- 	ptl = pmd_trans_huge_lock(pmd, vma);
- 	if (ptl) {
--		queue_folios_pmd(pmd, walk);
-+		queue_folios_pmd(pmd, addr, walk);
- 		spin_unlock(ptl);
- 		goto out;
- 	}
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	pgoff_t pgoff;
+-	int nr_pages;
++	long nr_pages;
+ 	int ret = 0;
+ 	int lock = !!(newflags & VM_LOCKED);
+ 	vm_flags_t old_flags = vma->vm_flags;
 -- 
 2.53.0
 
