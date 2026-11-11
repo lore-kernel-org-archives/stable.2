@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794360420;
-	b=c5tIZuUXMwTZBt3FjsNn/IEHSIeSDZUfff/W6qGVJJ0brbUmVXQWwm2xUBhpiZrGWQcp
-	 Hp2wCDCYbZAZwwP2xQasbw2CWiT34DGC+0xr8mIoRjIIgcNEUV7igQMIx4gJbfSuHdnK2
-	 S9+lTYUxV5mqvWeoyCq4NvD4MzRV7BLGXFRlNal+qXOmLBlBgnN0K+eB4gisrFOevEIlL
-	 FMuPBGRzlljdj3NIpNG+L2OjtghJOdAtg/4yhKtmfmEEF4dPphlIKUhQnLQZQvFINAxXR
-	 ZeGJIuBMmMrgeR9G6hIfaEZcseYsak1jJhy9PNKw4JsVdNEjX+IfQ4VoVRK9LBFWQUA==
+	b=Z3Y0fYBx6okY665l+aw73vdg1q483leZODC32/qQn18WgI8NaH9cTcfHcxUwUk3YQQpk
+	 mmPEf+oSqV1rAq3owS6Xr6WHtIkxhghAdhjIjXqY17Z4ELNT3bx+tZOEUgUgn9E3G4yJV
+	 fU44DmJpeXJRe7D2+Xv7tNWEQBjXi72DCkszQs91dj5BX+QtLngA9FhS/2PzooX7rT2w9
+	 +Cy4dbFmlOiwdjLWuIck7drlGIvUAmrZ4OBRjQ5J3ucTvXR/C1H/dbxsCxTwoU3W9gSKl
+	 UotEJDGNaaou4s0fjxVgbUNrHYbknCu9VKF8cnVclt/1fjIwkp9aj1NdZru2kO0b34A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794360420;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LF75WM1e0ZZfm9P5CgUGsRJvgXXsVccMYOyhFLNRtfY=;
-	b=kG349xqckgVQBltqiC0DvWvfRLNiSV4AGXbKHKgy+2s9gcPXXHQd+Ba5yvPh52bafA/o
-	 xdDzPUGKyc58V+xla38DB9ZH9lTl01vhvQmGhTZBBlx+KklVfwFEVHmRFoPAcgmTfq68n
-	 AWz/kW+DLgAmsJKrudnZiiVWUuIvOd2OTJaZ6qjpN+uoXSTKE89/kXe4w1PMcV4dpDD5/
-	 O6qIYrAmAHPR11Ys5yC3hu0TvjS903Lp69m6Dj4kC1GUHlLoXrz5yQYo+tT5n6ldnp7Y2
-	 CTWzsgvwo1EGjAu13atV2NLAixCzMDZYPML/5nj9XcQhfhv90sHQZ82ktI1hvN9Hs9g==
+	bh=aNU2G/XvErmcNAq1uiJ/SV77TmX5aSpV8YKGUjbTO74=;
+	b=pwkRq3yvZSOpgxBRlLEwYSvy24sfURoBvzTBo9b8ttJRvb5Ui9pGLay7MnZbhYK1AFg5
+	 yoJpmFY95OAsF3QBF4Yngros/R5cZfqdtlFsvLoAmKhP/htwqU38beNGAbWn5GuRiqpyt
+	 Cuv79mlGTaAl1UpMLPJi/kclhlvDV3JepXep2gdmfeVZbb2Y1N3q2TKg/p4s2pT7J5QJ6
+	 z1lQoJO7h941y6rACg7B/VughA5t19PpMewM0WiGwjKyONf161dgHgKCN2PJpL7YKhwIS
+	 y0ngkSEer1Wi/WfBXs/5jKriI3kvXwhAWhXKoMNUprmSyIj1Xf+E2qcpioHtUiObjtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoyJmLDp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DYkGwCCs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E6A606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE618606A321
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoyJmLDp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617AD1F0089F;
-	Wed, 11 Nov 2026 01:26:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DYkGwCCs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 377721F0093C;
+	Wed, 11 Nov 2026 01:27:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794360419;
-	bh=LF75WM1e0ZZfm9P5CgUGsRJvgXXsVccMYOyhFLNRtfY=;
+	s=k20260515; t=1794360420;
+	bh=aNU2G/XvErmcNAq1uiJ/SV77TmX5aSpV8YKGUjbTO74=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YoyJmLDpQHsy0i5wPBVxRWiDjIiA+HAMuZ+V/SsTdbPp/I0T5swpyiSfL9Rm/jSn9
-	 AyaJ7YYbC4h3bI8GfggzFDziA8PwD5FbAgNW6VlXw8XZoJi3cLGNQ3LAUDDLAUsLVb
-	 RFI1Ai0Ep+crxbd9hUpmv2V1nRn+/Eby3ftIu2kAU9l9r54Hh6ouL03OmmzzwParUW
-	 i4Lkl8JOYOHzDA0YM5RtuJ2LIN6oxBAam4WKC/4tclIjiDBptU6pFNqL5IGNqO6E/A
-	 1XMAQIC+UAcPMcHhCLEOdJS5MJJeC4NdmkDQro4cIBYIDGTr2J1ZFiPgwfWnN5WGro
-	 2/LDqfsLlp8ow==
+	b=DYkGwCCsEi45KiuB0LUIuQHzuo9sbpVkZjEWUATiYqaepys8gqIKVOh5TQGCHqflL
+	 2pTwowG9zgoO6hiz7MPxISgBULbgDhHHxAOVKlC+UHHU+LIOu8IPSgwMhZ9SpKq+0W
+	 vIoDW2Wr+uTwXnVTAWKXhN9MkrFfOpt79FZXeKVyX3lbF6b0wGtiq9w9XEoZtMiEBq
+	 zXdWbdqAtXd+8CN20weJbcSbPN4qM0yTiz8wN9uLE3aXtWGqkLpa/KcuS7m269vQJ/
+	 7Ye4Owk04Zdj61LQepl6TRoobPzRXYsEGw25VH5P23QhPY8TzMr8188OWYiQiyRYOG
+	 ESmvfGfw7HB6g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Xiang Mei <xmei5@asu.edu>,
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/3] fs/ntfs3: validate EA entry layout against ef->size in ntfs_read_ea
-Date: Tue, 10 Nov 2026 20:26:56 -0500
-Message-ID: <20261111012627.383224-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/3] fs/ntfs3: validate that EA entry size covers its name and value
+Date: Tue, 10 Nov 2026 20:26:57 -0500
+Message-ID: <20261111012627.383224-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050557-failed-7.3-351817226fbf@kernel.org>
+In-Reply-To: <20261111012627.383224-1-sashal@kernel.org>
 References: <20261107050557-failed-7.3-351817226fbf@kernel.org>
+ <20261111012627.383224-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,58 +62,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-[ Upstream commit 01e56820ef52d14a5560fb7c0c6f2f75ef6f9393 ]
+[ Upstream commit 60bd50014cc9a97c5e34a8bddd2bad4d2dc5acb7 ]
 
-In ntfs_read_ea(), the ef->size branch only checks that the declared
-entry size fits the remaining buffer; unlike the zero-size branch it
-never verifies that the entry's own name and value fit inside ef->size.
-A crafted image can thus present an in-bounds ef->size with an arbitrary
-elength, which find_ea()/ntfs_get_ea() later use as the memcpy length,
-reading past the allocation and leaking adjacent heap memory:
+ntfs_read_ea() walks the on-disk $EA attribute and checks each EA_FULL
+entry for consistency.  For an entry with a non-zero ef->size (the
+offset to the next entry) the loop only verifies that this stride fits
+in the remaining buffer, and then continues:
 
-  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea (fs/ntfs3/xattr.c:302)
-  Read of size 65535 at addr ffff888010770b0f by task exploit/142
-   ...
-   __asan_memcpy (mm/kasan/shadow.c:105)
-   ntfs_get_ea (fs/ntfs3/xattr.c:302)
-   ntfs_getxattr (fs/ntfs3/xattr.c:848)
-   __vfs_getxattr (fs/xattr.c:446)
-   vfs_getxattr (fs/xattr.c:479)
-   do_getxattr (fs/xattr.c:808)
-   filename_getxattr (fs/xattr.c:837)
-   path_getxattrat (fs/xattr.c:876)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:94)
-  ...
-  The buggy address is located 15 bytes inside of
-   allocated 20-byte region, cache kmalloc-32
+	if (ef->size) {
+		ea_size = le32_to_cpu(ef->size);
+		if (ea_size > bytes)
+			goto out1;
+		continue;
+	}
 
-Validate the name/value layout in the ef->size branch too, bounding it
-against ef->size, as the zero-size branch validates it against the
-buffer.
+It never verifies that the entry's own name (ef->name_len) and value
+(ef->elength) actually fit inside ef->size.  A later reader trusts
+ef->elength unconditionally; ntfs_get_ea() does:
 
-Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-[almaz.alexandrovich@paragon-software.com: remove duplicate check of need > ea_size]
+	len = le16_to_cpu(ea->elength);		/* up to 0xffff */
+	...
+	if (len > size)				/* size is the user buffer */
+		return -ERANGE;
+	memcpy(buffer, ea->name + ea->name_len + 1, len);
+
+A crafted image with a small but valid ef->size (e.g. 24) and
+ef->elength == 0xffff therefore passes validation, and a getxattr()
+with a large enough user buffer copies up to 64 KiB starting just past
+the short entry -- an out-of-bounds read of the ea_all allocation that
+leaks adjacent kernel heap memory to userspace.
+
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x2b8/0x3f0
+  Read of size 65535 ...
+   ntfs_get_ea -> ntfs_getxattr -> vfs_getxattr -> do_getxattr
+
+The zero-ef->size branch already computes the same struct_size() to
+derive the stride; mirror that in the non-zero branch and reject the
+entry when its declared size cannot hold the name and value.
+
+Fixes: 0e8235d28f3a ("fs/ntfs3: Check fields while reading")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 Stable-dep-of: 351817226fbf ("fs/ntfs3: validate the EA value length in ntfs_read_ea()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/xattr.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/ntfs3/xattr.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
 diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-index 594ef6860b93b..9eccd95a718cb 100644
+index 9eccd95a718cb..b5cb13ebd5ec9 100644
 --- a/fs/ntfs3/xattr.c
 +++ b/fs/ntfs3/xattr.c
-@@ -165,6 +165,8 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
- 			/* ef->size must fit the list and cover the record. */
- 			if (ea_size > bytes || ea_size < need)
+@@ -167,6 +167,24 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
  				goto out1;
+ 			if (bytes < offsetof(struct EA_FULL, name))
+ 				goto out1;
++
++			/* Check if we can use fields ef->name_len and ef->elength. */
 +			if (bytes < offsetof(struct EA_FULL, name))
++				goto out1;
++
++			/*
++			 * The declared entry size (ef->size) must be large
++			 * enough to hold the name and value.  Otherwise a later
++			 * reader such as ntfs_get_ea() copies ef->elength bytes
++			 * starting past the entry, reading out of bounds of the
++			 * ea buffer and leaking adjacent heap memory to
++			 * userspace via getxattr().
++			 */
++			if (struct_size(ef, name,
++					1 + ef->name_len +
++						le16_to_cpu(ef->elength)) >
++			    ea_size)
 +				goto out1;
  			continue;
  		}
