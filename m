@@ -1,55 +1,90 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794420289;
-	b=K7G/Ar8BqdqHUVEcLWnTdkV7bF2mQ1WiZp5J8ORAm+iH+6Sr5YZyNK3h1vRG2+LKPCR0
-	 pbrQ2HlRmTV6Fz8kE06rpXhSdZNCpyIfyo2Dd3s7PaoxEtDIf1ncWUUvr+8saiqbHc1FL
-	 PeMf7RTPNgrP8P4w4qXNg2fy+0rDP/eHYwGX88FvdCix6ffmZJ2WusVJVvEj+MOSnnmez
-	 VcLCrcqG5Od5NJvnV1fLPfCbVcKcQBKqY0XU0WrPUMG+IlSRR1YGVuKcg6NIIaN66Yk9H
-	 +/y1P0LmGJHtZtjcanQsruj91EVHLbgqJz7L+7+wTe4Vwr4Nn3zDMWrAfkFfWdbybKw==
+	t=1794420418;
+	b=aYPCEXNxHkpqtiUHxQwJ/gmcvANahwRcLzYtkmIRmuIa87cmq4lbll4mRJ/XA2Niv9uv
+	 j2U4pdibWPc4qQ80cvlSpjO3DA5ZKzoFPT2E6pocn+jnFAPPtiHiZZX0D5qnVpLSu7wvE
+	 mh7huuAaSwTBS4KqqGl0t5Uep3gSumx2x/NSw8Nv/PvjSID/OtoOvc1lVAoNq13PnD1xD
+	 RnkDmY13wbx3tF30fGe589OTesuJgjPCWmyrMGnyot4HV9FNvlEAgezNzNvJ26L+XRToR
+	 dOj64gLgEqdti978JMfk659PUupAGUsXTBmPb/a5jRUevzIZbGMnylEGCWH4frzxfwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794420289;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=whYFr35S7ALTsTHlsM+B3tJFzRmTe5FaPPModDhaD/I=;
-	b=xL0nJ7PiISO9DJqqnyMGUiDEbotjlyHfGqfpfmjHrPWLxx132CMioTFGZLWyfGws8XHZ
-	 6AZAl7FPsKFTq4Ztj350pIIahiZMw2m0hbFdoE/2RKLTF6sdOdxzhO2ScYiILdPIa/f2u
-	 53mWHPSg3PIZsZD+GUOGGEB6P4UbC5WyzeXV8r0AF1sh99pphvBGDsH9kkSEwwP27GiUP
-	 4Dou46c2hbKaTHrRSx/1SfvYYI6vs74Tj8RXKFZSvDiQ9fWEmbh48qNZKg1wleck9Sure
-	 2zbZ8f6zi7TW/a7bgOEq59FIbSEUacXIqPjyy4GrPyRxqG6oUcAC8xvBheNiQyc7pkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794420418;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=PEoVa1/ve/PN9rU0jpGakgmZs+XQWXgtWWpspfzoeOQ=;
+	b=JvE+Zs63amYuFPhmiaqXgfMBigKoTgKn69zDzO9HH6qiLHtolkxv6fETlPFwRZtmMkn1
+	 nguZ64uzolsfv0jH/ElvOZxyYNTRD41C5kV39Ce/9fWjpNHXQFopTqPE5k5MWdmTtoag3
+	 j7cvyh5NDHrjRI7hBUKzzarHEvMg/1rze7VLgf5i08XOPhBntF6uHjqiGaag7cEGyxnib
+	 aE/A3X5LCcxDqgPc80UGDVzQfrxPEfdJX/XVtEgbO8Dxw3uQwAiJ5jYGT5qeCjUNnxHEI
+	 Wb+MBoNAcol9mY2FPQm250uXsDzNJIbpjwQSF/MyUNQ7m7uF1Iongq32BBgAkNne5fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFt+nDBQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lUC4o3zt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7399606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:04:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504A8606A881
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:06:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFt+nDBQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D02D21F00A05;
-	Wed, 11 Nov 2026 18:04:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lUC4o3zt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97AFD1F00A08;
+	Wed, 11 Nov 2026 18:06:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794420289;
-	bh=whYFr35S7ALTsTHlsM+B3tJFzRmTe5FaPPModDhaD/I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fFt+nDBQ4wsYT0/pxJZFH0piDPByltVMznK+i6FkG/oCXmsdQ9ReiL/hc9zTrrqOX
-	 9JA0g26C3yNDCgCXNdX9WzfKkrLxOS27tgS6yPj7NxWFXWUVK3MA7PFx9MEyowtrdE
-	 f9kWDNxaO6MQEHmh2XoUuxUySWYag5Ldd+oRciqppmnZxhgCJjSCtRFh6+HnptOgUS
-	 e+x2pWI7tsc6tTSha2ZhwgkIU86cRqoTL5KgOCzGtM3l7Xjol5slIk8eaS6wHUn0fz
-	 0x2fBM2iBiGl4j01e8o5qYvwXXuISmrw2lEnHEmtHke5cnJe3z/VoCvuqY3rlnch51
-	 +OrD18ans4Akw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles the full IOVA
-Date: Wed, 11 Nov 2026 13:04:47 -0500
-Message-ID: <20261111180427.3717784-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051152-failed-6.18-e21952d72b47@kernel.org>
-References: <20261107051152-failed-6.18-e21952d72b47@kernel.org>
+	s=k20260515; t=1794420418;
+	bh=PEoVa1/ve/PN9rU0jpGakgmZs+XQWXgtWWpspfzoeOQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lUC4o3ztvMwDMTLneXRLpy6WWE3mY9EEsCqHoCSZuUj4x1a7h/9U1dAGFlMWySg1B
+	 cy+3JWu77T8HFf/LNI2QKBAyX5ubu4Jx9buZwsy9fGjGxARjPgaKjOl6wQ2NLG/0u1
+	 NdkrbaCkbQtFebjrfWlX1uwxlfs6Bfdwi+WNJ2xa2MDceyUkN6/IL+wWAVmi3IlAH/
+	 a3qEabhmWybC+TnjABqTkRNnkWph+tWY7f6OU8K0UoDWaxObMr7saOeycToRNP6ajq
+	 1q1oaSxUcgGBTpJUlpp2X0auGjKMoKuu8HqZE1s3Ng51Kwtrq9buvum0Sw3o4SC1ee
+	 NwzlocaDdnuLQ==
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 92DD8198003A;
+	Wed, 11 Nov 2026 13:06:51 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-11.internal (MEProxy); Wed, 11 Nov 2026 13:06:55 -0500
+X-ME-Sender: <xms:u670aiPLTfCAfgZIYntvEFbTMpwZxAF4T1hLI1RIByc7ytjGjAXc9g>
+    <xme:u670aqLFoQXp6tw3P4MZF4tje30lkbKjNJNOhXPkL13isE14DyxPlVQC7wA_b6gL1
+    Ytc16JiYQycQnRc1Hzsc88_ycWQxN4e-pG6-SmjIUGooJF1nkXSWzE7>
+X-ME-Received: <xmr:u670atjktQdNqe3B6L7K26wMbQYdMJB9IgGenRjkHGwfHXRrxjQzXuraL-0>
+X-ME-Proxy-Cause: dmFkZTFqGEOXfSfkLafJsQr9Y62vpFZ8gczs/OMO8l2OK4dbyp0m817ffGPPnJL/BoBYUc
+    3axE/I+kzJ7xDpg6TNdrBkPI2fuEsYhMyEySmdM6mMIpTh2eTQUUYQS7Q2aMjaUi2l0e/s
+    YpAka7C32er73aX6XqPDLKcxBd6ntQ3lGOVRwDlH5wQ446IgLTTwlqgZjA34De0W42iKCm
+    miusSXuGyPd1MqjWhBbPQj8SWNLRzJNiJnf+YUwDmgUZIyHYJBPibdJ4snoguGJLtJy8X+
+    FiSLqI+l1jSSG+oEjrIchXRim94s/+wFrZPzvl3wTGdof/NlcafJ/j8EgfQqQsCOHbIBU+
+    mJ3vjECPrabMFb6vt5aw15o0AEpABNB/+GEKG8XrQKLknTAeia68QT5qPyvAFh5pmFuiJJ
+    GI4eTllCmkCZ2ZU1w+DfOspIhtEEUpUw3dcHLl6k/DVgCwbatWG/Buy+K1yjIlH5Ne3Km6
+    +ANYAdJ/W9tF6qhxuy3dCwYspoGYH2YjR1SrbD0OmB3ahNDVZbH22y2u9gBmXILAQns+26
+    A7jOZuEBf3vKw7bZpMrGdDmKUeH2wY4FMg3R94ortdxxwDxBJaCXnl9YGpxdGYrElovmZd
+    uIPdXYPX1uETlFAamiSd9TDf+46RhYC/9mFwjbScoUsggPz99oWUtoBM5mnA
+X-ME-Proxy: <xmx:u670aoeClApmTzczlHgeUVl7j4D2d0wbJjYc489Frr68-4joJvMPwQ>
+    <xmx:u670al4UJCN0KVoFyijJWCN1KDKthtCXHROrwhbeCL7JaqcYmAGS3Q>
+    <xmx:u670ahgUARxxeT_wKjb7j8oW59Bo2rKnuo24DqFu25C7HrCOaIlY9g>
+    <xmx:u670asGtXX-EhtPLMO-6ChxBXh9ZzJJ0qpz9P60pIDT9SNusYi6HxA>
+    <xmx:u670akXCc3HiQJGZHOORGx0sjgtXll6D_SuQ8-15tgxSr6s-CMfdz_Nb>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 11 Nov 2026 13:06:50 -0500 (EST)
+Date: Wed, 11 Nov 2026 18:06:49 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Ye Liu <ye.liu@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4] mm/huge_memory: prevent losing PG_waiters in
+ __split_folio_to_order()
+Message-ID: <avSupujJqz18VDva@thinkstation>
+References: <20261110-fix-split_folio_to_order-race-v4-1-cc5042f33408@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,112 +94,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-fix-split_folio_to_order-race-v4-1-cc5042f33408@nvidia.com>
 
-From: Andrea Parri <parri.andrea@gmail.com>
+On Tue, Nov 10, 2026 at 10:19:25PM -0500, Zi Yan wrote:
+> __split_folio_to_order() calls prep_compound_page() on each new head page
+> to create a compound page after clear_compound_head(). prep_compound_page()
+> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
+> and frozen and no one else is supposed to modify the folio's flags.
+> 
+> However, code calling migration_entry_wait() can reach the folio by PFN,
+> then access its flags. It is because softleaf_entry_wait_on_locked() used
+> by migration_entry_wait() sets PG_waiters concurrently without taking a
+> reference and the frozen refcount during split cannot block it. Meanwhile,
+> __SetPageHead() does a plain read and write, so PG_waiters atomically set
+> by softleaf_entry_wait_on_locked() will be lost if the set happens after
+> __SetPageHead()'s read and before its write.
+> 
+> One example code interleaving:
+> 
+> CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
+> 
+> 1. clear_compound_head(new_head)
+>    new_head->compound_info = 0
+>    (page_folio(new_head) == new_head now)
+> 
+>                                            2. migration_entry_wait()
+>                                              softleaf_to_folio(entry)
+>                                              page_folio() -> new_head
+>                                              (not the old head any more)
+> 
+> 3. prep_compound_page(new_head, new_order)
+>      __SetPageHead(new_head)
+>        tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
+> 
+>                                            4. folio_set_waiters(new_head)
+>                                              set_bit(PG_waiters, &flags.f)
+>                                              enqueue on waitqueue, sleep
+> 
+> 5.     new_head->flags.f = tmp | (1UL << PG_head)
+>        <-- store; overwrites step 4, PG_waiters == 0 again
+> 
+> Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
+> and CPU1 can remain blocked indefinitely.
+> 
+> Fix it by setting PG_head along with other flags in new_folio->flags before
+> smp_wmb() and clear_compound_head(). The remaining compound page metadata
+> is set after clear_compound_head(). In that way, after
+> clear_compound_head() makes new_folio visible, nothing overwrites the
+> PG_waiters from softleaf_entry_wait_on_locked() by modifying
+> new_folio->flags non-atomically.
+> 
+> While at it, use data_race() to suppress the KCSAN issue reported by Ye
+> Liu's patch (the second Closes) on reading folio->flags in
+> __split_folio_to_order().
+> 
+> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> Reported-by: David Hildenbrand <david@kernel.org>
+> Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
+> Reported-by: Ye Liu <ye.liu@linux.dev>
+> Closes: https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
+> Fixes: c010d47f107f6 ("mm: thp: split huge page to any lower order pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
 
-[ Upstream commit e21952d72b4740f08a272d694cca223b6b0099ca ]
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Generally userspace is going to step the dirty bitmap through the IOVA
-space. However if the bitmap ends in the middle of a large PTE this is
-problematic. The first step will clear the dirty bit and report dirty to
-the end of its bitmap while the second step will see the clear'd dirty and
-report clean for the start of the bitmap. If it happens this ends up
-losing dirties.
-
-Further this function is missing bounds checking so if this does happen
-ther is a good chance it will write memory beyond what the userspace was
-expecting.
-
-Return an error code if this illegal condition happens.
-
-Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Link: https://patch.msgid.link/20260925161142.189813-2-parri.andrea@gmail.com
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-[ sashal: Added missing prerequisite support for recording bitmap errors and propagating them through the iterator to the ioctl caller. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/iommu/iommufd/io_pagetable.c |  2 +-
- drivers/iommu/iommufd/iova_bitmap.c  | 18 +++++++++++++++++-
- include/uapi/linux/iommufd.h         |  6 ++++++
- 3 files changed, 24 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iommu/iommufd/io_pagetable.c b/drivers/iommu/iommufd/io_pagetable.c
-index 77891d4d65fb1..a6face8a46f58 100644
---- a/drivers/iommu/iommufd/io_pagetable.c
-+++ b/drivers/iommu/iommufd/io_pagetable.c
-@@ -552,7 +552,7 @@ iommu_read_and_clear_dirty(struct iommu_domain *domain,
- 	arg.iopt = iopt;
- 	arg.domain = domain;
- 	arg.dirty = &dirty;
--	iova_bitmap_for_each(iter, &arg, __iommu_read_and_clear_dirty);
-+	ret = iova_bitmap_for_each(iter, &arg, __iommu_read_and_clear_dirty);
- 
- 	if (!(flags & IOMMU_DIRTY_NO_CLEAR))
- 		iommu_iotlb_sync(domain, &gather);
-diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
-index b5b67a9d3fb35..3a7eca3c7d989 100644
---- a/drivers/iommu/iommufd/iova_bitmap.c
-+++ b/drivers/iommu/iommufd/iova_bitmap.c
-@@ -116,6 +116,8 @@ struct iova_bitmap {
- 
- 	/* length of the IOVA range for the whole bitmap */
- 	size_t length;
-+
-+	int err;
- };
- 
- /*
-@@ -384,7 +386,9 @@ static int iova_bitmap_advance_to(struct iova_bitmap *bitmap,
- int iova_bitmap_for_each(struct iova_bitmap *bitmap, void *opaque,
- 			 iova_bitmap_fn_t fn)
- {
--	return fn(bitmap, bitmap->iova, bitmap->length, opaque);
-+	int ret = fn(bitmap, bitmap->iova, bitmap->length, opaque);
-+
-+	return ret ? ret : bitmap->err;
- }
- EXPORT_SYMBOL_NS_GPL(iova_bitmap_for_each, "IOMMUFD");
- 
-@@ -404,6 +408,18 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
- 	struct iova_bitmap_map *mapped = &bitmap->mapped;
- 	unsigned long cur_bit, last_bit, last_page_idx;
- 
-+	/*
-+	 * If the range cannot be recorded then the system call returns failure.
-+	 * This is to prevent loosing dirties if userspace is expecting to step
-+	 * the bitmap through the IOVA space.
-+	 */
-+	if (!length || length > bitmap->length || iova < bitmap->iova ||
-+	    iova - bitmap->iova > bitmap->length - length) {
-+		if (!bitmap->err)
-+			bitmap->err = -EPROTO;
-+		return;
-+	}
-+
- update_indexes:
- 	if (unlikely(!iova_bitmap_mapped_range(mapped, iova, length))) {
- 		/*
-diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
-index bdd20666d1eb1..65e564965e98a 100644
---- a/include/uapi/linux/iommufd.h
-+++ b/include/uapi/linux/iommufd.h
-@@ -775,6 +775,12 @@ enum iommufd_hwpt_get_dirty_bitmap_flags {
-  * Walk the IOMMU pagetables for a given IOVA range to return a bitmap
-  * with the dirty IOVAs. In doing so it will also by default clear any
-  * dirty bit metadata set in the IOPTE.
-+ *
-+ * The IOVA range given must fully enclose any IOPTE. If the range starts or
-+ * ends inside a dirty IOPTE then the ioctl will fail. This avoids partially
-+ * reporting a dirty range.
-+ *
-+ * On failure the dirty state becomes unknown and the userspace must restart.
-  */
- struct iommu_hwpt_get_dirty_bitmap {
- 	__u32 size;
 -- 
-2.53.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
