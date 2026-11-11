@@ -1,56 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794422380;
-	b=JLKXIvyznorvyGN9Z2V6qlDSgTMDsOf7qFHs0XK9fIv//3wjN48DMAtv3MHVXLa6+Tcr
-	 QOoy39DAqxK14LenUwYO2oB9rPdoyNIyUip6OXqAzPbFKr0uWH3/cpWMqpOia6x4zszbz
-	 9SLpZ61PPip3v/xWjoC6Y3jWdQTVUBRbBgY6T6cUOTiNJOF2heeJZLMfcgqUEhVyQ84l/
-	 zzr40SuZXa7soh9MXoUZlzEj2llk6PBMqR7ohnV9fOi6BfRCHxRYRf+13abyaIZZzGW3x
-	 vdfnWpY404lf0XLTzIKuatwVJSulyqyWS99cL7KSi7DMsqlP5sH4SNm5gBWFLOphhyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794422380;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+z3GRDRtq55awDwm+JWYhbM+Y2Izrq3GJ/31r0mSVMY=;
-	b=SFlmmqzaFBwkXb2rDv+JQ/XZGRhG/3omAV6buZyGSX+iNw5M5Q8oFBGHZS4YdJGsaTtT
-	 mdmkR+e+QBk6HWDrvckbVwwMCnZnXQ4RZoPYz91la16YdjeNvhKCDrq+ycX03vz4IZpS4
-	 LdoGmGpU4SuGaGC09anJgJYHSAGuBPRNKi4R96T36PGPzGoEBJJU4VegxAyQl1kt9psSj
-	 BSpQbNHWnR0Nonokf40KlLFvdboDF5wV5MFEfcjO6YScPIvz2dxL4UcZY9+fUMJGITVmu
-	 4qcxeJBpVgKrPakJhBDdXFU4R0vPZMR4o0RsACH4qfjpaPPJND71dQSWLKUtEYpZfXg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Opt7hnu0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794422567;
+	b=LBIMCdpLQ3/pjE1a5nYhRT2+8UohwAUsHdmcBmMW4Ck08wGpPx5GKTaM3fTKBepgk/sZ
+	 Pl7vUu0TrxIe+eRL4LD00adj+Zfn1xhw6pAHVftlCdDhtHtJFTxzCBVJx1T1EvtEp6/5Z
+	 7gjWBKwf7BZgmzZ7TcHdpYhgAkgGuf4s89pCcLb8DsbeoH8XXIuQ0RiNecs33r9JDpDtl
+	 K1BR5tnb1N/OvvBwq+AdqgfmHXoQrJEN6QoS8LYsFEyh1SpVt+pN91PluwTHJO7DxxX0f
+	 C59cWX/EYjjeUevwzTSCR45j6DDD8JqNmgnt1WASY2mBliSBSj7SZIy9am7taAOkbfA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794422567;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=UZdwgTcrfuIpSYM1gCDi0i+eUgKIG7RMooqWvyPgmb0=;
+	b=gU2snQh/yttWThLiiGbzfdJauPAztVxYvidJFw01QMXDJOihluc/+SRe1PmQcJnGKGbF
+	 DfhOM8v1AWWujIp16eRUS98N7zMUZ5PJ30eGPWi3C2cRYrwOTX6vPHX4NZGoQ9oHvGtcY
+	 VzYy/wRO0UbHW9suThUouCW45J63DojljhSPkRCbvuBQnUEAyoqPuH7Tjt8hpIe/3b0b0
+	 Jd2ZhE0xSIiLHsanRowxqsUk5E+lrgc71raMrrz5faHPPqR6E+uqa7ZRj9MvDOFj1/Jqt
+	 BLluYvc3D3ql/5jQTXdFFi7OtWm3k4regEE00kFA2ooVD+sX1IhLZWt5xprfhP9catg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=iokpp.de;
+	spf=none smtp.mailfrom=iokpp.de;
+	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=jmYHQ7rQ;
+	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=OLEqGKP8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA2F606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB77C606A31C;
+	Wed, 11 Nov 2026 18:42:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB77C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Opt7hnu0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BFDD1F00A06;
-	Wed, 11 Nov 2026 18:39:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794422379;
-	bh=+z3GRDRtq55awDwm+JWYhbM+Y2Izrq3GJ/31r0mSVMY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Opt7hnu0kS7bplynYdQ7arbrcrQ9yU4n2Nuf2uXwSd20HJi2Y9o6+/vHx5EQXteqn
-	 tbsBAgZ7mD9F3eXYYfAmmeCs4tfI9/HatuMpOuYcjFKtiMnCeFOjR3LznHnyczV2Mt
-	 pnZMnht2PNIvgtLYhSYdfhO/WWUrytBkO6wyZBXx+yBsNAa3IZU5c2VqehIjZ7/i0r
-	 WYJnbIHkN4VHzYvqBH28j7KfNXg83uh6WlI5RNO9OFCyXechv7SwDRIhmKe7MdBwRr
-	 C2iWJ4lwESt7PAVfGPXRuAE/LldtTYtVywcOjW/nRkJvFyfhs/OuPGDHNNpmz9qKL+
-	 qd/u3xTFWRuMw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	Miklos Szeredi <mszeredi@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] virtio_fs: read the vring size under virtio_fs_mutex in ->get_tree
-Date: Wed, 11 Nov 2026 13:39:37 -0500
-Message-ID: <20261111183913.3875898-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062439-failed-5.10-e7ccc777a040@kernel.org>
-References: <20261107062439-failed-5.10-e7ccc777a040@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=jmYHQ7rQ;
+	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=OLEqGKP8
+ARC-Seal: i=1; a=rsa-sha256; t=1794422555; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=k5S5Bl7FubLTqmU88nzo26Kl2dj3Ric2T9t/lXXPVJUSOGaBoOUTYNRvlCE0GXtENS
+    PwShzJgYoyYfbSyR6VFoAx9u4XFE+DovYYdUiB6hrZRzqP3RI5+bKhF2teMAeuBpiLiS
+    k3NtZX8EKFZvLC3znDEDmcgn9/2PBDDz/T+j9q+oK/gcgxWVZhN4qcNH35h7Aa1nPveE
+    Neczv3DZPTSkhi5HpalDUPZWM5itTf7iW4ktHFjvMdHN/a/20g1QUNlbJNtvZ1DBx7sq
+    I4JvbArqpqamUXBMTZ+cA9VFcDMEMAzEW0Szq6iTGi7i2hntIQio01++ib0i5IT+s4IR
+    2ndw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794422555;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=UZdwgTcrfuIpSYM1gCDi0i+eUgKIG7RMooqWvyPgmb0=;
+    b=qqE4aNze18q/ZYxr8rJ/Tgv1m66+qNTukUW4Ov8qGQhl2NhLDGHXhul8NtChqMmkiU
+    4COoL1ZPB/u158J5k4xSDus0cqTnpB6soSAw+ZqS5P4PiFjikTxUvgOtXFoQqAhjxi4t
+    cGL92dIlj7u1QqOY2vHfP5ieyOdnJWkUD8DFBleW0tPQjGbEBsNysFtn7JVsjWgB5bH7
+    NJYQkdENiK74ZDZXK0mWmDgOXcVkBv6t5o7nWk+zHQsMpqMx/7/6EmbP8Stx+qERb/3/
+    Y8qgSUU46orLIub72I6lHe6olJxDEvM1Y5EEVyuU5FKWtBdt0L/y3KUvNrd8EVPxRu/t
+    p5eA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794422555;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=UZdwgTcrfuIpSYM1gCDi0i+eUgKIG7RMooqWvyPgmb0=;
+    b=jmYHQ7rQSB1Tzj6fEt10Cans6f1S2Z/WT60scHlWjF5u2f2zH7jv8TWFr9ZtT7MoiU
+    8jye9bGwCNT0aKKOcSr5Wg8XBzkEIzzI+8mmIwo1FZnJG6LZfOVDuZqFkkyUU/umHWIW
+    Xpbua6wg8Sd+8rOlpwtPGB6lHuUX083ldYTGJ/GHGT8Ch+6EWSue5iytdDGwrzfO2dXY
+    2QxmLvlAnuoimqjYiifzTl7hQxXKNaqtp7ggE7rGG69Hz40JgP6h0YzWe22Z7KCIEdNy
+    BqIzbI+c7na3DTUHzV/7c2+qDr3BxIeYhcR7YmMqLCFf0vj06pcjQf/5g7xMar7w2ZCF
+    smsQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794422555;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=UZdwgTcrfuIpSYM1gCDi0i+eUgKIG7RMooqWvyPgmb0=;
+    b=OLEqGKP8rL1/Y5mfkMu8X03OwrUS8pT8L6GgGyaoLQtNjvsfYzZf72RksCFZEIXI/q
+    SMX59KF0dnEg5mSDbABg==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaTpIu+r+eHzyBFvc/0mM2I80og9K0iXpLsCzk="
+Received: from p200300c5872329b218616a30d22a9174.dip0.t-ipconnect.de
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id z831ad2ABIgYiCS
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 11 Nov 2026 19:42:34 +0100 (CET)
+Message-ID: <b2338a8e84366980f648b0e321e9f8edaaf633a9.camel@iokpp.de>
+Subject: Re: [PATCH] scsi: ufs: core: Register the RPMB bus before adding
+ devices to it
+From: Bean Huo <beanhuo@iokpp.de>
+To: Alexey Charkov <alchark@flipper.net>, Alim Akhtar
+ <alim.akhtar@samsung.com>,  Bart Van Assche <bvanassche@acm.org>, Bean Huo
+ <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, "James E.J.
+ Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+ <mkp@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Avri Altman
+ <avri.altman@sandisk.com>, Can Guo <can.guo@oss.qualcomm.com>
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	stable@vger.kernel.org
+Date: Wed, 11 Nov 2026 19:42:32 +0100
+In-Reply-To: <20261111-ufs-rpmb-bus-v1-1-b07100e53f6c@flipper.net>
+References: <20261111-ufs-rpmb-bus-v1-1-b07100e53f6c@flipper.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,90 +111,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit e7ccc777a040343b80f95f4cc5c12ce1df3187f4 ]
+Hi Alexey,
 
-The vring size was read after virtio_fs_find_instance() had dropped
-virtio_fs_mutex, so a concurrent virtio_fs_remove() could free the
-virtqueue first. The reference from the lookup keeps the virtio_fs
-alive, but not its virtqueues.
+Thanks. The code is correct, but this exact failure is already fixed in
+Stanley's series, which has been on the list since September:
+https://lore.kernel.org/all/20260914144910.931518-1-stanleyjhu@google.com
 
-Hold the mutex across the lookup and the read.
+The order there matters. Once ufs_rpmb devices register again, which is wha=
+t
+your patch does, two bugs come back: a use-after-free on host unbind, and
+concurrent RPMB requests that get each other's responses. Stanley measured =
+both
+with KASAN. Patches 1/3 and 2/3 fix them, and 3/3 turns registration back o=
+n
+last. Taking this patch first would open that window again in mainline and =
+in
+stable.
 
-This issue was found by an in-house static analysis tool.
+So I would prefer to drop this one in favour of the series. If you have a b=
+oard
+where RPMB fails today, a Tested-by on v5 would help, please have a try
+Stanley's patches. thanks
 
-Fixes: a7f0d7aab0b4 ("virtiofs: split requests that exceed virtqueue size")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ sashal: adjusted context for kref_get(&fs->refcount) instead of kobject_get(&fs->kobj) ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/fuse/virtio_fs.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index d405cdf36247c..e3424fc12b80b 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -257,26 +257,23 @@ static int virtio_fs_add_instance(struct virtio_fs *fs)
- 	return 0;
- }
- 
--/* Return the virtio_fs with a given tag, or NULL */
-+/* Return the virtio_fs with a given tag, or NULL.
-+ * Callers hold virtio_fs_mutex, which also keeps the virtqueues alive.
-+ */
- static struct virtio_fs *virtio_fs_find_instance(const char *tag)
- {
- 	struct virtio_fs *fs;
- 
--	mutex_lock(&virtio_fs_mutex);
-+	lockdep_assert_held(&virtio_fs_mutex);
- 
- 	list_for_each_entry(fs, &virtio_fs_instances, list) {
- 		if (strcmp(fs->tag, tag) == 0) {
- 			kref_get(&fs->refcount);
--			goto found;
-+			return fs;
- 		}
- 	}
- 
--	fs = NULL; /* not found */
--
--found:
--	mutex_unlock(&virtio_fs_mutex);
--
--	return fs;
-+	return NULL; /* not found */
- }
- 
- static void virtio_fs_free_devs(struct virtio_fs *fs)
-@@ -1454,13 +1451,17 @@ static int virtio_fs_get_tree(struct fs_context *fsc)
- 	 * in fc->iq->priv. Once fuse_conn is going away, it calls ->put()
- 	 * to drop the reference to this object.
- 	 */
-+	mutex_lock(&virtio_fs_mutex);
- 	fs = virtio_fs_find_instance(fsc->source);
-+	if (fs)
-+		virtqueue_size = virtqueue_get_vring_size(fs->vqs[VQ_REQUEST].vq);
-+	mutex_unlock(&virtio_fs_mutex);
-+
- 	if (!fs) {
- 		pr_info("virtio-fs: tag <%s> not found\n", fsc->source);
- 		return -EINVAL;
- 	}
- 
--	virtqueue_size = virtqueue_get_vring_size(fs->vqs[VQ_REQUEST].vq);
- 	if (WARN_ON(virtqueue_size <= FUSE_HEADER_OVERHEAD))
- 		goto out_err;
- 
--- 
-2.53.0
+Kind regards,
+Bean
+
 
