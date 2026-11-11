@@ -1,96 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.70
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385801;
-	b=5U3kSDfIoJtPpc+D1iOh72yGBBmVNnDs2b6KNhP7kQBjyK60m74NabTuaEtcSdRGn1Xm
-	 d9BYGobeeXMGXBsjN31wrIl6Phn4neSQ96ZS6+Im2A+f+RKNASPE2snOTvfx/GZN9wRSc
-	 7VSuCocQCFenp5onhbRQCQo55sjLipYQ/wXVXVGsCQnNcY7zNlqNfLjfCE6mx33DsbYZr
-	 7gD8Z9lClmkYvFbajBPeF+nhJyCxSKLbM8FdxBGf+khlsqHXHcNGDSJEMJwhN4J/9nmGd
-	 ekeLmTx74u/6GLoK4yv4UW09d4CMMY68LMrE3fpou7X1yhh60pfeIVA2dR8E9ZJdodw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385801;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=EISAdtMYqVWVLqHnqh0e+YL3KTBrbrFu+/NK6edSIgE=;
-	b=Wu64xuVF1XGb96NeX5bCDHuEfyytyFuMwgaurYDXPLSkR7HgKbzEmIuhRucPNbRpTtYk
-	 zKq9j0mhxFo5Y9F00wHGTxwXU/vhCa6IDXczIG2X/JYVIr5s1KDQzUBP1oVUBZUd3vRgI
-	 JmSWQzQ5q24s1VhdZtDISTHBbRxO+4LcUC3yAAbZLgvHCmD2nCxtP0EOE8yES5VOGCSh9
-	 v9FtsJyqdUtNrrNvepQOa4SWaLF7+mNMCdYyv1k1wE915YVdmAmYo4V5xBf1tlmVygTux
-	 DSE8WEXZ09A73FyYXzgizBeqgrrLQEaEI85pZKjCUk0pMDlkUP7KJLlesDHvw+c6Ocg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nSyoA+j0;
-	arc=none smtp.remote-ip=95.215.58.70
-Received: from mta1.migadu.com (out-70.mta1.migadu.com [95.215.58.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794385837;
+	b=QFgOt7ohxX0HjsdcL1AP3zsOV726kOBzox2mel822UZI/NUZtyx6Tsr6nro1sNxxtdiJ
+	 Zqt2fo/LN5g+e6bMp+jRDVikFv1Zm97Ms9Y5MJmz7PoAI4lFxZbtyUkBmExttGMnTOG9z
+	 BdEfrgpFS287CEps5pRQFRMvnUjeixtr65ecjR0ZuxeD4i989INTAfW8RDpji8DB4Ejrb
+	 R7+nRUtPuFrQ4xCbBLWfgFyYs8zsxG23LteWvQVMtpDYAwjMS9gXsfJjJxpqnASanoxox
+	 ATwTRvH42X/+AsAnUPYUcXalPIMH8ROVv8YtHyEhuhQMoKR+32FPtiioYfLzmXdTF6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385837;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=WZLUhPOgu/Zp8GJ/VO9CF1NMJMRTVwtW3QQYGoyCbd4=;
+	b=CCrlfPEXUQ+GAh+LygSsVf3dC7zUg91S/kBQ564l+Bo//ifHm/YnAo7/Irl91QhEDqnc
+	 ABftr5t8OKV/5hA+MF1Rdu+7jK/tLqrRtW8siAZgo6opPlq8e4TapWPYb9Jw4wK/YJtu0
+	 gDclQaH7OmUxpn8CL/mYPOJHMjb2YvY1Opx1gsZ5RVSsz+yq3JD3L9E+FxKdXr0nuHnea
+	 DcqgZemjFlbKlXJQQHt+rUevgYPB9KfuYXnsvaVsVPGkfNXYMR8W1aGgl8FZvsR8qMYQM
+	 NLkkW6Mj9E+GhU/eDRk9P131T1zI0q4+FuUN3whQRXUNH1ZBj4vyErHDf0jLBTLsvFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="R/XGonWw";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19F2606A336
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:30:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C19F2606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223F0606A320;
+	Wed, 11 Nov 2026 08:30:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 223F0606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nSyoA+j0
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rxysHjUl+PhiSPajfmdSgQTDpDlmCyLmzi+v8AgGLTY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794385798; v=1; x=1794990598;
- b=nSyoA+j044xti7zVWKwmOKIal826bDT5jkchsT229k1wwERN6ITT20nDXuhoWEeDWpP571YQ
- kzVTgSYRvetdPdL+w7prz5JSsAe3iBwmN4bxtwGK/RAOdtRSE3ZCJdX/KbpFBzQJ+hhvGoLbOzl
- PxDfWQeHM8PC3k1Byk1ULw5c=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e8d13c6fddefc63c;
-	Wed, 11 Nov 2026 08:29:58 +0000
-X-Mizu-Trace-ID: e8d13c6fddefc63c
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: stable@vger.kernel.org
-Cc: Samarth Narang <samarth.colleges@gmail.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	=?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>,
-	Andrea Arcangeli <aarcange@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	Bobby Powers <bobbypowers@gmail.com>,
-	Brian Geffon <bgeffon@google.com>,
-	Denis Plotnikov <dplotnikov@virtuozzo.com>,
-	Doug Gilbert <dgilbert@interlog.com>,
-	Hugh Dickins <hughd@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Martin Cracauer <cracauer@cons.org>,
-	Marty McFadden <mcfadden8@llnl.gov>,
-	Maya Gokhale <gokhale2@llnl.gov>,
-	Pavel Emelyanov <xemul@openvz.org>,
-	Rik van Riel <riel@surriel.com>,
-	Shaohua Li <shli@fb.com>,
-	James Houghton <jthoughton@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	SJ Park <sj@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Subject: [PATCH 6.6.y] mm/ksm: fix userfaultfd protection during merge and unmerge
-Date: Wed, 11 Nov 2026 16:29:47 +0800
-Message-ID: <20261111082947.32736-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261109201222-failed-6.6-990d6c2194a9@kernel.org>
-References: <20261109201222-failed-6.6-990d6c2194a9@kernel.org>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=R/XGonWw
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 13666201B42;
+	Wed, 11 Nov 2026 09:30:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794385834;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WZLUhPOgu/Zp8GJ/VO9CF1NMJMRTVwtW3QQYGoyCbd4=;
+	b=R/XGonWwnpcVCFnliJwQ8gfzJj6VIs+qsayWUS/fEgjUpm2S2W/SjZ58HVLnGJoOrFHEFq
+	B9D1fGinFn9xyOVbCv4sFxsn1mcKH/YefEMlemreoJIam8K1fdLIUx5AM2uKjBMDR/vl0w
+	5wLVqsyc8uFekrwi2A7jJ92eWDmMcsnFdLJiAzNpFYTgy+c/W80lX7nSdCw9uecuf5UcJB
+	dlDtCFWlYSSrUp3/uOsQlO8w3025VI819Omh2afU7wKsD+DVRSotWsHsiOULowVhkVQ4fc
+	m6N5xZVi8+4M46VSZZqJELO2lUQU7bdY4n9v0aWaqaTbwMuX9oJJ8X4mIjvoVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794385834;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WZLUhPOgu/Zp8GJ/VO9CF1NMJMRTVwtW3QQYGoyCbd4=;
+	b=JMiPjx82cveEmBXRCwPtoF6DdUEm+U/q9rQAn++X5T5/L2msVraAUrCRi4Q5VxMpkFsw2A
+	eoaN1THcxeO2U5E+HWxgfIwupOlrGb8GQA3EJEdZ36/3HDBRhsnYn2KcMQLlHlWofqMxlj
+	xkfCTLh5FB3tDtzrHmbH+HePIpYMPgJH6gFX5dA06wBsDhDjdnX/5AXuaV5U9CxCRbPsIz
+	pT/tqq990QMxc6mVI5XRd8kdZbNIlH6Lo8sggUFFGqy/Vppr3TIev05w9MOhgIKJoCU/uK
+	61InUe0rXD/GESmhiD6N0aAotrMuX/C4F6MQgdKtCAkSmxncBvoaDTHcO1cf7Q==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794385834; a=rsa-sha256;
+	cv=none;
+	b=Dn1S43Ww455MeaY8DQXMYnhVErni1xx47v5TLXRh1X24ShJnPwj2NcpaNAJXLfu/uZa4yE
+	alU24apeojdpkMZTyruIhGVTgrkkfHpedK778DxucmKxAP1QI6HBX6TxUqRj9vWDkJPGpS
+	3OF1qp5pAlI/l46cUH/FRGo+r+RKXdX3VGSJRsNjHaFqeEOZG65J7zHkNZ86As9edplmZf
+	OpKK9W580yk/9lPMYLWLyx73jouLyanXDCvjM5FOY/v3M2QTVcCR8TL7thcDR4WYuy7VaP
+	f6L8Pl0t2aaQybnQjBaMQsx97B1JBpV+fNNyvGweXc4FCiHz17sDX0WrLVLfjg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xR3j0-003cTb-01;
+	Wed, 11 Nov 2026 09:30:34 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xR3iz-0000000FQsX-3ltI;
+	Wed, 11 Nov 2026 09:30:33 +0100
+Date: Wed, 11 Nov 2026 09:30:33 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Sun Yiqi <sunyiqi2@huawei.com>
+Cc: robin@protonic.nl, kernel@pengutronix.de, socketcan@hartkopp.net,
+	mkl@pengutronix.de, linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	stable@vger.kernel.org, luoxiaoxing@huawei.com
+Subject: Re: [PATCH net] can: j1939: transport: validate the DPO packet offset
+Message-ID: <avQnqSwcwhVIDIQJ@pengutronix.de>
+References: <20261105065931.1302-1-sunyiqi2@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,102 +99,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105065931.1302-1-sunyiqi2@huawei.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-KSM loses userfaultfd protection when replace_page() builds a new PTE from
-vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
-through ordinary COW instead of userfaultfd write protection handling.
-For RWP, a merged page also becomes readable without faulting.
+On Thu, Nov 05, 2026 at 02:59:31PM +0800, Sun Yiqi wrote:
+> j1939_xtp_rx_dpo_one() stores the packet offset from a received ETP DPO
+> command without checking it against the session's total packet count.
+> An offset greater than or equal to that count makes
+> j1939_session_skb_get() return NULL. A subsequent EOMA can then cause
+> j1939_session_completed() to pass the NULL skb to j1939_sk_recv(),
+> resulting in a NULL pointer dereference.
+> 
+> Reject an out-of-range offset before storing it and abort the session
+> with J1939_XTP_ABORT_BAD_EDPO_OFFSET. Keeping the previous valid offset
+> also prevents this lookup failure if an EOMA arrives while the session
+> is waiting for the abort to complete.
+> 
+> Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sun Yiqi <sunyiqi2@huawei.com>
 
-Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
-have to handle unmerging.  An existing KSM page can be protected with RWP
-before MADV_UNMERGEABLE, so unmerging already needs fixing independently
-of preserving RWP during merging.
+Sorry, i'll need to drop this patch in favor of this one:
+https://lore.kernel.org/all/1794300102.11111.1000002@163.com/
 
-Unsharing replaces a shared page with a private one and should leave
-userfaultfd protection in place, as do_wp_page() already does for write
-protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
-can proceed to do_wp_page().
+Chaosheng is working on this patch longer and attempt to address
+sashiko review points.
 
-- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
-  break_ksm() then reports success with a KSM page still merged.
 
-- With asynchronous RWP, protection is cleared before unsharing.
-
-Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
-FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
-private copy as well.  Unsharing can then complete with RWP still armed
-for a subsequent access.
-
-Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
-Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Xu Xin <xu.xin@linux.dev>"
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jérôme Glisse <jglisse@redhat.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Bobby Powers <bobbypowers@gmail.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
-Cc: Doug Gilbert <dgilbert@interlog.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Martin Cracauer <cracauer@cons.org>
-Cc: Marty McFadden <mcfadden8@llnl.gov>
-Cc: Maya Gokhale <gokhale2@llnl.gov>
-Cc: Pavel Emelyanov <xemul@openvz.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Shaohua Li <shli@fb.com>
-Cc: James Houghton <jthoughton@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>
-Cc: SJ Park <sj@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
-Cc: <stable@vger.kernel.org>
-
-(cherry picked from commit 990d6c2194a938a19a8cf94c6cfd75171345089b)
----
-Backport to 6.6:
-- Use the older pte_uffd_wp()/pte_mkuffd_wp() helpers.
-- Drop the mm/memory.c changes. 6.6 has no RWP support.
-
- mm/ksm.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index ea179d729210..ab607abbd620 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1252,6 +1252,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 		dec_mm_counter(mm, MM_ANONPAGES);
- 	}
- 
-+	/* Preserve uffd-wp when replacing the page. */
-+	if (pte_uffd_wp(orig_pte))
-+		newpte = pte_mkuffd_wp(newpte);
-+
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
 -- 
-2.49.0
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
