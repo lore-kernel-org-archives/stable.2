@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419877;
-	b=Gq8ikzxINRGF5cloYnk6V/6/Vx2kMJX7kTygDgD7THAicJPEkK2RUiPieWv6aYgoZYuL
-	 HSbPOkAO/i2xqFn/SaLM6lYo/FztxGOxp1U0HVmMo7Am427kHfxlGBWK9CM/Ewx5799C1
-	 VOWA15M+GklUl07nIVoH1dvBdA3AIxQvs473RpL5BfkGlnPoSY5Q4qlM3w422Hff2jyV4
-	 Ymj91oDv+1NHGuM842f/OZPXbPBhDrLG+f/vLIFaG0XamvgiKvQuz56FwQPPkjRPDrGKn
-	 6o++bKlS/icax7+f6c6vS/pxqAum3jPvttNAFXB3zSJuhGat24D/GM/3bf5G4SHzCmg==
+	t=1794419878;
+	b=xVymQPnMpcbDqG5Tfpa8zNPhOdYb3PhEZZyOU4tSSGVVGqM4lY0eBiIm5QCmmRzkSEyC
+	 Acmlz3EzsEVJ5z/FoQnqoZzHrEPNdXDk6K2R3oPAoPjbWKXTLd5HxxYTimyPlSnKCBj47
+	 LuinIUWqExHMedoJNva8+E7CmHTxUui69nOuksiwOCb5Iw8U4rYzNYsQyCGzSUhuNLPnu
+	 Q0+lIl5ypqpE1VgyQx/jBII36zgBZAVMn2QNDHZ/85sn5bQ34Fpe/abtPdlllKfGyne/+
+	 5t0DXom7asSIaGPCUeegUuo2Zbs8P2TUpRSThsFxFDnMPOUyBOF5a6iBNf6TSxcxGsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419877;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419878;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rxZDV3nYxdbUnpHmE/B3X68mpGffGprb6aDXhTSC51U=;
-	b=0hu4AfG0BIZjiZLyqzf5ij/OqTymYiecAFOOJwDEOK7pMOoS9gjPACOJzr1YQgtsGNv8
-	 FoVyY8CNdQXTe18aHYS9SgFb5uDc8fcIPJEWK1cg3iTXlitVNqgnZeJWMurujJDJG8PKy
-	 3bp5n6p3+OiHsGyEoEWFz0FmLnWiOhzKqUJ4zFDD/ztZGYjSXSVlhz3ZQy429HZMxnhBh
-	 nrhF7XFOls+IpSdrp86qBfqjW936ltpzgScdsEKesvVwp9QV0YQyDwqolhuyJmITq7Zoj
-	 pRLJYvidY63ALTzEXuMdNAxZcK/smNksmrJVl23Z3DLGOtzIqmGv8TbUthCDG5hCAZA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gtkVZkNgE6K54W6i3XkSzOnd2kTy3omGudTp7cJiBy8=;
+	b=44nDRBFMDSgj+lwRH2L60SauME7PTLI0BS6QEyoJj0YfBpIHkDQoYPNYa4IEpFirZuhJ
+	 aFrsonPd6lAkHK8M6JJlgmEACydp7fwlG+BUXMqPi+WVmj7ANmEhfX1tg57cDIU0iBM+1
+	 gk3nRR0d3kF9c/J2jq3IBpoW4jyct3rgrexUx7XFfYlZHyVSNM/dZ4u2WT4IiHNdQKf5l
+	 KU6s4hWr2QgpIAtyxpUHlB4uoOU/CfunnivKPDtimZ3p8kDOQSBkv7ZXO8sBflizlDk5/
+	 MDDAVSfWf4ZDUAPeuB62ReqZUidz0c3MY0Bpp99tfVwIx9MWuJTfoo/Bku7YqhFKjXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HjsARsDh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiKHo8+e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8D860A3833
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:57:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3BF60A5BC6
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:57:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HjsARsDh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534AD1F00AC8;
-	Wed, 11 Nov 2026 17:57:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiKHo8+e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55BFB1F00A07;
+	Wed, 11 Nov 2026 17:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419877;
-	bh=rxZDV3nYxdbUnpHmE/B3X68mpGffGprb6aDXhTSC51U=;
+	s=k20260515; t=1794419878;
+	bh=gtkVZkNgE6K54W6i3XkSzOnd2kTy3omGudTp7cJiBy8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HjsARsDhM/1jgzFFG+ey76Cmt81nPXk7HnZf3O3RtP91hAmwYCG4RPRDWbis4/GU9
-	 fzhavSnCZx5nZnftQsvkSBdSg8g2AMpP7Px/wbAfWeBE/eRcW8IPCK0bAfOD8hBw2N
-	 RPRONBUI/2SinbLycM26xMkd+kdZpugFS4Ozg0jVouW8BJDTM+G99HalU5vCMBNEQu
-	 z0D+X+utADLzLyVLKwMC5TqoKTEOge7AIuiGkYKsogNrRGB8WAWZfSzptE82eDtk3G
-	 IX1y/hP7cDPdpUHbJwrsCBA2nVIytATBxkba07Kvac9ggdWD/KbaEw9VREwQhrsq5m
-	 KflaNqxpKjN2w==
+	b=eiKHo8+eneKxSOzI/FekpVBr6wwk5y7Gh57BHyMwHISPKHkqIB3HgCAx3ObqOVzIN
+	 IcihKBy5FIdIHrzKIvd7CkW3pZFf9LwzZYAtoKwR9VCUy8GdY0O8RW93GktWVQeOzO
+	 QYZ7MqUwn/t9mf10ne5JdP6wzWYtvZUOaBvlyw6kTbO0OArdWeX6aDt68sYyYsA502
+	 LiGlGrnbv5Mf3gwyPxM9HNZ89veXm3/goOuKRBzhWtgkJ3RrZiHeyLLYB5Clm9wgAP
+	 wHrBwukv2jdwAacpUdsTX55TGxCp6bc8J/7gadl1Tc7+ME+KPdgJ7ey14ugnGmiJnJ
+	 2/L6VQtUaVlLg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Li zeming <zeming@nfschina.com>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	Matt Turner <mattst88@gmail.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Stephen Rothwell <sfr@rothwell.id.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/4] arch/alpha/kernel/smp.c: remove unnecessary (void*) conversions
-Date: Wed, 11 Nov 2026 12:57:51 -0500
-Message-ID: <20261111175746.3724675-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/4] arch: turn off -Werror for architectures with known warnings
+Date: Wed, 11 Nov 2026 12:57:52 -0500
+Message-ID: <20261111175746.3724675-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060811-failed-5.15-fe221b7b2d3e@kernel.org>
+In-Reply-To: <20261111175746.3724675-1-sashal@kernel.org>
 References: <20261107060811-failed-5.15-fe221b7b2d3e@kernel.org>
+ <20261111175746.3724675-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,49 +64,142 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Li zeming <zeming@nfschina.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-[ Upstream commit 829715a2d14c7110987bfa5e6173b516c41f8627 ]
+[ Upstream commit 0f0d2871e78db648a2578abbeb9103f484f9b754 ]
 
-The void * type pointer does not need to be cast and assigned to another
-pointer.
+A couple of architectures enable -Werror for their own files regardless of
+CONFIG_WERROR but also have known warnings that fail the build with
+-Wmissing-prototypes enabled by default:
 
-Link: https://lkml.kernel.org/r/20221213074522.3738-1-zeming@nfschina.com
-Signed-off-by: Li zeming <zeming@nfschina.com>
-Cc: Ivan Kokshaysky <ink@jurassic.park.msu.ru>
-Cc: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>
+arch/alpha/lib/memcpy.c:153:8: error: no previous prototype for 'memcpy' [-Werror=missing-prototypes]
+arch/alpha/kernel/irq.c:96:1: error: no previous prototype for 'handle_irq' [-Werror=missing-prototypes]
+arch/mips/kernel/signal.c:673:17: error: no previous prototype for ‘sys_rt_sigreturn’ [-Werror=missing-prototypes]
+arch/mips/kernel/signal.c:636:17: error: no previous prototype for ‘sys_sigreturn’ [-Werror=missing-prototypes]
+arch/mips/kernel/syscall.c:51:16: error: no previous prototype for ‘sysm_pipe’ [-Werror=missing-prototypes]
+arch/mips/mm/fault.c:323:17: error: no previous prototype for ‘do_page_fault’ [-Werror=missing-prototypes]
+arch/sparc/vdso/vma.c:246:12: warning: no previous prototype for ‘init_vdso_image’ [-Wmissing-prototypes]v
+arch/sparc/vdso/vdso32/../vclock_gettime.c:343:1: warning: no previous prototype for ‘__vdso_gettimeofday_stick’ [-Wmissing-prototypes]
+arch/sparc/vdso/vclock_gettime.c:343:1: warning: no previous prototype for ‘__vdso_gettimeofday_stick’ [-Wmissing-prototypes]
+arch/sparc/prom/p1275.c:52:6: warning: no previous prototype for ‘prom_cif_init’ [-Wmissing-prototypes]
+arch/sparc/prom/misc_64.c:165:5: warning: no previous prototype for ‘prom_get_mmu_ihandle’ [-Wmissing-prototypes]
+
+This appears to be an artifact from the times when this architecture code
+was better maintained that most device drivers and before CONFIG_WERROR
+was added.  Now it just gets in the way, so remove all of these.
+
+Powerpc and x86 both still have their own Kconfig options to enable
+-Werror for some of their files.  These architectures are better
+maintained than most and the options are easy to disable, so leave those
+untouched.
+
+Link: https://lkml.kernel.org/r/4be73872-c1f5-4c31-8201-712c19290a22@app.fastmail.com
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Reported-by: Stephen Rothwell <sfr@rothwell.id.au>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: fe221b7b2d3e ("alpha: do not skip TLB shootdown IPIs for kthread-borrowed mms")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/alpha/kernel/smp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/alpha/lib/Makefile    | 1 -
+ arch/alpha/mm/Makefile     | 2 --
+ arch/mips/Kbuild           | 6 ------
+ arch/sparc/kernel/Makefile | 1 -
+ arch/sparc/lib/Makefile    | 1 -
+ arch/sparc/mm/Makefile     | 1 -
+ arch/sparc/prom/Makefile   | 1 -
+ 7 files changed, 13 deletions(-)
 
-diff --git a/arch/alpha/kernel/smp.c b/arch/alpha/kernel/smp.c
-index 8a712076436f0..8fa4345306a53 100644
---- a/arch/alpha/kernel/smp.c
-+++ b/arch/alpha/kernel/smp.c
-@@ -634,7 +634,7 @@ flush_tlb_all(void)
- static void
- ipi_flush_tlb_mm(void *x)
- {
--	struct mm_struct *mm = (struct mm_struct *) x;
-+	struct mm_struct *mm = x;
- 	if (mm == current->active_mm && !asn_locked())
- 		flush_tlb_current(mm);
- 	else
-@@ -679,7 +679,7 @@ struct flush_tlb_page_struct {
- static void
- ipi_flush_tlb_page(void *x)
- {
--	struct flush_tlb_page_struct *data = (struct flush_tlb_page_struct *)x;
-+	struct flush_tlb_page_struct *data = x;
- 	struct mm_struct * mm = data->mm;
+diff --git a/arch/alpha/lib/Makefile b/arch/alpha/lib/Makefile
+index 1cc74f7b50efb..6a779b9018fd1 100644
+--- a/arch/alpha/lib/Makefile
++++ b/arch/alpha/lib/Makefile
+@@ -4,7 +4,6 @@
+ #
  
- 	/* A targeted tbi() needs a thread of MM to be current.  */
+ asflags-y := $(KBUILD_CFLAGS)
+-ccflags-y := -Werror
+ 
+ # Many of these routines have implementations tuned for ev6.
+ # Choose them iff we're targeting ev6 specifically.
+diff --git a/arch/alpha/mm/Makefile b/arch/alpha/mm/Makefile
+index bd770302eb824..101dbd06b4ceb 100644
+--- a/arch/alpha/mm/Makefile
++++ b/arch/alpha/mm/Makefile
+@@ -3,6 +3,4 @@
+ # Makefile for the linux alpha-specific parts of the memory manager.
+ #
+ 
+-ccflags-y := -Werror
+-
+ obj-y	:= init.o fault.o
+diff --git a/arch/mips/Kbuild b/arch/mips/Kbuild
+index d5d6ef9bb9867..ec088204f51cb 100644
+--- a/arch/mips/Kbuild
++++ b/arch/mips/Kbuild
+@@ -1,10 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0
+-# Fail on warnings - also for files referenced in subdirs
+-# -Werror can be disabled for specific files using:
+-# CFLAGS_<file.o> := -Wno-error
+-ifeq ($(W),)
+-subdir-ccflags-y := -Werror
+-endif
+ 
+ # platform specific definitions
+ include arch/mips/Kbuild.platforms
+diff --git a/arch/sparc/kernel/Makefile b/arch/sparc/kernel/Makefile
+index d3a0e072ebe8c..6858304be1dbe 100644
+--- a/arch/sparc/kernel/Makefile
++++ b/arch/sparc/kernel/Makefile
+@@ -5,7 +5,6 @@
+ #
+ 
+ asflags-y := -ansi
+-ccflags-y := -Werror
+ 
+ extra-y     := head_$(BITS).o
+ 
+diff --git a/arch/sparc/lib/Makefile b/arch/sparc/lib/Makefile
+index 063556fe2cb1d..59669ebddd4e1 100644
+--- a/arch/sparc/lib/Makefile
++++ b/arch/sparc/lib/Makefile
+@@ -3,7 +3,6 @@
+ #
+ 
+ asflags-y := -ansi -DST_DIV0=0x02
+-ccflags-y := -Werror
+ 
+ lib-$(CONFIG_SPARC32) += ashrdi3.o
+ lib-$(CONFIG_SPARC32) += memcpy.o memset.o
+diff --git a/arch/sparc/mm/Makefile b/arch/sparc/mm/Makefile
+index 871354aa3c002..809d993f6d888 100644
+--- a/arch/sparc/mm/Makefile
++++ b/arch/sparc/mm/Makefile
+@@ -3,7 +3,6 @@
+ #
+ 
+ asflags-y := -ansi
+-ccflags-y := -Werror
+ 
+ obj-$(CONFIG_SPARC64)   += ultra.o tlb.o tsb.o
+ obj-y                   += fault_$(BITS).o
+diff --git a/arch/sparc/prom/Makefile b/arch/sparc/prom/Makefile
+index 397b79af77f7b..a1adc75d80551 100644
+--- a/arch/sparc/prom/Makefile
++++ b/arch/sparc/prom/Makefile
+@@ -3,7 +3,6 @@
+ # Linux.
+ #
+ asflags := -ansi
+-ccflags := -Werror
+ 
+ lib-y                 := bootstr_$(BITS).o
+ lib-y                 += init_$(BITS).o
 -- 
 2.53.0
 
