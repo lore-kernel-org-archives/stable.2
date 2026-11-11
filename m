@@ -1,55 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407931;
-	b=K3DadDgy+i/jkpgWK4FdWBAGve9uC6Rr34RDp3tTcdo4PU4jenakXknRCp3UL3YujTwO
-	 0NerFLQXBX0I+HfOoPc6EvlM0Wu2tKhxP08P+KMzeqsogKfNlFpznuMh2JfpbeMsL8Wj+
-	 ae5em4uPfbGOFzAA3/FVXCVBDhC5SEMRmzKH9cvzUQykA2PbeFgbdYK0V0mFJULcyg1We
-	 lfabU7brIAttxoBINwrZsqqULmcpiOjfgGFiBYv9aOzfYgWjJIgfSkCxAxNQtz9Y8Q9q4
-	 xA0jgnV4N9k7Om+61Vt/F1NUFrzyhO6a1RRXGLMmoNUtlVfYXGx2SZEU7xIiPEqpZfA==
+	t=1794408103;
+	b=4ecETM/CvIMN6CjvXR8stXYF81wQBMAO2idfvMt6ZliJlPgvOxSKJslpPAG5Cay3ULuq
+	 oC6dJyh4WxsYk45D5l1fI9YoU2XStf+hpgpFZpQNK+PVBBr5CNi7UArDANCoIyS+V3g6j
+	 Yri2+S9ZU5aRFbjEvdo8Le3gyhi+PVwQj6aB/Gxecww+NLFDlc2nsDbgW2/6hEwTXUSvk
+	 OQE/Nb8WID0B51rLuO5IX+1vOc1mYIxdL3o/dJdFeOQfwyWA6JTZSNuZX3LWmgS6I7Ucy
+	 7M1+UJPeAQVqudwgkTe2IjO90D2NZFM9nOatvrl078KXH5y7R6d0STcv3p4rYXPwT5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407931;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rYa6Vj482aOsAT1swBjVHBxJ66Ekod+nCxHVhlJVP6o=;
-	b=ItxKRJOf2bp8JJ8zqjxQZWOZ35eTrEahJreqVXcWyZtpguUT8xVeWZDCgLCHxeaw9s9w
-	 HjKtt/9pbp7Iy8sUs5gQ0c5MSP+FDE7bA858BS+X5EbX+dDZyJI6+yoPGNx7VOS+PAfov
-	 Ec9HJ3ZpzVE5FotagEoKF4A50D7NavPJPQ0HQZ51uoXE7+PuaLW84HsJxhB2gld/F5QwL
-	 onQvXZpOPkbuRm9lhmyc7uDEt3MF6on+mqR1XbcwUbygp9MzriV6N/F7pGNYHIZlmmSqc
-	 DwyEeGY3NlIYjxl1N95FfRYyoIVPsNatpysvuwwN/d2evba6QbvbUy9nQR8EAXXSGTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408103;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=pALWi25PaiwvAzQ+rk8fhccHyEREP1igMqQCrUiFzbI=;
+	b=uhpIrBWLt8XQqDcZp8ZXsd3kodoe3V8hdxrUiJiq68OdchklVNIjmLaliaT0nodpRjse
+	 GxCf6IsvVfE2tAe2G8px+1waHZ3I6M+DodSW5qZlhhJH4LR3odJmMAF4ixd6dQSBd+FHr
+	 tlZcTCCh2fa1UAeBD/p/gRGSBNl/CVKQeOtojkyNGHv3aF8lz2y3pwjZzhcHayci6TS1M
+	 jzT+lPn9LKdotB5hda10koUBdsFtaOU7ahPgrbCIa8PJsaRdHeRHeSmOt1FKbrXGCpw3U
+	 7d3j/FeAftCzPRdBcRRVCv+Lgie+LZYBfw32r7MOiS9BbPUihsOtYNjA/PgVgCFQj/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oBGjlNHt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=qpsHuCYY;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BFA606A32A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:38:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269E2606A331;
+	Wed, 11 Nov 2026 14:41:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 269E2606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oBGjlNHt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 908701F00A05;
-	Wed, 11 Nov 2026 14:38:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794407931;
-	bh=rYa6Vj482aOsAT1swBjVHBxJ66Ekod+nCxHVhlJVP6o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oBGjlNHtijskBTBq2sraVdZwvWLaFnVZhIKwiJk6wvwbXfrPUdjlq8AcYqPlxpZzv
-	 stbj2WftmNHQd/nxGGC3KlCJ2E7GfoDFP/oFAAEBtcwRN4Q95pPSDp4iTjcWtpH/+a
-	 idllULOiDWUJn+Zud9OAy0/H3W9cN0JdA0wgUHLdKKkMyxkUk7f/hYEPJ0ajlONsmb
-	 73oLH5cnZowE9Hs0pdj/IzWkLQyVZ0z38Fvjmgw2iMtGqvPudj50xVViLUfbrYMqg0
-	 c+n2YpG86I0NUnunnjvaJi0y94Uf+wcGG/lvyjeC42wPK4ItQtN6he3r5bxNuDFgCA
-	 CuawLGQUFeECg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Helge Deller <deller@gmx.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] fbdev: udlfb: check for fb_deferred_io_init() error
-Date: Wed, 11 Nov 2026 09:38:49 -0500
-Message-ID: <20261111143826.2357715-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062159-failed-5.10-eae055f33e41@kernel.org>
-References: <20261107062159-failed-5.10-eae055f33e41@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=qpsHuCYY
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jPmS3625Gz8XrrX;
+	Wed, 11 Nov 2026 22:41:39 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794408100;
+	bh=lJs51VmRkrJ/aPe+W6Tb69qPGEvDYZ660PLNVtEO16k=;
+	h=Date:From:To:Cc:Subject;
+	b=qpsHuCYYdkNZfvk63f8VQtzXiptxpbfgcAl8sjy97EzId+x1zlIIBok/tNbgnj9ks
+	 /0KWNDL8Rl1Yp/zg8IfUyLKHD+AvB6WH+ALEUZxeIF74EcRSdCzjHNZZ0M6ZGoeE21
+	 GT7AO4ZX957InBnpzsbBtFOUk/5za5OwXgj913f7rFfQHETTa97gtZHrzuGOTyzF0o
+	 6BP0OARlwqK9ZQ6ll1zdX/SBI/6SCRkAhv4Fgzd19Xp7l3aEqUNp4DdcqQozz1Q7F/
+	 2YKxuIaC/qlQKsnb4wMfKmYQUU6PRWnY9jm7Xl2dsXPQCOZt48FyqZ+nqV17+XBYmf
+	 bsRfvzdUvFfOQ==
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl1.zte.com.cn with SMTP id 6ABEfVTW094209;
+	Wed, 11 Nov 2026 22:41:31 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 11 Nov 2026 22:41:34 +0800 (CST)
+X-Zmail-TransId: 2afc6af47e9ea78-5c968
+X-Mailer: Zmail v1.0
+Message-ID: <20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn>
+Date: Wed, 11 Nov 2026 22:41:34 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,69 +69,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvMl0gbnZtZXQ6IGZpeCBmaWxlIGJhY2tlbmQgc2hvcnQgSS9PIGFuZCBMQkEgcmFuZ2UgY2hlY2tz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6ABEfVTW094209
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 11 Nov 2026 22:41:40 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF47EA3.001/4jPmS3625Gz8XrrX
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+The file backend computes byte offsets from the LBA and block size with
+unchecked 64-bit arithmetic and does not handle short reads or writes.
+A host can therefore make the backend report success for a transfer that
+only covered part of the range, and a large LBA or length can wrap the
+range check and reach vfs_fallocate() with an out-of-range offset.
 
-[ Upstream commit eae055f33e41e1d3e1a7e905bdcb1e9f196ed31d ]
+Patch 1 makes nvmet_file_execute_io() stop at an incomplete submit
+instead of advancing the position and eventually reporting success, and
+converts a zero-byte completion on the common path to -EIO.  Patch 2
+adds a shared overflow-safe range check and uses it for read, write,
+discard and write zeroes.
 
-fb_deferred_io_init() allocates deferred I/O state, populating
-info->fbdefio_state, or leaving it NULL if an error occurs.
+The two patches are independent and can be applied in any order.  Both
+carry Fixes: and Cc: stable.
 
-Currently dlfb_ops_open() ignores its return value.
+Testing: both were tested on 7.3.0-next-20261030 with the loop transport
+and a file-backed namespace under QEMU/TCG.  Patch 1 used failslab to
+reach the chunked path and a shortened backing file to force an
+incomplete chunk; the unpatched target returned 0 with the tail of the
+host buffer unchanged and only part of the write reaching the file, and
+all four cases return 0x6006 after the patch.  Patch 2 wrote SLBA 2^52+1
+with a 4096-byte block size, which wraps to offset 0x1000; the unpatched
+target accepted the command, and it now fails with 0x6081 (Capacity
+Exceeded).  Both patches also apply to next-20261105 and pass
+checkpatch.pl --strict with no errors.
 
-Therefore if an error arises in fb_deferred_io_init() (for instance, due to
-an allocation failure) info->fbdefio_state is left NULL.
+Shao Mingyin (2):
+  nvmet: handle short reads and writes in the file backend
+  nvmet: use overflow-safe range checks in the file backend
 
-fb_open() will then dereference a NULL pointer (calling
-fb_deferred_io_open()) as soon as dlfb_ops_open() returns.
+ drivers/nvme/target/io-cmd-file.c | 48 ++++++++++++++++++++++++++++-----------
+ 1 file changed, 35 insertions(+), 13 deletions(-)
 
-Additionally, if the allocation of info->fbdefio itself fails,
-dlfb_ops_open() sets info->fbdefio to NULL and invokes
-fb_deferred_io_init() regardless, hitting BUG_ON(!fbdefio).
-
-Fix this by only invoking fb_deferred_io_init() if the allocation
-succeeded, and checking for the error.
-
-The driver already supports operating without deferred I/O, so in either
-case fall back to that by setting info->fbdefio to NULL.
-
-The ignored return value was introduced in commit 56c134f7f1b5 ("fbdev:
-Track deferred-I/O pages in pageref struct").
-
-However, the BUG_ON() issue originates from the earlier
-commit 5bea1fbf9423 ("staging: udlfb: fix incorrect fb_defio
-implementation for multiple framebuffers"), so target that for the fix.
-
-Fixes: 5bea1fbf9423 ("staging: udlfb: fix incorrect fb_defio implementation for multiple framebuffers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Helge Deller <deller@gmx.de>
-[ sashal: Omitted fb_deferred_io_init() error handling because the older API returns void and cannot fail. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/video/fbdev/udlfb.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/video/fbdev/udlfb.c b/drivers/video/fbdev/udlfb.c
-index 23097d190e0b1..d3e7c8f6ae7eb 100644
---- a/drivers/video/fbdev/udlfb.c
-+++ b/drivers/video/fbdev/udlfb.c
-@@ -1006,10 +1006,10 @@ static int dlfb_ops_open(struct fb_info *info, int user)
- 		if (fbdefio) {
- 			fbdefio->delay = DL_DEFIO_WRITE_DELAY;
- 			fbdefio->deferred_io = dlfb_dpy_deferred_io;
--		}
- 
--		info->fbdefio = fbdefio;
--		fb_deferred_io_init(info);
-+			info->fbdefio = fbdefio;
-+			fb_deferred_io_init(info);
-+		}
- 	}
- 
- 	dev_dbg(info->dev, "open, user=%d fb_info=%p count=%d\n",
--- 
-2.53.0
-
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
