@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.181.193.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390530;
-	b=g1xMBc1I+kiuzsLZkdp1hg3rk8GR361e+8VgRq/Gw4SC/eSxmEEole6Ji3XEFbWIE//Q
-	 TxLVKRgFZZAcTdaZTBT2jkvO9CpBXDl58bWMwkmXzJ9v4eYGG7LExxR3dFUeN8XM6N85j
-	 NjT9uNcZQqxbqieyTQibdQswfOt1pe6vvoPGGYpCZTxBk38qtfWEeb4i9y0+4GozVvy2u
-	 67YNPhvmfB5I4Gqk0jYZ6ksONUvhAIM0DG/Y6iTfOEb4OdH2P2svBZfVqfEVrSpjDE6At
-	 azt4arnG5uzYrJZ6np53HojpH43SRIJe2UaoY7i/UN8cnOS/OOWvNRwKC/PWQwgKxag==
+	t=1794390540;
+	b=VVifGigWTsUe77pMMfQHOFLtnrE6SJ+eRcRTLRihzWcHUY3ONihiKt8MkE0Cmgr/S5M/
+	 +JwlUUqkKpnFIGGZlmXE+N7Cslz4zD6jrZUbNsfZJeYyFAnohr5BbF0x3aiz+pJmVAO2w
+	 4BX6Zr6fVQH8nJHHfkGWbvJMFNZokV39xdBn7zKvhr08CvZmiCFaADz7SneFJlAnFvdT8
+	 ov4w0RNFTylmGeD4up0Eoy7gpgbsJMRfdCeR+sjtVPMMvgkHDpms6FEiOHIxvUYEPfdCi
+	 8A4pJNnU69Z5KeSAm0j2TcMgVQcKz2mAcoo4pIwU/GLhaH4kHH0Aq7Mqk1rUTA5qUNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390530;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390540;
 	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=NanRy0LXxd+8RK8JAn1EDTvBj46D5+CmlAgWl4/90DE=;
-	b=EVXPDX+NHSe8B6fzP2nCiqEOi6Ks26xg73F8qPIiSebJzXwZRg596Ehkh/De4uR7yunH
-	 UCzuwfbhonLRzydv0A5NcTxv8McPzwLyss/YzxkvvcAdEP4mHeJpwTeTpiKWqGPkMiOjT
-	 3XdRXvS8Qf9/WkJukMFitmsV2W80MYRByEhqiS1p2oSjGfb6+IbFaFv11Iu2nzJllXvY6
-	 TkzEyzPkrFHWZzeRvMo85Wr/X4XJedGjti83TFz3IFpMzWE6rMVwLshVFnj+DRNvJsVwx
-	 8251u9/sVzEUdemx2JPcAuLYPupz9TNEIU/eTjFg+83JicKmjTxa1jaAcRcx4A7G1Ww==
+	bh=xJpl9h/MzQlpcaQsEK0zyQehtU4pMzO61s1fxmJsrqM=;
+	b=M9Ze7/WszLyd6VTQVxM8uTY3Au5RtJASak2uwP2I94RCnmR/mv5cowwZPsaSWBGgvrp3
+	 4l5gqV/2OCer8VBJQj+XllJUmIEWEWZqvlDlPuOLJnvEIHuGiDwN2dglHvQ/Fqwwn2095
+	 dm801HxGXcoRBW/s7F5SdSkf6H1FusDQyKPaxdTcjcDH0Yta378Hq8oqkx4Zw9CLlCB6o
+	 kS2LoLGiFcF4UHj3dDjSSiRRBFnt3IOz0Iq/oQ4fqp0ho/eEb5KOQ4DER903QMqPoHKwx
+	 oUPegy8ETxSlPnCRM7fkkLADPf/oKHLMq7U+rB2Br490qT8J7Z+/02TFRoZJXOy6tww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=auroraos.dev;
 	spf=pass smtp.mailfrom=auroraos.dev;
@@ -24,22 +24,22 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from mail.auroraos.dev (unknown [95.181.193.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D10D606A31C;
-	Wed, 11 Nov 2026 09:48:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D10D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55952606A321;
+	Wed, 11 Nov 2026 09:49:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55952606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
 Received: from pc.omp.ru (77.37.240.142) by exch16.corp.auroraos.dev
  (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Wed, 11 Nov
- 2026 12:48:37 +0300
+ 2026 12:48:58 +0300
 From: Georgiy Osokin <g.osokin@auroraos.dev>
 To: <stable@vger.kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 CC: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
 	Saravana Kannan <saravanak@kernel.org>, <devicetree@vger.kernel.org>
-Subject: [PATCH 5.10.y] of/fdt: Ignore disabled memory nodes
-Date: Wed, 11 Nov 2026 12:48:17 +0300
-Message-ID: <20261111094817.600994-1-g.osokin@auroraos.dev>
+Subject: [PATCH 5.15.y] of/fdt: Ignore disabled memory nodes
+Date: Wed, 11 Nov 2026 12:48:37 +0300
+Message-ID: <20261111094837.601200-1-g.osokin@auroraos.dev>
 X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -117,7 +117,7 @@ Reported-by: Ross Burton <ross.burton@arm.com>
 Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 Signed-off-by: Rob Herring <robh@kernel.org>
 Link: https://lore.kernel.org/r/20220517101410.3493781-1-andre.przywara@arm.com
-[ Georgiy: 5.10 lacks commit 1f012283e936 ("of/fdt: Rework
+[ Georgiy: 5.15 lacks commit 1f012283e936 ("of/fdt: Rework
   early_init_dt_scan_memory() to call directly"), so the function still
   handles one node per of_scan_flat_dt() call: return 0 instead of
   continue and use initial_boot_params instead of the local fdt. ]
@@ -127,10 +127,10 @@ Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index 384510d0200c..753a2344cfaf 100644
+index 338171c978cc..342fdea26380 100644
 --- a/drivers/of/fdt.c
 +++ b/drivers/of/fdt.c
-@@ -1000,6 +1000,9 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
+@@ -1102,6 +1102,9 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
  	if (type == NULL || strcmp(type, "memory") != 0)
  		return 0;
  
