@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794434117;
-	b=xDrA3oHRgfF0VxaSdEfSuXbIiK+E0FIqVEw29dZon8hNcvGG/aFMDOY6MI9BlvFVQToR
-	 CUXP12RxU5tO9bA8evmfpbOQnVjfa5f9k89CvM+D3KFBCT5RoEHGs6ZLI7cX33lO0Qxcl
-	 G8pHT1LKLHE0jk9hUNAKFXuqmfHALlNMbfDikgCJ7wUmOZbr6Ko78M4iujyCb+RZ/2c5n
-	 MVDdNj9lyMkK3JfxidrtyTh4i+DXTwMVyjZV4WAbwWe3Q+cL2WOnkxD65FUX/kWnDETUf
-	 OHCaioQ/hIB8tgID7PtD4JjC+ejh65pRI7dOt4Up24Dwv13+UuiQXnGe26bA+xJn5Mw==
+	b=eK1kMBCIt9c0aivrrGh98cFT/Dn4G/s605Z2XVemuU+iUx1/kkRUWIaYBMoEREzZIR/K
+	 MhzEOntbYWlbk5530gEiDX3IJXrkrtXh8PhPV8hNlTBf3mQIVpXE0EYz2d1gjN+6T7pPj
+	 OEHyGnBc8U+h7TbmbdcNV0E27WOEqNnCC7CvT/DIQ02K6/mrDdAP+LPuvwrjfLnLbWEzK
+	 k5YCONddNtuo/ecSvyH/w/F94LwXaxorPKjMH5limU8GV7zTo51paqp9rMMBV79IcZGU3
+	 kKw598rbQwr3K/WS1l178C6SuVTK/z0eQvmZ4y2MnzLd5Z6aKMTYcVNNYByP5EeQ+iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794434117;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ne8F0eehElkwG2dLJaUZ77hcl/clOrDRWqC3wdIslBE=;
-	b=bNL0ZbmV9l6aXsHszUrutOf9XXbewRdvMEGmJYQ33yYP8++pH7kV6IJVKBZr01Bfukyr
-	 dqQVq5VietpXOrEvWHMoEw0/1SVzsWdCa89jtQ+I2nT+DBRz5tAYOp+ryRuw3Mt5FQLHn
-	 C85/f0G5goV9jjgxhEgqEB8akuRNyvBeWVLN0gNfXq3dhKQnKaq4jQjJ1bqPYpxVq8GzE
-	 V+a1nexIChYrlLmN4BHlpageSuqodMqKdAWsugtS5QPRhr6fkDshfg9cT0VQR9YK+X08I
-	 QkPbRXKrwNwRhTaAHobQBw8aBpOEhQUaK2UnnYMYoR5WStRzQQPw7dDJpvyvqcG7ubA==
+	bh=lXCkQ5v+MFtbBovaMeOuBEKUnjbT9v29ImOHGGjrqpI=;
+	b=dByIyCh/92U8FHPQRv5t3DY9XUuKjp+xIfzG/W/lM1zZDG0+3Nzuo/j8wT2yqF6xt+Cc
+	 nmctGSvoOaCkpzaRd7EkADRKq8idAZY6FqyLvzv8Yom4A8W0bi/EIbtx5shb/9uCu0v/n
+	 1MkEyG4/7NFqTXlVy7x/zlwE7P1JoXuRdmGU2f7wXNB48a/EIxz3VAR7j4uBn5uclytFG
+	 Eve6SSqOW8yzS+mwxtGtM90tcWGwMi5vsDs5yqmeh10a0pvGEEXsiUrfWDaRSmN8ypqbT
+	 NPT3Y/hmLfoiqsSdEHntOpTasq6RfI0EdDbo4/Wu0Fupx5HgTHyyZiY8ML0Nx5GHoqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCyk9zGd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YtTY6Geh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A0D60A380B
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFAA860A380E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCyk9zGd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441041F00A07;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YtTY6Geh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB921F00A09;
 	Wed, 11 Nov 2026 21:55:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434116;
-	bh=Ne8F0eehElkwG2dLJaUZ77hcl/clOrDRWqC3wdIslBE=;
+	s=k20260515; t=1794434117;
+	bh=lXCkQ5v+MFtbBovaMeOuBEKUnjbT9v29ImOHGGjrqpI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fCyk9zGd1BcPta2RM1N2kDBmMpxGY0OTJOyowfMXiHRiYlGOmIkQsBPLZl0kC9d26
-	 KoNut8D3cZJzHg06IOuIsLMQzx3uQfEIoM1Cw6DPZgnhBqfzSfvkIN3sRA7EPzZcTK
-	 GsVIH9jT0UxaPdcINbpDSCiRhlUPx/QhVhhjIelcgDg/XhfiMCT2YMc+eQN6FIhdtf
-	 OA0IA+0t9bZ2yn8DJJ/CoH/AwXxEeJZjBzjwGYKSGlG6v8xLENdqIGsoofhnKF8tUB
-	 9g5+5s37p8/H8XEkKOzv8dectlfEcPUFGxmlO8XXV24EYc+fKy+uGMuqLZWgKYHgDT
-	 rWrSy+4VQcFIQ==
+	b=YtTY6GehuaHDZlIqDV0S58ebk55XIiJANaUdJBBm3sWBXsz6jtPp8NA55YYxoQ+lS
+	 Eo/TV62G7rRxOlXrezZ3xBblEIW6eD5CchXudfMvSzMtgKmIGtkpQwOoZzlcREfxCW
+	 AF0IOV5d+c6lZ3MZIlORwd9EYWytNomlEGpBFv/CsfVzmDnp7aIVx9mvJbP+KNHeo2
+	 +t4zy7p2+GuIsQ7Rj1JBbnW/ndTv2xclGBOJPCuT/ch8eB5Obvq6YdzAHMJKWRw2LS
+	 xJ/8rqawBIQQMuH+QDefL7QBzVthzmpO6UH8fvJgEtPb5V+s0QIAWbN2aJrR+/vNKv
+	 P4wlsITeLUGbg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Valentin Kindschi <valentin.kindschi@fiveco.ch>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Subject: Re: [PATCH 6.12.y] Bluetooth: hci_sync: pause advertising for the scan address update
-Date: Wed, 11 Nov 2026 16:54:52 -0500
-Message-ID: <2026-11-11-1-daily-reply-0019-c9c2967a3de5df9784c4@kernel.org>
+	Joerg Roedel <joro@8bytes.org>,
+	Joerg Roedel <joerg.roedel@amd.com>
+Subject: Re: Linux-stable backports for IOMMU CVE-2024-21963
+Date: Wed, 11 Nov 2026 16:54:53 -0500
+Message-ID: <2026-11-11-1-daily-reply-0020-75e008cc30c56605257c@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111113716.260959-1-valentin.kindschi@fiveco.ch>
-References: <20261111113716.260959-1-valentin.kindschi@fiveco.ch>
+In-Reply-To: <20261111104001.216548-1-joro@8bytes.org>
+References: <20261111104001.216548-1-joro@8bytes.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,8 +61,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [PATCH 6.12.y] Bluetooth: hci_sync: pause advertising for the scan address update
-Queued for 6.12, 6.6 and 6.1, thanks.
+> Linux-stable backports for IOMMU CVE-2024-21963
+Queued for 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
+
+6.18 already carries the mainline commit, so the 6.18.y patch does not apply on
+top of it. What 6.18 is missing is the one-line Zen6 model-range hunk in
+arch/x86/kernel/cpu/amd.c. Could you send that as a separate 6.18.y patch?
 
 -- 
 Thanks,
