@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794365006;
-	b=BkUhKMCGHlbyxLVpodv3NzZPvCcYL8upp3vNnUDAgE9RAM0LBayyQrZ3zPb06XphJORq
-	 vrj3O27rpIC5KhmHDFlFsp2i9DC18sCq3uJsJOY3NhaQlvTy0L50I+kn9fQUIrnKk/wx+
-	 jrKAMLB6GQ1ldDKWCkaiwqUQDa5K/AMMXAtAwox79WvovZMEmdtyWFsQp0i6g3NzvQ/vL
-	 CscZ8h3bARnWfuH/6uDIyLITcXcdFU5vvaqUYBKPmQRTB3AJBRZcizE3iZrijofpmyJej
-	 pGkA0awsXa/nbUyubiZjeK8MYzVANyv4EBaIyMFcaZPl5HO5lERwH4gQ8bI03PhCfwA==
+	t=1794365007;
+	b=Su6uTLcLOmeNXW9WcT6eZoAJaZ/RUIBpR9ZojyYSM+p9Y4K9Dd/LKcGxfcZQ/fik3lVY
+	 NPqy9uknk9rTcrKlHMnqtlXST0SazTKJ2Yy4JoBK5HYwL3Evawkqu3x9U4SLyx7jffvu3
+	 MgnctADtkz3yRSnJwxtfdKL6noOFQbJYmnz+xIHUz804hf3d72aktZp7q3jYdoMOt+Cpi
+	 gzxxsOX5xOUoNw0mWIxIVF2SVjT0edV30iqq3T2rNPodZnzLDpas8kp9DyaUi0Pe+KBPP
+	 mf1UNbBxdjSDk75vy6/wOBbfu8ynnKxJFsi0LuJPviK/vZnrw9po+58l1wZS+zqK05g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794365006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794365007;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6ROIzQbGX1mehYrlfUqbnwc2d2aM6cHrY043etZKlJM=;
-	b=w4e2YuCE5a5Vczs2ayTbvm+BkGbrsLT6JaEHpOq0mZKbwlfMarT8T/Zz93+MqL0pVTB9
-	 Lf0HFP1lTbIv1Qx66BKUC7bdNaAzKKyHnjaptsbeRBi20Gz3wmM2ipQxjP3NvzkjspBZM
-	 y+1u6wlYkq0/0O/th6hmUx6TmzLijIP1AV+qpvn5UFXDElpU1qSUsMazqVg9Uf4lmiUcw
-	 OJ4NCyjAKNxFk31R8hF5LsPUVObUsp1NStjSDy4bXDjLrUpQYUQYas75yF6AywjkFlWPD
-	 Qkvd38QCU576eQdXKZoivDyvAt/54T1Iwcj/ehtBtttJYsyuaHpjAOf2DhO9Qbf8cYA==
+	bh=iqexURt2gdYvXDlmAvTKLAhUDpgkyU0PctS4kbXx2t0=;
+	b=nlTZDoCnYy8nqhjbavSN6fTE07cX4oeVTKFPnVY4lSWUug5DXDjSJThtRAZZnwH1IiF9
+	 tEZ9wwESUT8qOt4mQDvbuGgRRhFTvAalpBJVWnl57OgaibxkcCa34NAtfW3Z7ejEb8vTz
+	 5r9Rx+DFO/i6/WYyUa1O0zs04CvYk2u1aR8SuTvGybSUlftWWQcqDlGB7n3SszTjOoZko
+	 4FM/jlwenM8Z1Ok4UpXgT5+CszlqgfbM+qW8KCJtDqRRco9T9zr/0cWh27BKHnr+w3rTI
+	 E5nhY3fusClK9rOMDbjqHbbS35wX4RuKPiPuRM0sUdx271Kx+tV20YmCo+k0mUJHqZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Go+t1pqy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOE+BBLi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C0F606A32E
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:43:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274C5606A32E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:43:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Go+t1pqy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14031F0093C;
-	Wed, 11 Nov 2026 02:43:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOE+BBLi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844C51F00A05;
+	Wed, 11 Nov 2026 02:43:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794365006;
-	bh=6ROIzQbGX1mehYrlfUqbnwc2d2aM6cHrY043etZKlJM=;
+	s=k20260515; t=1794365007;
+	bh=iqexURt2gdYvXDlmAvTKLAhUDpgkyU0PctS4kbXx2t0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Go+t1pqyHcAdGanqUHIbj5QP/GMD8a/11EEQc36P7N8FlNEqbTV+ujeNcUdrWgD+H
-	 Dq6cUCkETLpe7FM0+GnPL/WHVnSsP0iDJMrHGdsPsJY/jJfdgMgCmNTvcWelO5DSUo
-	 Vpbs8oP/H1ohLG8QAmTQcjnllpoXZadPeA9y1BVu2zSSp57UE6FzGCmmmy1w7Q5yHZ
-	 ukBfyfLIhvFBxGp2abryR3rxNzGskpFf4UuYHtao4xrkQM9c+WfhLsnNOCadQpBRSq
-	 EOwnwm2EKrZbBUvsxCiIcBjPvouZfKO7rJZHLEOvBi+brRF7vctjG8WeeE9FiK0+1S
-	 X71BmgwrczvaQ==
+	b=WOE+BBLiqVTGxTk2X8lcDIACyR4YUBEZldBqBEHVG4QRzbx6GkMxr2dMySZeBTtSE
+	 HnWbarJr8Pb8frXyzJ8Z82VA80cMB8dAKoypTfa4ZTKNCH/GdH1WVcMVIKC3AzAF4l
+	 Q7qSuUK0fa7Urq27rWzBkMCp3gwBCuewUeyHTB33/jae5c+Lvu3wZDC0x5DyccOBr9
+	 w5HiSbH6f5FulBpftFGDeUzKmEBg9McVWPHktcVyJSqw6+kZUcJwLSb4Mh7QKTP2Qu
+	 bGqGao69Ykj2LjKFOiu65TYc1YJQehZHWIuKdSNn8t2HF8RvZkr/PF+F48nEYZsUqJ
+	 vC276+NtIFOaA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Sean Christopherson <seanjc@google.com>,
+Cc: Mateusz Guzik <mjguzik@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/5] KVM: pfncache: include page offset in uhva and use it consistently
+Subject: [PATCH 6.18.y 4/6] fs: provide accessors for ->i_state
 Date: Tue, 10 Nov 2026 21:43:21 -0500
-Message-ID: <20261111024039.676658-3-sashal@kernel.org>
+Message-ID: <20261111024017.675599-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111024039.676658-1-sashal@kernel.org>
-References: <20261107052838-failed-6.6-eacdb76c5f04@kernel.org>
- <20261111024039.676658-1-sashal@kernel.org>
+In-Reply-To: <20261111024017.675599-1-sashal@kernel.org>
+References: <20261107051338-failed-6.18-8ee09f597763@kernel.org>
+ <20261111024017.675599-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,115 +62,163 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paul Durrant <pdurrant@amazon.com>
+From: Mateusz Guzik <mjguzik@gmail.com>
 
-[ Upstream commit 406c10962a4cbb1e04aa7993ea466db1a4533ae4 ]
+[ Upstream commit d8753f788ab4916341d9fab81795be9f2f49c264 ]
 
-Currently the pfncache page offset is sometimes determined using the gpa
-and sometimes the khva, whilst the uhva is always page-aligned. After a
-subsequent patch is applied the gpa will not always be valid so adjust
-the code to include the page offset in the uhva and use it consistently
-as the source of truth.
+Open-coded accesses prevent asserting they are done correctly. One
+obvious aspect is locking, but significantly more can checked. For
+example it can be detected when the code is clearing flags which are
+already missing, or is setting flags when it is illegal (e.g., I_FREEING
+when ->i_count > 0).
 
-Also, where a page-aligned address is required, use PAGE_ALIGN_DOWN()
-for clarity.
+In order to keep things manageable this patchset merely gets the thing
+off the ground with only lockdep checks baked in.
 
-No functional change intended.
+Current consumers can be trivially converted.
 
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
-Link: https://lore.kernel.org/r/20240215152916.1158-8-paul@xen.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Stable-dep-of: eacdb76c5f04 ("KVM: x86/xen: Enforce 4-byte alignment of vcpu_info registration")
+Suppose flags I_A and I_B are to be handled.
+
+If ->i_lock is held, then:
+
+state = inode->i_state  	=> state = inode_state_read(inode)
+inode->i_state |= (I_A | I_B) 	=> inode_state_set(inode, I_A | I_B)
+inode->i_state &= ~(I_A | I_B) 	=> inode_state_clear(inode, I_A | I_B)
+inode->i_state = I_A | I_B	=> inode_state_assign(inode, I_A | I_B)
+
+If ->i_lock is not held or only held conditionally:
+
+state = inode->i_state  	=> state = inode_state_read_once(inode)
+inode->i_state |= (I_A | I_B) 	=> inode_state_set_raw(inode, I_A | I_B)
+inode->i_state &= ~(I_A | I_B) 	=> inode_state_clear_raw(inode, I_A | I_B)
+inode->i_state = I_A | I_B	=> inode_state_assign_raw(inode, I_A | I_B)
+
+The "_once" vs "_raw" discrepancy stems from the read variant differing
+by READ_ONCE as opposed to just lockdep checks.
+
+Finally, if you want to atomically clear flags and set new ones, the
+following:
+
+state = inode->i_state;
+state &= ~I_A;
+state |= I_B;
+inode->i_state = state;
+
+turns into:
+
+inode_state_replace(inode, I_A, I_B);
+
+Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 8ee09f597763 ("fs: rotate inodes whose page cache could not be dropped")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- virt/kvm/pfncache.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+ include/linux/fs.h | 78 ++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 76 insertions(+), 2 deletions(-)
 
-diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
-index 00e982e5c90d0..c779aa4c75b56 100644
---- a/virt/kvm/pfncache.c
-+++ b/virt/kvm/pfncache.c
-@@ -83,10 +83,10 @@ bool kvm_gpc_check(struct gfn_to_pfn_cache *gpc, unsigned long len)
- 	if (!gpc->active)
- 		return false;
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 349b7fc57db36..09cbcfbf295f6 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -759,7 +759,7 @@ enum inode_state_bits {
+ 	/* reserved wait address bit 3 */
+ };
  
--	if (offset_in_page(gpc->gpa) + len > PAGE_SIZE)
-+	if (gpc->generation != slots->generation || kvm_is_error_hva(gpc->uhva))
- 		return false;
+-enum inode_state_flags_t {
++enum inode_state_flags_enum {
+ 	I_NEW			= (1U << __I_NEW),
+ 	I_SYNC			= (1U << __I_SYNC),
+ 	I_LRU_ISOLATING         = (1U << __I_LRU_ISOLATING),
+@@ -843,7 +843,7 @@ struct inode {
+ #endif
  
--	if (gpc->generation != slots->generation || kvm_is_error_hva(gpc->uhva))
-+	if (offset_in_page(gpc->uhva) + len > PAGE_SIZE)
- 		return false;
+ 	/* Misc */
+-	enum inode_state_flags_t	i_state;
++	enum inode_state_flags_enum i_state;
+ 	/* 32-bit hole */
+ 	struct rw_semaphore	i_rwsem;
  
- 	if (!gpc->valid)
-@@ -140,7 +140,7 @@ static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_s
- static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
+@@ -904,6 +904,80 @@ struct inode {
+ 	void			*i_private; /* fs or device private pointer */
+ } __randomize_layout;
+ 
++/*
++ * i_state handling
++ *
++ * We hide all of it behind helpers so that we can validate consumers.
++ */
++static inline enum inode_state_flags_enum inode_state_read_once(struct inode *inode)
++{
++	return READ_ONCE(inode->i_state);
++}
++
++static inline enum inode_state_flags_enum inode_state_read(struct inode *inode)
++{
++	lockdep_assert_held(&inode->i_lock);
++	return inode->i_state;
++}
++
++static inline void inode_state_set_raw(struct inode *inode,
++				       enum inode_state_flags_enum flags)
++{
++	WRITE_ONCE(inode->i_state, inode->i_state | flags);
++}
++
++static inline void inode_state_set(struct inode *inode,
++				   enum inode_state_flags_enum flags)
++{
++	lockdep_assert_held(&inode->i_lock);
++	inode_state_set_raw(inode, flags);
++}
++
++static inline void inode_state_clear_raw(struct inode *inode,
++					 enum inode_state_flags_enum flags)
++{
++	WRITE_ONCE(inode->i_state, inode->i_state & ~flags);
++}
++
++static inline void inode_state_clear(struct inode *inode,
++				     enum inode_state_flags_enum flags)
++{
++	lockdep_assert_held(&inode->i_lock);
++	inode_state_clear_raw(inode, flags);
++}
++
++static inline void inode_state_assign_raw(struct inode *inode,
++					  enum inode_state_flags_enum flags)
++{
++	WRITE_ONCE(inode->i_state, flags);
++}
++
++static inline void inode_state_assign(struct inode *inode,
++				      enum inode_state_flags_enum flags)
++{
++	lockdep_assert_held(&inode->i_lock);
++	inode_state_assign_raw(inode, flags);
++}
++
++static inline void inode_state_replace_raw(struct inode *inode,
++					   enum inode_state_flags_enum clearflags,
++					   enum inode_state_flags_enum setflags)
++{
++	enum inode_state_flags_enum flags;
++	flags = inode->i_state;
++	flags &= ~clearflags;
++	flags |= setflags;
++	inode_state_assign_raw(inode, flags);
++}
++
++static inline void inode_state_replace(struct inode *inode,
++				       enum inode_state_flags_enum clearflags,
++				       enum inode_state_flags_enum setflags)
++{
++	lockdep_assert_held(&inode->i_lock);
++	inode_state_replace_raw(inode, clearflags, setflags);
++}
++
+ static inline void inode_set_cached_link(struct inode *inode, char *link, int linklen)
  {
- 	/* Note, the new page offset may be different than the old! */
--	void *old_khva = gpc->khva - offset_in_page(gpc->khva);
-+	void *old_khva = (void *)PAGE_ALIGN_DOWN((uintptr_t)gpc->khva);
- 	kvm_pfn_t new_pfn = KVM_PFN_ERR_FAULT;
- 	void *new_khva = NULL;
- 	unsigned long mmu_seq;
-@@ -219,7 +219,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 
- 	gpc->valid = true;
- 	gpc->pfn = new_pfn;
--	gpc->khva = new_khva + offset_in_page(gpc->gpa);
-+	gpc->khva = new_khva + offset_in_page(gpc->uhva);
- 
- 	/*
- 	 * Put the reference to the _new_ pfn.  The pfn is now tracked by the
-@@ -244,6 +244,7 @@ static int __kvm_gpc_refresh(struct gfn_to_pfn_cache *gpc, gpa_t gpa,
- 	bool unmap_old = false;
- 	unsigned long old_uhva;
- 	kvm_pfn_t old_pfn;
-+	bool hva_change = false;
- 	void *old_khva;
- 	int ret;
- 
-@@ -269,10 +270,10 @@ static int __kvm_gpc_refresh(struct gfn_to_pfn_cache *gpc, gpa_t gpa,
- 	}
- 
- 	old_pfn = gpc->pfn;
--	old_khva = gpc->khva - offset_in_page(gpc->khva);
--	old_uhva = gpc->uhva;
-+	old_khva = (void *)PAGE_ALIGN_DOWN((uintptr_t)gpc->khva);
-+	old_uhva = PAGE_ALIGN_DOWN(gpc->uhva);
- 
--	/* If the userspace HVA is invalid, refresh that first */
-+	/* Refresh the userspace HVA if necessary */
- 	if (gpc->gpa != gpa || gpc->generation != slots->generation ||
- 	    kvm_is_error_hva(gpc->uhva)) {
- 		gfn_t gfn = gpa_to_gfn(gpa);
-@@ -286,13 +287,25 @@ static int __kvm_gpc_refresh(struct gfn_to_pfn_cache *gpc, gpa_t gpa,
- 			ret = -EFAULT;
- 			goto out;
- 		}
-+
-+		/*
-+		 * Even if the GPA and/or the memslot generation changed, the
-+		 * HVA may still be the same.
-+		 */
-+		if (gpc->uhva != old_uhva)
-+			hva_change = true;
-+	} else {
-+		gpc->uhva = old_uhva;
- 	}
- 
-+	/* Note: the offset must be correct before calling hva_to_pfn_retry() */
-+	gpc->uhva += page_offset;
-+
- 	/*
- 	 * If the userspace HVA changed or the PFN was already invalid,
- 	 * drop the lock and do the HVA to PFN lookup again.
- 	 */
--	if (!gpc->valid || old_uhva != gpc->uhva) {
-+	if (!gpc->valid || hva_change) {
- 		ret = hva_to_pfn_retry(gpc);
- 	} else {
- 		/*
+ 	VFS_WARN_ON_INODE(strlen(link) != linklen, inode);
 -- 
 2.53.0
 
