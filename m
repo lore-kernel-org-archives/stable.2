@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794419371;
-	b=QiOxFVguRjMwWHmAFYAj9/K48zVAJAPEDQV+5h2F3rRFfTPehhefn0DrvKxXoZomzniR
-	 j2FPQyyliOQfzdOeFVdladza5y2afdK1kB1j+y4y8KZvRwFF5BbJW1l0mGQsjobM6QSsk
-	 JDTd+MnvdZ+QwOXoZwk7Vp0Dj4Q0/grpN/Qr39azi7ytlsqUPo3eEu2TcwR9pcUG4KkNU
-	 yh3EdCyoqD+EkdyryAIvVNgBtccfgtw2zaPaaj4HlTQ6aKmyMY8qX6QlcEDTYRXQJa8iQ
-	 zmIplPaPFzjtU38p2/vd69B8IlYgyEiQ6pcsLYXpxHdqn6zKFOV7AZ/YOB2NzaKHI2w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419371;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
-	b=vtLaOxOANgyptU0wyvQqQibomb4H+m+mF5tnlmHE7wG4qKPfOWWsoGp9A7/BLt46FTF7
-	 Hy9tdMuMCFU59PKujrvvwvV0kRvbJLB272oyMBK2nlSt5G7cdlv/5QBr6YZTTYMN4GOii
-	 P6uRwNEv7GYGrSNKGuu2EA8iw00bg5LPQQ5ZWJwWXzB+8XZ0KnZT+xmVcdntUAOd4R6RM
-	 FfeBjZqgYKfP9mpbV9hhtyfHmGIDZpnUShvTTtwIAXWfSNmY/Lm5kmryY7sH8b4E7yShG
-	 +d+U1yn72wFN/3IzeZn8+vuID9kUXXcqv5xMG/waBJOcyPtsyiDN+6OzhCssiqjg86A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WmWdrLTA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794419388;
+	b=jipiOI62eWx57EliSA7uAwzjD5uTrJ9361GlzTPl5yDpYrHvd19r0+O6QhCiNG/XRndZ
+	 hkSnkQrhnY/wWsnvgcQJaVLCpDZdNOoYr8nMMI+1F7woy8wgY0q9KMpU/htbeUUx10a4p
+	 t+cAHHVoUAJt/67rgnq6b6far2dylDatJOIMYyBpbQdDmG2vPHdtOpsFVnK37lCGBmmqq
+	 RTlCq8HzZgkHqa4X3dDhiqG20cewid+iyRopY+oLYF59hqqGoEmy20n/LYEbSg7hCuZtE
+	 u0k/6JvzwMjtGbj9c0hvWrtV1Noh7PIF8wEh21lcKAmq+TEDvJiNHZPlv/gQ8cswcKg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419388;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=urTcQ13koFRYQxvx3+1awm06YxW2thycTA5i5g41OAM=;
+	b=h1NEyJFjtThZ2GBKhgADVbUdGI4ISMlVhVIi3cY9As6O6j3xdSzV0T5qZvlX19AE73DI
+	 2jx7QerAnNm+m4IXkkKdja/w3QXoN4FZlGnAFarJJsP+MbwTqg4fAPrEUpzBZ8CbiMXHM
+	 8+UyHDiXVlaLny5t5cZ32AUqdvFVBCTKmq/+4E/OSAhzkNgN9hOZQ/WNFJorky1nlaCDL
+	 hv0/5jgdHtouaxgZ97MH+MV61FLsKyWljieB48CHgOFsgT1lq4j8tufvf5H5xCXGXOj0X
+	 4vAFM+asdWvzkx2iZ2UHa2JMtfeGUSn8kQakLgkcTzBm8UfxZ1uvcq3coqdweXRjVTg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AvykjvDP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD1C606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:49:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFD1C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB10A606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:49:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WmWdrLTA
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36f8cdd30beso6052479eec.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:49:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794419370; cv=none;
-        d=google.com; s=arc-20260327;
-        b=K8WoulxERzaefQ5bfRDaTnNAZ63icpJefOMfNZmnqOJB70n50RjmOhLsD69d92rmHf
-         a6Lwmeej7vPmAFX4tcJHOKNzOQKa5ZRVUt21chFUeNPFwIhJuw+jL5GtMyC2+T6xrSvp
-         FCrWF7P3Q97wVCHvV40xXmK+aJ1cx6JE6hXGS7UGgVMTw7msHpl4QTVaTbuC51j7OXW3
-         H9boQjXV0vhvD6O2pZka8QsYsSLxzcfRwJ9zH6XgDWRiMkez7y37PD79TYp+h97KwbJT
-         FGAntzoEyXWDtq5LgKf4INRKNT60BeZfxTKaHaxx3XUBIzt8PbmYyXkuDc+e7qavrVkG
-         7U4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
-        fh=VMXA4VojjXEEb5aFIz9DxwumyFPWewyAE9X/zrcunOs=;
-        b=fLt1eaVeKWZBS1n/+f2Z2Ncle9OVWAXdhvF4qBugGvHRJOybfAZSWD9GaIfxywi134
-         3gJCEoTEcXCK5bVktqmYz+9oosdPhlOCMiKz+ahHOc8tZOdIVbn7cjW4MgKE/gWX++vA
-         2CXWRsy4MYjUCgJur3zWtWLQxpfZMpIQnA4yJOlrgVc1zuAhQY8J6DlryglcPKp2HLGb
-         V49XfHmJ5Gvj1y2kqix/sVQGLlRaUGRZOqoYWcDWSsHRt/JAdKuWo1Juy+AKeoUkEh/3
-         NlWRNTFMEPOrPLMrFlhtz7XbQKeQpWy8g4LjdbH67unB8s7xDUypmSMQ4f5c6j4Ro2S0
-         fZig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794419370; x=1795024170; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
-        b=WmWdrLTAMz51OJvfqBlkxREe8w5ZZlX9pq5Mjk5ePhW52XUz38wj54Wyp/6Cr+DzGx
-         JE+M3cZnUA7GzUAg9Mh11pxcBWfvK8CNRumwG+ZBobsrVgMVIhNFrioxpuuNf611MGW7
-         M/9qJ5zDbvTzNUbDPk5V4iaDpMjLnici/uUiv5ZleuEg0UHmdhIDV2GKxkU8+12wPyr5
-         E5xPiVS+YqxcGj9LWIPoOdIkVgnjzm4LBAupubZHdmjcSeDd6e4k4H00WJsHnKyUW8Qu
-         7L6pqAG2oymoUQuCLLlGG4XYXywN7E4TsjOwfyhs0yMcG1W1y9TlGPeW6JUpjOVrSddl
-         M79Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794419370; x=1795024170;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=P0LlEVmtKbYkhBHowVJUvrAVEwB7x6mCjbop+wAsjGs=;
-        b=ro9y19NMgJXXfFPHxDKH3UvzKPm6xW+O/IYUXFcUNVvVwkIX5waFzd+gEaxBrHTWmg
-         HVF55Gt62svyZQXf5C1WoPzpXlbefYqNBUAOaedb3F0cKS4AC8oLvDkY4HPoq/4DYcMn
-         iwJpEaolyF17XjDPuOVLdcZYyPwQL5Pz30vSbv9MSI7FdSvnsrbxEm0ek/93qmP3p6GY
-         874QrO6rl+A5TdTMdXvduRuCCzfNyBln/OUyBkmZlHBI8rvQ/YAzEO0/HYjtmxFiyI9I
-         p3Pvyex1uhItfS4eljYJuZcFV+j9mRkldCvfOyHzSnQe+yMOVLIl3FJe6xSTooTy1KGN
-         fixQ==
-X-Forwarded-Encrypted: i=1; AL+hErE9Xm7Sd7xxR//rBJq+iED3IvIoWoJevCPuiN7LNmJHmqO9kocQh4y461I6dJANF8xN5RsmHbc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iABCaJxEPOSxUP5nlLf00veH9c3C6OLv130nc41PTFYr3giRf
-	gASSYtrSIT+V29ZLQDx0lg9W0KelPk9h1hRv8d4btC/w8OjsxYjdVTsYiltRz8reXhhtap+wu1c
-	YnoPKaZulWtuJ34HV1/6blwIrQhcOB4+TIlJBwta3fA==
-X-Gm-Gg: AYBFou0sF2PPr/i77DifUlHL0VjgtKf0OF+gYnVwaWzKGFd54ALCNalMObIyv0Qqv2p
-	RN8L6cMSi6a6iH9gwmBpTRuy4yar78Yg3+yBshXyF6skrIk46EMXnOkoXSeogEpuPqhJpkiez4V
-	Oe68mSL/wVccmg+kQio2FJNkW6oWXRox5AbhQ9dhGNSVAa6O9VwgXrNa4K7svq2C+/fl3y1qO+S
-	MVBVQlZhhLrdEUN0bAs6itCL5/f1xUcfQO1/S70V/K6kJYxQJLyOSaaGKBNJj7l4iAFPWKO5Fxr
-	Fjmp5XNJX8tDI7cz2uSHC/88cAur5t32rSDslVeo6UHNvh3dacNjDh3VahmUpqC7DalRlgXWODF
-	fLb9Oiv/0JVwLytA8pcJ55ySF5E/L2FPxrehxzAkDNWRXLzpALXcRgicCKS5S31URaN0SJ5vY2Q
-	3Zd0NeWfBAMtxq8puDqFDlkqFIsg==
-X-Received: by 2002:a05:693c:65cf:b0:375:fb27:2c59 with SMTP id
- 5a478bee46e88-376861744d2mr3628461eec.20.1794419369880; Wed, 11 Nov 2026
- 09:49:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AvykjvDP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03261F00A05;
+	Wed, 11 Nov 2026 17:49:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794419388;
+	bh=urTcQ13koFRYQxvx3+1awm06YxW2thycTA5i5g41OAM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AvykjvDP7khYfxNnSgRD2M62/HYDnU4Hi4ZTzETG7W1HzkmssxSEzHVB4OxAsTrKH
+	 1TACf7S0jX7Za2Gh/NBmv8APIbwzhUBmr4SfFRodqZAtAseVVWDSEM5csEZcdP9U47
+	 /KQJes7otJtOuAi8ZW4fmf00QvruPyZkFarGawSA4HwN0rLUsevn8unZEjWuhwlGxR
+	 2cAHI4JsDsMdLBUEhQ3cj6EQ/FEvG2Vs6D7tym85gNY0vM09/R79knjXgUci2XUiWF
+	 fOeEP5XAiew3v6+nzArPNhdewz7OcNlrlQn//xaOSvXAS6DkjGSTkNLfeN9Xpaigf8
+	 WbJfLhQGseLXQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] KVM: arm64: Turn vcpu->arch.pause into a counter
+Date: Wed, 11 Nov 2026 12:49:46 -0500
+Message-ID: <20261111174927.3663842-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107062353-failed-5.10-e64309198eda@kernel.org>
+References: <20261107062353-failed-5.10-e64309198eda@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,32 +59,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com> <e4a20579-2576-4c2e-9120-b675a175a1da@lunn.ch>
-In-Reply-To: <e4a20579-2576-4c2e-9120-b675a175a1da@lunn.ch>
-From: Joas Antonio <joasantonio108@gmail.com>
-Date: Wed, 11 Nov 2026 14:49:17 -0300
-X-Gm-Features: AclHuK9J4PRZYynpn60Trwp0oScnHBsKAesx94T00Mrc6mS2wm4jqy4_tDb4sVM
-Message-ID: <CAOCBhwE84F8ZTAVXwxKEpZz06q3KvD12FkeXp6Nn+MXoUYOWfg@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: usb: smsc75xx: reject frames without a full
- header and FCS
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: steve.glendinning@shawell.net, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	netdev@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> What is the value of FLAG_RX_ASSEMBLE in flags?
+From: Marc Zyngier <maz@kernel.org>
 
-It is not set, smsc75xx_info has
+[ Upstream commit e64309198eda29415a95113def92aa40196cd422 ]
 
-        .flags = FLAG_ETHER | FLAG_SEND_ZLP | FLAG_LINK_INTR,
+We have situations where we can call kvm_arm_halt_guest() without
+holding config_lock, which means that halt and resume can overlap in
+funny ways when called from separate contexts, and result in situations
+where a vcpu is resumed while other parts of KVM assume it is halted.
+Consequences are left to the imagination of the reader.
 
-so usbnet counts rx_errors when smsc75xx_rx_fixup() returns 0.
+Fix this sorry situation by turning kvm_vcpu_arch::pause into an
+atomic counter, which makes the races described above harmless.
 
-> Should rx_length_errors also be incremented?
+Fixes: 3b92830ad41b2 ("KVM: arm/arm64: implement kvm_arm_[halt,resume]_guest")
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261015100539.1011760-5-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ sashal: adapted pause handling to existing power_off checks and vcpu_req_sleep(), retaining direct rcuwait_wake_up() calls ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/arm64/include/asm/kvm_host.h |  2 +-
+ arch/arm64/kvm/arm.c              | 13 +++++++------
+ 2 files changed, 8 insertions(+), 7 deletions(-)
 
-Yes, I will add that to the new check in v3.
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 48ee1fe3aca40..16062b15131cf 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -354,7 +354,7 @@ struct kvm_vcpu_arch {
+ 	bool power_off;
+ 
+ 	/* Don't run the guest (internal implementation need) */
+-	bool pause;
++	atomic_t pause;
+ 
+ 	/* Cache some mmu pages needed inside spinlock regions */
+ 	struct kvm_mmu_memory_cache mmu_page_cache;
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 528229636c635..198141e2ecfc8 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -289,6 +289,7 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
+ 	kvm_arm_pvtime_vcpu_init(&vcpu->arch);
+ 
+ 	vcpu->arch.hw_mmu = &vcpu->kvm->arch.mmu;
++	atomic_set(&vcpu->arch.pause, 0);
+ 
+ 	err = kvm_vgic_vcpu_init(vcpu);
+ 	if (err)
+@@ -447,7 +448,7 @@ int kvm_arch_vcpu_runnable(struct kvm_vcpu *v)
+ {
+ 	bool irq_lines = *vcpu_hcr(v) & (HCR_VI | HCR_VF);
+ 	return ((irq_lines || kvm_vgic_vcpu_pending_irq(v))
+-		&& !v->arch.power_off && !v->arch.pause);
++		&& !v->arch.power_off && !atomic_read(&v->arch.pause));
+ }
+ 
+ bool kvm_arch_vcpu_in_kernel(struct kvm_vcpu *vcpu)
+@@ -589,7 +590,7 @@ void kvm_arm_halt_guest(struct kvm *kvm)
+ 	struct kvm_vcpu *vcpu;
+ 
+ 	kvm_for_each_vcpu(i, vcpu, kvm)
+-		vcpu->arch.pause = true;
++		atomic_inc(&vcpu->arch.pause);
+ 	kvm_make_all_cpus_request(kvm, KVM_REQ_SLEEP);
+ }
+ 
+@@ -599,8 +600,8 @@ void kvm_arm_resume_guest(struct kvm *kvm)
+ 	struct kvm_vcpu *vcpu;
+ 
+ 	kvm_for_each_vcpu(i, vcpu, kvm) {
+-		vcpu->arch.pause = false;
+-		rcuwait_wake_up(kvm_arch_vcpu_get_wait(vcpu));
++		if (atomic_dec_and_test(&vcpu->arch.pause))
++			rcuwait_wake_up(kvm_arch_vcpu_get_wait(vcpu));
+ 	}
+ }
+ 
+@@ -609,10 +610,10 @@ static void vcpu_req_sleep(struct kvm_vcpu *vcpu)
+ 	struct rcuwait *wait = kvm_arch_vcpu_get_wait(vcpu);
+ 
+ 	rcuwait_wait_event(wait,
+-			   (!vcpu->arch.power_off) &&(!vcpu->arch.pause),
++			   !vcpu->arch.power_off && !atomic_read(&vcpu->arch.pause),
+ 			   TASK_INTERRUPTIBLE);
+ 
+-	if (vcpu->arch.power_off || vcpu->arch.pause) {
++	if (vcpu->arch.power_off || atomic_read(&vcpu->arch.pause)) {
+ 		/* Awaken to handle a signal, request we sleep again later. */
+ 		kvm_make_request(KVM_REQ_SLEEP, vcpu);
+ 	}
+-- 
+2.53.0
 
-Thanks for the review,
-Joas
