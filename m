@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794410500;
-	b=I1ddNcUBPHy5Hese26Q8R3vaQerHmX+iSeHkJjBt947X5/vzJwMNT/ht12dqFEYSJycC
-	 kgvAt7HUp6IHQTbbHhAw3fPY5mQ4hz4H5dufgLT4AErZ4VLHjGHPL09RKi/KenQetH5ia
-	 gR3Mf1NqixJpXmuEWbVBnD69aOk7TrQJ9KZIuMudnY7HNDDH7eWRR6Rw9JKj5PVoiB5s2
-	 kbdnKfPv29qGVBeElnCCBgos6eoAjGaAsrFKjbeg8lfAYjTiuOPUNP/HQWSFjpbumCxW/
-	 TVvt4vtRAWj7jZpRTiyP3wd5mPkWQXIHBHgR+STXzqsUn52b8D+YrfvKBz8kOY84kyw==
+	t=1794410501;
+	b=z/9SUi/hirLWBS5GA40d5/UnCp3ApuNEXyzdUQx8UyMbapE8+XONOvAgxM2fgnHVU9Mk
+	 arNKjMQiraOIKQFd9ycJmqp82kiB7aUN+GGhHpOqCplAlA+roOB9j27QVJVBiHyUN7SAJ
+	 hAV+GnOf6atq/A0Z5svMNacciCHQHskOAjUGGRZhaN22GHyLDfJmrdXfSyEXw8/O8SvP0
+	 RV/MiW+KHFz86/ehwym8mGgas/p+HT9LsfnSguAgQ1IR7Bd5MAMaYzFdsLAz0Nn6fWzsE
+	 VTCOmeVG8KGIoBhFmB9T2JMHEzJlOcxAHWyZo2mU5JrgQisoADjEuYsGothRjfqUa9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410500;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410501;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GPArO0mrg49sftABkRMXyC5qoluNGdoA73xdGW23tuY=;
-	b=UdtyIkbFEMdlpcGmIkBu+htXTdGlzYpDqQBmLcYRtZ4ipED9YC76047MOnBwjI++2Bd2
-	 +Sg3tjhWtWQXeqZImquwJc4Pc20zntjMc6zXD9bDAjEzMh/KJWnhwSomKq67CfUCKWwqN
-	 I8sIkEMjs+AhjlyW/nsoju1YJ2LIigY8pdGANk/XQ3wLgzZ9vhm0yZ1LwxJ+owHbcnOkR
-	 JJ52DA5QaCnLsSXFODDIChJcRgur4vAXg7+VylRCcecQVAfuGP6HeQcLDxkT/SqDNf8fA
-	 QUrtvq7VpwuI2UBcG2rM+iUr6+yyBj48cQXYHztQEt+Kmtu2g4Om/bed4+2kYm4QQpA==
+	bh=o8KNc9JOJS83pScwXoRQ22XMHt3tAFapVp5es8/9Kcc=;
+	b=Zy+frrvVByEJiZF3lW5E6rXZbC4xrZbQRIGtNw6FGoba873Ar7zbNMrj4nkcXhjzxm0V
+	 JVNd9Kpir6xST9Bi6gFuloyHY6fK0vmHEOHc/MCjMatD/zveOcF0IIYbd3rU16JlSAaVq
+	 cE8HKDCLmFLDGkyD68T9cH88VbccHGIy3YYgT2kRr3+HQkgEYFY4YLwxRRFhzqX/CRfgV
+	 nmkN2moPlgbQR84d0NABDJzsYCw45oxwmf1s9X39OGi7jpG71Qj4Ox23FtOwX+GkclmA8
+	 uHMfc8U3WKo8ee6eyMz5pwWovrSXQoqv6pgIy9P9aMThG8UA5U38TmMPtAahizkTZ4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pto0Pvqa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRtyGuv2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B20606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44F4606A32E
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pto0Pvqa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42F611F00A05;
-	Wed, 11 Nov 2026 15:21:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DRtyGuv2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21D721F00A06;
+	Wed, 11 Nov 2026 15:21:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794410499;
-	bh=GPArO0mrg49sftABkRMXyC5qoluNGdoA73xdGW23tuY=;
+	s=k20260515; t=1794410500;
+	bh=o8KNc9JOJS83pScwXoRQ22XMHt3tAFapVp5es8/9Kcc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pto0PvqaRaug4cIWDCZIcmtnndpVjjXJLp9k77P1N3YkmAiXu1CuoF8wrXW5rVbjf
-	 QvXnyTZxx2W2CL5yit6JTm4ZfSf4It9ojhtiEc4wQhJYhUdbufp8/i6NJSLV4H1jVL
-	 ukT/SAWjDp66JREpCTqlXkjRLsRJ6tbaOHvbCWh9FiXpyUbuBC8B/88XGh1s7zMYjz
-	 Ws5x4O9DwLOa2eU4foAQAcrNhHMIYMW3xXHFA2TVg6KSp5BkkvTAC1TOAQGHs0T3Rg
-	 w83Xo7iXc/fWRFQw+V5u5nvoae2TJPmepyG3Od67MlIwHezlyJy4D8mYQi9c5Lx7PB
-	 SuwY+024c4onw==
+	b=DRtyGuv2jKC0Sc5UlwVMPCJx7RTxWxbqztXsuHoVdDfF+pH/Ww0aFHdQKUpuddOPn
+	 g0f6Ekhngx1JHuUnQARfohyNSJn2LjfHOlRV0O821DrqD0ucSyGumQ/QRjPIdPdm8l
+	 RV6pLz3wqj6wvE2+G0CsgEWmV0Te4Fcw1mpX6qtkUP2Ku3ih8sIkf3yAqthtsXaQOJ
+	 AVHqyIYhSDMuOsHb6lK6knXnN6QjhqiMg4EXVipHCVlh3xLqNd/JVL+bMsf/KvxDm5
+	 F67e2TGRSXZ5Z0sCQenTn4nAsVr/0u0RCLUsPfvMqX8L4y+50eMsTOo1BF1LdVw4I7
+	 DZHVpN9Sp1tCA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Borislav Petkov (AMD)" <bp@alien8.de>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Jonathan Corbet <corbet@lwn.net>,
+Cc: Yingjie Wang <1075151112@qq.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] Documentation/kernel-parameters: Move the kernel build options
-Date: Wed, 11 Nov 2026 10:21:36 -0500
-Message-ID: <20261111152043.2571247-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] nvmet-tcp: validate the TLS handshake timeout
+Date: Wed, 11 Nov 2026 10:21:37 -0500
+Message-ID: <20261111152043.2571247-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051540-failed-6.18-799203afd298@kernel.org>
+In-Reply-To: <20261111152043.2571247-1-sashal@kernel.org>
 References: <20261107051540-failed-6.18-799203afd298@kernel.org>
+ <20261111152043.2571247-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,243 +64,139 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Borislav Petkov (AMD)" <bp@alien8.de>
+From: Yingjie Wang <1075151112@qq.com>
 
-[ Upstream commit f690e07859e67505e7106ef5b4fae5e8b71b2109 ]
+[ Upstream commit e3e7a85730a4b17efa1e2ff4088443c4753be683 ]
 
-Move the kernel build options abbreviations to the .txt file so that
-they are together instead of one having to go hunt them in the .rst
-file.
+tls_handshake_timeout is writable but stored as a signed int. Multiplying
+the value by MSEC_PER_SEC and HZ therefore uses signed arithmetic.
 
-Tweak the formatting so that the inclusion of kernel-parameters.txt
-still keeps the whole thing somewhat presentable in the html output too.
+With HZ=1000, setting it to 2147484 overflows both multiplications. If
+the handshake request is accepted and remains pending, the timer wheel
+treats the jiffies delay as already expired and queues the timeout work
+on its next advance, while the handshake agent was given about 24.9
+days. Negative values such as -1 cause the same immediate kernel-side
+timeout.
 
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-Signed-off-by: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20251112114641.8230-1-bp@kernel.org>
+Store the parameter as an unsigned int and reject values that cannot be
+represented both by tls_handshake_args::ta_timeout_ms and by a safe
+jiffies delay. Take one snapshot so a concurrent parameter update cannot
+give the handshake agent and delayed work different timeouts. Document
+the accepted range for built-in use.
+
+Negative and oversized values now fail with -EINVAL. Keep zero valid,
+preserving the existing immediate-timeout behavior.
+
+Fixes: 675b453e0241 ("nvmet-tcp: enable TLS handshake upcall")
+Cc: stable@vger.kernel.org
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+
+Backport notes: Route timeout validation through the existing parameter
+setter, preserving the validation of the other parameters and avoiding a
+new function. Omit the unrelated dynamic-quirks documentation and retain
+its blank separator so the host timeout fix merges cleanly.
+
 Stable-dep-of: 799203afd298 ("nvme-tcp: validate the TLS handshake timeout")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../admin-guide/kernel-parameters.rst         | 97 +-----------------
- .../admin-guide/kernel-parameters.txt         | 98 +++++++++++++++++++
- 2 files changed, 99 insertions(+), 96 deletions(-)
+ .../admin-guide/kernel-parameters.txt         |  6 +++++
+ drivers/nvme/target/tcp.c                     | 26 ++++++++++++++++---
+ 2 files changed, 28 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.rst b/Documentation/admin-guide/kernel-parameters.rst
-index 7bf8cc7df6b54..02a725536cc50 100644
---- a/Documentation/admin-guide/kernel-parameters.rst
-+++ b/Documentation/admin-guide/kernel-parameters.rst
-@@ -110,102 +110,7 @@ The parameters listed below are only valid if certain kernel build options
- were enabled and if respective hardware is present. This list should be kept
- in alphabetical order. The text in square brackets at the beginning
- of each description states the restrictions within which a parameter
--is applicable::
--
--	ACPI	ACPI support is enabled.
--	AGP	AGP (Accelerated Graphics Port) is enabled.
--	ALSA	ALSA sound support is enabled.
--	APIC	APIC support is enabled.
--	APM	Advanced Power Management support is enabled.
--	APPARMOR AppArmor support is enabled.
--	ARM	ARM architecture is enabled.
--	ARM64	ARM64 architecture is enabled.
--	AX25	Appropriate AX.25 support is enabled.
--	CLK	Common clock infrastructure is enabled.
--	CMA	Contiguous Memory Area support is enabled.
--	DRM	Direct Rendering Management support is enabled.
--	DYNAMIC_DEBUG Build in debug messages and enable them at runtime
--	EARLY	Parameter processed too early to be embedded in initrd.
--	EDD	BIOS Enhanced Disk Drive Services (EDD) is enabled
--	EFI	EFI Partitioning (GPT) is enabled
--	EVM	Extended Verification Module
--	FB	The frame buffer device is enabled.
--	FTRACE	Function tracing enabled.
--	GCOV	GCOV profiling is enabled.
--	HIBERNATION HIBERNATION is enabled.
--	HW	Appropriate hardware is enabled.
--	HYPER_V HYPERV support is enabled.
--	IMA     Integrity measurement architecture is enabled.
--	IP_PNP	IP DHCP, BOOTP, or RARP is enabled.
--	IPV6	IPv6 support is enabled.
--	ISAPNP	ISA PnP code is enabled.
--	ISDN	Appropriate ISDN support is enabled.
--	ISOL	CPU Isolation is enabled.
--	JOY	Appropriate joystick support is enabled.
--	KGDB	Kernel debugger support is enabled.
--	KVM	Kernel Virtual Machine support is enabled.
--	LIBATA  Libata driver is enabled
--	LOONGARCH LoongArch architecture is enabled.
--	LOOP	Loopback device support is enabled.
--	LP	Printer support is enabled.
--	M68k	M68k architecture is enabled.
--			These options have more detailed description inside of
--			Documentation/arch/m68k/kernel-options.rst.
--	MDA	MDA console support is enabled.
--	MIPS	MIPS architecture is enabled.
--	MOUSE	Appropriate mouse support is enabled.
--	MSI	Message Signaled Interrupts (PCI).
--	MTD	MTD (Memory Technology Device) support is enabled.
--	NET	Appropriate network support is enabled.
--	NFS	Appropriate NFS support is enabled.
--	NUMA	NUMA support is enabled.
--	OF	Devicetree is enabled.
--	PARISC	The PA-RISC architecture is enabled.
--	PCI	PCI bus support is enabled.
--	PCIE	PCI Express support is enabled.
--	PCMCIA	The PCMCIA subsystem is enabled.
--	PNP	Plug & Play support is enabled.
--	PPC	PowerPC architecture is enabled.
--	PPT	Parallel port support is enabled.
--	PS2	Appropriate PS/2 support is enabled.
--	PV_OPS	A paravirtualized kernel is enabled.
--	RAM	RAM disk support is enabled.
--	RDT	Intel Resource Director Technology.
--	RISCV	RISCV architecture is enabled.
--	S390	S390 architecture is enabled.
--	SCSI	Appropriate SCSI support is enabled.
--			A lot of drivers have their options described inside
--			the Documentation/scsi/ sub-directory.
--        SDW     SoundWire support is enabled.
--	SECURITY Different security models are enabled.
--	SELINUX SELinux support is enabled.
--	SERIAL	Serial support is enabled.
--	SH	SuperH architecture is enabled.
--	SMP	The kernel is an SMP kernel.
--	SPARC	Sparc architecture is enabled.
--	SUSPEND	System suspend states are enabled.
--	SWSUSP	Software suspend (hibernation) is enabled.
--	TPM	TPM drivers are enabled.
--	UMS	USB Mass Storage support is enabled.
--	USB	USB support is enabled.
--	USBHID	USB Human Interface Device support is enabled.
--	V4L	Video For Linux support is enabled.
--	VGA	The VGA console has been enabled.
--	VMMIO   Driver for memory mapped virtio devices is enabled.
--	VT	Virtual terminal support is enabled.
--	WDT	Watchdog support is enabled.
--	X86-32	X86-32, aka i386 architecture is enabled.
--	X86-64	X86-64 architecture is enabled.
--	X86	Either 32-bit or 64-bit x86 (same as X86-32+X86-64)
--	X86_UV	SGI UV support is enabled.
--	XEN	Xen support is enabled
--	XTENSA	xtensa architecture is enabled.
--
--In addition, the following text indicates that the option::
--
--	BOOT	Is a boot loader parameter.
--	BUGS=	Relates to possible processor bugs on the said processor.
--	KNL	Is a kernel start-up parameter.
-+is applicable.
- 
- Parameters denoted with BOOT are actually interpreted by the boot
- loader, and have no meaning to the kernel directly.
 diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 362ff32252209..5bf1df91607eb 100644
+index 5bf1df91607eb..1b53bc0671249 100644
 --- a/Documentation/admin-guide/kernel-parameters.txt
 +++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1,3 +1,101 @@
-+	ACPI	ACPI support is enabled.
-+	AGP	AGP (Accelerated Graphics Port) is enabled.
-+	ALSA	ALSA sound support is enabled.
-+	APIC	APIC support is enabled.
-+	APM	Advanced Power Management support is enabled.
-+	APPARMOR AppArmor support is enabled.
-+	ARM	ARM architecture is enabled.
-+	ARM64	ARM64 architecture is enabled.
-+	AX25	Appropriate AX.25 support is enabled.
-+	CLK	Common clock infrastructure is enabled.
-+	CMA	Contiguous Memory Area support is enabled.
-+	DRM	Direct Rendering Management support is enabled.
-+	DYNAMIC_DEBUG Build in debug messages and enable them at runtime
-+	EARLY	Parameter processed too early to be embedded in initrd.
-+	EDD	BIOS Enhanced Disk Drive Services (EDD) is enabled
-+	EFI	EFI Partitioning (GPT) is enabled
-+	EVM	Extended Verification Module
-+	FB	The frame buffer device is enabled.
-+	FTRACE	Function tracing enabled.
-+	GCOV	GCOV profiling is enabled.
-+	HIBERNATION HIBERNATION is enabled.
-+	HW	Appropriate hardware is enabled.
-+	HYPER_V HYPERV support is enabled.
-+	IMA     Integrity measurement architecture is enabled.
-+	IP_PNP	IP DHCP, BOOTP, or RARP is enabled.
-+	IPV6	IPv6 support is enabled.
-+	ISAPNP	ISA PnP code is enabled.
-+	ISDN	Appropriate ISDN support is enabled.
-+	ISOL	CPU Isolation is enabled.
-+	JOY	Appropriate joystick support is enabled.
-+	KGDB	Kernel debugger support is enabled.
-+	KVM	Kernel Virtual Machine support is enabled.
-+	LIBATA  Libata driver is enabled
-+	LOONGARCH LoongArch architecture is enabled.
-+	LOOP	Loopback device support is enabled.
-+	LP	Printer support is enabled.
-+	M68k	M68k architecture is enabled.
-+			These options have more detailed description inside of
-+			Documentation/arch/m68k/kernel-options.rst.
-+	MDA	MDA console support is enabled.
-+	MIPS	MIPS architecture is enabled.
-+	MOUSE	Appropriate mouse support is enabled.
-+	MSI	Message Signaled Interrupts (PCI).
-+	MTD	MTD (Memory Technology Device) support is enabled.
-+	NET	Appropriate network support is enabled.
-+	NFS	Appropriate NFS support is enabled.
-+	NUMA	NUMA support is enabled.
-+	OF	Devicetree is enabled.
-+	PARISC	The PA-RISC architecture is enabled.
-+	PCI	PCI bus support is enabled.
-+	PCIE	PCI Express support is enabled.
-+	PCMCIA	The PCMCIA subsystem is enabled.
-+	PNP	Plug & Play support is enabled.
-+	PPC	PowerPC architecture is enabled.
-+	PPT	Parallel port support is enabled.
-+	PS2	Appropriate PS/2 support is enabled.
-+	PV_OPS	A paravirtualized kernel is enabled.
-+	RAM	RAM disk support is enabled.
-+	RDT	Intel Resource Director Technology.
-+	RISCV	RISCV architecture is enabled.
-+	S390	S390 architecture is enabled.
-+	SCSI	Appropriate SCSI support is enabled.
-+			A lot of drivers have their options described inside
-+			the Documentation/scsi/ sub-directory.
-+        SDW     SoundWire support is enabled.
-+	SECURITY Different security models are enabled.
-+	SELINUX SELinux support is enabled.
-+	SERIAL	Serial support is enabled.
-+	SH	SuperH architecture is enabled.
-+	SMP	The kernel is an SMP kernel.
-+	SPARC	Sparc architecture is enabled.
-+	SUSPEND	System suspend states are enabled.
-+	SWSUSP	Software suspend (hibernation) is enabled.
-+	TPM	TPM drivers are enabled.
-+	UMS	USB Mass Storage support is enabled.
-+	USB	USB support is enabled.
-+	USBHID	USB Human Interface Device support is enabled.
-+	V4L	Video For Linux support is enabled.
-+	VGA	The VGA console has been enabled.
-+	VMMIO   Driver for memory mapped virtio devices is enabled.
-+	VT	Virtual terminal support is enabled.
-+	WDT	Watchdog support is enabled.
-+	X86-32	X86-32, aka i386 architecture is enabled.
-+	X86-64	X86-64 architecture is enabled.
-+	X86	Either 32-bit or 64-bit x86 (same as X86-32+X86-64)
-+	X86_UV	SGI UV support is enabled.
-+	XEN	Xen support is enabled
-+	XTENSA	xtensa architecture is enabled.
+@@ -4651,6 +4651,12 @@ Kernel parameters
+ 			This can be set from sysctl after boot.
+ 			See Documentation/admin-guide/sysctl/vm.rst for details.
+ 
 +
-+In addition, the following text indicates that the option
++	nvmet_tcp.tls_handshake_timeout=
++			[NVME] NVMe/TCP target TLS handshake timeout in seconds.
++			Valid values range from 0 to the smaller of
++			UINT_MAX / 1000 and MAX_JIFFY_OFFSET / HZ. Default: 10
 +
-+	BOOT	Is a boot loader parameter.
-+	BUGS=	Relates to possible processor bugs on the said processor.
-+	KNL	Is a kernel start-up parameter.
+ 	ohci1394_dma=early	[HW,EARLY] enable debugging via the ohci1394 driver.
+ 			See Documentation/core-api/debugging-via-ohci1394.rst for more
+ 			info.
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+index b9a904f184892..f478f226e29fd 100644
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -6,6 +6,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ #include <linux/module.h>
+ #include <linux/init.h>
++#include <linux/jiffies.h>
+ #include <linux/slab.h>
+ #include <linux/crc32c.h>
+ #include <linux/err.h>
+@@ -41,8 +42,18 @@ static int param_store_val(const char *str, int *val, int min, int max)
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_NVME_TARGET_TCP_TLS
++static unsigned int tls_handshake_timeout = 10;
++#endif
 +
+ static int set_params(const char *str, const struct kernel_param *kp)
+ {
++#ifdef CONFIG_NVME_TARGET_TCP_TLS
++	if (kp->arg == &tls_handshake_timeout)
++		return param_set_uint_minmax(str, kp, 0,
++			min_t(unsigned long, UINT_MAX / MSEC_PER_SEC,
++			      MAX_JIFFY_OFFSET / HZ));
++#endif
+ 	return param_store_val(str, kp->arg, 0, INT_MAX);
+ }
+ 
+@@ -76,8 +87,14 @@ MODULE_PARM_DESC(idle_poll_period_usecs,
+ /*
+  * TLS handshake timeout
+  */
+-static int tls_handshake_timeout = 10;
+-module_param(tls_handshake_timeout, int, 0644);
++static const struct kernel_param_ops tls_handshake_timeout_ops = {
++	.set = set_params,
++	.get = param_get_uint,
++};
 +
-+Kernel parameters
-+
- 	accept_memory=  [MM]
- 			Format: { eager | lazy }
- 			default: lazy
++module_param_cb(tls_handshake_timeout, &tls_handshake_timeout_ops,
++		&tls_handshake_timeout, 0644);
++__MODULE_PARM_TYPE(tls_handshake_timeout, "uint");
+ MODULE_PARM_DESC(tls_handshake_timeout,
+ 		 "nvme TLS handshake timeout in seconds (default 10)");
+ #endif
+@@ -1926,6 +1943,7 @@ static int nvmet_tcp_tls_handshake(struct nvmet_tcp_queue *queue)
+ {
+ 	int ret = -EOPNOTSUPP;
+ 	struct tls_handshake_args args;
++	unsigned int timeout = READ_ONCE(tls_handshake_timeout);
+ 
+ 	if (queue->state != NVMET_TCP_Q_TLS_HANDSHAKE) {
+ 		pr_warn("cannot start TLS in state %d\n", queue->state);
+@@ -1939,7 +1957,7 @@ static int nvmet_tcp_tls_handshake(struct nvmet_tcp_queue *queue)
+ 	args.ta_done = nvmet_tcp_tls_handshake_done;
+ 	args.ta_data = queue;
+ 	args.ta_keyring = key_serial(queue->port->nport->keyring);
+-	args.ta_timeout_ms = tls_handshake_timeout * 1000;
++	args.ta_timeout_ms = timeout * MSEC_PER_SEC;
+ 
+ 	ret = tls_server_hello_psk(&args, GFP_KERNEL);
+ 	if (ret) {
+@@ -1947,7 +1965,7 @@ static int nvmet_tcp_tls_handshake(struct nvmet_tcp_queue *queue)
+ 		pr_err("failed to start TLS, err=%d\n", ret);
+ 	} else {
+ 		queue_delayed_work(nvmet_wq, &queue->tls_handshake_tmo_work,
+-				   tls_handshake_timeout * HZ);
++				   (unsigned long)timeout * HZ);
+ 	}
+ 	return ret;
+ }
 -- 
 2.53.0
 
