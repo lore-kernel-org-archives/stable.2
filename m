@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794366707;
-	b=n+1fpdS/8UDaD7zZUINwqnyEcA6TVR6Hv3geMi+pYMRoXhasy03WMvWxqx8vfLRhrDlK
-	 k4Jk4p9K+LU81m0oLiGhQOEXo0LUOyw2gIzSBRS2b46xxzRypOKe2QXYIVKqwOVrJuBBX
-	 OeRy8Nq39/P0ukulMi06wfQGFQBFkpEx8thJRN0ahdzOJ9fZnXbWQkJQVVmdQ6iaN9Kx2
-	 nvGB7c6t1ASaPyHOvGwSNxphZy4ViNzvyJvfxHMcoG0vHYR1hnzNsjwAGBkJg0gJ7CBPy
-	 cvBAwhn73D+x3VGD45N3DqtqWDajaalUN4DY0THTgpc9SAVwlRTIkFwsl/SbjJAIU+A==
+	t=1794366776;
+	b=FP6LFKxQ8khHJcYgD5nHwfnzgKT68dCTd3sUL0YDiY5eFzJeOvGuSZJ1OZyrohQect5G
+	 0nz005VtVgB2YsN3rW3rojhqO+0tbL36/bvy3nSD73NVrzHmHah1aIhEYh+SRZ7T75KZT
+	 QaGy++DxG+bYcPdNoXYX1AfTT/g8PBidJVMECehBFIYaD6ZmU4p/C2AAxHoWXbQbvDyu8
+	 J8OCzHplqGLcIe1poKoWq3ctr4I4+H7HOjVPHUUXkUEY/w0Pp6/KH9DvLRRtcCMitmMo9
+	 IHG/gx2bXL7MVE2SluNYIK4DLfo98Yyu3zFpTfakb96ZGV+tgYdRkQNjDJi9lRx7xzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366707;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366776;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=W1d4BBTnRMrrq6zRpQrkNMIc+mADUrtFELhXVwQOBIM=;
-	b=voQavfXIlBmhpQKdKLeU90MJDtOT+YcHgYQJVja3KCkpQNo7njbEP4nUKmezsYsyfGi2
-	 iSieKThIN5kG5aXl5UG2PZtLzxIW7EqiOsrdSH2pw91ipEOrWtH9nYr0CU7iW/gK0jj37
-	 XfDpEzZJCH9s/s+Lb6bdV8s+utaFZBOTQQ3jjAPhTFE8TrzwvYErhWKay+sMjiLecp/75
-	 qJyY5IcmeHpeq3aRN2Cqf2f6qfS1dw6TgIxtlYa7IgnVRERWQOGswXSHWFrdIR7qTJT1Z
-	 tKneXOpXz1+Lry3pI4md86Z8/zFu/3a8D0LZP8KvziSr/Kzx+N+ihJMqwHebhc/XseQ==
+	bh=eSdnhTohQLo5rbiCtFZN71KmpfO1smlJZwWBGFUh3bE=;
+	b=VG9iLFGBKyZaJHTK/nLWpiMN26K6vIRyqD3j/s9GxJBsPVolysCir84dLb4zTNhUgPaJ
+	 3wHOTavTgZ3pcIU/txsaRG4wgP+faL92G3fmSwcxpBgEBAp8L77PVADc+lI7IocxYE1Uf
+	 8Jwe4OZYVfWGukRNcKEgGsAExkzMSziKYusRTUljEV9ZpIpibdE69uJfOIvBbpbxlcYun
+	 x5nmGcaBxqP6fxVXTZg9apVZ62blNKjfQ+nsN5DV76zsedyaeoNrWZkEnqfXEm8ZDpKCB
+	 aZdhNgQhLaZRCLKFK6wE6Fym2Dbvjr2sxCIEbtz0WmHfrFvB2KVJ5zzvCVFQB9gCfVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n7lDU9Ek;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bV1svciU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14A2606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:11:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053C7606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:12:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n7lDU9Ek
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B003E1F0089F;
-	Wed, 11 Nov 2026 03:11:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bV1svciU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BD81F0089F;
+	Wed, 11 Nov 2026 03:12:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794366707;
-	bh=W1d4BBTnRMrrq6zRpQrkNMIc+mADUrtFELhXVwQOBIM=;
+	s=k20260515; t=1794366775;
+	bh=eSdnhTohQLo5rbiCtFZN71KmpfO1smlJZwWBGFUh3bE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n7lDU9EkdqVbL9gtWr8iKYTjdaLgtHGZKLY+kHS/CU6ATLTj3OiIGaU7dBbL206cM
-	 ZwFbG8AqzdjIOuT9b8Sw/I4faK5FwmIF/rd/+WtUXPV/7CBQbwhfop1JYW09uKz9fE
-	 bh+R1SCEthkBEm7G8TwmM+TseH11UBgoBMFxlch1mGbFX3Mvlf/CqAqI9nwADrL+tF
-	 T/4YsQ5aK+CAZm2WGdaA7C7tsZW5vro6M6Fadn2WcXDkD2lmMPOklD1ygq7EwbZgH0
-	 qebYjV3f6updey2d2OlWhzIkjTuq9STMyRXXE2EWnOkHOaY+8LiYcov82Dqf3hJuai
-	 d3hrjQ2sHzgfg==
+	b=bV1svciUyQQfFCYOWQjJxudjscpL3Kmcmnjlrwg5PV8sOtf3AK91ZezcjBor4Nfhp
+	 XD1MZIESsRNkFNO0dYOmUTd6J3gq/XOBlU7mj7UsX6+lPWkY9vTcjSLMlj1MbnkeDZ
+	 pQ7115d/iRD0bOixazc4UkfDGqyr4cW6iqP9svcKiboYfYgDVmdvGJYnRcskaU7TIA
+	 +YVkiPWvB27M4s2SDpaT4MElNVxaBRXfkoKyLPMFq1svoXgt70Wm8NLLH++zES77um
+	 6dF1eWfnPYmtT1gousXB2LIye0iwUfCVWbcdQhlyltd1i4Fbr0TextGKo7YIq+VyAO
+	 haA7JB9WbZbfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
-	Jan Kara <jack@suse.cz>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] fs: rotate inodes whose page cache could not be dropped
-Date: Tue, 10 Nov 2026 22:11:44 -0500
-Message-ID: <20261111030947.850494-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] tpm: tpm2_probe: propagate transport errors
+Date: Tue, 10 Nov 2026 22:12:53 -0500
+Message-ID: <20261111031201.700755-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055331-failed-6.1-8ee09f597763@kernel.org>
-References: <20261107055331-failed-6.1-8ee09f597763@kernel.org>
+In-Reply-To: <20261107061049-failed-5.15-7d4f1cbfe063@kernel.org>
+References: <20261107061049-failed-5.15-7d4f1cbfe063@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,78 +61,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nikolaos Karaolidis <nick@karaolidis.com>
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-[ Upstream commit 8ee09f597763acfd31c62a578ba88b792fc41b24 ]
+[ Upstream commit 7d4f1cbfe063af5581dac66abe9e9c965e1031cc ]
 
-When inode_lru_isolate() drops the page cache of an unused inode, it
-has to unlock the list, so it returns LRU_RETRY and the walk restarts
-at the head of the list, where the inode still is. If
-invalidate_mapping_pages() could not empty the mapping, the restarted
-walk strips the same inode again, and so on until nr_to_walk runs out.
-Every walk of that list then ends on this inode, and nothing behind it
-is reclaimed for as long as its cache stays.
+tpm2_probe() reads the protocol version from the response tag and is
+documented to return -errno on failure, but it always returns 0.  A
+transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
+the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
+unset. A transient bus failure on the first command then misdetects a
+TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
 
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
-traversing context") the walker pinned the inode with a reference, and
-dropping it in iput_final() set I_REFERENCED, so the restarted walk
-rotated the inode to the tail. Set I_REFERENCED again when the mapping
-is still populated after the invalidation, in the same i_lock section
-that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
-i_lock to be held, like inode_pin_lru_isolating().
+  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
+  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
 
-On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
-is left behind if it is locked, under writeback, spliced into a pipe,
-or still in another CPU's LRU-add batch after being read. Without
-HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
-mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
-never removes.
+Return the transport error instead; rc >= 0 still means a valid header was
+received and the TPM's own response code is still ignored.
 
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
-Link: https://patch.msgid.link/20261016102515.111285-1-nick@karaolidis.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: replaced inode_state_set() with direct inode->i_state bit manipulation ]
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20261001060114.1582092-1-alexander.sverdlin@siemens.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ sashal: replaced the early return with rc = 0 to preserve tpm_buf_destroy() cleanup of the stack-allocated buffer ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/inode.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/char/tpm/tpm2-cmd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index 99e980ddbdceb..8e430ccb23c6e 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -496,12 +496,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
- 
- static void inode_unpin_lru_isolating(struct inode *inode)
- {
--	spin_lock(&inode->i_lock);
-+	lockdep_assert_held(&inode->i_lock);
- 	WARN_ON(!(inode->i_state & I_LRU_ISOLATING));
- 	inode->i_state &= ~I_LRU_ISOLATING;
- 	smp_mb();
- 	wake_up_bit(&inode->i_state, __I_LRU_ISOLATING);
--	spin_unlock(&inode->i_lock);
- }
- 
- static void inode_wait_for_lru_isolating(struct inode *inode)
-@@ -909,7 +908,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 			if (current->reclaim_state)
- 				current->reclaim_state->reclaimed_slab += reap;
- 		}
-+
-+		spin_lock(&inode->i_lock);
-+		/* The walk restarts here: don't retry leftovers right away */
-+		if (!mapping_empty(&inode->i_data))
-+			inode->i_state |= I_REFERENCED;
- 		inode_unpin_lru_isolating(inode);
-+		spin_unlock(&inode->i_lock);
- 		spin_lock(lru_lock);
- 		return LRU_RETRY;
+diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+index 440b703e29e5f..662642c59f6d3 100644
+--- a/drivers/char/tpm/tpm2-cmd.c
++++ b/drivers/char/tpm/tpm2-cmd.c
+@@ -507,9 +507,10 @@ int tpm2_probe(struct tpm_chip *chip)
+ 		out = (struct tpm_header *)buf.data;
+ 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
+ 			chip->flags |= TPM_CHIP_FLAG_TPM2;
++		rc = 0;
  	}
+ 	tpm_buf_destroy(&buf);
+-	return 0;
++	return rc;
+ }
+ EXPORT_SYMBOL_GPL(tpm2_probe);
+ 
 -- 
 2.53.0
 
