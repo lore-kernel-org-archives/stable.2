@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794361624;
-	b=GEriLOA9bQVP51sq44JOacPnyiLGCymHEpNbsF5/wGFkjS0xJ46HtnDP3qOPKQXrlpTp
-	 n3quc/czOY1fjxe6hmSfiUpYgSdrgSTKi6KNAzS7tXFOXhBU8/HKcPM+nPKNQe4c7a5Kj
-	 AZdAHMNKzyB5H7vKCZjLbCPOYiVUzDpM0RoOqlTR4KrJvIer2M6XWQSCyVZNymcHYNB/W
-	 SNnESjWFDGU2eh+Rk8qAdOPTZeSHqyLh4/UlM6ROBI7QFV99nyFmmmSF0LwLgmKkzMcW1
-	 BKwJo+0yeyoT/0G93gxRNgs/3cS2S6JqViSwh4ORKgIVzbSinGnNV0Dxyx2GZ6fDhKg==
+	t=1794361626;
+	b=Ej9Vrtg0YrrJMNldQagVjocKTDw05acTbebjI5Vj8gw5Ex0RIBYpZEVrt/7UkCkcCbse
+	 KnIvnDSTxMmV3zkSOTECDPJZL2QhF3k6ErUo3i1/kppOxeQOjnd/YVHEUYf8rt2VA6iDB
+	 iNBsCq2kZjN5AZ5RWtcQFcRQwAfHit7stjUmp+LQVUtQhDkSzhnjFCPbrNz/g6WtB6RpC
+	 86naZ6ZmlYzQ39b2ITaNW4s7K0vgpma+zssWY28WiILcFkljdOAbta32rOrGck7o0utVa
+	 IIQ8w+u/U9do74ceCZA9+bUWR+Hgv/shlD7j2kyGuK/BqxXE2fCm6prxweY962nAfbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361624;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361626;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KRbhPtyp0yJ9ixwqPh2cZLbuxuFRo/8DkcVcQ5nRZ4E=;
-	b=JO8VUmywQxMedjEPqEutSfDDlIX9euBSfrSzen8i2XmprgdKzSzWcaTCnccZkkqAIP1z
-	 vUeYe77xmdRcVax1sRIowITHjFCL+7zIvl3zZbqt9FoTO5HLEMIW1mUDO1EGMEAGsBOqk
-	 H1iW3QP6nVQtmV9K7SBA+Zu/m8BJBHw+WG0tq9NtwX8fZaNO0QM49CrPiiIwtWT3uXs9b
-	 6ajBCBpMQNl+fYGQkb1exQuONebjveBRdX8H0v6V/Ar2jA/20+Q0UnfDpkVrzdppxvYW8
-	 4rnG9w+ZIvHZ9xcprKOipqwRl0LJAnc17/Ptu05wnp6Rtnwa8YCkuuPn5u5uosZnZpQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=nxz/R649IZ/yGS+eJ/YKey2bnJw5KJOCR0AYZFndUio=;
+	b=eN3w1maY2F8TPe+aCoDjMISy60JYTuMw4gSXZlBB2O5NB69rxM8E0bcXqVvrVfp9JIib
+	 w6Mjd2khX1CedXj+uQAj8KoyRVUKhs9ODlQRE4IPcCV+7DAOo3xN+9mQJWP6YJBx+iazg
+	 zE4tpfHGKXPhYpU5UeBBIj/lAw8pDFaA84Nzzr46lN0ozNaSmkOwqI27hpX8QqkLei8UG
+	 aNWgVL8FrxyOcD83fJ26ZrcbuK46vnht9I7Z2ncvAoPzgTRgNe9sw8n91cvqoO1ExRZ1v
+	 57hhphPwnCW6hzLFN+DejE8V+4ZZ+Qn4kd3teYA2SFegKytlCDIgu2rSTsyf4RoM7jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dw0Dev7h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ejCgmayI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98EC606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:47:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F42F606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:47:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dw0Dev7h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A061F0089F;
-	Wed, 11 Nov 2026 01:47:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ejCgmayI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9E081F0089F;
+	Wed, 11 Nov 2026 01:47:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794361624;
-	bh=KRbhPtyp0yJ9ixwqPh2cZLbuxuFRo/8DkcVcQ5nRZ4E=;
+	s=k20260515; t=1794361626;
+	bh=nxz/R649IZ/yGS+eJ/YKey2bnJw5KJOCR0AYZFndUio=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dw0Dev7himSzsWR8QD6lBzZ2eyeO4Arg0Y0FInWsS1gK74I3RLorbisjXD86yXkPw
-	 ZLJMkp7MxEAUHfZg56Dj7zdD5WwJnkkf/Q8pOn/Zt91cMlDzWvEcJiQmn2N30G4btv
-	 Lhp7tMFZ5N5urG33o3dmTolD32ynJqqwX+JMCTVqdI2EWj+122rqDNKg3Veo+ttY+V
-	 pzIWCCJkvWvpLVnzfFs54DUHChq2FjRTPODnhSlB9W95QSOw+Mw97EoOtNAQ5oekxx
-	 ondu6q+CAAi7cR5HfNNkPwVAOM6KwGbnSQwpNmN8n9m0kq4Q6kKANjDW/PyWoIJKFx
-	 N+Oe2e0i413Ww==
+	b=ejCgmayIbiDVYqHSExU2JZ2vl/i5ua+X4n/ZOI4JAY53N01YyxoyghzLmkhfmoZ4F
+	 JCDZUFIofktt+B+Q9Fe+YGBFKoWqCCRws3qKBbdodoPAWCEraSaIuCx3cLFq0QAY6i
+	 l5lrfFMcNQ7AdjlEg78E+g4ORsdFwQBXCcmIaKhEcTriF53z4qTvkHPVKHEzdQNOP5
+	 esw79r/y7OzCp6id6s5PvJ9GfOw0zzNwsQZWybX2e8JGvMXuFV2BDEsaXp/NazjH1+
+	 GilNFjgn3/w36tYJtx03FZAUEWqK4nxZ0Cfh6Fs4kFx4qEkrv8xRpDtlaNvbyrvRio
+	 DX2ksX+lOYhnQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrew Pam <andrew@fastmailteam.com>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Xiang Mei <xmei5@asu.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] power: supply: cros_charge-control: restore EC state on resume
+Subject: [PATCH 6.1.y 1/3] fs/ntfs3: validate EA entry layout against ef->size in ntfs_read_ea
 Date: Tue, 10 Nov 2026 20:47:02 -0500
-Message-ID: <20261111014546.402229-1-sashal@kernel.org>
+Message-ID: <20261111014422.420984-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052349-failed-6.12-1f2a40f954c8@kernel.org>
-References: <20261107052349-failed-6.12-1f2a40f954c8@kernel.org>
+In-Reply-To: <20261107055620-failed-6.1-351817226fbf@kernel.org>
+References: <20261107055620-failed-6.1-351817226fbf@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,118 +60,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Andrew Pam <andrew@fastmailteam.com>
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-[ Upstream commit 1f2a40f954c848dff9d8bb6d81e404f9e47f0e81 ]
+[ Upstream commit 01e56820ef52d14a5560fb7c0c6f2f75ef6f9393 ]
 
-The EC resets its charge control configuration when the AP powers off,
-so configured sustainer thresholds and charge behaviour are lost across
-hibernation.
+In ntfs_read_ea(), the ef->size branch only checks that the declared
+entry size fits the remaining buffer; unlike the zero-size branch it
+never verifies that the entry's own name and value fit inside ef->size.
+A crafted image can thus present an in-bounds ef->size with an arbitrary
+elength, which find_ea()/ntfs_get_ea() later use as the memcpy length,
+reading past the allocation and leaking adjacent heap memory:
 
-Nothing notices the reset. Commit 4fc88ba435da ("power: supply:
-cros_charge-control: adopt EC charge state on probe"), in the
-power-supply tree, made the driver adopt the EC's charge state, but only
-at probe, and a resume is not a probe. Sysfs therefore keeps reporting
-the configured values while the EC charges the battery to full. On a
-Framework Laptop 16 (Ryzen AI 300, charge control command version 3)
-with charge_control_end_threshold set to 80, a hibernate and resume
-cycle leaves the attribute still reading 80 while the battery charges
-past it to 100%.
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea (fs/ntfs3/xattr.c:302)
+  Read of size 65535 at addr ffff888010770b0f by task exploit/142
+   ...
+   __asan_memcpy (mm/kasan/shadow.c:105)
+   ntfs_get_ea (fs/ntfs3/xattr.c:302)
+   ntfs_getxattr (fs/ntfs3/xattr.c:848)
+   __vfs_getxattr (fs/xattr.c:446)
+   vfs_getxattr (fs/xattr.c:479)
+   do_getxattr (fs/xattr.c:808)
+   filename_getxattr (fs/xattr.c:837)
+   path_getxattrat (fs/xattr.c:876)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+  ...
+  The buggy address is located 15 bytes inside of
+   allocated 20-byte region, cache kmalloc-32
 
-Add a system sleep resume hook that reprograms the EC from the cached
-state. The same EC behaviour and the same fix already exist for another
-driver, see commit 2643187ccb86 ("platform/x86: ayaneo-ec: Add suspend
-hook").
+Validate the name/value layout in the ef->size branch too, bounding it
+against ef->size, as the zero-size branch validates it against the
+buffer.
 
-Reprogramming the EC is only strictly required after hibernation, but it
-is cheap and idempotent, so hook every resume path rather than rely on
-the EC preserving its state across each kind of sleep transition.
-
-Note that re-reading the state from the EC on resume, by reusing
-cros_chctl_init_state() or otherwise, would be wrong even on the command
-versions that support GET: the EC has been reset to its defaults by the
-time the hook runs, so adopting that state would silently discard the
-configuration the user asked for. The driver's cached state is the only
-remaining record of it, which is why it is pushed to the EC rather than
-refreshed from it.
-
-Fixes: c6ed48ef5259 ("power: supply: add ChromeOS EC based charge control driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Andrew Pam <andrew@fastmailteam.com>
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
-Acked-by: Thomas Weißschuh <linux@weissschuh.net>
-Link: https://patch.msgid.link/20261005043418.243937-1-andrew@fastmailteam.com
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-[ sashal: adjusted cros_chctl_probe() context for explicit sysfs registration instead of power-supply extensions ]
+Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+[almaz.alexandrovich@paragon-software.com: remove duplicate check of need > ea_size]
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Stable-dep-of: 351817226fbf ("fs/ntfs3: validate the EA value length in ntfs_read_ea()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/cros_charge-control.c | 29 +++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+ fs/ntfs3/xattr.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/power/supply/cros_charge-control.c b/drivers/power/supply/cros_charge-control.c
-index 9b0a7500296b4..2c16ce4cf6b7f 100644
---- a/drivers/power/supply/cros_charge-control.c
-+++ b/drivers/power/supply/cros_charge-control.c
-@@ -14,6 +14,7 @@
- #include <linux/platform_data/cros_ec_commands.h>
- #include <linux/platform_data/cros_ec_proto.h>
- #include <linux/platform_device.h>
-+#include <linux/pm.h>
- #include <linux/types.h>
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index a235050e92098..b3b07322db990 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -164,6 +164,8 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+ 			/* ef->size must fit the list and cover the record. */
+ 			if (ea_size > bytes || ea_size < need)
+ 				goto out1;
++			if (bytes < offsetof(struct EA_FULL, name))
++				goto out1;
+ 			continue;
+ 		}
  
- #define EC_CHARGE_CONTROL_BEHAVIOURS	(BIT(POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO)             | \
-@@ -322,6 +323,7 @@ static int cros_chctl_probe(struct platform_device *pdev)
- 	dev_dbg(dev, "Command version: %u\n", (unsigned int)priv->cmd_version);
- 
- 	priv->cros_ec = cros_ec;
-+	dev_set_drvdata(dev, priv);
- 	priv->device_attrs[CROS_CHCTL_ATTR_START_THRESHOLD] =
- 		(struct device_attribute)__ATTR_RW(charge_control_start_threshold);
- 	priv->device_attrs[CROS_CHCTL_ATTR_END_THRESHOLD] =
-@@ -352,13 +354,38 @@ static int cros_chctl_probe(struct platform_device *pdev)
- 	return devm_battery_hook_register(dev, &priv->battery_hook);
- }
- 
-+static int cros_chctl_resume(struct device *dev)
-+{
-+	struct cros_chctl_priv *priv = dev_get_drvdata(dev);
-+	int ret;
-+
-+	/*
-+	 * The EC resets its charge control state when the AP powers off, so the
-+	 * configuration is lost across hibernation, while the values exposed to
-+	 * userspace still describe it. The cached state is the only remaining
-+	 * record of that configuration: reprogram the EC from it rather than
-+	 * re-reading the EC, which would adopt the reset defaults instead.
-+	 */
-+	guard(mutex)(&priv->lock);
-+	ret = cros_chctl_configure_ec(priv);
-+	if (ret)
-+		dev_err(dev, "failed to restore charge control state: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(cros_chctl_pm_ops, NULL, cros_chctl_resume);
-+
- static const struct platform_device_id cros_chctl_id[] = {
- 	{ "cros-charge-control", 0 },
- 	{}
- };
- 
- static struct platform_driver cros_chctl_driver = {
--	.driver.name	= "cros-charge-control",
-+	.driver = {
-+		.name	= "cros-charge-control",
-+		.pm	= pm_sleep_ptr(&cros_chctl_pm_ops),
-+	},
- 	.probe		= cros_chctl_probe,
- 	.id_table	= cros_chctl_id,
- };
 -- 
 2.53.0
 
