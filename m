@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794435837;
-	b=NmGr0BaWAX1/D8hg8hYWfErVwmZAwp8+4OgzNpTkAtbBjnrDLT/LVOV6icUEIJzfRvru
-	 y37APIpdvSP4v4mNEGamlZL5OTqdOz/zPYVivdXs5BbSX2SFzu82O+6DExKlrqwU4Eyjc
-	 seqbRddiQ5hKqTZgn6MCg1kfKFv/K4jnC/A8qUQGB7XHa1ZjwCtTGp8t9xZkD6P4Z4b6M
-	 RXEPSevWxZz2Y3zER6wpItcmuJZ7qkNmzlVudwHgvlFKdef9PDjDuLfqs1oaO7KhpyyNS
-	 BVnax1dvtLN4V8IIvf2XrsYnHXNR9rrLiw2mp/vhkVV8I2LXeHuJfAjww9o4DGzGh+A==
+	t=1794435861;
+	b=If9DOKfg32XQ3lTjtEC4PNC9FtFu/qW7Tp7pgTlwii+V0zV3SKLF6gPh9Cim6w//uxX8
+	 OyTVj/FRePs2hIKTmlHG+DDK8XOAPUCwYTnngU8hu7be0jDVdlzXM1Q38i2/VNlicg03C
+	 R+pEyxKUpLZPTYSyiKw+fyVVNZAvMvigq42VeZ0jfvpX9YaTWP4+AYs+n9AnmpqLtB9qi
+	 SvoWQtXwW83EvXprrg8wkBX8Rwm+79d8kHL19K3R//G4S9aePHw113ofPzQEOnoAdR61p
+	 aZhDaHIyyF+3c59nLetyQL+2Htp9ESjc8JASa9z3CPtgSkd90xiAGx348BNo1nz6V5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794435837;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794435861;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9CIrA9z0d80aCzDt2QmuPboy6HkBXOdLZZX1f2aoQrU=;
-	b=vakkBmM0SIO/5QI/nUZs9KnkhZyh/anpexNu9oBPOxI+1pKyM0y9ZUKc7gkza9AaPcQ1
-	 S1ihKQ6aIlrrqu+10bjxUI+the3fGFjBPWpX7cQ3/nfrTkN6n9s9NaGBTNyMf+s8R38HL
-	 JO/m8JuzSbl4hAdd4Lnnlpq0bLsjzXzm6nzML8TCYGyxZc0cb8wYLai8R8UzYRF9Gx7lh
-	 tQbgvH1Jxn6eXGr/emBXzaiSaeFYiFNOPfKw2X8H0fWtMZc3EWWkPDzhWChkE+RjnmWTu
-	 JAGszrkTDgkqkyrBWhTtjiqpkHG6Hh0SbLyOcfP0lGf9yozKJ9hjQVpKpPU0Ue8Ieqw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=AY0YY4rIIbCwAMMw1LjcD918qobsIzhwTMNPSk9X6oE=;
+	b=pMcj2r2WiBU9XMyzq3OcCggW8r/fjF0OhpthqtaDqFRSo5jyvAIQPG0GXs3IoGT79IDe
+	 VCNHUcwQG4IznO7NVOqbcLkadcCdKggCzlod2oWr8qXbAASBNrKzcn8+ntwT057TLiEg2
+	 QWZ4Ae2GxAr8ryqlNPA3hQG749CYkqmjIpJm3TN1jZuNaIqxdS3GwBOAC3K8LKzkIPEv3
+	 Ufpm6Uxd2eikPbm93yq5+VshKf76t6dI91mwePAGV8CBOUldnTsnp2cpbzqFbi1DRlm+g
+	 4WKeMYpzA/ncKMlchTQ2SPZpeaQQUmg4ESC16wDcnMvh1DD54UDMgdXtvlYBIRGDiGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iH2jD3RF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IEPBsWfS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EF2606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:23:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E31606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:24:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iH2jD3RF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AD9C1F00A05;
-	Wed, 11 Nov 2026 22:23:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IEPBsWfS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8AD1F00A05;
+	Wed, 11 Nov 2026 22:24:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794435837;
-	bh=9CIrA9z0d80aCzDt2QmuPboy6HkBXOdLZZX1f2aoQrU=;
+	s=k20260515; t=1794435861;
+	bh=AY0YY4rIIbCwAMMw1LjcD918qobsIzhwTMNPSk9X6oE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iH2jD3RFjsU1mvqdv5k9MTFrfRvnXHIAzYl64KWhffE/8jKkIs2b9Gjssp/fm4aMh
-	 3sptHBXQp+hL6heBx/L6pxLz02xtvPRRNMFHhiBi1XlFotvoZvUKXsqY/wZyQrkgGx
-	 MdlZqd14qnJucOwDHgIEZ2Tb6XhJqzhhcI0MGghw/3v+REZzgwzxjpkfS84POyCOb1
-	 8YBxaZLbuWJTHdzIHAeExqrevf1+wOEdndyrPrGxBj0flIj/i85G/DHpYnJM59+6h5
-	 pNW1z4LYl15/bMtE3uJOCqXRoJF3Dox6/92W1dBMj2Cnm7t3B5FuhjsiWKIKdqFzXi
-	 sl/W/AGMXbGeA==
+	b=IEPBsWfSR7bACGJnKjBU8jSiOztcTrZ+KQSa1XXhcXaqh74D1xy2vzUPfeZ3N5msm
+	 zzMqYaAs4DQR/fPVLCQHSwZ6CGlrIFbxPDeDxCDQWC0g9BSoIWU/tiTvhUQo3Do4Jp
+	 vnA2/ysXmM/ZQV10sfpyilJLy2x6eofalQv58+y0z2n/zkiFBzvSeE1u/YaZZX1x0W
+	 3oBxVV7hPDi3c+RSz/l9EJBHbK3SbORcX3FcdqcRnAJ2VgsJzRup6QHmLHr79IwkRI
+	 GDvljctSbsleEI0/7XayPPDarJgF56xL9aZd2tvFX5HJeaAf4iVy95XN6MnYElFXlj
+	 +cbY4FBjAfHjw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Aleksa Sarai <aleksa@amutable.com>,
+Cc: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rong Zhang <i@rong.moe>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] proc: don't let an entry below /proc/<pid>/net be a mountpoint
-Date: Wed, 11 Nov 2026 17:23:55 -0500
-Message-ID: <20261111222328.4137789-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] ACPI: utils: Add exclusive AML evaluation helpers
+Date: Wed, 11 Nov 2026 17:24:17 -0500
+Message-ID: <20261111222411.33722-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054032-failed-6.6-eeecea75ece2@kernel.org>
-References: <20261107054032-failed-6.6-eeecea75ece2@kernel.org>
+In-Reply-To: <20261107051336-failed-6.18-f91c2cd6dbce@kernel.org>
+References: <20261107051336-failed-6.18-f91c2cd6dbce@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,246 +62,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Ali Ahmet Memiş <aliamemis@disroot.org>
 
-[ Upstream commit eeecea75ece2ba894bee4d3c53ed2e40abda8f0e ]
+[ Upstream commit 80892972ff23bf0b9049230ef0931b34163aaed3 ]
 
-proc_net_d_revalidate() always returns 0 so that a dentry below
-/proc/<pid>/net is never reused after setns(). So lookup_fast() will end
-up calling d_invalidate(), which unhashes the dentry and detaches every
-mount on it, in every mount namespace; including locked mounts.
+ACPICA drops the interpreter lock while AML waits, for example around EC
+accesses, so two methods can run interleaved.
 
-Then lookup_slow() creates a new dentry for the same entry. So a mount
-on /proc/<pid>/net/dev succeeds and goes away with the first lookup of
-the name by anybody with search permission on the directory. Given it's
-0555 that's everyone's grandma. A mask on such a name hides nothing as
-the repro below shows.
+Some firmware relies on methods not interleaving, for instance by
+switching an EC page selector without taking the AML mutex that the
+other users of that page hold.
 
-Treat those entries like I did fd/, fdinfo/ and map_files/ and refuse to
-mount on them in the first place. It's nonsensical theater otherwise:
+Add acpi_evaluate_object_exclusive(), acpi_evaluate_integer_exclusive()
+and acpi_execute_simple_method_exclusive() which serialize the
+evaluation under a global mutex, for callers that are known to be
+affected.
 
-  procnet net/dev stat
-
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * procnet: cover an entry of /proc/<pid>/ with a bind mount, lock the mount,
-   * then look the name up.
-   *
-   * The first task stays alive, <pid> is its pid. The "container" task has its
-   * own mount namespace. There it binds a mask on /proc/<pid>/<name>. It drops to
-   * uid 1000 and enters a new user namespace with a new mount namespace, so that
-   * the mask is locked. Then one task looks the name up:
-   *
-   *   stat    the container calls stat() on the name
-   *   umount  the container calls umount2(MNT_DETACH) on the name
-   *   nobody  a task with uid 65534 in the first namespaces calls stat()
-   *
-   * The container lists its mounts before and after (that does not look the
-   * name up) and then reads the name. MASK is fine. Anything else means that
-   * the lookup uncovered the entry.
-   *
-   * usage: procnet <name> stat|umount|nobody
-   *   name "status" is the control, "net/dev" is a file below net, "net/stat" is
-   *   a directory below net
-   */
-  #define _GNU_SOURCE
-  #include <dirent.h>
-  #include <errno.h>
-  #include <fcntl.h>
-  #include <sched.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <time.h>
-  #include <unistd.h>
-  #include <sys/mount.h>
-  #include <sys/prctl.h>
-  #include <sys/stat.h>
-  #include <sys/wait.h>
-
-  #define WORK "/run/pn"
-
-  static char target[128];
-
-  static void die(const char *what)
-  {
-  	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
-  	exit(2);
-  }
-
-  static void write_str(const char *path, const char *s, int flags)
-  {
-  	int fd = open(path, O_WRONLY | flags, 0644);
-
-  	if (fd < 0 || write(fd, s, strlen(s)) < 0)
-  		die(path);
-  	close(fd);
-  }
-
-  /* list the mounts below /proc without a lookup of the target */
-  static void mounts(const char *when)
-  {
-  	char line[512];
-  	FILE *f = fopen("/proc/self/mountinfo", "r");
-  	int n = 0;
-
-  	if (!f)
-  		die("mountinfo");
-  	while (fgets(line, sizeof(line), f)) {
-  		if (!strstr(line, " /proc/"))
-  			continue;
-  		printf("container: %s: mount: %s", when, line);
-  		n++;
-  	}
-  	fclose(f);
-  	if (!n)
-  		printf("container: %s: nothing is mounted below /proc\n", when);
-  }
-
-  static void show(const char *when, int isdir)
-  {
-  	char buf[48] = "";
-  	int fd;
-
-  	if (isdir) {
-  		struct dirent *de;
-  		DIR *d = opendir(target);
-  		int hit = 0;
-
-  		if (!d) {
-  			printf("container: %s: opendir(%s) = %s\n", when, target, strerror(errno));
-  			return;
-  		}
-  		printf("container: %s: readdir(%s) =", when, target);
-  		while ((de = readdir(d))) {
-  			if (de->d_name[0] == '.')
-  				continue;
-  			printf(" %s", de->d_name);
-  			hit |= strcmp(de->d_name, "MASK");
-  		}
-  		closedir(d);
-  		printf("%s\n", hit ? "   <-- HIT" : "");
-  		return;
-  	}
-  	fd = open(target, O_RDONLY);
-  	if (fd < 0) {
-  		printf("container: %s: open(%s) = %s\n", when, target, strerror(errno));
-  		return;
-  	}
-  	if (read(fd, buf, sizeof(buf) - 1) < 0)
-  		die("read");
-  	close(fd);
-  	if (strchr(buf, '\n'))
-  		*strchr(buf, '\n') = 0;
-  	printf("container: %s: read(%s) = \"%s\"%s\n", when, target, buf,
-  	       strncmp(buf, "MASK", 4) ? "   <-- HIT" : "");
-  }
-
-  int main(int argc, char **argv)
-  {
-  	const char *name = argc > 1 ? argv[1] : "net/dev";
-  	const char *op = argc > 2 ? argv[2] : "stat";
-  	int isdir = !strcmp(name, "net/stat");
-  	int to_host[2], to_cont[2];
-  	struct stat st;
-  	pid_t pid;
-  	char c;
-
-  	setvbuf(stdout, NULL, _IOLBF, 0);
-  	snprintf(target, sizeof(target), "/proc/%d/%s", getpid(), name);
-  	if (unshare(CLONE_NEWNS) || mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
-  		die("unshare");
-  	mkdir(WORK, 0755);
-  	if (mount("W", WORK, "tmpfs", 0, NULL))
-  		die("mount W");
-  	write_str(WORK "/mask", "MASK", O_CREAT);
-  	mkdir(WORK "/maskdir", 0755);
-  	write_str(WORK "/maskdir/MASK", "MASK", O_CREAT);
-  	if (pipe(to_host) || pipe(to_cont))
-  		die("pipe");
-
-  	pid = fork();
-  	if (pid < 0)
-  		die("fork");
-  	if (!pid) {
-  		if (unshare(CLONE_NEWNS))
-  			die("container unshare");
-  		if (mount(isdir ? WORK "/maskdir" : WORK "/mask", target, NULL, MS_BIND, NULL)) {
-  			printf("container: bind the mask on %s: %s\n", target, strerror(errno));
-  			exit(0);
-  		}
-  		printf("container: bind the mask on %s: ok\n", target);
-  		if (setgid(1000) || setuid(1000) || prctl(PR_SET_DUMPABLE, 1))
-  			die("setuid");
-  		/* lock the mount: a new user namespace with a copy of the tree */
-  		if (unshare(CLONE_NEWUSER | CLONE_NEWNS))
-  			die("container userns");
-  		write_str("/proc/self/setgroups", "deny", 0);
-  		write_str("/proc/self/uid_map", "0 1000 1", 0);
-  		write_str("/proc/self/gid_map", "0 1000 1", 0);
-  		mounts("before");
-  		errno = 0;
-  		if (!strcmp(op, "stat")) {
-  			stat(target, &st);
-  			printf("container: stat(%s): %s\n", target, strerror(errno));
-  		} else if (!strcmp(op, "umount")) {
-  			umount2(target, MNT_DETACH);
-  			printf("container: umount2(%s, MNT_DETACH): %s\n", target, strerror(errno));
-  		} else if (write(to_host[1], "g", 1) != 1 || read(to_cont[0], &c, 1) != 1) {
-  			die("sync");
-  		}
-  		mounts("after");
-  		show("after", isdir);
-  		exit(0);
-  	}
-  	close(to_host[1]);
-  	if (read(to_host[0], &c, 1) == 1) {
-  		pid_t p2 = fork();
-
-  		if (!p2) {
-  			if (setgid(65534) || setuid(65534))
-  				die("setuid");
-  			errno = 0;
-  			stat(target, &st);
-  			printf("nobody: uid %u: stat(%s): %s\n", getuid(), target, strerror(errno));
-  			exit(0);
-  		}
-  		waitpid(p2, NULL, 0);
-  		if (write(to_cont[1], "g", 1) != 1)
-  			die("sync");
-  	}
-  	waitpid(pid, NULL, 0);
-  	return 0;
-  }
-
-Fixes: 1fde6f21d90f ("proc: fix /proc/net/* after setns(2)")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261024-work-procfs-fixes-v1-1-46b03c3a8fac@kernel.org
-Acked-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Aleksa Sarai <aleksa@amutable.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: replaced the flag-based helper path with a proc_net_dentry_ops check and direct dont_mount() call before the existing dentry setup ]
+Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
+Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com/
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+Reviewed-by: Rong Zhang <i@rong.moe>
+Link: https://patch.msgid.link/20261018122220.678822-2-aliamemis@disroot.org
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Stable-dep-of: f91c2cd6dbce ("platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/proc/generic.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/acpi/utils.c    | 41 +++++++++++++++++++++++++++++++++++++++++
+ include/acpi/acpi_bus.h |  7 +++++++
+ 2 files changed, 48 insertions(+)
 
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 91c25a5f770c5..a8bce3ce3b09d 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -255,6 +255,9 @@ struct dentry *proc_lookup_de(struct inode *dir, struct dentry *dentry,
- 		inode = proc_get_inode(dir->i_sb, de);
- 		if (!inode)
- 			return ERR_PTR(-ENOMEM);
-+		/* never reused and so never a mountpoint for long */
-+		if (de->proc_dops == &proc_net_dentry_ops)
-+			dont_mount(dentry);
- 		d_set_d_op(dentry, de->proc_dops);
- 		return d_splice_alias(inode, dentry);
- 	}
+diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
+index 526563a0d1886..92e977fb56570 100644
+--- a/drivers/acpi/utils.c
++++ b/drivers/acpi/utils.c
+@@ -10,6 +10,7 @@
+ 
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/slab.h>
+ #include <linux/init.h>
+ #include <linux/types.h>
+@@ -243,6 +244,28 @@ acpi_extract_package(union acpi_object *package,
+ 
+ EXPORT_SYMBOL(acpi_extract_package);
+ 
++static DEFINE_MUTEX(acpi_exclusive_eval_lock);
++
++/**
++ * acpi_evaluate_object_exclusive - Evaluate an object without interleaving
++ * @handle: ACPI handle of the object or its scope.
++ * @pathname: Path of the object relative to @handle.
++ * @arguments: Arguments to pass, or NULL.
++ * @buffer: Buffer for the return value, or NULL.
++ *
++ * Same as acpi_evaluate_object(), but serialized with other exclusive
++ * evaluations.  Use it only for methods known to break when interleaved.
++ */
++acpi_status acpi_evaluate_object_exclusive(acpi_handle handle, acpi_string pathname,
++					   struct acpi_object_list *arguments,
++					   struct acpi_buffer *buffer)
++{
++	guard(mutex)(&acpi_exclusive_eval_lock);
++
++	return acpi_evaluate_object(handle, pathname, arguments, buffer);
++}
++EXPORT_SYMBOL_GPL(acpi_evaluate_object_exclusive);
++
+ acpi_status
+ acpi_evaluate_integer(acpi_handle handle,
+ 		      acpi_string pathname,
+@@ -277,6 +300,16 @@ acpi_evaluate_integer(acpi_handle handle,
+ 
+ EXPORT_SYMBOL(acpi_evaluate_integer);
+ 
++acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle, acpi_string pathname,
++					    struct acpi_object_list *arguments,
++					    unsigned long long *data)
++{
++	guard(mutex)(&acpi_exclusive_eval_lock);
++
++	return acpi_evaluate_integer(handle, pathname, arguments, data);
++}
++EXPORT_SYMBOL_GPL(acpi_evaluate_integer_exclusive);
++
+ int acpi_get_local_u64_address(acpi_handle handle, u64 *addr)
+ {
+ 	acpi_status status;
+@@ -685,6 +718,14 @@ acpi_status acpi_execute_simple_method(acpi_handle handle, char *method,
+ }
+ EXPORT_SYMBOL(acpi_execute_simple_method);
+ 
++acpi_status acpi_execute_simple_method_exclusive(acpi_handle handle, char *method, u64 arg)
++{
++	guard(mutex)(&acpi_exclusive_eval_lock);
++
++	return acpi_execute_simple_method(handle, method, arg);
++}
++EXPORT_SYMBOL_GPL(acpi_execute_simple_method_exclusive);
++
+ /**
+  * acpi_evaluate_ej0: Evaluate _EJ0 method for hotplug operations
+  * @handle: ACPI device handle
+diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+index 66fc14f869cb9..53aad501458f8 100644
+--- a/include/acpi/acpi_bus.h
++++ b/include/acpi/acpi_bus.h
+@@ -30,6 +30,12 @@ acpi_status
+ acpi_evaluate_integer(acpi_handle handle,
+ 		      acpi_string pathname,
+ 		      struct acpi_object_list *arguments, unsigned long long *data);
++acpi_status acpi_evaluate_object_exclusive(acpi_handle handle, acpi_string pathname,
++					   struct acpi_object_list *arguments,
++					   struct acpi_buffer *buffer);
++acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle, acpi_string pathname,
++					    struct acpi_object_list *arguments,
++					    unsigned long long *data);
+ bool acpi_evaluate_reference(acpi_handle handle, acpi_string pathname,
+ 			     struct acpi_object_list *arguments,
+ 			     struct acpi_handle_list *list);
+@@ -46,6 +52,7 @@ acpi_evaluate_ost(acpi_handle handle, u32 source_event, u32 status_code,
+ bool acpi_has_method(acpi_handle handle, char *name);
+ acpi_status acpi_execute_simple_method(acpi_handle handle, char *method,
+ 				       u64 arg);
++acpi_status acpi_execute_simple_method_exclusive(acpi_handle handle, char *method, u64 arg);
+ acpi_status acpi_evaluate_ej0(acpi_handle handle);
+ acpi_status acpi_evaluate_lck(acpi_handle handle, int lock);
+ acpi_status acpi_evaluate_reg(acpi_handle handle, u8 space_id, u32 function);
 -- 
 2.53.0
 
