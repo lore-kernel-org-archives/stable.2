@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794365495;
-	b=LuBaQWKTYE74LjcIKNzvIMzW6WM8VRCK8t9YCbMC5bMQ5vf+I4BR+ZEso6GhYwsdPTZJ
-	 gjO6ah+LeKtJEPzc7hMSLlGSlRV5VLGa/AFi62sgi7ipCZayxAjiwbxkBviO5E08X5joW
-	 Uy1sDsQWYQh2poyPRevFYPOGzhbPuecTpztLVFQBEhlWE8ECqIpoIfYTv7SQWTqwQeVcF
-	 0AkCdsMvZohKg230MuZccUrUJnW0QE8ZieoLTtxeg9P/OSqjt05PyweEFXJu7Dx3N6i5z
-	 dMK+VJ3dRur4tRqtF0QJU3OVSf2pAMKeoeP0poUDWAxKV0geOSM72EBkD1oZPtMd8hA==
+	t=1794365519;
+	b=OZ/NQPBlLgbrQcrkF/Zvg+DOaSq/dHWj9L42ZAdkqB/ott+HyJ6b07JBCxLnavhlD4cK
+	 qR02IPMmi78gJRM07h3J3aRv/bGy0ANHTg+nJa1OeYACY8AfjeLDUpPdbCgHhGGFPpzBh
+	 3MqLo2yS40iKJOcEuA+oTK6+9JVZ9qsS6x39DAp27h1/JRbShbxSGdoDzoKb/kMmW9xtI
+	 9kls729nGoJlHZnN9m1okYU/z9fxKBuxNmm9AMda0cmm2nWn+vWti6sFv1CbJMY/nnao2
+	 4QmFGtbcizWiFsG/7xymuPSpbDVHVdeAfX8AlEEIkFpvrFNG/fFMtFXVb9NdUA8/OAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794365495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794365519;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UOv/eMWTxgpvmKKFgN9FiWvMmb2hYk65tinDXmfKE60=;
-	b=D6nJn413vquwymE6CzM/eF1jla0hdfpiKE2XCxD1dbMhU2n8SW+a/hEP7I79xe2n6ukV
-	 7RDvUbtSH3VR1tzkBiIMi0+gU9tnbZRszWPFG9mEUn9N17rc+/X+TM0h9HQy8CiliKdV3
-	 Ojo25/KVgDJ8fOjqYdAQIlujfuOtFMz8H28hGTG6BsYuQwHzXyCCNLjpqfUEofxKf+oIN
-	 aUb19qAITLxpLLzgltAMYSxwahrlI6iynhUXw9+nx8duq8l0MH2GMtE3Ft4GZxNiiAfAn
-	 UtQcWFQkzv+xZMmQDaJeLJnKDik7XS5kyP10xfLggdtR54T2s9Fm8BcOnhmuyRgHo4g==
+	bh=g9lZLfqs5cpufeGYD1996tXxqSDFcYwmBKjIPUI0a4I=;
+	b=iFQTJv3FqFWefMEO7OpQYsrwjWpYJqXBrJ67B1z75lrnR0qtr4Dul4C5og+gjx5c/ru1
+	 291JEurUszhKsAs700+ME8gYpEvg7Nm5S38Le/DsQquepkRLdEBB4COMpJ5NlOveibl0A
+	 tmXzkxasz7908gPTCjVczHCAO6+T4uZYGLF0qVc+zois+WrRDUXOj7/i8uf0XMRTGJZax
+	 M0jsfyR8/pk0IiGCcT2TOw0KwDmpx7HNKcvC31kp/5iaVwdFzh8/uqWZzKXVgQAjcduPa
+	 ptL1ePxUNEe0ay6CCV5ZEYP4TmXMNqs5H89oKZrob96xcUP8kTBpxphXq5aoQ2iKgHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSyGhHXJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBal+eGR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAD3606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:51:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF5D606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:51:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSyGhHXJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33A91F0089F;
-	Wed, 11 Nov 2026 02:51:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBal+eGR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7170B1F0089F;
+	Wed, 11 Nov 2026 02:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794365495;
-	bh=UOv/eMWTxgpvmKKFgN9FiWvMmb2hYk65tinDXmfKE60=;
+	s=k20260515; t=1794365519;
+	bh=g9lZLfqs5cpufeGYD1996tXxqSDFcYwmBKjIPUI0a4I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bSyGhHXJet3Vtn1Ejyvnd99D13VZk6qDiyj3gRdJbnHHCuB2SMNFx8v5SGZuCHMWx
-	 VXLAQLXyWN2MVu/8lwQa+6MXOy6Q4SnRtWr8zb7vrcokkiNf4498oRKrNCzfwo9CoR
-	 oqXpXA0PmNNHRTmkauIIJMRJYbxaBdv/AcWqmSyYQJlm1QxlDSYWR8G0NUViRBB6QB
-	 XrwmtyJiSQeVidK3bT5GhbnogtDuPRmkBXDvChTrj6Yojg0Bn6/wiWCtdlCtxc3aRO
-	 D502eDg6E6pp+1MpedxaIc5NKvsK9Q9D8Azr52KeC1AbTWebXa0wTQCgGizcJEtlRK
-	 EsoD2N2UQ73dQ==
+	b=OBal+eGRy+vv4c00sxYw+63Ry8pl79lJYMaEhT2tZDcI+pt45w8DLfvE2tXdVcTUJ
+	 S7XxRCRXdyzmSdNeATsjagn3h/QhA7AeE8QsK3aFiS7dJwNWdU+HKUT/Ip60n/h9GR
+	 ZW71VgFxQV4MOyv1WmUteFiMXPSPwyEGzXkGimXA2yVgAEVftqBqdCZLCemRL74ph6
+	 61JYIXFeLOPVnw5QFsNSFxQfq4yUIJmle7X9OWLQ11VNFZi1+MSvWFBDlhNv09Bbyr
+	 IUmYwz56PU4M9djOZcBw9OHF991BoONImFozU+aCvXMFeMpwhBlUWAUT/UVnQdGJFK
+	 bXf0tZJcR9VDQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daniel Phillips <daniel.phillips@amd.com>,
-	Felix Kuehling <Felix.Kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
+	Jan Kara <jack@suse.cz>,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] amdkfd: Fix memory availability double accounting of kfd pinned objects
-Date: Tue, 10 Nov 2026 21:51:33 -0500
-Message-ID: <20261111025055.736799-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] fs: rotate inodes whose page cache could not be dropped
+Date: Tue, 10 Nov 2026 21:51:57 -0500
+Message-ID: <20261111025120.769747-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052458-failed-6.12-16df12d7158f@kernel.org>
-References: <20261107052458-failed-6.12-16df12d7158f@kernel.org>
+In-Reply-To: <20261107052516-failed-6.12-8ee09f597763@kernel.org>
+References: <20261107052516-failed-6.12-8ee09f597763@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,77 +63,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daniel Phillips <daniel.phillips@amd.com>
+From: Nikolaos Karaolidis <nick@karaolidis.com>
 
-[ Upstream commit 16df12d7158fb55f20d6e985abd1996cbabab9f8 ]
+[ Upstream commit 8ee09f597763acfd31c62a578ba88b792fc41b24 ]
 
-Pinned objects that are not kfd objects reduce the total vram available
-to kfd, so we subtract the total size of pinned objects from kdf vram
-availability. However this double counts objects pinned by kfd itself,
-because they are counted both as used and pinned. So track the total
-size of objects pinned by kfd and add it back to kfd availability to
-remove the double accounting.
+When inode_lru_isolate() drops the page cache of an unused inode, it
+has to unlock the list, so it returns LRU_RETRY and the walk restarts
+at the head of the list, where the inode still is. If
+invalidate_mapping_pages() could not empty the mapping, the restarted
+walk strips the same inode again, and so on until nr_to_walk runs out.
+Every walk of that list then ends on this inode, and nothing behind it
+is reclaimed for as long as its cache stays.
 
-Signed-off-by: Daniel Phillips <daniel.phillips@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit b8257bdb26ca5d9a75f4b81f629422f17afa221b)
+Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
+traversing context") the walker pinned the inode with a reference, and
+dropping it in iput_final() set I_REFERENCED, so the restarted walk
+rotated the inode to the tail. Set I_REFERENCED again when the mapping
+is still populated after the invalidation, in the same i_lock section
+that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
+i_lock to be held, like inode_pin_lru_isolating().
+
+On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
+is left behind if it is locked, under writeback, spliced into a pipe,
+or still in another CPU's LRU-add batch after being read. Without
+HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
+mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
+never removes.
+
+Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
 Cc: stable@vger.kernel.org
-[ sashal: adjusted indentation to fit the unconditional VRAM availability calculation without the upstream APU-specific conditional ]
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+Link: https://patch.msgid.link/20261016102515.111285-1-nick@karaolidis.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: replaced inode_state_set(inode, I_REFERENCED) with inode->i_state |= I_REFERENCED ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 11 +++++++++++
- 2 files changed, 12 insertions(+)
+ fs/inode.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index d79c431de2234..b921587d428cc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -103,6 +103,7 @@ struct amdgpu_kfd_dev {
- 	struct kfd_dev *dev;
- 	int64_t vram_used[MAX_XCP];
- 	uint64_t vram_used_aligned[MAX_XCP];
-+	atomic64_t vram_pinned;
- 	bool init_complete;
- 	struct work_struct reset_work;
+diff --git a/fs/inode.c b/fs/inode.c
+index 7942673f686fd..50f0a5d756bdc 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -502,12 +502,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index ef4d8dca3c7af..55834719e9848 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1500,6 +1500,11 @@ static int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)
- 		pr_err("Error in Pinning BO to domain: %d\n", domain);
- 
- 	amdgpu_bo_sync_wait(bo, AMDGPU_FENCE_OWNER_KFD, false);
-+
-+	if (!ret && bo->tbo.resource->mem_type == TTM_PL_VRAM)
-+		atomic64_add(amdgpu_bo_size(bo),
-+			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
-+
- out:
- 	amdgpu_bo_unreserve(bo);
- 	return ret;
-@@ -1522,6 +1527,11 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
- 		return;
- 
- 	amdgpu_bo_unpin(bo);
-+
-+	if (bo->tbo.resource->mem_type == TTM_PL_VRAM)
-+		atomic64_sub(amdgpu_bo_size(bo),
-+			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
-+
- 	amdgpu_bo_unreserve(bo);
+ static void inode_unpin_lru_isolating(struct inode *inode)
+ {
+-	spin_lock(&inode->i_lock);
++	lockdep_assert_held(&inode->i_lock);
+ 	WARN_ON(!(inode->i_state & I_LRU_ISOLATING));
+ 	inode->i_state &= ~I_LRU_ISOLATING;
+ 	/* Called with inode->i_lock which ensures memory ordering. */
+ 	inode_wake_up_bit(inode, __I_LRU_ISOLATING);
+-	spin_unlock(&inode->i_lock);
  }
  
-@@ -1681,6 +1691,7 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
- 	vram_available = KFD_XCP_MEMORY_SIZE(adev, xcp_id)
- 		- adev->kfd.vram_used_aligned[xcp_id]
- 		- atomic64_read(&adev->vram_pin_size)
-+		+ atomic64_read(&adev->kfd.vram_pinned)
- 		- reserved_for_pt
- 		- reserved_for_ras;
- 
+ static void inode_wait_for_lru_isolating(struct inode *inode)
+@@ -930,7 +929,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 				__count_vm_events(PGINODESTEAL, reap);
+ 			mm_account_reclaimed_pages(reap);
+ 		}
++
++		spin_lock(&inode->i_lock);
++		/* The walk restarts here: don't retry leftovers right away */
++		if (!mapping_empty(&inode->i_data))
++			inode->i_state |= I_REFERENCED;
+ 		inode_unpin_lru_isolating(inode);
++		spin_unlock(&inode->i_lock);
+ 		spin_lock(lru_lock);
+ 		return LRU_RETRY;
+ 	}
 -- 
 2.53.0
 
