@@ -1,109 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.38
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794438937;
-	b=cHLn6kC++7v1tkVjxi2qx1+Kwpfji7x+exmYJIxgFSH1PwfH+gqSQOoncSjsUeaKMPHU
-	 WvVgneQUca5aE+LwsWo1GUrwUO0KmCX1ZFbds33Bgg1+ABsE9xijPO1fE+W8YE4R1+aeU
-	 DGnKxuVcf0NvWStFG5SsVfHFjlWbMXDba6DTWSpyqk6xzAT52+UZolnHJJeoQeC9DuIox
-	 IVqWOLCWNHwReu3uzIeuB8QOMe1qlhjHwEmDtNOFmNeG6D6axxP9mFIi7XkS2qc8WJWt9
-	 5HIo8sYliVRVQW/OYN+wkXiEpZO/RkYO+b9I33H/Xt4gtS/O1JsaB2QDsUj17w9eBfw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438937;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=l24hbdstZoU8pT+qLZIzM9ey6mHPSs8iHMnFzfzHnlM=;
-	b=GDi4u5q8Jyes1vaXMKV4WKhcEvl27BpFu+pYI87TuglslWNfg+d4l+vGtvOMLc4NUHhc
-	 IRkjGsqksotwRcyOJEM6cvjaZj7Nqd8AO4x87/kbK7G3X8qs+J/c8uqv+8aORpvzfMFrj
-	 O8wCJdK5CFItbI3CxlQd8FfZBtxOEG/e3aJQYAywmjcA5ESF8K10o9mmvdVD+Z4qS919c
-	 U6YAvlDJ5pZy4pZlsdGQhiPvvRJwF5mKu917Ad0AtlgGV/lG2KUaUElMUkdLYI/1th8xy
-	 c2HXssmRk57xJIapZN3r33PrQX8/QgdIn2JcMBpU8U/hxs1n8pwHofzY9Ocp9Zpemuw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EU3wBpIy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.38
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013038.outbound.protection.outlook.com [40.107.201.38])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794439088;
+	b=i8Vx+TTodbfGh5/VamDxtE16xdV3UT0j2jjwPRfUT57e7dPPhq2js4N2gwpvGJz2h8uY
+	 zgXKGFWg8IJ4Gh2dSv+1s9fLc/O9pISDV0pNDUI+rGCXBrz8haJic5YKaOoDi18FP0x7u
+	 miO4zlrbBKnOS2fHSgPZ418oXbG3BwbLRCWzhHwmI1LCHF7Pj9P6bARsdjlwhSY6BfMDK
+	 c0bwvexAr3dxh4x7oJYlEemEzPynkyBBoefqWwKrxZdkPNqUXnwzxONYOO8xXNn/Ro3uK
+	 1CedgfO3wZLkoePStjRiRjP3nngps9t8HLBV8K53tJ8qKcV9gHiCYN6Zcs8lWLQ/NIg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439088;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Ix0kB5hn1z7nvbCxmDdqbXSje3Q9X95mpbUUgO1whQQ=;
+	b=a8usDYT6Kn71UIpvLxruegLiRHMrUC2kvONvdrjJhkEj24psEIfiILQ/Jxq7qHjUXThl
+	 krvCpmKMaVl7bBfl19dbNRn7JK05+wM/XeYlPd+JnRKeYafzBJ3SrzYVZN+MXLWMGTSJy
+	 Rv0a6GJ82ZafwRbMsXLVOqXa/Z2QSZCH2jR+yoccIXzWUVREygw65Sv/u6xE9a23uwTsp
+	 wqjVWn0EKZUUe93AJui52udgiN+QC1t/WP5i7n05SStuL3J6u1MCVt1Mi0bgdfMaHYA9b
+	 UJhUnlFdU1QhJRGJopYm4HtyJBcZdE8L0ElvpScxTpKNRMHH6yKl1YFFsayUBK1DCGQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ob7OB7Th;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C9C606A321;
-	Wed, 11 Nov 2026 23:15:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C9C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04191606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:18:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EU3wBpIy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aQk1OSIi4RMTsfy9h1AhemrAoI4TV7Zgnmaqwck7w8urDIAprbe5Cwqcm/wlZsVPamoRf3WwlgLJyl7F8ifiMlOeud0XyWE3zXRW4NxYyeWudfR/IOKHbUHlPOryZco3fff8dka17SAX8K03htCUmMNL6d/HrhKZx52HiAqoR0XYLSOf7GTurTxurVZuf17vX3PS6hXHWx92LLzm+DMUHMPq6bojmsaNZzCwB6Dpptg3nhnvE8iPKOLiSscWJIFgmX9Kc8vi2UGrvFrPmcHlTpKEXAMVtWFcZEvKPhqxYMx7BulMLKv5bmBNO75kPh4XozUjcuWjwXkbkufCrEj7EQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l24hbdstZoU8pT+qLZIzM9ey6mHPSs8iHMnFzfzHnlM=;
- b=FwU54WGWJR2u0ys71T9Pm5eIWUqanTBEpFPxYfrZlMn17jyXaBOWusN9sFCXj27y752jwTvw+4/58hcGlmQsyjZ1pH4B/LErxD6mncbK+rxJUB8GfMdtqLzojr0XDjwV6eyTLwJBrVXin7N5jaeaT1gceawAkt9kV3eHzUyJKSChIe4ttC0YT1MU0+I9e95ClcS9TWOE0xvCG6MPPJdlPr6t7a9LjB1n8ae8lrsAmDy3Vam9Gjr038N6B35kkWvaD7Y3v4nc4wzZRUVtsDmLjdXKr/vZ3SsSagry1HhOmeEMVaUFKC/rUWKM65hx35sH3P/Acla0jUog1eHnV1sxOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l24hbdstZoU8pT+qLZIzM9ey6mHPSs8iHMnFzfzHnlM=;
- b=EU3wBpIywsakbpPoR1k6d3Uhfc4Y1BfomcoFcTSoPq4aXW6grTWNOON27KACmDJgNZgmUkRDWjaRVLWBQHmvy0kQe8tCB7Hx3vDLRDY0VVfKOaSY+rB/BXVkE5bq4WJzyCp672YMvQ4JOOnBrbJ2z3u9311kDadN4aDd+HvtvplfjvYBdXdn1lTg3asQtfjMdwcjnYRImals2HXd4Z3cp8Zp5/Gp1tr67gd/CeTX9HipgjbSHR1JRY+H0o3wQZeCHF+u2WZqv2h1TsoA0skj6hmZ78Ss9NHiAXuCS/3L5u659bjBMt4jM0hX8bwQicknSFQqwHAKdi+g0ye4wjp9wg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS4PR12MB634945.namprd12.prod.outlook.com (2603:10b6:8:514::7)
- by DM3PR12MB9328.namprd12.prod.outlook.com (2603:10b6:0:44::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 23:15:28 +0000
-Received: from DS4PR12MB634945.namprd12.prod.outlook.com
- ([fe80::24ec:530f:4816:dc]) by DS4PR12MB634945.namprd12.prod.outlook.com
- ([fe80::24ec:530f:4816:dc%5]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 23:15:27 +0000
-Date: Thu, 12 Nov 2026 10:15:22 +1100
-From: Alistair Popple <apopple@nvidia.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Balbir Singh <balbirs@nvidia.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
-	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 10/13] mm/migrate_device: refuse to migrate shadow stacks
-Message-ID: <avT2FNTZoEuijEZP@nvdebian.thelocal>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org>
-X-ClientProxiedBy: SY5PR01CA0105.ausprd01.prod.outlook.com
- (2603:10c6:10:207::13) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ob7OB7Th
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CB31F00A05;
+	Wed, 11 Nov 2026 23:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794439087;
+	bh=Ix0kB5hn1z7nvbCxmDdqbXSje3Q9X95mpbUUgO1whQQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ob7OB7ThmIEWF83rHuCEENvNfdrNsisrf77Uh8Z+9g5DXfr0bRyGqAbbIswakxHB7
+	 ERv4DeYHGLgJv6TTDCE6kCuxsUHjoJkt4JBNblvVconhcZJzOIDv0E5X61WHzRr9wn
+	 cPcfQG19ExPn/l6HU4LpzI7l8PMHeLxzFICcL6Sq0FWf/R8DESWBN1nJMSgXCvkZL5
+	 gTI9iXhXmlWX6a9ylmvOkbv6Bn6xrsYsVLhCtTKNWbPc80nG8pzE0iQXVNR6v50gAb
+	 EgpAkerPO1XvjfTsQhPwvTYGrnSrlYPg6tVLBWbmqHKVqmCoG2S3rFiCfXRHkFZkPx
+	 g1QA0X4fkqdgw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/userfaultfd: wake waiters when registration modes are removed
+Date: Wed, 11 Nov 2026 18:18:05 -0500
+Message-ID: <20261111231749.463731-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200903-failed-6.12-4eee9c389b07@kernel.org>
+References: <20261109200903-failed-6.12-4eee9c389b07@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,107 +62,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PR12MB634945:EE_|DM3PR12MB9328:EE_
-X-MS-Office365-Filtering-Correlation-Id: d58076cd-9631-423c-a33d-08df4049ac23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|22082099003|18002099003|11063799006|56012099006|4143699003|261028144727099003|261021121427099003|261102123227099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	4GYQ+jiDImRHARbt9k9zD1dhK/V6n83PM0KTbSlyWk18y7VLnysnXake+a9pFJ9CJMtXQYwKJhrd/ppw3Yz64WTFo0VbvrwFEWQFIdr4+Xk8aGsIhSJYY+OwQ4Yh2jIV7HF2YruH5L+uYNbpNg5zqGCdbWf1/Y4yvHDYLN5JfR90ejoGNqyBkd/EL6WXrVQ1KV23XYNYFm2V5bCbE6kJR/NTxeETZDNHBnhU8Udjv5dlksqBTagVLtaK643uTPJzS0jkVLQuKlwhYQkWSrIpWK5IFAba+8N1IswB72s4GT3XxaHQ7hYbCPu8+7iLCAAfH8xlNzbyetGc6OcIfmhfcwYr6+wYiwWKDtHtH7/SOWOeQVCstlc08rh6OpFVzkwOpq3Vdl+ucahAoQNCDS/2fsmJyCYLSxIDwaMcYwG9WLwQ0apdvU4BXmPwhu33XpSksj9QZxNC3uIcSszeRbCgTOXqb3ciac2CXjxELlrdzQMRVs6c00E+aCayvAfSpceFUxRtVpPTUjEMLrFi8XZZJ7fg3F/OVLWV0FORnshpatlsuFeESI4RGR8DLZk9DLJJ9P4AqQ29NcD1fZt0CI5XbM9l3Sahy/INkqR1GGVyBX14VrmgQ3C5KZrwMyBM3C2YJ3uVYcWKrncUCYXkG1EiLagt3Bo82s+BegbhFTGoBWs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB634945.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(261028144727099003)(261021121427099003)(261102123227099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?G0ZQorIlwpecL3itzRhy+8iDyALUz9OaDSuNlzAI6RWjJzuQe7aLtcWaAINc?=
- =?us-ascii?Q?U8lyqU8/DrvldDSThntQY3FHHblgGUvuB7LZbzdDvTUtau4Bt1+TH3GfOsSw?=
- =?us-ascii?Q?LoP4T6A/viKD3lfMG3i1heNdwmznM9jZE0DCes6E6CvDpAdDPh91QcAXidAt?=
- =?us-ascii?Q?LkQSDb6m/JrzbugynQd+zcssJ6s19XsCT0BGqSYcFtqSSc+tEyXCqtutD3Y9?=
- =?us-ascii?Q?YFrzyEpVo9eE0YpmbUjxTkpdCcLDmqIRoixvzA2MvT91lMaU2Wc54YGcrvHS?=
- =?us-ascii?Q?czKzEg2YfURSqzx09/ZdASndHM7bKYdaXzQZ5Ysgs9i52kgmoYpaW4GSGLpQ?=
- =?us-ascii?Q?F0l29qLfI7eMSMVPekjELhZXB5BMY9KPHfHBXf/NITMTcHYiSatxsVq7lG7z?=
- =?us-ascii?Q?ynt/cXTPUPhmnl/Hi72IxZhR7lpAzu9NzqJgJ0JefPqF5AcQxpzA/zLpha88?=
- =?us-ascii?Q?6BYS8wjJGmwX0iPGf+jA1raMRzvZU8ZIYaiWygTV/H0R7vmZGy306OolpxHw?=
- =?us-ascii?Q?UcutIYkFTBotXObtQrFS2VOxZJzfYF5g7RrCm9j9uYDgGxk0SDJU/73+0LeH?=
- =?us-ascii?Q?tQc+UUdor7p4MfCnCGroo7vIxMMjjrTWj4/lPrkZTnTSlJglRpgLl82I18de?=
- =?us-ascii?Q?sgIpI4Txmj+RNY3ixQcAUe5cBde1vVgAcCzzdOb7j7SDb31syxciBeo1rOvR?=
- =?us-ascii?Q?zQ5HLGh7k7Pbe04xJ8PW0Mtiahubu9Hh4+ALVRGDmNVWOqriHJs3ER6nYISv?=
- =?us-ascii?Q?tA6DMikjMOmz46IMwJrSo84sWIL3nguH02Dxv6K9EADd1u1jz1/PciMUJvX4?=
- =?us-ascii?Q?hVOrBXn1bXLzAJdUJP9xfmF70d8YyMzzOjWY8sdkeVpwNBxomWZXq1pNC/61?=
- =?us-ascii?Q?7GYyuMtalZNfOWjmaPBTofyvBoSeq0+D9c5s/QwBYrpppcY3KKTvc7ID9NX4?=
- =?us-ascii?Q?0HDR6B/q7n/HtYEjKITEXTa+7IgnzJ/QPEo/oqp18aTPQ1w81cnOMbmGzbBO?=
- =?us-ascii?Q?Qcve4k0FQXLqQEHwEqTm2Sgtgxj3Hanbxd0O39SAOYJoByCyR7PDyxudBMBT?=
- =?us-ascii?Q?a8PdNq3qI6ol+IDgbuya/Urc+IoAzwXyjIbhpXDsJfQWABZLFzYyTzQkUOjO?=
- =?us-ascii?Q?R/d8/2YOwaKZy/rM65FNJfn+kMsBK9cz+jGXB9fbmFtVTqb/d1RM8QMPj5Wm?=
- =?us-ascii?Q?1ltZOEt+15eCuujJZ4+kA0oECVE2Va8p5TckIX83tbG5+jhFooRVqsbINbuT?=
- =?us-ascii?Q?5aU72DlWyY/67kTN923b/Z0dfj3KnSBRRrjLc5dYTmfH1nXVDwIrGrGiPp9x?=
- =?us-ascii?Q?KdstMiAlMLAOIEt5r5eoBJBB8g+r//y0lr7JWbp0n/8l++ae+dD0k/jC+skt?=
- =?us-ascii?Q?8nrCNxJlBppcOMAsWOa1h+E79brQwslEy+KqrFYDwLhICZ7TpMewylZy7im0?=
- =?us-ascii?Q?+7ocshtedfafpGn3IVGkIH+46NeM6dTma98HXjNgMFibFs9Rj0PMkylz7qTZ?=
- =?us-ascii?Q?AFecsKqaD8ngPWa5YcbsqckbdNPBhQknRfcNWeNlQjZXWFEolWYfqim/oiG/?=
- =?us-ascii?Q?7Bxt16F9x2AK7tGBIVIg+M8pN2tY7ujdqlr3zneX8De90RV8i7gNpmbPsxnj?=
- =?us-ascii?Q?PM35gheHo9k3P4qYOkhluto+GoKqh7ABHRb/pfvr3S1J3SLCuut/9k5aVp+V?=
- =?us-ascii?Q?KeZL9MODo11t9P2iSEc6evyaM+A4dvj08hteF/r9EC33utsfvR3L9wnwyPEn?=
- =?us-ascii?Q?URBdssSY8A=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d58076cd-9631-423c-a33d-08df4049ac23
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 23:15:27.8667
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZSKwXduKy99LYwG6sdRex8m/vShAhyoE8L1FrrMO05FxRvdm1jofrFCaN5ZKd6qz7QDRaSetRxI+jigzuFBYaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9328
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-12 at 05:13 +1100, "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote...
-> From: Chris Mason <mason@kernel.org>
-> 
-> The kernel blocks ordinary writes to a shadow stack. But pte_write() is
-> true for a shadow stack entry, and migrate_vma_setup() sets
-> MIGRATE_PFN_WRITE for each page where pte_write() is true.
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-Does hmm_range_fault() have a similar problem? It allows devices to mirror PTEs
-into their own page tables, and AFAICT it doesn't check for shadow stack VMAs
-and would see the PTEs as writeable. Thus devices would mirror the PTE into
-their page tables as writeable.
+[ Upstream commit 4eee9c389b072e161549d46dcb1ae10b0222717e ]
 
-This change looks good though, so:
+UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
+faults that are already queued. For example, switching an anonymous
+range from MISSING to WP leaves a missing-fault waiter asleep until
+userspace explicitly wakes it.
 
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
+When a registration change removes a UFFD mode, wake waiters in the
+affected interval after updating the VMA. The VMA is write-locked at
+this point, so no new faults can queue under the old modes and woken
+threads cannot retry until mmap_write_unlock(). Waiters for retained
+modes in the same interval may also wake and refault.
 
-> Notably, the nouveau GPU driver takes that flag as permission to map its
-> copy of the page writable for the GPU, meaning that the next CPU access
-> migrates the page back into the shadow stack, and the page then holds what
-> the GPU wrote.
-> 
-> Be consistent and disallow this for migration.
-> 
-> Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ ljs: removed unnecessary comment, refined commit msg ]
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/migrate_device.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index 5fe11dd01291..a59864f2e9a6 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -759,6 +759,8 @@ int migrate_vma_setup(struct migrate_vma *args)
->  	/* The migrate_vma page walk has no hugetlb support. */
->  	if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma) || vma_is_dax(vma))
->  		return -EINVAL;
-> +	if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
-> +		return -EINVAL;
->  	if (nr_pages <= 0)
->  		return -EINVAL;
->  	if (args->start < vma->vm_start || args->start >= vma->vm_end)
-> 
-> -- 
-> 2.56.0
-> 
+The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
+with both read and unread fault events.
+
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Cc: stable@vger.kernel.org
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: replaced the local wake_userfault_range() wrapper with a direct wake_userfault() call, exposing the helper and its range structure across files ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/userfaultfd.c              |  9 ++-------
+ include/linux/userfaultfd_k.h |  8 ++++++++
+ mm/userfaultfd.c              | 12 ++++++++++++
+ 3 files changed, 22 insertions(+), 7 deletions(-)
+
+diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
+index cbd9d610c54bf..71084cf5b7989 100644
+--- a/fs/userfaultfd.c
++++ b/fs/userfaultfd.c
+@@ -71,11 +71,6 @@ struct userfaultfd_wait_queue {
+ 	bool waken;
+ };
+ 
+-struct userfaultfd_wake_range {
+-	unsigned long start;
+-	unsigned long len;
+-};
+-
+ /* internal indication that UFFD_API ioctl was successfully executed */
+ #define UFFD_FEATURE_INITIALIZED		(1u << 31)
+ 
+@@ -1185,8 +1180,8 @@ static void __wake_userfault(struct userfaultfd_ctx *ctx,
+ 	spin_unlock_irq(&ctx->fault_pending_wqh.lock);
+ }
+ 
+-static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
+-					   struct userfaultfd_wake_range *range)
++void wake_userfault(struct userfaultfd_ctx *ctx,
++		    struct userfaultfd_wake_range *range)
+ {
+ 	unsigned seq;
+ 	bool need_wakeup;
+diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
+index 8ff68ce1860be..8b8be5fa2eb57 100644
+--- a/include/linux/userfaultfd_k.h
++++ b/include/linux/userfaultfd_k.h
+@@ -82,6 +82,14 @@ struct userfaultfd_ctx {
+ 	struct mm_struct *mm;
+ };
+ 
++struct userfaultfd_wake_range {
++	unsigned long start;
++	unsigned long len;
++};
++
++void wake_userfault(struct userfaultfd_ctx *ctx,
++		    struct userfaultfd_wake_range *range);
++
+ extern vm_fault_t handle_userfault(struct vm_fault *vmf, unsigned long reason);
+ 
+ /* A combined operation mode + behavior flags. */
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 9951b4f42c65a..33abb025750db 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -1962,6 +1962,8 @@ int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		prev = vma;
+ 
+ 	for_each_vma_range(vmi, vma, end) {
++		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
++
+ 		cond_resched();
+ 
+ 		BUG_ON(!vma_can_userfault(vma, vm_flags, wp_async));
+@@ -1996,6 +1998,16 @@ int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		 */
+ 		userfaultfd_set_ctx(vma, ctx, vm_flags);
+ 
++		/* Retry faults for removed modes while the VMA is write-locked. */
++		if (any_mode_removed) {
++			struct userfaultfd_wake_range range = {
++				.start = start,
++				.len = vma_end - start,
++			};
++
++			wake_userfault(ctx, &range);
++		}
++
+ 		if (is_vm_hugetlb_page(vma) && uffd_disable_huge_pmd_share(vma))
+ 			hugetlb_unshare_all_pmds(vma);
+ 
+-- 
+2.53.0
+
