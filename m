@@ -1,57 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411043;
-	b=YGXojwAh1djMxH8Kl8UHdeHBTayPny174IWtficO8YF8KLiXMvEhoE0jt5kFH2IFws+7
-	 zULCE5+r+ptFRIOj6GQfIOWspON+KpyV6zHbT5FKudPLC7jdTer1VcBXr9aEKsbJRunTS
-	 AGx1RHoEsrOtveN784fDDgnLpY9LX4y3XQ9ICzCkE3IUSu9ysyuFl5PScdvaIoJWV59SX
-	 iKcZLguAxnfYwMPbE1AVxpYV2efVhhkc87G3I6g1Pc5NV/FrnOT+x2oLID1PSEEAcAKRA
-	 psje1yh4NGKugen+c+nmaF1RYMhSmUYZqMBvvfqk2INXCrMmCcszhUROPGyOMqjZ34w==
+	t=1794411047;
+	b=zyo7WrWjjVjdZNpcyUZEYpynFNcwEOXXfN15C3s09tXijhPAWMdfbhGwblFEuizPBfNI
+	 0AJpk/VOe+kPHRlsp9ORu+fBkiCd7pb+Kk5Ox2GAX3qhr4Slslkfx0PiApWRCTibnncKo
+	 x7SQFCiCJ/9pEh21JiYVJ2KyWKqSPo6cDY1/qMsVUGGjSpe28dXhs0TLzNVE4/U9Wevrx
+	 vT4Qo9cg6WUiE/p0cp7N6IVjWoyct+EONjLvF+3EtVjuyx+GZDrY94c8/cyZD2mquHPv9
+	 SUpWGjg6M5juqmi7a7fwBBveNdUF1hcupkasJgfoV+LgEB4KGvG0eUQCcn6h/ZcV43A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411043;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411047;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=l2ZK7NreZxs6Od/069p77XzGJzYZxOyXgYS2PNTLN/Y=;
-	b=aK+FTijR4u64J/tZc919XcmhQ2JSgbIpYtplitukFKeGU2n6H/DnaUcmdDbjda8dYkON
-	 5dljEoO6eK8JYamphnweWM+dG3EP5RuA5dqNmfdmzll5eSjKrhrdJfWppFy2K3XWpCmNG
-	 43p94Mg9+VYpYTUwJUvqCZZXsi1qGACNod2N2t/fmccegod1kEMXSkwxm8q/0h8kn8bLK
-	 l9nxG+kywbFhS4x9vJ4Ok1QWBT1a88IjRUqLinDALVmrEjBM3I4pMtdloqDwQAVz5TjS+
-	 YsnQGgKRI4oHbrnorPuBWRN0m0Lvwr/lAQuEqAhxZF1AqLcc/J6/zQRVlmlGiDqDYCQ==
+	bh=oh0EMdAhesLwEjUQbkNfNH27+MPo1lgv6Y8X1Ijaoxw=;
+	b=RgD3dhWcqL3T3K6uSw14qw5i7TkJ2VQ31G+mlNYrqCVxOLh4nqXToT91WBXqzLn1sAC/
+	 9lHeSuPxMypvk4e5+AHvCOFCPVXAPRox0srEXFhOpZxaFTMMOghgcuenpV+pFTmJs7ymy
+	 ig0OeOscUFouHnN8tT98QPyNqCLru8bfJ2grfUTkcA6ennO3c+1LNd0fy6qN/LsnTbDfJ
+	 54iZfniMWMPt6fBtVKFGfbB/dJ9VcJkjJhEKY0z+Gg6q41UQ438+jedX1641s+SH7duu5
+	 K6mD0wrZmOXDFWQK4jgvu0PPveMSKIyshc+V6HX+gsc06LHGgpv0xWmk4oXM0Uab3CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIwPD+oZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlCv2xkW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053A4606A32D
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:30:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF2B606A333
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:30:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIwPD+oZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 391171F00A05;
-	Wed, 11 Nov 2026 15:30:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlCv2xkW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEA981F00A05;
+	Wed, 11 Nov 2026 15:30:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794411042;
-	bh=l2ZK7NreZxs6Od/069p77XzGJzYZxOyXgYS2PNTLN/Y=;
+	s=k20260515; t=1794411046;
+	bh=oh0EMdAhesLwEjUQbkNfNH27+MPo1lgv6Y8X1Ijaoxw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eIwPD+oZMmFGyI0DilgdIYfMSWvT8NYPj4RsXD7+O42PWXSWtOXhNDwB5jRCrZq+w
-	 ATibrzizBSMjE1/9FagRCKuVFZ4EAa3eSiqqYKPl0s510WJy3mmMoXSE7Bj6wjlv2P
-	 yhTHJaqLMCwfGj46O1ihB/dgLtXhavHzMvXxMQzh8RIgoCg9q9UA/viUnvj9+31N7o
-	 W9ggnXgbIfh2vwRQOJVYnpjrAfuIgb96rXpaN3XhYVjWrfYh7PYGFmy2kqvaTrQPKs
-	 HtaxcybsTkFUQC91SoTg5iCuQlKH8IFGugExCjifeVJO0s1I4/38No8wn4+i+ML/W8
-	 eAfl8o9hlm98Q==
+	b=TlCv2xkW5NX19u16/2nhgJPwutW52a/ah3kK0pxuBsPYtTpS/zWQpmqF5Jp8URk5U
+	 4pqMxzFw/8uoPMe8CDSdKnAjb6jbxsEIZGKG60e3M9idNfIAnE938yRlLN/JS605XW
+	 aZgaZXh8l8eVQ+UAsgmXOmF3S/EEZlrBX1nChPpAOVqryYzojcnexodyR+1MwI3emj
+	 TUswvunla09s8w7fvvJyRD8cPhwnjlP7J32tpq5tzbqquX8nvNMq64BI4Y7f0U4FpE
+	 OhVTC4fGhUTJyuqV49BJgLSxj+8RNQoTheLS7stAGq+pE7iDQyaw1Bad7y8jGnMjvG
+	 Fp0KxKZUfGBjQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yingjie Wang <1075151112@qq.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: Kyle Zeng <kylebot@openai.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Rik van Riel <riel@surriel.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Lance Yang <lance.yang@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] nvme-tcp: validate the TLS handshake timeout
-Date: Wed, 11 Nov 2026 10:30:41 -0500
-Message-ID: <20261111153013.2661228-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/page_vma_mapped: continue past nonmatching huge PMDs
+Date: Wed, 11 Nov 2026 10:30:44 -0500
+Message-ID: <20261111153021.2650966-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052740-failed-6.12-799203afd298@kernel.org>
-References: <20261107052740-failed-6.12-799203afd298@kernel.org>
+In-Reply-To: <20261107061143-failed-5.15-1a2993227e8a@kernel.org>
+References: <20261107061143-failed-5.15-1a2993227e8a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,138 +69,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yingjie Wang <1075151112@qq.com>
+From: Kyle Zeng <kylebot@openai.com>
 
-[ Upstream commit 799203afd298b1f8e9ee49815eb38f775f211299 ]
+[ Upstream commit 1a2993227e8a27fc4cdea305bbdae82d290bc885 ]
 
-tls_handshake_timeout is writable but stored as a signed int. Multiplying
-the value by MSEC_PER_SEC and HZ therefore uses signed arithmetic.
+A PTE-mapped large folio can straddle PMD boundaries after an unaligned
+mremap().  If the first part is discarded and replaced with an unrelated
+huge PMD, page_vma_mapped_walk() stops instead of looking for the rest of
+the folio in subsequent PMDs.
 
-With HZ=1000, setting it to 2147484 overflows both multiplications. If
-the handshake request is accepted and its completion remains pending,
-schedule_timeout() reports a wrong timeout value with a stack dump and
-returns zero. The handshake then fails immediately with -ETIMEDOUT,
-while the handshake agent was given about 24.9 days. Negative values
-such as -1 have the same kernel-side effect.
+This also affects migration entries.  A walk that stops at an unrelated
+huge PMD can leave migration PTEs behind when migration or an anonymous
+folio split restores the mappings.  Those entries do not hold mapping
+references and can outlive the source folio.
 
-Store the parameter as an unsigned int and reject values that cannot be
-represented both by tls_handshake_args::ta_timeout_ms and by a safe
-jiffies delay. Take one snapshot so a concurrent parameter update cannot
-give the handshake agent and completion wait different timeouts.
-Document the accepted range for built-in use.
+This issue can lead to memory corruption and I have a reproducer for
+it.
 
-wait_for_completion_interruptible_timeout() returns the remaining
-jiffies as a long after a successful completion. Keep that result in a
-long because an accepted timeout can exceed INT_MAX jiffies on 64-bit
-systems.
+Skip the current PMD rather than ending the walk on a flag or PFN
+mismatch.  Do the same if the PMD became nonpresent before the locked
+recheck.  Release the PMD lock, clear the per-PMD state and advance with
+step_forward(), so the existing range limit controls termination.  This
+covers present, migration and device-private huge PMDs while preserving
+the matching-PMD and split-to-PTE paths.
 
-Negative and oversized values now fail with -EINVAL. Keep zero valid,
-preserving the existing immediate-timeout behavior.
-
-Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
-Cc: stable@vger.kernel.org
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: Adjusted documentation insertion context because the neighboring nvme.quirks and nvmet_tcp.tls_handshake_timeout entries are absent. ]
+Link: https://lore.kernel.org/20261016011549.61146-1-kylebot@openai.com
+Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: LLM
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: <stable@vger.kernel.org>
+[ sashal: used existing page-pointer comparisons in place of upstream PFN-range checks. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../admin-guide/kernel-parameters.txt         |  5 +++
- drivers/nvme/host/tcp.c                       | 34 ++++++++++++++-----
- 2 files changed, 31 insertions(+), 8 deletions(-)
+ mm/page_vma_mapped.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 886095f45290e..278a4e12fda67 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -4214,6 +4214,11 @@
- 			This can be set from sysctl after boot.
- 			See Documentation/admin-guide/sysctl/vm.rst for details.
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index f7b3310817910..ea4eaece8c887 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -223,9 +223,9 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			pmde = *pvmw->pmd;
+ 			if (likely(pmd_trans_huge(pmde))) {
+ 				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				if (pmd_page(pmde) != page)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			}
+ 			if (!pmd_present(pmde)) {
+@@ -233,11 +233,11 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
  
-+	nvme_tcp.tls_handshake_timeout=
-+			[NVME] NVMe/TCP host TLS handshake timeout in seconds.
-+			Valid values range from 0 to the smaller of
-+			UINT_MAX / 1000 and MAX_JIFFY_OFFSET / HZ. Default: 10
-+
- 	ohci1394_dma=early	[HW,EARLY] enable debugging via the ohci1394 driver.
- 			See Documentation/core-api/debugging-via-ohci1394.rst for more
- 			info.
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 82cf9419a6be4..756db4d3c3d05 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -6,6 +6,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- #include <linux/module.h>
- #include <linux/init.h>
-+#include <linux/jiffies.h>
- #include <linux/slab.h>
- #include <linux/err.h>
- #include <linux/key.h>
-@@ -47,9 +48,24 @@ MODULE_PARM_DESC(wq_unbound, "Use unbound workqueue for nvme-tcp IO context (def
- /*
-  * TLS handshake timeout
-  */
--static int tls_handshake_timeout = 10;
-+static unsigned int tls_handshake_timeout = 10;
- #ifdef CONFIG_NVME_TCP_TLS
--module_param(tls_handshake_timeout, int, 0644);
-+static int tls_handshake_timeout_set(const char *val,
-+				     const struct kernel_param *kp)
-+{
-+	return param_set_uint_minmax(val, kp, 0,
-+		min_t(unsigned long, UINT_MAX / MSEC_PER_SEC,
-+		      MAX_JIFFY_OFFSET / HZ));
-+}
-+
-+static const struct kernel_param_ops tls_handshake_timeout_ops = {
-+	.set = tls_handshake_timeout_set,
-+	.get = param_get_uint,
-+};
-+
-+module_param_cb(tls_handshake_timeout, &tls_handshake_timeout_ops,
-+		&tls_handshake_timeout, 0644);
-+__MODULE_PARM_TYPE(tls_handshake_timeout, "uint");
- MODULE_PARM_DESC(tls_handshake_timeout,
- 		 "nvme TLS handshake timeout in seconds (default 10)");
- #endif
-@@ -1828,8 +1844,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- {
- 	int qid = nvme_tcp_queue_id(queue);
- 	int ret;
-+	long wait_ret;
- 	struct tls_handshake_args args;
--	unsigned long tmo = tls_handshake_timeout * HZ;
-+	unsigned int timeout = READ_ONCE(tls_handshake_timeout);
-+	unsigned long tmo = (unsigned long)timeout * HZ;
- 	key_serial_t keyring = nvme_keyring_id();
+ 				if (!thp_migration_supported() ||
+ 				    !(pvmw->flags & PVMW_MIGRATION))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				entry = pmd_to_swp_entry(pmde);
+ 				if (!is_migration_entry(entry) ||
+ 				    pfn_swap_entry_to_page(entry) != page)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			}
+ 			/* THP pmd was split under us: handle on pte level */
+@@ -255,8 +255,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
  
- 	dev_dbg(nctrl->device, "queue %d: start TLS with key %x\n",
-@@ -1843,7 +1861,7 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 	if (nctrl->opts->keyring)
- 		keyring = key_serial(nctrl->opts->keyring);
- 	args.ta_keyring = keyring;
--	args.ta_timeout_ms = tls_handshake_timeout * 1000;
-+	args.ta_timeout_ms = timeout * MSEC_PER_SEC;
- 	queue->tls_err = -EOPNOTSUPP;
- 	init_completion(&queue->tls_complete);
- 	ret = tls_client_hello_psk(&args, GFP_KERNEL);
-@@ -1852,10 +1870,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 			qid, ret);
- 		return ret;
- 	}
--	ret = wait_for_completion_interruptible_timeout(&queue->tls_complete, tmo);
--	if (ret <= 0) {
--		if (ret == 0)
--			ret = -ETIMEDOUT;
-+	wait_ret = wait_for_completion_interruptible_timeout(&queue->tls_complete,
-+							     tmo);
-+	if (wait_ret <= 0) {
-+		ret = wait_ret < 0 ? -ERESTARTSYS : -ETIMEDOUT;
+ 				spin_unlock(ptl);
+ 			}
+-			step_forward(pvmw, PMD_SIZE);
+-			continue;
++			goto next_pmd;
+ 		}
+ 		if (!map_pte(pvmw))
+ 			goto next_pte;
+@@ -290,6 +289,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			spin_lock(pvmw->ptl);
+ 		}
+ 		goto this_pte;
++next_pmd:
++		/*
++		 * A large folio can be PTE-mapped across PMDs, so a
++		 * nonmatching PMD does not end the walk.
++		 */
++		if (pvmw->ptl) {
++			spin_unlock(pvmw->ptl);
++			pvmw->ptl = NULL;
++		}
++		pvmw->pmd = NULL;
++		step_forward(pvmw, PMD_SIZE);
+ 	} while (pvmw->address < end);
  
- 		dev_err(nctrl->device,
- 			"queue %d: TLS handshake failed, error %d\n",
+ 	return false;
 -- 
 2.53.0
 
