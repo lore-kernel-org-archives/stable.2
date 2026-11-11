@@ -1,107 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794361721;
-	b=BCp+7dKQkFUiKf4+etZZu6DZjYCEx0QmVY5o+QLs2977NJuoOKT/3zK33loLb7KJ9g6o
-	 oy4Kqd4lhizZ6hq/WvcietwwCld+ydkqrZSlPLtY20SoIvRf1ZyIPW7kye+XlsYY60tt7
-	 0ml60iRE4VUxu82D19KSsSEDWGlRwd1KNV78YwwNJOhYT70LB7fs/E+Qu6FjU9XKpBViN
-	 jTZ4wJXvOFDiUejaYi1Ymck2QHYiJrkN+jQxUdkEGHRs5gZjeiFaWDXREu2MtF2I8OwaV
-	 JFTynC1WK0pa0fDjaHi1DXNYey4TVL+bQepH4bdmR9OGajMKgulraM7jpQzv+zDj3wQ==
+	t=1794361842;
+	b=zlaXNQ07nT8HwNmZkDI5HesM+5ikpEAPU4QAnNJLM9yp5MTyp+UWInu6r0SsRcEJP/Lm
+	 D5KROu1W6hdGuRSc0EU0x+97533Po31e/79eYnjeAkIS5kJbvmLulwRCpKUclh2kZunT3
+	 ZBpO0qaI/41CvNiUPpCvK1BVJ6RU0TUFWQoQ3EdwYmZ7h43FCvyEW1TQKDXG4+vEEYnP/
+	 HiotcjK8+mIDzbJHlo1YquDExqcnOpHPbfw/9BxD4DJkLNolAMJk2tX/SOy9fsMOZtmBW
+	 kjWMjCKeVO1a6ek/VxD+QZs57qCI+H4vVCymaomR+Dig37158wz5S7eN0wimAEPEg7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361721;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361842;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=f2RcHe64LeB/gnyTEhJrBfe4ypF50Xcw5AhrrNUhpVI=;
-	b=4c9XBkJA0dgSvWJt3uomDHOmWv+WnGHeh1mdtbZZtwwpbnEclVetaz4vGAHR8YY1j0N/
-	 nW0imwyOyglvAGfAGZsY3652CcgFa+rDlnCVl4tAj1ZBxKvUYEKulU2yFXf9OptN07sYy
-	 BIlnT+e5H6C54QTTXnzyV+32p9a35laPcnwI4XoEX3P+6Z5VP9IEN6RFNPIoyX3qwcME3
-	 34A4GcbATvn3w6LlSL0PcSjpJ+NfL/fcEwvHobUFwL0mn/N+IafMPJ3ioUl9zaoa/6+Ce
-	 9sVZBWnA5LTy4X5wETd4WN3hnbaWxTsYBpTwrS1d94j3EucyCt+d5DuKTBCA73Cjs5w==
+	bh=tDTW8Kqh5Q0ZtVpGvocaozwKeH8HWmWn7vFD0leBJj4=;
+	b=Q2WEIHOeJUjhyC+4E0UQqXdpZIqAUd/jeq4XMYjNpu9RYsdsniOJM/OWi8bnq7QMRaGa
+	 Atoq2rzZ/UiTmq8a/fWaD1jCkqtYXXaM0G1AZiY6eg+GKfCnG2f3S0/hsNpeBqmn5h8+T
+	 cqTj9ccmkVmkZ8DS57RXkVF5ZsGD2TaR5xzyr9XIro5aVhYGdi43WVTBGdQeKETiaBDge
+	 q4ff3gwWl7L7d/a5x29xoyBAF6/jrwcFpMXCci7HehBSeBF9vob2EuPzRSSNkmAemDssm
+	 y7CJdnApTllVHQdc1sqH+TJIYdEhPMiG9dzUPkec0z7nhG5VnB7OFT2N8fftk/DYnUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QpvXFC4q;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YUma6VS5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE9C606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:48:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEE9C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA25606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:50:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QpvXFC4q
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36e795af1d4so2262449eec.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:48:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794361720; x=1794966520; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f2RcHe64LeB/gnyTEhJrBfe4ypF50Xcw5AhrrNUhpVI=;
-        b=QpvXFC4qN5QJ0p8bI9c4XT2xJMP9QqQnJRrb0+E/4FPOEtQGqIfdwyAgZzZxp3+Qd2
-         FMYtqpTjXuJAv7hM5VrDk0oByO4JH83W4qEkAk4lhzJr0y/qFfPhb8DorPMstZwwLw9E
-         w61I9WaiAaxGBAokVOV8TmRg8wzzQuekBMpLbmACyn/bbxt5pfN9e5sEkS4drpyAjcvx
-         wm5BNfYHeyHleflpj16Tw0cgsr+1RQOPs7sfyUkPesdAftEpm1lDeuaoFEgsSad9LGVG
-         y1JzZTlGKsz58h/un9DcNxBRjfB4or4dJpX4dvd9qoI320is2XHFOJ40+/hfk3QDcelm
-         MxZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794361720; x=1794966520;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f2RcHe64LeB/gnyTEhJrBfe4ypF50Xcw5AhrrNUhpVI=;
-        b=dW+zMka7/Mco2/og57MdX2fIqZi8GyWg8kGUYOPNtmDSp1lrNazVFwoMcuw3OBn2+J
-         Bxysteot5OT73utJ+HQlSzEjp+3bxcaI0b1F9npSkn53pkW4Q0wEnBKpoD8+POTXYHRT
-         6HhlgOq1Jo9qJryBcLvEv9tWyBqcpqZAoPH86VceThz37ZvvrQ6Z8os3Yv3BTNCUe8uC
-         BB362pG6c0MZF3Wqu69gZWNluXjMo9juYWVb/e0TFk3ThrOnHFK+x/CLUgLouuVYQmZD
-         ICbcBRYjpf2oY0P2nvIzRoZqdulwN2zwkNnCdnFamoGzyIx/LXhStKwHwOPMvFN4QM+e
-         EM7A==
-X-Forwarded-Encrypted: i=1; AL+hErH6tluBNOiYGuXgPrn9PxS17YgjniaAbBZ2k4KRAZsJleeP+2IXYbCIdDPDxJLv8HB9dloNkVI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8uGz/Bs3CqeJ/sspxxLVyJKYUQSG2evuxXuReeFrqX+CrEz/cK
-	ucStzjf+WfStF7ed65Q4G/ODFPk09h5WzXnJJlFt9G0JCwM/RM7jkjnU
-X-Gm-Gg: AYBFou2xdFaod4zycjxwgqguXRssOgVDf7V9KuOT25Emi4tIccdcRZeVdbyhU1tFmyq
-	9QhMnJeLWqqFMF9cRquBnCViDC0PaNdLxGuXL1zl/h6xAlVXLqT0gqMQntzl2gBx7dcVjzXRNcs
-	jatHQEWlB/Bzk72MKTszPUih57O9ruO91RTLTT9MGmEqZotByk481l/JqoJTMFNrsLlaAgjB3P5
-	1H2Uv5qgq0mr+X1OA6XxXovU6pakyfFqEZVc6DwlVYSYa2CT/e9zSDSlqmU2RVhwnKvC69tUwfV
-	I61w6jh7EkttwclmiiREX7xdYkJUPV2TDcO1o6Hn29jStxnb+5NvMq308y0abXtqylE3qgsM6CS
-	y56/Vzw5qGTOv3j9BYz7iEsWmwCQs0D/0+6Fo38Cc7RnIC3TGfXJP/8h9rxHQFGtJbG57x5MRsU
-	zfvoAfdbU4/XFNhBTHBEyzTUiSNQFOdl1181iimWxVMxyQ0gAk3MGH28tSpUn11ks9q9KpuLi4K
-	JvyPCHwK1BmG2Qcw4nmvs8D/DPKWnOKA9W/cfLRrsgFYEUFTaHzLU4TuEa7ZInWZPl9iAzkS0JB
-	wrMOo3qwTWFjouFfhP4O4WpCj540BisvUkHk+Zq8fqO6qG4=
-X-Received: by 2002:a05:7301:e22:b0:36a:37:1404 with SMTP id 5a478bee46e88-37686d2fcd4mr1959136eec.13.1794361719645;
-        Tue, 10 Nov 2026 17:48:39 -0800 (PST)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e76e2sm11902533eec.24.2026.11.10.17.48.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 17:48:39 -0800 (PST)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: Barry Song <baohua@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Hui Zhu <hui.zhu@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Yu Zhao <yuzhao@google.com>,
-	Kairui Song <kasong@tencent.com>,
-	Hui Zhu <zhuhui@kylinos.cn>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
-Date: Wed, 11 Nov 2026 09:48:33 +0800
-Message-Id: <20261111014833.2661236-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CAGsJ_4ybXskWKDLHkeeuVGirGaaZ8TdPEDX+xQXZcYmPMSjS=A@mail.gmail.com>
-References: <CAGsJ_4ybXskWKDLHkeeuVGirGaaZ8TdPEDX+xQXZcYmPMSjS=A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YUma6VS5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F13781F0089F;
+	Wed, 11 Nov 2026 01:50:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794361841;
+	bh=tDTW8Kqh5Q0ZtVpGvocaozwKeH8HWmWn7vFD0leBJj4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YUma6VS5QlBg/iNGOOXoUyZCHMj5Bet2naNbmU1U4fp0pGnrRWuRh5hT2Ut/HLnbb
+	 RB9tePeti2cGhxmNWImCyHwFdtBM/eALQ6VrMuXePPkopqXx8jNYijPEIddlI8j/jo
+	 rMu+yHRXb9pWp7bbkWtQuffjNgRjBc8wN/OklEVX/QczpIuIKM/L4ldE5ddA2VhSx5
+	 8tWDdTDa/7A3d2c+COeKwy3/taenyFjfocYfExXIGfn4DbUtjYgrir6XyqkwozhBzV
+	 gX3g/Z2Fl/18jR5mmWsR3jcoZzk6GR1rBJByLdwpylNZAv0a3eKAVHxVBZIQJ8qn5A
+	 eciFXOFPx5+Jw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	co+fd80bc5967eb22c3@bugs.sh,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] usb: xhci: Fix bounce buffer overflow
+Date: Tue, 10 Nov 2026 20:50:39 -0500
+Message-ID: <20261111015023.442697-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053331-failed-6.6-68c5cb7574c5@kernel.org>
+References: <20261107053331-failed-6.6-68c5cb7574c5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,32 +63,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 9, 2026 at 1:08 PM Barry Song <baohua@kernel.org> wrote:
-> However, real-world workload data would be helpful
-> to demonstrate the actual performance impact and make
-> the case more convincing.
->
-> The patch itself makes a lot of sense in theory, though.
->
-> I'll arrange some tests with Android workloads and report
-> back once the data is available. If Hui already has some
-> data, it would be great if he could share it as well.
+From: Michal Pecio <michal.pecio@gmail.com>
 
-Tested on a Xiaomi phone (android16-6.12 GKI with this fix backported,
-MGLRU enabled). The workload launches and scrolls 26 common apps for
-5 rounds; each run produces ~7-9M MADV_FREE pages. 3 runs per kernel,
-same system image, same sequence (fresh boot, then back-to-back), only
-the kernel differs:
+[ Upstream commit 68c5cb7574c567e83ba95258cb146db95e069a87 ]
 
-                            without fix   with fix
-  workingset_refault_file      44.7M        29.0M   (-35%)
-  pgmajfault                   13.9M         9.0M   (-35%)
-  pgsteal (kswapd+direct)     100.9M        75.6M   (-25%)
-  cold launch (avg)           2436ms       2034ms   (-17%)
+High-speed devices with out of spec 1024 byte bulk endpoints exist and
+are allowed by USB core, but xhci-hcd always sets packet size to 512.
+The exact nature of these devices isn't documented, commit fb5ee84ea72c
+("USB: Accept bulk endpoints with 1024-byte maxpacket") only states
+that they "don't work with xHCI host controllers", whatever it means.
 
-Without the fix, lazyfree folios keep their stale refs/PG_workingset
-and get protected instead of evicted. Since they sit on the file LRU,
-page cache is reclaimed in their place, which shows up as more file
-refaults and major faults.
+But somebody (or a malicious device) can try, and then the driver will
+allocate a 512 byte bounce buffer for this endpoint and may write up to
+1024 bytes into it if particular scatter-gather URBs are used, because
+xhci_align_td() obtains packet size from the descriptor. Fix this.
 
-Tested-by: Bo Zhang <zhangbo56@xiaomi.com>
+As a side effect, TRBs will be aligned to the packet size chosen by the
+driver on all endpoints of all speeds. Alignment serves the xHC, not
+device, so this is fine. Only out of spec devices are affected anyway.
+
+Reported-by: co+fd80bc5967eb22c3@bugs.sh
+Link: https://lore.kernel.org/linux-usb/D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh/
+Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20261009151624.618967-11-mathias.nyman@linux.intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: adapted the max_pkt assignment removal to match usb_endpoint_maxp() instead of xhci_usb_endpoint_maxp() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/host/xhci-ring.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index 66c399253a9b4..3794492b16ec2 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -3644,15 +3644,13 @@ static u32 xhci_td_remainder(struct xhci_hcd *xhci, int transferred,
+ 
+ 
+ static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
+-			 u32 *trb_buff_len, struct xhci_segment *seg)
++			 u32 *trb_buff_len, struct xhci_segment *seg, u32 max_pkt)
+ {
+ 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
+ 	unsigned int unalign;
+-	unsigned int max_pkt;
+ 	u32 new_buff_len;
+ 	size_t len;
+ 
+-	max_pkt = usb_endpoint_maxp(&urb->ep->desc);
+ 	unalign = (enqd_len + *trb_buff_len) % max_pkt;
+ 
+ 	/* we got lucky, last normal TRB data on segment is packet aligned */
+@@ -3797,9 +3795,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
+ 		if (enqd_len + trb_buff_len < full_len) {
+ 			field |= TRB_CHAIN;
+ 			if (trb_is_link(ring->enqueue + 1)) {
+-				if (xhci_align_td(xhci, urb, enqd_len,
+-						  &trb_buff_len,
+-						  ring->enq_seg)) {
++				if (xhci_align_td(xhci, urb, enqd_len, &trb_buff_len,
++						ring->enq_seg, ring->bounce_buf_len)) {
+ 					send_addr = ring->enq_seg->bounce_dma;
+ 					/* TD bounced at least, and last on this seg */
+ 					td->bounce_seg = ring->enq_seg;
+-- 
+2.53.0
+
