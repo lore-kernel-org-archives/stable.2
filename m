@@ -1,49 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438012;
-	b=cQbmTShBCbpYgBGhAv8cfEcBtGlH9r9SeofDnQnhctT5oX9JgnuBCaQ9r5x4xWJrMMgj
-	 2PUzksaVYjqR0lo3odkRD0EmgpMWLkhZiB4RO/+RpuGhhO5Kmu5lnK0U5zM5WZLMYf/tk
-	 E2jXH0LyDu/WCe4bUoUv5jTiFYkbfcJFCsuq0uS2zDVJ/38XICJnuyLXB4CJFOa07fCy/
-	 yAgwMw415323IlDGLKmtnKCoJYSK0acwQxa07r31qiAr0ZtbBAkrcTeimoZXy9i2M2sLP
-	 DVkfjgYu5j81tWkGZ3eIYCTp7Z8cC2EdEDPWbpM+drM9V6uNkJXqxkLutW7705nOSIw==
+	t=1794438063;
+	b=XJozuGzApraT3bGg3v+1jfACYiogdS7oRn59JXXfRZeMTnMbn9KSrBH8jxWWnZ7mZZp7
+	 c/Eo8kRz+395nVPnI5UFQBEToyurkkmJiBnGm7X/k70WB7VKnNhM/zxmizalBPR5mTIMa
+	 2jQzpsiNiohYIkmYF+qcYpL48ul8Wfpwao0KPqouK30cwgDGEsW8pTj+5f2FwXpk14pKn
+	 o2nLTA7VhxQdKd7eovj614vHbzF7plnHgGlBg4Emb5xCYapdV3vug6cu8wvtk0lqe091k
+	 laUg1dAlTc5Cf76yo2sqHUDdz/oO79TxHEy7kpEAoGtWr6uVz4OeGZ2CGeXTodsmtcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438012;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=PT4QF1qXNcf5ToumnF7fZz7tNZztFh3q6qvq1mETrKM=;
-	b=i9pueS1+XV8a9D1+w9eKWbkODjivLAmDVvPYHSeufg5FmNF9Vxq0lJ1v9U7+H9y7ASFy
-	 UOX/IrHSiBBCkeLTge9INGEQJN1LpiyG8mVuj8KRI6YPGviaFZrqBLPtUmOaBMNwUwQkS
-	 LHmCABCerGqob3ys1luvsXTlXG9vJWh1RXvz3xxiFWFeXV4E7s6pQS/c7gJN5kMKNqJ7f
-	 8oa9ROR21MimGRSFOa5PJnyrAZzTFdJME2mgF+XFtXW0YFstavw3OuF/mRVPrwERVd7SA
-	 oXjWISiiMuNbsr+wENJ16m2flTBiVMDlDAuRX9rJ0j5ni2WAry9pYRNLUyAgTgqQFgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438063;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=aYvMzR0aN37nQlnLtJnVAyPtC9Oir7A/+6zq96PEhL4=;
+	b=J1PQ3p+vcbMYgJ0mN8ubhhPVhrqzoT/KRlgKpRQbBO/I2K4T901LY1uD+biywJDwOjI5
+	 2RxnRmq8Ot84cPZ0ER1kxJBoF9uXyEkEKaG/EYKJXz48F19e69KXCH5jUkH9dg6tOJgwt
+	 diVdRqrVVERCFNPlVl3FkHG9oqxjHbNbbOQMUCun6KjSupaWbHXsrXMzg7kwcuJQG7Cvu
+	 Lw1DL3YxDKTAZyWlpHljjNUUB0XjoBH+uioEg9As+2NfbuR2s2pgixbKIhDoHH2cJagfp
+	 yUtWdMj0L09d7iwLJmEAhCUl9rgjmVXgGrOscMzeXnFMlPiOIjXEy5zgzvpr2dH7pLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tu7ERM0R;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=MVSGtbBY;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130FF606A89A;
-	Wed, 11 Nov 2026 23:00:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C84D606A8B4
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:01:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C84D606A8B4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tu7ERM0R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A481F1F00A09;
-	Wed, 11 Nov 2026 23:00:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794438011;
-	bh=PT4QF1qXNcf5ToumnF7fZz7tNZztFh3q6qvq1mETrKM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Tu7ERM0RTzyuuk04kPc/Hn3Ohsa75KN2wcryN+lCqGk7KM8Uo42C/aw5HpqBx/T2Z
-	 QA9vQRFsgwPYJGjqEhBmsELgGvFQka26Kjd98VXKGrC3b5i2ZorSt4mccqs752Ib3s
-	 +ez4rIG2E6wiPQ0OMUJcxkx/aMJMDoIJ9UKKJ/M/7KNFU+qQw3nrcJbLsRp7fE5f53
-	 WeaXAWTih9ausn3x/Y1ZUSbldguNW5BvnBmGoo48DUaX82IsqmlZ7UT7Of5W5KDpXt
-	 dXriTL3jyRF5YjgRdbqSPPXajNi3kmFG2YI5fooqn5zqsBJLHjPjF2MsXoZhDx1itV
-	 Pf2ztl+zcX3EA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B2BF391AFC6;
-	Wed, 11 Nov 2026 23:00:11 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=MVSGtbBY
+Received: from trampoline.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxiH7026970
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 17:59:45 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1794437992; bh=aYvMzR0aN37nQlnLtJnVAyPtC9Oir7A/+6zq96PEhL4=;
+	h=From:Subject:Date:Message-ID:MIME-Version;
+	b=MVSGtbBYUVv2VwDjz2PGO7YbpB8cCkHuNr7RZ2tWdjTyWqYA1nlBJx9+sKj8KivyE
+	 DQmOT5ymQFM4l5C0DXZ0XnKhaUFZK3/HEIIim5fJJjJpimTwFVVBsEQd45Yq3vyqLH
+	 NM9U9v8FHIrLykqscl7IvdtN42ZnMXX/zubEuYWWWVsNGmy4HmZMwNaRu8Yq8+qCds
+	 9OZ+1ABybgY3Ur/qgLmCdIVC9jgDdaaKtdr++Z3vAUJtSCgNCVb+h3cPxK0RQuYSpH
+	 DPH1giU2kDO9Ewbl2YsbyuHsdJDbCV1yeGBt6GUdQYhM+aH1/Hy3ViRKKIvhOisLDv
+	 wkO5hyA1Zyrtg==
+Received: by trampoline.thunk.org (Postfix, from userid 15806)
+	id B68392E00BB; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: workflows@vger.kernel.org, ksummit@lists.linux.dev
+Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Leon Romanovsky <leon@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Thorsten Leemhuis <linux@leemhuis.info>,
+        "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+        Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
+        stable@vger.kernel.org
+Subject: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags, similar bugs, and commit messages
+Date: Wed, 11 Nov 2026 17:59:32 -0500
+Message-ID: <20261111225940.1573565-1-tytso@mit.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,54 +80,58 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v5 0/4] gve: Fixes for issues discovered via net
- selftests
- and Sashiko
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179443801016.1692642.9207097751401678746.git-patchwork-notify@kernel.org>
-Date: Wed, 11 Nov 2026 23:00:10 +0000
-References: <20261109182036.2910559-1-hramamurthy@google.com>
-In-Reply-To: <20261109182036.2910559-1-hramamurthy@google.com>
-To: Harshitha Ramamurthy <hramamurthy@google.com>
-Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- jordanrhee@google.com, willemb@google.com, przemyslaw.kitszel@intel.com,
- nktgrg@google.com, maolson@google.com, jacob.e.keller@intel.com,
- pkaligineedi@google.com, yangchun@google.com, patricion@google.com,
- awogbemila@google.com, csully@google.com, jonolson@google.com,
- lrizzo@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- treapking@google.com
 
-Hello:
+This is an update of Sasha's v4 patchset with the following changes:
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+   * Rebased to v7.4-rc2
+   * Removed references to Assisted-by: per the discussion at the
+     Maintainers Summit
+   * Addition of a new skill, writing-kunit-tests which I've been
+     using to add full KUnit test coverage for ext4.
 
-On Mon,  9 Nov 2026 18:20:32 +0000 you wrote:
-> From: Pin-yen Lin <treapking@google.com>
-> 
-> This patch series addresses several issues in the gve driver. All four of
-> these fixes were either uncovered by running the net selftests or
-> suggested by Sashiko in the previous version.
-> 
-> The series includes the following changes:
-> 
-> [...]
+I've been using the prompt against Gemini Pro; would appreciate
+comments about how well it works (or doesn't) when used with Claude
+Code.
 
-Here is the summary with links:
-  - [net,v5,1/4] gve: Fix race between stats query and queue reconfig
-    https://git.kernel.org/netdev/net/c/7de69da15088
-  - [net,v5,2/4] gve: Fix backward stats when interface goes down or configuration is adjusted
-    https://git.kernel.org/netdev/net/c/6752dfc316b9
-  - [net,v5,3/4] gve: Block invalid ring sizes when device options are 0
-    https://git.kernel.org/netdev/net/c/edc9a730ad3c
-  - [net,v5,4/4] gve: Fix link flap after ethtool ops
-    https://git.kernel.org/netdev/net/c/b1a53c452457
+Sasha, could you consider updating your patch series with this set?
+I'll assume that you will send this to Linus, since the bulk of the
+work is yours.  Thanks!!
 
-You are awesome, thank you!
+              	     	      	      - Ted
+
+v4: https://lore.kernel.org/r/20261020161642.3713052-1-sashal@kernel.org
+v3: https://lore.kernel.org/r/20261016152828.3765695-1-sashal@kernel.org
+v2: https://lore.kernel.org/r/20261012213452.1863248-1-sashal@kernel.org
+v1: https://lore.kernel.org/r/cover.1791499378.git.sashal@kernel.org
+
+
+Sasha Levin (5):
+  agents: add infrastructure for agent resources
+  agents: add a skill to determine Fixes tags
+  agents: add a skill to determine stable tags
+  agents: add a skill to find other instances of a fixed bug
+  agents: add a skill to write commit messages
+
+Theodore Ts'o (1):
+  agents: add a skill to write KUnit tests
+
+ Documentation/process/coding-assistants.rst   |  37 +-
+ MAINTAINERS                                   |   6 +
+ agents/skills/commit-message/SKILL.md         |  45 +++
+ agents/skills/find-fixes/SKILL.md             |  39 ++
+ agents/skills/find-siblings/SKILL.md          |  36 ++
+ .../find-siblings/references/coccinelle.md    |  66 ++++
+ agents/skills/stable-tag/SKILL.md             |  72 ++++
+ agents/skills/writing-kunit-tests/SKILL.md    | 344 ++++++++++++++++++
+ 8 files changed, 642 insertions(+), 3 deletions(-)
+ create mode 100644 agents/skills/commit-message/SKILL.md
+ create mode 100644 agents/skills/find-fixes/SKILL.md
+ create mode 100644 agents/skills/find-siblings/SKILL.md
+ create mode 100644 agents/skills/find-siblings/references/coccinelle.md
+ create mode 100644 agents/skills/stable-tag/SKILL.md
+ create mode 100644 agents/skills/writing-kunit-tests/SKILL.md
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
