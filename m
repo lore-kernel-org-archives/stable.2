@@ -1,74 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417808;
-	b=v6U79KUPX1rV1+6082UXQt5Dvo9Fy0MV7mU7kaxpcMRpL9XYm9zXhqaqEmPpOr0L/xu/
-	 SWIFSFtlSsyPkJTBqy2G3WvABT8Q724nBDTL6unvliabu2VvyhTLjq/LoFI5Tv4oPtg3U
-	 ydMc8a/hjt77yNpCrUw+2pQHh4V/oH9YY6xckkhhRJyTkEC9x6cOojkhe6Hfu05HY0Syt
-	 Z6rskJm7OgMfkMMsYMWXheKDPu9GXHgE1dknjgo3zlTblhhV019O0TkpWbpdHNaDLz4dG
-	 8k6+2JnWmi8yZnWCgVUz8AZ8xdSeeynFsk44w8vU25xD8Er/NGe6LMDg5T00t8mIR5w==
+	t=1794417818;
+	b=wcqR5r0KPJp2FKnoMU03wzY0pdUkhojInLYQ6DtGFqqs95KptzgKVANDEXzioRZ4bxZ+
+	 +17IgGy/A4+ZjhS9/JEeCC+2IH4zoANaieN3CMTVlNRz5V+cmf76IOUNcKR0SPELQxBli
+	 XD7WAbn1nx3PeOQ6B8ZZ4WfUZ7snufSoHPgz96GICw43mQYBT4gtlkI2j8CxUH8OKZXEY
+	 GiPm5uyIDneYpJAaqYahEr5VT5dcOhYc9JJD0SwRf65d29iRDnZVc2MmKnzANZh7bkjCV
+	 7BEYy2zbLtjawmc2BHzZAYeK6KvQqoFvBiekeDeXLAo5YW41jT5RLa6zsgYlDgDtV7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417808;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=mNxsse4bfiCdfhVUp0bFSnRTdLzHTdzeDYz8TXmmhJU=;
-	b=HkwzTi2c6goRDQemO1wybJWwCCZEFkY8Qq/1STY060tlrNicuspFGnKBmmxpzZay2unB
-	 ixpmHZkuRchm8MkWb+19XbmUplGLR0ZvGKgVObWXeo44XZEV5Zj0BryPO2JOhk/rYjsfj
-	 z3qsZ2fPM9WQ5xhAUVjup9ETv2geJpmsGeJqG68VJK9iL7tEcjJeQuM+Jy4XphWnvg+ug
-	 Uru43JrFGHsDTZWCwR5esBGrKIfaqQQ0NVl7RlGKeZH4R6m+WeVz385lvROMm5bclmmA1
-	 xfSYCrC61qygDuZk29oIb9PvnG+tzWybSAoFuxNnoYq3SJrR7J2411HL7Odlpyty7eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417818;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=r4fmQiimTXKZYacLB1rZn6Yo65xhYszU9o8NVnTjMpU=;
+	b=YYnQtCUxfvA0Zn9yBK4jdOZPMPsvtzRTd4pD9WA0a9Iv9wOEBUBn9fygyeIKlsTQS90E
+	 w3G5wQsVwzhjejGMWCM4mrDFy4v3qIdnTrvroCTSPEfrPkU7I57TfPR406PKWV8QOs++K
+	 KUJeJZ175am6wIWSgzXIEDfW0bnSLM9h0Mxg5nqNeUFs3mE03aL1aF/qvu179ggHrJcA9
+	 PjMUKHLOiMCZB0V6QAmTxClgrGEHi7iCGIxcEQK0VBkXWC+SI7Nzzij3xl2SpIcFWBQqt
+	 1zJDjaumHrjHG+PDWuRFvXq968uvAlGK6/7tDMgd93EVCP/fDyK2siITh1QTYFOOa8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XCGxseVY;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPARPPuW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204C6606A88C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:23:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 204C6606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B12606A8BD
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XCGxseVY
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-370230d93efso2018195eec.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:23:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794417806; x=1795022606; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mNxsse4bfiCdfhVUp0bFSnRTdLzHTdzeDYz8TXmmhJU=;
-        b=XCGxseVYCgbeUYTVWsJLUbMkJSp48CG9x2RJTDfO81GN4yaAIc6+f80/LF39zLrr7v
-         1kMf2rohJOpeVXoGTSBA1ASaQXier2gE4xCtkqzqo7q+qYaccHzGqCT6UDHcPMGV/5pX
-         q3WDP6acxOQifgDq8nOulKWjxXJnnmWTC5lFmzVf6AqafsIXLNm/iD76XCbmf/EHvj6d
-         tlnFG7kC27C033CUyYJ8iEQDuorJ0xXd0sBBVK6obAwMzJX1CIP+nNpY7mgMUP7+7pKJ
-         H6QgcBKfkSYK2xjNiRu/syw50CvnUUPShJjI8673qQCcmH8dgWIAXBP7TFrsQpw91x+s
-         VIYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794417806; x=1795022606;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mNxsse4bfiCdfhVUp0bFSnRTdLzHTdzeDYz8TXmmhJU=;
-        b=f+cb5J/TTOo9d8aafNpRKRdsYKLgoqMdthEASMtbvnIdn9V8Gp7claw1eaf2vuEy/e
-         SwIegyufjEiqqYxr54T98ghoxMzs+KWvS55jrL2mRt+ePZwUyeNcXgRTjZSnPeGRbr2I
-         4P9Zvn1LEqeSGp5AqzOWQ4cLAm+xZTcQ9Rzg6RvL2qQvMnnx6JU5NLWZ/qNQ6Rz3pDLL
-         rjECAE6Lz9MFFTNZa7onJEaV8vgo4Y7BR0SeIXqhg6c7no+ZW7j4j6Pf1vyMncev5osu
-         PPDIpcGdImtiL/YDcGFtifMmcEYRPOXJy8iIcRStpsUY8gf+AIJ2WqLVmZzs4qXL7jfR
-         Vx5g==
-X-Forwarded-Encrypted: i=1; AL+hErFZJZfuF63K+lw2uUUezqwtaadCpniaFgxaTwi7J9LMALvwklwfkuSjxofWmAIZzk3WylFLcyk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8E8EKijuROzvvHWB+XDd/IVkLUocg2h/d/UZQsulJs6Kq4znuQ
-	ByaNKOaCyCr4Ui6pw1PIEAr6t8Z3HAl4iGP8yKG5L9SJYvN/h0sYIYPX0YXDNs4oGVKOeZMUast
-	IDayoYrSysoLRPZV5YylU1qec2cBgUA==
-X-Received: from dlbej1.prod.google.com ([2002:a05:7022:c41:b0:1a0:100d:fd6])
- (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:7f1b:b0:149:50cb:2175 with SMTP id a92af1059eb24-1b3c034a4f1mr2618122c88.33.1794417805919;
- Wed, 11 Nov 2026 09:23:25 -0800 (PST)
-Date: Wed, 11 Nov 2026 17:23:24 GMT
-In-Reply-To: <>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPARPPuW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F4331F00A05;
+	Wed, 11 Nov 2026 17:23:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794417817;
+	bh=r4fmQiimTXKZYacLB1rZn6Yo65xhYszU9o8NVnTjMpU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aPARPPuWvO2Mg7LG6LyHxfzO2QKkV8fsU45xC5Tp9cj5qnyWK9f9ZLpVuCjDVi6lf
+	 LWkITRMVtbn/Nd+i8ByiZO7jZvjSLqbVjsjzDQ/Tt8fymR4d5MWFkmbCEOck3IwBs5
+	 RU/F1b+8c0+xdvkmxz/xcHgd2ALWr1MYO/jZ5iqmDN7ANSCppQvkXq5SAxUUv7T1jz
+	 ql20/AlKJu/HDVc96+ZF3YKFPD8dbrpF0T6JT9t54BnS1+Y627fNkUI2Lw+Svys9iD
+	 BmCURw8Gz7k18vgcyjyDVSx1MWk9A07rsNfZsQcGFD1tA5DkIlxosGOZqHdNYV2iGy
+	 /BHgQfzTBACYQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Daeho Jeong <daehojeong@google.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] f2fs: release a removed xattr node in roll-forward recovery
+Date: Wed, 11 Nov 2026 12:23:35 -0500
+Message-ID: <20261111172233.3560716-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053547-failed-6.6-f5924de8867c@kernel.org>
+References: <20261107053547-failed-6.6-f5924de8867c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,300 +59,96 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <>
-Message-ID: <18e70d7cbc2831c0.3137322e32332e3235332e313736.1920de.0000sendgmr@google.com>
-Subject: [PATCH v3 2/2] rust_binder: account for deferred work size in Thread::read()
-From: Chris Wiseman <chriswiseman@google.com>
-To: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
-	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-When a looper thread replies with TF_DEFER_COMPLETE, its 4-byte
-BR_TRANSACTION_COMPLETE work item is queued via push_work_deferred() in
-inner.work_list without setting inner.process_work_list. On the next
-blocking BINDER_WRITE_READ ioctl, inner.should_use_process_work_queue()
-returns true and Thread::read() checks only whether the remaining output
-buffer can fit a single transaction (4-byte command code plus
-size_of::<uapi::binder_transaction_data_secctx>()).
+From: Daeho Jeong <daehojeong@google.com>
 
-If userspace provides a read buffer with 76 bytes remaining after the
-initial 4-byte BR_NOOP placeholder (read_size = 80), Thread::read()
-calls Self::get_work(), sleeps in Process.ready_threads, and receives an
-incoming synchronous transaction queued behind the deferred
-BR_TRANSACTION_COMPLETE in inner.work_list. Iteration 1 of the loop
-writes the 4-byte BR_TRANSACTION_COMPLETE, reducing writer.len() to 72
-bytes, and iteration 2 exits the loop without delivering the incoming
-transaction, leaving it stranded in the thread-local work_list.
+[ Upstream commit f5924de8867c09206ba631b9faed63862ec00a10 ]
 
-Add a size(&self) -> usize method to DeliverToRead returning the maximum
-number of bytes that do_work() may write to the user read buffer, and
-add InnerThread::pop_deferred_work() and Thread::pop_deferred_work() to
-drain deferred items from inner.work_list before entering the main work
-loop in Thread::read() when the remaining buffer is at least 76 bytes
-but cannot fit both the queued deferred items and an incoming
-transaction. If any deferred item writes bytes to the buffer, skip the
-main work loop and return the drained deferred items immediately without
-mutating inner.process_work_list or waiting for new work.
+When xattrs shrink enough to fit in the inline xattr area,
+write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
+the file is then fsynced without a checkpoint, only the inode block is
+written, with i_xattr_nid of 0.
 
-Suggested-by: Alice Ryhl <aliceryhl@google.com>
-Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
+Roll-forward recovery starts from the checkpointed inode, whose
+i_xattr_nid still points to the old xattr node.
+f2fs_recover_inline_xattr() copies only the inline xattr area, and
+f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
+the stale xattr node:
+
+ - The node block is never released, and fsck reports "nonzero bytes in
+   xattr space after end of list".
+ - If the inline xattr list ends exactly at the end of the inline area,
+   its terminator is read from the stale node, and the removed xattrs
+   come back after recovery.
+
+When the fsynced inode has no xattr node but the checkpointed one has,
+release the old xattr node as truncate_node() does: check its block
+address, invalidate the block and drop its node cache, which may still
+be dirty.
+
+Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: adapted cached-node helpers to page-based equivalents and the older f2fs_invalidate_blocks() signature ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2 -> v3:
-  - Add InnerThread::pop_deferred_work() and Thread::pop_deferred_work()
-    to drain deferred items in Thread::read() without mutating
-    inner.process_work_list or gating on
-    inner.should_use_process_work_queue(), avoiding looper hangs in
-    get_work_local() on zero-byte deferred work, handling local work
-    queue paths, avoiding setting process_work_list when the buffer is
-    under 76 bytes, and draining all deferred items that fit in the
-    remaining buffer (Sashiko).
+ fs/f2fs/node.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-v1 -> v2:
-  - Reserve BR_NOOP before checking the work queue and drain deferred
-    items when writer.len() < 76 + deferred_size instead of skipping the
-    read loop and returning only BR_NOOP, and avoid the per-iteration
-    work.size() dynamic call inside the read loop when deferred_size is
-    zero (Alice Ryhl, Sashiko, Carlos Llamas).
-
- drivers/android/binder/freeze.rs           |  4 +
- drivers/android/binder/node.rs             |  8 ++
- drivers/android/binder/node/wrapper.rs     |  4 +
- drivers/android/binder/rust_binder_main.rs |  8 ++
- drivers/android/binder/thread.rs           | 91 +++++++++++++++++-----
- drivers/android/binder/transaction.rs      |  4 +
- 6 files changed, 99 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/android/binder/freeze.rs b/drivers/android/binder/freeze.rs
-index 69e058e6d818..5103bfac781f 100644
---- a/drivers/android/binder/freeze.rs
-+++ b/drivers/android/binder/freeze.rs
-@@ -152,6 +152,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>() + size_of::<BinderFrozenStateInfo>()
-+    }
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 8aa52629f788c..1d4e723d0b7eb 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2755,6 +2755,45 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct page *page)
+ 	f2fs_wait_on_page_writeback(ipage, NODE, true, true);
+ 	memcpy(dst_addr, src_addr, inline_size);
+ update_inode:
++	/*
++	 * The xattr node of the checkpoint was removed before fsync, e.g. the
++	 * xattrs became small enough to fit inline. Release it as well, or
++	 * the inode keeps pointing to the stale xattrs.
++	 */
++	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
++		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++		struct node_info ni;
++		int err;
 +
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(m, "{}has frozen binder\n", prefix);
-diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
-index efdafc202e27..4f4c892cba58 100644
---- a/drivers/android/binder/node.rs
-+++ b/drivers/android/binder/node.rs
-@@ -754,6 +754,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        2 * (size_of::<u32>() + 2 * size_of::<u64>())
-+    }
++		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
++								&ni, false);
++		if (err) {
++			f2fs_put_page(ipage, 1);
++			return err;
++		}
 +
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(
-@@ -1149,6 +1153,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>() + size_of::<u64>()
-+    }
++		if (ni.blk_addr != NEW_ADDR &&
++		    !f2fs_is_valid_blkaddr(sbi, ni.blk_addr,
++					   DATA_GENERIC_ENHANCE)) {
++			f2fs_err_ratelimited(sbi,
++				"nat entry is corrupted, run fsck to fix it, ino:%u, nid:%u, blkaddr:%u",
++				ni.ino, ni.nid, ni.blk_addr);
++			set_sbi_flag(sbi, SBI_NEED_FSCK);
++			f2fs_handle_error(sbi, ERROR_INCONSISTENT_NAT);
++			f2fs_put_page(ipage, 1);
++			return -EFSCORRUPTED;
++		}
 +
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         let inner = self.inner.lock();
-diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
-index edfbccf6e6da..37826349eafb 100644
---- a/drivers/android/binder/node/wrapper.rs
-+++ b/drivers/android/binder/node/wrapper.rs
-@@ -93,6 +93,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        2 * (size_of::<u32>() + 2 * size_of::<u64>())
-+    }
++		f2fs_invalidate_blocks(sbi, ni.blk_addr);
++		dec_valid_node_count(sbi, inode, false);
++		set_node_addr(sbi, &ni, NULL_ADDR, false);
++		/* drop the cached xattr node, which may be dirty */
++		truncate_inode_pages_range(NODE_MAPPING(sbi),
++				F2FS_BLK_TO_BYTES((loff_t)ni.nid),
++				F2FS_BLK_END_BYTES((loff_t)ni.nid));
++		f2fs_i_xnid_write(inode, 0);
++	}
 +
-     #[inline(never)]
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(
-diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-index 56c786475237..361f3a987235 100644
---- a/drivers/android/binder/rust_binder_main.rs
-+++ b/drivers/android/binder/rust_binder_main.rs
-@@ -163,6 +163,10 @@ fn do_work(
-     /// Generally only set to true for non-oneway transactions.
-     fn should_sync_wakeup(&self) -> bool;
- 
-+    /// Returns the maximum size in bytes that [`DeliverToRead::do_work`] may write to the read
-+    /// buffer.
-+    fn size(&self) -> usize;
-+
-     fn debug_print(&self, m: &SeqFile, prefix: &str, transaction_prefix: &str) -> Result;
- }
- 
-@@ -279,6 +283,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>()
-+    }
-+
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(m, "{}", prefix);
-         if self.skip.load(Relaxed) {
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index 763f0646a1e9..90569477e502 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -322,6 +322,31 @@ fn pop_work(&mut self) -> Option<DLArc<dyn DeliverToRead>> {
-         ret
-     }
- 
-+    fn pop_deferred_work(
-+        &mut self,
-+        rem_space: usize,
-+        has_written: bool,
-+    ) -> Option<DLArc<dyn DeliverToRead>> {
-+        if self.process_work_list {
-+            return None;
-+        }
-+        if !has_written {
-+            let min_txn_space = size_of::<uapi::binder_transaction_data_secctx>() + 4;
-+            if rem_space < min_txn_space {
-+                return None;
-+            }
-+            let deferred_size: usize = self.work_list.iter().map(|w| w.size()).sum();
-+            if rem_space >= min_txn_space + deferred_size {
-+                return None;
-+            }
-+        }
-+        let front_size = self.work_list.iter().next()?.size();
-+        if rem_space < front_size {
-+            return None;
-+        }
-+        self.work_list.pop_front()
-+    }
-+
-     fn push_work(&mut self, work: DLArc<dyn DeliverToRead>) -> PushWorkRes {
-         if self.is_dead {
-             return PushWorkRes::FailedDead(work);
-@@ -725,6 +750,14 @@ pub(crate) fn pop_work_even_if_deferred(&self) -> Option<DLArc<dyn DeliverToRead
-         thread_inner.pop_work()
-     }
- 
-+    fn pop_deferred_work(
-+        &self,
-+        rem_space: usize,
-+        has_written: bool,
-+    ) -> Option<DLArc<dyn DeliverToRead>> {
-+        self.inner.lock().pop_deferred_work(rem_space, has_written)
-+    }
-+
-     fn translate_object(
-         &self,
-         obj_index: usize,
-@@ -1630,30 +1663,44 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
-             has_noop_placeholder = true;
-         }
- 
--        // Loop doing work while there is room in the buffer.
-+        // Drain deferred work if the buffer cannot fit both the queued deferred items and a
-+        // transaction.
-         let initial_len = writer.len();
--        while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 {
--            match getter(self, wait && initial_len == writer.len()) {
--                Ok(Some(work)) => match work.into_arc().do_work(self, &mut writer) {
--                    Ok(true) => {}
--                    Ok(false) => break,
--                    Err(err) => {
--                        return Err(err);
--                    }
--                },
--                Ok(None) => {
--                    break;
--                }
-+        while let Some(work) = self.pop_deferred_work(writer.len(), writer.len() < initial_len) {
-+            match work.into_arc().do_work(self, &mut writer) {
-+                Ok(true) => {}
-+                Ok(false) => break,
-                 Err(err) => {
--                    // Propagate the error if we haven't written anything else.
--                    if err != EINTR && err != EAGAIN {
--                        pr_warn_ratelimited!("Failure in work getter: {:?}\n", err);
--                    }
--                    if initial_len == writer.len() {
--                        return Err(err);
--                    } else {
-+                    return Err(err);
-+                }
-+            }
-+        }
-+
-+        // Loop doing work while there is room in the buffer.
-+        if initial_len == writer.len() {
-+            while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 {
-+                match getter(self, wait && initial_len == writer.len()) {
-+                    Ok(Some(work)) => match work.into_arc().do_work(self, &mut writer) {
-+                        Ok(true) => {}
-+                        Ok(false) => break,
-+                        Err(err) => {
-+                            return Err(err);
-+                        }
-+                    },
-+                    Ok(None) => {
-                         break;
-                     }
-+                    Err(err) => {
-+                        // Propagate the error if we haven't written anything else.
-+                        if err != EINTR && err != EAGAIN {
-+                            pr_warn_ratelimited!("Failure in work getter: {:?}\n", err);
-+                        }
-+                        if initial_len == writer.len() {
-+                            return Err(err);
-+                        } else {
-+                            break;
-+                        }
-+                    }
-                 }
-             }
-         }
-@@ -1800,6 +1847,10 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>()
-+    }
-+
-     fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-         seq_print!(
-             m,
-diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
-index 48ac942bb75a..6909d7a8a219 100644
---- a/drivers/android/binder/transaction.rs
-+++ b/drivers/android/binder/transaction.rs
-@@ -762,6 +762,10 @@ fn should_sync_wakeup(&self) -> bool {
-         !self.flags.is_oneway()
-     }
- 
-+    fn size(&self) -> usize {
-+        size_of::<u32>() + size_of::<BinderTransactionDataSecctx>()
-+    }
-+
-     fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str) -> Result {
-         self.debug_print_inner(m, tprefix);
-         Ok(())
+ 	f2fs_update_inode(inode, ipage);
+ 	f2fs_put_page(ipage, 1);
+ 	return 0;
 -- 
-2.47.0
+2.53.0
 
