@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408562;
-	b=RVwnCDZcZ95TUWjNvPwBLDkz1Oha2Kw3k4lyQ3ZFXP+Odjbei9YdSjJFmhtKAhWWv4JW
-	 IFrvs6oGZKpzVcCsH6CyxQlVLDk5JVEqxrg4cIVPtIMDinSykmSk6/zn9CEDey8ZdRCmp
-	 zln2YTvhI1jcfRHJTZBmTMnIbfbfWVHthFC7qAi4+G+eGGVZMmV2K0r4vTMYg87oYhySr
-	 YQdEFtTtXId/Tli/epsSHNwQ0E+9Q1KrdC1UEySbeh9sK9Jqq9rI7WZcDmNm5pCsQYqBP
-	 B3mQ+JH9JZphVdamFnE8KpgyRzl4/KrHUmacrnZe7b31iyWkbdDtoX1YSTfQj8x0Eog==
+	t=1794408583;
+	b=UL1Ntd5cFcR1dV1ecVFW3jOqUd+YJsXrCqoP+/XIoP9Gy8+qtn2j3qik0oTdaMzrskvG
+	 zdUPjOb8DPiOhr8+GuTPg8mh9U509iLeUxHe/dGMCGj8NT0gkW2eyNgztai+jlCWR4fFq
+	 9TfsHYxH2EaaNYF1GThi7jRySW2GqdgzJyBibbpfzURjH/q8sNpD8sZsQaeVqklnhMbS3
+	 GERb+cr/YesYNyjYQ5xLCnpwV2+EyUwUzGwVsiD1bA35qsCEgS5Q/vTLnM3TlvwvdSEaf
+	 wA8Wvr4Aq10i+CXxUM6m+wVSNrb3tzY69GvRW7TOdeQ04gt4cCAejMTd7Mh7Uo0SmFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408562;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408583;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=V5nqB0BaS6NIRcldSaj2hdtO7Blf9m07O40VbW5C6zo=;
-	b=DF7p62YwCS8YI7Q+RnYbRAc341rlWyXpjuaqKmqBaNXHono3Mo4JuAXBkCXXr84XB63h
-	 DxWLH6hv/khhrwWvweXcJGg1YR/Se+6gy8S3KkEV+mrMvEAhp+f9ATNnhhmkMZ4s6MRmI
-	 PToBIbM9zrOdbNSO+fdHy5jRJptX+sFFMwIS9DfwmqR6RqzVQEczrHDRjtMcorYQMRldE
-	 qJk3ghQogUJtKNTPS1+pTv2OkRicS5ePKcJr4iqp0Sue9lbIXq48huyHKKwrB0G4MCDn+
-	 Faw7PjeYV+hWNFYFAQDYIRNw8trW87R9Wiax4rC6UUC+PtB1TJt/tTbcUjCIIHPH1Bw==
+	bh=9i9IiI3A450HQ9IqVvcRGXkuc1F2HaWaNxBeI3LtCTc=;
+	b=hupBRJuRdl+tt6j/ln2GH/FV3haHBRo0SszNYb4fyY3V+7Ao0X3GD5wbQKn36EqTAg6s
+	 8QIigimUwd9Kih9/72Ll9WSq7/5LZyr2nKM2BshiFklv3jkpz3iKDwrI4VAYoUqM7AWF/
+	 K7liir/ZDsJMSphWh4UC0AK9NDZfnOgM5Wx0vCiUQH4rQI4WS8LSOX282DsnhsYLtMlWe
+	 Pnfpqvb2oxqUgxOPKCZayHdnxU1EsVK1V8O8pJtOKqVaCxK8/7FKmkvYIwKPEP/SMqTdb
+	 5+na1jvzpQ/bnG5+RIfJ0MH1c5vet/2Hu76MnU/dkpFPWHQoHt9+bdelf6+9EKrYzlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LE4Xws3e;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BY38nkX5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E9C606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:49:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B64C606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:49:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LE4Xws3e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF1E61F00A05;
-	Wed, 11 Nov 2026 14:49:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BY38nkX5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B2C1F00A05;
+	Wed, 11 Nov 2026 14:49:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794408562;
-	bh=V5nqB0BaS6NIRcldSaj2hdtO7Blf9m07O40VbW5C6zo=;
+	s=k20260515; t=1794408582;
+	bh=9i9IiI3A450HQ9IqVvcRGXkuc1F2HaWaNxBeI3LtCTc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LE4Xws3eN9+sPzhJf2BcB5v+fa7hhv0msjiqIPAhHKh+7PzliY063ny0sG5KnWRGL
-	 YgTmfQNTUYfKMYcvDsc9dJSpMRXj072IuWr0muN+7zsxTW6BqGBMolkxoReYOk0B54
-	 uzv7Kfz9pkkhqvdYuQ3TZ1r9uc1c7Yaj2+/65D0IxJ/xabyE03xXE0NvKQbQwbZMpG
-	 4Da/dCEoNtHq2u4eP4nZuQC7hFg0OX0DhAFdxlF3hbhWwWMOS4A94Z1vR8fqaJB7xU
-	 QqDKyi+N7OeNWwXvk+jzbBM5uEr5RrF05EPGQ3gSBAdjyCLWY55BP2CjZ85wNEnHV1
-	 1zsGEnSD0Vsig==
+	b=BY38nkX5maJhKOONH2WygiR6KM1njPcn3YivlPwEyIzig9Yz4LSmwxdsrFOFLa7u0
+	 ugMT6qVqC2/sKgjs8hDJNkzIsTAYuU1y+pLhitFlUpiJGWFTlhlUVAOWdRNFCd7t2r
+	 V5blzlJkktDeMdvbXa/HoPWJXeGJmvUzuUSwDIkH75hZ18U3M1rvyX3M6W/kdoMBQt
+	 mwU+z/cr2V+JIWdSJPMhDQuXMy+AgkPi2RTVKibH7w0ASHqUS4i6lwbuFaBBk7Bll4
+	 JD/xQOt8t8Y6330dP7JOz2sycVCl50V+55NF+BKFLlFU4PnscoCV1f93LhSqBrH3VA
+	 2tdsrzTy6sw+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Stanley Jhu <stanleyjhu@google.com>,
+	Bean Huo <beanhuo@micron.com>,
+	Peter Wang <peter.wang@mediatek.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] media: sti: delta: use unaligned accessors for MJPEG SOF fields
-Date: Wed, 11 Nov 2026 09:49:20 -0500
-Message-ID: <20261111144847.2404657-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: ufs: bsg: Reject UIC commands with a non-zero result byte
+Date: Wed, 11 Nov 2026 09:49:40 -0500
+Message-ID: <20261111144906.2397622-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054356-failed-6.1-fdc5bf02aeae@kernel.org>
-References: <20261107054356-failed-6.1-fdc5bf02aeae@kernel.org>
+In-Reply-To: <20261107061114-failed-5.15-1ae42513205a@kernel.org>
+References: <20261107061114-failed-5.15-1ae42513205a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,69 +64,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Stanley Jhu <stanleyjhu@google.com>
 
-[ Upstream commit fdc5bf02aeaef04e7d13895db9b6eaf8083953f9 ]
+[ Upstream commit 1ae42513205a38b811afedb6797f9f9c4de37b90 ]
 
-delta_mjpeg_read_header() scans a compressed MJPEG access unit byte by
-byte and passes the bytes after an SOF marker to delta_mjpeg_read_sof().
-The SOF parser then reads 16-bit big-endian fields directly from that
-byte stream.
+ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
+including the result byte (bits 7:0) that only the host controller
+writes. A non-zero value triggers the WARN_ON_ONCE() in
+ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
+syzkaller.
 
-The SOF payload is not an aligned object. The marker scan can find the
-payload at any byte position, and the SOF layout also puts frame_height
-and frame_width after a one-byte sample_precision field. Those fields
-therefore sit at odd offsets within the payload even when the payload
-base happens to be 2-byte aligned.
+Reject UIC commands that have the result byte set with -EINVAL.
 
-Avoid casting the byte stream to __be16 pointers and use
-get_unaligned_be16() for the SOF length, height, and width fields.
-
-This issue was detected by our static analysis tool and confirmed by
-manual audit. A focused UBSAN alignment validation of the same typed
-load shape reported a misaligned __be16 access in delta_mjpeg_read_sof().
-
-Fixes: 433ff5b4a29b ("[media] st-delta: add mjpeg support")
+Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in ufs_bsg_request()")
+Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is invalid")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: Replaced the unaligned header include with its older architecture-provided equivalent. ]
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261015001855.3450573-5-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: adapted the patch to the older UFS source layout under the SCSI subsystem ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/scsi/ufs/ufs_bsg.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-index 90e5b2f72c82b..6e156cd806bb5 100644
---- a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-+++ b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-@@ -4,6 +4,7 @@
-  * Author: Hugues Fruchet <hugues.fruchet@st.com> for STMicroelectronics.
-  */
- 
-+#include <asm/unaligned.h>
- #include "delta.h"
- #include "delta-mjpeg.h"
- 
-@@ -48,13 +49,13 @@ static int delta_mjpeg_read_sof(struct delta_ctx *pctx,
- 		goto err_no_more;
- 
- 	memset(header, 0, sizeof(*header));
--	header->length           = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->length           = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->sample_precision = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
--	header->frame_height     = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_height     = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
--	header->frame_width      = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_width      = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->nb_of_components = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
+diff --git a/drivers/scsi/ufs/ufs_bsg.c b/drivers/scsi/ufs/ufs_bsg.c
+index b8bbfd81b8ae0..207b220e451dd 100644
+--- a/drivers/scsi/ufs/ufs_bsg.c
++++ b/drivers/scsi/ufs/ufs_bsg.c
+@@ -123,6 +123,10 @@ static int ufs_bsg_request(struct bsg_job *job)
+ 		break;
+ 	case UPIU_TRANSACTION_UIC_CMD:
+ 		memcpy(&uc, &bsg_request->upiu_req.uc, UIC_CMD_SIZE);
++		if (uc.argument2 & MASK_UIC_COMMAND_RESULT) {
++			ret = -EINVAL;
++			break;
++		}
+ 		ret = ufshcd_send_uic_cmd(hba, &uc);
+ 		if (ret)
+ 			dev_err(hba->dev,
 -- 
 2.53.0
 
