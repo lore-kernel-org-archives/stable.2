@@ -1,55 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370483;
-	b=g5OVw8VvfVJX7bFFUY23G5HMtL+jM0haB0JEAqj1C3xhmEFy1c8mknZBZEGa2DoNcZhy
-	 ZawsLXxaR8D58rfcDxMi+f/4dla0Wyvpz7luxaR2SXUzyuB+TiRh+Pd3Ie9GPUbB+MLy+
-	 gfbZNB+q/wyYl6p8KedJsix2xyWPWeojh4iMWZtjqnyctauX0Vbp9MQ5wJaY0oLAhL/8c
-	 8Gi6UdBznHFph3ZfS1Z6n17VY4U3ok/9TGGvItjwX8eBLBA5eB1/ITWCO94aA0UkzQhcb
-	 b8QA4f2p8eZDDCP0pZpJ8P7UlZkDPY2ZFMoOedyCXRHwA6xXwCXiV9b1J//p0qcN3dw==
+	t=1794370738;
+	b=vu6Kx87qtR6adqRBqTIMSpQCBaj/6hTumjE2352MPBHhnVYY/LioC88a27qoO+QHfrtn
+	 hLQAlJFCGyR5G/j48Fr68w9Az7bj475Bdm2J2dVATUR0v9gTYO6cBfa5rOp2cAWj8pzqX
+	 RlZFP27OxBXber6Jh0uRFcBLXifRi6/hVFcVvazNLC99k5LYLAlONeAG4+j4H3sayATuV
+	 GKc8yUq9ZcBM/2QkAcb08i1xnqFnaiPzFRA/EII3W892F4fOQZArhRod9lnMTLC2eL2y/
+	 swmkUf0fy8+jjbyP3wYACxKTqqUimtxwekZsbNvfPJKwcEuVgIpjTg07XeipFC34iHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370483;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wBjk+nfF44wjTbUE/FnokHdumY3TmR9a4WES24etNCM=;
-	b=j7yFn+l/Jh8bSXRLVKsKjTY+2MUlUG1aUToVNU6jFQlRyjU5MCgftFgvRBs9RNduh/ve
-	 ylM54lw9k0k9NcaXy0HAu2IXNHgtLzqi+BpFcNoE5Xk3MN99OZys1yhBQY40ZP8C4MzdW
-	 mocQySc+yc1mHVfZsA6VNNrXNu6kQTRLGICMXelM93MsOJ2nM9bzgM4ZVEMbM0eduXxGM
-	 G23jQ+5UVIHzHRWth3u+auIkbI0vnQIV696YnZl7UfUhbwM2i0ayI4jPyNVZk+W3pF/kH
-	 9zWyQBMHEVvjj8C9raO55y4QsAULg6BIiT8gl0IDtQkyQ+sDg+dFCMHuABghhkzHXrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370738;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=lPwrUpXOY1lPkPAoPpHggdTqaa8EFeGOpEteyKStL3A=;
+	b=ARWiVjrsEmfuAXBHVheF2aSnz4mJc5czOn1sMX9pgnJWRkswX4qe1qqw+htSlpsQ47rA
+	 dMaa6ezuFwPu27WvV3bmhOTgpvicJTVuJCK1ipjId+LscU4IYUpHM/9w/fnGDjQHxQKkF
+	 KEQ4wgHglTjw8FERiF0MH0WpBC8SfmhhF9tPOP8CuIFCy3OaLKZKouPJp7kG17sewQyjr
+	 nosX4XjFtyLCubxIRr8MRNrgXBEN8sIsgpI6bCHSKJGzrZNOFp0XvjkzQVOfD05GIwIbW
+	 s/xid981SatLPMMyhZQAGRl4lapTu+XOHJ9EFJ/jclWONTAdEVGlYSo5hweYEFoHoiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRBleGai;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC98606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRBleGai
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37BF1F0089F;
-	Wed, 11 Nov 2026 04:14:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794370483;
-	bh=wBjk+nfF44wjTbUE/FnokHdumY3TmR9a4WES24etNCM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kRBleGaikD5ehqFZHs7ExgKNDTUKrUUbxdtNYn4bgyUcpU5/Rq0zC0t6/bzT3Km3C
-	 vXBfJnvieTMUGz2ukSVqL1CZif0SdRrT0613OsgiISwedLR6qpvj0bm0GCE6CNYNPa
-	 uhOL+NOld8vOnTijydbLs9uU8yB7TXoJLSg7PS49RlZQG16XEyKNtu9S+vbzJbBj9S
-	 FD3DKYqv2swMeCA+ZlgHk9rLlC0HP05Kw6XJAnb6y6KA+2rcxwdrciXQ8lFjjc+ezK
-	 rZlEZ+PxFYmSdFdnYrUQ+x5zuhAC8y5fKju0mdVLSGG5yEE4rY9fshzP+NlPypiL9I
-	 I72Yu6NHlH8Dw==
-From: Sasha Levin <sashal@kernel.org>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E83CB606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:18:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E83CB606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=lPwrUpXOY1lPkPAoPpHggdTqaa8EFeGOpE
+	teyKStL3A=; b=Dhy4fhJdA+RVpUzEDXxLmlKoLvLNXWQZx9bEaChVYqILGemzhO
+	e2f2NzvJ9T1FrdymdjZfb1bAY3PgGi2jUB3WB4pcGUYwSKV2d6PjYTY/aibuVtbk
+	Y1l19vidYp3pZoHKpnnWs55PiYKUDKl6jo92ZAer8f3jl9S7G7ueBX8Js=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.33])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkB2uwCo7PNqaOZyAQ--.19850S2;
+	Wed, 11 Nov 2026 12:18:48 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 To: stable@vger.kernel.org
-Cc: Sinan Turunc <enscrpt@pm.me>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ALSA: usb-audio: Bound packet copies by the PCM buffer size
-Date: Tue, 10 Nov 2026 23:14:41 -0500
-Message-ID: <20261111041410.1055810-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062947-failed-5.10-06be918062ad@kernel.org>
-References: <20261107062947-failed-5.10-06be918062ad@kernel.org>
+Subject: [PATCH 5.10.y] ALSA: hwdep: Serialize DSP load requests
+Date: Wed, 11 Nov 2026 12:18:47 +0800
+Message-Id: <20261111041847.4364-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261109202559-failed-5.10-aee83c204f80@kernel.org>
+References: <20261109202559-failed-5.10-aee83c204f80@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,97 +56,87 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkB2uwCo7PNqaOZyAQ--.19850S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXF1DZF1kXFyUtFyfJw4xJFb_yoW5GF4xpF
+	4qkFWYkFWqqr1UCw1DAwsrWa4Fyws7CFnxGr45X3W0vr15ZF1F93sYqry29r10kr4rCFy8
+	uFyqvr1rJFy3Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r
+	17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc2xSY4AK67AK6r45MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVWUJVWUXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyT
+	uYvjxUxTmhUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUOD2rzNcaM4AABsB
 
-From: Sinan Turunc <enscrpt@pm.me>
+The check of the loaded DSP indices and the call of the driver's
+dsp_load callback in snd_hwdep_dsp_load() are not serialized.  A hwdep
+file descriptor can be shared among threads, or inherited across fork,
+so two SNDRV_HWDEP_IOCTL_DSP_LOAD requests for the same index can both
+observe the index as unloaded and enter the driver's callback
+concurrently, even though the device itself is opened exclusively.
 
-[ Upstream commit 06be918062adc1a5a76dc346803b136b20bdb5ae ]
+This breaks the assumption behind hw->dsp_loaded that a firmware index
+is loaded only once.  For example, snd-usb-usx2y hits
+WARN_ON(usx2y->as04.buffer) in usx2y_async_seq04_init() and may
+allocate the US-428 sequence URBs twice.
 
-retire_capture_urb() and prepare_playback_urb() assume that one USB
-packet never carries more data than the whole ALSA ring buffer. Nothing
-enforces that: the packet size comes from the device (wMaxPacketSize,
-and curpacksize == maxpacksize when the class-specific endpoint
-descriptor sets MaxPacketsOnly), while the PCM hardware constraints only
-require 64-byte periods, two periods and a period time of one data
-interval. An 8 kHz mono U8 stream on a 128-byte buffer is legal, and a
-full-speed device can send 1023-byte packets into it.
-
-On the first oversized packet hwptr_done is wrapped once and stays
-beyond buffer_bytes (895 for 1023 bytes into 128). On the next packet
-the wrap arithmetic in the copy path computes
-
-    bytes1 = subs->buffer_bytes - oldptr
-
-with oldptr > buffer_bytes, so bytes1 wraps to about 4 GB and memcpy()
-runs off the end of the URB buffer and of the vmalloc'd DMA buffer:
-
-  BUG: KASAN: slab-out-of-bounds in retire_capture_urb+0x251/0x870
-  Read of size 4294966529 at addr ffff88800c1e2800 by task vhci_rx/82
-
-and for playback, where copy_to_urb() has the same shape:
-
-  BUG: KASAN: vmalloc-out-of-bounds in copy_to_urb.isra.0+0x188/0x430
-  Read of size 4294966529 at addr ffffc9000004537f by task vhci_rx/79
-   prepare_playback_urb+0x98a/0x1fc0
-
-Truncate an oversized capture packet to the buffer size, and stop
-filling a playback URB once it holds a whole buffer. With bytes <=
-buffer_bytes the single wrap of hwptr_done and the two-part memcpy()
-in both copy paths stay inside the buffer. A device whose packets do
-not fit the buffer at all was never going to play correctly anyway.
-
-Reproduced on 7.3-rc7 with a USB/IP device (dummy_hcd cannot carry
-isochronous data) advertising a UAC1 endpoint with MaxPacketsOnly and
-wMaxPacketSize 1023, and a PCM client using period_size 64, periods 2.
+Serialize the check, the callback invocation and the bookkeeping with a
+per-hwdep mutex, so that the second request returns -EBUSY.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Link: https://patch.msgid.link/20261029084810.21910-2-25031212351@stu.xidian.edu.cn
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20261026223543.620-2-enscrpt@pm.me
-[ sashal: replaced missing subs->buffer_bytes with runtime->buffer_size * stride ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+(cherry picked from commit aee83c204f80d56b4d55f53acdb8594308ddcd4a)
 ---
- sound/usb/pcm.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ include/sound/hwdep.h | 1 +
+ sound/core/hwdep.c    | 2 ++
+ 2 files changed, 3 insertions(+)
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 802ed1dbd23b0..82cfa3f75d530 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -1438,6 +1438,18 @@ static void retire_capture_urb(struct snd_usb_substream *subs,
- 			bytes -= adj;
- 			subs->stream_offset_adj -= adj;
- 		}
-+		/*
-+		 * A packet can be as large as the endpoint's maxpacksize, which
-+		 * the device chooses, while the ring buffer can be as small as
-+		 * two 64-byte periods. The hwptr_done wrap below handles one
-+		 * wrap only, so never take more than one buffer from a packet.
-+		 */
-+		if (unlikely(bytes > runtime->buffer_size * stride)) {
-+			dev_warn_ratelimited(&subs->dev->dev,
-+					     "%u-byte packet exceeds %lu-byte buffer, truncating\n",
-+					     bytes, runtime->buffer_size * stride);
-+			bytes = runtime->buffer_size * stride;
-+		}
- 		frames = bytes / stride;
- 		if (!subs->txfr_quirk)
- 			bytes = frames * stride;
-@@ -1614,6 +1626,14 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
- 		else
- 			counts = snd_usb_endpoint_next_packet_size(ep);
+diff --git a/include/sound/hwdep.h b/include/sound/hwdep.h
+index 8d6cdb254..137be4b40 100644
+--- a/include/sound/hwdep.h
++++ b/include/sound/hwdep.h
+@@ -57,6 +57,7 @@ struct snd_hwdep {
  
-+		/*
-+		 * Bound by the ring buffer as well as by the URB:
-+		 * copy_to_urb() wraps hwptr_done once, so one URB must
-+		 * never carry more than the whole buffer.
-+		 */
-+		if ((frames + counts) * ep->stride > ctx->buffer_size ||
-+		    (frames + counts) * ep->stride > runtime->buffer_size * stride)
-+			break;
- 		/* set up descriptor */
- 		urb->iso_frame_desc[i].offset = frames * ep->stride;
- 		urb->iso_frame_desc[i].length = counts * ep->stride;
+ 	struct mutex open_mutex;
+ 	int used;			/* reference counter */
++	struct mutex dsp_mutex;		/* serializes DSP load requests */
+ 	unsigned int dsp_loaded;	/* bit fields of loaded dsp indices */
+ 	unsigned int exclusive:1;	/* exclusive access mode */
+ };
+diff --git a/sound/core/hwdep.c b/sound/core/hwdep.c
+index 0c0298928..dea86d223 100644
+--- a/sound/core/hwdep.c
++++ b/sound/core/hwdep.c
+@@ -211,6 +211,7 @@ static int snd_hwdep_dsp_load(struct snd_hwdep *hw,
+ 		return -ENXIO;
+ 	if (info->index >= 32)
+ 		return -EINVAL;
++	guard(mutex)(&hw->dsp_mutex);
+ 	/* check whether the dsp was already loaded */
+ 	if (hw->dsp_loaded & (1u << info->index))
+ 		return -EBUSY;
+@@ -376,6 +377,7 @@ int snd_hwdep_new(struct snd_card *card, char *id, int device,
+ 
+ 	init_waitqueue_head(&hwdep->open_wait);
+ 	mutex_init(&hwdep->open_mutex);
++	mutex_init(&hwdep->dsp_mutex);
+ 	hwdep->card = card;
+ 	hwdep->device = device;
+ 	if (id)
 -- 
-2.53.0
+2.34.1
 
