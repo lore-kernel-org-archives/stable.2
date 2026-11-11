@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393473;
-	b=3Bp5q2oa/PSNrUcXhXmyymTh9ztkCM3v9Qg2xO1IL8fAB/HjGCLtJcx4bD2vUflLG5eD
-	 cfut7tCOYQCcgS7ukbrF1HVFf39u8nQ3mGTi8pHukPn876hhh3CdxZarvl2uB2zvX1rjD
-	 0RkRKO47NO9ec5R9ERTryFmEuDrZKaylXsY144y7FoXTDQDqN3AwVkHFaGlx924HV1qOR
-	 3bHX+YAh8XswUZpKbk7+inLSJt69m4DsVWkvssvxvwNQplm4c+CtSBSCmUMwv9hIi+GhP
-	 7AJmNEUJUAPxkh8JjEg64URmROh2ADZ2HJDiojtVQH9FwGZ7Jo244CYitLUXRC22kfg==
+	t=1794393474;
+	b=tCyp9dsYe91mVw0jVaFhbYCegvKZ5d1YKgJXAXqzzEokkSDqdFG0K1aoxVYMRgIav8bs
+	 jfIZ0B/ehhCjam2vffRQC3yoig5Y8I8Z6lWtYb/YKjeQo+AvF60HA32SXbrligL7EuNwg
+	 oJayq96/UKTPKPv31WjgkqBhXBf/S4sNsXshCOfn6yNZJF1krG7ZZRG50fRWm/xqr4DIk
+	 zouUh4u3J6wrq/C7Ay5PPZw8Ix0yu84tTiI8EgRYDPWG5+V5rzlyd0Q7f0uyRD/ZbIfxg
+	 5ZpatdEg4ZFywNOTFWHw3mB33gLdCqV1AMhHOQDT/JflYBVLvD2LIUUrSKbugLdIT+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393473;
-	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:Sender:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393474;
+	h=DMARC-Filter:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:Sender:
 	 X-CM-SenderInfo;
-	bh=LTxP+YIomqSIzpLJsllAgnu6yXFb3cfcIae7hFBjMxU=;
-	b=o9e4Ud/QN8twp6KxPvlSquPkA94KVq0lv0wGGhHPLYq5OdexF/LB5g0fWeBGaHN6z6Zi
-	 eoDt4lbPX4ZFTBOqi6M9k1jGPb9FsBW2BeyHMjyUT/wbhYP1pB+gWV+vbRTglb9N8nDQN
-	 F2UQ5bVIySReJF0Rh375DY7ocWepv0/kDasvUY7FsBRkp90CE/bNqY6xVTarqz1a0jrUr
-	 FCa87t90WXxeuG//KKO+SFtqpb+0TAHynelhbhKDhQMhkPsXMR3XYVNz3Z9SVZm6iR0jV
-	 xnNdKtmcVseOd3xOEFM7u1d04Z4CWfYXuGt4meteijOgGFDFZ3UKxmhABiC3aKKMMzQ==
+	bh=Dso1ta380YcEMHupulitAz3YzmTiixvx3621zNH+NpM=;
+	b=FQr1kVIdWuMFooUY3RVfVyNqPPdve7OVLPvvJ0XJruF+lkcM+nYz8oYs17wizFx4AhGr
+	 irODsK12wWA4xY/XqwcZrH2EcaCg5ntqu3T2FdJj4P4IUkhV3pARtUEYCFbvzbwtC4N72
+	 PAkOJstMwWHu1c2zsDbqyfdTWnembi5yLGFvyp4JFKUCslOk0qd5dsz1UjXCAAhr2c791
+	 kSGXQdHim10VlVUXZB1FyTF5rb7OIGh1r8JR9DXIORAmd5K+NdIYhFUYJ1oK9vgWh3ESq
+	 0xhScmVfjAqx7oFj3gcNxP44zPtyK/RNDnISLKP5Lw4MLO9cB9YCgBBKr0xWyjfCt1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=gmail.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Nh18guJG;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=G6mwolTN;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF5F606A886;
-	Wed, 11 Nov 2026 10:37:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBF5F606A886
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD02606A32D;
+	Wed, 11 Nov 2026 10:37:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AD02606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Nh18guJG
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=G6mwolTN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
-	Message-Id:To; bh=LTxP+YIomqSIzpLJsllAgnu6yXFb3cfcIae7hFBjMxU=;
-	b=Nh18guJG8ApkMjdlkyqc/hCyytu3uslVQWSivIuQ/BJNbc2abEO7oZCLHs4PZT
-	hWorljnw88qNgdlp4G2u4nCp6LgfwOQmTU8q1yymPF4sDwLwXRK+4tCbisWvhxMa
-	K4tYovKTztyNqnAPljpE6rLJsTRbnhIajTavO5/PTWekc=
+	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version:
+	Content-Type:To; bh=Dso1ta380YcEMHupulitAz3YzmTiixvx3621zNH+NpM=;
+	b=G6mwolTNAeWl/uaRaypqdXOQr2u6tZPi9h27+/jsMgDAE7dfjRLiWLY6zBZVnC
+	5A7muMzBl59snsTCtHsJ5RV/RM/FOF4W1rQQoRq70nu3v5ydbx9h8Nve62HPuQpr
+	FLY2a69JRTF8rTElxXmxhK77n1K+K8KUyw+RMXRySq3y0=
 From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
-Date: Wed, 11 Nov 2026 18:31:22 +0800
-Subject: [PATCH net v9 1/4] can: j1939: serialize cancel and rearm of the
- receive timer
+Subject: [PATCH net v9 0/4] can: j1939: fix the abort timer and bound EDPO
+Date: Wed, 11 Nov 2026 18:31:21 +0800
+Message-Id: <20261111-j1939-edpo-v9-v9-0-e779ca334a81@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,9 +55,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-j1939-edpo-v9-v9-1-e779ca334a81@163.com>
-References: <20261111-j1939-edpo-v9-v9-0-e779ca334a81@163.com>
-In-Reply-To: <20261111-j1939-edpo-v9-v9-0-e779ca334a81@163.com>
+X-B4-Tracking: v=1; b=H4sIAPlD9GoC/yWMywqDQBAEf0X6nAEfIIy/EnJY3TaOh1V2jQTEf
+ 89q+lYNVQcSozGhKw5E7pZsCRn0UWCYXHhTzGdGXdZtlSdzpY0K/brIruId2belG1UbZGeNHO1
+ 7954I3PD6n+nTzxy2q4Tz/AHkQYV8dgAAAA==
+X-Change-ID: 20261111-j1939-edpo-v9-daeeb60af993
 To: Robin van der Gracht <robin@protonic.nl>, 
  Oleksij Rempel <o.rempel@pengutronix.de>, 
  Oliver Hartkopp <socketcan@hartkopp.net>, 
@@ -65,170 +66,93 @@ To: Robin van der Gracht <robin@protonic.nl>,
 Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-CM-TRANSID:_____wD3n3ZtRfRq73WgGQ--.5537S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKrWDKw47XrWUXF4kCw1kGrg_yoWxCryrpr
-	W3Wry3Gr17WF47Zr4ktFyDWryFvwn3J348Wr1xJ3s2yay3Cr45tF1DG34xWa9rtrW8Z3y3
-	ua4Sqwn8Gw4kt37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:PCgvCgAXI3dtRfRqn9XoEg--.16848S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXw1kJF4DtFykXF4kJw1fWFg_yoWrWF4rpF
+	ZxKFy3KF1kJF42kws7ZF48Xry5ZFs3tay5GrySg3s5Aw45Cr1ftFWxKw1Sga17C393u3y2
+	vr1qqF98WF4DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j7o7NUUUUU=
 Sender: quchaosheng000406@163.com
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4w5EuWr0RW5fvwAA3F
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAA1EuWr0RW03FwAA3m
 
-From: Chaosheng Qu <quchaosheng000406@163.com>
+This series fixes two bugs in the j1939 transport layer, plus two small
+hardening changes that fall out of them.
 
-Cancel and rearm the receive timer as one atomic step under
-active_session_list_lock.  j1939_tp_set_rxtimeout() cancels the timer,
-takes a reference and starts it again, but its callers do not agree on that
-lock: the receive handlers call it without the lock, while
-j1939_session_cancel() is reached from the transmit timer path and used to
-call it with the lock held.
+The first bug is a timer reference leak.  The receive timer is cancelled and
+restarted from three places, and they do not agree on
+active_session_list_lock: the receive handlers call the helper without the
+lock, j1939_session_cancel() called it with the lock held, and the rx timeout
+branch of j1939_tp_rxtimer() open-coded the same sequence.  Two callers can
+interleave between the cancel and the start, and the second hrtimer_start()
+reprograms an already armed timer without dropping the reference the first
+caller took, so the session and its netdev_hold() reference leak.  [1/4]
+replaces the three copies with one helper that cancels with
+hrtimer_try_to_cancel() under the lock, so the cancel and the start are one
+step.
 
-That makes the sequence non-atomic.  If one caller starts the timer after
-another has cancelled it and before that one starts it again, the second
-hrtimer_start() reprograms an already armed timer.  hrtimer_start() does
-not report that the timer was armed and does not drop the reference the
-first caller took, so that reference is never released: the session, and
-the netdev_hold() reference it carries, leak.
+The second bug is a NULL dereference driven by a peer.  ETP.CM_DPO is peer
+controlled and its packet number is not validated; a value at or past
+pkt.total moves pkt.dpo past the reassembled buffer, the transfer still
+completes, and the local loopback of the receiver's own EOMA hands a NULL
+skb to j1939_sk_recv(), which dereferences oskb->sk.  [2/4] rejects that
+EDPO.  [3/4] checks the skb in j1939_session_completed() anyway, so a future
+regression in the offset arithmetic degrades to a dropped message instead of
+a panic.  [4/4] rejects an oversized CTS where it is parsed, instead of
+letting it come back one step later as a bad EDPO offset.
 
-The lock cannot simply be taken around the existing helper, because
-hrtimer_cancel() waits for a running callback and j1939_tp_rxtimer() takes
-the same lock.  Add j1939_tp_arm_rxtimer_locked(), which uses
-hrtimer_try_to_cancel() instead: it never waits, so it is safe under the
-lock, and it returns 1 only when the timer was queued, which is the only
-case in which the caller's reference has to be dropped.
+Testing: [2/4] was verified on a local vcan link -- ETP.CM_RTS with a size of
+1786 bytes (256 packets), then ETP.CM_DPO packet 256 and an ETP.DT with
+sequence 0, dereferenced a NULL skb 3/3 times before the bound check and was
+rejected 3/3 times after it.  The seq 0 case is the one that made
+j1939_xtp_rx_dat_one() compute the last in-order packet, so the transfer
+completed and the receiver's own EOMA came back through the loopback, as
+described in [2/4].  For the timer side: two unparsable ETP.DT frames
+followed by "ip link del" left unregister_netdevice() waiting for the session
+reference; with the abort timer rearmed the session is deactivated about
+500 ms after the second frame.  Each patch builds standalone (net/can/j1939
+built in, x86_64) and passes scripts/checkpatch.pl with no errors or
+warnings.  I have no j1939 hardware, so none of this ran on a real CAN bus,
+and the race in [1/4] is argued from the lock ordering rather than caught in
+the act.
 
-j1939_tp_set_rxtimeout() now holds the lock around the helper,
-j1939_session_cancel() calls the helper instead of hand-rolling
-get + hrtimer_start(), and the rx timeout branch of j1939_tp_rxtimer()
-does the same, removing a second copy of that sequence.
+Changes in v9:
 
-Every existing caller of j1939_tp_set_rxtimeout() is outside the lock, so
-the added acquisition does not recurse.
+- Send the patches as replies to the cover letter; in v8 they went out as
+  four separate threads.
+- Start the first sentence of every changelog in the imperative.
+- Add the Assisted-by tag required by
+  Documentation/process/coding-assistants.rst, which v8 was missing.
+- Add the missing Fixes tags and Cc: stable for [1/4] and [4/4]; all four
+  patches fix behaviour that dates from the original J1939 commit.
+- Say in [2/4] where the CTS bound lives, instead of calling it a separate
+  fix while [4/4] of the same series does it.
+- Give this cover letter an overview of the series and this changelog.
 
-Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+Functionally the patches are unchanged since v8; the only code text that
+changed is one comment in [2/4].
+
+Changes in v8:
+
+- [1/4] rewritten: the v7 version armed the timer after cancelling it outside
+  the lock, which left the race it was meant to close.
+- [2/4] cancels the session timers before aborting, and carries the Fixes tag
+  for the NULL dereference.
+- [3/4] and [4/4] unchanged from v7.
+
 ---
- net/can/j1939/transport.c | 66 ++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 48 insertions(+), 18 deletions(-)
+Chaosheng Qu (4):
+      can: j1939: serialize cancel and rearm of the receive timer
+      can: j1939: validate the EDPO packet number
+      can: j1939: drop the message when the reassembled skb is gone
+      can: j1939: reject a CTS that names more packets than the message has
 
-diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-index 8fcfd13e5..fa23260e1 100644
---- a/net/can/j1939/transport.c
-+++ b/net/can/j1939/transport.c
-@@ -721,15 +721,42 @@ void j1939_tp_schedule_txtimer(struct j1939_session *session, int msec)
- 		      HRTIMER_MODE_REL_SOFT);
- }
- 
--static inline void j1939_tp_set_rxtimeout(struct j1939_session *session,
--					  int msec)
-+/*
-+ * Rearm the receive timer as one step under active_session_list_lock.
-+ *
-+ * j1939_tp_set_rxtimeout() is called from receive handlers that do not hold
-+ * the session list lock, while j1939_session_cancel() is called from the
-+ * transmit timer path.  If the cancel and the rearm are not serialized, a
-+ * concurrent caller can start the timer after this one cancelled it and
-+ * before this one starts it again: hrtimer_start() on an already armed timer
-+ * reprograms it without dropping the reference taken by that caller, and the
-+ * session leaks together with its netdev reference.
-+ *
-+ * hrtimer_try_to_cancel() does not wait for a running callback, so it can be
-+ * called with the lock held even though j1939_tp_rxtimer() takes the same
-+ * lock; a callback that is already running drops its own reference.  For the
-+ * same reason the return value is only 1 when the timer was queued: when this
-+ * runs from j1939_tp_rxtimer() itself, the timer is no longer queued and 0 is
-+ * the expected result.
-+ */
-+static void j1939_tp_arm_rxtimer_locked(struct j1939_session *session, int msec)
- {
--	j1939_session_rxtimer_cancel(session);
-+	if (hrtimer_try_to_cancel(&session->rxtimer) == 1)
-+		j1939_session_put(session);
-+
- 	j1939_session_get(session);
- 	hrtimer_start(&session->rxtimer, ms_to_ktime(msec),
- 		      HRTIMER_MODE_REL_SOFT);
- }
- 
-+static inline void j1939_tp_set_rxtimeout(struct j1939_session *session,
-+					  int msec)
-+{
-+	j1939_session_list_lock(session->priv);
-+	j1939_tp_arm_rxtimer_locked(session, msec);
-+	j1939_session_list_unlock(session->priv);
-+}
-+
- static int j1939_session_tx_rts(struct j1939_session *session)
- {
- 	u8 dat[8];
-@@ -1161,18 +1188,29 @@ static void __j1939_session_cancel(struct j1939_session *session,
- static void j1939_session_cancel(struct j1939_session *session,
- 				 enum j1939_xtp_abort err)
- {
-+	bool waiting;
-+
- 	j1939_session_list_lock(session->priv);
- 
-+	waiting = session->state == J1939_SESSION_WAITING_ABORT;
- 	if (session->state >= J1939_SESSION_ACTIVE &&
- 	    session->state < J1939_SESSION_WAITING_ABORT) {
--		j1939_tp_set_rxtimeout(session, J1939_XTP_ABORT_TIMEOUT_MS);
- 		__j1939_session_cancel(session, err);
-+		j1939_tp_arm_rxtimer_locked(session, J1939_XTP_ABORT_TIMEOUT_MS);
- 	}
- 
- 	j1939_session_list_unlock(session->priv);
- 
- 	if (!session->sk)
- 		j1939_sk_errqueue(session, J1939_ERRQUEUE_RX_ABORT);
-+
-+	/* The abort already went out on an earlier call, so this one armed no
-+	 * timer.  Several callers cancel the timers before calling here, which
-+	 * would otherwise leave the session on the list with nothing to finish
-+	 * it off, so deactivate it now.
-+	 */
-+	if (waiting)
-+		j1939_session_deactivate_activate_next(session);
- }
- 
- static enum hrtimer_restart j1939_tp_txtimer(struct hrtimer *hrtimer)
-@@ -1279,10 +1317,8 @@ static enum hrtimer_restart j1939_tp_rxtimer(struct hrtimer *hrtimer)
- 		    session->state < J1939_SESSION_ACTIVE_MAX) {
- 			netdev_alert(priv->ndev, "%s: 0x%p: rx timeout, send abort\n",
- 				     __func__, session);
--			j1939_session_get(session);
--			hrtimer_start(&session->rxtimer,
--				      ms_to_ktime(J1939_XTP_ABORT_TIMEOUT_MS),
--				      HRTIMER_MODE_REL_SOFT);
-+			j1939_tp_arm_rxtimer_locked(session,
-+						    J1939_XTP_ABORT_TIMEOUT_MS);
- 			__j1939_session_cancel(session, J1939_XTP_ABORT_TIMEOUT);
- 		}
- 		j1939_session_list_unlock(session->priv);
-@@ -1729,16 +1765,10 @@ static int j1939_xtp_rx_rts_session_active(struct j1939_session *session,
- 
- 		j1939_session_timers_cancel(session);
- 		j1939_session_cancel(session, J1939_XTP_ABORT_BUSY);
--		if (session->transmission) {
--			j1939_session_deactivate_activate_next(session);
--		} else if (session->state == J1939_SESSION_WAITING_ABORT) {
--			/* Force deactivation for the receiver.
--			 * If we rely on the timer starting in j1939_session_cancel,
--			 * a second RTS call here will cancel that timer and fail
--			 * to restart it because the state is already WAITING_ABORT.
--			 */
--			j1939_session_deactivate_activate_next(session);
--		}
-+		/* Both roles: the peer is restarting the transfer, so free the
-+		 * slot now rather than wait out the abort timeout.
-+		 */
-+		j1939_session_deactivate_activate_next(session);
- 
- 		return -EBUSY;
- 	}
+ net/can/j1939/transport.c | 119 +++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 97 insertions(+), 22 deletions(-)
+---
+base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+change-id: 20261111-j1939-edpo-v9-daeeb60af993
 
--- 
-2.43.0
+Best regards,
+--  
+Chaosheng Qu <quchaosheng000406@163.com>
 
 
