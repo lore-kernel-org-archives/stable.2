@@ -1,49 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386893;
-	b=VQRsuUNBBu9K21f0rJAcI/bghX3iP7OmeYdhdkOCM0nGTzaa5rq/4vMucxssqNoVU3Wl
-	 cefxyfirOFGtGG7Mm7BIZyHiUdT6Wv1kl5enJC2lpc/u2cIfnFd808CZCSEQ//RAj8LIg
-	 q/HRau9ZOGKY/klmKdwEwsxXgEWQND0U0LBFuOAEHnn5+yTX1USAJh0+2NiwFcC50KAm5
-	 fF/dURvK8HNgHJsKdko1MBVnXVBNNx5PVKgi0daj3YwU1NOn7DSxVEa17piLCaXuPaI29
-	 0C2r/PdX92ayizhuN97YblcRlemc0XuR+c1F3t8CWDCS2aaA0tTsJMIB5tQ3GVMArHQ==
+	t=1794386937;
+	b=Ut/lr3VIZvu7pKt3Yvm0CyaY2VKHAIPv2D4wL6KewbU0kvs/DKYWlX3zvsVOdj8cBBZG
+	 VZqsSc9NhmJ8lQcJMlwwoN2Gi6+qXasOzAKW1Hgxo3sL2peoHoNSn6Ud3rWj+LwaSpyFf
+	 h2fsypDM+5oTbl572lyKXwSr7urwSR8+yGDKQzJMev4e0OAQ2IRwpvUCsrJPXf/k/yJly
+	 jiTkhFt6WxX90Eg6QTW1l3wMbe7IX5kP6aceH+vwYWhs47KJoj9FGYIJ2NsdGQiSmhPzX
+	 jrIi0TPdNYxeRrHDpCUBxTeL2reM/vGmFSuWX6SqXKaWrfhNsJPElXHl3Tyn+FJh5jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386893;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=blmHauaC7Hp6K+IDvLelJ5eVBYGSa7O3m7psBls7pXc=;
-	b=Al1rXDN7WcGYy2ZCYgGC3hA/LeAyVbNyW5IZZp0FoHsOO5Ky31nAQHiIWDxqsv76vd2E
-	 xFgJJMtKSkTEESHHRpUUEIoiRuZooilflocfm9YIlQCo23K3Uwrn9NZJdRxjNCBq7YCz0
-	 8rfVDc3jiOZu3xVlGLMRde+DUjoaTqrtnK4XVOjsT1G2zwdL5F0EMUSrtsgZBDt0TTCct
-	 4Unwg4aPcPDMi1Tgl7ueqbRw4R3UtSzrFSYluveAgUniAqcQZtmyawWONQWuqQmpLSS/l
-	 8ckpL+F5hQOLG3/yQxJSaEiwXCSdJLx2tnIGUC4ViWARgCVos3Lo6NiutSwKGddKAqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386937;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=XP4Wu7nT+ir3/JSpOzG3VpzBBZM0vfK9214Nh0VjCjQ=;
+	b=gIzwtveWbklmTjjZSPIcmNLe/BKWIJVvLrUE/+Ti9XcgvDAifBzAXjbfj2KaHWbg6dUz
+	 EUp7aB2H5HUvU2azwfThlTX4e0NQZCFf/Q3+XXoDIit3/OVXNiMRuW1VNIbnRx8sC+MNM
+	 Y/dOKOw4u9qtqGXKa4aMS6h+r4cGdmefWaBLe0tU2HrnlIvjK/ovzNY/yVVrnCnFoze6p
+	 Mo8Pu4h8MeNd0JH5UYInxOJwRWfgmr/YNbtKmbhwobXpVJw26kubuxNmjSIweaZg7b7rO
+	 GbYMLSkFMxWdBL4I+8NoJI7RURRsywCO6wmrmw4lhGdUHPZnhMmMwlm6JmNmK3X5owQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=RVv+5bs2;
-	arc=none smtp.remote-ip=115.124.30.113
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lkXxAzOL;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308F7606A338;
-	Wed, 11 Nov 2026 08:48:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308F7606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73504606A33C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:48:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73504606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=RVv+5bs2
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794386882; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=blmHauaC7Hp6K+IDvLelJ5eVBYGSa7O3m7psBls7pXc=;
-	b=RVv+5bs2VriRBt9XeBydWHV8EKXJL2noXHQl7NmUrQ9gdjsK4hamNThOlbtYFIDPzTI2upUEkM4AVWX/3Pews9SwE3RHDlyjHy5ckFjez4nmnY91Jzip4ej/KQxSEPHm8AyicmCBILqymwPs/4Mp5cn2HPeAU1WGD8ljr6A/JpE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XEYJjsU_1794386881;
-Received: from 30.221.145.127(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEYJjsU_1794386881 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 11 Nov 2026 16:48:01 +0800
-Message-ID: <4c1bb9c0-547f-4994-958c-f59ec8b754d2@linux.alibaba.com>
-Date: Wed, 11 Nov 2026 16:48:00 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lkXxAzOL
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a05b68f851so2384311b3a.1
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:48:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794386937; x=1794991737; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XP4Wu7nT+ir3/JSpOzG3VpzBBZM0vfK9214Nh0VjCjQ=;
+        b=lkXxAzOLGDcJQOYArOxY0/H4cx1atoR09E0e4P1pDXqIWRlrNlSMsw+R269b2d6aMS
+         16AfD0Bn1upsZYShZ+3FkTBKAWiA69+AA9xs5F9C1PqLoD2LQqHdGvvME3CzgYTAT+9B
+         7U1xyDYpowZAxIVwBftdRX4o58zWVA6CoYMCWF06UEnGY6M/MMqIywSxrbrnTjuk5NEE
+         UDJKImRpLM7WRiuztp7MfK4KRHDxVVyxpttnzQKSS0u9L7kwNwaBrPIoY/YKWw0l1eFM
+         Ie5mMldX3Qi2EBa5qT9FlnSueX0gSxUm+5ZDjyFXTrfhKamMtRXwUgVOhy7S0E7HGTni
+         u4zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794386937; x=1794991737;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XP4Wu7nT+ir3/JSpOzG3VpzBBZM0vfK9214Nh0VjCjQ=;
+        b=VcwStBgxx8q7p6uAJKuCuuVKeqtri2p9mit7wrws+vNP7Q8CQ4CpscG1VxsRSha5Zs
+         w1W/KNXdTHloWEo1V6n5lFTmw1C3ECOenIz8tcqaLuhIeimpvgxyHEHCleS32qFeyMlR
+         J7hNa/uKPqawhXH4B18kpA1XvSG0kNUTUPxuoC9ODum9xwUabbzF3S5OvkSphuOj4lLc
+         Dy9GhSZzUH7fSPzLkDM0QnXY6YZkPPAAJfrrmu8jKl4gl3tYX+vZ4LmN97PiEvTIT0Gi
+         t8Dv0yWegF45LGb3//Ro77Mf6t7nElghrwgXSler7TxhTRdlZ+lLWKME5j4AWHWZlb8G
+         wiEQ==
+X-Forwarded-Encrypted: i=1; AL+hErFaN5onyfN6V8W41RFmGk4cMJzMAYinvYxJCN5URiM0WUBvWd/B9lo+9tp+ZypJK04ITcWRNpk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wcTl7doZWA7e6OnjdvsQu/yCHQqtjjuKtvq0fuVQJyVwPBJYp
+	wuqeois+n2Dy0Azcgb6qQlr4cUfFI+BXLh5e8ND6mAi6hpaP0W46LluPHqUQjd92xQTgl0QHmKW
+	d/Aj46Dfv9q9c5Kdc4IrV2A==
+X-Received: from pfn18.prod.google.com ([2002:a05:6a00:a212:b0:89f:afc:76b5])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:9cc8:b0:3e1:6f0a:cf2f with SMTP id adf61e73a8af0-3f2febde39amr1339727637.28.1794386936537;
+ Wed, 11 Nov 2026 00:48:56 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:48:53 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,123 +75,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: fix kernel BUG in ocfs2_page_mkwrite() when
- write_end fails
-To: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- yangwenfang <vicky.yangwenfang@huawei.com>, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- syzbot+42984127d45ad96219de@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
+Message-ID: <20261111084853.3530107-1-stanleyjhu@google.com>
+Subject: [PATCH] scsi: ufs: ufs-pci: Check hba->vops in system PM callbacks
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Adrian Hunter <adrian.hunter@intel.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
+	sangram kumar yerra <sangram.k.y@intel.com>, 
+	Rajeshkumar Sambandham <Rajeshkumar.Sambandham@amd.com>, Stanley Jhu <stanleyjhu@google.com>, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+ufshcd_pci_tbl[] defines the Samsung 0xC00C and AMD 0x1B29 PCI IDs
+with .driver_data set to 0, so ufshcd_pci_probe() leaves hba->vops
+NULL. Both ufshcd_pci_suspend_prepare() and
+ufshcd_pci_resume_complete() dereference hba->vops->name without
+checking hba->vops:
 
+1. System suspend on an AMD 0x1B29 or Samsung 0xC00C host enters the
+   PM prepare phase and calls ufshcd_pci_suspend_prepare().
+2. ufshcd_pci_suspend_prepare() evaluates
+   strcmp(hba->vops->name, "intel-pci"), dereferences NULL, and
+   triggers a kernel oops in the suspending task.
 
-On 11/11/26 10:34 AM, Zhiyuan Zhang wrote:
-> From: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
-> 
-> syzbot reported a kernel BUG in the ocfs2 write fault path:
-> 
->   (syz.0.17,5578,0):ocfs2_write_end_nolock:1945 ERROR: status = -30
->   kernel BUG at fs/ocfs2/mmap.c:106!
->   Call Trace:
->    do_page_mkwrite+0x147/0x310 mm/memory.c:3879
->    do_shared_fault mm/memory.c:6145 [inline]
->    handle_mm_fault+0x1a53/0x3750 mm/memory.c:6943
-> 
-> __ocfs2_page_mkwrite() calls ocfs2_write_begin_nolock() and then
-> ocfs2_write_end_nolock(), and uses BUG_ON() to assert that the latter
-> returns the full length.  But ocfs2_write_end_nolock() can fail: since
-> commit 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before
-> ocfs2_journal_dirty() in ocfs2_write_end_nolock()") it gets journal
-> access to the inode buffer again, because the handle may have been
-> restarted since ocfs2_write_begin_nolock().  That fails with -EROFS or
-> -EIO once the journal has been aborted or jbd2 has seen write errors
-> on the device.  The syzbot reproducer gets there by shrinking the
-> backing loop device to zero with LOOP_SET_STATUS while writing to a
-> shared file mapping.
-> 
-> Handle the failure instead of crashing.  ocfs2_write_end_nolock()
-> leaves the mmap folio locked, because ocfs2_unlock_folios() skips it
-> when w_target_locked is set so that it can be returned with
-> VM_FAULT_LOCKED, and do_page_mkwrite() does not unlock it either when
-> ->page_mkwrite() returns an error.  So unlock it and fail the fault;
-> the faulting task gets SIGBUS, like for the other errors in this
-> function.
-> 
-> For an mmap write ocfs2_write_end_nolock() returns either len or a
-> negative errno: inline data has already been converted to extents by
-> ocfs2_write_begin_nolock(), and copied is equal to len.
-> 
-> The BUG matters for local mounts, where the filesystem is expected to
-> go read-only and keep running after a journal abort.  On clustered
-> mounts ocfs2_abort() panics the node anyway as soon as it notices the
-> aborted journal.
-> 
-> Fixes: 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before ocfs2_journal_dirty() in ocfs2_write_end_nolock()")
-> Reported-by: syzbot+42984127d45ad96219de@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=42984127d45ad96219de
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-fable-5-2
-> Signed-off-by: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
+Check that hba->vops is non-NULL before reading hba->vops->name in
+both callbacks so hosts without variant operations use the generic
+ufshcd_suspend_prepare() and ufshcd_resume_complete() paths.
 
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> ---
-> 
-> Notes:
->     Testing: syzbot C reproducer in QEMU (x86_64) on a defconfig-based
->     kernel with KASAN, lockdep, DEBUG_VM and hung task detection enabled
->     (not syzbot's own config).
->     
->      - Unpatched: BUG in 3 of 3 runs, within 22 iterations.
->      - Patched: 437 iterations over 3 runs hit the failing write_end 21
->        times (11 x -EROFS, 10 x -EIO), all ending in SIGBUS, with no BUG,
->        KASAN, lockdep, DEBUG_VM or hung task report.
->      - Negative control: without the folio_unlock(), inode eviction hangs
->        on the locked folio in truncate_inode_pages_range() in 3 of 3 runs
->        that hit the error.
->     
->     Not tested on a clustered mount.
->     
->     AI assistants were used to analyse the report, to write the patch
->     and the changelog, and to run the tests above.
->     
->     ocfs2_dio_wr_get_block() has the same BUG_ON(ret != len).  It is left
->     alone here because the pending "migrates ocfs2 DIO from buffer_head to
->     iomap" series removes that function.
-> 
->  fs/ocfs2/mmap.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ocfs2/mmap.c b/fs/ocfs2/mmap.c
-> index 6c570157caf1..1c03f45e8965 100644
-> --- a/fs/ocfs2/mmap.c
-> +++ b/fs/ocfs2/mmap.c
-> @@ -103,7 +103,17 @@ static vm_fault_t __ocfs2_page_mkwrite(struct file *file,
->  		goto out;
->  	}
->  	err = ocfs2_write_end_nolock(mapping, pos, len, len, fsdata);
-> -	BUG_ON(err != len);
-> +	if (err != len) {
-> +		/*
-> +		 * ocfs2_write_end_nolock() keeps the mmap folio locked so
-> +		 * that it can be returned to the VM with VM_FAULT_LOCKED.
-> +		 * On failure nobody else will unlock it, so do it here.
-> +		 */
-> +		folio_unlock(locked_folio);
-> +		mlog_errno(err);
-> +		ret = vmf_error(err);
-> +		goto out;
-> +	}
->  	ret = VM_FAULT_LOCKED;
->  out:
->  	return ret;
-> 
-> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+Fixes: bb44826c3bdb ("scsi: ufs: ufs-pci: Fix S0ix/S3 for Intel controllers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ drivers/ufs/host/ufshcd-pci.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/ufs/host/ufshcd-pci.c b/drivers/ufs/host/ufshcd-pci.c
+index 668b57403e62..f9abbbc436f4 100644
+--- a/drivers/ufs/host/ufshcd-pci.c
++++ b/drivers/ufs/host/ufshcd-pci.c
+@@ -644,7 +644,7 @@ static int ufshcd_pci_suspend_prepare(struct device *dev)
+ {
+ 	struct ufs_hba *hba = dev_get_drvdata(dev);
+ 
+-	if (!strcmp(hba->vops->name, "intel-pci"))
++	if (hba->vops && !strcmp(hba->vops->name, "intel-pci"))
+ 		return ufs_intel_suspend_prepare(dev);
+ 
+ 	return ufshcd_suspend_prepare(dev);
+@@ -654,7 +654,7 @@ static void ufshcd_pci_resume_complete(struct device *dev)
+ {
+ 	struct ufs_hba *hba = dev_get_drvdata(dev);
+ 
+-	if (!strcmp(hba->vops->name, "intel-pci")) {
++	if (hba->vops && !strcmp(hba->vops->name, "intel-pci")) {
+ 		ufs_intel_resume_complete(dev);
+ 		return;
+ 	}
+-- 
+2.56.0.506.g506a7eabc5-goog
 
