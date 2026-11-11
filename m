@@ -1,111 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794380262;
-	b=mwZ3zZ/8SIZYItO5Q7ojCZNjDLrfXLDyS00ktQZuTngkwwiFBlAF2iBhi3eXYopQnhNW
-	 uObIlrSspcETwR/m1atTpW/CBtg/TD7/GDyit+z+CKgSdhD+jFvh++p8AdsebBdLQZIrH
-	 YmHZ5QofLKSdbDE8DeD/lSrbljym/dzwWNxRwz7o3j/Nfiku5WhXRHAJUHICBVTnDdhY0
-	 k0oTPASbb2jC0+G7zYWBs2aOur46tgzwf8JsVGUhX01fyZ72v9Oa9seJ1SdbT0h3mTc3Y
-	 3BChBvG+fZPsoOYk/iWImA1JVPam9m5ckGamFEmDajThf/ZklzdLF/qLHDEx2MiH/Ug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794380262;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=bORCzwP/EzjbftvRISTpV4GpT4mJpkqK0oNTCIloN1s=;
-	b=hD8Mfvy8jTOijQMcf99b6zJ9Y+mETqvmoLql8V9t5GVzKnwYddygunrzqPyLdaX73Ntz
-	 ZakeHHjWx7PE+xUP55PP9uo017kbQivK3qLKnZkxcLH7O3AHLp8LpCNj5zh+saew8HgQG
-	 rh7PNsiGkdcsRvx1Dj7RU+tqcSIPJxeC4BVCzqxYRA6JSkAAq4wajZPiCt1sr7C5zBurD
-	 Xx9196tgTMuAkB9/WH+U+73KsxEcsPnihPhogv+61DjlL984uJ/TiNhfTS5tbSOGsKNje
-	 dIFTjjNRYYVIT4VQ4+77fHxirYQ8TMRZANMCTQChaGYl5n+vx8Ac3sSdiIsyOTJXcBg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=axXQ16DA;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fsRYDQ6X;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794381697;
+	b=VUuAr5/2zG1jiW54cEFHLmGGwbVJP741jiU0en04djGACkSYylPub6ila70AU0urEkH/
+	 92UEjYJELA1p7b6LVdrt2XctyLsELwM28+M0E3zgX71XVcTrvubdE//8kJ0M4gcFH7GY+
+	 5wmWC8Ku954Plr8awPvd4GQWk5ChLG6HhaLP4MxFSSPKQb2titDjOUPOtiL9pPdenVs0B
+	 Xc+dcAXzGrHbpZMLIusoSmcHvVncb0xVOVRIq7ROmAI9Yj+cPKitW9LotBtVepQxeMAIf
+	 ZfcclaWN10g4HQLM58CiUAj021B3/iBeZU5uEObjhT0IejOL+E63agYfkMoRrTXsq8w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794381697;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MnFMk46EG0f506CVEaFuqBtHbtfj03tTGXzLvl4knc4=;
+	b=sDTylPf4CozI4WnBgx0h9OLe8K6sw3lbVTFUqd2Pe03lzIoqECSmi1irThs+18n3Gsrr
+	 KrWa+QiLmgljjbfCEmKEDfOywPlanWpaH+sEKXp/KAuGf7BDrNH7h7+0A+9OGzehXcoTE
+	 1mOVnt55/zSOxQB+6wHtOnb+C8A6m2DOf5r0uPsJrv+iH/DF+ChGMH8XsMo43o+Z21dYO
+	 lHkJCwLBh3vbK6GfBy8a85GflQ/eyr6bn5mBtjce3y3O12782D/TrMltYhpoqiGeCvRZc
+	 PH6rdTKdqWbzxNLuubhxjYxFIGTFSLhxtuvFNx+k4taQ8Rxr69niJIbGX1qVgrL64rQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJMUbZhV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951A4606A31C;
+	Wed, 11 Nov 2026 07:21:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJMUbZhV
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794381697;
+	b=rkiLcezWDrzSZIk/dLFQi4YkpUjo36Exz4YuUPb5lb908nq6fwMBwOEs35rrBSXJtQLk
+	 kUFLyIxmkYnjTjWstIDa+rnPahLG+OAvV7cOx/87NO4b3RjoMI2fvnMEVePlPgy57YI3w
+	 QP8xJslEiM4x73TY4yTd8acX3btc4CJlDozOgCf5HX0yDz3FMEbAAPdNyf6BcpHiSYdOc
+	 KJNmMQ5obX4GCOWBRIA3G+zA92kKUSOxiL7dY/RcLLIHm3nmT98jJNf27xuBZlhOrckm7
+	 mTiwuQp0Rb/Zpy66qWUn8Pbd0AoG4f83xJzm3i9mMDRVnz/Qr/Drlphwun32rKJCbWw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794381697;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MnFMk46EG0f506CVEaFuqBtHbtfj03tTGXzLvl4knc4=;
+	b=nDUABHcc7yqOfL4dz7RvCtVTyBwA3vVQ+JXoo5tmtmcGMYvU8lO5pvRTfvCNgE4194CY
+	 TvLQBeuR9QL5URuMPYgxr+wybgEcC2gsm0F/oq+/2dtEcR0WkhUT8tVqjSz/88kvoig0M
+	 ZY8Q5NFdDbCaNJPAYz5RGJNQ1JmwtdJmyx3haFck3L72IfDk6OgxzMwHwdxBHcVEkDQQM
+	 7smAi076tDtWkBXdRCH6v5L14W0+N7PxwKOJUmbqt76+jMrG3U6GsW/uoOauPHXTKEKc5
+	 MhwZI+/b9U5VgpPuNUW1w2QZxOMNIbR8w3I+8Ro5paHnQUr6prchpcE/JEk8ELEFV0w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E7B60A261F
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 06:57:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2E7B60A261F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=axXQ16DA;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fsRYDQ6X
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5LBtH1052930
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 06:57:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bORCzwP/EzjbftvRISTpV4GpT4mJpkqK0oNTCIloN1s=; b=axXQ16DA8WQV/U2s
-	x9ZEvqdayTXPXdLznvqfpZoY2iO9ccV0Gfy4lLUkWz6iUe45A591S43RqhQPqZ3R
-	grtFvA1DuHJ9Ma6u4d3ZTLdg2wngGwLaVX65z/BaYmBByy2b5esbQ2ojAfdcJrXF
-	FjJhd4Ct0QEuRMvz8IOmwtrTYcYn6+fwikmPYIiHqVlEO04+3fI6USiv1hJHYcXQ
-	ht2DkF2uW7wNfFoTkDoOlhmqfRj92/7nz8hn3vF10L0Uyv+cDswY3xomf4ArSsmu
-	vZ0b91hL7Y6d0ecqxEfKWya/w9YLkM/insgJ7Fy1QObeY0bnr4pSZD0/o6u46InD
-	LK5odQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdrh18s7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 06:57:40 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8b5d8de9619so3575353b3a.0
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:57:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794380259; x=1794985059; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bORCzwP/EzjbftvRISTpV4GpT4mJpkqK0oNTCIloN1s=;
-        b=fsRYDQ6XfaADkpH0BAu4o+G+96/vlz4HmIJuTTUcxnlSQi7PUQSBOb2nFmAvRCYqbv
-         gi8+vTLUI+9f5gxGVhHeCWJJHMa+yQ13A/dMYuaZkTt30/uC3csGyXVtsySbnoifV29G
-         eevRGs4Qd+eoEFFc0FuseiFdT0V7cU/4C4ChAqND+NhZLPw2D7HmwzGVJ/vnWE9qh0Oi
-         3iiXLuVgZt5JA7VOJ+nUFKfhLfvHDzaO5OgXl2xYHu999xO6jhlKmPRucx9deda2RhEX
-         zWlDZFu9C9Gx1MW3ZCnCFZq1IpmqLoIwXX4T/FLKY6ElWPsMq5rCI4Zix8MPExYP7nRe
-         p2hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794380259; x=1794985059;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bORCzwP/EzjbftvRISTpV4GpT4mJpkqK0oNTCIloN1s=;
-        b=bsaLr1h3AAajv0zuVHVdgYj6m7z0zDglPwgpt8PO3N9Rl6cvc3aOHTW1Pp/U14pKl4
-         06xyeHvHvUE/kyc7oYQVAsFhYg42dZ4VAShWJbDZ7rBaG1/Sk1QU8ZqPT5bdRnGHa0CQ
-         BnxRuyAngzCRGsef77dy0okDrXINuZlqD/jLBITuQngapiK4/5i6maYrI2XkK45brlti
-         UPrl83763vRqQQho19AHUAT/Z0o1uXpk8qgdTKj+J5doOFNdvTJAf9T2H0ZWyqygB0fk
-         Veg52nrq7TEqeGm5G4vsfJS468tTqLAdntHDmIsD8DaTsaYp2pePoYXFS6JpRLg/1WZa
-         MXdg==
-X-Forwarded-Encrypted: i=1; AL+hErFONdoHSiJf2/L+vEJr9bUyozNKJRCdldbZNNTfEWFW6Uw0KYXqrU+U65ccvjo5jV2t+IqFcIY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/H0gAPTxBhdJTTaUaKl83Ny/zYIkEIv1ogeq0jvf+rSFTLVSBV
-	xj3l77jOBvZCF6IOpyFKYPM8HOYDprusjtv432THvN77utiMb1Q1CC09BJXPYRwhaF9GUkhGS5o
-	2IzQWKqygZ3JPAx5UWg/XwLDOyDHbBmH4FJqsPi61v7jmdzUGGnq6zInxJ8A=
-X-Gm-Gg: AYBFou1g+4LHUXZP+KaSg21AtHZVyzEEF7fXTTTzlzv5EasN120w9blsmvKbbXyhWDL
-	BikTN4JJXZtljEfqopPAApOJS1cM2mO+7GrLI0uphjt2VbE9pf5f0PLJIswZZrMcHokRYexhejq
-	lDFKcTn1eRHTtLkOttfEsfrs5qW6KGlrAlRJsgusZsjibVbZ3/WROtbw2yoK/NXB+ANGlpJ2X7g
-	SADUxOfZKBKwNttqlCOstpp1mb/JyTLYRUU8BFFm1HSdg0J964MyE2AQ4sUpHyhZUYM8dgkLGNO
-	XAvKBLjbYx/L+WFCvMhAzl6XUkDq3xLdrQPnR0ZrR0zF/V5+f8E7Qhnxn0p2ZFNaF3oriXVPdHG
-	m2wrap2P8wqykbKDdKDv+oUJRUysraD9Mg0YskO7AZxKWBUi7j4c2E2mFd1SHQDnJvUVcRdc=
-X-Received: by 2002:a05:6a00:4187:b0:8a0:3ed7:939f with SMTP id d2e1a72fcca58-8bc1bcd5240mr1595137b3a.30.1794380259242;
-        Tue, 10 Nov 2026 22:57:39 -0800 (PST)
-X-Received: by 2002:a05:6a00:4187:b0:8a0:3ed7:939f with SMTP id d2e1a72fcca58-8bc1bcd5240mr1595118b3a.30.1794380258747;
-        Tue, 10 Nov 2026 22:57:38 -0800 (PST)
-Received: from [10.64.69.121] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa86e030sm1800660b3a.27.2026.11.10.22.57.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 22:57:38 -0800 (PST)
-Message-ID: <58dbf12d-dae7-44c3-b7da-b65a4800c3b0@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 14:57:32 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id E5D781F00A0F;
+	Wed, 11 Nov 2026 07:21:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794381697;
+	bh=MnFMk46EG0f506CVEaFuqBtHbtfj03tTGXzLvl4knc4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=eJMUbZhVyLlhrxqM6IORVV5+XB4Kfok0qCKgKnXlJehsO670be0eH5J1M28bRWXhY
+	 ztu5IwGcueBT/qJgll1Bw+6hg2uL2zsdBUEoJP1MS+06bP8hkJpanHPKkglzpej0Ru
+	 OrOoozGt0PZxBmyZkuDNw2kdznEwB+ZE/6dp3CNKlW2Z+9kL8xmkEyP4VefA446J6r
+	 D4x2D1jBZebU2m+mfr0s7QAznQhwJ2xW98CLXAbjPrkYw8o7ZZR19tOeAmZuiOn1GG
+	 u2yj5ZhlJn6jl9JhPViTHEn9gv/SfgFFIyE3yX3qf8zWWaviDPbBx19guk8choxgT+
+	 QFRTyVOD9wqWA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 761C648E46;
+	Wed, 11 Nov 2026 07:21:34 +0000 (UTC)
+From: yzddMr6 via B4 Relay <devnull+yzddmr6.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 15:21:13 +0800
+Subject: [PATCH] soc: qcom: llcc-qcom: Reserve ISLAND1 ways on SM8750
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,221 +82,142 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
- ranking
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-        Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Cc: Lukasz Luba <lukasz.luba@arm.com>, Viresh Kumar
- <viresh.kumar@linaro.org>,
-        Vincent Donnefort <vincent.donnefort@arm.com>,
-        Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
-        tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
- <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
- <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
- <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
- <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com>
- <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
- <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
- <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
- <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
- <bb99aa3f-fd15-4bdd-9319-ccedffc281c8@arm.com>
- <ec04f795-6cc6-444a-bbee-70c7982932e3@oss.qualcomm.com>
- <CAJZ5v0js0pbcKRp-cNVu_aPstT4meF-u_z012Q-AA=pvvOY=qA@mail.gmail.com>
-Content-Language: en-US
-From: Guo Chen <guo.chen@oss.qualcomm.com>
-In-Reply-To: <CAJZ5v0js0pbcKRp-cNVu_aPstT4meF-u_z012Q-AA=pvvOY=qA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAyNyBTYWx0ZWRfX2py0JWLLCIAT
- 9USevWA2kmvmZFb5a2bRMygm+Od5Kw+DMtiRr6uxSJbopvx9D5t9dEVfuCzt1QrrGKzkOnm1x6Q
- VHol87NXsZLsqe9fF+wped+vHk5Zi4s=
-X-Authority-Analysis: v=2.4 cv=PoQG/AM3 c=1 sm=1 tr=0 ts=6af411e4 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=PXZ8zqEZW9EwPeroSyQA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: G4uAyHuD9FAOeCfjC-vO_6x077Igh7Cf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAyNyBTYWx0ZWRfX4JYB4E+tlpy4
- 4zxbJ46JzqeWjI9VxBIxahI5elCobLqdKeT4zpV9tA17IWJewwDIdvVv6TnrFR5YeeeFBeon99f
- j1ZWxl6ZNbdHx5w/VUQdVxneocuwBnR2BHavXLUSDE4YEutHNRwn/AgvFplWuJ0FT5Kft8HZwdM
- We83+NFRHIkYbx13UoFzisZ5ltPwzD22p4g6usq38QbuQ/sLqVgEzKuQ6LmDs+0Y9yJePLkPw12
- d8sis+GTzSZHvm9Rel6U5dq3jf2dYJzVUWK4hW5fy36wUrt6Iv9CBI0irDlyPiSWT7X4AVQGq29
- zWF94vWsmSVvFr8D9sCgxHdCkAlGhZjDZ05/BcDocIW8xnHDwVkmyE9wZ4U/xjp7oHVlM4hLvkE
- h25iPStr4ph2yVtCtE12wqFhUJWDSBFL/da5DfK0Y4MsZa7sFoZ7Nn7SGNL6ikVXUkVUERoLWTH
- aZvTjwc/Ijb1F6Gt5pw==
-X-Proofpoint-ORIG-GUID: G4uAyHuD9FAOeCfjC-vO_6x077Igh7Cf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 bulkscore=0 adultscore=0 impostorscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110027
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-sm8750-llcc-island1-v1-1-64055702ca3f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAGgX9GoC/yWMTQ6CMBBGr0Jm7cTSqCVexbBoh6nUlEo6YEwId
+ 7fF5ft+3gbCObDAvdkg8ydIeKcC7akBGm16MoahMGilb63SHcrUmavCGIkwSLRpaFErfzHGk3f
+ aQnnOmX34HtZH/2dZ3Ytpqaq6cFYYXbaJxhqtsyyZ7XQ+tLWEff8B3LN9qpwAAAA=
+X-Change-ID: 20261028-sm8750-llcc-island1-20f477fcfb2a
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, 
+ Melody Olvera <melody.olvera@oss.qualcomm.com>, 
+ Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, yzddMr6 <yzddmr6@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381693; l=5561;
+ i=yzddmr6@gmail.com; s=20261028; h=from:subject:message-id;
+ bh=u1722Y2/33+v6rnFwy/S7BVP2WhypCsiB/i4KfmJGt8=;
+ b=D9elJKqXuPeYSa4NxF/CsBm3PukIBJzMoOEY/ZeyL8lGbrvpokMybh1i20zfMNynBl6f9Y0lv
+ lT2t2biCAXsBfCi28O0IYw2uSN5egtABSKE0LkxmHgyu/xS+ThvVrMc
+X-Developer-Key: i=yzddmr6@gmail.com; a=ed25519;
+ pk=QLT2mwairk4R38oU379hkHynqjoLrlqd0Cl1ERUqIqY=
+X-Endpoint-Received: by B4 Relay for yzddmr6@gmail.com/20261028 with
+ auth_id=1489
+X-Original-From: yzddMr6 <yzddmr6@gmail.com>
+Reply-To: yzddmr6@gmail.com
+Content-Transfer-Encoding: 7bit
+
+From: yzddMr6 <yzddmr6@gmail.com>
+
+The SM8750 table gives the island slice (LLCC_ISLAND1, SCID 12) its way
+mask 0x7fffffff as bonus ways and reserves none. Bonus ways are only
+allocated when no other slice has reserved them, while reserved ways
+belong to the slice alone. The first posting of the SM8750 support [1]
+had these ways reserved, as the downstream table shipped for this SoC
+still has them (res_ways = 0x7fffffff, no bonus ways). They became bonus
+ways when v2 converted the table to designated initializers, and v3,
+which refreshed the table, kept them.
+
+With this table, system suspend can reset the SoC once nothing votes
+for the LPASS core. On a Xiaomi Pad 8 Pro with the LPASS_HW_MACRO_VOTE
+and LPASS_HW_DCODEC_VOTE votes released, 16 suspend attempts (15 with
+s2idle, one with PSCI system suspend) ended in a reset. The PMIC PON log
+shows only PS_HOLD-triggered resets and no PMIC fault. Holding
+LPASS_HW_MACRO_VOTE or LPASS_HW_LPR_VOTE across suspend let one s2idle
+cycle each resume, but cxsd did not increase in either case.
+
+The reset stayed hidden while the LPASS macro codecs took both votes at
+probe and held them until removal, as they did before v7.3. Since v7.3
+the codecs manage these votes through the PM clock framework and drop
+them when they runtime suspend.
+
+Reserve the ways again. With that, all six s2idle cycles that went to
+sleep (48 to 60 s each, no LPASS vote held) resumed normally, with the
+cxsd and ddr residencies in qcom_stats within 0.1 s of the time spent
+asleep. The ADSP island counter increases at runtime with either
+table. The mechanism behind the suspend reset is not yet understood.
+
+The mismatch was found with the help of an AI coding assistant.
+
+Fixes: 2c04e58e30ce ("soc: qcom: llcc-qcom: Add support for SM8750")
+Link: https://lore.kernel.org/r/20250113-sm8750_llcc_master-v1-3-5389b92e2d7a@quicinc.com [1]
+Cc: stable@vger.kernel.org
+Signed-off-by: yzddMr6 <yzddmr6@gmail.com>
+---
+Tested on a Xiaomi Pad 8 Pro (SM8750) running v7.4-rc1 with out-of-tree
+board support and the TX/VA patches of Ajay's "manage clocks in runtime
+PM" series [2], which replace the PM clock handling with explicit clock
+management and also force the macros into runtime suspend for system
+sleep. For the comparison I set these two fields back to the current
+values in a copy of the same kernel image; DT, initramfs and root file
+system were the same. With the current values, the first s2idle attempt
+ended in a reset, and the PMIC PON log again shows only
+PS_HOLD-triggered resets. With this patch, three s2idle cycles (38, 46
+and 59 s) resumed normally, with the cxsd and ddr residencies within
+0.01 s of the time spent asleep.
+
+The numbers in the changelog come from earlier runs on a v7.2-based
+kernel with the v7.3 TX and VA macro runtime PM conversions backported
+and the same patches of [2] on top. Not counted there on either side:
+attempts that exited at once because of a debug setting (two before the
+fix with CX collapse blocked, two after it with console_suspend=N).
+
+All of these suspend tests were done with a USB cable connected.
+Build-tested on the base commit below (arm64 defconfig, W=1); in the
+object only these two fields of sm8750_data change.
+
+v1 had {LLCC_ISLAND1, 12, 7936, 7, 1, 0, 0x7FFFFFFF, ...}, the same
+values as the downstream sun_data, e.g. in the OnePlus 13 kernel
+release [3]. The downstream driver writes res_ways to TRP_ATTR0_CFGn and
+bonus_ways to TRP_ATTR1_CFGn, as _qcom_llcc_cfg_program_v6() does here.
+
+The final table also differs from v1 and downstream elsewhere: v2
+changed CVP from ovcap_en to vict_prio and the CAMRTRF priority from 3
+to 1, and v3 set ovcap_prio where v1 and downstream set ovcap_en for
+VIDDEC, CAMOFE, CAMRTIP, CAMSRTIP, CAMRTRF and CAMSRTRF. I can't test
+those and left them alone.
+
+Downstream moved the SM8550 island slices from bonus to reserved ways in
+2023 ("as per design recommendation") [4]; upstream sm8550_data still
+has the earlier bonus values. I have no SM8550 hardware to test that.
+
+Kaanapali also uses bonus ways for ISLAND1, but that matches its
+downstream table [5], so I left it alone.
+
+I used an AI coding assistant for this work. It ran the suspend
+experiments on the tablet, found the table mismatch and drafted this
+patch and changelog. I have reviewed the change and the measurements.
+
+[2] https://lore.kernel.org/r/20260928-xo-sd-runtimepm-v1-final-v1-0-e3ebade3aeb7@oss.qualcomm.com
+[3] https://github.com/OnePlusOSS/android_kernel_oneplus_sm8750/blob/6028f47faddaa27700f8dd3a1d83906ea8f27170/drivers/soc/qcom/llcc-qcom.c#L479
+[4] https://git.codelinaro.org/clo/la/kernel/msm-5.15/-/commit/adec35fd4cf84dca253eca06d9a4960f1eb85db0
+[5] https://github.com/OnePlusOSS/android_kernel_oneplus_sm8850/blob/fc30e54174d254ff7f33622a9278e4435f6718d2/drivers/soc/qcom/llcc-qcom.c#L665
+---
+ drivers/soc/qcom/llcc-qcom.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/soc/qcom/llcc-qcom.c b/drivers/soc/qcom/llcc-qcom.c
+index d7a42a8040a1..007593d1e951 100644
+--- a/drivers/soc/qcom/llcc-qcom.c
++++ b/drivers/soc/qcom/llcc-qcom.c
+@@ -3923,7 +3923,7 @@ static const struct llcc_slice_config sm8750_data[] = {
+ 		.max_cap = 7936,
+ 		.priority = 7,
+ 		.fixed_size = true,
+-		.bonus_ways = 0x7fffffff,
++		.res_ways = 0x7fffffff,
+ 	}, {
+ 		.usecase_id = LLCC_DISP_WB,
+ 		.slice_id = 23,
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261028-sm8750-llcc-island1-20f477fcfb2a
+
+Best regards,
+--  
+yzddMr6 <yzddmr6@gmail.com>
 
 
-On 11/10/2026 10:59 PM, Rafael J. Wysocki (Intel) wrote:
-> On Tue, Nov 10, 2026 at 3:56 PM Zhongqiu Han
-> <zhongqiu.han@oss.qualcomm.com> wrote:
->> On 11/10/2026 10:05 PM, Lukasz Luba wrote:
->>>
->>> On 11/10/26 13:43, Rafael J. Wysocki (Intel) wrote:
->>>> On Tue, Nov 10, 2026 at 2:11 PM Lukasz Luba <lukasz.luba@arm.com> wrote:
->>>>> Hi Rafael,
->>>>>
->>>>> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
->>>>>> On Tue, Nov 10, 2026 at 10:58 AM Lukasz Luba <lukasz.luba@arm.com>
->>>>>> wrote:
->>>>> [snip]
->>>>>
->>>>>
->>>>>>> That's fine, please continue.
->>>>>> I have a couple of questions though.
->>>>>>
->>>>>> First, why is the ondemand governor mentioned in the changelog?  In
->>>>>> the mainline, the ondemand governor cannot work with EAS, so it
->>>>>> shouldn't matter for this issue, should it?
->>>>> The ondemand is affected by the EM setup code and set 'inefficient'
->>>>> flags for some OPPs. The EM is also present for cooling devices
->>>>> and can work w/o EAS and schedutil, w/ just ondemand governor.
->>>>>
->>>>> Because EM marks the OPPs kind of 'globally' as inefficient, then
->>>>> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
->>>>> In the EM code we have:
->>>>> cpufreq_table_set_inefficient(policy, table[i].frequency);
->>>> So maybe this is the one that needs to be fixed?  What about simply
->>>> skipping boost frequencies in it?
->>>>
->>>>> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
->>>>> pass to __cpufreq_driver_target() with that flags as well.
->>>> Thanks for explaining and all of that needs to be said in the patch
->>>> changelog.
->>>>
->>>>>> Second, why is the issue regarded as a defect in the code and not in
->>>>>> the energy model?  Arguably, boost frequencies should be more costly
->>>>>> than the non-boost ones.  At least the idea behind the boost is making
->>>>>> higher-cost OPPs temporarily available.  If they are sustainable,
->>>>>> treating them as boost OPPs is rather pointless.
->>>>> IMHO it was a bug in the commit mentioned in this patch fix tag.
->>>>> It is affecting more than just EAS or EM, since the EM is working with
->>>>> all generic code and all cpufreq governors.
->>>> To be precise, the EM initialization may affect cpufreq in general
->>>> because inefficient frequencies are used for CPU cooling.  Fair
->>>> enough, but I'm not talking about this.
->>>>
->>>> I'm talking about a reason for giving boost frequencies lower or equal
->>>> cost relative to non-boost frequencies in the energy model because
->>>> this doesn't make sense to me TBH.
->>>>
->>>> And I get that such energy models were there before the commit in
->>>> question and now they are not working properly, but IMO they are
->>>> broken, not that commit.
->>>>
->>>>>> TBH, I'm too comfortable with looking at cpufreq frequency from within
->>>>>> the EM code.  If that needs to be done, something is amiss at the
->>>>>> design level.
->>>>> I think this edge case is special, as I described above.
->>>>>
->>>>> I'm happy to hear your view on this EM influence to some global
->>>>> setting in cpufreq. Maybe it was too far to establish this
->>>>> 'inefficiency' flags in there for many usage?
->>>> There's nothing wrong with using the information from the energy
->>>> model, when available, to amend cpufreq, but the patch goes the other
->>>> way around: It tries to amend the energy model with information taken
->>>> from cpufreq (in order to avoid making mistakes later when amending
->>>> cpufreq with the energy model information).
->>>>
->>>> I think that cpufreq should simply refuse to set
->>>> CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
-
-
-Got your point. Having cpufreq directly refuse to set
-CPUFREQ_INEFFICIENT_FREQ might be the simplest approach. Let me
-summarize my understanding. There are two cases where we can
-simply avoid setting the CPUFREQ_INEFFICIENT_FREQ flag:
-1. boost frequencies.
-2. the highest non-boost frequency.
-
-However, there is another issue. If we refuse to set
-CPUFREQ_INEFFICIENT_FREQ for certain frequencies, I think the
-corresponding EM_PERF_STATE_INEFFICIENT flags in the Energy Model
-also need to be updated. Otherwise, the EM state would be inconsistent
-with the frequencies used for energy estimation in the EAS path.
-
-I think we also need to update the EM_PERF_STATE_INEFFICIENT flags
-accordingly, something like the following:
-
-for (i = 0; i < pd->nr_perf_states; i++) {
-     int ret;
-
-     if (!(table[i].flags & EM_PERF_STATE_INEFFICIENT))
-         continue;
-
-     /*Return -EOPNOTSUPP if the rejection condition is met. */
-     ret = cpufreq_table_set_inefficient(policy, table[i].frequency);
-     if (!ret)
-         found++;
-     else if (ret == -EOPNOTSUPP)
-         table[i].flags &= ~EM_PERF_STATE_INEFFICIENT;
-}
-
->>> I see your point now, about the direction. Yes, you're right.
->>>
->>> Since we are taking the information about 'boost' from the
->>> cpufreq, then refusing to set OPPs inefficient in the first
->>> place makes more sense.
->>>
->>>
->> I also agree this should be fixed in cpufreq rather than by feeding
->> cpufreq information into the EM. However, refusing
->> CPUFREQ_INEFFICIENT_FREQ for boost frequencies seems not help the
->> example in the changelog, because the frequency marked as inefficient
->> there is 4.0 GHz, which is not a boost one. The problem is not specific
->> to boost either: with 3.9 GHz, 4.0 GHz, 4.1 GHz and a 4.2 GHz boost OPP
->> at costs C - d, C, C and C + d, 4.0 GHz is rightly inefficient, but if
->> policy->max is capped at 4.0 GHz by scaling_max_freq, thermal or QoS,
->> RELATION_HE for 4.0 GHz still resolves to 3.9 GHz. I think the lookup
->> should not skip an inefficient frequency when the next efficient
->> frequency above it is beyond the max limit, which can be done in
->> cpufreq_frequency_table_target() without touching the EM or looking at
->> boost flags.
-
-
-@Zhongqiu: thanks for the example. I think the two cases are different in
-nature.
-
-In the case of the changelog, the highest non-boost frequency of cluster is
-marked inefficient because of the boost frequency. A sustainable 
-frequency is
-being affected by an unsustainable one, but it is not really inefficient: I
-don't think these two kinds of frequencies should be compared with each 
-other
-in terms of energy. So I think this should be fixed at the source, by not
-marking such frequencies as inefficient.
-
-The case you describe looks different, as it is dynamic: policy->max is
-changed at runtime by scaling_max_freq, thermal or QoS, which would mean
-ignoring the inefficient flag every time policy->max lands on an inefficient
-frequency. Whether this is really necessary seems to me to deserve a
-discussion. Thermal and QoS limits are there to keep the frequency from 
-going
-above the cap. In your example (3.9 GHz, 4.0 GHz, 4.1 GHz), if the 
-frequency is
-limited to 4.0 GHz at some point and ends up on 3.9 GHz because 4.0 GHz is
-inefficient, the original purpose of the limit, not going above the cap, is
-still honoured.
-
-So I am not sure that handling the dynamic case is needed, and I would 
-like to
-hear what you, Rafael and Lukasz think about it.
-
-Thanks,
-Guo
-
-> Good point.
