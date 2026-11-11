@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421671;
-	b=Qkg/+d1o7P6U8/UM9fmJ0DajaiLTkKt/EIjDsrmI3oVHkYP1bcbPSphOOTPKEOZyh+PC
-	 bW14PPp3bxQpeUN56EaUSGbJLHQVpPl467MPk50ATRjC5jq3BeKT/0bdNLRp6U027wi1S
-	 IhSTuZnxIWVddKUpkAEALJFxevZ27z/cUKfL7mcH0EVFiYD3+uauVrvWRMLyFUdxMmjwI
-	 fVm39r198SzQNeQb6CtSR7mNLS4e5nY/FzSINhERM5076eF6sG3cP3bNTuusaHAAUJ0bp
-	 lzS/M71bdA7MBeZTxIOMVdilGd4kV0tFVJ605UYWWXCDGJgCiyIhF8cCXp3quaGqlmw==
+	t=1794421773;
+	b=f9e3e5mOCPdsBmHNTk1eRAhUEwc89OvW4iaPXQZOAFBvqXHtikO1+MKRvUetb6IrpWtF
+	 BioA/QY3gtkXCabKfvFsCB8KAocWnzjAypYl0HLXf3xQonNriCfKIrQ32ecJEuhWoxYWW
+	 7Kefa806/dTp2HcujjAvB1hjfGxhn4j2XmPQbURHuSGvqA5rARdP1+Pbm2+Rve5+s8mXy
+	 dNLbFrukmiVMAmIoUiR8gdLULogenL96lM9IpblJRqf8cyD+42T2ZhD3HaEEIOHAYJta5
+	 tNcZXngVipdJXHnVO29klgrN7PFhZHenKKfHbvlNtohvUhvO0BwDHX39pBkDDwgc7jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421671;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794421773;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EYKMUd5h7eySF60EdGp0XwKF4LWItycTEg4BIQ4Sb8Y=;
-	b=mWksfjoWk94Zcf1hb4EhZpsiBJb2JHvNXvNTkFBOeGoWFsims4xmU8TxjVXAnyrprmXk
-	 S/lAgbCMzjw3G1zh0oL+dIWC5lwBk73bqdLV6aU30yYVRQkgXcIIDMP75oeqN+aTOcxIC
-	 ZLPsSLkNqdOBxjyaIAk3rs4lMhuVaQtkceRtenaiW2r0FCqU16q2HqvE8BLdS9TRqB/hs
-	 Ct42WQo7wKU4qQ80krQgjB2IIK+blxJnFABpbEhN4x4+LQ+cMCubbzs8R+yCWCGCCHQZN
-	 TRJ2Lw8i9JNamrsPJ7y2vrqSW+crjY9TPYV+yXrmSQvpTxCgMEN5O2VKTHbg74hU2mA==
+	bh=qFyqNXuTVNy/G8IaFaS0CjR4p1czGG81M2sFbmZShI8=;
+	b=BTWSjNrXoYJhZ4N2xJPBxqhOMtM7dL9XAx+EO9sCm50CNOlPmGs8r/qoisc7wlV0wrUw
+	 t21mNsmDdqpHkKIkXQqh0CnYcvzRuj3ezZAoaLuY49Mcg9OQtqA2hPpbWn4NYIkTrRuMc
+	 y8mlURhlczR3z2ph7BgO6FaW/4y0GJH2ySF2F0skSaIyvH2LUtzNvP10mTaCfib2D2PXo
+	 MYX4T4MSSFcdsaX3Hi2ntmJit8qlpEfVc9L65HVRDp+LeUKy+UTcMSOBDl0xY14CIJSf1
+	 xRVoQ2OsVazihgVOFQHVWuvg+5EE3Uu5veGl4fexjN7DTqI+KHPBvVwFggCeR6WyPGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=edDaeo4r;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHNF+DhA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D072606A33F
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:27:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B006E606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:29:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=edDaeo4r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31B6A1F00A05;
-	Wed, 11 Nov 2026 18:27:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHNF+DhA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C392A1F00A05;
+	Wed, 11 Nov 2026 18:29:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794421670;
-	bh=EYKMUd5h7eySF60EdGp0XwKF4LWItycTEg4BIQ4Sb8Y=;
+	s=k20260515; t=1794421773;
+	bh=qFyqNXuTVNy/G8IaFaS0CjR4p1czGG81M2sFbmZShI8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=edDaeo4rhTWv/6sryFXXms4SxHFdKIbLsZ9fcEuPP9WU86x80CGZXlv7PxM4LzeQQ
-	 N07/aCx9XcvXKGnHCNwV0oblLbUNg1X3XmQs94gLC6zD+QbhdMDHNavhXoubWaPMKH
-	 FIXVOyywPoWTmKop+N4WTFdBlxBSldsoBglBxpeusNkiCbBbEUOnCFQJni7JmeO2Ei
-	 p68O32EVj+aYOJWYLz0vUMwXL9pyHmkxv3s7bqobN/hOGJkjtxYfGcPuFCEmGoUEh+
-	 YwhKSOuMhoQyAp/WB6kP9JJA0ZQGrg8ILhpyFkcSbSfqBE6BFA9SvzkT7dNxVgL5Io
-	 hWIbq1nSErMMw==
+	b=QHNF+DhAgaW/9cTn8GR90O57/ZUAs4p18UrYu8XGdQQ8Owr6vPevUKnTsH7VhoH1x
+	 yxPTKFjK2zuv1q0tsd/iKxdfRHqD92YS4pcZDv+2sFqdU+6QEniQSXTOkhX3BpQ0g9
+	 hY0C21+5B8rGRJwnP4g0ni66fMvvlf+iLcDqSfPbS/e2jSqrIgFID4cgYoz5IrJYBI
+	 1PG8nlpY8n5XHCic775/l+umGN8D6VQLjkZppYXtuODixQBT9wYX8sgBPJfO7itUIa
+	 +aiPO+skD3KC48KA3xHr2ZJgEudmt8jMucZ0eXqxHIyFRom+zQfOS4T2ewqI/W017q
+	 xqDFXsGsl5tkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Priyank Rathod <rathodpriyank@google.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is missing
-Date: Wed, 11 Nov 2026 13:27:48 -0500
-Message-ID: <20261111182741.3833868-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles the full IOVA
+Date: Wed, 11 Nov 2026 13:29:31 -0500
+Message-ID: <20261111182908.3764467-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050408-failed-7.3-d4c842c3af5b@kernel.org>
-References: <20261107050408-failed-7.3-d4c842c3af5b@kernel.org>
+In-Reply-To: <20261107053543-failed-6.6-e21952d72b47@kernel.org>
+References: <20261107053543-failed-6.6-e21952d72b47@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,71 +61,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Priyank Rathod <rathodpriyank@google.com>
+From: Andrea Parri <parri.andrea@gmail.com>
 
-[ Upstream commit d4c842c3af5bc52b3ca0b8a7f116114e43b6ba44 ]
+[ Upstream commit e21952d72b4740f08a272d694cca223b6b0099ca ]
 
-When ACPI APEI/GHES processes PCIe AER error records, it allocates memory
-for aer_capability_regs (entry.regs) from ghes_estatus_pool and queues the
-entry into aer_recover_ring.
+Generally userspace is going to step the dirty bitmap through the IOVA
+space. However if the bitmap ends in the middle of a large PTE this is
+problematic. The first step will clear the dirty bit and report dirty to
+the end of its bitmap while the second step will see the clear'd dirty and
+report clean for the start of the bitmap. If it happens this ends up
+losing dirties.
 
-In aer_recover_work_func(), items are popped from aer_recover_ring via
-kfifo_get(). If pci_get_domain_bus_and_slot() fails to find a matching
-pci_dev, the code previously executed 'continue', bypassing the call to
-ghes_estatus_pool_region_free(). As a result, the memory allocated for
-entry.regs from ghes_estatus_pool was leaked.
+Further this function is missing bounds checking so if this does happen
+ther is a good chance it will write memory beyond what the userspace was
+expecting.
 
-This is reachable whenever the device reported by firmware is not (or is no
-longer) present in the PCI device tree, e.g. after hot-removal or when
-firmware reports an error for a device the kernel never enumerated.
+Return an error code if this illegal condition happens.
 
-Refactor aer_recover_work_func() to ensure ghes_estatus_pool_region_free()
-is called unconditionally for every dequeued entry, releasing the pool
-memory even when pci_dev is missing.
-
-Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption when error status data has multiple sections")
-Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260928-b4-fix-aer-memleaks-v5-2-ba6b94c9c9a6@google.com
-[ sashal: Combined the upstream pdev recovery guard with the existing err check to preserve false-alarm filtering. ]
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Link: https://patch.msgid.link/20260925161142.189813-2-parri.andrea@gmail.com
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+[ sashal: Adapted the VFIO bitmap implementation by adding the missing error field and propagating it through the existing iterator. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/pcie/aer.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/vfio/iova_bitmap.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index be332d3f106cb..490f096cfe91c 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -1369,14 +1369,13 @@ static void aer_recover_work_func(struct work_struct *work)
- 	while (kfifo_get(&aer_recover_ring, &entry)) {
- 		pdev = pci_get_domain_bus_and_slot(entry.domain, entry.bus,
- 						   entry.devfn);
--		if (!pdev) {
-+		if (!pdev)
- 			pr_err_ratelimited("%04x:%02x:%02x.%x: no pci_dev found\n",
- 					   entry.domain, entry.bus,
- 					   PCI_SLOT(entry.devfn),
- 					   PCI_FUNC(entry.devfn));
--			continue;
--		}
--		pci_print_aer(pdev, entry.severity, entry.regs);
-+		else
-+			pci_print_aer(pdev, entry.severity, entry.regs);
+diff --git a/drivers/vfio/iova_bitmap.c b/drivers/vfio/iova_bitmap.c
+index 3f48125e2b9f0..e78cb1b4e7364 100644
+--- a/drivers/vfio/iova_bitmap.c
++++ b/drivers/vfio/iova_bitmap.c
+@@ -113,6 +113,8 @@ struct iova_bitmap {
  
- 		regs = entry.regs;
- 		if (entry.severity == AER_CORRECTABLE)
-@@ -1394,7 +1393,7 @@ static void aer_recover_work_func(struct work_struct *work)
- 		ghes_estatus_pool_region_free((unsigned long)entry.regs,
- 					    sizeof(struct aer_capability_regs));
+ 	/* length of the IOVA range for the whole bitmap */
+ 	size_t length;
++
++	int err;
+ };
  
--		if (err) {
-+		if (pdev && err) {
- 			if (entry.severity == AER_NONFATAL)
- 				pcie_do_recovery(pdev, pci_channel_io_normal,
- 						 aer_root_reset);
+ /*
+@@ -381,11 +383,11 @@ int iova_bitmap_for_each(struct iova_bitmap *bitmap, void *opaque,
+ 	     ret = iova_bitmap_advance(bitmap)) {
+ 		ret = fn(bitmap, iova_bitmap_mapped_iova(bitmap),
+ 			 iova_bitmap_mapped_length(bitmap), opaque);
+-		if (ret)
++		if (ret || bitmap->err)
+ 			break;
+ 	}
+ 
+-	return ret;
++	return ret ? ret : bitmap->err;
+ }
+ 
+ /**
+@@ -408,6 +410,18 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
+ 			mapped->pgshift) + mapped->pgoff * BITS_PER_BYTE;
+ 	unsigned long last_page_idx = mapped->npages - 1;
+ 
++	/*
++	 * If the range cannot be recorded then the system call returns failure.
++	 * This is to prevent loosing dirties if userspace is expecting to step
++	 * the bitmap through the IOVA space.
++	 */
++	if (!length || length > bitmap->length || iova < bitmap->iova ||
++	    iova - bitmap->iova > bitmap->length - length) {
++		if (!bitmap->err)
++			bitmap->err = -EPROTO;
++		return;
++	}
++
+ 	do {
+ 		unsigned int page_idx = cur_bit / BITS_PER_PAGE;
+ 		unsigned int offset = cur_bit % BITS_PER_PAGE;
 -- 
 2.53.0
 
