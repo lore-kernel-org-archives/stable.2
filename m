@@ -1,47 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387600;
-	b=mkCWEz5P65NrlunfoPnvoWSCus5XFttqzn2fNcQcabUE46DJqiEVBzyiR7Kx7KrBhIBi
-	 h4luSt87lAv0v2aAB7Q+SNAUG73EskpgV048sr9vQ6LoXPUuwc3TxIRbVXBoNgmwDSBgO
-	 Xckqbrp5s+PQmQFjKdCW0YV3NKuIRbdbUAa05CJnyuomtw3Ga4oSQOyDzd3MoUJ3PtxMo
-	 nXyZX0CNulRiPCNgCZm2W3a9wme6qIE45OPBk9bQOIPmqGu3AR7Dy+k2FjHRCXZILgKY0
-	 ulOtNNuhI2aGB9cykh0kSZqAZnLoi/sMakys9BYvDREmDYNQ40peMm3kK+5/itF1v9w==
+	t=1794387596;
+	b=B/TwMa3yDt1JfJ27nnSngZsLfLwVOAAccSxfpIk/1ZaBMN9x6wXCxX9Pu+QTYoR/IgR8
+	 uxhFPeWYODH+aiw0IK5JYTWNnr3vyuxarWoCGPp5F2KkK2bEtwZ4nu6vr7HTlezazF1Ep
+	 u3aDtzIZhGjwcgZ9sY68Q8C/iALl4JJkuWYnXYFdzKdr5wTCter2AaAeBHpLX51giR5IN
+	 ZNm8OaGWeDIPehAdYU0SH2hDTLqANbEZc+w6auQSyrEPJ9kaX510Agcex1TKgn6NICwEp
+	 jXY4ZZVPLqGNJxZm8NSk5UBz60UYkHMFYCBLDenUes54stwA+ImQURcPBrjS3qQCtRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387600;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=50p3zI+Ws44mGPjo5k7TaGpGNQJ8ZUfr5PuOkAq9Jzw=;
-	b=LuGnaRTZhTpPm4Pmh6TAWBRJMeYZ6zdbHWJCblfLX3dA32sAnnCATKbazQQsLTmR0xmW
-	 4Ux8wk+8nnzpQ1vJXHG1vfiE4PKDsqi9kpc4P6Nb95lfsqotsk2aSzHaZB1ShCjSLEADc
-	 XM9Z9+0HEqLH8GYp6Ne3GOlaVwGmUvYodvA+fvoC4Dti5jXhDnoLwXhAH1e1Etiocr0BF
-	 jFF9gQoUIY0So88nFEEygqmTcR3yUg1Ho4jNTA5eAXpXrIrQs0YcjWswbQlDc6p1mSfkU
-	 ftkDNphXgkVgZlsZrr1Th3a8Dkf1LinwLTY7OK+KxvZRnXmYA5CI+tsLS0O0NRsecGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387596;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oAKaluIQ6DHfSI6BiTgUyos806Y3I95pzPEAjUuVIiE=;
+	b=1PT6Bj32aLZKryheYgKqT2RYJM+vnMKMoGl+ZdB+kYB++futjkcWXFbeMj+IVnAv0X1x
+	 mCg+9NPlrhZkcVNrldLvbbaeNIwo4356DKSb1wBVD6kg6CPwQjMpiQR8JEKM3g1AMl6I1
+	 RKVpJZOH1wcycz1Mp7A5wd16WyJ7xm+GN3fRChwIOODteESOzf/uubIAnCGtpcgpV5+HR
+	 rQlDmLXPRqIOsVnzkow9mTLdG7ZLwGj1ZfKD87i5ZpJ5shCQYQJJ76J4kvaKe0DTTxvf9
+	 DfXRodUXijo+LEwnXtLgQrUBhH28mt3f6lExhwbRLT9ANeuhLL6QFn9ptZNGQbNMnqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAhx6Y29;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BA5606A33B;
-	Wed, 11 Nov 2026 09:00:00 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=C6qg7oav;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B83D606A326;
+	Wed, 11 Nov 2026 08:59:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B83D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAhx6Y29
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9DB71F00A06;
-	Wed, 11 Nov 2026 08:59:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794387599;
-	bh=50p3zI+Ws44mGPjo5k7TaGpGNQJ8ZUfr5PuOkAq9Jzw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dAhx6Y29SAnBcPk0PWPLRDlI0f6onEfsRrzeIclaRU2LbxS1OdsTakQUobxMt3Jut
-	 Iw2v22Xz16snkKrPfdbPLV5dUpVKjbbTwDGpgU3y71/XtrkKqSUMBd66rWXOyvszSG
-	 BhxhFWIkQQDXzcr8f8WberRFX5bPxTX98LFU9oCi7Awxl8A/neNapHUjDE0HmTTWC1
-	 VGrsTX05R0r9FU000VACBF9YsKMNIhMZotKrCvKLXSfZDQY0q26BUgRO381p6SNgHG
-	 jmLCrcOWgr5xYB3DcgK2EBYHl5mpXAZTDsVL7TumCK3jSWUbHqImhkHx9pkOGIbnk/
-	 rxLZEEeYXrjcQ==
-Message-ID: <fadd2cf4-5951-4e1d-bfba-1f107a191dd7@kernel.org>
-Date: Wed, 11 Nov 2026 17:59:55 +0900
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=C6qg7oav
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=C6qg7oavpRnI7fJQKUapD8oifWY22JPLzkECfhGsZEw1iP2KUXr+52eANWHb4K6fwfEIJqY2S9DH4
+	 mEiQ3TBuqVwp9tlYsx7wi13FMAZq7ppwPE4oOQXzKlYEL0mePjd0m030VTIvu50d8MGsAS5hwBPF2h
+	 PMbGAfLRgsLYIS5k=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af42e89414-d4a7d;
+	Wed, 11 Nov 2026 16:59:54 +0800 (CST)
+X-RM-TRANSID:2ee56af42e89414-d4a7d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.101])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af42e88fd9-d644c;
+	Wed, 11 Nov 2026 16:59:54 +0800 (CST)
+X-RM-TRANSID:2ee56af42e88fd9-d644c
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	linux-phy@lists.infradead.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Pengcheng Li <lpc.li@hisilicon.com>,
+	Jiancheng Xue <xuejiancheng@hisilicon.com>,
+	Shawn Guo <shawn.guo@linaro.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com
+Subject: [PATCH] phy: hisilicon: fix UTMI reset leaks in INNO USB2 PHY
+Date: Wed, 11 Nov 2026 16:59:42 +0800
+Message-ID: <20261111085942.159625-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,47 +77,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] ata: libahci_platform: reject invalid port numbers
-To: shao.mingyin@zte.com.cn, cassel@kernel.org, linux-ide@vger.kernel.org
-Cc: hansg@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261110230332609vrNKZhiIS1EGJIhlnmX1-@zte.com.cn>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261110230332609vrNKZhiIS1EGJIhlnmX1-@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2026/11/11 0:03, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> ahci_platform_get_firmware() reads the "reg" property of every child
-> node of the AHCI controller and uses the value as an index into
-> hpriv->saved_port_cap[], which has AHCI_MAX_PORTS (32) entries, without
-> checking it first.
-> 
-> ahci_platform_get_resources() checks the same property against
-> hpriv->nports, but only in its own loop, and hpriv->nports is itself
-> clamped to AHCI_MAX_PORTS.  A device tree describing a port with a
-> "reg" value of 32 or more therefore reaches
-> ahci_platform_get_firmware(), where the "hba-port-cap" property is then
-> written past the end of the array.  Values just above the end corrupt
-> the following fields of struct ahci_host_priv, larger ones write outside
-> of the devres allocation.
-> 
-> Apply the same validity check as the resource loop and skip such child
-> nodes.  That loop has already reported the invalid port number, so do
-> not print a second warning.
-> 
-> Fixes: 18ee7c49f75b ("ata: ahci: Introduce firmware-specific caps initialization")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+hisi_inno_phy_probe() acquires an exclusive UTMI reset control for each
+child node but never releases it on probe failure or driver detach.
+The leaked controls remain acquired, so a later probe can fail with
+-EBUSY when requesting the same resets.
 
-Looks OK.
+Register a devres action after each successful lookup to release the
+control on probe failure and detach.
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Found during source review of reset-control lifetimes.
 
--- 
-Damien Le Moal
-Western Digital Research
+Build-tested the driver object on x86_64 with W=1 and reset support
+enabled. No hardware testing.
+
+Fixes: ba8b0ee81fbb ("phy: add inno-usb2-phy driver for hi3798cv200 SoC")
+Cc: stable@vger.kernel.org # needs of_node_put(child) on <= 6.6
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+---
+ drivers/phy/hisilicon/phy-hisi-inno-usb2.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/phy/hisilicon/phy-hisi-inno-usb2.c b/drivers/phy/hisilicon/phy-hisi-inno-usb2.c
+index c843923252aa..9bf207e3e692 100644
+--- a/drivers/phy/hisilicon/phy-hisi-inno-usb2.c
++++ b/drivers/phy/hisilicon/phy-hisi-inno-usb2.c
+@@ -132,6 +132,11 @@ static const struct phy_ops hisi_inno_phy_ops = {
+ 	.owner = THIS_MODULE,
+ };
+ 
++static void hisi_inno_phy_reset_put(void *data)
++{
++	reset_control_put(data);
++}
++
+ static int hisi_inno_phy_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -169,6 +174,10 @@ static int hisi_inno_phy_probe(struct platform_device *pdev)
+ 		if (IS_ERR(rst))
+ 			return PTR_ERR(rst);
+ 
++		ret = devm_add_action_or_reset(dev, hisi_inno_phy_reset_put, rst);
++		if (ret)
++			return ret;
++
+ 		priv->ports[i].utmi_rst = rst;
+ 		priv->ports[i].priv = priv;
+ 
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+
+
