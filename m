@@ -1,50 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383888;
-	b=qzjzO+UKqYQUIo+ew/U8LTO+yxJ/cvbuN854Qm7KLkquc6vKZLdPtETI8m7LxlsjKLu+
-	 oc8dVFg/jH4CKsMQOjmTXp/4TfjEk06UFdy2ZpE7TSjjBOH9X4FMcYEtk82MvbfyX6CfZ
-	 ISa6pMVH+vL5KsykPlHhK1iZm4ggFMU/vvvjNfwB7lE7ro0M0vDDiVa4zWUVQ53fgdfdt
-	 kzOu/fwiMoz8pJy7KQCitRPAPRqqwRusDSINzREsRaGbndFmz70GUxxdhrm3EA9CX1nCz
-	 nwx4OXc6vGGqYLURwtJsth1X7Nzi6dmOgtNpOmlAYnOdHQCrfdKcP4WrUcV9X83R5pA==
+	t=1794383935;
+	b=fM77Vz/6HIFERt9QUef8RzWbPJqsuMNdr/TDowC4EPxIZvtE1iHJ0hvZmMeFnjBUL+uU
+	 aD61mmZULqOiN3HEFSepktvaVYz5A+dxqNSVGCWaHzs4//ZO+fojT6vcZcT79ZoXbcScW
+	 15Av/8R7IJhg1GltV7jr1K7nYGgDayZQDFEsw48Sx9GcPHxmxKWuyr3SngJ0SJoEEDiL4
+	 imAz+l90WJRCKb2538e8Pu+4HlDbqU/Neq2sJJBgF+TpXYgCX+d7BfluL5P8WaVqjZsWG
+	 bmW1GDNtunBDE1/lejdjsOEGy+ppXmAC7zCt0CQOzhe2YBgwANW2oCJ6kK0ViKAve6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383888;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=18dyxcW33Gsai4KZxKv+IVjtAi4cwLms2RPXNhKC7Ek=;
-	b=iuPxd6/qTPUAyd/SvVrFOR2xU80xa5szfiuWoA0qbDKYKWldF+BZqbKvqrMH1vbFRouT
-	 Za7Ru6YHKJXhANus+H2P5XIwdMUgeFCG1A47lRwSxmwRpMSJ7/7gCLIBSdImmAp5S6J/g
-	 YIrA/GSBcD+7b2YYBA2PpYSMdThNx1N7JByBn5AkkY1wY5pWlu4sen9EkbtS5AJqmFLJ6
-	 8uQG+TtEhPwoK5PWoon7SeIxcC5/Qh/+CschU75wAFiVtDIl1/7NezOxexJN9mqwu6Q97
-	 7ezYBWkDZQZJMm5Qpw+G4XshVBr8pgKq8hE7G7YZBpZM+6tPaSixcbLXA1mvoA5FyJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383935;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=XDG6basHzxkilEUcwbulHoyH0xra7DSJQosb/MDBTsE=;
+	b=FvcZElqNascsoUVErUIBuX7sITv0A9CQagdW1JoOtXKfLlfAYUl47FkrggBn6MRbYbLF
+	 KykOi1nP6kNpNZWik8YSUnBgZnRQQ8I2FaF8hkQdZYL1ozB5nhLhB2VNOf5mAPBxya3PF
+	 dNENrpW9kTP/S7bbomXBWlLRs+CBft2JtdNob1T/AOiXkdK2bXzFTaRACbE8UhuSTubmY
+	 gbZsWys/+zYGgfRBA5tVF4TTperTW708IEbZZj0QIg5zzSLGdfE2EeX6lP61icl/i9Yln
+	 UMcCD/L93UJO6eoZ/ZadyW+LKQbItoLKeeOnqX6yGNtPARf0OIEdrndq6BYxVhCpVdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	arc=none smtp.remote-ip=64.106.246.77
-Received: from mailsc.amlogic.com (unknown [64.106.246.77])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="hZKvS5/g";
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="hZKvS5/g";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545AC606A335
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:58:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 545AC606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
-Received: from XA1730-0357L.amlogic.com (10.88.19.140) by mailsc.amlogic.com
- (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 23:58:05 -0800
-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
-To: <stable@vger.kernel.org>
-CC: Joanne Chang <joannechien@google.com>, <stable@kernel.org>, Chao Yu
-	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>, Jiucheng Xu
-	<jiucheng.xu@amlogic.com>
-Subject: [PATCH 5.15.y 2/2] f2fs: allow pinning empty compressed files
-Date: Wed, 11 Nov 2026 15:57:52 +0800
-Message-ID: <20261111075752.1381-2-jiucheng.xu@amlogic.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261111075752.1381-1-jiucheng.xu@amlogic.com>
-References: <20261107055847-failed-5.15-a64a3fec11e7@kernel.org>
- <20261111075752.1381-1-jiucheng.xu@amlogic.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BDAA606A320;
+	Wed, 11 Nov 2026 07:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BDAA606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=hZKvS5/g;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=hZKvS5/g
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6B47521E1A;
+	Wed, 11 Nov 2026 07:58:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794383932; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XDG6basHzxkilEUcwbulHoyH0xra7DSJQosb/MDBTsE=;
+	b=hZKvS5/gINNgUiyHsS1Ie7DeAUUdW60Evm43EGjtaCV5qv3foZJkeJBMCxQJ7mmQi9tiiE
+	tZ8HyoCeeNnjkiLOjotFUtkYdzz3d5qFM4xMkU+5JuuQO6LYbmUOOpCScg0ULmzRY8age8
+	3s/aiIZMS3ZoSM1jFG4yoCzL97mV2To=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1794383932; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XDG6basHzxkilEUcwbulHoyH0xra7DSJQosb/MDBTsE=;
+	b=hZKvS5/gINNgUiyHsS1Ie7DeAUUdW60Evm43EGjtaCV5qv3foZJkeJBMCxQJ7mmQi9tiiE
+	tZ8HyoCeeNnjkiLOjotFUtkYdzz3d5qFM4xMkU+5JuuQO6LYbmUOOpCScg0ULmzRY8age8
+	3s/aiIZMS3ZoSM1jFG4yoCzL97mV2To=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 09683134E5;
+	Wed, 11 Nov 2026 07:58:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id WLIYMzsg9GradgAAD6G6ig
+	(envelope-from <jgross@suse.com>); Wed, 11 Nov 2026 07:58:52 +0000
+Message-ID: <353a0b62-0396-48c4-9e5d-fae5351d6abd@suse.com>
+Date: Wed, 11 Nov 2026 08:58:51 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,52 +81,285 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
- (10.8.11.35)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/scsiback: unbind the IRQ before draining in-flight
+ requests
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, martin.petersen@oracle.com,
+ stable@vger.kernel.org
+References: <20261109122654.30859-1-yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20261109122654.30859-1-yhlee@isslab.korea.ac.kr>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------DYT4LtVi7lOHSSaAYUc4WYme"
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-9.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	NEURAL_SPAM_LONG(3.49)[0.996];
+	BAYES_HAM(-3.00)[100.00%];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_BASE64_TEXT(0.10)[];
+	XM_UA_NO_VERSION(0.01)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+	HAS_ATTACHMENT(0.00)[]
+X-Spam-Score: -9.80
 
-From: Joanne Chang <joannechien@google.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------DYT4LtVi7lOHSSaAYUc4WYme
+Content-Type: multipart/mixed; boundary="------------6MHWeXlZpmNFcy2heHyg8pAR";
+ protected-headers="v1"; hp="clear"
+Message-ID: <353a0b62-0396-48c4-9e5d-fae5351d6abd@suse.com>
+Date: Wed, 11 Nov 2026 08:58:51 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/scsiback: unbind the IRQ before draining in-flight
+ requests
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, martin.petersen@oracle.com,
+ stable@vger.kernel.org
+References: <20261109122654.30859-1-yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20261109122654.30859-1-yhlee@isslab.korea.ac.kr>
 
-commit 2eebc31ae5f53e1066bb6238c8087c23b688ad17 upstream.
+--------------6MHWeXlZpmNFcy2heHyg8pAR
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Commit a64a3fec11e7 ("f2fs: force out-place update for all writes on
-compressed file") updated f2fs_should_update_outplace() to always
-return true for compressed files. However, this function is also
-called during f2fs_ioc_set_pin_file() validation, so pinning an
-empty file with compression enabled now fails with -EINVAL before the
-compression flag can be stripped.
+T24gMDkuMTEuMjYgMTM6MjYsIFllaHllb25nIExlZSB3cm90ZToNCj4gc2NzaWJhY2tfZGlz
+Y29ubmVjdCgpIGRyYWlucyB0aGUgaW4tZmxpZ2h0IGNvdW50IGJlZm9yZSBzdG9wcGluZyB0
+aGUgb25seQ0KPiB0aGluZyB0aGF0IGNhbiByYWlzZSBpdC4gIHNjc2liYWNrX2NtZF9leGVj
+KCkgKHhlbi1zY3NpYmFjay5jOjQyNikgcnVucyBpbg0KPiB0aGUgYmFja2VuZCdzIHRocmVh
+ZGVkIElSUSBoYW5kbGVyLCBzbyBhIHJlcXVlc3QgY2FuIGJlIGFkbWl0dGVkIGp1c3QgYWZ0
+ZXINCj4gd2FpdF9ldmVudCgpIGhhcyBzZWVuIHplcm8sIGFuZCBpdHMgcmVzcG9uc2UgaXMg
+d3JpdHRlbiBsYXRlciBmcm9tIHRhcmdldA0KPiBjb3JlIGNvbnRleHQgYnkgc2NzaWJhY2tf
+c2VuZF9yZXNwb25zZSgpICg6MzQ3KSAtIGFmdGVyIHRoZSByaW5nIGhhcyBiZWVuDQo+IHVu
+bWFwcGVkLCBhbmQgb24gdGhlIHNjc2liYWNrX3JlbW92ZSgpIHBhdGggKDoxMjY4LTEyODAp
+IGFmdGVyIGtmcmVlKGluZm8pLg0KPiANCj4geGVuLWJsa2JhY2sgYW5kIHhlbi1uZXRiYWNr
+IHN0b3AgdGhlaXIgcmVxdWVzdCBwcm9jZXNzaW5nIGZpcnN0Og0KPiBrdGhyZWFkX3N0b3Ao
+KSBiZWZvcmUgcmVhZGluZyByaW5nLT5pbmZsaWdodA0KPiAoeGVuLWJsa2JhY2sveGVuYnVz
+LmM6MjkwLTMwNCksIGFuZCB0aGUga3RocmVhZHMgYW5kIG5hcGkgYmVmb3JlDQo+IHVuYmlu
+ZGluZyBhbmQgdW5tYXBwaW5nICh4ZW4tbmV0YmFjay9pbnRlcmZhY2UuYzo2NzMtNzAwKS4N
+Cj4gDQo+IFVuYmluZCBhbmQgY2xlYXIgaW5mby0+aXJxIGJlZm9yZSB0aGUgZHJhaW46IG5v
+dGhpbmcgaXMgYWRtaXR0ZWQgb25jZSB0aGUNCj4gaGFuZGxlciBpcyBnb25lLCBhbmQgdGhl
+IHJpbmcgc3RheXMgbWFwcGVkIHVudGlsIHRoZSBkcmFpbiBmaW5pc2hlcy4gIFRoZQ0KPiBu
+b3RpZnkgYXQgdGhlIGVuZCBvZiBzY3NpYmFja19zZW5kX3Jlc3BvbnNlKCkgaXMgdGhlbiBh
+IG5vLW9wLCBiZWNhdXNlDQo+IG5vdGlmeV9yZW1vdGVfdmlhX2lycSgpIHJlc29sdmVzIGly
+cSAwIHRocm91Z2ggZXZ0Y2huX2Zyb21faXJxKCkgdG8gcG9ydCAwLA0KPiB3aGljaCBWQUxJ
+RF9FVlRDSE4oKSByZWplY3RzIChldmVudHNfYmFzZS5jOjUzOS01NDUsIDo0MTEtNDIxKS4N
+Cj4gDQo+IFJlcHJvZHVjZWQgaW4gYSBuZXN0ZWQtWGVuIGxhYiB3aXRoIEtBU0FOLiAgUmVh
+Y2hpbmcgdGhlIHdpbmRvdyBuZWVkZWQgdHdvDQo+IHRlc3Qtb25seSB1c2xlZXBfcmFuZ2Uo
+KSBkZWxheXMsIG9uZSBhZnRlciB3YWl0X2V2ZW50KCkgcmV0dXJucyBhbmQgb25lIGF0DQo+
+IHRoZSB0b3Agb2Ygc2NzaWJhY2tfZG9fcmVzcF93aXRoX3NlbnNlKCkgb25jZSB0aGUgdGVh
+cmRvd24gaGFzIHN0YXJ0ZWQuDQo+IFdpdGggYm90aCBvZmYgbmVpdGhlciBhcm0gcHJvZHVj
+ZWQgYW55dGhpbmcgaW4gNCByb3VuZHMgZWFjaDsgd2l0aCBib3RoIG9uDQo+IHRoZSB1bnBh
+dGNoZWQgZHJpdmVyIGNyYXNoZWQgaW4gNiBvZiA2IHZhbGlkIGNlbGxzLCB0aGUgcGF0Y2hl
+ZCBpbiAwIG9mIDc6DQo+IA0KPiBbICAxNjguNTQ2NzA5XSBCVUc6IEtBU0FOOiB2bWFsbG9j
+LW91dC1vZi1ib3VuZHMgaW4gc2NzaWJhY2tfc2VuZF9yZXNwb25zZSsweDUxNi8weDVkMA0K
+PiBbICAxNjguNTUxMDEyXSBXcml0ZSBvZiBzaXplIDQgYXQgYWRkciBmZmZmYzkwMDAwMDIz
+MGE0IGJ5IHRhc2sga3dvcmtlci8wOjEvMTENCj4gWyAgMTY4LjU1NDc1N10NCj4gWyAgMTY4
+LjU1NTkwOF0gQ1BVOiAwIFVJRDogMCBQSUQ6IDExIENvbW06IGt3b3JrZXIvMDoxIE5vdCB0
+YWludGVkIDcuMy4wLWtDVExibGsyLTE1NDgyLWcyMWE3ZjQ0ZmQwNzYtZGlydHkgIzEwIFBS
+RUVNUFQoZnVsbCkNCj4gWyAgMTY4LjU1NTkxNF0gSGFyZHdhcmUgbmFtZTogUUVNVSBTdGFu
+ZGFyZCBQQyAoUTM1ICsgSUNIOSwgMjAwOSksIEJJT1MgMS4xNi4zLWRlYmlhbi0xLjE2LjMt
+MiAwNC8wMS8yMDE0DQo+IFsgIDE2OC41NTU5MThdIFdvcmtxdWV1ZTogdGFyZ2V0X2NvbXBs
+ZXRpb24gdGFyZ2V0X2NvbXBsZXRlX29rX3dvcmsNCj4gWyAgMTY4LjU1NTkzOV0gQ2FsbCBU
+cmFjZToNCj4gWyAgMTY4LjU1NTk0Nl0gIDxUQVNLPg0KPiBbICAxNjguNTU1OTQ5XSAgZHVt
+cF9zdGFja19sdmwrMHg2NC8weDgwDQo+IFsgIDE2OC41NTU5NThdICBwcmludF9yZXBvcnQr
+MHhkMC8weDYzMA0KPiBbICAxNjguNTU1OTY2XSAgPyBfX3BmeF9fcmF3X3NwaW5fbG9ja19p
+cnFzYXZlKzB4MTAvMHgxMA0KPiBbICAxNjguNTU1OTc4XSAgPyBzY3NpYmFja19zZW5kX3Jl
+c3BvbnNlKzB4NTE2LzB4NWQwDQo+IFsgIDE2OC41NTU5ODNdICBrYXNhbl9yZXBvcnQrMHhj
+ZS8weDEwMA0KPiBbICAxNjguNTU1OTg4XSAgPyBzY3NpYmFja19zZW5kX3Jlc3BvbnNlKzB4
+NTE2LzB4NWQwDQo+IFsgIDE2OC41NTU5OTJdICBzY3NpYmFja19zZW5kX3Jlc3BvbnNlKzB4
+NTE2LzB4NWQwDQo+IFsgIDE2OC41NTU5OTddICA/IF9fcGZ4X3Njc2liYWNrX3NlbmRfcmVz
+cG9uc2UrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwMDFdICBzY3NpYmFja19kb19yZXNwX3dp
+dGhfc2Vuc2UrMHg4Ny8weDIzMA0KPiBbICAxNjguNTU2MDA3XSAgc2NzaWJhY2tfY21kX2Rv
+bmUrMHhjMC8weDI5MA0KPiBbICAxNjguNTU2MDExXSAgPyB1cGRhdGVfY2ZzX3JxX2xvYWRf
+YXZnKzB4NWEvMHg1NjANCj4gWyAgMTY4LjU1NjAyM10gIHNjc2liYWNrX3F1ZXVlX3N0YXR1
+cysweGQzLzB4MTAwDQo+IFsgIDE2OC41NTYwMjhdICB0YXJnZXRfY29tcGxldGVfb2tfd29y
+aysweDQ2Ny8weGMzMA0KPiBbICAxNjguNTU2MDMyXSAgPyBfX3BmeF90YXJnZXRfY29tcGxl
+dGVfb2tfd29yaysweDEwLzB4MTANCj4gWyAgMTY4LjU1NjAzNl0gID8gcHV0X3ByZXZfdGFz
+a19mYWlyKzB4NDRkLzB4YTMwDQo+IFsgIDE2OC41NTYwMzldICA/IGZpbmlzaF90YXNrX3N3
+aXRjaC5pc3JhLjArMHgxZDkvMHhhNzANCj4gWyAgMTY4LjU1NjA0N10gIHByb2Nlc3Nfb25l
+X3dvcmsrMHg2OTcvMHgxMDYwDQo+IFsgIDE2OC41NTYwNTJdICA/IF9fcGZ4X19fc2NoZWR1
+bGUrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwNThdICA/IF9fcGZ4X3Byb2Nlc3Nfb25lX3dv
+cmsrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwNjFdICA/IF9yYXdfc3Bpbl9sb2NrX2lycSsw
+eDg2LzB4ZTANCj4gWyAgMTY4LjU1NjA2NV0gID8gX19wZnhfdGFyZ2V0X2NvbXBsZXRlX29r
+X3dvcmsrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwNjldICA/IGFzc2lnbl93b3JrKzB4MTFk
+LzB4MzcwDQo+IFsgIDE2OC41NTYwNzRdICB3b3JrZXJfdGhyZWFkKzB4NDViLzB4ZDEwDQo+
+IFsgIDE2OC41NTYwNzhdICA/IF9fcGZ4X3dvcmtlcl90aHJlYWQrMHgxMC8weDEwDQo+IFsg
+IDE2OC41NTYwODFdICA/IF9fcGZ4X3dvcmtlcl90aHJlYWQrMHgxMC8weDEwDQo+IFsgIDE2
+OC41NTYwODNdICBrdGhyZWFkKzB4MmM4LzB4M2IwDQo+IFsgIDE2OC41NTYwOTBdICA/IHJl
+Y2FsY19zaWdwZW5kaW5nKzB4MTVjLzB4MWUwDQo+IFsgIDE2OC41NTYwOTRdICA/IF9fcGZ4
+X2t0aHJlYWQrMHgxMC8weDEwDQo+IFsgIDE2OC41NTYwOThdICByZXRfZnJvbV9mb3JrKzB4
+MzczLzB4NWIwDQo+IFsgIDE2OC41NTYxMDRdICA/IF9fcGZ4X3JldF9mcm9tX2ZvcmsrMHgx
+MC8weDEwDQo+IFsgIDE2OC41NTYxMDddICA/IF9fc3dpdGNoX3RvKzB4M2M0LzB4YjQwDQo+
+IFsgIDE2OC41NTYxMTVdICA/IF9fcGZ4X2t0aHJlYWQrMHgxMC8weDEwDQo+IFsgIDE2OC41
+NTYxMjBdICByZXRfZnJvbV9mb3JrX2FzbSsweDFhLzB4MzANCj4gWyAgMTY4LjU1NjEyN10g
+IDwvVEFTSz4NCj4gWyAgMTY4LjU1NjEyOV0NCj4gWyAgMTY4LjYzOTcwNF0gVGhlIGJ1Z2d5
+IGFkZHJlc3MgYmVsb25ncyB0byBhIHZtYWxsb2MgdmlydHVhbCBtYXBwaW5nDQo+IFsgIDE2
+OC42NDIzMjRdIE1lbW9yeSBzdGF0ZSBhcm91bmQgdGhlIGJ1Z2d5IGFkZHJlc3M6DQo+IFsg
+IDE2OC42NDQ0MzldICBmZmZmYzkwMDAwMDIyZjgwOiBmOCBmOCBmOCBmOCBmOCBmOCBmOCBm
+OCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOA0KPiBbICAxNjguNjQ3Njk4XSAgZmZmZmM5MDAw
+MDAyMzAwMDogZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjgg
+ZjgNCj4gWyAgMTY4LjY1MDk1MV0gPmZmZmZjOTAwMDAwMjMwODA6IGY4IGY4IGY4IGY4IGY4
+IGY4IGY4IGY4IGY4IGY4IGY4IGY4IGY4IGY4IGY4IGY4DQo+IFsgIDE2OC42NjkxOTldICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBeDQo+IFsgIDE2OC42NzEwNTZdICBmZmZm
+YzkwMDAwMDIzMTAwOiBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBmOCBm
+OCBmOCBmOA0KPiBbICAxNjguNjc0MDUwXSAgZmZmZmM5MDAwMDAyMzE4MDogZjggZjggZjgg
+ZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjggZjgNCj4gWyAgMTY4LjY3Njk3
+NF0gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09DQo+IA0KPiBbICAxNjguNjgyMTE3XSBCVUc6IHVuYWJsZSB0byBo
+YW5kbGUgcGFnZSBmYXVsdCBmb3IgYWRkcmVzczogZmZmZmM5MDAwMDAyMzBhNA0KPiBbICAx
+NjguNjg0Nzg0XSAjUEY6IHN1cGVydmlzb3Igd3JpdGUgYWNjZXNzIGluIGtlcm5lbCBtb2Rl
+DQo+IFsgIDE2OC42ODY3OTddICNQRjogZXJyb3JfY29kZSgweDAwMDIpIC0gbm90LXByZXNl
+bnQgcGFnZQ0KPiBbICAxNjguNjg4Nzk3XSBQR0QgMTAwMDAwMDY3IFA0RCAxMDAwMDAwNjcg
+UFVEIDEwMDE5YzA2NyBQTUQgMTAwMWExMDY3IFBURSAwDQo+IFsgIDE2OC42OTEzMTldIE9v
+cHM6IE9vcHM6IDAwMDIgWyMxXSBTTVAgS0FTQU4gTk9QVEkNCj4gWyAgMTY4LjY5MzI0Nl0g
+Q1BVOiAwIFVJRDogMCBQSUQ6IDExIENvbW06IGt3b3JrZXIvMDoxIFRhaW50ZWQ6IEcgICAg
+QiAgICAgICAgICAgICAgICA3LjMuMC1rQ1RMYmxrMi0xNTQ4Mi1nMjFhN2Y0NGZkMDc2LWRp
+cnR5ICMxMCBQUkVFTVBUKGZ1bGwpDQo+IFsgIDE2OC42OTkxNDJdIFRhaW50ZWQ6IFtCXT1C
+QURfUEFHRQ0KPiBbICAxNjguNzAwODk2XSBIYXJkd2FyZSBuYW1lOiBRRU1VIFN0YW5kYXJk
+IFBDIChRMzUgKyBJQ0g5LCAyMDA5KSwgQklPUyAxLjE2LjMtZGViaWFuLTEuMTYuMy0yIDA0
+LzAxLzIwMTQNCj4gWyAgMTY4LjcwNTA1Nl0gV29ya3F1ZXVlOiB0YXJnZXRfY29tcGxldGlv
+biB0YXJnZXRfY29tcGxldGVfb2tfd29yaw0KPiBbICAxNjguNzA3NzAxXSBSSVA6IDAwMTA6
+c2NzaWJhY2tfc2VuZF9yZXNwb25zZSsweDFiNi8weDVkMA0KPiBbICAxNjguNzEwMTQ3XSBD
+b2RlOiA0OCA4OSBmOCA4MyBlMCAwNyA4MyBjMCAwMyA0MCAzOCBmMCA3YyAwOSA0MCA4NCBm
+NiAwZiA4NSA2MCAwMyAwMCAwMCA0OCA4OSBkOCA0OCBjMSBlMCAwNiA0OCAyOSBkOCA0OCBj
+MSBlMCAwMiA0OCA4ZCA3YyAwMSA0MCA8ODk+IDk0IDAxIGE0IDAwIDAwIDAwIDQ4IGI4IDAw
+IDAwIDAwIDAwIDAwIGZjIGZmIGRmIDQ4IDg5IGZhIDQ4IGMxDQo+IFsgIDE2OC43MTg4ODNd
+IFJTUDogMDAxODpmZmZmYzkwMDAwMGJmYWEwIEVGTEFHUzogMDAwMTAwNDYNCj4gWyAgMTY4
+LjcyMTQ0N10gUkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogMDAwMDAwMDAwMDAwMDAwMCBS
+Q1g6IGZmZmZjOTAwMDAwMjMwMDANCj4gWyAgMTY4LjcyNDc4NV0gUkRYOiAwMDAwMDAwMDAw
+MDAwMDAwIFJTSTogMDAwMDAwMDAwMDAwMDAwOCBSREk6IGZmZmZjOTAwMDAwMjMwNDANCj4g
+WyAgMTY4LjcyNzkxM10gUkJQOiBmZmZmODg4MTBhNGE3MjM4IFIwODogMDAwMDAwMDAwMDAw
+MDI0NiBSMDk6IGZmZmZmYmZmZjBkZTI2MzgNCj4gWyAgMTY4LjczMDkzOF0gUjEwOiBmZmZm
+ZmZmZjg2ZjEzMWM3IFIxMTogZmZmZjg4ODEwMDA3NzMyMCBSMTI6IDFmZmZmOTIwMDAwMTdm
+NTkNCj4gWyAgMTY4LjczMzkwMl0gUjEzOiAwMDAwMDAwMDAwMDAwMDAwIFIxNDogMDAwMDAw
+MDAwMDAwMDAwMCBSMTU6IGZmZmY4ODgxMGE2ZGUyMDANCj4gWyAgMTY4LjczNjg3NF0gRlM6
+ICAwMDAwMDAwMDAwMDAwMDAwKDAwMDApIEdTOmZmZmY4ODgxYjAzNGQwMDAoMDAwMCkga25s
+R1M6MDAwMDAwMDAwMDAwMDAwMA0KPiBbICAxNjguNzQwMTcxXSBDUzogIDAwMTAgRFM6IDAw
+MDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAwMDgwMDUwMDMzDQo+IFsgIDE2OC43NDI0OTBdIENS
+MjogZmZmZmM5MDAwMDAyMzBhNCBDUjM6IDAwMDAwMDAxMDMyNzEwMDUgQ1I0OiAwMDAwMDAw
+MDAwNzcwZWYwDQo+IFsgIDE2OC43NDUzNTBdIFBLUlU6IDU1NTU1NTU0DQo+IFsgIDE2OC43
+NDY1NzddIENhbGwgVHJhY2U6DQo+IFsgIDE2OC43NDc3NzJdICA8VEFTSz4NCj4gWyAgMTY4
+Ljc0ODg3Ml0gID8gX19wZnhfc2NzaWJhY2tfc2VuZF9yZXNwb25zZSsweDEwLzB4MTANCj4g
+WyAgMTY4Ljc1MTAyMl0gIHNjc2liYWNrX2RvX3Jlc3Bfd2l0aF9zZW5zZSsweDg3LzB4MjMw
+DQo+IFsgIDE2OC43NTMxMDldICBzY3NpYmFja19jbWRfZG9uZSsweGMwLzB4MjkwDQo+IFsg
+IDE2OC43NTQ4NDddICA/IHVwZGF0ZV9jZnNfcnFfbG9hZF9hdmcrMHg1YS8weDU2MA0KPiBb
+ICAxNjguNzU2NzgyXSAgc2NzaWJhY2tfcXVldWVfc3RhdHVzKzB4ZDMvMHgxMDANCj4gWyAg
+MTY4Ljc1ODYzMF0gIHRhcmdldF9jb21wbGV0ZV9va193b3JrKzB4NDY3LzB4YzMwDQo+IFsg
+IDE2OC43NjA1NTZdICA/IF9fcGZ4X3RhcmdldF9jb21wbGV0ZV9va193b3JrKzB4MTAvMHgx
+MA0KPiBbICAxNjguNzYyNjQ0XSAgPyBwdXRfcHJldl90YXNrX2ZhaXIrMHg0NGQvMHhhMzAN
+Cj4gWyAgMTY4Ljc2NDUxMl0gID8gZmluaXNoX3Rhc2tfc3dpdGNoLmlzcmEuMCsweDFkOS8w
+eGE3MA0KPiBbICAxNjguNzY2NTg0XSAgcHJvY2Vzc19vbmVfd29yaysweDY5Ny8weDEwNjAN
+Cj4gWyAgMTY4Ljc2ODI4Ml0gID8gX19wZnhfX19zY2hlZHVsZSsweDEwLzB4MTANCj4gWyAg
+MTY4Ljc2OTk3M10gID8gX19wZnhfcHJvY2Vzc19vbmVfd29yaysweDEwLzB4MTANCj4gWyAg
+MTY4Ljc3MTg4MF0gID8gX3Jhd19zcGluX2xvY2tfaXJxKzB4ODYvMHhlMA0KPiBbICAxNjgu
+NzczNTk5XSAgPyBfX3BmeF90YXJnZXRfY29tcGxldGVfb2tfd29yaysweDEwLzB4MTANCj4g
+WyAgMTY4Ljc3NTcyMV0gID8gYXNzaWduX3dvcmsrMHgxMWQvMHgzNzANCj4gWyAgMTY4Ljc3
+NzMyNF0gIHdvcmtlcl90aHJlYWQrMHg0NWIvMHhkMTANCj4gWyAgMTY4Ljc3ODg5OV0gID8g
+X19wZnhfd29ya2VyX3RocmVhZCsweDEwLzB4MTANCj4gWyAgMTY4Ljc4MDY0OF0gID8gX19w
+Znhfd29ya2VyX3RocmVhZCsweDEwLzB4MTANCj4gWyAgMTY4Ljc4MjQxNV0gIGt0aHJlYWQr
+MHgyYzgvMHgzYjANCj4gWyAgMTY4Ljc4Mzg3N10gID8gcmVjYWxjX3NpZ3BlbmRpbmcrMHgx
+NWMvMHgxZTANCj4gWyAgMTY4Ljc4NTY5N10gID8gX19wZnhfa3RocmVhZCsweDEwLzB4MTAN
+Cj4gWyAgMTY4Ljc4NzIxOF0gIHJldF9mcm9tX2ZvcmsrMHgzNzMvMHg1YjANCj4gWyAgMTY4
+Ljc4ODc1Ml0gID8gX19wZnhfcmV0X2Zyb21fZm9yaysweDEwLzB4MTANCj4gWyAgMTY4Ljc5
+MDUwMF0gID8gX19zd2l0Y2hfdG8rMHgzYzQvMHhiNDANCj4gWyAgMTY4Ljc5MjAyOV0gID8g
+X19wZnhfa3RocmVhZCsweDEwLzB4MTANCj4gWyAgMTY4Ljc5MzU1NV0gIHJldF9mcm9tX2Zv
+cmtfYXNtKzB4MWEvMHgzMA0KPiBbICAxNjguNzk1MTgwXSAgPC9UQVNLPg0KPiBbICAxNjgu
+Nzk2MjA1XSBNb2R1bGVzIGxpbmtlZCBpbjoNCj4gWyAgMTY4Ljc5NzU5Nl0gQ1IyOiBmZmZm
+YzkwMDAwMDIzMGE0DQo+IFsgIDE2OC43OTkwODRdIC0tLVsgZW5kIHRyYWNlIDAwMDAwMDAw
+MDAwMDAwMDAgXS0tLQ0KPiANCj4gRml4ZXM6IGQ5ZDY2MGY2ZTU2MiAoInhlbi1zY3NpYmFj
+azogQWRkIFhlbiBQViBTQ1NJIGJhY2tlbmQgZHJpdmVyIikNCj4gQ2M6IHN0YWJsZUB2Z2Vy
+Lmtlcm5lbC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogWWVoeWVvbmcgTGVlIDx5aGxlZUBpc3Ns
+YWIua29yZWEuYWMua3I+DQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
 
-Fix this by guarding the f2fs_compressed_file(inode) check with fio in
-f2fs_should_update_outplace(). This preserves forced OPU for actual
-compressed writes (fio != NULL), while allowing f2fs_ioc_set_pin_file()
-(fio == NULL) to proceed to f2fs_disable_compressed_file(inode).
+--------------6MHWeXlZpmNFcy2heHyg8pAR--
 
-Cc: stable@kernel.org
-Fixes: a64a3fec11e7 ("f2fs: force out-place update for all writes on compressed file")
-Assisted-by: LLM
-Signed-off-by: Joanne Chang <joannechien@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-(cherry picked from commit 2eebc31ae5f53e1066bb6238c8087c23b688ad17)
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
----
- fs/f2fs/data.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--------------DYT4LtVi7lOHSSaAYUc4WYme
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index b8da6784e2c4..4b47d7316d4c 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2675,7 +2675,7 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
- 	 * If IO comes from compressed write path and fallback to raw write,
- 	 * force out-place to prevent metadata-data inconsistency.
- 	 */
--	if (f2fs_compressed_file(inode))
-+	if (fio && f2fs_compressed_file(inode))
- 		return true;
- 
- 	/* swap file is migrating in aligned write mode */
--- 
-2.55.0
+-----BEGIN PGP SIGNATURE-----
 
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmr0IDsFAwAAAAAACgkQsN6d1ii/Ey9a
+JQf/cw9cOj+gYUgg2BTLkDOavGCZN638L2cDk3CYAufjwuJJhAjfrepgJ3NwOz6cHDT8hqUuk1Ow
+D+PLt2bL2zhKj0qWwNi93yooi4YXr6L3Awtb35+CMhW3oMfytGT2TtMszKRvfNiIClkz5xtQHATQ
+JyiazEaFYTIbW03PWOh7CBedk7uds+TerKFqsbeabq37wD6ti48MeTTHSdMNcwIkCFHK+VsAUeVm
+V4oi9L0xs3huJY7LiEVBtMgKRerDfZFCEz1PG95kOlqd1EwGOHpvS3g8a0f8jDpNOBa5U6dAIwmz
+o3a1uDgMccDNUCNN72C5Y7fbj3pKWIvQ2NTUWJVWfQ==
+=P4sL
+-----END PGP SIGNATURE-----
+
+--------------DYT4LtVi7lOHSSaAYUc4WYme--
