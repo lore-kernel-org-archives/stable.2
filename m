@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368992;
-	b=ZjCdr+sH5MxKKmqx7qBnqGJ2vY8NhIuxxpgsEC1d2089xBmvipbcKEzW00ZdnTP+6BAM
-	 Wp3DAlMp0WZec5ACH+8XWHn+dXS0hA4LmtrGxBHA+8CbcmlDNfztYyNGUryq+iz33Pnxp
-	 bgVWL7NTFMXhpowYuBQm8aYvXzUrnDXgm7onguS3gQ7LzQcxWiyxcEpbxaH0YdGZVfghJ
-	 g8aJGqNrVHw7VIinmHibxoLo//V4CZbpqPiXOm+Q+TY+Da/gmt5NMUYkd8UhwfBS56jRQ
-	 8zZwMRTg8U5RpkPy+PFPzX2eQkVcBtFQ3oHVsF87jpfiNcAyqaJXU7ikqRO55UGZZyw==
+	t=1794369457;
+	b=03wYQTKlQBZ37lSeIBfRK1FXDBrvhgPXcQlx4O5mmL7DmmomW/zaaQbWbqZBkTQzUPZw
+	 rtUq0EhrqeRpqCNPVTEVxLQt/XAflpl+hgt8e2P+5h9MxfjEUhTZIYYB14Jjcg3nCAQNK
+	 3MJ+zL/+qarPYXh4GCB0mqVuNzWvDXoV4zTFr859QtLbySzZjWOA33VqzN7Wp56pjuzwh
+	 6GLl/s2rC+kyH+FV5OaWYHJ0QGGkQVxxNVG/OLyO/CfTQhm0ETNEQTiFPbn415Rz3tS9A
+	 ZxhpvkwNN3UzDnxi/EaNB6KEbzAGvfGVvn+BWGT5/6oVUUBd+uBIt77MQaqWPmq9Fpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368992;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794369457;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4s9CtiPP0Kq5oeJwuPfHnd5Oodde9BhBkHYevw75Ee0=;
-	b=aOHK7OIhszLUk55DUjsh/ifrpLKFsBjCwMxTeCRFHf/mHTAjvaGzx/Kv18qFnMWGPmnT
-	 1ip9XEMDnTOab/hy4etz6FdYMzXhE5daUDz+Btne/vTnhArVM/JseWYxeCywQNWu38UHd
-	 NpaIjm3qqFL8c03qdEG/Xm/GUic6WlpEiIj7bg4JMlZRSyZkiQAGr741eSfaDFT5N1LGc
-	 2IJRDTbQqdlnctYCFcesZUrTISev1hZHX7ui0n+K/ewP8RWvYGR5wLqkjMiFIt/5q0Qux
-	 NlxbAggfsqzVAh433baXTohWQ5SjT+5zZRRHuN1FszDVtBqhrnwzMwM73/Nzbec0bFA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=SujbbeAcT5VhnTm9P7cyrJPw0Xl22rz2wr2mzBfdmCo=;
+	b=PvdGJQUG7G1/QOn0wX8LwlLMxQv0y4iBhY0IV9LtKBUdsIZj74IwCUWBApVBmhWifqAt
+	 5jb3f8TB4kXOpBttj9UfwdqXZr43WYv5ouGNCTPQ/4aeC/QcFoKoum5ZACNnosdL647a0
+	 A1lTSjru4W5sy3vCy4vytITDvYrEi8+AaZpCZ5M/b94r1SfVNOl4QkC1WR/ShNgEYK7ig
+	 WO5MN8PH2kW4OZNLH978eX56MtF9Foulp1xGZZCEDsmX+AbitnwOZW5AaDsdwV/RaZXkp
+	 ZOnlprkqsAUja0D4aGwJVvClnsDvFFPpsHyzWaMkFZQJzzN1+ObQvXBUEuyGm3Os2RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSRxyime;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SznDU501;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD755606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:49:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2856D606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:57:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSRxyime
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 220DE1F00A00;
-	Wed, 11 Nov 2026 03:49:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SznDU501
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA111F0089F;
+	Wed, 11 Nov 2026 03:57:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794368992;
-	bh=4s9CtiPP0Kq5oeJwuPfHnd5Oodde9BhBkHYevw75Ee0=;
+	s=k20260515; t=1794369457;
+	bh=SujbbeAcT5VhnTm9P7cyrJPw0Xl22rz2wr2mzBfdmCo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kSRxyime5qKwVk2QsUD8dFGPXxefmt3H4oz/Na2dgdCZiBh/Pchl2oXrFU2bl2WSI
-	 9HYoCiOk9lSp5LMsV9Mn5kXdHERtziGcKUD/HdwqNbKKBnR5k0UOiATJTtMU+ns3t/
-	 MVnzBsi7tFljFfwCjpNA/pAQVJzKLjI0oFvI3emtgpRJAeDRynKh1OUa3Dcf7L+go2
-	 egTq3xkPQ90XwbsCP4hamnN57xRA/PJkU1y0PvO3cCIerKoFdlY5fb6WqfmGyiuZUi
-	 O32azcweetEdbhT8u+ttkd21ZbsTSkOsDMNZLJdM7EiIZSNhxglClmIZ95ORrSYORs
-	 URXqd7L7penyg==
+	b=SznDU501cmm65yRJmW/GuZnIowAMqGmTKW453Ohn5ADe2mebcG5dln135oc/5AQ/e
+	 799bjI2vQRqyokRiqvK4CGMnKsOuuhbpOpXvVdgvX/5cXuZ9HcDQFwqKNGbOwKKRdo
+	 ZeITtK/zUrzykawAAtyoRnIzFXVhS2nBvv8+kNyCWfX+GLtwZCyp81xdalhKrqZa5T
+	 hLxE9G/4Se3TvcRl8TEiER5z5dP4vxM88xzVOHK55KA5mPaTgs/1iswiVEN26CYPrX
+	 vtPgEpoMkAIZYsFbFK8sJeR0o2pGOpv4y1R0qBU9/BV2ZqKxIX/nxtEJ2S+3CRpj98
+	 jLpQqgoCcDTcg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Muhammad Bilal <meatuni001@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: Armaan Sandhu <armaan.sandhu0504@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Leizhen Zhang <lzsx618@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/4] platform/x86: hp-wmi: fix heap OOB read and memory corruption in hp_wmi_perform_query()
-Date: Tue, 10 Nov 2026 22:49:48 -0500
-Message-ID: <20261111034941.936350-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y] lib/cmdline: fix get_options() count and overflow with large ranges
+Date: Tue, 10 Nov 2026 22:57:33 -0500
+Message-ID: <20261111035438.1013301-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111034941.936350-1-sashal@kernel.org>
-References: <20261107062147-failed-5.10-6dea092b261f@kernel.org>
- <20261111034941.936350-1-sashal@kernel.org>
+In-Reply-To: <20261107062722-failed-5.10-5d72266218b1@kernel.org>
+References: <20261107062722-failed-5.10-5d72266218b1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,75 +61,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Muhammad Bilal <meatuni001@gmail.com>
+From: Armaan Sandhu <armaan.sandhu0504@gmail.com>
 
-[ Upstream commit 6dea092b261f04d632411c2be52d13190f5f67b1 ]
+[ Upstream commit 5d72266218b1c4dd2917f1df2b86f3b0e0a605c9 ]
 
-hp_wmi_perform_query() evaluates an ACPI WMI method and expects a
-struct bios_return header in the returned buffer. However, it only
-checks that the ACPI object type is ACPI_TYPE_BUFFER without verifying
-that obj->buffer.length is at least sizeof(*bios_return) (8 bytes).
+get_range() stops writing once the array is full, but get_options() still
+advances its index by the whole range.  So "1-100" parsed into four ints
+reports 99 numbers, and a range like "0-2147483647" wraps the index
+negative and writes outside the array.
 
-If the firmware or ACPI method returns a buffer shorter than 8 bytes:
+Stop once a range fills the array, bail out in validation mode before the
+count overflows, and saturate the range length in get_range().  Add KUnit
+cases; without the fix "0-2147483647" panics the test kernel.
 
-1. bios_return->return_code at offset 4 reads out of bounds from the
-   allocated ACPI buffer slab.
+Only root can supply this input, so this is a robustness fix.
 
-2. If return_code evaluates to 0 and outsize is non-zero,
-   (int)(obj->buffer.length - sizeof(*bios_return)) evaluates to a
-   negative integer (e.g. -8 for a 0-length buffer). actual_outsize is
-   set to this negative value and passed to memcpy(buffer, ...,
-   actual_outsize), where the signed negative value is cast to
-   size_t (e.g. 0xfffffffffffffff8), attempting to copy ~18 Exabytes
-   and triggering an immediate kernel crash. Additionally,
-   memset(buffer + actual_outsize, ...) performs an out-of-bounds
-   write before buffer.
-
-Fix this by ensuring obj->buffer.length is at least sizeof(*bios_return)
-before accessing the return code, and compute actual_outsize safely
-using min_t(u32, ...), which is sound specifically because the guard
-above already rules out obj->buffer.length being smaller than
-sizeof(*bios_return) by the time that subtraction runs.
-
-Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes separately")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://patch.msgid.link/20260826103012.240453-1-meatuni001@gmail.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+[akpm@linux-foundation.org: add additional test case from Leizhen]
+Link: https://lore.kernel.org/20261005213945.359905-1-armaan.sandhu0504@gmail.com
+Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
+Signed-off-by: Armaan Sandhu <armaan.sandhu0504@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Leizhen Zhang <lzsx618@gmail.com>
+Reviewed-by: Leizhen Zhang <lzsx618@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adapted the capacity check to use nints - i without the unavailable validation mode. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/hp/hp-wmi.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ lib/cmdline.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 140a5f797980d..c721fcdd2e43c 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -246,8 +246,9 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
- 		goto out_free;
- 	}
+diff --git a/lib/cmdline.c b/lib/cmdline.c
+index fbb9981a04a41..aa90d0f8e1f21 100644
+--- a/lib/cmdline.c
++++ b/lib/cmdline.c
+@@ -11,6 +11,7 @@
  
--	if (obj->type != ACPI_TYPE_BUFFER) {
--		pr_warn("query 0x%x returned an invalid object 0x%x\n", query, ret);
-+	if (obj->type != ACPI_TYPE_BUFFER ||
-+	    obj->buffer.length < sizeof(*bios_return)) {
-+		pr_warn("query 0x%x returned wrong type or too small buffer\n", query);
- 		ret = -EINVAL;
- 		goto out_free;
- 	}
-@@ -266,7 +267,7 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
- 	if (!outsize)
- 		goto out_free;
+ #include <linux/export.h>
+ #include <linux/kernel.h>
++#include <linux/overflow.h>
+ #include <linux/string.h>
+ #include <linux/ctype.h>
  
--	actual_outsize = min(outsize, (int)(obj->buffer.length - sizeof(*bios_return)));
-+	actual_outsize = min_t(u32, outsize, obj->buffer.length - sizeof(*bios_return));
- 	memcpy(buffer, obj->buffer.pointer + sizeof(*bios_return), actual_outsize);
- 	memset(buffer + actual_outsize, 0, outsize - actual_outsize);
+@@ -26,7 +27,9 @@ static int get_range(char **str, int *pint, int n)
  
+ 	(*str)++;
+ 	upper_range = simple_strtol((*str), NULL, 0);
+-	inc_counter = upper_range - *pint;
++	/* Keep the sign of the result when the difference doesn't fit */
++	if (check_sub_overflow(upper_range, *pint, &inc_counter))
++		inc_counter = upper_range < *pint ? -1 : INT_MAX;
+ 	for (x = *pint; n && x < upper_range; x++, n--)
+ 		*pint++ = x;
+ 	return inc_counter;
+@@ -97,6 +100,14 @@ char *get_options(const char *str, int nints, int *ints)
+ 			range_nums = get_range((char **)&str, ints + i, nints - i);
+ 			if (range_nums < 0)
+ 				break;
++			/* The range didn't fit, so the array is full */
++			if (range_nums > nints - i) {
++				i = nints;
++				break;
++			}
++			/* Leave room for the upper number of the range */
++			if (range_nums >= INT_MAX - i)
++				break;
+ 			/*
+ 			 * Decrement the result by one to leave out the
+ 			 * last number in the range.  The next iteration
 -- 
 2.53.0
 
