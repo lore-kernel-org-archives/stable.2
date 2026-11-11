@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437762;
-	b=CPkWTsLDu5Ja0K43nHTW4PbYdT8E7MnNHsU22n/Uq1gft6SjuhO/xZRTmHEzeAycj+Gm
-	 +C+UJQxP/BZnWjpNhc2gklt7oOJK2SJjOj9QvwzhgXfvzrLf7X3mF9ZcQM+IoCzEXVCLL
-	 awxQT2hCPNAoUnbxUF01oob8XskbpVzGkYWwgEzdpWae+lXWrZEhI76hX/J+QDfOUzhbJ
-	 LplyrqHi/2l4VuhdLTgdirUDveGefLhd5rpSiez3BDTTluas4h9EMQXP1denxyiTldtFT
-	 lq+3GcxMa+uW6EZLLulJ87lRRl8OcJwXISKDYPurLnpTLpVZZw6A+Hd4C5KgN6LcItg==
+	t=1794437777;
+	b=o2PI+Oz1tNdNTT6ZzVCkXUw9SH1SNyFMrt3oAKbxeJV3Zc3TaB5z4ztthhyEmaQEdx/R
+	 FQRY4pvHzmx0yO0redFuqGgvpZpIvO3qGQzseEN0ppXuH7IdzuNZolMWtwUAbNFlWAiIB
+	 Z6VPaR/BQSK15FY/kgQx4fipymDQmpBO3Di+jiUq9p39ABQ/ue5rF3USuAFCPZw4GLmbO
+	 jb4+ctPU5UrJBgmexIYuAqqAeVXII4A4S2aMNOrwlYat+0BFcB3B4j7x5RmfVxbe5aIXf
+	 Q0jpo1xNFL2NMdUEil6SxZVcnYL33sSxx8eqRXIGPqjgzFoONlDzmgF+I4+u6fuaZSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437762;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437777;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6tdn3maK/d3oaxNfJio4R1UMJBBh1kUOfnJqTUOSOKM=;
-	b=oT4kie3h8ihOKwGnt0+70v3sRo7AAQ9Jo2VriAmjuMKSC8bh+oNvIuG/RZ2F2NgdgNFN
-	 TTeUmkWlk1TNwFbxpi26DOIvToBxm6NxtsrqndbsEV/VYliy29cJCTHs/jqZpNw9NCNt4
-	 000fDiTFBFvIiCGMQF7Ke6IsnjR7xs90B1qyHNEONdGNmt5Wsu+EoQNpKi7HPASJXTDoG
-	 cwVgEHOEVBQP9FJLAuXi+eY2Ea8SULvcGYPjm0GN/oPPIE5KSyX5WN3ogf/T4HVxcPCl/
-	 MYPZaHoNLlTVnj0pmIx1BKuUxGImJKrE2Z6mPajzFyBpWqgipdc+UIU8T9XbCWNxlZA==
+	bh=FEL+eGoR5Bf91Q7O9GS2Ltk3dhvgcN9P/3+9Fd5tVy4=;
+	b=M07tY4MKM8oq05LZGBAqkySH+ZiEoGawRl9eo4V7SxSzj5RYNPtUMa1dfQahA1KJvRPV
+	 Xs9QJMWcvtcDRhWMzCxlBre3T1pSFSM2ebJvs0H8CVRBHS5/xGO34bCw+E6+Jl+1kBOXA
+	 VpGRba/LleorNBm/N8PqmN03r7gAGhAcF+XxiVH17UaofGeH85f/xLQKocAcodmDbg5MC
+	 jiLvvt6x3fIOgT/zAQkXfaFLD61t6/lJrOyr62MINOXyn7EaOFovhxJHU1QNLljgolBau
+	 6wne/z9raADxxnWsvxgs1BC14XAyH16QlVI7hBt+h700lm9PHr4wehGKurFG1jQBAlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J8/BrU67";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMdryC7v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF32606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:56:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A71A606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8/BrU67
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300E41F00A08;
-	Wed, 11 Nov 2026 22:56:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMdryC7v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E10921F00A05;
+	Wed, 11 Nov 2026 22:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437761;
-	bh=6tdn3maK/d3oaxNfJio4R1UMJBBh1kUOfnJqTUOSOKM=;
+	s=k20260515; t=1794437776;
+	bh=FEL+eGoR5Bf91Q7O9GS2Ltk3dhvgcN9P/3+9Fd5tVy4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J8/BrU67qxmiDO0iDnmKBqqdTGHC1I2L82uZlfqIi8ltzekzmpMTxPeYdc2lRrnRC
-	 nbHovxxCZOmIBLAmqhrwF9RNPsm6VKho48aUg2Whv9WP0+EAAwGEfOA3wlzEw5pqD6
-	 vMs5z7uXi0HtOJflBEgTb3ndesf9Nx62SujOSU04cPCUxQhbmpkI/rhdHSmXn4GqKC
-	 KsPBH19u61xlCf9elFI8x3f3c+NMbK8imeSWKwyQwCA4n7+PweCB4uflDJiRrm9cnI
-	 O7nQDpR3qRaNaLtzjxnAy/NZBXnv7FzOOhQjGcp/jhjiWiYkB0UVJINHNdBVCMwNny
-	 FfPmDx+URqjIg==
+	b=PMdryC7vHyWw2IBsx99mu/CGDiFSoq3Zl+4Cherc8XmAUmVXR3HkWSA03KV/d8BWz
+	 Wg2qmkQiv9esrbmDNmHSkzokMU4Vy0lCc2cAgHYBft2ELjcSziPSBBQvzZ1tJbkTc6
+	 tYQxyOCcV9ATEOUdA8iV+3vS691n3MT0CFOSllRnwGsirNZDpucfUS40GicF1+8jFT
+	 2QwRlKrocIn3I0JhJ+SW3nrif1pFXaIgvxOgCLRkT7Mkwxaa8HGoB5fyjjixhHR5q6
+	 1l4IaqDXPBcqpXdw3+LTZNWz3cepgXaG2ILiUKM9xYJXtC1lKhIVM3wS0ImfH4Tsji
+	 qMbB3qoQtZGjw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Georgia Garcia <georgia.garcia@canonical.com>,
-	John Johansen <john.johansen@canonical.com>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] apparmor: remove fs entries created by a failed policy load
-Date: Wed, 11 Nov 2026 17:55:59 -0500
-Message-ID: <20261111225527.191760-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/userfaultfd: write-lock the VMA before waking waiters when unregistering
+Date: Wed, 11 Nov 2026 17:56:14 -0500
+Message-ID: <20261111225545.347124-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061341-failed-5.15-6ec46f8f1977@kernel.org>
-References: <20261107061341-failed-5.15-6ec46f8f1977@kernel.org>
+In-Reply-To: <20261109201329-failed-6.6-35f7ecd55ce7@kernel.org>
+References: <20261109201329-failed-6.6-35f7ecd55ce7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,76 +65,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Georgia Garcia <georgia.garcia@canonical.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 6ec46f8f1977d218bf2494ce276152b2d01424af ]
+[ Upstream commit 35f7ecd55ce7e51cb6d5ef49e6dd51f3c80f61e4 ]
 
-aa_replace_profiles() creates the raw_data/<rev> directory for the
-loaddata and the profile directories for new profiles before the last
-checks that can fail. When one of those checks fails, the fail path
-releases the ns lock without removing what this load created.
+userfaultfd_unregister() wakes pending missing faults before clearing the
+VMA's userfaultfd registration. With per-VMA fault locking, holding
+mmap_lock for write does not prevent another fault from queuing after
+the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
+waiter can then remain asleep indefinitely.
 
-The raw_data directory is named after the current ns revision, and the
-revision is only bumped by a successful load. The stale directory is
-only removed once the loaddata's last profile reference is dropped, from
-a workqueue. Until then, every load fails to create raw_data/<rev> with
--EEXIST. If the new profiles are never freed, which is the case when
-their dents are left behind pinning the proxy, that never happens and no
-policy can be loaded until reboot.
+Call vma_start_write() before waking waiters. Existing fault handlers
+queue themselves before dropping the VMA read lock, and new readers are
+excluded until mmap_write_unlock().
 
-While still holding the ns lock in the fail path, remove the profile
-directories of the new profiles and, if this load created it, the
-raw_data directory.
-
-Fixes: 5d5182cae401 ("apparmor: move to per loaddata files, instead of replicating in profiles")
+Fixes: 29a22b9e08d7 ("mm: handle userfaults under VMA lock")
 Cc: stable@vger.kernel.org
-Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-[ sashal: adjusted declaration context to add rawdata_created beside the existing udata_sz declaration at function entry ]
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-23-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adjusted the patch location because userfaultfd still resides in the filesystem subsystem ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/apparmor/policy.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ fs/userfaultfd.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
-index f3592af433553..dd8439e9cf55b 100644
---- a/security/apparmor/policy.c
-+++ b/security/apparmor/policy.c
-@@ -923,6 +923,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 	const char *op;
- 	ssize_t count, error;
- 	ssize_t udata_sz;
-+	bool rawdata_created = false;
- 	LIST_HEAD(lh);
+diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
+index bd64d6b9cf899..11b4ed7efa5f8 100644
+--- a/fs/userfaultfd.c
++++ b/fs/userfaultfd.c
+@@ -1664,6 +1664,9 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+ 			start = vma->vm_start;
+ 		vma_end = min(end, vma->vm_end);
  
- 	op = mask & AA_MAY_REPLACE_POLICY ? OP_PROF_REPL : OP_PROF_LOAD;
-@@ -1041,6 +1042,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 			ent = NULL;
- 			goto fail_lock;
- 		}
-+		rawdata_created = true;
- 	}
- 	list_for_each_entry(ent, &lh, list) {
- 		if (!ent->old) {
-@@ -1119,6 +1121,18 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 	return udata_sz;
- 
- fail_lock:
-+	/*
-+	 * Remove fs entries created by this load. Nothing else references
-+	 * them yet, and leaving them behind would leak the new profiles
-+	 * (their dents pin the proxy) and make the next load at the same,
-+	 * unbumped ns revision fail with -EEXIST on its raw_data dir.
-+	 */
-+	list_for_each_entry(tmp, &lh, list) {
-+		if (!tmp->old)
-+			__aafs_profile_rmdir(tmp->new);
-+	}
-+	if (rawdata_created)
-+		__aa_fs_remove_rawdata(udata);
- 	mutex_unlock(&ns->lock);
- 
- 	/* audit cause of failure */
++		/* Prevent new userfaults from being queued after the wakeup. */
++		vma_start_write(vma);
++
+ 		if (userfaultfd_missing(vma)) {
+ 			/*
+ 			 * Wake any concurrent pending userfault while
 -- 
 2.53.0
 
