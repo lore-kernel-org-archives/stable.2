@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794374017;
-	b=BXq4r5uTNvy8uiUerjFOxfcrLLVd5hfeHA3Ds6iKjVpSP2Lan2LbwwpmMhVlHBy0OVde
-	 6O++EbZ6W13qO0quLXorbPq5rd35IzlSJAIRzKZV1l1Vgyp/uFLcZCs6OyTJkd+eMgVU0
-	 qfeuy5pZKjd4Du6knD0lSOaIdGcPZkJoj8nDZqD88X26+wfFg883/K5sG5Eo/5efWVOmT
-	 V5VWtkfjMY1hTMpTOr/dfyjJiNFKb3GElZf7QDF0fE0YxO119L4qjpFpKLQcGMMosUKWe
-	 LTdDYBhps6POdfXTnNB3cpAkZClm/Kcru6qW6T1hULUr99/T40KFy5JyaZBaGdir5Uw==
+	b=oNdEp7qA4d3u2+XeVoN9EuoCWQzymHEc9s5r/xTqTaBrO5dB6aEMlLTPnlMsFTmGjceF
+	 sV8IoPOQq2EGXCT6I51ggLBe7/XUufjfcUw0NcwinX7qK7xfXg8mA7FjnVgV7+YgBVjjG
+	 SDnM11Kpm3Bw+wTVsg8eQxZ3DW8kn1f+ojSjGirPNJAkFLHsah+3ywBVN6c/B5rftqeOg
+	 /YQAcp8ELMyPhN8t2I8s2+N34P33V+nhqhQDnUvZ+Hc1cdYa6WjYvDeobcaDZru4PaBaB
+	 2Ebx7RU/gKIVn6jUaO2F/yT2kDCjDBBQvDk1YcMzslPlYKAkq8/5HYJDbkL7ZL94lKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794374017;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Tz60rnu8/d6D1fxFfCqmL32GEeu30q+mDXSPRRzgMB4=;
-	b=hezLCm5j/WnfHCaSKZ5HsxR1+3ogPT8KQ+i6SEtGszRTirZYKUzeqmQtSAAbNr+a4jhG
-	 QueWpG48ZVmd8BHa0we0XE5M813B868SISGIbyKXzs1v0pLNsrlaD2DPVJYzhj/Bq/Cf9
-	 eUwlDIlMbKS72F4BgunTI8SjlNcXLQVtBT0zNp72lZ/TLY+CfjduePHwE0T8QaX6+BYwv
-	 QWiO0XnuTXT5Bs3i4aKqCxnW3vXYW3uAFd5entZ4EmuKAa1eZzt4LRbQz657i2TYF9fXn
-	 KYG0XgPF8EaF22W5C1ZfZzH7Vq8GpocsbTRl2HV/nNocLCeJ6kyWEDQ2grEThUcxjPA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VOSrKoLUcifzP6IR30TbhfvoHliCPDV3wNhekHJL+Sg=;
+	b=kxrTMLO0kuXPZC12HGF5fIjleEXaEzEAQHTZ/EtC7WUAjZCSzYajERYLKXiUPZF292FJ
+	 8oX0nXHai3MBkVrSNv87MQoYU28oKZfGdH+pK9wgt1hJueWoWYV5GMEJgBKSG5EoOCe3M
+	 tBVBee6HoY18yEIG3YnuS9n9TLl/n1a+4ku20XwQJhl5MiZ/U7BZgFBhFSkQYoZkIUJBi
+	 MdD1Zcuodsd8B0AfU7/LLrvTCprSUJhY4yWfr7BpUFauZzl6ECwsBPvZujdhZFyvVo5mp
+	 uqmixNEsi32YCWFK5QGfiGfSUI08gUCAeC8JOvLkDf1sm0a4b3Vw92CpqvIHHGL3Bmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bep+fOcg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U/o8ZFVg";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5591A606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42CB606A324
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:13:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bep+fOcg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361A61F0089F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U/o8ZFVg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E7B1F0093C;
 	Wed, 11 Nov 2026 05:13:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794374016;
-	bh=Tz60rnu8/d6D1fxFfCqmL32GEeu30q+mDXSPRRzgMB4=;
+	s=k20260515; t=1794374017;
+	bh=VOSrKoLUcifzP6IR30TbhfvoHliCPDV3wNhekHJL+Sg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bep+fOcg2LGRcJIFxQWu4EWH3f3V29YTH68do4FiP9d54h9U0rLfWNMB8aVR7k5WW
-	 3I3481bimK21TW1WDZHaN3Yl+y8js/7jowSpyHN6cbyznt9nfPlh0RIN/chfra5p86
-	 DfgPCZKN0lr6cDNtiaqKJg/gy8uELRggMPEMA6ObLfx8+LQTqi37FhEDYBQwYn399H
-	 +rLD0UKlDnVI6GtpWKWJzxwbYNuTq3VHIca4MlK8YuOBzKNXHAtfdoEMqUo+4N3w5l
-	 qKFyvI6uLT5eEW2faRwC6NrJndxj4AIDqIFIZ8XsIW9EOHeSCywr+1HDAnzXacjyy1
-	 cid8kENYVFcBA==
+	b=U/o8ZFVg/RxKVJWZCAP1WrrsGQ3QY46eWgTfFK4F/qsQL6xY7o+DGOPLrenmTaJa3
+	 vk0TNjia1Oz+aWzqomDu/tw1a7Z4rmxVQV1voRYSoGOiGPfqySeE0cDnVm4GqqrQ1V
+	 T+ey2Ngd+z316HRDswP+L3iCE0HsshnG0LiocOtFEabIYTlQQuHdMrZgfv+OSumBEO
+	 bdhq6bXDxalkxFB+e5jaggc+TyuCenR/bzcStewnsauRt/VWKUViJf2lg1pBrnrCo2
+	 5FRTjQdoYaFQg4bFhTj7q8q8ob+EPPdSyIdPtJkZJpYQgmJQvbXigrclN6THP+qSnh
+	 77mTCxhpIQ1KQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Rander Wang <rander.wang@intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] fs: don't lose inodes that another LRU walker is isolating
-Date: Wed, 11 Nov 2026 00:13:34 -0500
-Message-ID: <20261111051305.1231635-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/5] ASoC: SOF: Intel: remove option to disable the common_hdmi handling
+Date: Wed, 11 Nov 2026 00:13:31 -0500
+Message-ID: <20261111051038.1204227-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051343-failed-6.18-8dc4116041e2@kernel.org>
-References: <20261107051343-failed-6.18-8dc4116041e2@kernel.org>
+In-Reply-To: <20261107055548-failed-6.1-08a44bde821d@kernel.org>
+References: <20261107055548-failed-6.1-08a44bde821d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,71 +64,135 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nikolaos Karaolidis <nick@karaolidis.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 8dc4116041e2b377e5e1b62ba98b37636f9f3968 ]
+[ Upstream commit 834c69d3b849625d5c5bb81a3425fc8deef5f16d ]
 
-When inode_lru_isolate() finds an unused inode that still has page
-cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
-invalidates the page cache, clears the flag again and returns
-LRU_RETRY so that the restarted walk can free the inode.
+We've been using the same option for quite some time now, it's time to
+remove the kernel parameter to disable the common HDaudio codec
+handling.
 
-Another walker of the same list can reach the inode in that window.
-It sees a non-zero i_state and takes the inode off the LRU, as it
-would an inode that is in use. Page cache deletion requeues the inode
-once the mapping is shrinkable, so this is harmless if it happens
-before the last deletion. If it happens after, nothing puts the inode
-back: it stays in memory, unused, clean and without page cache, out
-of reach of the shrinker and of drop_caches, until it is looked up
-again or the filesystem is unmounted.
-
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
-lru traversing context") the pin was an i_count reference, and the
-final iput() put the inode back on the LRU.
-
-Skip inodes that are being isolated and leave them to the walker that
-pinned them, which restarts its walk once it has unpinned them.
-
-The window is reached by any unused inode with page cache on
-CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
-single shadow entry at index 0. On an i386 HIGHMEM guest, eight
-concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
-one-page ext4 files leave roughly 400 of the inodes off the LRU per
-round; on x86_64, with the files' pages first evicted through
-memory.reclaim, 3 to 4 per round. With this patch, none in either case.
-
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
-Link: https://patch.msgid.link/20261009142431.713875-1-nick@karaolidis.com
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Replaced inode_state_read(inode) with direct inode->i_state access under the existing i_lock. ]
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Link: https://lore.kernel.org/r/20221027193540.259520-2-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 08a44bde821d ("ASoC: hdac_hda: Restore the codec device type on unbind")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/inode.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/soc/sof/intel/hda-codec.c | 12 +++---------
+ sound/soc/sof/intel/hda.c       | 10 ++--------
+ sound/soc/sof/intel/hda.h       |  6 ++----
+ 3 files changed, 7 insertions(+), 21 deletions(-)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index 24762fd1f2f77..9c59a4b571822 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -927,6 +927,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 	if (!spin_trylock(&inode->i_lock))
- 		return LRU_SKIP;
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index a75f81116643b..5827747cce2ae 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -133,8 +133,7 @@ static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr, i
+ }
  
-+	/* Another walker is dropping its page cache, leave it to that one */
-+	if (inode->i_state & I_LRU_ISOLATING) {
-+		spin_unlock(&inode->i_lock);
-+		return LRU_SKIP;
-+	}
-+
- 	/*
- 	 * Inodes can get referenced, redirtied, or repopulated while
- 	 * they're already on the LRU, and this can make them
+ /* probe individual codec */
+-static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
+-			   bool hda_codec_use_common_hdmi)
++static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ {
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
+ 	struct hdac_hda_priv *hda_priv;
+@@ -164,10 +163,6 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
+ 	if (!hda_priv)
+ 		return -ENOMEM;
+ 
+-	/* only probe ASoC codec drivers for HDAC-HDMI */
+-	if (!hda_codec_use_common_hdmi && (resp & 0xFFFF0000) == IDISP_VID_INTEL)
+-		type = HDA_DEV_ASOC;
+-
+ 	codec = hda_codec_device_init(&hbus->core, address, type);
+ 	ret = PTR_ERR_OR_ZERO(codec);
+ 	if (ret < 0)
+@@ -215,8 +210,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
+ }
+ 
+ /* Codec initialization */
+-void hda_codec_probe_bus(struct snd_sof_dev *sdev,
+-			 bool hda_codec_use_common_hdmi)
++void hda_codec_probe_bus(struct snd_sof_dev *sdev)
+ {
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ 	int i, ret;
+@@ -227,7 +221,7 @@ void hda_codec_probe_bus(struct snd_sof_dev *sdev,
+ 		if (!(bus->codec_mask & (1 << i)))
+ 			continue;
+ 
+-		ret = hda_codec_probe(sdev, i, hda_codec_use_common_hdmi);
++		ret = hda_codec_probe(sdev, i);
+ 		if (ret < 0) {
+ 			dev_warn(bus->dev, "codec #%d probe error, ret: %d\n",
+ 				 i, ret);
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 4ba7c4be670dd..dbbc78d65e46e 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -388,12 +388,6 @@ static int mclk_id_override = -1;
+ module_param_named(mclk_id, mclk_id_override, int, 0444);
+ MODULE_PARM_DESC(mclk_id, "SOF SSP mclk_id");
+ 
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+-static bool hda_codec_use_common_hdmi = IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI);
+-module_param_named(use_common_hdmi, hda_codec_use_common_hdmi, bool, 0444);
+-MODULE_PARM_DESC(use_common_hdmi, "SOF HDA use common HDMI codec driver");
+-#endif
+-
+ static const struct hda_dsp_msg_code hda_dsp_rom_fw_error_texts[] = {
+ 	{HDA_DSP_ROM_CSE_ERROR, "error: cse error"},
+ 	{HDA_DSP_ROM_CSE_WRONG_RESPONSE, "error: cse wrong response"},
+@@ -924,7 +918,7 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 		snd_hdac_ext_bus_get_ml_capabilities(bus);
+ 
+ 	/* create codec instances */
+-	hda_codec_probe_bus(sdev, hda_codec_use_common_hdmi);
++	hda_codec_probe_bus(sdev);
+ 
+ 	if (!HDA_IDISP_CODEC(bus->codec_mask))
+ 		hda_codec_i915_display_power(sdev, false);
+@@ -1340,7 +1334,7 @@ static void hda_generic_machine_select(struct snd_sof_dev *sdev,
+ 	if (*mach) {
+ 		mach_params = &(*mach)->mach_params;
+ 		mach_params->codec_mask = bus->codec_mask;
+-		mach_params->common_hdmi_codec_drv = hda_codec_use_common_hdmi;
++		mach_params->common_hdmi_codec_drv = true;
+ 	}
+ }
+ #else
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 773df987d6473..a4737c8e4fcb3 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -705,8 +705,7 @@ void sof_hda_bus_init(struct hdac_bus *bus, struct device *dev);
+ /*
+  * HDA Codec operations.
+  */
+-void hda_codec_probe_bus(struct snd_sof_dev *sdev,
+-			 bool hda_codec_use_common_hdmi);
++void hda_codec_probe_bus(struct snd_sof_dev *sdev);
+ void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev, bool enable);
+ void hda_codec_jack_check(struct snd_sof_dev *sdev);
+ 
+@@ -722,8 +721,7 @@ int hda_codec_i915_exit(struct snd_sof_dev *sdev);
+ 
+ #else
+ 
+-static inline void hda_codec_i915_display_power(struct snd_sof_dev *sdev,
+-						bool enable) { }
++static inline void hda_codec_i915_display_power(struct snd_sof_dev *sdev, bool enable) { }
+ static inline int hda_codec_i915_init(struct snd_sof_dev *sdev) { return 0; }
+ static inline int hda_codec_i915_exit(struct snd_sof_dev *sdev) { return 0; }
+ 
 -- 
 2.53.0
 
