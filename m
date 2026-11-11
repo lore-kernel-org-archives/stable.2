@@ -1,66 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417746;
-	b=kwm4hq6pK4x6xE7dMeUzVerjIgY+MzA8UL6Cvbp5UMGq+iE+zbkgSNEBfHejt7T1PSci
-	 BnmVfn4Fc0IanXJYfNgB62UPBvu1aO+DmFTZxQXxl+LHuUt3MFnVE6cg5RcQYSOUpP2yS
-	 TKnZDicr9QWbrDtBfnqPbrQwx9WNYiavcjRW4ByIw5RjYwUhCW6YmGA4ovj8R0DYTF8W9
-	 tEbmUS2DIEP1uYYn98I+nknuqG8dzhT23Uv32pcA2PlLklA9vjPLNdmMpGALvyoA3MOSN
-	 uXX5v/LPtsnDXc4FKlUKsRnx5ZDt4Jc5f4Pzib6GNouMM07AGClJzP6DhTooZxYns+Q==
+	t=1794417806;
+	b=QTkX2XWVsexkKieaoRxX05hd6zj/XcCAUldD8Yn7UhgqZv6+qOt5w1HIcPNZidpNcr+4
+	 AEBhUnkviNh/mJplvZLjUuFaEaVbXVrepyi2oCKif3o+sUP3eaJIujXGFd0z5dwHmbWqU
+	 Q5TgoyNTA90yGERWdGknu+VW1BPg8lDg4jhwt/DBHMmtK7xsmRuIdkotL3xB6c1sTpbG0
+	 oY+Ueh5qI28PD8X7PXTOncl+ZI4xK1d4NdQ5Wd2M+gfnZ3Bo3jvQBvi/PdRD9nx6dldmU
+	 CRT2JaPhczN/Bw4VAjGevU/kISsR9SVF+q9QZfBII5YkZFDprHojqVFgEYeTbcRPEvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417746;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Lt8a9XSiyuQGhK4GZJrzOjlDTaWqozdq9+trvXVMOLI=;
-	b=p13ogNBrUtyA9/RyxwLwXsD5+VFnFsKuUL3Ex6Qwbost+4WH/a0Rq4000GffrCRVKM6q
-	 UfNuCV2Zh45HyG1G7ZJO9cZxGaRJABQ5hBCEE8kuNoYKjGxDcrtsgHVOHomZv5aEUtiJG
-	 aTGvXBjIYCzq5Qkx/13EcdNADPgXYb0g1ZVnmkT/riFym9WMZdWb8rVbbhcGLxZW8AQTf
-	 SeFWnyZPuDoFRHmV5nzgCDqR0bWAfSifXCIW8DjgcfcBUzUWigb7MylY9WTTD8WqIIAzc
-	 uvc8zd9pKl9iXF/D0TUr/WOjaJb4zbJneqpkN+sslaGFoqrS5nlGmJWQR7Ooyd/h2Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417806;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=KoX5MehGX3/HTOl06b+T8IaxlQjMvOZwpuFJnlEfgOU=;
+	b=IHGVgiqpASosJQdyQlUrYh3dYKdRFx/vHwE/WDdrbJ7/rCRmmkvOBC19hFor+Uv3NPce
+	 hEVGDLpHmpuII4iVfQu5MysbYrfiYcLvTE5ENGo+u8pWLG7FrgziHvuTfA1oA/Hxeq/ir
+	 lL4BObvGsHnsOKzDqB92QD6AEuH0DRb7LGNj6rcPFHOR9kKL3E3Am1dcTNytDoyHb311k
+	 EGIgXPkIMY+dZL2TtWPPcW44n7g8EI/SszsSRI5YsJcy69GWB7pnU3xguernJWccAY2Sf
+	 eDqPTVI9DnpuJyKMYrfeWN2WSjHK4Gb6AEQEV4geXwYA8SBrGwSpX7KRIg6i7ctiqZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ST88QuUt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JCpGGmgv;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390F5606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:22:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D20606A882
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:23:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50D20606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ST88QuUt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E161F00A05;
-	Wed, 11 Nov 2026 17:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417746;
-	bh=Lt8a9XSiyuQGhK4GZJrzOjlDTaWqozdq9+trvXVMOLI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ST88QuUtJCz7qsT5x0wjMEzqNtAgPER6iuvrovEiWkVq6kFoh5BKeBE/LAxSW+CiH
-	 hNlxlf594nX8JG6Hio9TOcZ4zBG9zTYn+kxqxgVIgZrfjHE4J3jDFv46y3CTuo6EbQ
-	 H88qXWctAUh6qb+XHBFwIjK0EfsTgNlGqO7porxDu4jGPvlvuj4KEqxuppUMPy8IhJ
-	 ma2skRqo14AkLz6qP7ULPT/ptbHyoZPFkhAVg2fjmaR6PzsnE6TAbcfw4ccevLoL1F
-	 8c0oY4P3n7XH/jRfLJ6M7c5Krn8dKe8w1g/0ZLQOjrfEtuFirtWdUClkKaUOuWqG3U
-	 Jr8vvkIvOIT5w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	shaos <shawnq1@163.com>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	Xueyuan Chen <xueyuan.chen21@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Mike Rapoport <rppt@linux.vnet.ibm.com>,
-	Peter Xu <peterx@redhat.com>,
-	David Hildenbrand <david@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/vma: avoid broken uffd merge on mremap
-Date: Wed, 11 Nov 2026 12:22:23 -0500
-Message-ID: <20261111172211.3531021-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051435-failed-6.18-68cb098eadda@kernel.org>
-References: <20261107051435-failed-6.18-68cb098eadda@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JCpGGmgv
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3763bd79663so1576373eec.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:23:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794417805; x=1795022605; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KoX5MehGX3/HTOl06b+T8IaxlQjMvOZwpuFJnlEfgOU=;
+        b=JCpGGmgv01ROa2XJ8BaG9Ez8onxmqlSmz/hlN57D7CMPd+ZlGWwNttQ/82wcpvSSN1
+         cqrjYhSMCjTe7esaGebFkfKoUYA2ZuhAqOioj1Ev3D+mWPFvhT1bJIRCb31z8wQWUQJo
+         8WiNLUMSLkid5JCa8f/gi+SPo5zafc3y20vvjDnntaFM36wCfwV9wlLEyJb2cIXcbGrb
+         rPOGLyuiBLx4MaXBzMtmx1ssrrHHvMEYcuX/bijygoyfBvKidh8ACptYlAjdGq5n25/L
+         gFFEP1Dh87f/i9Yciy/SUZlOKWuLe9Huo0u0/dIv9ojBmBF5KHPYVmpocvARpw9k23+k
+         6bKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794417805; x=1795022605;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KoX5MehGX3/HTOl06b+T8IaxlQjMvOZwpuFJnlEfgOU=;
+        b=bn3U/oVt2eSxElnZ4gi8GIpJpJzD+ho0qNzwOGVV3x934hTSr1+1ditiBPW5hBKuwn
+         hWAulAQ30GZOA12v7q1chZSZRea3OpkJu5fGZPjBjaRkXlDUp6KVdobPsyVDO8S+InN9
+         ZFdn+zs0i25XES10onqGw3qkEY2XTZZU45ddBU1xumYsvYF7JjIWqfW/It/lZTsi33oE
+         0OlUJrNhT52/NTT3pYi54r6KgsiatIasUEbzai5PO4ThGNup3IOUuUWeG4iLFPsRbybD
+         EpP+Llzdjib4eCJqSLAF6fyEsmyf57S7eJNiabbTMqOH28ZrlRzkmhWI3EN9VmbMzg7D
+         gM0Q==
+X-Forwarded-Encrypted: i=1; AL+hErEi+amdn7ZCI9gjzZt/JGjJi00679Uj2Ui9viAoGte59xbl1b67/ThDxDnp6oo6Xfbq8dK5Y0A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81LHNalzY24pQufOyLhD5LbcV51MhG44iFptrSlp/wY+Y+Mwdk
+	Pe2eMMRUMvBlHFdbg6evKPNKmM35xwuNQUfGfFH8ulMf6GcnSVFawjw0G34uvdz0bW+zbE16Uom
+	hEMkpoiwSe031tL23jv0kVUaEFuQJQQ==
+X-Received: from dycam1.prod.google.com ([2002:a05:7300:fc01:b0:36a:209:32b])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:62dc:b0:33b:c24c:d31c with SMTP id 5a478bee46e88-37685c7aa0amr3301877eec.7.1794417804955;
+ Wed, 11 Nov 2026 09:23:24 -0800 (PST)
+Date: Wed, 11 Nov 2026 17:23:24 GMT
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,94 +75,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Message-ID: <18e70d7c82c722e3.3137322e32332e3235332e313736.191fb9.0000sendgmr@google.com>
+Subject: [PATCH v3 1/2] rust_binder: reject sync transaction with pending sync work
+From: Chris Wiseman <chriswiseman@google.com>
+To: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+When a thread replies to a transaction with TF_DEFER_COMPLETE, its
+BR_TRANSACTION_COMPLETE work item stays in inner.work_list while the
+next blocking read waits in Process.ready_threads. A new incoming
+synchronous transaction can then be queued behind that deferred
+completion in inner.work_list. If the thread's read buffer only has
+room for the deferred completion, the ioctl returns to userspace with
+inner.current_transaction cleared while the incoming synchronous
+transaction remains queued in inner.work_list.
 
-[ Upstream commit 68cb098eadda190783f8f8bdf9fe764df59f7d32 ]
+If that thread sends an outgoing synchronous BC_TRANSACTION before
+draining its work queue, Thread::transaction_inner sets
+inner.current_transaction to Some(t_out), and the read phase of the
+same BINDER_WRITE_READ ioctl pops the pending incoming transaction and
+overwrites inner.current_transaction with Some(t_in). This orphans
+t_out from the sender's transaction stack so
+Thread::unwind_transaction_stack aborts on exit, leaving a permanent
+Arc<Thread> <-> DArc<Transaction> reference cycle that pins both
+Arc<Process> instances and their mapped ShrinkablePageRange pages
+after the processes exit.
 
-Userfaultfd often causes unexpected interactions within mm, and does so at
-the intersection of uffd, mremap() and VMA merging.
+Resolve the TODO in Thread::transaction_inner by rejecting outgoing
+synchronous transactions with EINVAL in Thread::top_of_transaction_stack
+when inner.work_list contains any item where
+DeliverToRead::should_sync_wakeup() is true. Checking
+should_sync_wakeup() in top_of_transaction_stack() fails fast before
+Transaction::new() allocates the target buffer or translates flat
+binder objects, and ignores non-transaction work items in
+inner.work_list.
 
-When an mremap of a VMA occurs, copy_vma_and_data() calls
-mremap_userfaultfd_prep() to notify uffd of this.
-
-However, mremap_userfaultfd_prep() simply drops the UFFD context for the
-VMA if the user did not register it for remap, i.e. didn't specify the
-UFFD_FEATURE_EVENT_REMAP flag.
-
-This is OK for the VMA itself, as upon page table move, move_ptes() clears
-UFFD page table flags, using vma_has_uffd_without_event_remap() to
-determine whether to do so.
-
-However, this doesn't account for merging with adjacent VMAs, whose page
-tables won't have received this treatment, and thus latent UFFD markers
-will be left around.
-
-Worse, it'll break UFFD for any VMAs it is merged with. This is very
-surprising behaviour for a user, who will then simply not receive UFFD
-events for VMAs they ought to.
-
-Resolve the issue by explicitly checking for this case via
-vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
-function explicitly designated for mremap() operations.
-
-Also update the userland VMA tests accordingly.
-
-Link: https://lore.kernel.org/20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org
-Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: shaos <shawnq1@163.com>
-Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Mike Rapoport <rppt@linux.vnet.ibm.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: replaced the inline test stub with a constant-false macro in the existing test harness header ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
+Cc: stable@vger.kernel.org
+Reviewed-by: Carlos Llamas <cmllamas@google.com>
+Signed-off-by: Chris Wiseman <chriswiseman@google.com>
 ---
- mm/vma.c                         | 5 +++++
- tools/testing/vma/vma_internal.h | 2 ++
- 2 files changed, 7 insertions(+)
+v2 -> v3:
+  - No changes.
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 8669da66edc5c..2a4daf7905e8b 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1145,6 +1145,11 @@ static struct vm_area_struct *vma_merge_copied_range(struct vma_merge_struct *vm
- 
- 	vmg->copied_from = vmg->middle;
- 	vmg->middle = NULL;
-+
-+	/* If not registered for remap, uffd context will be cleared. */
-+	if (vma_has_uffd_without_event_remap(vmg->copied_from))
-+		return NULL;
-+
- 	return vma_merge_new_range(vmg);
- }
- 
-diff --git a/tools/testing/vma/vma_internal.h b/tools/testing/vma/vma_internal.h
-index f64064ee48587..b736528815bd8 100644
---- a/tools/testing/vma/vma_internal.h
-+++ b/tools/testing/vma/vma_internal.h
-@@ -802,6 +802,8 @@ static inline bool is_mergeable_vm_userfaultfd_ctx(struct vm_area_struct *vma,
- 	return true;
- }
- 
-+#define vma_has_uffd_without_event_remap(vma) false
-+
- static inline bool anon_vma_name_eq(struct anon_vma_name *anon_name1,
- 				    struct anon_vma_name *anon_name2)
- {
+v1 -> v2:
+  - Move the inner.work_list should_sync_wakeup() check into
+    Thread::top_of_transaction_stack() so it fails before
+    Transaction::new() runs (Carlos Llamas).
+
+ drivers/android/binder/thread.rs | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index f5965e838a96..763f0646a1e9 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -1268,6 +1268,10 @@ fn is_current_transaction(&self, transaction: &DArc<Transaction>) -> bool {
+     /// [`None`] if the thread is not currently participating in a transaction stack.
+     fn top_of_transaction_stack(&self) -> Result<Option<DArc<Transaction>>> {
+         let inner = self.inner.lock();
++        if inner.work_list.iter().any(|w| w.should_sync_wakeup()) {
++            pr_warn_ratelimited!("got new transaction with bad transaction stack\n");
++            return Err(EINVAL);
++        }
+         if let Some(cur) = &inner.current_transaction {
+             if core::ptr::eq(self, cur.from.as_ref()) {
+                 pr_warn_ratelimited!("got new transaction with bad transaction stack\n");
+@@ -1393,8 +1397,6 @@ fn transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResu
+         info.to_pid = node_ref.node.owner.task.pid();
+         info.to_node_debug_id = node_ref.node.debug_id;
+         security::binder_transaction(&self.process.cred, &node_ref.node.owner.cred)?;
+-        // TODO: We need to ensure that there isn't a pending transaction in the work queue. How
+-        // could this happen?
+         let top = self.top_of_transaction_stack()?;
+         let list_completion = DTRWrap::arc_try_new(DeliverCode::new(
+             BR_TRANSACTION_COMPLETE,
 -- 
-2.53.0
+2.47.0
 
