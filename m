@@ -1,56 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794371901;
-	b=KQTRl0hTPRrfF6JPCExaZUhSxK440i78RXa3MLbjdymZtyUjsxPXxH3U45+N7ju5LiPz
-	 pIOOdhLMG2JKPtCUN1K4sRnfHGDI9VXYyxRyTbr/T2WMoesvK0Aw6ZudPWobv7A5U4mkB
-	 h73u44IWeZD5rXOvLxXzkhM0aJGCSJhMmK8VsW1WwWho9NburF9D2u8+hgMxX/Ho0kuo6
-	 RU3QF0W2NTzw/WrvKWFXOyk5qKW29akZBZglnOH+mrQ3sMQIOwpScYCSggjdGETmBW52x
-	 iGSb9WKjGYjSE8o6RscY5CcxjjMrR+sDEkREfV42m8BDsM7P6DRZedhIqdtbITFFKMw==
+	t=1794371919;
+	b=3c7C6LBs+aWwWpx/nRe0tZ2xM6CLY28U0hfdbkz+FTfYjZpZWBB5euOSvaci4TLzEbk0
+	 1CIWDatZ950XCl9B0SWL3xDxoURWLpFsFJ5ZB8nul6IlgstUJyc2mnAqEn6eKnJw4s8U4
+	 aY0QLiduQtaGIfYJvY9nkYhnYbfbNUPVjE8hf6CiLTxFbCTpH9Rt+Up5nkdQwwPnB7uB5
+	 JtOqae/28Om7vP1jF7Jwk0i2QLdHDJjKR21s11LEJ27JI+k8Mmb7Dz3ssgwV/jJgjFF0Q
+	 esTTvngMj+6lMVPUH2Elfma5vinE8usKsUWslUt9ewG9yZyZnxAppg0+Q+rqAi+5u5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794371901;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794371919;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2djxXmFbyue220ouuRMgPys8D9fRziFw4Uik3ZCZbFQ=;
-	b=Z4P9mDu51HV1Fldwe/ZRYVFpQn0uC7N2963WJ8G3sapm6eF7nEeLY7i+ly0ST3xeSsax
-	 zVJGGSXCmIoMWFrZ2nfcr5/fdKPxXsGi5DRwpz/HAS1K1a2atisIS/Y+x6bCFE+2a7sRX
-	 9uOViwUuTNFrJzfvctKCmyTCTc8kGUDNDg69PsJmIxFHUe4Ja6wBRnsbGJxFiiKjMeddB
-	 qrcE8mK8QaYKWcEHs1iG/F4eD7bP/loFwDxemLeG4KeQwh1f+naSvZtadXPrzOnkzSRqp
-	 9Uc7bBGuapWAKw9ymjpeGgLv1HJSdGbYkIZpEOzpNyzDiUdzQ2SWgbOzlah1ptWjciw==
+	bh=Qt9EOAfjL8GpDYqwjLJEsqOtvQVawhDwphp3kMmsvEQ=;
+	b=xhjvd1Acaa0HbiPYq7vIsTw7KbnqE5pn2L7b57iCEE+MsaBBGApHrPLoMr8W7vda5tVw
+	 g3vBGuSU5H5vCXfLQaGIyNfXG6Iva5BkLtzxv58tsTfEXQWd70PtGJy6P6gcuY9nL8TwA
+	 5i96WuLT+N7y9d52/c33SAbUmOLWZM9Xr6rESm/42awUAQ2D/EvMRwDCWlhOHin5vQXvY
+	 lbaxL0LcoFvpSZ9aTA9pghVSQNWRDIiSiElm2HalKxhhi3q6fU5ka6izt5ZWu1gsJ/oI6
+	 9YcyfN4qY3GXsxOKflwvNUhIhNrysD6OxVWOmw634tK8fy0cjUZ0U0Ve9aA6vDBIOfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGqrDj7M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hgOhd0Ox;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD46606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:38:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29E5606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:38:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DGqrDj7M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1DA21F00A03;
-	Wed, 11 Nov 2026 04:38:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hgOhd0Ox
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E821F00A09;
+	Wed, 11 Nov 2026 04:38:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794371901;
-	bh=2djxXmFbyue220ouuRMgPys8D9fRziFw4Uik3ZCZbFQ=;
+	s=k20260515; t=1794371919;
+	bh=Qt9EOAfjL8GpDYqwjLJEsqOtvQVawhDwphp3kMmsvEQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DGqrDj7M+zss82ltwEh4VQGK5f9cqVRIywULuO+Lm5Sv3Am/DkVR9hOXdu8u6uGQL
-	 NsphF9lkz55+d+teNDDLUCQojGsZXG3JQHhDE/4xf4y6iQ9JZc3Am6vjW4bzkHxv6e
-	 K3q/2GC+VM1x/4fCtXONoKA17wdkFpAVSPJKKSvkbZqL3OA7Uy5TKfFYOSNQieHKEe
-	 nC6R5+V9hn98fRcWoRLNwW/fRMuD6UtcllyFh7NaSMEgD1FeONg+nAg72qw5kdOg4e
-	 9VecrUqCm7mayIgxHOKbjG+HwDOrLw8JjbLFhqVp9/5FmOTCkZo5BF5ubn8crX/8dg
-	 x4gFtqXI4NuCg==
+	b=hgOhd0Oxh3dPF3yWkEdsHOOnQj384FIblYomzBxbv9rtfgaY7R4OFw80KlROwVxwS
+	 DM8FvX++OiQC75xJ8bOl1eZHq5C/6sQ6rCTxXGMl9teqid82sD8tkpdBaqP1KdlUI7
+	 2dWxXn0JpOpH5LZP+RYkRwI5p5syLwTrztcNM3IlnnTjKj9r5Wylz4id3uj1UYnlSa
+	 9ilu+KlAi7idwWwixby9l1vSUp981Hr+wRpirBK3OO0VYlHGkoJF9OcPUTY3pEPoST
+	 UcKZE4QjYGSPDT5gBMUlZwZa5T9KM2kxfhwexxS3EuAqR0jFJz2Tthm6B/j35kLZZn
+	 4dRMnqGmIplOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kyle Zeng <kylebot@openai.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Lokesh Gidra <lokeshgidra@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ASoC: hdac_hda: Restore the codec device type on unbind
-Date: Tue, 10 Nov 2026 23:38:19 -0500
-Message-ID: <20261111043626.1123671-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/userfaultfd: only allocate anon_vma in CoW mappings
+Date: Tue, 10 Nov 2026 23:38:36 -0500
+Message-ID: <20261111043611.1129191-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111043626.1123671-1-sashal@kernel.org>
-References: <20261107052707-failed-6.12-08a44bde821d@kernel.org>
- <20261111043626.1123671-1-sashal@kernel.org>
+In-Reply-To: <20261107052610-failed-6.12-514c9247db30@kernel.org>
+References: <20261107052610-failed-6.12-514c9247db30@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,62 +71,151 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 08a44bde821d4fe22c0b6e63da04b3c59ac243a8 ]
+[ Upstream commit 514c9247db305922591d806ec65d3c3fe420538d ]
 
-hdac_hda_codec_probe() changes the type of the codec device to
-HDA_DEV_ASOC to prevent snd_hda_codec_unregister() from unregistering
-the device when the card is freed.
+find_vma_and_prepare_anon() can end up allocating an anon_vma in VMAs that
+are not CoW mappings, which is wrong.
 
-The type is never restored, and hda_bus_match() requires the device and
-driver types to be equal. After unbinding the codec driver via sysfs the
-HDA_DEV_LEGACY codec drivers no longer match the device and bind fails
-with -ENODEV.
+If we have a MAP_SHARED R/O file mapped, we lack VM_SHARED (but do have
+VM_MAYSHARE) and lack VM_MAYWRITE.
 
-Restore HDA_DEV_LEGACY with a device managed action registered before
-the component, so it runs after the component and the card are gone.
+While uffd later rejects such mappings (uffd registration requires
+VM_MAYWRITE, see comment in validate_dst_vma) find_vma_and_prepare_anon()
+still wrongly allocates an anon vma before it validates the vma.
 
-Fixes: b60ee2e281b6 ("ASoC: hdac_hda: overwrite hdev type to HDA_DEV_ASOC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261027083840.28813-3-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+This in turn later confuses copy_page_range()->vma_needs_copy() such
+that we end up calling copy_hugetlb_page_range() with ranges that
+actually do not contain *any* per-pagetable information that would
+require copying, which is the basis for PMD-table sharing in the first
+place.
+
+copy_hugetlb_page_range() should not have to worry about shared
+PMD tables at all: it doesn't make any sense to copy page tables that are
+shared, as they can be fully recreated later. Ending up in the function
+with shareable page tables is the real issue.
+
+If a destination PMD table is shared in copy_hugetlb_page_range(), it
+might get concurrently unshared as we are not holding relevant
+locks, resulting in us using a page table that is no longer mapped and
+possibly freed after calling:
+
+	dst_pte = huge_pte_alloc(dst, dst_vma, addr, sz);
+
+To fix it, do not allocate an anon_vma in non-CoW mappings and add a
+safety guard to copy_hugetlb_page_range(), making sure that we never
+end up messing with shared PMD tables in there.
+
+Before commit 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd
+operations") we would always validate the VMA before allocating an
+anon_vma, and consequently never wrongly allocate an anon_vma.
+
+As uffd_lock_vma() is part of the same lookup machinery and
+also contains a misleading VM_SHARED check, change that one as well
+directly for consistency.
+
+A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
+lock in copy_hugetlb_page_range() entirely. Further, the usage of
+VM_SHARED in userfaultfd code should be cleaned up later to focus on
+CoW vs. non-CoW mappings.
+
+Link: https://lore.kernel.org/20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org
+Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kyle Zeng <kylebot@openai.com>
+Tested-by: Kyle Zeng <kylebot@openai.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Lokesh Gidra <lokeshgidra@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: adapted VMA checks to use is_cow_mapping(vma->vm_flags) with direct vma->anon_vma access ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/hdac_hda.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ mm/hugetlb.c     | 24 ++++++++++++------------
+ mm/userfaultfd.c |  5 ++---
+ 2 files changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index 26c2cc1d6a18c..fc5067edd5302 100644
---- a/sound/soc/codecs/hdac_hda.c
-+++ b/sound/soc/codecs/hdac_hda.c
-@@ -635,6 +635,13 @@ static const struct snd_soc_component_driver hdac_hda_hdmi_codec = {
- 	.endianness		= 1,
- };
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index d9443bdebc068..4c59efc87a355 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5275,10 +5275,11 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 		raw_write_seqcount_begin(&src->write_protect_seq);
+ 	} else {
+ 		/*
+-		 * For shared mappings the vma lock must be held before
+-		 * calling hugetlb_walk() in the src vma. Otherwise, the
+-		 * returned ptep could go away if part of a shared pmd and
+-		 * another thread calls huge_pmd_unshare.
++		 * Shared mappings only need copying when we could have
++		 * information stored in page tables (e.g., userfaultfd PTE
++		 * bits or markers), which is incompatible with PMD sharing.
++		 * Still take the hugetlb VMA lock for now to satisfy
++		 * hugetlb_walk()'s locking requirements.
+ 		 */
+ 		hugetlb_vma_lock_read(src_vma);
+ 	}
+@@ -5286,6 +5287,13 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 	last_addr_mask = hugetlb_mask_last_page(h);
+ 	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
+ 		spinlock_t *src_ptl, *dst_ptl;
++
++		if (WARN_ON_ONCE(want_pmd_share(src_vma, addr) ||
++				 want_pmd_share(dst_vma, addr))) {
++			ret = -EINVAL;
++			break;
++		}
++
+ 		src_pte = hugetlb_walk(src_vma, addr, sz);
+ 		if (!src_pte) {
+ 			addr |= last_addr_mask;
+@@ -5297,14 +5305,6 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 			break;
+ 		}
  
-+static void hdac_hda_restore_dev_type(void *data)
-+{
-+	struct hdac_device *hdev = data;
-+
-+	hdev->type = HDA_DEV_LEGACY;
-+}
-+
- static int hdac_hda_dev_probe(struct hdac_device *hdev)
- {
- 	struct hdac_hda_priv *hda_pvt;
-@@ -652,6 +659,11 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
- 		hda_pvt->need_display_power = true;
- 	dev_set_drvdata(&hdev->dev, hda_pvt);
+-#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
+-		/* If the pagetables are shared, there is nothing to do */
+-		if (ptdesc_pmd_is_shared(virt_to_ptdesc(dst_pte))) {
+-			addr |= last_addr_mask;
+-			continue;
+-		}
+-#endif
+-
+ 		dst_ptl = huge_pte_lock(h, dst, dst_pte);
+ 		src_ptl = huge_pte_lockptr(h, src, src_pte);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 9951b4f42c65a..417c4f5265fff 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -48,8 +48,7 @@ struct vm_area_struct *find_vma_and_prepare_anon(struct mm_struct *mm,
+ 	vma = vma_lookup(mm, addr);
+ 	if (!vma)
+ 		vma = ERR_PTR(-ENOENT);
+-	else if (!(vma->vm_flags & VM_SHARED) &&
+-		 unlikely(anon_vma_prepare(vma)))
++	else if (is_cow_mapping(vma->vm_flags) && unlikely(anon_vma_prepare(vma)))
+ 		vma = ERR_PTR(-ENOMEM);
  
-+	/* Allow the legacy codec driver to match again after unbind */
-+	ret = devm_add_action(&hdev->dev, hdac_hda_restore_dev_type, hdev);
-+	if (ret)
-+		return ret;
-+
- 	/* hold the ref while we probe */
- 	hlink = snd_hdac_ext_bus_get_hlink_by_name(hdev->bus, dev_name(&hdev->dev));
- 	if (!hlink) {
+ 	return vma;
+@@ -77,7 +76,7 @@ static struct vm_area_struct *uffd_lock_vma(struct mm_struct *mm,
+ 		 * We know we're going to need to use anon_vma, so check
+ 		 * that early.
+ 		 */
+-		if (!(vma->vm_flags & VM_SHARED) && unlikely(!vma->anon_vma))
++		if (is_cow_mapping(vma->vm_flags) && unlikely(!vma->anon_vma))
+ 			vma_end_read(vma);
+ 		else
+ 			return vma;
 -- 
 2.53.0
 
