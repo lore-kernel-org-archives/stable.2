@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404635;
-	b=h+IKSQ+8LQcOedCWnPQz+9kdYnRkXpud2F7af/QQJv5l/zW9JpttVhWiwuVvveIRrSob
-	 jJEj4OxlaJttjVtta8BptQAGPx2ITbO9JC9ftEsiGzYNrNVx+I5rI60al9HkHTCWylkwq
-	 hs7veIdkDZ+sRvNnTfAaG1Lh8fL2EkP3CnOXKG+/uaqYbpCX8o9b+1k4i05g8bh5CO/p8
-	 ePy+JdNkenuhqZ+/S53fP3OC/J4O4r7qT0g6RXSzA7MZ/BLUpTwwLPSFRMgGo15091oWL
-	 YmEl653xRDHWaE0FHI0OzpsJ3yBYHZEyYT0NZc9cwR4IkOpqmXaKxvbWdTSeWs4Nn0w==
+	t=1794404685;
+	b=AzM7luZWD/8h4lrDvoZP5Gvk1sxRp+Y37sLxIU12w/I4+C2znwjjY43s/UCHUJUdwqFf
+	 bPILVfpM/HE5cZDmbsFc96RCpdr1n8kwpDKCC3DnrgV26iG6Y+LCEkko2WKJG6MyNLOqr
+	 nV6w/iEXOHWCzbgMof5VclPhnAv+3pwZtuq7R8xHQdYWJwGr1OVsizXW+0ipoL9qpz4Al
+	 ISw8nR52SJuxbA43Ws+aHWSSR3hIsSt8foO+Olfcl3ArNcAIDJFPgt6rPE3a2UoG6qtHI
+	 9j+8nQB2er5Iygl+AW4zSl3RI/NybQ+pv+Ks6ub5NvjmO1KvPuGfnilRV4XdEzJyaIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404635;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=F21HXehkhHOJ2Hcvkr+Y1EVk7iSfQoJREPt1VKE3m9I=;
-	b=2xyWqcM1MRb2qamkP/xpSCUN/LKMIqMSSsaUvG6HbAzFfvAaRftDsnu/NuvpO0QTOd5n
-	 J+/iA/x777kMDUHsXvwz0Qhlh2HofYm8fGbHyNTv9/FlPDrHVQPGA5ZtiyTHdnbI44S/g
-	 ehBfWwdo//BVH54nKa24MytpmUsBqBu3ZZvTdpVoOdxWliSeB8cru+5WDzG3CiPv6z/lT
-	 9iBdZfOUsRdr4/Q0E78esu7n01xbqyVmI+oupEhvXC4+dtci6G9XKWWzcgbp6kQDisjxI
-	 fiDN6VcIwnAsyD5xKsc0KZDsK+ZnWPNutD54wP6wkK6Z3NbpelRWGKPlcINIJLMhe+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404685;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=C/nooMgmJG/3mp0rQ1JdOcq7TiihZwhR9+Lq4gd1ZqA=;
+	b=Bj+vNYYF308rg+ngwzsblP00Nbsoo4frE9ffUMqlR0ncCn/J+8WWdVZAleatPefqxLpR
+	 w02mX9G2DsMZjeWvSI0ivbQImPXqwD9FzAOR/wpcItOCaZ1pPbliUgppzZcLRTJwFiSlW
+	 jVt7mbcZwTRRD3OuMoSTVl449rjDRW6pRObY1Sb6SpYXNNP4qcutZejk6AOHiuxYuOyuG
+	 YqT7TZMWkNKkfW0Ab8/3LIjSqKs6i59oxudNZyCX5Mp15uhq5/saaUd1nQOCa9dLl4trW
+	 AiHdzwfiMsq1WswPFXHmDVqJodQY7D3VUS8XMrRsP8ZbWE6VfS8cT6QknvaY6zE8Rxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aAqse8ef;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D8A606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:43:55 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XMZDjw8K;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 55187606A31C;
+	Wed, 11 Nov 2026 13:44:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55187606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aAqse8ef
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351D71F00A05;
-	Wed, 11 Nov 2026 13:43:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404635;
-	bh=F21HXehkhHOJ2Hcvkr+Y1EVk7iSfQoJREPt1VKE3m9I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aAqse8ef9sE588ha03+UPpRxfY+8N4FSCj00v38AvDX9hKkpmz07G/8v1NhE9dwIF
-	 WXhM8zhR17mq+7jWWEmJHVb3NqNIFfe8LHaRjSCQdlg8xNUAHpmJTdeH8xcUSGkc0c
-	 voJxG9panXqSFsE526H4gzhduFK+mMy+jTnUaeu0vyTVy5pep4EK9nkWdNnkBujx+F
-	 sf+FBlKdtc1KuP41fuJ5Ri1kolFPRYDzfO/5eipeN4W34dMKxgm2ww0oQhrbz4Fx0S
-	 uOP4XXSDM0TPwBmyyIntSKR/3dHm9e2pIJtNCP82cDqzPcjxjO0u2uwUqhvEnpurPF
-	 3hI58yDKnveMA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Oleg Nesterov <oleg@redhat.com>,
-	stable@kernel.org,
-	syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com,
-	Kusaram Devineni <kusaram@devineni.in>,
-	Kees Cook <kees@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] signalfd: don't dequeue the forced fatal signals
-Date: Wed, 11 Nov 2026 08:43:52 -0500
-Message-ID: <20261111134326.1683124-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052941-failed-6.6-d72e0fb3b00c@kernel.org>
-References: <20261107052941-failed-6.6-d72e0fb3b00c@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XMZDjw8K
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 841C31576;
+	Wed, 11 Nov 2026 05:44:41 -0800 (PST)
+Received: from [10.0.154.42] (e121487-lin.cambridge.arm.com [10.0.154.42])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC9EA3F673;
+	Wed, 11 Nov 2026 05:44:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794404684; bh=w2VNZqXDGorpHrLLSd9Lolnep92uG7Tj6Jtn26G8qZc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XMZDjw8KwZgkZXf/BmInpGUc/Nu/+rD12k7JhOUze6J6Xxre4SfOdq5WVwxjfiWTa
+	 9/eDyVHQTNWpHi+d18HTtRra8Hh3YqU0K4XAOeQV5OSptnSeNSVquJujUod3s+tLxQ
+	 jSMziHEiA/pMBzLCDPi5kiv7vPRnqrAFnAB9u5XQ=
+Message-ID: <282608f5-a13b-4695-aa17-f834bf5d8272@arm.com>
+Date: Wed, 11 Nov 2026 13:44:40 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,114 +53,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: suspend: Save GCS state over suspend
+To: Mark Brown <broonie@kernel.org>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Joey Gouly <joey.gouly@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
+ <20261105-arm64-fix-sysreg-suspend-v1-2-f4d9a99fec46@kernel.org>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20261105-arm64-fix-sysreg-suspend-v1-2-f4d9a99fec46@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Oleg Nesterov <oleg@redhat.com>
+On 11/5/26 16:05, Mark Brown wrote:
+> GCSCRE0_EL1 and GCSPR_EL0 are live registers for EL0 on systems with GCS
+> but are not saved and restored by cpu_do_suspend()/cpu_do_resume(). This
+> means that the task that initiated suspend can return to userspace with
+> UNKNOWN or incorrect values for GCSPR_EL0 and GCSCRE0_EL1 (many fields
+> in GCSCRE0_EL1 reset to 0).  This will in turn lead to ongoing
+> corruption, including not restoring mode until a task with a different
+> GCS mode is run.  Fix this by saving and restoring the values over
+> suspend.
+> 
+> This increases the size of struct cpu_suspend_ctx by 16 bytes.
+> 
+> Fixes: 5d8b172e7005 ("arm64: Add Kconfig for Guarded Control Stack (GCS)")
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/arm64/include/asm/suspend.h |  2 +-
+>  arch/arm64/mm/proc.S             | 12 ++++++++++++
+>  2 files changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
+> index eb9ce315f146..8e9c97aab15a 100644
+> --- a/arch/arm64/include/asm/suspend.h
+> +++ b/arch/arm64/include/asm/suspend.h
+> @@ -2,7 +2,7 @@
+>  #ifndef __ASM_SUSPEND_H
+>  #define __ASM_SUSPEND_H
+>  
+> -#define NR_CTX_REGS 16
+> +#define NR_CTX_REGS 18
+>  #define NR_CALLEE_SAVED_REGS 12
+>  
+>  /*
+> diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+> index 664ea9e3b9ad..99aacf03367d 100644
+> --- a/arch/arm64/mm/proc.S
+> +++ b/arch/arm64/mm/proc.S
+> @@ -121,6 +121,12 @@ alternative_else_nop_endif
+>  alternative_if ARM64_HAS_S1POE
+>  	mrs	x2, REG_POR_EL0
+>  	str	x2, [x0, #120]
+> +alternative_else_nop_endif
+> +alternative_if ARM64_HAS_GCS
+> +	mrs	x2, REG_GCSPR_EL0
+> +	str	x2, [x0, #128]
+> +	mrs	x2, REG_GCSCRE0_EL1
+> +	str	x2, [x0, #136]
 
-[ Upstream commit d72e0fb3b00c6a1146bcfd7186ad9f6f609ba236 ]
+Have you considered using stp?
 
-These signals should act like SIGKILL, in that userspace must never dequeue
-them. But as Kusaram explains, io_uring-driven signalfd_read_iter() called
-from get_signal() -> task_work_run() paths can do this before get_signal()
-has a chance to dequeue such a signal and notice SA_IMMUTABLE.
+>  alternative_else_nop_endif
+>  	ret
+>  SYM_FUNC_END(cpu_do_suspend)
+> @@ -168,6 +174,12 @@ alternative_if ARM64_HAS_S1POE
+>  	ldr	x2, [x0, #120]
+>  	msr	REG_POR_EL0, x2
+>  alternative_else_nop_endif
+> +alternative_if ARM64_HAS_GCS
+> +	ldr	x2, [x0, #128]
+> +	msr	REG_GCSPR_EL0, x2
+> +	ldr	x2, [x0, #136]
+> +	msr	REG_GCSCRE0_EL1, x2
 
-Change signalfd_poll() and signalfd_dequeue() to add pending SA_IMMUTABLE
-signals to ctx->sigmask.
+Have you considered using ldp?
 
-TODO: we should probably change force_sig_info_to_task(HANDLER_EXIT) to
-make fatal_signal_pending() true, or add a fatal_or_forced_signal_pending()
-helper. Then signalfd_dequeue() could just return -EINTR in this case.
-This also makes sense for get_signal(), which could prioritize a fatal
-signal sent by (say) force_sig_seccomp(force_coredump => true), just like
-it already prioritizes SIGKILL.
 
-Cc: stable@kernel.org
-Reported-by: syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0a4c46806941297fecb9
-Tested-by: syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com
-Link: https://lore.kernel.org/all/69d122fd.050a0220.2dbe29.001c.GAE@google.com/
-Suggested-by: Kusaram Devineni <kusaram@devineni.in>
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Kees Cook <kees@kernel.org>
-Link: https://patch.msgid.link/adO3HG8bvwRPcmte@redhat.com
-Signed-off-by: Kees Cook <kees@kernel.org>
-[ sashal: Retained current as the first argument to both dequeue_signal() calls to match the existing API. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/signalfd.c | 28 ++++++++++++++++++++++------
- 1 file changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/fs/signalfd.c b/fs/signalfd.c
-index e20d1484c6633..797c906bb5de1 100644
---- a/fs/signalfd.c
-+++ b/fs/signalfd.c
-@@ -48,17 +48,30 @@ static int signalfd_release(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
-+static void refine_sigmask(struct signalfd_ctx *ctx, sigset_t *sigmask)
-+{
-+	struct k_sigaction *k = current->sighand->action;
-+	int n;
-+
-+	*sigmask = ctx->sigmask;
-+	for (n = 1; n <= _NSIG; ++n, ++k) {
-+		if (k->sa.sa_flags & SA_IMMUTABLE)
-+			sigaddset(sigmask, n);
-+	}
-+}
-+
- static __poll_t signalfd_poll(struct file *file, poll_table *wait)
- {
- 	struct signalfd_ctx *ctx = file->private_data;
- 	__poll_t events = 0;
-+	sigset_t sigmask;
- 
- 	poll_wait(file, &current->sighand->signalfd_wqh, wait);
- 
- 	spin_lock_irq(&current->sighand->siglock);
--	if (next_signal(&current->pending, &ctx->sigmask) ||
--	    next_signal(&current->signal->shared_pending,
--			&ctx->sigmask))
-+	refine_sigmask(ctx, &sigmask);
-+	if (next_signal(&current->pending, &sigmask) ||
-+	    next_signal(&current->signal->shared_pending, &sigmask))
- 		events |= EPOLLIN;
- 	spin_unlock_irq(&current->sighand->siglock);
- 
-@@ -156,11 +169,13 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
- 				int nonblock)
- {
- 	enum pid_type type;
--	ssize_t ret;
- 	DECLARE_WAITQUEUE(wait, current);
-+	sigset_t sigmask;
-+	ssize_t ret;
- 
- 	spin_lock_irq(&current->sighand->siglock);
--	ret = dequeue_signal(current, &ctx->sigmask, info, &type);
-+	refine_sigmask(ctx, &sigmask);
-+	ret = dequeue_signal(current, &sigmask, info, &type);
- 	switch (ret) {
- 	case 0:
- 		if (!nonblock)
-@@ -175,7 +190,7 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
- 	add_wait_queue(&current->sighand->signalfd_wqh, &wait);
- 	for (;;) {
- 		set_current_state(TASK_INTERRUPTIBLE);
--		ret = dequeue_signal(current, &ctx->sigmask, info, &type);
-+		ret = dequeue_signal(current, &sigmask, info, &type);
- 		if (ret != 0)
- 			break;
- 		if (signal_pending(current)) {
-@@ -185,6 +200,7 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
- 		spin_unlock_irq(&current->sighand->siglock);
- 		schedule();
- 		spin_lock_irq(&current->sighand->siglock);
-+		refine_sigmask(ctx, &sigmask);
- 	}
- 	spin_unlock_irq(&current->sighand->siglock);
- 
--- 
-2.53.0
-
+Cheers
+Vladimir
