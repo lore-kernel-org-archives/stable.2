@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368684;
-	b=4VvjB6aJgTOL9QLV21B3t2qLuHVQ8Pg5RfLaLacpKrxDGy6x/NgKi3Kx8gV6c4thQ50v
-	 OZkwj+16ImZQW578cIDY8UgSqD5HccYKpP7wHbK6zZiHOP6fOcZxcxrelbfh/RLqO1nCS
-	 lZ4eKTnGrD3k6aCdp28YivbrKO1MioqABS0NPDRzkQOi3nDw32IArJONwEmRLUj2/Cnco
-	 YsDvnZu+QXCURixXTc3Csvcll2VbjDaV5WojZppaHY/7aa4/AqFasI5y0pXZMqXsL+pZ7
-	 JMT6SaS7LKcd3ogk0uHYB2Czk4uRNGY1jXOu+h7tuNOyRINXvtmDBRNlxWGaHYM3CLQ==
+	t=1794368685;
+	b=leprqRWLh46CDP9pkPLIkTcCOiJ8t1h8Y6ADZp/uXJyYSEKPcJt7H8gjUiZe6CmA2kLY
+	 cMAsf2YLtKLWFto/hMdY/Ih+MKy1YBpcZ3kCBu53b02c0dYBqEN0u/zOF750FJt0iZrVZ
+	 v31RyAom6eKmZ0FVnLPVguyxSnJS9xMJxNq4SVPqW5/cvtxRwyoUCigrHeaJPEpJDWRkJ
+	 AA98s3UUK+nXbwTOPOy5iIZvlakXbUys/R2mKMDMbbynAl4mvhDubN0rPUJZTTqUIIjB7
+	 QZ7qyDw2Jb0+y+CM3uMZs35FQEAIOUNcGSLFtuXE/2EZAPebOyaGJ4TeDGoE5U7DRbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368684;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368685;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0A0yDuSV3+1izEZotsYpqG58Xyg8ZLXo9/H+r3IOpeQ=;
-	b=ZFaVIphiggDBJABYJOLyQKAu23OQiKPT7Ngndd/A4szesRXNwigQpyORTxYXU0xk7u13
-	 vbN8Wc8LV6E7wglmXryl1cWsqa7+UK5i13dEwRLz5J8OWWnMFWYqctA6LEIY5y9tfUPB6
-	 4U5r4Q6N2odgNHVfn2+lA/4jXGIVwLzv9W3SIDSyCdhIfU6mppwnIhQQlHS/WMQZlZdAz
-	 PudkV1/ZyMhZatR96T8AseL4UziMbO0AMiqaU7okyZggFNH5UsCElllu19eH/v8wp18Z1
-	 x23u1eZ+Vto8K4W9mBC2DhnrxiIp946c9vmfDBPn/QtlirNFB7RO2h5VgteTpiHvICQ==
+	bh=KejB8p1CjeOEKnMuvka7Q/QkWOCkXxMKkTGxxu4Ihmc=;
+	b=LwnS3v/DOj0+X1qhWvW8XEeBRTTf1UOybKU8R5dNzpzyzQ2bAuPlnsZsMubnkEI6hcyh
+	 rbYyomAzHg+YMFj8d/REj8j1RPmjE7A8CN/UQ3coNzrGAOXNG0FMq9RTVRlBLF/zVokdD
+	 /RKhC+jYMM4vEeBaQapP4g3dNsAsLc88oBDyL/k60UYQmxZKhxfiSDDLglFvEUHBnhhlJ
+	 EAC/1yCDWp4aNs7WJOb4q/4QwziCai1VnKzmJGtzVStgUJvx3gu0GHw6CrPjNGhdOdGH6
+	 YFA10tPtH499Q+9yDVe7Dmo48PC7n1u1cCxcd6F3lysngdbRVA8mpjtXun0Xr3CS4Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xqo9auGd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RZ/cjqsN";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A6F606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:44:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4133A606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:44:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xqo9auGd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B583B1F0093C;
-	Wed, 11 Nov 2026 03:44:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ/cjqsN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8923E1F0089F;
+	Wed, 11 Nov 2026 03:44:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794368684;
-	bh=0A0yDuSV3+1izEZotsYpqG58Xyg8ZLXo9/H+r3IOpeQ=;
+	s=k20260515; t=1794368685;
+	bh=KejB8p1CjeOEKnMuvka7Q/QkWOCkXxMKkTGxxu4Ihmc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xqo9auGdShowW7lGSUu8KtqE82RXsHXoofn6MJDNDuFx5MAeNx/IqDrkQYrPNNkly
-	 nFNV51XCd+JhCQ3Ga9k0SDGQkRYfGh62mB3xJJR19XYtB2ULmMW7QQkH+ghs/b5R9J
-	 mIoWdkwd7FRayprWCkM8UyiOOUMWwRbeli3Q8DKSwtrXtVfv1uWi/ZUFu9dmU/vDZt
-	 890hFazLE+qrudwcoH3rXZdKq95HBzhDdy6xIrSTpdbxj5esmxENALpAKdthSGyffA
-	 Vw7uGwikNOyJntaq6QjaUsl1oCt6zK0x89d3ktJZhEhEcCF8YYj0gkAGvQKepggjRp
-	 q8cxa/fwmvoQA==
+	b=RZ/cjqsN44sI1qWT0bFCFTwqsBn7NM654XTlIcRMifmtXytYnR1vnL9q/T11saxcg
+	 XkPLG0OpyrAMBx1UOa+o8+5OWJ5l+eSvzpjkUDKm9ktDL1sSf9TWr3g2YvOzwdv2Fe
+	 Pf8luewjPQG7zGzgkZ5p5BLls61H2Thcwq7eNKgmcX0EW/BwYhHID703glCUJyWC69
+	 51y4bfotBfDyyE4LlTaK4+sDoX/Mjvvgha0zgfjjqbYHDjViVS5gOsSzzEM9iMF4XD
+	 kjUuGmsYqK0XGcgilrJ6sfeDjKrudFfvEiFYeiHvssZ0I0uDoJrhJRE2x54A6E5Csb
+	 jOVE9GVN/r8sg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+Cc: Hitesh Patel <hitesh@ebytelogic.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] media: qcom: camss: Propagate vfe_reset error up the callstack
-Date: Tue, 10 Nov 2026 22:44:40 -0500
-Message-ID: <20261111034413.979341-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] media: qcom: camss: vfe: Fix VFE reset while another line is streaming
+Date: Tue, 10 Nov 2026 22:44:41 -0500
+Message-ID: <20261111034413.979341-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111034413.979341-1-sashal@kernel.org>
 References: <20261107053039-failed-6.6-e5d4b0e69a40@kernel.org>
@@ -63,52 +63,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+From: Hitesh Patel <hitesh@ebytelogic.com>
 
-[ Upstream commit 5c07f30bed52ed85673b634f77467e404645785d ]
+[ Upstream commit e5d4b0e69a4017fd39354499c9d7583f625f0524 ]
 
-A previous patch I had removed the returns from vfe_disable() since we
-didn't trap any meaningful errors. Konrad pointed out vfe_reset() could
-return an error, which is true.
+vfe_disable_output() stops the write masters of the line being
+disabled and then resets the whole VFE. The reset is not limited to
+that line.
 
-Trap the vfe_reset() error code and throw it up the callstack.
+When two lines of one VFE stream at the same time, which is the case
+whenever a CSID demultiplexes several virtual channels to different
+RDIs, stopping the first line resets the VFE underneath the second
+line. The second line's write master configuration is wiped, the
+buffers it had in flight are never completed, and the VFE is left in
+a state in which the next global reset is not acknowledged. Stopping
+or restarting the second line then fails with:
 
-Suggested-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Stable-dep-of: e5d4b0e69a40 ("media: qcom: camss: vfe: Fix VFE reset while another line is streaming")
+  VFE reset timeout
+
+Move the reset to vfe_disable() and do it under stream_lock, as part
+of the decrement that makes the count reach zero, so that exactly one
+caller resets and no line can be enabled while the reset runs.
+Stopping the line's write masters is enough to quiesce that line on
+its own. With a single line streaming, the reset happens exactly as
+before.
+
+Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+[bod: Converted vfe_disable_output to void]
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 17dc713b43cd7..f4a4f0fda45db 100644
+index f4a4f0fda45db..10095818cfb23 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -432,8 +432,11 @@ static int vfe_disable_output(struct vfe_line *line)
+@@ -407,7 +407,7 @@ int vfe_put_output(struct vfe_line *line)
+ 	return 0;
+ }
+ 
+-static int vfe_disable_output(struct vfe_line *line)
++static void vfe_disable_output(struct vfe_line *line)
+ {
+ 	struct vfe_device *vfe = to_vfe(line);
+ 	struct vfe_output *output = &line->output;
+@@ -419,8 +419,6 @@ static int vfe_disable_output(struct vfe_line *line)
+ 		vfe->ops->vfe_wm_stop(vfe, output->wm_idx[i]);
+ 	output->gen2.active_num = 0;
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+-
+-	return vfe_reset(vfe);
+ }
+ 
+ /*
+@@ -432,21 +430,19 @@ static int vfe_disable_output(struct vfe_line *line)
  int vfe_disable(struct vfe_line *line)
  {
  	struct vfe_device *vfe = to_vfe(line);
-+	int ret;
+-	int ret;
++	int ret = 0;
  
--	vfe_disable_output(line);
-+	ret = vfe_disable_output(line);
-+	if (ret)
-+		goto error;
+-	ret = vfe_disable_output(line);
+-	if (ret)
+-		goto error;
++	vfe_disable_output(line);
  
  	vfe_put_output(line);
  
-@@ -443,7 +446,8 @@ int vfe_disable(struct vfe_line *line)
+ 	mutex_lock(&vfe->stream_lock);
+ 
+-	vfe->stream_count--;
++	if (--vfe->stream_count == 0)
++		ret = vfe_reset(vfe);
  
  	mutex_unlock(&vfe->stream_lock);
  
--	return 0;
-+error:
-+	return ret;
+-error:
+ 	return ret;
  }
  
- /**
 -- 
 2.53.0
 
