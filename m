@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794365519;
-	b=OZ/NQPBlLgbrQcrkF/Zvg+DOaSq/dHWj9L42ZAdkqB/ott+HyJ6b07JBCxLnavhlD4cK
-	 qR02IPMmi78gJRM07h3J3aRv/bGy0ANHTg+nJa1OeYACY8AfjeLDUpPdbCgHhGGFPpzBh
-	 3MqLo2yS40iKJOcEuA+oTK6+9JVZ9qsS6x39DAp27h1/JRbShbxSGdoDzoKb/kMmW9xtI
-	 9kls729nGoJlHZnN9m1okYU/z9fxKBuxNmm9AMda0cmm2nWn+vWti6sFv1CbJMY/nnao2
-	 4QmFGtbcizWiFsG/7xymuPSpbDVHVdeAfX8AlEEIkFpvrFNG/fFMtFXVb9NdUA8/OAw==
+	t=1794365669;
+	b=iqbGgUJu9cJG5/kVlzGm2y0xU0K91sWpxNgLOmtdlcSLXjK87HkXtmtFUMnIudUs82y3
+	 j8v0/KVb5Osv5vZrlcMDdHQ09w4I6UVZyr135kYUa7oPNeexoFMoop8L0WD9uibyWp6x4
+	 L2Q3ffzagvr83zH3LqBnNxv/L7kXVcf9YMc78iCQSqrNVmS8tHv2OoPQGQiajE7EWLpq0
+	 Y+Aa7voAr9XyJ52pBQARevOgK5dmAI3xInEFNuF8r++nNlYeochx7lBZLMUfOvibnRdz9
+	 CD81N6B0puvzTBmjH7USvlsotljYN6owGp8ueWb8jix010Q+Rzl8FWmRomFvSNRF7hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794365519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794365669;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=g9lZLfqs5cpufeGYD1996tXxqSDFcYwmBKjIPUI0a4I=;
-	b=iFQTJv3FqFWefMEO7OpQYsrwjWpYJqXBrJ67B1z75lrnR0qtr4Dul4C5og+gjx5c/ru1
-	 291JEurUszhKsAs700+ME8gYpEvg7Nm5S38Le/DsQquepkRLdEBB4COMpJ5NlOveibl0A
-	 tmXzkxasz7908gPTCjVczHCAO6+T4uZYGLF0qVc+zois+WrRDUXOj7/i8uf0XMRTGJZax
-	 M0jsfyR8/pk0IiGCcT2TOw0KwDmpx7HNKcvC31kp/5iaVwdFzh8/uqWZzKXVgQAjcduPa
-	 ptL1ePxUNEe0ay6CCV5ZEYP4TmXMNqs5H89oKZrob96xcUP8kTBpxphXq5aoQ2iKgHw==
+	bh=Z1DTqUxKGtgSlkjsnQi5QxSE4E0JKyNWCtvRQDTXwwI=;
+	b=bvuSgZRquOkyzQM5e3Dxp9duimiFsiAm58T+u9Wf7hYTVB3nWfNh0dF3Xyn0n/nTsJCH
+	 ZH0mMRPvCJaLYcmLYvgCxTiUhuIGyPtgmdisBy0XCjcrJIaQvV3/JvlLuN4PZHBoPvZPM
+	 aPlkXqidRlXHHITCS3quTxTTO4c/KRHZBQCwzuqXVIbqSkCA/ieA0j7RCDUUPfz0t5x1f
+	 MVqmHJVYv9v4G+ElfcDkOhOuZ81U10Y9fqF0HpCu2mBdbyWRG0geXDJNIZrBLsUIAw4sh
+	 LsH68WU4ACAiW1AFnDfMVVe8B9y8qmp0+EAF4TY7q+Nj1K0yzXnClEQPZMyLyFqrrYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBal+eGR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDJT4k2d;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF5D606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3871606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:54:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OBal+eGR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7170B1F0089F;
-	Wed, 11 Nov 2026 02:51:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDJT4k2d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA84B1F0089F;
+	Wed, 11 Nov 2026 02:54:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794365519;
-	bh=g9lZLfqs5cpufeGYD1996tXxqSDFcYwmBKjIPUI0a4I=;
+	s=k20260515; t=1794365668;
+	bh=Z1DTqUxKGtgSlkjsnQi5QxSE4E0JKyNWCtvRQDTXwwI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OBal+eGRy+vv4c00sxYw+63Ry8pl79lJYMaEhT2tZDcI+pt45w8DLfvE2tXdVcTUJ
-	 S7XxRCRXdyzmSdNeATsjagn3h/QhA7AeE8QsK3aFiS7dJwNWdU+HKUT/Ip60n/h9GR
-	 ZW71VgFxQV4MOyv1WmUteFiMXPSPwyEGzXkGimXA2yVgAEVftqBqdCZLCemRL74ph6
-	 61JYIXFeLOPVnw5QFsNSFxQfq4yUIJmle7X9OWLQ11VNFZi1+MSvWFBDlhNv09Bbyr
-	 IUmYwz56PU4M9djOZcBw9OHF991BoONImFozU+aCvXMFeMpwhBlUWAUT/UVnQdGJFK
-	 bXf0tZJcR9VDQ==
+	b=iDJT4k2dowDiPHPvv1o+v0qKaEkuf19y9K2Q5mJSR8qq6YWvQJ422qkobbcccQNtI
+	 NccFYysUJWxdxqI3F9zWSyvRw9h+tAOuCDyRuB8WtEA0hGrJaTTyovbqnHHWumlx0k
+	 bWhCIYDXQJhpIe8rRluctaRknRiJglqEHAtr8f2uSLp1SpuwU0mBhkMSQ5cslXye9L
+	 DdYGTc3BN7GekGnWLAG4fQJOkhJiZG5Z7McbDKWoP5I/UaLHRPxPixeOkNKYart6ax
+	 x0gk4QQYcX112JCXZua/y+kN2nkfVcaQyWBnRPh4moDq/6pgQWRtzYNel+wqohVJR1
+	 j3cdyqe+0akmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
-	Jan Kara <jack@suse.cz>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: David Woodhouse <dwmw@amazon.co.uk>,
+	sashiko-bot@kernel.org,
+	Paul Durrant <paul@xen.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] fs: rotate inodes whose page cache could not be dropped
-Date: Tue, 10 Nov 2026 21:51:57 -0500
-Message-ID: <20261111025120.769747-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] KVM: x86/xen: Enforce 4-byte alignment of vcpu_info registration
+Date: Tue, 10 Nov 2026 21:54:26 -0500
+Message-ID: <20261111025313.769639-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052516-failed-6.12-8ee09f597763@kernel.org>
-References: <20261107052516-failed-6.12-8ee09f597763@kernel.org>
+In-Reply-To: <20261107054109-failed-6.1-eacdb76c5f04@kernel.org>
+References: <20261107054109-failed-6.1-eacdb76c5f04@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,78 +63,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nikolaos Karaolidis <nick@karaolidis.com>
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-[ Upstream commit 8ee09f597763acfd31c62a578ba88b792fc41b24 ]
+[ Upstream commit eacdb76c5f04956035c5d7f7e1973028f30684a2 ]
 
-When inode_lru_isolate() drops the page cache of an unused inode, it
-has to unlock the list, so it returns LRU_RETRY and the walk restarts
-at the head of the list, where the inode still is. If
-invalidate_mapping_pages() could not empty the mapping, the restarted
-walk strips the same inode again, and so on until nr_to_walk runs out.
-Every walk of that list then ends on this inode, and nothing behind it
-is reclaimed for as long as its cache stays.
+Xen's map_guest_area() enforces that vcpu_info is aligned to
+sizeof(xen_ulong_t). KVM has no such check, allowing a guest to
+register vcpu_info at an arbitrary byte alignment.
 
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
-traversing context") the walker pinned the inode with a reference, and
-dropping it in iput_final() set I_REFERENCED, so the restarted walk
-rotated the inode to the tail. Set I_REFERENCED again when the mapping
-is still populated after the invalidation, in the same i_lock section
-that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
-i_lock to be held, like inode_pin_lru_isolating().
+Enforce unconditional 4-byte alignment regardless of the current
+shinfo mode. This is sufficient because subsequent commits ensure
+that all locked atomic operations on vcpu_info fields use at most
+32-bit accesses. Return -ENXIO on failure, matching Xen's
+map_guest_area() behaviour for unaligned requests.
 
-On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
-is left behind if it is locked, under writeback, spliced into a pipe,
-or still in another CPU's LRU-add batch after being read. Without
-HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
-mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
-never removes.
+Originally observed in review of an unrelated patch:
+https://lore.kernel.org/all/20260604193554.1BA311F00893@smtp.kernel.org/
 
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
-Link: https://patch.msgid.link/20261016102515.111285-1-nick@karaolidis.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: replaced inode_state_set(inode, I_REFERENCED) with inode->i_state |= I_REFERENCED ]
+Fixes: 73e69a86347a ("KVM: x86/xen: register vcpu info")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/all/20260604193554.1BA311F00893@smtp.kernel.org
+Assisted-by: Kiro:claude-opus-4.6-1m
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Link: https://patch.msgid.link/20260831213632.81023-7-dwmw2@infradead.org
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ sashal: Omitted the HVA alignment check because only GPA registration is supported. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/inode.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ arch/x86/kvm/xen.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index 7942673f686fd..50f0a5d756bdc 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -502,12 +502,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
- 
- static void inode_unpin_lru_isolating(struct inode *inode)
- {
--	spin_lock(&inode->i_lock);
-+	lockdep_assert_held(&inode->i_lock);
- 	WARN_ON(!(inode->i_state & I_LRU_ISOLATING));
- 	inode->i_state &= ~I_LRU_ISOLATING;
- 	/* Called with inode->i_lock which ensures memory ordering. */
- 	inode_wake_up_bit(inode, __I_LRU_ISOLATING);
--	spin_unlock(&inode->i_lock);
- }
- 
- static void inode_wait_for_lru_isolating(struct inode *inode)
-@@ -930,7 +929,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 				__count_vm_events(PGINODESTEAL, reap);
- 			mm_account_reclaimed_pages(reap);
+diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
+index baa0c6d180962..e2900e5b0bedb 100644
+--- a/arch/x86/kvm/xen.c
++++ b/arch/x86/kvm/xen.c
+@@ -569,6 +569,10 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 			break;
  		}
+ 
++		r = -ENXIO;
++		if (!IS_ALIGNED(data->u.gpa, sizeof(u32)))
++			break;
 +
-+		spin_lock(&inode->i_lock);
-+		/* The walk restarts here: don't retry leftovers right away */
-+		if (!mapping_empty(&inode->i_data))
-+			inode->i_state |= I_REFERENCED;
- 		inode_unpin_lru_isolating(inode);
-+		spin_unlock(&inode->i_lock);
- 		spin_lock(lru_lock);
- 		return LRU_RETRY;
- 	}
+ 		r = kvm_gpc_activate(vcpu->kvm,
+ 				     &vcpu->arch.xen.vcpu_info_cache, NULL,
+ 				     KVM_HOST_USES_PFN, data->u.gpa,
 -- 
 2.53.0
 
