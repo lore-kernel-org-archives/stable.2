@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794436464;
-	b=TIKUUZJBOfrbLpT3CrQrwja2K0yaGO9iq/QQW3fVXQddcn8YP50mTCzX3w+tMF/jRUyF
-	 79A7esUaVjzL2pNp/p+FFwhsAmmnhAo7NuLgp8Zr3vBdxNMJM6IkqIF2WWEGtZxcdo7aX
-	 eJEwFZIq/noIEGXGIp+3B8p5NiNgyZJZK8Gvv3BdvlzOmFr6Kcaqc/v4vz+1jZb5wIN5A
-	 2rmU5ZVj9RaqvWwgWmm8mnetNdW+jcugebKKflNLtdrEvDYJz+uxagXHZXrkBCJnWkuZe
-	 woXfQdanwyOaPqtXCBxhSmlxqiJlwNIoCDyXOYAtaA3r2R+2j9287GFTwt9EKLYWBuQ==
+	t=1794436581;
+	b=gGnxYDiozjTge5ormrS43FI8K31G2XUV1ztSij2BpptDV0H5VEMs5RZXxuetZLNPYWbm
+	 x5gNzvrbiQrFzo18oux9jY8RVg10aYRLghuHdnZ1pEEMOVnu32aD3McxzUJP4gXhDhro+
+	 n+l8BiTgvlvFAp5CywkAICm+DkXYTUvSgZkR+A0E3MKJfF/tDxw2zSCb5x/5WdjVCVjzj
+	 GsSP2B1W72pFEaybJXS02wnAElLKBiv95WsEM0SLVuZ6NHClqJ1/AIkbah4LhmIbrPIrJ
+	 zTocVVrLs+y2rPPtlxXTSuaMfa3MkxqPriUoFNibmlswnk7wfJhqR519Oq1bfYcIVdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794436464;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794436581;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0PLOJ1T1UUcan3WdqBcG3xeVavQIUhdqomxF9/HCNho=;
-	b=fG791kyRZrUreUq94NecZo3LkcUtu3q/K2tDgMkHsXILJLNP/lmvzS+612JW9wXeWKFN
-	 SrdRHq9sw0NpycZONmPufwFiR6g0OooqnC21bvRzf6XodfdaFBpwSiAZFfOOXz2yBmcUB
-	 9Sb/ChWO7ltNqaT/rZw18Gr3EbxSapUBr411x59doL1IA6MCjjQ08y7LAJrU/Vqa1Ul/V
-	 +IwrLtxAjD5p4AEHJbE8ZZrBCs7jZB9To3TKsgaIYjRQKJrGWLYCesng1nA3Cth4BYdnV
-	 4I7pxxPJjWcCa9fTeLHVCD03S9XnvdOIbtl90/drXGyBeysICMPM5LSFxAXTqLUvjpw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=W9GvVd8oVMfmBfgZySZsAO/lkmtnXqU0JtLavX5/VXg=;
+	b=lFyj/EFYRFSmnIfKrwJMbT0CzXtR1jLEXPJLvXiSTm7p2LUbg4W1CsXtPYRGNcNNHoVb
+	 a7zDBF+ZzXGmre5e7nlr42RV+sGUV/yNZ/7uWb/I3eASBt2t5OWJTtFB3/VhwJ1jtvsbY
+	 PBPGmIv2yQN400OQVJO/NAh4srE+VjgK70nZdvy12nmRk7wrqBsUOg3n+eJkNR19rzFTO
+	 9B02ZH2DSLPnwK6am17t08Lt6531RvNWjlO/5UxqjjWU6M03ujOO54t1ZoaZD+LzTVBmh
+	 0sIxWqSWARrd/suAm/R8Pk0Sri+AQNFwTx768VQ1jEw+bWuXpL8GXthIFvN/LWTaD9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HYpOUvCN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jtDM48to;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEF9606A888
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:34:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D49606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:36:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HYpOUvCN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2D91F00A09;
-	Wed, 11 Nov 2026 22:34:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jtDM48to
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152F31F00A06;
+	Wed, 11 Nov 2026 22:36:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794436464;
-	bh=0PLOJ1T1UUcan3WdqBcG3xeVavQIUhdqomxF9/HCNho=;
+	s=k20260515; t=1794436580;
+	bh=W9GvVd8oVMfmBfgZySZsAO/lkmtnXqU0JtLavX5/VXg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HYpOUvCNDgDvu+c2eXRudj36/jLkpiIu09sdJSZakhRHJojubYl3VQ0P9nQ3iMYuD
-	 AUne4qtDL0EyBm4ZrUHfZ+7Mq/pMKiEK6SFCIs5nIHV745HaL8NtFN2jG6S1WPGo3Z
-	 jXxbJqjnNn/3VxoJ+dRiFzi/W2WBwFI68byA9+nRsx97acAyYpadbeJfSRqHiHMa5w
-	 uAfZaALHGraT8Ll3MUqG5qgEgQvFrbjih2obDHWSoSWiItkFIO/vkqvHVRXZXs/xUy
-	 c65g7TGyLqV9Cj/eVE/jGH3xWWqdVWx6XyJ4dNBYRfW13dRwW/7xrFsm2SST8J9jqf
-	 cKYRjt/1GQRUw==
+	b=jtDM48toJr18BvyeTYGVy3zud3yMWa4crcPb8/+peOh1W5I3HZ5kPFv4HHDn9vf+w
+	 axsBjuqyHwuj25mRGEwVISAl1cegElGUSRwxTY0H//U74oXKVub2PSsR5312Pks8X6
+	 EHxnseCm9yKwmq1Yz3HUAUW/Uy0pgRNW+NSJPCLkD4/HG54R8hbGFNwc/vrfcdUzDQ
+	 X+AbaTjj+TN+p14Kntk82YsRBw4cClqGsE1rYqJMP7TqcVVqIlR1w8ny7qpFFXwf2s
+	 qeLNgXjCZpNQpEhYrnZA7ldQD4KnbCaRmoXTkzMrM4pL1dZqxE8AKGGcXhVYsRAg7o
+	 4FJ+bAY++ul4g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Linlin Yang <yanglinlin@kylinos.cn>,
-	Felix Fietkau <nbd@nbd.name>,
+Cc: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rong Zhang <i@rong.moe>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] wifi: mt76: mt7996: fix PCI device reference leak in mt7996_pci_init_hif2()
-Date: Wed, 11 Nov 2026 17:34:22 -0500
-Message-ID: <20261111223404.85004-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] ACPI: utils: Add exclusive AML evaluation helpers
+Date: Wed, 11 Nov 2026 17:36:17 -0500
+Message-ID: <20261111223612.68828-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053235-failed-6.6-d92bac6b6af2@kernel.org>
-References: <20261107053235-failed-6.6-d92bac6b6af2@kernel.org>
+In-Reply-To: <20261107052518-failed-6.12-f91c2cd6dbce@kernel.org>
+References: <20261107052518-failed-6.12-f91c2cd6dbce@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,56 +62,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Linlin Yang <yanglinlin@kylinos.cn>
+From: Ali Ahmet Memiş <aliamemis@disroot.org>
 
-[ Upstream commit d92bac6b6af2602516ee82ae112709c71af27cf6 ]
+[ Upstream commit 80892972ff23bf0b9049230ef0931b34163aaed3 ]
 
-pci_get_device() increments the reference count on the returned
-struct pci_dev. In mt7996_pci_init_hif2(), three pci_get_device()
-calls are made but their return values are only checked for NULL
-and then discarded. pci_dev_put() is never called, causing a PCI
-device reference count leak.
+ACPICA drops the interpreter lock while AML waits, for example around EC
+accesses, so two methods can run interleaved.
 
-Fix this by storing the return value and calling pci_dev_put()
-before returning, following the same pattern already used in the
-sibling driver mt7915/pci.c.
+Some firmware relies on methods not interleaving, for instance by
+switching an EC page selector without taking the AML mutex that the
+other users of that page hold.
 
-Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
-Link: https://patch.msgid.link/20260824092937.683240-1-yanglinlin@kylinos.cn
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-[ sashal: adapted PCI device lookups to use two numeric IDs instead of three named constants ]
+Add acpi_evaluate_object_exclusive(), acpi_evaluate_integer_exclusive()
+and acpi_execute_simple_method_exclusive() which serialize the
+evaluation under a global mutex, for callers that are known to be
+affected.
+
+Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
+Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com/
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+Reviewed-by: Rong Zhang <i@rong.moe>
+Link: https://patch.msgid.link/20261018122220.678822-2-aliamemis@disroot.org
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Stable-dep-of: f91c2cd6dbce ("platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt7996/pci.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/acpi/utils.c    | 41 +++++++++++++++++++++++++++++++++++++++++
+ include/acpi/acpi_bus.h |  7 +++++++
+ 2 files changed, 48 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/pci.c b/drivers/net/wireless/mediatek/mt76/mt7996/pci.c
-index 67c015896243f..ea832769336e3 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7996/pci.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7996/pci.c
-@@ -61,11 +61,16 @@ static void mt7996_put_hif2(struct mt7996_hif *hif)
+diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
+index 6de542d995189..219d3d23aee8a 100644
+--- a/drivers/acpi/utils.c
++++ b/drivers/acpi/utils.c
+@@ -10,6 +10,7 @@
  
- static struct mt7996_hif *mt7996_pci_init_hif2(struct pci_dev *pdev)
- {
-+	struct pci_dev *tmp_pdev;
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/slab.h>
+ #include <linux/init.h>
+ #include <linux/types.h>
+@@ -243,6 +244,28 @@ acpi_extract_package(union acpi_object *package,
+ 
+ EXPORT_SYMBOL(acpi_extract_package);
+ 
++static DEFINE_MUTEX(acpi_exclusive_eval_lock);
 +
- 	hif_idx++;
++/**
++ * acpi_evaluate_object_exclusive - Evaluate an object without interleaving
++ * @handle: ACPI handle of the object or its scope.
++ * @pathname: Path of the object relative to @handle.
++ * @arguments: Arguments to pass, or NULL.
++ * @buffer: Buffer for the return value, or NULL.
++ *
++ * Same as acpi_evaluate_object(), but serialized with other exclusive
++ * evaluations.  Use it only for methods known to break when interleaved.
++ */
++acpi_status acpi_evaluate_object_exclusive(acpi_handle handle, acpi_string pathname,
++					   struct acpi_object_list *arguments,
++					   struct acpi_buffer *buffer)
++{
++	guard(mutex)(&acpi_exclusive_eval_lock);
++
++	return acpi_evaluate_object(handle, pathname, arguments, buffer);
++}
++EXPORT_SYMBOL_GPL(acpi_evaluate_object_exclusive);
++
+ acpi_status
+ acpi_evaluate_integer(acpi_handle handle,
+ 		      acpi_string pathname,
+@@ -277,6 +300,16 @@ acpi_evaluate_integer(acpi_handle handle,
  
--	if (!pci_get_device(PCI_VENDOR_ID_MEDIATEK, 0x7991, NULL) &&
--	    !pci_get_device(PCI_VENDOR_ID_MEDIATEK, 0x799a, NULL))
-+	tmp_pdev = pci_get_device(PCI_VENDOR_ID_MEDIATEK, 0x7991, NULL);
-+	if (!tmp_pdev)
-+		tmp_pdev = pci_get_device(PCI_VENDOR_ID_MEDIATEK, 0x799a, NULL);
-+	if (!tmp_pdev)
- 		return NULL;
-+	pci_dev_put(tmp_pdev);
+ EXPORT_SYMBOL(acpi_evaluate_integer);
  
- 	writel(hif_idx | MT_PCIE_RECOG_ID_SEM,
- 	       pcim_iomap_table(pdev)[0] + MT_PCIE_RECOG_ID);
++acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle, acpi_string pathname,
++					    struct acpi_object_list *arguments,
++					    unsigned long long *data)
++{
++	guard(mutex)(&acpi_exclusive_eval_lock);
++
++	return acpi_evaluate_integer(handle, pathname, arguments, data);
++}
++EXPORT_SYMBOL_GPL(acpi_evaluate_integer_exclusive);
++
+ int acpi_get_local_u64_address(acpi_handle handle, u64 *addr)
+ {
+ 	acpi_status status;
+@@ -686,6 +719,14 @@ acpi_status acpi_execute_simple_method(acpi_handle handle, char *method,
+ }
+ EXPORT_SYMBOL(acpi_execute_simple_method);
+ 
++acpi_status acpi_execute_simple_method_exclusive(acpi_handle handle, char *method, u64 arg)
++{
++	guard(mutex)(&acpi_exclusive_eval_lock);
++
++	return acpi_execute_simple_method(handle, method, arg);
++}
++EXPORT_SYMBOL_GPL(acpi_execute_simple_method_exclusive);
++
+ /**
+  * acpi_evaluate_ej0: Evaluate _EJ0 method for hotplug operations
+  * @handle: ACPI device handle
+diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+index b8cf06904fa20..f46464d1430a2 100644
+--- a/include/acpi/acpi_bus.h
++++ b/include/acpi/acpi_bus.h
+@@ -30,6 +30,12 @@ acpi_status
+ acpi_evaluate_integer(acpi_handle handle,
+ 		      acpi_string pathname,
+ 		      struct acpi_object_list *arguments, unsigned long long *data);
++acpi_status acpi_evaluate_object_exclusive(acpi_handle handle, acpi_string pathname,
++					   struct acpi_object_list *arguments,
++					   struct acpi_buffer *buffer);
++acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle, acpi_string pathname,
++					    struct acpi_object_list *arguments,
++					    unsigned long long *data);
+ bool acpi_evaluate_reference(acpi_handle handle, acpi_string pathname,
+ 			     struct acpi_object_list *arguments,
+ 			     struct acpi_handle_list *list);
+@@ -49,6 +55,7 @@ acpi_get_physical_device_location(acpi_handle handle, struct acpi_pld_info **pld
+ bool acpi_has_method(acpi_handle handle, char *name);
+ acpi_status acpi_execute_simple_method(acpi_handle handle, char *method,
+ 				       u64 arg);
++acpi_status acpi_execute_simple_method_exclusive(acpi_handle handle, char *method, u64 arg);
+ acpi_status acpi_evaluate_ej0(acpi_handle handle);
+ acpi_status acpi_evaluate_lck(acpi_handle handle, int lock);
+ acpi_status acpi_evaluate_reg(acpi_handle handle, u8 space_id, u32 function);
 -- 
 2.53.0
 
