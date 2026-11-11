@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416868;
-	b=xA4qr9VKmfv7ULGkfpoQbz5qhCf+tRWE2ejarsB1byC3N0436DbMBckTOc4y02K35F15
-	 59LUEyUHfSB36h5V0X428/vtEvxKmnVIH7iNWO3MHn4CbbvZlSB8lYr7RyOM9GHmpM/A+
-	 qxkTfZDev1CSDBOJgqSGC1waAMrxcZf99imMHMq0GCIGdKtPpgDlgezZXXRRdCQSZeV8y
-	 l7Jmtoz+UJo/sntMd1FyJMTWb5W1TDG1kAez7CGFze2H//XBDbuZqeA9tIq9CMlapasDn
-	 LtIjPRlDW+aDzhSbiQ2WjYab2o2CDOYMkUuMYA8E9WVMfUuLXSVZgexBTZJyK+xFPJw==
+	t=1794416958;
+	b=IkKuhi4shAXsjVkGXA8WBcFraNOVEbPvAkYvRFV6KgA9A7xVz6Y8wQ+Mer3hGm7yUmRq
+	 a6DBFIlmtqI6AKktDlDIxPwNuiQPlE2hTC5cQ9k8E0ffY4gY3QSfV4Dt0TEnpWVxiQ21C
+	 kTXmmpg9dvM+3u7O8+04kV5zqenXDygN1INJbwr6TaGyU0Rt2b+872hIW0OFBUiUyNZx5
+	 7/pWJby//fqlA70c7bpf4tYfsVmVFli2SZvdFBQIDkOLP4GBhFgEw627KcgFaMq+kIRBd
+	 YdFHCF2lBCA2Oy3FemWIQ0q8CZZ9cYTtJzyYawgWmA0MCqTN6YLZe2Xn+cWSq27zpjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416868;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416958;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SkYCjPlJgjChGkaUGiOIodXlewqSkVNXvO6WIToyEvo=;
-	b=ujY3v0xBSx82mxhbxL+n8bnAk+KSTRFN+OY6b0b9gbIiVxuygXJK6LTquqg2brO0QZyd
-	 CUs0dIjxGW7DkSLrCRl28/ADilEAeI7jbfxL5uI6c/fZhSsrrUdFTY4qur3/SButrHjz+
-	 FknqwfcU/yj5irMR9xLAguT+4kwuav69q1cjRjdAyfJw9zJ+l3OhCFgIQWy4OWy7OYJCK
-	 /G8JRlSYWOLVEtFHnG7Z/aPmlEVDo32cMgq886L2vO+qjOY+wxyNIcp83U7Ty8QQmffKw
-	 AHYqQwVS2CzO2bHdC4aE6iVx0iKVJte4JHhgez63f6WLJUh3PrgXHs+Xy+ql6dpTyxw==
+	bh=urDA6C1JjTDAH2WHQRgpAUYLXru2Vn1kByj4L4mX4Rs=;
+	b=Ho6aUt4v7lKl/OKkJZTL4UqtVzBLydyDm52FOUAT1mN21gXflRbWTMsNdcr9lK6EPBlg
+	 eR9bpOZ88ARENcVnXpT6GfPVuuIdaOXXEIdnXfbG50YnW9kfFC9y7IxuUqF4cgK+7Mgis
+	 rbtnw36Yv467OOpYpm/0sVMS2Lw1Ac87Og4cFwJ03FTyYuvVWMHJQ5m+LMC5eO4l6wpKZ
+	 /FbI0AbDJ2Xpii9q5yRlTUYqqgoUnUz6jwujmIBe4sypUJucLsxF2W0TJeWpWBlBBf2YD
+	 lqPst/jSgBgAY13okcIrg9Ud7ZcXtqJxkxhTREq14KB35sQNQEgTBnmo58cZrGBP9kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BCacnUD/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4lHOxgH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297FA606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:07:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F0B606A32A
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:09:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BCacnUD/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37ABC1F00A06;
-	Wed, 11 Nov 2026 17:07:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4lHOxgH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6989B1F00A0B;
+	Wed, 11 Nov 2026 17:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416867;
-	bh=SkYCjPlJgjChGkaUGiOIodXlewqSkVNXvO6WIToyEvo=;
+	s=k20260515; t=1794416958;
+	bh=urDA6C1JjTDAH2WHQRgpAUYLXru2Vn1kByj4L4mX4Rs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BCacnUD/GhtvAS8YD1E92w3SMnVgUGOOf+CjbyMd+E/0BRyquIbc4KZKAz3SejHw4
-	 A2aVDU1RSqSjH5am5M89hA63s13lzzKeULQ/JUn2rPTmuCs1o/nKvGqDhLEEAfzUVs
-	 l+M6gnIiAIYlFrQEmLYhVSW1XY4x2gmY6/cNgv1Qi+xUhFtNR3F9b2JTJunDQjRfWb
-	 MKDChQKstnBuBlonlFNdjU9ung4Kx663M+XJHE4PfTvS3d+tyIe9X8xF0sxmG5dfpA
-	 l+w6LMSYs60rWti0lzKbE3nVIFBIYoaDeXTwMJCjhmMGG72p7VHU2yUhs1c1bQxxC9
-	 n7LfhBbEdMUFQ==
+	b=C4lHOxgH475ehW0g8TsXwdSD2n0p5NDjWA+THO82OYJu1rLXbt38XduTuzLLRtq35
+	 wOtEkDgCkK89bJgkWV84J1ZN39uvJiSj3dAY9km0blS4Wc2Jzo4k7JC5T4Yq6cCtTu
+	 QpLFZ4iGhAWJ4fyKuSImckQnK19vEn7c+yhafWBTTsV2/NHzRN6SoGYCh5XSHdPr3/
+	 ZMFy2VA+Yf3/aVfw7qSwDBIwY1k1/c+Q9c5mo/GJ8Vf10P7t1oLUjx8uuFln9F6xRr
+	 eBDq6PM9dWd4ksJ9wEJjoeKdyD6ASPNUHVkk5Nbkh4s2saRECBHddKEMe58pUzqT5C
+	 6Y5d/687tNLWw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Brian Geffon <bgeffon@google.com>,
+	Dmitry Safonov <0x7f454c46@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/huge_memory: split huge PUDs when adjusting VMA boundaries
-Date: Wed, 11 Nov 2026 12:07:46 -0500
-Message-ID: <20261111170708.3419248-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/mremap: correctly uncharge accountable VMAs in error path
+Date: Wed, 11 Nov 2026 12:09:16 -0500
+Message-ID: <20261111170857.3427359-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200928-failed-6.12-23e570927421@kernel.org>
-References: <20261109200928-failed-6.12-23e570927421@kernel.org>
+In-Reply-To: <20261107053909-failed-6.6-65e722a74df9@kernel.org>
+References: <20261107053909-failed-6.6-65e722a74df9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,135 +67,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit 23e570927421d569fdc510d5f3f29542a43eeda5 ]
+[ Upstream commit 65e722a74df992719676ead85a9e93fb2b5a0983 ]
 
-PFN mappings such as VFIO PCI BAR mappings can use PUD leaves while
-allowing VMA splits at page granularity. However, vma_adjust_trans_huge()
-only handles PMDs.
+The mremap error path is a fragile and unwieldy beast - it reverses the
+page table move then updates vma_remap_struct state to swap VMA, length and
+address between old and new VMAs in copy_vma_and_data().
 
-After faulting a writable PUD-sized VFIO BAR mapping, changing its first
-page to read-only with mprotect() makes the PMD walk treat the PUD leaf
-as a PMD table. Applying MADV_DONTFORK to the first PMD-sized chunk leaves
-the PUD spanning two VMAs: the PMD-aligned boundary skips splitting.
+If the mremap() operation didn't specify MREMAP_DONTUNMAP then its caller,
+move_vma(), invokes unmap_source_vma(), which unmaps the new VMA rather
+than the old one.
 
-Walk the page tables once at each adjusted boundary and split a huge
-PUD or PMD leaf as needed. Handle PUD leaves even when the boundary is
-PMD-aligned.
+For accountable VMAs when MREMAP_DONTUNMAP is not specified,
+unmap_source_vma() unsets VMA_ACCOUNT_BIT during this unmap in order that
+only the delta of a VMA expansion is charged (performed by
+vrm_calc_charge() earlier).
 
-Fixes: f9e54c3a2f5b7 ("vfio/pci: implement huge_fault support")
-Cc: stable@vger.kernel.org
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-43-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted huge-page splitting helpers to the older VMA and page-table interfaces ]
+Therefore nothing uncharges the expanded VMA size, and there is a permanent
+leak in global Committed_AS.
+
+Resolve the issue by uncharging when MREMAP_DONTUNMAP is not specified.
+
+Link: https://lore.kernel.org/20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org
+Fixes: fdbef6149135 ("mm/mremap: don't account pages in vma_to_resize()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Dmitry Safonov <0x7f454c46@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: Replaced vrm_uncharge() with a VM_ACCOUNT-guarded vm_unacct_memory(to_account >> PAGE_SHIFT) call in move_vma(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/huge_memory.c | 70 +++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 60 insertions(+), 10 deletions(-)
+ mm/mremap.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index d175e93988a92..ce4d17871ff43 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2988,16 +2988,66 @@ void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
- 	__split_huge_pmd(vma, pmd, address, freeze, folio);
- }
- 
--static inline void split_huge_pmd_if_needed(struct vm_area_struct *vma, unsigned long address)
-+static bool pud_split_required(struct vm_area_struct *vma,
-+		unsigned long address)
- {
-+	if (!IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
-+		return false;
-+	if (IS_ALIGNED(address, HPAGE_PUD_SIZE))
-+		return false;
- 	/*
--	 * If the new address isn't hpage aligned and it could previously
--	 * contain an hugepage: check if we need to split an huge pmd.
-+	 * Only selected VMAs support mapping PUDs for now. Lift the
-+	 * restriction once this changes.
- 	 */
--	if (!IS_ALIGNED(address, HPAGE_PMD_SIZE) &&
--	    range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
--			 ALIGN(address, HPAGE_PMD_SIZE)))
--		split_huge_pmd_address(vma, address, false, NULL);
-+	if (!vma_is_dax(vma) && !(vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP)))
-+		return false;
-+	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PUD_SIZE),
-+			    ALIGN(address, HPAGE_PUD_SIZE));
-+}
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 0739a31b54eed..26d3cb46f6ec1 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -715,6 +715,19 @@ static unsigned long move_vma(struct vm_area_struct *vma,
+ 		 */
+ 		move_page_tables(new_vma, new_addr, vma, old_addr, moved_len,
+ 				 true);
 +
-+static bool pmd_split_required(struct vm_area_struct *vma,
-+		unsigned long address)
-+{
-+	if (IS_ALIGNED(address, HPAGE_PMD_SIZE))
-+		return false;
++		/*
++		 * The new VMA will be unmapped rather than the old one.
++		 *
++		 * When an accountable move is being performed, this unmapping
++		 * will not uncharge any expansion, so do that now.
++		 *
++		 * A move is accountable if the VMA is accountable and
++		 * MREMAP_DONTUNMAP is not specified.
++		 */
++		if (vm_flags & VM_ACCOUNT && !(flags & MREMAP_DONTUNMAP))
++			vm_unacct_memory(to_account >> PAGE_SHIFT);
 +
-+	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
-+			    ALIGN(address, HPAGE_PMD_SIZE));
-+}
-+
-+static void split_huge_leaf(struct vm_area_struct *vma,
-+		unsigned long address)
-+{
-+	const bool split_pud = pud_split_required(vma, address);
-+	const bool split_pmd = pmd_split_required(vma, address);
-+	pgd_t *pgd;
-+	p4d_t *p4d;
-+	pud_t *pud;
-+	pmd_t *pmd;
-+
-+	/*
-+	 * mmap, VMA and rmap write locks protect the walk; the split helpers
-+	 * take the page table locks.
-+	 */
-+	if (!split_pud && !split_pmd)
-+		return;
-+
-+	pgd = pgd_offset(vma->vm_mm, address);
-+	if (!pgd_present(*pgd))
-+		return;
-+
-+	p4d = p4d_offset(pgd, address);
-+	if (!p4d_present(*p4d))
-+		return;
-+
-+	pud = pud_offset(p4d, address);
-+	if (pud_leaf(*pud))
-+		__split_huge_pud(vma, pud, address);
-+	if (!split_pmd || !pud_present(*pud))
-+		return;
-+
-+	pmd = pmd_offset(pud, address);
-+	__split_huge_pmd(vma, pmd, address, false, NULL);
- }
- 
- void vma_adjust_trans_huge(struct vm_area_struct *vma,
-@@ -3006,10 +3056,10 @@ void vma_adjust_trans_huge(struct vm_area_struct *vma,
- 			     long adjust_next)
- {
- 	/* Check if we need to split start first. */
--	split_huge_pmd_if_needed(vma, start);
-+	split_huge_leaf(vma, start);
- 
- 	/* Check if we need to split end next. */
--	split_huge_pmd_if_needed(vma, end);
-+	split_huge_leaf(vma, end);
- 
- 	/*
- 	 * If we're also updating the next vma vm_start,
-@@ -3019,7 +3069,7 @@ void vma_adjust_trans_huge(struct vm_area_struct *vma,
- 		struct vm_area_struct *next = find_vma(vma->vm_mm, vma->vm_end);
- 		unsigned long nstart = next->vm_start;
- 		nstart += adjust_next;
--		split_huge_pmd_if_needed(next, nstart);
-+		split_huge_leaf(next, nstart);
- 	}
- }
- 
+ 		vma = new_vma;
+ 		old_len = new_len;
+ 		old_addr = new_addr;
 -- 
 2.53.0
 
