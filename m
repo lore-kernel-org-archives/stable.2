@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794366139;
-	b=xJb+/iv9ujg2/V0FgLixawzMOHKmMrZgMmRZsD0ZBPEp60Sgs7qc5cTOnOFWaqaMY8d5
-	 KCxINEzaenW3p4KTwE/7pzVI5OaIp1Ck9P17aLjz2G5nK96wQcAVijfp8Zaselq/KuiKj
-	 +kUPQ0PZyclKgXU6pjN7nWBBy56vH2xWRP5ouGdymLmD9HNswHSNORBE7fEH+OHr32ltp
-	 vI5M9Wfy529oAXP4/xAtujs75okFIH9JfNzToIUZFMfIxEgOLf/UFzxovAsw401WX1+3E
-	 iBEguWYny8Ok9lP68QJJiaXatQrJbs1e+OB0bLz54q/9qQ0rRCkpf98MNEwD9g3No2Q==
+	t=1794366160;
+	b=un58S4/8NCRzaZzGJmeD3FpBLET/x/mPuFFJQmzhTDwgXvz1DcxUPWj7XWq2PYZfNUEk
+	 3gCQ2EWPqTFPwhcJwpttTkMU6KzCVbxyYWr96RZQnlnr1wwDXEMVSy5ZqYQX8tDzFtTp5
+	 NpyfODFjnt/siJKfjyKMWJgfRn8BfSTUKzb90wfN12BC0xPp5W33reyEuYWnvOd13KsPt
+	 9XnkpQ0u9nrD4F/2kJV+/Gob/9MKZ/N3J7OSbKBAx8SayyMDOaijeOm5eug4SUJ/PooPG
+	 qAFjpw9MZuUAwZ015U0i6f49eCBwW918SMzipDoo+SO40nq7YgQmKjus0i6sspTKvhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366139;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KQ5hKSkXjTEw8NyA3dDB+jLHVek2ETy4pxYZDW9Dn5c=;
-	b=JH979MaH60LauKm3p7N/wTiMQXIB+2mBZXprA5211D7JVTfMXrHbP2yQzp5dQFbykpfy
-	 xwxyvAbMl2gE/XkHv8D/nTdPEm81ZihoXNMl8JXf1OBx5S1VzorvLoJTwtgmBjH5tLR5f
-	 RSmHwFysJqbHFnzcTZkvj90oJThQOceTb2z+6eBkSPZsi7u+dQpC7yBHX4sd7FZoEBxr6
-	 J6ZN255v+IiZuZ9GYYvOw9GJpyVUf2wB75uSZw5fCqs7AbKzyJwuh7iPjWXSSVM3SBkGa
-	 B78T8YEBXmzUQG/25D9ZkxZB2e67jAJqB1DpeojJaLY64nFjWRcJgOwJ5HYEJmPovfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366160;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Nmc/mUK7ONDIvjLTU8VTlUzt2u5xxCcnMzQbQz8tZz8=;
+	b=vlR5SSqgKRosBDvOzRAE55Yun6Bk/UxgnQHeTSKGBFd0j3T+3F70whaqEMGXJS2Rkhfu
+	 /1UYa14wVQKiP3uCaNCrIMw2UWzZcXva8iam+fhtsoqxq0/XsTmtBayDdtn+uRsD1Eul6
+	 +2+G22vMCCGHXalnIlsLmy/aST1o6YaIVExDGTuvp8PoiuQurVb0xtkxTWWefEvuw3KfB
+	 RScvV81B9bpJvjj9Qmq6hFIv6Lzqs4UpiCcWSbtQHrG49WWoDxccdFySN8pGVPXMLYdvk
+	 ZrVlzd1NTJ4RY+qH7ka5HuHjmv3KljVobsWoZGvxzVQP1JenLmpMMu6CpffX+nTlo1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=fi7l2q1k;
-	arc=none smtp.remote-ip=115.124.28.100
-Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com [115.124.28.100])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXXtJRUY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C121F606A31C;
-	Wed, 11 Nov 2026 03:02:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C121F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E485606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:02:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=fi7l2q1k
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1794366128; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=KQ5hKSkXjTEw8NyA3dDB+jLHVek2ETy4pxYZDW9Dn5c=;
-	b=fi7l2q1k8jlVJtbdHxPLfcQ5y0LRan/bjZDyQza4bRHyZDvk0R6Qkp1a/lzkE/xIqENgbHFrRomJ+jH7grl/zIShNDXDauSd86Zw0VlPWA0pVtw8mm9SDThQW0WQ+SSshBiSTW7sgMUGbkdo+p8ousjdb/PC6wJXg4YUbX/TBoI=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04480233|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0194357-0.000237223-0.980327;FP=9691735388033927120|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083032240;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.k.Jtk90_1794366126;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k.Jtk90_1794366126 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 11 Nov 2026 11:02:07 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Yoshihiro Shimoda <shimoda.yoshihiro@renesas.com>,
-	Paul Mundt <lethal@linux-sh.org>,
-	Hongyan Xu <getshell@seu.edu.cn>,
-	Slavin Liu <220245772@seu.edu.cn>,
-	stable@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] usb: gadget: r8a66597: fix NULL dereference for unmapped endpoints
-Date: Wed, 11 Nov 2026 11:02:06 +0800
-Message-ID: <20261111030206.64608-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXXtJRUY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA041F0089F;
+	Wed, 11 Nov 2026 03:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794366160;
+	bh=Nmc/mUK7ONDIvjLTU8VTlUzt2u5xxCcnMzQbQz8tZz8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eXXtJRUYuQlp0Vu585Y3fNalEiGPnnmwU5DJEiihXKJ8sxj/dzFqDsOVYM77OUnkD
+	 D4CP1lr/PVH2eUPGxnJcSriPeAhSQnJ2iWRaQ2XQoWwaujzNR8KFijR2t2XPDSyZOW
+	 9LoODaLAH/YzF5WFUf77KT5lOHvZMHtlNlu7VxZyjTtv7COCOaVq+/W/wQIKvzR2E4
+	 tK+dsqR2d5K3Tcll23WVAiVGckROX0/a3L54IioMDMBTpR3NAelQRPQPyw7pfPYgz+
+	 Hgx4AwlHmdP6Fj4GY626zRNr5W62AwUO4iwpNHPYSEg/k9TTRjBmbXbml0u6x1LLsO
+	 KNh2NtYEf/t8w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shuvam Pandey <shuvampandey1@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Neel Natu <neelnatu@google.com>,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] lib/tests: extend cmdline KUnit with next_arg() tests
+Date: Tue, 10 Nov 2026 22:02:36 -0500
+Message-ID: <20261111030039.812757-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051330-failed-6.18-5d72266218b1@kernel.org>
+References: <20261107051330-failed-6.18-5d72266218b1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,69 +66,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The epaddr2ep[] table is initialized with EP0 at probe time and
-populated for other endpoints when the gadget driver successfully
-enables them.  Entries for endpoint numbers that have never been
-enabled remain NULL.  The table is indexed by endpoint number and the
-lookup mask is USB_ENDPOINT_NUMBER_MASK, so the access itself stays in
-bounds; what is missing is the check for the NULL entry.
+From: Shuvam Pandey <shuvampandey1@gmail.com>
 
-get_status(), clear_feature() and set_feature() index this table using
-the host-controlled wIndex and immediately dereference the result
-without checking it.  A malicious host can send a standard
-endpoint-recipient GET_STATUS, CLEAR_FEATURE or SET_FEATURE request for
-an unmapped endpoint number, triggering a NULL pointer dereference and
-crashing the kernel.
+[ Upstream commit dcc8a57815534e3844f342b28ecfb6e626a816a0 ]
 
-Check the looked-up endpoint before using it.  If the entry is NULL,
-stall the control pipe (pipe_stall(r8a66597, 0)) and abort the request,
-matching the existing handling of unsupported recipients.
+The cmdline KUnit suite covers get_option() and get_options(), but it
+does not exercise next_arg().
 
-Fixes: c41442474a26 ("usb: gadget: R8A66597 peripheral controller support.")
-Cc: stable@vger.kernel.org
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+Extend the suite with one test for a quoted value containing spaces and
+one regression test for a bare quote token after a normal parameter.
+
+The regression test covers the bare quote token path fixed by commit
+9847f21225c4 ("lib/cmdline: avoid page fault in next_arg").
+
+[shuvampandey1@gmail.com: extend cmdline next_arg() coverage with mixed tokens]
+  Link: https://lore.kernel.org/20260316211249.88601-1-shuvampandey1@gmail.com
+Link: https://lore.kernel.org/20260316101227.15807-1-shuvampandey1@gmail.com
+Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Neel Natu <neelnatu@google.com>
+Cc: Dmitry Antipov <dmantipov@yandex.ru>
+Cc: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Kees Cook <kees@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 5d72266218b1 ("lib/cmdline: fix get_options() count and overflow with large ranges")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/udc/r8a66597-udc.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ lib/tests/cmdline_kunit.c | 62 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/drivers/usb/gadget/udc/r8a66597-udc.c b/drivers/usb/gadget/udc/r8a66597-udc.c
-index d190e16d43fc..d769ea530409 100644
---- a/drivers/usb/gadget/udc/r8a66597-udc.c
-+++ b/drivers/usb/gadget/udc/r8a66597-udc.c
-@@ -1174,6 +1174,10 @@ __acquires(r8a66597->lock)
- 		break;
- 	case USB_RECIP_ENDPOINT:
- 		ep = r8a66597->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK];
-+		if (!ep) {
-+			pipe_stall(r8a66597, 0);
-+			return;		/* exit */
-+		}
- 		pid = control_reg_get_pid(r8a66597, ep->pipenum);
- 		if (pid == PID_STALL)
- 			status = 1 << USB_ENDPOINT_HALT;
-@@ -1210,6 +1214,10 @@ static void clear_feature(struct r8a66597 *r8a66597,
- 		u16 w_index = le16_to_cpu(ctrl->wIndex);
+diff --git a/lib/tests/cmdline_kunit.c b/lib/tests/cmdline_kunit.c
+index c1602f797637b..af44ae9e92c3e 100644
+--- a/lib/tests/cmdline_kunit.c
++++ b/lib/tests/cmdline_kunit.c
+@@ -139,11 +139,73 @@ static void cmdline_test_range(struct kunit *test)
+ 	} while (++i < ARRAY_SIZE(cmdline_test_range_strings));
+ }
  
- 		ep = r8a66597->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK];
-+		if (!ep) {
-+			pipe_stall(r8a66597, 0);
-+			break;
-+		}
- 		if (!ep->wedge) {
- 			pipe_stop(r8a66597, ep->pipenum);
- 			control_reg_sqclr(r8a66597, ep->pipenum);
-@@ -1270,6 +1278,10 @@ static void set_feature(struct r8a66597 *r8a66597, struct usb_ctrlrequest *ctrl)
- 		u16 w_index = le16_to_cpu(ctrl->wIndex);
++static void cmdline_test_next_arg_quoted_value(struct kunit *test)
++{
++	char in[] = "foo=\"bar baz\" qux=1";
++	char *next, *param, *val;
++
++	next = next_arg(in, &param, &val);
++	KUNIT_EXPECT_STREQ(test, param, "foo");
++	KUNIT_ASSERT_NOT_NULL(test, val);
++	KUNIT_EXPECT_STREQ(test, val, "bar baz");
++	KUNIT_EXPECT_STREQ(test, next, "qux=1");
++
++	next = next_arg(next, &param, &val);
++	KUNIT_EXPECT_STREQ(test, param, "qux");
++	KUNIT_ASSERT_NOT_NULL(test, val);
++	KUNIT_EXPECT_STREQ(test, val, "1");
++	KUNIT_EXPECT_STREQ(test, next, "");
++}
++
++static void cmdline_test_next_arg_bare_quote_regression(struct kunit *test)
++{
++	char in[] = "foo=bar \"";
++	char *next, *param, *val;
++
++	next = next_arg(in, &param, &val);
++	KUNIT_EXPECT_STREQ(test, param, "foo");
++	KUNIT_ASSERT_NOT_NULL(test, val);
++	KUNIT_EXPECT_STREQ(test, val, "bar");
++	KUNIT_EXPECT_STREQ(test, next, "\"");
++
++	/* This hits the i == 0 quoted-token case fixed by 9847f21225c4. */
++	next = next_arg(next, &param, &val);
++	KUNIT_EXPECT_STREQ(test, param, "");
++	KUNIT_EXPECT_PTR_EQ(test, val, NULL);
++	KUNIT_EXPECT_STREQ(test, next, "");
++}
++
++static void cmdline_test_next_arg_mixed_tokens(struct kunit *test)
++{
++	char in[] = "bbb= jjj kkk=\"a=b\"";
++	char *next, *param, *val;
++
++	next = next_arg(in, &param, &val);
++	KUNIT_EXPECT_STREQ(test, param, "bbb");
++	KUNIT_ASSERT_NOT_NULL(test, val);
++	KUNIT_EXPECT_STREQ(test, val, "");
++	KUNIT_EXPECT_STREQ(test, next, "jjj kkk=\"a=b\"");
++
++	next = next_arg(next, &param, &val);
++	KUNIT_EXPECT_STREQ(test, param, "jjj");
++	KUNIT_EXPECT_NULL(test, val);
++	KUNIT_EXPECT_STREQ(test, next, "kkk=\"a=b\"");
++
++	next = next_arg(next, &param, &val);
++	KUNIT_EXPECT_STREQ(test, param, "kkk");
++	KUNIT_ASSERT_NOT_NULL(test, val);
++	KUNIT_EXPECT_STREQ(test, val, "a=b");
++	KUNIT_EXPECT_STREQ(test, next, "");
++}
++
+ static struct kunit_case cmdline_test_cases[] = {
+ 	KUNIT_CASE(cmdline_test_noint),
+ 	KUNIT_CASE(cmdline_test_lead_int),
+ 	KUNIT_CASE(cmdline_test_tail_int),
+ 	KUNIT_CASE(cmdline_test_range),
++	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
++	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
++	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
+ 	{}
+ };
  
- 		ep = r8a66597->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK];
-+		if (!ep) {
-+			pipe_stall(r8a66597, 0);
-+			break;
-+		}
- 		pipe_stall(r8a66597, ep->pipenum);
- 
- 		control_end(r8a66597, 1);
 -- 
-2.50.1
+2.53.0
 
