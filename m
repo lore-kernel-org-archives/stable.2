@@ -1,60 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794434063;
-	b=efwrTfcUqe3RmRMmdU3u2emCROBghsW6QtUtqQ8ogGLQlwv4McpgNW9FcFYbH9zp6Zrj
-	 pJgZmIkTW7ku/GuSqdDibE9MJNvkEi2IUp2YuLrkBc1Xy/7XxrMD8ZyMAuG4lghrL0nHd
-	 oUmYo5ehp7z1SklS0FIiHa1Lymg4DgWH+1ICSOSPrcrnALnjf+97OOvm5afIJiSSE+3FX
-	 xCA+mro/olTSEBl04iKBVxAmLQRTapHYRINHQp4xuj65jqrbdwHHawtH/D/qLLE3BVVfu
-	 PGyViEB2FmLdZ2KBNDYAaDn1RxcBK+hp2XEBgYUtddv3zrEuPaDVLPw7knQCm8cazfA==
+	b=TmTAThXKPgx8at7xBlScyH5RAb9eJXjHiFSnQo1RO2szuyz2LT5Er3Pi76SzAUSOestI
+	 ygQR6q5eZoyA8GtwNegGsIuhxfDF/WgQRl7ZcNrR8uVNOrFAFYOD53rDOUrIQLVU5tpXU
+	 qJyRcn/t08/9ssX3vo/BfgA2KtS8TuXu8hN1Ne9qxtcI9n77BASUrsPL8ZjCbJqsJXFfT
+	 s3qoLv3YSNxPbnViJd/n8EwzXMStgufUTgHw4veu9qe6fPfAx5AMcRTeJ+Vga5LeADp0l
+	 qJX+Ym+oKemZIhX+CIAAJxnOMxM2mpgacHPf/6LA21EjOiDJy75Kp48XhOMxZ9iHqiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794434063;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ddmwTTE4OrnrhabR1xw8Jv7Wv16fLWDKLghb2wkDmiM=;
-	b=WKgdyVfWg9/DXz6YvlYgB/0is876ja2GS6v8FdGod7Sd3o6WQ0z5qIhAyrVpcZiUVVsh
-	 G2gvl2JIPa25/hDGD2J94YaFnFi4FH/ItHElqZoeTwMR76Ivy1ZXfyXZiHAsIDtl/ErLz
-	 bbKEF4h6VHI/e9QAFKUcbwszYCYOx5OFvWVHpbOkPpG+p0rRtemjuaVDR+tcNXbAROVX9
-	 2W/DKVIqKkNL+sHzU8xq6HJQKv43nhR8gSHMqRkXwV+U+z3Ti70+EMtCUrdd+M0P8glx3
-	 WnVvE9il+psIhF4jtAGyLxlQBCzJKan0FNUsFKEtNVdmLgZT1bartJR5jzzL1w14IQg==
+	bh=Q87Wl85GfFdAm5sI7YhIU296WIXHysjelEmZ6Jt78Zo=;
+	b=XEwRD+M5eDBj+ohSNiauvT9KTybOLHTydRH5dDWblhNZtqAL8kSlWtbs8u07bj7MpAyU
+	 iN2qSgJPyi+LE3+XVsWz1G6QpHkdjoGRncEHiFXlfBGc+m6QldNL4yXSkozw4QiwHf4PN
+	 0pvIbFgKE9ljerW9zmXeTScPnDDc2/l/egih1WSIra/rTLo8ndrJxFaALBKWFir0NqdPk
+	 Qmdnf9ipEQ7fFJsRcZUgQdqpxIwd7bQGRTsObbMu9nlpleKpmQmFkcDXk7YPcaNDA9sxI
+	 C1Do1buKTZwbK2S/206R1Bsf96LPIjSw3RQA/bAtwFNcvw5dV0tWqwzO+UVlDWNuaoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTlG7oHo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aAbDfQab;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F78B606A332;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8771560A3801;
 	Wed, 11 Nov 2026 21:54:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTlG7oHo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA87E1F00ACC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aAbDfQab
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0E41F00A13;
 	Wed, 11 Nov 2026 21:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794434063;
-	bh=ddmwTTE4OrnrhabR1xw8Jv7Wv16fLWDKLghb2wkDmiM=;
+	bh=Q87Wl85GfFdAm5sI7YhIU296WIXHysjelEmZ6Jt78Zo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YTlG7oHoXHKdOz+rtjvkx5K6EqiBq6f+zu8H6ytM0ieezyYwzEg504QkpCWzigi1+
-	 dT2vl+rMbGEMWIMAO+LcOSxfra4Bemf1L8LpeIfX3NBnLAJm4DtdJKgd+8SLqBFNcW
-	 JjSE16zMoYqlv/KU9XN3GNaEv+z4DCnBlB2LxfIcrIPYjXC9zndvpJdXZYB+UqTWX+
-	 MMnqn/pqWR1s+/cUkDqQgUtegR93i0CUg+HzQ/+13cML8RO0/H6+AgFI36KOSdLddC
-	 0RLpgQiSwzGTwiY0eWuXO5T3MJF9gvBHcGWp2XGOgoZBvpnPjjSQa7/xXIGfuwqN/5
-	 wxpbV/ge17hKA==
+	b=aAbDfQabkJCWMoI446YjnWaSVHAkThh4Xya03u901cDNc41eR145Skd0CaRzYQoGh
+	 ZAEREymwRaHATtz1OkSCi0sAfMPKSvBPo6KVVyXbpEXXEdTwIbIqER6BbSYCTxGhEr
+	 zwrhld9wfi1mxQ3vPy5p1eDcU9djnbtcENyu0wxamYC06UC2ptFtcI36AIbksl6X3q
+	 s8PzmrvmwsMdJpr3VC22vFwfvitB9FeM2E7ZSZUNUjXuGgZdC9+Nq8qo+NX0m/tzsB
+	 KBO7SOc5HLRBABrmR2agjY6BmWU5ATM1oNI+1YRf9gD/pwcwG1nb10vslRQrKO5/IH
+	 i79eIEZjyZtjw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Sanjay R Mehta <sanju.mehta@amd.com>,
-	Gary R Hook <gary.hook@amd.com>,
-	dmaengine@vger.kernel.org,
+	James Tai <james.tai@realtek.com>,
+	Yu-Chun Lin <eleanor.lin@realtek.com>,
+	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Tzuyi Chang <tychang@realtek.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 03/10] dmaengine: ptdma: Unmap descriptor in pt_do_cleanup()
-Date: Wed, 11 Nov 2026 21:52:41 +0000
-Message-ID: <20261111215349.1983909-4-lee@kernel.org>
+Subject: [PATCH 10/10] pinctrl: realtek: rtd1625: Set dcycle_offset to NA for pins without duty-cycle support
+Date: Wed, 11 Nov 2026 21:51:55 +0000
+Message-ID: <20261111215256.1982044-11-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261111215349.1983909-1-lee@kernel.org>
-References: <20261111215349.1983909-1-lee@kernel.org>
+In-Reply-To: <20261111215256.1982044-1-lee@kernel.org>
+References: <20261111215256.1982044-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,34 +68,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When descriptors are freed on abort via vchan_dma_desc_free_list(),
-pt_do_cleanup() frees the descriptor without calling
-dma_descriptor_unmap(), leaking any attached dmaengine_unmap_data and
-DMA mappings.
+In rtd1625_main2_sconfigs[], pins gpio_86 through gpio_91 do not support
+clock duty-cycle adjustment (dcycle_maskbits is 0), but specify 0
+instead of NA for dcycle_offset.  Because rtd_pconf_parse_conf() tests
+sconfig_desc->dcycle_offset == NA to determine whether duty-cycle
+configuration is supported, an offset of 0 causes it to compute
+GENMASK(0 - 1, 0) and corrupt the pad control register.
 
-Call dma_descriptor_unmap(&vd->tx) in pt_do_cleanup() before freeing the
-descriptor.
+Set dcycle_offset to NA for gpio_86 through gpio_91.
 
-Fixes: b0b4a6b10577 ("dmaengine: ptdma: register PTDMA controller as a DMA resource")
-Closes: https://sashiko.dev/#/bug/linux-58b8113b-167a-4398-9be2-c2f3cbf73358
+Fixes: e309dbd523b8 ("pinctrl: realtek: add rtd1625 pinctrl driver")
+Closes: https://sashiko.dev/#/bug/linux-8a8f690f-15e7-4dbd-a3a2-87bc00edf7b9
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/dma/amd/ptdma/ptdma-dmaengine.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/pinctrl/realtek/pinctrl-rtd1625.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/dma/amd/ptdma/ptdma-dmaengine.c b/drivers/dma/amd/ptdma/ptdma-dmaengine.c
-index 22e7b3ae26a1..405d3d3b7f8a 100644
---- a/drivers/dma/amd/ptdma/ptdma-dmaengine.c
-+++ b/drivers/dma/amd/ptdma/ptdma-dmaengine.c
-@@ -91,6 +91,7 @@ static void pt_do_cleanup(struct virt_dma_desc *vd)
- 	struct pt_dma_desc *desc = to_pt_desc(vd);
- 	struct pt_device *pt = desc->pt;
- 
-+	dma_descriptor_unmap(&vd->tx);
- 	kmem_cache_free(pt->dma_desc_cache, desc);
- }
- 
+diff --git a/drivers/pinctrl/realtek/pinctrl-rtd1625.c b/drivers/pinctrl/realtek/pinctrl-rtd1625.c
+index 88f2be37f743..f6e038e4bbdd 100644
+--- a/drivers/pinctrl/realtek/pinctrl-rtd1625.c
++++ b/drivers/pinctrl/realtek/pinctrl-rtd1625.c
+@@ -2993,12 +2993,12 @@ static const struct rtd_pin_sconfig_desc rtd1625_main2_sconfigs[] = {
+ 	RTK_PIN_SCONFIG(gpio_65, 0x34, 16, 3, 19, 3, 22, 3),
+ 	RTK_PIN_SCONFIG(gpio_66, 0x38, 3, 3, 6, 3, 9, 3),
+ 	RTK_PIN_SCONFIG(gpio_67, 0x38, 16, 3, 19, 3, 22, 3),
+-	RTK_PIN_SCONFIG(gpio_86, 0x3c, 0, 0, 14, 4, 18, 4),
+-	RTK_PIN_SCONFIG(gpio_87, 0x3c, 0, 0, 24, 4, 28, 4),
+-	RTK_PIN_SCONFIG(gpio_88, 0x40, 0, 0, 2, 4, 6, 4),
+-	RTK_PIN_SCONFIG(gpio_89, 0x40, 0, 0, 12, 4, 16, 4),
+-	RTK_PIN_SCONFIG(gpio_90, 0x40, 0, 0, 22, 4, 26, 4),
+-	RTK_PIN_SCONFIG(gpio_91, 0x44, 0, 0, 2, 4, 6, 4),
++	RTK_PIN_SCONFIG(gpio_86, 0x3c, NA, 0, 14, 4, 18, 4),
++	RTK_PIN_SCONFIG(gpio_87, 0x3c, NA, 0, 24, 4, 28, 4),
++	RTK_PIN_SCONFIG(gpio_88, 0x40, NA, 0, 2, 4, 6, 4),
++	RTK_PIN_SCONFIG(gpio_89, 0x40, NA, 0, 12, 4, 16, 4),
++	RTK_PIN_SCONFIG(gpio_90, 0x40, NA, 0, 22, 4, 26, 4),
++	RTK_PIN_SCONFIG(gpio_91, 0x44, NA, 0, 2, 4, 6, 4),
+ 	RTK_PIN_SCONFIG(hif_clk, 0x44, 13, 3, 16, 3, 19, 3),
+ 	RTK_PIN_SCONFIG(hif_data, 0x48, 3, 3, 6, 3, 9, 3),
+ 	RTK_PIN_SCONFIG(hif_en, 0x48, 16, 3, 19, 3, 22, 3),
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
