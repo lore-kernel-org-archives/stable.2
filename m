@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363096;
-	b=yy2BdA5UPBYqD+UP9XQcM29UjbRXKDn5J5qW0oAD/dK6A9n9x77kmFBQk/SGYnq0h7Li
-	 Z60weruwty7syu2aKPVcX0dAqRsUzmou4BgZDhVsKjpbv+bvZQ3cFx4ZGv0tIElPhg+um
-	 loPgw2Z6fG8lrM84koGEdPatOiyQ+vGZVpMRBasDdC3Q0/Sb0JAxUDYdp+4gPcINxoiwo
-	 8BqU5Ul4UtNe6V/zhIjTUvu7rEaSIkGd3KusjO+6kaRTIfdgxU8kxaww3VOh12xGT8Gnu
-	 D2U55KmTTr2S++dqyTHuZMzV2/O4UynzTlVnIyISndR5+5fDSJ4OmJ9OlS8hFg4M2Tw==
+	t=1794363114;
+	b=IIODRWY2RnJEry+JDRXk9LmMARubFVIwDJtzWQi8vg5+wi/Kusi5zL7Ck/rZ90xtKu+q
+	 LcVQ5K848zHxLneMaLZ4/Zt/KsD3/nnxjQhACnMAa1kjwOhjapV+iRXmtbgUoyNg2c0C1
+	 pKLBzS/RRK9+lZeJzjUvtGhN/XWjkn88td7Ctdih1BQNhAhwxhdBcJMcEE0soJpjxPri9
+	 rDNVOJV7VgRFBoXpT/QA4/BzCF35BkfKxEY+b6fyc74pOxjP1GnW9vfoPz9x4SmGquT6v
+	 rtCIa5yJLZACAHtsHYGVPfwvcS65Xw9W87TiqX27+AF4gsrHyLorktVwaywmrv5IxQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363096;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363114;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wjXgaQfss6+W9H2TgmngKVjySiAYC9wO1OgdTX+jKeE=;
-	b=QOFVxkW90DP/067hns57Gd62CNENe4b+LcUaUiZKyXkv/7HmsWqDq7U1P6PYa9OtzMD2
-	 Atn5AZtU2kwL36HVtS3mYrlWBNPRgNM7M+AjQSQyJXX5bb1i9bTMLJ+G3nHyBmMUXF45a
-	 oli9tl4Fdh4nlJKEH578Xi43LSmQxumKb440yg3DT9NomAGlmP0vEWBp1w2Gs1ZKWTX+j
-	 SxZodjxYkGlovyWj3fnRXVd5aPN54O6L055ccrsTZOlJJt/1UP1ivR9O79ghyPnEfy8eT
-	 TsqjMXOXKUzIYy/bvRHC8crk1Un5CbNuyZnn7e8fculdwufa4pSgMPm9879HfZQGodA==
+	bh=0AHgMxwdv0/JBdUcM1BBydQlJ3svTdzPq3h3gokgaas=;
+	b=NB0ifkHvzDMMaLcG8JDA5PWz5VJRDrSmnsNmsOumFo6H3blR4ib2ob5Q+nDTi898xpfY
+	 uUs0SD9hLNNDJN9woMKbXQQHu4DpMPzELfqdnYukcUg75UkH7KlI0VM9Q6hV6e2zkc5hq
+	 G8r0Fl3o+LPbzUAlmy7YwX3fq3njd+BSjlgq8duIEmjnl2+TesK+4OQ5Y9nfQFUnoVgOe
+	 rYqGGjrOmwFANsjzXGFhcDBLmiuI+2j4RQxZb3XZs00piK7CtGTw9hpOOLvi/a9vhD+0A
+	 G6Nb+ycwUpdNkHzLO0Z+iZLhm91u/snZPfq8gaIUBYGePysm0pAT3vEkVtBLXimQR2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGF6kCQK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mILjOVHV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAFB606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:11:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831A7606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:11:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGF6kCQK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970CD1F0089F;
-	Wed, 11 Nov 2026 02:11:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mILjOVHV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8618A1F0093C;
+	Wed, 11 Nov 2026 02:11:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363096;
-	bh=wjXgaQfss6+W9H2TgmngKVjySiAYC9wO1OgdTX+jKeE=;
+	s=k20260515; t=1794363114;
+	bh=0AHgMxwdv0/JBdUcM1BBydQlJ3svTdzPq3h3gokgaas=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WGF6kCQKOnx1RCDsP133+NCeoa1RgKP+t3QWOhaQPna6f1J1OqJk3atO3rL2SrQi3
-	 ip2Dd7kGllm8aHnRCR3j5jdanBfCVeUr3i8W4RRmdT1vitEPAQKSrsAnlDNSV9aCkV
-	 rUFwXE+CRCM1TgSY+9wSw7wyUCv6Yw97MToo7Bl2CjrH4Y5pHdznO298Nhps/1Vrax
-	 GIKruZMLNr69kB6Z5m4P5ANSXL1GUiPBao3arM/44XYiPDfl2Ov6HAI5cIlDJqvOG9
-	 QEfoT9BEr1wH1m9riEHgPZ4rsSwJfIcP2VpjNVeDawSQmwWL/KbHyQ7tOO06HeLYwe
-	 A33k1W801ATjw==
+	b=mILjOVHVymndNSNfh5al/8zBPEgHxzn3RcL9UcYK79NBtBmhTpS+GScfH59MWIYvW
+	 84BzF/w1SujmYjjWbqzS0pcf2C4lGIPGEvFbtsxo3n8BRxoRtS3r3JDJHgAN45CwnV
+	 cvA7/+a8PbGBR3Th6ucrVAF1fTr6U8wJ96tqzP63lFgu5u9QXqSCYazp0PftxK9sx/
+	 iHBL042lT5qBGQqylSd7p0AUEbAOzf/UCeP8cID/oBEozr1PsHlra9+V/XpG0sNHtR
+	 MWJI3HjgbSHQ+hFIHIEPlb6fUZh2xbdg1dTl++zjUJs6AfJhXw429F1RFynXuxs7JG
+	 DdPZHdwioTr/w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Armin Wolf <W_Armin@gmx.de>,
-	Grant Slater <github@firefishy.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: John Johansen <john.johansen@canonical.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] hwmon: (acpi_power_meter) Fix 18.45 TW bug
-Date: Tue, 10 Nov 2026 21:11:34 -0500
-Message-ID: <20261111021114.582623-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] apparmor: fix refcount leak in aa_get_newest_profile()
+Date: Tue, 10 Nov 2026 21:11:52 -0500
+Message-ID: <20261111021132.584038-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060830-failed-5.15-0b6eda22f9ab@kernel.org>
-References: <20261107060830-failed-5.15-0b6eda22f9ab@kernel.org>
+In-Reply-To: <20261107063050-failed-5.10-33ed50716251@kernel.org>
+References: <20261107063050-failed-5.10-33ed50716251@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,68 +61,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Armin Wolf <W_Armin@gmx.de>
+From: John Johansen <john.johansen@canonical.com>
 
-[ Upstream commit 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e ]
+[ Upstream commit 33ed50716251d5b2875706c40d0c8082d46be0b1 ]
 
-The ACPI specification says:
+The labels_profile() macro is evaluating its argument twice
 
-"If an error occurs while obtaining the meter reading or if the value
-is not available then an Integer with all bits set is returned"
+  #define labels_profile(X) ((X)->vec[(X)->size - 1])
 
-This integer can also be 64-bit wide on ACPI 2.0 and later systems,
-so we have to check for that too.
+unfortunately aa_get_newest_profile() passes
+   aa_get_newest_label(&p->label)
+so every call to aa_get_newest_profile results in 2 refcounts
+being taken with one being leaked.
 
-Compile-tested only.
+There is no need for labels_profile() to be a macro. Convert it to
+an inline fn, which ensures all uses are passing the correct struct
+and removes the double evaluation.
 
-Reported-by: Grant Slater <github@firefishy.com>
-Closes: https://github.com/lm-sensors/lm-sensors/issues/460
-Fixes: 1fefca6c57fb ("hwmon: (acpi_power_meter) Fix 4.29 MW bug")
+Fixes: 637f688dc3dc ("apparmor: switch from profiles to using labels on contexts")
 Cc: stable@vger.kernel.org
-Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-Link: https://patch.msgid.link/20261006234618.10943-1-W_Armin@gmx.de
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adapted the unknown-power check from power_meter_read() to show_power() using resource->power instead of res->power ]
+Reported-by: Georgia Garcia <georgia.garcia@canonical.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+[ sashal: adjusted context around labels_profile() for differences in surrounding macros and declarations ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/acpi_power_meter.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ security/apparmor/include/label.h | 6 +++++-
+ security/apparmor/label.c         | 1 -
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
-index 1336f77106177..874de8b82adc0 100644
---- a/drivers/hwmon/acpi_power_meter.c
-+++ b/drivers/hwmon/acpi_power_meter.c
-@@ -10,6 +10,7 @@
- #include <linux/hwmon.h>
- #include <linux/hwmon-sysfs.h>
- #include <linux/jiffies.h>
-+#include <linux/limits.h>
- #include <linux/mutex.h>
- #include <linux/dmi.h>
- #include <linux/slab.h>
-@@ -31,7 +32,12 @@
- #define POWER_METER_CAN_NOTIFY	(1 << 3)
- #define POWER_METER_IS_BATTERY	(1 << 8)
- #define UNKNOWN_HYSTERESIS	0xFFFFFFFF
--#define UNKNOWN_POWER		0xFFFFFFFF
-+/*
-+ * ACPI integers can either be 32-bit or 64-bit wide, so
-+ * we have to check for both values.
-+ */
-+#define UNKNOWN_POWER_32	U32_MAX
-+#define UNKNOWN_POWER_64	U64_MAX
+diff --git a/security/apparmor/include/label.h b/security/apparmor/include/label.h
+index a987bd117d88d..e7e0f3e0435fc 100644
+--- a/security/apparmor/include/label.h
++++ b/security/apparmor/include/label.h
+@@ -148,7 +148,11 @@ do {							\
+ #define __label_make_stale(X) ((X)->flags |= FLAG_STALE)
+ #define labels_ns(X) (vec_ns(&((X)->vec[0]), (X)->size))
+ #define labels_set(X) (&labels_ns(X)->labels)
+-#define labels_profile(X) ((X)->vec[(X)->size - 1])
++
++static inline struct aa_profile *labels_profile(const struct aa_label *label)
++{
++	return label->vec[label->size - 1];
++}
  
- #define METER_NOTIFY_CONFIG	0x80
- #define METER_NOTIFY_TRIP	0x81
-@@ -349,7 +355,7 @@ static ssize_t show_power(struct device *dev,
- 	update_meter(resource);
- 	mutex_unlock(&resource->lock);
  
--	if (resource->power == UNKNOWN_POWER)
-+	if (resource->power == UNKNOWN_POWER_32 || resource->power == UNKNOWN_POWER_64)
- 		return -ENODATA;
- 
- 	return sprintf(buf, "%llu\n", resource->power * 1000);
+ int aa_label_next_confined(struct aa_label *l, int i);
+diff --git a/security/apparmor/label.c b/security/apparmor/label.c
+index c675a11d8a551..f14802e2c2264 100644
+--- a/security/apparmor/label.c
++++ b/security/apparmor/label.c
+@@ -377,7 +377,6 @@ void aa_label_kref(struct kref *kref)
+ 		label_free_switch(label);
+ 		return;
+ 	}
+-	/* TODO: update labels_profile macro so it works here */
+ 	AA_BUG(label_isprofile(label) &&
+ 	       on_list_rcu(&label->vec[0]->base.profiles));
+ 	AA_BUG(label_isprofile(label) &&
 -- 
 2.53.0
 
