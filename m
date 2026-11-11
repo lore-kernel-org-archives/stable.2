@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794365269;
-	b=vAK/oI0PPMRzkwEiC4UOzoyn0NPj1HY4/qDh5dNgKmABL13GCX4T0uouje0vBoVT3q3G
-	 A9oxGQDxIYIrtiCkWQqkFL9buu5bHJp7nvM7wgTU+OJShtVVZTNrrRAnfDc6hZIKNVrAG
-	 +b69qzu7h2q5CszU3OxTQ5bV3yjzlhciqF/GCHLBbpVSupLXwdGLJGUX456CNuXCr0/1t
-	 xQhQCTzj5R+lke+GkuT2BxbDkr3foNIeoORoVrpLUl2+UayJ5GlkQSpu9YKbCuHtplo9f
-	 HUOhdB5FjYpwCgzd4kgKgQEM34GKl8AFer20VKmmEp4ZQ50b7FoNiTGn98UNVuQNVHQ==
+	t=1794365495;
+	b=LuBaQWKTYE74LjcIKNzvIMzW6WM8VRCK8t9YCbMC5bMQ5vf+I4BR+ZEso6GhYwsdPTZJ
+	 gjO6ah+LeKtJEPzc7hMSLlGSlRV5VLGa/AFi62sgi7ipCZayxAjiwbxkBviO5E08X5joW
+	 Uy1sDsQWYQh2poyPRevFYPOGzhbPuecTpztLVFQBEhlWE8ECqIpoIfYTv7SQWTqwQeVcF
+	 0AkCdsMvZohKg230MuZccUrUJnW0QE8ZieoLTtxeg9P/OSqjt05PyweEFXJu7Dx3N6i5z
+	 dMK+VJ3dRur4tRqtF0QJU3OVSf2pAMKeoeP0poUDWAxKV0geOSM72EBkD1oZPtMd8hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794365269;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794365495;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5o8kdg2y2/IjDiTiz7lNgaMG2zkQsxuHSznzYDd73Q8=;
-	b=GD3XG36MTQToa3/64jXbW72Sg0qSgB71QOR2lZoqQSO+xIZX/B/6jsyJE1A9n+v7tbVc
-	 NxT2mbYMOULT2qDNJb5+utoIIz7vnaRKBHme/Lik3Pk3HAb4xns0LWhMbrf7JHgazcF72
-	 N/9IHQLRFwTXrWKBuY2gh4gyvNTjgqUWnUb0PJeWUQDUZMcAPlV7legfLim8rcRyq1ot/
-	 5hl0nvVNrIOwKx53dVB9/Ntv7rd1PErJ3iRxjWK9dIXmk2P09MxJejs0xWW5nVkAbAB+Q
-	 b+el1G688TlGPj17rpfUc/dzEOGbS9+ymj+TkT5dN4fDjLp+xr5l8cwZSr4T9Uw/j/Q==
+	bh=UOv/eMWTxgpvmKKFgN9FiWvMmb2hYk65tinDXmfKE60=;
+	b=D6nJn413vquwymE6CzM/eF1jla0hdfpiKE2XCxD1dbMhU2n8SW+a/hEP7I79xe2n6ukV
+	 7RDvUbtSH3VR1tzkBiIMi0+gU9tnbZRszWPFG9mEUn9N17rc+/X+TM0h9HQy8CiliKdV3
+	 Ojo25/KVgDJ8fOjqYdAQIlujfuOtFMz8H28hGTG6BsYuQwHzXyCCNLjpqfUEofxKf+oIN
+	 aUb19qAITLxpLLzgltAMYSxwahrlI6iynhUXw9+nx8duq8l0MH2GMtE3Ft4GZxNiiAfAn
+	 UtQcWFQkzv+xZMmQDaJeLJnKDik7XS5kyP10xfLggdtR54T2s9Fm8BcOnhmuyRgHo4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h6qcoz/l";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSyGhHXJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E49606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:47:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAD3606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:51:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6qcoz/l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991531F0089F;
-	Wed, 11 Nov 2026 02:47:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSyGhHXJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33A91F0089F;
+	Wed, 11 Nov 2026 02:51:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794365269;
-	bh=5o8kdg2y2/IjDiTiz7lNgaMG2zkQsxuHSznzYDd73Q8=;
+	s=k20260515; t=1794365495;
+	bh=UOv/eMWTxgpvmKKFgN9FiWvMmb2hYk65tinDXmfKE60=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h6qcoz/lb8BHjUTzvfF4O9vLpGpHSqjrPVUfbGajNUEqrnX7kXU8B+/jDnWgo1Kam
-	 SWY0DfK3AuOUxRbSeoBWnJLN2E41cRd+g3EiDt9kJ8lQ70uNtRSfnVvUl1IyN/37Z5
-	 1Edkn6IWA5vfRBYnVhTkpBuRY5hY7hF8renlWFbLxBVbyhtN24o/yy0lS9VnqZQ3EM
-	 IMQNWyOmFft8Fckys509ZeQPSjb7GYHeOCnrklFkp8qlu4xlhqXPo47kkK+JGTfzPm
-	 eqakNXVLak59BXiHSsstyJIw0Jxzm43rbG/7YlsHOkMoxhJRvpgPHI/82sSDuq0bHd
-	 CVZ0F7dviTcDQ==
+	b=bSyGhHXJet3Vtn1Ejyvnd99D13VZk6qDiyj3gRdJbnHHCuB2SMNFx8v5SGZuCHMWx
+	 VXLAQLXyWN2MVu/8lwQa+6MXOy6Q4SnRtWr8zb7vrcokkiNf4498oRKrNCzfwo9CoR
+	 oqXpXA0PmNNHRTmkauIIJMRJYbxaBdv/AcWqmSyYQJlm1QxlDSYWR8G0NUViRBB6QB
+	 XrwmtyJiSQeVidK3bT5GhbnogtDuPRmkBXDvChTrj6Yojg0Bn6/wiWCtdlCtxc3aRO
+	 D502eDg6E6pp+1MpedxaIc5NKvsK9Q9D8Azr52KeC1AbTWebXa0wTQCgGizcJEtlRK
+	 EsoD2N2UQ73dQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: Daniel Phillips <daniel.phillips@amd.com>,
+	Felix Kuehling <Felix.Kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] power: supply: bq27xxx: Ensure poll work is cancelled on remove
-Date: Tue, 10 Nov 2026 21:47:47 -0500
-Message-ID: <20261111024632.770463-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] amdkfd: Fix memory availability double accounting of kfd pinned objects
+Date: Tue, 10 Nov 2026 21:51:33 -0500
+Message-ID: <20261111025055.736799-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055820-failed-5.15-db560f4b1c52@kernel.org>
-References: <20261107055820-failed-5.15-db560f4b1c52@kernel.org>
+In-Reply-To: <20261107052458-failed-6.12-16df12d7158f@kernel.org>
+References: <20261107052458-failed-6.12-16df12d7158f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,87 +62,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Daniel Phillips <daniel.phillips@amd.com>
 
-[ Upstream commit db560f4b1c5253853f978385db066220e0c218dc ]
+[ Upstream commit 16df12d7158fb55f20d6e985abd1996cbabab9f8 ]
 
-The di->work poll work is queued from the poll callback itself and from
-bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
-bq27xxx_battery_teardown() runs while the power_supply is still
-registered, so external_power_changed() can re-arm the work after the
-cancel, and it runs after the driver data has been freed.
+Pinned objects that are not kfd objects reduce the total vram available
+to kfd, so we subtract the total size of pinned objects from kdf vram
+availability. However this double counts objects pinned by kfd itself,
+because they are counted both as used and pinned. So track the total
+size of objects pinned by kfd and add it back to kfd availability to
+remove the double accounting.
 
-Register a devm_delayed_work_autocancel() before
-devm_power_supply_register(), so on unwind the power_supply is
-unregistered first, after which no new external_power_changed()
-callback can be dispatched, and the poll work is cancelled only then.
-Drop the now-redundant cancel from bq27xxx_battery_teardown().
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 740b755a3b34 ("bq27x00: Poll battery state")
+Signed-off-by: Daniel Phillips <daniel.phillips@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit b8257bdb26ca5d9a75f4b81f629422f17afa221b)
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260903081312.225535-1-fanwu01@zju.edu.cn
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-[ sashal: added devm_mutex_init() with error handling to replace manual mutex setup and teardown ]
+[ sashal: adjusted indentation to fit the unconditional VRAM availability calculation without the upstream APU-specific conditional ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/bq27xxx_battery.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 11 +++++++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index d4c694045209f..6486a039951e5 100644
---- a/drivers/power/supply/bq27xxx_battery.c
-+++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -43,6 +43,7 @@
-  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index d79c431de2234..b921587d428cc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -103,6 +103,7 @@ struct amdgpu_kfd_dev {
+ 	struct kfd_dev *dev;
+ 	int64_t vram_used[MAX_XCP];
+ 	uint64_t vram_used_aligned[MAX_XCP];
++	atomic64_t vram_pinned;
+ 	bool init_complete;
+ 	struct work_struct reset_work;
  
- #include <linux/device.h>
-+#include <linux/devm-helpers.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/param.h>
-@@ -2141,9 +2142,11 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 		.of_node = di->dev->of_node,
- 		.drv_data = di,
- 	};
-+	int ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index ef4d8dca3c7af..55834719e9848 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1500,6 +1500,11 @@ static int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)
+ 		pr_err("Error in Pinning BO to domain: %d\n", domain);
  
--	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
--	mutex_init(&di->lock);
-+	ret = devm_mutex_init(di->dev, &di->lock);
-+	if (ret)
-+		return ret;
- 
- 	di->regs       = bq27xxx_chip_data[di->chip].regs;
- 	di->unseal_key = bq27xxx_chip_data[di->chip].unseal_key;
-@@ -2161,6 +2164,12 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	psy_desc->get_property = bq27xxx_battery_get_property;
- 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
- 
-+	/* Cancel the poll work after the power_supply is unregistered. */
-+	ret = devm_delayed_work_autocancel(di->dev, &di->work,
-+					   bq27xxx_battery_poll);
-+	if (ret)
-+		return ret;
+ 	amdgpu_bo_sync_wait(bo, AMDGPU_FENCE_OWNER_KFD, false);
 +
- 	di->bat = power_supply_register_no_ws(di->dev, psy_desc, &psy_cfg);
- 	if (IS_ERR(di->bat))
- 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
-@@ -2188,10 +2197,7 @@ void bq27xxx_battery_teardown(struct bq27xxx_device_info *di)
- 	di->removed = true;
- 	mutex_unlock(&di->lock);
++	if (!ret && bo->tbo.resource->mem_type == TTM_PL_VRAM)
++		atomic64_add(amdgpu_bo_size(bo),
++			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
++
+ out:
+ 	amdgpu_bo_unreserve(bo);
+ 	return ret;
+@@ -1522,6 +1527,11 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
+ 		return;
  
--	cancel_delayed_work_sync(&di->work);
--
- 	power_supply_unregister(di->bat);
--	mutex_destroy(&di->lock);
+ 	amdgpu_bo_unpin(bo);
++
++	if (bo->tbo.resource->mem_type == TTM_PL_VRAM)
++		atomic64_sub(amdgpu_bo_size(bo),
++			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
++
+ 	amdgpu_bo_unreserve(bo);
  }
- EXPORT_SYMBOL_GPL(bq27xxx_battery_teardown);
+ 
+@@ -1681,6 +1691,7 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
+ 	vram_available = KFD_XCP_MEMORY_SIZE(adev, xcp_id)
+ 		- adev->kfd.vram_used_aligned[xcp_id]
+ 		- atomic64_read(&adev->vram_pin_size)
++		+ atomic64_read(&adev->kfd.vram_pinned)
+ 		- reserved_for_pt
+ 		- reserved_for_ras;
  
 -- 
 2.53.0
