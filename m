@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356781;
-	b=5EiRLqAOWJFyOoUv3eMArYqpMYkwTiecsfW8r6+8FSpJSbUtSU5vbmqLfpDkLbBlvb19
-	 x9O9tENTADXQvak91aqwekcTWO1KKquRrPPSiqvU/vW9090OrYWzWmM2/RGHsgfaCkyPW
-	 adyEaEzb3zG9ZyuQWHIMbx5J08KW41pHCv7L96f5OcFg6IhZIEaAcjC1nBtpT6tOK8r0K
-	 VVF4nujquUO0hgkCiXZptGprCjjcWsmTdMx9OPCYckbeyffOTShh6Y9T7RWOiRiV26HWf
-	 OiSbvfKwT4mY6ncOYy8cT1HUBPpQzz3S1n7Ra2TJpm+SsmKSAG7i1iGzVnQ33usfyqQ==
+	t=1794356884;
+	b=OjnYtoDSxOVhk9X0V2PxOBCSsCj93I8ZXR88jmw/RNDrfUBvB9JEsQQ1nUzSEI07BBFj
+	 U6v7LkEF7ZpW6lfZdVtrC2Hsp2nbzTiKRI3HDYjmJ1V6acrk1E/acPZlyU569nRbosiTb
+	 WGbs9m+Zju79CZ4o6WQXDfqUKwF54H+4QJYIuu6D9u5+kvE8nJZ8RNAZbhw79vvuUoFIw
+	 GWh7o0XaPr74bVCYPrDiVS8kO4p88VRpgtnNre7gpBSrKzvbAO6hY3vp/MPSmhMgTwtnG
+	 A/zPUSQKLH631ZS2K00BGRUY/omRYilysNHoR/p2fOxmds1/WDXMqSPSGjd7PfBJJPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356781;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HGFn0F6GdILE3Slr/nibWemgVO408dD6VRP7NqYXC+8=;
-	b=nVZOMQ+XmwtiL5wJxa8QmglDsk0YKe/M13UblwqOMwePJiuPn3BPl5Tq8Schu/klCcuE
-	 EuCQNB87Nx/msyqx6/CC+UpXG/joqbmOO/ZOyIfwbNKKbnvehXMFfeKNS8xWH0MU2dDo9
-	 hkyBDEblIbtcMT88t67AbJCChgqV+DpleI1+7/fr1wKZBGvlPhlNav2G/htB2tokhBNZe
-	 HDjU71vpYwczWSMuZUMvcWoXNXfccUa/TH0pJHy2lzOI+8//10n6GoLrAwKnE0hGKUl1v
-	 W6RO5NQQgCV3gSQDrxNI0Q0qTzNE49Tqxyt+baFToa2ekMHIGcu3px5L3hLOqSOsStA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356884;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=bbBaRo/7L6iOQrhDinfNIJ3r1kvuz8qfg44WFld2veY=;
+	b=DHfX38CzZJVZaMogdqeLfkTntmn4QZUVhMna5uzfUC8CQf/Ok4PphEWi0Jo7JraY1o3W
+	 q+rQhbd5EYKx3aGhPzZUbpU43ka6MEhXEXFkLOGUsUxb3KSKKoMkp357u+EeiNMQ9HWmd
+	 BWA3vdOMVHqQVrs2qYR9WDVEaULIWWoJNGTINPVdJuywQEOyWvbe29pAzfE7n9+peoJH3
+	 XMZaJ54hebAv5dO2pJs/jr/+ta024r/WK/HnuZNCtLXOYXwTxGGOm3xPJG5WiHvb+VcKH
+	 CeHaZSICbIwFbmXqm6TP0r86PHBKn+Ai0HFK/eGNMyMCCqcBF5FxF/S/AmffR8urfRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WBdsuK93;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nwUM4nyk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F47606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:26:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFDC606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:28:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WBdsuK93
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92371F0089F;
-	Wed, 11 Nov 2026 00:26:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nwUM4nyk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B37D31F00A08
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:28:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794356780;
-	bh=HGFn0F6GdILE3Slr/nibWemgVO408dD6VRP7NqYXC+8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WBdsuK93N2XSfJ+YU8S4aV/z6JKiA2gBQrcvV2u8xi/rNElW6PNotc3oyJFtPaW8w
-	 LHyOs5tVjyhHn+5FiEYHRQTonCI30SpPNJV739vJ9RhAPEm6ndHDPohi0Ol9ymh9UX
-	 5rDKRHXTW4e/eWUENaxzEi4/usVFUeJcEBF3HQfCjbEVs47eqeud6U7n9cycH1awLf
-	 K6SJWBLUDZX5Grft3naNGhgSUR/dIHKZ8YcImwzEwb9l4EEy90PuDTzIRveEQMMG24
-	 OnEDaMDQVM5m5dJrcDJoReT916sU13PrlRd2A8I1CZ/utBkdu/kM9wZygJ29FznWhC
-	 uNxtOeDx5Wfzw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/mlock: use a long for the page count in mlock_fixup()
-Date: Tue, 10 Nov 2026 19:26:18 -0500
-Message-ID: <20261111002506.262661-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053855-failed-6.6-3ae91e3079b1@kernel.org>
-References: <20261107053855-failed-6.6-3ae91e3079b1@kernel.org>
+	s=k20260515; t=1794356883;
+	bh=bbBaRo/7L6iOQrhDinfNIJ3r1kvuz8qfg44WFld2veY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nwUM4nykXPopNGTyscZh/s7QXJS/OKgc04ASib+wR47Y2WPuiWkNkx/dQzj5zR/fd
+	 KdpC2qkBAGTl8LwWYm/rlheh54DOzdjT9vxQyhOeM5znZ4AXE+cnNUSX80gcPLdQiw
+	 8PcPac/FGedKA40KsOEC8D+7UB8oe/mJzwNSMqCrGJ6iP3Cgrp90Ap3foEn3bo53d4
+	 428fKlQ+5H1/ZDRfOKnvB2pQ+1zpjfbG2/1IQ9HbOisOOFYNfPGl6NIor4BwbtH0de
+	 8kLiFMwAGC5gB9G07ADVCmQnbYydJJDpKjuhai2m6JfkEk86PW4JlcpMLgRUw4PlOm
+	 QzbFUP7+5OY7g==
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eafb65e169so1418355e0c.1
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:28:03 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHcVMm1I6+/ouDc7JgZxZMUxG75QI416rdAkTH7lN0zN7AtD4421wDHENzPe9Ht5/XhiUBhmG8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wpYcACeuanNOx+cbwRnwXPFkTuCO8AvgPZKTUH7ISvAHYunic
+	6lfZa8fXKgwl7K3j3LZAez4kiV3CzbgUcrCkrG4ALNOq5xRe0houdbo3kwJ7cVNMbMnLku5Qwf+
+	l5zI+CJGat7lvvQAml6qHm9mDHJlrbo8=
+X-Received: by 2002:a05:6123:64:b0:5ea:c98d:768 with SMTP id
+ 71dfb90a1353d-5ee1c3b55f5mr233673e0c.6.1794356883023; Tue, 10 Nov 2026
+ 16:28:03 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,89 +59,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111000913.22943-1-shakeel.butt@linux.dev>
+In-Reply-To: <20261111000913.22943-1-shakeel.butt@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Wed, 11 Nov 2026 08:27:51 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zRycX9dcW6P1J2R6f+xyO4+z6_LXz1i+qbNbMEnYm9uA@mail.gmail.com>
+X-Gm-Features: AclHuK8i5C1ziLIFv7nuGyug3gNnUasxxchiBj9TPgocQ0U6mI78FyGiazCDdjg
+Message-ID: <CAGsJ_4zRycX9dcW6P1J2R6f+xyO4+z6_LXz1i+qbNbMEnYm9uA@mail.gmail.com>
+Subject: Re: [PATCH] mm: mglru: splice all generations when reparenting a memcg
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Noah Feldt <noah@feldt.systems>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+On Wed, Nov 11, 2026 at 8:09=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
+v> wrote:
+>
+> Noah reported list_del corruption on single-node hosts running 7.2.11,
+> which already has commit bf4ade7dbd76 ("memcg: keep folio's objcg same
+> as its node"). The bad pointer is an MGLRU list head in a freed
+> mem_cgroup_per_node:
+>
+>   slab mem_cgroup_per_node start ff31bfa36a3c9e00 pointer offset 528 size=
+ 1920
+>   list_del corruption. next->prev should be ffacf881ccc70e08, but was ff3=
+1bfa36a3ca010. (next=3Dff31bfa36a3ca010)
+>
+> When a memcg goes offline, __lru_gen_reparent_memcg() moves its MGLRU
+> lists to the parent. It moves only the generations (gens) from min_seq
+> to max_seq, and it puts each list at the same index in the parent.
+>
+> A folio's gen in folio->flags can be ahead of the list it is on. In the
+> parent, the same index can stand for an older gen, so the folio's gen
+> can end up older than its list. Once the parent's min_seq passes that
+> gen, sort_folio() puts the folio on the list for max_seq + 1, where it
+> stays until the next aging.
+>
+> If the parent goes offline before that aging, the folio is not moved to
+> the grandparent. It stays on the parent's list after the parent is
+> freed, and the next list_del() on it touches freed memory. This needs
+> two cgroups on one branch to go offline one after the other, such as a
+> container and then its pod.
+>
+> The parent always has MAX_NR_GENS gens at this point, so every index is
+> valid in it. Move all MAX_NR_GENS lists, not only the gens from min_seq
+> to max_seq.
+>
+> A reproducer that drives these steps through the lru_gen debugfs file
+> gets a KASAN use-after-free on the freed mem_cgroup_per_node without
+> this patch, and no report with it.
+>
+> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+> Reported-by: Noah Feldt <noah@feldt.systems>
+> Closes: https://lore.kernel.org/all/20261110132853.71228-1-noah@feldt.sys=
+tems/
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Cc: <stable@vger.kernel.org>
 
-[ Upstream commit 3ae91e3079b1504ef162b2884454d5f1421f4eb9 ]
+Thanks very much, Shakeel! I saw Kairui has exactly the same code here:
 
-mlock_fixup() adjusts mm->locked_vm, an unsigned long, by the number of
-pages whose VM_LOCKED state it changes, but computes that number in an
-int:
+[PATCH v4 14/17] mm/mglru: reparent folios from all generations
+https://lore.kernel.org/linux-mm/20261016-mglru-fg-v4-14-2106750c0bfa@tence=
+nt.com/
 
-	int nr_pages;
-	...
-	nr_pages = (end - start) >> PAGE_SHIFT;
-	...
-	mm->locked_vm += nr_pages;
+somehow, Shakeel's patch makes us need the change earlier even before
+mglru-fg lands?
 
-When a single VMA range of 2^31 pages (8 TiB with 4 KiB pages) or more
-is locked or unlocked, the count is truncated to 32 bits and then
-sign-extended, so locked_vm is changed by the wrong amount, while
-munmap(), mremap() and the other paths that maintain locked_vm use the
-full unsigned long page count.
+> ---
+>  mm/vmscan.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 6a1af9b92349..902616a3b755 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -4751,19 +4751,25 @@ void max_lru_gen_memcg(struct mem_cgroup *memcg, =
+int nid)
+>   * The same generation has different meanings in the parent and child me=
+mcg,
+>   * so this compromise method will cause the LRU inversion problem. But a=
+s the
+>   * system runs, this problem will be fixed automatically.
+> + *
+> + * Move all MAX_NR_GENS lists, not only the gens from min_seq to max_seq=
+.
+> + * An earlier reparenting can leave a folio whose gen is older than the =
+list
+> + * it is on. Once min_seq passes that gen, sort_folio() puts the folio o=
+n the
+> + * list for max_seq + 1, where it stays until the next aging. If that li=
+st
+> + * were skipped, the folio would stay behind on a memcg that is about to=
+ be
+> + * freed. The parent has MAX_NR_GENS gens here, so every index is valid =
+in it.
+>   */
+>  static void __lru_gen_reparent_memcg(struct lruvec *child_lruvec, struct=
+ lruvec *parent_lruvec,
+>                                      int zone, int type)
+>  {
+>         struct lru_gen_folio *child_lrugen, *parent_lrugen;
+>         enum lru_list lru =3D type * LRU_INACTIVE_FILE;
+> -       int i;
+> +       int gen;
+>
+>         child_lrugen =3D &child_lruvec->lrugen;
+>         parent_lrugen =3D &parent_lruvec->lrugen;
+>
+> -       for (i =3D 0; i < get_nr_gens(child_lruvec, type); i++) {
+> -               int gen =3D lru_gen_from_seq(child_lrugen->max_seq - i);
+> +       for (gen =3D 0; gen < MAX_NR_GENS; gen++) {
+>                 long nr_pages =3D child_lrugen->nr_pages[gen][type][zone]=
+;
+>                 int child_lru_active =3D lru_gen_is_active(child_lruvec, =
+gen) ? LRU_ACTIVE : 0;
+>                 int parent_lru_active =3D lru_gen_is_active(parent_lruvec=
+, gen) ? LRU_ACTIVE : 0;
+> --
+> 2.51.0
+>
 
-Such a range is reachable on 64-bit architectures with a 47-bit or
-larger user address space (x86_64, arm64 with 48-bit VA, riscv64 Sv48)
-by a task with CAP_IPC_LOCK or a raised RLIMIT_MEMLOCK, which do_mlock()
-checks against the full untruncated length.  It costs nothing with
-MAP_NORESERVE and MLOCK_ONFAULT/MCL_ONFAULT, since then no page is
-populated.  On x86_64, after
-
-	p = mmap(NULL, 8UL << 40, PROT_READ | PROT_WRITE,
-		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-	mlock2(p, 8UL << 40, MLOCK_ONFAULT);
-
-VmLck in /proc/self/status reads 18446744065119617024 kB instead of
-8589934592 kB; munmap() of the region then subtracts the true size and
-leaves VmLck at 18446744056529682432 kB instead of 0.  With 16 TiB,
-locked_vm is not changed at all, VmLck stays 0 kB, and after the task
-drops CAP_IPC_LOCK or lowers RLIMIT_MEMLOCK, mlock(), mmap(MAP_LOCKED)
-and the other mlock_future_ok() and account_locked_vm() users enforce
-RLIMIT_MEMLOCK against that count, so they let the task lock memory
-beyond its limit (or, in the 8 TiB case, refuse every further lock).
-The error persists for the life of the mm; unlocking the range in pieces
-skews it further.  The wrong count is per-mm accounting only: it does
-not change which pages are locked.
-
-The int has been there since before git history (the variable was named
-"pages" until it was renamed in 2.6.28); every other updater of
-locked_vm uses an unsigned long or long count.  Make nr_pages a long,
-which holds the page count of any user range and its negation, so the
-existing sign handling is unchanged.
-
-Found by formal verification of mm/mlock.c against the kernel binary.
-
-Link: https://lore.kernel.org/20261014131358.780240-1-nickolai@csail.mit.edu
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Assisted-by: LLM
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: Retained the pgoff_t pgoff declaration in mlock_fixup() for the existing VMA merge code. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/mlock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 97bd390c6d251..f03f9f0f1c11d 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -415,7 +415,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- {
- 	struct mm_struct *mm = vma->vm_mm;
- 	pgoff_t pgoff;
--	int nr_pages;
-+	long nr_pages;
- 	int ret = 0;
- 	vm_flags_t oldflags = vma->vm_flags;
- 
--- 
-2.53.0
-
+Thanks,
+Barry
