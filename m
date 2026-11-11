@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437636;
-	b=dKOYOJuWQplvCgG76OOYFcTNfHMRDwEkk1uolizuAqH5+wctYwFjigeREtSHXbMx7rpM
-	 Z5HcrlEmUGIoW41+xCpPBqsb5+Q6pBHxaRlCCXow7JK1hQufWEDuMZrQ8XZUe8tkvGps0
-	 rVwRGywkxTEaVbjGzHLikYHnOqENOK5IYq9UwJf6rd/DdU8i64WAHgJRar/0HPrMJzEqG
-	 Qi5IL35lniZ4VJbRX55cREJaxDNcHoTYh/CKQZPBtJ8OIT7b7XBGYU2oHf82ME1FVDCt6
-	 qxa84RShsgyApBK9pdfp1zRHzax97S1jnk6SDQPKldX5IgVDWiZyGI2sYYrNXrC5XKA==
+	t=1794437684;
+	b=ZgWnOYH65X/BlYagb5FuPWh20gVFvKz/t0z6u9kvtLHwFCT/H9SkbLHomF9LQjFsLQw3
+	 Oa8Bstrl0tLK8SmABYJjz7LLXqFHyroVDFbUWOTZC4EP4xUDseRRYMHByIAwDppgfVmmT
+	 5LqVelTdOePv67i6qgj1Ctzu7ePMKDe4OpmKM65xV9/7jcCdCot+s4VqIo63+mE+lqOAv
+	 /3ZJdb8LAQUHaPXddojjVpdGGZNxpn29ITTqYHG8epN2YSjeBep+YpSr/9fxPxXUEOQqD
+	 59LXotQAJxerfQaSOLToOU7NQyTswLdjP34eZgPMFnwoxNHDh4YdN2vyVv1qzpHkLjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437636;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FQkke4ecjKDpNbsFDm9UR+yA/9kA4if7XF3uNTp5Ge0=;
-	b=foduHogE0wSWp6bwiylrj8M2E0SztSVCUgArDMa8OLmMNqK20FAWZc1xTM9xmU+TnWM0
-	 XNqIt5fKCpn0JaTaD2LcliKb+7VkkXvsYdjwttViLW+SoqZGM4t7i+mm0NIz8DlZWMorz
-	 UAInDm+GZEj7Zw/vrxtxl+WIDQTTUf0AEqY8E33oDtl68ev8A53moviAEX6W2LxJhTdgZ
-	 Vad9kvglEOj8KSfn0AbfSDDTvXzad6A7n0KaQLgtVGrXnbrvay6Ydi1cFsDeFVHAaBeMe
-	 Zq7OUl7LM0Dwz4oUkMdb+PX/24RLSGFaXPu+eSpN4lrE4naLY8V3NE9wRbk43GKHFWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437684;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=mhvjTmuuVsjUkxpEAPNOTcDxmrBni2pTIT0QskenBEc=;
+	b=MuAj+XwrBmSAVmaiTfvvmamYNg7z1svP7w2PQMXuO4zJIi8OjMHQJmxUMX8TIqtIvxWI
+	 hlboLX7NGGTXDihmD/4590ApzzfDFgP+Z5fkNnGYoNr/HUzYchjNtcaEACqkN4MwkZ6zt
+	 trmLLu1Nq7afJYX1yjgDEj7t4LltZFZTCVPcVD8t5DP1gPAf0SrK+4akJD/r1y5nSy7wp
+	 lk0dGhVAUF0ngeQx0J3dQGIW5ajdUdP04Lj5sRhYxQbBZ0k/Bs+QvfT9w2+GF8Rk5shYU
+	 an/UyWiWGfY3BSRrkYOiZItSLiRyrGJw14LjsJYi+77EihVoLdldF+cOdmm9KD+c8KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJjyOB4J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moZGZQn3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDE8606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3A7606A321;
+	Wed, 11 Nov 2026 22:54:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJjyOB4J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4135F1F00A05;
-	Wed, 11 Nov 2026 22:53:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moZGZQn3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3CE41F00A07;
+	Wed, 11 Nov 2026 22:54:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437635;
-	bh=FQkke4ecjKDpNbsFDm9UR+yA/9kA4if7XF3uNTp5Ge0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KJjyOB4JeyI6GKB6X2z71FuQdIl1fromofzSia9+3FTSQ4iOOrylm6598UDOdyeJX
-	 +Vq66bdHNqK5EyTETJW/rYhWu4n3znLeIYElSa8Wd30MJHs1WwLh22t2h1SxpJy3ft
-	 V31UHxTogAnT4+K5xRYXySDS/A4B2xKPTVqgJbhzm4hq010pNrHlmECeidP0PbOUDl
-	 MppuudJf6EOz2O1FI8+s9adfHNfa0yEY8GsmApPWOvIq2q0MbSroTbLltQNX42REcE
-	 +VnctrdKFBpZONLD2ehdpTSYENh38meBUFNcaw89+2/pokKDvABT4f4SSntrlrq9w3
-	 jdbS+/mLv33hw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] backing-file: enforce append-only and immutable backing inodes
-Date: Wed, 11 Nov 2026 17:53:54 -0500
-Message-ID: <20261111225316.192369-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052805-failed-6.12-19b18e01d036@kernel.org>
-References: <20261107052805-failed-6.12-19b18e01d036@kernel.org>
+	s=k20260515; t=1794437684;
+	bh=mhvjTmuuVsjUkxpEAPNOTcDxmrBni2pTIT0QskenBEc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=moZGZQn3tacM1W9OrsISfnfN/V4zXrXTRKj7PugF3DN57hZRsv8rpyP0x56g/u6EW
+	 QlLzOa1mnAN21+nIsjzPTgmsa1kUh633Xv+1uT58HjbjL1yX5F4htKpxZ1Xd+GYEYs
+	 PC7DBJtsILNLM8dwzEEuacJdJvY710AvT/iYGj8o9wW4Og8qVItXQ867jsGLgEGvbi
+	 2Lm8RBEJkrYuXL0xt8T7Pgtde46wxGRFgCyAft/JruROIeL5iZya0rD2uekvmWjbMG
+	 VZhx8OJfYS47t3iFo422chTG/KxPKnHjZUJ2E9tJ9ylOZp9dZm6COxbTFrJSVuuL1F
+	 b8o4kHPfT/2HQ==
+Subject:
+ Re: [PATCH net v2] net/sched: sch_qfq: revalidate aggregate after peek
+From: netdev-bot+sashiko@kernel.org
+To: Jeremy.Jean@oss.cyber.gouv.fr
+Cc: jhs@mojatatu.com, jiri@resnulli.us, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Wed, 11 Nov 2026 22:54:43 +0000
+Message-ID: <179443768349.2199510.12975726279458330465@kernel.org>
+In-Reply-To: <20261110222946.2147440-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261110222946.2147440-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,134 +62,149 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-[ Upstream commit 19b18e01d0361ce495be153ecce80b581086ab3f ]
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-FUSE passthrough opens the backing file anew whenever the FUSE file is
-opened. fuse_passthrough_open() passes the flags of that open to
-backing_file_open() which opens the backing file with vfs_open() and the
-credentials of the server. But vfs_open() doesn't go through may_open().
-So the backing inode is never checked for S_APPEND and S_IMMUTABLE. The
-checks that did run were done on the FUSE inode and that one never has
-either flag.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-So anyone who may open the FUSE file for writing can overwrite an
-append-only backing file anywhere or write to an immutable one. The
-server only has to register the file and a read-only or even an O_PATH
-file descriptor is enough for that. Registering requires CAP_SYS_ADMIN
-but the writer can be any user that the server lets open the file.
+- [High] The patch does not fully fix the use-after-free it targets.
+- [Low] qfq_dequeue() puts a `restart:;` label (a label on a null
+  statement) before its local declarations with initialisers (`struct…
 
-The FUSE inode is checked instead of the backing inode in a few more
-places:
+--
 
-- do_mmap() refuses a shared mapping of an append-only file that was
-  opened for writing. A FUSE file opened with O_RDWR | O_APPEND passes
-  the open check and can then be mapped shared and written to at any
-  offset.
+net/sched: sch_qfq: revalidate aggregate after peek
 
-- fcntl(F_SETFL) and RWF_NOAPPEND refuse to take append mode away from a
-  file on an append-only inode. On the FUSE file both succeed. A
-  synchronous write still appends because the backing file was opened
-  with O_APPEND. But an asynchronous write is submitted with the flags
-  of the user's kiocb and lands at the given offset.
+This patch makes qfq_dequeue() restart when a child peek re-enters
+qfq_enqueue() and changes the in-service aggregate or the class's
+aggregate. It moves the DRR requeue logic out of agg_dequeue() and into
+qfq_dequeue(), after the service charge, using cl->agg. It also rechecks
+class activity after the peek in qfq_enqueue().
 
-Do the checks on the backing inode. backing_file_open() refuses to open
-an immutable inode for writing and an append-only inode for writing
-without O_APPEND, just like may_open(). backing_file_mmap() refuses a
-shared mapping of an append-only inode, just like do_mmap(). And writes
-and splices to a backing file in append mode fail if append mode was
-taken away from the user file.
+> diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
+> index e900890e9c544..82903f9e58504 100644
+> --- a/net/sched/sch_qfq.c
+> +++ b/net/sched/sch_qfq.c
 
-A FUSE file that was opened before the backing file became append-only
-can still write anywhere. That's what happens on the native filesystem
-as well and the backing file of such a file isn't in append mode. Two
-differences remain. F_SETFL succeeds and the next write fails. And FUSE
-reports EIO for a refused open because it turns every error from opening
-the backing file into EIO.
+[ ... ]
 
-overlayfs uses the same helpers but it mirrors S_APPEND and S_IMMUTABLE
-in its own inode and a chattr through the overlay never sets them on the
-upper inode. So for overlayfs this only changes something if the upper
-inode is changed behind the overlay's back.
+> @@ -1103,6 +1095,7 @@ static void qfq_schedule_agg(struct qfq_sched *q, struct qfq_aggregate *agg);
+>  static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+>  {
+>  	struct qfq_sched *q = qdisc_priv(sch);
+> +restart:;
+>  	struct qfq_aggregate *in_serv_agg = q->in_serv_agg;
+>  	struct qfq_class *cl;
+>  	struct sk_buff *skb = NULL;
 
-Fixes: 4a90451bbc7f ("fuse: implement open in passthrough mode")
-Reported-by: Chris Mason <mason@kernel.org>
-Cc: stable@vger.kernel.org # v6.9+
-Link: https://patch.msgid.link/20261029-work-fs-ai-fixes-v1-2-88f22792f6f7@kernel.org
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Retained file_remove_privs(ctx->user_file) instead of file_remove_privs(iocb->ki_filp) to match the existing API. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/backing-file.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+[Severity: Low]
+This isn't a bug, but the restart label sits in front of the local
+declarations, so the backward gotos run their initializers again:
 
-diff --git a/fs/backing-file.c b/fs/backing-file.c
-index 2ed8f17aa5f48..a0caad973766b 100644
---- a/fs/backing-file.c
-+++ b/fs/backing-file.c
-@@ -35,9 +35,21 @@ struct file *backing_file_open(const struct file *user_file, int flags,
- 			       const struct cred *cred)
- {
- 	const struct path *user_path = file_user_path(user_file);
-+	struct inode *real_inode = d_inode(real_path->dentry);
- 	struct file *f;
- 	int error;
- 
-+	/*
-+	 * may_open() checked the inode of the user file, which need not carry
-+	 * S_APPEND and S_IMMUTABLE of the backing inode.
-+	 */
-+	if ((flags & O_ACCMODE) != O_RDONLY) {
-+		if (IS_IMMUTABLE(real_inode))
-+			return ERR_PTR(-EPERM);
-+		if (IS_APPEND(real_inode) && !(flags & O_APPEND))
-+			return ERR_PTR(-EPERM);
-+	}
-+
- 	f = alloc_empty_backing_file(flags, cred, user_file);
- 	if (IS_ERR(f))
- 		return f;
-@@ -224,6 +236,14 @@ ssize_t backing_file_write_iter(struct file *file, struct iov_iter *iter,
- 	if (!iov_iter_count(iter))
- 		return 0;
- 
-+	/*
-+	 * F_SETFL and RWF_NOAPPEND can take append mode away from the user
-+	 * file. They checked its inode, not the backing one.
-+	 */
-+	if ((file->f_flags & O_APPEND) && !(flags & IOCB_APPEND) &&
-+	    IS_APPEND(file_inode(file)))
-+		return -EPERM;
-+
- 	ret = file_remove_privs(ctx->user_file);
- 	if (ret)
- 		return ret;
-@@ -312,6 +332,10 @@ ssize_t backing_file_splice_write(struct pipe_inode_info *pipe,
- 	if (!out->f_op->splice_write)
- 		return -EINVAL;
- 
-+	/* splice refuses a user file in append mode, so F_SETFL cleared it */
-+	if ((out->f_flags & O_APPEND) && IS_APPEND(file_inode(out)))
-+		return -EPERM;
-+
- 	ret = file_remove_privs(ctx->user_file);
- 	if (ret)
- 		return ret;
-@@ -343,6 +367,10 @@ int backing_file_mmap(struct file *file, struct vm_area_struct *vma,
- 	if (!file->f_op->mmap)
- 		return -ENODEV;
- 
-+	/* do_mmap() checked the inode of the user file */
-+	if ((vma->vm_flags & VM_SHARED) && IS_APPEND(file_inode(file)))
-+		return -EACCES;
-+
- 	vma_set_file(vma, file);
- 
- 	old_cred = override_creds(ctx->cred);
+restart:;
+	struct qfq_aggregate *in_serv_agg = q->in_serv_agg;
+	...
+	struct sk_buff *skb = NULL;
+	...
+	unsigned int len = 0;
+
+This relies on declarations following a statement. Mainline no longer
+passes -Wdeclaration-after-statement. This patch has Cc: stable and a
+Fixes: tag going back to 2012, though.
+
+Would older stable trees that still use that flag (5.10, 5.15 or 6.1, for
+example) warn here, or fail to build with CONFIG_WERROR?
+
+Would a loop around the selection step, or assigning these variables
+after the label, be a simpler way to write the retry?
+
+[ ... ]
+
+> @@ -1151,13 +1147,15 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+>  		 */
+>  		in_serv_agg = q->in_serv_agg = qfq_choose_next_agg(q);
+>  		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
+> +		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
+> +			goto restart;
+>  	}
+>  	if (!skb)
+>  		return NULL;
+>  
+>  	qdisc_qlen_dec(sch);
+>  
+> -	skb = agg_dequeue(in_serv_agg, cl, len);
+> +	skb = agg_dequeue(cl, len);
+
+[Severity: High]
+Can the child dequeue here still re-enter qfq_enqueue() and free
+in_serv_agg?
+
+The new restart checks only come after the two qfq_peek_skb() calls.
+agg_dequeue() calls qdisc_dequeue_peeked(cl->qdisc). That helper only
+takes the skb from gso_skb if the child's ->peek() cached one there.
+Otherwise it calls the child's ->dequeue() again.
+
+sch_prio is one such child. prio_peek() caches nothing at the prio level,
+and prio_dequeue() calls qdisc_dequeue_peeked() on each band, starting
+from band 0.
+
+Here is an example setup. The QFQ class child is prio. Band 0 is a netem
+A0 with a delay, whose child is a netem B with duplicate. Band 1 is a
+pfifo.
+
+At peek time, A0's head is not due yet. The peek returns band 1's skb
+without re-entering QFQ, so both restart checks pass. Suppose A0's head
+becomes due before agg_dequeue() runs, and lmax was lowered while packets
+were queued:
+
+qfq_dequeue()
+  agg_dequeue(cl, len)
+    qdisc_dequeue_peeked(prio)
+      prio_dequeue()
+        qdisc_dequeue_peeked(A0)
+          netem_dequeue(A0)
+            qdisc_enqueue(skb, B)
+              netem_enqueue(B)
+                rootq->enqueue(skb2, rootq, to_free)
+                  qfq_enqueue()
+                    qfq_change_agg(cl)
+                      qfq_deactivate_class()
+                        qfq_deactivate_agg()
+                      qfq_rm_from_agg()
+                        qfq_destroy_agg()
+                          kfree(agg)
+
+qfq_deactivate_agg() and qfq_destroy_agg() update q->in_serv_agg. They
+cannot update the local copy in qfq_dequeue(), and that copy is then
+used after agg_dequeue() returns:
+
+	if (unlikely(in_serv_agg->budget < len))
+		in_serv_agg->budget = 0;
+	else
+		in_serv_agg->budget -= len;
+
+The pr_debug() that follows also reads in_serv_agg->F.
+
+Is this a write to the freed aggregate? And if the aggregate is not
+freed, does the service still get charged to an aggregate that is no
+longer in service?
+
+Could q->in_serv_agg and cl->agg be revalidated after agg_dequeue() too?
+Alternatively, the code could be restructured so that no aggregate
+pointer is used after any child dequeue or peek.
+
+>  
+>  	if (!skb) {
+>  		qdisc_qlen_inc(sch);
+
+[ ... ]
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110222946.2147440-2-Jeremy.Jean%40oss.cyber.gouv.fr
