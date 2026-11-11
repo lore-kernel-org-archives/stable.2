@@ -1,100 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794384763;
-	b=FFn4VOKbQlUoZABhMrf2MNL+UtVPYkdXtX1lWPdLjhrypcZEE99R9LSZgSEdJUc7MJnU
-	 EwYQKYXlsDSLnqT8N8D8/Lyv09Vyrda+0XK2YlZh3B2cZDsbBrWfrusO5IDErGHCPwQ5L
-	 IErJ/LVFbHnLQwCNPIECvNG/ZidpVjFWF4G9EW0EdZNi8yOXZMBb1Ykej3RMh3zZq4Cdh
-	 UtGSB2iztQveoDJc/vxwBGuTiwKs6q4e4qI3hHKQOPhwjY4prm3+3aomTyDWN6XnBt07e
-	 bMaauTP65vIhe7l6aztnaB0hMpvULzv8bhbfLRuwUBrUY2q4akGgDnW+wXdvzl9xr2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384763;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/vZB5XdxeB4EY+soJGayWU7FAog2ncss+mnGtuOg1Rg=;
-	b=Xaz733SU5eujAuFpkM+CPwGFJscOTIUxHVBoh9L7OE/LeyfpzDOewYwVByj+J2TbPtA4
-	 P8ju/P+tGUCnrJqWo2aTAu0gzlMPNJsebonGTEYilfCU2ZinOm3VxFUSlmfxLSKps8pEx
-	 CK61L1E/opJbPdKWwrA4W1JYym8DdCSyev8uwi7HDfR4/tjMo7RJS44F57BiFDmLArW5f
-	 A2vtyMkS5wQrYmSMlviwC8Lxv3k7EZ8ZMqMAHyjdhz6qxjSOKjEHx8PHUQkVIDBkz66F/
-	 8d6U/lifeKS6S2pUk+jT6OGokHjWpKEKjlPd87+MiOvJQMuxhSfT1se+7LPJOweev5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=H1SRbmcI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.47
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011047.outbound.protection.outlook.com [52.101.62.47])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794384807;
+	b=UagjpMAZz+jTu0DaJjKRGKJa06k6F7BgNZ9QCNmI/Suh3M3QuSoy3iRyuZ8Ka0teizGB
+	 Db7IZa2gLLglGIubzAw7l3N0u9GbYcvEGEvLTJ90+EkojXey7lDbb60ST04PRPc6f6Dkc
+	 0cNTWrubDtiacYIApXgM/JYcP4Pjfgh97L9FT2ecBXdq/9HeMUCEZskJhA9Z8JbPc0h64
+	 GXQuFdFDFj6mPJO3hEe/Rwhdc+WnTx5S0x+p88bbDmdtc5kIwR3IrmSHJF7WHErj2MZjl
+	 UioMrVxdW5zgTYQdQaoSk6hUx9pC2lil5R0Ti4hQC4GkdoVDXlZrcyk3IdSMYjkfYAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384807;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=DgQI3xxkFFA7BhKNt2RfO4arKL4tKgGT+HlK8U19YZw=;
+	b=kybLSjS4pZadzB8cw8bud0HMyATNNeoT+HiBZavcF241/KNlxGAQPF579vdai0d27kYP
+	 YhCaHbVJr+RoNR0sqQG3YeEMS3mVMPX0PK1Dj2u2yehej6TORSt+dplkpGjcABDsdEGlA
+	 a9xSDOMdJrxn3jRN+hXjqTWWPvgzmT/HtgGNFQvyPDX2rip1oaOqpU6KqVckOwjm9ZDO3
+	 Mk44RP9mL4HAOO9UJ8VSrBDe3QRyTDJDE06orIQ4RP6rrC/9NtekOZpItVwsjNPagUf1v
+	 TZM1SHqcRq08mrfvm7JlcxHfyOkHYVmixgP5qA1OVl1Z+UcWo2DwxqW7uN4gEv1CaVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=HFeXLgVM;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535EF606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:12:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 535EF606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B79606A336
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:13:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31B79606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=H1SRbmcI
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/zpfQZvyxK3ueK15dsUUhNoybQRK+gXAoErxluarHauv4eg0GseJGM8hdKu+ESrwAZweP8XtBKiG4AzYnsg/0lVY2Rygbb5sA81bPUSAkEWHVLmx5Tyfc5zTJT1BeISYhWZWrDEg0BpPCCL0Lgc2z+D73CiTE2LbR6xCKJkp6aaRGdBePeURASxKGYzD1emSh/DhGEGqLTm6M876vUSbVUoqqfxp+TkeCC61c52wbw0PswTUwVyB6AVwf0FhKnjmHe8S/fbvX5PNMksmVvlQ09qTX6A5A5u+SWP3gLgpqL/7CSQWVa5AQd11fwVynMnrMlGOXGZukMn8lzuxHQZOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/vZB5XdxeB4EY+soJGayWU7FAog2ncss+mnGtuOg1Rg=;
- b=hEjBUX5rj8d+OPychIiPEQXZ33296Dn8tZBNBItFOAAM0gnJ6fWMxHu/StAwTKivp2RP8ysnYTy3OvLcJt5ybt+VW5E5Q3Ol6Wzgo2QBZdg3XqF2lRHQlGYZdWMMdTgXVvBNWkqm/wPnG6Ebs65wZn/EbhFoVlfVubu1JS+ovWE4uw1ylQ/cNNb/1k6FGwQJL+/QYac2bAU+g8v5Lqm5VsYZ5F5/Kw7go97MJ6oE4TLL7X1IxKZhqmviWizH0Nt4ccvkw9HG1AV2lzLcZzwqUEaFEZkKAAH9FlN/bKyVBrE+mj4ONY1k+Q6wf11K7aPMVoZZpEodwbhhGOuUygNzhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/vZB5XdxeB4EY+soJGayWU7FAog2ncss+mnGtuOg1Rg=;
- b=H1SRbmcIDZYDBY396ZSLTUHoSS4yI1LJeVdCd4y6DszcLXU4G3+9Xx9Pd0d7WVhgbl4L4hOqcT7u2nfNwof4k308IT2OLXZVxX1ETK5+tw85TS+rTFL4wuvccqB21c3EECSQhJTABn3h/LAmGHiKkvp8L+k55hZedRVhd6y2LOA=
-Received: from DS7P220CA0099.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:25d::18) by
- CYYPR12MB8870.namprd12.prod.outlook.com (2603:10b6:930:bb::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.8; Wed, 11 Nov 2026 08:12:07 +0000
-Received: from DSM2EPF00000011.namprd02.prod.outlook.com
- (2603:10b6:8:25d:cafe::7e) by DS7P220CA0099.outlook.office365.com
- (2603:10b6:8:25d::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Wed, 11
- Nov 2026 08:12:07 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DSM2EPF00000011.mail.protection.outlook.com (10.167.23.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 11 Nov 2026 08:12:07 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 02:12:05 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 11 Nov
- 2026 02:12:05 -0600
-Received: from [192.168.1.149] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 11 Nov 2026 02:12:03 -0600
-Message-ID: <23bf3075-2cea-4daf-b38f-418844878815@amd.com>
-Date: Wed, 11 Nov 2026 13:41:57 +0530
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=HFeXLgVM
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c499b5be0f1so1973566b.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:13:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794384804; x=1794989604; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DgQI3xxkFFA7BhKNt2RfO4arKL4tKgGT+HlK8U19YZw=;
+        b=HFeXLgVMBpTERHWDiSovZQXILqXdD0gpZ6s6i9Hv+LCjsrbc0lGXS/qto+UBNWe86X
+         1XoFkqRfAiiGpWYmGh3xxPXoJqCMj/9maoc2qPS3CO2BwIHsp5XkD+MmV3Kl8KkWs6ls
+         4MGbfG15/WA1l8grvJIBuLg5XmI1a7v7NnNkaZwV3Pd2gINGzmUkZoEkHP7c03qQ6AMy
+         M7G8CGoF9Kl4dTAgt1NRKZCbbvzegKNWSb/4DoMlBbtNHyxtFdc5s6F/ysM0MA+nczOS
+         0InufqTdtN9g/DKr2RXNzJJkTCf1lViyC+SE76K69X/IayGP0abaXc/0pwQ1ld3FI6R2
+         AMog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794384804; x=1794989604;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DgQI3xxkFFA7BhKNt2RfO4arKL4tKgGT+HlK8U19YZw=;
+        b=jj8eJtkr6TKUBEazL4FyJ9mh2XRI+PJzDD1dOOkoV8/Z+7vjqM4gZl7mZnaXLj7s//
+         D4+fGedVuZVYhpXmsKFjQeTE21AIbrVQDeVkKDYVNQteV+/a1wLFqj+EQyFNQAUIEFb8
+         cv0SaBHPe8kU8A4JVb8O3d8hR5rzRLJ6/68wu8euSUuK07d6VAepbT189MrYMteyEUNQ
+         0EdKu6d1NrEmtyt7va5qJusy0qM1LsGTbCQqEy91e9WfzEEkbW9fcBia5Z4x2x9LjEqH
+         V4e4l6R4U1NkX+TVfG2q4UvQIyNnriG7paTg9TOCct8zp7o1RlRKvXf9hdlluPo8jWyR
+         ky+A==
+X-Forwarded-Encrypted: i=1; AL+hErFIpWD79pzyEgJz8Vftlkq60OknL7bnE+03QCtsQ/r7DKS+TWg26TMgivg/b1L67MtnWaUVzos=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KZ9zG3eoZuAMjevFs6PL81xWCWCZU6qzcorxWmvTbw8jcWlBx
+	TYvzDlq8E/OdOj0Bqz4ZP8CppwBunQFRrx0DLqWrhREvCrPwy7J+Qv+8Z2Lk98Yhi9s=
+X-Gm-Gg: AYBFou342TSuvcCXH9ZqMYsmdM/8dI9zZmONKuq+ysGEFCEmc41TwaA6g8dMWGz0JqH
+	ewc6iqZUYNMajyueHhMJXGVjyabWJcn8cddWDefRaStUTTmGalDJBwwfqFu6O2qupnuXayB6cG6
+	YebQJ9sNFDwSAZhkH7N+SKP9I5LPfO0/JzOxCYHsHycrBA35V/RCVwdMVUnakFwa8PR31aIoBnS
+	O5uY7t9cnTv6EvcTz6YKGNstQsscYoawBPjIHUC02KdpxYx4OezUL4nV9ND9AwV25CmbRtatfJ+
+	oOzwQ6t/Hmg+8/CrOdrTTiYBCSwIo3ZiJUcYOgZX9IYU54ChbLp0K0p+bQhw/dWeDMpDtB06mWN
+	Ccsz0sOgKDvzHK94uXtPy4TVx79OS/iSPtNjUldX1vadv8ILUnkJctNQRmv1soOceZZdaYd++ej
+	bXwINWXfCBpyD6qAsqlL1qD4TuOSYjF7nLLcgpfiucGmNwkcofgyrLphOYgAMk5IBUHLXlj+vov
+	SyAJPaOT9theHa7LCCR04AqsP0AcZu7TwsuPhyAsTgUsMHcMN01QXx2blie05YurDIzE32zinWD
+	dzCta8/uoNoCF4GFf60OQ2t7KqLLmPJIGkY=
+X-Received: by 2002:a17:906:3ce2:b0:c4d:1768:48eb with SMTP id a640c23a62f3a-c5066ae6ba4mr117518566b.2.1794384804465;
+        Wed, 11 Nov 2026 00:13:24 -0800 (PST)
+Received: from [10.202.112.30] ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa1b27cdsm1775739b3a.19.2026.11.11.00.13.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 00:13:23 -0800 (PST)
+Message-ID: <a5576744-0984-462f-8f85-aa71151b277c@suse.com>
+Date: Wed, 11 Nov 2026 16:13:19 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,144 +91,122 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: FAILED: patch "[PATCH] iommu/amd: Skip non-IVMD entries when
- parsing IVRS memory definitions" failed to apply to 5.15-stable tree
-To: Sasha Levin <sashal@kernel.org>, <vasant.hegde@amd.com>,
-	<joerg.roedel@amd.com>
-CC: <stable@vger.kernel.org>
-References: <20261109202457-failed-5.15-e62df37e0eff@kernel.org>
+Subject: Re: [PATCH] ocfs2: fix kernel BUG in ocfs2_page_mkwrite() when
+ write_end fails
+To: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>,
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ yangwenfang <vicky.yangwenfang@huawei.com>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+42984127d45ad96219de@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
+From: Heming Zhao <heming.zhao@suse.com>
 Content-Language: en-US
-From: "Jindal, Akshay" <Akshay.Jindal@amd.com>
-In-Reply-To: <20261109202457-failed-5.15-e62df37e0eff@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSM2EPF00000011:EE_|CYYPR12MB8870:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e017466-85eb-4729-dbcc-08df3fcb7a7b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|376014|36860700016|1800799024|22082099003|18002099003|6133799003|3023799007|13003099007|11063799006|56012099006|10067099003|261102123227099003|261009223027099003|261026121527099003|261021121427099003|261022113327099003|261021123027099003|261022075727099003|261022105027099003|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	6QThxS6RNL3g/Mm77QTfOOXm/niyzwiYnSX5bJO9u2DBpL8EYjetQIJfK+NNtU9bxuycc5swljaCTgzhcO31n/zoCztI4B+72ZFI8AQU4Qdnqd/+zA8/XLRfJtmj5d8uFPyYzZWUQhrG7KbkTZswD5uGHnrWOEUZpJ+l6muqKSvTJDbOkmmTyZVje0PPJwfMvh+Em4IyukE8cHJ+luvM26CG94X8QS5nrKTGTpHb+mhSduDxixsW5xD3tv5aPNnf3JImZM4qZ1s42tM3uSR300Nw0xZYJu+cQ1/69UJTMRe5kL7m1jJzBDgib02FPF4czhJX9frjp64PdzV1UYMRGGfils6WoH7EcB4qQ5qFgF7NUHc1qxYWESc9Nb79xPFtSSTqf9z7FMl2hw4+YQjmUxSKywQCB+0lHQawQm5UIMDyV2GSkWXCUDBsLTIaAgJnouAV3apsehJQuw9QsyMEzKxms2+A6WjBdXGi+QB/C9/SezbWm4C3pXwqIXB1lp1jge1izbRx/cx0iYAb1/FeqdaTizuIW4s/ns4mfraF/reEIetZ93RnEeU1h8J6bvF0bjYdN18/y15qXTRIGaZinO3yS1h33h6kGQvcwqHV5b7/qLr7hcFuNCs5CzPLdBF3ADTiJJWwxP5jshCccnLk2/qTQ2JQUEJMBSXZ2aTbU1c=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(376014)(36860700016)(1800799024)(22082099003)(18002099003)(6133799003)(3023799007)(13003099007)(11063799006)(56012099006)(10067099003)(261102123227099003)(261009223027099003)(261026121527099003)(261021121427099003)(261022113327099003)(261021123027099003)(261022075727099003)(261022105027099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5/2IEhmwPWi7FtutxSsIh/Na4uS3QESxm9wK+3zI4ovop8ePVt1csS15pgNTX6CELfIt/Ij8i+Ds2KCP3dnnZ/LHal4/KdImCwdcyBB4meK8g/tcJ8voJGW7lWWtWj1vKaeXaETT2M9fy3DNZ5fMbiGexZD92Ac7g7HCQ4iO0n7TIGl30sJkdQBgE2GiAO26pGQFU2hw8nC/3Sj7w8nrtv2Bh4lbngE8CjhuRW8xGzWl94shcBzFnfCsVCSDgCnHu3wyNgr5vGGSMkmRdZk1lXPUx0m2s/nLYCIOpVEitV/L1CYy+/236DTNLpRNTBQBtCqJU7GyVs/9TokId8spOT+GApxBwTejgnMPwsydlnZfyGmgLjoG4xCz0sp5l1jwgwmM3k18Un54PqkW+WxSz0s5HCjjNA1NVkAIfXrIE4FSMWcvHNewKfE2P/qbHZAE
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:12:07.4923
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e017466-85eb-4729-dbcc-08df3fcb7a7b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DSM2EPF00000011.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8870
 
-Will send the patch.
-
-Thanks,
-Akshay
-
-On 10-11-2026 06:54, Sasha Levin wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+On 11/11/26 10:34, Zhiyuan Zhang wrote:
+> From: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
 > 
+> syzbot reported a kernel BUG in the ocfs2 write fault path:
 > 
-> The patch below does not apply to the 5.15-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
+>    (syz.0.17,5578,0):ocfs2_write_end_nolock:1945 ERROR: status = -30
+>    kernel BUG at fs/ocfs2/mmap.c:106!
+>    Call Trace:
+>     do_page_mkwrite+0x147/0x310 mm/memory.c:3879
+>     do_shared_fault mm/memory.c:6145 [inline]
+>     handle_mm_fault+0x1a53/0x3750 mm/memory.c:6943
 > 
-> To reproduce the conflict and resubmit, you may use the following commands:
+> __ocfs2_page_mkwrite() calls ocfs2_write_begin_nolock() and then
+> ocfs2_write_end_nolock(), and uses BUG_ON() to assert that the latter
+> returns the full length.  But ocfs2_write_end_nolock() can fail: since
+> commit 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before
+> ocfs2_journal_dirty() in ocfs2_write_end_nolock()") it gets journal
+> access to the inode buffer again, because the handle may have been
+> restarted since ocfs2_write_begin_nolock().  That fails with -EROFS or
+> -EIO once the journal has been aborted or jbd2 has seen write errors
+> on the device.  The syzbot reproducer gets there by shrinking the
+> backing loop device to zero with LOOP_SET_STATUS while writing to a
+> shared file mapping.
 > 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x e62df37e0eff4d670e78bbd415be2c1675883c15
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202457-failed-5.15-e62df37e0eff@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+> Handle the failure instead of crashing.  ocfs2_write_end_nolock()
+> leaves the mmap folio locked, because ocfs2_unlock_folios() skips it
+> when w_target_locked is set so that it can be returned with
+> VM_FAULT_LOCKED, and do_page_mkwrite() does not unlock it either when
+> ->page_mkwrite() returns an error.  So unlock it and fail the fault;
+> the faulting task gets SIGBUS, like for the other errors in this
+> function.
 > 
-> Thanks,
-> Sasha
+> For an mmap write ocfs2_write_end_nolock() returns either len or a
+> negative errno: inline data has already been converted to extents by
+> ocfs2_write_begin_nolock(), and copied is equal to len.
 > 
-> ------------------ original commit in Linus's tree ------------------
+> The BUG matters for local mounts, where the filesystem is expected to
+> go read-only and keep running after a journal abort.  On clustered
+> mounts ocfs2_abort() panics the node anyway as soon as it notices the
+> aborted journal.
 > 
-> From e62df37e0eff4d670e78bbd415be2c1675883c15 Mon Sep 17 00:00:00 2001
-> From: Akshay Jindal <Akshay.Jindal@amd.com>
-> Date: Thu, 5 Nov 2026 16:32:17 +0000
-> Subject: [PATCH] iommu/amd: Skip non-IVMD entries when parsing IVRS memory
->  definitions
-> 
-> init_memory_definitions() walks every top-level subtable including the
-> IVHD blocks (type 0x10/0x11/0x40) in the IVRS ACPI table. It interprets
-> each one as a 'struct ivmd_header', solely on m->flags, without first
-> checking that the subtable's type actually is one of the IVMD types
-> (ACPI_IVMD_TYPE, ACPI_IVMD_TYPE_ALL, ACPI_IVMD_TYPE_RANGE).
-> 
->     if (m->flags & (IVMD_FLAG_UNITY_MAP | IVMD_FLAG_EXCL_RANGE))
->             init_unity_map_range(m, table);
-> 
-> IVMD_FLAG_UNITY_MAP (0x01) occupies the same bit position as the IVHD
-> flags field's HtTunEn bit. Unlike real hardware, QEMU's AMD IOMMU
-> emulation sets HtTunEn unconditionally (flags=0xD1 for type 0x10,
-> 0x11 for type 0x11), so every QEMU-emitted IVHD block is misidentified
-> as a unity-map/exclusion-range IVMD entry, which subsequently results
-> in the creation of a bogus pci segment. Eg:
-> 
->     AMD-Vi: PCI segment : 0x4000, last bdf : 0x0000
-> 
-> Fix by checking the subtable's type before treating it as IVMD.
-> 
-> Fixes: be2a022c0dd0 ("x86, AMD IOMMU: add functions to parse IOMMU memory mapping requirements for devices")
+> Fixes: 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before ocfs2_journal_dirty() in ocfs2_write_end_nolock()")
+> Reported-by: syzbot+42984127d45ad96219de@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=42984127d45ad96219de
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Akshay Jindal <Akshay.Jindal@amd.com>
-> Signed-off-by: Vasant Hegde <vasant.hegde@amd.com>
-> Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+> Assisted-by: Claude:claude-fable-5-2
+> Signed-off-by: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
+
+looks good to me.
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
 > ---
->  drivers/iommu/amd/init.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-> index 78c7079dec9d6..3dd4ff145e552 100644
-> --- a/drivers/iommu/amd/init.c
-> +++ b/drivers/iommu/amd/init.c
-> @@ -2776,6 +2776,15 @@ static int __init init_unity_map_range(struct ivmd_header *m,
->         return 0;
->  }
+> Notes:
+>      Testing: syzbot C reproducer in QEMU (x86_64) on a defconfig-based
+>      kernel with KASAN, lockdep, DEBUG_VM and hung task detection enabled
+>      (not syzbot's own config).
+>      
+>       - Unpatched: BUG in 3 of 3 runs, within 22 iterations.
+>       - Patched: 437 iterations over 3 runs hit the failing write_end 21
+>         times (11 x -EROFS, 10 x -EIO), all ending in SIGBUS, with no BUG,
+>         KASAN, lockdep, DEBUG_VM or hung task report.
+>       - Negative control: without the folio_unlock(), inode eviction hangs
+>         on the locked folio in truncate_inode_pages_range() in 3 of 3 runs
+>         that hit the error.
+>      
+>      Not tested on a clustered mount.
+>      
+>      AI assistants were used to analyse the report, to write the patch
+>      and the changelog, and to run the tests above.
+>      
+>      ocfs2_dio_wr_get_block() has the same BUG_ON(ret != len).  It is left
+>      alone here because the pending "migrates ocfs2 DIO from buffer_head to
+>      iomap" series removes that function.
 > 
-> +static bool ivrs_block_type_ivmd(u8 type)
-> +{
-> +       if (type == ACPI_IVMD_TYPE ||
-> +           type == ACPI_IVMD_TYPE_ALL ||
-> +           type == ACPI_IVMD_TYPE_RANGE)
-> +               return true;
-> +       return false;
-> +}
-> +
->  /* iterates over all memory definitions we find in the ACPI table */
->  static int __init init_memory_definitions(struct acpi_table_header *table)
->  {
-> @@ -2787,10 +2796,11 @@ static int __init init_memory_definitions(struct acpi_table_header *table)
+>   fs/ocfs2/mmap.c | 12 +++++++++++-
+>   1 file changed, 11 insertions(+), 1 deletion(-)
 > 
->         while (p < end) {
->                 m = (struct ivmd_header *)p;
-> +               p += m->length;
-> +               if (!ivrs_block_type_ivmd(m->type))
-> +                       continue;
->                 if (m->flags & (IVMD_FLAG_UNITY_MAP | IVMD_FLAG_EXCL_RANGE))
->                         init_unity_map_range(m, table);
-> -
-> -               p += m->length;
->         }
+> diff --git a/fs/ocfs2/mmap.c b/fs/ocfs2/mmap.c
+> index 6c570157caf1..1c03f45e8965 100644
+> --- a/fs/ocfs2/mmap.c
+> +++ b/fs/ocfs2/mmap.c
+> @@ -103,7 +103,17 @@ static vm_fault_t __ocfs2_page_mkwrite(struct file *file,
+>   		goto out;
+>   	}
+>   	err = ocfs2_write_end_nolock(mapping, pos, len, len, fsdata);
+> -	BUG_ON(err != len);
+> +	if (err != len) {
+> +		/*
+> +		 * ocfs2_write_end_nolock() keeps the mmap folio locked so
+> +		 * that it can be returned to the VM with VM_FAULT_LOCKED.
+> +		 * On failure nobody else will unlock it, so do it here.
+> +		 */
+> +		folio_unlock(locked_folio);
+> +		mlog_errno(err);
+> +		ret = vmf_error(err);
+> +		goto out;
+> +	}
+>   	ret = VM_FAULT_LOCKED;
+>   out:
+>   	return ret;
 > 
->         return 0;
-> --
-> 2.53.0
-> 
-> 
-> 
-> 
+> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+
