@@ -1,63 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794435817;
-	b=IYo0ZyNgv/osu9n7NqB7Dsn5vAxEaC6gdqdHFvLQmcjNBI+YTs8tyVh1isjgJ6omdgVa
-	 MSgjpe+W0xbr4bTM9OsZWF+MI2gSvD5yir1uIfi+pZf1TqyLlSK7/z1Xzl1Nq8VNFXj5Q
-	 OpB4gkkr0P37If2TnNImaAsdaes/Z6Gy37NaD/xThBSrGC9B1r1hyTeR3T0p5MviOj+0z
-	 0iXja3To1oxXX9+RcaSJT4oC2z0r56CPC9tnq7J1gOd+Huf7p2BlBE+lajGa9ggBJJfc3
-	 prEVaWkmDoAzuY89JDwmhfo7S23G9dFgHF94Vt+U1pFLT/qwqujtyAxdvgM4qvUMu9w==
+	t=1794435821;
+	b=iCZS5hXnavp8SMkyBDlBUdXx/aPuv4vAB2ikYmihX8d2BU2i3PxLb415deTTr823oV88
+	 qlOAu1NvlB2VicqoUEVWtJosYIjfimBZ3bYtyv8xyNX4gMv4vbNmjRQcLhDuv6Wy0+tdP
+	 MVuSDglen5Aq6RDm0RMWX/MSdFrftrojVbfbTyD1FRxmlVDEa3ipgefE6doXpWEPwICtd
+	 zvmof4fT859tSECy8EtSa5TzX+OpArh0/ruI3Uidc2zxE7/9NHikP5Y5Ox9ciRnQDqOUb
+	 awV1TzEmw08ZHCafSS2+1BOAd7lF/59AQDs1w0V/aX7/5q0UKhERrIStBBhN+dXEoZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794435817;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794435821;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=vIGUiC68MfWXxmEzSf4VDuR8S3mlkQnlaJyZ75b/TFw=;
-	b=M6sUgzcwV6Sc1HrO58c+N45iTA6hLWtcGa1ALgJbHVCm4+rw6jDyjCGELu3hfl1Qe8h1
-	 o29H0IVvdudH5OJWMxxAxPceHrflF0SbX61EdFtt62dsNGr6ESA9MUFvTsjqFmGBGAC3o
-	 1UeVyyx+dVT0o1F/O101FL7fdbUZP2gB2ouyKL8V3+xhWk76HbfooIEzjkpba22n7yXRR
-	 49MP1Ac6CIVt3NoRTkrWp/6aAQFUVQ/qS0TiA+tulrNUvaCwVRDQWa1CxDAM/8ZdeBh6s
-	 WdCBaWr4yCc/fobOi7xF4WVVCHjCgw6JCKFdvL2SQVZuziONfIx1vzbDmcMbZo4L4NA==
+	bh=d4tcjPHu8NfAvLtUttlSvJOBVuVIPcZ3lpGiyioqQXI=;
+	b=PaManuFvN+3cCC23FAWiFK3M85o0LAieIgNv8zSySb1JwDy3VwlF3SolHbAJu2Eb//Kv
+	 JLn3MUFSvQaHeu3Joy8HiPHvHCxL39wKNIJqa/Rk+7AFHwByzsymXMXA/LnY7KiIq4xVb
+	 jCWZ7FBNPf83wLru5xm2Wzx+vVs19EB1XIxxwgsZK4r6tgqZk37RW09o4rWtYrpyQZWKl
+	 +AjpHHI+4UVlg7joEjkzjiKf/O6UqNAh5AgkkmnA/TQHS7zHbsy9q4jZU3URnlnLH5CY2
+	 tN2Lb5O2yC7rmGYWCTM78u+9/Maj36KsIEZ8FIMupXk93RBgyhBRjTTSNcxT9tj5rfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7hHuQO2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GumSzl3J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0ED606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:23:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1F9606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:23:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7hHuQO2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9241F00A05;
-	Wed, 11 Nov 2026 22:23:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GumSzl3J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0BB21F00A05;
+	Wed, 11 Nov 2026 22:23:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794435817;
-	bh=vIGUiC68MfWXxmEzSf4VDuR8S3mlkQnlaJyZ75b/TFw=;
+	s=k20260515; t=1794435821;
+	bh=d4tcjPHu8NfAvLtUttlSvJOBVuVIPcZ3lpGiyioqQXI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m7hHuQO2U4axufKOO10PmbH94ODHmn8nEWu5VtzPM8yQASljrHLzNXTq6toOpFg7r
-	 ToPSPzKZxqeAwqeTQjcTcKoMAXFYmid0R3RjFUl+6e08DXfTFJHO5qCvFqZ3S0n2/a
-	 WrnzHTRwB+0B2uvOinM8WEYspDPUAPRu7W5OY1IokU7Z8zPKwvA5n7ARI+/EWgL0w2
-	 +P/XkjM+fLn055cgOud3x5mAuvUcTQARYlD3ZwaPVgGQpf/uKi9w3blmkBXRwyGoWq
-	 YHuFldP/kd7wp3bGdKgGBeCTOjKA3dK9fiIJvHlcEaSQliN5UckCaiv8fpXXZw5iiN
-	 w3X6fvxzaGX5A==
+	b=GumSzl3JD3hBAgPJbR24aLYYMlVZiIsuisNNErl7e17LkVe9EWHzHOkMWIF/Pia1z
+	 HYwRd3+NZPHIFv0l80ijo3oyJnLjwfg71zE/t5ei3opN7FNIfOf2gP/H5qmjl132ad
+	 6QvXImc7HlYxJm1Elx4eVP/Ks4FrT/z4X5ewiWvDOo+lkbQC39ghPdM/gxHqNsR9/p
+	 +PTtsaQwK8MZ8bVx5DxDPwCIQfkNXIb3gZ+9WYGmV+3kn+cKrilUFYC6qNW5Pe+cNb
+	 rjRBTfiE3RXDWe3I/mh2pHwyW0nOj2XEXLEehhyInMe9FS/gZMmDzovUZ89/P58+Zz
+	 cP6OXce50qkAQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eklavya Singh <eklavyasingh2106@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
+Cc: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>,
+	Rong Zhang <i@rong.moe>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
-Date: Wed, 11 Nov 2026 17:23:35 -0500
-Message-ID: <20261111222313.4131342-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y] platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively
+Date: Wed, 11 Nov 2026 17:23:39 -0500
+Message-ID: <20261111222322.26306-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201237-failed-6.6-0a8f258c0f01@kernel.org>
-References: <20261109201237-failed-6.6-0a8f258c0f01@kernel.org>
+In-Reply-To: <20261107050523-failed-7.3-f91c2cd6dbce@kernel.org>
+References: <20261107050523-failed-7.3-f91c2cd6dbce@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,157 +64,83 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Eklavya Singh <eklavyasingh2106@gmail.com>
+From: Ali Ahmet Memiş <aliamemis@disroot.org>
 
-[ Upstream commit 0a8f258c0f012314c36b9e4818cdc0178c68f891 ]
+[ Upstream commit f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552 ]
 
-o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
-is already started, but nothing stops two writers from doing that at
-the same time. configfs only serializes writes through the same open
-file, so two processes that each open the dev attribute can both get
-past the check:
+On some Lenovo IdeaPad and Yoga models, the battery _BIX takes the EC
+AML mutex and then calls the serialized RDER through RDIF, while GBMD
+calls RDER first and then takes the EC mutex. When the two run
+interleaved they deadlock until the mutex acquisition in RDER times
+out, and GBMD returns garbage that is reported as both charge types
+being enabled.
 
-  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
-  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
-  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
-  B: start fails, fput(NULL)
+Evaluate all methods with the exclusive helpers, so that GBMD never runs
+interleaved with the battery methods.
 
-Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
-so the error paths can free the slot data twice.
-
-syzbot hit the fput(NULL) with an unbound loop device, where every
-start fails with -EIO. With four threads doing the same thing on a
-KASAN kernel I get both crashes within a second:
-
-  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
-  BUG: kernel NULL pointer dereference, address: 0000000000000158
-
-Add a mutex to the region and hold it in dev_store(), in the
-block_bytes, start_block and blocks stores, and in dev_show(), since
-they all look at hr_bdev_file. dev_store() cleans up with goto, so it
-takes the mutex in a small wrapper rather than with guard(). The mutex
-is dropped while dev_store() waits for the heartbeat to become steady,
-which takes seconds, so a read of dev doesn't stall behind a start.
-hr_bdev_file is already set at that point, so other writers still get
--EINVAL, and the cleanup after the wait retakes the mutex.
-
-With the patch the same test ran for 10 minutes with lockdep on and
-nothing was reported. So did a second one, with a working loop device,
-that interrupts starts during the wait while other threads read and
-write the attributes.
-
-Link: https://lore.kernel.org/20261020212339.46591-1-eklavyasingh2106@gmail.com
-Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Deepanshu Kartikey <kartikey406@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adapted upstream’s wrapper-based locking to direct locking in dev_store() with unlocking at its existing common exit label ]
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221065
+Link: https://lore.kernel.org/all/58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe/
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+Reviewed-by: Rong Zhang <i@rong.moe>
+Cc: All applicable <stable@vger.kernel.org> # 80892972ff23 ACPI: utils: Add exclusive AML evaluation helpers
+Link: https://patch.msgid.link/20261018122348.679126-1-aliamemis@disroot.org
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/cluster/heartbeat.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+Depends on <20261111164858.3300811-1-sashal@kernel.org>
 
-diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-index 6b7bf4ecdd689..8f089d0b03c5b 100644
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -268,6 +268,8 @@ struct o2hb_region {
- 	struct list_head	hr_handler_list;
- 	/* Serializes timeout arming against failed-start and teardown. */
- 	struct mutex		hr_arming_mutex;
-+	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
-+	struct mutex		hr_dev_mutex;
- 	bool			hr_stopping;
+ drivers/platform/x86/lenovo/ideapad-laptop.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+index 8213524504eeb..1335f4e488702 100644
+--- a/drivers/platform/x86/lenovo/ideapad-laptop.c
++++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+@@ -297,12 +297,16 @@ static void ideapad_shared_exit(struct ideapad_private *priv)
+ #define IDEAPAD_EC_POLL_MIN_US 150
+ #define IDEAPAD_EC_POLL_MAX_US 300
  
- 	/* last hb status, 0 for success, other value for error. */
-@@ -1657,6 +1659,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
- 	unsigned long block_bytes;
- 	unsigned int block_bits;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev)
- 		return -EINVAL;
- 
-@@ -1686,6 +1689,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
- 	char *p = (char *)page;
- 	ssize_t ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev)
- 		return -EINVAL;
- 
-@@ -1711,6 +1715,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 	unsigned long tmp;
- 	char *p = (char *)page;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev)
- 		return -EINVAL;
- 
-@@ -1728,10 +1733,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 
- static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
++/*
++ * On some models GBMD and the battery _BIX take the EC mutex and a
++ * serialized method in opposite order, so evaluate all methods exclusively.
++ */
+ static int eval_int(acpi_handle handle, const char *name, unsigned long *res)
  {
-+	struct o2hb_region *reg = to_o2hb_region(item);
- 	unsigned int ret = 0;
+ 	unsigned long long result;
+ 	acpi_status status;
  
--	if (to_o2hb_region(item)->hr_bdev)
--		ret = sprintf(page, "%pg\n", to_o2hb_region(item)->hr_bdev);
-+	guard(mutex)(&reg->hr_dev_mutex);
-+	if (reg->hr_bdev)
-+		ret = sprintf(page, "%pg\n", reg->hr_bdev);
+-	status = acpi_evaluate_integer(handle, (char *)name, NULL, &result);
++	status = acpi_evaluate_integer_exclusive(handle, (char *)name, NULL, &result);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
  
- 	return ret;
+@@ -324,7 +328,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
+ 	in_obj.type = ACPI_TYPE_INTEGER;
+ 	in_obj.integer.value = arg;
+ 
+-	status = acpi_evaluate_integer(handle, (char *)name, &params, &result);
++	status = acpi_evaluate_integer_exclusive(handle, (char *)name, &params, &result);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
+ 
+@@ -336,7 +340,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
+ 
+ static int exec_simple_method(acpi_handle handle, const char *name, unsigned long arg)
+ {
+-	acpi_status status = acpi_execute_simple_method(handle, (char *)name, arg);
++	acpi_status status = acpi_execute_simple_method_exclusive(handle, (char *)name, arg);
+ 
+ 	return ACPI_FAILURE(status) ? -EIO : 0;
  }
-@@ -1859,6 +1866,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	ssize_t ret = -EINVAL;
- 	int live_threshold;
+@@ -394,7 +398,7 @@ static int eval_vpcw(acpi_handle handle, unsigned long cmd, unsigned long data)
+ 	in_obj[1].type = ACPI_TYPE_INTEGER;
+ 	in_obj[1].integer.value = data;
  
-+	mutex_lock(&reg->hr_dev_mutex);
-+
- 	if (reg->hr_bdev)
- 		goto out;
+-	status = acpi_evaluate_object(handle, "VPCW", &params, NULL);
++	status = acpi_evaluate_object_exclusive(handle, "VPCW", &params, NULL);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
  
-@@ -1959,9 +1968,15 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	reg->hr_task = hb_task;
- 	spin_unlock(&o2hb_live_lock);
- 
-+	/*
-+	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
-+	 * hr_bdev is already set, so other writers still get -EINVAL.
-+	 */
-+	mutex_unlock(&reg->hr_dev_mutex);
- 	ret = wait_event_interruptible(o2hb_steady_queue,
- 				atomic_read(&reg->hr_steady_iterations) == 0 ||
- 				reg->hr_node_deleted);
-+	mutex_lock(&reg->hr_dev_mutex);
- 	if (ret) {
- 		atomic_set(&reg->hr_steady_iterations, 0);
- 		reg->hr_aborted_start = 1;
-@@ -2013,6 +2028,7 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- out2:
- 	fdput(f);
- out:
-+	mutex_unlock(&reg->hr_dev_mutex);
- 	return ret;
- }
- 
-@@ -2118,6 +2134,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
- 
- 	INIT_LIST_HEAD(&reg->hr_all_item);
- 	mutex_init(&reg->hr_arming_mutex);
-+	mutex_init(&reg->hr_dev_mutex);
- 	reg->hr_stopping = true;
- 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
- 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
 -- 
 2.53.0
 
