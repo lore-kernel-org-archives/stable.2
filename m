@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794441007;
-	b=bKPUWKYzXoRcF+XN86DEchmbnzFTfmvkSDXxpYDNn7cNmICItRm88eVXLZNkDGp2zMig
-	 DB/AdV6vvgCF0wkBmqmPK6xuta5CY+D6QWvutr6/uaknGC3t80nJNqY/+jaqthJmYwnMn
-	 xfAwjVCUslg8KanGfyZPkd9qQz/fOXxf2t3P3skWupTh6hX0eThFLnXNEX7cwhb/Kzftu
-	 /KbADPrc4CWNPk44Un1IfHd5p0df1xWAL8BWB9TC620nWO3fbkVCe5cTPsQh9WTuLZxut
-	 CAW0a5cT1WiMXTEKSMm23bafr3d7fPu9SKpV8jl+/o5kAyZj1QDx56BklIPvPWTGE1A==
+	t=1794441091;
+	b=zCAvnkUbLxQu+EsOZPXEkbWb6+rsFr+zlXbA6hoJebbiiL88Ge8JTIUeHyevUqCRxBQF
+	 EMYv6wYxoZlzTjzOt3BYli/hkq6WIM02Ch59khvqj++2fdJzSlJzmntDHLnzsdGO2kp8U
+	 WhVccb4Y6248O9JKG5GQwaZNN0vAG/IwRJ9vk+BrXW5mFx7WQ1DaUTDcDoqjjs7OjAf7b
+	 xH+nFiAJcj/7saphCw90iIHYUOKA0N1YydZJO4Q4JyQhpx4stz7sUGiJ5Xj4butN1y8eQ
+	 XJF0vNfJ+wui+lOpIcFHD17263NW3sIr2rvOgovMW+I3nKITcHoxI3xckqYaWR+WfVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794441007;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794441091;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=M/2wx9+MZCxwSiteUibVzTKd+q+7NQqf5slHy00WdmU=;
-	b=uzersDHnXt/IDxrb6cH8Dt3ldo84phNhCEoHQ+V6W/vA62A2bivqUXhhNowYW3cuIEAk
-	 sf0Q/dQeI03sOEI7bIauojXNSQ31FXzOl3op0e+NyF7lcNEcRgX27+h4vK4zV47MrAMjj
-	 uvQ0RsA5q1/89F4YAYS+hKR524GQEurBpgCK8EoEtz1ZE9gs7gBganaMGaMXoEjfcEsep
-	 u7bG/OyJHX5YN/Z9LqbmwFnImsAN/ZtrPzOSi036DfL7nh8pIw0+H+WWUhzHCSa8hqf+W
-	 FCMDTzm/q3HxgpjBHIIREfeOcMnn44CmNTAbMXg8QmqfIYNGTI+ZBlF26ol9/H4SJrA==
+	bh=UdR8M71iloDlSCOFLWzcAf+uOGgX1xcxn/kg2mNFgVE=;
+	b=EfY4Nxdn7pMH1pbARoYwXZlL2J2NiF/v8jcPVVpG62XbY9XWkwn5ZfW4/zSzGoZsC3nK
+	 p/536Nf96kAehi3h/ryA79FQ/p53cZsajMkdc3q/WafCH+RW+duvH2TSyzHNOZDK05/lW
+	 AfJgoW0r2fvMEqhWynaE2zd2zM2LVD3+n6Pa9dVpQq30+0jYyry6rXYDmW9ip0/1DH4A9
+	 Zf+vbnuxJxspXbxN992k/HNbbcRwJJzPfIjvPRKhYjoJNwFpX8Q5Nu4fIIXCYd6i6u3mo
+	 w6DeyvbH3n883kzZVDdiuHsMIuEaGhj/9BYXQLYjn0YD4C6WPvJiqd6ok2jdBaDc66g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecYavZI2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=USzXQD+o;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FDD606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:50:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E78606A331
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:51:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecYavZI2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F4F1F00A05;
-	Wed, 11 Nov 2026 23:50:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=USzXQD+o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D961F00A05;
+	Wed, 11 Nov 2026 23:51:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794441007;
-	bh=M/2wx9+MZCxwSiteUibVzTKd+q+7NQqf5slHy00WdmU=;
+	s=k20260515; t=1794441090;
+	bh=UdR8M71iloDlSCOFLWzcAf+uOGgX1xcxn/kg2mNFgVE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ecYavZI2XZFuA6zzwiEjm4zP3mnyjnnByb9Y0K99eC0R44NEpyMVkVBJEhFZLRoZK
-	 fY92lWQSe0D16z1fW6qW1P8X5M+rdteBseBTODXldyJnwgh2IPETkUbLgn0WrUb+1h
-	 B1cEWCOzmYC30WiAFqJADAqnIua9pZ416rgC1HRlzE8s/rT8fPObv+Ny+H4k/SaiL+
-	 F44wjnNY1M3o3o31Mgm7WWnsGUR+S7yDN7JLIdIsSLLBEI82QN9CscWA06zzzYLL5p
-	 dIZ3kaMhjitNPGRPcfS/VNjjRDdsqz1aW2rUmA879IteA+MAL9tGbmBrFfPltYm0qc
-	 wgsIN8PBfyxfA==
+	b=USzXQD+o6bnRaoyn3cNVLXRt5Upj5mKzhLaSpSoCso43ih/XKcXRoo73YdsN3uQn2
+	 NE99kH0qTF3Zttj+WZftCVFnvuaJ1nqEf5WC97UxjY6AiXUo+OXtm4n0J+wIGEYm1B
+	 3GMjIEIQL74z0EMzOrE8LHhyoiAviqSMkuSG4Bu2s8WklGWesd8LVC5eBsEjFFDptp
+	 Ab/RfejVUB0tTUeRSLovXfABttElt/i0vBY4Os/qFinrM25CN/7jDYcRH1/eNDDS0W
+	 3saNDDcgeHNeISJA2q+d4y56kKwAxb2SMqkPFHM+jsQGmtJFiS+r5mlXpE53tMJ/Y1
+	 VU0HiLr3d3y5A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ksmbd: revert fsids on durable reconnect and replay failure
-Date: Wed, 11 Nov 2026 18:50:05 -0500
-Message-ID: <20261111234956.702269-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/userfaultfd: wake waiters when registration modes are removed
+Date: Wed, 11 Nov 2026 18:51:28 -0500
+Message-ID: <20261111235106.828557-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200243-failed-6.18-539223f18026@kernel.org>
-References: <20261109200243-failed-6.18-539223f18026@kernel.org>
+In-Reply-To: <20261109202331-failed-5.15-4eee9c389b07@kernel.org>
+References: <20261109202331-failed-5.15-4eee9c389b07@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,46 +64,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Bridges <icb@fastmail.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 539223f18026448f67d33d09719c355b91db7fd0 ]
+[ Upstream commit 4eee9c389b072e161549d46dcb1ae10b0222717e ]
 
-On a durable handle reconnect or a request replay, smb2_open() switches
-to the SMB user's fsids before calling ksmbd_vfs_getattr(). If that call
-fails, the code jumps to err_out2 and skips ksmbd_revert_fsids() at
-err_out1. The user's credentials then stay installed on the shared ksmbd
-worker. Later work on that worker, including other users' requests, runs
-with the first user's fsuid, fsgid and supplementary groups.
-ksmbd_free_work_struct() also warns, because work->saved_cred is still
-set.
+UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
+faults that are already queued. For example, switching an anonymous
+range from MISSING to WP leaves a missing-fault waiter asleep until
+userspace explicitly wakes it.
 
-Jump to err_out1 instead. No path is held at this point, so skipping the
-path_put() at err_out is correct.
+When a registration change removes a UFFD mode, wake waiters in the
+affected interval after updating the VMA. The VMA is write-locked at
+this point, so no new faults can queue under the old modes and woken
+threads cannot retry until mmap_write_unlock(). Waiters for retained
+modes in the same interval may also wake and refault.
 
-Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
-Fixes: bb8bf7eb13b5 ("ksmbd: add SMB3 request replay support")
+The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
+with both read and unread fault events.
+
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: omitted the hunk for the absent dh_info.replay branch ]
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: replaced wake_userfault_range() with a direct wake_userfault() call using a local userfaultfd_wake_range ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smb2pdu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/userfaultfd.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index ec4c54c9c6dc9..6ad50aab3dfcb 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3125,7 +3125,7 @@ int smb2_open(struct ksmbd_work *work)
+diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
+index 271ce399f6b6f..ea7e9db135eb4 100644
+--- a/fs/userfaultfd.c
++++ b/fs/userfaultfd.c
+@@ -1421,6 +1421,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
  
- 			rc = ksmbd_vfs_getattr(&fp->filp->f_path, &stat);
- 			if (rc)
--				goto err_out2;
-+				goto err_out1;
+ 	ret = 0;
+ 	do {
++		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
++
+ 		cond_resched();
  
- 			goto reconnected_fp;
- 		}
+ 		BUG_ON(!vma_can_userfault(vma, vm_flags));
+@@ -1468,6 +1470,16 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+ 		vma->vm_flags = new_flags;
+ 		vma->vm_userfaultfd_ctx.ctx = ctx;
+ 
++		/* Retry faults for removed modes while the VMA is write-locked. */
++		if (any_mode_removed) {
++			struct userfaultfd_wake_range range = {
++				.start = start,
++				.len = vma_end - start,
++			};
++
++			wake_userfault(ctx, &range);
++		}
++
+ 		if (is_vm_hugetlb_page(vma) && uffd_disable_huge_pmd_share(vma))
+ 			hugetlb_unshare_all_pmds(vma);
+ 
 -- 
 2.53.0
 
