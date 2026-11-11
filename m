@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409429;
-	b=G2/3ycoswAI2CkjIFhoDgWDNPhD88fP7PFMsRD5T3IPzrdK61cHUFzrqJ8xaV7/UYBUS
-	 QIEjuqbK5Yd9iJstAVUoiIaav2ppmHqc8nLhOxZP9Q7/URi+bJW/nrEW8Q6c/GeTIthyY
-	 aIUGEF4s4X+ja9KWQVg23vtxXzpBTSM/1A1UI5OoNRPcNIfe9pT4H1ILG4u1+kAc4OeG+
-	 74/RB8T7JvULRSwy+TBOa1xc+DKNxTU1azz97xbTwWfykFrxgBhMWZ+A0j/YGOh0IEUxo
-	 j/YIm6k3/cUh6sJJzGTLvxt3I50JaXVRpzBNWywHtKCsaGWGvxRBn7mWdUYuFX5TP2w==
+	t=1794409437;
+	b=DuWEY4q/4/B6v+nL1vUj7UedEcT4MZBjP4NNzURjXdJcHU4ijSNUvIDL6+fSlK1Nxj6P
+	 uQMwoZtWxcJvvGJ/q1bA9Ay0RupPTnTRb3aP0QH00v2JZUNAegQW3gFyXayf1g5pZeKMM
+	 VNZbx9g45TiR8OFGuKXJ+tlQnU79Skic2+AK472r6bzTfo6VPnqLngJsQ+rNw9c25PKk3
+	 qW1ggoovfygC5PnEVBFqbDlX93vs/Qb3kCF17zrGtbv61q21AVEP11X2RP67teMVXtUx1
+	 l8cEEYB4O+o9azDeCK1aANnugLsyNCJ4TLMISoFUSmy+F9G/wgej8+x1dTmqzZZPuhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409437;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=H6YE/T7yLPeTJhVqXZ1rFvKKGujIr6rV/dTwZzX1uOQ=;
-	b=IReFKajgI7M85//dIl0sRluOeMSWky4bCQKkfT5e7nTaSQ8pFEGy8oFJIWSm7/y6G731
-	 GkL4AVpnHsjWyym1/JOe+lQvUKrcIdMFFYI2dyR3SCrL7HjlZ8w/PSZ51Z7CIq8llNGX9
-	 eeL74LA+Hfg0Zl469zE151ijnCEqPqSUEN1V2GmamnSRpe1SrZbQt6kEHRp1LvsbpFfkE
-	 jLmyWykN2DX/zf6QBrFDwe7zsASlbeay5t5KhkflWFltIbg35Ij11jUVmJFocHGseghc6
-	 36dedalcYGDB/6eT/zIi6gEAbdFetSE+TMbsEPEF01p/HmMKpad4BoD/deg/ypMtrAA==
+	bh=HghP/JN3RspysRX+SWUae2hFYZJt2XHn8HUerRXCZ2A=;
+	b=fsiV0wG7KWbR6Kf+2ECEoqRLvGEWF3bdiRPvZ4JSa1QSPfI0b2JFJcN98E1QNXbQ67I1
+	 oSRToriA4KcAIWRExNSnl24hpB6zaLdj3BjvuUBkLsnnkzUU1qCAEBRsPtMJIUqgzW81F
+	 x/oBCKdVt2LoUN6LhlYKB65DS0CtBYYspa743qRrvbhv/ULDZCAct6ttVqg1kbJCBZ/vp
+	 sGmuK5t/OVjrlUf4yE1qS8wc3KVLEwockH4Hcsue++EeoBGVosEjIsfb35rbOa9x4Z8Eo
+	 HrNp63sT2IpsW9ItDmfJgjgqTv8icBw3AZLlBUFGAKeZblRPljxUenuO2sKlWRjDeCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PaO0e6+S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzXOTE3z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A2D606A882
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:03:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3602606A330
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:03:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PaO0e6+S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB53B1F00A06;
-	Wed, 11 Nov 2026 15:03:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzXOTE3z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F1B11F00A05;
+	Wed, 11 Nov 2026 15:03:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409429;
-	bh=H6YE/T7yLPeTJhVqXZ1rFvKKGujIr6rV/dTwZzX1uOQ=;
+	s=k20260515; t=1794409436;
+	bh=HghP/JN3RspysRX+SWUae2hFYZJt2XHn8HUerRXCZ2A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PaO0e6+SZT+pUsv3eFuFW9cBmqtYgvlYOXw7jv4W6106VYkj0IBNzQZjfdYXXUqKm
-	 LiwTNy1sDrcPTLCKyM7+Z6627ddMNT1A8tf+IsdYqX4wvUs5h4p2HUpT1hSaNqWoU8
-	 db5HmGLUvuAc/3dU10ETbG2jo2OZaQd6k/xa9+ttQhdTcYAB5icdLsoRvaf/8OsffS
-	 XaTiCQo2qcdx8eqIwi+L2w4I+caEZgv9PAUKIxzc/c2e1bBWkPTz+IbKkHaCe43Vcs
-	 nos0hDFH0gWT6Ivnheb8VWT6pdqGjaOe3lpJaSVgBFHcOmo5QzXHHAbwMFP+dUVtZq
-	 QRVYfAon3/9eA==
+	b=RzXOTE3zsOt5a9MeRdEoNQNtKJRTJujLKNnqw57Gw8VgFMiWEE+NOc8s9tnNcXaTC
+	 kTzOphQ3JkWw5yjt23zBBrOvjej+0VriSnMSDoVycNsE80mQsX+VEOI5I3KZDqWgiS
+	 iEDnsFt9+lQmgst+ONvxNTo3feN7Fyftr/PbLyizN3G93BvK0w5+aLd4Cg7aw1QSzY
+	 0Ge5Sk0bnpMeDv1MG9lirGr+UOcTKXuqTTBwMerOvYlkrUnH/SJQhxS/9TJseShUh0
+	 K6YFJGF/hiIxkjSwvxVIVFBl/LkAQinN12vDNdSawVu/Lx/UZLNsynsM41H2jw0cxC
+	 DEg7KSRcdMJxw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Sang-Heon Jeon <ekffu200098@gmail.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] media: serial_ir: Fix race condition where timer can be re-armed
-Date: Wed, 11 Nov 2026 10:03:47 -0500
-Message-ID: <20261111150319.2466634-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] LoongArch: remove redundant numa_nodes_parsed node_set()
+Date: Wed, 11 Nov 2026 10:03:53 -0500
+Message-ID: <20261111150341.2575597-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051727-failed-6.12-d74ac4016ba6@kernel.org>
-References: <20261107051727-failed-6.12-d74ac4016ba6@kernel.org>
+In-Reply-To: <20261107052654-failed-6.12-87c6d144bc7b@kernel.org>
+References: <20261107052654-failed-6.12-87c6d144bc7b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,35 +61,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Young <sean@mess.org>
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
 
-[ Upstream commit d74ac4016ba64cb3b20f395511d0b18025ca0ba9 ]
+[ Upstream commit 3aeac07c5b1c3399487f4b38182f8cfbc3dbbd53 ]
 
-Ensure the timer cannot be re-armed.
+numa_add_memblk() now sets the node in numa_nodes_parsed itself, so the
+caller's own node_set() is redundant.  Remove it.
 
-Fixes: 2940c7e49775 ("[media] serial_ir: generate timeout")
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: adjusted the replacement to target del_timer_sync() instead of timer_delete_sync() ]
+No functional change.
+
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Link: https://patch.msgid.link/20260703041329.2797584-7-ekffu200098@gmail.com
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Stable-dep-of: 87c6d144bc7b ("LoongArch: Don't init & online empty nodes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/serial_ir.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/loongarch/kernel/numa.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/media/rc/serial_ir.c b/drivers/media/rc/serial_ir.c
-index fc5fd39271772..f6702b3df9a03 100644
---- a/drivers/media/rc/serial_ir.c
-+++ b/drivers/media/rc/serial_ir.c
-@@ -798,7 +798,7 @@ static int __init serial_ir_init_module(void)
+diff --git a/arch/loongarch/kernel/numa.c b/arch/loongarch/kernel/numa.c
+index 84fe7f8548209..aefe9984be794 100644
+--- a/arch/loongarch/kernel/numa.c
++++ b/arch/loongarch/kernel/numa.c
+@@ -318,7 +318,6 @@ static int __init fake_numa_init(void)
+ 	phys_addr_t start = memblock_start_of_DRAM();
+ 	phys_addr_t end = memblock_end_of_DRAM() - 1;
  
- static void __exit serial_ir_exit_module(void)
- {
--	del_timer_sync(&serial_ir.timeout_timer);
-+	timer_shutdown_sync(&serial_ir.timeout_timer);
- 	serial_ir_exit();
- }
+-	node_set(0, numa_nodes_parsed);
+ 	pr_info("Faking a node at [mem %pap-%pap]\n", &start, &end);
  
+ 	return numa_add_memblk(0, start, end + 1);
 -- 
 2.53.0
 
