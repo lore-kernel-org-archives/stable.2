@@ -1,57 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416732;
-	b=rqB5t565yToivjM9kOFJvKYCspSU4I7MrHmtYd4GgVwM6YeO8cLHrXRHKaCQmBa8ZAHq
-	 hpnt2nMSC9ZTU2LefrFKg+IbWcMewgG1o6gcVxga8IC3kfF50hJ1EhpREPNgiFrmqo9cz
-	 aGvIUJIKvETySL3q+dY/sb7jW/3AkZRUVyvUCaSckD1kPa5nwNaekNUagtglO6awB16Le
-	 r/drJkcb/QBDgz2kfKmBnG8n6EePK8b+W6cJfHngVcTG1FMCbfM6rzjLzIJ56mgQdxMKk
-	 QOYO6P0rR6bRXF9iRaa32ziPATt/Pfsz81jYNTXQ6yqfiwA5RPZBZV06hiVxUICTydQ==
+	t=1794416769;
+	b=Zn4R+hkWCsnoigQFmkOUrsYMz7bx3gH394AmjEclm4hmSBFIA47yVyRhXGiZ1r13KfL6
+	 +O4C4ylMfZeUYMR2fBrkh4l1/fNNFfQzaYgjR2MtyKXKQLiFaKwDhSXSrFI8+pG6YRLyv
+	 ChkKOtz7by2dtx+Jz+q8iaqRrIXcAlh5iQF1GyHg0Fwcv52PztEKcX/Pg5oidaqhQ68QC
+	 GD6K1VFnSo4ZL5bDOCjNBrVVv+OisH19mqtenZ2zVQMLK52uNXhrlampg7YUHZj0L+9GM
+	 681n2+7q3gmzxIBFbr6Qp7Z6FcdNlNN1BaSn+0zlcrHA8938ATj36jJFDYRYXRE57eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416732;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QzcudBV4MnTxAthGSwaebNiGUIppXdtoTg9qGoQa4AI=;
-	b=yPRe5628MLM07wubxohkd9occUfQ6/1eqyKhLiRQmx6FP5hxO7umjTeUkmHOSEeIBtp5
-	 KVEvmW/INzBTemf5Las7FW28J7/YcE8fsZ3p3EkdnAXUpc5d/8tBvQzwOi1L1vPRcErKi
-	 gixbg+9KxrDXLinlAfdfFG7hC7QKneaRhTIbCy9z4IIyCvgTbX+YUag5M8DfbCgm45a7S
-	 IVOiPGTx1C565k3sFpUd39tP8lMDwfcgw5aVW0OGgAx0miodvha3ygLCYhFCCBDG6SXJo
-	 TjPjkAUQKwtpQE5pey17Q0qXQ8nk0765o471/HHbCvB28akl/2BVcnNz7Z6wbcdpgXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416769;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=A6N6m0qW3yIxjKSp7U7uVNjBd3wWLQIrayrMA06twuQ=;
+	b=ZZlpPC0jXgKfcZHqMNQyfLLFSs/gkZ49500lT1UgUS7vTl/q5ZbidANvoVL9j8T7DmGc
+	 0YC78fSc5zGUfJuppRM/wBeOu4LBOdObYKaZEOd/3LyOl0l8z9YlcM6EVWZ4X4/DWHCBL
+	 9XHwjY9AHd3KoOJKP+iiEz/l/B9snLZ4788z2D7QsE7y6NiJ0lHjPBUUBEao7qNRzelY2
+	 1bawyyaKvLU2oydNs+zrNX+yJ2Ia9QCMcJnW/U3sAJ5y3NBQsBwbcUlAeWMxkbws2cUK5
+	 nGsxUUbcuBjoq63U3PZSAdKO66emnzlfDyqkmut66RoycTxmRG6zVuv2y+z2C33mgYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dil3lyVo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Ly0OFOvQ;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2750C606A8B2
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F5E606A321;
+	Wed, 11 Nov 2026 17:06:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3F5E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dil3lyVo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E95B1F00A05;
-	Wed, 11 Nov 2026 17:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416732;
-	bh=QzcudBV4MnTxAthGSwaebNiGUIppXdtoTg9qGoQa4AI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dil3lyVom3Hu7yZaaD9HfIV1ngzpAj8sVyYGDf0qBb8he6RCb5kLyPQkZkBVoEUJA
-	 HUUA0WY8hKb/wQixQ9xTrkChRlMww9s+27Vz+WTXAosceeaXhh6SM3O1dsk3XfXNdU
-	 pHK9dYTyZ10wbHQPF9E5bMGPNdSPXupiD5HHGBzv7Ck24+Lad2f7ibjH+wQ2CxnOWy
-	 GALGNrtni2UobfuXSWbuMcM6HUscp/B6tGHbl1dzcOd9ZMFfxdZjn3+mqssoWpQBQG
-	 i7sEvUT2rQ+g0iazRowyE+vWH6s4NsgRbBLxE5A2LugeS7KYifXQqIHrsWuXaLD/x4
-	 /3ozVLZNZfxRQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] drm/msm/hdmi_phy: Cleanup after msm_hdmi_phy_resource_enable() failure
-Date: Wed, 11 Nov 2026 12:05:29 -0500
-Message-ID: <20261111170441.3401882-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111170441.3401882-1-sashal@kernel.org>
-References: <20261107060115-failed-5.15-d27f831aaf20@kernel.org>
- <20261111170441.3401882-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Ly0OFOvQ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=A6N6m0qW3yIxjKSp7U7uVNjBd3wWLQIrayrMA06twuQ=; b=Ly0OFOvQAbh1Fx0woCgwdzl4JN
+	IqhyJ02ZWh1sH6Y60OeSUyaTxEe4zvEbIiO5jUgAIJqQ7N1FrHRSTSdEIrTTlqoK44EOSWh5/exRb
+	5Fl0/laB8l4pLvLdxHFGJAS3lmR5tgT/u08JtvLHdRN9NUb7f9HoFjKhUAZoTt+wSRtNjLAwopClU
+	o0DGfIVxFfBJCzJTukpVP86uXjrt4XvS2HRxbogLMjPjzt5KB79aAKN6vqbcx5aaaCoJbWfmPqFRz
+	j39TwPGH1a2pFYyYURkIbkRJPH4ZyNxGdi8156kmC6oPk4vJFnmNTs7gA5/ILZxqidjOdkM00yBBh
+	D0eYKEuA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRBlp-0000000Blaz-10Mh;
+	Wed, 11 Nov 2026 17:06:01 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id CB0F230031E; Wed, 11 Nov 2026 18:06:00 +0100 (CET)
+Date: Wed, 11 Nov 2026 18:06:00 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Huacai Chen <chenhuacai@loongson.cn>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Huacai Chen <chenhuacai@kernel.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Tiezhu Yang <yangtiezhu@loongson.cn>
+Subject: Re: [PATCH] lib/smp_processor_id: Don't warn if there is only one CPU
+Message-ID: <20261111170600.GS1779021@noisy.programming.kicks-ass.net>
+References: <20261111092421.3771992-1-chenhuacai@loongson.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,65 +73,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111092421.3771992-1-chenhuacai@loongson.cn>
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Wed, Nov 11, 2026 at 05:24:21PM +0800, Huacai Chen wrote:
+> When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) kernel,
+> calls to smp_processor_id() in preemptible contexts trigger some false
+> positive "BUG: using smp_processor_id() in preemptible" warnings, which
+> are harmless noise because the process always executes on CPU 0 and CPU
+> migration is impossible.
 
-[ Upstream commit d27f831aaf20aaf06e41ceb1b260e10672269155 ]
+The check is still valid, you don't want to have any code that uses
+smp_processor_id() outside of preempt_disable(). Such code would be
+invalid on SMP, even when ran on UP.
 
-If msm_hdmi_phy_resource_enable() fails, e.g. when enabling regulators,
-it should reverse the state of things already changed.
-msm_hdmi_phy_resource_enable() is used also in probe path, thus such
-failure, which could be simple deferred probe, would leave these
-resources permanently enabled for the rest of the runtime.
+All code must be SMP ready.
 
-Cc: <stable@vger.kernel.org>
-Fixes: 15b4a4523859 ("drm/msm/hdmi: Create a separate HDMI PHY driver")
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Patchwork: https://patchwork.freedesktop.org/patch/752654/
-Link: https://lore.kernel.org/r/20260911-drm-msm-hdmi-fixes-before-eliza-v4-1-87bdb9f1987f@oss.qualcomm.com
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/hdmi/hdmi_phy.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-index 326b43c803f09..1bdaa1f94c29b 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-@@ -62,16 +62,28 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
- 	ret = regulator_bulk_enable(cfg->num_regs, phy->regs);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev, "failed to enable regulators: (%d)\n", ret);
--		return ret;
-+		goto err_pm_put;
- 	}
- 
- 	for (i = 0; i < cfg->num_clks; i++) {
- 		ret = clk_prepare_enable(phy->clks[i]);
--		if (ret)
-+		if (ret) {
- 			DRM_DEV_ERROR(dev, "failed to enable clock: %s (%d)\n",
- 				cfg->clk_names[i], ret);
-+			goto err_clk_unprepare;
-+		}
- 	}
- 
-+	return 0;
-+
-+err_clk_unprepare:
-+	for (; i > 0; i--)
-+		clk_disable_unprepare(phy->clks[i - 1]);
-+	regulator_bulk_disable(cfg->num_regs, phy->regs);
-+
-+err_pm_put:
-+	pm_runtime_put_sync(dev);
-+
- 	return ret;
- }
- 
--- 
-2.53.0
-
+Aside from that, nr_cpu_ids is the wrong number to check.
