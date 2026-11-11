@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794375291;
-	b=sxjhbpuiOTRgWdr0l89u/Gu5Wtd7eFhPLpog1RMymrovzz9BkTG5birRww7m4eoLjrfI
-	 JXdZ7KrtOaHCjP1rt/RhljuCc25ejFd2Q5H0PkCaArdPlHmnK/9Ff3D2kG5DePVTN7O0j
-	 dDGgpqP950AqZo4Hx7ZZxdF6A0aviCQiXh7b9VdK3a4rXdIOjUa3NtnDeVgqbcCpDJLIb
-	 OCuXjulZ7aELRna6BIjWLnn24qar3m+moClVc7QijB39yDgG6t3YKWRHnd+9aVHO9qgYF
-	 tqSyb5wJIqQ5dczgCDaCc7L5NA9ajfbQdVnldx7POcbSPh2c7jrAmU9B2GGdIc9gUhw==
+	t=1794375338;
+	b=uRPg5Dz2wiV1yuCVmj9MzyJcWa9RywecYrSGDPJgEY/2cvc65OLE9ImkXMXMMPRN40UX
+	 1k334wvJYZD3LfWrdgB34vgil/YMvzLtQFtUO0bFRuy3Qp6lWc2S4GKHWrMV6yRdOh+Au
+	 Jdsv+flgtL84cRFDKKKZszJtqZg77apaDaoAClzt2mb1cS0BTGAY0C+eIL7G1My0TiZYT
+	 YbPQuXejy5ox6go7KwrhzNkYWJNi9PAlmm/cLzTJi9D2DWJAnClLP6mlz8f4DQr0n3m0g
+	 Uk+79rQilr42a2TpTqynSahq6dBVH8wm+Vc3KIITFUdPD9of90/J5OHNUuExRs0Gq1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794375291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794375338;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hlpQhhKGKk7F2CBSSt3Ng9guGWL3vmIoPv0E8M4yfLY=;
-	b=y8lFhHY0X9U9Tg3LX8zgj5U7dA5t+xHhik7oyxxHqUndRwjtWZYpW5v82dixKUZL+kZr
-	 jJxMeVPBS68AO+gT5RpjJXbUV/gKxfTkzJJUShgb+ieja3+sYb8ZiaNxbRoy2y4VayORo
-	 ziEG47QKQKxE9vg387ahOr0O6dVYYcBI2pvYhY1u9CYFo9DQw+5wfyPIu0gKgTGB/MTlN
-	 mjPMR6zFYLHyTxGbaZ7CTRFLCbRGprtY7uaSPH9S3yAOGPSY63I5ciwFicB8qya4Tamc+
-	 I02P2+GAYw5agptAY7IBgN3CzJn0tt/2XD5SdCej293fPy3k0UUb1T9gp324iYxo0xw==
+	bh=fzXBBczEE6/wutldFJITxD1IaRLMU4rmVJJkJHMe1uI=;
+	b=g42y9nLVp8IUjGe3rz0GEXYE71wswdY8SdVpmUbL8mb52P3F7j+3kQ8q1IHgmu7VIybF
+	 04RqklFCfMU5qKxZ1BeVDfWKBuNIHldwEVj9yss37c74dUR+gPH+z9JYrdvMqKk0Uivxz
+	 jfCZnNN9t4kesX/yVzkBsM+0Ii0OuPe2MQ8SLxmwZ6R9APlT7E5P7PN6iYsIGly75s3we
+	 fat1bEIjDdNLSCjbtFieVlqBfrN5/EiUtDnRM2oWfXTVW9bNc4GZLpnpKTRBUvIEK1doi
+	 OEmH3ypM1DvT9cbrnzHbje6jt314kC+OZEZnwVLXddK5mXgWl44Cb/zrXgnkNBvoz2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VZuS/KAd";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iUOJGzSG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BB9606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:34:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E96606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:35:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZuS/KAd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5FD01F0089F;
-	Wed, 11 Nov 2026 05:34:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iUOJGzSG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617491F0089F;
+	Wed, 11 Nov 2026 05:35:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794375291;
-	bh=hlpQhhKGKk7F2CBSSt3Ng9guGWL3vmIoPv0E8M4yfLY=;
+	s=k20260515; t=1794375337;
+	bh=fzXBBczEE6/wutldFJITxD1IaRLMU4rmVJJkJHMe1uI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VZuS/KAdPpWFiEvFXVwn1EeVvToqQCCK1dErJVe7+aWzyqDqfMDEG6eyhlfwsueL/
-	 URlD4aLPsyuR9GCwNLW0KCUrFYuHStgaWgW5Pu3aLjH2WKTtJmvC+kCc20Zy9AJH78
-	 XEUt1F/9EoPRR2hqKIup+nhi1cfoL5mnrZDtUdxPJtlSUj4Dto32fB+MuwLITsJdtv
-	 HXNs5qMoTGc0tF/tDHPxgiXoliIPab0XIzMQy1XcnPOAicVFJIMGYf9ZucWwJgp11s
-	 0/wNsyCIorknIBbsEyxtrApzQYM+7LAp6e+2MuGh0cksqFCo+tjcXK8djkahU5h6nI
-	 D0ha+AEIR9KsQ==
+	b=iUOJGzSGNF+wq9eiK4OfIdOA2mn21s/Ymg5o+uFD1/G6BTt4rXjSboaq1Ur9WtxTp
+	 6hgIl3+lLusVOK+FXJoUXIzFdQx0pGdQXdO6JYX54Tqqf8KE7WBcQJSA8HnydjD4Rq
+	 8xW3lmav9J9lr5SkctzOebkl1pDongfXSE0fKCD7SupQTV989tFrIL4GfDm4r4F6gh
+	 bM7/auaARBxjCWupeQ9nlUfn01Pr6xR3o/Ao0PvbB1lHPMdmaI/AJLBrRHvJQkeBTF
+	 P0DA5uSV/lC7hDfoJfk8PU3dlgX6prV0To65LGUi0sKK+w1vcR02ATQSPgpP0bLIJ4
+	 c95vUokijh7cg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Niklas Cassel <cassel@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] fs: don't lose inodes that another LRU walker is isolating
-Date: Wed, 11 Nov 2026 00:34:49 -0500
-Message-ID: <20261111053418.1281568-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ata: libata: Do not leave ata_host_stop() registered when activation fails
+Date: Wed, 11 Nov 2026 00:35:36 -0500
+Message-ID: <20261111053057.1263871-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053816-failed-6.6-8dc4116041e2@kernel.org>
-References: <20261107053816-failed-6.6-8dc4116041e2@kernel.org>
+In-Reply-To: <20261107061557-failed-5.10-d2f977008cbb@kernel.org>
+References: <20261107061557-failed-5.10-d2f977008cbb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,69 +61,278 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nikolaos Karaolidis <nick@karaolidis.com>
+From: Niklas Cassel <cassel@kernel.org>
 
-[ Upstream commit 8dc4116041e2b377e5e1b62ba98b37636f9f3968 ]
+[ Upstream commit d2f977008cbbae195df678ee1e70e5802f9bd0b8 ]
 
-When inode_lru_isolate() finds an unused inode that still has page
-cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
-invalidates the page cache, clears the flag again and returns
-LRU_RETRY so that the restarted walk can free the inode.
+ata_host_start() registers ata_host_stop() as a devres action as soon as
+it has succeeded, which hands the release of the host resources over to
+devres: ->port_stop() and ->host_stop() are then called by the driver
+core when probe() fails.
 
-Another walker of the same list can reach the inode in that window.
-It sees a non-zero i_state and takes the inode off the LRU, as it
-would an inode that is in use. Page cache deletion requeues the inode
-once the mapping is shrinkable, so this is harmless if it happens
-before the last deletion. If it happens after, nothing puts the inode
-back: it stays in memory, unused, clean and without page cache, out
-of reach of the shrinker and of drop_caches, until it is looked up
-again or the filesystem is unmounted.
+ata_host_activate() and ahci_host_activate_multi_irqs() can both fail
+after ata_host_start() has succeeded, e.g. if devm_request_irq() or
+ata_host_register() fails, and they return the error with the devres
+action still registered. A driver which releases the host resources in
+its probe() error path therefore releases them twice: once itself and
+once through ->host_stop().
 
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
-lru traversing context") the pin was an i_count reference, and the
-final iput() put the inode back on the LRU.
+All ahci-platform drivers are in that situation, e.g. ahci_probe() calls
+ahci_platform_disable_resources() while ahci_host_stop() does the same
+through devres. This gives refcount underflow warnings from the clk,
+regulator and phy cores and, for shared resources, can disable resources
+which are still in use by other devices.
 
-Skip inodes that are being isolated and leave them to the walker that
-pinned them, which restarts its walk once it has unpinned them.
+Add ata_host_undo_start(), which stops the ports and drops the devres
+action without calling ->host_stop(), and call it from both activation
+helpers when they fail. Releasing the host resources on failure is then
+always left to the caller, which is what all callers having a probe()
+error path already assume.
 
-The window is reached by any unused inode with page cache on
-CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
-single shadow entry at index 0. On an i386 HIGHMEM guest, eight
-concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
-one-page ext4 files leave roughly 400 of the inodes off the LRU per
-round; on x86_64, with the files' pages first evicted through
-memory.reclaim, 3 to 4 per round. With this patch, none in either case.
+This changes the semantics for the drivers which implement ->host_stop()
+while also completely lacking error handling for the activate host call.
+Add activate host error handling for sata_qstor and sata_fsl. For
+sata_fsl this also means that hcr_base and host_priv are now released
+when activating the host fails, which ->host_stop() did not do when
+ata_host_start() itself failed.
 
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Note that ata_pci_sff_activate_host() is deliberately left as is: none of
+its callers releases the host resources in its probe() error path, they
+all rely on ->host_stop() being called by devres, including
+ata_pci_init_one(), which releases the devres group of the host itself.
+
+Fixes: 1896b15eddb4 ("ahci_platform: perform platform exit in host_stop() hook")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
-Link: https://patch.msgid.link/20261009142431.713875-1-nick@karaolidis.com
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Replaced inode_state_read(inode) with direct inode->i_state access because the helper is unavailable. ]
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Link: https://lore.kernel.org/r/20260915084127.692494-13-cassel@kernel.org
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/inode.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Depends on <20261110144034.1942502-1-sashal@kernel.org>
 
-diff --git a/fs/inode.c b/fs/inode.c
-index 5ebe791381096..67c328a6cdae0 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -854,6 +854,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 	if (!spin_trylock(&inode->i_lock))
- 		return LRU_SKIP;
+ drivers/ata/libahci.c          |  2 +
+ drivers/ata/libahci_platform.c |  4 ++
+ drivers/ata/libata-core.c      | 75 +++++++++++++++++++++++++++++++---
+ drivers/ata/libata-sff.c       |  5 +++
+ drivers/ata/sata_fsl.c         |  6 ++-
+ drivers/ata/sata_qstor.c       |  8 +++-
+ include/linux/libata.h         |  1 +
+ 7 files changed, 91 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index 83f82b3ffe7d4..b51fdee5c3989 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2603,6 +2603,8 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
+ 			      host->ports[i]);
+ 	}
  
-+	/* Another walker is dropping its page cache, leave it to that one */
-+	if (inode->i_state & I_LRU_ISOLATING) {
-+		spin_unlock(&inode->i_lock);
-+		return LRU_SKIP;
++	ata_host_undo_start(host);
++
+ 	return rc;
+ }
+ 
+diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
+index 64d6da0a53035..a8e68308c339e 100644
+--- a/drivers/ata/libahci_platform.c
++++ b/drivers/ata/libahci_platform.c
+@@ -574,6 +574,10 @@ EXPORT_SYMBOL_GPL(ahci_platform_get_resources);
+  * ahci-platform host, note any necessary resources (ie clks, phys, etc.)
+  * must be initialized / enabled before calling this.
+  *
++ * On failure, ->host_stop() is not called, so the caller has to release the
++ * resources it enabled (clocks, regulators, resets, PHYs) in its probe()
++ * error path.
++ *
+  * RETURNS:
+  * 0 on success otherwise a negative error code
+  */
+diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
+index 2ff092c27d1f3..0eab4898e835d 100644
+--- a/drivers/ata/libata-core.c
++++ b/drivers/ata/libata-core.c
+@@ -5659,6 +5659,46 @@ int ata_host_start(struct ata_host *host)
+ }
+ EXPORT_SYMBOL_GPL(ata_host_start);
+ 
++/**
++ *	ata_host_undo_start - undo ata_host_start()
++ *	@host: ATA host to undo_start
++ *
++ *	Stop the ports of @host and drop the devres action registered by
++ *	ata_host_start(), without calling ->host_stop().  Nothing is done if
++ *	@host has not been started.
++ *
++ *	This gives the release of the host resources back to the caller, which
++ *	is what a driver whose probe() error path releases those resources
++ *	itself needs when starting or activating the host fails.
++ *
++ *	LOCKING:
++ *	Inherited from calling layer (may sleep).
++ */
++void ata_host_undo_start(struct ata_host *host)
++{
++	int i;
++
++	if (!(host->flags & ATA_HOST_STARTED))
++		return;
++
++	for (i = 0; i < host->n_ports; i++) {
++		struct ata_port *ap = host->ports[i];
++
++		if (ap->ops->port_stop)
++			ap->ops->port_stop(ap);
 +	}
 +
- 	/*
- 	 * Inodes can get referenced, redirtied, or repopulated while
- 	 * they're already on the LRU, and this can make them
++	/*
++	 * Drop the action added by ata_host_start() without calling it.
++	 * It does not exist if neither ->port_stop() nor ->host_stop() is
++	 * implemented, in which case there is nothing to drop.
++	 */
++	devres_destroy(host->dev, ata_host_stop, NULL, NULL);
++
++	host->flags &= ~ATA_HOST_STARTED;
++}
++EXPORT_SYMBOL_GPL(ata_host_undo_start);
++
+ /**
+  *	ata_host_init - Initialize a host struct for sas (ipr, libsas)
+  *	@host:	host to initialize
+@@ -5745,6 +5785,12 @@ static void async_port_probe(void *data, async_cookie_t cookie)
+  *	starts ports, registers @host with ATA and SCSI layers and
+  *	probe registered devices.
+  *
++ *	On failure, the host remains started, i.e. the devres action
++ *	registered by ata_host_start() is kept, so ->host_stop() is called by
++ *	the driver core when probe() fails.  A caller which releases the host
++ *	resources in its own probe() error path must therefore call
++ *	ata_host_undo_start().
++ *
+  *	LOCKING:
+  *	Inherited from calling layer (may sleep).
+  *
+@@ -5851,6 +5897,10 @@ EXPORT_SYMBOL_GPL(ata_host_register);
+  *	have set polling mode on the port. In this case, @irq_handler
+  *	should be NULL.
+  *
++ *	On failure, the ports are stopped again and the devres action
++ *	registered by ata_host_start() is dropped without calling
++ *	->host_stop(), so releasing the host resources is left to the caller.
++ *
+  *	LOCKING:
+  *	Inherited from calling layer (may sleep).
+  *
+@@ -5871,27 +5921,40 @@ int ata_host_activate(struct ata_host *host, int irq,
+ 	/* Special case for polling mode */
+ 	if (!irq) {
+ 		WARN_ON(irq_handler);
+-		return ata_host_register(host, sht);
++		rc = ata_host_register(host, sht);
++		if (rc)
++			goto undo_start;
++
++		return 0;
+ 	}
+ 
+ 	irq_desc = devm_kasprintf(host->dev, GFP_KERNEL, "%s[%s]",
+ 				  dev_driver_string(host->dev),
+ 				  dev_name(host->dev));
+-	if (!irq_desc)
+-		return -ENOMEM;
++	if (!irq_desc) {
++		rc = -ENOMEM;
++		goto undo_start;
++	}
+ 
+ 	rc = devm_request_irq(host->dev, irq, irq_handler, irq_flags,
+ 			      irq_desc, host);
+ 	if (rc)
+-		return rc;
++		goto undo_start;
+ 
+ 	for (i = 0; i < host->n_ports; i++)
+ 		ata_port_desc_misc(host->ports[i], irq);
+ 
+ 	rc = ata_host_register(host, sht);
+-	/* if failed, just free the IRQ and leave ports alone */
+-	if (rc)
++	if (rc) {
++		/* Free the IRQ, so that the handler can no longer run */
+ 		devm_free_irq(host->dev, irq, host);
++		goto undo_start;
++	}
++
++	return 0;
++
++undo_start:
++	ata_host_undo_start(host);
+ 
+ 	return rc;
+ }
+diff --git a/drivers/ata/libata-sff.c b/drivers/ata/libata-sff.c
+index c6e91f06c751e..b69294605af24 100644
+--- a/drivers/ata/libata-sff.c
++++ b/drivers/ata/libata-sff.c
+@@ -2352,6 +2352,11 @@ EXPORT_SYMBOL_GPL(ata_pci_sff_prepare_host);
+  *	hosts.  This separate helper is necessary because SFF hosts
+  *	use two separate interrupts in legacy mode.
+  *
++ *	Note that, unlike ata_host_activate(), the devres action registered
++ *	by ata_host_start() is kept on failure, i.e. ->host_stop() is called
++ *	by the driver core when probe() fails.  All callers of this function
++ *	rely on that, none of them releases the host resources itself.
++ *
+  *	LOCKING:
+  *	Inherited from calling layer (may sleep).
+  *
+diff --git a/drivers/ata/sata_fsl.c b/drivers/ata/sata_fsl.c
+index b6aa5a4f6f12a..9f887a31911be 100644
+--- a/drivers/ata/sata_fsl.c
++++ b/drivers/ata/sata_fsl.c
+@@ -1520,8 +1520,10 @@ static int sata_fsl_probe(struct platform_device *ofdev)
+ 	 * device discovery process, invoking our port_start() handler &
+ 	 * error_handler() to execute a dummy Softreset EH session
+ 	 */
+-	ata_host_activate(host, irq, sata_fsl_interrupt, SATA_FSL_IRQ_FLAG,
+-			  &sata_fsl_sht);
++	retval = ata_host_activate(host, irq, sata_fsl_interrupt,
++				   SATA_FSL_IRQ_FLAG, &sata_fsl_sht);
++	if (retval)
++		goto error_exit_with_cleanup;
+ 
+ 	host_priv->intr_coalescing.show = fsl_sata_intr_coalescing_show;
+ 	host_priv->intr_coalescing.store = fsl_sata_intr_coalescing_store;
+diff --git a/drivers/ata/sata_qstor.c b/drivers/ata/sata_qstor.c
+index ef00ab644afb7..68bd73deb65bc 100644
+--- a/drivers/ata/sata_qstor.c
++++ b/drivers/ata/sata_qstor.c
+@@ -595,8 +595,12 @@ static int qs_ata_init_one(struct pci_dev *pdev,
+ 	qs_host_init(host, board_idx);
+ 
+ 	pci_set_master(pdev);
+-	return ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
+-				 &qs_ata_sht);
++	rc = ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
++			       &qs_ata_sht);
++	if (rc)
++		qs_host_stop(host);
++
++	return rc;
+ }
+ 
+ module_pci_driver(qs_ata_pci_driver);
+diff --git a/include/linux/libata.h b/include/linux/libata.h
+index 12c43f39cd29b..bd3de7d422d6d 100644
+--- a/include/linux/libata.h
++++ b/include/linux/libata.h
+@@ -1085,6 +1085,7 @@ extern struct ata_host *ata_host_alloc_pinfo(struct device *dev,
+ extern void ata_host_get(struct ata_host *host);
+ extern void ata_host_put(struct ata_host *host);
+ extern int ata_host_start(struct ata_host *host);
++void ata_host_undo_start(struct ata_host *host);
+ extern int ata_host_register(struct ata_host *host,
+ 			     struct scsi_host_template *sht);
+ extern int ata_host_activate(struct ata_host *host, int irq,
 -- 
 2.53.0
 
