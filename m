@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403047;
-	b=JwEV9vUJq38chpwXD0iG5R6JLTuofaouLjckvNCfhrh5kBD19zrDYRLIc5tBLoIJ1Obo
-	 zinFYNqn0TzZw24vFSC9PJHkKM8BBXceIpherJHi1TNzMwSupN3bUvf0rhwcyetoX5aNy
-	 r6ztmxvKNn6/G8xsVqNW0uLT/30b75mHa1hzlSR5AhMHOQo8lSi2bRXgwbyX1gGB8ID6r
-	 ywkAiFHTI/LZEs0NtyI46rtswWTr7rO/efGI60A1xb6pQ5CalTaUXiC+k9G16o3e8y1lq
-	 2ZnvbLow1QGpJNRFfck2MaqTeFFIEuTEbathaOCgnFF+sLMTJVXGi+TBPiNZ5DpZJfg==
+	t=1794403052;
+	b=ndgdQzL8d10bi6K6ww5szfzv+yJSGAaveJ97ky16T8ZLG6GBmVHh2RmQlCBVvQA5LR/P
+	 ximNErCsG1jxvyItH5pSaudwVt/5hBYPkyp4x29xlGGADHsGFTqrt8hwzCs3MBqvL4evl
+	 bfhr+El55XUcbgl605lBMYJquJovE6E7H4F0UKbG9og63Wa8JsckhPcZrxZpiB3tQ2XKO
+	 sl9T+n4xCU9HEorf0UEFx+SP7FHp9AxCmlzt+T3dKVu9xTY4rJdVNB6ZrKVtx5C9BxDmo
+	 6HZ5qhTKcZZY3qYGZOujnFXrwnPu3OxI63oLbEbg6cR8iY3pF3/v9m4vipCXBC0I+gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403052;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+Am3ZFEfP5PRMYw1OSmyr5SVbiwkToQp2Xt8tqzOQJA=;
-	b=Aj2NVvcV1uhZmMBRpE5+KxUDq3SlJZrGvxLXf1d4ZGgGpTKEvWEAtZNxiM8/auVhLGLi
-	 2iuJu7kkXwELpk8Uyw8vnBHe4qeQKkSSfILiaVxMIXb7UcdvaGk5irihdWfZawLJ07Kgn
-	 lmHsYQycQDwGSpwelhKmBimXS3eLUMF3QB37a19t/mSYjfq0SItbhKaIqI0WBD5ersQqd
-	 Tyv6Y9BCYEIzQ0zoSWHa+sh6EXq0NI4w39WpS2yrO/NCjMS/DVu7YE6KzZonSHA/Yp++7
-	 ZonUTnnR/Dc+L4DVY05OVuLSdfHbPpptH6wsDysSWeNIvMbWDoVdl2zD0TvAy4pga1Q==
+	bh=mDIvEFooe/t5rmVBm5jYTkMldCxFAEAacdty0nyZwuk=;
+	b=cqOQ1VAUxZql+9Ihkq0YXFsbb1WVwEWmQI1mfK3vg/HMMao69AMvaqj1qnlgVgDK4gfq
+	 QCztPWKbmRksoivVDVEA5PGgx5VAY0sIDZg7AyiLFgBIVUK1rPRrriFCBgNYSSG8V1MuH
+	 R+VlA9eI1nD1vBPBml1Yt6+Gjng5c53dDkt9kGIc/KdDSxYg9G5LHsSJJS2hn00dDC0dl
+	 FoHMj99ZQxx1YJiwnMAFdERq/djukIA6AMj+GKlGx6Ur72WiHMz76j5HRsmQE3TJPuG3c
+	 Wxg/eKOXb6qes1PRlxaVTWa8AerCMZiEKJDXXdhYH/P7/iN22lnkBslP1f4T4KJA2eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPf5C6GE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y+h5/TqD";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9316C606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:17:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98C9606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:17:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPf5C6GE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDB4B1F00A05;
-	Wed, 11 Nov 2026 13:17:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+h5/TqD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A531F00A05;
+	Wed, 11 Nov 2026 13:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794403047;
-	bh=+Am3ZFEfP5PRMYw1OSmyr5SVbiwkToQp2Xt8tqzOQJA=;
+	s=k20260515; t=1794403052;
+	bh=mDIvEFooe/t5rmVBm5jYTkMldCxFAEAacdty0nyZwuk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UPf5C6GEtHQb1WRXYc1ib/4iMS5O/1IyV9Zz6Ob/bWGWppfWHIB2sMXCpWey8YJBf
-	 REynbkejZZ472QjT1alPf/SPSn2Hpb1BRt9JHNWtdqAGSZbcG6QXA5v4ALHf6qgPwo
-	 upzvbGVfNj0Evk/f2CcFkwBm5ra1BxpLSkp2rENAluMnaG8exGYNWkNgMaNHBLKhDB
-	 iVgqdW8JiZb3j/Ud6qjvtvYEn9Rd9NWPxMwtyl4T1t2cAoI4R2qNLTbgYK32FTxDRi
-	 gY9mZRmxo1n4RdsN6+ftwIWrqg4QrJ3g/AN2f2lYst+kaDFGsOq/uIIGEIj5KWD1yo
-	 qR9gYRfzWt0nQ==
+	b=Y+h5/TqDFJsmal7eGLmgUB6ZjwL3qPTq/mU6eqKD89QafIRYPb7jlUu5/2x1Yp67b
+	 sP6ZPWU8igITqK/v7LlD05JO6tcPDE0Pef59vTUpYNq6caetRpb025egx3wDP2bZBG
+	 0GuHA5SosfBBf7XO8T5lwh9p7sMAtZlSCVmIbUnwuZeUj1C/TYhr//OY4pAjgXm7qa
+	 5Kxs6yIMyXaAEgwxYK0PZgKr0TJREp/4QYtBr/vlqupIwt+y8pfQSjiIESLPjhqzw6
+	 NaqLKGdWsuKoWvRPimoUwT9rtD/b+wZzu73Tbewyi0RcIwjbEMT1mRXjLY3ZykP8sb
+	 QU/MGd93lhloQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Dominik Maier <dmnk@google.com>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] fuse: don't drop destination page cache on a zero byte copy reply
-Date: Wed, 11 Nov 2026 08:17:25 -0500
-Message-ID: <20261111131459.890336-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] loop: check for read-write open mode on LOOP_SET_STATUS in lo_compat_ioctl()
+Date: Wed, 11 Nov 2026 08:17:30 -0500
+Message-ID: <20261111131503.1579531-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060013-failed-5.15-f7585e1ce341@kernel.org>
-References: <20261107060013-failed-5.15-f7585e1ce341@kernel.org>
+In-Reply-To: <20261107061226-failed-5.15-87409eedc543@kernel.org>
+References: <20261107061226-failed-5.15-87409eedc543@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,62 +61,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joanne Koong <joannelkoong@gmail.com>
+From: Dominik Maier <dmnk@google.com>
 
-[ Upstream commit f7585e1ce3418ec282485854b3d8d31c6a961e37 ]
+[ Upstream commit 87409eedc543d288cdd49c2174f7d61eca7b8db5 ]
 
-__fuse_copy_file_range() clears the destination page cache after the
-server replies:
+lo_ioctl() checks for (mode & BLK_OPEN_WRITE) || capable(CAP_SYS_ADMIN)
+before allowing LOOP_SET_STATUS or LOOP_SET_STATUS64, but not
+lo_compat_ioctl(), the handler used by 32-bit user space on 64-bit
+kernels.
 
-	truncate_inode_pages_range(inode_out->i_mapping,
-				   ALIGN_DOWN(pos_out, PAGE_SIZE),
-				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
+As a result, on 64-bit kernels with CONFIG_COMPAT=y, a 32-bit
+unprivileged user-space process holding a read-only (O_RDONLY) file
+descriptor to an active /dev/loopN device can issue a compat
+LOOP_SET_STATUS ioctl to modify lo_offset, clear lo_sizelimit to 0
+(exposing backing-file data past the configured limit), or alter
+lo_flags.
 
-A server may legitimately reply that it copied nothing, eg if the source
-file turns out to be shorter than the size the kernel has cached for it.
+Enforce the same (mode & BLK_OPEN_WRITE) || capable(CAP_SYS_ADMIN) check
+on LOOP_SET_STATUS in lo_compat_ioctl().
 
-If pos_out is 0 as well, the end of the range is ALIGN(0, PAGE_SIZE) - 1,
-which is -1. lend is a uoff_t and truncate_inode_pages_range() takes -1
-as its end of file sentinel, so rather than clearing nothing it drops
-every folio in the destination mapping.
-
-That is not only a cache drop. truncate_cleanup_folio() calls
-folio_cancel_dirty(), and fuse_writeback_range() only wrote back
-[pos_out, pos_out + len - 1], so dirty data elsewhere in the destination
-file is discarded without ever reaching the server.
-
-Skip the call when the server copied nothing, since there is nothing
-stale to clear in that case.
-
-Fixes: 9b46418c40fe ("fuse: copy_file_range should truncate cache")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ sashal: used outarg.size instead of bytes_copied ]
+Assisted-by: ARTIST LLM
+Signed-off-by: Dominik Maier <dmnk@google.com>
+Reviewed-by: Bart Van Assche bvanassche@acm.org
+Link: https://patch.msgid.link/20261025200740.2064379-1-dmnk@google.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ sashal: Replaced BLK_OPEN_WRITE with FMODE_WRITE to match the existing fmode_t API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/file.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/block/loop.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index b6b06f760162c..0c26b5571f625 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -3153,9 +3153,11 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 	if (err)
- 		goto out;
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 45684136e8376..f130024ffd5f5 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -2020,8 +2020,10 @@ static int lo_compat_ioctl(struct block_device *bdev, fmode_t mode,
  
--	truncate_inode_pages_range(inode_out->i_mapping,
--				   ALIGN_DOWN(pos_out, PAGE_SIZE),
--				   ALIGN(pos_out + outarg.size, PAGE_SIZE) - 1);
-+	if (outarg.size)
-+		truncate_inode_pages_range(inode_out->i_mapping,
-+					   ALIGN_DOWN(pos_out, PAGE_SIZE),
-+					   ALIGN(pos_out + outarg.size,
-+						 PAGE_SIZE) - 1);
- 
- 	if (fc->writeback_cache) {
- 		fuse_write_update_size(inode_out, pos_out + outarg.size);
+ 	switch(cmd) {
+ 	case LOOP_SET_STATUS:
+-		err = loop_set_status_compat(lo,
+-			     (const struct compat_loop_info __user *)arg);
++		err = -EPERM;
++		if ((mode & FMODE_WRITE) || capable(CAP_SYS_ADMIN))
++			err = loop_set_status_compat(lo,
++				(const struct compat_loop_info __user *)arg);
+ 		break;
+ 	case LOOP_GET_STATUS:
+ 		err = loop_get_status_compat(lo,
 -- 
 2.53.0
 
