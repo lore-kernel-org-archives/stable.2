@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418416;
-	b=tCPstDa+OaBBjjpFIiqYhjYyKY5gZxBv26bPTbN3ljtlowpSbyar0pchGqKHEdpgmLQT
-	 KRTJL4p37B9/AMs/1Umf2shZOiqX4xqqBM8yagr9+LvSaba9SfKK7e7cFrvbkyDlQPPTe
-	 8jggm+NysemQJBwwgh2WCGNwZDaCkdE9/OssF/YEeuDqBydEtpRbNilQ4rSDFyABz1bek
-	 E/S+AcIYFel5PBYrivp8uaSPL/ON3/QGSjCO4aLrK+UOAD43GYnGeAuTo3Z9DRtoSNYha
-	 aHe61HU3U1LiB6s7+YNMQU8saoXAZ63KFs3CDLNLRoA+B7uosLXCLZh8AU7/lEIarNg==
+	t=1794418431;
+	b=Ckwpg+PRcoU15KSUuZj7R7aC7xP4YaPCkRpb+PmmhrRi8tnGzhZ8K8JvPJM9Gl2k/JQ+
+	 Shu19kCCYacEonq33y8b96H7rqj2DTFi663ei4nJji6PGQPBU2LQnxjBAJG8MZwtUWrif
+	 uLyGZLfF8SvOz1mT4dhH53qBm7Bq+EKtz8/Pk4hoHlqZhoShcN7tFBfrULnoN9OnD6/eY
+	 R+nskGuI7JoItvP+ZYvOGogEp2jbiZtKmucbq9HDRPZWuQiKkKk2pyYWuT5y/k3OgF0xm
+	 aABSZmTjRnDlT1bVhiESbH1b/SxxyrGUf3PmC3WPG0vNnawXJmitUxB2SzTJK3gfe7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418416;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=C6d8IYQC8dyoJDUP7G0uiq4suMOtmZ8EulZbGfX4H28=;
-	b=pg/lh3nmnKgDqvc4TwWtVDxRwi0XFmDuVAvTIjeuI/IUhTebiBE5ERN+mOeftO3JutWV
-	 IsDOJzM0xb2FCo5f7/0RBy36FX3QH8auDO4FHY6w1ES3V/zbScCNna9KUrhA8ySagFQy6
-	 Bin3+SUx2G7pjiQvM5xxssbKndUFYTfMmHL2OkQmAlQUHsoxBjguZwr3xv+EyNSycN6GF
-	 R/P96l8oMVH2SFYMI/R7wqxhef+P0Tq9gEL3PglHeCx1HAl31z0cBApboOCIIXeDNi6Vn
-	 sC9DBluu/RrI3k/BMNUUU/MZPZKAjosriER3k7Og8Ka8GcEQKTpLNsTEsjdh3MPH4WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418431;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=YvexIMYqiMiz1q4JNqaiQjkR3iTnjNBJbrIGwBNzjEU=;
+	b=ZkGBapBG1FdGzQy5745ulzkM4XJ5kW9/PgLk0z6CLgo8lqKOK0OP23CstMIGsFk1qYd6
+	 D61jQG4E+IvQJt6oZWuN8a16KXv/AHBEWFOUJNj1IhaHF7EP4W5TjV1L+MD54zyfZB/8k
+	 fZueU0BUWyV9TdovcLLQCNTfukeoWWPu62YxG4NqvTzWcOrYInrJV3IJcbeokfc/MM8Wt
+	 anuE8bA9GU743HegGlKc+W5tjSMaZ4HqK/wVByjWpZqMcw/tEYQDp7psKjZ2mA243lYvK
+	 fYsiA1OqWdIW2iaVP7hVUNLZHxgekaCVTerVX7UC7eT2l0Q74VdBjWjshHE8052ROKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRGdPnQU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=inicpcHI;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFF1606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:33:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F9C606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:33:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41F9C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRGdPnQU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13081F00A05;
-	Wed, 11 Nov 2026 17:33:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418416;
-	bh=C6d8IYQC8dyoJDUP7G0uiq4suMOtmZ8EulZbGfX4H28=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IRGdPnQUUsuUQdFbh4CH4r3yhIQrGldZfUPZP7lvVMpT+mat90w390fmDw5MoGHGL
-	 rR10QDSGz0B9Ifvv9jGPqnrmf6akm0BD/W8ncHvpMx1+AjHUZM8125J4qDjFCeXoTh
-	 0EM2MMtR1EybqdX545eNQmjdrF5Kik/kcJuCT+67GPzwesR2nnEQ8bGWBzwQkiOJ5r
-	 Cwqh7iVLh4uGLRBVUo3MZWxBzhhyV5uOJ7/NL4SGZpZ6yBEwEqa60Em1zWkFpuEWPP
-	 TVRw/JBsRVjPEIoA23MxNOKATDJAfC2lESr5ou0lnOy7HbOd77pFIxZIgSJIBQs0dG
-	 uVagxs6via8QQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sumit Kumar <sumit.kumar@oss.qualcomm.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] PCI: dwc: Set DMA_BYPASS bit in outbound IATU CTRL2 register
-Date: Wed, 11 Nov 2026 12:33:34 -0500
-Message-ID: <20261111173321.3585676-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060622-failed-5.15-efadda401c5c@kernel.org>
-References: <20261107060622-failed-5.15-efadda401c5c@kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=inicpcHI
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso32656565e9.1
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:33:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794418429; x=1795023229; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YvexIMYqiMiz1q4JNqaiQjkR3iTnjNBJbrIGwBNzjEU=;
+        b=inicpcHIZnCmcEzzbQ3MmS+YvAq5Scx+eJ9EP0DS5vSfJefOX+7im3R61WEtmbEGl+
+         dQYNLm4/6io+doNd9QANIQ6WylX4hduah5G4JDStbFnEWoV7P84iUQF85tuo0xJNCzNw
+         aN3V9JTnWA60LAX3s+/huqc4XN5Ns1yt4BpdYMf8A0yraHLiQTVM47EhyXSISbGtnFBD
+         yHlXYVmCDGP3L3un4HqqS8xbEzkjU/Iq6t3mMA2sgks6KILzghfpJ9AblOFId4RbNlm9
+         uAlIC0j7fn+700Zw+nQvMXzWSW9GLuHq2IuV6bR8sm70AUw5ZcaB+j09j1imryd9SPzk
+         gPIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794418429; x=1795023229;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YvexIMYqiMiz1q4JNqaiQjkR3iTnjNBJbrIGwBNzjEU=;
+        b=1RWgmmd2EnNa+2WlfpGx2IUlQhKclEKTadYhpqGdHBeKd3kumMfsZwmnPHol+fXMlz
+         LAFYetgDvMYm/gD0d/4gZUThGu1PM/j6QcsYEL9hpEJVhJBJTdJRL+jmvRdbuxciC/EA
+         nmfA4bDDxaUTZOIorWy0Fhi4EFxoKYKnA48RSWEuoL5t2JM8WlrkZbtyCAG/VZnesob9
+         XM+d+DJtO1ujSJDruzLaEMrUf+Ojv3pSapliGbBtwfE/ajYj69LzCwal4ay0If97ckmi
+         SAXs4oLXv7S4uwcpXGb2KGxf7lgGgGjS57/s8brWnlyD5Kt62X5Yd/8OGs943O/l5G/I
+         1Bcg==
+X-Forwarded-Encrypted: i=1; AL+hErG8cY/Z95SFTSv17VTKc8xN8/f9FPfy+gwYjmOE2YSs+DOensxPKWBdXtwmSoVU7zTsXGDwdnU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z841w8EAqNLEOGyBPRsFVVs6dBuUvJS9kJi4mv5YmCxGQwBizZL
+	ttqTFErp1p2WBsDmYvT8rszUSRFwCcvmmuKTxJKpYTMPrHLDUKlnccAQyDp6bZuiVdA=
+X-Gm-Gg: AYBFou0nhIz/jeBi8SyHS3i+Z0yN/+B6TJTbapnPm/7b4IUBH0U3spCsMjJU8k/dK2H
+	q5XreP3i9hnyqdbNa07+lXgWXybkdmhomnd/gqbg5KgHo4kd1UtsLaPH13BpwYbV2d+NRoed3vv
+	Y6JyG6zt5Ti+0D4t321I5H+M/f13jaJAZwNi6tV1tFSunDKK4lNhyqbn+zbWYxsW3zCF3w7pScT
+	0eYz/yDXpydvGMgJm8poibAe1qrr2NnHen2ltnhlCYNcxPiY8MtQs6RcxxPIyULAwaM0C1QAo57
+	pW+lpTNTz0/vAEKG0m2RtykHhb0wVz6fHCVkno/pr2TjlKk4tcgM9sxUKNalJef4SJFKo6C1jsr
+	s85vJVPn8SufKSwuhiPhXDjB5/ExclCs/XbppqjG3JgtcXq5T2GcxNqRSN1k/rLsruS6ZRZkPL0
+	IVeTknXN4EfJjnRqupAEVfue+mOLaJqF96xHWFfJ/vcBs6tC2WRbnaVZqgykNEOUNn7/c0Ymznv
+	8er5FQvVYXwuwax+OwtuYFx6/MYOK8BO3a/DY5CQJqeekgpklO/HZfPDlR/4p2df/maakq3mdOj
+	eAMizVfE/9aa9IYOFXphgM05GzFdlnypKKJT3UXHb+0q2yWhTtL9XEaY6DQjHA2n/PMJZpi29O3
+	jyBO2h/lRMH+ZC6D4UTIWlp69GtAUAf+/TMJLPw==
+X-Received: by 2002:a05:600c:81c5:b0:4a1:d087:f6ab with SMTP id 5b1f17b1804b1-4ba09376cc2mr50842555e9.18.1794418428621;
+        Wed, 11 Nov 2026 09:33:48 -0800 (PST)
+Received: from localhost (p200300f65f19a9045674a4e2f3db58c3.dip0.t-ipconnect.de. [2003:f6:5f19:a904:5674:a4e2:f3db:58c3])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba0951bf2asm51567095e9.4.2026.11.11.09.33.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 09:33:47 -0800 (PST)
+Date: Wed, 11 Nov 2026 18:33:46 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>, 
+	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] can: flexcan: Fix probing for m68k/coldfire
+Message-ID: <avSmq-LRKgRWDfxH@monoceros>
+References: <20260618140147.142489-2-u.kleine-koenig@baylibre.com>
+ <akfoYuyHMAxIfalD@monoceros>
+ <al4lxVud4_6NTZQG@monoceros>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,88 +100,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4hfc67dntoyzrou5"
+Content-Disposition: inline
+In-Reply-To: <al4lxVud4_6NTZQG@monoceros>
 
-From: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
 
-[ Upstream commit efadda401c5c8e2390ba66508eba154dbd0db5a9 ]
+--4hfc67dntoyzrou5
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH net] can: flexcan: Fix probing for m68k/coldfire
+MIME-Version: 1.0
 
-An outbound iATU region matches any local (AXI/application-side)
-address that falls within its Base/Limit window and rewrites it to
-the PCIe-side address programmed in that region's Target Address
-Registers before the transaction goes out on the link. This matching
-does not distinguish CPU-initiated transactions from ones issued by
-the internal DMA engine (eDMA/HDMA).
+Hello,
 
-Example: outbound region 0 is programmed with Base/Limit covering
-local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
-CPU-initiated accesses. The DMA engine is later given a descriptor
-whose destination is the host address 0x8000_0080, which happens to
-fall inside region 0's Base/Limit range. The iATU matches the DMA
-transaction against region 0 too and rewrites it to 0x1_0000_0080
-instead of passing 0x8000_0080 through unchanged. The transaction
-then lands on the wrong host address, causing data corruption or an
-IOMMU fault when the rewritten address has no valid mapping.
+On Mon, Jul 20, 2026 at 03:43:09PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> On Fri, Jul 03, 2026 at 06:53:16PM +0200, Uwe Kleine-K=F6nig (The Capable=
+ Hub) wrote:
+> > On Thu, Jun 18, 2026 at 04:01:47PM +0200, Uwe Kleine-K=F6nig (The Capab=
+le Hub) wrote:
+> > > When determining the device details was reworked in commit 5e6c3454b4=
+05
+> > > ("net: can: Use device_get_match_data()") there was no replacement for
+> > > the previous handling of non-of instantiated devices via the device's
+> > > id_entry which then results in a NULL pointer exception. The only
+> > > in-tree provider of such a device is arch/m68k/coldfire/device.c.
+> > >=20
+> > > Given the id_table only contains a single entry just hardcode the res=
+ult
+> > > of `platform_get_device_id(pdev)->driver_data` and drop the unused
+> > > assignment to .driver_data from the table.
+> > >=20
+> > > While touching the id table, drop the unusual comma after the termina=
+tor
+> > > entry.
+> > >=20
+> > > Fixes: 5e6c3454b405 ("net: can: Use device_get_match_data()")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@=
+baylibre.com>
+> >=20
+> > Given this fixes a crash (NULL pointer exception), it would be great to
+> > get this applied. The issue is already old (Sept 2023, v6.8-rc1), so
+> > there is probably no urge to get this in before 7.2, but getting it into
+> > next and then 7.3-rc1 would be good.
+>=20
+> This still stands. Marc, do you have this patch still on your radar?
 
-Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
-programming outbound iATU regions so only CPU/AXI-initiated
-transactions are matched against the region; DMA engine transactions
-bypass the translation and go out on the PCIe link with their
-original address.
+For a fix it takes quite some time to get applied. The patch now missed
+7.4-rc1 ...
 
-Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com
-[ sashal: adapted unified outbound iATU programming to the existing separate viewport and unrolled-register paths ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/pci/controller/dwc/pcie-designware.c | 11 ++++++++---
- drivers/pci/controller/dwc/pcie-designware.h |  1 +
- 2 files changed, 9 insertions(+), 3 deletions(-)
+Is someone reading this ping?
 
-diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
-index 00972a7bc9768..22fc8ee305eec 100644
---- a/drivers/pci/controller/dwc/pcie-designware.c
-+++ b/drivers/pci/controller/dwc/pcie-designware.c
-@@ -292,8 +292,10 @@ static void dw_pcie_prog_outbound_atu_unroll(struct dw_pcie *pci, u8 func_no,
- 	if (pci->version == 0x490A)
- 		val = dw_pcie_enable_ecrc(val);
- 	dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL1, val);
--	dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL2,
--				 PCIE_ATU_ENABLE);
-+	val = PCIE_ATU_ENABLE;
-+	if (pci->version >= 0x460A)
-+		val |= PCIE_ATU_DMA_BYPASS;
-+	dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL2, val);
- 
- 	/*
- 	 * Make sure ATU enable takes effect before any subsequent config
-@@ -350,7 +352,10 @@ static void __dw_pcie_prog_outbound_atu(struct dw_pcie *pci, u8 func_no,
- 	if (pci->version == 0x490A)
- 		val = dw_pcie_enable_ecrc(val);
- 	dw_pcie_writel_dbi(pci, PCIE_ATU_CR1, val);
--	dw_pcie_writel_dbi(pci, PCIE_ATU_CR2, PCIE_ATU_ENABLE);
-+	val = PCIE_ATU_ENABLE;
-+	if (pci->version >= 0x460A)
-+		val |= PCIE_ATU_DMA_BYPASS;
-+	dw_pcie_writel_dbi(pci, PCIE_ATU_CR2, val);
- 
- 	/*
- 	 * Make sure ATU enable takes effect before any subsequent config
-diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-index 5960ae40b0f2d..4807efe73f2ef 100644
---- a/drivers/pci/controller/dwc/pcie-designware.h
-+++ b/drivers/pci/controller/dwc/pcie-designware.h
-@@ -91,6 +91,7 @@
- #define PCIE_ATU_CR2			0x908
- #define PCIE_ATU_ENABLE			BIT(31)
- #define PCIE_ATU_BAR_MODE_ENABLE	BIT(30)
-+#define PCIE_ATU_DMA_BYPASS		BIT(27)
- #define PCIE_ATU_FUNC_NUM_MATCH_EN      BIT(19)
- #define PCIE_ATU_LOWER_BASE		0x90C
- #define PCIE_ATU_UPPER_BASE		0x910
--- 
-2.53.0
+Best regards
+Uwe
 
+--4hfc67dntoyzrou5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr0pvYACgkQj4D7WH0S
+/k4bNwgAsQchSshsvcSs/c8msQEUeFLmy38NQ5NvYG9rkvtJ5DGZBJZCWbiMnvQN
+UxxEUyz189PGDh41YHwkGDS1NMvdFvrl9uptRZGvbI/iB6fJP38y+ves8Dp1BBUQ
+CiGoYQ2oqm2R2WnYwsUzdVL3E9R7zMvkueC0YW5h6BerQroVMVDLtclvQ8iXMMou
+Ko+Dpwg76ba2xYTAHwNhyrNxQraVOp+o6+IlCIcKCK8hCwV7AFS6VU9zwEgLsUms
+X3yeTFHRNc3aZGjulbY35I7d0ujF5iRrEFLzI8MIUcCUiIXqCkFSGGV9450s+uz9
+RcNFp/Rrj1+U4tKfnch8QGtgmLvSRw==
+=5KoS
+-----END PGP SIGNATURE-----
+
+--4hfc67dntoyzrou5--
