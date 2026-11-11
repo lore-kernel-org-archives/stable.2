@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794368990;
-	b=hxqAAhW/z4qE7gg/qkS8SFvLG/nyd594tRW6FuFIgzpzK5yVGpOcBkrVXCDawZI0f2bF
-	 YbKv6440Oaayqos3gHizKZR463IeBpnQUiPKsn+NGVNhvC3rtZoR+n7PutE6xGDWt8II7
-	 +mV15yXeDC+a97dazc1hMutEP23hNmtb5ee2P+uZN74oesf7NMv534VXL/a26Y/KvPVEy
-	 Djrgb/DvmKL4sygZWhxk1LhV6ZuvBA01HQjjgXzyrKieKStGXSw+4L2e7Tg9pnmMMPxxe
-	 M+aYIXwhgUjiJHikGfFXQWmyCEk7l1hd05kd4mLuHGOhjv51DqJr0JCdgLYtx+bO7UQ==
+	b=M5zROZ1MScw2BtPeD3rQc65kc5ZP/lzJk/1STm0pxGRQsYIgTGFrOJ/u73puqPajwdj8
+	 wOnu1D1tmPyy1k+2pB+pK9mA1tuxW46bBsC1uS3TwUYd/FPVL5sSZT+sjf0+dPRhgWbln
+	 tkLev5tWMeCqzAHOZYYlpfu0YokL9mqZTpYvodWtSe8V/SzA0rztMvT3iT+pjwNhJmE0P
+	 TlRf3M5DsREq8lKcM3qjNrTta+yq1nytYWDbBr1RAerYq8y0NJ9iq+1ZO+Fl47aq2dxua
+	 Z6WPhJiLRk34DCp2tS5o1PZVjoIbExvT2sIrRHil9EKwnz6ePzu7V7DpKv7fVsDYqNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794368990;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Af2h9ikhJ2DeH6serzZnPjb9I/xiGmNIWrYHWnVJ1wA=;
-	b=MnBvCXX95/ot3PtFLkbzLzCt5C88jgUg1xv+4jczytpiIJkMfk9HqNXaGyGQxqW0ieSE
-	 gC9AGfJLeuSj9s2vhUBzxdkxJBpqfx6qGt16Ihh2ZkQJj6g7a3X3PF4lxDGqbroewIu2X
-	 3L9Hm/XrfQ/FRr/Xvv1mDMQDGCuIl4Glk0AsO+vNh2TwW+Oh+aveONE934lCXGJ9yo81t
-	 pno2ymCFCBjAaDLBLz2ScWdNHXUTBcf4ZBSRa1DJl1gSZFo4/BrUudx1L3BHQeJRoocKM
-	 SsXqcyqX76tI12megISsK6YBJx6/SfDAJAyN6L/BTb+W5MfSBXR1smxmsPFhFua+3xQ==
+	bh=9ZXMsLPTsm0GOQLCtib9nfmjdcHkbejoTfcfCndgpuI=;
+	b=Jk1YRPKww5lPQ5W1KM2rka6aj5efh76GJxrqz/6viyDpXakZHl9ZGXt/MQ/INl/eytQI
+	 IUHmaEsP8y7A1MPRd9NlsV8ni9vxkgqd/hwtl4eRbc5JpS453jlCbRHml20JIUPemf5mG
+	 gawvMX4qQnGtw7xL+pmHYb3mA+mhvzuSXsPiOJ79hWfWNCuVYUD4i49UvfXrluZxyd0v3
+	 H9YhWIP+zgBM7dGE1qgYolEE4OiJZrtj2K0QgOiXYaAxziXRHRnD68hpD2vBXn2KO2Y1g
+	 8EZ2NpXPfOrY4XgTPx7LyJZrrsPKGBAoo/R3ihkcA7YPnkwwjjbGyOVztv2AyJKu3+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TVEHQmVx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fmR+INDr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0466606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:49:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B84606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:49:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TVEHQmVx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DA21F0089F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fmR+INDr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B881F00A00;
 	Wed, 11 Nov 2026 03:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794368989;
-	bh=Af2h9ikhJ2DeH6serzZnPjb9I/xiGmNIWrYHWnVJ1wA=;
+	s=k20260515; t=1794368990;
+	bh=9ZXMsLPTsm0GOQLCtib9nfmjdcHkbejoTfcfCndgpuI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TVEHQmVx3e7HivcrylyaBF3K/KI3bI3nVD38VaPYS3tWKLlZths7DFPG29AwwCErr
-	 FFxKhZfAo/+MBlpCE2ilppItilDtaGgeKzN31MzqfW3+n1wHwSkwZ1/34UD3hhiURN
-	 QghEhm0tNvufsuj7afPvRawiucAHmf8CE2DG+RSSBLDNd4U2EFWNKi85xdUEeLQ0zE
-	 fICcomrC38dY6dCYiH/RwjrbfY5Im5wth3VWp+giKHvQLBWSd2C4SKw+Hr3SnCLdYM
-	 J7wj+OvvnifPdYyUwDxEJCGgOMaJcANPbmWLTJ2LDIMIy3RgKSG+9FYgr3+krOyduC
-	 wP3B3bAeV8jBQ==
+	b=fmR+INDrAWWRy7CDjOToidg6N+pCCMfZUV5WApOaNBfLVRiiI+Vj5CyVXK+SZuVJx
+	 JV30VvAcMypNXvvK/S+7ySNbJvWPvNui99q6HZ+YT5nTJEsQo4diqkPkGMEVqJnLBA
+	 tbj3iD1ZFc/SPdd8yUc94Y5Oi287H1b9oLhPlL59wDyESU4Ai/kHFl1mFRjYSczPdA
+	 PncQD/fwYfBdneOA14T5Qr22wGtnt2JzqKHxnhDY8818tHbr69R65+4qnJptd6+lo8
+	 Y7P6SZQ2KcJqSNjaOaO0vAZyvq2P1KrQ/MxU3l3Q6D9NCMKJNDh8fYYhX0K7IVVzAu
+	 3nArAydCK1tKg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
+Cc: Elia Devito <eliadevito@gmail.com>,
+	Hans de Goede <hdegoede@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] media: qcom: camss: vfe: Fix VFE reset while another line is streaming
-Date: Tue, 10 Nov 2026 22:49:46 -0500
-Message-ID: <20261111034941.1012493-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/4] platform/x86: hp-wmi: rename "thermal policy" to "thermal profile"
+Date: Tue, 10 Nov 2026 22:49:45 -0500
+Message-ID: <20261111034941.936350-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111034941.1012493-1-sashal@kernel.org>
-References: <20261107054314-failed-6.1-e5d4b0e69a40@kernel.org>
- <20261111034941.1012493-1-sashal@kernel.org>
+In-Reply-To: <20261107062147-failed-5.10-6dea092b261f@kernel.org>
+References: <20261107062147-failed-5.10-6dea092b261f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,91 +61,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hitesh Patel <hitesh@ebytelogic.com>
+From: Elia Devito <eliadevito@gmail.com>
 
-[ Upstream commit e5d4b0e69a4017fd39354499c9d7583f625f0524 ]
+[ Upstream commit d7da7534272f7b42629042a5b6fa51debca9201e ]
 
-vfe_disable_output() stops the write masters of the line being
-disabled and then resets the whole VFE. The reset is not limited to
-that line.
+rename "thermal policy" with the more appropriate term "thermal profile"
 
-When two lines of one VFE stream at the same time, which is the case
-whenever a CSID demultiplexes several virtual channels to different
-RDIs, stopping the first line resets the VFE underneath the second
-line. The second line's write master configuration is wiped, the
-buffers it had in flight are never completed, and the VFE is left in
-a state in which the next global reset is not acknowledged. Stopping
-or restarting the second line then fails with:
-
-  VFE reset timeout
-
-Move the reset to vfe_disable() and do it under stream_lock, as part
-of the decrement that makes the count reach zero, so that exactly one
-caller resets and no line can be enabled while the reset runs.
-Stopping the line's write masters is enough to quiesce that line on
-its own. With a single line streaming, the reset happens exactly as
-before.
-
-Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
-Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-[bod: Converted vfe_disable_output to void]
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Signed-off-by: Elia Devito <eliadevito@gmail.com>
+Link: https://lore.kernel.org/r/20210221210256.68198-1-eliadevito@gmail.com
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Stable-dep-of: 6dea092b261f ("platform/x86: hp-wmi: fix heap OOB read and memory corruption in hp_wmi_perform_query()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
+ drivers/platform/x86/hp-wmi.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index e333e4463433b..096a284c6bfc2 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -407,7 +407,7 @@ int vfe_put_output(struct vfe_line *line)
+diff --git a/drivers/platform/x86/hp-wmi.c b/drivers/platform/x86/hp-wmi.c
+index 6642d09b17b55..370f74fa4a9ab 100644
+--- a/drivers/platform/x86/hp-wmi.c
++++ b/drivers/platform/x86/hp-wmi.c
+@@ -87,7 +87,7 @@ enum hp_wmi_commandtype {
+ 	HPWMI_FEATURE2_QUERY		= 0x0d,
+ 	HPWMI_WIRELESS2_QUERY		= 0x1b,
+ 	HPWMI_POSTCODEERROR_QUERY	= 0x2a,
+-	HPWMI_THERMAL_POLICY_QUERY	= 0x4c,
++	HPWMI_THERMAL_PROFILE_QUERY	= 0x4c,
+ };
+ 
+ enum hp_wmi_command {
+@@ -875,19 +875,19 @@ static int __init hp_wmi_rfkill2_setup(struct platform_device *device)
+ 	return err;
+ }
+ 
+-static int thermal_policy_setup(struct platform_device *device)
++static int thermal_profile_setup(struct platform_device *device)
+ {
+ 	int err, tp;
+ 
+-	tp = hp_wmi_read_int(HPWMI_THERMAL_POLICY_QUERY);
++	tp = hp_wmi_read_int(HPWMI_THERMAL_PROFILE_QUERY);
+ 	if (tp < 0)
+ 		return tp;
+ 
+ 	/*
+-	 * call thermal policy write command to ensure that the firmware correctly
++	 * call thermal profile write command to ensure that the firmware correctly
+ 	 * sets the OEM variables for the DPTF
+ 	 */
+-	err = hp_wmi_perform_query(HPWMI_THERMAL_POLICY_QUERY, HPWMI_WRITE, &tp,
++	err = hp_wmi_perform_query(HPWMI_THERMAL_PROFILE_QUERY, HPWMI_WRITE, &tp,
+ 							   sizeof(tp), 0);
+ 	if (err)
+ 		return err;
+@@ -914,7 +914,7 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
+ 			hp_wmi_rfkill2_setup(device);
+ 	}
+ 
+-	thermal_policy_setup(device);
++	thermal_profile_setup(device);
+ 
  	return 0;
  }
- 
--static int vfe_disable_output(struct vfe_line *line)
-+static void vfe_disable_output(struct vfe_line *line)
- {
- 	struct vfe_device *vfe = to_vfe(line);
- 	struct vfe_output *output = &line->output;
-@@ -419,8 +419,6 @@ static int vfe_disable_output(struct vfe_line *line)
- 		vfe->ops->vfe_wm_stop(vfe, output->wm_idx[i]);
- 	output->gen2.active_num = 0;
- 	spin_unlock_irqrestore(&vfe->output_lock, flags);
--
--	return vfe_reset(vfe);
- }
- 
- /*
-@@ -432,21 +430,19 @@ static int vfe_disable_output(struct vfe_line *line)
- int vfe_disable(struct vfe_line *line)
- {
- 	struct vfe_device *vfe = to_vfe(line);
--	int ret;
-+	int ret = 0;
- 
--	ret = vfe_disable_output(line);
--	if (ret)
--		goto error;
-+	vfe_disable_output(line);
- 
- 	vfe_put_output(line);
- 
- 	mutex_lock(&vfe->stream_lock);
- 
--	vfe->stream_count--;
-+	if (--vfe->stream_count == 0)
-+		ret = vfe_reset(vfe);
- 
- 	mutex_unlock(&vfe->stream_lock);
- 
--error:
- 	return ret;
- }
- 
 -- 
 2.53.0
 
