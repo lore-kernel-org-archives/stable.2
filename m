@@ -1,56 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409070;
-	b=yka+fjZRjxfKo28p7o96q4PUnfHlDDW93Xh9JQzE9DC3xccEs1fDFFT3SnPHV8+076ha
-	 GxyljliLnzCNU0PiW4l9+tK8jBbq3iSFOxtu0dhkz1599mizuFaSbaE86ATaalwjxlV0g
-	 iRPKm4N+61T1Nv6/PVIT3RePD9caoWPAhLsjm54pUSRhGX8i3Gpf1lUPuYIJorP5h73yE
-	 uzV/jDp/tRTkDiL8W3Q83MIPFGTYxjtFadnfd1xWuzTwswGU3IlRqN8KkowbVl22hb50p
-	 YW43CU7hcwaqkgHaxyef6GQCJyd0ipmk4rVEm8+JCWepMYByRnQDBQnX9mcgodOfeFQ==
+	t=1794409080;
+	b=vjVpSvGBDVqoAvZ8c2z0tKLRk2GiodYn5HDlztD2FMCXqSsKSq3jk1TJsb0g63wk0xuN
+	 Et7K9FwOonmYrbIpRjWMGjqeT7/0xG3gY3i9T0NEIRD59125Un7+gc6RpZnTxmAw8F36C
+	 5n9BB2S/hPUyPSOmdYFmGoGYGe4nHlFj8/rVYCjnB9bOYRCvNOBlzTN2j/VjJCPB4U6dh
+	 rUHTTIhKwm0tpnkRlG/713SUOxLaHnj/sECM9jQVttIonMdhM/z00nOqZTKxFDTp1L/AU
+	 SR3YZuytbzsW6uTSRcRYMy7SPT9zsJ6LUI44JbK3jbpdYf8UpoLtRlig6l1POzEgvfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409070;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fG8Omq6mBUwuOX6b157t8JQua4sOhqEfgSWchcnlqhQ=;
-	b=invXCM2L9xE4yoh7cxvbPndGML7b3m2/dnxaPd7lHEWrpI92sp2LkkhJncY3aPVUksbM
-	 8fYlQAtQ0xUs6NQkFbAgRl7QdHk91ST1Zi5naYJ/W7a3r8lB0iQKAEP5uJ56xnHvFBobp
-	 Swi8s8KwrpwYktkqF2zx03Mxf3bKaxWClYnL0DGT2saUTvVnqnY1pV6vE6exkdx1HYMUs
-	 rJki6uTVpeHnvtPzcyj3+GjLaI/pU0g+kyb+PRU3gOM+hW2mzsJiSoM0YwhDZELI8FJZi
-	 G7eZHzzz4MI175ryft/qZpZX1OPAXoaeyNsDL7gW2uOGPkUKt6usN87QX74lNM59msw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409080;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=7ykvl4TfBSk/nPuLE+62lmDD8jntOs2T+Nzf9MEyT00=;
+	b=2jMu3lusDCoeHBdPceSBGvp3y4hWwQjKapHymHGmUdP7ACT8HAP7jTZVDcPKFkiFYW3Y
+	 Bs0rTduniT2zXOfMFPE0PoPg+doydqOL3KgjTpGiQ9I20EhRvcAUaqLkphpvX9M0IPwCO
+	 UPq9DmPHjmgjf13p/VIf/CSUO/86Af5nKQ7QlcbE0jv0W4t2LluWRSag9xxyPO5qhKsTy
+	 IKv4xiRiIklswb9YG1UZzsX7HVoqfD+aGmkBEb3nop9D74v7ifu6V3ItNKAl/yKF1jxS8
+	 QgqzmwRjgvMYJBnKwLxnarZfb1TmL6H3gdYDo0uhuuSzwejwUqgZi/M7230Kl1ut6iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcaTpXbB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=wDBscz1H;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7878606A8A4
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:57:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A394D606A327;
+	Wed, 11 Nov 2026 14:57:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A394D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcaTpXbB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8AAF1F00A07;
-	Wed, 11 Nov 2026 14:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409070;
-	bh=fG8Omq6mBUwuOX6b157t8JQua4sOhqEfgSWchcnlqhQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZcaTpXbB1jl9K5271+G/kA6UXNP5D11GdM4s6URLlQy2XHwZHPANoKNlkn+kCb4Ci
-	 w4C19R4222vHaZGmK2ciF1lyxbU62dtJ9j6WNyjhFT0O6o6+Tt269/oBqxkeZNJMcd
-	 kH50lCkeNvryui8zwpBV9VrRG0aa4bwq9hJC/IKIRhq8c2fJJ/NhckZWzUGyZ7UIAS
-	 DUgXDuZBYntJ3en+EJy07/i9qORiyrC+PVl+9+dD96bRI318ocy9mKdaMfLozwSYc6
-	 CHFTICgeMkxPTpxRwy3Gv/14N1PLrgUG5L8Mz6C3tR/Y0eemKLGPRwgkUmqocEFBXm
-	 NbBqn4AV0M42g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] f2fs: fix to invalidate curseg if change_curseg() fails
-Date: Wed, 11 Nov 2026 09:57:48 -0500
-Message-ID: <20261111145732.2461477-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052217-failed-6.12-e74476ad8162@kernel.org>
-References: <20261107052217-failed-6.12-e74476ad8162@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=wDBscz1H
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jPmpt0sRzz4yjjF;
+	Wed, 11 Nov 2026 22:57:58 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794409078;
+	bh=RSyi96C+BtD/1WdNUT2fDfaAcsY630G7i3kXD0+PQ1U=;
+	h=Date:From:To:Cc:Subject;
+	b=wDBscz1Hn20cZ2iv5RRVsiw05ccTZPaemeILBenCloU7OrqxevmhIIgKBn9JbauFI
+	 54zLKA4S1418X5q/TV7irQORpEetHMtviP2dcLzfmdgJF/Frv1FBDIBTUJpuZfo9L0
+	 hs313izpM8xOmiHjOMT7oQ6aTqV6me2Na/YJpUW2emwM9fFm1+M3WUCnvVrmqkqsO8
+	 UHpm95jNM6TYfQG568hWgtmIoFkTrR/eaFn0Zn+XYV0LciWK12lprA7gkt3wkZgEjg
+	 qrSSPjiZ4XdJtfax7004HDWbK8f3Vv1kRrq9WElGxQ1ivajFFKYqrW+L3/qp3bRDLq
+	 iPXtA29rsbgng==
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 6ABEvp9F073354;
+	Wed, 11 Nov 2026 22:57:51 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 11 Nov 2026 22:57:52 +0800 (CST)
+X-Zmail-TransId: 2af96af482709ba-6b89b
+X-Mailer: Zmail v1.0
+Message-ID: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
+Date: Wed, 11 Nov 2026 22:57:52 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,122 +69,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <tom.leiming@gmail.com>, <shuah@kernel.org>, <linux-block@vger.kernel.org>,
+        <linux-kselftest@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvNF0gdWJsazogcmVwb3J0IHJlY292ZXJ5IHRlc3QgZmFpbHVyZXMgYW5kIGZpeCB0aGUgZXhwb3NlZCBkZWZlY3Rz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6ABEvp9F073354
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Wed, 11 Nov 2026 22:57:58 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF48276.000/4jPmpt0sRzz4yjjF
 
-From: Chao Yu <chao@kernel.org>
+The four patches make the ublk recovery tests report failures from their
+workers, and then fix the two defects that the stricter tests exposed.
+They are one series because the later work came out of the earlier
+patches: patch 2 applies on top of patch 1, and patches 3 and 4 are the
+two independent fixes that patch 2's testing uncovered.
 
-[ Upstream commit e74476ad8162c1facc74b74ce2d1372492df872e ]
+Patch 1 waits for the recorded recovery worker PIDs and reports their
+status from the parent, so a failed worker no longer ends in PASS.  It is
+a v2 of the patch posted separately on 11-09; the only change is the
+simplified wait loop Ming Lei asked for, and his Reviewed-by is kept.
 
-Our consistency stress test (fsstress + fio + atomic write workers +
-"f2fs_io shutdown 1") triggers below kernel BUG:
+Patch 2 generalizes that collector for the stress scripts, which used a
+bare wait in nine of them and could print PASS after a worker failed.
 
- F2FS-fs (vdd): Stopped filesystem due to reason: 0
- ------------[ cut here ]------------
- kernel BUG at fs/f2fs/segment.c:3989!
- Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
- Workqueue: writeback wb_workfn (flush-253:48)
- RIP: 0010:f2fs_allocate_data_block+0x257a/0x38e0
- Call Trace:
-  <TASK>
-  do_write_block+0x155/0xc10
-  f2fs_outplace_write_data+0x192/0x340
-  f2fs_do_write_data_page+0xc57/0x1880
-  f2fs_write_single_data_page+0xda9/0x15a0
-  f2fs_write_cache_pages+0x973/0x1f20
-  __f2fs_write_data_pages+0x6c4/0x1890
-  do_writepages+0x21e/0x560
-  __writeback_single_inode+0x119/0x11b0
-  writeback_sb_inodes+0x67d/0x17a0
-  wb_writeback+0x207/0x820
-  wb_workfn+0x128/0xc30
-  process_one_work+0x925/0x1600
-  worker_thread+0x60a/0xff0
-  kthread+0x35f/0x460
-  ret_from_fork+0x474/0x7e0
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
+Patch 3 cancels a command that is committed after the quiesce
+cancellation scan has passed its slot; without it the server waits for a
+completion that never comes and the device stays LIVE.  This is the
+kernel fix and carries Fixes: and Cc: stable.
 
-The BUG is f2fs_bug_on(sbi, curseg->next_blkoff >= BLKS_PER_SEG(sbi))
-in f2fs_allocate_data_block(), next_blkoff was 512.
+Patch 4 clears the uring_cmd flag word when a selftest batch SQE is
+reused, so a recycled slot no longer carries the multishot flag of the
+previous batch fetch and is rejected with -EINVAL.
 
-The root cause is a race in between atomic write commit and shutdown
-as below:
+Tested on next-20261105 with CONFIG_BLK_DEV_UBLK=y in a local QEMU/KVM
+VM (4 vCPUs, 4 GiB), with real ublk devices, kublk and fio.  Patch 1
+keeps its 71-scenario stub matrix.  For patch 2, all nine stress scripts
+passed before and after; with an injected ADD_DEV failure all nine
+previously reported PASS with exit status 0, and now report FAIL with
+255.  For patch 3, a test-only server hook held one COMMIT across a
+successful quiesce: the original kernel stayed LIVE until a second
+quiesce, the patched kernel reached QUIESCED directly, two runs per
+version.  For patch 4, the original kublk rejected the reused batch SQE
+with -EINVAL and its daemon exited, the patched kublk kept the device
+LIVE.  With both fixes applied the four recovery scripts passed twice
+per version.
 
-Thread A (commit atomic write)  Thread B (shutdown)        Thread C (writeback)
-- f2fs_ioc_commit_atomic_write
- - f2fs_commit_atomic_write
-  - __f2fs_commit_atomic_write
-   - __replace_atomic_write_block
-    - f2fs_replace_block
-     - __f2fs_replace_block
-                                - f2fs_ioc_shutdown
-                                 - f2fs_do_shutdown
-                                 : F2FS_GOING_DOWN_METASYNC
-                                  - f2fs_sync_fs
-                                                           - f2fs_write_single_data_page
-                                                           : pass f2fs_cp_error() check
-                                  - f2fs_stop_checkpoint
-                                  : set CP_ERROR_FLAG
-      - change_curseg
-       - reset_curseg
-       : curseg->segno = new_segno
-       : curseg->alloc_type = SSR
-       : curseg->next_blkoff = __next_free_blkoff()
-         which is BLKS_PER_SEG if there is no free
-         slot in new_segno
-       - f2fs_get_sum_cache
-       : return -EIO due to f2fs_cp_error()
-      : return error w/o restoring curseg
-     : goto out_unlock, skip restoring
-       old segno, blkoff and alloc_type
-                                                            - f2fs_do_write_data_page
-                                                             - f2fs_outplace_write_data
-                                                              - do_write_block
-                                                               - f2fs_allocate_data_block
-                                                               : curseg->segno is valid
-                                                               : f2fs_bug_on(next_blkoff >=
-                                                                 BLKS_PER_SEG)
+Shao Mingyin (4):
+  selftests: ublk: propagate recovery worker failures
+  selftests: ublk: propagate stress worker failures
+  ublk: cancel commits arriving after the quiesce scan
+  selftests: ublk: clear reused batch SQE command flags
 
-Since commit 86f33603f8c5 ("f2fs: handle errors of
-f2fs_get_meta_page_nofail"), change_curseg() can fail after the curseg
-has already been switched to the new segment, then the curseg is left
-in an inconsistent state: it points to a segment which may have no
-free slot, its summary block is zeroed, and the caller can not restore
-it. Subsequent block allocation on the curseg will trigger the BUG.
-Moreover, the writeback thread dies with curseg_lock, curseg_mutex and
-sentry_lock held, so the commit, shutdown and other I/O threads hang
-in D state.
+ drivers/block/ublk_drv.c                        | 40 ++++++++++++++++---------
+ tools/testing/selftests/ublk/batch.c            |  1 +
+ tools/testing/selftests/ublk/test_common.sh     | 30 ++++++++++++++-----
+ tools/testing/selftests/ublk/test_recover_01.sh | 20 ++++++++++---
+ tools/testing/selftests/ublk/test_recover_02.sh | 20 ++++++++++---
+ tools/testing/selftests/ublk/test_recover_03.sh | 20 ++++++++++---
+ tools/testing/selftests/ublk/test_recover_04.sh | 14 +++++++--
+ tools/testing/selftests/ublk/test_stress_01.sh  |  9 ++++--
+ tools/testing/selftests/ublk/test_stress_02.sh  |  9 ++++--
+ tools/testing/selftests/ublk/test_stress_03.sh  | 23 +++++++++++---
+ tools/testing/selftests/ublk/test_stress_04.sh  | 23 +++++++++++---
+ tools/testing/selftests/ublk/test_stress_05.sh  | 28 ++++++++++++-----
+ tools/testing/selftests/ublk/test_stress_06.sh  | 15 ++++++++--
+ tools/testing/selftests/ublk/test_stress_07.sh  | 15 ++++++++--
+ tools/testing/selftests/ublk/test_stress_08.sh  | 10 +++++--
+ tools/testing/selftests/ublk/test_stress_09.sh  | 10 +++++--
+ 16 files changed, 221 insertions(+), 66 deletions(-)
 
-Since change_curseg() only fails once CP_ERROR_FLAG is set, no
-checkpoint will be committed afterward, let's invalidate the curseg via
-reset_curseg_fields() on failure, as new_curseg() does for -ENOSPC,
-then f2fs_allocate_data_block() will fail with -ENOSPC on the curseg
-instead of triggering BUG, and do_write_block() can handle the error
-since CP_ERROR_FLAG has been set.
-
-Cc: stable@kernel.org
-Fixes: 86f33603f8c5 ("f2fs: handle errors of f2fs_get_meta_page_nofail")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: Adjusted context for the existing f2fs_get_sum_page() summary-page API. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/segment.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 1ef87b212681e..7559a85bb9df6 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -2970,6 +2970,7 @@ static int change_curseg(struct f2fs_sb_info *sbi, int type)
- 	if (IS_ERR(sum_page)) {
- 		/* GC won't be able to use stale summary pages by cp_error */
- 		memset(curseg->sum_blk, 0, SUM_ENTRY_SIZE);
-+		reset_curseg_fields(curseg);
- 		return PTR_ERR(sum_page);
- 	}
- 	sum_node = (struct f2fs_summary_block *)page_address(sum_page);
--- 
-2.53.0
-
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
