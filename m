@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=87.76.132.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412948;
-	b=LI6SOiCNk/WPwmoZE7wLHxgn31/LaSCsMgn7E3yrVd1FF5b0ae3Lez82qBYspzXcHq0/
-	 rIfw+dtrj3+5X/sFL6DfzsGtJeQDQxJRs84o4Jct8TGFF4VorTkRIuGuhbgnxKCWEaEt7
-	 arimwciznskzWmA+gbZ3uq7mFGDOTI0xQp3Jp8HXPlwqIMbietC20LxCl48NGfdO4y4or
-	 fdlSf5Dn2NafoXYtmalhuGPBszaQaR/ckWTSME/cNmZ7gkNdCwNrtUM/Ve8Z/uAZ+EYLk
-	 nyyUVoZrxd/4PnbX1pU5d6VeEVhDIZSxD5MXV5nP5F0zQUSQRof6snlBwX9j+3PhzCA==
+	t=1794413101;
+	b=YxYIs3D3odq2thwKzDJPOS6GN/SSycsWtSvZvTp6jt0ON4cNEs7mumdDEGIImH+dDQv4
+	 dqPU0FEX7Dx4iMQEkboKB/KCuonHr5zR4eupQ3kz4Ap2cSMyoSwP8kBmLQxnd6tfjs/Wu
+	 xXaCNWpC9klWiOB4WF9RDcXfIc0eiXekpULss5L4VCyFoerCF9owpwaqLpjv51fwS7Ul1
+	 zBjcq/K6PLXgR+1Rw/XTCgta4D5B2b1hff9aiCFL5qLl8h8mEK2ctzFblWFB7KkUu5Bjy
+	 4/LhBqCE064MUmkwTxz3RNC88bJmp2My79kjXHsZiMPk90h+PZvTuYi+GlXXfF3Ihpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412948;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=WokhbsrTFc2NsHpEugw+0dMzXBQ004WHE6KXS5ikNyc=;
-	b=FGgmLBFMvlSufHisl3pGz8c3vRuwLAyuVSFdNgz/wV7KzV/Fu859iJzNSBzYYXF8rOUl
-	 jRBcr+5nNly4KBIsSOjUjqJmeIWDBZONCGHmlU8HP003Mi3n2aye9lEtv5j4Z6Ohpa/8R
-	 gRH2W0WLK62gJnJep4dvjHLrTtxIZpCvye2p8M/yI/RmHwoBrSdggLYjmoKTyXsk9H+vR
-	 0w6aCy7ahveU4zknkK0b3HtqWJZoLIsO5RGSRrb3RXEQH02yamFe/lpHv5Tz7lOVeQzu8
-	 NfTIq7r2Za07P7nx03ysg95R4hMWokVgS6k4gUhwUgf5W9742IsqbKczhZdBws1p4MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413101;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=XIdGflJshFROwAkwtRtLA4SHc/Nm3hnyzRnbREQSpuM=;
+	b=baHPVsfhMkEhpMpbproU+5ewnN0qO0Zs3pMAuBWxWERvxljXquzN6uTLBag/kkZE79l9
+	 BgXmc6J//ASvdCM0n23PqRzjxcXJu9+qj89fCCEisofxmd3bOJgjcxKNShzFDd5fvkt/1
+	 uTSU9I0pjTa8U/6eoc06WURDpeWMgUdB/kKN49PMMaOddo4KKeytHVjGW352PgM+k+ZYl
+	 KWqweBHSCgYpGdE31qPuOUVWvXUIG6eRjsSGfznO3VJ97K1Yc+7FVxdNjNivQ/JkXbjIB
+	 DpIjodLUkLMwMQAzBEGYwe+TFSMwzvYOoC7wjAFOeWN3WI3uHuCKFmKi7D3Jg9p/CwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=auth.ink;
-	spf=pass smtp.mailfrom=auth.ink;
-	dkim=pass header.d=auth.ink header.i=@auth.ink header.a=rsa-sha256 header.s=dkim header.b=N5D0I8G0;
-	arc=none smtp.remote-ip=87.76.132.165
-Received: from mail.netskyway.net (unknown [87.76.132.165])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPLkzNSq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F5C606A32D;
-	Wed, 11 Nov 2026 16:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38F5C606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auth.ink
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auth.ink
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F2D606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:05:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=auth.ink header.i=@auth.ink header.a=rsa-sha256 header.s=dkim header.b=N5D0I8G0
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8760630A2FE;
-	Wed, 11 Nov 2026 13:02:08 -0300 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=auth.ink; s=dkim;
-	t=1794412931; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=WokhbsrTFc2NsHpEugw+0dMzXBQ004WHE6KXS5ikNyc=;
-	b=N5D0I8G0QMiIngQffgzUl0ze0LjcwhXcJ8HgWudmE1xMqukZW45EsniiwMqVP6nR9VG3AB
-	RC1upKz3QWXaIJsNO/2X9Zsod9hUAUo9luySLJzdCbzl9QI89DRUjLpOUbQIpVxR6GYhkA
-	py1cJH9x1M8nk+Vfw5qPx8zWNDrwBQFO3oY2IMdttJ4k9m+2sjKd7wPwA0UjekfmqPTF0Y
-	62lnPNaUL5eBlQSBrHcBlFIbNp4XXecvXmePlvQk9QgwcQxPzLuH/qduCwwasoQXT5lnb5
-	0tG3yI01jB24CHVMM61Eui4uIuveWUatkxqN3l4nv1Bdjfd73IoijhevoYbVLQ==
-From: Tamir Awad <tamir@auth.ink>
-To: sashal@kernel.org,
-	kuniyu@google.com
-Cc: stable@vger.kernel.org,
-	lee@kernel.org,
-	netdev@vger.kernel.org,
-	rodrigo.zaiden@canonical.com
-Subject: [PATCH 5.15.y v3] af_unix: Clear oob_skb in scan_inflight()
-Date: Wed, 11 Nov 2026 18:02:07 +0200
-Message-ID: <179441291360.3032.12248522121219232932@auth.ink>
-X-Mailer: git-send-email 2.56.0.windows.4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPLkzNSq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6731F00A05;
+	Wed, 11 Nov 2026 16:05:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794413101;
+	bh=XIdGflJshFROwAkwtRtLA4SHc/Nm3hnyzRnbREQSpuM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UPLkzNSqO8wmbzePcdHwWz/0bIZdDEfNQcSZEEyxJQ4EGTJ3wzkwM8MDzwvkQvNhB
+	 dhY6FYrbdfBkcNYvdEZFuCwNH7oZabDqyB4HYbnlvfjcSt+TD0u2jpDovLvzTP/ptE
+	 +BWdrBp11PKzsv9kt/jyX9/9xvKRZiWP5Sfr3GiboEZnSVXcZSY9vitinlpKRAyCpX
+	 +zEgBEjqqpdCCOTbqVB744q2tWDXqh7HvYF2Or4OWBMjQgx2csVIYgWh7ImK82lc3a
+	 O0zd1mYpc5ncodTJ4ZuzYWV1GlWQcp2lKDF6jxNoC/fhaRiuSfweJ9MIdk7ZVZ7umC
+	 bApXPcfCSPuKQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] posix-timers: Handle the timer_[re]arm() return value
+Date: Wed, 11 Nov 2026 11:04:58 -0500
+Message-ID: <20261111160411.2760021-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051445-failed-6.18-141a27750ec3@kernel.org>
+References: <20261107051445-failed-6.18-141a27750ec3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,135 +61,79 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Kuniyuki Iwashima <kuniyu@amazon.com>
+From: Thomas Gleixner <tglx@kernel.org>
 
-Embryo socket is not queued in gc_candidates, so we can't drop
-a reference held by its oob_skb.
+[ Upstream commit cfb7fe3fdd4ca1d37da1ed15a1897d4a27c47a8a ]
 
-Let's say we create listener and embryo sockets, send the
-listener's fd to the embryo as OOB data, and close() them
-without recv()ing the OOB data.
+The [re]arm callbacks will return true when the timer was queued and false
+if it was already expired at enqueue time.
 
-There is a self-reference cycle like
+In both cases the call sites can trivially queue the signal right there,
+when the timer was already expired. That avoids a full round trip through
+the hrtimer interrupt.
 
-  listener -> embryo.oob_skb -> listener
-
-, so this must be cleaned up by GC.  Otherwise, the listener's
-refcnt is not released and sockets are leaked:
-
-  # unshare -n
-  # cat /proc/net/protocols | grep UNIX-STREAM
-  UNIX-STREAM 1024      0      -1   NI       0   yes  kernel ...
-
-  # python3
-  >>> from array import array
-  >>> from socket import *
-  >>>
-  >>> s = socket(AF_UNIX, SOCK_STREAM)
-  >>> s.bind('\0test\0')
-  >>> s.listen()
-  >>>
-  >>> c = socket(AF_UNIX, SOCK_STREAM)
-  >>> c.connect(s.getsockname())
-  >>> c.sendmsg([b'x'], [(SOL_SOCKET, SCM_RIGHTS, array('i', [s.fileno()]))], MSG_OOB)
-  1
-  >>> quit()
-
-  # cat /proc/net/protocols | grep UNIX-STREAM
-  UNIX-STREAM 1024      3      -1   NI       0   yes  kernel ...
-                        ^^^
-                        3 sockets still in use after FDs are close()d
-
-Let's drop the embryo socket's oob_skb ref in scan_inflight().
-
-This also fixes a racy access to oob_skb that commit 9841991a446c
-("af_unix: Update unix_sk(sk)->oob_skb under sk_receive_queue
-lock.") fixed for the new Tarjan's algo-based GC.
-
-Fixes: 314001f0bf92 ("af_unix: Add OOB support")
-Link: https://lore.kernel.org/all/20250304030149.82265-1-kuniyu@amazon.com/
-Reported-by: Lei Lu <llfamsec@gmail.com>
-Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.com>
-Signed-off-by: Tamir Awad <security@auth.ink>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260408114952.198028466@kernel.org
+Stable-dep-of: 141a27750ec3 ("posix-timers: Report zero remaining time for disarmed SIGEV_NONE timers")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-This has no upstream commit because I replaced the entire GC in
-6.10 and the new GC does not have this bug, and this fix is only
-applicable to the old GC (<= 6.9), thus for 5.15/6.1/6.6.
+ kernel/time/posix-timers.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-This resends Kuniyuki Iwashima's March 2025 fix for the old GC. The
-code diff is unchanged.
-
-On 5.15.223, the reproducer panicked three unpatched QEMU guests. Three
-patched guests completed 8,000 rounds each without a kernel warning.
-Both builds used the same config and guest image. An instrumented run
-traced the harness's failed racing sends to EPIPE and ECONNRESET and
-confirmed all 8,000 iterations reached the race.
-
-Changes in v3:
-- Restore the original commit explanation and socket leak reproducer.
-- Keep resend context and validation results below the separator.
-- No code changes from v2.
-
-v2: https://lore.kernel.org/netdev/179418529889.10436.12048717656065553331@auth.ink/
-
- net/unix/garbage.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/net/unix/garbage.c b/net/unix/garbage.c
-index d2fc795..a733d0d 100644
---- a/net/unix/garbage.c
-+++ b/net/unix/garbage.c
-@@ -102,13 +102,14 @@ static void scan_inflight(struct sock *x, void (*func)(struct unix_sock *),
- 			/* Process the descriptors of this socket */
- 			int nfd = UNIXCB(skb).fp->count;
- 			struct file **fp = UNIXCB(skb).fp->fp;
-+			struct unix_sock *u;
+diff --git a/kernel/time/posix-timers.c b/kernel/time/posix-timers.c
+index 3082129d836c2..3d39f77423afb 100644
+--- a/kernel/time/posix-timers.c
++++ b/kernel/time/posix-timers.c
+@@ -306,6 +306,8 @@ static bool common_hrtimer_rearm(struct k_itimer *timr)
  
- 			while (nfd--) {
- 				/* Get the socket the fd matches if it indeed does so */
- 				struct sock *sk = unix_get_socket(*fp++);
+ static bool __posixtimer_deliver_signal(struct kernel_siginfo *info, struct k_itimer *timr)
+ {
++	bool queued;
++
+ 	guard(spinlock)(&timr->it_lock);
  
- 				if (sk) {
--					struct unix_sock *u = unix_sk(sk);
-+					u = unix_sk(sk);
+ 	/*
+@@ -319,12 +321,18 @@ static bool __posixtimer_deliver_signal(struct kernel_siginfo *info, struct k_it
+ 	if (!timr->it_interval || WARN_ON_ONCE(timr->it_status != POSIX_TIMER_REQUEUE_PENDING))
+ 		return true;
  
- 					/* Ignore non-candidates, they could
- 					 * have been added to the queues after
-@@ -122,6 +123,13 @@ static void scan_inflight(struct sock *x, void (*func)(struct unix_sock *),
- 				}
- 			}
- 			if (hit && hitlist != NULL) {
-+#if IS_ENABLED(CONFIG_AF_UNIX_OOB)
-+				u = unix_sk(x);
-+				if (u->oob_skb) {
-+					WARN_ON_ONCE(skb_unref(u->oob_skb));
-+					u->oob_skb = NULL;
-+				}
-+#endif
- 				__skb_unlink(skb, &x->sk_receive_queue);
- 				__skb_queue_tail(hitlist, skb);
- 			}
-@@ -299,17 +307,9 @@ void unix_gc(void)
- 	 * which are creating the cycle(s).
- 	 */
- 	skb_queue_head_init(&hitlist);
--	list_for_each_entry(u, &gc_candidates, link) {
-+	list_for_each_entry(u, &gc_candidates, link)
- 		scan_children(&u->sk, inc_inflight, &hitlist);
+-	timr->kclock->timer_rearm(timr);
+-	timr->it_status = POSIX_TIMER_ARMED;
++	/* timer_rearm() updates timr::it_overrun */
++	queued = timr->kclock->timer_rearm(timr);
++
+ 	timr->it_overrun_last = timr->it_overrun;
+ 	timr->it_overrun = -1LL;
+ 	++timr->it_signal_seq;
+ 	info->si_overrun = timer_overrun_to_int(timr);
++
++	if (queued)
++		timr->it_status = POSIX_TIMER_ARMED;
++	else
++		posix_timer_queue_signal(timr);
+ 	return true;
+ }
  
--#if IS_ENABLED(CONFIG_AF_UNIX_OOB)
--		if (u->oob_skb) {
--			kfree_skb(u->oob_skb);
--			u->oob_skb = NULL;
--		}
--#endif
--	}
--
- 	/* not_cycle_list contains those sockets which do not make up a
- 	 * cycle.  Restore these to the inflight list.
- 	 */
+@@ -912,9 +920,13 @@ int common_timer_set(struct k_itimer *timr, int flags,
+ 		expires = timens_ktime_to_host(timr->it_clock, expires);
+ 	sigev_none = timr->it_sigev_notify == SIGEV_NONE;
+ 
+-	kc->timer_arm(timr, expires, flags & TIMER_ABSTIME, sigev_none);
+-	if (!sigev_none)
+-		timr->it_status = POSIX_TIMER_ARMED;
++	if (kc->timer_arm(timr, expires, flags & TIMER_ABSTIME, sigev_none)) {
++		if (!sigev_none)
++			timr->it_status = POSIX_TIMER_ARMED;
++	} else {
++		/* Timer was already expired, queue the signal */
++		posix_timer_queue_signal(timr);
++	}
+ 	return 0;
+ }
+ 
 -- 
-2.56.0.windows.4
+2.53.0
 
