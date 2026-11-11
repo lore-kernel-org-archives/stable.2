@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794435750;
-	b=jIbbKykzdzKp4X+96L58WWzpcLdMG9RfTAvPefr8oaEz1ONldAWhxmsiiso9kyVasgVe
-	 k46bHdBncJim5HvJDZ/EZ1VlfjOxuvRGn7A33446VOKg7C4e4w0UclYsoMh87D3F2GUOD
-	 HlQ4Qo5Npj3IV+HWbQpigOmRPfr7Q+4yImIWD+WC3L9gYn6G9BNoy7I19suNRmkkf0h+D
-	 t5AN3MPCcKmxIB3gTC9OcgABiU/7xs2Mc7yRdERpiwGwjFeZx/2sOCB+mOVcJPsSndR6O
-	 wYE3+EucLYdWzwDu3g5egxPGrjhdQQV9y81Z+xEnYZRS+kPveNbI3H9AJbAQ0O2A23Q==
+	t=1794435751;
+	b=OGRamlEEAQTCPLU/tg68zhb95bhzKXFulhALudFqc1VJzsPImTyVAM3HD8DAWtRctPpz
+	 Vad+exsUDLe6j1fXhhXl8Xydw9D6JIcqETy7wpVhv55BFixnqxo5Wj0mKfUvM+iBd+qrx
+	 ut+Z50GAHnCPyV6j/JxpERPe2DcyQwhN1N18lzclmc2zu9DDJbJrhZL0OToR79QPciqIS
+	 l44fV8QnOuibkCYVLzTuiyHopHC3YEDIAv7hn+7stv3lqY+0BG/zfAed0eKQU0elyzAN5
+	 H9+oa29ipZwBLKRnLmgeAhJwRJV+a9GhEWVffCWgDoiu2SfIhHqsDeLxOfW0ZHmjgVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794435750;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794435751;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4cRXkekRFtgzW6q7qZoQEfRml3hkrUaefLqv1KtKVRI=;
-	b=lUMs4U9TkF1y/2Oh+uelMlIFeymh+J7DyJnhf+1FHMWIXVKR4P1HsCp9OOoFOeIusJFb
-	 nQpO4T2TTXBu8YgQX6QhdZB453rGHnGW56gK5LdciTOYjrYnJHEvgMv6qok2WYAEaJC57
-	 JAwB4LWatt+3KDZfMuVSnnKRnAeuMQA6fR3itXjPbfiS7iCVghoVYn86i20Ifn9+oFQR6
-	 KUcQsxIuDFYZC0m+MLBEev0XtWqhc4VJmZh6y/KRlFoJ2b5xVGLtL1CTuH3RhvepYEr+U
-	 x3YGp9FMPJFYft0f17I0H55+gqyNARPUmgI0xs8qbSjueChuTXL9Sui6B2GtyuV5zjQ==
+	bh=HoWw2LtXhaLTvRjoyzf/GLGky1XfPZvo/+Hksni2ztQ=;
+	b=HuiICjkrt8ygzgUnOPXmk5Ok5JucDD3fH1mf5/N58OgLBzdjtR9jbO49OUjWYQ78D461
+	 BUDMq99lu1WESuHlsuQM+cGitKkso7Xl7oSBgi7rj+4Yt6Z84o0PO+F6wcr3yP/eAQU3M
+	 zH6kbtubA3YKUquDAp0af2KXCNgA7X7F24rC6zLxytxVEAkkUMcnfKyu1vZ8/gYh4lvqt
+	 EUzksRg5ZGjPY/GpxBueSTSC6GY8lLV9rlj0qyXh8sAVjpzD3Dm3wMprQEgTjUxH53Thq
+	 SZ5ShVMdzt9oPDmfGIu5NGqu2NcvA1nFoaudF/POS3+qGG98s+94sIEi2ZzKHrpEzPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bneAD9H2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkr8x5Hw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A04606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC17606A32E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:22:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bneAD9H2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DDF61F00A05;
-	Wed, 11 Nov 2026 22:22:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkr8x5Hw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6BD1F00A07;
+	Wed, 11 Nov 2026 22:22:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794435750;
-	bh=4cRXkekRFtgzW6q7qZoQEfRml3hkrUaefLqv1KtKVRI=;
+	s=k20260515; t=1794435751;
+	bh=HoWw2LtXhaLTvRjoyzf/GLGky1XfPZvo/+Hksni2ztQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bneAD9H27oW09LyR/jAISf0rAtyQ6t3LZDAkYOaLXNptvBXfXI6WPV+RWJdRg6gFS
-	 ziGQCSYU/jvfaRuV8HDu+wOHxR4L+fpoXr71/ua4rdThTLF8mHShCHrSVPTzh2UNHb
-	 bw66968SnXYbD4u+UzrhrWlvDDtZpmdyYNiaIaT3KND2jmvp5x50VdyToAr8YGzOpk
-	 ebPKcoKxWaPbnxtyGr04zue4hMSJW/4hejZPufcNEym1dg9KgB6u6slcwV5Ktq4eAH
-	 +h+PaLUakBcK1Ymqv4ADfvSQOmKoxV3Ai96Kda/zdTdc1Ny23goaa0+/97Nv5hWis9
-	 3/bRckD6wdc7Q==
+	b=bkr8x5HwNLVta6MCUrj22cAvj6z2pJQJnN70cwfqYCvUWXIqg7JwJ2jY9t6QGqNmV
+	 E6MljOviKR0ij11hTh+I7d8489OpVR/T3AnS+q6Wc/ZJqJNdUTqCG3NArkYiPEzkbH
+	 9mvdSNNa+ZRM8nPvA5Vi/z5qlJDz14AzxoO9KGWsJplFkmaV8pD6ZfJk2wkoqFvNCn
+	 DA0tmdlO2yVa/oIfW9kKMcKRRAVE65wStHxv4F7KziFViUKsDYLkY/YTQdEAa2kzbR
+	 CnhddcbvnX6fzIt9VGxnmwM/2GbnRNfzqgBHCf/vi3I3q3D8tbDDA+NoqJ06XsxJd7
+	 qKJ7xfk/V1fcQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Al Viro <viro@zeniv.linux.org.uk>,
-	Shuah Khan <skhan@linuxfoundation.org>,
+Cc: Konstantin Khorenko <khorenko@virtuozzo.com>,
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Wei Yang <richard.weiyang@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] selftests:core: test coverage for dup_fd() failure handling in unshare_fd()
-Date: Wed, 11 Nov 2026 17:22:27 -0500
-Message-ID: <20261111222221.4165903-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] selftests/core: fix unshare_test with large fs.nr_open
+Date: Wed, 11 Nov 2026 17:22:28 -0500
+Message-ID: <20261111222221.4165903-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061911-failed-5.10-df0b7e0ea59c@kernel.org>
+In-Reply-To: <20261111222221.4165903-1-sashal@kernel.org>
 References: <20261107061911-failed-5.10-df0b7e0ea59c@kernel.org>
+ <20261111222221.4165903-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,143 +65,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Al Viro <viro@zeniv.linux.org.uk>
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
 
-[ Upstream commit 611fbeb44a777e5ab54ab3127ec85f72147911d8 ]
+[ Upstream commit df0b7e0ea59c43708cff8c7e34da5e2f8d430e5e ]
 
-At some point there'd been a dumb braino during the dup_fd()
-calling conventions change; caught by smatch and immediately fixed.
-The trouble is, there had been no test coverage for the dup_fd() failure
-handling - neither in kselftests nor in LTP.  Fortunately, it can be
-triggered on stock kernel - ENOMEM would require fault injection, but
-EMFILE can be had with sysctl alone (fs.nr_open).
+The test assumes fs.nr_open is close to the default 1048576, but some
+systems set it much higher (e.g.  1073741816).  This is systemd's doing:
+since systemd v240 (2018), PID 1 bumps fs.nr_open and fs.file-max to their
+largest possible values on boot, as file descriptors are already accounted
+for by memcg [1].
 
-Add a test for dup_fd() failure.
-Fixed up commit log and short log - Shuah Khan
+In that case, dup2() to nr_open + 64 requires the kernel to allocate a
+file descriptor table with ~1 billion entries, which fails with ENOMEM.
 
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Signed-off-by: Shuah Khan <skhan@linuxfoundation.org>
-Stable-dep-of: df0b7e0ea59c ("selftests/core: fix unshare_test with large fs.nr_open")
+On a kernel that already carries 04a2c4b4511d1, dup2() no longer fails
+with ENOMEM.  The allocation is now rejected up front and the caller
+gets EMFILE instead, without the WARNING, but the test still fails.
+
+Cap the nr_open value used for the test's own arithmetic to a known
+reasonable base value (1048576) and restore the true original value once
+the test has completed.
+
+Link: https://lore.kernel.org/20260814165709.513263-1-khorenko@virtuozzo.com
+Link: https://github.com/systemd/systemd/commit/a8b627aaed409a15260c25988970c795bf963812 [1]
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Wei Yang <richard.weiyang@gmail.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/core/Makefile       |  2 +-
- tools/testing/selftests/core/unshare_test.c | 94 +++++++++++++++++++++
- 2 files changed, 95 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/core/unshare_test.c
+ tools/testing/selftests/core/unshare_test.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/core/Makefile b/tools/testing/selftests/core/Makefile
-index f6f2d6f473c6a..8cc2b79dfa4c8 100644
---- a/tools/testing/selftests/core/Makefile
-+++ b/tools/testing/selftests/core/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- CFLAGS += -g -I../../../../usr/include/
- 
--TEST_GEN_PROGS := close_range_test
-+TEST_GEN_PROGS := close_range_test unshare_test
- 
- include ../lib.mk
- 
 diff --git a/tools/testing/selftests/core/unshare_test.c b/tools/testing/selftests/core/unshare_test.c
-new file mode 100644
-index 0000000000000..7fec9dfb1b0e3
---- /dev/null
+index 7fec9dfb1b0e3..6716e0f74d7da 100644
+--- a/tools/testing/selftests/core/unshare_test.c
 +++ b/tools/testing/selftests/core/unshare_test.c
-@@ -0,0 +1,94 @@
-+// SPDX-License-Identifier: GPL-2.0
+@@ -40,6 +40,14 @@ TEST(unshare_EMFILE)
+ 
+ 	ASSERT_EQ(sscanf(buf, "%d", &nr_open), 1);
+ 
++	/*
++	 * Cap nr_open for the duration of the test to avoid ENOMEM from a
++	 * huge fd table allocation; buf/n keep the real original value so
++	 * fs.nr_open can be restored to it once the test is done.
++	 */
++	if (nr_open > 1024 * 1024)
++		nr_open = 1024 * 1024;
 +
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <linux/kernel.h>
-+#include <limits.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <syscall.h>
-+#include <unistd.h>
-+#include <sys/resource.h>
-+#include <linux/close_range.h>
+ 	ASSERT_EQ(0, getrlimit(RLIMIT_NOFILE, &rlimit));
+ 
+ 	/* bump fs.nr_open */
+@@ -73,10 +81,13 @@ TEST(unshare_EMFILE)
+ 
+ 	if (pid == 0) {
+ 		int err;
++		char buf3[32];
++		ssize_t n3;
+ 
+-		/* restore fs.nr_open */
++		/* restore fs.nr_open to the (possibly capped) test baseline */
++		n3 = sprintf(buf3, "%d\n", nr_open);
+ 		lseek(fd, 0, SEEK_SET);
+-		write(fd, buf, n);
++		write(fd, buf3, n3);
+ 		/* ... and now unshare(CLONE_FILES) must fail with EMFILE */
+ 		err = unshare(CLONE_FILES);
+ 		EXPECT_EQ(err, -1)
+@@ -89,6 +100,10 @@ TEST(unshare_EMFILE)
+ 	EXPECT_EQ(waitpid(pid, &status, 0), pid);
+ 	EXPECT_EQ(true, WIFEXITED(status));
+ 	EXPECT_EQ(0, WEXITSTATUS(status));
 +
-+#include "../kselftest_harness.h"
-+#include "../clone3/clone3_selftests.h"
-+
-+TEST(unshare_EMFILE)
-+{
-+	pid_t pid;
-+	int status;
-+	struct __clone_args args = {
-+		.flags = CLONE_FILES,
-+		.exit_signal = SIGCHLD,
-+	};
-+	int fd;
-+	ssize_t n, n2;
-+	static char buf[512], buf2[512];
-+	struct rlimit rlimit;
-+	int nr_open;
-+
-+	fd = open("/proc/sys/fs/nr_open", O_RDWR);
-+	ASSERT_GE(fd, 0);
-+
-+	n = read(fd, buf, sizeof(buf));
-+	ASSERT_GT(n, 0);
-+	ASSERT_EQ(buf[n - 1], '\n');
-+
-+	ASSERT_EQ(sscanf(buf, "%d", &nr_open), 1);
-+
-+	ASSERT_EQ(0, getrlimit(RLIMIT_NOFILE, &rlimit));
-+
-+	/* bump fs.nr_open */
-+	n2 = sprintf(buf2, "%d\n", nr_open + 1024);
++	/* restore the real fs.nr_open value */
 +	lseek(fd, 0, SEEK_SET);
-+	write(fd, buf2, n2);
-+
-+	/* bump ulimit -n */
-+	rlimit.rlim_cur = nr_open + 1024;
-+	rlimit.rlim_max = nr_open + 1024;
-+	EXPECT_EQ(0, setrlimit(RLIMIT_NOFILE, &rlimit)) {
-+		lseek(fd, 0, SEEK_SET);
-+		write(fd, buf, n);
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	/* get a descriptor past the old fs.nr_open */
-+	EXPECT_GE(dup2(2, nr_open + 64), 0) {
-+		lseek(fd, 0, SEEK_SET);
-+		write(fd, buf, n);
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	/* get descriptor table shared */
-+	pid = sys_clone3(&args, sizeof(args));
-+	EXPECT_GE(pid, 0) {
-+		lseek(fd, 0, SEEK_SET);
-+		write(fd, buf, n);
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	if (pid == 0) {
-+		int err;
-+
-+		/* restore fs.nr_open */
-+		lseek(fd, 0, SEEK_SET);
-+		write(fd, buf, n);
-+		/* ... and now unshare(CLONE_FILES) must fail with EMFILE */
-+		err = unshare(CLONE_FILES);
-+		EXPECT_EQ(err, -1)
-+			exit(EXIT_FAILURE);
-+		EXPECT_EQ(errno, EMFILE)
-+			exit(EXIT_FAILURE);
-+		exit(EXIT_SUCCESS);
-+	}
-+
-+	EXPECT_EQ(waitpid(pid, &status, 0), pid);
-+	EXPECT_EQ(true, WIFEXITED(status));
-+	EXPECT_EQ(0, WEXITSTATUS(status));
-+}
-+
-+TEST_HARNESS_MAIN
++	write(fd, buf, n);
+ }
+ 
+ TEST_HARNESS_MAIN
 -- 
 2.53.0
 
