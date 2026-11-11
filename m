@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407601;
-	b=SNWH4q/T0JFEAFeWmW70Wu6lcHfp7kApY/KVWd+N0aLpHzW13KutfL8kledZ4lRDzTnL
-	 HOWuHPgHrQ3BAP+BRrm5+foFWb5d+QDZWQjb4tjxNn1caswtCCoEjqPAxui0TluTlQmWb
-	 QfDrGGlX+ymL/FEq0oxuvsPv+KjxsKHfs1y2+ktfEzOrGCSwT+38D8UnN+K2apo6NnO1R
-	 BGWtw2iVvAyGSSrLSDUs9LuBcLQQYKKkU5t/Cq9GjuDC2ZxhouDseIvCnWtHvqTjQm7Mc
-	 1/34YxaPqq6p9gLpMQbbsC0y+QZXcAoN2M+87nj7a4BCxnF1mypx5G0MbKjV6VpVmpQ==
+	t=1794407781;
+	b=cXN0Wa2FObcVp4pf/U/q+agaMQhs0q2/RolHESK4xzLqqmawWMM+mvmApgwdaDi/9s5r
+	 8g02D+Yz94LgxYr48SrA9221yjQ9yX61zTlqqeRXpdSxGG1F21eVx4SJ9OXrEyxCTTWvf
+	 c7LMQXcY03FlHrhkw9ucV/DQthD8TdJnWQfzZywu2Za/kR98uFu6+cBGIP6QlQ2ZkD7ET
+	 XW9SE/LrKIyH2POFhB5M5N8LUf9BNsaNq6sf+Ndl7DEVY366Xbzz/zNxUIdfsp8c2y0PW
+	 PPnWAwZ4iqCxBQ/NuLSa0wo/ix96L1rfdsmgA8a0wIIFqUFZ0nY2aALTZPesgECzuRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407601;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=S67q7YxllaAfcpPmv6wQJFodSuaWqCwC04iEm9t5YgQ=;
-	b=uk2xfkEeYXvUVi/xb+J3U0E7RdHd5weXa0hvYN57/5v1idZ1fhIBszEsntPao313Dleh
-	 UxXPTCtzf6Dyc244DaD+VwGFDd1iKbbc5r7zjJiP67dEtAD/aBm9xRZoy2k2qWWb01Jke
-	 hwhYsEvleIgi2brvo/JTypWmp/zAFbsGoTboOFrCq2ZgYRDEboRpOXDc+QQr5r+O079+H
-	 JCbXcAXG37edoJVMSCOa0WaGrgSwrVyHC896SAO4jyR0qtFCP+UUcW7k9hLvXdHMMLD8O
-	 APMyqQ1fSiCVNxOySnS1jLEMLjj4hwGOJ6t+wMR3faSt7hubptr7xJrY/jTDImMFhsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407781;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=FWxiG1B+Db4JRltlZYC13MvgLHZ4LKzVEvoYeh2GRKI=;
+	b=xEfM3K30/sEa8lf5MqIME8Z8qbGlahFK/wa33ZnhtDTGwbgTcO9MnPEs+WgOMKtE3U7z
+	 I1kAY5lPs69IJUNnvsZqqQkTae0iw3pH6iJr7LC5SZzFO2GfeWDI71TzWVWHCN83iR81i
+	 AjITx3PZ2mT8SRuyKyOqYNrp5clroLaRIsfgDpF6WQOFdv5WMCqaxtnFG5nmO6vZiqBWh
+	 dcmhdaIbU9PJB/uRPnKU0Ww1KkAG0zjYgo74PjDRtN+k3IvNnqymGpczxX6im6uCJ6Dp/
+	 6op0NvmTuCr58S21JbGGntPzLgBiLdVupeNRSCSlQSh8HTfqQconT4uxXEwxzAX/hhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B9yepn9f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EUfhrfTP;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D33606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:33:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8F3606A327;
+	Wed, 11 Nov 2026 14:36:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E8F3606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B9yepn9f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847C01F00A05;
-	Wed, 11 Nov 2026 14:33:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794407601;
-	bh=S67q7YxllaAfcpPmv6wQJFodSuaWqCwC04iEm9t5YgQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B9yepn9fyTD+gDB7pMMTQP2JrnxDpYbg4WtWMZ4v9uSu34X+7KWG2QDPX5bNqBsLH
-	 E2jw5FLSSUP5VQ4Alu9rHk/19PZDBmxrk3vYoXx4NeI52HPV5svxgF9L6cnzP9jZx5
-	 ApTeEEvQiL2Wa0lnEyb7HUrJ+eWmLh2jT5SUTPohbw3Bwm+hJfA3ko1r37HRFyB5qm
-	 PdXkjRCY9kRkEH3im+b1+TosWSVMzrBsUf2SptdbVwkjvFTXqjH901fKd/REeDD5us
-	 1Ezw0as46cXzzZ5RezqX7CdqU9xL7W7XXTOxSjkOOcBsGxcZGlMFw/RQ9cIKBVn2gJ
-	 iaD1ZXfL+85Rg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] media: qcom: camss: vfe-17x: Fix write master selection for RDI lines
-Date: Wed, 11 Nov 2026 09:33:19 -0500
-Message-ID: <20261111143230.2328578-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054316-failed-6.1-fc02156a3efb@kernel.org>
-References: <20261107054316-failed-6.1-fc02156a3efb@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EUfhrfTP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794407781; x=1825943781;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ODmSwqzv6dlvz43TtOzhl0WSmF6mv80rIt7JvrCqLuE=;
+  b=EUfhrfTPjS7z3O2n7trPT/CcBkYD0T6MCBzMgCScN0me2NVS0hbQLSNM
+   7u8JqwCP2/0WDwQhVZlwSiQB8usuRX7mRZQqwEj4IQze37fq4iZ/7XtXi
+   6yQ9Iw74qSQNsmDJTPfSBHEL50d8+wBqcVnOUo5Wlu0l+lSDSnv7dcKOY
+   fzFanDm4xU03QOXB5yzMMhXx1hsiur8TwnPVc8kUATHu9AKOUp072oUYc
+   sQef/eJdb4KIZnuaeIvXynjLXAz5iJ+9WUlMXNTsxZRUZ4uTyzP6F+EIw
+   bjGONqfEDJQZCcTGGTMhIZlD4qVIANxJmmZC+3BJta59ezq/I8ZvZ0ITW
+   Q==;
+X-CSE-ConnectionGUID: 80TfZLGGSQW2ENW5QMM7lg==
+X-CSE-MsgGUID: G5VPmowdSxyPjf9rFJBuIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3050978"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3050978"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:36:21 -0800
+X-CSE-ConnectionGUID: YY0jrshyT2Kb56gQ0cymCw==
+X-CSE-MsgGUID: VTA/3sF7TF630BSET156Zg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8763922"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:36:12 -0800
+Date: Wed, 11 Nov 2026 16:36:09 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Sergey Khimich <serghox@gmail.com>,
+	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 4/4] dmaengine: dw-axi-dmac: preserve pending pause
+ requests
+Message-ID: <avR9WSbaBlNtNUjn@ashevche-desk.local>
+References: <20261110-submit-dw-axi-dma-stop-pause-v1-v3-0-35fdfba8b61d@gmail.com>
+ <20261110-submit-dw-axi-dma-stop-pause-v1-v3-4-35fdfba8b61d@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,83 +83,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-submit-dw-axi-dma-stop-pause-v1-v3-4-35fdfba8b61d@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Hitesh Patel <hitesh@ebytelogic.com>
+On Tue, Nov 10, 2026 at 08:15:15PM -0700, James Hilliard wrote:
+> dma_chan_pause() clears SUSPENDED even when polling times out. Hardware
+> can set that status after the last poll, and the unconditional clear then
+> discards an acknowledgment the caller never observed. Another channel's
+> interrupt can also consume the status because the shared IRQ handler
+> clears every channel's status before taking its lock.
+> 
+> Leave SUSPENDED to the pause and resume paths. Track the suspend request
+> separately from its acknowledgment so a timeout can be followed by either
+> a pause retry or a resume. Wait for acknowledgment before clearing the
+> hardware request, since hardware ignores an earlier clear. If that wait
+> also times out, return -EAGAIN with the request still pending.
+> 
+> A completed transfer is also quiescent, but its completion handler may
+> still need to advance a cyclic descriptor. Defer that restart while a
+> pause is pending, and resume it without reprogramming the first LLI.
+> Track the active descriptor until its completion handler runs so that
+> resume and issue_pending cannot restart a completed cyclic segment or
+> reissue a completed noncyclic descriptor while its IRQ is pending.
+> Start queued work after the active descriptor is retired, respecting the
+> pause request.
+> 
+> Clear stale suspension status at the start of a new descriptor rather
+> than at each cyclic restart. Reset the software state after successful
+> termination and when allocating a channel for a new client.
+> 
+> Store the lock-protected pause flags as bitfields in existing padding,
+> keeping cyclic in a separate byte because it is set outside vc.lock.
 
-[ Upstream commit fc02156a3efb747b724a490cc50e1ad8c28a3b23 ]
+...
 
-On the gen2 VFE bus there is no crossbar between the RDI paths and
-the bus write masters: RDI n is served by write master n. The common
-vfe_get_output_v2() reflects this by mapping line->id to write master
-line->id, and every gen2 VFE except 17x uses it.
+> +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
+> @@ -42,6 +42,12 @@ struct axi_dma_chan {
+>  	void __iomem			*chan_regs;
+>  	u8				id;
+>  	u8				hw_handshake_num;
 
-The 17x code kept its own vfe_get_output(), which reserves whichever
-write master is free first. That happens to be the right one as long
-as a single line streams and it is RDI0. As soon as two lines of the
-same VFE stream, for instance two virtual channels demultiplexed by
-the CSID to RDI0 and RDI1, the second line to start is given the
-write master of the other RDI. Both write masters are then programmed
-with the buffer address and frame size of the wrong line. The frames
-are truncated to the smaller of the two buffers and the SMMU faults
-on the larger one.
+> +	bool				cyclic;
 
-Use vfe_get_output_v2() on 17x like the other gen2 VFEs and drop the
-duplicate. This also removes an error path that released
-output->wm_idx[0] before it had been assigned.
+> -	bool				cyclic;
 
-The gen1 VFEs are not affected: they have a bus crossbar and any write
-master can serve any line, so vfe_reserve_wm() is correct there.
+This move doesn't belong to this patch. Yes, I understand that `pahole`
+suggested better layout, but make it in a separate patch.
 
-Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-[ sashal: Adapted the change to the existing vfe_get_output() because the shared vfe_get_output_v2() helper is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/media/platform/qcom/camss/camss-vfe-170.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-170.c b/drivers/media/platform/qcom/camss/camss-vfe-170.c
-index a6625aa050b66..cba90a556175c 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-170.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-170.c
-@@ -402,7 +402,6 @@ static int vfe_get_output(struct vfe_line *line)
- 	struct vfe_device *vfe = to_vfe(line);
- 	struct vfe_output *output;
- 	unsigned long flags;
--	int wm_idx;
- 
- 	spin_lock_irqsave(&vfe->output_lock, flags);
- 
-@@ -414,12 +413,8 @@ static int vfe_get_output(struct vfe_line *line)
- 
- 	output->wm_num = 1;
- 
--	wm_idx = vfe_reserve_wm(vfe, line->id);
--	if (wm_idx < 0) {
--		dev_err(vfe->camss->dev, "Can not reserve wm\n");
--		goto error_get_wm;
--	}
--	output->wm_idx[0] = wm_idx;
-+	output->wm_idx[0] = line->id;
-+	vfe->wm_output_map[line->id] = line->id;
- 
- 	output->drop_update_idx = 0;
- 
-@@ -427,9 +422,6 @@ static int vfe_get_output(struct vfe_line *line)
- 
- 	return 0;
- 
--error_get_wm:
--	vfe_release_wm(vfe, output->wm_idx[0]);
--	output->state = VFE_OUTPUT_OFF;
- error:
- 	spin_unlock_irqrestore(&vfe->output_lock, flags);
- 
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
