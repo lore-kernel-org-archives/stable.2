@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437684;
-	b=ZgWnOYH65X/BlYagb5FuPWh20gVFvKz/t0z6u9kvtLHwFCT/H9SkbLHomF9LQjFsLQw3
-	 Oa8Bstrl0tLK8SmABYJjz7LLXqFHyroVDFbUWOTZC4EP4xUDseRRYMHByIAwDppgfVmmT
-	 5LqVelTdOePv67i6qgj1Ctzu7ePMKDe4OpmKM65xV9/7jcCdCot+s4VqIo63+mE+lqOAv
-	 /3ZJdb8LAQUHaPXddojjVpdGGZNxpn29ITTqYHG8epN2YSjeBep+YpSr/9fxPxXUEOQqD
-	 59LXotQAJxerfQaSOLToOU7NQyTswLdjP34eZgPMFnwoxNHDh4YdN2vyVv1qzpHkLjQ==
+	t=1794437719;
+	b=oN8kGZg9qrCmRkkpqGeSloKpKnxaNl/MZSwOuCi8XKzenGQTP9WFy8dL4xGs8ZpKRZLa
+	 Hb8cJRYih/MbSSMDmNyylYzzCWX4pHeUtL1l/9HNFQisIzM3Bhu3zRuCnIk7bH+PhfppO
+	 tCSn+XsaRfOyWonQ/lcHUBo9awiGdbjQqItAZkoXJlJrmc25Xta2u5DhJ9jcz9YJYZkkm
+	 DSm8WpYmkmRaxA3V9EXhcpGVRVX6cE4j8pbrL8uRTAQbyrHx2btWlSic/xcW3Sx1EJtac
+	 nm2Mi5LV59QASWOg4P8exMIVYYECvqwBxqmSbT0z8RG/T0mF353F0KMPnHv62PH6xTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437684;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=mhvjTmuuVsjUkxpEAPNOTcDxmrBni2pTIT0QskenBEc=;
-	b=MuAj+XwrBmSAVmaiTfvvmamYNg7z1svP7w2PQMXuO4zJIi8OjMHQJmxUMX8TIqtIvxWI
-	 hlboLX7NGGTXDihmD/4590ApzzfDFgP+Z5fkNnGYoNr/HUzYchjNtcaEACqkN4MwkZ6zt
-	 trmLLu1Nq7afJYX1yjgDEj7t4LltZFZTCVPcVD8t5DP1gPAf0SrK+4akJD/r1y5nSy7wp
-	 lk0dGhVAUF0ngeQx0J3dQGIW5ajdUdP04Lj5sRhYxQbBZ0k/Bs+QvfT9w2+GF8Rk5shYU
-	 an/UyWiWGfY3BSRrkYOiZItSLiRyrGJw14LjsJYi+77EihVoLdldF+cOdmm9KD+c8KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437719;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=1gdf9Bq6jlJ/Em8YXNZn+PhSzP7XddBcL4qXg1rgFGs=;
+	b=P8u7SpGSZMaZH43dXpycRXMTll8zYIPjk0GVfUwdTLlhTuUNBjaAt7jjFopMkEH/+D9u
+	 qZ+eGk1N0Xl4L+HfV1StMy10xMICd9QeDuc/FykqRkX6B7BY54qjjMzEjEbPjHesjBDSP
+	 evrVe2ov+90Y6BITSk7/3N7vuRW38UPHlI0qexagGNv5+HA3kuA+QdpOWtOAjwZkbX1LW
+	 T18sjAHElftUXaIetVGT8h6OB0dSq4aX+uXRenEHARObRTBpo9c9/u1uA8cefZji3S/BT
+	 WZzsy0gHf5E6eaNw6GqWewi7f+FHoTa7UExep5Szmskd/XCT+CAriTHmiZHPEmI/PjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moZGZQn3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oy5NH1hS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3A7606A321;
-	Wed, 11 Nov 2026 22:54:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3D3606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moZGZQn3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3CE41F00A07;
-	Wed, 11 Nov 2026 22:54:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oy5NH1hS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0221F00A05;
+	Wed, 11 Nov 2026 22:55:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437684;
-	bh=mhvjTmuuVsjUkxpEAPNOTcDxmrBni2pTIT0QskenBEc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=moZGZQn3tacM1W9OrsISfnfN/V4zXrXTRKj7PugF3DN57hZRsv8rpyP0x56g/u6EW
-	 QlLzOa1mnAN21+nIsjzPTgmsa1kUh633Xv+1uT58HjbjL1yX5F4htKpxZ1Xd+GYEYs
-	 PC7DBJtsILNLM8dwzEEuacJdJvY710AvT/iYGj8o9wW4Og8qVItXQ867jsGLgEGvbi
-	 2Lm8RBEJkrYuXL0xt8T7Pgtde46wxGRFgCyAft/JruROIeL5iZya0rD2uekvmWjbMG
-	 VZhx8OJfYS47t3iFo422chTG/KxPKnHjZUJ2E9tJ9ylOZp9dZm6COxbTFrJSVuuL1F
-	 b8o4kHPfT/2HQ==
-Subject:
- Re: [PATCH net v2] net/sched: sch_qfq: revalidate aggregate after peek
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: jhs@mojatatu.com, jiri@resnulli.us, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Wed, 11 Nov 2026 22:54:43 +0000
-Message-ID: <179443768349.2199510.12975726279458330465@kernel.org>
-In-Reply-To: <20261110222946.2147440-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261110222946.2147440-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794437718;
+	bh=1gdf9Bq6jlJ/Em8YXNZn+PhSzP7XddBcL4qXg1rgFGs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Oy5NH1hSiBF8Q8rG86XY878Qbqwqwf7RQTl7C5TBLEd9SORpohB+s7FM9isTGuIgQ
+	 hcrEhDkw57tBtA14HeKPpRW0EL6WLsUgCL3yjr5Lvmx9wiwvQHqQh3m5fbKlanU1Wi
+	 snOLU+59dY7aa7TDQxj274YTRZpEnsfyz56MReDyUpeXbNy6NUklduRQ4Rs3+PqxRs
+	 ZMDBxiac+EZzMFEAh95zojrt+tgK+tMhsH2a6CNvFLys+g+4/aevlOjR1hTHEQf4R6
+	 n8Q5FKmxAPWrhZlcGmyw3C7T22fusjEEVAqqjumZqquU8xhJFAFqqXExZ3wkirw/BB
+	 TySBSAjmakQ0A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y] mm/userfaultfd: wake waiters when registration modes are removed
+Date: Wed, 11 Nov 2026 17:55:16 -0500
+Message-ID: <20261111225453.188656-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200156-failed-7.3-4eee9c389b07@kernel.org>
+References: <20261109200156-failed-7.3-4eee9c389b07@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,149 +62,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+[ Upstream commit 4eee9c389b072e161549d46dcb1ae10b0222717e ]
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
+faults that are already queued. For example, switching an anonymous
+range from MISSING to WP leaves a missing-fault waiter asleep until
+userspace explicitly wakes it.
 
-- [High] The patch does not fully fix the use-after-free it targets.
-- [Low] qfq_dequeue() puts a `restart:;` label (a label on a null
-  statement) before its local declarations with initialisers (`struct…
+When a registration change removes a UFFD mode, wake waiters in the
+affected interval after updating the VMA. The VMA is write-locked at
+this point, so no new faults can queue under the old modes and woken
+threads cannot retry until mmap_write_unlock(). Waiters for retained
+modes in the same interval may also wake and refault.
 
---
+The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
+with both read and unread fault events.
 
-net/sched: sch_qfq: revalidate aggregate after peek
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Cc: stable@vger.kernel.org
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Adjusted context to retain is_vm_hugetlb_page() instead of vma_is_hugetlb(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/userfaultfd.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-This patch makes qfq_dequeue() restart when a child peek re-enters
-qfq_enqueue() and changes the in-service aggregate or the class's
-aggregate. It moves the DRR requeue logic out of agg_dequeue() and into
-qfq_dequeue(), after the service charge, using cl->agg. It also rechecks
-class activity after the peek in qfq_enqueue().
-
-> diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
-> index e900890e9c544..82903f9e58504 100644
-> --- a/net/sched/sch_qfq.c
-> +++ b/net/sched/sch_qfq.c
-
-[ ... ]
-
-> @@ -1103,6 +1095,7 @@ static void qfq_schedule_agg(struct qfq_sched *q, struct qfq_aggregate *agg);
->  static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
->  {
->  	struct qfq_sched *q = qdisc_priv(sch);
-> +restart:;
->  	struct qfq_aggregate *in_serv_agg = q->in_serv_agg;
->  	struct qfq_class *cl;
->  	struct sk_buff *skb = NULL;
-
-[Severity: Low]
-This isn't a bug, but the restart label sits in front of the local
-declarations, so the backward gotos run their initializers again:
-
-restart:;
-	struct qfq_aggregate *in_serv_agg = q->in_serv_agg;
-	...
-	struct sk_buff *skb = NULL;
-	...
-	unsigned int len = 0;
-
-This relies on declarations following a statement. Mainline no longer
-passes -Wdeclaration-after-statement. This patch has Cc: stable and a
-Fixes: tag going back to 2012, though.
-
-Would older stable trees that still use that flag (5.10, 5.15 or 6.1, for
-example) warn here, or fail to build with CONFIG_WERROR?
-
-Would a loop around the selection step, or assigning these variables
-after the label, be a simpler way to write the retry?
-
-[ ... ]
-
-> @@ -1151,13 +1147,15 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
->  		 */
->  		in_serv_agg = q->in_serv_agg = qfq_choose_next_agg(q);
->  		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
-> +		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
-> +			goto restart;
->  	}
->  	if (!skb)
->  		return NULL;
->  
->  	qdisc_qlen_dec(sch);
->  
-> -	skb = agg_dequeue(in_serv_agg, cl, len);
-> +	skb = agg_dequeue(cl, len);
-
-[Severity: High]
-Can the child dequeue here still re-enter qfq_enqueue() and free
-in_serv_agg?
-
-The new restart checks only come after the two qfq_peek_skb() calls.
-agg_dequeue() calls qdisc_dequeue_peeked(cl->qdisc). That helper only
-takes the skb from gso_skb if the child's ->peek() cached one there.
-Otherwise it calls the child's ->dequeue() again.
-
-sch_prio is one such child. prio_peek() caches nothing at the prio level,
-and prio_dequeue() calls qdisc_dequeue_peeked() on each band, starting
-from band 0.
-
-Here is an example setup. The QFQ class child is prio. Band 0 is a netem
-A0 with a delay, whose child is a netem B with duplicate. Band 1 is a
-pfifo.
-
-At peek time, A0's head is not due yet. The peek returns band 1's skb
-without re-entering QFQ, so both restart checks pass. Suppose A0's head
-becomes due before agg_dequeue() runs, and lmax was lowered while packets
-were queued:
-
-qfq_dequeue()
-  agg_dequeue(cl, len)
-    qdisc_dequeue_peeked(prio)
-      prio_dequeue()
-        qdisc_dequeue_peeked(A0)
-          netem_dequeue(A0)
-            qdisc_enqueue(skb, B)
-              netem_enqueue(B)
-                rootq->enqueue(skb2, rootq, to_free)
-                  qfq_enqueue()
-                    qfq_change_agg(cl)
-                      qfq_deactivate_class()
-                        qfq_deactivate_agg()
-                      qfq_rm_from_agg()
-                        qfq_destroy_agg()
-                          kfree(agg)
-
-qfq_deactivate_agg() and qfq_destroy_agg() update q->in_serv_agg. They
-cannot update the local copy in qfq_dequeue(), and that copy is then
-used after agg_dequeue() returns:
-
-	if (unlikely(in_serv_agg->budget < len))
-		in_serv_agg->budget = 0;
-	else
-		in_serv_agg->budget -= len;
-
-The pr_debug() that follows also reads in_serv_agg->F.
-
-Is this a write to the freed aggregate? And if the aggregate is not
-freed, does the service still get charged to an aggregate that is no
-longer in service?
-
-Could q->in_serv_agg and cl->agg be revalidated after agg_dequeue() too?
-Alternatively, the code could be restructured so that no aggregate
-pointer is used after any child dequeue or peek.
-
->  
->  	if (!skb) {
->  		qdisc_qlen_inc(sch);
-
-[ ... ]
-
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index cc37b60fc3e81..d94ca9d8a9d5f 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -2287,6 +2287,9 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
+ 	return ret;
+ }
+ 
++static void wake_userfault_range(struct userfaultfd_ctx *ctx,
++		unsigned long start, unsigned long end);
++
+ /* Assumes mmap write lock taken, and mm_struct pinned. */
+ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 			       struct vm_area_struct *vma,
+@@ -2304,6 +2307,8 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		prev = vma;
+ 
+ 	for_each_vma_range(vmi, vma, end) {
++		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
++
+ 		cond_resched();
+ 
+ 		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
+@@ -2349,6 +2354,10 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		 */
+ 		userfaultfd_set_ctx(vma, ctx, vm_flags);
+ 
++		/* Retry faults for removed modes while the VMA is write-locked. */
++		if (any_mode_removed)
++			wake_userfault_range(ctx, start, vma_end);
++
+ 		if (is_vm_hugetlb_page(vma) && uffd_disable_huge_pmd_share(vma))
+ 			hugetlb_unshare_all_pmds(vma);
+ 
+@@ -3665,6 +3674,17 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
+ 		__wake_userfault(ctx, range);
+ }
+ 
++static void wake_userfault_range(struct userfaultfd_ctx *ctx,
++		unsigned long start, unsigned long end)
++{
++	struct userfaultfd_wake_range range = {
++		.start = start,
++		.len = end - start,
++	};
++
++	wake_userfault(ctx, &range);
++}
++
+ static __always_inline int validate_unaligned_range(
+ 	struct mm_struct *mm, __u64 start, __u64 len)
+ {
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110222946.2147440-2-Jeremy.Jean%40oss.cyber.gouv.fr
+2.53.0
+
