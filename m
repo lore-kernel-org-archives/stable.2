@@ -1,59 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794392312;
-	b=lfcONc0CxmYgOa9UlWfdrp4qgJka/85gjnYRKQwr8bt7YZe50r2v3AFpF+8/6Zb5xUQK
-	 gg08lIuhOGjenvpnU9NQS5vQ6LJNAy/8/1Yz1qu1Vs3HrYTC4XBVCqtU+bgbGmT41DoD6
-	 1goHIftwUWcFkP+KuAKPdaFpMWuYzILetwF/M+PjgiIJJojF0dCodvBuSB1ygi6YlT6LT
-	 KriE3Z/j2FsXYplTm7SAslkV2uLkb099sGyy0CuQ5duGNDfcIFR/irtddKDJyjJGZ2vOD
-	 nwjG3uZU97QqZPnQPL/npHvNXDYxKZHfE8mE6JiaZR3/Vi7XpF3Z4JpziYVl6ygCy3g==
+	t=1794392524;
+	b=h9Q/Cd6aumecHTKeGa/Ymobj4sTkYNjy9uf/Tf4BTLUdjnl7huutIJF6rWcfiB4bzOo7
+	 dcUmHtkZS/7c14pvyWftcUacEc5NbSLFJu1ZOAKLBvL07fkhUXgNQ/+pw5jCZkPmEFjr8
+	 K7wD2w29cGmcdTDQVc0o4nJpPjkAerYzaDkukrx3zPPFvz+ebeIgO8SOXn0KCgU45i8it
+	 GmR1d19y0s1pYKtf9OQkSBVxC/hEo5+YGlX9Uk1MxjsDHxpPYjFWPbhU2V4Uqk4FjDRHq
+	 /u3eGqGl3PLx76px0v5/PD1kFqztL0A1po+J2pHpEm/mGxjUksxHB/AhU6SIE9FmibA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794392312;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:MIME-Version;
-	bh=D+zu2oiVtRmIf2nAVSAmSfdUc9+LCT7/meWcA9xNLkU=;
-	b=AcfUig8e5H1gfQmjwnGkX82YmXF1w8a2LR+3Ax72qlzuH3S3rgmlBA274vn2bBjlB4QO
-	 k+XJwZomTckWjxWcDxA4zhBUxFfHMVoaWSlsIUsiB7WxnVIxjjtgVEWuw1mASfpD3lEjK
-	 FBof9dF4++o1snsRbYb03+OyZMOL4nqLMpxuCjS6GlcDILQlAYUJ4m9gYFKT9zqLWk+5J
-	 qU2V3CBFpM38odJZgUQsegY5Mjrwhz88LOHaBqrbw7V0iHgCu/mPWhRyokDYP7gs/AQ+K
-	 KXXMGPP+6sLPT4npnbNTw46fS6O2AO8+njVqMHJ5K4L7bbvwrN12zSzwBTVjOrbKMqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392524;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=91huyCcTavUDJeVfh0LX1U5W1Qr112tZcjQ5xYiPFgE=;
+	b=W2rrBWbeRP8sPHX5dnKdWp/mCOZ/sqz42xljdz8b8aSX6Ot5rQu4QMPl/yoQo7ssba9c
+	 BODgSCyC01TKytoTZXrb78lgCMwXn78YSm8OuNHkpx5F4xXM9niIcfbl2AsHg7WIHJg5n
+	 XJHKKceUXLatZOFUcYOgTAo3Y4P27NmvahW9eD2gcWUYfcO/k6HiwM3STxN0LkbVLQn7M
+	 MSN/EZojOQSGp1OW8OVyLNxGJsCjGWnuOhIDp6NXRGvqbLmtj6vRvlCF1LH7y7LFXdCsX
+	 np/sw7+wUkrxPReIIkmeaCIViByZ7P9wfvcnLGcm93nMnRT07MrJmcmavxBFxhQaZPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=itx.no;
-	spf=pass smtp.mailfrom=itx.no;
-	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=QALbZyI5;
-	arc=none smtp.remote-ip=91.189.121.228
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iZWh2FAO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B52606A321;
-	Wed, 11 Nov 2026 10:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7B52606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9D8606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:22:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=QALbZyI5
-Message-ID: <3afda478775bd7382c26e333ee9ca723043ba44b.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1794392309;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D+zu2oiVtRmIf2nAVSAmSfdUc9+LCT7/meWcA9xNLkU=;
-	b=QALbZyI5x15FKJdP5gTZgYtHqgxLzdlPI28N4vKGNcWm24k7hUzx3Mlcf037Gq/Oc4zO54
-	32tS/uJ1nnCnyI3b6jUl+PmLpBsZj2dDSGIqdLarXuAtDkdcl4Bp3UipK0rYduSRTrblCx
-	j0ImVZZBzLlhmx82GxnW6rh4qyR5cPE=
-Subject: Re: [PATCH v2] xfs: fix unaligned access to rmapbt high keys in
- scrub
-From: Stian Halseth <stian@itx.no>
-To: Dave Chinner <dgc@kernel.org>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, "Darrick J
- . Wong" <djwong@kernel.org>, sparclinux@vger.kernel.org, Jan Engelhardt
- <jengelh@inai.de>,  stable@vger.kernel.org
-Date: Wed, 11 Nov 2026 11:18:28 +0100
-In-Reply-To: <avQBA_7WKwIobKKC@dread>
-References: <20261110223927.558557-1-stian@itx.no> <avQBA_7WKwIobKKC@dread>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-s/JxVdnwzfGSlOKt9enO"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iZWh2FAO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671561F00A05;
+	Wed, 11 Nov 2026 10:22:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794392523;
+	bh=91huyCcTavUDJeVfh0LX1U5W1Qr112tZcjQ5xYiPFgE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iZWh2FAOmMcSPbi7Y8CoQEGHpJveehai5Upr0FmoCVvJy54V6uEYF+rJtcatkGNYQ
+	 MgT9/tXDlBKtgxaWAadUX0hqubqE7C8krE9u+PRTRAhU3qLhqYkS0oyljuM1SwKsnv
+	 V1cKLYa+V0kieZJYZzbihhG/7Bk+fl0QCgWWK1cl5oiw0IjZH0n+UD3Lkj+bCvkzGS
+	 lnwtcDaO0sGjyHIlBkfwku1Rxxh9URMu4yqVFA3zx+J7+A1E4EDXA4F+YBVgb/x3/e
+	 artQrnEucoN58TRGBUhH5qfdHqGYm8TT6jKFnE5MA83MwgV75/wKOSwBpkP8GyOsrP
+	 36ijbVlldeM6A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dominik Maier <dmnk@google.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] loop: check for read-write open mode on LOOP_SET_STATUS in lo_compat_ioctl()
+Date: Wed, 11 Nov 2026 05:22:02 -0500
+Message-ID: <20261111102145.1563470-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107055527-failed-6.1-87409eedc543@kernel.org>
+References: <20261107055527-failed-6.1-87409eedc543@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,98 +59,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Dominik Maier <dmnk@google.com>
 
---=-s/JxVdnwzfGSlOKt9enO
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+[ Upstream commit 87409eedc543d288cdd49c2174f7d61eca7b8db5 ]
 
-Hi Dave,
+lo_ioctl() checks for (mode & BLK_OPEN_WRITE) || capable(CAP_SYS_ADMIN)
+before allowing LOOP_SET_STATUS or LOOP_SET_STATUS64, but not
+lo_compat_ioctl(), the handler used by 32-bit user space on 64-bit
+kernels.
 
-On Wed, 2026-11-11 at 16:45 +1100, Dave Chinner wrote:
-> On Tue, Nov 10, 2026 at 11:39:27PM +0100, Stian Halseth wrote:
-> > An rmapbt node stores each key as a low/high pair of packed 20-byte
-> > struct xfs_rmap_key, so every high key is only 4-byte aligned.
-> > xchk_rmapbt_check_unwritten_in_keyflags() reads rm_offset through
-> > union xfs_btree_key, which is 8-byte aligned, so the compiler may use
-> > an 8-byte load.
->=20
-> Ok, this trips my 'written by an LLM' filter. i.e. long
-> run-on sentences, strung together with commas and "so ...". I
-> mention this because....
+As a result, on 64-bit kernels with CONFIG_COMPAT=y, a 32-bit
+unprivileged user-space process holding a read-only (O_RDONLY) file
+descriptor to an active /dev/loopN device can issue a compat
+LOOP_SET_STATUS ioctl to modify lo_offset, clear lo_sizelimit to 0
+(exposing backing-file data past the configured limit), or alter
+lo_flags.
 
-The changelog was drafted with LLM help, and I'll rewrite it for v3.
+Enforce the same (mode & BLK_OPEN_WRITE) || capable(CAP_SYS_ADMIN) check
+on LOOP_SET_STATUS in lo_compat_ioctl().
 
->=20
-> > diff --git a/fs/xfs/scrub/rmap.c b/fs/xfs/scrub/rmap.c
-> > index 68e2847c962bb..29609c5967fe3 100644
-> > --- a/fs/xfs/scrub/rmap.c
-> > +++ b/fs/xfs/scrub/rmap.c
-> > @@ -149,8 +149,7 @@ xchk_rmapbt_check_unwritten_in_keyflags(
-> > =A0	struct xfs_scrub	*sc =3D bs->sc;
-> > =A0	struct xfs_btree_cur	*cur =3D bs->cur;
-> > =A0	struct xfs_btree_block	*keyblock;
-> > -	union xfs_btree_key	*lkey, *hkey;
-> > -	__be64			badflag =3D
-> > cpu_to_be64(XFS_RMAP_OFF_UNWRITTEN);
-> > +	const struct xfs_rmap_key *lkey, *hkey;
-> > =A0	unsigned int		level;
-> > =A0
-> > =A0	if (sc->sm->sm_flags & XFS_SCRUB_OFLAG_PREEN)
-> > @@ -166,15 +165,15 @@ xchk_rmapbt_check_unwritten_in_keyflags(
-> > =A0
-> > =A0		keyblock =3D xfs_btree_get_block(cur, level, &bp);
-> > =A0		for (ptr =3D 1; ptr <=3D be16_to_cpu(keyblock->bb_numrecs);
-> > ptr++) {
-> > -			lkey =3D xfs_btree_key_addr(cur, ptr, keyblock);
-> > +			lkey =3D &xfs_btree_key_addr(cur, ptr, keyblock)-
-> > >rmap;
->=20
-> The code fix smells of LLM, too: technically correct, but unreadable
-> and unmaintainable.
->=20
-> Regardless of where it came from, it's objectively -poor code-
-> because:
->=20
-> - it uses a pattern that is not found anywhere else in the XFS code.
-> - it costs nothing to use two variables here which would make the
-> =A0 code much more readable for a maintainer.
-> - no comment to explain the issue the code has to avoid.
->=20
-> At minimum, a comment explaining why the code needs to be structured
-> this way is needed. Humans like me are going to forget why the code
-> needed to be structured this way in short order. Hence a comment is
-> needed to remind me why the code was written this way next time I
-> look at it.
+Cc: stable@vger.kernel.org
+Assisted-by: ARTIST LLM
+Signed-off-by: Dominik Maier <dmnk@google.com>
+Reviewed-by: Bart Van Assche bvanassche@acm.org
+Link: https://patch.msgid.link/20261025200740.2064379-1-dmnk@google.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ sashal: Replaced BLK_OPEN_WRITE with FMODE_WRITE to match the existing fmode_t API. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/block/loop.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Thank you for the feedback, and no argument from me on those three points.
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 20ecd689c2e63..8d3b016398a48 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -1717,8 +1717,10 @@ static int lo_compat_ioctl(struct block_device *bdev, fmode_t mode,
+ 
+ 	switch(cmd) {
+ 	case LOOP_SET_STATUS:
+-		err = loop_set_status_compat(lo,
+-			     (const struct compat_loop_info __user *)arg);
++		err = -EPERM;
++		if ((mode & FMODE_WRITE) || capable(CAP_SYS_ADMIN))
++			err = loop_set_status_compat(lo,
++				(const struct compat_loop_info __user *)arg);
+ 		break;
+ 	case LOOP_GET_STATUS:
+ 		err = loop_get_status_compat(lo,
+-- 
+2.53.0
 
-You're correct in your assumption that LLM assistance was used for the fina=
-l
-code. Earlier iterations were more readable, and I should have kept them.
-I try to keep my patches small, and this time it came at the cost of
-readability.=A0I stand by the correctness and testing, but will send a v3
-following your suggestion, which reads much better.
-
-I take this feedback to heart, and it's truly useful for my personal
-development. My goal is to learn and improve. I will pay closer attention
-to the existing code patterns, and try to adhere more closely to them.
-I'm very sceptical of the output I get from the LLM models, so I test
-everything to the best of my abilities before posting.
-
-
-/Stian
-
---=-s/JxVdnwzfGSlOKt9enO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCavRA9AAKCRDoeAEuJe36
-VrO1AQCxUjRiezxVBNnLnM621Hesi7rglcrCOI0tDzuyq1eLowD/c+ZSaEX+fQ0J
-vGU1m1LpmKZPn9RXpdie/T8EE0bh0Qo=
-=RY6I
------END PGP SIGNATURE-----
-
---=-s/JxVdnwzfGSlOKt9enO--
