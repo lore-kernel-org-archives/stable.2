@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434105;
-	b=aj45siRsbBoGT1PKPbelVwlRkwVPBCQaWxsH4Y/tBY0StJKqR99Au+CaSBvb/wnIxLW2
-	 PCJ5mYvPOxmrY/8u8YDUZ7SXY9Jx57BRrRtYb/1IE7q2PRulgtaBkrorNEvzG6vGvUgEE
-	 rRwbPZ7X3a7wrs8ulY9+yI88cjLRMoT6wvU66tJkB+HUL3isi5bAuqDZe8xno7ig9BNkS
-	 fWy9bCK1xDjENgxV3i0hI2nSMfnCukP2f85AtLfjHPvpCb8zjP2Pm/DWc2KjBSqXkFQU1
-	 vVDRTDWNLcR6FRwdO/jQiRw8g03TntLn4ybRemHHPi2SbDe+RNAlyVyIwrbDo5Pks8Q==
+	t=1794434106;
+	b=vO19Dh2XkxSXMIIadLYuDwg8xcbde6gfw3ywSOEjGHzn1Be6lf8438cOMGg3ETMiXvCe
+	 ZeqL5c7dU+vba+qofK5S4PahlBVxpbgosQZR6612xDF2tPWkoSzF9rCaRX+Vwv2TvjsYy
+	 5knXArfozxnW/2VK78ZGazfIkNMMJCrMCpxavWg6m9iuWLSqM8egOsJxjCcpmDBsvpgbz
+	 KN6CqiY0K62LxP0zUv51hRX2HW7AXtDXVdy6Sky+zfN5yj554fOJhFQaWAc0ekTveORJP
+	 z5aPAjKR2HKb9UoS7Dd9pIfQptrm+0sN8gNnKg8UUJC9i3ZVAroNET7JyeH3enBsBgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434106;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2OaaqXH+XnYjdFpKZ5GbNbCU6Azya9E7qB5YNKf+8Jc=;
-	b=qHEd5u5z6dMIzdEQ3KVdeIIdm7oGF4UmffP2Hq8vXFg0kt7Dibc9DNWnNYjVAYnVnQh5
-	 CdfWaayF00Aj+8r6vJbArzRnL2LTe+BbP6jlGlB0EY4w72X20qsM5HCFI/E0GZ91+6iXl
-	 wZ9lRYbO5uxADi4dS6DtmjCkycdI/tJuF2E/Qk95+em8tzOCsnDnze6lCA5BNADav3D3F
-	 t3rVgXJbMAkOCbTn1v8iZQs5+vhvC+vnAZGnoMHWgTaaR4cUcSC4YTBz4hUETIfapeNhv
-	 zZZXdYhO0Ukgqkc9rgOBpqhkgPmnFqfrkhHCW8DAwJMX3CkMzK4ZinrLbaUcd/uXKPQ==
+	bh=tM192/milrwxxFIbNvR6/Rv+X5dFqunToZ5HQPBZCiI=;
+	b=H8Ay4Vq6Dq5lTfI19lk3QBTtnb8y3h7JGHZkfk9iysnI5XxTmDPrNE1JWIp4gy115hwP
+	 y/2dLvsDgOlb3vB35xi3p5EdmS5qu6Zhh5sWPQt8ufFxC+eus8s3Ekg8CrF/Pl3Wgl3Xk
+	 MS+kLOlbEXwzZev/mBVyB2GqxpLxVzaJ3q2witXv1qZ+pm1W6gS/CBTpMfhQL8Un9BEw6
+	 bVLTfs051e2SvALUiiDjeQDqn349MRnz6vRZLnP+wJ7KijOEuFuO4i8S2/i/TVXxV40gf
+	 U1Q6euI/IBjIGDjpIwDvTsyrHtPcvjOiKd8TwQzKPVDj9Ao29to08PzriJUf1KJoGCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkpM0Yjj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euGVsdIi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC45606A8B0
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802B3606A8B0
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkpM0Yjj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FCC31F00A10;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euGVsdIi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E84B11F00A0B;
 	Wed, 11 Nov 2026 21:55:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434105;
-	bh=2OaaqXH+XnYjdFpKZ5GbNbCU6Azya9E7qB5YNKf+8Jc=;
+	s=k20260515; t=1794434106;
+	bh=tM192/milrwxxFIbNvR6/Rv+X5dFqunToZ5HQPBZCiI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mkpM0YjjWo1GkN14lYyPlp+JeLNRJsY9DlB3of7oRNiZGLELVJCZHMVIKWLDbi7pU
-	 BnVFpdX0YXwLdswqMIujimQBdSaGDcmV3F61te9ZByklTzdU3Wrt2XzYksGq39fDBX
-	 UTN7F1SqLBd7hG3+t+8zdXGJkIgXQOlUMOFXrz3YfqQiwDiHmh6tQSbwljIVytFWE3
-	 R1S/VXOqzCcw/lhjIdOy63pw3nt4R7IlDMxkwXRnOwFn5iXclU3Q4zsmCBThunf911
-	 oTXbe+zmq/0Y65l6OE2iOSBh/eKLeLdZPlBozH/8HQrVwMGKApHRsE6FUgmFf09WMd
-	 xX6Z4v0D8zW+Q==
+	b=euGVsdIirzqb2TLdmkwMZCZZsnDsPBV75lveCRyTL6BTzANMOiXr8EQBhULlnXK3E
+	 gw2G7oEajYjl8ZNKT/7uY8EgnsTvbYvKKHYSGs6lUfNJAvykByKwvJzElr55lV92bi
+	 sJ4R4ic2swR31ZIqCcNmq4iGMMuBD+hGtA1HLpE5Az7WjCALWGKtvijiRt0wzBGp0U
+	 0PqAg2II5+PibZ5iC5pvKb//jnlkwGN3a1DTbvoVoJYDl/ZMuyjKPchYYY+CIgNstN
+	 aDKtJZPTV+E+p+Xp2zIVIibGkIYgUtkPkwpx5uvnjGY07IRO1VGF0dKVPj/Yit1R9F
+	 lnuAxxWpgPxlQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Sven Eckelmann <sven@narfation.org>
-Subject: Re: [PATCH 6.12.y] batman-adv: tt: clear ROAM flag when re-adding a pending local client
-Date: Wed, 11 Nov 2026 16:54:38 -0500
-Message-ID: <2026-11-11-1-daily-reply-0005-ec47082c603a4fa1ff92@kernel.org>
+Subject: Re: [PATCH 6.12.y] batman-adv: tt: send ROAM_ADV on each roamed back client
+Date: Wed, 11 Nov 2026 16:54:39 -0500
+Message-ID: <2026-11-11-1-daily-reply-0006-5ec3258fcbf067cb05bd@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110190259.111201-1-sven@narfation.org>
-References: <20261110190259.111201-1-sven@narfation.org>
+In-Reply-To: <20261110190328.112717-1-sven@narfation.org>
+References: <20261110190328.112717-1-sven@narfation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,7 +60,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [PATCH 6.12.y] batman-adv: tt: clear ROAM flag when re-adding a pending local client
+> [PATCH 6.12.y] batman-adv: tt: send ROAM_ADV on each roamed back client
 Queued for 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
