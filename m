@@ -1,59 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408791;
-	b=o99rJULOpg2NMltSd2ZS+UuGvagwQjigsoa2saYQKrunMH82ZUijHagwj63ybBW3PJgY
-	 0QK/X9yBCLlOnQ1Ks1fkhpIkvc7E45sq6v26KvgPYs6VHAc1R3CFqX+wzqu/77SuN3YB0
-	 j+nsDbdrG1gSjUWaCvo+4WdDOwOzydrSuO5UZvw9Aj6eGyQCFMXogTU4iY2dUvY/9oisF
-	 EGCCf/TDBuNgA4is4Y4OnDUEODg90lIWVm/2WlkBeN4h/w9CpbNFa4tDqRextVyrLup9u
-	 GruvBLyAGELn9V4UivPqtPWhYLtD6+c74yuZtbUSbvAuukAY2nkplQRjNQ4wLtExgIw==
+	t=1794408825;
+	b=W5L3a5GCDnTl96pZwKHmS4QIKtqPUKSwXTVBNF4o6dYFYkyooH8urQwOnZC3sRIg/LOQ
+	 Go/q/i1XQMFz/AVUHwRe5ZDUO4iUwBIA/8VpidkUn1FsEAn8WrFjMqEPsY+K6uBUsUzbC
+	 G1MGZL/o4h3uNyuZtv6jzsojZ6ReVqnELmZnc8rW0aYDcA0VFFrPHDGgJdfXDVLByCr6e
+	 kp/8E0bo8oJuuAViNOAfK836aFKFShawg4aUxp8tJmGwflOWYFWrwUBz1fN+c8a1YVCAf
+	 jvUS9bf7aE/00LoaQE206sgA6IxBy18mxd5mr3dbmXXHjj7pdguyyywza+0vID6HVvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408791;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=B7dfgiqd1v8DFEq6Rs/JxaKvpkJdAGEZ2VRzjcBXpBk=;
-	b=x2Kd6wQr5LAjOR7rQIqXeDfMeCG5wTFumyRHDTOe9Le/slRwgsapURMYyrA0eZzmX+M9
-	 CYuUHs1edcTO+qUS6fbELM20atCr+R9763m8bbxW4CU9W+lpNRL/5n0hy5+bwtgUmsW5/
-	 UGtOWy5IKwkDa12WaZeObEWwQf5O67V6QOozpZHJjuBlIx+xiMqxUGjs8vxoJAAfUpRww
-	 VkWJbAJKt7XX9uugmprV4H5sY1pRT6N8LmB4jVX9sVRGzMtRJeXiCjwvk0Js5qAprAp9R
-	 QaiKeJtUl3tFrDuU38aDyY+JZrrwHjQ0KsE6R4tS7E9b/Fel3D2o9xx4lkweGMw/J8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408825;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=b4sM8p1tTNaPGayyybeEyqVTJtS8aLvMWjajmNIN9tU=;
+	b=Ijk3HkQTpTPKjKVuFYJc8qHf0uRbighhuEdiwgqPGc53xBbPWm81vQoNIjC2UmEQOs8Y
+	 TgCPOihlF+E87aBFvgLhLO1Ii5PN67KrA4rea07lFuaZVQHria+bpjq2bPCOkh2cefH8E
+	 n0Yw/n/B3qCWn2JfZ9n4M05GkPBHWgLCYrhljIHk9hmmY7yVWFJMZ57XWFCP6hPnFC7P7
+	 zb1FOP3hJTeeZZGB+1WfYQWN7SjO7Qnt/3t76I5OMxDo6BWFVEIQzzfz2Df3esEIB8IeW
+	 oPgCefzfv0v7CsXwyEwXk80CekOFBrY+r/m8jGUvHFY0wA/VXeLVWtwN21W24eOOnTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZfAUAZ54;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RVAkSsQi;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E666F606A32D;
-	Wed, 11 Nov 2026 14:53:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A934B606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:53:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A934B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZfAUAZ54
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861961F00A0A;
-	Wed, 11 Nov 2026 14:53:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794408790;
-	bh=B7dfgiqd1v8DFEq6Rs/JxaKvpkJdAGEZ2VRzjcBXpBk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZfAUAZ54wbf82txvZXS9zxFhBX6LRTKjtHbh6I720LDh2KdMnLJ5RNJkNvF9PCvD4
-	 a62bw6Gtc7Bu+/EjmU5W6/3gvdsgDMPXUzI0Dhlvhb5NsRMAyV2HI49BI3LvpdfOvh
-	 vfUiUNix8kJ0VsQBGHFM9jvwZi1LPEo/Zm5MSI804ZIbUKvTfF3uOASggWcdf/rzck
-	 YhTHplZn7YcRC7FXBYwzBzZa8aICe/mQBTbdNYvu5ful9jhyg7sVHyLMxYoP50RykT
-	 XqAOMohncfAYuZgfPfY5j+DpTNUbyrlH8qSCBEkvt5vJ4Gaen74tXdqsPSQQGudOdB
-	 /PDzEdbl86+fw==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xR9hE-00000000Ve8-1pjO;
-	Wed, 11 Nov 2026 15:53:08 +0100
-Date: Wed, 11 Nov 2026 15:53:08 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH 2/2] serial: core: do not touch the port after dropping
- the last reference
-Message-ID: <avSBVPw75Kyx9zUd@hovoldconsulting.com>
-References: <20261104-serial-core-remove-deadlock-v1-0-6a30597adcbf@vaisala.com>
- <20261104-serial-core-remove-deadlock-v1-2-6a30597adcbf@vaisala.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RVAkSsQi
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so38483355e9.2
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 06:53:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794408823; x=1795013623; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b4sM8p1tTNaPGayyybeEyqVTJtS8aLvMWjajmNIN9tU=;
+        b=RVAkSsQib3j19dbhqVR2sdcks/BUmd2OjcQ78UjH5NxshfY/v59l98QRVHLW7kw9tX
+         A7lJJArWoUN75ymWV+xjbTlxY+K2xPUlG+03KtKh0HFIJppCFMBwbjHGNEHAoBR0eYJF
+         fwiS+srpoHXoAuB2gWjjskdF30sgLcrfwFLNhNMnZmcj+g1kPXoEDlkw0nGaCqK5auqM
+         G3sH8EiUV6wTBfapH8mfnhzB4IJcoME01/hcBXrxAFEX9M+Fp/0ADjaw3X3HUz/utt9a
+         +7A9PeAmLAkuUHBHwqKNaGkZIAGqYqPrxsMpx38QdLZTEiXDjJCDsTa29v4vtAKE+FgS
+         UdWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794408823; x=1795013623;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b4sM8p1tTNaPGayyybeEyqVTJtS8aLvMWjajmNIN9tU=;
+        b=tIdbVitU8xAvh1kk0XH/KxgmbwgWQAu/z9uSCMluWXigz1Oy5SS8VXpFk7JZ4zowRc
+         D3R+DGvhYIAYKr2SoCTbCO3q3MLu4+qSR1k3wwJlpAuPo/wuoYmnKPTp0+ceCaRGuqvs
+         thUAp99AUiHvPtbqSKj8g0Zel/qhBp+RfLNLBZPdoMcLPXGpi4ZDlfgVEN8iK58h2UXG
+         riwPZN7L418yedXp8PiFF2gEnvwIvgo4Pjc8rE1WOyywEu4rRmzYBwTTVYhOyVzSjDOb
+         B9V0T0LQb7yUQ8RU8IuWuuPtboJDDfqucUkBULc/hYRu++gDWlo8TPLs3ozE9+5bW/b1
+         55tg==
+X-Forwarded-Encrypted: i=1; AL+hErGylY0hvyyyK+Y3p2ipQt/GQwSrXPzFIGz3It5ohcDKc1gkeIX2lFb4zXjP48fHsfgXWhXO2ts=@vger.kernel.org
+X-Gm-Message-State: APuU4Z84MNs0c1XlFes4ih3KAwK/VzqbOmKwLjzCXf3MY3B1SZLh/OCb
+	wFRgk3yvBgsD3i1yirBO+cRrjpjGI+s4jklxD0/BfOhQ2jlCiOaUp3e/
+X-Gm-Gg: AYBFou2SRQSSjd7U64SCCGiFYUU0xCU2hih8CcPUnUtVReIx7h6uux6uC5dtbrjtI1l
+	B7lgKrFKV2YjIwAp+V7furuG2VRIfTU1rFp/n7xKjt8vqY/PpByYcmfqrzbOS1Ua8AqaA+8jH3G
+	FWU7IbLt0atCik/xvfi1gmyhnXrf/gsaqXDXARAOOx4FTVeprdraN6bYhZcHj9ADZTvSCkxDoj0
+	XcXU2trRP0DzX4cgXBz9gmKRig6w1DgraphE2Zyh91Qdk2c0bMmvto30t090XX6zqhNda4OzDBx
+	iGzLDPO74HOjV6XH80wnbHi8HBYD8AeKrLWGKXWQESRHXffqMUtgmRoYA8075wvslixB4+NVfnP
+	aMdARZlj+FoiDstYUWrT6ABjxMYou7jzUOL6zm7kGJNM82URKSjpxXQ/hFBb6uyMWTDFKS44v0t
+	jJTisWULrpBqHsgXGWA1U8cZmWdwCWipanDw65gth1SJqo4onZLZwiCMP+VOAQ/YJ0ekSkLu1J1
+	QNPQvS8nD8RlqzhdEVaYEnxdSnEtU7FxGkodQwUlkaAXSv3GP6vd8ihRwGruyEWiHhWg28Dd/II
+	Q3gmZuXd2qYiwufxy+wwsLiEsAQ+zU5YGnAWnIfeDhwwW8H+1jztULecTF2Vp1Ei8FKI
+X-Received: by 2002:a05:600c:190a:b0:4a7:9006:b176 with SMTP id 5b1f17b1804b1-4ba0936c8bfmr47936675e9.7.1794408822864;
+        Wed, 11 Nov 2026 06:53:42 -0800 (PST)
+Received: from [172.31.15.113] (6.red-83-60-147.dynamicip.rima-tde.net. [83.60.147.6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08ddd467sm52895945e9.0.2026.11.11.06.53.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 06:53:42 -0800 (PST)
+Message-ID: <a987a2f9-0580-4011-bee3-d706b4f41da9@gmail.com>
+Date: Wed, 11 Nov 2026 15:53:40 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,33 +92,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-serial-core-remove-deadlock-v1-2-6a30597adcbf@vaisala.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] mm/hugetlb_vmemmap: fix lost HWPoison state during
+ optimization
+To: Muchun Song <songmuchun@bytedance.com>, Oscar Salvador
+ <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
+ Miaohe Lin <linmiaohe@huawei.com>
+Cc: Muchun Song <muchun.song@linux.dev>, David Hildenbrand
+ <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Sashiko <sashiko-bot@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261111093747.50048-1-songmuchun@bytedance.com>
+ <20261111093747.50048-2-songmuchun@bytedance.com>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261111093747.50048-2-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 10:27:16AM +0000, Tapio Reijonen wrote:
-> uart_port_deref() decrements the reference count through uport->state
-> and then reads uport->state again for the wake_up(). The last
-> decrement is what lets serial_core_remove_one_port() return, and the
-> driver may free its struct uart_port right after that. A reference
-> holder that drops the last reference can therefore read the freed port
-> on its way to the wake_up().
+On 11/11/26 10:37 AM, Muchun Song wrote:
+> HVO copies the vmemmap head page before remapping it to a newly allocated
+> backing page. Memory failure can update the old head page after the copy
+> but before the remap's TLB invalidation completes:
 > 
-> Read the state pointer once, before the decrement. The uart_state
-> belongs to the uart_driver and lives until uart_unregister_driver(),
-> so the wake_up() target outlives the port. Drivers that unregister the
-> uart_driver in the same remove() are a separate matter and not changed
-> here.
+> CPU 0                            CPU 1
+> init_new_hugetlb_folio()
+> __hugetlb_vmemmap_optimize_folio()
+>    vmemmap_optimize_pte()
+>      copy_page(old_head, new_head)
+>                                   try_memory_failure_hugetlb()
+>                                     get_huge_page_for_hwpoison()
+>                                       hugetlb_update_hwpoison(old_head)
+>    set_pte_at(..., new_head)
+>    flush_tlb_all()
+> free_vmemmap_page_list(old_head)
 > 
-> Found by review of the removal path while fixing the deadlock between
-> port removal and a blocked tcdrain(); not reproduced.
+> The raw_hwp_page linked to the old head is then leaked and the folio's
+> HWPoison state is lost when the obsolete backing page is freed, allowing
+> the poisoned huge page to be allocated later.
 > 
-> Fixes: 9ed19428a51d ("serial: core: Prevent unsafe uart port access, part 2")
+> Serialize HVO remapping against HWPoison updates. This ensures that an
+> update is either copied to the new vmemmap head page or applied after HVO
+> installs the new mapping and completes the TLB flush.
+> 
+> Fixes: 11aad2631bf7 ("mm/hugetlb_vmemmap: remap head page to newly allocated page")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-18e93f17-529b-4d84-ba44-a41829f4be64
 
-Also unlikely to ever be an issue, but looks correct nonetheless:
+LGTM:
 
-Reviewed-by: Johan Hovold <johan@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Johan
+-- 
+cheers,
+jose a. p-a
