@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407781;
-	b=cXN0Wa2FObcVp4pf/U/q+agaMQhs0q2/RolHESK4xzLqqmawWMM+mvmApgwdaDi/9s5r
-	 8g02D+Yz94LgxYr48SrA9221yjQ9yX61zTlqqeRXpdSxGG1F21eVx4SJ9OXrEyxCTTWvf
-	 c7LMQXcY03FlHrhkw9ucV/DQthD8TdJnWQfzZywu2Za/kR98uFu6+cBGIP6QlQ2ZkD7ET
-	 XW9SE/LrKIyH2POFhB5M5N8LUf9BNsaNq6sf+Ndl7DEVY366Xbzz/zNxUIdfsp8c2y0PW
-	 PPnWAwZ4iqCxBQ/NuLSa0wo/ix96L1rfdsmgA8a0wIIFqUFZ0nY2aALTZPesgECzuRg==
+	t=1794407861;
+	b=hKuLKJYXuA/iJgKCC0u0v6iryUm+v5DoBK0ITUnbJ+MQdcmU7lmFPJz6n+ShD47Np0Fc
+	 CXxfKSR9jQtBBG4cWNXnDT6I0/Q4RUoN4vlrPm6KvU7jtUh/IhjjY0mIivZ3/9hfrzFlj
+	 JuAt+3ps+ePt9VwvDrUHQ426w2s9wqxzqnvRlle8Ov1P5zYpLfryKouVkTylU1pcxUFbD
+	 qSnQa5fG/q8rP7RBm6br8i2UMFBN9qxLKLztzppWc9hUtSczThPzUA/ZkHJyKIuC6w0JP
+	 0jriWvqUZChOXtZAT886GHCjzH+FZAqx0GqqYa2MbAXMubO0LbOziLic8g9NT/q4GyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407781;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=FWxiG1B+Db4JRltlZYC13MvgLHZ4LKzVEvoYeh2GRKI=;
-	b=xEfM3K30/sEa8lf5MqIME8Z8qbGlahFK/wa33ZnhtDTGwbgTcO9MnPEs+WgOMKtE3U7z
-	 I1kAY5lPs69IJUNnvsZqqQkTae0iw3pH6iJr7LC5SZzFO2GfeWDI71TzWVWHCN83iR81i
-	 AjITx3PZ2mT8SRuyKyOqYNrp5clroLaRIsfgDpF6WQOFdv5WMCqaxtnFG5nmO6vZiqBWh
-	 dcmhdaIbU9PJB/uRPnKU0Ww1KkAG0zjYgo74PjDRtN+k3IvNnqymGpczxX6im6uCJ6Dp/
-	 6op0NvmTuCr58S21JbGGntPzLgBiLdVupeNRSCSlQSh8HTfqQconT4uxXEwxzAX/hhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407861;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=fzBH9RldgGf92O9qexOtyFfwgspiOxTW6j94fkAplBk=;
+	b=qzZ88ZVUBQCDcSSw6Rr1jmDq61KAzo+8N1aOROav+5DASWPtb8VFLPphEYHhJlUFC+yW
+	 P5nz9LNxlTTEvuUaXhm8qgVedhs3w94UFTujFNrk3xoc+uoIkLGivztNyk4v30N5DdvT5
+	 NhRBIZILyTOprVkJU0HtWLr8yN52Sx4V138LJK8D44woS2TNmiFENRDHcOCuJp6Ozi2i7
+	 GvGxkaulD7ULOxVDfUGj476MEkht+YZpgEDE+FiIoOyJRkBXYjTfxca6bAnSha8DO7Bge
+	 LPwkZUrYlydsmH9YX5UJC12IyX0w9/wLV7oiItOncRHgqJW8vE7x5HgwlWcSsMlwuoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EUfhrfTP;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkElcXIo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8F3606A327;
-	Wed, 11 Nov 2026 14:36:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E8F3606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6148606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:37:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EUfhrfTP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794407781; x=1825943781;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ODmSwqzv6dlvz43TtOzhl0WSmF6mv80rIt7JvrCqLuE=;
-  b=EUfhrfTPjS7z3O2n7trPT/CcBkYD0T6MCBzMgCScN0me2NVS0hbQLSNM
-   7u8JqwCP2/0WDwQhVZlwSiQB8usuRX7mRZQqwEj4IQze37fq4iZ/7XtXi
-   6yQ9Iw74qSQNsmDJTPfSBHEL50d8+wBqcVnOUo5Wlu0l+lSDSnv7dcKOY
-   fzFanDm4xU03QOXB5yzMMhXx1hsiur8TwnPVc8kUATHu9AKOUp072oUYc
-   sQef/eJdb4KIZnuaeIvXynjLXAz5iJ+9WUlMXNTsxZRUZ4uTyzP6F+EIw
-   bjGONqfEDJQZCcTGGTMhIZlD4qVIANxJmmZC+3BJta59ezq/I8ZvZ0ITW
-   Q==;
-X-CSE-ConnectionGUID: 80TfZLGGSQW2ENW5QMM7lg==
-X-CSE-MsgGUID: G5VPmowdSxyPjf9rFJBuIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3050978"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3050978"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:36:21 -0800
-X-CSE-ConnectionGUID: YY0jrshyT2Kb56gQ0cymCw==
-X-CSE-MsgGUID: VTA/3sF7TF630BSET156Zg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8763922"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:36:12 -0800
-Date: Wed, 11 Nov 2026 16:36:09 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Sergey Khimich <serghox@gmail.com>,
-	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] dmaengine: dw-axi-dmac: preserve pending pause
- requests
-Message-ID: <avR9WSbaBlNtNUjn@ashevche-desk.local>
-References: <20261110-submit-dw-axi-dma-stop-pause-v1-v3-0-35fdfba8b61d@gmail.com>
- <20261110-submit-dw-axi-dma-stop-pause-v1-v3-4-35fdfba8b61d@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkElcXIo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42EAC1F00A06;
+	Wed, 11 Nov 2026 14:37:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794407861;
+	bh=fzBH9RldgGf92O9qexOtyFfwgspiOxTW6j94fkAplBk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mkElcXIoip7AS1T2QLc8ZU3L5C8AfQaQ+GKUGOpEmst0swfzSsYqy9N8/6AAU4ZiU
+	 VG7LwIE79voOdKaAtsU+c0OsUlf0QwwTk9eDBC+IE7ar1KX7P0zd32Z8edYDZ9m+rl
+	 dxc8ZWRVnhEwUn0hjYl24GgzQhtkAL7iJ72MQh38V3UHE2hhseVIpJ6dSfbrGXzTDS
+	 MJiINazk0Sop5xR6+NTmRkxzEHQq+HfxvshnnEiMukVRrvcByaVVq4IXPoaSlR/uGy
+	 AzwCg76SNFXHj12iA0+Pd04OWeO5PUSFUF3b6tlIzD3ASnBZ2T33ytID8gM+Yg0RiK
+	 Z9P+JK43fFhjw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Edward Adam Davis <eadavis@qq.com>,
+	syzbot+151afab124dfbc5f15e6@syzkaller.appspotmail.com,
+	Heming Zhao <heming.zhao@suse.com>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Changwei Ge <gechangwei@live.cn>,
+	Jun Piao <piaojun@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] ocfs2: fix oob in __ocfs2_find_path
+Date: Wed, 11 Nov 2026 09:37:37 -0500
+Message-ID: <20261111143727.2371605-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060558-failed-5.15-6193ce7896af@kernel.org>
+References: <20261107060558-failed-5.15-6193ce7896af@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,58 +67,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-submit-dw-axi-dma-stop-pause-v1-v3-4-35fdfba8b61d@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 08:15:15PM -0700, James Hilliard wrote:
-> dma_chan_pause() clears SUSPENDED even when polling times out. Hardware
-> can set that status after the last poll, and the unconditional clear then
-> discards an acknowledgment the caller never observed. Another channel's
-> interrupt can also consume the status because the shared IRQ handler
-> clears every channel's status before taking its lock.
-> 
-> Leave SUSPENDED to the pause and resume paths. Track the suspend request
-> separately from its acknowledgment so a timeout can be followed by either
-> a pause retry or a resume. Wait for acknowledgment before clearing the
-> hardware request, since hardware ignores an earlier clear. If that wait
-> also times out, return -EAGAIN with the request still pending.
-> 
-> A completed transfer is also quiescent, but its completion handler may
-> still need to advance a cyclic descriptor. Defer that restart while a
-> pause is pending, and resume it without reprogramming the first LLI.
-> Track the active descriptor until its completion handler runs so that
-> resume and issue_pending cannot restart a completed cyclic segment or
-> reissue a completed noncyclic descriptor while its IRQ is pending.
-> Start queued work after the active descriptor is retired, respecting the
-> pause request.
-> 
-> Clear stale suspension status at the start of a new descriptor rather
-> than at each cyclic restart. Reset the software state after successful
-> termination and when allocating a channel for a new client.
-> 
-> Store the lock-protected pause flags as bitfields in existing padding,
-> keeping cyclic in a separate byte because it is set outside vc.lock.
+From: Edward Adam Davis <eadavis@qq.com>
 
-...
+[ Upstream commit e0b0f2834c9bec51b1068de5cf5e10c7519143eb ]
 
-> +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-> @@ -42,6 +42,12 @@ struct axi_dma_chan {
->  	void __iomem			*chan_regs;
->  	u8				id;
->  	u8				hw_handshake_num;
+syzbot constructed a corrupted image, which resulted in el->l_count from
+the b-tree extent block being 0.  Since the length of the l_recs array
+depends on l_count, reading its member e_blkno triggered the out-of-bounds
+access reported by syzbot in [1].
 
-> +	bool				cyclic;
+The loop terminates when l_count is 0, similar to when next_free is 0.
 
-> -	bool				cyclic;
+[1]
+UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:1838:11
+index 0 is out of range for type 'struct ocfs2_extent_rec[] __counted_by(l_count)' (aka 'struct ocfs2_extent_rec[]')
+Call Trace:
+ __ocfs2_find_path+0x606/0xa40 fs/ocfs2/alloc.c:1838
+ ocfs2_find_leaf+0xab/0x1c0 fs/ocfs2/alloc.c:1946
+ ocfs2_get_clusters_nocache+0x172/0xc60 fs/ocfs2/extent_map.c:418
+ ocfs2_get_clusters+0x505/0xa70 fs/ocfs2/extent_map.c:631
+ ocfs2_extent_map_get_blocks+0x202/0x6a0 fs/ocfs2/extent_map.c:678
+ ocfs2_read_virt_blocks+0x286/0x930 fs/ocfs2/extent_map.c:1001
+ ocfs2_read_dir_block fs/ocfs2/dir.c:521 [inline]
+ ocfs2_find_entry_el fs/ocfs2/dir.c:728 [inline]
+ ocfs2_find_entry+0x3e4/0x2090 fs/ocfs2/dir.c:1120
+ ocfs2_find_files_on_disk+0xdf/0x310 fs/ocfs2/dir.c:2023
+ ocfs2_lookup_ino_from_name+0x52/0x100 fs/ocfs2/dir.c:2045
+ _ocfs2_get_system_file_inode fs/ocfs2/sysfile.c:136 [inline]
+ ocfs2_get_system_file_inode+0x326/0x770 fs/ocfs2/sysfile.c:112
+ ocfs2_init_global_system_inodes+0x319/0x660 fs/ocfs2/super.c:461
+ ocfs2_initialize_super fs/ocfs2/super.c:2196 [inline]
+ ocfs2_fill_super+0x4432/0x65b0 fs/ocfs2/super.c:993
+ get_tree_bdev_flags+0x40e/0x4d0 fs/super.c:1691
+ vfs_get_tree+0x92/0x2a0 fs/super.c:1751
+ fc_mount fs/namespace.c:1199 [inline]
 
-This move doesn't belong to this patch. Yes, I understand that `pahole`
-suggested better layout, but make it in a separate patch.
+Link: https://lkml.kernel.org/r/tencent_4D99464FA28D9225BE0DBA923F5DF6DD8C07@qq.com
+Signed-off-by: Edward Adam Davis <eadavis@qq.com>
+Reported-by: syzbot+151afab124dfbc5f15e6@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=151afab124dfbc5f15e6
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Acked-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 6193ce7896af ("ocfs2: fix array out of bound access in __ocfs2_find_path()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ocfs2/alloc.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
+diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
+index 9132e8594db32..cc0f4d4cb347d 100644
+--- a/fs/ocfs2/alloc.c
++++ b/fs/ocfs2/alloc.c
+@@ -1804,14 +1804,15 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+ 			ret = -EROFS;
+ 			goto out;
+ 		}
+-		if (le16_to_cpu(el->l_next_free_rec) == 0) {
++		if (!el->l_next_free_rec || !el->l_count) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+-				    "Owner %llu has empty extent list at depth %u\n",
++				    "Owner %llu has empty extent list at depth %u\n"
++				    "(next free=%u count=%u)\n",
+ 				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
+-				    le16_to_cpu(el->l_tree_depth));
++				    le16_to_cpu(el->l_tree_depth),
++				    le16_to_cpu(el->l_next_free_rec), le16_to_cpu(el->l_count));
+ 			ret = -EROFS;
+ 			goto out;
+-
+ 		}
+ 
+ 		for(i = 0; i < le16_to_cpu(el->l_next_free_rec) - 1; i++) {
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
