@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794374723;
-	b=VKHB6ERCsBVI9Oa6S1SzQaFS3RWPSHI3i1EfawBtM1G12cgvkfVigA2mHBC9sFYD6LxZ
-	 J0IpFtab4VYT+HWYdxXEotZhs3YY63lOIg0IqgyYR87lMJysACDwIgFle7A6q07C5WdR8
-	 u/XUdyPSzFPLEaE/mXJ7AhY2+t+Mde0ihEx4rniTdynSqrDfLe+If+v1tpk9kySIrL/Ij
-	 YeLkjDaUG1s604Fhq/YKZj59rmVRZAxH09SE5tFPIXiMTXIYCxPM6GUsFbfPYOCM7rJ0E
-	 rQBxjh0VKtbvqspMsITdU5p/eponBCiXnMP9AavybLEnLsMBFcYPumJsgQxyr2RXB1w==
+	t=1794375291;
+	b=sxjhbpuiOTRgWdr0l89u/Gu5Wtd7eFhPLpog1RMymrovzz9BkTG5birRww7m4eoLjrfI
+	 JXdZ7KrtOaHCjP1rt/RhljuCc25ejFd2Q5H0PkCaArdPlHmnK/9Ff3D2kG5DePVTN7O0j
+	 dDGgpqP950AqZo4Hx7ZZxdF6A0aviCQiXh7b9VdK3a4rXdIOjUa3NtnDeVgqbcCpDJLIb
+	 OCuXjulZ7aELRna6BIjWLnn24qar3m+moClVc7QijB39yDgG6t3YKWRHnd+9aVHO9qgYF
+	 tqSyb5wJIqQ5dczgCDaCc7L5NA9ajfbQdVnldx7POcbSPh2c7jrAmU9B2GGdIc9gUhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794374723;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794375291;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vwoB68/lfWDUEiLUBfsJBMM9jZdkfvTVUYChgmolXdQ=;
-	b=ZR+3LgF/KBp6oTYgYdQiQkN+lnoB4ai0k1k5yTTcFMaJ1Rgp3xTkc3/KcnacCKgj4PSp
-	 g3g5/JIUz2Ex7eXt16RFRz8sHnyLZX7YKP3vmH1TdXYfSogOeGKH6D0xz43p2uHOSXlDm
-	 mDsg27AyLtwrqqDXYIY8MPXyYgp+tmne7MvKwXIHYGXafBHEUsEMGOfc8n/+OWXak//9A
-	 SSb+nS1zoMD/XVVdoatYHjr/jxSeRgFZcTwU1WJ73T1mUr3z1jqV9gArVhJZwFTVaE2cN
-	 0xibWBjiB7D01ZWtbhSbP9zGIQUe36mdq1gVS0ybgJ4yxyL9XvcYaBJSoWTaAS66+oQ==
+	bh=hlpQhhKGKk7F2CBSSt3Ng9guGWL3vmIoPv0E8M4yfLY=;
+	b=y8lFhHY0X9U9Tg3LX8zgj5U7dA5t+xHhik7oyxxHqUndRwjtWZYpW5v82dixKUZL+kZr
+	 jJxMeVPBS68AO+gT5RpjJXbUV/gKxfTkzJJUShgb+ieja3+sYb8ZiaNxbRoy2y4VayORo
+	 ziEG47QKQKxE9vg387ahOr0O6dVYYcBI2pvYhY1u9CYFo9DQw+5wfyPIu0gKgTGB/MTlN
+	 mjPMR6zFYLHyTxGbaZ7CTRFLCbRGprtY7uaSPH9S3yAOGPSY63I5ciwFicB8qya4Tamc+
+	 I02P2+GAYw5agptAY7IBgN3CzJn0tt/2XD5SdCej293fPy3k0UUb1T9gp324iYxo0xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSI0E8DW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VZuS/KAd";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894E5606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:25:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BB9606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:34:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSI0E8DW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2BB1F0089F;
-	Wed, 11 Nov 2026 05:25:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZuS/KAd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5FD01F0089F;
+	Wed, 11 Nov 2026 05:34:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794374723;
-	bh=vwoB68/lfWDUEiLUBfsJBMM9jZdkfvTVUYChgmolXdQ=;
+	s=k20260515; t=1794375291;
+	bh=hlpQhhKGKk7F2CBSSt3Ng9guGWL3vmIoPv0E8M4yfLY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SSI0E8DWWVnfWNxKDKL1VA2MRAtSKdlgwVkBNdw5Ap7SlR9hNnpVKO6JVv1LU6aFa
-	 1oSxhtQJnUoUm84s7Oyu9pRaof6sNA6CC6QWgoC1YYRdtknpM5gRqpIfjxP1SbLdyG
-	 vNsd5/4/mI+CCBZ6qOjqWcxOkIQdyjP80NnbnusWlDVwsSzrsKgZ5SjNcWteI/YrNh
-	 ZCIDd8pE8sTSRZ4O7eKGLm8yZJyzDnj0r5b1/EFBV55Uaf4AGt7a49oZ9hDFLPtz0f
-	 C6RKZ05Kn+ba9g0wgq2qxeqoeg5DC/M3lhhVZohgybi1HMJfQQEAbhlCY3DW33kKOV
-	 nnDMAW2bWCDWA==
+	b=VZuS/KAdPpWFiEvFXVwn1EeVvToqQCCK1dErJVe7+aWzyqDqfMDEG6eyhlfwsueL/
+	 URlD4aLPsyuR9GCwNLW0KCUrFYuHStgaWgW5Pu3aLjH2WKTtJmvC+kCc20Zy9AJH78
+	 XEUt1F/9EoPRR2hqKIup+nhi1cfoL5mnrZDtUdxPJtlSUj4Dto32fB+MuwLITsJdtv
+	 HXNs5qMoTGc0tF/tDHPxgiXoliIPab0XIzMQy1XcnPOAicVFJIMGYf9ZucWwJgp11s
+	 0/wNsyCIorknIBbsEyxtrApzQYM+7LAp6e+2MuGh0cksqFCo+tjcXK8djkahU5h6nI
+	 D0ha+AEIR9KsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
@@ -46,12 +46,12 @@ Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
 	Jan Kara <jack@suse.cz>,
 	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] fs: don't lose inodes that another LRU walker is isolating
-Date: Wed, 11 Nov 2026 00:25:21 -0500
-Message-ID: <20261111052452.1261706-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] fs: don't lose inodes that another LRU walker is isolating
+Date: Wed, 11 Nov 2026 00:34:49 -0500
+Message-ID: <20261111053418.1281568-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052525-failed-6.12-8dc4116041e2@kernel.org>
-References: <20261107052525-failed-6.12-8dc4116041e2@kernel.org>
+In-Reply-To: <20261107053816-failed-6.6-8dc4116041e2@kernel.org>
+References: <20261107053816-failed-6.6-8dc4116041e2@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,17 +103,17 @@ Link: https://patch.msgid.link/20261009142431.713875-1-nick@karaolidis.com
 Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
 Reviewed-by: Jan Kara <jack@suse.cz>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Replaced unavailable inode_state_read(inode) with direct inode->i_state access. ]
+[ sashal: Replaced inode_state_read(inode) with direct inode->i_state access because the helper is unavailable. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  fs/inode.c | 6 ++++++
  1 file changed, 6 insertions(+)
 
 diff --git a/fs/inode.c b/fs/inode.c
-index 7942673f686fd..0941b7e15ccd7 100644
+index 5ebe791381096..67c328a6cdae0 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
-@@ -890,6 +890,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+@@ -854,6 +854,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
  	if (!spin_trylock(&inode->i_lock))
  		return LRU_SKIP;
  
