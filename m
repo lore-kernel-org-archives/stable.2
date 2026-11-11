@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794365007;
-	b=Su6uTLcLOmeNXW9WcT6eZoAJaZ/RUIBpR9ZojyYSM+p9Y4K9Dd/LKcGxfcZQ/fik3lVY
-	 NPqy9uknk9rTcrKlHMnqtlXST0SazTKJ2Yy4JoBK5HYwL3Evawkqu3x9U4SLyx7jffvu3
-	 MgnctADtkz3yRSnJwxtfdKL6noOFQbJYmnz+xIHUz804hf3d72aktZp7q3jYdoMOt+Cpi
-	 gzxxsOX5xOUoNw0mWIxIVF2SVjT0edV30iqq3T2rNPodZnzLDpas8kp9DyaUi0Pe+KBPP
-	 mf1UNbBxdjSDk75vy6/wOBbfu8ynnKxJFsi0LuJPviK/vZnrw9po+58l1wZS+zqK05g==
+	b=f4OL4Z6Gmz6tzqZceNi8q/TiWH3asSGj8nCh/jOrS2sf2+a2lnfFKuwMHI/1YV9uRtGt
+	 jTzCODQScgLvZWhhGzj4VI0QDR4LxfdhX7smhgoD3cMbpohcD7QczDoNAbh6qnQ5oIwa3
+	 yQRMy+4IEseiMmCWwndbSZIwMg7RxUOWxeSwgiZMq9WfXADQyWs3EYgKI28PHy1D5V17I
+	 wjOwsTAmzELjFdKhjJgObMy2NUjkM8RwrFUIKGJXWL3EV5NFM6OZasN1tpRyOdBZOMOEq
+	 2DkTTZiao4vOTddeGLZJgIkhXaH77lYOMOfpYWNd3YxLffZHSMVrVOMVvYMm4H+RLnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794365007;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iqexURt2gdYvXDlmAvTKLAhUDpgkyU0PctS4kbXx2t0=;
-	b=nlTZDoCnYy8nqhjbavSN6fTE07cX4oeVTKFPnVY4lSWUug5DXDjSJThtRAZZnwH1IiF9
-	 tEZ9wwESUT8qOt4mQDvbuGgRRhFTvAalpBJVWnl57OgaibxkcCa34NAtfW3Z7ejEb8vTz
-	 5r9Rx+DFO/i6/WYyUa1O0zs04CvYk2u1aR8SuTvGybSUlftWWQcqDlGB7n3SszTjOoZko
-	 4FM/jlwenM8Z1Ok4UpXgT5+CszlqgfbM+qW8KCJtDqRRco9T9zr/0cWh27BKHnr+w3rTI
-	 E5nhY3fusClK9rOMDbjqHbbS35wX4RuKPiPuRM0sUdx271Kx+tV20YmCo+k0mUJHqZA==
+	bh=BL9/shUs4sNyTekNHUdOeGAmciAnxWgHpV9vI7+dPj0=;
+	b=w/wXxw7YXi+2bGIzNibPB/ZXD9OnJh+OUiFa57Vs8untxsFABmOiQS/e1HDBRolACslS
+	 W4x6cdmmOPY1u7KyqQo0LOnpvAjWlCwkBF9dL8Ds4CT1K2Uz+mNfZ921GoaoKe++Ou99v
+	 Y/zPPrOp3VQe02aKBt9E29Ko7SgdlURnP1u8M75ftaHYf0qehDK2w0w6rmQ4P1sltllMa
+	 WIL4R1op09D243NX7QQjefJNth9F0QeqJjz0qKQwuKY+Khpn/IOPS0ljFbeg5EfAjip+f
+	 mtu6bEmOHC8DEHR/MT8LMCDK+6UQWO+HLQQScZvAkGNFUiRMfp5qNR4HKmVPnxoqEjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOE+BBLi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TsGT+llp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274C5606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D7B606A331
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:43:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOE+BBLi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844C51F00A05;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TsGT+llp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909631F00A06;
 	Wed, 11 Nov 2026 02:43:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794365007;
-	bh=iqexURt2gdYvXDlmAvTKLAhUDpgkyU0PctS4kbXx2t0=;
+	bh=BL9/shUs4sNyTekNHUdOeGAmciAnxWgHpV9vI7+dPj0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WOE+BBLiqVTGxTk2X8lcDIACyR4YUBEZldBqBEHVG4QRzbx6GkMxr2dMySZeBTtSE
-	 HnWbarJr8Pb8frXyzJ8Z82VA80cMB8dAKoypTfa4ZTKNCH/GdH1WVcMVIKC3AzAF4l
-	 Q7qSuUK0fa7Urq27rWzBkMCp3gwBCuewUeyHTB33/jae5c+Lvu3wZDC0x5DyccOBr9
-	 w5HiSbH6f5FulBpftFGDeUzKmEBg9McVWPHktcVyJSqw6+kZUcJwLSb4Mh7QKTP2Qu
-	 bGqGao69Ykj2LjKFOiu65TYc1YJQehZHWIuKdSNn8t2HF8RvZkr/PF+F48nEYZsUqJ
-	 vC276+NtIFOaA==
+	b=TsGT+llp5wY0lmmDSNbaraw2z9SjR/SgfmjFVBszrszA+0U88WYB3KYGVO3erREh8
+	 DOqcwDKNvThg0bVo5b8L+j1Zr6QnBF6qqMziIG5pnA0wyB39ba3bnhveGUU6cl1NoH
+	 GGmA0U+KgyEEjgQAC67iSPuyxruvAh3+dEydZCObNiV4N55IUI5aJVF+wJt1zqJFu7
+	 utsfkPNBb6sCIn41y0wK+acuSiMesb4/jfjvYOtdSwSIYHxSfx6jMYcf94s46/Lo12
+	 4Y/pg0MDyWgarKC0F2cTnwTSAwzXGXYowu2VfQrwBC4yU9VH4/UqrBIukr9KG27ziQ
+	 KGC78IrkJbbhA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mateusz Guzik <mjguzik@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Sean Christopherson <seanjc@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/6] fs: provide accessors for ->i_state
-Date: Tue, 10 Nov 2026 21:43:21 -0500
-Message-ID: <20261111024017.675599-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/5] KVM: s390: Refactor kvm_is_error_gpa() into kvm_is_gpa_in_memslot()
+Date: Tue, 10 Nov 2026 21:43:22 -0500
+Message-ID: <20261111024039.676658-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111024017.675599-1-sashal@kernel.org>
-References: <20261107051338-failed-6.18-8ee09f597763@kernel.org>
- <20261111024017.675599-1-sashal@kernel.org>
+In-Reply-To: <20261111024039.676658-1-sashal@kernel.org>
+References: <20261107052838-failed-6.6-eacdb76c5f04@kernel.org>
+ <20261111024039.676658-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,163 +61,185 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mateusz Guzik <mjguzik@gmail.com>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit d8753f788ab4916341d9fab81795be9f2f49c264 ]
+[ Upstream commit 9e7325acb3dc8df8a6370ebc18aef107aae17ef0 ]
 
-Open-coded accesses prevent asserting they are done correctly. One
-obvious aspect is locking, but significantly more can checked. For
-example it can be detected when the code is clearing flags which are
-already missing, or is setting flags when it is illegal (e.g., I_FREEING
-when ->i_count > 0).
+Rename kvm_is_error_gpa() to kvm_is_gpa_in_memslot() and invert the
+polarity accordingly in order to (a) free up kvm_is_error_gpa() to match
+with kvm_is_error_{hva,page}(), and (b) to make it more obvious that the
+helper is doing a memslot lookup, i.e. not simply checking for INVALID_GPA.
 
-In order to keep things manageable this patchset merely gets the thing
-off the ground with only lockdep checks baked in.
+No functional change intended.
 
-Current consumers can be trivially converted.
-
-Suppose flags I_A and I_B are to be handled.
-
-If ->i_lock is held, then:
-
-state = inode->i_state  	=> state = inode_state_read(inode)
-inode->i_state |= (I_A | I_B) 	=> inode_state_set(inode, I_A | I_B)
-inode->i_state &= ~(I_A | I_B) 	=> inode_state_clear(inode, I_A | I_B)
-inode->i_state = I_A | I_B	=> inode_state_assign(inode, I_A | I_B)
-
-If ->i_lock is not held or only held conditionally:
-
-state = inode->i_state  	=> state = inode_state_read_once(inode)
-inode->i_state |= (I_A | I_B) 	=> inode_state_set_raw(inode, I_A | I_B)
-inode->i_state &= ~(I_A | I_B) 	=> inode_state_clear_raw(inode, I_A | I_B)
-inode->i_state = I_A | I_B	=> inode_state_assign_raw(inode, I_A | I_B)
-
-The "_once" vs "_raw" discrepancy stems from the read variant differing
-by READ_ONCE as opposed to just lockdep checks.
-
-Finally, if you want to atomically clear flags and set new ones, the
-following:
-
-state = inode->i_state;
-state &= ~I_A;
-state |= I_B;
-inode->i_state = state;
-
-turns into:
-
-inode_state_replace(inode, I_A, I_B);
-
-Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 8ee09f597763 ("fs: rotate inodes whose page cache could not be dropped")
+Link: https://lore.kernel.org/r/20240215152916.1158-9-paul@xen.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Stable-dep-of: eacdb76c5f04 ("KVM: x86/xen: Enforce 4-byte alignment of vcpu_info registration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/fs.h | 78 ++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 76 insertions(+), 2 deletions(-)
+ arch/s390/kvm/diag.c     |  2 +-
+ arch/s390/kvm/gaccess.c  | 14 +++++++-------
+ arch/s390/kvm/kvm-s390.c |  4 ++--
+ arch/s390/kvm/priv.c     |  4 ++--
+ arch/s390/kvm/sigp.c     |  2 +-
+ include/linux/kvm_host.h |  4 ++--
+ 6 files changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 349b7fc57db36..09cbcfbf295f6 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -759,7 +759,7 @@ enum inode_state_bits {
- 	/* reserved wait address bit 3 */
- };
+diff --git a/arch/s390/kvm/diag.c b/arch/s390/kvm/diag.c
+index 2cc3ec034046c..74f73141f9b96 100644
+--- a/arch/s390/kvm/diag.c
++++ b/arch/s390/kvm/diag.c
+@@ -102,7 +102,7 @@ static int __diag_page_ref_service(struct kvm_vcpu *vcpu)
+ 		    parm.token_addr & 7 || parm.zarch != 0x8000000000000000ULL)
+ 			return kvm_s390_inject_program_int(vcpu, PGM_SPECIFICATION);
  
--enum inode_state_flags_t {
-+enum inode_state_flags_enum {
- 	I_NEW			= (1U << __I_NEW),
- 	I_SYNC			= (1U << __I_SYNC),
- 	I_LRU_ISOLATING         = (1U << __I_LRU_ISOLATING),
-@@ -843,7 +843,7 @@ struct inode {
- #endif
+-		if (kvm_is_error_gpa(vcpu->kvm, parm.token_addr))
++		if (!kvm_is_gpa_in_memslot(vcpu->kvm, parm.token_addr))
+ 			return kvm_s390_inject_program_int(vcpu, PGM_ADDRESSING);
  
- 	/* Misc */
--	enum inode_state_flags_t	i_state;
-+	enum inode_state_flags_enum i_state;
- 	/* 32-bit hole */
- 	struct rw_semaphore	i_rwsem;
+ 		vcpu->arch.pfault_token = parm.token_addr;
+diff --git a/arch/s390/kvm/gaccess.c b/arch/s390/kvm/gaccess.c
+index 969a5e1569192..12dd833952f68 100644
+--- a/arch/s390/kvm/gaccess.c
++++ b/arch/s390/kvm/gaccess.c
+@@ -681,7 +681,7 @@ static unsigned long guest_translate(struct kvm_vcpu *vcpu, unsigned long gva,
+ 	case ASCE_TYPE_REGION1:	{
+ 		union region1_table_entry rfte;
  
-@@ -904,6 +904,80 @@ struct inode {
- 	void			*i_private; /* fs or device private pointer */
- } __randomize_layout;
+-		if (kvm_is_error_gpa(vcpu->kvm, ptr))
++		if (!kvm_is_gpa_in_memslot(vcpu->kvm, ptr))
+ 			return PGM_ADDRESSING;
+ 		if (deref_table(vcpu->kvm, ptr, &rfte.val))
+ 			return -EFAULT;
+@@ -699,7 +699,7 @@ static unsigned long guest_translate(struct kvm_vcpu *vcpu, unsigned long gva,
+ 	case ASCE_TYPE_REGION2: {
+ 		union region2_table_entry rste;
  
-+/*
-+ * i_state handling
-+ *
-+ * We hide all of it behind helpers so that we can validate consumers.
-+ */
-+static inline enum inode_state_flags_enum inode_state_read_once(struct inode *inode)
-+{
-+	return READ_ONCE(inode->i_state);
-+}
-+
-+static inline enum inode_state_flags_enum inode_state_read(struct inode *inode)
-+{
-+	lockdep_assert_held(&inode->i_lock);
-+	return inode->i_state;
-+}
-+
-+static inline void inode_state_set_raw(struct inode *inode,
-+				       enum inode_state_flags_enum flags)
-+{
-+	WRITE_ONCE(inode->i_state, inode->i_state | flags);
-+}
-+
-+static inline void inode_state_set(struct inode *inode,
-+				   enum inode_state_flags_enum flags)
-+{
-+	lockdep_assert_held(&inode->i_lock);
-+	inode_state_set_raw(inode, flags);
-+}
-+
-+static inline void inode_state_clear_raw(struct inode *inode,
-+					 enum inode_state_flags_enum flags)
-+{
-+	WRITE_ONCE(inode->i_state, inode->i_state & ~flags);
-+}
-+
-+static inline void inode_state_clear(struct inode *inode,
-+				     enum inode_state_flags_enum flags)
-+{
-+	lockdep_assert_held(&inode->i_lock);
-+	inode_state_clear_raw(inode, flags);
-+}
-+
-+static inline void inode_state_assign_raw(struct inode *inode,
-+					  enum inode_state_flags_enum flags)
-+{
-+	WRITE_ONCE(inode->i_state, flags);
-+}
-+
-+static inline void inode_state_assign(struct inode *inode,
-+				      enum inode_state_flags_enum flags)
-+{
-+	lockdep_assert_held(&inode->i_lock);
-+	inode_state_assign_raw(inode, flags);
-+}
-+
-+static inline void inode_state_replace_raw(struct inode *inode,
-+					   enum inode_state_flags_enum clearflags,
-+					   enum inode_state_flags_enum setflags)
-+{
-+	enum inode_state_flags_enum flags;
-+	flags = inode->i_state;
-+	flags &= ~clearflags;
-+	flags |= setflags;
-+	inode_state_assign_raw(inode, flags);
-+}
-+
-+static inline void inode_state_replace(struct inode *inode,
-+				       enum inode_state_flags_enum clearflags,
-+				       enum inode_state_flags_enum setflags)
-+{
-+	lockdep_assert_held(&inode->i_lock);
-+	inode_state_replace_raw(inode, clearflags, setflags);
-+}
-+
- static inline void inode_set_cached_link(struct inode *inode, char *link, int linklen)
+-		if (kvm_is_error_gpa(vcpu->kvm, ptr))
++		if (!kvm_is_gpa_in_memslot(vcpu->kvm, ptr))
+ 			return PGM_ADDRESSING;
+ 		if (deref_table(vcpu->kvm, ptr, &rste.val))
+ 			return -EFAULT;
+@@ -717,7 +717,7 @@ static unsigned long guest_translate(struct kvm_vcpu *vcpu, unsigned long gva,
+ 	case ASCE_TYPE_REGION3: {
+ 		union region3_table_entry rtte;
+ 
+-		if (kvm_is_error_gpa(vcpu->kvm, ptr))
++		if (!kvm_is_gpa_in_memslot(vcpu->kvm, ptr))
+ 			return PGM_ADDRESSING;
+ 		if (deref_table(vcpu->kvm, ptr, &rtte.val))
+ 			return -EFAULT;
+@@ -745,7 +745,7 @@ static unsigned long guest_translate(struct kvm_vcpu *vcpu, unsigned long gva,
+ 	case ASCE_TYPE_SEGMENT: {
+ 		union segment_table_entry ste;
+ 
+-		if (kvm_is_error_gpa(vcpu->kvm, ptr))
++		if (!kvm_is_gpa_in_memslot(vcpu->kvm, ptr))
+ 			return PGM_ADDRESSING;
+ 		if (deref_table(vcpu->kvm, ptr, &ste.val))
+ 			return -EFAULT;
+@@ -765,7 +765,7 @@ static unsigned long guest_translate(struct kvm_vcpu *vcpu, unsigned long gva,
+ 		ptr = ste.fc0.pto * (PAGE_SIZE / 2) + vaddr.px * 8;
+ 	}
+ 	}
+-	if (kvm_is_error_gpa(vcpu->kvm, ptr))
++	if (!kvm_is_gpa_in_memslot(vcpu->kvm, ptr))
+ 		return PGM_ADDRESSING;
+ 	if (deref_table(vcpu->kvm, ptr, &pte.val))
+ 		return -EFAULT;
+@@ -787,7 +787,7 @@ static unsigned long guest_translate(struct kvm_vcpu *vcpu, unsigned long gva,
+ 		*prot = PROT_TYPE_IEP;
+ 		return PGM_PROTECTION;
+ 	}
+-	if (kvm_is_error_gpa(vcpu->kvm, raddr.addr))
++	if (!kvm_is_gpa_in_memslot(vcpu->kvm, raddr.addr))
+ 		return PGM_ADDRESSING;
+ 	*gpa = raddr.addr;
+ 	return 0;
+@@ -974,7 +974,7 @@ static int guest_range_to_gpas(struct kvm_vcpu *vcpu, unsigned long ga, u8 ar,
+ 				return rc;
+ 		} else {
+ 			gpa = kvm_s390_real_to_abs(vcpu, ga);
+-			if (kvm_is_error_gpa(vcpu->kvm, gpa)) {
++			if (!kvm_is_gpa_in_memslot(vcpu->kvm, gpa)) {
+ 				rc = PGM_ADDRESSING;
+ 				prot = PROT_TYPE_DUMMY;
+ 			}
+diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
+index c0d8c59bb2cb1..827857f90d441 100644
+--- a/arch/s390/kvm/kvm-s390.c
++++ b/arch/s390/kvm/kvm-s390.c
+@@ -2878,7 +2878,7 @@ static int kvm_s390_vm_mem_op_abs(struct kvm *kvm, struct kvm_s390_mem_op *mop)
+ 
+ 	srcu_idx = srcu_read_lock(&kvm->srcu);
+ 
+-	if (kvm_is_error_gpa(kvm, mop->gaddr)) {
++	if (!kvm_is_gpa_in_memslot(kvm, mop->gaddr)) {
+ 		r = PGM_ADDRESSING;
+ 		goto out_unlock;
+ 	}
+@@ -2940,7 +2940,7 @@ static int kvm_s390_vm_mem_op_cmpxchg(struct kvm *kvm, struct kvm_s390_mem_op *m
+ 
+ 	srcu_idx = srcu_read_lock(&kvm->srcu);
+ 
+-	if (kvm_is_error_gpa(kvm, mop->gaddr)) {
++	if (!kvm_is_gpa_in_memslot(kvm, mop->gaddr)) {
+ 		r = PGM_ADDRESSING;
+ 		goto out_unlock;
+ 	}
+diff --git a/arch/s390/kvm/priv.c b/arch/s390/kvm/priv.c
+index e5b220e686b09..298ae2bc0e1c2 100644
+--- a/arch/s390/kvm/priv.c
++++ b/arch/s390/kvm/priv.c
+@@ -149,7 +149,7 @@ static int handle_set_prefix(struct kvm_vcpu *vcpu)
+ 	 * first page, since address is 8k aligned and memory pieces are always
+ 	 * at least 1MB aligned and have at least a size of 1MB.
+ 	 */
+-	if (kvm_is_error_gpa(vcpu->kvm, address))
++	if (!kvm_is_gpa_in_memslot(vcpu->kvm, address))
+ 		return kvm_s390_inject_program_int(vcpu, PGM_ADDRESSING);
+ 
+ 	kvm_s390_set_prefix(vcpu, address);
+@@ -464,7 +464,7 @@ static int handle_test_block(struct kvm_vcpu *vcpu)
+ 		return kvm_s390_inject_prog_irq(vcpu, &vcpu->arch.pgm);
+ 	addr = kvm_s390_real_to_abs(vcpu, addr);
+ 
+-	if (kvm_is_error_gpa(vcpu->kvm, addr))
++	if (!kvm_is_gpa_in_memslot(vcpu->kvm, addr))
+ 		return kvm_s390_inject_program_int(vcpu, PGM_ADDRESSING);
+ 	/*
+ 	 * We don't expect errors on modern systems, and do not care
+diff --git a/arch/s390/kvm/sigp.c b/arch/s390/kvm/sigp.c
+index d9696b5300647..55c34cb354281 100644
+--- a/arch/s390/kvm/sigp.c
++++ b/arch/s390/kvm/sigp.c
+@@ -172,7 +172,7 @@ static int __sigp_set_prefix(struct kvm_vcpu *vcpu, struct kvm_vcpu *dst_vcpu,
+ 	 * first page, since address is 8k aligned and memory pieces are always
+ 	 * at least 1MB aligned and have at least a size of 1MB.
+ 	 */
+-	if (kvm_is_error_gpa(vcpu->kvm, irq.u.prefix.address)) {
++	if (!kvm_is_gpa_in_memslot(vcpu->kvm, irq.u.prefix.address)) {
+ 		*reg &= 0xffffffff00000000UL;
+ 		*reg |= SIGP_STATUS_INVALID_PARAMETER;
+ 		return SIGP_CC_STATUS_STORED;
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 17ff73f1b684b..0ec67217803cd 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -1772,11 +1772,11 @@ static inline hpa_t pfn_to_hpa(kvm_pfn_t pfn)
+ 	return (hpa_t)pfn << PAGE_SHIFT;
+ }
+ 
+-static inline bool kvm_is_error_gpa(struct kvm *kvm, gpa_t gpa)
++static inline bool kvm_is_gpa_in_memslot(struct kvm *kvm, gpa_t gpa)
  {
- 	VFS_WARN_ON_INODE(strlen(link) != linklen, inode);
+ 	unsigned long hva = gfn_to_hva(kvm, gpa_to_gfn(gpa));
+ 
+-	return kvm_is_error_hva(hva);
++	return !kvm_is_error_hva(hva);
+ }
+ 
+ enum kvm_stat_kind {
 -- 
 2.53.0
 
