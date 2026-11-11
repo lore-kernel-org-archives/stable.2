@@ -1,57 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794373348;
-	b=qIh9Fz/eBldipI304agH/5Bb+Vn2zJTHjCcyzTS4DtpAVY4CTD/k8T+cceSuGqBwKbN9
-	 cOZuQcPfKf98Mj5Vf4hTEfG0Wo0onVLHg/SMltb+dm4l1swrRaYGu12+GwGWIOueD+Z29
-	 aZiR4V9FTsnQNKR7oVwOJEFfEfd48CrsqK20S8MIQgja0/LvDSHWfsAyqlIYCtAuSZM94
-	 E2QSRK69ExJLZgaCszk4fhleoJJCt3QYLsC66GPLc0v0QoXBL3q7R1MJGgffj0uxThX+U
-	 diLNeZkHiUPkqv1lf9fiXOwI02SU9ft18dqzplovEpQ6G39/KJ5FsM1bs57ytTdCa4w==
+	t=1794373352;
+	b=5GJVg5PouLQO8bDtaLxIQ1zC04TuTZIja8NTvFfuegU5ekrwrxHNyByraxT8uGF9A999
+	 cpSbUVJWyrvrgXTqBAyyZEPz2rs4KLtFnh7YnlXX1NxJxEE1Tfrwuo1q8o2Tk0ASf7Fnp
+	 gATWhFT3QrHGN3V+vIYetLz83soLepn8E/C8OG2PmUctJHIuA6qeMqihrWPzfhCGE0v/q
+	 ma256Aanby8r+Vx+8uzI1F4G7ckC9QZNLjlFVis7dz44dehfd7CZ/e8IvsZDB0swxq4r/
+	 zlAxJWq3qhP09bq5dcRylFh68EfWcBst0FdcmuWI/mW1fvCrH5oiSOXd+QvHKBUZXLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794373348;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794373352;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=V1HaP1AhQlqvm2LLr5j570CPX+ScSZSFp6dR4Ky3DPM=;
-	b=skAeEUMT6M0Et+uF7zJsgTDJkGmpfdJm1wr/DCVYbXNqmzx3FSPahCSkMpQLhwH+k5Ow
-	 v3KoA3MOZYQgS/Xc1zPOG2HjweXs3PP2tJ3ZrEdvcCFJsEY/xWSpGF8hbRRaUrRQdiI7a
-	 UG5cOGGRLdYL6jxVuN8oaot52TR9ALFzhpjdHA/Tg4dJYfb5Y6h/KxQL03UpwmP3M8qST
-	 kQ/9MMp5YW6K1adjTkp7gtFzzkfS23vv2QO6RpPQvFcE0U/WFQLfm8dYF3OcS0tqaNn3i
-	 /4vM8ayLG6yrMm3Z6cifGaJDTKLi5QZlfdBxPZsKfoXGyleQfjm/Wmtu7tNqM6jvmYQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=xAN0+OX6Km5v6TVnSWZRB4+appvexYeDMiCzj+pXBgA=;
+	b=XYqt/EGLSUDrgv7KNDfoeFFtEaS30LTd+mZ+Oz3R0ubKmjBwBjFQ3QTQhlBQh6HPrDNd
+	 PkRnwWYYzgjG6iRN/90K3clF3s3MnvYON9Kids4+DJIL9aw8PAdZG0MeUpRSpiYtrUpRY
+	 Emybu4SWBPB+rYvwr8z0Nxw4l+01UHlqkjtDrLrwWYLYVpTtcW6eIIklHllFMEXElax8O
+	 YN+vOiM+5hCZwxUj3uoP3nRpcFnblHi9TUXBlzigJz7w3s4GLMV5affMW1XNcW4LM8mz+
+	 9fhC3VE5MABUJ0ZmcpzNPgAxbyww9HFMNhjxm1yF/9f1H4S7+whYDIR5YFqEg6sZDEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I0vd0/uf";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDBHmqKB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223E4606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:02:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500B7606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:02:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I0vd0/uf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A54D1F0089F;
-	Wed, 11 Nov 2026 05:02:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDBHmqKB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 069FA1F0089F;
+	Wed, 11 Nov 2026 05:02:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794373347;
-	bh=V1HaP1AhQlqvm2LLr5j570CPX+ScSZSFp6dR4Ky3DPM=;
+	s=k20260515; t=1794373351;
+	bh=xAN0+OX6Km5v6TVnSWZRB4+appvexYeDMiCzj+pXBgA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I0vd0/ufP5ykyjZ+C1+yj9LQF7vURIi4bKy5hwDt9NG7SD5NU5wAaqDYrGHIeD4b0
-	 LuyqVDqmBvUrMmgANdrU2mHLipxmOPfq9f0PK/qGZbizi4gPy08yQhMhkj/srHUBV3
-	 nDzZkAZYouRZmUxaaQHGLFRz/FsXatUrJC/vjjPFs/wU6+IJJf1E+l3T8zoa8QJOo+
-	 jOL7DzlO8iV13yCJf2E4trMhwYCk5kV+4azo8x4U5P5aMsAt2QgedhR4Mpjs9DvxIk
-	 ywnP9bCKLOKyrPe6N4AXNO+QJhqqHuzh2/2n6Jo7HbWb0df9iuBGKoNcRuNYhn08Zx
-	 cbaqdGral33iQ==
+	b=VDBHmqKBOFiDi4tHfj0yo51hO7aoSZ1UtDqazqRJQk3ryDfDlKFp/77FJfgycTIbf
+	 QAc4fTyEagC30Puds7yHeSlL8EEjevTRbcKwOW3Mo7Rkl/6hOJDfzUn7PA3M5eziMO
+	 cwqpjRuM5iRzj/GXOGz85gbTUgk6ZITRv2uEyfIiBNyBkghHRmNfqfmc99oEcQ7S0j
+	 xhEczqF25vmUs/at3QgK+gjGWmpMC4aznA/6jKnq3p+2h8aW4yWhNcoeHKOCf9qu0t
+	 JNcFIiM14h5i3RFwvbRfS2e52lVaIqJDJaBqSLvQWlxUFDkc6y9hS94eY6n22k8XWs
+	 3cvTIr7hKRe2Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
+Cc: Qi Xi <xiqi2@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Nanyong Sun <sunnanyong@huawei.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ceph: fix 32-bit overflow in readdir reply count check
-Date: Wed, 11 Nov 2026 00:02:25 -0500
-Message-ID: <20261111050205.1216786-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/page_isolation: fix UBSAN shift-out-of-bounds warning
+Date: Wed, 11 Nov 2026 00:02:28 -0500
+Message-ID: <20261111050201.1215761-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061210-failed-5.15-52913831ba56@kernel.org>
-References: <20261107061210-failed-5.15-52913831ba56@kernel.org>
+In-Reply-To: <20261107054448-failed-6.1-eba0e6297edd@kernel.org>
+References: <20261107054448-failed-6.1-eba0e6297edd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,51 +67,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+From: Qi Xi <xiqi2@huawei.com>
 
-[ Upstream commit 52913831ba56efceaafd80b501d68fa00f79bde6 ]
+[ Upstream commit eba0e6297edd60a85bc96ff5cfb734d066af62dd ]
 
-parse_reply_info_readdir() checks how many entries are in a readdir
-reply by computing the end pointer of the decoded array. That pointer
-addition can wrap on 32-bit kernels and let an oversized count pass the
-check. For example, a count of 0x40000000 with 156-byte entries wraps
-to a zero offset, so the decoder can write past the preallocated buffer.
+Patch series "mm/page_isolation: fix UBSAN shift-out-of-bounds in
+isolate_single_pageblock", v3.
 
-Check the count against the number of entries that fit in the allocation
-before publishing dir_nr. Reject oversized replies through the existing
-error path.
+Patch 1 fixes a UBSAN shift-out-of-bounds warning in the PageBuddy branch
+of isolate_single_pageblock() triggered by concurrent buddy allocation.
 
-Cc: stable@vger.kernel.org
-Fixes: 54008399dc0c ("ceph: preallocate buffer for readdir reply")
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ sashal: adjusted error-path context to match pr_err() without WARN_ON(1) ]
+Patch 2 addresses the same class of issue in the PageCompound branch,
+where racy compound_order() and compound_head() reads could lead to
+out-of-range shifts or incorrect page skipping.
+
+This patch (of 2):
+
+A contig-range allocation racing with buddy allocation on the adjacent
+pageblock can trigger:
+
+ UBSAN: shift-out-of-bounds in mm/page_isolation.c:393:15
+ shift exponent -749042176 is negative
+ Call trace:
+  isolate_single_pageblock
+  start_isolate_page_range
+  alloc_contig_frozen_range_noprof
+  alloc_contig_range_noprof
+
+isolate_single_pageblock() first calls set_migratetype_isolate() with
+zone->lock held, which marks the pageblock MIGRATE_ISOLATE and moves any
+free page straddling the boundary out of the way.  Once the lock is
+dropped, it scans the MAX_ORDER_NR_PAGES-aligned window [start_pfn,
+boundary_pfn) locklessly, only to skip the free pages already handled
+above and to detect in-use pages straddling the boundary.  Since this
+scan only reads page state to decide how far to skip and returns -EBUSY
+on a straddling in-use page, it does not take the lock.
+
+The window also covers the adjacent pageblock, whose free pages stay on
+the normal movable/CMA freelist and can be allocated concurrently.  So
+after the scan observes PageBuddy(page), another CPU can allocate the
+page, leaving a stale value in page->private that makes "1 << order" shift
+out of range.
+
+Use buddy_order_unsafe() with READ_ONCE to read the order, and validate
+it is within MAX_PAGE_ORDER before shifting to prevent UBSAN warnings.
+
+Since pageblock_isolate_and_move_free_pages() already handles free pages
+straddling boundary_pfn under zone->lock, bail out with -EBUSY instead
+of VM_WARN_ON_ONCE() when a PageBuddy page appears to cross the boundary
+during the lockless scan.
+
+Link: https://lore.kernel.org/20260825120549.966271-2-xiqi2@huawei.com
+Fixes: b2c9e2fbba32 ("mm: make alloc_contig_range work at pageblock granularity")
+Signed-off-by: Qi Xi <xiqi2@huawei.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Nanyong Sun <sunnanyong@huawei.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: <stable@vger.kernel.org>
+[ sashal: adapted the order check to use MAX_ORDER while preserving existing boundary-split handling ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/mds_client.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ mm/page_isolation.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index d1bac25eb3e72..e5040a67a14f7 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -363,10 +363,8 @@ static int parse_reply_info_readdir(void **p, void *end,
- 		goto done;
+diff --git a/mm/page_isolation.c b/mm/page_isolation.c
+index 47fbc1696466f..bf098a6d863c0 100644
+--- a/mm/page_isolation.c
++++ b/mm/page_isolation.c
+@@ -372,7 +372,11 @@ static int isolate_single_pageblock(unsigned long boundary_pfn, int flags,
+ 		 * always be in the range.
+ 		 */
+ 		if (PageBuddy(page)) {
+-			int order = buddy_order(page);
++			unsigned int order = buddy_order_unsafe(page);
++
++			/* buddy_order_unsafe() is racy. Validate the order before shifting. */
++			if (order > MAX_ORDER)
++				goto failed;
  
- 	BUG_ON(!info->dir_entries);
--	if ((unsigned long)(info->dir_entries + num) >
--	    (unsigned long)info->dir_entries + info->dir_buf_size) {
-+	if (num > info->dir_buf_size / sizeof(*info->dir_entries)) {
- 		pr_err("dir contents are larger than expected\n");
--		WARN_ON(1);
- 		goto bad;
- 	}
- 
+ 			if (pfn + (1UL << order) > boundary_pfn) {
+ 				/* free page changed before split, check it again */
 -- 
 2.53.0
 
