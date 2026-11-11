@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794369883;
-	b=di1ElsrtrBfV1HutWLDvXLU5mOfxMjU4/uvgqsKybBF23ofSkVd1icR4YCP/QPHGT76v
-	 q2cphrHxPiyKd4N5T0L71CSm0pFBxqKKAEOSEEv3jtn49NzKdrnB60RV9kGZQtcv4gKKN
-	 8CjOsqy0XYWY6z8LBif6GDCCwMGONxh4Hx7EZBFI+W3wwEyvL75CcMsfaS1HQdTEBNsJQ
-	 nWrKqoNe9KvPc90UBGXEeCAsRm1jqaepI52ihsnP9uPtrjMuLTLQJ6wvbv1GLaqr0iK8Q
-	 I0HZbe4+Qdqh1MfSNSvartQESvgm0Nsh/lEohkd+Q6kBanX4QWyWBGxSS7KiyY2jvrg==
+	t=1794370116;
+	b=PtmZKGSAA+S5NLAREe8nvGX76vM+dKdPfxvqcLOfaW8fkhp3QMX1NmC9sNBMBtUW/x2W
+	 phAq8Vn0G34w+VLu8tLt3FktowdTOR3tF/wPIX8JgweOtYQ1HiAGNlZX6TpqbLL+O1tZY
+	 zPfhby9GZmkBrFcMFPs3Lal2h0Emba7+2oCqErJaNNi3P5Kp4qfDXRtrJyC8AUWZw8wH5
+	 h8mPV37qTChiLOQ9iZw+XyvSNvIbH3CZD1KZnrY2Z342fkTHgaOztrZ2z575MNd8ePWeU
+	 4//bdKNmw+T8noqENRyf7KGIXJUIpEzQAgWQQF+H3kGxcES9RtbUCsAvJAqcMW5cDpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794369883;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370116;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PJ5urPgP/AJ0cI6q7APEyXHY5fcxEsUH4tMgRiK/Tbg=;
-	b=af/qioWyhWCvw63ftG9crxKlWDJnaDIFLbyAEqwGFAuKRUZi193/oq2bMjUX023X6kEU
-	 URuPjdmf603sZ9vNMqIjYN4gqknuRAdLqUZ8P5s/GW7JnGdwwi3xzP2jU1EQo/1bpfbWW
-	 sza46uL1MwQoASMJkSKouXmFmWqWWo5M1YdyM6WDdDsAtPebD7cqHBHgohJLc/7nP6Ta0
-	 6wB3Rw5LpkWa85C96Of0Y5l65y0x07Dvacn6sMCpW6aVrABjBu4bvo4uAuAg0unWBkSPS
-	 o6jwAdf2mZ/RdAZXj0n59Y9qCWiGZ6OUZVXg+fKVByydFZv1ItqBLkIFgvdQvIJxZig==
+	bh=y8BiM6X6WwYkxpoyilAb9oshK8+64NwBF72dcUdEkVY=;
+	b=I5DpMQ1i7KJ6ARH/tStht0Ve/mOr50EDPHIzIeuHP6nSeekClt8+HNU0a/qyikrIRe9h
+	 6cdd3WOfoDnKPIQMlokJivFgt4lbvqHx9Y+4GnP6W4ky4XY7TTQaNdFom5UZjcrzumvti
+	 w3sAtWqfbq+nHFal4oiXKvLjTOmRFyHomzeszSI8HXppSoemwHS6MllSfYDQiM95KPXxL
+	 FtMI+KF3Y0iymOu23eKGeiWR9TImmkZ0JilY0j6qA/NXzoFTzh0JbmaNlG2HSIWunAJie
+	 ARUS0voyL18cnIyQBbyaplO2IutxobHbaLxY214cudM+NeqjOlk+Ah2fjYVzZgpwi9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0Aex57O;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JacC91a/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD69C606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:04:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0BD606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:08:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0Aex57O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1AFD1F00A00;
-	Wed, 11 Nov 2026 04:04:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JacC91a/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBCF01F0089F;
+	Wed, 11 Nov 2026 04:08:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794369883;
-	bh=PJ5urPgP/AJ0cI6q7APEyXHY5fcxEsUH4tMgRiK/Tbg=;
+	s=k20260515; t=1794370116;
+	bh=y8BiM6X6WwYkxpoyilAb9oshK8+64NwBF72dcUdEkVY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H0Aex57Oq8moN4tynpEqDR01ThKrx9gPpfTAUgw6qHKxKp0JjEAITIOfzStyX8JkJ
-	 1bF3uMvQynInlfcUB6o11reAcAwtlYUKODWnnunyozjlyuhJ3kUfSf5lqzH/8bzhGk
-	 jV0H19MHrq7W7Kzm+1fdd6qn2aHm/u5obAOE2bZ8+2KPjbHU2WLaOTCkH4+3ho8FdU
-	 7QefF4EwTaJCoRvXutp10OYl0VpQM/a+18TrEnd4C0kzhndR61ieJ215WWb7ITTnoG
-	 90ehmHb6XeCsNr4t54kzqd2eGpl2cONdX7kX1Q3QCe9EL0Yt7ZvlcLOLF38uCvpl/d
-	 sIhr7weaodweQ==
+	b=JacC91a/ASb2On33HnvI7IJ4TkIaQXBmmZhwBBM9KYMd5uahH8XtW0ruFQMEXH7xr
+	 W/JLKwBPsDxSjKOG2l3+KXKBtzHhZQkcAJAkiqdD8+rKaYDrBYFBBVfKQrNmGiWIzL
+	 f+VuRkZvZvHnWBnRLWBvJVn7LTXzqzZ1TV5WZM8cqrxns+rmiO5c8ta2ncIxH0qg5+
+	 FeRvXsFD31sLJhng842T2PMhvNBryU9Nvv8oit7tLKdyPib75tlHCC9+Ng48UdZ3lC
+	 s1tixrV9Itcv7Nso1IVppKiu7TmN9iwy9cW45V+XDdvg1l7F4+v9biyOMMHryJYHhD
+	 yh3WbLofJDFJg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
-	Jan Kara <jack@suse.cz>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Hongfu Li <lihongfu@kylinos.cn>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Hugh Dickins <hughd@google.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] fs: rotate inodes whose page cache could not be dropped
-Date: Tue, 10 Nov 2026 23:04:41 -0500
-Message-ID: <20261111040218.874998-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/memfd: fix hugetlb reservation accounting in error paths
+Date: Tue, 10 Nov 2026 23:08:33 -0500
+Message-ID: <20261111040811.1048431-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061029-failed-5.15-8ee09f597763@kernel.org>
-References: <20261107061029-failed-5.15-8ee09f597763@kernel.org>
+In-Reply-To: <20261107051417-failed-6.18-50ee565c1e90@kernel.org>
+References: <20261107051417-failed-6.18-50ee565c1e90@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,78 +67,128 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nikolaos Karaolidis <nick@karaolidis.com>
+From: Hongfu Li <lihongfu@kylinos.cn>
 
-[ Upstream commit 8ee09f597763acfd31c62a578ba88b792fc41b24 ]
+[ Upstream commit 50ee565c1e900e247e439e4139839b060c968343 ]
 
-When inode_lru_isolate() drops the page cache of an unused inode, it
-has to unlock the list, so it returns LRU_RETRY and the walk restarts
-at the head of the list, where the inode still is. If
-invalidate_mapping_pages() could not empty the mapping, the restarted
-walk strips the same inode again, and so on until nr_to_walk runs out.
-Every walk of that list then ends on this inode, and nothing behind it
-is reclaimed for as long as its cache stays.
+If hugetlb_add_to_page_cache() in memfd_alloc_folio() fails with -EEXIST,
+a concurrent fault has already instantiated the folio in the page cache,
+and the reservation now belongs to that folio.  Calling
+hugetlb_unreserve_pages() in that case incorrectly removes the region
+backing the cached folio and releases one reservation more than it should,
+leaving that folio in the page cache with no region recording it.
 
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
-traversing context") the walker pinned the inode with a reference, and
-dropping it in iput_final() set I_REFERENCED, so the restarted walk
-rotated the inode to the tail. Set I_REFERENCED again when the mapping
-is still populated after the invalidation, in the same i_lock section
-that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
-i_lock to be held, like inode_pin_lru_isolating().
+That leaves resv_huge_pages one page short until that folio is removed
+from the page cache, so available_huge_pages() reports a page that is not
+actually free and the pool can grant one reservation more than it can
+back.  Applications using hugetlb memfds can then fail to allocate or
+fault in a page they already reserved.  They see -ENOMEM or -ENOSPC from
+the allocation or fault path even though the reservation and
+HugePages_Free still look healthy.
 
-On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
-is left behind if it is locked, under writeback, spliced into a pipe,
-or still in another CPU's LRU-add batch after being read. Without
-HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
-mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
-never removes.
+So hold the hugetlb fault mutex from hugetlb_reserve_pages() until the
+error-path unreserve completes to make the reserve, allocate and
+instantiate steps atomic against concurrent faults.  With the mutex held
+from the start, a concurrent fault can no longer consume the reservation
+between reserve and allocate/instantiate.  If a fault completed before the
+mutex was taken, it has already added the region for that index, so
+hugetlb_reserve_pages() returns 0 and the error path leaves the region in
+place.
 
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
-Link: https://patch.msgid.link/20261016102515.111285-1-nick@karaolidis.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: replaced inode_state_set() with a direct inode->i_state bit update ]
+Link: https://lore.kernel.org/20260927094757.31665-1-hongfu.li@linux.dev
+Link: https://lore.kernel.org/20260903030134.7407-1-hongfu.li@linux.dev
+Fixes: 717cf9357325 ("mm/memfd: reserve hugetlb folios before allocation")
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: Used 0 instead of EMPTY_VMA_FLAGS in hugetlb_reserve_pages() to match the vm_flags_t API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/inode.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ mm/memfd.c | 31 ++++++++++++++++---------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index bfeec2830fb0d..2e03403ed50c0 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -490,12 +490,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
+diff --git a/mm/memfd.c b/mm/memfd.c
+index aa3c948e55738..d09157cd486a2 100644
+--- a/mm/memfd.c
++++ b/mm/memfd.c
+@@ -82,22 +82,31 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 		struct hstate *h = hstate_file(memfd);
+ 		int err = -ENOMEM;
+ 		long nr_resv;
++		u32 hash;
  
- static void inode_unpin_lru_isolating(struct inode *inode)
- {
--	spin_lock(&inode->i_lock);
-+	lockdep_assert_held(&inode->i_lock);
- 	WARN_ON(!(inode->i_state & I_LRU_ISOLATING));
- 	inode->i_state &= ~I_LRU_ISOLATING;
- 	smp_mb();
- 	wake_up_bit(&inode->i_state, __I_LRU_ISOLATING);
--	spin_unlock(&inode->i_lock);
- }
+ 		gfp_mask = htlb_alloc_mask(h);
+ 		gfp_mask &= ~(__GFP_HIGHMEM | __GFP_MOVABLE);
+ 		idx >>= huge_page_order(h);
  
- static void inode_wait_for_lru_isolating(struct inode *inode)
-@@ -846,7 +845,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 			if (current->reclaim_state)
- 				current->reclaim_state->reclaimed_slab += reap;
- 		}
++		/*
++		 * Serialize hugepage allocation and instantiation to prevent
++		 * races with concurrent allocations, as required by all other
++		 * callers of hugetlb_add_to_page_cache().
++		 */
++		hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
++		mutex_lock(&hugetlb_fault_mutex_table[hash]);
 +
-+		spin_lock(&inode->i_lock);
-+		/* The walk restarts here: don't retry leftovers right away */
-+		if (!mapping_empty(&inode->i_data))
-+			inode->i_state |= I_REFERENCED;
- 		inode_unpin_lru_isolating(inode);
-+		spin_unlock(&inode->i_lock);
- 		spin_lock(lru_lock);
- 		return LRU_RETRY;
+ 		nr_resv = hugetlb_reserve_pages(inode, idx, idx + 1, NULL, 0);
+-		if (nr_resv < 0)
+-			return ERR_PTR(nr_resv);
++		if (nr_resv < 0) {
++			err = nr_resv;
++			goto out_unlock;
++		}
+ 
+ 		folio = alloc_hugetlb_folio_reserve(h,
+ 						    numa_node_id(),
+ 						    NULL,
+ 						    gfp_mask);
+ 		if (folio) {
+-			u32 hash;
+-
+ 			/*
+ 			 * Zero the folio to prevent information leaks to userspace.
+ 			 * Use folio_zero_user() which is optimized for huge/gigantic
+@@ -112,20 +121,9 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 			 */
+ 			__folio_mark_uptodate(folio);
+ 
+-			/*
+-			 * Serialize hugepage allocation and instantiation to prevent
+-			 * races with concurrent allocations, as required by all other
+-			 * callers of hugetlb_add_to_page_cache().
+-			 */
+-			hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
+-			mutex_lock(&hugetlb_fault_mutex_table[hash]);
+-
+ 			err = hugetlb_add_to_page_cache(folio,
+ 							memfd->f_mapping,
+ 							idx);
+-
+-			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+-
+ 			if (err) {
+ 				folio_put(folio);
+ 				goto err_unresv;
+@@ -133,11 +131,14 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+ 
+ 			hugetlb_set_folio_subpool(folio, subpool_inode(inode));
+ 			folio_unlock(folio);
++			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+ 			return folio;
+ 		}
+ err_unresv:
+ 		if (nr_resv > 0)
+ 			hugetlb_unreserve_pages(inode, idx, idx + 1, 0);
++out_unlock:
++		mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+ 		return ERR_PTR(err);
  	}
+ #endif
 -- 
 2.53.0
 
