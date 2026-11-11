@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417262;
-	b=Fbe+Wpc6fRp5uwiLh2gIaAX9Ax++m3KiLVEvZcuuda7G38IKRRha76J66zhCeJKdveOW
-	 MSO+toQvm6nw0WplnaTGoWYTrC1HjDHJKausTG8jCpLxo6YFQQJJaxoH8R5JZD2klAv9V
-	 gs4GLUW2lvZHDrf5R/bEl/NMX2NaKGBEfwZztisN/Y3yIgBkccbSM8XXrZWDCjRobu5em
-	 h+psj+cDQPLjx4FbO/+y2t9mOXT+8W7/iXHuqwGWugzb9fbHSzvMoWrZExAU5YhzrMEIb
-	 zOqBIv6r2YZ5WNV/gC6jXSkjvCHM0K9ZthfNOPiezS7R8vhPw+YtuTlA6BwK3gHIpxA==
+	t=1794417326;
+	b=p3WX01hCqr9BPuRVftl7WEzXzUub3owGygjzgG6zynrWjrWby33S+bCbNmktPwtLrIs/
+	 LjU3hY79D2teEeQpv1IrqLaOQl/d1RwojLFtwyN5vaOGrSPZArhiSuFXa5RN//DdYYNM/
+	 OWFXmL3m5t15+4Re653Hgz3n8+fbRzpUHWqqBuDPhZRhoBC3/fjQGXJDEWZer1NMhTr/o
+	 8ZoHQVmYq5Ii4ZHiZvdo7PRW6wzj7L3JGU6akMEGnfdZxTu9g6DnuGNScNjVYZ2SYH366
+	 HCqLzkAjrAfz5r6nqtYCdsuQRtzytlrj0TTrpPgymKSq6fmGwqK11ZQT6cs8NVHFdMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417262;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=K0OUanBq+hsQdFZ3wody+MoiBGNzg1aTJa0o6x23ajI=;
-	b=aeHAJpaxUfBNdPPN/care1Yh7kekQ4tK3GfJpdznes4XTfi/U+whcSqxIgglNmPtoJtC
-	 ZpOc1ESMuT0OwQL9f0p3OVGLqMgwDf4OlrHVegoKNkPOJjlOy81urxqMHAXxaO2Rfh/vu
-	 jtQm3mTyPe2+hTxBPkvhclQOpV9iapJ31xQJPvxQSucfWQ/SeGtQLsvtOstoxJ/kwpnSJ
-	 iEv7TYTAHrGqOUqchObyHlQzCFZ47ZYK9mSKty++PLUu5o08bEWmS0r6xD/36O6mBx2R8
-	 zV82Dl6bhHU2Brz64a4BLuZfriT5U6T/hwpAB0ju0MVFMEGIrS3RvbrRkGHpPxMaiDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417326;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=2lUSFNEjtBfPhpowv17HW8EBYZ6h2AiKeyXgI2zj178=;
+	b=SV4faoL8G60RUuDQVDF5OtY7VV4Uw7dbiasyck6rNpRPTpwjR7A7p7L9cHf9vV3ZC4yp
+	 MgHaBXwFgLw/pCqa8nWC0zBsBJ+B5VXbnHFkdpdkpEJODCqT2I1NG0/+1BiTPibsg1wQh
+	 5rRzxsgeQuonFmBaqJNqX7S0ZdsiC7Jxc90GKVE0jUhYEpda72P4tDblbbctGXqdJOU62
+	 81jWupa2RS3LaZ9H82SJUQBMptPQBK/oDGntA1TD/K8gJkIxnRzkiPTjILIajoA4HVeZt
+	 VcWxVZuU7+O0YXy0Mw7JsFdIBdka6Mzd+lCR4OWSw/4cMvVs8+cpAV8m1pyunIP7Kkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nH1JAGr6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Su2jrUOB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962D8606A31C;
-	Wed, 11 Nov 2026 17:14:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEA4606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nH1JAGr6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8601F00A06;
-	Wed, 11 Nov 2026 17:14:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Su2jrUOB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED031F00A07;
+	Wed, 11 Nov 2026 17:15:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417262;
-	bh=K0OUanBq+hsQdFZ3wody+MoiBGNzg1aTJa0o6x23ajI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nH1JAGr6uuk6lIu20lPUVYJov5jYScxDWYtnf7zo9eE3S2TnUVpVQc2m7yUa9zfRW
-	 toANGDI6xl6733KtFkVbHEqWbuyJzbY8FVIdr3APnt6AqZcoqumlBXYSbKLkLYsw1P
-	 CcMY1JzUpgP5zijw5iCX/+gsy0GKFE/qnGbbYgQ5iSxmndJ8ps+6ycBHs2TmDMIYv5
-	 gLIYpwVCm6ILFKaWWFIjA6PoPkdaqPQjl2mzofBUh7kJm3VAO0tgR612U8Ay3yVipF
-	 wDdoLOZA7LjMOmLJat3dWTiee8OaQrSsgKNBbHxkDHIO5fEKA9x5Ljbm6SdWSUDJ0f
-	 BA19bUmhcxmmQ==
-Date: Wed, 11 Nov 2026 17:14:18 +0000
-From: Simon Horman <horms@kernel.org>
-To: Yaohan Li <shunsheng1218@gmail.com>
-Cc: netdev@vger.kernel.org, david@ixit.cz, davem@davemloft.net,
-	kuba@kernel.org, edumazet@kernel.org, pabeni@redhat.com,
-	oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] nfc: rawsock: serialize SEND_SHUTDOWN with the TX
- work requeue
-Message-ID: <20261111171418.GG18859@horms.kernel.org>
-References: <20261105113812.969651-1-shunsheng1218@gmail.com>
+	s=k20260515; t=1794417325;
+	bh=2lUSFNEjtBfPhpowv17HW8EBYZ6h2AiKeyXgI2zj178=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Su2jrUOBgfv40cj8sA5L1hK0rzhQuERng0Nvl+fixpzmnHwGLwRAnfmrNQUXiz2Jr
+	 56Zyyrymm1XXc9yAVfDhfFCikpSJDzry5N5/4Fg3tBpdllUdecfubv64WclrvFwc8t
+	 ft3tLeYragstnBe5t+Lx6IZeQuJLmmZvk64Va5C7Kpqp9xfinh60OMV/jrZ25OPrPG
+	 0Hb1P+44nHlLrtbstV7DzcPlGfXqIDsw8fY/TkOkreolkeFfAzvmsui4asJ2v57kLC
+	 MTkDElVnSSXMwda8GCZ1Kl7CXI6xoJpaPV4GHsh+Ppzf7IcHw8HQwJxKEKH2kZno/h
+	 hJpiNQEQ/QjFw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Stefan Teodorescu <fane@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: nSVM: Check validity of vmcs01 save area copied from SMRAM on RSM
+Date: Wed, 11 Nov 2026 12:15:23 -0500
+Message-ID: <20261111171501.3469260-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200346-failed-6.18-053621535f01@kernel.org>
+References: <20261109200346-failed-6.18-053621535f01@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,108 +61,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105113812.969651-1-shunsheng1218@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 07:38:12PM +0800, Yaohan Li wrote:
-> rawsock_release() sets SEND_SHUTDOWN before cancelling tx_work, but it
-> updated the shutdown flag without the write-queue lock that
-> rawsock_data_exchange_complete() holds while it tests the flag and
-> re-queues tx_work.  A deferred completion could pass that check before
-> the flag was set and still schedule the work after cancel_work_sync()
-> had returned; the worker then ran on a socket that was freed right
-> after release dropped its reference.  KASAN reports the
-> slab-use-after-free in rawsock_tx_work().
-> 
-> Set SEND_SHUTDOWN under the write-queue lock, so the completion either
-> queues the work before the flag becomes visible (and cancel_work_sync()
-> then covers it) or observes the flag and does not queue.  The
-> completion-side check from the previous submission is kept.
-> 
-> The remaining requeue window after the cancel-based teardown was
-> previously raised in review of that change (CVE-2026-23372): an
-> asynchronous NFC completion can queue tx_work after
-> cancel_work_sync() has returned.  This change closes that window and
-> does not claim to be the first report of a rawsock teardown
-> use-after-free.
-> 
-> This issue was found during an AI-assisted source review of the socket
-> release, TX work and deferred data-exchange completion paths.  It was
-> reproduced on a KASAN kernel with a deterministic timing-injection
-> harness for a deferred NFC completion callback: with only the
-> completion-side check, stalling the completion between its shutdown
-> check and schedule_work() while release ran produced seven
-> slab-use-after-free reports in rawsock_tx_work(); with this change the
-> same sequence and the original purge-window injection produce no
-> reports.  The tests run in QEMU with a virtual NFC device; no NFC
-> hardware is involved.
-> 
-> Link: https://lists.openwall.net/netdev/2026/03/24/271
-> Fixes: d793458c45df ("nfc: rawsock: cancel tx_work before socket teardown")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
-> ---
-> 
-> v2:
-> - Set SEND_SHUTDOWN under the write-queue lock, so a completion that
->   tested the flag before it was visible can no longer requeue tx_work
->   after cancel_work_sync() returned (v1 only added the completion-side
->   check, which left this ordering window open).
-> - Added deterministic A/B testing of that window: stalling the
->   completion between its shutdown check and schedule_work() while
->   release runs reproduces the use-after-free on the v1 code and is
->   clean with this change.
-> - Corrected the Fixes tag to the cancel-based teardown commit and
->   linked the earlier review thread for the remaining window.
-> 
-> v1: https://lore.kernel.org/r/179378590950.74297.14503648624087894519@gmail.com/
+From: Sean Christopherson <seanjc@google.com>
 
-Thanks for the updates.
+[ Upstream commit 053621535f014085c935879582dd3b65964a0dce ]
 
->  net/nfc/rawsock.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/nfc/rawsock.c b/net/nfc/rawsock.c
-> index f7d7a599fade7..dd8401e3402d3 100644
-> --- a/net/nfc/rawsock.c
-> +++ b/net/nfc/rawsock.c
-> @@ -68,12 +68,23 @@ static int rawsock_release(struct socket *sock)
->  		nfc_sock_unlink(&raw_sk_list, sk);
->  
->  	if (sk->sk_state == TCP_ESTABLISHED) {
-> -		/* Prevent rawsock_tx_work from starting new transmits and
-> +		/*
-> +		 * Prevent rawsock_tx_work from starting new transmits and
+When doing RSM to L2, validate L1's state after copying it back into vmcb01
+from SMRAM, as SMRAM is carved out of guest memory, i.e. is writable by the
+guest.  Failure to validate L1's state is especially problematic for inputs
+to MMU context, as KVM can end up with impossible CR4 vs. EFER state.  E.g.
+without the recent hardening FNAME(walk_addr_generic), a guest can trigger:
 
-I don't think there is a need to respin just because of it.
-But if there is a v3 for some other reason then I think the change
-above can be dropped. Perhaps tooling flaged the existing style,
-but it is acceptable for Networking code. And, for many years
-it was required.
+  ------------[ cut here ]------------
+  UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu/paging_tmpl.h:435:15
+  index 3 is out of range for type 'u32 [2]'
+  CPU: 3 UID: 0 PID: 92 Comm: CPU 1/KVM Not tainted 7.3.0-rc1 #2 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5f/0x90
+   dump_stack+0x10/0x18
+   ubsan_epilogue+0x9/0x39
+   __ubsan_handle_out_of_bounds.cold+0x50/0x55
+   paging32_walk_addr_generic+0x889/0x970
+   paging32_page_fault+0x79/0xa60
+   kvm_mmu_do_page_fault+0x125/0x270
+   kvm_mmu_page_fault+0x88/0x7b0
+   npf_interception+0xc8/0x220 [kvm_amd]
+   svm_invoke_exit_handler+0x16d/0x1d0 [kvm_amd]
+   svm_handle_exit+0xb7/0x160 [kvm_amd]
+   vcpu_enter_guest+0x428/0x16a0
+   kvm_arch_vcpu_ioctl_run+0x479/0x920
+   kvm_vcpu_ioctl+0x316/0xb00
+   __x64_sys_ioctl+0xa3/0x100
+   x64_sys_call+0x281/0x23d0
+   do_syscall_64+0xba/0x550
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+  RIP: 0033:0x79bb30deb04b
+   </TASK>
+  ---[ end trace ]---
 
->  		 * wait for any in-progress work to finish.  This must happen
->  		 * before the socket is orphaned to avoid a race where
->  		 * rawsock_tx_work runs after the NCI device has been freed.
-> +		 *
-> +		 * Set SEND_SHUTDOWN under the write-queue lock so it is
-> +		 * ordered against rawsock_data_exchange_complete(), which
-> +		 * tests the flag and re-queues tx_work under the same lock:
-> +		 * either the completion queued the work before we take the
-> +		 * lock (cancel_work_sync() below then covers it), or it
-> +		 * sees SEND_SHUTDOWN and does not queue.
->  		 */
-> +		spin_lock_bh(&sk->sk_write_queue.lock);
->  		sk->sk_shutdown |= SEND_SHUTDOWN;
-> +		spin_unlock_bh(&sk->sk_write_queue.lock);
-> +
->  		cancel_work_sync(&nfc_rawsock(sk)->tx_work);
->  		rawsock_write_queue_purge(sk);
->  	}
+Fixes: 37be407b2ce8 ("KVM: nSVM: Fix L1 state corruption upon return from SMM")
+Cc: stable@vger.kernel.org
+Reported-by: Bill Wendling <morbo@google.com>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Tested-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20261022021046.295001-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ sashal: adapted nested-state validation to existing helper APIs and explicit mapping cleanup via unmap_save. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/kvm/svm/nested.c | 23 ++++++++++++++++-------
+ arch/x86/kvm/svm/svm.c    |  2 ++
+ arch/x86/kvm/svm/svm.h    |  2 ++
+ 3 files changed, 20 insertions(+), 7 deletions(-)
 
-...
-
-Overall this looks good to me.
-
-Reviewed-by: Simon Horman <horms@kernel.org>
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 49cc457a4c370..feb39e0e1be8b 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1732,6 +1732,21 @@ static void nested_copy_vmcb_cache_to_control(struct vmcb_control_area *dst,
+ 	/* 'clean' and 'hv_enlightenments' are not changed by KVM */
+ }
+ 
++bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
++				  struct vmcb_save_area *save)
++{
++	struct vmcb_save_area_cached save_cached;
++
++	if (!(save->cr0 & X86_CR0_PG) ||
++	    !(save->cr0 & X86_CR0_PE) ||
++	    (save->rflags & X86_EFLAGS_VM) ||
++	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)))
++		return false;
++
++	__nested_copy_vmcb_save_to_cache(&save_cached, save);
++	return __nested_vmcb_check_save(vcpu, &save_cached);
++}
++
+ static int svm_get_nested_state(struct kvm_vcpu *vcpu,
+ 				struct kvm_nested_state __user *user_kvm_nested_state,
+ 				u32 user_data_size)
+@@ -1808,7 +1823,6 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 		&user_kvm_nested_state->data.svm[0];
+ 	struct vmcb_control_area *ctl;
+ 	struct vmcb_save_area *save;
+-	struct vmcb_save_area_cached save_cached;
+ 	struct vmcb_ctrl_area_cached ctl_cached;
+ 	unsigned long cr0;
+ 	int ret;
+@@ -1876,12 +1890,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 	 * Validate host state saved from before VMRUN (see
+ 	 * nested_svm_check_permissions).
+ 	 */
+-	__nested_copy_vmcb_save_to_cache(&save_cached, save);
+-	if (!(save->cr0 & X86_CR0_PG) ||
+-	    !(save->cr0 & X86_CR0_PE) ||
+-	    (save->rflags & X86_EFLAGS_VM) ||
+-	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
+-	    !__nested_vmcb_check_save(vcpu, &save_cached))
++	if (!nested_svm_check_vmcb01_save(vcpu, save))
+ 		goto out_free;
+ 
+ 
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 16022d518ff3f..518cb53b6c448 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -4891,6 +4891,8 @@ static int svm_leave_smm(struct kvm_vcpu *vcpu, const union kvm_smram *smram)
+ 	 */
+ 
+ 	svm_copy_vmrun_state(&svm->vmcb01.ptr->save, map_save.hva + 0x400);
++	if (!nested_svm_check_vmcb01_save(vcpu, &svm->vmcb01.ptr->save))
++		goto unmap_save;
+ 
+ 	/*
+ 	 * Enter the nested guest now
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index f8ea26ba71423..367529a7482c6 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -797,6 +797,8 @@ void nested_copy_vmcb_save_to_cache(struct vcpu_svm *svm,
+ 				    struct vmcb_save_area *save);
+ void nested_sync_control_from_vmcb02(struct vcpu_svm *svm);
+ void nested_vmcb02_compute_g_pat(struct vcpu_svm *svm);
++bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
++				  struct vmcb_save_area *save);
+ void svm_switch_vmcb(struct vcpu_svm *svm, struct kvm_vmcb_info *target_vmcb);
+ 
+ extern struct kvm_x86_nested_ops svm_nested_ops;
+-- 
+2.53.0
 
