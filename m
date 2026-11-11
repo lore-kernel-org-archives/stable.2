@@ -1,69 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408177;
-	b=n1zBLRvj2bOu1IPJ+ZJkwYXeoaTOD/uNOCNDZVhgVwpaqhZNu5mWbVFqq5b9Q5n0L8XN
-	 xsrROyjfnHndGOjH6Vm1cHVnJDJCJZxtrNZm5weQeVmSzWApOA3AIRxiA1hWNTVsbv17I
-	 NkGxO39+bGeZIsh/4T7zsC+TbEksYf+ltJiPFwcGk8uXPKhHm7CxVJZ4Ls/1ZCd6pjSP8
-	 i+jED46r8+p6iw2vYQrbPNEYHEBTQfmMt0xiBcN+sfcpKMjqbnJmCZrSbUPZCmEbfdtz9
-	 CSqERS2Nn+UwvVWlwD8T3bncE+EV56DPF08D6canvJMfMzZDHIs/cJmP+wFzhgHSZOg==
+	t=1794408222;
+	b=KjmsYuKUF58iCIidWUeluCC4sN3BZ2FDo8sJjtBgPA7afzV/Nn3SxHJKMm0eIz4gTbWG
+	 LTVniCBVp7KyMSYwY9R+CLPN2Ik94c3rNo6mUm7ZHXnuflIsAC9uqKEICy7xqkfwU0lB7
+	 0KD9xPREP223ryeIFSKecLjAcDz3d3Gl8Y5NIRmw35q5+C+H9SvDIvA8QpD8/jj2GoTU6
+	 uAbIZrHqQ6AxVUIiyvGQ62ddnggARJj3s5gKWe9IRlhCqBPUK2E/3ImAFf83ac/yBd/oR
+	 nftlskp/jtKCcfeVD9DFSuIH/QTCZnArjGLjtTTgE7M9jyHuBvyvlRgqfV7dQhf93vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408177;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=eofb4rt//CPwrsXnyaQEibO9rgJnVVcYMlLVW1+iWbw=;
-	b=Bz/puYTtOMAgdX5DN3m+uw+VHLsGw/dtb2eKaO/pI8sZq8cJgDwWIFlZQaHYNJ/qIZZO
-	 S86y7sWNYOqxHKlf5ZPduGiwDkksJK+Ai8kvkXDxf5ODj+LhvWWw8hL2qX36HQYdCdZY2
-	 pPlU44DQBEF6ZOQMMJwZKBsAj7ueQEKc+pjdHe1dPaXU+tpp13vFlCmMaAaSghCCYHkpE
-	 wikIltRxeI7nSNBg09E46L3Q/OGXGuvXBvHV99JEv55l3HZ5VnZy8J3igGbHH5U31ML1Q
-	 JLvTM9Sjnwad9ZEJJCeStLSEuAxIx9syPoPok56mfwq5xulXsiLsOM9kxq3BveQoS6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408222;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=H0BLqPOV/ISEaLPKSj+VfTDQ/slE8BKRhpoVqiHrFOQ=;
+	b=cmSvXr+oBPOjiMR/oGuSHu63AxC3nZ0kMyx/rgwZJhMD75J6Kony8d1OV1Dlqt2jcO8J
+	 oON/ff8Nyb6obWOQCj26+PcMGQUxGxSXfPMYHhlR4XqyPgU/bq6za2U4fzcUNkizYG2C6
+	 i9y/YW0ec6064d6XjPRFUWNIIL0QqYcuOvtyj+yqpmDrvx3/cNi03zyQjIlrZbEo6r3KW
+	 nl5Nn1tMFh8VJhTFjwQz3YqI4rDxcsWtFPaDXBFMPFnCI3yqHz/aBK510n5I/uK4BEAdi
+	 RtS7GAIHcbHRb5f9yNEqgO7YahlgckI8Afsl3BwfxYbEaH6URSx17aNmQoYqsGbPDkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=caLjPQaC;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PK9DZ7G6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60018606A89B;
-	Wed, 11 Nov 2026 14:42:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60018606A89B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05987606A327
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=caLjPQaC
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jPmTM1l34z4xPSJ;
-	Wed, 11 Nov 2026 22:42:47 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794408167;
-	bh=TtW33jKya7yf+pIUAp6NxKrTz7rbR+eAywMN6yjOfLc=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=caLjPQaC9uVHp6phKWlY2a2p2VxatWLEpBOT6ZJrHEKosCsF/OlvgUOOr04hkhEQ4
-	 SHJmQeh7a6zCTOPF2B2+fkFXX0aKrCvweJdRU67X48vykmx7g+bGjEEwrTI8vpOgBh
-	 zc8PUqOg7YUU0frMASA/J8gxjZcYpbShoOeiGGyh9j5qm2WZDkXLZCc3N6HQ+gJR1K
-	 /cybsQxozOi4Uc0FCmkUm32DAqb6CRGJNsGEMsfzEgh9SuqEAeUI3OA4iEAR1dR7jU
-	 06fsHSCtupHO2QL0zfRDtsN6CHKsM2INgmtsXM6l0f+7ppuO+FHzJ3TSTKBUSmKpey
-	 uYifJ6Yg5r1yQ==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl1.zte.com.cn with SMTP id 6ABEgiEQ094719;
-	Wed, 11 Nov 2026 22:42:44 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 11 Nov 2026 22:42:45 +0800 (CST)
-X-Zmail-TransId: 2afa6af47ee5690-7a562
-X-Mailer: Zmail v1.0
-Message-ID: <20261111224245786kBVGPR0wSFFqHjmtHwtAJ@zte.com.cn>
-In-Reply-To: <20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn>
-References: 20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn
-Date: Wed, 11 Nov 2026 22:42:45 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PK9DZ7G6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B811F00A05;
+	Wed, 11 Nov 2026 14:43:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794408221;
+	bh=H0BLqPOV/ISEaLPKSj+VfTDQ/slE8BKRhpoVqiHrFOQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PK9DZ7G6GfbWCNeefuW5ovH8/XqhjYZmjZWS/hZ7ou5MvDW81qZiqtzGS5vkncFw8
+	 dz8byweebadVeASppiHV4wmStyb7+iqkF1lWinLt37JzR+JnArNLzWhmQiBYSEuvNQ
+	 1nJMDNJWtM+CRGx4DGvp8143KhYaS569bBhfCKT4cIt8oaw5dEW2CWxCq0w9cMAfV9
+	 TqPWinr1UkT1eCFQhJTen3FrUXdE0GVJ4cQNo8Mz9g+UEyf32XxXPDioKE+j5E3kfT
+	 qHmw9eRXL+BH9e9AU7qnXzUutOEiOunBwoiWfMlqdp9GDZz+8/zRURnKK9rmvq04nR
+	 4P5Sj1AmjxGgA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Linmao Li <lilinmao@kylinos.cn>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Aksh Garg <a-garg7@ti.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] PCI: cadence: Store the core controller in platform drvdata
+Date: Wed, 11 Nov 2026 09:43:39 -0500
+Message-ID: <20261111144236.2384264-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053523-failed-6.6-cfe96ce583c5@kernel.org>
+References: <20261107053523-failed-6.6-cfe96ce583c5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,95 +60,128 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDEvMl0gbnZtZXQ6IGhhbmRsZSBzaG9ydCByZWFkcyBhbmQgd3JpdGVzIGluIHRoZSBmaWxlIGJhY2tlbmQ=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6ABEgiEQ094719
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 11 Nov 2026 22:42:47 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF47EE7.000/4jPmTM1l34z4xPSJ
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+From: Linmao Li <lilinmao@kylinos.cn>
 
-When the file backend falls back to its bvec mempool, large requests
-are submitted in synchronous chunks.  A short completion advances the
-file position by the full chunk length and is eventually overwritten
-with the total request length.  The target reports success for an
-incomplete write or returns unread buffer contents as valid data.
+[ Upstream commit cfe96ce583c51bf6e034d4038c652a1e8227867c ]
 
-The common completion path has another short-I/O case: a zero-byte
-return, such as a read at EOF after the backing file is truncated, is
-passed to errno_to_nvme_status() and becomes success.
+cdns_plat_pcie_probe() stores a struct cdns_plat_pcie pointer with
+platform_set_drvdata(). cdns_plat_pcie_shutdown() and the callbacks in
+cdns_pcie_pm_ops retrieve the same pointer with dev_get_drvdata() but use
+it as a struct cdns_pcie pointer. This makes them read phy_count and phy
+beyond the wrapper.
 
-Stop at any incomplete chunk and convert nonnegative short completions
-to -EIO in both paths.  Preserve negative errors and full completions.
+struct cdns_plat_pcie only contains a pointer to struct cdns_pcie. Drop
+the redundant wrapper and store the struct cdns_pcie pointer directly.
 
-Fixes: d5eff33ee6f8 ("nvmet: add simple file backed ns support")
-Fixes: c6aa3542e010 ("nvmet: add error log support for file backend")
+Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Aksh Garg <a-garg7@ti.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Link: https://patch.msgid.link/20260915082826.4135665-1-lilinmao@kylinos.cn
+[ sashal: Retained the existing PHY-link cleanup loop using the core controller pointer directly. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ .../controller/cadence/pcie-cadence-plat.c    | 36 ++++++-------------
+ 1 file changed, 10 insertions(+), 26 deletions(-)
 
-Tested on 7.3.0-next-20261030 (QEMU/TCG) with the loop transport and a
-file-backed namespace on tmpfs (buffered_io=1).
-
-The chunked path is only taken when the bio_vec allocation falls back
-to the mempool, so failslab was used to fail that allocation, limited to
-nvmet_file_execute_rw() with the stack-trace filter (times=1,
-ignore-gfp-wait=N).  The short completion was made deterministic by
-shrinking the backing file behind nvmet's back (ns->size is only
-revalidated on enable) and by leaving only 4 KiB of space in the tmpfs
-for the last 64 KiB chunk of a 128 KiB write.  The values below are the
-status words returned by NVME_IOCTL_IO_CMD:
-
-                              unpatched    patched
-  read  512 KiB               ret=0        ret=24582 (0x6006)
-  read  256 KiB               ret=0        ret=24582
-  read  128 KiB               ret=0        ret=24582
-  write 128 KiB               ret=0        ret=24582
-
-0x6006 contains NVME_SC_INTERNAL plus the Do Not Retry and More bits;
-the More bit records the associated error-log entry.
-Without the patch the reads report success although the tail of the
-host buffer still holds the 0x5a pattern, and the write reports success
-although only 68 KiB of 128 KiB reached the file.  Controls: without the
-injection the short read already fails with 0x6006 on both kernels
-(non-chunked path), and with the injection but a full-length read both
-return 0.
-  drivers/nvme/target/io-cmd-file.c |    7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 695963dd932e..e95ab1f08cff 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -113,7 +113,7 @@ static void nvmet_file_io_done(struct kiocb *iocb, long ret)
+diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+index 371ffc1f00f86..528038f926c13 100644
+--- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
++++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+@@ -14,17 +14,6 @@
+ 
+ #define CDNS_PLAT_CPU_TO_BUS_ADDR	0x0FFFFFFF
+ 
+-/**
+- * struct cdns_plat_pcie - private data for this PCIe platform driver
+- * @pcie: Cadence PCIe controller
+- * @is_rc: Set to 1 indicates the PCIe controller mode is Root Complex,
+- *         if 0 it is in Endpoint mode.
+- */
+-struct cdns_plat_pcie {
+-	struct cdns_pcie        *pcie;
+-	bool is_rc;
+-};
+-
+ struct cdns_plat_pcie_of_data {
+ 	bool is_rc;
+ };
+@@ -43,9 +32,9 @@ static const struct cdns_pcie_ops cdns_plat_ops = {
+ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ {
+ 	const struct cdns_plat_pcie_of_data *data;
+-	struct cdns_plat_pcie *cdns_plat_pcie;
+ 	struct device *dev = &pdev->dev;
+ 	struct pci_host_bridge *bridge;
++	struct cdns_pcie *pcie;
+ 	struct cdns_pcie_ep *ep;
+ 	struct cdns_pcie_rc *rc;
+ 	int phy_count;
+@@ -59,11 +48,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 	is_rc = data->is_rc;
+ 
+ 	pr_debug(" Started %s with is_rc: %d\n", __func__, is_rc);
+-	cdns_plat_pcie = devm_kzalloc(dev, sizeof(*cdns_plat_pcie), GFP_KERNEL);
+-	if (!cdns_plat_pcie)
+-		return -ENOMEM;
+-
+-	platform_set_drvdata(pdev, cdns_plat_pcie);
+ 	if (is_rc) {
+ 		if (!IS_ENABLED(CONFIG_PCIE_CADENCE_PLAT_HOST))
+ 			return -ENODEV;
+@@ -75,10 +59,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 		rc = pci_host_bridge_priv(bridge);
+ 		rc->pcie.dev = dev;
+ 		rc->pcie.ops = &cdns_plat_ops;
+-		cdns_plat_pcie->pcie = &rc->pcie;
+-		cdns_plat_pcie->is_rc = is_rc;
++		pcie = &rc->pcie;
+ 
+-		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
++		ret = cdns_pcie_init_phy(dev, pcie);
+ 		if (ret) {
+ 			dev_err(dev, "failed to init phy\n");
+ 			return ret;
+@@ -103,10 +86,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 
+ 		ep->pcie.dev = dev;
+ 		ep->pcie.ops = &cdns_plat_ops;
+-		cdns_plat_pcie->pcie = &ep->pcie;
+-		cdns_plat_pcie->is_rc = is_rc;
++		pcie = &ep->pcie;
+ 
+-		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
++		ret = cdns_pcie_init_phy(dev, pcie);
+ 		if (ret) {
+ 			dev_err(dev, "failed to init phy\n");
+ 			return ret;
+@@ -124,16 +106,18 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 			goto err_init;
  	}
  
- 	if (unlikely(ret != req->transfer_len))
--		status = errno_to_nvme_status(req, ret);
-+		status = errno_to_nvme_status(req, ret < 0 ? ret : -EIO);
- 	nvmet_req_complete(req, status);
++	platform_set_drvdata(pdev, pcie);
++
+ 	return 0;
+ 
+  err_init:
+  err_get_sync:
+ 	pm_runtime_put_sync(dev);
+ 	pm_runtime_disable(dev);
+-	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
+-	phy_count = cdns_plat_pcie->pcie->phy_count;
++	cdns_pcie_disable_phy(pcie);
++	phy_count = pcie->phy_count;
+ 	while (phy_count--)
+-		device_link_del(cdns_plat_pcie->pcie->link[phy_count]);
++		device_link_del(pcie->link[phy_count]);
+ 
+ 	return 0;
  }
- 
-@@ -150,8 +150,11 @@ static bool nvmet_file_execute_io(struct nvmet_req *req, int ki_flags)
- 		if (unlikely(is_sync) &&
- 		    (nr_bvec - 1 == 0 || bv_cnt == NVMET_MAX_MPOOL_BVEC)) {
- 			ret = nvmet_file_submit_bvec(req, pos, bv_cnt, len, 0);
--			if (ret < 0)
-+			if (ret != len) {
-+				if (ret >= 0)
-+					ret = -EIO;
- 				goto complete;
-+			}
- 
- 			pos += len;
- 			bv_cnt = 0;
+-- 
+2.53.0
+
