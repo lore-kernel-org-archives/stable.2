@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794433991;
-	b=QmbZmC51UTw46+4FQpV97rdteUlB7T3yGqgFEVpK0q1NTM/p5OCJYIAKP+QDdaqsCEoY
-	 evb/vXkWpj2aq9GVCMrDsUgmLUWPv4ZOAHTHnWuxew0oAi0np7MdMTDXHOQS+TZzoVB5D
-	 aXOAuct8pCSs/fpfvbjnw2D96iXGpsEQ0KGyFdJO2CH5BmPDob0/qmrNg9m86ctqylPU+
-	 YBPkprKoXRhYoqvi1jwOi4oQfgbGZOKiakklxC1hIXohStsh81F96xr6cWUcP61L50Fjl
-	 OM530yBRP4yQ61mAfXs3vq2bY3mFIX9ctZMNmmh3K90MQDl0nxKtEekvLn1U+lV5tnw==
+	t=1794433998;
+	b=gOmhY9zAbWQXtMRA5/MxQNoi/ei2pq93Y9+RA6aJtCU2/nYMLjSH3kLtnMFMbKULFcL/
+	 Eneqk9dw/sVxreIKr1ZrpI2jc5iVG3Ixs+wudnzb00Op7iOkHJWagwWuafpkMd16doLSV
+	 P/dvQHNTGv1IzbJY93auc5Fw0J0MjvluM+nOeOc0Rms74tvdCNyuUqGgfB17ZIOGZphpw
+	 SPMSW1pWDyGzeihGF6e3xGQnuDOccbNuflwvUrwQ5BFggkuXEl2F227nol3emcNxq8WSP
+	 VAslETWdvS29tGsK149OUAa794Bl4R5jf7/exDV5uSMdRnRWDPmxNHWVgIs144OxKNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794433991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794433998;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=if/+0+pFnNU6k0PCEw4KVoy6ZadNyLU8ILGbmz3mIQI=;
-	b=nWwmOH6+gJ2F7W981OKJIDq4ShypOsMxCD4GqkLm0+piSxd8BE0LFYbf+m5yBJofQfmg
-	 VCda0auXSlctXK+DX69Dyl1UPVl3olUnoN5XByAtfFiXvT6YRT2sHLUsfKssike/AN3TU
-	 mQnaAujRV/8+8zPITlBcDhV3N6wWRV4P/DvAJpby+kACEmBw5mVrF6yHUs1oheB57vfWR
-	 7Sm3DcFDQOsSCHgawY523o0o1a8gCYdb7RE9CM8089lPEQWNKXPeepwq/HftvNjl2ZAHX
-	 ZyEcZ7p8pyv8X/3VZy/IaFibIzcmuS5tsN09QC+lsGW/O6CoCt01P9ygHzOcPqzKYhw==
+	bh=OgsIQxLzQY9h7mZX3W9Y2wTavESqyHYyf1dp59qEWJg=;
+	b=TQkJxK6xmeZNvpokVX0taELwpOwmFMLWFsJI4liTz6jMs9DfC+jng3tcuzOUrzJ9biOE
+	 6tpyy4F10zBgI7gc0m1y8D36AxZn1kcO0KNmYq1r8BI7ExCcKaJiQFpZRnXnTlwKJfAsJ
+	 0JivYfeCELV3LLeMucrbTuq8UT6pEvOy/7QiJtCaNdWoX6JOeAQRu/GXyxCDK+BwquznS
+	 n9hHx9yB+t7LQvU2Gsq+KBySgY8RRCdQ8gUuCoDXWYB3H4/FDeIoF/wXnAT+91fxeGu66
+	 1oluWpJVLYTF6JAG0olcm5q42QxPLV4Opw4eBH7PGIAPIcHAbD7lcKUmo5pVyS6Nm7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCkLQYD2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5NbCA6l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6D0606A33B;
-	Wed, 11 Nov 2026 21:53:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEB1606A331;
+	Wed, 11 Nov 2026 21:53:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCkLQYD2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CEC01F00A06;
-	Wed, 11 Nov 2026 21:53:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5NbCA6l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510A91F00A05;
+	Wed, 11 Nov 2026 21:53:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794433991;
-	bh=if/+0+pFnNU6k0PCEw4KVoy6ZadNyLU8ILGbmz3mIQI=;
+	s=k20260515; t=1794433997;
+	bh=OgsIQxLzQY9h7mZX3W9Y2wTavESqyHYyf1dp59qEWJg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TCkLQYD2wxm/SVXZdhDspHY9KM2fXi3kUefod6ZsVx1SMgHexvi502AKjsKY6llOF
-	 a0hJSKD11kEG4/KLoG0Z0KmfL9p89gvFahAcV6h0QoQBKSpWKoErgaod5eQW4e0XXX
-	 LbELG9NJkgnGwoGFswsKK5A22eixZlYfGh7CxzsJzGnXywv6fUSun0+mXUay1uZpUd
-	 hkI6LUz9TUXrd+ahltkwvAr06dRlpXYz6ap1JE/AdlZWM4oSmbLadVcGzkvEvbXOWd
-	 yVPdCxHGEhkx5Gac5Q7H5AGQDNQHCAZ3dJSohe5qxkg6RgHW6ZsQ4dnvWv/nBFFeOw
-	 SmqcSUJ3ikpRg==
+	b=V5NbCA6lXzqX3mfJcCZr7BG0oiK6pRM3UzqESzQRIQH83Zl0Pf+RCmsZsGtJTRJ+0
+	 Xiv6kaRgz8dLWDXtzzO185kcSpb/i0OWzfJ7oSgEnp4PogfG+uLdhlD68ufa1nEqK+
+	 XmxG7uHXVTi7sx606OFUxYu6NPrarwuFQJl9NLAHcApDdpKjJizw7tPGaC2qQ/qr7O
+	 /cXKFu18JdxyWjnQB6Rj8eZWEgkkXCqytSfTlI7RdzZnDDx5kLMgBe9KPE1M4SwiU8
+	 9La0f6m5Vi/NBPlp6/wei6olLiTsZ4UCZ5si1Fw0LsW2GbAHUkDaSTK9xSxTMJM3ok
+	 2cxpLKB9CxVSA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jacky Huang <ychuang3@nuvoton.com>,
@@ -48,9 +48,9 @@ To: lee@kernel.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 01/10] pinctrl: nuvoton: ma35: Unmap reg_base and release clock on probe error
-Date: Wed, 11 Nov 2026 21:51:46 +0000
-Message-ID: <20261111215256.1982044-2-lee@kernel.org>
+Subject: [PATCH 02/10] pinctrl: nuvoton: ma35: Prevent out-of-bounds write in ma35_pinctrl_get_soc_data()
+Date: Wed, 11 Nov 2026 21:51:47 +0000
+Message-ID: <20261111215256.1982044-3-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
 In-Reply-To: <20261111215256.1982044-1-lee@kernel.org>
 References: <20261111215256.1982044-1-lee@kernel.org>
@@ -65,100 +65,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ma35_get_bank_data() maps bank->reg_base via fwnode_iomap() and acquires
-and enables bank->clk via of_clk_get() and clk_prepare_enable(), neither
-of which is devres-managed.  If of_clk_get() or clk_prepare_enable()
-fails, bank->reg_base is leaked, and ma35_pinctrl_get_soc_data() ignores
-the error and continues probing with an uninitialised bank.
+ma35_pinctrl_get_soc_data() allocates ctrl->pin_banks with
+ctrl->nr_banks (MA35_GPIO_BANK_MAX) entries and populates them while
+iterating over child GPIO controller nodes with
+for_each_gpiochip_node().  If the Device Tree contains more than
+MA35_GPIO_BANK_MAX GPIO controller child nodes, id exceeds
+ctrl->nr_banks and writes past the end of ctrl->pin_banks.
 
-Register devm cleanup actions for bank->reg_base and bank->clk, and
-propagate errors from ma35_get_bank_data() in ma35_pinctrl_get_soc_data().
+Check that id is within ctrl->nr_banks before indexing ctrl->pin_banks.
 
 Fixes: f805e356313b ("pinctrl: nuvoton: Add ma35d1 pinctrl and GPIO driver")
-Closes: https://sashiko.dev/#/bug/linux-2046e6c6-45d1-42d4-ae9f-27fac33b07e7
+Closes: https://sashiko.dev/#/bug/linux-7f04e7c5-6691-4586-b0f9-392f1285514c
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pinctrl/nuvoton/pinctrl-ma35.c | 36 ++++++++++++++++++++++----
- 1 file changed, 31 insertions(+), 5 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-ma35.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/pinctrl/nuvoton/pinctrl-ma35.c b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-index a79ebf4be2c3..408927ab19da 100644
+index 408927ab19da..04528e734bc9 100644
 --- a/drivers/pinctrl/nuvoton/pinctrl-ma35.c
 +++ b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-@@ -555,6 +555,22 @@ static int ma35_gpiolib_register(struct platform_device *pdev, struct ma35_pinct
- 	return 0;
- }
+@@ -621,6 +621,12 @@ static int ma35_pinctrl_get_soc_data(struct ma35_pinctrl *pctl, struct platform_
+ 	}
  
-+static void ma35_bank_iounmap(void *data)
-+{
-+	struct ma35_pin_bank *bank = data;
-+
-+	iounmap(bank->reg_base);
-+	bank->reg_base = NULL;
-+}
-+
-+static void ma35_bank_clk_release(void *data)
-+{
-+	struct ma35_pin_bank *bank = data;
-+
-+	clk_disable_unprepare(bank->clk);
-+	clk_put(bank->clk);
-+}
-+
- static int ma35_get_bank_data(struct ma35_pin_bank *bank)
- {
- 	int ret;
-@@ -563,6 +579,10 @@ static int ma35_get_bank_data(struct ma35_pin_bank *bank)
- 	if (!bank->reg_base)
- 		return -ENOMEM;
- 
-+	ret = devm_add_action_or_reset(bank->dev, ma35_bank_iounmap, bank);
-+	if (ret)
-+		return ret;
-+
- 	bank->irq = fwnode_irq_get(bank->fwnode, 0);
- 
- 	bank->nr_pins = MA35_GPIO_PORT_MAX;
-@@ -572,10 +592,12 @@ static int ma35_get_bank_data(struct ma35_pin_bank *bank)
- 		return PTR_ERR(bank->clk);
- 
- 	ret = clk_prepare_enable(bank->clk);
--	if (ret)
-+	if (ret) {
- 		clk_put(bank->clk);
-+		return ret;
-+	}
- 
--	return ret;
-+	return devm_add_action_or_reset(bank->dev, ma35_bank_clk_release, bank);
- }
- 
- static int ma35_pinctrl_get_soc_data(struct ma35_pinctrl *pctl, struct platform_device *pdev)
-@@ -583,7 +605,7 @@ static int ma35_pinctrl_get_soc_data(struct ma35_pinctrl *pctl, struct platform_
- 	struct fwnode_handle *child;
- 	struct ma35_pin_ctrl *ctrl;
- 	struct ma35_pin_bank *bank;
--	int i, id = 0;
-+	int i, id = 0, ret;
- 
- 	ctrl = pctl->ctrl;
- 	ctrl->nr_banks = MA35_GPIO_BANK_MAX;
-@@ -603,8 +625,12 @@ static int ma35_pinctrl_get_soc_data(struct ma35_pinctrl *pctl, struct platform_
+ 	for_each_gpiochip_node(&pdev->dev, child) {
++		if (id >= ctrl->nr_banks) {
++			dev_err(&pdev->dev, "Exceeded max GPIO banks (%u)\n",
++				ctrl->nr_banks);
++			fwnode_handle_put(child);
++			return -EINVAL;
++		}
+ 		bank = &ctrl->pin_banks[id];
  		bank->fwnode = child;
  		bank->regmap = pctl->regmap;
- 		bank->dev = &pdev->dev;
--		if (!ma35_get_bank_data(bank))
--			bank->valid = true;
-+		ret = ma35_get_bank_data(bank);
-+		if (ret) {
-+			fwnode_handle_put(child);
-+			return ret;
-+		}
-+		bank->valid = true;
- 		id++;
- 	}
- 	return 0;
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
