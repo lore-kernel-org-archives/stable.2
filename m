@@ -1,82 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414504;
-	b=yBLhZU5W85ot73j2t+wEPDvJDJEQYGy+dmbTD2Zz9amnxku0ncGYD+ghr44p98B6jNHS
-	 c0J21czUkTiKbkfzYWq8LVNk3zS/lnpiS0iWlZGaD/FSGN06a9wwhv0bSfJ1t9Yf+xvNa
-	 dkOqxtcVkvpSmCIkYuJOoGeCDsZiVMroDR1EEqcaIw3gS/vxASjWivYa7wljdB/8ZnH+b
-	 XzWkRWuOZ0aryjXVryUW2iYcKvzz98zh5uWxXppNC83+3botcyCrJHD15xU1uiU20Djpt
-	 tS7Cpo5jedpUYAmw+hdGqaFKxMl8Xf/3GBtz5CK87lJyKf33M6cAupSKdS72HclgnFQ==
+	t=1794414513;
+	b=A41Zdj9jDrHQ9Pw2i3qYO+J9bvO2ZK7b9d+xkEVDI8WmOKGWVrh/hAks+GNyOGCaBBl7
+	 zP2PX84vKH6nW5EZKYGd9tcN4ShTj8MoXUBVbOmzC9W4JIEmn7nk3uxkdt2Z6RpsywS97
+	 eHTHTA8FH+TmQFsis8P+XKvSDcgQzh1PRIAWKxa5+7/uGxHA2T+tYb1VgmZLncewbnH6T
+	 9bStK2s9qUVPcbyDt+CuYFOEAlYLGXCfsjHaJdYPIa4AQf2BECRw/jB1W6nLCqisRXQgL
+	 AYoALPsMqKNeNI72YNX0BMlrTqNWFjhjxKhUE/OWHEl64e0iymtC8E+TQVKVPdR2d0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414504;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=gvj4xIltj42d86arrpfwUC1RgAIG12UQS/T56hQYxjE=;
-	b=GPm8ljo3G2oIH6d01LzgqetExCU6wsagIzas/KsWzAZA/uZlrBKxgztDYMBhmzjG+NDo
-	 OF77PaZ3QFdCpqWA3shz54aSmkJcBWHKA4ij35cz4s48E4reH3+rYK1Vi2OhgLAGiE01C
-	 5JV4Rj+kyY2oXXd2kVBblagfvq30VmpGngkCH8SwZPYrk7X8h2/HslB+06XylwLVSFfCx
-	 g+mRZME+5vpb0WLXAKCSj1qkFq+3kne1TZDwD4oLm1ieCkvxKbQXOr31gvbQqclFPKBHr
-	 WVVLzG2MSwjusIWB2teVXX9tpbH+wprceMDX1yhZzFZL0gpUoUgftcviaHN30s3j29g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414513;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=RiXPkXBK79oMjc0qvlQ0EEn70yKgvGLjOF/FFRMgQxE=;
+	b=P+AwqKv1PP3QZvfyCytSiUK3zJfdJM/a2zHhg/0yF5UqVcC6fD2WxjDaq5Ss5tmmhety
+	 DhyiATnZ+EOw26C4HixLj1dwjHtxul2nr8U8sSTNz/2DZvIFp0l42DzXmHhoqguxViVt1
+	 Ieyj7oKVRTjQ19ax1jbAjv6OLw5AUU/ibsiUYq8UCGUG2jlb8ilAm/IlumW9u9tznHZGy
+	 ivGSnRvMDpG3xvjInBM9XvSwh+bu6Esj+u+fKfYU8+Jxg02alfHu1OaTEqx3SfuuXwQcx
+	 zyCJXQHms3PjLK+VCMRwGBXeYc1pjSLZ/VJgrZk611BKoS47ZP5RgthvCPWP2ncDA9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="CiHj/l5V";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=q2gAwzKO;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2E6606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E2E6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDB0606A336;
+	Wed, 11 Nov 2026 16:28:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CDB0606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CiHj/l5V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794414503;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gvj4xIltj42d86arrpfwUC1RgAIG12UQS/T56hQYxjE=;
-	b=CiHj/l5V0BwcpYjqr7LiO9h61AY1LgJ0GRgRL7jq+j0FqJ4jV0FrzeQ0eUnmjCudr0+Dhc
-	YaJHjCs+OR5o1C1+YLMDLqHQn6iyLbX4jHuCYSuSFGpyxtcWg0utSkYfs/08ih97EOwEC6
-	GExJx3+wgOVSyZOqilH67aAWpgQrQXs=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-400-J7vunRmPOlWvNyTTHqqtdw-1; Wed,
- 11 Nov 2026 11:28:20 -0500
-X-MC-Unique: J7vunRmPOlWvNyTTHqqtdw-1
-X-Mimecast-MFC-AGG-ID: J7vunRmPOlWvNyTTHqqtdw_1794414499
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C08581977406;
-	Wed, 11 Nov 2026 16:28:18 +0000 (UTC)
-Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (bmarzins-01.fast.eng.rdu2.dc.redhat.com [10.6.23.12])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 32CFD18004FC;
-	Wed, 11 Nov 2026 16:28:17 +0000 (UTC)
-Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (localhost [127.0.0.1])
-	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.17.1) with ESMTPS id 6ABGSGwB1287382
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=q2gAwzKO
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABFEThh237221;
+	Wed, 11 Nov 2026 16:28:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=RiXPkXBK79oMjc0qv
+	lQ0EEn70yKgvGLjOF/FFRMgQxE=; b=q2gAwzKOrdSDK5UjVallxjSqvLD9Kn/+w
+	/83gx0zqjwO9PiWK3IChAAnOc9YhPCIRGZmlUWBbz+FBo7pq4MYAonvMGSdFIpFl
+	36fGXIMraHUHv9hW/plwW04TmAVtKpletJRXsh3Y/9yeyqnTjSdDn2uHVFvdLNcl
+	g9BO7z55u+mDurClpl5Z/a09y+9EHxX1t3uNkVANaIwqDCPO/tE1mO4zGIrxNPAr
+	NCUb03+qcPadjshj1HnHWqaOjRsoEQsM30TarlvGebv0C4ihZUTcPWFsB6vm0lzo
+	+gVrS4FvuFOXHxtWSJGy531ujuBagWGIVZZEHbvshFXCR6D40aFNg==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hstdgagts-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 11:28:17 -0500
-Received: (from bmarzins@localhost)
-	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.18.1/Submit) id 6ABGSGp11287381;
-	Wed, 11 Nov 2026 11:28:16 -0500
-Date: Wed, 11 Nov 2026 11:28:16 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Cc: Mike Snitzer <snitzer@kernel.org>, dm-devel@lists.linux.dev,
-        syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] dm-integrity: initialize journal accounting in
- dm_integrity_ctr
-Message-ID: <avSXoMubUuU6kiR5@redhat.com>
-References: <20261111004905.1047753-1-bmarzins@redhat.com>
- <6200b697-d686-cff2-1de5-d4948c171a4f@redhat.com>
+	Wed, 11 Nov 2026 16:28:30 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABF56kt2382115;
+	Wed, 11 Nov 2026 16:28:29 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hvd51tusu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 16:28:29 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ABGSQAS25100864
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 11 Nov 2026 16:28:27 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 99DB358059;
+	Wed, 11 Nov 2026 16:28:26 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8FADD58017;
+	Wed, 11 Nov 2026 16:28:23 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.61.243.186])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 11 Nov 2026 16:28:23 +0000 (GMT)
+From: Omar Elghoul <oelghoul@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
+        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
+        gbayer@linux.ibm.com, pasic@linux.ibm.com, alex@shazbot.org,
+        frankja@linux.ibm.com, imbrenda@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH v13 1/5] s390/pci: Hold fmb_lock when enabling or disabling PCI devices
+Date: Wed, 11 Nov 2026 11:27:54 -0500
+Message-ID: <20261111162758.9792-2-oelghoul@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261111162758.9792-1-oelghoul@linux.ibm.com>
+References: <20261111162758.9792-1-oelghoul@linux.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,97 +96,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6200b697-d686-cff2-1de5-d4948c171a4f@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=J+M/fwnS c=1 sm=1 tr=0 ts=6af497ae cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=5NbLduwtq9nBFWGw9KEA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA2NCBTYWx0ZWRfX4IGsndVqdzSj
+ CVbZzDVZwgINywHzsCMg8dEayL1PqSk4+vNDQUIXzqL40KKtLEbCdwK0sTrD+WVsQdJd2SFM219
+ cqDOwAcOua6LhRfrCMJvqu6mimQHadC37CinQv+cByhYlx/hgtr6xwnS9wFwlkVARYw/Pc0Y32/
+ 2IUFivIb4GXfTvIzTumbQXyipfEuBRluRkgOswtnSW5Tbi0O7/7Ny31zFmU23BSiz7C4NXZoTyG
+ NaNpFqIbIzECa5ZMSc2bingnY41DFKaN4Vp4c+LdBRFdyX3OTsKDhzXRkQW+1TtVkZlo8RIthXR
+ qONeo6PIQAnD6qCKwiQOYhpU6eoe4Yn9f4v0fcnGolUV8r2PFENwEe0mN/4CgUMLzOOc+Y3J1Xu
+ /tJ+HZ/vWFuZL921DywCRURjV29BDd7aS7xMao0zEjhLBgnrrf6H/RFnkrwCELRyw/QFc/+w2oD
+ 5ic9/BH6HfxozwR0XIQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA2NCBTYWx0ZWRfX6c+/XQ9shmA6
+ J7bxcOwsqWNLnDSTjsAbEHk7ljMFkDgoRGaSLJBpXY5QRINB8+7zZ9A34K1irIOqEqENOSzo9kf
+ R1ZUT0Zs5FNAzn+bMNpG/NNzgahjdr8=
+X-Proofpoint-GUID: rrex5CUG5fCOWyxsMSGWj2lg74Xgonuz
+X-Proofpoint-ORIG-GUID: rrex5CUG5fCOWyxsMSGWj2lg74Xgonuz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_04,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110064
 
-On Wed, Nov 11, 2026 at 03:37:44PM +0100, Mikulas Patocka wrote:
-> 
-> 
-> On Tue, 10 Nov 2026, Benjamin Marzinski wrote:
-> 
-> > If the superblock for a dm-integrity device is changed while the device
-> > is suspended, it will resume in a failed state, and skip
-> > replay_journal(). If this happens on a journaled dm-integriry table's
-> > first resume, replay_journal() will have never been called, and the
-> > journal will be uninitialized. While nothing can write to the device in
-> > this state, integrity_commit() will be called if it receives a flush
-> > request as well as on suspend. Even through there is nothing to commit,
-> > pad_uncommitted() will check that the journal accounting is sane. This
-> > triggers a kernel warning because the accounting was never set up by
-> > replay_journal(). Fix this by setting free_sectors equal to
-> > journal_entries. Since all the accounting variables are zeroed when
-> > creating the ic structure, setting free_sectors is all that's necessary
-> > to mimic a cleared journal.
-> > 
-> > Reported-by: syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com
-> > Closes: https://syzbot.org/bug?extid=94dac3c75477e184f0b0
-> > Fixes: fc79aeb86a2c ("dm-integrity: validate the superblock on resume")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> > ---
-> >  drivers/md/dm-integrity.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> > 
-> > diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-> > index 1659a11a1a29..419a8b958371 100644
-> > --- a/drivers/md/dm-integrity.c
-> > +++ b/drivers/md/dm-integrity.c
-> > @@ -5430,6 +5430,12 @@ static int dm_integrity_ctr(struct dm_target *ti, unsigned int argc, char **argv
-> >  		if (r)
-> >  			goto bad;
-> >  
-> > +		/*
-> > +		 * initialize journal accounting like a cleared journal, to
-> > +		 * handle a changed superblock on resume, where the journal
-> > +		 * is not replayed.
-> > +		 */
-> > +		ic->free_sectors = ic->journal_entries;
-> >  	}
-> >  
-> >  	if (ic->mode == 'B') {
-> > -- 
-> > 2.56.0
-> 
-> Hi
-> 
-> I think that we shouldn't attempt to flush the journal at all when the 
-> device is in erroneous state - because flushing it could cause other 
-> problems.
-> 
-> I've created a patch that disables journal flushing if the dm-integrity 
-> device is disabled due to an error - please review it.
+Ensure that fmb_lock is held by pcibios_enable_device() and
+pcibios_disable_device() when calling zpci_fmb_enable_device() or
+zpci_fmb_disable_device(), respectively. Additionally, assert that the
+fmb_lock is held within the latter two functions to prevent future race
+conditions regarding new callers.
 
-I was on the fence about doing something similar to your method. It does
-drop any previous journal writes to the partially filled uncommitted
-section, which is a bigger change than just fixing a kernel warning. But
-that's the way you think we should go, I'm fine with that.
+Fixes: af0a8a8453f7 ("s390/pci: implement pcibios_add_device")
+Fixes: 944239c59e93 ("s390/pci: implement pcibios_release_device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+---
+ arch/s390/pci/pci.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-The way I planned to solve it was (copy-pasted so the whitespace is all
-messed up):
-
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c              
-index 1659a11a1a29..bf817c5ce2b3 100644                                         
---- a/drivers/md/dm-integrity.c                                                 
-+++ b/drivers/md/dm-integrity.c                                                 
-@@ -2908,7 +2908,7 @@ static void integrity_commit(struct work_struct *w)       
-                                                                                
-        spin_lock_irq(&ic->endio_wait.lock);                                    
-        flushes = bio_list_get(&ic->flush_bio_list);                            
--       if (unlikely(ic->mode != 'J')) {                                        
-+       if (unlikely(ic->mode != 'J' || dm_integrity_failed(ic))) {             
-                spin_unlock_irq(&ic->endio_wait.lock);                          
-                dm_integrity_flush_buffers(ic, true);                           
-                goto release_flush_bios;                                        
-
-Even if we don't call dm_integrity_flush_buffers(), any dirty dm_bufio
-buffers still still get written out. By calling
-dm_integrity_flush_buffers(), we control when they get written out,
-and we want to guarantee that they get written out before we suspend.
-right?
-
--Ben
-
-> Mikulas
+diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+index 1192fb167d3f..ee1b1759655a 100644
+--- a/arch/s390/pci/pci.c
++++ b/arch/s390/pci/pci.c
+@@ -173,6 +173,8 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+ 	unsigned long flags;
+ 	u8 cc, status;
+ 
++	lockdep_assert_held(&zdev->fmb_lock);
++
+ 	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
+ 		return -EINVAL;
+ 
+@@ -211,6 +213,8 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
+ 	struct zpci_fib fib = {0};
+ 	u8 cc, status;
+ 
++	lockdep_assert_held(&zdev->fmb_lock);
++
+ 	if (!zdev->fmb)
+ 		return -EINVAL;
+ 
+@@ -639,7 +643,9 @@ int pcibios_enable_device(struct pci_dev *pdev, int mask)
+ 	struct zpci_dev *zdev = to_zpci(pdev);
+ 
+ 	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_enable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
+ 
+ 	return pci_enable_resources(pdev, mask);
+ }
+@@ -648,7 +654,9 @@ void pcibios_disable_device(struct pci_dev *pdev)
+ {
+ 	struct zpci_dev *zdev = to_zpci(pdev);
+ 
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_disable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
+ 	zpci_debug_exit_device(zdev);
+ }
+ 
+-- 
+2.56.0
 
