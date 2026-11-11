@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439844;
-	b=h2pxqv3oyZki6EWrYNIDm9VTBvhePuK6NRap0PejlYt/oOTrFT2yOVxH9FW3B9mBNmI4
-	 bJiyVwS1z/bSeGGqXR/3y4BWQAYe7N5+mlqDNIw5jvJAnn3jeZ5pLf8Dp+oWfQmXWI3C9
-	 A0sEszZ2ALQaCu7gUsYPPrmos2gLposHT8/HzbvIKM0TuShZWw8Xjnha3wCpA2bYRdPD/
-	 xDElhyBAPDa8H+QfLHUyHa2NPB07VqSdOQ13RLPCAI75gdvYu2+f/c0FahCChN7c92Fn7
-	 2oOyHar8r3TV5FJCByEk6xDHzv1gl2wmnKWGcwXDfXDmrz+asn0WRwxaRYz9Lp7QqtQ==
+	t=1794439863;
+	b=Z504naYCkEs8lvw6b90CdYtHS4QbawZOJSyRoQKZcBgBUPOCVFMk2/WXhbMWmOxBc11i
+	 s1/6eOkGUpIoxtN215HhxSAoPuR8TYjw8QHCoNde8mEFSgyyFSTIQaHqAO6CsEK/2YN8B
+	 bncxvtTC5PYR9NtHpLfVloSkTeZTh7F/CR0rt8jog1mN8O2vLVB3nwQ4c1bTJBHRG1Nag
+	 XIM4dKCdD76wsObZ9a3ATkUaVuH2A4i9REK22bQq+IiFqNQKFezaNgapNapNAV4e5+zd2
+	 LiIXzwPj/aCkwWi4jvLo4L6DuJeqJIAEkg1ja+GriVbNrQgd0fMLcPrSk6FjfdaIShA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439863;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ju1AwsKnsOCS2ejLrmvPaaB+BlxjV9fnAuRbW1WmjvU=;
-	b=cdJ03BHq5pWMkZm1QYMpo7nNbGjepo/JhE0JnZcefpz1uZXaDWuVeHUsp5IxpVKdiiOX
-	 YULuCrGQ0ehE9jxhV2FD9kDilb6jqpsc/6wTP5qydeT56yFu793AcaEIN5ptEWEXk2fl4
-	 NrRe4ZA3tbcctowLfBfAoiS6Aq2DX+EWRtR8i1IOxcAuulJcc5CKk110pcXW+a9SUtWnC
-	 PzdJ2rxLkh/Px1EiHuxr8DwnvlYbJEWRNGk4LOh0evMn78W18sxJVBPKvw9gmCE/0l/MP
-	 9kg9Sm4Hx+ncwYigoVQdwyOeEjRo8zzLhVwuBzHaQ/iiQhymRk2C9tLez5Uc4ETa7Lw==
+	bh=VJNjRNec22z7TvIFda6TtzkcuVhfuBkycJb1ToOXvik=;
+	b=TQr9zptA/JzfwQor23lcn7c3eCKfI7hwT5XeF9DIXswgx/j1dryM5R1un4niVODOHcGc
+	 HbPp6qRIB45MRxBXrkqYKu5KYjKISGf/U5ZwQJnFKbgZvI9JQ7Z34/Dvuo1DursxBi9yf
+	 61xJ8HM9F2EqiR8xp3n9xEFCq3Ypaweh4vyoUjVaw01JnLYg8c8vOr+RXBS0GlLJb2C1F
+	 G1X4rWLTBFZH0bSdMeILk41/CZGmfyzxTg+2m5nchRxDP5TwnguUFKdne3R+JW47F4K9K
+	 uQas1x0oMfyWX0s9iceqaiL43rTVmVZlNjwIU4J+2Zu6B2OZMhCdd9WnpbxeA41rEmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KV97HwuY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpTAYMxF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEC7606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:30:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5189D606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:31:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KV97HwuY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03111F00A0B;
-	Wed, 11 Nov 2026 23:30:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpTAYMxF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35C21F00A05;
+	Wed, 11 Nov 2026 23:31:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439844;
-	bh=ju1AwsKnsOCS2ejLrmvPaaB+BlxjV9fnAuRbW1WmjvU=;
+	s=k20260515; t=1794439862;
+	bh=VJNjRNec22z7TvIFda6TtzkcuVhfuBkycJb1ToOXvik=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KV97HwuYo61op2dBvlT6SkXT+whY9i807aCjyqCYyzUnLBhLqQ1c/C1i+hSv7RIZF
-	 zFCE+rqQUvoG40QX0lvzUsIhoiyAgKPPtEvlwCpSZfKReWSKpBQmiM5tYgVdDWq2Nm
-	 xRzX2Y3p8Hdse+WJoFhhbZEyPsnTIF6sXkPSjXKWLwgk1VywThV8Hz7h6DI9xHzEOl
-	 nJkY50RLwULn3GhHY6fTw366La+S92MFPiJ7h2/pfWEciWst/4PoFf+rduATtddgi0
-	 DX+NWeBNB7C0lPyWeJm+zGun4PIo8CT+mFoaK3Ce6qZn5Hzv9FI5ZY8ZeH8IKPLUSl
-	 48NgYU7l3v2Ww==
+	b=CpTAYMxFIWoC+2EZrTG18rn8GOwsfPieji+f3iLb4QgAHq17zS8LxyK2GM15v+cQ1
+	 Z4cHkpmtgegfluamJ0n1liljY+Kjf6IJ0prGIMqwzZSF6rHhUHrUKVKFughA7+wYhI
+	 lMo+ZDAUJ7PiYYTQNp/Ya3pMWqfdLePKwzhdVyw+o4aoXC49ChHkh6enhsJXhj7r5J
+	 PMtgBUBmuLMos7+kF1QPRSPjUNldCW2HGGxS5N13+qH0w8KQyTL2qH5Cs4aajKx2KI
+	 2SO0v4iqHzc8ZYgei7Hsc43BPhVPrXx0hbsQ3UWsfPA6XCXHQQ816oXlOllthqzpVm
+	 nhyRP/Le6Eq7g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Calvin Owens <calvin@wbinvd.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Wei Yang <albinwyang@tencent.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to GTT"
-Date: Wed, 11 Nov 2026 18:30:41 -0500
-Message-ID: <20261111233031.397897-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/madvise: add cond_resched() in THP branch of madvise_cold_or_pageout_pte_range()
+Date: Wed, 11 Nov 2026 18:31:00 -0500
+Message-ID: <20261111233037.624607-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111233031.397897-1-sashal@kernel.org>
-References: <20261109200203-failed-7.3-5b3717a14ef6@kernel.org>
- <20261111233031.397897-1-sashal@kernel.org>
+In-Reply-To: <20261107061124-failed-5.15-f5cfc8e3b20a@kernel.org>
+References: <20261107061124-failed-5.15-f5cfc8e3b20a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,108 +67,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Calvin Owens <calvin@wbinvd.org>
+From: Wei Yang <albinwyang@tencent.com>
 
-[ Upstream commit 5b3717a14ef602c961a4abeb2ce8039f0394bebb ]
+[ Upstream commit f5cfc8e3b20ad71949a1e5623ff45882c063a71b ]
 
-After commit a637a140ab860310 ("drm/amd/display: Allocate DCN32/1 dmub
-memory to GTT"), a machine with a Radeon RX 7900 shows random garbage on
-the screen. It reproduces sporadically, but at times it is so bad the
-machine is more or less unusable.
+During stress testing with stress-ng on a 256-CPU system, a softlockup was
+observed when madvise(MADV_COLD) was called on a 31GB memory region backed
+by transparent hugepages.  The region contains 15935 THP PMD entries, and
+the softlockup was triggered after 14485 of them had been processed.
 
-The garbage is always horizontal bars extending across the entire
-screen, always approximately 200 pixels tall on a 3840x2160 screen,
-for what looks like a single frame. The bars are mostly black, but will
-sometimes exhibit striping and periodic artifacts which smell like
-non-framebuffer data is being rendered to the screen.
+The THP branch of madvise_cold_or_pageout_pte_range() has no scheduling
+point.  walk_pmd_range() invokes it once per 2MB PMD entry with no
+cond_resched() anywhere in the loop.  Each iteration calls
+pmdp_invalidate() which issues a synchronous TLB shootdown (dsb ish)
+waiting for all CPUs to acknowledge.  This operation can be time-consuming
+under heavy system load, causing the accumulated time across all PMD
+entries to exceed the softlockup threshold (20s) and panic when
+softlockup_panic=1.  On a CONFIG_PREEMPT_NONE=y kernel, there is no other
+opportunity to reschedule during this entire traversal.
 
-It took some patience on the "good" side, but I was able to nail it down
-to commit a637a140ab860310818a14fb4d37e39e51a06be4 with this bisect:
+The regular PTE path already has an unconditional cond_resched() at the
+function tail (introduced by commit 9c276cc65a58 ("mm: introduce
+MADV_COLD") and commit 1a4e58cce84e ("mm: introduce MADV_PAGEOUT") when
+MADV_COLD and MADV_PAGEOUT were first introduced) and a conditional one
+inside the loop (commit b2f557a21bc8 ("mm/madvise: add cond_resched() in
+madvise_cold_or_pageout_pte_range()")).  The THP branch never received
+equivalent treatment.
 
-  bad: [cee9395acd8043be0644b25c34bfa86623f2b935] Linux 7.3-rc1
-  good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
-  good: [55ab7e14222e5f0b0fd9f7711ca391d2924b35e3] Merge tag 'for-7.3/block-20260819' of git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux
-  bad: [df51bdc5e80dae43cab81f6cc641e98638303c88] Merge tag 'mtd/for-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux
-  bad: [29daacacf4cd84e6917f09de6a99fb170071c14c] Merge tag 'drm-rust-next-2026-08-08' of https://gitlab.freedesktop.org/drm/rust/kernel into drm-next
-  good: [fff648aec5e2790d117a0ec5c849a284d9d33d70] drm/amdgpu: include amdgpu_video_codecs.h only where needed
-  bad: [336e0cd576817ac64a4b394ca2b3680029f3e37f] Revert "drm/amdgpu: fix aperture mapping leak"
-  bad: [789f7486a384ca58b9d7a76abba5efa0e80e8dab] drm/amd/display: Test plane colorop helper walkers
-  good: [e0e426f10ad653c5e9dd33fb4a76d55f06101992] drm/amd/display: Test helper_check_state rejects
-  bad: [982b2a43682b55e7d9800000f2592832ff2865ba] drm/amdgpu: Fix IP block NULL check during soft reset
-  bad: [9102b39fa924dcc3dc75a3137bfa9633c40b88c0] drm/amdgpu/userq: fix indefinite fence wait during GPU reset
-  bad: [b23470a026afe64de5c1df4ad181587b49c22923] drm/amd/display: Exit LS for ISHARP before coefficient write
-  bad: [f02b2e47355e9d381a7f34acc997e1c47879ca21] drm/amd/display: Add KUnit test for wb jobs
-  bad: [c6a13d145cc811b19c8a0620f25868cf7d5700c0] drm/amd/display: remove unused dcn42 socbb values
-  good: [1d8327353de6f1f34063840f362c208c84064f54] drm/amd/display: Fix VABC Init and OLED Support
-  bad: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Allocate DCN32/1 dmub memory to GTT
-  first 'bad' commit: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Allocate DCN32/1 dmub memory to GTT
+Fix by adding cond_resched() at the huge_unlock exit path after
+spin_unlock(ptl) and reclaim_pages(), which is the single exit point for
+all goto paths in the THP branch.
 
-Sure enough, reverting a637a140ab860310818a14fb4d37e39e51a06be4 on top
-of v7.3 completely and totally eliminates the problem for me.
+Crash log:
+  watchdog: BUG: soft lockup - CPU#63 stuck for 23s! [stress-ng-vm:1665914]
+  ...
+  Call trace:
+  pmdp_invalidate+0x48/0x68
+  madvise_cold_or_pageout_pte_range+0x84c/0xb00
+  walk_pmd_range.isra.0+0x1ac/0x3b0
+  walk_pud_range+0x120/0x190
+  walk_pgd_range+0x170/0x1b8
+  __walk_page_range+0x184/0x198
+  walk_page_range_vma+0x94/0x128
+  madvise_cold+0xd8/0x198
+  madvise_vma_behavior+0x234/0x638
+  madvise_walk_vmas.constprop.0+0xdc/0x210
+  madvise_do_behavior+0xa8/0x328
+  do_madvise+0xd8/0x140
+  __arm64_sys_madvise+0x2c/0xe0
 
-Mikhail has separately reported this regression:
-
-  https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-
-...but it seems to be much more consistent for me than for Mikhail, it's
-never taken more than 30 minutes even when the machine is completely
-idle. I've also never been able to reproduce any artifact one single
-time without commit a637a140, despite a lot of effort.
-
-I'm not sure reverting this is the right way forward, since presumably
-this would re-regress the timing issue Fangzhi alluded to in the
-original commit. But nobody has proposed anything concrete yet... so
-let's start the discussion here.
-
-I'm happy to help test other better ideas as well :)
-
-Fixes: a637a140ab86 ("drm/amd/display: Allocate DCN32/1 dmub memory to GTT")
-Closes: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Calvin Owens <calvin@wbinvd.org>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 899489d2e2aa854cf5e933677d6561dfcbb94529)
-Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/20261010024042.4070048-1-albin_yang@163.com
+Signed-off-by: Wei Yang <albinwyang@tencent.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adjusted context because reclaim_pages() uses page_list instead of folio_list ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
+ mm/madvise.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index 440759cd456e6..47c20eaa31a1b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -513,7 +513,6 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_CURSOR_OFFLOAD */
- 	};
- 	int r;
--	int mem_domain = AMDGPU_GEM_DOMAIN_GTT;
- 
- 	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
- 	case IP_VERSION(2, 1, 0):
-@@ -650,19 +649,13 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		return -EINVAL;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 367220e1fe52a..00929750bad28 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -385,6 +385,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		spin_unlock(ptl);
+ 		if (pageout)
+ 			reclaim_pages(&page_list);
++		cond_resched();
+ 		return 0;
  	}
  
--	/* Limit to allocate dmub to GTT on DCN32/1
--	 * TODO: Other asics with GDDR7 may have worse latency
--	 */
--	if (dmub_asic != DMUB_ASIC_DCN32 &&
--	    dmub_asic != DMUB_ASIC_DCN321)
--		mem_domain |= AMDGPU_GEM_DOMAIN_VRAM;
--
- 	/*
- 	 * Allocate a framebuffer based on the total size of all the regions.
- 	 * TODO: Move this into GART.
- 	 */
- 	r = dmub_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZE,
--				  mem_domain,
-+				  AMDGPU_GEM_DOMAIN_VRAM |
-+				  AMDGPU_GEM_DOMAIN_GTT,
- 				  &adev->dm.dmub_bo,
- 				  &adev->dm.dmub_bo_gpu_addr,
- 				  &adev->dm.dmub_bo_cpu_addr);
 -- 
 2.53.0
 
