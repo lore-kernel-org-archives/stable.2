@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382996;
-	b=aALR++MvXOCUZl4mw7dV8caZHcz6M52bKN8hoPX4hMv1ThsNRoWcuZFi41rf4egU/KRW
-	 NmBfE7P8cz/OLWYcBaO8aqtSqC7823AwVn7SEW7D+gTSthHG0+9hble0Vl0/iwVjdzTXs
-	 sZzC5JE74Id+Sk4nrRrNNHsHzVWLfd/Xnpt3/hqYrVxkxLn4DyLFq0ERuSw/1fw3ie8dH
-	 uoNSveHrA69DEYWBTi+kvAW9hiVKIMARa2t8AZs8U1gZJaMUsb4fNR69HZYvk4pVMIMg2
-	 EkuYBpkwmfYnoTk6dz6VVR8gtJ8ktahJo/jg2+hewYuO+YuwKovNHXV/KG/UUZQxORQ==
+	t=1794382999;
+	b=CscVLa7zu+V+a3JmqFoAkIF26ziz0T+LfvtKsgCksx0BCt4WW+hVJSfo3+IqAalXq4Af
+	 bzN+Ow/RPUbxHJZR5LQUigvOdXpZd1D3cnuvzKmW1L1alj50fpa4f/xZzwexgZ3yMrozL
+	 N9qOzCoZVONGzqcVUwhMJkNX70gJ8D5dRdvTNI0p/UHK5wBoyviwH87doWMva/UzxGrzU
+	 9KD9eBtLfUVdGEarEwk6LXYk3YqxmSL3pS3CJo7a+J5FZR2Qm3+1eqmphRFnMOUkOTSku
+	 zKY4KNXsXHDHArXV002CA+GLNmZr8Yhbjxh8B+t02dGccGcSNBzcVYN/qKnXT4b+MMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382996;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=EfxdzkdgDHIptdiFFicHU4j+CsK16rJHdQjUlG9Ac2o=;
-	b=hAThczqMtw5WX6/iqH0eFKDCOz0eKpe9R1LEjP4VXoWS+l57ckS5+jHALeELiKpXQnaB
-	 y/ASQDDqZUbSk35kNIIKnfB/dWHYgS2MTiCQ8YVeCgnPZIQLx72kFL2efplerCA/ukZSh
-	 o763TmLV4AZZi2F6V+86bhHarUojkiBDhfLqio4FROOJixkoNVvpfGMUImkOV9MBcSpur
-	 o/fU4ml4BN7EPhMxpVrzVNx4VUviNA/5Gfd0lQt5r79kkXWRFKZ7+JEawJjJQ/q0w04ie
-	 cn/T/nTkv8/+LNvqUcrlQ0e7GOGbkRG6Oh3rU3CHZKyA6BiCWch5QhU2ex6AkNhanUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382999;
+	h=DMARC-Filter:DKIM-Signature:Cc:From:X-Original-From:
+	 Content-Transfer-Encoding:To:Date:Message-Id:Mime-Version:X-Mailer:
+	 X-Lms-Return-Path:Content-Type:Subject;
+	bh=8mTErck5JGupQOghrZ2jPp0xZxOQ50MpStd/zzuxbSw=;
+	b=FSdjLVK9kaGABCEZed0SXqQHnUcuPMTRlN5v90mwc6SV4SvNfshfg1aLJv3fgtPwlQxg
+	 zQZllOOMeg3T7aKBuzfe3OQVROafr/6WWPfVq4mizQN+xf9nELtZS0StrinX3oZV+/B5/
+	 ALzbRk9+pAAmrQztz3muBEyvr0BB2bjvJ3lGxFZzFoGAR865CCl+rhnzgkodKFXR2Igkm
+	 8BkCmZXyUJRtPxElru1P7xp2ebBd538jPZnk6SLyiecIPhewOF08Ro7mkHswc6xxiei8H
+	 ceFTQXGHwF/rcBLaJB8OQGo9YmEY6LmIv9127d2GlVl/DNdpd/1HkHJ9dSwW6flRyZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kcr8dbbk;
-	arc=none smtp.remote-ip=91.218.175.233
-Received: from mta0.migadu.com (out-233.mta0.migadu.com [91.218.175.233])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ZvK0RM0r;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB8C606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:43:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACB8C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5E8606A337
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:43:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF5E8606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kcr8dbbk
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2ou7idqYN0vwf8nRLylpa5vOfvnrhR/VXDNnnd6BgTQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794382992; v=1; x=1794987792;
- b=Kcr8dbbk8h+TSq+Yyw2YDIeSvwq6yLwpn8tc9FoowpR6nJsm66vFNZV0q63S6RgLxmroBChc
- WecxsGdtXIm0yDJpOcwWcwvoeDE1fmBqgl2/rqwDO3dDRbmCq7NHYAHz0g9Pc24beyB4ykRUhPD
- IYs1LeyW5IqEBhh54uHO5AjM=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 12f4ebcce8353a82;
-	Wed, 11 Nov 2026 07:43:12 +0000
-X-Mizu-Trace-ID: 12f4ebcce8353a82
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ZvK0RM0r
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794382993; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=8mTErck5JGupQOghrZ2jPp0xZxOQ50MpStd/zzuxbSw=;
+ b=ZvK0RM0rk3texxolpefRSbHA0nw3r4NI741nNA3qTotMIvcEsn+CVGZiflch1lfTyu8sjD
+ KTbTksmTsBj1Erulw84awAQ7CkWw68V1EoYEyDy14nhTxfVGyBRtU5CG7U1Ss2f+fDz91U
+ KNb5+R6wksdrCqaCjdvDiTiHnHBBWibO3Tkr6K2WOESPi5khmXeCunC9IP54Ep8RT+/pwn
+ HY0i6tcs2Fr7G4gluViq9n0XpjN1f6W/KY3MIACox9RUYfkQtPNq7LWCoENMvHdHcK4H92
+ BpyHx+FbYAOjvwgAyFCHzMMAPke2tmAss+oXJW3V9S2AL/hIbwyZL70SmXIhVw==
+Cc: <mark.rutland@arm.com>, <ardb@kernel.org>, <song@kernel.org>, 
+	<dylanbhatch@google.com>, <linux-arm-kernel@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Rui Qi" <qirui.001@bytedance.com>
+From: "Rui Qi" <qirui.001@bytedance.com>
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+Content-Transfer-Encoding: 7bit
+To: "Catalin Marinas" <catalin.marinas@arm.com>, <will@kernel.org>
+Date: Wed, 11 Nov 2026 15:39:06 +0800
+Message-Id: <20261111073906.652400-1-qirui.001@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,156 +61,207 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v4 2/3] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <503c9f6d869e3206c6fd591de962c3d619b73825.1794379433.git.zhengqi.arch@bytedance.com>
-Date: Wed, 11 Nov 2026 15:42:56 +0800
-Cc: osalvador@suse.de,
- David Hildenbrand <david@kernel.org>,
- akpm@linux-foundation.org,
- azpijr@gmail.com,
- Lance Yang <lance.yang@linux.dev>,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <80FED512-77D2-4D49-BAE5-745CE1F711CA@linux.dev>
-References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
- <503c9f6d869e3206c6fd591de962c3d619b73825.1794379433.git.zhengqi.arch@bytedance.com>
-To: Qi Zheng <qi.zheng@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.20.1
+X-Lms-Return-Path: <lba+26af41c8e+a5c8dd+vger.kernel.org+qirui.001@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH v2] arm64: module: Use text-poke for late PLT/veneer emission
 
+module_emit_plt_entry() and module_emit_veneer_for_adrp() write PLT
+entries into the .plt section by direct assignment.  Once a module is
+fully formed its .plt is read-only/executable, so a late (livepatch)
+relocation that falls back to PLT emission -- an out-of-range
+R_AARCH64_CALL26/JUMP26, or an ADRP under CONFIG_ARM64_ERRATUM_843419
+-- triggers a synchronous Data Abort and panics.
 
+This is the same ROX premise that commit 91b89a634487
+("arm64/module: Use text-poke API for late relocations.") handled for
+the relocation writes through WRITE_PLACE(); the PLT/veneer emitters
+were left using direct assignment.
 
-> On Nov 11, 2026, at 14:46, Qi Zheng <qi.zheng@linux.dev> wrote:
->=20
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
->=20
-> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
-> unpinnable, causing unnecessary migration or pinning failures.
->=20
-> These folios already own their CMA bitmap ranges, and memory blocks
+The late path is reachable without remapping:
+klp_write_section_relocs() applies .klp.rela.* sections through
+apply_relocate_add() with the patch module already MODULE_STATE_LIVE,
+so .plt is ROX.
 
-Commit message needs updating to bitmap as well.
+Route the emitters through the same text-poke write path the relocation
+code already uses, rather than open-coding a parallel helper.
 
-> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
-> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
->=20
-> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic =
-hugepages using cma")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Muchun Song <muchun.song@linux.dev>
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> Acked-by: Muchun Song <muchun.song@linux.dev>
-> Reviewed-by: Oscar Salvador <osalvador@suse.de>
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> ---
-> include/linux/mm.h | 29 +----------------------------
-> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
-> 2 files changed, 32 insertions(+), 28 deletions(-)
->=20
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index b0da9be413098..47d1d96bfc7fd 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2954,35 +2954,8 @@ static inline bool is_zero_folio(const struct =
-folio *folio)
-> 	return is_zero_page(&folio->page);
-> }
->=20
-> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
-> #ifdef CONFIG_MIGRATION
-> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+Fixes: 91b89a634487d5614e51ee773a889ed57f5551ca ("arm64/module: Use text-poke API for late relocations.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rui Qi <qirui.001@bytedance.com>
+---
+Changes since v1 (formerly 3/3 of a 3-patch series, now standalone):
 
-I think David prefer to move this function first, then fix it in a =
-separate patch,
-right?
+- Dropped the former 1/3 and 2/3 (big-endian byte-order fixups): arm64
+  big-endian support is being removed in v7.4 (Catalin Marinas), so the
+  BE-only paths are no longer reachable.
 
-Thanks,
-Muchun
+- Incorporated review (Catalin Marinas): unify the relocation write
+  helper and the open-coded PLT/veneer write helper into a single
+  module_write_place() macro in asm/module.h, used by module.c and
+  module-plts.c; drop the redundant aarch64_insn_copy() NULL check
+  (destination is always sufficiently aligned, __text_poke() !NULL).
 
-> -{
-> -#ifdef CONFIG_CMA
-> -	int mt =3D folio_migratetype(folio);
-> -
-> -	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
-> -		return false;
-> -#endif
-> -	/* The zero page can be "pinned" but gets special handling. */
-> -	if (is_zero_folio(folio))
-> -		return true;
-> -
-> -	/* Coherent device memory must always allow eviction. */
-> -	if (folio_is_device_coherent(folio))
-> -		return false;
-> -
-> -	/*
-> -	 * Filesystems can only tolerate transient delays to truncate =
-and
-> -	 * hole-punch operations
-> -	 */
-> -	if (folio_is_fsdax(folio))
-> -		return false;
-> -
-> -	/* Otherwise, non-movable zone folios can be pinned. */
-> -	return !folio_is_zone_movable(folio);
-> -
-> -}
-> +bool folio_is_longterm_pinnable(struct folio *folio);
-> #else
-> static inline bool folio_is_longterm_pinnable(struct folio *folio)
-> {
-> diff --git a/mm/gup.c b/mm/gup.c
-> index ebbfee09b7278..fdafc5a1b78ed 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -2219,6 +2219,37 @@ struct page *get_dump_page(unsigned long addr, =
-int *locked)
->=20
-> #ifdef CONFIG_MIGRATION
->=20
-> +bool folio_is_longterm_pinnable(struct folio *folio)
-> +{
-> +#ifdef CONFIG_CMA
-> +	int mt =3D folio_migratetype(folio);
-> +
-> +	/* These HugeTLB folios own the CMA memory, so they can be =
-long-term pinned. */
-> +	if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
-> +		return true;
-> +
-> +	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
-> +		return false;
-> +#endif
-> +	/* The zero page can be "pinned" but gets special handling. */
-> +	if (is_zero_folio(folio))
-> +		return true;
-> +
-> +	/* Coherent device memory must always allow eviction. */
-> +	if (folio_is_device_coherent(folio))
-> +		return false;
-> +
-> +	/*
-> +	 * Filesystems can only tolerate transient delays to truncate =
-and
-> +	 * hole-punch operations
-> +	 */
-> +	if (folio_is_fsdax(folio))
-> +		return false;
-> +
-> +	/* Otherwise, non-movable zone folios can be pinned. */
-> +	return !folio_is_zone_movable(folio);
-> +}
-> +
-> /*
->  * An array of either pages or folios ("pofs"). Although it may seem =
-tempting to
->  * avoid this complication, by simply interpreting a list of folios as =
-a list of
-> --=20
-> 2.54.0
->=20
+ arch/arm64/include/asm/module.h | 16 ++++++++++++++++
+ arch/arm64/kernel/module-plts.c | 10 +++++++---
+ arch/arm64/kernel/module.c      | 22 ++++++----------------
+ 3 files changed, 29 insertions(+), 19 deletions(-)
 
+diff --git a/arch/arm64/include/asm/module.h b/arch/arm64/include/asm/module.h
+index fb9b88eebeb1..4a1a47f8ba1a 100644
+--- a/arch/arm64/include/asm/module.h
++++ b/arch/arm64/include/asm/module.h
+@@ -6,6 +6,7 @@
+ #define __ASM_MODULE_H
+ 
+ #include <asm-generic/module.h>
++#include <asm/text-patching.h>
+ 
+ struct mod_plt_sec {
+ 	int			plt_shndx;
+@@ -29,6 +30,21 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
+ u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
+ 				void *loc, u64 val);
+ 
++/*
++ * Write a relocation value to @place within a module.  While the module
++ * is MODULE_STATE_UNFORMED the destination is writable and a direct store
++ * is used; once the module is fully formed the region is read-only and
++ * executable, so the write is routed through the text-poke API.
++ */
++#define module_write_place(place, val, mod) do {			\
++	__typeof__(*place) __val = (val);				\
++									\
++	if (mod->state == MODULE_STATE_UNFORMED)			\
++		*(place) = __val;					\
++	else								\
++		aarch64_insn_copy(place, &(__val), sizeof(*place));	\
++} while (0)
++
+ struct plt_entry {
+ 	/*
+ 	 * A program that conforms to the AArch64 Procedure Call Standard
+diff --git a/arch/arm64/kernel/module-plts.c b/arch/arm64/kernel/module-plts.c
+index 7afd370da9f4..87d623789265 100644
+--- a/arch/arm64/kernel/module-plts.c
++++ b/arch/arm64/kernel/module-plts.c
+@@ -76,11 +76,13 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
+ 	int i = pltsec->plt_num_entries;
+ 	int j = i - 1;
+ 	u64 val = sym->st_value + rela->r_addend;
++	struct plt_entry entry;
+ 
+ 	if (is_forbidden_offset_for_adrp(&plt[i].adrp))
+ 		i++;
+ 
+-	plt[i] = get_plt_entry(val, &plt[i]);
++	entry = get_plt_entry(val, &plt[i]);
++	module_write_place(&plt[i], entry, mod);
+ 
+ 	/*
+ 	 * Check if the entry we just created is a duplicate. Given that the
+@@ -107,6 +109,7 @@ u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
+ 	int i = pltsec->plt_num_entries++;
+ 	u32 br;
+ 	int rd;
++	struct plt_entry entry;
+ 
+ 	if (WARN_ON(pltsec->plt_num_entries > pltsec->plt_max_entries))
+ 		return 0;
+@@ -121,8 +124,9 @@ u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
+ 	br = aarch64_insn_gen_branch_imm((u64)&plt[i].br, (u64)loc + 4,
+ 					 AARCH64_INSN_BRANCH_NOLINK);
+ 
+-	plt[i] = __get_adrp_add_pair(val, (u64)&plt[i], rd);
+-	plt[i].br = cpu_to_le32(br);
++	entry = __get_adrp_add_pair(val, (u64)&plt[i], rd);
++	entry.br = cpu_to_le32(br);
++	module_write_place(&plt[i], entry, mod);
+ 
+ 	return (u64)&plt[i];
+ }
+diff --git a/arch/arm64/kernel/module.c b/arch/arm64/kernel/module.c
+index 24adb581af0e..595c358b4f0e 100644
+--- a/arch/arm64/kernel/module.c
++++ b/arch/arm64/kernel/module.c
+@@ -23,7 +23,6 @@
+ #include <asm/insn.h>
+ #include <asm/scs.h>
+ #include <asm/sections.h>
+-#include <asm/text-patching.h>
+ 
+ enum aarch64_reloc_op {
+ 	RELOC_OP_NONE,
+@@ -49,15 +48,6 @@ static u64 do_reloc(enum aarch64_reloc_op reloc_op, __le32 *place, u64 val)
+ 	return 0;
+ }
+ 
+-#define WRITE_PLACE(place, val, mod) do {				\
+-	__typeof__(val) __val = (val);					\
+-									\
+-	if (mod->state == MODULE_STATE_UNFORMED)			\
+-		*(place) = __val;					\
+-	else								\
+-		aarch64_insn_copy(place, &(__val), sizeof(*place));	\
+-} while (0)
+-
+ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
+ 		      struct module *me)
+ {
+@@ -77,7 +67,7 @@ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
+ 
+ 	switch (len) {
+ 	case 16:
+-		WRITE_PLACE((s16 *)place, sval, me);
++		module_write_place((s16 *)place, sval, me);
+ 		switch (op) {
+ 		case RELOC_OP_ABS:
+ 			if (sval < 0 || sval > U16_MAX)
+@@ -93,7 +83,7 @@ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
+ 		}
+ 		break;
+ 	case 32:
+-		WRITE_PLACE((s32 *)place, sval, me);
++		module_write_place((s32 *)place, sval, me);
+ 		switch (op) {
+ 		case RELOC_OP_ABS:
+ 			if (sval < 0 || sval > U32_MAX)
+@@ -109,7 +99,7 @@ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
+ 		}
+ 		break;
+ 	case 64:
+-		WRITE_PLACE((s64 *)place, sval, me);
++		module_write_place((s64 *)place, sval, me);
+ 		break;
+ 	default:
+ 		pr_err("Invalid length (%d) for data relocation\n", len);
+@@ -157,7 +147,7 @@ static int reloc_insn_movw(enum aarch64_reloc_op op, __le32 *place, u64 val,
+ 
+ 	/* Update the instruction with the new encoding. */
+ 	insn = aarch64_insn_encode_immediate(AARCH64_INSN_IMM_16, insn, imm);
+-	WRITE_PLACE(place, cpu_to_le32(insn), me);
++	module_write_place(place, cpu_to_le32(insn), me);
+ 
+ 	if (imm > U16_MAX)
+ 		return -ERANGE;
+@@ -183,7 +173,7 @@ static int reloc_insn_imm(enum aarch64_reloc_op op, __le32 *place, u64 val,
+ 
+ 	/* Update the instruction's immediate field. */
+ 	insn = aarch64_insn_encode_immediate(imm_type, insn, imm);
+-	WRITE_PLACE(place, cpu_to_le32(insn), me);
++	module_write_place(place, cpu_to_le32(insn), me);
+ 
+ 	/*
+ 	 * Extract the upper value bits (including the sign bit) and
+@@ -224,7 +214,7 @@ static int reloc_insn_adrp(struct module *mod, Elf64_Shdr *sechdrs,
+ 						   AARCH64_INSN_BRANCH_NOLINK);
+ 	}
+ 
+-	WRITE_PLACE(place, cpu_to_le32(insn), me);
++	module_write_place(place, cpu_to_le32(insn), me);
+ 	return 0;
+ }
+ 
+-- 
+2.20.1
