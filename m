@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794391865;
-	b=y6mdlcgRbUFtDM3zWaT2cRDmswjqE9Z7da1sGe0EF7V/HcObwVm54264k0Nj5YtvpNeS
-	 b1SZV8xropNpc9ruyKs7PxhO1EQy28BaQHo9wT1L2Hox9MgLNKVCoE+mpMfKUto1pEmJK
-	 WlUylaBJQrIt/gz0MA9jryCRT+ibiLQMu35GX5tKQ5PAGTWfLpNyfPnRXbQ8WH1FwHaKD
-	 MnTUQZLcFwepezGLzcpEmBydOndsS0wTjtTFMrzdwTWdBUGPXzcLd8CwxCqQmW+LwoERE
-	 eX5bD04X9kafx6AX7rraecDmN+PYS9ZKoyc57U4Ubfxk/BRD1E4W0FIva2mfJPCV1mQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391865;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GEsylJqHfV7t6xP0By6QnSVqMCDFT6AOk4Aa/qVk7zY=;
-	b=Uy5uY7sX12ncR84efFaU7jDYumNeG7FJinAf7pEcNqvEeIAKQJCtSmddsYTfSe6n+Amn
-	 DVcMr0msnCQUVOtIWx3FbmPBD/UMWuVcEBHIQABPcZLfT60X7hTYQSv3HKOB7w5t6lE3g
-	 DoxzxYZzJ91CYckg6TFdWvHulPh0+IWoI36hayxbGdv/graEgoB+SaamMI3y452hqFKjh
-	 CgXQJ2sGX9V1NfBQFSXrqHRPHnELGF1zBBf/d1jvM8D7cuAQQ8LrFa1f8uOgiCl7aiQHH
-	 spqeCnDuqUSqnEffFMHkUze4FurZpVNoab4z+wta2pyh0hIk3ZpMT5PP+pgcMBSMJkg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nz84woZ9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3FE606A31C;
-	Wed, 11 Nov 2026 10:11:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nz84woZ9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794391864;
-	b=Zu54Bz/X6iE9ff/zFPh0ku0fgDTYnm3L4DsmXFoJgmAKKXE5Oh0umw34f88x4PfI5qZV
-	 krpS+8EKqRMuWCJndTgyKheurOJUxzi1jbNvfirCNXqCi0NUO6dQQ/9/poO+q4XjWF13r
-	 Y3FwajbRXx2sFeYwCmO6kEdB7CrXK2sSiIWthENIjyJmc5Xqf/LooyYihX2wu3zrH+RB+
-	 KIOeWn6cXPoR7aa1rbWWOjNSt4qlDN6W8IKB8hnoGssD01trKDr4MdtxTVAc7Z6eemMbE
-	 znCZYj/ozc7LhBsx0D9Ggq9Pe1njZcqoO3X8dwfkVkWMoSCesw2wmcjfNIoiYuqHung==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794391864;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GEsylJqHfV7t6xP0By6QnSVqMCDFT6AOk4Aa/qVk7zY=;
-	b=HEF+p3XQZ83VIeqZ5dGKmkNTUnGn4HUyAkgYAEBNx5f+zPX/HCDgCOKct8xylaRZZaRA
-	 wksNR6XNZud5MBmh/Ir4CfYy4q0o2bu3HfhY94XTcm8VlVZ9cWsrF2HJp9ZkRfWGBdsN4
-	 eYnLOAYkYIouxXmrC8SEaI7HAWW6V/wMDXyZU6VNkffFyqlQ4v+Lrs+iXLM2kHtfgwYGF
-	 uhBJ8StuTPnS5MbThChWACHHZz0PuxM1WXd25O8Q3+H252FadPVOKe+eqqwRrl53YA7Uo
-	 PEKEKQXw3cIo0gM0/nATZZEfKooOx84/esi0Rs/OdZ1YJ1p4Xo75PPVTS+vL0dQO7Ig==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794392189;
+	b=Z8+z+3Von9n7lEV+dOqiEFvvr1fDfDqemhB581Wes0bnra3NzMmN8DvRCtxUF89N2T7y
+	 ao4d0YmKcmcYO2xtimBqjn7mc3GnSN7UkSADlsTY5LrlhMMgq2Wwbu1Ip+tyFn0xyw1jZ
+	 h/rKPgcZvXGitHdsyGXGEZtysOGS2FBjAQf6Rrnhdf1d70u/gJhxLItQGXrktf1IAR2lO
+	 xqb7QoPkTo71vo7uQ5rDrktlYp2MLlmBGo0wB65FVPyBnIq82pH3EE1edDxne+3W1kh8h
+	 dtIQFypo+DYEjkZ/FfJ3B4bEHkYlSE2NMPPnctBpNVCb+XBbEDdld98eknavzfKCpSw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794392189;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=d/IvGYdSU0x2hRQxBE1JjbZsWM2RLe7/sTpyhUbllAo=;
+	b=bxXHy0hlD0vfanXS2uv56/NkJlHaS4lnaAghV+Lnoexka1yQ8b6pWSfFUPThYnLuQ57H
+	 JOAHgQD5v/L7qaZcPXqq+taXkSkHOAp7tsYCqCnyu0FobT22+/Qic3qDH8l1AKgvzTKHV
+	 o3XWJraULqoFsv7ggeVpXzLDhKT45eBqI/MYz5HUl/pJYyQkAdEGAfkKdSdwJiaICtOfH
+	 GIblL6nBmer7O++EWBRX9Vzaw7GHVQYIEg4GK8LiNiSOEmlfHvlcozSoMU6bD3m32gg5D
+	 Cfm7EsojYKiAyiP0rDbOo1eI2E+WdS6zK56zfppjKqzyzeqfh/qXYXS54D1EKLFLO6g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zu6x9jvf;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 366931F00A05;
-	Wed, 11 Nov 2026 10:11:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391864;
-	bh=GEsylJqHfV7t6xP0By6QnSVqMCDFT6AOk4Aa/qVk7zY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Nz84woZ9jtuNDH83f3owqsLN7pg9y73N8UqUarAAcdgzzPnAVyG2WOXkb7MNHOvFp
-	 semsROA1ye3HQipTXa/MA+JVNmHxDufasx76DfikR44kNj6Kd1JC0fOsWYFib9aONm
-	 RS/tfzQTcC/iUEAuHINxOmiPpLG58MaYqLj8Tr0U6e/f1yRP0KSOFHXHtOS/xHWyA1
-	 SjcR2FjNgv8fEkb4Ytg1jzEsxr3fXxS823S2o5MhWpNVquJXd+JSQNqRNdnOrvrsGp
-	 dSbCT+x2V7HaqnX6RYKP2gX3ry8IdltRpIvlvLioboSC5NnZLhPipVXWeah8o7eXyD
-	 iCgMIp0RPmehQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AAF2A48F2E;
-	Wed, 11 Nov 2026 10:11:03 +0000 (UTC)
-From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Date: Wed, 11 Nov 2026 11:10:56 +0100
-Subject: [PATCH 1/6] memory: tegra114-emc: Stop clearing
- EMC_AUTO_CAL_CONFIG
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355ED606A881
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:16:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 355ED606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zu6x9jvf
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-14394530ec6so3844356c88.1
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:16:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794392188; x=1794996988; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d/IvGYdSU0x2hRQxBE1JjbZsWM2RLe7/sTpyhUbllAo=;
+        b=zu6x9jvf/Y3EYKErT5IhySBfSvma7bgcPl3N8bj7rO1deIOsdjwDsOzNRTj7JUAVRw
+         n3pJKYeNcD7xkEej0G+uil1L/QZZS7fW/8pCweCtJlfM6AwhR0WGB1GQnlNPrCjhDZG6
+         TopgFcf2SwZyMir0eFewYeUjTgZGxmbxCKnVB4y9/SDyW/KAzC0yiD2fd8CrM1+y6NIt
+         ezQnXbTySqtaWSCtYf8EnHmqNse/A20j3OBaOw6OJ50ayWpw0VpUJMlUdRUFSBEnaasH
+         AHCyiIr+8ZK+vb2xKhs/PUrZXDc1l6FJqIBOg62Qe4QJfX1LVrIHoKFTNiOrahtEaHzx
+         9Hqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794392188; x=1794996988;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d/IvGYdSU0x2hRQxBE1JjbZsWM2RLe7/sTpyhUbllAo=;
+        b=NCtYS+Zg6mKONVZ+GFeaf6fcuaUGon0xN5psD95CCccVfg/sX2A6HsCQRkihOp5r0E
+         Wprv1LwgZJH5YeD0y6HSo6CNhE1k4fwUJsed87tz6wEm9NoVXZuIu5Jf1Riir4W0RFpg
+         Ba7VddBIGz1k/05CXKUxKi8/UFKvw/MRk678cfo5/MhpCxcB1A+9ul12o4NzrK1mnADK
+         /93Yi4JKMH+UHdAjSbZVDB1TpqtxkDEoLy9ddhIHXj3xAogsY6tSdzDYoV4JG/czaLIW
+         XIjEteghMKoX9GmqRchVLgvGXG3rxg1+k8XVfpX49ShB7H3uucbgf30Ov3Z0s5cS2IaC
+         pKlA==
+X-Forwarded-Encrypted: i=1; AL+hErHBo7njrHy7XY2vitv6Nk08bHpD02VJL1uKn+EN/zpMf/TdE937MmafJ2judu0FJ65Zasod5U8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+kajzIINxRkA1dkmH1RHmj73UL8d6wUl5EbiDsARoYtDCM/i9
+	tCe67feFZ1wGufcgbdmBYLg3V+7V1zNDbt2Y+tTL1KJblLcA5YquWBMN
+X-Gm-Gg: AYBFou1MhkbR7pMIf9EzU3KGvLAavMR0yU91f/287TatluPvzP1jztcoQng01lkfWaN
+	fdgMlQ/tDC4lo8exTOY4XbWsKGXcjfR8macvwzK35EjEAL7QEGZQTqo2Ydnj0VZy5vUjjLit4gJ
+	ntOqZ8Al9JoIQW7ST4nEo8+QYbOYXBq9wZ+aV7RtAaWw1rtwOBLt8n3dMGX+eV6faTp3B5WKEsS
+	A0N2b7zR+SZdD42mei1Ve1hO58Jfh2skhM6zJk6gmZfhjg4vZkrae56zbWaRr3pL+mHnEiYKxMa
+	oY81z6YGdUmWIv8pw50e4zARYowkC3UsF39rRAaQYsbVyKjcdrXld1QpubI0lAQpyopABAnhGfV
+	FNokxhufyHt88rJX3W8FgsunONVbTbbk55/bLROLXQPmi1KWh0NgFwyG/xsqlikcugrFe6AtcmN
+	ekRSrloiKn6Tgnhd1lbVerCesnI58/zfFmBqjo3ll0vWZrHBLpzARAp7WvIGL32lkOen7QuKzW5
+	igPdrkz4A3M4klw+O9qf9zp92piCXXSqi66eY1RP8oefC6Yisduh0KglZQaU/oO1zzRlEb5hFK2
+	Q5NCwDHukIKj5C69ksDq
+X-Received: by 2002:a05:701b:2219:b0:18d:9eec:e0be with SMTP id a92af1059eb24-1b3c023e33cmr1755383c88.2.1794392188110;
+        Wed, 11 Nov 2026 02:16:28 -0800 (PST)
+Received: from a1-free ([161.33.196.121])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2fc14sm14134634c88.12.2026.11.11.02.16.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 02:16:27 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v2] libperf: Handle an evsel without an fd array in enable/disable
+Date: Wed, 11 Nov 2026 10:16:24 +0000
+Message-ID: <20261111101625.2204836-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261023085629.1694941-1-takano32@gmail.com>
+References: <20261023085629.1694941-1-takano32@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,89 +104,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-upstream-emc-t114-v1-1-54d9e1bceb6a@tsv-stahl-riesa.de>
-References: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
-In-Reply-To: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
- stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794391862; l=2555;
- i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=VedvDoHeeh9Rio1y6TI1PoAGPqxv39pJW1v6xrOmiGA=;
- b=mXxhCsFz2yS8pLPwTfK02jdkktTzaRUq+XULbNJStzWwzYL3CXRJnpToHH73+rlvv+dObA/ko
- 0MPJS13WleJCR7GD893vCIpKgc1YG3bS3RHmY016ye4+YT1tL6vhQkA
-X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
- pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
-X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
- auth_id=1251
-X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-Reply-To: admin@tsv-stahl-riesa.de
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+A group led by a tool PMU event is opened with the members' group_fd set
+to the leader's file descriptor.  For a tool event that descriptor comes
+from open("/proc/stat"), not from perf_event_open(), so a member the
+kernel refuses is marked unsupported; perf stat then releases the fd
+array of that member while the evsel stays in the group.
 
-tegra114_emc_prepare_timing_change() masks the EMC_AUTO_CAL_CONFIG value
-of the timing with AUTO_CAL_START before writing it, which leaves only
-the self-clearing start bit. As last_timing starts out zeroed, the first
-rate change already does this write. From then on AUTO_CAL_ENABLE is
-off and, according to the Tegra 4 TRM, the pads no longer use the
-pull-up and pull-down codes from the calibration logic but the static
-settings from the pad control registers. On a Tegra Note 7 (P1640) the
-bootloader leaves 0x20f10f0f in channel 0 and 0x28f10f0f in channel 1;
-after the first rate change both read 0.
+Enabling the group goes through evsel__enable_cpu(), which enables the
+members of a mixed PMU group from userspace because the kernel does not
+do it along with the leader.  The member has no fd array left, so
+perf_evsel__run_ioctl() reads its loop bound through xyarray__max_y()
+and dereferences a NULL pointer:
 
-The full value cannot be written through the broadcast registers
-either: channel 0 runs the calibration and channel 1 is its slave
-(AUTO_CAL_SLAVE_MODE, bit 27), so a broadcast write would make both
-channels masters. Leave the register alone, which keeps the calibration
-the way the bootloader set it up. That value is not necessarily the one
-in the timing tables: on the P1640 the bootloader uses the pull-up and
-pull-down offsets that the tables only have at 792 MHz (0xf0f). A later
-patch programs the table values per channel where the device tree
-describes the channel registers.
+  $ perf stat -a -e '{user_time,cycles}' -- sleep 0.05
+  Segmentation fault
 
-Tested on a Tegra Note 7 (P1640) with this series but without the
-channel registers in the device tree, which takes the path this patch
-leaves for existing device trees: both channels keep the bootloader
-values through rate changes between 204, 408 and 624 MHz, and a 10
-minute memory test switching between 408 and 624 MHz ran without
-errors.
+Guard the array in both places: FD() returns NULL when it is absent,
+which perf_evsel__ioctl() and perf_evsel__read() already test for, and
+xyarray__max_x()/max_y() return 0, so the enable and disable paths that
+walk the array become no-ops; perf_evsel__ioctl() returns -1 for such an
+evsel, as it already does for a closed fd.  The FD() guard alone is not
+enough because that loop bound is read first; measured on the same tree,
+rc=139 with the FD() change only and rc=0 with both.
 
-Fixes: dce208b5405f ("memory: tegra: Add Tegra114 EMC driver")
+Verified on an arm64 KVM guest (Neoverse-N1) with a perf built from this
+tree.  '{user_time,cycles}' and '{system_time,cycles}' segfault on the
+unpatched tree (rc=139) and exit 0 here, reporting user_time (resp.
+system_time) and a '<not supported> cycles:u' line.  Real-PMU groups
+such as '{cycles,instructions}', 'perf stat' with no event and '-r 2'
+print identical output on both trees, and 'perf test -v 10' passes the
+same 78 subtests.  The libperf tests report the same five test-evlist
+failures on both trees: the events cannot be opened by this user
+(perf_event_paranoid=4), and two cases cannot read the syscall tracepoint
+id because /sys/kernel/debug is mounted root-only.
+
+The events are still not counted: a member the kernel refused stays
+unsupported.  Hang Zhengyang's follow-up opens these members with
+group_fd = -1 so that they are counted.
+
+Written with Hermes Agent, an LLM assistant, which made the change and
+wrote this changelog.  I built perf with it, reproduced the segfault on
+the unpatched tree and confirmed it is gone with the patch, and ran
+'perf test' and the libperf tests on this box.
+
+Fixes: 0b18bced5444 ("perf tool_pmu: Make tool PMU events respect enable/disable")
+Link: https://lore.kernel.org/avQIOtt7Y67oXQem@z2
+Suggested-by: Namhyung Kim <namhyung@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
 ---
- drivers/memory/tegra/tegra114-emc.c | 6 ------
- 1 file changed, 6 deletions(-)
+v2: follow Namhyung's suggestion and fix it in libperf instead of
+    skipping the members in tools/perf/util/evsel.c. The FD() guard
+    alone leaves the crash in place, because the loop bound is read
+    from the same NULL array through xyarray__max_y(), so the
+    xyarray accessors get a NULL check as well. Measured on the same
+    box with the FD() guard only: rc=139, with both: rc=0.
 
-diff --git a/drivers/memory/tegra/tegra114-emc.c b/drivers/memory/tegra/tegra114-emc.c
-index e50d71842d3a..eb1360627ece 100644
---- a/drivers/memory/tegra/tegra114-emc.c
-+++ b/drivers/memory/tegra/tegra114-emc.c
-@@ -609,12 +609,6 @@ static int tegra114_emc_prepare_timing_change(struct tegra_emc *emc,
- 		emc_ccfifo_writel(emc, timing->emc_auto_cal_config3,
- 				  EMC_AUTO_CAL_CONFIG3);
+ tools/lib/perf/evsel.c                    | 3 ++-
+ tools/lib/perf/include/internal/xyarray.h | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/tools/lib/perf/evsel.c b/tools/lib/perf/evsel.c
+index f747c0bc692d..e23df3b2c1f1 100644
+--- a/tools/lib/perf/evsel.c
++++ b/tools/lib/perf/evsel.c
+@@ -57,7 +57,8 @@ void perf_evsel__delete(struct perf_evsel *evsel)
+ }
  
--	if (timing->emc_auto_cal_config != last->emc_auto_cal_config) {
--		val = timing->emc_auto_cal_config;
--		val &= EMC_AUTO_CAL_CONFIG_AUTO_CAL_START;
--		emc_ccfifo_writel(emc, val, EMC_AUTO_CAL_CONFIG);
--	}
--
- 	/* DDR3: predict MRS long wait count */
- 	if (emc->dram_type == DRAM_TYPE_DDR3 &&
- 	    dll_change == DLL_CHANGE_ON) {
+ #define FD(_evsel, _cpu_map_idx, _thread)				\
+-	((int *)xyarray__entry(_evsel->fd, _cpu_map_idx, _thread))
++	(_evsel->fd ? (int *)xyarray__entry(_evsel->fd, _cpu_map_idx, _thread) \
++		     : NULL)
+ #define MMAP(_evsel, _cpu_map_idx, _thread)				\
+ 	(_evsel->mmap ? ((struct perf_mmap *) xyarray__entry(_evsel->mmap, _cpu_map_idx, _thread)) \
+ 		      : NULL)
+diff --git a/tools/lib/perf/include/internal/xyarray.h b/tools/lib/perf/include/internal/xyarray.h
+index f10af3da7b21..8bf76c12984e 100644
+--- a/tools/lib/perf/include/internal/xyarray.h
++++ b/tools/lib/perf/include/internal/xyarray.h
+@@ -32,12 +32,12 @@ static inline void *xyarray__entry(struct xyarray *xy, size_t x, size_t y)
+ 
+ static inline int xyarray__max_y(struct xyarray *xy)
+ {
+-	return xy->max_y;
++	return xy ? xy->max_y : 0;
+ }
+ 
+ static inline int xyarray__max_x(struct xyarray *xy)
+ {
+-	return xy->max_x;
++	return xy ? xy->max_x : 0;
+ }
+ 
+ #endif /* __LIBPERF_INTERNAL_XYARRAY_H */
 
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.56.0
-
+2.53.0
 
