@@ -1,56 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794423750;
-	b=JRRtBRDT1sQxwhJK+H3sU//RwwkcDMiGFEB9w9u4AeDGTt7jh6C3mnE3nwfAebuFGXfs
-	 cYXd4ux9Y2TtTULo/FZclY4WG9LZebraMdnz0xMUbGBO9X8Ok3GhEAAqW0mxBVrhlBXe0
-	 bvP+nUToiTXkrNnQZQh0nmKN39xu5xcWKYxxqUzkGqoQsNHLNHuavAanQVy5L/Qt8kRcr
-	 0JCM3SXrdVEckinKhdPhOl/sr7A0LvkDhylCKnkwijpBhOcjgIIqsFDj+SvmNpI4Oevmw
-	 UsgbZD96FssscMJjB10jqF6HXLIkkxSK1gOXg8OJQ9DjyRVIW73rrmC4fhRFUaXqePQ==
+	t=1794423835;
+	b=oKgbSYbhTW6DPNsXSeYZdQMtnDj84KFOC0S8xN8cPk5+sHcewhJCPjGs5a7At+Q5MP17
+	 76Hqb1IdW+atB9h8mqEmVEN7CeU4G3Kwp3O9iUD3FOlWSf1SsHLuXcRYYtNMrUCwhsvZP
+	 0vdq4Yeem5Thg/Bg19XnmRMIdTIJ3MLpufE58e3oTU26QkJdzo4zOHh2xoWa6uveJmfyH
+	 ZPsz5h39QCXzhlwcFc/yPGozEfL4LdBn/jvICpFfF9USZ/rcr9JON1ctVT/NMSYIfOgO6
+	 fk7mncHVfAQGsmFmZAKem0HXUV87aPrbB1TWTC7G3jYEjf4NVvLMRHEAKByjZOVj62Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794423750;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3Dgcd3s9iY2YEwfM4c2i4CzVOyXcx9IKcTe430uyrjk=;
-	b=2cagBCPNAaEsQwuc11N2OXxfgTd/rLORqzwACM2XNk+8amad4vKNjgYzBIxmjdJZBG4H
-	 284RVehA/DshwB8rRgwLDotocIO0Is6Q+//DOuN3Hxuf8X5cFdaKBj4n1V8gDuAMeGMbn
-	 CG0PaEFNM26NXQLEPelO5VccMpW94rmSacFcmnFo+N94xzBl27XLutChHCrWaPQbW5O76
-	 XIrix60s4MoCkcafqyYOCAVD/h34Q4ehe9XmSavUrw4NbuKovcQUpBa6fJTWleH+H2AQ+
-	 bbCnwlohkOjDEMkNHLzvl6eIiFMkH3PnM3LPV3hz1JqUrbpv3MmpG88ILWkdScP75ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794423835;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=/J9ZsdBTsczMP7kWvo8AWkhIxuhUUf0Icf5v58zQZlM=;
+	b=ZW4uyLCe/oq7XOErA7DDtHNpUG7a91fwtVzmqaRfClloGxYNpE8om0qdsV5Mr7j+2om4
+	 fDIdENL5DikDZHX3kKIoMRWXSJjZKh5FspT2npQqwh5rg+yJP/Hy2rDqkNsw+99NO6OZa
+	 CMw6iKxzC31bA8/pbaM73DFpCGsPHil6a0mnM0EHgcHZcLrqU98fH132s/g/m6avbVmKV
+	 o4bHKXUId9i6Ev5iRrwlXDn3Q2CVjQGs8Cb3cLZbUClVFxHUXaUeD9f8VlLOMKjP/oIN9
+	 XSB4XtXRsc/CdQgVBy3LpdZncMn7s4D8OtR02o7aM59rCXMqk0nRZt73ZgDIt9V+kfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOxHSgom;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="fR1+I/fY";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A265606A89D
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:02:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED07606A32D;
+	Wed, 11 Nov 2026 19:03:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOxHSgom
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679CD1F00A06;
-	Wed, 11 Nov 2026 19:02:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794423750;
-	bh=3Dgcd3s9iY2YEwfM4c2i4CzVOyXcx9IKcTe430uyrjk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fOxHSgomPkgLWNdcMqDzbxwif/Prh8253l8Ba7h0PGmJr6MHMNFMEcO+F7KeaNwof
-	 Ouczr1QbHLEd3toajMpA/kLJbmVswBOrnCYfMLGasAMw1EvO52RpJElrEykxeQuL23
-	 0YHpUBXKjxqg1lQ/NQ5mii5GVLR3tN9iBQH+L4WhQwWeVM8kU/UNSKu+4sAnNS+Qco
-	 ZwRAoASdSWPxH96SFig4sy1i/MK6eXIDfE0i+RmRGqmrJjp1PYdMqslrC5LAWWsg/d
-	 rFKmSq89OXbmSlEmYdGqbcQOunuPIkHZqz13rFgMWlHpjJ9NM+dz+yquqYPedlutUM
-	 tyMxEZyBwnoZw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yao Yiqi <yaoyiqi3@huawei.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Helge Deller <deller@gmx.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] fbcon: Rebuild rotated font buffer on font change
-Date: Wed, 11 Nov 2026 14:02:28 -0500
-Message-ID: <20261111190159.3927427-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061003-failed-5.15-e4b6b865d45d@kernel.org>
-References: <20261107061003-failed-5.15-e4b6b865d45d@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fR1+I/fY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7856F1F00A05;
+	Wed, 11 Nov 2026 19:03:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794423834;
+	bh=/J9ZsdBTsczMP7kWvo8AWkhIxuhUUf0Icf5v58zQZlM=;
+	h=Date:To:From:Subject;
+	b=fR1+I/fYvLGhPNGJLWUGehQ/QVykGQAHrh+tm4es/m0HGQ5SyphXRBPO21bRKvi+A
+	 am8o/u5eAlFhItXZUTSh+Tc+gd1ahqWXIhfINdDzm+6We/E1cqtDe7+YW4SNROZTlQ
+	 CjyLtvZDbyni4yV4ZxR5Amg0DTpsQqLyulQcgFa8=
+Date: Wed, 11 Nov 2026 11:03:53 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,ryncsn@gmail.com,
+	qi.zheng@linux.dev,noah@feldt.systems,kasong@tencent.com,hannes@cmpxchg.org,
+	david@kernel.org,baohua@kernel.org,shakeel.butt@linux.dev,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mglru-splice-all-generations-when-reparenting-a-memcg.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261111190354.7856F1F00A05@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,141 +51,125 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-[ Upstream commit e4b6b865d45d8dafb6c6f28c8a993a5b4431d25a ]
+The patch titled
+     Subject: mm: mglru: splice all generations when reparenting a memcg
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-mglru-splice-all-generations-when-reparenting-a-memcg.patch
 
-fbcon_rotate_font() caches a rotated copy of the console font in
-par->rotated.buf. The buffer is sized from the font's width, height
-and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
-fbcon_modechanged(), but not in fbcon_do_set_font().
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mglru-splice-all-generations-when-reparenting-a-memcg.patch
 
-When the font is changed through KDFONTOP, the new geometry is
-installed and vc_resize() redraws before the buffer is rebuilt. The
-rotated putcs/cursor ops then index the old buffer with the new cell
-size; KASAN reports a slab-out-of-bounds read in soft_cursor().
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Rebuild the buffer for the visible console before the redraw, as the
-other callers do: select the console's blitting state with
-set_blitting_type() (which also uploads the new font's map on
-tile-blitting hardware), then rebuild. Background consoles keep
-their rebuild at fbcon_switch() time, as the buffer is shared per
-framebuffer and must not be updated for a console that is not being
-displayed.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-To ensure a correct rollback when the rebuild or the following
-vc_resize() fails, save the rotated font state, clear it before
-rebuilding, and restore it in the error path of
-fbcon_do_set_font().
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Helge Deller <deller@gmx.de>
-[ sashal: adapted rotated font handling to separate fbcon_par fields and the direct par->rotate_font callback ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Shakeel Butt <shakeel.butt@linux.dev>
+Subject: mm: mglru: splice all generations when reparenting a memcg
+Date: Tue, 10 Nov 2026 16:09:13 -0800
+
+Noah reported list_del corruption on single-node hosts running 7.2.11,
+which already has commit bf4ade7dbd76 ("memcg: keep folio's objcg same as
+its node").  The bad pointer is an MGLRU list head in a freed
+mem_cgroup_per_node:
+
+  slab mem_cgroup_per_node start ff31bfa36a3c9e00 pointer offset 528 size 1920
+  list_del corruption. next->prev should be ffacf881ccc70e08, but was ff31bfa36a3ca010. (next=ff31bfa36a3ca010)
+
+When a memcg goes offline, __lru_gen_reparent_memcg() moves its MGLRU
+lists to the parent.  It moves only the generations (gens) from min_seq to
+max_seq, and it puts each list at the same index in the parent.
+
+A folio's gen in folio->flags can be ahead of the list it is on.  In the
+parent, the same index can stand for an older gen, so the folio's gen can
+end up older than its list.  Once the parent's min_seq passes that gen,
+sort_folio() puts the folio on the list for max_seq + 1, where it stays
+until the next aging.
+
+If the parent goes offline before that aging, the folio is not moved to
+the grandparent.  It stays on the parent's list after the parent is freed,
+and the next list_del() on it touches freed memory.  This needs two
+cgroups on one branch to go offline one after the other, such as a
+container and then its pod.
+
+The parent always has MAX_NR_GENS gens at this point, so every index is
+valid in it.  Move all MAX_NR_GENS lists, not only the gens from min_seq
+to max_seq.
+
+A reproducer that drives these steps through the lru_gen debugfs file gets
+a KASAN use-after-free on the freed mem_cgroup_per_node without this
+patch, and no report with it.
+
+Link: https://lore.kernel.org/20261111000913.22943-1-shakeel.butt@linux.dev
+Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Noah Feldt <noah@feldt.systems>
+Closes: https://lore.kernel.org/all/20261110132853.71228-1-noah@feldt.systems/
+Reviewed-by: Kairui Song <kasong@tencent.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Qi Zheng <qi.zheng@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Kairui Song <ryncsn@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/video/fbdev/core/fbcon.c | 57 ++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index efefa73451a0b..a47b98c269cf3 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2389,6 +2389,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	int resize, ret, old_userfont, old_width, old_height, old_charcount;
- 	u8 *old_data = vc->vc_font.data;
- 	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+	u8 *saved_fontdata = NULL, *saved_fontbuffer = NULL;
-+	u32 saved_fd_size = 0;
-+	int saved_cur_rotate = 0;
-+	bool rotated_saved = false;
-+#endif
+ mm/vmscan.c |   12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+--- a/mm/vmscan.c~mm-mglru-splice-all-generations-when-reparenting-a-memcg
++++ a/mm/vmscan.c
+@@ -4752,19 +4752,25 @@ void max_lru_gen_memcg(struct mem_cgroup
+  * The same generation has different meanings in the parent and child memcg,
+  * so this compromise method will cause the LRU inversion problem. But as the
+  * system runs, this problem will be fixed automatically.
++ *
++ * Move all MAX_NR_GENS lists, not only the gens from min_seq to max_seq.
++ * An earlier reparenting can leave a folio whose gen is older than the list
++ * it is on. Once min_seq passes that gen, sort_folio() puts the folio on the
++ * list for max_seq + 1, where it stays until the next aging. If that list
++ * were skipped, the folio would stay behind on a memcg that is about to be
++ * freed. The parent has MAX_NR_GENS gens here, so every index is valid in it.
+  */
+ static void __lru_gen_reparent_memcg(struct lruvec *child_lruvec, struct lruvec *parent_lruvec,
+ 				     int zone, int type)
+ {
+ 	struct lru_gen_folio *child_lrugen, *parent_lrugen;
+ 	enum lru_list lru = type * LRU_INACTIVE_FILE;
+-	int i;
++	int gen;
  
- 	resize = (w != vc->vc_font.width) || (h != vc->vc_font.height);
- 	vc->vc_font.data = (void *)(p->fontdata = data);
-@@ -2408,6 +2414,33 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!vc->vc_hi_font_mask && charcount == 512)
- 		set_vc_hi_font(vc, true);
+ 	child_lrugen = &child_lruvec->lrugen;
+ 	parent_lrugen = &parent_lruvec->lrugen;
  
-+	/*
-+	 * Select the console's blitting state and update the rotated font buffer
-+	 * to match the new font, so that the rendering below does not use a
-+	 * cache that was built for the old font. Clear the cached state so
-+	 * the rebuild allocates a fresh buffer; the old state is kept until
-+	 * the font change can no longer fail.
-+	 */
-+	if (con_is_visible(vc)) {
-+		set_blitting_type(vc, info);
-+		if (par->rotate_font) {
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+			saved_fontdata = par->fontdata;
-+			saved_fontbuffer = par->fontbuffer;
-+			saved_fd_size = par->fd_size;
-+			saved_cur_rotate = par->cur_rotate;
-+			par->fontdata = NULL;
-+			par->fontbuffer = NULL;
-+			par->fd_size = 0;
-+			par->cur_rotate = 0;
-+			rotated_saved = true;
-+#endif
-+			ret = par->rotate_font(info, vc);
-+			if (ret)
-+				goto err_out;
-+		}
-+	}
-+
- 	if (resize) {
- 		int cols, rows;
- 
-@@ -2424,11 +2457,28 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 		update_screen(vc);
- 	}
- 
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+	if (rotated_saved)
-+		kfree(saved_fontbuffer);
-+#endif
- 	if (old_userfont && (--REFCOUNT(old_data) == 0))
- 		kfree(old_data - FONT_EXTRA_WORDS * sizeof(int));
- 	return 0;
- 
- err_out:
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+	/*
-+	 * Drop the buffer built for the new font and restore the saved
-+	 * state.
-+	 */
-+	if (rotated_saved) {
-+		kfree(par->fontbuffer);
-+		par->fontdata = saved_fontdata;
-+		par->fontbuffer = saved_fontbuffer;
-+		par->fd_size = saved_fd_size;
-+		par->cur_rotate = saved_cur_rotate;
-+	}
-+#endif
- 	p->fontdata = old_data;
- 	vc->vc_font.data = old_data;
- 
-@@ -2448,6 +2498,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
- 		set_vc_hi_font(vc, false);
- 
-+	/*
-+	 * Re-select the blitting type, which re-uploads the font map on
-+	 * tile-blitting hardware.
-+	 */
-+	if (con_is_visible(vc))
-+		set_blitting_type(vc, info);
-+
- 	return ret;
- }
- 
--- 
-2.53.0
+-	for (i = 0; i < get_nr_gens(child_lruvec, type); i++) {
+-		int gen = lru_gen_from_seq(child_lrugen->max_seq - i);
++	for (gen = 0; gen < MAX_NR_GENS; gen++) {
+ 		long nr_pages = child_lrugen->nr_pages[gen][type][zone];
+ 		int child_lru_active = lru_gen_is_active(child_lruvec, gen) ? LRU_ACTIVE : 0;
+ 		int parent_lru_active = lru_gen_is_active(parent_lruvec, gen) ? LRU_ACTIVE : 0;
+_
+
+Patches currently in -mm which might be from shakeel.butt@linux.dev are
+
+mm-mglru-splice-all-generations-when-reparenting-a-memcg.patch
+memcg-move-memoryhigh-enforcement-out-of-try_charge_memcg.patch
+memcg-force-charges-from-reclaim-before-trying-the-limits.patch
+memcg-use-high_work-for-kernel-threads.patch
+memcg-use-high_work-for-remote-charges.patch
+memcg-simplify-high-limit-handling-after-a-charge.patch
 
