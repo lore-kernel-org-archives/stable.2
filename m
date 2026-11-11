@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407062;
-	b=4eetX9Hfs0FX5FijLDErjzijuyYlTEqdz4dAyX8CiMucUIsf3E/DMi9VGYi/CEBP1sUi
-	 tIBpHKiLcsRB7VWvLKPSwwto5VM0a0Wog039ZiyDYRsTjj1ff/zOgCil4BX3d1J15WoX/
-	 0U1HSAWg4cVasXsRY59UFC9Qc0ZHaEOLFcxZEZAoHI7xui5lPk6Eo7zS9hJwef0GDnAtj
-	 6ITjT8R0MSJEQD2bDXRCdPkvV/zd2fDHu+YK3lLZUHmF/GPR/Gg93f4BcirRxchkQdxbq
-	 ycr0H2TK4FEvLBtp/0/hosg5389Fgn7BiEwKDPUbu1XssAvYpBXbNinzlxrvtTpjGuQ==
+	t=1794407124;
+	b=g8gqp0scGI/i/j+LQvM0I+iKIwfSECaJG+WyCuUQSXD7iUrrNbT/R+NZgd7C7U0LHe1Q
+	 3yE7ciAGxcLmZLbqucrjEFITHgHZQNC1dXkDdkjDy51BgjTK8ftv8UVJvdoPazGJOi6YA
+	 76bG1c+8ERiWehqtllTe6zohKG/JeZEDNQYmPysUGKyAQLvH4UeyJEbhcncG2IqpNuDy8
+	 Fq7pdeCQC25Lx0SS0tZK5SynSvEz2NyPMttBOvUix4wlDpmHhkyZB3jUj8q/EgnBznpL7
+	 46JN65VHOQ4ZufAujZdwwF/eDgD5VWa8Q06HG4NXKGIa3BOsv+Tjc5Om3KbCpqWx5Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407124;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DpRoKsjuAYlM4uMR7aDecpUr6tTt/J+CC9+sN7mYOWw=;
-	b=MawJaz2Z/LahdvjHOK5B3eFQ6sFt3M7VrP8H3oHcYuOdYDfBSKQNnbIdr2YNwJIjd6h4
-	 uhhJg1eOkkqeUGxtHQMUCKWLkJsKVrnGy5+Vvba9G1Fe61Kjpy3Z7Vp72v0cM8zND9yOe
-	 2pFWHwqJxErXFoXNdqT/DwmRtQW3Y1Cwq6JItxhblLhgLMLbHrYD1CZMZeDWAF5pBuG49
-	 /q/3HHaBNb7A/zfuw1F/o5m+X58jsliInOLiVQdNi9XOjrCwoaJfteKvF4X8YJ/Jn1xjp
-	 3GKE8uj9id9F2/UzI9PoBCpHL/w1FDTlsVy3d+oe92eWrKY7poxhZIoHCwY+C9K6jGA==
+	bh=7PvbwQrmnADsjCFAoszrj4+ka0FWXtUhEzRlBgpiTII=;
+	b=dT2DMeU/Fce6YMo+VjwHDpyzslMlVsfXASEod+WMetTQwmwG2flH54YcXULSyAmsZZ4e
+	 8T0vSWjoYGKRKsIlZ0nREbaaZoIqR4AE2yzU5HzbP0snUmyHYat5IxwqsRIKky7bmBsOH
+	 wc8o2Nm6iBfvAuhRWJhTIYIAz3Kp0u6qEVqe9szW3mHq9wa3U+pA/fPHzQeT4fh8GAjUJ
+	 Lm24x4qDeJfytCv/c1Ckp4VNeAjYHx8HrqUhzO57MzBpw+EaF0zLPF6rRs7FtaGq0FuT/
+	 1rlXjusxY/YnwofZnnJZ5hyvjIFVKDSIRyktGXTTKgbAdvWziNuZFISt1tcyt14TI0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VNqU7vf/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFLN8MAM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2EF60A263A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:24:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63941606A330
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNqU7vf/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963B41F00A08;
-	Wed, 11 Nov 2026 14:24:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFLN8MAM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651C41F00A05;
+	Wed, 11 Nov 2026 14:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794407062;
-	bh=DpRoKsjuAYlM4uMR7aDecpUr6tTt/J+CC9+sN7mYOWw=;
+	s=k20260515; t=1794407124;
+	bh=7PvbwQrmnADsjCFAoszrj4+ka0FWXtUhEzRlBgpiTII=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VNqU7vf/jSw532fD6s4gkiZ0LCMGrYrM27t6X3QPFmLDKk2xp5NJjtVHSvxPi0Cv6
-	 0g3SR/l7pX9BU0VMMheLymjEn4iiiBcHU9duyEbwDmY/mH3wlblEnwkCFxbAN37DHC
-	 5NrjusHaVfcJRUSvlO74aAYcSyWRs70koLt9pQtVN7vtVR3JL0qeLoUtmJyOGtU5s9
-	 GD86M9WKSME9fIqMrysHkJNtAUveMPcV/Sh9mpc2MUDOI61Csmf5tK+07KiUYlcg9d
-	 rH718Ary5/GywUrUICIbkukyHhn/t0JNViNJYNNr7ZTBaBKBDJcDL1tIfBkaSiAxFa
-	 zFxwSofCv9jwQ==
+	b=iFLN8MAMTOYVR3mqferzEEWlZZpRpb+foDUUigpUiw5eobJu7UJGrpI4k1j25+kfM
+	 yuaPwcKF0S+ugbIAeLkwrj7g2zTRyvUlPxzD4uzGYlpufLywqd0YneAehY5SHq3o9O
+	 zDm46uCU6X2CSAXD9sO7dKfqEkLwp1ZUElay2hXawvnIfKU0Pzc5ErGOS7bLdpAaS6
+	 y1cdKVEC37m2BdkwjRHbuHKDRKKjNnZ+ChsoNU6eLyrh+iV1ZTzBxzxcukezK5C6Hn
+	 dT9TIBgzPzD7DTOBB7OH0kdTFtYhvWOEa/w3geQPYW8jo7G4H2MzrOx0tBOw6Wj1hn
+	 c6tktFQxe5mxg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	SJ Park <sj@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Hugh Dickins <hughd@google.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
+Cc: Hitesh Patel <hitesh@ebytelogic.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/shmem: report RCU-tasks quiescent states while undoing a range
-Date: Wed, 11 Nov 2026 09:24:20 -0500
-Message-ID: <20261111142314.2301783-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] media: qcom: camss: vfe-17x: Fix write master selection for RDI lines
+Date: Wed, 11 Nov 2026 09:25:21 -0500
+Message-ID: <20261111142324.2295266-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062140-failed-5.10-ebd1a08c1921@kernel.org>
-References: <20261107062140-failed-5.10-ebd1a08c1921@kernel.org>
+In-Reply-To: <20261107053035-failed-6.6-fc02156a3efb@kernel.org>
+References: <20261107053035-failed-6.6-fc02156a3efb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,71 +63,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: Hitesh Patel <hitesh@ebytelogic.com>
 
-[ Upstream commit ebd1a08c192109c83a87ddf42793ed6283180faf ]
+[ Upstream commit fc02156a3efb747b724a490cc50e1ad8c28a3b23 ]
 
-This shows up in the Meta fleet on ftruncate() of large tmpfs files:
+On the gen2 VFE bus there is no crossbar between the RDI paths and
+the bus write masters: RDI n is served by write master n. The common
+vfe_get_output_v2() reflects this by mapping line->id to write master
+line->id, and every gen2 VFE except 17x uses it.
 
-  INFO: rcu_tasks detected stalls on tasks:
-  00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
-  task:rocksdb:bottom  state:R  running task
-    __folio_split
-    find_get_entry
-    find_get_entries
-    truncate_inode_partial_folio
-    shmem_undo_range
-    shmem_setattr
-    notify_change
-    do_ftruncate
-    __x64_sys_ftruncate
-    do_syscall_64
+The 17x code kept its own vfe_get_output(), which reserves whichever
+write master is free first. That happens to be the right one as long
+as a single line streams and it is RDI0. As soon as two lines of the
+same VFE stream, for instance two virtual channels demultiplexed by
+the CSID to RDI0 and RDI1, the second line to start is given the
+write master of the other RDI. Both write masters are then programmed
+with the buffer address and frame size of the wrong line. The frames
+are truncated to the smaller of the two buffers and the SMMU faults
+on the larger one.
 
-shmem_undo_range() walks the whole of the requested range in folio_batch
-sized steps, twice, and its two cond_resched() calls are the only
-reschedule points in that walk.
+Use vfe_get_output_v2() on 17x like the other gen2 VFEs and drop the
+duplicate. This also removes an error path that released
+output->wm_idx[0] before it had been assigned.
 
-cond_resched() is not an RCU-tasks quiescent state.  Use
-cond_resched_tasks_rcu_qs() at both points so the walk reports an
-RCU-tasks quiescent state as it proceeds.
+The gen1 VFEs are not affected: they have a bus crossbar and any write
+master can serve any line, so vfe_reserve_wm() is correct there.
 
-Link: https://lore.kernel.org/20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org
-Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted loop context from folio batches to existing page vectors with explicit index advancement ]
+Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
+Cc: stable@vger.kernel.org
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+[ sashal: applied the shared vfe_get_output_v2() implementation to the existing local vfe_get_output() helper ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/shmem.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../media/platform/qcom/camss/camss-vfe-170.c   | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 5f8d8899bd0e7..6f2e267aa092f 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -957,7 +957,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
- 		}
- 		pagevec_remove_exceptionals(&pvec);
- 		pagevec_release(&pvec);
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 		index++;
- 	}
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-170.c b/drivers/media/platform/qcom/camss/camss-vfe-170.c
+index 8dd5ec9adea60..83f4322f23152 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-170.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-170.c
+@@ -402,7 +402,6 @@ static int vfe_get_output(struct vfe_line *line)
+ 	struct vfe_device *vfe = to_vfe(line);
+ 	struct vfe_output *output;
+ 	unsigned long flags;
+-	int wm_idx;
  
-@@ -991,7 +991,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
  
- 	index = start;
- 	while (index < end) {
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
+@@ -414,12 +413,12 @@ static int vfe_get_output(struct vfe_line *line)
  
- 		pvec.nr = find_get_entries(mapping, index,
- 				min(end - index, (pgoff_t)PAGEVEC_SIZE),
+ 	output->wm_num = 1;
+ 
+-	wm_idx = vfe_reserve_wm(vfe, line->id);
+-	if (wm_idx < 0) {
+-		dev_err(vfe->camss->dev, "Can not reserve wm\n");
+-		goto error_get_wm;
+-	}
+-	output->wm_idx[0] = wm_idx;
++	/* Correspondence between VFE line number and WM number.
++	 * line 0 -> RDI 0, line 1 -> RDI1, line 2 -> RDI2, line 3 -> PIX/RDI3
++	 * Note this 1:1 mapping will not work for PIX streams.
++	 */
++	output->wm_idx[0] = line->id;
++	vfe->wm_output_map[line->id] = line->id;
+ 
+ 	output->drop_update_idx = 0;
+ 
+@@ -427,11 +426,9 @@ static int vfe_get_output(struct vfe_line *line)
+ 
+ 	return 0;
+ 
+-error_get_wm:
+-	vfe_release_wm(vfe, output->wm_idx[0]);
+-	output->state = VFE_OUTPUT_OFF;
+ error:
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
++	output->state = VFE_OUTPUT_OFF;
+ 
+ 	return -EINVAL;
+ }
 -- 
 2.53.0
 
