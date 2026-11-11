@@ -1,74 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412493;
-	b=vPWixUEP1xpHmQJ7VMJU5KV0kZ8XQJ7Iljsz5D/ym8k8LJJyfKzG51PmK7nZZkQSD9Pn
-	 WdcikTLNI2BqQVHAr7t5/K0WvkftBaZ86+kg2Dex8Sv/+Z5zMFxhY2rEXsg/hABniyc8G
-	 ZXGs+tDzuizelhJZaqM1AS6ILxnsRhEoQsChKJ4v28z97ngZ5RbkiuUk2FUVQgM2E0WjP
-	 gSuJFotKywuLq6bdxblS0Sx0GxE+B13W4yG0k8qrF+9Q1llMwBkWZGdUNoemj0qs01mku
-	 A3B4CgLtWACNYI2aXOohjd/ugEHHDiToJ6CI5xj863k5pHX+Oz8XT5atEQFlISPG3Kw==
+	t=1794412527;
+	b=y+s4wyl6CotYvShu3rdJmgdKgGnb+f8tVoP2+BxbeCRIsk/28BJU6L80MdFtSnMEfgD4
+	 zDDokDHdCRPi3a7nrLCciC+MABAzUslhxb74pbC07XDsIiu7A4BWyNceA7d/0DLRG1/Sk
+	 UUoeGrjc0Fjs8IRF+kkCBZK1GSUmYIfK2i2hmFzT0mcwx/S9ouQaM5wi2xnlenyAVzJls
+	 hGOwH6cTadBiT231DW3PuCwL9/LMdLBdHOZ0cHqj/L6iVDsuuQWR6VVSAvQPL5IHliNoc
+	 m1ULOJbNPVNmyQXWZLMdWdgPJaOV2slm9I+KhcA6mLOTZZDRam2iKgQTXhpbxwY7opQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412493;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=PyTjjEcLLW8FFyjOmYevivG+BkNgjhrEu3VKQJTACv0=;
-	b=e2LvPSDd0cll4xuy0+NphMQI9n70og2mp32q3Z0bQC3a2bdCZ9dNoXH8Y4JI6UVZDM11
-	 cM0ZQmmoDGOU6khq2JaZF31XHjmSw7W0IfhtQAMA+WQH/atKG2L7t8aBcxXY0848yTtFI
-	 UZyk0v6H3n6rgqEgnh3qwqyUN3iicu5va13U1XWzP32hAkS8RQThZ6AO9SX2EXQ9Vajju
-	 1SLTsTeLkyn5W2gDr2z50XXfE8ZVNKvOkrTltsS2OyMpQqHbevHwZ7qYIsVO1ihjB9jXB
-	 V7tTMSTlAe/fdtT2ZQb/OVXXWf0eozkSk/pifTgk/4NueYthZkcbkrbwzAyZsnhlNxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794412527;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=04N3i2rlHwXk7silDy2AMMY9keO8OlYEIpIsofEO62s=;
+	b=uL1ot5n4CSvBSAAaonoGUloJy8qTJrWsHc5WnSsXAyjdfV59Jmghex7SevoOjVlYBCQa
+	 +e86ZKg1U0VLCP9jHqDfSYMki09e6Sd1ra/FO29wWF0d+zIXD9BgXI5tYmdsORvkigp5i
+	 YZDyHjIJ7FFlXvdw4PAGC6MJc1UBYwHw+oul4PbOpfYbhlvWMepY0Xf7vax9q1OrS8COO
+	 eCLv9zmFxAh6zIedzMCgRyYRuVESlq7HZ4sg7h7AC5SlBsgWGumg2J5U1zLzQx/0mgyf/
+	 LL0mDwc5YhmNsyvYDuvzhuMj4NZSa4yoAwssdiR6je98QlhzTQXhfmrukTX3Srrucyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P4QsZQAz;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WY7JyqDe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36EAE606A330
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:54:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36EAE606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D745606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:55:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P4QsZQAz
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e954d87b48so50516545ad.2
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:54:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794412492; x=1795017292; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PyTjjEcLLW8FFyjOmYevivG+BkNgjhrEu3VKQJTACv0=;
-        b=P4QsZQAzHlWuseOmgesBRE1qPshHHv8DoFojuRduEBLbuftkJNNeVVi8BOE9TzTAWz
-         /NpHzb3F6wSAvxseBhy+K4cbxVs0zLm362CRSSQ4fRvj8nX4gFl39nAJouk7o2n6Ebf1
-         M7wQ8yKVs1HwEJe7GY3MkxhvIFhkl72NJpCKFLu1ddiisN8Ai2aunsdiv6R1JHTogAaE
-         +nvQlP9XzYB0k4//cydShvvdhGD/RFv6mBuK2bwlC/kWvXJh5u1lkcy6iYAQBoNQIkKd
-         AlGFP7Ua7RPbD1752U5bUB5ZjDxrwokUbqOWVl2shH8rwJJsGSKiQaIJAqiuTixlcGxk
-         Ohbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794412492; x=1795017292;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PyTjjEcLLW8FFyjOmYevivG+BkNgjhrEu3VKQJTACv0=;
-        b=mYBCW8MpecNWYPzF+Bu+NPzFA5ZmhzM7HAbUB478UsapQlcAE5WyTc9gW8r9f++C92
-         Y3lXluFrFdYCRnwnzIpgqq3DcyrK38PyCN9EtiSCuHvyqd1qcPeGib+zhC43z3qtar2F
-         7GxTZzG2tlsNAH5KShBJ+2YaHlWyFo6qAGc+3cukxQDpStpQhISyWw+SmI+WZ7XnDJYY
-         7paI7pVqTqjaWc4F6QQwyeyrQJ8bdqTK6NG+wKH7PWSGFGoD/QmQBoE7lXxtNdQD56pb
-         cOD7LOEgZhDbW8Hod1ojYM9owS2emaR4NZ3Cc56o+1ZxguhOMhQWP9mgfujnYwcOBOZq
-         T7Tg==
-X-Forwarded-Encrypted: i=1; AL+hErEAqrJ7zrYwxw3m7plC33ls+3cMeXmEwCCysdPrbVhYJUofXrsNjbPU4tVC+xZE3Tl704V/xjQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KZVwz187Bc/5ZAUkV9pMJQ0KqQrhYCi0Z864iu9S+qCpX328w
-	ok6WE6rUU+WeefJXbSDXykbVreQyyoB1ft6X6B+No27/aYYWZFtwzHSvDEPZJ5I8WMCkoEeC6u9
-	h2QOwKg==
-X-Received: from plgp10.prod.google.com ([2002:a17:902:ebca:b0:2eb:3478:6e2f])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e948:b0:2ed:acb:aa96
- with SMTP id d9443c01a7336-2edd7740135mr31261685ad.24.1794412492286; Wed, 11
- Nov 2026 07:54:52 -0800 (PST)
-Date: Wed, 11 Nov 2026 07:54:51 -0800
-In-Reply-To: <0c53480c-770f-4568-b44f-cf13961d6f5f@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WY7JyqDe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 576BB1F00A05;
+	Wed, 11 Nov 2026 15:55:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794412527;
+	bh=04N3i2rlHwXk7silDy2AMMY9keO8OlYEIpIsofEO62s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WY7JyqDeZl+183UsmpK9YlUn30IZ9sQ2HW/WpIyJRnpoYoDAEqmJl6Oz4tAShV1xc
+	 Ty9D0UHD5Ba4u8zNe4GxXbwDHzSpzolPtxurJSR+fzyGS3yJyO+R5mCCcFEe48zMOu
+	 Kc/P95p9JIU/QOI3r0u2dFO6ZBbaq6YHw4kaFg5jcYmXnG2NSahdlKKzbesoQ7WtlB
+	 EtOcGnefon3AHJaUEgKk6Ho/nIhBabIwoMN/DlBps/qEkPAJ4KVbnPIchNNXb5y3LR
+	 Cp9VPl7kkXXIZBf1XLxKXFWfc3WtioeX9ch6000sgtKN+dfWaPm4OeJ9L9nXw/8Rou
+	 PGY4zRHHm69IQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sravan Kumar Gundu <sravankumarlpu@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jani Nikula <jani.nikula@intel.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Petr Mladek <pmladek@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] kernel/panic.c: format kernel-doc comments
+Date: Wed, 11 Nov 2026 10:55:22 -0500
+Message-ID: <20261111155515.2677444-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052212-failed-6.12-ed9e4c1ff15d@kernel.org>
+References: <20261107052212-failed-6.12-ed9e4c1ff15d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,30 +63,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261107051725-failed-6.12-326fa2c9b4d3@kernel.org>
- <20261110151928.2074971-1-sashal@kernel.org> <0c53480c-770f-4568-b44f-cf13961d6f5f@intel.com>
-Message-ID: <avSPyySNu0tMia6H@seanjc-mac.roam.internal>
-Subject: Re: [PATCH 6.12.y] KVM: VMX: Make handle_bus_lock_vmexit() a shared helper
-From: Sean Christopherson <seanjc@google.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org, 
-	Nikolay Borisov <nik.borisov@suse.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026, Xiaoyao Li wrote:
-> On 11/10/2026 11:19 PM, Sasha Levin wrote:
-> > From: Xiaoyao Li <xiaoyao.li@intel.com>
-> > 
-> > [ Upstream commit 326fa2c9b4d3e6cab58c139eb55aaabd7179192e ]
-> > 
-> > Move handle_bus_lock_vmexit() from vmx.c to main.c to make it a shared
-> > helper so that TDX can use it for Bus Lock VM exit handling as well.
-> > Rename it to add vt_ prefix to reflect that it is a helper for both VMX
-> > and TDX.
-> 
-> TDX support was merged since 6.16. I think we don't need to backport this patch
-> before 6.16 since there are no TDX code to share anything and no vt_*()
-> functions at all.
+From: Sravan Kumar Gundu <sravankumarlpu@gmail.com>
 
-Agreed.
+[ Upstream commit 85915c6cabf74d1f693fd09d95c25d838b82c840 ]
+
+kernel-doc function comment don't follows documentation commenting style
+misinterpreting arguments description with function description.
+
+Please see latest docs generated before applying this patch
+https://docs.kernel.org/driver-api/basics.html#c.panic
+
+Link: https://lkml.kernel.org/r/20250516174031.2937-1-sravankumarlpu@gmail.com
+Signed-off-by: Sravan Kumar Gundu <sravankumarlpu@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: John Ogness <john.ogness@linutronix.de>
+Cc: Petr Mladek <pmladek@suse.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: ed9e4c1ff15d ("panic: restore variable arguments to nmi_panic()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+Depends on <20261110183723.3255298-1-sashal@kernel.org>
+
+ kernel/panic.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/panic.c b/kernel/panic.c
+index 16c21189c8da9..d5307a8e89283 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -325,12 +325,10 @@ static void panic_other_cpus_shutdown(bool crash_kexec)
+ }
+ 
+ /**
+- *	panic - halt the system
+- *	@fmt: The text string to print
++ * panic - halt the system
++ * @fmt: The text string to print
+  *
+- *	Display a message, then perform cleanups.
+- *
+- *	This function never returns.
++ * Display a message, then perform cleanups. This function never returns.
+  */
+ void panic(const char *fmt, ...)
+ {
+-- 
+2.53.0
+
