@@ -1,55 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794375338;
-	b=uRPg5Dz2wiV1yuCVmj9MzyJcWa9RywecYrSGDPJgEY/2cvc65OLE9ImkXMXMMPRN40UX
-	 1k334wvJYZD3LfWrdgB34vgil/YMvzLtQFtUO0bFRuy3Qp6lWc2S4GKHWrMV6yRdOh+Au
-	 Jdsv+flgtL84cRFDKKKZszJtqZg77apaDaoAClzt2mb1cS0BTGAY0C+eIL7G1My0TiZYT
-	 YbPQuXejy5ox6go7KwrhzNkYWJNi9PAlmm/cLzTJi9D2DWJAnClLP6mlz8f4DQr0n3m0g
-	 Uk+79rQilr42a2TpTqynSahq6dBVH8wm+Vc3KIITFUdPD9of90/J5OHNUuExRs0Gq1w==
+	t=1794375481;
+	b=FiJPcTKmYjaIhgKT9vvWD/LRQXrNrIQn7jVfDJWOJsXjaWGgUKmtnABErwljJDXyJn3g
+	 fH9y0CyNqilQBmcjlVgHBCRoP2M0c9NCRNfHn6B8tlgkNDjUTBfr45EoKiOTsf4xm/hXR
+	 /YPlQEYg+9YoaVfqqkv2UxoftwjV9d1RhBAxGIrytUale+7AM9Ics1PM75bCTuicsBYua
+	 Lg5YX2jhOdCtBAXp2H+mcgL4IGd2AE+QTNRY1Ityx/t1qkidrfvICKm1gpVlumrIBs93Y
+	 4gqQ9qu6Q30iuIxoqSAAbcV7qwxvuwAuImSQiohvU7UEs8xukAK24BZ/wKt/hFiK38A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794375338;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fzXBBczEE6/wutldFJITxD1IaRLMU4rmVJJkJHMe1uI=;
-	b=g42y9nLVp8IUjGe3rz0GEXYE71wswdY8SdVpmUbL8mb52P3F7j+3kQ8q1IHgmu7VIybF
-	 04RqklFCfMU5qKxZ1BeVDfWKBuNIHldwEVj9yss37c74dUR+gPH+z9JYrdvMqKk0Uivxz
-	 jfCZnNN9t4kesX/yVzkBsM+0Ii0OuPe2MQ8SLxmwZ6R9APlT7E5P7PN6iYsIGly75s3we
-	 fat1bEIjDdNLSCjbtFieVlqBfrN5/EiUtDnRM2oWfXTVW9bNc4GZLpnpKTRBUvIEK1doi
-	 OEmH3ypM1DvT9cbrnzHbje6jt314kC+OZEZnwVLXddK5mXgWl44Cb/zrXgnkNBvoz2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794375481;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=TM4300ynVj56R1yAfUhdSHiB+9FZEDCjo5dKTPk4HbE=;
+	b=OCysNxjkhr0aGXJHAJi30ZLixVW60pLjOXih2Ivit9nwgwSRBsWag8XFaPjwxGnJRZfg
+	 uZZlKGr5z/FBoA6LFlTb0XtkxhbFQTxJhclE9bjtD5k08p0xH6MCld7v8hgJkFYsKnU9i
+	 aF5AYbatfoPH8GlKvNllJPa+w8KweuHrHYVG4lE7h6FfQUn6hYtAciffmq7A3YUnp9NSc
+	 0cSuPvNeBLu5GdzfhRQYYXYLuqxR2PcZugtyPJ3nIMtfIA2MuzIAu5JncXjQw924Q2Hy3
+	 lmw4yQ+pnmIhO7vyUlPQ7mXoaGh2NE1s35HKdi+RN85Sse4TCvK4em9dAhv5fsZE2Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iUOJGzSG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="GS/+SAjL";
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E96606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:35:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B08A606A31C;
+	Wed, 11 Nov 2026 05:37:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B08A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iUOJGzSG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617491F0089F;
-	Wed, 11 Nov 2026 05:35:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794375337;
-	bh=fzXBBczEE6/wutldFJITxD1IaRLMU4rmVJJkJHMe1uI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iUOJGzSGNF+wq9eiK4OfIdOA2mn21s/Ymg5o+uFD1/G6BTt4rXjSboaq1Ur9WtxTp
-	 6hgIl3+lLusVOK+FXJoUXIzFdQx0pGdQXdO6JYX54Tqqf8KE7WBcQJSA8HnydjD4Rq
-	 8xW3lmav9J9lr5SkctzOebkl1pDongfXSE0fKCD7SupQTV989tFrIL4GfDm4r4F6gh
-	 bM7/auaARBxjCWupeQ9nlUfn01Pr6xR3o/Ao0PvbB1lHPMdmaI/AJLBrRHvJQkeBTF
-	 P0DA5uSV/lC7hDfoJfk8PU3dlgX6prV0To65LGUi0sKK+w1vcR02ATQSPgpP0bLIJ4
-	 c95vUokijh7cg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Niklas Cassel <cassel@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ata: libata: Do not leave ata_host_stop() registered when activation fails
-Date: Wed, 11 Nov 2026 00:35:36 -0500
-Message-ID: <20261111053057.1263871-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061557-failed-5.10-d2f977008cbb@kernel.org>
-References: <20261107061557-failed-5.10-d2f977008cbb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GS/+SAjL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794375479; x=1825911479;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=puKIpX6ZiFMLpkLQOCcxTMxREkeXgFUZUCvVOUptx0Q=;
+  b=GS/+SAjL1HAYyqcA8P4UOpFsn9i4Db52M2i8bxta5J8tZjC9FL5aWK2O
+   dTqjJkxSvlxpbz0VwaH/WbmM1S1BULHmw1j39gddz36spm4eYBlI4d/Pz
+   BosW7iS+AK4wTXZNkKZGCWsAz7zPI0B9xSLl40pmTghIXf8FkweoNXu2z
+   xYbiYrHeP88sWXaPHmO8gHrFOd4qrvxJQ56Zb4aQrdhSgR1KPw8MTt+dM
+   LmVGfx5F9l0iekqZslp7HiRB2oUE9kkPJz04/pPHmNt5tIKqGsRPDd/O6
+   e8SSEbY0iV5SDerbR+5JQ0cLIWkeJv2LOjci1/g5Y5hGPohXBbmFsmhj4
+   w==;
+X-CSE-ConnectionGUID: YollsKrkSWyGumYlNQLXEQ==
+X-CSE-MsgGUID: onslGFLxSU2l4/4RXq5fdg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3047276"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3047276"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 21:37:58 -0800
+X-CSE-ConnectionGUID: 6Q7RpQDzROyZWen9Dj3xXQ==
+X-CSE-MsgGUID: Ak1aABBOR8aI6hevP974vw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8761142"
+Received: from p16nuc01ptl.png.intel.com ([10.107.254.77])
+  by fmviesa007.fm.intel.com with ESMTP; 10 Nov 2026 21:37:55 -0800
+From: KhaiWenTan <khai.wen.tan@linux.intel.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Song Yoong Siang <yoong.siang.song@intel.com>,
+	Looi Hong Aun <hong.aun.looi@intel.com>,
+	KhaiWenTan <khai.wen.tan@intel.com>
+Subject: [PATCH net 1/1] af_packet: Fix wrong timestamps in tcpdump
+Date: Wed, 11 Nov 2026 13:37:28 +0800
+Message-Id: <20261111053728.2611070-1-khai.wen.tan@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,278 +91,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Niklas Cassel <cassel@kernel.org>
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
 
-[ Upstream commit d2f977008cbbae195df678ee1e70e5802f9bd0b8 ]
+Since commit 97dc7cd92ac6 ("ptp: Support late timestamp determination"),
+timestamps may need to be retrieved with input from the driver
+.ndo_get_tstamp(). Support was missing from mmap'ed AF_PACKET sockets.
 
-ata_host_start() registers ata_host_stop() as a devres action as soon as
-it has succeeded, which hands the release of the host resources over to
-devres: ->port_stop() and ->host_stop() are then called by the driver
-core when probe() fails.
+The problem was noticed using the igc driver, that since commit
+069b142f5819 ("igc: Add support for PTP .getcyclesx64()") has migrated to
+use .ndo_get_tstamp() that timestamps were wrong on the receiving side,
+when using tcpdump.
 
-ata_host_activate() and ahci_host_activate_multi_irqs() can both fail
-after ata_host_start() has succeeded, e.g. if devm_request_irq() or
-ata_host_register() fails, and they return the error with the devres
-action still registered. A driver which releases the host resources in
-its probe() error path therefore releases them twice: once itself and
-once through ->host_stop().
-
-All ahci-platform drivers are in that situation, e.g. ahci_probe() calls
-ahci_platform_disable_resources() while ahci_host_stop() does the same
-through devres. This gives refcount underflow warnings from the clk,
-regulator and phy cores and, for shared resources, can disable resources
-which are still in use by other devices.
-
-Add ata_host_undo_start(), which stops the ports and drops the devres
-action without calling ->host_stop(), and call it from both activation
-helpers when they fail. Releasing the host resources on failure is then
-always left to the caller, which is what all callers having a probe()
-error path already assume.
-
-This changes the semantics for the drivers which implement ->host_stop()
-while also completely lacking error handling for the activate host call.
-Add activate host error handling for sata_qstor and sata_fsl. For
-sata_fsl this also means that hcr_base and host_priv are now released
-when activating the host fails, which ->host_stop() did not do when
-ata_host_start() itself failed.
-
-Note that ata_pci_sff_activate_host() is deliberately left as is: none of
-its callers releases the host resources in its probe() error path, they
-all rely on ->host_stop() being called by devres, including
-ata_pci_init_one(), which releases the devres group of the host itself.
-
-Fixes: 1896b15eddb4 ("ahci_platform: perform platform exit in host_stop() hook")
+Fixes: 069b142f5819 ("igc: Add support for PTP .getcyclesx64()")
 Cc: stable@vger.kernel.org
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20260915084127.692494-13-cassel@kernel.org
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Signed-off-by: KhaiWenTan <khai.wen.tan@linux.intel.com>
 ---
-Depends on <20261110144034.1942502-1-sashal@kernel.org>
+ net/packet/af_packet.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
- drivers/ata/libahci.c          |  2 +
- drivers/ata/libahci_platform.c |  4 ++
- drivers/ata/libata-core.c      | 75 +++++++++++++++++++++++++++++++---
- drivers/ata/libata-sff.c       |  5 +++
- drivers/ata/sata_fsl.c         |  6 ++-
- drivers/ata/sata_qstor.c       |  8 +++-
- include/linux/libata.h         |  1 +
- 7 files changed, 91 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 83f82b3ffe7d4..b51fdee5c3989 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2603,6 +2603,8 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
- 			      host->ports[i]);
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index cf6429f09477..7197236c8a3b 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -456,15 +456,20 @@ static int __packet_get_status(const struct packet_sock *po, void *frame)
  	}
- 
-+	ata_host_undo_start(host);
-+
- 	return rc;
  }
  
-diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
-index 64d6da0a53035..a8e68308c339e 100644
---- a/drivers/ata/libahci_platform.c
-+++ b/drivers/ata/libahci_platform.c
-@@ -574,6 +574,10 @@ EXPORT_SYMBOL_GPL(ahci_platform_get_resources);
-  * ahci-platform host, note any necessary resources (ie clks, phys, etc.)
-  * must be initialized / enabled before calling this.
-  *
-+ * On failure, ->host_stop() is not called, so the caller has to release the
-+ * resources it enabled (clocks, regulators, resets, PHYs) in its probe()
-+ * error path.
-+ *
-  * RETURNS:
-  * 0 on success otherwise a negative error code
-  */
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index 2ff092c27d1f3..0eab4898e835d 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -5659,6 +5659,46 @@ int ata_host_start(struct ata_host *host)
- }
- EXPORT_SYMBOL_GPL(ata_host_start);
+-static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec64 *ts,
+-				   unsigned int flags)
++static __u32 tpacket_get_timestamp(struct net_device *dev, struct sk_buff *skb,
++				   struct timespec64 *ts, unsigned int flags,
++				   unsigned int sk_tsflags)
+ {
+ 	struct skb_shared_hwtstamps *shhwtstamps = skb_hwtstamps(skb);
  
-+/**
-+ *	ata_host_undo_start - undo ata_host_start()
-+ *	@host: ATA host to undo_start
-+ *
-+ *	Stop the ports of @host and drop the devres action registered by
-+ *	ata_host_start(), without calling ->host_stop().  Nothing is done if
-+ *	@host has not been started.
-+ *
-+ *	This gives the release of the host resources back to the caller, which
-+ *	is what a driver whose probe() error path releases those resources
-+ *	itself needs when starting or activating the host fails.
-+ *
-+ *	LOCKING:
-+ *	Inherited from calling layer (may sleep).
-+ */
-+void ata_host_undo_start(struct ata_host *host)
-+{
-+	int i;
+-	if (shhwtstamps &&
+-	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE) &&
+-	    ktime_to_timespec64_cond(shhwtstamps->hwtstamp, ts))
+-		return TP_STATUS_TS_RAW_HARDWARE;
++	bool cycles = sk_tsflags & SOF_TIMESTAMPING_BIND_PHC;
 +
-+	if (!(host->flags & ATA_HOST_STARTED))
-+		return;
++	if (shhwtstamps && shhwtstamps->hwtstamp &&
++	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE)) {
++		ktime_t tstamp = netdev_get_tstamp(dev, shhwtstamps, cycles);
 +
-+	for (i = 0; i < host->n_ports; i++) {
-+		struct ata_port *ap = host->ports[i];
-+
-+		if (ap->ops->port_stop)
-+			ap->ops->port_stop(ap);
-+	}
-+
-+	/*
-+	 * Drop the action added by ata_host_start() without calling it.
-+	 * It does not exist if neither ->port_stop() nor ->host_stop() is
-+	 * implemented, in which case there is nothing to drop.
-+	 */
-+	devres_destroy(host->dev, ata_host_stop, NULL, NULL);
-+
-+	host->flags &= ~ATA_HOST_STARTED;
-+}
-+EXPORT_SYMBOL_GPL(ata_host_undo_start);
-+
- /**
-  *	ata_host_init - Initialize a host struct for sas (ipr, libsas)
-  *	@host:	host to initialize
-@@ -5745,6 +5785,12 @@ static void async_port_probe(void *data, async_cookie_t cookie)
-  *	starts ports, registers @host with ATA and SCSI layers and
-  *	probe registered devices.
-  *
-+ *	On failure, the host remains started, i.e. the devres action
-+ *	registered by ata_host_start() is kept, so ->host_stop() is called by
-+ *	the driver core when probe() fails.  A caller which releases the host
-+ *	resources in its own probe() error path must therefore call
-+ *	ata_host_undo_start().
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-@@ -5851,6 +5897,10 @@ EXPORT_SYMBOL_GPL(ata_host_register);
-  *	have set polling mode on the port. In this case, @irq_handler
-  *	should be NULL.
-  *
-+ *	On failure, the ports are stopped again and the devres action
-+ *	registered by ata_host_start() is dropped without calling
-+ *	->host_stop(), so releasing the host resources is left to the caller.
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-@@ -5871,27 +5921,40 @@ int ata_host_activate(struct ata_host *host, int irq,
- 	/* Special case for polling mode */
- 	if (!irq) {
- 		WARN_ON(irq_handler);
--		return ata_host_register(host, sht);
-+		rc = ata_host_register(host, sht);
-+		if (rc)
-+			goto undo_start;
-+
-+		return 0;
- 	}
- 
- 	irq_desc = devm_kasprintf(host->dev, GFP_KERNEL, "%s[%s]",
- 				  dev_driver_string(host->dev),
- 				  dev_name(host->dev));
--	if (!irq_desc)
--		return -ENOMEM;
-+	if (!irq_desc) {
-+		rc = -ENOMEM;
-+		goto undo_start;
++		return ktime_to_timespec64_cond(tstamp, ts) ? TP_STATUS_TS_RAW_HARDWARE : 0;
 +	}
  
- 	rc = devm_request_irq(host->dev, irq, irq_handler, irq_flags,
- 			      irq_desc, host);
- 	if (rc)
--		return rc;
-+		goto undo_start;
+ 	if ((flags & SOF_TIMESTAMPING_SOFTWARE) &&
+ 	    ktime_to_timespec64_cond(skb_tstamp(skb), ts))
+@@ -476,11 +481,16 @@ static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec64 *ts,
+ static __u32 __packet_set_timestamp(struct packet_sock *po, void *frame,
+ 				    struct sk_buff *skb)
+ {
++	struct net_device *dev = skb->dev;
++	unsigned int sk_tsflags;
+ 	union tpacket_uhdr h;
+ 	struct timespec64 ts;
+ 	__u32 ts_status;
  
- 	for (i = 0; i < host->n_ports; i++)
- 		ata_port_desc_misc(host->ports[i], irq);
- 
- 	rc = ata_host_register(host, sht);
--	/* if failed, just free the IRQ and leave ports alone */
--	if (rc)
-+	if (rc) {
-+		/* Free the IRQ, so that the handler can no longer run */
- 		devm_free_irq(host->dev, irq, host);
-+		goto undo_start;
-+	}
+-	if (!(ts_status = tpacket_get_timestamp(skb, &ts, READ_ONCE(po->tp_tstamp))))
++	sk_tsflags = READ_ONCE(po->sk.sk_tsflags);
++	ts_status = tpacket_get_timestamp(dev, skb, &ts, READ_ONCE(po->tp_tstamp), sk_tsflags);
 +
-+	return 0;
-+
-+undo_start:
-+	ata_host_undo_start(host);
++	if (!(ts_status))
+ 		return 0;
  
- 	return rc;
- }
-diff --git a/drivers/ata/libata-sff.c b/drivers/ata/libata-sff.c
-index c6e91f06c751e..b69294605af24 100644
---- a/drivers/ata/libata-sff.c
-+++ b/drivers/ata/libata-sff.c
-@@ -2352,6 +2352,11 @@ EXPORT_SYMBOL_GPL(ata_pci_sff_prepare_host);
-  *	hosts.  This separate helper is necessary because SFF hosts
-  *	use two separate interrupts in legacy mode.
-  *
-+ *	Note that, unlike ata_host_activate(), the devres action registered
-+ *	by ata_host_start() is kept on failure, i.e. ->host_stop() is called
-+ *	by the driver core when probe() fails.  All callers of this function
-+ *	rely on that, none of them releases the host resources itself.
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-diff --git a/drivers/ata/sata_fsl.c b/drivers/ata/sata_fsl.c
-index b6aa5a4f6f12a..9f887a31911be 100644
---- a/drivers/ata/sata_fsl.c
-+++ b/drivers/ata/sata_fsl.c
-@@ -1520,8 +1520,10 @@ static int sata_fsl_probe(struct platform_device *ofdev)
- 	 * device discovery process, invoking our port_start() handler &
- 	 * error_handler() to execute a dummy Softreset EH session
+ 	h.raw = frame;
+@@ -2424,9 +2434,10 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
+ 	/* Always timestamp; prefer an existing software timestamp taken
+ 	 * closer to the time of capture.
  	 */
--	ata_host_activate(host, irq, sata_fsl_interrupt, SATA_FSL_IRQ_FLAG,
--			  &sata_fsl_sht);
-+	retval = ata_host_activate(host, irq, sata_fsl_interrupt,
-+				   SATA_FSL_IRQ_FLAG, &sata_fsl_sht);
-+	if (retval)
-+		goto error_exit_with_cleanup;
+-	ts_status = tpacket_get_timestamp(skb, &ts,
++	ts_status = tpacket_get_timestamp(dev, skb, &ts,
+ 					  READ_ONCE(po->tp_tstamp) |
+-					  SOF_TIMESTAMPING_SOFTWARE);
++					  SOF_TIMESTAMPING_SOFTWARE,
++					  READ_ONCE(sk->sk_tsflags));
+ 	if (!ts_status)
+ 		ktime_get_real_ts64(&ts);
  
- 	host_priv->intr_coalescing.show = fsl_sata_intr_coalescing_show;
- 	host_priv->intr_coalescing.store = fsl_sata_intr_coalescing_store;
-diff --git a/drivers/ata/sata_qstor.c b/drivers/ata/sata_qstor.c
-index ef00ab644afb7..68bd73deb65bc 100644
---- a/drivers/ata/sata_qstor.c
-+++ b/drivers/ata/sata_qstor.c
-@@ -595,8 +595,12 @@ static int qs_ata_init_one(struct pci_dev *pdev,
- 	qs_host_init(host, board_idx);
- 
- 	pci_set_master(pdev);
--	return ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
--				 &qs_ata_sht);
-+	rc = ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
-+			       &qs_ata_sht);
-+	if (rc)
-+		qs_host_stop(host);
-+
-+	return rc;
- }
- 
- module_pci_driver(qs_ata_pci_driver);
-diff --git a/include/linux/libata.h b/include/linux/libata.h
-index 12c43f39cd29b..bd3de7d422d6d 100644
---- a/include/linux/libata.h
-+++ b/include/linux/libata.h
-@@ -1085,6 +1085,7 @@ extern struct ata_host *ata_host_alloc_pinfo(struct device *dev,
- extern void ata_host_get(struct ata_host *host);
- extern void ata_host_put(struct ata_host *host);
- extern int ata_host_start(struct ata_host *host);
-+void ata_host_undo_start(struct ata_host *host);
- extern int ata_host_register(struct ata_host *host,
- 			     struct scsi_host_template *sht);
- extern int ata_host_activate(struct ata_host *host, int irq,
 -- 
-2.53.0
+2.34.1
 
