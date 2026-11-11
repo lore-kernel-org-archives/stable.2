@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363285;
-	b=F15pJ1JCnKR6mSzb/7wCGpHsHJyltPVoslP7m5Ig2/ff3KLmrJI6zS8hTAd07tzpDO6d
-	 FwHe3rn5zhMPFQ4vcF+uAnoJmYC1rWf09wJjbcc+ZJyGRyUKccIsLyz4z/enFsTi3msz0
-	 z1bUYvKDzwSiMagDHwrF7R7XR7+LOLjOYa8MWz3mU88/FqYgxnc6V5afFbloDY5z90EXi
-	 UrceDgvwbFvjApkfsEys4Pp4IW27K2zWwpTLvBvfGmfoVgTVBOXHh2q/0sVHbJ1s8RHL4
-	 M+ibtR7mjSRbQ0YyPp8NlJt6oFMUcQuY4lvXIi3t8dM+Tygvnb122me+qPB7zxJwPLw==
+	t=1794363317;
+	b=y08DFtCNLixhJseKyHvC603KpU67v0YtXuKT+eG4t60DuYj80PaqGRcgNPQ4ZFszl4Ld
+	 G3FJSdEj3U+4niu/XirDcpqXL3yGJK5qIXfs3mQzH/DnzTLoHIa1vc8LpCKQojg+2v4W7
+	 4d7depsllnLwyqJRxu+hg1S74uVLPJqwP445MpLVkrk4J63aY798GfkeDJhmC1KEdYM3g
+	 1H/m0m5PSb4y/Q7Ml9x9P7fIbzY4zUqzCmk8AJlMb7XJ9hg2aXmn0yi8ecaPMoJhXnMeA
+	 zK2VjNlAM1ZSFIJKhLrmbxWV9sDeJkCYwNNVfTiXPAF9uOHSkc2ygSQin7M/+kVPjTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363285;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363317;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IHtpkSJ4tmv4FmSPwIfp9A69pqYwvlBhguh3T+SGa0c=;
-	b=LiFaM3HPdSypbNsIZ2YVurp4/SR2oCHRWxVPkQWKea9GUkPfWwR+zIrW5ffClHjCnyG/
-	 vwHDKe5KOrT2t3MoH1Ggm4gJD5NjbW5YkvLn2HzI7TrJ9N6s54WGXXWvoJQvqAti3TV/w
-	 ihx/wUSLV9nxyITlV9QaLxu/ei3NBFj6PnSGKljB4Da4UzfTSPXvOzyfHatUi9XM0hXA9
-	 XzizilK3ym5qeFJxz55apiwdBplZOiCJP4BE3CH+k1hxdely1SgBfEDgwveWYbVQz9AdX
-	 ajiAdDa2euua7g8lhVU7D/zBlLF2pHMi9I91k98XHqs1ZLYDBP1uvOcY+TpH4FvZ0dw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HuzmWabq/DbmoKZgjzn9HOpqDuTM6C5AzTnBBNnQUQ8=;
+	b=PhIIKBJBHYa/0+vS2AaVpy/RAUAPk8RZzsUiSGaUjsGexqjqmzkwu9CCfYf4fMMufqwR
+	 PTOCcZbrOJeycIHITroEFEUK4mI+AwuhWFdcCkqWp3ACuO5jU+cmZpwIaxTbgEn7FCX/b
+	 rhd7bYeXrvv5Xiy59bMSv32qUVvwHv84YCAqKnbtM1sjAX1B3GamonOLWi3mtdF+zokf9
+	 OSZbjXADFxafd76OoAFEzQ0KZLUJIhP2+3O2uzlMi9Vf00yAeUybv+CEtc1U/EO7EbYaY
+	 TVe8pgkrR0qkTLClGP1l82gwlG//kL7LaOmYcfwqvRzj/w3U3p8T8nKeiXL+Rh+wmOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfiT281V;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V8OlfE/p";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778EF606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:14:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A36606A333
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:15:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfiT281V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02E91F0089F;
-	Wed, 11 Nov 2026 02:14:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8OlfE/p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DFA11F0089F;
+	Wed, 11 Nov 2026 02:15:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363285;
-	bh=IHtpkSJ4tmv4FmSPwIfp9A69pqYwvlBhguh3T+SGa0c=;
+	s=k20260515; t=1794363317;
+	bh=HuzmWabq/DbmoKZgjzn9HOpqDuTM6C5AzTnBBNnQUQ8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LfiT281VsKWQzo4uRcesTdxzqWe0MLC7aMjk8W9+Z/qFScImzDX9oYyL4LKvyC+DL
-	 9H2bHlw6P0Ur/iOXq8vl/LcIknb3DeXF4gwqjxgux11SzKax4Lj+Q6wwnRploJy2xs
-	 NenhrC+C57dDaI500cgye98TXCRBNNCYd6+GC3sS+w1Jt0g5TI+cnDjtH/1j6y+u3K
-	 ITXtKgXc5WOrA952F5IuICmrDUOaeOf59oYkP/WsUDFeKjbsBx7qZcrTeTBGjmz3Oq
-	 7atuIz58O659VOc7hc7ZI3IjMu3nlFaJ4tNa5Rg6Wf/cvDRskrAA9Y2NDNHnVNIMHQ
-	 YzAV8eWeN6Jbw==
+	b=V8OlfE/pgGrRTE/gLAWsOucN+Xu2DRisCoUDQE8nicrzFYDOJEYwC6sSKR2wR776w
+	 9ZumC5ybupbSIZ5f4SDFCc/03ijiQdFGwpD0fr66KWa2AhtJ/5+g1lBEp48LPt0AhS
+	 3YSgnaSg/kFjPkiCLmGVgB6yW+PHNQvNhwTzGCA6BA3+/+CNMQPPxStoVCY76BaJ/i
+	 8SMhJPLch2Dz2gByMngHlLNIJtLsUuA2d+Xk/j6FHifTvdj9smaMaDAUQRb4/6cou9
+	 RmeMN2t8ej3bdEafTsEy0LlolmSPFUx4pM7OlKGOQTvskwNo7BMWdOfJnKyXWx7VHL
+	 zKwjHQsvYTS8g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alexey Charkov <alchark@flipper.net>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] nvmem: rockchip-otp: Serialize reads
-Date: Tue, 10 Nov 2026 21:14:41 -0500
-Message-ID: <20261111021433.580869-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y] drm/amdgpu: reject CS chunks too large for kvmalloc()
+Date: Tue, 10 Nov 2026 21:15:15 -0500
+Message-ID: <20261111021455.607602-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111021433.580869-1-sashal@kernel.org>
-References: <20261107054624-failed-6.1-9fc6a1592d84@kernel.org>
- <20261111021433.580869-1-sashal@kernel.org>
+In-Reply-To: <20261107063006-failed-5.10-ba4c3c202919@kernel.org>
+References: <20261107063006-failed-5.10-ba4c3c202919@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,102 +61,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Alexey Charkov <alchark@flipper.net>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit 9fc6a1592d844c0397f115ee8cbd935169b9a71e ]
+[ Upstream commit ba4c3c202919405f461a393e823e4b72c8518494 ]
 
-The OTP controller is driven through a single set of registers holding a
-state machine which has to be stepped through for every word read, yet
-nothing keeps two readers out of each other's way. Concurrent reads
-interleave, and the outcome is either a reader bailing out:
+The CS ioctl copies every chunk with vmemdup_array_user() before it
+looks at it, for whatever length_dw userspace gives. kvmalloc() warns
+about allocations above INT_MAX when called without __GFP_NOWARN, so any
+process with the render node can trigger a warning. On navi31, a CS with
+a chunk of length_dw 0x20000000 returns -ENOMEM after:
 
-  rockchip-otp 2a580000.otp: timeout during read setup
+  WARNING: mm/slub.c:6841 at __kvmalloc_node_noprof+0x5a5/0x7d0
 
-or, worse, one of them silently taking delivery of the other's data.
+Reject such chunks with -EINVAL before trying to copy them.
 
-Reading two cells in parallel from userspace on RK3576 reproduces both
-within 150 iterations - 53 read errors and 9 corrupted results, the latter
-either losing their first word or, in one case, ending in the two bytes
-which belong to the other reader's cell - whereas the same reads issued
-sequentially never fail. Concurrency is not hypothetical here, as six
-thermal sensors source their trim values from the OTP and reach the driver
-straight from asynchronous driver probing.
-
-Guard the read path with a mutex. Reads are the only way into the hardware,
-as the driver registers no write callback, and they always run in process
-context, so a plain mutex spanning the whole clock-enable, read,
-clock-disable sequence is enough.
-
-Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
+Fixes: 2098105ec65c ("drm: drop drm_[cm]alloc* helpers")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit dab5f5280406088591645f499f048dcfefab8d7d)
 Cc: stable@vger.kernel.org
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20261002101329.1084348-2-srini@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: placed the check before kvmalloc_array() in amdgpu_cs_parser_init() instead of vmemdup_array_user() in amdgpu_cs_pass1() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvmem/rockchip-otp.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
-index aaa044bb231b8..0fb8d6d800bbe 100644
---- a/drivers/nvmem/rockchip-otp.c
-+++ b/drivers/nvmem/rockchip-otp.c
-@@ -12,6 +12,7 @@
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/nvmem-provider.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-@@ -66,6 +67,8 @@ struct rockchip_otp {
- 	void __iomem *base;
- 	struct reset_control *rst;
- 	const struct rockchip_data *data;
-+	/* Serializes access to the OTP controller state machine */
-+	struct mutex mutex;
- 	struct clk_bulk_data clks[];
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 536935fbeb672..40146957996f0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -161,6 +161,12 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
+ 		size = p->chunks[i].length_dw;
+ 		cdata = u64_to_user_ptr(user_chunk.chunk_data);
  
-@@ -179,16 +182,21 @@ static int rockchip_otp_read(void *context, unsigned int offset,
- 	if (!otp->data || !otp->data->reg_read)
- 		return -EINVAL;
- 
-+	mutex_lock(&otp->mutex);
++		if (size > INT_MAX / sizeof(uint32_t)) {
++			ret = -EINVAL;
++			i--;
++			goto free_partial_kdata;
++		}
 +
- 	ret = clk_bulk_prepare_enable(otp->data->num_clks, otp->clks);
- 	if (ret < 0) {
- 		dev_err(otp->dev, "failed to prepare/enable clks\n");
--		return ret;
-+		goto unlock;
- 	}
- 
- 	ret = otp->data->reg_read(context, offset, val, bytes);
- 
- 	clk_bulk_disable_unprepare(otp->data->num_clks, otp->clks);
- 
-+unlock:
-+	mutex_unlock(&otp->mutex);
-+
- 	return ret;
- }
- 
-@@ -246,6 +254,11 @@ static int rockchip_otp_probe(struct platform_device *pdev)
- 
- 	otp->data = data;
- 	otp->dev = dev;
-+
-+	ret = devm_mutex_init(dev, &otp->mutex);
-+	if (ret)
-+		return ret;
-+
- 	otp->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(otp->base))
- 		return PTR_ERR(otp->base);
+ 		p->chunks[i].kdata = kvmalloc_array(size, sizeof(uint32_t), GFP_KERNEL);
+ 		if (p->chunks[i].kdata == NULL) {
+ 			ret = -ENOMEM;
 -- 
 2.53.0
 
