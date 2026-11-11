@@ -1,58 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387016;
-	b=qmG4k8ZfSixg36diKcvDJ0foNOUSpL346VaAAER6WNqMcERugo45vsU/1hz19OsG2oO7
-	 DkQ5S1Yxd2shTTHIRLYUY6vpDdvcyvcmRJTRKvJPuxGFlWynSfYaKMoTCaZHyC39gY1NS
-	 ii8X4LwJIPHFtvcpMz8FPYrGXyzBdwY6i9JBudA1zYt8O6MBt8hNFsySHBpNB30YfafUk
-	 7AwfIbEV9Poe/d630jCfd2VHZKWcbI/6bNAlgQJAAFY284OPq/IIoHDiKvs7kPsFUKEP6
-	 e7DuQy7HQpTfwBprn4xE7kfU4eiN8i+8GKkmPUw7PZXd0QxQdioo3pq8HBKC/i9Bkuw==
+	t=1794387127;
+	b=BOYEjbkkhVEen26kMPhuiEHK2OT6ORwAVQGuRSE+DzwHXwd3vvrWAGnFIIdfb4Q3SCj5
+	 H4EGYsvj7NF2kGBm567J/+70wfBK1oFwGBd/GSyBz43z5rdJuh5XlUFw/lcrRUPccAecm
+	 jDY7sTx/gPwNQV9QiUmr0m2bs5qYYf6jzggcjHOmPNZNfzxS7a6pU8V9AjaIZq+Xxa864
+	 zLPvtxOiYYhW5EyzGSmD9alsg97s35lhqOhLvR7t5Wxq2Q81v/EkaGojHJcFMRY846c9f
+	 f/YDzjqFSeNpRi2qy57sRNlb6FOF9O7V/QYpxFv9C/8qho4Jfnzgyg0RDBlM6lwQU9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387016;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387127;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Dyi44XrPNZ+h4KSieqNDltLyYDUp+MK/l2iG04ch2ZY=;
-	b=3QbZ8ZrVVmu+z59ZIwWGd5t8f8g5NdHVItg1jqK8PsZ+g79rSZSHoW4DgS/1PYIC+jIZ
-	 Dh4z5/AYdzM2Xu2vluW8M1sBmPqL5kYQn+pUziWZBpFRt5taICRmGmKyZi6xIUr0cHVWK
-	 tVhUK5NkjbEA8jCtCtpeey76NUA44qSPXGg5kq+VtwUA+IVBUtBzlgTgfAaJ8R1vvjcNa
-	 i2nTi8EDKEgvncK7h9zx1CfOjwelB5xcq1C2KlAzCtJeHJmWZWzYTNKoM2gN2Gf8M78Sz
-	 FIZSc1cQGTo0wJfNQKDvTGMoN0jpe2KMxTCly68e3faMfQaeUnUA46rW+eOC7C2sQ2g==
+	bh=pASdGHuVDzOPBm8DXapgWXpGyzGlrV51ZEAx+mwYgR0=;
+	b=d7TDI39NDcUh9MKM1WQW1YJ7p3C9/gNezZEvvswv3CEzfymhnVDwTf4cUZ266v2AV12X
+	 8hStS08tIcfOYorVVU7zGp9ZL7L7LzBN8KFr1fyfWKRo1q47MbMKrnUk76RSjEvHoowDI
+	 ANhALD6zs1jUNDzYDlVU7litwCnNJw5YRJEd4r9goZkBwowsiWnhs63mFyfmBy/yRNYBR
+	 hH5K3FLtCe4BV5nXCmNVzvd0w9YMfzYgvD9rlIEi3zexODcPyOSwnuQNQDYDDnJMyeA0b
+	 8Isj1NvDBMBJ2AnGOCXSwQFMj2U6cj1qa2rXBkc2IB11Zqtgfv2jFqo1y38m6CN69dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=DU9CjvFk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD36B606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:50:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD36B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e5d51c96ddac11f19a56ed5b684f684d-20261111
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:70de7592-74cc-407f-a7ce-20aa329763cf,IP:0,U
-	RL:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:1a2a5734b3bf66cc1711c3c22ae16d56,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
-	EDM:-3,IP:nil,URL:11|94|82|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e5d51c96ddac11f19a56ed5b684f684d-20261111
-X-User: liwang@kylinos.cn
-Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liwang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1586439326; Wed, 11 Nov 2026 16:50:08 +0800
-Message-ID: <656d0e00-01a6-4e90-a924-4ad2329c3d74@kylinos.cn>
-Date: Wed, 11 Nov 2026 16:50:05 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12C9606A33B;
+	Wed, 11 Nov 2026 08:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=DU9CjvFk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D29B1F00A0B;
+	Wed, 11 Nov 2026 08:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794387127;
+	bh=pASdGHuVDzOPBm8DXapgWXpGyzGlrV51ZEAx+mwYgR0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DU9CjvFkdaXJNhlnKW3ETO8C/jowCZkydGBiKEgzrTQcTSYlwrtWHO0AAi/2xYeCU
+	 6O0gxCLsvbOYh6luY0qaOpHBehkHo5KfCqeKtCgwAoPkumj7FOa1D0omUZaqMZHkdT
+	 MN1hjUtVcSd05HQfzf3uT/Mf+uCoUviUC1XWs5LA=
+Date: Wed, 11 Nov 2026 00:52:06 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Vishal Badole <Vishal.Badole@amd.com>
+Cc: <tglx@kernel.org>, <linux-kernel@vger.kernel.org>, <bp@alien8.de>,
+ <wangyang.guo@intel.com>, <tianyou.li@intel.com>,
+ <tim.c.chen@linux.intel.com>, <dan.liang@intel.com>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH v7] lib/group_cpus: Snapshot cluster masks to keep
+ grouping hotplug invariant
+Message-Id: <20261111005206.53d8f99bd0ff3c9b568a1ad1@linux-foundation.org>
+In-Reply-To: <20261110174513.461743-1-Vishal.Badole@amd.com>
+References: <20261110174513.461743-1-Vishal.Badole@amd.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,105 +58,125 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] virtiofs: fix use-after-free of fs->tag on device
- removal
-To: Miklos Szeredi <mszeredi@redhat.com>, fuse-devel@lists.linux.dev
-Cc: German Maglione <gmaglione@redhat.com>,
- Stefan Hajnoczi <stefanha@redhat.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>, virtualization@lists.linux.dev,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261105150943.86650-1-mszeredi@redhat.com>
- <20261105150943.86650-2-mszeredi@redhat.com>
-Content-Language: en-GB
-From: Li Wang <liwang@kylinos.cn>
-In-Reply-To: <20261105150943.86650-2-mszeredi@redhat.com>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Hi Miklos,
+On Tue, 10 Nov 2026 23:15:13 +0530 Vishal Badole <Vishal.Badole@amd.com> wrote:
 
-On 05/11/2026 23:09, Miklos Szeredi wrote:
-> The virtio_fs object is refcounted via its kobject, so a mount can keep it
-> alive well beyond the lifetime of the virtio device binding.  The tag
-> string, however, was allocated with devm_kmalloc() and is therefore freed
-> by devres_release_all() as soon as the device is unbound, i.e. right after
-> virtio_fs_remove() returns (see device_unbind_cleanup() in
-> drivers/base/dd.c).
+> group_cpus_evenly() builds the managed-IRQ affinity spread used by
+> multi-queue devices such as NVMe. That spread is meant to be a property
+> of the static CPU topology: it walks cpu_present_mask and then
+> cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
+> including CPUs that are offline at the time. A driver depends on that
+> partition staying stable across re-computation - the CPUs a queue is
+> given at probe must still describe the same queue after the device is
+> later reset and its affinity recomputed.
 > 
-> virtio_fs_get_tree() looks up the instance, takes a kobject reference and
-> then drops virtio_fs_mutex before doing the sleepable part of the mount
-> (allocations, fuse_conn_init(), sget_fc()).  A concurrent device removal
-> can complete in that window:
-> 
->   CPU 0 (mount)                         CPU 1 (remove)
->   -------------                         --------------
->   virtio_fs_get_tree()
->     virtio_fs_find_instance()
->     // reference taken, mutex dropped
->                                         virtio_fs_remove()
->                                           list_del_init(&fs->list);
->                                         // driver core unbinds device
->                                         // devres frees fs->tag
->   virtio_fs_fill_super()
->     mutex_lock(&virtio_fs_mutex);
->     if (list_empty(&fs->list))
->             pr_info(... fs->tag);   <-- use-after-free
-> 
-> The virtio_fs object itself is still valid here, only its tag has been
-> freed behind its back.
-> 
-> Fix the lifetime mismatch at the source: allocate the tag with kmalloc()
-> and free it from virtio_fs_ktype_release(), so that it lives exactly as
-> long as the object embedding it.  All probe error paths already drop the
-> final kobject reference, so they are covered.  Merely dropping the tag
-> from the error message would paper over this instance while leaving a
-> devres pointer embedded in an object that routinely outlives its device.
-> 
-> The other readers of fs->tag are unaffected: tag_show() is fenced off by
-> the kobject_del() in virtio_fs_remove(), the automatic KOBJ_REMOVE uevent
-> is emitted from __kobject_del() while the device is still bound, and both
-> virtio_fs_add_instance() and virtio_fs_find_instance() only walk instances
-> still on virtio_fs_instances.
-> 
-> Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
-> Cc: <stable@vger.kernel.org>
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-0328b3a1-043b-468e-8425-6a613d91b5ef
-> Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-> ---
->  fs/fuse/virtio_fs.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-> index ba8d79c4bcac..ef58bedc3941 100644
-> --- a/fs/fuse/virtio_fs.c
-> +++ b/fs/fuse/virtio_fs.c
 > ...
-> -/* Read filesystem name from virtio config into fs->tag (must kfree()). */
-> +/*
-> + * Read filesystem name from virtio config into fs->tag.  Freed by
-> + * virtio_fs_ktype_release() so that it stays valid for as long as the
-> + * virtio_fs object itself, which may outlive the virtio device.
-> + */
->  static int virtio_fs_read_tag(struct virtio_device *vdev, struct virtio_fs *fs)
->  {
->  	char tag_buf[sizeof_field(struct virtio_fs_config, tag)];
-> @@ -505,7 +510,7 @@ static int virtio_fs_read_tag(struct virtio_device *vdev, struct virtio_fs *fs)
->  		end = &tag_buf[sizeof(tag_buf)];
->  
->  	len = end - tag_buf;
-> -	fs->tag = devm_kmalloc(&vdev->dev, len + 1, GFP_KERNEL);
-> +	fs->tag = kmalloc(len + 1, GFP_KERNEL);
+>
+> Fix this by snapshotting cluster and SMT masks together under
+> cpus_read_trylock() when all present CPUs are online. Latch the first
+> capture attempt, permanently using CPU-order grouping if it fails, and
+> propagate later allocation errors instead of switching algorithms. This
+> keeps successful spreads stable across CPU offline/online cycles for an
+> unchanged group count, present/possible CPU sets and NUMA topology.
+> 
 
-The fix for the UAF issue regarding fs->tag looks good to me.
+Thanks, I grabbed this and I'll push it into -next for testing.
 
-However, while looking at this, I happened to notice another similar potential issue: when the DAX mode 
-is enabled for file read/write, the DAX window is mapped via devm_memremap_pages and unmapped when the device 
-is unbound. Although as far as I know, the corresponding QEMU changes for DAX mode don't seem to have landed 
-in QEMU upstream, fs->window_kaddr and other established page table mappings still point to this memory region.
-Perhaps we should also look into cleaning them up?
+It's hard to get review for group_cpus.c.  Wangyang, if you have time
+please.
 
-Reviewed-by: Li Wang <liwang@kylinos.cn>
 
+fwiw, I fed it into my evolving AI patch reviewbot and it liked it.  We
+already have Sashiko - I'm trying to get this thing to take a broader,
+design-level view using wider resources (commit history, mailing list
+discussions, previous iterations, similar/related patches, related bug
+reports, etc).
+
+: The bug is a mismatch between two inputs to IRQ grouping. 
+: group_cpus_evenly() assigns groups across present and possible CPUs,
+: but the live cluster and SMT masks change as CPUs go offline.  When
+: NVMe reallocates its IRQs with CPUs 311 offline, the same queue count
+: can therefore produce a different CPU partition from the one
+: established at probe.
+: 
+: The patch makes that partition stable.  On the first grouping call, it
+: either copies both masks while all present CPUs are online, or
+: permanently selects CPU-order grouping.  The failure path uses
+: cpumask_of(cpu) rather than a live SMT mask, so it cannot change its
+: answer on a later call.  The mutex and release/acquire publication
+: protect the one-time decision; the captured masks remain allocated for
+: the kernels lifetime.
+: 
+: V7s specific change is sound: a positive ncluster means cluster
+: grouping succeeded, zero selects CPU-order grouping, and a negative
+: allocation error unwinds.  The caller adds nv->ngroups once on either
+: successful path.  I found no remaining ownership, cleanup, or
+: arithmetic defect in those changes.
+: 
+: The tradeoff is explicit: if the first capture occurs with an offline
+: CPU, under hotplug-lock contention, or during allocation failure,
+: cluster-aware grouping is lost for that boot.  The stability claim also
+: assumes unchanged group count, present/possible CPU sets, and NUMA
+: topology; CPU hot-add is outside it.
+
+
+And I fed it into my evolving LLM-driven live kernel testing setup. 
+Everything passed.  This thing is still being beaten into shape - the
+test planning isn't as nasty as I've told it to be, because it's
+annoyingly lazy and disobedient and forgetful.  It's a work in
+progress.
+
+But I think it gave the patch a pretty good workout anyway, wdyt?
+
+
+: Patch "lib/group_cpus: snapshot cluster masks to keep grouping hotplug invariant"
+: Link: https://lore.kernel.org/20261110174513.461743-1-Vishal.Badole@amd.com
+: Tested-by: Andrew Morton <akpm@linux-foundation.org>
+: 
+: I tested v7 against the same tree with this one patch reversed. Both
+: kernels had the same configuration and booted a Debian guest with 12
+: vCPUs (one socket, six cores, SMT2, one virtual NUMA node). The host
+: was a 64-core, SMT2 Threadripper PRO 3995WX with one NUMA node. The
+: kernel was 7.4.0-rc1-g99b6d17012de, with CPU hotplug, NVMe, KASAN and
+: lock checking enabled. QEMU 8.2.2 supplied an eight-I/O-queue NVMe
+: device and a separate root disk.
+: 
+: Both kernels initially returned the same eight group_cpus_evenly(8)
+: masks. I offlined CPUs 3-11 while the present and possible masks stayed
+: at 0-11. All eight baseline groups changed, while all eight v7 groups
+: remained unchanged. For example, baseline group 0 moved from CPUs 2-3
+: to 0-1; v7 group 0 stayed at 2-3. Reonline restored the original masks.
+: The guest exposed six two-CPU cluster masks and SMT sibling pairs.
+: 
+: I reset NVMe while CPUs 3-11 were offline. The controller retained
+: nine queues (one admin and eight I/O) in both kernels. All eight I/O
+: queue managed IRQ masks changed across the baseline reset; none changed
+: with v7. Effective IRQ affinity moved onto online CPUs as expected.
+: After bringing the CPUs back, direct I/O from CPU 8 succeeded and the
+: 8 MiB readback SHA-256 matched on both kernels. There were no NVMe
+: command timeouts or kernel warnings in these guest runs.
+: 
+: For the fallback path, I booted v7 with only CPUs 0,2,4 online.
+: Because some CPUs were offline during the first grouping call, v7 did
+: not create a topology snapshot. It used the same CPU-order groups for
+: that call and every later call, even after the other CPUs came online.
+: Stack-filtered slab injection in a separate v7 build failed two
+: distinct outer and three distinct inner grouping allocations. Each
+: call returned NULL; a subsequent normal call returned the original
+: eight groups without a warning.
+: 
+: A separate diagnostic build used a temporary boot-selectable hook to
+: force failure of the first snapshot array, sibling array, a per-CPU
+: mask after earlier allocations, and the trylock-failure cleanup
+: branch. A no-failure control captured a non-null snapshot. In every
+: forced-failure case, v7 selected CPU-order grouping for the rest of
+: the boot. Its snapshot pointer stayed NULL, the groups remained the
+: same through CPU hotplug, and there was no KASAN or lock warning. The
+: trylock branch was forced by the hook; actual contention on the CPU
+: hotplug lock was not reproduced. QEMU did not reproduce the physical
+: controller's s2idle simple-suspend quirk or its reported two-minute
+: timeout. The A/B tests reproduced the changing affinity-map mechanism,
+: not that hardware stall.
