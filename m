@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794425452;
-	b=ibOktm10uyRrMKRXiwfH5CLHlKW2qfQjwNLEejy2BzquDbzw60LQ+ZCz+nHPBkW4ayuz
-	 H5f+btjEDkqlCyL+/AJ7TMEafRoeqCBSujPCCaYrmL+IaGbphZFoh0t779ZqdRmVNa6Z3
-	 Zk+p4XnjjG4zGRbs40B/iFTYtUSHduVcemDNjU9DtpHylmz06p9uUSsvjye8db8ll0Xs8
-	 bGynUmbCJeO5qx16yPqg+fZVtovil5q8kzkbKfy8JFSHZsSyaJfJKZFDw2NnY74vTRLDg
-	 e8ISqxBGk8LOL77S8lVmzeMuPhd9N7GU6+CUaVlcDE6Rn9nlq0vrvYqHPgWsINxrZlw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425452;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zo5UI9hZIeOxlpwJeSrtbBHTLqLuJCLcw0oCrYMAP/Q=;
-	b=iAsc0wOZ06YCLUiCDRLviQPrIOOfpGfrqmp4NftxKUdRsAWrr+YM7D1P/VMVrGNZQHyY
-	 q+omjATvT/Jl1jjduh0oMNgYiF7Ree5HCM1ABrrNavU+d43z2NJBZDeeupchV6LmzUtVa
-	 dy1dQNKMq1SV2JgN7aHsIGRzp8mta7QuMxXZgYR+Omhrcl/4z7ovJp7ACprMSwO3Nt7le
-	 bbemk2PMye9M+OCYIpuW7DsPnvgDGgVcACJOiPIHF0PcspXi88EGWhSG+gWxX03gKG/F+
-	 Wv+eNct4bd0z5FcXFrz5TaegH54q17+fE1K8zF8Y1ywWhvS+5OG7WmssFNmf9OPmyKw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4ruwrMY;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794425509;
+	b=SEf/MJsYjpqZN1AFSL9Az0TWdMMOQX7xm9bk0IK6P2Ru2Yq8tDwRYAIQoIoc01Dx/QxC
+	 zagTlIcXV6Z3XIHAoca+ES//mOun0FpCShMPGMBnUZseKjPnFokv+j8d2y70jl6ARaQnL
+	 9euT443L1KxpUkLOfMvhmcWGcwSMUHjrmOsYLb+X8F0z5z5im2+TO2qwB/lo3x2QYtm8L
+	 tP4qFaZ2tDl+6Tt3/cwWBIcasfSXnMXQksDAIZD6QV9MrufZYr58k3OKq3OYlElj5H4Qr
+	 Ch3g8HOZXpXEqo5cqvyRyX0rfGKXkO7odq2FsxqAmujasb6IP0797JGrGxWdi6Jplhg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794425509;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hPJTSgl4lSpxHtP18SvOW1H3AlqpcYb2ZHd7KDI91sE=;
+	b=be8Iwr1n2B4IKaxzSElWU+fYZO7sc5apDxQ0LJwekaljtY1l6NbKSvRMcGPWt1yskE1V
+	 tXlrSDd+NXGqRAoMWp4RSHp0seM0kq/e2XVFqBJj7QqKMA8iIeqawjgz5a7G/yEbYnK/n
+	 SYLfdpClkl3pnOBBbB4cdlqhHGm/BNpQDu1soVfyAjMzJK80EMuJ0TZgxatNrAx5DmOzg
+	 SQFMP2k9IRpgtcfx8OT7mp788Xdm9MOANF9CpB/rgOKrjNIm+aXTLKM/Tpur4PfLimSEQ
+	 /s4migTcKGdC7aEtVgoSllhcG6ubujdovSJ4/ZXORH1HWNUt/C5lZD3oIDIPIiXGqEw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="W+/T+mmy";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66091606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:30:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E68606A32A;
+	Wed, 11 Nov 2026 19:31:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4ruwrMY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392FB1F00A08;
-	Wed, 11 Nov 2026 19:30:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W+/T+mmy
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794425508;
+	b=OtKQaSucPWMKJ1eFv8bMmhmDb6RH4DVPbvsTOYgYfYAfRQ1shXmDTWQWdQdofApozqIn
+	 i2KIrqdeUL5gXdQzhYYA36ZrtndbFo94H9Ojt2PL2iMp2Uw/cgFVzbXQ9TK6cIbXaMi39
+	 CLvPnXvQM2iUPaizOi4bDmjhnXaLbsw0Jd/ah1O+C8f4bZBEgLo8hsOhMRHPdScQ/cjS2
+	 xBBUe5Sd73ywfTyayYfZPWQgYvm6mkuLvZw6y1/11/E4DQVUkZMieAjkqXHu03D3uhPTB
+	 j5oesNg3sedNyPYZ0QHAMUQEf02WBE1J5dYpwa42PnUf1+V+Sb6OWTvrjof5E6gXwAA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794425508;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hPJTSgl4lSpxHtP18SvOW1H3AlqpcYb2ZHd7KDI91sE=;
+	b=amGFHJYPv9+dNGPX1i50MNvP9gNKkCU3iDathSb5b0OwmtNKbeFFFuFw15HlGk5/9TWX
+	 FLEEu94wvhnYGmz5UU7uru8nKvPlKiSu7zD0QjQupy77d/ALf+SO96iSCxz5tTYZe50a6
+	 U06KvPviiVw3Uk6ZmO8MvgUKGmWq8aGF14JtQ0rs3xpVaEbyrmcQjpkU54wyBgMOls9WI
+	 6yQ4zHLGUf5ZG4CjbJTd31Xt3esHBSGGGsOsSSswJ/pPmVav4JEqWz4tMVqqFMgsGvKlN
+	 eO892yEk1fp4jue+koYxLy9zWleq5HujlOlvNFiwMGHUBz77zg2IIdLdkZ6A8vIaqbg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 663221F00A05;
+	Wed, 11 Nov 2026 19:31:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794425452;
-	bh=zo5UI9hZIeOxlpwJeSrtbBHTLqLuJCLcw0oCrYMAP/Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b4ruwrMYtlS1zJIGm6IogVTN3GZoU1bw8A9H9t0VXLtSOdRH5GIKGoRYyljEKUw+/
-	 SG+H/XmDobXyyRyJPIs1qMQBWHE9czbzjWdHeuIll36JCqC/pf+SjY0cWWMXiPz3S9
-	 m3/4Cj+IjwE4RSAPlB0RhYwwKobjf8JV31kEu7plqziUlWBncfLxH5fv9qa5m0lyKh
-	 7JRB+hChgEeLTC+3IrcyFlaRvO8FEE5CUXVpQNKLMRqWW2Pr4TUgAcc1hnDxhaS+jK
-	 iFFU2uWPuV9t+kb7AMHgjGX/+YZkYYJm2DDUQq2+x2wpYrS5svzp07q7us1Uk8uMHd
-	 JK/24r9x0KrEw==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id AB9F41980047;
-	Wed, 11 Nov 2026 14:30:40 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Wed, 11 Nov 2026 14:30:47 -0500
-X-ME-Sender: <xms:YML0avxQD665O9t1dOvEy_Pxn46EG6tbREK5G8GJxGZfToS-P_E96A>
-    <xme:YML0auLI4IXUOOkzv4D8YNfzHgc6iyiOeUALj4E_vez_S7kQDHH5FiZDzY5x1nkSQ
-    U_t87QDYdoRXHCu0bbBh9aIEyfkBjQvf3hq-ZPSvgx2vZTEf5kmZhwF>
-X-ME-Received: <xmr:YML0ak3ycEJWZ42qb5nc47unXvlIQ1E2mffU1-LR5bQMjjrYNlMGrPHwn4Y>
-X-ME-Proxy-Cause: dmFkZTFg5mDn7G1jsxtJADJ5cuZf2Omafa/3hQOhBIIimTDafnO5A24NJOlsqczvUj1SEs
-    klbDFZa+cCJm+hNR5NlTtmFKeH16BjQ/ZxuKgXmvAvddkkJHCf4bAKhqrKCRIBAvA6Tc2y
-    MAgurUAn0Ed38s3Jo4oTLdfx0+Uk0ey3+EK9sO/AuYl+Tqpb2jiu/k6zbVx08ECTcsFIev
-    gGlrZCAYO+PEDo7Hr4y8X6VfZYUHqPPZCdOzMI+4T1F8Ak4yqSjPQhNtOvIzum4W6w4HgL
-    pgD6LrrmuoxneLsUL9/IOgiboNNN1/jsaLXgUv1tvI/NokEY0SdNO13wgeLnX0R8cwrCE3
-    8ehWPlH6fkdPishwD569Pod8+ltBECxeUJy8OPUjEiYWjNy+7Hfyh6uTZFZ88Tvkj8SMA+
-    42NlQI6vi5L4LH3ctQoSboEOjgfLEPqpV0Dr7UXLEwvJluDcASfBTGZgbVuKqS1IBGMJq+
-    af4uNR8qUNzw2wjsxhfOtj6oE7jwa9EYfRiocIwsTNRCr239Hzkr7sKdRokFLmb2WJ4yIh
-    ZSiYW2UFfMMhZcH5Oa7HuJdFq4YU9JG/xU3LrFPD516cliTB5DQu1cXYv3Mc/fBpDg9RhM
-    1aC1d0yqB4lnWjEIGpBELNP2UNsUbFNyTqu9DLQbN7Hf/CeIBSHGezzY5VxQ
-X-ME-Proxy: <xmx:YML0aiA7eKm0J3ecc2HVJFcpHzQFh93AOUTveT7lUEnWMcd8kZ7thg>
-    <xmx:YML0agRUnpPsSFdFFRoziPzyCDbyt7q0m55EeuYcBcaYNQtB_Y6ZaA>
-    <xmx:YML0alVKBOCzq20d-Ry4IgqgXV3vGWOwSpTvYTxBnGIvbXry41I-Kg>
-    <xmx:YML0agEbAxt22YRy2B3-CKdMA1V4gsug3S8mlWpvJeL8XPG4TA2iNg>
-    <xmx:YML0auoFfbVJP5a-7819JT5NJRy1483hK0PwMYuYYAAy6lHRcUvwL1hK>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 11 Nov 2026 14:30:38 -0500 (EST)
-Date: Wed, 11 Nov 2026 19:30:38 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
-	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 04/13] mm/migrate_device: allocate THP deferred split
- heads
-Message-ID: <avTB6h61nXfvCXUS@thinkstation>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-4-3d2454362e8d@kernel.org>
+	s=k20260515; t=1794425508;
+	bh=hPJTSgl4lSpxHtP18SvOW1H3AlqpcYb2ZHd7KDI91sE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=W+/T+mmyD3X0cIpn1rAgTiINN64y3iqC/UvCFO0wOCUSYsSI7G4GU8EaG0Y25KuW9
+	 ZHCUBKdAru8o8tIh+JPWiQ6DRmNfBt6OoqdtOplPk67zlcb83fMMJ2B04FrahS0yQy
+	 UQ5NMg51hjNM4V7iAxH3w5s2zfqkVXksPEHwiVYDBdJXR8/k03N6pDMf2mUZOfwHL3
+	 kssoqQZFZImR92u2yFdn4rfBVhPimt4P/MaLu1slmhUSLF+ns2jX8Z8v72bJl+KHpa
+	 AycYA6jPejQ1daE8s/7OUTBpABNYjrz8jOauOkxwV7GkmHPuuP2m+CJlb+brcb1ep2
+	 G741PvJ3/oY1g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B17D7490A4;
+	Wed, 11 Nov 2026 19:31:47 +0000 (UTC)
+From: Darren Worrall via B4 Relay <devnull+darren.worrall.shopify.com@kernel.org>
+Date: Wed, 11 Nov 2026 19:31:39 +0000
+Subject: [PATCH iwl-net] idpf: select AUXILIARY_BUS to fix link failure
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,43 +82,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-4-3d2454362e8d@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-idpf-auxiliary-bus-v1-1-e76b940fc929@shopify.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSQ6DMAxFr4K8rtUQqeNVKhYZDLhCgcaEUiHu3
+ qT9u/enDYQik8C92iDSwsJjyFAfKnC9CR0h+8yglT7XWRmnFk1aeWATP2iToFPqdCV9cf7mIQ+
+ nSC2vv9MH8HvAQDM0/0CSfZKby2WpWiOENprg+mKNkTsOR08LvhIlgn3/AmLEkuGiAAAA
+X-Change-ID: 20261111-idpf-auxiliary-bus-c0058e27cd9d
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Madhu Chittim <madhu.chittim@intel.com>, 
+ Joshua Hay <joshua.a.hay@intel.com>, 
+ Tatyana Nikolova <tatyana.e.nikolova@intel.com>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Darren Worrall <darren.worrall@shopify.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2450;
+ i=darren.worrall@shopify.com; h=from:subject:message-id;
+ bh=RbjW4ti8gsuFIX9ZjzwA73lhgVe0TsMd8tFgxZGXUIc=;
+ b=owGbwMvMwCX2T4mx4WrYUgPG02pJDFlfDi1K9b6aINvzofyiZEOjge+28g0e39h3vWQV6XC4+
+ NLgt9qbjlIWBjEuBlkxRZZJ28v+mU1q+VUe1bULZg4rE8gQBi5OAZjIBwGG/zmqa/U2nFimHeLt
+ Fvcmu3CP2V2N1JI3lYLL1FgsLs1e4MzI8P3FuYc1cy/sZZJTuBTKY7a/aP7m5bMtItdqLI/ab+R
+ yjwcA
+X-Developer-Key: i=darren.worrall@shopify.com; a=openpgp;
+ fpr=92B776FE369284FA775A8ABAFE220180D556A530
+X-Endpoint-Received: by B4 Relay for darren.worrall@shopify.com/default
+ with auth_id=1491
+X-Original-From: Darren Worrall <darren.worrall@shopify.com>
+Reply-To: darren.worrall@shopify.com
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 06:13:18PM +0000, Lorenzo Stoakes (ARM) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> A THP that device migration maps into an empty PMD can end up on the wrong
-> deferred split list when it is later queued for a deferred split.
-> 
-> This occurs if the memcg has no heads yet (resulting in a warning if
-> CONFIG_DEBUG_VM is set), where deferred_split_folio() will then queue the
-> folio on the parent's list.
-> 
-> Once a later THP fault in the same memcg allocates the heads,
-> __folio_unqueue_deferred_split() and the split path resolve folio_memcg()
-> to the memcg's own, now existing, list and take its lock.  They then
-> list_del_init() a folio that is linked on the parent's list, racing with
-> anything holding the parent's lock, and both lists' nr_items counts go
-> wrong.
-> 
-> Resolve the issue by calling folio_memcg_alloc_deferred() after the charge
-> in migrate_vma_insert_huge_pmd_page() and falling back like a failed charge
-> if that fails, as __do_huge_pmd_anonymous_page() does.
-> 
-> This was originally discovered by code inspection.
-> 
-> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ ljs: tweak commit message, remove unnecessary comment ]
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+From: Darren Worrall <darren.worrall@shopify.com>
 
-mm-new already has this: "mm/migrate_device: allocate deferred split
-sublists for new huge folios", same Fixes: tag.
+The build can currently fail with
 
-Hm?
+    ld: vmlinux.o: in function `idpf_plug_vport_aux_dev':
+    drivers/net/ethernet/intel/idpf/idpf_idc.c:82: undefined reference to `auxiliary_device_init'
+    ld: drivers/net/ethernet/intel/idpf/idpf_idc.c:86: undefined reference to `__auxiliary_device_add'
+    ld: vmlinux.o: in function `idpf_plug_core_aux_dev':
+    drivers/net/ethernet/intel/idpf/idpf_idc.c:223: undefined reference to `auxiliary_device_init'
+    ld: drivers/net/ethernet/intel/idpf/idpf_idc.c:227: undefined reference to `__auxiliary_device_add'
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+if IDPF is enabled but no other driver pulls in AUXILIARY_BUS. We hit
+this building a minimal kernel for hosts with IDPF NICs. It can be
+reproduced on x86_64 from allnoconfig by enabling PCI, PCI_MSI, NET,
+NETDEVICES, ETHERNET, NET_VENDOR_INTEL and IDPF.
+
+Select AUXILIARY_BUS in IDPF, as ICE and I40E already do. The same
+link failure was fixed for BNGE in commit d7065436e8a0 ("net: bnge: add
+AUXILIARY_BUS to Kconfig dependencies").
+
+Build-tested with that configuration on net-queue (dev-queue,
+34a70a40c954) and on mainline (067c5c24cef2): vmlinux fails to link
+without this patch and links with it. Boot-tested on bare metal (AMD
+EPYC) with a Google Cloud IDPF NIC, using a 6.18.60 kernel carrying the
+same change and IDPF built in: idpf probes the NIC and its link comes
+up.
+
+Fixes: f4312e6bfa2a ("idpf: implement core RDMA auxiliary dev create, init, and destroy")
+Cc: stable@vger.kernel.org # 6.17+
+Signed-off-by: Darren Worrall <darren.worrall@shopify.com>
+---
+The link failure was diagnosed, this patch drafted and the tests above
+run with the help of an AI coding assistant. I reviewed the patch and
+the test results.
+---
+ drivers/net/ethernet/intel/idpf/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/ethernet/intel/idpf/Kconfig b/drivers/net/ethernet/intel/idpf/Kconfig
+index 586df3a4af..6b59173e0d 100644
+--- a/drivers/net/ethernet/intel/idpf/Kconfig
++++ b/drivers/net/ethernet/intel/idpf/Kconfig
+@@ -5,6 +5,7 @@ config IDPF
+ 	tristate "Intel(R) Infrastructure Data Path Function Support"
+ 	depends on PCI_MSI
+ 	depends on PTP_1588_CLOCK_OPTIONAL
++	select AUXILIARY_BUS
+ 	select DIMLIB
+ 	select LIBIE_CP
+ 	select LIBETH_XDP
+
+---
+base-commit: 34a70a40c954fb8044ecd124840a2c38cd3aa4cc
+change-id: 20261111-idpf-auxiliary-bus-c0058e27cd9d
+
+Best regards,
+--  
+Darren Worrall <darren.worrall@shopify.com>
+
+
