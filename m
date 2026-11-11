@@ -1,86 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384807;
-	b=UagjpMAZz+jTu0DaJjKRGKJa06k6F7BgNZ9QCNmI/Suh3M3QuSoy3iRyuZ8Ka0teizGB
-	 Db7IZa2gLLglGIubzAw7l3N0u9GbYcvEGEvLTJ90+EkojXey7lDbb60ST04PRPc6f6Dkc
-	 0cNTWrubDtiacYIApXgM/JYcP4Pjfgh97L9FT2ecBXdq/9HeMUCEZskJhA9Z8JbPc0h64
-	 GXQuFdFDFj6mPJO3hEe/Rwhdc+WnTx5S0x+p88bbDmdtc5kIwR3IrmSHJF7WHErj2MZjl
-	 UioMrVxdW5zgTYQdQaoSk6hUx9pC2lil5R0Ti4hQC4GkdoVDXlZrcyk3IdSMYjkfYAg==
+	t=1794384927;
+	b=J7aSQ2vPA8Xq4MVzjFHYEs6VXetVJLqe0fVkxeTekdOvOR3q9x3PdZWy1x0jFA1YX8lQ
+	 XJsvRN9H8biciBZzmrStkc4ZpnpVGDaUFQ5OgMYtrjs9HySH/8SKsLuexNrK5Gc+lRvD5
+	 hULKVsFhpa9nla/de/YnPNjJieJ8rpyEHL1/YLVaOoudn3PVHKrnuMinOhX/6lpvOK+b8
+	 gF9W7akjerwxtR3/mrPEirMgZ6nGWjZt567tQeWPlNN8QZAeQR6el9ieN5Hih+SUz4Rbm
+	 gYBDP8IDK0bPHO2YfRJ/5E/PgNj63AAbEEl8FNv+cldXGdj7/ehDXYrw977qi9V+teg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384807;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=DgQI3xxkFFA7BhKNt2RfO4arKL4tKgGT+HlK8U19YZw=;
-	b=kybLSjS4pZadzB8cw8bud0HMyATNNeoT+HiBZavcF241/KNlxGAQPF579vdai0d27kYP
-	 YhCaHbVJr+RoNR0sqQG3YeEMS3mVMPX0PK1Dj2u2yehej6TORSt+dplkpGjcABDsdEGlA
-	 a9xSDOMdJrxn3jRN+hXjqTWWPvgzmT/HtgGNFQvyPDX2rip1oaOqpU6KqVckOwjm9ZDO3
-	 Mk44RP9mL4HAOO9UJ8VSrBDe3QRyTDJDE06orIQ4RP6rrC/9NtekOZpItVwsjNPagUf1v
-	 TZM1SHqcRq08mrfvm7JlcxHfyOkHYVmixgP5qA1OVl1Z+UcWo2DwxqW7uN4gEv1CaVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384927;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=AniNH7vBkjZ81jPIGkygTkY1tLPixcJPXpEKPibhbUU=;
+	b=XObiD9qbnBIVcBb5vO4TecJlTGEWTLrhIUOjYd9ugonSFiE3z9fTRR9Xf9st0Annlq71
+	 t6M7tt2TX6umX3Uq+huFqwYQ92XRhVEILC2kxLlZdnL7udVL5pQs90dMvJYaB9/V1+DzY
+	 N0eEFlRgbESZMc/GGe+w+NVvkGnQ1M03879m/5TfnD4JG5vaDhjN5HmLx2GFVaQZsGNJJ
+	 zSlXtnVGgzp4giUDyRaq6lgy5VqCKCqJRe6TwhUo4TTOieHzlEfg8mFbMrsYvrEm0Femj
+	 trZILFKw9HAozCCB95qHXFaoDC59fEOS/ZmrjszFH0w2OiEl5YcOk1gacrqCaewUgYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=HFeXLgVM;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kxcufjRx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B79606A336
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31B79606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBED2606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:15:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=HFeXLgVM
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c499b5be0f1so1973566b.0
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:13:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794384804; x=1794989604; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DgQI3xxkFFA7BhKNt2RfO4arKL4tKgGT+HlK8U19YZw=;
-        b=HFeXLgVMBpTERHWDiSovZQXILqXdD0gpZ6s6i9Hv+LCjsrbc0lGXS/qto+UBNWe86X
-         1XoFkqRfAiiGpWYmGh3xxPXoJqCMj/9maoc2qPS3CO2BwIHsp5XkD+MmV3Kl8KkWs6ls
-         4MGbfG15/WA1l8grvJIBuLg5XmI1a7v7NnNkaZwV3Pd2gINGzmUkZoEkHP7c03qQ6AMy
-         M7G8CGoF9Kl4dTAgt1NRKZCbbvzegKNWSb/4DoMlBbtNHyxtFdc5s6F/ysM0MA+nczOS
-         0InufqTdtN9g/DKr2RXNzJJkTCf1lViyC+SE76K69X/IayGP0abaXc/0pwQ1ld3FI6R2
-         AMog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794384804; x=1794989604;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DgQI3xxkFFA7BhKNt2RfO4arKL4tKgGT+HlK8U19YZw=;
-        b=jj8eJtkr6TKUBEazL4FyJ9mh2XRI+PJzDD1dOOkoV8/Z+7vjqM4gZl7mZnaXLj7s//
-         D4+fGedVuZVYhpXmsKFjQeTE21AIbrVQDeVkKDYVNQteV+/a1wLFqj+EQyFNQAUIEFb8
-         cv0SaBHPe8kU8A4JVb8O3d8hR5rzRLJ6/68wu8euSUuK07d6VAepbT189MrYMteyEUNQ
-         0EdKu6d1NrEmtyt7va5qJusy0qM1LsGTbCQqEy91e9WfzEEkbW9fcBia5Z4x2x9LjEqH
-         V4e4l6R4U1NkX+TVfG2q4UvQIyNnriG7paTg9TOCct8zp7o1RlRKvXf9hdlluPo8jWyR
-         ky+A==
-X-Forwarded-Encrypted: i=1; AL+hErFIpWD79pzyEgJz8Vftlkq60OknL7bnE+03QCtsQ/r7DKS+TWg26TMgivg/b1L67MtnWaUVzos=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KZ9zG3eoZuAMjevFs6PL81xWCWCZU6qzcorxWmvTbw8jcWlBx
-	TYvzDlq8E/OdOj0Bqz4ZP8CppwBunQFRrx0DLqWrhREvCrPwy7J+Qv+8Z2Lk98Yhi9s=
-X-Gm-Gg: AYBFou342TSuvcCXH9ZqMYsmdM/8dI9zZmONKuq+ysGEFCEmc41TwaA6g8dMWGz0JqH
-	ewc6iqZUYNMajyueHhMJXGVjyabWJcn8cddWDefRaStUTTmGalDJBwwfqFu6O2qupnuXayB6cG6
-	YebQJ9sNFDwSAZhkH7N+SKP9I5LPfO0/JzOxCYHsHycrBA35V/RCVwdMVUnakFwa8PR31aIoBnS
-	O5uY7t9cnTv6EvcTz6YKGNstQsscYoawBPjIHUC02KdpxYx4OezUL4nV9ND9AwV25CmbRtatfJ+
-	oOzwQ6t/Hmg+8/CrOdrTTiYBCSwIo3ZiJUcYOgZX9IYU54ChbLp0K0p+bQhw/dWeDMpDtB06mWN
-	Ccsz0sOgKDvzHK94uXtPy4TVx79OS/iSPtNjUldX1vadv8ILUnkJctNQRmv1soOceZZdaYd++ej
-	bXwINWXfCBpyD6qAsqlL1qD4TuOSYjF7nLLcgpfiucGmNwkcofgyrLphOYgAMk5IBUHLXlj+vov
-	SyAJPaOT9theHa7LCCR04AqsP0AcZu7TwsuPhyAsTgUsMHcMN01QXx2blie05YurDIzE32zinWD
-	dzCta8/uoNoCF4GFf60OQ2t7KqLLmPJIGkY=
-X-Received: by 2002:a17:906:3ce2:b0:c4d:1768:48eb with SMTP id a640c23a62f3a-c5066ae6ba4mr117518566b.2.1794384804465;
-        Wed, 11 Nov 2026 00:13:24 -0800 (PST)
-Received: from [10.202.112.30] ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa1b27cdsm1775739b3a.19.2026.11.11.00.13.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 00:13:23 -0800 (PST)
-Message-ID: <a5576744-0984-462f-8f85-aa71151b277c@suse.com>
-Date: Wed, 11 Nov 2026 16:13:19 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kxcufjRx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415031F00A05;
+	Wed, 11 Nov 2026 08:15:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794384927;
+	bh=AniNH7vBkjZ81jPIGkygTkY1tLPixcJPXpEKPibhbUU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kxcufjRxyQMwY9kLU11b1kmAnP4mV1EA1WBVYguiCDZlLLzCiiR0rvSz+antPdxSl
+	 sRRWix20y25TA10em5T1MIVqgVdb/BPi2vkeDhs/UKTtgCbQhvb+CdKEKR3mwQl/nt
+	 YQhPTb5vpDH5N8njdo4v3Z1qiq5RsdcBU+9F91YqiKXyVSO9tXfL6YAEWATZCdAFO8
+	 JIcMBaNkFpP0fFxdiEB6ld5N/2dRubVRza2IGKUdBME4H+vd+mQ3f5DSthOPof0nJc
+	 b2cIZL6VVKSLQMmGPS/+tXpZnULD/LN6E9hIgm1CUIkKXtyqkswyusingBPA5FTgUj
+	 Bt5opxZGGbIKw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Caleb Kan <ckan@cloudflare.com>,
+	Matt Fleming <mfleming@cloudflare.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Marco Elver <elver@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Caleb Kan <calebkan1106@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] stackdepot: stop preallocating after the final pool
+Date: Wed, 11 Nov 2026 03:15:25 -0500
+Message-ID: <20261111081338.1418886-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052548-failed-6.12-8f56ea8e0706@kernel.org>
+References: <20261107052548-failed-6.12-8f56ea8e0706@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,123 +67,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: fix kernel BUG in ocfs2_page_mkwrite() when
- write_end fails
-To: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>,
- Joseph Qi <joseph.qi@linux.alibaba.com>, Mark Fasheh <mark@fasheh.com>,
- Joel Becker <jlbec@evilplan.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- yangwenfang <vicky.yangwenfang@huawei.com>, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- syzbot+42984127d45ad96219de@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
-From: Heming Zhao <heming.zhao@suse.com>
-Content-Language: en-US
-In-Reply-To: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/11/26 10:34, Zhiyuan Zhang wrote:
-> From: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
-> 
-> syzbot reported a kernel BUG in the ocfs2 write fault path:
-> 
->    (syz.0.17,5578,0):ocfs2_write_end_nolock:1945 ERROR: status = -30
->    kernel BUG at fs/ocfs2/mmap.c:106!
->    Call Trace:
->     do_page_mkwrite+0x147/0x310 mm/memory.c:3879
->     do_shared_fault mm/memory.c:6145 [inline]
->     handle_mm_fault+0x1a53/0x3750 mm/memory.c:6943
-> 
-> __ocfs2_page_mkwrite() calls ocfs2_write_begin_nolock() and then
-> ocfs2_write_end_nolock(), and uses BUG_ON() to assert that the latter
-> returns the full length.  But ocfs2_write_end_nolock() can fail: since
-> commit 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before
-> ocfs2_journal_dirty() in ocfs2_write_end_nolock()") it gets journal
-> access to the inode buffer again, because the handle may have been
-> restarted since ocfs2_write_begin_nolock().  That fails with -EROFS or
-> -EIO once the journal has been aborted or jbd2 has seen write errors
-> on the device.  The syzbot reproducer gets there by shrinking the
-> backing loop device to zero with LOOP_SET_STATUS while writing to a
-> shared file mapping.
-> 
-> Handle the failure instead of crashing.  ocfs2_write_end_nolock()
-> leaves the mmap folio locked, because ocfs2_unlock_folios() skips it
-> when w_target_locked is set so that it can be returned with
-> VM_FAULT_LOCKED, and do_page_mkwrite() does not unlock it either when
-> ->page_mkwrite() returns an error.  So unlock it and fail the fault;
-> the faulting task gets SIGBUS, like for the other errors in this
-> function.
-> 
-> For an mmap write ocfs2_write_end_nolock() returns either len or a
-> negative errno: inline data has already been converted to extents by
-> ocfs2_write_begin_nolock(), and copied is equal to len.
-> 
-> The BUG matters for local mounts, where the filesystem is expected to
-> go read-only and keep running after a journal abort.  On clustered
-> mounts ocfs2_abort() panics the node anyway as soon as it notices the
-> aborted journal.
-> 
-> Fixes: 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before ocfs2_journal_dirty() in ocfs2_write_end_nolock()")
-> Reported-by: syzbot+42984127d45ad96219de@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=42984127d45ad96219de
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-fable-5-2
-> Signed-off-by: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
+From: Caleb Kan <ckan@cloudflare.com>
 
-looks good to me.
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-> ---
-> 
-> Notes:
->      Testing: syzbot C reproducer in QEMU (x86_64) on a defconfig-based
->      kernel with KASAN, lockdep, DEBUG_VM and hung task detection enabled
->      (not syzbot's own config).
->      
->       - Unpatched: BUG in 3 of 3 runs, within 22 iterations.
->       - Patched: 437 iterations over 3 runs hit the failing write_end 21
->         times (11 x -EROFS, 10 x -EIO), all ending in SIGBUS, with no BUG,
->         KASAN, lockdep, DEBUG_VM or hung task report.
->       - Negative control: without the folio_unlock(), inode eviction hangs
->         on the locked folio in truncate_inode_pages_range() in 3 of 3 runs
->         that hit the error.
->      
->      Not tested on a clustered mount.
->      
->      AI assistants were used to analyse the report, to write the patch
->      and the changelog, and to run the tests above.
->      
->      ocfs2_dio_wr_get_block() has the same BUG_ON(ret != len).  It is left
->      alone here because the pending "migrates ocfs2 DIO from buffer_head to
->      iomap" series removes that function.
-> 
->   fs/ocfs2/mmap.c | 12 +++++++++++-
->   1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ocfs2/mmap.c b/fs/ocfs2/mmap.c
-> index 6c570157caf1..1c03f45e8965 100644
-> --- a/fs/ocfs2/mmap.c
-> +++ b/fs/ocfs2/mmap.c
-> @@ -103,7 +103,17 @@ static vm_fault_t __ocfs2_page_mkwrite(struct file *file,
->   		goto out;
->   	}
->   	err = ocfs2_write_end_nolock(mapping, pos, len, len, fsdata);
-> -	BUG_ON(err != len);
-> +	if (err != len) {
-> +		/*
-> +		 * ocfs2_write_end_nolock() keeps the mmap folio locked so
-> +		 * that it can be returned to the VM with VM_FAULT_LOCKED.
-> +		 * On failure nobody else will unlock it, so do it here.
-> +		 */
-> +		folio_unlock(locked_folio);
-> +		mlog_errno(err);
-> +		ret = vmf_error(err);
-> +		goto out;
-> +	}
->   	ret = VM_FAULT_LOCKED;
->   out:
->   	return ret;
-> 
-> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+[ Upstream commit 8f56ea8e0706d92774603260779c7032f03ef3ac ]
+
+depot_init_pool() decides whether another pool is needed before it
+increments pools_num. When it registers the last allowed pool, pools_num
+is still one below stack_max_pools, so the existing comparison clears
+new_pool.
+
+With new_pool cleared, stack_depot_save_flags() can allocate another
+order-2 pool after a lookup miss. depot_keep_new_pool() retains its pointer
+in the global new_pool, so the allocation is not lost. However, pools_num
+has already reached stack_max_pools, and depot_init_pool() rejects every
+attempt to register the pool. It remains allocated and unusable until
+reboot. The non-NULL pointer prevents later saves from allocating more
+spare pools.
+
+Account for the pool being registered in the limit check so registering
+the final pool installs STACK_DEPOT_POISON and prevents the extra
+allocation.
+
+Link: https://lore.kernel.org/20261022083330.3159793-1-matt@readmodwrite.com
+Fixes: 31639fd6cebd ("stackdepot: use variable size records for non-evictable entries")
+Signed-off-by: Caleb Kan <ckan@cloudflare.com>
+Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Marco Elver <elver@google.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Cc: Caleb Kan <calebkan1106@gmail.com>
+Cc: Alexander Potapenko <glider@google.com>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: Used the existing DEPOT_MAX_POOLS constant instead of upstream's stack_max_pools variable. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ lib/stackdepot.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+index 245d5b4166999..1f1d63d21f26b 100644
+--- a/lib/stackdepot.c
++++ b/lib/stackdepot.c
+@@ -273,7 +273,7 @@ static bool depot_init_pool(void **prealloc)
+ 	 * NULL; do not reset to NULL if we have reached the maximum number of
+ 	 * pools.
+ 	 */
+-	if (pools_num < DEPOT_MAX_POOLS)
++	if (pools_num + 1 < DEPOT_MAX_POOLS)
+ 		WRITE_ONCE(new_pool, NULL);
+ 	else
+ 		WRITE_ONCE(new_pool, STACK_DEPOT_POISON);
+-- 
+2.53.0
 
