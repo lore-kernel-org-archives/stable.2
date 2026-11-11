@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419402;
-	b=42S3Irq9hFlNk2YhI+uXKRkXz6qvEU2FxuAd6D634Hvk/WSW/80IQ8XyrUzClElGOK7/
-	 N6et5KsekP/ex+Bike8pBVZK9kdOR94w9OxN75jGWV13NOWLJt5J19ANWkL7yC+HjIhtO
-	 zrFcgSJxFItUo7tkz6QQVdZvfB36sz/12U5v0K1TJrHCmrO2RGGm8l5F4g1NjgNjcOABO
-	 H1gWUn2X/CnjvSC1ynaUNsoXISKV9fV2V4ldmNfvlFWvMacoeQ5Ukbr4ty88zprekwA6i
-	 Nk2ornFTibgwW4OOHFZP9ctVA/bbIQKHovBScYijf6TTpdyEiOLZB3ol2Omf7m6+ppw==
+	t=1794419542;
+	b=P94tkJAdvOVYGMcLylQJN0CxjSHkGijZ69cFoLce4MAlkV4Mapzd9AzX+zLoBqU4xLlw
+	 VJ8R5DhRWDXJwIiy82j4rYbbl0wYlTwPB6htwUNrUGi5UTFXjzHdqJjjlqSIyR7GX/KeQ
+	 3DQyaN3CP9Mh7t/c3SyQT6PBdWLQvPNMkL2b+LHIHP5/QCb+SRVByZ8PAn0dzabOuQVWw
+	 NGwyXKxShrRfafdXrVjOaXuf4plzNxpdhijBllcAQLnO2YqxuonAJqPzf7nxAOhGY29XS
+	 Y+go0F6ByKgHJ6n2RWCN+5mIhiikimpNy+/58cng3GSEmrQBn8jwNg137TjVwPk2UrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419402;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419542;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dGSSrsltGu3YoArYKQxdKd439Q9tXLkVKgzBuJFs6os=;
-	b=N7EpFTMTI+i0WDWosVX/Qku4fv3OGcRCiiu3zeYLTQDO3qamGJ7wuxyjCHs0mxGqfyyH
-	 nKaau4NnXsQ1Ap/SJri4nVERKSEfX11Rp0GSPyxoc2snOVJAIF8gjk0kF/Pq8pLh62EFt
-	 jv04sKPHxuG6V7W/Y9jIrcHQ3sTlXBHw+yfkMfSRBg66JlknCKVR0Z1oHTNKV6XkDb2Cd
-	 uAnn9RTtzeu+I+ZoW9Q3v/q2jUeXcxpUefSeteVhF4SBwjSxXpdDh2oRR9zAOevvEYYtT
-	 1rReu3l4w6lI6hWEjkurcwsef5NFq+yx0LIckmqc6HztcRGUk/++ZkXEmQvC54qerRQ==
+	bh=qjqHIXXy6piGqleiVwHgUif+/ACGSqOw+PUghCMoew8=;
+	b=yZ/0WaY1qwBr46q9Nm0MAVcrhRnQgIZcm2wqok3p4Z6UyVA+yIxggCKd/yc59FybeYpq
+	 H/1fcwcUWaJ3YyAD5mnyaB2Y9ohF0XjULhk9TorxZndFBoZ2HBZM0KFH0MrmkCWvGhpX/
+	 XWBY88Ae77AK/ykvm4MwIGFX+zVh492zg0sS8G3TVfIsXpVTA5HVl92HvTPw2m09eVFFo
+	 vz/QX4ctXTL01ssx0fErxt5aWmyhaK4UZzEycdqFKmnMaS6r4cVMwegoFSSBI05fp+x+U
+	 K1dGN9/cQml1HFg8jCf1NDJSXGcHT3xwzYU3JaXQ9sMS5ccdHO6SMGSEonCKP1i2htg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TMxIZ/gq";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dgR7aFyD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0635606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:50:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2946D606A891
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:52:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TMxIZ/gq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F501F00A05;
-	Wed, 11 Nov 2026 17:50:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dgR7aFyD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154581F00A07;
+	Wed, 11 Nov 2026 17:52:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419402;
-	bh=dGSSrsltGu3YoArYKQxdKd439Q9tXLkVKgzBuJFs6os=;
+	s=k20260515; t=1794419541;
+	bh=qjqHIXXy6piGqleiVwHgUif+/ACGSqOw+PUghCMoew8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TMxIZ/gqUA1zwk1DXVIdoEZsCDCmK+JVbLc7FqGsbceo8GOK1vrY/j7tD4UT2l4OS
-	 vM/IQn9RASPJxsVsKi2TloB+eGRS8TSPR8SM+D5KxeO/7QWYSq7Nbs8CzWD0KxIcS1
-	 F5z37UdjjrukHjBGNWfFcHGcsRZUmih8DB9bi6+nTNdOZ4ocZgfCZjjdKiMgZNMuxm
-	 VlT2l7iHwAoYY608SzBt8BAp3rMdeowQVSz4+nNjvH5cqNg9ZIcS8DImnU7pTFK7T/
-	 jmURVs9WYBaTfG/5Fe8r4jO2a9IYVQ9ZOJ6gdH7hvCPRVxC6s/n7hanRRjFtuh7+sU
-	 A2eWS9/he5mXQ==
+	b=dgR7aFyDAaisCpERbMXoKvjbD3pmGG81mIBKjrQ09iJeUdJdxCy2ib24ZMpEjaI+z
+	 oNZLgn4pxr5Pqooy9wwJZPSi0DtUUeyND202pi01TSQfVN3mGUeX27NcLOY0Hram9O
+	 oxOLGHA52Yv30wjHuPW9xb4O9cZqpS7L3PbbifUuqjLh4gd2bgvs9nuAfN1XmoRcWF
+	 f3f22I2lQDCYOKUVfbtGuyxWuG7321hFFPxu4EMqvG4xr3ck+m7Q8MQos8f9+FTz6d
+	 Cwsj42nffK9kcpzsG7Re+WHh/ayBmVOFjgy3FeZ3iFE/vNZQGFp4iHz8ZNN7fHGxuB
+	 eMHBFj+oGPg0A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Samarth Narang <samarth.colleges@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Peter Xu <peterx@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Yiming Qian <yimingqian591@gmail.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/ksm: keep soft-dirty when merging a page
-Date: Wed, 11 Nov 2026 12:49:59 -0500
-Message-ID: <20261111174942.3699316-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] ipmr: prevent info-leak in pmr_cache_report()
+Date: Wed, 11 Nov 2026 12:52:18 -0500
+Message-ID: <20261111175153.3696544-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202210-failed-5.15-2efc6332f18b@kernel.org>
-References: <20261109202210-failed-5.15-2efc6332f18b@kernel.org>
+In-Reply-To: <20261107055356-failed-6.1-94a6736bb5ab@kernel.org>
+References: <20261107055356-failed-6.1-94a6736bb5ab@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,51 +63,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Samarth Narang <samarth.colleges@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 2efc6332f18bfd848f74f3d5ba45b31450601faa ]
+[ Upstream commit 4f34002e2e37639133693c13a2a9977fab86880d ]
 
-replace_page() maps the KSM page with a PTE built from scratch, so the
-soft-dirty bit of the PTE it replaces is lost.  A page written since
-"clear_refs 4" then no longer shows as soft-dirty once it is merged, and a
-soft-dirty based dumper treats it as unchanged.
+Yiming Qian reported:
 
-Copy the soft-dirty bit from the original PTE to the new PTE.
+<quote>
+ ipmr_cache_report()` allocates a report skb with `alloc_skb(128,
+ GFP_ATOMIC)` and appends a `struct igmphdr` using `skb_put()`. In the
+ non-`IGMPMSG_WHOLEPKT` path it initializes only:
 
-Link: https://lore.kernel.org/20261021182157.1873726-1-samarth.colleges@gmail.com
-Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Xu Xin <xu.xin@linux.dev>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context because flush_cache_page() uses *ptep instead of ptep_get(ptep) ]
+ - `igmp->type`
+ - `igmp->code`
+
+ but does not initialize:
+
+ - `igmp->csum`
+ - `igmp->group`
+
+ Later, `igmpmsg_netlink_event()` copies the bytes after `sizeof(struct
+ igmpmsg)` into the `IPMRA_CREPORT_PKT` netlink attribute and emits
+ `RTM_NEWCACHEREPORT` on `RTNLGRP_IPV4_MROUTE_R`.
+
+ As a result, 6 bytes of stale heap data from the skb head are
+ disclosed to userspace.
+</quote>
+
+Let's use skb_put_zero() instead of skb_put() to fix this bug.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Yiming Qian <yimingqian591@gmail.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260430070611.4004529-1-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 94a6736bb5ab ("ipmr: only copy pktinfo to cache reports")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/ksm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ net/ipv4/ipmr.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 3ed1bd6085f91..26d9beca82095 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1163,6 +1163,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 		dec_mm_counter(mm, MM_ANONPAGES);
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index 948993a4f4157..f9c66ca729978 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -1087,11 +1087,12 @@ static int ipmr_cache_report(const struct mr_table *mrt,
+ 		msg->im_vif_hi = vifi >> 8;
+ 		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
+ 		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
+-		/* Add our header */
+-		igmp = skb_put(skb, sizeof(struct igmphdr));
++		/* Add our header.
++		 * Note that code, csum and group fields are cleared.
++		 */
++		igmp = skb_put_zero(skb, sizeof(struct igmphdr));
+ 		igmp->type = assert;
+ 		msg->im_msgtype = assert;
+-		igmp->code = 0;
+ 		ip_hdr(skb)->tot_len = htons(skb->len);	/* Fix the length */
+ 		skb->transport_header = skb->network_header;
  	}
- 
-+	/* Preserve soft-dirty when replacing the page. */
-+	if (pte_soft_dirty(orig_pte))
-+		newpte = pte_mksoft_dirty(newpte);
-+
- 	flush_cache_page(vma, addr, pte_pfn(*ptep));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
 -- 
 2.53.0
 
