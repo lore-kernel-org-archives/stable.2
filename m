@@ -1,68 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794361596;
-	b=g60R1GlRnV6cRO47S4O8WX47RogcYhG9ExhR6v/uHUNCUN/evQ+7Bu3ldv/53WTRFVuj
-	 4qabj8nymMmQPUmhSO17uME8X0N8GoBAMxXnZXX9u81Pwr+mSPzK98Y4RNhEva+4DYlSY
-	 LBZWrA0iZ68lkGghZaEH5yi4XIh0uluoR44P6BUHP3ad5KasonSN9Xbsghs0OMs+BOCf5
-	 AtoBUHvS/3CJxPRkpXUuxEECq+YgKmM2PoKrz9IMAIJOxdnFcwhtW2LGcfflRxj7TZZGu
-	 opf72GvcBo6qMTjAmqDVcDr6D7yT49NV4mXhVlFbL/yZgYkHVKBCJE2cqdgGYq1gA8Q==
+	t=1794361600;
+	b=n3NfydcbvNO1qBAvMQeDqxvNUfgBq0kwFNUyey3mAE6TOYBul/fOAHgOtMv7oN8HeXWv
+	 bVx5hYUZ1iHiph2/CbnWCwqKIDsJVUqEeRAFr4QyM4Xr4B6pfpfz4OzEm1MQTPeppIweo
+	 oSp12qzfgYXSQJrQCuYoMEeJ+w8UeyjuFr0eR6VOL4uoKlnvXv93r/es6Vki0uKLeUref
+	 WHHv5nhU7e6ZmK8ZavSmIRZKuEYQ+bTLM5dIAX0ZZfP8p7l+r6qaQiTxbUZ5omRKhs0Ob
+	 pqI6AnA+8hQjDbYaF44Rco7aDDilzLyEYg+v4ZKK1tv3Xise/Y8607xGrctg+wcVDvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361596;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=7q91tY9/c4a2cldLk5rrSs+ays6kIzsfOFx+KRDseXk=;
-	b=L3f0CjqsZfzZx41Bh8Mxq2aW34ewA9nLgaxDXIfEVDHcqqcisuSjIsuYXqrAx2sGQxy2
-	 +HbTZhYjnqufDdJSauVRDwI255u7itku2zwfesLHbIS7A8zgEF1X+fATdrhKdpJYzz6Ah
-	 Zh5ganNUC6j7UO9FiyIabOJLcN6bdZNXHrNYyuBtcDCy4K+cWKNyhVNM/8S3M6V80r/CE
-	 ixCvJT+r0NbnqnpCfxvt1w7M20z8XlgAPiAnbk64LOKP0njVxEpoGUki3JyPxxxb1NIsx
-	 RCMjLSfCCoRmU+91r6wuIBgLsfqklsrh0UoOuVEnKdYL2cpot0dfw97ibss8Iq/4Odw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361600;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=j/BVaAtuz6oclaydxQCp66AyhXmrhiWBoThGvvx7Z1I=;
+	b=Pwudae4GjCqjiBlPCOc6swIY+IsJ8B9f9DJLhiNxo8TdkqBiMs6s6VWR2V5VnHtVQ9Ny
+	 pgOQD+pl1jc/miqu2TJrt299i7HBJIlf/Aaimy3FEX/8hKQyCfIyf+nPCl1iD0Ez9jh2t
+	 dtLsklXR+Ac2cs2os+G66HD43+cL+saiNn0TjI94sKDUchuShF55jbxutGli17xJwh+/b
+	 XXQbrlGd1SqyDXZxReuCnEGXO9FJZw+FXdSmz6GA9cIwnt5SUcjYX8ogIWYp7q9Z9wR+m
+	 bN3uCzlx00p9T8esVwyY0HSLOjm7xe6xkawgJq4YqV1nibuczXD6YLBTV14EkHH3akQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ncMwP996;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFVUYRNn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42379606A31C;
-	Wed, 11 Nov 2026 01:46:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42379606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F881606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:46:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ncMwP996
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=7q91tY9/c4a2cldLk5rrSs+ays6kIzsfOFx+KRDseXk=;
-	b=ncMwP996WzK6KsEOCm1WPmOEXlqqBP/5RaGdJj3ZatOInk60HbeSuNqX8a7DcdiwUSyKinji8
-	P5BnJpyG0BTXBKP16o9N4KzzPHyuFwlipXJZ5fOgqpovBhcPDQ0TcZOZoNlZK5jcThm82zEdUkH
-	UmXo5CcGVZA921ZEQzV9Ghc=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jPRFN43jqzLlTD;
-	Wed, 11 Nov 2026 09:46:16 +0800 (CST)
-Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
-	by mail.maildlp.com (Postfix) with ESMTPS id 96A794056C;
-	Wed, 11 Nov 2026 09:46:31 +0800 (CST)
-Received: from localhost.localdomain (10.50.85.180) by
- dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 11 Nov 2026 09:46:31 +0800
-From: Yao Kai <yaokai34@huawei.com>
-To: Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-CC: Ingo Molnar <mingo@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	<linux-kernel@vger.kernel.org>, <liuyongqiang13@huawei.com>, Yao Kai
-	<yaokai34@huawei.com>, <stable@vger.kernel.org>
-Subject: [PATCH v2] rseq: Prevent self-preemption when granting a time slice extension
-Date: Wed, 11 Nov 2026 10:04:06 +0800
-Message-ID: <20261111020406.3352241-1-yaokai34@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261023040439.3829110-1-yaokai34@huawei.com>
-References: <20261023040439.3829110-1-yaokai34@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFVUYRNn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D24A1F0089F;
+	Wed, 11 Nov 2026 01:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794361600;
+	bh=j/BVaAtuz6oclaydxQCp66AyhXmrhiWBoThGvvx7Z1I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mFVUYRNnaYqgk9mSZkcBfnOrkMdkAvpbDzsG7ulfMBGD/iXZya3duMYhHfwmXJJuX
+	 b66jVgmnLMDAZB7tuzmL1hHR5wesEtstAvCjPWZDhtdD3Hvj/zHDtUKJe/4KGq3BvS
+	 QYkKpGBHc7HgLY3hiWtR4EEZDPfmyMOisVh51G2nS1UiaC++PfMTokr0d9cTKh8ewu
+	 j95g7J73Fh6CnibZyOZd7irHQcZTeVIk3g3GmTXwc914N8o0POuaWI2aMXZNimultE
+	 LA2xy6pSD+WD2Bya+t17vCVuxIoX5bdJv/kq7vwu4sMTa+RChior/edNsJMTzyfScn
+	 g25cO7G6W0PoQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	co+fd80bc5967eb22c3@bugs.sh,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] usb: xhci: Fix bounce buffer overflow
+Date: Tue, 10 Nov 2026 20:46:38 -0500
+Message-ID: <20261111014521.406533-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052104-failed-6.12-68c5cb7574c5@kernel.org>
+References: <20261107052104-failed-6.12-68c5cb7574c5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,90 +62,73 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- dggpemr500006.china.huawei.com (7.185.36.185)
 
-__rseq_grant_slice_extension() makes the grant visible to user space and
-then reads the clock to compute the expiry time before it clears the
-pending reschedule request. This runs in the exit to user mode loop with
-interrupts enabled.
+From: Michal Pecio <michal.pecio@gmail.com>
 
-Clocksource read functions are free to disable and enable preemption.
-kvm_clock_read(), xen_clocksource_read() and the arm64 architected timer
-counter accessors, which are used when a counter erratum workaround is
-active, do so. With full or lazy preemption, when the request which
-triggered the grant is a non-lazy TIF_NEED_RESCHED, e.g. a lazy request
-upgraded by the scheduler tick, then preempt_enable_notrace() in the clock
-read function schedules right away, e.g. in a KVM guest:
+[ Upstream commit 68c5cb7574c567e83ba95258cb146db95e069a87 ]
 
-  __schedule
-  preempt_schedule_notrace
-  preempt_schedule_notrace_thunk
-  kvm_clock_get_cycles
-  ktime_get_mono_fast_ns
-  irqentry_exit
-  asm_sysvec_apic_timer_interrupt
+High-speed devices with out of spec 1024 byte bulk endpoints exist and
+are allowed by USB core, but xhci-hcd always sets packet size to 512.
+The exact nature of these devices isn't documented, commit fb5ee84ea72c
+("USB: Accept bulk endpoints with 1024-byte maxpacket") only states
+that they "don't work with xHCI host controllers", whatever it means.
 
-The task is preempted with the grant already handed out to user space,
-i.e. in the middle of the critical section which the extension is supposed
-to protect. The stale grant is cleaned up when the task goes back to user
-space, so the damage is limited to the extension silently not working for
-such preemptions on systems which use one of these clocksources.
+But somebody (or a malicious device) can try, and then the driver will
+allocate a 512 byte bounce buffer for this endpoint and may write up to
+1024 bytes into it if particular scatter-gather URBs are used, because
+xhci_align_td() obtains packet size from the descriptor. Fix this.
 
-Unlike a preemption by an interrupt which hits after the grant has been
-handed out, this does not depend on timing. The request which the grant
-is made for is still pending when the clock is read, so every grant for a
-non-lazy request is voided. With full preemption, where all requests are
-non-lazy, the extension does not work at all on such systems.
+As a side effect, TRBs will be aligned to the packet size chosen by the
+driver on all endpoints of all speeds. Alignment serves the xHC, not
+device, so this is fine. Only out of spec devices are affected anyway.
 
-Read the clock in the interrupt disabled section after the reschedule
-request has been cleared.
-
-The window between handing out the grant and disabling interrupts, in
-which an interrupt can still preempt the task via
-irqentry_exit_cond_resched(), is not affected by this change. That's a
-race against a handful of instructions, which existed before.
-
-Fixes: dfb630f548a7 ("rseq: Implement rseq_grant_slice_extension()")
+Reported-by: co+fd80bc5967eb22c3@bugs.sh
+Link: https://lore.kernel.org/linux-usb/D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh/
+Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20261009151624.618967-11-mathias.nyman@linux.intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Removed usb_endpoint_maxp() instead of xhci_usb_endpoint_maxp() in xhci_align_td(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/rseq_entry.h | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/usb/host/xhci-ring.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
-index 31ce349ed42c..3e6a339175f8 100644
---- a/include/linux/rseq_entry.h
-+++ b/include/linux/rseq_entry.h
-@@ -174,8 +174,6 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
- 	rseq_stat_inc(rseq_stats.s_granted);
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index 597a9a8c16b9f..2c35cb444f737 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -3583,15 +3583,13 @@ static u32 xhci_td_remainder(struct xhci_hcd *xhci, int transferred,
  
- 	curr->rseq.slice.state.granted = true;
--	/* Store expiry time for arming the timer on the way out */
--	curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) + ktime_get_mono_fast_ns();
- 	/*
- 	 * This is racy against a remote CPU setting TIF_NEED_RESCHED in
- 	 * several ways:
-@@ -222,6 +220,18 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
- 	scoped_guard(irq) {
- 		clear_tsk_need_resched(curr);
- 		clear_preempt_need_resched();
-+		/*
-+		 * Store expiry time for arming the timer on the way out.
-+		 *
-+		 * Read the clock only after the reschedule request has been
-+		 * cleared and with interrupts disabled. Clocksource read
-+		 * functions, e.g. kvm_clock_read(), may disable and enable
-+		 * preemption, which would otherwise schedule right here on a
-+		 * pending request and void the grant which was just handed
-+		 * out to user space.
-+		 */
-+		curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) +
-+					   ktime_get_mono_fast_ns();
- 	}
- 	return true;
  
+ static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
+-			 u32 *trb_buff_len, struct xhci_segment *seg)
++			 u32 *trb_buff_len, struct xhci_segment *seg, u32 max_pkt)
+ {
+ 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
+ 	unsigned int unalign;
+-	unsigned int max_pkt;
+ 	u32 new_buff_len;
+ 	size_t len;
+ 
+-	max_pkt = usb_endpoint_maxp(&urb->ep->desc);
+ 	unalign = (enqd_len + *trb_buff_len) % max_pkt;
+ 
+ 	/* we got lucky, last normal TRB data on segment is packet aligned */
+@@ -3736,9 +3734,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
+ 		if (enqd_len + trb_buff_len < full_len) {
+ 			field |= TRB_CHAIN;
+ 			if (trb_is_link(ring->enqueue + 1)) {
+-				if (xhci_align_td(xhci, urb, enqd_len,
+-						  &trb_buff_len,
+-						  ring->enq_seg)) {
++				if (xhci_align_td(xhci, urb, enqd_len, &trb_buff_len,
++						ring->enq_seg, ring->bounce_buf_len)) {
+ 					send_addr = ring->enq_seg->bounce_dma;
+ 					/* TD bounced at least, and last on this seg */
+ 					td->bounce_seg = ring->enq_seg;
 -- 
-2.43.0
+2.53.0
 
