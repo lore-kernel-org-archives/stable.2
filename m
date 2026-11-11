@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794366669;
-	b=JSq4r7MzzXzewTtvktfcp1WVfWF/nPqQfTgrSoDpVO0fM/Z7mmThbMkLsRq6X8+g007q
-	 ABJxdnJg9jx8Il7dpPGaIshWV/k2JXABxHuNcarTauCcrxzyWs4vsq3yCRP4Cd9wxca8E
-	 cqD+k2GlRdfOhdfZY8eLWtRIQjLHIYDWl1rt1eXz8ME0vKS98hRtinLXcQ3X3Dm9LWqQA
-	 6XqvJ7AgaHN3+D7YuL3DtZ4y46jls7AFbfQPiYalJ+P41vjQYgYdtNY5LsqVv1sHS/39p
-	 IJqb243uLefxd7tnhXeyT19o663r7Z3jpYJ87wceGwuZE8V1wIY4A/9KSZaqZPDfGJA==
+	t=1794366707;
+	b=n+1fpdS/8UDaD7zZUINwqnyEcA6TVR6Hv3geMi+pYMRoXhasy03WMvWxqx8vfLRhrDlK
+	 k4Jk4p9K+LU81m0oLiGhQOEXo0LUOyw2gIzSBRS2b46xxzRypOKe2QXYIVKqwOVrJuBBX
+	 OeRy8Nq39/P0ukulMi06wfQGFQBFkpEx8thJRN0ahdzOJ9fZnXbWQkJQVVmdQ6iaN9Kx2
+	 nvGB7c6t1ASaPyHOvGwSNxphZy4ViNzvyJvfxHMcoG0vHYR1hnzNsjwAGBkJg0gJ7CBPy
+	 cvBAwhn73D+x3VGD45N3DqtqWDajaalUN4DY0THTgpc9SAVwlRTIkFwsl/SbjJAIU+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366669;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366707;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=89bWGzbad0ztQHLRwpDqaawhnj8cR1EXXB5WyhpTrIc=;
-	b=BZfEfECYxpqHgJ+U2/v0Up5xebq+h2dr0O3sqjJuoE2aZjHYk1h+XAqotHIATGiB4HJk
-	 4VJM16ayA03MdBlgIkZez0+Gw63cD34oki9BdTan43bfVwAHW+gjVYoBBqUH44xOMivIE
-	 az8k19UCSE5qwiBmS1W3yIrxGts5GCnVT9vHfrfAWxdwXuFfR7+VegbZDmJl0OJ5ybHBe
-	 fgFHjO1cTMVnrDd9VsJQSNdA3nfubU5IUTqNxzpOchNuvKwAFVRjGT4/ZgJ5C7+zz8A/2
-	 l7gPXuHqyBG2jvhDmvqkEW+MdQVnAr2mf6UKnVFpyvGr15XULsRalXXWPX2Lckqre2Q==
+	bh=W1d4BBTnRMrrq6zRpQrkNMIc+mADUrtFELhXVwQOBIM=;
+	b=voQavfXIlBmhpQKdKLeU90MJDtOT+YcHgYQJVja3KCkpQNo7njbEP4nUKmezsYsyfGi2
+	 iSieKThIN5kG5aXl5UG2PZtLzxIW7EqiOsrdSH2pw91ipEOrWtH9nYr0CU7iW/gK0jj37
+	 XfDpEzZJCH9s/s+Lb6bdV8s+utaFZBOTQQ3jjAPhTFE8TrzwvYErhWKay+sMjiLecp/75
+	 qJyY5IcmeHpeq3aRN2Cqf2f6qfS1dw6TgIxtlYa7IgnVRERWQOGswXSHWFrdIR7qTJT1Z
+	 tKneXOpXz1+Lry3pI4md86Z8/zFu/3a8D0LZP8KvziSr/Kzx+N+ihJMqwHebhc/XseQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N61yJWfr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n7lDU9Ek;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707A1606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:11:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14A2606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:11:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N61yJWfr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48691F0089F;
-	Wed, 11 Nov 2026 03:11:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n7lDU9Ek
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B003E1F0089F;
+	Wed, 11 Nov 2026 03:11:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794366669;
-	bh=89bWGzbad0ztQHLRwpDqaawhnj8cR1EXXB5WyhpTrIc=;
+	s=k20260515; t=1794366707;
+	bh=W1d4BBTnRMrrq6zRpQrkNMIc+mADUrtFELhXVwQOBIM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N61yJWfrloMsCwj2ddcP142QaOnccmyKK6mfbznodnKwp8peqn5SvWiEEMMUBiRG5
-	 mTZdk/6W3bjNwGfElLua6YacCQTvpzHyTPSKkt3J5cl116VbqLZzSI7ZXtuBWywE2/
-	 2iW0O+woIkqHQ65xMN/ZsApdIZ7LOfdeE2a7im1v91zqmzcW/BTj3GkjeBMee1SoAc
-	 xqooJ+A7CrSi8mtVrUv46S7mSyz9s3y6r9bR78EqF1QxzWcFCV0QpZClBP5DoArbVy
-	 69j1ZevvzuF0RWjqG+hUBzMajgq/M3XYRgsasIjmKqzWUe8Ob/ZMKxX1vk9cd4yh2/
-	 dhzK2UYOE06IQ==
+	b=n7lDU9EkdqVbL9gtWr8iKYTjdaLgtHGZKLY+kHS/CU6ATLTj3OiIGaU7dBbL206cM
+	 ZwFbG8AqzdjIOuT9b8Sw/I4faK5FwmIF/rd/+WtUXPV/7CBQbwhfop1JYW09uKz9fE
+	 bh+R1SCEthkBEm7G8TwmM+TseH11UBgoBMFxlch1mGbFX3Mvlf/CqAqI9nwADrL+tF
+	 T/4YsQ5aK+CAZm2WGdaA7C7tsZW5vro6M6Fadn2WcXDkD2lmMPOklD1ygq7EwbZgH0
+	 qebYjV3f6updey2d2OlWhzIkjTuq9STMyRXXE2EWnOkHOaY+8LiYcov82Dqf3hJuai
+	 d3hrjQ2sHzgfg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
+	Jan Kara <jack@suse.cz>,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] fuse: don't drop destination page cache on a zero byte copy reply
-Date: Tue, 10 Nov 2026 22:11:06 -0500
-Message-ID: <20261111031003.859453-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] fs: rotate inodes whose page cache could not be dropped
+Date: Tue, 10 Nov 2026 22:11:44 -0500
+Message-ID: <20261111030947.850494-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053016-failed-6.6-f7585e1ce341@kernel.org>
-References: <20261107053016-failed-6.6-f7585e1ce341@kernel.org>
+In-Reply-To: <20261107055331-failed-6.1-8ee09f597763@kernel.org>
+References: <20261107055331-failed-6.1-8ee09f597763@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,62 +63,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joanne Koong <joannelkoong@gmail.com>
+From: Nikolaos Karaolidis <nick@karaolidis.com>
 
-[ Upstream commit f7585e1ce3418ec282485854b3d8d31c6a961e37 ]
+[ Upstream commit 8ee09f597763acfd31c62a578ba88b792fc41b24 ]
 
-__fuse_copy_file_range() clears the destination page cache after the
-server replies:
+When inode_lru_isolate() drops the page cache of an unused inode, it
+has to unlock the list, so it returns LRU_RETRY and the walk restarts
+at the head of the list, where the inode still is. If
+invalidate_mapping_pages() could not empty the mapping, the restarted
+walk strips the same inode again, and so on until nr_to_walk runs out.
+Every walk of that list then ends on this inode, and nothing behind it
+is reclaimed for as long as its cache stays.
 
-	truncate_inode_pages_range(inode_out->i_mapping,
-				   ALIGN_DOWN(pos_out, PAGE_SIZE),
-				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
+Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
+traversing context") the walker pinned the inode with a reference, and
+dropping it in iput_final() set I_REFERENCED, so the restarted walk
+rotated the inode to the tail. Set I_REFERENCED again when the mapping
+is still populated after the invalidation, in the same i_lock section
+that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
+i_lock to be held, like inode_pin_lru_isolating().
 
-A server may legitimately reply that it copied nothing, eg if the source
-file turns out to be shorter than the size the kernel has cached for it.
+On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
+is left behind if it is locked, under writeback, spliced into a pipe,
+or still in another CPU's LRU-add batch after being read. Without
+HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
+mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
+never removes.
 
-If pos_out is 0 as well, the end of the range is ALIGN(0, PAGE_SIZE) - 1,
-which is -1. lend is a uoff_t and truncate_inode_pages_range() takes -1
-as its end of file sentinel, so rather than clearing nothing it drops
-every folio in the destination mapping.
-
-That is not only a cache drop. truncate_cleanup_folio() calls
-folio_cancel_dirty(), and fuse_writeback_range() only wrote back
-[pos_out, pos_out + len - 1], so dirty data elsewhere in the destination
-file is discarded without ever reaching the server.
-
-Skip the call when the server copied nothing, since there is nothing
-stale to clear in that case.
-
-Fixes: 9b46418c40fe ("fuse: copy_file_range should truncate cache")
+Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ sashal: used outarg.size instead of bytes_copied to match the existing copy-length handling ]
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+Link: https://patch.msgid.link/20261016102515.111285-1-nick@karaolidis.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: replaced inode_state_set() with direct inode->i_state bit manipulation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/file.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ fs/inode.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index aa8c93b38601c..223012fc17891 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -3259,9 +3259,11 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 	if (err)
- 		goto out;
+diff --git a/fs/inode.c b/fs/inode.c
+index 99e980ddbdceb..8e430ccb23c6e 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -496,12 +496,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
  
--	truncate_inode_pages_range(inode_out->i_mapping,
--				   ALIGN_DOWN(pos_out, PAGE_SIZE),
--				   ALIGN(pos_out + outarg.size, PAGE_SIZE) - 1);
-+	if (outarg.size)
-+		truncate_inode_pages_range(inode_out->i_mapping,
-+					   ALIGN_DOWN(pos_out, PAGE_SIZE),
-+					   ALIGN(pos_out + outarg.size,
-+						 PAGE_SIZE) - 1);
+ static void inode_unpin_lru_isolating(struct inode *inode)
+ {
+-	spin_lock(&inode->i_lock);
++	lockdep_assert_held(&inode->i_lock);
+ 	WARN_ON(!(inode->i_state & I_LRU_ISOLATING));
+ 	inode->i_state &= ~I_LRU_ISOLATING;
+ 	smp_mb();
+ 	wake_up_bit(&inode->i_state, __I_LRU_ISOLATING);
+-	spin_unlock(&inode->i_lock);
+ }
  
- 	file_update_time(file_out);
- 	fuse_write_update_attr(inode_out, pos_out + outarg.size, outarg.size);
+ static void inode_wait_for_lru_isolating(struct inode *inode)
+@@ -909,7 +908,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 			if (current->reclaim_state)
+ 				current->reclaim_state->reclaimed_slab += reap;
+ 		}
++
++		spin_lock(&inode->i_lock);
++		/* The walk restarts here: don't retry leftovers right away */
++		if (!mapping_empty(&inode->i_data))
++			inode->i_state |= I_REFERENCED;
+ 		inode_unpin_lru_isolating(inode);
++		spin_unlock(&inode->i_lock);
+ 		spin_lock(lru_lock);
+ 		return LRU_RETRY;
+ 	}
 -- 
 2.53.0
 
