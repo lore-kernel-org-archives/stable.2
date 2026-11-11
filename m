@@ -1,76 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408380;
-	b=cvh9QkfQoAATn49gIl2eVKEWK52csl8N7woLrtn92Zm3/JabS+gxWI+lhantyt8LyijC
-	 lQfBkY0GFlQ7gjAxqGD8S2aQrHJNqWniaGqLT8YFJFvh8+rnMgqGOFbgvNXTC19OajldI
-	 ckj0FOgEIfarnclgCrW+bW0WgSfvjRF5EcjLdlMeiBNkCy60oIo+WCvQqW9bxHpl8dmKD
-	 2hO3OsXlBzQCdgEgAid01QhU47DBgp7xHGOFXbRb1WXFU1as6EceEVhduTofYTHuuBPeH
-	 nYZ0GkW/B/j9suOFhIngNRaSd27oQNv2KenCOzU9yM3AYWOHxBCndmhOlJYQEIQVrQQ==
+	t=1794408458;
+	b=HOA/1porqkIiKhHdTC67LjHlUKmNV0vmJAZB0gWSwSsuoOpBz7W1rIeksHl4UJbNTqw4
+	 05T/mvjMs3YXAHYE+ELTc9wTOCgmZ/1ybBk5JMT398tPySjfR+/iPSmYDZS2zINfbLQk2
+	 UiDgm+7JgJJYeXwJGzr+4mw/ViQFUhpF8x/11cKwCF1XNrKjpZurPpNixoWf34zAGzXdj
+	 CXKGFTs3e56wS3cpDqzjKso6ZBmovUqIOAe7hWpxzFEdxidK7nFhwE+UIKhtk6rGFjB6l
+	 xRpJ9kEkO0PTs9d2K/Z6i95CvyPOd7KS2zabmKq+nT1Nrrg9Rlg+4M/mpM56yuK6sLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408380;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Em4EKoomQzRqCmU2LdTaxgS3/XCVwcRA3NsOk+tsLy4=;
-	b=2bD6s8R0EwUjdQSF5UEGBeNqKV3NzR0UJcfNXzs2Vem4NX3GIt+Op0CGAwT35udQA/BX
-	 smfXZUNSIjMbHzBC4G4MeWxiBiNyQGdaxvxorSUBzLnMXCMqwbZFiZL/9CeLtLc5tfLse
-	 1ei7UPZfNQZu8JM42U12ohguvQ1BDDE6eVbK4W50smulEPEqNFsWsJ5nLoRJaj1XjA3RE
-	 ug4s8m432QQCj3WWDlh2kzUT59kqalN4dM6QfWRTrLEeZnYHcxTFiWEuGz+4eIy+9XYRQ
-	 7RGfx9tBKA7gAPVPQ9XdLaVRMIfq9U58cLh5EBQb2y7+7IIszayQ/Wxw4jMljaFJDjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408458;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=xt7YBHsRUOO/GbbxIjE4kXFrozFvU3CMPvWj9oEr/tM=;
+	b=aifXpEBrmN02RETObK5jp+xxrkKXSmdQXBphM5s0ZKpL6hYtucDJK1N1vR5HGXZqBbOL
+	 k9PxnlctJWG3F1AzHKHxZ/Uv8lYEiuTA3B/0edyz/eNoURmuDKx0h3od1LHgP9eyoqLIj
+	 SURX900c5dMIs9W2fiBmvvo87M0S9YjFKStwf7BB5JkpDDlwZTJGNRKStBD0d6blIcxCA
+	 IOjAnMMLt8/G9eYJ7/YS/pzC+C5jHKL0tjtejISTtc1JcOFK4Jb+1RUbzV6umXUkGwrRx
+	 qsvnXrzyFFGn3doxXo22uvSCr/FmAKZBIntXBj8yO2DCkq1NLO4viv5xzE+6BBhd/UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPipuQmN;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mG8uxaQq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3922D606A326;
-	Wed, 11 Nov 2026 14:46:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3922D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4986C606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:47:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPipuQmN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794408381; x=1825944381;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OtE5O1BfQvMDhBRcvXpXpqkumAp3IpNUCIvlpc/VYDQ=;
-  b=OPipuQmNAADEF506uoNdWIoGFCSpHJSiXYRO5ropTEVTE6q6njcOi9ot
-   oQbpldjHuRPwSdqkuiwNIAWzvRGwGNJT57gZVPIFPFeijpdZlWTCA8gvy
-   o9n039jJmfH8/P0BYfL21DpfIFy+Hh0f6Sh5tpTSd47W9JrSKRWxoqOQJ
-   yqVykeH/B1nSafRcGQRTcsBRmdeHi8MsvD3M+pkxHFGhfhD+/+Czdc7p1
-   qt1QDh2j6pErcC2iKE5mSLw+2MkJyFdb/iURcWT9gI3Nsjg/+W8192aJ5
-   RZy6M5O123/DjodHhzqBzNpQ/BwtyUiD4OWj3oab+gX/lIJQG7bfmHASn
-   Q==;
-X-CSE-ConnectionGUID: wg299LpwTIKVRQp6iAksFw==
-X-CSE-MsgGUID: EwOg3E1CSF2H4XMzGAn4qQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3276718"
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="3276718"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:46:20 -0800
-X-CSE-ConnectionGUID: u7JpfAaFTwqDCf/sHVz83g==
-X-CSE-MsgGUID: hi4ZGr8NTJeJDmBls6NVJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
-   d="scan'208";a="8322908"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:46:17 -0800
-Date: Wed, 11 Nov 2026 16:46:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Hyunjung Ko <hj351016@gmail.com>
-Cc: Sebastian Reichel <sre@kernel.org>,
-	Kaixin Wang <kxwang23@m.fudan.edu.cn>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] HSI: ssi_protocol: don't cancel_work_sync() under
- ssi->lock in ssip_reset
-Message-ID: <avR_tx9ze-eAa0_N@ashevche-desk.local>
-References: <20261111090447.3047656-1-hj351016@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mG8uxaQq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5051F00A05;
+	Wed, 11 Nov 2026 14:47:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794408457;
+	bh=xt7YBHsRUOO/GbbxIjE4kXFrozFvU3CMPvWj9oEr/tM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mG8uxaQquQh9rjiKAknG8mY1HdelcyqhoKsPaoMAqVc/E8TWGtRQZwimZFJlPghxB
+	 RaO289lYPAg3AenvRaVrpEop+tWR/6aMcatqXYedUteqm7wtIIyQseczXvNf4m5jGq
+	 Su0Jiimq2/F5s4sqPPLYHNZKITGrywHCu4NR9QsQ47gIYObMkiCkmYEQUeUlg+F35l
+	 aB8VQLKQ5QvJ3P6VEd8ljH5lP0NtJhyWoDDXu05SdkwoM3ki0Q9IJaE98qvuu7Ydab
+	 r+8Dp9YejVpM0x7zapOJOZXakHMcfp0et0V/hEF8MqOxhX+N9Fl/xanvZofIfV5GC2
+	 IAvTS7Bof6YXA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] media: sti: delta: use unaligned accessors for MJPEG SOF fields
+Date: Wed, 11 Nov 2026 09:47:35 -0500
+Message-ID: <20261111144544.2395168-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053118-failed-6.6-fdc5bf02aeae@kernel.org>
+References: <20261107053118-failed-6.6-fdc5bf02aeae@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,39 +60,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111090447.3047656-1-hj351016@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 06:04:47PM +0900, Hyunjung Ko wrote:
-> ssip_reset() calls cancel_work_sync(&ssi->work) inside the
-> spin_lock_bh(&ssi->lock) section. cancel_work_sync() calls might_sleep(),
-> so running it under the bh spinlock triggers "BUG: sleeping function called
-> from invalid context". In addition, the cancelled work ssip_xmit_work() ->
-> ssip_xmit() takes ssi->lock itself, so waiting for it while holding the
-> lock can deadlock.
-> 
-> Move cancel_work_sync() out of the locked section. It still runs in
-> ssip_reset() before teardown, so the use-after-free fix is preserved.
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-But is it okay to run before timers are gone?
+[ Upstream commit fdc5bf02aeaef04e7d13895db9b6eaf8083953f9 ]
 
-...
+delta_mjpeg_read_header() scans a compressed MJPEG access unit byte by
+byte and passes the bytes after an SOF marker to delta_mjpeg_read_sof().
+The SOF parser then reads 16-bit big-endian fields directly from that
+byte stream.
 
->  	spin_unlock_bh(&ssi->lock);
->  	if (test_and_clear_bit(SSIP_WAKETEST_FLAG, &ssi->flags))
->  		ssi_waketest(cl, 0); /* FIXME: To be removed */
-> +	cancel_work_sync(&ssi->work);
->  	spin_lock_bh(&ssi->lock);
->  	timer_delete(&ssi->rx_wd);
->  	timer_delete(&ssi->tx_wd);
->  	timer_delete(&ssi->keep_alive);
-> -	cancel_work_sync(&ssi->work);
+The SOF payload is not an aligned object. The marker scan can find the
+payload at any byte position, and the SOF layout also puts frame_height
+and frame_width after a one-byte sample_precision field. Those fields
+therefore sit at odd offsets within the payload even when the payload
+base happens to be 2-byte aligned.
 
+Avoid casting the byte stream to __be16 pointers and use
+get_unaligned_be16() for the SOF length, height, and width fields.
+
+This issue was detected by our static analysis tool and confirmed by
+manual audit. A focused UBSAN alignment validation of the same typed
+load shape reported a misaligned __be16 access in delta_mjpeg_read_sof().
+
+Fixes: 433ff5b4a29b ("[media] st-delta: add mjpeg support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Replaced the unavailable Linux unaligned header with the architecture unaligned header. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
+index 90e5b2f72c82b..6e156cd806bb5 100644
+--- a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
++++ b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
+@@ -4,6 +4,7 @@
+  * Author: Hugues Fruchet <hugues.fruchet@st.com> for STMicroelectronics.
+  */
+ 
++#include <asm/unaligned.h>
+ #include "delta.h"
+ #include "delta-mjpeg.h"
+ 
+@@ -48,13 +49,13 @@ static int delta_mjpeg_read_sof(struct delta_ctx *pctx,
+ 		goto err_no_more;
+ 
+ 	memset(header, 0, sizeof(*header));
+-	header->length           = be16_to_cpu(*(__be16 *)(data + offset));
++	header->length           = get_unaligned_be16(data + offset);
+ 	offset += sizeof(u16);
+ 	header->sample_precision = *(u8 *)(data + offset);
+ 	offset += sizeof(u8);
+-	header->frame_height     = be16_to_cpu(*(__be16 *)(data + offset));
++	header->frame_height     = get_unaligned_be16(data + offset);
+ 	offset += sizeof(u16);
+-	header->frame_width      = be16_to_cpu(*(__be16 *)(data + offset));
++	header->frame_width      = get_unaligned_be16(data + offset);
+ 	offset += sizeof(u16);
+ 	header->nb_of_components = *(u8 *)(data + offset);
+ 	offset += sizeof(u8);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
