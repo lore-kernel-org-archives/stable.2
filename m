@@ -1,63 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434769;
-	b=eyXII6fbuu51Mjt0ceebrBqePCXLp5ZcPwqrs1nR2EXEfUBLJbqDpSnf1PvbxW2roBnQ
-	 qkm+2wwyrMLt3jnufr0cN8R0qLCUD8TCK/Xb4oDzRJiYWv8S0KIBRpGy4+QMtflxMxJc8
-	 LzRloFpxlvV6nXqhr9H5355vzayXaUJOOADvc9ZJgwnf5f2Gd964JmaPwd0OVUwvZNpBa
-	 PqSKgB4yAB/Ejb3X91zw5TkzogBa+g6+p4Qunt5mp9A5UcULIdMcZeH/I4YkSJg3snuBg
-	 l1wnY7yxn3J/CEFIWdrhv20MJUFfRIK7n7K5sRtMVS4ZfNsLC2aRQ/QFXrkB17z8gwg==
+	t=1794434805;
+	b=Yv5PEW01Op6oFOI34PNVvg2ajk4QHV/6gyVz8jqyiPRAbfoQ6SvOhFJuvzH+ZLVzrkGX
+	 qVl3HY0djTW3ueckrgBMNmYog9vEqnuJDIU1gfQNyeu2lv/oGzzYDmmAGRT6aa2lPW2Gi
+	 apHEAiFdO1qLtMXrTZ8ms1QZwAwwkRUVH4FOrgorTa2tUcV1d17JWPhWIfwFAyrH+MiE3
+	 xcEvtXp43IcUi2kEpMRFftcDd8Gw62mkApU0wMed+9RAzogynjv/VCCym+OTx3uBcvqM0
+	 +CLfOSXQ6rPZPhpC5GZ3ENrPLm6HjcPVgnwQYSG3/vPq151k9ZZYpMC/yVhhyu2h86g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434805;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OXwUy3M7L4SvFymzY79Gaqc8daRwGAMum2RgSoQhcRw=;
-	b=TI0slzd/1ZypJ8OgeLUDy3RdeJd0GB0Z/lSLhmy7QOMLdDfJ3yaw3uFUuZWUm9VUgARo
-	 LQnLw++BGHG6C18XEDA3TchV8/8+eejpJJ3ApyNwXdObodq515bX2StxjmaYWd0be18u/
-	 n9AyMUaRu6O+Din1yTBQINWGYXpg9m8izglt3OVFEBcXm45xMAsHQcV3yVPe6drXa32pH
-	 7p/6eaERNu1/0RYjk6PjHuuyvvIZTgZj0OXA1/m6eiMi23+bnopuVzjGUYeQVdpinFggg
-	 rxgzElUurgjI7l4FvESFxY4e//ZtkymvOeAlz3OLiSZwMUYIWddCgOihPO9TAiNZcqg==
+	bh=WwlyXVZcHRn1gRhmBn9v2fXObx/eZh35N+VTj/JaUg4=;
+	b=iYhDsI1QMYSJ4aBCfhKZvW33Is+P6Q7brV2A6hXz7CEoWuFR8pagbcOkvmD5gDQYcmpB
+	 6w9i8imQRpPqUeafTCyMsvGbCK7ntVCmiZElmeE5vmwvu+vsn6oLbWRr+h6lgVfS4dwkt
+	 UEE41bXJW2EXjBfPngyY9P8UBlOAKRSmx3dsCSNPmsmRGXD7vE36jyF7l5fXFFAOnhBaS
+	 D87FWG1M1V29IYFVSdEeRdfkY1Dz4U3sJ7qpHqESHv1YC/KrI+1b/C/dqHtll4AMy2SUh
+	 fgTQH/k1iG9eEc5JyNOBczILV9zlllsELa2euq84yUew0snmat2yoa+mrMyZA/zGNHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hvF05FCu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B7LO3fAn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9510D606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:06:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA42F606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:06:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hvF05FCu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E81A1F00A08;
-	Wed, 11 Nov 2026 22:06:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B7LO3fAn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43DBA1F00A05;
+	Wed, 11 Nov 2026 22:06:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434769;
-	bh=OXwUy3M7L4SvFymzY79Gaqc8daRwGAMum2RgSoQhcRw=;
+	s=k20260515; t=1794434805;
+	bh=WwlyXVZcHRn1gRhmBn9v2fXObx/eZh35N+VTj/JaUg4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hvF05FCuwdIUQaGJnY1W7o4snWhln7uCyOUf3syQufyjub32MBbneFzFVHMTmQgpa
-	 9giQplXPFizaIBqvChcMsfL8xZILzk3Po5PCq/ftUFdFFmNjdNSFVtS9DBxY4hwxPc
-	 MoxXWTu1kcwNOdmRs21UXtvx98fj6tyJi2Nvl29fKaP/scA8zuO8yr9JXkxo00+DlH
-	 6wRFaI/dzynCDXkCG5HSO7ebw07U/ctjqbadS4Wp2JFQuVOqDy/a52x8tVIVnXrNoQ
-	 I9z9rcpsOlyM37f97/DzSr7wlTBfhRginUXmdoucNWPpdTMA8H9kS8Qtz3FAMa2S1R
-	 ZCybwOimNEtKA==
+	b=B7LO3fAn8WcUS4kEhXJ4S1BamYJJ1OQKHvpLLX3+4VOYxgH3O8AD5ZlmuWWVQwIam
+	 aRcxLtuGqsJY5KTSezTCLtfg+I5ZXg9FG1qhbxdsXolKxbGoXGSDWCpOuGMRrDTp/T
+	 6Z6chksKBJy/rVn5IBEGybnuWYSVAlLIty0zFIAnKDGRgk5gmJrJRl04YwzPijQAP5
+	 dCbWibOVho0am0NfpwdOcWTUHcnPIHHTJ1sV9rmcBUMfifBt20NIDe0/sS7W/fdNa2
+	 Um4plczX4wr7030fqL69JrZHYcyQ1XNuQVafpdDmQAvbBCrqnUyXrZ+Rmebfew3lbK
+	 LTknOIc17ywQw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eklavya Singh <eklavyasingh2106@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Shuah Khan <skhan@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
-Date: Wed, 11 Nov 2026 17:06:05 -0500
-Message-ID: <20261111220555.4106820-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] selftests:core: test coverage for dup_fd() failure handling in unshare_fd()
+Date: Wed, 11 Nov 2026 17:06:43 -0500
+Message-ID: <20261111220634.4105723-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111220555.4106820-1-sashal@kernel.org>
-References: <20261109200430-failed-6.18-0a8f258c0f01@kernel.org>
- <20261111220555.4106820-1-sashal@kernel.org>
+In-Reply-To: <20261107054501-failed-6.1-df0b7e0ea59c@kernel.org>
+References: <20261107054501-failed-6.1-df0b7e0ea59c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,183 +61,143 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eklavya Singh <eklavyasingh2106@gmail.com>
+From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit 0a8f258c0f012314c36b9e4818cdc0178c68f891 ]
+[ Upstream commit 611fbeb44a777e5ab54ab3127ec85f72147911d8 ]
 
-o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
-is already started, but nothing stops two writers from doing that at
-the same time. configfs only serializes writes through the same open
-file, so two processes that each open the dev attribute can both get
-past the check:
+At some point there'd been a dumb braino during the dup_fd()
+calling conventions change; caught by smatch and immediately fixed.
+The trouble is, there had been no test coverage for the dup_fd() failure
+handling - neither in kselftests nor in LTP.  Fortunately, it can be
+triggered on stock kernel - ENOMEM would require fault injection, but
+EMFILE can be had with sysctl alone (fs.nr_open).
 
-  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
-  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
-  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
-  B: start fails, fput(NULL)
+Add a test for dup_fd() failure.
+Fixed up commit log and short log - Shuah Khan
 
-Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
-so the error paths can free the slot data twice.
-
-syzbot hit the fput(NULL) with an unbound loop device, where every
-start fails with -EIO. With four threads doing the same thing on a
-KASAN kernel I get both crashes within a second:
-
-  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
-  BUG: kernel NULL pointer dereference, address: 0000000000000158
-
-Add a mutex to the region and hold it in dev_store(), in the
-block_bytes, start_block and blocks stores, and in dev_show(), since
-they all look at hr_bdev_file. dev_store() cleans up with goto, so it
-takes the mutex in a small wrapper rather than with guard(). The mutex
-is dropped while dev_store() waits for the heartbeat to become steady,
-which takes seconds, so a read of dev doesn't stall behind a start.
-hr_bdev_file is already set at that point, so other writers still get
--EINVAL, and the cleanup after the wait retakes the mutex.
-
-With the patch the same test ran for 10 minutes with lockdep on and
-nothing was reported. So did a second one, with a working loop device,
-that interrupts starts during the wait while other threads read and
-write the attributes.
-
-Link: https://lore.kernel.org/20261020212339.46591-1-eklavyasingh2106@gmail.com
-Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Deepanshu Kartikey <kartikey406@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: <stable@vger.kernel.org>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Shuah Khan <skhan@linuxfoundation.org>
+Stable-dep-of: df0b7e0ea59c ("selftests/core: fix unshare_test with large fs.nr_open")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/cluster/heartbeat.c | 40 ++++++++++++++++++++++++++++++------
- 1 file changed, 34 insertions(+), 6 deletions(-)
+ tools/testing/selftests/core/Makefile       |  2 +-
+ tools/testing/selftests/core/unshare_test.c | 94 +++++++++++++++++++++
+ 2 files changed, 95 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/core/unshare_test.c
 
-diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-index ec7e87c065742..6672dab217956 100644
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -269,6 +269,8 @@ struct o2hb_region {
- 	struct list_head	hr_handler_list;
- 	/* Serializes timeout arming against failed-start and teardown. */
- 	struct mutex		hr_arming_mutex;
-+	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
-+	struct mutex		hr_dev_mutex;
- 	bool			hr_stopping;
+diff --git a/tools/testing/selftests/core/Makefile b/tools/testing/selftests/core/Makefile
+index ce262d0972699..8e99f87f5d7c2 100644
+--- a/tools/testing/selftests/core/Makefile
++++ b/tools/testing/selftests/core/Makefile
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ CFLAGS += -g $(KHDR_INCLUDES)
  
- 	/* last hb status, 0 for success, other value for error. */
-@@ -1666,6 +1668,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
- 	unsigned long block_bytes;
- 	unsigned int block_bits;
+-TEST_GEN_PROGS := close_range_test
++TEST_GEN_PROGS := close_range_test unshare_test
  
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
+ include ../lib.mk
  
-@@ -1695,6 +1698,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
- 	char *p = (char *)page;
- 	ssize_t ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1721,6 +1725,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 	char *p = (char *)page;
- 	int ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1738,10 +1743,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 
- static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
- {
-+	struct o2hb_region *reg = to_o2hb_region(item);
- 	unsigned int ret = 0;
- 
--	if (to_o2hb_region(item)->hr_bdev_file)
--		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
-+	guard(mutex)(&reg->hr_dev_mutex);
-+	if (reg->hr_bdev_file)
-+		ret = sprintf(page, "%pg\n", reg_bdev(reg));
- 
- 	return ret;
- }
-@@ -1859,11 +1866,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
-  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
-  * nothing
-  */
--static ssize_t o2hb_region_dev_store(struct config_item *item,
--				     const char *page,
--				     size_t count)
-+static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
-+				       const char *page, size_t count)
- {
--	struct o2hb_region *reg = to_o2hb_region(item);
- 	struct task_struct *hb_task;
- 	long fd;
- 	int sectsize;
-@@ -1871,6 +1876,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	ssize_t ret = -EINVAL;
- 	int live_threshold;
- 
-+	lockdep_assert_held(&reg->hr_dev_mutex);
+diff --git a/tools/testing/selftests/core/unshare_test.c b/tools/testing/selftests/core/unshare_test.c
+new file mode 100644
+index 0000000000000..7fec9dfb1b0e3
+--- /dev/null
++++ b/tools/testing/selftests/core/unshare_test.c
+@@ -0,0 +1,94 @@
++// SPDX-License-Identifier: GPL-2.0
 +
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1974,9 +1981,15 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 
- 	wake_up_process(hb_task);
- 
-+	/*
-+	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
-+	 * hr_bdev_file is already set, so other writers still get -EINVAL.
-+	 */
-+	mutex_unlock(&reg->hr_dev_mutex);
- 	ret = wait_event_interruptible(o2hb_steady_queue,
- 				atomic_read(&reg->hr_steady_iterations) == 0 ||
- 				reg->hr_node_deleted);
-+	mutex_lock(&reg->hr_dev_mutex);
- 	if (ret) {
- 		atomic_set(&reg->hr_steady_iterations, 0);
- 		reg->hr_aborted_start = 1;
-@@ -2028,6 +2041,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	return ret;
- }
- 
-+static ssize_t o2hb_region_dev_store(struct config_item *item,
-+				     const char *page,
-+				     size_t count)
++#define _GNU_SOURCE
++#include <errno.h>
++#include <fcntl.h>
++#include <linux/kernel.h>
++#include <limits.h>
++#include <stdbool.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <syscall.h>
++#include <unistd.h>
++#include <sys/resource.h>
++#include <linux/close_range.h>
++
++#include "../kselftest_harness.h"
++#include "../clone3/clone3_selftests.h"
++
++TEST(unshare_EMFILE)
 +{
-+	struct o2hb_region *reg = to_o2hb_region(item);
-+	ssize_t ret;
++	pid_t pid;
++	int status;
++	struct __clone_args args = {
++		.flags = CLONE_FILES,
++		.exit_signal = SIGCHLD,
++	};
++	int fd;
++	ssize_t n, n2;
++	static char buf[512], buf2[512];
++	struct rlimit rlimit;
++	int nr_open;
 +
-+	mutex_lock(&reg->hr_dev_mutex);
-+	ret = __o2hb_region_dev_store(reg, page, count);
-+	mutex_unlock(&reg->hr_dev_mutex);
++	fd = open("/proc/sys/fs/nr_open", O_RDWR);
++	ASSERT_GE(fd, 0);
 +
-+	return ret;
++	n = read(fd, buf, sizeof(buf));
++	ASSERT_GT(n, 0);
++	ASSERT_EQ(buf[n - 1], '\n');
++
++	ASSERT_EQ(sscanf(buf, "%d", &nr_open), 1);
++
++	ASSERT_EQ(0, getrlimit(RLIMIT_NOFILE, &rlimit));
++
++	/* bump fs.nr_open */
++	n2 = sprintf(buf2, "%d\n", nr_open + 1024);
++	lseek(fd, 0, SEEK_SET);
++	write(fd, buf2, n2);
++
++	/* bump ulimit -n */
++	rlimit.rlim_cur = nr_open + 1024;
++	rlimit.rlim_max = nr_open + 1024;
++	EXPECT_EQ(0, setrlimit(RLIMIT_NOFILE, &rlimit)) {
++		lseek(fd, 0, SEEK_SET);
++		write(fd, buf, n);
++		exit(EXIT_FAILURE);
++	}
++
++	/* get a descriptor past the old fs.nr_open */
++	EXPECT_GE(dup2(2, nr_open + 64), 0) {
++		lseek(fd, 0, SEEK_SET);
++		write(fd, buf, n);
++		exit(EXIT_FAILURE);
++	}
++
++	/* get descriptor table shared */
++	pid = sys_clone3(&args, sizeof(args));
++	EXPECT_GE(pid, 0) {
++		lseek(fd, 0, SEEK_SET);
++		write(fd, buf, n);
++		exit(EXIT_FAILURE);
++	}
++
++	if (pid == 0) {
++		int err;
++
++		/* restore fs.nr_open */
++		lseek(fd, 0, SEEK_SET);
++		write(fd, buf, n);
++		/* ... and now unshare(CLONE_FILES) must fail with EMFILE */
++		err = unshare(CLONE_FILES);
++		EXPECT_EQ(err, -1)
++			exit(EXIT_FAILURE);
++		EXPECT_EQ(errno, EMFILE)
++			exit(EXIT_FAILURE);
++		exit(EXIT_SUCCESS);
++	}
++
++	EXPECT_EQ(waitpid(pid, &status, 0), pid);
++	EXPECT_EQ(true, WIFEXITED(status));
++	EXPECT_EQ(0, WEXITSTATUS(status));
 +}
 +
- static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
- {
- 	struct o2hb_region *reg = to_o2hb_region(item);
-@@ -2130,6 +2157,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
- 
- 	INIT_LIST_HEAD(&reg->hr_all_item);
- 	mutex_init(&reg->hr_arming_mutex);
-+	mutex_init(&reg->hr_dev_mutex);
- 	reg->hr_stopping = true;
- 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
- 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
++TEST_HARNESS_MAIN
 -- 
 2.53.0
 
