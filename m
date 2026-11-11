@@ -1,50 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383973;
-	b=M095BGu7gjcY4f0f80GfMsrI5fgbU3BZZQWsJMNXDn1jmK7HddzNRn796xgY2UPMhIuZ
-	 ZS+REtngLxjyfd+64nVUJ3AEtyafXi7VeQGmyJEf042EJTkSPYyKoozNrSjL0HCCtOK2g
-	 L5suYq6JFZeJyRGRJrB+312NZpmhksTjkJlDkpIp36Ge2RBLzV9Avys4UXgJaK95+svFq
-	 juodFCTapfPJqvnqPQvfjZlXjMWvy5Kye3GdJGQ9u6ihF53jcsAza8e/iUId9xWCAa98+
-	 kyYlEYUJ3GyvjrDZG9uCUTWewJFpv+kCucIRJv0Edd7XwJM+8PeOZYADjbluy7RBeuA==
+	t=1794384065;
+	b=kvXMIXilurzN5BXGd9+kmuCKzGYiJwwTKDbK1xL1ByRNjfZXlbXoP08gQzEK5+zktCDd
+	 /PNwULuLjUUB9TcCfPDxdbsHab+svTL9QAPK6XP54Qpn7VLUTull+8HRysGzsxQg0VZp8
+	 DtQ3l7wWsj29PEJ3VKiiesPEB6XIQJUmfEWOkccZf0QZyfzdcwdEVLkCuKCdkYb5LOTCQ
+	 CG9DF+n5D4xpXyn58+eDLYMFUNCqwC5/ft1YJv3ZhmG64f9ux/ITf9rjBswuNMw0hDDRg
+	 cw4DidSCwxk849dM8uPIH+Gjqf5eEqVcf6rAZ3dgpR3uwb7SNzAm8gu4fazrbyhEt2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383973;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=Xwav05GzSU0hzN4u+PmBs3OvDLAvWkGwHkFEn6OEJDg=;
-	b=fME9ZEEkXtwQjZ8ZKYiya6xmcUH3qQQt4KyfAX9lfLJsU2xSmLrXSi+v/wEHsq1N245b
-	 JL9DdmqrsQp9/568cpg6u3++FypMtSvwgAL3knJ4U0BgTaQrAQ6cjhqb36gsfbTWhD0fv
-	 YbYQKYzfbPruZOfcQ2fJrxRjf2vmil86fXikaGfFc8ggAZHzhCSGCsDgAzwhO4yFSlfbv
-	 Y5uM+7TCDybcXM0hGZq4zU8i7NA7tbyoHhdK10qr6wfkJj9qBWPZkP5/TzlHo8K4UhINf
-	 ozX4WwztyZiJIXTmMaZSbfODiUDGzIMTZf6Rbc6amUy9Dzzyxt54uIsuFn/Kj1uIi3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794384065;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6vuAFoFnpQs85Cz7CirKHqKfuLYtnlc1QpyvQGLwaCc=;
+	b=FjHq7n85uqmFf+xLutyVGC30eIl8HyDGyMn9OoDshJFJGl6jNk/o2VzqchXWCK9lJTbT
+	 J6yTNsGpixsC3W4PwvlFJ6ex7ioVJzxru9yPrHol8W308NFKsQleJEyNZnMooNi1ulMlH
+	 wqZPIf74i19ZIFOV+wK3yGWra9stEft1n19Co+7k3wnkT0OSzHh91Txe5IJ8d6MKBjDLO
+	 QyADWXi9ZKCwcmrLJhp61Q/RrSc+9yEvqi4b9hu6v9bDCFKJzbnmQL2jP0aghSWcSZJ2r
+	 BaZJef8uQWhN98P94JKMuR/HsFGB2o2o6P33UtEmz+C1/JDVeolqU/22mQjknHDeZtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	arc=none smtp.remote-ip=64.106.246.77
-Received: from mailsc.amlogic.com (unknown [64.106.246.77])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nuG2kd4+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4611A606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4611A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
-Received: from XA1730-0357L.amlogic.com (10.88.19.140) by mailsc.amlogic.com
- (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 23:59:30 -0800
-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
-To: <stable@vger.kernel.org>
-CC: Joanne Chang <joannechien@google.com>, <stable@kernel.org>, Chao Yu
-	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>, Jiucheng Xu
-	<jiucheng.xu@amlogic.com>
-Subject: [PATCH 5.10.y 2/2] f2fs: allow pinning empty compressed files
-Date: Wed, 11 Nov 2026 15:59:18 +0800
-Message-ID: <20261111075918.1435-2-jiucheng.xu@amlogic.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261111075918.1435-1-jiucheng.xu@amlogic.com>
-References: <20261107061541-failed-5.10-a64a3fec11e7@kernel.org>
- <20261111075918.1435-1-jiucheng.xu@amlogic.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FFF606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nuG2kd4+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37D561F00A05;
+	Wed, 11 Nov 2026 08:01:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794384065;
+	bh=6vuAFoFnpQs85Cz7CirKHqKfuLYtnlc1QpyvQGLwaCc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nuG2kd4+N+P1u15yBVBpRpIdYoPGbpGYB9N0/1poAzhAynLmuu9Iq9pS3bV6FRX77
+	 yMHbK+DKvbfHAa/KCCeMmsgJZO/VDuCjW45HZSIniUvOqP7L4D5fZ/2IwJK1PRHxvf
+	 /O4TKGgFgeboKt2SX10IDqO65zEY3zaFFrvK/ALn7rOyhxKEXkh9lVk/f8hB/VHrQz
+	 z6BY3IbO/MW7/T+V8k3oy0pvHB/R7YEuppnBtI+YQvIog9vp3Pu6/mpe3EySAS8VAF
+	 +5BxoW8ewo32UI5IX00b7JPEfbeI26dYIXrGMohljZzmQBT9LF1SC9Ug2hge43h8yt
+	 wQ8GCz0/JF7lg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Maxime Ripard <maxime@cerno.tech>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	Stephen Boyd <sboyd@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] ASoC: tlv320aic32x4: div: Switch to determine_rate
+Date: Wed, 11 Nov 2026 03:01:00 -0500
+Message-ID: <20261111080057.1408504-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061052-failed-5.15-8cf9607d2d85@kernel.org>
+References: <20261107061052-failed-5.15-8cf9607d2d85@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,51 +65,97 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
- (10.8.11.35)
 
-From: Joanne Chang <joannechien@google.com>
+From: Maxime Ripard <maxime@cerno.tech>
 
-commit 2eebc31ae5f53e1066bb6238c8087c23b688ad17 upstream.
+[ Upstream commit 2b6c9b0eee89379fda238d543c5acf098a2ac5a5 ]
 
-Commit a64a3fec11e7 ("f2fs: force out-place update for all writes on
-compressed file") updated f2fs_should_update_outplace() to always
-return true for compressed files. However, this function is also
-called during f2fs_ioc_set_pin_file() validation, so pinning an
-empty file with compression enabled now fails with -EINVAL before the
-compression flag can be stripped.
+The tlv320aic32x4 divider clocks implements a mux with a set_parent
+hook, but doesn't provide a determine_rate implementation.
 
-Fix this by guarding the f2fs_compressed_file(inode) check with fio in
-f2fs_should_update_outplace(). This preserves forced OPU for actual
-compressed writes (fio != NULL), while allowing f2fs_ioc_set_pin_file()
-(fio == NULL) to proceed to f2fs_disable_compressed_file(inode).
+This is a bit odd, since set_parent() is there to, as its name implies,
+change the parent of a clock. However, the most likely candidate to
+trigger that parent change is a call to clk_set_rate(), with
+determine_rate() figuring out which parent is the best suited for a
+given rate.
 
-Cc: stable@kernel.org
-Fixes: a64a3fec11e7 ("f2fs: force out-place update for all writes on compressed file")
-Assisted-by: LLM
-Signed-off-by: Joanne Chang <joannechien@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-(cherry picked from commit 2eebc31ae5f53e1066bb6238c8087c23b688ad17)
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+The other trigger would be a call to clk_set_parent(), but it's far less
+used, and it doesn't look like there's any obvious user for that clock.
+
+So, the set_parent hook is effectively unused, possibly because of an
+oversight. However, it could also be an explicit decision by the
+original author to avoid any reparenting but through an explicit call to
+clk_set_parent().
+
+The driver does implement round_rate() though, which means that we can
+change the rate of the clock, but we will never get to change the
+parent.
+
+However, It's hard to tell whether it's been done on purpose or not.
+
+Since we'll start mandating a determine_rate() implementation, let's
+convert the round_rate() implementation to a determine_rate(), which
+will also make the current behavior explicit. And if it was an
+oversight, the clock behaviour can be adjusted later on.
+
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+Link: https://lore.kernel.org/r/20221018-clk-range-checks-fixes-v4-67-971d5077e7d2@cerno.tech
+Signed-off-by: Stephen Boyd <sboyd@kernel.org>
+Stable-dep-of: 8cf9607d2d85 ("ASoC: tlv320aic32x4: Prevent division by zero in divider callbacks")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/tlv320aic32x4-clk.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index f3ff1865868c..512aeb6a0f98 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2674,7 +2674,7 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
- 	 * If IO comes from compressed write path and fallback to raw write,
- 	 * force out-place to prevent metadata-data inconsistency.
- 	 */
--	if (f2fs_compressed_file(inode))
-+	if (fio && f2fs_compressed_file(inode))
- 		return true;
+diff --git a/sound/soc/codecs/tlv320aic32x4-clk.c b/sound/soc/codecs/tlv320aic32x4-clk.c
+index 2f78e6820c75a..96979243d3a6a 100644
+--- a/sound/soc/codecs/tlv320aic32x4-clk.c
++++ b/sound/soc/codecs/tlv320aic32x4-clk.c
+@@ -326,16 +326,17 @@ static int clk_aic32x4_div_set_rate(struct clk_hw *hw, unsigned long rate,
+ 				AIC32X4_DIV_MASK, divisor);
+ }
  
- 	if (fio) {
+-static long clk_aic32x4_div_round_rate(struct clk_hw *hw, unsigned long rate,
+-				unsigned long *parent_rate)
++static int clk_aic32x4_div_determine_rate(struct clk_hw *hw,
++					  struct clk_rate_request *req)
+ {
+ 	unsigned long divisor;
+ 
+-	divisor = DIV_ROUND_UP(*parent_rate, rate);
++	divisor = DIV_ROUND_UP(req->best_parent_rate, req->rate);
+ 	if (divisor > 128)
+ 		return -EINVAL;
+ 
+-	return DIV_ROUND_UP(*parent_rate, divisor);
++	req->rate = DIV_ROUND_UP(req->best_parent_rate, divisor);
++	return 0;
+ }
+ 
+ static unsigned long clk_aic32x4_div_recalc_rate(struct clk_hw *hw,
+@@ -354,7 +355,7 @@ static const struct clk_ops aic32x4_div_ops = {
+ 	.prepare = clk_aic32x4_div_prepare,
+ 	.unprepare = clk_aic32x4_div_unprepare,
+ 	.set_rate = clk_aic32x4_div_set_rate,
+-	.round_rate = clk_aic32x4_div_round_rate,
++	.determine_rate = clk_aic32x4_div_determine_rate,
+ 	.recalc_rate = clk_aic32x4_div_recalc_rate,
+ };
+ 
+@@ -382,7 +383,7 @@ static const struct clk_ops aic32x4_bdiv_ops = {
+ 	.set_parent = clk_aic32x4_bdiv_set_parent,
+ 	.get_parent = clk_aic32x4_bdiv_get_parent,
+ 	.set_rate = clk_aic32x4_div_set_rate,
+-	.round_rate = clk_aic32x4_div_round_rate,
++	.determine_rate = clk_aic32x4_div_determine_rate,
+ 	.recalc_rate = clk_aic32x4_div_recalc_rate,
+ };
+ 
 -- 
-2.55.0
+2.53.0
 
