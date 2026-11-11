@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794414147;
-	b=HrUqHqK3BN8Dxq+CjO/X8ps1tl3SFYA//qRBBg6L9bHQJDsawYR3hmkjKHVCoH4DfI3I
-	 MqUhYCAWNL7X/JIksabnucJi80sFCB3YAcGn1qm29+ryStuqKbmBaCY7etc09zgegrmg/
-	 nZ82sAgeJ9yvi+4cZ0tslihFLSSdGKZ6JNGCktsYfBY+HBXbZh000Yxuhj3z/Up754J2u
-	 nMV8HXGX0dbOIu94M26CD7nfsc1GGPGOVIzu7Qu/WYQnSfA0zIkBNayWh2n1qJfZb2+fj
-	 ocRY0aSCAx4HGRILJ5sYJCLKtZuTqZXFRvsdb2YB8tC25pyv1Vrc3Yu+BZLN9i9rhWA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414147;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=q8mOpRnf+Di73N3yU2eDEU0GPveFfttiuju/Wh/wS8w=;
-	b=pqI7wPpVJxSsaru6iQzV3+EXLTqw5a+wN4De7yH7Zr8yEtxgp+/Z9Av6mt8m93eu4Gi7
-	 Zh5LlN59c3/eWU0F1pi3Ywwa+NXyHZqn6jXADUC+pvO26G4KD15l1VB44MZ5HVwAWWdUX
-	 imgjZqgUpamT2g20aa57Rd6xHZjfFYtglL51CqlAmR+jQBNZV7VCHsyBdfBsLMiT1pgyK
-	 OfFnxr2GRNOt4RJX+crIq+LM9f0TV5gKuDChjhpEdlsfyRmp6+/OQN35LTcONvO8oZfyI
-	 eaAon/WUGsWRvHnHBQCsZUnk7R0vNIHAIC0rRP1JNSSEEaEpTvNqRW6QkpEcIyjjdbw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HukQX5kZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794414173;
+	b=1GaGeB9YjXK6XHJQv7QLXFN8SkjEoq5gYeyJIbGQhuxq+zYm4UrzDCL0IMZqqhFJr2FP
+	 GTO7+lz8IqHDfoRWLnXMjXAUiLtw66j81pTyS0Sz4B/wP3QBReXwv9mH6gV26BN/Jnh2S
+	 6QmbOvuURabxnr17/v+EdpUwo9WTo1olx2TlIeQE2IWou8wGWOg8UM2NcHSNLyagQx6em
+	 N+frLs/n1qoFVaiWqtwLUGRQbasp1o1Fd/NTC3j9Nhgg3RAyCjnvdJjVDFmWBa/ylAuIy
+	 BbuK2htwHBueIhTUqBefHC2k+caML7L0NOA56SYZ/RA2ZVi60Du8nNZxnsp3XLL2V9w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414173;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=TV1/IUoHhrFDEWIOUfarFqeU/VdtBNUm7dphO6SR5sA=;
+	b=suunAZs5BedCvbwvZu2Bf4xE61yvyg5aF3qKOKpGp+aqwjseDB7B4H8abaat+SaZ20eZ
+	 fiRJ6BazfcYHKd6G6bdpeDw7gWUAJmxOWPpZvRh9ATqD+Iq9CbdWsNA30YDJXyZ9ZUWu1
+	 39eL9RHDGv9c2x3hE/4xNQhhq32ywKfv6j6olvydHzokxgp+JXmEjjL3q+0hBAx9ioO5T
+	 YtJEeQ2+xy+Go/Z2EA5GapsQzeN9el9Ekcc0PpOY9SD/RILN1TWRcyyvj0uDWSnCBQoOm
+	 LswiZeqxHK8yPKiU5S1ypDFURioDGmtCFPGbYicboMy88raxwfJWRe7awUbiYhouUCQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azNGrn1V;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A31E606A32A;
-	Wed, 11 Nov 2026 16:22:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D85606A339
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:22:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HukQX5kZ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794414147;
-	b=wYwlAyyARqfvEsVdiqYU2G+yd4Ntvwv/6F9gGI/la3liVvhwTEf3GveWBOJVvNn46x7g
-	 g544yRo1rkI4KKclBkvSRWzL8DQer8rKo7KIPgr4Ojpf3gS04OtiTfQwNp1a/+XR//6r1
-	 g+DhJ+5BXuxdhLQiASekkq3B6OFtv3orwvvbo3Oz4kK1EXDOLJE3S/xB3gDfuSfNh1GgX
-	 05m3Z5s0LLn+oS8kfyJ9a0PVgNeWAh2cV1CL5LEyDOGsgPik/+mBnwv4wD32e513JVM7K
-	 DbLQ2WtBf6ntR5cJqFSsLxZkaqA3J2tl8xa9e9TeGfAknjSy4i/RSWurCT8Gn5tTAWg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794414147;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=q8mOpRnf+Di73N3yU2eDEU0GPveFfttiuju/Wh/wS8w=;
-	b=wO5LFu6haaOahJAHlJAHjn1vQSKYcXNOTySl4kemQaLFzt4KV0Jr/p4u6qIvN3oixRll
-	 3EK0vkO+X2RVvprvsPUZi+SlnPSxr3nvM+z85BZfN4TnvwOhaNs1raybY5gYkp5dN6z75
-	 Jkez4A8uHZIkIfi8EFl9H5xWTg/ptmfPJMGlNTqiC7/QIQBbVATJ7w843bkZ9DDdNgfVT
-	 Uvyf+C353qjt4RAYlWqkIdyaj8XQSsjE1oVrWLLc3YOS0kpy2K/x6CWF+vJA9PvarbdVD
-	 NypQnptO0hpOEExRRwGT9dzSoTYlEgbrdAedNj5+5F1Mcz/86l+zOaDfoDYv5BZkxkQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9E1411F00A05;
-	Wed, 11 Nov 2026 16:22:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azNGrn1V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BEFC1F00A05;
+	Wed, 11 Nov 2026 16:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794414147;
-	bh=q8mOpRnf+Di73N3yU2eDEU0GPveFfttiuju/Wh/wS8w=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=HukQX5kZVzKv62Uw4vbqoKlv+mT0ZtoCTZW8Mrn9LU+fuONL2rgbvXY+KS8Fjp672
-	 hpvtNVPyAEc5XeMiGtHdM4O9pWk/e2mm/Uf4vUJNum0/Qiav8YOJ8vQZ+ze3ln1gO/
-	 YrrdnzvAkj+61G1WDjk/w02FLqq4MpcMV9ddecgJ7/E4JraZPC16t6X8ySszwjG5MD
-	 Z2BgOYi+uKohTM79INMyYGTwnkjBndmqujq8PdWIfRtJEHomb8wcKg+dlfwge+wc59
-	 xLsEYrT0ZRT0jreXOcucvqbXgAQtmfKwJLtYe3fYopliWXFWn/lSfA8REYNVVZr+Ut
-	 bq74+OqcPdPhA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F269749025;
-	Wed, 11 Nov 2026 16:22:25 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 16:22:26 +0000
-Subject: [PATCH net v2] net: usb: smsc75xx: reject frames without a full
- header and FCS
+	s=k20260515; t=1794414173;
+	bh=TV1/IUoHhrFDEWIOUfarFqeU/VdtBNUm7dphO6SR5sA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=azNGrn1VgZOZRGAHKEHi/Xor7pS3R67bhqlGHAC+T+HIYnK1sqTwk301uN2FnF13Z
+	 P/e+SNuEKLTto+EhWK/jIrE30yo0ZrhgYyVIPGw+sF2yHTpbVqirvQDlB0vuGqczZ8
+	 5VJNwbgaPef11kPO4rb0LQmDF4NIQDmi1h5T6MXKy3FFRFxt55Jxbma+HjfGAlDf0V
+	 siTitre4vOhoWn0qnngx5ggSJ92qwsiBkSUBz83wzAVUnXLEjz7DA1OU03OaYrl0xu
+	 XqVFU8uVA9luXJ3zawmScGEJrUAb7jPkCsGBotJXhuLH8F9j2ixhVZ43G0OuikXus4
+	 /sQBNShJSuWWA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Rudi Heitbaum <rudi@heitbaum.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Richard Zhu <hongxing.zhu@nxp.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] PCI: imx6: Avoid dereferencing a NULL clock name
+Date: Wed, 11 Nov 2026 11:22:51 -0500
+Message-ID: <20261111162238.3258975-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051121-failed-6.18-e60d0d4dfddf@kernel.org>
+References: <20261107051121-failed-6.18-e60d0d4dfddf@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,106 +60,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEGW9GoC/3WNvQ7CMBCDX6W6maBeKCUw8R6oQ0ku7Un0R7kqC
- qr67kTZGTx8tmzvIBSYBB7VDoEiCy9zBn2qwI79PJBilxl0rVtErJVMYm/XlFRIylvJ6u+tcR6
- dJcitNZDnVBZfMNMGXTZHlm0J3/ISsUR/ByMqVA3VjXl7q42/PIep58/ZLhN0x3H8AOCp+x+zA
- AAA
-To: steve.glendinning@shawell.net, andrew+netdev@lunn.ch, 
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
- pabeni@redhat.com, joasantonio108@gmail.com
-Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794414145; l=3049;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=UakfyXge5Z7dCorT5L2tCidbQJeCZJFs6IXcWJSAcH0=;
- b=X3LdGQ0gmxyYqtbCxoFYV/DavCK6B5PoaonNbH+/qj6xL6UcK7taMtAk6ZVCvgO6LnrJkQk1K
- DShzMr0btrABu3f+q47WR8v7Vh5Qo+iUn+I5TZWfi4bCr6YBhITayeo
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+From: Rudi Heitbaum <rudi@heitbaum.com>
 
-smsc75xx_rx_fixup() takes the frame length from the RX command word
-supplied by the device and strips the FCS by using "size - 4" for the
-allocation, skb_put() and memcpy() of each frame that is not the last
-one in the URB.  The length is only checked against an upper bound and
-against skb->len, so a device can report a length field of 2..5, which
-gives a size of 0..3 after RXW_PADDING is subtracted.
+[ Upstream commit e60d0d4dfddfac3058753a1c2255251401c92dad ]
 
-size is a u32, so "size - 4" then wraps to 0xfffffffc..0xffffffff.
-__netdev_alloc_skb() adds NET_SKB_PAD to the unsigned length, which
-wraps back to a small value and the allocation succeeds.  skb_put()
-adds the length to the 32-bit skb->tail and skb->len, which also wrap,
-so the skb_over_panic() check does not fire.  The following memcpy()
-then tries to copy almost 4 GiB from the URB buffer into that small
-allocation and writes far beyond it.
+of_clk_bulk_get() leaves 'clk_bulk_data->id' as NULL for every clock that
+has no matching entry in "clock-names", which is legal: a node may list
+more "clocks" phandles than it names. Both scans of the bulk array
+dereference that id unconditionally, so such a node oopses during probe.
 
-A malicious or malfunctioning USB device can use this to corrupt
-kernel memory or crash the machine.
+The loop in imx_pcie_probe() has been wrong since it was written. The
+loop in imx_setup_phy_mpll() was not: it read a fixed clks[] whose ids
+came from the driver's own clk_names[] and were never NULL, and only
+became wrong when the driver moved to the bulk array.
 
-A frame that holds an FCS but less than an Ethernet header is not
-valid either.  usbnet drops it when it is the last frame in the URB,
-but the other frames go straight to usbnet_skb_return(), where
-eth_type_trans() reads an Ethernet header that was never copied into
-the new skb.
+Check 'clk_bulk_data->id' before dereferencing it in both.
 
-Reject frames that are too short to hold an Ethernet header and an
-FCS, which covers both cases with one check.
-
-Found by LLM-assisted source review.
-
-Fixes: 1b3b2d9e772b ("net: usb: smsc75xx: stop lying about skb->truesize")
+Fixes: f6a1fdfc78e2 ("PCI: imx6: Use devm_clk_bulk_get_all() to fetch clocks")
+Fixes: d8574ce57d76 ("PCI: imx6: Add external reference clock input mode support")
+Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Acked-by: Richard Zhu <hongxing.zhu@nxp.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Link: https://lore.kernel.org/all/am8iBwJSEhYhWTqk@6cfee64030a6/
+Link: https://patch.msgid.link/aqfqE4OLhnN4a1lW@b65e9c1eb12f
+[ sashal: Omitted the extref clock-name guard because the corresponding scan is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-This issue was found with the help of an LLM-based code review tool
-(Claude).  I checked the code paths by hand against v7.4-rc3 and
-reviewed the fix myself.  It is build-tested only (W=1, arm64); I do
-not have the hardware to test it at runtime.
----
-Changes in v2:
-- Also reject frames too short for an Ethernet header, combined with
-  the FCS check into a single test (review feedback on v1).
-- Subject changed accordingly; it was "net: usb: smsc75xx: reject
-  frames shorter than the FCS".
-- Link to v1: https://lore.kernel.org/r/20261110-smsc75xx-rx-fcs-v1-1-4e048bfc28f3@gmail.com
----
- drivers/net/usb/smsc75xx.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/pci/controller/dwc/pci-imx6.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/usb/smsc75xx.c b/drivers/net/usb/smsc75xx.c
-index 6f72a3f15907..893de273adef 100644
---- a/drivers/net/usb/smsc75xx.c
-+++ b/drivers/net/usb/smsc75xx.c
-@@ -2217,6 +2217,13 @@ static int smsc75xx_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
- 				return 0;
- 			}
+diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+index de09cc2a63112..4235f1fb7b337 100644
+--- a/drivers/pci/controller/dwc/pci-imx6.c
++++ b/drivers/pci/controller/dwc/pci-imx6.c
+@@ -540,7 +540,7 @@ static int imx_setup_phy_mpll(struct imx_pcie *imx_pcie)
+ 		return 0;
  
-+			if (unlikely(size < ETH_HLEN + ETH_FCS_LEN)) {
-+				netif_dbg(dev, rx_err, dev->net,
-+					  "size err rx_cmd_a=0x%08x\n",
-+					  rx_cmd_a);
-+				return 0;
-+			}
-+
- 			/* last frame in this batch */
- 			if (skb->len == size) {
- 				smsc75xx_rx_csum_offload(dev, skb, rx_cmd_a,
-
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-smsc75xx-rx-fcs-fca968df1dce
-
-Best regards,
+ 	for (i = 0; i < imx_pcie->num_clks; i++)
+-		if (strncmp(clks[i].id, "pcie_phy", 8) == 0)
++		if (clks[i].id && strncmp(clks[i].id, "pcie_phy", 8) == 0)
+ 			phy_rate = clk_get_rate(clks[i].clk);
+ 
+ 	switch (phy_rate) {
 -- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
+2.53.0
 
