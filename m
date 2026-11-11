@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415779;
-	b=H4NMlJm8+unC7aFLZnyOUSVXUqMh61/v4UdEGqHrzjytM84U3v1klpUfod0zt2NVVn18
-	 bwg76ji4P9pteiWuGD8P/sz+utJostUIYnxvnI5gO0Z9tAmlIShzKvoAbL1FW1PueFcDw
-	 3vqJy1Zs+CHuGOKgx5CSfrRcK4v4KF+jq64sibrKFs59fD0tBHdaVFWA+HwE+XMtSuGvl
-	 5eg6kK18c6eThKTXihBi+yo+OJrJWghX0WsLDkuHfan0ialev78S4P+mJ/uT2BhZj2PD6
-	 bEOs1+Yqw0Os12U9JFhn8+mA2vOLQUhI/giTQiltcl0/8BDIKiAjROpQHi/b66mjz8Q==
+	t=1794415849;
+	b=KPTvJjZkc7hoOxeTLnS4Fit5zI1A3nHDVslXm8z31qwqrRjDN2bCuM2DFfVyYlC2l6Kj
+	 9WplxslnQpoO3TfQpb6YTsXs72EOCkeq3YdDy1g9AvPt2jVMbVaFW96bqTw3+QrYaY+b2
+	 i6MbLRrLlq2H9Np63U2fes6eQa2No9fbSbzFE4eINc6ugPhgL+bFVs/7zkuMevGFFAnZC
+	 hOkCDgHM06dXjAFWX7rpd7JJVQafSRq5ADZwvO+HGnQQhpThVxXB7YOy19JhAwhRjIiZU
+	 pZMICbXywlzMDg3i19iHX/ppp+v97Vlz4n4Zrshs0gJAalMXfH1bouh2lnLzvFAYv1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415849;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pevBU/rlfJSoDW3Vu0lP8WWy0qlqRQdREZyXJom2sIA=;
-	b=erST36QSKFLuGrqYz1pqnr5nQ4sAo94Us2nObp8opGCM+Vpz7EYLFWDbf42f8Ls85a5A
-	 +p2YsxNcnRYCxEYtfmXnkPgoXoi87BDPMbumh0bFPulc2EidurrUdA1UZc0l7H5gwQg5Q
-	 sqagIPkTpiPE1TFSuPSBm5IRL0KpILeJDx0PpfIELDwOuubIeNXQ+MqKIs2EYNLScsoTV
-	 pnYyfAhWPOWE3Adw0Ws51m2k3WbDLrCTeQEpx0xhIuqFB0nsmGqSE/+G3z92L31LFIMLi
-	 5L9sCQYUQheBopko9Zl8YHqiYDC58WKKmCxePow/OfpzaMHc9NOKQzvNBMXGlJEWzOA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=4AO9y3y+o3t9ADMtnxVAXydf1L8yQrt8jVed/dCEjys=;
+	b=T953zQ4RlO6CpjVImBxsZJJmmtn2xuZjzF2ALeauBgQT43gHqoVgY63AcWi9d3qtmewN
+	 bTK4Q/9W8F02HwlKhwFXvCv6IcNIU2iRJCNPpLi4L8ZXubF8raMJTVJqxTx3H5JhWPXXr
+	 lkhjjwRhw0dUAXzdyD+lC5y9DVNJypTOy+bnm3zIrb7ZyC4KhEhxKVOZdQRinsr35kJkI
+	 Z8UvQzy0jiF2jijhXPRB8FHR4B7kG7nGJQebeq1fXUupBXVN64IqNKCRTJyBeMSgCh8kk
+	 uX3uXwxp4Jouev6AiAy8flk8LmwE/PtPKILAO6gCr/U4WG/j4HmkQLhGLbOomuwdR7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QIbWOpZd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mRIWyB36;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41169606A332
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:49:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FED6606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:50:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QIbWOpZd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6427E1F00AC7;
-	Wed, 11 Nov 2026 16:49:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mRIWyB36
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0261F00A07;
+	Wed, 11 Nov 2026 16:50:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794415779;
-	bh=pevBU/rlfJSoDW3Vu0lP8WWy0qlqRQdREZyXJom2sIA=;
+	s=k20260515; t=1794415848;
+	bh=4AO9y3y+o3t9ADMtnxVAXydf1L8yQrt8jVed/dCEjys=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QIbWOpZd80Us2HCZxDxQTFP8fo8AucxfZguG9hjQenRcrJJdZgAbiHXvhAwmF0C9b
-	 RCYevln1kkly+qCgbCfnu1ggp+HgcSTB/51StUpsd6Bk66tcfK6EoEeODjIqNThSHZ
-	 EEIyb5y0p/4FmIdhyUBUNiVdcw7JNep+yrT40R9PwIkYu29g/77W9kX0ZopscWBtYE
-	 DDj3UiPgQEZiDnj3Me2QcjEtgA4bfi7wjamH5qzQ+fBaB/5D3nAiHltT7a3Fr48q7f
-	 q8O1naeBNSft1W6/83YM0z75Bu9mqX6PExokrEMaoKMEphrIZv8RGkU27dSwxsyvfC
-	 2Aagjsg2pOAgg==
+	b=mRIWyB36h/o1RHhKdA6r8Wk+3hwalJw19g4oTCZlEnyEebC/frHOTLCpiXhCXHOP5
+	 rL681Uyoo8CBIIpXvPzKVb8gIZofXbz/IwLzCXmNbcRm4RZ/AuvY53S+iMzZVaFQtf
+	 9QBXl3+zLd9xo0t16Neu8LMj/7WSGGfxUGGroVW5DB/4FHkuvFSGV4r4p043MLMAKP
+	 ea6j6jf1iHKPly+tX8c3c6rt6JWUEdbbUdkjwJYOmertzNCiVpyaF/1Z+o2V+NeLO1
+	 x02uwVfbuJsmNqUYHBAy635z8hoInAetkmrrM0f+dl1q3HIfxe22qSMZWqAOeuR9Zp
+	 d53SqC0/WMTpw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>,
-	Charis Stratakis <c.stratakis@proton.me>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Rong Zhang <i@rong.moe>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+Cc: Jianyun Gao <jianyungao89@gmail.com>,
+	Jan Kara <jack@suse.cz>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Alison Schofield <alison.schofield@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] ACPI: battery: Evaluate battery methods exclusively
-Date: Wed, 11 Nov 2026 11:49:36 -0500
-Message-ID: <20261111164858.3300811-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] dax: fix wrong error code returned from dax_dedupe_file_range_compare()
+Date: Wed, 11 Nov 2026 11:50:46 -0500
+Message-ID: <20261111165028.3347948-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111164858.3300811-1-sashal@kernel.org>
-References: <20261107050526-failed-7.3-645f370c932d@kernel.org>
- <20261111164858.3300811-1-sashal@kernel.org>
+In-Reply-To: <20261107052403-failed-6.12-9b036546a02c@kernel.org>
+References: <20261107052403-failed-6.12-9b036546a02c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,72 +61,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ali Ahmet Memiş <aliamemis@disroot.org>
+From: Jianyun Gao <jianyungao89@gmail.com>
 
-[ Upstream commit 645f370c932db2cd3893f7fee61aa8b9debc8ac0 ]
+[ Upstream commit 9b036546a02c6c9a5133f9c1e93503896595c6ba ]
 
-On ThinkPad P1 Gen2 and P53, INT3403 _TMP switches the EC page selector
-without taking the AML mutex the battery methods use, so _BIX and _BST
-running at the same time can read the wrong page. Since commit d33e89d12295
-("thermal: core: Suspend thermal zones later and resume them earlier")
-this happens on most resumes.
+When dax_range_compare_iter() returns a negative error code (e.g. -EIO),
+dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds the
+positive return value from iomap_iter() indicating more iterations remain.
+This positive value leaks to the caller, where vfs_dedupe_file_range()
+interprets it as success (bytes_deduped = len), causing userspace to
+incorrectly believe deduplication completed.
 
-Evaluate the battery methods with acpi_evaluate_object_exclusive().
+Return 'status' instead to propagate the actual error code.
 
-Fixes: d33e89d12295 ("thermal: core: Suspend thermal zones later and resume them earlier")
-Reported-by: Charis Stratakis <c.stratakis@proton.me>
-Closes: https://lore.kernel.org/all/37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me/
-Cc: All applicable <stable@vger.kernel.org> # 80892972ff23 ACPI: utils: Add exclusive AML evaluation helpers
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Reviewed-by: Rong Zhang <i@rong.moe>
-Link: https://patch.msgid.link/20261018122220.678822-3-aliamemis@disroot.org
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Fixes: 0e79e3736d54 ("fsdax: dedupe: iter two files at the same time")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Link: https://patch.msgid.link/20261015143426.17620-1-jianyungao89@gmail.com
+Signed-off-by: Alison Schofield <alison.schofield@intel.com>
+[ sashal: Adapted return status to return compared to match the existing comparison result variable. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/acpi/battery.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ fs/dax.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
-index 670853ec3a4d7..7169ac7e83f31 100644
---- a/drivers/acpi/battery.c
-+++ b/drivers/acpi/battery.c
-@@ -583,9 +583,8 @@ static int acpi_battery_get_info(struct acpi_battery *battery)
- 		struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
- 		acpi_status status = AE_ERROR;
- 
--		status = acpi_evaluate_object(battery->device->handle,
--					      use_bix ? "_BIX":"_BIF",
--					      NULL, &buffer);
-+		status = acpi_evaluate_object_exclusive(battery->device->handle,
-+							use_bix ? "_BIX" : "_BIF", NULL, &buffer);
- 
- 		if (ACPI_FAILURE(status)) {
- 			acpi_handle_info(battery->device->handle,
-@@ -624,8 +623,7 @@ static int acpi_battery_get_state(struct acpi_battery *battery)
- 			msecs_to_jiffies(cache_time)))
- 		return 0;
- 
--	status = acpi_evaluate_object(battery->device->handle, "_BST",
--				      NULL, &buffer);
-+	status = acpi_evaluate_object_exclusive(battery->device->handle, "_BST", NULL, &buffer);
- 	if (ACPI_FAILURE(status)) {
- 		acpi_handle_info(battery->device->handle,
- 				 "_BST evaluation failed: %s",
-@@ -675,8 +673,8 @@ static int acpi_battery_set_alarm(struct acpi_battery *battery)
- 	    !test_bit(ACPI_BATTERY_ALARM_PRESENT, &battery->flags))
- 		return -ENODEV;
- 
--	status = acpi_execute_simple_method(battery->device->handle, "_BTP",
--					    battery->alarm);
-+	status = acpi_execute_simple_method_exclusive(battery->device->handle, "_BTP",
-+						      battery->alarm);
- 	if (ACPI_FAILURE(status))
- 		return -ENODEV;
- 
+diff --git a/fs/dax.c b/fs/dax.c
+index ae1e9497b4168..e9f12b7de17ae 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -2067,7 +2067,7 @@ int dax_dedupe_file_range_compare(struct inode *src, loff_t srcoff,
+ 		compared = dax_range_compare_iter(&src_iter, &dst_iter,
+ 				min(src_iter.len, dst_iter.len), same);
+ 		if (compared < 0)
+-			return ret;
++			return compared;
+ 		src_iter.processed = dst_iter.processed = compared;
+ 	}
+ 	return ret;
 -- 
 2.53.0
 
