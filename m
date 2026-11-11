@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794417703;
-	b=UWGRzV4yCgYthy9lF8wsv3aDHLTTxMXENerY001uDwXfWDZ7N/b3//3Tj6/Gt+a58EuD
-	 yEOnw4a9sZT0tMgoY8hB5AMKx6oDg207JFIP5mSYt/UzF/ZmCBtMznAzZaQ5oS3OKk4xC
-	 mCks2XtaKEfmcyVd9i4F6TQxRASxIHihqRJLQn+OXSkCxWT8fRN+Y2/NTIn2DMi8CSPhI
-	 OntW7uj1iVRu7JNe49ljCnn5fOVpQbNg4LtSm2QHozSsSieEv+8ORowaKnYCxvnA4ncRj
-	 YEu3lIIQzrHHikFNq1TBvnYE7bwxo7+ctKOeGb4kxVx89gldYhcS9Swmh8Dp+cqt4AQ==
+	b=loMdF3DwuTKfvZRYgi/4QxEnODkKuBaRJnOkXhebRiJj4H3cFJlul04teAicTZdsVH4b
+	 GVxiwDMtImvnocYJtJ4O28dKwHNoIwVXMNSah3DLT0fVvxE+9s7BrX0Z65wvuqcMiGnM6
+	 9PqPFVszHirLA9hgB5QL6D/5H1Q48PM8TleMKpBy8eYbrdgSnficRK0afJUAaFYvmSg20
+	 ljR6AAVIcBqtsj4GpnMoU6D+GsR9EeRzueHFpZP1yhu7JFXgbcqPhZIxg30+oDRnLcgSy
+	 SbF2UjWW7uKX8T99gmQ2wnKMKMpInZzhoFIMP09Zy/qUUVWvyxMn0uP9lxj3ee+u1dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794417703;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Qp8mSShXuyKtR1KzKIOI78p0nyVVyqD1GBkKFjfKGZM=;
-	b=aS8n3k9WlwXDfKNkSHxxpTslh9puZfpUlgMJCMbS5AGsz24caafIY1vsA30p8FL7vBM+
-	 3hVxnClNYaqP+aOhfQiDXgeGbJU+6ZIsPbGAgNFkSS+AWLuAQDxxhz/mXTboep3Xm9MX9
-	 OXKHWFePcMxI66LmWhqxpThPRhuheO2PrdY3eH0nrA8OcUXoMhZHu+42BGMmFewb1QwwH
-	 yaNwFHpRYL/+xNgoW8ZLkCeHPQOWJbczORZQcZ7HIexc+ScYV99+qsq/Y6gzBt4/S7epy
-	 gbHTZx0rXt3TqkLpDkMKmTf0kcaz+Q6Z2BatF2wJweikq2HZlwJO42ZVeGPlpEsFEOA==
+	bh=Bg/Kgc6L7imsGE/8F9XOk762txfGaoS9sODIJYRJBdA=;
+	b=ECKgYMpGWNB38L1EuvH63kYRJLOafE7OvqW7JZGstjDMfEg262nWJyOg9uQB940AUwsc
+	 W/yG9Vgaq+RlUZbiWdA4ZsV8nAAr4BaYfd5EFtnRiS2MUp6Ks1lW6Z/TrwwsMh3ELO1c9
+	 VvbYdBTrUHu/CmIB61hPfdOdP0AxTNn4SnezKSYJ7Q7fprdo+nj/Vph9DmI4D0Y28a4sf
+	 c2nzznNMJJDAaGdSw3yjP74sM5TSsypbhv8sLYAmTu7vl+lPKcDWpMY/MFywRD5GOJslG
+	 GPoBQ3AwLeAgjyhIDjuKKuYs9OoE/T/6hU8ZZtuK2c8EjUlg6Q21O96LC/ZdWe69GYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+FenpIW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EooUfdut;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3334D606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:21:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62BC606A33B
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:21:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+FenpIW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 463F61F00A06;
-	Wed, 11 Nov 2026 17:21:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EooUfdut
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162D51F00A05;
+	Wed, 11 Nov 2026 17:21:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417702;
-	bh=Qp8mSShXuyKtR1KzKIOI78p0nyVVyqD1GBkKFjfKGZM=;
+	s=k20260515; t=1794417703;
+	bh=Bg/Kgc6L7imsGE/8F9XOk762txfGaoS9sODIJYRJBdA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O+FenpIWvEg3ijJRAjUwlvd7BDPKGvNNLSqSvhudeLsWcy5DyZFVYuOsg1NMsMHnl
-	 pq0JT+lOr0QWYpzG6X/5AKtSsiRLhDxO5vKXSicSpZ1NsikT7djQ5KDG52dJSQI6Fn
-	 kXB1a+B+0AALfag8DDYlJAmCPzENBi1WS6BxX39A05Deq8GSBY4mEG76rea3y3SRDk
-	 qIjoyx8H45U3Hp9N+KhpZZudciaiQpxw2MVTOt6Od7OLTPv4x7Qxq8GWg0P+SOssr9
-	 wAM2i4Ci9pYpRQa4gW4vmHrRTvPhF80QttMh6eqbLVTMCfPHyTejKdDXbCojn2jPVI
-	 XFjX3K6D1tzZg==
+	b=EooUfdutRwUQ1obI4rL/WBLX3IEaSZIh8wXKCYSQ6fI6sd2LsH2lKpmXUklzS1mQD
+	 qY5LiLlCJPf25G9Ge8QmuX0xiiuzZitrqA8Fc7JrTUoZS5h493wOr0B/UeE5UIaml4
+	 X4mcN8dMf16leJFlMQalJXJ7PwpBQnRRn2K9u9YwOVdKHHADfv6HBiirKv5i1tHI+D
+	 0X9DEz97tfFy5tRQEJIphWofaAV4lP87yoD5OrN0SYSv9bgC2vwQKjnaYoACT4hDM1
+	 ThjsWHXiW2b0uJBlwRWNCAtBCSMuVObPo6lpl5VCuEWB8LqtXTtzPL3PVN6kn8SYDV
+	 Z1mD0psB/KVhA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
 	Jerome Brunet <jbrunet@baylibre.com>,
 	Brian Masney <bmasney@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/4] clk: nuvoton: ma35d1: Keep the clock count in the driver
-Date: Wed, 11 Nov 2026 12:21:38 -0500
-Message-ID: <20261111172129.3551299-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/4] dt-bindings: clock: ma35d1: Drop CLK_MAX_IDX define
+Date: Wed, 11 Nov 2026 12:21:39 -0500
+Message-ID: <20261111172129.3551299-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053946-failed-6.6-1dc3871ce7ec@kernel.org>
+In-Reply-To: <20261111172129.3551299-1-sashal@kernel.org>
 References: <20261107053946-failed-6.6-1dc3871ce7ec@kernel.org>
+ <20261111172129.3551299-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,50 +66,33 @@ Content-Transfer-Encoding: 8bit
 
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 
-[ Upstream commit 26ec588063d9b6c70773b8729372e2bf6d3ea95a ]
+[ Upstream commit 653738db38c7c7f0fb959a7870f9461cf4987825 ]
 
-The number of clocks is not a binding since this is a value that can
-change. As such, in order to support the missing watchdog clocks and
-allow the deprecation and removal of CLK_MAX_IDX from the bindings, we
-need to switch to a local definition first.
+Drop CLK_MAX_IDX define of MA35D1 include. This is not a binding and
+should not be placed here. Value is defined in the user driver.
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-1-48937ee6c9bb@bootlin.com
+Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-3-48937ee6c9bb@bootlin.com
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 Stable-dep-of: 1dc3871ce7ec ("clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 9f65d0623517a..6aa42a3e1be3b 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -17,6 +17,7 @@
- static DEFINE_SPINLOCK(ma35d1_lock);
+diff --git a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
+index ba2d70f776a6d..2d6a44a7e55c4 100644
+--- a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
++++ b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
+@@ -248,6 +248,5 @@
+ #define ADC_GATE	233
+ #define EADC_DIV	234
+ #define EADC_GATE	235
+-#define	CLK_MAX_IDX	236
  
- #define PLL_MAX_NUM		5
-+#define	MA35D1_CLK_COUNT	236
- 
- /* Clock Control Registers Offset */
- #define REG_CLK_PWRCTL		0x00
-@@ -467,12 +468,12 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	int ret;
- 
- 	ma35d1_hw_data = devm_kzalloc(dev,
--				      struct_size(ma35d1_hw_data, hws, CLK_MAX_IDX),
-+				      struct_size(ma35d1_hw_data, hws, MA35D1_CLK_COUNT),
- 				      GFP_KERNEL);
- 	if (!ma35d1_hw_data)
- 		return -ENOMEM;
- 
--	ma35d1_hw_data->num = CLK_MAX_IDX;
-+	ma35d1_hw_data->num = MA35D1_CLK_COUNT;
- 	hws = ma35d1_hw_data->hws;
- 
- 	clk_base = devm_platform_ioremap_resource(pdev, 0);
+ #endif /* __DT_BINDINGS_CLOCK_NUVOTON_MA35D1_CLK_H */
 -- 
 2.53.0
 
