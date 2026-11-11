@@ -1,95 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362925;
-	b=o9Pi158dkHjAsDv9hE7Wnjj47GtLk/0gY/CM2+tBD9WRwOpq9SK9D2ypfXtCwpoa1isC
-	 X95257dFnn48w2yJWOkpvjXdVfJmQdB0AaMFqk4bYlXugOanDqOs8U7jdmfJP9zoVkJ1A
-	 LUFc0rhvB4KXjgYGSurYtNCM2DZRzfKlUOkyK20KTO6G7QAKRNuwjZjKATHlkqChKbRSr
-	 LWTu15iCYIW0MD3VOy4oZAvisuhyrXH5Kk+So6+tqpF+C3FYW4S1VEXQX0oG+SlsQrmLs
-	 c6VkPf62j+Se3qG6wJgsk+ETsAhnfkMTmKgcyCc3Fb85/ICrh6t8soqbHL3vHECOn9Q==
+	t=1794362957;
+	b=VfAHQiqnWyP2ZEokcuM653JPi9xgV9IKd9k6T5y3UX44bSN+2ILT29zGsN3mt6zFz1Jh
+	 nQwWvIHb7NQ9FlzG4/d4iv/FT6fhOZG5kgLOZx9/+zUhbdkMyaSn77kZaC63bawHX9xMq
+	 NwgYsE2BLFkORp3exVlgWnPW9S1ukAPZmFs5rADpF+rXJbHK+SG4krzpauCHRHEdIHkFR
+	 GseRYfHfplT4r/FQaxQ7M/1GScnLyERuY32RC6XYWuWTSBgSA8Q9XxmsIsyOKKs/MtdUQ
+	 hf5rirCgUbJi1UtdlPYdLe48LM/TNeDnEEoUaWdpV6S5MvWRGZdCxfffjIDPt5foAZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362925;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IqRkQAWA6x79NK/foSAYp+LfNrOBVrF5NDpnzdsePVo=;
-	b=jJtgb9T1VlaimtH6Bii9WN4JeD88mL35+Oyy5bdq7Dy+/+azsPg8VcmFCJfZBmYkFnsy
-	 7Y9+xAR7LpdLXKdiKMSFg3AUi1h7tGz0bF40BY2idKl6Z/4XGvLPcB/NgSMwR1xnNZZmE
-	 Kl1MtKTpfbEQDiBtnVBPC0L+ndPjrpjJ8WjpGSHtDFoXKBMuA/KizF2JhGnt+tdjoGdTU
-	 u6MHYV+wwn1KHbxO1rBtu19XuDmS5hR5uVcvZMUYWwZj/gjAuoYGtZPsNf0slMH112GJT
-	 Wg0bkaoTUkk8lmu++yT0Ear8RMdWpsrb4AE4/70NBdUX1uLs3vEURrNMTEV2JG9fm3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362957;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ozKkQ66GTPTFaP2i/XZselufjhb8L+XHpiB5nI/Lt3o=;
+	b=wV8sYc8T0WoG8m+s2M7zYjSqWNOuXFdxZh0S66texl5cKiYSYzk2jPtWCLCrhuAc+rxG
+	 4aRqGKJ5RJNUgElxtQVzKT2dR20hDOVOrJ+hKOrXoADV8hUAv5pugGSW3Z3wo9PFLzvnU
+	 TEPKtbDsC+lUqpDoLZnnGpQ7R33O9Mxo5/T/9UuAkIh/bvaTc8vzOzsNVXUjnlzQkFv3q
+	 mDGihWZ7rk4qjA1ZoBKaiafaiYWyMGw8jL5ONmKzqsdg+YscJih6nmmtzhjPRjTBXs5IN
+	 8gvflF0RiuW9q4piPjz1Cfo7RLgmYtqOOTV8jbYNgzVHzT+/Lpf4/fVXHwtzZyFRQ2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Y/RzuCcz";
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h4+Qoq8n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412E3606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:08:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 412E3606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D396606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:09:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y/RzuCcz
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-37123334649so7710eec.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:08:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794362924; x=1794967724; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IqRkQAWA6x79NK/foSAYp+LfNrOBVrF5NDpnzdsePVo=;
-        b=Y/RzuCcz11gPiJ4voG226bkg8toO3K9UlJWCo6HoE5c4W9tW4fL1ED84UmKoUc8Zu7
-         tBfUzu3oObPhDBJOUpY1HzB5owa8Tz9wFdmGoOo9aga8JPTAxoLQoMMNwtizl0iHD/dI
-         L2UAyV6V3DV5OtOq1K9ZQRqdMUqphgZu5u850yXGYA4wUDn/ajyvB9ZbveC10Zp2pSve
-         /eULW8xTqz3yWc4EQoVlhFXMbQQBVbjQKsvqnesPnHzzf8A5aUWG8keijou05OsplmCf
-         2ckmmhCAIuU24zVnf6llkJcprGLCjdw3uPtvgjjQyK37KX9BqUNkNS6a7fJkHxr6iKzX
-         A59A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794362924; x=1794967724;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IqRkQAWA6x79NK/foSAYp+LfNrOBVrF5NDpnzdsePVo=;
-        b=Eb7kxoDpWv8cP9RkPaTHPJjBV4kO0aUoZ48s0FfUCCyfqL2p2OmfrwSbPXAjpfGA+h
-         Ca0q2lo3pE+9MvcJhBcVwmm/EQF1ld5+uts+0tu7KezqT2b81vqFOfk+lZPf07HNztXF
-         xoGi7mN5RxXsrgeRtFpexR9rIPnVe50lkwOCDx5mk3reaat/pBoKUXunJrHCAnZlyE2p
-         pgDrGuvD5v09gdA7/zT0pPMO01rXkOJnlXMHKaeuk3MEmmWFhnsJhQIAoJaxGyPPf5Uh
-         /nRg05NXmqcxsJPZYqsEU+uOxKZDK1qVUnz4NA4iOOV0t0JMNL2QQVXvfVkDTiJsIlAc
-         PRFg==
-X-Forwarded-Encrypted: i=1; AL+hErFZVx6QM/xqo98TS0mhE3keFT58V0nbDW5f8vzJTf5tYxVgaxsg8CB5EZn7l/2LTfCVAGV84q8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Rmz2p3TmFsIVXsefRaEEoHfloXa8/80jANhBsCRt+jdxZQ6ZE
-	Og6qyYsi9pEwW70cb3j0M6PjXrcu9GRrfjO/PZoct8bVgsK+DMTDUKXX
-X-Gm-Gg: AYBFou0c78aoAvYaPnvz/jhDYM1OY3nWnxu3ge8p+Hic3zgwrIhMSO7/U1X4tvBAZVx
-	eGmlmcfE2e5rBnJzLVG9zUVqY0A4mOSOcJhAttxDClQAHHIW61UsKw9rqzGq9p6TvsONsCcyjWA
-	pGuqLnbslx9ui3ZwlhME0RAzwsvt4qiT3fbjaJLeHzAxBlqWPo57BrQc0hb6tRSogyN29It0CQV
-	T/Xelrma++bZF7GuIaFSOxq7odzcWzn0WaQUUgbbElDDt/rQhyXJAAuTjuArfRN4/ZAwNcE4mSO
-	pEob7trOR+AvhLjLdbSr1rh7ybFOOFmScjU1AQdggo7YT0yADafy0UQSXP1TRPdgh4osK/KdPgE
-	tHz6oXiH96M0dN7YSlNQk8vNRSDAEkZ2XgLxeeUj6bjsKWgb10Dl/M46w4u0/vCSaqhIUB1oaSc
-	JY44bqc3SQcri+FpROA1c8XT4GUiejayhUf8kog9Kl8zkobT0uAVmL8/mu5TOTl3EFR7KUzJdCy
-	lwOufySy3OxgVKHQk9NC0XRgV1xSX8QNYXaFKcMZ+VJ/I4vTnfxWFHjWhnHovXX6lJoog16l6+Y
-	8HcgB60S9sh/n3BbIdgWRRdGbV8TqTAQz1x39uCucLY98aOA8fEHrxE=
-X-Received: by 2002:a05:693c:20cd:20b0:375:f846:5b3f with SMTP id 5a478bee46e88-3767fe8f34bmr2355849eec.0.1794362924193;
-        Tue, 10 Nov 2026 18:08:44 -0800 (PST)
-Received: from mi-ThinkCentre-M760t.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060dc0csm12644625eec.14.2026.11.10.18.08.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 18:08:43 -0800 (PST)
-From: Wenwu Hou <hwenwur@gmail.com>
-To: linux-trace-kernel@vger.kernel.org
-Cc: rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	linux-kernel@vger.kernel.org,
-	frederic@kernel.org,
-	Wenwu Hou <hwenwur@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tracing/hwlat: Bind the sampler kthread instead of setting its affinity
-Date: Wed, 11 Nov 2026 10:07:55 +0800
-Message-ID: <20261111020755.1422284-1-hwenwur@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h4+Qoq8n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB9251F0089F;
+	Wed, 11 Nov 2026 02:09:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794362956;
+	bh=ozKkQ66GTPTFaP2i/XZselufjhb8L+XHpiB5nI/Lt3o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h4+Qoq8nP7wzY/SlmRUgACc99eaEBA5YgxToj0gtXqh3M/N86ym/htA+TdVyXvLus
+	 iNOI1dbpx49NRF6Wj6+WH2jlUYvuFszusE5xfezPpsIfNB5JhK6UDcQwxDL26XFaGD
+	 yVYOIlos/nPj/SBeYAOFqiKKUgT0uaFIbpP2q4ZSTNkGNlM/NLkAUDO/C8VL4RQ5SK
+	 fpFBLuZgiVHoTz35mGnO5mLrrVWn2sXNkgdrX4JC8AwpC05gYlYR+0CVEhbPJGe9I6
+	 0S0ufzVQRViU5KFQW91EAq6ywLMtDFi1Yvu8RH09ONPwqFXEP0Ur8uxRUKhLpNOISh
+	 h6SuVEMkliJwA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] KVM: arm64: Validate the host vCPU's VM before reading it under pKVM
+Date: Tue, 10 Nov 2026 21:09:14 -0500
+Message-ID: <20261111020855.514128-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051844-failed-6.12-cf533b4d3630@kernel.org>
+References: <20261107051844-failed-6.12-cf533b4d3630@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,89 +64,166 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-start_single_kthread() sets the affinity of the kthread it just created
-before waking it up, but kthread_affine_node() overrides that mask on the
-first wake-up. See commit 60ba9c38b931 ("kthread: Comment on the purpose
-and placement of kthread_affine_node() call").
+From: Fuad Tabba <fuad.tabba@linux.dev>
 
-In round-robin mode, move_to_next_cpu() compares save_cpumask against
-current->cpus_ptr, sees the replaced mask, and switches the tracer to
-MODE_NONE on its very first iteration:
+[ Upstream commit cf533b4d3630b229d78ad55567c5db2f365052a2 ]
 
-  hwlat_detector: cpumask changed while in round-robin mode,
-  switching to mode none
+On an MTE-capable host under pKVM, enter_exception64() reads the VM's
+MTE flag through vcpu->kvm, which for a host vCPU is a host-writable
+pointer nothing validates. The host can point it at any address in the
+hyp linear map and read back bit 1 of that word through PSR_TCO in the
+vCPU's CPSR, or panic the hypervisor with an unmapped one.
 
-So the tracer no longer migrates across tracing_cpumask. More importantly,
-tracing_cpumask is not honoured at all, and with isolcpus=/nohz_full= the
-thread cannot run on the isolated CPUs it is meant to sample.
+Get the VM through a get/put pair around the read: a loaded vCPU's is
+the hyp VM, an unloaded host vCPU's is read once and pinned, and a
+pointer the host never shared leaves TCO clear.
 
-Use kthread_bind_mask() instead. hwlat requires exactly the CPUs in
-tracing_cpumask, isolated ones included, so a hard binding is the correct
-semantics; the PF_NO_SETAFFINITY it sets is precisely what tells
-kthread_affine_node() to leave the thread alone. The in-thread
-set_cpus_allowed_ptr() in move_to_next_cpu() keeps working, since
-PF_NO_SETAFFINITY only gates the user-facing SCA_CHECK path.
-
-The mask is now computed and validated before kthread_create(), which also
-avoids creating a thread when tracing_cpumask has no online CPU in common:
-cpumask_first() returned nr_cpu_ids there and cpumask_set_cpu() then wrote
-past the end of the mask.
-
-Tested on a 4-vCPU KVM guest, bit 0 of the mask is CPU 0:
-
-  mode        mask    before                    after
-  none        0b0101  Cpus_allowed_list: 0-3    0,2
-  round-robin 0b1111  mode -> none, no migrate  migrates 1 2 3 0
-  round-robin 0b0101  mask 0-3, no migrate      migrates 0 2
-  per-cpu     0b0110  2 threads, cpus 1,2      2 threads, cpus 1,2
-
-Fixes: d1a89197589c4 ("kthread: Default affine kthread to its preferred NUMA node")
+Fixes: ea7fc1bb1cd1b ("KVM: arm64: Introduce MTE VM feature")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260914070536.877D91F000FF@smtp.kernel.org/
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Reviewed-by: Joey Gouly <joey.gouly@arm.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20261001135711.1640520-3-fuad.tabba@linux.dev
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ sashal: Replaced pkvm_get_loaded_hyp_vcpu() with a lookup through the existing host_ctxt->__hyp_running_vcpu pointer. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_hwlat.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ arch/arm64/kvm/hyp/exception.c             |  5 ++-
+ arch/arm64/kvm/hyp/include/hyp/adjust_pc.h | 28 +++++++++++++++
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h     |  2 ++
+ arch/arm64/kvm/hyp/nvhe/pkvm.c             | 42 ++++++++++++++++++++++
+ 4 files changed, 76 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_hwlat.c b/kernel/trace/trace_hwlat.c
-index 3fe274b84f1c2..65e184d800ff1 100644
---- a/kernel/trace/trace_hwlat.c
-+++ b/kernel/trace/trace_hwlat.c
-@@ -423,15 +423,12 @@ static int start_single_kthread(struct trace_array *tr)
- 	if (kdata->kthread)
- 		goto out_put_cpus;
+diff --git a/arch/arm64/kvm/hyp/exception.c b/arch/arm64/kvm/hyp/exception.c
+index 424a5107cddb5..e20979138305a 100644
+--- a/arch/arm64/kvm/hyp/exception.c
++++ b/arch/arm64/kvm/hyp/exception.c
+@@ -92,6 +92,7 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
+ 			      enum exception_type type)
+ {
+ 	unsigned long sctlr, vbar, old, new, mode;
++	struct kvm *kvm;
+ 	u64 exc_offset;
  
--	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
--	if (IS_ERR(kthread)) {
--		pr_err(BANNER "could not start sampling thread\n");
--		cpus_read_unlock();
--		return -ENOMEM;
--	}
--
- 	/* Just pick the first CPU on first iteration */
- 	cpumask_and(current_mask, cpu_online_mask, tr->tracing_cpumask);
-+	if (cpumask_empty(current_mask)) {
-+		cpus_read_unlock();
-+		return -EINVAL;
-+	}
+ 	mode = *vcpu_cpsr(vcpu) & (PSR_MODE_MASK | PSR_MODE32_BIT);
+@@ -131,8 +132,10 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
+ 	new |= (old & PSR_C_BIT);
+ 	new |= (old & PSR_V_BIT);
  
- 	if (hwlat_data.thread_mode == MODE_ROUND_ROBIN) {
- 		next_cpu = cpumask_first(current_mask);
-@@ -440,7 +437,14 @@ static int start_single_kthread(struct trace_array *tr)
+-	if (kvm_has_mte(kern_hyp_va(vcpu->kvm)))
++	kvm = vcpu_get_kvm(vcpu);
++	if (kvm && kvm_has_mte(kvm))
+ 		new |= PSR_TCO_BIT;
++	vcpu_put_kvm(vcpu, kvm);
  
- 	}
+ 	new |= (old & PSR_DIT_BIT);
  
--	set_cpus_allowed_ptr(kthread, current_mask);
-+	kthread = kthread_create(kthread_fn, NULL, "hwlatd");
-+	if (IS_ERR(kthread)) {
-+		pr_err(BANNER "could not start sampling thread\n");
-+		cpus_read_unlock();
-+		return -ENOMEM;
-+	}
+diff --git a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
+index 4fdfeabefeb43..f55950ee2a7e4 100644
+--- a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
++++ b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
+@@ -13,6 +13,34 @@
+ #include <asm/kvm_emulate.h>
+ #include <asm/kvm_host.h>
+ 
++#ifdef __KVM_NVHE_HYPERVISOR__
++#include <nvhe/pkvm.h>
 +
-+	kthread_bind_mask(kthread, current_mask);
++/* Under pKVM a host vCPU's ->kvm is host-writable. */
++static inline struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
++{
++	if (is_protected_kvm_enabled())
++		return pkvm_vcpu_get_kvm(vcpu);
++
++	return kern_hyp_va(vcpu->kvm);
++}
++
++static inline void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
++{
++	if (is_protected_kvm_enabled())
++		pkvm_vcpu_put_kvm(vcpu, kvm);
++}
++#else
++static inline struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
++{
++	return vcpu->kvm;
++}
++
++static inline void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
++{
++}
++#endif
++
+ static inline void kvm_skip_instr(struct kvm_vcpu *vcpu)
+ {
+ 	if (vcpu_mode_is_32bit(vcpu)) {
+diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+index 24a9a8330d190..1a9dc0c3b7db1 100644
+--- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
++++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+@@ -69,5 +69,7 @@ int __pkvm_teardown_vm(pkvm_handle_t handle);
+ struct pkvm_hyp_vcpu *pkvm_load_hyp_vcpu(pkvm_handle_t handle,
+ 					 unsigned int vcpu_idx);
+ void pkvm_put_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu);
++struct kvm *pkvm_vcpu_get_kvm(struct kvm_vcpu *vcpu);
++void pkvm_vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm);
  
- 	kdata->kthread = kthread;
- 	wake_up_process(kthread);
+ #endif /* __ARM64_KVM_NVHE_PKVM_H__ */
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index 7c464340bcd07..ba7d6280efa49 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -262,6 +262,48 @@ void pkvm_put_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 	hyp_spin_unlock(&vm_table_lock);
+ }
+ 
++static struct pkvm_hyp_vm *pkvm_get_loaded_hyp_vm(struct kvm_vcpu *vcpu)
++{
++	struct kvm_vcpu *running_vcpu = host_data_ptr(host_ctxt)->__hyp_running_vcpu;
++	struct pkvm_hyp_vcpu *hyp_vcpu;
++
++	if (!running_vcpu)
++		return NULL;
++
++	hyp_vcpu = container_of(running_vcpu, struct pkvm_hyp_vcpu, vcpu);
++
++	if (vcpu == &hyp_vcpu->vcpu || vcpu == hyp_vcpu->host_vcpu)
++		return pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
++
++	return NULL;
++}
++
++/*
++ * A loaded vCPU's VM is the hyp VM. An unloaded host vCPU's is mapped at
++ * EL2 only while pinned, so it's read once and pinned; the pin fails for
++ * memory the host isn't sharing.
++ */
++struct kvm *pkvm_vcpu_get_kvm(struct kvm_vcpu *vcpu)
++{
++	struct pkvm_hyp_vm *hyp_vm = pkvm_get_loaded_hyp_vm(vcpu);
++	struct kvm *kvm;
++
++	if (hyp_vm)
++		return &hyp_vm->kvm;
++
++	kvm = kern_hyp_va(READ_ONCE(vcpu->kvm));
++	if (hyp_pin_shared_mem(kvm, kvm + 1))
++		return NULL;
++
++	return kvm;
++}
++
++void pkvm_vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
++{
++	if (kvm && !pkvm_get_loaded_hyp_vm(vcpu))
++		hyp_unpin_shared_mem(kvm, kvm + 1);
++}
++
+ static void unpin_host_vcpu(struct kvm_vcpu *host_vcpu)
+ {
+ 	if (host_vcpu)
 -- 
-2.43.0
+2.53.0
 
