@@ -1,48 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.250.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393619;
-	b=mILH+Hx9NszrePSONdY82UYMW/LZfxg/VK7kThPVjTV88oES2ztTk/XJDX5uxvQ7rMfJ
-	 QBz3dYy/Vpmd7+AR+Sl2Z+OCWczxUcHzKEv35sn3tAhN5MLTWJjzya0rHVIUX4YOPQHki
-	 H0cTpdet2/OkyhwiaizHLgYm1M89E0E8a0rXnVdW/IVmo6JGA3fs2cKn3TkkemYQNxrs7
-	 LU9pkEQisTeKfmR8sCH4COk8wvgknXL2o1DuGIgYr1kkO+7rbBeOuY0EWPOeYb+e37mfG
-	 w/iSYs1dkvqfzHSADAuhiUbgcGwRhVyzDFCyfrVgOtIu3CZX01OnqQW0E6OG3PVPssA==
+	t=1794394248;
+	b=eGQ8DRS/UehMU3OshKlv9DoNwLxtobyN8CDBWglkRTf7JGk4+vQ13n8pN+wCwOAIlVA7
+	 JVE0KCkJWFFjt2cZwVqcn9XEk2+eIf0MQR+FM6KSBF7Lfs7/ql49NZNRcCWvRbnwN/Yy9
+	 62i1iZwmmgOxmuA3a8TfvAykdljdMjfbtPr0TLUlNS8UMLDAiSt1UWBQc0KqK9vqVzYRX
+	 Pb2WZhtrjm41ZukhtHcCPZG2LHMH1+QFQpWC1oBnU271JFrYPVSKMsw6OSdWony89ujDc
+	 JGNBPUQDQqs/Yc5ZBxwP93kRmrZPojE66UxwLcTmIFwIuCSn/HcTWaX7AoA4O1NZE+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393619;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tA+dvnqtpxBFwr2TnbZTQLY5HCchIEGD4VBfTUfHpL0=;
-	b=aid28PMb107Wff5oCsgR6i60jI93K0mAc+76tnOS7aJTn9atWxpqmAlaAfM6KS23H+F+
-	 NQ+evcm+GXeM3TM9zcmtY5eQ+hKzQ3miM419eMyfCQvGg5CZW8aXGFsE5rbvATCmDyvN0
-	 hpEwWn/X3it6mgjgiB/5s3q4OviajLrZe6xrE1503JOygtIbXb3G2PqW1CkqAlPcWWK7q
-	 eBvOyOv3C5ZO41ZiAw1GJYrlyP0c5Wuozt94/ZbKNqMB/9FEXirb7bWtTQmYrrBBTS8l+
-	 YKIdWmsQHO4lmHp8j6QSYxj5G+Sfd835GL+ctAoqEIvZaVFZJrEeEWhgHCnIWUi34ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394248;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=j/Qyg1UyMf8yIhlGF9VG32ssBLq84ZvPcoVqm2IS3x8=;
+	b=AgUJwsAOO8lbzUnf08tFpd+GPFvYJNGle0klkdXa6/FUGLFQgy6XmaBtaNfZyZR6Ob8d
+	 HqaVx+nAi1oftN62RYHf4m0w7EegDXfxIaNuIW5MvxkX/4zxJztrkM0RxvnYllaZYKYbT
+	 RlTFVhD7rQyVWBbx8fVA8pL1V9HD1TMr0bSwmdTy5zQo4dS27kC3XLHEgkGMFy9vD8PfS
+	 J0rzRZwzKUXfWovUgLquQAfxGKfbOqz33nFAaOFKB8mmJiHFWHZLU6/FGCbSPQZoeIyhk
+	 A0rHSvuvDMNKPEyRCrzDMolgffOURvg7Hoh0TyYunOmFD3zGMWy9y20hkIGa5tn3wpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=8bytes.org;
-	spf=pass smtp.mailfrom=8bytes.org;
-	arc=none smtp.remote-ip=85.214.250.239
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15AFA606A8A8
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:40:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15AFA606A8A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from io.home.8bytes.org (p200300f6af404a0070a0fd992ce44cba.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:70a0:fd99:2ce4:4cba])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ORypB0v0;
+	arc=none smtp.remote-ip=95.215.58.71
+Received: from mta1.migadu.com (out-71.mta1.migadu.com [95.215.58.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id A9C6C244146;
-	Wed, 11 Nov 2026 11:40:10 +0100 (CET)
-From: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
-To: stable@vger.kernel.org
-Cc: Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Joerg Roedel <joerg.roedel@amd.com>
-Subject: [PATCH 5.15.y] iommu/amd: Force device table to maximum size
-Date: Wed, 11 Nov 2026 11:40:00 +0100
-Message-ID: <20261111104001.216548-6-joro@8bytes.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111104001.216548-1-joro@8bytes.org>
-References: <20261111104001.216548-1-joro@8bytes.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5F5606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:50:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D5F5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ORypB0v0
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UfTczrnCMjiFHwHorGJcb8GhQ4eklNGiv8MK9V3Ny84=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794394245; v=1; x=1794999045;
+ b=ORypB0v001MkwS8fumOipnttyLz+lRBx00dG86O5RCypz+ePzNLYrRRg6VHpu7RCavrAh5kG
+ e+CQjUt7KFxO8Vm8qI+Coe9MtUkedf513wHWQzyrYJmqsiX/gZYbW/0MQQrWYBoqjQHfOq/q9XF
+ LejYt9rK4T+zqhLRaps6Bhsc=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4dd8d3a39f7a78f4;
+	Wed, 11 Nov 2026 10:50:45 +0000
+X-Mizu-Trace-ID: 4dd8d3a39f7a78f4
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: stable@vger.kernel.org,
+	sashal@kernel.org
+Cc: Andrea Arcangeli <aarcange@redhat.com>,
+	Hugh Dickins <hughd@google.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Xu Xin <xu.xin@linux.dev>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	=?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
+	Bobby Powers <bobbypowers@gmail.com>,
+	Brian Geffon <bgeffon@google.com>,
+	Denis Plotnikov <dplotnikov@virtuozzo.com>,
+	Doug Gilbert <dgilbert@interlog.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Martin Cracauer <cracauer@cons.org>,
+	Marty McFadden <mcfadden8@llnl.gov>,
+	Maya Gokhale <gokhale2@llnl.gov>,
+	Pavel Emelyanov <xemul@openvz.org>,
+	Rik van Riel <riel@surriel.com>,
+	Shaohua Li <shli@fb.com>,
+	James Houghton <jthoughton@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	SJ Park <sj@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Mohammed EL Kadiri <med08elkadiri@gmail.com>,
+	David Hildenbrand <david@kernel.org>
+Subject: [PATCH 6.1.y 0/3] mm/ksm: fix userfaultfd protection on 6.1
+Date: Wed, 11 Nov 2026 18:50:31 +0800
+Message-ID: <20261111105034.51632-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261109201707-failed-6.1-990d6c2194a9@kernel.org>
+References: <20261109201707-failed-6.1-990d6c2194a9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,150 +100,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Hi Sasha,
 
-commit 6e2213dae78b41976c60133eb10cf99e81916638 upstream.
+Could we take David's two KSM patches first for 6.1.y? Both cherry-pick
+cleanly. 6.1 already has FAULT_FLAG_UNSHARE, but KSM still breaks COW with
+a fake write fault.
 
-IOMMU can perform out-of-bounds read of the device table entry (DTE)
-that is adjacent to the last DTE and falls outside the device table.
-For example, if the device table can hold 0 to N-1 entries, then the
-IOMMU can be made to fetch the Nth entry, which falls outside the
-device table.
+Patch 2 needs patch 1, and patch 3 needs both.
 
-The device table is owned by the hypervisor (HV) and is assigned in 4KB
-pages that are contiguous in system physical address (SPA). If the
-out-of-bound DTE falls on a guest-owned page, then the guest can exploit
-this bug to setup malicious table walks to corrupt HV pages and/or bring
-down the system. Note that this bug does not manifest when the device
-table size is set to its maximum size of 2MB.
+Thanks,
+Lance
 
-Therefore, force the device table size to the maximum 2MB on affected
-processors. These are CPU family 0x17 (Zen1/Zen2) through family 0x1a
-(Zen5/BRH).
+Cc: Andrea Arcangeli <aarcange@redhat.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Xu Xin <xu.xin@linux.dev>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jérôme Glisse <jglisse@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Bobby Powers <bobbypowers@gmail.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
+Cc: Doug Gilbert <dgilbert@interlog.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Martin Cracauer <cracauer@cons.org>
+Cc: Marty McFadden <mcfadden8@llnl.gov>
+Cc: Maya Gokhale <gokhale2@llnl.gov>
+Cc: Pavel Emelyanov <xemul@openvz.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Shaohua Li <shli@fb.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>
+Cc: SJ Park <sj@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>
 
-This is a mitigation for CVE-2024-21963.
+David Hildenbrand (2):
+  mm/ksm: simplify break_ksm() to not rely on VM_FAULT_WRITE
+  mm/ksm: fix KSM COW breaking with userfaultfd-wp via
+    FAULT_FLAG_UNSHARE
 
-kdump copies the previous kernel's device table only when the size
-encoded in the IOMMU device-table register matches dev_table_size.
-A mixed rollout disagrees: the unpatched kernel uses the IVRS-derived
-size and the patched kernel uses 2MB, so copy_device_table() rejects
-the table and reinitializes translation. Kernels that both have this
-patch agree on 2MB and the copy succeeds. Update the production
-kernel and the crash kernel together.
+Lance Yang (1):
+  mm/ksm: fix userfaultfd protection during merge and unmerge
 
-This kernel has one global device table. Only that size is forced
-to 2MB. Alias and rlookup sizes stay derived from the IVRS.
+ mm/ksm.c | 39 +++++++++++++++++++++------------------
+ 1 file changed, 21 insertions(+), 18 deletions(-)
 
-This backport adds X86_FEATURE_ZEN6. Bit 3*32+6 is still
-X86_FEATURE_P3 here, so the new flag uses free bit 21*32+7.
-Family 0x1a models 0x50-0x5f, 0x80-0xaf, 0xc0-0xcf, and
-0xd8-0xef are Zen6 and are excluded from the workaround.
-This kernel has no X86_FEATURE_ZEN5. Other family 0x1a models
-stay unmarked and still take the 2MB device table.
-
-Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
----
- arch/x86/include/asm/cpufeatures.h |  5 +++++
- arch/x86/kernel/cpu/amd.c          | 18 ++++++++++++++++++
- drivers/iommu/amd/init.c           | 23 ++++++++++++++++++++++-
- 3 files changed, 45 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index 060ae0d8387e..a25b6d4838a6 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -439,6 +439,11 @@
- #define X86_FEATURE_CLEAR_BHB_HW	(21*32+ 3) /* "" BHI_DIS_S HW control enabled */
- #define X86_FEATURE_CLEAR_BHB_LOOP_ON_VMEXIT (21*32+ 4) /* "" Clear branch history at vmexit using SW loop */
- #define X86_FEATURE_INDIRECT_THUNK_ITS	(21*32 + 5) /* "" Use thunk for indirect branches in lower half of cacheline */
-+/*
-+ * Upstream defines X86_FEATURE_ZEN6 as (3*32+6). That bit is still
-+ * X86_FEATURE_P3 in this kernel, so use a free bit in this word.
-+ */
-+#define X86_FEATURE_ZEN6		(21*32+7) /* "" CPU based on Zen6 microarchitecture */
- 
- #define X86_FEATURE_TSA_SQ_NO          (21*32+11) /* "" AMD CPU not vulnerable to TSA-SQ */
- #define X86_FEATURE_TSA_L1_NO          (21*32+12) /* "" AMD CPU not vulnerable to TSA-L1 */
-diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index 2ad2c454b982..3cb9ca970326 100644
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -742,6 +742,24 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
- 		}
- 		break;
- 	}
-+	case 0x1a: {
-+		switch (c->x86_model) {
-+		case 0x50 ... 0x5f:
-+		case 0x80 ... 0xaf:
-+		case 0xc0 ... 0xcf:
-+		case 0xd8 ... 0xef:
-+			setup_force_cpu_cap(X86_FEATURE_ZEN6);
-+			break;
-+		default:
-+			/*
-+			 * Zen5 models in family 0x1a have no feature bit
-+			 * in this kernel. Leave them unmarked so the
-+			 * device-table workaround still applies.
-+			 */
-+			break;
-+		}
-+		break;
-+	}
- 	default:
- 		break;
- 	}
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index 103a3c3e91d3..fd5af64f18e0 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -22,6 +22,7 @@
- #include <linux/kmemleak.h>
- #include <linux/mem_encrypt.h>
- #include <linux/iopoll.h>
-+#include <linux/sizes.h>
- #include <asm/pci-direct.h>
- #include <asm/iommu.h>
- #include <asm/apic.h>
-@@ -2757,6 +2758,21 @@ static void __init ivinfo_init(void *ivrs)
- 	amd_iommu_ivinfo = *((u32 *)(ivrs + IOMMU_IVINFO_OFFSET));
- }
- 
-+/*
-+ * Apply workaround for Zen1 to Zen5(BRH) generation of processors.
-+ * References: CVE-2024-21963
-+ */
-+static bool __init amd_iommu_force_max_dev_table(void)
-+{
-+	if (boot_cpu_data.x86 >= 0x17 && boot_cpu_data.x86 <= 0x1a) {
-+		if (cpu_feature_enabled(X86_FEATURE_ZEN6))
-+			return false;
-+		else
-+			return true;
-+	}
-+	return false;
-+}
-+
- /*
-  * This is the hardware init function for AMD IOMMU in the system.
-  * This function is called either from amd_iommu_init or from the interrupt
-@@ -2824,7 +2840,12 @@ static int __init early_amd_iommu_init(void)
- 	if (ret)
- 		goto out;
- 
--	dev_table_size     = tbl_size(DEV_TABLE_ENTRY_SIZE);
-+	if (amd_iommu_force_max_dev_table()) {
-+		pr_info("Force device table to maximum size\n");
-+		dev_table_size = SZ_2M;
-+	} else {
-+		dev_table_size = tbl_size(DEV_TABLE_ENTRY_SIZE);
-+	}
- 	alias_table_size   = tbl_size(ALIAS_TABLE_ENTRY_SIZE);
- 	rlookup_table_size = tbl_size(RLOOKUP_TABLE_ENTRY_SIZE);
- 
 -- 
-2.53.0
+2.49.0
 
