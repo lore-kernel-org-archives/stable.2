@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794361438;
-	b=5nKO9Htjbl6kQ7pWyVkUnJoar8bpej2nuI32SgM1ounQfj+fnVNyL6CJbUmRGYVIeK15
-	 cFb7aIsLnwop7AtGwm+easzjFjAEG4UiSeuYOOF2aNdDQNfTQePXK0o39obqLKrr0JYvX
-	 qmTfwf0ackeIFWaqP+f0OSBPJ0EIkNz1U75Lo0RA6S7yjAqM/SpmeViFYFx5wRm+HalAG
-	 IE9xLVNjGVRpZdqQ97a6n8xB3oisySYcCkY3SztvvTv58rsRSnn+gxQAJie6gdLR/VjDO
-	 MLXddvO2+gHENKYne/KmgAx+LtziKuGtyG6dSbJeUoAG8guCcuoOzUThxMJ/+LDGhTQ==
+	b=Phvv4zExCOkXGDViFWK4crpu+dfAno19HIbfErO46TRxx6oGKuK/FDvJH7zAhSec5deC
+	 QS7dbXuw9hQCaIxqI2cx8hSO6sqcAsmY7L5EKOFhQjhUriisA01V73KzN90KuxXzFcZE7
+	 RngEJBIgMzr/yaHb1vNyyCgjfKKvIRumNLV/V6G+kGMzeVN9VtaY0sJycH9BLKQ2RFtpc
+	 7B8Hlko/IxzR9/DyzOV1qs9z9GZzEwyWJhPlRR2bCXWrKIlwQ3LcfohIABXnXPVyH+C8r
+	 qVIbVYD8eBvwgIMthhP2F9cLgsKIsYwAyprW/Kfu/GAG4BwM9LlNFT0/m2DeE+6TOhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794361438;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WII2BNJMEvhWhywRZRfCBf8b9yINVggWSODYPyPrsco=;
-	b=FdsPANltRidFZtV6+XFE5dCB0j+Fern11M4QhWNOMBXqLn9JWz0QaMIumoe5exwRCCEG
-	 2mqR36reZ96yhZyUlHE/XepZWVRcF/fROAsMc5rGhvSYPuV+BzpY3z0dRdKoYHlhtlZyp
-	 6HeAimkldh2pA982+tTq1Z+5rPVePTQQwlyt0qunF57eWLoVVwibCh2vuYv/ueZbpmusP
-	 /5KNKjgm69JwJpLEpOJ12as1VQRTbhR//oJ6+orYld7+GOH48uY68mbbxjBbyv6SDAC6M
-	 A2zE/AUfsRiXy5V+b9RuwwbVfev0fwinwVeYkf6Fp1PSRtZDqT4A4vujlruw+A0LYhg==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yl+85OYHeETK4xBKiGMvGsUysW28OqXBf0lxG9wLQjo=;
+	b=Qb3VzDSYDI+D6FV8LKAg5i8XEhSke0/jM82U3PFY9D5Jy7oiTLcTSsmt7uq4Pcs9hUtQ
+	 tO5XLOI9gnUGSl8huvqV/dFZzV8LsCXNIw65qlqsSEO0krjaE+pTEza++XxMTLWLmwSL0
+	 I54/IE+QkzOJK7XCK9qo9B89tgfxXgUhQ4bTA5CSV9NdioPyWqjmu0sghaitKaWMmf8ab
+	 oyczQ1X9mxpWAa87zbhDG5hr/lz1tuAq37D6buOyoa6rfeQInDs3x4h3AKID5/WyXf/ob
+	 q/CuyTINRzmFuQie3qGtChJ5EdK5hFMwfULx2Z2gIrYjp+955zgpIBSIaitV4mOg77g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5NJbCJb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Upg4IKIw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16BF606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:43:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80837606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:43:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5NJbCJb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EBFE1F0089F;
-	Wed, 11 Nov 2026 01:43:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Upg4IKIw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D591F0093C;
+	Wed, 11 Nov 2026 01:43:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794361437;
-	bh=WII2BNJMEvhWhywRZRfCBf8b9yINVggWSODYPyPrsco=;
+	s=k20260515; t=1794361438;
+	bh=yl+85OYHeETK4xBKiGMvGsUysW28OqXBf0lxG9wLQjo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k5NJbCJbH2q8awWryoXdzOgunEbr95VUvvls2Tr9/5onmcWP88tkl7ntn2Y7IrL1S
-	 aofpLQ8HZVpfnL1rUrNFTRBbP2XI/U1ZLj5Jbu/F454JpDXaVGn8MxTY/lqGKSzlfD
-	 fVvPWiliKd47mBILDL9nx/PkMfTe6GbusBFb7pX+rLLT6ItIu0rDs8xN9rN0sRieEv
-	 WTDd9YD+YvS4fc6uM8VqHNAGccDw/C4Yl5Y65OCBAFkbzi9RCs4JX6P7mi1axRww0d
-	 GKsOchiUzFQPraucv/WnXjFlYYRsNII4Vv/wjkvgVGuPhIoLBoP0870owS9bZ7paeI
-	 B86Uq3MAzik2w==
+	b=Upg4IKIwkbtPl5Lo4DeNDj0Wmbiisq2Xvp6WROmr8eFZWLIscN2k49B0uC3VfIobb
+	 J2cSE9M9YxdM5lZEG/6psCbaQJ2VH9OfpLWI4vfxbDLm+CHNUxHeqlJFDn6vCV8yEm
+	 SRgdjE09NCvSdrGcJ3A2ccaLBlJ+q/HWeObaWqOtgC1iIzKJM9sZjmxXpCiXfgCFWv
+	 FGSpUGtI8Hgd9PGcdf2L1t38IepHfMmPL5umI7GZNQ8kAphQ2gd8vPiFbzRNEg0/uP
+	 LWsK5zH23AKUSz+Sd6nLOoZj2qWD4FrQ87v3yWrZ1kF3dp+R+yWzxBAVebw1tyiwg1
+	 Tj3P6zvyi731w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] drm/amdgpu: Use (v)memdup_array_user in amdgpu_cs_pass1
-Date: Tue, 10 Nov 2026 20:43:54 -0500
-Message-ID: <20261111014348.413840-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] drm/amdgpu: reject CS chunks too large for kvmalloc()
+Date: Tue, 10 Nov 2026 20:43:55 -0500
+Message-ID: <20261111014348.413840-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052721-failed-6.12-ba4c3c202919@kernel.org>
+In-Reply-To: <20261111014348.413840-1-sashal@kernel.org>
 References: <20261107052721-failed-6.12-ba4c3c202919@kernel.org>
+ <20261111014348.413840-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,94 +62,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit d4b6274cbf0b0ee92294d699f138b63aa4796ad0 ]
+[ Upstream commit ba4c3c202919405f461a393e823e4b72c8518494 ]
 
-Replace k(v)malloc_array() + copy_from_user() with (v)memdup_array_user().
+The CS ioctl copies every chunk with vmemdup_array_user() before it
+looks at it, for whatever length_dw userspace gives. kvmalloc() warns
+about allocations above INT_MAX when called without __GFP_NOWARN, so any
+process with the render node can trigger a warning. On navi31, a CS with
+a chunk of length_dw 0x20000000 returns -ENOMEM after:
 
-This shrinks the source code and improves separation between the kernel
-and userspace slabs.
+  WARNING: mm/slub.c:6841 at __kvmalloc_node_noprof+0x5a5/0x7d0
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Reject such chunks with -EINVAL before trying to copy them.
+
+Fixes: 2098105ec65c ("drm: drop drm_[cm]alloc* helpers")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Stable-dep-of: ba4c3c202919 ("drm/amdgpu: reject CS chunks too large for kvmalloc()")
+(cherry picked from commit dab5f5280406088591645f499f048dcfefab8d7d)
+Cc: stable@vger.kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 33 ++++++++------------------
- 1 file changed, 10 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 502872bfde49c..bb207ba59e752 100644
+index bb207ba59e752..c49aabb343a72 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -203,25 +203,17 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
- 	unsigned int num_ibs[AMDGPU_CS_GANG_SIZE] = { };
- 	struct amdgpu_vm *vm = &fpriv->vm;
--	uint64_t *chunk_array_user;
- 	uint64_t *chunk_array;
- 	uint32_t uf_offset = 0;
- 	size_t size;
- 	int ret;
- 	int i;
- 
--	chunk_array = kvmalloc_array(cs->in.num_chunks, sizeof(uint64_t),
--				     GFP_KERNEL);
--	if (!chunk_array)
--		return -ENOMEM;
--
--	/* get chunks */
--	chunk_array_user = u64_to_user_ptr(cs->in.chunks);
--	if (copy_from_user(chunk_array, chunk_array_user,
--			   sizeof(uint64_t)*cs->in.num_chunks)) {
--		ret = -EFAULT;
--		goto free_chunk;
--	}
-+	chunk_array = memdup_array_user(u64_to_user_ptr(cs->in.chunks),
-+					cs->in.num_chunks,
-+					sizeof(uint64_t));
-+	if (IS_ERR(chunk_array))
-+		return PTR_ERR(chunk_array);
- 
- 	p->nchunks = cs->in.num_chunks;
- 	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
-@@ -234,7 +226,6 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 	for (i = 0; i < p->nchunks; i++) {
- 		struct drm_amdgpu_cs_chunk __user *chunk_ptr = NULL;
- 		struct drm_amdgpu_cs_chunk user_chunk;
--		uint32_t __user *cdata;
- 
- 		chunk_ptr = u64_to_user_ptr(chunk_array[i]);
- 		if (copy_from_user(&user_chunk, chunk_ptr,
-@@ -247,20 +238,16 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 		p->chunks[i].length_dw = user_chunk.length_dw;
+@@ -239,6 +239,12 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
  
  		size = p->chunks[i].length_dw;
--		cdata = u64_to_user_ptr(user_chunk.chunk_data);
  
--		p->chunks[i].kdata = kvmalloc_array(size, sizeof(uint32_t),
--						    GFP_KERNEL);
--		if (p->chunks[i].kdata == NULL) {
--			ret = -ENOMEM;
-+		p->chunks[i].kdata = vmemdup_array_user(u64_to_user_ptr(user_chunk.chunk_data),
-+							size,
-+							sizeof(uint32_t));
-+		if (IS_ERR(p->chunks[i].kdata)) {
-+			ret = PTR_ERR(p->chunks[i].kdata);
- 			i--;
- 			goto free_partial_kdata;
- 		}
- 		size *= sizeof(uint32_t);
--		if (copy_from_user(p->chunks[i].kdata, cdata, size)) {
--			ret = -EFAULT;
--			goto free_partial_kdata;
--		}
- 
- 		/* Assume the worst on the following checks */
- 		ret = -EINVAL;
++		if (size > INT_MAX / sizeof(uint32_t)) {
++			ret = -EINVAL;
++			i--;
++			goto free_partial_kdata;
++		}
++
+ 		p->chunks[i].kdata = vmemdup_array_user(u64_to_user_ptr(user_chunk.chunk_data),
+ 							size,
+ 							sizeof(uint32_t));
 -- 
 2.53.0
 
