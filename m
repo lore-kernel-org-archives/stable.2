@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794391866;
-	b=crv9Hlys7DYDeuo6LUdCY0vOdkhzTQFulV3WrtJ5FnyuWOU52GIhAU7EcEO33FSGDqnB
-	 OUFgJRzrQcEgcF6mxPAIxKPaQ53MZfGEQRYYPVIf8+vEl1ABFqjPWvyhEhlSkNSt4gzh3
-	 MenrX4AOcoOTQIvjurWb+KN0nxvgyK1dS9oiVv1zgRE9s0poc0haDXCo0b4iBO1E6/lhx
-	 781Ow1o3q9YEFrnOiIMHPdeIllkj8sN4Pp/XKMC/ugeZ5i4+8nT/+ioqMajZNrrBg7IcP
-	 LSM6hGUbzdH9NFlG7UWiBVumVCaZN/AXs+qZRXqcuysI2vJEZMid060J4ZpEKfWoTOg==
+	t=1794391865;
+	b=bKVmmxzzQYNdI+J9x0JFXe1+JppsjoQR2/yPfqg001l5f7wLCsjOWZ9wWlu8koY9v2c7
+	 T1G5ZZ7rO4wzHobejXILVXL2YKJw8o4aCLntMOulCO52z8a0LbjjIycDfV96hzmR2HtVh
+	 dljlXTQY8pbO6ZJR0OP1k9Qt37ew0ChXXvtH602VK9f2LZnIKBC4BMrb9J0WOnWssB/GI
+	 W0AmHTTzjEidmTiamebC1OROW98mD8Y3cPp4bPq7GP8QCTrq+92sbtQPHyi4r0GictZfc
+	 CjJoKnaykG0Ds/WS0k0mp3H0u7rP+87tP2YcGgW85VbTh2OibHHlDWYDbuUglSaaiAg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391866;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hqG/5n2Fw0o37ScKdmyH8WTD+AUmkp/qEcM3NOL2EWE=;
-	b=XA7LxphlmDgqGTZTwv/iwnYM3yuY+stYZp1sNtqN7NNBI4rtMiIfv6lStvyqeWcWkS26
-	 6y9q+AdfO1eTE3kOLsRH2H/POYyXDd9zmCmbByRZFpjguUzjplPV8Wcdwx72BTrvJOZs9
-	 2FE5Emagh/ZgpKz/m1umt1DKTtDO1WmhaztJB/4tpmpfDOQ/kscmbQOmFpD8+3izB8eMI
-	 PWeKYtgBhHjbYytbN1nZc3QtO/G2lr2GFsf+QU2a1G/B6K4B5Sbhs3SuxzbhDUGu3vPMp
-	 TBpa3H3RvgU+qLf4fM5aukiRU1+kGDBA0yRPWiVifK304wEj0FECKgaYCQpRJYS0kkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391865;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=2VxFqgPhIIwUOSky8zx2YGbpbXolrddV2WpeopM32Lo=;
+	b=PqZSPu2vcUp3/RVSHSo5V+deWk5s+4pRJdDhzQroacvVMHLiwaH5bbjMaWDtPfYlEOoC
+	 EI4G305mqvgG7re0MdPT1nWIDfCRO/BCi5na/Akm5+AE8hbA5d6EhysMxnnS1fqcpGq8U
+	 baLuEX5jZTibzrCLS0t2M6A78rqtQab0JF69ovHpgRdHOCv6gwGOvNevnxVlnkOd/Kb1G
+	 70c0u4nSZmeX78OFYNuxri8zp6BCLYGfjgZn8QqOoS+2qHlOihLelduUR+diALBMuvhrL
+	 0cs/koNh6L/bILITeoMX6hNo+OIsHpjBp3UtIri3qiHZXHoGmGCTXG/TNHZoAFgBzQw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gPYzvAgP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmxEV35e;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C57606A8A9;
-	Wed, 11 Nov 2026 10:11:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD9B606A321;
+	Wed, 11 Nov 2026 10:11:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gPYzvAgP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmxEV35e
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794391866;
-	b=Jb1rXNpqA0D30uDhoQtZzG30pxzpkYfwKnLI5x7IUuC9wYjpjiuUi6OpnsgE8lQh6oVh
-	 0Ug/+SjkHaJd6fs3UB6O6EBb06NKBT4lvcXe5gFBSEwSfQZgQMY1Ks7KJkTez594I+17g
-	 ykm8t1DdRQlw6fYLbn5BDg1yzqB3B9a71cgdqJaeyalrohiSLCC2QZgKnp0tKGej/oEAi
-	 Pc5AgcRBUg2J0vyTbifj4UBIrGzLojJRISxADm5ST1j5Y2DEg5Qj1rkue35m8daFSLoHV
-	 TsfOm+6qHHjC7yBSnenxyLg4KiV2c5Qvgq0mnz2cLfoO4+Li/3e0VJkx0wH9EzqxrSQ==
+	t=1794391865;
+	b=p9MRjS+svJOKDbhKShM/ab67hspTke3L8LrLaIL7b02iLmEMAB+maIpUn+x8qm+OXocX
+	 HDwEbollkLhpJCHTDXe2gubmW6/kXqQOoSMABKnbkI6D8q9jkZBCvKdXST9ADQd7hCiUc
+	 c6ZDzpS0MZvXpxMXxzkMm+nViSfzqm2swh3gX4bYTTfJvPTtJQ5uKoughjWnYRiSWHPKs
+	 rvIXb6BTlmOAc+xrJwLeagUKijuFkCJB+iiJOe3A9Wmqq1rQaxrk+0JvXzL+xTMAjlteA
+	 jk+D8b1dLw5fCiBKpZ7/RIgkqVy6BunhOBPOBdAQweHIDBmG0goL2OPq+7IFI+W+9sA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794391866;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hqG/5n2Fw0o37ScKdmyH8WTD+AUmkp/qEcM3NOL2EWE=;
-	b=snp505tNPs2O14hf4KLj+p/LhWxX/iILX0l7U/UcncsPYJrPHp/c9MDFb2r3falAAcLb
-	 4AlZPGfdprW1oU01hyaaEa4vgf9i98fhuLvO+iH7i6s4vymXntBLgJIGIImCHlN8ucygM
-	 wJDE+Bv+5d8zB/Khb9OsWY8QrBHKM/OJvQD0m0dB81+CE/CAKdMIysy2asLO9t28ZVxq8
-	 zpBET1WGgxSg5D1UvoX5WRhv22Y2YcktV1idA3wk5Xz3Uc+pPLhOHGXaZt4r7KSx8HRzk
-	 b7Bo1PEHxJ9ttHEG9RFltDkbSBYLN6tLh594cUGUTF72dAl8rsPi5JYl0RKTKbYyLNg==
+	c=relaxed/relaxed; t=1794391865;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=2VxFqgPhIIwUOSky8zx2YGbpbXolrddV2WpeopM32Lo=;
+	b=zhgrszivGwRwiOLD+nPYK8LiVDj/zrLkxhX0AAYWU/vgVCpPMNlDbqnnGUlRBw2UJPUL
+	 8APhqK3qwVDYD2zOpAbPgQwiVNgKxYw1qk/LhGTYagTzMEiHxQK5HX8luBREBGPlE0OiD
+	 DYs+y4lF5RPdGLG3JxYPRSVJ7gnxvUIOKXfmAHh1o/CokNQOPAdzU1Dx1XOmwYOelOfaC
+	 GS5YOQNVhEwtCT33vdQCzBJwlIypY4GSbt3zfeyd1LFJDjl1DcYF2LegbqJ4XLdf+T3Na
+	 82MmlAL0YPswsvG0H2whK8nBdRkkeWdjr5sn43iu7WiBznFyBaMFaYh7jF4XELBgQ8A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5A8FE1F00A07;
+	by smtp.kernel.org (Postfix) with ESMTPS id 379131F00A06;
 	Wed, 11 Nov 2026 10:11:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391866;
-	bh=hqG/5n2Fw0o37ScKdmyH8WTD+AUmkp/qEcM3NOL2EWE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gPYzvAgPHeXswVngIHMUTD5qy9uJzv8uNoBdhTyBSBbQHBON2FwP5UPTPAWBQ9j89
-	 LDrLp76tVoOMoGbNYype7FMNcmjxlpZx3gZyLBqnNgqGhjwb49hnFpBCVEvkco2ikd
-	 z0ekySdh9F1xc2j6uiS2lUNLTmLbaderunUN6/VMfHYx2CEiOyjWc+5u7m2jpSc6u9
-	 7bu91/5ECrRfpUqqHbwZhCvQ3aQGsGmxyZhRCWfqA+yc/5nfhrDhtUi4oeizGDWr9U
-	 B2Njh5HPc9YTGBZWerRPmacaIvVLGYwVClyJQgnxDV1hAo+t1BiN96KSM/Ei7s9ZbH
-	 ZgEeLPMOpO+ZQ==
+	s=k20260515; t=1794391865;
+	bh=2VxFqgPhIIwUOSky8zx2YGbpbXolrddV2WpeopM32Lo=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=BmxEV35eURXXe49GNtaLBd0cG23dFNAR39x8IsdpOGEC18XbEDgvgj8NiYXfy3wGi
+	 B2WCodeTuigPwKqtKHHy/G28GWi5ZmVP7XrbnwqJn3BRNH08wrvIe5jf4Pgxcyg1qE
+	 IaxWGPSXt2IhONRqxvbqcBoQfUQ1F4whvmTpbbPPEbowlCrmjNm4BVFCBQnEVAOxW/
+	 UrYYLflwk7rGUWifDLmePxd364TNvg79wKaTftQmtrlQlFmR/rk+ccSL9r2Cg2OOWe
+	 6qK2E1kxQX3668D5XRjN3aObBbfv1XwGBj3kO+2RrbTMguVNnxUEBFUm4wzC5HKAco
+	 OoBgsnWXjiRLg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D511C48F33;
+	by lkml.kernel.org (Postfix) with ESMTP id 7E88C48F2F;
 	Wed, 11 Nov 2026 10:11:03 +0000 (UTC)
 From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Date: Wed, 11 Nov 2026 11:10:57 +0100
-Subject: [PATCH 2/6] memory: tegra114-emc: Use the full DRAM bus width for
- interconnect requests
+Subject: [PATCH 0/6] memory: tegra114-emc: Fix bus width and pad
+ auto-calibration
+Date: Wed, 11 Nov 2026 11:10:55 +0100
+Message-Id: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,9 +85,11 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-upstream-emc-t114-v1-2-54d9e1bceb6a@tsv-stahl-riesa.de>
-References: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
-In-Reply-To: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBBA0V+RWXcgE1/QX5Eu0mTUEXyQiVIQ/
+ 920XZ7FvScoR2GFZ3FC5ENU1iWDHgX40S0Do4RssMY2RKbFfdMU2c3Is8dEVGEV6tJZVxtDAXK
+ 3Re7l83t2r791f0/s03cE13UDcS0LVXUAAAA=
+X-Change-ID: 20261107-upstream-emc-t114-4d53a2a5001d
 To: Krzysztof Kozlowski <krzk@kernel.org>, 
  Thierry Reding <thierry.reding@kernel.org>, 
  Jonathan Hunter <jonathanh@nvidia.com>, 
@@ -98,65 +101,124 @@ Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
  Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
  stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794391862; l=2117;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794391862; l=5983;
  i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=UKyU8gpXKnhxvj2H37ZDY9d2HuSp5Dvn+JPZlIlWg+0=;
- b=N3OmQ1Ge4ojApoGjsEOZEqZvTWPcxMM0WKEHL1mgIyk4GG4Dw72eK7Oq9+XJzRvklgzMxjl/K
- M26mI6Vim7BDGO/wUHjVsVRAZdHlruwZz2RegL7L3wH4bcYFpAo7Umo
+ bh=gWkZ9sMR0wqVhYJEWQWSZiG5AKiQGnM8VYMjsshbjj8=;
+ b=0T0mLCBKLbK+HF1RGAP25033S6Ovp+Jd2Vjs9+qkwsXJPxyTb16YyHJJjjAKG63JuVFRG3OMa
+ qhZPzEEeJ0fCX2qPuknx30/GFgtXnmSffN3C3Q6ePX4rY1R0aifSY2w
 X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
  pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
 X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
  auth_id=1251
 X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 Reply-To: admin@tsv-stahl-riesa.de
-Content-Transfer-Encoding: 7bit
 
-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+On a Tegra Note 7 (Tegra114, P1640) I had kernel panics, bit errors and
+WLAN firmware hangs under load, and two kernel panics on EMC rate
+changes from pll_p to 624 MHz on pll_c. Looking at the EMC I
+found three problems in the Tegra114 EMC driver:
 
-Tegra114 has two 32-bit EMC channels, so the DRAM data bus is 64 bits
-wide: the Tegra 4 TRM describes a "dual-channel (2x 32-bit)" DRAM
-interface with separate EMC0 and EMC1 register blocks, and the
-downstream kernel says "On Tegra11 dual channel MC effectively operates
-as 64-bit bus" and returns 8 from tegra_mc_get_effective_bytes_width()
-(arch/arm/mach-tegra/include/mach/mc.h, rel-tegranote-r8).
+1. EMC_AUTO_CAL_CONFIG is masked down to the self-clearing start bit
+   before it is written, which clears AUTO_CAL_ENABLE on the first rate
+   change. The bootloader leaves calibration enabled, with channel 0 as
+   master and channel 1 as slave. Patch 1 stops clearing the register.
+   Programming the table values needs the channel registers, which
+   patches 4 to 6 describe and use.
+2. emc_icc_set() assumes a 32-bit DRAM bus, but Tegra114 has two 32-bit
+   channels. Every interconnect request asks for twice the EMC rate, so
+   actmon at 312 MHz moves the EMC to 624 MHz (patch 2).
+3. Pad auto-calibration is disabled for every clock change, but the
+   interval is only restored if EMC_CTT_TERM_CTRL changes, so it stays
+   off after the first change (patch 3).
 
-emc_icc_set() divides the requested bandwidth by 4 bytes instead, so
-every interconnect request asks for twice the EMC rate it needs. The
-actmon OPP table in tegra114-peripherals-opp.dtsi already uses
-kBps = kHz x 16, which matches the 64-bit bus: with the current driver
-actmon at 312 MHz requests an EMC rate of 624 MHz, and actmon at 624 MHz
-requests 1248 MHz, which ends up at the highest table.
+Patches 1 to 3 are small, do not depend on the device tree change and
+are marked for stable. Patch 1 comes first on purpose: patch 2 and the
+clk patch mentioned below make the EMC run at a real 624 MHz on pll_c
+more often, and both panics I saw on a change to that rate were with
+the calibration cleared. Patches 4 to 6 are not marked: they need the
+binding and the device tree. Patches 1 to 5 are for the memory
+controller tree, patch 6 for the Tegra tree. The driver has been there
+since v7.2, but the first in-tree Tegra114 device tree with EMC timings
+(TF701T) came with v7.4-rc1, so the stable tags matter for v7.4 and for
+out-of-tree device trees.
 
-Use 8 bytes. On a Tegra Note 7 (P1640) the EMC rate now follows the
-actmon level (102 -> 102 MHz, 204 -> 204 MHz, 624 -> 624 MHz).
+A separate patch for clk-tegra124-emc.c deals with a related problem:
+PLLM is fixed on Tegra114, but the device trees have timings at PLLM
+rates the bootloader did not set up, and those are loaded with the EMC
+at another rate. I am sending it to the clk maintainers at the same
+time. It does not need this series to build, but it should not land in
+a release without patch 1, for the reason above, so it is not marked
+for stable and asks to be left out of AUTOSEL.
 
-With the correct width the EMC ends up at a real 624 MHz on pll_c more
-often. Both kernel panics I saw on a rate change to 624 MHz were with
-the auto-calibration cleared, so this should not be backported without
-"memory: tegra114-emc: Stop clearing EMC_AUTO_CAL_CONFIG".
+The Tegra Note 7 device tree is not in mainline yet; I used
+Svyatoslav's tegratab series on top of v7.3 with this series. Results
+on the P1640 (Micron MT41K128M16, 1 GB, RAM code 0), with the channel
+registers in the device tree unless noted:
 
-Fixes: dce208b5405f ("memory: tegra: Add Tegra114 EMC driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+- EMC rate follows the actmon level (102, 204 and 624 MHz). The timing
+  registers match the table at each rate.
+- EMC_AUTO_CAL_CONFIG reads 0x20f10000 and 0x28f10000 in the two
+  channels after rate changes (before: 0), the interval is set (before:
+  0), and EMC_AUTO_CAL_STATUS keeps changing (before: stuck).
+- A memory test of 3 h 20 min on a wall charger (1700 passes of
+  checksums and copies over 160 MB, memory sensor up to 65 degC, EMC at
+  624 MHz in 1208 of the 1700 passes) ran without errors, the first two
+  hours together with a WLAN upload of 36 GB. That kernel had this
+  series, an unrelated wlcore fix and a debug print.
+- With an earlier version that mapped the channel registers at fixed
+  addresses, a memory test of about an hour with the EMC switching
+  between 408 MHz on pll_p and 624 MHz on pll_c, and a 32 minute hold
+  test at 624 MHz (pattern left untouched for 150 s per round, then
+  compared), ran without errors or panics.
+- With the same kernel but without the channel registers in the device
+  tree, so that the driver takes the path patch 1 leaves for existing
+  device trees (what a stable kernel with patches 1 to 3 does):
+  EMC_AUTO_CAL_CONFIG keeps the bootloader values 0x20f10f0f and
+  0x28f10f0f in the two channels through rate changes between 204, 408
+  and 624 MHz, EMC_AUTO_CAL_STATUS keeps changing, and a 10 minute
+  memory test switching between 408 MHz on pll_p and 624 MHz on pll_c
+  on every pass (261 passes) ran without errors.
+
+These runs do not prove that the missing calibration caused the earlier
+panics, since those runs also had the wrong bus width, but I have not
+seen a panic on a 624 MHz change since. I also do not claim that this
+series fixes the WLAN hangs: on 7 November the WLAN chip stopped
+transmitting for about a day with these patches applied and then worked
+again, for reasons I could not find, and I have not been able to
+reproduce it. Not tested: Dalmore, Roth, TF701T, suspend and resume.
+
+Mikko, tegra124-emc.c has the same masking of EMC_AUTO_CAL_CONFIG
+(since 73a7f0a90641). I cannot test on Tegra124 and do not know
+whether its channels need the same per-channel setup, so I left it
+alone. Is it worth a look there?
+
+Tool use (see Documentation/process/generated-content.rst): the
+patches, their changelogs and this cover letter were prepared with an
+LLM coding assistant (Claude Code). It compared the driver with the
+downstream tegra11_emc.c and the Tegra 4 TRM, read the EMC registers on
+the device, wrote the code changes and drafted the texts from my
+measurements and instructions. I reviewed the changes and ran all tests
+on the device.
+
 ---
- drivers/memory/tegra/tegra114-emc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Patrick Fischer (6):
+      memory: tegra114-emc: Stop clearing EMC_AUTO_CAL_CONFIG
+      memory: tegra114-emc: Use the full DRAM bus width for interconnect requests
+      memory: tegra114-emc: Always restore the auto-calibration interval
+      dt-bindings: memory: tegra: Add Tegra114 EMC channel registers
+      memory: tegra114-emc: Program pad auto-calibration per channel
+      ARM: tegra: Add EMC channel registers on Tegra114
 
-diff --git a/drivers/memory/tegra/tegra114-emc.c b/drivers/memory/tegra/tegra114-emc.c
-index eb1360627ece..6ec1bb2c3ed0 100644
---- a/drivers/memory/tegra/tegra114-emc.c
-+++ b/drivers/memory/tegra/tegra114-emc.c
-@@ -1163,7 +1163,7 @@ static int emc_icc_set(struct icc_node *src, struct icc_node *dst)
- 	unsigned long long peak_bw = icc_units_to_bps(dst->peak_bw);
- 	unsigned long long avg_bw = icc_units_to_bps(dst->avg_bw);
- 	unsigned long long rate = max(avg_bw, peak_bw);
--	unsigned int dram_data_bus_width_bytes = 4;
-+	unsigned int dram_data_bus_width_bytes = 8;
- 	const unsigned int ddr = 2;
- 	int err;
- 
+ .../memory-controllers/nvidia,tegra124-emc.yaml    | 11 ++++++-
+ arch/arm/boot/dts/nvidia/tegra114.dtsi             |  3 +-
+ drivers/memory/tegra/tegra114-emc.c                | 37 ++++++++++++++++------
+ 3 files changed, 39 insertions(+), 12 deletions(-)
+---
+base-commit: 1e88944ecbe9def8aeef898a2e9ce29cf509a9de
+change-id: 20261107-upstream-emc-t114-4d53a2a5001d
 
--- 
-2.56.0
+Best regards,
+--  
+Patrick Fischer <admin@tsv-stahl-riesa.de>
 
 
