@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421260;
-	b=Fj1yGLyOaQi+fNNT/sj3pgo+lkWWTJIDXO0Zj+glfmSWsESNMd5rEfn8Ba7r/2WymRlM
-	 I+oH+ufedHGXqeUUb+F5aJS/zPF+WSx4ZBdfYD0I73PgK10N9qpUHnGw/AfBbeTyhj9wt
-	 eMtTYlNEt3wCYuGwk2GrqddxvYXUdq95poy0uKU78TM39+GlKBsxKfSNAaAgpd+UbUDRt
-	 IA2eA74U/IsZzGX6wCdPeoHIEi/ZPUgKWkjCW49lE0RC1OP7iD+h5Nl3gdKI4V35GeKL9
-	 KH33Y9xuCj25E7aJrm8kQWYYlVtfVUBZoHg2G9rRc3h95Kta5L5MiaQkhxgC6zlKC2A==
+	t=1794421297;
+	b=mWDnk1bA0iQd7+ilmZhO4PNiLhg+Y2XIfx+zjekrSZGA1qvu4qhbGt+nPiOKQkcjS6N6
+	 +NSg05iqOhyDqF8HViFyd6rcY4qZgu+QABFAFb82KyoVgNv/9EUMF6Ugm8L806j6wtUzP
+	 9MhKoO/rXGvdu5UQXpLi1cJxvtQC5kQLhPGg27iv1JDk+lH9Zs0SwOxVQxmkDPlqPJ5lw
+	 ze4fMwMN+ynJYwePScMPg7Rl6NSPNKYRZrwemeeu5Y+uef5YKVk9tyFekLwBYToXULQRz
+	 uzvlTn7FymUqXweacOsopezwKuUvt6BFcJ4ZYjlRBez4aTBRHSGCgFeQa/vn/f6Hd2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421260;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794421297;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=plt81vRQ+79Q1R/D7SZu/GmJzMzz+R32sw0OjXwQ1wE=;
-	b=CstPEtUW1Qy0KpH8Pky/qe2OgBFzCUHGs+5uLFHPm24ES5ap2qTkINDrQLVj1JRFDN2t
-	 AaQ8C+4EGeWPM4ZK8KZaGc275v4HnrwkzZGlsGeqsAo9ElqTtivykSEKGnsFXipd6PLLB
-	 Ns/HlKTPdMTLI/qCEHT7BN/HemV7g8u9DPF0pwxX6Dk/6D0F0gW3sLRnhcsVCXSWbZ4uC
-	 qzMPWTaJHxLOnWEe/YXeROPq1lKY67GzCtTNIhVpfL0oWs50719V15/s8yfQK6bHjDv7D
-	 Uekt+O8Pf600xCibJcND+h34t7REP+vpP+11LWCGYUsNp8G26Y699qWqJZEQOUnmInw==
+	bh=lCzbiOM6zTl7tyh27ByotKdPrZZ1rktNwIi45p8sWps=;
+	b=TRVf2iEauv6PgrrIr0U8WEAKNoIAIDuokZyz/4qrOncD5QwPJvMYucTnTDNt4yQRdJ5J
+	 mIr9y77xFRQw1BI/0xokufc3H4Jc0gFszVuHDmQ/EbWiC7QoEwWjTi2WqUTVL1Zu/QJNG
+	 gJZzK3h/NnyyB8QM043aaOC5CRn5CH1GihniAhhCSjQqUanHzUZznp4oaG5l/5/3L3fkq
+	 XjJeVfN2qqLZOol1qgL09RlH+7TAmv0FkaOjHi4x6YwmlNabHLvxfzcZYaGqMvbEztpEJ
+	 6QeAkt9xusjPhbNY9m3NvnxJL6v0lJdeHkuOvucQ5/rcXBruUYb2slE3wwdpugnrJGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTTxBQoK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ePWenG72;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68B8606A32A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:21:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6962C606A331
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:21:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTTxBQoK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11F421F00A05;
-	Wed, 11 Nov 2026 18:20:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ePWenG72
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 748131F00A05;
+	Wed, 11 Nov 2026 18:21:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794421260;
-	bh=plt81vRQ+79Q1R/D7SZu/GmJzMzz+R32sw0OjXwQ1wE=;
+	s=k20260515; t=1794421297;
+	bh=lCzbiOM6zTl7tyh27ByotKdPrZZ1rktNwIi45p8sWps=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jTTxBQoKEfwdmQa7mbgivMDHpl6lBCzOyXuo8A77sHl2dBQDRPn/uBkX0NZocGR5b
-	 CQzIMBUp9m1JohUBEvB7MwXwOLLb7uvGohxLy4AFursXOHqo2ZJya7RKtzruYh1/aF
-	 oTGDDfNXL7+3Kj6X89scX/sPlxqdNxpdneo/OUsnb24kQulbCVbgUwBlXPhNuiJaGG
-	 WaiGhEx+SkfSB5Fm7nMDrxLDFdDvZ4Z6+wM7y9V9AjeHc1UEZWGZI3+lgfI91t0Zt5
-	 iaWCLs7RB40zRssgFRhWUiocpthqV87NyPk+2mwt7IJ1uXozYRvClbmeHqZoivClAl
-	 13c/IMsoEk7HQ==
+	b=ePWenG72bhYm7S1JRm4R6qbwTHbEJvOwctxiFRlYXmrVSn/38Epkr8jj9gMozDEGF
+	 jKSOY0GJWp5vbX8ZvcEgP4M7x8XNjeR+blrDMuavaprl/0RlIFYRPWJ0M8ugBtVjOD
+	 HYSYcjFSRECTRYxxWlx6CHBbkO7aQw0D5w6UWkxhjRg+OPqw3V3OvrLQpc9XlbVTLn
+	 sStfTUH7W8KW0dWIOC4BzT1QY6zR2+uMW6X7ZhNkKOVAcGkoiIJbtYtabvU9GmUZeM
+	 OwP3r32EzkUKzbR3YBnrFyY+F0kzZkvXL+I8YRUhYhn/Xu2aFpMZvspd/pCjgQ0rBT
+	 DIucmk/xXeL7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Daeho Jeong <daehojeong@google.com>,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] hwmon: (coretemp) Return -ENODATA for invalid temperature readings
-Date: Wed, 11 Nov 2026 13:20:58 -0500
-Message-ID: <20261111182038.3820042-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] f2fs: release a removed xattr node in roll-forward recovery
+Date: Wed, 11 Nov 2026 13:21:35 -0500
+Message-ID: <20261111182054.3675603-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051231-failed-6.18-f63aaa529cbc@kernel.org>
-References: <20261107051231-failed-6.18-f63aaa529cbc@kernel.org>
+In-Reply-To: <20261107062411-failed-5.10-f5924de8867c@kernel.org>
+References: <20261107062411-failed-5.10-f5924de8867c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,112 +62,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+From: Daeho Jeong <daehojeong@google.com>
 
-[ Upstream commit f63aaa529cbc73146ff0d52235e5479042285cae ]
+[ Upstream commit f5924de8867c09206ba631b9faed63862ec00a10 ]
 
-IA32_THERM_STATUS and IA32_PACKAGE_THERM_STATUS have a valid bit, bit 31.
-The Intel SDM documents it only for the former, but the package register
-implements it too: x86_pkg_temp_thermal has required it since commit
-f1a18a105660 ("Thermal: CPU Package temperature thermal").
+When xattrs shrink enough to fit in the inline xattr area,
+write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
+the file is then fsynced without a checkpoint, only the inode block is
+written, with i_xattr_nid of 0.
 
-This driver checked the bit for both registers as well, until
-commit bf6ea084ebb5 ("hwmon: (coretemp) Do not return -EAGAIN for low
-temperatures") made it ignore the bit because some CPUs clear it while
-the temperature is too low to be measured. Since then, temp%d_input
-reports such a reading as a real temperature. Userspace cannot tell it
-apart from a genuinely low one.
+Roll-forward recovery starts from the checkpointed inode, whose
+i_xattr_nid still points to the old xattr node.
+f2fs_recover_inline_xattr() copies only the inline xattr area, and
+f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
+the stale xattr node:
 
-Fail the read with -ENODATA while the CPU reports the reading as invalid.
-On a CPU that clears the bit, reading temp%d_input now fails where it
-used to return a low value. sensors(1) shows N/A in its place.
+ - The node block is never released, and fsck reports "nonzero bytes in
+   xattr space after end of list".
+ - If the inline xattr list ends exactly at the end of the inline area,
+   its terminator is read from the stale node, and the removed xattrs
+   come back after recovery.
 
+When the fsynced inode has no xattr node but the checkpointed one has,
+release the old xattr node as truncate_node() does: check its block
+address, invalidate the block and drop its node cache, which may still
+be dirty.
+
+Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
 Cc: stable@vger.kernel.org
-Suggested-by: Guenter Roeck <linux@roeck-us.net>
-Link: https://lore.kernel.org/all/46f9f319-de71-412f-a424-6cb801478456@roeck-us.net/
-Signed-off-by: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Link: https://patch.msgid.link/20261006-coretemp-enodata-v2-1-64e788acc7dc@linux.intel.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: Adapted the MSR validity check from val.l to eax to use the existing rdmsr_on_cpu() interface. ]
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: adapted F2FS cache operations to the existing page-based APIs ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/hwmon/coretemp.rst |  3 +++
- drivers/hwmon/coretemp.c         | 21 +++++++++++++++------
- 2 files changed, 18 insertions(+), 6 deletions(-)
+ fs/f2fs/node.c | 38 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-diff --git a/Documentation/hwmon/coretemp.rst b/Documentation/hwmon/coretemp.rst
-index c609329e3bc45..6089bee1159f1 100644
---- a/Documentation/hwmon/coretemp.rst
-+++ b/Documentation/hwmon/coretemp.rst
-@@ -47,6 +47,9 @@ All Sysfs entries are named with their core_id (represented here by 'X').
- 
- ================= ========================================================
- tempX_input	  Core temperature (in millidegrees Celsius).
-+		  Reading fails with -ENODATA while the CPU reports the
-+		  temperature as invalid. Some CPUs do this when the
-+		  temperature is too low to be measured.
- tempX_max	  All cooling devices should be turned on (on Core2).
- tempX_crit	  Maximum junction temperature (in millidegrees Celsius).
- tempX_crit_alarm  Set when Out-of-spec bit is set, never clears.
-diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-index ac56319ff90cf..25a9cf8feb311 100644
---- a/drivers/hwmon/coretemp.c
-+++ b/drivers/hwmon/coretemp.c
-@@ -61,6 +61,8 @@ enum coretemp_attr_index {
- 
- /*
-  * Per-Core Temperature Data
-+ * @temp_valid: Whether the CPU reported @temp as valid. @temp is not
-+ *		reported when this is false.
-  * @tjmax: The static tjmax value when tjmax cannot be retrieved from
-  *		IA32_TEMPERATURE_TARGET MSR.
-  * @last_updated: The time when the current temperature value was updated
-@@ -73,6 +75,7 @@ enum coretemp_attr_index {
-  */
- struct temp_data {
- 	int temp;
-+	bool temp_valid;
- 	int tjmax;
- 	unsigned long last_updated;
- 	unsigned int cpu;
-@@ -391,7 +394,8 @@ static ssize_t show_temp(struct device *dev,
- {
- 	u32 eax, edx;
- 	struct temp_data *tdata = container_of(devattr, struct temp_data, sd_attrs[ATTR_TEMP]);
--	int tjmax;
-+	int tjmax, temp;
-+	bool valid;
- 
- 	mutex_lock(&tdata->update_lock);
- 
-@@ -400,17 +404,22 @@ static ssize_t show_temp(struct device *dev,
- 	if (time_after(jiffies, tdata->last_updated + HZ)) {
- 		rdmsr_on_cpu(tdata->cpu, tdata->status_reg, &eax, &edx);
- 		/*
--		 * Ignore the valid bit. In all observed cases the register
--		 * value is either low or zero if the valid bit is 0.
--		 * Return it instead of reporting an error which doesn't
--		 * really help at all.
-+		 * Bit 31 indicates whether the reading is valid. Some CPUs
-+		 * clear it while the temperature is too low to be measured.
-+		 * Such a reading is not a temperature. Do not report it.
- 		 */
-+		tdata->temp_valid = (eax >> 31) & 1;
- 		tdata->temp = tjmax - ((eax >> 16) & 0xff) * 1000;
- 		tdata->last_updated = jiffies;
- 	}
- 
-+	valid = tdata->temp_valid;
-+	temp = tdata->temp;
- 	mutex_unlock(&tdata->update_lock);
--	return sprintf(buf, "%d\n", tdata->temp);
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 1dddb65e249ad..fc1f0d3bf6ed7 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2635,6 +2635,44 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct page *page)
+ 	f2fs_wait_on_page_writeback(ipage, NODE, true, true);
+ 	memcpy(dst_addr, src_addr, inline_size);
+ update_inode:
++	/*
++	 * The xattr node of the checkpoint was removed before fsync, e.g. the
++	 * xattrs became small enough to fit inline. Release it as well, or
++	 * the inode keeps pointing to the stale xattrs.
++	 */
++	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
++		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++		struct node_info ni;
++		int err;
 +
-+	if (!valid)
-+		return -ENODATA;
-+	return sprintf(buf, "%d\n", temp);
- }
- 
- static int create_core_attrs(struct temp_data *tdata, struct device *dev)
++		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
++								&ni);
++		if (err) {
++			f2fs_put_page(ipage, 1);
++			return err;
++		}
++
++		if (ni.blk_addr != NEW_ADDR &&
++		    !f2fs_is_valid_blkaddr(sbi, ni.blk_addr,
++					   DATA_GENERIC_ENHANCE)) {
++			f2fs_err(sbi,
++				"nat entry is corrupted, run fsck to fix it, ino:%u, nid:%u, blkaddr:%u",
++				ni.ino, ni.nid, ni.blk_addr);
++			set_sbi_flag(sbi, SBI_NEED_FSCK);
++			f2fs_put_page(ipage, 1);
++			return -EFSCORRUPTED;
++		}
++
++		f2fs_invalidate_blocks(sbi, ni.blk_addr);
++		dec_valid_node_count(sbi, inode, false);
++		set_node_addr(sbi, &ni, NULL_ADDR, false);
++		/* drop the cached xattr node, which may be dirty */
++		truncate_inode_pages_range(NODE_MAPPING(sbi),
++				F2FS_BLK_TO_BYTES((loff_t)ni.nid),
++				F2FS_BLK_TO_BYTES((loff_t)ni.nid + 1) - 1);
++		f2fs_i_xnid_write(inode, 0);
++	}
++
+ 	f2fs_update_inode(inode, ipage);
+ 	f2fs_put_page(ipage, 1);
+ 	return 0;
 -- 
 2.53.0
 
