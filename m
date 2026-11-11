@@ -1,100 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794403608;
-	b=4LhQvlbjsZNX2HJPoRIi5Iffh5bXJb+27JBymSSb9trmeRfX3eouL1J0Y4mbTwKYrTiQ
-	 Hoff4RyCdkAChoZgonrNyQhJ1rhhMHUVlg4Jk8adKw9yLaM5PgegA0KfpU1vXByYy8Zxd
-	 2WFUwTkcTvDgg50XlTUnOqvQyYZBg7xfQhwOiN7qj3+H6Gna6Gcw8QEmgkU+ri9QSPg3I
-	 s8np0Hv7/w5Toe0hOCH0NZLiO+VYRY0QBBOI7eKUEbAlBUAYigcDOnbsvcC97YOhQpiUd
-	 PASkHkPrn11aktrDagqTiKBfr2YxfwbCW1nXjnmi3qElhuHzpdR6doIIXuo/s4rYc+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403608;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=IlH/wRxG8izaY2ytsPS7cgG6zhS3AkbgKrtc8usFG4o=;
-	b=HUEF/kg4kQ8CcW0gmExuzkkGW69v8OUNzddne6UImfMOU4G3/aDyOEbv3QypjQWyNdtK
-	 3F/d9Lj0IOHG+xsGaQ7AqL8tBd+E/uiYaVDFPJ3rB0dSdLLd2kG/IabRDgRduhpNPKP8M
-	 m7wsV28J3LloP3Fh/02/JMrvx/a3RlP85HeWhvGJhP7y626SpV1g1omX5Fc6VLWMoieNN
-	 adRDnkKyFCsMf2R31geo13sXyUCYCdnS8zu8vmdPmCHbO6TQDrS/XTGgRXruLy/Xdo42e
-	 qV6pXzaLyWbLtep8NU7yzk3IkTuVU08LlBJUUMs503f/m48S/QQXeOt1ISQPUSMzz1w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sh4uXYD0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.119
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794403652;
+	b=2BckSV8W+DnHaqn8Jy8u7t9MAVfaREE3qRfWPz5nMr2l+4oE9Z6Hv46e9iR/LtkKaRxS
+	 EVaGN4enI30VtufetTRKtXejX6l5mUtxJIWOvF9knDv80ev77GrsD/9T4sdOtKy3HP+uf
+	 hyYau5B839PKN0eIAffmu2an0aEtHn9XVdQjChlKktNfkkEjCi2+hxp4Ohm38CkVD/+E5
+	 OzXrERQBEeEwub24Cmq9rufnwc/xYmVnTJ+r0Om6wE0v7kWo8pwaa7gwXbmqpwUN1X9T6
+	 ecWWsIRA7xwcEaDE87hoN3AQ7JhhpLx5KY44lQizP9DBvspUTdV+m/F4Bc6SxqXEVXQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403652;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QARJ9VnXof6HJ9uLpTgA/dcgK7wuqKGET9OKvLKfK0A=;
+	b=jwElksHMowaKBo11z4jB+jCGYOZ47LPBHI6dJPqIKtFDlaqnS3sWu/FT6P+slPVmkeuo
+	 08Z8Uepnq4Fm3SEnkdOmnQPOjUgoTFnIfQCYha225bh4Ff2gpMJXv96u6aDoDJOVlpQMh
+	 53dQ4v2XQvUGr9rlufg0Tiy5lYcG6YozpJn9+7gUy31OZd3D35H/3H+V2BtOPuLNNf+p4
+	 uc9KgQRTSAmzIdYzf8A6qbQLHxhd+6KMzGiAulUROBQrslfH1ZlfOeLhLZVFoz/UoFJaS
+	 E2MFMo2fqk38ypRhvuqrsHuIqr1Rn0yTIQsWbeIMy4BeNyUnVYNRyubotxHWnNT+uIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o2UKwsxk;
+	arc=none smtp.remote-ip=91.218.175.119
+Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41A1606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:26:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B41A1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D87606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:27:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73D87606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sh4uXYD0
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67c11318ad1so2063158d50.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:26:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794403607; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FeMEIAM9BCVIyN6QzK6wzIbzJfBonMeJKG8BTWjFcmHoAi498duOYoV4i+lFy/Vi2d
-         vZWquZn4MnE6lKSKpBjuebnIIho3oZmYY/fiZdGDe6/DIEc94ZNjlgDttHB5nIWVlLFM
-         XU9uVPFi6uIuDe/SwVkarmrUp4S9iKjxBHhMCpn0ji9LpkdqL/z2fwcDGDx9Pl0YRdSV
-         FfD7sdVxxmEjCDRLy/F7cOs+HPoUsVehnLA+vON+HqnyKDMV2GHb9eCq25nbjxWtOjm5
-         ygZtlyau3p0Z+w6pipBGH2eCSPTVm5Y+T97+cxpUz/9mmF5mpDeRC32HCiA/J/kbFsou
-         A9EQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IlH/wRxG8izaY2ytsPS7cgG6zhS3AkbgKrtc8usFG4o=;
-        fh=4F/4/X2Wp5APfjb45/+fWaunI4QRLkbLf53l80RAg50=;
-        b=VwOJxVTe+QtE9LKs2n6uRe9NPNPCPsc8cXWYkuQ21xap7s6gOgfBeZyWcKFpnW8U1B
-         ZTsJ9/1vjO9ak4svifQV9Wt4+hX+Q5lbFtARYmsZqhC/mne/MeqFiHeAReh3jH7vPNby
-         bukjaaj6vM0rw0ogH5WkHhQ82if7ksc/pspYrI3Itp7GgUSHwVUkakz7aU2d4J2Zi19q
-         ljWLquq7mMAzxBrRHFC8NKgtmiGFTiq6C5FDLSBO6u/kaA8WeR9+0E6Tb+ac08zbBg4q
-         VK9gZrT+U2ayFR/fSyUHHD/BO3pyPg+1c//ZjaIku7lYkmWl+oV/mmcnGe4RMSQBL655
-         e8Ag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794403607; x=1795008407; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IlH/wRxG8izaY2ytsPS7cgG6zhS3AkbgKrtc8usFG4o=;
-        b=sh4uXYD07rzXsx3+6MGIVjCIh6olB0QDiiRMJVeWqwWO8nqxBvzMjANZCvEo/BTV94
-         Q93B9txpwrirCahF9q4j6TCbJRJjs79ag+OBt6pm/BwaNKmJt2vcXvbi9VNOBWUPmXEF
-         H5YPmi7GOUngQbmmhEo/iky8l6tY6tSSe28/7tpmKycftaF+XeK1nXVJ1ZEUfahLHEeF
-         D1efdQ8J36pqZcQkkSeTL4fS1ARLUoHQTBbyD+j3XXNEhfdO+WrCcYizSZuIAvZHjFxB
-         wVtXZNz0WE1RXKUbuoXiyIcRgBPbXkb7ylGz3gkqFDWI7hqdaRkK5H20rqe40/jtmkAn
-         7tqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794403607; x=1795008407;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IlH/wRxG8izaY2ytsPS7cgG6zhS3AkbgKrtc8usFG4o=;
-        b=Sw+KGUVM7I7BlVBOcSPLgrKhqF3toNgbn1HPAmPJqllwhCy3RWxgjWk2ZL2aR3HAoJ
-         MsyVMX+tZ60t02ntcekgdfwTN2j2W/gAyEfWRk5X3CpOR42UXiIZZs1B8+QNqOi6C9R+
-         jiy66OOmztRQz8Sh9zZo4IByx9MboiTJUyeSgpHGiF1eii1lMWdVJtoYNv9B4/Y9m1Qe
-         EDQdVnN6soKLeTICBxEw8suGxB+jF5YDHBot33oWALHwM3zRKDTkdU8KFLa+HqaEkv4I
-         H7YzdXL5D6LkCEeUYlpInKNldJ2nPVAZ7KAqtqIzC52dz4XLG0Ca98kLVWBftanLJXMq
-         qBRw==
-X-Forwarded-Encrypted: i=1; AL+hErGUnv/UuctGDjvU9+jFQYvbLA14JZlQu304G2ZndxaF5hcazV11Q/nOH9HGKQiVV2RV88C0WsY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wcO+VL/Dbo03dISoSB61mSvJCNBlZPziNmd/1Z0NX4NmZWV01
-	IlNnKURlRibPpXreWFEodaxztzElbUYZn3OS+2SU3MFhFKcP39yvipitSDe/QW80Od3B+IQxfwX
-	fvy+i+IZZdvrawD5qR/rB+2TJe8CC6Ro=
-X-Gm-Gg: AYBFou1nS8L3vxPe6CEIT100COtw/bvubNhkb4Ou5294sJ19C1/xmt2YUkLK2slFRVo
-	Vp/Ur5u1VvI9VreSyzBC+Lq9P2KmIhlqAcnUqPenZJEvdJ8c3xwGLagRvTw8coCl4CqFgAcMYue
-	w0WB9sjgaRmTp8ReTG4fKEAlhjBlPLSkC45zEFemgKKmjw5mT1sKAzgnx/9+27XUkPgWyVTdIJ/
-	QjsnUZLkoANWsZK7gezaQYZv+kfQdS6bnCeC56Fi5aUamcdTGQDkC2hzXcBZlz5BoBJjnp7s6Og
-	7q6AuyNo32M4hvJN4G/oKv6yKfALY3lctplHh8GsBc6rwuVNLfhjPl+LssA/RDANx4Bc7ucDkWM
-	tRNtW/kW8u3q/0RI0kyfyj4xfbfCqHFGU1Y4aY8hVP7XfuIC+H3bw6HwXVwOeFgTURw==
-X-Received: by 2002:a05:690e:d01:b0:67c:eb7:5906 with SMTP id
- 956f58d0204a3-67c67ff2a38mr1676909d50.74.1794403606734; Wed, 11 Nov 2026
- 05:26:46 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o2UKwsxk
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Daw104zmP1RB35pXgHiVT+Xk8Kg2ZKvLmXr7A5kKaYI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794403649; v=1; x=1795008449;
+ b=o2UKwsxkvJGeMTEWYDG4Uo41/+wkiOeRt6xr5x5DLGasstkKobWbOUbYFA1Fhb8olMOYsSfc
+ GS4CJ2E3bA5zmOHtbHUY42sfOcdPYjoVnweCBTB7YeuOKCxYglKtGkSeuM/yNUaRE5FPEsmWGHn
+ vUBYorgDq2tNKm07pPEm5wJ4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bdbab32ef129d0ac;
+	Wed, 11 Nov 2026 13:27:29 +0000
+X-Mizu-Trace-ID: bdbab32ef129d0ac
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: stable@vger.kernel.org
+Cc: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
+	Lance Yang <lance.yang@linux.dev>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>
+Subject: [PATCH 6.18.y] khugepaged: fix readahead lock inversion in collapse_file()
+Date: Wed, 11 Nov 2026 21:27:18 +0800
+Message-ID: <20261111132718.89181-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261109200523-failed-6.18-eadce52a9ef6@kernel.org>
+References: <20261109200523-failed-6.18-eadce52a9ef6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,173 +70,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110150250.71520-1-ekffu200098@gmail.com> <87cxsbg1fs.fsf@igalia.com>
- <CABFDxMHOy2JRYfCk0ovp3nzXWMjpXyiYsLGO3k3Up3e76Z-wXw@mail.gmail.com>
-In-Reply-To: <CABFDxMHOy2JRYfCk0ovp3nzXWMjpXyiYsLGO3k3Up3e76Z-wXw@mail.gmail.com>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Wed, 11 Nov 2026 22:26:35 +0900
-X-Gm-Features: AclHuK_RBhRvyxLj-7Lp0K_2O-7u05gQ0gJHWBwaUE7fHFx4beUXxMqWgyrR20U
-Message-ID: <CABFDxMGJ+Uum7dde3AN5Ab+H4Gwb23Upj7r9=SO21NWCo+Mhow@mail.gmail.com>
-Subject: Re: [PATCH] fuse: defer dentry_tree_work until fuse_dentry_tree_init()
-To: Luis Henriques <luis@igalia.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 8:27, =
-Sang-Heon Jeon <ekffu200098@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
-:
->
-> Hi, Luis
->
-> 2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 6:28=
-, Luis Henriques <luis@igalia.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
-> >
-> > On Wed, Nov 11 2026, Sang-Heon Jeon wrote:
-> >
-> > > inval_wq_set() schedules dentry_tree_work when inval_wq is enabled.
-> > >
-> > > But inval_wq_set() can be called at boot or module load before
-> > > fuse_dentry_tree_init() initializes the work, so __queue_delayed_work=
-()
-> > > warns and the work never starts.
-> > >
-> > > So defer scheduling the work until fuse_dentry_tree_init() sets it up=
-.
-> > >
-> > > Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidate=
- expired dentries")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-> > > ---
-> > > QEMU based test result
-> > > - booted with "fuse.inval_wq=3D5"
-> >
-> > Thank you, Sang-Heon.  I've sent a fix for this already[1], but sashiko
-> > still has some race complains which I haven't looked into yet.  But may=
-be
-> > Miklos is happier with your patch, in which case you can add my
->
-> Sorry, I missed that thread.. sashiko also complains about the same
-> race condition between init and sysfs setup. But I'm not sure it is a
-> realistic scenario. So I want to hear other voices as well.
+collapse_file() can call page_cache_sync_readahead() while still holding
+source folios locked. If truncate holds mapping->invalidate_lock
+exclusively and waits for one of those folios, readahead waits for
+invalidate_lock and neither side can make progress.
 
-I also checked the other sashiko's complaints from your patch, the one
-about race between module cleanup and sysfs. It looks easier to
-reproduce, but still I'm not sure this is a realistic problem. If it
-is worth fixing, I will sent v2 with serialization between module
-init, cleanup and inval_wq_set()
+We need to release those folio locks before starting readahead. On a page
+cache miss, roll back first, populate the collapse range, and retry once.
+Doing readahead after rollback avoids an extra pass when all folios are
+already present. If another miss occurs on retry, give up rather than keep
+retrying while truncate or reclaim removes folios.
 
-> > Reviewed-by: Luis Henriques <luis@igalia.com>
->
-> Thanks for your review :)
->
-> > [1] https://lore.kernel.org/20261106155512.24801-1-luis%40igalia.com
-> >
-> > Cheers,
-> > --
-> > Lu=C3=ADs
-> >
-> > > 1) AS-IS (before fix)
-> > > [    0.011073] Kernel command line: rootwait root=3D/dev/vda console=
-=3Dtty1 console=3DttyS0 nokaslr  fuse.inval_wq=3D5
-> > > [    0.011114] ------------[ cut here ]------------
-> > > [    0.011115] WARNING: kernel/workqueue.c:2704 at __queue_delayed_wo=
-rk+0x11a/0x140, CPU#0: swapper/0
-> > > [    0.011124] Modules linked in:
-> > > [    0.011128] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.4.0-r=
-c1-00010-gab9787d7e66a #1 PREEMPT(undef)
-> > > [    0.011130] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996),=
- BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-> > > [    0.011131] RIP: 0010:__queue_delayed_work+0x11a/0x140
-> > > [ 0.011133] Code: c4 08 48 89 df 5b e9 85 28 0a 00 90 0f 0b 90 4c 8b =
-42 08 48 8d
-> > > 42 08 49 39 c0 0f 84 1c ff ff ff 90 0f 0b 90 e9 13 ff ff ff 90 <0f> 0=
-b 90 e9 ec
-> > > fe ff ff bff
-> > > [    0.011134] RSP: 0000:ffffffff82e03e00 EFLAGS: 00010003 ORIG_RAX: =
-0000000000000000
-> > > [    0.011135] RAX: 0000000000000000 RBX: 0000000000000040 RCX: 00000=
-00000001388
-> > > [    0.011136] RDX: ffffffff83a3f320 RSI: 0000000000000000 RDI: 00000=
-00000000040
-> > > [    0.011136] RBP: 0000000000000000 R08: 0000000000000082 R09: 00000=
-00000000001
-> > > [    0.011136] R10: 000000000000000a R11: 000000000000000a R12: fffff=
-fff82c09fd0
-> > > [    0.011137] R13: ffff88807ffcfb89 R14: 0000000000000000 R15: 00000=
-00000001388
-> > > [    0.011140] FS:  0000000000000000(0000) GS:ffff8880fa26e000(0000) =
-knlGS:0000000000000000
-> > > [    0.011141] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > > [    0.011141] CR2: ffff888003a67000 CR3: 0000000002e30000 CR4: 00000=
-000000000b0
-> > > [    0.011142] Call Trace:
-> > > [    0.011143]  <TASK>
-> > > [    0.011143]  queue_delayed_work_on+0x6a/0x80
-> > > [    0.011145]  inval_wq_set+0xc4/0xe0
-> > > [    0.011149]  parse_args+0x299/0x3c0
-> > > [    0.011151]  ? __pfx_unknown_bootoption+0x10/0x10
-> > > [    0.011154]  start_kernel+0x3b8/0x7c0
-> > > [    0.011156]  ? __pfx_unknown_bootoption+0x10/0x10
-> > > [    0.011157]  x86_64_start_reservations+0x24/0x30
-> > > [    0.011160]  x86_64_start_kernel+0xd1/0xe0
-> > > [    0.011162]  common_startup_64+0x13e/0x158
-> > > [    0.011165]  </TASK>
-> > > [    0.011166] ---[ end trace 0000000000000000 ]---
-> > > [    0.011173] ------------[ cut here ]------------
-> > >
-> > > 2) TO-BE (after fix)
-> > > - no error while booting, and also fuse_dentry_tree_work works well.
-> > >
-> > > ---
-> > >  fs/fuse/dir.c | 10 ++++++++++
-> > >  1 file changed, 10 insertions(+)
-> > >
-> > > diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-> > > index da23ccd8685c..6965a77a871f 100644
-> > > --- a/fs/fuse/dir.c
-> > > +++ b/fs/fuse/dir.c
-> > > @@ -39,6 +39,7 @@ static struct delayed_work dentry_tree_work;
-> > >  /* Minimum invalidation work queue frequency */
-> > >  #define FUSE_DENTRY_INVAL_FREQ_MIN 5
-> > >
-> > > +static bool inval_wq_ready;
-> > >  unsigned __read_mostly inval_wq;
-> > >  static int inval_wq_set(const char *val, const struct kernel_param *=
-kp)
-> > >  {
-> > > @@ -62,6 +63,10 @@ static int inval_wq_set(const char *val, const str=
-uct kernel_param *kp)
-> > >
-> > >       *((unsigned int *)kp->arg) =3D num;
-> > >
-> > > +     /* Defer the work until fuse_dentry_tree_init() sets it up. */
-> > > +     if (!inval_wq_ready)
-> > > +             return 0;
-> > > +
-> > >       if (num && !old)
-> > >               schedule_delayed_work(&dentry_tree_work,
-> > >                                     secs_to_jiffies(num));
-> > > @@ -224,6 +229,11 @@ void fuse_dentry_tree_init(void)
-> > >               dentry_hash[i].tree =3D RB_ROOT;
-> > >       }
-> > >       INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
-> > > +     inval_wq_ready =3D true;
-> > > +
-> > > +     if (inval_wq)
-> > > +             schedule_delayed_work(&dentry_tree_work,
-> > > +                                   secs_to_jiffies(inval_wq));
-> > >  }
-> > >
-> > >  void fuse_dentry_tree_cleanup(void)
-> > >
-> > > base-commit: ab9787d7e66ac7e6e94fc975b37c5b56fff98ca9
-> > > --
-> > > 2.53.0
-> > >
-> >
->
-> Best regards,
-> Sang-Heon Jeon
+Keep page_cache_sync_readahead() and wait for read I/O with
+filemap_lock_folio(), releasing each folio before moving to the next. The
+existing uptodate check during collapse still handles read errors.
+
+Shmem uses shmem_get_folio() for swapin and fallocated folios without
+taking mapping->invalidate_lock, so it is unaffected.
+
+Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261026152013.10511-1-lance.yang@linux.dev
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+(cherry picked from commit eadce52a9ef657d561b3e76c9b5f178bd99735f5)
+---
+Backport to 6.18:
+- 6.18 still takes invalidate_lock in collapse_file() after locking the
+  source folios. Use filemap_invalidate_trylock_shared() and roll back
+  on contention, otherwise the same deadlock is possible even after
+  moving readahead.
+
+ mm/khugepaged.c | 49 +++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 37 insertions(+), 12 deletions(-)
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index cc3a09a0c259..fd2c6d92b0b1 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1867,6 +1867,8 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+ 	int nr_none = 0, result = SCAN_SUCCEED;
+ 	bool is_shmem = shmem_file(file);
++	bool do_readahead = false;
++	bool readahead_done = false;
+ 
+ 	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
+ 	VM_BUG_ON(start & (HPAGE_PMD_NR - 1));
+@@ -1878,6 +1880,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 
+ 	mapping_set_update(&xas, mapping);
+ 
++retry:
++	result = SCAN_SUCCEED;
++	do_readahead = false;
++	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
+ 	__folio_set_locked(new_folio);
+ 	if (is_shmem)
+ 		__folio_set_swapbacked(new_folio);
+@@ -1942,17 +1948,9 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 			}
+ 		} else {	/* !is_shmem */
+ 			if (!folio || xa_is_value(folio)) {
+-				xas_unlock_irq(&xas);
+-				page_cache_sync_readahead(mapping, &file->f_ra,
+-							  file, index,
+-							  end - index);
+-				/* drain lru cache to help folio_isolate_lru() */
+-				lru_add_drain();
+-				folio = filemap_lock_folio(mapping, index);
+-				if (IS_ERR(folio)) {
+-					result = SCAN_FAIL;
+-					goto xa_unlocked;
+-				}
++				do_readahead = !readahead_done;
++				result = SCAN_FAIL;
++				goto xa_locked;
+ 			} else if (folio_test_dirty(folio)) {
+ 				/*
+ 				 * khugepaged only works on read-only fd,
+@@ -2090,7 +2088,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		 * in do_dentry_open() truncating the page cache. This is
+ 		 * particularly important if there are dirty folios in transit.
+ 		 */
+-		filemap_invalidate_lock_shared(mapping);
++		if (!filemap_invalidate_trylock_shared(mapping)) {
++			result = SCAN_FAIL;
++			goto rollback;
++		}
+ 		filemap_nr_thps_inc(mapping);
+ 		/*
+ 		 * Paired with the fence in do_dentry_open() -> get_write_access()
+@@ -2291,6 +2292,30 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	new_folio->mapping = NULL;
+ 
+ 	folio_unlock(new_folio);
++
++	/* Readahead may take invalidate_lock; source folios are unlocked. */
++	if (do_readahead) {
++		for (index = start; index < end;) {
++			folio = filemap_lock_folio(mapping, index);
++			if (IS_ERR(folio)) {
++				page_cache_sync_readahead(mapping, &file->f_ra,
++							  file, index, end - index);
++				folio = filemap_lock_folio(mapping, index);
++				if (IS_ERR(folio)) {
++					result = SCAN_FAIL;
++					goto out_put;
++				}
++			}
++			index = folio_next_index(folio);
++			folio_unlock(folio);
++			folio_put(folio);
++		}
++		/* Drain the local LRU batch before retrying isolation. */
++		lru_add_drain();
++		readahead_done = true;
++		goto retry;
++	}
++out_put:
+ 	folio_put(new_folio);
+ out:
+ 	VM_BUG_ON(!list_empty(&pagelist));
+-- 
+2.49.0
+
