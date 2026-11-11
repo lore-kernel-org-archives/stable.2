@@ -1,60 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367436;
-	b=dfr4naH8fGTW8MNqJvdXn9eyg1Pj3ghGz73tLlRija7c+elXd/QEo+u4BfOndrxPIdAt
-	 fovC1vVwJ3943WRY7zqnsy5XlwBVyk8Br3CKWDkaqMgc6D0YzoxAi/jNEkCGtH2nNd7PM
-	 w0cfItslrtrNvJZUsa9LcEVxrutrhw9ads9QfMvoblyOMdLRBXfuTcodmrjITl3I5Rr2M
-	 aTH54vcAhO6PVQPExNqPze+sUN1JvMPVHwbKOnNa5Uu2fjJYrC88wHk37t89dgiv5TKIt
-	 mpBZwBqfOUWxvOSxySV2pFd9HUhPhVCpGYvE1HFyinnXaoKnW5OG0Si3jG9+BXKSySw==
+	t=1794367439;
+	b=bNZYj85g1bsqNZpBb3ltOYSYjH+vJg/JygwgNrTgKgBLhbn0SZPlD76KpukOPIh7vPn0
+	 09QqEuMl3ShjTnkbdEcBuTBSjxWm5ar5pk9sHTYGn0mAG5Le5kHZ7u+6RLPJHESM0/sQT
+	 E1CBf4571CZ6syWVTiUqLhD1Gf537ZdHSqRDR6PYnjmHLHDduugN27f/dTGAvsDwFpBS2
+	 3n4noB/iZIiNTr5MVJmkHwQOfiyf8k6d84SYQPeKOP/j9VPbSNYNzoR2E4JQ0m5U95c2O
+	 0KLCbozb7TQ7aXC6Wb/D/jg/aGQRAk6s1bdf0J8qZ4uPpJ7JtaP/bb1GiBvkfPzb74w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367436;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kuGszS9Lfrf5RfF4V1hI8Xte0k/ziHqDGXb0U45lOag=;
-	b=iqPpUe7hRnA8/TQaf+DNtajCDJP+d9rWbQDLd0u7DEGQ4RltdCw/15a46pZAL3gmjr64
-	 mJjyThz9U+/yQThtd+fGqU++PZF4685JAwlK5/BvQMcDN+qSRAL4/mJbahNsgVO4wiE1A
-	 HG6mjkerAeik+oWm9h6uwBjpTCozTuDhEzMMRvcrdbJ27OiNjSqV7RvdVFKogo9fow88Q
-	 jR5j0D6gxHnHGME69XGvPIthiBp53kT2VVL6znJV2sjiPaR7PLxtS4qw/gqHGeIohkVo0
-	 Y5hHH3UIZfvIp89WIzCDZkyVDTunc05m7Bg2HTWwCOyf7073ZaI0DH8uul8RF87fm2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367439;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=t6vNfQ8SI2LqTx1rlc7rYaZCkpTPoetYSICm3Sca440=;
+	b=26WBBQdna5CUdRnM9xkGtEfaWLh321NKM30izbIiXBNzwpFBszjrnbnqh13OZ6O2BaPw
+	 jbJZjMW71IdswH8Ht+H1K7QZEAtyUNEksrffaIK83v2uGjIgpCiOM0L6gUl1etVybNcqw
+	 24dXgKl0/QCmlAY47nXpd28PKanX5o4R3HnD2ihv+tGN5AYkPbcYc6CbpzhtaHpQB7ReA
+	 vRPKJcnOIyRb0pCMUKMzP1kTjh2QwQeoLV/vaLNJ/2xXewK0cCITi5dXk7n9xzg3z9vzS
+	 NX4kN2c1cC/f6Usam3ov5clEWMwHRAJHpOp3FdfN0qKmAGZi+s5uZvnfH8SHMYnflyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=NFsfLl7a;
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F225606A32E
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:23:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F225606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=NFsfLl7a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794367431; x=1794626631;
-	bh=kuGszS9Lfrf5RfF4V1hI8Xte0k/ziHqDGXb0U45lOag=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=NFsfLl7aVQ4cR5Ieenrw4HvqnfXE158VrpFlHlYih5YhoMb83sjl+FckAyRAStgT7
-	 vTaYE9doV4ckhIEa/vzNT5cDyOVTEyYfjNh+Vhg3We1PHtu/1NrWUq5o8FxnP1jDnN
-	 K1uxjQUkKj1QwgGOidw5dmczWjWMa/i/cIQCXmdwNu5TWa8tiMykFv1mpAlkDzTZip
-	 kX2vEUYcGIJ13BKXx6LSNwbAcIC+7NbLyCgv70LkUS33ACafCs44pPTjFIUO1qSo6e
-	 oHsfCI8xVZza5h3rg3nYVxONKh4uCL8lW4d9QRUWaY+2PNWM/cdwpJVv2fsxz/gnl+
-	 Y/73vkj4l/ghg==
-Date: Wed, 11 Nov 2026 03:23:48 +0000
-To: Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-From: Soheyb <soheyb_boulaa@proton.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Soheyb <soheyb_boulaa@proton.me>, Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH v2 2/3] phy: exynos5-usbdrd: return the Exynos2200 high-speed phy init error
-Message-ID: <20261111032309.3365794-3-soheyb_boulaa@proton.me>
-In-Reply-To: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
-References: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
-Feedback-ID: 140697376:user:proton
-X-Pm-Message-ID: d855c3b8805661db49d988325c6216cccc83caf4
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2204606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:23:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2204606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=t6vNfQ8SI2LqTx1rlc7rYaZCkpTPoetYSI
+	Cm3Sca440=; b=5Wjulw7672QBSVoKO7GWVqrAl1tzbXU6+mLzOJfSc+op6UUYNu
+	bMYAMlkBWwaey83ZSHpFksim8LvJfDDX3PIAeh0ef8OnKa14THkeMr2hgHFdO8mf
+	1TfFq/8t5B2HJoMy9yrCo7LCe+7x2UT4NABpRDoVaVY/aP5gfrMZvIoKE=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.33])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkA2WgC43_Nqjj1yAQ--.12932S2;
+	Wed, 11 Nov 2026 11:23:38 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: stable@vger.kernel.org
+Subject: [PATCH 5.10.y] ALSA: usx2y: Refuse a retried DSP load after a failure
+Date: Wed, 11 Nov 2026 11:23:36 +0800
+Message-Id: <20261111032336.8545-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261109202907-failed-5.10-1f8101b6adc8@kernel.org>
+References: <20261109202907-failed-5.10-1f8101b6adc8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,51 +55,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkA2WgC43_Nqjj1yAQ--.12932S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr1UAr13Kw15tr43ZFWrXwb_yoW5Jw47p3
+	9xuFWDtrWqqw4q9a1DXw4qk3W09rs0yFW3J3sYyw48Ar1DAFyfCrWFgw12gF42yrWrAa40
+	qFZFgr1UWFW5Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
+	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1j6r15MIIYrxkI
+	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
+	1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
+	42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07bOPEhUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUOD2rzM1Z-AQABsG
 
-exynos2200_usbdrd_utmi_init() ignores the result of phy_init() on the
-high-speed phy and returns 0. When the high-speed phy fails to
-initialize, the UTMI phy thus counts as initialized, and the controller
-goes on with a high-speed phy that is not set up.
+snd_usx2y_hwdep_dsp_load() sets up the asynchronous sequence URBs and
+the interrupt URB when the FPGA firmware image with index 1 is loaded,
+and then creates the ALSA devices.  If usx2y_in04_init() or
+usx2y_create_alsa_devices() fails, the URBs that were already set up
+are left in place.
 
-Return the result of phy_init(), so that a failed init of the
-high-speed phy fails the init of the UTMI phy. The next patch, which
-exits the high-speed phy with the UTMI phy, relies on it: an exit after
-a failed init would otherwise take the init count of the high-speed
-phy below zero.
+The core keeps the index unloaded when the callback fails, so user
+space may issue the same request again.  The second attempt then enters
+usx2y_async_seq04_init() or usx2y_in04_init() with the URBs still
+allocated and trips WARN_ON(usx2y->as04.buffer) or
+WARN_ON(usx2y->in04_urb).
 
-Fixes: cc52a697f87e ("phy: exynos5-usbdrd: support Exynos USBDRD 3.2 4nm co=
-ntroller")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-phy/sashiko-outbox-205724@kernel.org/
+The URBs cannot be released at this point: the card may already have
+registered PCM devices that user space can still open, and the
+disconnect handler accesses the URBs without holding the DSP lock.
+Mark the chip as hung instead, so that a retried request is refused
+with -ENODEV and the assertions keep their meaning.  The URBs are
+released by snd_usx2y_card_private_free() when the card is freed.
+
+A failing usx2y_async_seq04_init() still releases its own URBs, so that
+path remains retryable.
+
+In 5.10 a failure of usx2y_create_alsa_devices() frees the card, so
+there is no retry to refuse on that path and only usx2y_in04_init() is
+marked as hung here.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Soheyb <soheyb_boulaa@proton.me>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+(cherry picked from commit 1f8101b6adc87a3ddbd51fcb6609251591758026)
 ---
-v2: new patch, after Sashiko's review of v1.
+ sound/usb/usx2y/usX2Yhwdep.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung=
-/phy-exynos5-usbdrd.c
-index a6fe779..cf0597a 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -1369,9 +1369,7 @@ static const struct phy_ops exynos7870_usbdrd_phy_ops=
- =3D {
- static int exynos2200_usbdrd_utmi_init(struct exynos5_usbdrd_phy *phy_drd)
- {
- =09/* Configure non-Samsung IP PHY, responsible for UTMI */
--=09phy_init(phy_drd->hs_phy);
--
--=09return 0;
-+=09return phy_init(phy_drd->hs_phy);
- }
-=20
- static void exynos2200_usbdrd_link_init(struct exynos5_usbdrd_phy *phy_drd=
-)
---=20
-2.56.0
-
+diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
+index eeafe580d..50c03e6cd 100644
+--- a/sound/usb/usx2y/usX2Yhwdep.c
++++ b/sound/usb/usx2y/usX2Yhwdep.c
+@@ -193,6 +193,9 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
+ 	int lret, err;
+ 	char *buf;
+ 
++	if (priv->chip_status & USX2Y_STAT_CHIP_HUP)
++		return -ENODEV;
++
+ 	snd_printdd("dsp_load %s\n", dsp->name);
+ 
+ 	buf = memdup_user(dsp->image, dsp->length);
+@@ -217,6 +220,7 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
+ 		err = usx2y_in04_init(priv);
+ 		if (err) {
+ 			snd_printk(KERN_ERR "usx2y_in04_init error\n");
++			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
+ 			return err;
+ 		}
+ 		err = usx2y_create_alsa_devices(hw->card);
+-- 
+2.34.1
 
