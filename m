@@ -1,55 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794357644;
-	b=PqJAXGLv7l7ZzZrIfaW/mMDNctwNvgFa6T2oG8CkDoymL5TuYfdFqSklGmmQLSWQfsOX
-	 iWUnP4nfTIINe5k8lSKpan9recJxuqqE4CSKq2Oa6pzPZPegZQaxijR3s9e5Xlh3B97OD
-	 HcrFPdVbrKSYoNC75+keDLXZKFagoXshkFGWmlyN7hZy4EiIEqY+g2rCU77XcVgMs4lpK
-	 lGuY0UiRQ3Tds7PjGwZEoH1f7eImR7KQipEcgPFtp/zN3qwhOhVHHDxgHCuKf3GqMNkrh
-	 OqpmlhEeNYjly6J68Ht2TzzoDX3iS1I8l74A2VmkwJbzhzcHn5k6PHL5kwZAqYahQzw==
+	t=1794357729;
+	b=YfB30tlYtEATguD31opORbDfUl3EljCFlK0uBkjHehVHbOzDz+Kx6IuPMcNEyYWSGzgj
+	 czQH4/ATvs6YmUm48lvH9tdJcKunVMBjTskkJzSRRs/3GtXrO+MDILZ7DeSmCql/vGExc
+	 qihtje6jrFdIk3Z25KAmdkolTsKN6dqudv99OoH3bJh3MLMjZOkeWuAuqfIyHET/QbC3x
+	 UJUJxnYAglc1KxK0kmFdCc+f4bSYypxnHTEjBMY1W+GIfnVcr8nCcnCiD8YbQ2JaKMeH3
+	 8SqIejDFKw1FgYzgGuAYjcle5cMMmKinLycDso9GdbyR8BN2CBPGtt7AhmzLGaNLkZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357644;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357729;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1M5ZgFz6KcfVMsA0N5dQFTgZxJVszqvfsrrFeCjl2UM=;
-	b=4UGod7DIQeYNi+I1/aPV8+XVZK79aKTR8wrwni91jWcRr0YXWTLei/IVmG4ChC6horat
-	 ENY/ERayO/YcnUpomGDCD7yfBH6lc23zcyU3rZsb2LGwbQkvd+fv/XQfjFKaLivHxv5Ue
-	 6jS+8cUPUHx9fe1zM2YgdsD5c8vMIIfKSH8HwGs9PyVGqAT/Ts8xW0NrxdwAA8Qu9Vo2q
-	 yVqrYAH8cZXaHCy0QvM5Zj7f8LUYhT9GcZa1cU7+tlizurQlBHmq3sZH8DekhATq7+JY0
-	 +5b7fKAd6VK5k8Qu8VvDXftlBM8B8kbHAdQEr2AXd9pb/X4zZPgc9b6H2WLhauVpO1w==
+	bh=ZBrUBkuVCJ8jk/FQKVI5TQDWBhCPPKzrv3AMz7D1GrE=;
+	b=KLhZMAPX/jCHaDnKzd5CO2rz2b26kvgt64zdoEsxX8zq+UY0zRVtXGh04NTo7YVNqZi0
+	 Ktgt4uT9LY263YxDeP8V5mJ0+nBhBatTRHRWgM7gEQIkGe29bv+CRVXP1AYBWCJvFaTT4
+	 luqcGqS9rhcTTXZgfjS69YZmORTrcTJViAvIbRh+HfQs9TUTFkk58HWW2MYFp3fWegPix
+	 oyLBewN6ZgzxuvE0wqjWh1aYtT2Y71i/KS+66i+3YrVWosZIzuTVDXyZ33nFWbB975DRt
+	 dyFtEps1AyEQANXGCC3kWKcMG7DEU1EHb4ff5z/wlp1FFkNjGRfkPv18PDOa8r44C4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbsfAd2V;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQTL8OlH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E03E606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:40:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8CC606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:42:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbsfAd2V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87C3C1F0089F;
-	Wed, 11 Nov 2026 00:40:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQTL8OlH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28FD81F0093C;
+	Wed, 11 Nov 2026 00:42:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794357644;
-	bh=1M5ZgFz6KcfVMsA0N5dQFTgZxJVszqvfsrrFeCjl2UM=;
+	s=k20260515; t=1794357729;
+	bh=ZBrUBkuVCJ8jk/FQKVI5TQDWBhCPPKzrv3AMz7D1GrE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lbsfAd2VM2+siJvb9Gr/s/D4cGO3JLjafqWR9w5Z8jgG12fV/aYjUZpJrpnUfQSaT
-	 oHS5sOki5VEJHlvyj6aBgw5o+swqGRCVtGzls160INYqt/RNRJXMlcWycBsXVms4DR
-	 iv1NE6XZ4G11Ex3+zUnO6pQxF6ILWh8RsrO4C0BYTVpGO8Zvj4fbBNSdfIVQVNXJNY
-	 EOaX9xsVlTXsOmfA5hnf7M/0hjzttsiY+8CGIBGKLxBvITo7utFRTLoxX1R0hvS/U+
-	 XTOZzvKoIu+BlEMw77WPfAOdFkqxfDMrKPF71D33+2xVkq6MKJtEA8C3+JuS4bSmBk
-	 zEUb/BWs41M0g==
+	b=OQTL8OlHYei6ZM9pQduMqbMZaOR7h7huw22VnMgDB62WKjSxtg2E3teTRXB5qMS7W
+	 qbcCd00C3zkx1evkmGMHfXDOO19vtaWHQG/X42P8FQcjfyvpz10gRpmxVLLqyRXP6+
+	 wFZzeZ873h2iUvpfyhzVUi39It08PGAsBYQVTwPAiWr+bJQM/zsCLYLC8ZOBWSBHKV
+	 NneRTUA2kbmXqdkQlFEDwvkYvqJCgjRQK7tJ0pM02sjGXrd1XxelCexJLTpJb9Zqf6
+	 0O8TtR2JGBCmbslraQxJbwwxOwdRga/HD80dR3LZippHcrlZJhBohKw0F7I9fgdHQQ
+	 Fdxngd6PypzoA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Juergen Gross <jgross@suse.com>,
+Cc: Gregory Price <gourry@gourry.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Peter Xu <peterx@redhat.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()
-Date: Tue, 10 Nov 2026 19:40:42 -0500
-Message-ID: <20261111003822.292437-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
+Date: Tue, 10 Nov 2026 19:42:06 -0500
+Message-ID: <20261111004148.287534-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054621-failed-6.1-6f165abe2b40@kernel.org>
-References: <20261107054621-failed-6.1-6f165abe2b40@kernel.org>
+In-Reply-To: <20261107052032-failed-6.12-9057170a941f@kernel.org>
+References: <20261107052032-failed-6.12-9057170a941f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,49 +73,181 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Gregory Price <gourry@gourry.net>
 
-[ Upstream commit 6f165abe2b40ede71c98956cd74cd17c18505e75 ]
+[ Upstream commit 9057170a941f0c5f4058f6fb9ab5d5fc9fcc9e83 ]
 
-dmabuf_exp_wait_released() takes a reference on the exported
-gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
-dmabuf_exp_wait_obj_new(), which drops that reference after adding the
-wait object to the wait list.  When the wait object allocation fails,
-dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
-reference is never dropped, leaking a reference to the exported
-gntdev_dmabuf.
+Patch series "mm: stop calling pmd_folio() on special PMDs", v3.
 
-Drop the reference on the allocation failure path so the reference is
-consumed whether the wait object is created or not.
+Two page table walkers resolve the folio behind a PMD with pmd_folio(),
+which is only valid for a PMD mapping a refcounted struct page:
 
-Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260916170956.2086505-1-vulab@iscas.ac.cn>
-[ sashal: adjusted allocation context from kzalloc_obj(*obj) to kzalloc(sizeof(*obj), GFP_KERNEL) ]
+  madvise_cold_or_pageout_pte_range() mm/madvise.c
+  queue_folios_pmd() mm/mempolicy.c
+
+vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
+have a memmap entry at all.  Both walkers can reach one and fault on the
+first folio field read.  The PTE halves of both already use
+vm_normal_folio(); these two patches make the PMD halves match.
+
+The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
+
+  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
+  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
+  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
+  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
+
+can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
+madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
+supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
+never runs and vfio-pci is reachable by any process holding the device fd.
+Hence the different stable tags.
+
+One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
+region now returns 0 rather than -EIO.  The PTE loop already returned 0
+there.  drm_gem_shmem and panthor are where this is observable, since they
+PMD map pages that do have a memmap entry and so never faulted.
+
+Reproducer
+==========
+
+No hardware needed.  An out of tree module stands in for the drivers
+above: three misc devices, each with a ->huge_fault calling
+vmf_insert_pfn_pmd(), plus VM_HUGEPAGE so the fault path takes the PMD
+branch.
+
+  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
+
+Userspace maps the device into a PMD aligned window, reads one byte to
+fault the PMD in, checks a module parameter to confirm it went in, then
+issues the operation.
+
+  vng --run <bzImage> --user root --memory 4G --verbose \
+      --append "numa=fake=2" \
+      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
+
+numa=fake=2 gives a node 1 to bind to; the module allocates its real page
+on node 0, which is what makes queue_folio_required() true.
+
+  subtest        operation                              parent   series
+  --------------------------------------------------------------------
+  madv_cold      madvise(MADV_COLD)                     oops     ret=0
+  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
+  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
+  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
+  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
+
+Two things the table shows that are easy to miss in the code:
+
+  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
+    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
+    vma_migratable() is true for VM_MIXEDMAP.
+
+  - mbind_real demonstrates the user visible change (-EIO -> 0)
+
+This patch (of 2):
+
+mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
+vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
+
+	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
+
+With a stand-in module for the driver:
+
+  BUG: unable to handle page fault for address: fffff96dc0000008
+  RIP: 0010:queue_folios_pte_range+0xaf/0x440
+   walk_pgd_range+0x52b/0xaf0
+   __walk_page_range+0x6a/0x1d0
+   walk_page_range_mm_unsafe+0x193/0x230
+   queue_pages_range+0x64/0xa0
+   do_mbind+0x25e/0x640
+
+queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
+is raw MMIO with no memmap entry, so the folio lands in unpopulated
+vmemmap.  Neither guard stops the walk:
+
+  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
+                           supplies ->test_walk, so it never runs
+  queue_pages_test_walk()  honours vma_migratable(), but only while
+                           MPOL_MF_STRICT is clear
+
+A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
+mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
+into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
+mapping.
+
+Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
+queue_folios_pte_range() already does with vm_normal_folio().  This also
+filters the huge zero PMD, so its separate check is no longer needed.
+
+mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
+rather than -EIO.  The PTE loop already returned 0 there.
+
+Link: https://lore.kernel.org/20260926105110.2156652-1-gourry@gourry.net
+Link: https://lore.kernel.org/20260926105110.2156652-2-gourry@gourry.net
+Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Assisted-by: LLM
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: <stable@vger.kernel.org>
+[ sashal: Passed *pmd to vm_normal_folio_pmd() instead of the upstream cached pmdval variable. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/xen/gntdev-dmabuf.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ mm/mempolicy.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-index 7df26330af424..8dd95385d3e46 100644
---- a/drivers/xen/gntdev-dmabuf.c
-+++ b/drivers/xen/gntdev-dmabuf.c
-@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
- 	struct gntdev_dmabuf_wait_obj *obj;
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 6f29f764762b2..193ebf34bf083 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -500,7 +500,8 @@ static inline bool queue_folio_required(struct folio *folio,
+ 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
+ }
  
- 	obj = kzalloc(sizeof(*obj), GFP_KERNEL);
--	if (!obj)
-+	if (!obj) {
-+		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
- 		return ERR_PTR(-ENOMEM);
-+	}
+-static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
++static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
++		struct mm_walk *walk)
+ {
+ 	struct folio *folio;
+ 	struct queue_pages *qp = walk->private;
+@@ -509,11 +510,9 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
+ 		qp->nr_failed++;
+ 		return;
+ 	}
+-	folio = pmd_folio(*pmd);
+-	if (is_huge_zero_folio(folio)) {
+-		walk->action = ACTION_CONTINUE;
++	folio = vm_normal_folio_pmd(walk->vma, addr, *pmd);
++	if (!folio || folio_is_zone_device(folio))
+ 		return;
+-	}
+ 	if (!queue_folio_required(folio, qp))
+ 		return;
+ 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
+@@ -545,7 +544,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
  
- 	init_completion(&obj->completion);
- 	obj->gntdev_dmabuf = gntdev_dmabuf;
+ 	ptl = pmd_trans_huge_lock(pmd, vma);
+ 	if (ptl) {
+-		queue_folios_pmd(pmd, walk);
++		queue_folios_pmd(pmd, addr, walk);
+ 		spin_unlock(ptl);
+ 		goto out;
+ 	}
 -- 
 2.53.0
 
