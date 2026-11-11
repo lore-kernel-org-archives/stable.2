@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794360832;
-	b=ohpUsWdO5tPE3mq5TmHe7A9JuhVE3EIW8l1HcfrTHwGMHqYZ6RlolsyJ1YeJfsxOhFW+
-	 /VSNk39+BkOSz4e1UN+wNl+VqpAbt94EDMMP0aDZpBGTZlm8hsMUgLnBkggTAcxhMc0NN
-	 WGSg5/UMkV9G7k2QNvmrwUyYhJsAMFtJ2Wy6mhIhR8CXGKChCyry9hR6YrYc+8pZY/KTa
-	 Ob/9v93EhYs93FvsvOKQoj1EKut8Ew3iv902sq6xg3Vb+V9XeGEZGwDTz/ZXfbjN42SIi
-	 myFvEpO5qoG/NJU3qd7gKZe5PttU6wkSHlzrbZUOVWIQAdNHCwTTXFd78D9WAdCaHaw==
+	t=1794360890;
+	b=JSsizU/zmjDGIPdWRWylWtjaN/kPE3lmKHlfSj2ubKVGIF3dZ0CHZ8Vr/bCD42PHzrOb
+	 6yk0h+kyOvkcJ0rC801oQWZln/Xn9RBOjToiLS15uoDTXWj9+1FHqgfBV74rYK0toHhhe
+	 IEh2n4ido28ofNeyKmqARG5y+LdekGNBCpNIBPE0xPnCC+shSord1t/sJ0kpqA38gMDVY
+	 RHQ1Zg0JgjOpcJyESojYEh94qziaXfL5yXi3qDlOUqy6eiBscEouIKiyBD0FWEpBhJSJ7
+	 eDHb6AsuPfVjI9fz6Pfd246TC7Ipfv9RtqCOXefukPwJilrZxrWQFxCDR8uIbCbbbHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794360832;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=6bOmDR9rjoTllDG8XnTzVGPv/y+fMC3MFZoXWA6zKMY=;
-	b=C+QACB8QFVkWrQ5uJ67Dab4H75SrlhdeZrqOoaVDDBdSfIbynD+LC9esKJEwqDvLzVFe
-	 du98Zbv71A9iUe9Vt5Zi8/MZM73PgBEcKGvhTRDDFGP1SJoP0f3dbze8trDavKyOMqUCU
-	 0yRC8dajl6Xdp8bvoc7WITsZ8vAdwoGW3oL9QRl8uJopQwa9QLk06sMq3DLhzIG5+x9M+
-	 HgrZq5w51QZKoaunW0MZRCBYe3ijoS37BSNsOy0MnTqyce0eYIUD2nwaXt8PoFCW3Yq0t
-	 GfZoSRSslBLWHym+a8bPSL+z4/h2mrXJ6uCtydAg2GZ6w8QU4WdpIpRDFbH31v8utlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794360890;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=u6/s6LN52rfvbAsAmwwOjb9ryLMXcNKk98FuUPse1nY=;
+	b=VRSvLocnOOhKcuaF9OJzMFfpQpIpp7tJV4aUZGKiYEGFAEfpDkavYTOC5vT6D+uTlmol
+	 8vY+wGR10cBtNf+mb4stMakwLjEPjXSw5OF9SGB/l+hxvd5jdLGbA4rf46nzG1RcKDab6
+	 K96AaxunybiLxSjmnIJYKnY6bMwJ+TI/pQixgQRu0c6Qn1NWbeQEMgBQZTYhNfEa8h+cM
+	 sGtATbXawV07AB31tDZH2VPIpJhaWjpaCLP/6G3JlOnx4VT3OSCulDC0Qmwpchkfqbce0
+	 oQf78ZwXOORSyxoRY0X7T3v5UDkaLBCokKtQ5YXTA3N82P1GXuAJ9VkuReIp+f5IedA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=icQD3bf6;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSHoDgPZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C59606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C59606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86906606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:34:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=icQD3bf6
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=6bOmDR9rjoTllDG8XnTzVGPv/y+fMC3MFZoXWA6zKMY=;
-	b=icQD3bf6aIj0YhpySQXU50bYSRWf3QCxOrPSsjMBugWR26+IE++Ono/fVrGfhmZody1rnBz46
-	eBqLqUxSfElIJJLlO7HJtmVCSkDT696+OcPTmB7NDEKcvCgQWhY6PFAOcxgEV7S64iRoXdCS5lY
-	8SyCXBJqWoRQfghNow6X/XI=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jPQyx67CQz12LcP;
-	Wed, 11 Nov 2026 09:33:45 +0800 (CST)
-Received: from kwepemf200016.china.huawei.com (unknown [7.202.181.9])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2C38640537;
-	Wed, 11 Nov 2026 09:33:41 +0800 (CST)
-Received: from huawei.com (10.113.213.244) by kwepemf200016.china.huawei.com
- (7.202.181.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 11 Nov
- 2026 09:33:40 +0800
-From: Wang Jianjian <wangjianjian3@huawei.com>
-To: <stable@vger.kernel.org>
-CC: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	<syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com>, Wang Jianjian
-	<wangjianjian3@huawei.com>, Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH 6.1.y] nilfs2: ignore non-fatal signals during synchronous log write wait
-Date: Wed, 11 Nov 2026 09:31:14 +0800
-Message-ID: <20261111013114.470246-1-wangjianjian3@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261107054332-failed-6.1-7131aaa74bcc@kernel.org>
-References: <20261107054332-failed-6.1-7131aaa74bcc@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSHoDgPZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85CA21F0089F;
+	Wed, 11 Nov 2026 01:34:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794360890;
+	bh=u6/s6LN52rfvbAsAmwwOjb9ryLMXcNKk98FuUPse1nY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GSHoDgPZAWtcSjrSG+meBU48fA517SkuvjSYUT93wVysdtmst+cGOJnAfKFxbJGLn
+	 6DsJKcPc62Id3b4Wk7Iuew7Qg3gaz8CLK2MdgeTE+CWQKVbbmloGyjHPlsdbpnyTko
+	 dN+ZsmiwcKC/lFVBwPqIHZEJ/AyiyMV8uZilzBD0zHuQCh8ktSmD8KenAaador1Iap
+	 rnm5Ql/jkGBV8pBasZF3miXdhzO/MjXh/LB6FK8iUnjEio9t7xSf4/XtPQU1C5JadK
+	 9vBkqts8tCrGet1xWmuq3SqqR4zEcwohvdCzrmWyra+ri2dPAYPgpd5U2pxNHQp17A
+	 E9xejaqfq89BQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] fs/ntfs3: validate EA entry layout against ef->size in ntfs_read_ea
+Date: Tue, 10 Nov 2026 20:34:46 -0500
+Message-ID: <20261111013418.395574-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052729-failed-6.12-351817226fbf@kernel.org>
+References: <20261107052729-failed-6.12-351817226fbf@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,127 +61,63 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemf200016.china.huawei.com (7.202.181.9)
 
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-Based on a syzbot report, Wang Jianjian pointed out that following a
-successful directory operation in nilfs_rename(), a synchronous write
-requested within nilfs_transaction_commit(), triggered by a sync flag
-set by nilfs_commit_chunk(), could be interrupted by a user signal.
-This interruption leaves in-memory metadata updates intact while
-returning an error, causing inconsistency with the VFS dentry cache and
-ultimately triggering a kernel warning.
+[ Upstream commit 01e56820ef52d14a5560fb7c0c6f2f75ef6f9393 ]
 
-According to "signal(7)", local disks are not classified as "slow
-devices" (such as terminals, FIFOs, or pipes) and their I/O operations
-on disk devices are not interrupted by signals.  In kernel space,
-waiting for such disk I/O should therefore not be aborted by ordinary
-(non-fatal) signals.
+In ntfs_read_ea(), the ef->size branch only checks that the declared
+entry size fits the remaining buffer; unlike the zero-size branch it
+never verifies that the entry's own name and value fit inside ef->size.
+A crafted image can thus present an in-bounds ef->size with an arbitrary
+elength, which find_ea()/ntfs_get_ea() later use as the memcpy length,
+reading past the allocation and leaking adjacent heap memory:
 
-Suppress this issue by modifying nilfs_segctor_sync(), which waits for
-the log writer thread to complete synchronous writes, to catch only
-fatal signals via fatal_signal_pending() and return -EINTR rather than
--ERESTARTSYS.  To complement this change and prevent the wait loop from
-busy-looping when schedule() returns immediately due to a pending
-non-fatal signal, switch the wait state from TASK_INTERRUPTIBLE to
-TASK_KILLABLE.
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea (fs/ntfs3/xattr.c:302)
+  Read of size 65535 at addr ffff888010770b0f by task exploit/142
+   ...
+   __asan_memcpy (mm/kasan/shadow.c:105)
+   ntfs_get_ea (fs/ntfs3/xattr.c:302)
+   ntfs_getxattr (fs/ntfs3/xattr.c:848)
+   __vfs_getxattr (fs/xattr.c:446)
+   vfs_getxattr (fs/xattr.c:479)
+   do_getxattr (fs/xattr.c:808)
+   filename_getxattr (fs/xattr.c:837)
+   path_getxattrat (fs/xattr.c:876)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+  ...
+  The buggy address is located 15 bytes inside of
+   allocated 20-byte region, cache kmalloc-32
 
-This serves as an effective interim stabilization measure without
-structural changes until a comprehensive fix for metadata consistency
-is implemented.
+Validate the name/value layout in the ef->size branch too, bounding it
+against ef->size, as the zero-size branch validates it against the
+buffer.
 
-Reported-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f6c7e1f1809f235eeb90
-Fixes: 9ff05123e3bf ("nilfs2: segment constructor")
-Tested-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Cc: Wang Jianjian <wangjianjian3@huawei.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-(cherry picked from commit 7131aaa74bcc7c9da1f1d1c8724da75c775557a0)
+Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+[almaz.alexandrovich@paragon-software.com: remove duplicate check of need > ea_size]
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Stable-dep-of: 351817226fbf ("fs/ntfs3: validate the EA value length in ntfs_read_ea()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nilfs2/ioctl.c    |  2 +-
- fs/nilfs2/recovery.c |  2 ++
- fs/nilfs2/segment.c  | 10 +++++++---
- 3 files changed, 10 insertions(+), 4 deletions(-)
+ fs/ntfs3/xattr.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index 4e964549bc4c..cbbe49bb4926 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -960,10 +960,10 @@ static int nilfs_ioctl_clean_segments(struct inode *inode, struct file *filp,
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-  * * %-EFAULT		- Failure during execution of requested operation.
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- static int nilfs_ioctl_sync(struct inode *inode, struct file *filp,
-diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-index ce30b51ac593..34462039ae7d 100644
---- a/fs/nilfs2/recovery.c
-+++ b/fs/nilfs2/recovery.c
-@@ -744,6 +744,8 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
-  * Return Value: On success, 0 is returned.  On error, one of the following
-  * negative error code is returned.
-  *
-+ * %-EINTR - Interrupted.
-+ *
-  * %-EINVAL - Inconsistent filesystem state.
-  *
-  * %-EIO - I/O error
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index a412abdfbbf3..3a256f786db2 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2236,7 +2236,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 	wake_up(&sci->sc_wait_daemon);
- 
- 	for (;;) {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		set_current_state(TASK_KILLABLE);
- 
- 		/*
- 		 * Synchronize only while the log writer thread is alive.
-@@ -2250,11 +2250,11 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 			err = wait_req.err;
- 			break;
- 		}
--		if (!signal_pending(current)) {
-+		if (!fatal_signal_pending(current)) {
- 			schedule();
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index ee69f3447597b..cbfc544482b9c 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -165,6 +165,8 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+ 			/* ef->size must fit the list and cover the record. */
+ 			if (ea_size > bytes || ea_size < need)
+ 				goto out1;
++			if (bytes < offsetof(struct EA_FULL, name))
++				goto out1;
  			continue;
  		}
--		err = -ERESTARTSYS;
-+		err = -EINTR;
- 		break;
- 	}
- 	finish_wait(&sci->sc_wait_request, &wait_req.wq);
-@@ -2289,6 +2289,8 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
-  * Return Value: On success, 0 is returned. On errors, one of the following
-  * negative error code is returned.
-  *
-+ * %-EINTR - Interrupted.
-+ *
-  * %-EROFS - Read only filesystem.
-  *
-  * %-EIO - I/O error
-@@ -2324,6 +2326,8 @@ int nilfs_construct_segment(struct super_block *sb)
-  * Return Value: On success, 0 is returned. On errors, one of the following
-  * negative error code is returned.
-  *
-+ * %-EINTR - Interrupted.
-+ *
-  * %-EROFS - Read only filesystem.
-  *
-  * %-EIO - I/O error
+ 
 -- 
-2.34.1
+2.53.0
 
