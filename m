@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370423;
-	b=MBrd9PzNdAkdhb/VW4HS/H+NNZTe9t/xeSSGiFAmv8uaxD6PMQJMTPMilt0Rl51teNUX
-	 4oT43cw0jfZ6zCPQ5VmvYPmn5ore3r15oF3C71AfBFrI5lxVfnzTyxuwnYeDXknWytFlr
-	 DGcfPwAP4a1+yF+0gWj7iaRd1i5HjepAGDm1VtlPF5mbfEF6NZNs6bXh7Yqm8DJVyko/D
-	 oOEaBazwNgHJrVJlHTIuG1Qocuk5p+d1mQZoTlBP33B3ehD2XQZbiyU02B1exXx4Olymx
-	 3eCsPU8mhZw+R+FAnqYa7xfgMmOa+iS92hMNXF69+dSSgi1QxJiD3eIKYvVggF2J9XQ==
+	t=1794370424;
+	b=CPFR17BhFMRSiQJSQjV6kI3Vt9/YxehQlLCEkaJbv5EFSa5J0swmczy/Ir/xjV+vNSCv
+	 sOgzoTOQ6oEiBiqmrwLqwqz5vXd6TexNLnzwP958dNog9UnkfcchCoM/xWcWDYoUI2CNm
+	 pVJyodYyO2ac+7bTcIQ7edR3u2pO/WghiS+xi09RnX8pcQg001c2q5wH9wLxYQjuL9Gx6
+	 sMFhWqbcWvWnUchZ7ggjmrcu/WCW0B970Jd/WNV58bqGGsFYhIUrI4fuTXOB6DMYhXZVV
+	 tSYidRzncmtoPAhrZ4/4aHJJL9xJW/8ygGm2NCuzEDM7h98ob6ZoYLqVFZ6Xr0GT29w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370424;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IigvQtmWkKRzzFvhkOTNJkL7BRyRFTxRYHj9K8jGX+8=;
-	b=3YaZ+V/Y1Ye4ZTFxMvHmH3io7Ecknfu3vfLkBAtknDzmh7tCrqYxkW5LKJpsOxSJbuDs
-	 UsSAahiDkEDrocOL9SwtBXYJR72Hx9w3QJLLBw7n415oxCZNx+nUglC7OUORA9RHDj+SE
-	 63qWpwi9O7GFEqyDv+9Hb+yuPGyBJEWv/TEHYaMh67tjhVa1UyBZnAxu+7aqhhNwFLSs0
-	 YJ3BF6n5We1aUBcF3GI2U6g0wXvzYCA7MfjQ2xbt0kkWe+APR/MnHiaJHRHcsWaSFklQv
-	 kymL3i2NvmMSvABmvrSHDfpyD1mwgw85tMXujG00Pqj8q2MeJFjFFMssMg5tlIf3JCA==
+	bh=X1FS6B2lFFw9jiLdQNdUiLEp2DCNDJsCj7hNyHT2Ov4=;
+	b=1dihjZ1r1kmhlmp5UfPe3VG2rE69YYqMpBTshnQHiFmhHcv/vDceI0SrZ1AV4MapSpVH
+	 GYuBCiKU550RJ3qJSb/N+I3dLmWSmJ1T9EHyHLOY8s3097pN1vVR2082AghSoDyHeyxSf
+	 XMsW9D9DTis7XFy19mhdhy8kNVapXRY1n9jShyS9apiqR4obuSrMsF2jQvptMvMQp+C7l
+	 m+LKtQRnpfUQdDV1t/2YE6CSUrxPTI/wkx7gFWw9jiOdpVAgb2V56mLQ7VokvBa5FBbwf
+	 LlhySzlsbHTttn0UAJOBz6OrXVkTZKrNtzUqOGFeVh/HloTka69mDa76L+GxRiSuTBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i5PZ3VPl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfby4rcZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473D0606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C2C606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:13:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i5PZ3VPl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 790291F0089F;
-	Wed, 11 Nov 2026 04:13:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfby4rcZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5E91F00A05;
+	Wed, 11 Nov 2026 04:13:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794370423;
-	bh=IigvQtmWkKRzzFvhkOTNJkL7BRyRFTxRYHj9K8jGX+8=;
+	bh=X1FS6B2lFFw9jiLdQNdUiLEp2DCNDJsCj7hNyHT2Ov4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i5PZ3VPlowVI3oco7NjKin220gCDv1dhBKH53UK7rSNAE2OnSLftpagWVHdXz0H57
-	 bT9x4ZBcG63BuxWgwu0doNMjSZuyUThWeasmd9m7782/MzdK7PmnfpaqICBLWegs0H
-	 fDWhFtIo5Qo9EHkvg/TSFkjAght6sYIlFOA0vVBkadMN2gy0ZAe7vt3fTtdfHSsysB
-	 OU+NV0op4rNAv4EXK6gsdUzXSDHSdlU+ASjUlP5frfm/bPZSud1qvElzI/6Vh9EG3M
-	 NdnZNkMW7LXnwqbIz8wOhIp7AA7rDlunWukbGnJp+cYHPxPEKVhJ1Z9en22jaF3JVm
-	 x/xq3s0x6jgxg==
+	b=jfby4rcZnzLJbpFKXz+fU71vFWmQ+mIFNEBfRfURh0P90t/gy82aKD+78iaM0VPK+
+	 Z24DauGRHDnxanZ5ow2o7X0F08oVDpRAoJIv7fMsbJRewLwcnD4CJV23FXl2Hbsgkb
+	 yPrYYV17+WAlniO5mzPi+LvpjGTYFyfM8JO0BS3FZ6EFHa4ubnC7r9+T5IhV1uzmG7
+	 ayH9XDipstqNDNBoXLZuheHs4uaoDPaL1CJEkZ03i2DXHbXzZdzCPgxMA48XEUPHG5
+	 eLsxuRp10MsKeb34eQopmtcJf3rLJgMoJAWHASYy9gQoVOgZ+kkQFhFuA2ruEe0C2v
+	 sV9Frz/3SVGzQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Robert Foss <robert.foss@linaro.org>,
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/6] media: camss: vfe: Rework vfe_hw_version_read() function definition
-Date: Tue, 10 Nov 2026 23:13:36 -0500
-Message-ID: <20261111041132.1029567-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y 5/6] media: qcom: camss: Move vfe_disable into a common routine where applicable
+Date: Tue, 10 Nov 2026 23:13:37 -0500
+Message-ID: <20261111041132.1029567-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111041132.1029567-1-sashal@kernel.org>
 References: <20261107060052-failed-5.15-e5d4b0e69a40@kernel.org>
@@ -63,171 +63,176 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Robert Foss <robert.foss@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-[ Upstream commit d2e86540366e1701baf852ee0301323ff113459c ]
+[ Upstream commit 90cc4555730bfd0fc6af5c8a5a81d80bfce4cff7 ]
 
-Expose the VFE version by returning the value read from the HW_VERSION
-register.
+We can move vfe_disable() into a common routine in the core VFE file
+provided we make wm_stop() a VFE specific callback.
 
-Secondly, change the name of this function to conform with the CSID
-equivalent.
+The callback is required to capture the case where VFE 17x currently isn't
+VC enabled where as VFE 480 is.
 
-Signed-off-by: Robert Foss <robert.foss@linaro.org>
+Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+
+Omit the VFE 480 conversion because that backend is absent. Include
+the upstream reset-error propagation in vfe_disable() so the
+follow-up reset-ordering fix applies cleanly.
+
 Stable-dep-of: e5d4b0e69a40 ("media: qcom: camss: vfe: Fix VFE reset while another line is streaming")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe-170.c | 6 ++++--
- drivers/media/platform/qcom/camss/camss-vfe-4-1.c | 6 ++++--
- drivers/media/platform/qcom/camss/camss-vfe-4-7.c | 6 ++++--
- drivers/media/platform/qcom/camss/camss-vfe-4-8.c | 6 ++++--
- drivers/media/platform/qcom/camss/camss-vfe.c     | 2 +-
- drivers/media/platform/qcom/camss/camss-vfe.h     | 2 +-
- 6 files changed, 18 insertions(+), 10 deletions(-)
+ .../media/platform/qcom/camss/camss-vfe-170.c | 40 +----------------
+ drivers/media/platform/qcom/camss/camss-vfe.c | 43 +++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.h |  9 ++++
+ 3 files changed, 53 insertions(+), 39 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-170.c b/drivers/media/platform/qcom/camss/camss-vfe-170.c
-index ad3c375a33fbf..e2ca0aec3a697 100644
+index e2ca0aec3a697..3c678b6de8203 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-170.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-170.c
-@@ -176,7 +176,7 @@
- #define VFE_BUS_WM_FRAME_INC(n)			(0x2258 + (n) * 0x100)
- #define VFE_BUS_WM_BURST_LIMIT(n)		(0x225c + (n) * 0x100)
- 
--static void vfe_hw_version_read(struct vfe_device *vfe)
-+static u32 vfe_hw_version(struct vfe_device *vfe)
- {
- 	u32 hw_version = readl_relaxed(vfe->base + VFE_HW_VERSION);
- 
-@@ -186,6 +186,8 @@ static void vfe_hw_version_read(struct vfe_device *vfe)
- 
- 	dev_dbg(vfe->camss->dev, "VFE HW Version = %u.%u.%u\n",
- 		gen, rev, step);
-+
-+	return hw_version;
+@@ -499,22 +499,6 @@ static int vfe_enable_output(struct vfe_line *line)
+ 	return 0;
  }
  
- static inline void vfe_reg_clr(struct vfe_device *vfe, u32 reg, u32 clr_bits)
-@@ -745,7 +747,7 @@ static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
- 
- const struct vfe_hw_ops vfe_ops_170 = {
- 	.global_reset = vfe_global_reset,
--	.hw_version_read = vfe_hw_version_read,
-+	.hw_version = vfe_hw_version,
- 	.isr_read = vfe_isr_read,
- 	.isr = vfe_isr,
- 	.pm_domain_off = vfe_pm_domain_off,
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-index 614c266e8cd1f..7b7c9a0aaab28 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-@@ -210,11 +210,13 @@
- #define MSM_VFE_VFE0_UB_SIZE 1023
- #define MSM_VFE_VFE0_UB_SIZE_RDI (MSM_VFE_VFE0_UB_SIZE / 3)
- 
--static void vfe_hw_version_read(struct vfe_device *vfe)
-+static u32 vfe_hw_version(struct vfe_device *vfe)
- {
- 	u32 hw_version = readl_relaxed(vfe->base + VFE_0_HW_VERSION);
- 
- 	dev_dbg(vfe->camss->dev, "VFE HW Version = 0x%08x\n", hw_version);
-+
-+	return hw_version;
+-static void vfe_disable_output(struct vfe_line *line)
+-{
+-	struct vfe_device *vfe = to_vfe(line);
+-	struct vfe_output *output = &line->output;
+-	unsigned long flags;
+-	unsigned int i;
+-
+-	spin_lock_irqsave(&vfe->output_lock, flags);
+-	for (i = 0; i < output->wm_num; i++)
+-		vfe_wm_stop(vfe, output->wm_idx[i]);
+-	output->gen2.active_num = 0;
+-	spin_unlock_irqrestore(&vfe->output_lock, flags);
+-
+-	vfe_reset(vfe);
+-}
+-
+ /*
+  * vfe_enable - Enable streaming on VFE line
+  * @line: VFE line
+@@ -560,29 +544,6 @@ static int vfe_enable(struct vfe_line *line)
+ 	return ret;
  }
  
- static u16 vfe_get_ub_size(u8 vfe_id)
-@@ -1004,7 +1006,7 @@ static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
- 
- const struct vfe_hw_ops vfe_ops_4_1 = {
- 	.global_reset = vfe_global_reset,
--	.hw_version_read = vfe_hw_version_read,
-+	.hw_version = vfe_hw_version,
- 	.isr_read = vfe_isr_read,
- 	.isr = vfe_isr,
- 	.pm_domain_off = vfe_pm_domain_off,
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-7.c b/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
-index aa175e0f6331c..2836b12ec9891 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
-@@ -254,11 +254,13 @@
- #define MSM_VFE_VFE1_UB_SIZE 1535
- #define MSM_VFE_VFE1_UB_SIZE_RDI (MSM_VFE_VFE1_UB_SIZE / 3)
- 
--static void vfe_hw_version_read(struct vfe_device *vfe)
-+static u32 vfe_hw_version(struct vfe_device *vfe)
- {
- 	u32 hw_version = readl_relaxed(vfe->base + VFE_0_HW_VERSION);
- 
- 	dev_dbg(vfe->camss->dev, "VFE HW Version = 0x%08x\n", hw_version);
-+
-+	return hw_version;
- }
- 
- static u16 vfe_get_ub_size(u8 vfe_id)
-@@ -1196,7 +1198,7 @@ static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
- 
- const struct vfe_hw_ops vfe_ops_4_7 = {
- 	.global_reset = vfe_global_reset,
--	.hw_version_read = vfe_hw_version_read,
-+	.hw_version = vfe_hw_version,
- 	.isr_read = vfe_isr_read,
- 	.isr = vfe_isr,
- 	.pm_domain_off = vfe_pm_domain_off,
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-8.c b/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
-index b897f5163c5da..19519234f727c 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
-@@ -247,11 +247,13 @@
- #define MSM_VFE_VFE1_UB_SIZE 1535
- #define MSM_VFE_VFE1_UB_SIZE_RDI (MSM_VFE_VFE1_UB_SIZE / 3)
- 
--static void vfe_hw_version_read(struct vfe_device *vfe)
-+static u32 vfe_hw_version(struct vfe_device *vfe)
- {
- 	u32 hw_version = readl_relaxed(vfe->base + VFE_0_HW_VERSION);
- 
- 	dev_dbg(vfe->camss->dev, "VFE HW Version = 0x%08x\n", hw_version);
-+
-+	return hw_version;
- }
- 
- static inline void vfe_reg_clr(struct vfe_device *vfe, u32 reg, u32 clr_bits)
-@@ -1180,7 +1182,7 @@ static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
- 
- const struct vfe_hw_ops vfe_ops_4_8 = {
- 	.global_reset = vfe_global_reset,
--	.hw_version_read = vfe_hw_version_read,
-+	.hw_version = vfe_hw_version,
- 	.isr_read = vfe_isr_read,
- 	.isr = vfe_isr,
- 	.pm_domain_off = vfe_pm_domain_off,
+-/*
+- * vfe_disable - Disable streaming on VFE line
+- * @line: VFE line
+- *
+- * Return 0 on success or a negative error code otherwise
+- */
+-static int vfe_disable(struct vfe_line *line)
+-{
+-	struct vfe_device *vfe = to_vfe(line);
+-
+-	vfe_disable_output(line);
+-
+-	vfe_put_output(line);
+-
+-	mutex_lock(&vfe->stream_lock);
+-
+-	vfe->stream_count--;
+-
+-	mutex_unlock(&vfe->stream_lock);
+-
+-	return 0;
+-}
+-
+ /*
+  * vfe_isr_sof - Process start of frame interrupt
+  * @vfe: VFE Device
+@@ -759,4 +720,5 @@ const struct vfe_hw_ops vfe_ops_170 = {
+ 	.vfe_enable = vfe_enable,
+ 	.vfe_halt = vfe_halt,
+ 	.violation_read = vfe_violation_read,
++	.vfe_wm_stop = vfe_wm_stop,
+ };
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 8aeba618ad380..ce8c53f07ea70 100644
+index ce8c53f07ea70..41c63eec091e1 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -1300,7 +1300,7 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
- 		return -EINVAL;
- 	}
- 	vfe->ops->subdev_init(dev, vfe);
--	vfe->ops->hw_version_read(vfe);
-+	vfe->ops->hw_version(vfe);
+@@ -405,6 +405,49 @@ int vfe_put_output(struct vfe_line *line)
+ 	return 0;
+ }
  
- 	/* Memory */
- 
++static int vfe_disable_output(struct vfe_line *line)
++{
++	struct vfe_device *vfe = to_vfe(line);
++	struct vfe_output *output = &line->output;
++	unsigned long flags;
++	unsigned int i;
++
++	spin_lock_irqsave(&vfe->output_lock, flags);
++	for (i = 0; i < output->wm_num; i++)
++		vfe->ops->vfe_wm_stop(vfe, output->wm_idx[i]);
++	output->gen2.active_num = 0;
++	spin_unlock_irqrestore(&vfe->output_lock, flags);
++
++	return vfe_reset(vfe);
++}
++
++/*
++ * vfe_disable - Disable streaming on VFE line
++ * @line: VFE line
++ *
++ * Return 0 on success or a negative error code otherwise
++ */
++int vfe_disable(struct vfe_line *line)
++{
++	struct vfe_device *vfe = to_vfe(line);
++	int ret;
++
++	ret = vfe_disable_output(line);
++	if (ret)
++		goto error;
++
++	vfe_put_output(line);
++
++	mutex_lock(&vfe->stream_lock);
++
++	vfe->stream_count--;
++
++	mutex_unlock(&vfe->stream_lock);
++
++error:
++	return ret;
++}
++
+ /**
+  * vfe_isr_comp_done() - Process composite image done interrupt
+  * @vfe: VFE Device
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index cca251816d284..f166d176cb771 100644
+index f166d176cb771..28a4c69d96c94 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.h
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -103,7 +103,7 @@ struct vfe_device;
- struct vfe_hw_ops {
- 	void (*enable_irq_common)(struct vfe_device *vfe);
- 	void (*global_reset)(struct vfe_device *vfe);
--	void (*hw_version_read)(struct vfe_device *vfe);
-+	u32 (*hw_version)(struct vfe_device *vfe);
- 	irqreturn_t (*isr)(int irq, void *dev);
- 	void (*isr_read)(struct vfe_device *vfe, u32 *value0, u32 *value1);
- 	void (*pm_domain_off)(struct vfe_device *vfe);
+@@ -116,6 +116,7 @@ struct vfe_hw_ops {
+ 	int (*vfe_enable)(struct vfe_line *line);
+ 	int (*vfe_halt)(struct vfe_device *vfe);
+ 	void (*violation_read)(struct vfe_device *vfe);
++	void (*vfe_wm_stop)(struct vfe_device *vfe, u8 wm);
+ };
+ 
+ struct vfe_isr_ops {
+@@ -197,6 +198,14 @@ int vfe_reserve_wm(struct vfe_device *vfe, enum vfe_line_id line_id);
+  */
+ int vfe_reset(struct vfe_device *vfe);
+ 
++/*
++ * vfe_disable - Disable streaming on VFE line
++ * @line: VFE line
++ *
++ * Return 0 on success or a negative error code otherwise
++ */
++int vfe_disable(struct vfe_line *line);
++
+ extern const struct vfe_hw_ops vfe_ops_4_1;
+ extern const struct vfe_hw_ops vfe_ops_4_7;
+ extern const struct vfe_hw_ops vfe_ops_4_8;
 -- 
 2.53.0
 
