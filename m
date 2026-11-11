@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413493;
-	b=XsSpbmaOTJ84w2AYbmI/4uV090cKyk1/jkitotp4C0scGJW/yPrw2Hy81mqGd/ESCatk
-	 U8b5E5lRq9EDXGV3Dg6dU32umiKF9b4s5mlhdcpei65stDmGMFh2/sXK1H8UqtR9qtWCr
-	 ldhCofq0h0LDNr9lE/hWcTi5nDNql1QXBzvv7rDuBGkBdCzb92DWDImXEbgt9i+TpWi94
-	 QQkIGOimq6G8s7fDV9UQXMuRw0lxGKRNzGt9CdhDjpZiFj310R3beGPTRVp9+t0oUnUKW
-	 ftNVkkl2cK6NZl8z6eci2icDVw2cDyheJ3YlruAnpppF3AfLk4pqyIwvZrh/c9U4F9Q==
+	t=1794413536;
+	b=CHprFr5o+s0UQHGJLbfYTwk6wSMEbXwLJci/7UI9yoRqsJloiD1SFfX5kJIF4y1GlV3c
+	 NQROOWxV/3WvDIk7VqgfbRuyxKwCSsZJqD08t0PjlfQ/TJo/ObYA5CkaS3LpNTpQItv43
+	 eTr4IokBlg8ycpGIQPmNpV/lA/iEl8V+bvOC9gPhNaGojTR4JW2+A1DJqq43ufEJhr7U/
+	 xTugsGMWlIL6TDvUYxm3OjeOVatKUkmSnBdNSGP0n8ZB25t3unWWmR1R4IQ04a6CDxndg
+	 BZWOsSCg/L8eZKps6ICxb4kSHGmwNSjE65n5utMddwB8LeKP7O8XsSNTDQxDOrXhy6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413493;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413536;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pCU77ScjUqG12A4tKj4Ik34Ym66i1u2AaOjv61gzeJI=;
-	b=aUsKujFjuW0naROxK1BanKXog1UbqrnjzvWE0lmXrMi/UpHIEt/Z4/XcQSzLfD9dZCQH
-	 ASyNa6BtZxJnRzez5b123Jfv+72hxWSpEDRDblUqarC/rEva5f9hfoikKba5HwU3c9xlx
-	 EOFFHP2HQsV7A21rQROlLUhEIOXqODNbLes7mt4L9nN6/sSRVXKDdggU1lveej2SNHnSb
-	 VW1V5nda7I6tn9TiVJ1BcHywo4rizZ4u5Wfg9pDE5cqQ9dYNGNJxmNTEShSbaItcXPyvN
-	 DgVo6vLMPkRyHBa3bI7rwTm/xHcGJa5xYzrHh3wFyp+Ee/Nd3v6xaWdlRtuODVc9X0g==
+	bh=NZ8PPLzVhe6GYJ9jwqSGgMAjXMg2D+9ZPqmrDLUUVhI=;
+	b=YEpFDoZKXkeKHlJyd89ZULXllF4ra16tMDTkSt715E5Ggj1CrUhdjpF/wBsRLZVmDYyb
+	 mOqtNeVLuWBUf/HIcwzb9Yf+ZeVFKg8nqvU2N19/tFeUceoJrP3bOQlI3S2h9NnrxZDvy
+	 XyGd2akErZaFMVv355R1oRVpESyorsYMAsIQyxcUQW1nZWrBvaNkLbt79MJ41/9snKdAJ
+	 5n9lScfhLuZkGuRYPs4tCnwSfsISdHnjloiq73I+ezw+Uso55et9YEPFiP95QmdBsuuHj
+	 eQ3P5lsyS0uLP2kWLHkdjuTc8/ihXgHUGJhcxERgnKJxPqaqzzcv3GJUE3vsAp65wDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ne0vT7Jh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1v6y8J4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E685606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:11:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7CC606A333
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:12:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ne0vT7Jh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43F511F00A05;
-	Wed, 11 Nov 2026 16:11:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1v6y8J4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC341F00A09;
+	Wed, 11 Nov 2026 16:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794413492;
-	bh=pCU77ScjUqG12A4tKj4Ik34Ym66i1u2AaOjv61gzeJI=;
+	s=k20260515; t=1794413536;
+	bh=NZ8PPLzVhe6GYJ9jwqSGgMAjXMg2D+9ZPqmrDLUUVhI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ne0vT7JhRCf4LqlbKg/+C1MhrctrLwlzkjr1sWWyUz9KY1kNr6lDFrqCmlwSHoqIj
-	 MQP9sYcvr/1Cx6XRR7WILB6mZZpV88jJfavT0+a3GMOQdKIu/PRHsx3+FPpuYYGbHk
-	 JkLCowLZ4fhKkmpnHfjuBmYlBuQdLwF07V9mit/i74dx4yLbrX4RwTcGMJnPFZtaS4
-	 l+BzFOC73cSO/PLoc92tLVqosG4zGDeSm9Vbr17WES704rzu1S4btjpNvlsJN3k2aM
-	 T97HuaVhBeJdW66WbxX64R4XZ497AEa2goMrvQc3uHbTEFp35icTpotKh/0klv55Of
-	 Fe4/E1AdIqy4w==
+	b=L1v6y8J4dO47MEtDkaX5hSOWb6j0gaBnicDLNILmoXXcNqOdv1QVmlrJSmxsRwgL5
+	 ohh27nCjqh3T+zngr/gNSD9Nptk7JpaqlGMSNwSmuGdhM+kvo3YdpYt5l8rwmjdXg3
+	 pzlDl1jBP4Y6bNO2gph9o4kRUisLHV9pTn4drWlqaK7872Tpn3QNNMqOcCKA9iarU6
+	 Vvl4vAkiYbWDAKBXTMTv9lXJRQ4OdTD+tOuv0J/Ixfcv1q+jcMhhIa5/xRJbs/DzBw
+	 Wwzag7rMEOmKhN02W9DssVxzx5ggUv2BaToe/BYweH10f34WfklpnGVpFx67XCksr6
+	 XV0JyVbIhKQ5A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gianluca Balboni <gianluca.balboni06@gmail.com>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Chris Mason <mason@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx
-Date: Wed, 11 Nov 2026 11:11:31 -0500
-Message-ID: <20261111161109.3157277-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y] mm/shmem: honour F_SEAL_EXEC when an ACL is set
+Date: Wed, 11 Nov 2026 11:12:14 -0500
+Message-ID: <20261111161146.2755340-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200238-failed-6.18-1e73257dff33@kernel.org>
-References: <20261109200238-failed-6.18-1e73257dff33@kernel.org>
+In-Reply-To: <20261109200115-failed-7.3-0237c47ca170@kernel.org>
+References: <20261109200115-failed-7.3-0237c47ca170@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,47 +67,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gianluca Balboni <gianluca.balboni06@gmail.com>
+From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit 1e73257dff33ff851af60d5bb00d73893a8b6dc8 ]
+[ Upstream commit 0237c47ca17005ea41b510c6116f0257dbf84eab ]
 
-The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
-connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
-AcpDmicConnected _DSD property or the _WOV method, and the board is missing
-from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
-capture device is registered.
+The owner of a memfd sealed with F_SEAL_EXEC can still change its
+execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
+this lets an unprivileged owner make a non-executable memfd executable,
+bypassing vm.memfd_noexec=2.
 
-Add a DMI quirk entry for this model to enable ACP DMIC support.
+simple_set_acl() updates i_mode directly, bypassing the seal check in
+shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
+the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
+in include/linux/memfd.h.
 
+Fix generated by an LLM and sent by Chris Mason in private.
+
+Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Link: https://patch.msgid.link/20261031102136.24600-1-gianluca.balboni06@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: adjusted insertion context to follow the 8BD6 board entry instead of 8DC2 ]
+Signed-off-by: Chris Mason <mason@kernel.org>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+[ david: use common helper; simplify description ]
+Link: https://patch.msgid.link/20261029-fixes_shmem-v4-4-392fc715d8f6@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Removed const from shmem_set_acl()'s struct mnt_idmap pointer parameter to match existing ACL interfaces. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/memfd.h |  9 +++++++++
+ mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
+ 2 files changed, 39 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 209ac43f9e31e..f7507446494b1 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -682,6 +682,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "8BD6"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
+diff --git a/include/linux/memfd.h b/include/linux/memfd.h
+index c159e40e3f34a..272479317cf10 100644
+--- a/include/linux/memfd.h
++++ b/include/linux/memfd.h
+@@ -2,10 +2,19 @@
+ #ifndef __LINUX_MEMFD_H
+ #define __LINUX_MEMFD_H
+ 
++#include <linux/fcntl.h>
+ #include <linux/file.h>
+ 
+ #define MEMFD_ANON_NAME "[memfd]"
+ 
++static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
++		umode_t new_mode)
++{
++	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
++		return -EPERM;
++	return 0;
++}
++
+ #ifdef CONFIG_MEMFD_CREATE
+ extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
+ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 825a5a961086d..597bbc2e7321a 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
+ #include <linux/magic.h>
+ #include <linux/syscalls.h>
+ #include <linux/fcntl.h>
++#include <linux/memfd.h>
+ #include <uapi/linux/memfd.h>
+ #include <linux/rmap.h>
+ #include <linux/uuid.h>
+@@ -1357,10 +1358,11 @@ static int shmem_setattr(struct mnt_idmap *idmap,
+ 	if (error)
+ 		return error;
+ 
+-	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
+-		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
+-			return -EPERM;
+-		}
++	if (attr->ia_valid & ATTR_MODE) {
++		error = memfd_check_seals_mode(info->seals, inode->i_mode,
++					       attr->ia_mode);
++		if (error)
++			return error;
+ 	}
+ 
+ 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
+@@ -5220,12 +5222,35 @@ static const struct file_operations shmem_file_operations = {
+ #endif
+ };
+ 
++#ifdef CONFIG_TMPFS_POSIX_ACL
++static int shmem_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++		struct posix_acl *acl, int type)
++{
++	struct inode *inode = d_inode(dentry);
++	umode_t mode = inode->i_mode;
++	int error;
++
++	if (type == ACL_TYPE_ACCESS) {
++		error = posix_acl_equiv_mode(acl, &mode);
++		if (error < 0)
++			return error;
++		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
++					       inode->i_mode, mode);
++		if (error)
++			return error;
++	}
++	return simple_set_acl(idmap, dentry, acl, type);
++}
++#else
++#define shmem_set_acl simple_set_acl
++#endif
++
+ static const struct inode_operations shmem_inode_operations = {
+ 	.getattr	= shmem_getattr,
+ 	.setattr	= shmem_setattr,
+ #ifdef CONFIG_TMPFS_XATTR
+ 	.listxattr	= shmem_listxattr,
+-	.set_acl	= simple_set_acl,
++	.set_acl	= shmem_set_acl,
+ 	.fileattr_get	= shmem_fileattr_get,
+ 	.fileattr_set	= shmem_fileattr_set,
+ #endif
 -- 
 2.53.0
 
