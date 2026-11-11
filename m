@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367611;
-	b=XrglLVef+UCSfC8CxY2IjtRoPxqxvppRdAoxtkh35UHxbYKeGIWFMI9tubD+TOFQk3Gr
-	 4iZm+LxEOYmUk5MNcFknh9arGP9h7xNNsuOfdwyrGL0RQZUXdHotuUVbjaUh5ngMHIVbZ
-	 RgAYb3sParrPQB3sPKkPIayAcsm02Z6u6IQZxukianYnCgc3UPrRlvhOJfNK3KSurZk9u
-	 52bBCUq/KzTKkWvW1jWEOGVsmV2SMuN+kGnxwow3xTGxBojItH2Cvx13AZ2A8jpJ/4esl
-	 e/nsof0TvuehEDfhSK4e11xAAICMrAghH0b0NgJ82FWAJQ04q0zUVAP+dMb0O+Zv/uQ==
+	t=1794367612;
+	b=Ijsj07A4jqCwEkFeMdLQpsTf45qelDg+N0X+k8tD3yyBaQvUPUeYfRQ3I+X5Um5m8Vb4
+	 KiA4msy5bXJ2u/2bBOmptnLhhhJm9rK6/qbgWR67PQAEtBB9ihCAJoOpu0qRED5yG2bVH
+	 LcRCY4S8j+EV1FhHUi7a0KaewuH/siFY7TfA2Mubgzg0InamiN6Ukh6UhALMRAeeT92j1
+	 ooJoWSlIAolGK1DeTCMpmCSeNG/0l5BU1VkQU/CEeEGYn/4x2SF/nRRizNKjH6K60BpZH
+	 LUMXUl26NdN91SIKXbaLJYvbKunmfpfoWVfFrPVqKNdM74ky87KZP2GKWf3tI/h3tMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367611;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367612;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MvYpDUCJt4KnUGzl//wnY32C1whdY+l2kgThQERf9n4=;
-	b=t0xFTxDuGlQGNjk0/cReJn5Y/5KZDf+X5ADiHkLM3OvzfuRVvtxPwC5Al/fzsm8ttBdA
-	 PKq7YZButH5snuOFbf5oEKrbB7kfSrQaCPWsQ9hcUAxZt69R44AhQHS9Mz2N+n20WaGyh
-	 p/Y2ayAs4XhcjgWUNR2o16xJM57fpkKkfO/bMwKa6Ija0L+Ytt1aSRxIODGtWnSzOnAlh
-	 HP/jxeW2oaiIK6Ge05GnZrjFapzUq9ayQkbw+ZzeJnSoiLuKcVf8d5O3dscc4JqREZwwB
-	 CO+0+LloH3iuE9H4qBwa+rCaC8rF2TWK9z3aBAAipWGnDimkW8mj0oDe54QsjLmI2mQ==
+	bh=vozT1LCfpeXUzV4r6YLaAODYT1z2iBbJ0i4FAwhMZDA=;
+	b=Ru3gMNV4zWBJSDVHcYzizlmYkUA9nIW/xyBY7euHXTa7ZKF+wExU1yOxPdDVAnQ2mNKA
+	 BDhOyE8hrYcuuXWoqEwZinn88OAAUJBxWdy6zX1J15NkK6znBIy3DGqOUvctYlCI0DlEQ
+	 cCv4ZCt7gkQDdfPv48CVSo1TjZLY+qAlT0uo5oGI0anVnigFtQVyMJHf+BYtxQmqiVyJI
+	 OoQlNJ/Fa4OLbjwyZ+53Spw0kf3zKWKKLtPFQGcTS8ev3meW4Q5tfODAZluxHOIGo+EML
+	 yN/fyWhW01xBr2uAoLsXiC/PPyPzJ852WntWArE1vpmzzPtHXieUVXMTCoRLdtSKlJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U/OS5HOc";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lZrT7fhq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA619606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:26:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BB7606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:26:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U/OS5HOc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8961F0089F;
-	Wed, 11 Nov 2026 03:26:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lZrT7fhq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9418C1F00A07;
+	Wed, 11 Nov 2026 03:26:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794367611;
-	bh=MvYpDUCJt4KnUGzl//wnY32C1whdY+l2kgThQERf9n4=;
+	s=k20260515; t=1794367612;
+	bh=vozT1LCfpeXUzV4r6YLaAODYT1z2iBbJ0i4FAwhMZDA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U/OS5HOcLS5wZCe1wJ3OMG9jQxN+Vhjmh3jABVq8EVwrmDnwHpfuKQeXQqeb9As6n
-	 sBqbsWxTLgs4BITI4vKmDElxS0/aMI3FIVE3Kk2BAAwiu+fZ6m5GpQsk1f5pga5eCi
-	 GVhYcoTaMD46I2fDSpGs419wGfkAcJDmpF9UWW/oXat9shipB+BQt7QhExZCuCG9Ks
-	 R+w3YYaX3TCS0EsAvgNxje9J7944t7cDakipQiJchq0LYoZFYI+niRea9kGw39yMBG
-	 xDALlgZE2Qfj9J24yVikAaI69B5ZMb78KV2hoTAq54KWx1oU4ycpi+ccEWuUkSyQrd
-	 QRyYLcHXCKRdw==
+	b=lZrT7fhqWmj3l96BICetz7EDhvh6qsiRO+PCUggkcZ2DSbVYatBU9Tt85PwEqcT/F
+	 nDG4MTQb9zuJf4VhnbN5A0P6EJFD8GYFyDF1+7lonuIpvV6i6HP/iltjT64rBPHVOW
+	 7E6upkntMaa1/+9qt/TmaRITOg9e33atBFfXkydaBe9tM9hiusTCMJYzK3VRfdj+Ih
+	 NPRrXkvBoms/KazMro0E25M4513mPjSV5pCpZs64NjExgvK5QNZVVBkK4qsYdeGjnC
+	 4+acNmfBPv2O+dETBMcjRhxUMk+pDSo6dvUNjM7tGtTaGClLh7BIorjCh+rs/exHbu
+	 qpAMUCtu0bo+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shuvam Pandey <shuvampandey1@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Neel Natu <neelnatu@google.com>,
-	Dmitry Antipov <dmantipov@yandex.ru>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Kees Cook <kees@kernel.org>,
+Cc: Armaan Sandhu <armaan.sandhu0504@gmail.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Leizhen Zhang <lzsx618@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] lib/tests: extend cmdline KUnit with next_arg() tests
-Date: Tue, 10 Nov 2026 22:26:48 -0500
-Message-ID: <20261111032447.900812-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] lib/cmdline: fix get_options() count and overflow with large ranges
+Date: Tue, 10 Nov 2026 22:26:49 -0500
+Message-ID: <20261111032447.900812-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055303-failed-6.1-5d72266218b1@kernel.org>
+In-Reply-To: <20261111032447.900812-1-sashal@kernel.org>
 References: <20261107055303-failed-6.1-5d72266218b1@kernel.org>
+ <20261111032447.900812-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,113 +64,131 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shuvam Pandey <shuvampandey1@gmail.com>
+From: Armaan Sandhu <armaan.sandhu0504@gmail.com>
 
-[ Upstream commit dcc8a57815534e3844f342b28ecfb6e626a816a0 ]
+[ Upstream commit 5d72266218b1c4dd2917f1df2b86f3b0e0a605c9 ]
 
-The cmdline KUnit suite covers get_option() and get_options(), but it
-does not exercise next_arg().
+get_range() stops writing once the array is full, but get_options() still
+advances its index by the whole range.  So "1-100" parsed into four ints
+reports 99 numbers, and a range like "0-2147483647" wraps the index
+negative and writes outside the array.
 
-Extend the suite with one test for a quoted value containing spaces and
-one regression test for a bare quote token after a normal parameter.
+Stop once a range fills the array, bail out in validation mode before the
+count overflows, and saturate the range length in get_range().  Add KUnit
+cases; without the fix "0-2147483647" panics the test kernel.
 
-The regression test covers the bare quote token path fixed by commit
-9847f21225c4 ("lib/cmdline: avoid page fault in next_arg").
+Only root can supply this input, so this is a robustness fix.
 
-[shuvampandey1@gmail.com: extend cmdline next_arg() coverage with mixed tokens]
-  Link: https://lore.kernel.org/20260316211249.88601-1-shuvampandey1@gmail.com
-Link: https://lore.kernel.org/20260316101227.15807-1-shuvampandey1@gmail.com
-Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Neel Natu <neelnatu@google.com>
-Cc: Dmitry Antipov <dmantipov@yandex.ru>
-Cc: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
+[akpm@linux-foundation.org: add additional test case from Leizhen]
+Link: https://lore.kernel.org/20261005213945.359905-1-armaan.sandhu0504@gmail.com
+Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
+Signed-off-by: Armaan Sandhu <armaan.sandhu0504@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 5d72266218b1 ("lib/cmdline: fix get_options() count and overflow with large ranges")
+Reported-by: Leizhen Zhang <lzsx618@gmail.com>
+Reviewed-by: Leizhen Zhang <lzsx618@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/cmdline_kunit.c | 62 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 62 insertions(+)
+ lib/cmdline.c       | 13 ++++++++++++-
+ lib/cmdline_kunit.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 51 insertions(+), 1 deletion(-)
 
+diff --git a/lib/cmdline.c b/lib/cmdline.c
+index 90ed997d95701..f5dc59b3548e9 100644
+--- a/lib/cmdline.c
++++ b/lib/cmdline.c
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/export.h>
+ #include <linux/kernel.h>
++#include <linux/overflow.h>
+ #include <linux/string.h>
+ #include <linux/ctype.h>
+ 
+@@ -26,7 +27,9 @@ static int get_range(char **str, int *pint, int n)
+ 
+ 	(*str)++;
+ 	upper_range = simple_strtol((*str), NULL, 0);
+-	inc_counter = upper_range - *pint;
++	/* Keep the sign of the result when the difference doesn't fit */
++	if (check_sub_overflow(upper_range, *pint, &inc_counter))
++		inc_counter = upper_range < *pint ? -1 : INT_MAX;
+ 	for (x = *pint; n && x < upper_range; x++, n--)
+ 		*pint++ = x;
+ 	return inc_counter;
+@@ -122,6 +125,14 @@ char *get_options(const char *str, int nints, int *ints)
+ 			range_nums = get_range((char **)&str, pint, n);
+ 			if (range_nums < 0)
+ 				break;
++			/* The range didn't fit, so the array is full */
++			if (!validate && range_nums > n) {
++				i = nints;
++				break;
++			}
++			/* Leave room for the upper number of the range */
++			if (range_nums >= INT_MAX - i)
++				break;
+ 			/*
+ 			 * Decrement the result by one to leave out the
+ 			 * last number in the range.  The next iteration
 diff --git a/lib/cmdline_kunit.c b/lib/cmdline_kunit.c
-index 705b82736be08..20d525aa23eda 100644
+index 20d525aa23eda..e720f056c84df 100644
 --- a/lib/cmdline_kunit.c
 +++ b/lib/cmdline_kunit.c
-@@ -139,11 +139,73 @@ static void cmdline_test_range(struct kunit *test)
+@@ -139,6 +139,44 @@ static void cmdline_test_range(struct kunit *test)
  	} while (++i < ARRAY_SIZE(cmdline_test_range_strings));
  }
  
-+static void cmdline_test_next_arg_quoted_value(struct kunit *test)
++static const struct {
++	const char *in;
++	int parsed[4];
++	int validated;
++} cmdline_test_range_overflow_cases[] = {
++	{ "1-100",         { 3, 1, 2, 3, },    100,        },
++	{ "1,5-100,7",     { 3, 1, 5, 6, },    98,         },
++	{ "1-2147483646",  { 3, 1, 2, 3, },    2147483646, },
++	{ "0-2147483647",  { 3, 0, 1, 2, },    0,          },
++	{ "-5-2147483647", { 3, -5, -4, -3, }, 0,          },
++	{ "2147483647--5", { 0, 2147483647, }, 0,          },
++	{ "1,0-2147483647", { 3, 1, 0, 1, },   1, },
++};
++
++static void cmdline_test_range_overflow(struct kunit *test)
 +{
-+	char in[] = "foo=\"bar baz\" qux=1";
-+	char *next, *param, *val;
++	unsigned int i, j;
 +
-+	next = next_arg(in, &param, &val);
-+	KUNIT_EXPECT_STREQ(test, param, "foo");
-+	KUNIT_ASSERT_NOT_NULL(test, val);
-+	KUNIT_EXPECT_STREQ(test, val, "bar baz");
-+	KUNIT_EXPECT_STREQ(test, next, "qux=1");
++	for (i = 0; i < ARRAY_SIZE(cmdline_test_range_overflow_cases); i++) {
++		const char *in = cmdline_test_range_overflow_cases[i].in;
++		const int *e = cmdline_test_range_overflow_cases[i].parsed;
++		/* Two guard elements past the array handed to get_options() */
++		int r[ARRAY_SIZE(cmdline_test_range_overflow_cases[0].parsed) + 2];
++		int n;
 +
-+	next = next_arg(next, &param, &val);
-+	KUNIT_EXPECT_STREQ(test, param, "qux");
-+	KUNIT_ASSERT_NOT_NULL(test, val);
-+	KUNIT_EXPECT_STREQ(test, val, "1");
-+	KUNIT_EXPECT_STREQ(test, next, "");
++		memset(r, 0, sizeof(r));
++		get_options(in, ARRAY_SIZE(r) - 2, r);
++		for (j = 0; j < ARRAY_SIZE(r) - 2; j++)
++			KUNIT_EXPECT_EQ_MSG(test, r[j], e[j], "Pattern: %s at %u", in, j);
++		for (; j < ARRAY_SIZE(r); j++)
++			KUNIT_EXPECT_EQ_MSG(test, r[j], 0, "Pattern: %s out of bound at %u", in, j);
++
++		get_options(in, 0, &n);
++		KUNIT_EXPECT_EQ_MSG(test, n, cmdline_test_range_overflow_cases[i].validated,
++				    "Pattern: %s (validated)", in);
++	}
 +}
 +
-+static void cmdline_test_next_arg_bare_quote_regression(struct kunit *test)
-+{
-+	char in[] = "foo=bar \"";
-+	char *next, *param, *val;
-+
-+	next = next_arg(in, &param, &val);
-+	KUNIT_EXPECT_STREQ(test, param, "foo");
-+	KUNIT_ASSERT_NOT_NULL(test, val);
-+	KUNIT_EXPECT_STREQ(test, val, "bar");
-+	KUNIT_EXPECT_STREQ(test, next, "\"");
-+
-+	/* This hits the i == 0 quoted-token case fixed by 9847f21225c4. */
-+	next = next_arg(next, &param, &val);
-+	KUNIT_EXPECT_STREQ(test, param, "");
-+	KUNIT_EXPECT_PTR_EQ(test, val, NULL);
-+	KUNIT_EXPECT_STREQ(test, next, "");
-+}
-+
-+static void cmdline_test_next_arg_mixed_tokens(struct kunit *test)
-+{
-+	char in[] = "bbb= jjj kkk=\"a=b\"";
-+	char *next, *param, *val;
-+
-+	next = next_arg(in, &param, &val);
-+	KUNIT_EXPECT_STREQ(test, param, "bbb");
-+	KUNIT_ASSERT_NOT_NULL(test, val);
-+	KUNIT_EXPECT_STREQ(test, val, "");
-+	KUNIT_EXPECT_STREQ(test, next, "jjj kkk=\"a=b\"");
-+
-+	next = next_arg(next, &param, &val);
-+	KUNIT_EXPECT_STREQ(test, param, "jjj");
-+	KUNIT_EXPECT_NULL(test, val);
-+	KUNIT_EXPECT_STREQ(test, next, "kkk=\"a=b\"");
-+
-+	next = next_arg(next, &param, &val);
-+	KUNIT_EXPECT_STREQ(test, param, "kkk");
-+	KUNIT_ASSERT_NOT_NULL(test, val);
-+	KUNIT_EXPECT_STREQ(test, val, "a=b");
-+	KUNIT_EXPECT_STREQ(test, next, "");
-+}
-+
- static struct kunit_case cmdline_test_cases[] = {
- 	KUNIT_CASE(cmdline_test_noint),
+ static void cmdline_test_next_arg_quoted_value(struct kunit *test)
+ {
+ 	char in[] = "foo=\"bar baz\" qux=1";
+@@ -203,6 +241,7 @@ static struct kunit_case cmdline_test_cases[] = {
  	KUNIT_CASE(cmdline_test_lead_int),
  	KUNIT_CASE(cmdline_test_tail_int),
  	KUNIT_CASE(cmdline_test_range),
-+	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
-+	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
-+	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
- 	{}
- };
- 
++	KUNIT_CASE(cmdline_test_range_overflow),
+ 	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
+ 	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
+ 	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
 -- 
 2.53.0
 
