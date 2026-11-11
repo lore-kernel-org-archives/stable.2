@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418746;
-	b=zA7DhOwFmb14mS5cMnVrs2qDN8EVH1Pfl0GgiC4h0w7fBVodc8hYJjKHi8fzkaHAu3yQ
-	 e2/9lOoNrr3O15ttQoftIIT30UuNdQIFsaTnZWmtqYbfBjHc4TpiLJDCFvP5WVNtrtXa/
-	 fIG4jsPhXTKwcOiDn+tw3M3hHdS5kcjBUmURTJko8UmrI8KKo/Te8SfO5tKioy3DyU0Im
-	 gegrDYEnOqGaumCjp5UwfKh+jvXf1vyOCrF9Zi2MkvcH87gH7jShaQud8fetnZJQkzVm/
-	 /c80ebxLlUMyquVu1+3Au48wzz8FQuCbWyPkoafZA0paQoyMxMFDmpZ6Y0jtLIS0EaQ==
+	t=1794418747;
+	b=l7uzsex/MV6Wod+m1kDigPArp+N2BUajET0KNoHkTlXpNzJWRHDsBvfEYuV5cqJGiT77
+	 NrNdHlbWFcl8jNqvvHXl4r6KNNwlxz5UcQs7b415Se+enY5SluLFBs3T5pSJP56jUD1h/
+	 kpLc3E8DdBky6U9Bw5lHijicrAn7QdBODFQBB6Vbe3Fzbk+VoCcRhO0mfszQlP6Asb+Hq
+	 j3xvSPUssASvEZCqQqDM1uZXNUVEsX/Y55eoR+zDTAb4hIQqhxoAut+ZSFnnQQuqAJ/7V
+	 2q5GudVpKO0JwQ92vMzHjQxuOL2XBOWpH9bQqoPeRn8TSSWAo6bfafFPskrGyeFxCog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418746;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418747;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RPx4W2H46ROzDhsE+zVNFq5Rqpkmfo96O19aFpn8vIo=;
-	b=xGv9gixUDjnGueqZF8TzGR0gQYlq2VVERelg1PSl9eDc3wozEwpRZwkk3kGo3bDAe4Er
-	 IJKIN6UgnzXi3TAYWa8ROeNiRH6QuBAvP6hk1yi0Cy+6NK5vY2ijw+65xdLYuqrK2II4v
-	 uLc7jBzCIoIJ1c/VdDQBfiGOWn/erOUdlLENNHUITWatyILIJUwm3l4HpyNz00S8QlMwt
-	 zsQ2gzMTyzYWc6H19Xf0jAzIcIBY3fLJFzwMhy4ViWFPUDzrAPGzXOfJCpM/t1bGAkw2L
-	 oAroQSn/zPZ1kQ81rdirVy/0yUFJyYPStLzgof6VTeTQo1hLrNVRRt4N96pWL2pvp4w==
+	bh=Ye+GamAIkwRsS7lfLWyClWk1RlyUgiTp+w+5rtQRr7I=;
+	b=P1905/26JssQ8647yZrMDBsFl+XPFQJyOZh5YR8O3e2G5BGqUHM1ugGmqyatBqHZcyoX
+	 T4Lnor8WxC1qUmjEoOdSiCAkyoIGuVxpp+HHU10/7hRcZEUqbqce0K41tzrENb7UpzniF
+	 QqONpeISWkTQPZIV276l/rH0kM0jRKby6SOCJPnj1biyiRcxWEqOIqrj9v4n8X9+xodqH
+	 69meDuM92rBmgpaMZw0yEC33eWC4PVt4MjWHqZ+sI4px4G9yCdY3aqXMbyvVlHKFfCteC
+	 dmlIKxvF8YhP3cuoFgyPvoXG4OHuIevoS2KUgHZGFi8aL+ixwy4Oi1c03YZHalG3U2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEqxYcxm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJ6BVQna;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DA4606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:39:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337BC606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:39:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEqxYcxm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AAEC1F00A05;
-	Wed, 11 Nov 2026 17:39:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJ6BVQna
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3682B1F00A07;
+	Wed, 11 Nov 2026 17:39:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418746;
-	bh=RPx4W2H46ROzDhsE+zVNFq5Rqpkmfo96O19aFpn8vIo=;
+	s=k20260515; t=1794418747;
+	bh=Ye+GamAIkwRsS7lfLWyClWk1RlyUgiTp+w+5rtQRr7I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cEqxYcxmzTx1c+QcN6UqacSxf+ck5YLdsQ0P1PhC9+EHv0gbwgFgcic7EpmD0ATg+
-	 2T+W+YdJ1PLubxbtqigjVeUnVObgHJ/o1V+TCnycICE0QV3b1PlJon7O7Oof5SKPO4
-	 StD9yL9rNZmYHgSa4bcTyv25oFaiv919nZuZCFuJOfSPw/ucsN+OXYNmK+qSZsL8Mv
-	 p+vjmKzndSvtTAyifc1ZOgX7Y5fsctRbMII4li8Q3Ide9uGi4x++ZElh6DxsCdt3x1
-	 flK0rLwm+XT0A2bs42bdOZ2tDWlLxqtmi1sM/Ksmz+eI6Z2s6fs9RRLdlJds5OpYDJ
-	 DKDRUnsMzSpSg==
+	b=KJ6BVQnazUSuAkf0pfAFflfmeTPORsX4PD21A/IjKzxgnUeZrtqVjQxIEN2GwAsTE
+	 C/5ETwDB4Wg/dFj2k9o9knqsTD19iF3bPYH9fLCy00Y9j7gJOQMRmqe8Jj07h4ZJeE
+	 BVeRPsSGBXigUGvve2Que3adaGLUOR4ymlPv9hVzOSfrKKNYcRk/IuaG8aRmhx4mU/
+	 BI/YqobMwWWR59wCCCLKxbbCGBhrTZGU50rTpNMRToRsTq906Y3oJNtxbSNFxJ50OM
+	 6e0q6pKo4doZwqPaM1+HYK63by5mwYcpye6PXnvtxwf+M+7H1UmXAxJgFFpniLAyCl
+	 NNAxH8dZuLvgw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Yiming Qian <yimingqian591@gmail.com>,
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
 	Ido Schimmel <idosch@nvidia.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] ipmr: prevent info-leak in pmr_cache_report()
-Date: Wed, 11 Nov 2026 12:39:03 -0500
-Message-ID: <20261111173836.3630034-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] ipmr: only copy pktinfo to cache reports
+Date: Wed, 11 Nov 2026 12:39:04 -0500
+Message-ID: <20261111173836.3630034-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052532-failed-6.12-94a6736bb5ab@kernel.org>
+In-Reply-To: <20261111173836.3630034-1-sashal@kernel.org>
 References: <20261107052532-failed-6.12-94a6736bb5ab@kernel.org>
+ <20261111173836.3630034-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,67 +66,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-[ Upstream commit 4f34002e2e37639133693c13a2a9977fab86880d ]
+[ Upstream commit 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f ]
 
-Yiming Qian reported:
+ipmr_cache_report() prepares IP_PKTINFO on the original skb. The
+ipv4_pktinfo_prepare() helper updates skb->cb and clears the pktinfo fields
+when packet info is disabled. Since the skb can continue through the data
+path, preserve and restore its original control block around the helper.
 
-<quote>
- ipmr_cache_report()` allocates a report skb with `alloc_skb(128,
- GFP_ATOMIC)` and appends a `struct igmphdr` using `skb_put()`. In the
- non-`IGMPMSG_WHOLEPKT` path it initializes only:
+The original implementation copies the entire control block to the report
+skb. For synthetic RTM_GETROUTE packets, NETLINK_CB data is interpreted as
+IPCB by the raw IPv4 receive path. With IP_RECVOPTS or IP_RETOPTS enabled,
+corrupted option offsets cause out-of-bounds reads or a stack buffer
+overflow. WHOLEPKT and WRVIFWHOLE reports also inherit stale IP option
+offsets when their header is prepended.
 
- - `igmp->type`
- - `igmp->code`
+Clear the report skb control block. Only prepare and copy pktinfo when the
+input skb has an IPv4 header. Synthetic route-query skbs use NETLINK_CB,
+not IPCB, so leave their report control block zeroed. Restore pkt->cb after
+preparing pktinfo for regular IPv4 packets.
 
- but does not initialize:
-
- - `igmp->csum`
- - `igmp->group`
-
- Later, `igmpmsg_netlink_event()` copies the bytes after `sizeof(struct
- igmpmsg)` into the `IPMRA_CREPORT_PKT` netlink attribute and emits
- `RTM_NEWCACHEREPORT` on `RTNLGRP_IPV4_MROUTE_R`.
-
- As a result, 6 bytes of stale heap data from the skb head are
- disclosed to userspace.
-</quote>
-
-Let's use skb_put_zero() instead of skb_put() to fix this bug.
-
+Fixes: bb7403655b3c ("ipmr: support IP_PKTINFO on cache report IGMP msg")
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Yiming Qian <yimingqian591@gmail.com>
-Signed-off-by: Eric Dumazet <edumazet@google.com>
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Link: https://lore.kernel.org/netdev/20260903113055.GA90787@shredder/
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
 Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20260430070611.4004529-1-edumazet@google.com
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz@nebusec.ai
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 94a6736bb5ab ("ipmr: only copy pktinfo to cache reports")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipmr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ net/ipv4/ipmr.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index 3b58e8e88ad25..fec7012a62e45 100644
+index fec7012a62e45..f5334bc04dac9 100644
 --- a/net/ipv4/ipmr.c
 +++ b/net/ipv4/ipmr.c
-@@ -1088,11 +1088,12 @@ static int ipmr_cache_report(const struct mr_table *mrt,
+@@ -1031,6 +1031,7 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
+ static int ipmr_cache_report(const struct mr_table *mrt,
+ 			     struct sk_buff *pkt, vifi_t vifi, int assert)
+ {
++	unsigned char pkt_cb[sizeof(pkt->cb)];
+ 	const int ihl = ip_hdrlen(pkt);
+ 	struct sock *mroute_sk;
+ 	struct igmphdr *igmp;
+@@ -1086,8 +1087,6 @@ static int ipmr_cache_report(const struct mr_table *mrt,
+ 		msg = (struct igmpmsg *)skb_network_header(skb);
+ 		msg->im_vif = vifi;
  		msg->im_vif_hi = vifi >> 8;
- 		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
- 		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
--		/* Add our header */
--		igmp = skb_put(skb, sizeof(struct igmphdr));
-+		/* Add our header.
-+		 * Note that code, csum and group fields are cleared.
-+		 */
-+		igmp = skb_put_zero(skb, sizeof(struct igmphdr));
- 		igmp->type = assert;
- 		msg->im_msgtype = assert;
--		igmp->code = 0;
- 		ip_hdr(skb)->tot_len = htons(skb->len);	/* Fix the length */
+-		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
+-		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
+ 		/* Add our header.
+ 		 * Note that code, csum and group fields are cleared.
+ 		 */
+@@ -1098,6 +1097,15 @@ static int ipmr_cache_report(const struct mr_table *mrt,
  		skb->transport_header = skb->network_header;
  	}
+ 
++	memset(skb->cb, 0, sizeof(skb->cb));
++	/* Route queries from ipmr_get_route() carry NETLINK_CB, not IPCB. */
++	if (ip_hdr(pkt)->version) {
++		memcpy(pkt_cb, pkt->cb, sizeof(pkt_cb));
++		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
++		*PKTINFO_SKB_CB(skb) = *PKTINFO_SKB_CB(pkt);
++		memcpy(pkt->cb, pkt_cb, sizeof(pkt_cb));
++	}
++
+ 	igmpmsg_netlink_event(mrt, skb);
+ 
+ 	/* Deliver to mrouted */
 -- 
 2.53.0
 
