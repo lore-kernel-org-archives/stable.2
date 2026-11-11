@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363148;
-	b=quOrgmtnYBrtPfsJBzo6nGTa00fgGlTzXy7nMkrO2RgltT/8C0IY9M/tOUxHpmpY6O4b
-	 Or22b6w6N2+73FPRkAhMSwQ6Zoyd8ZtxPbn5miPu9T8WdosmsJGi+MvlRhEJptpGASMZu
-	 KleGFzdnMOGm/rRfowAW7qhOdPEgb1lzdYe1T9rR6o1MRCg1qVwjwyEwiKNE9YlxCUdgZ
-	 IdHzRIeeVbnCRiiEzMPISyrP3hpp/NTxKfBSfFbH2MYEFEX2Cn89RyrTTozRhWTldXMz5
-	 9aNMBFV8ZuqGQj0T80a8BY7dTrTHc7sqOc3ruAjUsfo/BFZcsR0pVRo7xdkbLNdBufQ==
+	t=1794363179;
+	b=N1WXabVxuYdXwXC//Fa7BlGZssecnp4Z9o1CuLAdXWPf/s3axWQZpniPQww+1pFjfaB7
+	 HUzSDRXhT2gHLCmkpOSzVq175EU1nvuN0iUog04qW6vtTuBJXjkk1TYa0jHprwjnsv852
+	 FyVKKcC01o1tHGTbsTsIAOkZWlezMaLohhyZE4X0VHxrWe6SBglzoZmxxusKK7SZ41OtU
+	 /Rgnb5UW5xPOxvbJojsk+p2wnjhokBF9Uv7AkCv4ezpywWFWFWjTJdeL5SXfdvFJvXn0d
+	 /rVLYURjRdNboicNvbHdPmkl4x1fvKmmapMH5d1Zcstp8V8coyVc7pBrDviW/KIxPGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363148;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363179;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CG87zez6hnztxHz2DnIHBmm8wYVI3djUnrsG1tenXM4=;
-	b=IqofYLA7X3A5cnNqYOIPFsvef/VZquHEDatAdiVouMJnchIHPbOmH7VtDVTc/QU//oGT
-	 qYjdCRgljCsxeTWgsAuloPvKk0ZG1kgXrdRBs6apf0wb+e2we1OUgivi7CD+IP3WqEYmF
-	 jOth1gMRF5CyN9qy1LcqRJWL3NsOWvmSa1dSGRAg37egP39pzpp+mJlaPSMVGTqlh4xuu
-	 r8xzrbgMKCKr9L6nKjC1DhX54IuPixEA9rfbIMX789M37OTZ6K8uc4Pl+WfK7y6tzpfIP
-	 ifDj+l5kvTkEVcox6pPZCqQep3BGo2yzOg8lk8q3WtlcY9OK4Ghw1Y0h8IGQU9jYdeQ==
+	bh=anq5wxlAyr82UlOUlX+W5fPNoOB2VFDDLelO1SBpOhs=;
+	b=ZGnXZpXnb9TjvU6v5rdaZlmdXRV7u+VwdXM9PyI4HK1AhbBVij18P3geRH5MpNdHIxOs
+	 MfaRFglmCl+pigruwLj+KzhfhKpl1j8HbBNoUHd02NI4iE8rSuACOYXnyq8d53lQY0Qkv
+	 YnNf+CAWCyyBOsWEj39ygSelPkKdUPbSe1dBycyPL5ufHsvf2DazF/7yjEKB7/CfL8Qqk
+	 oB34WNcRKiztekMf99NFnIuTuedsUGKSK6Tk18fe4NV7JM33PvxoeGx/abiP/z9cHfZBI
+	 B9Lgc2ljouzM9LOMobh4aD+6E58tstFcSL6JvRhpGBrRJ/WZOaeC7ViqUsChNFxAhyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYN3lNzR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6qV2tDw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B32606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:12:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E44606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:12:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYN3lNzR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E591F0089F;
-	Wed, 11 Nov 2026 02:12:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6qV2tDw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FB4C1F0089F;
+	Wed, 11 Nov 2026 02:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363148;
-	bh=CG87zez6hnztxHz2DnIHBmm8wYVI3djUnrsG1tenXM4=;
+	s=k20260515; t=1794363178;
+	bh=anq5wxlAyr82UlOUlX+W5fPNoOB2VFDDLelO1SBpOhs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NYN3lNzRU7VSGK42PvvA78TZnLNQZYbGaYm4miKirSYp9RCGYE5jRZliaxW8cWTe7
-	 Jm6J/8xpfKmTZf/HiwAz7fIRChGeBPBnrhyrm8qr8x1aHbagYR+FFiYIcDpMqd2Yn2
-	 bKykspxBceC7HFSSav5mKk4gsyfBloAyoqMARcWfu0EkryCorqxVfIlBwvb56XPAzt
-	 tHdowj1uYozivqkTTM8ic2n9EPC3/8jm+QkCzKJyFAfUuoqnWNNgICmtxxx4+9rWd/
-	 jbgbySaVkKgB1ZZHONRqp8ZEbB/n7vI/FRnIOv5JTjGLFZMQ5vWPaH5fjn5+Lfj+N5
-	 dWExpLPFixMMw==
+	b=I6qV2tDwiwx0Adci6TPtK1f83uXRAMNrg712AG3DDgsE54cgmuRbJ2Y1VWFQjNvUI
+	 8w1uYqw0G7hpgk6+Ly61XYGgQ7WVu+qu7/gBydL0ntqNtpc7BHL1hYAgZm9iO/wG4X
+	 RBE3bCer7zDAe4jc7rh90kRC90JMWbGcPTEMtK1NYrc3er8Ls+nCtg2cOWjD8bsqfX
+	 2w++T584lwk66oj0PhFdCrNunsyRZ4Sp4y9+ALU8X2v882u+88jIafXUwlfhWEUguO
+	 MQ/xUW6cCTsDKl4Kf/G308HMIfXsfE/MMpGUTxYCMIiyyrcZwi3wAjLgZKDbJLGkq6
+	 vqxdOeEpTaI8w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Maciej Kucharek <qchcio@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
-Date: Tue, 10 Nov 2026 21:12:26 -0500
-Message-ID: <20261111021202.545078-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] tpm: tpm2_probe: propagate transport errors
+Date: Tue, 10 Nov 2026 21:12:57 -0500
+Message-ID: <20261111021248.593244-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053726-failed-6.6-5b56ede88031@kernel.org>
-References: <20261107053726-failed-6.6-5b56ede88031@kernel.org>
+In-Reply-To: <20261107052530-failed-6.12-7d4f1cbfe063@kernel.org>
+References: <20261107052530-failed-6.12-7d4f1cbfe063@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,81 +61,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Maciej Kucharek <qchcio@gmail.com>
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-[ Upstream commit 5b56ede880317bd912f914d5cd38ba1d357677fa ]
+[ Upstream commit 7d4f1cbfe063af5581dac66abe9e9c965e1031cc ]
 
-On MacBookPros with switchable graphics, the firmware puts VRAM at MC
-address 0 when the iGPU is enabled.  The EFI stub enables the iGPU on
-these machines through apple_set_os().  On a MacBookPro11,5 (Radeon R9
-M370X, 1002:6821, subsystem 106b:0149), the driver adopts this layout
-at init:
+tpm2_probe() reads the protocol version from the response tag and is
+documented to return -errno on failure, but it always returns 0.  A
+transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
+the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
+unset. A transient bus failure on the first command then misdetects a
+TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
 
-  MC_VM_FB_LOCATION=0x007f0000, HDP_NONSURFACE_BASE=0
-  VRAM at 0x0-0x7fffffff, GART table at 0x1400000
+  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
+  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
 
-The driver posts the ASIC again on S3 resume and after a GPU reset.
-The VBIOS asic_init table then moves VRAM back to the VBIOS default:
+Return the transport error instead; rc >= 0 still means a valid header was
+received and the TPM's own response code is still ignored.
 
-  MC_VM_FB_LOCATION=0xf47ff400, HDP_NONSURFACE_BASE=0xf4000000
-
-gmc_v6_0 does not reprogram these registers.  The GART table is then
-no longer in VRAM, and the gfx ring test times out:
-
-  amdgpu: ring gfx test failed (-110)
-  amdgpu: resume of IP block <gfx_v6_0> failed -110
-
-Reset and post the ASIC at driver load on Apple boards with VRAM at 0.
-The driver then uses the VBIOS layout (VRAM at 0xf400000000) from the
-start, and later posts keep it.  After the reset, FB_BASE is not 0, so
-a module reload does not reset the ASIC again.
-
-The test is the same one that commit c54e4d105077 ("drm/amdgpu: make
-Mac FB workaround generic") uses: an Apple subsystem vendor and VRAM at
-0.  The VI quirk for the MacBookPro14,3 resets at load for the same
-reason:
-
-  commit b6b1d9721851 ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
-
-Other Apple SI boards get the same reset if FB_BASE reads 0 at load.
-
-Tested on a MacBookPro11,5 with 7.2.5 and this patch: the panel comes
-up at boot, and 4 of 4 deep S3 cycles resume.  Without the patch, S3
-resume fails every time.  The GPU reset path is not tested.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5978
-Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 60dd16ae10f286cb9cce5b6027b2d5ee869637af)
+Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
 Cc: stable@vger.kernel.org
-[ sashal: Replaced MC_VM_FB_LOCATION__FB_BASE_MASK with its equivalent literal 0xFFFF to avoid conflicting header definitions. ]
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20261001060114.1582092-1-alexander.sverdlin@siemens.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ sashal: Replaced the early return with rc = 0 to preserve the existing tpm_buf_destroy() cleanup. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/si.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/char/tpm/tpm2-cmd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 4b81f29e5fd5a..5d4561ca22549 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1509,6 +1509,16 @@ static bool si_need_full_reset(struct amdgpu_device *adev)
- 
- static bool si_need_reset_on_init(struct amdgpu_device *adev)
- {
-+	/*
-+	 * MacBookPros with switchable graphics put VRAM at 0 when the iGPU
-+	 * is enabled.  Any later post (S3 resume, GPU reset) moves it back to
-+	 * the vbios default, so reset and post on load to start with the
-+	 * vbios layout.
-+	 */
-+	if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
-+	    !(RREG32(mmMC_VM_FB_LOCATION) & 0xFFFF))
-+		return true;
-+
- 	return false;
+diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+index 63d26aebf55db..2e4652d43bca7 100644
+--- a/drivers/char/tpm/tpm2-cmd.c
++++ b/drivers/char/tpm/tpm2-cmd.c
+@@ -551,9 +551,10 @@ int tpm2_probe(struct tpm_chip *chip)
+ 		out = (struct tpm_header *)buf.data;
+ 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
+ 			chip->flags |= TPM_CHIP_FLAG_TPM2;
++		rc = 0;
+ 	}
+ 	tpm_buf_destroy(&buf);
+-	return 0;
++	return rc;
  }
+ EXPORT_SYMBOL_GPL(tpm2_probe);
  
 -- 
 2.53.0
