@@ -1,58 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439687;
-	b=iX1PsnB81QwMILCB+E2q6s/vqdGGmdTlaLnZ1CBHXix7RR1Zt2dBpErdRCRemFXA6rWn
-	 5OM6MclB7HKaGBIgL9nVYb6iTGGFdMVDPEHBwNmR8NQC0JTIDrUiUPwKdgSj0P4MCOxVz
-	 eHN3nkXZvcBqHR9COSWmyEacKSk0J/hMqkBmjbbnBVQYTmqk3yxK1ndxuCT/ldJRi0ASA
-	 aevf/LBRzYZOEwjJ86nPEVrGmW8fKz8AE53J8gM5XZCcxzKoCec5CLR5O0KBAAy8DssJW
-	 49oa0aHMcc2Cmey0OBXgAFrF75cT4ifhTWta+8BAlrLOaNGpjhKcJPIyLq/df+2ShWA==
+	t=1794439724;
+	b=z9Xxo66/9tCl1hsedyMED45WCFX59mYOlgXCJI+39P36tKCcG9tA8xlhtLl4WdqgcAL7
+	 gnDiDup3fn0jTuF6OJZOMxvwEJtf1sTSJI6sGd9yBM+BweWf8wPbrhnqy6NdU1ec6RMP7
+	 VMpBBsUET+3R8il2+0EjbJnpJxyt67fEYQkb1xGqxXgL/8ycADuoERtAcMm87ezkub7el
+	 wN35Yf6Fnf3oub5WKnu+1PPf6cVzMwpZYEjKBx1TKixZoBgwCWrAeCxFGaSWSGDMFAtsF
+	 rawwjLMtCU/9Nvpk344ci26CUZsqNyuP/IyfISapebO9UsLzeta9kfIkd3Tl8Gtxp9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439687;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ibh16hckzSf0pI3E7zle1ONFLmqUDn4zHjbVKC9sGMA=;
-	b=RWDp8jWb06kR1k/yx1mgSElw+ye1awCBGUIIMilXFf/HPpBkkc2krSgy2KL2zERNI/aG
-	 varwmVh1TwhjQOgCzrxFKlG9RvwCchkhLu5Hs4cGWDy7bCUaMyqb+EcilV6KgvNvs9+G2
-	 n6yHTKP5mGGXS06gSp7jGTDDFgv6Ljn6RwP8trQGoXYT3KfwYo/KxMPY6CEOCTr8DSH6p
-	 vqs3b22VdlgaxgmAjAikGd2E2QrjcW6CKaMBBtJ2ovUvCQT+QpbsNuZMjVOHmV01zAlhY
-	 rF/EM3OxzanZn41f+/xEWne3i+kUYqciJVvIF/2IhQ4uYi0t0BIvaFLnS30uN8MMWRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439724;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=IKsrCBoJXK+5BoP6HnPY8QEU5vTMg70Zu/Nh+kOhTzI=;
+	b=rqf4VNObulhDWuuZSrUd0A47gZBEQgOEevutcusANk4XPPrIhUHY1x8Hhch8VUsHI3Eo
+	 B1RW2Pjs1d6tE90wtqbFq148fDN/S50cJ15jLrKcEV78yjPl1G8pY2HnSJDOWGFTHdkWC
+	 +6TXd4HwNcMhkk4J1Pz5EYsv/dvd3ulxRRQnUxTS+Xe6/px6GGaSuWpSNpiADqNGr+oNV
+	 4WQrFjbUODVC2ZrTNUHh/W08HtbVlCowpgJ5dicCKypx+oX/d7rXaCnRgptuq53oM3zgp
+	 fIcS96EBDL0Nut4gqUjdgryDaTKKuYDjN+uLeDGDOZILiFWBZ7GlxunHCVztUjhcS/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjSXpp7H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mI+3Fden;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB977606A32A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:28:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924BB606A897;
+	Wed, 11 Nov 2026 23:28:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjSXpp7H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1F31F00A05;
-	Wed, 11 Nov 2026 23:28:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mI+3Fden
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC8D1F00A05;
+	Wed, 11 Nov 2026 23:28:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439687;
-	bh=ibh16hckzSf0pI3E7zle1ONFLmqUDn4zHjbVKC9sGMA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JjSXpp7Hcvjdv8i+uqmpXHyQ5xMLlMJBDpoeOyv/N2Gsr7zwi2FpJieq+Bh6F2dhx
-	 5pmqqjrb7Us7uoxgY72D3Y5c/WMZXT0u+i8gre6kvL68moXSjyfS7BkNkAn1O8jGj5
-	 X42iZR+DGDjqfl0SvfSE4sHEkpKK4JF7DcRH1ymiJtXGJbC0G+2w6tJ3LmQR3fH1X0
-	 Sz/hSwVPO2tg75HC1ZeAgnbj7YYX+uUCNYb8tbSwOVCGK7KrhN33DG6KOgMa31xvE9
-	 /8JVZF5g2ta444olocHk37Yqet+kIdP7LBaYZBViPWggThTKm8NmJvwnX+cckYHa3l
-	 cmwEE2UGdIC4Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/userfaultfd: wake waiters when registration modes are removed
-Date: Wed, 11 Nov 2026 18:28:05 -0500
-Message-ID: <20261111232739.585501-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201339-failed-6.6-4eee9c389b07@kernel.org>
-References: <20261109201339-failed-6.6-4eee9c389b07@kernel.org>
+	s=k20260515; t=1794439724;
+	bh=IKsrCBoJXK+5BoP6HnPY8QEU5vTMg70Zu/Nh+kOhTzI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mI+3FdenraiaeiNHu/j2Q9YoZmOQJb+M/aJNZiifIJR4RWnqvpp5Eg1+YrJ3mGCoE
+	 r1neQvKFYSO7kpuxIEnYdAO2rP8CKQFWonZo71yDN1+J+EbCGBEAXIHo7bxM7fhpn6
+	 tPhClSs/y7EzKIxk2cytcQanr8AEVmPFfHw844oi4WBen1Ef6KYG0Hm1eOvOdGc1Tj
+	 o3m4n/yeVZqn4ioRpPmGuMo4rEJsT9VwX0qZ5D1fTp6n3Us6dlZHf6XQIMrb9TTVQy
+	 bvdQDwz0VBhTCAIWc1tkvJvX3tjjFHb+xH03ypLMhL/EqKKzjNrblooCswdyzCfmCg
+	 LsATA/xWk5nBA==
+Message-ID: <440db014-a58c-44e4-bc96-e950e69b6763@kernel.org>
+Date: Thu, 12 Nov 2026 08:28:41 +0900
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,72 +51,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] ata: libata-scsi: skip MULTIPLE_COUNT for 32-byte
+ passthru
+To: shao.mingyin@zte.com.cn, cassel@kernel.org, linux-ide@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+On 11/11/26 23:31, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Reading byte 1 as
+> that field instead interprets the variable-length CDB CONTROL byte,
+> which can reject a non-multiple command or cause a spurious count
+> mismatch warning for READ/WRITE MULTIPLE.
+> 
+> Skip the CDB count checks for the 32-byte form while retaining the
+> check that multiple mode is enabled on the device. Also report byte 10
+> for an invalid PROTOCOL, where that field resides in a 32-byte CDB.
+> The 12- and 16-byte MULTIPLE_COUNT checks remain unchanged.
+> 
+> Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
+> Suggested-by: Niklas Cassel <cassel@kernel.org>
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> Changes in v2 (Niklas Cassel):
+> - Skip the nonexistent MULTIPLE_COUNT field for the 32-byte CDB;
+>   preserve the device multiple-mode check and the short-CDB checks.
+> - Move the invalid-PROTOCOL field pointer fix here from patch 3.
+> - Regenerate with git format-patch; do not edit diff hunks or indexes.
+> - Do not carry the v1 Reviewed-by tag over the reworked code.
+> v1: https://lore.kernel.org/all/20261104220939917jqg8_alGN5sACGWq5M9D-@zte.com.cn/
+> 
+> Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiled
+> ata_scsi_pass_thru() verbatim with SCSI/device stubs. An invalid PROTOCOL
+> in a 32-byte CDB passed field pointer 1 to the invalid-field helper before
+> the fix and 10 afterwards. CONTROL-byte variations no longer caused
+> false rejection or multiple-count warnings. A device with multiple mode
+> disabled still rejected READ/WRITE MULTIPLE; short-CDB checks were kept.
+> 
+>  drivers/ata/libata-scsi.c | 23 ++++++++++++-----------
+>  1 file changed, 12 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+> index a61fb03312793ca94d81d8061a16c66e786c4cf3..227240514651ada8b5feb87a154833fb2cddf064 100644
+> --- a/drivers/ata/libata-scsi.c
+> +++ b/drivers/ata/libata-scsi.c
+> @@ -3388,7 +3388,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+>  
+>  	tf->protocol = ata_scsi_map_proto(cdb[1 + cdb_offset]);
+>  	if (tf->protocol == ATA_PROT_UNKNOWN) {
+> -		fp = 1;
+> +		fp = 1 + cdb_offset;
+>  		goto invalid_fld;
+>  	}
+>  
+> @@ -3573,27 +3573,28 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+>  		goto invalid_fld;
+>  	}
+>  
+> -	/* sanity check for pio multi commands */
+> -	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
+> +	/* The 32-byte CDB has no MULTIPLE_COUNT field. */
+> +	if (cdb[0] != VARIABLE_LENGTH_CMD &&
+> +	    (cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
 
-[ Upstream commit 4eee9c389b072e161549d46dcb1ae10b0222717e ]
+Sinc ATA 32 defines these beets as reserved/obsolete, we should check that they
+are 0 and reject the command if they are not. So something like:
 
-UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
-faults that are already queued. For example, switching an anonymous
-range from MISSING to WP leaves a missing-fault waiter asleep until
-userspace explicitly wakes it.
+	/* Sanity check for pio multi commands (not supported with ATA 32). */
+	if (cdb[0] == VARIABLE_LENGTH_CMD && (cdb[1] & 0xe0)) {
+		fp = 1;
+		goto invalid_fld;
+	}
 
-When a registration change removes a UFFD mode, wake waiters in the
-affected interval after updating the VMA. The VMA is write-locked at
-this point, so no new faults can queue under the old modes and woken
-threads cannot retry until mmap_write_unlock(). Waiters for retained
-modes in the same interval may also wake and refault.
+	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
+		...
 
-The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
-with both read and unread fault events.
+>  		fp = 1;
+>  		goto invalid_fld;
+>  	}
+>  
+>  	if (is_multi_taskfile(tf)) {
+> -		unsigned int multi_count = 1 << (cdb[1] >> 5);
+> -
+>  		if (!dev->multi_count) {
+>  			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
+>  					   NO_ADDITIONAL_SENSE_INFORMATION);
+>  			return 1;
+>  		}
+>  
+> -		/* compare the passed through multi_count
+> -		 * with the cached multi_count of libata
+> -		 */
+> -		if (multi_count != dev->multi_count)
+> -			ata_dev_warn(dev, "invalid multi_count %u ignored\n",
+> -				     multi_count);
+> +		if (cdb[0] != VARIABLE_LENGTH_CMD) {
+> +			unsigned int multi_count = 1 << (cdb[1] >> 5);
+> +
+> +			/* Compare with the cached multiple count of libata. */
+> +			if (multi_count != dev->multi_count)
+> +				ata_dev_warn(dev, "invalid multi_count %u ignored\n",
+> +					     multi_count);
+> +		}
+>  	}
+>  
+>  	/*
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Cc: stable@vger.kernel.org
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted userfaultfd_register_range() changes to the existing userfaultfd_register() loop by inlining the wake_userfault_range() helper ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/userfaultfd.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
 
-diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
-index bd64d6b9cf899..273b16516a5d5 100644
---- a/fs/userfaultfd.c
-+++ b/fs/userfaultfd.c
-@@ -1476,6 +1476,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
- 
- 	ret = 0;
- 	for_each_vma_range(vmi, vma, end) {
-+		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
-+
- 		cond_resched();
- 
- 		BUG_ON(!vma_can_userfault(vma, vm_flags));
-@@ -1527,6 +1529,16 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
- 		userfaultfd_set_vm_flags(vma, new_flags);
- 		vma->vm_userfaultfd_ctx.ctx = ctx;
- 
-+		/* Retry faults for removed modes while the VMA is write-locked. */
-+		if (any_mode_removed) {
-+			struct userfaultfd_wake_range range = {
-+				.start = start,
-+				.len = vma_end - start,
-+			};
-+
-+			wake_userfault(ctx, &range);
-+		}
-+
- 		if (is_vm_hugetlb_page(vma) && uffd_disable_huge_pmd_share(vma))
- 			hugetlb_unshare_all_pmds(vma);
- 
 -- 
-2.53.0
-
+Damien Le Moal
+Western Digital Research
