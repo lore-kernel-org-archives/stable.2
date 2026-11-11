@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794433998;
-	b=gOmhY9zAbWQXtMRA5/MxQNoi/ei2pq93Y9+RA6aJtCU2/nYMLjSH3kLtnMFMbKULFcL/
-	 Eneqk9dw/sVxreIKr1ZrpI2jc5iVG3Ixs+wudnzb00Op7iOkHJWagwWuafpkMd16doLSV
-	 P/dvQHNTGv1IzbJY93auc5Fw0J0MjvluM+nOeOc0Rms74tvdCNyuUqGgfB17ZIOGZphpw
-	 SPMSW1pWDyGzeihGF6e3xGQnuDOccbNuflwvUrwQ5BFggkuXEl2F227nol3emcNxq8WSP
-	 VAslETWdvS29tGsK149OUAa794Bl4R5jf7/exDV5uSMdRnRWDPmxNHWVgIs144OxKNQ==
+	t=1794434005;
+	b=gY1klUS7S420QNuzjuCXzW3uDT3iETHh9zIfQ/WzrdhvMUL3NgbfnvlAdmzYeG8D4a0Z
+	 aKmBfrNTsbDpJpgtybNIE4PUEkd36t/BlqJdFMzupb8UjTF6Jij2dwWOa/G/dJYu1D538
+	 9iCCF1Vkqpo0s32Y8iaFjRvTQcWlL20oqeyrsLquK0UOZLjbyICaRCo+uuKVxcISRLfJ2
+	 SCkV9Y/JJGOX71QEdr5XEHVpT5blw7FumBmwXozRFc3dwaRy0xWtFAc2rkyHyqlvfk6JC
+	 vC18prf5xIuHx8zWODabdr10vpRyz5RXwPs7BrIN6gfelhnwCuqe4oejoKHws1xcr8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794433998;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434005;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OgsIQxLzQY9h7mZX3W9Y2wTavESqyHYyf1dp59qEWJg=;
-	b=TQkJxK6xmeZNvpokVX0taELwpOwmFMLWFsJI4liTz6jMs9DfC+jng3tcuzOUrzJ9biOE
-	 6tpyy4F10zBgI7gc0m1y8D36AxZn1kcO0KNmYq1r8BI7ExCcKaJiQFpZRnXnTlwKJfAsJ
-	 0JivYfeCELV3LLeMucrbTuq8UT6pEvOy/7QiJtCaNdWoX6JOeAQRu/GXyxCDK+BwquznS
-	 n9hHx9yB+t7LQvU2Gsq+KBySgY8RRCdQ8gUuCoDXWYB3H4/FDeIoF/wXnAT+91fxeGu66
-	 1oluWpJVLYTF6JAG0olcm5q42QxPLV4Opw4eBH7PGIAPIcHAbD7lcKUmo5pVyS6Nm7A==
+	bh=RUt0eamBGSiAqwO2GwEE5rxkTrKqiDLlnkwJFDQBAZY=;
+	b=RG9KN7LEEchoen1gQlhIJckV6Q0th6feyQMYzG9um1z6O6O2b0yGuImbksn6V4wujXCS
+	 AbsWgvDLq60LySjr5rhyQQ83nw1LNs2boYJShYM3HvDeedGrQu28nqUQhQaBeBdDcbABw
+	 GuUcWQFYoj34dzORf8jafGjIkhIz2yxb2mfspzxbihsg7Ol4bb5Vs2r39rLM5l1uxZPM8
+	 UVVXN1PsxMOsF9sIKQ0pOWYnIZiHQGi1rC2lq39pjESg/PpFRjZha7DiDgOuXPom/Ssqb
+	 mAzD+77mVcTnQNuuY3XeGCf+vb6ULza9PyiRcY9RfglFDN5RuLK0NfZNYkBFq5ZRk/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5NbCA6l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUN41KzK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEB1606A331;
-	Wed, 11 Nov 2026 21:53:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE50606A327;
+	Wed, 11 Nov 2026 21:53:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5NbCA6l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510A91F00A05;
-	Wed, 11 Nov 2026 21:53:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUN41KzK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84ECB1F00A09;
+	Wed, 11 Nov 2026 21:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794433997;
-	bh=OgsIQxLzQY9h7mZX3W9Y2wTavESqyHYyf1dp59qEWJg=;
+	s=k20260515; t=1794434004;
+	bh=RUt0eamBGSiAqwO2GwEE5rxkTrKqiDLlnkwJFDQBAZY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V5NbCA6lXzqX3mfJcCZr7BG0oiK6pRM3UzqESzQRIQH83Zl0Pf+RCmsZsGtJTRJ+0
-	 Xiv6kaRgz8dLWDXtzzO185kcSpb/i0OWzfJ7oSgEnp4PogfG+uLdhlD68ufa1nEqK+
-	 XmxG7uHXVTi7sx606OFUxYu6NPrarwuFQJl9NLAHcApDdpKjJizw7tPGaC2qQ/qr7O
-	 /cXKFu18JdxyWjnQB6Rj8eZWEgkkXCqytSfTlI7RdzZnDDx5kLMgBe9KPE1M4SwiU8
-	 9La0f6m5Vi/NBPlp6/wei6olLiTsZ4UCZ5si1Fw0LsW2GbAHUkDaSTK9xSxTMJM3ok
-	 2cxpLKB9CxVSA==
+	b=XUN41KzKEErQDu4KreLiURpr6gTZ2b6tx0kXuUbvlgJ7+h2AlXbpobqVsyQMa4ecL
+	 NqGHozL9jmzC8t2lqx81lzjal9mna0itUSOnfwF9wIRxrirIAnBfMlpkdVNsU86fv8
+	 tQE0qWUPk9S4ibEnEOvzJ5euemD0FDLO8pF+ckvUaCEK5uhEpOtH+W/xXPPZ+WjjM8
+	 NjxfRFvIMNxHwJHxVxYuNktLN+vG9JlorSPxZBuKxshGXeQ7fIvvTAC3uIEAdINCqJ
+	 mGAzrNuJxbW5M29AcnmKhivp2Xapgot6+8EtBx0HRpSGcsJgbCWL93QWsQp7DTs/GX
+	 l/+y0nw8LBq7A==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jacky Huang <ychuang3@nuvoton.com>,
@@ -48,9 +48,9 @@ To: lee@kernel.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 02/10] pinctrl: nuvoton: ma35: Prevent out-of-bounds write in ma35_pinctrl_get_soc_data()
-Date: Wed, 11 Nov 2026 21:51:47 +0000
-Message-ID: <20261111215256.1982044-3-lee@kernel.org>
+Subject: [PATCH 03/10] pinctrl: nuvoton: ma35: Assign fwnode to gpio_chip in ma35_gpiolib_register()
+Date: Wed, 11 Nov 2026 21:51:48 +0000
+Message-ID: <20261111215256.1982044-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
 In-Reply-To: <20261111215256.1982044-1-lee@kernel.org>
 References: <20261111215256.1982044-1-lee@kernel.org>
@@ -65,40 +65,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ma35_pinctrl_get_soc_data() allocates ctrl->pin_banks with
-ctrl->nr_banks (MA35_GPIO_BANK_MAX) entries and populates them while
-iterating over child GPIO controller nodes with
-for_each_gpiochip_node().  If the Device Tree contains more than
-MA35_GPIO_BANK_MAX GPIO controller child nodes, id exceeds
-ctrl->nr_banks and writes past the end of ctrl->pin_banks.
+ma35_gpiolib_register() registers all 14 GPIO banks under the same
+parent platform device without setting bank->chip.fwnode to the child
+bank node.  Consequently, all GPIO banks share the parent pinctrl node
+for OF/fwnode lookups, preventing consumer drivers from resolving
+phandles to individual GPIO bank child nodes (&gpiob, &gpioc, etc.).
 
-Check that id is within ctrl->nr_banks before indexing ctrl->pin_banks.
+Set bank->chip.fwnode to bank->fwnode before registering each GPIO
+chip.
 
 Fixes: f805e356313b ("pinctrl: nuvoton: Add ma35d1 pinctrl and GPIO driver")
-Closes: https://sashiko.dev/#/bug/linux-7f04e7c5-6691-4586-b0f9-392f1285514c
+Closes: https://sashiko.dev/#/bug/linux-cbafd8f2-6541-4311-b97b-f7285d2e1992
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pinctrl/nuvoton/pinctrl-ma35.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/pinctrl/nuvoton/pinctrl-ma35.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/pinctrl/nuvoton/pinctrl-ma35.c b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-index 408927ab19da..04528e734bc9 100644
+index 04528e734bc9..25c66b9e8dd2 100644
 --- a/drivers/pinctrl/nuvoton/pinctrl-ma35.c
 +++ b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-@@ -621,6 +621,12 @@ static int ma35_pinctrl_get_soc_data(struct ma35_pinctrl *pctl, struct platform_
- 	}
- 
- 	for_each_gpiochip_node(&pdev->dev, child) {
-+		if (id >= ctrl->nr_banks) {
-+			dev_err(&pdev->dev, "Exceeded max GPIO banks (%u)\n",
-+				ctrl->nr_banks);
-+			fwnode_handle_put(child);
-+			return -EINVAL;
-+		}
- 		bank = &ctrl->pin_banks[id];
- 		bank->fwnode = child;
- 		bank->regmap = pctl->regmap;
+@@ -518,6 +518,7 @@ static int ma35_gpiolib_register(struct platform_device *pdev, struct ma35_pinct
+ 		bank->irqinten = 0;
+ 		bank->chip.label = bank->name;
+ 		bank->chip.parent = &pdev->dev;
++		bank->chip.fwnode = bank->fwnode;
+ 		bank->chip.request = ma35_gpio_core_to_request;
+ 		bank->chip.direction_input = ma35_gpio_core_direction_in;
+ 		bank->chip.direction_output = ma35_gpio_core_direction_out;
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
