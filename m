@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403439;
-	b=MbWoSX2j1KV7OXAXfcUZbZlTZCu/mbB0nAxxPNlF6s0d4nY9f049yBJeMi+jSfEkhbn+
-	 /4O6mfaegJOwdYNRYx2JATMr48V1BdTa5GT38wQjYPggkf7+2Vbbo6TDt9FeYppJt1r8f
-	 b3kdBLAlmiLoHXgBNrPB/nyigiVIz56UyfQobp/U+zio+U3cSSvI8CIhagG2gYTCOxFbs
-	 BUlL8SkWxs9pvwRt1lU5b5H8MUVEFGtYPILg5MXfvP7CoZWu2mNy5rR8L7jYwzMfEystu
-	 04CEsWmXBb1ehDSFkYaJ/8ODEOr4Ot8pBPZp45J2soYyn76/jKHzYMYKjTNMFY9Z3Vw==
+	t=1794403478;
+	b=PU/PNLhx4IL9aM4NQU5GFQ73o312FZuvaNny0HCI6fXJufs0hCqeiAJKSeRMlDcWO6z9
+	 fNsaDhdXeBSbXIgiJVjh7qzigq2IcRJxftwVQP82H6gXhtyWNrmrbev8Z/Z1BIAwoHIeG
+	 i79QGT4Vwb3oBIhYOK4Cyblf7bbtApXh/oCvIivfzwhXVkgWORK5NvQTJff3o5G4n6X+k
+	 BpY7mIgMG5kVbmchW9psOTaxj8KTAGpm9s3gtYp/mcXuDEqX8ztFadibTQqThTZTbnuxy
+	 LVPKm/1u8aUgQWJsBksxZMaXpkOkBUkMUdROnFl1HfvWvGF2pzDSOH8KzVsW5Xj/sXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403439;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403478;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=wOH7GEHHCWlc2iDdlrIzc0F5JDB+bb50L0YggTMp6Dk=;
-	b=H/sq8QdaJgyqTKl/mXPsKvgO6Pod+WE2fcUf3ZE974I3o/lCWVPbf/mZ3e+QMzOt3sFp
-	 KhIzRAUk2QM84VtK0kJeZoKJCGAzW6Zf30sgtxrsoSqI9HViyMiZNWoyEwFSjfLjgAkEX
-	 8gauOhqlVLM4X9KiQlNWK/rL6OXRuSija61VwysEeJIPqK7thrB+NbxZJTLKDKBBTN7dK
-	 yzF/sgALz5d1Wjyxq56LEHtmqVwwXxOmwDPRfH5CBEebqSiog950g5PrSXqA9HYaFAwgS
-	 0vdzhH5Hv0C9Cr3CfBSNEtd/eUlfZj9P3/efmJVL2VWugX3iXLo69JMGAYP+/Bdk7kA==
+	bh=aTpninWTAe85GlgXcHUYyNqLlagIIAlBlFTO3qCfJ8w=;
+	b=fwnwWzEVUvN+CpFjlnZzDp7CnO9QBKAXHNb7spbLTBFqcNDcqfX+Tp+uIkA+81dNSmgI
+	 GWd0vVqPtRsnizqv2HRM18+BqReCrkZsseL22oyxq3l31zlLQjozeZ65IVhXZ6362FgyI
+	 CpQfgK/BIdVVk7IiuxNOC9G+Blqq1EykCEu1399cM/Sak/A+ULM+JkYIcvmVb8y1AsJwT
+	 YNdEEMHv/fQ9WxKwoKcW7lLxzsAphFDWp4eUiquUULyjWUeO5cuyLmFrLgk30oa7MOQOx
+	 qE1ddN/jWNI1f2A9KTysjygJDtOlqv/0XGKy0VJDaW5JvjABquddZJ8GS5lRD/uzujQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jaeyeong.cc;
-	spf=pass smtp.mailfrom=jaeyeong.cc;
-	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=Me2bcM9Q;
-	arc=none smtp.remote-ip=109.224.244.22
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YF0tFt6b;
+	arc=none smtp.remote-ip=95.215.58.133
+Received: from mta1.migadu.com (out-133.mta1.migadu.com [95.215.58.133])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71404606A31C;
-	Wed, 11 Nov 2026 13:23:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71404606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4923606A881
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:24:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4923606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=Me2bcM9Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
-	s=protonmail2; t=1794403436; x=1794662636;
-	bh=wOH7GEHHCWlc2iDdlrIzc0F5JDB+bb50L0YggTMp6Dk=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Me2bcM9QTh75iCxb1sCyRooLRqDz569gMCXiHGFgwimd02GttIk2PTtoudUx8Il/v
-	 2wMKuY7hKKFiIn+xV0MOhHKvgtcjd6Q8TkIhbKoxSBdnjZWTXpYLc8j3tIu7joEPFG
-	 J1d9fXiRKqxRjBs/4kmVxiYyMsOGVJfHS/JExfEoZU0x4HUVWuCVNqHlDuSxr9AoYQ
-	 IwcE2t3ad9ALUtRT/nGkrRS0J4jxKlEpGmCZiADlzXMP4JcN8lKf0cOhRDEtvhKHnN
-	 LA0gTYYYbVJ83Ubx4rrZR8GI0cnM3du2qVMPGaLnjdici947Xt10u4TLFAGDAnctRR
-	 qJQU7DstkeUJw==
-Date: Wed, 11 Nov 2026 13:23:51 +0000
-To: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>, Roger Quadros <rogerq@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v1] usb: cdns3: Fix WA2 request UAF on endpoint disable
-Message-ID: <20261111132346.9262-1-lee@jaeyeong.cc>
-Feedback-ID: 177356447:user:proton
-X-Pm-Message-ID: 90d1596bba7175882734bfbd6791536fcea56128
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YF0tFt6b
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ry15bVUOMX1b1mZOFV9G9axjJGO1Lbq+pKkUeZX/f1o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794403475; v=1; x=1795008275;
+ b=YF0tFt6bUSQREI9DhwI9ZtUtrdSezanscJMvEdbV1Np5EQ90ztENr/srPLeHKZ+r+GnAoxeZ
+ rYsxxpZ8+XEdvCpemJ2Oh54CcrgBafa0EuEKW//xoqa3cep6g4UXR6jpJr2AAvywclqN+byYPhh
+ pnUSZJeQzBhiBuYVz6jj51kw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 02297ab2b5c37ad7;
+	Wed, 11 Nov 2026 13:24:35 +0000
+X-Mizu-Trace-ID: 02297ab2b5c37ad7
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: stable@vger.kernel.org
+Cc: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
+	Lance Yang <lance.yang@linux.dev>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>
+Subject: [PATCH 5.15.y] khugepaged: fix readahead lock inversion in collapse_file()
+Date: Wed, 11 Nov 2026 21:24:24 +0800
+Message-ID: <20261111132424.88744-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261109202404-failed-5.15-eadce52a9ef6@kernel.org>
+References: <20261109202404-failed-5.15-eadce52a9ef6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,73 +70,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-WA2 internal requests use two independent list nodes. priv_req->list
-links a request into wa2_descmiss_req_list, while request.list links the
-same request into the pending or deferred request list.
+collapse_file() can call page_cache_sync_readahead() while still holding
+source folios locked. If truncate holds mapping->invalidate_lock
+exclusively and waits for one of those folios, readahead waits for
+invalidate_lock and neither side can make progress.
 
-If an endpoint is disabled while an internal request is still deferred,
-cdns3_gadget_ep_disable() removes only priv_req->list before freeing the
-request. The following deferred-list cleanup then passes the freed
-request to cdns3_gadget_giveback(), where list_del_init() accesses freed
-memory.
+We need to release those folio locks before starting readahead. On a page
+cache miss, roll back first, populate the collapse range, and retry once.
+Doing readahead after rollback avoids an extra pass when all folios are
+already present. If another miss occurs on retry, give up rather than keep
+retrying while truncate or reclaim removes folios.
 
-Initialize request.list when adding an internal request to the WA2 list,
-and remove it before freeing the request during endpoint disable. This
-also keeps the cleanup valid when queue setup fails before request.list
-is added to a request queue.
+Keep page_cache_sync_readahead() and wait for read I/O with
+filemap_lock_folio(), releasing each folio before moving to the next. The
+existing uptodate check during collapse still handles read errors.
 
-A QEMU KASAN reproducer placed an internal request on both lists and
-invoked cdns3_gadget_ep_disable(). The unpatched kernel reported:
+Shmem uses shmem_get_folio() for swapin and fallocated folios without
+taking mapping->invalidate_lock, so it is unaffected.
 
-  BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report
-  cdns3_gadget_giveback
-  cdns3_gadget_ep_disable
-
-The fixed kernel completed endpoint cleanup without a KASAN or
-DEBUG_LIST report.
-
-The issue was found with a static analysis tool.
-
-Fixes: 6bbf87a131ed ("usb:cdns3 Fix for stuck packets in on-chip OUT buffer=
-.")
+Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261026152013.10511-1-lance.yang@linux.dev
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+(cherry picked from commit eadce52a9ef657d561b3e76c9b5f178bd99735f5)
 ---
- drivers/usb/cdns3/cdns3-gadget.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Backport to 5.15:
+- Use find_lock_page(), unlock_page() and put_page() for the existing
+  page-based collapse code.
 
-diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gad=
-get.c
-index f4dfd01317083..70968e8f0d2da 100644
---- a/drivers/usb/cdns3/cdns3-gadget.c
-+++ b/drivers/usb/cdns3/cdns3-gadget.c
-@@ -605,9 +605,11 @@ static int cdns3_wa2_gadget_ep_queue(struct cdns3_devi=
-ce *priv_dev,
- =09=09=09deferred =3D 1;
- =09=09}
-=20
--=09=09if (priv_req->flags & REQUEST_INTERNAL)
-+=09=09if (priv_req->flags & REQUEST_INTERNAL) {
-+=09=09=09INIT_LIST_HEAD(&priv_req->request.list);
- =09=09=09list_add_tail(&priv_req->list,
- =09=09=09=09      &priv_ep->wa2_descmiss_req_list);
-+=09=09}
- =09}
-=20
- =09return deferred;
-@@ -2547,6 +2549,7 @@ static int cdns3_gadget_ep_disable(struct usb_ep *ep)
- =09while (!list_empty(&priv_ep->wa2_descmiss_req_list)) {
- =09=09priv_req =3D cdns3_next_priv_request(&priv_ep->wa2_descmiss_req_list=
-);
- =09=09list_del_init(&priv_req->list);
-+=09=09list_del_init(&priv_req->request.list);
-=20
- =09=09kfree(priv_req->request.buf);
- =09=09cdns3_gadget_ep_free_request(&priv_ep->endpoint,
---=20
-2.43.0
+ mm/khugepaged.c | 43 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 32 insertions(+), 11 deletions(-)
 
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index a7a8e6bc70b0..0b333d0d4053 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1701,6 +1701,8 @@ static void collapse_file(struct mm_struct *mm,
+ 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+ 	int nr_none = 0, result = SCAN_SUCCEED;
+ 	bool is_shmem = shmem_file(file);
++	bool do_readahead = false;
++	bool readahead_done = false;
+ 	int nr;
+ 
+ 	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
+@@ -1721,6 +1723,10 @@ static void collapse_file(struct mm_struct *mm,
+ 	}
+ 	count_memcg_page_event(new_page, THP_COLLAPSE_ALLOC);
+ 
++retry:
++	result = SCAN_SUCCEED;
++	do_readahead = false;
++	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
+ 	/* This will be less messy when we use multi-index entries */
+ 	do {
+ 		xas_lock_irq(&xas);
+@@ -1791,17 +1797,9 @@ static void collapse_file(struct mm_struct *mm,
+ 			}
+ 		} else {	/* !is_shmem */
+ 			if (!page || xa_is_value(page)) {
+-				xas_unlock_irq(&xas);
+-				page_cache_sync_readahead(mapping, &file->f_ra,
+-							  file, index,
+-							  end - index);
+-				/* drain pagevecs to help isolate_lru_page() */
+-				lru_add_drain();
+-				page = find_lock_page(mapping, index);
+-				if (unlikely(page == NULL)) {
+-					result = SCAN_FAIL;
+-					goto xa_unlocked;
+-				}
++				do_readahead = !readahead_done;
++				result = SCAN_FAIL;
++				goto xa_locked;
+ 			} else if (PageDirty(page)) {
+ 				/*
+ 				 * khugepaged only works on read-only fd,
+@@ -2034,6 +2032,29 @@ static void collapse_file(struct mm_struct *mm,
+ 	}
+ 
+ 	unlock_page(new_page);
++
++	/* Readahead may take invalidate_lock; source pages are unlocked. */
++	if (do_readahead) {
++		for (index = start; index < end; index++) {
++			struct page *page = find_lock_page(mapping, index);
++
++			if (!page) {
++				page_cache_sync_readahead(mapping, &file->f_ra,
++							  file, index, end - index);
++				page = find_lock_page(mapping, index);
++				if (!page) {
++					result = SCAN_FAIL;
++					goto out;
++				}
++			}
++			unlock_page(page);
++			put_page(page);
++		}
++		/* Drain the local LRU batch before retrying isolation. */
++		lru_add_drain();
++		readahead_done = true;
++		goto retry;
++	}
+ out:
+ 	VM_BUG_ON(!list_empty(&pagelist));
+ 	if (!IS_ERR_OR_NULL(*hpage))
+-- 
+2.49.0
 
