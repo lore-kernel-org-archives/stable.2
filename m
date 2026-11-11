@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408222;
-	b=KjmsYuKUF58iCIidWUeluCC4sN3BZ2FDo8sJjtBgPA7afzV/Nn3SxHJKMm0eIz4gTbWG
-	 LTVniCBVp7KyMSYwY9R+CLPN2Ik94c3rNo6mUm7ZHXnuflIsAC9uqKEICy7xqkfwU0lB7
-	 0KD9xPREP223ryeIFSKecLjAcDz3d3Gl8Y5NIRmw35q5+C+H9SvDIvA8QpD8/jj2GoTU6
-	 uAbIZrHqQ6AxVUIiyvGQ62ddnggARJj3s5gKWe9IRlhCqBPUK2E/3ImAFf83ac/yBd/oR
-	 nftlskp/jtKCcfeVD9DFSuIH/QTCZnArjGLjtTTgE7M9jyHuBvyvlRgqfV7dQhf93vA==
+	t=1794408254;
+	b=GNC7ZoPkU9VxsV7ZAy9WICNjYyW4NZgUwBLlAy/x4h7xMMu9iEqMUBE+JXv8RImO3aEg
+	 f9vaIcmI33AxShs6tXLGgJkCt+BNOXTw2FxGv3CBzT1TrH8wTcXRJRe4qljveZfaxIKrc
+	 VuwnWKPYAnOszGLHaB6RADzGFjK1pTxqhL52dkiLSgakr6PPlICogaQwzTaKa7n+NiRVl
+	 EJFkB7ehFhktaVtHABdZZNsMb1/0Ow1Oo27EiNM4zIX3mcok/8fP/Vio2XrDZ5YYGVmpa
+	 k1MCt23x/9KX2YdMB7DxHW6B43yqgRB0OR21Xd11o/FfJYCwbdLcxU2ikFVQzpqwycw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408254;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=H0BLqPOV/ISEaLPKSj+VfTDQ/slE8BKRhpoVqiHrFOQ=;
-	b=cmSvXr+oBPOjiMR/oGuSHu63AxC3nZ0kMyx/rgwZJhMD75J6Kony8d1OV1Dlqt2jcO8J
-	 oON/ff8Nyb6obWOQCj26+PcMGQUxGxSXfPMYHhlR4XqyPgU/bq6za2U4fzcUNkizYG2C6
-	 i9y/YW0ec6064d6XjPRFUWNIIL0QqYcuOvtyj+yqpmDrvx3/cNi03zyQjIlrZbEo6r3KW
-	 nl5Nn1tMFh8VJhTFjwQz3YqI4rDxcsWtFPaDXBFMPFnCI3yqHz/aBK510n5I/uK4BEAdi
-	 RtS7GAIHcbHRb5f9yNEqgO7YahlgckI8Afsl3BwfxYbEaH6URSx17aNmQoYqsGbPDkw==
+	bh=XPa53x228mNuuWUbbAQw4xoqYzvnNlHyDbSw7/N05fA=;
+	b=wFQZmb+pRCvw8NSIKLI9ltXqzTsIDJRossUtZ8r7JrdMxkJ6opUVmvP5iAoRc/huHXi5
+	 H04yk+YBKMtdTyuuP7EmjtVpyX0qr9QkDZsn2zCrCUU045nncvrv1JBJt/LZZUw9eWYCT
+	 cgkDsS4ZLvItaGSzQXcm4a2YBhJH046jUbkkUjuoqyyCienLRrLmQFaswhSENZMyjBoSe
+	 zLWofZf+79XsTnVtSd4cuJDod7j/Ygu2INsVEP3B1N+VGqO0Hk7tnsS9pyHAzE0ATksVb
+	 7oti7L86n0QHHuhoX+djPai+gNeHl/2Afm3zOR0en0t+tHh3Lxwme3dCH5xEsW1ZO+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PK9DZ7G6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFZrlgfY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05987606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:43:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57807606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:44:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PK9DZ7G6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B811F00A05;
-	Wed, 11 Nov 2026 14:43:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFZrlgfY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 522351F00A05;
+	Wed, 11 Nov 2026 14:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794408221;
-	bh=H0BLqPOV/ISEaLPKSj+VfTDQ/slE8BKRhpoVqiHrFOQ=;
+	s=k20260515; t=1794408253;
+	bh=XPa53x228mNuuWUbbAQw4xoqYzvnNlHyDbSw7/N05fA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PK9DZ7G6GfbWCNeefuW5ovH8/XqhjYZmjZWS/hZ7ou5MvDW81qZiqtzGS5vkncFw8
-	 dz8byweebadVeASppiHV4wmStyb7+iqkF1lWinLt37JzR+JnArNLzWhmQiBYSEuvNQ
-	 1nJMDNJWtM+CRGx4DGvp8143KhYaS569bBhfCKT4cIt8oaw5dEW2CWxCq0w9cMAfV9
-	 TqPWinr1UkT1eCFQhJTen3FrUXdE0GVJ4cQNo8Mz9g+UEyf32XxXPDioKE+j5E3kfT
-	 qHmw9eRXL+BH9e9AU7qnXzUutOEiOunBwoiWfMlqdp9GDZz+8/zRURnKK9rmvq04nR
-	 4P5Sj1AmjxGgA==
+	b=GFZrlgfYY0e0Si5ab/CF2MH1vAdjteBTkVUdatTGdNhXHRVrUEzN77J45kbcEdQPd
+	 VI8aETa0/s5HmxGcWi55rBLsMxHWn6T+NycilcmzM3Kq6qitm941CagUWggcrGvtxF
+	 KZLJUKp1UdMFSrq+gqvRDr+aDzxHBwWno6992MyQIpiZ1Z9TDCIdoCWDnPWXYEZ+WK
+	 5wOlVuum8858ggmwKzIUs2OKOROYfU6XGXnhRrf6HaGWAbo3FRI3A7C/LFk7KZ0uh/
+	 PXN5fDvR7RDNp2tFpQmshEaHC0WobdaU8ozu6yEDdRYCdWJaCZDm18sGubK1Satwvo
+	 SW/wFVKYPCjkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Linmao Li <lilinmao@kylinos.cn>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Aksh Garg <a-garg7@ti.com>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] PCI: cadence: Store the core controller in platform drvdata
-Date: Wed, 11 Nov 2026 09:43:39 -0500
-Message-ID: <20261111144236.2384264-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y] f2fs: fix to invalidate curseg if change_curseg() fails
+Date: Wed, 11 Nov 2026 09:44:11 -0500
+Message-ID: <20261111144253.2376985-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053523-failed-6.6-cfe96ce583c5@kernel.org>
-References: <20261107053523-failed-6.6-cfe96ce583c5@kernel.org>
+In-Reply-To: <20261107050438-failed-7.3-e74476ad8162@kernel.org>
+References: <20261107050438-failed-7.3-e74476ad8162@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,125 +62,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Linmao Li <lilinmao@kylinos.cn>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit cfe96ce583c51bf6e034d4038c652a1e8227867c ]
+[ Upstream commit e74476ad8162c1facc74b74ce2d1372492df872e ]
 
-cdns_plat_pcie_probe() stores a struct cdns_plat_pcie pointer with
-platform_set_drvdata(). cdns_plat_pcie_shutdown() and the callbacks in
-cdns_pcie_pm_ops retrieve the same pointer with dev_get_drvdata() but use
-it as a struct cdns_pcie pointer. This makes them read phy_count and phy
-beyond the wrapper.
+Our consistency stress test (fsstress + fio + atomic write workers +
+"f2fs_io shutdown 1") triggers below kernel BUG:
 
-struct cdns_plat_pcie only contains a pointer to struct cdns_pcie. Drop
-the redundant wrapper and store the struct cdns_pcie pointer directly.
+ F2FS-fs (vdd): Stopped filesystem due to reason: 0
+ ------------[ cut here ]------------
+ kernel BUG at fs/f2fs/segment.c:3989!
+ Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+ Workqueue: writeback wb_workfn (flush-253:48)
+ RIP: 0010:f2fs_allocate_data_block+0x257a/0x38e0
+ Call Trace:
+  <TASK>
+  do_write_block+0x155/0xc10
+  f2fs_outplace_write_data+0x192/0x340
+  f2fs_do_write_data_page+0xc57/0x1880
+  f2fs_write_single_data_page+0xda9/0x15a0
+  f2fs_write_cache_pages+0x973/0x1f20
+  __f2fs_write_data_pages+0x6c4/0x1890
+  do_writepages+0x21e/0x560
+  __writeback_single_inode+0x119/0x11b0
+  writeback_sb_inodes+0x67d/0x17a0
+  wb_writeback+0x207/0x820
+  wb_workfn+0x128/0xc30
+  process_one_work+0x925/0x1600
+  worker_thread+0x60a/0xff0
+  kthread+0x35f/0x460
+  ret_from_fork+0x474/0x7e0
+  ret_from_fork_asm+0x1a/0x30
+  </TASK>
 
-Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Aksh Garg <a-garg7@ti.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260915082826.4135665-1-lilinmao@kylinos.cn
-[ sashal: Retained the existing PHY-link cleanup loop using the core controller pointer directly. ]
+The BUG is f2fs_bug_on(sbi, curseg->next_blkoff >= BLKS_PER_SEG(sbi))
+in f2fs_allocate_data_block(), next_blkoff was 512.
+
+The root cause is a race in between atomic write commit and shutdown
+as below:
+
+Thread A (commit atomic write)  Thread B (shutdown)        Thread C (writeback)
+- f2fs_ioc_commit_atomic_write
+ - f2fs_commit_atomic_write
+  - __f2fs_commit_atomic_write
+   - __replace_atomic_write_block
+    - f2fs_replace_block
+     - __f2fs_replace_block
+                                - f2fs_ioc_shutdown
+                                 - f2fs_do_shutdown
+                                 : F2FS_GOING_DOWN_METASYNC
+                                  - f2fs_sync_fs
+                                                           - f2fs_write_single_data_page
+                                                           : pass f2fs_cp_error() check
+                                  - f2fs_stop_checkpoint
+                                  : set CP_ERROR_FLAG
+      - change_curseg
+       - reset_curseg
+       : curseg->segno = new_segno
+       : curseg->alloc_type = SSR
+       : curseg->next_blkoff = __next_free_blkoff()
+         which is BLKS_PER_SEG if there is no free
+         slot in new_segno
+       - f2fs_get_sum_cache
+       : return -EIO due to f2fs_cp_error()
+      : return error w/o restoring curseg
+     : goto out_unlock, skip restoring
+       old segno, blkoff and alloc_type
+                                                            - f2fs_do_write_data_page
+                                                             - f2fs_outplace_write_data
+                                                              - do_write_block
+                                                               - f2fs_allocate_data_block
+                                                               : curseg->segno is valid
+                                                               : f2fs_bug_on(next_blkoff >=
+                                                                 BLKS_PER_SEG)
+
+Since commit 86f33603f8c5 ("f2fs: handle errors of
+f2fs_get_meta_page_nofail"), change_curseg() can fail after the curseg
+has already been switched to the new segment, then the curseg is left
+in an inconsistent state: it points to a segment which may have no
+free slot, its summary block is zeroed, and the caller can not restore
+it. Subsequent block allocation on the curseg will trigger the BUG.
+Moreover, the writeback thread dies with curseg_lock, curseg_mutex and
+sentry_lock held, so the commit, shutdown and other I/O threads hang
+in D state.
+
+Since change_curseg() only fails once CP_ERROR_FLAG is set, no
+checkpoint will be committed afterward, let's invalidate the curseg via
+reset_curseg_fields() on failure, as new_curseg() does for -ENOSPC,
+then f2fs_allocate_data_block() will fail with -ENOSPC on the curseg
+instead of triggering BUG, and do_write_block() can handle the error
+since CP_ERROR_FLAG has been set.
+
+Cc: stable@kernel.org
+Fixes: 86f33603f8c5 ("f2fs: handle errors of f2fs_get_meta_page_nofail")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: Adjusted context to retain the existing folio summary API instead of the upstream cached-block API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../controller/cadence/pcie-cadence-plat.c    | 36 ++++++-------------
- 1 file changed, 10 insertions(+), 26 deletions(-)
+ fs/f2fs/segment.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-index 371ffc1f00f86..528038f926c13 100644
---- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
-+++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-@@ -14,17 +14,6 @@
- 
- #define CDNS_PLAT_CPU_TO_BUS_ADDR	0x0FFFFFFF
- 
--/**
-- * struct cdns_plat_pcie - private data for this PCIe platform driver
-- * @pcie: Cadence PCIe controller
-- * @is_rc: Set to 1 indicates the PCIe controller mode is Root Complex,
-- *         if 0 it is in Endpoint mode.
-- */
--struct cdns_plat_pcie {
--	struct cdns_pcie        *pcie;
--	bool is_rc;
--};
--
- struct cdns_plat_pcie_of_data {
- 	bool is_rc;
- };
-@@ -43,9 +32,9 @@ static const struct cdns_pcie_ops cdns_plat_ops = {
- static int cdns_plat_pcie_probe(struct platform_device *pdev)
- {
- 	const struct cdns_plat_pcie_of_data *data;
--	struct cdns_plat_pcie *cdns_plat_pcie;
- 	struct device *dev = &pdev->dev;
- 	struct pci_host_bridge *bridge;
-+	struct cdns_pcie *pcie;
- 	struct cdns_pcie_ep *ep;
- 	struct cdns_pcie_rc *rc;
- 	int phy_count;
-@@ -59,11 +48,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 	is_rc = data->is_rc;
- 
- 	pr_debug(" Started %s with is_rc: %d\n", __func__, is_rc);
--	cdns_plat_pcie = devm_kzalloc(dev, sizeof(*cdns_plat_pcie), GFP_KERNEL);
--	if (!cdns_plat_pcie)
--		return -ENOMEM;
--
--	platform_set_drvdata(pdev, cdns_plat_pcie);
- 	if (is_rc) {
- 		if (!IS_ENABLED(CONFIG_PCIE_CADENCE_PLAT_HOST))
- 			return -ENODEV;
-@@ -75,10 +59,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 		rc = pci_host_bridge_priv(bridge);
- 		rc->pcie.dev = dev;
- 		rc->pcie.ops = &cdns_plat_ops;
--		cdns_plat_pcie->pcie = &rc->pcie;
--		cdns_plat_pcie->is_rc = is_rc;
-+		pcie = &rc->pcie;
- 
--		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
-+		ret = cdns_pcie_init_phy(dev, pcie);
- 		if (ret) {
- 			dev_err(dev, "failed to init phy\n");
- 			return ret;
-@@ -103,10 +86,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 
- 		ep->pcie.dev = dev;
- 		ep->pcie.ops = &cdns_plat_ops;
--		cdns_plat_pcie->pcie = &ep->pcie;
--		cdns_plat_pcie->is_rc = is_rc;
-+		pcie = &ep->pcie;
- 
--		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
-+		ret = cdns_pcie_init_phy(dev, pcie);
- 		if (ret) {
- 			dev_err(dev, "failed to init phy\n");
- 			return ret;
-@@ -124,16 +106,18 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 			goto err_init;
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index f3a73b6c24c3f..32ed7b8f69fe4 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -3234,6 +3234,7 @@ static int change_curseg(struct f2fs_sb_info *sbi, int type)
+ 	if (IS_ERR(sum_folio)) {
+ 		/* GC won't be able to use stale summary pages by cp_error */
+ 		memset(curseg->sum_blk, 0, sbi->sum_entry_size);
++		reset_curseg_fields(curseg);
+ 		return PTR_ERR(sum_folio);
  	}
- 
-+	platform_set_drvdata(pdev, pcie);
-+
- 	return 0;
- 
-  err_init:
-  err_get_sync:
- 	pm_runtime_put_sync(dev);
- 	pm_runtime_disable(dev);
--	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
--	phy_count = cdns_plat_pcie->pcie->phy_count;
-+	cdns_pcie_disable_phy(pcie);
-+	phy_count = pcie->phy_count;
- 	while (phy_count--)
--		device_link_del(cdns_plat_pcie->pcie->link[phy_count]);
-+		device_link_del(pcie->link[phy_count]);
- 
- 	return 0;
- }
+ 	sum_node = SUM_BLK_PAGE_ADDR(sbi, sum_folio, new_segno);
 -- 
 2.53.0
 
