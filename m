@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434020;
-	b=rClpgrxJNKCgLp0g5zinwfw2rCU9rSLHe5kr18cBvmXtpUEbGXlMIa0mmIt1/PPj21G6
-	 unDqCWR9ybtTtoCxngbBQYX0+X5A55v7+RJTEwPSvnFwVGATh3FG/Uxj9rpen3qDzhOZb
-	 c13RjN4Cv91YS3tI6012rlxnIV/qrO3ZZSL6T4/CUZeioLZ22APz41omHgE8aZppb9vdY
-	 Kl0xkEawx3BidGIaGmiEO1F1GCfyWJ8nnMq8lnpO5GefGbl/COTqGAfAcp5hvwMSc5US2
-	 aBSvxJNYGicXfs6S4LKmH0GOlXEgLD7Br1pTXmbx6Pf+HoBIBUnSLZtBKfqqEHH3icw==
+	t=1794434029;
+	b=gDbe7hlYQuctGDwcljmZvL/J9/W47hkGx+326kNZbR7SyFIIZpiEv7MFx0k+ht4DZmZ0
+	 uc/ujQC1Oq/F/dsOR2i+8Y8Ilwu0nK0Fv8Ia5Morkf22ltukJXF3D84HpG/XI7cuS+e0s
+	 R2c8K1yWBR4MGV61t0XQHL9WkYupPl+2emugc3lh0oRjRNER8Jp/1qSDCLH6Zy1S6d1ig
+	 S2FTDccvz8R/aiGnJnY2E5f6bcqHXua8au75Fe/VQBNtMFQ1KdziI5U7Pvr6HItxX+dYa
+	 25XCmTp4WBwoKwBseiK4918r9uPVBquLpq1wahcjo5JKri0nzwVu6WiIBZvFGx3QMiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434029;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=apIjcWhf6ft4S9T/nv2WWzs4no0FMzMPTMX+Kk+3eYs=;
-	b=3oZZjGlstpW1b+c2ZoEGV03U09kvrhDS9HNz85QOfAMDo7Jk0aRKm9EC58CsFKGPa5uJ
-	 RQdofetl7Jlic+rDB4tLl0kNkXBuyJiNDK/1Pp79HvVDAr2W+xZLIDYt5CEH1yIpl/qVh
-	 3gi5dm5byuD0Ca4Cepvb8TjOLB9HG2AL6ElWTOlEF6V63RkpbGuf7U9H5q5iXKXJN+ZKS
-	 TvBy2mLVq1+Rgs+znxPYNMJ1NJIAW1bii2O5uA042GJcsqtngsCvVegGJckrGNjXMAFP9
-	 2FypwJ4M7tTwmvCiXi9cojRTscAN3Yprd7JJVA+1InFYr1ZQuE1By1NkV4ynsh3qKYg==
+	bh=gbExqfingQo1Ed8SYTNsBzSSp4PBA3Al9x/EZXvEVK8=;
+	b=4yZ4Ix2V+iQQ7oezMJcBsrjGEEBsgY90CZUoiB09D2BnRTuqYx6nJp/DfeYdXjnT+XSZ
+	 MbNeAId+Mj2SaVuEL643+dGYcGr3tdMDlcFV+jzuwjF0Is8K52jyjVw0zrV3mkzZ5L1/S
+	 vo0dy1R1EA5BoBoeSlUAzZXGhR0yBGGb17Vbb1yxcrTDMFwPmefO1FtCQca6hCKMWpbbd
+	 +vkqmRXKizEd1e/icTefCpIuZrSpwgfbXUDWtw9NK5opaM04U8hBvGKRgErPQ6Zh9KYL6
+	 waZDZLio5Iro2ULujay6qIKJT1/+bH0vL+afAt8vofRsVYbz9nl702zWpgrmH/iyTSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Cc/97iSa";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R7Gl/93D";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9A1606A332;
-	Wed, 11 Nov 2026 21:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CAF606A327;
+	Wed, 11 Nov 2026 21:53:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cc/97iSa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524451F00A05;
-	Wed, 11 Nov 2026 21:53:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7Gl/93D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2111F00A05;
+	Wed, 11 Nov 2026 21:53:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434020;
-	bh=apIjcWhf6ft4S9T/nv2WWzs4no0FMzMPTMX+Kk+3eYs=;
+	s=k20260515; t=1794434029;
+	bh=gbExqfingQo1Ed8SYTNsBzSSp4PBA3Al9x/EZXvEVK8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cc/97iSavrA4IxIRd9mCOgRBAgykrO3P1diDKl3/aXyIRxwlJUUqpSPMSCXNw1mtn
-	 iIVVYAuIXAY6urRd2MMraBg+A6Mf72dwzWVIWhyKArx0SHdRNjgUtELQxQMbFQhX/t
-	 O7ofOti9Apk1c3OdSIIsAyasg63o96z4exmcJgmTd9TCASpwDYIdeFc6RM3sy8QdQN
-	 hQqL2KrN5zXN7L77iZhjirgCf+Wb7iKRaWTC+6CShMrtyJH68UzPbm05mvCDr00xU5
-	 T3Emo8nbPf5wMCebGmxAgfciuCVQsIPx2sM+7wcFyYZJskgZRtXczzsu4/KcaMbruI
-	 FnQbO5/eWaYgw==
+	b=R7Gl/93DTvmW4Vr/YYv/SyBz3EDvlwIQTwzaAZpE+dRhu+A7AQqSJSc2tn106VLB0
+	 vPcrhouNDXj8yW9embSr1SKu+p9ANmKUAZTVrsc/yth6YgKKA59TUDZHIjWGIfX+7X
+	 vFkjUWsDsM/IBOO3IOgX8hCHx5u2TFB1UB0i5UaMGhaiAr9JIpr2Opu9v0IhvR+dlx
+	 eQEW+VkHGYasXkub/rckft0+WwaDeh3X5opsNNkqWHAsywPxte8W+0GT9QG0KGXo90
+	 ZcJFUVAtg2IZOBOXT+mU0hoJQYqPJAssu1GS54y2oC4+f8GVjVyVukaOcanf/47HF1
+	 8rEZi5HSNyk1w==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Andrew Jeffery <andrew@codeconstruct.com.au>,
@@ -49,14 +49,17 @@ To: lee@kernel.org,
 	Nancy Yuen <yuenn@google.com>,
 	Benjamin Fair <benjaminfair@google.com>,
 	Linus Walleij <linusw@kernel.org>,
+	Maulik Shah <maulik.shah@oss.qualcomm.com>,
+	jordan_hargrave@dell.com,
 	tomer.maimon@nuvoton.com,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
 	openbmc@lists.ozlabs.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 05/10] pinctrl: nuvoton: npcm8xx: Propagate npcm8xx_gpio_register() error in probe
-Date: Wed, 11 Nov 2026 21:51:50 +0000
-Message-ID: <20261111215256.1982044-6-lee@kernel.org>
+Subject: [PATCH 06/10] pinctrl: nuvoton: npcm7xx: Fix fwnode_irq_get() error check in npcm7xx_gpio_of()
+Date: Wed, 11 Nov 2026 21:51:51 +0000
+Message-ID: <20261111215256.1982044-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
 In-Reply-To: <20261111215256.1982044-1-lee@kernel.org>
 References: <20261111215256.1982044-1-lee@kernel.org>
@@ -71,31 +74,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-npcm8xx_pinctrl_probe() logs an error with dev_err_probe() when
-npcm8xx_gpio_register() fails, but omits the return statement and
-returns 0 instead.  Propagate the error returned by dev_err_probe().
+Commit 693c9ecd8326 ("pinctrl: nuvoton: Reduce use of OF-specific APIs")
+replaced irq_of_parse_and_map(), which returns 0 on failure, with
+fwnode_irq_get(), which returns a negative errno on failure (including
+-EPROBE_DEFER), while leaving the !ret check unchanged.  As a result,
+negative error codes are stored in pctrl->gpio_bank[id].irq as large
+unsigned values instead of aborting or deferring probe.
 
-Fixes: acf4884a5717 ("pinctrl: nuvoton: add NPCM8XX pinctrl and GPIO driver")
-Closes: https://sashiko.dev/#/bug/linux-cff468bb-80b4-4cb3-a5ff-2b3a8fdb151f
+Check for ret < 0 and propagate the error code, matching the NPCM8XX
+driver.
+
+Fixes: 693c9ecd8326 ("pinctrl: nuvoton: Reduce use of OF-specific APIs")
+Closes: https://sashiko.dev/#/bug/linux-95c9d7d3-32bb-4f4e-ab7f-84872957de4f
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index 6150cde7e824..8a7cc46b5001 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2583,7 +2583,7 @@ static int npcm8xx_pinctrl_probe(struct platform_device *pdev)
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+index e051ff141d6c..47cc3ef8ddfd 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+@@ -1856,9 +1856,10 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
+ 		}
  
- 	ret = npcm8xx_gpio_register(pctrl);
- 	if (ret < 0)
--		dev_err_probe(dev, ret, "Failed to register gpio\n");
-+		return dev_err_probe(dev, ret, "Failed to register gpio\n");
- 
- 	return 0;
- }
+ 		ret = fwnode_irq_get(child, 0);
+-		if (!ret) {
+-			dev_err(dev, "No IRQ for GPIO bank %u\n", id);
+-			return -EINVAL;
++		if (ret < 0) {
++			fwnode_handle_put(child);
++			return dev_err_probe(dev, ret,
++					     "No IRQ for GPIO bank %u\n", id);
+ 		}
+ 		pctrl->gpio_bank[id].irq = ret;
+ 		pctrl->gpio_bank[id].irqbase = id * NPCM7XX_GPIO_PER_BANK;
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
