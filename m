@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416218;
-	b=ftXkciKdIad80nzFJQujxcCIMDyUR8G1AHjFsYUMBa82tvoeqA84olk4J3qncshovyYS
-	 tuplecFWMOASgNmNACYFvnpwlfXAM6xiJGTXbXsrAeFO6jcwF9f+RYwdGgrDtNzKPmvkY
-	 ShxuO1opXpLdUZ3jEwU6mRmpzf75YH8wKIPDJDdIELHb8U153EOh6u8GrWLQBwvtb96QK
-	 STZdij9biXINtHTBBIKTazrofFJWvY0y+tL2mHb2jSsZpq431LV21luC9/HPAPYVc/uJL
-	 vvZ/Th6CBWrt3B9XCEtojhaFmp1OXqFL+zqjt5KP4DzZV6Dt7QbtrTstYSVDItW5AJw==
+	t=1794416241;
+	b=q+nCPSwGuVlIf6d05NSafbldj06Qv3mmtF7gj1bv+8CFqKCiaiN3lSeHrssnalrjvHPu
+	 VNJMsFZT8CgIe0YtvhNJ6oSgIZ9GsUcLfSGtYDtQ2muZ5vC9NbqPyMQ2wVG5eqkYA8ybf
+	 ABs916k24GjT2/7tdJ5Ty4HIbChxz+4+xlml4G9jzjl6GKFAb2NECRgpIlNMXDEhyFJ4z
+	 Lm5IAPOtYA309F+sEhmOQuqkKhWY4qWp4oQXepHipsU/8rq57x5ANgjXnhCc7RJ6dc+pO
+	 igMB8qTpHeBnI7Z1i7qucCD316YPfq6HbkCM3B7YVm30c06yWf7CT1pCrVyUyNxOpmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416218;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416241;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OHydv+J9bn+PJETtK0VtdeUsE2qb91ZNog9LD/G43n4=;
-	b=xM2LCj6j+CNYM7v8VDGwzncvzS5KIx7rzPrd076kLBe6S9bZfzHQWS24jCBx4kM8WKTI
-	 VZ9FoVaBrrCqzMNBauqq77An1tMa9TvLgswFRaA7hwtc6miaQsUbRwxts9m1kvYLn9Rjz
-	 wTVwco2QYDXseuj6QqFf2FxzgOY/5bOdoyfc8zbEcPcMypI2niWjmEifmZj452eieHdYf
-	 i+xB3tqqeHsrF6aSwxQBI+Egp5ins7r2ZS8QVWO9zz8z8pD0Y89ofR2NlKn6Iwj3zygdi
-	 D1SHUwE6vOJzdXlm2eOR7pHScFMVKPjJk3qsuUFnftZcFHaK+0QOyqHwFBJAxyrvXxQ==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=s7FTEwLpA2oriX+q98U9fp1JyHSKRwvRFfmeKxOwO24=;
+	b=kyXIbgkbsN2xvtOGYCVGEJCqBH3NT+LFxGry+dXdz1tbuztwWYIOHp6LyQSZ4kOb+aC+
+	 Stx9/cQ8lajFibUHje2BZ4A6EcbS4G9mzFjcsAuERCNB11e3Ap681fV3dz6d5+MsgTPL0
+	 bSkQ3hpWw9ky5Xsn/5BwR24LJ0caVs3DFq3ieuZtTJMaqcZYpdWa7AOxZC/oSkLcixf6E
+	 biQ+FkTuZd8KC0ItopOwfFkZzNUb3wbGwpZ7Gk35Qvz1ND/gkE1Xs+qTIcCXdnKJb1Czm
+	 MaHkBcXAoDzW4yYD3Ob5tSkgqcbWGVxhI4kAmonP42lJaMGqOc+72TYVqHyeITxJ/wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0azdaTr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QwfffE13;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B2A606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:56:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234DC606A33A
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:57:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0azdaTr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED5F1F00A05;
-	Wed, 11 Nov 2026 16:56:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QwfffE13
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4518B1F00A06;
+	Wed, 11 Nov 2026 16:57:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416217;
-	bh=OHydv+J9bn+PJETtK0VtdeUsE2qb91ZNog9LD/G43n4=;
+	s=k20260515; t=1794416240;
+	bh=s7FTEwLpA2oriX+q98U9fp1JyHSKRwvRFfmeKxOwO24=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e0azdaTrajT6NjVQYB8+46/zNXENUp6ekG3c0VazE7pif5BwoyAsdfzrBkgTjr4es
-	 KrZ9KIkxmPL0DsrXFeGGO4OJTbIyjtPF+5iHUEsH5XDnnptX3VxXRCc8I63SE5UYZv
-	 8yrUSqXsffu/8SODmvFtCjI7qomSiBXz5+pvH85/TC2zELNRNsZw0OGbsmaae3wrkz
-	 UDl1bPnqSXkwnn6bvEMk8HHM72CYGjfNYj0Wj6+lU5xC5XMuhkhPCU5N37+u7n10Gh
-	 3bemn1aqnE2YOism4yfUSg0M7yvkI/EjxAnBJtzALW89gHOM9Pb2SCH0lARBTyGCWq
-	 kVYHAoOnmHIWA==
+	b=QwfffE13VC2FCQjUjbbtOebb+zduvhYvvoTozXAbCB7fD41MsM+mE2X5hIoxd22Wd
+	 M8GRHXR7JmZ2G+Ry0xKxNEd/p3o2FFtGQ7xq7KtoNd7ISigouy0+sMf+vLgVlhs7EM
+	 vWkJw0Ypg+718TB02id+JHWxb1lsA38Ct9hYlwDesLTjUMNBTR2AxfQz3VhvSJVCRZ
+	 FFqLR/on0q9rml9o7k1vTK00er9GO3QNTP9vz15vG3hZddhtz7DaZEDAqeMz/BSjQ/
+	 l4eJOjUrmL0jxrM5j8X4L1pumkKZy2dP5G7tZTXe//H+5gZeNYrQOJckkaWj4JqPUY
+	 6nfx+Me9p47uQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+Cc: =?UTF-8?q?Jos=C3=A9=20Miguel=20Castellanos=20Valladolid?= <josstamy@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/huge_memory: split huge PUDs when adjusting VMA boundaries
-Date: Wed, 11 Nov 2026 11:56:56 -0500
-Message-ID: <20261111165619.3336362-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ALSA: hda/realtek: Enable mute LEDs on HP OmniBook X Flip 14-fm0xxx
+Date: Wed, 11 Nov 2026 11:57:19 -0500
+Message-ID: <20261111165659.3297427-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200513-failed-6.18-23e570927421@kernel.org>
-References: <20261109200513-failed-6.18-23e570927421@kernel.org>
+In-Reply-To: <20261107052343-failed-6.12-c80286aaa4ac@kernel.org>
+References: <20261107052343-failed-6.12-c80286aaa4ac@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,133 +60,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: José Miguel Castellanos Valladolid <josstamy@gmail.com>
 
-[ Upstream commit 23e570927421d569fdc510d5f3f29542a43eeda5 ]
+[ Upstream commit c80286aaa4acd52f9bd0b0d4914d2069fe6ba3a8 ]
 
-PFN mappings such as VFIO PCI BAR mappings can use PUD leaves while
-allowing VMA splits at page granularity. However, vma_adjust_trans_huge()
-only handles PMDs.
+The HP OmniBook X Flip Laptop 14-fm0xxx (subsystem ID 0x103c8d9f, ALC245
+with two CS35L41 amplifiers over I2C) is currently handled by
+ALC287_FIXUP_CS35L41_I2C_2. That binds the amplifiers but does not set up
+the mute LEDs, so neither the speaker mute key LED nor the microphone mute
+key LED lights up under Linux. With that fixup the codec GPIOs stay
+disabled (IO[0..2] enable=0).
 
-After faulting a writable PUD-sized VFIO BAR mapping, changing its first
-page to read-only with mprotect() makes the PMD walk treat the PUD leaf
-as a PMD table. Applying MADV_DONTFORK to the first PMD-sized chunk leaves
-the PUD spanning two VMAs: the PMD-aligned boundary skips splitting.
+Switch the entry to ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS, which chains
+cs35l41_fixup_i2c_two with ALC245_FIXUP_HP_X360_MUTE_LEDS. This keeps the
+amplifier setup and adds the speaker mute LED through the ALC245 COEF
+register and the mic mute LED through codec GPIO2. It is the same fixup
+already used for the 17 Turbine OmniBook 7 DIS (0x103c8d9c).
 
-Walk the page tables once at each adjusted boundary and split a huge
-PUD or PMD leaf as needed. Handle PUD leaves even when the boundary is
-PMD-aligned.
+Tested on the affected laptop with v7.2.11 using the equivalent
+ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX fixup, which has the identical
+cs35l41_fixup_i2c_two + ALC245_FIXUP_HP_X360_MUTE_LEDS chain: hda::mute
+and hda::micmute LED class devices appear and both key LEDs light up
+when muting.
 
-Fixes: f9e54c3a2f5b7 ("vfio/pci: implement huge_fault support")
+Fixes: 29951021367f ("ALSA: hda/realtek: Add support for various HP Laptops using CS35L41 HDA")
 Cc: stable@vger.kernel.org
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-43-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Replaced vma_test_any() with a direct vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP) test. ]
+Signed-off-by: José Miguel Castellanos Valladolid <josstamy@gmail.com>
+Link: https://patch.msgid.link/20261017050615.14481-1-josstamy@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: added the missing mute LED fixup enum entry and initializer in the existing Realtek codec implementation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/huge_memory.c | 70 +++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 60 insertions(+), 10 deletions(-)
+ sound/pci/hda/patch_realtek.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 78fecc3ad5700..24f5887eb48ee 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3210,16 +3210,66 @@ void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
- 	__split_huge_pmd(vma, pmd, address, freeze);
- }
- 
--static inline void split_huge_pmd_if_needed(struct vm_area_struct *vma, unsigned long address)
-+static bool pud_split_required(const struct vm_area_struct *vma,
-+		unsigned long address)
- {
-+	if (!IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
-+		return false;
-+	if (IS_ALIGNED(address, HPAGE_PUD_SIZE))
-+		return false;
- 	/*
--	 * If the new address isn't hpage aligned and it could previously
--	 * contain an hugepage: check if we need to split an huge pmd.
-+	 * Only selected VMAs support mapping PUDs for now. Lift the
-+	 * restriction once this changes.
- 	 */
--	if (!IS_ALIGNED(address, HPAGE_PMD_SIZE) &&
--	    range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
--			 ALIGN(address, HPAGE_PMD_SIZE)))
--		split_huge_pmd_address(vma, address, false);
-+	if (!vma_is_dax(vma) && !(vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP)))
-+		return false;
-+	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PUD_SIZE),
-+			    ALIGN(address, HPAGE_PUD_SIZE));
-+}
-+
-+static bool pmd_split_required(const struct vm_area_struct *vma,
-+		unsigned long address)
-+{
-+	if (IS_ALIGNED(address, HPAGE_PMD_SIZE))
-+		return false;
-+
-+	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
-+			    ALIGN(address, HPAGE_PMD_SIZE));
-+}
-+
-+static void split_huge_leaf(struct vm_area_struct *vma,
-+		unsigned long address)
-+{
-+	const bool split_pud = pud_split_required(vma, address);
-+	const bool split_pmd = pmd_split_required(vma, address);
-+	pgd_t *pgd;
-+	p4d_t *p4d;
-+	pud_t *pud;
-+	pmd_t *pmd;
-+
-+	/*
-+	 * mmap, VMA and rmap write locks protect the walk; the split helpers
-+	 * take the page table locks.
-+	 */
-+	if (!split_pud && !split_pmd)
-+		return;
-+
-+	pgd = pgd_offset(vma->vm_mm, address);
-+	if (!pgd_present(*pgd))
-+		return;
-+
-+	p4d = p4d_offset(pgd, address);
-+	if (!p4d_present(*p4d))
-+		return;
-+
-+	pud = pud_offset(p4d, address);
-+	if (pud_leaf(*pud))
-+		__split_huge_pud(vma, pud, address);
-+	if (!split_pmd || !pud_present(*pud))
-+		return;
-+
-+	pmd = pmd_offset(pud, address);
-+	__split_huge_pmd(vma, pmd, address, false);
- }
- 
- void vma_adjust_trans_huge(struct vm_area_struct *vma,
-@@ -3228,14 +3278,14 @@ void vma_adjust_trans_huge(struct vm_area_struct *vma,
- 			   struct vm_area_struct *next)
- {
- 	/* Check if we need to split start first. */
--	split_huge_pmd_if_needed(vma, start);
-+	split_huge_leaf(vma, start);
- 
- 	/* Check if we need to split end next. */
--	split_huge_pmd_if_needed(vma, end);
-+	split_huge_leaf(vma, end);
- 
- 	/* If we're incrementing next->vm_start, we might need to split it. */
- 	if (next)
--		split_huge_pmd_if_needed(next, end);
-+		split_huge_leaf(next, end);
- }
- 
- static void unmap_folio(struct folio *folio)
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 6f5fa76b78f11..1a68e683801b1 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -8212,6 +8212,7 @@ enum {
+ 	ALC287_FIXUP_LEGION_16ACHG6,
+ 	ALC287_FIXUP_CS35L41_I2C_2,
+ 	ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED,
++	ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS,
+ 	ALC287_FIXUP_CS35L41_I2C_4,
+ 	ALC245_FIXUP_CS35L41_SPI_1,
+ 	ALC245_FIXUP_CS35L41_SPI_2,
+@@ -10414,6 +10415,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC285_FIXUP_HP_MUTE_LED,
+ 	},
++	[ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = cs35l41_fixup_i2c_two,
++		.chained = true,
++		.chain_id = ALC245_FIXUP_HP_X360_MUTE_LEDS,
++	},
+ 	[ALC287_FIXUP_CS35L41_I2C_4] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = cs35l41_fixup_i2c_four,
+@@ -11219,7 +11226,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8d9c, "HP 17 Turbine OmniBook 7 DIS", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8d9d, "HP 17 Turbine OmniBook X UMA", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8d9e, "HP 17 Turbine OmniBook X DIS", ALC287_FIXUP_CS35L41_I2C_2),
+-	SND_PCI_QUIRK(0x103c, 0x8d9f, "HP 14 Cadet (x360)", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x103c, 0x8d9f, "HP 14 Cadet (x360)", ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS),
+ 	SND_PCI_QUIRK(0x103c, 0x8da0, "HP 16 Clipper OmniBook 7(X360)", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8da1, "HP 16 Clipper OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8da7, "HP 14 Enstrom OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
 -- 
 2.53.0
 
