@@ -1,93 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794430776;
-	b=flgbBW0FbigLpV07SGEO2MVa9pTD1f8dAPs4QSZa0+l52O0DyUNB1e2SKGQO4nj/bEuI
-	 0moqIXj5Nw6SpMVptdxZnJAhQK/oDOH0ALFwxSIhn2V0A9mjE/9OVOYENM9DoTsGItgLm
-	 rnZI6idb+Ij/ziWILpIdg12K7ZRgqPfkRYF591OOBYEDLVSiJVzzd061fjC0fHCUDgSdv
-	 1XvlQCSzUIaE0z583y7NkSsiFGOg4hITvwns4qxLxf3FLDUvXPdmE4KnyGyMWGR9Yc4mi
-	 2LrNLBjurnbvsP2JwhnzcbQ5MiKNvGHnWv3kay0AFhNmq3LpSB4zygJ0E405YhmcPNA==
+	t=1794430843;
+	b=tGcODet3t8ZspBUUmRvl39DuTahIBrspaMoyHz0KKc1pGkePSTBBMZ0GHinY1JWkDu0G
+	 IdNBDgbmMVyCMuh3NF/rvNseHMVzhkgQRCn372Wbe1giL0eYwPJFK2yMt/5a6ZdBy8NZY
+	 rNx9e+59Ee5glMIaDLvArcnUTxe3XfzPrcy7Vb+ErkUdImbjPsIUi77TiDnea99BSxi1+
+	 q/vm3WfaqZyljVkXND8Iqsd+oUnSzXZ/aPfS4EQtPDGaCglnnuYInzfWvIbZL9Lq03SOs
+	 E6LIAqO/K4D5FBVuaxY4pxg91Gy7zTMzJC88uZQ6TozgNrEkztW7oAxqLI2QTBgQSDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794430776;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0IXKoQExWRBnxkHWmaBUmuF1Ur0MS6B/Iikgx16XxS4=;
-	b=2W7pB5MXFYjpUlmpEw+dzX287/iBFTZcDpLtbZE7lYDgMw3cyIdh0rPX/a10GMWjpPwE
-	 ItRB1YECi3u7Zhd5lU1CntTRfiV+SlIyFcU0+Lxwht3DD/JZc7acmWpq1y949eGkHP4m5
-	 w7htC5ixItjEIfnmmluOjsvD3uLb2hvF0YDBrXpFBrPNNf+GeUNHrMFul/3VFjtdlRplj
-	 MiCqn7DUHhNkSNaGtMnNEN1knLBNQRY8hnvgUrXJnnAUMMi6dHsljmL0ZKLVnfBSUFswP
-	 NLWQjz5vdB1kfgyLv8cUqMjW0iTDSNU0UvCPkfgoJla2hWRBZzoWE/S/7P4INnsG/QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794430843;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=Bfwzc0Soc5yMmxMHyRdKnO8B25Ja28l1t2oGS6mpFwU=;
+	b=YCUbwZvyNV4slIwQuRbJQ9Ne7RNhBOZW686pzj6R0yBQWLy1ac59JxG6hFEhM224qxoW
+	 oWpR4kHdnCajhvmPLvOtqcQsofr83EPDnERxmCDadGbfP84qsvjaaCan4meDGXIEJvTJH
+	 4nuUiJr0Tv+2/YgjsUrJQtoQPQaM7oyBdZ/MceqZ4O3HJuhddZsfo8pwZ7k1Ct28EWs+7
+	 oCb7fwNh+914aU64xo164XH9RL3q7T8KY+4z6E9QbfrRwE3sbFTBYi7dzMZT7QqQ95f5l
+	 0ipB1224a4wdahAnR67NncTeGMadsv7rdTzPHotpLD2lPyP0tKixhj4zKdpW9GgR5mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="mGWdMTr/";
-	arc=none smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WpcepRv0;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="O2ll/t1I";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A629606A333
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 20:59:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A629606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52095606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:00:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52095606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGWdMTr/
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b32bbd39d5so29636207b3.3
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 12:59:36 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WpcepRv0;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=O2ll/t1I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794430842;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Bfwzc0Soc5yMmxMHyRdKnO8B25Ja28l1t2oGS6mpFwU=;
+	b=WpcepRv0u/AtqPKOc+NcqzJjSkil8wdWMwxJW1bF795axAad6g/ziaO3ikRhs93e2Pi+JD
+	nng9eKLnWU8OPdOyowZ9GoOdlAPfSNwqRjP1Pv+MnI1+0WTCM+G+DgX2cmEM5pdp3yP/x6
+	TVaXtAqnpbCrurtU3OEDQW8/AI2XKi8=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-613-SN6aF-NGNoSXIJkNFX8Vfg-1; Wed, 11 Nov 2026 16:00:40 -0500
+X-MC-Unique: SN6aF-NGNoSXIJkNFX8Vfg-1
+X-Mimecast-MFC-AGG-ID: SN6aF-NGNoSXIJkNFX8Vfg_1794430840
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91eaad6eaeaso68136046d6.1
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:00:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794430775; x=1795035575; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0IXKoQExWRBnxkHWmaBUmuF1Ur0MS6B/Iikgx16XxS4=;
-        b=mGWdMTr/KQ7vH/IPoTFIhiysUV823YvNf6fvkFuwKiQ3NxaKg+NM2zNQqD2r0027Nz
-         81VzhVCLmn7sq1o0LSJblLgtWzpsC6JmY3oQcsXmgKcgqGB/UVzvSztfWS8iuVF8BvPP
-         ql70x5/5kJEmEpsDM8k9rbN2s0+nFym3himOcHITtmnRwqdZ5c2AzunDMjhwBA3l32KF
-         QJljzRJGj626wksqBEA38TTKHlCMNW08HYfpuZBIUq6uALPEglhet+vFgJ72LAEglKTi
-         OFtA59qK8o6RukV9A87NYgx9P78wJRq3nPs5VlKvMBnQG74kf2DOKFlY6SRKtJHLFCM1
-         Fvog==
+        d=redhat.com; s=google; t=1794430840; x=1795035640; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Bfwzc0Soc5yMmxMHyRdKnO8B25Ja28l1t2oGS6mpFwU=;
+        b=O2ll/t1ICUS+mLiTv0S3uW83OKD3VQPIXp3VdYcTtgNfta8lXcgm7MgfHkPnHnL+BU
+         VqWhGo9rQqdkG+yWSJP8rdTHLIiXysAwuMkfOf6eMdsrJ9gFtGx4Z8w/i6rxIOKetPox
+         UU9pi5WoR+M7Dy8BS8DsdDSEEAROuz2/VmbladhR3hi2A0dpF/+TRNxZoXi45TQBMn2D
+         PBauJh14rQRhi+QotDP95vOW59XZV79y152vIV5UsUG+1Kh1lJdzZfeTLc1XP780HeQ7
+         KWVFQJz7jq9rdkNpkQ/kxUtB1CJ7r/BKwtcNldqCPlAaZG8AzI9QzRlyCKqlaeA65khx
+         Kpwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794430775; x=1795035575;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0IXKoQExWRBnxkHWmaBUmuF1Ur0MS6B/Iikgx16XxS4=;
-        b=o5vwH+3LsSKfRSihz/90DqfD/D8Oe57yZFZTXhcWXjm96vL31a7nMp1nwr0r1SYgw3
-         Q4TvYZuY6Ru8zM1/FV482riB6r5mJuFAqotsCOrwQTqHqvWzJ6KrpzyYOw2P8yUcfB/W
-         rPclbo/H7vFAvenZlnxN38SZNNfQ7BSRICIqqLmMMMcgtRGtngi6vau/l8c7oFQKWoUx
-         loaF172gJhVL9Ge2Upxwy8DioTsh8tznDM8gk+Z2qIb7cvZJyBYKr3CeoR6sLoDbVIxM
-         5GEU2km4Z5gqfm797nE22jw1S4/2M0xADB/xYuayH6WGgLaUfNHWtGJNH9m/NA2vvCVD
-         rkTg==
-X-Forwarded-Encrypted: i=1; AL+hErED7q86sPDRlBr6wsbui59qa9cwawP+SyKn7x8PuHnVOCT22P17O+vvOU8vbbNjNvqEygmPEL4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JMVq2TYIP8tHzUTWu5zlwjl+zgQRACdipS5V25UGXcql+rQry
-	araywEORLFWNEgM/q7fQGJflynDforLinpe4hOlCPlrrx45RLzpJXx2u
-X-Gm-Gg: AYBFou0v9IZ/ECBlBAbzL3aLVuPZwcGpbjK+HqWxQcPzlrac8EcRRQif8jOlB+fjVQz
-	5R1F6e6TJ4ikJabA/il5SF1dhHOHb9i7dzP23KgF0Ruc3zKkofrxlYLAkB4vZY5ECLowuuuYJwt
-	vb32i+4OurKTFVFiJMzEuLBdRa+vyi8138FThimrFnNWWm6wzDm44KrzXVjkQbjsABrR9HoPS8B
-	1zbiAwAlm+ZlQ/VWKfl11GqYpf1Fj2hh609hgEdZBekpZMVLvH0VjtzbqorBIw9+hLqPUE69KQE
-	PereIAkzuCSAHtIBqe0BV1mvYPBtoYyGF8nn1TQsOMKCwSRYSDRzEpFV2LuDSm6p+vVJSfE4yJS
-	f/0Awl0njBDjoZ9Em0H0lUTx+quiuSlsNjqJS5Rin7w8M4P2U8E4npKLcxadGDOXuw64/X0nLNw
-	E27aa5berhS5PrWJRr3ppx+P5GFBia+YtxZuzoL8GprIsvm9eo+Ndy7G45VO2LyVWSq4LXcYcoC
-	Q5sfzq+0UaB/zOEOKCDXbKdm/YoAAiGLur41OFMdE5UyBoNgQfqeQ61Z/lJNz1bsXpkj+Y8/KHi
-	w0aQYG/h/Wdfi9GDv928EbYu1XkZLjIDZarDvm5E3A==
-X-Received: by 2002:a05:690c:f14:b0:8b0:cee8:53cf with SMTP id 00721157ae682-8b3a7dba91bmr29416207b3.3.1794430775289;
-        Wed, 11 Nov 2026 12:59:35 -0800 (PST)
-Received: from arch.localdomain ([181.80.92.40])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3934592e9sm52910477b3.40.2026.11.11.12.59.33
+        d=1e100.net; s=20260707; t=1794430840; x=1795035640;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bfwzc0Soc5yMmxMHyRdKnO8B25Ja28l1t2oGS6mpFwU=;
+        b=R+rnm7qb6rULsGsNw5VRSDOrRETDyLceRwgVOqTIpXcktGAAqasra4wRekSAr358xE
+         lcBECkfSGxXtp1hUpvhP0kJczG1cfQFXhMm2vgktSBSczGHX0Z7fSQOyxo3AfBsDMt7K
+         xnvLX0sdsrTzqybZdd3APQRfHsCE3zqceBaxkYtQVk478k1s2Hyjb+ZrM/hl5/iJ327Z
+         N9rFXydv6CfHO4Qc/zoDb8QJxr5DAV9VJ2+4w+aepRb/PRyP4ZWuJBNHX9PJWY+Ifpux
+         IP3kyAWH93vBcmxhrBEVtO53eYO2AQtQvkQOV5cgdF+q/j1bbEzAmeZVZMWjyOYDbV0Q
+         j5Tw==
+X-Forwarded-Encrypted: i=1; AL+hErHLvzvVp0bBzWyU5VgP9AnPvfymjBWY2TKEmmFFU/5oWgYN+5l86Y1tRUYXpinfj93zzcjLRz4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FTbIiEl6Y3z9K4mJ5xiY5YjPJ9isYQAJaCcegfomOMQ5xikCN
+	y/boMJTkbPyb0p86aeXTcdArgWaV83my1qzpgUd4u2o9mTqmvdtM35EsNExeOYJOo/yRwMSrRRp
+	c4q4QEoPYxx8+OOky5QGsFIvf0VOTVpoFsgdQN7MdjrRP8Y4W4OMCKH2OQg==
+X-Gm-Gg: AYBFou0Xo1RhD9uBcNAIETbj19Ae2xH1LhApp8x+2icDEEdTUt9UcZUrRf5vtSehEG1
+	eLTGXxEEpbsZCAzPLES2hi6hUy/elOJBCv2oP8CU4cJs8tWDP/y36i/vU8eyQhKc9wpK20prMud
+	GNWASLgCS3iQPQz1vR3L1Wrsr8SoFmI478Yo3QCPXfiIveG4iGbAQmx6OyJ2C/WuAmsLMS8LCUp
+	Ec06EqJuSlMLpft366IgDESbgkYmcKIXgbpbk5MFGvoj/Y4CGEOQMm/osZXXRi2qeoUVqtqrn+g
+	R+0oQdDkI/VWN+lVgvYEITm0CdsXVfTd5X94STuQnjwAGJIYYG2piztn67NBSXof9wMfc6hLW6B
+	yxcVkdSgF4LWjrFgwKm9Q/dD+88BcagdfYaYGT86TB3RCB6F2++EHR4ugntRvD3wF/maX1r/7SG
+	lkytyOB5a0ZcSvkQ==
+X-Received: by 2002:a05:622a:590b:b0:536:663d:18ca with SMTP id d75a77b69052e-556c0ea966fmr54823171cf.48.1794430840078;
+        Wed, 11 Nov 2026 13:00:40 -0800 (PST)
+X-Received: by 2002:a05:622a:590b:b0:536:663d:18ca with SMTP id d75a77b69052e-556c0ea966fmr54822201cf.48.1794430839462;
+        Wed, 11 Nov 2026 13:00:39 -0800 (PST)
+Received: from [192.168.5.11] (pool-108-49-8-41.bstnma.east.verizon.net. [108.49.8.41])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f03ca6548sm29611306d6.9.2026.11.11.13.00.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 12:59:34 -0800 (PST)
-From: Paulneja <paulnejacontacto@gmail.com>
-To: Jeff Chen <jeff.chen_1@nxp.com>,
-	Johannes Berg <johannes@sipsolutions.net>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: nxpwifi: bound the pairwise-cipher OUI walk to the IE length
-Date: Wed, 11 Nov 2026 17:59:17 -0300
-Message-ID: <20261111205917.449230-1-paulnejacontacto@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Wed, 11 Nov 2026 13:00:38 -0800 (PST)
+Message-ID: <5b9d4fa7e29fa7ef780f5a6386de6ce9f6ee7bab.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau/disp: Set
+ drm_mode_config_funcs.atomic_(check|commit) (attempt 2)
+From: lyude@redhat.com
+To: airlied@redhat.com, Danilo Krummrich <dakr@kernel.org>, David Airlie
+	 <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, Ruben
+ Wauters <rubenru09@aol.com>, stable@vger.kernel.org
+Date: Wed, 11 Nov 2026 16:00:35 -0500
+In-Reply-To: <20261111-nouveau-atomic-fix-v1-1-118e65d3a2f5@redhat.com>
+References: <20261111-nouveau-atomic-fix-v1-1-118e65d3a2f5@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,118 +123,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-nxpwifi_search_oui_in_ie() takes the pairwise cipher suite count from the
-RSN or WPA element of a beacon or probe response and compares that many
-4-byte suite selectors against the wanted one. The count is not checked
-against the length of the element, and the beacon parser records the
-element on its ID alone (the RSN case in nxpwifi_update_bss_desc_with_ie()
-has no length check at all, the WPA one only requires the OUI and type).
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-An element which is shorter than its count claims therefore makes the
-walk read up to 255 * 4 bytes past the element. The element lives in the
-buffer nxpwifi_fill_new_bss_desc() kmemdup()s from the cfg80211 BSS
-entry, which is exactly as long as the received elements, so an element
-placed last reads past the end of the allocation. The walk runs from
-nxpwifi_is_network_compatible() when a station with WPA or WPA2 enabled
-connects to an HT-capable BSS, on data that the AP controls.
-
-mwifiex, which this code was derived from, had the same walk and was
-fixed by commit e667aee1c192 ("wifi: mwifiex: bound the pairwise-cipher
-OUI walk to the IE length"). Do the same here: pass the number of element
-bytes available at the suite list and refuse a count that does not fit.
-The length stays signed so that an element too short to hold even the
-fixed part is rejected rather than wrapped. In nxpwifi the vendor header
-keeps the OUI type in a field of its own, so both are subtracted to get
-the bytes available in the WPA element.
-
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Paulneja <paulnejacontacto@gmail.com>
----
-
-Notes:
-    I went through this by hand before sending it: checked the bound against the
-    layout of struct ie_body (the suite list starts 6 bytes in) and of struct
-    ieee80211_vendor_ie (OUI and OUI type are separate fields here, which is the
-    one place this differs from the mwifiex fix), compared it line by line with
-    e667aee1c192, and ran the test below myself.
-    
-    An LLM was used to locate the bug and to draft the patch.
-    
-    Testing: no IW61x hardware here, so this was not run in a kernel. The three
-    functions were copied verbatim into a userspace harness and run under
-    AddressSanitizer with an RSN element of length 8 and a pairwise count of
-    255 placed last in an exact-size buffer: heap-buffer-overflow read before
-    the patch, clean after it, and a well-formed element still matches.
-    scan.o builds without warnings with W=1.
-
- drivers/net/wireless/nxp/nxpwifi/scan.c | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/wireless/nxp/nxpwifi/scan.c b/drivers/net/wireless/nxp/nxpwifi/scan.c
-index 4eeba6700aa7..33779e21336b 100644
---- a/drivers/net/wireless/nxp/nxpwifi/scan.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/scan.c
-@@ -79,12 +79,20 @@ _dbg_security_flags(int log_level, const char *func, const char *desc,
- 
- /* Parse a WPA/RSN element and check whether its PTK list contains the OUI */
- static u8
--nxpwifi_search_oui_in_ie(struct ie_body *iebody, u8 *oui)
-+nxpwifi_search_oui_in_ie(struct ie_body *iebody, u8 *oui, int ie_len)
- {
-+	const size_t ptk_body_offset = offsetof(struct ie_body, ptk_body);
- 	u8 count;
- 
-+	/* ie_len is the number of element bytes available at iebody */
-+	if (ie_len < 0 || (size_t)ie_len < ptk_body_offset)
-+		return NXPWIFI_OUI_NOT_PRESENT;
-+
- 	count = iebody->ptk_cnt[0];
- 
-+	if (ptk_body_offset + count * sizeof(iebody->ptk_body) > (size_t)ie_len)
-+		return NXPWIFI_OUI_NOT_PRESENT;
-+
- 	/*
- 	 * PTK may contain multiple OUIs; iterate through the list and compare
- 	 * each one
-@@ -113,10 +121,13 @@ nxpwifi_is_rsn_oui_present(struct nxpwifi_bssdescriptor *bss_desc,
- 	__be32 oui = cpu_to_be32(cipher);
- 
- 	if (bss_desc->bcn_rsn_ie) {
-+		int ie_len = (int)bss_desc->bcn_rsn_ie->datalen -
-+			     RSN_GTK_OUI_OFFSET;
-+
- 		iebody = (struct ie_body *)
- 			 (((u8 *)bss_desc->bcn_rsn_ie->data) +
- 			  RSN_GTK_OUI_OFFSET);
--		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui);
-+		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui, ie_len);
- 		if (ret)
- 			return ret;
- 	}
-@@ -132,9 +143,15 @@ nxpwifi_is_wpa_oui_present(struct nxpwifi_bssdescriptor *bss_desc, u32 cipher)
- 	__be32 oui = cpu_to_be32(cipher);
- 
- 	if (bss_desc->bcn_wpa_ie) {
-+		/* data[] starts after the OUI and OUI type */
-+		int ie_len = (int)bss_desc->bcn_wpa_ie->vend_hdr.len -
-+			     (int)sizeof(bss_desc->bcn_wpa_ie->vend_hdr.oui) -
-+			     (int)sizeof(bss_desc->bcn_wpa_ie->vend_hdr.oui_type) -
-+			     WPA_GTK_OUI_OFFSET;
-+
- 		iebody = (struct ie_body *)((u8 *)bss_desc->bcn_wpa_ie->data +
- 					    WPA_GTK_OUI_OFFSET);
--		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui);
-+		ret = nxpwifi_search_oui_in_ie(iebody, (u8 *)&oui, ie_len);
- 		if (ret)
- 			return ret;
- 	}
-
-base-commit: cb1edd20907e13b058c0d5bd34c9d51b5bedc879
--- 
-2.56.0
-
+On Wed, 2026-11-11 at 16:00 +1000, Dave Airlie via B4 Relay wrote:
+> From: Dave Airlie <airlied@redhat.com>
+>=20
+> commit 604826acb3f5 attempted to add these flags but
+> commit 6c65db809796 reverted it due to it
+> failing on hw from pre-atomic times.
+>=20
+> So use a second set of functions.
+>=20
+> original commit msg from Lyude:
+> "Apparently we never actually filled these in, despite the fact that
+> we do
+> in fact technically support atomic modesetting.
+>=20
+> Since not having these filled in causes us to potentially forget to
+> disable
+> fbdev and friends during suspend/resume, let's fix it."
+>=20
+> Reported-by: Ruben Wauters <rubenru09@aol.com>
+> Closes: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/517
+> Fixes: 6c65db809796 ("Revert "drm/nouveau/disp: Set
+> drm_mode_config_funcs.atomic_(check|commit)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dave Airlie <airlied@redhat.com>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_display.c | 11 ++++++++++-
+> =C2=A01 file changed, 10 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c
+> b/drivers/gpu/drm/nouveau/nouveau_display.c
+> index d71dcfc6ee66..07882624a7f6 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_display.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+> @@ -354,6 +354,11 @@ static const struct drm_mode_config_funcs
+> nouveau_mode_config_funcs =3D {
+> =C2=A0	.fb_create =3D nouveau_user_framebuffer_create,
+> =C2=A0};
+> =C2=A0
+> +static const struct drm_mode_config_funcs
+> nouveau_mode_config_funcs_atomic =3D {
+> +	.fb_create =3D nouveau_user_framebuffer_create,
+> +	.atomic_commit =3D drm_atomic_helper_commit,
+> +	.atomic_check =3D drm_atomic_helper_check,
+> +};
+> =C2=A0
+> =C2=A0struct nouveau_drm_prop_enum_list {
+> =C2=A0	u8 gen_mask;
+> @@ -654,7 +659,11 @@ nouveau_display_create(struct drm_device *dev)
+> =C2=A0	drm_mode_create_scaling_mode_property(dev);
+> =C2=A0	drm_mode_create_dvi_i_properties(dev);
+> =C2=A0
+> -	dev->mode_config.funcs =3D &nouveau_mode_config_funcs;
+> +	/* this only gets set if the driver has the ATOMIC flag */
+> +	if (drm_drv_uses_atomic_modeset(dev))
+> +		dev->mode_config.funcs =3D
+> &nouveau_mode_config_funcs_atomic;
+> +	else
+> +		dev->mode_config.funcs =3D &nouveau_mode_config_funcs;
+> =C2=A0
+> =C2=A0	dev->mode_config.min_width =3D 0;
+> =C2=A0	dev->mode_config.min_height =3D 0;
+>=20
+> ---
+> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+> change-id: 20261111-nouveau-atomic-fix-7478260ce6a7
+>=20
+> Best regards,
 
