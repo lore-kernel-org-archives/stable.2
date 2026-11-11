@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418747;
-	b=l7uzsex/MV6Wod+m1kDigPArp+N2BUajET0KNoHkTlXpNzJWRHDsBvfEYuV5cqJGiT77
-	 NrNdHlbWFcl8jNqvvHXl4r6KNNwlxz5UcQs7b415Se+enY5SluLFBs3T5pSJP56jUD1h/
-	 kpLc3E8DdBky6U9Bw5lHijicrAn7QdBODFQBB6Vbe3Fzbk+VoCcRhO0mfszQlP6Asb+Hq
-	 j3xvSPUssASvEZCqQqDM1uZXNUVEsX/Y55eoR+zDTAb4hIQqhxoAut+ZSFnnQQuqAJ/7V
-	 2q5GudVpKO0JwQ92vMzHjQxuOL2XBOWpH9bQqoPeRn8TSSWAo6bfafFPskrGyeFxCog==
+	t=1794418761;
+	b=VlFhurizoGkvZsvV1K7u6sflTxVgjpLCvYWyzy3t9UxP9JaZ9rPqaVz8wD17M0FNWudz
+	 CemrI9cUp/HYer4TIBcHBXMOHb7IzNw6RhM6vAA5CoDEp6ZHBHkizW6Qd90JZi+ULqwwb
+	 Pp8O/HbEnk0KXJyqXBIp+BvbTM/KyBmNzZD7xwob98TO0DradB7DRclyzmehJlwKISrHh
+	 h1r0fjqtq5tqsWIgbe7e/HyppGjvbvRDJ6/CfA+99yBNaUfjyu0rjykJF4Wc+vAzuaKc9
+	 VPcA7Gt2lQO/fbBkhlrNW6SOgkgdwwdRjxtgHSDY4zU5IRrZqhQY5V9w2y3p/K92GfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418747;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418761;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ye+GamAIkwRsS7lfLWyClWk1RlyUgiTp+w+5rtQRr7I=;
-	b=P1905/26JssQ8647yZrMDBsFl+XPFQJyOZh5YR8O3e2G5BGqUHM1ugGmqyatBqHZcyoX
-	 T4Lnor8WxC1qUmjEoOdSiCAkyoIGuVxpp+HHU10/7hRcZEUqbqce0K41tzrENb7UpzniF
-	 QqONpeISWkTQPZIV276l/rH0kM0jRKby6SOCJPnj1biyiRcxWEqOIqrj9v4n8X9+xodqH
-	 69meDuM92rBmgpaMZw0yEC33eWC4PVt4MjWHqZ+sI4px4G9yCdY3aqXMbyvVlHKFfCteC
-	 dmlIKxvF8YhP3cuoFgyPvoXG4OHuIevoS2KUgHZGFi8aL+ixwy4Oi1c03YZHalG3U2Q==
+	bh=lpRmLNLK2l0o+WZoWHJNyJhoIAQ4xuZviVMxZmqnKzI=;
+	b=Bh0MFqtem8HpS2+zL0lf6Z+oP1uuYoYXW0cqZuFIsKN1+DwLNMgYDTUAxKMh4/YEhB+0
+	 aGBzwXCSn/o4Mwee4cxghui2+vQ7dV0zoWw8Tt4T5NLNWJEuimr+xeaB5NtG6/qz8p3Ao
+	 VOhg5GRowJDfe7FVTyRnmjiJUAHpFr2nkvqPfFwtMfkfwFxPzq4BXYR/VgisoOIagZxrI
+	 +QzDpOt2n3WhpmqDjk9uwOgG8LlP5fsipQQlSGvVSwMGy6S2ECEaxMMkhJ54yd5iH/SZw
+	 7dO5szqrKEjk9M2JjcpgGvopAeMGGyCbmV0Vn5vyvJWKR2IcQfTWxytrrSZtw4hYfRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJ6BVQna;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G3OIxFyC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337BC606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:39:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1E1606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:39:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJ6BVQna
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3682B1F00A07;
-	Wed, 11 Nov 2026 17:39:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G3OIxFyC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7584D1F00A05;
+	Wed, 11 Nov 2026 17:39:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418747;
-	bh=Ye+GamAIkwRsS7lfLWyClWk1RlyUgiTp+w+5rtQRr7I=;
+	s=k20260515; t=1794418761;
+	bh=lpRmLNLK2l0o+WZoWHJNyJhoIAQ4xuZviVMxZmqnKzI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KJ6BVQnazUSuAkf0pfAFflfmeTPORsX4PD21A/IjKzxgnUeZrtqVjQxIEN2GwAsTE
-	 C/5ETwDB4Wg/dFj2k9o9knqsTD19iF3bPYH9fLCy00Y9j7gJOQMRmqe8Jj07h4ZJeE
-	 BVeRPsSGBXigUGvve2Que3adaGLUOR4ymlPv9hVzOSfrKKNYcRk/IuaG8aRmhx4mU/
-	 BI/YqobMwWWR59wCCCLKxbbCGBhrTZGU50rTpNMRToRsTq906Y3oJNtxbSNFxJ50OM
-	 6e0q6pKo4doZwqPaM1+HYK63by5mwYcpye6PXnvtxwf+M+7H1UmXAxJgFFpniLAyCl
-	 NNAxH8dZuLvgw==
+	b=G3OIxFyCrH/wBDimeN/OAPKRjWRpYmJFWJPHxddC5QNoLbL+QcILjKanNuusnmqVs
+	 MxMH/Nz//zuqzNvtv0hirHOLtSG1PrTo9YIbRP1ukhHT8ajlp4XYvShDLZhAD9UjPN
+	 OZKIr5hJdAphvwGhoxRaqXWi4jc6hpd3TpQSFgQAlMkk4ZykVLkxZ8mRnHkWchnmY/
+	 WWYFb/zhe/ewEc5Nn0/H2jKEot85yIdbWixmhU8UgvLW+HjZTLFUSl7GPRQvaeplBB
+	 zHdJtVo/Sewg+e8qT5S3tU/WhaObYEEYOcRCgEgOwf3CUTv8HOzHBTaLyUzKpsh1xE
+	 Df9NBsXogxUwA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Sumit Kumar <sumit.kumar@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ipmr: only copy pktinfo to cache reports
-Date: Wed, 11 Nov 2026 12:39:04 -0500
-Message-ID: <20261111173836.3630034-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] PCI: dwc: Set DMA_BYPASS bit in outbound IATU CTRL2 register
+Date: Wed, 11 Nov 2026 12:39:19 -0500
+Message-ID: <20261111173856.3609238-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111173836.3630034-1-sashal@kernel.org>
-References: <20261107052532-failed-6.12-94a6736bb5ab@kernel.org>
- <20261111173836.3630034-1-sashal@kernel.org>
+In-Reply-To: <20261107062314-failed-5.10-efadda401c5c@kernel.org>
+References: <20261107062314-failed-5.10-efadda401c5c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,81 +62,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
 
-[ Upstream commit 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f ]
+[ Upstream commit efadda401c5c8e2390ba66508eba154dbd0db5a9 ]
 
-ipmr_cache_report() prepares IP_PKTINFO on the original skb. The
-ipv4_pktinfo_prepare() helper updates skb->cb and clears the pktinfo fields
-when packet info is disabled. Since the skb can continue through the data
-path, preserve and restore its original control block around the helper.
+An outbound iATU region matches any local (AXI/application-side)
+address that falls within its Base/Limit window and rewrites it to
+the PCIe-side address programmed in that region's Target Address
+Registers before the transaction goes out on the link. This matching
+does not distinguish CPU-initiated transactions from ones issued by
+the internal DMA engine (eDMA/HDMA).
 
-The original implementation copies the entire control block to the report
-skb. For synthetic RTM_GETROUTE packets, NETLINK_CB data is interpreted as
-IPCB by the raw IPv4 receive path. With IP_RECVOPTS or IP_RETOPTS enabled,
-corrupted option offsets cause out-of-bounds reads or a stack buffer
-overflow. WHOLEPKT and WRVIFWHOLE reports also inherit stale IP option
-offsets when their header is prepended.
+Example: outbound region 0 is programmed with Base/Limit covering
+local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
+CPU-initiated accesses. The DMA engine is later given a descriptor
+whose destination is the host address 0x8000_0080, which happens to
+fall inside region 0's Base/Limit range. The iATU matches the DMA
+transaction against region 0 too and rewrites it to 0x1_0000_0080
+instead of passing 0x8000_0080 through unchanged. The transaction
+then lands on the wrong host address, causing data corruption or an
+IOMMU fault when the rewritten address has no valid mapping.
 
-Clear the report skb control block. Only prepare and copy pktinfo when the
-input skb has an IPv4 header. Synthetic route-query skbs use NETLINK_CB,
-not IPCB, so leave their report control block zeroed. Restore pkt->cb after
-preparing pktinfo for regular IPv4 packets.
+Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
+programming outbound iATU regions so only CPU/AXI-initiated
+transactions are matched against the region; DMA engine transactions
+bypass the translation and go out on the PCIe link with their
+original address.
 
-Fixes: bb7403655b3c ("ipmr: support IP_PKTINFO on cache report IGMP msg")
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Link: https://lore.kernel.org/netdev/20260903113055.GA90787@shredder/
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://patch.msgid.link/20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com
+[ sashal: adapted unified outbound iATU programming to separate viewport and unrolled paths with a numeric version check only in the viewport path ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipmr.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/pci/controller/dwc/pcie-designware.c | 7 +++++--
+ drivers/pci/controller/dwc/pcie-designware.h | 1 +
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index fec7012a62e45..f5334bc04dac9 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1031,6 +1031,7 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
- static int ipmr_cache_report(const struct mr_table *mrt,
- 			     struct sk_buff *pkt, vifi_t vifi, int assert)
- {
-+	unsigned char pkt_cb[sizeof(pkt->cb)];
- 	const int ihl = ip_hdrlen(pkt);
- 	struct sock *mroute_sk;
- 	struct igmphdr *igmp;
-@@ -1086,8 +1087,6 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		msg = (struct igmpmsg *)skb_network_header(skb);
- 		msg->im_vif = vifi;
- 		msg->im_vif_hi = vifi >> 8;
--		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
--		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
- 		/* Add our header.
- 		 * Note that code, csum and group fields are cleared.
- 		 */
-@@ -1098,6 +1097,15 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		skb->transport_header = skb->network_header;
- 	}
+diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
+index 28945351da14f..27e4020ef1774 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.c
++++ b/drivers/pci/controller/dwc/pcie-designware.c
+@@ -248,7 +248,7 @@ static void dw_pcie_prog_outbound_atu_unroll(struct dw_pcie *pci, u8 func_no,
+ 	dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL1,
+ 				 type | PCIE_ATU_FUNC_NUM(func_no));
+ 	dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL2,
+-				 PCIE_ATU_ENABLE);
++				 PCIE_ATU_ENABLE | PCIE_ATU_DMA_BYPASS);
  
-+	memset(skb->cb, 0, sizeof(skb->cb));
-+	/* Route queries from ipmr_get_route() carry NETLINK_CB, not IPCB. */
-+	if (ip_hdr(pkt)->version) {
-+		memcpy(pkt_cb, pkt->cb, sizeof(pkt_cb));
-+		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
-+		*PKTINFO_SKB_CB(skb) = *PKTINFO_SKB_CB(pkt);
-+		memcpy(pkt->cb, pkt_cb, sizeof(pkt_cb));
-+	}
-+
- 	igmpmsg_netlink_event(mrt, skb);
+ 	/*
+ 	 * Make sure ATU enable takes effect before any subsequent config
+@@ -294,7 +294,10 @@ static void __dw_pcie_prog_outbound_atu(struct dw_pcie *pci, u8 func_no,
+ 			   upper_32_bits(pci_addr));
+ 	dw_pcie_writel_dbi(pci, PCIE_ATU_CR1, type |
+ 			   PCIE_ATU_FUNC_NUM(func_no));
+-	dw_pcie_writel_dbi(pci, PCIE_ATU_CR2, PCIE_ATU_ENABLE);
++	val = PCIE_ATU_ENABLE;
++	if (pci->version >= 0x460A)
++		val |= PCIE_ATU_DMA_BYPASS;
++	dw_pcie_writel_dbi(pci, PCIE_ATU_CR2, val);
  
- 	/* Deliver to mrouted */
+ 	/*
+ 	 * Make sure ATU enable takes effect before any subsequent config
+diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+index 2dfeec79c6718..9766032dac942 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.h
++++ b/drivers/pci/controller/dwc/pcie-designware.h
+@@ -92,6 +92,7 @@
+ #define PCIE_ATU_CR2			0x908
+ #define PCIE_ATU_ENABLE			BIT(31)
+ #define PCIE_ATU_BAR_MODE_ENABLE	BIT(30)
++#define PCIE_ATU_DMA_BYPASS		BIT(27)
+ #define PCIE_ATU_FUNC_NUM_MATCH_EN      BIT(19)
+ #define PCIE_ATU_LOWER_BASE		0x90C
+ #define PCIE_ATU_UPPER_BASE		0x910
 -- 
 2.53.0
 
