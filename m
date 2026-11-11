@@ -1,60 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418382;
-	b=5UjTgXRxffa/wWiLIox4Q8FqVN+laPGS4FI1Nco7bcTWqL4Evi/fgfjohe11cjoR9hCK
-	 Ao7oCnrD2iI+d3FncuXw4BcAUcayGfEZ3iyplJhGfrPgxaiV8kY9yxZZOE0jEFhu2C7CU
-	 147CZ+yy6MTctc6nhNnX/Vvja2CVtn94wby+yMn3qguXlUFW7SOuS08HZJb8wLaA326Sf
-	 raiewrJzqxVrNV0zMy4lf/xARXw3/K4P28AOYYd01D24bPlojWOxfrN5HrQCWnFEOZxx0
-	 AL2tZt/3IFv50VUn7YsHxyTZmObjkorLMuyC6mEz3ZOsouDoJxeRZV8tGunP8+bOWDA==
+	t=1794418405;
+	b=GU+nyJ3cOsfFpbWMC7dpwHh8hAiKPfgJEvtMnEhb5UCk19TZbXx4JMDpSH7Ngj8+x8sd
+	 EAhCtQ76IfOVK73zfoQidWk30IfS4GEH78SmVTH5mEo+d1TrDAjVSZqt1xH0gbpV+0mUU
+	 6k9qmll1/XGnmlnONGhXbyGDCsCBojK051LPWqySQK+gEt9jg9r4blYS9toBTsEsvJ27h
+	 ANfkQgQCd86aGQ/2IdnyfnB7E/jOXStVFTcDgArqMyPds6L2c6UNJhfodAhQeIDso/SGB
+	 xq+icDeM1SJVSy4lUZ2bBC2h5MQBk/Qo+pv0FcRXjiflu899G7HW4YhsLsEGMFPKUuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418382;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418405;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ywORb/Z6YEAmgYh74eUnuaruD5UsTfS2gJmv1QuiYUc=;
-	b=m+LXjazFjIivbCLGVci7y8Ul2hk/a5N4djlbwYCr1z4WcBSWFppajLqkWNXQYn7/XkGI
-	 S++4NfKihY6InSbDLd/1AqvpIg0NfYO4tIbM4CG8W3JLbnQEYq2xNiniOEML4M8/EpkrM
-	 29SVMgVqPGMs19hTtXHTvXuemjbzorOxDGxjoeHY4pLb0jjW4L7FTVxkPD9SMiJwxVKxU
-	 VodSoCYsR04F7A8YD8edperO53jl9qW8vHiPTLT8aMBzE9lUrBErhV4UOLjpQYEb10yjq
-	 8epuesYYYPncnWMO9Bbea2hRArPzlNYEo5rbKuZUMy1p/4JywOX/ea8AaP3yTsp3M9g==
+	bh=prddC7uX/ArCt7Zr6stCtpxGXbyFVHR7u3JGt+1foPw=;
+	b=2CTTKitjPSFMQPnEfd/JAwYXwUrHnSu6n95JsoNRwydSWxilaXADTgrnn1Iymet20LVF
+	 EDUJJxV56Q3Tu3PI+l0LEsYcwKSFemjyI7IRI6FdhKXMGNtt9lgGiJI03Xx4fuhAHaogX
+	 E/Ujt+NnpEIT8BgbZRpKI0Kr4VNWN0vYm/fTQsHPK7iYT5GEHQrDW1Fl9/aSA+rwuDZZm
+	 u7eK2R/eDVDsD+O99TKEyu2HeB4j6qOHBtMc71xVRgkf4FiAWehLOEZ9NcFL7YPXDb1nO
+	 gCRlU0/GhrxGjZJ9gNp4w2jiggGEefadi3fKNksYVT0P/Su3VcgyI1sn/rCi5A/gY7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lq+itu9x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SsbUNb2X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0C7606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:33:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC07606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:33:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lq+itu9x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0331F00A06;
-	Wed, 11 Nov 2026 17:33:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SsbUNb2X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F55C1F00A05;
+	Wed, 11 Nov 2026 17:33:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418382;
-	bh=ywORb/Z6YEAmgYh74eUnuaruD5UsTfS2gJmv1QuiYUc=;
+	s=k20260515; t=1794418405;
+	bh=prddC7uX/ArCt7Zr6stCtpxGXbyFVHR7u3JGt+1foPw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lq+itu9xTl/ROUFKbLGEveWcm3WM7PNE6dBqVV11LVTW6RB7QOIwpwDEZ9gXuweGt
-	 yQyXbTJhpWUEG0e97L9sHk/ddQ2wCj1SH0HcMl2MoaM+1fuO5j30xTNIms2OppGEjl
-	 LZVN8Qhfjll4ybat6+atv7G6ZJV3+i/1ubruTn+gUJtCL6M1XL7MRpc/cIzYDnTWQC
-	 La2+SC1O+CZMPjMAW/tPEYZm+LC1oKK2UcKYtiQp++f3Xk1pMRHjjiKHf9gilrLern
-	 MdF01m3PLPtRpbODcSZCwU/L0fa2yv1w0/oDZEtQ1GH1w6obW3MbWgzYyALwclFMVo
-	 eGVBfyFcHJaog==
+	b=SsbUNb2Xxx3Kf38QJMkkQE2NOWFjT4kgWjud2rmpTIH1qYh8qn23MneY7Xbnhqkpw
+	 8CA7zMQ8kUgeSKCfSnCIQ3tk/vtshRFTrYh36R3qVkWoloquppJCQ63zFT6LQnTxlN
+	 Cf//xGPVZ5JboNiBgW6DrbkjCMz/LQESLGYb2YdsGIsmhCQAiWE9RlBAkdbJr3vFlY
+	 X7WWn6+87h7gC61HaLgajoxC6qOd0o8jvsSL5HRefKnDqF0+9s99k9cwUeQLwAc1mA
+	 /7T80fm4lxo6/y8bd5KH8tEAeVCKcEx9sVthGrqiNt71SlJ9owfJW20RTGyHYLyZL0
+	 Ch/vSxwAgGlMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Cen Zhang <zzzccc427@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Yufan Chen <ericterminal@gmail.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Kees Cook <kees@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Sunil Mushran <sunil.mushran@oracle.com>,
+	Jia-Ju Bai <baijiaju1990@gmail.com>,
+	jjzuming@gmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ipmr: only copy pktinfo to cache reports
-Date: Wed, 11 Nov 2026 12:32:59 -0500
-Message-ID: <20261111173235.3591073-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ocfs2/cluster: initialize heartbeat regions before publishing them
+Date: Wed, 11 Nov 2026 12:33:22 -0500
+Message-ID: <20261111173303.3608441-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111173235.3591073-1-sashal@kernel.org>
-References: <20261107051350-failed-6.18-94a6736bb5ab@kernel.org>
- <20261111173235.3591073-1-sashal@kernel.org>
+In-Reply-To: <20261107062726-failed-5.10-c5b7a30a5172@kernel.org>
+References: <20261107062726-failed-5.10-c5b7a30a5172@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,81 +72,185 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Cen Zhang <zzzccc427@gmail.com>
 
-[ Upstream commit 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f ]
+[ Upstream commit c5b7a30a5172317e1e3cba61d8c9f9c588c497bb ]
 
-ipmr_cache_report() prepares IP_PKTINFO on the original skb. The
-ipv4_pktinfo_prepare() helper updates skb->cb and clears the pktinfo fields
-when packet info is disabled. Since the skb can continue through the data
-path, preserve and restore its original control block around the helper.
+A region on o2hb_all_regions must have an initialized config item and
+name. o2hb_heartbeat_group_make_item() currently links the zeroed region
+under o2hb_live_lock, drops the lock, and only then initializes hr_item.
+The lock therefore protects the list without protecting initialization
+from readers of the published item.
 
-The original implementation copies the entire control block to the report
-skb. For synthetic RTM_GETROUTE packets, NETLINK_CB data is interpreted as
-IPCB by the raw IPv4 receive path. With IP_RECVOPTS or IP_RETOPTS enabled,
-corrupted option offsets cause out-of-bounds reads or a stack buffer
-overflow. WHOLEPKT and WRVIFWHOLE reports also inherit stale IP option
-offsets when their header is prepended.
+With global heartbeat enabled, a DLM_QUERY_REGION from the current
+joining node can pass the existing-domain and protocol checks while a
+configfs mkdir creates another region. The DLM locks are not taken by
+the constructor, and the network worker does not take the configfs
+subsystem mutex. The following ordering is possible:
 
-Clear the report skb control block. Only prepare and copy pktinfo when the
-input skb has an IPv4 header. Synthetic route-query skbs use NETLINK_CB,
-not IPCB, so leave their report control block zeroed. Restore pkt->cb after
-preparing pktinfo for regular IPv4 packets.
+  Configfs mkdir                     O2net receive worker
+  --------------                     --------------------
+  Allocate reg
+  Lock o2hb_live_lock
+  Link into o2hb_all_regions
+  Unlock o2hb_live_lock
+                                     dlm_query_region_handler()
+                                       dlm_match_regions()
+                                         o2hb_get_all_regions()
+                                           Lock o2hb_live_lock
+                                           Copy 32 bytes from NULL name
+                                           Unlock o2hb_live_lock
+  config_item_init_type_name()
 
-Fixes: bb7403655b3c ("ipmr: support IP_PKTINFO on cache report IGMP msg")
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Link: https://lore.kernel.org/netdev/20260903113055.GA90787@shredder/
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+The query thus dereferences NULL. Initialize hr_item before linking the
+region so the existing list lock also orders name initialization before
+any reader. Reject a failed name allocation, since the initialization
+helper does not propagate that error.
+
+Use config_item_put() on initialized constructor failures to release the
+name and respect references retained by o2hb_region_pin(). Initialize
+the list heads, mutex and delayed works needed by o2hb_region_release()
+before any such put, and leave the list node self-linked after rollback.
+Keep the existing handler drain before removing a failed published item.
+
+KASAN report as below:
+
+    ==================================================================
+    BUG: KASAN: null-ptr-deref in o2hb_get_all_regions+0xbb/0x1f0
+    Read of size 32 at addr 0000000000000000 by task kworker/u16:1/14
+
+    CPU: 2 UID: 0 PID: 14 Comm: kworker/u16:1 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Workqueue: o2net o2net_rx_until_empty
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     kasan_report+0xe0/0x110
+     ? o2hb_get_all_regions+0xbb/0x1f0
+     kasan_check_range+0x105/0x1b0
+     __asan_memcpy+0x23/0x60
+     o2hb_get_all_regions+0xbb/0x1f0
+     dlm_query_region_handler+0x4c2/0xc20
+     ? __pfx_dlm_query_region_handler+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? kvm_clock_get_cycles+0x31/0x60
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_dlm_query_region_handler+0x10/0x10
+     o2net_rx_until_empty+0x1a50/0x3200
+     ? reacquire_held_locks+0xdd/0x200
+     ? __pfx_o2net_rx_until_empty+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? process_one_work+0x935/0x1b40
+     ? process_one_work+0x834/0x1b40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x9a8/0x1b40
+     ? __pfx_process_one_work+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kthread_parkme+0x177/0x220
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+    ==================================================================
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0079-v5-f931a29339cadc0a2a70@gmail.com
+Fixes: 536f0741f324 ("ocfs2/cluster: Track number of global heartbeat regions")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Yufan Chen <ericterminal@gmail.com>
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Sunil Mushran <sunil.mushran@oracle.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: Omitted relocation of the mutex, stopping flag and delayed-work initialization. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipmr.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ fs/ocfs2/cluster/heartbeat.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index cd587d84f388e..5133fd14029e2 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1055,6 +1055,7 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
- static int ipmr_cache_report(const struct mr_table *mrt,
- 			     struct sk_buff *pkt, vifi_t vifi, int assert)
- {
-+	unsigned char pkt_cb[sizeof(pkt->cb)];
- 	const int ihl = ip_hdrlen(pkt);
- 	struct sock *mroute_sk;
- 	struct igmphdr *igmp;
-@@ -1110,8 +1111,6 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		msg = (struct igmpmsg *)skb_network_header(skb);
- 		msg->im_vif = vifi;
- 		msg->im_vif_hi = vifi >> 8;
--		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
--		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
- 		/* Add our header.
- 		 * Note that code, csum and group fields are cleared.
- 		 */
-@@ -1122,6 +1121,15 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		skb->transport_header = skb->network_header;
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 9731b9f3b9d84..938425dce6e9a 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -2047,6 +2047,14 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 		goto free;
  	}
  
-+	memset(skb->cb, 0, sizeof(skb->cb));
-+	/* Route queries from ipmr_get_route() carry NETLINK_CB, not IPCB. */
-+	if (ip_hdr(pkt)->version) {
-+		memcpy(pkt_cb, pkt->cb, sizeof(pkt_cb));
-+		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
-+		*PKTINFO_SKB_CB(skb) = *PKTINFO_SKB_CB(pkt);
-+		memcpy(pkt->cb, pkt_cb, sizeof(pkt_cb));
++	INIT_LIST_HEAD(&reg->hr_all_item);
++	INIT_LIST_HEAD(&reg->hr_handler_list);
++	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
++	if (!config_item_name(&reg->hr_item)) {
++		ret = -ENOMEM;
++		goto put_item;
 +	}
 +
- 	igmpmsg_netlink_event(mrt, skb);
+ 	spin_lock(&o2hb_live_lock);
+ 	reg->hr_region_num = 0;
+ 	if (o2hb_global_heartbeat_active()) {
+@@ -2055,22 +2063,19 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 		if (reg->hr_region_num >= O2NM_MAX_REGIONS) {
+ 			spin_unlock(&o2hb_live_lock);
+ 			ret = -EFBIG;
+-			goto free;
++			goto put_item;
+ 		}
+ 		set_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	}
+ 	list_add_tail(&reg->hr_all_item, &o2hb_all_regions);
+ 	spin_unlock(&o2hb_live_lock);
  
- 	/* Deliver to mrouted */
+-	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
+-
+ 	/* this is the same way to generate msg key as dlm, for local heartbeat,
+ 	 * name is also the same, so make initial crc value different to avoid
+ 	 * message key conflict.
+ 	 */
+ 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
+ 		name, strlen(name));
+-	INIT_LIST_HEAD(&reg->hr_handler_list);
+ 	ret = o2net_register_handler(O2HB_NEGO_TIMEOUT_MSG, reg->hr_key,
+ 			sizeof(struct o2hb_nego_msg),
+ 			o2hb_nego_timeout_handler,
+@@ -2093,10 +2098,13 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 	o2net_unregister_handler_list(&reg->hr_handler_list);
+ remove_item:
+ 	spin_lock(&o2hb_live_lock);
+-	list_del(&reg->hr_all_item);
++	list_del_init(&reg->hr_all_item);
+ 	if (o2hb_global_heartbeat_active())
+ 		clear_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	spin_unlock(&o2hb_live_lock);
++put_item:
++	config_item_put(&reg->hr_item);
++	return ERR_PTR(ret);
+ free:
+ 	kfree(reg);
+ 	return ERR_PTR(ret);
 -- 
 2.53.0
 
