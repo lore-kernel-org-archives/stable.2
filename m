@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794366776;
-	b=FP6LFKxQ8khHJcYgD5nHwfnzgKT68dCTd3sUL0YDiY5eFzJeOvGuSZJ1OZyrohQect5G
-	 0nz005VtVgB2YsN3rW3rojhqO+0tbL36/bvy3nSD73NVrzHmHah1aIhEYh+SRZ7T75KZT
-	 QaGy++DxG+bYcPdNoXYX1AfTT/g8PBidJVMECehBFIYaD6ZmU4p/C2AAxHoWXbQbvDyu8
-	 J8OCzHplqGLcIe1poKoWq3ctr4I4+H7HOjVPHUUXkUEY/w0Pp6/KH9DvLRRtcCMitmMo9
-	 IHG/gx2bXL7MVE2SluNYIK4DLfo98Yyu3zFpTfakb96ZGV+tgYdRkQNjDJi9lRx7xzA==
+	t=1794366786;
+	b=Cxgu/BOrgK2mmqs2mU87bTk3/YeblHtpY1vDBajGoeIPRUJME6fJX1RAa4wXo5NiMdM+
+	 Fe0WaBPGDY6Y9o1LChtvGERx68TBM9DT+Uj0bWh49G83vUoSFxLKKfrRBYQPr6yXZDRQr
+	 z0T9ITYMpy4jqGbcyoLkNer1vEZVEI69NXTHVS9Z3pqaboojtudfBnTQd/ajCn4xnvLec
+	 SEae861CcvxNPbOux+ou3UIEt8a6aCXSDOIg8SlrZjkL2lsxpl4Riz3BuM57U99UAvW9N
+	 6p8dbHrwCwt5gpiEKBmA+aLfdXT3qvgrV+pcIrrn0/ZtCJmTGqx7D5lo4Glwzv1dl3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366776;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366786;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=eSdnhTohQLo5rbiCtFZN71KmpfO1smlJZwWBGFUh3bE=;
-	b=VG9iLFGBKyZaJHTK/nLWpiMN26K6vIRyqD3j/s9GxJBsPVolysCir84dLb4zTNhUgPaJ
-	 3wHOTavTgZ3pcIU/txsaRG4wgP+faL92G3fmSwcxpBgEBAp8L77PVADc+lI7IocxYE1Uf
-	 8Jwe4OZYVfWGukRNcKEgGsAExkzMSziKYusRTUljEV9ZpIpibdE69uJfOIvBbpbxlcYun
-	 x5nmGcaBxqP6fxVXTZg9apVZ62blNKjfQ+nsN5DV76zsedyaeoNrWZkEnqfXEm8ZDpKCB
-	 aZdhNgQhLaZRCLKFK6wE6Fym2Dbvjr2sxCIEbtz0WmHfrFvB2KVJ5zzvCVFQB9gCfVw==
+	bh=cukOiM1/nQDpUWagJIOLud71lrIDc0Hv/xaf+slcQtg=;
+	b=1oI8VI/u14DKGbhAMnkSTsu6H7DkhJyc3n6PSsorcVuZl3M/PbJmpQloSrPo/PG5xu2q
+	 bgcgn7kUdrW/x4Ku0uzNpmHTU3gGfQgT4d/sue5hy4qH+Pc0T3gkcTwmbNzZKJEU32bha
+	 mIISAM+YYpR3UdK/f/344xHiu1rfBJywOL8LRaKUj0XFGSVhBZl931lynaBvYJvjXdNEV
+	 6pjhCik5jcPDnBcEw89OURO0bUxWOssb2jereUetcpoTmUd0md4Cuj7AXaPvsnHTzPxxi
+	 brGvcShgbAgr7LJXE2anzRFbvTYHBk1r4qzV0duKgZsv3DzggQsUecbSTRHqznuHP9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bV1svciU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d3BiStrb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053C7606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:12:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E454606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:13:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bV1svciU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BD81F0089F;
-	Wed, 11 Nov 2026 03:12:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d3BiStrb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A452C1F0089F;
+	Wed, 11 Nov 2026 03:13:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794366775;
-	bh=eSdnhTohQLo5rbiCtFZN71KmpfO1smlJZwWBGFUh3bE=;
+	s=k20260515; t=1794366786;
+	bh=cukOiM1/nQDpUWagJIOLud71lrIDc0Hv/xaf+slcQtg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bV1svciUyQQfFCYOWQjJxudjscpL3Kmcmnjlrwg5PV8sOtf3AK91ZezcjBor4Nfhp
-	 XD1MZIESsRNkFNO0dYOmUTd6J3gq/XOBlU7mj7UsX6+lPWkY9vTcjSLMlj1MbnkeDZ
-	 pQ7115d/iRD0bOixazc4UkfDGqyr4cW6iqP9svcKiboYfYgDVmdvGJYnRcskaU7TIA
-	 +YVkiPWvB27M4s2SDpaT4MElNVxaBRXfkoKyLPMFq1svoXgt70Wm8NLLH++zES77um
-	 6dF1eWfnPYmtT1gousXB2LIye0iwUfCVWbcdQhlyltd1i4Fbr0TextGKo7YIq+VyAO
-	 haA7JB9WbZbfA==
+	b=d3BiStrbInK7LjLCPrQh8L9WyqbvB1AJOCzlvbJ3lhNctaUSIQtxGFlgMmsQTFwiZ
+	 hyshGuIatW9DxOxMUaCr/2J+FyUXKxYn6ig23wfe3O+a7jpa/G0ajeRyY4EAEL0d6A
+	 M1ugp7lzpNPY3pDoHQjDrgXm0wo60rspq3eHo0B7HrOLza8UeF/VOIZvqOEEmXEMHy
+	 N/343J0TmZ2YAz2TQxVCLwn7SxC/7mxFyOX6bmkkmae75o+whtqaag3MboJf92d/fw
+	 VABza0305Xfk2veu3/MALfARA+hwwGKs4MP8MFiXHVlduzLbThtEu6Hkv0lTeNnW8q
+	 CCh+TXNVJHcJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
+Cc: Hemanth Selam <hemanth.selam@gmail.com>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] tpm: tpm2_probe: propagate transport errors
-Date: Tue, 10 Nov 2026 22:12:53 -0500
-Message-ID: <20261111031201.700755-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/2] platform/chrome: Fix typos in comments
+Date: Tue, 10 Nov 2026 22:13:03 -0500
+Message-ID: <20261111030918.832540-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061049-failed-5.15-7d4f1cbfe063@kernel.org>
-References: <20261107061049-failed-5.15-7d4f1cbfe063@kernel.org>
+In-Reply-To: <20261107050410-failed-7.3-ca75b38b1a3c@kernel.org>
+References: <20261107050410-failed-7.3-ca75b38b1a3c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,51 +61,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+From: Hemanth Selam <hemanth.selam@gmail.com>
 
-[ Upstream commit 7d4f1cbfe063af5581dac66abe9e9c965e1031cc ]
+[ Upstream commit 2d23d5e9cb468baf6e4fa78d0dd7e8555759385d ]
 
-tpm2_probe() reads the protocol version from the response tag and is
-documented to return -errno on failure, but it always returns 0.  A
-transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
-the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
-unset. A transient bus failure on the first command then misdetects a
-TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
-  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
-
-Return the transport error instead; rc >= 0 still means a valid header was
-received and the TPM's own response code is still ignored.
-
-Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20261001060114.1582092-1-alexander.sverdlin@siemens.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-[ sashal: replaced the early return with rc = 0 to preserve tpm_buf_destroy() cleanup of the stack-allocated buffer ]
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Link: https://lore.kernel.org/r/20260904110900.20435-2-hemanth.selam@gmail.com
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Stable-dep-of: ca75b38b1a3c ("platform/chrome: cros_usbpd_notify: Only use drvdata when parent is GOOG0004")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/char/tpm/tpm2-cmd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/platform/chrome/cros_ec_ishtp.c     | 2 +-
+ drivers/platform/chrome/cros_usbpd_notify.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index 440b703e29e5f..662642c59f6d3 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -507,9 +507,10 @@ int tpm2_probe(struct tpm_chip *chip)
- 		out = (struct tpm_header *)buf.data;
- 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
- 			chip->flags |= TPM_CHIP_FLAG_TPM2;
-+		rc = 0;
- 	}
- 	tpm_buf_destroy(&buf);
--	return 0;
-+	return rc;
- }
- EXPORT_SYMBOL_GPL(tpm2_probe);
+diff --git a/drivers/platform/chrome/cros_ec_ishtp.c b/drivers/platform/chrome/cros_ec_ishtp.c
+index 3766cef81fe82..b21a27ad37625 100644
+--- a/drivers/platform/chrome/cros_ec_ishtp.c
++++ b/drivers/platform/chrome/cros_ec_ishtp.c
+@@ -369,7 +369,7 @@ static void ish_event_cb(struct ishtp_cl_device *cl_device)
+  * @cros_ish_cl: ISHTP client instance
+  * @reset: true if called from reset handler
+  *
+- * This function complete the initializtion of the client.
++ * This function complete the initialization of the client.
+  *
+  * Return: 0 for success, negative error code for failure.
+  */
+diff --git a/drivers/platform/chrome/cros_usbpd_notify.c b/drivers/platform/chrome/cros_usbpd_notify.c
+index d842c05f4db00..6f5eea4938cb4 100644
+--- a/drivers/platform/chrome/cros_usbpd_notify.c
++++ b/drivers/platform/chrome/cros_usbpd_notify.c
+@@ -64,7 +64,7 @@ static void cros_usbpd_get_event_and_notify(struct device  *dev,
  
+ 	/*
+ 	 * We still send a 0 event out to older devices which don't
+-	 * have the updated device heirarchy.
++	 * have the updated device hierarchy.
+ 	 */
+ 	if (!ec_dev) {
+ 		dev_dbg(dev,
+@@ -115,7 +115,7 @@ static int cros_usbpd_notify_probe_acpi(struct platform_device *pdev)
+ 	if (!ec_dev) {
+ 		/*
+ 		 * We continue even for older devices which don't have the
+-		 * correct device heirarchy, namely, GOOG0003 is a child
++		 * correct device hierarchy, namely, GOOG0003 is a child
+ 		 * of GOOG0004. If GOOG0003 is a child of GOOG0004 and we
+ 		 * can't get a pointer to the Chrome EC device, defer the
+ 		 * probe function.
 -- 
 2.53.0
 
