@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794435179;
-	b=eS34ycmNuG84QQqmvsvhbM+JiDbd2WiGFe8ZpWJl2gTI2wlOYizKZPoSeW6maFB+Fwb3
-	 jaj81kzw7Sl6QvIycNaGraX0/yCePjpZyalHtBirAoLkl9RHrkLUjyGM2BWz3zdKOPTbD
-	 XWGbgiRGOvWu2SG/CtN0gQuE5a92LRlIxjT5HIrymoQ6QpY1FXNDw8Q/HltDeT9Z5Tt/C
-	 2LJGva/wJf1niTWwdY172hk+IdhI1dq/BAWsH19oUIZkcNr0a6c2kTqYdl4SirPl+XCJL
-	 mEmLxILE0n2rTW0Giw1ZhHKF/y7NqjEm5BFgoQxfU4QeRgZw50ulwTUQNgISXYV2Y6g==
+	t=1794435199;
+	b=GvH04D+9OJyujXI9gq0D+KVIm99ZKgFuPFjxuI0zoQidNLVI8L3QncEfJ24Oez9HVQOP
+	 r6b9fz3PAeMygwrR4tyPPWF2AVv8tD4jmKviBdQxEJZiFfJOYn4BnvUNo8oRd6j50Nvdj
+	 m5YMhDCvHSViGl9x+6rcveSkgmCVkN8davKX+AjJ9pNi6DGWf38SUH6jxhKMiJYwc0zYC
+	 F0XMFQvcUUpiPYVJStL0oumMvic89d8bZMNxUw27y7HmDnBG8PNdSp33/w1qtkREAfHE4
+	 emg3Q9fUFWwU4M3DPR/vuw1f76grUgKIuyNZ41FiG2jZYW8EUyFRKL/ppM1cLhtqWzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794435179;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yFZS9hfeeJk2dBAeNVmBLRGK7HrjmaceUodw6OnqY7g=;
-	b=c4CtsmFxLocGrTSSXnCQeDq4MWndJ46eIKEkUOsjZ4ukLum9RNgQLBYNuizYCGXcRQCq
-	 iBj5nsVbb6TVUwBdhvJX6UOKvvmE5lYyhzhFaJgobB3OAkkmhkz5wvKNO88o9ZQcn91H/
-	 vNvJKOtuUs1DFww4DWhPCf63cFPcfUO8TzGgyVmkGr1SZZAqNYTIUUBR1a87ZcrbvHyPh
-	 JFF7ZXRZK10aAZicqK/AsG/n6a+8z3n/ahBwYlJIJL1IAb+C7xkYctsyAjiRJPSL2fl5i
-	 mk6kFnTrd1KuJEzX8t0gL9jhwqpCYn9Y9I+v2xZJ3tKvoqaV5vCQoxhfMByqb2T+GKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794435199;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=CkL1DxVgDMrAwGiDxbno089zDqxJvFCxMrqWkJjJQ+Q=;
+	b=IbRMXhfPMg0fbttepx2ocby3xcLqB1YxhJWBjO886JEWBK57aKNvKIolox+RHpxqqHxw
+	 1ROGJwCm1LNwcJg4LkAnPerQ55434St0DiylA5DZTQE0YugfiBZwFMUYh9ULvWTj2s2TP
+	 PcC4XXw7IixrFGD6pRRT8hY39J1iOOMo7DBXn8cF/FeoBTxoIJmaSNKUlWla3D48cyQ5O
+	 mfBGZCKiwfXkjoDA+AlYNQPXcUGaW53DSzCj13zK1gK+2Osch4IWwxSDyz76BiWzXtU8w
+	 0oA2j4H0t6b/VRdHmaWWjntYBuqp7jAE92RwybWOW53AlNLgLMWL2cJGi0nfHgKI++g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HH4ZufH9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJBMnGSK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD51C606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:12:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC44606A321;
+	Wed, 11 Nov 2026 22:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HH4ZufH9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F3071F00A05;
-	Wed, 11 Nov 2026 22:12:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJBMnGSK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011151F00A05;
+	Wed, 11 Nov 2026 22:13:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794435179;
-	bh=yFZS9hfeeJk2dBAeNVmBLRGK7HrjmaceUodw6OnqY7g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HH4ZufH9NF3R2Oi+jro4EmOGO8ouwZ3HiUZRrs1DPv9aMCvyWy8y36xnpXraJ32Zy
-	 Q5V8epee86ZQ4H2Vri15A/PgZc03nX+ROykAWhg4WE2g7CoIycE2zwHAuxxv+ThBH/
-	 5Pl8UvJolObCCKf1I7+Ytrl/jXVWMefUfYh/D/1bSGMuJZpSiqX6nk8EAnzf5hFKXL
-	 bF/CWgFoomgBH/pcJRE7aVQB/TesKI10VuP6MOHSRlBqsuobqRhwN770tiBkkp+ZzD
-	 J8npgBPpbtMd+4LmwA2C2IOYj/h0XyNLCA4ifODzdPPSbqfDpLQEduqhRhEWHi3nh7
-	 yfGWhAaFerxjQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ALSA: compress: fix buffer leak on failed SET_PARAMS
-Date: Wed, 11 Nov 2026 17:12:57 -0500
-Message-ID: <20261111221216.4110920-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060836-failed-5.15-fbc74ca9fbf7@kernel.org>
-References: <20261107060836-failed-5.15-fbc74ca9fbf7@kernel.org>
+	s=k20260515; t=1794435199;
+	bh=CkL1DxVgDMrAwGiDxbno089zDqxJvFCxMrqWkJjJQ+Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aJBMnGSK6XwDmQVb+2IsS7eW5mLAilJoTyGJqyQm0u0n165S5t7Xa+NnP+2LwQEb0
+	 VWHzNfnESLI60Sh4mY/mXoTjHfHQWhNFYDj8/Tn/5FeajuZFYp//kk9H/cHPi48gNu
+	 QSM+s4/vLZ4hgFwEjk1LLbZXBiCjD5L/sy1it3QrzRbu9JPQ7Xv63XSbcBgFMXSqy7
+	 L3e7rkmytAmyFVyEnepW43u3LD3afyW9ukLUonfC+hYJs/kLPi2Uo3xG0jTFwn0KBT
+	 5Qlzgtu4tD3VUZPESXlTy8mC/TJwr1oHXav+xiNTy98KAQbFNY9MEdUz81ULH/FsnK
+	 oyGs/pCjQ52ZQ==
+Date: Wed, 11 Nov 2026 23:13:14 +0100
+From: Michael Grzeschik <mgr@kernel.org>
+To: John Ernberg <john.ernberg@actia.se>
+Cc: Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nobuo Iwata <nobuo.iwata@fujixerox.co.jp>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Wiliam Puranen <wiliam.puranen@actia.se>,
+	Michael Grzeschik <grzeschik@puzzle.ch>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH] usbip: Stop tracking work context in event_handler()
+Message-ID: <avToeux2DxhBWGN4@toad.puzzle.ch>
+References: <20260803104342.2790105-1-john.ernberg@actia.se>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,57 +63,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803104342.2790105-1-john.ernberg@actia.se>
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Hi John,
 
-[ Upstream commit fbc74ca9fbf7e0b8f6872ccac62f9f4a1f3b5e53 ]
+On Mon, Aug 03, 2026 at 10:43:58AM +0000, John Ernberg wrote:
+> From: Wiliam Puranen <wiliam.puranen@actia.se>
+> 
+> The work queue used by usbip is not pinned to a specific context.
+> 
+> When usbip_in_eh() evaluates if the call comes from the event handler
+> it doesn't actually check if the call comes from the event handler but
+> if the call comes from the same context as the event handler was first
+> called from.
+> 
+> This can result in "sticky" devices on the client side, due to the
+> teardown path in stub_disconnect() being lied to, and thus skipping
+> the teardown when it shouldn't, or vice versa.
+> 
+> Fixes: bb7871ad99ea ("usbip: event handler as one thread")
+> Cc: stable@vger.kernel.org # v4.6+
+> Assisted-by: claude:opus-5
+> Signed-off-by: Wiliam Puranen <wiliam.puranen@actia.se>
+> Signed-off-by: John Ernberg <john.ernberg@actia.se>
 
-When the driver has neither ops->copy nor a preallocated dma_buffer_p,
-snd_compr_allocate_buffer() kmallocs runtime->buffer. If
-ops->set_params() then rejects the parameters, SET_PARAMS fails, the
-stream stays in the OPEN state and keeps the buffer. The next
-SET_PARAMS allocates a new buffer and overwrites the pointer, so
-repeated SET_PARAMS calls with parameters that the driver rejects leak
-one buffer per call.
+Just as I stated in my other mail [1]. I just did send a near copy of
+the change without knowing of this mail. But this one is the patch to
+be taken.
 
-Release the framework-owned buffer when ops->set_params() fails on an
-OPEN stream, so that a failed SET_PARAMS leaves no buffer behind and
-the buffer is allocated only once per successful setup. Use the same
-ownership check as snd_compr_free().
+Fixes: bb7871ad99ea ("usbip: event handler as one thread")
+Reviewed-by: Michael Grzeschik <grzeschik@puzzle.ch>
 
-Fixes: b21c60a4edd2 ("ALSA: core: add support for compress_offload")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261019144533.30665-2-peter.ujfalusi@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: retained goto out instead of return retval to preserve explicit params cleanup ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/core/compress_offload.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+[1]: https://lore.kernel.org/linux-usb/427d908d-1fa2-442c-ac91-b3e925e5c7bb@actia.se/T/#m2d50ad8abda5dc92fe6d8690edc0cab58983ab74
 
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 6b7e51e8f663c..2d7567810029e 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -602,8 +602,15 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
- 		}
- 
- 		retval = stream->ops->set_params(stream, params);
--		if (retval)
-+		if (retval) {
-+			/* the stream stays OPEN: drop the buffer of the rejected setup */
-+			if (stream->runtime->state == SNDRV_PCM_STATE_OPEN &&
-+			    !stream->runtime->dma_buffer_p) {
-+				kfree(stream->runtime->buffer);
-+				stream->runtime->buffer = NULL;
-+			}
- 			goto out;
-+		}
- 
- 		stream->metadata_set = false;
- 		stream->next_track = false;
--- 
-2.53.0
-
+Thanks
+Michael
