@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370429;
-	b=TLBsvZarrTUKrCrPB8fezMtA0aX0O803/0JJ33bEenMFwHMGFCHLoApe7zEhKGId2Dkd
-	 NsfQlvW4aLe+TwBr2kZfvg3dIH5saAFG69quxRKen72pj3GyJytGlLUsXd3f8KgVZ2BJg
-	 jvY71kuSsOJ16IXWMyyvDg9l4LiniYOFSQ6Gz95sn668uljsqh/6U6HIL6aaAVTCZF3wi
-	 pOofadpewLZVSIEoYwevp+Pk4+t+qaaBPd7EH45hcOl1tepBnnTXBKpaIV9id6wCLsD/w
-	 d9gns23KVbzJjqF05zY1n25dVxUiyWmdx5k+VsmolrhPr/ouXRwHmoF4OImoxAqmrZQ==
+	t=1794370483;
+	b=g5OVw8VvfVJX7bFFUY23G5HMtL+jM0haB0JEAqj1C3xhmEFy1c8mknZBZEGa2DoNcZhy
+	 ZawsLXxaR8D58rfcDxMi+f/4dla0Wyvpz7luxaR2SXUzyuB+TiRh+Pd3Ie9GPUbB+MLy+
+	 gfbZNB+q/wyYl6p8KedJsix2xyWPWeojh4iMWZtjqnyctauX0Vbp9MQ5wJaY0oLAhL/8c
+	 8Gi6UdBznHFph3ZfS1Z6n17VY4U3ok/9TGGvItjwX8eBLBA5eB1/ITWCO94aA0UkzQhcb
+	 b8QA4f2p8eZDDCP0pZpJ8P7UlZkDPY2ZFMoOedyCXRHwA6xXwCXiV9b1J//p0qcN3dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370483;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=m1cy9XY0gkZjCnrTsP/f5wDbQYC1/Bc2o9Zw0WFvK+4=;
-	b=qP+lutQUY58+myz+/rySXnvspxfU74vQ2EdwaEH7Q9S0J7pTTyXKHJ7bU5rZUtR32lZP
-	 Bgqd/oWrsn5CJ6dEPvAoZH+JDv8AeasEcMzY9HO7ialDqyUXESyEgHwMAXgwXtnb52hhN
-	 wMc1MzXHf8jBkcf/fPeXQEaOFYzeMzomu6jLBRdH1r9UtQDDEctIxhxF/mdiCkBsknRQz
-	 rJquFpflYv7iW6K3dQUnOiXPsMiiJ2fj8QN1wjQ2FpGt300r/NSzRvDFEtYu8E1aZp33Y
-	 v/CIUq0BW8h6diKrTG/UFbIJ3clNnbv66lJHPs+n9aLMWJIG98HKC5v55k4J9wMJxxg==
+	bh=wBjk+nfF44wjTbUE/FnokHdumY3TmR9a4WES24etNCM=;
+	b=j7yFn+l/Jh8bSXRLVKsKjTY+2MUlUG1aUToVNU6jFQlRyjU5MCgftFgvRBs9RNduh/ve
+	 ylM54lw9k0k9NcaXy0HAu2IXNHgtLzqi+BpFcNoE5Xk3MN99OZys1yhBQY40ZP8C4MzdW
+	 mocQySc+yc1mHVfZsA6VNNrXNu6kQTRLGICMXelM93MsOJ2nM9bzgM4ZVEMbM0eduXxGM
+	 G23jQ+5UVIHzHRWth3u+auIkbI0vnQIV696YnZl7UfUhbwM2i0ayI4jPyNVZk+W3pF/kH
+	 9zWyQBMHEVvjj8C9raO55y4QsAULg6BIiT8gl0IDtQkyQ+sDg+dFCMHuABghhkzHXrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2SPLnhm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRBleGai;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C693606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC98606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:14:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2SPLnhm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A11C1F0089F;
-	Wed, 11 Nov 2026 04:13:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRBleGai
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37BF1F0089F;
+	Wed, 11 Nov 2026 04:14:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794370429;
-	bh=m1cy9XY0gkZjCnrTsP/f5wDbQYC1/Bc2o9Zw0WFvK+4=;
+	s=k20260515; t=1794370483;
+	bh=wBjk+nfF44wjTbUE/FnokHdumY3TmR9a4WES24etNCM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l2SPLnhmte5xJ2kgVNVUUXroXcMFrEyuOpuzd4SK409qnnuRKzJ6EU7jTaL1liKYE
-	 6FMe5YZWw6RQo7aqLH82xiaoS0JprM4fItzHQ+eo4n1MUQq8cR7R53xUtalSylhNCY
-	 Tok+NDcC3dOEId8ymc/UzGzm/vFSmWgmYhJtAwLh5N2b9voDYEmfWmG0nmohjU89XO
-	 jSVwKEtPMT94m+z1+SKd+JFcQcLn/lgKcWvVpLxTtPTjZNhu6QWvVgdVC9XuJ8IBJV
-	 34P6GNK0SubbCDskbLPOHn+u5y4UEbxeasilot5tq7VYmchWOgxwkErAyZAERY4DnD
-	 G0PsIRPylEujQ==
+	b=kRBleGaikD5ehqFZHs7ExgKNDTUKrUUbxdtNYn4bgyUcpU5/Rq0zC0t6/bzT3Km3C
+	 vXBfJnvieTMUGz2ukSVqL1CZif0SdRrT0613OsgiISwedLR6qpvj0bm0GCE6CNYNPa
+	 uhOL+NOld8vOnTijydbLs9uU8yB7TXoJLSg7PS49RlZQG16XEyKNtu9S+vbzJbBj9S
+	 FD3DKYqv2swMeCA+ZlgHk9rLlC0HP05Kw6XJAnb6y6KA+2rcxwdrciXQ8lFjjc+ezK
+	 rZlEZ+PxFYmSdFdnYrUQ+x5zuhAC8y5fKju0mdVLSGG5yEE4rY9fshzP+NlPypiL9I
+	 I72Yu6NHlH8Dw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
+Cc: Sinan Turunc <enscrpt@pm.me>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tpm: tpm2_probe: propagate transport errors
-Date: Tue, 10 Nov 2026 23:13:47 -0500
-Message-ID: <20261111041247.878982-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ALSA: usb-audio: Bound packet copies by the PCM buffer size
+Date: Tue, 10 Nov 2026 23:14:41 -0500
+Message-ID: <20261111041410.1055810-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062752-failed-5.10-7d4f1cbfe063@kernel.org>
-References: <20261107062752-failed-5.10-7d4f1cbfe063@kernel.org>
+In-Reply-To: <20261107062947-failed-5.10-06be918062ad@kernel.org>
+References: <20261107062947-failed-5.10-06be918062ad@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,51 +61,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+From: Sinan Turunc <enscrpt@pm.me>
 
-[ Upstream commit 7d4f1cbfe063af5581dac66abe9e9c965e1031cc ]
+[ Upstream commit 06be918062adc1a5a76dc346803b136b20bdb5ae ]
 
-tpm2_probe() reads the protocol version from the response tag and is
-documented to return -errno on failure, but it always returns 0.  A
-transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
-the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
-unset. A transient bus failure on the first command then misdetects a
-TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
+retire_capture_urb() and prepare_playback_urb() assume that one USB
+packet never carries more data than the whole ALSA ring buffer. Nothing
+enforces that: the packet size comes from the device (wMaxPacketSize,
+and curpacksize == maxpacksize when the class-specific endpoint
+descriptor sets MaxPacketsOnly), while the PCM hardware constraints only
+require 64-byte periods, two periods and a period time of one data
+interval. An 8 kHz mono U8 stream on a 128-byte buffer is legal, and a
+full-speed device can send 1023-byte packets into it.
 
-  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
-  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
+On the first oversized packet hwptr_done is wrapped once and stays
+beyond buffer_bytes (895 for 1023 bytes into 128). On the next packet
+the wrap arithmetic in the copy path computes
 
-Return the transport error instead; rc >= 0 still means a valid header was
-received and the TPM's own response code is still ignored.
+    bytes1 = subs->buffer_bytes - oldptr
 
-Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
+with oldptr > buffer_bytes, so bytes1 wraps to about 4 GB and memcpy()
+runs off the end of the URB buffer and of the vmalloc'd DMA buffer:
+
+  BUG: KASAN: slab-out-of-bounds in retire_capture_urb+0x251/0x870
+  Read of size 4294966529 at addr ffff88800c1e2800 by task vhci_rx/82
+
+and for playback, where copy_to_urb() has the same shape:
+
+  BUG: KASAN: vmalloc-out-of-bounds in copy_to_urb.isra.0+0x188/0x430
+  Read of size 4294966529 at addr ffffc9000004537f by task vhci_rx/79
+   prepare_playback_urb+0x98a/0x1fc0
+
+Truncate an oversized capture packet to the buffer size, and stop
+filling a playback URB once it holds a whole buffer. With bytes <=
+buffer_bytes the single wrap of hwptr_done and the two-part memcpy()
+in both copy paths stay inside the buffer. A device whose packets do
+not fit the buffer at all was never going to play correctly anyway.
+
+Reproduced on 7.3-rc7 with a USB/IP device (dummy_hcd cannot carry
+isochronous data) advertising a UAC1 endpoint with MaxPacketsOnly and
+wMaxPacketSize 1023, and a PCM client using period_size 64, periods 2.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20261001060114.1582092-1-alexander.sverdlin@siemens.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-[ sashal: adapted to a stack-allocated buffer, setting rc = 0 instead of returning early to preserve tpm_buf_destroy() cleanup ]
+Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20261026223543.620-2-enscrpt@pm.me
+[ sashal: replaced missing subs->buffer_bytes with runtime->buffer_size * stride ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/char/tpm/tpm2-cmd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/usb/pcm.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index 0b683d991bedf..5f453b9b2fb5a 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -507,9 +507,10 @@ int tpm2_probe(struct tpm_chip *chip)
- 		out = (struct tpm_header *)buf.data;
- 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
- 			chip->flags |= TPM_CHIP_FLAG_TPM2;
-+		rc = 0;
- 	}
- 	tpm_buf_destroy(&buf);
--	return 0;
-+	return rc;
- }
- EXPORT_SYMBOL_GPL(tpm2_probe);
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index 802ed1dbd23b0..82cfa3f75d530 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -1438,6 +1438,18 @@ static void retire_capture_urb(struct snd_usb_substream *subs,
+ 			bytes -= adj;
+ 			subs->stream_offset_adj -= adj;
+ 		}
++		/*
++		 * A packet can be as large as the endpoint's maxpacksize, which
++		 * the device chooses, while the ring buffer can be as small as
++		 * two 64-byte periods. The hwptr_done wrap below handles one
++		 * wrap only, so never take more than one buffer from a packet.
++		 */
++		if (unlikely(bytes > runtime->buffer_size * stride)) {
++			dev_warn_ratelimited(&subs->dev->dev,
++					     "%u-byte packet exceeds %lu-byte buffer, truncating\n",
++					     bytes, runtime->buffer_size * stride);
++			bytes = runtime->buffer_size * stride;
++		}
+ 		frames = bytes / stride;
+ 		if (!subs->txfr_quirk)
+ 			bytes = frames * stride;
+@@ -1614,6 +1626,14 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
+ 		else
+ 			counts = snd_usb_endpoint_next_packet_size(ep);
  
++		/*
++		 * Bound by the ring buffer as well as by the URB:
++		 * copy_to_urb() wraps hwptr_done once, so one URB must
++		 * never carry more than the whole buffer.
++		 */
++		if ((frames + counts) * ep->stride > ctx->buffer_size ||
++		    (frames + counts) * ep->stride > runtime->buffer_size * stride)
++			break;
+ 		/* set up descriptor */
+ 		urb->iso_frame_desc[i].offset = frames * ep->stride;
+ 		urb->iso_frame_desc[i].length = counts * ep->stride;
 -- 
 2.53.0
 
