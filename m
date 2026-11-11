@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417326;
-	b=p3WX01hCqr9BPuRVftl7WEzXzUub3owGygjzgG6zynrWjrWby33S+bCbNmktPwtLrIs/
-	 LjU3hY79D2teEeQpv1IrqLaOQl/d1RwojLFtwyN5vaOGrSPZArhiSuFXa5RN//DdYYNM/
-	 OWFXmL3m5t15+4Re653Hgz3n8+fbRzpUHWqqBuDPhZRhoBC3/fjQGXJDEWZer1NMhTr/o
-	 8ZoHQVmYq5Ii4ZHiZvdo7PRW6wzj7L3JGU6akMEGnfdZxTu9g6DnuGNScNjVYZ2SYH366
-	 HCqLzkAjrAfz5r6nqtYCdsuQRtzytlrj0TTrpPgymKSq6fmGwqK11ZQT6cs8NVHFdMg==
+	t=1794417331;
+	b=n8xFFh8awMrrVMCnfBtcGSy01zxS98TvTpkoWOA3sKoaz5wWhvRKlOfwveRwc6vQXx+G
+	 Opt8eeI9eAZwFA9KRrkVgI1OHWXK3Fpa1jD1HNRgiqhi5zC/zrltN3WHe5KuumnKOFcNz
+	 h3PjYg7eNxElvNZuYWhhb5SfbxjPwPzLS7Qt2lQIBBeTWkh76UMqEiHEjjyaFpBcjbxl2
+	 BIf/I5QMAUEdzhUUCXmouIWdd5kGjlPGV9dMXIVc1dABoZxU/Zg9trLWdzMVwlKIKismt
+	 lDFRz2FruiJDqt6aCfzF07yv5STkVGiuxJIEhsI7e0F/NkaxuLai9JLyuQcTJHJKp+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417326;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417331;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2lUSFNEjtBfPhpowv17HW8EBYZ6h2AiKeyXgI2zj178=;
-	b=SV4faoL8G60RUuDQVDF5OtY7VV4Uw7dbiasyck6rNpRPTpwjR7A7p7L9cHf9vV3ZC4yp
-	 MgHaBXwFgLw/pCqa8nWC0zBsBJ+B5VXbnHFkdpdkpEJODCqT2I1NG0/+1BiTPibsg1wQh
-	 5rRzxsgeQuonFmBaqJNqX7S0ZdsiC7Jxc90GKVE0jUhYEpda72P4tDblbbctGXqdJOU62
-	 81jWupa2RS3LaZ9H82SJUQBMptPQBK/oDGntA1TD/K8gJkIxnRzkiPTjILIajoA4HVeZt
-	 VcWxVZuU7+O0YXy0Mw7JsFdIBdka6Mzd+lCR4OWSw/4cMvVs8+cpAV8m1pyunIP7Kkg==
+	bh=9BmHX8urxtz/E+JGkF8VmUGJIggdyhdT4qMQBrpZcAU=;
+	b=iOWVYmT2SaUN1yycDIEQBfXPD4bJOvFuQmxgWUK75ubLTitEVKZeHvrdV77b5RFN3ILt
+	 zMiV4zXE0gScjf+eWt/G8e2qlofz57wHvn+IJS7C1RFZMgmuIoGq2JNOzRoLXHoPpNGFo
+	 LUz7zCw2GXxsBJ1MuUB7FHRHXyweQSoSzDPBJ+yiRRovM1QOmEKn7fKi6+b+WKF1Dwbp3
+	 p2VW2gpbU7y6YW38HK10dW3m6crMTlcg+xoNlBS8A422Pa5heukI1Eh287IhgE12/+K5g
+	 HIKpptm+sqvWvURvQGX0QCS31V4x6z1d7+w+14zwoPxrY60LRm0MF8XBv6V1n7/oJWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Su2jrUOB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhAYScJb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEA4606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C91606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:15:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Su2jrUOB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED031F00A07;
-	Wed, 11 Nov 2026 17:15:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhAYScJb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05D221F00A05;
+	Wed, 11 Nov 2026 17:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417325;
-	bh=2lUSFNEjtBfPhpowv17HW8EBYZ6h2AiKeyXgI2zj178=;
+	s=k20260515; t=1794417331;
+	bh=9BmHX8urxtz/E+JGkF8VmUGJIggdyhdT4qMQBrpZcAU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Su2jrUOBgfv40cj8sA5L1hK0rzhQuERng0Nvl+fixpzmnHwGLwRAnfmrNQUXiz2Jr
-	 56Zyyrymm1XXc9yAVfDhfFCikpSJDzry5N5/4Fg3tBpdllUdecfubv64WclrvFwc8t
-	 ft3tLeYragstnBe5t+Lx6IZeQuJLmmZvk64Va5C7Kpqp9xfinh60OMV/jrZ25OPrPG
-	 0Hb1P+44nHlLrtbstV7DzcPlGfXqIDsw8fY/TkOkreolkeFfAzvmsui4asJ2v57kLC
-	 MTkDElVnSSXMwda8GCZ1Kl7CXI6xoJpaPV4GHsh+Ppzf7IcHw8HQwJxKEKH2kZno/h
-	 hJpiNQEQ/QjFw==
+	b=UhAYScJbnpUdG30WiuT/Rs7Lv2VDW6yr9GEw3CwSQ4KAgBhA6yZe+PO5YVe6LLnO6
+	 kECaC9Yl/b22we8TIwkG+OGLXkUHx5CgE3lMoWo+OcwgW3aiHzsdx5CQ9tsY1c009l
+	 dq/1FYmBtwqd+8RSeSVs+P15MxO7Q+xYnVKuv0kUfVZlowzYD6qt1XdsvABsMd00NR
+	 NrE0GZEwGlsEVSK5R3lGOnVXtWOc6/Uxc87qAItkxCt452Eoq173f3VuGCjy6Vr5QG
+	 MmNXMAAHp34DO3g7qi3KVoE2ccrPlXi4x3WA0J1HgrnkzzutUR08Wu3/xXe/x8g/Ga
+	 hicg+Lit6odcw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Stefan Teodorescu <fane@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Sumit Kumar <sumit.kumar@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] KVM: nSVM: Check validity of vmcs01 save area copied from SMRAM on RSM
-Date: Wed, 11 Nov 2026 12:15:23 -0500
-Message-ID: <20261111171501.3469260-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] PCI: dwc: Set DMA_BYPASS bit in outbound IATU CTRL2 register
+Date: Wed, 11 Nov 2026 12:15:29 -0500
+Message-ID: <20261111171453.3471440-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200346-failed-6.18-053621535f01@kernel.org>
-References: <20261109200346-failed-6.18-053621535f01@kernel.org>
+In-Reply-To: <20261107051128-failed-6.18-efadda401c5c@kernel.org>
+References: <20261107051128-failed-6.18-efadda401c5c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,135 +62,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
 
-[ Upstream commit 053621535f014085c935879582dd3b65964a0dce ]
+[ Upstream commit efadda401c5c8e2390ba66508eba154dbd0db5a9 ]
 
-When doing RSM to L2, validate L1's state after copying it back into vmcb01
-from SMRAM, as SMRAM is carved out of guest memory, i.e. is writable by the
-guest.  Failure to validate L1's state is especially problematic for inputs
-to MMU context, as KVM can end up with impossible CR4 vs. EFER state.  E.g.
-without the recent hardening FNAME(walk_addr_generic), a guest can trigger:
+An outbound iATU region matches any local (AXI/application-side)
+address that falls within its Base/Limit window and rewrites it to
+the PCIe-side address programmed in that region's Target Address
+Registers before the transaction goes out on the link. This matching
+does not distinguish CPU-initiated transactions from ones issued by
+the internal DMA engine (eDMA/HDMA).
 
-  ------------[ cut here ]------------
-  UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu/paging_tmpl.h:435:15
-  index 3 is out of range for type 'u32 [2]'
-  CPU: 3 UID: 0 PID: 92 Comm: CPU 1/KVM Not tainted 7.3.0-rc1 #2 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x5f/0x90
-   dump_stack+0x10/0x18
-   ubsan_epilogue+0x9/0x39
-   __ubsan_handle_out_of_bounds.cold+0x50/0x55
-   paging32_walk_addr_generic+0x889/0x970
-   paging32_page_fault+0x79/0xa60
-   kvm_mmu_do_page_fault+0x125/0x270
-   kvm_mmu_page_fault+0x88/0x7b0
-   npf_interception+0xc8/0x220 [kvm_amd]
-   svm_invoke_exit_handler+0x16d/0x1d0 [kvm_amd]
-   svm_handle_exit+0xb7/0x160 [kvm_amd]
-   vcpu_enter_guest+0x428/0x16a0
-   kvm_arch_vcpu_ioctl_run+0x479/0x920
-   kvm_vcpu_ioctl+0x316/0xb00
-   __x64_sys_ioctl+0xa3/0x100
-   x64_sys_call+0x281/0x23d0
-   do_syscall_64+0xba/0x550
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-  RIP: 0033:0x79bb30deb04b
-   </TASK>
-  ---[ end trace ]---
+Example: outbound region 0 is programmed with Base/Limit covering
+local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
+CPU-initiated accesses. The DMA engine is later given a descriptor
+whose destination is the host address 0x8000_0080, which happens to
+fall inside region 0's Base/Limit range. The iATU matches the DMA
+transaction against region 0 too and rewrites it to 0x1_0000_0080
+instead of passing 0x8000_0080 through unchanged. The transaction
+then lands on the wrong host address, causing data corruption or an
+IOMMU fault when the rewritten address has no valid mapping.
 
-Fixes: 37be407b2ce8 ("KVM: nSVM: Fix L1 state corruption upon return from SMM")
+Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
+programming outbound iATU regions so only CPU/AXI-initiated
+transactions are matched against the region; DMA engine transactions
+bypass the translation and go out on the PCIe link with their
+original address.
+
+Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
 Cc: stable@vger.kernel.org
-Reported-by: Bill Wendling <morbo@google.com>
-Reported-by: Stefan Teodorescu <fane@google.com>
-Tested-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20261022021046.295001-1-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[ sashal: adapted nested-state validation to existing helper APIs and explicit mapping cleanup via unmap_save. ]
+Link: https://patch.msgid.link/20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com
+[ sashal: Adapted ATU_* register macros to the existing PCIE_ATU_* naming convention. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/nested.c | 23 ++++++++++++++++-------
- arch/x86/kvm/svm/svm.c    |  2 ++
- arch/x86/kvm/svm/svm.h    |  2 ++
- 3 files changed, 20 insertions(+), 7 deletions(-)
+ drivers/pci/controller/dwc/pcie-designware.c | 2 ++
+ drivers/pci/controller/dwc/pcie-designware.h | 1 +
+ 2 files changed, 3 insertions(+)
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 49cc457a4c370..feb39e0e1be8b 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1732,6 +1732,21 @@ static void nested_copy_vmcb_cache_to_control(struct vmcb_control_area *dst,
- 	/* 'clean' and 'hv_enlightenments' are not changed by KVM */
- }
- 
-+bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
-+				  struct vmcb_save_area *save)
-+{
-+	struct vmcb_save_area_cached save_cached;
-+
-+	if (!(save->cr0 & X86_CR0_PG) ||
-+	    !(save->cr0 & X86_CR0_PE) ||
-+	    (save->rflags & X86_EFLAGS_VM) ||
-+	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)))
-+		return false;
-+
-+	__nested_copy_vmcb_save_to_cache(&save_cached, save);
-+	return __nested_vmcb_check_save(vcpu, &save_cached);
-+}
-+
- static int svm_get_nested_state(struct kvm_vcpu *vcpu,
- 				struct kvm_nested_state __user *user_kvm_nested_state,
- 				u32 user_data_size)
-@@ -1808,7 +1823,6 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
- 		&user_kvm_nested_state->data.svm[0];
- 	struct vmcb_control_area *ctl;
- 	struct vmcb_save_area *save;
--	struct vmcb_save_area_cached save_cached;
- 	struct vmcb_ctrl_area_cached ctl_cached;
- 	unsigned long cr0;
- 	int ret;
-@@ -1876,12 +1890,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
- 	 * Validate host state saved from before VMRUN (see
- 	 * nested_svm_check_permissions).
- 	 */
--	__nested_copy_vmcb_save_to_cache(&save_cached, save);
--	if (!(save->cr0 & X86_CR0_PG) ||
--	    !(save->cr0 & X86_CR0_PE) ||
--	    (save->rflags & X86_EFLAGS_VM) ||
--	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
--	    !__nested_vmcb_check_save(vcpu, &save_cached))
-+	if (!nested_svm_check_vmcb01_save(vcpu, save))
- 		goto out_free;
- 
- 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 16022d518ff3f..518cb53b6c448 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -4891,6 +4891,8 @@ static int svm_leave_smm(struct kvm_vcpu *vcpu, const union kvm_smram *smram)
- 	 */
- 
- 	svm_copy_vmrun_state(&svm->vmcb01.ptr->save, map_save.hva + 0x400);
-+	if (!nested_svm_check_vmcb01_save(vcpu, &svm->vmcb01.ptr->save))
-+		goto unmap_save;
+diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
+index a77d7cde4524b..f2e2dbae050b2 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.c
++++ b/drivers/pci/controller/dwc/pcie-designware.c
+@@ -568,6 +568,8 @@ int dw_pcie_prog_outbound_atu(struct dw_pcie *pci,
+ 		/* The data-less messages only for now */
+ 		val |= PCIE_ATU_INHIBIT_PAYLOAD | atu->code;
+ 	}
++	if (dw_pcie_ver_is_ge(pci, 460A))
++		val |= PCIE_ATU_DMA_BYPASS;
+ 	dw_pcie_writel_atu_ob(pci, atu->index, PCIE_ATU_REGION_CTRL2, val);
  
  	/*
- 	 * Enter the nested guest now
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index f8ea26ba71423..367529a7482c6 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -797,6 +797,8 @@ void nested_copy_vmcb_save_to_cache(struct vcpu_svm *svm,
- 				    struct vmcb_save_area *save);
- void nested_sync_control_from_vmcb02(struct vcpu_svm *svm);
- void nested_vmcb02_compute_g_pat(struct vcpu_svm *svm);
-+bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
-+				  struct vmcb_save_area *save);
- void svm_switch_vmcb(struct vcpu_svm *svm, struct kvm_vmcb_info *target_vmcb);
- 
- extern struct kvm_x86_nested_ops svm_nested_ops;
+diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+index aa27211b68dd1..c01634c0211fd 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.h
++++ b/drivers/pci/controller/dwc/pcie-designware.h
+@@ -173,6 +173,7 @@
+ #define PCIE_ATU_ENABLE			BIT(31)
+ #define PCIE_ATU_BAR_MODE_ENABLE	BIT(30)
+ #define PCIE_ATU_CFG_SHIFT_MODE_ENABLE	BIT(28)
++#define PCIE_ATU_DMA_BYPASS		BIT(27)
+ #define PCIE_ATU_INHIBIT_PAYLOAD	BIT(22)
+ #define PCIE_ATU_FUNC_NUM_MATCH_EN      BIT(19)
+ #define PCIE_ATU_LOWER_BASE		0x008
 -- 
 2.53.0
 
