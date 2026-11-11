@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409951;
-	b=j9DaaK8lP3ZCgX5Z8pXh6ZKlscGiv9oKVy6sCwUIfDAzRD4ShM+VfVeNahTD/+yVaDXd
-	 zuehGZfwYREvBSZipaz5IcMQVGBLiNKuPkL2eFMWx4/pQp+DOC3UFVZTONXiSNQ5+/6D8
-	 wYgUcoseQ+hkMJ5TEQ/iiyWG6cTwnY2u/sR0mb2BbuUVm3uzh3EQ2xPi3T80QaBKVlVkw
-	 kivWuzFCd3A1BvotvJiAGlWkoGXwK1Ga75g4gJUR5dUrZ69gw5fdmx5mrtnvn10imp17z
-	 WNXpeTf2Z1sQR5Mh1Zt3SF+S6dp97ltNh1XyQbHwH6kJhZl4h+mjph3dMf//ilp9yeg==
+	t=1794410017;
+	b=0F90fUmfTS+OdCU6kBMXJBeKwwQCUBH+R6s8SQu6TUc1KfSX+K3RqvgxJN1DnSiqLYcZ
+	 ZYkGRN3NuRqXSOdM3jdhXv1m09ryA3ZKdfsqu8ixCf+eCRgmLMwmLeZv0N4ZBbapEDyik
+	 GM+uRjw/Tt5VmZT8zRZAmTLVykhd7/tRE3dCPYfqP+wdMlLLzNwdz7BujGeZNVdV43bAY
+	 +B2d2KJREoJt4xXGxCJKzSlJ2T0RacQ0GCzvXhr1882N5ZAhzKrZ6WpW4S/C3oWGbBLa9
+	 Xohc1m2zAw3S6Qa/3yySO2TaE6bDGV4qDDo3kJr4WLrE98pgHlNvUpkdSNk18Po2m/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410017;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uQoKDciTwCMzRi5f0wmMjqqFbarvNwl/BPuvwGMIBVc=;
-	b=2geaZ4t0FWiVVhR6uzC7TlYfPGeKQf8WuIiAX2yl8KpUoNQMwecukm98HhjdzMl48Bj6
-	 lZFh1QQNihA0ems2ZixQnqOfyd4ZvmTw0409k+yRFWOMGrGb2HgmfvVerWMi+7FGv1Oq+
-	 u1eScYz0gujIajueq87fVd2Ii4ItxQthm/8ICX/OpldHLsVCNZ1Kc7/9pzD2eLCB2XG6t
-	 gMvc0WEdt5SWXknQjCWPGZAezlWhBlKriWYxrgyj6DWhk56YYU9PjFtsPx/ZbUbZiOSun
-	 KzhCyuzqSFpMmcFjK1yCDpWGzFe5258i6Vnzy9hx/v9RZ/jZaVTb5CbB7ap+nP8BEFg==
+	bh=zYb0WkidDHC6eGU4L5F2cYPxa08q0h6+Ue0aC3KkESI=;
+	b=IjqBLHKbxOgtgy5ZWCJUAkZYe+ta3/Wh4Dl25tH5fS0T9hH+bt0kD2g/wAMKR2ZOjpfx
+	 cTCaUsM61hHKNUeD/qgB7j+zpfzzOybQUjNrWG8toQqqETXEjBZYp2exvDO1VnRhT0II+
+	 7mv9Go/HKgYjKgjWEeLEhLtHqvMB1JaQvqTJ3krJ0Cxhvvce9MXdRUPE8wCCY+TL1p5OO
+	 bQaWeXebmLhXogusL1kcq8X1hqKDbmKUkYrpyeBUXLm++Kp0DFuN3ame21LFhBUpGu/cW
+	 wb0wX9y1zZWYuj+jgYkI0fOy0NXApJ0MacDUH6oFwMduYlbDePaIoBH+ixiWvuhAlhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Br4/dF0v";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l0dePu8e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870A260A2607
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:12:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5D7606A882
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Br4/dF0v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066381F00A06;
-	Wed, 11 Nov 2026 15:12:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l0dePu8e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26F0C1F00A05;
+	Wed, 11 Nov 2026 15:13:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409951;
-	bh=uQoKDciTwCMzRi5f0wmMjqqFbarvNwl/BPuvwGMIBVc=;
+	s=k20260515; t=1794410016;
+	bh=zYb0WkidDHC6eGU4L5F2cYPxa08q0h6+Ue0aC3KkESI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Br4/dF0vovYo+q/f49bU/z8IuVLnig5ZmqVNaAMgJ5aFKY+Rk7fhLAGDtFKRkOU2z
-	 dtxkW36vlF0BRa3RVxptLu+c5IK6dn0u+LShKgVXoWZH2nbKX/t9t7KdVeQ5p8/8Dl
-	 xEgObhhH51u6mujZ6M7GajYJ23eiF3r/1pBeuy2tlHOTp745VtauvEe6qNRs91wIye
-	 0fTsF5Sz8djvw3CO0fwZlGJ+2Wvvfw6/cx8nD6MYCUiJKIJr3kKoCUBY0gmv4mkFUK
-	 V8vXg2JLPiGMQYuCB28DoxvKo99jxEODhJo4ODRMKrXGb4b0ISsOaP2P9zlMiDtC13
-	 SxxelIw8XcaTQ==
+	b=l0dePu8eVssPtfMIi4kiDqu2lxKd3Q8xfyiO2VCYw+mq2V9bWAoGreqm0+D2QY9mr
+	 OE8zXaG/BKyY6Kuo7CnyZtFQ2uPbzjNYDJ0DRbnqTnuFUySIw/632QY7d2pmhC5Ywo
+	 ztHY/YTa6tPnZs41rcmm5JEXwbgIyNHOQzusDqrvgp2+4l6gDgJIBB9R7WzNGbt8qm
+	 SjC+N3GxpIQUUH2q266LUC9mcRbfG6ub0TDx9DLUfvy/w5dMbv0ZHfvMYe8VJS0aG6
+	 cL6Brr39F0vqOASR+nn3DNzPzKaLOhVxmzCiCvHp7IqL7184ej+7l0dIQHvRkQfUCY
+	 Ajp7C9N1NG4Bg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Huacai Chen <chenhuacai@loongson.cn>,
+Cc: Lino Sanfilippo <LinoSanfilippo@gmx.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] LoongArch: Don't init & online empty nodes
-Date: Wed, 11 Nov 2026 10:12:29 -0500
-Message-ID: <20261111151222.2591661-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] serial: amba-pl011: remove redundant code in rs485_config
+Date: Wed, 11 Nov 2026 10:13:33 -0500
+Message-ID: <20261111151313.2472393-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111151222.2591661-1-sashal@kernel.org>
-References: <20261107053948-failed-6.6-87c6d144bc7b@kernel.org>
- <20261111151222.2591661-1-sashal@kernel.org>
+In-Reply-To: <20261107060610-failed-5.15-97f85204275a@kernel.org>
+References: <20261107060610-failed-5.15-97f85204275a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,49 +61,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Huacai Chen <chenhuacai@loongson.cn>
+From: Lino Sanfilippo <LinoSanfilippo@gmx.de>
 
-[ Upstream commit 87c6d144bc7bbed0c4573848b9c92006edca7848 ]
+[ Upstream commit a9efa452486ed59b38f15c2287d3e7e129f6e7fc ]
 
-Don't init & online empty nodes without any CPU cores (and memory), in
-this way "lscpu" will not display confusing empty nodes.
+In uart_set_rs485_config() the serial core already
 
-Modify fake_numa_init() to make sure at least Node-0 isn't empty for the
-FDT booting case.
+- ensures that only one of both options RTS on send or RTS after send is
+  set
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+- nullifies the padding field of the passed serial_rs485 struct
+
+- clamps the RTS delays
+
+- assigns the passed serial_rs485 struct to the uart port
+
+So remove these tasks from the code of the drivers rs485_config() function
+to avoid redundancy.
+
+Signed-off-by: Lino Sanfilippo <LinoSanfilippo@gmx.de>
+Link: https://lore.kernel.org/r/20220410104642.32195-3-LinoSanfilippo@gmx.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 97f85204275a ("serial: amba-pl011: keep transmitter enabled when disabling RS485")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/loongarch/kernel/numa.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/tty/serial/amba-pl011.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
 
-diff --git a/arch/loongarch/kernel/numa.c b/arch/loongarch/kernel/numa.c
-index 62b92cb7e45a4..2dc9c296f2122 100644
---- a/arch/loongarch/kernel/numa.c
-+++ b/arch/loongarch/kernel/numa.c
-@@ -339,6 +339,8 @@ static int __init fake_numa_init(void)
- 	phys_addr_t start = memblock_start_of_DRAM();
- 	phys_addr_t end = memblock_end_of_DRAM() - 1;
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index a5340c5e11b10..7b21907cd14dd 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -2241,25 +2241,11 @@ static int pl011_rs485_config(struct uart_port *port,
+ 	struct uart_amba_port *uap =
+ 		container_of(port, struct uart_amba_port, port);
  
-+	set_cpuid_to_node(0, 0);
-+	early_numa_add_cpu(0, 0);
- 	pr_info("Faking a node at [mem %pap-%pap]\n", &start, &end);
+-	/* pick sane settings if the user hasn't */
+-	if (!(rs485->flags & SER_RS485_RTS_ON_SEND) ==
+-	    !(rs485->flags & SER_RS485_RTS_AFTER_SEND)) {
+-		rs485->flags |= SER_RS485_RTS_ON_SEND;
+-		rs485->flags &= ~SER_RS485_RTS_AFTER_SEND;
+-	}
+-	/* clamp the delays to [0, 100ms] */
+-	rs485->delay_rts_before_send = min(rs485->delay_rts_before_send, 100U);
+-	rs485->delay_rts_after_send = min(rs485->delay_rts_after_send, 100U);
+-	memset(rs485->padding, 0, sizeof(rs485->padding));
+-
+ 	if (port->rs485.flags & SER_RS485_ENABLED)
+ 		pl011_rs485_tx_stop(uap);
  
- 	return numa_add_memblk(0, start, end + 1);
-@@ -373,8 +375,10 @@ int __init init_numa_memory(void)
- 		return -EINVAL;
+-	/* Set new configuration */
+-	port->rs485 = *rs485;
+-
+ 	/* Make sure auto RTS is disabled */
+-	if (port->rs485.flags & SER_RS485_ENABLED) {
++	if (rs485->flags & SER_RS485_ENABLED) {
+ 		u32 cr = pl011_read(uap, REG_CR);
  
- 	for_each_node_mask(node, node_possible_map) {
--		node_mem_init(node);
--		node_set_online(node);
-+		if (!cpumask_empty(&cpus_on_node[node])) {
-+			node_mem_init(node);
-+			node_set_online(node);
-+		}
- 	}
- 	max_low_pfn = PHYS_PFN(memblock_end_of_DRAM());
- 
+ 		cr &= ~UART011_CR_RTSEN;
 -- 
 2.53.0
 
