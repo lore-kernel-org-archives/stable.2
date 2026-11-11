@@ -1,93 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370843;
-	b=e6Hssif9Ho13dWNuQ24Qsbb6y4BFpc3rmd3jGJkTksEn2uHlQs3OiIHKm2fR9xKaHOy/
-	 wI9/5Ng9s+gxgaKBZdgifd3kCNHJ1Qa2ejr+lZhqMhDY26FYTH7XOB28FF6r+8NhmXQJb
-	 8PQ8hOXky3FpLWnLLJOYTaGF723eMWRQSmtj1UrliKlA6FM0sJXd1E5PEZhNrJC0DIS17
-	 DhJHrQgZ2DCUAws3dOuiYERHrkVR3oSp1g8EkI7nDJQY19DJeJ9qOxMu2+qg+FBIT72XQ
-	 cjQAg8COMVliGO/ekKAXBJwE+qqF06nPjB58XsHc+S/9FliHOOb9B6E7f0M0Xi0D5sA==
+	t=1794371003;
+	b=MF/BXl8RjmyobH9epnDdxYeqc/BE7NPkjwShsw+zMARHEWGUVlDgavidFlYOBrxFeuML
+	 ZbqSquVZFi2T0Hq/MFWRuB1VOBvhOBdwljzDegubtjJgDZWF3pvlv2rUQ/ckTWXHd/rno
+	 f9Ny1ELBblFIebHoLWCZYQx9PhTCM6t0lLCD8X0sZ3cZOpfgnT2CQgGxC4Uf6YvH6YnVc
+	 8stbRcRpHEnGx61Abp5ybYVFsZFWnx6xujlLp3nSQww8KYCpF908W127FfjhCxyj6AngF
+	 4CQwor/Ke3ACArKxf2HePjle1keot5sL25yQyLgKWfZQ4gWsSTSn1R76lPfM3l9O7Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370843;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2y/k0vv1KZWvdv/tcZ3kHN2M7tA63Ao7aQ+R/TLoEBY=;
-	b=Z1ZmnkkgkH24NlOybI2qZPt/1nKHZ+8VVBycrP0QC9mVAIwZlsU52R5pLkxiyKGl2irV
-	 UohI8KNijEdaV8pT4N+ubI5AOAd3ySN9J5UeTWGE4d1CBB9TF3V46CSfDThO20hmmpY4X
-	 ORXQqysAOuga39ZFDa+2+1pWE2C+itNO2bPGA3QRNbW1gutZnbjVVOo06U9pRL+12gzyn
-	 bWFrU0r9RYreLamyO1XyWKWRboDJ3yQ2kcpa8FMgsSku3D3fjsO3TNEqgYEuT/7wtiZS8
-	 HwQFhUeJE6ddDoHwcqqQtEq080VYFairivbszyEi9Ln8a74aQfwWMQ0NVIhjQ5pnzoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794371003;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=vyjrwoV3vsZnHVQCpETiKi3SBR/X0Gy+dDn9wNX8PY8=;
+	b=Cb3pYNVgJG35TGCsEni1FAdVUyDi2lvGGZaIaBnLfjgmTyLIMsCTXAH9AIQnJooIjTjv
+	 EHkqVeIoIORi+L7czqycEWJ9rCmFiZ7k+fTlLbSa3yBEusRUsx5sU+h+U2MH4wkMmBkTy
+	 rjiiUny2D75ZtQc4DvSWFNSWza0q30JLYGwLqAvKTjLkSFQ6TJA6HO6TBrS6TyQkzz7W+
+	 Qwpdp9s0NCwAcufidUC1VYTPWUV3C81hTHbR5Y+Zn4LAtfXQq6clxWT2W+FmkfRNJGLK+
+	 77Rsw67ym+HOYU/gb95bv4jWPCMy3DS6VQhyqacJawygmw5+lWGaQYFgtwEk0/9D0Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYDcDVWe;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hlQe7fdb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85764606A33C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85764606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F338606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYDcDVWe
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a60f90a924so1123178b3a.3
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:20:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794370843; x=1794975643; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2y/k0vv1KZWvdv/tcZ3kHN2M7tA63Ao7aQ+R/TLoEBY=;
-        b=uYDcDVWeZFrbHF9vMV26+UGVFxPWRvQtoJIqvx4qNzOIngOFXdhm8vzZZS1gQ3fLAr
-         JX0y8XI2F4z6eD4bqeXVvyLZNZnW332lc1+gbGjBffXKFTqCtgNPtHKnXilCmBQj0pRj
-         Xmt5hAVOP0f/NAKzErpgM2gEZrRrggBAyor6jJp+a0iUAMb7DnoeW1bIBttmTa7P7Ana
-         OtCzGqSCpUb9fbhZ5pfg9/3WLAzlucpqWbPARzhxp2pJlPFbu2P9TsgPIdBTx4Xwk6yJ
-         F9x0H4woEb4gS85UMTVPzQArwPBs8/7QmVVF1Fd80irwKP4l9yFFUgy9Fa6z691zLIxj
-         zVpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794370843; x=1794975643;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2y/k0vv1KZWvdv/tcZ3kHN2M7tA63Ao7aQ+R/TLoEBY=;
-        b=zqhgidH4I58TeSCZ81+l7c1GmYHO3IfryJPMxg9H8z/oIcsteYI7TfZ2SG45uv8kuh
-         2ldBn0qFekRhVlhP/K9gzhFtYOBa3Tpplc+Lz4dgvk8C1HIZkm0RPki6x5q2InTfcq0H
-         mFOCHQb7RAiiLWlFh6SRcO4TiRhUP/Cis9NMMT7qFXcJEp+HRlAmaAD3CATg/hhGhVqx
-         VM7GhUDFzNFregfq4SUD1sZNejgIDafdkBqWO0RfvEfu7CpW1wmittqpwrO0LzYybLor
-         GkKDIk5xEJJ4wNP3Z67XKafOB88d0ekSVw3P2h0g1pjtoZb1i6lYPDMrOiYHTmPg0+Q1
-         qOqw==
-X-Forwarded-Encrypted: i=1; AL+hErEM9xRBQDXtaSR9Ywn9ECLhuCTjfQtD07RbgrKiOOs3227S9bBbs1zxPcHsqYvFGDLUHRHTdqE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tFfJFbLW+ecGNjsXTN84zKpkj7VdRXyG4ewt1ZHIV4niS8hOV
-	FpYv4fUHw/RcsLvA6GRMleg5w5HgRCe6B0WhVhMCa0Fv2V+5ekuRwvgD
-X-Gm-Gg: AYBFou325GWdSefwqrb8DheCN4qHUo/STCfrc8relwSi/QHNleGxbyNFtRQDeJtc1Lh
-	1VametSBP+BlwvQkhNTxFO3Ry+f9tObl/UKA/eZwb2kWRgryfj6vUODLVzKelw5VhgeVlYxaybQ
-	dj0PWNgP8lnIK01+a1miqw/U1fDJHJSIWTfoLA/K5H8AlD/6Ckmd2GM1GaXArzYO3Qa3/L8qC7j
-	XIRXGsEGfs02vyycdQnu/NjP8U20Fex5Rx3n7d/D83O/8GwWrtpcB30P9S/vFr3+ehBl1CI5S6I
-	yBryY+6/jTeyKDiZVjTnF9xZkan5EzECLtTQQr0usenE3BJAbWFtSDaVujbKwRv0Yn678Gd6NHS
-	ALbXb5DbYICvvKFZAq6sUXpD+lnpS3li/+8IZeoirtuJ0ipUH7P6pXREQZEUDqXLHhBfz+WEOTw
-	3wfaJLSUfHmsVxKcgNK+KT6cswHyicXeEG4u4kWUPNmexKuuNK6n3iKL/JqrfskOPgNZI2Z6YdC
-	buVo4rHqB3TGlw2k52CMbHH9NgfwpRGBStvSBP1BzBlYT1xN5uQBGOXPs95KFJUt4fkL3zRYhBH
-	j7beDWEi1HjDVywrM4A=
-X-Received: by 2002:a05:6300:220d:b0:3eb:affa:32c9 with SMTP id adf61e73a8af0-3f2f72992e9mr1463244637.0.1794370842730;
-        Tue, 10 Nov 2026 20:20:42 -0800 (PST)
-Received: from oslab.. ([101.6.42.129])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7dd5bbsm1319947a12.30.2026.11.10.20.20.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 20:20:42 -0800 (PST)
-From: Tuo Li <islituo@gmail.com>
-To: mchehab@kernel.org
-Cc: Markus.Elfring@web.de,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tuo Li <islituo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: dvb-bt8xx: Fix double-free in dst_attach()
-Date: Wed, 11 Nov 2026 12:18:43 +0800
-Message-ID: <20261111041843.1278057-1-islituo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hlQe7fdb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12051F0089F;
+	Wed, 11 Nov 2026 04:23:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794371003;
+	bh=vyjrwoV3vsZnHVQCpETiKi3SBR/X0Gy+dDn9wNX8PY8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hlQe7fdbI8y1/SBznd0cdb2hSUq5y9uRCvqaVl0yysaMSCLJ999jE+llm7h/eMklM
+	 Z3xcPifYjH3jvqZlcnC4Cux0+4JV5Axp1nLQZ+0R1H26uDgCK79O0ileQBQcDOmAJw
+	 0AvedEKnYorVS7s1FR5zhRZfSKvoVGKwn0zPWOuUhqq3W1X5bfwTwqvxIp+Jc7yBmE
+	 gZNiyIC4At02+qUYtlv+M+NifsU7FZVvsWK/GVD09tZOIz3wLdXSg8kM/K+V3PEF4j
+	 2rOUHjpt36nHwCAp4gSHpnbC/0zhGdG+B+TIcOOq8yX/QVcjSJZ3wVmEntozNKhC6U
+	 ZyJgidg6fmvNw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/2] ASoC: hdac_hda: Allocate the private data at codec driver bind
+Date: Tue, 10 Nov 2026 23:23:20 -0500
+Message-ID: <20261111042315.1087116-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050552-failed-7.3-08a44bde821d@kernel.org>
+References: <20261107050552-failed-7.3-08a44bde821d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,51 +61,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The caller in dvb-bt8xx.c (frontend_init) already frees the allocated
-dst_state when dvb_attach(dst_attach, ...) returns NULL:
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-  if (dvb_attach(dst_attach, state, &card->dvb_adapter) == NULL) {
-    pr_err("%s: Could not find a Twinhan DST\n", __func__);
-    kfree(state);
-    break;
-  }
+[ Upstream commit 7d357eae973a1e1933f81f55aa1b3b4e3064570f ]
 
-Remove the redundant kfree() calls from dst_attach() to avoid
-double-freeing the state on failure paths. This keeps ownership with the
-caller until a successful attachment transfers it to the frontend.
+The SOF HDA code allocates struct hdac_hda_priv and stores it as drvdata
+of the codec device before the codec driver is bound. The driver core
+clears drvdata on unbind, so after unbinding the codec driver via sysfs
+a subsequent bind dereferences a NULL pointer in hdac_hda_dev_probe().
 
-Fixes: 6792eb0cf931 ("[media] bt8xx: fix memory leak")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tuo Li <islituo@gmail.com>
+All information in the private data can be derived from the codec
+device itself, so allocate and set it up in hdac_hda_dev_probe() as a
+device managed resource, which is released on unbind.
+
+Remove the allocation from SOF, keeping the check for iDisp codecs
+without display audio component.
+
+Fixes: 3fd63658caed ("ASoC: Intel: Drop hdac_ext usage for codec device creation")
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261027083840.28813-2-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 08a44bde821d ("ASoC: hdac_hda: Restore the codec device type on unbind")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2:
-* Update the subject to refer to dst_attach() instead of frontend_init().
-* Add Fixes and Cc tags.
-* Thanks to Markus Elfring for the helpful suggestions.
----
- drivers/media/pci/bt8xx/dst.c | 2 --
- 1 file changed, 2 deletions(-)
+ sound/soc/codecs/hdac_hda.c     | 13 ++++++++++++-
+ sound/soc/sof/intel/hda-codec.c | 23 ++++-------------------
+ 2 files changed, 16 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/media/pci/bt8xx/dst.c b/drivers/media/pci/bt8xx/dst.c
-index 110651e47831..5cdf8a77260c 100644
---- a/drivers/media/pci/bt8xx/dst.c
-+++ b/drivers/media/pci/bt8xx/dst.c
-@@ -1694,7 +1694,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 40d602f79314a..0604315a1f0f3 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -635,10 +635,21 @@ static const struct snd_soc_component_driver hdac_hda_hdmi_codec = {
+ 
+ static int hdac_hda_dev_probe(struct hdac_device *hdev)
  {
- 	/* check if the ASIC is there */
- 	if (dst_probe(state) < 0) {
--		kfree(state);
- 		return NULL;
+-	struct hdac_hda_priv *hda_pvt = dev_get_drvdata(&hdev->dev);
++	struct hdac_hda_priv *hda_pvt;
+ 	struct hdac_ext_link *hlink;
+ 	int ret;
+ 
++	hda_pvt = devm_kzalloc(&hdev->dev, sizeof(*hda_pvt), GFP_KERNEL);
++	if (!hda_pvt)
++		return -ENOMEM;
++
++	hda_pvt->codec = dev_to_hda_codec(&hdev->dev);
++	hda_pvt->dev_index = hdev->addr;
++	/* Intel iDisp (HDMI/DP) codec */
++	if (((hdev->vendor_id >> 16) & 0xFFFF) == 0x8086)
++		hda_pvt->need_display_power = true;
++	dev_set_drvdata(&hdev->dev, hda_pvt);
++
+ 	/* hold the ref while we probe */
+ 	hlink = snd_hdac_ext_bus_get_hlink_by_name(hdev->bus, dev_name(&hdev->dev));
+ 	if (!hlink) {
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index fd371850b0d69..32fcc1cd3f923 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -15,8 +15,6 @@
+ #include "hda.h"
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
+-#include "../../codecs/hdac_hda.h"
+-
+ #define CODEC_PROBE_RETRIES	3
+ 
+ #define IDISP_VID_INTEL	0x80860000
+@@ -148,7 +146,6 @@ static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr, i
+ /* probe individual codec */
+ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ {
+-	struct hdac_hda_priv *hda_priv;
+ 	struct hda_bus *hbus = sof_to_hbus(sdev);
+ 	struct hda_codec *codec;
+ 	u32 hda_cmd = (address << 28) | (AC_NODE_ROOT << 20) |
+@@ -168,27 +165,15 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ 	dev_dbg(sdev->dev, "HDA codec #%d probed OK: response: %x\n",
+ 		address, resp);
+ 
+-	hda_priv = devm_kzalloc(sdev->dev, sizeof(*hda_priv), GFP_KERNEL);
+-	if (!hda_priv)
+-		return -ENOMEM;
+-
+ 	codec = hda_codec_device_init(&hbus->core, address, HDA_DEV_LEGACY);
+ 	ret = PTR_ERR_OR_ZERO(codec);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	hda_priv->codec = codec;
+-	hda_priv->dev_index = address;
+-	dev_set_drvdata(&codec->core.dev, hda_priv);
+-
+-	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL) {
+-		if (!hbus->core.audio_component) {
+-			dev_dbg(sdev->dev,
+-				"iDisp hw present but no driver\n");
+-			ret = -ENOENT;
+-			goto out;
+-		}
+-		hda_priv->need_display_power = true;
++	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL && !hbus->core.audio_component) {
++		dev_dbg(sdev->dev, "iDisp hw present but no driver\n");
++		ret = -ENOENT;
++		goto out;
  	}
- 	/* determine settings based on type */
-@@ -1714,7 +1713,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
- 		break;
- 	default:
- 		pr_err("unknown DST type. please report to the LinuxTV.org DVB mailinglist.\n");
--		kfree(state);
- 		return NULL;
- 	}
- 	state->frontend.demodulator_priv = state;
+ 
+ 	if (is_generic_config(hbus))
 -- 
-2.43.0
+2.53.0
 
