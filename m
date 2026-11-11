@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417374;
-	b=pJCIgItkuzuV8J+ilA5PBhw0q2LJhldA7a9HVv20DBfR9/IM+AxfwYuQnHUNGhFON1TW
-	 v9ToVgsBUv2GyB6KZNuSbHTMJf/kIjsDloGSO6adVL8DqGThVMdZ54YCgJ+IsvF3D6of0
-	 2PqXJQXQeS4hJMozJMErXXysDb3Z4a7NakhmXDgus7kHSjRk92URnrsBtWL8rrpLPaStE
-	 oK+bstSjs8Kt7FllnjgkK5h6g4adFPxR78z4d5s76RHZoVD76hNDAN0K+9HyXM7zme8Ia
-	 dISP2GB5BMfyz10g4dGwmupRDUVixJQQKXGYgwi0CqLgV5xFatFt+r8F+eepfVGUy8A==
+	t=1794417417;
+	b=IuEI9pPWOQF1gMWDsMJakVVy7QPJBbIAJ7V13M5IJl1dJ31yz/sNegnEpInWGb2b/pTv
+	 q3431WMczSKSWG2ESNiUTmQSdO9Yi0ySxkcBH0bxCiEuRQLdvI5D1MSoXmhUU3oMJQj5p
+	 xx5j10dHEmIglkRAR1//lDNAfBP8vZpth5FdheN/7wN5JP1MHEhpJaaFZmNNNGqbVl1nT
+	 HMbjJ1qc2d4YMeweJkg1KGTx9CXXUJ9aO49YYqi8MNOszf7EDhzTQb04D7M0dAMEyZrf0
+	 FCQKVgBhBzDIlzbKBjaKOTSZAhvRO/EOaKkfTygx5K3uBqXOVBA9HZZ/hZLt+x5NEGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417374;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417417;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cH7V5ZpGsL47VaHjuSVEOwdVo5Dv19VpOtcdMjrMrHM=;
-	b=DXvJaojtDW4+Zo4u3fcmFTnpy6t8LzPzNuzwFgxgHGZx63tSUBJUBvB1uZv6vIP6XLp5
-	 o/FlCdAqYTFr11qAUGu5H5+8To/N8UK8zds4FKSeqp9QSVxldc1JZCDIwEkLg68FPdjNt
-	 S+spYKAQQcrcVyxFPcGS6gGKSerxLlpDjyqaSJSmiMBLg3+95nqI6u5n7YBnB1rD1fZew
-	 YEZCuKF6X+/yqVWwvYy86VxAd0GgL9K/t7inZei4Ra0Q5rAuzmStyPLBcrxEDpRB9vgpZ
-	 uYuwKKWJhu31TrSDRh4sITXcTsW3FeZj6ooXlGTXMQxXEEf1i2dK90w6m9nMEcfh87g==
+	bh=haIcw2YpBt4Ff6R3Olp6+WvHy0jtAzVPVFQ/TW3VJEA=;
+	b=kuaBBvTFRaagygBBxOR/hK3LiUTzHigsOm/yArcTsT3s6MTDLEBLRw7zyvosqHBmzI7m
+	 Xz29G8IaXmfnNHpfxRykpkXbq2ow7foQTrmGU5+1akxk8ucHaWwazEAk/q6jYkrO0ctYW
+	 FOrWov/tmCjGS6MH9sMfkQ8gBd20As9ewWDyY5KmQPkZ7ODsri0OlCWsM23PkUSwvqlLE
+	 oAlCP50X/l6OJKF4AX1lYJvN67GTTR637WgKJl3LPao3Qg6j9ahH46vbyFfWwFRkB4YFw
+	 6O4mMjoibmG5KIUakoCxUCdMTFUxvkAGcDKyX7u2vQdx6nGMnxOiC0b6czIZgy31Iag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SE5mKWS4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAC9Sj7c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BE5606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:16:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84BC606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:16:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SE5mKWS4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC1E1F00A05;
-	Wed, 11 Nov 2026 17:16:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAC9Sj7c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E371F00A05;
+	Wed, 11 Nov 2026 17:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417373;
-	bh=cH7V5ZpGsL47VaHjuSVEOwdVo5Dv19VpOtcdMjrMrHM=;
+	s=k20260515; t=1794417416;
+	bh=haIcw2YpBt4Ff6R3Olp6+WvHy0jtAzVPVFQ/TW3VJEA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SE5mKWS4h1FsYKja406tiTf4nz4xutIFFkK+ynL+iDhRJU8XSt5p+O5wHFjtGYzww
-	 ev6HeGO7LyIY0X5c80l7K+DLo02tk7EcNnslSq9QzH/5hbEFhvxXLsc9Ubvk6SaTy2
-	 PE7zn2srn9CF1G5qfuOIMV3yhP/Y2WhAILIiT6uINkZivvRulkuBkBrEPsylTGwCD1
-	 Wlt5TraHajUCA5PvEPP3jGTNijrPF8jXL+Dmi4quPOZ0jNBxQvCdJFY095BKrZpFMD
-	 FzYPMUuW5Zc0unLdzOY4/wUwUXwZejv885sRet76Xv53JXovotLEKMNpT4A+e81PIx
-	 FQ3N0kx0V7jgg==
+	b=cAC9Sj7c+6MApM89RmbG+448zrJRXkFZFMR8aBPYL4HYdQpLilnh3guWNAJd3V4ll
+	 gbxtx3fyMq+q7V/4mVGxhDsplovemEktuLp8KjUlFZ3L3zeNi+kRkkDOUec+MkyKRa
+	 sOXD91kaNCD3Lxowi0d9SZIZsslTCmOtAjRt7Nsirfm3WoN/AAe3E8C6/fG1BiLvn+
+	 4gUbuVPRO6iv/a6sJShYelSsVtZaEq2cWLMXo2fueXlavhCKq4vMvnlS3rOo+d5wAs
+	 v9aTCt1OudqqhJlOAaTLHvL+/8rx1EKkiKbaeUhgx1oAr6oLymZPUb2CEm9nq6a+fb
+	 Nb2EzDHbvbmbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gianluca Balboni <gianluca.balboni06@gmail.com>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Xu Xin <xu.xin@linux.dev>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx
-Date: Wed, 11 Nov 2026 12:16:11 -0500
-Message-ID: <20261111171535.3333499-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/madvise: fix data loss from MADV_FREE on a KSM page
+Date: Wed, 11 Nov 2026 12:16:54 -0500
+Message-ID: <20261111171619.3501435-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201535-failed-6.1-1e73257dff33@kernel.org>
-References: <20261109201535-failed-6.1-1e73257dff33@kernel.org>
+In-Reply-To: <20261109201349-failed-6.6-22d043c1da48@kernel.org>
+References: <20261109201349-failed-6.6-22d043c1da48@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,47 +64,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gianluca Balboni <gianluca.balboni06@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 1e73257dff33ff851af60d5bb00d73893a8b6dc8 ]
+[ Upstream commit 22d043c1da48d6c7274f9dd900714b6d58b7b9c6 ]
 
-The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
-connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
-AcpDmicConnected _DSD property or the _WOV method, and the board is missing
-from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
-capture device is registered.
+MADV_FREE can clear the dirty flag of a singly mapped KSM folio. The
+folio remains in the stable tree and can gain new mappings without being
+dirtied again. Once marked lazyfree, reclaim can discard data that those
+mappings still need.
 
-Add a DMI quirk entry for this model to enable ACP DMIC support.
+KSM always marks a folio dirty when converting it to a KSM folio in
+try_to_merge_one_page(). Marking a folio lazyfree clears PG_swapbacked
+but leaves PG_dirty unchanged. Preserving PG_dirty makes reclaim restore
+PG_swapbacked instead of discarding the folio. This also protects folios
+that were already lazyfree when KSM converted them.
 
+Skip KSM folios before clearing their dirty flag, checking under the
+folio lock to serialize with KSM conversion.
+
+Fixes: 854e9ed09ded ("mm: support madvise(MADV_FREE)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Link: https://patch.msgid.link/20261031102136.24600-1-gianluca.balboni06@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: Placed the unchanged entry before HP 8E35 because the upstream HP 8DC2 context entry is missing. ]
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Xu Xin <xu.xin@linux.dev>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-34-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Adjusted surrounding comment context for the existing single-page folio mapcount check. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ mm/madvise.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 6cc6dc56b89d3..420c91288019e 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -612,6 +612,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "BM1403CDA"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 209d0cc950139..9640a13699f5d 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -710,6 +710,15 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+ 		if (folio_test_swapcache(folio) || folio_test_dirty(folio)) {
+ 			if (!folio_trylock(folio))
+ 				continue;
++			/*
++			 * KSM folios can gain new mappings at any time, so we must
++			 * not clear their dirty flag.
++			 */
++			if (folio_test_ksm(folio)) {
++				folio_unlock(folio);
++				continue;
++			}
++
+ 			/*
+ 			 * If folio is shared with others, we mustn't clear
+ 			 * the folio's dirty flag.
 -- 
 2.53.0
 
