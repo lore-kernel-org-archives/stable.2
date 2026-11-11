@@ -1,49 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404685;
-	b=AzM7luZWD/8h4lrDvoZP5Gvk1sxRp+Y37sLxIU12w/I4+C2znwjjY43s/UCHUJUdwqFf
-	 bPILVfpM/HE5cZDmbsFc96RCpdr1n8kwpDKCC3DnrgV26iG6Y+LCEkko2WKJG6MyNLOqr
-	 nV6w/iEXOHWCzbgMof5VclPhnAv+3pwZtuq7R8xHQdYWJwGr1OVsizXW+0ipoL9qpz4Al
-	 ISw8nR52SJuxbA43Ws+aHWSSR3hIsSt8foO+Olfcl3ArNcAIDJFPgt6rPE3a2UoG6qtHI
-	 9j+8nQB2er5Iygl+AW4zSl3RI/NybQ+pv+Ks6ub5NvjmO1KvPuGfnilRV4XdEzJyaIA==
+	t=1794404697;
+	b=qd8KP3DRSqElxGlIVnPLC9RkdkBRAd73F3FhxuQKKSeLfWr3nHY9isN+KVHA1D1uYqAf
+	 hvXqSrBnsCO1yAft2kQfnFN1UmO2+w4x5mEiyzspK2529E5eYLA0PvPuibJErjxo9gYBg
+	 ZOG/iHvMxcEF6ba/9Uru/DVsHo+o1jnx6NJdC/V5tGKWW3l1feXM3HCUndMTq2oqeosTw
+	 LqGH/EILd2yQvL+HUV187I8dJ4vavRTA4VQpPGdLCOFJx1QGZIkIV6WsOzH92h2lF8ob/
+	 ACk66fW9XWNrbaDMA+T8Zlm5SSO7xjJdIVM7hv+mnwSSJMjN+JzHnV6DRSQMfImiT1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404685;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=C/nooMgmJG/3mp0rQ1JdOcq7TiihZwhR9+Lq4gd1ZqA=;
-	b=Bj+vNYYF308rg+ngwzsblP00Nbsoo4frE9ffUMqlR0ncCn/J+8WWdVZAleatPefqxLpR
-	 w02mX9G2DsMZjeWvSI0ivbQImPXqwD9FzAOR/wpcItOCaZ1pPbliUgppzZcLRTJwFiSlW
-	 jVt7mbcZwTRRD3OuMoSTVl449rjDRW6pRObY1Sb6SpYXNNP4qcutZejk6AOHiuxYuOyuG
-	 YqT7TZMWkNKkfW0Ab8/3LIjSqKs6i59oxudNZyCX5Mp15uhq5/saaUd1nQOCa9dLl4trW
-	 AiHdzwfiMsq1WswPFXHmDVqJodQY7D3VUS8XMrRsP8ZbWE6VfS8cT6QknvaY6zE8Rxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404697;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:MIME-Version:Content-Type;
+	bh=L9NVOt4hOFoYtGev0mEhj0TEZnxJ0HjT+1Qu0Bv20T0=;
+	b=E6MY9MRCuzaCDNxcVXF8t0x0zBIZSPrrp17Q3hHwPfe+GGCcm7phmcLNuGfHC2AuTZ0S
+	 PaLCnBsJcLzkl1S4jrz/ltHDWf5M3cUOQS6+xTmmZmLjp7umNaIMQ3XZLSCcR/dv8Si5x
+	 JWwVfKqcw35der4uihEMAACm8bxGv+mQvAUa426MCftGpV+HgxYYXsjIaf3sax9xDQwA0
+	 cPO+WMSMalpmKxQcyUfKzh8EG151TvEi0rl6opQOQ/Hqi1UTjMMScsezJgCFod1sJGhDB
+	 SQHzbsem2sIa2ObQ+07bYsBItPjJ6jZwJDfLIy+QgYqiWXQLPsKqzCbHEx3YUuCqPoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XMZDjw8K;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 55187606A31C;
-	Wed, 11 Nov 2026 13:44:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55187606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=vV+0FcTB;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81ED606A31C;
+	Wed, 11 Nov 2026 13:44:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E81ED606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XMZDjw8K
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 841C31576;
-	Wed, 11 Nov 2026 05:44:41 -0800 (PST)
-Received: from [10.0.154.42] (e121487-lin.cambridge.arm.com [10.0.154.42])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CC9EA3F673;
-	Wed, 11 Nov 2026 05:44:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794404684; bh=w2VNZqXDGorpHrLLSd9Lolnep92uG7Tj6Jtn26G8qZc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XMZDjw8KwZgkZXf/BmInpGUc/Nu/+rD12k7JhOUze6J6Xxre4SfOdq5WVwxjfiWTa
-	 9/eDyVHQTNWpHi+d18HTtRra8Hh3YqU0K4XAOeQV5OSptnSeNSVquJujUod3s+tLxQ
-	 jSMziHEiA/pMBzLCDPi5kiv7vPRnqrAFnAB9u5XQ=
-Message-ID: <282608f5-a13b-4695-aa17-f834bf5d8272@arm.com>
-Date: Wed, 11 Nov 2026 13:44:40 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=vV+0FcTB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=L9NVOt4hOFoYtGev0mEhj0TEZnxJ0HjT+1Qu0Bv20T0=; b=vV+0FcTBoNU5o4OLSQPC6PgnRv
+	fgHstmcDFOtYkngXKEoAi2RMXhliQ/4spjCvQ9nlOI+mZb/xXFgUtY+yiig6PXX9y6k7NOR3Elkvr
+	FM8cqexiY0emYR3TlgAj1TV+tz/qP60mxdF6USCI15sJgqLex7T7rFKWB8Uc1XTxdU39ZqtZRhjI8
+	vbAniFGvU4pH34YgOGgPNOonS1U4UL4eDK5lXgNEN3Gxac5H4kEtMi6j4qWKu9RQ1CZ/PoEDe93zv
+	Ix1OOYGXg81QTqFSZhqqdH3gQPl3tX2Kc0G/o19I9cBSYs1xS4x0jjk7zvhYo0vHV3t36Pe/ZNDGo
+	GrdGWOCA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xR8d7-00000001Stc-3el0;
+	Wed, 11 Nov 2026 10:44:51 -0300
+Message-ID: <10dd9cea16f8ebff2103ee7ac7e5ec4f@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-cifs@vger.kernel.org, David Howells <dhowells@redhat.com>, Ronnie
+ Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
+ <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
+ <bharathsm@microsoft.com>, Giuseppe Piscitelli <ooonea@gmail.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] smb: client: retry a hard link open without a lease
+In-Reply-To: <CAKYAXd-VC8shz7r9P=mS5XvOuGoadBhjJ6XYaaivL1z8v0UGpA@mail.gmail.com>
+References: <20261110225412.3937476-1-pc@manguebit.org>
+ <CAKYAXd-VC8shz7r9P=mS5XvOuGoadBhjJ6XYaaivL1z8v0UGpA@mail.gmail.com>
+Date: Wed, 11 Nov 2026 10:44:50 -0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,88 +67,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: suspend: Save GCS state over suspend
-To: Mark Brown <broonie@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Joey Gouly <joey.gouly@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
- <20261105-arm64-fix-sysreg-suspend-v1-2-f4d9a99fec46@kernel.org>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20261105-arm64-fix-sysreg-suspend-v1-2-f4d9a99fec46@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 11/5/26 16:05, Mark Brown wrote:
-> GCSCRE0_EL1 and GCSPR_EL0 are live registers for EL0 on systems with GCS
-> but are not saved and restored by cpu_do_suspend()/cpu_do_resume(). This
-> means that the task that initiated suspend can return to userspace with
-> UNKNOWN or incorrect values for GCSPR_EL0 and GCSCRE0_EL1 (many fields
-> in GCSCRE0_EL1 reset to 0).  This will in turn lead to ongoing
-> corruption, including not restoring mode until a task with a different
-> GCS mode is run.  Fix this by saving and restoring the values over
-> suspend.
-> 
-> This increases the size of struct cpu_suspend_ctx by 16 bytes.
-> 
-> Fixes: 5d8b172e7005 ("arm64: Add Kconfig for Guarded Control Stack (GCS)")
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Cc: stable@vger.kernel.org
-> ---
->  arch/arm64/include/asm/suspend.h |  2 +-
->  arch/arm64/mm/proc.S             | 12 ++++++++++++
->  2 files changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
-> index eb9ce315f146..8e9c97aab15a 100644
-> --- a/arch/arm64/include/asm/suspend.h
-> +++ b/arch/arm64/include/asm/suspend.h
-> @@ -2,7 +2,7 @@
->  #ifndef __ASM_SUSPEND_H
->  #define __ASM_SUSPEND_H
->  
-> -#define NR_CTX_REGS 16
-> +#define NR_CTX_REGS 18
->  #define NR_CALLEE_SAVED_REGS 12
->  
->  /*
-> diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-> index 664ea9e3b9ad..99aacf03367d 100644
-> --- a/arch/arm64/mm/proc.S
-> +++ b/arch/arm64/mm/proc.S
-> @@ -121,6 +121,12 @@ alternative_else_nop_endif
->  alternative_if ARM64_HAS_S1POE
->  	mrs	x2, REG_POR_EL0
->  	str	x2, [x0, #120]
-> +alternative_else_nop_endif
-> +alternative_if ARM64_HAS_GCS
-> +	mrs	x2, REG_GCSPR_EL0
-> +	str	x2, [x0, #128]
-> +	mrs	x2, REG_GCSCRE0_EL1
-> +	str	x2, [x0, #136]
+Namjae Jeon <linkinjeon@kernel.org> writes:
 
-Have you considered using stp?
+>> @@ -214,6 +214,19 @@ int smb2_open_file(const unsigned int xid, struct cifs_open_parms *oparms,
+>>                 rc = SMB2_open(xid, oparms, smb2_path, &smb2_oplock, data, NULL, &err_iov,
+>>                                &err_buftype);
+>>         }
+>> +       if (rc == -EINVAL && smb2_oplock != SMB2_OPLOCK_LEVEL_NONE &&
+>> +           !oparms->pending) {
+>> +               cifs_dbg(FYI, "%s: invalid lease key, resending request without lease\n",
+>> +                        __func__);
+>> +               free_rsp_buf(err_buftype, err_iov.iov_base);
+>> +               memset(&err_iov, 0, sizeof(err_iov));
+>> +               err_buftype = CIFS_NO_BUFFER;
+>> +               smb2_oplock = SMB2_OPLOCK_LEVEL_NONE;
+>> +               oparms->reconnect = reconnect;
+>> +               oparms->replay = false;
+>> +               rc = SMB2_open(xid, oparms, smb2_path, &smb2_oplock,
+>> +                              data, NULL, &err_iov, &err_buftype);
+> Should we retry without FILE_READ_ATTRIBUTES if this retry returns
+> -EACCES?  EACCES handling above only applies to the first SMB2_open()
+> call...
 
->  alternative_else_nop_endif
->  	ret
->  SYM_FUNC_END(cpu_do_suspend)
-> @@ -168,6 +174,12 @@ alternative_if ARM64_HAS_S1POE
->  	ldr	x2, [x0, #120]
->  	msr	REG_POR_EL0, x2
->  alternative_else_nop_endif
-> +alternative_if ARM64_HAS_GCS
-> +	ldr	x2, [x0, #128]
-> +	msr	REG_GCSPR_EL0, x2
-> +	ldr	x2, [x0, #136]
-> +	msr	REG_GCSCRE0_EL1, x2
-
-Have you considered using ldp?
-
-
-Cheers
-Vladimir
+Indeed.  We should retry on -EACESS without read attr there as well.
+Thanks!
