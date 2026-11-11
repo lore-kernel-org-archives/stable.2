@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363968;
-	b=UYimV5ltRQKyhzWoPbCem+gZ6SkYllibCQO5q6z5wMJgpu6Duw+EFVLNrBWAWQunf+zX
-	 ny3u/AV/fPIQo+6Z4jtCns9U/+utxgu/EdEgHFKoyeXEmQkJF6Ykgon6ocNk+yJANqqyc
-	 UyVpA6KNApSPFcBNhhtzqaSA8s2w3Nvtsb6VPGVPfMCRKijO/+vvdN9pXXEUDs3aRQvfj
-	 RERe8hEt6nILOxIlZqs05NIbkD0fFwlWbzxLUdrYTb8yaXMlqWWd2em60IWeKOWUv9hxS
-	 wjuPdo+Ubxi6Vuyfgw7lan3jiQGwnW6ar4HGpI+JBAMIbTc9/yR7XYyurSIwltAMotg==
+	t=1794363999;
+	b=VKRq8YoYCsDN8/fACHpPERvPd3u/xVmqh1r9GTbmIH1QQA4gJOnHDPijq4gS/f+Lo9U5
+	 e9zrsYXhrPT7qSEaZY9Y1TW6ULv0mlcfnj0Q3AqTzF8EmVJRMSpROdhXEEzPxErOl2T/e
+	 Vy4QL2v7EUVoRPX8YEjIabfwVFmpQSq0iDLROEdYLjyZzlyKWueOsloEyY/hN4sbHka3q
+	 NObs5WI+tD4+1XvEaARMlLDOU+yY+zuL5KjpUBLJdfnJ1PufX/tGrpxNmKkPNg02PbnHp
+	 xCMmkxaPCQPapQbuz+KF3bxFwQNv7lzOXDKqKUqnoTZh/0iNAU5Y/Sc+qZ/pYO285/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363968;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363999;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fXQgqRS5RuHlwejzP3gzn3DI2JuTuzqG5csyN9fwq5k=;
-	b=msLmVvrKtbT55yRn60TSrjzG0CV98QX09DyynYTqKkgEZm5lCQnW+2dedOy7DuYqz71E
-	 LWC5L3wTmXX86qlqOKPaTnx8Bf92/jtzDIUxdHATNJlvEzgyXnPSKscVIgJXLYk+/nNA8
-	 6J8il69P5hnAqrsbjvkJC0lppBFZ7VBYndeJnEZBKHEYb/JBrMg15LiDcl+A2yj5KvjsK
-	 LO0VRzFzkI5AZnrW6kwWzbMUxgf7LBmGk5cFE/WDPQUxaNMxmY70V8cblNzrt9ND8AIzy
-	 tD8w7B0QOQjiQVNsksDDmhyhdTsX1c1truMYePzPcYEQKCHjWhzJjkhOM+17nSeqyBA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Q2qEb96ACmCb8wLRCtUTvXcfMYvAiiW6aWzzpm+65EE=;
+	b=muN72bRLum+IEZWYQ+mmKFRLp3Tgb32ZooQ4YNJzpOETjpX77evAcukxzc/DZ+H9Kam7
+	 VmT2EvOk1AVmpQlk8IvV0OgXJg/R5zqYjzFWnAh1x+QJpqdQpF785mf0Xq3xAXJ/nfKTS
+	 tyx6r7wdXuEdLTUVoUuR7lpXKMp0PfR9YRLKbUFh++HBN0GlEbeOLrPkXNOlOII27VosN
+	 X62o0M4mkneC7i7jpdgmFrSjuxnV6MTtudkslS55lPOibcDgoSwbC0zbAdFY6ZH8KyhTl
+	 fIiOwWRh1nW9icqimXAiK1jEC/pTH4ENilBT76HEC+TqFtJEF3lUTHUXrYeBgB7Fnxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KepES96W;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gT7xfbdY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D04606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:26:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D32A606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:26:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KepES96W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90AF71F0089F;
-	Wed, 11 Nov 2026 02:26:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gT7xfbdY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70DDB1F00A06;
+	Wed, 11 Nov 2026 02:26:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363968;
-	bh=fXQgqRS5RuHlwejzP3gzn3DI2JuTuzqG5csyN9fwq5k=;
+	s=k20260515; t=1794363999;
+	bh=Q2qEb96ACmCb8wLRCtUTvXcfMYvAiiW6aWzzpm+65EE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KepES96WBELRI7ffm6wOLiBO5GPeMiCUtvOpRftBjHxQOqD9O4ZPnzypHzwPmRpcs
-	 YqQdAzI329OjSxMzI60VfadUpt3YyYR2N2tdIL4sG8LpYlMqAVPh4ImgTAOxSB2A5y
-	 0rKx4iJCDakQKZHN6atIREsmU40y/sPN1ngZ76DmHXlL475ubA/rRfnAVM8H7KVZCZ
-	 28MX69NoGBlpxHt1sseOj2XdjEXHxzqOpwqvLRd9O3xT6MUd4CDL0zOPM7os4bsBmK
-	 S7TndLTRTWrDxAXUfwrcZ4FQCReV1EpH66bJCZuFbKIiF/bqQCIw4uIwLjKUSR4uLP
-	 MmPm80fVSieHA==
+	b=gT7xfbdYxeDtNKoKsHjA8cwauiwf8D/0/X9+0HlBZcKH3CqBpES8rzeOYGcxrS4E+
+	 7e362hpEZf777BCsBAdQLHQOLvLJ7qHapbRPJeCDSnhmVJu8ckkBIOutkkOw3EwtFp
+	 rpNXIsJk7faP8Qsa5xLkrHefV3AKN0ZQ8bXKfZY317fhi2BbvlJHy+lw1z6Qo5s1BL
+	 i/SS53Ua3kaLPSMwcEZNGPqC46zZ1ZxIhY2BaVphBXD5+wUNo9TdVDuy8gNislzIfP
+	 fWq/v6HxbnjUcNpGjXwF8Ozqij7iY3u884LWp94mUUE9+wJp8DhYlYgOjN+XmPc+WM
+	 KGaLb3T92Dkxg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Maciej Kucharek <qchcio@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
-Date: Tue, 10 Nov 2026 21:26:06 -0500
-Message-ID: <20261111022542.613290-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] power: supply: core: add wakeup source inhibit by power_supply_config
+Date: Tue, 10 Nov 2026 21:26:34 -0500
+Message-ID: <20261111022629.681261-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055213-failed-6.1-5b56ede88031@kernel.org>
-References: <20261107055213-failed-6.1-5b56ede88031@kernel.org>
+In-Reply-To: <20261107051652-failed-6.12-db560f4b1c52@kernel.org>
+References: <20261107051652-failed-6.12-db560f4b1c52@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,84 +61,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Maciej Kucharek <qchcio@gmail.com>
+From: Thomas Weißschuh <linux@weissschuh.net>
 
-[ Upstream commit 5b56ede880317bd912f914d5cd38ba1d357677fa ]
+[ Upstream commit 49000fee9e639f62ba1f965ed2ae4c5ad18d19e2 ]
 
-On MacBookPros with switchable graphics, the firmware puts VRAM at MC
-address 0 when the iGPU is enabled.  The EFI stub enables the iGPU on
-these machines through apple_set_os().  On a MacBookPro11,5 (Radeon R9
-M370X, 1002:6821, subsystem 106b:0149), the driver adopts this layout
-at init:
+To inhibit wakeup users currently have to use dedicated functions to
+register the power supply: {,devm_}power_supply_register_no_ws().
+This is inconsistent to other runtime settings which can be configured
+through struct power_supply_config.
+It's also not obvious what _no_ws() is meant to mean.
 
-  MC_VM_FB_LOCATION=0x007f0000, HDP_NONSURFACE_BASE=0
-  VRAM at 0x0-0x7fffffff, GART table at 0x1400000
+Extend power_supply_config to also be able to inhibit the wakeup source.
 
-The driver posts the ASIC again on S3 resume and after a GPU reset.
-The VBIOS asic_init table then moves VRAM back to the VBIOS default:
-
-  MC_VM_FB_LOCATION=0xf47ff400, HDP_NONSURFACE_BASE=0xf4000000
-
-gmc_v6_0 does not reprogram these registers.  The GART table is then
-no longer in VRAM, and the gfx ring test times out:
-
-  amdgpu: ring gfx test failed (-110)
-  amdgpu: resume of IP block <gfx_v6_0> failed -110
-
-Reset and post the ASIC at driver load on Apple boards with VRAM at 0.
-The driver then uses the VBIOS layout (VRAM at 0xf400000000) from the
-start, and later posts keep it.  After the reset, FB_BASE is not 0, so
-a module reload does not reset the ASIC again.
-
-The test is the same one that commit c54e4d105077 ("drm/amdgpu: make
-Mac FB workaround generic") uses: an Apple subsystem vendor and VRAM at
-0.  The VI quirk for the MacBookPro14,3 resets at load for the same
-reason:
-
-  commit b6b1d9721851 ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
-
-Other Apple SI boards get the same reset if FB_BASE reads 0 at load.
-
-Tested on a MacBookPro11,5 with 7.2.5 and this patch: the panel comes
-up at boot, and 4 of 4 deep S3 cycles resume.  Without the patch, S3
-resume fails every time.  The GPU reset path is not tested.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5978
-Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 60dd16ae10f286cb9cce5b6027b2d5ee869637af)
-Cc: stable@vger.kernel.org
-[ sashal: Replaced the unavailable MC_VM_FB_LOCATION__FB_BASE_MASK macro with its equivalent literal 0xFFFF. ]
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Link: https://lore.kernel.org/r/20241005-power-supply-no-wakeup-source-v1-1-1d62bf9bcb1d@weissschuh.net
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Stable-dep-of: db560f4b1c52 ("power: supply: bq27xxx: Ensure poll work is cancelled on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/si.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/power/supply/power_supply_core.c | 3 +++
+ include/linux/power_supply.h             | 2 ++
+ 2 files changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index fd34c2100bd96..c63f1b7162d34 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1509,6 +1509,16 @@ static bool si_need_full_reset(struct amdgpu_device *adev)
+diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
+index edc7b3bd9b5c8..e51ad6dadc165 100644
+--- a/drivers/power/supply/power_supply_core.c
++++ b/drivers/power/supply/power_supply_core.c
+@@ -1403,6 +1403,9 @@ __power_supply_register(struct device *parent,
+ 	if (rc)
+ 		goto device_add_failed;
  
- static bool si_need_reset_on_init(struct amdgpu_device *adev)
- {
-+	/*
-+	 * MacBookPros with switchable graphics put VRAM at 0 when the iGPU
-+	 * is enabled.  Any later post (S3 resume, GPU reset) moves it back to
-+	 * the vbios default, so reset and post on load to start with the
-+	 * vbios layout.
-+	 */
-+	if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
-+	    !(RREG32(mmMC_VM_FB_LOCATION) & 0xFFFF))
-+		return true;
++	if (cfg && cfg->no_wakeup_source)
++		ws = false;
 +
- 	return false;
- }
+ 	rc = device_init_wakeup(dev, ws);
+ 	if (rc)
+ 		goto wakeup_init_failed;
+diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
+index b03991a29a65e..36275c37f1f2f 100644
+--- a/include/linux/power_supply.h
++++ b/include/linux/power_supply.h
+@@ -236,6 +236,8 @@ struct power_supply_config {
  
+ 	char **supplied_to;
+ 	size_t num_supplicants;
++
++	bool no_wakeup_source;
+ };
+ 
+ /* Description of power supply */
 -- 
 2.53.0
 
