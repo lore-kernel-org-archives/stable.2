@@ -1,57 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383421;
-	b=oGLfioVWeX91ZRPyMsms8YHFmvsAaXZLt6Q+lgavoHv5RgESSHIIfsWqbb7oR6NAbwAO
-	 zjn+utqYq8KhQbifz1Hte6ZRhmRn/Qg3sMYxFuuw76+ALuq0Mw73qB8nPGEPMO/HwuggV
-	 PAiV4vjikWV7ffbnv4Diqp8K0U6Oot7SdkXZXF+kVi0ejfXnfmHWzpe+hsf7reAwvG+Pz
-	 S9nf4+3vpIX43dGu1zoU/DEklWI0PgWsIeOvPjkH/hEpD3/OWrpAyCHZWYVz1DvmVovh3
-	 7vMS9ecUIvlNJFm/RFEs4EO9cZJ9lspz0l/YyNIGMVJstvfm61ijj+/nW2bOYhM5jaw==
+	t=1794383529;
+	b=eCi/eOC63QAdxWD8RkMJ2MtJSgam9I77CItIQLjqa1DalfqyujpUXjgStiREDsnAc3Jj
+	 7joM+RNrz1aWJtq9mszZBVsC1Ys/2hm3gZGfYroRRQcz8nFaqyI3S0pnVkovK0lfGJ0Ph
+	 xu1h3ZZRqKzkPFXzdSZRQTgCwiDplLejNd23wA0gFTa+nuKVDzCW7c8F5vJ7J9JKcFq9y
+	 va11F9jEbRVNAR/ynOcO+z2T+Mouv1OeC6qcCJXzhkMTOk2fPnOkvYRUzAVke0b+RBeJF
+	 ZDUYci8IT88q+vky0m6XRLQ5SZ/FUWCOQ2sLh9Wfa55Uq8hXnMYgn8g1unXqPZyl2vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383421;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=W34d6fKc8gslsPNMLR2Tp5UYzF8DphOs1nP0xBxT81o=;
-	b=yQv0oxEzivadOjO8coOgNVFdcM7r4roLyTA0oHIGcb66lMelfxJnAMTeM/YYltGQ8AeO
-	 yz7OuiZkSRhBi9Hq8ygWW4GEx2TVIodUWBXk5gCeo68def3q2npLqzuNiONVM8xfe5tF5
-	 zou7mvXkcHItl5LIUg/KwjX0XAfi8oMau98fPE3ILuvJj1I7vV0mTZskcc4rMI6XETMQq
-	 LKAp0TTTvzBLS9m1yY/ge3dTJlp47V+GY6Oup2FRMGOXiWb+rwrXTwIdQ9zTGxXyaATJ+
-	 LuP5O+XLFYPmjR/i+g5M2HzrkZEFNyTviEpCNlphhlrVi3PRfgEWGfz1ctq1n9oZmBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383529;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uZIN4D7jbH1Urh+LOeQa3/6TVd5EZ4/PM32bHYfTJqU=;
+	b=bSB2Q5E+3CPGJxyHdCPFOPV3by3cYmz53CkGn2HWJ89505LFDU+kSrgAJyE+QihHlu6L
+	 qWnwMnWabqJRLuW8huYSIzCrRwzHg1rW1P2A9mNm++Qhj0MTX+XVW+bWICGLBmFGyvmXA
+	 DSrBoZ2DI4myEQj38KGvLORWuik/g1AarT3qpW63MDuiEACReLBCwhf/PmVM4vQmEtMBl
+	 lf5bksm3C6UwOXSuBS2qN2lR8GbBtx5vHTfgXmGe8lg9l9pdUDPcEbk/KhT9cUhvu2k7Q
+	 Aj8VIPgBAl6Yce1VL9jLms2dstjQ97tKfRa/wUAz9kqjy4ZSlz0Vi6cCwIZlF7HyM1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XD/AUHwi";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mozVRJlM;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AC8606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:50:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90899606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:52:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90899606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XD/AUHwi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 144B91F00A06;
-	Wed, 11 Nov 2026 07:50:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794383420;
-	bh=W34d6fKc8gslsPNMLR2Tp5UYzF8DphOs1nP0xBxT81o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XD/AUHwiQyBiFcCXGfSwKXqgve6RslbJoci3NLOHyJaF58pjS6TJkNp6U5XP+Iv5o
-	 exVowAXtIS17sOJY4gBYOGv3UPy3Vy9PR70VWaYDra3IFuW61dBnaDFbmLWfh7qHYv
-	 3rZpUh2JaIAcbqBQIuo56rtpgtBzW0tDm9GjDfHMXB5kn3aadLHEyaVFkuM2YdbLse
-	 lhqMxAa22ZFUbGEHYoF7XlKICl6b9jc+oxvFeZJ7eLHKH4S4tToKlvwc7iZ2XL4go6
-	 ITgyP3mHsuhm0tMvCOy7ztJ/zyZGQRCWRVpzRFjr/SXXeEW/r9o4GB9CSQA17LTRvq
-	 u6dNan2s+/Jig==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] fs: don't lose inodes that another LRU walker is isolating
-Date: Wed, 11 Nov 2026 02:50:18 -0500
-Message-ID: <20261111074752.1355278-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062746-failed-5.10-8dc4116041e2@kernel.org>
-References: <20261107062746-failed-5.10-8dc4116041e2@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mozVRJlM
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so779927c88.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:52:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794383528; x=1794988328; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uZIN4D7jbH1Urh+LOeQa3/6TVd5EZ4/PM32bHYfTJqU=;
+        b=mozVRJlM7OGbOsRObxBDXtbtLpVd8WFZ2Nbx/PZPECiiYobK4Jq74y7FkD10otMWLf
+         fkic3pPMkYhDiOjfooRgOmv4xOmC79EJuziJtQzaPS4JrvOREtk+DoCLT3rjPebXMx3W
+         MEZf2qmv7Aynt9nAqI+NVPCFLzwxPcLhTxT/CIiiIisLDMrlx+SJ2hTMRMkRwxWuzmBX
+         Jpzb6Ps4id/RbCnDBzCDc14wXolo3dJwcc6ucPReOy5UshTS+hxq78v/Q8nEEvFeNY9O
+         jLR0W3HzDgvkPLnBz05ffXeRhnQvZPfdWlMugRUg07DR0GPY679oQsti0XbAiDkozUj3
+         rUbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794383528; x=1794988328;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uZIN4D7jbH1Urh+LOeQa3/6TVd5EZ4/PM32bHYfTJqU=;
+        b=cUMfaNg++j1Xks0OH/v3o2em7hMAyoZ8ovZY+XSqRkj/fLGFoeRFKKBXQpZ4LPEk6X
+         wzNeoip+MMT7KRyJr8WSe9wScF+jHPEcKfEGBdV3vFfbyylrKNGoMV4Fd67spU6Q7SKi
+         elcgZFYlfav6YAuqLjh+C80mPxGadGr8gExMAb0XKBIp4n5UHJf6c+UbftikkfW+FfCe
+         Nyt1KKNjtB4bHt+7xsATJYo2eiSujVwfpxSMVWEWP1Ro3M65EUtWiIZLt5fNPHHyNzfE
+         qThzTAkJWiiz10S8MdNGTfuKVGQluIk92OD/zykXIqenNVQakTvkpjeF2OH/Df7M3BTP
+         KoSg==
+X-Forwarded-Encrypted: i=1; AL+hErGTfqri45ykZTR/xcLAmmaW+n99CdbnVTqiOAfVsX5osn1J70n2MtHp6b9e2Go6B62Hy0mta1U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+za7KQ55YwXm9UatawIF7HzxvJzmLGUaM+2Qx1DsIOhD9jM6RG
+	ESr9maqPMHTHDmMytdYJ8zy00vqsIbzBRjtaiS/T5rrgTYKQ/au0FwtU
+X-Gm-Gg: AYBFou2yjRlmIdefN3VE/ck+fMIoHQGxjB55kWI0k2Z6vbn313wQ/CtoarakKMuTGE/
+	D65U3uCPGdwxDlYZ+uxR0SIdFbMWy/FnvgfBsk/YtgSSElb+WkTofM/85hbowJ+W7spdZKPbCNV
+	20/m9p4vbLVbqtHYFPufSvmJwh6T/0wPRIA9rpo7WQ875NFsNlvS7ksikXXNCh+HlSNAEwfsMfK
+	VNC4utx4R+W0Pzrt9TXTFE5qtzgmtQyi4jE1W3tfXCfyXJCWf4CADF+5QwXlS2MmXe6iHA1VfzL
+	RiuX1+4EMR1Y8jW9tytX0vRjmhB1+arvHCDsj1EPSUHmlHNTOfcbPhqCaM6sjkPpTjRISbwY18U
+	4wJa1yVhiKTaqcRSnFhseTV1LiOC8YA/h0PmV84+3IlmP1FV8MC+VID+PWY/td49IcS2iGDb0Wp
+	3GqCaZSAMcbuklyT8/xeELfMpXVy8u6NBXiRakWwjXauoJvJPz6lxZvhzb/IwQloHeKvHq6CFce
+	wEQDHXg2ipWrRLUuQ9kNLqJHRgY3ZnVp5A/hveAJErkWi98bljcHy6cVqB5OPPfo8KnxvIPb/EF
+	AuX3jMS/wlNO6DDoYmSpUpIhbEbaeikwn/25drEDsw6jyYJP
+X-Received: by 2002:a05:701b:2302:b0:1b3:a26b:8b97 with SMTP id a92af1059eb24-1b3c0353171mr1674179c88.41.1794383527293;
+        Tue, 10 Nov 2026 23:52:07 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b4ecccsm11284950c88.13.2026.11.10.23.52.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 23:52:06 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] virtio_pci_modern: don't sleep in atomic context in admin cmd submission
+Date: Wed, 11 Nov 2026 16:51:54 +0900
+Message-ID: <20261111075154.3017978-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,69 +102,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nikolaos Karaolidis <nick@karaolidis.com>
+virtqueue_exec_admin_cmd() calls virtqueue_add_sgs() with GFP_KERNEL while
+holding admin_vq->lock, which is taken with spin_lock_irqsave(). The admin
+virtqueue is created with ctx=false, so when the device has negotiated
+VIRTIO_RING_F_INDIRECT_DESC it uses indirect descriptors and
+virtqueue_add() allocates the indirect descriptor table with the passed
+gfp. Admin commands always have more than one sg (header plus status), so
+the indirect path is taken and a GFP_KERNEL allocation may sleep while
+interrupts are disabled under the spinlock, triggering a "BUG: sleeping
+function called from invalid context" splat with CONFIG_DEBUG_ATOMIC_SLEEP.
 
-[ Upstream commit 8dc4116041e2b377e5e1b62ba98b37636f9f3968 ]
+Use GFP_ATOMIC for the descriptor allocation that runs under the lock; the
+table is small and the -ENOMEM path is already handled.
 
-When inode_lru_isolate() finds an unused inode that still has page
-cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
-invalidates the page cache, clears the flag again and returns
-LRU_RETRY so that the restarted walk can free the inode.
-
-Another walker of the same list can reach the inode in that window.
-It sees a non-zero i_state and takes the inode off the LRU, as it
-would an inode that is in use. Page cache deletion requeues the inode
-once the mapping is shrinkable, so this is harmless if it happens
-before the last deletion. If it happens after, nothing puts the inode
-back: it stays in memory, unused, clean and without page cache, out
-of reach of the shrinker and of drop_caches, until it is looked up
-again or the filesystem is unmounted.
-
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
-lru traversing context") the pin was an i_count reference, and the
-final iput() put the inode back on the LRU.
-
-Skip inodes that are being isolated and leave them to the walker that
-pinned them, which restarts its walk once it has unpinned them.
-
-The window is reached by any unused inode with page cache on
-CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
-single shadow entry at index 0. On an i386 HIGHMEM guest, eight
-concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
-one-page ext4 files leave roughly 400 of the inodes off the LRU per
-round; on x86_64, with the files' pages first evicted through
-memory.reclaim, 3 to 4 per round. With this patch, none in either case.
-
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Fixes: 4c3b54af907e ("virtio_pci_modern: use completion instead of busy loop to wait on admin cmd result")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
-Link: https://patch.msgid.link/20261009142431.713875-1-nick@karaolidis.com
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Replaced inode_state_read(inode) with direct inode->i_state access under the existing i_lock. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- fs/inode.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/virtio/virtio_pci_modern.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index 40cc72fe37f99..4b450ae312204 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -788,6 +788,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 	if (!spin_trylock(&inode->i_lock))
- 		return LRU_SKIP;
+diff --git a/drivers/virtio/virtio_pci_modern.c b/drivers/virtio/virtio_pci_modern.c
+index 922e2df027de..ef96140118ec 100644
+--- a/drivers/virtio/virtio_pci_modern.c
++++ b/drivers/virtio/virtio_pci_modern.c
+@@ -101,7 +101,7 @@ again:
+ 		return -EIO;
  
-+	/* Another walker is dropping its page cache, leave it to that one */
-+	if (inode->i_state & I_LRU_ISOLATING) {
-+		spin_unlock(&inode->i_lock);
-+		return LRU_SKIP;
-+	}
-+
- 	/*
- 	 * Referenced or dirty inodes are still in use. Give them another pass
- 	 * through the LRU as we canot reclaim them now.
+ 	spin_lock_irqsave(&admin_vq->lock, flags);
+-	ret = virtqueue_add_sgs(vq, sgs, out_num, in_num, cmd, GFP_KERNEL);
++	ret = virtqueue_add_sgs(vq, sgs, out_num, in_num, cmd, GFP_ATOMIC);
+ 	if (ret < 0) {
+ 		if (ret == -ENOSPC) {
+ 			spin_unlock_irqrestore(&admin_vq->lock, flags);
 -- 
-2.53.0
-
+2.43.0
