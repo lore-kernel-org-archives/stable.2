@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416381;
-	b=XHdQJHRQZL20mMvRP/CRTQKvRWVekGXthO4ydw91Cd2/JoZHeLvxveb6hsKliOikM+UK
-	 nXCLXVpKtbOw0d6Cc7dyEXZ88lTRLYZ04FzM9wjJ8986BYQ0v4AMqTmB7XSIJjFINCJdx
-	 ozCbqAbbfQWi6hTrgJ2M7WfvRAmoAjCF5oikg5Y4GTM4a+ero6ZPtzpV/M32lEuG2JcCg
-	 vgoqlnO/UuYT446A5hkFp5Zo+8UVX1bxQ59NaHPLspyUEOEHTGaQM6bqqtip9JpiacCRh
-	 0/obNpkGxV5gVknEXrepevOsoKBRUuluwqhWsluK06fyLIfQRQ4zp/6iT+lYs0WSXag==
+	t=1794416691;
+	b=sUYbtPBEfy9E3MgPUE5Is4QsixotpPlx6fTZ4dVpJamQNJiaCmdjG+pRO2xoByCh35bu
+	 cT4PtdHf7EjSgZ+lb/nvPRzkQAVeVqP5VF/aYDdjq9Uyyy2Y1IHyKUcuQSjLUZFy6y2R7
+	 MU0/cAq2QbkVCEuXIbHFUMCWlGFLBkgnjVnrEGnC7eRsM+BUweqltNW6+2faDYG4rq2YC
+	 wBJ/TX4eSGGF/kCvHHYVI8aTfwqyzfVo2p2BhlF+I42GHWOuksMLej+Zx5ZrGPyCsIa6/
+	 FtM+9QcNJfMPTd06aWjwSzuLavn+fcsA2er9otrfnOp6+YsSZuJYW2A8rs3q12DmbHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416381;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416691;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HnnXLSSCb6z6j8p68eS8cPvW4ibeNufMDoNY6CBv7+A=;
-	b=WAho/a5mHx7oFXAuZ03DHyV/Rj3LSDgEtPHRmpXEpIPNW+zV8yJ/5MK7zwZVT+5Qn0Tb
-	 gdNLvHaBfzV8Sq+egpurKBY1qsQdeirtw9l+8K6ZA5hZpFq7z1yQE/CKU8WA2wSPYocJo
-	 XMvT5WJYf6t0eDymcWs6ijbgb8O/IB4a5BML+NzyCVKAV4GIfjZ8bvSup98YOFVKl8H34
-	 M9stgCrp9iecyRqq03z76LOrojYWgXuy3dBMXj02pQqeSJfK0I2paIZZjJtOuDlnAWh8x
-	 CqqDdBSymTx+GrRnBFTf69azLEusf1mrVgneSHFdtIMfLfzz15sxDR2fKaXR6UQq5ww==
+	bh=uahblEfTxGwHDD4cIJJP3t+ZnQSSzHCKwp/hTQ66JE0=;
+	b=iG6zDYnLH1Ypb3MJvdesXa3YFoOBhkougW3dsGAyE9J+pf/2qf2U2Q51LMmKaJDRO3gw
+	 vKED8ZU8tEh0vGl+t6WeGYLUk/YtPIUU/lnKY/EeCHW7YufIdwd3TCUT9nv6vdDEJPkER
+	 IOTEn0dNtjXqvX6s0tOqwzU8a1XAlAbnhMQsLgNRZWdtYoHVX4EuPzf4m3vQAy9kBkBHP
+	 Y0FG9QLZgic2z2riTGbF6E2GdpM9d1IOYBtc88S/agrDZBWfZwBvlREMn2bnxtKvwba23
+	 hx8Y3YipIOC0wbTUgd4spm1Zw8aGYnWpk/XhX3MQ70oXLVRp3TLNLsmQ9q2FncDf2ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4rFAF2z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBywbFNu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A378606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:59:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F78606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:04:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4rFAF2z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B80D81F00A05;
-	Wed, 11 Nov 2026 16:59:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBywbFNu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A785D1F00A05;
+	Wed, 11 Nov 2026 17:04:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416380;
-	bh=HnnXLSSCb6z6j8p68eS8cPvW4ibeNufMDoNY6CBv7+A=;
+	s=k20260515; t=1794416691;
+	bh=uahblEfTxGwHDD4cIJJP3t+ZnQSSzHCKwp/hTQ66JE0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n4rFAF2zB7T0lmlQWwhZdyOS4SsNEGk5PoUwSO7UflcvPK57K5iYUZM0kkyOqkOMX
-	 9MsF/Twih0pDZq4lBTCog49XhO+2rqioqDSiStcsXnClaMiGKyNBk78K0daB8ZCKr6
-	 EUqP9DJ+JI9F3GsxQGu6qjcxmRHnuBArXkqKwwoSn45azwhoQe/Z29ecT3SzPyS2cI
-	 bnNpqi+ihImngzadlaSW2v0RfOMH4KpxDKONGJId242GP5cIbk6TlAwaq0d504uOaD
-	 RSZZdT0p1uaEHh80CY30YhmbOvRZTqZ/2tZ5IrmhMWFc7PyVtOXXzpD0ylkUFjTddw
-	 QJzetVXD4ZkVw==
+	b=iBywbFNuRnmVBYCg4fseMiIabnkR/aQ9ozj2GOtqamM5F9pZgDyGG4FYgZ0dx02hw
+	 uQrLk6HHWI+SK/qBKmnGIYQ0ujGRmJqotews8QUAY58kmTOrgVEmZlw37eRDCbYE4P
+	 rCpsfrrm31G2PLvbcWo6tm6+65kVxqr1sJIshz5Ztbf/D7ojjpn9nfI+IgcrgShUoN
+	 /RcFAygwsb0KaWC/IinWxtLQskqGfSgtdGwNdvhFIMwhWqHFWhcypvT7lr/gNicakz
+	 gK8vC96yatvpMLcHMinL33jX8ZsYSruYUdCUdBfSUPp26CC2tqJcGTYWSoQIRmqhFY
+	 KnvZcSf3ZLO9g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Brian Geffon <bgeffon@google.com>,
-	Dmitry Safonov <0x7f454c46@gmail.com>,
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Russell King <rmk+kernel@armlinux.org.uk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/mremap: correctly uncharge accountable VMAs in error path
-Date: Wed, 11 Nov 2026 11:59:38 -0500
-Message-ID: <20261111165921.3384488-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ARM: 9488/1: smp: set current pointer in assembly before jumping into C
+Date: Wed, 11 Nov 2026 12:04:49 -0500
+Message-ID: <20261111170426.3354605-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052619-failed-6.12-65e722a74df9@kernel.org>
-References: <20261107052619-failed-6.12-65e722a74df9@kernel.org>
+In-Reply-To: <20261107054905-failed-6.1-f6e551e7d515@kernel.org>
+References: <20261107054905-failed-6.1-f6e551e7d515@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,71 +62,126 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-[ Upstream commit 65e722a74df992719676ead85a9e93fb2b5a0983 ]
+[ Upstream commit f6e551e7d515579b952422c93415470fb672d848 ]
 
-The mremap error path is a fragile and unwieldy beast - it reverses the
-page table move then updates vma_remap_struct state to swap VMA, length and
-address between old and new VMAs in copy_vma_and_data().
+With CONFIG_KCOV_INSTRUMENT_ALL=y, secondary CPUs fail to come online
+on ARMv6K/ARMv7 SMP:
 
-If the mremap() operation didn't specify MREMAP_DONTUNMAP then its caller,
-move_vma(), invokes unmap_source_vma(), which unmaps the new VMA rather
-than the old one.
+  CPU1: failed to boot: -38
 
-For accountable VMAs when MREMAP_DONTUNMAP is not specified,
-unmap_source_vma() unsets VMA_ACCOUNT_BIT during this unmap in order that
-only the delta of a VMA expansion is charged (performed by
-vrm_calc_charge() earlier).
+The compiler inserts a call to __sanitizer_cov_trace_pc() at the entry
+of secondary_start_kernel(), before set_current(task). The KCOV hook
+dereferences current while TPIDRURO is still uninitialized, causing a
+data abort before cpu_init() has installed the exception stacks. The
+secondary CPU consequently never completes startup.
 
-Therefore nothing uncharges the expanded VMA size, and there is a permanent
-leak in global Committed_AS.
+Initialize current in the secondary assembly handoff, as
+__mmap_switched already does for the boot CPU.
 
-Resolve the issue by uncharging when MREMAP_DONTUNMAP is not specified.
+With current set in assembly, the set_current() call in
+secondary_start_kernel() is redundant. Drop it together with the
+function and the task argument. The hotplug resuscitate path in
+arch_cpu_idle_dead() needs no hand-off either, as smp_ops.cpu_die()
+can only return if the CPU kept its register state, TPIDRURO included.
 
-Link: https://lore.kernel.org/20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org
-Fixes: fdbef6149135 ("mm/mremap: don't account pages in vma_to_resize()")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Dmitry Safonov <0x7f454c46@gmail.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: replaced vrm_uncharge() with a VM_ACCOUNT-guarded vm_unacct_memory(to_account >> PAGE_SHIFT) call in move_vma() ]
+Assisted-by: Claude:claude-fable-5
+
+Fixes: 50596b7559bf ("ARM: smp: Store current pointer in TPIDRURO register if available")
+Cc: stable@vger.kernel.org
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
+Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
+[ sashal: Adjusted context in arch_cpu_idle_dead() to accommodate the missing unreachable() call. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mremap.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ arch/arm/include/asm/smp.h   |  2 +-
+ arch/arm/kernel/head-nommu.S |  1 +
+ arch/arm/kernel/head.S       |  1 +
+ arch/arm/kernel/smp.c        | 15 ++-------------
+ 4 files changed, 5 insertions(+), 14 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 8b507e228a274..d4666f1ab5939 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -782,6 +782,21 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 		 */
- 		move_page_tables(new_vma, new_addr, vma, old_addr, moved_len,
- 				 true, false);
-+
-+		/*
-+		 * When the error path completes, the new VMA will be
-+		 * unmapped rather than the old one.
-+		 *
-+		 * When an accountable move is being performed, this unmapping
-+		 * will not uncharge any expansion, so do that now.
-+		 *
-+		 * A move is accountable if the VMA is accountable and
-+		 * MREMAP_DONTUNMAP is not specified, so only do so if the
-+		 * latter is true.
-+		 */
-+		if (vm_flags & VM_ACCOUNT && !(flags & MREMAP_DONTUNMAP))
-+			vm_unacct_memory(to_account >> PAGE_SHIFT);
-+
- 		vma = new_vma;
- 		old_len = new_len;
- 		old_addr = new_addr;
+diff --git a/arch/arm/include/asm/smp.h b/arch/arm/include/asm/smp.h
+index 7c1c90d9f5827..e46a380a4bbb4 100644
+--- a/arch/arm/include/asm/smp.h
++++ b/arch/arm/include/asm/smp.h
+@@ -43,7 +43,7 @@ extern void set_smp_ipi_range(int ipi_base, int nr_ipi);
+  * Called from platform specific assembly code, this is the
+  * secondary CPU entry point.
+  */
+-asmlinkage void secondary_start_kernel(struct task_struct *task);
++asmlinkage void secondary_start_kernel(void);
+ 
+ 
+ /*
+diff --git a/arch/arm/kernel/head-nommu.S b/arch/arm/kernel/head-nommu.S
+index 950bef83339f5..9fe76c8d1d476 100644
+--- a/arch/arm/kernel/head-nommu.S
++++ b/arch/arm/kernel/head-nommu.S
+@@ -117,6 +117,7 @@ ENTRY(secondary_startup)
+ 	ldr	r7, __secondary_data		@ reload r7
+ 	ldr	sp, [r7, #12]			@ set up the stack pointer
+ 	ldr	r0, [r7, #16]			@ set up task pointer
++	set_current r0, r1
+ 	mov	fp, #0
+ 	b	secondary_start_kernel
+ ENDPROC(secondary_startup)
+diff --git a/arch/arm/kernel/head.S b/arch/arm/kernel/head.S
+index 21930b9ac1c4c..85f3eab3eb393 100644
+--- a/arch/arm/kernel/head.S
++++ b/arch/arm/kernel/head.S
+@@ -442,6 +442,7 @@ ENTRY(__secondary_switched)
+ 	adr_l	r7, secondary_data + 12		@ get secondary_data.stack
+ 	ldr	sp, [r7]
+ 	ldr	r0, [r7, #4]			@ get secondary_data.task
++	set_current r0, r1
+ 	mov	fp, #0
+ 	b	secondary_start_kernel
+ ENDPROC(__secondary_switched)
+diff --git a/arch/arm/kernel/smp.c b/arch/arm/kernel/smp.c
+index 978db2d96b446..4b3cf4105a837 100644
+--- a/arch/arm/kernel/smp.c
++++ b/arch/arm/kernel/smp.c
+@@ -376,12 +376,9 @@ void arch_cpu_idle_dead(void)
+ 	 */
+ 	__asm__("mov	sp, %0\n"
+ 	"	mov	fp, #0\n"
+-	"	mov	r0, %1\n"
+ 	"	b	secondary_start_kernel"
+ 		:
+-		: "r" (task_stack_page(current) + THREAD_SIZE - 8),
+-		  "r" (current)
+-		: "r0");
++		: "r" (task_stack_page(current) + THREAD_SIZE - 8));
+ }
+ #endif /* CONFIG_HOTPLUG_CPU */
+ 
+@@ -400,23 +397,15 @@ static void smp_store_cpu_info(unsigned int cpuid)
+ 	check_cpu_icache_size(cpuid);
+ }
+ 
+-static void set_current(struct task_struct *cur)
+-{
+-	/* Set TPIDRURO */
+-	asm("mcr p15, 0, %0, c13, c0, 3" :: "r"(cur) : "memory");
+-}
+-
+ /*
+  * This is the secondary CPU boot entry.  We're using this CPUs
+  * idle thread stack, but a set of temporary page tables.
+  */
+-asmlinkage void secondary_start_kernel(struct task_struct *task)
++asmlinkage void secondary_start_kernel(void)
+ {
+ 	struct mm_struct *mm = &init_mm;
+ 	unsigned int cpu;
+ 
+-	set_current(task);
+-
+ 	secondary_biglittle_init();
+ 
+ 	/*
 -- 
 2.53.0
 
