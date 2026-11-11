@@ -1,54 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439608;
-	b=w+X1RvH2nidPy3KvYUNfpQWo4t+zHeJbd1NG2aBzHViPBnEX6NqFVoXfrPOY2RwZMm/g
-	 V0XwPuHalXDaHWpqsKW1cufxWsCnFbOL7MYP1+lT07vIae9tNExLlmUGZkDz2OjPuny/D
-	 6bzoxG8quocioOdEnE74CkpivL8D19x6JeUkfPGY2wduqLejlkq/v0yX4HMYoTvn2VPrR
-	 TJio++HeIZjMTBhTqa+3JkNzaGMMsCDtz67I6LhgVPReCXZ2S+lEK933FW7bCUe+AZA2O
-	 Ri8w6uAiBQfDVL9z2F5kd8KUv2pXO5GKyXJOtSSr7O21NMZSjhqceVUTH2Ku0icboGQ==
+	t=1794439650;
+	b=qAqEjGiCl15SxPPts56jrdvyRm3gMRgQZkBHPgks8p5h85vtynV/qKdCGpq3+t4C1QVC
+	 yeOus9cnpj6+K/kt1fpIRTzYce70DLP/Gk2Gkif7ahL/iDYCpRy87t780tnOPMwcO1ZyD
+	 K6VbbMXVlpONTf+nWvKzIn7/JUZzzKcY/BSfF7kdek9zpwJ7OJjKpnTmP1u561EcusFIK
+	 o8uBaS/FIufBu+3ir8tcG3/zRPv1BLBYeXXJV4uzFobaZQDxTe8QFeisoYTUlQIRHmDsn
+	 w2R5AZG5NikJYBa2j1F2bb1PzKEnoMBBOauXQc3HUWW/LlKR+EAjPmzCMkUKqjn8Rnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439608;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=U1Go9nJGbfGTucdmGG94RDyCyz/Xl64hJ2C69Ad2Aag=;
-	b=pjOna9QneYwKxgdB710TKML2GfR4lbS4zPg60z5yFXC739Eh+uUYs4pKgOVENew1xlPh
-	 ESa1426Fdgy0LDGqyZqcASX0uq51gz3DAY0/U/WrEe3SJEjyeQy4uxv2L36dQSR7FYh0q
-	 6ZhNMFCAai0Muc+71/BsHfu5Nn8TWatuLbo3kMDFTjDK37yoH+UgGJb+opSC4Mskukr2P
-	 hFfMEMpYl5cN+xk0QP0kw37HUl8c0DZoz/qUwjndp2cyIDX6bES8zEIJlHaWF4y+muG33
-	 GT6CXX+57OLF4M+eIm44QsaCxcfMaNNIUAZJ5YVLCYosmwJZbX7HxUbwNma2mczrlxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439650;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=2/46sAyBi+dGx8WzW+XB6NO5t0UJGePlj/Abcwp66/U=;
+	b=pw/gxjRWBwbf2ptg5NzdzF2MhokE6x8JeeBDNscQyoWQaDNpccLdHOMxtPbAD8d2V+OE
+	 DT2reJTySCpSurfL98J6AP0XcJXd2N8y6ZBXYnOKTuTeeIRrMCFixclgT71s39b1XAgEM
+	 tlaGl4WqTQv/TGfbOW3D7CwORBndoqPajLBGY+BX1FYbDU7gi75AdZOUJPCTXtx8QR0c1
+	 aA6e5k+IJM0q7nRqowyMkZVy/6iNYshoQtJd9FTBH35xtKWMbX3ZmyCR1xUPAes5B57yF
+	 z5Ga/ShCSUVFgst2FiVml191tFH5t8Jox7qXQqD/nS42uLU/fv4JRx9X9yE7l8JnX+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=H2OoK787;
-	arc=none smtp.remote-ip=91.218.175.1
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3EBef+4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A74C60A2633
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:26:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A74C60A2633
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1322860A5BDE
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:27:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=H2OoK787
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1Tgc5aGENKoDFgK3qnx6o5GIsN/BgWLTJWU9rerjYc8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794439604; v=1; x=1795044404;
- b=H2OoK787rAwaaBJrJ8I0ZJj20RiTkWqSW05o2UUZBtr3ne4Qw4fn8GdliKKIQ1/mOxjnEmgF
- 5ZS91Rgp3rzHgdtwqS7v2lllrzl8xcktQ71vPN0tDqfh5F38ObO2NyTTb3/lE3pbgfAqQgr15g9
- qBm9Rq8gmERgCYafqqR14U7c=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2d26b6111cf784ab;
-	Wed, 11 Nov 2026 23:26:44 +0000
-X-Mizu-Trace-ID: 2d26b6111cf784ab
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5586b128-4402-4fb4-a535-f3766d807042@linux.dev>
-Date: Wed, 11 Nov 2026 23:26:38 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3EBef+4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41AB11F00AC9;
+	Wed, 11 Nov 2026 23:27:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794439649;
+	bh=2/46sAyBi+dGx8WzW+XB6NO5t0UJGePlj/Abcwp66/U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g3EBef+4Vor0BKPZFKRrCcAGVL+AU/xkls3oZDYZYOoHttgGLQKgbhsfrpPUkwniP
+	 UEFiMEobn0aw6aMBjTZxbCMDv9CSWx/yYwvzN6ku0Iu0BdoB8LszV3M0Pv7Oy4LZZT
+	 xP/D7wm+GM6KsCp1Thci/BKljz/dmyHQO2ee7paeh8cjLMPC8dhtBuDZC079ihP+ac
+	 oo5VQi8q0xppADrsmmL3GzLP3Y5EZ3pr2ED+pNQ3yVU34ss3MCxKw/gHjkTFC92fQn
+	 iNXl/9b2OP/Su+mbY78WYHmo1YwzE+rcCzma1jNofjXDUTRyYTH6JxrlyyLihvbN7U
+	 sXLrUrJy/NF9A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: guolingxing <guolingxing@tju.edu.cn>,
+	Qu Wenruo <wqu@suse.com>,
+	David Sterba <dsterba@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] btrfs: prevent deleting the wrong subvolume by ID
+Date: Wed, 11 Nov 2026 18:27:27 -0500
+Message-ID: <20261111232700.42050-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202042-failed-5.15-1960146913b3@kernel.org>
+References: <20261109202042-failed-5.15-1960146913b3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,141 +60,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/13] mm: cachestat: count each page only once
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>,
- =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>,
- Chris Mason <mason@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>,
- Mark Brown <broonie@kernel.org>,
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-2-3d2454362e8d@kernel.org>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-2-3d2454362e8d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: guolingxing <guolingxing@tju.edu.cn>
 
+[ Upstream commit 1960146913b31b288ed2cd607d103ee3b41681d4 ]
 
-On 11/11/2026 18:13, Lorenzo Stoakes (ARM) wrote:
-> From: Chris Mason <mason@kernel.org>
-> 
-> It turns out that filemap_cachestat() can unwittingly return incorrect
-> page counts, if large folios are present.
-> 
-> This can occur due to underflow - nr_cache is nearly 2^64 on a 64-bit
-> kernel if the input range starts more than 64 pages into a folio that is
-> split during the call.
-> 
-> It can also occur due to pages after a large folio being skipped if the
-> range starts in its second or later XArray slot and the call reschedules at
-> that folio.
-> 
-> Finally it can be caused by pages being counted twice due to folios in the
-> range being split or collapsed during the call.
-> 
-> filemap_cachestat() walks the page cache under the RCU read lock only,
-> and for each entry it counts the pages that lie in the range. It does
-> not track how far it has counted, so the counts are only right if the
-> walk returns each index once.
-> 
-> But a large folio can be split during the walk, or small folios can be
-> collapsed into a large one, and the next entries then cover indices that
-> were already counted.
-> 
-> Resolve the issue by tracking the current index as one past the last index
-> in the folio, and explicitly using xas_set() to set the current position in
-> the XArray.
-> 
-> Additionally, add a check for folio_last_index reaching or exceeding
-> last_index and break out of the loop if so.
-> 
-> Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ ljs: updated to use curr_index, fixed comments, updated commit message ]
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
+When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
+resolves the requested ID to a name, then looks up that name again
+under the parent directory lock.
 
+A concurrent rename can change which subvolume is associated with
+the name between these operations. Since the deletion path does not
+verify the ID of the resolved subvolume, it can delete a different
+subvolume while leaving the requested one intact.
 
-First time I have looked at cachestat, but it makes sense. Tracking curr_index
-makes cachestat skip already counted entries, preventing duplicate counts 
-during folio splits or collapses.
+This was reproduced by repeatedly exchanging the names of two
+subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
+them by ID. The wrong subvolume was deleted in 9 out of 14 independent
+tests.
 
-Acked-by: Usama Arif <usama.arif@linux.dev>
+Fix this by checking that the resolved subvolume ID matches the
+requested ID while holding the parent directory lock. Return -EAGAIN
+on a mismatch so that userspace can retry the operation instead of
+being told that the requested subvolume does not exist.
 
+Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
+CC: stable@vger.kernel.org
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+Signed-off-by: David Sterba <dsterba@suse.com>
+[ sashal: Adapted error handling to use err instead of ret and out_dput instead of out_end_removing. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/btrfs/ioctl.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
->  mm/filemap.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index b04be64a5069..7c05e4fad081 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -4638,6 +4638,7 @@ static void filemap_cachestat(struct address_space *mapping,
->  {
->  	XA_STATE(xas, &mapping->i_pages, first_index);
->  	struct folio *folio;
-> +	pgoff_t curr_index = first_index;
->  
->  	/* Flush stats (and potentially sleep) outside the RCU read section. */
->  	mem_cgroup_flush_stats_ratelimited(NULL);
-> @@ -4667,13 +4668,19 @@ static void filemap_cachestat(struct address_space *mapping,
->  		folio_first_index = round_down(xas.xa_index, 1 << order);
->  		folio_last_index = folio_first_index + nr_pages - 1;
->  
-> +		/* Skip already counted entries, e.g. after a split/collapse. */
-> +		if (folio_last_index < curr_index)
-> +			goto resched;
-> +
->  		/* Folios might straddle the range boundaries, only count covered pages */
-> -		if (folio_first_index < first_index)
-> -			nr_pages -= first_index - folio_first_index;
-> +		if (folio_first_index < curr_index)
-> +			nr_pages -= curr_index - folio_first_index;
->  
->  		if (folio_last_index > last_index)
->  			nr_pages -= folio_last_index - last_index;
->  
-> +		curr_index = folio_last_index + 1;
-> +
->  		if (xa_is_value(folio)) {
->  			/* page is evicted */
->  			void *shadow = (void *)folio;
-> @@ -4721,8 +4728,11 @@ static void filemap_cachestat(struct address_space *mapping,
->  			cs->nr_writeback += nr_pages;
->  
->  resched:
-> +		if (folio_last_index >= last_index)
-> +			break;
-> +
->  		if (need_resched()) {
-> -			xas_pause(&xas);
-> +			xas_set(&xas, curr_index);
->  			cond_resched_rcu();
->  		}
->  	}
-> 
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index d56d6144707bb..a20abb2f5437e 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -3070,6 +3070,17 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
+ 
+ 	inode = d_inode(dentry);
+ 	dest = BTRFS_I(inode)->root;
++
++	/*
++	 * A concurrent rename may have changed which subvolume the name
++	 * refers to. Verify that the resolved ID still matches the requested ID.
++	 */
++	if (destroy_v2 && (vol_args2->flags & BTRFS_SUBVOL_SPEC_BY_ID) &&
++	    btrfs_root_id(dest) != vol_args2->subvolid) {
++		err = -EAGAIN;
++		goto out_dput;
++	}
++
+ 	if (!capable(CAP_SYS_ADMIN)) {
+ 		/*
+ 		 * Regular user.  Only allow this with a special mount
+-- 
+2.53.0
 
