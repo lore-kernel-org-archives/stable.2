@@ -1,92 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.164
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794397168;
-	b=dVM+9WxoVB2AabTDbEMFgez/rhXJSnregG1T2XGDZe90qtZ7ykJYCrRzzQ+aVWoOoqSV
-	 OeUBG/uWHF087mq3iSyOyTlAtZrzMrY92/cxJtc4N/vRWdSf6HIHctOO0xcTMXK1gQm+F
-	 Po08dDV5NIJXUSREAv3aW0PNCYQeQ8IyDTodp4Mvs93yj7g44IxBo4l7CL/Cp5Md/ol8q
-	 nef6o6c7YcTuRDT/z3eFkrauJy3RSRa17iLMA45s9akf/kNikMID5SQ8v1AsQJQ/VICZx
-	 QxjGR9PL5gZvCTxn/ISHOyAxlxW+DMLRbZgrf1eT5qvpb1SB/zD6d6G5H3k2YsMJwqA==
+	t=1794397785;
+	b=kxrEoUn47ABaq+0vTTuBkO/t93KVgUSoI7oVnBU3GwqPde0RQPRve9mhY8Fm1VKsJ5X5
+	 CAxI8A+EZ1UexLSCXNfH3u0+k53zIDxJtYkdGMQr3kjdW6eT02urgltsKmNkdhUj78eVT
+	 pOCCTWK7CeRB6dI4bFW9OP7mn/049KYLkFHqEk9YkV13Nb3HEoIAl+GdbuJL1N3vcJQL1
+	 2AdPJGKv0qZd1pA+uDxwHShJGAcaWe4hgbawYYblvrJrh9RgprOJ7AkA+AOyTM/5ahaMS
+	 WiNCoXzBnJ09htiokYGiYmmfWV9MhdcoV6h61U52mUZlEcd2bxZgT9UYeCk4CnKq30Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794397168;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397785;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ss6GPqajhnLoAGvpkwWgAL30Fbn2tVqWEm0t1Mamd/I=;
-	b=0Nyoxa4/69ADqNVyE9IqD1XFRut/m3J3hjTWDn/JTpuQO2a/0p0pfZUfbtGaw60+fzmc
-	 rU+LznLt+xkKhv3zxlG2Lc+TCufw0U6lR8k8Qtms8U/U+VRKcpNQMo/h6c1qcc9dVPwNn
-	 imKm6NL4lDvxo1ifRkZFwObmFRab5Oyu55HHcQI71ZmNKFRNccPuiUhxkfKN/iHlDXtgC
-	 NJ3M342gzAIBAXxHbPmBXkQcOYGGRQuDksIXT29lksQYjlm0nRMEKgXARb5aX8DBzW/Q8
-	 zbvOUZdmtlEiSlt93NxEqL5S9VpPxJlN73HTKPaw5o41p3Yvp6VFnCH3jPW/+LJPEIw==
+	bh=jO0VjvUkoXke5VYihliU8dcf5tAfDK0cqhQxSUbr4I4=;
+	b=QUhcJAw32nYjen2e92x0bmOF/77iEzgKQ8Ak94DvBSf9OewBP8cv+5GZkWcsJonYrffu
+	 k6ml5036zIYsEVnbX7q8J+RWem0fpPU+fx+N5xxdPofb58vfpMsaweh/vDyDDRaqIwghq
+	 xKYw/zlDwVOI1M5nMZj1zMpcQUconMf1VM75JTHrhfloYPA2oFL6iqWHFvwTLZEkI0Aje
+	 uIespbr8bARLLr+27ZNzNxJHZT9+y8RKH/5mUTLgXvot6rKfUDv/KrH2v0RKpCEG4NWUg
+	 FLymSRyzGB3Efz3BoScFvDXy9PLpfpxMkS/n39dcXGc57VNQwV7WA6izyxBXA2rNygQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Sf78Xrbp;
-	arc=none smtp.remote-ip=91.218.175.164
-Received: from mta0.migadu.com (out-164.mta0.migadu.com [91.218.175.164])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CI5THnCx;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160A3606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:39:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 160A3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCBD606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FCBD606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Sf78Xrbp
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PxRmG2FWyo+pFqNDGwdneDF6Wr5yBgEA/EARM77L5Wg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794397166; v=1; x=1795001966;
- b=Sf78Xrbp+f+5PKpxe7Ig6SQ4TcsOwLLAsyIdP40wNiOzEzVSNPydukdMZGO179ZiOnf/Rfh4
- DtJS+Dd7lpDal/tlu9SVoef5UOnD/OQuLWJrc94uoK/R2sMMmjAbs3wJxTTr/F5au7Vz6yITkFO
- u34Y9hrqTzbPeY0W+NjXyRmI=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 997e08426fbd59bb;
-	Wed, 11 Nov 2026 11:39:25 +0000
-X-Mizu-Trace-ID: 997e08426fbd59bb
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	apopple@nvidia.com,
-	byungchul@sk.com,
-	david@kernel.org,
-	gourry@gourry.net,
-	jannh@google.com,
-	joshua.hahnjy@gmail.com,
-	liam@infradead.org,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CI5THnCx
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso2725286f8f.2
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:49:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794397784; x=1795002584; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jO0VjvUkoXke5VYihliU8dcf5tAfDK0cqhQxSUbr4I4=;
+        b=CI5THnCx9XHPclhLPwF+qhxFNve7iO55qXN6ZeydaXGA7rrp4RHQPgx0ZTCGaL22CU
+         dTjyYelltz9wk6HtVEIsn0OA2ruDBC+XDnxoyg6vRxET9ZH8ILgBrGyWrguecPkxKzvD
+         bL9JlXWROMq4CDaKThyGwLsg98zk2F4HwpNvFXyhpFp3tAWBX7mPogFw3ubbn2YP8qyI
+         kaQaMrU9ztB55Zt01SyeeF0qi7IteQgWldgKVTV1l7aZ5+dKVGsWtDRxSNBMccgf6C6L
+         LOcmjz//kyFCQtn/RrO9BJbeLVYTPofalS02+CFzdRgbwCPRsbKk4yBw7WfdOHG0E3Ps
+         crkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794397784; x=1795002584;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jO0VjvUkoXke5VYihliU8dcf5tAfDK0cqhQxSUbr4I4=;
+        b=b8sXOJY+SrNP0fC3VErp70VW/onChhw8qjTkkTKQ06jZFn5NiBJvYFyKWtuYqRGfl4
+         PvxzqH2e959EQYC58XaJigpY1WgGbmTBlVl9cefEy9+o/qOQ/4CbXFaKZrcgFKpzN163
+         A/L9A6lj8uS7mnu4e69mdvTGWR41gFb0VIqW4gL5TgJEPqXTZfkIDmikq+c5yfjPQfr3
+         oSDTp3jmVMSA6l2OQAOV0U+6TvdJWjh1xE5+AONq93bVwMLH3GfJRPWooaGAOSqIJYk5
+         I6LC4Ukx4LFwjym7cmEFwS2OVw8/hyQXkBGjA+YwAh9prp8j/U05zCMB4abLfQuPopRl
+         FOcA==
+X-Forwarded-Encrypted: i=1; AL+hErG1zZO8I/kaq0aMUeKU0rX0Aj4Bo5D7I1x3/PWErCDAOCK+TkNhHQnb5esr9U2ugLgWm3Nwc7w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Rockh+rOpnhg6wMHY1RXYvwbwhS76sv66Ub5l+Urb7daUqRM0
+	oe4sIUFJx1w56Dw5BBV8gku80QRpuizhzfM1DVAOPtSBqA5l58ri0mo=
+X-Gm-Gg: AYBFou3+6VUhpwVdQlFmQNOsa07U7xTACIjCKOitWP3I9XTh1ifO+FL+GiwltjK1Jsy
+	6RyzZRbnyaweEtSNx8+b73pAoAjkHmPVQXwMjTWMlQv86A9nNkIir0LyF6oFoOPennzLi4hdlPb
+	IHfMg29swGPy7a4SkqkDYHMBkRLbN3iNXQc3Q3s85wszSbxEMsUX87JycgZ24rh5cf6YP3BV5kU
+	XWoSYwbj/sFvb+G2uY/icdCM5O4MVF/vLsiWeIV+DEeQl96ac/UudX5SKoWXc/1EeIUwpYb2Uh0
+	NFuQ5wJW99G/KGZDZxoNDyBBpMVfWCt/+5yHCB0Br+683u1GJC9a90rylo0BFHX3oXJwyjx1RoV
+	BP2sOPQpsYYsHhWg7G3DEPmthc9kCj6PcgZ0o/C12Dps5xh2P7zeZrGkZ9dKB5mTsV3cyQwQJk7
+	5gnK0PDjbnN6EzxPrcC792gg8qa5XBd388LuSoXMCfYYP7dzHW4hjVulnI8DWS+emFqiOJjGXbt
+	tJlXPykmb0WU9aLbVks7JWUqBzalw/8J7nktrS3lwzzqD5uFs/Ch0iAP5dBfFRmfqjQN1t4h5zJ
+	LzybOSEdtEEBpvfO8r8TnxgTAA09hYwro/7F
+X-Received: by 2002:a05:6000:387:b0:490:6e0f:a02e with SMTP id ffacd0b85a97d-499c69cae59mr3687287f8f.17.1794397783745;
+        Wed, 11 Nov 2026 03:49:43 -0800 (PST)
+Received: from localhost.localdomain ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4982eedfb36sm10789106f8f.0.2026.11.11.03.49.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 03:49:43 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Oder Chiou <oder_chiou@realtek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	matthew.brost@intel.com,
-	mhocko@suse.com,
-	pfalcato@suse.de,
-	rppt@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	ying.huang@linux.alibaba.com,
-	ziy@nvidia.com,
-	kas@kernel.org,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	kernel-team@meta.com,
-	baolin.wang@linux.alibaba.com,
-	Nico Pache <nico.pache@linux.dev>,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev
-Cc: Usama Arif <usama.arif@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] fs/proc/task_mmu: account device-private PMDs as present in smaps
-Date: Wed, 11 Nov 2026 03:38:31 -0800
-Message-ID: <20261111113904.650722-4-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111113904.650722-1-usama.arif@linux.dev>
-References: <20261111113904.650722-1-usama.arif@linux.dev>
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] ASoC: rt5668: initialize calibrate_mutex before first use
+Date: Wed, 11 Nov 2026 11:49:19 +0000
+Message-ID: <20261111114919.95639-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,38 +102,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Device-private PMDs represent mapped pages, but smaps_pmd_entry()
-passes present=false to smaps_account(). That treats them like migration
-entries: mapcounts are ignored, PSS is charged in full, and exclusive
-mappings are accounted as shared.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Match smaps_pte_entry() and mark device-private PMDs as present so
-smaps_account() uses mapcounts for PSS and private/shared accounting.
+rt5668_calibrate() is called during i2c_probe() and takes
+calibrate_mutex. However, mutex_init() for that mutex is not called
+until later in the probe sequence, after the INIT_DELAYED_WORK calls.
+This means the first calibration locks an uninitialized mutex.
 
-Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+While this works by accident because devm_kzalloc zeroes the struct
+memory, it is incorrect and triggers warnings with
+CONFIG_DEBUG_MUTEXES=y.
+
+Move the mutex_init() call to before rt5668_calibrate() so the mutex
+is properly initialized before its first use.
+
+Fixes: d59fb2856223 ("ASoC: rt5668: add rt5668B codec driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- fs/proc/task_mmu.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/codecs/rt5668.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index c0d391186c2b8..ad97532fc1184 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -1032,8 +1032,11 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
- 	} else if (unlikely(thp_migration_supported())) {
- 		const softleaf_t entry = softleaf_from_pmd(*pmd);
+diff --git a/sound/soc/codecs/rt5668.c b/sound/soc/codecs/rt5668.c
+index cd6245d6b91af..6748bcc63ac39 100644
+--- a/sound/soc/codecs/rt5668.c
++++ b/sound/soc/codecs/rt5668.c
+@@ -2490,6 +2490,8 @@ static int rt5668_i2c_probe(struct i2c_client *i2c)
  
--		if (softleaf_has_pfn(entry))
-+		if (softleaf_has_pfn(entry)) {
-+			if (softleaf_is_device_private(entry))
-+				present = true;
- 			page = softleaf_to_page(entry);
-+		}
- 	}
- 	if (IS_ERR_OR_NULL(page))
- 		return;
+ 	rt5668_reset(rt5668->regmap);
+ 
++	mutex_init(&rt5668->calibrate_mutex);
++
+ 	rt5668_calibrate(rt5668);
+ 
+ 	regmap_write(rt5668->regmap, RT5668_DEPOP_1, 0x0000);
+@@ -2547,8 +2549,6 @@ static int rt5668_i2c_probe(struct i2c_client *i2c)
+ 	INIT_DELAYED_WORK(&rt5668->jd_check_work,
+ 				rt5668_jd_check_handler);
+ 
+-	mutex_init(&rt5668->calibrate_mutex);
+-
+ 	if (i2c->irq) {
+ 		ret = devm_request_threaded_irq(&i2c->dev, i2c->irq, NULL,
+ 			rt5668_irq, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING
 -- 
-2.53.0-Meta
+2.47.3
 
