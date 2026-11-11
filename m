@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416281;
-	b=aOUrdO7Gu1ARJL6jB0cFFfaGNVAFFSy2lleaeZy8PaOPMVqj2YW5qreXaA4mtNNJGCiC
-	 +Wyb5jIKPsmxt12CCzYEgyF3BiEyxsK7iDnR0iExEg/v9RsAYmIooj2hKzcfD77QKqoVF
-	 TxFwKwYCBdr1ni8SciZzmUdP3ZPQnjNcOBwGp+YzEnReEno1hO6HYpuoSFYL2eyHky5T6
-	 Xxcfr1XjUf0XhfkS0yipwiLkMPkudYxd5AzAoqw0afi0IzOJGhFlXRhEEWVC7cxjgbnCm
-	 0idqTzIweiCo9pB/o1jVBfAjoxV2gffu08X68j68sO0OTsn1b8FyRkCsJW2aVGUnwgw==
+	t=1794416298;
+	b=TaZcFbZ6gTx35kY8b4MpBaNXI0ezFWw0Fmf+kfDBGOaXvq9BqsqvltlY4VyJ6sc7awRn
+	 UuImG0iTxwe7JD66fk91/IOkFZ+TTWi0R4/cpmCk4z2GH8PSzZRZfWx/ZTUe9S6LFGvao
+	 83Sq+Bt9GLWYqZnfSrS9Ba7lH39OhyoG1JwHjM1mTEe34wmP/MAZPILQUZXBVIkPAKSxs
+	 oDjuxtABjRqLk+hiraEwgvVkipAL0ddvehBZT7a0XPYiWin+GRYkxLx6FCAWIQ0UwTdKP
+	 US4oseem66wXsMO81WVkd9TOfNX/kIvMRENPGrTYeD6anhaeatECVqmJK9C//syZinw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416281;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aLMI+bwke2/rRwGLJ0LNs2GaDspb0ENLvzSkAdUbmm4=;
-	b=DKzCgMwWRjKlRQzKe20XXFIvuoiO6KHPt/MFuaixT6YnFyPeyu/OrQVx0ZrqtNQKAmIW
-	 1NHw9ZTrVg4SLDitkTuXBCscs9u1E/fX/kV0epFCGCpP0MK29qV8aT5dm5TVtGUA5ueQB
-	 vKkdT/th/nn+DIapYCz9Ub8clsC9zyXnnZK3aNEALLDXPkixABL7sD2sF1y6NLNp0EoSB
-	 3KH0hwRwyZ07XkFYU73I73mhEWfuiOyMW78xMG4/BY8ZFDHzVbHowY9T+Z5cUTqUSODYT
-	 sltvmei1bxIPbl2RV9yglm13+99hcTwE93hBUQ4pkk4BF6+haO/3FqDVicpFmKnazHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416298;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vvWX93MsVl5BkD00p1pCQUQtW9EPlb72dAVwC8h839Y=;
+	b=orrt16INDEPVxkS8wYOvTRvo3dMMM2tOiQfC2IzPKbrCF0pluxIgNaGwW5+CczCNFHdk
+	 yAZRBGUr29Vswbu1QWncIBY6CjWMC1eDnXkPsPrqxIIQMnYGhtbnrJ4/zsHzZ0msAdakg
+	 X6wlvChH0Yw0lw8XqW1xefMKjiFE5DcA17b05VtUyoiOQvmg/n9N8HUUn9JOwGhwMGRlU
+	 991godSmqaHUN+crfiSkDML9rJcPXQGmoqp+napW0050MtwwptCfETAsyQGH5LqOExfPK
+	 umuMbSxJ+3zl8jtyIHxxDHTQoPzSDmTWXHovNQSd8dX8pGq40ys560or+yqPFlhqenA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MboI9S7j;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=edhSwXa+;
+	arc=none smtp.remote-ip=95.215.58.151
+Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E9B606A330
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:58:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE458606A331
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:58:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE458606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MboI9S7j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670531F00A06;
-	Wed, 11 Nov 2026 16:58:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416280;
-	bh=aLMI+bwke2/rRwGLJ0LNs2GaDspb0ENLvzSkAdUbmm4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MboI9S7jfRekkuG0jdfVRwT1CZKbuHixBUzjffmvMD/QkA6JKBcVHso9CrHFKZnea
-	 pLu9QXWjn4CMHmPqMSjDjHj8t0TY/6TC3RY+NTTG5KpNkIQnD+b36JXPTIPTS4VUdA
-	 AClE7FbKIsk+/bqGNFBAGaq7ei52PbhLsIEYs0wzp6O45k7GqzqXbSX+iGR5QMfMvn
-	 NH7BangEl+shiYbmwzm6MEGKpOuZgmm7CczP0WqCAIimYth5D0vN7jSf2SQZauZF+9
-	 4I6aGj0QrjJtH2J6Hs2aVdI7BJcRxoLtSLptVVBDBu6DycQF53mfZl3BsIZmCJlSBU
-	 ojwllxETqzN0w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Hung-Jui Lin <alex.lin.programmer@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] posix-timers: Report zero remaining time for disarmed SIGEV_NONE timers
-Date: Wed, 11 Nov 2026 11:57:59 -0500
-Message-ID: <20261111165732.3393965-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062900-failed-5.10-141a27750ec3@kernel.org>
-References: <20261107062900-failed-5.10-141a27750ec3@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=edhSwXa+
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=S5159V/Pr/U9wfU6GuHiJLwFjQaFGKXwt7ZwLcTa2AI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794416295; v=1; x=1795021095;
+ b=edhSwXa+F3Q76Fb8vb7NffcGd7UuLFy5S57mQsf3WSUMV8EaInW97ZnCqouTtXynvlk+z0+3
+ BfjWRWV00ihD5cl4JNkf9yuMaoM0LZ4F7cPFFI+kHby9Cg9wPrwVkhzjTkDYZnEwi75MPoUKr7M
+ UWeCbf/DTviGqSa/asu61S+Y=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5984f67eb3c1846a;
+	Wed, 11 Nov 2026 16:58:12 +0000
+X-Mizu-Trace-ID: 5984f67eb3c1846a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <784dadf6-41c9-4c91-b341-4d4179d7a8b8@linux.dev>
+Date: Wed, 11 Nov 2026 22:28:05 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,91 +58,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/pm: use the VBIOS trained UCLK levels on the
+ MacBookPro16, 1
+To: Alex Deucher <alexdeucher@gmail.com>, James Skillen <jahs@jahs.net>
+Cc: Andre Eikmeyer <dev@deq.rocks>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Kenneth Feng
+ <kenneth.feng@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261024162109.307247-1-dev@deq.rocks>
+ <20261102232450.61301-1-jahs@jahs.net>
+ <CADnq5_P5Ly4Pb8WqPaN28yDHG8jSjoEHAfDKAqSgTrSj14Pr1Q@mail.gmail.com>
+Content-Language: en-US
+From: Aditya Garg <aditya.garg@linux.dev>
+In-Reply-To: <CADnq5_P5Ly4Pb8WqPaN28yDHG8jSjoEHAfDKAqSgTrSj14Pr1Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Hung-Jui Lin <alex.lin.programmer@gmail.com>
 
-[ Upstream commit 141a27750ec3d91ad9d1ad1764ebb5e51b963478 ]
 
-SIGEV_NONE timers are never queued. common_timer_get() emulates their
-expiry by computing the remaining time from the stored expiry value.
-Because an armed SIGEV_NONE oneshot timer is not queued, its it_status
-stays POSIX_TIMER_DISARMED. So common_timer_get() cannot use it_status to
-skip a disarmed SIGEV_NONE timer and evaluates the stored expiry value for
-all SIGEV_NONE timers.
+On 03/11/26 20:05, Alex Deucher wrote:
+> On Tue, Nov 3, 2026 at 3:21 AM James Skillen <jahs@jahs.net> wrote:
+>>
+>> On Sat, 24 Oct 2026 18:21:09 +0200, Andre Eikmeyer wrote:
+>>> The Radeon Pro 5300M and 5500M of the MacBookPro16,1 (Navi 14 boards
+>>> 1002:7340/106b:0210 and 1002:7340/106b:020f) stop answering SMU messages
+>>> as soon as UCLK switches into its third level.
+>>
+>> This is the hang reported in drm/amd issue 6005, which has the
+>> umc_info analysis and test results from both boards:
+>>
+>>   https://gitlab.freedesktop.org/drm/amd/-/work_items/6005
+>>
+>> Could v2 carry a Closes: tag for it?
+>>
+>> I tested the patch on a MacBookPro16,1 with the Pro 5300M (1002:7340
+>> rev 0x43, 106b:0210, VBIOS 113-D32207P1-019), on linux-t2 7.2.11 (Arch
+>> v7.2.11-arch1 plus the t2linux patches) with this patch on top. The
+>> userspace pp_table upload from the issue was disabled for these boots,
+>> so the corrected levels came from the patch alone.
+> 
+> Can you try this patch instead:
+> https://patchwork.freedesktop.org/patch/765668/?series=174386&rev=2
+> 
+> Alex
 
-Disarming a timer with timer_settime() and a zero it_value cancels the
-timer and sets it_status to POSIX_TIMER_DISARMED, but leaves the expiry
-value unchanged. As a consequence, timer_gettime() on a disarmed SIGEV_NONE
-timer reports the remaining time of the previous arming until that time has
-passed, instead of zero as POSIX requires for a disarmed timer. Example
-with a CLOCK_MONOTONIC timer armed with it_value = 10ms and it_interval =
-100ms, then disarmed with an all-zero itimerspec:
 
-  armed:    it_value = 0.009999000  it_interval = 0.100000000
-  disarmed: it_value = 0.008700792  it_interval = 0.000000000
+The patch is the above link is a vibe coded mess that sometimes works, sometimes won't with appropriate discussion done by the author himself. The once sent by Andre in this series is clean, simple and logical.
 
-SIGEV_SIGNAL timers and SIGEV_NONE CPU timers report zero in the same
-situation. All clocks which use common_timer_get() are affected, including
-the alarm timer clocks.
+Reviewed-by: Aditya Garg <aditya.garg@linux.dev>
+Tested-by: Aditya Garg <aditya.garg@linux.dev> # MacBookPro16,1 with AMD Radeon Pro 5300M
 
-Mark SIGEV_NONE timers as POSIX_TIMER_ARMED when they are armed, so that
-common_timer_get() returns early for every disarmed timer. Forward
-SIGEV_NONE interval timers in common_timer_get() regardless of it_status,
-as they are never queued and therefore never forwarded by the expiry code.
-
-After the change the disarmed timer above reports zero. Armed SIGEV_NONE
-oneshot and interval timers on CLOCK_MONOTONIC, CLOCK_REALTIME,
-CLOCK_BOOTTIME and CLOCK_BOOTTIME_ALARM still report their remaining time,
-and the posix_timers selftest passes.
-
-Fixes: becf8b5d00f4 ("[PATCH] hrtimer: convert posix timers completely")
-Signed-off-by: Hung-Jui Lin <alex.lin.programmer@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261023151411.28685-1-alex.lin.programmer@gmail.com
-[ sashal: adapted it_status state handling to the it_active boolean flag ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/time/posix-timers.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
-
-diff --git a/kernel/time/posix-timers.c b/kernel/time/posix-timers.c
-index 3a68c650ff2a3..2f1cefa2499a8 100644
---- a/kernel/time/posix-timers.c
-+++ b/kernel/time/posix-timers.c
-@@ -686,12 +686,8 @@ void common_timer_get(struct k_itimer *timr, struct itimerspec64 *cur_setting)
- 	if (iv) {
- 		cur_setting->it_interval = ktime_to_timespec64(iv);
- 	} else if (!timr->it_active) {
--		/*
--		 * SIGEV_NONE oneshot timers are never queued. Check them
--		 * below.
--		 */
--		if (!sig_none)
--			return;
-+		/* Nothing to update for a disarmed timer */
-+		return;
- 	}
- 
- 	now = kc->clock_get_ktime(timr->it_clock);
-@@ -901,7 +897,15 @@ int common_timer_set(struct k_itimer *timr, int flags,
- 	sigev_none = timr->it_sigev_notify == SIGEV_NONE;
- 
- 	kc->timer_arm(timr, expires, flags & TIMER_ABSTIME, sigev_none);
--	timr->it_active = !sigev_none;
-+	/*
-+	 * SIGEV_NONE timers are not queued, but mark them armed
-+	 * so that common_timer_get() can tell them apart from
-+	 * disarmed timers. An expired SIGEV_NONE timer stays
-+	 * armed, which is harmless: common_timer_get() reports
-+	 * zero remaining time for it and it never reaches the
-+	 * signal delivery code.
-+	 */
-+	timr->it_active = 1;
- 	return 0;
- }
- 
--- 
-2.53.0
-
+Support for more models as claimed by the vibe coded patch should be done after appropriate feedback from the users in another series. Unfortunately after every few kernel versions the most number of regressions we face are from AMD GPU drivers and untested patches are the cause everytime.
