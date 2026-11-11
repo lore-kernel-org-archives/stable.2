@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794367443;
-	b=ciPAUsaKJyOg5P3NKdYfQAfzTrQ56PdNPzskGexEosMgqYonMc/QEgDjs3kPxMjEPz38
-	 u8wzaJszipFpvvQg7ScbQOJmJpACZ2FpqFqSiDsp88nj69pgFAD71s9IFr5P34ej5yAwR
-	 zwI3lybAiSw0tEZZeKOVxwR25ob5w7NVAl155ykS7VYrxdZ+pMVlKwQaoaAvpW3eemhsc
-	 Se75gO/VkZAhWVzSEpA95SKMG10uQZvoAPx1meH/Aw5kWncidoVReZkDLI6Is4SetFoSF
-	 5yDNcF661Qh7Wh1BCYYd3CNfj+oDWDrbiSGGX09knTrr++Ko3nt7bcsrK5Jl2hSdFZQ==
+	t=1794367447;
+	b=dyAeih3pJHv+J+cJoJfhgM1ksZ+SvEa0fY2UEUrGEFvUMCusfwwybrkcz3YqFUmVnLU1
+	 NS+/nTdYAq6Sx1mcKj2C+TwQkFcikzMTpQ/5V0MLkyT9hBgVTm3wE5pAlyleQM7YTblAc
+	 wPhc07gm//5IiXVKIOV0qMMCf36fGe5Pd/zJgwmLRWQPxh5qjNzSwMpUDhSTE5fhfuNgc
+	 skmdEWsm1Vgg/dEcCExRZmU1xaBRAdXVjNM7peD6LoVeag1hlU0BgSrFOgD+R3L9/ydWt
+	 f7szX7GTDNIXibTq1Mzor5EOW4k9Uy9R108fXSs+O/EGlKW2Hx0HIOo4G/dY3r6o2+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794367443;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0P2VV1oALOP/3gmFL87eTvjlTzFKQUaWGHBRZ3suqaQ=;
-	b=TKj9omMNPo8H3HgfKYRhtXhw1hAsitWI6jUa0JqfCgvqUqesVBCTu8Rk2giWwPJ85zot
-	 kJtZx02Nk7fA/hRpg9XcW4+G6Z/quikzSQsRsdGe9XSFubDcUWjwCyCKb/WHmKRVn0q2v
-	 mMLIwygkwWR4azehG1fz8yp8paiVNM1rlYPTmsUN2pQp2/87NrpnJOI/MK8OfBQ/cddRZ
-	 FGqgy3uXsLIJk9KIcMfc9dQxRJmVSw689u5rtB8z5i+5Gk3NREdf4tEgVnlM/vlc8ohJA
-	 Lyw/WZdj93fObdZN9FK9iy/dc0S/yrpx+/vs1dnvMXiHGx8S5AvH/KQxTY735+R9grQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367447;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=YGE5KBSGrApG8ZH6Kme6SZLg2gRVNDoLFjv7nJ3tGc0=;
+	b=EzG54WRkxxP0NtNGDH5a1jZqn4tyQnJdsmszrNxrtiwrIhPb8VFAaTq6F+sdghLG1cSo
+	 AJqL0imCSbxEIcwh+kJVzKmEvgXoESr5XPk3EFFHP3v3HrVacobFbcQUC8doavR+qAjbi
+	 7xNPcE0yazWOus5vNw3MWF16dRx1lm0q6nu04OAylvdwQsizNl6MbZq+rBkt7nD43Ddv7
+	 Dk1mR2iRgXUh/MEJouJwdm+oR5OlSSoU8I9bZmijVNM/jOnhT7G3a0RH8NUh8knIHcJXQ
+	 fRzfSMj7+bHVj7gU3e5MsFJCF7eF0CpPm5Tc9cAkTEc4Tj7tFSfI7JWrY579qhc9HBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=sXl6Ca3B;
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gezEkYw0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4704606A32D
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:24:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4704606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AFD606A32A
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=sXl6Ca3B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794367441; x=1794626641;
-	bh=0P2VV1oALOP/3gmFL87eTvjlTzFKQUaWGHBRZ3suqaQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=sXl6Ca3BJ9dUwcv9XKERie1ur21D2I+R7/jLiIire0v4jz94N9xKkpmbV1b8lgJ1C
-	 CXkNHxXQpSWaMck0+AnNTKXX2uJ9dNj93hmQbOKZOOctAOGpidmgKTcyy+NhArS2s+
-	 l7WcDv/b7PkAqjKwj1edYX59Ut1IfAfA3VAvj4lyyTRdSjsgdVgojIcZEGTsrC7L0O
-	 aordiuNL98xNSlPVdkfbxOkdxQfcxCA+2jXBtDZgTBaB4AG67UQYty23wcIphIpxhk
-	 7ZnIJatD/KMBeeMyuRKiRmMP8QCTsOJ1vlmCO2D7SNFnslld8+Q2EWKBD4cGWwxgNL
-	 wCVeTfhhELVeA==
-Date: Wed, 11 Nov 2026 03:23:55 +0000
-To: Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-From: Soheyb <soheyb_boulaa@proton.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Soheyb <soheyb_boulaa@proton.me>, stable@vger.kernel.org
-Subject: [PATCH v2 3/3] phy: exynos5-usbdrd: fix HS phy init count imbalance on Exynos2200
-Message-ID: <20261111032309.3365794-4-soheyb_boulaa@proton.me>
-In-Reply-To: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
-References: <20261111032309.3365794-1-soheyb_boulaa@proton.me>
-Feedback-ID: 140697376:user:proton
-X-Pm-Message-ID: 5d696f9f01aced19a70b4608e0bcbfc155d0b32a
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gezEkYw0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F501F0089F;
+	Wed, 11 Nov 2026 03:24:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794367447;
+	bh=YGE5KBSGrApG8ZH6Kme6SZLg2gRVNDoLFjv7nJ3tGc0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gezEkYw0wZfuCSN/kY/JdZljLnb+nBnsTrGyiFlK7f/ed44VQNqAHmUumT/9C+Zpx
+	 i8PvNpBCgsw8wh+h4OZOYUFWH8TRa/aHqHPLAD7Q3J48uIdU0PQtHB9MsbZq2uZNN+
+	 xZmhmEB0F46WVDj2bRmDzp1M/UX04vihSbwiH6JxHoJAVHS/N8+2S8pYa19w26eFTn
+	 Own+Klmd8W4pCexpidnXWFS/91irxrEZKh3PWCxC0Swf6wkOosOhr061gZRrJcaMHP
+	 KyJ8FdXlsIDpi1i+mOgDvCFQgrYO4+tm5a0KksoMOLqWA6v8G/IBs5RyGu3kzFP5VJ
+	 nu1jYe6v12q0A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Naman Gulati <namangulati@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] ipmr: drop packets with unknown ingress VIF
+Date: Tue, 10 Nov 2026 22:24:05 -0500
+Message-ID: <20261111032331.874244-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107055535-failed-6.1-09280680f2ea@kernel.org>
+References: <20261107055535-failed-6.1-09280680f2ea@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,63 +62,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-exynos2200_usbdrd_utmi_init() calls phy_init() on the high-speed phy,
-but exynos2200_usbdrd_phy_exit() never calls phy_exit() on it. The init
-count of the high-speed phy therefore never drops back to zero: after
-the first init, every later phy_init() of it returns early, and its
-clocks and supplies stay enabled across an exit of the UTMI phy.
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-When the high-speed phy loses power while the controller is suspended,
-it is thus not set up again on resume, and the DWC3 core soft reset
-times out:
+[ Upstream commit 09280680f2ea060514be2a39ea84209fb6d721d4 ]
 
-  dwc3 11210000.usb: DWC3 controller soft reset failed
+A packet can race with VIF publication and make ipmr_find_vif() return
+-1 even though the VIF device pointer is already visible. The parent VIF
+device check can then pass with an invalid ingress VIF. For (*,G)
+entries, this can also let the packet be forwarded back out its ingress
+VIF.
 
-Exit the high-speed phy when the UTMI phy exits, last, once the rest of
-the exit has succeeded: the phy core counts a failed exit as no exit,
-so the high-speed phy has to stay initialized along with the UTMI phy.
+Drop packets whose ingress VIF lookup fails in both IPv4 and IPv6
+forwarding, before checking the MFC parent device. This prevents
+forwarding with an unknown ingress VIF and avoids the (*,G) hairpin.
 
-Fixes: cc52a697f87e ("phy: exynos5-usbdrd: support Exynos USBDRD 3.2 4nm co=
-ntroller")
+Without the early check, the negative index can reach the IPv4 offload
+lookup only for an skb marked for L3 forwarding offload, currently done
+by mlxsw. The race is rare; the supplied PoC reports only the UBSAN
+negative-index diagnostic.
+
+Fixes: 4eadb88244d1 ("ipmr: do not acquire mrt_lock while calling ip_mr_forward()")
+Fixes: 9b1c21d898fd ("ip6mr: do not acquire mrt_lock while calling ip6_mr_forward()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Soheyb <soheyb_boulaa@proton.me>
+Reported-by: Vega <vega@nebusec.ai>
+Link: https://lore.kernel.org/netdev/b966eb102e98f299e45be59ada033a8766e4c6df.1791899747.git.zhilinz@nebusec.ai/
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Suggested-by: Naman Gulati <namangulati@google.com>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Reviewed-by: Naman Gulati <namangulati@google.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/5271fcb94a4d9e697ed64a348e92ea9e74faab1c.1792608753.git.zhilinz@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Adjusted IPv6 context to preserve wrong_if++ for the unsigned long counter instead of atomic_long_inc(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2: the high-speed phy exits last, once the rest of the exit has
-succeeded, after Sashiko's review of v1; v1 exited it first. The comment
-is dropped, after Ivaylo's review of v1. His Acked-by of v1 is left
-out, since the exit has moved.
+ net/ipv4/ipmr.c  | 3 ++-
+ net/ipv6/ip6mr.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung=
-/phy-exynos5-usbdrd.c
-index cf0597a..041a555 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -1510,8 +1510,15 @@ static int exynos2200_usbdrd_phy_exit(struct phy *ph=
-y)
- =09clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
-=20
- =09exynos5_usbdrd_phy_isol(inst, true);
--=09return regulator_bulk_disable(phy_drd->drv_data->n_regulators,
--=09=09=09=09      phy_drd->regulators);
-+=09ret =3D regulator_bulk_disable(phy_drd->drv_data->n_regulators,
-+=09=09=09=09     phy_drd->regulators);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09if (inst->phy_cfg->id =3D=3D EXYNOS5_DRDPHY_UTMI)
-+=09=09return phy_exit(phy_drd->hs_phy);
-+
-+=09return 0;
- }
-=20
- static const struct phy_ops exynos2200_usbdrd_phy_ops =3D {
---=20
-2.56.0
-
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index 948993a4f4157..452aa813d6017 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -1976,7 +1976,8 @@ static void ip_mr_forward(struct net *net, struct mr_table *mrt,
+ 	}
+ 
+ 	/* Wrong interface: drop packet and (maybe) send PIM assert. */
+-	if (rcu_access_pointer(mrt->vif_table[vif].dev) != dev) {
++	if (true_vifi < 0 ||
++	    rcu_access_pointer(mrt->vif_table[vif].dev) != dev) {
+ 		if (rt_is_output_route(skb_rtable(skb))) {
+ 			/* It is our own packet, looped back.
+ 			 * Very complicated situation...
+diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
+index b677f48179c87..c7ff2d49253a9 100644
+--- a/net/ipv6/ip6mr.c
++++ b/net/ipv6/ip6mr.c
+@@ -2159,7 +2159,8 @@ static void ip6_mr_forward(struct net *net, struct mr_table *mrt,
+ 	/*
+ 	 * Wrong interface: drop packet and (maybe) send PIM assert.
+ 	 */
+-	if (rcu_access_pointer(mrt->vif_table[vif].dev) != dev) {
++	if (true_vifi < 0 ||
++	    rcu_access_pointer(mrt->vif_table[vif].dev) != dev) {
+ 		c->_c.mfc_un.res.wrong_if++;
+ 
+ 		if (true_vifi >= 0 && mrt->mroute_do_assert &&
+-- 
+2.53.0
 
