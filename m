@@ -1,107 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794422567;
-	b=LBIMCdpLQ3/pjE1a5nYhRT2+8UohwAUsHdmcBmMW4Ck08wGpPx5GKTaM3fTKBepgk/sZ
-	 Pl7vUu0TrxIe+eRL4LD00adj+Zfn1xhw6pAHVftlCdDhtHtJFTxzCBVJx1T1EvtEp6/5Z
-	 7gjWBKwf7BZgmzZ7TcHdpYhgAkgGuf4s89pCcLb8DsbeoH8XXIuQ0RiNecs33r9JDpDtl
-	 K1BR5tnb1N/OvvBwq+AdqgfmHXoQrJEN6QoS8LYsFEyh1SpVt+pN91PluwTHJO7DxxX0f
-	 C59cWX/EYjjeUevwzTSCR45j6DDD8JqNmgnt1WASY2mBliSBSj7SZIy9am7taAOkbfA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794422567;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=UZdwgTcrfuIpSYM1gCDi0i+eUgKIG7RMooqWvyPgmb0=;
-	b=gU2snQh/yttWThLiiGbzfdJauPAztVxYvidJFw01QMXDJOihluc/+SRe1PmQcJnGKGbF
-	 DfhOM8v1AWWujIp16eRUS98N7zMUZ5PJ30eGPWi3C2cRYrwOTX6vPHX4NZGoQ9oHvGtcY
-	 VzYy/wRO0UbHW9suThUouCW45J63DojljhSPkRCbvuBQnUEAyoqPuH7Tjt8hpIe/3b0b0
-	 Jd2ZhE0xSIiLHsanRowxqsUk5E+lrgc71raMrrz5faHPPqR6E+uqa7ZRj9MvDOFj1/Jqt
-	 BLluYvc3D3ql/5jQTXdFFi7OtWm3k4regEE00kFA2ooVD+sX1IhLZWt5xprfhP9catg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iokpp.de;
-	spf=none smtp.mailfrom=iokpp.de;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=jmYHQ7rQ;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=OLEqGKP8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794422594;
+	b=BQpPT3tWUH5ahmjxZ1hsAWqG1+dPy6N4APwbxruBJ5Lz47EM7QpT2c7gUk4g8AzpPBjQ
+	 De80wDu7RAp7s39O/CNc2YBEpYBpOEw7qrgOzpF1QFFPNy/cMvOQD+EYuuygCeQt5zRJT
+	 xt5KpJc//kGELOpglB+6tBy1I/iRKpdmDktaOl+Ie0BwNV9j29NW4IUaVgko0s8rlvZlF
+	 MX/aIGRIfoe1nCPAd+4UnBd0YWZGomssv/7dlqy7dYW6vuVU7RvqdSyirq9BeCZmGb5f5
+	 Ub3RA8hwyHPyYhQxZ0EVpvIMV64AHYnI9A43yb5fMymf4Whhs/pJoYd6LhpkXLOyh/Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794422594;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=i5WvGBu9YbPP2PLFvNOki0y/qqWEioLHLW821Ks5DD4=;
+	b=u0I9dyESK75tQo7FU4KjdrJRZkv8xS7xhh3HLvx+V1Ha5qC4/uLGw/wqzj++1GNWtRXq
+	 GiogGGhWSaOPGK4QRkDST4oy72aa8zUmRKhOKbyni0FjkYhmyD5oXtPUzoIt1gZKO5vP6
+	 FOffq2RBwV/pCKiwHS/bvrqlmInhU2ZEMvK8lLQZlxfDzXc5DNdow5/90Omdbgzj9I4Fx
+	 jNCT65WvRvfoGf3PdoSb7qjiG88shsacpILnV27wCrzQiA4Wjm4YG2kaUB2um76McHjBd
+	 4CXVvuhKswhS23QhzHjRp2FxDYWtawjpzoaUXABfZUUhxJHJ93Nicw9U6zEWpofFZ9g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X+7ebLu/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB77C606A31C;
-	Wed, 11 Nov 2026 18:42:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB77C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FD9606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:43:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=jmYHQ7rQ;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=OLEqGKP8
-ARC-Seal: i=1; a=rsa-sha256; t=1794422555; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=k5S5Bl7FubLTqmU88nzo26Kl2dj3Ric2T9t/lXXPVJUSOGaBoOUTYNRvlCE0GXtENS
-    PwShzJgYoyYfbSyR6VFoAx9u4XFE+DovYYdUiB6hrZRzqP3RI5+bKhF2teMAeuBpiLiS
-    k3NtZX8EKFZvLC3znDEDmcgn9/2PBDDz/T+j9q+oK/gcgxWVZhN4qcNH35h7Aa1nPveE
-    Neczv3DZPTSkhi5HpalDUPZWM5itTf7iW4ktHFjvMdHN/a/20g1QUNlbJNtvZ1DBx7sq
-    I4JvbArqpqamUXBMTZ+cA9VFcDMEMAzEW0Szq6iTGi7i2hntIQio01++ib0i5IT+s4IR
-    2ndw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794422555;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=UZdwgTcrfuIpSYM1gCDi0i+eUgKIG7RMooqWvyPgmb0=;
-    b=qqE4aNze18q/ZYxr8rJ/Tgv1m66+qNTukUW4Ov8qGQhl2NhLDGHXhul8NtChqMmkiU
-    4COoL1ZPB/u158J5k4xSDus0cqTnpB6soSAw+ZqS5P4PiFjikTxUvgOtXFoQqAhjxi4t
-    cGL92dIlj7u1QqOY2vHfP5ieyOdnJWkUD8DFBleW0tPQjGbEBsNysFtn7JVsjWgB5bH7
-    NJYQkdENiK74ZDZXK0mWmDgOXcVkBv6t5o7nWk+zHQsMpqMx/7/6EmbP8Stx+qERb/3/
-    Y8qgSUU46orLIub72I6lHe6olJxDEvM1Y5EEVyuU5FKWtBdt0L/y3KUvNrd8EVPxRu/t
-    p5eA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794422555;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=UZdwgTcrfuIpSYM1gCDi0i+eUgKIG7RMooqWvyPgmb0=;
-    b=jmYHQ7rQSB1Tzj6fEt10Cans6f1S2Z/WT60scHlWjF5u2f2zH7jv8TWFr9ZtT7MoiU
-    8jye9bGwCNT0aKKOcSr5Wg8XBzkEIzzI+8mmIwo1FZnJG6LZfOVDuZqFkkyUU/umHWIW
-    Xpbua6wg8Sd+8rOlpwtPGB6lHuUX083ldYTGJ/GHGT8Ch+6EWSue5iytdDGwrzfO2dXY
-    2QxmLvlAnuoimqjYiifzTl7hQxXKNaqtp7ggE7rGG69Hz40JgP6h0YzWe22Z7KCIEdNy
-    BqIzbI+c7na3DTUHzV/7c2+qDr3BxIeYhcR7YmMqLCFf0vj06pcjQf/5g7xMar7w2ZCF
-    smsQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794422555;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=UZdwgTcrfuIpSYM1gCDi0i+eUgKIG7RMooqWvyPgmb0=;
-    b=OLEqGKP8rL1/Y5mfkMu8X03OwrUS8pT8L6GgGyaoLQtNjvsfYzZf72RksCFZEIXI/q
-    SMX59KF0dnEg5mSDbABg==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaTpIu+r+eHzyBFvc/0mM2I80og9K0iXpLsCzk="
-Received: from p200300c5872329b218616a30d22a9174.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad2ABIgYiCS
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Wed, 11 Nov 2026 19:42:34 +0100 (CET)
-Message-ID: <b2338a8e84366980f648b0e321e9f8edaaf633a9.camel@iokpp.de>
-Subject: Re: [PATCH] scsi: ufs: core: Register the RPMB bus before adding
- devices to it
-From: Bean Huo <beanhuo@iokpp.de>
-To: Alexey Charkov <alchark@flipper.net>, Alim Akhtar
- <alim.akhtar@samsung.com>,  Bart Van Assche <bvanassche@acm.org>, Bean Huo
- <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, "James E.J.
- Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
- <mkp@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Avri Altman
- <avri.altman@sandisk.com>, Can Guo <can.guo@oss.qualcomm.com>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	stable@vger.kernel.org
-Date: Wed, 11 Nov 2026 19:42:32 +0100
-In-Reply-To: <20261111-ufs-rpmb-bus-v1-1-b07100e53f6c@flipper.net>
-References: <20261111-ufs-rpmb-bus-v1-1-b07100e53f6c@flipper.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+7ebLu/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE3F1F00A06;
+	Wed, 11 Nov 2026 18:43:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794422593;
+	bh=i5WvGBu9YbPP2PLFvNOki0y/qqWEioLHLW821Ks5DD4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=X+7ebLu/wdApbXFomIlslnp4f8Ckqe4o69v6R3BAO/AJVCYTgRok3WkTaV05Vmaf8
+	 9PQ0FUZzh5YatIvCWYZgLatRBrHxP2S/0+CQIZXS4fBanJzc8oTz+oxTx8Qu3t+IB9
+	 VCeelHBLs2Q+heSxmy9yUxw8Xl1qWySs+9CV5P0q5LjidYjNltnoHBJgbNzBBrI2Ca
+	 HMjMvTNI1i84mWrvQh3xVrk4lep2Ze0eXgWUkjmJNU4I/JLy1eh6Ad5Xo+fL9+XWGL
+	 iVGCdUdJddXB1obyfVFlFP8dQuZLt04CPMJ9fZzkWn9JXQJ4YOhBTP5+hw+FmLdxQc
+	 phv3dLQJUo6mA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yingjie Wang <x-professor@outlook.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] scsi: handle out-of-range SG_SET_TIMEOUT values
+Date: Wed, 11 Nov 2026 13:43:11 -0500
+Message-ID: <20261111184254.3724978-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107062825-failed-5.10-9a6cb1da4f3b@kernel.org>
+References: <20261107062825-failed-5.10-9a6cb1da4f3b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,32 +60,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Yingjie Wang <x-professor@outlook.com>
 
-Hi Alexey,
+[ Upstream commit 9a6cb1da4f3bc4633bf6669faed25a361834b1b9 ]
 
-Thanks. The code is correct, but this exact failure is already fixed in
-Stanley's series, which has been on the list since September:
-https://lore.kernel.org/all/20260914144910.931518-1-stanleyjhu@google.com
+SG_SET_TIMEOUT accepts a signed int in USER_HZ units. The sg character
+device rejects negative values and limits positive values so the converted
+timeout fits its destination field. The block SCSI and BSG paths instead
+pass the value to clock_t_to_jiffies(), which accepts an unsigned long, and
+store the result in an unsigned int.
 
-The order there matters. Once ufs_rpmb devices register again, which is wha=
-t
-your patch does, two bugs come back: a use-after-free on host unbind, and
-concurrent RPMB requests that get each other's responses. Stanley measured =
-both
-with KASAN. Patches 1/3 and 2/3 fix them, and 3/3 turns registration back o=
-n
-last. Taking this patch first would open that window again in mainline and =
-in
-stable.
+Negative values are converted into large unsigned timeouts. On 64-bit
+systems, large positive values can also exceed UINT_MAX after conversion
+and are truncated on assignment. With HZ=1000 and USER_HZ=100, for example,
+429496730 clock ticks become 4294967300 jiffies and are stored as 4
+jiffies. On 32-bit systems, an overflowing conversion becomes ULONG_MAX,
+which is an unsafe relative interval for the block timer comparisons.
 
-So I would prefer to drop this one in favour of the series. If you have a b=
-oard
-where RPMB fails today, a Tested-by on v5 would help, please have a try
-Stanley's patches. thanks
+Reject negative values with -EIO, matching drivers/scsi/sg.c. Saturate the
+converted value at the smaller of the destination field limit and
+MAX_JIFFY_OFFSET. This preserves successful ioctl behavior while avoiding
+both narrowing wraparound and an unsafe 32-bit timer interval.
 
+The block SCSI behavior predates Git history. BSG has exposed the same
+behavior since it was introduced.
 
-Kind regards,
-Bean
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 3d6392cfbd7d ("bsg: support for full generic block layer SG v3")
+Cc: stable@vger.kernel.org
+Reported-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://lore.kernel.org/r/9321a59c-c560-4742-8b71-5b0ec1f30c2f@acm.org
+Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+Link: https://patch.msgid.link/20261022025508.294713-1-x-professor@outlook.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: adapted separate SCSI and BSG timeout changes to the shared sg_set_timeout() helper using q->sg_timeout. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ block/scsi_ioctl.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
+diff --git a/block/scsi_ioctl.c b/block/scsi_ioctl.c
+index c9f009cc04460..1039b0dc81d00 100644
+--- a/block/scsi_ioctl.c
++++ b/block/scsi_ioctl.c
+@@ -5,6 +5,7 @@
+ #include <linux/compat.h>
+ #include <linux/kernel.h>
+ #include <linux/errno.h>
++#include <linux/jiffies.h>
+ #include <linux/string.h>
+ #include <linux/module.h>
+ #include <linux/blkdev.h>
+@@ -62,10 +63,14 @@ static int sg_set_timeout(struct request_queue *q, int __user *p)
+ {
+ 	int timeout, err = get_user(timeout, p);
+ 
+-	if (!err)
+-		q->sg_timeout = clock_t_to_jiffies(timeout);
++	if (err)
++		return err;
++	if (timeout < 0)
++		return -EIO;
+ 
+-	return err;
++	q->sg_timeout = min(clock_t_to_jiffies(timeout),
++			    min(UINT_MAX, MAX_JIFFY_OFFSET));
++	return 0;
+ }
+ 
+ static int max_sectors_bytes(struct request_queue *q)
+-- 
+2.53.0
 
