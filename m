@@ -1,56 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383853;
-	b=N3WQTpqX86oBFGe4li1mbI0Negl5SRW2W0jyr47oQFF/uT2qzQHmage+7HKwUkyXN6h1
-	 cu282pdoW7m2Folnu5GDqRkt+C2TnmMcw+s/4Fd9ew+9XXHCgheAFrWHtc4mcJLvx7H7w
-	 HlbAeyo+ZJU/rzu5S9n5vB19WnmWo7bl0QlqZ81rvSJnmV1eazBdUGHoYC1wwu/ZeZeip
-	 e0/RdhVPtAjw33ICmLkD22dHEhpgvJC32PJyd+xjTHdDiraIjJgMC9koSFanzyUWKApX2
-	 3U5fcHnlhHyEXMZQ7U/S23K3eDcdl8NDtIAfCSqpvcmuy5T+Ud/wl0X0oOaYNzMbLMw==
+	t=1794383886;
+	b=kCry6G0SXbCpug3BgChpdlhuTuZoDwWwhPn9Eshed2Tg4vIlR4GGnVlmATO0TIUJC4Bw
+	 Ras9UnHbgC7L3JaDkSzmEEZEp9I8DqIUHLxqVNZshNnTxsVuWK/IOTZSjg1hftpEo24qK
+	 IJLPiB/TWzGpozjptYJZrWerNBhvFgNl7eIG/edonrMOzftER/O15TJAzR+dNXN0Ptxwq
+	 0u2ejA2TnjvBAgJMzLf/A6Q+7qvyHRT/yI2bCOmTuC5payxt6PvPw9wWAYgFh+sAgwx0k
+	 cU6HM6tIGr6RZNqzvTeXgm3lo8kU/zSRYqpNmE8tGTVRjK5xixGZZH1vxwA6+8VnwoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383853;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KOvBvh7XB+NPKfJDX19aJT1f93eJwnAtLRYHxrUv6UA=;
-	b=rkmj5sGKuE6Yfwo7pNIhkWN2DI8s63wdaJ2p4pihFVEGpys+OWbKO3Ij8Nktf6/qKkJQ
-	 71Q5dShk2uItw2k5rOsMQ9aABTx7DNtmLgqd/u/rn7S1SIEViR0u5P2XsVXV3hyFiGeTC
-	 dpsCNmVZfrB4MhpU//0ajswveTGjLgUkps3/aT5iK2WNhgYWSAUR9SoWRw4Vo24vxV9+c
-	 bNXh4tBheBWY1Xeg/nAVbeU3DFbYifLCp5oTQL3eb9BYhb7GdAl1dmLjHZ4Wi9jyVDSti
-	 OFvawFWDuau4vXOR0SkJVDoN9vqq/w6AL7PLormbSu5uaPlhmCtGPr6i0Pqleb0Dqsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383886;
+	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=lUSBDL3qynjKO1begj4BN/iyzCHMPpuVgTDyAD9TcfM=;
+	b=MmSpguZcfGG0r5jFtOja8VKvCIyjLCprtgef5QweI5xWZDOWg3RFPXx9qKoeYXN5TRZo
+	 ieP3nnLJImo9ZrYyNjygqjNPWCb8U92it0/xWra5YngcljsKwuxrwPFyY2/mNgOWW8Z7L
+	 2C/k0w2zqIirK6EI16tnrREL5PoEiZ34CgmxZJ4Blpy0BXCoC0KlpVRw0n212R2Enn6iT
+	 DozHU9nO9Y6BxHjLBOblaD4ACphnHjgw9TM4/GJ2OOE3wdFUP9yebIqVPR+Xrd4hO+Y+E
+	 oAf4ylHriJB4EAeAoAncJsfpahC1Ss542fjQarD34WfXyAOhuRz+KihpGZQUQ5ci2dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YNBUM5G4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	arc=none smtp.remote-ip=64.106.246.77
+Received: from mailsc.amlogic.com (unknown [64.106.246.77])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE32606A32A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YNBUM5G4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2B31F00A05;
-	Wed, 11 Nov 2026 07:57:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794383853;
-	bh=KOvBvh7XB+NPKfJDX19aJT1f93eJwnAtLRYHxrUv6UA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YNBUM5G4H3ecfLLVWoiKsoTfhNAqJAkIj22VZDn7WtMOp2EeBvMmw4ZvYQhEeSD7J
-	 RrHaZja4tBe0lw79sX0JUPEDpOZRHyWxD0Gvh29p+eO+stU0KGPoDyrazsa4I3UGF7
-	 Lh/f4lSITACPn52AbHB6x0iyNS90gn1dEPGr4w92WIWuvrenqTDqInngY8ih/T3a/Q
-	 zM0YH6TyXy9KvtZOLi0eAHqjow1rGb3+Dq8KK+wO1vrskMVqkrRKXcu1/TA+dKN7Fj
-	 eWxkDkYhCiv64yPMcvj4fVy681nxhu4oNT0i4r0dHr+oSK7pBCUNpIv4aESnmkBwrF
-	 h4iZ/+7ORldvw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] ASoC: tlv320aic32x4: Prevent division by zero in divider callbacks
-Date: Wed, 11 Nov 2026 02:57:29 -0500
-Message-ID: <20261111075524.1400365-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111075524.1400365-1-sashal@kernel.org>
-References: <20261107055343-failed-6.1-8cf9607d2d85@kernel.org>
- <20261111075524.1400365-1-sashal@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDB9606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:58:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FDB9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+Received: from XA1730-0357L.amlogic.com (10.88.19.140) by mailsc.amlogic.com
+ (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
+ 2026 23:58:04 -0800
+From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+To: <stable@vger.kernel.org>
+CC: Jiucheng Xu <jiucheng.xu@amlogic.com>, <stable@kernel.org>, Chao Yu
+	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>
+Subject: [PATCH 5.15.y 1/2] f2fs: force out-place update for all writes on compressed file
+Date: Wed, 11 Nov 2026 15:57:51 +0800
+Message-ID: <20261111075752.1381-1-jiucheng.xu@amlogic.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261107055847-failed-5.15-a64a3fec11e7@kernel.org>
+References: <20261107055847-failed-5.15-a64a3fec11e7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,74 +53,66 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
+ (10.8.11.35)
 
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
+commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4 upstream.
 
-[ Upstream commit 8cf9607d2d855629260fc78e6b54ea7a98525708 ]
+For compressed file, compressed write may fail and fall back to raw
+write.
 
-A zero rate requested through clk_set_rate() or clk_round_rate() reaches
-clk_aic32x4_div_determine_rate() when the minimum rate is zero. Clamping
-the requested rate to the allowed range leaves it unchanged, causing
-division by zero when calculating the divisor.
+-Thread A                                         - Thread B
+  - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
+   - f2fs_write_compressed_pages                    - ...
+    - f2fs_trylock_op                               - ...
+     - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
+   - f2fs_write_raw_pages                           - ...
 
-A zero parent rate can also cause division by zero in determine_rate().
-For example, if reading a parent divider's register fails,
-clk_aic32x4_div_recalc_rate() returns zero, which the clock framework
-caches as the parent's rate. A subsequent rate request for a child
-divider receives this value in best_parent_rate. With a nonzero requested
-rate, the calculated divisor is zero. It passes the existing upper-bound
-check and causes division by zero in the resulting rate calculation.
+Thread B acquires the lock first, which causes Thread A to fail lock
+acquisition and fall back to raw-data write.
+IPU_FORCE is enabled on small-capacity storage devices (< 16GB),
+so f2fs_write_raw_pages() overwrites the original compressed data
+in-place.
 
-The set_rate callback can receive a zero rate when an ancestor's rate
-changes. clk_calc_subtree() calculates descendant rates through
-recalc_rate() without calling their determine_rate callbacks. If reading
-a descendant divider's register fails, clk_aic32x4_div_recalc_rate()
-returns zero. This becomes the descendant's new_rate, which
-clk_change_rate() passes to clk_aic32x4_div_set_rate(), causing division
-by zero.
+The in-memory node has been updated with raw-data addresses, while the
+node metadata stored on eMMC still remains in compressed state.
+If a power-cut occurs before the node is flushed to disk, on-disk
+inconsistency arises: disk data is raw, yet metadata treats it as a
+compressed cluster, leading to decompression failure.
 
-Reject zero rates in both callbacks and reject a zero divisor in
-clk_aic32x4_div_determine_rate().
+To eliminate this risk completely, force out-place update for all
+write operations on compressed file.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: a51b50062091 ("ASoC: tlv320aic32x4: Model DAC/ADC dividers in CCF")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
-Link: https://patch.msgid.link/20261023130854.93639-1-a.kazinsky@ideco.ru
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@kernel.org
+Fixes: 4c8ff7095bef ("f2fs: support data compression")
+Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+(cherry picked from commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4)
+Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
 ---
- sound/soc/codecs/tlv320aic32x4-clk.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ fs/f2fs/data.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/soc/codecs/tlv320aic32x4-clk.c b/sound/soc/codecs/tlv320aic32x4-clk.c
-index 4ade06e5f5cd3..c8ba32b810af9 100644
---- a/sound/soc/codecs/tlv320aic32x4-clk.c
-+++ b/sound/soc/codecs/tlv320aic32x4-clk.c
-@@ -318,6 +318,9 @@ static int clk_aic32x4_div_set_rate(struct clk_hw *hw, unsigned long rate,
- 	struct clk_aic32x4 *div = to_clk_aic32x4(hw);
- 	u8 divisor;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 90cb8560af1d..b8da6784e2c4 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -2670,6 +2670,13 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
+ 		return true;
+ 	if (f2fs_is_atomic_file(inode))
+ 		return true;
++	/*
++	 * rewrite low ratio compress data w/ OPU mode to avoid fragmentation.
++	 * If IO comes from compressed write path and fallback to raw write,
++	 * force out-place to prevent metadata-data inconsistency.
++	 */
++	if (f2fs_compressed_file(inode))
++		return true;
  
-+	if (!rate)
-+		return -EINVAL;
-+
- 	divisor = DIV_ROUND_UP(parent_rate, rate);
- 	if (divisor > AIC32X4_DIV_MAX)
- 		return -EINVAL;
-@@ -331,8 +334,11 @@ static int clk_aic32x4_div_determine_rate(struct clk_hw *hw,
- {
- 	unsigned long divisor;
- 
-+	if (!req->rate)
-+		return -EINVAL;
-+
- 	divisor = DIV_ROUND_UP(req->best_parent_rate, req->rate);
--	if (divisor > AIC32X4_DIV_MAX)
-+	if (!divisor || divisor > AIC32X4_DIV_MAX)
- 		return -EINVAL;
- 
- 	req->rate = DIV_ROUND_UP(req->best_parent_rate, divisor);
+ 	/* swap file is migrating in aligned write mode */
+ 	if (is_inode_flag_set(inode, FI_ALIGNED_WRITE))
 -- 
-2.53.0
+2.55.0
 
