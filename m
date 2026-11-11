@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794420009;
-	b=nDkEMvoKW4EB+YFlONj6kUkckipEkIp51yRFSrnwWEXG9qvqPZk+IofLArso9HkephVm
-	 Mp+lXB6Pr1K0b8EUr7RTjGvP+lU4kg6TiiGXFIGgCYK8ho7zD28zR9G4bYUL8pvGpfNsS
-	 qxt9QORguG2lz2KnW/qk7UfXUlm8lQu6+aYjxwvVCHoJvxOpHzviKlyP21M7ZwO3pq5b9
-	 ZmdR5uIQ2Wbqpt3OCtmRsOBZTiux4ZiGKdnX9RlLZGrhRit+C73NQzqnRGgmYUvUmaQ5g
-	 LWVUGV8n7NaRscSJfafal9KGnHB9uveSptkCEDMlIfP4MKnxiFYBXDJgEt/2HYQ2N4A==
+	t=1794420279;
+	b=G7lVJHjrFn3nx+XOfIk23AHAkv1Zjki9t4TXkCnyXbNwAFqG36FOrbYmanTQZtjmHaBq
+	 23ErUOlHHCnyzzlTKaKMHqO6Bu7AlEjNKrhCP5xh67LsX+U+am8l7qmpcBMXNrg1eeCB1
+	 /ZryOyBNjuhqPMJwpBEn5X0MO3b0OTyFbWhjy6dkbpyFuCyvWXL3FE/OUrVjMt1y9HUBL
+	 JnaMqMe+/2nk09R0c3CFEB77dTBAXjdrnLUij74880+71F10cwcMOYNL9yXw4S7FSb3MK
+	 z+TyMDydtmURlC4WrOGkAaOe4ZKMs6RI82dqD/419qGl4rrQGZqBiBHv/KiFuwDXa2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794420009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794420279;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BQsSrUPstIFKgK5G0KyjZrsa1htiJg4mwWP21ZqhMHg=;
-	b=WHEatFGXclH3n0IlTew114he1wZSzPJ8pnmu+uK5k1nfW83XYipTl35SyWhA9Lir/VsS
-	 VR8S7/VaBIUD/OeM0w54thehKySkmrLCQXI9svaSiaU+iBTIhgsCQcXRX9FHeQ/EfeOD3
-	 z0wDSe680Dj5R0iFG2JwAwnayN+C+iQj+YnDxIGA5Wa2n68vwTYe+ZdTd1FTgID5CoYzL
-	 /5R46wR+qCBM9pdEOEW+IEVG7ORHkK8X3vmdmdPsNKVzT0qjbqZSIr6Rq04JJvJikzQo2
-	 cJVP/qAhcvtldWz/9HYPcUJIJpXM7jUGh9HGZCLP2VqEJWpbumanSkM8Iek7nhxmZfg==
+	bh=8flrmTNlp7L2C3bdjz0v5JpZBMdtc8AegGYpyk6AJX8=;
+	b=cdioLvOQSFLogE0FZnvyuUrwErVXD4GCtGLTGA41T39mW+sA1Za0hYBs68vO4DOj3YJc
+	 QznrC6tuk0Ym6v3Wk1ribtm71yZTQKFgxiJXD7HyujoivOlVfMeill66yDqek4d52Yfq8
+	 SlS1MCNl8FvTYk7rEase8ZE2xf/BEmg06hFK+BOB3JWk5V2yom+vSm7I2A5zu4iRwG8pU
+	 qjnE5al5EEtyh4O9eMPfp9aiRpGwRgadBbZa0gBgDByrk2QdoLhi8qpJxnSXqZXc0/GnR
+	 DeXcEbjzByubjZXmgH0KPrUfxhK0fwPyBq66XX3dLYAA/DjL3krx0giW7pVe/INtVUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDFtatVU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kqu6hEX1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D4A606A32E
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:00:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9345A606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:04:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDFtatVU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4533A1F00A0C;
-	Wed, 11 Nov 2026 18:00:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kqu6hEX1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F3911F00A0A;
+	Wed, 11 Nov 2026 18:04:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794420008;
-	bh=BQsSrUPstIFKgK5G0KyjZrsa1htiJg4mwWP21ZqhMHg=;
+	s=k20260515; t=1794420279;
+	bh=8flrmTNlp7L2C3bdjz0v5JpZBMdtc8AegGYpyk6AJX8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kDFtatVUYI2fwllMoq93hWDHfq3B/rwvME/S7bv0nXapQfibAkZXFzqKB4AeHxvWa
-	 yZu7lm/67C9rTwrG0yWkl5UY8wD/cE5Iv5ku998FvbCqSpGR0rR01+oQfZGu0od8Pe
-	 EdZ1NwklgcOPP2UXOfD4w79oECp7CAbaJQ08XWNFZ2qvwaJP+XPy6iQJVDgYMhp//y
-	 oE3xloV8FbB5xoqZIOc10Q6oQZ3GYZMoF84arVZlRInvG7lV8nLVEqkzvQc2DG8RF3
-	 3l2C5QWV+LdyWYH0KGbzYU+Y+NCSGGSysGiGLb5CnSk/BDLZFGSN0VbKEwa2m0rksr
-	 0BvuLc9EsRgrQ==
+	b=Kqu6hEX1A3LqjIjZRWNVSeaNy31vWAzZdp6phyB/VSIweWJQieuviN8CoruBwv2l2
+	 bFqRdF2xHYyf3ETrIRiZiiovq67rnzLABtCQHAMo2ic1f286TyvpZgR6mgRoYX7o2b
+	 67y5eu/TbNSVSm7OyXOvQYcCUhsVwW1fy+VELrt0gZuz57u23lHEDb2WVirMP96ghY
+	 znoj3vRsnyFxh+pPlpy9YpzZ9z3GLNt+XfyLoeOheO4jthK8NJw5Jqq8cxrlO/tCY+
+	 PG5hPYFOTYn6SLHPsDnM55Hl6BAJCYozkZ/PwQzc2tykZes157eCVxKJu4102stCZb
+	 96CXvkZ3Uhd1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Henrik Enquist <henrik.enquist@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ALSA: aloop: Update the PCM Slave controls for a matching playback
-Date: Wed, 11 Nov 2026 13:00:07 -0500
-Message-ID: <20261111175949.3747120-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/gup: check for overflow when converting nr_pages to bytes in GUP-fast
+Date: Wed, 11 Nov 2026 13:04:37 -0500
+Message-ID: <20261111180419.3728532-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062730-failed-5.10-c3bde2beacbc@kernel.org>
-References: <20261107062730-failed-5.10-c3bde2beacbc@kernel.org>
+In-Reply-To: <20261109201826-failed-6.1-21a3888d3d2f@kernel.org>
+References: <20261109201826-failed-6.1-21a3888d3d2f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,69 +64,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Henrik Enquist <henrik.enquist@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit c3bde2beacbcb40790f0e3c3f909f9e16bbced9c ]
+[ Upstream commit 21a3888d3d2f87b7f15ccea1f0befd57346fe899 ]
 
-The "PCM Slave" format, rate, channels and access controls report the
-parameters of the playback side of a cable. loopback_check_format()
-updates them when a playback starts, but returns early when a capture
-is open and its parameters match. The controls then keep the module
-defaults, or the parameters of an earlier stream.
+The overflow check in gup_fast_fallback() only covers the addition to
+start. The preceding nr_pages << PAGE_SHIFT can already have truncated
+the length on 32bit.
 
-A playback that joins an open capture with the same parameters is the
-normal case without notify, where it is constrained to the capture's
-parameters, and also with notify whenever the player happens to use
-them. An application that reads the controls to find the playback's
-parameters, for example to reopen the capture side at the right rate
-after a restart, then gets the wrong values.
+Users such as RapidIO's rio_dma_transfer() can derive such page counts
+from a 64-bit userspace length.
 
-Only skip the capture stop when the parameters match, and update the
-controls in every case. A value event is still sent only for a control
-whose value changes.
+Let's just check_shl_overflow() to reject any such overflow with
+-EOVERFLOW early.
 
-Reproducer:
-  arecord -D hw:Loopback,1,0 -r 44100 -f S16_LE -c 2 /dev/null &
-  aplay -D hw:Loopback,0,0 -t raw -r 44100 -f S16_LE -c 2 /dev/zero &
-  amixer -c Loopback cget "iface=PCM,name='PCM Slave Rate',device=1"
-Before: the control reports 48000, the module default.
-After: it reports 44100.
-
-Fixes: 597603d615d2 ("ALSA: introduce the snd-aloop module for the PCM loopback")
+Fixes: c28b1fc70390 ("mm/gup: reorganize internal_get_user_pages_fast()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
-Link: https://patch.msgid.link/20261021-aloop-slave-controls-v1-1-62297727177f@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: adapted the checks to the existing err/goto unlock flow and snd_pcm_running() helper ]
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-22-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted gup_fast_fallback() changes to internal_get_user_pages_fast() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/drivers/aloop.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ mm/gup.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
-index 3901f52164933..d10ec91a0aa54 100644
---- a/sound/drivers/aloop.c
-+++ b/sound/drivers/aloop.c
-@@ -352,12 +352,15 @@ static int loopback_check_format(struct loopback_cable *cable, int stream)
- 		check = runtime->format != cruntime->format ||
- 			runtime->rate != cruntime->rate ||
- 			runtime->channels != cruntime->channels;
--		if (!check)
--			goto unlock;
--		if (stream == SNDRV_PCM_STREAM_CAPTURE) {
-+		/*
-+		 * Matching params also go on to the update below, so that
-+		 * the setup controls follow a playback that joins an open
-+		 * capture.
-+		 */
-+		if (check && stream == SNDRV_PCM_STREAM_CAPTURE) {
- 			err = -EIO;
- 			goto unlock;
--		} else if (snd_pcm_running(dpcm_capt->substream)) {
-+		} else if (check && snd_pcm_running(dpcm_capt->substream)) {
- 			/* close must not free the peer runtime below */
- 			atomic_inc(&cable->stop_count);
- 			stop_capture = true;
+diff --git a/mm/gup.c b/mm/gup.c
+index b3b6de2c37c12..8629b2e145460 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -3065,9 +3065,9 @@ static int internal_get_user_pages_fast(unsigned long start,
+ 		might_lock_read(&current->mm->mmap_lock);
+ 
+ 	start = untagged_addr(start) & PAGE_MASK;
+-	len = nr_pages << PAGE_SHIFT;
+-	if (check_add_overflow(start, len, &end))
+-		return 0;
++	if (check_shl_overflow(nr_pages, PAGE_SHIFT, &len) ||
++	    check_add_overflow(start, len, &end))
++		return -EOVERFLOW;
+ 	if (unlikely(!access_ok((void __user *)start, len)))
+ 		return -EFAULT;
+ 
 -- 
 2.53.0
 
