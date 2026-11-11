@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794438066;
-	b=p3glI7PfF7s9qSrhSzUyT2GvAQZPwgSP2qHsBvemkFLmXtfkNdiCc/fd6w2fLDAb7k4W
-	 +qUdv3wS37WHjp13Ajyy3qjnVTR8bf/5j8g4+S+91I1sfWCFZlAQHvV52OD2LhkiaY5Ld
-	 TNGnGtaZeD4vbdaowfR9EW6+5LpxnccIBiWFJjc3zkq2jfBOUdDLLwoXRcBEjXA6RFFpc
-	 i+LlRvic5Je4BtCKDmFqQhn1spZJlWYupyx9bDtYbvFANYRLCb6BCS4dZl9uwIRnkPwVM
-	 ETLmnNopb4110XDc68hD3ahx3tSHFzLkdCI2zSq8sQilccl6ASX7vAjTWl0tf24VNPg==
+	b=e3WZt0FwxxIOWk9weOONalNSPsY318KsMj+tTBcW/4DcgBFcBkdgFr8/XuHzGegBgBS5
+	 11ilPhYjm3swo7AtMEt4p5rgHbAYsSAXhGqneXcWEmz2gymH8fjPbN6vufiYSuWi15TDf
+	 Eh+K9s8UkgmwjCQi7JGG4fDpAfLfnugUYgEBBN2lhh4kYhYmNKxwjBFIOQ40Tdvo+nWlV
+	 sC+AQl/eq7xtBVgtT0QsuPmS0XCjoD/4Ub+tCnX/nj+ZU6dB6ABAOUU1VdBPf7GeixRKG
+	 vyzrj3aXfLyAlLRFdjASTTruW/lGiFsxG7BOuTWDUqdVxbcCyjufohtC+KGGvVJLB6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794438066;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=WQgY8Su4RmQsevJYQum8Qoq3Gb3AiXFR8qXOsVslQR8=;
-	b=SYD8BagdmZi/J8hWESpiA1cOrMsVQdbWbCeXg9JlUHvbVoU7l6JalcFO12xKUFWhdETo
-	 +CyrqiuxCRryy8YpnkNN4YJi7zRPzMqfj8Du7O4PZSXrjJU4kfZtU525NwUprLVvceew7
-	 t8Nfa0oFve/Jbn36aavVVJRr/srMy+n8Neq/Z+kbl2jEW2gEEgp8pSSCXpsqIDq+hDqiy
-	 pFMdeMlB4HBZdWzLY91Usq+MdVOtLGfX0vNR9GyDY1PC8roTlDP00UfYhCexg0ETlpFCp
-	 oMHn5zPhBQBKH9u2vKmC5S/AVRXm9jxn9mxygpohyfchjjxelqSpj/5QSzJCSRnti3g==
+	bh=lV6OqA+4ssaJDj1S+Y5UN2saHZp4EROsxBke/tNAscs=;
+	b=gOE9n55a+ZLghNQtg+bvxgE4W4C9C2+/HJtT0btVqJrsO2ff4y6rXOVQMFHIjXlcZ+3g
+	 oxJ+2MUgth+GyoK56r/VlR2e05Svjk6NpTa6exs7/Irc/HcZiX6vBg01J4O8DTRRk+M5d
+	 x0tfVxcKDS77Kdf9PpAj1BRHA4VuLgLZvV1jlL53+YnnuLF7UMt3UhpnQKTCcmiC6N4us
+	 kZFLw/hB80tatSGWbfWgGlezgSHiJcskQPYJK9G+XzMk9NQ0K+IaDXCqzDldI8HLtikDw
+	 DD0rX2zTWuRrdaMiQ3ttWpbQbD7swroPv8ejPEMExDG68LBH98ah2CvYoz0MBPfF5ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mit.edu;
 	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=YUCLFLRy;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=LYrGQI6K;
 	arc=none smtp.remote-ip=18.9.28.11
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B9560A262C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E533660A2638
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:01:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80B9560A262C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E533660A2638
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=YUCLFLRy
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=LYrGQI6K
 Received: from trampoline.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
 	(authenticated bits=0)
         (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxiGm026985
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxiEx026971
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 11 Nov 2026 17:59:45 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1794437992; bh=WQgY8Su4RmQsevJYQum8Qoq3Gb3AiXFR8qXOsVslQR8=;
+	t=1794437992; bh=lV6OqA+4ssaJDj1S+Y5UN2saHZp4EROsxBke/tNAscs=;
 	h=From:Subject:Date:Message-ID:MIME-Version;
-	b=YUCLFLRy0fmyAqnFSu2IGk2VC56xWeNz09JrUvX6AipBfZ3351nlS4reGL6Szn+mH
-	 39hruDgf1PYqNDUaX00RnSOa++nzsAGg4CtHTz8e7tmGSucPTfIjwNjgEoyWcIVsZD
-	 lxwwZRVe4NwS1vFcDfWgibhRENTCRxVOuCD2JkXm8hbjpD4qmajggMTIkhZOd8h5OE
-	 kY1QDGPD2lg5l0y1NWv3U+unIi56xe2+hdd0iuHIHY4HnHVA0UeJtZKNoZhYlk/0Tf
-	 GIYpaJErGQ5i3FWqKwZMIMTLml7J1Z18j/ootseYoRlhb/nupzpyoH9lrIabxs9eJ1
-	 0punlpWWISQ7Q==
+	b=LYrGQI6KyZ0v7IacPJVabY7VNXZz6g8SsTnLCmtrBPbhtr26mxv9spfoKiPLRqrBm
+	 Xwj3f0rcqeFvO3zKsey8HhQkNp5aDF7lQYPe19ltzz5+SmlQCKbiXBDsk8hGDD46qn
+	 kRl+HQNCqjfTBwv3dL+NiW4oWxoNP5HpyDYikHPkhNVSyDQ71sVDPU5MQVaVossUh9
+	 VUtB+ivZJmh8/1pZdqsM9g062zNEVNTY5f4YOzrCiUBDClWIQ0SxCy/vP6xdqQoBLX
+	 NIdpmZ+He5Y4lTYq3FqydzDSiDNEbNFi2/bOc5VuvTC1gTPqn2HAwVOudpRCRlzwEn
+	 8ZARmrwUR5suQ==
 Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id C72392E013F; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
+	id BC1812E00BC; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
 From: "Theodore Ts'o" <tytso@mit.edu>
 To: workflows@vger.kernel.org, ksummit@lists.linux.dev
 Cc: Sasha Levin <sashal@kernel.org>, Bradley Morgan <brads@mainlining.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         "Theodore Ts'o" <tytso@mit.edu>, linux-doc@vger.kernel.org,
         linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
         Shuah Khan <skhan@linuxfoundation.org>,
         Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
         Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         Leon Romanovsky <leon@kernel.org>,
         Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
         Thorsten Leemhuis <linux@leemhuis.info>,
@@ -67,9 +67,9 @@ Cc: Sasha Levin <sashal@kernel.org>, Bradley Morgan <brads@mainlining.org>,
         Alexei Starovoitov <alexei.starovoitov@gmail.com>,
         Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
         stable@vger.kernel.org
-Subject: [PATCH v5 3/6] agents: add a skill to determine stable tags
-Date: Wed, 11 Nov 2026 17:59:35 -0500
-Message-ID: <20261111225940.1573565-4-tytso@mit.edu>
+Subject: [PATCH v5 1/6] agents: add infrastructure for agent resources
+Date: Wed, 11 Nov 2026 17:59:33 -0500
+Message-ID: <20261111225940.1573565-2-tytso@mit.edu>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111225940.1573565-1-tytso@mit.edu>
 References: <20261111225940.1573565-1-tytso@mit.edu>
@@ -86,131 +86,62 @@ Content-Transfer-Encoding: 8bit
 
 From: Sasha Levin <sashal@kernel.org>
 
-Whether a fix needs a stable tag, and which releases it should reach, is
-decided by hand and is often missed or left too broad. Add a skill that
-sends the agent to stable-kernel-rules.rst for the decision and the tag
-format, lists the kinds of changes the stable trees take and leave out
-in practice, and adds the checks agents tend to get wrong: finding the
-first release that contains each introducing commit, checking that the
-fix applies to the oldest affected release, giving every stable tag the
-same version, and following the subsystem's stable policy.
-
-If the decision cannot be made, the skill returns no tag. Point the
-bug-fix procedure in coding-assistants.rst at the skill.
+Add agents/ as a home for skills and other resources for
+coding assistants. Describe the skill layout in coding-assistants.rst,
+together with the rule that skills only inspect and report, and add a
+MAINTAINERS entry covering the directory.
 
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Link: https://patch.msgid.link/20261020161642.3713052-4-sashal@kernel.org
+Link: https://patch.msgid.link/20261020161642.3713052-2-sashal@kernel.org
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 ---
- Documentation/process/coding-assistants.rst |  6 +-
- agents/skills/stable-tag/SKILL.md           | 72 +++++++++++++++++++++
- 2 files changed, 76 insertions(+), 2 deletions(-)
- create mode 100644 agents/skills/stable-tag/SKILL.md
+ Documentation/process/coding-assistants.rst | 14 ++++++++++++++
+ MAINTAINERS                                 |  6 ++++++
+ 2 files changed, 20 insertions(+)
 
 diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index ca1cc255606b..81ee530a8a7f 100644
+index 509dbf23a099..b8f2c74e46fc 100644
 --- a/Documentation/process/coding-assistants.rst
 +++ b/Documentation/process/coding-assistants.rst
-@@ -37,6 +37,8 @@ The following skills are available:
+@@ -19,6 +19,20 @@ For guidelines on content generated by AI coding assistants see:
  
- * agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug fix, or
-   checks an existing one.
-+* agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
-+  returns its stable tag, or checks an existing one.
+ * Documentation/process/generated-content.rst
  
++Agent resources
++===============
++
++Skills for coding assistants live under ``agents/skills/``, one directory per
++skill with a ``SKILL.md`` entry point in the `Agent Skills format
++<https://agentskills.io/specification>`_. Each skill points at the process
++documents that apply to its task and adds only what assistants tend to get
++wrong.
++
++Skills inspect and report. They do not change files, create commits or tags,
++or send mail. A skill returns its result with the evidence for it, or says what
++is missing. Do not fill a missing result with a guess or a placeholder, and do
++not finalize the work until it is resolved.
++
  Licensing and Legal Requirements
  ================================
-@@ -83,8 +85,8 @@ these steps:
-    another one. The fix must not add build warnings and must pass the
-    checkpatch.pl checks (see submitting-patches.rst).
- 6. Commit the working fix with a detailed message describing the problem, the
--   solution and a Fixes tag determined with the find-fixes skill.  Do not
--   add a Signed-off-by tag.
-+   solution, a Fixes tag determined with the find-fixes skill, and a stable
-+   tag if the stable-tag skill calls for one.  Do not add a Signed-off-by tag.
- 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
-    Documentation/process/security-bugs.rst shows how to do that.
- 8. Indicate what could not be done. If the fix could not be built or tested, or
-diff --git a/agents/skills/stable-tag/SKILL.md b/agents/skills/stable-tag/SKILL.md
-new file mode 100644
-index 000000000000..d87bcc95089d
---- /dev/null
-+++ b/agents/skills/stable-tag/SKILL.md
-@@ -0,0 +1,72 @@
-+---
-+# SPDX-License-Identifier: GPL-2.0-only
-+name: stable-tag
-+description: >-
-+  Decide whether a Linux kernel fix should be backported to stable kernels
-+  and return verified Cc: stable tag lines. Use when preparing or reviewing
-+  bug-fix patches, drafting their commit messages, or checking an existing
-+  stable tag.
-+---
+ 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..eb348cc9588f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -734,6 +734,12 @@ F:	Documentation/filesystems/afs.rst
+ F:	fs/afs/
+ F:	include/trace/events/afs.h
+ 
++AGENT RESOURCES
++M:	Sasha Levin <sashal@kernel.org>
++L:	workflows@vger.kernel.org
++S:	Maintained
++F:	agents/
 +
-+# Determine a stable tag
-+
-+Read Documentation/process/stable-kernel-rules.rst. It says which changes go
-+to stable and how to write the tag, its prerequisites and its version. Follow
-+the rules for skills in Documentation/process/coding-assistants.rst.
-+
-+Judge a change by what it does, not by how its description labels it: a
-+"cleanup" that releases a resource on an error path fixes a leak. In practice,
-+the stable trees take:
-+
-+- Fixes for crashes, oopses, BUG and WARN splats, hangs, lockups, RCU stalls,
-+  deadlocks, data corruption and security issues.
-+- Fixes for use-after-free, double free, NULL pointer dereferences,
-+  out-of-bounds accesses, integer overflows, uninitialized data, reference
-+  counting errors, and memory or resource leaks.
-+- Fixes for races, including data races.
-+- Fixes for incorrect behavior, such as wrong results, wrong hardware
-+  programming, or endianness and type errors.
-+- Fixes for problems reported by syzbot, other fuzzers, or the KASAN, KMSAN,
-+  KCSAN and UBSAN sanitizers.
-+- New device IDs and quirks for drivers that exist in the stable trees, device
-+  tree fixes, and device tree additions for hardware that existing drivers
-+  support.
-+- Corrections to documentation that is wrong.
-+- Performance fixes that prevent lockups, stalls or hangs.
-+- Reverts of commits that are in a released kernel.
-+- Fixes for bugs introduced by commits that were backported to stable.
-+
-+They do not take the following, unless a fix that is taken depends on it:
-+
-+- New features, new user-visible interfaces or behavior, new drivers, and new
-+  module parameters or sysfs attributes.
-+- Refactoring, code movement and other preparation patches.
-+- Optimizations that do not prevent lockups, stalls or hangs.
-+- Cleanups that do not change behavior, such as style, renames and comment
-+  changes.
-+
-+Then work out which releases need the fix:
-+
-+- Determine the Fixes tags with the find-fixes skill first. A change with no
-+  introducing commit, such as a new device ID, a quirk or a build fix, or a
-+  bug older than the available history, affects every release that contains
-+  the code it changes. Otherwise, if the Fixes tags are unresolved, so is the
-+  stable decision.
-+- For each Fixes tag, find the first release that contains the commit, not the
-+  release it was based on. If no release contains it, check whether the
-+  commit was itself backported to stable.
-+- Check that everything the fix uses exists in the oldest affected release.
-+  If something is missing, list the commit that added it as a prerequisite
-+  if it is small and fit for stable, or start the tag at the first release
-+  that has it.
-+- Give every stable tag in a commit the same version: a tag without a version
-+  asks for every stable tree and overrides the versions in the other tags.
-+  The stable tooling reads the first version number in a tag comment as the
-+  version, so describe what older trees need in the commit message.
-+- Follow the stable tag policy in the maintainer profiles, the `P:` entries in
-+  MAINTAINERS, for the changed files.
-+- Ask the caller whether the fix addresses an unpublished vulnerability, as
-+  described in Documentation/process/threat-model.rst.
-+
-+Return the tag lines with the reasons for them, or the reasons for no tag. If
-+the decision cannot be made, return no tag and say what is missing.
+ AGPGART DRIVER
+ M:	David Airlie <airlied@redhat.com>
+ L:	dri-devel@lists.freedesktop.org
 -- 
 2.53.0
 
