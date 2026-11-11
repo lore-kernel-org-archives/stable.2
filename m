@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794360032;
-	b=0ABKnBM5HmVtMKhTRs9vrEcpd6iqKVt+25hpchDXj4Bp1fzOHMXd50padiIHFJhXxt5c
-	 I7NU4xivy3H89CFvRq/Resxs5uyggutnIFsmBXr43HzrC2pANHQ9EETBUCkkIUM9PVZ25
-	 q2tBT8Od+Q2Mk91bjbt+7PnenCq9CMBqlvHP7KG1X3f31wC5/T/ZtVH62HEbPSmLVTXyr
-	 XzSMoHG3NIjRUEQou6g5mye/qufDF7y6zHOmodfFVwudk/WZXr/k7+qSW7YY+/nk2yUNU
-	 o9x5izbqOiDhINIZN0Eh/AcwGxHLqQJ7S32cPbkJ8Mg2azdkaMPcCLFOoKMj2H7A7AA==
+	t=1794360420;
+	b=c5tIZuUXMwTZBt3FjsNn/IEHSIeSDZUfff/W6qGVJJ0brbUmVXQWwm2xUBhpiZrGWQcp
+	 Hp2wCDCYbZAZwwP2xQasbw2CWiT34DGC+0xr8mIoRjIIgcNEUV7igQMIx4gJbfSuHdnK2
+	 S9+lTYUxV5mqvWeoyCq4NvD4MzRV7BLGXFRlNal+qXOmLBlBgnN0K+eB4gisrFOevEIlL
+	 FMuPBGRzlljdj3NIpNG+L2OjtghJOdAtg/4yhKtmfmEEF4dPphlIKUhQnLQZQvFINAxXR
+	 ZeGJIuBMmMrgeR9G6hIfaEZcseYsak1jJhy9PNKw4JsVdNEjX+IfQ4VoVRK9LBFWQUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794360032;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794360420;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xIMpOZftm0rRTVxACy/iLcOUYIWhHYWaeKTgn96NO8w=;
-	b=YkPK+ejYWDjLm4tOpSvW8ak04wCpUeYaLHDXXWIlU9fZilqxMROMBveD0sc2WfGN/3ug
-	 pkNhStZhRNv9fSRMACH1Z5+CdnZCtO0iUHIc1V2r31yUCquQbF4Ke/8a+vmU02aFR3VAv
-	 c0uaj3BndOuGK/hdkOlKLppBSPyNdTzVN9fO7xSoB98GMsQig59Hh7xggZ04730QNG0N9
-	 38GYEpsdu8fTvqoTmNOkyxQRceTqHUiK1ADfDsK+GX+Y7HG4b3tpEXDMynni06PWbpi6a
-	 NH2wHc46ddFiCvm3zfEzF2noRnbLtrNw9QxsIfI7hPi2PpegZHUQsDW8gAE6TGRs9sQ==
+	bh=LF75WM1e0ZZfm9P5CgUGsRJvgXXsVccMYOyhFLNRtfY=;
+	b=kG349xqckgVQBltqiC0DvWvfRLNiSV4AGXbKHKgy+2s9gcPXXHQd+Ba5yvPh52bafA/o
+	 xdDzPUGKyc58V+xla38DB9ZH9lTl01vhvQmGhTZBBlx+KklVfwFEVHmRFoPAcgmTfq68n
+	 AWz/kW+DLgAmsJKrudnZiiVWUuIvOd2OTJaZ6qjpN+uoXSTKE89/kXe4w1PMcV4dpDD5/
+	 O6qIYrAmAHPR11Ys5yC3hu0TvjS903Lp69m6Dj4kC1GUHlLoXrz5yQYo+tT5n6ldnp7Y2
+	 CTWzsgvwo1EGjAu13atV2NLAixCzMDZYPML/5nj9XcQhfhv90sHQZ82ktI1hvN9Hs9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrYw2wEh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoyJmLDp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46AFC606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E6A606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrYw2wEh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1928A1F0089F;
-	Wed, 11 Nov 2026 01:20:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoyJmLDp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617AD1F0089F;
+	Wed, 11 Nov 2026 01:26:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794360031;
-	bh=xIMpOZftm0rRTVxACy/iLcOUYIWhHYWaeKTgn96NO8w=;
+	s=k20260515; t=1794360419;
+	bh=LF75WM1e0ZZfm9P5CgUGsRJvgXXsVccMYOyhFLNRtfY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JrYw2wEhi1l6JJcgAWkJm1FXvlOjq8vinBgjStoXzO9Hl47XsUBuPA3D7qe450Vfq
-	 oY53l0jP85LgGtjztnoW7xfrvXufkzHkMPzUzn7GYWBJcs+AeGWEcKvUrRDpTgGwgM
-	 uNLVDjykngJrRABdC7AcqRX7NJGpnAkPKXuW8QGmCpcbcKjjY+esofyaHv7rm8Nf+D
-	 nv1TU1163Z9waQwyTscJ0EaVcpxYDDXn1vl1XnpxuzcQEKJOdOC0+ZiD3Cgkcnwcwo
-	 DTmex9E84b3F4VyVVlcgxyTS5J37NOjpf/H08r2d8KE42WY7NhIjXUfw3Khsvlw6kh
-	 4zZYoFrhkBhYw==
+	b=YoyJmLDpQHsy0i5wPBVxRWiDjIiA+HAMuZ+V/SsTdbPp/I0T5swpyiSfL9Rm/jSn9
+	 AyaJ7YYbC4h3bI8GfggzFDziA8PwD5FbAgNW6VlXw8XZoJi3cLGNQ3LAUDDLAUsLVb
+	 RFI1Ai0Ep+crxbd9hUpmv2V1nRn+/Eby3ftIu2kAU9l9r54Hh6ouL03OmmzzwParUW
+	 i4Lkl8JOYOHzDA0YM5RtuJ2LIN6oxBAam4WKC/4tclIjiDBptU6pFNqL5IGNqO6E/A
+	 1XMAQIC+UAcPMcHhCLEOdJS5MJJeC4NdmkDQro4cIBYIDGTr2J1ZFiPgwfWnN5WGro
+	 2/LDqfsLlp8ow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
-	Xiaogang Chen <xiaogang.chen@amd.com>,
-	Felix Kuehling <felix.kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Xiang Mei <xmei5@asu.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] drm/amdkfd: stop restore retries on device unplug
-Date: Tue, 10 Nov 2026 20:20:29 -0500
-Message-ID: <20261111011811.370172-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/3] fs/ntfs3: validate EA entry layout against ef->size in ntfs_read_ea
+Date: Tue, 10 Nov 2026 20:26:56 -0500
+Message-ID: <20261111012627.383224-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062953-failed-5.10-3254ed0b15f2@kernel.org>
-References: <20261107062953-failed-5.10-3254ed0b15f2@kernel.org>
+In-Reply-To: <20261107050557-failed-7.3-351817226fbf@kernel.org>
+References: <20261107050557-failed-7.3-351817226fbf@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,89 +62,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-[ Upstream commit 3254ed0b15f2fe656c9cb36ccb59b92422440bf8 ]
+[ Upstream commit 01e56820ef52d14a5560fb7c0c6f2f75ef6f9393 ]
 
-amdgpu_amdkfd_restore_userptr_worker() and svm_range_restore_work()
-reschedule themselves when validation fails with evicted objects
-pending. After a surprise removal the restore paths fail with -ENODEV
-permanently, so rescheduling just spins the worker uselessly until
-cancel_delayed_work_sync() in fini finally stops it - which can take
-a while, since process teardown itself is delayed by the dead device.
+In ntfs_read_ea(), the ef->size branch only checks that the declared
+entry size fits the remaining buffer; unlike the zero-size branch it
+never verifies that the entry's own name and value fit inside ef->size.
+A crafted image can thus present an in-bounds ef->size with an arbitrary
+elength, which find_ea()/ntfs_get_ea() later use as the memcpy length,
+reading past the allocation and leaking adjacent heap memory:
 
-Treat -ENODEV as terminal in both workers.
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea (fs/ntfs3/xattr.c:302)
+  Read of size 65535 at addr ffff888010770b0f by task exploit/142
+   ...
+   __asan_memcpy (mm/kasan/shadow.c:105)
+   ntfs_get_ea (fs/ntfs3/xattr.c:302)
+   ntfs_getxattr (fs/ntfs3/xattr.c:848)
+   __vfs_getxattr (fs/xattr.c:446)
+   vfs_getxattr (fs/xattr.c:479)
+   do_getxattr (fs/xattr.c:808)
+   filename_getxattr (fs/xattr.c:837)
+   path_getxattrat (fs/xattr.c:876)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+  ...
+  The buggy address is located 15 bytes inside of
+   allocated 20-byte region, cache kmalloc-32
 
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>
-Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 266fab83139600e58db7e900e930c722e619b78c)
-Cc: stable@vger.kernel.org
-[ sashal: adapted restore retry handling to the existing atomic eviction counter and delayed-work scheduling ]
+Validate the name/value layout in the ef->size branch too, bounding it
+against ef->size, as the zero-size branch validates it against the
+buffer.
+
+Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+[almaz.alexandrovich@paragon-software.com: remove duplicate check of need > ea_size]
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Stable-dep-of: 351817226fbf ("fs/ntfs3: validate the EA value length in ntfs_read_ea()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c    | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ fs/ntfs3/xattr.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index a574c89193bc4..ca89abf0aca8d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1952,6 +1952,7 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 	struct task_struct *usertask;
- 	struct mm_struct *mm;
- 	int evicted_bos;
-+	int ret;
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index 594ef6860b93b..9eccd95a718cb 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -165,6 +165,8 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+ 			/* ef->size must fit the list and cover the record. */
+ 			if (ea_size > bytes || ea_size < need)
+ 				goto out1;
++			if (bytes < offsetof(struct EA_FULL, name))
++				goto out1;
+ 			continue;
+ 		}
  
- 	evicted_bos = atomic_read(&process_info->evicted_bos);
- 	if (!evicted_bos)
-@@ -1969,7 +1970,8 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 
- 	mutex_lock(&process_info->lock);
- 
--	if (update_invalid_user_pages(process_info, mm))
-+	ret = update_invalid_user_pages(process_info, mm);
-+	if (ret)
- 		goto unlock_out;
- 	/* userptr_inval_list can be empty if all evicted userptr BOs
- 	 * have been freed. In that case there is nothing to validate
-@@ -1979,7 +1981,8 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 		if (atomic_read(&process_info->evicted_bos) != evicted_bos)
- 			goto unlock_out; /* Concurrent eviction, try again */
- 
--		if (validate_invalid_user_pages(process_info))
-+		ret = validate_invalid_user_pages(process_info);
-+		if (ret)
- 			goto unlock_out;
- 	}
- 	/* Final check for concurrent evicton and atomic update. If
-@@ -1988,8 +1991,10 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 	 * reference counting inside KFD will handle this case.
- 	 */
- 	if (atomic_cmpxchg(&process_info->evicted_bos, evicted_bos, 0) !=
--	    evicted_bos)
-+	    evicted_bos) {
-+		ret = -EAGAIN;
- 		goto unlock_out;
-+	}
- 	evicted_bos = 0;
- 	if (kgd2kfd_resume_mm(mm)) {
- 		pr_err("%s: Failed to resume KFD\n", __func__);
-@@ -2003,8 +2008,10 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 	mmput(mm);
- 	put_task_struct(usertask);
- 
--	/* If validation failed, reschedule another attempt */
--	if (evicted_bos)
-+	/* If validation failed, reschedule another attempt, unless the
-+	 * device is gone for good
-+	 */
-+	if (evicted_bos && ret != -ENODEV)
- 		schedule_delayed_work(&process_info->restore_userptr_work,
- 			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
- }
 -- 
 2.53.0
 
