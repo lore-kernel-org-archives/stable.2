@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362386;
-	b=WvujeK9lS4j2ECXSxQNGC0DDNs704p09L1CMxSqQTmppPFGb7Rw2/R3WOU0Mi24VPotD
-	 Bpm9NSv1dwv1qhB9sgVEUE/ndNuoLDuYON067jI9ym0A4TZFPpHeMbbbrB7l3moS2/lqd
-	 NiIyz8CBO1W/3ST5BHnk99iwFGTYNr0c9/mvACPFcMArPTT99jRGnsrwh4BHVjn9h9Zp7
-	 mwq5u4WCDaqPY1Ow3Dpm4duNNch9iU+p/EDHllW9KRVkKekL1K8IzEdPN+s0AKgJbs5Vt
-	 rPl6lq4B9chwEoksejghLh5XVNycxTsmaoNnLxBbRcqIEV2DOmopwTPM1K9oj+d0whg==
+	t=1794362387;
+	b=Z3l+qTRiIIl3wCMWpl2TUPzHHSd2nRwA+tf8bv054jrZeQv7Rsb1So9M+6WGrYFbuu1o
+	 dfn8gHVKho8+fXSDxIPJbu/Xq438E7/ZJo+03d7VMJOzX7SChCRlpKqdhpQkNwK9J5CmT
+	 KM0zorAswV1CuRJb3eE4qvyFta3oGw8znPAIrQJd6P+8eom73lj9SMuwArr3K6c+aVUz5
+	 WpHgjOf8YeO00PSamF7eLQsZyPIwIbw8NNVNOQnBYgt7RLEMKrVdhosD4tPM+oX+K/Rx2
+	 aN9fBheYnHqa6O17gOpo1y5Nvn3iTkq4+pVCn/pKYDBwjDnBbToNrN7cR/POm5Jo5+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362386;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362387;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wkysfnGSQ64wgej+x2Wcn8wpvF1A0GWzt50mAUlrv8w=;
-	b=5mo+3IPugIftvnaiQVH8pwqMUVlBf6fXdwGybj1diTZB3/Roy9ONaCBBM8Vj07r/mlbv
-	 HmSCLYXpWwNhdmVViACNMWXjHhtrRn78lnux4oRJ8gRFBLaUzhXxPn3BNEw46SL8GOfPR
-	 ZL955XmUmCk6qZLhsNQkZEpFX+4T2sqiCoP7tDIx1BDL1RyOx7ogx6keKIzErjQy9NaYv
-	 7DO+9nzV9vO3nq3wLcFc90DXAiRbIwo5qFXSQOEK+KVpOfOyzbKzOMMm8CUAsOXiXTpk3
-	 w5tyxNybjVbXOYrbrvZnBtoUxVomL/NGUqvl8fVUvCTDGfC7NuMq680QsrqCFL3rZeA==
+	bh=zmgzUgrJuBqE70uE/n5kXQPBymErGUYD99yuhdR4Mu8=;
+	b=SIktUz40dUw7x/050iA0sEeVuoxXq/5u86ohzEnGGAtnTsdEwI5JziDjFNwKx3eoPbL3
+	 bznWAM+iWS7ndPan1ll6Fv5K8tVtGlQY7WWEN/SdY8FqRubHhkSysrAxd4MTl3lkPgskg
+	 zSyYaJSgKE6g/y7vgWhzBBo/QrNRr+Wf1y3eLqcQF7Lq1Jyc+5k9KqcMIXQk3FwPdlxXe
+	 KaYEy/c1auHvIX0t858Msd5l6NfDqbmYMgbBodq4SF0/rPHFVlfNSgjxkttTo0gOVnw2r
+	 M8zZd6icXL1QAPF+oKWu5j4iJfOsBC2l1cSfBargJuQNg9cCl4yZ0nAmvsl8qxYbdgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qogc8kd0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6migRBA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE711606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:59:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A16EB606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:59:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qogc8kd0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 408A61F0093C;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6migRBA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A891F0089F;
 	Wed, 11 Nov 2026 01:59:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794362386;
-	bh=wkysfnGSQ64wgej+x2Wcn8wpvF1A0GWzt50mAUlrv8w=;
+	s=k20260515; t=1794362387;
+	bh=zmgzUgrJuBqE70uE/n5kXQPBymErGUYD99yuhdR4Mu8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qogc8kd0N/WFDYtkreggR2U3ui1fuVsD+s4rtsrUM/epN9+6YA5J1LqQpMv4kB/F6
-	 iKP+6m/8Ha6sG6IwiPYFn+ODGDCulOrNlKaVPcRb6+jA8yS27WOr5Wtxbk0wskCcEk
-	 nnMq26iownO6HVH0oWd6uzQv9PVLyf1xbs9CgaLEVaOIiv39XmfVXOIcvqaaItL5il
-	 pDfytjORKHE2JgyHc33b/GZUl3/zJbjN8sdY48dLaUDHoTySEQU4ZkBeryCIxGPZCP
-	 OR24OLzZ+CtclB9OrHSXQWVNN0NIUhs08nRsGN9HWWQ4SmEKd3+PM/V6xSN/vDd61p
-	 wTxT7smOuAICg==
+	b=Z6migRBA9QXb9pWwgCseiWcwyfgcjwhzbF5ngG1iBHxJK0HGPOOCjD2xdnbFOIH8+
+	 zbg0/Wpwcd4kpz9VLU3ceuQbyV01KpEEtORNhicVxqFtAaj1wEJO12UXrfrVLDTWrV
+	 yooEmNqAD5mah4LgmrpyYBTGhQKDpqqpELtDkEKs57UshrQUqNRyIRwJjbEhYboW4g
+	 EDLA/f6WYWIBbcPOAFG+jX3mGdtvZwl8FdsRyOxEYfJMfOijGn4go9s0CbEP4Wgedh
+	 kKgCGM/kfpRhRGy4UzeQZY9UPDvR2/mF/NfyBhyhqal/AV4KIoyJRb0IPTUG/cJiGA
+	 72cvbpPMHsj0A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/4] ALSA: emux: centralize & improve patch info validation
-Date: Tue, 10 Nov 2026 20:59:42 -0500
-Message-ID: <20261111015933.483997-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/4] ALSA: emux: simplify snd_sf_list.callback handling
+Date: Tue, 10 Nov 2026 20:59:43 -0500
+Message-ID: <20261111015933.483997-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111015933.483997-1-sashal@kernel.org>
 References: <20261107060913-failed-5.15-8a5d87c2ba30@kernel.org>
@@ -64,170 +64,79 @@ Content-Transfer-Encoding: 8bit
 
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-[ Upstream commit de67aab120d4d5ba7d9e94ee5b25464ae0d1bd0e ]
+[ Upstream commit 4c4cbe66828f185903d2127aed6ac9b7302e9d3a ]
 
-This does several closely related things:
-- Move the code from the drivers into the SoundFont loader, which
-  de-duplicates it.
-- Sort of explain the weird "recalculate address offset" feature. Note
-  that I don't think it actually makes any sense - the calling user
-  space code should do that. The background is certainly that the source
-  data (the SoundFont format) uses pointers into a single wave block
-  (and the API allows doing the same for on-board ROM), but the API
-  expects the wave data from user space to be pre-chopped into
-  individual patches anyway.
-- Make sure that the specified offsets actually lie within the supplied
-  wave data. Note that we don't validate ROM offsets, so one can play
-  back anything within the sound card's address space.
-- In load_guspatch(), don't call the sample_new callback anymore when
-  the patch size is zero, as was already the case in load_data(). The
-  callbacks would instantly return in that case anyway; these checks are
-  now removed.
+Both drivers provide both sample_new and sample_free, and it makes no
+sense to pretend that they could not. In fact, load_data() would already
+crash if sample_new was null. So remove the remaining null checks.
+
+Contrary to that, the emu10k1 driver actually has a null sample_reset,
+though I'm not convinced that this inconsistency is justified.
 
 Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Message-ID: <20240406064830.1029573-7-oswald.buddenhagen@gmx.de>
+Message-ID: <20240406064830.1029573-18-oswald.buddenhagen@gmx.de>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Stable-dep-of: 8a5d87c2ba30 ("ALSA: emux: Stop voices before freeing zones in all cases")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/isa/sb/emu8000_patch.c      | 13 -----------
- sound/pci/emu10k1/emu10k1_patch.c | 16 -------------
- sound/synth/emux/soundfont.c      | 37 ++++++++++++++++++++++++++++++-
- 3 files changed, 36 insertions(+), 30 deletions(-)
+ sound/synth/emux/emux.c      |  6 ++----
+ sound/synth/emux/soundfont.c | 12 +++++-------
+ 2 files changed, 7 insertions(+), 11 deletions(-)
 
-diff --git a/sound/isa/sb/emu8000_patch.c b/sound/isa/sb/emu8000_patch.c
-index 8c1e7f2bfc34a..ab4f988f080dc 100644
---- a/sound/isa/sb/emu8000_patch.c
-+++ b/sound/isa/sb/emu8000_patch.c
-@@ -148,13 +148,6 @@ snd_emu8000_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
- 	if (snd_BUG_ON(!sp))
- 		return -EINVAL;
- 
--	if (sp->v.size == 0)
--		return 0;
--
--	/* be sure loop points start < end */
--	if (sp->v.loopstart > sp->v.loopend)
--		swap(sp->v.loopstart, sp->v.loopend);
--
- 	/* compute true data size to be loaded */
- 	truesize = sp->v.size;
- 	if (sp->v.mode_flags & (SNDRV_SFNT_SAMPLE_BIDIR_LOOP|SNDRV_SFNT_SAMPLE_REVERSE_LOOP))
-@@ -177,12 +170,6 @@ snd_emu8000_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
- 			return -EFAULT;
- 	}
- 
--	/* recalculate address offset */
--	sp->v.end -= sp->v.start;
--	sp->v.loopstart -= sp->v.start;
--	sp->v.loopend -= sp->v.start;
--	sp->v.start = 0;
--
- 	/* dram position (in word) -- mem_offset is byte */
- 	dram_offset = EMU8000_DRAM_OFFSET + (sp->block->offset >> 1);
- 	dram_start = dram_offset;
-diff --git a/sound/pci/emu10k1/emu10k1_patch.c b/sound/pci/emu10k1/emu10k1_patch.c
-index 49214c2268084..47d69a0e44bc6 100644
---- a/sound/pci/emu10k1/emu10k1_patch.c
-+++ b/sound/pci/emu10k1/emu10k1_patch.c
-@@ -35,28 +35,12 @@ snd_emu10k1_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
- 	if (snd_BUG_ON(!sp || !hdr))
- 		return -EINVAL;
- 
--	if (sp->v.size == 0) {
--		dev_dbg(emu->card->dev,
--			"emu: rom font for sample %d\n", sp->v.sample);
--		return 0;
--	}
--
- 	if (sp->v.mode_flags & (SNDRV_SFNT_SAMPLE_BIDIR_LOOP | SNDRV_SFNT_SAMPLE_REVERSE_LOOP)) {
- 		/* should instead return -ENOTSUPP; but compatibility */
- 		printk(KERN_WARNING "Emu10k1 wavetable patch %d with unsupported loop feature\n",
- 		       sp->v.sample);
- 	}
- 
--	/* recalculate address offset */
--	sp->v.end -= sp->v.start;
--	sp->v.loopstart -= sp->v.start;
--	sp->v.loopend -= sp->v.start;
--	sp->v.start = 0;
--
--	/* be sure loop points start < end */
--	if (sp->v.loopstart >= sp->v.loopend)
--		swap(sp->v.loopstart, sp->v.loopend);
--
- 	/* compute true data size to be loaded */
- 	truesize = sp->v.size + BLANK_HEAD_SIZE;
- 	if (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_NO_BLANK)
+diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
+index a870759d179ed..a02f952d74ba2 100644
+--- a/sound/synth/emux/emux.c
++++ b/sound/synth/emux/emux.c
+@@ -94,10 +94,8 @@ int snd_emux_register(struct snd_emux *emu, struct snd_card *card, int index, ch
+ 	/* create soundfont list */
+ 	memset(&sf_cb, 0, sizeof(sf_cb));
+ 	sf_cb.private_data = emu;
+-	if (emu->ops.sample_new)
+-		sf_cb.sample_new = sf_sample_new;
+-	if (emu->ops.sample_free)
+-		sf_cb.sample_free = sf_sample_free;
++	sf_cb.sample_new = sf_sample_new;
++	sf_cb.sample_free = sf_sample_free;
+ 	if (emu->ops.sample_reset)
+ 		sf_cb.sample_reset = sf_sample_reset;
+ 	emu->sflist = snd_sf_new(&sf_cb, emu->memhdr);
 diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
-index eed47e4830248..c8775c21bc6f2 100644
+index c8775c21bc6f2..c803c5c756114 100644
 --- a/sound/synth/emux/soundfont.c
 +++ b/sound/synth/emux/soundfont.c
-@@ -689,6 +689,21 @@ find_sample(struct snd_soundfont *sf, int sample_id)
- }
- 
- 
-+static int
-+validate_sample_info(struct soundfont_sample_info *si)
-+{
-+	if (si->end < 0 || si->end > si->size)
-+		return -EINVAL;
-+	if (si->loopstart < 0 || si->loopstart > si->end)
-+		return -EINVAL;
-+	if (si->loopend < 0 || si->loopend > si->end)
-+		return -EINVAL;
-+	/* be sure loop points start < end */
-+	if (si->loopstart > si->loopend)
-+		swap(si->loopstart, si->loopend);
-+	return 0;
-+}
-+
- /*
-  * Load sample information, this can include data to be loaded onto
-  * the soundcard.  It can also just be a pointer into soundcard ROM.
-@@ -730,6 +745,21 @@ load_data(struct snd_sf_list *sflist, const void __user *data, long count)
- 		return -EINVAL;
- 	}
- 
-+	if (sample_info.size > 0) {
-+		if (sample_info.start < 0)
-+			return -EINVAL;
-+
-+		// Here we "rebase out" the start address, because the
-+		// real start is the start of the provided sample data.
-+		sample_info.end -= sample_info.start;
-+		sample_info.loopstart -= sample_info.start;
-+		sample_info.loopend -= sample_info.start;
-+		sample_info.start = 0;
-+
-+		if (validate_sample_info(&sample_info) < 0)
-+			return -EINVAL;
-+	}
-+
- 	/* Allocate a new sample structure */
- 	sp = sf_sample_new(sflist, sf);
- 	if (!sp)
-@@ -980,6 +1010,11 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data,
- 	smp->v.loopend = patch.loop_end;
- 	smp->v.size = patch.len;
- 
-+	if (validate_sample_info(&smp->v) < 0) {
-+		sf_sample_delete(sflist, sf, smp);
-+		return -EINVAL;
-+	}
-+
- 	/* set up mode flags */
- 	smp->v.mode_flags = 0;
- 	if (!(patch.mode & WAVE_16_BITS))
-@@ -1017,7 +1052,7 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+@@ -1052,7 +1052,7 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data,
  	/*
  	 * load wave data
  	 */
--	if (sflist->callback.sample_new) {
-+	if (smp->v.size > 0 && sflist->callback.sample_new) {
+-	if (smp->v.size > 0 && sflist->callback.sample_new) {
++	if (smp->v.size > 0) {
  		rc = sflist->callback.sample_new
  			(sflist->callback.private_data, smp, sflist->memhdr,
  			 data, count);
+@@ -1417,9 +1417,8 @@ snd_sf_clear(struct snd_sf_list *sflist)
+ 		}
+ 		for (sp = sf->samples; sp; sp = nextsp) {
+ 			nextsp = sp->next;
+-			if (sflist->callback.sample_free)
+-				sflist->callback.sample_free(sflist->callback.private_data,
+-							     sp, sflist->memhdr);
++			sflist->callback.sample_free(sflist->callback.private_data,
++						     sp, sflist->memhdr);
+ 			kfree(sp);
+ 		}
+ 		kfree(sf);
+@@ -1521,9 +1520,8 @@ snd_soundfont_remove_unlocked(struct snd_sf_list *sflist)
+ 			nextsp = sp->next;
+ 			sf->samples = nextsp;
+ 			sflist->mem_used -= sp->v.truesize;
+-			if (sflist->callback.sample_free)
+-				sflist->callback.sample_free(sflist->callback.private_data,
+-							     sp, sflist->memhdr);
++			sflist->callback.sample_free(sflist->callback.private_data,
++						     sp, sflist->memhdr);
+ 			kfree(sp);
+ 		}
+ 	}
 -- 
 2.53.0
 
