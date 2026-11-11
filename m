@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794365025;
-	b=feKIMNlpMcKTNh+Ytd7d1nvVbb0DG6oEaiAUcWl64GFLeJ2crwSa3Dkzp4wnpCcHG9K/
-	 uBcHQPNepET7tsWi99GMPs6ZhEUZMuMzU/IyXJeI8IJxvjJQkTZ3FarLyarT5oDR50v94
-	 yp3HQ0aUrDRglAx0LLZH5cvy5ORuzrZvTNBcsGZg5sUA5srLvBxFF7EKVsc7YLtJ9oG8C
-	 66RHSw4v+dOyOxOzwUXeeXG2WK+sJ+KFt/s+02wjKdKpTKULL3U/y2sBFZsZqEjWZE8UY
-	 boG5PGm4nlL3vcj9udK3TVXjk09UUsSgNxLITiPsVVQXTl1BNt3dBPWjNnO6Vk9o/tQ==
+	t=1794365031;
+	b=W3+tI8UM9ujpNmmiOX+g+sgZCh0moyfPqx7x40YLbC7Y9btHQJDsVfVLoY/XbzyNRdWR
+	 Mv6XMoms271B2V64wWQIfNHXj6H58/o1rXe2DgR48dohlrhYU2SpJ4ZsdtAw/g3mKQeUX
+	 Qd3hxy4zC2SuUGMCGDHeyR1TcPBLP0BJ/Ss0NKMyK1rm5UbePjEaQ2kV2+X+ywMbzQTDW
+	 3onoJvhN1TblqnOeH4pd9N2dE79m9DMPUyFvjqn2iFntSqaag0LnNIqH2l8s1zAiPYGDH
+	 masImLxXaxwnMxaXq6XBj4uIMakEZNKCkBZjbM98kjmPg60N+b3S6+e4Rt8b3rKa9tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794365025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794365031;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7rNI7s/znd7YiV8uFLOV38Z26XRmIR9CssTgm90hB78=;
-	b=2Ck1YhDp3cG4I7a9XeuNo9d4e0zS0bRPIygMYoEEJsztr9d9NMtuWRXCxLRDHOqSwHGn
-	 BwkOp+2fwnhYnH5UdTzon3u5W9W0WNsCvIAovDY46FtHx02d1rf1qZquJlm7DbjZnWDxI
-	 lam1o4Rv4Z+lD9EPXM29nHst3izvaHISS+Q1UcGybSNgDCil5nkHPHJiWQdrDMoS5IThp
-	 nf12jBqaQHcLsoTUbEPCUgbbvPgNCVFcPrk/KmcBLyE8f2PvLduym1zJCPTrKRg14cujo
-	 n/6JLXqdMmCXoM1LpdrQKG+47jPxHd1JgbcRZav94LMNgaWkY6xfX+vO+IdlB6PCxzg==
+	bh=0ZEV3KjGoXEL2H9oQPo+XzW7pH4zkWyALH6WWtiMIeQ=;
+	b=HBvkKXVJpoxKFJCkqvqV6FGJ7f1S1cau0WpPKyueDeryKS6/5EKNn0JLYHtLPYiIpgUz
+	 9VxmJBxNiPGT4tDVMY4gR5EoRex70tjF72X0evSM2LDADekjp5na0LSwK6ZelHfH03mpN
+	 rUyzolMMX4o9jm+32thctbLt3iuTdayZYWv6avb97hNPbFvQDrJAHHqz7oy9ukzB0Ok2F
+	 3p1lO0v9pR4mpoGQgPf1Tt2j9qqwQYQ/f+ebYTt372id8WWFkMxoDUIy89hZyMgU7AJ5F
+	 DkW5PRDg0ymyhMSGzRRAfhmSUUD8fbcycftN/CEOnGhohJEGBIfkzfyNZClyN0/I7wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kONKV705;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VhiO3UUu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D541606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA820606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:43:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kONKV705
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 600021F0089F;
-	Wed, 11 Nov 2026 02:43:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VhiO3UUu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F731F0089F;
+	Wed, 11 Nov 2026 02:43:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794365025;
-	bh=7rNI7s/znd7YiV8uFLOV38Z26XRmIR9CssTgm90hB78=;
+	s=k20260515; t=1794365031;
+	bh=0ZEV3KjGoXEL2H9oQPo+XzW7pH4zkWyALH6WWtiMIeQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kONKV705g62PgtebKxEbkPGOKRnt7AbV5zKEh8moiJogS3WpSznGPbyPlZlloWD1o
-	 TEvGgJ0xk4PPU3lwtDqg95ASmtVpNp7cj2hn0aEizRoYFFpOT80VqOfIQhI1eaoxGC
-	 UvQ4pfpOmeYCn8B0qCTfUYHH8nvxRfXirN83rABnmUEPo5PRm61PrqPGgvwPCnIMN7
-	 1A40F5AqXZJWTmy6Q5Hc0OAPGvCHZFZjGhmN1h2VFfjPi7g2v1Yg1DlmTat3pHQaLO
-	 GQ+uC2ALeMfUdd2e7dT44lx1dF4ksGK4ptVACVLNifRR+/EvUcZNEq7diliOOZiNql
-	 VgFA2LSjmkZuw==
+	b=VhiO3UUuDoyXK8su6N/EKPxDVa+juXTCWZ4+5NV0GwApROUvxHd1bZkP8ruhYdEk5
+	 rzhr8XmBrNr34FspTR3z8spA7CsSJyPSfSjXgelw8WAJYnlckH1KHL4wX87nh2uTc5
+	 HckegUyg7cg0P9Tpdbo/emdLC4lAQAMLq3yrL17PlLruo//ZS3HovQzQ7vDqFz1c9/
+	 6Wt61AQVAD5xWz2/XqjfefE9qYjZtUr64OPYXo5IHXqIfFbWQnHbg8Z3BmsH3eCk8x
+	 A4VqENh7YPDe4rtJJAi7v4aSnLgy+V78RBBiMRksAPX5Ic7TSkL4CfsY6im5jMYYI5
+	 0VJO/UxLIes5Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: Maciej Kucharek <qchcio@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] power: supply: bq27xxx: Ensure poll work is cancelled on remove
-Date: Tue, 10 Nov 2026 21:43:43 -0500
-Message-ID: <20261111024118.753556-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
+Date: Tue, 10 Nov 2026 21:43:49 -0500
+Message-ID: <20261111024157.707600-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054139-failed-6.1-db560f4b1c52@kernel.org>
-References: <20261107054139-failed-6.1-db560f4b1c52@kernel.org>
+In-Reply-To: <20261107060922-failed-5.15-5b56ede88031@kernel.org>
+References: <20261107060922-failed-5.15-5b56ede88031@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,87 +61,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Maciej Kucharek <qchcio@gmail.com>
 
-[ Upstream commit db560f4b1c5253853f978385db066220e0c218dc ]
+[ Upstream commit 5b56ede880317bd912f914d5cd38ba1d357677fa ]
 
-The di->work poll work is queued from the poll callback itself and from
-bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
-bq27xxx_battery_teardown() runs while the power_supply is still
-registered, so external_power_changed() can re-arm the work after the
-cancel, and it runs after the driver data has been freed.
+On MacBookPros with switchable graphics, the firmware puts VRAM at MC
+address 0 when the iGPU is enabled.  The EFI stub enables the iGPU on
+these machines through apple_set_os().  On a MacBookPro11,5 (Radeon R9
+M370X, 1002:6821, subsystem 106b:0149), the driver adopts this layout
+at init:
 
-Register a devm_delayed_work_autocancel() before
-devm_power_supply_register(), so on unwind the power_supply is
-unregistered first, after which no new external_power_changed()
-callback can be dispatched, and the poll work is cancelled only then.
-Drop the now-redundant cancel from bq27xxx_battery_teardown().
+  MC_VM_FB_LOCATION=0x007f0000, HDP_NONSURFACE_BASE=0
+  VRAM at 0x0-0x7fffffff, GART table at 0x1400000
 
-This issue was found by an in-house static analysis tool.
+The driver posts the ASIC again on S3 resume and after a GPU reset.
+The VBIOS asic_init table then moves VRAM back to the VBIOS default:
 
-Fixes: 740b755a3b34 ("bq27x00: Poll battery state")
+  MC_VM_FB_LOCATION=0xf47ff400, HDP_NONSURFACE_BASE=0xf4000000
+
+gmc_v6_0 does not reprogram these registers.  The GART table is then
+no longer in VRAM, and the gfx ring test times out:
+
+  amdgpu: ring gfx test failed (-110)
+  amdgpu: resume of IP block <gfx_v6_0> failed -110
+
+Reset and post the ASIC at driver load on Apple boards with VRAM at 0.
+The driver then uses the VBIOS layout (VRAM at 0xf400000000) from the
+start, and later posts keep it.  After the reset, FB_BASE is not 0, so
+a module reload does not reset the ASIC again.
+
+The test is the same one that commit c54e4d105077 ("drm/amdgpu: make
+Mac FB workaround generic") uses: an Apple subsystem vendor and VRAM at
+0.  The VI quirk for the MacBookPro14,3 resets at load for the same
+reason:
+
+  commit b6b1d9721851 ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
+
+Other Apple SI boards get the same reset if FB_BASE reads 0 at load.
+
+Tested on a MacBookPro11,5 with 7.2.5 and this patch: the panel comes
+up at boot, and 4 of 4 deep S3 cycles resume.  Without the patch, S3
+resume fails every time.  The GPU reset path is not tested.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5978
+Assisted-by: Claude:claude-opus-5-5
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 60dd16ae10f286cb9cce5b6027b2d5ee869637af)
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260903081312.225535-1-fanwu01@zju.edu.cn
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-[ sashal: replaced manual mutex initialization and destruction with devm_mutex_init() ]
+[ sashal: replaced MC_VM_FB_LOCATION__FB_BASE_MASK with its equivalent literal 0xFFFF to avoid conflicting header definitions. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/bq27xxx_battery.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/si.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index a818b002af21d..57b3de34c0242 100644
---- a/drivers/power/supply/bq27xxx_battery.c
-+++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -43,6 +43,7 @@
-  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index fd34c2100bd96..c63f1b7162d34 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1509,6 +1509,16 @@ static bool si_need_full_reset(struct amdgpu_device *adev)
  
- #include <linux/device.h>
-+#include <linux/devm-helpers.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/param.h>
-@@ -2141,9 +2142,11 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 		.of_node = di->dev->of_node,
- 		.drv_data = di,
- 	};
-+	int ret;
- 
--	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
--	mutex_init(&di->lock);
-+	ret = devm_mutex_init(di->dev, &di->lock);
-+	if (ret)
-+		return ret;
- 
- 	di->regs       = bq27xxx_chip_data[di->chip].regs;
- 	di->unseal_key = bq27xxx_chip_data[di->chip].unseal_key;
-@@ -2161,6 +2164,12 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	psy_desc->get_property = bq27xxx_battery_get_property;
- 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
- 
-+	/* Cancel the poll work after the power_supply is unregistered. */
-+	ret = devm_delayed_work_autocancel(di->dev, &di->work,
-+					   bq27xxx_battery_poll);
-+	if (ret)
-+		return ret;
+ static bool si_need_reset_on_init(struct amdgpu_device *adev)
+ {
++	/*
++	 * MacBookPros with switchable graphics put VRAM at 0 when the iGPU
++	 * is enabled.  Any later post (S3 resume, GPU reset) moves it back to
++	 * the vbios default, so reset and post on load to start with the
++	 * vbios layout.
++	 */
++	if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++	    !(RREG32(mmMC_VM_FB_LOCATION) & 0xFFFF))
++		return true;
 +
- 	di->bat = power_supply_register_no_ws(di->dev, psy_desc, &psy_cfg);
- 	if (IS_ERR(di->bat))
- 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
-@@ -2188,10 +2197,7 @@ void bq27xxx_battery_teardown(struct bq27xxx_device_info *di)
- 	di->removed = true;
- 	mutex_unlock(&di->lock);
- 
--	cancel_delayed_work_sync(&di->work);
--
- 	power_supply_unregister(di->bat);
--	mutex_destroy(&di->lock);
+ 	return false;
  }
- EXPORT_SYMBOL_GPL(bq27xxx_battery_teardown);
  
 -- 
 2.53.0
