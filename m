@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794410482;
-	b=VxVqn5AKo7FzjRbNoAy/VM3PMyObCprqpMk6zZ+NVj7XNL5nrdPbZT/Qoan6ZOK8Zh1a
-	 a3AHP3P81O0+6TIuzrGn8O1InmyE97HNL3rZjqTjSJxaR/2vR3mKc2pV5xLKGgycMe2EE
-	 97WOCRp7mrKnaHn4JTrOclt/zLlkKv+tftul2/1bPHaXvHKIHt7sphYtqcAqqggU9lJmu
-	 6SYnr6e2LNvE8sQKOyDs2hAuo6R12A8LLd8bW93eVMA+xKwipAiHT6y8/oc1v1pmDXxsn
-	 aXeYIm7C50eO1x4OrFSLP3Q7dIclT+sOeJfvAiCDMmhT+XsmiXG1sDa3NTZTafrCsfg==
+	t=1794410500;
+	b=I1ddNcUBPHy5Hese26Q8R3vaQerHmX+iSeHkJjBt947X5/vzJwMNT/ht12dqFEYSJycC
+	 kgvAt7HUp6IHQTbbHhAw3fPY5mQ4hz4H5dufgLT4AErZ4VLHjGHPL09RKi/KenQetH5ia
+	 gR3Mf1NqixJpXmuEWbVBnD69aOk7TrQJ9KZIuMudnY7HNDDH7eWRR6Rw9JKj5PVoiB5s2
+	 kbdnKfPv29qGVBeElnCCBgos6eoAjGaAsrFKjbeg8lfAYjTiuOPUNP/HQWSFjpbumCxW/
+	 TVvt4vtRAWj7jZpRTiyP3wd5mPkWQXIHBHgR+STXzqsUn52b8D+YrfvKBz8kOY84kyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410482;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410500;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wDBeU35xYugDYyZ5e7wTh65DQFtc6Cv5K6qQiWRep0k=;
-	b=Fqpwyt7Xb1w7Tgj3r7tTwxBrd/tHV1zbKeJAN8Bz0VAWwYC0+IcnREHbak955AFgb695
-	 Xs/eewmW8NU+3LioXQ7sPSNmPrJmo3HOMggboniKqfNdMurNdgI/Dts3yc6uhCAH2LG5O
-	 i7Ff+X4KyoDdK0eo1HTvbkU+BSlRbuebm59iwTQWZ1rf89OBRsNV690sobcnkAXq4rVX9
-	 //aUiRqJE1Uuid6iytZzJk4Ld1o6cvoFSSpgGcQ8vFF0UYAefRExd/+kEc64KQyCJz6+J
-	 2rTOQYsj7dGdVcyIoIdHD+eF2lLLkKbfkyA9mKySTMfWAFr39PQDSLKieo/qhFVrluw==
+	bh=GPArO0mrg49sftABkRMXyC5qoluNGdoA73xdGW23tuY=;
+	b=UdtyIkbFEMdlpcGmIkBu+htXTdGlzYpDqQBmLcYRtZ4ipED9YC76047MOnBwjI++2Bd2
+	 +Sg3tjhWtWQXeqZImquwJc4Pc20zntjMc6zXD9bDAjEzMh/KJWnhwSomKq67CfUCKWwqN
+	 I8sIkEMjs+AhjlyW/nsoju1YJ2LIigY8pdGANk/XQ3wLgzZ9vhm0yZ1LwxJ+owHbcnOkR
+	 JJ52DA5QaCnLsSXFODDIChJcRgur4vAXg7+VylRCcecQVAfuGP6HeQcLDxkT/SqDNf8fA
+	 QUrtvq7VpwuI2UBcG2rM+iUr6+yyBj48cQXYHztQEt+Kmtu2g4Om/bed4+2kYm4QQpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHWUkJ7T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pto0Pvqa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE848606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:21:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B20606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHWUkJ7T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0731F00A05;
-	Wed, 11 Nov 2026 15:21:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pto0Pvqa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42F611F00A05;
+	Wed, 11 Nov 2026 15:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794410482;
-	bh=wDBeU35xYugDYyZ5e7wTh65DQFtc6Cv5K6qQiWRep0k=;
+	s=k20260515; t=1794410499;
+	bh=GPArO0mrg49sftABkRMXyC5qoluNGdoA73xdGW23tuY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CHWUkJ7T5W3aP2F/0bzAVJ48VcFycEIE/VOCMpRQq8SWRZxzv1k3+LiUYm6TtYtQd
-	 sxQKf1gAhVhmlSaLcyGo9H/eWj2o1K8qRBmSYwcPRe9hHx8PC6q0p3y3kFyZxPc0eU
-	 gVjijyAwKWUSbVDsEUOLkouDd6mkiLJAl/pvAqxegFO0fCGuAwyFTXpdm/AbTvQdHv
-	 PDqDHqF99qGZrSSuTRClfnB06o4lpfwGF5PkN7gMUNr2SMFKu+Es0AIiaNOaaxuTD7
-	 omLWWvT4qznPMHuBKBbqQy5B20JUb45B8G7EQ119yaNeko9+YNQISK2aAL0wKYtt1M
-	 Uf51NIxFzU+nw==
+	b=Pto0PvqaRaug4cIWDCZIcmtnndpVjjXJLp9k77P1N3YkmAiXu1CuoF8wrXW5rVbjf
+	 QvXnyTZxx2W2CL5yit6JTm4ZfSf4It9ojhtiEc4wQhJYhUdbufp8/i6NJSLV4H1jVL
+	 ukT/SAWjDp66JREpCTqlXkjRLsRJ6tbaOHvbCWh9FiXpyUbuBC8B/88XGh1s7zMYjz
+	 Ws5x4O9DwLOa2eU4foAQAcrNhHMIYMW3xXHFA2TVg6KSp5BkkvTAC1TOAQGHs0T3Rg
+	 w83Xo7iXc/fWRFQw+V5u5nvoae2TJPmepyG3Od67MlIwHezlyJy4D8mYQi9c5Lx7PB
+	 SuwY+024c4onw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>,
-	Lee Jones <lee@kernel.org>,
+Cc: "Borislav Petkov (AMD)" <bp@alien8.de>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Jonathan Corbet <corbet@lwn.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mfd: tps65217: Use devres for IRQ domain and wake teardown
-Date: Wed, 11 Nov 2026 10:21:20 -0500
-Message-ID: <20261111152051.2607119-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] Documentation/kernel-parameters: Move the kernel build options
+Date: Wed, 11 Nov 2026 10:21:36 -0500
+Message-ID: <20261111152043.2571247-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054950-failed-6.1-cffd44d2d895@kernel.org>
-References: <20261107054950-failed-6.1-cffd44d2d895@kernel.org>
+In-Reply-To: <20261107051540-failed-6.18-799203afd298@kernel.org>
+References: <20261107051540-failed-6.18-799203afd298@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,141 +62,243 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+From: "Borislav Petkov (AMD)" <bp@alien8.de>
 
-[ Upstream commit cffd44d2d89524e2dda6adc7b0dd59363be1c8e6 ]
+[ Upstream commit f690e07859e67505e7106ef5b4fae5e8b71b2109 ]
 
-Removing the parent device used to tear the IRQ domain down in
-tps65217_remove() before the MFD children are unbound: the i2c core
-only releases the parent's devres after the remove callback returns,
-whereas devm_mfd_add_devices() registered its own devres action which
-unbinds the children. Children that requested interrupts from the
-domain (e.g. tps65217-charger) therefore call free_irq() on virtual
-IRQs whose descriptors have already been disposed. With
-CONFIG_SPARSE_IRQ free_irq() then returns early without stopping the
-threaded handler, leaking the irqaction, the IRQ kthread and a module
-reference.
+Move the kernel build options abbreviations to the .txt file so that
+they are together instead of one having to go hunt them in the .rst
+file.
 
-Register the domain teardown as a devres action right after the domain
-is created instead. Devres actions are released in reverse order of
-registration, so the MFD children release their IRQs first, then the
-parent interrupt is freed and its thread stopped, and only then is the
-domain torn down. The same ordering covers probe failure, which no
-longer needs manual cleanup, and the remove callback can be dropped
-entirely.
+Tweak the formatting so that the inclusion of kernel-parameters.txt
+still keeps the whole thing somewhat presentable in the html output too.
 
-Balance the enable_irq_wake() in tps65217_irq_init() by registering
-disable_irq_wake() as a devres action as well. Only do so when
-enabling actually succeeded, since the parent chip may not support
-setting wake-up.
-
-Fixes: 6556bdacf646fcaa ("mfd: tps65217: Add support for IRQs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
-Link: https://patch.msgid.link/20261002113624.178588-4-r.zhambakiev@prosoftsystems.ru
-Signed-off-by: Lee Jones <lee@kernel.org>
-[ sashal: Adjusted driver registration context to retain .probe_new instead of .probe. ]
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Signed-off-by: Jonathan Corbet <corbet@lwn.net>
+Message-ID: <20251112114641.8230-1-bp@kernel.org>
+Stable-dep-of: 799203afd298 ("nvme-tcp: validate the TLS handshake timeout")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mfd/tps65217.c | 57 +++++++++++++++++++++++++++++-------------
- 1 file changed, 39 insertions(+), 18 deletions(-)
+ .../admin-guide/kernel-parameters.rst         | 97 +-----------------
+ .../admin-guide/kernel-parameters.txt         | 98 +++++++++++++++++++
+ 2 files changed, 99 insertions(+), 96 deletions(-)
 
-diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
-index 0d050693d296e..df645d3f4673e 100644
---- a/drivers/mfd/tps65217.c
-+++ b/drivers/mfd/tps65217.c
-@@ -147,6 +147,31 @@ static const struct irq_domain_ops tps65217_irq_domain_ops = {
- 	.map = tps65217_irq_map,
- };
- 
-+static void tps65217_irq_cleanup(void *data)
-+{
-+	struct tps65217 *tps = data;
-+	unsigned int virq;
-+
-+	if (!tps->irq_domain)
-+		return;
-+
-+	for (int i = 0; i < TPS65217_NUM_IRQ; i++) {
-+		virq = irq_find_mapping(tps->irq_domain, i);
-+		if (virq)
-+			irq_dispose_mapping(virq);
-+	}
-+
-+	irq_domain_remove(tps->irq_domain);
-+	tps->irq_domain = NULL;
-+}
-+
-+static void tps65217_irq_wake_disable(void *data)
-+{
-+	unsigned long irq = (unsigned long)data;
-+
-+	disable_irq_wake(irq);
-+}
-+
- static int tps65217_irq_init(struct tps65217 *tps, int irq)
- {
- 	int ret;
-@@ -170,6 +195,10 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
- 		return -ENOMEM;
- 	}
- 
-+	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_cleanup, tps);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_threaded_irq(tps->dev, irq, NULL,
- 					tps65217_irq_thread, IRQF_ONESHOT,
- 					"tps65217-irq", tps);
-@@ -179,7 +208,16 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
- 		return ret;
- 	}
- 
--	enable_irq_wake(irq);
-+	ret = enable_irq_wake(irq);
-+	if (ret) {
-+		dev_warn(tps->dev, "failed to enable IRQ wake: %d\n", ret);
-+		return 0;
-+	}
-+
-+	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_wake_disable,
-+				       (void *)(unsigned long)irq);
-+	if (ret)
-+		return ret;
- 
- 	return 0;
- }
-@@ -380,22 +418,6 @@ static int tps65217_probe(struct i2c_client *client)
- 	return 0;
- }
- 
--static void tps65217_remove(struct i2c_client *client)
--{
--	struct tps65217 *tps = i2c_get_clientdata(client);
--	unsigned int virq;
--	int i;
+diff --git a/Documentation/admin-guide/kernel-parameters.rst b/Documentation/admin-guide/kernel-parameters.rst
+index 7bf8cc7df6b54..02a725536cc50 100644
+--- a/Documentation/admin-guide/kernel-parameters.rst
++++ b/Documentation/admin-guide/kernel-parameters.rst
+@@ -110,102 +110,7 @@ The parameters listed below are only valid if certain kernel build options
+ were enabled and if respective hardware is present. This list should be kept
+ in alphabetical order. The text in square brackets at the beginning
+ of each description states the restrictions within which a parameter
+-is applicable::
 -
--	for (i = 0; i < TPS65217_NUM_IRQ; i++) {
--		virq = irq_find_mapping(tps->irq_domain, i);
--		if (virq)
--			irq_dispose_mapping(virq);
--	}
+-	ACPI	ACPI support is enabled.
+-	AGP	AGP (Accelerated Graphics Port) is enabled.
+-	ALSA	ALSA sound support is enabled.
+-	APIC	APIC support is enabled.
+-	APM	Advanced Power Management support is enabled.
+-	APPARMOR AppArmor support is enabled.
+-	ARM	ARM architecture is enabled.
+-	ARM64	ARM64 architecture is enabled.
+-	AX25	Appropriate AX.25 support is enabled.
+-	CLK	Common clock infrastructure is enabled.
+-	CMA	Contiguous Memory Area support is enabled.
+-	DRM	Direct Rendering Management support is enabled.
+-	DYNAMIC_DEBUG Build in debug messages and enable them at runtime
+-	EARLY	Parameter processed too early to be embedded in initrd.
+-	EDD	BIOS Enhanced Disk Drive Services (EDD) is enabled
+-	EFI	EFI Partitioning (GPT) is enabled
+-	EVM	Extended Verification Module
+-	FB	The frame buffer device is enabled.
+-	FTRACE	Function tracing enabled.
+-	GCOV	GCOV profiling is enabled.
+-	HIBERNATION HIBERNATION is enabled.
+-	HW	Appropriate hardware is enabled.
+-	HYPER_V HYPERV support is enabled.
+-	IMA     Integrity measurement architecture is enabled.
+-	IP_PNP	IP DHCP, BOOTP, or RARP is enabled.
+-	IPV6	IPv6 support is enabled.
+-	ISAPNP	ISA PnP code is enabled.
+-	ISDN	Appropriate ISDN support is enabled.
+-	ISOL	CPU Isolation is enabled.
+-	JOY	Appropriate joystick support is enabled.
+-	KGDB	Kernel debugger support is enabled.
+-	KVM	Kernel Virtual Machine support is enabled.
+-	LIBATA  Libata driver is enabled
+-	LOONGARCH LoongArch architecture is enabled.
+-	LOOP	Loopback device support is enabled.
+-	LP	Printer support is enabled.
+-	M68k	M68k architecture is enabled.
+-			These options have more detailed description inside of
+-			Documentation/arch/m68k/kernel-options.rst.
+-	MDA	MDA console support is enabled.
+-	MIPS	MIPS architecture is enabled.
+-	MOUSE	Appropriate mouse support is enabled.
+-	MSI	Message Signaled Interrupts (PCI).
+-	MTD	MTD (Memory Technology Device) support is enabled.
+-	NET	Appropriate network support is enabled.
+-	NFS	Appropriate NFS support is enabled.
+-	NUMA	NUMA support is enabled.
+-	OF	Devicetree is enabled.
+-	PARISC	The PA-RISC architecture is enabled.
+-	PCI	PCI bus support is enabled.
+-	PCIE	PCI Express support is enabled.
+-	PCMCIA	The PCMCIA subsystem is enabled.
+-	PNP	Plug & Play support is enabled.
+-	PPC	PowerPC architecture is enabled.
+-	PPT	Parallel port support is enabled.
+-	PS2	Appropriate PS/2 support is enabled.
+-	PV_OPS	A paravirtualized kernel is enabled.
+-	RAM	RAM disk support is enabled.
+-	RDT	Intel Resource Director Technology.
+-	RISCV	RISCV architecture is enabled.
+-	S390	S390 architecture is enabled.
+-	SCSI	Appropriate SCSI support is enabled.
+-			A lot of drivers have their options described inside
+-			the Documentation/scsi/ sub-directory.
+-        SDW     SoundWire support is enabled.
+-	SECURITY Different security models are enabled.
+-	SELINUX SELinux support is enabled.
+-	SERIAL	Serial support is enabled.
+-	SH	SuperH architecture is enabled.
+-	SMP	The kernel is an SMP kernel.
+-	SPARC	Sparc architecture is enabled.
+-	SUSPEND	System suspend states are enabled.
+-	SWSUSP	Software suspend (hibernation) is enabled.
+-	TPM	TPM drivers are enabled.
+-	UMS	USB Mass Storage support is enabled.
+-	USB	USB support is enabled.
+-	USBHID	USB Human Interface Device support is enabled.
+-	V4L	Video For Linux support is enabled.
+-	VGA	The VGA console has been enabled.
+-	VMMIO   Driver for memory mapped virtio devices is enabled.
+-	VT	Virtual terminal support is enabled.
+-	WDT	Watchdog support is enabled.
+-	X86-32	X86-32, aka i386 architecture is enabled.
+-	X86-64	X86-64 architecture is enabled.
+-	X86	Either 32-bit or 64-bit x86 (same as X86-32+X86-64)
+-	X86_UV	SGI UV support is enabled.
+-	XEN	Xen support is enabled
+-	XTENSA	xtensa architecture is enabled.
 -
--	irq_domain_remove(tps->irq_domain);
--	tps->irq_domain = NULL;
--}
+-In addition, the following text indicates that the option::
 -
- static const struct i2c_device_id tps65217_id_table[] = {
- 	{"tps65217", TPS65217},
- 	{ /* sentinel */ }
-@@ -409,7 +431,6 @@ static struct i2c_driver tps65217_driver = {
- 	},
- 	.id_table	= tps65217_id_table,
- 	.probe_new	= tps65217_probe,
--	.remove		= tps65217_remove,
- };
+-	BOOT	Is a boot loader parameter.
+-	BUGS=	Relates to possible processor bugs on the said processor.
+-	KNL	Is a kernel start-up parameter.
++is applicable.
  
- static int __init tps65217_init(void)
+ Parameters denoted with BOOT are actually interpreted by the boot
+ loader, and have no meaning to the kernel directly.
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 362ff32252209..5bf1df91607eb 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -1,3 +1,101 @@
++	ACPI	ACPI support is enabled.
++	AGP	AGP (Accelerated Graphics Port) is enabled.
++	ALSA	ALSA sound support is enabled.
++	APIC	APIC support is enabled.
++	APM	Advanced Power Management support is enabled.
++	APPARMOR AppArmor support is enabled.
++	ARM	ARM architecture is enabled.
++	ARM64	ARM64 architecture is enabled.
++	AX25	Appropriate AX.25 support is enabled.
++	CLK	Common clock infrastructure is enabled.
++	CMA	Contiguous Memory Area support is enabled.
++	DRM	Direct Rendering Management support is enabled.
++	DYNAMIC_DEBUG Build in debug messages and enable them at runtime
++	EARLY	Parameter processed too early to be embedded in initrd.
++	EDD	BIOS Enhanced Disk Drive Services (EDD) is enabled
++	EFI	EFI Partitioning (GPT) is enabled
++	EVM	Extended Verification Module
++	FB	The frame buffer device is enabled.
++	FTRACE	Function tracing enabled.
++	GCOV	GCOV profiling is enabled.
++	HIBERNATION HIBERNATION is enabled.
++	HW	Appropriate hardware is enabled.
++	HYPER_V HYPERV support is enabled.
++	IMA     Integrity measurement architecture is enabled.
++	IP_PNP	IP DHCP, BOOTP, or RARP is enabled.
++	IPV6	IPv6 support is enabled.
++	ISAPNP	ISA PnP code is enabled.
++	ISDN	Appropriate ISDN support is enabled.
++	ISOL	CPU Isolation is enabled.
++	JOY	Appropriate joystick support is enabled.
++	KGDB	Kernel debugger support is enabled.
++	KVM	Kernel Virtual Machine support is enabled.
++	LIBATA  Libata driver is enabled
++	LOONGARCH LoongArch architecture is enabled.
++	LOOP	Loopback device support is enabled.
++	LP	Printer support is enabled.
++	M68k	M68k architecture is enabled.
++			These options have more detailed description inside of
++			Documentation/arch/m68k/kernel-options.rst.
++	MDA	MDA console support is enabled.
++	MIPS	MIPS architecture is enabled.
++	MOUSE	Appropriate mouse support is enabled.
++	MSI	Message Signaled Interrupts (PCI).
++	MTD	MTD (Memory Technology Device) support is enabled.
++	NET	Appropriate network support is enabled.
++	NFS	Appropriate NFS support is enabled.
++	NUMA	NUMA support is enabled.
++	OF	Devicetree is enabled.
++	PARISC	The PA-RISC architecture is enabled.
++	PCI	PCI bus support is enabled.
++	PCIE	PCI Express support is enabled.
++	PCMCIA	The PCMCIA subsystem is enabled.
++	PNP	Plug & Play support is enabled.
++	PPC	PowerPC architecture is enabled.
++	PPT	Parallel port support is enabled.
++	PS2	Appropriate PS/2 support is enabled.
++	PV_OPS	A paravirtualized kernel is enabled.
++	RAM	RAM disk support is enabled.
++	RDT	Intel Resource Director Technology.
++	RISCV	RISCV architecture is enabled.
++	S390	S390 architecture is enabled.
++	SCSI	Appropriate SCSI support is enabled.
++			A lot of drivers have their options described inside
++			the Documentation/scsi/ sub-directory.
++        SDW     SoundWire support is enabled.
++	SECURITY Different security models are enabled.
++	SELINUX SELinux support is enabled.
++	SERIAL	Serial support is enabled.
++	SH	SuperH architecture is enabled.
++	SMP	The kernel is an SMP kernel.
++	SPARC	Sparc architecture is enabled.
++	SUSPEND	System suspend states are enabled.
++	SWSUSP	Software suspend (hibernation) is enabled.
++	TPM	TPM drivers are enabled.
++	UMS	USB Mass Storage support is enabled.
++	USB	USB support is enabled.
++	USBHID	USB Human Interface Device support is enabled.
++	V4L	Video For Linux support is enabled.
++	VGA	The VGA console has been enabled.
++	VMMIO   Driver for memory mapped virtio devices is enabled.
++	VT	Virtual terminal support is enabled.
++	WDT	Watchdog support is enabled.
++	X86-32	X86-32, aka i386 architecture is enabled.
++	X86-64	X86-64 architecture is enabled.
++	X86	Either 32-bit or 64-bit x86 (same as X86-32+X86-64)
++	X86_UV	SGI UV support is enabled.
++	XEN	Xen support is enabled
++	XTENSA	xtensa architecture is enabled.
++
++In addition, the following text indicates that the option
++
++	BOOT	Is a boot loader parameter.
++	BUGS=	Relates to possible processor bugs on the said processor.
++	KNL	Is a kernel start-up parameter.
++
++
++Kernel parameters
++
+ 	accept_memory=  [MM]
+ 			Format: { eager | lazy }
+ 			default: lazy
 -- 
 2.53.0
 
