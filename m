@@ -1,55 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794372473;
-	b=zY3602ncze6LU4Mpn3c28HIXdgbbcRN0Udf4i5bigPmIsAeGhawvo7CMTgsNg43W7ea/
-	 r2HVfLFPvy5dvUWw+hBrN2OQzWUsp65P9RfgG+JIevqeLi5VAfUh6rBzRw7V8j5Az8hIH
-	 Amn7wSo+g0OHEN7HEXgIK+pvgMwAKzcazrY9a3Q9I/+7P4Kg35qdTWkU0PWGTly3TRVHV
-	 gJYbW2c9g4P5p6RMridw5K+pab6do0CtaiNAmVI6bVibJfk7nxn9hTGEjdgPF8TAyBcTd
-	 tHNZV7shY4QVoQNVbCtQt6POJqDS1H9RpOD6/g6IRF6F3HwlZE2Bmgi6B8ektmodQCQ==
+	t=1794372484;
+	b=2kf2hTVXnl6+Pxktyx9g1M3IYcHg0PjuyJR4MpKLuwFNpLATAXnpNTu8V7WTrPwZPx/Z
+	 Mpbt69ys+mLHFhDtFKNK3A61JAadrDv46ySWUYdr0EmerGSBU4pwJmLv2GqSUIwpxqEeP
+	 4vJY8hxbAVLsgeCDE4Lsa+JjbxUleExl4dY/qvmGrThgvj4/LM4g01Qkyv5xSYYLC2fUF
+	 E9szpr61VxmBK1IBcNyGMx0ssndkNChUd7MZ5EhPMKjrehsiD8/gH7GzlGPr/3dnxSjN6
+	 BFZZvAcbZaqY87C0PNnRMlfe9wDExhCuSS/qbNyxUtnoopxZ5YQnCJvBNiu7OkP439Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794372473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794372484;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=La+RzJ4urINL6iSC1phRfh9yJsGFqsGnVCuC+vnImeE=;
-	b=L7rWGlCoV9Bz7A9CLeIPJHQb+UvvAzFtisdT6dvL3ReprmIb4wtpgEu9I6Qr4C/Ruh25
-	 tX/uOjEcftgc4eBaLBp0TOwwJoiuIOHWD4CFP1IX+uls5Kfg1hfwH0krTldp5CCQReNwL
-	 YwnGwzUEXfkZNm4wR8vepArlE7H+GdRjj4yjIi6cCzb/jk4v+5w76f3B0fprCeF3ws2J8
-	 S5Gh1fddVqnaNO/p0jg8ue16E+AxL4BKEfkdHl9/yFhZnRTghQdBcaUYVmxVtPneDtxUY
-	 a55CKd2sZmymU1bMhIlDbGS693XKXnXwR9Ox0oNR9u9oirIHMIVk3jRwLL24oabVluw==
+	bh=8oM7hms6BEldF8ERhxE9PfjilLqb4AT4NrzDvUwt/eY=;
+	b=Ybh+nagu2WlAOSjdOjhIKTrW5sABTBrPvh3qzmtJa1iYD7wPjIB7y6qvsp7p1lRZfvlS
+	 IcXRtFaMP3JDplSQDjyMPavssR9FpWLITXCf+zgzPnK0b3KvLndTYCERINU9Dgj3fwzLd
+	 xv2ro2btjAwymisDwRX2JBHffjJs9+H0vcxGRDJMKUGCJyEGOt2der9WKZZ4122Xd7EKW
+	 wyUuIJtxSdGzpGoh/t0N+ZMgA4JHJaDNQrCp6gjhvKbOUQUU5wHHdOCSZIqhKUbiYMHMT
+	 bEz/j/0mPlul2ecwKOTbPH6n2YXphZwvVZg5sB8czy+U5O33R/TuaMu3oANdMmhFqeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hv03fArY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nBCHIiQ7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696AE606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:47:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0707E606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:48:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hv03fArY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87B431F0093C;
-	Wed, 11 Nov 2026 04:47:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nBCHIiQ7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C7301F0093C;
+	Wed, 11 Nov 2026 04:48:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794372473;
-	bh=La+RzJ4urINL6iSC1phRfh9yJsGFqsGnVCuC+vnImeE=;
+	s=k20260515; t=1794372483;
+	bh=8oM7hms6BEldF8ERhxE9PfjilLqb4AT4NrzDvUwt/eY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hv03fArYt/AEv9/wZzXvIM/PkzCkZjr3sPib3QGXRXNBdq9Uuo00S036gXrzrTUcq
-	 vOB+CPQ5AY6mHQnIhtOlsgEVePf1kiyojYpmjTnaW0m7ac3KTVjld4Qe5kh85q+Jge
-	 cMfveendXolvmvTZ6gZ9MW6pFV1BAk0ee1s1TJ9dTZVvBEuQuxQ2JMeNhI8bzPx7iN
-	 w5ISh1pOl9vRuvLMlY3x3/4aLdJJ3LTVxlVez4aM9PWmPVC8b+UX7OK05JmTBBhnEW
-	 vmY6fKMmfwx2YJesHoObdHXWVj/odTQBldg7xmItksv9NrRfbbi6OuUDieuEVALDvv
-	 MTs6d2LyDw5pQ==
+	b=nBCHIiQ7GVJINOpECaWbyuw3mEFUsNeCTHAkRLpxPqF4bUppSbGnaV/ZUcSTE64d2
+	 0hlY24t5LpluXkYtEiRRfSDsIsn+7+XTViZb+/TEsj+4BkurhJbZI21JfkydlwOiCl
+	 eMDfnaNUco6gb4uYwOxFpboIkY7XzHyP+Xu4j7IArIcUt2hWIRWx+SgCaUYz5h5NZu
+	 5IXSHPXRJxc9RwzsGFSfjdmAqUREd638aSNoYUzt7fM4FJTE+yqXn+MMwIqPVJR0jV
+	 GhbWAZuojff2ixcjaNgQyytz71MwN9XLWCPbLN1B5s7JnB9Mc0UUQc8xSCJqjjesjc
+	 zcHuEIcIVJt5w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hengyu Liang <hengyul@cs.unc.edu>,
-	Gao Xiang <xiang@kernel.org>,
+Cc: Qi Xi <xiqi2@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Nanyong Sun <sunnanyong@huawei.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] erofs: fix metadata reads at the end of file-backed images
-Date: Tue, 10 Nov 2026 23:47:51 -0500
-Message-ID: <20261111044726.1162691-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/page_isolation: fix UBSAN shift-out-of-bounds warning
+Date: Tue, 10 Nov 2026 23:48:01 -0500
+Message-ID: <20261111044732.1167229-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050539-failed-7.3-52dceb88082b@kernel.org>
-References: <20261107050539-failed-7.3-52dceb88082b@kernel.org>
+In-Reply-To: <20261107051923-failed-6.12-eba0e6297edd@kernel.org>
+References: <20261107051923-failed-6.12-eba0e6297edd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,84 +69,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hengyu Liang <hengyul@cs.unc.edu>
+From: Qi Xi <xiqi2@huawei.com>
 
-[ Upstream commit 52dceb88082b4c7983d1c8c7de1c181f018055ac ]
+[ Upstream commit eba0e6297edd60a85bc96ff5cfb734d066af62dd ]
 
-Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
-mounts") made erofs_read_meta_folio() read the metadata of a
-file-backed mount one whole folio at a time.
+Patch series "mm/page_isolation: fix UBSAN shift-out-of-bounds in
+isolate_single_pageblock", v3.
 
-However, an image only has to be a multiple of its block size. With a
-block size below the page size, it can end in the middle of a page. The
-read of that last page is then short, and erofs_fileio_ki_complete()
-fails it with -EIO. As of now, inodes in the last page of such an image
-cannot be read, and an image smaller than a page cannot be mounted.
+Patch 1 fixes a UBSAN shift-out-of-bounds warning in the PageBuddy branch
+of isolate_single_pageblock() triggered by concurrent buddy allocation.
 
-The issue can be reproduced with util-linux 2.41, whose mount uses the
-image file directly:
+Patch 2 addresses the same class of issue in the PageCompound branch,
+where racy compound_order() and compound_head() reads could lead to
+out-of-range shifts or incorrect page skipping.
 
-    mkdir src
-    for i in $(seq 50); do echo $i > src/$i; done
-    mkfs.erofs -b512 test.erofs src
-    mount -t erofs test.erofs /mnt
-    ls -l /mnt
+This patch (of 2):
 
-Before that commit, ls -l lists all 50 files. After it, ls -l reports
-"Input/output error" for 24 of them.
+A contig-range allocation racing with buddy allocation on the adjacent
+pageblock can trigger:
 
-This patch reads the folio only up to the end of the backing file and
-zeroes the rest, as the page cache of the backing file did before. A
-folio that lies wholly past the end is zeroed without a read.
+ UBSAN: shift-out-of-bounds in mm/page_isolation.c:393:15
+ shift exponent -749042176 is negative
+ Call trace:
+  isolate_single_pageblock
+  start_isolate_page_range
+  alloc_contig_frozen_range_noprof
+  alloc_contig_range_noprof
 
-Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-Reviewed-by: Gao Xiang <xiang@kernel.org>
-Signed-off-by: Gao Xiang (Docker) <xiang@kernel.org>
-[ sashal: adjusted context to retain the older metadata I/O allocation and completion mechanism ]
+isolate_single_pageblock() first calls set_migratetype_isolate() with
+zone->lock held, which marks the pageblock MIGRATE_ISOLATE and moves any
+free page straddling the boundary out of the way.  Once the lock is
+dropped, it scans the MAX_ORDER_NR_PAGES-aligned window [start_pfn,
+boundary_pfn) locklessly, only to skip the free pages already handled
+above and to detect in-use pages straddling the boundary.  Since this
+scan only reads page state to decide how far to skip and returns -EBUSY
+on a straddling in-use page, it does not take the lock.
+
+The window also covers the adjacent pageblock, whose free pages stay on
+the normal movable/CMA freelist and can be allocated concurrently.  So
+after the scan observes PageBuddy(page), another CPU can allocate the
+page, leaving a stale value in page->private that makes "1 << order" shift
+out of range.
+
+Use buddy_order_unsafe() with READ_ONCE to read the order, and validate
+it is within MAX_PAGE_ORDER before shifting to prevent UBSAN warnings.
+
+Since pageblock_isolate_and_move_free_pages() already handles free pages
+straddling boundary_pfn under zone->lock, bail out with -EBUSY instead
+of VM_WARN_ON_ONCE() when a PageBuddy page appears to cross the boundary
+during the lockless scan.
+
+Link: https://lore.kernel.org/20260825120549.966271-2-xiqi2@huawei.com
+Fixes: b2c9e2fbba32 ("mm: make alloc_contig_range work at pageblock granularity")
+Signed-off-by: Qi Xi <xiqi2@huawei.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Nanyong Sun <sunnanyong@huawei.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adjusted the comment to name move_freepages_block_isolate() instead of pageblock_isolate_and_move_free_pages(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/erofs/fileio.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ mm/page_isolation.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
-index ebb81a7ffd4cb..ac846cfbc5633 100644
---- a/fs/erofs/fileio.c
-+++ b/fs/erofs/fileio.c
-@@ -201,17 +201,29 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
- 		.dev = { .m_pa = folio_pos(folio), },
- 	};
- 	struct inode *inode = folio_inode(folio);
-+	size_t len = folio_size(folio);
-+	loff_t pos, isize;
- 	int err;
+diff --git a/mm/page_isolation.c b/mm/page_isolation.c
+index 6989c5ffd4741..63f9f809ea9f7 100644
+--- a/mm/page_isolation.c
++++ b/mm/page_isolation.c
+@@ -376,13 +376,19 @@ static int isolate_single_pageblock(unsigned long boundary_pfn, int flags,
+ 		}
  
- 	err = erofs_map_dev(inode->i_sb, &io.dev);
- 	if (err)
- 		return err;
+ 		if (PageBuddy(page)) {
+-			int order = buddy_order(page);
++			unsigned int order = buddy_order_unsafe(page);
  
-+	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
-+	isize = i_size_read(file_inode(io.dev.m_dif->file));
-+	if (pos + folio_size(folio) > isize) {
-+		len = isize > pos ? isize - pos : 0;
-+		folio_zero_segment(folio, len, folio_size(folio));
-+		if (!len) {
-+			folio_end_read(folio, true);
-+			return 0;
-+		}
-+	}
-+
- 	io.rq = erofs_fileio_rq_alloc(&io.dev);
--	io.rq->bio.bi_iter.bi_sector =
--		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
-+	io.rq->bio.bi_iter.bi_sector = pos >> 9;
- 	erofs_onlinefolio_init(folio);
--	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
-+	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
- 	erofs_fileio_rq_submit(io.rq);
- 	return 0;
- }
+-			/* move_freepages_block_isolate() handled this */
+-			VM_WARN_ON_ONCE(pfn + (1 << order) > boundary_pfn);
+-
+-			pfn += 1UL << order;
+-			continue;
++			/* buddy_order_unsafe() is racy. Validate the order before shifting. */
++			if (order <= MAX_PAGE_ORDER &&
++				/*
++				 * move_freepages_block_isolate() splits
++				 * cross-boundary PageBuddy, verify it.
++				 */
++			    pfn + (1UL << order) <= boundary_pfn) {
++				pfn += 1UL << order;
++				continue;
++			}
++			goto failed;
+ 		}
+ 
+ 		/*
 -- 
 2.53.0
 
