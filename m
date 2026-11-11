@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794434113;
-	b=3v/9d9tWnOhQ2L2whBXJxZIobFkcNkuQ6ha5K79V8P6jE+edd5D1lxX5Gr53y9itEPsl
-	 HLyjqLz7Go3OSoqrZj90aXzjmy4HkUXK+ZEK7Kwbu9fN6udM5w7gDJJiFOb1XMyBwYWmX
-	 fbbGt5d1lWrPcASKc3+EtPQwLrQ/XZealpHc5lQn6N8Efit3VbZ37zt/nG+SiODTC9RSj
-	 doYHdFm3o+/iE3T5AKmKJZrakZOm90cFkq+C2gp/arwEPok0EqA8Q2KcvwOeIlk6/FTR8
-	 Xf5VfTLJHcxx1BcA3U6XxR+sq7CqyUKiEgpTl8FjIdK5ZOFyK/l1c1NCERaNNCWHGCg==
+	b=BNJXX7ascL+d1/AoBCPE6k6CEiWPtvgnh9jpafd6T4jNpQHyJSVoFVs88Qtc3LItRCLd
+	 HPqp7gQKS5IvQo48Symg5QC/YaCTmnWttITsuU9t0arlEhYs7hKrtuyih4i0Zh9w9z1YZ
+	 IeFd2rqTHSuzPJYjWR0O3VCDoDAQN/4nS+xFYXhoPwLKhDiDEkT6cAubFCoiBckejsUu6
+	 ATc9+dgK8NTk2TVpfJFqebD+YnnuRkRVcWRA1ieOG6tSkYFyGs34Uzu+jcyfnIYgM9q2S
+	 KU+3VhYL/8nUj7X66mgqbvOqQ8MEG2ypPq5gVzdBwBPYH1e1jZbM2ICMmW9Co+mdaDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794434113;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=J3h7yhT76OoVl+YPlyQUkEfkSBobXxiSaZcngFPs/zs=;
-	b=I/d7EYqKW1PvX35uD/Sk04j6Cbk9tFoR6VUxmXyclTDGAIzmcYVyfWqEelmeYGxyaXId
-	 jiTd0LfVG3Vycx0Q6Ucfk4g+IcSg4ELbs3lrI5elrD54Yh8CMv7UySGJo1m+sq9hb4ksm
-	 MBYmm/5pt/Z3amqo1N0ocfEHHCfhErYTGa3vMXgqqrbt2jBX0FdI+jd/Jt0HaOKAUanXA
-	 x4pwwpq3E73XXak7I8t24rjB21GcbqIAsopRPtIGkHQILuOlemlbNr01QrhXXevpCyiw3
-	 m9MWBhKZr5dKkdeiVrRYvBq0NSXdRXsuEkA0OivqJWcW5OFS+5V2zz0gjFyShWZuaLQ==
+	bh=yvmQilY1ojk/CJp4vtybzsIKf5taQ/yUoR8sGbF33I4=;
+	b=tJNIVEx9PaBT3qVcPghFE0EW8BMexNG9ptFF/C4C/s5YV1a+pyu6SIp0VLlUra3Lzfu0
+	 39yPTItJoMMMqE1MXPSnlGyGPVd+Nzp/AX7VoVe+O6ogMj+T1tv4kvTKpX/34YeXYqpp2
+	 /S9rAZTkXnHBDJ6Jrv6q2rttjRmTu5RMprewyVAL6Lgco33TpiqW8Uv4QnTyFUrqsdKv9
+	 +l1fU9eZYiZ65Q/t9X+Es7DTI13jGzdwQs8MPFipp2IOZAE8SsjOYCzpoQHGGwNNPhs/T
+	 yFpkIQC+U4APuAjNiIV+TTuQr7fBlOq1Tl1z0FbCmgV57DY/CxGiMpYnXDG+l3LrXPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dm+bsZy/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XK17szte;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281BA60A6F4E;
-	Wed, 11 Nov 2026 21:55:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D2860A6F52
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dm+bsZy/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B785B1F00A09;
-	Wed, 11 Nov 2026 21:55:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XK17szte
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA2A21F00A05;
+	Wed, 11 Nov 2026 21:55:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794434113;
-	bh=J3h7yhT76OoVl+YPlyQUkEfkSBobXxiSaZcngFPs/zs=;
+	bh=yvmQilY1ojk/CJp4vtybzsIKf5taQ/yUoR8sGbF33I4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dm+bsZy/KS+m3BxYZBwy/U9U1lnunO8RqkVnZo6T42XuBVpM/VhiG4LMKiPK00Hih
-	 kFHmNNLnAidGu9rwgA5xPaIoLZV7fekzSDUZIVQO1115i4lvCJ3iRq+w7MasqQQp84
-	 t8iKZWWU/ZGnSnPONOEGcZ5j2wJxjKQbwFMCSYP3vOeRE8S8JzcyiOAPOP/Xr0Jwgw
-	 OD9gQzx/3b3PWsVdzSnm45JzwGXZC8t1KexM6boOjI4Pi38n8OH/onyj6PJynZ/eUH
-	 0giCAmJs8Bl+9+3pbsj9F0Dt8ORttz6PSiLwxvIqr0A8Mi31vDs+syawPzto3bDhmV
-	 Sk+vtDmnGq6Sg==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Akinobu Mita <akinobu.mita@gmail.com>,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 10/10] dmaengine: dmatest: Avoid unsigned underflow in min_odd()
-Date: Wed, 11 Nov 2026 21:52:48 +0000
-Message-ID: <20261111215349.1983909-11-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261111215349.1983909-1-lee@kernel.org>
-References: <20261111215349.1983909-1-lee@kernel.org>
+	b=XK17sztea6XWZZWBl1fUsnC/JjDnIXcLYMYkxcajXvzMGLItJMYckFpYgI/slF89A
+	 fPnHtvLkKS7VcZR+wtYBMyM/HI5LhMQll9eSSwqefEkJVya3Sxo2jbW++BhRqFvFVC
+	 MPgn7uBPDB1fL7cgalKcCNpTeIDy1G/nSyPceFhdTDqxTIFmJXdW0WUPTnViQW+02N
+	 YnRuyLEWfz9AZKhBleim4kESXcljYCpOp3l8/pfjI1GfNvzDcr1p07krpp4XrA4B2m
+	 +NjChubMxbLRnRRTx/8WlHe5YFXc2SSREurf+i9fEP2OxuWaYnd3FwtYvE/XOtj+pa
+	 9qsFLjQBVP8pQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Matt Turner <mattst88@gmail.com>
+Subject: Re: [PATCH 6.6.y] alpha: load the MMU context when switch_mm() switches the current task
+Date: Wed, 11 Nov 2026 16:54:48 -0500
+Message-ID: <2026-11-11-1-daily-reply-0015-86b653859727ae1b40cf@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110230954.1151961-1-linmag7@gmail.com>
+References: <20261110230954.1151961-1-linmag7@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,48 +61,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When either argument to min_odd() is zero (for example when a DMA device
-reports max_xor or max_pq as 0), val evaluates to 0 and val - 1
-underflows to UINT_MAX.  In dmatest_func(), this sets src->cnt to
-UINT_MAX, which wraps around the (src->cnt + dst->cnt) >= 255 check and
-causes dmatest_alloc_test_data() to pass 0 to kcalloc() and dereference
-ZERO_SIZE_PTR.
+> [PATCH 6.6.y] alpha: load the MMU context when switch_mm() switches the current task
+Queued for 6.6, thanks.
 
-Return 0 from min_odd() when the minimum value is 0, and abort
-dmatest_func() if src->cnt is 0.
-
-Fixes: 8be9e32b310c ("dmatest: adjust invalid module parameters for number of source buffers")
-Closes: https://sashiko.dev/#/bug/linux-ca967586-4fc1-47a3-8616-4a9d21fe7455
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/dma/dmatest.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/dma/dmatest.c b/drivers/dma/dmatest.c
-index 2ae3469397f3..5f768bb9a29f 100644
---- a/drivers/dma/dmatest.c
-+++ b/drivers/dma/dmatest.c
-@@ -457,6 +457,9 @@ static unsigned int min_odd(unsigned int x, unsigned int y)
- {
- 	unsigned int val = min(x, y);
- 
-+	if (!val)
-+		return 0;
-+
- 	return val % 2 ? val : val - 1;
- }
- 
-@@ -650,6 +653,9 @@ static int dmatest_func(void *data)
- 	} else
- 		goto err_thread_type;
- 
-+	if (!src->cnt)
-+		goto err_free_coefs;
-+
- 	/* Check if buffer count fits into map count variable (u8) */
- 	if ((src->cnt + dst->cnt) >= 255) {
- 		pr_err("too many buffers (%d of 255 supported)\n",
 -- 
-2.56.0.567.gdb80ae8cd5-goog
-
+Thanks,
+Sasha
