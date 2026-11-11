@@ -1,45 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415395;
-	b=gvjvbsPl2Q0ivpSYYNuvYZza16u8Yuncyn8LW25bmjLbRHocszVe8+r/U1kBSMbYlFCt
-	 4vCSVQIVTTSUmlMI3noiQlrqnTfe55gMUa8FyVnjJ7BM9a/Muz02Gqcm5gb2AS1G6cEDN
-	 H6z2IDRnPcd9QmxibapCtYROxy8HASPqwe0SwHnhorl7oPWTrUCHS/1iflZ87pSMxGoUf
-	 cdB519kHBM8U/yz5DJFJyXZhpv0pkVFYJt2dmLWT1m2vo9Y7eDvtrBYU3neX9/oxE1WXM
-	 bTOpQL4zyQHDXkj4/uMIcXInrmL2F/fo6vreEakGMkR71vOzVc72EEAAbwbyEibwYQA==
+	t=1794415415;
+	b=CJA5sxrJ8OpdVviESK0+Rtzsn9ZW8cZRUSSMJQixLoie41YUDLPESiHcz7edEMLAfZlQ
+	 Wy3bZeZ5KRtRjkehTetKTEO4TaIN63UUL6kVmct8uHAOJtQgRrB7R22UIB7f4vqRvADIt
+	 alhAXD4rhw1INDT2Qm24fr2FO3RuFOe6yTx/4hlfOcEjNLIk9T1C2NffQuWQt/TnRi9U6
+	 cJ8dfEZ/EeOFrXFJuJNKeymjV0qSSJgN+zkIbXdnORW0vkkv1c0gbqX7jMiViznKzZLSY
+	 iIkEvg7N2JFN/b3mMj1SvKQSWBid4CBr9m3pMMYuSDtuGEu0jb4YnJPx7tvekv2tP5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415395;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=mMNwc/L5WVh73MBuimgul84oe/8CoXdF45cgMt+e8jc=;
-	b=LSz9BeEZv//a4Cjk+usHwKaPyKqxFk9Odbwpsw3GBLf3nodkDy+9lrZFkQS/B9BhFwdJ
-	 Y1QgAWMY7lPXTBc+n0fVmxdkenfsHmPMyTiswlmiGq8EQCy6/q4MKBxJvmnOvHh/qzQwF
-	 VCLqAwh1q/I2Tyg/dwzmky35hyPge1mAd+nSYtDBHRDS499UJ14yqgO//74ujhpOITblQ
-	 xYq95oMLJgRpoRFBWhuoVxEyBKTCs1NWXRHApmUvpNxoEQw6srq3v4h09i3aggpZdEyLx
-	 Ax2rcUkXMEYUOrdU0qwmEz94opk7wYNKhNCs71vCuGPGsfHTpGPUkJtQwy6O5jiSm3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415415;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=JVAWdku/BV6JArzug/s9+4laVASF/5k0zCIDqMOBijs=;
+	b=Dwmsmmt3DuG8XxQAZITJUPc3YJ2ZSemDlxZVA0PuhpIOGPjRxXIvIi/vhgpNK+BM0c0c
+	 bDdV2SqJC8rrqfHOD44pG6R6hyRkwj1QaGoTajAhIoCKSDCRIEVZ6NYJj2LHz7jdCmOug
+	 cjljko574erpF31GpmfherBoQTo2rxMT+zNDkDOxgwzMWcw85p0A94BkZAXb6GSgAAOSN
+	 kWnk1VssovHa+pXMTVw5gAVA5I/57NP0N3dvxpWataFQsYO9sxQ9Nf2GVWnH4lHw2G80i
+	 El22cM9HDHBubvCbUBbjjqI7zEOE+4AsGDP4nqLt7vbCa14nMNxRsh5/1mHvs5TBong==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lst.de;
-	spf=pass smtp.mailfrom=lst.de;
-	arc=none smtp.remote-ip=213.95.11.211
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHn3tAKd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6458D606A881;
-	Wed, 11 Nov 2026 16:43:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6458D606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 0E6CB68D17; Wed, 11 Nov 2026 17:43:12 +0100 (CET)
-Date: Wed, 11 Nov 2026 17:43:11 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: shao.mingyin@zte.com.cn
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] nvmet: use overflow-safe range checks in the file
- backend
-Message-ID: <20261111164311.GB18076@lst.de>
-References: <20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn> <20261111224247129g0VbfWdGlwDMhBpChnT-8@zte.com.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F39606A331
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHn3tAKd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1941F00A05;
+	Wed, 11 Nov 2026 16:43:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794415415;
+	bh=JVAWdku/BV6JArzug/s9+4laVASF/5k0zCIDqMOBijs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eHn3tAKdfdrRxi3wjL7GELNb06lWmm2rOyGh5JU42+c7ONrAZHm33Ld8LXC0z/j1O
+	 8Wm04rc7A6EA26cnHbS1p6f58fYIG0JXt2vNDHDUbVJH353QAyVWBcxB0xy6kfKR0B
+	 OgVPLa/xqAp1dYUaIKArhATjwJ6XtiHc9BtA3LQZttM2N6jcDb2bgi9qY+qaERX4Av
+	 nT4RcuogrGw+FFtwn8W+cWZ9wDA7ysvp1Gs3gmo6xylnKLTEkR+QRsOfHNq9xd5Hf0
+	 4dyatWRIf75VARSlX5klB5sLYzo2u2uGDTLxjS1Ho0dj+ZeToNrms9mnnnsGLPZde5
+	 YbK15s0NpsMvw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] gpiolib: cdev: don't set GPIOD_FLAG_IS_OUT
+Date: Wed, 11 Nov 2026 11:43:33 -0500
+Message-ID: <20261111164319.3304408-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107062504-failed-5.10-974d2712cb15@kernel.org>
+References: <20261107062504-failed-5.10-974d2712cb15@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,66 +60,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111224247129g0VbfWdGlwDMhBpChnT-8@zte.com.cn>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 10:42:47PM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> The file backend shifts a host-supplied SLBA to form a byte offset
-> before checking it against the namespace size. The shift can discard
-> high bits: with a 4 KiB block size, SLBA 2^52 + 1 becomes offset 4096.
-> The range check then accepts a command aimed outside the namespace and
-> the backend accesses data at the wrapped offset.
-> 
-> Reject overflowing LBA-to-byte conversions and check the transfer
-> length against the remaining namespace size without adding it to the
-> offset. Apply the checks to reads, writes, discard and write zeroes.
-> 
-> Fixes: 9c891c139894 ("nvmet: check fileio lba range access boundaries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
-> 
-> Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the loop transport
-> and a 4 MiB file-backed namespace.
-> 
-> A Write with SLBA = 2^52 + 1 and a 4 KiB block size yields a byte
-> offset that wraps to 0x1000 and passes the size check:
-> 
->   unpatched                            patched
->   ret=0 (write accepted at 0x1000)     ret=24705 (Capacity Exceeded)
->   drivers/nvme/target/io-cmd-file.c |   41 +++++++++++++++++++++++++++----------
->  1 file changed, 30 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-> index 695963dd932e..d59dbf61b1b0 100644
-> --- a/drivers/nvme/target/io-cmd-file.c
-> +++ b/drivers/nvme/target/io-cmd-file.c
-> @@ -125,17 +125,22 @@ static bool nvmet_file_execute_io(struct nvmet_req *req, int ki_flags)
->  	size_t len = 0, total_len = 0;
->  	ssize_t ret = 0;
->  	loff_t pos;
-> +	u64 pos64;
->  	int i;
->  	struct scatterlist *sg;
->  
->  	if (req->f.mpool_alloc && nr_bvec > NVMET_MAX_MPOOL_BVEC)
->  		is_sync = true;
->  
-> -	pos = le64_to_cpu(req->cmd->rw.slba) << req->ns->blksize_shift;
-> -	if (unlikely(pos + req->transfer_len > req->ns->size)) {
-> +	if (unlikely(check_shl_overflow(le64_to_cpu(req->cmd->rw.slba),
-> +					req->ns->blksize_shift,
-> +					&pos64) ||
-> +		     pos64 > req->ns->size ||
-> +		     req->transfer_len > req->ns->size - pos64)) {
+From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
 
-This condition looks like something that should be factored into a
-helper to a bit more readable and so that the pos64 variable can be
-hidden inside it.
+[ Upstream commit 974d2712cb15014019595799b3ed68fef5fe9695 ]
 
-Otherwise looks good.
+When a line is requested or reconfigured through the v2 uAPI,
+gpio_v2_line_config_flags_to_desc_flags() copies the requested
+configuration into the descriptor flags, GPIOD_FLAG_IS_OUT included,
+before gpiod_direction_input_nonotify() or
+gpiod_direction_output_nonotify() asks the driver for the direction.
+If the driver refuses, for instance with -EOPNOTSUPP from
+.direction_input() for a line that can only be an output, the ioctl
+fails but the flag keeps the refused direction. gpiod_free_commit()
+does not touch GPIOD_FLAG_IS_OUT, so this outlives the failed request,
+and GPIO_V2_GET_LINEINFO_IOCTL reports the line as an input while the
+hardware still drives it, until a request without direction flags
+makes gpiod_request_commit() read the direction back from the driver:
+
+  GPIO_V2_GET_LINE_IOCTL, line 0, input:         -EOPNOTSUPP
+  GPIO_V2_GET_LINEINFO_IOCTL, line 0:            input
+  GPIO_V2_GET_LINE_IOCTL, line 0, no direction:  ok
+  GPIO_V2_GET_LINEINFO_IOCTL, line 0:            output
+
+GPIO_V2_LINE_SET_CONFIG_IOCTL updates the flags in the same order.
+There the line stays requested, and since commit 92ac7de3175e
+("gpiolib: don't allow setting values on input lines")
+GPIO_V2_LINE_SET_VALUES_IOCTL on it then fails with -EPERM, though the
+line is still an output. A line whose driver refuses to make it an
+output is likewise reported as one.
+
+gpiod_direction_input_nonotify() and gpiod_direction_output_nonotify()
+set or clear GPIOD_FLAG_IS_OUT themselves once the driver has accepted
+the direction, emulated open drain and open source included, and
+nothing between the copy and those calls reads the flag. Leave it to
+them, as the v1 uAPI already does.
+
+The other flags that the helper copies stay as they are. Active low,
+drive and bias are what gpiod_direction_*() applies, drive and bias
+possibly before the driver refuses the direction; edges and event
+clock are the character device's own. None of them is read back from
+the driver, so there is no earlier state that is more accurate to go
+back to. A failed request releases the line, which clears them, and a
+failed reconfiguration leaves the line, like the lines before it, with
+what was applied up to the failure.
+
+Reproduced under QEMU with a test GPIO chip whose line 0 refuses input
+and line 1 refuses output: both refused requests and both refused
+reconfigurations leave the line info with the refused direction, and
+setting the value of the reconfigured output fails with -EPERM. With
+this change the line info shows the direction of the hardware in all
+four cases and setting the value works. First seen on real hardware
+with v6.12.
+
+Fixes: 3c0d9c635ae2 ("gpiolib: cdev: support GPIO_V2_GET_LINE_IOCTL and GPIO_V2_LINE_GET_VALUES_IOCTL")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Reviewed-by: Kent Gibson <warthog618@gmail.com>
+Link: https://patch.msgid.link/20261016-gpiolib-cdev-direction-v2-1-aambrozewicz@nvidia.com
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+[ sashal: adapted flag references to use FLAG_IS_OUT with flags and flagsp ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpio/gpiolib-cdev.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+index a4446d7baa390..f2e47c9e1ab75 100644
+--- a/drivers/gpio/gpiolib-cdev.c
++++ b/drivers/gpio/gpiolib-cdev.c
+@@ -968,11 +968,6 @@ static void gpio_v2_line_config_flags_to_desc_flags(u64 flags,
+ 	assign_bit(FLAG_ACTIVE_LOW, flagsp,
+ 		   flags & GPIO_V2_LINE_FLAG_ACTIVE_LOW);
+ 
+-	if (flags & GPIO_V2_LINE_FLAG_OUTPUT)
+-		set_bit(FLAG_IS_OUT, flagsp);
+-	else if (flags & GPIO_V2_LINE_FLAG_INPUT)
+-		clear_bit(FLAG_IS_OUT, flagsp);
+-
+ 	assign_bit(FLAG_EDGE_RISING, flagsp,
+ 		   flags & GPIO_V2_LINE_FLAG_EDGE_RISING);
+ 	assign_bit(FLAG_EDGE_FALLING, flagsp,
+-- 
+2.53.0
 
