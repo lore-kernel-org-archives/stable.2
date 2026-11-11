@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438066;
-	b=caXxNTDX3PAC3d2PYeLqeNa7glikqCk2tq5YqwgccRqjOnMcKanLYPmpo4sSNehbQJ0i
-	 70mhLjaP2N5BamOFk9/1yBxhI0K66p9ITfdrrNZtKj+sjXq2al7Pd38dNnJBYI9omHv9k
-	 +H2gDt5UCNRTRu6vACKi14egEUFHLXzOTgN+spBYMw9+H/M8mVp4CJ6HbvayuTvZwMlTf
-	 YhSV3/x4OkE0ZEIs9q1FPIJa9iz6ca3XhcPIDdE0Ni1ejchv2cd/SDfBYxe5THVg/Rve4
-	 aTEAGi8fI6YRAuC7LhUen5vldxT14i5lixAIDxudPl/1/crYnc8Rcs+l9dqYHAQPGVA==
+	t=1794438071;
+	b=2REXm59PtfdZf6n8HmchStqbLtBl6cYcyVWNYN/O+2s1J+7tTCS16AF1h1ZY9t5qVuYg
+	 ss85DS6TE0uv0sPBVyFTBIiX0qlb1lfTIgaSHhsU1rybkqh+fKnpZVrhiziWVihw/ZkNO
+	 5SzCINLDPqL9eLfFeGs/tKgffzokh27mh4Qo1o08DGtioKgKPt1i9IJUc33wMnUCToAP9
+	 Uo51ELEyJCnTajpFCgD/qt4T7Di0tdrhv9GYGRgtAKkum+/FN0C7uos1E6Uf+5iNCsEVC
+	 nEZqQ3ILy5aezJqmcVQamUG8fhs9fCepDEE1IQKgC7v/3uwCPAKnOYfIbuAmF3HohBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438066;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438071;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kBr4lxIN7nKuJvI5i+sXZXAxd95v5Q1dSvAGHHbt4fk=;
-	b=yRi2UNoYQQo/5uA3e9xOp31p6J11EuWtNvXnM31qpTFUVn7wyeoKbwdSh8oRk5sDntQN
-	 UlCvdgr1jVhWBeI+c4Ig1RkvBMyJmpWyBEiSVN9gDTqScAtuqnf1O53efyEyTmH+6sBCc
-	 FylQHwXrKir/lhEU4N91yM60S2L68Lv+LswMAlWrN1ObJY7/dw3iTqt390+Y24zGu9EuJ
-	 s/0krPUMY2wfLU4IA0y7ICPUI7myiS2k6ESTe3UfAN6XVqrMeiZc1bQ8KS5DtFM6KzPLw
-	 B5Bm+efCRcjAYO1ZlQIly22oupbP3dwKC2gHuWKDg9WV3nxqHrfYSEg4I7kJmzegjew==
+	 Content-Type:Content-Transfer-Encoding;
+	bh=5XX+6a8VKJgr+gsRg+vssuVU0CYAju3DsYYpYuowGVQ=;
+	b=S1yc0Wl7XKEqZSucTfU07w1pfsKjt9ve70YOyHHDj1JHqwLG/p/S3FhLPslcu53e7G9V
+	 35UAUink9q+BrYSirXgGGwsYcw4zcbKJt3JWMO/PTVrZeQrDL6fnvUEaeqgsRE6C8IAJX
+	 o/1HdNAK2+aDdiMBUeBFzPptNni2HTOI1dmyfFwjkzFIpQdOgJ0hm4tuk2B5uq0ZsH9yq
+	 E5dBosZiIOMN0fRjcIrvtVLkUe4jo2UrJJbiU6tc80eSx+u6jeKCWRtLOS3n9JzYVGUZL
+	 icLFu+Yra1bikPhFjqeWf5+esZOavoRUxqu2JCVpV9Zm/lnsWj0noq1X8gGQz2s7tPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mit.edu;
 	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PeH6OJiY;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=Uqpi4ODt;
 	arc=none smtp.remote-ip=18.9.28.11
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A36760A263C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:01:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A36760A263C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C907860A260F
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:01:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C907860A260F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PeH6OJiY
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=Uqpi4ODt
 Received: from trampoline.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
 	(authenticated bits=0)
         (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxi5t026990
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxqho027064
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 11 Nov 2026 17:59:45 -0500
+	Wed, 11 Nov 2026 17:59:53 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1794437992; bh=kBr4lxIN7nKuJvI5i+sXZXAxd95v5Q1dSvAGHHbt4fk=;
-	h=From:Subject:Date:Message-ID:MIME-Version;
-	b=PeH6OJiYNdZvMX8GDqCq6kZ/6LgxSu66UDtJ4vVAPF9DqbnlOMoUTKliNUeH0/Vrn
-	 uugqb99R6yoZ3v/utrXA7zmd947N9PhP6yr39nPMpNEciSoC502NUl+wVruQYMZsVu
-	 dBsqWmSc7TqKSwoVCH0lE9JIJjhndNXBKxIfi/vv8SLdPjt+fCECMrVUVPri/pTSad
-	 1HKvdKruvP6B+A2GV1dV1tSSlc4CzIuIYgG6K9EmTpA2r89iXxKdDmjUA+XOGU4CLJ
-	 ixzGB04AyAE6cWB53o8Vzl9zIlFdxNVyXoGKE9F6QPgQ9DUAqtoGZPu0cFqGad0i7E
-	 WeTcyAyHrHfUQ==
+	t=1794437996; bh=5XX+6a8VKJgr+gsRg+vssuVU0CYAju3DsYYpYuowGVQ=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	b=Uqpi4ODtiWeuJo+GEiLOtCBT5FTkCdH+8uU3LjMBmTQ6gmaj4m3QQ0Zllp+YNfTuM
+	 NbW7neYIuvakjw7DH5lGN01FD81WLAEbWKyh9lDN+n+vTq+fG0qRvQlfn3V8qZzaPe
+	 a2uq5KWZ9veW/cnmPzwjQxBZZf8pcwa/941jD3w4P0JWXoULkk+a1FctVVVhB1xpeU
+	 rEyY1iWeF6yIOb9cC25OleFG35BEZmGU9gj2Dkw75ZMfPr+1bishuVxbePagjFCuz6
+	 hWGbUBB9jcbNRBj9HHL6LnTERbH6x6Z2IWGIV/iO5ToUNye1Mm9gplzeiRFoQ7VGG4
+	 ERDadQ87giIYQ==
 Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id CCD682E0146; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
+	id D7B842E0148; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
 From: "Theodore Ts'o" <tytso@mit.edu>
 To: workflows@vger.kernel.org, ksummit@lists.linux.dev
-Cc: Sasha Levin <sashal@kernel.org>, "Theodore Ts'o" <tytso@mit.edu>,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jonathan Corbet <corbet@lwn.net>,
+Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
         Shuah Khan <skhan@linuxfoundation.org>,
         Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
         Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
@@ -66,10 +65,11 @@ Cc: Sasha Levin <sashal@kernel.org>, "Theodore Ts'o" <tytso@mit.edu>,
         Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
         Alexei Starovoitov <alexei.starovoitov@gmail.com>,
         Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
-        Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
-Subject: [PATCH v5 4/6] agents: add a skill to find other instances of a fixed bug
-Date: Wed, 11 Nov 2026 17:59:36 -0500
-Message-ID: <20261111225940.1573565-5-tytso@mit.edu>
+        Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
+        stable@vger.kernel.org
+Subject: [PATCH v5 6/6] agents: add a skill to write KUnit tests
+Date: Wed, 11 Nov 2026 17:59:38 -0500
+Message-ID: <20261111225940.1573565-7-tytso@mit.edu>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111225940.1573565-1-tytso@mit.edu>
 References: <20261111225940.1573565-1-tytso@mit.edu>
@@ -82,191 +82,408 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Sasha Levin <sashal@kernel.org>
+Add a skill under agents/skills/writing-kunit-tests/ to guide coding
+assistants when designing, implementing, verifying, or reviewing KUnit
+unit tests. Point the skill at the KUnit and process documentation and
+cover unit testing principles (testing behaviors rather than
+implementation details, keeping tests focused and DAMP, choosing
+non-default and distinct test values, using narrow expectations, and
+maintaining test isolation), KUnit resource management and static stub
+idioms, and verification with kunit.py.
 
-A bug fixed in one place often exists elsewhere, in copied code, sibling
-drivers, or other users of the same interface, and reviewers routinely
-ask whether that was checked. Left alone, agents tend to audit the whole
-tree by reading it. Add a skill that states the defect as a rule,
-searches for it through shared interfaces, copied code, the introducing
-series and earlier fixes, and verifies each candidate before reporting
-it.
+Update Documentation/process/coding-assistants.rst to list the new skill
+and note that skills only inspect and report unless their task is to
+write or modify code or tests.
 
-When Coccinelle is available, the skill searches with a semantic patch:
-it looks for an existing one under scripts/coccinelle/, checks that the
-rule marks the fixed site in the code before the fix, runs it over the
-whole tree with coccicheck, and checks which code spatch could not
-parse. These steps live in references/coccinelle.md, which the agent
-reads only when it uses Coccinelle. The semantic patch is returned with
-the results, so that the commit message of a fix can include it.
-
-Tested on the parent of commit 989fe6771266 ("drm/nouveau/gsp: fix
-mismatched alloc/free for kvmalloc()"): both the existing
-api/kfree_mismatch.cocci and the example rule mark the two kfree() calls
-that commit fixed, and a whole-tree run found the same bug in four other
-drivers that were later fixed separately.
-
-The sites found are reported, not fixed. When the same defect turns up
-in several places, the skill also reports whether the interface invites
-it. The missing of_node_put() calls that iterators/for_each_child.cocci
-finds were fixed one driver at a time for years, until
-commit 34af4554fb0c ("of: Introduce for_each_*_child_of_node_scoped() to
-automate of_node_put() handling") made the put automatic. Whether to fix
-the interface or each site is left to the developer.
-
-Point the bug-fix procedure in coding-assistants.rst at the skill.
-
-Link: https://lore.kernel.org/r/DM6DXZJSMPO3.J5PONDJ3HWNP@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Link: https://patch.msgid.link/20261020161642.3713052-5-sashal@kernel.org
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 ---
- Documentation/process/coding-assistants.rst   |  5 +-
- agents/skills/find-siblings/SKILL.md          | 36 ++++++++++
- .../find-siblings/references/coccinelle.md    | 66 +++++++++++++++++++
- 3 files changed, 106 insertions(+), 1 deletion(-)
- create mode 100644 agents/skills/find-siblings/SKILL.md
- create mode 100644 agents/skills/find-siblings/references/coccinelle.md
+ Documentation/process/coding-assistants.rst |  11 +-
+ agents/skills/writing-kunit-tests/SKILL.md  | 344 ++++++++++++++++++++
+ 2 files changed, 351 insertions(+), 4 deletions(-)
+ create mode 100644 agents/skills/writing-kunit-tests/SKILL.md
 
 diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index 81ee530a8a7f..c2f9b71650c1 100644
+index f0bae6bfe9a0..bb927fea5024 100644
 --- a/Documentation/process/coding-assistants.rst
 +++ b/Documentation/process/coding-assistants.rst
-@@ -39,6 +39,8 @@ The following skills are available:
-   checks an existing one.
- * agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
-   returns its stable tag, or checks an existing one.
-+* agents/skills/find-siblings/SKILL.md looks for the same bug elsewhere in the
-+  tree.
+@@ -28,10 +28,11 @@ skill with a ``SKILL.md`` entry point in the `Agent Skills format
+ documents that apply to its task and adds only what assistants tend to get
+ wrong.
+ 
+-Skills inspect and report. They do not change files, create commits or tags,
+-or send mail. A skill returns its result with the evidence for it, or says what
+-is missing. Do not fill a missing result with a guess or a placeholder, and do
+-not finalize the work until it is resolved.
++Unless a skill's task is to write or modify code or tests, skills only inspect
++and report: they do not change files, create commits or tags, or send mail. A
++skill returns its result with the evidence for it, or says what is missing. Do
++not fill a missing result with a guess or a placeholder, and do not finalize
++the work until it is resolved.
+ 
+ The following skills are available:
+ 
+@@ -43,6 +44,8 @@ The following skills are available:
+   tree.
+ * agents/skills/commit-message/SKILL.md writes, rewrites or reviews a commit
+   message or cover letter, and writes the text of a pull request.
++* agents/skills/writing-kunit-tests/SKILL.md designs, writes, verifies, or
++  reviews KUnit unit tests.
  
  Licensing and Legal Requirements
  ================================
-@@ -83,7 +85,8 @@ these steps:
- 5. Build and verify that the fix works either using the reproducer or by
-    re-running a complete analysis; drop any fix that doesn't work and try
-    another one. The fix must not add build warnings and must pass the
--   checkpatch.pl checks (see submitting-patches.rst).
-+   checkpatch.pl checks (see submitting-patches.rst). Then look for the same
-+   bug elsewhere with the find-siblings skill.
- 6. Commit the working fix with a detailed message describing the problem, the
-    solution, a Fixes tag determined with the find-fixes skill, and a stable
-    tag if the stable-tag skill calls for one.  Do not add a Signed-off-by tag.
-diff --git a/agents/skills/find-siblings/SKILL.md b/agents/skills/find-siblings/SKILL.md
+diff --git a/agents/skills/writing-kunit-tests/SKILL.md b/agents/skills/writing-kunit-tests/SKILL.md
 new file mode 100644
-index 000000000000..8d007472675d
+index 000000000000..1f19b585b9b4
 --- /dev/null
-+++ b/agents/skills/find-siblings/SKILL.md
-@@ -0,0 +1,36 @@
++++ b/agents/skills/writing-kunit-tests/SKILL.md
+@@ -0,0 +1,344 @@
 +---
 +# SPDX-License-Identifier: GPL-2.0-only
-+name: find-siblings
++name: writing-kunit-tests
 +description: >-
-+  Find other places in the Linux kernel tree that have the same defect as a
-+  bug being fixed, and verify each candidate. Use after fixing or reviewing
-+  a bug fix, or when asked whether the same bug exists elsewhere.
++  Design, implement, verify, or review KUnit unit tests for the Linux kernel.
++  Use when writing new KUnit tests, expanding existing KUnit test suites,
++  adding regression tests with KUnit, or reviewing KUnit test patches.
 +---
 +
-+# Find other instances of a bug
++# Write KUnit tests
 +
-+Follow the rules for skills in Documentation/process/coding-assistants.rst.
++Before writing or modifying any code, read the relevant kernel documentation:
++- **KUnit Framework & Style**:
++  `Documentation/dev-tools/kunit/usage.rst`,
++  `Documentation/dev-tools/kunit/style.rst`,
++  `Documentation/dev-tools/kunit/start.rst`, and
++  `Documentation/dev-tools/kunit/api/functionredirection.rst`
++- **Kernel Development & Patch Submission**:
++  `Documentation/process/development-process.rst`,
++  `Documentation/process/coding-style.rst`,
++  `Documentation/process/submitting-patches.rst`, and
++  `Documentation/process/license-rules.rst`
++- **AI Coding Assistants & Tool-Generated Content**:
++  `Documentation/process/coding-assistants.rst` and
++  `Documentation/process/generated-content.rst`
 +
-+- State the defect as a rule that does not depend on local names, such as
-+  "memory from kvmalloc() is released with kfree()".
-+- Search the tree as it was before the fix, not the working tree. Look at
-+  other users of the same interface, field or lock, code copied from the same
-+  origin, the rest of the series that introduced the bug, and earlier fixes
-+  for the same defect. Limit history searches to the relevant directories.
-+- If Coccinelle is available (`spatch --version` works), search for the
-+  defect with a semantic patch as
-+  [references/coccinelle.md](references/coccinelle.md) describes. Otherwise
-+  use text searches and report that limit.
-+- A match is a lead. Read each candidate with its callers, locking and object
-+  lifetimes, and classify it as confirmed, safe or undetermined, with the
-+  reason. Check whether a confirmed site is already fixed in the current tree
-+  or in a pending tree such as linux-next.
-+- If several sites have the same defect, check whether the interface they use
-+  invites it, for example by making every caller drop a reference by hand when
-+  it leaves a loop early. If it does, report that the defect is better fixed
-+  in the interface, along with the sites. The developer decides which way to
-+  fix it.
++Also inspect existing KUnit tests in the target subsystem (e.g., `*-test.c` or
++`tests/*_kunit.c`) to follow established local conventions for file naming,
++symbol visibility, Kconfig, and Makefile integration.
 +
-+Return the searches you ran and their scope, with any semantic patch you
-+used, and the classified sites with their maintainers. Do not fix the sites or
-+the interface.
-diff --git a/agents/skills/find-siblings/references/coccinelle.md b/agents/skills/find-siblings/references/coccinelle.md
-new file mode 100644
-index 000000000000..6b09ce9d04c8
---- /dev/null
-+++ b/agents/skills/find-siblings/references/coccinelle.md
-@@ -0,0 +1,66 @@
-+<!-- SPDX-License-Identifier: GPL-2.0-only -->
++---
 +
-+# Searching for a bug pattern with Coccinelle
++## 1. Core Unit Testing Principles
 +
-+Documentation/dev-tools/coccinelle.rst describes `make coccicheck` and its
-+options. The semantic patch language is documented at
-+https://coccinelle.gitlabpages.inria.fr/website/docs/.
++Apply the following software testing best practices to ensure KUnit tests have
++high **fidelity** (fail when code is broken), **resilience** (only fail when
++actual behavior breaks, not during internal refactoring), **precision**
++(pinpoint the exact defect on failure), and **clarity** (serve as executable
++documentation):
 +
-+1. Look under `scripts/coccinelle/` for a semantic patch that already covers
-+   the defect. Read its rules rather than its name: `kfree()` of memory from
-+   `kvmalloc()` is covered by `api/kfree_mismatch.cocci`, while
-+   `api/kvmalloc.cocci` only flags an open-coded `is_vmalloc_addr()` test.
++### 1.1 Test Behaviors, Not Functions or Implementation Details
++- **Avoid a 1:1 function-to-test mapping**: A single C function often exhibits
++  multiple distinct behaviors (e.g., normal insertion, merging with left/right
++  neighbors, splitting an existing entry, error handling), and a single logical
++  behavior may span multiple functions (e.g., insert followed by lookup and
++  removal). Write separate test cases for each distinct behavior.
++- **Test public/subsystem APIs over internal details**: Exercise the unit
++  through its intended interface rather than testing private helper functions in
++  isolation whenever possible. If internal implementation details are
++  refactored without changing observable behavior, existing tests should
++  continue to pass.
++- **Do not write "change-detector" tests**: Never write tests that merely
++  mirror the implementation line-by-line or assert an exact sequence of
++  internal helper calls without checking the resulting state or output.
 +
-+2. Otherwise, write a semantic patch outside the repository. Match only what
-+   the defect needs, not names or statements specific to the fixed site. Mark
-+   the lines of interest with `*`, and declare `virtual context`: coccicheck
-+   passes `-D context`, and spatch rejects a mode the file does not declare.
-+   A minimal rule for memory from `kvmalloc()` released with `kfree()`, a
-+   case that `api/kfree_mismatch.cocci` covers more completely:
++### 1.2 Keep Tests Focused
++- **One scenario per test case**: Each `static void test_...(struct kunit *test)`
++  function should test a single scenario or behavior.
++- **Do not chain unrelated scenarios in one test**: Avoid mutating state across
++  a long sequence of unrelated scenarios in a single test function where side
++  effects from an earlier check can mask bugs or invalidate assumptions in
++  later checks.
++- **Include the scenario and expected outcome in test names**: Name test
++  functions so a developer can tell what scenario is being exercised and what
++  should happen from the function name alone (e.g.,
++  `test_es_insert_adjacent_same_status_merges_extents` or
++  `unpack_u32_with_null_name_fails` rather than just `test_insert` or
++  `test_unpack`).
 +
-+       virtual context
++### 1.3 Make Tests DAMP, Not Overly DRY
++- **Prioritize readability by inspection (DAMP — Descriptive and Meaningful
++  Phrases)**: Because tests do not have their own tests, their correctness must
++  be obvious to a human reviewer reading top-to-bottom. Do not over-abstract
++  tests just to eliminate a few lines of duplication.
++- **Keep cause and effect together**: Set up the specific inputs that drive a
++  test's outcome directly inside the test case body right before the call under
++  test and its `KUNIT_EXPECT_*` checks. Never hide the critical input values
++  that determine an expected output inside a distant `.init` function.
++- **Include only relevant details (hide noise)**: Use helper functions to hide
++  irrelevant boilerplate setup (such as allocating a dummy `super_block`,
++  initializing locks, or zeroing unrelated struct fields), but pass the values
++  that actually matter to the test explicitly as arguments at the call site:
 +
-+       @@
-+       expression E;
-+       @@
-+       E = \(kvmalloc\|kvzalloc\|kvcalloc\|kvmalloc_array\)(...);
-+       ...
-+       * kfree(E);
++  ```c
++  /* BAD: Critical values hidden inside helper, or noisy setup inline */
++  inode = create_test_inode();
++  KUNIT_EXPECT_EQ(test, get_quota_blocks(inode), 42); /* Where did 42 come from? */
 +
-+3. Check that it finds the site you fixed. Coccinelle reads the files on
-+   disk, where the fix is usually already applied, so copy the file as it was
-+   before the fix to a directory outside the repository and run
-+   `spatch -D <mode> --very-quiet --sp-file <rule> <copy>`, with a mode the
-+   rule declares on a `virtual` line, such as `context` or `report`. Without
-+   `-D`, rules that depend on a mode do not run and nothing is reported. The
-+   rule must mark the fixed site in that copy, and nothing in the fixed
-+   version. If it misses the site, correct the rule before searching further.
++  /* GOOD: Helper hides boilerplate; test-relevant value is explicit */
++  inode = create_test_inode_with_reserved_blocks(test, 42);
++  KUNIT_EXPECT_EQ(test, get_quota_blocks(inode), 42);
++  ```
 +
-+4. Search the whole tree:
++### 1.4 Don't Put Logic in Tests & Prefer Literals/Constants
++- **State expected outputs directly**: Never compute expected values in
++  assertions using arithmetic, bit shifts, string concatenation, loops, or
++  conditionals that duplicate the production algorithm. Computing expectations
++  in tests can introduce bugs in the test itself or mask a shared bug in
++  production code.
++- **Prefer literals or named constants in assertions**: Compare actual results
++  against concrete literals or self-explanatory constants rather than dynamic
++  expressions derived from the system under test.
 +
-+       make coccicheck MODE=context COCCI=<rule> DEBUG_FILE=<new log file>
++### 1.5 Choose Robust Test Values & Think Beyond Line Coverage
++- **Test with non-default values**: In the kernel, structs are frequently
++  zero-allocated (`kzalloc` / `kunit_kzalloc`). If you test a setter, parser,
++  or lookup using `0`, `false`, `NULL`, or enum value `0`, a broken
++  implementation that never writes the field will still pass! Always use
++  non-zero, non-default test values for positive tests.
++- **Use distinct values for each parameter**: When calling a function that
++  takes multiple arguments of the same or compatible types (e.g.,
++  `ext4_es_insert_extent(inode, lblk, len, pblk, status, ...)`), use clearly
++  distinct values (e.g., `lblk = 10`, `len = 5`, `pblk = 1000`) so swapped
++  arguments or off-by-one mixups are caught immediately.
++- **Think beyond line coverage**:
++  - **Branch & Condition coverage**: For compound boolean conditions like
++    `if ((a && b) || !c)`, write test cases that exercise each condition
++    independently, not just a single path that executes the line.
++  - **Boundary & Edge cases**: Test `0`, `1`, exact power-of-two/cluster
++    boundaries, maximum legal limits (e.g., `INT_MAX`, `ULONG_MAX`,
++    `EXT_MAX_BLOCKS`), overflow/underflow boundaries, empty trees/lists,
++    single-element collections, and multi-element spans.
++  - **Error paths**: Test invalid inputs, `-EINVAL` / `-ENOMEM` / `-ENOSPC`
++    conditions, and verify that error paths leave data structures in a valid,
++    uncorrupted state without leaking resources.
 +
-+   - Use a `MODE` the rule declares on a `virtual` line, as in step 3.
-+   - In context mode the output is a diff, and each line starting with `-`
-+     is a line the rule marked; report mode prints one warning per site.
-+     coccicheck searches the files on disk, so a site you already fixed
-+     there is not marked; step 3 covers it.
-+   - The kernel's `.cocciconfig` makes spatch skip files that do not contain
-+     the rule's identifiers, so a whole-tree search is usually quick when the
-+     rule names distinctive functions. Add `M=<dir>/` only if it is not.
-+   - Give `COCCI` and `DEBUG_FILE` as absolute paths. With `M=`, coccicheck
-+     runs from that directory.
-+   - Read the log. Without `DEBUG_FILE`, spatch errors are discarded and a
-+     broken rule shows only as "coccicheck failed". coccicheck refuses to
-+     reuse an existing log file.
-+   - Header files are searched only with `SPFLAGS=--include-headers`, or with
-+     a `// Options: --include-headers` line at the top of the rule.
++### 1.6 Prefer Narrow Assertions & Make Failures Actionable
++- **Actionable failure messages**: When a test fails, the test name and KUnit
++  failure log alone should be enough to start debugging without adding
++  `printk`s and re-running.
++- **Use specific KUnit expectation macros**:
++  - Use `KUNIT_EXPECT_EQ(test, actual, expected)`, `KUNIT_EXPECT_NE`,
++    `KUNIT_EXPECT_LT`, `KUNIT_EXPECT_LE`, `KUNIT_EXPECT_GT`, `KUNIT_EXPECT_GE`
++    for integers/enums (instead of `KUNIT_EXPECT_TRUE(test, a == b)`, which
++    only prints `Expected true, got false`).
++  - Use `KUNIT_EXPECT_PTR_EQ`, `KUNIT_EXPECT_NULL`, `KUNIT_EXPECT_NOT_NULL`,
++    `KUNIT_EXPECT_NOT_ERR_OR_NULL` for pointers.
++  - Use `KUNIT_EXPECT_STREQ` / `KUNIT_EXPECT_MEMEQ` for strings and buffers.
++- **Use `_MSG` variants in loops and helpers**: Whenever an expectation is
++  inside a helper function, loop, or table-driven check, use
++  `KUNIT_EXPECT_*_MSG(test, ..., "context fmt", ...)` so the failure output
++  identifies the exact case or index that failed.
++- **Prefer narrow assertions**: Assert only the struct fields or properties
++  relevant to the behavior under test, rather than asserting every unrelated
++  field of a large struct (which creates brittle tests that break whenever
++  unrelated fields change).
 +
-+5. Check what was not searched. Coccinelle skips code it cannot parse without
-+   saying so. Run `spatch --parse-c` on the searched files or directories: a
-+   nonzero `nb bad` count means part of them was skipped. Search those files
-+   another way and report the gap.
++### 1.7 Test Isolation, Order Independence, and Zero Flakiness
++- **Complete independence between test cases**: Every test case must pass when
++  run by itself (`kunit.py run suite.test`), in any order, or repeatedly.
++- **Never leak mutable shared state**: Avoid file-scope mutable globals. Prefer
++  allocating per-test context in `test->priv` via `kunit_kzalloc(test, ...)` in
++  `.init`. If a suite shares a fixture structure, ensure `.init` and `.exit`
++  completely reset all trees, lists, flags, and stub counters before and after
++  every single test case.
++- **No "sleep gambling"**: Never use `msleep()` or arbitrary delays to wait for
++  asynchronous work in unit tests. Test synchronous entry points, flush
++  workqueues deterministically, or inject synchronous stubs.
 +
-+If the rule marks many sites that turn out to be safe, tighten it, for example
-+with `when !=` constraints, and run it again rather than discarding candidates
-+by hand.
++### 1.8 High Fidelity & Smart Use of Test Doubles (Real > Fake > Stub > Mock)
++- **Prefer real implementations first**: Use real kernel data structures (e.g.,
++  `rbtree`, `xarray`, `list_head`, in-memory anonymous `super_block` / `inode`,
++  or `kunit_device_register()`) whenever they run fast and deterministically in
++  memory.
++- **Use fakes or stubs to isolate heavyweight dependencies**: When code under
++  test interacts with hardware, disk I/O, journals, block allocators, or global
++  kernel state, isolate it using:
++  1. **Lightweight in-memory fakes** (e.g., an ops struct backed by a memory
++     buffer), or
++  2. **KUnit static stubs** (`KUNIT_STATIC_STUB_REDIRECT` and
++     `kunit_activate_static_stub`).
++- **Avoid overusing mocks / interaction verification**:
++  - Prefer **state testing** (verifying return values and resulting data
++    structure state) over **interaction testing** (verifying that function X
++    was called).
++  - Only verify **state-changing** external calls (e.g., verifying that a
++    delayed-allocation block reservation was claimed or released), never
++    read-only query helpers.
++  - When verifying stub calls, only check arguments relevant to the behavior
++    being tested.
++
++### 1.9 Parameterize Repetitive Tests Judiciously
++- **Use parameterized or table-driven tests for input/output matrices**: When
++  testing the same behavior across many input combinations (e.g., extent
++  merge/split geometries, timestamp bit-decoding tables, hash test vectors),
++  use `KUNIT_ARRAY_PARAM` / `KUNIT_ARRAY_PARAM_DESC` with `KUNIT_CASE_PARAM`
++  (or a clean table-driven helper) to avoid copy-pasting identical test
++  functions.
++- **Do not put conditional logic inside parameterized tests**: If a
++  parameterized test requires `if (param->expect_error)` or
++  `switch (param->mode)` inside the test function to decide what assertions to
++  run, split it into separate parameterized or standalone tests instead.
++
++---
++
++## 2. KUnit Framework Idioms & Mechanics
++
++### 2.1 Expectations vs. Assertions
++- **`KUNIT_EXPECT_*`**: Records a test failure and logs diagnostic details, but
++  **continues** executing the rest of the test case. Use `KUNIT_EXPECT_*` for
++  the behavioral checks in your test.
++- **`KUNIT_ASSERT_*`**: Immediately **aborts** the current test case
++  (terminating the KUnit kthread) on failure. Use `KUNIT_ASSERT_*` for
++  preconditions whose failure makes continuing impossible or unsafe (e.g.,
++  `KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ptr)` after memory allocation or object
++  lookup before dereferencing `ptr`).
++- **CRITICAL**: **Never** use `KUNIT_ASSERT_*` in `.exit()`, `.suite_exit()`,
++  or `kunit_resource` / action cleanup callbacks. Aborting during teardown
++  skips subsequent cleanup steps and causes memory or resource leaks in the
++  running kernel.
++
++### 2.2 Resource & Memory Management
++- **Managed memory**: Always prefer `kunit_kmalloc()`, `kunit_kzalloc()`,
++  `kunit_kcalloc()`, `kunit_kmalloc_array()`, and `kunit_kstrdup()` over raw
++  `kmalloc`/`kzalloc`. KUnit automatically frees these allocations when the
++  test case exits—even if a `KUNIT_ASSERT_*` aborts the test midway.
++- **Deferred cleanup actions**: For non-memory resources (e.g., unregistering a
++  shrinker, freeing slab cache objects, releasing locks/superblocks, cleaning
++  up trees), either clean them up in `.exit` or register a deferred action
++  immediately after acquisition using `kunit_add_action_or_reset()`:
++
++  ```c
++  KUNIT_DEFINE_ACTION_WRAPPER(my_resource_cleanup, my_resource_cleanup_wrapper,
++                              struct my_resource *);
++  ...
++  ret = kunit_add_action_or_reset(test, my_resource_cleanup_wrapper, res);
++  KUNIT_ASSERT_EQ(test, ret, 0);
++  ```
++  Always use `KUNIT_DEFINE_ACTION_WRAPPER()` rather than casting function
++  pointers to `kunit_action_t`, as casting function pointers breaks Control
++  Flow Integrity (CFI).
++- **Safe `.exit` functions**: Remember that `.exit` and `.suite_exit` run even
++  if `.init` or `.suite_init` failed or exited early. Always guard `.exit`
++  cleanup against NULL or partially initialized pointers.
++- **Fake devices**: When code under test requires a `struct device *` (e.g.,
++  for `devm_*` managed APIs), use `kunit_device_register(test, "name")` from
++  `<kunit/device.h>`.
++
++### 2.3 Testing Static Functions & Isolating Dependencies
++Check how the target subsystem exposes internal functions to KUnit tests and
++follow the local convention:
++
++1. **Subsystem export macros** (e.g., `EXPORT_SYMBOL_FOR_EXT4_TEST(fn)` or
++   `VISIBLE_IF_KUNIT` / `EXPORT_SYMBOL_IF_KUNIT(fn)` from
++   `<kunit/visibility.h>` paired with
++   `MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");` in the test file).
++2. **Conditionally `#include`ing the test file** at the bottom of the `.c` file
++   under `#if IS_ENABLED(CONFIG_<SUBSYSTEM>_KUNIT_TEST)` if the subsystem
++   already uses that pattern to test `static` functions directly.
++3. **Function Redirection (Static Stubs)**: To intercept calls to external
++   functions during a test without refactoring production APIs:
++   - In the real function (right after variable declarations):
++     ```c
++     #include <kunit/static_stub.h>
++     ...
++     KUNIT_STATIC_STUB_REDIRECT(my_external_fn, arg1, arg2);
++     ```
++   - In the KUnit test:
++     ```c
++     kunit_activate_static_stub(test, my_external_fn, my_external_fn_stub);
++     ```
++   - If the stub needs the current `struct kunit *`, call
++     `kunit_get_current_test()` (`#include <kunit/test-bug.h>`).
++4. **Suppressing expected warning backtraces**: If a test intentionally
++   triggers `WARN()` / `WARN_ON()`, wrap the call in
++   `kunit_warning_suppress(test)` and verify with
++   `KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1)` so intentional warnings do
++   not pollute kernel logs.
++
++### 2.4 Suite, File, and Kconfig Nomenclature
++Unless the subsystem has an established convention (such as `fs/ext4/*-test.c`
++linked into `ext4-test.o`), follow `Documentation/dev-tools/kunit/style.rst`:
++
++- **Subsystem & Suite naming**: Name the suite `<subsystem>_<area>` using
++  underscores, without redundant `_kunit` or `_test` suffixes in `.name`
++  (unless matching existing suites in that directory).
++- **File naming**: Place new standalone test files in `tests/<suite>_kunit.c`
++  (or match the subsystem's existing `*-test.c` / `*_kunit.c` pattern).
++- **Kconfig**:
++  ```kconfig
++  config FOO_KUNIT_TEST
++  	tristate "KUnit test for foo" if !KUNIT_ALL_TESTS
++  	depends on FOO && KUNIT
++  	default KUNIT_ALL_TESTS
++  	help
++  	  This builds unit tests for foo.
++
++  	  For more information on KUnit and unit tests in general,
++  	  please refer to the KUnit documentation in
++  	  Documentation/dev-tools/kunit/.
++
++  	  If unsure, say N.
++  ```
++
++---
++
++## 3. Building, Running, and Verifying Tests
++
++Build and run the KUnit tests before finalizing or committing changes:
++
++1. **Run the test suite with `kunit.py`**:
++   ```bash
++   ./tools/testing/kunit/kunit.py run <suite_name>
++   ```
++   (If a `.kunitconfig` exists in the repo root or subsystem directory, pass
++   `--kunitconfig=.kunitconfig` or `--kunitconfig=<subdir>/.kunitconfig`, or
++   add needed configs via `--kconfig_add CONFIG_...=y`).
++2. **Verify zero build warnings**: Ensure the added or modified files compile
++   with zero compiler warnings or errors.
++3. **Verify test isolation**: Run individual test cases using glob filtering to
++   confirm no test depends on state left behind by an earlier test:
++   ```bash
++   ./tools/testing/kunit/kunit.py run "<suite_name>.<test_case_name>"
++   ```
++4. **Verify test fidelity**: Confirm that the tests actually exercise the
++   intended code paths (e.g., via GCOV/coverage if configured, or by
++   verifying that breaking the condition under test causes the KUnit
++   expectation to fail).
++
++---
++
++## 4. Coding Style, Licensing, and Commits
++
++Follow `Documentation/process/coding-style.rst`,
++`Documentation/process/submitting-patches.rst`,
++`Documentation/process/license-rules.rst`, and
++`Documentation/process/coding-assistants.rst`:
++
++- **SPDX & Module Macros**:
++  - Line 1 of every new `.c` test file must be
++    `// SPDX-License-Identifier: GPL-2.0` (or the appropriate
++    GPL-2.0-compatible identifier).
++  - Include `MODULE_LICENSE("GPL");` and `MODULE_DESCRIPTION("...");` at the
++    bottom of the test module.
++- **Checkpatch**: Run `./scripts/checkpatch.pl` on the changes and fix all
++  reported `ERROR`, `WARNING`, and `CHECK` issues.
++- **Commits**: When asked to create a commit, use the `commit-message` skill
++  (`agents/skills/commit-message/SKILL.md`). Explain what behaviors and edge
++  cases are covered, any minimal production code hooks added (such as
++  `KUNIT_STATIC_STUB_REDIRECT` or KUnit symbol exports), and how the tests were
++  verified. Never add a `Signed-off-by:` tag.
++- **Report verification status**: Clearly state what was built and tested
++  (including `kunit.py` and `checkpatch.pl` results), and explicitly note
++  anything that could not be built or verified.
 -- 
 2.53.0
 
