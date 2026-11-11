@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419112;
-	b=Lm6fGdx4ph6GVgSiX72DYGYUN4nsRElBxDPpNZsxazME4qSWo1HN6XEzx1ktCuEsIu5+
-	 RpBLgUToVSC/Eq22lxVBC1/Sb6Hbr2kONjXHcjR4Tzdk6LpUHoZl3gpEeIhqQPfuisq4+
-	 e73CLMMAFqJZjLQluB5hjNJHCFEZH8no1CoUlwizXUu5FylLpbRkYnwELK5OBdzFqQEK6
-	 5yTaOmbSpACf23PavYBL1G8Pnzb9v/0pw2yMWw0WBvwdltS0AmO+1+u8jVp/dtiVR7i1l
-	 +PWhgRfP61OWp1e/mhH9wvUUJIPfrHDjcSFRcGS2axKVXCnmUl3bVjwkGLp2uDonEQw==
+	t=1794419127;
+	b=JiNbsXid9+YLV/NR3e8tXV6RXonJfxN79sf8dH48lXLnuXT1CstUDOndBU5i0V5EtjCi
+	 azp+knwGe2+Va50wT6xMw9k9r6LeObN0gHTxYKirpKmiiRvDUiaq8aGOOzW1/Kb6lYy2+
+	 IrSBhoUM82ukEpNFq5XBoceFpMkRzAgPoDQt//cIH7osDzJ0wChu/DxkINqPMBrE7cOz+
+	 5lX2SFpTLoxSiwXKk6HfiaXbxkQBA3szIZqDDIfLWxdRIPm5spkiEXPgV3CBnmjdY+R0I
+	 +bB3DoOhNlL6KZiZci+L+raXEH6AbIHhvOj3krRvqe6lWVVpZytgsP8qhYIkqzmfTJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419112;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419127;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uw9g4Eupr/+A/3rq7B4qYuoT2jG/1G/M+rvcp5cOYmQ=;
-	b=mZI50P06fWl+m9TJR0f7aTMHIQYBLBSNKqjKM1Vu2/pahIaUmHzKdvRfowCayFjdkifO
-	 WDS5J/U+PHLW7SI099kbYpNTaqIOJ0CUJdmaO8Y/nKHUYpPxbOH9eeqpiCOIVXTmnV3Jd
-	 K0nkC/fAiRUiQ5MaFbADRCRPBHEetiYVMcBqm66E0XtEZ7DHPvBzD9/D+kjsfIoARIS63
-	 6GlDWNEg0fWaR3r+4c3Uug+gXA0540w2hR/wB8c/SM6EvgdAqDNZdNg0iZaHEr0cbM7V6
-	 pwZ68zjc6kd8uqw6JUZ6BrtWNtjT9gIoFegrnmc4Ihsm8OzNMoxGeFWSgVSDECQoTmA==
+	bh=mRP6vAhoWR3MmECjS8zD3FHlWKIUtew1wC7ZcpglQmg=;
+	b=cJOuKMSBvinP3CtbLLWF1sAMvLD0ottrM7dx65V7QAZ83WHfYTXbVH1VYi1PRss63Tkx
+	 hhP+/xbqfFa0JE5x1RcPxT7ozOMJoE3E23WgvNiRFsAb1x2mnohR4itObKi3EVroUR9uJ
+	 /aipKTMEeV05Wt+BkeS4yEoDidJhpHuEheS/fB2fKoOCy/U43ATAVhyrFgZKjRZGJfGnM
+	 Q8nZJ6jR7+ZrvQnGoqx/6A7HJlQTITuQ2HWdy1PgBNFbr5vnOV9LfUgT1t9H8epd3NcRx
+	 7+TFnsqbR45RZZUVIfJQhdJrcO/0rb9/OSOujfM6FaL67aVqekPzhNjAT07wRRsH59w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hjai1VgS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BInpHpYF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CE5606B4DB
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:45:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBCE606C1CE
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hjai1VgS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFBA91F00A06;
-	Wed, 11 Nov 2026 17:45:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BInpHpYF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A5B1F00A05;
+	Wed, 11 Nov 2026 17:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419112;
-	bh=uw9g4Eupr/+A/3rq7B4qYuoT2jG/1G/M+rvcp5cOYmQ=;
+	s=k20260515; t=1794419127;
+	bh=mRP6vAhoWR3MmECjS8zD3FHlWKIUtew1wC7ZcpglQmg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hjai1VgSEIIYccDfEZagzaVrnm8fYD4Fr6/45P23Y+xgxzZ+zZopo4gvMC9E4inAB
-	 wGMGcE3kR6dPtUxaXIsekFZW8s61xRuiZ+P789RLbysLBQK0O7RmI+QQZ4v3ZR0YHG
-	 bx3IDBPxhpjkjStE3pBcESwS9lviDoG2+6zd9XLxFQJ93L2nWiE2/AdnJpy6prfZlZ
-	 WpD27TGPM6Tw+xzeQ1c9qfNcGVRh1h8GD/DnaF01Kon+ZfdNYCM9yCj94uQIbTcrwN
-	 6o4UVyVgbkBs43mrrK4VBslVuSZwEUf747Wqd+hJd/y7QPM3HNboCqv18Qu8rLcIMr
-	 ZgX9AleAkQkBg==
+	b=BInpHpYF37SZXjnXvXfNKP5FCNOAXzbx9n3YNXs+OfkC+/8VTNepSuPWalsGSeMDZ
+	 LnN+97qRatRaUiAbnDIEKM38CI8prcQ31spAUgNiXTojz91iEDtVq7/JzSyzbdt/D4
+	 8KL5yJkwywu3B2rAc/LpHl1nZ3SId1JCEg5C0LuN+D+dLun7/lckElJGEmUbcDvtwZ
+	 UV0gnk1jOEdmXSBVaY7GaJF3XQd7zG8fzx6DlJTF1ECUCJNL7/hq9Fg3CKIGAqWwQd
+	 s6wkjGpiHzbzgMAe64qceKQhuRDn9pYXItanp26CKCobiQK5zv444P2RqBxJvUefYv
+	 FMW0se03gFGow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Henrik Enquist <henrik.enquist@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] ipmr: only copy pktinfo to cache reports
-Date: Wed, 11 Nov 2026 12:45:09 -0500
-Message-ID: <20261111174441.3663023-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ALSA: aloop: Update the PCM Slave controls for a matching playback
+Date: Wed, 11 Nov 2026 12:45:25 -0500
+Message-ID: <20261111174512.3685448-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111174441.3663023-1-sashal@kernel.org>
-References: <20261107053830-failed-6.6-94a6736bb5ab@kernel.org>
- <20261111174441.3663023-1-sashal@kernel.org>
+In-Reply-To: <20261107055309-failed-6.1-c3bde2beacbc@kernel.org>
+References: <20261107055309-failed-6.1-c3bde2beacbc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,81 +61,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Henrik Enquist <henrik.enquist@gmail.com>
 
-[ Upstream commit 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f ]
+[ Upstream commit c3bde2beacbcb40790f0e3c3f909f9e16bbced9c ]
 
-ipmr_cache_report() prepares IP_PKTINFO on the original skb. The
-ipv4_pktinfo_prepare() helper updates skb->cb and clears the pktinfo fields
-when packet info is disabled. Since the skb can continue through the data
-path, preserve and restore its original control block around the helper.
+The "PCM Slave" format, rate, channels and access controls report the
+parameters of the playback side of a cable. loopback_check_format()
+updates them when a playback starts, but returns early when a capture
+is open and its parameters match. The controls then keep the module
+defaults, or the parameters of an earlier stream.
 
-The original implementation copies the entire control block to the report
-skb. For synthetic RTM_GETROUTE packets, NETLINK_CB data is interpreted as
-IPCB by the raw IPv4 receive path. With IP_RECVOPTS or IP_RETOPTS enabled,
-corrupted option offsets cause out-of-bounds reads or a stack buffer
-overflow. WHOLEPKT and WRVIFWHOLE reports also inherit stale IP option
-offsets when their header is prepended.
+A playback that joins an open capture with the same parameters is the
+normal case without notify, where it is constrained to the capture's
+parameters, and also with notify whenever the player happens to use
+them. An application that reads the controls to find the playback's
+parameters, for example to reopen the capture side at the right rate
+after a restart, then gets the wrong values.
 
-Clear the report skb control block. Only prepare and copy pktinfo when the
-input skb has an IPv4 header. Synthetic route-query skbs use NETLINK_CB,
-not IPCB, so leave their report control block zeroed. Restore pkt->cb after
-preparing pktinfo for regular IPv4 packets.
+Only skip the capture stop when the parameters match, and update the
+controls in every case. A value event is still sent only for a control
+whose value changes.
 
-Fixes: bb7403655b3c ("ipmr: support IP_PKTINFO on cache report IGMP msg")
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reproducer:
+  arecord -D hw:Loopback,1,0 -r 44100 -f S16_LE -c 2 /dev/null &
+  aplay -D hw:Loopback,0,0 -t raw -r 44100 -f S16_LE -c 2 /dev/zero &
+  amixer -c Loopback cget "iface=PCM,name='PCM Slave Rate',device=1"
+Before: the control reports 48000, the module default.
+After: it reports 44100.
+
+Fixes: 597603d615d2 ("ALSA: introduce the snd-aloop module for the PCM loopback")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Link: https://lore.kernel.org/netdev/20260903113055.GA90787@shredder/
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
+Link: https://patch.msgid.link/20261021-aloop-slave-controls-v1-1-62297727177f@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: adjusted context to match the existing loopback_check_format() implementation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipmr.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ sound/drivers/aloop.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index 391b0152d6c85..04e7688868fde 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1030,6 +1030,7 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
- static int ipmr_cache_report(const struct mr_table *mrt,
- 			     struct sk_buff *pkt, vifi_t vifi, int assert)
- {
-+	unsigned char pkt_cb[sizeof(pkt->cb)];
- 	const int ihl = ip_hdrlen(pkt);
- 	struct sock *mroute_sk;
- 	struct igmphdr *igmp;
-@@ -1085,8 +1086,6 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		msg = (struct igmpmsg *)skb_network_header(skb);
- 		msg->im_vif = vifi;
- 		msg->im_vif_hi = vifi >> 8;
--		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
--		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
- 		/* Add our header.
- 		 * Note that code, csum and group fields are cleared.
- 		 */
-@@ -1097,6 +1096,15 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		skb->transport_header = skb->network_header;
- 	}
- 
-+	memset(skb->cb, 0, sizeof(skb->cb));
-+	/* Route queries from ipmr_get_route() carry NETLINK_CB, not IPCB. */
-+	if (ip_hdr(pkt)->version) {
-+		memcpy(pkt_cb, pkt->cb, sizeof(pkt_cb));
-+		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
-+		*PKTINFO_SKB_CB(skb) = *PKTINFO_SKB_CB(pkt);
-+		memcpy(pkt->cb, pkt_cb, sizeof(pkt_cb));
-+	}
-+
- 	igmpmsg_netlink_event(mrt, skb);
- 
- 	/* Deliver to mrouted */
+diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index 9c7671f034d54..29959455fe072 100644
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -346,11 +346,14 @@ static int loopback_check_format(struct loopback_cable *cable, int stream)
+ 			check = runtime->format != cruntime->format ||
+ 				runtime->rate != cruntime->rate ||
+ 				runtime->channels != cruntime->channels;
+-			if (!check)
+-				return 0;
+-			if (stream == SNDRV_PCM_STREAM_CAPTURE)
++			/*
++			 * Matching params also go on to the update below, so that
++			 * the setup controls follow a playback that joins an open
++			 * capture.
++			 */
++			if (check && stream == SNDRV_PCM_STREAM_CAPTURE)
+ 				return -EIO;
+-			else if (cruntime->state == SNDRV_PCM_STATE_RUNNING) {
++			else if (check && cruntime->state == SNDRV_PCM_STATE_RUNNING) {
+ 				/* close must not free the peer runtime below */
+ 				atomic_inc(&cable->stop_count);
+ 				stop_capture = true;
 -- 
 2.53.0
 
