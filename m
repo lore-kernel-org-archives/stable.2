@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363480;
-	b=MaRucdTwYX9rU/zzlB/2J/z+Ch4pFOhAXSROqMX+SM8CIidtBGORx8UEJqocmvuoRojq
-	 YYKi03F7/fMa2JVdlvbzKfEDKl0a8msJFQjqghErgFOEwCP/3s/eazx1j3f+/o3SXCKcT
-	 KRn2p6qPkWEgzcYSPf3x+Z2zyCVxf6cBM8IwNc5QGgo8IjXdKYrvFezKP8eKCbUy8iJ+/
-	 wS9TrPzSS0IG9AfKDLZimkDvBUB8wSlf1vaqk8l3hg7GKN+Y9c71ag3Dl1qEPwqdbE9C4
-	 8H1je4cUwDY5Eci2QOOBdm9kkKfltmL+9je7UWI0alOr1VnElNZOj51SwVvHpjYeMvg==
+	t=1794363508;
+	b=1JNtzW4gyoKbyUuglDK+k/HrGx68zNEzgryTPOyq8D9LFv7fwG0VH5oSGCyHRwa0EFtu
+	 Li2WDRFzWB3nk/rycJZfEovPaPbFxTLFulzp72sdXfTqA2/7ewDtw5vV/fZ4AC1wvC90f
+	 gkNMB5kTD5X1QMHLIaIbXKOQzXz30nLn8Oad7FJr96L4oJywkKD2BD6k0nmbZ07xHam5r
+	 Fcz1cq9hFayZ0dongry45csT9pTmbnfyVCpvtSLJqhZeHXppr/88VbLILNXzBuuji8u4T
+	 45VSAmQF45cFxwvDbxkTiyac90Yr4xelWAP49QxaFuEeyPz/uv1e7riKrc9jqWXloKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363508;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/CpZgUNxLJdgVaBEy4xxU4BbnJnTlXyuCa06+xc/71k=;
-	b=H7iJq+Li0aVo+s+oZPRfGPobJDiINbiM3i/hOUhh6N0Wb0WWVLrJrdBicW4w0m0nxWYn
-	 kd30RNLqxtsV801DkdDy5vn9Mf9iwl+tC+mjbDhv2uY263UlIQY/qptSWSPe227yC1rFG
-	 CyIR2TZJiOOToo+RJc6wvYFO3uiQQMthQCnfZ8/Gy4vV+nz5yPtLcNBCjT7U89yGT7Q5A
-	 679a38KWKIkU3gVij9j3NMFGwNFHMDQY8UZCkhFc5OC91GogD02T4ZM4eEjKRkxE8ntXD
-	 qF9NVXwK4ToUESd8mwSJ6Bi5k/QHMZgM9yBn5UXTyrHv1A2MnHCHIgjokeDpsWwubjg==
+	bh=Lv14CP/XLu6kXXLcgzHtdonvLMnL3WVdUyMkbCPaSLI=;
+	b=h9RKPrpTHWfvYzhUAnRUsUJh01UEqT070OJf2297oBw3gzkGnobes3u0rqguY1CDiDuk
+	 +AKLThWtGCUnkuFgHnbi5hp/TF4Y9oyfsMKOylLrhk9TK/Bewc6wxCZ3OJGHTvAI6PfOX
+	 ox3sgGZGzyqZCBWRcL1OkgrNVUmc2JCx4iGC9jK3n8DfxHs1hgPi3GCCP5lAdXMHAWCN/
+	 SMMdRH9qlSFDftBQuK5drDeCoEUC1eXExYRdCmPpwtUJ6gNYfHybQz2DWvx9d62zdPox+
+	 luhKP8R5vfhZSK/YYV2J8VVJMpHnOVCadVbCw8s9o2LxtfetWi4gt/QyRvH7IqAHseg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwwD6fVa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eeWNLMEn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA08606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:18:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FF5606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:18:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwwD6fVa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D36C61F0089F;
-	Wed, 11 Nov 2026 02:17:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eeWNLMEn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA3BF1F0089F;
+	Wed, 11 Nov 2026 02:18:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363480;
-	bh=/CpZgUNxLJdgVaBEy4xxU4BbnJnTlXyuCa06+xc/71k=;
+	s=k20260515; t=1794363508;
+	bh=Lv14CP/XLu6kXXLcgzHtdonvLMnL3WVdUyMkbCPaSLI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MwwD6fVabQBiQHPvOZUpT/MpisUlL2AxYFgOSUJow7l9vbWPhiMKYmH6pwZwZkcic
-	 Uw+oX0xNjpiIsezsnne9SP8LEGIklAwwMhK211JSKfDmKa9mJst4EFqmVB9mWkdLcp
-	 1WF2MWTCKKtKpnnEftWklo1xa2HPIAmyq+QruV6h1YGppJ4lUTUOcfgZeHED4uVWyF
-	 WoUwC04oP/x86SjIRgH8GqVxYL+NCOXRrqRo4a5tcUYcgk3/wU+yM/6C6+tK+MC0RT
-	 Czgx4OTufX4uHVPsyeQlXr5TXh9/QDCxm+ZhCBbVWhjQkC/YItA5YE6+xCeHWBXrZr
-	 Yq0fhc8q7Sd1g==
+	b=eeWNLMEnkyJvbyKjoqMkjeT2sRsUJS5GTVAP14yRhXew+wpJQGhiqrbh/+W1Ec6m+
+	 tLylq4C2hzdYF9Xb8YhR1InkC/ijTxS3vtMuoL3kiqExYnoATgFvoDk+vbUTxmRWS0
+	 4RUejbq0fAwxO29MNcZFtwxjEyY/Q7VafiJnT+2DKE9ojgqDG0w5+4bM9wh0D6CPXV
+	 ocrEHDCIj2q6n4oxa3xGaaaztPTwSYOoKjNHFdzAJnPO/id4HKJrLt62dB3asi9zeX
+	 8rTU8xkP67HkG1pxXZ8rOazkZAtdcxgiDjuCVOuqQmQQ8HiJDm1P9sd+APQekBdHQ4
+	 viaWzfxBRQ6aA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
+Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
+	Eugen Hristev <ehristev@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] tpm: tpm2_probe: propagate transport errors
-Date: Tue, 10 Nov 2026 21:17:58 -0500
-Message-ID: <20261111021614.616044-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] media: microchip-isc: do not touch WB registers when not streaming
+Date: Tue, 10 Nov 2026 21:18:26 -0500
+Message-ID: <20261111021754.581704-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053821-failed-6.6-7d4f1cbfe063@kernel.org>
-References: <20261107053821-failed-6.6-7d4f1cbfe063@kernel.org>
+In-Reply-To: <20261107061458-failed-5.10-d8983c47d4d9@kernel.org>
+References: <20261107061458-failed-5.10-d8983c47d4d9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,51 +62,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 
-[ Upstream commit 7d4f1cbfe063af5581dac66abe9e9c965e1031cc ]
+[ Upstream commit d8983c47d4d95eb1ed889dbb7516d3738fa854d8 ]
 
-tpm2_probe() reads the protocol version from the response tag and is
-documented to return -errno on failure, but it always returns 0.  A
-transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
-the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
-unset. A transient bus failure on the first command then misdetects a
-TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
+isc_s_awb_ctrl() called isc_update_awb_ctrls() unconditionally, writing
+the white balance registers even when the device is runtime suspended;
+on many ARM platforms accessing the unclocked registers is an external
+abort. The write was also done without awb_lock, racing isc_awb_work(),
+which holds it so the DMA done IRQ cannot latch a half-updated pipeline.
 
-  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
-  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
+Write the registers only while streaming and not stopping, under
+awb_lock, and update the profile there. The isc->stop check covers the
+window where isc_stop_streaming() has gated the clocks but vb2 still
+reports streaming. Otherwise the new values stay cached and
+isc_configure() programs them at the next stream start.
 
-Return the transport error instead; rc >= 0 still means a valid header was
-received and the TPM's own response code is still ignored.
-
-Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
+Fixes: 4e52889f48fe ("media: atmel: atmel-isc-base: expose white balance as v4l2 controls")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20261001060114.1582092-1-alexander.sverdlin@siemens.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-[ sashal: Replaced the early return with rc = 0 to preserve cleanup of the stack-allocated buffer. ]
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: adjusted isc_s_awb_ctrl() context to accommodate the missing awb_mutex operations ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/char/tpm/tpm2-cmd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/platform/atmel/atmel-isc-base.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index 57bb3e34b770f..d01d90beab788 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -507,9 +507,10 @@ int tpm2_probe(struct tpm_chip *chip)
- 		out = (struct tpm_header *)buf.data;
- 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
- 			chip->flags |= TPM_CHIP_FLAG_TPM2;
-+		rc = 0;
- 	}
- 	tpm_buf_destroy(&buf);
--	return 0;
-+	return rc;
- }
- EXPORT_SYMBOL_GPL(tpm2_probe);
+diff --git a/drivers/media/platform/atmel/atmel-isc-base.c b/drivers/media/platform/atmel/atmel-isc-base.c
+index fe3ec8d0eaee3..173d46dabc4e2 100644
+--- a/drivers/media/platform/atmel/atmel-isc-base.c
++++ b/drivers/media/platform/atmel/atmel-isc-base.c
+@@ -1938,19 +1938,23 @@ static int isc_s_awb_ctrl(struct v4l2_ctrl *ctrl)
+ 		if (ctrl->cluster[ISC_CTRL_GB_OFF]->is_new)
+ 			ctrls->offset[ISC_HIS_CFG_MODE_GB] = isc->gb_off_ctrl->val;
  
+-		isc_update_awb_ctrls(isc);
++		if (vb2_is_streaming(&isc->vb2_vidq) && !isc->stop) {
++			unsigned long flags;
+ 
+-		if (vb2_is_streaming(&isc->vb2_vidq)) {
+ 			/*
+-			 * If we are streaming, we can update profile to
+-			 * have the new settings in place.
++			 * awb_lock keeps the DMA done IRQ from latching a
++			 * partially written WB pipeline.
+ 			 */
++			spin_lock_irqsave(&isc->awb_lock, flags);
++			isc_update_awb_ctrls(isc);
++			spin_unlock_irqrestore(&isc->awb_lock, flags);
++
+ 			isc_update_profile(isc);
+ 		} else {
+ 			/*
+-			 * The auto cluster will activate automatically this
+-			 * control. This has to be deactivated when not
+-			 * streaming.
++			 * Not streaming: keep the cached values for the next
++			 * stream start and deactivate the cluster-activated
++			 * do_white_balance button.
+ 			 */
+ 			v4l2_ctrl_activate(isc->do_wb_ctrl, false);
+ 		}
 -- 
 2.53.0
 
