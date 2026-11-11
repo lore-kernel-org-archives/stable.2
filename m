@@ -1,77 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.118.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794396967;
-	b=GaLr8eQ8LPwTIulC5LLsJio3A921/Mzb5PCgLGaVqEF9LOnngbbrz1sn9C7GFWEh5akE
-	 nGdqcSL3/lVtKcFinNM/30A2IUr/T5rh5gvuny69PI0+lRWoBzAWLqb5w3VJbiMLp/Iz/
-	 zUnmuxoIittxYiDHbUtSajMPGUykEzRorMMQ9uKaE/m7naaMoj/IuKzSnNr3AYV+ucgzn
-	 sdfO487EeaQknIFNYM2riLktt96LvLvxL0qvSfJ72hME+8d1xvolUXMKGFlCpGsa5flh8
-	 Pgx03S8Uiwkna5APpHfl+VD/ZgYG+6uP/qrvV4t2Q+27fF53Ivc6KMYKvMY/u7elEbQ==
+	t=1794397107;
+	b=yLof96dPwNW33s4en4m5KD95C8QTGhDviBe4Ch2v97lJDRf+vm2tvFFOvvrMJs4lC4Lz
+	 wYpqHyqw5bipZ0+UR9uPr9DAJdszNcKtY26zA/fLM8hNfSPM+XTVBDogWWBBjeWhdea2f
+	 HPtYBer6IMFB3lMtGj9Ie5chSG+ekR4YutVrtCVz8ST9eKKzUEUDHYvfLkLOpHb6LAX/z
+	 YcVyCZeRSml6Pu7Eq0i7ctA4vDJu2pjc83yM3N6rzux1CbdvB8TBxVk3aXJ04Y5zaMDTH
+	 FY0JNGCKul17+mqen19k2F7vgl/OPb7jQig1LYS0y67FnNvrX1JghXi3abscpt6dhGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794396967;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Patchwork-Hint:Organization;
-	bh=pnx+p3Y9Shn7ZHsPG+IsaJx7bL8tR8Q1UtvkOV4XwKc=;
-	b=sbY4ohf/r9apFR6ti1LCJBt6aQw+py93eb20EI8s4R6CQJesYwoL91CCl/aB1RHrOpSS
-	 e/S2c8XivKa1r1C5ilzFfiosCdxrtYSGS7naij6ktRw0cuSUV6FJitJPWxS7K/0W9yZ+Z
-	 8+9VMI4pfjk+M9bGfchJZNOe6Yyod1BAZrqZX8ynhpkarG0+W9N4MZINhAEaXCHNsvn50
-	 gTkXoKhMfgmHbvUlYrKbrWgc6yJ4svdpSOB4X6oXIAAnCpc+BqUZBfPygh8U7kO0rDCVG
-	 1RbOQOtma0QkK/ZykU4RLGExzwXZtH/s//Vqt4IxKPobM56Q6QUL1zCLziK6A1nNRUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397107;
+	h=DMARC-Filter:Received:Content-Transfer-Encoding:Content-Type:
+	 DKIM-Signature:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:X-Originating-IP:
+	 X-ClientProxiedBy:X-Sophos-OBS:X-SASI-Version:X-SASI-RCODE:
+	 X-SASI-SpamProbability:X-SASI-Hits;
+	bh=BoRZquUZp7h77OPkPwSkaYlqfeSle5vvNqKTpNQRuOQ=;
+	b=2jmmvse3H1Ek8ptdmVsFTLxgNUNYL3ipVKSF9nno36nUPgjo8DdjBif+U0bqiV+mpIIy
+	 YcJXMGXAljAb02vgM5cVmDTfs42Lp37+5VEpO9dXhkwwXv2H3CTPFldrLhaeHdXmyAyqG
+	 lYEGonJhnNWR4fc+EPNxh1he+zMxjgPoLZLV0ZU0AnI4/era3Owgm7M2cQhspQQfQ7oGS
+	 6Ez1TYqGWPSOOBa049Hi+xJzEZOK1uwPEx9VsbEAR9AozFSDCXMzz5rdi9EPLEUcHxHss
+	 nVlSNpVes1nzpmZytSzfI9EWX631DNdiTmbJHg/Gme0qKJ3UCicQ/giDoXzO+8cYmZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=crLYjJvg;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=fiveco.ch;
+	spf=pass smtp.mailfrom=fiveco.ch;
+	dkim=pass header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=rrsMkZZ6;
+	arc=none smtp.remote-ip=46.14.118.250
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C4D606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C4D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D575606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:38:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D575606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=crLYjJvg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794396966; x=1825932966;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=VR/ULc1l89b0Tm5UZIMhrFP8YU8fjtZ2wGba6ZkP2pg=;
-  b=crLYjJvgsseoq3kfP5tO1BvIXUI50vX2pMKcQD188jwu7YEFyDYx8GTJ
-   o2SGMv8mZTtsxiP2FO8ab8a/ERG51oSVjP4O/Gr0U/RiTF8DcJZXmLAeb
-   m+BwmCx36j2+rR3vxkM5Qy+sxmi6/Oe632mCLkw7Atzcz6uhYeNFPtvaP
-   GqyfhJKFYLV5/WxTNvKyV0NvlTPzJw+jaIqfCXqNrhSA3Brgmmcx/zwfS
-   zfhOaeoe4SXSilITSCGrBIhA1XbaddipWRntadQYygksbfsYjxMQfQ8Xg
-   0tHz03RLt5LrfdAs7XD5WFTRygSxUfbpEwt4cJst/Z8FBUXzVx7czk5de
-   A==;
-X-CSE-ConnectionGUID: IB5Q3kNcRd+iBgkbJy9fkw==
-X-CSE-MsgGUID: +dx5p4wjQlyWxwYGa0qyvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3059529"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3059529"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 03:36:05 -0800
-X-CSE-ConnectionGUID: SemcX0+rT2qqB/WsrzV6gw==
-X-CSE-MsgGUID: a03hI+ZJTyGaUcmhpWXN6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8290207"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.181])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 03:36:04 -0800
-Date: Wed, 11 Nov 2026 13:36:00 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
-	stable@vger.kernel.org, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH] drm/i915/dip: Write the DIP header last with SDP
- transmission lines
-Message-ID: <avRTIDPwI3uOHQyo@intel.com>
-References: <20261111103542.4093652-1-chaitanya.kumar.borah@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=rrsMkZZ6
+Received: from [192.168.16.44] (port=61582 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1xR6eR-000000007pF-3IzB
+	for stable@vger.kernel.org;
+	Wed, 11 Nov 2026 12:38:03 +0100
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1794397083; h=from:subject:to:date:message-id;
+	bh=c9OiSAcqPYBHhZLDSdOQEgeJuogv+I5OQ4v6v5PQgtw=;
+	b=rrsMkZZ6vgXcfverLVVHmMpO5kYaX51zY9uaVVcI+vKoC2xCUFW1dK5v0L7+kFpisAiGwvxJKNx
+	UeTLYkY+Sy3Y1x701I+fxrYvi1WQaVHnEzSkklI6vtFaDv1aK399sYsEOF4I0dF19CY8OdUU06ce4
+	CvoH+O+oDDaDtg0It68=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Wed, 11 Nov 2026 12:38:03 +0100
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <stable@vger.kernel.org>
+CC: Valentin Kindschi <valentin.kindschi@fiveco.ch>, Luiz Augusto von Dentz
+	<luiz.von.dentz@intel.com>
+Subject: [PATCH 6.12.y] Bluetooth: hci_sync: pause advertising for the scan address update
+Date: Wed, 11 Nov 2026 12:37:16 +0100
+Message-ID: <20261111113716.260959-1-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261109200737-failed-6.12-56ed6b127a27@kernel.org>
+References: <20261109200737-failed-6.12-56ed6b127a27@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,149 +73,183 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261111103542.4093652-1-chaitanya.kumar.borah@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.11.11.105719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 8%
+X-SASI-Hits: BODY_SIZE_6000_6999 0.000000, BODY_SIZE_7000_LESS 0.000000,
+ CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000, DKIM_SIGNATURE 0.000000,
+ HTML_00_01 0.050000, HTML_00_10 0.050000, IN_REP_TO 0.000000,
+ MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000,
+ NO_URI_HTTPS 0.000000, OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000,
+ REFERENCES 0.000000, SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000,
+ WEBMAIL_XOIP 0.000000, WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000,
+ __BODY_NO_MAILTO 0.000000, __BULK_NEGATE 0.000000, __CC_NAME 0.000000,
+ __CC_NAME_DIFF_FROM_ACC 0.000000, __CC_REAL_NAMES 0.000000, __CT 0.000000,
+ __CTE 0.000000, __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000,
+ __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000,
+ __DQ_NEG_IP 0.000000, __FRAUD_CONTACT_ADDY 0.000000,
+ __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000,
+ __HAS_MSGID 0.000000, __HAS_REFERENCES 0.000000, __HAS_XOIP 0.000000,
+ __HAS_X_MAILER 0.000000, __IN_REP_TO 0.000000, __MIME_TEXT_ONLY 0.000000,
+ __MIME_TEXT_P 0.000000, __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
+ __MULTIPLE_RCPTS_CC_X2 0.000000, __NO_HTML_TAG_RAW 0.000000,
+ __OUTBOUND_SOPHOS_FUR 0.000000, __OUTBOUND_SOPHOS_FUR_IP 0.000000,
+ __OUTBOUND_SOPHOS_FUR_RDNS 0.000000, __PHISH_SPEAR_SUBJ_PREDICATE 0.000000,
+ __RCVD_CTE 0.000000, __RCVD_EXIM_4_96_AES_128 0.000000,
+ __RCVD_FROM_HOMEUSER 0.000000, __REFERENCES 0.000000, __SANE_MSGID 0.000000,
+ __SHIPPING_ACTION 0.000000, __SL_HEAVY 0.000000, __SL_LIGHT 0.000000,
+ __SUBJ_ALPHA_END 0.000000, __SUBJ_STARTS_S_BRACKETS 0.000000,
+ __TO_MALFORMED_2 0.000000, __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000,
+ __URI_NO_WWW 0.000000, __URI_NS 0.000000
 
-On Wed, Nov 11, 2026 at 04:05:42PM +0530, Chaitanya Kumar Borah wrote:
-> On platforms with SDP transmission line registers, the packets anchored
-> to them are double buffered in the transcoder (TC) clock domain. The packet
-> registers are in the core display (CD) clock domain and the whole packet is
-> clock crossed on the write of the header (dword 0), so Bspec requires the
-> data to be programmed first and the header last.
-> 
-> hsw_write_infoframe() writes the header first, so the packet is crossed
-> before its payload is in place and the previous payload keeps being sent.
-> This hits the AS SDP, and the VSC SDP whenever an AS SDP is enabled, which
-> is whenever VRR is possible since commit 6a1712052859 ("drm/i915/dp: Enable
-> AS SDP whenever VRR is possible or PR !async"). With CMN_SDP_TL, enabled by
-> commit bfa597238073 ("drm/i915/dip: Enable Common SDP Transmission line"),
-> it also hits the GMP and VSC SDPs: on NVL, entering HDR on an eDP panel
-> leaves the image discoloured and scaled until the headers are rewritten.
-> 
-> Write the payload, including the ECC zero fill, first and the header last
-> on platforms with EMP_AS_SDP_TL. CD domain packets have no ordering
-> requirement and Bspec recommends the same order for all packets, so use it
-> for all of them. Older platforms keep the current order.
-> 
-> Bspec: 75640, 71197, 74384
-> Fixes: e1123e617e51 ("drm/i915/vrr: Program EMP_AS_SDP_TL for DP AS SDP")
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17732
-> Cc: <stable@vger.kernel.org> # v6.17+
-> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-> Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> ---
-> 
-> Notes:
->     Fixes tag rationale
->     
->     The Fixes tag points at commit e1123e617e51 ("drm/i915/vrr: Program
->     EMP_AS_SDP_TL for DP AS SDP"). The AS SDP has been written header first
->     since it was added by commit 8845021b7331 ("drm/i915/display: Read/Write
->     Adaptive Sync SDP"), but EMP_AS_SDP_TL, which holds the double buffer
->     point and the transmission line of the AS SDP on BMG and LNL+, was only
->     programmed from that commit on. From then on the driver relies on that
->     register to anchor the AS SDP, and the VSC SDP whenever an AS SDP is
->     enabled, and the programming note of the register asks for the packet
->     data first and the header last. The two later commits cited in the commit
->     message only widened the exposure: the first enabled the AS SDP whenever
->     VRR is possible and the second added CMN_SDP_TL for the GMP and VSC SDPs.
->     
->     Alternatives considered:
->      - 6a1712052859 (v7.2): AS SDP on whenever VRR is possible. The PTL
->        report is fixed by reverting it. Narrower than the spec argument, as
->        it only covers v7.2 and later.
->      - bfa597238073 (7.4): CMN_SDP_TL. The NVL regression, verified on
->        hardware, but covered by the older tag as every kernel with it also
->        has e1123e617e51.
->      - 8845021b7331 (v6.10): first header first AS SDP write, but
->        EMP_AS_SDP_TL was not programmed until e1123e617e51, so exposure
->        before it could not be shown.
->     
->     Not verified:
->      - The failure was observed on NVL with CMN_SDP_TL (rewriting the GMP and
->        VSC headers makes the panel recover). The AS SDP and the VSC SDP with
->        an AS SDP on BMG, LNL and PTL follow from the Bspec requirement and
->        were not reproduced here.
->      - No reproduction on kernels older than v7.2.
->      - Stable backports need the HAS_EMP_AS_SDP_TL gate adapted, as it is
->        defined in intel_dip.h, which is new in 7.4.
-> 
->  drivers/gpu/drm/i915/display/intel_hdmi.c | 21 +++++++++++++++++----
->  1 file changed, 17 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> index 4ec0db8d93fb..3ecf017b3176 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -51,6 +51,7 @@
->  #include "intel_cx0_phy.h"
->  #include "intel_ddi.h"
->  #include "intel_de.h"
-> +#include "intel_dip.h"
->  #include "intel_display_driver.h"
->  #include "intel_display_regs.h"
->  #include "intel_display_types.h"
-> @@ -524,6 +525,15 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
->  	const u32 *data = frame;
->  	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
->  	intel_reg_t ctl_reg = HSW_TVIDEO_DIP_CTL(display, cpu_transcoder);
-> +	/*
-> +	 * On platforms with the SDP transmission line registers some of the
-> +	 * packets are double buffered in the transcoder clock domain, and the
-> +	 * packet is clock crossed on the write of the header (dword 0). Program
-> +	 * the payload first and the header last, so that the whole packet gets
-> +	 * crossed. Packets double buffered in the core display clock domain
-> +	 * have no ordering requirement, so use the same order for all of them.
-> +	 */
-> +	bool header_last = HAS_EMP_AS_SDP_TL(display);
->  	int data_size;
->  	int i;
->  	u32 val = intel_de_read(display, ctl_reg);
-> @@ -535,18 +545,21 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
->  	val &= ~hsw_infoframe_enable(type);
->  	intel_de_write(display, ctl_reg, val);
->  
-> -	for (i = 0; i < len; i += 4) {
-> +	for (i = header_last ? 4 : 0; i < len; i += 4)
+[ Upstream commit 56ed6b127a27c418dc2daa3fd076539d8fe69c4c ]
 
-IMO just always use the "write header last" approach. 
+hci_active_scan_sync() programs a non-resolvable private address with LE
+Set Random Address on every active scan start.
 
->  		intel_de_write(display,
->  			       hsw_dip_data_reg(display, cpu_transcoder, type, i >> 2),
-> -			       *data);
-> -		data++;
-> -	}
-> +			       data[i >> 2]);
+BLUETOOTH CORE SPECIFICATION Vol 4, Part E, 7.8.4 says the controller
+shall return Command Disallowed (0x0C) for that command while legacy
+advertising or scanning is enabled. hci_pause_addr_resolution(), called
+just above, only stops advertising when LL privacy is in use, so on a
+controller without it the command is issued while advertising is still
+on:
 
-Making 'i' the dword index rather than the byte index might make this
-code a bit nicer. The only slight concern is whether len%4!=0 might
-be true. Maybe just have the caller always align it for good measure.
-But let's stick to the byte based thing for now to avoid adding more
-noise to this patch, and clean it up later.
+  Bluetooth: hci0: Opcode 0x2005 failed: -16
 
->  	/* Write every possible data byte to force correct ECC calculation. */
->  	for (; i < data_size; i += 4)
->  		intel_de_write(display,
->  			       hsw_dip_data_reg(display, cpu_transcoder, type, i >> 2),
->  			       0);
->  
-> +	if (header_last)
-> +		intel_de_write(display,
-> +			       hsw_dip_data_reg(display, cpu_transcoder, type, 0),
-> +			       data[0]);
-> +
->  	/* Wa_14013475917 */
->  	if (!(IS_DISPLAY_VER(display, 13, 14) && crtc_state->has_psr &&
->  	      !crtc_state->has_panel_replay && type == DP_SDP_VSC))
-> -- 
-> 2.50.1
+It does not converge either. hdev->random_addr is only set on a
+successful command complete, so it stays BDADDR_ANY, and the deferral
+added by commit c2994b008492 ("Bluetooth: hci_sync: Fix not setting
+Random Address when required") requires it to be set. Unlike the
+resolvable address a few lines above, which is reused while rpa_valid(),
+the non-resolvable one is regenerated and rewritten on every call, so a
+controller that refuses the write is asked again at the scan restart
+period of about 10 s, for as long as discovery keeps restarting.
+Observed on a BCM43455, which has no LL privacy and no extended
+advertising, 190 rejections in one capture, every one retrying the same
+address:
 
+  < LE Set Random Address  Address: 02:16:91:90:F1:D4 (Non-Resolvable)
+  > Command Complete       LE Set Random Address, Command Disallowed
+  < LE Set Random Address  Address: 26:90:57:96:9A:3E (Non-Resolvable)
+  > Command Complete       LE Set Random Address, Command Disallowed
+
+Pause advertising for the address update, and resume it once the update
+is done and before the scan is started. The pause does not outlive the
+function: it is taken only when nothing else holds it, and every exit
+resumes advertising, which also releases the pause taken by
+hci_pause_addr_resolution(). A failed pause returns before marking
+anything paused, so the error path is a no-op.
+
+The resume in the error path is no longer guarded by ll_privacy_capable().
+That guard matched a pause taken only under LL privacy; the pause added
+here is unconditional, and hci_resume_advertising_sync() returns early
+when nothing was paused.
+
+One caveat this widens, raised on the previous posting. When
+HCI_ADVERTISING is set, hci_pause_advertising_sync() also clears
+HCI_DISCOVERABLE and HCI_LIMITED_DISCOVERABLE and zeroes discov_timeout,
+and hci_resume_advertising_sync() restores only HCI_ADVERTISING, so the
+discoverable state is lost. It reproduces today on an LL privacy
+controller through hci_pause_addr_resolution(); the unconditional pause
+makes it reachable without LL privacy as well. hci_suspend_sync() also
+pauses unconditionally, so a device that suspends loses the same state
+on any controller today. That asymmetry is pre-existing and is left
+alone here rather than folded into a scan path fix.
+
+Legacy controllers have one random address register, shared by the
+scanner and the advertiser. Restoring the advertiser here can reprogram
+it when the advertiser is non-connectable, so the scan then uses that
+address rather than the one generated for it. Both are non-resolvable
+and neither is linkable to the identity address. With privacy enabled
+both roles already share one resolvable address the same way.
+
+With the patch, on the same hardware:
+
+  < LE Set Advertising Enable    Enable: 0x00              Success
+  < LE Set Random Address                                  Success
+  < LE Set Advertising Parameters                          Success
+  < LE Set Advertising Enable    Enable: 0x01              Success
+  < LE Set Scan Parameters                                 Success
+  < LE Set Scan Enable           Enable: 0x01              Success
+
+The address write is accepted, and advertising is restored before the
+scan is started.
+
+Over 119369 btmon records and about 12 minutes of the normal workload of
+that device, alternating active and passive scanning with ten outgoing
+connection attempts, every LE Set Random Address succeeded and there were
+no Command Disallowed responses of any opcode, against one per scan
+restart before.
+
+Patch 1 is required: without it the resume added here returns -EPERM on
+the controllers this fixes and leaves advertising disabled.
+
+Fixes: 3c44a431d62b ("Bluetooth: hci_sync: Resume adv with no RPA when active scan")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5.5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ Valentin: Adjusted for 6.12.y: the privacy guard removed in the failed: label
+  reads use_ll_privacy(hdev) in this tree, and the context uses
+  test_bit(HCI_QUIRK_STRICT_DUPLICATE_FILTER, &hdev->quirks) instead of
+  hci_test_quirk(). The added lines are unchanged. Requires commit
+  737139f4157d ("Bluetooth: hci_sync: re-enable legacy advertising on
+  resume"). ]
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+---
+ net/bluetooth/hci_sync.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 3856f29a3..e0bcb0001 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -6154,6 +6154,7 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 	u8 filter_policy = 0x00;
+ 	/* Default is to enable duplicates filter */
+ 	u8 filter_dup = LE_SCAN_FILTER_DUP_ENABLE;
++	bool paused;
+ 	int err;
+ 
+ 	bt_dev_dbg(hdev, "");
+@@ -6177,6 +6178,12 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 	if (err)
+ 		goto failed;
+ 
++	/* LE Set Random Address is disallowed while advertising is enabled. */
++	paused = !hdev->advertising_paused;
++	err = hci_pause_advertising_sync(hdev);
++	if (err)
++		goto failed;
++
+ 	/* All active scans will be done with either a resolvable private
+ 	 * address (when privacy feature has been enabled) or non-resolvable
+ 	 * private address.
+@@ -6186,6 +6193,9 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 	if (err < 0)
+ 		own_addr_type = ADDR_LE_DEV_PUBLIC;
+ 
++	if (paused)
++		hci_resume_advertising_sync(hdev);
++
+ 	if (hci_is_adv_monitoring(hdev) ||
+ 	    (test_bit(HCI_QUIRK_STRICT_DUPLICATE_FILTER, &hdev->quirks) &&
+ 	    hdev->discovery.result_filtering)) {
+@@ -6209,9 +6219,8 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 		return err;
+ 
+ failed:
+-	/* Resume advertising if it was paused */
+-	if (use_ll_privacy(hdev))
+-		hci_resume_advertising_sync(hdev);
++	/* No-op when advertising was not paused. */
++	hci_resume_advertising_sync(hdev);
+ 
+ 	/* Resume passive scanning */
+ 	hci_update_passive_scan_sync(hdev);
 -- 
-Ville Syrjälä
-Intel
+2.34.1
+
