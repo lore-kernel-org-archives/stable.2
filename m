@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411676;
-	b=vVCg0rdyEGmoaJI2AF8Hm81x+peFwJaackVeh5B/TBnCZUwyFSQ21PIogrBUieyTYbS+
-	 z1cQNgPEbrk+ok0idhHdDsGJyhD+qxdk1376KErOn0G56eNjbX/vCMBPVmaF+4wE8AxlJ
-	 KNLsT3UKhDj+VuqwytLD/dJhKpRU1ChJz8Wxo0sLQDkGHkdAUEAzHizXLyLvUrSCfg47l
-	 M/zb6aL2FKEto8TS9iCKBjJ7FFSTmhYdHcKTS4WSHPIcXSgRU2kL4mi0EY+T0Hnq7gL6b
-	 7gQkB3izQPDrJd5+QyjjJJvOm1xz+p1o+bXbtwJ8fj0YbBy7AP5LTM3YG5QzGW4u+/Q==
+	t=1794411677;
+	b=yyobQTdoN4wBSCSAt3M1//w4F8mj4UgmGMPzexS1uzVTZ+pxG3cmMxPIa0OidhGD+ZCe
+	 SanCGmUXLfL6vHvmUbT6EJRjvPxUudpHmkRvR78WwjN4eNMlxcjYjY0+Xr/0SXoC7Pl2v
+	 LxiY3wRliWC75gqwhVNiIPfwPa3y8E8kCQ/6Up5fKdjZ7InGtmuNn0f+JYJ/7jPZ+NH/U
+	 /+4ndTvM+PGxpFeRs1TJtMS+tGz8k6cmjTqL5J55WmqA5uC7+qGbzOfC/03GNQ0zRdvxW
+	 8VyARgd0B4r1UXLwdy+ExNcq7tt+DRWNbnke98RCrHUWf8NiR2bAzu7qzFnAD6BfIQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411676;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411677;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=r1IIVwixJGnc0mvZUjplokKbyPRGgwVFs835hpB2eB4=;
-	b=K4+1oaGnfWVlEnQkdvuTNvANBaRIcVVIOf6z9iyD668c7eh2rt4mdfCt9XU44tUSfh9S
-	 Isa0sKywNdHOEob8UJS7elX8jr09IFT37tM5NHDXbXbS72ttNXpQ/LxrRPiMOgb9ttgiS
-	 mrktMT3h+/HSsyPFF7dLFlxapjY8ttmBFAEPGZyHP0dGUkHtw5GWKSKP2u/5oWbhpoZ3Y
-	 NDElSfqN/f0ySzawU/KY1CYw9EUwtqqQMrFycpTCorSagubOa9BFh4FtgDKaUKuT7BQC5
-	 PhALkkOrTkyH3lYJkoYS2/bJE+fAppL8P5PA7DFCPSYJXuewjS5XV8W+BgBl8ZjvHEg==
+	bh=k7vY/es2cdaQx6kNqyTY+a1zou8OPKAapNdREd4ObsU=;
+	b=liZ1O7sVt0QIuuJxUfKmMuhOcxhsdl3chUOG5x+xCdWJP1qb0OiSlSGchAiBdJnZDPIp
+	 9Z5emSjO3Ys8gxaucOIuJSrIX1HfeQeW1cPK7MEKBp6ETE0vwDFvhpU1qOXNYn6kOSjD0
+	 6e4TPXKT7CFwRT6eSaxNaxkCNwWTVlf0vIZy/zbG/nqGSszjMqepVOr270mpIJuBB713F
+	 79+UTI6J79Edl8l7xOk9M77IWCvIrCJ39yYX36R2Xlhsy8KA+C0vAX6VKRSvKImQ0WPKo
+	 zrx8yD8mp3YrDtNXG+GNPq5MkyeNOcPQUcrrTlCqUhiOF0JPG9w+T6tfpB2xjie9ONw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQNcyP3a;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxJNtKDP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE33606A886
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:41:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20246606A88D
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:41:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQNcyP3a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB7A1F00A06;
-	Wed, 11 Nov 2026 15:41:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SxJNtKDP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BEBA1F00A07;
+	Wed, 11 Nov 2026 15:41:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794411676;
-	bh=r1IIVwixJGnc0mvZUjplokKbyPRGgwVFs835hpB2eB4=;
+	s=k20260515; t=1794411677;
+	bh=k7vY/es2cdaQx6kNqyTY+a1zou8OPKAapNdREd4ObsU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FQNcyP3aq1wvY2EZ15iyoikEzjG5aC8gMe2NwF0rxdFl02Y+v18v+aUB5QBDLmaAu
-	 5Npm0EQHUdUydQkUSUhE5bBpyxOXgtQVjjPb0UVQ9EIrakQ5+lnyG+04/2WwGvCnhN
-	 l2iwggMymYAT/npvwjVlkyOkFVhrmg/+WICMDum6Lc4CunbQWwv77sTDsAuDP6lT+E
-	 BxfO6EzzPmEOdEqBii1GolF21M9doqg6NY0arQGT+EQGwYDtf2+QdbYMA0HgVGa41E
-	 niV4BOwIe7IFTEgDus5FBz9Lsb1riyzGeGC79IAuuWYWNOoV2aBWbeyViCQ/do21gY
-	 tXaECO1G83rsg==
+	b=SxJNtKDP28CVigAmYhZ+IbRwsb3oGkvwdMDTPa9HoVFGlDpcHphhHrhGAHwqqVrAm
+	 Jd+VegxVUBOi2AezDlucsYkVJXc495kzoczjTCYgwRF+VJ0V5oySTzVQWpLnVgL5M4
+	 95v1MAy+qTV4RVyvi+33LumD3Hj+xVGxczuRaVJXgcRqL9vqCJIlt0grTi+RztC1yJ
+	 Hm56oO5wYpWX1shYg0v1lzq0H8c+XMLTPvIy2DrdZsOb3T9QzbQKPJfbS6xJzD/Qva
+	 IO0ic8vlNAc0D6Vdk6vIl+nKA6p8NqvTvq2r1b4vzz2yEjvQ6zeE5qpWgoVffDI6hG
+	 u3FttbTaGtMTQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <yuchao0@huawei.com>,
+Cc: Eric Biggers <ebiggers@google.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/4] f2fs: use new conversion functions between blks and bytes
-Date: Wed, 11 Nov 2026 10:41:11 -0500
-Message-ID: <20261111154005.2482659-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/4] f2fs: remove allow_outplace_dio()
+Date: Wed, 11 Nov 2026 10:41:12 -0500
+Message-ID: <20261111154005.2482659-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111154005.2482659-1-sashal@kernel.org>
 References: <20261107062516-failed-5.10-6d1f622b9c06@kernel.org>
@@ -62,154 +62,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jaegeuk Kim <jaegeuk@kernel.org>
+From: Eric Biggers <ebiggers@google.com>
 
-[ Upstream commit 43b9d4b4d91c02ca1159507d46e3687d98b4cb8f ]
+[ Upstream commit 6de8687ccdefed40d617492f4e1b3962eb577b6b ]
 
-This patch cleans up blks and bytes conversions.
+We can just check f2fs_lfs_mode() directly.  The block_unaligned_IO()
+check is redundant because in LFS mode, f2fs doesn't do direct I/O
+writes that aren't block-aligned (due to f2fs_force_buffered_io()
+returning true in this case, triggering the fallback to buffered I/O).
 
-Reviewed-by: Chao Yu <yuchao0@huawei.com>
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 Stable-dep-of: 6d1f622b9c06 ("f2fs: fix submit accounting for IPU writeback")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c | 46 +++++++++++++++++++++-------------------------
- 1 file changed, 21 insertions(+), 25 deletions(-)
+ fs/f2fs/data.c |  2 +-
+ fs/f2fs/f2fs.h | 10 ----------
+ fs/f2fs/file.c |  2 +-
+ 3 files changed, 2 insertions(+), 12 deletions(-)
 
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index e681ff67d63ef..e033c8dfb0348 100644
+index e033c8dfb0348..3f7056f9971f5 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -1802,6 +1802,16 @@ bool f2fs_overwrite_io(struct inode *inode, loff_t pos, size_t len)
- 	return true;
+@@ -3725,7 +3725,7 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+ 	if (f2fs_force_buffered_io(inode, iocb, iter))
+ 		return 0;
+ 
+-	do_opu = allow_outplace_dio(inode, iocb, iter);
++	do_opu = rw == WRITE && f2fs_lfs_mode(sbi);
+ 
+ 	trace_f2fs_direct_IO_enter(inode, offset, count, rw);
+ 
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index cead30cab94bc..43f14bbfef49b 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -4135,16 +4135,6 @@ static inline int block_unaligned_IO(struct inode *inode,
+ 	return align & blocksize_mask;
  }
  
-+static inline u64 bytes_to_blks(struct inode *inode, u64 bytes)
-+{
-+	return (bytes >> inode->i_blkbits);
-+}
-+
-+static inline u64 blks_to_bytes(struct inode *inode, u64 blks)
-+{
-+	return (blks << inode->i_blkbits);
-+}
-+
- static int __get_data_block(struct inode *inode, sector_t iblock,
- 			struct buffer_head *bh, int create, int flag,
- 			pgoff_t *next_pgofs, int seg_type, bool may_write)
-@@ -1810,7 +1820,7 @@ static int __get_data_block(struct inode *inode, sector_t iblock,
- 	int err;
- 
- 	map.m_lblk = iblock;
--	map.m_len = bh->b_size >> inode->i_blkbits;
-+	map.m_len = bytes_to_blks(inode, bh->b_size);
- 	map.m_next_pgofs = next_pgofs;
- 	map.m_next_extent = NULL;
- 	map.m_seg_type = seg_type;
-@@ -1820,7 +1830,7 @@ static int __get_data_block(struct inode *inode, sector_t iblock,
- 	if (!err) {
- 		map_bh(bh, inode->i_sb, map.m_pblk);
- 		bh->b_state = (bh->b_state & ~F2FS_MAP_FLAGS) | map.m_flags;
--		bh->b_size = (u64)map.m_len << inode->i_blkbits;
-+		bh->b_size = blks_to_bytes(inode, map.m_len);
- 	}
- 	return err;
- }
-@@ -1860,16 +1870,6 @@ static int get_data_block_bmap(struct inode *inode, sector_t iblock,
- 						NO_CHECK_TYPE, create);
- }
- 
--static inline u64 bytes_to_blks(struct inode *inode, u64 bytes)
+-static inline int allow_outplace_dio(struct inode *inode,
+-				struct kiocb *iocb, struct iov_iter *iter)
 -{
--	return (bytes >> inode->i_blkbits);
+-	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+-	int rw = iov_iter_rw(iter);
+-
+-	return (f2fs_lfs_mode(sbi) && (rw == WRITE) &&
+-				!block_unaligned_IO(inode, iocb, iter));
 -}
 -
--static inline u64 blks_to_bytes(struct inode *inode, u64 blks)
--{
--	return (blks << inode->i_blkbits);
--}
--
- static int f2fs_xattr_fiemap(struct inode *inode,
- 				struct fiemap_extent_info *fieinfo)
+ static inline bool f2fs_force_buffered_io(struct inode *inode,
+ 				struct kiocb *iocb, struct iov_iter *iter)
  {
-@@ -2105,8 +2105,7 @@ static int f2fs_read_single_page(struct inode *inode, struct page *page,
- 					bool is_readahead)
- {
- 	struct bio *bio = *bio_ret;
--	const unsigned blkbits = inode->i_blkbits;
--	const unsigned blocksize = 1 << blkbits;
-+	const unsigned blocksize = blks_to_bytes(inode, 1);
- 	sector_t block_in_file;
- 	sector_t last_block;
- 	sector_t last_block_in_file;
-@@ -2115,8 +2114,8 @@ static int f2fs_read_single_page(struct inode *inode, struct page *page,
- 
- 	block_in_file = (sector_t)page_index(page);
- 	last_block = block_in_file + nr_pages;
--	last_block_in_file = (f2fs_readpage_limit(inode) + blocksize - 1) >>
--							blkbits;
-+	last_block_in_file = bytes_to_blks(inode,
-+			f2fs_readpage_limit(inode) + blocksize - 1);
- 	if (last_block > last_block_in_file)
- 		last_block = last_block_in_file;
- 
-@@ -2229,8 +2228,7 @@ int f2fs_read_multi_pages(struct compress_ctx *cc, struct bio **bio_ret,
- 	struct bio *bio = *bio_ret;
- 	unsigned int start_idx = cc->cluster_idx << cc->log_cluster_size;
- 	sector_t last_block_in_file;
--	const unsigned blkbits = inode->i_blkbits;
--	const unsigned blocksize = 1 << blkbits;
-+	const unsigned blocksize = blks_to_bytes(inode, 1);
- 	struct decompress_io_ctx *dic = NULL;
- 	struct bio_post_read_ctx *ctx;
- 	bool for_verity = false;
-@@ -2239,8 +2237,8 @@ int f2fs_read_multi_pages(struct compress_ctx *cc, struct bio **bio_ret,
- 
- 	f2fs_bug_on(sbi, f2fs_cluster_is_empty(cc));
- 
--	last_block_in_file = (f2fs_readpage_limit(inode) +
--					blocksize - 1) >> blkbits;
-+	last_block_in_file = bytes_to_blks(inode,
-+			f2fs_readpage_limit(inode) + blocksize - 1);
- 
- 	/* get rid of pages beyond EOF */
- 	for (i = 0; i < cc->cluster_size; i++) {
-@@ -4068,7 +4066,6 @@ static int check_swap_activate(struct swap_info_struct *sis,
- 	struct inode *inode = mapping->host;
- 	unsigned blocks_per_page;
- 	unsigned long page_no;
--	unsigned blkbits;
- 	sector_t probe_block;
- 	sector_t last_block;
- 	sector_t lowest_block = -1;
-@@ -4079,8 +4076,7 @@ static int check_swap_activate(struct swap_info_struct *sis,
- 	if (PAGE_SIZE == F2FS_BLKSIZE)
- 		return check_swap_activate_fast(sis, swap_file, span);
- 
--	blkbits = inode->i_blkbits;
--	blocks_per_page = PAGE_SIZE >> blkbits;
-+	blocks_per_page = bytes_to_blks(inode, PAGE_SIZE);
- 
- 	/*
- 	 * Map all the blocks into the extent list.  This code doesn't try
-@@ -4088,7 +4084,7 @@ static int check_swap_activate(struct swap_info_struct *sis,
- 	 */
- 	probe_block = 0;
- 	page_no = 0;
--	last_block = i_size_read(inode) >> blkbits;
-+	last_block = bytes_to_blks(inode, i_size_read(inode));
- 	while ((probe_block + blocks_per_page) <= last_block &&
- 			page_no < sis->max) {
- 		unsigned block_in_page;
-@@ -4128,7 +4124,7 @@ static int check_swap_activate(struct swap_info_struct *sis,
- 			}
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 9c12691ace0b6..f43cc0ba83837 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -4250,7 +4250,7 @@ static ssize_t f2fs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 			 * back to buffered IO.
+ 			 */
+ 			if (!f2fs_force_buffered_io(inode, iocb, from) &&
+-					allow_outplace_dio(inode, iocb, from))
++					f2fs_lfs_mode(F2FS_I_SB(inode)))
+ 				goto write;
  		}
- 
--		first_block >>= (PAGE_SHIFT - blkbits);
-+		first_block >>= (PAGE_SHIFT - inode->i_blkbits);
- 		if (page_no) {	/* exclude the header page */
- 			if (first_block < lowest_block)
- 				lowest_block = first_block;
+ 		preallocated = true;
 -- 
 2.53.0
 
