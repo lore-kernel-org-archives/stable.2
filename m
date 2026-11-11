@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794412741;
-	b=ibtL9xyZJtr1y8uhwJ0oampwf/CoETQlaDbpVsEedpQQQlCQ7W/5pFrxZ4kNU6tR3aiW
-	 VwML3rOUad6VyS4s8AOQDtK1jPGMSdNLJBy7hiqpaXbO9xPnBYVO+hAZPh4c+uIsrAaWp
-	 CnHkHCWYaKOTJYLo/nwZOfDL5mqVt9JASg7ZnUxhzYL48AaRBy5z0JqdggPZ/b+RvhFd8
-	 AeAbUmtB/hukokythhWf6g3HbmIi560BYRgi5hvrRgOEV1xk0VprX/MIqVOiwUe3GD+Fc
-	 ChmG8KLs6okRvRI+0Rmr486FYC7+chJbO4gChi5GB7CbZN+g1yvVREJcIGLbPVY2rQA==
+	t=1794412947;
+	b=VfEVrc1QZIVkRAPTLwAfsVXdeoxf2iHzPWcy7S34qOy1vS9YD/2+tC1Q5R2yH15Tzm3s
+	 daS3XUyIOKExwgM6ULTdG97uWYWZKgjkvoZDqtuzwEDopdCEcGvdtavGnWoRlPJ1AQl2Z
+	 6Tl+FXelDjHJM6ufu8SmDglrRTxExLK/pON9q+D2TYYgWCd1vX4PL74uHqXMmM2NoLZJB
+	 uBm+D5BJanXBc7KX8HtP7BW+0PayoDoCSekuH0++1K1Lfy1XlB8czkUw2sq465wayakxR
+	 Hb/x5id44E9CiwlSJLeIR8N/hQLqd4xtlnTcoW/AxOd97znmU8kLq6MxwtsWRQN10zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794412741;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794412947;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oImOupv6sF18dten5DgH8uCzzPA7MNXQ5UprHlFCaQ4=;
-	b=nkqNfDZ7pfU7qaas/Ff6UTCDR8Kyz6mrOlv6m3TzLaAbGNzxpRNhcq2dGwVQVjtr7nKV
-	 9rLdAaq9dj+spea3yrDA6GRS2qddqWuTRcwY+5Uy42+RBlORQyil+NKQPCgRxHgs3voIX
-	 4K08kCD8DNKvRckE4VZLclPYFrXTrXjz3l9sS3qJOQx2RAX/6BC/lyPACp3L4+D+Uiig6
-	 fBAG8N7dBalq3ZosPKRdU5p7kFpmFBS+/I3mbV6f0YSXCLhqbGr5s6MmnGKMPqxhYTFp0
-	 Ci0k6hj9NP8nehP0u7Jpn0ktDEVgv5qdIZePDiAtuKHsLVQtqKJxVrhAec0zod1JqPw==
+	bh=UeVL5tFMMwezuNQAA/rFonblZS/6GeGknSarzUeypvE=;
+	b=1HWr4rISz1XZQVzxE0mHLjYySv/NvM05Vvv5pUErUl1p2X8dm9oo8Ga7bB49/brT4bZI
+	 ST0XGZXVAg4JIph9ijnpq62/MP0PSzz9UEmX19qq/wNfuRKVI+QYdWOZQcNofBGJ6btxm
+	 YJu7PGLGPlUhS7LmPtirsQIN5Noc2qYm+ngxaOfjdXIRapRBQf/hNDTg8oE1WOmfj3wRj
+	 NbuDLoKHP8hVP6gHhsQa04CXuYVUrOSKhWb3yc8YVbyIZavcEASwMvYArMKmPy0IF4hpJ
+	 3Lcpjq3wKkQdPKSO0FHkPOlCZ84FB53ke3F71Hl1SnrXobZg7oYBMUfPmIkB12X88PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaND8zGe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M6/Pv+Rr";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC6F606A32E
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:59:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EACA1606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:02:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaND8zGe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C284C1F00A07;
-	Wed, 11 Nov 2026 15:59:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M6/Pv+Rr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55B7F1F00A05;
+	Wed, 11 Nov 2026 16:02:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794412741;
-	bh=oImOupv6sF18dten5DgH8uCzzPA7MNXQ5UprHlFCaQ4=;
+	s=k20260515; t=1794412946;
+	bh=UeVL5tFMMwezuNQAA/rFonblZS/6GeGknSarzUeypvE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WaND8zGeFoxOmWGem4VWOTJ4RA8SKCYRuSsBL1z8ezNIgmPHai7yj0cCKHv+wo575
-	 XpSu/p7Ah5aHfcPC+20T/wVIe/CPlQIt/3BeubPUiFXPpnGAL/aYdzTZPBxnGbwYKp
-	 XRSjV/RVb4gibwNDZpryt39T8LQ09XO7pWZI1V1wqPyxzdiRwOzZhDdKFezf2SPMdD
-	 RjOS/TotS9IxIe5uOx6Kk2Aa1uiWUxlB1Fiji+hV/jPRTtLnG5oAEzaMRSQtmTxUTR
-	 T03E4xx2+6abW6K2rfdOOBH/Ll+L/XoIv9sr805PQRdcwb/vI9dwW3trldBBdqhC0j
-	 7RhGG1k8iFn/A==
+	b=M6/Pv+RrOtTNeeLs+FbKLKOTSLkyUjQD1zSPnMkn/rcgzW6IItgsg6BTNuIwyL9fC
+	 erjEWhFMAxli8a9oDx8CibQlW3oM8sIPvPuNHfJ8q8fGfOtNkOhGziPEKY0WvV4BXl
+	 7AVCIvVYReuBO2uPS17s/3u9hUK3nALxArwrlJ7BxHnapHnSgXIo1Og5dI+Uw58s1i
+	 xvoZPujI6uJML00FsWlhVo672rfEQhsSLgIObhBNhI/bwRuAMPUvPP2fuAXNOZsQmr
+	 W+TDsc7uoTzh0Ch/HLEtNwcC94iJuXjY8c0WTEuIKe1hVwY4HwhuN0gixzWM+Tebvv
+	 MH8Y11qXiu6oQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] splice: avoid stale f_pos writeback on error
-Date: Wed, 11 Nov 2026 10:58:57 -0500
-Message-ID: <20261111155849.2761399-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] ip6mr: ip6mr_sk_done() can exit early in common cases
+Date: Wed, 11 Nov 2026 11:02:21 -0500
+Message-ID: <20261111160144.2767084-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111155849.2761399-1-sashal@kernel.org>
-References: <20261107061356-failed-5.15-79b496ebe382@kernel.org>
- <20261111155849.2761399-1-sashal@kernel.org>
+In-Reply-To: <20261107060950-failed-5.15-6ace56ed7b13@kernel.org>
+References: <20261107060950-failed-5.15-6ace56ed7b13@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,68 +61,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 79b496ebe382866e3a05090b7dc9ae95e85e65b2 ]
+[ Upstream commit f2f2325ec79970807012dfc9e716cdbb02d9b574 ]
 
-do_splice() snapshots an implicit file position before calling the splice
-helper. Since splice does not take f_pos_lock, another operation on the
-same open file description can update f_pos while the helper is blocked.
-If the helper then fails, the unconditional writeback restores the stale
-snapshot.
+In many cases, ip6mr_sk_done() is called while no ipmr socket
+has been registered.
 
-For a directory without ->splice_read, a file-to-pipe splice fails with
--EINVAL. A concurrent directory mutation and getdents() call can advance
-f_pos and refresh the filesystem's revalidation cookie before that failure
-restores only the old position. The next ext2 readdir can then trust an
-offset inside a directory entry and copy data from the adjacent page to
-userspace.
+This removes 4 rtnl acquisitions per netns dismantle,
+with following callers:
 
-Only update an implicit file position when splice returns a non-negative
-result, matching read and write. Keep explicit offset updates unchanged.
+igmp6_net_exit(), tcpv6_net_exit(), ndisc_net_exit()
 
-Fixes: 7995bd287134 ("splice: don't pass the address of ->f_pos to methods")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20261018051708.2422394-1-4ncienth@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: 6ace56ed7b13 ("ipv6: remove ifaddr from hash during ifdown list cleanup")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/splice.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ net/ipv6/ip6mr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/splice.c b/fs/splice.c
-index 70008e08998f5..3630fd18a12e8 100644
---- a/fs/splice.c
-+++ b/fs/splice.c
-@@ -1107,10 +1107,10 @@ long do_splice(struct file *in, loff_t *off_in, struct file *out,
- 		ret = do_splice_from(ipipe, out, &offset, len, flags);
- 		file_end_write(out);
+diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
+index a793dcd24813e..0e2c566ec04b8 100644
+--- a/net/ipv6/ip6mr.c
++++ b/net/ipv6/ip6mr.c
+@@ -1581,6 +1581,9 @@ int ip6mr_sk_done(struct sock *sk)
+ 	    inet_sk(sk)->inet_num != IPPROTO_ICMPV6)
+ 		return err;
  
--		if (!off_out)
--			out->f_pos = offset;
--		else
-+		if (off_out)
- 			*off_out = offset;
-+		else if (ret >= 0)
-+			out->f_pos = offset;
- 	} else if (opipe) {
- 		if (off_out)
- 			return -ESPIPE;
-@@ -1127,10 +1127,10 @@ long do_splice(struct file *in, loff_t *off_in, struct file *out,
- 
- 		ret = splice_file_to_pipe(in, opipe, &offset, len, flags);
- 
--		if (!off_in)
--			in->f_pos = offset;
--		else
-+		if (off_in)
- 			*off_in = offset;
-+		else if (ret >= 0)
-+			in->f_pos = offset;
- 	} else {
- 		ret = -EINVAL;
- 	}
++	if (!atomic_read(&net->ipv6.devconf_all->mc_forwarding))
++		return err;
++
+ 	rtnl_lock();
+ 	ip6mr_for_each_table(mrt, net) {
+ 		if (sk == rtnl_dereference(mrt->mroute_sk)) {
 -- 
 2.53.0
 
