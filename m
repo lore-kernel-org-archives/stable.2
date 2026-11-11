@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794359682;
-	b=4wUJp++SnWx7f7tBghOJ3g8Jm6Y0Uf37rERJNtLttUkauYCulXhBs5IBs3bNPGghJ5AR
-	 D6vY/NZXZ37np4tCXtlZcgncs37kKul+BX/5+VeVZyO0A7wRdL/3Oz3m3ile6MAJFGyJ+
-	 aViUutPwF2XLPkI9oKZpUqFxBDA+qGFuLbKnfZpn+XeqXbGu3oAJUliJGeSDDuVv9aUIs
-	 G+9pBurKbXUQ0J/I+i3rqMq+ErLovIttd0OUvAl+ivemK3s/v+cKvMSUGWpwogCUbw7s+
-	 Y677CMrBpW0pTgPbmN84ixcy9VHvH8JOoIAadMQBXcAeucDZJEfcSIUODLyS0Gn/QSA==
+	t=1794359683;
+	b=q70+ceKzRS8qgBH4J7BV7JBfsH45h15rTp4m0/10u2Qh1Run500Fm+1hp8ND/ywF8ACh
+	 pdN+5spfIQ0GoLdCDO0tXB6s//aRMrrgnY5sZTHYvVFnyxzZzWwvz+XHq24s4BsWpz6Dd
+	 E9n/6ACuwMDm+kXK/P9v4Le58ToMT9ufA0osot92CnvRkI+6Lak7zbQ/7RnepOdZKAsBI
+	 eGQToXKyKlbgbdxXGll1sJPcrvTCb2iGvqVr8XKxcT+2a7bxtjH5E/ZkykFKjpVaKx7yz
+	 BJpfM5fvV4tdhpIGuc/HXEAQGFiY+7dm5PL+FruyMROsmfgBh3N3KeR9heKazLKL2VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794359682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359683;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ok9mr4GYiN2pDiNlUp44yS9tNMPQGQKNNVOjGIYLTpo=;
-	b=zDohA+ecI6TNRa464EhNH9TL4zuBzi8A+53c2tf4Zwa8tQ5Pe4yNNnJPJ6Kkv0tAspOu
-	 /TuzSLXbjk9ETu6ZyGlG99H/1cAbBckQV4ycp5bHn5Ao4pBimnCboniz2GQNvAUxGh9H1
-	 RC9a9pJYsKDuu1GZZeQFb0sPEqHD5hQU4MklGnT0i6pM4lr/SJT+NvLfNH82khSaFApxu
-	 5Ji7JYtsLAUja1FNUIJ/o8DRfXZX2qIJ7yySQROCit2C7w6eg99KKysZLxn4vnLXTuNSU
-	 tphsMcMmWlmdRq5eh7ar9pQGtQZIzQK3L2qTCNg0CH1dHoVBWHKJWa4McgKfJJQjDHg==
+	bh=e5v1x+ZlEhUuZFBcGgX37scpZnco3/TepjeKGSDc7fA=;
+	b=jhb1wrWBeXDSENZ2eEq45kcR3Kl1GR3KNqx6JEOCCRdQRpE6WYyhBqjpVm11+WjiVYMX
+	 HrLEj667/3YlesiK3rN/67UXa+cTqDgD2FRpH4FfuMt9D+eNp+eCyd9irRNnNOgcQ/SMk
+	 W4EBObj3+usjXg6D+byGYrewXVKEUHjV6aMHewT+fZEXsnk9ikBIP3QYTdsMnMcSa6ZpA
+	 r9u6DVl9AVdZCrL0o7OxrUga52RBpVbkjyHuFgkr6f7PxhXEQn2ltXiq3TPSvYh/o53iB
+	 XL/OG3SNBb7aaFIja49d12GrhyxEFbhQoxYnURxLn1OTg/p864FVQpHqqKgdmusi/mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lu1UtsMa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kssH9ztP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE902606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B99A606A325
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:14:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lu1UtsMa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F5DC1F0093C;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kssH9ztP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAFBB1F0093D;
 	Wed, 11 Nov 2026 01:14:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794359682;
-	bh=Ok9mr4GYiN2pDiNlUp44yS9tNMPQGQKNNVOjGIYLTpo=;
+	s=k20260515; t=1794359683;
+	bh=e5v1x+ZlEhUuZFBcGgX37scpZnco3/TepjeKGSDc7fA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lu1UtsMaP6W0tNhWmLsz6jkZYMeq1nMIApV4kz/g0TGn08BOOj3b0zHX7wKDSBAag
-	 rjxQ9QWDbJhy1mE+tPL87ezZmlaJO0wy51EZBOttTI7KkOELzKzBRLQ8/RDmqkTR5X
-	 whK37GQsS8uKNrBet2nrKSH6EJhD21bLmUOJkAsuOtEZcxUDJeMHFIs3xHDK0fsSUC
-	 B2r/07fk7BoTuSNQKvjNFI3DE81083DmEoZATJtCScjrriPSkqFRCFm6RyuMJOdxHz
-	 wyqnc69bkQf4enPEaNu8chP6qaCVKGfqzCrvoqOuzAGM8BNP2G6x1MXXnYKq6Bi4uI
-	 gmmXoQyg2wihg==
+	b=kssH9ztPvzcrInkut6clPHCMdkBxmiPw9rUqFvKeXJ47qbA4cUb03pX4FWEuC/xHC
+	 sduPau5bZmrBx4F2O4JYqNI/STdWJmxD1cU3+/Ug6iGCx/b1Zb1tOO1w1wHqCXg86V
+	 gN4adVbaK4wkzKiuHMhP14FjD88CbahyXUMfZjBAS3zTAAqG+SdOq6IbsrWQogxsAo
+	 YuW89uo9y83q5HAEX+Zv3JMTN4cVjqQejXDxu1sKpsOQZsIZ/v4+xF4N4l6vVEoT97
+	 Pq6A95TjJ8bEN+g4aLPsyw6RGDQD7MTH57zXPAg/RVrEbwC9U8av3wzxYRDIQn7xqh
+	 0e0mc9S8bxXLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] ALSA: compress_offload: Use automatic cleanup of kfree()
-Date: Tue, 10 Nov 2026 20:14:39 -0500
-Message-ID: <20261111011417.365858-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] ALSA: compress: reject buffer geometry change on gapless next_track
+Date: Tue, 10 Nov 2026 20:14:40 -0500
+Message-ID: <20261111011417.365858-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053651-failed-6.6-82da1acad6fd@kernel.org>
+In-Reply-To: <20261111011417.365858-1-sashal@kernel.org>
 References: <20261107053651-failed-6.6-82da1acad6fd@kernel.org>
+ <20261111011417.365858-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,130 +62,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit 9b02221422a55e834469fdc91dc4d5147f5a1fb9 ]
+[ Upstream commit 82da1acad6fd60b6072dd5f3383e6a55efdd2ac7 ]
 
-There are common patterns where a temporary buffer is allocated and
-freed at the exit, and those can be simplified with the recent cleanup
-mechanism via __free(kfree).
+snd_compr_set_params() is invoked from the gapless next_track
+re-entry path, which calls snd_compr_allocate_buffer() again and lets
+buffer_size change while total_bytes_available and
+total_bytes_transferred still hold values computed for the previous
+buffer. snd_compr_calc_avail() then derives an avail/count value from
+those stale counters against the new buffer_size, and
+snd_compr_write_data() copy_from_user()s that many bytes into the
+new, potentially smaller buffer, overflowing it with user-controlled
+length and content.
 
-A caveat is that some allocations are memdup_user() and they return an
-error pointer instead of NULL.  Those need special cares and the value
-has to be cleared with no_free_ptr() at the allocation error path.
+The buffer is set up once, with the initial SET_PARAMS, and neither the
+core nor the DSP expects it to change for a gapless track transition.
+Do not call snd_compr_allocate_buffer() on the next_track path and
+reject a request that changes the buffer geometry, so that the codec
+parameters that the driver receives match the buffer in use.
 
-Other than that, the conversions are straightforward.
-
-No functional changes, only code refactoring.
-
+Fixes: 9727b490e543 ("ALSA: compress: add support for gapless playback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261019144533.30665-3-peter.ujfalusi@linux.intel.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20240222111509.28390-4-tiwai@suse.de
-Stable-dep-of: 82da1acad6fd ("ALSA: compress: reject buffer geometry change on gapless next_track")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/compress_offload.c | 36 +++++++++++++----------------------
- 1 file changed, 13 insertions(+), 23 deletions(-)
+ sound/core/compress_offload.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 3c259b9419598..511087456568d 100644
+index 511087456568d..b7c0ff1b9b5a1 100644
 --- a/sound/core/compress_offload.c
 +++ b/sound/core/compress_offload.c
-@@ -458,7 +458,7 @@ static int
- snd_compr_get_codec_caps(struct snd_compr_stream *stream, unsigned long arg)
- {
- 	int retval;
--	struct snd_compr_codec_caps *caps;
-+	struct snd_compr_codec_caps *caps __free(kfree) = NULL;
- 
- 	if (!stream->ops->get_codec_caps)
- 		return -ENXIO;
-@@ -469,12 +469,9 @@ snd_compr_get_codec_caps(struct snd_compr_stream *stream, unsigned long arg)
- 
- 	retval = stream->ops->get_codec_caps(stream, caps);
- 	if (retval)
--		goto out;
-+		return retval;
- 	if (copy_to_user((void __user *)arg, caps, sizeof(*caps)))
--		retval = -EFAULT;
--
--out:
--	kfree(caps);
-+		return -EFAULT;
- 	return retval;
- }
- #endif /* !COMPR_CODEC_CAPS_OVERFLOW */
-@@ -579,7 +576,7 @@ static int snd_compress_check_input(struct snd_compr_params *params)
- static int
- snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
- {
--	struct snd_compr_params *params;
-+	struct snd_compr_params *params __free(kfree) = NULL;
- 	int retval;
- 
- 	if (stream->runtime->state == SNDRV_PCM_STATE_OPEN || stream->next_track) {
-@@ -589,24 +586,22 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
- 		 */
- 		params = memdup_user((void __user *)arg, sizeof(*params));
- 		if (IS_ERR(params))
--			return PTR_ERR(params);
-+			return PTR_ERR(no_free_ptr(params));
- 
- 		retval = snd_compress_check_input(params);
+@@ -592,9 +592,19 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
  		if (retval)
--			goto out;
-+			return retval;
+ 			return retval;
  
- 		retval = snd_compr_allocate_buffer(stream, params);
--		if (retval) {
--			retval = -ENOMEM;
--			goto out;
--		}
-+		if (retval)
-+			return -ENOMEM;
+-		retval = snd_compr_allocate_buffer(stream, params);
+-		if (retval)
+-			return -ENOMEM;
++		if (stream->next_track) {
++			/*
++			 * total_bytes_available/transferred still refer to the
++			 * current buffer; its geometry must not change.
++			 */
++			if (params->buffer.fragment_size != stream->runtime->fragment_size ||
++			    params->buffer.fragments != stream->runtime->fragments)
++				return -EINVAL;
++		} else {
++			retval = snd_compr_allocate_buffer(stream, params);
++			if (retval)
++				return retval;
++		}
  
  		retval = stream->ops->set_params(stream, params);
  		if (retval)
--			goto out;
-+			return retval;
- 
- 		if (stream->next_track)
--			goto out;
-+			return retval;
- 
- 		stream->metadata_set = false;
- 		stream->next_track = false;
-@@ -615,15 +610,13 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
- 	} else {
- 		return -EPERM;
- 	}
--out:
--	kfree(params);
- 	return retval;
- }
- 
- static int
- snd_compr_get_params(struct snd_compr_stream *stream, unsigned long arg)
- {
--	struct snd_codec *params;
-+	struct snd_codec *params __free(kfree) = NULL;
- 	int retval;
- 
- 	if (!stream->ops->get_params)
-@@ -634,12 +627,9 @@ snd_compr_get_params(struct snd_compr_stream *stream, unsigned long arg)
- 		return -ENOMEM;
- 	retval = stream->ops->get_params(stream, params);
- 	if (retval)
--		goto out;
-+		return retval;
- 	if (copy_to_user((char __user *)arg, params, sizeof(*params)))
--		retval = -EFAULT;
--
--out:
--	kfree(params);
-+		return -EFAULT;
- 	return retval;
- }
- 
 -- 
 2.53.0
 
