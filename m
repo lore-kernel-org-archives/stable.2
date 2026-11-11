@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364968;
-	b=vFBkjZlw97mVA22fxAS5Tl0SviOdUoPG76MaJt7SzeBForFijwgWcPqUVw/I8t9bB9h2
-	 cQ+nvfPdH66LdkvSSTAjPtbZqo+evLkmNeVZqaz9/kNF+LsXDB+Fmq3bOEh9YdYmf3EkG
-	 UhdnnDz+RdKvd6ZWs9IHUpr6usW4scFgf8ROXeRG6xgvDG+PKji8OqB9ydM1GOOpCrWoS
-	 OS707uUY9qWeqgpYOewkUPs+eWirgJaBOjPUVmb2Wsz67M2nMEMaBqGmzE3qRsKeRJr5C
-	 foZftTQZcMBruVp3EiRzc+bfM6PBxy1TYHaLurpZCCgpH3hGZogkyEBQdDg2YqgCYAA==
+	t=1794365005;
+	b=cgry98MEpouB3oivieyzo/fU8QFmuL8bhB+a1Zr8cUbPHRctbMM9ozGSpmaNzdZJfyoM
+	 ayK/3uYNKlZQKmNKr/Qlo/uyc0AV3Wb158djCWhUXYP8wC48ORy9v4th0pNkGpM+xz+WT
+	 m3RUZmiMkUzSUa/eX3D51xicDpjbuV9ybe44aEAXrYxfANQPtZQC1eD92ugvO3ac8Ea6P
+	 Eg+mQICFFtPkVeXgz0FT17ydm+CkglMoO3sWTSqam8FndfDbhyImjNGWG/6/v5YqFLul8
+	 vJv3hiejU3MDftS4L5sFLcXSpJnWhmpjESzpQ81MMm9nDdUzFPrpRR8oGsuRR32Sfuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364968;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=WW29g4WNV1Hk+OO7jhC7hXp6cgcgf9Oh9pPH/J6mlNA=;
-	b=GyH4ti3snnjPD7EvvkQyGc2c82VJaEonUiQESJYiqk4eVXiNWzXdhu1dh8wjySNUrkS4
-	 h5Mz5dxG5uAJr95ef0uhCDoKKBBFdVGOGxWFn4NEtEY3zuP4ovadhMkPyT+RTLhMotOP1
-	 sqXwGx1xjufbXPgBgluNXtdOz+QDydZrU9+qffc5xy+tTZ8FVHfrSRwEZCaLJNzoi4MBm
-	 L6OmD7ksu+zivKvG6aALs1sSxH83IbNazQC7Q2+ma1tYOFkvbYbrfcON9VtCn9QkC9RxT
-	 eWZ84SFjsP0B9psq4+H403tdWoyApIwtGcDUsGQmicyPBRRUTKOWZVUKadrQWdnQkNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794365005;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jpakjmHwg6YmZ67PJhRYMdIZyk17kR69BsbWI335b/U=;
+	b=CDeyLfBlOA1b565pBb6hEk3pLm6sj1W1vKQ63bNNRL+2RFgSPK6SjviMsNzsXbLA+l8T
+	 waSzNq8c4NXgm5cFgfCkE29uqzUyi9fdG652F0NOHAyWJOYTCOZ+/HVkL22/3oX5NH+1l
+	 u+9C1KW6+Wr8PINeguFkCTGtOuUooMci+NXjtXL6PGJ5xt918ujcfcL5m0pcj6/xL0463
+	 0qKAKDb0ldncBPVFpkawEQx0a1mf2YttriME1PRByeFU+oxqlp7N1N0R5HSbpEoPKoeZ+
+	 9go31D9HOwm/UPEX26Nzc+J7hx0+RJq7E09MtElwXOLRgV0m3sUAtfQqxE+8o2Fl3yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=uBj0QRCX;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 113F1606A31C;
-	Wed, 11 Nov 2026 02:42:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 113F1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYd2OAqQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D87606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:43:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=uBj0QRCX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=uBj0QRCXadf9RQef/555MnLh4WP/qLqqUaw+Nq4GuJC2rv6PWEISyo6qMfMt4XCmhNv7/9F7jr60j
-	 XBux7OSBcdxPtAdDriWEzzc2F2Em2DAPuNiCDpEg5+zZmTO5DbY2OlXhOFpOD13IRuYaaeORZY6TIF
-	 WUM9iE3gbRJCNIQ0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af3d61dd36-9f549;
-	Wed, 11 Nov 2026 10:42:38 +0800 (CST)
-X-RM-TRANSID:2ee36af3d61dd36-9f549
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af3d61b011-cb3c6;
-	Wed, 11 Nov 2026 10:42:37 +0800 (CST)
-X-RM-TRANSID:2ee56af3d61b011-cb3c6
-From: zhaofeng2 <zhaofeng2@cmss.chinamobile.com>
-To: linux-spi@vger.kernel.org
-Cc: Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	Mark Brown <broonie@kernel.org>,
-	Li-hao Kuo <lhjeff911@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] spi: sunplus-sp7021: fix clock prepare leak in system sleep suspend
-Date: Wed, 11 Nov 2026 10:42:35 +0800
-Message-ID: <20261111024235.1542-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261109045314.1211-1-zhaofeng2@cmss.chinamobile.com>
-References: <20261109045314.1211-1-zhaofeng2@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYd2OAqQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5412C1F0089F;
+	Wed, 11 Nov 2026 02:43:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794365004;
+	bh=jpakjmHwg6YmZ67PJhRYMdIZyk17kR69BsbWI335b/U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jYd2OAqQf76sna2fVnK1Ep7Hyrz/X6VSbofVCJDROeWdxq5hkmV06YIKsmTAsRHwz
+	 l5cWJ9IOyZ23qEuwjy60tq5OYhgyaQq1i/NEGTmvpL9S1KWcOthFAVK7e8WfG85w7x
+	 XlzbDJNFyylzP4w7BqQ2pUo1U2UJWFix2R9T6B8ILRGa97a1liqBKGAit+m9g9K28d
+	 n2rInUriMD1i9jXAaDhXpyyOn9mwJj2404VP8lDCQrETHTjG5+uQ1KBQL7TMFav2vm
+	 aj4xoKJuVTuH7q8y/QWSVCRsWjlQYeDf/4WOpxVj0yowxllmW0e54F1VbfUpQGF7/2
+	 Ekupxt8qSl2fg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/5] KVM: remove more traces of device assignment UAPI
+Date: Tue, 10 Nov 2026 21:43:19 -0500
+Message-ID: <20261111024039.676658-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052838-failed-6.6-eacdb76c5f04@kernel.org>
+References: <20261107052838-failed-6.6-eacdb76c5f04@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,69 +60,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-sp7021_spi_controller_resume() enables the controller clock with
-clk_prepare_enable(), but the matching suspend callback
-sp7021_spi_controller_suspend() only asserts the reset line and never
-disables/unprepares the clock.  Every system sleep suspend/resume cycle
-therefore leaks one clock prepare/enable reference, leaving the clock
-usage count permanently unbalanced.
+[ Upstream commit c0a411904e1548d287dc4a031ff19d00e0569202 ]
 
-Add the missing clk_disable_unprepare() to the suspend callback, and
-reorder resume to enable the clock before deasserting reset, so the IP
-is never live while its clock is stopped; this matches the probe()
-ordering (devm_clk_get_enabled() before reset_control_deassert()).
-
-Fixes: f62ca4e2a863 ("spi: Add spi driver for Sunplus SP7021")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: eacdb76c5f04 ("KVM: x86/xen: Enforce 4-byte alignment of vcpu_info registration")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v1 -> v2: Assert reset before disabling the clock in suspend, and
-enable the clock before deasserting reset in resume, per Mark Brown's
-review, so the IP is not left running without a clock (nor live while
-the clock is stopped).
+ include/uapi/linux/kvm.h | 50 ----------------------------------------
+ 1 file changed, 50 deletions(-)
 
-Verified against current upstream master; the probe path has been
-converted to devm_clk_get_enabled() upstream but the suspend/resume
-asymmetry is unchanged.  Not runtime-tested (no SP7021 hardware).
-
- drivers/spi/spi-sunplus-sp7021.c | 16 ++++++++++++----
- 1 file changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/spi/spi-sunplus-sp7021.c b/drivers/spi/spi-sunplus-sp7021.c
---- a/drivers/spi/spi-sunplus-sp7021.c
-+++ b/drivers/spi/spi-sunplus-sp7021.c
-@@ -507,17 +507,27 @@
- {
- 	struct spi_controller *ctlr = dev_get_drvdata(dev);
- 	struct sp7021_spi_ctlr *pspim = spi_controller_get_devdata(ctlr);
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index e48ba56c54858..3a158e6d12e24 100644
+--- a/include/uapi/linux/kvm.h
++++ b/include/uapi/linux/kvm.h
+@@ -2015,56 +2015,6 @@ struct kvm_sev_receive_update_data {
+ 	__u32 trans_len;
+ };
+ 
+-#define KVM_DEV_ASSIGN_ENABLE_IOMMU	(1 << 0)
+-#define KVM_DEV_ASSIGN_PCI_2_3		(1 << 1)
+-#define KVM_DEV_ASSIGN_MASK_INTX	(1 << 2)
 -
--	return reset_control_assert(pspim->rstc);
-+	int ret;
-+
-+	ret = reset_control_assert(pspim->rstc);
-+	clk_disable_unprepare(pspim->spi_clk);
-+
-+	return ret;
- }
+-struct kvm_assigned_pci_dev {
+-	__u32 assigned_dev_id;
+-	__u32 busnr;
+-	__u32 devfn;
+-	__u32 flags;
+-	__u32 segnr;
+-	union {
+-		__u32 reserved[11];
+-	};
+-};
+-
+-#define KVM_DEV_IRQ_HOST_INTX    (1 << 0)
+-#define KVM_DEV_IRQ_HOST_MSI     (1 << 1)
+-#define KVM_DEV_IRQ_HOST_MSIX    (1 << 2)
+-
+-#define KVM_DEV_IRQ_GUEST_INTX   (1 << 8)
+-#define KVM_DEV_IRQ_GUEST_MSI    (1 << 9)
+-#define KVM_DEV_IRQ_GUEST_MSIX   (1 << 10)
+-
+-#define KVM_DEV_IRQ_HOST_MASK	 0x00ff
+-#define KVM_DEV_IRQ_GUEST_MASK   0xff00
+-
+-struct kvm_assigned_irq {
+-	__u32 assigned_dev_id;
+-	__u32 host_irq; /* ignored (legacy field) */
+-	__u32 guest_irq;
+-	__u32 flags;
+-	union {
+-		__u32 reserved[12];
+-	};
+-};
+-
+-struct kvm_assigned_msix_nr {
+-	__u32 assigned_dev_id;
+-	__u16 entry_nr;
+-	__u16 padding;
+-};
+-
+-#define KVM_MAX_MSIX_PER_DEV		256
+-struct kvm_assigned_msix_entry {
+-	__u32 assigned_dev_id;
+-	__u32 gsi;
+-	__u16 entry; /* The index of entry in the MSI-X table */
+-	__u16 padding[3];
+-};
+-
+ #define KVM_X2APIC_API_USE_32BIT_IDS            (1ULL << 0)
+ #define KVM_X2APIC_API_DISABLE_BROADCAST_QUIRK  (1ULL << 1)
  
- static int sp7021_spi_controller_resume(struct device *dev)
- {
- 	struct spi_controller *ctlr = dev_get_drvdata(dev);
- 	struct sp7021_spi_ctlr *pspim = spi_controller_get_devdata(ctlr);
-+	int ret;
-+
-+	ret = clk_prepare_enable(pspim->spi_clk);
-+	if (ret)
-+		return ret;
- 
- 	reset_control_deassert(pspim->rstc);
--	return clk_prepare_enable(pspim->spi_clk);
-+
-+	return 0;
- }
- 
- static int sp7021_spi_runtime_suspend(struct device *dev)
-
+-- 
+2.53.0
 
