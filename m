@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794366161;
-	b=AV7ZBOuQkT3J2dqAkDtU1KW2wtHGm5BLVA8TGsTcuw70OgeBZ8WDbWJvD24Ve7Qr/0wi
-	 o9OSO7LauhFPSCh8wAfsb3YEA+YaQjqcxNOu1SmJoZu5FXDf4sdlM02VcAKUZ6A0r0vZa
-	 7Ecrn1SEWs0eOJOvEcFpThu2sLhkCffh8IYOS0/+6xZtsHEk/qp/DY96J9hq9YpMCSzH7
-	 SJJm57+ZTg9aZg7SmVtHTJBc63gqA2L8poemmMwnY6qC7rauOr+UQCF3A41GzL9K8VBPh
-	 CJ3Bj9iRJLCwgMIoS7wpgmHKD8D70IckgwhqTSwmuJLw1lwstGbqqFYs8oOia80Lnnw==
+	t=1794366184;
+	b=UX1nizjc7wT5miSBSPLQEmbalZulDoCWWPiJqd/uqCV3HL3GBKt2knnpBOREblaNRUT5
+	 UFmfjk5RKhTPRFyXfmaqdl6iPhVorYH+aWwm09BmhFX73JTHPi5rxt+6XhFwne6RhNMGV
+	 4+MbwlCxI4dpSJAyJGBu68OUIfaWcd1VGgBlKXthRJoVgMtp8/WqyRrUFSEizrhcHricw
+	 /B7EoNlcuZEz+dShJLIknVK903QKXIBYms2nfpciqQgbK/+4U/gGSkerl8Eb7bbe3r8X7
+	 Jl7GGM1AJnAyoHxkYMhPnPM2uq4CbXC2ohdAZkdr3zzFe0mfk/AYXQ8VvphJWs12KBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366161;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366184;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IQLs1k0PcI7adqXl4M8fE5jcm490cdGpcAkutVK9Xbo=;
-	b=rAPDG15/IjsptnJ2Uu6jSiX7aSaR+f9YuBSu5cRJAaj3AvPFtGT4hamapuj1Rw+xAHE7
-	 xZbhKpB+6EMzWRWbUJHfgGkqa9OObWehtLdoKqKLVWA+8Kzm/30sDEIZmJh/45QKVRc9G
-	 C94HN/sVDwapIyinWCeGXAICU1lFfV4AyRIsG0rRYzj/sIjogD7RfARrBs5KH5sjJGD+p
-	 nx50R2g0BupUKmX4kCz+PRZ0kyUbrFYazyGmybp3SriWnyn1X3bzEoG5c7cBBxlF1tn9e
-	 nTHTvJtQAlbMRlXXTozuwlIL6J8yk71pdXh64FVQNUypqKD/a0cffyaLOEcnWVBEZAw==
+	bh=L9pwqxM2u+le4BMTvedgYttm82bRWYCpRcHnYKJkZ7c=;
+	b=nN8nRMNrBr5OO0dfHIU+1awyT0c4nwDR4/yHWgT0V6RehAXxz1x3wxRABOKb05qpVjaj
+	 pkonYwFGWhB2R/4NCVT+nG6aJuEF2+k8rmBuMoTMR+YEz+sNqjNAIZQgbjXrwevGQkgEq
+	 2CxE/LsamRBNoclq80Kw63AGkhuMouzLs5bIvPSXLsqTUkfJlFk5T/kAFACV/ezkdy+mS
+	 /XizJjJzjTm1dsgxvWP4yu4jvX2VCsgdauUnfQ6g/4IBQsrx5p0sgyUvK/lbm3zfQwPlB
+	 0QnY4E6qYVvmSlu+/FKdN5vt01Th44SUqpL/ghpSm1mv9K9+xXXR0FJ/3kt0O28kKZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QGTMf1FF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f7ziPr9p;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E179606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:02:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB50606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:03:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QGTMf1FF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3191F0093C;
-	Wed, 11 Nov 2026 03:02:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f7ziPr9p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7676A1F0089F;
+	Wed, 11 Nov 2026 03:03:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794366161;
-	bh=IQLs1k0PcI7adqXl4M8fE5jcm490cdGpcAkutVK9Xbo=;
+	s=k20260515; t=1794366184;
+	bh=L9pwqxM2u+le4BMTvedgYttm82bRWYCpRcHnYKJkZ7c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QGTMf1FFFmCCHUIiTVDMHy95GCKLLCDDJsztKvexp3lzvWco2eAQcyP2kP13aVJ1s
-	 kaSZuYfSxw143XNMWmttZhM11+005tj2Nsxyc3/PL9Uktvf+GdzvFv9rYGZ3dxw8yj
-	 luzjOROilR5eGKfx4/+2T6XgGB6ecVeXzWO6NZaAEL1V2kqHipXhm4BU/2OYu2ddCW
-	 ErjhFYXzWzIyzV1NiQuGafs81fiXYOuFy3PxInRcmmDm918H6V8GFmYTDnUrSy1TlG
-	 MYv3xYG7pUTYTiPHlZsX1MxFfYAAQFmA9oTYuZbw04S4GLndp1Yi+Dxfp91AlhIFXK
-	 9ifqO4Gczzaqw==
+	b=f7ziPr9p3dLQYJSJOK3LFNw4kGc8DM+CoH8BsUdW/3e3rI1uCvDif5GctvGUJHdQd
+	 kVPw3ZcKQhsRio1OkuiLt4gWZs/foFTf/NKuiX1X6QtjlJFkW6l8AOPR0JLF0JY7ei
+	 KkjRajMpoIprWon/ee9oSk+18BhU//e14U9X7YVRZ6Wytewy3olAXKgYsrT5245TfM
+	 Ifqf4Z9gb2RoGKdtgO8SYsGUrWXZvOYLtFkap/mV3n2Iz6Vl5mabwkAekx1RK5+OJL
+	 i2s6ybqFZ+HDCq42oTuj3i7OGJpclhjMyDqk0kQSAfaPpiyTOsJnNbDOJDkXqyVz0K
+	 8J5dF2PFhZbKw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Armaan Sandhu <armaan.sandhu0504@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Leizhen Zhang <lzsx618@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
+Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
+	Jan Kara <jack@suse.cz>,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] lib/cmdline: fix get_options() count and overflow with large ranges
-Date: Tue, 10 Nov 2026 22:02:37 -0500
-Message-ID: <20261111030039.812757-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] fs: rotate inodes whose page cache could not be dropped
+Date: Tue, 10 Nov 2026 22:03:02 -0500
+Message-ID: <20261111030231.807230-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111030039.812757-1-sashal@kernel.org>
-References: <20261107051330-failed-6.18-5d72266218b1@kernel.org>
- <20261111030039.812757-1-sashal@kernel.org>
+In-Reply-To: <20261107053812-failed-6.6-8ee09f597763@kernel.org>
+References: <20261107053812-failed-6.6-8ee09f597763@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,131 +63,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Armaan Sandhu <armaan.sandhu0504@gmail.com>
+From: Nikolaos Karaolidis <nick@karaolidis.com>
 
-[ Upstream commit 5d72266218b1c4dd2917f1df2b86f3b0e0a605c9 ]
+[ Upstream commit 8ee09f597763acfd31c62a578ba88b792fc41b24 ]
 
-get_range() stops writing once the array is full, but get_options() still
-advances its index by the whole range.  So "1-100" parsed into four ints
-reports 99 numbers, and a range like "0-2147483647" wraps the index
-negative and writes outside the array.
+When inode_lru_isolate() drops the page cache of an unused inode, it
+has to unlock the list, so it returns LRU_RETRY and the walk restarts
+at the head of the list, where the inode still is. If
+invalidate_mapping_pages() could not empty the mapping, the restarted
+walk strips the same inode again, and so on until nr_to_walk runs out.
+Every walk of that list then ends on this inode, and nothing behind it
+is reclaimed for as long as its cache stays.
 
-Stop once a range fills the array, bail out in validation mode before the
-count overflows, and saturate the range length in get_range().  Add KUnit
-cases; without the fix "0-2147483647" panics the test kernel.
+Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
+traversing context") the walker pinned the inode with a reference, and
+dropping it in iput_final() set I_REFERENCED, so the restarted walk
+rotated the inode to the tail. Set I_REFERENCED again when the mapping
+is still populated after the invalidation, in the same i_lock section
+that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
+i_lock to be held, like inode_pin_lru_isolating().
 
-Only root can supply this input, so this is a robustness fix.
+On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
+is left behind if it is locked, under writeback, spliced into a pipe,
+or still in another CPU's LRU-add batch after being read. Without
+HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
+mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
+never removes.
 
-[akpm@linux-foundation.org: add additional test case from Leizhen]
-Link: https://lore.kernel.org/20261005213945.359905-1-armaan.sandhu0504@gmail.com
-Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
-Signed-off-by: Armaan Sandhu <armaan.sandhu0504@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Leizhen Zhang <lzsx618@gmail.com>
-Reviewed-by: Leizhen Zhang <lzsx618@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+Link: https://patch.msgid.link/20261016102515.111285-1-nick@karaolidis.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Replaced inode_state_set(inode, I_REFERENCED) with direct inode->i_state |= I_REFERENCED. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/cmdline.c             | 13 ++++++++++++-
- lib/tests/cmdline_kunit.c | 39 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 51 insertions(+), 1 deletion(-)
+ fs/inode.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/lib/cmdline.c b/lib/cmdline.c
-index 90ed997d95701..f5dc59b3548e9 100644
---- a/lib/cmdline.c
-+++ b/lib/cmdline.c
-@@ -11,6 +11,7 @@
+diff --git a/fs/inode.c b/fs/inode.c
+index 5ebe791381096..9d11428af1f3a 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -495,12 +495,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
  
- #include <linux/export.h>
- #include <linux/kernel.h>
-+#include <linux/overflow.h>
- #include <linux/string.h>
- #include <linux/ctype.h>
- 
-@@ -26,7 +27,9 @@ static int get_range(char **str, int *pint, int n)
- 
- 	(*str)++;
- 	upper_range = simple_strtol((*str), NULL, 0);
--	inc_counter = upper_range - *pint;
-+	/* Keep the sign of the result when the difference doesn't fit */
-+	if (check_sub_overflow(upper_range, *pint, &inc_counter))
-+		inc_counter = upper_range < *pint ? -1 : INT_MAX;
- 	for (x = *pint; n && x < upper_range; x++, n--)
- 		*pint++ = x;
- 	return inc_counter;
-@@ -122,6 +125,14 @@ char *get_options(const char *str, int nints, int *ints)
- 			range_nums = get_range((char **)&str, pint, n);
- 			if (range_nums < 0)
- 				break;
-+			/* The range didn't fit, so the array is full */
-+			if (!validate && range_nums > n) {
-+				i = nints;
-+				break;
-+			}
-+			/* Leave room for the upper number of the range */
-+			if (range_nums >= INT_MAX - i)
-+				break;
- 			/*
- 			 * Decrement the result by one to leave out the
- 			 * last number in the range.  The next iteration
-diff --git a/lib/tests/cmdline_kunit.c b/lib/tests/cmdline_kunit.c
-index af44ae9e92c3e..74c4b5ea32250 100644
---- a/lib/tests/cmdline_kunit.c
-+++ b/lib/tests/cmdline_kunit.c
-@@ -139,6 +139,44 @@ static void cmdline_test_range(struct kunit *test)
- 	} while (++i < ARRAY_SIZE(cmdline_test_range_strings));
+ static void inode_unpin_lru_isolating(struct inode *inode)
+ {
+-	spin_lock(&inode->i_lock);
++	lockdep_assert_held(&inode->i_lock);
+ 	WARN_ON(!(inode->i_state & I_LRU_ISOLATING));
+ 	inode->i_state &= ~I_LRU_ISOLATING;
+ 	smp_mb();
+ 	wake_up_bit(&inode->i_state, __I_LRU_ISOLATING);
+-	spin_unlock(&inode->i_lock);
  }
  
-+static const struct {
-+	const char *in;
-+	int parsed[4];
-+	int validated;
-+} cmdline_test_range_overflow_cases[] = {
-+	{ "1-100",         { 3, 1, 2, 3, },    100,        },
-+	{ "1,5-100,7",     { 3, 1, 5, 6, },    98,         },
-+	{ "1-2147483646",  { 3, 1, 2, 3, },    2147483646, },
-+	{ "0-2147483647",  { 3, 0, 1, 2, },    0,          },
-+	{ "-5-2147483647", { 3, -5, -4, -3, }, 0,          },
-+	{ "2147483647--5", { 0, 2147483647, }, 0,          },
-+	{ "1,0-2147483647", { 3, 1, 0, 1, },   1, },
-+};
+ static void inode_wait_for_lru_isolating(struct inode *inode)
+@@ -894,7 +893,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 				__count_vm_events(PGINODESTEAL, reap);
+ 			mm_account_reclaimed_pages(reap);
+ 		}
 +
-+static void cmdline_test_range_overflow(struct kunit *test)
-+{
-+	unsigned int i, j;
-+
-+	for (i = 0; i < ARRAY_SIZE(cmdline_test_range_overflow_cases); i++) {
-+		const char *in = cmdline_test_range_overflow_cases[i].in;
-+		const int *e = cmdline_test_range_overflow_cases[i].parsed;
-+		/* Two guard elements past the array handed to get_options() */
-+		int r[ARRAY_SIZE(cmdline_test_range_overflow_cases[0].parsed) + 2];
-+		int n;
-+
-+		memset(r, 0, sizeof(r));
-+		get_options(in, ARRAY_SIZE(r) - 2, r);
-+		for (j = 0; j < ARRAY_SIZE(r) - 2; j++)
-+			KUNIT_EXPECT_EQ_MSG(test, r[j], e[j], "Pattern: %s at %u", in, j);
-+		for (; j < ARRAY_SIZE(r); j++)
-+			KUNIT_EXPECT_EQ_MSG(test, r[j], 0, "Pattern: %s out of bound at %u", in, j);
-+
-+		get_options(in, 0, &n);
-+		KUNIT_EXPECT_EQ_MSG(test, n, cmdline_test_range_overflow_cases[i].validated,
-+				    "Pattern: %s (validated)", in);
-+	}
-+}
-+
- static void cmdline_test_next_arg_quoted_value(struct kunit *test)
- {
- 	char in[] = "foo=\"bar baz\" qux=1";
-@@ -203,6 +241,7 @@ static struct kunit_case cmdline_test_cases[] = {
- 	KUNIT_CASE(cmdline_test_lead_int),
- 	KUNIT_CASE(cmdline_test_tail_int),
- 	KUNIT_CASE(cmdline_test_range),
-+	KUNIT_CASE(cmdline_test_range_overflow),
- 	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
- 	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
- 	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
++		spin_lock(&inode->i_lock);
++		/* The walk restarts here: don't retry leftovers right away */
++		if (!mapping_empty(&inode->i_data))
++			inode->i_state |= I_REFERENCED;
+ 		inode_unpin_lru_isolating(inode);
++		spin_unlock(&inode->i_lock);
+ 		spin_lock(lru_lock);
+ 		return LRU_RETRY;
+ 	}
 -- 
 2.53.0
 
