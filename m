@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408583;
-	b=UL1Ntd5cFcR1dV1ecVFW3jOqUd+YJsXrCqoP+/XIoP9Gy8+qtn2j3qik0oTdaMzrskvG
-	 zdUPjOb8DPiOhr8+GuTPg8mh9U509iLeUxHe/dGMCGj8NT0gkW2eyNgztai+jlCWR4fFq
-	 9TfsHYxH2EaaNYF1GThi7jRySW2GqdgzJyBibbpfzURjH/q8sNpD8sZsQaeVqklnhMbS3
-	 GERb+cr/YesYNyjYQ5xLCnpwV2+EyUwUzGwVsiD1bA35qsCEgS5Q/vTLnM3TlvwvdSEaf
-	 wA8Wvr4Aq10i+CXxUM6m+wVSNrb3tzY69GvRW7TOdeQ04gt4cCAejMTd7Mh7Uo0SmFw==
+	t=1794408652;
+	b=Dn/8Y5+M8iT6frLDHbRctMduGJ4FNzVFaqvfa1EkTNnTAMsaZIYj3NOS3IJyf4NT3H40
+	 a9mclZrBOcAALmiATgH/ipSC7MjcTUg1aVu6KYPP+gfYGr7um4akdPg4quEOz/eKhgV4a
+	 bAGT5rE/aQTy8ve4DFwsuTMJR7pgh1StoJIWEz+2HPKx9Mx7KV9P+M5cCTRUL9xYl9Pwr
+	 5F3RgD9OWXebpgpeHTrqPAH/C7drCny2BVH57cFG+r6+uFD+D6P1M8qm64uoRHCRZUAsr
+	 Jmug5y6WFUX9fDG3nU+vbasUjAQYtymtMgFIALa0iHt8ae5Dbtx12IiTzdnDWCHFoLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408583;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9i9IiI3A450HQ9IqVvcRGXkuc1F2HaWaNxBeI3LtCTc=;
-	b=hupBRJuRdl+tt6j/ln2GH/FV3haHBRo0SszNYb4fyY3V+7Ao0X3GD5wbQKn36EqTAg6s
-	 8QIigimUwd9Kih9/72Ll9WSq7/5LZyr2nKM2BshiFklv3jkpz3iKDwrI4VAYoUqM7AWF/
-	 K7liir/ZDsJMSphWh4UC0AK9NDZfnOgM5Wx0vCiUQH4rQI4WS8LSOX282DsnhsYLtMlWe
-	 Pnfpqvb2oxqUgxOPKCZayHdnxU1EsVK1V8O8pJtOKqVaCxK8/7FKmkvYIwKPEP/SMqTdb
-	 5+na1jvzpQ/bnG5+RIfJ0MH1c5vet/2Hu76MnU/dkpFPWHQoHt9+bdelf6+9EKrYzlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408652;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=CRO5Tel1RjzXs1ay2+39z6lAjKHeD4/T/34ACHBY2o0=;
+	b=4/dJutJjEn37O8iCF5nVfQ9zvO6ZE3ZY6KWj9Oacyy47k5T4ezjxSfgdG+kdVi799Gd6
+	 Kzv1Sf09I+bdCC/+7ud4MVJV1Rduzon/AYbSOcJdvWDGgqvA949xYo8HUCNajQVgDzi4h
+	 9bFv1whcIfIWkhXSsn8LaX6Km9EhaOqoIhcn1ePSDbwullry0K5M1SGVoj8qoIiibzuN0
+	 wzZUOfik/3K8gMnABI3x+Pk0kvW74DuZQ2B4l78/oQYIZbdE9UllS7V04GV4Cj4YNE4Tv
+	 WhH6L/jc8r03Rl0IYvP2VIz+j7yk0W9OdvWjz0Hiy7YPh9pi/66xUsKHczpsrzOAR7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BY38nkX5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oquIw1Lu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B64C606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:49:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A74606A33E;
+	Wed, 11 Nov 2026 14:50:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BY38nkX5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B2C1F00A05;
-	Wed, 11 Nov 2026 14:49:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oquIw1Lu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CCB71F00A07;
+	Wed, 11 Nov 2026 14:50:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794408582;
-	bh=9i9IiI3A450HQ9IqVvcRGXkuc1F2HaWaNxBeI3LtCTc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BY38nkX5maJhKOONH2WygiR6KM1njPcn3YivlPwEyIzig9Yz4LSmwxdsrFOFLa7u0
-	 ugMT6qVqC2/sKgjs8hDJNkzIsTAYuU1y+pLhitFlUpiJGWFTlhlUVAOWdRNFCd7t2r
-	 V5blzlJkktDeMdvbXa/HoPWJXeGJmvUzuUSwDIkH75hZ18U3M1rvyX3M6W/kdoMBQt
-	 mwU+z/cr2V+JIWdSJPMhDQuXMy+AgkPi2RTVKibH7w0ASHqUS4i6lwbuFaBBk7Bll4
-	 JD/xQOt8t8Y6330dP7JOz2sycVCl50V+55NF+BKFLlFU4PnscoCV1f93LhSqBrH3VA
-	 2tdsrzTy6sw+Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Stanley Jhu <stanleyjhu@google.com>,
-	Bean Huo <beanhuo@micron.com>,
-	Peter Wang <peter.wang@mediatek.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] scsi: ufs: bsg: Reject UIC commands with a non-zero result byte
-Date: Wed, 11 Nov 2026 09:49:40 -0500
-Message-ID: <20261111144906.2397622-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061114-failed-5.15-1ae42513205a@kernel.org>
-References: <20261107061114-failed-5.15-1ae42513205a@kernel.org>
+	s=k20260515; t=1794408652;
+	bh=CRO5Tel1RjzXs1ay2+39z6lAjKHeD4/T/34ACHBY2o0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oquIw1LuPko9xQrUJELBnwskn345Pa0CjNLnbaWuTe1gPG46TRshOlT3TQTMUsqWr
+	 H5HPwgGE2gaTAEiCIIPcRxefE/kDsuVfCrlIruA+VfqXzNAE+AZqo1RBFiaP9D64+X
+	 chT/Mt7RzF/In9eWtub/qYXtnu7lb18rmyQtPEC+na4fQBU00FTD0BjKK79DNcz3py
+	 ker3YOqseqzE5f9NMCriCvAZJKaA1plKrNeZJiPPPj2anRJ3lLh3FpFXfKyiOQUM4A
+	 zpEvBx9/ykoYnWsNrmihF87OpWsKUmIJYkwO+ng+MmQP0mIXpEDwVBaG57p/04JaT4
+	 ftu1eTthVnb7g==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xR9ez-00000000VcO-449A;
+	Wed, 11 Nov 2026 15:50:49 +0100
+Date: Wed, 11 Nov 2026 15:50:49 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH 1/2] serial: core: do not hold the port mutex while
+ waiting for references
+Message-ID: <avSAyV6QE0Id3rAk@hovoldconsulting.com>
+References: <20261104-serial-core-remove-deadlock-v1-0-6a30597adcbf@vaisala.com>
+ <20261104-serial-core-remove-deadlock-v1-1-6a30597adcbf@vaisala.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,50 +63,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-serial-core-remove-deadlock-v1-1-6a30597adcbf@vaisala.com>
 
-From: Stanley Jhu <stanleyjhu@google.com>
+On Wed, Nov 04, 2026 at 10:27:15AM +0000, Tapio Reijonen wrote:
+> serial_core_remove_one_port() takes the port mutex and then waits for
+> the uart_port_ref() holders to drop their references. Since commit
+> 8ca59f7baee7 ("serial: fix ioctl hangup race") uart_wait_until_sent()
+> takes the port mutex on every poll iteration to check for the hangup
+> before it touches the hardware, while holding its reference for the
+> whole wait. A tcdrain() in flight when the port is removed therefore
+> deadlocks: the removal holds the mutex and waits for the reference,
+> the drain holds the reference and waits for the mutex. Both tasks sit
+> uninterruptible, and the port is unusable until a reboot.
+> 
+> Reproduced by unbinding a UART driver while a process drains a few
+> kilobytes at 300 baud: the unbind blocks in wait_event() under the
+> mutex, the drain in mutex_lock(), and reading the driver's proc file
+> blocks on the same mutex.
+> 
+> Drop the mutex around the decrement and the wait. The decrement is an
+> atomic paired with uart_port_ref() and uart_port_deref(), which never
+> take the mutex; the clearing of the port pointer stays under it, where
+> uart_port_check() readers expect it. Between the hangup and this wait
+> the removal already runs without the mutex, so a mutex holder seeing
+> the released port is not a new state.
+> uart_wait_modem_status() takes a reference and then the mutex in the
+> same way, with a smaller window, and is covered by the same change.
 
-[ Upstream commit 1ae42513205a38b811afedb6797f9f9c4de37b90 ]
+Thanks for catching this. I can reproduce it here as well, and we should
+fix it even this is hardly something anyone would hit during any kind of
+normal use.
 
-ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
-including the result byte (bits 7:0) that only the host controller
-writes. A non-zero value triggers the WARN_ON_ONCE() in
-ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
-syzkaller.
+> Stable trees before the guard() conversion of this function need the
+> same change with explicit calls: mutex_unlock() before the
+> wait_event(), mutex_lock() around the store of the port pointer.
+> 7.3.y has the guard() form and takes the patch with a three-way
+> merge.
 
-Reject UIC commands that have the result byte set with -EINVAL.
+Right, the guard conversion makes any backport a bit harder, but that's
+something for the stable team to deal with. So you can drop this
+paragraph.
 
-Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in ufs_bsg_request()")
-Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is invalid")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Bean Huo <beanhuo@micron.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20261015001855.3450573-5-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ sashal: adapted the patch to the older UFS source layout under the SCSI subsystem ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/scsi/ufs/ufs_bsg.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> Fixes: 8ca59f7baee7 ("serial: fix ioctl hangup race")
+> Cc: <stable@vger.kernel.org> # 6.18.y and older need the open-coded form, see below
 
-diff --git a/drivers/scsi/ufs/ufs_bsg.c b/drivers/scsi/ufs/ufs_bsg.c
-index b8bbfd81b8ae0..207b220e451dd 100644
---- a/drivers/scsi/ufs/ufs_bsg.c
-+++ b/drivers/scsi/ufs/ufs_bsg.c
-@@ -123,6 +123,10 @@ static int ufs_bsg_request(struct bsg_job *job)
- 		break;
- 	case UPIU_TRANSACTION_UIC_CMD:
- 		memcpy(&uc, &bsg_request->upiu_req.uc, UIC_CMD_SIZE);
-+		if (uc.argument2 & MASK_UIC_COMMAND_RESULT) {
-+			ret = -EINVAL;
-+			break;
-+		}
- 		ret = ufshcd_send_uic_cmd(hba, &uc);
- 		if (ret)
- 			dev_err(hba->dev,
--- 
-2.53.0
+And just drop the comment here, and if you want to help, send a backport
+when the fix fails to apply to older trees.
 
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Tested-by: Johan Hovold <johan@kernel.org>
+
+Johan
