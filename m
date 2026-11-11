@@ -1,146 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.68
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794414317;
-	b=ET3GmrgfBCQZUUGTAqs0FghwjKi4W6z8s0Cnlk62VNvio3ECtdrTN3gXJnopdVc0O+Fd
-	 n6bqZ3YxEHSU2lI1UyIKurgkr4vjkLRxLW9GvtG+S3m/OudlufyBzef3K3zeHkZgR7Qe8
-	 GZTArDEx7bgriuBaxKFI3Fr6ceWj5+bkdg6ToMSG0R1Qh2Vug7ZoVpVKmjJakxuslG6sW
-	 +A8iAjRwiNu4hya4IKo34aQnBd3Cq5Lx5hX/f6Kkp7iSe4WgknMEB6ITvNboxTnntVxy+
-	 RWaIInorhetHcco4jprcyGNdrDv74EXnsjW1jUY2nSyK/QOpN1wdih9ebE+r8ktfpjQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414317;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=I+z4nd9qQ0iMp7JKMqS4X3TtPZm1M+rNEyVbQO7QWLs=;
-	b=ZIUBsOvQJwFwGw/fkzXNL6Ei9Yvl9MuTuwXqb42KggQJMLOIEZdbDo3O1cLZrXUJO2xU
-	 jBOC43iAEJkcDaunFekLViD32SONJU1jRWLelozJNtMoMbF36nZpdUCiWOcUhNWvDs3lo
-	 ogNFbKP9VnPm0Z6qmMhNnXdxIe/Fp1C678Ofdne4hQq+LsZFxm0gs2N6FLUZWugFfPxOs
-	 UeCZARyxrB7aRAgxGodQFp95GYDexYYjBJO77CZNOXvFFDBwr3Lq3cFUw6bxklTqFdOxQ
-	 90CcPwSReSjmkmFMhvKrNMXiDRZ2UYg4dH0djpcaOilu93e19ru0TOdnSs/JVSMw5Dg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h8L3z00Z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.68
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012068.outbound.protection.outlook.com [52.101.43.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794414429;
+	b=16y5mwP+Ov77SGnY07cNN2HoUEY++p9j0qxvDQfKhaMGULoGUBQU6AS77Z6g26IA62Yt
+	 Idx1w0p11W34C0e+OeVzcI2JNtfVUa3WGZMR2c+oI5oa6rkzFD3rirC4O84TXGGSKIDCH
+	 WdhUyJjnBgpv7oT8M5bG2j6tc6FHItaW9FWkD4tEXtBlsWEaOEy8xWiZX0NQgMjOiKouJ
+	 /hEDx/+DaYcw8hmkCPe9PrZx0J+SdluIInHTJjnHJmbl9EG9MYc0McDkTejg+PI+ARrQy
+	 PsnDFTE7eroasMEEIhZDphqsMUE0h3GU2+7u5zzKWKybw7+lUPjS20v/HJ/VFRCtouw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414429;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kmVh2q2hoDBqiX4Uz/7oHg+C+WnsN1l5lj+X9HPrX/o=;
+	b=teUgeSccDneEPnpokeE/nhFTjhvhzmWj0siYGAJXUsiCYO+xL3e1jXjJrOgpb7qs3vyc
+	 /R1Lh/+tdRsu3Sucq4r9eNU3bPW2QUUOCqcKbyDnl67IFjjY5peNH6jh9tlBLUG/5qrg9
+	 e+il4W06xBNxz8pTlWQnzoa+KhnWElf57J6w2d7/smS9hNVIhBldOvOK78JCapr96YJzu
+	 za9ykH+OghGTnrNRBNU3PCy0KI7im4/aPSFFe7wBQGgAlA4CGdnVDej7xOjAUxgi+zQSU
+	 VsAQpeyTRg9M7qbYp/jAeWNTqAmXqzXSQUl/XTd3GjMqq51cqHCju1vTMb017fBlbvw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jTbeqADq;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CEF606A33E
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4CEF606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A0F606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:27:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57A0F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h8L3z00Z
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fcBCGsMfozHhHaDWj52PtNK/wVPH3uL930RRMEpGVuzyFSaXD5VS7piDtarblDlZcbH/IVmiWO623Qz54aTicpfzqGhYjNsOCkGbybQQf3cET47U0DR2PJpTr0SrqlD4/roxo0aXzAouvmSNJ3yIF3Q7BM442pQehU8tL53UO4dQDl795QknYZN2qjgBs9dAxya9FQJ6panar9LvOcboud2UZaHOuM7kW9QxPXp3TyywxP3rOruxtMkni7ck9fkUzi5gTdnFl8b4ESHvtTwNa4fMAvHQfWZu7bdBDq1+wyQx+dpINh3IvPE0WN6CNwQ+rIxZe7azarn3loBA0ofgkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I+z4nd9qQ0iMp7JKMqS4X3TtPZm1M+rNEyVbQO7QWLs=;
- b=MtMrh3nxoBKeh7oiigCiHzMGk1fkUHOJb8sExrR5UuxUcaQL6ADa4zPuCf4DWnzsYO99sTqQ6NhYN/d4R4AuYiSjXkATDlP3YBEgwqp8YNRh9ii1iKibtmRR1ZI7qkMQa1s3csxhmEEILRwb00WMc8pgpWENE91XP5bc39KHGYbEDDnLydZOknM9Bnxnw3dpJz9InVC+w+6sgG0TaF9xNsGXM/zAGLkEHzCMERTIMqJ5pqsSvPU4MOGdVTwp8JGdIvKoQZrodg0jloPM6AynaQxK7MzidcwqQwve0+2bezTovWkNfnK5yjfQt7pdwKrmlvZPppXfak9sFMKSmNx+DQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I+z4nd9qQ0iMp7JKMqS4X3TtPZm1M+rNEyVbQO7QWLs=;
- b=h8L3z00ZTSD8OvA+MWfLpQpBIeym0NLYCDDGLGU0lEwBWq3H+CqgxulyHG+VZltCdp3WtkzrBUqEHAhANDOH5AvXeKmrPkqMqoZgrSG1VZmJ7KzipOqZkXnGTn7BOSHCimX+8MiemyUOF//eRiZujUe02AwTOyBIGNEdXK3UGGQ=
-Received: from PH7PR12MB6812.namprd12.prod.outlook.com (2603:10b6:510:1b6::15)
- by LV2PR12MB5824.namprd12.prod.outlook.com (2603:10b6:408:176::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
- 2026 16:25:11 +0000
-Received: from PH7PR12MB6812.namprd12.prod.outlook.com
- ([fe80::a6a8:1bde:c3fb:1069]) by PH7PR12MB6812.namprd12.prod.outlook.com
- ([fe80::a6a8:1bde:c3fb:1069%4]) with mapi id 15.21.0615.008; Wed, 11 Nov 2026
- 16:25:11 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Sasha Levin <sashal@kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-CC: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>, "Rodrigo.Siqueira@amd.com"
-	<Rodrigo.Siqueira@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, Wang
- Jiang <jiangwang@kylinos.cn>
-Subject: RE: [PATCH 5.15] drm/amd/display: skip pre-flip post_update on DCE
-Thread-Topic: [PATCH 5.15] drm/amd/display: skip pre-flip post_update on DCE
-Thread-Index: AQHdbQToOOTaBc4iQUe5amwWOc+oOrcfz96AgAlIOXA=
-Date: Wed, 11 Nov 2026 16:25:10 +0000
-Message-ID:
- <PH7PR12MB68126E767A5D04C4948DA93BF7712@PH7PR12MB6812.namprd12.prod.outlook.com>
-References: None<20261105090543.930342-1-jiangwang@kylinos.cn>
- <2026-11-05-1-daily-reply-0008-dce-post-update@kernel.org>
-In-Reply-To: <2026-11-05-1-daily-reply-0008-dce-post-update@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-11-11T16:24:10.0000000Z;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
- Public
- v26;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB6812:EE_|LV2PR12MB5824:EE_
-x-ms-office365-filtering-correlation-id: 8d4992e7-a071-4bcc-aa14-08df40105b92
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|18002099003|22082099003|38070700021|56012099006|4143699003|261028144727099003|261026140227099003|261026121527099003|261022105027099003|261102123227099003|261021121427099003|261021135927099003|11063799006|10067099003;
-x-microsoft-antispam-message-info:
- COp6BI4zGQaOId/IKG4KZZGHaTamhUXteIdEi6PUduLFzfOTINZhue/pXi30DYxfq0ysyLBLLh0f7ebkaZ6kgXFA5GGmomVbjCwgKCKH5Cp0vXu7WrH8nr23gwt7mUKpWjEaqH/lX390Q1KXtwhLks0jNv7bBVI7MdSa0cHP/2S9M/LTJ+UyQNkhlttBBkN/cA6p00A5eHa+y/SSnFjJUfPiF1w0N7TUocM/zb2dXUjQ1j2O+R3Ve0fSOu+oBwZKCOcObZKbgaAZh0BrA4Zoh8g+puNqdJRAh+b9jkmHUVPmE+HXZt1m2d9hJUugAtWyChKknpakqod45R/94oJHOrJ3HXJd00Qv36+ypRR4yfy5BAz6GV8hNnGLAeAb1uTSMGMtMtB4Bq8pQ2UhHa1NOakOtRQLTqgp69GK15Qvg8Ni4T/TLPBTfN81tPgsnL0ArMglyO8G0nZBcg37c7jdycPsTUlftxlbEHLmoX59sO8CAgQVYBT7troTOkJRsFIMlnKckts0dJJK52AixUJE+yqtY5LJueyi/1TK+znJN8RfD9+5F/Sm4wYBd4zR8qxA8GsWKQ4fBuGW9GDPbUfYr5W9s68pbr2JCjhHgwWFl2wCAEv6fH2BOLJtlRvqjhNPum+kUe5LS8Wtdy7wK62RQUQ3acHHLWAuIMhhP0BFFZaQ1BtYO9sUPG39tLawUg9EvLUVLCVHEVxgeq1hzu7r1nqABrNeKvlSdXm/YN+G5IM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6812.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(18002099003)(22082099003)(38070700021)(56012099006)(4143699003)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(261102123227099003)(261021121427099003)(261021135927099003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?+wGaqXHdKw9My57HXFXyAb+OBbaoHs7TIsoxE45XIfsErCir1fzCHYjsBCDv?=
- =?us-ascii?Q?+dmFmZ6mAL3wBeO7v9XbgncgJizGHBcUFxoGU+GYRNgb7ABzWCgBsg3c6UDU?=
- =?us-ascii?Q?lzPblUO/Y5KxNL21aWI9dB2QRVli21eg62c94gPI0jjQJj4B6H8cKJnLKXwG?=
- =?us-ascii?Q?C16Sf9SaSOHAUizN/y31Ml1DbkWLf24XvKlw3brFuVu0MAjDGn0VHwjqch5e?=
- =?us-ascii?Q?mG7zze7v1+5kSTTTGPf9JDRvTlN9EFFHrsTTDQyxwShVtUIsoBd5OWa39E2u?=
- =?us-ascii?Q?jbsNNPKoau7/X7QC5ip5LPUItlqhV5sSOxjOOto4bCcfFYnuhjmscOEAARPt?=
- =?us-ascii?Q?OQTaUNtBe7PJpU0m/nIqkDgnZXIAqfDBQtWqkQ0KH25P2YBIw+213kEg6scR?=
- =?us-ascii?Q?7FSbZg9QIuQMthgIYshjGwUWtfigJI7bp6v+Eo7rfxdISwbQVDNaD2of/CHP?=
- =?us-ascii?Q?+G3tmXHnVIsrUTvZCkg3StSC67V+/kf5KUvoFSzoWo7Ufh/EDYVNfNkTyNT9?=
- =?us-ascii?Q?YdnN9drv4VVKnKKs6J9UT4zRjKF3y7VT1yXroOMq7tymzD0TslkdYcp1gJYB?=
- =?us-ascii?Q?/4E59CvjidgVBPkmPG6lioQnYjYKxa6aEE9EwwhhYrcFXEE5yfAUTpD5EPm/?=
- =?us-ascii?Q?gQK1VwJ0F90k1s93lCKeSgsIVu0i4pcdPlknB7M4SBQVLbJGmMNeb1gwoyR2?=
- =?us-ascii?Q?a4phkS15HoYfRNaQUIc1CPDXJDr/10xAg7QPmXtr1rrIr+OSq3dGmOnwHiFI?=
- =?us-ascii?Q?Wq7/8728HxeJ3/XCmfx9MzmEHR+K2XuCDUmlNFpZmduCCHDo5/9mAuMfTSS4?=
- =?us-ascii?Q?GqyAkbkftmiEz3UxQzECg12EHo1Nw3EfLDhbTsWaZY6/2qTb29B0FMsy6ZGS?=
- =?us-ascii?Q?G8+aQ1dGDQTiDveTsdgcQuL/fMuPyuNvdFA9NPIneyK45/cyMWZ2oG6xANxm?=
- =?us-ascii?Q?tSkaXOE9jHZuNSwMjuNwk32+OF7HWkOjFnaeG0LH+Nw8d92mvlHfWjWKmmNB?=
- =?us-ascii?Q?SjCQ7JcQxl6xV7mt5HeFIbe3bP2lcLxY3SMBWd8WxLUFPMeEcZb7gFFzST04?=
- =?us-ascii?Q?iGUxqsWfG4DURgRUSLxn7h/8V2Q984nDLaDQSGKvkegMEZxPTA4KQlqOo4th?=
- =?us-ascii?Q?0CrqJF65hDui1m0KTe6zMTN6QBVo5oaV5jd79VIAfJFBgtYcP7YBNEQ6Faxz?=
- =?us-ascii?Q?C90AMU9/UAnfcDqgEF5N+DtuHSpk36WA1OjTQTjOAbnZ72NOeSASSUTHsZiy?=
- =?us-ascii?Q?9tHLASp5trdPqBxoxwpMtDB0O9nek8n+ysNrqgsLjZCUPd+nQ9t7ByaAtjU8?=
- =?us-ascii?Q?1Umu+eKc3WlGaWTkAwuFp1wq6sBCNz5ki7NLF27YcLEkTRmEhkzGPx0ex9av?=
- =?us-ascii?Q?Y0pRBOWZ6RtHQnMNSFMcAs8Qxuz+EGv0u9QQkI9d7noYc02PDLnx67A5DQ4+?=
- =?us-ascii?Q?lFYGqt8PMByT/Hpq4cYHUrNNJ35eH/35GVyF3MM5PrvDl6cvGNGsou/F+PlG?=
- =?us-ascii?Q?HJa1OUmR9GukkzAEW4Zt3AxAVqCoF6S3zURYsdO+b+8jMUMbAqYs5r18j5VT?=
- =?us-ascii?Q?vtt1otM3p/ZbkNDMKg/PP1TjDu0SCm7bc/IpDnYvrHVeNrPeOfWDrU7MGiPw?=
- =?us-ascii?Q?mpq1ISJDTY1CbabFcAPUcRRI8z16zOVYvaOadjQGnaxIU25kdZ6e2AM66agm?=
- =?us-ascii?Q?WVDr80HnMNMvAh6s8bM/iEEXMbe/NxaD8XW9j0yXqzEV05v9?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jTbeqADq
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-490585eddfcso2620551f8f.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:27:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794414428; x=1795019228; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kmVh2q2hoDBqiX4Uz/7oHg+C+WnsN1l5lj+X9HPrX/o=;
+        b=jTbeqADqi91Gqw+fkOctkx3GVd3Jt1bpvIADJ5uCM27fyE7hAUwven/vSt0nYCCdFr
+         IqUZTfWY+l6alw8r50Wl2QRxt3+j4t6J7hita6vQzOedaDuSBbz87axGBYTffrWszbsr
+         2RFzJ39hv0MBxTgas0M1UBUYrArmlJks7ReOFU7XOxMc8fiwUcmu/zfz6HpnwmyrJjg0
+         WbGcZmfuWJV64dqx0oKnCONfPx0SX1CFx3v5XASJoxiT7Oz24f5JLebR7/R6yV6tS7bh
+         lVUKeGMPST2tz8dVrYxq2vd2h4XhH/yEEiQtiKdGqeNAe5BmB3wxFyKSs4ZUjucLPqUp
+         FmSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794414428; x=1795019228;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kmVh2q2hoDBqiX4Uz/7oHg+C+WnsN1l5lj+X9HPrX/o=;
+        b=eAuBnMJnpsu8qyciZ/KHi2v9sXNszdTZHq4McScZRRubwdNPIroGl/uz40CLWgy/kS
+         2J3KuFcL7v0MNAPlSZos/TP6ZuMRtJ8MFpIGWvn3Ayw87nVc+zSxQZKE0xe9ErWE6KZP
+         bosrx7zYd/KcYh3QamPFd4VgK+ALfjoTi0Ufkev+eqBi1oBd0ljMHZOB2qstl3ih35MZ
+         3ZAlMT9K0Iq+6YmNBZlbWmrR5TkZkJZib9GrNZ6BNx6gzC/qH28kMAHW6Vu90tEL1yX/
+         41XfhALY/2+ILvIWhPCneDcFkDzanXCnFdxMVtzkoI6pmy52q10KKUtnPWXSvA8C1oeO
+         OU6Q==
+X-Forwarded-Encrypted: i=1; AL+hErHiO/QJFbiaumLoRVTSQRJ6T4wAIYu9Ux4MkHzw8+hjHCrc1LQttyCBP+jzwy0SRY0Qt1W9934=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8swCFjAZ2uygblXe27YotYJuMkxu9Vy9tEc4xsvpdtBc4TEYpU
+	ff2jPQiT3uTEz+HDW92+wBcgdahLZ6nH3neMqDgf7iK+4pm+eoY2kCuA
+X-Gm-Gg: AYBFou1KmdwTUTDK9WiSI26htRWXo34VZcACgIhIwUcWjZVVOlBUlpAVEDfTCVimLD1
+	oh97b0qiyPFniw5omMkSsRgciT/pCI2L4uVl40qHkszNemim3B/ktXfYzq7mBC6xXzZF49HIqwQ
+	8VIMW47G56/PRUJabFpPurCr5uBbu4+irssTAoaJWPaY/i+Sd8xjHCjg2g+Y+UeX3x4sqBo9S6e
+	Ubqoo4LNq+LHWKsMKmPUicNxsVTHTCuvLmeY97bfuztJPRJ6nABD/7PJuVSidPDarKN4kvyGUdm
+	SUKXHuAQL4g2IST76K0whaiuA7TQXjfTY8z8t2AVC1CoXa8SCs2uBiNvqkZWR8eFc4/0nZAmTlU
+	fH7QwLAWhxdHj3b2p+US+QQpktXN97d7AwK8ZJw/B82k39n2DFqgf5r9va0uM3yigZawIN6Gd8e
+	goKY+JvUgc0L+1rX0eGdFFAdJ78LUXXxsFGJJmIbsjm9jw07rxTqdj24FrB83r5hLwxl/xNqKig
+	GSS9xFC8JQzmVhslPsIAXHmcfOt+okOLZdk5gXlq0niTH7UocpMu1B/45CDVHDP1ROPYF/STt/6
+	LI0E9KtvML7JzMGgOyJGA5R907NqijVAVA==
+X-Received: by 2002:a05:6000:220d:b0:48d:db77:d124 with SMTP id ffacd0b85a97d-499c4815411mr5481170f8f.6.1794414427394;
+        Wed, 11 Nov 2026 08:27:07 -0800 (PST)
+Received: from build-server.. ([62.96.37.222])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498366c500asm11472573f8f.48.2026.11.11.08.27.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 08:27:06 -0800 (PST)
+From: Mikhail Malyshev <mike.malyshev@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	io-uring@vger.kernel.org
+Cc: Pavel Begunkov <asml.silence@gmail.com>,
+	Felix Moessbauer <felix.moessbauer@siemens.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] io_uring/io-wq: apply the current cpuset to new workers
+Date: Wed, 11 Nov 2026 16:27:05 +0000
+Message-ID: <20261111162705.1150983-1-mike.malyshev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -150,45 +98,156 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6812.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d4992e7-a071-4bcc-aa14-08df40105b92
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 16:25:10.9509
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BwnUabdMz4w/EntqFdXWgW6fs4plJzTAk/jBoBc+D+XgGtZa5nqmp8Nz7cK1ro5CPVBg8d6BWCqgE05KouHeZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5824
+Content-Transfer-Encoding: 8bit
 
-Public
+Since commit 84eacf177faa ("io_uring/io-wq: inherit cpuset of cgroup in
+io worker"), io_wq_create() copies the cpuset of the creating task into
+wq->cpu_mask, and io_init_new_worker() gives each new worker that copy.
+A cpuset change, or a move of the task to another cgroup, updates the
+workers that exist but not the copy, so workers started later run on
+the CPUs the cgroup had when the io-wq was created, which may since
+have been given to other tasks. Workers come and go for the life of the
+io-wq, and a worker that cpuset moved is also retired at its next idle
+timeout and replaced on the old CPUs.
 
-> -----Original Message-----
-> From: Sasha Levin <sashal@kernel.org>
-> Sent: Thursday, November 5, 2026 1:39 PM
-> To: stable@vger.kernel.org
-> Cc: Sasha Levin <sashal@kernel.org>; gregkh@linuxfoundation.org; amd-
-> gfx@lists.freedesktop.org; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Kazlauskas, Nicholas
-> <Nicholas.Kazlauskas@amd.com>; Rodrigo.Siqueira@amd.com; Wentland,
-> Harry <Harry.Wentland@amd.com>; Wang Jiang <jiangwang@kylinos.cn>
-> Subject: Re: [PATCH 5.15] drm/amd/display: skip pre-flip post_update on D=
-CE
->
-> > Restrict the pre-update call to DCN, matching mainline behaviour.  The
-> > full mainline rework does not backport cleanly; this is the minimal
-> > equivalent for 5.15.y.
->
-> This is a stable-only fix with no mainline equivalent, so I need an ack f=
-rom the
-> AMD display maintainers before I can queue it for 5.15.
->
-> Alex, Nicholas, could you take a look?
+Keep wq->cpu_mask for the affinity of the io-wq itself, all CPUs or the
+mask set with IORING_REGISTER_IOWQ_AFF, and intersect it with the cpuset
+of the worker when the worker starts, falling back to the cpuset if the
+two do not intersect, as __set_cpus_allowed_ptr() does. Use the same
+mask in the idle exit test, and go back to all CPUs when the registered
+affinity is removed.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Fixes: 84eacf177faa ("io_uring/io-wq: inherit cpuset of cgroup in io worker")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Malyshev <mike.malyshev@gmail.com>
+---
+Tested on x86_64 under QEMU/KVM (8 CPUs, cgroup v2, PROVE_LOCKING,
+DEBUG_ATOMIC_SLEEP, CPUMASK_OFFSTACK) on io_uring-7.4 with and without
+this patch. A test program blocks requests in io-wq workers around
+cpuset changes and checks the affinity of every worker:
 
->
-> --
-> Thanks,
-> Sasha
+  case                                          without   with
+  cpuset 2-3 -> 4-5, new workers                FAIL      pass
+  idle worker retired after the change          FAIL      pass
+  cpuset grows 2-3 -> 2-5                       FAIL      pass
+  task moved to a cgroup with 4-5               FAIL      pass
+  IORING_REGISTER_IOWQ_AFF 2-3, cpuset 3-6,     FAIL      pass
+    then 4-5, then unregister
+  CPU offline and online                        pass      pass
+
+No lockdep or sleeping-in-atomic reports. The liburing test suite gives
+the same results with and without the patch (iowait fails in some runs
+on both kernels: 5 and 7 of 20). A liburing test for this,
+test/iowq-cpuset.c, follows separately; it fails without the patch and
+passes with it.
+
+The cost is one cpuset_cpus_allowed() per worker start and per idle
+timeout of a worker, not per request: 0.3-0.4 us against about 60 us
+for create_io_worker(), measured with the function graph tracer.
+
+The patch applies unchanged to for-7.5/io_uring and to 6.18.y, where
+the results are the same. The bug was first seen on real hardware with
+6.18; the fix was tested only under QEMU. Not tested: architectures
+other than x86_64, and cgroup v1 cpusets.
+
+This patch was developed with Claude Code (Anthropic, Claude Opus 5.5).
+The problem came up while I worked with it on CPU isolation for VMs in
+EVE (LF Edge): asked whether QEMU's io-wq workers can appear after a VM
+has started, it found in the code that workers started after a cpuset
+change keep the old CPUs, and reproduced that. It then wrote the fix,
+the changelog, the test program and the QEMU setup, and ran the tests
+above. I have reviewed the patch and the test results.
+
+ io_uring/io-wq.c | 44 +++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 39 insertions(+), 5 deletions(-)
+
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index 92df54c6f50ca..f2f3c3aad19b5 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -741,6 +741,34 @@ static bool io_worker_retire(struct io_wq_acct *acct, struct io_worker *worker)
+ 	return false;
+ }
+ 
++/*
++ * The CPUs a worker of @wq runs on: those of the io-wq affinity that the
++ * worker's cpuset allows, or the cpuset if they have none in common, as the
++ * scheduler does with a task's requested affinity when its cpuset changes.
++ * Read the cpuset each time: it can change while the io-wq exists.
++ */
++static void io_wq_worker_cpus(struct io_wq *wq, struct task_struct *tsk,
++			      struct cpumask *cpus)
++{
++	cpuset_cpus_allowed(tsk, cpus);
++	if (cpumask_intersects(cpus, wq->cpu_mask))
++		cpumask_and(cpus, cpus, wq->cpu_mask);
++}
++
++/* Is the current worker on a CPU that a new worker would not get? */
++static bool io_wq_worker_off_cpus(struct io_wq *wq)
++{
++	cpumask_var_t cpus;
++	bool off;
++
++	if (!alloc_cpumask_var(&cpus, GFP_KERNEL))
++		return false;
++	io_wq_worker_cpus(wq, current, cpus);
++	off = !cpumask_test_cpu(raw_smp_processor_id(), cpus);
++	free_cpumask_var(cpus);
++	return off;
++}
++
+ static int io_wq_worker(void *data)
+ {
+ 	struct io_worker *worker = data;
+@@ -819,8 +847,7 @@ static int io_wq_worker(void *data)
+ 		}
+ 		if (!ret) {
+ 			last_timeout = true;
+-			exit_mask = !cpumask_test_cpu(raw_smp_processor_id(),
+-							wq->cpu_mask);
++			exit_mask = io_wq_worker_off_cpus(wq);
+ 		}
+ 	}
+ 
+@@ -870,9 +897,16 @@ void io_wq_worker_sleeping(struct task_struct *tsk)
+ static void io_init_new_worker(struct io_wq *wq, struct io_wq_acct *acct, struct io_worker *worker,
+ 			       struct task_struct *tsk)
+ {
++	cpumask_var_t cpus;
++
+ 	tsk->worker_private = worker;
+ 	worker->task = tsk;
+-	set_cpus_allowed_ptr(tsk, wq->cpu_mask);
++	/* Without a mask, the worker keeps its creator's CPUs. */
++	if (alloc_cpumask_var(&cpus, GFP_KERNEL)) {
++		io_wq_worker_cpus(wq, tsk, cpus);
++		set_cpus_allowed_ptr(tsk, cpus);
++		free_cpumask_var(cpus);
++	}
+ 
+ 	raw_spin_lock(&acct->workers_lock);
+ 	hlist_nulls_add_head_rcu(&worker->nulls_node, &acct->free_list);
+@@ -1369,7 +1403,7 @@ struct io_wq *io_wq_create(unsigned bounded, struct io_wq_data *data)
+ 
+ 	if (!alloc_cpumask_var(&wq->cpu_mask, GFP_KERNEL))
+ 		goto err;
+-	cpuset_cpus_allowed(data->task, wq->cpu_mask);
++	cpumask_copy(wq->cpu_mask, cpu_possible_mask);
+ 	wq->acct[IO_WQ_ACCT_BOUND].max_workers = bounded;
+ 	wq->acct[IO_WQ_ACCT_UNBOUND].max_workers =
+ 				task_rlimit(current, RLIMIT_NPROC);
+@@ -1574,7 +1608,7 @@ int io_wq_cpu_affinity(struct io_uring_task *tctx, cpumask_var_t mask)
+ 		else
+ 			ret = -EINVAL;
+ 	} else {
+-		cpumask_copy(tctx->io_wq->cpu_mask, allowed_mask);
++		cpumask_copy(tctx->io_wq->cpu_mask, cpu_possible_mask);
+ 	}
+ 	rcu_read_unlock();
+ 
+
+base-commit: 39c7210e970200f8b17de3767c73efe64173a95f
+-- 
+2.43.0
+
