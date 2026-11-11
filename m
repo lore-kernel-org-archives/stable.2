@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794386798;
-	b=U8syT2hv7RtREW+T80Vv2qTzcC5CmsFiGAgtkVcCPeESjTDwrRE1440bWjM3Oe/vYJHT
-	 RoButWMswvY/W1w3rgehczVlsuXKVagyu0c2sbXmvihJTnZ58yvoTKxkuqMlPD1javV32
-	 JNbcNAlgv/I9UdM6KrxBkveMXbA9Pni5L5WDh0qhCpt4Ip3Y8Wh7Ts28hEVzIvD0Lz/PG
-	 rbE12xx1QzGvx5dv9E1rI7aObGppqk/H+G8suvJwK9atyRHf+KwYGrnbEXXWzMZJKme69
-	 z4MZjiTBtJRe19rm2rm+MW8R7v70xR/YgPYJpxgvt43kPAhp5onE3h95kVqV3VAiiYg==
+	t=1794386893;
+	b=VQRsuUNBBu9K21f0rJAcI/bghX3iP7OmeYdhdkOCM0nGTzaa5rq/4vMucxssqNoVU3Wl
+	 cefxyfirOFGtGG7Mm7BIZyHiUdT6Wv1kl5enJC2lpc/u2cIfnFd808CZCSEQ//RAj8LIg
+	 q/HRau9ZOGKY/klmKdwEwsxXgEWQND0U0LBFuOAEHnn5+yTX1USAJh0+2NiwFcC50KAm5
+	 fF/dURvK8HNgHJsKdko1MBVnXVBNNx5PVKgi0daj3YwU1NOn7DSxVEa17piLCaXuPaI29
+	 0C2r/PdX92ayizhuN97YblcRlemc0XuR+c1F3t8CWDCS2aaA0tTsJMIB5tQ3GVMArHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794386798;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=9P1O4WQgnVQDl+a4kZrp5MX4deKhKwsEC4dzzWtFl6E=;
-	b=Fp4+BG9rLqbr8hFyVSTxAb2/xg8xo4VvJaPbpM7xnSA0dHUUCPWM0o/zFIvvg73RBMbD
-	 nJQZKIJrVlcmdJn8VmGqhLRne9exHJKyBxfI5KSLrq+nmnTG/uhzlrpAgX2FlCtzO7xsi
-	 pa1ed0ucVZTHELLXZqy1UwX4+r86JkQAGdKT8dqxWl4OjhdTTbvY0s1UifUy/jkbFX4vE
-	 JIfm6V46nC+2ovAp195WYgh6K7NMP3UCOc2rKG6Cs8fE+SGCCeWy9pTO6d6QPaD14ftcp
-	 sEELuBdirPa+fnUANTJlJ9WUEmUBn4349aVfABRVVcdNDYU8wCDHUgZ/B3tRmPbJ47Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794386893;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=blmHauaC7Hp6K+IDvLelJ5eVBYGSa7O3m7psBls7pXc=;
+	b=Al1rXDN7WcGYy2ZCYgGC3hA/LeAyVbNyW5IZZp0FoHsOO5Ky31nAQHiIWDxqsv76vd2E
+	 xFgJJMtKSkTEESHHRpUUEIoiRuZooilflocfm9YIlQCo23K3Uwrn9NZJdRxjNCBq7YCz0
+	 8rfVDc3jiOZu3xVlGLMRde+DUjoaTqrtnK4XVOjsT1G2zwdL5F0EMUSrtsgZBDt0TTCct
+	 4Unwg4aPcPDMi1Tgl7ueqbRw4R3UtSzrFSYluveAgUniAqcQZtmyawWONQWuqQmpLSS/l
+	 8ckpL+F5hQOLG3/yQxJSaEiwXCSdJLx2tnIGUC4ViWARgCVos3Lo6NiutSwKGddKAqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paragon-software.com;
-	spf=pass smtp.mailfrom=paragon-software.com;
-	dkim=pass header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=bD7N8s5w;
-	arc=none smtp.remote-ip=35.157.23.187
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=RVv+5bs2;
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E698606A320;
-	Wed, 11 Nov 2026 08:46:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E698606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308F7606A338;
+	Wed, 11 Nov 2026 08:48:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308F7606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=bD7N8s5w
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 09F241D28;
-	Wed, 11 Nov 2026 08:47:16 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=bD7N8s5w;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 3581F2389;
-	Wed, 11 Nov 2026 08:46:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1794386791;
-	bh=9P1O4WQgnVQDl+a4kZrp5MX4deKhKwsEC4dzzWtFl6E=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=bD7N8s5whNgWjE+CyrjIwhmdqcvcL8b+4/ntRoRwjS7Zwwe1mJOyhklrawSy736nl
-	 +wUaaz4GKKvvsoYRBYNOIiJr80kfVL0CmUux/oXIWXNrboOfWHmRU2kHTRa1gR6dNb
-	 2OPPia8okK+1ylbSVzD/UkodIOfiRlsA6EdccROQ=
-Received: from [192.168.95.128] (172.30.20.190) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Wed, 11 Nov 2026 11:46:29 +0300
-Message-ID: <8b98d6c9-2277-43e8-94e3-a00b9de7e2bb@paragon-software.com>
-Date: Wed, 11 Nov 2026 09:46:28 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=RVv+5bs2
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794386882; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=blmHauaC7Hp6K+IDvLelJ5eVBYGSa7O3m7psBls7pXc=;
+	b=RVv+5bs2VriRBt9XeBydWHV8EKXJL2noXHQl7NmUrQ9gdjsK4hamNThOlbtYFIDPzTI2upUEkM4AVWX/3Pews9SwE3RHDlyjHy5ckFjez4nmnY91Jzip4ej/KQxSEPHm8AyicmCBILqymwPs/4Mp5cn2HPeAU1WGD8ljr6A/JpE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XEYJjsU_1794386881;
+Received: from 30.221.145.127(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEYJjsU_1794386881 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 11 Nov 2026 16:48:01 +0800
+Message-ID: <4c1bb9c0-547f-4994-958c-f59ec8b754d2@linux.alibaba.com>
+Date: Wed, 11 Nov 2026 16:48:00 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,74 +54,121 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ntfs3: fix buffer overflow in CreateAttribute
- validation
-To: Hongling Zeng <zenghongling@kylinos.cn>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<zhongling0719@126.com>, <stable@vger.kernel.org>
-References: <20260813094129.1366996-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260813094129.1366996-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH] ocfs2: fix kernel BUG in ocfs2_page_mkwrite() when
+ write_end fails
+To: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ yangwenfang <vicky.yangwenfang@huawei.com>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ syzbot+42984127d45ad96219de@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261111023444.22688-1-zhiyuanzhang912@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vdlg-exch-02.paragon-software.com (172.30.1.105) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-On 8/13/26 11:41, Hongling Zeng wrote:
 
-> In the CreateAttribute action, the validation checks whether dlen
-> fits within the available MFT record space, but the actual memcpy
-> uses asize (the attribute size from the log record) as the copy length.
->
-> A malicious NTFS journal record can set a small dlen to pass the
-> validation while setting a large asize that exceeds the MFT record
-> buffer size, causing a buffer overflow when memcpy copies asize bytes
-> into the destination buffer.
->
-> The validation must use the same size that is later passed to memcpy().
->
-> Fix this by using asize in the bounds check instead of dlen, since
-> asize is the actual length used by memcpy. The source buffer boundary
-> is already validated by the existing check:
->        Add2Ptr(attr2, asize) > Add2Ptr(lrh, rec_len)
->
-> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+
+On 11/11/26 10:34 AM, Zhiyuan Zhang wrote:
+> From: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
+> 
+> syzbot reported a kernel BUG in the ocfs2 write fault path:
+> 
+>   (syz.0.17,5578,0):ocfs2_write_end_nolock:1945 ERROR: status = -30
+>   kernel BUG at fs/ocfs2/mmap.c:106!
+>   Call Trace:
+>    do_page_mkwrite+0x147/0x310 mm/memory.c:3879
+>    do_shared_fault mm/memory.c:6145 [inline]
+>    handle_mm_fault+0x1a53/0x3750 mm/memory.c:6943
+> 
+> __ocfs2_page_mkwrite() calls ocfs2_write_begin_nolock() and then
+> ocfs2_write_end_nolock(), and uses BUG_ON() to assert that the latter
+> returns the full length.  But ocfs2_write_end_nolock() can fail: since
+> commit 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before
+> ocfs2_journal_dirty() in ocfs2_write_end_nolock()") it gets journal
+> access to the inode buffer again, because the handle may have been
+> restarted since ocfs2_write_begin_nolock().  That fails with -EROFS or
+> -EIO once the journal has been aborted or jbd2 has seen write errors
+> on the device.  The syzbot reproducer gets there by shrinking the
+> backing loop device to zero with LOOP_SET_STATUS while writing to a
+> shared file mapping.
+> 
+> Handle the failure instead of crashing.  ocfs2_write_end_nolock()
+> leaves the mmap folio locked, because ocfs2_unlock_folios() skips it
+> when w_target_locked is set so that it can be returned with
+> VM_FAULT_LOCKED, and do_page_mkwrite() does not unlock it either when
+> ->page_mkwrite() returns an error.  So unlock it and fail the fault;
+> the faulting task gets SIGBUS, like for the other errors in this
+> function.
+> 
+> For an mmap write ocfs2_write_end_nolock() returns either len or a
+> negative errno: inline data has already been converted to extents by
+> ocfs2_write_begin_nolock(), and copied is equal to len.
+> 
+> The BUG matters for local mounts, where the filesystem is expected to
+> go read-only and keep running after a journal abort.  On clustered
+> mounts ocfs2_abort() panics the node anyway as soon as it notices the
+> aborted journal.
+> 
+> Fixes: 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before ocfs2_journal_dirty() in ocfs2_write_end_nolock()")
+> Reported-by: syzbot+42984127d45ad96219de@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=42984127d45ad96219de
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> Assisted-by: Claude:claude-fable-5-2
+> Signed-off-by: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
+
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 > ---
-> Change in v2:
->   Also fix the lower bound check to use asize instead of dlen. A malicious
->   log record with dlen >= 24 (passing dlen < SIZE_OF_RESIDENT check) but
->   asize < 24 could allocate insufficient memory and trigger OOB accesses
->   in subsequent operations.
-> ---
->   fs/ntfs3/fslog.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-> index 3440212ecb12..e15f7621863e 100644
-> --- a/fs/ntfs3/fslog.c
-> +++ b/fs/ntfs3/fslog.c
-> @@ -3285,10 +3285,10 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
->   		asize = le32_to_cpu(attr2->size);
->   		used = le32_to_cpu(rec->used);
->   
-> -		if (!check_if_attr(rec, lrh) || dlen < SIZEOF_RESIDENT ||
-> +		if (!check_if_attr(rec, lrh) || asize < SIZEOF_RESIDENT ||
->   		    !IS_ALIGNED(asize, 8) ||
->   		    Add2Ptr(attr2, asize) > Add2Ptr(lrh, rec_len) ||
-> -		    dlen > record_size - used) {
-> +		    asize > record_size - used) {
->   			goto dirty_vol;
->   		}
->   
-
-Hello,
-
-Sorry for the delay.
-Your patch was applied, thanks.
-
-Regards,
-Konstantin
+> 
+> Notes:
+>     Testing: syzbot C reproducer in QEMU (x86_64) on a defconfig-based
+>     kernel with KASAN, lockdep, DEBUG_VM and hung task detection enabled
+>     (not syzbot's own config).
+>     
+>      - Unpatched: BUG in 3 of 3 runs, within 22 iterations.
+>      - Patched: 437 iterations over 3 runs hit the failing write_end 21
+>        times (11 x -EROFS, 10 x -EIO), all ending in SIGBUS, with no BUG,
+>        KASAN, lockdep, DEBUG_VM or hung task report.
+>      - Negative control: without the folio_unlock(), inode eviction hangs
+>        on the locked folio in truncate_inode_pages_range() in 3 of 3 runs
+>        that hit the error.
+>     
+>     Not tested on a clustered mount.
+>     
+>     AI assistants were used to analyse the report, to write the patch
+>     and the changelog, and to run the tests above.
+>     
+>     ocfs2_dio_wr_get_block() has the same BUG_ON(ret != len).  It is left
+>     alone here because the pending "migrates ocfs2 DIO from buffer_head to
+>     iomap" series removes that function.
+> 
+>  fs/ocfs2/mmap.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ocfs2/mmap.c b/fs/ocfs2/mmap.c
+> index 6c570157caf1..1c03f45e8965 100644
+> --- a/fs/ocfs2/mmap.c
+> +++ b/fs/ocfs2/mmap.c
+> @@ -103,7 +103,17 @@ static vm_fault_t __ocfs2_page_mkwrite(struct file *file,
+>  		goto out;
+>  	}
+>  	err = ocfs2_write_end_nolock(mapping, pos, len, len, fsdata);
+> -	BUG_ON(err != len);
+> +	if (err != len) {
+> +		/*
+> +		 * ocfs2_write_end_nolock() keeps the mmap folio locked so
+> +		 * that it can be returned to the VM with VM_FAULT_LOCKED.
+> +		 * On failure nobody else will unlock it, so do it here.
+> +		 */
+> +		folio_unlock(locked_folio);
+> +		mlog_errno(err);
+> +		ret = vmf_error(err);
+> +		goto out;
+> +	}
+>  	ret = VM_FAULT_LOCKED;
+>  out:
+>  	return ret;
+> 
+> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
 
