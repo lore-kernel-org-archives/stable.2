@@ -1,56 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409516;
-	b=0VZKEkgYAPAKlkCfnWM8xKlC5/NMgtThVNpkQJvOAX6mZgAQ0hR4b3ENz4Sg6LA2Wpvt
-	 9bUljnQQSQKrmiow+nd1TAv6swfuXx/B0FzGor8DSBZHtxtZO7mPgferHBnZb31TEBjl/
-	 RZfpY7jq8tvfjyQ/aWNMI2S9CWxxJTd+Wg5anoijJHv8ngRUtg4wNn6l6zXJnmwgnyHfO
-	 sNk1JAi/rdA4y5VaoQ3DkJdFyNLVeUSlIl2+c05jh0IVnymam3qFVfkNnRFgxUIoh4gHN
-	 YSyhVCAREiqV8epAzr4FTXf74NnQOgvdGLi7SdG65fJ4i5B5eopo1u775kpM10njL0g==
+	t=1794409613;
+	b=Ru9ZQXElQrqJCAMrP2YWPYNGzEi3nqsbbnXjaeo94+z2LcKhiBlyRjaV0vwag3tDDJrI
+	 lSpwRiLcf68NKaR4amVdSSwhKK7AKd1AvajiyTqqrxRVs0op+7LM/1rfeZ9yGIH16cnzU
+	 cy+e/vuNRsionB0xZJiY/ERKMK7SyMtjOsG9qpLKkG4/zSjBBtVENq8swhVdCWjgq+FyI
+	 qEkfzovD/f11TZ4sUKo2worcRdmrYRZJ+X+6itENFz7rK9hHqjFYZqoMMzgWl5Fa61UhU
+	 fvnGiGxVTTZmnFglb4HNhreppTjhaWUFWmVCSny8NSgGQ/kEpHUaMQZfqwOBJ1SFucQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409516;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409613;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RboT5c/q3EdDmPo820n//UBSK2TPF1Wbdvkbvf/YKK0=;
-	b=ltE+dZ7Le9ZAuDF/gAdmxbPO4k3xklwAE/7+wth7lksrDPjMjfW2KAwocp4izJY8//L5
-	 OxRU1JODDaCjNNOOQ0NV7KhCYZeBfftlXT0GIKZQgpniIHk/lAveOtnjCviDEppyRGIN0
-	 LdIOCgRLOcK9WsyEKven1Fc1tixX8VlnvXsEWw3SvhDw59OBwVZlykftv9U8rX8tdLa3c
-	 nwaWKHSpEHN7CnfSlICMbK3k4JMp9MjQ28XUYZANtU4qyP90ugb/2rWAweumyjO6pfItD
-	 JsU023Lt8NhEsHkDirha73qTTcHbB3bt9bsu+C4+dxSflhetsI2320z1PqnzDfNj/UQ==
+	bh=rYmqzzJLWF1rgvYuvlxPKTNvDSmz0uCZMeJM+Cpf1Hk=;
+	b=d1Pk4504vPu17n0yS51z1kwGSIzzXhX1ZYDwhvT1ZQg/fZbx0ocgkdnz5zAJmGAA28zc
+	 3cfJzb2xsd0FvClef7L5GOgE9tRa2p5oH+qfEL6cc4jArEKSEkhUhdXbtQbFCogJQEyle
+	 K+W+0ozaavyrUAgGGd0KT/Hf5VdOorSEfa4gdDhjOzUBLzFCP9VwSulqlMTSbrJZNGkNu
+	 R8mtgZ/I+/MhjIU0S2cMpv9+kf4FE9sAnSI9G7Rh/djgYmaXPRW3gmGjo+Rf/TM7+WAec
+	 Xsp3sCWClgl3j8ai4ZNmHuLgpHIqne1hPqjdI+oGPWfOjPjaGjDBB9I/60m+GkZLW1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdQud5GZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhHot1fI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69930606A33B
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:05:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DC0606A891
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdQud5GZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97DFB1F00A05;
-	Wed, 11 Nov 2026 15:05:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhHot1fI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D17C1F00A05;
+	Wed, 11 Nov 2026 15:06:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409516;
-	bh=RboT5c/q3EdDmPo820n//UBSK2TPF1Wbdvkbvf/YKK0=;
+	s=k20260515; t=1794409613;
+	bh=rYmqzzJLWF1rgvYuvlxPKTNvDSmz0uCZMeJM+Cpf1Hk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MdQud5GZeLrBpWVomjSnipl/TLYn2O3m097/9e7/583mTl0O7RbzbYgS3ZsxIhBlK
-	 WKQg68XmTocv7NdIkj/Tk6nELxdQ5A7i4XteqK1gPA3IF9Te7X4gbDn4gWahFTTmZZ
-	 aPEdjYY1gzOMi8ID2Q0H5j1ZP2/5Z4dG49171yb9v2hxu3pnf3n4FW7EJkE/hPx9Jx
-	 H0EgjF4c5q2iDia+kJr+oFFa+b2F3bnJbwNFueZ1+/2hKvbDd9z11e/rIIOC7mIunN
-	 TLZutTAy2k+5r/u8S0sFmGPKg0Umcv0gALTDRT+jYjMZYOymBmawlIFeNW+IralkQT
-	 iaepZ7s8AridA==
+	b=nhHot1fI9POETS5Gt1U2S7IfdmrIJvlEun0mNy4K+JJMTVgy6VFYq1/R1TDUdtPSw
+	 F4ZSxwW9H7szs5Ah6hOKQJEpQnqqvsbeKWvPKhHy5053+ixJIbY7mR+bM4tl7SsOpN
+	 ggRDNBfQcZkgLzQbm/YzbCUPn9rnrTnqAdroESuzGrNghNjQeUda/qkF7gdRD+WC/q
+	 Wgm+WKySnwrJWbQLWRS0ooSn+Sk1dfCM46AEsNH7apvxqCtl370v+ul7ye6k7LYUaD
+	 GQ545rbGREqDNOM/piIi+bbIcxW5aC9UimBjifSoBjaTjyDQK44qYdhQeymSS73km8
+	 5HYCC3pfAQ7Qg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Kyle Zeng <kylebot@openai.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Rik van Riel <riel@surriel.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Lance Yang <lance.yang@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] media: sti: delta: use unaligned accessors for MJPEG SOF fields
-Date: Wed, 11 Nov 2026 10:05:14 -0500
-Message-ID: <20261111150457.2488898-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/page_vma_mapped: continue past nonmatching huge PMDs
+Date: Wed, 11 Nov 2026 10:06:51 -0500
+Message-ID: <20261111150635.2570625-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061823-failed-5.10-fdc5bf02aeae@kernel.org>
-References: <20261107061823-failed-5.10-fdc5bf02aeae@kernel.org>
+In-Reply-To: <20261107051433-failed-6.18-1a2993227e8a@kernel.org>
+References: <20261107051433-failed-6.18-1a2993227e8a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,69 +69,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Kyle Zeng <kylebot@openai.com>
 
-[ Upstream commit fdc5bf02aeaef04e7d13895db9b6eaf8083953f9 ]
+[ Upstream commit 1a2993227e8a27fc4cdea305bbdae82d290bc885 ]
 
-delta_mjpeg_read_header() scans a compressed MJPEG access unit byte by
-byte and passes the bytes after an SOF marker to delta_mjpeg_read_sof().
-The SOF parser then reads 16-bit big-endian fields directly from that
-byte stream.
+A PTE-mapped large folio can straddle PMD boundaries after an unaligned
+mremap().  If the first part is discarded and replaced with an unrelated
+huge PMD, page_vma_mapped_walk() stops instead of looking for the rest of
+the folio in subsequent PMDs.
 
-The SOF payload is not an aligned object. The marker scan can find the
-payload at any byte position, and the SOF layout also puts frame_height
-and frame_width after a one-byte sample_precision field. Those fields
-therefore sit at odd offsets within the payload even when the payload
-base happens to be 2-byte aligned.
+This also affects migration entries.  A walk that stops at an unrelated
+huge PMD can leave migration PTEs behind when migration or an anonymous
+folio split restores the mappings.  Those entries do not hold mapping
+references and can outlive the source folio.
 
-Avoid casting the byte stream to __be16 pointers and use
-get_unaligned_be16() for the SOF length, height, and width fields.
+This issue can lead to memory corruption and I have a reproducer for
+it.
 
-This issue was detected by our static analysis tool and confirmed by
-manual audit. A focused UBSAN alignment validation of the same typed
-load shape reported a misaligned __be16 access in delta_mjpeg_read_sof().
+Skip the current PMD rather than ending the walk on a flag or PFN
+mismatch.  Do the same if the PMD became nonpresent before the locked
+recheck.  Release the PMD lock, clear the per-PMD state and advance with
+step_forward(), so the existing range limit controls termination.  This
+covers present, migration and device-private huge PMDs while preserving
+the matching-PMD and split-to-PTE paths.
 
-Fixes: 433ff5b4a29b ("[media] st-delta: add mjpeg support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: replaced the generic unaligned access header with the available architecture-specific header ]
+Link: https://lore.kernel.org/20261016011549.61146-1-kylebot@openai.com
+Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: LLM
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adapted PMD handling to older migration-entry APIs and inline locking without device-private huge-PMD support. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/sti/delta/delta-mjpeg-hdr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ mm/page_vma_mapped.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/platform/sti/delta/delta-mjpeg-hdr.c b/drivers/media/platform/sti/delta/delta-mjpeg-hdr.c
-index 90e5b2f72c82b..6e156cd806bb5 100644
---- a/drivers/media/platform/sti/delta/delta-mjpeg-hdr.c
-+++ b/drivers/media/platform/sti/delta/delta-mjpeg-hdr.c
-@@ -4,6 +4,7 @@
-  * Author: Hugues Fruchet <hugues.fruchet@st.com> for STMicroelectronics.
-  */
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index 41cf3192a8f62..dfbbbf5e3f53d 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -260,18 +260,18 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
  
-+#include <asm/unaligned.h>
- #include "delta.h"
- #include "delta-mjpeg.h"
+ 				if (!thp_migration_supported() ||
+ 				    !(pvmw->flags & PVMW_MIGRATION))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				entry = pmd_to_swp_entry(pmde);
+ 				if (!is_migration_entry(entry) ||
+ 				    !check_pmd(swp_offset_pfn(entry), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			}
+ 			if (likely(pmd_trans_huge(pmde))) {
+ 				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				if (!check_pmd(pmd_pfn(pmde), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			}
+ 			/* THP pmd was split under us: handle on pte level */
+@@ -291,8 +291,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
  
-@@ -48,13 +49,13 @@ static int delta_mjpeg_read_sof(struct delta_ctx *pctx,
- 		goto err_no_more;
+ 				spin_unlock(ptl);
+ 			}
+-			step_forward(pvmw, PMD_SIZE);
+-			continue;
++			goto next_pmd;
+ 		}
+ 		if (!map_pte(pvmw, &pmde, &ptl)) {
+ 			if (!pvmw->pte)
+@@ -331,6 +330,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			pvmw->ptl = ptl;
+ 		}
+ 		goto this_pte;
++next_pmd:
++		/*
++		 * A large folio can be PTE-mapped across PMDs, so a
++		 * nonmatching PMD does not end the walk.
++		 */
++		if (pvmw->ptl) {
++			spin_unlock(pvmw->ptl);
++			pvmw->ptl = NULL;
++		}
++		pvmw->pmd = NULL;
++		step_forward(pvmw, PMD_SIZE);
+ 	} while (pvmw->address < end);
  
- 	memset(header, 0, sizeof(*header));
--	header->length           = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->length           = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->sample_precision = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
--	header->frame_height     = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_height     = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
--	header->frame_width      = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_width      = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->nb_of_components = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
+ 	return false;
 -- 
 2.53.0
 
