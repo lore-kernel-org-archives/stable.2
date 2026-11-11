@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415666;
-	b=F+U+dzTzuqH1+df7n5+A+0GZKEor+m/zyQsXiRKT5yK3q/jzQDTwAqzyxTazMzKKz10/
-	 BkxyuHuwvYZ3x6GtDO9tziITgR16liLbXvqWTzZS7N/zHprWgeXm62fxgiLIqUGViTm04
-	 Jj1JiCyVhS06uI6iMuwzzYLSvEqNLZChW0bYCtnfotE8Fvp6yg4z9dzaBaTOKCwxsP/EK
-	 gMTTDaLmZq2J5VVB9q1Av74piusnrvQ/br+vy5O5ly8zXLrvOKPnwPd3UlnW3jNICVzme
-	 sz0h1yUZWy1Yn+A8+PdDixE9M85Ag/+QJjymXzl+mCwjVVXgiWpN9rv2w0gjVCrq3Yw==
+	t=1794415707;
+	b=ESdhTqrM5BV5iQQNh1Lex2FyCUP3kDMEW3BWiw9T7DotYpj7u+GKRlvMW5j+KiG/SEJq
+	 llOboz9IDBrQ4bEy1pLIzKOhAfz4hTDaGu50yumSmmh6lE85oWk66dGQ9Ai1zMiqONRV5
+	 2NcHArOOvxmwfBrpmEkyvsLZLtO+NrhnXH+cNqHXJcCfSIDQdENFiy/Ig6gp+5KFnA3Gz
+	 wvX6w+okDasJQNO5iAnOtoKwno8WZdEtQ0jHd7hyYNSMRZc2Kkx2dLQjWqEiz5Bvlwdpw
+	 QiI3U8qTTXsR/xBYj2FvaE2M25pjWWnp0tZEpcoeT1luruawVs+RbYwumj1TEMtSjxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415666;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=J3tpifRijT4+pk7e2hNJcEEFVR4m4Uqn25qM1IhLC4U=;
-	b=AVMByA4er7JRoEbs7CYaaFtJGMrH0pcorUzvPA0e7zTGmfoXTSj2z6okNDxDAFkGoYrx
-	 ElQWukZbclhWweCDKKURhNMqeLv4tb/9XbJtv2WElqmOI0bKOntUfd0S+z9yS5UycaDJt
-	 z6oDDQQ1YKebp3eVOpz1z2vGkTHSWlf75RY10LbLCfW0xUmRjqTJVcr9Cfk2Lz2qwGU9m
-	 7tjhBU9RQvuIIX+LquBeCqjMpQRqUykLWSD9lyDUOSboH12ZMDeqOXo0vLgoGgbUZyVXe
-	 oZaGhYBiAQ0qJwR9yV4At/0iBe1FEJxBlOUGCg2b0f9gOkoej2twa/pta3l0T4sTnjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415707;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=0sydFHNzITW/W9RiZ5lrBlSfj6odwN80cmBBE2TsUzo=;
+	b=DMaG1oScvXebnHPukm3lvGfM4nM44VS9QpWXkxdrstvizyiKZ2N/x7Ip90uPIfEnSdSC
+	 9cwlST1SB9qtbQsnbSqt6YHqDe4gg4xzvsq5laAucKFmYcbMxfMfsthCq/7H3x8SwNNcI
+	 JfljXvDjql5JQrZlGVOSSkC+hDhBzC8ZuFQ7lQJ4f6id9aV/LSw+RQN67runW5sWKNfUm
+	 ENdd8KW0da9IA6CPivQK5bmZiUfeM50WRuCuzoccVWX/p38UP/Bys5Obshne411YVJjHs
+	 zEz+H8/RHTJuz0ly4AeN72zGTpE5v4GLiu4VpqPaTHG7J+RuXsrwS4PIRi9LQEA+/Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jq9QCUb6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=dyHdbNbZ;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7C5606A88E
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:47:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB49606A321;
+	Wed, 11 Nov 2026 16:48:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CB49606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jq9QCUb6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77EF01F00A0C;
-	Wed, 11 Nov 2026 16:47:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794415666;
-	bh=J3tpifRijT4+pk7e2hNJcEEFVR4m4Uqn25qM1IhLC4U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jq9QCUb6jlJA851gnLI25IT549uDAfAXyY7+OVkialmRoCsjPd3GHv3L7coTt8JAD
-	 cm/eHAuw9JbKGo3zBRj5gcoW0+ok7I7GF/+YZIzOKg3/Xl62hRuLJW32j2sUjDEH9A
-	 HSSLRyNFnDTIovwoIgXwpRKJrN5waic4jvg5vA7WvK3duIzzZ0M/Ou9XSjaepp+a6f
-	 38ujFHDNJE/V8kJRKzh/3y+avqx0hVMBV8G6Y7OOPBVbjPs2rmlWXQz8hIjPxS1kby
-	 yZewNu6McT+vH1eKZG9FAAghJpEOMBDe3anqWdYezD5MRiBMj2EyT7zPY2H9kIV79D
-	 Bbou2Tq2ShssA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Hung-Jui Lin <alex.lin.programmer@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] posix-timers: Report zero remaining time for disarmed SIGEV_NONE timers
-Date: Wed, 11 Nov 2026 11:47:44 -0500
-Message-ID: <20261111164724.3309939-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055507-failed-6.1-141a27750ec3@kernel.org>
-References: <20261107055507-failed-6.1-141a27750ec3@kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=dyHdbNbZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=0sydFHNzITW/W9RiZ5lrBlSfj6odwN80cmBBE2TsUzo=; b=dyHdbNbZ8KfDHmZzWygnexSWkp
+	vxdIR0q/Nyu3ONUYl8xOsXtkPy0E+7DA1dun3kA+Wv/u0AoStyC68/1gZnroCLRnlH2EG5MclmXD8
+	X1C0Iq7Nl/vCyDH80En9gEWCh5IkC3bc3Gov4Bdc87NZr9EyilnA4v2p1UqKM2NIGkRo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xRBUg-00FnDz-HB; Wed, 11 Nov 2026 17:48:18 +0100
+Date: Wed, 11 Nov 2026 17:48:18 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: joasantonio108@gmail.com
+Cc: steve.glendinning@shawell.net, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: usb: smsc75xx: reject frames without a full
+ header and FCS
+Message-ID: <e4a20579-2576-4c2e-9120-b675a175a1da@lunn.ch>
+References: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,91 +65,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-smsc75xx-rx-fcs-v2-1-216a5f26842a@gmail.com>
 
-From: Hung-Jui Lin <alex.lin.programmer@gmail.com>
+> +			if (unlikely(size < ETH_HLEN + ETH_FCS_LEN)) {
+> +				netif_dbg(dev, rx_err, dev->net,
+> +					  "size err rx_cmd_a=0x%08x\n",
+> +					  rx_cmd_a);
+> +				return 0;
+> +			}
 
-[ Upstream commit 141a27750ec3d91ad9d1ad1764ebb5e51b963478 ]
+This looks good as far as it goes.
 
-SIGEV_NONE timers are never queued. common_timer_get() emulates their
-expiry by computing the remaining time from the stored expiry value.
-Because an armed SIGEV_NONE oneshot timer is not queued, its it_status
-stays POSIX_TIMER_DISARMED. So common_timer_get() cannot use it_status to
-skip a disarmed SIGEV_NONE timer and evaluates the stored expiry value for
-all SIGEV_NONE timers.
+However:
 
-Disarming a timer with timer_settime() and a zero it_value cancels the
-timer and sets it_status to POSIX_TIMER_DISARMED, but leaves the expiry
-value unchanged. As a consequence, timer_gettime() on a disarmed SIGEV_NONE
-timer reports the remaining time of the previous arming until that time has
-passed, instead of zero as POSIX requires for a disarmed timer. Example
-with a CLOCK_MONOTONIC timer armed with it_value = 10ms and it_interval =
-100ms, then disarmed with an all-zero itimerspec:
+static inline int rx_process(struct usbnet *dev, struct sk_buff *skb)
+{
+	if (dev->driver_info->rx_fixup &&
+	    !dev->driver_info->rx_fixup(dev, skb)) {
+		/* With RX_ASSEMBLE, rx_fixup() must update counters */
+		if (!(dev->driver_info->flags & FLAG_RX_ASSEMBLE))
+			dev->net->stats.rx_errors++;
 
-  armed:    it_value = 0.009999000  it_interval = 0.100000000
-  disarmed: it_value = 0.008700792  it_interval = 0.000000000
+What is the value of FLAG_RX_ASSEMBLE in flags?
 
-SIGEV_SIGNAL timers and SIGEV_NONE CPU timers report zero in the same
-situation. All clocks which use common_timer_get() are affected, including
-the alarm timer clocks.
+		return -EPROTO;
+	}
+	// else network stack removes extra byte if we forced a short packet
 
-Mark SIGEV_NONE timers as POSIX_TIMER_ARMED when they are armed, so that
-common_timer_get() returns early for every disarmed timer. Forward
-SIGEV_NONE interval timers in common_timer_get() regardless of it_status,
-as they are never queued and therefore never forwarded by the expiry code.
+	/* all data was already cloned from skb inside the driver */
+	if (dev->driver_info->flags & FLAG_MULTI_PACKET)
+		return -EALREADY;
 
-After the change the disarmed timer above reports zero. Armed SIGEV_NONE
-oneshot and interval timers on CLOCK_MONOTONIC, CLOCK_REALTIME,
-CLOCK_BOOTTIME and CLOCK_BOOTTIME_ALARM still report their remaining time,
-and the posix_timers selftest passes.
+	if (skb->len < ETH_HLEN) {
+		dev->net->stats.rx_errors++;
+		dev->net->stats.rx_length_errors++;
 
-Fixes: becf8b5d00f4 ("[PATCH] hrtimer: convert posix timers completely")
-Signed-off-by: Hung-Jui Lin <alex.lin.programmer@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261023151411.28685-1-alex.lin.programmer@gmail.com
-[ sashal: adapted it_status-based state handling to it_active around the void-returning timer_arm() callback ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/time/posix-timers.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+Should rx_length_errors also be incremented?
 
-diff --git a/kernel/time/posix-timers.c b/kernel/time/posix-timers.c
-index fc08d4ccdeeb9..23683372ddcb1 100644
---- a/kernel/time/posix-timers.c
-+++ b/kernel/time/posix-timers.c
-@@ -686,12 +686,8 @@ void common_timer_get(struct k_itimer *timr, struct itimerspec64 *cur_setting)
- 	if (iv) {
- 		cur_setting->it_interval = ktime_to_timespec64(iv);
- 	} else if (!timr->it_active) {
--		/*
--		 * SIGEV_NONE oneshot timers are never queued. Check them
--		 * below.
--		 */
--		if (!sig_none)
--			return;
-+		/* Nothing to update for a disarmed timer */
-+		return;
- 	}
- 
- 	now = kc->clock_get_ktime(timr->it_clock);
-@@ -901,7 +897,15 @@ int common_timer_set(struct k_itimer *timr, int flags,
- 	sigev_none = timr->it_sigev_notify == SIGEV_NONE;
- 
- 	kc->timer_arm(timr, expires, flags & TIMER_ABSTIME, sigev_none);
--	timr->it_active = !sigev_none;
-+	/*
-+	 * SIGEV_NONE timers are not queued, but mark them armed
-+	 * so that common_timer_get() can tell them apart from
-+	 * disarmed timers. An expired SIGEV_NONE timer stays
-+	 * armed, which is harmless: common_timer_get() reports
-+	 * zero remaining time for it and it never reaches the
-+	 * signal delivery code.
-+	 */
-+	timr->it_active = 1;
- 	return 0;
- }
- 
--- 
-2.53.0
-
+       Andrew
