@@ -1,56 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794359683;
-	b=q70+ceKzRS8qgBH4J7BV7JBfsH45h15rTp4m0/10u2Qh1Run500Fm+1hp8ND/ywF8ACh
-	 pdN+5spfIQ0GoLdCDO0tXB6s//aRMrrgnY5sZTHYvVFnyxzZzWwvz+XHq24s4BsWpz6Dd
-	 E9n/6ACuwMDm+kXK/P9v4Le58ToMT9ufA0osot92CnvRkI+6Lak7zbQ/7RnepOdZKAsBI
-	 eGQToXKyKlbgbdxXGll1sJPcrvTCb2iGvqVr8XKxcT+2a7bxtjH5E/ZkykFKjpVaKx7yz
-	 BJpfM5fvV4tdhpIGuc/HXEAQGFiY+7dm5PL+FruyMROsmfgBh3N3KeR9heKazLKL2VA==
+	t=1794359774;
+	b=M0u1BPCAeMBkaC0o+gpb9Gzl+SUlc9ZUWLpMWFqyhuomHbSgU/8tXMjPqR48NUUUyXW5
+	 lX6Yti1gUHVBc8iqha06IESNQ7DBPxDYP59bPcQ1vCYlLM/qCC84aVTuZ3UXjQZhS1eLN
+	 Su2XwCM3YEMcf9K5dg8A3GcrhhmfbkafkgDqcyPXp5WihTsA+qZa/LtHGSo1D4VHpgf/j
+	 tSBnIij+zhd/zS+Xi8bDtBDGiYtmvYQt31ulhDzgHwFhTZaAKD39p7l0MXGvUG+6NaKr4
+	 D4PegD4d89X7dsXqUoQngPkdkc1Oi8e3/s0f/wRDJLOnW80VvUpz6s8UPHvkzAVu6PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794359683;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=e5v1x+ZlEhUuZFBcGgX37scpZnco3/TepjeKGSDc7fA=;
-	b=jhb1wrWBeXDSENZ2eEq45kcR3Kl1GR3KNqx6JEOCCRdQRpE6WYyhBqjpVm11+WjiVYMX
-	 HrLEj667/3YlesiK3rN/67UXa+cTqDgD2FRpH4FfuMt9D+eNp+eCyd9irRNnNOgcQ/SMk
-	 W4EBObj3+usjXg6D+byGYrewXVKEUHjV6aMHewT+fZEXsnk9ikBIP3QYTdsMnMcSa6ZpA
-	 r9u6DVl9AVdZCrL0o7OxrUga52RBpVbkjyHuFgkr6f7PxhXEQn2ltXiq3TPSvYh/o53iB
-	 XL/OG3SNBb7aaFIja49d12GrhyxEFbhQoxYnURxLn1OTg/p864FVQpHqqKgdmusi/mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359774;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=s06IHupRtWq40bA2SdCzzX0XGlbpXMMm/W1o4+18Jk0=;
+	b=xQQolsmSCGRjS99+hYjNoscIDv2HEQxamOtyqK6tkGDek5/qLn4AFJ2pHCgtigqMlqie
+	 Km5CuqRKbd5/50LKV8rfPaoxp8VTTzmKm/TMf4KLzlCwTnBc1UrzKO3J9saHUrBHaL/8J
+	 Ll44KKjqmELG8BcSJUZ4qKc2+XRKWTsOxZEuKayb/Wco8ixnqk7YxMYIQsRP9pMN6MPuL
+	 R3ABDJtJuL2e7+rayp59uaAX02dX8azHJcob06UAL3z0HuJjfYCwBrBGIwGMS8K6onrB9
+	 vudMfnOJICNIhRsHIHf29SNzLepUwdlBpiZgGip5Q5zHBosbUsmKOoKzKY7c3I+sNvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kssH9ztP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=jb3egk7P;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B99A606A325
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:14:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0548606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:16:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0548606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kssH9ztP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAFBB1F0093D;
-	Wed, 11 Nov 2026 01:14:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794359683;
-	bh=e5v1x+ZlEhUuZFBcGgX37scpZnco3/TepjeKGSDc7fA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kssH9ztPvzcrInkut6clPHCMdkBxmiPw9rUqFvKeXJ47qbA4cUb03pX4FWEuC/xHC
-	 sduPau5bZmrBx4F2O4JYqNI/STdWJmxD1cU3+/Ug6iGCx/b1Zb1tOO1w1wHqCXg86V
-	 gN4adVbaK4wkzKiuHMhP14FjD88CbahyXUMfZjBAS3zTAAqG+SdOq6IbsrWQogxsAo
-	 YuW89uo9y83q5HAEX+Zv3JMTN4cVjqQejXDxu1sKpsOQZsIZ/v4+xF4N4l6vVEoT97
-	 Pq6A95TjJ8bEN+g4aLPsyw6RGDQD7MTH57zXPAg/RVrEbwC9U8av3wzxYRDIQn7xqh
-	 0e0mc9S8bxXLQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] ALSA: compress: reject buffer geometry change on gapless next_track
-Date: Tue, 10 Nov 2026 20:14:40 -0500
-Message-ID: <20261111011417.365858-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111011417.365858-1-sashal@kernel.org>
-References: <20261107053651-failed-6.6-82da1acad6fd@kernel.org>
- <20261111011417.365858-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=jb3egk7P
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=s06IHupRtWq40bA2SdCzzX0XGlbpXMMm/W1o4+18Jk0=;
+	b=jb3egk7PezRhu7r28PJxgVkJcXSv9M0u6mYK5E3kObksuj9krvqWaB6DsnGcMcdQfKQmKUdNr
+	96oyzto4s20bxGW35kUlREjPmSJlDgk6m8Sxcz21bDoWkUtRGGyGxu79sSeL6AIGNDpkNOgtZzN
+	+NBmr7B6xzuKY1XzbcmnA1s=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jPQZP32l5z1prlQ;
+	Wed, 11 Nov 2026 09:15:57 +0800 (CST)
+Received: from kwepemf200016.china.huawei.com (unknown [7.202.181.9])
+	by mail.maildlp.com (Postfix) with ESMTPS id F423F202E6;
+	Wed, 11 Nov 2026 09:16:05 +0800 (CST)
+Received: from huawei.com (10.113.213.244) by kwepemf200016.china.huawei.com
+ (7.202.181.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 11 Nov
+ 2026 09:16:05 +0800
+From: Wang Jianjian <wangjianjian3@huawei.com>
+To: <stable@vger.kernel.org>
+CC: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	<syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com>, Wang Jianjian
+	<wangjianjian3@huawei.com>, Viacheslav Dubeyko <slava@dubeyko.com>
+Subject: [PATCH 6.12.y] nilfs2: ignore non-fatal signals during synchronous log write wait
+Date: Wed, 11 Nov 2026 09:13:39 +0800
+Message-ID: <20261111011339.4103615-1-wangjianjian3@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261107051820-failed-6.12-7131aaa74bcc@kernel.org>
+References: <20261107051820-failed-6.12-7131aaa74bcc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,64 +72,127 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemf200016.china.huawei.com (7.202.181.9)
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 
-[ Upstream commit 82da1acad6fd60b6072dd5f3383e6a55efdd2ac7 ]
+Based on a syzbot report, Wang Jianjian pointed out that following a
+successful directory operation in nilfs_rename(), a synchronous write
+requested within nilfs_transaction_commit(), triggered by a sync flag
+set by nilfs_commit_chunk(), could be interrupted by a user signal.
+This interruption leaves in-memory metadata updates intact while
+returning an error, causing inconsistency with the VFS dentry cache and
+ultimately triggering a kernel warning.
 
-snd_compr_set_params() is invoked from the gapless next_track
-re-entry path, which calls snd_compr_allocate_buffer() again and lets
-buffer_size change while total_bytes_available and
-total_bytes_transferred still hold values computed for the previous
-buffer. snd_compr_calc_avail() then derives an avail/count value from
-those stale counters against the new buffer_size, and
-snd_compr_write_data() copy_from_user()s that many bytes into the
-new, potentially smaller buffer, overflowing it with user-controlled
-length and content.
+According to "signal(7)", local disks are not classified as "slow
+devices" (such as terminals, FIFOs, or pipes) and their I/O operations
+on disk devices are not interrupted by signals.  In kernel space,
+waiting for such disk I/O should therefore not be aborted by ordinary
+(non-fatal) signals.
 
-The buffer is set up once, with the initial SET_PARAMS, and neither the
-core nor the DSP expects it to change for a gapless track transition.
-Do not call snd_compr_allocate_buffer() on the next_track path and
-reject a request that changes the buffer geometry, so that the codec
-parameters that the driver receives match the buffer in use.
+Suppress this issue by modifying nilfs_segctor_sync(), which waits for
+the log writer thread to complete synchronous writes, to catch only
+fatal signals via fatal_signal_pending() and return -EINTR rather than
+-ERESTARTSYS.  To complement this change and prevent the wait loop from
+busy-looping when schedule() returns immediately due to a pending
+non-fatal signal, switch the wait state from TASK_INTERRUPTIBLE to
+TASK_KILLABLE.
 
-Fixes: 9727b490e543 ("ALSA: compress: add support for gapless playback")
+This serves as an effective interim stabilization measure without
+structural changes until a comprehensive fix for metadata consistency
+is implemented.
+
+Reported-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f6c7e1f1809f235eeb90
+Fixes: 9ff05123e3bf ("nilfs2: segment constructor")
+Tested-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
+Cc: Wang Jianjian <wangjianjian3@huawei.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261019144533.30665-3-peter.ujfalusi@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+(cherry picked from commit 7131aaa74bcc7c9da1f1d1c8724da75c775557a0)
 ---
- sound/core/compress_offload.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ fs/nilfs2/ioctl.c    |  2 +-
+ fs/nilfs2/recovery.c |  2 ++
+ fs/nilfs2/segment.c  | 10 +++++++---
+ 3 files changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 511087456568d..b7c0ff1b9b5a1 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -592,9 +592,19 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
- 		if (retval)
- 			return retval;
+diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
+index 03062b6bc323..11ccf18c3999 100644
+--- a/fs/nilfs2/ioctl.c
++++ b/fs/nilfs2/ioctl.c
+@@ -972,10 +972,10 @@ static int nilfs_ioctl_clean_segments(struct inode *inode, struct file *filp,
+  * Return: 0 on success, or one of the following negative error codes on
+  * failure:
+  * * %-EFAULT		- Failure during execution of requested operation.
++ * * %-EINTR		- Interrupted.
+  * * %-EIO		- I/O error.
+  * * %-ENOMEM		- Insufficient memory available.
+  * * %-ENOSPC		- No space left on device (only in a panic state).
+- * * %-ERESTARTSYS	- Interrupted.
+  * * %-EROFS		- Read only filesystem.
+  */
+ static int nilfs_ioctl_sync(struct inode *inode, struct file *filp,
+diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
+index 21d81097a89f..f1d346aefc76 100644
+--- a/fs/nilfs2/recovery.c
++++ b/fs/nilfs2/recovery.c
+@@ -760,6 +760,8 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
+  * Return Value: On success, 0 is returned.  On error, one of the following
+  * negative error code is returned.
+  *
++ * %-EINTR - Interrupted.
++ *
+  * %-EINVAL - Inconsistent filesystem state.
+  *
+  * %-EIO - I/O error
+diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
+index 063400f8a73c..530ae5889bc6 100644
+--- a/fs/nilfs2/segment.c
++++ b/fs/nilfs2/segment.c
+@@ -2266,7 +2266,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
+ 	wake_up(&sci->sc_wait_daemon);
  
--		retval = snd_compr_allocate_buffer(stream, params);
--		if (retval)
--			return -ENOMEM;
-+		if (stream->next_track) {
-+			/*
-+			 * total_bytes_available/transferred still refer to the
-+			 * current buffer; its geometry must not change.
-+			 */
-+			if (params->buffer.fragment_size != stream->runtime->fragment_size ||
-+			    params->buffer.fragments != stream->runtime->fragments)
-+				return -EINVAL;
-+		} else {
-+			retval = snd_compr_allocate_buffer(stream, params);
-+			if (retval)
-+				return retval;
-+		}
+ 	for (;;) {
+-		set_current_state(TASK_INTERRUPTIBLE);
++		set_current_state(TASK_KILLABLE);
  
- 		retval = stream->ops->set_params(stream, params);
- 		if (retval)
+ 		/*
+ 		 * Synchronize only while the log writer thread is alive.
+@@ -2280,11 +2280,11 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
+ 			err = wait_req.err;
+ 			break;
+ 		}
+-		if (!signal_pending(current)) {
++		if (!fatal_signal_pending(current)) {
+ 			schedule();
+ 			continue;
+ 		}
+-		err = -ERESTARTSYS;
++		err = -EINTR;
+ 		break;
+ 	}
+ 	finish_wait(&sci->sc_wait_request, &wait_req.wq);
+@@ -2319,6 +2319,8 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
+  * Return Value: On success, 0 is returned. On errors, one of the following
+  * negative error code is returned.
+  *
++ * %-EINTR - Interrupted.
++ *
+  * %-EROFS - Read only filesystem.
+  *
+  * %-EIO - I/O error
+@@ -2354,6 +2356,8 @@ int nilfs_construct_segment(struct super_block *sb)
+  * Return Value: On success, 0 is returned. On errors, one of the following
+  * negative error code is returned.
+  *
++ * %-EINTR - Interrupted.
++ *
+  * %-EROFS - Read only filesystem.
+  *
+  * %-EIO - I/O error
 -- 
-2.53.0
+2.34.1
 
