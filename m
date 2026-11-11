@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413958;
-	b=AkWH/wZKVRkcIDWbiuAG7vSgj7zSHyGrRzbku/VMeqauvMundwOCd1OYA1kScS1WXy+M
-	 8orF2ysmEjg9AvdYYTuew4/vuj/cLO85nuuVJnklyAB0h9xSH7PNXOrBWpvKvaNlPTH1Q
-	 J1Jbi8rZa/FaYyhvhzk/Rgjw8nGa5DowEa1tkg3dwKJqz56VMSYUv1uBqieK3ppwrSF2j
-	 R2C6rlRvKxjc17lRRWq5dF1vtxHg547wuPHC0c9J6FxK02Cigc1bJD0Etiq2Rc6+nrXJs
-	 halLDzSWl9FcGt9bCOoIGb8ykr2INWQSN7PGcrgSSbAQSoC3mXSC2nJBnUFFHMp1Upg==
+	t=1794413960;
+	b=SX034NmBxjemyAesHRk6gs/WBix6iOqpErqBixxNmmSPXs0SPvSxAvgMK87IH/sQNblE
+	 L0AAiRB5iTy1ltBpecSO+WxPrFWCwcwNbIEyzF78rS1oItya4kqUJXWYNqt8KnFGI0/Ig
+	 VuSnYAuVidh/mNT8ltefo4/RKaAmiLExHIQ93bcKLtI22Akl6Zj231KRaXlJE62lI3a+i
+	 et1IB/D/o9v8bx+DIhD+BgJDjUX7MFbyRKs0JRMpHjcNdW5tIqYYHehzyzXO+vxBWqf4R
+	 Uxe2OHSNWB60sOxniWvk9ISfxooj0TIDiHy0Eo11tl4DWCigMN3YZm14Vg19O6cf6oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413958;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JIa7fg+iWKuPXcPSAWBZkQBM2VGcFWtEjrXe8f+qo3w=;
-	b=eZPH4Zh6o4KnhGqdK2nr5WRnTdal0+DQn2SWkgx1CHDHPhsHkFVqI4JWd/+LxUF5z0m+
-	 3a+Tf6RNNA0tO0dJT6VZHLL9TPPPqqszu5V3z+RzYRHi35ZvtVhgaenMEsszBkuFsOLuv
-	 uX9hOK9P+V+n9/iA5N6VG1UhWxArZ/ntWl5ClSZC7yMD0LZifawaGBDbJfSN0mNjJrwrr
-	 542NS42/78KfBQPUgzsFld2i2jh/lW6DE28/H4vw0Vk82ne2Rhk2xL3YgbP8WRS7su2/f
-	 CCryuNHUZ1azv8XRVDu5nJJqNTOqLUaBdjtCBw70xBlJ9hmpzuScuT2sdwuNmPTgrsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413960;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3Tr7kJyMgrxILW6bmy4HJBMvh/+CUoCrlh1UXHmeUfg=;
+	b=2q01niUkEDmujMK0DQJJsThu9t7ddswwi6UENQsX77CIazon2j9+ppR4qJhIqqS0suab
+	 nA9rBVRhUjqsT4GJecPl5eJ+WRzWY54JX5UGYdKASEE9IAZ2bUWgXQmi2O84EfY3QF4Q4
+	 O9rqISjv1Dy38LCQUspsQ6FRAxppKvnt82s6In1Mw8udq8iT6Gf66KAv99uw/YtrqT8fW
+	 9mlYSDUjTkxCmnyKFid8rWw7mfrzLmWfQY5UAWAHi4JNoMvIXsPIjCoim64Pnajhz5DBK
+	 IQEzcZ/jb6rSD1HvwQkNkA8mjdPRetayijPrTHtGvLMzPjddwO0mUoHaHIsiBjhlrqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxFu9TpF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=JCvYPm5I;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB6D606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:19:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40175606A32D;
+	Wed, 11 Nov 2026 16:19:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40175606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxFu9TpF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 858E61F00A05;
-	Wed, 11 Nov 2026 16:19:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794413958;
-	bh=JIa7fg+iWKuPXcPSAWBZkQBM2VGcFWtEjrXe8f+qo3w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gxFu9TpFW7HCW9EY9cVZUxIWv/neinhbnfoxkKQIW+tM1t1wcbvzFUojp7l2IYMQm
-	 Jrss+ZcvXUd2AbUGG84I24OGD/suKYFiakK1iaGNTauprbs3/cvclZN9iuFrmAj9xt
-	 u/LHNwtG5bV+RHzOPDBzN6gS6wr+wjwdnY2HRf3/64jPjpZF7elbgBj3h6ePIZKEgL
-	 SrVPCB4zXEjzH8uk4VCStS8tfx8mUAMB2Syf5VjhZXAsB3QroqOXHldlikrreVAFeG
-	 qNbfJfBP88O6cFjqrj/xT0z661TwYoeoOSUvzl6DlN1EA/Jh3QtmvW27CY6vTWJ3S1
-	 P64X38JU60lxQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ACPI: APEI: accumulate the queued flag across error sections
-Date: Wed, 11 Nov 2026 11:19:16 -0500
-Message-ID: <20261111161904.3180519-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054655-failed-6.1-f341307a1489@kernel.org>
-References: <20261107054655-failed-6.1-f341307a1489@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=JCvYPm5I
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=3Tr7kJyMgrxILW6bmy4HJBMvh/+CUoCrlh1UXHmeUfg=; b=JCvYPm5Is+991YuywRlzjEMNp1
+	S7xApyjWkrIWpO1oeaL8ktGurfYFlNjlkCO5QDII88oChRyKxzldRJdHvNh12Qc9AqcRnnTbfHGgi
+	m24D8VAzk2xKVIS6fw5o+v0JyHDFmq1xcpGCCBrxJb/8xYuWZMHFFVQYsq7++pn3jgfUQgXXxRzch
+	9z4ADnYmpKTG72LwmxGF3ubyCFpL4b2Bw6SoxxtCFFZqjGjzvQLkdiEurQL6UszAOmvSbqcHjpFEp
+	ZQ6NLGlEPWFuQUKKypZ/upo4qvHU052VKpB4y13ADLWF5cwZm2yeau3pKtixdT09vC++p/dFkG29U
+	Ia7lrXtA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRB2X-00000009KMT-3SmB;
+	Wed, 11 Nov 2026 16:19:14 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 3D91130031E; Wed, 11 Nov 2026 17:19:12 +0100 (CET)
+Date: Wed, 11 Nov 2026 17:19:12 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Juri Lelli <juri.lelli@redhat.com>, mingo@redhat.com,
+	vincent.guittot@linaro.org, linux-kernel@vger.kernel.org,
+	tglx@kernel.org, will@kernel.org, boqun@kernel.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it, mathieu.poirier@linaro.org,
+	longman@redhat.com, ridong.chen@linux.dev, tj@kernel.org,
+	hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+	bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 13/29] sched/deadline: Keep departing bandwidth across
+ a root domain rebuild
+Message-ID: <20261111161912.GP1779021@noisy.programming.kicks-ass.net>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-14-mathieu.desnoyers@efficios.com>
+ <avRmoK08LoIeySBL@jlelli-thinkpadt14gen4.remote.csb>
+ <c3e7054a-486c-4e5a-a646-eee42e815ce4@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,69 +81,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c3e7054a-486c-4e5a-a646-eee42e815ce4@efficios.com>
 
-From: Breno Leitao <leitao@debian.org>
+On Wed, Nov 11, 2026 at 10:35:17AM -0500, Mathieu Desnoyers wrote:
 
-[ Upstream commit f341307a14895e5da056fb419a31ef7fb534ab18 ]
+> Measured in a 64-vCPU guest with sleeping deadline tasks:
+> 
+>   tasks    today: rebuild, longest irqs-off    single list, all irqs-off
+>   1000     0.75ms, under 0.1ms                 0.12ms (0.19ms worst)
+>   10000    7.4ms, under 0.1ms (0.3ms once)     0.9ms (1.2ms worst)
+> 
+> The rebuild itself is 8 times shorter. That comes from updating the
+> extra_bw of the CPUs once per root domain, not once per task. But the
+> longest section with interrupts disabled grows with the number of
+> deadline tasks. I do not think that is a step forward for a real-time
+> class.
 
-ghes_do_proc() walks every error section of a CPER record, and
-ghes_handle_arm_hw_error() walks every error-info entry of an ARM
-processor section.  Both assign to "queued" instead of OR-ing into it,
-so only the last iteration counts: a later section or entry that queues
-no memory-failure work clears the flag an earlier one set.
-
-Instead of reassigning the variable at every time, just do an `OR`, so,
-if there was a single match, it will return "queued" as set.
-
-The comment above the check says "If no memory failure
-work is queued", which is the semantics this patch implements. I.e, only
-SIGBUS if there are queue was not handled at all. If we want to SIGBUS
-if any event was not handled/queued at all, we will need something more
-sophisticated.
-
-Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
-Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
-Link: https://patch.msgid.link/20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-[ sashal: Adjusted patch context to match the older ghes_do_proc() implementation. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/acpi/apei/ghes.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index fff97db7779ef..517ed5f77008f 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -529,7 +529,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
- 		 * and don't filter out 'corrected' error here.
- 		 */
- 		if (is_cache && has_pa) {
--			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
-+			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
- 			p += err_info->length;
- 			continue;
- 		}
-@@ -671,13 +671,13 @@ static bool ghes_do_proc(struct ghes *ghes,
- 			ghes_edac_report_mem_error(sev, mem_err);
- 
- 			arch_apei_report_mem_error(sev, mem_err);
--			queued = ghes_handle_memory_failure(gdata, sev, sync);
-+			queued |= ghes_handle_memory_failure(gdata, sev, sync);
- 		}
- 		else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
- 			ghes_handle_aer(gdata);
- 		}
- 		else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
--			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
-+			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
- 		} else {
- 			void *err = acpi_hest_get_payload(gdata);
- 
--- 
-2.53.0
-
+This is domain rebuild? Do we really care about performance there?
