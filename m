@@ -1,78 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794381697;
-	b=VUuAr5/2zG1jiW54cEFHLmGGwbVJP741jiU0en04djGACkSYylPub6ila70AU0urEkH/
-	 92UEjYJELA1p7b6LVdrt2XctyLsELwM28+M0E3zgX71XVcTrvubdE//8kJ0M4gcFH7GY+
-	 5wmWC8Ku954Plr8awPvd4GQWk5ChLG6HhaLP4MxFSSPKQb2titDjOUPOtiL9pPdenVs0B
-	 Xc+dcAXzGrHbpZMLIusoSmcHvVncb0xVOVRIq7ROmAI9Yj+cPKitW9LotBtVepQxeMAIf
-	 ZfcclaWN10g4HQLM58CiUAj021B3/iBeZU5uEObjhT0IejOL+E63agYfkMoRrTXsq8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794381697;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MnFMk46EG0f506CVEaFuqBtHbtfj03tTGXzLvl4knc4=;
-	b=sDTylPf4CozI4WnBgx0h9OLe8K6sw3lbVTFUqd2Pe03lzIoqECSmi1irThs+18n3Gsrr
-	 KrWa+QiLmgljjbfCEmKEDfOywPlanWpaH+sEKXp/KAuGf7BDrNH7h7+0A+9OGzehXcoTE
-	 1mOVnt55/zSOxQB+6wHtOnb+C8A6m2DOf5r0uPsJrv+iH/DF+ChGMH8XsMo43o+Z21dYO
-	 lHkJCwLBh3vbK6GfBy8a85GflQ/eyr6bn5mBtjce3y3O12782D/TrMltYhpoqiGeCvRZc
-	 PH6rdTKdqWbzxNLuubhxjYxFIGTFSLhxtuvFNx+k4taQ8Rxr69niJIbGX1qVgrL64rQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJMUbZhV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951A4606A31C;
-	Wed, 11 Nov 2026 07:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJMUbZhV
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794381697;
-	b=rkiLcezWDrzSZIk/dLFQi4YkpUjo36Exz4YuUPb5lb908nq6fwMBwOEs35rrBSXJtQLk
-	 kUFLyIxmkYnjTjWstIDa+rnPahLG+OAvV7cOx/87NO4b3RjoMI2fvnMEVePlPgy57YI3w
-	 QP8xJslEiM4x73TY4yTd8acX3btc4CJlDozOgCf5HX0yDz3FMEbAAPdNyf6BcpHiSYdOc
-	 KJNmMQ5obX4GCOWBRIA3G+zA92kKUSOxiL7dY/RcLLIHm3nmT98jJNf27xuBZlhOrckm7
-	 mTiwuQp0Rb/Zpy66qWUn8Pbd0AoG4f83xJzm3i9mMDRVnz/Qr/Drlphwun32rKJCbWw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794381697;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MnFMk46EG0f506CVEaFuqBtHbtfj03tTGXzLvl4knc4=;
-	b=nDUABHcc7yqOfL4dz7RvCtVTyBwA3vVQ+JXoo5tmtmcGMYvU8lO5pvRTfvCNgE4194CY
-	 TvLQBeuR9QL5URuMPYgxr+wybgEcC2gsm0F/oq+/2dtEcR0WkhUT8tVqjSz/88kvoig0M
-	 ZY8Q5NFdDbCaNJPAYz5RGJNQ1JmwtdJmyx3haFck3L72IfDk6OgxzMwHwdxBHcVEkDQQM
-	 7smAi076tDtWkBXdRCH6v5L14W0+N7PxwKOJUmbqt76+jMrG3U6GsW/uoOauPHXTKEKc5
-	 MhwZI+/b9U5VgpPuNUW1w2QZxOMNIbR8w3I+8Ro5paHnQUr6prchpcE/JEk8ELEFV0w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794381803;
+	b=uhwhfRM8LGBTJw7Tbe6Z5M37nFqaIkfRTS6egwd/dycwhKanY+lZ4G3oOH12vwR/xGSm
+	 ZaC+eHif7ZqKAAAocZzZ6+ZnFDsAEwCMI+ia8Zpok4gCTwBcTMtQSgyO4NzPlM3hIBm2m
+	 h+JMYkDgO3Gp7IYDnHvNQXceddbxu37xZ//nBzYd/lU+YE3PqubBzv7fGi7tKSX2pkh1l
+	 exa1lJRZfp6g6eXsfWKsMViltydICkuzeNVcV74/izGa5F0hL+HZ7cnfZPxaqrAtyFNwQ
+	 m6AVlbER3Cp3zQ/jcAuNg3Fe9IKzhMQfkTk7TQl2qEVyG8m4xRzE8N6/vTSHDUb82Tg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794381803;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AUKPS5RA8eXgoyfSnvQNUOAbgh7hfsrUJVAkmo79Ccw=;
+	b=HaABfb/XiXAT0cELIhmbXSsPL7EgLrae8qY4OVxsFVVfTjf2XYONhR2BMvm4laZNzHS1
+	 ycxWkDuMcPyAwFUZ9V+fh+khDeuUcz92lsGEpqjov3AwwaXoJojOFl30U5dMy6aTTk4Jn
+	 be5y7qR6LLqeY9+sr76GJ4XYufD74WprsI6pHo80ewFWkDWxdrSuKowZPCtqD+KjQVPhD
+	 kc8XLzftB8NCN4SyaKRc7byr+/+lb/cEUZX5iJrvuRPiIbmyGH4ZWmpoBqgGmMUx+ljfF
+	 FICVo1xwlbSldNgtiNWXeSLikiWwgePJLb884e8UDkKaRAtyCqyL4f/N8deyybDlrQw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D2MkHM9b;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E5D781F00A0F;
-	Wed, 11 Nov 2026 07:21:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794381697;
-	bh=MnFMk46EG0f506CVEaFuqBtHbtfj03tTGXzLvl4knc4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=eJMUbZhVyLlhrxqM6IORVV5+XB4Kfok0qCKgKnXlJehsO670be0eH5J1M28bRWXhY
-	 ztu5IwGcueBT/qJgll1Bw+6hg2uL2zsdBUEoJP1MS+06bP8hkJpanHPKkglzpej0Ru
-	 OrOoozGt0PZxBmyZkuDNw2kdznEwB+ZE/6dp3CNKlW2Z+9kL8xmkEyP4VefA446J6r
-	 D4x2D1jBZebU2m+mfr0s7QAznQhwJ2xW98CLXAbjPrkYw8o7ZZR19tOeAmZuiOn1GG
-	 u2yj5ZhlJn6jl9JhPViTHEn9gv/SfgFFIyE3yX3qf8zWWaviDPbBx19guk8choxgT+
-	 QFRTyVOD9wqWA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 761C648E46;
-	Wed, 11 Nov 2026 07:21:34 +0000 (UTC)
-From: yzddMr6 via B4 Relay <devnull+yzddmr6.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 15:21:13 +0800
-Subject: [PATCH] soc: qcom: llcc-qcom: Reserve ISLAND1 ways on SM8750
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67AD606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:23:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B67AD606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D2MkHM9b
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36dbde64409so6018802eec.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:23:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794381802; x=1794986602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AUKPS5RA8eXgoyfSnvQNUOAbgh7hfsrUJVAkmo79Ccw=;
+        b=D2MkHM9bMVmn5KJjXCcY7Zf8IrlcQRW/j7MZfCz5t8C4trhHu6yVTgIJqX18vkhH6T
+         yLp06YE/BU+HUh4VO10HdZlhwZpXGvDWfE6uBIA0EMM/lnXiEW/9U3DuuvYe0ObpI8o3
+         ZP3qEXCYvt8L/Q029eGUcaEgOFN24c2VCu1yVc11KHpGLhyximDhkH0cHtiHOZM4rtgX
+         rsMQtEJGvcn7hNMDhy3Yzvsz43VEAI+FYvEhGxN1p+keNAOQ410Oqa9VNAE1Ocu5AhiR
+         2vBxfeS6KaFMeONHK51HLuSDa0Le9PPSGeI7hdK7ihCRqgUXBe6uqKuRw1h7ry/+/I17
+         6c5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794381802; x=1794986602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AUKPS5RA8eXgoyfSnvQNUOAbgh7hfsrUJVAkmo79Ccw=;
+        b=unpfyYxqLfd3D2hc8ZpXZKOsiOU6v4lfD9CRWkI5iDHV1wyPwa2T1oVFjuEMghahVZ
+         MVDhNIK+An/40bZFy82lGlZAtWMF+07iKhqd88hrZZfhlHmoakrq57rLKx6GUajb1ce5
+         ++c3G5luzYyeMCgFuwEMZZRfRAO/xjU1xJ0OKlkbmKnWJvx6lXJU2RHOg7L/sHi/swXO
+         Y3oBrd79ll4ABETKq3+suvBth0khUKm9yQWQAAAd704dVPfy1tbFyvYO7gMTOkqwe5oX
+         petHe/czELaiVa/gMDLzFGNwJdD1DkvvX0ORxRjgIBBcRMgIDNacW7jr0ltIOmLZ6h3D
+         6gow==
+X-Forwarded-Encrypted: i=1; AL+hErEqnqVXkPswt5TbiEroiE9Mjc7wsZVrkg/WZsrhsQfgnS7vZxBb5b7x8Za/yKz3qSfRd9vfsuc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dQ1u3JDodnjsI0XG5VBZBUE8fyPE0IR6bJj69bDEjRFPXLR7d
+	6/u7nzBTt2YBjwE0g4BZzZYAGHXk1BzmmoDGIXI5Dkqng2AOhF0aqw2s
+X-Gm-Gg: AYBFou3sOIV8r/BqLtKAD+qkspbmHojtvnr51Dyiv9SwmMIskj4Y0cBPUPzhFfHVKUW
+	JeYSfdrt3s4X/BZN267M5KOijYq/GfYOPneQSoUeRdRNpBoU9HgFLdAWtzhBWo79sWm4kwA1VUG
+	X2lpysITRBTh5jG1ypBaRZjsNKNKZ/iNIxFX11BtuAPwGcNTH5UdqDepwdxxpN/BZVpQsnCPbU/
+	OBu4p5qdVZVrqcHSr7mgPYuN/KXN3E8+6X3E4JnmJbvKPkfxoafZh460l08z2ms6/lVO4PZfdgJ
+	jjrCseOpK/u/+7kjQZmmyxO2UQa4tMCWFipF9+wp6WtS+WpVftEs65up2YXqL4TWr7fJLDYmRMA
+	DdUEXTitbiZrH+R9yidZt5nGVS0Bm3rgMpyrlSLDf0tFtS3GqOkxEXRJ+VKpkzvdiM9iniEOmEA
+	HqENJu1U7Bj8yyl3UmaSiiIUCqJMApfXXeCVYqtlszIENSG2vCNii1YImNZGh6hbAKEzw5Nj86t
+	Va5XdCWMaBQ6AND1nAOGj/nILjHE6H4i37JOyoxchA8jB8ezXns7NcGoKgoAvQ5oNgSQc/H1NZc
+	+F+24IeiGrcXtl1CXltJbPlqZP4wiHAqqUwCrGDhAJBp1vDj
+X-Received: by 2002:a05:693c:8950:10b0:35f:2858:aa4b with SMTP id 5a478bee46e88-3768675505fmr2135460eec.30.1794381801419;
+        Tue, 10 Nov 2026 23:23:21 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e76e2sm14542312eec.24.2026.11.10.23.23.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 23:23:20 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Kevin Cernekee <cernekee@gmail.com>,
+	Neill Kapron <nkapron@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Felipe Balbi <balbi@ti.com>,
+	Sebastian Andrzej Siewior <sebastian@breakpoint.cc>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: gadget: bcm63xx_udc: don't sleep under spinlock in udc_stop
+Date: Wed, 11 Nov 2026 16:23:10 +0900
+Message-ID: <20261111072310.3005580-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,142 +100,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-sm8750-llcc-island1-v1-1-64055702ca3f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAGgX9GoC/yWMTQ6CMBBGr0Jm7cTSqCVexbBoh6nUlEo6YEwId
- 7fF5ft+3gbCObDAvdkg8ydIeKcC7akBGm16MoahMGilb63SHcrUmavCGIkwSLRpaFErfzHGk3f
- aQnnOmX34HtZH/2dZ3Ytpqaq6cFYYXbaJxhqtsyyZ7XQ+tLWEff8B3LN9qpwAAAA=
-X-Change-ID: 20261028-sm8750-llcc-island1-20f477fcfb2a
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, 
- Melody Olvera <melody.olvera@oss.qualcomm.com>, 
- Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, yzddMr6 <yzddmr6@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794381693; l=5561;
- i=yzddmr6@gmail.com; s=20261028; h=from:subject:message-id;
- bh=u1722Y2/33+v6rnFwy/S7BVP2WhypCsiB/i4KfmJGt8=;
- b=D9elJKqXuPeYSa4NxF/CsBm3PukIBJzMoOEY/ZeyL8lGbrvpokMybh1i20zfMNynBl6f9Y0lv
- lT2t2biCAXsBfCi28O0IYw2uSN5egtABSKE0LkxmHgyu/xS+ThvVrMc
-X-Developer-Key: i=yzddmr6@gmail.com; a=ed25519;
- pk=QLT2mwairk4R38oU379hkHynqjoLrlqd0Cl1ERUqIqY=
-X-Endpoint-Received: by B4 Relay for yzddmr6@gmail.com/20261028 with
- auth_id=1489
-X-Original-From: yzddMr6 <yzddmr6@gmail.com>
-Reply-To: yzddmr6@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: yzddMr6 <yzddmr6@gmail.com>
+bcm63xx_udc_stop() clears udc->driver and then calls msleep(100) plus the
+PHY/clock teardown while still holding udc->lock, which is taken with
+spin_lock_irqsave(). Sleeping in that atomic context triggers "BUG:
+scheduling while atomic" (and a CONFIG_DEBUG_ATOMIC_SLEEP splat) when the
+gadget driver is unbound.
 
-The SM8750 table gives the island slice (LLCC_ISLAND1, SCID 12) its way
-mask 0x7fffffff as bonus ways and reserves none. Bonus ways are only
-allocated when no other slice has reserved them, while reserved ways
-belong to the slice alone. The first posting of the SM8750 support [1]
-had these ways reserved, as the downstream table shipped for this SoC
-still has them (res_ways = 0x7fffffff, no bonus ways). They became bonus
-ways when v2 converted the table to designated initializers, and v3,
-which refreshed the table, kept them.
+The lock is only needed to clear udc->driver, which serializes against the
+interrupt handler. The settle delay and the bcm63xx_select_phy_mode() /
+set_clocks() teardown only touch hardware and are already called without
+the lock during init, so drop the lock right after clearing udc->driver
+and run the sleep and teardown unlocked.
 
-With this table, system suspend can reset the SoC once nothing votes
-for the LPASS core. On a Xiaomi Pad 8 Pro with the LPASS_HW_MACRO_VOTE
-and LPASS_HW_DCODEC_VOTE votes released, 16 suspend attempts (15 with
-s2idle, one with PSCI system suspend) ended in a reset. The PMIC PON log
-shows only PS_HOLD-triggered resets and no PMIC fault. Holding
-LPASS_HW_MACRO_VOTE or LPASS_HW_LPR_VOTE across suspend let one s2idle
-cycle each resume, but cxsd did not increase in either case.
-
-The reset stayed hidden while the LPASS macro codecs took both votes at
-probe and held them until removal, as they did before v7.3. Since v7.3
-the codecs manage these votes through the PM clock framework and drop
-them when they runtime suspend.
-
-Reserve the ways again. With that, all six s2idle cycles that went to
-sleep (48 to 60 s each, no LPASS vote held) resumed normally, with the
-cxsd and ddr residencies in qcom_stats within 0.1 s of the time spent
-asleep. The ADSP island counter increases at runtime with either
-table. The mechanism behind the suspend reset is not yet understood.
-
-The mismatch was found with the help of an AI coding assistant.
-
-Fixes: 2c04e58e30ce ("soc: qcom: llcc-qcom: Add support for SM8750")
-Link: https://lore.kernel.org/r/20250113-sm8750_llcc_master-v1-3-5389b92e2d7a@quicinc.com [1]
+Fixes: 613065e53cb1 ("usb: gadget: bcm63xx UDC driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: yzddMr6 <yzddmr6@gmail.com>
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-Tested on a Xiaomi Pad 8 Pro (SM8750) running v7.4-rc1 with out-of-tree
-board support and the TX/VA patches of Ajay's "manage clocks in runtime
-PM" series [2], which replace the PM clock handling with explicit clock
-management and also force the macros into runtime suspend for system
-sleep. For the comparison I set these two fields back to the current
-values in a copy of the same kernel image; DT, initramfs and root file
-system were the same. With the current values, the first s2idle attempt
-ended in a reset, and the PMIC PON log again shows only
-PS_HOLD-triggered resets. With this patch, three s2idle cycles (38, 46
-and 59 s) resumed normally, with the cxsd and ddr residencies within
-0.01 s of the time spent asleep.
+ drivers/usb/gadget/udc/bcm63xx_udc.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-The numbers in the changelog come from earlier runs on a v7.2-based
-kernel with the v7.3 TX and VA macro runtime PM conversions backported
-and the same patches of [2] on top. Not counted there on either side:
-attempts that exited at once because of a debug setting (two before the
-fix with CX collapse blocked, two after it with console_suspend=N).
-
-All of these suspend tests were done with a USB cable connected.
-Build-tested on the base commit below (arm64 defconfig, W=1); in the
-object only these two fields of sm8750_data change.
-
-v1 had {LLCC_ISLAND1, 12, 7936, 7, 1, 0, 0x7FFFFFFF, ...}, the same
-values as the downstream sun_data, e.g. in the OnePlus 13 kernel
-release [3]. The downstream driver writes res_ways to TRP_ATTR0_CFGn and
-bonus_ways to TRP_ATTR1_CFGn, as _qcom_llcc_cfg_program_v6() does here.
-
-The final table also differs from v1 and downstream elsewhere: v2
-changed CVP from ovcap_en to vict_prio and the CAMRTRF priority from 3
-to 1, and v3 set ovcap_prio where v1 and downstream set ovcap_en for
-VIDDEC, CAMOFE, CAMRTIP, CAMSRTIP, CAMRTRF and CAMSRTRF. I can't test
-those and left them alone.
-
-Downstream moved the SM8550 island slices from bonus to reserved ways in
-2023 ("as per design recommendation") [4]; upstream sm8550_data still
-has the earlier bonus values. I have no SM8550 hardware to test that.
-
-Kaanapali also uses bonus ways for ISLAND1, but that matches its
-downstream table [5], so I left it alone.
-
-I used an AI coding assistant for this work. It ran the suspend
-experiments on the tablet, found the table mismatch and drafted this
-patch and changelog. I have reviewed the change and the measurements.
-
-[2] https://lore.kernel.org/r/20260928-xo-sd-runtimepm-v1-final-v1-0-e3ebade3aeb7@oss.qualcomm.com
-[3] https://github.com/OnePlusOSS/android_kernel_oneplus_sm8750/blob/6028f47faddaa27700f8dd3a1d83906ea8f27170/drivers/soc/qcom/llcc-qcom.c#L479
-[4] https://git.codelinaro.org/clo/la/kernel/msm-5.15/-/commit/adec35fd4cf84dca253eca06d9a4960f1eb85db0
-[5] https://github.com/OnePlusOSS/android_kernel_oneplus_sm8850/blob/fc30e54174d254ff7f33622a9278e4435f6718d2/drivers/soc/qcom/llcc-qcom.c#L665
----
- drivers/soc/qcom/llcc-qcom.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/soc/qcom/llcc-qcom.c b/drivers/soc/qcom/llcc-qcom.c
-index d7a42a8040a1..007593d1e951 100644
---- a/drivers/soc/qcom/llcc-qcom.c
-+++ b/drivers/soc/qcom/llcc-qcom.c
-@@ -3923,7 +3923,7 @@ static const struct llcc_slice_config sm8750_data[] = {
- 		.max_cap = 7936,
- 		.priority = 7,
- 		.fixed_size = true,
--		.bonus_ways = 0x7fffffff,
-+		.res_ways = 0x7fffffff,
- 	}, {
- 		.usecase_id = LLCC_DISP_WB,
- 		.slice_id = 23,
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261028-sm8750-llcc-island1-20f477fcfb2a
-
-Best regards,
---  
-yzddMr6 <yzddmr6@gmail.com>
-
-
+diff --git a/drivers/usb/gadget/udc/bcm63xx_udc.c b/drivers/usb/gadget/udc/bcm63xx_udc.c
+index ba91b1ebbf57..269063d19f10 100644
+--- a/drivers/usb/gadget/udc/bcm63xx_udc.c
++++ b/drivers/usb/gadget/udc/bcm63xx_udc.c
+@@ -1847,8 +1847,8 @@ static int bcm63xx_udc_stop(struct usb_gadget *gadget)
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&udc->lock, flags);
+-
+ 	udc->driver = NULL;
++	spin_unlock_irqrestore(&udc->lock, flags);
+ 
+ 	/*
+ 	 * If we switch the PHY too abruptly after dropping D+, the host
+@@ -1861,8 +1861,6 @@ static int bcm63xx_udc_stop(struct usb_gadget *gadget)
+ 	bcm63xx_select_phy_mode(udc, false);
+ 	set_clocks(udc, false);
+ 
+-	spin_unlock_irqrestore(&udc->lock, flags);
+-
+ 	return 0;
+ }
+ 
+-- 
+2.43.0
