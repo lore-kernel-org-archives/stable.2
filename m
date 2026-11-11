@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794365005;
-	b=hzZ/byHQvu4zCCmMQA1gJYH4XE8rCmLycwAkTtcq2mY+dARRhXD7ukNAoaWSmDYNqOAP
-	 NPxTmvVX6l0PDxhZ6Mwcs4+Sp6d23nXGdm7V3L+izHmYVbWlBQvp3juW0aPriCHNUO6iS
-	 6TNHKRn1Z0IKenFsQnGYvjsaLGAGk3WKv1knAA7fBerRZjccmstu7P7tEYKxlASU9Nws0
-	 c//VDAJp3rknZO034nvhDOVL2Ph0/aqRlzy/ML94l5mGgKGuGKP/AydPVPZS5wrkjyy65
-	 fJmEceX5jYbGNvN1jJlcwxHlb78vouY0YfvVsEHkm2yuJGiLAM+CvvsN7AYK2VpDBDg==
+	b=yyLKKsI0bPExFqgsZiiiy+0uSsVsc+sZyAopyDsIVCtMqIcJlOXZ9BpHCDRIOJ5qYnLM
+	 x2F/YGthWj+XcuUvTUEedkgmHC2cLxr4RWQPOiDucHET0Z/8+ODSj2+D/B0y3NzB7NK8t
+	 PGtFDgk5uSTxcZDll7XVmWz57O2eDHAZuGbgqAQbKSVFrNsZsaM1VA5i2XnDmbSaTpZ/W
+	 4xxoPwnJh61pON5/O8plG4ft9O7VNJ2+om5u88ZYMvGC6TU9HT1FKQScNcf5zF6CFGB67
+	 RPipivDPK5jp/CSLOku9dutc3iQlaOnqPCFLmdgStQ6fYa1Fo94ph4G6P+Z9XqvHlKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794365005;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Lr1RklU5dQ8cTBk5lxjxMgrNWW53BF9pgR3203hoNyA=;
-	b=RIlHk3T1Y9JcqGjqHdFkzFLz2uRwVlRQl6GFjn6nvL3G3jjRzkxxeQSC/AZLzlif23Fo
-	 66BFk1sYwdGUTONUg69jdaP0wooevMdSGCs/SealJ50jioZtaFLyxLs84uQHiGlM3mEkF
-	 K56MIfC39gWgcpOlf+tWViZLFYtgiSrdpxWs3fHWu0d9IIFU52YNODkAOZ6e50G2bMvd2
-	 fuHtFj37NAxmtGXdSm9qVGzQUHqQ/LKDPO70f+lAhNKkTg6E9NXmtQpNWB3q06tneTsqq
-	 BM6c43wdGHVopHc1/doYpLpwTZ3J0v1GhYnRxNeo7Ty53qGbD/jKg80VlhnkeVsfQng==
+	bh=xDgKxlBM5QkUQr7tTRzrpKWXntALm77dyG/Re/ya30E=;
+	b=ugXW/BTX+f5cpj4NLzntSWt9I89hJHSzyyqXO6Tu1auImeHtYWD9UIsMEw9UPiif3yvB
+	 tNjssTbZAbM1LSif9Pl1UpWiTJCQeLIDDfsjsJ9FSsqq8NjDGE6f3EVrn3CfiIKwRCfB1
+	 HKkFtvhaNqzeUkQDayCboHiueLCX7TnfdpksEmgzHugiHZNIV0/eeDAoPGd4FBMFfqXu0
+	 L5vNSnJSJlsZ0bx6JAPEbbFAVeYwyHFqDHY/Houtp+PoBurRSrYp7Esg7MEwkj/Zm93SR
+	 V3tAnmcz4WGIRvXp9wTIWj3HFmVZHNEAxBryVktSbxpxvIbLwBU0xBz+ifDC9pTafgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kiUjpJI4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vu2e6xbZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48C0606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CD1606A330
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:43:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kiUjpJI4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02FF1F00A00;
-	Wed, 11 Nov 2026 02:43:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vu2e6xbZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148A61F00A05;
+	Wed, 11 Nov 2026 02:43:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794365005;
-	bh=Lr1RklU5dQ8cTBk5lxjxMgrNWW53BF9pgR3203hoNyA=;
+	bh=xDgKxlBM5QkUQr7tTRzrpKWXntALm77dyG/Re/ya30E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kiUjpJI4guR7EcQDRfBljfNN03/jGv1K0fNlm7p6wBJSKzPLr0AvAvkUzWK3FWMSh
-	 NTGHy2Hgecvv4HavZDQb7OPM+sU/vVneDa/zozI9A9BB4Zq/+hkq81cTmvrZlaq/kG
-	 84FbZgq1Ht4UVknsP43Sm1R9RefGi0P9mMrUAzau5gipcwcdpiBM30A0VI35c2Np93
-	 P0SSJFcTKeuPRIfVw9yQvt5OA7mi1ZO61d66STR12vBE1k0zz+Gr3nR8FVCD+jmKBC
-	 O5dkdl1LWhEQe+aW4NZH9bLLs/mAnzu5uySBpUdGzfl+Aj4EwzlrcF1GYkqCczRjHN
-	 nWgyizn5M9qDg==
+	b=Vu2e6xbZNo1ZBW7VVsuQ1jlvhlbnLysLFf446vr73gbSQHZnVWMgnBe2aYRVmH2Fk
+	 Wtp4slLJPioEVliGPO6qY4kQgBiiTMFveunOeDsdb3pchTPGH4mFjDTKxum9a9NFIy
+	 EZO+H+rSTbvX9nbrutxKPjWLFL6VyKgsJlU6hjW5L1axTRG4m9UDywg4NPO1ygkPo+
+	 GJm22PeDehi81wWbfEFMR+GIXw6B5VyclF40EdmfBbBseE9UzI/wiCgD2McDz+c2Lm
+	 dxv+dTWRWZhl3SaUaSWaJ+bpKPur221P+qJ9+yHHUtJhzEtw/iHHLs5i1mHzU5HWJl
+	 GlgNWvSddrB2w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Sean Christopherson <seanjc@google.com>,
+Cc: Mateusz Guzik <mjguzik@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/5] KVM: pfncache: stop open-coding offset_in_page()
-Date: Tue, 10 Nov 2026 21:43:20 -0500
-Message-ID: <20261111024039.676658-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/6] fs: add missing fences to I_NEW handling
+Date: Tue, 10 Nov 2026 21:43:19 -0500
+Message-ID: <20261111024017.675599-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111024039.676658-1-sashal@kernel.org>
-References: <20261107052838-failed-6.6-eacdb76c5f04@kernel.org>
- <20261111024039.676658-1-sashal@kernel.org>
+In-Reply-To: <20261111024017.675599-1-sashal@kernel.org>
+References: <20261107051338-failed-6.18-8ee09f597763@kernel.org>
+ <20261111024017.675599-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,54 +62,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paul Durrant <pdurrant@amazon.com>
+From: Mateusz Guzik <mjguzik@gmail.com>
 
-[ Upstream commit 53e63e953e14a66b7d0d7e9c616cd602f3da9291 ]
+[ Upstream commit 31e332b911fca54df467d264d7e2a2ef9317f3ca ]
 
-Some code in pfncache uses offset_in_page() but in other places it is open-
-coded. Use offset_in_page() consistently everywhere.
+Suppose there are 2 CPUs racing inode hash lookup func (say ilookup5())
+and unlock_new_inode().
 
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
-Link: https://lore.kernel.org/r/20240215152916.1158-7-paul@xen.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Stable-dep-of: eacdb76c5f04 ("KVM: x86/xen: Enforce 4-byte alignment of vcpu_info registration")
+In principle the latter can clear the I_NEW flag before prior stores
+into the inode were made visible.
+
+The former can in turn observe I_NEW is cleared and proceed to use the
+inode, while possibly reading from not-yet-published areas.
+
+Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 8ee09f597763 ("fs: rotate inodes whose page cache could not be dropped")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- virt/kvm/pfncache.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ fs/dcache.c               | 4 ++++
+ fs/inode.c                | 8 ++++++++
+ include/linux/writeback.h | 4 ++++
+ 3 files changed, 16 insertions(+)
 
-diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
-index 2d6aba6778307..00e982e5c90d0 100644
---- a/virt/kvm/pfncache.c
-+++ b/virt/kvm/pfncache.c
-@@ -83,7 +83,7 @@ bool kvm_gpc_check(struct gfn_to_pfn_cache *gpc, unsigned long len)
- 	if (!gpc->active)
- 		return false;
- 
--	if ((gpc->gpa & ~PAGE_MASK) + len > PAGE_SIZE)
-+	if (offset_in_page(gpc->gpa) + len > PAGE_SIZE)
- 		return false;
- 
- 	if (gpc->generation != slots->generation || kvm_is_error_hva(gpc->uhva))
-@@ -219,7 +219,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 
- 	gpc->valid = true;
- 	gpc->pfn = new_pfn;
--	gpc->khva = new_khva + (gpc->gpa & ~PAGE_MASK);
-+	gpc->khva = new_khva + offset_in_page(gpc->gpa);
- 
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 3ad74a3abf9ad..84952f6bbf406 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -1995,6 +1995,10 @@ void d_instantiate_new(struct dentry *entry, struct inode *inode)
+ 	spin_lock(&inode->i_lock);
+ 	__d_instantiate(entry, inode);
+ 	WARN_ON(!(inode->i_state & I_NEW));
++	/*
++	 * Pairs with smp_rmb in wait_on_inode().
++	 */
++	smp_wmb();
+ 	inode->i_state &= ~I_NEW & ~I_CREATING;
  	/*
- 	 * Put the reference to the _new_ pfn.  The pfn is now tracked by the
-@@ -240,7 +240,7 @@ static int __kvm_gpc_refresh(struct gfn_to_pfn_cache *gpc, gpa_t gpa,
- 			     unsigned long len)
+ 	 * Pairs with the barrier in prepare_to_wait_event() to make sure
+diff --git a/fs/inode.c b/fs/inode.c
+index acf09822535ed..7adfc787e934a 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -1177,6 +1177,10 @@ void unlock_new_inode(struct inode *inode)
+ 	lockdep_annotate_inode_mutex_key(inode);
+ 	spin_lock(&inode->i_lock);
+ 	WARN_ON(!(inode->i_state & I_NEW));
++	/*
++	 * Pairs with smp_rmb in wait_on_inode().
++	 */
++	smp_wmb();
+ 	inode->i_state &= ~I_NEW & ~I_CREATING;
+ 	/*
+ 	 * Pairs with the barrier in prepare_to_wait_event() to make sure
+@@ -1194,6 +1198,10 @@ void discard_new_inode(struct inode *inode)
+ 	lockdep_annotate_inode_mutex_key(inode);
+ 	spin_lock(&inode->i_lock);
+ 	WARN_ON(!(inode->i_state & I_NEW));
++	/*
++	 * Pairs with smp_rmb in wait_on_inode().
++	 */
++	smp_wmb();
+ 	inode->i_state &= ~I_NEW;
+ 	/*
+ 	 * Pairs with the barrier in prepare_to_wait_event() to make sure
+diff --git a/include/linux/writeback.h b/include/linux/writeback.h
+index 22dd4adc5667d..e1e1231a68303 100644
+--- a/include/linux/writeback.h
++++ b/include/linux/writeback.h
+@@ -194,6 +194,10 @@ static inline void wait_on_inode(struct inode *inode)
  {
- 	struct kvm_memslots *slots = kvm_memslots(gpc->kvm);
--	unsigned long page_offset = gpa & ~PAGE_MASK;
-+	unsigned long page_offset = offset_in_page(gpa);
- 	bool unmap_old = false;
- 	unsigned long old_uhva;
- 	kvm_pfn_t old_pfn;
+ 	wait_var_event(inode_state_wait_address(inode, __I_NEW),
+ 		       !(READ_ONCE(inode->i_state) & I_NEW));
++	/*
++	 * Pairs with routines clearing I_NEW.
++	 */
++	smp_rmb();
+ }
+ 
+ #ifdef CONFIG_CGROUP_WRITEBACK
 -- 
 2.53.0
 
