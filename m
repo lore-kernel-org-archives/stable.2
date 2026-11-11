@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794361154;
-	b=ZkcQjo9e6K3w0u5o9QoZEOzSW6Bfk0KmLGfaudPtkHt+x1D9R4zsSlplSOUhTwsTKxnm
-	 +sMDOztegzPT+SK43i6XGivMn5TqsDwwzrVbryCNb6F37ZTlytJXgTU91MUrrZUT7lihW
-	 ixupPNTrFDpaTbBGXqtmOan7mNUlYxHr2sEI1tqA7qLa6SDZhDuQwEToY79PXz7KbYbi9
-	 GZ5KXW9oPsAYntEh3OZcWq13w+AANjX47gcDZag/xCA8GtXiwx/okXfmzANNkYr4xIHWc
-	 cXB+Cg1+Jxr4E9iBk+d/ic8T5KSgmXHgx2dLcFh56SvugPmj4nxx2GB8/Q+CH+tPbhA==
+	t=1794361438;
+	b=5nKO9Htjbl6kQ7pWyVkUnJoar8bpej2nuI32SgM1ounQfj+fnVNyL6CJbUmRGYVIeK15
+	 cFb7aIsLnwop7AtGwm+easzjFjAEG4UiSeuYOOF2aNdDQNfTQePXK0o39obqLKrr0JYvX
+	 qmTfwf0ackeIFWaqP+f0OSBPJ0EIkNz1U75Lo0RA6S7yjAqM/SpmeViFYFx5wRm+HalAG
+	 IE9xLVNjGVRpZdqQ97a6n8xB3oisySYcCkY3SztvvTv58rsRSnn+gxQAJie6gdLR/VjDO
+	 MLXddvO2+gHENKYne/KmgAx+LtziKuGtyG6dSbJeUoAG8guCcuoOzUThxMJ/+LDGhTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361438;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=q1XMXCfORYIrKm93fQ6DxDjTZ8J9zWMbzTkss/pm2Tw=;
-	b=ISNvQ5UtJGWX6YDSJxq0ZHfzlmgWU76dVj+cvqPm1FbAO9bxYtMOrkw+qwQ5EMxszygm
-	 BiGKqzoa5fQ1EbYeX9IP5sdhhXVrz4Pp0zCR+RECTWxokxczdfhzRfiwilCJbdLxOO+jm
-	 qfYz2j9l5o8N06hjRhfltNqMvHItjkGVn0zYsZJ5yhS2Zhvtw7LlxnqSL88tIItKkUpsJ
-	 NG6U/4bl6xVJs6bLuA1jZ4URWIbLm0eo31ES6sxzErjEGi/r3W3xxuZhi7mNBULNL01LN
-	 9K/KzJmBthvbTzqJv1H/tB94ANX7F2tKhMVVZ0IfnHrzsME8Y5FiiHNiiaiudNu7BYQ==
+	bh=WII2BNJMEvhWhywRZRfCBf8b9yINVggWSODYPyPrsco=;
+	b=FdsPANltRidFZtV6+XFE5dCB0j+Fern11M4QhWNOMBXqLn9JWz0QaMIumoe5exwRCCEG
+	 2mqR36reZ96yhZyUlHE/XepZWVRcF/fROAsMc5rGhvSYPuV+BzpY3z0dRdKoYHlhtlZyp
+	 6HeAimkldh2pA982+tTq1Z+5rPVePTQQwlyt0qunF57eWLoVVwibCh2vuYv/ueZbpmusP
+	 /5KNKjgm69JwJpLEpOJ12as1VQRTbhR//oJ6+orYld7+GOH48uY68mbbxjBbyv6SDAC6M
+	 A2zE/AUfsRiXy5V+b9RuwwbVfev0fwinwVeYkf6Fp1PSRtZDqT4A4vujlruw+A0LYhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5CaK7DH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5NJbCJb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730E0606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:39:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16BF606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5CaK7DH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B411F0089F;
-	Wed, 11 Nov 2026 01:39:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k5NJbCJb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EBFE1F0089F;
+	Wed, 11 Nov 2026 01:43:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794361154;
-	bh=q1XMXCfORYIrKm93fQ6DxDjTZ8J9zWMbzTkss/pm2Tw=;
+	s=k20260515; t=1794361437;
+	bh=WII2BNJMEvhWhywRZRfCBf8b9yINVggWSODYPyPrsco=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J5CaK7DHLhd1E/o34r5P8EzSZWAh2TckCz2auU/0GLeJ5x+saJdIsB5AqBubY1Sll
-	 KKJwLHcNMpGPy8uM+B4W2tltgP/TSZlek+aPQKmvNSrMLumBp7/EMxuVOO7Ek98ghz
-	 pLzfzWFFmkOAb/ag/jcLYQhpuovfxYAPly2qrt3FFTqvsF3BecmBwnY/YCnGm5WB5f
-	 MKxt6wDDrm/uL6EI0aBtO7AWrRvPrEkhxATOTO271MN+cEGe8hjaZ9dFnv56l0Wcif
-	 neLdzyE4qoYKdIqFIPGLALwwazO/VdkdiAvKifSnk1pCNKIO0vGHPxmztRt+uZsuzA
-	 wc5Kysm1njxvA==
+	b=k5NJbCJbH2q8awWryoXdzOgunEbr95VUvvls2Tr9/5onmcWP88tkl7ntn2Y7IrL1S
+	 aofpLQ8HZVpfnL1rUrNFTRBbP2XI/U1ZLj5Jbu/F454JpDXaVGn8MxTY/lqGKSzlfD
+	 fVvPWiliKd47mBILDL9nx/PkMfTe6GbusBFb7pX+rLLT6ItIu0rDs8xN9rN0sRieEv
+	 WTDd9YD+YvS4fc6uM8VqHNAGccDw/C4Yl5Y65OCBAFkbzi9RCs4JX6P7mi1axRww0d
+	 GKsOchiUzFQPraucv/WnXjFlYYRsNII4Vv/wjkvgVGuPhIoLBoP0870owS9bZ7paeI
+	 B86Uq3MAzik2w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yuejie Shi <syjcnss@gmail.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] fs/ntfs3: validate the EA value length in ntfs_read_ea()
-Date: Tue, 10 Nov 2026 20:39:10 -0500
-Message-ID: <20261111013841.400667-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] drm/amdgpu: Use (v)memdup_array_user in amdgpu_cs_pass1
+Date: Tue, 10 Nov 2026 20:43:54 -0500
+Message-ID: <20261111014348.413840-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111013841.400667-1-sashal@kernel.org>
-References: <20261107054019-failed-6.6-351817226fbf@kernel.org>
- <20261111013841.400667-1-sashal@kernel.org>
+In-Reply-To: <20261107052721-failed-6.12-ba4c3c202919@kernel.org>
+References: <20261107052721-failed-6.12-ba4c3c202919@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,167 +61,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yuejie Shi <syjcnss@gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-[ Upstream commit 351817226fbf0031c4c63d1f5d7f15c3172312eb ]
+[ Upstream commit d4b6274cbf0b0ee92294d699f138b63aa4796ad0 ]
 
-ntfs_read_ea() checks the $EA list for consistency, but it only
-recomputes the packed size of an entry when the entry's own size field is
-zero:
+Replace k(v)malloc_array() + copy_from_user() with (v)memdup_array_user().
 
-	for (off = 0; off < size; off += ea_size) {
-		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
-		u32 bytes = size - off;
-		...
-		if (ef->size) {
-			ea_size = le32_to_cpu(ef->size);
-			if (ea_size > bytes)
-				goto out1;
-			continue;              /* <- elength never checked */
-		}
-		...
-		ea_size = ALIGN(struct_size(ef, name,
-					    1 + ef->name_len +
-						    le16_to_cpu(ef->elength)),
-				4);
-		if (ea_size > bytes)
-			goto out1;
-	}
+This shrinks the source code and improves separation between the kernel
+and userspace slabs.
 
-ef->size is non-zero for every entry except the last one, and it is what
-ntfs3 itself writes (ntfs_set_ea() stores exactly that aligned packed
-size), so in practice elength is not validated at all.  find_ea() then
-uses unpacked_ea_size(), which also prefers ea->size when it is set, so
-it agrees and hands the entry back.
-
-ntfs_get_ea() copies elength bytes with no further bound of its own:
-
-	len = le16_to_cpu(ea->elength);
-	...
-	if (len > size) {              /* size is the *caller's* buffer */
-		err = -ERANGE;
-		...
-	}
-	memcpy(buffer, ea->name + ea->name_len + 1, len);
-
-so a caller that supplies a large enough buffer receives up to 64 KiB of
-whatever follows the small $EA allocation -- straight to userspace via
-getxattr(2).
-
-Compute the packed size unconditionally and require it to fit in the
-entry.  Hoist the "bytes < offsetof(struct EA_FULL, name)" test above the
-ef->size branch as well: name_len and elength were being read there
-without it, which is itself a small over-read of the kmalloc'd buffer
-when fewer than 8 bytes are left.  The old "bytes < sizeof(ef->size)"
-test is subsumed by it.
-
-  # mkntfs image; create /mnt/ntfs/poc with user.ntfs6 set, then rewrite
-  # that EA_FULL's elength from 0xf to 0xff00 on the raw device
-  mount -t ntfs3 -o ro /dev/vda /mnt/ntfs
-  getxattr("/mnt/ntfs/poc", "user.ntfs6", buf, 128 * 1024);
-
-  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x294/0x3e0
-  Read of size 65280 at addr ffff0000cca53acf by task xattr_probe/142
-   __asan_memcpy+0x3c/0xa0
-   ntfs_get_ea+0x294/0x3e0
-   ntfs_getxattr+0x284/0x318
-   __vfs_getxattr+0x104/0x160
-   vfs_getxattr+0x1b4/0x1e0
-   do_getxattr+0xcc/0x230
-   path_getxattrat+0x184/0x270
-   __arm64_sys_getxattr+0x64/0x80
-  Allocated by task 142:
-   __kmalloc_noprof+0x294/0x668
-   ntfs_read_ea+0x1e4/0x420
-   ntfs_get_ea+0x2c8/0x3e0
-  The buggy address belongs to the object at ffff0000cca53a80
-   which belongs to the cache kmalloc-96 of size 96
-
-The object being over-read is the one ntfs_read_ea() just allocated, and
-it is 96 bytes.
-
-Entries written by ntfs3 and by Windows set size to the aligned packed
-size, so the new test does not reject anything a working filesystem
-produces.
-
-Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuejie Shi <syjcnss@gmail.com>
-[almaz.alexandrovich@paragon-software.com: applied as-is, logic is the same but the code is cleaner]
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: ba4c3c202919 ("drm/amdgpu: reject CS chunks too large for kvmalloc()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/xattr.c | 45 ++++++++++++++-------------------------------
- 1 file changed, 14 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 33 ++++++++------------------
+ 1 file changed, 10 insertions(+), 23 deletions(-)
 
-diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-index 5af61c90cc234..1c18ab072987b 100644
---- a/fs/ntfs3/xattr.c
-+++ b/fs/ntfs3/xattr.c
-@@ -146,49 +146,32 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
- 	for (off = 0; off < size; off += ea_size) {
- 		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
- 		u32 bytes = size - off;
--		size_t need;
--
--		/* Check if we can use field ea->size. */
--		if (bytes < sizeof(ef->size))
--			goto out1;
-+		u32 packed_size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 502872bfde49c..bb207ba59e752 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -203,25 +203,17 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
+ 	unsigned int num_ibs[AMDGPU_CS_GANG_SIZE] = { };
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+-	uint64_t *chunk_array_user;
+ 	uint64_t *chunk_array;
+ 	uint32_t uf_offset = 0;
+ 	size_t size;
+ 	int ret;
+ 	int i;
  
- 		/* Check if we can use fields ef->name_len and ef->elength. */
- 		if (bytes < offsetof(struct EA_FULL, name))
- 			goto out1;
- 
--		/* Size needed to hold this record's name and value. */
--		need = struct_size(ef, name,
--				   1 + ef->name_len + le16_to_cpu(ef->elength));
-+		/*
-+		 * The name and the value have to fit in the entry whether or
-+		 * not ef->size is set, because ntfs_get_ea() copies elength
-+		 * bytes out of this buffer and checks them only against the
-+		 * caller supplied buffer size.
-+		 */
-+		packed_size =
-+			ALIGN(struct_size(ef, name,
-+					  1 + ef->name_len +
-+						  le16_to_cpu(ef->elength)),
-+			      4);
- 
- 		if (ef->size) {
- 			ea_size = le32_to_cpu(ef->size);
--			/* ef->size must fit the list and cover the record. */
--			if (ea_size > bytes || ea_size < need)
--				goto out1;
--			if (bytes < offsetof(struct EA_FULL, name))
--				goto out1;
+-	chunk_array = kvmalloc_array(cs->in.num_chunks, sizeof(uint64_t),
+-				     GFP_KERNEL);
+-	if (!chunk_array)
+-		return -ENOMEM;
 -
--			/* Check if we can use fields ef->name_len and ef->elength. */
--			if (bytes < offsetof(struct EA_FULL, name))
--				goto out1;
--
--			/*
--			 * The declared entry size (ef->size) must be large
--			 * enough to hold the name and value.  Otherwise a later
--			 * reader such as ntfs_get_ea() copies ef->elength bytes
--			 * starting past the entry, reading out of bounds of the
--			 * ea buffer and leaking adjacent heap memory to
--			 * userspace via getxattr().
--			 */
--			if (struct_size(ef, name,
--					1 + ef->name_len +
--						le16_to_cpu(ef->elength)) >
--			    ea_size)
-+			if (ea_size > bytes || packed_size > ea_size)
- 				goto out1;
- 			continue;
+-	/* get chunks */
+-	chunk_array_user = u64_to_user_ptr(cs->in.chunks);
+-	if (copy_from_user(chunk_array, chunk_array_user,
+-			   sizeof(uint64_t)*cs->in.num_chunks)) {
+-		ret = -EFAULT;
+-		goto free_chunk;
+-	}
++	chunk_array = memdup_array_user(u64_to_user_ptr(cs->in.chunks),
++					cs->in.num_chunks,
++					sizeof(uint64_t));
++	if (IS_ERR(chunk_array))
++		return PTR_ERR(chunk_array);
+ 
+ 	p->nchunks = cs->in.num_chunks;
+ 	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
+@@ -234,7 +226,6 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 	for (i = 0; i < p->nchunks; i++) {
+ 		struct drm_amdgpu_cs_chunk __user *chunk_ptr = NULL;
+ 		struct drm_amdgpu_cs_chunk user_chunk;
+-		uint32_t __user *cdata;
+ 
+ 		chunk_ptr = u64_to_user_ptr(chunk_array[i]);
+ 		if (copy_from_user(&user_chunk, chunk_ptr,
+@@ -247,20 +238,16 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 		p->chunks[i].length_dw = user_chunk.length_dw;
+ 
+ 		size = p->chunks[i].length_dw;
+-		cdata = u64_to_user_ptr(user_chunk.chunk_data);
+ 
+-		p->chunks[i].kdata = kvmalloc_array(size, sizeof(uint32_t),
+-						    GFP_KERNEL);
+-		if (p->chunks[i].kdata == NULL) {
+-			ret = -ENOMEM;
++		p->chunks[i].kdata = vmemdup_array_user(u64_to_user_ptr(user_chunk.chunk_data),
++							size,
++							sizeof(uint32_t));
++		if (IS_ERR(p->chunks[i].kdata)) {
++			ret = PTR_ERR(p->chunks[i].kdata);
+ 			i--;
+ 			goto free_partial_kdata;
  		}
+ 		size *= sizeof(uint32_t);
+-		if (copy_from_user(p->chunks[i].kdata, cdata, size)) {
+-			ret = -EFAULT;
+-			goto free_partial_kdata;
+-		}
  
--		ea_size = ALIGN(need, 4);
-+		ea_size = packed_size;
- 		if (ea_size > bytes)
- 			goto out1;
- 	}
+ 		/* Assume the worst on the following checks */
+ 		ret = -EINVAL;
 -- 
 2.53.0
 
