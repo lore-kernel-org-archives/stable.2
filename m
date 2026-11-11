@@ -1,81 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405622;
-	b=qV5YPQ5Mo/qO60gKrZ+Yl1J6JohQUPzxJz5dclwrtKz4U7F64y0/fNTzW+VKgUQYKWMs
-	 kqfNlJjiwHKju3gAclTBKLROtyH9Gp3l/8m359xlOaD7CwXNXVguSTgUNRme9rVAAl1cF
-	 nQfIbYlDganRKKtQHvDspgP3IHqaV8cIgF8ValCVjj7sEwQNciUWS04bcCDg8tnoK15cl
-	 w+NdSy6SR6HtaRJgFmO90VFJI4m4FF+KML7U2Cw9dfB7K5Lnsvk6KgLmllSDokpse9l2m
-	 GhbEMghY/YqObRzJ64tiWrcIkBUZ6BEvappgOJwd09fxi4Rwc7x/8f5R/vyVv2G2fBA==
+	t=1794405683;
+	b=YL7P4wc4d4r4eiyq2f+pUA9DSQ//7IfRWJlAI+NB8+QlRIVB3cIK0/48tjpsNKGmekD/
+	 01zWVR4LNjbzOW52ju93OKqa1bksUiri/LjtsW3iyxmVYDnyJAiqOKU6smornpSWucfSG
+	 NZOcgRqnKelUCaaDAwTabVmMrYRYSMsWNyEHVlkxdGPvBhQW75aW+9PQulYSQH2EOX8ev
+	 mfzYsLD+mpMBOHk4yZ7wgo4Y6gCH2aBJwVyZIehjrYucZ+TWj54Cuk7uaeUGICOZ+dDLJ
+	 Lb+IIq2bWta55hd3C60n8l690DgT1dUR7vwnljda7VQiB8FxJaYV9S6BXxsPgulZvJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405622;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=72RedqSRj8wj0gbesJ4FFuwugiOLntBxqq9IL6zM74U=;
-	b=2JArT4xZQmjC7dJVOCl19joZ/n7cciuO0nqAWxCXDJ26Q0FX5WJgaw6BM6y28QAibvhx
-	 L8UrdZbVTQ124CMwMaegO0cYfmIlvxkai2brJfmTKwDPPjCEpE+q7mm/j6wtG1fmsXjyF
-	 fW/JVwsvjILRBJHQSWTFRMScuO5/o8b1Y32JZEF7JEwR1fjNTRqpPYDoT0hi4I7YOHaSw
-	 APiTu5/kLjn9UkBYHl8OnqGYi3Ib1hQ+GCS+Iq1l4Z6P0jIUt2xzf2KJQ/HzndCjbx+25
-	 vpxepkX3Tg4COvBZH9cGf1oicutHC53TfErnuMhvndvd3idtsEFuVOKf4biBob3AF+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405683;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=uRckgGNHpPxYPMgMHsCjaBLUkYha09vt+id7WN5jCvw=;
+	b=cidL5Pv+vYUuPrNjOk6P9Wjdt0cSF9Vv/9skREDO4+p0xutm1d/YKe9gMC7gACRRu49t
+	 tAlN90zqrtClv63AZSjyLbpyo51aWfVG6Z+E6fkb1AAIvLWIRNIUbKK+EmaQ7wi5CjBd8
+	 /b8DCZv05n2p++kNjSKzYViNIY53fUQfTRDxMP/WHBs2dM+yECBIoX0GBYpLSV67/pNs1
+	 gLhFD6W5mAWt09vHzVLfivDq2W3qAqF6Qtc02c93+UMIXxw7aUgSi+fVY4byn330zZu7O
+	 Wec0w+cc60pdD7LUjmoxHz3Eo/sgI2D26rBtJyRbMh9rnrdkN9KL2JOC8+/eHQqgnog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KJpUfPEB;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0JcLcRB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31B2606A327;
-	Wed, 11 Nov 2026 14:00:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B31B2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519C7606A880
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:01:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KJpUfPEB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794405622; x=1825941622;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CxSnup0BBLqBjt4RQz3Yb7cZrq1BAMox75Jj3crU0Yk=;
-  b=KJpUfPEBE/P1+g2+n5y6/SGU2QAF9o8Fewlt5AfCyPu6XtcTecE1EXHD
-   Pv6MtePP0WAxDeZkw1JM2OZVVSKwq3+2rFvaXobEKCw5jzOoHFijB/Bu/
-   FFVFTyeyVKaw4Z2ybiSncZK5BM4nVbhcBi4hH4J+6JGSQ2lFo8ELXCbqi
-   Ad/HDkU85wvMV4Q3j5gd39U6dQWnbb2V8KIobbdXIgRpIoecVcs8QDoLb
-   xYEg5zEwHg6Wx94jiqXnUWmQJLT+NRXq3vAZJroQeJREaqaR5KPBiS1ZP
-   3DNDLdoUohZZNg/ovyHk68Ezvm4TeObNqa7Sa4TF0xR4I4pwfPx3xZiZY
-   A==;
-X-CSE-ConnectionGUID: K2nL9Tr7TM+yT/IZA28u9g==
-X-CSE-MsgGUID: vjglvPQyTYW4CkqClJlS7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3173255"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3173255"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:00:21 -0800
-X-CSE-ConnectionGUID: b+h7LCqkSbCsj2u85RSz8A==
-X-CSE-MsgGUID: OO+nQO2LR52dGizoz1nquQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="10148410"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa012.fm.intel.com with ESMTP; 11 Nov 2026 06:00:16 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 65C0899; Wed, 11 Nov 2026 15:00:15 +0100 (CET)
-Date: Wed, 11 Nov 2026 15:00:15 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Badhri Jagan Sridharan <badhri@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	RD Babiera <rdbabiera@google.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/5] usb: typec: cable comms on RT1711H-compatible TCPCs
- and FUSB302
-Message-ID: <avR073vYmypIFVGY@black.igk.intel.com>
-References: <20261103-husb311-cable-comm-v1-0-6217dabc1a85@flipper.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0JcLcRB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BBB61F00A07;
+	Wed, 11 Nov 2026 14:01:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794405682;
+	bh=uRckgGNHpPxYPMgMHsCjaBLUkYha09vt+id7WN5jCvw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=N0JcLcRBTfedw1dNVmHNLvQETa2wzbauzv59IwTa2pdEE0322KpPeWDSp4y89G6za
+	 2T05f8dHCdKUUoBGpUwCLwQN1EyH1+AsxGaZb1ncxxPg53kFS6Th3pUnUCzsRww6OH
+	 5x/ThknqTczbwiQKkIDVWm+UeWZsmxn5hvs9DRaDSxFKlNlEdIzFmwCDobQey0BaRB
+	 P+jGhT4Mn7MhhIKO7EEEn5yWfhi9EOoomKqFTj6Pbw5JUyikZeLzpWutx3Qii63JH7
+	 9xBlRqzazsri/zLmFMeAiR/nkkbP0wMGDQ+R7huAbuVd5lyBT6Xri1il+4+yI3Ggkr
+	 aERaQhODuBmhw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Oleg Nesterov <oleg@redhat.com>,
+	stable@kernel.org,
+	syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com,
+	Kusaram Devineni <kusaram@devineni.in>,
+	Kees Cook <kees@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] signalfd: don't dequeue the forced fatal signals
+Date: Wed, 11 Nov 2026 09:01:20 -0500
+Message-ID: <20261111140003.2190636-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054220-failed-6.1-d72e0fb3b00c@kernel.org>
+References: <20261107054220-failed-6.1-d72e0fb3b00c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,75 +62,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-husb311-cable-comm-v1-0-6217dabc1a85@flipper.net>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 03:21:21PM +0400, Alexey Charkov wrote:
-> Neither the RT1711H family (including the HUSB311 and ET7304) nor the
-> FUSB302 lets TCPM talk to cable plugs today, so cable discovery is
-> skipped, and with it the cable's current and speed ratings.
-> 
-> The RT1711H family handles SOP' like any other TCPCI-compliant TCPC, but
-> enabling it exposed a problem in the TCPCI core: it set SOP' in
-> RECEIVE_DETECT whenever the TCPC can talk to cables, regardless of who
-> sources VCONN. With the partner as the VCONN Source, the port then acks
-> and processes the partner's own traffic with the cable plug.
-> 
-> Patch 1 fixes a TCPM bug that cable communication on the FUSB302 made
-> visible: after a VCONN swap, a source resets the cable plug twice.
-> Patch 2 lets a TCPCI TCPC receive SOP' only while it sources VCONN,
-> which also affects the Maxim TCPCs, the only ones that enable SOP'
-> today. Patch 3 enables SOP' on the RT1711H family. Patches 4 and 5 add
-> SOP' to the FUSB302 driver, receiving it under the same VCONN rule.
-> 
-> Tested on an RK3576 EVB1 (HUSB311, source-only) and Flipper One boards
-> (FUSB302B):
-> - Without patch 2, a FUSB302 sink sent SOP' Discover Identity over a
->   cable with no e-marker, so the HUSB311 had no VCONN to source. The
->   HUSB311 acked each one and its TCPM answered over SOP, after which the
->   sink soft reset the contract every time.
-> - With patch 2, the same messages went unacked and the HUSB311 port
->   correctly ignored them.
-> - Over an e-marked 5A EPR cable, the HUSB311 sourced VCONN, read the
->   cable identity and completed discovery, while the FUSB302 sink kept
->   SOP' reception off.
-> - With a FUSB302 as source on the same cable, it sourced VCONN, read
->   the cable identity and completed discovery. The cable plug accepted
->   the FUSB302's automatic GoodCRC to its replies, which the datasheet
->   leaves undocumented for SOP'.
-> - Between two FUSB302 ports on the same cable, VCONN swaps both ways
->   moved SOP' reception along with VCONN, and each new VCONN Source
->   soft reset the cable plug over SOP'. Without patch 1, the source did
->   so twice.
-> 
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+From: Oleg Nesterov <oleg@redhat.com>
 
-These look okay to me, but let's still wait for Badhri and RD.
+[ Upstream commit d72e0fb3b00c6a1146bcfd7186ad9f6f609ba236 ]
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+These signals should act like SIGKILL, in that userspace must never dequeue
+them. But as Kusaram explains, io_uring-driven signalfd_read_iter() called
+from get_signal() -> task_work_run() paths can do this before get_signal()
+has a chance to dequeue such a signal and notice SA_IMMUTABLE.
 
-> ---
-> Alexey Charkov (5):
->       usb: typec: tcpm: Stop a source from repeating a cable Soft_Reset
->       usb: typec: tcpci: Receive SOP' only while sourcing VCONN
->       usb: typec: tcpci_rt1711h: Enable SOP' communication
->       usb: typec: fusb302: Tell SOP' messages apart from SOP
->       usb: typec: fusb302: Enable SOP' communication
-> 
->  drivers/usb/typec/tcpm/fusb302.c       | 63 ++++++++++++++++++++++++++---
->  drivers/usb/typec/tcpm/fusb302_reg.h   | 10 +++++
->  drivers/usb/typec/tcpm/tcpci.c         | 72 +++++++++++++++++++++++-----------
->  drivers/usb/typec/tcpm/tcpci_rt1711h.c |  1 +
->  drivers/usb/typec/tcpm/tcpm.c          |  2 +
->  5 files changed, 119 insertions(+), 29 deletions(-)
-> ---
-> base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
-> change-id: 20261103-husb311-cable-comm-46f2e77e4c18
-> 
-> Best regards,
-> --  
-> Alexey Charkov <alchark@flipper.net>
+Change signalfd_poll() and signalfd_dequeue() to add pending SA_IMMUTABLE
+signals to ctx->sigmask.
 
+TODO: we should probably change force_sig_info_to_task(HANDLER_EXIT) to
+make fatal_signal_pending() true, or add a fatal_or_forced_signal_pending()
+helper. Then signalfd_dequeue() could just return -EINTR in this case.
+This also makes sense for get_signal(), which could prioritize a fatal
+signal sent by (say) force_sig_seccomp(force_coredump => true), just like
+it already prioritizes SIGKILL.
+
+Cc: stable@kernel.org
+Reported-by: syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0a4c46806941297fecb9
+Tested-by: syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/69d122fd.050a0220.2dbe29.001c.GAE@google.com/
+Suggested-by: Kusaram Devineni <kusaram@devineni.in>
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+Reviewed-by: Kees Cook <kees@kernel.org>
+Link: https://patch.msgid.link/adO3HG8bvwRPcmte@redhat.com
+Signed-off-by: Kees Cook <kees@kernel.org>
+[ sashal: adapted dequeue_signal() calls to retain the explicit current argument ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/signalfd.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
+
+diff --git a/fs/signalfd.c b/fs/signalfd.c
+index e20d1484c6633..797c906bb5de1 100644
+--- a/fs/signalfd.c
++++ b/fs/signalfd.c
+@@ -48,17 +48,30 @@ static int signalfd_release(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
++static void refine_sigmask(struct signalfd_ctx *ctx, sigset_t *sigmask)
++{
++	struct k_sigaction *k = current->sighand->action;
++	int n;
++
++	*sigmask = ctx->sigmask;
++	for (n = 1; n <= _NSIG; ++n, ++k) {
++		if (k->sa.sa_flags & SA_IMMUTABLE)
++			sigaddset(sigmask, n);
++	}
++}
++
+ static __poll_t signalfd_poll(struct file *file, poll_table *wait)
+ {
+ 	struct signalfd_ctx *ctx = file->private_data;
+ 	__poll_t events = 0;
++	sigset_t sigmask;
+ 
+ 	poll_wait(file, &current->sighand->signalfd_wqh, wait);
+ 
+ 	spin_lock_irq(&current->sighand->siglock);
+-	if (next_signal(&current->pending, &ctx->sigmask) ||
+-	    next_signal(&current->signal->shared_pending,
+-			&ctx->sigmask))
++	refine_sigmask(ctx, &sigmask);
++	if (next_signal(&current->pending, &sigmask) ||
++	    next_signal(&current->signal->shared_pending, &sigmask))
+ 		events |= EPOLLIN;
+ 	spin_unlock_irq(&current->sighand->siglock);
+ 
+@@ -156,11 +169,13 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
+ 				int nonblock)
+ {
+ 	enum pid_type type;
+-	ssize_t ret;
+ 	DECLARE_WAITQUEUE(wait, current);
++	sigset_t sigmask;
++	ssize_t ret;
+ 
+ 	spin_lock_irq(&current->sighand->siglock);
+-	ret = dequeue_signal(current, &ctx->sigmask, info, &type);
++	refine_sigmask(ctx, &sigmask);
++	ret = dequeue_signal(current, &sigmask, info, &type);
+ 	switch (ret) {
+ 	case 0:
+ 		if (!nonblock)
+@@ -175,7 +190,7 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
+ 	add_wait_queue(&current->sighand->signalfd_wqh, &wait);
+ 	for (;;) {
+ 		set_current_state(TASK_INTERRUPTIBLE);
+-		ret = dequeue_signal(current, &ctx->sigmask, info, &type);
++		ret = dequeue_signal(current, &sigmask, info, &type);
+ 		if (ret != 0)
+ 			break;
+ 		if (signal_pending(current)) {
+@@ -185,6 +200,7 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
+ 		spin_unlock_irq(&current->sighand->siglock);
+ 		schedule();
+ 		spin_lock_irq(&current->sighand->siglock);
++		refine_sigmask(ctx, &sigmask);
+ 	}
+ 	spin_unlock_irq(&current->sighand->siglock);
+ 
 -- 
-heikki
+2.53.0
+
