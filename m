@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.250.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794393619;
-	b=dRAcPUoQ843dNxeyqc8m/w2tINF/7dhgHJpcy6ttLWJObsLMiuejlPUUJyz1e6WDWd23
-	 IUG/FYw76n8sOBH5DbNhbgoQvH1kiUEo4N5HD/5kYXGP0wIEOV2jHmRpvKShYZIDCxxxg
-	 C/g2HjMWEwNe9AMUaix3jn6G8umPlnfJdSBycka0T17lK1R4MyWtecSAKj71qToo/s6Bg
-	 Z+DjWtMHgW2gbgQO/rmu3TLnmnLlnsCxaTle9OhU5wTS//P/AZV2BhKzthmirB4f1qVlk
-	 Qwr+Wn+BcF27ZCl8hV9DIqpVG3MbHoQuW73xiRmkqMCfgKbmCCGEXsoA8+d4NxgSt9A==
+	b=mILH+Hx9NszrePSONdY82UYMW/LZfxg/VK7kThPVjTV88oES2ztTk/XJDX5uxvQ7rMfJ
+	 QBz3dYy/Vpmd7+AR+Sl2Z+OCWczxUcHzKEv35sn3tAhN5MLTWJjzya0rHVIUX4YOPQHki
+	 H0cTpdet2/OkyhwiaizHLgYm1M89E0E8a0rXnVdW/IVmo6JGA3fs2cKn3TkkemYQNxrs7
+	 LU9pkEQisTeKfmR8sCH4COk8wvgknXL2o1DuGIgYr1kkO+7rbBeOuY0EWPOeYb+e37mfG
+	 w/iSYs1dkvqfzHSADAuhiUbgcGwRhVyzDFCyfrVgOtIu3CZX01OnqQW0E6OG3PVPssA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794393619;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Jms381WghVbM5hv9Z+YanPHlJlY/IsbpmnGm3ABPT0o=;
-	b=AblgAEge36J1yJKrnOqE6ssVXevW135HdxyzjNiyzqagBrFlT6Q9VNblEWAsrZj9Xot0
-	 9D3OjGtB5EmeoyUDX5BLYxuH4aSIYF9AqKxcZP36pc7Oouj480nSjuImMXVTbwTHt4gXP
-	 /zh/cxSDVMStbcXaCKMb3E4dn8KeTNpsqooW2KQt85BdoYCFydkd39HAL48pRg63AZwRS
-	 utsLmiKo/fQ+wZldq/7lZPQQlH0Tm4ZP0n5rFWex5M6Rp5eShHrWcvvgwGGIS9qkW/djW
-	 IhvIR5pHz55GkQDe8u0SC2Gu8E4uWQd6Jg9pDBxIpoh2eOpUVbxvct+oGR9wiqZKmQQ==
+	bh=tA+dvnqtpxBFwr2TnbZTQLY5HCchIEGD4VBfTUfHpL0=;
+	b=aid28PMb107Wff5oCsgR6i60jI93K0mAc+76tnOS7aJTn9atWxpqmAlaAfM6KS23H+F+
+	 NQ+evcm+GXeM3TM9zcmtY5eQ+hKzQ3miM419eMyfCQvGg5CZW8aXGFsE5rbvATCmDyvN0
+	 hpEwWn/X3it6mgjgiB/5s3q4OviajLrZe6xrE1503JOygtIbXb3G2PqW1CkqAlPcWWK7q
+	 eBvOyOv3C5ZO41ZiAw1GJYrlyP0c5Wuozt94/ZbKNqMB/9FEXirb7bWtTQmYrrBBTS8l+
+	 YKIdWmsQHO4lmHp8j6QSYxj5G+Sfd835GL+ctAoqEIvZaVFZJrEeEWhgHCnIWUi34ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=8bytes.org;
 	spf=pass smtp.mailfrom=8bytes.org;
 	arc=none smtp.remote-ip=85.214.250.239
 Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4FD7606A89D
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15AFA606A8A8
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:40:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4FD7606A89D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15AFA606A8A8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
 Received: from io.home.8bytes.org (p200300f6af404a0070a0fd992ce44cba.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:70a0:fd99:2ce4:4cba])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id BA1CB244148;
+	by mail.8bytes.org (Postfix) with ESMTPSA id A9C6C244146;
 	Wed, 11 Nov 2026 11:40:10 +0100 (CET)
 From: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
 To: stable@vger.kernel.org
 Cc: Joerg Roedel <joro@8bytes.org>,
 	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
 	Joerg Roedel <joerg.roedel@amd.com>
-Subject: [PATCH 5.10.y] iommu/amd: Force device table to maximum size
-Date: Wed, 11 Nov 2026 11:40:01 +0100
-Message-ID: <20261111104001.216548-7-joro@8bytes.org>
+Subject: [PATCH 5.15.y] iommu/amd: Force device table to maximum size
+Date: Wed, 11 Nov 2026 11:40:00 +0100
+Message-ID: <20261111104001.216548-6-joro@8bytes.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111104001.216548-1-joro@8bytes.org>
 References: <20261111104001.216548-1-joro@8bytes.org>
@@ -98,33 +98,32 @@ stay unmarked and still take the 2MB device table.
 Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
 Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
 ---
- arch/x86/include/asm/cpufeatures.h |  6 ++++++
+ arch/x86/include/asm/cpufeatures.h |  5 +++++
  arch/x86/kernel/cpu/amd.c          | 18 ++++++++++++++++++
  drivers/iommu/amd/init.c           | 23 ++++++++++++++++++++++-
- 3 files changed, 46 insertions(+), 1 deletion(-)
+ 3 files changed, 45 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index 19a18df50a2e..12928845f136 100644
+index 060ae0d8387e..a25b6d4838a6 100644
 --- a/arch/x86/include/asm/cpufeatures.h
 +++ b/arch/x86/include/asm/cpufeatures.h
-@@ -416,6 +416,12 @@
- #define X86_FEATURE_IBPB_BRTYPE		(20*32+28) /* "" MSR_PRED_CMD[IBPB] flushes all branch type predictions */
- #define X86_FEATURE_SRSO_NO		(20*32+29) /* "" CPU is not affected by SRSO */
- 
+@@ -439,6 +439,11 @@
+ #define X86_FEATURE_CLEAR_BHB_HW	(21*32+ 3) /* "" BHI_DIS_S HW control enabled */
+ #define X86_FEATURE_CLEAR_BHB_LOOP_ON_VMEXIT (21*32+ 4) /* "" Clear branch history at vmexit using SW loop */
+ #define X86_FEATURE_INDIRECT_THUNK_ITS	(21*32 + 5) /* "" Use thunk for indirect branches in lower half of cacheline */
 +/*
 + * Upstream defines X86_FEATURE_ZEN6 as (3*32+6). That bit is still
 + * X86_FEATURE_P3 in this kernel, so use a free bit in this word.
 + */
 +#define X86_FEATURE_ZEN6		(21*32+7) /* "" CPU based on Zen6 microarchitecture */
-+
- #define X86_FEATURE_TSA_SQ_NO          (22*32+11) /* "" AMD CPU not vulnerable to TSA-SQ */
- #define X86_FEATURE_TSA_L1_NO          (22*32+12) /* "" AMD CPU not vulnerable to TSA-L1 */
- #define X86_FEATURE_CLEAR_CPU_BUF_VM   (22*32+13) /* "" Clear CPU buffers using VERW before VMRUN */
+ 
+ #define X86_FEATURE_TSA_SQ_NO          (21*32+11) /* "" AMD CPU not vulnerable to TSA-SQ */
+ #define X86_FEATURE_TSA_L1_NO          (21*32+12) /* "" AMD CPU not vulnerable to TSA-L1 */
 diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index 0ded215bcaf6..2abed4f24dbc 100644
+index 2ad2c454b982..3cb9ca970326 100644
 --- a/arch/x86/kernel/cpu/amd.c
 +++ b/arch/x86/kernel/cpu/amd.c
-@@ -769,6 +769,24 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
+@@ -742,6 +742,24 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
  		}
  		break;
  	}
@@ -150,10 +149,10 @@ index 0ded215bcaf6..2abed4f24dbc 100644
  		break;
  	}
 diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index cccbe59c2604..c643ea095c97 100644
+index 103a3c3e91d3..fd5af64f18e0 100644
 --- a/drivers/iommu/amd/init.c
 +++ b/drivers/iommu/amd/init.c
-@@ -21,6 +21,7 @@
+@@ -22,6 +22,7 @@
  #include <linux/kmemleak.h>
  #include <linux/mem_encrypt.h>
  #include <linux/iopoll.h>
@@ -161,7 +160,7 @@ index cccbe59c2604..c643ea095c97 100644
  #include <asm/pci-direct.h>
  #include <asm/iommu.h>
  #include <asm/apic.h>
-@@ -2664,6 +2665,21 @@ static void __init ivinfo_init(void *ivrs)
+@@ -2757,6 +2758,21 @@ static void __init ivinfo_init(void *ivrs)
  	amd_iommu_ivinfo = *((u32 *)(ivrs + IOMMU_IVINFO_OFFSET));
  }
  
@@ -183,7 +182,7 @@ index cccbe59c2604..c643ea095c97 100644
  /*
   * This is the hardware init function for AMD IOMMU in the system.
   * This function is called either from amd_iommu_init or from the interrupt
-@@ -2732,7 +2748,12 @@ static int __init early_amd_iommu_init(void)
+@@ -2824,7 +2840,12 @@ static int __init early_amd_iommu_init(void)
  	if (ret)
  		goto out;
  
