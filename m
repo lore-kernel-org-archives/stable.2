@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794418016;
-	b=k0/EIrx5kzR7xc4CLqeB8EymCXUXaYKUs92yWXaXCSHRbQQohTaDvbWet2gEUbgwoA3N
-	 gswDnJEssGMr6zZBslrVU+DrPc3PpXT/OBB70PQIoWQfSKR1+LzfUDzSY+u1dR0nURmnQ
-	 KW0oK24EOOsZfSkx9BmKKt6A6CeSnPIhjjfOfscMPLGezcwPMEJQwTM99WUpsh12HGFv1
-	 F21vZJ9x+2jY8N0gOCevqInkWBg/jspe8uybhiosU/4Vfi0g7qcrflKJGg3G6fnQyqtib
-	 CezSRH44XC1YuooW3SckMFHq100gXIfpf3mO83SJrEKZErbfSlk8QbDoSkxAeA84yCQ==
+	b=l6ZahbJDS1nIC95/pQb8h3ltN27B93eRwH3VjaYa9c3k9H5aZPQeTFVXC/NLil3mqcFD
+	 FZ9gKleLfCCLMRV+RJt616BT38AdsPPwFEGlxNhGQpCCZolueqphFfRwL2zt+cDPpy1kM
+	 FU6KDT2oW0Np2+gKqAgKRM1UrBBuwPnakDrt0rPiIPs/VuxNc83iBU+89WkhT0Z+iNS2D
+	 eJqI/3uYCnZPxHuB9TRmTBXOjj3sIXxur9kUpjK3WKgeJ3SoCKGip5ahJKTK8oNpm2MwE
+	 68ByjH5KG/mGdn0nJx4NOxWXfqqHNOK/CPycF1xDq+tAknll1DVoamPn7/NWtHL8goQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794418016;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Gna+NcqPvqPYHLK7g4j7zHFE6fsFd+qE5Y6PTDItBzk=;
-	b=qMrRdATlHwa6EKSrnW87Acrw1HiJPWR39p7xs14hLAy+RKfZvwKMyKay+enCP0Cp28/p
-	 XQNkucJ6RPziK260oGkfAn4vke4FFBQyzTsTek8Zzxa4nomwb4r2JYzzuOL/DV6MgT2Qc
-	 lhh+V2bO9uIoZ7N8LBDQRkOZHV1KS3sCEMjHY5BUvjeHceq8H1NOFDnZdOY7ZjxoIQyiP
-	 CGyhs2BrLTU5x+QqvIXNIxFeSe4H90vUwbxkAVJBAbWUFzyMvA+ert2ZG0iG1JZ/GNd53
-	 rzzFEbMVPOtDZ8EdrEifSpe32f4gwLDHhsk74VNH+cxrpy0Jc7bvkbp5xWfwfveKvBw==
+	bh=AKs9Bq1KjPccAx9nuTC/RQwvD+9uS4xwtSevlDBDrT8=;
+	b=jm1UspdeBnkeJgLAyGxqbwuIKkq2OJGC5RdsvcmXYucBC7jHwbnI0LX48EQ0kL1fQCq8
+	 OsHzY33kkTyuHcCnj101be8jjooqb0aknQ3nsY3QmD58u+q4MQsUUY1oNjNz/70rG3SP5
+	 E3ncwNUiVzyT/W8P+YAHSOz1O/7LatVAFuir+lZz8x77wqp7iN47ucbpNjDzDzu2wqqnW
+	 Bay5iaZckqt6ksdLXtzW3CCiw/XZot5rQcAJPEOSTZQH3hruDIsjbCe/BkKPR+Xgb2fpC
+	 OUXaYsrNepo/ukQdUC0B0e2Lmqvywky38DTb94WCg6orX2BnDKHIvmz3APzBrN/XmBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFX9gRpe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzSvEcJj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F54606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:26:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A652F606A327
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFX9gRpe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49A9C1F00A05;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzSvEcJj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EF411F00A07;
 	Wed, 11 Nov 2026 17:26:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418015;
-	bh=Gna+NcqPvqPYHLK7g4j7zHFE6fsFd+qE5Y6PTDItBzk=;
+	s=k20260515; t=1794418016;
+	bh=AKs9Bq1KjPccAx9nuTC/RQwvD+9uS4xwtSevlDBDrT8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gFX9gRpeJ1SIZ1RBKKOAW57YuV2edC8kep6itZYS4Aml9svEhhNM0q4I/y8J0KdLN
-	 DTL5AMvj7YmwWDlch2h0VoCP0JFtAL76hbQ/O2TTUuQLbItKuSZRlAsTQCLEokwMRO
-	 QbFSy45LxoNst+tb1jjJ98r0qUrO7z2xT0X7Z6ABkNP++NT5XwwJd5GYr438ElopaJ
-	 ssGffYatEeGyl1Ai5XO6XBbO/8jP/zMcbLVA1AwY83TUptmZSACQX3fvv78mQ50c/j
-	 LtHPwyIwd+D4eXHqilGxpQ93qBrqwoIut7QlsEwANoFEVEihWW0FFDngsco9XoT6dn
-	 aVHxqu4+KmfuA==
+	b=NzSvEcJjNzMDkXNFa2XkqaSX7OgguxvzSJa1fQuODkmNOTIEfMZRtACMR5pw7zFI/
+	 8CXUGRH4Qm4ryQ6Ri2zKsaTOe/+mNu46hTBu5lKXk7ngU/jkDGrNz1tyWe7pY4nhKC
+	 K/hCzosZf7CMYhaWPw2HubXchxKc0WVJSYa0uGs0y8XIgi7NfeDYsB+3Ob97VUVVoi
+	 RGrBsvekHvZ0pcaHax4g7gs6zDgaVjRv9Rp733nfO6qlcyp6wJ1JglDjLryuy+ulyd
+	 hCMmwt/yPRNafsTMja2+/41RZnxf2YzmHOKbJnfo0HWrehtRrnoaYoIJsWjmEeRHie
+	 sHKH0qNnhCWuQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+Cc: David Carlier <devnexen@gmail.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] media: ipu6: Rename pointer to firmware context
-Date: Wed, 11 Nov 2026 12:26:53 -0500
-Message-ID: <20261111172647.3568812-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] media: ipu6: Fix firmware config leak on stream start
+Date: Wed, 11 Nov 2026 12:26:54 -0500
+Message-ID: <20261111172647.3568812-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050757-failed-6.18-d3d9bc694fe0@kernel.org>
+In-Reply-To: <20261111172647.3568812-1-sashal@kernel.org>
 References: <20261107050757-failed-6.18-d3d9bc694fe0@kernel.org>
+ <20261111172647.3568812-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,279 +62,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Antti Laakso <antti.laakso@linux.intel.com>
+From: David Carlier <devnexen@gmail.com>
 
-[ Upstream commit ac1a76fdf7e1815445c76d90ef688eff85cbb012 ]
+[ Upstream commit d3d9bc694fe087c672c3ad5871984dc45cd9f425 ]
 
-The name fwcom is used to refer firmware communication context
-and firmware communication configuration. Try to avoid confusion
-and rename context variable.
+ipu6_isys_fwcom_cfg_init() runs on every first stream start and allocates
+the firmware config and queue configs with devm, so each STREAMON/STREAMOFF
+cycle leaks them. They are only needed until ipu6_fw_com_prepare() has
+copied them, so free them right after. Also check the return value, an
+allocation failure would otherwise make ipu6_fw_com_prepare() dereference
+a NULL queue config.
 
-Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
+Fixes: f625e8d7ffc1 ("media: intel/ipu6: input system ABI between firmware and driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Stable-dep-of: d3d9bc694fe0 ("media: ipu6: Fix firmware config leak on stream start")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c   | 56 ++++++++++---------
- .../media/pci/intel/ipu6/ipu6-isys-video.c    |  4 +-
- drivers/media/pci/intel/ipu6/ipu6-isys.c      |  6 +-
- drivers/media/pci/intel/ipu6/ipu6-isys.h      |  5 +-
- 4 files changed, 36 insertions(+), 35 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 34 +++++++++++++++------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-index 62ed92ff1d303..a65e9f1aa1042 100644
+index a65e9f1aa1042..9f5bd9c4ddf91 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-@@ -32,7 +32,7 @@ static int handle_proxy_response(struct ipu6_isys *isys, unsigned int req_id)
- 	struct ipu6_fw_isys_proxy_resp_info_abi *resp;
- 	int ret;
- 
--	resp = ipu6_recv_get_token(isys->fwcom, IPU6_BASE_PROXY_RECV_QUEUES);
-+	resp = ipu6_recv_get_token(isys->fwctx, IPU6_BASE_PROXY_RECV_QUEUES);
- 	if (!resp)
- 		return 1;
- 
-@@ -42,7 +42,7 @@ static int handle_proxy_response(struct ipu6_isys *isys, unsigned int req_id)
- 
- 	ret = req_id == resp->request_id ? 0 : -EIO;
- 
--	ipu6_recv_put_token(isys->fwcom, IPU6_BASE_PROXY_RECV_QUEUES);
-+	ipu6_recv_put_token(isys->fwctx, IPU6_BASE_PROXY_RECV_QUEUES);
- 
- 	return ret;
- }
-@@ -52,7 +52,7 @@ int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys,
- 				  unsigned int index,
- 				  unsigned int offset, u32 value)
- {
--	struct ipu6_fw_com_context *ctx = isys->fwcom;
-+	struct ipu6_fw_com_context *ctx = isys->fwctx;
- 	struct device *dev = &isys->adev->auxdev.dev;
- 	struct ipu6_fw_proxy_send_queue_token *token;
- 	unsigned int timeout = 1000;
-@@ -96,7 +96,7 @@ int ipu6_fw_isys_complex_cmd(struct ipu6_isys *isys,
- 			     dma_addr_t dma_mapped_buf,
- 			     size_t size, u16 send_type)
- {
--	struct ipu6_fw_com_context *ctx = isys->fwcom;
-+	struct ipu6_fw_com_context *ctx = isys->fwctx;
- 	struct device *dev = &isys->adev->auxdev.dev;
- 	struct ipu6_fw_send_queue_token *token;
- 
-@@ -138,7 +138,7 @@ int ipu6_fw_isys_close(struct ipu6_isys *isys)
- 	struct device *dev = &isys->adev->auxdev.dev;
- 	int retry = IPU6_ISYS_CLOSE_RETRY;
- 	unsigned long flags;
--	void *fwcom;
-+	void *fwctx;
- 	int ret;
- 
- 	/*
-@@ -148,9 +148,9 @@ int ipu6_fw_isys_close(struct ipu6_isys *isys)
- 	 * spinlock to wait the interrupt handler to be finished
- 	 */
- 	spin_lock_irqsave(&isys->power_lock, flags);
--	ret = ipu6_fw_com_close(isys->fwcom);
--	fwcom = isys->fwcom;
--	isys->fwcom = NULL;
-+	ret = ipu6_fw_com_close(isys->fwctx);
-+	fwctx = isys->fwctx;
-+	isys->fwctx = NULL;
- 	spin_unlock_irqrestore(&isys->power_lock, flags);
- 	if (ret)
- 		dev_err(dev, "Device close failure: %d\n", ret);
-@@ -158,14 +158,14 @@ int ipu6_fw_isys_close(struct ipu6_isys *isys)
- 	/* release probably fails if the close failed. Let's try still */
- 	do {
- 		usleep_range(400, 500);
--		ret = ipu6_fw_com_release(fwcom, 0);
-+		ret = ipu6_fw_com_release(fwctx, 0);
- 		retry--;
- 	} while (ret && retry);
- 
- 	if (ret) {
- 		dev_err(dev, "Device release time out %d\n", ret);
- 		spin_lock_irqsave(&isys->power_lock, flags);
--		isys->fwcom = fwcom;
-+		isys->fwctx = fwctx;
- 		spin_unlock_irqrestore(&isys->power_lock, flags);
- 	}
- 
-@@ -176,11 +176,11 @@ void ipu6_fw_isys_cleanup(struct ipu6_isys *isys)
- {
- 	int ret;
- 
--	ret = ipu6_fw_com_release(isys->fwcom, 1);
-+	ret = ipu6_fw_com_release(isys->fwctx, 1);
- 	if (ret < 0)
- 		dev_warn(&isys->adev->auxdev.dev,
- 			 "Device busy, fw_com release failed.");
--	isys->fwcom = NULL;
-+	isys->fwctx = NULL;
- }
- 
- static void start_sp(struct ipu6_bus_device *adev)
-@@ -212,7 +212,7 @@ static int query_sp(struct ipu6_bus_device *adev)
- }
- 
- static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
--				    struct ipu6_fw_com_cfg *fwcom,
-+				    struct ipu6_fw_com_cfg *fwcom_cfg,
- 				    unsigned int num_streams)
- {
+@@ -218,7 +218,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
  	unsigned int max_send_queues, max_sram_blocks, max_devq_size;
-@@ -258,14 +258,16 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	if (!output_queue_cfg)
+ 	struct ipu6_fw_syscom_queue_config *input_queue_cfg;
+ 	struct ipu6_fw_syscom_queue_config *output_queue_cfg;
+-	struct device *dev = &isys->adev->auxdev.dev;
+ 	int type_proxy = IPU6_FW_ISYS_QUEUE_TYPE_PROXY;
+ 	int type_dev = IPU6_FW_ISYS_QUEUE_TYPE_DEV;
+ 	int type_msg = IPU6_FW_ISYS_QUEUE_TYPE_MSG;
+@@ -228,7 +227,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	struct ipu6_fw_isys_fw_config *isys_fw_cfg;
+ 	u32 num_in_message_queues;
+ 	unsigned int max_streams;
+-	unsigned int size;
+ 	unsigned int i;
+ 
+ 	max_streams = isys->pdata->ipdata->max_streams;
+@@ -236,7 +234,7 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	max_sram_blocks = isys->pdata->ipdata->max_sram_blocks;
+ 	max_devq_size = isys->pdata->ipdata->max_devq_size;
+ 	num_in_message_queues = clamp(num_streams, 1U, max_streams);
+-	isys_fw_cfg = devm_kzalloc(dev, sizeof(*isys_fw_cfg), GFP_KERNEL);
++	isys_fw_cfg = kzalloc_obj(*isys_fw_cfg);
+ 	if (!isys_fw_cfg)
  		return -ENOMEM;
  
--	fwcom->input = input_queue_cfg;
--	fwcom->output = output_queue_cfg;
-+	fwcom_cfg->input = input_queue_cfg;
-+	fwcom_cfg->output = output_queue_cfg;
+@@ -248,15 +246,14 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	isys_fw_cfg->num_recv_queues[type_dev] = 0;
+ 	isys_fw_cfg->num_recv_queues[type_msg] = 1;
  
--	fwcom->num_input_queues = isys_fw_cfg->num_send_queues[type_proxy] +
-+	fwcom_cfg->num_input_queues =
-+		isys_fw_cfg->num_send_queues[type_proxy] +
- 		isys_fw_cfg->num_send_queues[type_dev] +
- 		isys_fw_cfg->num_send_queues[type_msg];
+-	size = sizeof(*input_queue_cfg) * max_send_queues;
+-	input_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
++	input_queue_cfg = kzalloc_objs(*input_queue_cfg, max_send_queues);
+ 	if (!input_queue_cfg)
+-		return -ENOMEM;
++		goto err_free_fw_cfg;
  
--	fwcom->num_output_queues = isys_fw_cfg->num_recv_queues[type_proxy] +
-+	fwcom_cfg->num_output_queues =
-+		isys_fw_cfg->num_recv_queues[type_proxy] +
- 		isys_fw_cfg->num_recv_queues[type_dev] +
- 		isys_fw_cfg->num_recv_queues[type_msg];
+-	size = sizeof(*output_queue_cfg) * IPU6_N_MAX_RECV_QUEUES;
+-	output_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
++	output_queue_cfg = kzalloc_objs(*output_queue_cfg,
++					IPU6_N_MAX_RECV_QUEUES);
+ 	if (!output_queue_cfg)
+-		return -ENOMEM;
++		goto err_free_input_queue_cfg;
  
-@@ -280,7 +282,7 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 			isys_fw_cfg->buffer_partition.num_gda_pages[i] = 0;
- 	}
- 
--	/* FW assumes proxy interface at fwcom queue 0 */
-+	/* FW assumes proxy interface at fwcom_cfg queue 0 */
- 	for (i = 0; i < isys_fw_cfg->num_send_queues[type_proxy]; i++) {
- 		input_queue_cfg[i].token_size =
- 			sizeof(struct ipu6_fw_proxy_send_queue_token);
-@@ -314,9 +316,9 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 			IPU6_ISYS_SIZE_RECV_QUEUE;
- 	}
- 
--	fwcom->dmem_addr = isys->pdata->ipdata->hw_variant.dmem_offset;
--	fwcom->specific_addr = isys_fw_cfg;
--	fwcom->specific_size = sizeof(*isys_fw_cfg);
-+	fwcom_cfg->dmem_addr = isys->pdata->ipdata->hw_variant.dmem_offset;
-+	fwcom_cfg->specific_addr = isys_fw_cfg;
-+	fwcom_cfg->specific_size = sizeof(*isys_fw_cfg);
+ 	fwcom_cfg->input = input_queue_cfg;
+ 	fwcom_cfg->output = output_queue_cfg;
+@@ -321,6 +318,20 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	fwcom_cfg->specific_size = sizeof(*isys_fw_cfg);
  
  	return 0;
++
++err_free_input_queue_cfg:
++	kfree(input_queue_cfg);
++err_free_fw_cfg:
++	kfree(isys_fw_cfg);
++
++	return -ENOMEM;
++}
++
++static void ipu6_isys_fwcom_cfg_free(struct ipu6_fw_com_cfg *fwcom_cfg)
++{
++	kfree(fwcom_cfg->specific_addr);
++	kfree(fwcom_cfg->output);
++	kfree(fwcom_cfg->input);
  }
-@@ -325,23 +327,23 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- {
- 	struct device *dev = &isys->adev->auxdev.dev;
- 	int retry = IPU6_ISYS_OPEN_RETRY;
--	struct ipu6_fw_com_cfg fwcom = {
-+	struct ipu6_fw_com_cfg fwcom_cfg = {
- 		.cell_start = start_sp,
- 		.cell_ready = query_sp,
- 		.buttress_boot_offset = SYSCOM_BUTTRESS_FW_PARAMS_ISYS_OFFSET,
+ 
+ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+@@ -334,10 +345,13 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
  	};
  	int ret;
  
--	ipu6_isys_fwcom_cfg_init(isys, &fwcom, num_streams);
-+	ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
+-	ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
++	ret = ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
++	if (ret)
++		return ret;
  
--	isys->fwcom = ipu6_fw_com_prepare(&fwcom, isys->adev,
-+	isys->fwctx = ipu6_fw_com_prepare(&fwcom_cfg, isys->adev,
+ 	isys->fwctx = ipu6_fw_com_prepare(&fwcom_cfg, isys->adev,
  					  isys->pdata->base);
--	if (!isys->fwcom) {
-+	if (!isys->fwctx) {
++	ipu6_isys_fwcom_cfg_free(&fwcom_cfg);
+ 	if (!isys->fwctx) {
  		dev_err(dev, "isys fw com prepare failed\n");
  		return -EIO;
- 	}
- 
--	ret = ipu6_fw_com_open(isys->fwcom);
-+	ret = ipu6_fw_com_open(isys->fwctx);
- 	if (ret) {
- 		dev_err(dev, "isys fw com open failed %d\n", ret);
- 		return ret;
-@@ -349,7 +351,7 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- 
- 	do {
- 		usleep_range(400, 500);
--		if (ipu6_fw_com_ready(isys->fwcom))
-+		if (ipu6_fw_com_ready(isys->fwctx))
- 			break;
- 		retry--;
- 	} while (retry > 0);
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-index b96ae563b82f0..d9b67502dbd26 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -1116,7 +1116,7 @@ int ipu6_isys_fw_open(struct ipu6_isys *isys)
- 	 */
- 	ipu6_cleanup_fw_msg_bufs(isys);
- 
--	if (isys->fwcom) {
-+	if (isys->fwctx) {
- 		/*
- 		 * Something went wrong in previous shutdown. As we are now
- 		 * restarting isys we can safely delete old context.
-@@ -1149,7 +1149,7 @@ void ipu6_isys_fw_close(struct ipu6_isys *isys)
- 	isys->ref_count--;
- 	if (!isys->ref_count) {
- 		ipu6_fw_isys_close(isys);
--		if (isys->fwcom) {
-+		if (isys->fwctx) {
- 			isys->need_reset = true;
- 			dev_warn(&isys->adev->auxdev.dev,
- 				 "failed to close fw isys\n");
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index 9a9e245edc1a2..a0f209b8141de 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -1227,10 +1227,10 @@ static int isys_isr_one(struct ipu6_bus_device *adev)
- 	u32 index;
- 	u64 ts;
- 
--	if (!isys->fwcom)
-+	if (!isys->fwctx)
- 		return 1;
- 
--	resp = ipu6_fw_isys_get_resp(isys->fwcom, IPU6_BASE_MSG_RECV_QUEUES);
-+	resp = ipu6_fw_isys_get_resp(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
- 	if (!resp)
- 		return 1;
- 
-@@ -1339,7 +1339,7 @@ static int isys_isr_one(struct ipu6_bus_device *adev)
- 
- 	ipu6_isys_put_stream(stream);
- leave:
--	ipu6_fw_isys_put_resp(isys->fwcom, IPU6_BASE_MSG_RECV_QUEUES);
-+	ipu6_fw_isys_put_resp(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
- 	return 0;
- }
- 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/intel/ipu6/ipu6-isys.h
-index 0e2c8b71edfc9..ed38decdd525b 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
-@@ -114,8 +114,7 @@ struct sensor_async_sd {
-  * @csi2_rx_ctrl_cached: cached shared value between all CSI2 receivers
-  * @streams_lock: serialise access to streams
-  * @streams: streams per firmware stream ID
-- * @fwcom: fw communication layer private pointer
-- *         or optional external library private pointer
-+ * @fwctx: fw communication layer context pointer
-  * @phy_termcal_val: the termination calibration value, only used for DWC PHY
-  * @need_reset: Isys requires d0i0->i3 transition
-  * @ref_count: total number of callers fw open
-@@ -136,7 +135,7 @@ struct ipu6_isys {
- 	spinlock_t streams_lock;
- 	struct ipu6_isys_stream streams[IPU6_ISYS_MAX_STREAMS];
- 	int streams_ref_count[IPU6_ISYS_MAX_STREAMS];
--	void *fwcom;
-+	void *fwctx;
- 	u32 phy_termcal_val;
- 	bool need_reset;
- 	bool icache_prefetch;
 -- 
 2.53.0
 
