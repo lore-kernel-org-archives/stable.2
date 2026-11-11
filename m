@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794423706;
-	b=IdAW8eo/O8FISHtgq06FidQfvWk89zr+BePRAHpsAjh9/xjqIdJqA6DMnhLH6gMI+Hgb
-	 J1bU5Uxso1b1+J2OSlm7ZhYB/yVDtJQCZ8cEf7bzRSWAgDzqGRxC2DjS1a60+noyEgPW1
-	 pQJQCOF99o3Wz5CCpQCVnpKl5SzyRlnszZhGbJ44aJnYqk310BPIqegCkwE1I9mnFeVqs
-	 t71LGLBnXVo7N/B51dSJkwWNR0Zt3vfAARoESUCYXmzmAgR+In1qef6Qc3LbIWQA+x853
-	 HOBdNbDFqVwPKXuV7hwrpGgS5+97C3jN/hJa/9WG9Ksgje3NCFSQYCdo+iP2KzOsvjQ==
+	t=1794423750;
+	b=JRRtBRDT1sQxwhJK+H3sU//RwwkcDMiGFEB9w9u4AeDGTt7jh6C3mnE3nwfAebuFGXfs
+	 cYXd4ux9Y2TtTULo/FZclY4WG9LZebraMdnz0xMUbGBO9X8Ok3GhEAAqW0mxBVrhlBXe0
+	 bvP+nUToiTXkrNnQZQh0nmKN39xu5xcWKYxxqUzkGqoQsNHLNHuavAanQVy5L/Qt8kRcr
+	 0JCM3SXrdVEckinKhdPhOl/sr7A0LvkDhylCKnkwijpBhOcjgIIqsFDj+SvmNpI4Oevmw
+	 UsgbZD96FssscMJjB10jqF6HXLIkkxSK1gOXg8OJQ9DjyRVIW73rrmC4fhRFUaXqePQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794423706;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:MIME-Version;
-	bh=fN8BXQdxUtb+cohsNvchlPej4fI46rAjOu/k50nQFVI=;
-	b=S/is7LEllhIpcl4M1zV8P4Rdy74hajuntbkiPgUf+lox0ISfctciOwZg76YxrOwpY3Z3
-	 rFH0hc9ieBsp807Zhglb+m2kpqxoAy+Lew2t14FTodDTEzOWjpa5Mu1mGm5/szUeOkRtZ
-	 CKpdxa6fSSmhijpBsqXykJoZT2kS9RuKe+wB2JbnrR7ybTf833eThvIN1Vvjz/+waD35H
-	 zDrkd+mN7xbqonVSTfdyOV+zfx4msY9zjuauAw0k+PXrszxAZji94yYWNXTxq6TgDqBjk
-	 CdH5rEjkJXmswVUDdwS/CNVVUHvjvUOOtoaqJxe5KuTIhrJR7EhFwS1fllzegzcVrvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794423750;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=3Dgcd3s9iY2YEwfM4c2i4CzVOyXcx9IKcTe430uyrjk=;
+	b=2cagBCPNAaEsQwuc11N2OXxfgTd/rLORqzwACM2XNk+8amad4vKNjgYzBIxmjdJZBG4H
+	 284RVehA/DshwB8rRgwLDotocIO0Is6Q+//DOuN3Hxuf8X5cFdaKBj4n1V8gDuAMeGMbn
+	 CG0PaEFNM26NXQLEPelO5VccMpW94rmSacFcmnFo+N94xzBl27XLutChHCrWaPQbW5O76
+	 XIrix60s4MoCkcafqyYOCAVD/h34Q4ehe9XmSavUrw4NbuKovcQUpBa6fJTWleH+H2AQ+
+	 bbCnwlohkOjDEMkNHLzvl6eIiFMkH3PnM3LPV3hz1JqUrbpv3MmpG88ILWkdScP75ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=itx.no;
-	spf=pass smtp.mailfrom=itx.no;
-	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=NhGL1owW;
-	arc=none smtp.remote-ip=91.189.121.228
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOxHSgom;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89C7606A327;
-	Wed, 11 Nov 2026 19:01:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D89C7606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A265606A89D
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:02:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=NhGL1owW
-Message-ID: <637ac952837ebabd9fdd1c28bbff09cc5ebb83cb.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1794423703;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fN8BXQdxUtb+cohsNvchlPej4fI46rAjOu/k50nQFVI=;
-	b=NhGL1owWvMhEA3/yqVWzp9nVn/Eu0fHacc1+jJXiq4eOtfWBX9M6gsoM4cWnnyNd+LvOKC
-	fgmdhgqUHRzbyC2FXoeAkvFXXAzQsMAxegU+mLoEN9m/riXwvgqaS1gEtgBh2F1SSbhAoB
-	P+b3hIErY3PVqkNZwPwQmpRmpCxdpj4=
-Subject: Re: [PATCH v3] xfs: fix unaligned access to rmapbt high keys in
- scrub
-From: Stian Halseth <stian@itx.no>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, "Darrick J
- . Wong" <djwong@kernel.org>, sparclinux@vger.kernel.org, Jan Engelhardt
- <jengelh@inai.de>, Dave Chinner <dgc@kernel.org>, stable@vger.kernel.org
-Date: Wed, 11 Nov 2026 20:01:42 +0100
-In-Reply-To: <avSHkadYwEjnKF87@infradead.org>
-References: <20261111103047.604541-1-stian@itx.no>
-	 <avSHkadYwEjnKF87@infradead.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-nYs7rKqGPRzzs3b+xQj7"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOxHSgom
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679CD1F00A06;
+	Wed, 11 Nov 2026 19:02:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794423750;
+	bh=3Dgcd3s9iY2YEwfM4c2i4CzVOyXcx9IKcTe430uyrjk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fOxHSgomPkgLWNdcMqDzbxwif/Prh8253l8Ba7h0PGmJr6MHMNFMEcO+F7KeaNwof
+	 Ouczr1QbHLEd3toajMpA/kLJbmVswBOrnCYfMLGasAMw1EvO52RpJElrEykxeQuL23
+	 0YHpUBXKjxqg1lQ/NQ5mii5GVLR3tN9iBQH+L4WhQwWeVM8kU/UNSKu+4sAnNS+Qco
+	 ZwRAoASdSWPxH96SFig4sy1i/MK6eXIDfE0i+RmRGqmrJjp1PYdMqslrC5LAWWsg/d
+	 rFKmSq89OXbmSlEmYdGqbcQOunuPIkHZqz13rFgMWlHpjJ9NM+dz+yquqYPedlutUM
+	 tyMxEZyBwnoZw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yao Yiqi <yaoyiqi3@huawei.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Helge Deller <deller@gmx.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] fbcon: Rebuild rotated font buffer on font change
+Date: Wed, 11 Nov 2026 14:02:28 -0500
+Message-ID: <20261111190159.3927427-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061003-failed-5.15-e4b6b865d45d@kernel.org>
+References: <20261107061003-failed-5.15-e4b6b865d45d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,53 +60,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
---=-nYs7rKqGPRzzs3b+xQj7
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+[ Upstream commit e4b6b865d45d8dafb6c6f28c8a993a5b4431d25a ]
 
-Hi Christoph,
+fbcon_rotate_font() caches a rotated copy of the console font in
+par->rotated.buf. The buffer is sized from the font's width, height
+and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
+fbcon_modechanged(), but not in fbcon_do_set_font().
 
-On Wed, 2026-11-11 at 07:19 -0800, Christoph Hellwig wrote:
+When the font is changed through KDFONTOP, the new geometry is
+installed and vc_resize() redraws before the buffer is rebuilt. The
+rotated putcs/cursor ops then index the old buffer with the new cell
+size; KASAN reports a slab-out-of-bounds read in soft_cursor().
 
-> > +			key =3D xfs_btree_key_addr(cur, ptr, keyblock);
-> > +			rkey =3D &key->rmap;
-> > +			if (be64_to_cpu(rkey->rm_offset) & XFS_RMAP_OFF_UNWRITTEN) {
->=20
-> Overly long line.
+Rebuild the buffer for the visible console before the redraw, as the
+other callers do: select the console's blitting state with
+set_blitting_type() (which also uploads the new font's map on
+tile-blitting hardware), then rebuild. Background consoles keep
+their rebuild at fbcon_switch() time, as the buffer is shared per
+framebuffer and must not be updated for a console that is not being
+displayed.
 
-Thanks, will fix.
+To ensure a correct rollback when the rebuild or the following
+vc_resize() fails, save the rotated font state, clear it before
+rebuilding, and restore it in the error path of
+fbcon_do_set_font().
 
->=20
-> But I wonder if we should simply mark struct xfs_rmap_key as __packed
-> to force the compliler to deal with unaligned fields instead of jumping
-> through these hoops at every call site.
->=20
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ sashal: adapted rotated font handling to separate fbcon_par fields and the direct par->rotate_font callback ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/video/fbdev/core/fbcon.c | 57 ++++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-In fact struct xfs_rmap_key is already packed in xfs_format.h. The trap
-comes from reading it through union xfs_btree_key. The union itself is
-8-byte aligned which is why gcc uses an 8-byte load for rm_offset.
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index efefa73451a0b..a47b98c269cf3 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2389,6 +2389,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	int resize, ret, old_userfont, old_width, old_height, old_charcount;
+ 	u8 *old_data = vc->vc_font.data;
+ 	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	u8 *saved_fontdata = NULL, *saved_fontbuffer = NULL;
++	u32 saved_fd_size = 0;
++	int saved_cur_rotate = 0;
++	bool rotated_saved = false;
++#endif
+ 
+ 	resize = (w != vc->vc_font.width) || (h != vc->vc_font.height);
+ 	vc->vc_font.data = (void *)(p->fontdata = data);
+@@ -2408,6 +2414,33 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!vc->vc_hi_font_mask && charcount == 512)
+ 		set_vc_hi_font(vc, true);
+ 
++	/*
++	 * Select the console's blitting state and update the rotated font buffer
++	 * to match the new font, so that the rendering below does not use a
++	 * cache that was built for the old font. Clear the cached state so
++	 * the rebuild allocates a fresh buffer; the old state is kept until
++	 * the font change can no longer fail.
++	 */
++	if (con_is_visible(vc)) {
++		set_blitting_type(vc, info);
++		if (par->rotate_font) {
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++			saved_fontdata = par->fontdata;
++			saved_fontbuffer = par->fontbuffer;
++			saved_fd_size = par->fd_size;
++			saved_cur_rotate = par->cur_rotate;
++			par->fontdata = NULL;
++			par->fontbuffer = NULL;
++			par->fd_size = 0;
++			par->cur_rotate = 0;
++			rotated_saved = true;
++#endif
++			ret = par->rotate_font(info, vc);
++			if (ret)
++				goto err_out;
++		}
++	}
++
+ 	if (resize) {
+ 		int cols, rows;
+ 
+@@ -2424,11 +2457,28 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 		update_screen(vc);
+ 	}
+ 
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	if (rotated_saved)
++		kfree(saved_fontbuffer);
++#endif
+ 	if (old_userfont && (--REFCOUNT(old_data) == 0))
+ 		kfree(old_data - FONT_EXTRA_WORDS * sizeof(int));
+ 	return 0;
+ 
+ err_out:
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	/*
++	 * Drop the buffer built for the new font and restore the saved
++	 * state.
++	 */
++	if (rotated_saved) {
++		kfree(par->fontbuffer);
++		par->fontdata = saved_fontdata;
++		par->fontbuffer = saved_fontbuffer;
++		par->fd_size = saved_fd_size;
++		par->cur_rotate = saved_cur_rotate;
++	}
++#endif
+ 	p->fontdata = old_data;
+ 	vc->vc_font.data = old_data;
+ 
+@@ -2448,6 +2498,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
+ 		set_vc_hi_font(vc, false);
+ 
++	/*
++	 * Re-select the blitting type, which re-uploads the font map on
++	 * tile-blitting hardware.
++	 */
++	if (con_is_visible(vc))
++		set_blitting_type(vc, info);
++
+ 	return ret;
+ }
+ 
+-- 
+2.53.0
 
-I guess we could mark the union __packed. The consequence of that
-is that every key access through the union would be turned into byte
-loads on strict-alignment arches. If you would like, I could test and
-measure exactly what that means on sparc64.
-
-/Stian
-
-
-
---=-nYs7rKqGPRzzs3b+xQj7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCavS7lgAKCRDoeAEuJe36
-Vo+rAQC2U8p//0TtXdAq0wvUKsH6O2WrlSkHoey217ySv/T9+wD9Ef1z9wL6hx9C
-h6SLbVVpNX9rrtWocLkuMHB2ri4S7Q8=
-=DUlr
------END PGP SIGNATURE-----
-
---=-nYs7rKqGPRzzs3b+xQj7--
