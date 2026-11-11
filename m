@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794357087;
-	b=KCb7uWrijcup6wXNvifTAuSLir/el7x41MhcMwiQTt712lqSOTlyjtejaoX+AtaNtDwH
-	 qY7h2jf8Wv4WLV2Cysch8LS5wpUjEbi3I/EB04iQuzAtooDxYUAUrkIv+SAebLzdnYiji
-	 3b0ng0gkizM2VY8OYRLyGJMELaupEfTuctLT/96fwdLJtqjuhao/Jvjg/TGnfqR1yzoBW
-	 RJK7TXn7eWASKp4zcxTcnnC4CrZlLD4j1ckvJr4jDDFXCIej+vG60OKwIDWWvD2Fxrag8
-	 HvoTJhsoffGOs6eQhYjQW8tZpVmhd20aaH3Q36NpejvDJYB9yb/57HsCkBAL3OJSbYA==
+	t=1794357117;
+	b=Bex9rRBRt217UppazJLrJs5PSxBrq2ORp4j9r5YJ/dmB4DdB6AB7/Krj8ibwNaNAbGJp
+	 7/N8I5u5vrQa48iCGd7y2fDbXCm9LAesKddk/QkxIE1ajwToA1SXzltrQZaFxyhecDIKl
+	 hmFpHAe6Q3Usn1I0/8JWrmB6vDaTNBXikIVkLHrVajF8BHtyUTxuDDAczHUacybg3JO35
+	 poYECgrdUAzk33SgDbCI0p9//Mjj7YohRsqKCXrtlkFCRaWc9rSN6/ni3g29vP7+sj2j1
+	 n7QRqPs65ZG/I1Npc4QO5tVA0fzRsMsivQtT4uByhwQyP36gwjy0Km1konEXkcwUjuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357117;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nf61AgeiZ9uQs+avweUGQlMreDitu+Taj2elZ0BoZZU=;
-	b=C7C16sgvLkMNjDTfSuehN+4GZt/LL0sLlvJPaYHa+iDGpPw+tTQbF8/EuJtcQv15ASJV
-	 DsKAP3f9NU22XaAmMr2HxY2RwNT65ssXCugD7+prNfoofe8df8H3nrqgKQnBvkPqbZ6vd
-	 d9waN+vGsjvlknQ0kaHWiYLYbyQ8WhdMkwzkQ4//sFPW1fN2Lb3Ra3gNuIJfYU1fdpdLq
-	 GImVvrlm+3Ioy9xONvqjlsMjbnwDzpXWl4kKe2zvfknI57S5J0CZcxlvO4x29aeQ4t136
-	 hRp2x18O6Itf50B3x3SAFsKIc45zBOh07fZtYQkyYAh9AU+FqLdmDpDrBxUqhibKmPw==
+	bh=KDmh8Imz8T5vvb2XEs+LBDWXLdMHf2oKPSQugeLKxG0=;
+	b=TC7rdhDBDh3O9K8qPnl5/NVlxsPGwsIb/rUm7fGPYHCoJY4n5KQeOPvzhB+ZYUu4zfrl
+	 Mcf7WOUAqrfHj8+cD6pX7x2EIeewHit6kcnA0qy27Azlsni5hjSw9Fjwcw0Djj4ECcX6a
+	 lC8Ty3LYKl2KyvsmRJeIe1Ppo1Cvb3U+98FiFYzdeDzkBi0zKzVKvtfWdF8p3Cn1HOUcv
+	 3/V52v+FBfkzCYg0kthH84IgnFwL3u8VM+GP9IBjku9AezDzK/O7DZeaUhqNmEwC8VDas
+	 Sq9WkHuMTBMMzDw4DWTFnzxx9Yxbdj6HitVG6MyZo04JV/LzYhWOuxGEErmq3Kc7IEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRd5fazI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2G8HTbC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C156606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:31:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ACB606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:31:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRd5fazI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F118A1F0089F;
-	Wed, 11 Nov 2026 00:31:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2G8HTbC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435561F0089F;
+	Wed, 11 Nov 2026 00:31:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794357086;
-	bh=nf61AgeiZ9uQs+avweUGQlMreDitu+Taj2elZ0BoZZU=;
+	s=k20260515; t=1794357116;
+	bh=KDmh8Imz8T5vvb2XEs+LBDWXLdMHf2oKPSQugeLKxG0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XRd5fazIHDtvphtxBx0qydcXSveasWe5wX1AVXfd22a6DBD9X80Q32E/iwmSynQ81
-	 Pl0f63u2G/MpjEHFiph2PJHzinc5Lt+IIqR0KJroX2qlqmDPapHPsO1bRKCjEcb7Vi
-	 Alw/IjxOFtNjkdILuXhkDLqccZuBRxG15t86B2xcTsfjQyIMENsqp36lp3x4iMJZ3S
-	 qm/YNVLI1BHm0vCT1iCt+DaKvuysCixuzef5wzhQieDMCldEMPPlRIEMxaw60Z32JV
-	 RwEmBT/eIh9P2xE3wKGt2GOGnw71AlQBL3uG9dEqbbtF+tGnQvmn2APF3qGF5SjbBo
-	 sgdSbRVbH6cXw==
+	b=N2G8HTbCkLSKDX7g6juygCRxB0fREV7XLhSet5ulwdnSj7cgYtcuUF5/s3Ch0HvjF
+	 Ow3adNEuOGMPfub3BB4Zd0sC6hraapdg1TiT8lYZ2TdR1voG5LEBrGoKHZhdsmMTPR
+	 HydpZjp71KZoat0/Z4Uu/n3iPTB33th212Am0X/QkwKVu71/JMYA77aaG1o0WHJ3sj
+	 RgmSGwS8dVB6h3mGjcv7cCIW1oJJiDTNP2vAnqvwEZ2g4+6agjjNXYblsrQfkicK6+
+	 yMg4UHFYzA/YlqIjoUVHWGLCurEk5RxfLGSNDH5j4Ahxn7NHZW8ZMq52ROh+n/bLIe
+	 51llt7ENiLBDA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Juergen Gross <jgross@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/mlock: use a long for the page count in mlock_fixup()
-Date: Tue, 10 Nov 2026 19:31:24 -0500
-Message-ID: <20261111003109.274925-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()
+Date: Tue, 10 Nov 2026 19:31:55 -0500
+Message-ID: <20261111003120.274148-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055436-failed-6.1-3ae91e3079b1@kernel.org>
-References: <20261107055436-failed-6.1-3ae91e3079b1@kernel.org>
+In-Reply-To: <20261107052046-failed-6.12-6f165abe2b40@kernel.org>
+References: <20261107052046-failed-6.12-6f165abe2b40@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,87 +61,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 3ae91e3079b1504ef162b2884454d5f1421f4eb9 ]
+[ Upstream commit 6f165abe2b40ede71c98956cd74cd17c18505e75 ]
 
-mlock_fixup() adjusts mm->locked_vm, an unsigned long, by the number of
-pages whose VM_LOCKED state it changes, but computes that number in an
-int:
+dmabuf_exp_wait_released() takes a reference on the exported
+gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
+dmabuf_exp_wait_obj_new(), which drops that reference after adding the
+wait object to the wait list.  When the wait object allocation fails,
+dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
+reference is never dropped, leaking a reference to the exported
+gntdev_dmabuf.
 
-	int nr_pages;
-	...
-	nr_pages = (end - start) >> PAGE_SHIFT;
-	...
-	mm->locked_vm += nr_pages;
+Drop the reference on the allocation failure path so the reference is
+consumed whether the wait object is created or not.
 
-When a single VMA range of 2^31 pages (8 TiB with 4 KiB pages) or more
-is locked or unlocked, the count is truncated to 32 bits and then
-sign-extended, so locked_vm is changed by the wrong amount, while
-munmap(), mremap() and the other paths that maintain locked_vm use the
-full unsigned long page count.
-
-Such a range is reachable on 64-bit architectures with a 47-bit or
-larger user address space (x86_64, arm64 with 48-bit VA, riscv64 Sv48)
-by a task with CAP_IPC_LOCK or a raised RLIMIT_MEMLOCK, which do_mlock()
-checks against the full untruncated length.  It costs nothing with
-MAP_NORESERVE and MLOCK_ONFAULT/MCL_ONFAULT, since then no page is
-populated.  On x86_64, after
-
-	p = mmap(NULL, 8UL << 40, PROT_READ | PROT_WRITE,
-		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-	mlock2(p, 8UL << 40, MLOCK_ONFAULT);
-
-VmLck in /proc/self/status reads 18446744065119617024 kB instead of
-8589934592 kB; munmap() of the region then subtracts the true size and
-leaves VmLck at 18446744056529682432 kB instead of 0.  With 16 TiB,
-locked_vm is not changed at all, VmLck stays 0 kB, and after the task
-drops CAP_IPC_LOCK or lowers RLIMIT_MEMLOCK, mlock(), mmap(MAP_LOCKED)
-and the other mlock_future_ok() and account_locked_vm() users enforce
-RLIMIT_MEMLOCK against that count, so they let the task lock memory
-beyond its limit (or, in the 8 TiB case, refuse every further lock).
-The error persists for the life of the mm; unlocking the range in pieces
-skews it further.  The wrong count is per-mm accounting only: it does
-not change which pages are locked.
-
-The int has been there since before git history (the variable was named
-"pages" until it was renamed in 2.6.28); every other updater of
-locked_vm uses an unsigned long or long count.  Make nr_pages a long,
-which holds the page count of any user range and its negation, so the
-existing sign handling is unchanged.
-
-Found by formal verification of mm/mlock.c against the kernel binary.
-
-Link: https://lore.kernel.org/20261014131358.780240-1-nickolai@csail.mit.edu
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Assisted-by: LLM
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context for the older mlock_fixup() signature and local variable declarations ]
+Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Message-ID: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+[ sashal: adjusted allocation context from kzalloc_obj(*obj) to kzalloc(sizeof(*obj), GFP_KERNEL) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mlock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/xen/gntdev-dmabuf.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 0124022f0f379..8fa8e871ccbf8 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -406,7 +406,7 @@ static int mlock_fixup(struct vm_area_struct *vma, struct vm_area_struct **prev,
- {
- 	struct mm_struct *mm = vma->vm_mm;
- 	pgoff_t pgoff;
--	int nr_pages;
-+	long nr_pages;
- 	int ret = 0;
- 	vm_flags_t oldflags = vma->vm_flags;
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 5ab973627d183..1072e781f12ee 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
+ 	struct gntdev_dmabuf_wait_obj *obj;
  
+ 	obj = kzalloc(sizeof(*obj), GFP_KERNEL);
+-	if (!obj)
++	if (!obj) {
++		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
+ 		return ERR_PTR(-ENOMEM);
++	}
+ 
+ 	init_completion(&obj->completion);
+ 	obj->gntdev_dmabuf = gntdev_dmabuf;
 -- 
 2.53.0
 
