@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439863;
-	b=Z504naYCkEs8lvw6b90CdYtHS4QbawZOJSyRoQKZcBgBUPOCVFMk2/WXhbMWmOxBc11i
-	 s1/6eOkGUpIoxtN215HhxSAoPuR8TYjw8QHCoNde8mEFSgyyFSTIQaHqAO6CsEK/2YN8B
-	 bncxvtTC5PYR9NtHpLfVloSkTeZTh7F/CR0rt8jog1mN8O2vLVB3nwQ4c1bTJBHRG1Nag
-	 XIM4dKCdD76wsObZ9a3ATkUaVuH2A4i9REK22bQq+IiFqNQKFezaNgapNapNAV4e5+zd2
-	 LiIXzwPj/aCkwWi4jvLo4L6DuJeqJIAEkg1ja+GriVbNrQgd0fMLcPrSk6FjfdaIShA==
+	t=1794439867;
+	b=L77JvqAPQZ3xArHpOmIE1cZw5iUpDR0eBOWmBBScMgm4uSRDpIG5GXM+oa7Lt48lrMWa
+	 OonOn9Xs90mAH/Ox4mcCH+tmLdYy74Ryml0I3kQxoyZ5H4mzzg6D0S9uvwO0wbDMIIni+
+	 +rjxmUmejNAW+uul4VegjR7fEerK4VQ90x5m/HkzY9BxeuW/MLV1Tn5M2rD6FdW+vJalj
+	 3xbC5oI5WFB6clnjbJO/khDzVFoWyPqNaNSklsjmlLuOyHu9W9ty5prxJUCaJctKRXoPP
+	 aqIvsikdL+0gIWN/zghE7LEtwwEGtcEezC/sFWsfoJ5NX9cIxoN6TfAexnElKy7L3ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439863;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439867;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VJNjRNec22z7TvIFda6TtzkcuVhfuBkycJb1ToOXvik=;
-	b=TQr9zptA/JzfwQor23lcn7c3eCKfI7hwT5XeF9DIXswgx/j1dryM5R1un4niVODOHcGc
-	 HbPp6qRIB45MRxBXrkqYKu5KYjKISGf/U5ZwQJnFKbgZvI9JQ7Z34/Dvuo1DursxBi9yf
-	 61xJ8HM9F2EqiR8xp3n9xEFCq3Ypaweh4vyoUjVaw01JnLYg8c8vOr+RXBS0GlLJb2C1F
-	 G1X4rWLTBFZH0bSdMeILk41/CZGmfyzxTg+2m5nchRxDP5TwnguUFKdne3R+JW47F4K9K
-	 uQas1x0oMfyWX0s9iceqaiL43rTVmVZlNjwIU4J+2Zu6B2OZMhCdd9WnpbxeA41rEmw==
+	bh=k+1O9jPeELVKycW88hpFgQtUmLFKkI8Ct3uwvEaLDCU=;
+	b=4bTWuh5gkxZozH8myQ1yPeR1aDNkFr37xR7j1WT90QM+FAq5zd2uQnTPWbAKgdb0yIjP
+	 elbq3tcw1eWvwqdJKQLWhZ1zhxZbrhpm0bsTPgHSuJ2Vb4qa3jkniH09dBT5UO5LbR1Nj
+	 LkWhY2Cjs6Rld7EvWjWQSdfqvI1OI7488pT6DNpxvNICzmvMnXr+V+XG2WfQ0eti2Dh+F
+	 PBCvHlP/Jm4IEyOHLkn/AZcuLPoEO5Ov8WE2d5aZGfLTjRk3kEAW1B9ET3Ew2yhLpZQga
+	 0PZkwm/r08jW+uFC8LNuwoaab7G7S+PjVGJhkOFyEQzMoCEld9jFtDE0PuFQOdjRPtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpTAYMxF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V+S4epV/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5189D606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:31:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4DD606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:31:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpTAYMxF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35C21F00A05;
-	Wed, 11 Nov 2026 23:31:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+S4epV/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731F71F00A05;
+	Wed, 11 Nov 2026 23:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439862;
-	bh=VJNjRNec22z7TvIFda6TtzkcuVhfuBkycJb1ToOXvik=;
+	s=k20260515; t=1794439867;
+	bh=k+1O9jPeELVKycW88hpFgQtUmLFKkI8Ct3uwvEaLDCU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CpTAYMxFIWoC+2EZrTG18rn8GOwsfPieji+f3iLb4QgAHq17zS8LxyK2GM15v+cQ1
-	 Z4cHkpmtgegfluamJ0n1liljY+Kjf6IJ0prGIMqwzZSF6rHhUHrUKVKFughA7+wYhI
-	 lMo+ZDAUJ7PiYYTQNp/Ya3pMWqfdLePKwzhdVyw+o4aoXC49ChHkh6enhsJXhj7r5J
-	 PMtgBUBmuLMos7+kF1QPRSPjUNldCW2HGGxS5N13+qH0w8KQyTL2qH5Cs4aajKx2KI
-	 2SO0v4iqHzc8ZYgei7Hsc43BPhVPrXx0hbsQ3UWsfPA6XCXHQQ816oXlOllthqzpVm
-	 nhyRP/Le6Eq7g==
+	b=V+S4epV/FRUEMrFql1rt7W1/h5eYa7kvDD40nEcY105JloUbjP1RIMqYMYggURstf
+	 rCvmGln5hnnVsoBC+1+dKvIbfkV9Ik7c9/wHpQLnxbkWnS/NMlzfporptjCMO+JHzm
+	 +ifxGK8wxEaXU8TaIj+9rGqohUintkTXY2DYO5joD2X7mC5tvw290HEVd04jxI0pQI
+	 GmQpajZEGvQW7Y72muOa5hOV29GyPqeA1f2X8FqOU68jAL7gp2k1hRfwaOGUUljlf5
+	 XBudyYpmdjw1kIntB8eC3h0DfseMMDp3hT4kbNlcW8hxKKLRiS27RG/7vXEzuoai3W
+	 Cwajudf4U7ceQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Wei Yang <albinwyang@tencent.com>,
@@ -50,12 +50,12 @@ Cc: Wei Yang <albinwyang@tencent.com>,
 	Vlastimil Babka <vbabka@kernel.org>,
 	Jann Horn <jannh@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/madvise: add cond_resched() in THP branch of madvise_cold_or_pageout_pte_range()
-Date: Wed, 11 Nov 2026 18:31:00 -0500
-Message-ID: <20261111233037.624607-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/madvise: add cond_resched() in THP branch of madvise_cold_or_pageout_pte_range()
+Date: Wed, 11 Nov 2026 18:31:05 -0500
+Message-ID: <20261111233039.627729-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061124-failed-5.15-f5cfc8e3b20a@kernel.org>
-References: <20261107061124-failed-5.15-f5cfc8e3b20a@kernel.org>
+In-Reply-To: <20261107062828-failed-5.10-f5cfc8e3b20a@kernel.org>
+References: <20261107062828-failed-5.10-f5cfc8e3b20a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,17 +126,17 @@ Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
 Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context because reclaim_pages() uses page_list instead of folio_list ]
+[ sashal: adjusted context for reclaim_pages() using page_list instead of folio_list ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  mm/madvise.c | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/mm/madvise.c b/mm/madvise.c
-index 367220e1fe52a..00929750bad28 100644
+index 8b6ed35c1d265..e98256595fdd0 100644
 --- a/mm/madvise.c
 +++ b/mm/madvise.c
-@@ -385,6 +385,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+@@ -383,6 +383,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
  		spin_unlock(ptl);
  		if (pageout)
  			reclaim_pages(&page_list);
