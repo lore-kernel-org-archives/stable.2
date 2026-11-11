@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794358669;
-	b=ZVvbjv3n/wcec0erc6PJpNfuG2fFLpVVD2XzVzg7B1N1HRcB9eeL0E7e2a9+w7/Vvwbs
-	 PJB0rc9K4hKXphlpGv6/l/MLW7Yu0bsUjBQcKd63GL72HQ+UZwVqOHApdjfKSvokB51Le
-	 TqkFpe7pLPS/jTrjhgYpPfZTc9qFOJO8cwcULxgFRdor9vWOuCACKi6gVVwWpPji+Mfia
-	 vU78LlnevE+kJE3L4Mdb5QeO7yHtQHJYl7QW3UHTFT9dmlHV78GZTieZaVtthBy4gFOXd
-	 89fhuPsCyfYGsLgyY9DXjPS2b5ZsZSm4n4MXNqvbi4DJso+NO6bNOblsg3v0mtRZBHQ==
+	t=1794359216;
+	b=xBqwn5qbGkfL9Oe6OEzVw8EBbVnIr4FO9qHy5IT9bb3Rr2l07GPW5IJmvg/iGoGoSSD2
+	 dE2cBxY42qdcXauqN9aKvG2scS3cvW7CE3VsR38s5/iMWtjH0Xwh0pyS6V4TtqzbONLD/
+	 eMlDDvY75T+PcAsEFZ3lLKonwxJe3HA9GVS+qk4CWAfpzkKlt9qLgH6JyWq0ecxwPPBnW
+	 RHm3wprTHs1LA/bgSKsUxUCOiZ/eFxJMweoFtpwxKMnrGzM/KwjWSqU/AoO3u5Fc7MH+P
+	 SUIxzHGmFusqihKvmtGlVwMMHyIRgQ4MJ4QW6AJd9A06CEQAymrB/qJlAcydrL8/1UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794358669;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794359216;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QJYN9VljECk8SN9KD1oY6wevswLMDtbX54MloZlQnb0=;
-	b=Wm331RFrCFG0XsmPcXPy6hdL5IO2Z0B7VZgIwcBbiOIJ1Exz5lIxcIY+BLb5coTNKrO2
-	 mEGAZ6fBhbdpzlbv3C59ziG0nNIG+MfR/QjP1ffJqbKSXEnIGAXPrkn6Soa+3a+STmt2m
-	 IBp2lroqYKonc+ErNyZawsOPIAqgCfofLoJTAbQhup8SC17BojJ5c32wk8GvZvaY6/FNo
-	 2T7Anu8BMBXvjsNhnEX0fLfHsGtLzdsYvJ5vSgeTYenHDuOdSHdVHOu2mJ4xN2Ulyq4WE
-	 erE5ICn8tEAwtGLk2s4D2HRjclmn/mBTJXhrXwwI9WkizNU53I6/QpzrGu5N0i2mnIg==
+	bh=3lS+fcTJ/rxkgSn2y2UzaOZAnG1NGJotoj6dabRKv/0=;
+	b=gw/Q3pbUX3MaZY4gXBlzFZgYLizB2bRQ78mr08YQVH9BDl9Nq6kXEjdFvi23kGLQhw1p
+	 7oB+FOR2T3IYX3lVrmBWZleP9q38Vdkj/XyCgQMAj87QLKwmEzZOcojwBIIhbPq/akTjH
+	 xJEBVyo8lQnu/chM0o5ZxVI0bPYMukW62ZKc5Js7S6+wbdD5pDYmpkmNMf0jws7KTS9V9
+	 kMdq0YN+Cm12s6zbSynkyNnCuL3WFB5Knc6p8IqE5h1y6j4of06FdHBQIStVVDR91YHEl
+	 e4qy0FcBEXiWts4wiFJ825h2bDlrJUjQy98OmMRBCCZJ7K85H8ew3YcklFBeEKy2XtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akEEZxm8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHmAlPa0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF681606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:57:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5249F606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:06:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akEEZxm8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1291F0089F;
-	Wed, 11 Nov 2026 00:57:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHmAlPa0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 335D91F0089F;
+	Wed, 11 Nov 2026 01:06:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794358669;
-	bh=QJYN9VljECk8SN9KD1oY6wevswLMDtbX54MloZlQnb0=;
+	s=k20260515; t=1794359215;
+	bh=3lS+fcTJ/rxkgSn2y2UzaOZAnG1NGJotoj6dabRKv/0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=akEEZxm8+0JaTK8HmSlXo2u9gaBlSLN06AK/X6smnWbSf7w19/M44+5+3VQy+VeLZ
-	 yZ54/tq0/sQfLH9TOE5MBOlwEM5zxRfOYpoBz4bnrroLkhPxI/t4ee5QBah6EdXIFB
-	 l1cinA3i/TDUZsrHDAgT1pr3zwVi/HDntqE4DAOn8JfZWekVWEc0QVr0FVqTRr2T8v
-	 ICHpFIOzy6ob0pgD/sARkHkqGggvYs3ZUh9woVA4cm3f4pPFX6FQzIFaegsYVxkZ96
-	 KPPWvVbgAUqR3U7o89yhLX2/cMkLX26aKHfbKIq9iNSCErwT12mbu0Gn7O9JPvydX7
-	 3j+sYiRGk4bDw==
+	b=YHmAlPa04QSTX0ThuM+wqm1tT1wpAFmESyUFOVM8amfuEi9YhCcxDPdScZCPO4uoG
+	 ac6TUg4C250MWChlYZDXByMsCqkmHNtH/i3y8klKCbbCAJk6J42NmQUJXG2nF2h0Yn
+	 lPEmg9FerGNZETokogtVILJdHGsGMpoJmueS3W71X9vlzkkGQwq2F1a5A5mmcmbDoj
+	 XLhIMvfQNaUKdOd6OASQtc4MsdRztTH7R3DTEMd/KQCODKJyNvn4dgZxSYwmk4pVSf
+	 Y/eACvCEsVQq7XGL4XLRptv/S9thmUqrPL8ygghZtxG8GT+7aTJashoqURfeoNvTMg
+	 rUL2qLsZhwUVQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Brandon Williams <turbine.bmw@gmail.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: Yao Yiqi <yaoyiqi3@huawei.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] power: supply: qcom_battmgr: Notify charger supplies of online changes
-Date: Tue, 10 Nov 2026 19:57:47 -0500
-Message-ID: <20261111004736.294060-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] fbcon: Retry rotated font allocation after failure
+Date: Tue, 10 Nov 2026 20:06:53 -0500
+Message-ID: <20261111010437.260243-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053622-failed-6.6-87fd20da8ca8@kernel.org>
-References: <20261107053622-failed-6.6-87fd20da8ca8@kernel.org>
+In-Reply-To: <20261107061006-failed-5.15-7935db1a4a0f@kernel.org>
+References: <20261107061006-failed-5.15-7935db1a4a0f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,81 +62,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Brandon Williams <turbine.bmw@gmail.com>
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-[ Upstream commit 87fd20da8ca8bacdaa9bff5860167f208077dc51 ]
+[ Upstream commit 7935db1a4a0f83a63590a222500e5016e2f6c85e ]
 
-On SC8280XP and X1E80100 the AC, USB and wireless supplies take their
-online state from the charging source in the battery status response.
-The firmware sends no notification for those supplies when the charging
-source changes, and the driver only announces the battery, so userspace
-never learns that the charger was plugged in or out. UPower keeps the
-state it read at startup: a laptop booted on the charger never goes on
-battery.
+fbcon_rotate_font() records the font, its geometry and the rotation in
+par->rotated before calling font_data_rotate(). If the allocation
+fails, the error path clears par->rotated.buf, but the recorded key
+already looks up to date, so the next call takes the early-out and
+never retries. The rotated putcs/cursor ops keep returning early on
+the NULL buffer, and the console stays blank even after memory is
+available again.
 
-Call power_supply_changed() for a supply whose online state changes when
-a status response is parsed. A supply that is not registered yet, when
-the battery is read during probe, reports its state when it registers.
+Also test par->rotated.buf in the early-out, so a failed allocation
+is retried on the next call: at the next fbcon_switch(),
+fbcon_modechanged() or font change.
 
-Tested on a Microsoft Surface Pro 11 (X1E80100): after restarting UPower
-on the charger, unplugging now sets OnBattery, and plugging in clears it.
-
-Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
+Fixes: e4ef723d8975 ("fbcon: Avoid OOB font access if console rotation fails")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Brandon Williams <turbine.bmw@gmail.com>
-Link: https://patch.msgid.link/20261013-upstream-battmgr-charger-online-v1-1-731973e133a0@gmail.com
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-[ sashal: adjusted callback context because the last_full_capacity block is absent ]
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ sashal: Adapted the cached buffer check from par->rotated.buf to par->fontbuffer in the existing font cache condition. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/qcom_battmgr.c | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ drivers/video/fbdev/core/fbcon_rotate.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index 7b51f827c34cd..65140d4985af1 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -995,6 +995,23 @@ static unsigned int qcom_battmgr_sc8280xp_convert_temp(unsigned int temperature)
- 	return DIV_ROUND_CLOSEST(temperature, 10);
- }
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index 66b35613368e1..f7e03c17f94be 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -27,7 +27,8 @@ static int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 	u8 *dst;
  
-+/*
-+ * The charger supplies' online state comes from the battery status response,
-+ * and the firmware sends no notification of its own when it changes, so
-+ * announce the change here. A supply that is not registered yet announces its
-+ * state when it is.
-+ */
-+static void qcom_battmgr_sc8280xp_set_online(struct power_supply *psy,
-+					     bool *online, bool value)
-+{
-+	if (*online == value)
-+		return;
-+
-+	*online = value;
-+	if (psy)
-+		power_supply_changed(psy);
-+}
-+
- static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 					   const struct qcom_battmgr_message *resp,
- 					   size_t len)
-@@ -1062,9 +1079,12 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 		battmgr->status.temperature = qcom_battmgr_sc8280xp_convert_temp(le32_to_cpu(resp->status.temperature));
+ 	if (vc->vc_font.data == par->fontdata &&
+-	    par->p->con_rotate == par->cur_rotate)
++	    par->p->con_rotate == par->cur_rotate &&
++	    par->fontbuffer)
+ 		goto finished;
  
- 		source = le32_to_cpu(resp->status.charging_source);
--		battmgr->ac.online = source == BATTMGR_CHARGING_SOURCE_AC;
--		battmgr->usb.online = source == BATTMGR_CHARGING_SOURCE_USB;
--		battmgr->wireless.online = source == BATTMGR_CHARGING_SOURCE_WIRELESS;
-+		qcom_battmgr_sc8280xp_set_online(battmgr->ac_psy, &battmgr->ac.online,
-+						 source == BATTMGR_CHARGING_SOURCE_AC);
-+		qcom_battmgr_sc8280xp_set_online(battmgr->usb_psy, &battmgr->usb.online,
-+						 source == BATTMGR_CHARGING_SOURCE_USB);
-+		qcom_battmgr_sc8280xp_set_online(battmgr->wls_psy, &battmgr->wireless.online,
-+						 source == BATTMGR_CHARGING_SOURCE_WIRELESS);
- 		break;
- 	case BATTMGR_BAT_DISCHARGE_TIME:
- 		battmgr->status.discharge_time = le32_to_cpu(resp->time);
+ 	src = par->fontdata = vc->vc_font.data;
 -- 
 2.53.0
 
