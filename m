@@ -1,92 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439473;
-	b=z4ojxVaK4C2sTNxlieNcNqKjA7qeNKIr08wZgUL28AIJKfQuR+zYEaVR9uvfbWMS2bX1
-	 vjZGN2SXet+/GC1UrnKfHAlnid1b5HExn5fqI9948LF9JcJZcnhdyiINHZvor960RPk6c
-	 8aoalmjbG+yywuVFYOPtargueZCHmoPLTYMuwKpbSPZ7Xarv9J1fZ6Sg3KAzqUb82/OmV
-	 3iGAxYgxoLV0iUbdMigQ2HznZv5kyKlyK0YBGuxFJp9vCOlBi2duw2eZbdKBEacAL/Q2n
-	 zbxbyYQDTgZBGb32TKQDKZwbMoILvgOaNEySfeM589usPMzhCMCEcQvnv3WL+KaURVQ==
+	t=1794439483;
+	b=JFiaAtuBBHAjr/RW/KcJUduAOlv9nhQ5DorcnMyypzZ2dVI9mdGpJL8qHPMD4W70sXGp
+	 QXE+glgU8DsgehhZSwxDP/QkuyGATl6m1L0hqQy8tzB4U+EtVPfABaS4+qH9mC8L8+mjG
+	 roE4/bO2qwL2qEMhE7tkVvYfhmg8Zn9fN53/EkBujVB/4hJwDwjY3i7Q0Fm8+8iL+xicx
+	 6dvN/4g82IMAPE/FKrO3EYegf9C5ldrfFMTeM9znBYftQbVhOKXewQfSJGgR4gYZjVHSL
+	 eY7RJYYJBrwSbed9cvFKk+lg0XibwGaaSubc7Mv7gmFhHEhtnFvNUrQ7m/QPAs6sgzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439473;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=MOzoFV/EttzH2eSHwTtI7g/R3LIN8HHsyif9JYD5UCk=;
-	b=ywaPzYga4K6rc3gm+DGnKYjl8LYW475sh/Px9Oplgi+Eoggx36w0OXxrpo7HqVWj9lnl
-	 7ZDCGd4IJBXskbCr9VXlslwxNItxlZyAMxMyu2BXOB0SUdTPNc7f0ma3xZANbTGaR9T5p
-	 03YDuM0WD1Ak6+JOLvxJPr6eYyhMtCJiw3zs5haVpUhnPCvgN35GarCx+uYfeQV33hJp/
-	 FLSbenT2Xw979FV+5NAzWrBUknr75xs1dlJFiR2wWA+OWx4E0cTBXLVN/oiuKadKM15a+
-	 HmtH+RAheyEeKafyXL6YD1cKVKQc9iR1ywpUxcOozsdYQRI37tGcJ+QhJfbDvqwskYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439483;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0lZp5LYlWIljT/TDK+20V6m+qVZi6L43Se5nlTzzq3w=;
+	b=dW1pMsitkhs/FmexIctORMhkMTvkj5k2KSDdK74rKk2H2g+9PvBZOoibBUGL4IcVw4sd
+	 C5dgVODh1OxYZLPQseHeDYJI/WZ7LBjkvDMJPxL2g1KLWfcyMNb9qaVjJM0Lq83vaCP3g
+	 cdZKX8oLmxS7xjdFrY7w6iPbRDHoUaMJ+jWs+EyKGkclg8nocHF9a7vAweX+Qp7SylXuW
+	 5H05mTOR/qA7MKSvyE0el57aARPD3nIYdM483Mex8NKJxpftkOf3Uun6W3cnuxnyHsDWC
+	 ZeTSc01yuPHqk9Jv3Z73mgnvUCMf1+fXfmYztAdS7FLhiBwzLjd5M3tTBlCi/LZ7rJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XxL1fLbT;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwHrruJT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93891606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:24:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93891606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FA1606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:24:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XxL1fLbT
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-492690dd5daso2953804f8f.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:24:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794439471; x=1795044271; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MOzoFV/EttzH2eSHwTtI7g/R3LIN8HHsyif9JYD5UCk=;
-        b=XxL1fLbT7B8Ga3QmZxdOqHNm1NQCEUVR8sxnEqrFd1fWxs5zkdH678e+tRROqw91Pg
-         qLTkgD0bfQQX96dfrOOnp9Eb8hBUWM3w6yZKVOiTKDrXsv/fsO5DOpXLY/6WLMBv/16h
-         0xpM6ThNUvUCgIsBlfegnAmuraVOcPDkXOuBH1EQJtizDynGDNXP9P84TDFyyoWcsNNI
-         WxN9xDClqrMQpH8+xrzi8z2Zij4DW0DSfNTCCxFXzSfSAAX93bRcqZu8Igyw+/qRRAf7
-         WsOEhMxTKX/ZUAeS+obTUmA/jJKscCU8W3zV0gGNgxJfEfJ0nhx172MwMz9KSrK8RPqp
-         OTcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794439471; x=1795044271;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MOzoFV/EttzH2eSHwTtI7g/R3LIN8HHsyif9JYD5UCk=;
-        b=hzhO4ayN/9B91FEy+j+bL1geqAVGRAYaPhk1bLtMduntrm1TRqTe6EcojWPHzp1gB1
-         tAbWJ/NrIU4TlTijCCSa9Ql1hJhcBlcWcJ43g/cnBQG+bFp+sKBv5lOzdDQSdICVJD6b
-         i7v2BSOYNZHAG7UW6PpPoVMFkVgPKvVbbtdWeyYQlphUsIOfxNynthJOMwXLYfD7z3K/
-         hInMxUjxRUDs0ghP3GiOMQHIEfhgvKPwXS22mKZqT3HbAXlhUfps1BxWBohzihEt9B65
-         wPyqcGJc0tfpfMzRTK6CS/Vw5yxHERcJ6nrRuJMLhyR6tC/1rd78gets7lO+GFmGEfxu
-         hLDw==
-X-Gm-Message-State: APuU4Z+UrOxyrRU58c9ILRusBwfcMrkDcn4QeefaazgALgXmNe7luMPb
-	9mcW8CTDRWg0Aewip4UV46JT1GeWDBGkLKaFRT4RNsjtneEIt0q1qP4txXpcmxo2hAc=
-X-Gm-Gg: AYBFou19LrLQyezl1Fn9TbnbCGwG9oscr8XZ7Uu7qU4uzbADKEoSaqp17ygiQ1SdHrr
-	t5aEmBc1B9t4UkdmztMJZ4IlecVdzebf5/sN8lfcGC5ABHiKIPYQGVSPfKbAqHXXRkif4auxzvh
-	d+MKTSr8sKf+pSuC+66JQgGbn/pgShbeZgJ4tbALS083UFT1xCLqQKHkty/PGyI6eO03vJtmn0h
-	3INnF1O3eClXckePio7o71CzAh7I4+EyU45MFJYQFWQ7F4cW1Vl7s83lPqBi7jBM1qPl3755oal
-	OtjhWf5cbbHKNq+RmKjRBNpnpOzM3k6UIEYBV5kO7DRtP0hqA5z1Gp31/Cew60MTS2V0klAGlON
-	JkEZYoZgbsrASQRM/7r7w5Y4xmzqRRl1No9YZehu8krAs7XLmLVggMNjJBsMhc7xyuTdx+VY5Tr
-	BUc6pdbQ+8O3796gJf5RuKqyCBtAvOUbDHn4oRJxxiyPka40ru2aWfnS09EZboSlMk0dzhTeovY
-	TA1I7ElrmSEcC7y3OqdH7LYzY0xcc9gh5ojY3ITz1c0w/5ScgbmoBlK5AXncBV4GgTqlkV6ht0a
-	mDyrX4ws3jQiOHb15qXB3+ARkyOhp7XPlmcQZ/P+SvmIOajavjUwKwCJxPoTkwZ7vKxVut4jfJE
-	CzctZO6P/BfUlwqQ9scUXBI06S+elCF99g+RMd6n+1zu7LDUvle7pkLMZIeLc8YlpL7M84qK0S1
-	Kxi2Q2Tw==
-X-Received: by 2002:a05:6000:2203:b0:488:7df9:3898 with SMTP id ffacd0b85a97d-499caa40bfamr6264621f8f.56.1794439470962;
-        Wed, 11 Nov 2026 15:24:30 -0800 (PST)
-Received: from eagle.home.marco.cx ([2a02:908:176:3bde:78c8:14d7:11e0:20bd])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49836a9951csm13768927f8f.56.2026.11.11.15.24.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 15:24:30 -0800 (PST)
-Date: Thu, 12 Nov 2026 00:24:28 +0100
-From: Marco Schirrmeister <mschirrmeister@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwHrruJT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906CF1F00A05;
+	Wed, 11 Nov 2026 23:24:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794439482;
+	bh=0lZp5LYlWIljT/TDK+20V6m+qVZi6L43Se5nlTzzq3w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MwHrruJTK0+6hY+BHccWcx7qtX/56Ab1lYWxYlxKhBbHPvvY97Z7DSh2668UrA5nm
+	 WCDNp5eQA33u9HRFK+uXniCTZ0bn90fwBYViH5FQ59tEmZ8iDL/UllaOZ5dzZKWZYe
+	 uYDIu3IdqoorsoOm6jDEf/0fIPeJqY9TQ2dv69eGQJZ7kGvr31QH3QnNFpyXDMBuLY
+	 rSFAaZZK0/Qf1pGzhKSIH8PebwCZL00O+KGa4takm0K40+qywTcNLcvwE7Kk7MBaN7
+	 U8ysLao7CWwGmSEH73SOmbIPV8q9HeDTDhp8qaCpt1wyIi38bfMSdfdbKAsQoNLR1G
+	 uptt66JCFQsNg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sasha Levin <sashal@kernel.org>, Will Deacon <will@kernel.org>, 
-	Jeremy Linton <jeremy.linton@arm.com>
-Subject: [6.18.y] Request: 10a47fb67340 ("tools: linux/types.h: Add 128-bit
- integer types for arm64 UAPI structures")
-Message-ID: <avT46huKpXTv09GB@eagle.home.marco.cx>
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y] 9p/xen: drain response work after unbinding IRQ
+Date: Wed, 11 Nov 2026 18:24:40 -0500
+Message-ID: <20261111232430.405441-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200054-failed-7.3-7b6f2e3c29fb@kernel.org>
+References: <20261109200054-failed-7.3-7b6f2e3c29fb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,31 +64,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 
-please backport upstream commit
+[ Upstream commit 7b6f2e3c29fb4d76f1e4973280792eabbd526602 ]
 
-  10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI structures")
+commit ea4f1009408e ("9p/xen : Fix use after free bug in
+xen_9pfs_front_remove due to race condition") added cancel_work_sync()
+to keep xen_9pfs_front_free() from freeing a ring while
+p9_xen_response() is still running.
 
-to 6.18.y and the other supported LTS branches where it applies.
+The work is currently drained before the event channel IRQ is unbound.
+That leaves a race window where xen_9pfs_front_event_handler() can run
+after cancel_work_sync() returns and queue p9_xen_response() again.  The
+following unbind_from_irqhandler() synchronizes with the IRQ handler, but
+it does not cancel work that the handler already queued.  The teardown
+can then free the ring and private data while the response work remains
+pending, and the worker later dereferences ring->priv and priv->client.
 
-Will Deacon agreed it should go to stable and Jeremy Linton requested it
-in September, but it doesn't seem to have been picked up:
-https://lore.kernel.org/all/aplSEuD_h9OPOZoD@willie-the-truck/
-https://lore.kernel.org/stable/bbbc33a1-cfd6-4cac-82c0-253888ca933a@arm.com/
+Unbind the event channel IRQ before draining the work.  Once the IRQ is
+unbound, no new response work can be queued by the backend event channel,
+and cancel_work_sync() waits for any work that was queued before or
+during the unbind.  It is then safe to release the ring resources.
 
-Distros now ship 7.3 uapi headers (e.g. Arch Linux ARM's
-linux-api-headers 7.3), and native arm64 builds of 6.18.63 fail in
-tools/bpf/resolve_btfids (libsubcmd, libbpf):
+Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
+Cc: stable@vger.kernel.org
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Assisted-by: GLM:GLM-5.1
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Message-ID: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+[ sashal: Adjusted indentation to fit the existing if (priv->rings) cleanup wrapper for separately allocated rings. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/9p/trans_xen.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-  /usr/include/asm/sigcontext.h:81:9: error: unknown type name '__u128'
-
-The commit applies cleanly to 6.18.63 and fixes the build. Only this
-patch is needed, not the follow-up arm64 uapi change (d4bf9e08d412).
-
-Thanks,
-Marco
+diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+index 71a4d276321e2..69a5129a9b64a 100644
+--- a/net/9p/trans_xen.c
++++ b/net/9p/trans_xen.c
+@@ -291,14 +291,14 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+ 		for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
+ 			struct xen_9pfs_dataring *ring = &priv->rings[i];
+ 
+-			cancel_work_sync(&ring->work);
+-
+ 			if (!ring->intf)
+ 				break;
+ 			if (ring->irq >= 0) {
+ 				unbind_from_irqhandler(ring->irq, ring);
+ 				ring->irq = -1;
+ 			}
++			cancel_work_sync(&ring->work);
++
+ 			if (ring->data.in) {
+ 				for (j = 0; j < (1 << ring->intf->ring_order);
+ 				     j++) {
+-- 
+2.53.0
 
