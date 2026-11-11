@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414231;
-	b=QShFh7f6S5nEoxGDsKBES1y1hcx9HEP6+w4d1acFNCvBq6dSN/7W33i5xdGwCsLLpH08
-	 G0rRLyB5gmp7PL9f9IITg0e/1lJ/2DBYi7eojm/xg6mTw3JYsaj7qm+B5qteOg3ekqMay
-	 23BzaMt/BGfwhALijTDhgG8jhmz5urpc9bx82yUP2dRKT8x5piBGBkr5kLxSA42oMjhcJ
-	 MkXNkr3wPClrXuYBvfrbKecFGAuB777JE9BcCfV3JGeR/dQi05hVetoMZpjYclConXg/S
-	 LSzZ/fD/DR0iKDgswFwvT6kOWrdx5go/6wZVM75Nu5AeGsTjcG1CQih/TV+ybiX3osQ==
+	t=1794414289;
+	b=xkLMvduRPpT2mSSa1DEZ/rMpp7skz4FCPkRyscAWW4g7d4M8wkcw9fb5jgUkW7dMrjtC
+	 4hj5sTgyEw6TDhg5HUq7DxmOkKyd/ssZFuYymxnQf5+J74RrzIBCTPu6Ha4PZ+bOVBS9v
+	 nnt+EdT19xwJToNpWBH3qIriey3MhIjsisTb+OsiekjXitu9kYAe4ijM8+DS9Ssk8sUBZ
+	 RPrxUFq7G2dUUH0BYybp0VhmFUesP35DNfXfEjZ2E3kVbAi5AOXH6/OB8EUkBb6GwUEJT
+	 0Gay7b9sSqJzrgEzLGZthATwpzAvTpP+FppsTTbr6NYMNxt+4GPaBratMwVrbKtkLGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414231;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414289;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ObskzAF90YWWNTGr4wp+N+K1trizKfyZ/u0WYKPs9uQ=;
-	b=f5Dq0fyuqoD+s63LMnfIp6kmnWz8LD5B0+YpeqGG42TBrkP0mdzJJWrmy2ULmin6s6oe
-	 4XmOOz/49rwg7iXKr5g+nvb6gMdXkrHkqQwK+aO1H3cj4SeVkOjDA5FEfRIH/0gTni8KK
-	 QGNymtm8ZMqefJS+Zsi5ZTMnb35E5ahykp66/gy7P0pkqoDC6XL1DarfN5c7tSUnZF65I
-	 HZepYAzN3HEKNRvPaWwgVpk/El/fIc/EE0ET63u6S8qdah99x8T5v6FsiHKyCv54/nUHh
-	 Wq8DhZnCF/Vk3Ays0uEsFYePufVRfyUGUgH0g3NH63W/gbHbYKzrAO9UYBCBM/F7NHQ==
+	bh=9o+7CjfQtp9Y/tzb8Xt+QywHEuZThcPNtv4MLQPgFZU=;
+	b=avn7GqerxPOtxAKf/6FuRKqm5xNOgtV+hr9Ajh0lwL5mFEU1T4YR8S//ALAWm6P6Bfz1
+	 xC2TiEypk46j5sD3tLNTKOc6oZfSVtVgydOavnLHAVAa+vKCV2rPCIR0MntcWL63vyWBE
+	 WbC613wmPuE0RtL+yqYaNwvNZC5BVAyRtJ4EjUep//o87q+ndF1Su5Lvj11F4VMmyJHw5
+	 hJ0jKjNpxvDDjlqhld2cbN8GdWVmC4uQsA/+eMmt5ve33E7cZ7Ugpf7+4KIlZXhe0XcGf
+	 55KvBmvpTLbiIDsvT/P53AB9I/FMkq8neUH+0AUCJ/D7l+Yiie7BLjWsXsmveB4Aeuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aRJR2E5t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9MznJ7a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36589606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:23:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32EB606A339
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:24:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aRJR2E5t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 801C91F00A05;
-	Wed, 11 Nov 2026 16:23:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9MznJ7a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3091F00A06;
+	Wed, 11 Nov 2026 16:24:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794414231;
-	bh=ObskzAF90YWWNTGr4wp+N+K1trizKfyZ/u0WYKPs9uQ=;
+	s=k20260515; t=1794414289;
+	bh=9o+7CjfQtp9Y/tzb8Xt+QywHEuZThcPNtv4MLQPgFZU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aRJR2E5tSc1Pgz0Bxgsv/pmE9QpChobDgxffmP8NVymVb4nviMtyI1h8f89OYiCEI
-	 ZCFr6fTYHaVBlH3lgT3Yh7+QpnPIwnieliAkP12KM5/nkofEXMZssHnDGOAeq9IkSf
-	 P1mbosG8yuPucGKbta+DG1Wij7o2pZ+iILYZHfa+dfKvqe+1ibcvgEKqOwZJd2UlHl
-	 zsMZaMOBCP1ZHuhiQ/oLiXKzjFplelSeXctAu/NantNrEPBB4q1wczkTkVFWgoydhN
-	 9eHZUkf5z1DyHdUfGYJkr2UYR52El7tmMJwe0b25Bij8VxMAE7ZboazGbjkbUiEQjc
-	 bDFRA3b4mQ/sw==
+	b=f9MznJ7ahHBTSCmbIgWtlwpTZ97bLpGpOicRIzYqqHJkM9cZZJvwnWVILqze+DLER
+	 TkTzyOUqxiI7E65Chs7+YspKFC/7Hd7rrfvMaOdlCuSSaOOupRME1LVTiYGvyQ481H
+	 TZSrsbA3DBFIU6UiYrxeUJOc5fHDKwb3U6VUC4jVRzwqMTWIUJmvLEDX4UshMWUbpB
+	 XCbzZMudUAsTvQ33VyiajW2Umy4wAzrHulgP418V/V29AdTU5B6D9PAdDTm9/c8qzy
+	 yyhuWwKx3+HQhHQWIMKKdLzM1voroMcqSrwayJRZNOjxtEOnQ1C/OeU8KXd/ltaN+M
+	 WVWsPDqtoNCrA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gianluca Balboni <gianluca.balboni06@gmail.com>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Breno Leitao <leitao@debian.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx
-Date: Wed, 11 Nov 2026 11:23:49 -0500
-Message-ID: <20261111162329.3267306-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ACPI: APEI: accumulate the queued flag across error sections
+Date: Wed, 11 Nov 2026 11:24:47 -0500
+Message-ID: <20261111162434.3276815-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200634-failed-6.12-1e73257dff33@kernel.org>
-References: <20261109200634-failed-6.12-1e73257dff33@kernel.org>
+In-Reply-To: <20261107062103-failed-5.10-f341307a1489@kernel.org>
+References: <20261107062103-failed-5.10-f341307a1489@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,47 +62,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gianluca Balboni <gianluca.balboni06@gmail.com>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 1e73257dff33ff851af60d5bb00d73893a8b6dc8 ]
+[ Upstream commit f341307a14895e5da056fb419a31ef7fb534ab18 ]
 
-The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
-connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
-AcpDmicConnected _DSD property or the _WOV method, and the board is missing
-from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
-capture device is registered.
+ghes_do_proc() walks every error section of a CPER record, and
+ghes_handle_arm_hw_error() walks every error-info entry of an ARM
+processor section.  Both assign to "queued" instead of OR-ing into it,
+so only the last iteration counts: a later section or entry that queues
+no memory-failure work clears the flag an earlier one set.
 
-Add a DMI quirk entry for this model to enable ACP DMIC support.
+Instead of reassigning the variable at every time, just do an `OR`, so,
+if there was a single match, it will return "queued" as set.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Link: https://patch.msgid.link/20261031102136.24600-1-gianluca.balboni06@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: adjusted DMI quirk table insertion context to match board 8BD6 instead of 8DC2 ]
+The comment above the check says "If no memory failure
+work is queued", which is the semantics this patch implements. I.e, only
+SIGBUS if there are queue was not handled at all. If we want to SIGBUS
+if any event was not handled/queued at all, we will need something more
+sophisticated.
+
+Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
+Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
+Link: https://patch.msgid.link/20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+[ sashal: adjusted context for the older bool-returning ghes_do_proc() implementation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/acpi/apei/ghes.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 1aedead0a9275..4a9ff060ebbe6 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -675,6 +675,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "8BD6"),
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index 88c01d4a7f8fa..29cece11ccb22 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -529,7 +529,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+ 		 * and don't filter out 'corrected' error here.
+ 		 */
+ 		if (is_cache && has_pa) {
+-			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
++			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
+ 			p += err_info->length;
+ 			continue;
  		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
+@@ -671,13 +671,13 @@ static bool ghes_do_proc(struct ghes *ghes,
+ 			ghes_edac_report_mem_error(sev, mem_err);
+ 
+ 			arch_apei_report_mem_error(sev, mem_err);
+-			queued = ghes_handle_memory_failure(gdata, sev, sync);
++			queued |= ghes_handle_memory_failure(gdata, sev, sync);
+ 		}
+ 		else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+ 			ghes_handle_aer(gdata);
+ 		}
+ 		else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+-			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
++			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
+ 		} else {
+ 			void *err = acpi_hest_get_payload(gdata);
+ 
 -- 
 2.53.0
 
