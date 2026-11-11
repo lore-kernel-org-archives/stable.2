@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426630;
-	b=csuIgo4YfkXfFr3S1/ULaqa1HI0zDWPfHoIHMMD1LT8Lppue/ztJm5jA95tlO11gE3p4
-	 W1EbqttcjbVuA8xjF0Ety9HWSi5kP86HLnp8uNDQmjhBff2P+aVAfmVo7V3U/pvZFfASX
-	 kxv6IlaKnLLKuwnE7347ZUuao74J83pUn079TItpNB1hzlgNOPfPby93UshzVRpkUU33q
-	 0vKwOmT8eqtjVpGnoHgo2gMte9FOpi57/PFqG2YVI9lg2IFLY2hmusSAHyd/iiMdVP5ZL
-	 60wnef68kmcywsB15I3ZyghpxWykkByrRoZ13UAwS7i7wTdsnzQVASdEujd7yv/8SJg==
+	t=1794426665;
+	b=op6aq3Qo6VLwAzPa+DxHDNYsWTRa8F7C5WrCrNEv3S4MXNMD1ZfX4fs3bzMsuaZgeLc+
+	 gXLesEP0YtdIyTZVbl8jvC+ZY0QNUjgnkw3sP/m5RZYLdJk2RxMTIVr4tBeB4vM95SpfV
+	 mT4nknxvaWytfzdNnPkXC+GpqkuNqnUGVBNa2k6uRLs3oxKZtY9Pz/ZMlBJ9Kme+BrG9c
+	 aKFb0RQuC6Drsi3n+RfKCWBVV1moOu6WJqBXCkLsn5lxK7GdQCqX1okyKZrCWkO+sdzl8
+	 PGZ9TgeTpvmHR28N/+2iVMCgEykon0XhTJTajX2reBY7EdmQcMx6jiNZa+A7n4+2v/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426630;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426665;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3stIAhWeLpkAK+Xdt9fISn39S98OsH/dTo/owyjfuZI=;
-	b=lkbbfVWOliQYWy0EZtW6bVaromNH1ehxtmA6Vh3QXTP7H4MXTTl9XxaAp0tcK3wNvbJ5
-	 /cU0WTMv8XPQZVUf+pcRgP9L43M5dREpyll9XKuo9aSB1KBE8mee877Y2To7CC8lelIiM
-	 kzK7fNMnXMx6EC6rpe9CYUlUbZiYpDEp0Mr3AJqSPZzi8UmXWP3e3EpfeNy8tO184TKk9
-	 8VjXZKmsFw3XRyail5WKd4z0tLHVmyuXNAcg1kvjxsEEKw8djELj1gGIq84yHK37RQNNU
-	 HvNW6i8vXaHgwpAPIUi/jDqYU97h5HpbiVA1fg3K1FTebasD61FM82VcVJFLnSyUwhQ==
+	bh=Z82R1+TXth2TRElVSq11Qh45IJQoJLtmPIsNg7ik0eA=;
+	b=TDTubQjMigAp/CB9YQookmfWZZ5zLUPVSuyGjy0ZK4e7bOv9lbsg/Ir3fjLbiAALilkk
+	 Iw5hBHfp1C9+86ZdJTJfcqW0ubg2SJPYWu1b5rPbvq/a1car7VmcZPukyVD1NkZM2UHaV
+	 wUI2s5DdpjGSrEPbkTU0TNflFlf9ktY/MYjY6MyJH6PjcnkaB6kAFW6FHEQcegQ5zyaUT
+	 GXIWluzSFOhKv5gQk98CJ/kTmR4rm0u1e50wHk5GcQm8hTY0wNXmeih0oHyZO0NR9YMly
+	 vN6xVTrw6+Tj2JPOxtEexr9u4ACbYEIPwBfKvg3MQ5gwS/xgs7JE2i9KNAg3Y7FArDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Orf2ltdI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CVEG7Sg0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEA1606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:50:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230E1606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:51:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Orf2ltdI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79CF01F00A08;
-	Wed, 11 Nov 2026 19:50:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CVEG7Sg0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F021F00A07;
+	Wed, 11 Nov 2026 19:51:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794426630;
-	bh=3stIAhWeLpkAK+Xdt9fISn39S98OsH/dTo/owyjfuZI=;
+	s=k20260515; t=1794426664;
+	bh=Z82R1+TXth2TRElVSq11Qh45IJQoJLtmPIsNg7ik0eA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Orf2ltdIqFtVeSjch63psOZBYNVFTDE8R3AEsTZ7tQReByPPdFIS+x11yqKrZEOut
-	 sjjJtmt0/DVs/JF88yRE7SMoundPga8vgYFmAOjUYsoSpunw51vAbOOru3BKP4iWSw
-	 PnaEYaKnU5BxGHEQunYrrIzIbQPN15/4Y/+Z5Eb0y0DiEyvnai55YAlkyYOE7Jygvk
-	 4+yLKqnAS5gshE/XvaU+dOB6rkiEmzecSJf28MsN3/C7Td5cFTAyqeZZXWjUoCQ7Bx
-	 WnGMMbYr/4T9uU70biWyMkuLRNQXq7kBlSQxi3jS6/Ln9TUXk9u5Z0T6kmawe5eXTF
-	 oTdH9Sy+0dfmg==
+	b=CVEG7Sg0oZrJHNPidyAIxLnYa/7t/CV9UO62h7NT2M/d+3csUE/gOc1MGIwKfxH7D
+	 R103zl6FXu/hel9uTq9hPkbCDQP6Jdj86ukz0K+CIC64OjufCPvYAlU8/dMRkyPqet
+	 er4EIH138bqgflFd2fWdcOHAMpayXVDlpcdL4KJn+ueKrWNsAxylpLoRykrsMv28YW
+	 vXUn+6FoFSHaAliSi3L9Z9ZT9AO9cPnqkkFnDQRgSWXov8VFyN3Fexp10cDx+5MvpZ
+	 2aPbiFyahC4zlM9izUASt5kYppyfD2hLJVrHFz7i6T6HwcymYKO+NO+Q5m+UCCdVQE
+	 miCDjeMlit5gw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Kyle Zeng <kylebot@openai.com>,
+	Florian Westphal <fw@strlen.de>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Wang Zhan <wang.zhan@smartx.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] pidfs: don't let PIDFD_GET_INFO miss a reaped task
-Date: Wed, 11 Nov 2026 14:50:27 -0500
-Message-ID: <20261111194945.4005899-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] inet: frags: limit the truesize of a reassembly queue
+Date: Wed, 11 Nov 2026 14:51:02 -0500
+Message-ID: <20261111195039.4014950-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111194945.4005899-1-sashal@kernel.org>
-References: <20261107051552-failed-6.18-172658cf6009@kernel.org>
- <20261111194945.4005899-1-sashal@kernel.org>
+In-Reply-To: <20261109200348-failed-6.18-3ae20e4697eb@kernel.org>
+References: <20261109200348-failed-6.18-3ae20e4697eb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,150 +66,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Eric Dumazet <edumazet@kernel.org>
 
-[ Upstream commit 172658cf600904ff6121e240f69a0ccb36e65d6b ]
+[ Upstream commit 3ae20e4697eb969104fe4b1e98a675f0100382b6 ]
 
-PIDFD_GET_INFO describes the task while there is one, and with
-PIDFD_INFO_EXIT its exit status once it has been reaped.  pidfd_info()
-looks at the two in the wrong order and can miss both:
+The truesize of fragments in a reassembly queue is only bounded by
+the per netns ipfrag_high_thresh sysctl, which has no upper limit.
 
-  pidfd_info()                          release_task()
-    PIDFS_ATTR_BIT_EXIT is not set
-                                          pidfs_exit()
-                                          __unhash_process()
-    get_pid_task() == NULL
-    goto copy_out
+inet_frag_reasm_finish() sums the truesize of all fragments in an int.
+If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
+adjustment of the socket owning the reassembled skb can cancel its own
+reference, leading to a use-after-free of this socket.
 
-The ioctl succeeds with neither PIDFD_INFO_PID nor PIDFD_INFO_EXIT in the
-mask.  If the task is unhashed a little later, after get_pid_task(), its
-pid reads as 0 and the ioctl fails with -ESRCH, although the caller asked
-for the exit information and it is available by now.
+This can be triggered from an unprivileged user/network namespace,
+raising ipfrag_high_thresh and using padded TUN packets, which keep
+a large truesize after being trimmed by ip_rcv_core().
 
-The second case does not even need an exit.  When a sub-thread execs,
-de_thread() hands the leader's pid over to it and releases the old leader.
-A caller that got hold of the old leader reports the tid of the sub-thread
-as the pid, or -ESRCH for a process that is alive.
+Track the sum of the truesize of fragments in each queue, and refuse
+a fragment that would make it bigger than INT_MAX / 2. Callers kill
+the queue on this error. This bound is far above the needs of
+legitimate traffic.
 
-Look up the task first.  pidfs_exit() runs before the task is unhashed, so
-a caller that finds no task finds the exit information; this needs a
-barrier on both sides because taking tasklist_lock does not order the
-store in pidfs_exit() against the one in detach_pid().  And start over if
-the task no longer owns the pid when all the fields have been read: then
-there is either exit information or another task.
-
-Go by the pid for that check and for the pid we report, not by
-->thread_pid of the task.  exchange_tids() moves the pid to the exec'ing
-thread before it updates ->thread_pid of either task.  A caller that
-finds the new leader in between would read the old tid of the sub-thread
-from ->thread_pid, and a check of ->thread_pid would restart until the
-exec'ing thread gets to its store.  On PREEMPT_RT that thread can be
-preempted with tasklist_lock held and can't move to another CPU.  If the
-RT task that preempted it calls PIDFD_GET_INFO, the ioctl spins until
-the exec'ing thread gets the CPU back, and that never happens if the
-exec'ing thread is an RT task of lower priority.
-
-Christian Brauner <brauner@kernel.org> says:
-
-Go by @pid instead of ->thread_pid of the task for the reported pid and
-for the restart check.
-
-Fixes: 7477d7dce48a ("pidfs: allow to retrieve exit information")
-Fixes: cdda1f26e74b ("pidfd: add ioctl to retrieve pid info")
+Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: inlined the RCU-protected ownership check in pidfd_info() instead of adding pidfs_task_owns_pid() ]
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Cc: Florian Westphal <fw@strlen.de>
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Tested-by: Wang Zhan <wang.zhan@smartx.com>
+Link: https://patch.msgid.link/20261030081225.2575462-1-edumazet@kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: Adjusted context for the absence of IPFRAG_MIXED_SECPATH and secpath_equal(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/pidfs.c | 41 +++++++++++++++++++++++++++++++++++------
- 1 file changed, 35 insertions(+), 6 deletions(-)
+ include/net/inet_frag.h  | 9 +++++++++
+ net/ipv4/inet_fragment.c | 5 +++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/fs/pidfs.c b/fs/pidfs.c
-index d2afc85b9df37..a014db891aaa8 100644
---- a/fs/pidfs.c
-+++ b/fs/pidfs.c
-@@ -309,6 +309,7 @@ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
- 	struct user_namespace *user_ns;
- 	struct pidfs_attr *attr;
- 	const struct cred *c;
-+	bool task_owns_pid;
- 	__u64 mask;
- 
- 	BUILD_BUG_ON(sizeof(struct pidfd_info) != PIDFD_INFO_SIZE_VER1);
-@@ -329,6 +330,17 @@ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
- 		return -EREMOTE;
- 
- 	attr = READ_ONCE(pid->attr);
-+	exit_info = &attr->__pei;
-+again:
-+	/*
-+	 * Look for the task first. pidfs_exit() records the exit information
-+	 * before the task is unhashed, so if the task is gone the information
-+	 * is there.
-+	 */
-+	task = get_pid_task(pid, PIDTYPE_PID);
-+	if (!task)
-+		smp_rmb(); /* pairs with smp_mb__after_atomic() in pidfs_exit() */
+diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+index 365925c9d2628..6aea2d1ac376f 100644
+--- a/include/net/inet_frag.h
++++ b/include/net/inet_frag.h
+@@ -79,6 +79,7 @@ struct frag_v6_compare_key {
+  * @tstamp_type: stamp has a mono delivery time (EDT)
+  * @flags: fragment queue flags
+  * @max_size: maximum received fragment size
++ * @truesize: sum of the truesize of queued fragments
+  * @fqdir: pointer to struct fqdir
+  * @rcu: rcu head for freeing deferall
+  */
+@@ -100,6 +101,7 @@ struct inet_frag_queue {
+ 	u8			tstamp_type;
+ 	__u8			flags;
+ 	u16			max_size;
++	unsigned int		truesize;
+ 	struct fqdir		*fqdir;
+ 	struct rcu_head		rcu;
+ };
+@@ -171,6 +173,13 @@ extern const u8 ip_frag_ecn_table[16];
+ #define IPFRAG_OK	0
+ #define IPFRAG_DUP	1
+ #define IPFRAG_OVERLAP	2
++#define IPFRAG_TOOBIG	4
 +
- 	if (mask & PIDFD_INFO_EXIT) {
- 		if (test_bit(PIDFS_ATTR_BIT_EXIT, &attr->attr_mask)) {
- 			smp_rmb();
-@@ -346,7 +358,6 @@ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
- 		kinfo.coredump_mask = READ_ONCE(attr->__pei.coredump_mask);
- 	}
- 
--	task = get_pid_task(pid, PIDTYPE_PID);
- 	if (!task) {
- 		/*
- 		 * If the task has already been reaped, only exit
-@@ -404,16 +415,29 @@ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
- 	 * task might return as soon as the copy_to_user finishes, but that's ok
- 	 * and userspace expects that might happen and can act accordingly, so
- 	 * this is just best-effort. What we can do however is checking that all
--	 * the fields are set correctly, or return ESRCH to avoid providing
--	 * incomplete information. */
-+	 * the fields are set correctly, to avoid providing incomplete
-+	 * information.
-+	 */
- 
- 	kinfo.ppid = task_ppid_nr_ns(task, NULL);
- 	kinfo.tgid = task_tgid_vnr(task);
--	kinfo.pid = task_pid_vnr(task);
-+	kinfo.pid = pid_vnr(pid);
- 	kinfo.mask |= PIDFD_INFO_PID;
- 
--	if (kinfo.pid == 0 || kinfo.tgid == 0)
--		return -ESRCH;
-+	/*
-+	 * The task was reaped, or lost @pid to a sub-thread that called exec,
-+	 * while we were looking at it. Start over: there is exit information
-+	 * now, or a new task. Don't go by ->thread_pid, exchange_tids()
-+	 * updates it only after it has moved @pid.
-+	 */
-+	scoped_guard(rcu)
-+		task_owns_pid = pid_task(pid, PIDTYPE_PID) == task;
-+	if (!task_owns_pid || kinfo.tgid == 0) {
-+		put_task_struct(task);
-+		task = NULL;
-+		memset(&kinfo, 0, sizeof(kinfo));
-+		goto again;
-+	}
- 
- copy_out:
- 	/*
-@@ -688,6 +712,11 @@ void pidfs_exit(struct task_struct *tsk)
- 	/* Ensure that PIDFD_GET_INFO sees either all or nothing. */
- 	smp_wmb();
- 	set_bit(PIDFS_ATTR_BIT_EXIT, &attr->attr_mask);
-+	/*
-+	 * Whoever sees that the task is unhashed must see the bit, see
-+	 * pidfd_info(). Taking tasklist_lock does not order the two stores.
-+	 */
-+	smp_mb__after_atomic();
++/* Max sum of the truesize of fragments in a queue. This keeps the sums
++ * done in inet_frag_reasm_prepare() and inet_frag_reasm_finish() well
++ * below INT_MAX. Legitimate traffic stays far below this limit.
++ */
++#define INET_FRAG_MAX_TRUESIZE	(INT_MAX / 2)
+ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 			   int offset, int end);
+ void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index 21f7bf9ea5ba2..436b8737b2b66 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -337,6 +337,7 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
+ 	q->rb_fragments = RB_ROOT;
+ 	q->fragments_tail = NULL;
+ 	q->last_run_head = NULL;
++	q->truesize = 0;
  }
+ EXPORT_SYMBOL(inet_frag_queue_flush);
  
- #ifdef CONFIG_COREDUMP
+@@ -443,6 +444,9 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ {
+ 	struct sk_buff *last = q->fragments_tail;
+ 
++	if (skb->truesize > INET_FRAG_MAX_TRUESIZE - q->truesize)
++		return IPFRAG_TOOBIG;
++
+ 	/* An IP fragment is never a GSO packet, but an untrusted source
+ 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
+ 	 * that reach the reassembled skb, whose head keeps the first
+@@ -507,6 +511,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 	if (offset)
+ 		nf_reset_ct(skb);
+ 
++	q->truesize += skb->truesize;
+ 	return IPFRAG_OK;
+ }
+ EXPORT_SYMBOL(inet_frag_queue_insert);
 -- 
 2.53.0
 
