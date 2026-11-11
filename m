@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415778;
-	b=IcUNfOKzUAJzPRPkeTsRI77jqOtvEsZeb38ZC8fxfZxiBVMWedjfL6DFLE2po1OPHnzx
-	 qv06hv1oTt0qg7x/nj+KuwF1dIovprpoYgawJR7IxmYjYF/5sZR41cI60pCWtq+syfI6R
-	 Ue3iOUSSDNIm2qhL22Pg0KRLkc+t9UCh1ijSPmSVscm17oJV04LF6O7aqyG8/l50qzdb6
-	 QHAuuSP9TbtrQbS/3FLboDV6sKAR4q9VyOYap8114gqDOk9q1KgdMliUn+hOIv9Z1MHhX
-	 hsbQ+9DwT6NKV5pivkBI4sbmMfPRzm0A3q5mlFNO3bn+2r2+N0T0RGdrPvHPtgv66Rw==
+	t=1794415779;
+	b=H4NMlJm8+unC7aFLZnyOUSVXUqMh61/v4UdEGqHrzjytM84U3v1klpUfod0zt2NVVn18
+	 bwg76ji4P9pteiWuGD8P/sz+utJostUIYnxvnI5gO0Z9tAmlIShzKvoAbL1FW1PueFcDw
+	 3vqJy1Zs+CHuGOKgx5CSfrRcK4v4KF+jq64sibrKFs59fD0tBHdaVFWA+HwE+XMtSuGvl
+	 5eg6kK18c6eThKTXihBi+yo+OJrJWghX0WsLDkuHfan0ialev78S4P+mJ/uT2BhZj2PD6
+	 bEOs1+Yqw0Os12U9JFhn8+mA2vOLQUhI/giTQiltcl0/8BDIKiAjROpQHi/b66mjz8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415778;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415779;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=uDrvn+bfu1+4TJqtro9ig1zBN3Q1YnNIvDC4yyQaLi0=;
-	b=BwH8lsN2Z0PUHF3Cn6SDMfYFScBNzbWAVjhZWuPgMMXV3Rgr839uwHCPNxKLKgai0xrE
-	 KTXESpIBWcxQWT0NKWZoyyLYUVcm8bnGWH2Ad51F+/7Nfwsv5L9eAHkyHO/84FDumbOFI
-	 m7DErhsDecppU+hHH9R6CVb9uglaFUvunyqSY2VBA1QlvHPLXmfOAoK1wmCkvdp2qhI57
-	 k8tatZKE3pPjgoNKr3FWTOxRSjVInApcUT/F1vla/1Rnm7lsrsnmpxC1rfvSncq4f5aPO
-	 ycvMAuplKkarDmfBpXh++XBrrApRrlfe2r8dHVN3l2+NevxyDQiHtIUzje5HXFW755Q==
+	bh=pevBU/rlfJSoDW3Vu0lP8WWy0qlqRQdREZyXJom2sIA=;
+	b=erST36QSKFLuGrqYz1pqnr5nQ4sAo94Us2nObp8opGCM+Vpz7EYLFWDbf42f8Ls85a5A
+	 +p2YsxNcnRYCxEYtfmXnkPgoXoi87BDPMbumh0bFPulc2EidurrUdA1UZc0l7H5gwQg5Q
+	 sqagIPkTpiPE1TFSuPSBm5IRL0KpILeJDx0PpfIELDwOuubIeNXQ+MqKIs2EYNLScsoTV
+	 pnYyfAhWPOWE3Adw0Ws51m2k3WbDLrCTeQEpx0xhIuqFB0nsmGqSE/+G3z92L31LFIMLi
+	 5L9sCQYUQheBopko9Zl8YHqiYDC58WKKmCxePow/OfpzaMHc9NOKQzvNBMXGlJEWzOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcuBgMEN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QIbWOpZd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471C4606A884
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:49:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41169606A332
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:49:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcuBgMEN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB311F00A05;
-	Wed, 11 Nov 2026 16:49:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QIbWOpZd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6427E1F00AC7;
+	Wed, 11 Nov 2026 16:49:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794415778;
-	bh=uDrvn+bfu1+4TJqtro9ig1zBN3Q1YnNIvDC4yyQaLi0=;
+	s=k20260515; t=1794415779;
+	bh=pevBU/rlfJSoDW3Vu0lP8WWy0qlqRQdREZyXJom2sIA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DcuBgMENYo2KF9n0KUMYC+j3l73tqjnvybFE/9wBC/ezrnJAt9INPb3JWt4PhwtH3
-	 yJcGZIZN5OAetG6Tw5m3gkMeI5VdjDFC6ScX8fNrxg7UNlxZwFo2kEnaDv3d8r85qs
-	 YiMnkCPJwjk/N1UJFGL97xXNHlhAzfS/J7nq5ZEOkFaVA085w9vbjhlxPtLmm53ZRY
-	 I54rtq/tjB4QLe0t8J74/5JBpgSw/n9Xyxjq81fU0Z2Ihrxh+UO6oCagDPeJQOReQ3
-	 GqVWYHdo3oRp9LYXBe+8i8YexSU8gHzzmIU+eC6Js4pv/HnTdkgwFK7d0Eg31Vqm2t
-	 ZGZgiNNTjWvTQ==
+	b=QIbWOpZd80Us2HCZxDxQTFP8fo8AucxfZguG9hjQenRcrJJdZgAbiHXvhAwmF0C9b
+	 RCYevln1kkly+qCgbCfnu1ggp+HgcSTB/51StUpsd6Bk66tcfK6EoEeODjIqNThSHZ
+	 EEIyb5y0p/4FmIdhyUBUNiVdcw7JNep+yrT40R9PwIkYu29g/77W9kX0ZopscWBtYE
+	 DDj3UiPgQEZiDnj3Me2QcjEtgA4bfi7wjamH5qzQ+fBaB/5D3nAiHltT7a3Fr48q7f
+	 q8O1naeBNSft1W6/83YM0z75Bu9mqX6PExokrEMaoKMEphrIZv8RGkU27dSwxsyvfC
+	 2Aagjsg2pOAgg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Charis Stratakis <c.stratakis@proton.me>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
 	Rong Zhang <i@rong.moe>,
 	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] ACPI: utils: Add exclusive AML evaluation helpers
-Date: Wed, 11 Nov 2026 11:49:35 -0500
-Message-ID: <20261111164858.3300811-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] ACPI: battery: Evaluate battery methods exclusively
+Date: Wed, 11 Nov 2026 11:49:36 -0500
+Message-ID: <20261111164858.3300811-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050526-failed-7.3-645f370c932d@kernel.org>
+In-Reply-To: <20261111164858.3300811-1-sashal@kernel.org>
 References: <20261107050526-failed-7.3-645f370c932d@kernel.org>
+ <20261111164858.3300811-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,131 +69,67 @@ Content-Transfer-Encoding: 8bit
 
 From: Ali Ahmet Memiş <aliamemis@disroot.org>
 
-[ Upstream commit 80892972ff23bf0b9049230ef0931b34163aaed3 ]
+[ Upstream commit 645f370c932db2cd3893f7fee61aa8b9debc8ac0 ]
 
-ACPICA drops the interpreter lock while AML waits, for example around EC
-accesses, so two methods can run interleaved.
+On ThinkPad P1 Gen2 and P53, INT3403 _TMP switches the EC page selector
+without taking the AML mutex the battery methods use, so _BIX and _BST
+running at the same time can read the wrong page. Since commit d33e89d12295
+("thermal: core: Suspend thermal zones later and resume them earlier")
+this happens on most resumes.
 
-Some firmware relies on methods not interleaving, for instance by
-switching an EC page selector without taking the AML mutex that the
-other users of that page hold.
+Evaluate the battery methods with acpi_evaluate_object_exclusive().
 
-Add acpi_evaluate_object_exclusive(), acpi_evaluate_integer_exclusive()
-and acpi_execute_simple_method_exclusive() which serialize the
-evaluation under a global mutex, for callers that are known to be
-affected.
-
-Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
-Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com/
+Fixes: d33e89d12295 ("thermal: core: Suspend thermal zones later and resume them earlier")
+Reported-by: Charis Stratakis <c.stratakis@proton.me>
+Closes: https://lore.kernel.org/all/37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me/
+Cc: All applicable <stable@vger.kernel.org> # 80892972ff23 ACPI: utils: Add exclusive AML evaluation helpers
 Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Reviewed-by: Rong Zhang <i@rong.moe>
-Link: https://patch.msgid.link/20261018122220.678822-2-aliamemis@disroot.org
+Link: https://patch.msgid.link/20261018122220.678822-3-aliamemis@disroot.org
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Stable-dep-of: 645f370c932d ("ACPI: battery: Evaluate battery methods exclusively")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/acpi/utils.c    | 41 +++++++++++++++++++++++++++++++++++++++++
- include/acpi/acpi_bus.h |  7 +++++++
- 2 files changed, 48 insertions(+)
+ drivers/acpi/battery.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
-index d499b72574ab2..ea8cb876c12d2 100644
---- a/drivers/acpi/utils.c
-+++ b/drivers/acpi/utils.c
-@@ -10,6 +10,7 @@
+diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
+index 670853ec3a4d7..7169ac7e83f31 100644
+--- a/drivers/acpi/battery.c
++++ b/drivers/acpi/battery.c
+@@ -583,9 +583,8 @@ static int acpi_battery_get_info(struct acpi_battery *battery)
+ 		struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
+ 		acpi_status status = AE_ERROR;
  
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/slab.h>
- #include <linux/init.h>
- #include <linux/types.h>
-@@ -243,6 +244,28 @@ acpi_extract_package(union acpi_object *package,
+-		status = acpi_evaluate_object(battery->device->handle,
+-					      use_bix ? "_BIX":"_BIF",
+-					      NULL, &buffer);
++		status = acpi_evaluate_object_exclusive(battery->device->handle,
++							use_bix ? "_BIX" : "_BIF", NULL, &buffer);
  
- EXPORT_SYMBOL(acpi_extract_package);
+ 		if (ACPI_FAILURE(status)) {
+ 			acpi_handle_info(battery->device->handle,
+@@ -624,8 +623,7 @@ static int acpi_battery_get_state(struct acpi_battery *battery)
+ 			msecs_to_jiffies(cache_time)))
+ 		return 0;
  
-+static DEFINE_MUTEX(acpi_exclusive_eval_lock);
-+
-+/**
-+ * acpi_evaluate_object_exclusive - Evaluate an object without interleaving
-+ * @handle: ACPI handle of the object or its scope.
-+ * @pathname: Path of the object relative to @handle.
-+ * @arguments: Arguments to pass, or NULL.
-+ * @buffer: Buffer for the return value, or NULL.
-+ *
-+ * Same as acpi_evaluate_object(), but serialized with other exclusive
-+ * evaluations.  Use it only for methods known to break when interleaved.
-+ */
-+acpi_status acpi_evaluate_object_exclusive(acpi_handle handle, acpi_string pathname,
-+					   struct acpi_object_list *arguments,
-+					   struct acpi_buffer *buffer)
-+{
-+	guard(mutex)(&acpi_exclusive_eval_lock);
-+
-+	return acpi_evaluate_object(handle, pathname, arguments, buffer);
-+}
-+EXPORT_SYMBOL_GPL(acpi_evaluate_object_exclusive);
-+
- acpi_status
- acpi_evaluate_integer(acpi_handle handle,
- 		      acpi_string pathname,
-@@ -277,6 +300,16 @@ acpi_evaluate_integer(acpi_handle handle,
+-	status = acpi_evaluate_object(battery->device->handle, "_BST",
+-				      NULL, &buffer);
++	status = acpi_evaluate_object_exclusive(battery->device->handle, "_BST", NULL, &buffer);
+ 	if (ACPI_FAILURE(status)) {
+ 		acpi_handle_info(battery->device->handle,
+ 				 "_BST evaluation failed: %s",
+@@ -675,8 +673,8 @@ static int acpi_battery_set_alarm(struct acpi_battery *battery)
+ 	    !test_bit(ACPI_BATTERY_ALARM_PRESENT, &battery->flags))
+ 		return -ENODEV;
  
- EXPORT_SYMBOL(acpi_evaluate_integer);
+-	status = acpi_execute_simple_method(battery->device->handle, "_BTP",
+-					    battery->alarm);
++	status = acpi_execute_simple_method_exclusive(battery->device->handle, "_BTP",
++						      battery->alarm);
+ 	if (ACPI_FAILURE(status))
+ 		return -ENODEV;
  
-+acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle, acpi_string pathname,
-+					    struct acpi_object_list *arguments,
-+					    unsigned long long *data)
-+{
-+	guard(mutex)(&acpi_exclusive_eval_lock);
-+
-+	return acpi_evaluate_integer(handle, pathname, arguments, data);
-+}
-+EXPORT_SYMBOL_GPL(acpi_evaluate_integer_exclusive);
-+
- int acpi_get_local_u64_address(acpi_handle handle, u64 *addr)
- {
- 	acpi_status status;
-@@ -685,6 +718,14 @@ acpi_status acpi_execute_simple_method(acpi_handle handle, char *method,
- }
- EXPORT_SYMBOL(acpi_execute_simple_method);
- 
-+acpi_status acpi_execute_simple_method_exclusive(acpi_handle handle, char *method, u64 arg)
-+{
-+	guard(mutex)(&acpi_exclusive_eval_lock);
-+
-+	return acpi_execute_simple_method(handle, method, arg);
-+}
-+EXPORT_SYMBOL_GPL(acpi_execute_simple_method_exclusive);
-+
- /**
-  * acpi_evaluate_ej0: Evaluate _EJ0 method for hotplug operations
-  * @handle: ACPI device handle
-diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
-index a10a591c18b23..8b1d329455f7b 100644
---- a/include/acpi/acpi_bus.h
-+++ b/include/acpi/acpi_bus.h
-@@ -32,6 +32,12 @@ acpi_status
- acpi_evaluate_integer(acpi_handle handle,
- 		      acpi_string pathname,
- 		      struct acpi_object_list *arguments, unsigned long long *data);
-+acpi_status acpi_evaluate_object_exclusive(acpi_handle handle, acpi_string pathname,
-+					   struct acpi_object_list *arguments,
-+					   struct acpi_buffer *buffer);
-+acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle, acpi_string pathname,
-+					    struct acpi_object_list *arguments,
-+					    unsigned long long *data);
- bool acpi_evaluate_reference(acpi_handle handle, acpi_string pathname,
- 			     struct acpi_object_list *arguments,
- 			     struct acpi_handle_list *list);
-@@ -48,6 +54,7 @@ acpi_evaluate_ost(acpi_handle handle, u32 source_event, u32 status_code,
- bool acpi_has_method(acpi_handle handle, char *name);
- acpi_status acpi_execute_simple_method(acpi_handle handle, char *method,
- 				       u64 arg);
-+acpi_status acpi_execute_simple_method_exclusive(acpi_handle handle, char *method, u64 arg);
- acpi_status acpi_evaluate_ej0(acpi_handle handle);
- acpi_status acpi_evaluate_lck(acpi_handle handle, int lock);
- acpi_status acpi_evaluate_reg(acpi_handle handle, u8 space_id, u32 function);
 -- 
 2.53.0
 
