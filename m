@@ -1,61 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391365;
-	b=dtx0FGILOukjZx+bpJWTQdQIErkcFdf2Xelsfzt22pF4/SOEeQpwkkvhDTMdz7t+4b9u
-	 Ky5Jl339aKyBJ9I69NTueK/VGIarMesz6aYs9mPCnP1e0n6MOXvbpG0HQbD5SJClplmU4
-	 /tu/IyNWkikejsNEuNPk7OWxPn1mjWRRxhqGrAj6gwrUQAiaR3V6uhWEsrrBR+caTU1pb
-	 wDjFs7+g0EDn+nSwOsj9u3nsROjEQJNtjiGQOgO7DRtYlnSUpdyjIadiH3almSZFVhDyV
-	 J6qqqfTdqXbnEHxqnXnCQEblx5IZpDs9e9lxDh6VImGHpKrY/hmqAHuOEY0K8ArQyTQ==
+	t=1794391615;
+	b=XMrEzI83yHCzh30cMmtTpxPlgSuygM2NZLN2JqUshNGnrsBtYgbnRz7RIwTtK9AgmyLV
+	 TBslmcp72bs5HqJGJbWwxGVp9RMsH83pdpIYQkX5o8KEqoaeftLfEszsS2vy5/ckKpMIe
+	 gagZFD6eOk6Trx8P0Hey/a4nR11SPEDwnxlKckrSze2f4i7igIxmPGA5e6uKdflZ+CIcE
+	 Y/VSQ1oM9kV6GrIdqe3ewawKX9/HCc6nQ9TyWoBKWREIDixaP2q3bHH9mzY3+zX6jGGFa
+	 /FreNAfr7gMt6DmA3Ze2D70utV75EPLpDcKqy1TWfsBRmuZiXkvZK/kE5tB4ilHn2aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391365;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391615;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=sLyZtPTkFdbyABhOZWUDHW8SHa1Rc6mfsRhG3LxmUD0=;
-	b=rxqpj4nzKbV3SI1aY93yA4OdcnqbsW103QQG/UXL0zdxg9qq/XH2p/MLTrTJePG/465j
-	 lo6u/aJQpxd0V0HIa4siztZ6ysWYV/HbD9K5NPT0xp6/N8LnPCaCzph/sSTjUS7rL0kna
-	 jCQjybYe3RJdqMXakt+7b/sjniJHv21dtMGBctDoYOJoB/kN6C9bD8BEAHzK4gB0nJv6t
-	 N+iYrzKO1ik9zdQhgOqtJLHRtXBdpyt//z5GGZ7a8tMp4hD9qoebyDshgReCHIWoPgp6J
-	 WBo7AwH8AcImEZXE2QwARQnmijIENdbqzJB1Vn0ZNcfmrbPMqRqAgcm8zJtrPetY6ZQ==
+	bh=VlfbgDgQAEitsNSmJqDXQTJdALRr6On/NT0I0OmkIfA=;
+	b=J3jIlMt9+DTOlwyRu76iiU9YMEa5dZlLw+MC3VYu78VIy8jN6mPeIW0iB0f260US4p4F
+	 JgeyWX62Z7Xb4i4yEiidBkGF3vYZ1mBnOUUYmx1igPdJ1qonrlnOtqfN9MqGb8zPtIfh6
+	 r/7DGNWrbZlhiyhdHmtE81IqAsvOHmJeG3WmgbZCmaU6ysMH8OpvhKz/ecsJzzQD/0c/2
+	 MbAZ+Fui2J/o9BSnYRJKoSJA5Zsh2qYCdaNLMJ4uFRgCKbWeUdUrEid1XRXv+47WV6TX+
+	 hvRjTmUka94U0HsFH/osA+944m/PAAy9uQoyK/wPfrgSHpEKRr3HE6RZwYEyGUPbD6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=huVJ9N7H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4p588Da;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A60606A338;
-	Wed, 11 Nov 2026 10:02:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23CB606A333;
+	Wed, 11 Nov 2026 10:06:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=huVJ9N7H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9911F00A06;
-	Wed, 11 Nov 2026 10:02:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4p588Da
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1598C1F00A05;
+	Wed, 11 Nov 2026 10:06:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794391365;
-	bh=sLyZtPTkFdbyABhOZWUDHW8SHa1Rc6mfsRhG3LxmUD0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=huVJ9N7H5iWvigb/qM5S1AO680kikhWwoq1LGpG22H7wZ+JtoLEQrqzIFDMz4SZuO
-	 v06z7R1BZ1Qbyev/Zyeq/AxyfdZK1a3eTW6B5Zv+ZGL/Vz+8UEG71ZA6zTkAv2wulx
-	 qqaRkn+6jpiPbdk4urp1rf820Qus8qVdBkG5ji7gI/XOXOgyZItqBsahr7PZsOz9Cy
-	 kjG80wvvauAIURDXyIhYpslWhpKh15XJiyGFqQDMuptGRA7cW5j/n3o5m7+B2nFB7y
-	 ZT0aAMkLsg7Om7LnUWPxJM6mUNq6tCge0mODItOFvpwm8UZyp4efdgeT1XkCILDNtv
-	 HsBzdvIiYYa2Q==
-From: netdev-bot+sinfo@kernel.org
-To: Linkui Xiao <xiaolinkui@126.com>
-Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Linkui Xiao <xiaolinkui@kylinos.cn>, Guikun Yang <yangguikun19@qq.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH net] nfc: llcp: fix SNL PDU size truncation in
- nfc_llcp_allocate_snl()
-Date: Wed, 11 Nov 2026 10:02:43 +0000
-Message-ID: <179439136381.2168702.3784011162899965365@kernel.org>
-In-Reply-To: <20261111095907.3366028-1-xiaolinkui@126.com>
-References: <20261111095907.3366028-1-xiaolinkui@126.com>
-Auto-Submitted: auto-generated
+	s=k20260515; t=1794391614;
+	bh=VlfbgDgQAEitsNSmJqDXQTJdALRr6On/NT0I0OmkIfA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=e4p588Da+7AjF2uWURuees2FVLx9OHEFnt6AQUUn5ItfCjASqQlduuuqtghPqvLbf
+	 wtl8MByo8ihpgEWCT1D1I/sHb1uCZ1/kCPfeaPIz7RiB1kYYwfFq8y5kNmkLgQozk0
+	 WtQ9nqzBEuERWQ4hwEoOo/T/SU3+KMDkcGok88Mj+nbLg5kr5tUE57aoTQQbR91WcL
+	 qlc+n91Qdwqgv1EnX3JA5B/KGqtsYfsnrIqBmOzSYjCFs/2QEZt6WHyae4SahsIxEB
+	 yiP9T4qCJhko56XnxlOdxTHwM5tRhHu+snaXEQnhyOmKHdxwWHGMsDGfn6Pyi2Tibn
+	 JWvxrtCyr7q7A==
+Subject:
+ Re: [PATCH net v5 1/2] gve: refuse XDP on queue formats without XDP support
+From: netdev-bot+sashiko@kernel.org
+To: amaan.cheval@gmail.com
+Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, bcf@google.com, jordanrhee@google.com,
+ przemyslaw.kitszel@intel.com, maciej.fijalkowski@intel.com,
+ pkaligineedi@google.com, maolson@google.com, csully@google.com,
+ willemb@google.com, yangchun@google.com, npl@google.com,
+ awogbemila@google.com, shailend@google.com, nktgrg@google.com,
+ maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com,
+ hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 11 Nov 2026 10:06:52 +0000
+Message-ID: <179439161258.2199510.10096207449822395421@kernel.org>
+In-Reply-To: <20261109100437.331423-2-amaan.cheval@gmail.com>
+References: <20261109100437.331423-2-amaan.cheval@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,20 +71,153 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi!
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+- [Medium] The commit message misstates which queue formats the new check
+  affects.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  extends it.
+
+--
+
+gve: refuse XDP on queue formats without XDP support
+
+This patch adds a check to gve_verify_xdp_configuration() that refuses XDP
+setup when dev->xdp_features lacks NETDEV_XDP_ACT_BASIC. It replaces the
+queue format gate dropped by commit d8a8ca14c937. The aim is to keep XDP
+off DQO-QPL, whose RX page accounting can free a page that is still
+DMA-mapped and registered in the QPL.
+
+> Refuse XDP setup in gve_verify_xdp_configuration() whenever the driver
+> advertises no XDP features for the current queue format, which today
+> means DQO-QPL.
+
+[Severity: Medium]
+Is "which today means DQO-QPL" accurate? gve_set_netdev_xdp_features() only
+sets NETDEV_XDP_ACT_BASIC for GQI-QPL and DQO-RDA:
+
+drivers/net/ethernet/google/gve/gve_main.c:gve_set_netdev_xdp_features() {
+	if (priv->queue_format == GVE_GQI_QPL_FORMAT) {
+		xdp_features = NETDEV_XDP_ACT_BASIC;
+		...
+	} else if (priv->queue_format == GVE_DQO_RDA_FORMAT) {
+		xdp_features = NETDEV_XDP_ACT_BASIC;
+		...
+	} else {
+		xdp_features = 0;
+	}
+	...
+}
+
+GQI-RDA also falls into the else branch. gve_adminq.c can still select
+GVE_GQI_RDA_FORMAT from the GQI_RDA and GQI_RAW_ADDRESSING device options,
+so the new check refuses GQI-RDA as well.
+
+The check that d8a8ca14c937 removed (queue_format != GVE_GQI_QPL_FORMAT)
+also refused GQI-RDA. Since that commit, XDP could be attached on GQI-RDA,
+and XDP_TX there takes this path:
+
+gve_rx()
+  gve_xdp_done()
+    gve_xdp_xmit_one()
+      gve_tx_fill_xdp()
+
+gve_tx_fill_xdp() always uses tx->tx_fifo: it calls gve_tx_alloc_fifo(),
+memcpy()s into tx->tx_fifo.base and reads tx->tx_fifo.qpl->page_buses. A
+raw-addressing TX ring never allocates that FIFO. Isn't that a NULL
+dereference that this patch also fixes without saying so?
+
+Could the commit message mention GQI-RDA? Two things are worth stating:
+GQI-RDA now gets -EOPNOTSUPP, and this closes the XDP_TX crash there. That
+would help stable backporters.
+
+The follow-up patch "gve: fix RX page refcount overflow from INT_MAX
+pagecnt_bias" uses the same wording ("The previous patch keeps it that way
+by blocking XDP on DQO-QPL"). Its safety argument also depends on XDP being
+blocked on GQI-RDA.
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+> index 2437cd8ba6331..fe560f5c5408c 100644
+> --- a/drivers/net/ethernet/google/gve/gve_main.c
+> +++ b/drivers/net/ethernet/google/gve/gve_main.c
+> @@ -1723,6 +1723,12 @@ static int gve_verify_xdp_configuration(struct net_device *dev,
+>  	struct gve_priv *priv = netdev_priv(dev);
+>  	u16 max_xdp_mtu;
+>  
+> +	if (!(dev->xdp_features & NETDEV_XDP_ACT_BASIC)) {
+> +		NL_SET_ERR_MSG_MOD(extack,
+> +				   "XDP is not supported on this queue format.");
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+
+[Severity: High]
+This is a pre-existing issue that this patch did not introduce, but the
+patch adds another exit to the same gate. gve_xdp() calls
+gve_verify_xdp_configuration() before it looks at the command, so the gate
+also runs for teardown:
+
+drivers/net/ethernet/google/gve/gve_main.c:gve_xdp() {
+	err = gve_verify_xdp_configuration(dev, xdp->extack);
+	if (err)
+		return err;
+	switch (xdp->command) {
+	case XDP_SETUP_PROG:
+		return gve_set_xdp(priv, xdp->prog, xdp->extack);
+	case XDP_SETUP_XSK_POOL:
+		if (xdp->xsk.pool)
+			...
+		else
+			return gve_xsk_pool_disable(dev, xdp->xsk.queue_id);
+	...
+}
+
+Several of the gate's conditions can become true after a successful bind:
+
+- gve has no ndo_change_mtu, so the MTU can be raised above max_xdp_mtu
+  while a zero-copy pool is bound.
+- gve_set_features() refuses HW-GRO only when priv->xdp_prog is set, so
+  HW-GRO can be turned on while only a pool is bound.
+- The queue counts can be changed the same way.
+
+When the AF_XDP socket is then closed:
+
+xp_release_deferred()
+  xp_clear_dev()
+    __xp_clear_dev()
+      xp_disable_drv_zc()
+        gve_xdp()
+          gve_verify_xdp_configuration()   /* returns -EOPNOTSUPP */
+
+On failure, xp_disable_drv_zc() only does WARN(1, "Failed to disable
+zero-copy!\n"). The core then goes on to xsk_clear_pool_at_qid(),
+xdp_put_umem() and xp_destroy().
+
+Because gve_xsk_pool_disable() never runs, clear_bit(qid, priv->xsk_pools),
+xsk_pool_dma_unmap() and gve_unreg_xsk_pool() are all skipped. Won't
+rx->xsk_pool and tx->xsk_pool still point at the freed pool when the RX
+refill and XSK TX NAPI paths use them? The UMEM DMA mappings would also be
+leaked.
+
+dev_xdp_uninstall() follows the same pattern for programs. It does WARN_ON()
+on the failed removal and then calls bpf_prog_put(), which leaves
+priv->xdp_prog dangling.
+
+The new xdp_features check cannot change between setup and teardown by
+itself, since gve_setup_device() computes it only from queue_format. Even
+so, would it be better to run the verification only for XDP_SETUP_PROG with
+a non-NULL prog and for pool enable, so that teardown is never refused?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109100437.331423-1-amaan.cheval%40gmail.com
