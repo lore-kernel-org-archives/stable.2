@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414191;
-	b=xgv0lqSNQQMK7T76CqY6cUJ8rA+Nd5jb41WMNlpfBU1O1dhOXYR+V06GT3TpU4yye5Wc
-	 jHbqOEv/JZjlaBuFyiUaBm/UUQtM/vh3iO7YC9u+ZfKM98kincxk8SnrVw0unHvjHZuvP
-	 FrPDAlbDtdOGaGQbSHm5cUu1/B01f1vGp6og+2244MJ5dE6ptAAIJOfhTSpqdsc7i+STV
-	 /sMZE5BOsg3Uxlixdn86rYXAwIHZmyzKDLiA0Y51Nn5kuw45EQUQwtxA7HKKjfiYQfRKl
-	 uhXbkFXdSoOj2IbI99wYeJmUEWrcNrSx8k9c7t8wgih1snjeTqqbTMKCLysqj8ORL8g==
+	t=1794414192;
+	b=eiWp9uOz2s4x7v1wp81N1bEfC1dyz+/RIXnaGhSKBTjGPy/xlfHcbsULDoXGbiRePutX
+	 jyszzcZW30qH20RZ8AiWqObbkV5P8GOskczsZGHLU9Zfl6jycQAIIBxwWr0tWHW+6dzmd
+	 5JtXqc9LvGZROticrF1UmSHzYRbcrmtIoe5z2jAAJ9ISPCG06/zIXOJK76i5Yj7JJ2ORt
+	 qPfW4D1dHFL5AcoQhCsfOQSTuEvrxd8wR0hsNgulKxQmi28nsHUYrvqems6AIPozcoXw3
+	 RZSlSjpPktxuM8Pbwn+IsH+BmP1mxZ08PgerdBSN8FMbE0DywCb5+FagQLSaLaFCwfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414191;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414192;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=t5O+twYPrxrW47gy4zNXnb7Vgv6od7L/9XOyE2vOkSY=;
-	b=FUkWWMmpPggB0mkFlf+fW4FugFJPMGQ+TBHLLOpnXKZav2sb7SnkYysB+5JZc0E70QC5
-	 HrKb+DY+sj0l+LxIUeRHVN7vkGjka0TxrNi1EhsaevsiYM0lkZvyDZcbhPeUvDwx/9Oc+
-	 a3LlyBphBe5E+Of9sWANgmD/NjHNVPBWyFPxTbHOwmuLu7UJa2pOXphZJzea6SZNNUU8R
-	 yCxdufiZ0LjrRSiWs+qq2f06Qj4cUGZgvkVvhKx6qL1gd1iK8BtG46VNCUCSlQo5rHJZm
-	 T1lSUP9eXfa0e7S67IQWV0ALFJiDYGcaeDuDSblDkhkld7QHhAcDon726juNwHbQ+Jw==
+	bh=koJ8a3LY8PxZ1Q4v0atgg4yJCs48fK7HBRXY/PYF1qw=;
+	b=xEPqbXaPQn5qKZzsJIX6eCIWGKp4vRI4evuYEPVMHHkoExbQhtaNrRfOCH/C+k4Y9WJN
+	 C2lAEsFJhAvJGRC7D7YmH2HdbUz6brpDRTHa5EWEua6QIp6Q9ZkxUTZoSvNQr/M9aN1IU
+	 BxmHQxRjAQzsDx0yGAC2Pwv28CYsXWC30Cic8IkpfoBaO2wGgb2Q2LaqrcM5gjuNSzq6n
+	 vdUnzTtSIxLrPgjIv0nqfEe7Et3dBPGHTF7m4CtYMdllMFrMJa/8ioSeB5ABOBRW3bg48
+	 EC+gMFR+rQvUMxxi9kq3PspRYyWK/sLGmbebh46NT8/IAZFjbzxa7coJcJt/0KYwMHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHzDOIu+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hbIIYNbB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EFE606A32A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:23:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F532606A32A
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:23:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHzDOIu+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 883B91F00A05;
-	Wed, 11 Nov 2026 16:23:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hbIIYNbB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D1451F00A08;
+	Wed, 11 Nov 2026 16:23:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794414191;
-	bh=t5O+twYPrxrW47gy4zNXnb7Vgv6od7L/9XOyE2vOkSY=;
+	bh=koJ8a3LY8PxZ1Q4v0atgg4yJCs48fK7HBRXY/PYF1qw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UHzDOIu+o5maATn5G1Dmbeh39MNZos0Caxw9r9P+PFTMwwbQ1sqbvIxDEHvA+cPe0
-	 md+s7O2ih2kTFfYsOBc5SbHm4Stg73AsHNeJcnF6jmUH2T17q2TayYgQd1gqTU6jVM
-	 LhSsj13mnPyI0Dw+hLHcfTVV+R7OBxBhRDzS8OBrvhZj3kVvcIeaySle3qutNM+qiy
-	 Hzz+LqI0Szfoy8gFF7srGM5uJjqTdza9Oxw244Gge2JxwxsjZ9dx1qFwNOdfKmBlxH
-	 G+4ZxQkToo5McfCXuugfRgkHv8kVmcGOGUxVjdvxmv0U7sdyBVeo1G4AQXR03zcd+W
-	 Um3kCsoz85Aiw==
+	b=hbIIYNbBy/3gOganQoP0gnGrffA9Y/nkZwNtow27YybWWv6Fzx5Mdw/Bi049AQ5sQ
+	 8KXCtqEllXkOa/NNrMVh6igrpP2Ns3REAT44u0W8OdtC0GYxjGOtfe346lo8xhi54b
+	 wwF6Y7brfl9qeoPEG8DO/CN0URsmTKqlYaVd/sYL421dNNXkyJC8wyHp0y2caZDTQZ
+	 7QV9WolatDT9GK0kPcIeAnOinO+B6YMxOagaUgeUB9MJCmc5tvyswhqPSl0lDdlKUs
+	 Zr88BF9D2xS1qKspwtsQscEvEhmyOsR7fc48TM2nHOPS5wYjYPGKz+U/vefQ9PVDPZ
+	 M+/CewEid15Ig==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	David Ahern <dsahern@kernel.org>,
+Cc: Daehyeon Ko <4ncienth@gmail.com>,
+	Ido Schimmel <idosch@nvidia.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/4] ipv6/addrconf: allocate a per netns hash table
-Date: Wed, 11 Nov 2026 11:23:06 -0500
-Message-ID: <20261111162230.3239471-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y 4/4] ipv6: remove ifaddr from hash during ifdown list cleanup
+Date: Wed, 11 Nov 2026 11:23:07 -0500
+Message-ID: <20261111162230.3239471-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111162230.3239471-1-sashal@kernel.org>
 References: <20261107062657-failed-5.10-6ace56ed7b13@kernel.org>
@@ -63,88 +63,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Daehyeon Ko <4ncienth@gmail.com>
 
-[ Upstream commit 21a216a8fc630161e69eaf02cbebdd1816ff1a13 ]
+[ Upstream commit 6ace56ed7b13a9c6d4cb7ef0d82d3a3d53324a63 ]
 
-Add a per netns hash table and a dedicated spinlock,
-first step to get rid of the global inet6_addr_lst[] one.
+addrconf_ifdown() clears the address hash before snapshotting the
+per-device address list. A concurrent ipv6_add_addr() can publish an
+address after the hash scan and before the list snapshot.
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
+The ifdown path then removes the address from the device list and drops
+the list-owned reference while it is still linked in the hash. Once the
+remaining references are released, inet6_ifa_finish_destroy() warns, but
+a DEAD address continues to kfree_rcu(). The hash therefore points to
+freed memory that later RCU walkers can dereference.
+
+This follow-on was found by source review and was not separately
+triggered at runtime.
+
+Remove each non-kept address from the hash immediately before removing
+it from the per-device list. Keeping it hashed through the delete
+notification blocks same-address publication until NETDEV_DOWN has been
+delivered. hlist_del_init_rcu() is safe when the earlier hash scan
+already removed the address.
+
+This handles a late publisher captured by the list snapshot. The next
+change serializes publication with teardown so an add cannot miss both
+observations. Both changes are required when backporting the complete fix.
+
+Fixes: 73a8bd74e261 ("ipv6: Revert 'administrative down' address handling changes.")
+Cc: stable@vger.kernel.org
+Reported-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://lore.kernel.org/r/20261004135117.GA206930@shredder
+Link: https://lore.kernel.org/r/179161099539.434549.2238120015372268173@kernel.org
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20261015050651.1841557-2-4ncienth@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 6ace56ed7b13 ("ipv6: remove ifaddr from hash during ifdown list cleanup")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/netns/ipv6.h |  4 ++++
- net/ipv6/addrconf.c      | 20 ++++++++++++++++++++
- 2 files changed, 24 insertions(+)
+ net/ipv6/addrconf.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/include/net/netns/ipv6.h b/include/net/netns/ipv6.h
-index f179996c61844..4703f8229433c 100644
---- a/include/net/netns/ipv6.h
-+++ b/include/net/netns/ipv6.h
-@@ -97,6 +97,10 @@ struct netns_ipv6 {
- 	struct sock             *tcp_sk;
- 	struct sock             *igmp_sk;
- 	struct sock		*mc_autojoin_sk;
-+
-+	struct hlist_head	*inet6_addr_lst;
-+	spinlock_t		addrconf_hash_lock;
-+
- #ifdef CONFIG_IPV6_MROUTE
- #ifndef CONFIG_IPV6_MROUTE_MULTIPLE_TABLES
- 	struct mr_table		*mrt6;
 diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 8daa9f564eec7..8429bd481706f 100644
+index 8429bd481706f..ab65da6e63175 100644
 --- a/net/ipv6/addrconf.c
 +++ b/net/ipv6/addrconf.c
-@@ -7116,6 +7116,13 @@ static int __net_init addrconf_init_net(struct net *net)
- 	int err = -ENOMEM;
- 	struct ipv6_devconf *all, *dflt;
+@@ -3909,6 +3909,10 @@ static int addrconf_ifdown(struct net_device *dev, bool unregister)
+ 		}
  
-+	spin_lock_init(&net->ipv6.addrconf_hash_lock);
-+	net->ipv6.inet6_addr_lst = kcalloc(IN6_ADDR_HSIZE,
-+					   sizeof(struct hlist_head),
-+					   GFP_KERNEL);
-+	if (!net->ipv6.inet6_addr_lst)
-+		goto err_alloc_addr;
+ 		if (!keep) {
++			spin_lock_bh(&net->ipv6.addrconf_hash_lock);
++			hlist_del_init_rcu(&ifa->addr_lst);
++			spin_unlock_bh(&net->ipv6.addrconf_hash_lock);
 +
- 	all = kmemdup(&ipv6_devconf, sizeof(ipv6_devconf), GFP_KERNEL);
- 	if (!all)
- 		goto err_alloc_all;
-@@ -7176,11 +7183,15 @@ static int __net_init addrconf_init_net(struct net *net)
- err_alloc_dflt:
- 	kfree(all);
- err_alloc_all:
-+	kfree(net->ipv6.inet6_addr_lst);
-+err_alloc_addr:
- 	return err;
- }
- 
- static void __net_exit addrconf_exit_net(struct net *net)
- {
-+	int i;
-+
- #ifdef CONFIG_SYSCTL
- 	__addrconf_sysctl_unregister(net, net->ipv6.devconf_dflt,
- 				     NETCONFA_IFINDEX_DEFAULT);
-@@ -7191,6 +7202,15 @@ static void __net_exit addrconf_exit_net(struct net *net)
- 	net->ipv6.devconf_dflt = NULL;
- 	kfree(net->ipv6.devconf_all);
- 	net->ipv6.devconf_all = NULL;
-+
-+	/*
-+	 *	Check hash table, then free it.
-+	 */
-+	for (i = 0; i < IN6_ADDR_HSIZE; i++)
-+		WARN_ON_ONCE(!hlist_empty(&net->ipv6.inet6_addr_lst[i]));
-+
-+	kfree(net->ipv6.inet6_addr_lst);
-+	net->ipv6.inet6_addr_lst = NULL;
- }
- 
- static struct pernet_operations addrconf_ops = {
+ 			write_lock_bh(&idev->lock);
+ 			list_del_rcu(&ifa->if_list);
+ 			write_unlock_bh(&idev->lock);
 -- 
 2.53.0
 
