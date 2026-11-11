@@ -1,57 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434017;
-	b=sTbtbZQU1bhMvVscYIH8maw037p7uiw1P55XHy/YFLS/QETxfLVWBAVXHxkOditzJu0B
-	 wzkrWFQo8iZFU9Nx0dUVtDz6PTrcZj/dToNz49cdCa/vFyC1z4wSc6f+52sWzMNFJX3Ui
-	 LKBsJDj9ByOlpXLFnqDbnWjVBGzKYdklvq7Kp6plMKj84kam8ky7Xr9iFJ6AuQODIgoKx
-	 jAwMY0/Dv58C6QTx97K8pL1tFig9x+mFHjxoYOv7vAfrVIxIArCMt4V1TuUwOt4ns9a66
-	 CML4c+0pxikL9j+5iikPNgawnbfFQM2Ef3zPFiXw8tWPTIGdu0PELyI1PBysF9hxLDw==
+	t=1794434020;
+	b=rClpgrxJNKCgLp0g5zinwfw2rCU9rSLHe5kr18cBvmXtpUEbGXlMIa0mmIt1/PPj21G6
+	 unDqCWR9ybtTtoCxngbBQYX0+X5A55v7+RJTEwPSvnFwVGATh3FG/Uxj9rpen3qDzhOZb
+	 c13RjN4Cv91YS3tI6012rlxnIV/qrO3ZZSL6T4/CUZeioLZ22APz41omHgE8aZppb9vdY
+	 Kl0xkEawx3BidGIaGmiEO1F1GCfyWJ8nnMq8lnpO5GefGbl/COTqGAfAcp5hvwMSc5US2
+	 aBSvxJNYGicXfs6S4LKmH0GOlXEgLD7Br1pTXmbx6Pf+HoBIBUnSLZtBKfqqEHH3icw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434017;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434020;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OHzt/ja7RR1bwOBmWJvJCi3+0CCSxfkM98aYsUu0mDc=;
-	b=voNWL0CLaZeLJRfedPUPiUEvaKqg7vXN4nj9svbjDkMg29ipvJ1Aj5uOh6Ii4hKzpxBE
-	 ITVSuDR88QHNZ5fPfwNsiwbXGmhYenOcpdY5LRKb6mbLMrCM8N8f+2D7h1FHZVg8B2nHa
-	 YZYKMuKRLmVgNYf8byUI6tiPVjLwJRuAf30Zqx9LY+9+uN2u/8E0BAXpT/9ZLqt9eA0YQ
-	 9/kIu2+T3G25BKCH9NK37z6KBGVAYX7/jCufqlloRJmtn6a94hWa4LgeE3PdUZKYNIfoI
-	 XILq6oh4KLdK2YN3/h8gqgfGs40zwUR8BCn3ZYpsUj3naf46QUCuzDbeKdJ2I4nBiOA==
+	bh=apIjcWhf6ft4S9T/nv2WWzs4no0FMzMPTMX+Kk+3eYs=;
+	b=3oZZjGlstpW1b+c2ZoEGV03U09kvrhDS9HNz85QOfAMDo7Jk0aRKm9EC58CsFKGPa5uJ
+	 RQdofetl7Jlic+rDB4tLl0kNkXBuyJiNDK/1Pp79HvVDAr2W+xZLIDYt5CEH1yIpl/qVh
+	 3gi5dm5byuD0Ca4Cepvb8TjOLB9HG2AL6ElWTOlEF6V63RkpbGuf7U9H5q5iXKXJN+ZKS
+	 TvBy2mLVq1+Rgs+znxPYNMJ1NJIAW1bii2O5uA042GJcsqtngsCvVegGJckrGNjXMAFP9
+	 2FypwJ4M7tTwmvCiXi9cojRTscAN3Yprd7JJVA+1InFYr1ZQuE1By1NkV4ynsh3qKYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LXbXBzmm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Cc/97iSa";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C64606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:53:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9A1606A332;
+	Wed, 11 Nov 2026 21:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LXbXBzmm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79CAC1F00A05;
-	Wed, 11 Nov 2026 21:53:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cc/97iSa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524451F00A05;
+	Wed, 11 Nov 2026 21:53:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434017;
-	bh=OHzt/ja7RR1bwOBmWJvJCi3+0CCSxfkM98aYsUu0mDc=;
+	s=k20260515; t=1794434020;
+	bh=apIjcWhf6ft4S9T/nv2WWzs4no0FMzMPTMX+Kk+3eYs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LXbXBzmmzFb3PawWJtyY1upFXjr4cH1jue/BuUQ8lN+7p8/Llr0rXKTfXQbjQ0gVS
-	 /NZoLce4alEHhVMaw3koGOMQJA8iKzlvoEOUzWM4evt03WGmoKNuKThmeVG94bcJLI
-	 sNB6yF1Z+u3v/BcZBrVgFVcqvtxYOk+VXe4yicLFuiMj8FU3BE3dbAyry4n8+7eDqv
-	 ZVkz3eO60rOuas4pLsOoa9EEcgyO7pJpAja8Y95YZhtrKCCpA8KKidPT+C/m6Y4569
-	 WnE2L2FtuJFpBeWd+X/SKBv9uV3nnDTOmO36jAHd3WhttBUx51JmwkgdZx5ZW2ARp5
-	 FrEBdre94O0Ow==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Stefan Teodorescu <fane@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] KVM: nSVM: Check validity of vmcs01 save area copied from SMRAM on RSM
-Date: Wed, 11 Nov 2026 16:53:34 -0500
-Message-ID: <20261111193111.3654795-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202148-failed-5.15-053621535f01@kernel.org>
-References: <20261109202148-failed-5.15-053621535f01@kernel.org>
+	b=Cc/97iSavrA4IxIRd9mCOgRBAgykrO3P1diDKl3/aXyIRxwlJUUqpSPMSCXNw1mtn
+	 iIVVYAuIXAY6urRd2MMraBg+A6Mf72dwzWVIWhyKArx0SHdRNjgUtELQxQMbFQhX/t
+	 O7ofOti9Apk1c3OdSIIsAyasg63o96z4exmcJgmTd9TCASpwDYIdeFc6RM3sy8QdQN
+	 hQqL2KrN5zXN7L77iZhjirgCf+Wb7iKRaWTC+6CShMrtyJH68UzPbm05mvCDr00xU5
+	 T3Emo8nbPf5wMCebGmxAgfciuCVQsIPx2sM+7wcFyYZJskgZRtXczzsu4/KcaMbruI
+	 FnQbO5/eWaYgw==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Linus Walleij <linusw@kernel.org>,
+	tomer.maimon@nuvoton.com,
+	openbmc@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 05/10] pinctrl: nuvoton: npcm8xx: Propagate npcm8xx_gpio_register() error in probe
+Date: Wed, 11 Nov 2026 21:51:50 +0000
+Message-ID: <20261111215256.1982044-6-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+In-Reply-To: <20261111215256.1982044-1-lee@kernel.org>
+References: <20261111215256.1982044-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,132 +71,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+npcm8xx_pinctrl_probe() logs an error with dev_err_probe() when
+npcm8xx_gpio_register() fails, but omits the return statement and
+returns 0 instead.  Propagate the error returned by dev_err_probe().
 
-[ Upstream commit 053621535f014085c935879582dd3b65964a0dce ]
-
-When doing RSM to L2, validate L1's state after copying it back into vmcb01
-from SMRAM, as SMRAM is carved out of guest memory, i.e. is writable by the
-guest.  Failure to validate L1's state is especially problematic for inputs
-to MMU context, as KVM can end up with impossible CR4 vs. EFER state.  E.g.
-without the recent hardening FNAME(walk_addr_generic), a guest can trigger:
-
-  ------------[ cut here ]------------
-  UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu/paging_tmpl.h:435:15
-  index 3 is out of range for type 'u32 [2]'
-  CPU: 3 UID: 0 PID: 92 Comm: CPU 1/KVM Not tainted 7.3.0-rc1 #2 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x5f/0x90
-   dump_stack+0x10/0x18
-   ubsan_epilogue+0x9/0x39
-   __ubsan_handle_out_of_bounds.cold+0x50/0x55
-   paging32_walk_addr_generic+0x889/0x970
-   paging32_page_fault+0x79/0xa60
-   kvm_mmu_do_page_fault+0x125/0x270
-   kvm_mmu_page_fault+0x88/0x7b0
-   npf_interception+0xc8/0x220 [kvm_amd]
-   svm_invoke_exit_handler+0x16d/0x1d0 [kvm_amd]
-   svm_handle_exit+0xb7/0x160 [kvm_amd]
-   vcpu_enter_guest+0x428/0x16a0
-   kvm_arch_vcpu_ioctl_run+0x479/0x920
-   kvm_vcpu_ioctl+0x316/0xb00
-   __x64_sys_ioctl+0xa3/0x100
-   x64_sys_call+0x281/0x23d0
-   do_syscall_64+0xba/0x550
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-  RIP: 0033:0x79bb30deb04b
-   </TASK>
-  ---[ end trace ]---
-
-Fixes: 37be407b2ce8 ("KVM: nSVM: Fix L1 state corruption upon return from SMM")
+Fixes: acf4884a5717 ("pinctrl: nuvoton: add NPCM8XX pinctrl and GPIO driver")
+Closes: https://sashiko.dev/#/bug/linux-cff468bb-80b4-4cb3-a5ff-2b3a8fdb151f
 Cc: stable@vger.kernel.org
-Reported-by: Bill Wendling <morbo@google.com>
-Reported-by: Stefan Teodorescu <fane@google.com>
-Tested-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20261022021046.295001-1-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[ sashal: reused nested_vmcb_valid_sregs() with an is_l1 argument instead of adding the upstream cached-save validation helper ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- arch/x86/kvm/svm/nested.c | 19 ++++++++++---------
- arch/x86/kvm/svm/svm.c    |  2 ++
- arch/x86/kvm/svm/svm.h    |  2 ++
- 3 files changed, 14 insertions(+), 9 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 9a3045d843fc6..beb38ac96c263 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -292,10 +292,15 @@ static bool nested_vmcb_check_cr3_cr4(struct kvm_vcpu *vcpu,
- 	return true;
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
+index 6150cde7e824..8a7cc46b5001 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
+@@ -2583,7 +2583,7 @@ static int npcm8xx_pinctrl_probe(struct platform_device *pdev)
+ 
+ 	ret = npcm8xx_gpio_register(pctrl);
+ 	if (ret < 0)
+-		dev_err_probe(dev, ret, "Failed to register gpio\n");
++		return dev_err_probe(dev, ret, "Failed to register gpio\n");
+ 
+ 	return 0;
  }
- 
--/* Common checks that apply to both L1 and L2 state.  */
--static bool nested_vmcb_valid_sregs(struct kvm_vcpu *vcpu,
--				    struct vmcb_save_area *save)
-+bool nested_vmcb_valid_sregs(struct kvm_vcpu *vcpu,
-+			     struct vmcb_save_area *save, bool is_l1)
- {
-+	if (is_l1 && (!(save->cr0 & X86_CR0_PG) ||
-+		      !(save->cr0 & X86_CR0_PE) ||
-+		      (save->rflags & X86_EFLAGS_VM) ||
-+		      ((save->efer & EFER_LMA) && !(save->efer & EFER_LME))))
-+		return false;
-+
- 	/*
- 	 * FIXME: these should be done after copying the fields,
- 	 * to avoid TOC/TOU races.  For these save area checks
-@@ -674,7 +679,7 @@ int nested_svm_vmrun(struct kvm_vcpu *vcpu)
- 
- 	nested_load_control_from_vmcb12(svm, &vmcb12->control);
- 
--	if (!nested_vmcb_valid_sregs(vcpu, &vmcb12->save) ||
-+	if (!nested_vmcb_valid_sregs(vcpu, &vmcb12->save, false) ||
- 	    !nested_vmcb_check_controls(vcpu, &svm->nested.ctl)) {
- 		vmcb12->control.exit_code    = SVM_EXIT_ERR;
- 		vmcb12->control.exit_code_hi = -1u;
-@@ -1365,11 +1370,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
- 	 * Validate host state saved from before VMRUN (see
- 	 * nested_svm_check_permissions).
- 	 */
--	if (!(save->cr0 & X86_CR0_PG) ||
--	    !(save->cr0 & X86_CR0_PE) ||
--	    (save->rflags & X86_EFLAGS_VM) ||
--	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
--	    !nested_vmcb_valid_sregs(vcpu, save))
-+	if (!nested_vmcb_valid_sregs(vcpu, save, true))
- 		goto out_free;
- 
- 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 0042388321d03..64e646ccde81f 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -4441,6 +4441,8 @@ static int svm_leave_smm(struct kvm_vcpu *vcpu, const char *smstate)
- 	 */
- 
- 	svm_copy_vmrun_state(&svm->vmcb01.ptr->save, map_save.hva + 0x400);
-+	if (!nested_vmcb_valid_sregs(vcpu, &svm->vmcb01.ptr->save, true))
-+		goto unmap_save;
- 
- 	/*
- 	 * Enter the nested guest now
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index 8abb47a509f7e..30088388198b2 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -491,6 +491,8 @@ void nested_load_control_from_vmcb12(struct vcpu_svm *svm,
- void __svm_write_tsc_multiplier(u64 multiplier);
- void nested_sync_control_from_vmcb02(struct vcpu_svm *svm);
- void nested_vmcb02_compute_g_pat(struct vcpu_svm *svm);
-+bool nested_vmcb_valid_sregs(struct kvm_vcpu *vcpu,
-+			     struct vmcb_save_area *save, bool is_l1);
- void svm_switch_vmcb(struct vcpu_svm *svm, struct kvm_vmcb_info *target_vmcb);
- 
- extern struct kvm_x86_nested_ops svm_nested_ops;
 -- 
-2.53.0
+2.56.0.567.gdb80ae8cd5-goog
 
