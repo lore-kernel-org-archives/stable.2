@@ -1,61 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414460;
-	b=a5FfdgIIGUGI4fFOkApCcL7T3Z3ezclMwg7XwooRJlun1t3pKcUAbq1xaFRq9NbEV+gW
-	 CBVDHceDR6AOO76Y9LQI+4GTC7OhqhQ2jIht+4Lb93giM4R4vVnW5gbhr67gsxQhrxU1/
-	 rM9H9lKJoFh47lAgcMko0CYL28XaLT/s+Fkowx7begla9311QCM0VPb6RfrdNWLqiS6PP
-	 AC0/uRBC2iCdG5KMK46dwww5bTD/DMF7RsHXZceFVoohiUW3FLVVrMip6iWNyfbpWLD8b
-	 1YvguYNyNwIxauCBuuXx0/OWThUBgv24s6c8Nns9V9KvEFO4n5zt08W2ScSAB+/oBTQ==
+	t=1794414504;
+	b=yBLhZU5W85ot73j2t+wEPDvJDJEQYGy+dmbTD2Zz9amnxku0ncGYD+ghr44p98B6jNHS
+	 c0J21czUkTiKbkfzYWq8LVNk3zS/lnpiS0iWlZGaD/FSGN06a9wwhv0bSfJ1t9Yf+xvNa
+	 dkOqxtcVkvpSmCIkYuJOoGeCDsZiVMroDR1EEqcaIw3gS/vxASjWivYa7wljdB/8ZnH+b
+	 XzWkRWuOZ0aryjXVryUW2iYcKvzz98zh5uWxXppNC83+3botcyCrJHD15xU1uiU20Djpt
+	 tS7Cpo5jedpUYAmw+hdGqaFKxMl8Xf/3GBtz5CK87lJyKf33M6cAupSKdS72HclgnFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414460;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ow3vgkdSkgYZtLH/cAysPWLkj9g52Vy6VC8/Bg4l8pM=;
-	b=B6nDsPThJN9ZtGqkVYjSMUIny1zTfPkvXWvRzY/8/5fJMg5uq7Lq9Z5RHAp+ewFATKUJ
-	 OasZyBMReIEzxgjZjcJhupjBCZvxooISxUFhcnZyhZabPBKLl5wE9IDsGdOJmA060a2Q2
-	 Dl6ISSPma8s8mm31dP99vgU/Eend2RXcmjOsie19nZpeGSYBg3GStvi3WJeueQly2wblg
-	 T8NrX3v9U4jsHbK25ONTh9soXoaqZijO/MLuJt/j8FxlpRMUROn+04wqMlAGxQlLm3f0S
-	 mwf+ycXEvTQdrR4/UAWsW5pObH/BHfErLvHMTqeEEN9ueCo+leCqQS+c5gqpQUqq+1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414504;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=gvj4xIltj42d86arrpfwUC1RgAIG12UQS/T56hQYxjE=;
+	b=GPm8ljo3G2oIH6d01LzgqetExCU6wsagIzas/KsWzAZA/uZlrBKxgztDYMBhmzjG+NDo
+	 OF77PaZ3QFdCpqWA3shz54aSmkJcBWHKA4ij35cz4s48E4reH3+rYK1Vi2OhgLAGiE01C
+	 5JV4Rj+kyY2oXXd2kVBblagfvq30VmpGngkCH8SwZPYrk7X8h2/HslB+06XylwLVSFfCx
+	 g+mRZME+5vpb0WLXAKCSj1qkFq+3kne1TZDwD4oLm1ieCkvxKbQXOr31gvbQqclFPKBHr
+	 WVVLzG2MSwjusIWB2teVXX9tpbH+wprceMDX1yhZzFZL0gpUoUgftcviaHN30s3j29g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n10Gv0tU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="CiHj/l5V";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8899D606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:27:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2E6606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:28:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E2E6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n10Gv0tU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6E21F00A05;
-	Wed, 11 Nov 2026 16:27:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794414460;
-	bh=Ow3vgkdSkgYZtLH/cAysPWLkj9g52Vy6VC8/Bg4l8pM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n10Gv0tUye0nweaqaiXLNhmiKztY0e3dIhOuS+IQ0J/lXbFQPBJCkt6ngPIhWTVZY
-	 CFCqKq+oKENsstBT1L9ObXWhTm3rYQJ6bfK2l4XHezjKigeLRU8/GKbRIdnTm+6QPw
-	 KFqI66t1VMeIIA21zUYPUO4wxKxWGf0jYockhOA5UOy1uUV4sFN0IgU+oz88jZb8G0
-	 QtDBIxBmtUgZOyhhVSGfAr9MtGHrSwSvKXL9KlpHmmTZzTakvmaB7XceqzWy/5odKy
-	 q/7mcDsQY+/CtYH5pmN97KP0x1xICks+NLmhIgYcnlKKNHMHX6jRJOM6AZPRYuIfPU
-	 BFpyPkOZCIi+Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/shmem: honour F_SEAL_EXEC when an ACL is set
-Date: Wed, 11 Nov 2026 11:27:37 -0500
-Message-ID: <20261111162710.3270213-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200301-failed-6.18-0237c47ca170@kernel.org>
-References: <20261109200301-failed-6.18-0237c47ca170@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CiHj/l5V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794414503;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gvj4xIltj42d86arrpfwUC1RgAIG12UQS/T56hQYxjE=;
+	b=CiHj/l5V0BwcpYjqr7LiO9h61AY1LgJ0GRgRL7jq+j0FqJ4jV0FrzeQ0eUnmjCudr0+Dhc
+	YaJHjCs+OR5o1C1+YLMDLqHQn6iyLbX4jHuCYSuSFGpyxtcWg0utSkYfs/08ih97EOwEC6
+	GExJx3+wgOVSyZOqilH67aAWpgQrQXs=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-400-J7vunRmPOlWvNyTTHqqtdw-1; Wed,
+ 11 Nov 2026 11:28:20 -0500
+X-MC-Unique: J7vunRmPOlWvNyTTHqqtdw-1
+X-Mimecast-MFC-AGG-ID: J7vunRmPOlWvNyTTHqqtdw_1794414499
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C08581977406;
+	Wed, 11 Nov 2026 16:28:18 +0000 (UTC)
+Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (bmarzins-01.fast.eng.rdu2.dc.redhat.com [10.6.23.12])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 32CFD18004FC;
+	Wed, 11 Nov 2026 16:28:17 +0000 (UTC)
+Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (localhost [127.0.0.1])
+	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.17.1) with ESMTPS id 6ABGSGwB1287382
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 11:28:17 -0500
+Received: (from bmarzins@localhost)
+	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.18.1/Submit) id 6ABGSGp11287381;
+	Wed, 11 Nov 2026 11:28:16 -0500
+Date: Wed, 11 Nov 2026 11:28:16 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Cc: Mike Snitzer <snitzer@kernel.org>, dm-devel@lists.linux.dev,
+        syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] dm-integrity: initialize journal accounting in
+ dm_integrity_ctr
+Message-ID: <avSXoMubUuU6kiR5@redhat.com>
+References: <20261111004905.1047753-1-bmarzins@redhat.com>
+ <6200b697-d686-cff2-1de5-d4948c171a4f@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,130 +86,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6200b697-d686-cff2-1de5-d4948c171a4f@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-From: Chris Mason <mason@kernel.org>
+On Wed, Nov 11, 2026 at 03:37:44PM +0100, Mikulas Patocka wrote:
+> 
+> 
+> On Tue, 10 Nov 2026, Benjamin Marzinski wrote:
+> 
+> > If the superblock for a dm-integrity device is changed while the device
+> > is suspended, it will resume in a failed state, and skip
+> > replay_journal(). If this happens on a journaled dm-integriry table's
+> > first resume, replay_journal() will have never been called, and the
+> > journal will be uninitialized. While nothing can write to the device in
+> > this state, integrity_commit() will be called if it receives a flush
+> > request as well as on suspend. Even through there is nothing to commit,
+> > pad_uncommitted() will check that the journal accounting is sane. This
+> > triggers a kernel warning because the accounting was never set up by
+> > replay_journal(). Fix this by setting free_sectors equal to
+> > journal_entries. Since all the accounting variables are zeroed when
+> > creating the ic structure, setting free_sectors is all that's necessary
+> > to mimic a cleared journal.
+> > 
+> > Reported-by: syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com
+> > Closes: https://syzbot.org/bug?extid=94dac3c75477e184f0b0
+> > Fixes: fc79aeb86a2c ("dm-integrity: validate the superblock on resume")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> > ---
+> >  drivers/md/dm-integrity.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+> > index 1659a11a1a29..419a8b958371 100644
+> > --- a/drivers/md/dm-integrity.c
+> > +++ b/drivers/md/dm-integrity.c
+> > @@ -5430,6 +5430,12 @@ static int dm_integrity_ctr(struct dm_target *ti, unsigned int argc, char **argv
+> >  		if (r)
+> >  			goto bad;
+> >  
+> > +		/*
+> > +		 * initialize journal accounting like a cleared journal, to
+> > +		 * handle a changed superblock on resume, where the journal
+> > +		 * is not replayed.
+> > +		 */
+> > +		ic->free_sectors = ic->journal_entries;
+> >  	}
+> >  
+> >  	if (ic->mode == 'B') {
+> > -- 
+> > 2.56.0
+> 
+> Hi
+> 
+> I think that we shouldn't attempt to flush the journal at all when the 
+> device is in erroneous state - because flushing it could cause other 
+> problems.
+> 
+> I've created a patch that disables journal flushing if the dm-integrity 
+> device is disabled due to an error - please review it.
 
-[ Upstream commit 0237c47ca17005ea41b510c6116f0257dbf84eab ]
+I was on the fence about doing something similar to your method. It does
+drop any previous journal writes to the partially filled uncommitted
+section, which is a bigger change than just fixing a kernel warning. But
+that's the way you think we should go, I'm fine with that.
 
-The owner of a memfd sealed with F_SEAL_EXEC can still change its
-execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-this lets an unprivileged owner make a non-executable memfd executable,
-bypassing vm.memfd_noexec=2.
+The way I planned to solve it was (copy-pasted so the whitespace is all
+messed up):
 
-simple_set_acl() updates i_mode directly, bypassing the seal check in
-shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-in include/linux/memfd.h.
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c              
+index 1659a11a1a29..bf817c5ce2b3 100644                                         
+--- a/drivers/md/dm-integrity.c                                                 
++++ b/drivers/md/dm-integrity.c                                                 
+@@ -2908,7 +2908,7 @@ static void integrity_commit(struct work_struct *w)       
+                                                                                
+        spin_lock_irq(&ic->endio_wait.lock);                                    
+        flushes = bio_list_get(&ic->flush_bio_list);                            
+-       if (unlikely(ic->mode != 'J')) {                                        
++       if (unlikely(ic->mode != 'J' || dm_integrity_failed(ic))) {             
+                spin_unlock_irq(&ic->endio_wait.lock);                          
+                dm_integrity_flush_buffers(ic, true);                           
+                goto release_flush_bios;                                        
 
-Fix generated by an LLM and sent by Chris Mason in private.
+Even if we don't call dm_integrity_flush_buffers(), any dirty dm_bufio
+buffers still still get written out. By calling
+dm_integrity_flush_buffers(), we control when they get written out,
+and we want to guarantee that they get written out before we suspend.
+right?
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: use common helper; simplify description ]
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-4-392fc715d8f6@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: removed const from shmem_set_acl()'s mnt_idmap parameter to match the existing callback and simple_set_acl() interfaces ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/memfd.h |  9 +++++++++
- mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
- 2 files changed, 39 insertions(+), 5 deletions(-)
+-Ben
 
-diff --git a/include/linux/memfd.h b/include/linux/memfd.h
-index 6f606d9573c38..97b8a94cd0b31 100644
---- a/include/linux/memfd.h
-+++ b/include/linux/memfd.h
-@@ -2,8 +2,17 @@
- #ifndef __LINUX_MEMFD_H
- #define __LINUX_MEMFD_H
- 
-+#include <linux/fcntl.h>
- #include <linux/file.h>
- 
-+static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
-+		umode_t new_mode)
-+{
-+	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
-+		return -EPERM;
-+	return 0;
-+}
-+
- #ifdef CONFIG_MEMFD_CREATE
- extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
- struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 5efde9fcc3057..6f4c85a3f6410 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -76,6 +76,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
- #include <linux/magic.h>
- #include <linux/syscalls.h>
- #include <linux/fcntl.h>
-+#include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
- #include <linux/rmap.h>
- #include <linux/uuid.h>
-@@ -1321,10 +1322,11 @@ static int shmem_setattr(struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
- 
--	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
--		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
--			return -EPERM;
--		}
-+	if (attr->ia_valid & ATTR_MODE) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
- 	}
- 
- 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
-@@ -5295,12 +5297,35 @@ static const struct file_operations shmem_file_operations = {
- #endif
- };
- 
-+#ifdef CONFIG_TMPFS_POSIX_ACL
-+static int shmem_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
-+		struct posix_acl *acl, int type)
-+{
-+	struct inode *inode = d_inode(dentry);
-+	umode_t mode = inode->i_mode;
-+	int error;
-+
-+	if (type == ACL_TYPE_ACCESS) {
-+		error = posix_acl_equiv_mode(acl, &mode);
-+		if (error < 0)
-+			return error;
-+		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
-+					       inode->i_mode, mode);
-+		if (error)
-+			return error;
-+	}
-+	return simple_set_acl(idmap, dentry, acl, type);
-+}
-+#else
-+#define shmem_set_acl simple_set_acl
-+#endif
-+
- static const struct inode_operations shmem_inode_operations = {
- 	.getattr	= shmem_getattr,
- 	.setattr	= shmem_setattr,
- #ifdef CONFIG_TMPFS_XATTR
- 	.listxattr	= shmem_listxattr,
--	.set_acl	= simple_set_acl,
-+	.set_acl	= shmem_set_acl,
- 	.fileattr_get	= shmem_fileattr_get,
- 	.fileattr_set	= shmem_fileattr_set,
- #endif
--- 
-2.53.0
+> Mikulas
 
