@@ -1,55 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419042;
-	b=R5Tr9xTUzYAb2KmqeiiyDDoIgz+nTcxCfA9ZFmi+R4lftZpWbQucLAQZgDVIL5Yx2kJF
-	 oMF8ksjePUmsCmmSnBi28ajhAXPa5VvjMQP8S8vVQi0LvLzXQkiWt0N1Dpamb8k1UpgSJ
-	 VubGT+G7BD+sCxXXr3eWh7XbEJeJRGUkAwCjEnxdRzo/q6EEZihlpJ+3i7k/qtTsfYmSV
-	 HjwxetpGmx1425usqGw2USRIIzqQ/48Tyk8URODFHYTinmrbHzFinz24RbMzX6RmwX4KX
-	 ZJhyhD7v7ooBUJVVif4FP6ElZwVYRNDysPr6BTayJ4lrme2qQidQmDQ/kMLZTW7TbtQ==
+	t=1794419072;
+	b=KHS+HAKgety1Frj2JZofxB3kOW145AFK+cmrVcN5fyfIreHRDOb9taaQ9y87u0d5MolW
+	 W5aWfCCzcccl4760zmv/puOWeM01TaKpswMCOhcWsHwDxpelTibsPIa8y8X3UktaLySqc
+	 1RC3ehOOjyspK2ptYEvyD9qavNwaz1rOeZy81N7Sr5VL02GS+dP2WZqFh7iV8NH1Z3Ylq
+	 bzgsz70TvNQTJcm+O3nzSgGyT8BVq4j952tzV37/w9tSrfQoXq4uF8LG252sYg/IBjW03
+	 lzUwaBvDYm5MUWRtBR15EPas8i4ARzX28v3/o7hW6GgFA5sIvKVZ3442jmdB09RAKbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419042;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419072;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ueFX5CI3G7Wd955i94T1keyzaDfcOPXFWwjMvFohilc=;
-	b=FEEuZcbUyGjgJle90QxTG63bD4YqcX/NPxH5Pr5VolTa9wbOD4PzucsAW7mp//2Apfz/
-	 VoocVfIhGyQMryl8hQRAcy+JOnq0vENkyBckZQ2aFHIegraEpEm+HCNTmrgfZD9OI/KX2
-	 UUE5pNfWxE+3WCuyftsWEVwdLOvuIfRsPvxPpmIgrgskM62DvfMqcnfIBTkrTHGYkyCAs
-	 tykJtxlVeyt1DYt2qfc/V2U+6vcQwmm22cTdLOltwfogv8YEZ5i/Xpl26NZitedM+RXy8
-	 lkWN8AlKWccRaGbXwxwn4juKx/4wi/BicBRp0ErCpEiJFRbAfILHFy0HeJ4ye/lbISg==
+	bh=eu1pudR9LJS/ojkSFIUq+Sbnrk2DIHq1hwSbTk2WBrM=;
+	b=fWqxitnZoEekESJRVahMal9M6xWlKbYet1NBHIIUGWqgwOuT+LIAF1EFDeZ6YGOSCKgF
+	 8GJxv6pi2oVbLyQ4dqxh/ZIPROyQ1g8RyFfUkVB2ADsCXWEN92/7z1asGr7ULyRVexw0f
+	 VDxN6sn1gJCFKtefSTsjkWcDhFfvb5KDw7nzcM0DAjhDNFHVACCrQ+hJFzQOUQn3o6RHr
+	 Ux1K6Fbo60x8guUfO8GJnPn2zN+7jtzL0hljtJfXiuVnVfILntIUUhvzx7hWmGB/mBUbI
+	 JXozu7R9P+RlsNVPvOsQgl/iUSjdxaTs7+ycS5okJ5/KbetXgmDKhvfATlq/eYMrdtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M1QYGIAl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYbFK9PX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8951F606A89B
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:44:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CFF606A331
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:44:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M1QYGIAl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7FF01F00A11;
-	Wed, 11 Nov 2026 17:44:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYbFK9PX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BCF31F00A05;
+	Wed, 11 Nov 2026 17:44:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419042;
-	bh=ueFX5CI3G7Wd955i94T1keyzaDfcOPXFWwjMvFohilc=;
+	s=k20260515; t=1794419072;
+	bh=eu1pudR9LJS/ojkSFIUq+Sbnrk2DIHq1hwSbTk2WBrM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M1QYGIAleDPvw5We0FpEO2teVVVtAxba8KPU3bLJlO9eI+ztB/m5YIZj6Q66SBHJp
-	 zvDTjvi5LTkANdhu1ahGn+KOdoBKmoHWzbmKjAoPU2BTAjw/T3Seu3vPzHJZ/IJ8SB
-	 TEoss1Syl2SRyI7rOdoOaXSvCwujoGrUAxKNMsFaZSy7v6p/xzrkSVHx/2MU8hRf+V
-	 YJ5Vhxh6Emid+ZobRFHHgN7VjplYI1ZXNUkwWQ5c075yqmoVgZxWmhq603Rxjqvj2q
-	 FIuai4D50lvgWuBrsEE5qhxD3iBXqJxVDl9lOUUk6mpVm8nj9TNeLnK8BUGgEZ7/NB
-	 CfYyy4pcpF3xQ==
+	b=GYbFK9PXKUlGgLgtQV6oND+1K5eFNKljMGePAt8Q39CPGNVbwHpukL3vrUT5XalHr
+	 8OUnuKxD1KNYn1NrA1OUZexpSFtfXCyhiOqchv9WJTRSC+UAGVC8PMqFZ0Vq0a6Zpr
+	 XQvrWG4DhY0zsruJunPNpxqOaj7/BapRHhAj7gQKRNnKf3uIZiPVzxhLw1tVbhAmZ/
+	 F+89BN4G8rhLgNW5ge0yS5cxoI/5xKaNXWlivbfE9wnCo8nfnERq5nE7FNE/rJ1JBK
+	 h75iK8XKO0qL6PPZ3JsU8dwSkwFAEXMNrCYzj0l4O+LPIKNPUkwWsWeCycBJCL6RUY
+	 CANC81lrXzdbw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	shaos <shawnq1@163.com>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Xueyuan Chen <xueyuan.chen21@gmail.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Mike Rapoport <rppt@linux.vnet.ibm.com>,
+	Peter Xu <peterx@redhat.com>,
+	David Hildenbrand <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] KVM: arm64: Turn vcpu->arch.pause into a counter
-Date: Wed, 11 Nov 2026 12:44:00 -0500
-Message-ID: <20261111174337.3633257-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/vma: avoid broken uffd merge on mremap
+Date: Wed, 11 Nov 2026 12:44:29 -0500
+Message-ID: <20261111174404.3673245-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060655-failed-5.15-e64309198eda@kernel.org>
-References: <20261107060655-failed-5.15-e64309198eda@kernel.org>
+In-Reply-To: <20261107055457-failed-6.1-68cb098eadda@kernel.org>
+References: <20261107055457-failed-6.1-68cb098eadda@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,99 +72,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Zyngier <maz@kernel.org>
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit e64309198eda29415a95113def92aa40196cd422 ]
+[ Upstream commit 68cb098eadda190783f8f8bdf9fe764df59f7d32 ]
 
-We have situations where we can call kvm_arm_halt_guest() without
-holding config_lock, which means that halt and resume can overlap in
-funny ways when called from separate contexts, and result in situations
-where a vcpu is resumed while other parts of KVM assume it is halted.
-Consequences are left to the imagination of the reader.
+Userfaultfd often causes unexpected interactions within mm, and does so at
+the intersection of uffd, mremap() and VMA merging.
 
-Fix this sorry situation by turning kvm_vcpu_arch::pause into an
-atomic counter, which makes the races described above harmless.
+When an mremap of a VMA occurs, copy_vma_and_data() calls
+mremap_userfaultfd_prep() to notify uffd of this.
 
-Fixes: 3b92830ad41b2 ("KVM: arm/arm64: implement kvm_arm_[halt,resume]_guest")
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261015100539.1011760-5-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: Inlined vcpu_can_run() checks using power_off while retaining vcpu_req_sleep() and rcuwait_wake_up(). ]
+However, mremap_userfaultfd_prep() simply drops the UFFD context for the
+VMA if the user did not register it for remap, i.e. didn't specify the
+UFFD_FEATURE_EVENT_REMAP flag.
+
+This is OK for the VMA itself, as upon page table move, move_ptes() clears
+UFFD page table flags, using vma_has_uffd_without_event_remap() to
+determine whether to do so.
+
+However, this doesn't account for merging with adjacent VMAs, whose page
+tables won't have received this treatment, and thus latent UFFD markers
+will be left around.
+
+Worse, it'll break UFFD for any VMAs it is merged with. This is very
+surprising behaviour for a user, who will then simply not receive UFFD
+events for VMAs they ought to.
+
+Resolve the issue by explicitly checking for this case via
+vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
+function explicitly designated for mremap() operations.
+
+Also update the userland VMA tests accordingly.
+
+Link: https://lore.kernel.org/20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org
+Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: shaos <shawnq1@163.com>
+Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Mike Rapoport <rppt@linux.vnet.ibm.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: Moved the merge guard from vma_merge_copied_range() into copy_vma(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/include/asm/kvm_host.h |  2 +-
- arch/arm64/kvm/arm.c              | 13 +++++++------
- 2 files changed, 8 insertions(+), 7 deletions(-)
+ mm/mmap.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 6d7b6b5d076d4..660d8ef766796 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -368,7 +368,7 @@ struct kvm_vcpu_arch {
- 	bool power_off;
- 
- 	/* Don't run the guest (internal implementation need) */
--	bool pause;
-+	atomic_t pause;
- 
- 	/* Cache some mmu pages needed inside spinlock regions */
- 	struct kvm_mmu_memory_cache mmu_page_cache;
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 6bff7fd323872..0ef2b4a2b5f1a 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -336,6 +336,7 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
- 	kvm_arm_pvtime_vcpu_init(&vcpu->arch);
- 
- 	vcpu->arch.hw_mmu = &vcpu->kvm->arch.mmu;
-+	atomic_set(&vcpu->arch.pause, 0);
- 
- 	err = kvm_vgic_vcpu_init(vcpu);
- 	if (err)
-@@ -496,7 +497,7 @@ int kvm_arch_vcpu_runnable(struct kvm_vcpu *v)
- {
- 	bool irq_lines = *vcpu_hcr(v) & (HCR_VI | HCR_VF);
- 	return ((irq_lines || kvm_vgic_vcpu_pending_irq(v))
--		&& !v->arch.power_off && !v->arch.pause);
-+		&& !v->arch.power_off && !atomic_read(&v->arch.pause));
- }
- 
- bool kvm_arch_vcpu_in_kernel(struct kvm_vcpu *vcpu)
-@@ -636,7 +637,7 @@ void kvm_arm_halt_guest(struct kvm *kvm)
- 	struct kvm_vcpu *vcpu;
- 
- 	kvm_for_each_vcpu(i, vcpu, kvm)
--		vcpu->arch.pause = true;
-+		atomic_inc(&vcpu->arch.pause);
- 	kvm_make_all_cpus_request(kvm, KVM_REQ_SLEEP);
- }
- 
-@@ -646,8 +647,8 @@ void kvm_arm_resume_guest(struct kvm *kvm)
- 	struct kvm_vcpu *vcpu;
- 
- 	kvm_for_each_vcpu(i, vcpu, kvm) {
--		vcpu->arch.pause = false;
--		rcuwait_wake_up(kvm_arch_vcpu_get_wait(vcpu));
-+		if (atomic_dec_and_test(&vcpu->arch.pause))
-+			rcuwait_wake_up(kvm_arch_vcpu_get_wait(vcpu));
- 	}
- }
- 
-@@ -656,10 +657,10 @@ static void vcpu_req_sleep(struct kvm_vcpu *vcpu)
- 	struct rcuwait *wait = kvm_arch_vcpu_get_wait(vcpu);
- 
- 	rcuwait_wait_event(wait,
--			   (!vcpu->arch.power_off) &&(!vcpu->arch.pause),
-+			   !vcpu->arch.power_off && !atomic_read(&vcpu->arch.pause),
- 			   TASK_INTERRUPTIBLE);
- 
--	if (vcpu->arch.power_off || vcpu->arch.pause) {
-+	if (vcpu->arch.power_off || atomic_read(&vcpu->arch.pause)) {
- 		/* Awaken to handle a signal, request we sleep again later. */
- 		kvm_make_request(KVM_REQ_SLEEP, vcpu);
- 	}
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 17ec4d40edc11..471dbff3e11de 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -3414,6 +3414,9 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	if (can_self_merge && keep_source &&
+ 	    (addr == vma->vm_end || vma->vm_start == addr + len))
+ 		new_vma = NULL;
++	else if (vma_has_uffd_without_event_remap(vma))
++		/* If not registered for remap, uffd context will be cleared. */
++		new_vma = NULL;
+ 	else
+ 		new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
+ 				    vma->anon_vma, vma->vm_file, pgoff,
 -- 
 2.53.0
 
