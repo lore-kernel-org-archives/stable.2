@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440680;
-	b=5K1x87e1KHKmgDk5XZJO/m36ZsE3WopEezV8ovZI+gIiBJIqZ5G35Wvn5g5J7AHF1xNb
-	 JLy4DBc4OHlmsoVKYFQmR954BhVcBaxOxFyYj/FUA+rKcAJ6z0kPildZfiXJssirXa7V+
-	 X2RiaDjMLlpFMsE4vqDuMwBKi3Qc2xdrICZxXVeL+T9BX6h0Zavb0X/9ddwjfQx9q8XGf
-	 k9AcGn+YbSmUOZb1mJ8z9kDDvDQ7Kh2XU4qRcEvlmdtnJFZM8irL3TP4uPQktSGwzyIco
-	 NNjlCFvOIDSoGGkAM4ZIDUcgoSbKMovlB8sSYw+WjF98nJsAGv+vxtoKz3l/gp2YAHA==
+	t=1794440700;
+	b=sIDgnDi7Lvzkcbuh1yFnEASxLphSNDc1hIJUQG8Dvp4mKxfjquSdL8vu8KQbPs2+e4T8
+	 /l5qjpCmXNI7aQTVDXw/DPS9ZEu/e3H661aP2gxYg4hbxaS6n3iUbVhV/rbtvHnypQhby
+	 UlmuLvpynzdrU//xzT/oAgt//vAEfoEWHcUtaqg/SNg2Hjg0KueIhzbyvptqq7VECea5i
+	 APa0LLEPpfcFSdsY4OhRISh8pl6+0wzquZ4zF9XZlG+cL1pPeD7GClWfrWH1nMXYjlN3L
+	 eQwobhBfPGKxPy4eTW5liHTsMb4L+RcE8q2VP/BHJ1+adeyFQbheq0UecIqoD1EDuBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440680;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440700;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hRtRWsNDT0E4ihZ7rKloseKdM5fQEm23ENBT65T6JSs=;
-	b=h/kzzoAqurJt7IbQDktLVWXyJw+2K0ius5U7mtX+3fo9f/R4iA1+z/UjJZioLuNLlt8s
-	 e+cUxe0VzVRbCp9Q2LixiCCNXxmeulWoxVNcXJ1a/Ym8mqGjxox76TWaTl0McjT4JiqhE
-	 IwooIfI+MAWfwR4QpOUQZ3lapRg/TF2akxC2/JAuVx6zEVoCu/AVNtlbb20vQWobEL+bI
-	 cgCYZNVIZKkdjQXiXo/m+SldlQ5vTRZG2575W/QAKL+Q90f2sWuCCjsf99nUey/0oIvsg
-	 O17DqtgN77b32HkHTPn9omLl7tYjJjdkpqGf3tqEdmoBJv3T/UuLYm8JD125MYIaMOA==
+	bh=HQ27pWcK+1BV/aH3qN+TbqJBO+RzkCvXh9nk2rz6CuU=;
+	b=dK2DzNdLTcNXyGVlHonqvUZz8cTKfNdPGTuwWzX5/cGXfjmAufkVLQLK0DC4SLp+BhXU
+	 3g7N6DQ99jbXfn8Yy4WkNykTVqynw3ahhuX5ga6YOWF/lN41UCOG0p2KEX2zjcAsPotho
+	 gi0DLRNIW96o8HzvG+nxEZF8P8bfAJUNhbtrnfs7WRPSX+h+3UPPpCigmkECuTLvAck93
+	 Q4twrFi1sB7kmVTGb9wzA42WIMbz2NNcouVgDVn3kITGZtN6FZfu3y61XGMvE/31Q3hlO
+	 nYTHdSciQc6O8Odzpeae9V/rwUbZjoGkE5pQKJ0jhvanJBtlsS8GLlayGDjlRGWsWhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOUCFFZH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vptd2Hu9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C110606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:44:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D591606B5F7
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:45:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOUCFFZH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D2291F00A05;
-	Wed, 11 Nov 2026 23:44:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vptd2Hu9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21D4E1F00A06;
+	Wed, 11 Nov 2026 23:44:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794440680;
-	bh=hRtRWsNDT0E4ihZ7rKloseKdM5fQEm23ENBT65T6JSs=;
+	s=k20260515; t=1794440700;
+	bh=HQ27pWcK+1BV/aH3qN+TbqJBO+RzkCvXh9nk2rz6CuU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VOUCFFZHcPiX/ANMXF/QKOXDbvzB06BrGL6kaDgFOmuiE7XqlJNPRJDIHOX4t/wE6
-	 hD4nS1ZY4N2aTjWtzFjj84+HywL0P24HmCs6CTaDuydr+zF34c2u11AwmRjE2DqEi9
-	 x9y0Y/OFrFyIUVzYlyi9OmxHPDnZwOA6iiPJ8u/Z0KWYbW6qwdO0pIiAT0SKUqpyQZ
-	 VIt/Hps/p/DXrIJ6s3uE3Jyf89QuHeZEnLrfIoCc3R/pjJ+k1lm5oDNOCSx9nJRO43
-	 fPVMjMDzdY+jWA3Jl6wDjq+t5ir+00lWApO1IwUuzoJ4X2YQCZoVCABR+b79zionWd
-	 15rrOuo13BRFg==
+	b=Vptd2Hu9/GGLLBe27Gq+ttGHyAArG4f4mGYyXJxVSmVLruij6b4zRex93jc5Q1XL9
+	 U0PblDiBYC4EnUFns9B4TqV/rD1kjoAHJAVE8ckaVhSwsjktdG3EMucZTGsjJu7O0y
+	 BxFggAtddZo6Wii/Yk54fD/q9abbmCbHkXkscORjYTuGtTDOk1zRc10ZA9TzbDCto1
+	 dyZK4Ec/oS4EHURU/aXoLQVdWuqHMgbVQ1Jr5NN1f2+Xhj0v1LaUEEUDojKZOZUG8D
+	 FfuY2iX7WK4ora9mzizyvfYnKUCs0s8zPaLeu4L/+/zISfkKaXrN0YQBgbqE2lPlpA
+	 1hy7kh5XN/hgQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>,
+	Dominique Martinet <asmadeus@codewreck.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/userfaultfd: wake waiters when registration modes are removed
-Date: Wed, 11 Nov 2026 18:44:38 -0500
-Message-ID: <20261111234407.676040-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] 9p/xen: drain response work after unbinding IRQ
+Date: Wed, 11 Nov 2026 18:44:57 -0500
+Message-ID: <20261111234452.768495-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201823-failed-6.1-4eee9c389b07@kernel.org>
-References: <20261109201823-failed-6.1-4eee9c389b07@kernel.org>
+In-Reply-To: <20261109200601-failed-6.12-7b6f2e3c29fb@kernel.org>
+References: <20261109200601-failed-6.12-7b6f2e3c29fb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,70 +66,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 
-[ Upstream commit 4eee9c389b072e161549d46dcb1ae10b0222717e ]
+[ Upstream commit 7b6f2e3c29fb4d76f1e4973280792eabbd526602 ]
 
-UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
-faults that are already queued. For example, switching an anonymous
-range from MISSING to WP leaves a missing-fault waiter asleep until
-userspace explicitly wakes it.
+commit ea4f1009408e ("9p/xen : Fix use after free bug in
+xen_9pfs_front_remove due to race condition") added cancel_work_sync()
+to keep xen_9pfs_front_free() from freeing a ring while
+p9_xen_response() is still running.
 
-When a registration change removes a UFFD mode, wake waiters in the
-affected interval after updating the VMA. The VMA is write-locked at
-this point, so no new faults can queue under the old modes and woken
-threads cannot retry until mmap_write_unlock(). Waiters for retained
-modes in the same interval may also wake and refault.
+The work is currently drained before the event channel IRQ is unbound.
+That leaves a race window where xen_9pfs_front_event_handler() can run
+after cancel_work_sync() returns and queue p9_xen_response() again.  The
+following unbind_from_irqhandler() synchronizes with the IRQ handler, but
+it does not cancel work that the handler already queued.  The teardown
+can then free the ring and private data while the response work remains
+pending, and the worker later dereferences ring->priv and priv->client.
 
-The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
-with both read and unread fault events.
+Unbind the event channel IRQ before draining the work.  Once the IRQ is
+unbound, no new response work can be queued by the backend event channel,
+and cancel_work_sync() waits for any work that was queued before or
+during the unbind.  It is then safe to release the ring resources.
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
 Cc: stable@vger.kernel.org
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: inlined wake_userfault_range() into userfaultfd_register() using the existing wake_userfault() helper ]
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Assisted-by: GLM:GLM-5.1
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Message-ID: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/userfaultfd.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ net/9p/trans_xen.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
-index 59c4fd41a35aa..7a23fa700ffd1 100644
---- a/fs/userfaultfd.c
-+++ b/fs/userfaultfd.c
-@@ -1450,6 +1450,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+index 67f464acf6171..ef9bac5f4a24a 100644
+--- a/net/9p/trans_xen.c
++++ b/net/9p/trans_xen.c
+@@ -288,12 +288,12 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+ 		for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
+ 			struct xen_9pfs_dataring *ring = &priv->rings[i];
  
- 	ret = 0;
- 	do {
-+		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
+-			cancel_work_sync(&ring->work);
+-
+ 			if (!priv->rings[i].intf)
+ 				break;
+ 			if (priv->rings[i].irq > 0)
+ 				unbind_from_irqhandler(priv->rings[i].irq, ring);
++			cancel_work_sync(&ring->work);
 +
- 		cond_resched();
- 
- 		BUG_ON(!vma_can_userfault(vma, vm_flags));
-@@ -1504,6 +1506,16 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
- 		userfaultfd_set_vm_flags(vma, new_flags);
- 		vma->vm_userfaultfd_ctx.ctx = ctx;
- 
-+		/* Retry faults for removed modes while the VMA is write-locked. */
-+		if (any_mode_removed) {
-+			struct userfaultfd_wake_range range = {
-+				.start = start,
-+				.len = vma_end - start,
-+			};
-+
-+			wake_userfault(ctx, &range);
-+		}
-+
- 		if (is_vm_hugetlb_page(vma) && uffd_disable_huge_pmd_share(vma))
- 			hugetlb_unshare_all_pmds(vma);
- 
+ 			if (priv->rings[i].data.in) {
+ 				for (j = 0;
+ 				     j < (1 << priv->rings[i].intf->ring_order);
 -- 
 2.53.0
 
