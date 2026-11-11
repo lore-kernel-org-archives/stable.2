@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794389901;
-	b=j/GT8/tc4HN27FR/W117pqvhy4s8VFG0c/BjlH5B0EPqtzvlOdTTwUrx1oC8XThBOQYw
-	 E+otM5uXHHEcQRumFomCfTlKCYonUglJ6mNmfZ92KmZ11zXrOU2aePapYMAeuHcBswZeM
-	 4pcU0u1a19xpR5yQpgwQK3ub5pZaWHWlxfTiVYX/zaf6iMieuDxAgm8q+vM4qQ4eU4/lc
-	 RnRePQlSnAWftcfLW0X7OAMhlZ0eTfL9y2Gg2rJjo7S76mj6mPtpvHzi6bjKjec7hd4YT
-	 VUq9th7AJLRJUhE2z1RYzZsSfPvEF4/TCApIK7qqPpFJk9flEfqRX3jYzRQMl333iuA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389901;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
-	b=QN+o6dbn9PV4siGWl+8eOdil5WtkunHmoxxtqPaPJ4ZKF/m10x7FaJGbxFH5pV9C6UD/
-	 CH34jcbLAmStVJzo7gx77Dxb4WNYQ16Y0x6t0uHRfMJBrUSp6oYhsNNqn6MBgUSg9Pyrk
-	 TUZY24IOJmBSyJXOW93H+LULSHsbgXYyKDeXjeY3iy5VDMtre3NhVAAM1mBvP/iZQCGAk
-	 e/omx0LIEF+v3pEoGXn5FWqLW3FUij3YuyI9zNeeF04FHYbjAvWX7AuPzEL3+QNZH3Gys
-	 J+nz33KDo5a0NRkMYJ04pz8FDtO4WcgCjtxAspNAj40lRnLFReKiMnaMhP0bbDXPWjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pcc.me.uk;
-	spf=pass smtp.mailfrom=pcc.me.uk;
-	dkim=pass header.d=pcc-me-uk.20260707.gappssmtp.com header.i=@pcc-me-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=C2w8b7OY;
-	arc=fail smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794390290;
+	b=UuRctn8cyUmgZF6OpZ3vZJ6NBehixVv+RynfMnPlJ0X9sPDaeQIxa2ofuYfNT94lFAhw
+	 gQC9MvsRRRbEPokfaMPdxivPeDK1LqkXbvEiITFLQI+IU62XGNF2aayK0yvSLagjewi2K
+	 mC2LoOunBAppu1ZfGle5gOu4yQJFY/n8+o89Iw9VvF1p2xJgC2Ejy+gSmwHZxDGFzei48
+	 Axesbt6tYhv8+T+ehPjl4SEqn+iuBs7oxoxiIpFLySZ1PINJlMo4s2oRVv2M6QYbBeNqN
+	 w349ls61jTUjcUNOx/Qj4qrwYGN800cTQ29UAoUFeW6lRUUsjU+hLEbpIRzGFCvfRaQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794390290;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=mSg7ezHNLdRMO5rUaap7UyEFdy4UwZI7t6qPA3oqw5g=;
+	b=CJymZrSMbMSKJ4VdVlDlJELyQFu2rS+ScPohd4IQQunDcUJzfu0kgOWPYuv+uIHmlIOH
+	 F9nh1R6KQkdnUwzqYgXwzYVkUbjocKvs4kZN9fIG6w4v4Z/1UzFTXm81C1ZqsIRtX1BA8
+	 ep2RzCF0Ff8EpP806rjJmQXvBhRie8rNGoQdCWl26On8jYkxrlNIdmjYhLfW2sBq/221d
+	 gMgL17UPdhQaCOwgxDcMvLD54NIi5hxiQ6G4K32ShrY0BINb3ul0fGTMxGJ/NfdLURGbk
+	 /AYz46fKxIyZuEeZDMrme+sNjHAYwbnPXkw24EaNdJkNAnzzR2UDVJVFCgQ/SgPmxbA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BetHikey;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCAF60A2635
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBCAF60A2635
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pcc.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pcc.me.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89886606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:44:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89886606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pcc-me-uk.20260707.gappssmtp.com header.i=@pcc-me-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=C2w8b7OY
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b785ca42ebso391957a12.2
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:38:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794389899; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OT/PKU9etc8SGDaSyO5Otk2n+kcxKNtgwni03WV6tVaXuYmYJzdubIbzfG5P38mjKb
-         7/MSa2zAqSk4pNqNSUYZVjFh9IYo1gtSoq4ZhbYMlyrfSW9mnWEEQBUtCttJQviJZr8y
-         T0EAXe3Q0lB8zj2pFwtgODDsT/mnc7+gOWbvt5rfn4jcgZEjKhfiLInye2yk9nRRp8rf
-         gB6Hw9KKNyEe90dutPk7CO3aMxJLCqBO8ZwCmwwDxn9WCSnjyK7gKzJMCDvon9TXDeXf
-         Pi2Ow4gxS0C7pgp7u45hngZWItxQGJcs0YaJyz0+haVXyVVFEWFmOXMc49y8gsOLLtCV
-         8FXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
-        fh=j9I8NTRhKXOwASsAwAhzQn4z/S8dA3EtE5bckaC3p9A=;
-        b=n2udLalItrV+OsYejFNpfmWbsWZEJl2ubqSBs7kAWeyO2Da0yPe7fJMLl96E1ZIfaU
-         XEBrih2LyCKpFKA+X+NN6Oh/MydpgxFZqGV/PXmF0QqOz2ObKp5YmMrIAciQ3+/pXmKq
-         YFh+caCNqKgbzg3YTsPDwYnrNpl1T5JAjadrKKAVPmCo3V/raovkwGLUTROUxAj3Tka8
-         lOoh5E5DOy3MoqAmiOgj8hmS0UWh9BO9gzU7ulGPhwtPnjIy6w7jN0HnXj3BkqMX5rRc
-         gFgosom5oq3AbeU7jMA7nBPIiq2+cISk3Y2VLaknA3yDpKBpLrdKRLvgaEwuvUj2BMh9
-         tyAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pcc-me-uk.20260707.gappssmtp.com; s=20260707; t=1794389899; x=1794994699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
-        b=C2w8b7OYkg7O6ncEssqboYxo4r22YL6J95e/T49TeMXUL2k0xnALN9YymFBsayWC/Y
-         /aiCRjZweTxNor60miNWYMu5GTviTVd+I2jgn9sJflJJMvEgRDTFbUcBWBtVxkBJ8nKK
-         e7AAdO+j9b0hGq41NCxDbWSFFg990yTj4LaDBrvZWHkhJnGNh4fA3ISsavIbx3MYZDyf
-         SNMIilWJLam/OsH0oK1KbGIH2rusvJilQJoU5oDhHomPnmCf+zIoHZkLL72MuOlrwaC9
-         u4BXGOqjXz0vDDexPr4YyiJXEX2H1cc+QJRfyjzBl6IaAE6Mpn9EnyX01x3Pf81XuVXC
-         1+MA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794389899; x=1794994699;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
-        b=kAT8QDvNvHYtK6Twy40PXbKB12D7JUdtBZpBxl1ZZGJb+IqowI0Xk+1DcsPJL6u24E
-         ybp7gNAntL7cvpOqBwF/lpKOtlBPKRuvnCoYVEhGmOLIdx5gDP5M9i8gmYHiUtGuQRML
-         wFTEfMhIomZHTI28BKfUMk+LTkuUxsCOoh+P+goczKYhaijUjKbXKBjmzd3GIdDIkO2Q
-         IjFLcCpPeZano5UVSTjrWZDRRpAJ0QkPO9Cyq9LAzjowMvVRcGf6bohpwhpLcRMUZp/g
-         RSub4hj+Mm2ALtdtk9N64Zvo9J3fvQ2UWVAtAru8zt61h9DeWxnJtxwcBIr+L0X9J3eD
-         qzpQ==
-X-Forwarded-Encrypted: i=1; AL+hErGygwhJmjngNDKiq3FsozhQMkhhcJpCkJxHHl/dakFz9lQcE42hi0O4RtzWCUbRG1jrH/h8Mwo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ckmI6TkWKQ817cwHa2qGV7paSum1qhhxwP6mOHNOq9phBWAZb
-	+aGHvQn8Ut7czlLAkUHnrxjIMaDzwu6m0wIkbD6HaPZJMxZHRJhZfrccm1xgWdxPkW/vRRfpzkb
-	/Px9h4R9mq0HHTaNPsrbmWwQL8iK/zLbK1HH3/vPpfA==
-X-Gm-Gg: AYBFou0GaANG4LNxoach86yoj0V5ZvIKVkYYWSdthzdPYHqUfjfqOE6/zSfNtygjvsU
-	Fdop7eXQEAVpMQTOPWeKw/Pb6xWwPKG7g5c7HGi5TRmywYlcKOgGg0SksnEppGMZtqttRxIg9X6
-	AZDpU8AZckdNGaJc3Po94QbMng8H04A8Yhuc0HUvFn0cOTM/qA/Y9tNdTqehVnJu/xm+QmpsvCz
-	BbYn6Gfc17wGdKs271voEsNJoISFRJKTPNVSer4QhFgWq5t1p197tWJg9+pahCCSSkGMrMIJotU
-	Uct7t0o03nYgAD+EQ6LknfrvmNZH1kWXtpCgMWhtVwyDVCBg2vNIQcn6PvoY12xVob7FzoCKien
-	uEIzPmDbCcuUDWNCpxQc+qC+1SnnUBaFGN4V2ixA2CWVnf77+tgk67F6qdkrrjtFoXW0kCQ==
-X-Received: by 2002:a05:6402:13c5:b0:6b5:76be:be54 with SMTP id
- 4fb4d7f45d1cf-6b777829b2fmr1504916a12.35.1794389899169; Wed, 11 Nov 2026
- 01:38:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BetHikey
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794390289; x=1825926289;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=xpdSU5zA9geXq9QlD3U4rWfHR2Tfm6HGoaBhzYGC1cw=;
+  b=BetHikeyZaVeEevO6CthoQOLEnk8gV+IGZDrEWL0r3Mn7U167ZL+PpGm
+   iz5jdVP4UJwpDRDcok7Z5J/K4LuGicmRGrZp0XTU+bk8enJ5oip/x8Ej0
+   jdiF7xt+BBVai58XKvPfWyFqHhenWzyme+9/6FRY+nLjEXL5WdAY2GpGb
+   DMi797fHFf989MEunDTEtDnn+tWthHOgNsULPNMGNAvgqV/zLcjg4PHDj
+   ctCm669yhwIGjJm/GR4PPmrdfh4/WLGlaHeCcgnA3FLyaXaftzjFhsZGf
+   zmNWbRIh9y9syfCGsjxYUtizquTIyciCAHNRtwkG18ITqMt5Mtp2L3WR7
+   w==;
+X-CSE-ConnectionGUID: 3cXDQEFQTiKiABD4sKgDVQ==
+X-CSE-MsgGUID: T4K5iZnFSomi+zeWv2fCWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3066261"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3066261"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 01:44:48 -0800
+X-CSE-ConnectionGUID: bSoWkVJCT6qZ8arLY0vwvg==
+X-CSE-MsgGUID: FRvokAocTYCdx/JdTfgY7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8559683"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.71]) ([10.124.240.71])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 01:44:47 -0800
+Message-ID: <0c53480c-770f-4568-b44f-cf13961d6f5f@intel.com>
+Date: Wed, 11 Nov 2026 17:44:44 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,85 +72,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
- <20261107-mte-kasan-split-v1-1-d84ea5f30f94@google.com> <avNjcKtuQkZW0_Sr@arm.com>
- <avQqdBEGwje1iVlz@google.com>
-In-Reply-To: <avQqdBEGwje1iVlz@google.com>
-From: Peter Collingbourne <peter@pcc.me.uk>
-Date: Wed, 11 Nov 2026 01:38:06 -0800
-X-Gm-Features: AclHuK-VneSANYCNXJ36s2sFC-63re0-bOqlxxsBmGtmuBf0Sv7UobeBKGGbfM8
-Message-ID: <CAPQLkRi4zdGZRy=59SeaRz67Vj-+jEJKH-eWMZZ=kk8t-=3-kg@mail.gmail.com>
-Subject: Re: [PATCH 01/24] arm64: Fix lazy TCO clear when enabling user MTE
-To: =?UTF-8?Q?Pierre=2DCl=C3=A9ment_Tosi?= <ptosi@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12.y] KVM: VMX: Make handle_bus_lock_vmexit() a shared
+ helper
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: Nikolay Borisov <nik.borisov@suse.com>,
+ Sean Christopherson <seanjc@google.com>
+References: <20261107051725-failed-6.12-326fa2c9b4d3@kernel.org>
+ <20261110151928.2074971-1-sashal@kernel.org>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20261110151928.2074971-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 12:57=E2=80=AFAM Pierre-Cl=C3=A9ment Tosi <ptosi@go=
-ogle.com> wrote:
->
-> Hi Catalin,
->
-> On Tue, Nov 10, 2026 at 06:33:20PM +0000, Catalin Marinas wrote:
-> > On Sat, Nov 07, 2026 at 04:36:07PM +0100, Pierre-Cl=C3=A9ment Tosi wrot=
-e:
-> > > On kernel entry from EL0 with HW KASAN inactive and user MTE disabled=
- or
-> > > in async mode, mte_disable_tco_entry() leaves PSTATE.TCO set to avoid=
- an
-> > > expensive write, as it assumes that EL1 tag checks are not needed.
-> > >
-> > > However, if the thread is in the process of enabling sync or asymm MT=
-E,
-> > > set_mte_ctrl() updates SCTLR_EL1.TCF0 without clearing PSTATE.TCO! As=
- a
-> > > result, kernel uaccesses miss tag faults until the next context switc=
-h.
-> >
-> > Nit: next context switch or another syscall. I think this makes it
-> > clearer that the only potential missed tag accesses after the prctl() i=
-s
-> > a signal frame write as we don't have other uaccesses.
+On 11/10/2026 11:19 PM, Sasha Levin wrote:
+> From: Xiaoyao Li <xiaoyao.li@intel.com>
+> 
+> [ Upstream commit 326fa2c9b4d3e6cab58c139eb55aaabd7179192e ]
+> 
+> Move handle_bus_lock_vmexit() from vmx.c to main.c to make it a shared
+> helper so that TDX can use it for Bus Lock VM exit handling as well.
+> Rename it to add vt_ prefix to reflect that it is a helper for both VMX
+> and TDX.
 
-Or any other kernel entry such as signal delivery.
+TDX support was merged since 6.16. I think we don't need to backport this patch
+before 6.16 since there are no TDX code to share anything and no vt_*()
+functions at all.
 
-> >
-> > > Clear TCO in set_mte_ctrl() immediately after setting the task's SCTL=
-R.
-> > >
-> > > Cc: Peter Collingbourne <peter@pcc.me.uk>
-> > > Cc: stable@vger.kernel.org
-> > > Fixes: 38ddf7dafaea ("arm64: mte: avoid clearing PSTATE.TCO on entry =
-unless necessary")
-> > > Signed-off-by: Pierre-Cl=C3=A9ment Tosi <ptosi@google.com>
-> >
-> > The patch is correct but I wonder whether we need a cc stable.
-> >
-> > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
->
-> Thanks for your review.
->
-> I'm happy to drop the cc in the next version. The rationale was that this=
- fixed
-> an unexpected userspace-visible kernel behavior and closed a window durin=
-g which
-> tag checks were not performed, which _could_ be a concern when userspace =
-enables
-> MTE for security. I can see how this doesn't make a strong case for backp=
-orting.
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+> Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+> Link: https://patch.msgid.link/20260819094903.3060020-8-xiaoyao.li@intel.com
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> [ sashal: Replaced to_vt() with to_vmx() to access exit_reason in the existing vCPU structure. ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  arch/x86/kvm/vmx/common.h |  2 ++
+>  arch/x86/kvm/vmx/main.c   | 12 ++++++++++++
+>  arch/x86/kvm/vmx/vmx.c    | 13 +------------
+>  3 files changed, 15 insertions(+), 12 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
+> index 27beb9d431e00..86d6753a0d867 100644
+> --- a/arch/x86/kvm/vmx/common.h
+> +++ b/arch/x86/kvm/vmx/common.h
+> @@ -31,4 +31,6 @@ static inline int __vmx_handle_ept_violation(struct kvm_vcpu *vcpu, gpa_t gpa,
+>  	return kvm_mmu_page_fault(vcpu, gpa, error_code, NULL, 0);
+>  }
+>  
+> +int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu);
+> +
+>  #endif /* __KVM_X86_VMX_COMMON_H */
+> diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
+> index 8a922ce0d19c4..089a544cba862 100644
+> --- a/arch/x86/kvm/vmx/main.c
+> +++ b/arch/x86/kvm/vmx/main.c
+> @@ -3,10 +3,22 @@
+>  
+>  #include "x86_ops.h"
+>  #include "vmx.h"
+> +#include "common.h"
+>  #include "nested.h"
+>  #include "pmu.h"
+>  #include "posted_intr.h"
+>  
+> +int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
+> +{
+> +	/*
+> +	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
+> +	 * VM-Exits. Unconditionally set the flag here and leave the handling
+> +	 * to .handle_exit() callback.
+> +	 */
+> +	to_vmx(vcpu)->exit_reason.bus_lock_detected = true;
+> +	return 1;
+> +}
+> +
+>  #define VMX_REQUIRED_APICV_INHIBITS				\
+>  	(BIT(APICV_INHIBIT_REASON_DISABLED) |			\
+>  	 BIT(APICV_INHIBIT_REASON_ABSENT) |			\
+> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+> index 8e23e901a7593..a5614dd74e8cf 100644
+> --- a/arch/x86/kvm/vmx/vmx.c
+> +++ b/arch/x86/kvm/vmx/vmx.c
+> @@ -6051,17 +6051,6 @@ static int handle_encls(struct kvm_vcpu *vcpu)
+>  }
+>  #endif /* CONFIG_X86_SGX_KVM */
+>  
+> -static int handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
+> -{
+> -	/*
+> -	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
+> -	 * VM-Exits. Unconditionally set the flag here and leave the handling to
+> -	 * vmx_handle_exit().
+> -	 */
+> -	to_vmx(vcpu)->exit_reason.bus_lock_detected = true;
+> -	return 1;
+> -}
+> -
+>  static int handle_notify(struct kvm_vcpu *vcpu)
+>  {
+>  	unsigned long exit_qual = vmx_get_exit_qual(vcpu);
+> @@ -6144,7 +6133,7 @@ static int (*kvm_vmx_exit_handlers[])(struct kvm_vcpu *vcpu) = {
+>  	[EXIT_REASON_VMFUNC]		      = handle_vmx_instruction,
+>  	[EXIT_REASON_PREEMPTION_TIMER]	      = handle_preemption_timer,
+>  	[EXIT_REASON_ENCLS]		      = handle_encls,
+> -	[EXIT_REASON_BUS_LOCK]                = handle_bus_lock_vmexit,
+> +	[EXIT_REASON_BUS_LOCK]                = vt_handle_bus_lock_vmexit,
+>  	[EXIT_REASON_NOTIFY]		      = handle_notify,
+>  };
+>  
 
-I don't think this needs a cc stable.
-
-I'm also skeptical that this is worth "fixing" at all. All that this
-patch does is move the TCO disable slightly earlier in a way that is
-almost unobservable except by sending a signal to a process at the
-right time. So this patch only has a useful effect if it would
-otherwise be somehow possible to compromise a process by taking
-advantage of the kernel's signal frame write. Even then it doesn't
-really help mitigate anything, it just makes the window of opportunity
-slightly smaller.
-
-Peter
