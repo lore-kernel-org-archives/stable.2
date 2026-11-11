@@ -1,56 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416813;
-	b=DYfMPnH5kAhf+TrXIJtogb7R/pKJH2n39ObTPmeP8pUarWLCqOU8nU801pBVi8xYJVeg
-	 59h8uAJvxOBhN206GBcHOkjZV95JuUrv/QKnsip+K6YqvWgp5ol10gSDJp1U4/zTHA3Mj
-	 YXsJx3BmVDwm7hUR9eo7AoDiW2TFWC2hinQWRFtldpbdZrYQ9gpy8yS/48rrssc8NpdEd
-	 bbk19M2loRKwhrpLy6AEVzpKnotl5O67MKqqlBgorWRRkI0/e+XWFpybgSiYEyGW/oo/G
-	 PI2N7YP6U9LW3QCR5ct77Akyus75Pi1fuAJawcL0VvDy8ugSEZh4Qh9LsCcnfi7su/A==
+	t=1794416817;
+	b=BhKZSDDfxb5zAHPUNJzt8dryFYXK8YZ/O8CoOPuyClaC1GMsy4NLkAzghsD+dtMJsV6x
+	 S36Y5wAd+6diz3Hy/+RL2/yCcBZqVsF8dO32SSb57f4V9h5NuQubxLFboO1BPB4Q5r9nX
+	 tHAct1txt2B1gy5iL4clyDwqvmZhDmdEm2axCmr0btDrKiRORJpa71Yx6DZVPa9uUglJR
+	 N1doCQvGikVasp9Ptr1tT587cibfk4lXhR/rNivSBPKf5GgJeMK9jBz4YUi7B4mn0rSKd
+	 6UX6zfP7BNfH5idq/z8pD0Shs8ekj7rg7kp2gSt4f+g3R63yQ7eKu6UfY/keiN+wWXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416813;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xF6KUOYa5j/uJ3jpM45br7D0iPl99/Qm8tZ2TKVwEp8=;
-	b=d7NhX9y2NeqZjSe8uNRBEmkpfmXMEwls7BWBe9nGAciJUHw3hPbR58TO3s+pWfZItfjs
-	 FXlSOqr/s+qFck7OKJrjZoBR2BR0gUnqFRbdXRZDra6rmnVU5dia1zULH1+Qbm1zsH+Jf
-	 Kk4L0GS2yvP5NXXZx97kh2JKrhlrcnGwlzqVWJh9c3VS22FXt2wtE8ratAtK6+FGW+QOY
-	 v9aNjPwCB6JU5V4dGTUlHG/GyvA+pdHudnhAB3kGioZCaXDlYxp0PwjbToCsa//+9LriR
-	 vNILeuvwGA8Kr90TPCCrq2+MFXfvkLjR7M/nTOmj65bZ0/soWJn7NUCyk/h4AHA6obA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416817;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AwZjNt+AmvnnJlc2JIDYQN6kjA0XRtfGXpIO1xxacwA=;
+	b=VCbBs8VUuW2kESb0X8qJS+YZ38L2RZ0FmSqaXUfTYC9ZfGci9v8VvV5d1MowfiBvg5EP
+	 rrdc4uljv65ivnUnJQiA9ofiK+Tblr8aBfZ2f0ld24RecOKziMC9eqZFMVaQeKPCMoX4G
+	 VCwwaZMljwNVkVVJkkNRMAfnrwPtXDJJvENEqb69V8zeyL89ulVSC6V0NFHrNytrDH9Qh
+	 OIMKhj/FRYlmhFETcifg6DSWeAKXuNuEGJ6ZLIPOEi3XgmrM5vKmcZEwCsNasEeai9o5x
+	 1NAlFq/c8h0FGdYMMDbp/DzFcWd9ED1zPrCMLs3zuMw4iVEwIXsP8paa/Ky87VzZSvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6P713pf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IbmojHWm;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C96606A887
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:06:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B02A606A8B6
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:06:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B02A606A8B6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6P713pf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF3C1F00A06;
-	Wed, 11 Nov 2026 17:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416813;
-	bh=xF6KUOYa5j/uJ3jpM45br7D0iPl99/Qm8tZ2TKVwEp8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A6P713pfyrMLDQ9G8JIrBJYPvEfprinfOuysed+l6Iyb7zosrRLRPTG0QIbJ4GoNa
-	 I3dxcnEJGVcpPxbZF+NY0ZVKNKb2d06dSxi/gGbaybE4M/rFpudRE3+Ho4N6Nl4317
-	 fGf12tcgIXpvP00iB4du+O1wkn8p5nvkZUgcd011rpuuVhJcQelyifcJp/Te85OIlb
-	 GCVG+T6BgmT0sq/iwmmOCC+cpWg/NHT3vqCtnC5gOkAD9OO0m9fV4Q1QCswNdvwcWY
-	 IR2/xlTDN7phcHrxXpEf1einF/eZjZQEKLQf7MMHcOcKWB2EAyfuU526xfKFk6LE5j
-	 6UGYhMq7GweMQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] f2fs: release a removed xattr node in roll-forward recovery
-Date: Wed, 11 Nov 2026 12:06:51 -0500
-Message-ID: <20261111170435.3358982-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050503-failed-7.3-f5924de8867c@kernel.org>
-References: <20261107050503-failed-7.3-f5924de8867c@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IbmojHWm
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a05b210703so1781978b3a.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:06:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794416816; x=1795021616; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AwZjNt+AmvnnJlc2JIDYQN6kjA0XRtfGXpIO1xxacwA=;
+        b=IbmojHWmWD70omZcaVCBU3b2W6NUiCjIa+IrJtazBOuwzFIQceMskZjfN16dYaqWZ6
+         CxswnpmLBmfzKvCU6kXcO1hbDMh6hzwXXM1hSxZT/vNjrk0O5eZ99M1XDQ/E9KFfaE3k
+         XkfHU/7oBuP4ua0kzM/7hh+lf76behzLaDXzQAUIdBJ30Ay01n8Dl5LpZFhTcBHjz5B6
+         G07uRZMTBpihE03hkQ+eLytZG0lKOF9rN19d3+rpmxWwVNndqrDNk1fHMYnEL6JPsVNv
+         6Zgi2Wm8u619S2db1cNeIkt+txLvd50wKvx4yNIw5QOm0oXTSVdoihymawXrTlM4dbfx
+         ssTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794416816; x=1795021616;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AwZjNt+AmvnnJlc2JIDYQN6kjA0XRtfGXpIO1xxacwA=;
+        b=F0B0v3tH7XCt6MB93Eeqk6vKQfsWqdv0SYVFLboPyXRHQqQQeftknk0fMtm5DMbr3q
+         k8N/zpbCqbGK44evNdmQjhMuCToI3Yzkrj2s7niP+4AeUSQW/CGgfKPUqpcKeyZvZIwa
+         Ggd0wo0/igYa+6LJQNdD7Qlfo13Zu0TCuE+j+6ZmKAhTDHmQKZNAHiVDDQmewPTlNDc1
+         1WT8eUSeN1SX7NRsbYC41L5EZ1JNSHg6TjEpEdVqUn9/km9Jg0HVeeMb2+J36LTtH3mS
+         MwMVbwUs2Ry2myx5QEIhcUrvsplBrYmSfCgLljzj1nhSvoWodYFG3w2KKBXqON5hNEpP
+         Frcw==
+X-Forwarded-Encrypted: i=1; AL+hErEY8ozYq/fK1W5uZR9EydE2LHQ79QRCtzn5nFSa5ezJgC22eMWJhBO16k3op0MgzhYJvHfxDKE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UFsLhqXNwQN0NQBRBUR8sZqVSN0qArtlS4DY/EIM+GNGTrs6j
+	x07iuZ49qGG2vOTk1+zub8380zn5buFJYr2ZboLr97HQ/K+P8scCSGsl
+X-Gm-Gg: AYBFou1IeFZexQyaSI+CQDmsapCJCWeTp1q8cOWiOHfOP5u3ezpMw2SKGvpaJcd7i7s
+	UAcwjUPDS7oaiIQ0L0U67dT8Yf9e7l/pB5V7nyTJgJCZSOpYKD5mr4gaN0GpsQTlgzJNuLtXjkr
+	+EOSuDzrjdGQxJj/iDl3UFoi45w45nNp7yn/k5eEQkqbti+0UFI7GifBW1To66K6NQhijhrbVxb
+	g4MZ3Knl5Y5QKyLJnLJIxQVFMFMLJTXIem/qaaQ69E+wmHydm3dyvIrUvHz8X5T1ulSZiyTLOky
+	Ppex8ty8IDhm9VN7hiXFLfLoJBORMaDeZpntn0ru8/lJ5o5E+YlmDKNmEx9atR7MYBcnWmEZF7W
+	JJWfdKD30+GD5bCJngchjZksQVTQuR3uS9FibRpIA4Du0UBqxitEe1SNmhpxQSUCvi3NF1UUuN8
+	RCzD8n100MDDo/V3xpw3+1BoQIYnaNGMjYl6gq1quoBz1POsifsogAc+agn29IWMy8W6+z28Dn6
+	pGqhAl5Z4UsVNhQp0YBFBxbcn85HSl9ENwydM7Yy8YhlglSCjQlgGGvDt7f86JtnCVNMApPwhYi
+	xzbG0g9azBSMaPXsmJr6r5wN2fyXpk1v5CgLcMKMaZhpz1o9zA0OLWRn8ZBfAc5x8D8BPJLgys4
+	Kyg==
+X-Received: by 2002:a05:6a20:ef01:b0:3e2:4bd9:683e with SMTP id adf61e73a8af0-3f2feedf34emr2685736637.73.1794416816286;
+        Wed, 11 Nov 2026 09:06:56 -0800 (PST)
+Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7de3619sm2347806b3a.5.2026.11.11.09.06.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 09:06:55 -0800 (PST)
+From: Weiming Shi <bestswngs@gmail.com>
+To: "David S . Miller" <davem@davemloft.net>,
+	David Ahern <dsahern@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org,
+	co+beaa1ed2d7aaec16@bugs.sh
+Subject: [PATCH net] net: initialize ICMP error queue opt_stats
+Date: Wed, 11 Nov 2026 09:05:30 -0800
+Message-ID: <20261111170528.495116-3-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,93 +110,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+ip_icmp_error() and ipv6_icmp_error() clone a received ICMP skb before
+building its error queue entry.  skb_clone() preserves the complete control
+buffer, while the IP receive paths initialize only the portion aliased by
+sock_exterr_skb::header.  The two functions initialize ee, addr_offset, and
+port, but leave the final byte containing opt_stats and unused untouched.
+A TCX classifier can leave bpf_skb_data_end::data_end across that byte,
+forging opt_stats and making __sock_recv_timestamp() pass skb->len bytes
+from skb->data to put_cmsg().  For a non-linear ICMP skb, this reads beyond
+its linear head.
 
-[ Upstream commit f5924de8867c09206ba631b9faed63862ec00a10 ]
+Initialize both bitfields in the two clone-based producers.  Do not clear
+the whole sock_exterr_skb because the error receive paths consume the saved
+IP control-buffer header.
 
-When xattrs shrink enough to fit in the inline xattr area,
-write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
-the file is then fsynced without a checkpoint, only the inode block is
-written, with i_xattr_nid of 0.
+  usercopy: Kernel memory exposure attempt detected from SLUB object
+            'skbuff_small_head' (offset 72, size 59964)!
+  kernel BUG at mm/usercopy.c:102!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  RIP: usercopy_abort (mm/usercopy.c:102)
+  Call Trace:
+   __check_heap_object (mm/slub.c:8146)
+   __check_object_size (mm/usercopy.c:258)
+   put_cmsg (net/core/scm.c:276)
+   __sock_recv_timestamp (net/socket.c:1061)
+   ip_recv_error (net/ipv4/ip_sockglue.c:550)
+   udp_recvmsg (net/ipv4/udp.c:2034)
+   inet_recvmsg (net/ipv4/af_inet.c:896)
+   sock_recvmsg (net/socket.c:1159)
+   ____sys_recvmsg (net/socket.c:2918)
+   ___sys_recvmsg (net/socket.c:2961)
+   __sys_recvmsg (net/socket.c:2993)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+  Kernel panic - not syncing: Fatal exception
 
-Roll-forward recovery starts from the checkpointed inode, whose
-i_xattr_nid still points to the old xattr node.
-f2fs_recover_inline_xattr() copies only the inline xattr area, and
-f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
-the stale xattr node:
+With HARDENED_USERCOPY enabled, the reproducer aborted the unpatched kernel
+on its first packet.  With runtime usercopy checks disabled and KASAN left
+in report mode, the same recvmsg() returned 59,964 control-message data
+bytes sourced past a 704-byte skb head.  Beyond offset 1,024, 58,932 bytes
+differed from the prefilled userspace marker, including 6,288 nonzero
+bytes.  The patched build completed 2,000 packets under both configurations
+without a forged SCM_TIMESTAMPING_OPT_STATS message or sanitizer report.
+Networking selftests were not run.
 
- - The node block is never released, and fsck reports "nonzero bytes in
-   xattr space after end of list".
- - If the inline xattr list ends exactly at the end of the inline area,
-   its terminator is read from the stale node, and the removed xattrs
-   come back after recovery.
-
-When the fsynced inode has no xattr node but the checkpointed one has,
-release the old xattr node as truncate_node() does: check its block
-address, invalidate the block and drop its node cache, which may still
-be dirty.
-
-Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
+Fixes: 4ef1b2869447 ("tcp: mark skbs with SCM_TIMESTAMPING_OPT_STATS")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: Replaced newer node-cache helpers with f2fs_folio_put() and truncate_inode_pages_range(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/f2fs/node.c | 39 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+Reported-by: <co+beaa1ed2d7aaec16@bugs.sh>
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index b23fe1383009a..a0bd7bbb5cc0c 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2871,6 +2871,45 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct folio *folio)
- 	f2fs_folio_wait_writeback(ifolio, NODE, true, true);
- 	memcpy(dst_addr, src_addr, inline_size);
- update_inode:
-+	/*
-+	 * The xattr node of the checkpoint was removed before fsync, e.g. the
-+	 * xattrs became small enough to fit inline. Release it as well, or
-+	 * the inode keeps pointing to the stale xattrs.
-+	 */
-+	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
-+		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-+		struct node_info ni;
-+		int err;
-+
-+		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
-+								&ni, false);
-+		if (err) {
-+			f2fs_folio_put(ifolio, true);
-+			return err;
-+		}
-+
-+		if (ni.blk_addr != NEW_ADDR &&
-+		    !f2fs_is_valid_blkaddr(sbi, ni.blk_addr,
-+					   DATA_GENERIC_ENHANCE)) {
-+			f2fs_err_ratelimited(sbi,
-+				"nat entry is corrupted, run fsck to fix it, ino:%u, nid:%u, blkaddr:%u",
-+				ni.ino, ni.nid, ni.blk_addr);
-+			set_sbi_flag(sbi, SBI_NEED_FSCK);
-+			f2fs_handle_error(sbi, ERROR_INCONSISTENT_NAT);
-+			f2fs_folio_put(ifolio, true);
-+			return -EFSCORRUPTED;
-+		}
-+
-+		f2fs_invalidate_blocks(sbi, ni.blk_addr, 1);
-+		dec_valid_node_count(sbi, inode, false);
-+		set_node_addr(sbi, &ni, NULL_ADDR, false);
-+		/* drop the cached xattr node, which may be dirty */
-+		truncate_inode_pages_range(NODE_MAPPING(sbi),
-+				F2FS_BLK_TO_BYTES((loff_t)ni.nid),
-+				F2FS_BLK_END_BYTES((loff_t)ni.nid));
-+		f2fs_i_xnid_write(inode, 0);
-+	}
-+
- 	f2fs_update_inode(inode, ifolio);
- 	f2fs_folio_put(ifolio, true);
- 	return 0;
+---
+ net/ipv4/ip_sockglue.c | 2 ++
+ net/ipv6/datagram.c    | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/net/ipv4/ip_sockglue.c b/net/ipv4/ip_sockglue.c
+index a55ef327ec93..3ab84a4c31e5 100644
+--- a/net/ipv4/ip_sockglue.c
++++ b/net/ipv4/ip_sockglue.c
+@@ -429,6 +429,8 @@ void ip_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
+ 	serr->addr_offset = (u8 *)&(((struct iphdr *)(icmp_hdr(skb) + 1))->daddr) -
+ 				   skb_network_header(skb);
+ 	serr->port = port;
++	serr->opt_stats = 0;
++	serr->unused = 0;
+ 
+ 	if (skb_pull(skb, payload - skb->data)) {
+ 		if (inet_test_bit(RECVERR_RFC4884, sk))
+diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
+index ca3605acb433..85f646f8d059 100644
+--- a/net/ipv6/datagram.c
++++ b/net/ipv6/datagram.c
+@@ -330,6 +330,8 @@ void ipv6_icmp_error(struct sock *sk, struct sk_buff *skb, int err,
+ 	serr->addr_offset = (u8 *)&(((struct ipv6hdr *)(icmph + 1))->daddr) -
+ 				  skb_network_header(skb);
+ 	serr->port = port;
++	serr->opt_stats = 0;
++	serr->unused = 0;
+ 
+ 	__skb_pull(skb, payload - skb->data);
+ 
 -- 
-2.53.0
+2.56.0
 
