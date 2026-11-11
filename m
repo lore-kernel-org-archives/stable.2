@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419878;
-	b=xVymQPnMpcbDqG5Tfpa8zNPhOdYb3PhEZZyOU4tSSGVVGqM4lY0eBiIm5QCmmRzkSEyC
-	 Acmlz3EzsEVJ5z/FoQnqoZzHrEPNdXDk6K2R3oPAoPjbWKXTLd5HxxYTimyPlSnKCBj47
-	 LuinIUWqExHMedoJNva8+E7CmHTxUui69nOuksiwOCb5Iw8U4rYzNYsQyCGzSUhuNLPnu
-	 Q0+lIl5ypqpE1VgyQx/jBII36zgBZAVMn2QNDHZ/85sn5bQ34Fpe/abtPdlllKfGyne/+
-	 5t0DXom7asSIaGPCUeegUuo2Zbs8P2TUpRSThsFxFDnMPOUyBOF5a6iBNf6TSxcxGsQ==
+	t=1794419879;
+	b=sTNkyutjlyY5EBAHiduul7u/rolEh7CM7HLO0uyjVY/c+uLrRoCdMX4Ep8GWjXrdretu
+	 63rfBCb6vonTU/a74VOcqKM1tZfBfkJYRA2URQRZpVnSRlYOrMQqIkgGZrvgOCctVaOqz
+	 /LfNdTaYSgDPkyGHuBhL0C7ooTWWtV+XE7O63424S8RR8KpQyFmJqaZPKd5XhyEtewclG
+	 p9SyLE77eDmeIWAIdvMaCFJVCGL99+IENN1VBGYkOJpEddlHubMi1/2qagIFUZUHXL5rZ
+	 0yCbGbMO04hNtRWMPV87a9amIx37dWr0JqC05B6eug3nLRQQJmXX7xsvi2fIirnBOIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419878;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419879;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gtkVZkNgE6K54W6i3XkSzOnd2kTy3omGudTp7cJiBy8=;
-	b=44nDRBFMDSgj+lwRH2L60SauME7PTLI0BS6QEyoJj0YfBpIHkDQoYPNYa4IEpFirZuhJ
-	 aFrsonPd6lAkHK8M6JJlgmEACydp7fwlG+BUXMqPi+WVmj7ANmEhfX1tg57cDIU0iBM+1
-	 gk3nRR0d3kF9c/J2jq3IBpoW4jyct3rgrexUx7XFfYlZHyVSNM/dZ4u2WT4IiHNdQKf5l
-	 KU6s4hWr2QgpIAtyxpUHlB4uoOU/CfunnivKPDtimZ3p8kDOQSBkv7ZXO8sBflizlDk5/
-	 MDDAVSfWf4ZDUAPeuB62ReqZUidz0c3MY0Bpp99tfVwIx9MWuJTfoo/Bku7YqhFKjXA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=7MF9O4y9Y0kOiSZlcJC8i4mUMzwg54noD2A3TS6gAo8=;
+	b=2A3t4myBmfVQfrZD5RxbcC8wvw0gx2VObE/QQ4+WUuYQjUN9VrP4IdF5o6CKivx5N5di
+	 HBZ/uWZfMqPGB/tEIvymIzNiy70EXwINJccGuBkyasB9uxlxO+cNMkIZxo6I15im+Ust0
+	 WjSBevpJlVDe1Zg7n06HwrwEIqDquaY1LzkggXvF2QzmGHF7MDwaj8tulg1Wa45OD1WoF
+	 lAjWo5qN6iOmtLgxUbgPaFdmU0W+2TgpnGECCjzeHhCTKSrzj2RvAXQg5xZOShIYbHJ0K
+	 tZqfe68kq9GP1WC017Wf5RVpVTLUpewx6B0BL1rfh3u0hBq5TbYhXDdjkXg7wmVJaiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiKHo8+e;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F+q+DPD4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3BF60A5BC6
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A98A60A5BE5
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:57:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiKHo8+e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55BFB1F00A07;
-	Wed, 11 Nov 2026 17:57:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F+q+DPD4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530D91F00A11;
+	Wed, 11 Nov 2026 17:57:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419878;
-	bh=gtkVZkNgE6K54W6i3XkSzOnd2kTy3omGudTp7cJiBy8=;
+	s=k20260515; t=1794419879;
+	bh=7MF9O4y9Y0kOiSZlcJC8i4mUMzwg54noD2A3TS6gAo8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eiKHo8+eneKxSOzI/FekpVBr6wwk5y7Gh57BHyMwHISPKHkqIB3HgCAx3ObqOVzIN
-	 IcihKBy5FIdIHrzKIvd7CkW3pZFf9LwzZYAtoKwR9VCUy8GdY0O8RW93GktWVQeOzO
-	 QYZ7MqUwn/t9mf10ne5JdP6wzWYtvZUOaBvlyw6kTbO0OArdWeX6aDt68sYyYsA502
-	 LiGlGrnbv5Mf3gwyPxM9HNZ89veXm3/goOuKRBzhWtgkJ3RrZiHeyLLYB5Clm9wgAP
-	 wHrBwukv2jdwAacpUdsTX55TGxCp6bc8J/7gadl1Tc7+ME+KPdgJ7ey14ugnGmiJnJ
-	 2/L6VQtUaVlLg==
+	b=F+q+DPD4E6ISHDMbYyljbGTZEBH6033Rv0zuEyI4Trzbqbikdb1Wl0ucdrv3fAdj5
+	 FkWuRDAXPtyHMxveXglF0NnpFuevQS3nN+nwAYfkeiqjC50ZIlN7K+94Frme29Zule
+	 kF9Fm+BBS9hZ/wpM1Ajaom8xCuZ32xCV/3aSwkUPSQ50ZV7N21GfFvzKQ6CnzY9YxF
+	 aYhlpF/p9JbecJ69mX+iysLwO8ECIs6SK3ufdntAISeOIPHVUysdLJtzYl2zZVvZIy
+	 HXGe+9PElltUDx78TieL0N7MM6TtcDuvfx5FUassM9h64RrYnWcez56pm1Yz5ZCN0b
+	 2cqkNZYOM0v3g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Stephen Rothwell <sfr@rothwell.id.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Magnus Lindholm <linmag7@gmail.com>,
+	Ivan Kokshaysky <ink@unseen.parts>,
+	Matoro Mahri <matoro_mailinglist_kernel@matoro.tk>,
+	Michael Cree <mcree@orcon.net.nz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/4] arch: turn off -Werror for architectures with known warnings
-Date: Wed, 11 Nov 2026 12:57:52 -0500
-Message-ID: <20261111175746.3724675-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/4] alpha: fix user-space corruption during memory compaction
+Date: Wed, 11 Nov 2026 12:57:53 -0500
+Message-ID: <20261111175746.3724675-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111175746.3724675-1-sashal@kernel.org>
 References: <20261107060811-failed-5.15-fe221b7b2d3e@kernel.org>
@@ -64,142 +62,261 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: Magnus Lindholm <linmag7@gmail.com>
 
-[ Upstream commit 0f0d2871e78db648a2578abbeb9103f484f9b754 ]
+[ Upstream commit dd5712f3379cfe760267cdd28ff957d9ab4e51c7 ]
 
-A couple of architectures enable -Werror for their own files regardless of
-CONFIG_WERROR but also have known warnings that fail the build with
--Wmissing-prototypes enabled by default:
+Alpha systems can suffer sporadic user-space crashes and heap
+corruption when memory compaction is enabled.
 
-arch/alpha/lib/memcpy.c:153:8: error: no previous prototype for 'memcpy' [-Werror=missing-prototypes]
-arch/alpha/kernel/irq.c:96:1: error: no previous prototype for 'handle_irq' [-Werror=missing-prototypes]
-arch/mips/kernel/signal.c:673:17: error: no previous prototype for ‘sys_rt_sigreturn’ [-Werror=missing-prototypes]
-arch/mips/kernel/signal.c:636:17: error: no previous prototype for ‘sys_sigreturn’ [-Werror=missing-prototypes]
-arch/mips/kernel/syscall.c:51:16: error: no previous prototype for ‘sysm_pipe’ [-Werror=missing-prototypes]
-arch/mips/mm/fault.c:323:17: error: no previous prototype for ‘do_page_fault’ [-Werror=missing-prototypes]
-arch/sparc/vdso/vma.c:246:12: warning: no previous prototype for ‘init_vdso_image’ [-Wmissing-prototypes]v
-arch/sparc/vdso/vdso32/../vclock_gettime.c:343:1: warning: no previous prototype for ‘__vdso_gettimeofday_stick’ [-Wmissing-prototypes]
-arch/sparc/vdso/vclock_gettime.c:343:1: warning: no previous prototype for ‘__vdso_gettimeofday_stick’ [-Wmissing-prototypes]
-arch/sparc/prom/p1275.c:52:6: warning: no previous prototype for ‘prom_cif_init’ [-Wmissing-prototypes]
-arch/sparc/prom/misc_64.c:165:5: warning: no previous prototype for ‘prom_get_mmu_ihandle’ [-Wmissing-prototypes]
+Symptoms include SIGSEGV, glibc allocator failures (e.g. "unaligned
+tcache chunk"), and compiler internal errors. The failures disappear
+when compaction is disabled or when using global TLB invalidation.
 
-This appears to be an artifact from the times when this architecture code
-was better maintained that most device drivers and before CONFIG_WERROR
-was added.  Now it just gets in the way, so remove all of these.
+The root cause is insufficient TLB shootdown during page migration.
+Alpha relies on ASN-based MM context rollover for instruction cache
+coherency, but this alone is not sufficient to prevent stale data or
+instruction translations from surviving migration.
 
-Powerpc and x86 both still have their own Kconfig options to enable
--Werror for some of their files.  These architectures are better
-maintained than most and the options are easy to disable, so leave those
-untouched.
+Fix this by introducing a migration-specific helper that combines:
+  - MM context invalidation (ASN rollover),
+  - immediate per-CPU TLB invalidation (TBI),
+  - synchronous cross-CPU shootdown when required.
 
-Link: https://lkml.kernel.org/r/4be73872-c1f5-4c31-8201-712c19290a22@app.fastmail.com
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Reported-by: Stephen Rothwell <sfr@rothwell.id.au>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+The helper is used only by migration/compaction paths to avoid changing
+global TLB semantics.
+
+Additionally, update flush_tlb_other(), pte_clear(), to use
+READ_ONCE()/WRITE_ONCE() for correct SMP memory ordering.
+
+This fixes observed crashes on both UP and SMP Alpha systems.
+
+Reviewed-by: Ivan Kokshaysky <ink@unseen.parts>
+Tested-by: Matoro Mahri <matoro_mailinglist_kernel@matoro.tk>
+Tested-by: Michael Cree <mcree@orcon.net.nz>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Link: https://lore.kernel.org/r/20260102173603.18247-2-linmag7@gmail.com
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 Stable-dep-of: fe221b7b2d3e ("alpha: do not skip TLB shootdown IPIs for kthread-borrowed mms")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/alpha/lib/Makefile    | 1 -
- arch/alpha/mm/Makefile     | 2 --
- arch/mips/Kbuild           | 6 ------
- arch/sparc/kernel/Makefile | 1 -
- arch/sparc/lib/Makefile    | 1 -
- arch/sparc/mm/Makefile     | 1 -
- arch/sparc/prom/Makefile   | 1 -
- 7 files changed, 13 deletions(-)
+ arch/alpha/include/asm/pgtable.h  |  33 ++++++++-
+ arch/alpha/include/asm/tlbflush.h |   4 +-
+ arch/alpha/mm/Makefile            |   2 +-
+ arch/alpha/mm/tlbflush.c          | 112 ++++++++++++++++++++++++++++++
+ 4 files changed, 148 insertions(+), 3 deletions(-)
+ create mode 100644 arch/alpha/mm/tlbflush.c
 
-diff --git a/arch/alpha/lib/Makefile b/arch/alpha/lib/Makefile
-index 1cc74f7b50efb..6a779b9018fd1 100644
---- a/arch/alpha/lib/Makefile
-+++ b/arch/alpha/lib/Makefile
-@@ -4,7 +4,6 @@
- #
+diff --git a/arch/alpha/include/asm/pgtable.h b/arch/alpha/include/asm/pgtable.h
+index 8e3cf3c9f913d..e95fa0ee50c00 100644
+--- a/arch/alpha/include/asm/pgtable.h
++++ b/arch/alpha/include/asm/pgtable.h
+@@ -17,6 +17,7 @@
+ #include <asm/processor.h>	/* For TASK_SIZE */
+ #include <asm/machvec.h>
+ #include <asm/setup.h>
++#include <linux/page_table_check.h>
  
- asflags-y := $(KBUILD_CFLAGS)
--ccflags-y := -Werror
+ struct mm_struct;
+ struct vm_area_struct;
+@@ -227,6 +228,9 @@ extern inline void pud_set(pud_t * pudp, pmd_t * pmdp)
+ { pud_val(*pudp) = _PAGE_TABLE | ((((unsigned long) pmdp) - PAGE_OFFSET) << (32-PAGE_SHIFT)); }
  
- # Many of these routines have implementations tuned for ev6.
- # Choose them iff we're targeting ev6 specifically.
+ 
++extern void migrate_flush_tlb_page(struct vm_area_struct *vma,
++					unsigned long addr);
++
+ extern inline unsigned long
+ pmd_page_vaddr(pmd_t pmd)
+ {
+@@ -245,7 +249,7 @@ extern inline int pte_none(pte_t pte)		{ return !pte_val(pte); }
+ extern inline int pte_present(pte_t pte)	{ return pte_val(pte) & _PAGE_VALID; }
+ extern inline void pte_clear(struct mm_struct *mm, unsigned long addr, pte_t *ptep)
+ {
+-	pte_val(*ptep) = 0;
++	WRITE_ONCE(pte_val(*ptep), 0);
+ }
+ 
+ extern inline int pmd_none(pmd_t pmd)		{ return !pmd_val(pmd); }
+@@ -307,6 +311,33 @@ extern inline pte_t * pte_offset_kernel(pmd_t * dir, unsigned long address)
+ 
+ extern pgd_t swapper_pg_dir[1024];
+ 
++#ifdef CONFIG_COMPACTION
++#define __HAVE_ARCH_PTEP_GET_AND_CLEAR
++
++static inline pte_t ptep_get_and_clear(struct mm_struct *mm,
++					unsigned long address,
++					pte_t *ptep)
++{
++	pte_t pte = READ_ONCE(*ptep);
++
++	pte_clear(mm, address, ptep);
++	return pte;
++}
++
++#define __HAVE_ARCH_PTEP_CLEAR_FLUSH
++
++static inline pte_t ptep_clear_flush(struct vm_area_struct *vma,
++				unsigned long addr, pte_t *ptep)
++{
++	struct mm_struct *mm = vma->vm_mm;
++	pte_t pte = ptep_get_and_clear(mm, addr, ptep);
++
++	page_table_check_pte_clear(mm, pte);
++	migrate_flush_tlb_page(vma, addr);
++	return pte;
++}
++
++#endif
+ /*
+  * The Alpha doesn't have any external MMU info:  the kernel page
+  * tables contain all the necessary information.
+diff --git a/arch/alpha/include/asm/tlbflush.h b/arch/alpha/include/asm/tlbflush.h
+index 64ea0f130cd57..d79d225da6c76 100644
+--- a/arch/alpha/include/asm/tlbflush.h
++++ b/arch/alpha/include/asm/tlbflush.h
+@@ -91,7 +91,9 @@ flush_tlb_other(struct mm_struct *mm)
+ 	unsigned long *mmc = &mm->context[smp_processor_id()];
+ 	/* Check it's not zero first to avoid cacheline ping pong
+ 	   when possible.  */
+-	if (*mmc) *mmc = 0;
++
++	if (READ_ONCE(*mmc))
++		WRITE_ONCE(*mmc, 0);
+ }
+ 
+ #ifndef CONFIG_SMP
 diff --git a/arch/alpha/mm/Makefile b/arch/alpha/mm/Makefile
-index bd770302eb824..101dbd06b4ceb 100644
+index 101dbd06b4ceb..2d05664058f64 100644
 --- a/arch/alpha/mm/Makefile
 +++ b/arch/alpha/mm/Makefile
-@@ -3,6 +3,4 @@
+@@ -3,4 +3,4 @@
  # Makefile for the linux alpha-specific parts of the memory manager.
  #
  
--ccflags-y := -Werror
--
- obj-y	:= init.o fault.o
-diff --git a/arch/mips/Kbuild b/arch/mips/Kbuild
-index d5d6ef9bb9867..ec088204f51cb 100644
---- a/arch/mips/Kbuild
-+++ b/arch/mips/Kbuild
-@@ -1,10 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0
--# Fail on warnings - also for files referenced in subdirs
--# -Werror can be disabled for specific files using:
--# CFLAGS_<file.o> := -Wno-error
--ifeq ($(W),)
--subdir-ccflags-y := -Werror
--endif
- 
- # platform specific definitions
- include arch/mips/Kbuild.platforms
-diff --git a/arch/sparc/kernel/Makefile b/arch/sparc/kernel/Makefile
-index d3a0e072ebe8c..6858304be1dbe 100644
---- a/arch/sparc/kernel/Makefile
-+++ b/arch/sparc/kernel/Makefile
-@@ -5,7 +5,6 @@
- #
- 
- asflags-y := -ansi
--ccflags-y := -Werror
- 
- extra-y     := head_$(BITS).o
- 
-diff --git a/arch/sparc/lib/Makefile b/arch/sparc/lib/Makefile
-index 063556fe2cb1d..59669ebddd4e1 100644
---- a/arch/sparc/lib/Makefile
-+++ b/arch/sparc/lib/Makefile
-@@ -3,7 +3,6 @@
- #
- 
- asflags-y := -ansi -DST_DIV0=0x02
--ccflags-y := -Werror
- 
- lib-$(CONFIG_SPARC32) += ashrdi3.o
- lib-$(CONFIG_SPARC32) += memcpy.o memset.o
-diff --git a/arch/sparc/mm/Makefile b/arch/sparc/mm/Makefile
-index 871354aa3c002..809d993f6d888 100644
---- a/arch/sparc/mm/Makefile
-+++ b/arch/sparc/mm/Makefile
-@@ -3,7 +3,6 @@
- #
- 
- asflags-y := -ansi
--ccflags-y := -Werror
- 
- obj-$(CONFIG_SPARC64)   += ultra.o tlb.o tsb.o
- obj-y                   += fault_$(BITS).o
-diff --git a/arch/sparc/prom/Makefile b/arch/sparc/prom/Makefile
-index 397b79af77f7b..a1adc75d80551 100644
---- a/arch/sparc/prom/Makefile
-+++ b/arch/sparc/prom/Makefile
-@@ -3,7 +3,6 @@
- # Linux.
- #
- asflags := -ansi
--ccflags := -Werror
- 
- lib-y                 := bootstr_$(BITS).o
- lib-y                 += init_$(BITS).o
+-obj-y	:= init.o fault.o
++obj-y	:= init.o fault.o tlbflush.o
+diff --git a/arch/alpha/mm/tlbflush.c b/arch/alpha/mm/tlbflush.c
+new file mode 100644
+index 0000000000000..ccbc317b9a348
+--- /dev/null
++++ b/arch/alpha/mm/tlbflush.c
+@@ -0,0 +1,112 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Alpha TLB shootdown helpers
++ *
++ * Copyright (C) 2025 Magnus Lindholm <linmag7@gmail.com>
++ *
++ * Alpha-specific TLB flush helpers that cannot be expressed purely
++ * as inline functions.
++ *
++ * These helpers provide combined MM context handling (ASN rollover)
++ * and immediate TLB invalidation for page migration and memory
++ * compaction paths, where lazy shootdowns are insufficient.
++ */
++
++#include <linux/mm.h>
++#include <linux/smp.h>
++#include <linux/sched.h>
++#include <asm/tlbflush.h>
++#include <asm/pal.h>
++#include <asm/mmu_context.h>
++
++#define asn_locked() (cpu_data[smp_processor_id()].asn_lock)
++
++/*
++ * Migration/compaction helper: combine mm context (ASN) handling with an
++ * immediate per-page TLB invalidate and (for exec) an instruction barrier.
++ *
++ * This mirrors the SMP combined IPI handler semantics, but runs locally on UP.
++ */
++#ifndef CONFIG_SMP
++void migrate_flush_tlb_page(struct vm_area_struct *vma,
++					   unsigned long addr)
++{
++	struct mm_struct *mm = vma->vm_mm;
++	int tbi_type = (vma->vm_flags & VM_EXEC) ? 3 : 2;
++
++	/*
++	 * First do the mm-context side:
++	 * If we're currently running this mm, reload a fresh context ASN.
++	 * Otherwise, mark context invalid.
++	 *
++	 * On UP, this is mostly about matching the SMP semantics and ensuring
++	 * exec/i-cache tagging assumptions hold when compaction migrates pages.
++	 */
++	if (mm == current->active_mm)
++		flush_tlb_current(mm);
++	else
++		flush_tlb_other(mm);
++
++	/*
++	 * Then do the immediate translation kill for this VA.
++	 * For exec mappings, order instruction fetch after invalidation.
++	 */
++	tbi(tbi_type, addr);
++}
++
++#else
++struct tlb_mm_and_addr {
++	struct mm_struct *mm;
++	unsigned long addr;
++	int tbi_type;	/* 2 = DTB, 3 = ITB+DTB */
++};
++
++static void ipi_flush_mm_and_page(void *x)
++{
++	struct tlb_mm_and_addr *d = x;
++
++	/* Part 1: mm context side (Alpha uses ASN/context as a key mechanism). */
++	if (d->mm == current->active_mm && !asn_locked())
++		__load_new_mm_context(d->mm);
++	else
++		flush_tlb_other(d->mm);
++
++	/* Part 2: immediate per-VA invalidation on this CPU. */
++	tbi(d->tbi_type, d->addr);
++}
++
++void migrate_flush_tlb_page(struct vm_area_struct *vma, unsigned long addr)
++{
++	struct mm_struct *mm = vma->vm_mm;
++	struct tlb_mm_and_addr d = {
++		.mm = mm,
++		.addr = addr,
++		.tbi_type = (vma->vm_flags & VM_EXEC) ? 3 : 2,
++	};
++
++	/*
++	 * One synchronous rendezvous: every CPU runs ipi_flush_mm_and_page().
++	 * This is the "combined" version of flush_tlb_mm + per-page invalidate.
++	 */
++	preempt_disable();
++	on_each_cpu(ipi_flush_mm_and_page, &d, 1);
++
++	/*
++	 * mimic flush_tlb_mm()'s mm_users<=1 optimization.
++	 */
++	if (atomic_read(&mm->mm_users) <= 1) {
++
++		int cpu, this_cpu;
++		this_cpu = smp_processor_id();
++
++		for (cpu = 0; cpu < NR_CPUS; cpu++) {
++			if (!cpu_online(cpu) || cpu == this_cpu)
++				continue;
++			if (READ_ONCE(mm->context[cpu]))
++				WRITE_ONCE(mm->context[cpu], 0);
++		}
++	}
++	preempt_enable();
++}
++
++#endif
 -- 
 2.53.0
 
