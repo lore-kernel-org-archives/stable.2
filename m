@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405044;
-	b=o5zZHlyjgfp8+5B3T2LwG+KHResqQvz/h5iPXYDx/u7KZxeGOMepzX/TLs23JxcUxjTS
-	 44jVGWysGtnb2/+VPQUYY56BAdjDInaBkZSmXX5V76VC6drcIKxwxbOfjaFzyCK/qmRZa
-	 P9bZRaGYonRAXkP8wLekQWDlQNU4mEvPl36F6MSwXnUZ0xu9Ek3YlO5BTDNRHpU3DsHAy
-	 BENc7Z8LIcj/bhQP6I0lsch3Djj7Z8ClT/VWCtJvh+sw1viOfbgHcVa22bHw+M+XmTv+y
-	 p4+JdYv/zlaES6ovZqStx4jCrUZnKBGeqO0qUwo4HHT3FVsKvy3l9vF6fTj4TTMr4+Q==
+	t=1794405181;
+	b=slPtdtcu4VfhSGhpaq0gI+l//sL0iFKBffkA1m3QpCvMyDUJa/lkvSN+OevGObmZbj/H
+	 XjDGfTIPXLXxdWuhgvfynLNZOFzS7h4SmX1BL/l2Kbi5goGGIQ9hEreNSTRfbQ6D3Vq1K
+	 ZoT9dGvhxwMbVEv5MOL1zSg+BRK4ZC5EqQ2kvFq0ANh6ClL5To1RPYlKg3KcgSZZ/9a0B
+	 9KqVP4yHDVdOcy81sBbn91J9JxQ8to9byiZdFlkTXYkwnh3/+20vtZCfoBywQs4AwC8+U
+	 9csT7hxvnRWuz59TzznT5npOpKrMRzc/CXdBZjVQ0nDfKcpPkbgzVtgWcPlYTxDOuqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405044;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=y76zAN4s6IMiCHypH5KC/u3D5OuQIRoWgZTf8LazQxM=;
-	b=vb+uPED/rAoFUtKWSxNLunj8hSdIp4u7NCLEYdQ+J3WbdS/nqGTWtKKc5nQe/6FxGG/P
-	 YUyZueldkVr/UVpiodcPTEJ7wDZyPxfCoBMkOtQBHc9aJOckQzUJ6+8qLr8jLfrsuYoKw
-	 VRx1XEbNa5mqm/i3wdc+wyKLHAh2alodhPJ/sHMuRU7Se4ewsYMlFCSUIPYUwUsdkpaLa
-	 S+r9w/Alm/ktzxIOyoI/+IxDXoThqnK4x/1bCFYxivfJePZ9jF23N0QvNq69y75hl6Yvx
-	 Ob17hThO+NMoO3e3XWsNq3MRRIchI31p97hlDNa07FR/BZYIRFuyuZAvN2HNJL0qcPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405181;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=v71XpPF6azQMZJDYxnu4wkyjgWByHd4xKZAt+IzoWgk=;
+	b=srp6fVsuqeYWgZzTnUSRfd754cF9yj36eovWws7ZF6xFyvcFNxihCAAVivKvRxlU9roN
+	 HWUu1b+ii7xFnnnB3ZwDT6g8CWr2a5H/yby1T9B6H0rWrbyp1SsLbVzR9DsUDVjRAbTjd
+	 9EkHujjE2k4AafZIRbtiRbqjp1sSrqZ2kcq4a5CeetKoxq1v2vZ0eR1XtbsOVc3IMfc68
+	 3yaJV1IXaQx0fOexdNMV1d94op5tbOSavA0BfZmdpFUXwo0nfjez7tHMWfaY+b4Oy7NwX
+	 Y3IoLAYabbp60xCOJlzBN9r28FsSd8EKw2mDf8SysEKNc58c6qCN7iNiPvWQGDRZBag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IhCzCrMo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJ6RVn2h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECB560A263F
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A51C606A31C;
+	Wed, 11 Nov 2026 13:53:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IhCzCrMo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B4E1F00A0C;
-	Wed, 11 Nov 2026 13:50:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJ6RVn2h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CCA1F00A08;
+	Wed, 11 Nov 2026 13:52:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794405044;
-	bh=y76zAN4s6IMiCHypH5KC/u3D5OuQIRoWgZTf8LazQxM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IhCzCrMoktcoLqKpYoqsMBQGcgWnZidpFpSGsIE1pEWgd1/sMMIHqiEWLhCpFsofs
-	 n3iudCti0DCiqmlKE436dmaB6aeMjKtyg4HyLmMMsXOaOD/1vfUK7utptMqeTUdB4u
-	 BvQHgriCjfKPyueqoKVH9z4ogiJE76krYkvSAD3RWNZ1WEAom3Y9q2KFv5n8scqDRm
-	 QTjMRIOXhBIhVNtehADArC355Djrf0/ws2GHABi5LL5LJckZI8w6LQqJ5JQjMaHkLV
-	 BMLr+KMADXquvkh/1m7/QK7iY9n174iBBouBL1YXb1TkM1hsDHiAGKkx+UUvMXi7QD
-	 c5Unv4mZ6AIzw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	stable@kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] f2fs: fix defragment writeback range truncation on 32-bit
-Date: Wed, 11 Nov 2026 08:50:41 -0500
-Message-ID: <20261111135034.2134948-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111135034.2134948-1-sashal@kernel.org>
-References: <20261107060550-failed-5.15-92154fe28c37@kernel.org>
- <20261111135034.2134948-1-sashal@kernel.org>
+	s=k20260515; t=1794405180;
+	bh=v71XpPF6azQMZJDYxnu4wkyjgWByHd4xKZAt+IzoWgk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IJ6RVn2h3nqYDMQiJqYV4ZnYg/Du0eAeh/tG6f83XZr8a7BWuCSH+3o1eue839hUY
+	 MipkFHnxxuaI4SPZLDqzobq7U+vRxaTavj+YhPYnwVPsGlRsTuNgzwrypRWZXdlCxe
+	 7WNYdxMtkl8aseObBDDybWR4x+2nZS6B1ROjZO/nxF19Pj3BBQILbcpmCYpi1RdhWQ
+	 6JlKbsDtFsgNUx60wqnEQiEB9y2irok/cA1AHmKkPoF8sEzo7aQ3mWCjiNgYl2H+7U
+	 RaRjWpT9eJyte4ILaqI5RTIBWsqSvXB3HgxM6xcH7NnmPAV5h2iOYgokgSyW25KmsJ
+	 r8xSysKjIM/Lw==
+Date: Wed, 11 Nov 2026 13:52:56 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] arm64: suspend: Save POR_EL0 over suspend
+Message-ID: <55361015-8054-482a-8c90-b440282c3cdb@sirena.org.uk>
+References: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
+ <20261105-arm64-fix-sysreg-suspend-v1-1-f4d9a99fec46@kernel.org>
+ <3479391a-ec0f-46a8-9384-ec084017d344@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,62 +63,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bn/aNT600hJIxnxl"
+Content-Disposition: inline
+In-Reply-To: <3479391a-ec0f-46a8-9384-ec084017d344@arm.com>
+X-Cookie: Do not pick the flowers.
 
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
 
-[ Upstream commit 92154fe28c3701bebf75176dc5522bec62519a8f ]
+--bn/aNT600hJIxnxl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-f2fs_defragment_range() flushes the range it is about to defragment:
+On Wed, Nov 11, 2026 at 01:33:27PM +0000, Vladimir Murzin wrote:
+> On 11/5/26 16:05, Mark Brown wrote:
 
-	filemap_write_and_wait_range(inode->i_mapping,
-				pg_start << PAGE_SHIFT,
-				(pg_end << PAGE_SHIFT) - 1);
+> > This increases the size of struct cpu_suspend_ctx.
 
-pg_start and pg_end are pgoff_t, 32 bits on 32-bit kernels, so both
-shifts are evaluated in 32 bits and truncated before they are widened to
-the loff_t parameters.  pg_end is only capped by the file's page count,
-so for a file larger than 4 GiB the shift wraps.
+> This seems to be implied since we need storage to keep register value, no?
 
-For a 5 GiB file pg_end is 1310720 and the range collapses from
-[0, 5 GiB) to [0, 1 GiB), leaving the rest of the dirty pages unwritten
-before the blocks are moved.  For 8 GiB the shift yields 0, the minus one
-makes it (loff_t)-1, and the range becomes [0, LLONG_MAX].
+Yeah, it's just noting that we're not fitting in the existing padding
+which prior commits seemed to be keeping track of for reasons I'm not
+100% specifically clear on.
 
-The matching call in f2fs_collapse_range() already casts:
+--bn/aNT600hJIxnxl
+Content-Type: application/pgp-signature; name="signature.asc"
 
-	filemap_write_and_wait_range(inode->i_mapping,
-				(loff_t)index << PAGE_SHIFT,
-				((loff_t)pg_end << PAGE_SHIFT) - 1);
+-----BEGIN PGP SIGNATURE-----
 
-Do the same here.  On i386 the shift changes from "shl $0xc,%ecx" to
-"shld", i.e. from a 32-bit shift to a double-precision one.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0czcACgkQJNaLcl1U
+h9ByEgf/dlknCiYa8K6jEoFx94FY49Bto/TdB0IVuxUu9buCHBQYp5yBrhNsjlfl
+xAfEG1OP3A8AYZZUfRza7DknYjhfzbXt3SchXLFpQg9WyXZgGKXPmAcS6l3ajCyH
+8MyLesNjC//8hUZtYV8x/dvg3kv+jRFnJ8kdmm4DPZnUyOeuU6SUtpaZhAUpBd1I
+RT+bjMfmm+I8V3RbaRsEUU8kduItDSy6m4NpxktIAMTJsond93MzljcbFX7j2BWl
+NuwsHFg7S/qet1RdiL73qiNJ2xfokAZ0kendcGDIi3YsBSLZ1UjLoskDHM+E5Qar
+O8BbYGd52yrFOThElsqCOfiqTdP78A==
+=hmBE
+-----END PGP SIGNATURE-----
 
-Cc: stable@kernel.org
-Fixes: d323d005ac4a ("f2fs: support file defragment")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/f2fs/file.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 36a2fbfc19997..943767254c7a3 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -2633,8 +2633,8 @@ static int f2fs_defragment_range(struct f2fs_sb_info *sbi,
- 
- 	/* writeback all dirty pages in the range */
- 	err = filemap_write_and_wait_range(inode->i_mapping,
--						pg_start << PAGE_SHIFT,
--						(pg_end << PAGE_SHIFT) - 1);
-+						(loff_t)pg_start << PAGE_SHIFT,
-+						((loff_t)pg_end << PAGE_SHIFT) - 1);
- 	if (err)
- 		goto out;
- 
--- 
-2.53.0
-
+--bn/aNT600hJIxnxl--
