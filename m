@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=89.221.237.201
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794357729;
-	b=YfB30tlYtEATguD31opORbDfUl3EljCFlK0uBkjHehVHbOzDz+Kx6IuPMcNEyYWSGzgj
-	 czQH4/ATvs6YmUm48lvH9tdJcKunVMBjTskkJzSRRs/3GtXrO+MDILZ7DeSmCql/vGExc
-	 qihtje6jrFdIk3Z25KAmdkolTsKN6dqudv99OoH3bJh3MLMjZOkeWuAuqfIyHET/QbC3x
-	 UJUJxnYAglc1KxK0kmFdCc+f4bSYypxnHTEjBMY1W+GIfnVcr8nCcnCiD8YbQ2JaKMeH3
-	 8SqIejDFKw1FgYzgGuAYjcle5cMMmKinLycDso9GdbyR8BN2CBPGtt7AhmzLGaNLkZw==
+	t=1794357838;
+	b=ocehifQjW7r5/iyUYbhyVGi7n1V8WMR+G298w7GQXxrsRhJn7HwiuyCdv+OZQh/OVZq/
+	 6AU0BZpTNDmP8QyZlE/d2ZyDZHURpkk6xR1H/NJjWx+BG8ZIUETJgKTW73BkPLgcf23kc
+	 DzxSKYf3nGuIFM0Nan9MZG+lYX1glV0DXsGJ+WuXf5Ov33CGrtLO1q9j4Hbl2JVkib28e
+	 EcyYv0aBCJW+tiISx5BgcK2EU7LIlNNEpWUeWN7/RtWWC7BlK1WPXkie/dgIqSz31RWIW
+	 tyjFI/yteXJjey5WjoMh8MG9ryI8FnbUCKh6mtkC6n9qQbGNl+Krf9PnjNp1zFKy74Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357729;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ZBrUBkuVCJ8jk/FQKVI5TQDWBhCPPKzrv3AMz7D1GrE=;
-	b=KLhZMAPX/jCHaDnKzd5CO2rz2b26kvgt64zdoEsxX8zq+UY0zRVtXGh04NTo7YVNqZi0
-	 Ktgt4uT9LY263YxDeP8V5mJ0+nBhBatTRHRWgM7gEQIkGe29bv+CRVXP1AYBWCJvFaTT4
-	 luqcGqS9rhcTTXZgfjS69YZmORTrcTJViAvIbRh+HfQs9TUTFkk58HWW2MYFp3fWegPix
-	 oyLBewN6ZgzxuvE0wqjWh1aYtT2Y71i/KS+66i+3YrVWosZIzuTVDXyZ33nFWbB975DRt
-	 dyFtEps1AyEQANXGCC3kWKcMG7DEU1EHb4ff5z/wlp1FFkNjGRfkPv18PDOa8r44C4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357838;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Mailru-Src:X-7564579A:X-77F55803:X-7FA49CB5:X-C1DE0DAB:X-C8649E89:
+	 X-D57D3AED:X-Mailru-Sender:X-Mras;
+	bh=s96wscDNW6KXZN5goNn2emWUK3WEavjmcezSRHjXda8=;
+	b=bjw4MUx4oUs/d7wDeTOkZnevpJqxq/YYFZYcsvIOoY4SXBaxTsMzYq6cQooJh6xgtc9C
+	 fsCW2I1J/c7WsDWyDMRWLJcB8PemTO66L/ByJe1M/yupgztUN6aKPbDQyazI3q+NUwCZR
+	 jbZapRFKyNMGFREk5gVIj8mXl7jsKP/20HXdsLZNHhC0DwwImyW710jJ/PlTR2Yj8pro9
+	 xMWsG/Sl1sXfHhjooEwrll9FuH0BilhD7pnEm/thTAbw/poXV56aRl8kiaD73zwjvvqv4
+	 iL1WJlMqO/dv6Z6P4qoFSZNiCNh3NM30EWGg2J6LlQzTcTYfP1gjp/XsWnv6IhJ3+UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQTL8OlH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mail.ru;
+	spf=pass smtp.mailfrom=mail.ru;
+	dkim=pass header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=f6HKy8hP;
+	arc=none smtp.remote-ip=89.221.237.201
+Received: from send106.i.mail.ru (send106.i.mail.ru [89.221.237.201])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8CC606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:42:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9CB606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A9CB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQTL8OlH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28FD81F0093C;
-	Wed, 11 Nov 2026 00:42:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794357729;
-	bh=ZBrUBkuVCJ8jk/FQKVI5TQDWBhCPPKzrv3AMz7D1GrE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OQTL8OlHYei6ZM9pQduMqbMZaOR7h7huw22VnMgDB62WKjSxtg2E3teTRXB5qMS7W
-	 qbcCd00C3zkx1evkmGMHfXDOO19vtaWHQG/X42P8FQcjfyvpz10gRpmxVLLqyRXP6+
-	 wFZzeZ873h2iUvpfyhzVUi39It08PGAsBYQVTwPAiWr+bJQM/zsCLYLC8ZOBWSBHKV
-	 NneRTUA2kbmXqdkQlFEDwvkYvqJCgjRQK7tJ0pM02sjGXrd1XxelCexJLTpJb9Zqf6
-	 0O8TtR2JGBCmbslraQxJbwwxOwdRga/HD80dR3LZippHcrlZJhBohKw0F7I9fgdHQQ
-	 Fdxngd6PypzoA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Gregory Price <gourry@gourry.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Peter Xu <peterx@redhat.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
-Date: Tue, 10 Nov 2026 19:42:06 -0500
-Message-ID: <20261111004148.287534-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=f6HKy8hP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+	s=mail4; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:
+	To:From:From:Sender:Reply-To:To:Cc:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
+	X-Cloud-Ids:Disposition-Notification-To;
+	bh=s96wscDNW6KXZN5goNn2emWUK3WEavjmcezSRHjXda8=; t=1794357836; x=1794447836; 
+	b=f6HKy8hPUhaCFSYfA6rQzhqDE400DEGmg2jHf0A9V0W/KjXcXIki8mYt3EWlIgQRS5ZAEbm3HwG
+	nNeeiKjm+cVTiiVoBEBsK+ld6+5IvMq9HrXpeNkTMVNTV3EG9msAyzabD/u285iX27b+UZZNZ7n/O
+	G+j9N638ix/wJd07Y+1i8bRHBYqhFIAqFBBwd6GKwh9Qk/a6xEbYd+i94X5nY9P3JAnPoTTb0jRxx
+	vEehgmLszmPeY3u8vT0ajdcN3p4wY3eqJN097a5V9TkTEtE8+uXj1+r7punYPogM+eSiqOiohvF0s
+	wNyKA46oYEs3UYwCxSFnm4ndBnJGiKUS6V+g==;
+Received: by exim-smtp-5cc8b577fd-ffc6m with esmtpa (envelope-from <gvozd188@mail.ru>)
+	id 1xQwRI-00000000Geg-2Fzh; Wed, 11 Nov 2026 03:43:48 +0300
+From: Vladimir Nedoshivin <gvozd188@mail.ru>
+To: sashal@kernel.org
+Cc: stable@vger.kernel.org
+Subject: Intel VMD 8086:ad0b: ARL004 stable fix also requires Second Root Bus support
+Date: Wed, 11 Nov 2026 04:43:28 +0400
+Message-ID: <20261111004328.11209-1-gvozd188@mail.ru>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052032-failed-6.12-9057170a941f@kernel.org>
-References: <20261107052032-failed-6.12-9057170a941f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,182 +66,171 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Authentication-Results: exim-smtp-5cc8b577fd-ffc6m; auth=pass smtp.auth=gvozd188@mail.ru smtp.mailfrom=gvozd188@mail.ru
+X-Mailru-Src: smtp
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD960A32E02787845125A7EADB9572D408D599195B75B12B1FA182A05F538085040DFE7B934027BFA3E3DE06ABAFEAF67057C6387332C7D8423861817D778526D99ABAB3F2802300857
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7C6068CE86C2B75F5EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637AC83A81C8FD4AD23D82A6BABE6F325AC2E85FA5F3EDFCBAA7353EFBB553375669BFFA6ABF9D5DBB93514EB304EAB389F31D548B0F38DDA5EE327E5CDAE82D3BE8EEF46B7454FC60B9742502CCDD46D0D062BEEFFB5F8EA3EF6B57BC7E64490611E7FA7ABCAF51C92176DF2183F8FC7C0CB629EEF1311BF91D2E47CDBA5A96583BA9C0B312567BB2376E601842F6C81A127C277FBC8AE2E8B1ECCCC3F2AC951FC3AA81AA40904B5D99C9F4D5AE37F343AD1F44FA8B9022EA23BBE47FD9DD3FB595F5C1EE8F4F765FC72CEEB2601E22B093A03B725D353964B0B7D0EA88DDEDAC722CA9DD8327EE4930A3850AC1BE2E735157381330E1A1978C4224003CC83647689D4C264860C145E
+X-C1DE0DAB: 0D63561A33F958A5D52E56629C99BDBD5002B1117B3ED696FB7EB47A84A28CAE8B25839F35DFE037823CB91A9FED034534781492E4B8EEAD191B9814762F309EC79554A2A72441328621D336A7BC284946AD531847A6065A17B107DEF921CE79BDAD6C7F3747799A
+X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F9677DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D659001DE998A889BEF7BC32BF4F8B290C585E12AFFAE5AED0F077572E4015E488A6CE9957864F11E511B8341EE9D5BE9A0AC69EB922256B0B2C3571FB89362F1CE1D8F9DA9105FFB6A98CD93680B12512CF4C41F94D744909CE0346A531A93BA247997F67558ABE823CF0A6D2C91ED28CB6
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4Zrk3igikrdHlWA9nyXmeaHaGAP+qXqN/L60=
+X-Mailru-Sender: A47ED0EA96B79D3129134CB94CD97376D3DBE171EA7DE143B951B70A5BD4BD8E221831D635679E4D32E5092D52DEA5C453148BAE84F7D0213DDE9B364B0DF2894C9083906008D79F5EA11F3C5F3A97E80D4ABDE8C577C2ED
+X-Mras: Ok
 
-From: Gregory Price <gourry@gourry.net>
+Hello Sasha,
 
-[ Upstream commit 9057170a941f0c5f4058f6fb9ab5d5fc9fcc9e83 ]
+I would like to provide an update regarding the Intel Arrow Lake
+VMD ARL004 fix and its implications for stable kernel backports.
 
-Patch series "mm: stop calling pmd_folio() on special PMDs", v3.
+On my hardware, the ARL004 interrupt-ordering fix and the VMD
+Second Root Bus support are both required for a working system.
 
-Two page table walkers resolve the folio behind a PMD with pmd_folio(),
-which is only valid for a PMD mapping a refcounted struct page:
+Neither change alone resolves the complete problem.
 
-  madvise_cold_or_pageout_pte_range() mm/madvise.c
-  queue_folios_pmd() mm/mempolicy.c
+The original investigation is documented here:
 
-vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
-have a memmap entry at all.  Both walkers can reach one and fault on the
-first folio field read.  The PTE halves of both already use
-vm_normal_folio(); these two patches make the PMD halves match.
+https://bugs.launchpad.net/bugs/2166325
 
-The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
+Hardware:
+- MSI Vector 17 HX AI A2XWIG
+- Intel Core Ultra 9 275HX
+- Intel VMD controller 8086:ad0b
+- Phison 1 TB NVMe SSD
+- Ubuntu 26.04
+- Secure Boot enabled
 
-  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
-  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
-  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
-  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
+1. Original problem: NVMe enumeration failure
 
-can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
-madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
-supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
-never runs and vfio-pci is reachable by any process holding the device fd.
-Hence the different stable tags.
+With the original Ubuntu VMD driver, the kernel reported:
 
-One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
-region now returns 0 rather than -EIO.  The PTE loop already returned 0
-there.  drm_gem_shmem and panthor are where this is observable, since they
-PMD map pages that do have a memmap entry and so never faulted.
+  vmd 0000:00:0e.0: Unknown Bus Offset Setting (3)
 
-Reproducer
-==========
+The internal NVMe controller was not enumerated, preventing
+Ubuntu from booting from the SSD.
 
-No hardware needed.  An out of tree module stands in for the drivers
-above: three misc devices, each with a ->huge_fault calling
-vmf_insert_pfn_pmd(), plus VM_HUGEPAGE so the fault path takes the PMD
-branch.
+The ARL004 interrupt-ordering fix alone cannot resolve this
+enumeration failure because it does not implement support for
+the second VMD root bus.
 
-  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
+2. Second problem: ARL004 interrupt ordering
 
-Userspace maps the device into a PMD aligned window, reads one byte to
-fault the PMD in, checks a module parameter to confirm it went in, then
-issues the operation.
+An earlier revision of Szymon Durawa's Second Root Bus series
+restored NVMe enumeration.
 
-  vng --run <bzImage> --user root --memory 4G --verbose \
-      --append "numa=fake=2" \
-      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
+However, without the ARL004 workaround, storage operations
+experienced repeated completion timeouts and long stalls.
 
-numa=fake=2 gives a node 1 to bind to; the module allocates its real page
-on node 0, which is what makes queue_folio_required() true.
+The kernel reported:
 
-  subtest        operation                              parent   series
-  --------------------------------------------------------------------
-  madv_cold      madvise(MADV_COLD)                     oops     ret=0
-  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
-  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
-  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
-  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
+  nvme nvme0: I/O tag ... timeout, completion polled
 
-Two things the table shows that are easy to miss in the code:
+A diagnostic 1 GiB sequential read required approximately
+121.339 seconds, corresponding to only 8.8 MB/s.
 
-  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
-    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
-    vma_migratable() is true for VM_MIXEDMAP.
+The underlying issue was identified as Intel ARL004:
 
-  - mbind_real demonstrates the user visible change (-EIO -> 0)
+  MSI from VMD-Owned Device May Pass Memory Write
 
-This patch (of 2):
+An experimental PCI configuration-space read before interrupt
+dispatch resolved the observed completion timeouts.
 
-mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
-vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
+The same diagnostic read then completed in approximately
+0.882 seconds.
 
-	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
+The upstream solution enables the existing VMD interrupt-ordering
+quirk for Intel Arrow Lake VMD device 0xad0b.
 
-With a stand-in module for the driver:
+Upstream commit:
 
-  BUG: unable to handle page fault for address: fffff96dc0000008
-  RIP: 0010:queue_folios_pte_range+0xaf/0x440
-   walk_pgd_range+0x52b/0xaf0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_mm_unsafe+0x193/0x230
-   queue_pages_range+0x64/0xa0
-   do_mbind+0x25e/0x640
+  2c88c2dc1852
 
-queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
-is raw MMIO with no memmap entry, so the folio lands in unpopulated
-vmemmap.  Neither guard stops the walk:
+Subject:
 
-  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
-                           supplies ->test_walk, so it never runs
-  queue_pages_test_walk()  honours vma_migratable(), but only while
-                           MPOL_MF_STRICT is clear
+  PCI: vmd: Flush DMA writes before handling MSI on Arrow Lake
 
-A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
-mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
-into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
-mapping.
+3. Both fixes together: successful v10 testing
 
-Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
-queue_folios_pte_range() already does with vm_normal_folio().  This also
-filters the huge zero PMD, so its separate check is no longer needed.
+I have now tested the complete seven-patch Second Root Bus v10
+series from Szymon Durawa, based on Linux 7.4-rc1.
 
-mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
-rather than -EIO.  The PTE loop already returned 0 there.
+The test used:
+- Ubuntu kernel 7.0.0-43-generic
+- VMD source from Linux 7.4-rc1
+- All seven Second Root Bus v10 patches
+- The upstream ARL004 interrupt-ordering quirk
+- A separately compiled and signed VMD module
+- A dedicated test initramfs
 
-Link: https://lore.kernel.org/20260926105110.2156652-1-gourry@gourry.net
-Link: https://lore.kernel.org/20260926105110.2156652-2-gourry@gourry.net
-Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Assisted-by: LLM
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: <stable@vger.kernel.org>
-[ sashal: Passed *pmd to vm_normal_folio_pmd() instead of the upstream cached pmdval variable. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/mempolicy.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+No additional local ARL004 workaround was applied.
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 6f29f764762b2..193ebf34bf083 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -500,7 +500,8 @@ static inline bool queue_folio_required(struct folio *folio,
- 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
- }
- 
--static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
-+static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
-+		struct mm_walk *walk)
- {
- 	struct folio *folio;
- 	struct queue_pages *qp = walk->private;
-@@ -509,11 +510,9 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
- 		qp->nr_failed++;
- 		return;
- 	}
--	folio = pmd_folio(*pmd);
--	if (is_huge_zero_folio(folio)) {
--		walk->action = ACTION_CONTINUE;
-+	folio = vm_normal_folio_pmd(walk->vma, addr, *pmd);
-+	if (!folio || folio_is_zone_device(folio))
- 		return;
--	}
- 	if (!queue_folio_required(folio, qp))
- 		return;
- 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
-@@ -545,7 +544,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
- 
- 	ptl = pmd_trans_huge_lock(pmd, vma);
- 	if (ptl) {
--		queue_folios_pmd(pmd, walk);
-+		queue_folios_pmd(pmd, addr, walk);
- 		spin_unlock(ptl);
- 		goto out;
- 	}
--- 
-2.53.0
+The system booted successfully.
 
+Both VMD PCI domains were created:
+
+  10000:e0
+  10001:e1
+
+The NVMe controller was detected behind BUS1:
+
+  nvme nvme0: pci function 10001:f1:00.0
+
+A 4 GiB direct sequential read completed in 4.16695 seconds,
+approximately 983 MiB/s.
+
+This is comparable to the performance of my previously working
+ARL004-specific driver.
+
+The physical VMD MSI-X interrupt counters were active.
+
+No VMD/NVMe errors or timeouts were found in the checked logs.
+
+The complete test report was sent to the Linux PCI mailing list:
+
+https://lore.kernel.org/r/20261111003249.10880-1-gvozd188@mail.ru
+
+Please note that this was an external-module test against
+Ubuntu 7.0.0-43, not a boot test of the complete Linux 7.4-rc1
+kernel.
+
+Dedicated write stress tests, suspend/resume, and long-term
+stability testing remain outstanding.
+
+4. Stable backport implications
+
+For this specific Intel VMD 8086:ad0b platform:
+
+- ARL004 fix without Second Root Bus support:
+  The NVMe controller cannot be enumerated.
+
+- Second Root Bus support without the ARL004 fix:
+  The NVMe controller is detected, but severe I/O timeouts occur.
+
+- Both fixes together:
+  The system boots successfully and NVMe sequential read
+  performance is normal.
+
+Therefore, backporting only the ARL004 fix is insufficient
+to restore functionality on this hardware.
+
+I am not suggesting that the ARL004 fix should be withheld
+from other systems that benefit from it independently.
+
+However, I believe the dependency on Second Root Bus support
+should be considered when evaluating stable backports for
+affected Arrow Lake VMD platforms.
+
+Could you advise whether the Second Root Bus series could
+also be considered for the relevant stable branches, or
+whether the two changes should be tracked together for
+affected systems?
+
+I understand that backporting the Second Root Bus series
+may require additional work.
+
+I would be happy to test a stable backport on this hardware
+and provide diagnostic logs.
+
+Thank you for your work on the stable kernel series.
+
+Best regards,
+Vladimir Nedoshivin
