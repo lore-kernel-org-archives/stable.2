@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437935;
-	b=c/vaXRy1BykLnAN2X00IoUyCU1mp7gAB/LiLyv2VHGj7SM8o9L30QBUvxXrCdWoE6kUI
-	 xzaYsOmWvNv/2g0a7D2SQ+36QqDobRqp+PBAotMg/lpgQ9a/SU5RUoogo1NyROIhWlqLm
-	 aO2ArAKjRxrTmPhBcjnMKm+py8bd4ZDygAjsfubw8XJznOGENPpqRTIGheCR9W140ndIX
-	 EGTUfLQX2tdNvJ8hUtGYzzEF3dWQyB7QB8z5E4sInM9hnMLz1TDXgeAS37tIuKPcP24kF
-	 Lgk0WD4zHnoq2bgT+KqDry5tPILJSdoqPwEo7KUHZZpRnG9ndCnzm99mORHUWdzaYOg==
+	t=1794438012;
+	b=cQbmTShBCbpYgBGhAv8cfEcBtGlH9r9SeofDnQnhctT5oX9JgnuBCaQ9r5x4xWJrMMgj
+	 2PUzksaVYjqR0lo3odkRD0EmgpMWLkhZiB4RO/+RpuGhhO5Kmu5lnK0U5zM5WZLMYf/tk
+	 E2jXH0LyDu/WCe4bUoUv5jTiFYkbfcJFCsuq0uS2zDVJ/38XICJnuyLXB4CJFOa07fCy/
+	 yAgwMw415323IlDGLKmtnKCoJYSK0acwQxa07r31qiAr0ZtbBAkrcTeimoZXy9i2M2sLP
+	 DVkfjgYu5j81tWkGZ3eIYCTp7Z8cC2EdEDPWbpM+drM9V6uNkJXqxkLutW7705nOSIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437935;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TzJTPbR6SC9l5NI7nxCWU+amiTYjFZi6nsMXDnNAE1s=;
-	b=eaxg6rbywm21CAq7rPSTZ9c2AOVfUkQ3E4ue0J4I7Q3psDOJmQI6Um+HQXLBbW201XbM
-	 gkXSLuN8M3msCK/QDDKoG7+F5xe/ICcfwoqLUHfgXEbmNP1IkedCudp8BjFe8GzRnraYa
-	 0SSF/y+4CZzuBtWHbY3M35WwlSO0Hkb7kU+edz58OCZsM1qqFVd7+KVtp7qz60ODWwLN6
-	 pnBiwDCrRCdis9IYHDzVDg8/C5krur/IH1AMkctcfZ7evSOzDBkvXR+B5yo4Wb7/Kp3aH
-	 G6bMyD7Ojy2/+ZLAWSFFkU04y6zgv8bUUKGRUWrwNOiXxBJRX3W2/704yfwxXVUId1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438012;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=PT4QF1qXNcf5ToumnF7fZz7tNZztFh3q6qvq1mETrKM=;
+	b=i9pueS1+XV8a9D1+w9eKWbkODjivLAmDVvPYHSeufg5FmNF9Vxq0lJ1v9U7+H9y7ASFy
+	 UOX/IrHSiBBCkeLTge9INGEQJN1LpiyG8mVuj8KRI6YPGviaFZrqBLPtUmOaBMNwUwQkS
+	 LHmCABCerGqob3ys1luvsXTlXG9vJWh1RXvz3xxiFWFeXV4E7s6pQS/c7gJN5kMKNqJ7f
+	 8oa9ROR21MimGRSFOa5PJnyrAZzTFdJME2mgF+XFtXW0YFstavw3OuF/mRVPrwERVd7SA
+	 oXjWISiiMuNbsr+wENJ16m2flTBiVMDlDAuRX9rJ0j5ni2WAry9pYRNLUyAgTgqQFgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDdDiNy8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tu7ERM0R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02ABA606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:58:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130FF606A89A;
+	Wed, 11 Nov 2026 23:00:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDdDiNy8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAED01F00A05;
-	Wed, 11 Nov 2026 22:58:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tu7ERM0R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A481F1F00A09;
+	Wed, 11 Nov 2026 23:00:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437934;
-	bh=TzJTPbR6SC9l5NI7nxCWU+amiTYjFZi6nsMXDnNAE1s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jDdDiNy8CBR80hDlO+FmGwBOZUlZZiQjo/IqaSmXt1cCVKJfbW1mtv+fZBaDhMyqX
-	 6XQGjpaj8qSLYBT3dj9YEkb/ZU5O7gEO582eeQMJeCdqc6GhfRuC63Q9CYFsShRmNf
-	 hx27tROgq4kxjb0CeqvBYcPVs7f3jCezqSZfyaC1r9ISkk7g8lQgFbvicisYx5qo+V
-	 dZShU3kuHKI/W3rH1vcO2AylONSweEilJR5i+tmeoho7r1TlGRg9mkK6zka1yOspUP
-	 A+vycT82RxzWSUr0eYUZsjzG+aJa16PwepQsv5+SOlFfSxOh3VGCzc5PL0CwwC4XJu
-	 Oj0oIxQnAD1pA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Georgia Garcia <georgia.garcia@canonical.com>,
-	John Johansen <john.johansen@canonical.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] apparmor: remove fs entries created by a failed policy load
-Date: Wed, 11 Nov 2026 17:58:52 -0500
-Message-ID: <20261111225830.384997-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107063102-failed-5.10-6ec46f8f1977@kernel.org>
-References: <20261107063102-failed-5.10-6ec46f8f1977@kernel.org>
+	s=k20260515; t=1794438011;
+	bh=PT4QF1qXNcf5ToumnF7fZz7tNZztFh3q6qvq1mETrKM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Tu7ERM0RTzyuuk04kPc/Hn3Ohsa75KN2wcryN+lCqGk7KM8Uo42C/aw5HpqBx/T2Z
+	 QA9vQRFsgwPYJGjqEhBmsELgGvFQka26Kjd98VXKGrC3b5i2ZorSt4mccqs752Ib3s
+	 +ez4rIG2E6wiPQ0OMUJcxkx/aMJMDoIJ9UKKJ/M/7KNFU+qQw3nrcJbLsRp7fE5f53
+	 WeaXAWTih9ausn3x/Y1ZUSbldguNW5BvnBmGoo48DUaX82IsqmlZ7UT7Of5W5KDpXt
+	 dXriTL3jyRF5YjgRdbqSPPXajNi3kmFG2YI5fooqn5zqsBJLHjPjF2MsXoZhDx1itV
+	 Pf2ztl+zcX3EA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B2BF391AFC6;
+	Wed, 11 Nov 2026 23:00:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,77 +54,54 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v5 0/4] gve: Fixes for issues discovered via net
+ selftests
+ and Sashiko
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179443801016.1692642.9207097751401678746.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 23:00:10 +0000
+References: <20261109182036.2910559-1-hramamurthy@google.com>
+In-Reply-To: <20261109182036.2910559-1-hramamurthy@google.com>
+To: Harshitha Ramamurthy <hramamurthy@google.com>
+Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ jordanrhee@google.com, willemb@google.com, przemyslaw.kitszel@intel.com,
+ nktgrg@google.com, maolson@google.com, jacob.e.keller@intel.com,
+ pkaligineedi@google.com, yangchun@google.com, patricion@google.com,
+ awogbemila@google.com, csully@google.com, jonolson@google.com,
+ lrizzo@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ treapking@google.com
 
-From: Georgia Garcia <georgia.garcia@canonical.com>
+Hello:
 
-[ Upstream commit 6ec46f8f1977d218bf2494ce276152b2d01424af ]
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-aa_replace_profiles() creates the raw_data/<rev> directory for the
-loaddata and the profile directories for new profiles before the last
-checks that can fail. When one of those checks fails, the fail path
-releases the ns lock without removing what this load created.
+On Mon,  9 Nov 2026 18:20:32 +0000 you wrote:
+> From: Pin-yen Lin <treapking@google.com>
+> 
+> This patch series addresses several issues in the gve driver. All four of
+> these fixes were either uncovered by running the net selftests or
+> suggested by Sashiko in the previous version.
+> 
+> The series includes the following changes:
+> 
+> [...]
 
-The raw_data directory is named after the current ns revision, and the
-revision is only bumped by a successful load. The stale directory is
-only removed once the loaddata's last profile reference is dropped, from
-a workqueue. Until then, every load fails to create raw_data/<rev> with
--EEXIST. If the new profiles are never freed, which is the case when
-their dents are left behind pinning the proxy, that never happens and no
-policy can be loaded until reboot.
+Here is the summary with links:
+  - [net,v5,1/4] gve: Fix race between stats query and queue reconfig
+    https://git.kernel.org/netdev/net/c/7de69da15088
+  - [net,v5,2/4] gve: Fix backward stats when interface goes down or configuration is adjusted
+    https://git.kernel.org/netdev/net/c/6752dfc316b9
+  - [net,v5,3/4] gve: Block invalid ring sizes when device options are 0
+    https://git.kernel.org/netdev/net/c/edc9a730ad3c
+  - [net,v5,4/4] gve: Fix link flap after ethtool ops
+    https://git.kernel.org/netdev/net/c/b1a53c452457
 
-While still holding the ns lock in the fail path, remove the profile
-directories of the new profiles and, if this load created it, the
-raw_data directory.
-
-Fixes: 5d5182cae401 ("apparmor: move to per loaddata files, instead of replicating in profiles")
-Cc: stable@vger.kernel.org
-Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-[ sashal: Adjusted context for different local variable declarations in aa_replace_profiles(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- security/apparmor/policy.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
-index f3592af433553..dd8439e9cf55b 100644
---- a/security/apparmor/policy.c
-+++ b/security/apparmor/policy.c
-@@ -923,6 +923,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 	const char *op;
- 	ssize_t count, error;
- 	ssize_t udata_sz;
-+	bool rawdata_created = false;
- 	LIST_HEAD(lh);
- 
- 	op = mask & AA_MAY_REPLACE_POLICY ? OP_PROF_REPL : OP_PROF_LOAD;
-@@ -1041,6 +1042,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 			ent = NULL;
- 			goto fail_lock;
- 		}
-+		rawdata_created = true;
- 	}
- 	list_for_each_entry(ent, &lh, list) {
- 		if (!ent->old) {
-@@ -1119,6 +1121,18 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 	return udata_sz;
- 
- fail_lock:
-+	/*
-+	 * Remove fs entries created by this load. Nothing else references
-+	 * them yet, and leaving them behind would leak the new profiles
-+	 * (their dents pin the proxy) and make the next load at the same,
-+	 * unbumped ns revision fail with -EEXIST on its raw_data dir.
-+	 */
-+	list_for_each_entry(tmp, &lh, list) {
-+		if (!tmp->old)
-+			__aafs_profile_rmdir(tmp->new);
-+	}
-+	if (rawdata_created)
-+		__aa_fs_remove_rawdata(udata);
- 	mutex_unlock(&ns->lock);
- 
- 	/* audit cause of failure */
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
