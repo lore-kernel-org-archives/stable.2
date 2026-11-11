@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794374162;
-	b=q1I6wlOJEeGnHVKDsKKerpWt/KF3O+5nkKUEX4haJdOhcwc4EJIa2o+ZDF+neq1eRTPi
-	 FeKtijKMfPshGUvh1za0h4ht+oJJVgPPe487zYNRiKUl1QzS9LqZj+vgxudBI0ox4AFZ2
-	 sDya2ShbUwYpSVFUuHvgQb7nBzcKJT8WCQuTMtUXeHkv2DJPQAaUgxUI36nphOu1YQ3Vi
-	 OP6SokSa/NLa46JHT5koRV0MAd/qLLrPoVKNKKTGfEg8lMIjqH+9lL1sfO51+xklRbbSb
-	 DXvhvT09XOTFR7i7xQ7v3depWyE/8hDRSF/YIhNEudll6j9OBE33cJESEPoABEZRHQA==
+	t=1794374310;
+	b=ZAq3LibfBueZpROeV262vB/8RgPtLPgzkcTXKyf1OT/rgwKR9U4WSUyRS6ppxA4aVszP
+	 s1Ha9aLu3uuNmHKsthsE296v5ycC3/gbyz0muRVym+KwwCPNXshlg50VLCPOppqEbAxeP
+	 G+UxPCkxBmwq5Srhef8au6J1O6Z5glzbRYqF4zdPKzw0RHmk6fpj2F0MB02MoiLuaeVu7
+	 lnQG1iCM0rzA+XZOQ6HwC7edUiRUhAaY+JywWAN6gWSmwdNX0ZF+yvAEK2y747lIX0NV+
+	 ruFZExcMEHmR50V5RBDilUMiDn1RtkZ16W43xroAo1EodfPuOUZ0bf11B6EY8IDhmzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794374162;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794374310;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BAz9FWRWy5F3cnV5jSjDMt7FYrfAFpQUjAlQxTjUCkg=;
-	b=tnbMW3ScY1sD2PsbayigkTsHnXRPb/pvaqKJYB+Qg/W+ltA9skoyy9bSw2KKzbI/kfQV
-	 2tua1gCsYwZKAfb8kpDvSgiYYq7BNEuGy2oHNueK2sGFxf3TAJ9PGbklsiiPbwQqztijR
-	 G3sZlGux74B4DuMU+6wjQRPzzV74lpxBxmOnh/U57Mu58UiC/SpCZctR1o24PoG5V5lwM
-	 uX525EEySIpaKgryXRBcKmoZa89QiHL/YgoMVNs/W2rnY0+vs0YEaokRpmDuqN36uqEcX
-	 QZSbHNWH5i/jOEDRKDYNxABnr5ARKoSoScMsbUn2Mm0zNk221CFmdMXz3lw5qGviYZA==
+	bh=BJm+Hq8GxL7HyLZxezEAE8+loLe76aAKPckF9N+bFaQ=;
+	b=biJO6TiYytuN9IacYzcjCExYkVG/MNq3Eg0W7HbfECYSMx6tP6wOBuuAKJkHweet9usr
+	 a2yRvJLo3WeYnwRyTH3TNSzKHpbcBlqRAE5e8cG5cw8RZNoitNFJw8PHgYDr3yNYR4hbl
+	 iejWNNCbDteVlctyw+FhFmMtQA7OtEYg8yEEXnMvvslghhtiFZwCPZHkAqyx9pkkQuaVp
+	 Cy2Onzunbusvjv8GhvYW2B/rjD4aZ6jkdiHf6GMTLoP9rTYvjva8vyM6tLra/kwPt9Wm+
+	 TjdN8sJx3oneu3IlJqRxN7PnSRIVzq4Z3TGhagIS+iUCOAcdn19LmQU4u5dvYQ+ardw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GGCUgoLW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TwwMCzsx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F1F606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:16:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034F0606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:18:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GGCUgoLW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9B431F0089F;
-	Wed, 11 Nov 2026 05:16:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TwwMCzsx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E751C1F0089F;
+	Wed, 11 Nov 2026 05:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794374162;
-	bh=BAz9FWRWy5F3cnV5jSjDMt7FYrfAFpQUjAlQxTjUCkg=;
+	s=k20260515; t=1794374309;
+	bh=BJm+Hq8GxL7HyLZxezEAE8+loLe76aAKPckF9N+bFaQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GGCUgoLW/5yeK/ThYFaOvRN1T5TZwei2BPdFYt+efZR7tHxPhC2vQSC4i7qxhveIp
-	 MY97eaSw1DxEF7VzshBux0gxX6PZ4bA4d7kMM3ZUYA7QVcXwuRSd5cwNm7jpw5JloP
-	 2uZss9bIwnWULBQZ23TA3ZraHQCVvUrK0sA3bytjVVUajQz/WFIogbWWojN+qEtMKx
-	 2Vd4HkwRhnkHQu+LB2Lr0LpQ98qaUao3AgjhTjYyIW2PD6UyDV6lf1NLJKebSKIy3h
-	 z8+iHQ30HegRoxVIarh5jvwK7snJRwCGxVzV4W41rwNU/q3y5iIs5hzf1dNfE0yWhh
-	 gvQAxboYQURpw==
+	b=TwwMCzsxVTRJQahXNtb7TnrUZOIHdr6xeaXOy1JAuU8xW/ma67nWrKVjxqv+jOJ3a
+	 aXfroR3RyOKLABDk5yNzq+xLvFrnEQsK5Upd/9hSqy/DH0oQWP3JTuoFCjeLPoqHrL
+	 YWN1oGaBszmw8rbGEftHyFRknsqAHlL4W9lMa3TEVlzNGMQqB77ujqLc3X2mKOocAB
+	 KL7yDJ5BMmC0bCl/G4Haj+wcMWzYrcqpvR0byfsu+BMaktAwrkemZvPO5DvEWXEwIH
+	 zhLgOs5y5lHMYguXXJKFoXY/T0kS6w8QZEVDlTiNBKA3Dzt1TUtcMte4rjRibq5/pk
+	 eWoyp1JP+JBDQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Tiezhu Yang <yangtiezhu@loongson.cn>,
 	Huacai Chen <chenhuacai@loongson.cn>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] LoongArch: Fix one-shot limitation for perf hardware breakpoints
-Date: Wed, 11 Nov 2026 00:16:00 -0500
-Message-ID: <20261111051545.1238767-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] LoongArch: Fix one-shot limitation for perf hardware breakpoints
+Date: Wed, 11 Nov 2026 00:18:27 -0500
+Message-ID: <20261111051811.1267950-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051522-failed-6.18-5e0b00fd000a@kernel.org>
-References: <20261107051522-failed-6.18-5e0b00fd000a@kernel.org>
+In-Reply-To: <20261107052719-failed-6.12-5e0b00fd000a@kernel.org>
+References: <20261107052719-failed-6.12-5e0b00fd000a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -157,7 +157,7 @@ Cc: stable@vger.kernel.org
 Fixes: 3eb2a8b23598 ("LoongArch: Fix multiple hardware watchpoint issues")
 Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
-[ sashal: Adjusted context to preserve the existing __switch_to() call passing task_thread_info(next). ]
+[ sashal: adjusted thread-switch context for the extra task_thread_info(next) argument to __switch_to() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  arch/loongarch/include/asm/hw_breakpoint.h |  4 +--
@@ -187,10 +187,10 @@ index d202052df8a16..f4478936787d6 100644
  }
  #endif
 diff --git a/arch/loongarch/include/asm/loongarch.h b/arch/loongarch/include/asm/loongarch.h
-index 642dc9adddceb..9a85227ed84ca 100644
+index 8e6366a21fdd8..f42080a208613 100644
 --- a/arch/loongarch/include/asm/loongarch.h
 +++ b/arch/loongarch/include/asm/loongarch.h
-@@ -1093,6 +1093,9 @@
+@@ -1069,6 +1069,9 @@
  #define CSR_FWPS_SKIP_SHIFT		16
  #define CSR_FWPS_SKIP			(_ULCAST_(1) << CSR_FWPS_SKIP_SHIFT)
  
