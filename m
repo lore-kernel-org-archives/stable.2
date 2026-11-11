@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.242
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385473;
-	b=xpZiK/X6kLioGZOAUqJ50+BQU26MiC1i6CKB6L6L5qo+TSHquNdPLHWKKSySnZjV82zd
-	 tY6HB4dmR2pQ9ToZ08EexGZzKD4cXTurSh/gZSex5qQ2yz2xvMJMbUHfeQG6opvCCweR4
-	 IeaEbJAYTXQJYcRBf+l4mkfke0Lnlae3J8jqpi43pLBv8BeHyeig12P8RujmsHL0zMR96
-	 QB63T2js25LQSrnOHCeYyqdbsvvb9/nDVJ0PA4BNtutF4bup7OyO0d3BuA45X83GJAwwa
-	 a2mKiMe5+sNrNhBxeovSDf5P0ILhDXCWlB0hYoNpAAxmE2qr4H4kU4j0nzapFaTmeSg==
+	t=1794385704;
+	b=DHlHn1QGWJ8HZjf3gCNsw9v0/B4MolE8uN0boEwFoGQoNpD/I9WzvIsmPOBQSOODElSQ
+	 gbmB7pST7MDNDrQMFxx4NLt2QqUouIIUyZbtoXo7XK9w+zvnfmvxnkwAilMZ3oSlY7wGq
+	 qsCK1V7PXQ8p2EQFTPkfGn54klu3vqCjCCivcfrZIqBhrWgm9pQ+5ogkvBKYtdu3BRcxn
+	 Ki1fZRQ+tW+cGU7TO5f2GetxoJAPN9jRJECGAja4ckqFVmvdtyLPrCWhPpRivvnKtN9nC
+	 dBiAjYqMFHESZvpA076ncV8GyHe2zOTR+jbrC42I2XD2AU66BN7qrw5o9MIuo/FKJ7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385473;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oqPI9wS7xdqjn/5PDAEj5r6VlEs5wiu6GooWPzl6N1s=;
-	b=CRuBlzFxKRuviCDgMo7FBqBOJwANEK3yzpFH6y86SYfuB2/w0yvdLTlEDjrAh2KIVDkM
-	 nwtGwtgqgR9Efd7gp7vsIAPTHtx7kaBJceJRgIhN1DGXzlphRenp9z6xTZ/JlQpX67E9n
-	 0HCvSrDhXFSys2/kR6//k83cZljQTYMEy+jmyE/U1sPYRhM0qYu9irA8+8/XKwGw6Ye8Y
-	 d78i+UYgVEwi8pF/1uvLjHArzOwbTQNzidtch1sCuESvty7cX4+tLUwxfRo2HoQEV0mO3
-	 IMQv2nGG5yLYV9fPlfhpCXJL7iUtk9AW+sg2ZGMOK0JHUuSUKZ81lvhD9GvRwo584Jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385704;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SOs8tBMn/G74fhefnyufQ/wElbOr9PJFAZYnz2e7gsk=;
+	b=BSouMPrVGZP8iquuJwnrQRmQ7YejGa+y6rXDXBI7egRiBjowf8BQcDkbb2mY2Db3ynuw
+	 GpE6Dps3HQsz/o//+7g02imFWADxpysGK9nyzSr6DLXWRxdxVPVO0z7dQ1D4u/NvyEwMO
+	 dWao4NGOHIy9Rtwg7NfI0yD/5QI0hJ0zVo6OpfLBCE6BWVNQ109YCrlEJrlHq234Jaul0
+	 EFz73QtC/ypbkEYwLrS5Db9L01suVqWkOY9cymkB9xd3AGEnNyDB0gmFolpcAyU+CsACA
+	 /C6PRICkjlbYF8D9nTAv/sipwrrT0WmRhXY38zbs6QhZF/UIUlz8sW3MEelf3OSe2pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OqA5uZqF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=irRSMh1l;
+	arc=none smtp.remote-ip=95.215.58.242
+Received: from mta1.migadu.com (out-242.mta1.migadu.com [95.215.58.242])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA906606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:24:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CEC60A3813
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83CEC60A3813
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OqA5uZqF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3901F00A05;
-	Wed, 11 Nov 2026 08:24:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794385473;
-	bh=oqPI9wS7xdqjn/5PDAEj5r6VlEs5wiu6GooWPzl6N1s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OqA5uZqF8H5W7Dk/tQUtjyHfohO7l36gDpUuXPBgwubBZNcqWGxXCAI2VrtlofB02
-	 3pwN3Gf+T8higOF/aEBkVL83/FKzdTReoDpp7C3FIUl/wcakEHtNTcTLNZ2PHKIQ9l
-	 jJ7nHHW7Lw90nkEXnSJrPuH/4olmSGLAPGx2lTMEuhPjiItraauyTEYfF/Tbnb4Z1p
-	 mxaW28NK9w/xfWpK+e7zACuotdAnGfmap7HMIG5V3rUk1aP/ZUedBXlUBVKvNPnAs9
-	 +Ooa6NJGwTGC3yx1fAm0qvSln1gz6TlAa09Y1hRiUviILbEuF5/C4bLY/lQ6awZb8J
-	 WYfEEKKQaAV4g==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=irRSMh1l
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=II2NOtl8sTPCY7Tm/BdE8ckdwVkCOkEuZdLbOYLEWvg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794385701; v=1; x=1794990501;
+ b=irRSMh1lLio5yqSq+v//rW3TtJ3R1bp7y0K1jJtP3uGlxwtldprrwZ9OZQsG2B9rq4s16OdT
+ BP0U5ikPJ/wQ2hwPsZGBcRxk7HyDCP/ofScOk1mVeYfVz6pqO5TgF8ybCgNnsdUnsOiLjDBzT5N
+ uGAf9iKlcu8Vk36wCWZUCC3Q=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ae30772125d63950;
+	Wed, 11 Nov 2026 08:28:21 +0000
+X-Mizu-Trace-ID: ae30772125d63950
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
 To: stable@vger.kernel.org
-Cc: sung byeongchan <tjdqudcks0424@naver.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ceph: validate MDS reply fragtree split array length
-Date: Wed, 11 Nov 2026 03:24:31 -0500
-Message-ID: <20261111082212.1430125-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053931-failed-6.6-8cab7e7461f8@kernel.org>
-References: <20261107053931-failed-6.6-8cab7e7461f8@kernel.org>
+Cc: Samarth Narang <samarth.colleges@gmail.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Xu Xin <xu.xin@linux.dev>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	=?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>,
+	Andrea Arcangeli <aarcange@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
+	Bobby Powers <bobbypowers@gmail.com>,
+	Brian Geffon <bgeffon@google.com>,
+	Denis Plotnikov <dplotnikov@virtuozzo.com>,
+	Doug Gilbert <dgilbert@interlog.com>,
+	Hugh Dickins <hughd@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Martin Cracauer <cracauer@cons.org>,
+	Marty McFadden <mcfadden8@llnl.gov>,
+	Maya Gokhale <gokhale2@llnl.gov>,
+	Pavel Emelyanov <xemul@openvz.org>,
+	Rik van Riel <riel@surriel.com>,
+	Shaohua Li <shli@fb.com>,
+	James Houghton <jthoughton@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	SJ Park <sj@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Mohammed EL Kadiri <med08elkadiri@gmail.com>
+Subject: [PATCH 6.18.y] mm/ksm: fix userfaultfd protection during merge and unmerge
+Date: Wed, 11 Nov 2026 16:28:09 +0800
+Message-ID: <20261111082809.32654-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261109200420-failed-6.18-990d6c2194a9@kernel.org>
+References: <20261109200420-failed-6.18-990d6c2194a9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,71 +100,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: sung byeongchan <tjdqudcks0424@naver.com>
+KSM loses userfaultfd protection when replace_page() builds a new PTE from
+vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
+through ordinary COW instead of userfaultfd write protection handling.
+For RWP, a merged page also becomes readable without faulting.
 
-[ Upstream commit 8cab7e7461f81ea1e0fd45082b50bb3c04c0bb10 ]
+Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
+have to handle unmerging.  An existing KSM page can be protected with RWP
+before MADV_UNMERGEABLE, so unmerging already needs fixing independently
+of preserving RWP during merging.
 
-parse_reply_info_in() advances over the fragtree split array using an
-unchecked count multiplication.  On a 32-bit client, nsplits=0x20000000
-wraps the byte length to zero, so the reply is accepted and
-ceph_fill_fragtree() sorts far beyond the message front.
+Unsharing replaces a shared page with a private one and should leave
+userfaultfd protection in place, as do_wp_page() already does for write
+protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
+can proceed to do_wp_page().
 
-Compute the split length with size_mul() and require the complete array to
-remain in the inode record before advancing the cursor.
+- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
+  break_ksm() then reports success with a KSM page still merged.
 
-The malformed reply faulted in frag_tree_split_cmp() twice on the tested
-i386 baseline.  It was rejected without a fault twice after this change,
-while a normal reply and a one-split control remained functional.
+- With asynchronous RWP, protection is cleared before unsharing.
 
-Cc: stable@vger.kernel.org
-Fixes: 2f2dc053404f ("ceph: MDS client")
-Assisted-by: LLM
-Signed-off-by: sung byeongchan <tjdqudcks0424@naver.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ sashal: Adjusted overflow.h include placement because the mnt_idmapping.h include is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
+FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
+private copy as well.  Unsharing can then complete with RWP still armed
+for a subsequent access.
+
+Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
+Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Xu Xin <xu.xin@linux.dev>"
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jérôme Glisse <jglisse@redhat.com>
+Cc: Andrea Arcangeli <aarcange@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Bobby Powers <bobbypowers@gmail.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
+Cc: Doug Gilbert <dgilbert@interlog.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Martin Cracauer <cracauer@cons.org>
+Cc: Marty McFadden <mcfadden8@llnl.gov>
+Cc: Maya Gokhale <gokhale2@llnl.gov>
+Cc: Pavel Emelyanov <xemul@openvz.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Shaohua Li <shli@fb.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>
+Cc: SJ Park <sj@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+Cc: <stable@vger.kernel.org>
+
+(cherry picked from commit 990d6c2194a938a19a8cf94c6cfd75171345089b)
 ---
- fs/ceph/mds_client.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Backport to 6.18:
+- Use the older pte_uffd_wp()/pte_mkuffd_wp() helpers.
+- Drop the mm/memory.c changes. 6.18 has no RWP support.
 
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 321acdcd29db0..331cb321cbc82 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -13,6 +13,7 @@
- #include <linux/bits.h>
- #include <linux/ktime.h>
- #include <linux/bitmap.h>
-+#include <linux/overflow.h>
+ mm/ksm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 80274ace8155..a5e3647804a8 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -1414,6 +1414,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+ 		dec_mm_counter(mm, MM_ANONPAGES);
+ 	}
  
- #include "super.h"
- #include "mds_client.h"
-@@ -103,6 +104,7 @@ static int parse_reply_info_in(void **p, void *end,
- 			       u64 features)
- {
- 	int err = 0;
-+	size_t splits_len;
- 	u8 struct_v = 0;
- 
- 	if (features == (u64)-1) {
-@@ -121,9 +123,11 @@ static int parse_reply_info_in(void **p, void *end,
- 
- 	ceph_decode_need(p, end, sizeof(struct ceph_mds_reply_inode), bad);
- 	info->in = *p;
--	*p += sizeof(struct ceph_mds_reply_inode) +
--		sizeof(*info->in->fragtree.splits) *
--		le32_to_cpu(info->in->fragtree.nsplits);
-+	splits_len = size_mul(sizeof(*info->in->fragtree.splits),
-+			      le32_to_cpu(info->in->fragtree.nsplits));
-+	*p += sizeof(struct ceph_mds_reply_inode);
-+	ceph_decode_need(p, end, splits_len, bad);
-+	*p += splits_len;
- 
- 	ceph_decode_32_safe(p, end, info->symlink_len, bad);
- 	ceph_decode_need(p, end, info->symlink_len, bad);
++	/* Preserve uffd-wp when replacing the page. */
++	if (pte_uffd_wp(orig_pte))
++		newpte = pte_mkuffd_wp(newpte);
++
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+ 	/*
+ 	 * No need to notify as we are replacing a read only page with another
 -- 
-2.53.0
+2.49.0
 
