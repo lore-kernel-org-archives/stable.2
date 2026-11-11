@@ -1,70 +1,152 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794379318;
-	b=XnG6/TTm2NK6kblL1w8N7ofr/gt5tYFhUao/pO7JlqvA+IN38AHH2zh9cL7OS8DCJ4Er
-	 9FLY6mlyptmbVjS1SyWcLJujtrKj39F9lzOaxMm+6pTmoZcCtk9/64NXGHJGqsWHqeBm5
-	 /aZ3rrvxq5xJfU7vnKBcc6bnWOWCw+XUElNQrKp9n/zd029sx9Yhp6SAYi6fjtNohN3Rv
-	 1Z3h0KCba8HA0bFxDoMi4Aaadp8W4vYVK5lX3UcE2ALwyEXSWTKwh2bu7VJae2kT9pu5i
-	 KOt+lgOLvV+c3Muw9NACxpLKyO0hAqibNo1rArNHDNnW9hyLkAJWqAoAxX31Qftnx1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794379318;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=n6L2l3CuvEy/oi/ujRg0yiSm7fAxM689ENfz+9X+Hhk=;
-	b=wgaxmT2q2ANKIimzAhOGM7UPLk3/mXLqvcPhoEp/IhkUHCCoJCI8Hh7S1WDgZ+BdVWPN
-	 WXt3eyeuGpIFUooyKrVzmNIaHkl99BPX0w1QJ7mBSomAOjKxutvukgebEzRwTL3lmDuer
-	 rODpnXCT4yjmE+nsLYsO+Yxx3v4ZjmGezt4D0+Z+7uDRbh8juG3+B52Bo0ZEeFJiavJGq
-	 l1Ot3YiIORENk0f/zk4qLPnCXa2O0+TrOxPpldGIZ6EGHE64rD8vvxYwH++44jYzoeAgD
-	 03VtjLPsDW15GARSET5W+ugcQHPoOaKBdVpBr51Si1dFvj4HVrB71KxJnZbv23JftOQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KFLjowCu;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6629E606A31C;
-	Wed, 11 Nov 2026 06:41:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6629E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.83
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794379544;
+	b=pT3FkUTpwQW38SZG/t/Z1+jVdOVf4l/A1xJ88gjMb6ZuxR47M0e4gd4c9xe6VdZ0RT0g
+	 uuuueqSP2KOTtpxXy8RUPSR60uJ0CwMt+LwheK5Rp0rjIQL2gYEXuU26zfJMLKRtHdSAo
+	 eykAM0hyK8bMcioWjSSQwa4rsdnGgnKfrKGs4DYxrljSXOj/pvvMoTcAPhOnB662QuDlw
+	 Mn9Su7UZG8dPZ+v1WyGBHknBCtBpKrWuLauDgebgpF3VhzTT4Ste1spF9f2bzK5AmTa1M
+	 Y7iU1V6wvS/wFLNchJPnBug3KXBX9Di1n3xu+0Vlec7q6bLfZnz0H8O8+PdrDcbceZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379544;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=JaGqQPxitmXKkHk57xhuWKtzD67cqSWyTVoKkGU2hoM=;
+	b=yogNFhjzbBkGfpBt5+RfEEyLQSL9uubLDxujCp8b0TDvI4oRXwMi7wdqrViMgJv1stXv
+	 uGOvOOao7ymuER2kwQaOWZYy8zD8buP9xDcGyk7m0npHCtmfMhWzALZ61RFvMDEjIF8y1
+	 l4FWDvzB2NafO0r7Kdss+DcDHG9wAAT93DKs6d++SLk8gWFYwQxWtzTFRR5tyLBFSJs7L
+	 H6L0WWebZO7wkilQ+hmruK1Ig4xJGGX1i01Qtk1+ffK3oE7PVS8OlOutoE5OAicG7zhGv
+	 qKLdo+/bJplaBmG4K+Rcn7P+ypZhBuW5tbxIbPujae1lrkeCAXAybkMXYcJfGchVYZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=aweta.nl;
+	spf=pass smtp.mailfrom=aweta.nl;
+	dkim=pass header.d=aweta.nl header.i=@aweta.nl header.a=rsa-sha256 header.s=selector1 header.b="wtWj+/1E";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.83
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021083.outbound.protection.outlook.com [52.101.70.83])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC23606A334;
+	Wed, 11 Nov 2026 06:45:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BC23606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aweta.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aweta.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KFLjowCu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=KFLjowCu/hzn+sfXP3lMolyjBpgw48zDbByGpKclhzb5jPL6ZJpWoKOSKPuFk96ewJz3fYQxbQNFa
-	 E50FAw8h9wy9ZgTdr71BsanfrDHlaVCKSqzspRq3+9+MilaQBmWt0iKhKi++lvFrvDtmJO2xntqUW0
-	 1jw1CJq9AeZL9R0A=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af40e31bb6-a13ff;
-	Wed, 11 Nov 2026 14:41:53 +0800 (CST)
-X-RM-TRANSID:2ee36af40e31bb6-a13ff
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af40e2dbb1-d1caa;
-	Wed, 11 Nov 2026 14:41:53 +0800 (CST)
-X-RM-TRANSID:2ee16af40e2dbb1-d1caa
-From: zhaofeng2@cmss.chinamobile.com
-To: Guenter Roeck <linux@roeck-us.net>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Joel Stanley <joel@jms.id.au>,
-	j.neuschaefer@gmx.net,
-	Triet Hoang <triet.hoang.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] watchdog: npcm: fix sleeping clock call in restart handler
-Date: Wed, 11 Nov 2026 14:41:49 +0800
-Message-ID: <20261111064150.260-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key, unprotected) header.d=aweta.nl header.i=@aweta.nl header.a=rsa-sha256 header.s=selector1 header.b=wtWj+/1E
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SJv0RlphtXGz3cM+ipM/cgmtFgmY81LfPzjfSDGKit7mn+t7VKGV45iNpp5SEpTM6qQN+Ls2IULvuf7tMBGvqOkKQIH49wJSr1EWZMwRXlK5Mv4Qgt2lF+/wyj7lZL+xu7M1C2dx4QV8hYmFGtCdwn8vAjhmr3rcK5pishANYDM33Xk70vcldYm+WtBPY4sIB2QDd34Lx7uzP82/TGvRgJxb0tSR3Xbk9OLpbCQBebEbTX/6N1AJyErUXy3HgJY+WaXVwRCRmL0cJmKgm3qm5s8nCZ2uej4LIMZXhNuCif/tj2whnNwzWsXLbmZi6zBFWVLh0fQ4o6euVLwuTyS5bw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JaGqQPxitmXKkHk57xhuWKtzD67cqSWyTVoKkGU2hoM=;
+ b=Kz0AOTk3ZshNaW1FfTjCH1CFwQzZg9Zz6H0iy+/vy/i30gzlY5P9I2lxVJe/SVdkDoTmEQ1ps8f6sJzk0+YehndSkbE2FovJJlIpmz0VVIwEFZPhY51V4a/3N9cjR6uSUkzOC8U06NBVE2jTiSV4kqww0hALRhUOKXCWU4AIQ1T6icMj0mMYpUDhv287CYP4nQrhO3Ppf+PpDUgwuCFcaedt5Fxzshp28FvQk5fpjD87hj65KFn88u5rIaUPN1wTUOvokrlPipYK4X/inqjj4IzmKAf8mwgtpH+ya2z6p9bd4wiXDiV+AoSKXUOQriOQgf/oxP/yTAIAzoBM/VoIEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aweta.nl; dmarc=pass action=none header.from=aweta.nl;
+ dkim=pass header.d=aweta.nl; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aweta.nl; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JaGqQPxitmXKkHk57xhuWKtzD67cqSWyTVoKkGU2hoM=;
+ b=wtWj+/1EPQtPQRkngPbcWa46emcBePlubQTVZSHmQhHAfgVzkFqtGH+8ZSQcxXuffKlR1+Ey+1LjZflhB8rjzf/JbP/mWbJwvHLPAVjNXvklvqjBDsUD3E4jn+Ol7GXkzZqnPSJGv7QF/KOOj37exQCyp6QXpuV1E+jZv0ABxXRmVIgZLxpGk6ELr7+OJPF+SvpJ8gYnZyWpIpFRMoPHjdl5G3jkS7M0uU8iJQdPmbq3qW+1QsdZIUi9asOq9wVEuZAslLRgQhoghnXPsVUwIbFpYS04fPNspPsabh3SF3r0pAgNOnqEE1jHuL3apwfeUlpCtSX2ybkdQiBy5uhdUA==
+Received: from AS5PR05MB11020.eurprd05.prod.outlook.com
+ (2603:10a6:20b:67d::13) by PAXPR05MB8112.eurprd05.prod.outlook.com
+ (2603:10a6:102:de::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 06:45:37 +0000
+Received: from AS5PR05MB11020.eurprd05.prod.outlook.com
+ ([fe80::2dc4:6bec:d87e:3492]) by AS5PR05MB11020.eurprd05.prod.outlook.com
+ ([fe80::2dc4:6bec:d87e:3492%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 06:45:37 +0000
+From: Tjerk Kusters <tkusters@aweta.nl>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+CC: Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel
+	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei
+ Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Jesper
+ Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>, Sven Auhagen
+	<sven.auhagen@voleatech.de>, Richard Cochran <richardcochran@gmail.com>, Kurt
+ Kanzenbach <kurt@linutronix.de>, Sriram Yagnaraman
+	<sriram.yagnaraman@ericsson.com>, "intel-wired-lan@lists.osuosl.org"
+	<intel-wired-lan@lists.osuosl.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+	Paul Moses <p@1g4.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH net v5 4/4] igb: drop AF_XDP zero-copy frames that span
+ several Rx buffers
+Thread-Topic: [PATCH net v5 4/4] igb: drop AF_XDP zero-copy frames that span
+ several Rx buffers
+Thread-Index: AQHdbCdZYmGgPwiFSEG43WKkhRY4RLciygAAgAWt9QA=
+Date: Wed, 11 Nov 2026 06:45:37 +0000
+Message-ID:
+ <AS5PR05MB1102099EEF867597B2F442293B9712@AS5PR05MB11020.eurprd05.prod.outlook.com>
+References: <20261104-igb-rx-ts-fix-v5-0-bf4b4367129a@aweta.nl>
+ <20261104-igb-rx-ts-fix-v5-4-bf4b4367129a@aweta.nl> <au9LMP75WIgIQnub@boxer>
+In-Reply-To: <au9LMP75WIgIQnub@boxer>
+Accept-Language: en-US, nl-NL
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aweta.nl;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS5PR05MB11020:EE_|PAXPR05MB8112:EE_
+x-ms-office365-filtering-correlation-id: f9115827-d00b-4193-94c2-08df3fbf64cc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|366016|376014|23010399003|38070700021|10067099003|4143699003|56012099006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ q/3vkY305w7D+veUFMkKkDtKzkxai+MJ8vZ7qigLzMwLhuCbouSnAtMb+7fK2jxHMvCUkcN7vkHJZKrsuaYOue7ZdywUVfzigWt1lMBTKP2iWGH6bxBqpmQUi5fQiGjJE2Uty4+f2nMDr5q08cmLrM+5/hv6E15r4HBOXe/pvywN7Ajs7oyday6lrTri35XPX5GwFhTA6/srXq3vybwO9yrABXhUmQx2u4NltYqm7N7UqMZYOVnxPipAAO/r88bULo9xeRsQ1hLcOT6e09U4m94SuNVjUbDDqet/joNcrUz4Wsi/VS8vI4dVMY3jmIaMbAQICmIVM+5AAC5rqsJuRQLi+Fr2evDP3SlMRp39xMoOK76wIZbYKgg+d5ARxEZjqt8R3giAp6w0FvP0wvbz7AQjgeSWZ1/Z5LBSYg4kGOHinANhh4aKhBeK7eeDzg8UMMvD/aRuKpu+FhL+Vo7cDG9t/Qjp+M3ZkZetXuCMDVK8oCNizz/GAeOftsbLtqkAYmj9QA7Xm0EdDEL0lXMw1qXNbfIdHYqnim4GJb+zok5aYa6KZxl2luNa4SyEETcOOJ//2tGvKEGXBER9kGoVl9qGlbCBMVv1ZYNuj3gBHM7pSF1+7SmvJE0dL6Ia2+iXlbsOki3ZnPTuFSUiahVO4ySoS8cwQjlTEV+hD3CBbZd78j+KEPe0lemBRmo5eyG5KLvpiWjtmFQiWh6qswQIVg==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS5PR05MB11020.eurprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(23010399003)(38070700021)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?tHGh4f7LgJ07vrafOVTOpv/UHOyMYJ0cKx7qGvdQgPS6Yl1CQ2pn83oNwqDn?=
+ =?us-ascii?Q?k0qBTPbmrkHQTnXbPMxZoNp7ZAANOQA4HBi5MB5nRPxPPOudRTD5pYOYZc+b?=
+ =?us-ascii?Q?0QygTjuqn3pnloEnqXwmwVWuZ5+LiVpbJ1Vl4s36mSixLS58NePZh0PG4DeF?=
+ =?us-ascii?Q?kg46V2aEIFRJKdmZbzLcV0QJ7tR/2aRCT39oOnh3db43sJwQcte1JrEJkcFD?=
+ =?us-ascii?Q?XgTPfcoV9ucEuwjttIdTBo9z08aF2CyJ1+60V1HMl41v0vFW2NawKTt57n66?=
+ =?us-ascii?Q?wNPcoMqx8QUNTCXmpaugufsGdNnrA2uKL6kGRZaoQNQqMyz4jA4E4eYhOCEs?=
+ =?us-ascii?Q?DQWfWnf0582L+XnIbkCuD2SmmF7Xwn7zwR6RF6NjBEPe3LS+sXzp2RnWzhYM?=
+ =?us-ascii?Q?dtGfWfkG5H6ptQREIXFKpVtpiXTWQpHLwbWMjX9979v7RFvGOKw+jUlcERLk?=
+ =?us-ascii?Q?2Fp5xO5WJ5trd1aYqfg/P9cUs2NvXB/zPUQ3s2ugo2eUDmJBoaZ8XvGcbhFG?=
+ =?us-ascii?Q?71qmoFrA4LClg5hvTjDvZcYZIH1E6O/LfF+CvcguWsV+rHFiIvwB4NNISfbC?=
+ =?us-ascii?Q?fhtpbzRCHP4wp1Vy5MAxxBJjv0qTM7aM0AAzQSFflTLpAESMS2pob5ZhgSyS?=
+ =?us-ascii?Q?QG4tlqdR6npDaYVNxm55efM95XjBtiPyQpRKcaPU+r7CU1gOfkqkZbKdL5WZ?=
+ =?us-ascii?Q?FWe5cUT1yYtOlJ12BgWD8xyGVFQ9YNP3mHzzZrq/F6necaHmPlQuMyjPX5xt?=
+ =?us-ascii?Q?dxqhenO5HLwxpfizrJ9h1mBajmJKwBdA+HcG9UNrWBZu2AxlCkE77zri8TEQ?=
+ =?us-ascii?Q?eKX2HUF2CSHNBUai5p0xCZcv6suwXMXN48QHj83oYRIrGx9h9SuXVYY+V77M?=
+ =?us-ascii?Q?m+qiriLIVpdF6oUQXIzHk11FqURE5J8imUVNt6wv9YpzFG0dtswUF07jlJLK?=
+ =?us-ascii?Q?E+NN0c8TR9rCjbeFCDZhwxn3AjJz678OgD0HV2xON8Fv8DTHkmeg37mKVNMA?=
+ =?us-ascii?Q?0q7vFMeRmW/Vs9JqzzAvf2oDOgO11TfhYmZfEewZ+kbdd8q0KHC/U6pSmS8X?=
+ =?us-ascii?Q?5LJ8NtXk2GeHVIrN2QJuQ4xE1r4wWDaExDr+aRqXjBWtX2nNkGaElY8hF9ly?=
+ =?us-ascii?Q?iR22+BE1TBP18NfvqqtSFdyH/hxWKKX9gpbPDkdOAwsC5rZLo866vwBY2gI4?=
+ =?us-ascii?Q?66aG+FFzwXMg3dn3FwvfW8ivl3nFIhb8nibyf+juQWuoNS2IN31gS0pfq9E7?=
+ =?us-ascii?Q?WDpU+GwujKZR0AArq/TFxWq8fVtE/7fo7f0SyzvCHqffQq2zFcD66yvwdUSU?=
+ =?us-ascii?Q?HwaQtK9Jh52uPz1XEhgeaWXj50Gi4ogCTlGJyVnrfFbOw+FekpL4OCICwKg0?=
+ =?us-ascii?Q?0nI80rTZ5Bu64bVhB2JSJq+/fhsHpENIDAmtdlZm9bL+q89tsMiszbmwIHEP?=
+ =?us-ascii?Q?x42w2gCfwUXNwnHzxTtpNjg36MeWFTrBABGy8GyOBNSJR+W0RNG3TuIZZZVP?=
+ =?us-ascii?Q?PBAnaviX2Yn/dK4olKFeD2oiMI6g3AFN7bObTcSVJ9Q2HyDp7HScUxO7DEKj?=
+ =?us-ascii?Q?WnHpvKEDTrVdRP/xgtP9AQ57dFAVegDrfq+iPPSnfmfC2D8OTuL/meolLmdp?=
+ =?us-ascii?Q?mCNtlVhv8uHz/0kfWndgecvMx3qWFgztJdiwEMID8XYLSOhABn7vwn+1Aql4?=
+ =?us-ascii?Q?RJmwpY8SCXThJCRyXVE/dkbJeBYpAUKLkJCoMWyhq4wwWgWS?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,96 +156,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: aweta.nl
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS5PR05MB11020.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9115827-d00b-4193-94c2-08df3fbf64cc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 06:45:37.1784
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 6546512a-ba20-41bf-9d8d-c076dcbf6fd9
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1kQnyfDJjeA0NXpQNyTQUV09ihrLGJJz6R0RKdkn3qqvJGJDJ0uPfCnDB1wkd3usInrziQo9En2pS/cQ68fFqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR05MB8112
 
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+> I am missing the point of this patch then. Are you adding a dead code to
+> hot path?
 
-The watchdog .restart callback runs in atomic context: it is invoked
-from the restart handler chain via atomic_notifier_call_chain(), under
-an RCU read-side critical section, on every reboot or restart.  Since
-commit af084fdccfaf ("watchdog: npcm: Enable clock if provided"),
-npcm_wdt_restart() calls clk_prepare_enable(), and clk_prepare()
-takes a mutex unconditionally, so kernels built with
-CONFIG_DEBUG_ATOMIC_SLEEP=y report
-
-  BUG: sleeping function called from invalid context
-
-on every reboot.  Worse, a panic-time restart can block on
-prepare_lock and never issue the reset at all.
-
-Prepare the clock once at probe time and keep it prepared for the
-lifetime of the driver (balanced by a devm action), so the restart
-handler only needs clk_enable(), which is safe in atomic context.
-clk_prepare()/clk_unprepare() accept a NULL clock, so the
-optional-clock case is unaffected.
-
-Fixes: af084fdccfaf ("watchdog: npcm: Enable clock if provided")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-Issue reported by Sashiko's review of Triet Hoang's pending
-error-propagation patch; maintainer confirmed the problem in
-https://lore.kernel.org/linux-kernel/19258f94-ec01-48f4-9d04-22e5ecb5cac2@roeck-us.net/
-
-Based on linux-next, which already carries
-"watchdog: npcm: fix clock prepare leak when setting timeout on a
-running watchdog".
-
-Verified against linux-next.  Not runtime-tested (no Nuvoton NPCM
-hardware).
-
- drivers/watchdog/npcm_wdt.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
-
---- a/drivers/watchdog/npcm_wdt.c
-+++ b/drivers/watchdog/npcm_wdt.c
-@@ -242,8 +242,12 @@
- {
- 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
- 
--	/* For reset, we start the WDT clock and leave it running. */
--	clk_prepare_enable(wdt->clk);
-+	/*
-+	 * For reset, we start the WDT clock and leave it running.
-+	 * The clock was prepared at probe time; only clk_enable() is
-+	 * safe in this atomic (restart notifier) context.
-+	 */
-+	clk_enable(wdt->clk);
- 
- 	writel(NPCM_WTR | NPCM_WTRE | NPCM_WTE, wdt->reg);
- 	udelay(1000);
-@@ -393,6 +397,11 @@
- 	.restart = npcm_wdt_restart,
- };
- 
-+static void npcm_clk_unprepare(void *data)
-+{
-+	clk_unprepare(data);
-+}
-+
- static int npcm_wdt_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -421,6 +430,20 @@
- 	if (IS_ERR(wdt->clk))
- 		return PTR_ERR(wdt->clk);
- 
-+	/*
-+	 * Prepare the clock once and keep it prepared for the lifetime
-+	 * of the driver: npcm_wdt_restart() runs in atomic context and
-+	 * may only call clk_enable().
-+	 */
-+	ret = clk_prepare(wdt->clk);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(&pdev->dev, npcm_clk_unprepare,
-+				       wdt->clk);
-+	if (ret)
-+		return ret;
-+
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
+You are right. With patch 3 the hardware no longer splits frames in
+zero-copy mode, so this patch only guards a case that should not happen.
+Thanks for the background on ixgbe. I will drop it in v6.
 
 
