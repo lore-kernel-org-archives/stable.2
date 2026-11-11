@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417120;
-	b=Hy0V7PsLFSuXN8/Z4HvrmWgOfovNiZjRwBblOEcb24+AYlQ0sIV3DErSnga3Au/hCe6I
-	 NpJLSFPHaa0veqSmrE6IOdWZvJBfdx932nBiGX+Fh5tzNsJM37NoC7Qxw4jDmqJ+cOhiQ
-	 SGzlepHI6tlA9W6WSfohMONneu18EHrvztZSZAtcaULVVVPiHA85vDyxFR+H2xiZcZmfX
-	 sXV5fWsFCz8IyN8mh3TLoUMHkydGi5tptn/NICL3IJMD1tJivxP55n9KhPZV/uX6mkuK7
-	 m6Sg6DAu9JZNCECwcJiiwwkESiydvk5Nvj4yS3lD/5hz8FNEpTc4eSECjyefBjRVUmQ==
+	t=1794417121;
+	b=sQgf2zCataMowcMvtYlCsTmujzEYPs4azdHPcSAj9j1sreI7voMSeeK6ZESwncHfw2fP
+	 efFJMfTMCJbHZCPvo7wIL0ppySxP3yEzEwrjAjSlAvSvXATrtiOOhIWHVvAPgdadXpZa4
+	 z4BRd9jlW+h2pv39Fb1o507wYHYI0jPSt0s1vlzGTyo1Ju4lFNoVW850SYMa63lFakat7
+	 nXx8v0AdWhnseZLyfO0YlMGhIUGCx3/pnM9k+gfYBlumuEUkaQ4ijaapdggiY+5xWUBXx
+	 zqKX7bQlUOIMBQK4qqyFBZlRP23AQWyWvw5wlc0ZVlOU7WkPJajreYJg0FIIHUcxB0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417120;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417121;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ns0mK7GB2aUiMzbKbDOEOFNZvgJgjycCEjFF6FmprIU=;
-	b=KIz/OMznzfesHII/MtIDFMWESPthcJV/T8sgeiLQ6xQ4M4/TwwPR7/18fO3MfWhxGGjC
-	 +7mDF/pduNIWferXMVTO6YEidjF6DBfpzch0rNsyx7k+NTZ/UgM+YgX7oBufUe/xuapVY
-	 Y28CO36i+0j2K8uxbfj4gsZxNMoHz5AJa/CRsOR9SRXfgH0wd9uk/CbMWkii5s7zFNhZf
-	 VdCFwIPpO8Ko1gKN+C1UhTDb2H2AqelSHApR9RN5QtDe/ZAlupdWpAktFevYXr7Tg8ifX
-	 TRw5RHNo6w5zAZlxHgvfsAgoaXB52plrmD3uk6wT8/PlXb58eko4v6KSPIp5PSBGU3Q==
+	bh=97mLJIJnd3eL0q1fygrW3TE4YSosVo2xloVzW0QVbf8=;
+	b=bdG93WssATbvvS+V/kF/aZ4/s6fKlI/KiCWUC95w0YBEp93Oy3iMf5L1J33VH0EnqGK+
+	 fAxp/laAouNol40gXyKpMF2WGPrFORObdzyS+dLSEwO8Mj+S1PcQkQmu/JHLQ/aGU9jWY
+	 Ehi+PGkLtyM5r8s/1eCiLY2UsHAmci7s6y1Jiq0lng/UcLrEmtjAtouMV2NKKZ7iB0Zp3
+	 jU/usX0k2CovZah1ekLeCHdQw3e1r8/Ii8UcmYx4adDLVfxSniUhQ/0YI0mrOvfe3tktM
+	 NeGgyWmg5Q3aALRUVwAMmAdexCp+6p6Y4zy4n6JuehysLNvoekg6UCNPuuCiheYn5lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABaa9qnK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bx7lmm+i;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A6D606A335
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:11:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE04606A327
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABaa9qnK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24F641F00A08;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bx7lmm+i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14C4F1F00A06;
 	Wed, 11 Nov 2026 17:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417119;
-	bh=ns0mK7GB2aUiMzbKbDOEOFNZvgJgjycCEjFF6FmprIU=;
+	s=k20260515; t=1794417120;
+	bh=97mLJIJnd3eL0q1fygrW3TE4YSosVo2xloVzW0QVbf8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ABaa9qnKIzfRkg4Gk6Z8CV5dhOU5+cZOo6G8EULsPm244QEQDq+Z4/lB8UEhhwCwv
-	 ZF7pNliekpczVRdmrHbFzANeNPXdntGz6TLlnmpAOU6KQCTKWmGsHXzf4EgFt7+uZ4
-	 scn/P/d1rKza2UAk/L8La0E2Nemm1wKmduvyXmZn+cA2eo2lZ0FHRawzKocq1jZjGP
-	 hMrKwlbhBFLVzMdL1vTaP/cIH45s8H9rOP4jbcstiKjbMfl1vbdVVL2x4PQ05MYKIN
-	 RZ5nZlLAVBqgFmUgpI+t1AjR4hUIWCXP7QVor8MaKwxH7UfAW3QNPe0NWauShp6y58
-	 Lp9ce56CtmjsQ==
+	b=Bx7lmm+ihhoKABU7f91Uwdvm+RWGi+Z+GM2gj0/AFKpHMkpcDMvlDX6yGz6ta6ill
+	 hjMARUCc/LQTgMx9KyVg1I3HDE5G5CYfXq9QkR2aSrimNm4EmaCgxZMUSWW9wE4kV2
+	 Gzd3encrYlhmrYodrkSwC9r9fXxp+9JUw8AXYzVlxwBRWhZUik8JKmTx1pbqcfnbqD
+	 0mXF8svS/Lz+AEMwCnDhT/46/E/4F3iTKlebQV5rwhhccLTtqkZQ9A6DOtm6wkTqHX
+	 KMQnNmuT2DPkzsHGdFqiEjh44+NIbeIJQLu49P2/5NpsqhJwP6aQ1QuldYxkS4j1br
+	 nrZaQIGdjWPEw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
+	Jacky Huang <ychuang570808@gmail.com>,
 	Jerome Brunet <jbrunet@baylibre.com>,
 	Brian Masney <bmasney@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/4] dt-bindings: clock: ma35d1: Add missing WDT/WWDT parent clocks
-Date: Wed, 11 Nov 2026 12:11:55 -0500
-Message-ID: <20261111171146.3480409-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/4] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks
+Date: Wed, 11 Nov 2026 12:11:56 -0500
+Message-ID: <20261111171146.3480409-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111171146.3480409-1-sashal@kernel.org>
 References: <20261107051509-failed-6.18-1dc3871ce7ec@kernel.org>
@@ -66,36 +66,53 @@ Content-Transfer-Encoding: 8bit
 
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 
-[ Upstream commit 8c7453cb0b01bee47ec2f902a9ac1872d3b77f3d ]
+[ Upstream commit 1dc3871ce7ec819030c22297f8960c61cc42a990 ]
 
-The WDT and WWDT muxes have PCLK3/4096 and PCLK4/4096 among their
-possible parents, but these fixed factor clocks are currently not
-defined, even though they are needed to properly describe the clock
-tree. Add them to the bindings.
+The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
+possible parents, but the driver never registers the corresponding
+clocks, so these parents could never be used.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
+and pclk4 and expose them through the clock provider.
+
+Reported-by: Jacky Huang <ychuang570808@gmail.com>
+Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
+Suggested-by: Jacky Huang <ychuang570808@gmail.com>
+Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-4-48937ee6c9bb@bootlin.com
+Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-5-48937ee6c9bb@bootlin.com
+[jbrunet@baylibre.com: removed stale link trailer]
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Brian Masney <bmasney@redhat.com>
-Stable-dep-of: 1dc3871ce7ec ("clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/clk/nuvoton/clk-ma35d1.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-index 2d6a44a7e55c4..764d837d6162a 100644
---- a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-+++ b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-@@ -248,5 +248,7 @@
- #define ADC_GATE	233
- #define EADC_DIV	234
- #define EADC_GATE	235
-+#define PCLK3_DIV4096	236
-+#define PCLK4_DIV4096	237
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index 6aa42a3e1be3b..c914079cee2d4 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -17,7 +17,7 @@
+ static DEFINE_SPINLOCK(ma35d1_lock);
  
- #endif /* __DT_BINDINGS_CLOCK_NUVOTON_MA35D1_CLK_H */
+ #define PLL_MAX_NUM		5
+-#define	MA35D1_CLK_COUNT	236
++#define	MA35D1_CLK_COUNT	238
+ 
+ /* Clock Control Registers Offset */
+ #define REG_CLK_PWRCTL		0x00
+@@ -544,6 +544,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
+ 	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
+ 	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
++	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
++	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
+ 
+ 	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
+ 	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
 -- 
 2.53.0
 
