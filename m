@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.250.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794393618;
-	b=DH0hrJYT+xXkPgmy6FmcyCdaNNu9OI/T0MdUym892yseiXi+KPg33oPfetCM62znF3bi
-	 YS8CpBo0F2I6kksg3UEjag5Jn/R9w+ciLZyCI4gljtDBOa0+1HDBsDWJPYN2bzpzOUN5N
-	 hIXk7jflrA0tiwE/hdH54QuE/172CWVaZdc37IHQvRrgTRteq/EoP3nCAe0JCSFT59NpB
-	 H0fk9EZ15kZtdxaFCYz/b8tAam9ymkwtPAqT7H8IkEAWzOsF8z9MwVotheulYbwMcz/Bw
-	 N4tnz/n0h+IY5UYytzTIoOjiIdyQ+FIvlTWKIK9D3HSBc8flKky8yd0X+p+MdKGC+KQ==
+	t=1794393619;
+	b=TXEOQbe/XtcMJ9JCD5K6Wzz938TBxqCipYChlv1Ei1gRVYfGw/vkMtaVbfDzJqKzCvz1
+	 JJF8t7moCrfeBGe1dgP+6CJVZzu3Xz+WWMyZT4atSclGgj4baDkP7Zra6mPEylUkbyrkF
+	 NVrSpma/3wAL/VXdGKUfCOFZ1EMSI7Czoi5JeOO3c6nExjY8jIlwe5ipsinlbEEKukLqu
+	 bh+JUc19fgkatTpD+easF1lF/eClCntKznm9q2CzNI0jxOaHIXZrFmLEqhQZ/WiqzrIQT
+	 zyxJb26NyGJ9OdaqamBcNzMzY9uylBAErYzjsDbgM307IHPkqRurdgZNgJBGU6gUdOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794393618;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794393619;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QPAEV209fUgcl7ihe2EinPk5jrZR9zB1JI5q/1UflCs=;
-	b=5YJrN2mllFVAI9wwAYfXew5JdjKF11AxzI6XpEeh61x75CCrbzUir4dLxkIQbkDeYz6f
-	 Q3FyVzhjq9vcr7RwUrIs8z9mYBKmGX66D15C0CiGojlTcyrcQuuvsYwxzkYEfeRHBlsT1
-	 vchPR7ZANBOHDzHn25ULvS4Qw4u6k0XbwIxDnQsAx8po37QdBLxRASw1LqTccN+nQBpNs
-	 tdNEyFyyC4YPU5CKinY1LM6BjJJlPp5Q+GdlIP2+qYXDeFKqFLaWT9h3qNfln2C35447e
-	 LxbiottLW1Dq4+aLf2dQLujoaFe5OwuMMu7owUce6sQzeUXK2AlF9nNWwP6Tx1KCHww==
+	bh=9Qbthol0sKOXlDRWZsZFHxWqxzUvQtrQI/avr9KHj/M=;
+	b=lng6wsePHwXIZ33A4KikYGSN6AvHO5DeNu6ARJY3KRjDvvrHqpFBEoTa61otZecbWAkj
+	 8836bCrVk29GhA206AuEUPXb84IlDXKVt6hLxffWWGuAb03TrNgpLoy/vE0xPjYcQV8oR
+	 5GwXu6Xhym7nJBPQYJOmZfHumhEg7te2w3mg4jfK3o1SxIwDWx/LxSqFQ3QmQkva3Fj9A
+	 n1qpNJxxlxFtJBv93Jq6ostsU8q5IHD6AxdqLw6oK3y4eiVs1F2EesSaFJrzVtpfIQzOl
+	 a55bWml77XRfWy14X9tnO4VljJh58fPjJjvktvgY86W+tjMq6QuYlQQ5QevQbW1I0DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=8bytes.org;
 	spf=pass smtp.mailfrom=8bytes.org;
 	arc=none smtp.remote-ip=85.214.250.239
 Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62BA5606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62BF4606A338
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:40:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62BA5606A321
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62BF4606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
 Received: from io.home.8bytes.org (p200300f6af404a0070a0fd992ce44cba.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:70a0:fd99:2ce4:4cba])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 98D24244143;
+	by mail.8bytes.org (Postfix) with ESMTPSA id 7643824413E;
 	Wed, 11 Nov 2026 11:40:10 +0100 (CET)
 From: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
 To: stable@vger.kernel.org
 Cc: Joerg Roedel <joro@8bytes.org>,
 	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
 	Joerg Roedel <joerg.roedel@amd.com>
-Subject: [PATCH 6.1.y] iommu/amd: Force device table to maximum size
-Date: Wed, 11 Nov 2026 11:39:59 +0100
-Message-ID: <20261111104001.216548-5-joro@8bytes.org>
+Subject: [PATCH 6.12.y] iommu/amd: Force device table to maximum size
+Date: Wed, 11 Nov 2026 11:39:57 +0100
+Message-ID: <20261111104001.216548-3-joro@8bytes.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111104001.216548-1-joro@8bytes.org>
 References: <20261111104001.216548-1-joro@8bytes.org>
@@ -90,67 +90,54 @@ This backport adds X86_FEATURE_ZEN6. Bit 3*32+6 is still
 X86_FEATURE_P3 here, so the new flag uses free bit 21*32+7.
 Family 0x1a models 0x50-0x5f, 0x80-0xaf, 0xc0-0xcf, and
 0xd8-0xef are Zen6 and are excluded from the workaround.
-This kernel has no X86_FEATURE_ZEN5. Other family 0x1a models
-stay unmarked and still take the 2MB device table.
 
 Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
 Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
 ---
- arch/x86/include/asm/cpufeatures.h |  5 +++++
- arch/x86/kernel/cpu/amd.c          | 18 ++++++++++++++++++
- drivers/iommu/amd/init.c           | 23 ++++++++++++++++++++++-
- 3 files changed, 45 insertions(+), 1 deletion(-)
+ arch/x86/include/asm/cpufeatures.h       |  5 +++++
+ arch/x86/kernel/cpu/amd.c                |  6 ++++++
+ drivers/iommu/amd/init.c                 | 23 ++++++++++++++++++++++-
+ tools/arch/x86/include/asm/cpufeatures.h |  5 +++++
+ 4 files changed, 38 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index 8d1613a91543..d37af8033682 100644
+index 383d2bb218de..d73d6cc24922 100644
 --- a/arch/x86/include/asm/cpufeatures.h
 +++ b/arch/x86/include/asm/cpufeatures.h
-@@ -452,6 +452,11 @@
- #define X86_FEATURE_CLEAR_BHB_HW	(21*32+ 3) /* "" BHI_DIS_S HW control enabled */
- #define X86_FEATURE_CLEAR_BHB_LOOP_ON_VMEXIT (21*32+ 4) /* "" Clear branch history at vmexit using SW loop */
- #define X86_FEATURE_INDIRECT_THUNK_ITS	(21*32 + 5) /* "" Use thunk for indirect branches in lower half of cacheline */
+@@ -483,6 +483,11 @@
+ #define X86_FEATURE_CLEAR_BHB_LOOP_ON_VMEXIT (21*32+ 4) /* Clear branch history at vmexit using SW loop */
+ #define X86_FEATURE_FAST_CPPC		(21*32 + 5) /* AMD Fast CPPC */
+ #define X86_FEATURE_INDIRECT_THUNK_ITS	(21*32 + 6) /* Use thunk for indirect branches in lower half of cacheline */
 +/*
 + * Upstream defines X86_FEATURE_ZEN6 as (3*32+6). That bit is still
 + * X86_FEATURE_P3 in this kernel, so use a free bit in this word.
 + */
-+#define X86_FEATURE_ZEN6		(21*32+7) /* "" CPU based on Zen6 microarchitecture */
++#define X86_FEATURE_ZEN6		(21*32+7) /* CPU based on Zen6 microarchitecture */
  
- #define X86_FEATURE_TSA_SQ_NO          (21*32+11) /* "" AMD CPU not vulnerable to TSA-SQ */
- #define X86_FEATURE_TSA_L1_NO          (21*32+12) /* "" AMD CPU not vulnerable to TSA-L1 */
+ #define X86_FEATURE_TSA_SQ_NO          (21*32+11) /* AMD CPU not vulnerable to TSA-SQ */
+ #define X86_FEATURE_TSA_L1_NO          (21*32+12) /* AMD CPU not vulnerable to TSA-L1 */
 diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index 8d9c067992e5..32cd072daf63 100644
+index f06966220602..686e0d1df92f 100644
 --- a/arch/x86/kernel/cpu/amd.c
 +++ b/arch/x86/kernel/cpu/amd.c
-@@ -713,6 +713,24 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
- 		}
- 		break;
- 	}
-+	case 0x1a: {
-+		switch (c->x86_model) {
+@@ -531,6 +531,12 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
+ 		case 0xd0 ... 0xd7:
+ 			setup_force_cpu_cap(X86_FEATURE_ZEN5);
+ 			break;
 +		case 0x50 ... 0x5f:
 +		case 0x80 ... 0xaf:
 +		case 0xc0 ... 0xcf:
 +		case 0xd8 ... 0xef:
 +			setup_force_cpu_cap(X86_FEATURE_ZEN6);
 +			break;
-+		default:
-+			/*
-+			 * Zen5 models in family 0x1a have no feature bit
-+			 * in this kernel. Leave them unmarked so the
-+			 * device-table workaround still applies.
-+			 */
-+			break;
-+		}
-+		break;
-+	}
- 	default:
- 		break;
- 	}
+ 		default:
+ 			goto warn;
+ 		}
 diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index 22f596957146..42872c5248d9 100644
+index 54aa09e1174d..30d73ca5f9a3 100644
 --- a/drivers/iommu/amd/init.c
 +++ b/drivers/iommu/amd/init.c
-@@ -1587,6 +1587,21 @@ static int __init init_iommu_from_acpi(struct amd_iommu *iommu,
+@@ -1579,6 +1579,21 @@ static int __init init_iommu_from_acpi(struct amd_iommu *iommu,
  	return 0;
  }
  
@@ -172,7 +159,7 @@ index 22f596957146..42872c5248d9 100644
  /* Allocate PCI segment data structure */
  static struct amd_iommu_pci_seg *__init alloc_pci_segment(u16 id,
  					  struct acpi_table_header *ivrs_base)
-@@ -1609,7 +1624,13 @@ static struct amd_iommu_pci_seg *__init alloc_pci_segment(u16 id,
+@@ -1601,7 +1616,13 @@ static struct amd_iommu_pci_seg *__init alloc_pci_segment(u16 id,
  
  	pci_seg->last_bdf = last_bdf;
  	DUMP_printk("PCI segment : 0x%0x, last bdf : 0x%04x\n", id, last_bdf);
@@ -187,6 +174,22 @@ index 22f596957146..42872c5248d9 100644
  	pci_seg->alias_table_size   = tbl_size(ALIAS_TABLE_ENTRY_SIZE, last_bdf);
  	pci_seg->rlookup_table_size = tbl_size(RLOOKUP_TABLE_ENTRY_SIZE, last_bdf);
  
+diff --git a/tools/arch/x86/include/asm/cpufeatures.h b/tools/arch/x86/include/asm/cpufeatures.h
+index dd4682857c12..f66ac38c9f6f 100644
+--- a/tools/arch/x86/include/asm/cpufeatures.h
++++ b/tools/arch/x86/include/asm/cpufeatures.h
+@@ -473,6 +473,11 @@
+ #define X86_FEATURE_CLEAR_BHB_HW	(21*32+ 3) /* BHI_DIS_S HW control enabled */
+ #define X86_FEATURE_CLEAR_BHB_LOOP_ON_VMEXIT (21*32+ 4) /* Clear branch history at vmexit using SW loop */
+ #define X86_FEATURE_FAST_CPPC		(21*32 + 5) /* AMD Fast CPPC */
++/*
++ * Upstream defines X86_FEATURE_ZEN6 as (3*32+6). That bit is still
++ * X86_FEATURE_P3 in this kernel, so use a free bit in this word.
++ */
++#define X86_FEATURE_ZEN6		(21*32+7) /* CPU based on Zen6 microarchitecture */
+ 
+ /*
+  * BUG word(s)
 -- 
 2.53.0
 
