@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363508;
-	b=1JNtzW4gyoKbyUuglDK+k/HrGx68zNEzgryTPOyq8D9LFv7fwG0VH5oSGCyHRwa0EFtu
-	 Li2WDRFzWB3nk/rycJZfEovPaPbFxTLFulzp72sdXfTqA2/7ewDtw5vV/fZ4AC1wvC90f
-	 gkNMB5kTD5X1QMHLIaIbXKOQzXz30nLn8Oad7FJr96L4oJywkKD2BD6k0nmbZ07xHam5r
-	 Fcz1cq9hFayZ0dongry45csT9pTmbnfyVCpvtSLJqhZeHXppr/88VbLILNXzBuuji8u4T
-	 45VSAmQF45cFxwvDbxkTiyac90Yr4xelWAP49QxaFuEeyPz/uv1e7riKrc9jqWXloKQ==
+	t=1794363552;
+	b=O93ayAfz+CrmJuWsKXh/mHRAHxIN0vpsKRwXGcChCVkc6aVQFTFhcSHZNYi8Zs4IcBZj
+	 JMdNISF/pMYhfzzgznbfOdMIEjl8ZVU3IYq0qr6GqmWhyg5GrVJH9AXcyLc25Eo/x4LhM
+	 5JW3XuWhq/EJqVWyTnKM67sLuKe5TUyCN7O9+cgTWyBIesQFbRt7SuCxnOyN24aF4MtZE
+	 /0AR7HlkX4BM3OyL/I0uUAwdKm8GNGyoCW5fwgjjgyRPh/P/71fqAHRGK1k9WS3HnjGw3
+	 cqCM+wahtK3RqHVKWx8aCACHe0kBXCGxuz0cxfPWGlAj3OPpjRcusGQQckab0KPiq3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363508;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363552;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Lv14CP/XLu6kXXLcgzHtdonvLMnL3WVdUyMkbCPaSLI=;
-	b=h9RKPrpTHWfvYzhUAnRUsUJh01UEqT070OJf2297oBw3gzkGnobes3u0rqguY1CDiDuk
-	 +AKLThWtGCUnkuFgHnbi5hp/TF4Y9oyfsMKOylLrhk9TK/Bewc6wxCZ3OJGHTvAI6PfOX
-	 ox3sgGZGzyqZCBWRcL1OkgrNVUmc2JCx4iGC9jK3n8DfxHs1hgPi3GCCP5lAdXMHAWCN/
-	 SMMdRH9qlSFDftBQuK5drDeCoEUC1eXExYRdCmPpwtUJ6gNYfHybQz2DWvx9d62zdPox+
-	 luhKP8R5vfhZSK/YYV2J8VVJMpHnOVCadVbCw8s9o2LxtfetWi4gt/QyRvH7IqAHseg==
+	bh=2uVxbiotD9un69M9tCD5Fr0I4KpEpUc1LUsIKm9MmL8=;
+	b=fFjgvyd8uYgZ07Mgc/2Z956RM2pPczRiC7ihjuM3x19Ri/W4/UOdCDxPhA0K9mM4RDL5
+	 V2b2vSdcbSqt+oih0QF5pq8oTk1AM6HQSdX+UbCETGwpiHb/5knVZUm4SWVoqTFiD8OOW
+	 HzDmhj8gVC62gqkakat2Y38Tqj+hECAZ3/GZHLFOltVPFLFyYtRf+XvLyFo01pfWDmqM2
+	 lBis7L+2PNWX5T35N/WH+pUdA4twwBcVoX/eyRurFhZN0c+7tn+uRgTyCDbyS/rQEMMj/
+	 n7scY6WoMqD2ahSlDRaj+76vfjNNdGrMLz80t1zdddG1TWdWJMQmggS8CxYSNDcNF8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eeWNLMEn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YzUTxT3B;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FF5606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F37606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:19:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eeWNLMEn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA3BF1F0089F;
-	Wed, 11 Nov 2026 02:18:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YzUTxT3B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0755A1F0089F;
+	Wed, 11 Nov 2026 02:19:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363508;
-	bh=Lv14CP/XLu6kXXLcgzHtdonvLMnL3WVdUyMkbCPaSLI=;
+	s=k20260515; t=1794363551;
+	bh=2uVxbiotD9un69M9tCD5Fr0I4KpEpUc1LUsIKm9MmL8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eeWNLMEnkyJvbyKjoqMkjeT2sRsUJS5GTVAP14yRhXew+wpJQGhiqrbh/+W1Ec6m+
-	 tLylq4C2hzdYF9Xb8YhR1InkC/ijTxS3vtMuoL3kiqExYnoATgFvoDk+vbUTxmRWS0
-	 4RUejbq0fAwxO29MNcZFtwxjEyY/Q7VafiJnT+2DKE9ojgqDG0w5+4bM9wh0D6CPXV
-	 ocrEHDCIj2q6n4oxa3xGaaaztPTwSYOoKjNHFdzAJnPO/id4HKJrLt62dB3asi9zeX
-	 8rTU8xkP67HkG1pxXZ8rOazkZAtdcxgiDjuCVOuqQmQQ8HiJDm1P9sd+APQekBdHQ4
-	 viaWzfxBRQ6aA==
+	b=YzUTxT3BeBb5j8yaFR0TXjCZpeG5A3yKgYZjWXcxldW96sVNMdxCBeOvjqKjRdhCr
+	 +YOUhn3YlFEcNqpmu1KqM7PT68Wfpz+5pTH8jxMG9hDmc61WltUBFQ5poUWNL/7MbA
+	 8H9P8eEu4FbypfsOrz9R9JqF7lmJ1Yr5XSK5ixaJV331t2R+eWe8VpyCNUi1S3PpYc
+	 3tlDMZf+EqHMgBk6Dx+GnnBfSxWAxBc6GMT45L8mq/O3hURB6v81QnqSuCU0nKGi+f
+	 Qb8HG0f3wQetippRLorWn5gPCJ/to2B94vhcCef7nPMnG7nWs7WFzHo254o1s8Eeai
+	 MyDCITJET+j6Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
-	Eugen Hristev <ehristev@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Vincent Legoll <vincent.legoll@gmail.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] media: microchip-isc: do not touch WB registers when not streaming
-Date: Tue, 10 Nov 2026 21:18:26 -0500
-Message-ID: <20261111021754.581704-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] nvmem: rockchip-otp: Add clks and reg_read to rockchip_data
+Date: Tue, 10 Nov 2026 21:19:07 -0500
+Message-ID: <20261111021904.642613-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061458-failed-5.10-d8983c47d4d9@kernel.org>
-References: <20261107061458-failed-5.10-d8983c47d4d9@kernel.org>
+In-Reply-To: <20261107060352-failed-5.15-9fc6a1592d84@kernel.org>
+References: <20261107060352-failed-5.15-9fc6a1592d84@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,68 +64,175 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-[ Upstream commit d8983c47d4d95eb1ed889dbb7516d3738fa854d8 ]
+[ Upstream commit 8dc61364164e79e44c07fa2ac0a7b6939f00d5db ]
 
-isc_s_awb_ctrl() called isc_update_awb_ctrls() unconditionally, writing
-the white balance registers even when the device is runtime suspended;
-on many ARM platforms accessing the unclocked registers is an external
-abort. The write was also done without awb_lock, racing isc_awb_work(),
-which holds it so the DMA done IRQ cannot latch a half-updated pipeline.
+In preparation to support new Rockchip OTP memory devices with different
+clock configurations and register layout, extend rockchip_data struct
+with the related members: clks, num_clks, reg_read.
 
-Write the registers only while streaming and not stopping, under
-awb_lock, and update the profile there. The isc->stop check covers the
-window where isc_stop_streaming() has gated the clocks but vb2 still
-reports streaming. Otherwise the new values stay cached and
-isc_configure() programs them at the next stream start.
+Additionally, to avoid managing redundant driver data, drop num_clks
+member from rockchip_otp struct and update all references to point to
+the equivalent member in rockchip_data.
 
-Fixes: 4e52889f48fe ("media: atmel: atmel-isc-base: expose white balance as v4l2 controls")
-Cc: stable@vger.kernel.org
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: adjusted isc_s_awb_ctrl() context to accommodate the missing awb_mutex operations ]
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Tested-by: Vincent Legoll <vincent.legoll@gmail.com>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <20230611140330.154222-10-srinivas.kandagatla@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 9fc6a1592d84 ("nvmem: rockchip-otp: Serialize reads")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/atmel/atmel-isc-base.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ drivers/nvmem/rockchip-otp.c | 79 ++++++++++++++++++++++--------------
+ 1 file changed, 49 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/media/platform/atmel/atmel-isc-base.c b/drivers/media/platform/atmel/atmel-isc-base.c
-index fe3ec8d0eaee3..173d46dabc4e2 100644
---- a/drivers/media/platform/atmel/atmel-isc-base.c
-+++ b/drivers/media/platform/atmel/atmel-isc-base.c
-@@ -1938,19 +1938,23 @@ static int isc_s_awb_ctrl(struct v4l2_ctrl *ctrl)
- 		if (ctrl->cluster[ISC_CTRL_GB_OFF]->is_new)
- 			ctrls->offset[ISC_HIS_CFG_MODE_GB] = isc->gb_off_ctrl->val;
+diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
+index 9f53bcce2f877..b5a84b379da40 100644
+--- a/drivers/nvmem/rockchip-otp.c
++++ b/drivers/nvmem/rockchip-otp.c
+@@ -54,21 +54,19 @@
  
--		isc_update_awb_ctrls(isc);
-+		if (vb2_is_streaming(&isc->vb2_vidq) && !isc->stop) {
-+			unsigned long flags;
+ #define OTPC_TIMEOUT			10000
  
--		if (vb2_is_streaming(&isc->vb2_vidq)) {
- 			/*
--			 * If we are streaming, we can update profile to
--			 * have the new settings in place.
-+			 * awb_lock keeps the DMA done IRQ from latching a
-+			 * partially written WB pipeline.
- 			 */
-+			spin_lock_irqsave(&isc->awb_lock, flags);
-+			isc_update_awb_ctrls(isc);
-+			spin_unlock_irqrestore(&isc->awb_lock, flags);
++struct rockchip_data {
++	int size;
++	const char * const *clks;
++	int num_clks;
++	nvmem_reg_read_t reg_read;
++};
 +
- 			isc_update_profile(isc);
- 		} else {
- 			/*
--			 * The auto cluster will activate automatically this
--			 * control. This has to be deactivated when not
--			 * streaming.
-+			 * Not streaming: keep the cached values for the next
-+			 * stream start and deactivate the cluster-activated
-+			 * do_white_balance button.
- 			 */
- 			v4l2_ctrl_activate(isc->do_wb_ctrl, false);
- 		}
+ struct rockchip_otp {
+ 	struct device *dev;
+ 	void __iomem *base;
+-	struct clk_bulk_data	*clks;
+-	int num_clks;
++	struct clk_bulk_data *clks;
+ 	struct reset_control *rst;
+-};
+-
+-/* list of required clocks */
+-static const char * const rockchip_otp_clocks[] = {
+-	"otp", "apb_pclk", "phy",
+-};
+-
+-struct rockchip_data {
+-	int size;
++	const struct rockchip_data *data;
+ };
+ 
+ static int rockchip_otp_reset(struct rockchip_otp *otp)
+@@ -132,29 +130,23 @@ static int rockchip_otp_ecc_enable(struct rockchip_otp *otp, bool enable)
+ 	return ret;
+ }
+ 
+-static int rockchip_otp_read(void *context, unsigned int offset,
+-			     void *val, size_t bytes)
++static int px30_otp_read(void *context, unsigned int offset,
++			 void *val, size_t bytes)
+ {
+ 	struct rockchip_otp *otp = context;
+ 	u8 *buf = val;
+-	int ret = 0;
+-
+-	ret = clk_bulk_prepare_enable(otp->num_clks, otp->clks);
+-	if (ret < 0) {
+-		dev_err(otp->dev, "failed to prepare/enable clks\n");
+-		return ret;
+-	}
++	int ret;
+ 
+ 	ret = rockchip_otp_reset(otp);
+ 	if (ret) {
+ 		dev_err(otp->dev, "failed to reset otp phy\n");
+-		goto disable_clks;
++		return ret;
+ 	}
+ 
+ 	ret = rockchip_otp_ecc_enable(otp, false);
+ 	if (ret < 0) {
+ 		dev_err(otp->dev, "rockchip_otp_ecc_enable err\n");
+-		goto disable_clks;
++		return ret;
+ 	}
+ 
+ 	writel(OTPC_USE_USER | OTPC_USE_USER_MASK, otp->base + OTPC_USER_CTRL);
+@@ -174,8 +166,28 @@ static int rockchip_otp_read(void *context, unsigned int offset,
+ 
+ read_end:
+ 	writel(0x0 | OTPC_USE_USER_MASK, otp->base + OTPC_USER_CTRL);
+-disable_clks:
+-	clk_bulk_disable_unprepare(otp->num_clks, otp->clks);
++
++	return ret;
++}
++
++static int rockchip_otp_read(void *context, unsigned int offset,
++			     void *val, size_t bytes)
++{
++	struct rockchip_otp *otp = context;
++	int ret;
++
++	if (!otp->data || !otp->data->reg_read)
++		return -EINVAL;
++
++	ret = clk_bulk_prepare_enable(otp->data->num_clks, otp->clks);
++	if (ret < 0) {
++		dev_err(otp->dev, "failed to prepare/enable clks\n");
++		return ret;
++	}
++
++	ret = otp->data->reg_read(context, offset, val, bytes);
++
++	clk_bulk_disable_unprepare(otp->data->num_clks, otp->clks);
+ 
+ 	return ret;
+ }
+@@ -189,8 +201,15 @@ static struct nvmem_config otp_config = {
+ 	.reg_read = rockchip_otp_read,
+ };
+ 
++static const char * const px30_otp_clocks[] = {
++	"otp", "apb_pclk", "phy",
++};
++
+ static const struct rockchip_data px30_data = {
+ 	.size = 0x40,
++	.clks = px30_otp_clocks,
++	.num_clks = ARRAY_SIZE(px30_otp_clocks),
++	.reg_read = px30_otp_read,
+ };
+ 
+ static const struct of_device_id rockchip_otp_match[] = {
+@@ -225,21 +244,21 @@ static int rockchip_otp_probe(struct platform_device *pdev)
+ 	if (!otp)
+ 		return -ENOMEM;
+ 
++	otp->data = data;
+ 	otp->dev = dev;
+ 	otp->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(otp->base))
+ 		return PTR_ERR(otp->base);
+ 
+-	otp->num_clks = ARRAY_SIZE(rockchip_otp_clocks);
+-	otp->clks = devm_kcalloc(dev, otp->num_clks,
+-				     sizeof(*otp->clks), GFP_KERNEL);
++	otp->clks = devm_kcalloc(dev, data->num_clks, sizeof(*otp->clks),
++				 GFP_KERNEL);
+ 	if (!otp->clks)
+ 		return -ENOMEM;
+ 
+-	for (i = 0; i < otp->num_clks; ++i)
+-		otp->clks[i].id = rockchip_otp_clocks[i];
++	for (i = 0; i < data->num_clks; ++i)
++		otp->clks[i].id = data->clks[i];
+ 
+-	ret = devm_clk_bulk_get(dev, otp->num_clks, otp->clks);
++	ret = devm_clk_bulk_get(dev, data->num_clks, otp->clks);
+ 	if (ret)
+ 		return ret;
+ 
 -- 
 2.53.0
 
