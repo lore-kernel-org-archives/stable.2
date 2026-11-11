@@ -1,124 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407054;
-	b=QifcttWlx+0BtOHgG6udybpZl20db8y9Obw6zbVPaYvF1dB4N4Lm7sdy1TmHRE2BslhN
-	 BVmS2psR6N2LoOr9QUY0HiHPCydvul1u8kuSUiW7fAs/1X5b4IYkhaJU9Hbb+7EZDa7cu
-	 Qil6dEyvRxyMZB3SqwxIj1pmBnUaky33ldXwN9ww1WYtCt+KiF3C9hl1PxL5YJDulccGU
-	 yhkgi40DpZJbgcnnRJE7C4MjSGvAuATXme152VZiqrsYLBKSSis8GFLeXzgpTB+i2R3b4
-	 bi0U6gX+hjCwVWYYihp+nnBTUDJkyqCrzXki2VxhGU3++8hg+DrEnr9+DVYdzcfcaxg==
+	t=1794407056;
+	b=h9v0OtxNM5mDna7tvZBbRztCLbzKfeuZ/yD9qafhnXkW/sOXuC/SzUzCzz27c0Sk+UdS
+	 wgafFROP+VgNTcbjYdr2bixtZ9iqfRqT6vRe/wc4xHarjUnvgRJrwatJjDG92l8nr8I7c
+	 TFzw4Tcx2jkSCk84dgIWMpiqCUVrrMQS0jxqmvwKpf0QNp8t3NeAlOchkF+09IXjOIalK
+	 H8cUE49ChPpet6X5wz0FFpJw0M/O1l4zKroR2x+gXhMafY3UmLH0N18yddx5RbEpsrNem
+	 f1aFyct8LTKHVOgHrjY8uDL4S/thpTzkrqd83fsIeYiUY/TZ0ZILYUSo43LheHvA99A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407054;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Npgvb84M0kJgdnmAsSFiguDvaupmEXtt/RUSJRF0Wy0=;
-	b=AvKM59ZH4/bR489Wnb/Ft07tFJLy2NISpWm84AJS3B8GGrmaSw7ToyURrx/F/sTIkcab
-	 DOYS8ic4dxsN8rq2a+6z9y4X9Ew0UquKZopCC8l69qXOyX2sY7EA4PN8ZSSFFDjGf7LHR
-	 +mus9/bZpnH8lXh1LS7katUQio9cJnokbbjUQF+i5CwKzQfd1JXbicztjNnrdbj8aiJkU
-	 uQ02YwcmHthKu+lMUasDSC4jMm0Zs2ZBTCzwW7fzfI7W4VSJkpPEn/qMwHon1UTE4zDtH
-	 fPfrvB/EHDfqLlfHt0Q/HGM8/pmyo1vU9K1IJHYHbYi3Pwxy7LKRw8hYd0GnrFGS+iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407056;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=SkvKw1RkLoUo4P/RmV52C0aJoH59lmWCBYxJx4Vfna0=;
+	b=qi9C1efa0q8suXsAsqo+UXVErwoBcSC4JqvMgQjsWfZ682u9ecJyxFHIdOPG2iyYzqUm
+	 HR3l4uSKiaYhFhvSaCbYh1HMA2XE+x7HE2y1juk4Mn/bLoKeVrboxxWaq+yL5Yl1lBP7P
+	 7fBtwJPGszF35mj0Ta/kfw21UV1cg5kihyugx9RQ4KrJxtoqI6rtHRA7peNE+8g6Zf+pu
+	 aMlQez0H7QtN8M5lXvR3jWBARkWJHz5V4lqncSjtmIfs2clYSaAHQXuiuvbV0Ny4IwUNu
+	 6o2fetYfkLiJUEjWoGhbh+ZkEKXbG9sRebMnNzZXoq6TIiLf09ZDOTm2G/LNwsCXCZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZXaskvO2;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FarBWl8t;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=rKWeDpvM;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23546606A897
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:24:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23546606A897
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4862C606A8B6
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:24:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4862C606A8B6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZXaskvO2;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FarBWl8t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794407053;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Npgvb84M0kJgdnmAsSFiguDvaupmEXtt/RUSJRF0Wy0=;
-	b=ZXaskvO2U6JKmz/iG15O9yMJQKIXLiwlTPu4X2HYj0EpthJtyh/xBJ4bLUlL7jOc1BFjSd
-	o1mkYqupb6hM2P3rappVGeFATw5GpT3bB35cOZWGv8tORfFHz5icLv6/GwdkQ31QFOuC1X
-	AnCA8wSWTYQ4t2yYApntj5AdfLFtgxM=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-435-iaqyfH1AOEucfvic0mHqEQ-1; Wed, 11 Nov 2026 09:24:09 -0500
-X-MC-Unique: iaqyfH1AOEucfvic0mHqEQ-1
-X-Mimecast-MFC-AGG-ID: iaqyfH1AOEucfvic0mHqEQ_1794407048
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a027f2e364so25244825e9.3
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 06:24:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=rKWeDpvM
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-492f0a1b685so2210540f8f.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 06:24:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794407048; x=1795011848; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Npgvb84M0kJgdnmAsSFiguDvaupmEXtt/RUSJRF0Wy0=;
-        b=FarBWl8tvXi1UumnOLvjKyNUvGVvqKHBHvz0IwXEUMy0YT8wcU2U17ezae3ntnt0H4
-         NiODWSEc9if6AOUfpL35fVd4CzqFkaozQ6YVSAENATtvpcLg3i67R53enj5BOlj1mpH4
-         SE8hiV47ncV0WTfVymNUbic40PN9LqQtxQDDvq6nANt6LVGwNAkwFSkOuQir4G+Zd+6g
-         QY3q3q3sKHA8SNJPgHv2Xlh0/TO+hRNmN1mzrZvcu/7GYGpViozASL5Mjisa7zEGif/W
-         Xxl0TdYB+vfxfpvpI2la/V3DB9P8oPxsZpiVnR8G/Jo998aGOc8elIXyRsLYdwTS7+85
-         ig/w==
+        d=flipper.net; s=google; t=1794407054; x=1795011854; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SkvKw1RkLoUo4P/RmV52C0aJoH59lmWCBYxJx4Vfna0=;
+        b=rKWeDpvM3gXppe2w1jRx4FDwGNAKUchjBvJal0TxqQh/YSwzenzj6z021+9OEGGkJc
+         6xDu+CwxTsiIQs9dXaZW1zMGcGb2MY2Ze4LFuhu0wQunAZhtjj8mh5eeTdtEln8n2kaY
+         HDM+uHRB41a89Ckyx3ywLtKOazGptRSKp7wry4CMdH3f09HbqHr72HAAWe7pdmTVpehw
+         t9HpUyDPpfR+ixEAM8He+pPQf8b8CSEwLdRqJUsESJWYp7CnHcv1scSb8uD2GIDIEOxB
+         F7E+DYbshgAshLvgWXkdjbSdMBVlEXXKCzMhYOG6nlc28TvVyOClwEfQfIQ4LTklc8sy
+         goxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794407048; x=1795011848;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Npgvb84M0kJgdnmAsSFiguDvaupmEXtt/RUSJRF0Wy0=;
-        b=0g0Cqj+kQy78PeaZ8QZg/B+L3PhXrub/iySSp5OrKYCiznH7CKCceBOrsI3MgQzQSg
-         LXOtfBklcuj2vsOas35cPGFxREOTjwdddfJAfClE7hiMl90YzfdPrCcj7DXBBU37MNhe
-         21bxHlT65PHMpoao/gNyRURFu3YrgO/Luc3uc/K2eMgM14eECo9+yXNM0LJyP9vnQMRS
-         VLe1OsGhYpQBK+f8mKe3fYeFZtsvnhZXN1lualmMZBYIfWz2rM06TtkMKRHfl7elZM4k
-         oKrriaBHcPjt63O/VxZuJdK7mbibGHpL4R3lU0Kfy1mHq7BbFyAWmhGs686tPdUzKK2l
-         Y22g==
-X-Forwarded-Encrypted: i=1; AL+hErFQT9XNVxw3bz/hdy7vmwwffoamp6y76SbCV/7ydiKKv+02nkvTudFM5uIhmxiehIIvlgNKJOA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9JBUymMyKq6p8VQ+7cktHoFBe8boOeiTnk9lOhUAmX/mR0VngS
-	uKmhv90AsyvbP76Y505P0mABWKfh3DoqMPYkCetjVoLQZ1wF1WsJLArwfQKcg/2wsN92xVPy9Iv
-	xiB+DDTT4pGrcKiRP8OALeP4p42kctOLEz0OqXFnuepq2Lq5PGXvM4cm0dw==
-X-Gm-Gg: AYBFou3LQ47qfRX3RmOlV14SufYoYqct0eDWd2j3fqNs4119qFENCpgjOo5kSEN9OIp
-	O/35k90o7UtZ95JDZCR1vzI2F3ildc5XGHApxTtmnojA/1Iil1NPmbSLTyeTETqUYsm6QVqU4fm
-	n+H8gTH7WjnleBEMkJqbsDpxpPf2+ooX9IY2f26JVzPu73pSjFX9BLOjevsjbFeuswGVbzqsI1J
-	Ssr6A0TKcu/+s5AMO4ZNfJYO3akuIwuOflY6MSeqCAWPv9uMM0QY36Qdd0R6KJsg7xRAH0BfePB
-	07R9hM7MH/P4k0JdajELAiufGY36rca9x+RctE5zM8r83fSqS7hJ9Qs19nJCgabb6xsTlDBqCkd
-	NDS8/fBYvgVP3cnSC7fwf0TtRaL60TOLgjZrl11xDhb/gUdjFhYtEkzggGicNuJXRvMMcVVzclC
-	K9FH8=
-X-Received: by 2002:a05:600c:840c:b0:4af:c210:5b3f with SMTP id 5b1f17b1804b1-4ba09377dbfmr46939685e9.24.1794407048218;
-        Wed, 11 Nov 2026 06:24:08 -0800 (PST)
-X-Received: by 2002:a05:600c:840c:b0:4af:c210:5b3f with SMTP id 5b1f17b1804b1-4ba09377dbfmr46938695e9.24.1794407047403;
-        Wed, 11 Nov 2026 06:24:07 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c5c4sm9579508f8f.17.2026.11.11.06.24.05
+        d=1e100.net; s=20260707; t=1794407054; x=1795011854;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=SkvKw1RkLoUo4P/RmV52C0aJoH59lmWCBYxJx4Vfna0=;
+        b=BTH1ZOCA1t6HP1RbahzGXiW+7PVSV4UZwUCAn3NhgXl8503PLk4Pyj+LI2R7MqcBnq
+         2SvupqE9yQIvQkBOhVAR7Ou489q/MG7yZj2g3nsdy3kfXaLh8Q4xzt59c/ldZJyxX+vG
+         PsygumHdscp/J2mlmbxTEIcMgUdorpvrAFF0YoIk7jKLLGSbWGBjHGfGTHrYK/S7+uQf
+         a5K6Sw7nkSh4zmXIumFwoGxxBTO9XCL0d0/r1osQLIXV0fdlHFVSd8UB93lqn6qeuO6e
+         F1nGgrCDBilPbsKcnLm0vNVE7mXrs5QbWSFTM17HftafJkXqVH20VB5bbUAMjz0ZDdLT
+         Ho9A==
+X-Forwarded-Encrypted: i=1; AL+hErEhhdAjXicrI8NTMjXqkrWVqWQZIoRLzxx6F3vRXgv4twVMEVttkmxJaQcLd0CSPc/9hDJ0l+s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+6vijUlE1OVTfEj97InGu4JO7DFLiuE7aL/mlFmYLJAZvIlVa
+	ECb0buLJlaTw9fHCbvxyxegpfOqel9idAOL9y4wIpt3sy2zQTtiOXpQran8pttrpHHE=
+X-Gm-Gg: AYBFou0Gxz4rSz13CdZJlyewhVgEsctYgdqLWY9gR5V1/cbeSofELd/xr0miCBsj+4V
+	nuqRFuZoCJnyFKOEtIDVtyaNYNP3ldHmoOlA7oM5IVsC2fqnIY/IpZmDa9CF/ZWY5FqdaJbmsUB
+	Mwltx/US0OuJ8FO53x5R/t+jHw47EzZWysuSvRZOOJhck9uUarKPY7vmQLSwTVR+8zMB6oXE4CC
+	0S8yNisoqYlMlzslwr5yzfMgzpTEpzFlKlff9HIgd0xxNI368KpNe+WbbQomKe0gYg08WdRQRRB
+	E7tW0nM8/kznmgOmJ1jp/PT42vR6ljbgh/KW3D4ABKIeNsYFiPekQ0hz6DgdJxUShwoLddwLm/y
+	ANP/3DdTTkFCH65TXj3gupy+WT0HdJWMj+0xOs9naejP1uJ+8bqHz6Qe+4N/BNwPN4Rk8ZL9ap2
+	JMgP85nHzvbls0zJhfmoS/xKTNDZAqZSdiBAn+5EzVTnNCkA5eqRcSj0A52oPFc0+PLzKk999w1
+	t0kpsBYCbLjxAmuwebD4kxO4riMK2vTNs9OM3yb4pWK9NAJ1ZuYbsFkF3I7jE8oLmsig/lhjj8K
+	MF0ZvJDxkl+JZd9RHBOLgt4igtpjDQKSiydpRm8LWS6eFtaNd4KMabuda3aK/+qoiyojCFDdfpB
+	artJMQYOkoA==
+X-Received: by 2002:a05:6000:5c7:b0:490:9fe2:6a39 with SMTP id ffacd0b85a97d-499c6027cc4mr4071191f8f.20.1794407053616;
+        Wed, 11 Nov 2026 06:24:13 -0800 (PST)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363df7a5sm11352871f8f.37.2026.11.11.06.24.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 06:24:06 -0800 (PST)
-Date: Wed, 11 Nov 2026 15:24:03 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org, Qais Yousef <qyousef@google.com>
-Subject: Re: [PATCH v5 15/29] sched/deadline: Rebuild the root domains'
- accounting from the task list
-Message-ID: <avR6g-ndjl8Xdo1y@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-16-mathieu.desnoyers@efficios.com>
+        Wed, 11 Nov 2026 06:24:07 -0800 (PST)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Wed, 11 Nov 2026 18:24:01 +0400
+Subject: [PATCH] scsi: ufs: core: Register the RPMB bus before adding
+ devices to it
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,63 +93,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108185406.1549770-16-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-ufs-rpmb-bus-v1-1-b07100e53f6c@flipper.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINAtTSvWLSrITdJNKi3WTbZINUk2TDZKNrFMUwJqKShKTcusABsXHQv
+ hF5cmZaUml4DMUKqtBQDF/kqFcAAAAA==
+X-Change-ID: 20261111-ufs-rpmb-bus-c8e4c1c2c49f
+To: Alim Akhtar <alim.akhtar@samsung.com>, 
+ Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
+ Stanley Jhu <stanleyjhu@google.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Avri Altman <avri.altman@sandisk.com>, Can Guo <can.guo@oss.qualcomm.com>
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ stable@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3211; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=rACyBhlqQdc7vEC+waUwW3Q2wxEerf4GPNn9xVrd1kk=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWR9qWrhLHryfo6Zfv8kgTXmP5Ycq+UK9rIJfnTBefE/R
+ eM7n25+6JjIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DI10jHWMGLg4BWCq73UwMvTapVw7c+Px7UTL0o0fu0xWTvzBXzvvsdqKE/etJ54MVFzEyHCv4b9
+ a2rTNWwKmWhle/3Oy5fFh30eWkzXP6YQY75960pYFAA==
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Hello,
+ufs_rpmb_probe() puts each RPMB region device on ufs_rpmb_bus_type, but
+nothing ever registers that bus. The driver core used to accept such a
+device and treat it as having no bus, which hid the problem. Since commit
+36f35b8df697 ("driver core: reject devices with unregistered buses"),
+device_register() fails instead, so no UFS host registers its RPMB
+regions any more:
 
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> A rebuild of the root domains, as on CPU hotplug, clears their deadline
-> accounting. dl_rebuild_rd_accounting() then adds back the deadline tasks
-> of each cpuset. Without CONFIG_CPUSETS, it is a stub. So the first
-> hotplug drops every deadline task's bandwidth, and their releases wrap
-> total_bw around. In testing, a root domain admitted 9 tasks of 10ms
-> every 100ms before a hotplug with deadline sleepers, and none after.
-> 
-> With cpusets, the rebuild skips a cpuset whose nr_deadline_tasks is 0.
-> This count spares suspend and resume a costly walk of all tasks. An
-> attach moves it by a tally taken in cpuset_can_attach(). A task that
-> leaves the class between the tally and the move is taken off the old
-> cpuset twice. Its count can then reach 0 with a deadline task in it.
-> Every rebuild would then drop that task's bandwidth.
-> 
-> Fix both by walking the task list, with or without cpusets. The walk
-> finds every deadline task, so the count and its hooks go. It holds
-> tasklist_lock for reading, so fork and exit wait meanwhile. It locks
-> only deadline tasks, where the walk that the count avoided took the
-> pi_lock of every task. It leaves out an exited task with a dl_bw of 0.
-> It also leaves out a zombie whose bandwidth an earlier rebuild dropped,
-> as dl_clear_root_domains() does.
-> 
-> Without cpusets, a new dl_accounting_mutex keeps admissions out of a
-> rebuild, as cpuset_mutex does with them.
-> 
-> Three hotplug cases of deadline_bw_test, added later in this series,
-> fail without cpusets. With this patch, its five hotplug cases pass, in 4
-> VMs. Its death_zombie_hotplug case tests the zombie. The Sashiko AI
-> reviews of v3, and of v4 before posting, found the drift and the exited
-> tasks. Its review of v4 found the zombie.
-> 
-> Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
+  bus_add_device: cannot add device 'ufs_rpmb0' to unregistered bus 'ufs_rpmb'
+  ufshcd-rockchip 2a2d0000.ufshc: Failed to register UFS RPMB device 0
 
-As you most probably know, the count this removes was added because Qais
-reported 10-20ms suspend/resume regressions from the old walk on
-Android, and the merged fix was validated only as "delay no longer
-noticeable" on zero-DL systems. Added him in Cc.
+Register the bus when ufshcd-core initializes, before any host driver can
+probe, and unregister it on exit.
 
-The new walk drops the per-task pi_lock that dominated the old cost, so
-the approach might be OK, but since this is Cc: stable and will
-eventually reach Android, maybe someone from there can confirm before we
-pull the trigger?
+Fixes: b06b8c421485 ("scsi: ufs: core: Add OP-TEE based RPMB driver for UFS devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+ drivers/ufs/core/ufs-rpmb.c    | 10 ++++++++++
+ drivers/ufs/core/ufshcd-priv.h |  9 +++++++++
+ drivers/ufs/core/ufshcd.c      | 14 +++++++++++++-
+ 3 files changed, 32 insertions(+), 1 deletion(-)
 
-Alternatively, a single global "any deadline task exist" bail would keep
-suspend/resume free for the no-DL case without reintroducing any
-per-cpuset bookkeeping to drift?
+diff --git a/drivers/ufs/core/ufs-rpmb.c b/drivers/ufs/core/ufs-rpmb.c
+index 756673337648..591e7f2e1474 100644
+--- a/drivers/ufs/core/ufs-rpmb.c
++++ b/drivers/ufs/core/ufs-rpmb.c
+@@ -276,5 +276,15 @@ void ufs_rpmb_remove(struct ufs_hba *hba)
+ 	dev_info(hba->dev, "All UFS RPMB devices unregistered\n");
+ }
+ 
++int __init ufs_rpmb_bus_init(void)
++{
++	return bus_register(&ufs_rpmb_bus_type);
++}
++
++void ufs_rpmb_bus_exit(void)
++{
++	bus_unregister(&ufs_rpmb_bus_type);
++}
++
+ MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("OP-TEE UFS RPMB driver");
+diff --git a/drivers/ufs/core/ufshcd-priv.h b/drivers/ufs/core/ufshcd-priv.h
+index 99f654b79035..4f2661036d7b 100644
+--- a/drivers/ufs/core/ufshcd-priv.h
++++ b/drivers/ufs/core/ufshcd-priv.h
+@@ -499,9 +499,18 @@ static inline u32 ufshcd_mcq_get_sq_head_slot(struct ufs_hw_queue *q)
+ }
+ 
+ #if IS_ENABLED(CONFIG_RPMB)
++int ufs_rpmb_bus_init(void);
++void ufs_rpmb_bus_exit(void);
+ int ufs_rpmb_probe(struct ufs_hba *hba);
+ void ufs_rpmb_remove(struct ufs_hba *hba);
+ #else
++static inline int ufs_rpmb_bus_init(void)
++{
++	return 0;
++}
++static inline void ufs_rpmb_bus_exit(void)
++{
++}
+ static inline int ufs_rpmb_probe(struct ufs_hba *hba)
+ {
+ 	return 0;
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index c9b2eefbd7b0..4653d497e27b 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -11687,9 +11687,20 @@ static int __init ufshcd_core_init(void)
+ 
+ 	ufs_debugfs_init();
+ 
++	ret = ufs_rpmb_bus_init();
++	if (ret)
++		goto err_debugfs;
++
+ 	ret = scsi_register_driver(&ufs_dev_wlun_template);
+ 	if (ret)
+-		ufs_debugfs_exit();
++		goto err_rpmb_bus;
++
++	return 0;
++
++err_rpmb_bus:
++	ufs_rpmb_bus_exit();
++err_debugfs:
++	ufs_debugfs_exit();
+ 	return ret;
+ }
+ 
+@@ -11697,6 +11708,7 @@ static void __exit ufshcd_core_exit(void)
+ {
+ 	ufs_debugfs_exit();
+ 	scsi_unregister_driver(&ufs_dev_wlun_template);
++	ufs_rpmb_bus_exit();
+ }
+ 
+ module_init(ufshcd_core_init);
 
-Thanks,
-Juri
+---
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+change-id: 20261111-ufs-rpmb-bus-c8e4c1c2c49f
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
