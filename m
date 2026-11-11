@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794423078;
-	b=sb8B8iMHbp1M97zT0us7jHqg4HejmDOiBB3lUzFh9G68u+bWvO/YdK/dcDYunUsKP0Ew
-	 Rutn4qH7hltGFEfGsA5w0F2bME0GHP3zfJF2xlHjR+q0Dor3E4rV45DMCUdGNoqcpUq0D
-	 sK7m5NJLEqnEEdHVvQwutysQ3A5nasNxu8GlHYc+aE+J2b7H6dWREmNlln7EGIq4JDDW4
-	 y5cYvtIaCB2oVuifVXw1oWBntkoVgD8/FpjBBccddERmUvqihOIpdA9F2K4yxqduCeRPK
-	 l/I9eJlm+T56IyN5s/C+uDzPKz5wmVFtPM67Tr034ABh1EOoeLqx6TGMQAs38lPTiPg==
+	t=1794423242;
+	b=rK/oRYvPoMiQ5Fd+rqgzaKJaPIhRbEihHhiq6uV6qkHF8lS7NVHdoEcB9xpglRfy7W2i
+	 QVH+JbIu2waY2/lrMfSzLDT/WShsyX1f1G1j35u5SWc/Y/rr0Ud9bxzCCiCdPNPD6626e
+	 pyJcjYbHqNKRb0zTIk9D45q5ngicEILE/1MV5mb7X1GxtCbi2nbqEPadz19zpiE8FMKQk
+	 /5lYB0qBdpYr7frFa7oxdmaj6N8u3TdVsQfeKAetQ7x7r9gJKWRfzPKb3FWsWlWkU0fLy
+	 4Wjs2A1BOlthBaJQriVH1GYjmo2h2cRKxlIDGgbR4qwHyRube2QF0jKAz0gu4NcH38Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794423078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794423242;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2keT7Ms1yh7H2A5fH24C4ZP9s+1ZE+h6vnQv259i8ZU=;
-	b=JP55/WyCzL//CQfrTR7b9w7DxPAn3/DGQZOV7FIfhnBpwZjUMkKEddbr205hJ/QYZ7l4
-	 2AYybupP52ayAoCakpW2M8op0kTgylroXGS5fCbNj7O0/K0SVgLfP/o60ppKTwlwD8l5c
-	 Y0UNDPHHu8tnzr7jW/Jk1PE66tCbYIS/mf46h56Q43AdnF87GWxp++PfhhfPnv8l5DnT5
-	 FG1dGmPad9qmDeJ735iCSvJY94RdUUTcG2Xhyf+JcsD6nOqUyFOPu4NGOApzRG2pSvd9E
-	 FmAAmqXKXeW7yLYSlc7IllPbHs62AIwy0pzBciRtEo7ioEAluB73noLNhjFmLK5GQvA==
+	bh=ILTA9/BUoItd9JpQ87lFDyke7aQoYRvBxudzS9QbK8o=;
+	b=eMpJpZjVUauJXA7tfPTxpol8j+9JmRNRimiyLsjYGhgRpI54hIAvA2edDWRqPH9U6a2O
+	 Jtp42PfZm6ASnMWrPf41608xo+lJhzH8PUQJ0OoVNGCFp06ViUzCOEUoqYQ6yM+P0f81V
+	 FFhHhGC4Eh/vQD3KRQpJqP04djGsANr93I0PKSZCcDbw/xtsFJJPH92gNL9A+fyhzVAhR
+	 MNEWOrjyxxZ+vfqTSUoQBsm5DiqqoYtqB/PWv2YcdvIGNx+LSIZcbb/6kyCS0MTdivvAW
+	 wSrUrbnFukeA32AwXJyI/2yzcS5B3OHl5rf60BTpg038/81ucc/rlxjpzRnoNswmlKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0Z7KoPZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+56Zin4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F768606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:51:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A0F606A8AA
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:54:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0Z7KoPZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D24D1F00A05;
-	Wed, 11 Nov 2026 18:51:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+56Zin4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BAB01F00A07;
+	Wed, 11 Nov 2026 18:54:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794423078;
-	bh=2keT7Ms1yh7H2A5fH24C4ZP9s+1ZE+h6vnQv259i8ZU=;
+	s=k20260515; t=1794423241;
+	bh=ILTA9/BUoItd9JpQ87lFDyke7aQoYRvBxudzS9QbK8o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A0Z7KoPZkMeWoQ8d8KSYOR7FDeTuQKNAXnwyb9/hf7g28SaUv8inWiXLnUqvu749d
-	 1+pvGKGOoFYVMmYvFmA6LZmxzXIiALsu9vuOQs2kpJ09oEy1djHzZjyzVoQUcfoD+R
-	 fC/2NEs3EtOG4uyJ4bVRXMnHzcrO1Xd1+tDrRkRSCpyMv7RQ5LD/2Mn/W9zPu6pMT8
-	 gFYJg/aWxhtdKFkpA+Aq/PrjJpxdvjec6q0xPHT4OGolOHFYArQ7jXada2BnbR2iW7
-	 gzUe1A9b8J8eJEpvGja8HrlcVdKEnhCkhb6vjAMVXMy1Mxik3dpCBVgnit6dM+4Eya
-	 eub6ZtN/7OG2A==
+	b=Y+56Zin4valyzvDe+UcSY0Cwt3hHm7QUbyHgGrGlLsRewKADZUbgEFIPSoEj9Ty3n
+	 pvBlOzMZnhVmxmPGo11yBeQ4nSfcHY9L3L6CTAdN5daIk9/djJioG7JCfNvyCq9XNY
+	 m/+VkP01Af8rYE7l7s9zPsK7rN8nR6NKIAj8Kxs3tcQnqiLsnDZAyhNwl3Xcjl/XC6
+	 WqMyHLA1ZioHR6xjq81UI1eGWypz9oZKmHZ/GK9EYv0weYgCtXBK2N2F+iLq8oVGiH
+	 r6PowHHFFyJpMbasl0T2lRhgWO5lgRpbdMVKps1Oc7TYlsuLXFTYJ7yR1WztOWyBFT
+	 oUdjIy9QQ+z6w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Yao Yiqi <yaoyiqi3@huawei.com>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] fbcon: Rebuild rotated font buffer on font change
-Date: Wed, 11 Nov 2026 13:51:16 -0500
-Message-ID: <20261111185046.3895966-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] fbcon: Rebuild rotated font buffer on font change
+Date: Wed, 11 Nov 2026 13:54:00 -0500
+Message-ID: <20261111185329.3917932-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051321-failed-6.18-e4b6b865d45d@kernel.org>
-References: <20261107051321-failed-6.18-e4b6b865d45d@kernel.org>
+In-Reply-To: <20261107052503-failed-6.12-e4b6b865d45d@kernel.org>
+References: <20261107052503-failed-6.12-e4b6b865d45d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,17 +94,17 @@ Cc: stable@vger.kernel.org
 Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
 Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Helge Deller <deller@gmx.de>
-[ sashal: adapted rotated font cache handling to the older fbcon_par layout and font reference-counting API ]
+[ sashal: adapted rotated font handling to the older fbcon_par layout with individual cache fields and a direct rotate_font callback ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  drivers/video/fbdev/core/fbcon.c | 57 ++++++++++++++++++++++++++++++++
  1 file changed, 57 insertions(+)
 
 diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 903823c9ce567..51860796f4364 100644
+index e582314f1ccc3..eabe5cc227457 100644
 --- a/drivers/video/fbdev/core/fbcon.c
 +++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2430,6 +2430,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+@@ -2427,6 +2427,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
  	int resize, ret, old_userfont, old_width, old_height, old_charcount;
  	u8 *old_data = vc->vc_font.data;
  	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
@@ -117,7 +117,7 @@ index 903823c9ce567..51860796f4364 100644
  
  	resize = (w != vc->vc_font.width) || (h != vc->vc_font.height);
  	vc->vc_font.data = (void *)(p->fontdata = data);
-@@ -2449,6 +2455,33 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+@@ -2446,6 +2452,33 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
  	else if (!vc->vc_hi_font_mask && charcount == 512)
  		set_vc_hi_font(vc, true);
  
@@ -151,7 +151,7 @@ index 903823c9ce567..51860796f4364 100644
  	if (resize) {
  		int cols, rows;
  
-@@ -2465,11 +2498,28 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+@@ -2462,11 +2495,28 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
  		update_screen(vc);
  	}
  
@@ -180,7 +180,7 @@ index 903823c9ce567..51860796f4364 100644
  	p->fontdata = old_data;
  	vc->vc_font.data = old_data;
  
-@@ -2489,6 +2539,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+@@ -2486,6 +2536,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
  	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
  		set_vc_hi_font(vc, false);
  
