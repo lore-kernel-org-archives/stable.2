@@ -1,55 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368319;
-	b=gLBJm/8P0TBE7+BBVbhPI9iTEApYXMUE5wsRTxuLFQypuM/f/iZZViiAj56acR+fmB1l
-	 TVpVizIX6t5f3VKxpUagvsBqvUDCENTUq2whGgeeRYBFbvAPztWKJupo6PX0WRI4qZwwp
-	 0vmCZo1zeoYSWKbJG+1jRWqfWISxJGyqxn+BTwPfl5VCbALf549DP3acd0RkmG7/xJsSU
-	 st6kYc77c7zZC2NRePgs64zM8BEaW1iz1wi8+uVBxz8sMbtpQ3aXPhpZUPV87T0qTVIVI
-	 y8v4KXY9z+WUkxQTQBg2jENkPrpcfL28UrlYhkM7oe2nfpXMlZwV81z/MeBg/cjmNpw==
+	t=1794368657;
+	b=v+IXG3lFqjIETVdtcBG3vuOe8jDa5CEoAVtc6ZTdDcB1BPkz/47YnKUDQnrkNtSMVJL8
+	 j5TOwSeQA1TrT+qJP4RdRDp3K13KfR4vpllPeexQ0PJMKv4Eu1y66m6GIr6pelPu1rhpE
+	 uE8Ko1Dt0k/XzawOD1h6y59JKTXRhgDl7Bew22uhvNf5sEEFQb5Fy/aoRrahOBc1VGU+3
+	 13qPIwccbdkeG6qarRrcx/l7q8BRzZZFzCUJuBRiBbKwO1xeaNCstLoMv2mhVOnEasvsM
+	 vnbBqfb/Y9ydHHArxadbSvwFMadvLC9tzlwYBczeAQ1t8nADYWmOLkiG3DCyl1GmAhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368657;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=R49X/VBakl9eEMcXKuWdU+B6IKouU4hHDaEur8Wuv8U=;
-	b=E5JCBI35mgZcWm81UhDGrQ0QFJra3zjjb+4jQ2W1CCpT2NrcSkzTdD0OlwQyIi2Ynpte
-	 ffFew890ObqafqoEffQtirKTr5tPk1EuQJweRqFqjIns8WNoclx0QIe81TBgGbB7+kgzr
-	 UV2lTKzESK6WI82Ke5+0oRm/oZE0rhDbXMDCGJ+OphnDSdrbDgjgsrIuDKICZsplj+uGv
-	 cRryJKGlKTW2GDIhpXRBFD9sYQ/6oSCFis1MhUbMTfwIuFCefCxf2gsq0mynapiRTz41i
-	 dywFf0FWqc2ypVoAciE07IFuPtZQpt2DeMI0zdKj3H3L6sR3AnML8pSeBTeKAIJxQ8w==
+	bh=msR9i/1MTLEoaqk3JRMPpZ7lsKwZmhRVysIK19BzZ5U=;
+	b=n+YXGADb5uyKPXjH+uZex1PbFSl1QVB3qWvWOEzr1WZjzi1lu2fLoefZOtXuqXA1n9Nv
+	 kYZfWu7QCKhFqyfvK0jvJpnszgrNlCEbZo0hUPySoDq+28nTXte4dPbigJ1n77mzTJeuU
+	 kw3Cvs1ERsqFUfPZZoBhtEMKgz3wlSyaXS7jS8wP/D+CIiXYn4U18fCU18iWBg5UJ69yG
+	 tStF9u2P6OjR2QAnf/RXM9ZjxCP868vZxZWhBLTc47GcK121BGLbR7smx/VqfCfZK1kbH
+	 oenaESlJ60PgN9/p1/O4R7tXptkGykv1j4iZEjWuQiImmJ3WZdoHpACrNoaOa/7DLcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvPFxUL6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpZMY9zv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0D0606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56107606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:44:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvPFxUL6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98AF1F0089F;
-	Wed, 11 Nov 2026 03:38:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpZMY9zv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0341F0089F;
+	Wed, 11 Nov 2026 03:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794368319;
-	bh=R49X/VBakl9eEMcXKuWdU+B6IKouU4hHDaEur8Wuv8U=;
+	s=k20260515; t=1794368656;
+	bh=msR9i/1MTLEoaqk3JRMPpZ7lsKwZmhRVysIK19BzZ5U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lvPFxUL6dMvGLMYCKScypapiacC2xiZD2EjSu2Fv1V+L7DTqXoTmWfystGQsDq11u
-	 VgXfD8D1/Vt2K5eVPf9dLZqPIu+HZZ7nWq48PzyT5hrx18vkjUKOLZsU1wZrQk5ojW
-	 q6I1pg1zNFYC0qXx0obt4rY9lO1TgIWgE1AUEcADOhNvOmdKoQVAb1V/MWWy85UfmW
-	 XWz0XfnV5QAxGaw7OiXpkmc9+R01xTEp0qz24JO1e8l5ldSiQU8uwGKnA3Jt2RyHbU
-	 ufwbn6uTFYBDdS+PAN/Ogafl5/0zW203UCYciopJ33VPd36PBMol1Iin1uVfQvQKGg
-	 8Pjda9Lj9GNsA==
+	b=lpZMY9zvcK77bM84IN7TJ1z4lWblYJwnaePFwtbugHkuPrd3L4oRLSZGCmXXccSyX
+	 lngoyzlclFm2qcJsPIrbAn8gRGnofZwkpo4L6WKLrkHADZV17512MrwLLK6VtCebst
+	 ZMZmF1utSt8kWV79u/NKiA2cHgiPfHTPV/OKCmJv3K+RJT+vhLlknk0+jS5HvmXIkA
+	 hy7bLwvUFNe41iakVxaWiG5+mjMAnt2We9CzJ9B+unEA/5dbE//pI9hY46HQBA7rNJ
+	 lKekA6XeHfelzh34rgqOVR0W0dnNYU+5md45r277XUL3V4QdcLWmDvP/5hT5dhyRZu
+	 8UqEUNoOIOvoQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sinan Turunc <enscrpt@pm.me>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Adam Litke <agl@us.ibm.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Rik van Riel <riel@surriel.com>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ALSA: usb-audio: Bound packet copies by the PCM buffer size
-Date: Tue, 10 Nov 2026 22:38:37 -0500
-Message-ID: <20261111033812.968109-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/vma: don't leak the commit charge on mmap failure
+Date: Tue, 10 Nov 2026 22:44:13 -0500
+Message-ID: <20261111034131.950891-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053950-failed-6.6-06be918062ad@kernel.org>
-References: <20261107053950-failed-6.6-06be918062ad@kernel.org>
+In-Reply-To: <20261107052551-failed-6.12-aa09311c40f6@kernel.org>
+References: <20261107052551-failed-6.12-aa09311c40f6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,97 +79,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sinan Turunc <enscrpt@pm.me>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 06be918062adc1a5a76dc346803b136b20bdb5ae ]
+[ Upstream commit aa09311c40f6d3aa6037065e17d257ffa48b9402 ]
 
-retire_capture_urb() and prepare_playback_urb() assume that one USB
-packet never carries more data than the whole ALSA ring buffer. Nothing
-enforces that: the packet size comes from the device (wMaxPacketSize,
-and curpacksize == maxpacksize when the class-specific endpoint
-descriptor sets MaxPacketsOnly), while the PCM hardware constraints only
-require 64-byte periods, two periods and a period time of one data
-interval. An 8 kHz mono U8 stream on a 128-byte buffer is legal, and a
-full-speed device can send 1023-byte packets into it.
+Patch series "mm: various (urgent?) fixes", v1.
 
-On the first oversized packet hwptr_done is wrapped once and stays
-beyond buffer_bytes (895 for 1023 bytes into 128). On the next packet
-the wrap arithmetic in the copy path computes
+Here are various MM fixes.  The majority was reported by Josef at
+Anthrophic, the remainder was found while reviewing/overhauling them.
 
-    bytes1 = subs->buffer_bytes - oldptr
+Two issues/fixes reported are not included, as we are discussing
+(better) alternatives on the list already.
 
-with oldptr > buffer_bytes, so bytes1 wraps to about 4 GB and memcpy()
-runs off the end of the URB buffer and of the vmalloc'd DMA buffer:
+I left most of the original commit messages as schloppy as they are: I
+don't particularly care as long as the code is in good shape and as long
+as they are not actively wrong.  But I (and Mike) could not be stopped
+from overhauling at least some of them.
 
-  BUG: KASAN: slab-out-of-bounds in retire_capture_urb+0x251/0x870
-  Read of size 4294966529 at addr ffff88800c1e2800 by task vhci_rx/82
+While I don't think there is anything too critical in here, I think this
+is a good opportunity to see how fast we can get pre-screened/pre-reviewed
+fixes upstream that might be security-related.
 
-and for playback, where copy_to_urb() has the same shape:
+The majority are hugetlb + uffd issues, that are not actually that
+relevant for most installations.  But all things that should just get
+fixed.  Some uffd fixes need proper follow ups to fix some more of the
+root causes of leftover UFFD PTE bits (or proof that there are none
+remaining).
 
-  BUG: KASAN: vmalloc-out-of-bounds in copy_to_urb.isra.0+0x188/0x430
-  Read of size 4294966529 at addr ffffc9000004537f by task vhci_rx/79
-   prepare_playback_urb+0x98a/0x1fc0
+This patch (of 10):
 
-Truncate an oversized capture packet to the buffer size, and stop
-filling a playback URB once it holds a whole buffer. With bytes <=
-buffer_bytes the single wrap of hwptr_done and the two-part memcpy()
-in both copy paths stay inside the buffer. A device whose packets do
-not fit the buffer at all was never going to play correctly anyway.
+When an accountable mapping replaces existing mappings (MAP_FIXED),
+__mmap_setup() only charges the difference between the size of the new
+mapping and the VM_ACCOUNT pages it replaces. It then zeroes
+vms->nr_accounted so that unmapping the old VMAs does not return their
+charge, which now backs the new mapping.
 
-Reproduced on 7.3-rc7 with a USB/IP device (dummy_hcd cannot carry
-isochronous data) advertising a UAC1 endpoint with MaxPacketsOnly and
-wMaxPacketSize 1023, and a PCM client using period_size 64, periods 2.
+If the operation fails after that point, the error path returns
+map->charged, i.e. only the difference. By then vms_clean_up_area() has
+zapped the page tables and closed the old VMAs, so
+vms_abort_munmap_vmas() cannot reattach them. It leaves a gap and
+finishes the unmap with vms_complete_munmap_vmas(), which uncharges
+vms->nr_accounted == 0 pages. The old VMAs are gone, the new one was
+never created, and the charge of the old ones is never returned, not
+even when the process exits.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20261026223543.620-2-enscrpt@pm.me
-[ sashal: adjusted indentation to match the less-nested packet loop in prepare_playback_urb() ]
+No privilege is needed to hit this, only a file whose mmap hook fails,
+for example a socket (sock_no_mmap() returns -ENODEV):
+
+	p = mmap(NULL, len, PROT_READ | PROT_WRITE,
+		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	mmap(p, len, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_FIXED,
+	     socket_fd, 0);
+
+Every iteration adds len to Committed_AS for good. With
+vm.overcommit_memory=2 this lets any user make all further accountable
+allocations in the system fail with -ENOMEM.
+
+Once the new mapping has taken over the charge of the mappings it
+replaces, it owns the charge for all of its pages. Record that in
+map->charged, so that the error path returns all of it.
+
+A failure in __mmap_setup() itself is not affected: it happens before
+the charge is taken over and the old VMAs are reattached with their
+charge intact.
+
+Original fix generated by an LLM and sent in private by Josef.
+
+[david@kernel.org: call variable "uncharged" and make it const, adjust/simplify comments]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-0-42796911043b@kernel.org
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-1-42796911043b@kernel.org
+Fixes: 4f87153e82c4 ("mm: change failure of MAP_FIXED to restoring the gap on failure")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Adam Litke <agl@us.ibm.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: adapted __mmap_setup() changes to use existing local variables in __mmap_region() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/pcm.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ mm/mmap.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 5aadd1221f725..dd7554cde865d 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -1292,6 +1292,18 @@ static void retire_capture_urb(struct snd_usb_substream *subs,
- 			bytes -= adj;
- 			subs->stream_offset_adj -= adj;
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 2d69552e6be38..c930e03bd7997 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -1415,14 +1415,17 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+ 	 * Private writable mapping: check memory availability
+ 	 */
+ 	if (accountable_mapping(file, vm_flags)) {
+-		charged = pglen;
+-		charged -= vms.nr_accounted;
+-		if (charged) {
+-			error = security_vm_enough_memory_mm(mm, charged);
++		const unsigned long uncharged = pglen - vms.nr_accounted;
++
++		/* Charge only what's not already charged by mappings we replace. */
++		if (uncharged) {
++			error = security_vm_enough_memory_mm(mm, uncharged);
+ 			if (error)
+ 				goto abort_munmap;
  		}
-+		/*
-+		 * A packet can be as large as the endpoint's maxpacksize, which
-+		 * the device chooses, while the ring buffer can be as small as
-+		 * two 64-byte periods. The hwptr_done wrap below handles one
-+		 * wrap only, so never take more than one buffer from a packet.
-+		 */
-+		if (unlikely(bytes > subs->buffer_bytes)) {
-+			dev_warn_ratelimited(&subs->dev->dev,
-+					     "%u-byte packet exceeds %u-byte buffer, truncating\n",
-+					     bytes, subs->buffer_bytes);
-+			bytes = subs->buffer_bytes;
-+		}
- 		frames = bytes / stride;
- 		if (!subs->txfr_quirk)
- 			bytes = frames * stride;
-@@ -1505,8 +1517,14 @@ static int prepare_playback_urb(struct snd_usb_substream *subs,
  
- 	for (i = 0; i < ctx->packets; i++) {
- 		counts = snd_usb_endpoint_next_packet_size(ep, ctx, i, avail);
-+		/*
-+		 * Bound by the ring buffer as well as by the URB:
-+		 * copy_to_urb() wraps hwptr_done once, so one URB must
-+		 * never carry more than the whole buffer.
-+		 */
- 		if (counts < 0 ||
--		    (frames + counts) * stride > ctx->buffer_size)
-+		    (frames + counts) * stride > ctx->buffer_size ||
-+		    (frames + counts) * stride > subs->buffer_bytes)
- 			break;
- 		/* set up descriptor */
- 		urb->iso_frame_desc[i].offset = frames * stride;
++		/* Our new mapping owns the entire charge now. */
++		charged = pglen;
+ 		vms.nr_accounted = 0;
+ 		vm_flags |= VM_ACCOUNT;
+ 		vmg.flags = vm_flags;
 -- 
 2.53.0
 
