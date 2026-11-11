@@ -1,63 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409613;
-	b=Ru9ZQXElQrqJCAMrP2YWPYNGzEi3nqsbbnXjaeo94+z2LcKhiBlyRjaV0vwag3tDDJrI
-	 lSpwRiLcf68NKaR4amVdSSwhKK7AKd1AvajiyTqqrxRVs0op+7LM/1rfeZ9yGIH16cnzU
-	 cy+e/vuNRsionB0xZJiY/ERKMK7SyMtjOsG9qpLKkG4/zSjBBtVENq8swhVdCWjgq+FyI
-	 qEkfzovD/f11TZ4sUKo2worcRdmrYRZJ+X+6itENFz7rK9hHqjFYZqoMMzgWl5Fa61UhU
-	 fvnGiGxVTTZmnFglb4HNhreppTjhaWUFWmVCSny8NSgGQ/kEpHUaMQZfqwOBJ1SFucQ==
+	t=1794409615;
+	b=w+U8QDyMi5tEla1M7aJw07pNWfm5xxPz/ZKh9ohDHokFYea77c75dHUaTGZoX9jBaFa5
+	 zkfyTN9HhmCe6dA+ScQPWO53dUj2sNeH7gzZu/OcttGQKJX1xHPn+2sFV88W35E+iKtpv
+	 Jvi2iGMPAydaYaSovRLNr/G/VxpqxAGdFk0dxu+r0QOvzQXYEiRZTwi/dsvm4zTuFel+y
+	 kutBP60l7OE3ezY4vv19bJRqgnrbuyAkHyRNDv+tq54wd0gP+DuM47wVfgdnFGPl9YPfd
+	 sygFWLIGxZ5TttAQpMzPgxSYHMvyn/J9LJ4U1MIMmpKIxEDRl8G1JZwVZPMpu/6gf9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409613;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409615;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rYmqzzJLWF1rgvYuvlxPKTNvDSmz0uCZMeJM+Cpf1Hk=;
-	b=d1Pk4504vPu17n0yS51z1kwGSIzzXhX1ZYDwhvT1ZQg/fZbx0ocgkdnz5zAJmGAA28zc
-	 3cfJzb2xsd0FvClef7L5GOgE9tRa2p5oH+qfEL6cc4jArEKSEkhUhdXbtQbFCogJQEyle
-	 K+W+0ozaavyrUAgGGd0KT/Hf5VdOorSEfa4gdDhjOzUBLzFCP9VwSulqlMTSbrJZNGkNu
-	 R8mtgZ/I+/MhjIU0S2cMpv9+kf4FE9sAnSI9G7Rh/djgYmaXPRW3gmGjo+Rf/TM7+WAec
-	 Xsp3sCWClgl3j8ai4ZNmHuLgpHIqne1hPqjdI+oGPWfOjPjaGjDBB9I/60m+GkZLW1A==
+	bh=5YQoPGpzZPQTHdajUAEt1kUOLSNW54ifkUnORT+IWsw=;
+	b=iUeKl+KyuMgWlkDwDLVYVkTNc2iqvMq3E6DKwvAEqt/0asSub9PkkDNeIS3kAJRflzSf
+	 BIHwU1KCJn5/ELkhHF/6HBeStnnGwuxyRl4oouMSO1Ucc3kKRe75yGPLQBxghlsq7fXZA
+	 EMaSiLfkjyfQOQaQuQkYkbkkhwEy3C5wNDklCiH8dFBUfIJDGoOPSDLjz9xSDgKWZ+wF0
+	 bNnmhM3jmR7/GXvIOBjW0HbtxGU02CEHRNmvWsLDtrMVtJCg2ybXIyaSLUHU7SxtTPR4D
+	 atXJ+hH+GpXGfqIpbLt6xtwLwnuAk725Lfr+lka+0gpPsxAUCmNkUfknnmn6l5K9L2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhHot1fI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j/ql0PvF";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DC0606A891
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:06:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFA0606A32E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:06:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhHot1fI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D17C1F00A05;
-	Wed, 11 Nov 2026 15:06:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/ql0PvF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F4921F00A07;
+	Wed, 11 Nov 2026 15:06:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409613;
-	bh=rYmqzzJLWF1rgvYuvlxPKTNvDSmz0uCZMeJM+Cpf1Hk=;
+	s=k20260515; t=1794409615;
+	bh=5YQoPGpzZPQTHdajUAEt1kUOLSNW54ifkUnORT+IWsw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nhHot1fI9POETS5Gt1U2S7IfdmrIJvlEun0mNy4K+JJMTVgy6VFYq1/R1TDUdtPSw
-	 F4ZSxwW9H7szs5Ah6hOKQJEpQnqqvsbeKWvPKhHy5053+ixJIbY7mR+bM4tl7SsOpN
-	 ggRDNBfQcZkgLzQbm/YzbCUPn9rnrTnqAdroESuzGrNghNjQeUda/qkF7gdRD+WC/q
-	 Wgm+WKySnwrJWbQLWRS0ooSn+Sk1dfCM46AEsNH7apvxqCtl370v+ul7ye6k7LYUaD
-	 GQ545rbGREqDNOM/piIi+bbIcxW5aC9UimBjifSoBjaTjyDQK44qYdhQeymSS73km8
-	 5HYCC3pfAQ7Qg==
+	b=j/ql0PvF/NJt+BVkWAYDbvOtLezOIXFp/4dPkVrwn+aaizK0RryQYwYxbGsagifs2
+	 9B6kQoggDvr7U2BFeWXUkxwN0T2cHH1TtFd/ZZRegNSd+S/vCYYi+ObNz5mFdhkkqs
+	 GuRjUCtHWN6LnjDKLWTkiBuwMZhZtkAwAMGfrQJdCqNT3N1lI8d35xKogtuPGnY/rB
+	 kQGSFNeCnjAgn85DbECLG3fG39Kot7sEJc1Dubs4A6RJFO1GUSzs1WcYcyKCHh+nEa
+	 PH2X7gWvRK3odRWVhoimcE/fEtKOYwg40gk7w9N9IBdfD/7mtbnTl2c4AFC+eOqIPb
+	 LE99C+pGaxGtQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Rik van Riel <riel@surriel.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Lance Yang <lance.yang@linux.dev>,
+Cc: Linmao Li <lilinmao@kylinos.cn>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Aksh Garg <a-garg7@ti.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/page_vma_mapped: continue past nonmatching huge PMDs
-Date: Wed, 11 Nov 2026 10:06:51 -0500
-Message-ID: <20261111150635.2570625-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] PCI: cadence: Store the core controller in platform drvdata
+Date: Wed, 11 Nov 2026 10:06:53 -0500
+Message-ID: <20261111150638.2587138-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051433-failed-6.18-1a2993227e8a@kernel.org>
-References: <20261107051433-failed-6.18-1a2993227e8a@kernel.org>
+In-Reply-To: <20261107062329-failed-5.10-cfe96ce583c5@kernel.org>
+References: <20261107062329-failed-5.10-cfe96ce583c5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,105 +63,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kyle Zeng <kylebot@openai.com>
+From: Linmao Li <lilinmao@kylinos.cn>
 
-[ Upstream commit 1a2993227e8a27fc4cdea305bbdae82d290bc885 ]
+[ Upstream commit cfe96ce583c51bf6e034d4038c652a1e8227867c ]
 
-A PTE-mapped large folio can straddle PMD boundaries after an unaligned
-mremap().  If the first part is discarded and replaced with an unrelated
-huge PMD, page_vma_mapped_walk() stops instead of looking for the rest of
-the folio in subsequent PMDs.
+cdns_plat_pcie_probe() stores a struct cdns_plat_pcie pointer with
+platform_set_drvdata(). cdns_plat_pcie_shutdown() and the callbacks in
+cdns_pcie_pm_ops retrieve the same pointer with dev_get_drvdata() but use
+it as a struct cdns_pcie pointer. This makes them read phy_count and phy
+beyond the wrapper.
 
-This also affects migration entries.  A walk that stops at an unrelated
-huge PMD can leave migration PTEs behind when migration or an anonymous
-folio split restores the mappings.  Those entries do not hold mapping
-references and can outlive the source folio.
+struct cdns_plat_pcie only contains a pointer to struct cdns_pcie. Drop
+the redundant wrapper and store the struct cdns_pcie pointer directly.
 
-This issue can lead to memory corruption and I have a reproducer for
-it.
-
-Skip the current PMD rather than ending the walk on a flag or PFN
-mismatch.  Do the same if the PMD became nonpresent before the locked
-recheck.  Release the PMD lock, clear the per-PMD state and advance with
-step_forward(), so the existing range limit controls termination.  This
-covers present, migration and device-private huge PMDs while preserving
-the matching-PMD and split-to-PTE paths.
-
-Link: https://lore.kernel.org/20261016011549.61146-1-kylebot@openai.com
-Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: <stable@vger.kernel.org>
-[ sashal: Adapted PMD handling to older migration-entry APIs and inline locking without device-private huge-PMD support. ]
+Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Aksh Garg <a-garg7@ti.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260915082826.4135665-1-lilinmao@kylinos.cn
+[ sashal: placed platform_set_drvdata() in each controller-mode branch instead of at the end of probe ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/page_vma_mapped.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ .../controller/cadence/pcie-cadence-plat.c    | 36 ++++++-------------
+ 1 file changed, 10 insertions(+), 26 deletions(-)
 
-diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-index 41cf3192a8f62..dfbbbf5e3f53d 100644
---- a/mm/page_vma_mapped.c
-+++ b/mm/page_vma_mapped.c
-@@ -260,18 +260,18 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+index a224afadbcc00..181b36a5d159d 100644
+--- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
++++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+@@ -15,17 +15,6 @@
  
- 				if (!thp_migration_supported() ||
- 				    !(pvmw->flags & PVMW_MIGRATION))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				entry = pmd_to_swp_entry(pmde);
- 				if (!is_migration_entry(entry) ||
- 				    !check_pmd(swp_offset_pfn(entry), pvmw))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				return true;
- 			}
- 			if (likely(pmd_trans_huge(pmde))) {
- 				if (pvmw->flags & PVMW_MIGRATION)
--					return not_found(pvmw);
-+					goto next_pmd;
- 				if (!check_pmd(pmd_pfn(pmde), pvmw))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				return true;
- 			}
- 			/* THP pmd was split under us: handle on pte level */
-@@ -291,8 +291,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ #define CDNS_PLAT_CPU_TO_BUS_ADDR	0x0FFFFFFF
  
- 				spin_unlock(ptl);
- 			}
--			step_forward(pvmw, PMD_SIZE);
--			continue;
-+			goto next_pmd;
- 		}
- 		if (!map_pte(pvmw, &pmde, &ptl)) {
- 			if (!pvmw->pte)
-@@ -331,6 +330,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 			pvmw->ptl = ptl;
- 		}
- 		goto this_pte;
-+next_pmd:
-+		/*
-+		 * A large folio can be PTE-mapped across PMDs, so a
-+		 * nonmatching PMD does not end the walk.
-+		 */
-+		if (pvmw->ptl) {
-+			spin_unlock(pvmw->ptl);
-+			pvmw->ptl = NULL;
-+		}
-+		pvmw->pmd = NULL;
-+		step_forward(pvmw, PMD_SIZE);
- 	} while (pvmw->address < end);
+-/**
+- * struct cdns_plat_pcie - private data for this PCIe platform driver
+- * @pcie: Cadence PCIe controller
+- * @is_rc: Set to 1 indicates the PCIe controller mode is Root Complex,
+- *         if 0 it is in Endpoint mode.
+- */
+-struct cdns_plat_pcie {
+-	struct cdns_pcie        *pcie;
+-	bool is_rc;
+-};
+-
+ struct cdns_plat_pcie_of_data {
+ 	bool is_rc;
+ };
+@@ -44,10 +33,10 @@ static const struct cdns_pcie_ops cdns_plat_ops = {
+ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ {
+ 	const struct cdns_plat_pcie_of_data *data;
+-	struct cdns_plat_pcie *cdns_plat_pcie;
+ 	const struct of_device_id *match;
+ 	struct device *dev = &pdev->dev;
+ 	struct pci_host_bridge *bridge;
++	struct cdns_pcie *pcie;
+ 	struct cdns_pcie_ep *ep;
+ 	struct cdns_pcie_rc *rc;
+ 	int phy_count;
+@@ -62,11 +51,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 	is_rc = data->is_rc;
  
- 	return false;
+ 	pr_debug(" Started %s with is_rc: %d\n", __func__, is_rc);
+-	cdns_plat_pcie = devm_kzalloc(dev, sizeof(*cdns_plat_pcie), GFP_KERNEL);
+-	if (!cdns_plat_pcie)
+-		return -ENOMEM;
+-
+-	platform_set_drvdata(pdev, cdns_plat_pcie);
+ 	if (is_rc) {
+ 		if (!IS_ENABLED(CONFIG_PCIE_CADENCE_PLAT_HOST))
+ 			return -ENODEV;
+@@ -78,10 +62,10 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 		rc = pci_host_bridge_priv(bridge);
+ 		rc->pcie.dev = dev;
+ 		rc->pcie.ops = &cdns_plat_ops;
+-		cdns_plat_pcie->pcie = &rc->pcie;
+-		cdns_plat_pcie->is_rc = is_rc;
++		pcie = &rc->pcie;
++		platform_set_drvdata(pdev, pcie);
+ 
+-		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
++		ret = cdns_pcie_init_phy(dev, pcie);
+ 		if (ret) {
+ 			dev_err(dev, "failed to init phy\n");
+ 			return ret;
+@@ -106,10 +90,10 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 
+ 		ep->pcie.dev = dev;
+ 		ep->pcie.ops = &cdns_plat_ops;
+-		cdns_plat_pcie->pcie = &ep->pcie;
+-		cdns_plat_pcie->is_rc = is_rc;
++		pcie = &ep->pcie;
++		platform_set_drvdata(pdev, pcie);
+ 
+-		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
++		ret = cdns_pcie_init_phy(dev, pcie);
+ 		if (ret) {
+ 			dev_err(dev, "failed to init phy\n");
+ 			return ret;
+@@ -133,10 +117,10 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+  err_get_sync:
+ 	pm_runtime_put_sync(dev);
+ 	pm_runtime_disable(dev);
+-	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
+-	phy_count = cdns_plat_pcie->pcie->phy_count;
++	cdns_pcie_disable_phy(pcie);
++	phy_count = pcie->phy_count;
+ 	while (phy_count--)
+-		device_link_del(cdns_plat_pcie->pcie->link[phy_count]);
++		device_link_del(pcie->link[phy_count]);
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
