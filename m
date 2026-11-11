@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362011;
-	b=vzj1rzAfNtCWTYZIBAAm3LN1reZJ4jAGtBXHuhck0wA1l/sDHLTBPTHxuVh60gf8uMO8
-	 qht0v/kmyNMZy7kcjrW9F0y5GZ3FSFrkMmkB1mSFCx0WCtkKvX6zH8bRTS1MvL9Fo1FvK
-	 kXdn3YOk7qT7IFRS4R1VBqAikLPk17Vl83mPgnCaXeyM8rp2+TBjshFOgIwjjoRvOfmKu
-	 GraXisZf0hgy+cEAWbRu8OPmWwtZ59yVxHmUONi03c1g8LBC0+yhsppVAbFNqtfknD7vK
-	 7gCPWXYtqnDu+VIss+8mPondwoXcWq7yIs/9JXLNNGAfAjgCJ+rstUjszFHlV3iFOeg==
+	t=1794362016;
+	b=d5794yr7B1cCyOrfkvKh0IZPOmbzJ97q8k1UyjchDBPRd4sLgVecysfGkMFrixXmAfYt
+	 vCVUkqjnk4jet1ndQhEbsiJ/xV4EDXZdXtrMo8Co6ZB9py1xGuIzSgSAGrP5f/XPOlXrv
+	 OV6RndEaseqD64REbPVFH3IbEOJSDksKmkalRJ7ko+KSoecpI1DV4k+ihJ1geAONo+rFv
+	 cP31eZfw2KegT1U9XKo5Nu4FkJAWhUV39eZ32rwgF3rPKx1iQcZ5qW9HcZ1/cpjqCCiUL
+	 aFJlVE3654E2NGBvrFH/a5//UR+qisUFhFjoB0mk1gzzMQ0KIqSV3IuJjzAVhmXZc7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362016;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qOPAU0eL0I3OzvXLyj5hYKv8zLsvIfqt5TjqywMOXMM=;
-	b=qydDanRhczqNRgPRxpoBUo9DkPxkRYoox3v6VGJ2ui85eWEqG3ox1Ex92TNNtlhJVlHL
-	 EhEjB8DRTEz0DtWeyg+CWI70VB+hdL5l1B9IDpDwk/JJXiufqw6moL6hUUHEjwCgCGJbD
-	 bu+GoAOfiyoBA4V42OgJsqYikwfqKAjIWC5eqra/yJL1LURPP5NkQgy3UrR+cgngaxymq
-	 pDkwpeivVf5QJ9rDdIJM+65B/fd3qAOwR2X8QSbDPRi6aGk/DaBQmkD2Y6q5OhQbOICxJ
-	 cRSpSFC/P4TYZY4RbkoBl/Wxj/Nr9IB9Tuzan1QLDYgXRK3SbILPqSPOUHZZlFOjEsg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Hpmyh8KhbTvFItUU/X52N8b9ibqwoW61tSaPJ5uqD4M=;
+	b=ry0tBiezg10hAk+DBv7NQksvk737A1f5nCqpF2AUXQZe4DI1f5weGgob69FgVOb8O+U9
+	 9MfJCrq3t3SKtxq3QaFGpkNi6HWOgN2D+4s3GBJl5zppDjrJLL8sEa0glWuXKufYpy8Ax
+	 V9UBHQvDGm4qpHkQGHczCDPegwSHRgrX2oi5O0qBZFr84pCM0kSHCKABHxuyMsEP1WClN
+	 lqQFnkGsP0t9JK1U0T12L+hWDoaGiSsSlcXZ2wyic9Qe7unSoq2qxhAcsLDqrD2SbppWv
+	 sCSQ/eH3XDWiptpfwFNG47sKBDcJ2c0qJ+lJYECOGq0DFVLN4ftxdZmNS+6B15/F+4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMFPEUHi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZTolEtz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1CA606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:53:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47184606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:53:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMFPEUHi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4AB41F0093C;
-	Wed, 11 Nov 2026 01:53:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZTolEtz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CC11F0089F;
+	Wed, 11 Nov 2026 01:53:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794362011;
-	bh=qOPAU0eL0I3OzvXLyj5hYKv8zLsvIfqt5TjqywMOXMM=;
+	s=k20260515; t=1794362015;
+	bh=Hpmyh8KhbTvFItUU/X52N8b9ibqwoW61tSaPJ5uqD4M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YMFPEUHiuZLOi6qKYUbky/JdeE1hjL7ImEdVeVy5lTFPaLDNz8l4H1frycQ5xwZG8
-	 ZtHp8VjDtgLCaG7DD/EtNR5ePJa1LJoyr4tUl2BTO1vhGDs1VD798F57OLRQlkSgAQ
-	 tL8PeEpvtlVkJ05wZFrcbAYsnjw7Ts8B5sbmhbSg/2vM1guWXkTPkNhaSQ137LBkEk
-	 GLN+pvU2qeKoZb+2W/88XUMZ5icAy5k4FUWUlv7+1mIwY46ynWGHwE3taBSh/myPOl
-	 ozvoL7UO9CUAZkBzdM6OZ5DzYzD9MXkdSgnOtZiy+snRarf+jJdRwJNr9avVtTM3sl
-	 g2jPH330k5sgg==
+	b=TZTolEtzSjVItsCfZiDfn6Bjg3HhkXUcAW1ercxadxmTtz1V5IWu+jUTa10TrnjUU
+	 jN89YQ5o7I+Fx1tvRnhzJk4JVMktzIxPBMsEKcQWxtMAVhdybbytvX6mKdBp+akLRL
+	 4tiuJvK3b3mGNWDulF0Qxy3KQnQK6+FFKGKmMopy+Tj+DoE62o+1xwd4lkvr1Y393x
+	 5yfEbeqkkbRtnUnZfHJN3v+WYfwcXz79+9BJy7HaJS3FG5oL5l+SlZg+LtuI7KylwU
+	 Y4umyN+bGwfmVlhkuRV4DpLtR6xDDRNMSJnVe4kisXgkrHomBUMYmmpGayZL/la1Bc
+	 kVvtMIz0LYkXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Rosen Penev <rosenp@gmail.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] drm/amdgpu: reject CS chunks too large for kvmalloc()
-Date: Tue, 10 Nov 2026 20:53:28 -0500
-Message-ID: <20261111015121.433726-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] nvmem: rockchip-otp: alloc clks with main struct
+Date: Tue, 10 Nov 2026 20:53:33 -0500
+Message-ID: <20261111015225.442438-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111015121.433726-1-sashal@kernel.org>
-References: <20261107054012-failed-6.6-ba4c3c202919@kernel.org>
- <20261111015121.433726-1-sashal@kernel.org>
+In-Reply-To: <20261107050959-failed-6.18-9fc6a1592d84@kernel.org>
+References: <20261107050959-failed-6.18-9fc6a1592d84@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,51 +60,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: Rosen Penev <rosenp@gmail.com>
 
-[ Upstream commit ba4c3c202919405f461a393e823e4b72c8518494 ]
+[ Upstream commit 9f99bb979f930e52e6861114fe03535d4bc2f374 ]
 
-The CS ioctl copies every chunk with vmemdup_array_user() before it
-looks at it, for whatever length_dw userspace gives. kvmalloc() warns
-about allocations above INT_MAX when called without __GFP_NOWARN, so any
-process with the render node can trigger a warning. On navi31, a CS with
-a chunk of length_dw 0x20000000 returns -ENOMEM after:
+Use a flexible array member to simplify allocation slightly. No need for
+a separate calloc.
 
-  WARNING: mm/slub.c:6841 at __kvmalloc_node_noprof+0x5a5/0x7d0
-
-Reject such chunks with -EINVAL before trying to copy them.
-
-Fixes: 2098105ec65c ("drm: drop drm_[cm]alloc* helpers")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit dab5f5280406088591645f499f048dcfefab8d7d)
-Cc: stable@vger.kernel.org
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Link: https://patch.msgid.link/20260530205333.117458-3-srini@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 9fc6a1592d84 ("nvmem: rockchip-otp: Serialize reads")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/nvmem/rockchip-otp.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index d43bdd14ed4da..99de46eda59be 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -238,6 +238,12 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
+index d88f12c532426..00921b9fe9aae 100644
+--- a/drivers/nvmem/rockchip-otp.c
++++ b/drivers/nvmem/rockchip-otp.c
+@@ -77,9 +77,9 @@ struct rockchip_data {
+ struct rockchip_otp {
+ 	struct device *dev;
+ 	void __iomem *base;
+-	struct clk_bulk_data *clks;
+ 	struct reset_control *rst;
+ 	const struct rockchip_data *data;
++	struct clk_bulk_data clks[];
+ };
  
- 		size = p->chunks[i].length_dw;
+ static int rockchip_otp_reset(struct rockchip_otp *otp)
+@@ -327,7 +327,7 @@ static int rockchip_otp_probe(struct platform_device *pdev)
+ 	if (!data)
+ 		return dev_err_probe(dev, -EINVAL, "failed to get match data\n");
  
-+		if (size > INT_MAX / sizeof(uint32_t)) {
-+			ret = -EINVAL;
-+			i--;
-+			goto free_partial_kdata;
-+		}
-+
- 		p->chunks[i].kdata = vmemdup_array_user(u64_to_user_ptr(user_chunk.chunk_data),
- 							size,
- 							sizeof(uint32_t));
+-	otp = devm_kzalloc(&pdev->dev, sizeof(struct rockchip_otp),
++	otp = devm_kzalloc(&pdev->dev, struct_size(otp, clks, data->num_clks),
+ 			   GFP_KERNEL);
+ 	if (!otp)
+ 		return -ENOMEM;
+@@ -339,11 +339,6 @@ static int rockchip_otp_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(otp->base),
+ 				     "failed to ioremap resource\n");
+ 
+-	otp->clks = devm_kcalloc(dev, data->num_clks, sizeof(*otp->clks),
+-				 GFP_KERNEL);
+-	if (!otp->clks)
+-		return -ENOMEM;
+-
+ 	for (i = 0; i < data->num_clks; ++i)
+ 		otp->clks[i].id = data->clks[i];
+ 
 -- 
 2.53.0
 
