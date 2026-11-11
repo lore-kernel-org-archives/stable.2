@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794410387;
-	b=IGyg+D4Cbdwe5aTUsgFrHHAidOfOmRbZS6rTNAw0ZPMtXCFsP9srPx91O2fR2Pz9QieN
-	 E6R+gk2bVDnODLHWYtYVRs+qTdmVqymtIAxDo7e6ya694jCtgaHPPYHej3OdCfS0kVA7h
-	 9RK7yie1aqPam4ybUAql0Qvfwf3VhqX30HQ60hOxUz0GahBAKYU9CP+98QMDP4KcWscUR
-	 FnpN1bJG9cRDlnnOO3TjHpSicZNIyjBg1Um9ES/k73kGTk+9DrKki4zm66QpPLGM7stv3
-	 9lpbd7kuwDAjcZEtYTeIFRZN8cVxnAXVLP9PTUCvoqFPcnvjwIzW1200Wc0SRXDDM0w==
+	t=1794410443;
+	b=a9PklZOPXKfe3S6NUDs9FpnNByAK0jdn3Hrsl/43A+r3B4hIeBexzK4nTsR2CeNYbSDJ
+	 gcU8JMTjw9GGI2MlBZilnvOeqB44lYOZn+xsXwUGNFHkzv0MoVlXL/2PDbbTvrFgLtdkB
+	 T5HpZ8Y2fXnrOD8OxMPgJ7pRaadi4BT5d8PdvUVWJIzwnYs2ndQWyw3DnUwwMwaDL9VU6
+	 f4tK1NACxECrIRskakx9xh6UMBsxwgRwB0z5FrpZ6tbO9zsSSjS/ABXy+pF0IUR/HxRRp
+	 et1iOCeElWUkUeJCYxiI3fDfYX828j55tuvUki0cIqICWubuWYEsatPcHFFl9seii3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410387;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-SRS-Rewrite;
-	bh=TWhT2mQx/UXPZVOwHoqKwKQnVeRhCgnTAf9T7t5ERDI=;
-	b=PZjFVPEIDfQ9TCTKZPEhI9piUFF1Uxrwuvx1eRAru3eMXF5U4uUC8pdaqfxoB39+jZwZ
-	 Y2kKrfJ0TzcJEJ7JIt6qtQaJmjrnqO4Lehuh9Od0juRLSfnM8ci8SDTriuv6ml5U6Qlr3
-	 ne2kr5q1KOpRIt3GqFJzlpGFi3YY7GoB4UCa1C3crIv4pPUHrVMQGMs7crtOmNIcqz/PO
-	 r3lAqfGMMSxytfw6j1dcVh3xrxMB3AXgP3ZaIy+Lf0QnpJBT0Il+L1VGa0c8wlgP/gHRW
-	 eYuV43eg4ouO7LUkPrDIPB2bODqrqxizYYN2TxLwIK3pn4IVRKbdGPkQErXCMI+/Kww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410443;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=a5RnG8HqesJ+zD+D1bSONlv6Lwf+6gsZd5wF2JM36x4=;
+	b=KP/pt3uPs3CyZFGIpEWUv5kqfUyTrWnrQfUZN6Jh1OTLOIP3AUDRsjTmCZco5udKBwkn
+	 V41NZ9aH6/5EzjqrFG1hqyC8pzXYwA0C3Dt6OJ0iAN6U1cHJKVUGnaog4RXqV43UgF6Pm
+	 1oJa7Y3QDPBghGhIeJOKy5PFoK7SWxxLkp/9iPhchaeXzoCD/9Lpj6j7hehwMUxl0kLEQ
+	 rtU3Zsk1Mi/x+lVyx47Wbu9rp2XMCuPERnu4fi+3HjvcfZBAzNunnjMn6r7FYERj1f4OV
+	 jZJ8zNKu1UpakGl7rRIRLIeanIEZuVWmnsD0wXWEWgJfcS0J4pyg0P3BbpabVyzQtqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=b7cixPqd;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OxwJT32K;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62B3606A324;
-	Wed, 11 Nov 2026 15:19:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B62B3606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C723606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=b7cixPqd
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=TWhT2mQx/UXPZVOwHoqKwKQnVeRhCgnTAf9T7t5ERDI=; b=b7cixPqdXCACH+Fo8Y+slmh0rd
-	YJPmHc3pnFhfO5IBh+neueWmpVoTE9XmUvgtHV5YUomKw2EWgY+1f3lKOgV1iyVSV7mrlqaaRty3u
-	UQ84PuxVWNjddRO6bsZXxAe6koJCJzGl/qGh+fwBtw+7CY1ERUzSKsPKw/61jD5W6/YN83VDP5GF4
-	9GQj/th5hf5+YRajJV0g8zm//Bel92EtKB16ggSfq8vMCXbbHVWDbbl0xH6xzop6iDjL3Hdkla1J7
-	AdA7gKZ4IUI6Nn6t858Qcy/9JemySGtAVNcrsE0AOe1HWZK81kkXzbZ+vxP5ZSuWjEe4u/IVSMK0q
-	1IINGN5g==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRA6z-000000074Lq-33Nw;
-	Wed, 11 Nov 2026 15:19:45 +0000
-Date: Wed, 11 Nov 2026 07:19:45 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Stian Halseth <stian@itx.no>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	"Darrick J . Wong" <djwong@kernel.org>, sparclinux@vger.kernel.org,
-	Jan Engelhardt <jengelh@inai.de>, Dave Chinner <dgc@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] xfs: fix unaligned access to rmapbt high keys in scrub
-Message-ID: <avSHkadYwEjnKF87@infradead.org>
-References: <20261111103047.604541-1-stian@itx.no>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OxwJT32K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33AC1F00A07;
+	Wed, 11 Nov 2026 15:20:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794410442;
+	bh=a5RnG8HqesJ+zD+D1bSONlv6Lwf+6gsZd5wF2JM36x4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OxwJT32KxgMuQ2jdZsIhlofERdn9YK3k79tMxgJR3V1HZGclrGg8LaeOuQTEguF2k
+	 V/8fc48G4f02xHUbk99XiZPL/Ye9mavEMM8aJi1nK7ZKr49c0+TK13B5DG6rQ9U+e/
+	 WEOXSh1Lbo265dp9Kh5QNqz65z58UTAw/LuS2uemnDjmW4H2t9QffVPCUwld9Umc11
+	 Npvoez4ASCAxtN9d+zWkUQIwHfq+r5K24FJMI8guxSSBFCiWk94bYWM9YI3221bYNm
+	 v7gnFnAxcQQmp6zl/L7Ld3VSukfKelpmblugWmzk8M5reeGWzUbmwysLBd3rr9/oY3
+	 u/4IrRWmHRUfw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/ttm: return an error when kmapping a BO without pages
+Date: Wed, 11 Nov 2026 10:20:40 -0500
+Message-ID: <20261111152017.2588015-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054617-failed-6.1-fd485d47437b@kernel.org>
+References: <20261107054617-failed-6.1-fd485d47437b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,85 +61,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111103047.604541-1-stian@itx.no>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 11:30:47AM +0100, Stian Halseth wrote:
-> The high keys in a rmapbt node block aren't naturally aligned.
-> xchk_rmapbt_check_unwritten_in_keyflags() reads rm_offset through
-> union xfs_btree_key and the union is 8-byte aligned.
-> 
-> The compiler may use an 8-byte load, and on sparc64 each high key
-> takes an unaligned access trap:
-> 
->   Kernel unaligned access at TPC[105a54d8] xchk_rmapbt_check_unwritten_in_keyflags+0xb8/0x160 [xfs]
-> 
-> Read the keys through the packed struct xfs_rmap_key instead. This
-> tells the compiler they may be unaligned. Decode rm_offset with
-> be64_to_cpu() and drop the byte-swapped flag.
-> 
-> Fixes: 38384569a2a8 ("xfs: detect unwritten bit set in rmapbt node block keys")
-> Reported-by: Jan Engelhardt <jengelh@inai.de>
-> Closes: https://github.com/sparclinux/issues/issues/115
-> Suggested-by: Dave Chinner <dgc@kernel.org>
-> Cc: stable@vger.kernel.org # v6.4+
-> Signed-off-by: Stian Halseth <stian@itx.no>
-> ---
-> Tested on sparc64 (T4, 7.3.4) by scrubbing the rmapbt of a loop-mounted
-> image: alignment faults per scrub went from about 4000 to 0.
-> 
-> v3: separate key and rkey variables plus a comment (Dave), shorter
-> changelog.
-> v2: https://lore.kernel.org/all/20261110223927.558557-1-stian@itx.no/
-> v1: https://lore.kernel.org/all/20261109134853.1659991-1-stian@itx.no/
-> 
->  fs/xfs/scrub/rmap.c | 21 ++++++++++++++-------
->  1 file changed, 14 insertions(+), 7 deletions(-)
-> 
-> diff --git a/fs/xfs/scrub/rmap.c b/fs/xfs/scrub/rmap.c
-> index 68e2847c962bb..7609c03cdc8ab 100644
-> --- a/fs/xfs/scrub/rmap.c
-> +++ b/fs/xfs/scrub/rmap.c
-> @@ -149,8 +149,6 @@ xchk_rmapbt_check_unwritten_in_keyflags(
->  	struct xfs_scrub	*sc = bs->sc;
->  	struct xfs_btree_cur	*cur = bs->cur;
->  	struct xfs_btree_block	*keyblock;
-> -	union xfs_btree_key	*lkey, *hkey;
-> -	__be64			badflag = cpu_to_be64(XFS_RMAP_OFF_UNWRITTEN);
->  	unsigned int		level;
->  
->  	if (sc->sm->sm_flags & XFS_SCRUB_OFLAG_PREEN)
-> @@ -159,6 +157,14 @@ xchk_rmapbt_check_unwritten_in_keyflags(
->  	for (level = 1; level < cur->bc_nlevels; level++) {
->  		struct xfs_buf	*bp;
->  		unsigned int	ptr;
-> +		/*
-> +		 * The on-disk high keys in an rmap node block are not
-> +		 * naturally aligned, so decode them through the packed
-> +		 * struct xfs_rmap_key to make the compiler treat them as
-> +		 * unaligned.
-> +		 */
-> +		union xfs_btree_key	*key;
-> +		const struct xfs_rmap_key *rkey;
->  
->  		/* Only check the first time we've seen this node block. */
->  		if (cur->bc_levels[level].ptr > 1)
-> @@ -166,15 +172,16 @@ xchk_rmapbt_check_unwritten_in_keyflags(
->  
->  		keyblock = xfs_btree_get_block(cur, level, &bp);
->  		for (ptr = 1; ptr <= be16_to_cpu(keyblock->bb_numrecs); ptr++) {
-> -			lkey = xfs_btree_key_addr(cur, ptr, keyblock);
-> -
-> -			if (lkey->rmap.rm_offset & badflag) {
-> +			key = xfs_btree_key_addr(cur, ptr, keyblock);
-> +			rkey = &key->rmap;
-> +			if (be64_to_cpu(rkey->rm_offset) & XFS_RMAP_OFF_UNWRITTEN) {
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-Overly long line.
+[ Upstream commit fd485d47437ba1700dd47205a63b9f389a00aa36 ]
 
-But I wonder if we should simply mark struct xfs_rmap_key as __packed
-to force the compliler to deal with unaligned fields instead of jumping
-through these hoops at every call site.
+ttm_tt objects for imported sg tables (ttm_bo_type_sg, set up by
+ttm_sg_tt_init() with TTM_TT_FLAG_EXTERNAL) only have DMA addresses and
+no pages array. ttm_bo_kmap() and ttm_bo_vmap() still dereference
+ttm->pages for them, so a driver that tries to CPU map such a BO oopses
+instead of getting an error:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:ttm_bo_kmap+0x26c/0x300 [ttm]
+  Call Trace:
+   amdgpu_bo_kmap+0x89/0xb0 [amdgpu]
+   amdgpu_userq_fence_read_wptr+0x116/0x170 [amdgpu]
+   amdgpu_userq_signal_ioctl+0x3fe/0xbb0 [amdgpu]
+
+Return -EINVAL in that case, like ttm_bo_kmap_try_from_panic() already
+checks for a missing pages array.
+
+Fixes: 75a57669cbc8 ("drm/ttm: add ttm_sg_tt_init")
+Cc: stable@vger.kernel.org
+Suggested-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Link: https://patch.msgid.link/20261009103419.4122940-1-Jesse.Zhang@amd.com
+[ sashal: Applied the return-value documentation changes to header comments instead of comments beside the implementations. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/ttm/ttm_bo_util.c | 7 +++++++
+ include/drm/ttm/ttm_bo_api.h      | 4 ++--
+ 2 files changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index 7f97c97b49bd2..02d07f4c29b5c 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -335,6 +335,10 @@ static int ttm_bo_kmap_ttm(struct ttm_buffer_object *bo,
+ 	if (ret)
+ 		return ret;
+ 
++	/* Imported sg tables only come with DMA addresses, no pages to map. */
++	if (!ttm->pages)
++		return -EINVAL;
++
+ 	if (num_pages == 1 && ttm->caching == ttm_cached &&
+ 	    !(man->use_tt && (ttm->page_flags & TTM_TT_FLAG_DECRYPTED))) {
+ 		/*
+@@ -455,6 +459,9 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
+ 		if (ret)
+ 			return ret;
+ 
++		if (!ttm->pages)
++			return -EINVAL;
++
+ 		/*
+ 		 * We need to use vmap to get the desired page protection
+ 		 * or to make the buffer object look contiguous.
+diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
+index 44a538ee5e2a6..7da454640c991 100644
+--- a/include/drm/ttm/ttm_bo_api.h
++++ b/include/drm/ttm/ttm_bo_api.h
+@@ -360,7 +360,7 @@ static inline void *ttm_kmap_obj_virtual(struct ttm_bo_kmap_obj *map,
+  *
+  * Returns
+  * -ENOMEM: Out of memory.
+- * -EINVAL: Invalid range.
++ * -EINVAL: Invalid range or the BO has no pages to map.
+  */
+ int ttm_bo_kmap(struct ttm_buffer_object *bo, unsigned long start_page,
+ 		unsigned long num_pages, struct ttm_bo_kmap_obj *map);
+@@ -386,7 +386,7 @@ void ttm_bo_kunmap(struct ttm_bo_kmap_obj *map);
+  *
+  * Returns
+  * -ENOMEM: Out of memory.
+- * -EINVAL: Invalid range.
++ * -EINVAL: Invalid range or the BO has no pages to map.
+  */
+ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map);
+ 
+-- 
+2.53.0
 
