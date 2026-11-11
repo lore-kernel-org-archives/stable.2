@@ -1,84 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398064;
-	b=eBaSdccKQpBHGgvYilgSk5nY1nsrRJApqPHXTfJqLhJbAXt6oWRDVwg2DIna5NpEJxFx
-	 3PjRg2F53FP/ohb3jalNgRok/rLnQsc66QQA6Y3nchx7q2odXZ1sjSGdGvTlvvuzGIfoH
-	 pAvhCYUPKpxYBXYkzJKJhcUXtZlqjT1cvy8TZJFspFZnnT84yEmOkVavMvvWca7aUKN3j
-	 5SDwW/Zk9ZM6n2XxKNu2NgoujIBAwl5c7ZXpvP2rNVQaiwo4QfdsOnjqFk684yzx6qpii
-	 93eE1ac5INl/0t0Qy8DbyVy9UUgiH4i/uZ5FBkWpsT+pPSPipJ20xZOGXq5Lm43r0Gw==
+	t=1794398083;
+	b=ixYGHNGFLcyipRgbjZyRcJ9lW8quPXDV0KO/R5QTaDdD/rdp/khoNOzhp4WLNUkYwwRN
+	 sw6/HcfGLqNnyHaYQIG//E7W1Fxbk+DX+4QpP067dak+rKANYNs9qSeGkx830hyiq1VWc
+	 TBOSFelzzXPBCXzeoRImOQfYF2nVw66XAaJwOUCxREq01/ZICfOHbRU5DOugQAR43y04l
+	 ChIKJx3PIebmyB5UiH3t+GARrUkP3EXnXE4bVxG/ze86+Ez2hNFhUkIkbeiaG3+6G7zBP
+	 ZKW0MRC8igVCAwbJ4r41WiTCwRJc1TY3VSekywMnzB6Zr2ptKHHIHVd3BkXQs4CRj8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398064;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=Ep5AJlsUvRo/Sl9Rg+NwP6D7Lq/wQPVEaLy1Gie9QQ4=;
-	b=kSLfRzPZ+UKsasYkIbpqJ/vITapkU0elP5o0JXeuaDjOpN+g3TP59lLBg2hg5PXjNGJt
-	 vwgPYlXZR1d9ZvixRGmUHeOkWt+tsdyV0qBn9ZAY5xzYVzXf7hmuGyTFX6S57GOTnpIzF
-	 AcnCBHNlTmWJ5edE+ZyX1yJLTuL6ve8DMStbkxWbSK+bfFfRnr8+kFgNTssE4l4ykYMFS
-	 M6LTGpqnK4ylkmAdd9kx7/CPXQ14EKwSdB/OAXpAMzpoK7U+2i6ZyeY1r7zS9k45HxshI
-	 LG6WpR1UQ4lYITagxJN5ayExy30UWYFegZa4g5E4JZiBEI2ZpVK+KshwtMpXC/95joA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794398083;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=bk/xtUL0TQa1hkGHi57+F0vnkupo2qPX6iYJ2SnqDe4=;
+	b=GLsjIxpCMHaHa9DNniINFRKYxlpaMJ50NQCRLF3Na9juF6dxFze9FC/G4MA2lWYm0ZU/
+	 nrlVkmyy0KNLjGi78aCGi7YLOx43M11PRLkBr6HxBFvfMSEy2lMElggWZTkgeoZdIYypi
+	 IjDPFJKiVBZDAkyeSURzsgbnNNIVi1fOQWd8hhjIYJ+sCOB3K/rA2FnRGK9hImia1wuy6
+	 tN6KeFJ++L6hOiKIq2M96F5+kcOxm7WLYaFwslrbUOYkBe9sc/I7llnYEM3XRIlIs0td2
+	 yB6CwtYJMV65pMWu5O1VgCrS5uy7fTlqThpo5QLJ4vGMswIn1sEB5x9SU9NMySAtAyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vV5nh+mu;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=khnIYuOL;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E310B606A321;
-	Wed, 11 Nov 2026 11:54:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E310B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48064606A33C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:54:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48064606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vV5nh+mu
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Ep5AJlsUvRo/Sl9Rg+NwP6D7Lq/wQPVEaLy1Gie9QQ4=; b=vV5nh+muii9KUwMXfoK65C9FPK
-	aNSl0OiG0j4I+LFXc7WeA74kYOFf834TBtI7qS+ZEF0cf7hSHSrnoI47iOSAXQPCAXQU9fne6O/8R
-	G2wk/XluU5ugbAZ7f5jU4JBscAk6nd/VyyPFhAk65/tq7U9wZjt9SJD8a8A/m2R6Cxj7l7C76kg9H
-	1KIPLAQYQ/Fv+JWvD04uouKwGYT/8gu4uHiCPUf9Bg4PxVdqeWdNvrfltP4AIW+MdO1/5WBfOmizl
-	DellelcAiKmJM9KaaC82wP83/72jAdgWurCb/I4tMo/beG16KgajqNT/PO+VCT1shIIGmoQlyuzr0
-	Arg3hVEA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xR6u3-00DA6f-37;
-	Wed, 11 Nov 2026 11:54:12 +0000
-Date: Wed, 11 Nov 2026 03:54:00 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
-	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
-	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
-	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
-	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 25/38] powerpc/crash_dump: check ioremap_cache() in
- copy_oldmem_page()
-Message-ID: <avRXHYDKemkiDvoj@gmail.com>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-25-59422ed3e465@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=khnIYuOL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=bk/x
+	tUL0TQa1hkGHi57+F0vnkupo2qPX6iYJ2SnqDe4=; b=khnIYuOLGFscxVwD2A2f
+	Pikm3TGugPqReJTjPxxakdZ/vMxwRm0e24O3jzg+Y8IVMJUuZ9otGGzPmDn0xgDi
+	ZWXNJ717x9IHhh7F2v4qAdVKxcH5h3w0ZFUNfXyWy/CcxhwaQB3LGg43rAnnP8zW
+	bPHP88yr5UK7bDYDTSAKCh799LNYkKbrPd9vvZXGnbFKs24j441Ri0al+ZLjA60H
+	sd4JKKk8LIGr/5hFNrzdNrJukUUgUFaLHXI1sNFsOcC0erynx/Q6paPZSsJEb18z
+	nqy1MN+/IFAla5ELrJFgwRVi//R+D1TalBrTke2mVpsasBtT/wiMnPP5Fu8zpJmB
+	9A==
+Received: (qmail 598728 invoked from network); 11 Nov 2026 12:54:40 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 11 Nov 2026 12:54:40 +0100
+X-UD-Smtp-Session: l3s3148p1@Mi0k3P5f8Lsujnun
+Date: Wed, 11 Nov 2026 12:54:39 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: BeaCox <0xbeac@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>, linux-mmc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [RFC PATCH] mmc: tmio: disable dma_issue work before releasing
+ DMA
+Message-ID: <avRXf6SJuXxslsbx@ninjato>
+References: <20261101063739.89331-1-0xbeac@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,22 +70,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-25-59422ed3e465@kernel.org>
-X-Debian-User: leitao
+In-Reply-To: <20261101063739.89331-1-0xbeac@gmail.com>
 
-On Mon, Nov 02, 2026 at 03:21:40PM +0100, Christian Brauner wrote:
-> copy_oldmem_page() maps a page of the old kernel that isn't in the
-> linear mapping with ioremap_cache() and copies from it without checking
-> whether the mapping worked. If it didn't, the copy reads from an offset
-> into the NULL page. That oopses unless the copy happens to be a user
-> copy, whose exception table entries turn the fault into a short copy.
+On Sun, Nov 01, 2026 at 02:37:39PM +0800, BeaCox wrote:
+> tmio_mmc_host_remove() drains done and delayed_reset_work, but leaves
+> dma_issue pending or running when it releases the DMA resources. Its
+> backend callback accesses the host, controller registers and DMA state.
 > 
-> Return -ENOMEM like the other architectures do. read_from_oldmem()
-> turns that into -EFAULT like any other short copy.
+> Disable dma_issue synchronously before releasing DMA. This also rejects
+> late queue attempts from an interrupt handler that is still running;
+> cancel_work_sync() alone does not provide that guarantee.
 > 
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: 54c32021eb6f ("[PATCH] powerpc: Add arch-dependent copy_oldmem_page")
+> Some DMA backends fall back to PIO before initializing dma_issue. Move
+> their work initialization ahead of the fallible setup so the work is
+> always initialized when a DMA backend is present. Skip the disable call
+> when no DMA backend is configured.
+> 
+> The analysis, patch and validation were assisted by OpenAI Codex.
+> 
+> Fixes: 85683fb39d9b ("mmc: sdhi: Convert from tasklet to BH workqueue")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> Signed-off-by: BeaCox <0xbeac@gmail.com>
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Real name, please.
+
