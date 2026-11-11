@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418612;
-	b=w/CBfaop4ReMjEyfEO1neaa9H/5rO7J9C7qH0mI5iUbZi7wB+R38Pb+DrSBm0mZsTEC5
-	 F/ID66ARW1Ck/eVinMIPDsL9vkDRNhQ7FZFYRDhdh9l+McZJwH+8sSHliP2d+RHBs/2DK
-	 vgOv039+TcH3tufb6mt87Otq4Iz2CKkMj8uffIpY/ngfrRq6hsKr8Bw7wgO24Mrb0m/kV
-	 YKPLNjtmZ6f4ZG00Ru4Ey+nvvkmqQmHpeCZ3hI5UJgXa7LPrKsCR2OWgqG0GP3WQTw5PB
-	 RLAUMrGrLrSHg2JIrJCUqX+4wID3pFyF36e7KKzZxfVXYfhhFjXeO10Lz5aSN6Da49Q==
+	t=1794418636;
+	b=Pe8OlMqy6WjsbxjchCRi1RyQiLpoFjbV+8+gJJMpX2IWEodI+xlGuZ3N/zXInlll4ZMk
+	 X4YNuUPSmdTWOCqWJsAkcPo7Fh4TxYZywYsd7dX2gKUxWr0YEu7/0W4nwCLc/au+k4Vl0
+	 e3Ls4bFzozB7/pqhWE+hG7Bi2X0iAYF98x/2IQz09TxoQFMR4XrGMKsM8y+WXL+t6F9KP
+	 uj9Vm7qQ5f8H2asc4BKWZEYxHNw5QFBskQ9hE7efRigFVqHA7Zak0EOYCFpNuzD8IACRR
+	 idYojJQFkEMLolMMM52uOd0ne2i+Oof1pHNXoEIkqX5VN/R1C/tRny0chqWu1+jsAxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418612;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418636;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cUQzGdDyU/6E5PqAuiIYlFP+J2hjngY6cFr7d0VKtgU=;
-	b=TLx+GeeE7kBvPFTBhq6BogU+nLdpY+JBLqK7SvpNhzXpvOVEq4JeiNrLCtG0tHSsXQ0G
-	 +ZHti56VXh1X7CrtrQYrAw8rfjLazpbeJAMmKa3fe8iZpPsK+xjk9ygguT445mKR70si1
-	 cEVncF9OQTdK5zkbW4VzJmB1Q7qu5DbIs2fahkq00M0IQyz699KqD+V2geCYxAwtRlUaQ
-	 Np7OIIrrksqyb3+QVu9un/Z4iNaUiWMUPQ0bkj/8asLjsgZedso7CS9QeplcrWtXaHhCP
-	 +6W+nnJXvYoozKz8B+UQapucqDftlJFWrOseKLUBucI6cIQE5+1XTg5dylXgccwyyow==
+	bh=4A/yii84Hr0pkSEHxfBqeIpjfn/9sKUAmcz4HwzH7bw=;
+	b=0MtvXcJGYHoXMYJMRiDdQWB0Im4N8CQwFU/sB8wbZnBa6JVC/LORkcChWI3ZDXN+y07a
+	 M0qLrXEMTeCXy/I3j3FiuqzwK3SOXyPhJbK4MLbX5jAjkA58GbMw6CSEknyHA8EZ+BbXQ
+	 EaVnDCUyNNOaaQ7BPL9+rKPnQNg3GLBaGRdbK5oW4ydk2aKBHRrGaoAbHUplBYar2AUnp
+	 wyPCi8UUolby3ZyuLMkjFM6DchMFpeXh1vU/SpfS/9ZAv7bqx1CskSvy94Uy+Cdm200Xd
+	 BI50hbxe/BeoCT/UBuGLnRxLiolxLmq6cjSkpiDjM6d9YwjhaZ+xjKo1imDkxhtcWkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4+KtXV8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fd5ER+IW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5772D606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:36:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28CB606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4+KtXV8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 313F11F00A05;
-	Wed, 11 Nov 2026 17:36:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fd5ER+IW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08AA91F00A05;
+	Wed, 11 Nov 2026 17:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418611;
-	bh=cUQzGdDyU/6E5PqAuiIYlFP+J2hjngY6cFr7d0VKtgU=;
+	s=k20260515; t=1794418635;
+	bh=4A/yii84Hr0pkSEHxfBqeIpjfn/9sKUAmcz4HwzH7bw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e4+KtXV8gjDiiEJvYLPgK5ks46iJ4WGyNux0hREX54KWvx8FeJ06Ig6H4XiGJ0HW/
-	 dtEw+enGfP1oLtBAdyFyV++4GFpBdIdD7fX4+fXX47P+oOE3JTTONzKHWpkuirOc78
-	 d5kXGrWokV+g7GgWyQwgHCvJ5eIG0AJ3eciGXAGtj/3/leaE9BhzsvijSFGKzZQpN8
-	 VTs8f/Jyeh9kdaUX7sP/PXGH67amOE9alaGutMqIJsr/6oLocf7VvLvt3/hXZpd0n0
-	 rU8OHjAb7QQpRULZgaSg9pbmyKibmiLSYww7bQ6uGfgM7a0wkpflsxu9A7p7fu7fQv
-	 jL3MXMoz/xxRg==
+	b=Fd5ER+IWg6aBT16SvhjhQgxguA1Ulc9uEId4zE0xxOKT5ucw+yoQY1Y5GO1wYGU2c
+	 NqTHkoawCMwO0D1iroZ+7uUbYLy68TJfDk2Te7Zvb+n0+gwBabqKknnxdKirRcRkCz
+	 m8CNYLAI2VE4vEeng9YFX8gyNBlmZ32nMLmpPOLBmZSZPdO1N9SacGlKPEFVHo44hz
+	 VZ4NBAm6MHMGbh5AYK9bh7g7BEc0bizeJp5/XaxUiMJT5n9Kx8/uCHpd30uUWmo7oA
+	 Nlo6kLoILKOD3kZwsc3RH6VIyMNlHGUWrtmMND7W4W5nQVZOc/+5rpWWAAJ0T+EEe9
+	 E2N9gcixnJQeg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Stefan Teodorescu <fane@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: David Carlier <devnexen@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] KVM: nSVM: Check validity of vmcs01 save area copied from SMRAM on RSM
-Date: Wed, 11 Nov 2026 12:36:49 -0500
-Message-ID: <20261111172825.3575288-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] media: ipu6: Fix firmware config leak on stream start
+Date: Wed, 11 Nov 2026 12:37:13 -0500
+Message-ID: <20261111173645.3594758-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201636-failed-6.1-053621535f01@kernel.org>
-References: <20261109201636-failed-6.1-053621535f01@kernel.org>
+In-Reply-To: <20261107051831-failed-6.12-d3d9bc694fe0@kernel.org>
+References: <20261107051831-failed-6.12-d3d9bc694fe0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,135 +61,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: David Carlier <devnexen@gmail.com>
 
-[ Upstream commit 053621535f014085c935879582dd3b65964a0dce ]
+[ Upstream commit d3d9bc694fe087c672c3ad5871984dc45cd9f425 ]
 
-When doing RSM to L2, validate L1's state after copying it back into vmcb01
-from SMRAM, as SMRAM is carved out of guest memory, i.e. is writable by the
-guest.  Failure to validate L1's state is especially problematic for inputs
-to MMU context, as KVM can end up with impossible CR4 vs. EFER state.  E.g.
-without the recent hardening FNAME(walk_addr_generic), a guest can trigger:
+ipu6_isys_fwcom_cfg_init() runs on every first stream start and allocates
+the firmware config and queue configs with devm, so each STREAMON/STREAMOFF
+cycle leaks them. They are only needed until ipu6_fw_com_prepare() has
+copied them, so free them right after. Also check the return value, an
+allocation failure would otherwise make ipu6_fw_com_prepare() dereference
+a NULL queue config.
 
-  ------------[ cut here ]------------
-  UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu/paging_tmpl.h:435:15
-  index 3 is out of range for type 'u32 [2]'
-  CPU: 3 UID: 0 PID: 92 Comm: CPU 1/KVM Not tainted 7.3.0-rc1 #2 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x5f/0x90
-   dump_stack+0x10/0x18
-   ubsan_epilogue+0x9/0x39
-   __ubsan_handle_out_of_bounds.cold+0x50/0x55
-   paging32_walk_addr_generic+0x889/0x970
-   paging32_page_fault+0x79/0xa60
-   kvm_mmu_do_page_fault+0x125/0x270
-   kvm_mmu_page_fault+0x88/0x7b0
-   npf_interception+0xc8/0x220 [kvm_amd]
-   svm_invoke_exit_handler+0x16d/0x1d0 [kvm_amd]
-   svm_handle_exit+0xb7/0x160 [kvm_amd]
-   vcpu_enter_guest+0x428/0x16a0
-   kvm_arch_vcpu_ioctl_run+0x479/0x920
-   kvm_vcpu_ioctl+0x316/0xb00
-   __x64_sys_ioctl+0xa3/0x100
-   x64_sys_call+0x281/0x23d0
-   do_syscall_64+0xba/0x550
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-  RIP: 0033:0x79bb30deb04b
-   </TASK>
-  ---[ end trace ]---
-
-Fixes: 37be407b2ce8 ("KVM: nSVM: Fix L1 state corruption upon return from SMM")
+Fixes: f625e8d7ffc1 ("media: intel/ipu6: input system ABI between firmware and driver")
 Cc: stable@vger.kernel.org
-Reported-by: Bill Wendling <morbo@google.com>
-Reported-by: Stefan Teodorescu <fane@google.com>
-Tested-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20261022021046.295001-1-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[ sashal: adapted validation to __nested_vmcb_check_save() with failure routed through the existing unmap_save cleanup ]
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+[ sashal: Adapted fwcom_cfg and isys->fwctx to existing fwcom and isys->fwcom names with cleanup inlined in the caller. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/nested.c | 23 ++++++++++++++++-------
- arch/x86/kvm/svm/svm.c    |  2 ++
- arch/x86/kvm/svm/svm.h    |  2 ++
- 3 files changed, 20 insertions(+), 7 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 29 ++++++++++++++-------
+ 1 file changed, 19 insertions(+), 10 deletions(-)
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index af9caff998eba..1bd94165d2fba 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1507,6 +1507,21 @@ static void nested_copy_vmcb_cache_to_control(struct vmcb_control_area *dst,
- 	/* 'clean' and 'hv_enlightenments' are not changed by KVM */
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+index 62ed92ff1d303..51d02649d7a74 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+@@ -218,7 +218,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	unsigned int max_send_queues, max_sram_blocks, max_devq_size;
+ 	struct ipu6_fw_syscom_queue_config *input_queue_cfg;
+ 	struct ipu6_fw_syscom_queue_config *output_queue_cfg;
+-	struct device *dev = &isys->adev->auxdev.dev;
+ 	int type_proxy = IPU6_FW_ISYS_QUEUE_TYPE_PROXY;
+ 	int type_dev = IPU6_FW_ISYS_QUEUE_TYPE_DEV;
+ 	int type_msg = IPU6_FW_ISYS_QUEUE_TYPE_MSG;
+@@ -228,7 +227,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	struct ipu6_fw_isys_fw_config *isys_fw_cfg;
+ 	u32 num_in_message_queues;
+ 	unsigned int max_streams;
+-	unsigned int size;
+ 	unsigned int i;
+ 
+ 	max_streams = isys->pdata->ipdata->max_streams;
+@@ -236,7 +234,7 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	max_sram_blocks = isys->pdata->ipdata->max_sram_blocks;
+ 	max_devq_size = isys->pdata->ipdata->max_devq_size;
+ 	num_in_message_queues = clamp(num_streams, 1U, max_streams);
+-	isys_fw_cfg = devm_kzalloc(dev, sizeof(*isys_fw_cfg), GFP_KERNEL);
++	isys_fw_cfg = kzalloc_obj(*isys_fw_cfg);
+ 	if (!isys_fw_cfg)
+ 		return -ENOMEM;
+ 
+@@ -248,15 +246,14 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	isys_fw_cfg->num_recv_queues[type_dev] = 0;
+ 	isys_fw_cfg->num_recv_queues[type_msg] = 1;
+ 
+-	size = sizeof(*input_queue_cfg) * max_send_queues;
+-	input_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
++	input_queue_cfg = kzalloc_objs(*input_queue_cfg, max_send_queues);
+ 	if (!input_queue_cfg)
+-		return -ENOMEM;
++		goto err_free_fw_cfg;
+ 
+-	size = sizeof(*output_queue_cfg) * IPU6_N_MAX_RECV_QUEUES;
+-	output_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
++	output_queue_cfg = kzalloc_objs(*output_queue_cfg,
++					IPU6_N_MAX_RECV_QUEUES);
+ 	if (!output_queue_cfg)
+-		return -ENOMEM;
++		goto err_free_input_queue_cfg;
+ 
+ 	fwcom->input = input_queue_cfg;
+ 	fwcom->output = output_queue_cfg;
+@@ -319,6 +316,13 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	fwcom->specific_size = sizeof(*isys_fw_cfg);
+ 
+ 	return 0;
++
++err_free_input_queue_cfg:
++	kfree(input_queue_cfg);
++err_free_fw_cfg:
++	kfree(isys_fw_cfg);
++
++	return -ENOMEM;
  }
  
-+bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
-+				  struct vmcb_save_area *save)
-+{
-+	struct vmcb_save_area_cached save_cached;
-+
-+	if (!(save->cr0 & X86_CR0_PG) ||
-+	    !(save->cr0 & X86_CR0_PE) ||
-+	    (save->rflags & X86_EFLAGS_VM) ||
-+	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)))
-+		return false;
-+
-+	__nested_copy_vmcb_save_to_cache(&save_cached, save);
-+	return __nested_vmcb_check_save(vcpu, &save_cached);
-+}
-+
- static int svm_get_nested_state(struct kvm_vcpu *vcpu,
- 				struct kvm_nested_state __user *user_kvm_nested_state,
- 				u32 user_data_size)
-@@ -1583,7 +1598,6 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
- 		&user_kvm_nested_state->data.svm[0];
- 	struct vmcb_control_area *ctl;
- 	struct vmcb_save_area *save;
--	struct vmcb_save_area_cached save_cached;
- 	struct vmcb_ctrl_area_cached ctl_cached;
- 	unsigned long cr0;
+ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+@@ -332,10 +336,15 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+ 	};
  	int ret;
-@@ -1653,12 +1667,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
- 	 * Validate host state saved from before VMRUN (see
- 	 * nested_svm_check_permissions).
- 	 */
--	__nested_copy_vmcb_save_to_cache(&save_cached, save);
--	if (!(save->cr0 & X86_CR0_PG) ||
--	    !(save->cr0 & X86_CR0_PE) ||
--	    (save->rflags & X86_EFLAGS_VM) ||
--	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
--	    !__nested_vmcb_check_save(vcpu, &save_cached))
-+	if (!nested_svm_check_vmcb01_save(vcpu, save))
- 		goto out_free;
  
+-	ipu6_isys_fwcom_cfg_init(isys, &fwcom, num_streams);
++	ret = ipu6_isys_fwcom_cfg_init(isys, &fwcom, num_streams);
++	if (ret)
++		return ret;
  
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 4e68391c71f67..016a0d777f232 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -4622,6 +4622,8 @@ static int svm_leave_smm(struct kvm_vcpu *vcpu, const char *smstate)
- 	 */
- 
- 	svm_copy_vmrun_state(&svm->vmcb01.ptr->save, map_save.hva + 0x400);
-+	if (!nested_svm_check_vmcb01_save(vcpu, &svm->vmcb01.ptr->save))
-+		goto unmap_save;
- 
- 	/*
- 	 * Enter the nested guest now
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index f5975b88756fd..087786ce1b47f 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -629,6 +629,8 @@ void nested_copy_vmcb_save_to_cache(struct vcpu_svm *svm,
- 				    struct vmcb_save_area *save);
- void nested_sync_control_from_vmcb02(struct vcpu_svm *svm);
- void nested_vmcb02_compute_g_pat(struct vcpu_svm *svm);
-+bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
-+				  struct vmcb_save_area *save);
- void svm_switch_vmcb(struct vcpu_svm *svm, struct kvm_vmcb_info *target_vmcb);
- 
- extern struct kvm_x86_nested_ops svm_nested_ops;
+ 	isys->fwcom = ipu6_fw_com_prepare(&fwcom, isys->adev,
+ 					  isys->pdata->base);
++	kfree(fwcom.specific_addr);
++	kfree(fwcom.output);
++	kfree(fwcom.input);
+ 	if (!isys->fwcom) {
+ 		dev_err(dev, "isys fw com prepare failed\n");
+ 		return -EIO;
 -- 
 2.53.0
 
