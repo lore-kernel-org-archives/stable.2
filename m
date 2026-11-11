@@ -1,52 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370205;
-	b=J1noBJ5EX/qcNI1r0M4e7fCt/qvcJb3F7wT1m46BOkfrN/WGJdxJeeGU0fERfWGXDlFo
-	 99oF9NnpqNqWbzjjL2UbwnaGnYGmwiik9CplxhbRZAwKVZQsLMWzs0vDKsPU5FyfI1xkb
-	 9EBuYzw2zFaR1lCSXT6PrJiNALh1dMrXUeOt/OvWLwZinhnZzUy+q5tJue6+45nRThCCn
-	 MZSaDifREj+ZVF0xzi06eFhVFhubGwJ8e35Iqv3VZ8FaOM5vEy9MZdn8kRqGbOd8a3S9R
-	 9LCPDIDnV8MCXPkhA+hWxJcxSPvN/uJf0m87vq99MYkZmQXQEbIAvCSs8N2HP3Jt26w==
+	t=1794370223;
+	b=aMA9cdoOrxSLc+FDnw4KaBdLkBv+RRUb5ldFb2IiOCTFSz/pJDDy97oTwU9ar1qY9F1f
+	 FC4nUIw0KOv+pYDUNlhlBbMkb8UJsAtkE9yIThjEPgncX4pmsxOxGq02ayCDqw0N2ytoD
+	 uINoSmDb3J6BxOLHOPFiGXqVILs2oqDqqKtYTJNmGs6VxlKfbPlzBTSoM9Hkx9WwRSgUt
+	 d9Bt0IIBZAf/G6ki/OQTSDwjwq3YR4geRxY/B0IhLYMEhV/ePr716Wa2lmXgZnIckbvpj
+	 DGkpbYVyWxN+uG8vvoX9lrjnH0dw++7Rym8ufRdEEYBTanQ7L8AWTmwaRwCRyRLlBoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370205;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=idNLXweLoPNjx3jK9Nmfy3VMz81+Rf6DURR5LGdMO8o=;
-	b=I3DP5qlt+3FhMxVCC0mSoyfTI39DmbfmX3c5SkHcSHhyQZGYR5V8bjTgdB2tz3KJd73I
-	 5m0vmedY/a0SVHHDky4S1b/JB8OyEyq2DQ3mL4KVHp0fGlwSXJlLw65V83fvDS/VCe3GO
-	 QfQtUPcJAoDOubCBD14NoPlDnPxbiyJfBvE4A+iuqoVuuVnWQ8CNiWTLqMC88aEIPKmMP
-	 hoDyVGockXO5xZupQ86hlT+uOHd/Y6sxU7mayFMVDc7RzYvITaC4dNHHZXx8rPJgAfOhR
-	 KJNOpLGhTSMijqDjng42RtkZSgclkTIlaPXGWeCGSsO9W3XByq67EjJuaktbiJOJ0iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370223;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=8LEvm1jhrPiAikbX8sRfr+B6Tg9uqwRSbfe8BATKg+o=;
+	b=tjP3yFvmceRcUDEay8RSmp3D2L4D2BDzylOwIvqTu1+Kp+1/r3aY8xtOvNzYv7oThUFy
+	 iO88D+bOANnwlGxTMGHyRkxo3D8seSKay6GJ6Vvv6BA08SK2azsng5HwhLEQ3EKwB6HEq
+	 VmLYg9pHgSO8EKkNb6X73VrsYfmQpxJfNbYQq+50zok0fN85Car6BE55jp0zSfN3zfxJA
+	 qohSTveUhDZ10nVXDERfAfSIRv0SFhlF9AzFLxiyXZzpw4k5nQ9IjC9N0ooDr8v56q1U3
+	 0oPwhCqISLlHaxXN4dQFMyTqBCmFBzQxWZS/Flw9lEsN3wx/9ZEnp/Z/PEPaeToyJUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1778D606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:10:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1778D606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=idNLXweLoPNjx3jK9Nmfy3VMz81+Rf6DUR
-	R5LGdMO8o=; b=u+S6LEVKPqRGkkyU4YQXa7ZgA+FWgZMz60hpCggKSwIIlZxt5p
-	80Zsx2IpeEZDH2C5/w/tDDdpmbxXTQ9kB89j1dEKmsz0FjNcbcDdrmePaERYBOYd
-	4LgQ8sf3cZbBHEWpIMaemH6ydtxAtjAasZPN3zPvtJLrjOB0m+px9/4xo=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.33])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBmiwGS6vNq_+ZyAQ--.14204S4;
-	Wed, 11 Nov 2026 12:09:55 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c55+Lews;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648C9606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c55+Lews
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328031F0089F;
+	Wed, 11 Nov 2026 04:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794370223;
+	bh=8LEvm1jhrPiAikbX8sRfr+B6Tg9uqwRSbfe8BATKg+o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=c55+LewsXDzLk0QSC8aIIDenySoNZ2Oy/9Gbre3LO6P6THzhqzHsT54AKexLvSGjA
+	 9fQZak6SdhQOfi3YFVNK537hvAIOvrc/BFMDEJEowUJh77K3UcniJbXFKXN2zhcLbd
+	 pe9ufVLklmx91SQlur2w/Wi0TnXP2wTsxa5qBGrRvP28nmzLT6rYPzte2QMrGe7kqI
+	 5fXJasvfLaMB10vkocClkxww0RrVlrv/JgydOD7duQ5xEvjBVwj5FQrLmXl7IRy18y
+	 /Epw85QzdUB485uMrgpcNsbySyqFRhkvJWwORdkdqO2j265JbW09IDcwOQE/3Wtg5U
+	 HJVvTZiCyKXmQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Subject: [PATCH 5.15.y 2/2] ALSA: bcd2000: Fix use-after-free of MIDI URBs on file close
-Date: Wed, 11 Nov 2026 12:09:53 +0800
-Message-Id: <20261111040953.33271-3-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261111040953.33271-1-25031212351@stu.xidian.edu.cn>
-References: <20261109202440-failed-5.15-f6c7bb1f0799@kernel.org>
- <20261111040953.33271-1-25031212351@stu.xidian.edu.cn>
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Mason <mason@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Oscar Salvador <osalvador@suse.de>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Adam Litke <agl@us.ibm.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Rik van Riel <riel@surriel.com>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/hugetlb: unmap the page where the other VMA maps it
+Date: Tue, 10 Nov 2026 23:10:19 -0500
+Message-ID: <20261111040956.1056162-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052603-failed-6.12-ae99c503eb36@kernel.org>
+References: <20261107052603-failed-6.12-ae99c503eb36@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,103 +78,152 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkBmiwGS6vNq_+ZyAQ--.14204S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxZw1kCr13tFyxWF43Ww45KFg_yoW5Zr4UpF
-	48Gr4Yyr4Durn09F1IyFn7CF1Fy3Z7Ja4DGryFg34avFyrX3W3tay0yF45CFsIkryxG3sx
-	Z3WDtayfWFs8Cw7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPYb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kE
-	wVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x
-	0267AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF
-	7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2
-	xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2
-	jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY02Avz4
-	vE14v_Gryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
-	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1j6r15MI
-	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
-	14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
-	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07bOBM_U
-	UUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUOD2rzNcaM4AAAsA
 
-commit f6c7bb1f0799591a62be75b9bcf84245b4f208b7 upstream.
+From: Josef Bacik <josef@toxicpanda.com>
 
-The 5.15.y tree is still built with -std=gnu89, so the guard() and
-scoped_guard() helpers used by the upstream patch cannot be used
-here.  Use explicit spin_lock_irqsave()/spin_unlock_irqrestore()
-pairs instead; the locking scope is unchanged.
+[ Upstream commit ae99c503eb362b42cd5d24d80bc6cba669acc4c2 ]
 
-bcd2000_disconnect() calls snd_card_disconnect(), which only prevents
-new opens, and then frees the MIDI URBs.  A rawmidi file that was
-already open can still be closed afterwards, and its close callback,
-bcd2000_midi_output_close(), calls usb_kill_urb() on midi_out_urb.
+If the owner of a MAP_PRIVATE hugetlb mapping fails to allocate a page
+for CoW, unmap_ref_private() unmaps the old page from all other private
+VMAs that have no reservation of their own.  It finds them by the offset
+in the file, but then zaps each of them at the address of the faulting
+VMA.  Nothing says that another VMA maps the offset at that address: a
+child can have moved its copy of the VMA with mremap(), and a second
+mapping of the file is wherever mmap() has put it.
 
-The URB pointers are cleared on disconnect and their accesses are
-serialized with midi_lock, but bcd2000_midi_output_close() reads
-midi_out_urb without that lock.  The check can therefore pass just
-before the pointer is cleared, and usb_kill_urb() then runs on the URB
-that has already been freed:
+So __unmap_hugepage_range() walks the page tables of the other mm at an
+address outside of iter_vma, where i_mmap_rwsem of this file protects
+nothing and where anything can be mapped, and the page stays mapped where
+it really is.
 
-  BUG: KASAN: slab-use-after-free in usb_kill_urb+0x74/0x80
-  Read of size 8 at addr ffff8880078e7d40
-   usb_kill_urb
-   bcd2000_midi_output_close
-   close_substream
-   rawmidi_release_priv
-   snd_rawmidi_release
+All of the following was seen on v7.3-rc6+ (g6c377d19d4a5) in KVM guests,
+as a user without any privilege.  It takes a pool of 2 MiB pages with no
+free page that is not reserved, so that the allocation fails: the user
+can take or reserve what is free itself.
 
-  Allocated by: usb_alloc_urb <- bcd2000_init_midi <- bcd2000_probe
-  Freed by:     usb_free_urb <- bcd2000_midi_free
-                <- bcd2000_disconnect
+ - The child moves its VMA away.  The page is never unmapped, the
+   mapcount stays 2, and the owner goes round retry_avoidcopy in
+   hugetlb_wp() until the child is gone or a page becomes free.  SIGKILL
+   to the owner does not end it.  5 of 5 runs.
 
-Take the lock in bcd2000_midi_output_close() and reference the URB with
-usb_get_urb() before releasing it.  The URB then stays valid until
-usb_put_urb() after usb_kill_urb() has returned, even if a disconnect
-frees it in the meantime.  usb_kill_urb() itself cannot run under
-midi_lock, as the completion handler takes the same lock.
+ - The owner's mm has a second private mapping of the offset, made with
+   MAP_NORESERVE.  The owner zaps its own entry and reads zeroes where
+   its data was.  5 of 5 runs.
 
-Fixes: b47a22290d58 ("ALSA: MIDI driver for Behringer BCD2000 USB device")
-Cc: stable@vger.kernel.org
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Link: https://patch.msgid.link/20261031190936.5696-1-25031212351@stu.xidian.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+ - The child moves its VMA away and maps a 1 GiB hugetlb page at the old
+   address, so this one takes a pool with a 1 GiB page as well.
+   huge_pte_offset() for the 2 MiB size steps through the PUD
+   leaf, so the "PMD table" is the 1 GiB page itself and its "page table
+   lock" is folio->private of that page, which holds 2.  Kernels with
+   lock debugging oops in __unmap_hugepage_range(), 7 of 7 runs.  Others
+   spin on that word for ever with preemption disabled, 5 of 5 runs:
+
+     watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [u_det3:130]
+     RIP: 0010:queued_spin_lock_slowpath+0x8a/0x290
+     RAX: 0000000000000002 RBX: ffffea0001000028
+     Call Trace:
+      __unmap_hugepage_range+0x154/0x6d0
+      unmap_hugepage_range+0xc1/0x140
+      hugetlb_wp+0x55c/0x700
+      hugetlb_fault+0x5f3/0x8f0
+
+   RCU stalls follow, and killing all tasks of the user changes nothing.
+   Four such owners, whose children share a single 1 GiB page, took down
+   the whole guest with its four CPUs, 2 of 2 runs: one reported soft
+   lockups on all four, the other gave no sign of life any more.
+
+   i_mmap_rwsem stays write locked.  With a MAP_PRIVATE mapping of a
+   hugetlbfs file that belongs to another user, and that the attacker
+   can only read, the next mmap() of that file by its owner sleeps
+   uninterruptibly in __mmap_region(), 4 of 4 runs.
+
+Compute the address from the offset for each VMA.  The tree walk returns
+only VMAs that cover pgoff, and vm_start, vm_end and vm_pgoff of a hugetlb
+VMA are aligned to the huge page size, as pgoff is, so the whole range
+lies inside iter_vma.  Its page tables can not go away there, since the
+VMA is unlinked from the file under i_mmap_rwsem first.
+
+With the right address the page is unmapped from all VMAs but the
+owner's, so the retry in hugetlb_wp() finds a mapcount of 1 and reuses the
+page.
+
+A child that has moved its copy of the VMA now loses the page, and gets
+SIGBUS when it faults on a missing page of that VMA.  That is what the
+comment above the function has always promised to those who do not own
+the reservation, and what already happens to a child that has left the
+VMA in place.
+
+The address has been wrong from the start, and the second case needs
+only mmap() and fork().  mremap() of hugetlb VMAs, which the other cases
+use, came with commit 550a7d60bd5e ("mm, hugepages: add mremap() support
+for hugepage backed vma") in v5.16.
+
+Original fix generated by an LLM and sent in private by Josef.
+
+[david@kernel.org: switch to vma_filebacked_address, add VM_WARN_ON_ONCE, refine comments]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-4-42796911043b@kernel.org
+Fixes: 04f2cbe35699 ("hugetlb: guarantee that COW faults for a process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Adam Litke <agl@us.ibm.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: adapted folio handling to the existing page interface and replaced vma_filebacked_address() with vma_address() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/bcd2000/bcd2000.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ mm/hugetlb.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/sound/usb/bcd2000/bcd2000.c b/sound/usb/bcd2000/bcd2000.c
-index 95806e031..69c0f1b96 100644
---- a/sound/usb/bcd2000/bcd2000.c
-+++ b/sound/usb/bcd2000/bcd2000.c
-@@ -185,11 +185,26 @@ static int bcd2000_midi_output_open(struct snd_rawmidi_substream *substream)
- static int bcd2000_midi_output_close(struct snd_rawmidi_substream *substream)
- {
- 	struct bcd2000 *bcd2k = substream->rmidi->private_data;
-+	struct urb *urb = NULL;
-+	unsigned long flags;
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index d9443bdebc068..1ef7202b2c901 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5775,6 +5775,8 @@ static void unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
+ 	struct address_space *mapping;
+ 	pgoff_t pgoff;
  
-+	/*
-+	 * Reference the URB under the lock so that it stays valid until
-+	 * usb_kill_urb() returns, even if a disconnect frees it in the
-+	 * meantime.  usb_kill_urb() cannot run under the lock, as the
-+	 * completion handler takes the same lock.
-+	 */
-+	spin_lock_irqsave(&bcd2k->midi_lock, flags);
- 	if (bcd2k->midi_out_active && bcd2k->midi_out_urb) {
--		usb_kill_urb(bcd2k->midi_out_urb);
-+		urb = usb_get_urb(bcd2k->midi_out_urb);
- 		bcd2k->midi_out_active = 0;
- 	}
-+	spin_unlock_irqrestore(&bcd2k->midi_lock, flags);
++	VM_WARN_ON_ONCE(!folio_test_anon(page_folio(page)));
 +
-+	if (urb) {
-+		usb_kill_urb(urb);
-+		usb_put_urb(urb);
-+	}
- 
- 	return 0;
+ 	/*
+ 	 * vm_pgoff is in PAGE_SIZE units, hence the different calculation
+ 	 * from page cache lookup which is in HPAGE_SIZE units.
+@@ -5810,9 +5812,17 @@ static void unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
+ 		 * could insert a zeroed page instead of the data existing
+ 		 * from the time of fork. This would look like data corruption
+ 		 */
+-		if (!is_vma_resv_set(iter_vma, HPAGE_RESV_OWNER))
+-			unmap_hugepage_range(iter_vma, address,
+-					     address + huge_page_size(h), page, 0);
++		if (is_vma_resv_set(iter_vma, HPAGE_RESV_OWNER))
++			continue;
++
++		/*
++		 * The address in other VMAs can differ. Even though our old
++		 * folio is anon, we always operate on the underlying hugetlb
++		 * file.
++		 */
++		address = vma_address(iter_vma, pgoff, 1);
++		unmap_hugepage_range(iter_vma, address,
++				     address + huge_page_size(h), page, 0);
+ 	}
+ 	i_mmap_unlock_write(mapping);
  }
 -- 
-2.34.1
+2.53.0
 
