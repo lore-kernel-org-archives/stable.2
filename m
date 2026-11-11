@@ -1,55 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408323;
-	b=kGncBU3EJjLMIgb6zESzC20RzAo0isMOOvqiy/tqlpDr9T6Wldy09ADvAbpASbv1HBrS
-	 l67IKM2QEXW3D96Vvv+Ndbv9slSWNlYfH5NvvnQzWU0yuQg8dLWy89AtiiBjo/1QdyCE7
-	 Dy2DM+gaUmzh4UqjuU6RqINoD8FMhyseDvxJJiNtSvvFTdOsZRBEayLu4Sg93JphlFxYm
-	 Hz/4WX5HpQDbpnzuwzkTYYcTHKIO8ktktFqmJ47K0+phI8ivizChGQhkomL1IPMiMhDx1
-	 zQG59/NEC/mCweFA6QjJn+i3Sk9rMaOXK/n57pGvV42HDgk5EuLgtgE7eaYWN2cmymg==
+	t=1794408380;
+	b=cvh9QkfQoAATn49gIl2eVKEWK52csl8N7woLrtn92Zm3/JabS+gxWI+lhantyt8LyijC
+	 lQfBkY0GFlQ7gjAxqGD8S2aQrHJNqWniaGqLT8YFJFvh8+rnMgqGOFbgvNXTC19OajldI
+	 ckj0FOgEIfarnclgCrW+bW0WgSfvjRF5EcjLdlMeiBNkCy60oIo+WCvQqW9bxHpl8dmKD
+	 2hO3OsXlBzQCdgEgAid01QhU47DBgp7xHGOFXbRb1WXFU1as6EceEVhduTofYTHuuBPeH
+	 nYZ0GkW/B/j9suOFhIngNRaSd27oQNv2KenCOzU9yM3AYWOHxBCndmhOlJYQEIQVrQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408323;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rTiVOnY8HgSOulFoi0YIAWmyA8fU+hSpntGW97c/Kqs=;
-	b=JgsDauhZR7W91y2n/7qqSG3TzQdIzdlvhAH80JQ64Pvk3FN44O7wlPRdCU/5vMyy6u1p
-	 x1sUv88QryChSKT61XYPccqk6+qmfbP26hiEFE3y6Pq7Sc6SV6h4Tg4OA03GreZvVClDz
-	 hk33br8U1TDhTPRlr/7muGyNw+tGJ8E5grrl3qdoUL9AQxa5CT1iICm55raCwpXDA1NuF
-	 uVJ3Fu9TmBnMIHpbiAgOnHmCHlcuF0Ycu7WAQYJf0K2ByWHFqPED1BOxDFD0VHfPcWKWW
-	 VDfzWorHgEIpqMrL+Fng50F1Bxi32ID7n12fvpDIR2YmID2G7xoP5aExzRdzmE2/thA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408380;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Em4EKoomQzRqCmU2LdTaxgS3/XCVwcRA3NsOk+tsLy4=;
+	b=2bD6s8R0EwUjdQSF5UEGBeNqKV3NzR0UJcfNXzs2Vem4NX3GIt+Op0CGAwT35udQA/BX
+	 smfXZUNSIjMbHzBC4G4MeWxiBiNyQGdaxvxorSUBzLnMXCMqwbZFiZL/9CeLtLc5tfLse
+	 1ei7UPZfNQZu8JM42U12ohguvQ1BDDE6eVbK4W50smulEPEqNFsWsJ5nLoRJaj1XjA3RE
+	 ug4s8m432QQCj3WWDlh2kzUT59kqalN4dM6QfWRTrLEeZnYHcxTFiWEuGz+4eIy+9XYRQ
+	 7RGfx9tBKA7gAPVPQ9XdLaVRMIfq9U58cLh5EBQb2y7+7IIszayQ/Wxw4jMljaFJDjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GBsh7RbD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPipuQmN;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C18606A334
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:45:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3922D606A326;
+	Wed, 11 Nov 2026 14:46:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3922D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GBsh7RbD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561F71F00A05;
-	Wed, 11 Nov 2026 14:45:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794408322;
-	bh=rTiVOnY8HgSOulFoi0YIAWmyA8fU+hSpntGW97c/Kqs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GBsh7RbDQiUBZDZNFkvY/spbc5G7MWICrsoWvwfUd/xu01qIynL1KsNfCq3/ZhCXw
-	 rSb3+iNS+KG8LTu0/+ThhIlNexy+8YNQxGvlsjM3D26r1WrAw0hQIeBdeMLc5xNSrw
-	 E73ingNdaBEsarpb0qvAeOuCy3umBPqtdS1pw6hmb+U4j98ZpjmsUfzU+7n3WwvTEo
-	 noos7J9y/FMOhcfY5bwj8/ELqsGn0ZVDiTpbbK7O90PDaOMN4BAAzOXUlgiki6Fa5I
-	 KiRG9b3yQWyUpn9L97mOzLZGkKzuhX7MvxmoA4tx6WnYD6+25HAWTBhi54laufxPg5
-	 eQ/wwoZyWnhOw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Dominik Maier <dmnk@google.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] loop: check for read-write open mode on LOOP_SET_STATUS in lo_compat_ioctl()
-Date: Wed, 11 Nov 2026 09:45:20 -0500
-Message-ID: <20261111143400.1667764-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062925-failed-5.10-87409eedc543@kernel.org>
-References: <20261107062925-failed-5.10-87409eedc543@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPipuQmN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794408381; x=1825944381;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OtE5O1BfQvMDhBRcvXpXpqkumAp3IpNUCIvlpc/VYDQ=;
+  b=OPipuQmNAADEF506uoNdWIoGFCSpHJSiXYRO5ropTEVTE6q6njcOi9ot
+   oQbpldjHuRPwSdqkuiwNIAWzvRGwGNJT57gZVPIFPFeijpdZlWTCA8gvy
+   o9n039jJmfH8/P0BYfL21DpfIFy+Hh0f6Sh5tpTSd47W9JrSKRWxoqOQJ
+   yqVykeH/B1nSafRcGQRTcsBRmdeHi8MsvD3M+pkxHFGhfhD+/+Czdc7p1
+   qt1QDh2j6pErcC2iKE5mSLw+2MkJyFdb/iURcWT9gI3Nsjg/+W8192aJ5
+   RZy6M5O123/DjodHhzqBzNpQ/BwtyUiD4OWj3oab+gX/lIJQG7bfmHASn
+   Q==;
+X-CSE-ConnectionGUID: wg299LpwTIKVRQp6iAksFw==
+X-CSE-MsgGUID: EwOg3E1CSF2H4XMzGAn4qQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3276718"
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="3276718"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:46:20 -0800
+X-CSE-ConnectionGUID: u7JpfAaFTwqDCf/sHVz83g==
+X-CSE-MsgGUID: hi4ZGr8NTJeJDmBls6NVJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,208,1787036400"; 
+   d="scan'208";a="8322908"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.142])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 06:46:17 -0800
+Date: Wed, 11 Nov 2026 16:46:15 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Hyunjung Ko <hj351016@gmail.com>
+Cc: Sebastian Reichel <sre@kernel.org>,
+	Kaixin Wang <kxwang23@m.fudan.edu.cn>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] HSI: ssi_protocol: don't cancel_work_sync() under
+ ssi->lock in ssip_reset
+Message-ID: <avR_tx9ze-eAa0_N@ashevche-desk.local>
+References: <20261111090447.3047656-1-hj351016@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,56 +80,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111090447.3047656-1-hj351016@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Dominik Maier <dmnk@google.com>
+On Wed, Nov 11, 2026 at 06:04:47PM +0900, Hyunjung Ko wrote:
+> ssip_reset() calls cancel_work_sync(&ssi->work) inside the
+> spin_lock_bh(&ssi->lock) section. cancel_work_sync() calls might_sleep(),
+> so running it under the bh spinlock triggers "BUG: sleeping function called
+> from invalid context". In addition, the cancelled work ssip_xmit_work() ->
+> ssip_xmit() takes ssi->lock itself, so waiting for it while holding the
+> lock can deadlock.
+> 
+> Move cancel_work_sync() out of the locked section. It still runs in
+> ssip_reset() before teardown, so the use-after-free fix is preserved.
 
-[ Upstream commit 87409eedc543d288cdd49c2174f7d61eca7b8db5 ]
+But is it okay to run before timers are gone?
 
-lo_ioctl() checks for (mode & BLK_OPEN_WRITE) || capable(CAP_SYS_ADMIN)
-before allowing LOOP_SET_STATUS or LOOP_SET_STATUS64, but not
-lo_compat_ioctl(), the handler used by 32-bit user space on 64-bit
-kernels.
+...
 
-As a result, on 64-bit kernels with CONFIG_COMPAT=y, a 32-bit
-unprivileged user-space process holding a read-only (O_RDONLY) file
-descriptor to an active /dev/loopN device can issue a compat
-LOOP_SET_STATUS ioctl to modify lo_offset, clear lo_sizelimit to 0
-(exposing backing-file data past the configured limit), or alter
-lo_flags.
+>  	spin_unlock_bh(&ssi->lock);
+>  	if (test_and_clear_bit(SSIP_WAKETEST_FLAG, &ssi->flags))
+>  		ssi_waketest(cl, 0); /* FIXME: To be removed */
+> +	cancel_work_sync(&ssi->work);
+>  	spin_lock_bh(&ssi->lock);
+>  	timer_delete(&ssi->rx_wd);
+>  	timer_delete(&ssi->tx_wd);
+>  	timer_delete(&ssi->keep_alive);
+> -	cancel_work_sync(&ssi->work);
 
-Enforce the same (mode & BLK_OPEN_WRITE) || capable(CAP_SYS_ADMIN) check
-on LOOP_SET_STATUS in lo_compat_ioctl().
-
-Cc: stable@vger.kernel.org
-Assisted-by: ARTIST LLM
-Signed-off-by: Dominik Maier <dmnk@google.com>
-Reviewed-by: Bart Van Assche bvanassche@acm.org
-Link: https://patch.msgid.link/20261025200740.2064379-1-dmnk@google.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ sashal: Replaced BLK_OPEN_WRITE with FMODE_WRITE to match the existing fmode_t interface. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/block/loop.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index dab31049bd4fa..a25467bb1cc74 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -1850,8 +1850,10 @@ static int lo_compat_ioctl(struct block_device *bdev, fmode_t mode,
- 
- 	switch(cmd) {
- 	case LOOP_SET_STATUS:
--		err = loop_set_status_compat(lo,
--			     (const struct compat_loop_info __user *)arg);
-+		err = -EPERM;
-+		if ((mode & FMODE_WRITE) || capable(CAP_SYS_ADMIN))
-+			err = loop_set_status_compat(lo,
-+				(const struct compat_loop_info __user *)arg);
- 		break;
- 	case LOOP_GET_STATUS:
- 		err = loop_get_status_compat(lo,
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
