@@ -1,49 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404013;
-	b=uENl6rVt8zGCjI9sEWk/gIOmdvWrWwV6W/Z0bsNYiG05m04y7sjbZo6yRWcJTMclF0qr
-	 ALsCwhH9cXjLXrpPqNblK+Xrl9y0jNhuubDa6+5LKa4e07q9fyYXY8eoCT7e5188YZQ0Z
-	 4vD2vvWy7gTAQZ8boEzNNFUgQhCS2yKijossW4tvROF3dsxgSthghfTIin0ec6EtHJSeh
-	 9HJ+aKQaVFVKmmV+Z6zus7pFhb6Xl4Ugz6upUJK26NV7fF0gDCfFo9e6cITNWUwRIgL/m
-	 d2h4t2JxC0V25x73Ulvl/LBJqDnDGlcRlpv/H1dmVrYnn7t1y9utclw+HLCBWxlng0Q==
+	t=1794404099;
+	b=LAbzrKqcBQUV2mJ3VdiyKpRsBs+gS/6JpRemAj7c5LqXYEHxSaoiT0UBxzW4n4fQzx26
+	 a/8x7ynGxEquMabTVSCYhA3JofLK/vP9MquFfsCYKJLXCbuTd1ym0GEXYNv5woERsdG1m
+	 /gDvGpWLg5SeJ4gUTkIgDtgXGFtwHyjeoALjBUj9GAkbCXxWYdwyOv6XlVLcp7LiAlXMt
+	 FKVOZER9DPU2YhNgRFu+0o4f2eHHtK9YbSL2Mii16e4doVJLMyqyF05r2LQlGTAOiCF/p
+	 zxEblyoC683G+8vxtwbH0P2tBDKF61oc2F8o1z68oNLnwIhxbnBglCgBV08hkIeccbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404013;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=GQKJXNTQW9v+01dsyTFFERDStZLJXqLVmjUwVOCY3Dw=;
-	b=Oa6Ke0LXvBqhtSmFlud19um1hcb8lwg4ZIqD++KnDP7Mp0bUByBZLYW9fcr6zoR8tq7L
-	 ScbwP/zShOZg7Eiu05qWSuVDFL87p28u4tzqRA73M6TQk1yg+ZIsfsnKwqJbezcMq9922
-	 NHJPfBqlxWVwOVKprbBt2d+mLyqtBtwqtiIJnyEcqEbaBhcBhATUZFfJj1TYmYp6Ml/HB
-	 7l6vU1s0g2CGdrMc6aJx5gbbhu9TkCcs+j0cH6YdQe3Ytkj0p3t5fHlzlSYyPBtDudiw5
-	 ZUjZabCrh6w2CpsSc0RO24rnJs+jJUDaK/pckSXySiXohk1Yi/kVQ2qpmBuInoPhEmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404099;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=skpWLWubRAy/usrZud3Ziz352i+vYVGgRMybtoWruq8=;
+	b=wshoP2gBU5XCl0c8OcbVZDz5XnxIUxMCZKand6IUsz75iDbuxTzcHCxGfRMk9ICPCVa5
+	 mMUgGMJjFLIXSLeraDBO1cm/a3efYAlK9ofbAPdeig6q4Vxjvh6PFAQBTuHUk+yGBH7sC
+	 ZusdgnU63DUxCkNdZsC/nSgXzwwzhe8NCuowlKo0vYRwAeUi+cVbIA8cB5caMSNIuPhvf
+	 1sJ52Hcg0BbqWSZoSBi++z+g/CbjcS2PTcZVEVyWXdUJQx0azjZtQoDSVodOA3y51H/fn
+	 5HbiSSBAwpQjqmp+w3CtdUS1i3U1vVk+Xr0hveI+vBZ6W2BewATiCgZaYkAvhUhSEFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YV0jBzAA;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90EB4606A31C;
-	Wed, 11 Nov 2026 13:33:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90EB4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=PVHR2nY0;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3647A606A324;
+	Wed, 11 Nov 2026 13:34:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3647A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YV0jBzAA
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 72D591576;
-	Wed, 11 Nov 2026 05:33:28 -0800 (PST)
-Received: from [10.0.154.42] (e121487-lin.cambridge.arm.com [10.0.154.42])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D2BA83F673;
-	Wed, 11 Nov 2026 05:33:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794404011; bh=o3tyiYm4DJAr6V2NiisE1PtJ+Fj0j7GWcQIp093iIn0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YV0jBzAAJbiQ8M0NjHzMqF97YbOZ3nYwy8vmXccgy0CldPbNLNEaY73UEUCDryope
-	 rPRlrP0y8fD6ryfLpFYfFnS9/OeVK2Ws8ikjIalXF75XRMgVfaJzeKdH6ZXPc2fxPw
-	 R6gHqC2gvutG1voSrqleT0of6OOEw2YW2T41ardY=
-Message-ID: <3479391a-ec0f-46a8-9384-ec084017d344@arm.com>
-Date: Wed, 11 Nov 2026 13:33:27 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=PVHR2nY0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=skpWLWubRAy/usrZud3Ziz352i+vYVGgRMybtoWruq8=; b=PVHR2nY0MMYuGf668uELspapGf
+	7nOaQqo8LtRhBp/dn/gI8RhlOcuhiOInxKF1ZGD3ik7RIX6zijluWeBYwr478zIL9BG1fS02t7Htv
+	+f0sqAYuvOduUrYXqmAe0X8ZsCCMZw77VEHTfUiarr8v3CT1N/YpuD9vhXj1cN7EyCoA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xR8TE-00FksV-JI; Wed, 11 Nov 2026 14:34:36 +0100
+Date: Wed, 11 Nov 2026 14:34:36 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Linkui Xiao <xiaolinkui@126.com>
+Cc: maxime.chevallier@bootlin.com, kuba@kernel.org, davem@davemloft.net,
+	edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	sdf@fomichev.me, nb@tipi-net.de, 2022090917019@std.uestc.edu.cn,
+	devnexen@gmail.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: ethtool: phy: fix NULL link_topo dereference in
+ phy_prepare_data()
+Message-ID: <1fb006fc-aab9-456d-95c2-0e94df1dfb09@lunn.ch>
+References: <20261111072146.3293821-1-xiaolinkui@126.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,85 +65,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: suspend: Save POR_EL0 over suspend
-To: Mark Brown <broonie@kernel.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Joey Gouly <joey.gouly@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
- <20261105-arm64-fix-sysreg-suspend-v1-1-f4d9a99fec46@kernel.org>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20261105-arm64-fix-sysreg-suspend-v1-1-f4d9a99fec46@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111072146.3293821-1-xiaolinkui@126.com>
 
-On 11/5/26 16:05, Mark Brown wrote:
-> POR_EL0 is a live EL0 register on systems with S1POE but it is not saved
-> and restored by cpu_do_suspend()/cpu_do_resume(). This means that the task
-> that initiated suspend can return to userspace with an UNKNOWN value. Fix
-> this by saving and restoring the value over suspend.
-> 
-> This increases the size of struct cpu_suspend_ctx.
+> Reaching the crash needs an IBM EMAC device with a fixed-link node, which
+> was not available here, so the fix is verified by compilation and code
+> inspection only.
 
-This seems to be implied since we need storage to keep register value, no?
+There is another way to look at this. The MAC driver might be broken,
+it is assigning ndev->phydev, which it should not. It needs to call
+one of the helpers that get to phy_attach_direct(), which sets
+ndev->phydev.
 
-> 
-> Fixes: bf83dae90fbc ("arm64: enable the Permission Overlay Extension for EL0")
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Cc: stable@vger.kernel.org
-> ---
->  arch/arm64/include/asm/suspend.h | 2 +-
->  arch/arm64/mm/proc.S             | 8 ++++++++
->  2 files changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
-> index a5abf0615594..eb9ce315f146 100644
-> --- a/arch/arm64/include/asm/suspend.h
-> +++ b/arch/arm64/include/asm/suspend.h
-> @@ -2,7 +2,7 @@
->  #ifndef __ASM_SUSPEND_H
->  #define __ASM_SUSPEND_H
->  
-> -#define NR_CTX_REGS 15
-> +#define NR_CTX_REGS 16
->  #define NR_CALLEE_SAVED_REGS 12
->  
->  /*
-> diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-> index b1516630904d..664ea9e3b9ad 100644
-> --- a/arch/arm64/mm/proc.S
-> +++ b/arch/arm64/mm/proc.S
-> @@ -117,6 +117,10 @@ alternative_else_nop_endif
->  alternative_if ARM64_SME
->  	mrs_s	x2, SYS_TPIDR2_EL0
->  	str	x2, [x0, #112]
-> +alternative_else_nop_endif
-> +alternative_if ARM64_HAS_S1POE
-> +	mrs	x2, REG_POR_EL0
-> +	str	x2, [x0, #120]
->  alternative_else_nop_endif
->  	ret
->  SYM_FUNC_END(cpu_do_suspend)
-> @@ -160,6 +164,10 @@ alternative_if ARM64_SME
->  	ldr	x2, [x0, #112]
->  	msr_s	SYS_TPIDR2_EL0, x2
->  alternative_else_nop_endif
-> +alternative_if ARM64_HAS_S1POE
-> +	ldr	x2, [x0, #120]
-> +	msr	REG_POR_EL0, x2
-> +alternative_else_nop_endif
->  
->  	msr	sctlr_el1, x12
->  	set_this_cpu_offset x13
-> 
-> -- 2.47.3
-> 
+Are there other MAC drivers which assign ndev->phydev?
 
-FWIW,
+This NULL pointer dereference can be considered good, because it might
+be pointing out a bug. So we might want to keep it.
 
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+	Andrew
