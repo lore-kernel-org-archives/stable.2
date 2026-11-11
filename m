@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405315;
-	b=3wV0ccrzMNfzRK4L2vIlAHVyk9BN4vrsm59hY5T9352U/k34VNlyaQJ49lfOcvbuXdJu
-	 4uvO+NUGJxrmNxpBfxq9Y6eyUtiezX9z/ww8bwfEmtuGJT6/0l2r3y2dewj5kMudum7eS
-	 Ez8IncIR9zLryJXqsnu0RT0evZBY5fjZvjS22hOAnIpf6tOgX/L4N1Wz3shSYpjDuCOj9
-	 H9arxB+xLmKuQXAfF5x5LFuZeafeF5PVlITLyXt4OzBhMuc/yoSoanCDag9MUUADC3Zi3
-	 ZoX1ifd1Clopz1J5plXywxtGCCi1kYlG8InVDXlpOt3tdfnJEdGtKfP7H6DZXDq0AzA==
+	t=1794405359;
+	b=So0MX84ckf6qkxmPyImWiRYItMSOLCgzndJ2ey/rCFPYMN5mdPSeVjlKm9pkM2swUJ80
+	 pIoDbXXkCa1wPQkl8UqeXjpPOzSnXP2NVjgT7HsLMHFIjvY+8BgzyEC1z1hwSNnDT1Lr/
+	 pBSI6BDpycIvpR/npRUS0hDx6iRuJABIqpTWdKR2DTCF16WPb9eJl4TL4oc5q5CwiTuRb
+	 WivmbuY5/gpP8Ahjc3bfJWlF6DBOF/xNltfBuFosbgBrOFDzEuOuOGVV32iHGxDvnrkAj
+	 kjR6CcqZDGKKSoxAOenNH54MQT7kxLCA39gb/N7UOsUzYpSAHuraZlJTh/OfzTuwjkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405315;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aigQNnyp2sOEYLazIL8f3/NFKsLaBIOwNdsnfyk3kkw=;
-	b=DI0R+yzTXJeh53uIi1zlYG//XpK7sPUfqHuJjq6ZmRUSQl0L2gprgQu1vGxu7wg0lVne
-	 8OXNlCAVEcYJO2PaauRrPNa0EE7VGf7PABnhoRj8qW0bI2WYeo8VVoCGX/De2+qW0NNcz
-	 HBaHYj8cd703xK3qpi7NMsnSeNzWLhpqeV9+cjVdUFbS3dJoboRN5aLXrBgA6P7aOIEN/
-	 R8zygg+diOT3geKIrYQ9YnM2GlEURITgzdc60tukMxDfO1hrBa4+HDq+WLbSU9ehSIIoH
-	 tYVuGHYXb0eaFX632OVdOklcsqcIMZsWeAnjBiHDL8UNgZnm2LPx5rMVkstQpBpHsew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405359;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=fAyq4tkzqmxRwZTSgtjt+iN8WPHEULKdWMlOmAY//3w=;
+	b=RJqDNi2PS1p8MT/mMXINLAFC0j4XgoYng3h2CDN+p8NkGRJwNatZEb5ifzGqm/NSRzcm
+	 ye56FaP2okyBL+c6j/N8mDQ9T13OyvfKquFYta2RX0eDgxeD1MlqHyO4TqzZTIozBQXOt
+	 13UpzYAxUCwowDa0wuzqT+UDXeuKF8FE1NiVcAWpNNaunW5IKYn3K30QtbC+nMGS/E6vZ
+	 fP4DddZ3n9LRsHjs5CfdazphxjaMhzaDuz9DNhroK6trKZzkPdV9OxLnmIut6apPnKn/O
+	 ZOnVhP7aR10wpG7QKM0Au9qZ0XJK4Ah+igKcnGsBIMGkGsrQpVJ5jwWp5XdHC/kAi6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OuuIzBMH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMfSuEKg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E26606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:55:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C47606A880;
+	Wed, 11 Nov 2026 13:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OuuIzBMH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A206D1F00A05;
-	Wed, 11 Nov 2026 13:55:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMfSuEKg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B831F00A05;
+	Wed, 11 Nov 2026 13:55:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794405315;
-	bh=aigQNnyp2sOEYLazIL8f3/NFKsLaBIOwNdsnfyk3kkw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OuuIzBMH7m4CGwmIMRnXLSyakNshi31i5qEM6H/3OSLnXPAnCK3X0hcNdCe5WoBo7
-	 /f6HinYDw6CU1OH2QXZb3GiIN4/324gjDqvYGz4tUAg/HZcefU83AQjwdKOFtm21zO
-	 SKShjD4ODqqjmuCoH64AjmBwKLgDgbeYLsoIJjL0hyMucM3xIyzEdMXgY6IqVqhkLA
-	 N7uDwE7y5Mq8uTZKHGWBgVP60uEbgyP9og9OrbbE6BQPH0PTk7sZVQ1X5NAfP8N18k
-	 OmG7S995wgWEs8DAj13HxlkN0gHktw2c/EDvhhjXMH0jzEyXcsL2jGtFbm+73fwGpU
-	 fHcvZ9DLLuXng==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Hsiu-Hsien Lee <swinds24@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ext4: fix fast commit replay failing on a read-only mount
-Date: Wed, 11 Nov 2026 08:55:13 -0500
-Message-ID: <20261111135413.2165817-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061949-failed-5.10-e1a881ea4674@kernel.org>
-References: <20261107061949-failed-5.10-e1a881ea4674@kernel.org>
+	s=k20260515; t=1794405359;
+	bh=fAyq4tkzqmxRwZTSgtjt+iN8WPHEULKdWMlOmAY//3w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oMfSuEKgxIUPOzfWqeTt/CUx1/tHmQbH8r9r0L1BxtBkFcSIorNgi4CbtCsDr0Vi0
+	 djuAQLqJkuT/l9CZgm9lU8xm3FIG4nTj270/G6C6bytyYc/iZ17bzEj+ASHBon5cjw
+	 tWrKnmn56rT9yyjTtwTm6CBKokvYuhQHshPU3wjbFeE6NuPDOKxjEdxZIahaXtNQ3J
+	 s2woT4Hz3cUokbDkwyV/dVWkiWMiQjYwlbsamLChrsu7/ndrb5dLYfmPOcmaGjppwF
+	 DTZG7kCU+YhmiPEAlgP7AhYg31m/pQjavu+WH8wn2TbVjsgSy9ZuGvaVzQV5WBYP5Y
+	 Csh9HwAq9wfUA==
+Date: Wed, 11 Nov 2026 13:55:54 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] arm64: suspend: Save GCS state over suspend
+Message-ID: <82a7e8ad-b238-4842-a2d0-6a070d0b77be@sirena.org.uk>
+References: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
+ <20261105-arm64-fix-sysreg-suspend-v1-2-f4d9a99fec46@kernel.org>
+ <282608f5-a13b-4695-aa17-f834bf5d8272@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,117 +63,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zfD1Qgq8y+MjOF4J"
+Content-Disposition: inline
+In-Reply-To: <282608f5-a13b-4695-aa17-f834bf5d8272@arm.com>
+X-Cookie: Do not pick the flowers.
 
-From: Hsiu-Hsien Lee <swinds24@gmail.com>
 
-[ Upstream commit e1a881ea4674876721cab97680d1d8308f90e9a4 ]
+--zfD1Qgq8y+MjOF4J
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-A filesystem with fast_commit that needs recovery cannot be mounted
-read-only:
+On Wed, Nov 11, 2026 at 01:44:40PM +0000, Vladimir Murzin wrote:
+> On 11/5/26 16:05, Mark Brown wrote:
+> > GCSCRE0_EL1 and GCSPR_EL0 are live registers for EL0 on systems with GCS
+> > but are not saved and restored by cpu_do_suspend()/cpu_do_resume(). This
 
-  EXT4-fs (dm-0): INFO: recovery required on readonly filesystem
-  EXT4-fs (dm-0): write access will be enabled during recovery
-  WARNING: CPU: 22 PID: 5544 at fs/ext4/ext4_jbd2.c:73
-   ext4_journal_check_start
-   __ext4_journal_start_sb
-   __ext4_unlink
-   ext4_fc_replay
-   do_one_pass
-   jbd2_journal_recover
-   jbd2_journal_load
-   __ext4_fill_super
-  JBD2: journal recovery failed
-  EXT4-fs (dm-0): error loading journal
+> > +alternative_else_nop_endif
+> > +alternative_if ARM64_HAS_GCS
+> > +	mrs	x2, REG_GCSPR_EL0
+> > +	str	x2, [x0, #128]
+> > +	mrs	x2, REG_GCSCRE0_EL1
+> > +	str	x2, [x0, #136]
 
-Fast commit replay runs ext4 metadata operations instead of writing
-blocks through the buffer cache: ext4_fc_replay_{unlink,link,create}()
-reach __ext4_unlink() and __ext4_link(), which start a handle.
-ext4_journal_check_start() returns -EROFS on a read-only sb, and as
-that is not -ENOENT it propagates out of jbd2_journal_recover() and
-kills the whole recovery.  The EXT4_FC_REPLAY check that would hand
-out a no-journal handle sits after the sb_rdonly() test, so replay can
-never complete read-only.
+> Have you considered using stp?
 
-ext4_load_journal() has already promised that write access will be
-enabled during recovery, so make that true for the superblock as well:
-clear SB_RDONLY across jbd2_journal_load() when recovery is needed on a
-read-only mount and the devices are writable, as ext4_orphan_cleanup()
-does.  Unlike ext4_handle_error(), which avoids SB_RDONLY because it
-would need s_umount, the sb here is still inside ext4_fill_super() and
-not published, so nothing can observe it.
+It seemed better to keep the code repetitively simliar to the
+surrounding code and also avoid using an additional registers.
 
-The failure is not clean either: the replay handlers passing a NULL
-handle (ext4_fc_replay_inode(), _add_range(), _del_range()) never hit
-ext4_journal_check_start() and do write, leaving a partially applied
-fast commit behind.
+--zfD1Qgq8y+MjOF4J
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Reproducer, where the unlink only ever reaches the fast commit area:
+-----BEGIN PGP SIGNATURE-----
 
-  mke2fs -q -F -t ext4 -O fast_commit -b 4096 /dev/sdb3 262144
-  mount /dev/sdb3 /mnt
-  dd if=/dev/zero of=/mnt/victim bs=4k count=1 conv=fsync
-  sync                          # victim now in a full commit
-  rm /mnt/victim
-  dd if=/dev/zero of=/mnt/trigger bs=4k count=1 conv=fsync
-  <crash, or snapshot the device while mounted and write it back>
-  mount -o ro /dev/sdb3 /mnt
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr0c+kACgkQJNaLcl1U
+h9DPVQf/SYdpkyIvpWSWZ2vESrRwMyl4IrX9Ci8J0n7wAVYb3/YCF5D9VBccNvvz
+wbdopNZDPgMdxN3dLUWgMtMFJGEc4a0iI3VkFP1y++NdTk9B730khzj8WANDmY3G
+oOrrLeRvtiyi+E7OJtFcn1zWmnCGgXDjc5/UPdR/genlHAF5ofCkO2ev1yxQkLAp
+l+ql+eXYI5YplhNRgZdo9wmXYzci/TVvYeBQ0+eiaje0kuvuFbOhpL384rMsEoK/
+MSBFIYQ0buIySdxSUX6YXWgljBSAVAs1Fw1+6q36k9zpMPR9rt2CFH+Z+q5iGWhx
+FhpS3ICdvMMjFJg66QaC+RBAB9FERQ==
+=qKrT
+-----END PGP SIGNATURE-----
 
-Without this patch that mount fails; with it recovery completes and
-victim is gone, i.e. the UNLINK record was really replayed.
-
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hsiu-Hsien Lee <swinds24@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260812044353.1018268-1-swinds24@gmail.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-[ sashal: Adjusted context to preserve the simpler if (save) error-restoration block without upstream's memcmp() check. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ext4/super.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index c1538e61022cb..4846f2ff98ec3 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -5411,6 +5411,7 @@ static int ext4_load_journal(struct super_block *sb,
- 	int err = 0;
- 	int really_read_only;
- 	int journal_dev_ro;
-+	bool enable_write = false;
- 
- 	if (WARN_ON_ONCE(!ext4_has_feature_journal(sb)))
- 		return -EFSCORRUPTED;
-@@ -5467,6 +5468,7 @@ static int ext4_load_journal(struct super_block *sb,
- 			}
- 			ext4_msg(sb, KERN_INFO, "write access will "
- 			       "be enabled during recovery");
-+			enable_write = true;
- 		}
- 	}
- 
-@@ -5480,7 +5482,19 @@ static int ext4_load_journal(struct super_block *sb,
- 		if (save)
- 			memcpy(save, ((char *) es) +
- 			       EXT4_S_ERR_START, EXT4_S_ERR_LEN);
-+		/*
-+		 * Fast commit replay performs regular ext4 metadata updates
-+		 * (see ext4_fc_replay()) which refuse to run on a read-only
-+		 * superblock.  We promised write access above, so make that
-+		 * true for the duration of the recovery, the same way
-+		 * ext4_orphan_cleanup() does.  The superblock is not published
-+		 * yet, so nothing can observe the transient state.
-+		 */
-+		if (enable_write)
-+			sb->s_flags &= ~SB_RDONLY;
- 		err = jbd2_journal_load(journal);
-+		if (enable_write)
-+			sb->s_flags |= SB_RDONLY;
- 		if (save)
- 			memcpy(((char *) es) + EXT4_S_ERR_START,
- 			       save, EXT4_S_ERR_LEN);
--- 
-2.53.0
-
+--zfD1Qgq8y+MjOF4J--
