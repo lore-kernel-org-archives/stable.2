@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794383886;
-	b=kCry6G0SXbCpug3BgChpdlhuTuZoDwWwhPn9Eshed2Tg4vIlR4GGnVlmATO0TIUJC4Bw
-	 Ras9UnHbgC7L3JaDkSzmEEZEp9I8DqIUHLxqVNZshNnTxsVuWK/IOTZSjg1hftpEo24qK
-	 IJLPiB/TWzGpozjptYJZrWerNBhvFgNl7eIG/edonrMOzftER/O15TJAzR+dNXN0Ptxwq
-	 0u2ejA2TnjvBAgJMzLf/A6Q+7qvyHRT/yI2bCOmTuC5payxt6PvPw9wWAYgFh+sAgwx0k
-	 cU6HM6tIGr6RZNqzvTeXgm3lo8kU/zSRYqpNmE8tGTVRjK5xixGZZH1vxwA6+8VnwoQ==
+	t=1794383888;
+	b=qzjzO+UKqYQUIo+ew/U8LTO+yxJ/cvbuN854Qm7KLkquc6vKZLdPtETI8m7LxlsjKLu+
+	 oc8dVFg/jH4CKsMQOjmTXp/4TfjEk06UFdy2ZpE7TSjjBOH9X4FMcYEtk82MvbfyX6CfZ
+	 ISa6pMVH+vL5KsykPlHhK1iZm4ggFMU/vvvjNfwB7lE7ro0M0vDDiVa4zWUVQ53fgdfdt
+	 kzOu/fwiMoz8pJy7KQCitRPAPRqqwRusDSINzREsRaGbndFmz70GUxxdhrm3EA9CX1nCz
+	 nwx4OXc6vGGqYLURwtJsth1X7Nzi6dmOgtNpOmlAYnOdHQCrfdKcP4WrUcV9X83R5pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794383886;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383888;
 	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=lUSBDL3qynjKO1begj4BN/iyzCHMPpuVgTDyAD9TcfM=;
-	b=MmSpguZcfGG0r5jFtOja8VKvCIyjLCprtgef5QweI5xWZDOWg3RFPXx9qKoeYXN5TRZo
-	 ieP3nnLJImo9ZrYyNjygqjNPWCb8U92it0/xWra5YngcljsKwuxrwPFyY2/mNgOWW8Z7L
-	 2C/k0w2zqIirK6EI16tnrREL5PoEiZ34CgmxZJ4Blpy0BXCoC0KlpVRw0n212R2Enn6iT
-	 DozHU9nO9Y6BxHjLBOblaD4ACphnHjgw9TM4/GJ2OOE3wdFUP9yebIqVPR+Xrd4hO+Y+E
-	 oAf4ylHriJB4EAeAoAncJsfpahC1Ss542fjQarD34WfXyAOhuRz+KihpGZQUQ5ci2dQ==
+	bh=18dyxcW33Gsai4KZxKv+IVjtAi4cwLms2RPXNhKC7Ek=;
+	b=iuPxd6/qTPUAyd/SvVrFOR2xU80xa5szfiuWoA0qbDKYKWldF+BZqbKvqrMH1vbFRouT
+	 Za7Ru6YHKJXhANus+H2P5XIwdMUgeFCG1A47lRwSxmwRpMSJ7/7gCLIBSdImmAp5S6J/g
+	 YIrA/GSBcD+7b2YYBA2PpYSMdThNx1N7JByBn5AkkY1wY5pWlu4sen9EkbtS5AJqmFLJ6
+	 8uQG+TtEhPwoK5PWoon7SeIxcC5/Qh/+CschU75wAFiVtDIl1/7NezOxexJN9mqwu6Q97
+	 7ezYBWkDZQZJMm5Qpw+G4XshVBr8pgKq8hE7G7YZBpZM+6tPaSixcbLXA1mvoA5FyJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amlogic.com;
 	spf=pass smtp.mailfrom=amlogic.com;
@@ -24,25 +24,27 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from mailsc.amlogic.com (unknown [64.106.246.77])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDB9606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:58:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FDB9606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545AC606A335
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:58:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 545AC606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Received: from XA1730-0357L.amlogic.com (10.88.19.140) by mailsc.amlogic.com
  (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
- 2026 23:58:04 -0800
+ 2026 23:58:05 -0800
 From: Jiucheng Xu <jiucheng.xu@amlogic.com>
 To: <stable@vger.kernel.org>
-CC: Jiucheng Xu <jiucheng.xu@amlogic.com>, <stable@kernel.org>, Chao Yu
-	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>
-Subject: [PATCH 5.15.y 1/2] f2fs: force out-place update for all writes on compressed file
-Date: Wed, 11 Nov 2026 15:57:51 +0800
-Message-ID: <20261111075752.1381-1-jiucheng.xu@amlogic.com>
+CC: Joanne Chang <joannechien@google.com>, <stable@kernel.org>, Chao Yu
+	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>, Jiucheng Xu
+	<jiucheng.xu@amlogic.com>
+Subject: [PATCH 5.15.y 2/2] f2fs: allow pinning empty compressed files
+Date: Wed, 11 Nov 2026 15:57:52 +0800
+Message-ID: <20261111075752.1381-2-jiucheng.xu@amlogic.com>
 X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261107055847-failed-5.15-a64a3fec11e7@kernel.org>
+In-Reply-To: <20261111075752.1381-1-jiucheng.xu@amlogic.com>
 References: <20261107055847-failed-5.15-a64a3fec11e7@kernel.org>
+ <20261111075752.1381-1-jiucheng.xu@amlogic.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,62 +59,47 @@ Content-Type: text/plain
 X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
  (10.8.11.35)
 
-commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4 upstream.
+From: Joanne Chang <joannechien@google.com>
 
-For compressed file, compressed write may fail and fall back to raw
-write.
+commit 2eebc31ae5f53e1066bb6238c8087c23b688ad17 upstream.
 
--Thread A                                         - Thread B
-  - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
-   - f2fs_write_compressed_pages                    - ...
-    - f2fs_trylock_op                               - ...
-     - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
-   - f2fs_write_raw_pages                           - ...
+Commit a64a3fec11e7 ("f2fs: force out-place update for all writes on
+compressed file") updated f2fs_should_update_outplace() to always
+return true for compressed files. However, this function is also
+called during f2fs_ioc_set_pin_file() validation, so pinning an
+empty file with compression enabled now fails with -EINVAL before the
+compression flag can be stripped.
 
-Thread B acquires the lock first, which causes Thread A to fail lock
-acquisition and fall back to raw-data write.
-IPU_FORCE is enabled on small-capacity storage devices (< 16GB),
-so f2fs_write_raw_pages() overwrites the original compressed data
-in-place.
-
-The in-memory node has been updated with raw-data addresses, while the
-node metadata stored on eMMC still remains in compressed state.
-If a power-cut occurs before the node is flushed to disk, on-disk
-inconsistency arises: disk data is raw, yet metadata treats it as a
-compressed cluster, leading to decompression failure.
-
-To eliminate this risk completely, force out-place update for all
-write operations on compressed file.
+Fix this by guarding the f2fs_compressed_file(inode) check with fio in
+f2fs_should_update_outplace(). This preserves forced OPU for actual
+compressed writes (fio != NULL), while allowing f2fs_ioc_set_pin_file()
+(fio == NULL) to proceed to f2fs_disable_compressed_file(inode).
 
 Cc: stable@kernel.org
-Fixes: 4c8ff7095bef ("f2fs: support data compression")
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Fixes: a64a3fec11e7 ("f2fs: force out-place update for all writes on compressed file")
+Assisted-by: LLM
+Signed-off-by: Joanne Chang <joannechien@google.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-(cherry picked from commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4)
+(cherry picked from commit 2eebc31ae5f53e1066bb6238c8087c23b688ad17)
 Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
 ---
- fs/f2fs/data.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/f2fs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 90cb8560af1d..b8da6784e2c4 100644
+index b8da6784e2c4..4b47d7316d4c 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -2670,6 +2670,13 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
+@@ -2675,7 +2675,7 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
+ 	 * If IO comes from compressed write path and fallback to raw write,
+ 	 * force out-place to prevent metadata-data inconsistency.
+ 	 */
+-	if (f2fs_compressed_file(inode))
++	if (fio && f2fs_compressed_file(inode))
  		return true;
- 	if (f2fs_is_atomic_file(inode))
- 		return true;
-+	/*
-+	 * rewrite low ratio compress data w/ OPU mode to avoid fragmentation.
-+	 * If IO comes from compressed write path and fallback to raw write,
-+	 * force out-place to prevent metadata-data inconsistency.
-+	 */
-+	if (f2fs_compressed_file(inode))
-+		return true;
  
  	/* swap file is migrating in aligned write mode */
- 	if (is_inode_flag_set(inode, FI_ALIGNED_WRITE))
 -- 
 2.55.0
 
