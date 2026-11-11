@@ -1,102 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794423039;
-	b=T6jzc24mWcMKmbU2bq3aOY/ulMgsDztYi5ae/m+ySMVHmZlQOqs4+GgJiwvngMU4XoU5
-	 eBBaxx3SKin2rrO8ERJhRDbupeiltEIlrdf7s0hNMrbGODjRJrNO02jQrt8s4wNzUXSK0
-	 eKm33BHdIcwf581sEVfAF6L0lDaUOUSB+RrsVMShu4IfHB7So2KiZaYlXGk0eIJxdAC7I
-	 D9hPoKqmss+yktKJmS4LUKPn0FZc4mgAaosiDt4tiDj2/yO7E7X2lVE/zjC5YScXve2mP
-	 NfXTA5do987IyEZXuBr7/qTe4zGiIIZaEVq5ZMuvYxsHUhAsGy1M0+pOsYYgme2giag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794423039;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=S9WuI9PTUeiv5O5AStKEefptoT4aWnKBezJfaA7uZAs=;
-	b=WbwbbIZXW+WM48QaQW1uScfV3dJJnbNHssFTv51Cq/PtNK6UDkLS2A7QTOUlcXGwyW7B
-	 A8amalonWegAuiyqbYTSof2Cw6zdzG++8anK8uGnBxNOqoGsq872L0HIC3kmFBIuzewi9
-	 xwJ9JZCCf8jPp8R2K9QOKHgO8ZpQmBMDCk44NjoEDqL+wLIlqFZQ4lY8Ago23B7pc3MtJ
-	 42PYoFCqIX4WBXI/DSMPr37TiZibtQkpHGvNt6xrnYFU+pom4WRfw/GruqtmVdjADV1Nq
-	 FSuPdEbUcHzaDz0kIFXeGlAWhpD9oMeEYvX0B+65zq/9t7dSYY7yhKjG9aAl8MTa7iA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Uu5pNF6k;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.39
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010039.outbound.protection.outlook.com [52.101.193.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794423078;
+	b=sb8B8iMHbp1M97zT0us7jHqg4HejmDOiBB3lUzFh9G68u+bWvO/YdK/dcDYunUsKP0Ew
+	 Rutn4qH7hltGFEfGsA5w0F2bME0GHP3zfJF2xlHjR+q0Dor3E4rV45DMCUdGNoqcpUq0D
+	 sK7m5NJLEqnEEdHVvQwutysQ3A5nasNxu8GlHYc+aE+J2b7H6dWREmNlln7EGIq4JDDW4
+	 y5cYvtIaCB2oVuifVXw1oWBntkoVgD8/FpjBBccddERmUvqihOIpdA9F2K4yxqduCeRPK
+	 l/I9eJlm+T56IyN5s/C+uDzPKz5wmVFtPM67Tr034ABh1EOoeLqx6TGMQAs38lPTiPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794423078;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=2keT7Ms1yh7H2A5fH24C4ZP9s+1ZE+h6vnQv259i8ZU=;
+	b=JP55/WyCzL//CQfrTR7b9w7DxPAn3/DGQZOV7FIfhnBpwZjUMkKEddbr205hJ/QYZ7l4
+	 2AYybupP52ayAoCakpW2M8op0kTgylroXGS5fCbNj7O0/K0SVgLfP/o60ppKTwlwD8l5c
+	 Y0UNDPHHu8tnzr7jW/Jk1PE66tCbYIS/mf46h56Q43AdnF87GWxp++PfhhfPnv8l5DnT5
+	 FG1dGmPad9qmDeJ735iCSvJY94RdUUTcG2Xhyf+JcsD6nOqUyFOPu4NGOApzRG2pSvd9E
+	 FmAAmqXKXeW7yLYSlc7IllPbHs62AIwy0pzBciRtEo7ioEAluB73noLNhjFmLK5GQvA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0Z7KoPZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB30606A324;
-	Wed, 11 Nov 2026 18:50:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAB30606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F768606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Uu5pNF6k
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bPi1Dx7GMkpj+qyUXhDxT1t/NwGo8nr1U5AVdZpUGXabB2oV3MKIj0dbUEbrvMAMpF6g1CXZE6O0jAGxeLDonDE83krSVzpJuW3p5rI5GxHdpE9oPzHQFfqtXQruKUHN/MqS+YfLBuYjYjWABeI6qOXS4NzQnUMUxqsS7cVpMOfaVUuCUiUafxGuNQA8D8zaalncDKuoP1jjuusZo49Lrq2YC+IVYLLjhXaM7XO7HxEYKPydip+qc5caKhZSzzUkr6V2rohTYYUYACciTB2owPMduUNoyRHsByxyFua+IJ1vcQVcWB+a67QcVkpxZBgxxzDuNNryt8uowGuIQXOpIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S9WuI9PTUeiv5O5AStKEefptoT4aWnKBezJfaA7uZAs=;
- b=GP4bTd52ZxoU21x4ShcPU4r25+FA3clE2gGoYHS4yOZLW2sbc9x3x5iZKTikJn+coqvQCnBDt79toPjlmLDSXIqeTOvDffYwVTwyTvfCFJpf0SxWzOYO+p52Lq3jlRODLeHN9ZGNCaXfRzNGmvykt0hxqYiJ5rykz9zaQ+yvibPhP3uMZ1sWVLBJl1t+maWxIREK2y/eL4Ndwn9Jiujgjhhbm5o+Dx8Oib7061P6/ySJai0QVKd0JiXo4EZ3bbuOlMS12BlCMvAIHqzOj5F2whNS70GHCyisDEEwZ1VcBCQSjHUxjz/2hCXGXlWSfJK1ThVROn3cWYpkIJZh3Hc9Dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S9WuI9PTUeiv5O5AStKEefptoT4aWnKBezJfaA7uZAs=;
- b=Uu5pNF6k+pWE2vvGyeQF0y/Nb4jfPkn482MR6iTVjk9OES134lLpEMAhuNbo6bYnkWegVymgypVV2S7GEuxULCGcbCGGnp8KVDVcN2oapUHnhq7xm9QvGZORNhUUjI5hB/EeKKxBSkjHkFXsPeA1Amf/AC0W8BzoRvrm+yNxLCq1YWITI6bzvq9q1PT4vN6ZfDbsFytgwrdtKHra1ezlX28YzbJ2T9EA+JAQQa7FkghBPZ6lFd6FGnpQe3EE/XTVsOfjR5FnF9OKcck91jgDtp26mkHPOtzaAwvT/23wTVYMXaHEtYHspJvpEjk27p0YXLY3bp51Ojwt6hGK03ye8g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS5PR12MB610447.namprd12.prod.outlook.com (2603:10b6:8:47e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Wed, 11 Nov
- 2026 18:50:32 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
- 18:50:31 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
- byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com,
- joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
- matthew.brost@intel.com, mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org,
- surenb@google.com, vbabka@kernel.org, ying.huang@linux.alibaba.com,
- kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
- kernel-team@meta.com, baolin.wang@linux.alibaba.com,
- Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] mm: don't PTE-batch a swap-in over a
- hardware-poisoned subpage
-Date: Wed, 11 Nov 2026 13:50:29 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <2214E459-71AA-42FD-AAAD-07C49C81A676@nvidia.com>
-In-Reply-To: <20261111113904.650722-2-usama.arif@linux.dev>
-References: <20261111113904.650722-1-usama.arif@linux.dev>
- <20261111113904.650722-2-usama.arif@linux.dev>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN1PR12CA0018.namprd12.prod.outlook.com
- (2603:10b6:408:e1::23) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A0Z7KoPZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D24D1F00A05;
+	Wed, 11 Nov 2026 18:51:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794423078;
+	bh=2keT7Ms1yh7H2A5fH24C4ZP9s+1ZE+h6vnQv259i8ZU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=A0Z7KoPZkMeWoQ8d8KSYOR7FDeTuQKNAXnwyb9/hf7g28SaUv8inWiXLnUqvu749d
+	 1+pvGKGOoFYVMmYvFmA6LZmxzXIiALsu9vuOQs2kpJ09oEy1djHzZjyzVoQUcfoD+R
+	 fC/2NEs3EtOG4uyJ4bVRXMnHzcrO1Xd1+tDrRkRSCpyMv7RQ5LD/2Mn/W9zPu6pMT8
+	 gFYJg/aWxhtdKFkpA+Aq/PrjJpxdvjec6q0xPHT4OGolOHFYArQ7jXada2BnbR2iW7
+	 gzUe1A9b8J8eJEpvGja8HrlcVdKEnhCkhb6vjAMVXMy1Mxik3dpCBVgnit6dM+4Eya
+	 eub6ZtN/7OG2A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yao Yiqi <yaoyiqi3@huawei.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Helge Deller <deller@gmx.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] fbcon: Rebuild rotated font buffer on font change
+Date: Wed, 11 Nov 2026 13:51:16 -0500
+Message-ID: <20261111185046.3895966-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051321-failed-6.18-e4b6b865d45d@kernel.org>
+References: <20261107051321-failed-6.18-e4b6b865d45d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,133 +60,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS5PR12MB610447:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c32f3b9-35d2-4c90-b82e-08df4024a96b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|18002099003|22082099003|261009223027099003|261022105027099003|261021121427099003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|56012099006|10067099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	he+ZVwj0+LviejQYdcsw/NGx8lSlMlMk4rBWxVZwpfeX6jP66N3OW7g1QLSQ0LaDBzH3xlnExf+7rK9ZxwsfsyuTlavLYwtcluaOGr7ScHad7E06n/brHAx5c85he99S9eLyi14w9kSNFJYZczCjNvAix2+lYSW4w7QbhLMDy6IDeYYG00X7y07CAXmxLd2GxgrZJ0bPyhxnqRLyMdsBahsX/QxtnOSGY1IPvF5Puwl7f8DMB0n7kCYWeDcvK03xbrISfaDlqCXx5SEoBo3hfHtu5QLYXPfcCnte/fKJbww33YvI+jUHyVzOwnZEqcLIj+61GMeVSzflP5uGx5Z1powqLT8GYbFL34v9c9npFXDwoTlnAY52z3c9/a5sopfdfcAjySVRjML8mef37gXRgklyGygQce0bff8LNhdz94J23J/wP3kh30ROBBVNDgGB2DjousnlZNyNv4o7OFZ68ylKweLhQ5dDFcaVItbaGJP6DnC/b5odPNuWjoiZ81HHKNZT6kWSeml4Xezk0gzDC9HRjgLDDIkohTs2Ph5Ib0nlDSxtwgues9ZOR27sw1KqXubJVpAFhFOTV55Gb6d/XOSajKcJPLT/OPp8J/EWaJU55ik4BY+28mc+pHhp8Eq/tNVTtM1sVCpi8G4BWY6Z5GnpVPeH6MsnpubR9L7C7p0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(18002099003)(22082099003)(261009223027099003)(261022105027099003)(261021121427099003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(56012099006)(10067099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3XsgDbMIkftEZ8P+l+IzJZ71n3bmPtDzXsL5kgnveTOUiBNKWek75Af1XmNN?=
- =?us-ascii?Q?/mPNpwpG4Oy9+rvXWj5CsN6X0jIQgZm2YcWrlWCa0bvvVLxPpULpJgKzz04M?=
- =?us-ascii?Q?jVxXcsgoFMStCp6OrcOnMd5ryO7wkC+X/6NWxwyPnHe5zRpqzcO+SxGyMypf?=
- =?us-ascii?Q?c1WayMcJxgxj+lm1yhzHCUMCmVVmquzIsRAWU5jZruSUwVIqyjUiNe/U1EO5?=
- =?us-ascii?Q?VNf/FMvU8omcpGjvfvqUmHRi4kV8oyTRykLfXXPAY1RWf95+tbdMZPGoSXdh?=
- =?us-ascii?Q?WtsVx0E3pDjjqclDvbsIzjvKw5Xad3kEj0RgD1rtB/RlYv4qDhPwD+r7qSWj?=
- =?us-ascii?Q?3d2vBWBsK3q+y0ww8MH78kwEfLyN4MC6A4i1oAZc3pMekQjpTaDGV5BR7FlZ?=
- =?us-ascii?Q?N/4NLwn+B/Y7zxd1BvgpfR7YV+XtKnXJ/Dt0LQOoAXpHSUWdg81B8aUGqLSc?=
- =?us-ascii?Q?SKGrIxV04ZFL1zHDNkfMDMLUdl/+T0LeOzChtCHsHh5u5Psdv2IPCYaCmNUa?=
- =?us-ascii?Q?WnT3wH11JFX/XCuGua7TXVExxgm8GdQELWjW2BEfCHdrXKVDIuwQOQC6s5jc?=
- =?us-ascii?Q?nJaMZr9I4OP4XSquie0wPdIcNDHHi3siOWB+haxyBGQ4op8uzX7h+U7bGapX?=
- =?us-ascii?Q?pAstoUiz+UwlopWCR95f7L+gxgd7pqD8wCS84gyOYd3rgXbrt/1e7H4EOqov?=
- =?us-ascii?Q?HsYHSG+It+vxMJXgfaOoWGR1kK648yWm/wXCEzUnWf4vAQxNWJ37mux1i40c?=
- =?us-ascii?Q?G0S32z5RrCn2H3Vp4Ljmbl2T+jOBKJrKkHzf4YHnV/mrfkckt+TBJSm0oNWk?=
- =?us-ascii?Q?xCc1l0+A8IC4kVmtVqe/LRlNaxDCanVKjaIlE2fitgwvhH828TjGI2/Q2rW4?=
- =?us-ascii?Q?VGplQIVQdkjvsSskfo5QyufNC1SGl8z3IoSmzoWwACo8QJ7q/wNHVp82OGuM?=
- =?us-ascii?Q?TUD3T6O3ZTdnpDoHbSaL5Q1ucPp3gymYFKHOJMEA9OnA9yirECFNla0zHEs5?=
- =?us-ascii?Q?n+8n2g8X0/ZMkYN+Ivi33fN1IomWzGiiUNYSrHu0yAiBWUNeSEmspGondwiL?=
- =?us-ascii?Q?PdwB5dHvV2wmrhP3WzSRWHHoz91vojtd1P+pqBuiJtJ9ZX2gUP3zI36Rf3MH?=
- =?us-ascii?Q?h5/d95bD6kkufBUKNOtqJtM7AdFVP+2pMrxiHfoPys3EdHD24XCXRFNR1VQs?=
- =?us-ascii?Q?Q8wZzQZz+84KnRdqxu6Sd+wh3+foRO4eYq218q5YH34F94XwIp33K4t6x/oA?=
- =?us-ascii?Q?GB7KxI0oEwHHhZ2K2Y5FjwrnVGrvL35lxhlF98R8XKK5fNmUdB0uE90m9+oW?=
- =?us-ascii?Q?zS0g4QXGeL1ClBE4+le985Q5yE6wDZq/j+fgQ52MtH6TgcV6QIOOQMtuSkym?=
- =?us-ascii?Q?wbH3fpjdVdmgjVIyzAc5RdYe/24eBBOBX/CTHkBfs3zXnsj3DmNtGKKXjo6G?=
- =?us-ascii?Q?cgakHDbrQMZi+87aV20RNpBadLec1aPPU7HZw36sf3SLBrUDBUXu3xKhwkwd?=
- =?us-ascii?Q?nqRyTajbyH/K6JrzPYsJV0T8Jlxcep9KugWOtjKR3AEd8r3LdMmifTu+Rgxi?=
- =?us-ascii?Q?0naPQFA6iimerP4mQ11K4sE1Kgbjxo/jsdpaZpJPXskPlUK3NvQ5nggWVB79?=
- =?us-ascii?Q?hO0bKqpsXNmE7Dmur5Iagp1GMmnFk2rmfVpWoIVwd6KgK6vxinfiqw8UQg9A?=
- =?us-ascii?Q?KcrDBUHiK/ZxU2RHJWLH2/soE/JA+WQLuZT/KLSRmLrZuhKF?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c32f3b9-35d2-4c90-b82e-08df4024a96b
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 18:50:31.6353
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ilBwrFiuRtmzObXv0uACuKYow2t12J8FndqAWDKi7Yp73c3sNhhHpyV1roZq7OzV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PR12MB610447
+Content-Transfer-Encoding: 8bit
 
-On 11 Nov 2026, at 6:38, Usama Arif wrote:
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-> do_swap_page() checks PageHWPoison() on the faulting page, but the
-> large-folio batching path then maps the rest of the folio without looking
-> at the other subpages. A poisoned subpage that is not the one being
-> faulted gets mapped anyway, and the fault that would have reported it
-> never happens.
->
-> Skip batching for such a folio and let each page take its own fault,
-> where the existing check catches it.
->
-> Scan the subpages rather than testing the folio-level PG_has_hwpoisoned:
-> memory_failure() sets PageHWPoison() on the subpage first and only sets
-> the folio flag much later, and the bail-outs in between - for example
-> get_hwpoison_page() losing a page lifecycle race - return with the
-> subpage marked and the folio flag never set.
->
-> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
->  mm/internal.h | 15 +++++++++++++++
->  mm/memory.c   |  4 ++++
->  2 files changed, 19 insertions(+)
->
-> diff --git a/mm/internal.h b/mm/internal.h
-> index cd3675c044e0a..e61c02f4019b0 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -28,6 +28,21 @@ struct folio_batch;
->  int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
->  		void *buf, int len, unsigned int gup_flags);
->
-> +/*
-> + * Check every page of the folio for HWPoison, rather than relying on the
-> + * folio-level PG_has_hwpoisoned, which memory_failure() can leave clear.
-> + */
-> +static inline bool folio_has_any_hwpoisoned_page(const struct folio *folio)
-> +{
-> +	long nr = folio_nr_pages(folio);
-> +	long i;
-> +
-> +	for (i = 0; i < nr; i++)
-> +		if (PageHWPoison(folio_page(folio, i)))
-> +			return true;
-> +	return false;
-> +}
+[ Upstream commit e4b6b865d45d8dafb6c6f28c8a993a5b4431d25a ]
 
-It looks almost the same as page_range_has_hwpoisoned() in mm/huge_memory.c.
-Maybe change the function to call page_range_has_hwpoisoned() instead.
+fbcon_rotate_font() caches a rotated copy of the console font in
+par->rotated.buf. The buffer is sized from the font's width, height
+and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
+fbcon_modechanged(), but not in fbcon_do_set_font().
 
-> +
->  /* mm/workingset.c */
->  bool workingset_test_recent(void *shadow, bool file, bool *workingset,
->  			    bool flush);
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d477a4f986bc8..4b7d456332200 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5158,6 +5158,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->  		    swap_pte_batch(folio_ptep, nr, folio_pte) != nr)
->  			goto check_folio;
->
-> +		/* Let a poisoned subpage take its own fault. */
-> +		if (folio_has_any_hwpoisoned_page(folio))
-> +			goto check_folio;
-> +
->  		page_idx = idx;
->  		address = folio_start;
->  		ptep = folio_ptep;
-> -- 
-> 2.53.0-Meta
+When the font is changed through KDFONTOP, the new geometry is
+installed and vc_resize() redraws before the buffer is rebuilt. The
+rotated putcs/cursor ops then index the old buffer with the new cell
+size; KASAN reports a slab-out-of-bounds read in soft_cursor().
 
+Rebuild the buffer for the visible console before the redraw, as the
+other callers do: select the console's blitting state with
+set_blitting_type() (which also uploads the new font's map on
+tile-blitting hardware), then rebuild. Background consoles keep
+their rebuild at fbcon_switch() time, as the buffer is shared per
+framebuffer and must not be updated for a console that is not being
+displayed.
 
-Best Regards,
-Yan, Zi
+To ensure a correct rollback when the rebuild or the following
+vc_resize() fails, save the rotated font state, clear it before
+rebuilding, and restore it in the error path of
+fbcon_do_set_font().
+
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ sashal: adapted rotated font cache handling to the older fbcon_par layout and font reference-counting API ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/video/fbdev/core/fbcon.c | 57 ++++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 903823c9ce567..51860796f4364 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2430,6 +2430,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	int resize, ret, old_userfont, old_width, old_height, old_charcount;
+ 	u8 *old_data = vc->vc_font.data;
+ 	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	u8 *saved_fontdata = NULL, *saved_fontbuffer = NULL;
++	u32 saved_fd_size = 0;
++	int saved_cur_rotate = 0;
++	bool rotated_saved = false;
++#endif
+ 
+ 	resize = (w != vc->vc_font.width) || (h != vc->vc_font.height);
+ 	vc->vc_font.data = (void *)(p->fontdata = data);
+@@ -2449,6 +2455,33 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!vc->vc_hi_font_mask && charcount == 512)
+ 		set_vc_hi_font(vc, true);
+ 
++	/*
++	 * Select the console's blitting state and update the rotated font buffer
++	 * to match the new font, so that the rendering below does not use a
++	 * cache that was built for the old font. Clear the cached state so
++	 * the rebuild allocates a fresh buffer; the old state is kept until
++	 * the font change can no longer fail.
++	 */
++	if (con_is_visible(vc)) {
++		set_blitting_type(vc, info);
++		if (par->rotate_font) {
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++			saved_fontdata = par->fontdata;
++			saved_fontbuffer = par->fontbuffer;
++			saved_fd_size = par->fd_size;
++			saved_cur_rotate = par->cur_rotate;
++			par->fontdata = NULL;
++			par->fontbuffer = NULL;
++			par->fd_size = 0;
++			par->cur_rotate = 0;
++			rotated_saved = true;
++#endif
++			ret = par->rotate_font(info, vc);
++			if (ret)
++				goto err_out;
++		}
++	}
++
+ 	if (resize) {
+ 		int cols, rows;
+ 
+@@ -2465,11 +2498,28 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 		update_screen(vc);
+ 	}
+ 
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	if (rotated_saved)
++		kfree(saved_fontbuffer);
++#endif
+ 	if (old_userfont && (--REFCOUNT(old_data) == 0))
+ 		kfree(old_data - FONT_EXTRA_WORDS * sizeof(int));
+ 	return 0;
+ 
+ err_out:
++#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
++	/*
++	 * Drop the buffer built for the new font and restore the saved
++	 * state.
++	 */
++	if (rotated_saved) {
++		kfree(par->fontbuffer);
++		par->fontdata = saved_fontdata;
++		par->fontbuffer = saved_fontbuffer;
++		par->fd_size = saved_fd_size;
++		par->cur_rotate = saved_cur_rotate;
++	}
++#endif
+ 	p->fontdata = old_data;
+ 	vc->vc_font.data = old_data;
+ 
+@@ -2489,6 +2539,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
+ 		set_vc_hi_font(vc, false);
+ 
++	/*
++	 * Re-select the blitting type, which re-uploads the font map on
++	 * tile-blitting hardware.
++	 */
++	if (con_is_visible(vc))
++		set_blitting_type(vc, info);
++
+ 	return ret;
+ }
+ 
+-- 
+2.53.0
+
