@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368128;
-	b=eDoRIKH2v0oYFAAIJXI1GAsrnTepU821NZ/VceixcgTGumYV5blBd3ZeEcnXeTuFhuyW
-	 WBygV1NKoPgA3+/k8RleJtplQqeMNhv/A6oMDu9NOiwlOnMPBWhVPOWjlJUObYJy+AUmq
-	 dMVeC7MAKS19jEqhj9YVjasXkIy/3aHz1T4tPIhdoBHule6z77qglep/AFk7N/Tzg1GFR
-	 0bnVLj1zNTMi4mYbJHNPZrngYUoNjwBxuqmZ/RSg8tesdud+vQlP2LXGFYJMYAOsQt4We
-	 JquGT4WXO+d4Q3Tdg7lOf4YGnlwQm8JNb/2C7iRqmaMDm+XSYAuKqq9Q2iJuY7oMXFw==
+	t=1794368157;
+	b=NAyDEZsNuy+w25s88E6eQiyoesYEBgN0RDaZyxIeOnuFK2q35+MPxOrDRcYmy+wemiSm
+	 U42z/WUE0LOjAx9B0WUSOcvVZgJTeB86EG+ANIYhyFhdTezK5VA2cWQHQ9ipEtxyql2hm
+	 CRTPgKRNIz5E16verfiu50J/DY3gxe98fHjlUB76JpRaEsRY1zDbtrfd44UesiZ+qbLlq
+	 O79ieSdZMtXsyrxXXLhC98AZ2PBaHXKbWS3aVj9Yqev3Hve/IFKxTELeiNnYQ/+sc/FdK
+	 NQ5H0Rni99FS1omAZ/RjF0rzhqhVHrpMe69Mfgj+8y0u+jY//0kXwSYIG1y2zZ0MVRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368128;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2g7SG2smr4pRrP7EXvCRBa6rrf0MPZodJGXQTseuMGQ=;
-	b=PSnps0v7Muc3YBai0HxHK+4NF1SvcfRgCMOr6gmYYOTUngurVkIT7zoI6FVioKU1pkNV
-	 pC6caIG1FXh42lo0t/Th1JEQBtc3E0WmTUN2xiVtrKsB10CtVz1qdf/DQ+aK5mFZZ9tAs
-	 z3/HDb3S0INGhLq2fnEW18N5S91wLA2Q8yIHzNI/fWiM/iwfOjDrNut83BpD2RkAqSznP
-	 U9Bwpp0+VXPNZxi+9dIvApryxzjngC7kGDo7vovuLTPip5MsL+kRMhLiCZk4cWy0nD41S
-	 zBBJYDU/22Vs/zVnHXQyul1rArd+lKuKBL/8T3qAFywvK2cMNXkATyijUMUPF1IVbRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368157;
+	h=DMARC-Filter:DKIM-Signature:From:Content-Type:Cc:Subject:
+	 Mime-Version:X-Mailer:X-Original-From:To:Message-Id:X-Lms-Return-Path:
+	 Date:Content-Transfer-Encoding;
+	bh=kEBFFd8yOCT0rbB3iMwZuBjqlBV1Cjt28vL9qjdrsTE=;
+	b=Qs5vaicu3jIZzDHobsWybTItyZKcM2nPtiMXrvOh0CLTTAREVu346PGcFLG7eAWPqK7g
+	 bd3Hx+kxd1rCxmJMk2hFbFKy2vy2gyPdIPkWk/ab9r6jLM/8o884rWd6gCjBiUoI2OPml
+	 r/vdveZuuHUhL6RHdOkZiBt6lEKN2Y72yA5GkQ31jn9oWJa8eL4rdev+Vud5RX55J2rJv
+	 zGEXlhXnHOfvBbpk698J6cF5eykjCheiKrR3MyygxsHM7pj0wwclvXeoUiZTU44+e3l/H
+	 VJwWQyA7V7wBdKzcolRMI1xeDkpqcF2IRcRhRF50BJS4anNcazAiS85iz7NOlgFPqDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=do1nVNsy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=XgbOw9xW;
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73586606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:35:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEBD606A33A
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:35:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDEBD606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=do1nVNsy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 817FC1F0089F;
-	Wed, 11 Nov 2026 03:35:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794368128;
-	bh=2g7SG2smr4pRrP7EXvCRBa6rrf0MPZodJGXQTseuMGQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=do1nVNsyVGcZ6MYEYBjtJJyrqXWw55uTNWd1ZytUUA/4xbP8ZrSzXhcPN9jp2S15z
-	 HLuXkl9wU3DXKDpm6BFJS5oE34XSiSl2kQ5g9ERmGShXH54LEBy2470dWJmCmti8UU
-	 f/yg6PldjYJ5XX0sl6+mjIEUh50DPvGOyFbqVXKvPOH3UezN7khqkwn86lELWRflP8
-	 5Z/YEE92i1lXyVMVGYur0GMNR0uWQFqtaUVcFDTNJE2hiZwuSAPRQXQmNJRUztSB0f
-	 pz3CUP7JJwaDFRS0nW15h/3JhNBWfdAo5RyOPFih26rIqeiQPqe0VJ0m1X+rPJBRVZ
-	 5IXnEXIT/TWSQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sinan Turunc <enscrpt@pm.me>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ALSA: usb-audio: Bound packet copies by the PCM buffer size
-Date: Tue, 10 Nov 2026 22:35:26 -0500
-Message-ID: <20261111033447.922894-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052703-failed-6.12-06be918062ad@kernel.org>
-References: <20261107052703-failed-6.12-06be918062ad@kernel.org>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=XgbOw9xW
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794368151; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=kEBFFd8yOCT0rbB3iMwZuBjqlBV1Cjt28vL9qjdrsTE=;
+ b=XgbOw9xWcHRzNDHTcHV/X01sL1Ra9EVahKncVbg82soOrqxHWifXFfpmC5cnZ+EgduWunp
+ 8RPvcSo4cj50JkV2LTg6uJPaZ8ZABjaszpvfDd+QiGRa5M9s9/27YL869h/G4MWacB2nRd
+ KpmKN4hDRwYdTD1DXTK0ZjWmmKbV8O42d12PCS+MBK1hpjsy5cFuO1rOSdYcezx/ypocQL
+ 5vdfpN4WKcLSZ8j+kxk4iS95lxY3Mu2NUymUrUNjIk5pVlorlFs+W5fcpUkbBfgBk9A1dK
+ zJlWpK+849oOU8vhjxtKm6SJ40UxlfPlm7TJwScGhaB3QILsdFVT5aMfkO7I8A==
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>, 
+	<pabeni@redhat.com>, <horms@kernel.org>, <kuniyu@google.com>, 
+	<realwujing@gmail.com>, <stable@vger.kernel.org>, 
+	"Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: [PATCH net] net: netns: fix INT_MAX nsid cleanup
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,100 +58,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+To: <netdev@vger.kernel.org>
+Message-Id: <20261111033525.65828-1-zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26af3e295+5ef86d+vger.kernel.org+zhaogongyi@bytedance.com>
+Date: Wed, 11 Nov 2026 11:35:25 +0800
+Content-Transfer-Encoding: 7bit
 
-From: Sinan Turunc <enscrpt@pm.me>
+A syzkaller reproducer assigning INT_MAX as a peer nsid triggers an
+idr_get_next() warning during netns cleanup. With panic_on_warn, this
+panics the kernel.
 
-[ Upstream commit 06be918062adc1a5a76dc346803b136b20bdb5ae ]
+alloc_netid() also overflows reqid + 1 for this nsid. Use
+idr_alloc_u32() for requested IDs and idr_get_next_ul() for cleanup so
+the cursor can advance past INT_MAX.
 
-retire_capture_urb() and prepare_playback_urb() assume that one USB
-packet never carries more data than the whole ALSA ring buffer. Nothing
-enforces that: the packet size comes from the device (wMaxPacketSize,
-and curpacksize == maxpacksize when the class-specific endpoint
-descriptor sets MaxPacketsOnly), while the PCM hardware constraints only
-require 64-byte periods, two periods and a period time of one data
-interval. An 8 kHz mono U8 stream on a 128-byte buffer is legal, and a
-full-speed device can send 1023-byte packets into it.
+QEMU/KVM reproduced the warning without kernel changes or fault
+injection. The same reproducer ran without warnings after this change.
+Kernel selftests were not run.
 
-On the first oversized packet hwptr_done is wrapped once and stays
-beyond buffer_bytes (895 for 1023 bytes into 128). On the next packet
-the wrap arithmetic in the copy path computes
-
-    bytes1 = subs->buffer_bytes - oldptr
-
-with oldptr > buffer_bytes, so bytes1 wraps to about 4 GB and memcpy()
-runs off the end of the URB buffer and of the vmalloc'd DMA buffer:
-
-  BUG: KASAN: slab-out-of-bounds in retire_capture_urb+0x251/0x870
-  Read of size 4294966529 at addr ffff88800c1e2800 by task vhci_rx/82
-
-and for playback, where copy_to_urb() has the same shape:
-
-  BUG: KASAN: vmalloc-out-of-bounds in copy_to_urb.isra.0+0x188/0x430
-  Read of size 4294966529 at addr ffffc9000004537f by task vhci_rx/79
-   prepare_playback_urb+0x98a/0x1fc0
-
-Truncate an oversized capture packet to the buffer size, and stop
-filling a playback URB once it holds a whole buffer. With bytes <=
-buffer_bytes the single wrap of hwptr_done and the two-part memcpy()
-in both copy paths stay inside the buffer. A device whose packets do
-not fit the buffer at all was never going to play correctly anyway.
-
-Reproduced on 7.3-rc7 with a USB/IP device (dummy_hcd cannot carry
-isochronous data) advertising a UAC1 endpoint with MaxPacketsOnly and
-wMaxPacketSize 1023, and a PCM client using period_size 64, periods 2.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 7acee67a6bce ("netns: optimize netns cleaning by batching unhash_nsid calls")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20261026223543.620-2-enscrpt@pm.me
-[ sashal: Adjusted playback hunk indentation to fit existing explicit locking instead of scoped_guard. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
 ---
- sound/usb/pcm.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ net/core/net_namespace.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 5aadd1221f725..dd7554cde865d 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -1292,6 +1292,18 @@ static void retire_capture_urb(struct snd_usb_substream *subs,
- 			bytes -= adj;
- 			subs->stream_offset_adj -= adj;
- 		}
-+		/*
-+		 * A packet can be as large as the endpoint's maxpacksize, which
-+		 * the device chooses, while the ring buffer can be as small as
-+		 * two 64-byte periods. The hwptr_done wrap below handles one
-+		 * wrap only, so never take more than one buffer from a packet.
-+		 */
-+		if (unlikely(bytes > subs->buffer_bytes)) {
-+			dev_warn_ratelimited(&subs->dev->dev,
-+					     "%u-byte packet exceeds %u-byte buffer, truncating\n",
-+					     bytes, subs->buffer_bytes);
-+			bytes = subs->buffer_bytes;
-+		}
- 		frames = bytes / stride;
- 		if (!subs->txfr_quirk)
- 			bytes = frames * stride;
-@@ -1505,8 +1517,14 @@ static int prepare_playback_urb(struct snd_usb_substream *subs,
+diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
+index 52c2bd447..9d530ac41 100644
+--- a/net/core/net_namespace.c
++++ b/net/core/net_namespace.c
+@@ -270,14 +270,19 @@ static void ops_undo_single(struct pernet_operations *ops,
+ /* should be called with nsid_lock held */
+ static int alloc_netid(struct net *net, struct net *peer, int reqid)
+ {
+-	int min = 0, max = 0;
++	u32 id;
++	int ret;
  
- 	for (i = 0; i < ctx->packets; i++) {
- 		counts = snd_usb_endpoint_next_packet_size(ep, ctx, i, avail);
-+		/*
-+		 * Bound by the ring buffer as well as by the URB:
-+		 * copy_to_urb() wraps hwptr_done once, so one URB must
-+		 * never carry more than the whole buffer.
-+		 */
- 		if (counts < 0 ||
--		    (frames + counts) * stride > ctx->buffer_size)
-+		    (frames + counts) * stride > ctx->buffer_size ||
-+		    (frames + counts) * stride > subs->buffer_bytes)
- 			break;
- 		/* set up descriptor */
- 		urb->iso_frame_desc[i].offset = frames * stride;
--- 
-2.53.0
+ 	if (reqid >= 0) {
+-		min = reqid;
+-		max = reqid + 1;
++		id = reqid;
++		ret = idr_alloc_u32(&net->netns_ids, peer, &id, id,
++				    GFP_ATOMIC);
++		if (ret)
++			return ret;
++		return id;
+ 	}
+ 
+-	return idr_alloc(&net->netns_ids, peer, min, max, GFP_ATOMIC);
++	return idr_alloc(&net->netns_ids, peer, 0, 0, GFP_ATOMIC);
+ }
+ 
+ /* This function is used by idr_for_each(). If net is equal to peer, the
+@@ -639,10 +644,10 @@ static void unhash_nsid(struct net *last)
+ 	 * use for_each_net_rcu() or net_rwsem.
+ 	 */
+ 	for_each_net(tmp) {
+-		int id = 0;
++		unsigned long id = 0;
+ 
+ 		spin_lock(&tmp->nsid_lock);
+-		while ((peer = idr_get_next(&tmp->netns_ids, &id))) {
++		while ((peer = idr_get_next_ul(&tmp->netns_ids, &id))) {
+ 			int curr_id = id;
+ 
+ 			id++;
 
+base-commit: 070411c1590c8172eb4d86f045d99c372f22fe23
+-- 
+2.39.5 (Apple Git-154)
