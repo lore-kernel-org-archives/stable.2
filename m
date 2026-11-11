@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794420928;
-	b=N75l9RSNfkEb9f68rtMTxAT2QQtQLTlkVABmZuEVrg51g/+gycQpxZyxbcPk1j2pUm4/
-	 nzlVIf+RQYfvaz8BTSUOY2W82VWTcj7nX1OdbUAVAdxerYiRf0oV01aff4kCOm1tUFqeW
-	 F5YbGlKQctnQj0jtk+68cXYnlvjbYAcQsFXw8OS0myqZcTWx7mi44PBV8D7+gl1gu3v1q
-	 nilCHxfFZTlNzMxcw+uuYEcyuejlxFyvZM+rf1sighKWR0ib8J2mrOIILHrdeQUXKz12k
-	 JlN70QGUhvnux5stIIQIXsBuYFaBDokOmKdAYNpEKwW0FKHfMGjkZPU5bcqGhSWPdWg==
+	t=1794420937;
+	b=oi+MA6yR+usVjhzEWnc/ddfKymGrZv0MkAKjrEyCpDZUZHHfEQRbrPkgebZeDU6x5M7R
+	 EY3/bQ0uNzS1x48syJtLVS7GgEgZAxR843ZwTpDYg5IWdqC24VbLuD+T+lKrj+jyruwH9
+	 T/dZnAI96SiyKhFgRCWwnHL6zwnVRXaoPQUNIllgqPDIu2AXwy1ELyO5RszVA9+OeUo+u
+	 AvIekl4DO8ryGdA7z/jUxPS71P7YdPs4YWYDQ9MvZpDVjzdfNh2523lc8SL3zADtJ7OXL
+	 O/WHTYQ4ZN6ecPd+EZ1gFZKpFJWSElw+1zKR3bk+mCJHGz7chPcLb/0gzwdv+UoUzsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794420928;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794420937;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=/og5Uhf95J9kveBkAm0grQ3O8w2sq19wcFkN9LBdY1Y=;
-	b=wGDuGfe9K+aptQKjcExcRFRYJaecefYeyZeyLy3z4ZrrwaA6kJMaDbFx2YyBSJ3NEcj0
-	 PBrJexdprw7XJSU0p7Xu/mjd+DfSb39vjwCJWr6q7OIeyQv3hkLQzUhaaexWa8SSYr6Vc
-	 /RFWz+xb2t/jSSDNk3TdqCsZVDz/MXEqPdKJQ1Db9jnlW2VVLR9NcUbZJkjIaDakoykMc
-	 XabzgJxm7E5VM58l7y1O31MBnD0YSOSqS+RLWE+ZRZRYTM0QZnYoHR2KxNLN9wUGePlcC
-	 nQRds9JW2OTOMup/whWml/ys209jSHqj8Usp0/VoBwJzelWM6Nq6cVn3yfRWD54Qr0g==
+	bh=F+0on+c6fgbk8jYItKkTyblkgmfkgI4yLzH5xLDODzE=;
+	b=wNfmq3k/8JBWOYPYmFT30IFb4deLt0S8Obw4GckrUslaop7AlyGm27FPF1df4ZmrW4Kh
+	 +q22RUayrRe77niqXwytysjUXeMKkgyGKZNzSeLfyyRcoU4thlit8s8iC5bT0NRjdmk0f
+	 CV8p3ynOPm6Ba2+4//T+/52zVzrA9qidZJVp59+5+0sAnmSQOTTqwTHrL0q6FIPdlGrT3
+	 Fm+e7ORIu9J67CmQi3YrMGsrMIumoYesiI4rW3lIaph14HAsrI2sYENGK0OtiWa3vNN2l
+	 rw1dMsboOzDnzhi28dwz5WFQjPk2hdlyZpyzvparKnanYnYiZwTG0M+hQtEBENSUg6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfBrjCyC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5nxKlFa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDA4606AE24;
-	Wed, 11 Nov 2026 18:15:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64AA606AE24;
+	Wed, 11 Nov 2026 18:15:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfBrjCyC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7123A1F00A06;
-	Wed, 11 Nov 2026 18:15:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5nxKlFa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1BC81F00A05;
+	Wed, 11 Nov 2026 18:15:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794420928;
-	bh=/og5Uhf95J9kveBkAm0grQ3O8w2sq19wcFkN9LBdY1Y=;
+	s=k20260515; t=1794420937;
+	bh=F+0on+c6fgbk8jYItKkTyblkgmfkgI4yLzH5xLDODzE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PfBrjCyCEH4wXB5O/qCXaz4drr/LxPt30HG6A9qGicPPmSwUDubQFA2D5zBSLO2jq
-	 oZi8G2hRwvOpkhyIt4F/cX2r5HbwH5ITk7ZWHxB9LrXWR6w9QYZGsSGdIW+UQTt9rL
-	 EOQ+S63htwEV/veE+Moi8ecIDP6WHQvXlRFrLvw2q+8uzfVq+m5lj94H5oc1JXAiIR
-	 yioz/2yhUIwbp2FcscmdFPS9D/EfDfC+z1691Ycaj0vXo4zju1ADuLpLgny38G5sEy
-	 dp5pAOYctwKt/HKvlfEXhEo1cLie8WihfnUcjkKUa/tyMX5xonS6Uc9NPCt/8I0gCb
-	 wF61DPm2msXew==
+	b=Z5nxKlFapIrfQ2+7YDWIgZpI228prJbwMKR+k0L5557K/aWV0vkipZ07h6WUzbIo+
+	 xHFhBH9mMF69uLXElOfTWf6qN/CQyftV/YElYK4638b1WVPVCqTxBoRZmZnBfp7/Hr
+	 8+vwPkLMmQP/iL4zjiizcELRHhjnhJC0Ax4MG7gE/4/lnFHXgpHAyiD4jPqG7e9Z4s
+	 l8rqxrj56O9E4thsdAHBCT7l4+OVxZbMe78vWUONdypjknEufaJmRHPTi/6EF9rc0M
+	 wtEeTPO2/pLuBAw3m4letXcBGvZLqOzuJSdSb8I6OwELY4prDm5RzkZ/DX3LGCj4r6
+	 ui+7WzbAwgVbA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 11 Nov 2026 18:13:22 +0000
-Subject: [PATCH 08/13] mm/migrate_device: fix ksmd oops on a migrated KSM
- page
+Date: Wed, 11 Nov 2026 18:13:23 +0000
+Subject: [PATCH 09/13] mm/migrate_device: fix use-after-free of the anon
+ rmap
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-mason-migrate-et-al-fixes-v1-8-3d2454362e8d@kernel.org>
+Message-Id: <20261111-mason-migrate-et-al-fixes-v1-9-3d2454362e8d@kernel.org>
 References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
 In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
 To: David Hildenbrand <david@kernel.org>, 
@@ -86,56 +86,168 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Rick Edgecombe <rick.p.edgecombe@intel.com>, 
  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1396; i=ljs@kernel.org;
- h=from:subject:message-id; bh=a2nM5nYZYqHBeImIwabwKtGvLlr/iYuSs+KhVwYHkrQ=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+bMjW/fH5seTsZY377rZ/cdzgfHf1r9Pnjh6YE9Gwf
- FFC5tyH9zpKWRjEuBhkxRRZnn8R3x8kEjav84K/G8wcViaQIQxcnAIwkehAhv+Vytnz/JS1RGX7
- 7suXrb/xL/Lx7Jg1QZx3zB6LNPC61K1iZHin25NzzX2imY4Ic4sGs/rs/osaatdEllQu3xE74Z/
- qR34A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5441; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=K1/UpDA00InuyltqYw3wsCTORYhmIFURHVM5zyIq1ds=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+bMjJfB18ea4BB8tus9nZie9r7LIvdu83Ljp6KKT6D
+ HuEw3uNjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzk+ROG/+k/bfel9karHj51
+ uDUvKs40lu/u++ysaTc4Hs7j8pzSU83w3+PylJotWz0uifMpGZ+fs6TsWfrVSW/3vVe+PEXg/6M
+ 3cSwA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Chris Mason <mason@kernel.org>
+A munmap() of anonymous memory can result in a use-after-free of the
+anonymous rmap if a concurrent device memory migration occurs and the
+migration runs without the mmap_lock held.
 
-After a KSM page is migrated to device private memory, ksmd can oops,
-and KSM then stops until reboot. A process that maps the page can also
-loop in page faults when it next accesses the page.
+This can occur for a long-term pin of device-coherent memory, or a driver
+evicting its device memory by PFN.
 
-The problem arises because KSM doesn't know not to try to look at device
-private memory that does not exist in the direct map.
+Consider:
 
-Disallow this from happening by explicitly testing for this scenario in
-__migrate_device_pages().
+    eviction                        munmap()
+    ========                        ========
+    migrate_device_range()
+      migrate_device_unmap()
+        try_to_migrate()
+                                    zap the migration entry
+                                    unlink_anon_vmas()
+                                      last VMA: free the anon_vma
+    migrate_device_finalize()
+      remove_migration_ptes()
+        /* locks and walks the freed anon_vma */
 
-Fixes: a5430dda8a3a ("mm/migrate: support un-addressable ZONE_DEVICE page in migration")
+If munmap() runs before try_to_migrate() instead, the folio is no longer
+mapped and gets no migration entry. The walk still runs, and follows the
+stale folio->mapping to the freed anon_vma.
+
+Resolve this by pinning the anon rmap of each folio which possesses one in
+migrate_device_range(), migrate_device_pfns() and
+migrate_device_coherent_folio() before its PTEs are replaced, and
+unpinning it once the walk is done.
+
+A folio which is no longer mapped cannot be pinned and has no migration
+entries to remove, so skip it rather than migrating it.
+
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: e778406b40db ("mm/migrate_device.c: add migrate_device_range()")
 Cc: <stable@vger.kernel.org>
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ ljs: tweak commit message, comment ]
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/migrate_device.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ include/linux/migrate.h |  1 +
+ mm/migrate_device.c     | 39 ++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 39 insertions(+), 1 deletion(-)
 
+diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+index 78424b3824c2..c6cce7925b9b 100644
+--- a/include/linux/migrate.h
++++ b/include/linux/migrate.h
+@@ -136,6 +136,7 @@ static inline int migrate_misplaced_folio(struct folio *folio, int node)
+ #define MIGRATE_PFN_MIGRATE	(1UL << 1)
+ #define MIGRATE_PFN_WRITE	(1UL << 3)
+ #define MIGRATE_PFN_COMPOUND	(1UL << 4)
++#define MIGRATE_PFN_ANON_RMAP	(1UL << 5)	/* mm internal */
+ #define MIGRATE_PFN_SHIFT	6
+ 
+ static inline struct page *migrate_pfn_to_page(unsigned long mpfn)
 diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 45e571dbfb4c..7ebd02ec303b 100644
+index 7ebd02ec303b..5fe11dd01291 100644
 --- a/mm/migrate_device.c
 +++ b/mm/migrate_device.c
-@@ -1205,6 +1205,15 @@ static void __migrate_device_pages(unsigned long *src_pfns,
- 		}
+@@ -552,6 +552,27 @@ static bool migrate_vma_check_page(struct page *page, struct page *fault_page)
+ 	return true;
+ }
  
- 
-+		/*
-+		 * KSM doesn't know not to try to read device private pages, so
-+		 * disallow the combination.
-+		 */
-+		if (folio_is_device_private(newfolio) && folio_test_ksm(folio)) {
-+			src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
-+			goto next;
-+		}
++/*
++ * Pin the anonymous rmap if present to allow migration entries to be safely
++ * removed. Returns true if the pin succeeded or no pin is required, and false
++ * if the folio is no longer mapped.
++ */
++static bool pin_anon_rmap(struct folio *folio, unsigned long *src_pfn)
++{
++	if (!folio_test_anon(folio) || folio_test_ksm(folio))
++		return true;
++	if (!folio_get_anon_vma(folio)) /* Pin the anon rmap. */
++		return false;
++	*src_pfn |= MIGRATE_PFN_ANON_RMAP;
++	return true;
++}
 +
- 		if (folio_is_device_private(newfolio) ||
- 		    folio_is_device_coherent(newfolio)) {
- 			if (mapping) {
++static void unpin_anon_rmap(struct folio *folio, unsigned long src_pfn)
++{
++	if (src_pfn & MIGRATE_PFN_ANON_RMAP)
++		put_anon_vma(folio_anon_vma(folio)); /* Unpin the anon rmap. */
++}
++
+ /*
+  * Unmaps pages for migration. Returns number of source pfns marked as
+  * migrating.
+@@ -633,6 +654,7 @@ static unsigned long migrate_device_unmap(unsigned long *src_pfns,
+ 
+ 		folio = page_folio(page);
+ 		remove_migration_ptes(folio, folio, 0);
++		unpin_anon_rmap(folio, src_pfns[i]);
+ 
+ 		src_pfns[i] = 0;
+ 		if (fault_folio != folio)
+@@ -1335,6 +1357,7 @@ static void __migrate_device_finalize(unsigned long *src_pfns,
+ 		if (!folio_is_zone_device(dst))
+ 			folio_add_lru(dst);
+ 		remove_migration_ptes(src, dst, 0);
++		unpin_anon_rmap(src, src_pfns[i]);
+ 		if (fault_folio != src)
+ 			folio_unlock(src);
+ 		folio_put(src);
+@@ -1384,6 +1407,7 @@ EXPORT_SYMBOL(migrate_vma_finalize);
+ 
+ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
+ {
++	unsigned long src_pfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
+ 	struct folio *folio;
+ 
+ 	folio = folio_get_nontail_page(pfn_to_page(pfn));
+@@ -1395,7 +1419,13 @@ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
+ 		return 0;
+ 	}
+ 
+-	return migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
++	if (!pin_anon_rmap(folio, &src_pfn)) {
++		folio_unlock(folio);
++		folio_put(folio);
++		return 0;
++	}
++
++	return src_pfn;
+ }
+ 
+ /**
+@@ -1431,6 +1461,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+ 		nr = folio_nr_pages(folio);
+ 		if (nr > npages - i) {
+ 			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
++				unpin_anon_rmap(folio, src_pfns[i]);
+ 				folio_unlock(folio);
+ 				folio_put(folio);
+ 			}
+@@ -1474,6 +1505,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+ 		nr = folio_nr_pages(folio);
+ 		if (nr > npages - i) {
+ 			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
++				unpin_anon_rmap(folio, src_pfns[i]);
+ 				folio_unlock(folio);
+ 				folio_put(folio);
+ 			}
+@@ -1509,6 +1541,11 @@ int migrate_device_coherent_folio(struct folio *folio)
+ 
+ 	folio_lock(folio);
+ 	src_pfn = migrate_pfn(folio_pfn(folio)) | MIGRATE_PFN_MIGRATE;
++	if (!pin_anon_rmap(folio, &src_pfn)) {
++		folio_unlock(folio);
++		folio_put(folio);
++		return -EBUSY;
++	}
+ 
+ 	/*
+ 	 * We don't have a VMA and don't need to walk the page tables to find
 
 -- 
 2.56.0
