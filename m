@@ -1,55 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794426488;
-	b=KSaAv0rt47q8Q40AMLQSy5Ip1YXjL5K1H/FDz+YhJVMRc0ansQPfq4grKlc7QNln9a1O
-	 RVOn0Dtf9oy1pZeys2CdDck27+phIwv+e9io/8aaRs2Y0JZcz31r2PBSYXtAdhsCi1GfH
-	 6yiV1SymeopYa4lMDKw+72Ng7f+76wiDkylwdr+oRn/FS6jRP1d7GjK6kMtaNZKH5vuVO
-	 sXrnajdc+F2TH/1SbCZiyEJvNVfJF8nFsJnD1MhyYpfxkpooEyiLtLimNJgyQBc7oxOS8
-	 +mBGvDX/RGgK6MixATF+Yd/dyyeXzTanv3Ip0UNRYxAHM4sw5tZscIA1+2e5uQqPwEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794426488;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DWksmEDScsCattqytA8LY/p61NG/YAOesboCSTezK2Q=;
-	b=OsdhyKc/nVcbtjvAMvD+mncpITkH7CIhnENx0n7/zcAdb6ji0E4qAovQ9IF7sMeF1WQ1
-	 OuhsCN1hrjKX6E3DwdNdU2SyOy4ypWfcDHB65z/w+FPhL+z9tFBij/7+inOyRY/OcsL6F
-	 WcCvLcPKLsar2y8n9O5s08IZ5Rp9y6Sp2KJqMR3786HMV3IR0Lk3OneWUuJcdQGMq2qlY
-	 pdTPdgYiL+KYHwFjq29e4rsseGQ8MuV98XE3WfoJ2HkFZQxJ3MXMtn/tyfXpOHpfMQHI3
-	 ctzOIw53rOfI0nP3nA4mShqKEKvQqFFnPlI84/CdTwGdizcDz3oJZKurm4Iyb6CuJFQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhgUngev;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794426560;
+	b=3JbiXVfFEUOpyz/89iVHlfGEO7CqWN1bFBjKal/XCzh1Pp0uMK0zN1CpMwPKjrgJtHu4
+	 86HxFC02DQjHn+9Wmx2gmzNtlW77A6MFHy23YKx8butnCUDIS+P+P9mBzOQqg1/6XVbgi
+	 yl4aKw3VDL98g4mIVRrGi3Rpliy0UVvzGjQRtbmSAJPU5uHv6JLUFdJ68HqsFMcu0aFE4
+	 i/7yV5ktWlWEWwkj4NT1i1752ocDsLr7JvwkHUB4bJCuxCOgUJdak1gUCEP0RXpDeOytN
+	 OxC+ens7e5xJtIUlR3Xjztu1NXLJ4eJgoI7vJvkhAxKD7RZ6ALMPTeGo7dY0H/KSqNA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794426560;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GrCovIoPNBvb4tsR5rxNuYJi73Uu0w0ac9LyvXjLqk0=;
+	b=3GhFz4g5gb49KEYCnMipT7AkjA7Ai2fU3Bz2lwo8UIovWorJ7iFAX4gKOhGw17w3XjKc
+	 HKj7ZzsoH/t13G3pEap5xGLPuJ26pYliFJWZ6Bfu3My0rkhf1pO8LU9PdfHBL1oseMKw4
+	 VqcnHdTIWW9aa/b7gSFWp43svR0nalMboZSolyIzUfm9kqUtaqyzSHej+4GxDx6sUp0Zn
+	 qDAaRMgVVGLJSrmLQEBk/uN40P01eT8JLHMuRm7toCc97frh5NEjlochcVJEJ6KO062tF
+	 6ZSl4VRSxQo8h31GTuaki1TnpO7mMezBQUEXINWxg/CoG7853YT5iOy1JvRL6RNsgdQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dyveBgFZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.41
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF969606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:48:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF9A606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:49:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CF9A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhgUngev
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1408E1F00A05;
-	Wed, 11 Nov 2026 19:48:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794426488;
-	bh=DWksmEDScsCattqytA8LY/p61NG/YAOesboCSTezK2Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DhgUngevcL8I5CA9NUPoe2RgKVCh5Tt6P6HW9mU5JnSxsOJkT4yT+OQ81WkchRNZ+
-	 wv+B+09JAjSNBhV/lXzCfYpfots+tWvJMNFiFdaeJznHhPKaaDjsafgR4KyXFdf6j+
-	 0KtfzCFZ1V8EjjBpQtneF647NRXnjBZTGyweucSj2V0DLXhWe2oZuPQ6dFAxI3ESmG
-	 IvBFsDtf1QCBhkYGP4Yc6rhSlBWcb0SfQUt7RftUutmc/BP7vAnxu+ILYNIFx9Y7ac
-	 7bZnuCumFOC0t9RK8psjAFjRo+IAeqySs9gnYOyTDz6mJIcv0TGv/mbh4Xdkk+ESjR
-	 qlFBzzffbFE0Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: William Palacek <William.Palacek@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] drm/amdkfd: Validate the control stack of a restored queue
-Date: Wed, 11 Nov 2026 14:48:06 -0500
-Message-ID: <20261111194726.3991358-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051527-failed-6.18-90d91a192751@kernel.org>
-References: <20261107051527-failed-6.18-90d91a192751@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dyveBgFZ
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-67c2c2ac1c3so5349668d50.1
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:49:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794426559; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HU9i2U8Yj9C2/fmmQeMTC9YUHAnbsw/PfFvswLjNrq8P/cetpDucBEuG91NnXby2/y
+         iSOh6jwkH8ieK0LH8NbE8XIwEf1dhNdfBRM7YeHC5CnbooKFF7T3ov98XmTEehV201Z1
+         /rSr2kFTPNr2WRYm+Yh1f2FZGgSRKpAi3AtmIMHZEeTFowUrUOd2BojuepX55wrLPVPz
+         7+aEPDEEcaFAUo7WT5bSoKZQyh/WitN8JjibUZpaw0mR6+LscnJmpu1/lstYTk7Q6tjA
+         chS1QjYagFb95O1mH0h/N//qT/z6XTrIc2HyYuvsp65IWMujI63ZdXW31XjLD7ldfeIf
+         Pewg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GrCovIoPNBvb4tsR5rxNuYJi73Uu0w0ac9LyvXjLqk0=;
+        fh=zD0O/za/9o5ITswwozAbvuuwXXipPmd6eXTbpTWciR0=;
+        b=ZGBgbc7JSW4qJ15LJO/h1+HKHnFr1oiujZ0pIbB6xG0aWerfysxw+KVcHHdSoSP+dJ
+         ZNoXdkk2oz2hJWVv21TYOKYrbkzVYOHbS0fI3wp0XZV0AnRQzi09j6loRurnAknHSV0+
+         Ob2bSyuHkcA6Ylf1EnIYV2QD7uERUXXn4jKQ86/Zmbjay03xOEf63/+CTr+OVcLLuLiO
+         zWszr4qYn9StKU2UBioeg9pRc/RFQ0zjT5jiKV45CFfo3VydJ1DhtEbJ1L/4Z70mv7ml
+         bSje2zux20el6CqNmhknSiT4/YhI7tHht+cvQO6ZYYNtb3wMKjApx68QwkSSbd64e9Cd
+         m81A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794426559; x=1795031359; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GrCovIoPNBvb4tsR5rxNuYJi73Uu0w0ac9LyvXjLqk0=;
+        b=dyveBgFZOSJ1AmxXJr3r+ZDDSuXIK8tQ0OFELTZLAYAsiF2dsH81Vwlxok6b9fbMEP
+         t7zC9+EVmwjCOK/QC26cxcLW4IRQaCqP2MWTQE6YzfWG2Tdz2wb4hKYBcBSXBR17Ok5E
+         t9vjzioN727NkjJgM1q/lf+Bz0BiED/xbQ9wij/mDpgxo3CKQWQeDMdIzWZXzU0SojWg
+         6OU7onAy0aLRvH79OTl/RFgBqhggobkzHqNNIsvr92IpPrypxp+hEcRfuhZzqQvnqbQ/
+         v+H4caZ+ytIGVQJd2xzECjkICGv/CIdiWdg+/dHQ8CTkki1meHdcYGi+McEBPK8z5fgL
+         cmXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794426559; x=1795031359;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GrCovIoPNBvb4tsR5rxNuYJi73Uu0w0ac9LyvXjLqk0=;
+        b=0gejcsV21XOZCWfIFP5nNDcMJ+g5JuUkHQh9tPw+528wdD4IYHwkq+xvqXwdqDmzuY
+         Ji904TE1JZYd6w3YqBMf7BAQIMCwCOOwiTUF7vYLg4iMzbKVk65lsfO6l0Kk7mpE9Jyi
+         FN8CVkAr2qkviZbm4FU/sTHBPcFQq8Lem/Xu2E0TT2BOP1IYOCUaHVeUYel7e9WmHvl1
+         s4QuIc+s3syb+R1Dvyt+W46aTYUPKo/uOCLBpi4Jfgsw4RoVcbqO5ax/PKysKBKdqWUq
+         IKxhpy/fN0nWAGt+NtPgZuBim7s9VN13P/H5x84juUJ2qSKR2Q8F/+64AtFB1grEqzxv
+         Vv+Q==
+X-Forwarded-Encrypted: i=1; AL+hErF+lFkNIALRmbQtir107sxyHLz1avCmKsEsKgMDnFml3Y7kn1lah6EZL6QpS8Z9ASpV+x5B6KE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9oAxgonP5Yrt0miUvBblVMR3gb39H1NpHDpzQeEAR/ODER7IzH
+	20xew841ji7HI5dVrxWozbdtEcbchA2v/P4jaS0Mob5Lj9LSLtAbmWf+IwgDLM84bUHVvn3R11Q
+	qTriilmzeVFbDNiw+NH7tFz1SB2Kb0Sm4N4gk
+X-Gm-Gg: AYBFou1yd+7z1OwS5TwNjACUbCziia/Blh/A9onJzJgdY/AZY07cmICnM4W7h4el9C6
+	fADII8ChI+4syue+V6Z5Cvj164S2kOLmL74pfnGqPo49pRcZqEV33aihoTjoeBbQIdLRCpM6e0d
+	8WwGAaCoEoi7kChk3emS8ctGC4I9IETvZ66+YfochCSuR8iBz6Pbxb1RF6JbkUN87CoC7+elFjd
+	/ytWDw/PG1icQA7rYsGln9UKgN2zM/bgzrINqttcWVbpVNaf7hiTOs4tEGoYvBMeoXGMec72lTv
+	H1VX3zEyG5m3ma4tABaGjVPDTDrKZXfxUBaDKwNOEqR03Ax4sdZzBuRxlwLZZ80JidY5W/TllZJ
+	IKUw+mH/dI0cYAB+ZpKQhRdIXfrhnEyBsvCSLkFDMWEzbUVqRtxi+Wzr02QluiwLFVGTvbghKU1
+	gBjp5W/0mRQJclKfMkRyitdCybE73Z6j82aN6FH/ATooxGch+D3A9ft5zpg+w=
+X-Received: by 2002:a53:cec6:0:b0:679:9e0b:dc4a with SMTP id
+ 956f58d0204a3-67c67f5905fmr1755689d50.49.1794426559390; Wed, 11 Nov 2026
+ 11:49:19 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,177 +105,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110175334.676816-1-piyus@iiitd.ac.in> <20261110175334.676816-2-piyus@iiitd.ac.in>
+In-Reply-To: <20261110175334.676816-2-piyus@iiitd.ac.in>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Wed, 11 Nov 2026 14:49:07 -0500
+X-Gm-Features: AclHuK-nfByfHGxFAPmMdYDp3chGaQIH-KV5UpMqKHJaLwdjvVYyKqOTEoEvZVI
+Message-ID: <CABBYNZL9GjdZvU6Z8B2v5_5iGXBno5K-GvqkKfX5vjEaTkV9vw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] Bluetooth: hci_sync: drop adv instances the
+ controller cannot carry
+To: Piyus Kedia <piyus@iiitd.ac.in>
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Kapil Vaswani <kapil@presceralabs.ai>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: William Palacek <William.Palacek@amd.com>
+Hi Piyus,
 
-[ Upstream commit 90d91a192751cd9a7d9d2286299bc72ec1c28179 ]
+On Tue, Nov 10, 2026 at 12:54=E2=80=AFPM Piyus Kedia <piyus@iiitd.ac.in> wr=
+ote:
+>
+> An advertising instance stores up to HCI_MAX_EXT_AD_LENGTH (251) bytes
+> in adv_info. How much of that is accepted when the instance is added is
+> decided by max_adv_len(), which depends on a feature bit in the
+> controller's LE Extended Advertising support:
+>
+>   ext_adv_capable(dev) ? HCI_MAX_EXT_AD_LENGTH : HCI_MAX_AD_LENGTH
+>
+> ext_adv_capable() reads hdev->le_features[1], which is re-read from the
+> controller on every bring-up, while the instance list is only freed in
+> hci_release_dev(). Instances therefore outlive a power cycle, and an
+> instance added while the controller reported LE Extended Advertising
+> can be far larger than the capability now allows.
+>
+> hci_update_adv_data_sync() picks the writing path by that same bit.
+> Without it the legacy path runs, and hci_set_adv_data_sync() writes
+> into struct hci_cp_le_set_adv_data, whose data[] is HCI_MAX_AD_LENGTH
+> (31) bytes on the stack, while eir_create_adv_data() copies
+> adv->adv_data_len bytes into it. A controller that reports the feature
+> on one bring-up and not on the next overflows that buffer. This can
+> happen when, for example, a USB dongle answers LE Read Local Features
+> differently after a reset. scan_rsp_len has the same problem against
+> hci_cp_le_set_scan_rsp_data.
+>
+>   BUG: KASAN: stack-out-of-bounds in eir_create_adv_data+0x2ab/0x440
+>   Write of size 220 at addr ffffc90006b679c1 by task syz-executor
+>
+>   BUG: KASAN: stack-out-of-bounds in eir_create_scan_rsp+0x119/0x1a0
+>   Write of size 220 at addr ffffc90006ca79c1 by task syz-executor
+>
+> Both are reached from HCIDEVUP by way of hci_powered_update_adv_sync()
+> re-arming a stored instance.
+>
+> Bounding the copy in eir.c would leave the instance registered and
+> unusable, to be retried on every bring-up. Unregister it instead, once
+> the features have been re-read and before anything is scheduled, and
+> report it with MGMT_EV_ADVERTISING_REMOVED. Userspace can add the
+> instance again at a size this controller will accept. Dropping the
+> instances before the list_empty() test below also lets the default
+> instance be set up.
+>
+> The removal is under hci_dev_lock() because
+> hci_schedule_adv_instance_sync() sends commands, which cannot be done
+> with the lock held.
+>
+> Fixes: 112b5090c219 ("Bluetooth: MGMT: Fix always using HCI_MAX_AD_LENGTH=
+")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Kapil Vaswani <kapil@presceralabs.ai>
+> Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
+> Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
+> ---
+>  net/bluetooth/hci_sync.c | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+>
+> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+> index 9213e3ef9f26..ee8b1cd9dee5 100644
+> --- a/net/bluetooth/hci_sync.c
+> +++ b/net/bluetooth/hci_sync.c
+> @@ -3608,6 +3608,34 @@ static int hci_powered_update_adv_sync(struct hci_=
+dev *hdev)
+>         if (!hci_dev_test_flag(hdev, HCI_LE_ENABLED))
+>                 return 0;
+>
+> +       /* An instance's data was accepted against max_adv_len() as it wa=
+s
+> +        * when the instance was added, and that is a branch on a control=
+ler
+> +        * feature which has just been re-read. Anything too large for th=
+e
+> +        * current capability can no longer be rendered: drop it and tell
+> +        * userspace, so it can add the instance again at a size this
+> +        * controller will take.
+> +        *
+> +        * This is safe as long as there is no command send while the loc=
+k is
+> +        * held.
+> +        */
+> +       hci_dev_lock(hdev);
+> +
+> +       list_for_each_entry_safe(adv, tmp, &hdev->adv_instances, list) {
+> +               u8 instance =3D adv->instance;
+> +
+> +               if (adv->adv_data_len <=3D max_adv_len(hdev) &&
+> +                   adv->scan_rsp_len <=3D max_adv_len(hdev))
+> +                       continue;
+> +
+> +               bt_dev_warn(hdev, "instance %u too large for this control=
+ler",
+> +                           instance);
+> +
+> +               if (!hci_remove_adv_instance(hdev, instance))
+> +                       mgmt_advertising_removed(NULL, hdev, instance);
+> +       }
+> +
+> +       hci_dev_unlock(hdev);
+> +
+>         /* If RPA Resolution has not been enable yet it means the
+>          * resolving list is empty and we should attempt to program the
+>          * local IRK in order to support using own_addr_type
+> --
+> 2.34.1
 
-kfd_criu_restore_queue() takes the control stack size from the
-checkpoint image without the topology check create-queue does in
-kfd_queue_acquire_buffers(), which restore stopped calling in
-commit 1cafa8b29e02 ("drm/amdkfd: Don't acquire buffers
-during CRIU queue restore."). An image size of 0x300000 is accepted and
-sizes the MQD allocation, and 0xFFFFFFFF trips a page allocator warning
-in kmalloc().
+Sashiko flagged a few problems:
 
-restore_mqd() also keeps the image's cp_hqd_cntl_stack_size,
-cp_hqd_cntl_stack_offset and cp_hqd_wg_state_offset. With offset > size
-or wave state offset < size, get_wave_state() returns wrapped sizes.
+https://sashiko.dev/#/patchset/20261110175334.676816-1-piyus%40iiitd.ac.in
 
-Take the per-XCC size from topology, 0 for queues without a control
-stack, and reject larger images. In restore_mqd(), set the size to it
-and bound both offsets as init_mqd() does.
-
-Fixes: 626f7b3190b4 ("drm/amdkfd: CRIU add queues support")
-Fixes: 42c6c48214b7 ("drm/amdkfd: CRIU checkpoint and restore queue mqds")
-Signed-off-by: William Palacek <William.Palacek@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 92249023caee17bfc6f29c71d6aaa5f2298cf507)
-Cc: stable@vger.kernel.org
-[ sashal: inlined the upstream helper into four existing restore functions to avoid adding a new function ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  3 ++
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  |  3 ++
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  3 ++
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  3 ++
- .../amd/amdkfd/kfd_process_queue_manager.c    | 30 +++++++++++++------
- 5 files changed, 33 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-index 4a621791da230..99fdbf666c87d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-@@ -293,6 +293,9 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 	addr = mqd_mem_obj->gpu_addr;
- 
- 	memcpy(m, mqd_src, sizeof(*m));
-+	m->cp_hqd_cntl_stack_size = qp->ctl_stack_size;
-+	m->cp_hqd_cntl_stack_offset = min(m->cp_hqd_cntl_stack_offset, qp->ctl_stack_size);
-+	m->cp_hqd_wg_state_offset = max(m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
- 
- 	*mqd = m;
- 	if (gart_addr)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-index ca90454b01acc..2f4caf637a065 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-@@ -344,6 +344,9 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 	addr = mqd_mem_obj->gpu_addr;
- 
- 	memcpy(m, mqd_src, sizeof(*m));
-+	m->cp_hqd_cntl_stack_size = qp->ctl_stack_size;
-+	m->cp_hqd_cntl_stack_offset = min(m->cp_hqd_cntl_stack_offset, qp->ctl_stack_size);
-+	m->cp_hqd_wg_state_offset = max(m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
- 
- 	*mqd = m;
- 	if (gart_addr)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index f0e7a7244a33f..e7bb62a0ac7e1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -429,6 +429,9 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 	addr = mqd_mem_obj->gpu_addr;
- 
- 	memcpy(m, mqd_src, sizeof(*m));
-+	m->cp_hqd_cntl_stack_size = qp->ctl_stack_size;
-+	m->cp_hqd_cntl_stack_offset = min(m->cp_hqd_cntl_stack_offset, qp->ctl_stack_size);
-+	m->cp_hqd_wg_state_offset = max(m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
- 
- 	*mqd = m;
- 	if (gart_addr)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-index f0de0893bc597..ae3bd2bb410a5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-@@ -305,6 +305,9 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 	addr = mqd_mem_obj->gpu_addr;
- 
- 	memcpy(m, mqd_src, sizeof(*m));
-+	m->cp_hqd_cntl_stack_size = qp->ctl_stack_size;
-+	m->cp_hqd_cntl_stack_offset = min(m->cp_hqd_cntl_stack_offset, qp->ctl_stack_size);
-+	m->cp_hqd_wg_state_offset = max(m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
- 
- 	*mqd = m;
- 	if (gart_addr)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 6f3cfb9245c4a..b2a0caa7e1ca0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -26,6 +26,7 @@
- #include <linux/list.h>
- #include "kfd_device_queue_manager.h"
- #include "kfd_priv.h"
-+#include "kfd_topology.h"
- #include "kfd_kernel_queue.h"
- #include "amdgpu_amdkfd.h"
- #include "amdgpu_reset.h"
-@@ -968,7 +969,7 @@ int kfd_criu_checkpoint_queues(struct kfd_process *p,
- }
- 
- static void set_queue_properties_from_criu(struct queue_properties *qp,
--					  struct kfd_criu_queue_priv_data *q_data, uint32_t num_xcc)
-+					  struct kfd_criu_queue_priv_data *q_data)
- {
- 	qp->is_interop = false;
- 	qp->queue_percent = q_data->q_percent;
-@@ -981,11 +982,6 @@ static void set_queue_properties_from_criu(struct queue_properties *qp,
- 	qp->eop_ring_buffer_size = q_data->eop_ring_buffer_size;
- 	qp->ctx_save_restore_area_address = q_data->ctx_save_restore_area_address;
- 	qp->ctx_save_restore_area_size = q_data->ctx_save_restore_area_size;
--	if (q_data->type == KFD_QUEUE_TYPE_COMPUTE)
--		qp->ctl_stack_size = q_data->ctl_stack_size / num_xcc;
--	else
--		qp->ctl_stack_size = q_data->ctl_stack_size;
--
- 	qp->type = q_data->type;
- 	qp->format = q_data->format;
- }
-@@ -997,6 +993,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- {
- 	uint8_t *mqd, *ctl_stack, *q_extra_data = NULL;
- 	struct kfd_criu_queue_priv_data *q_data;
-+	struct kfd_topology_device *topo_dev;
- 	struct kfd_process_device *pdd;
- 	uint64_t q_extra_data_size;
- 	struct queue_properties qp;
-@@ -1033,6 +1030,24 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 		goto exit;
- 	}
- 
-+	memset(&qp, 0, sizeof(qp));
-+	set_queue_properties_from_criu(&qp, q_data);
-+
-+	/* Per-XCC control stack size from topology, as create-queue requires */
-+	if (qp.type == KFD_QUEUE_TYPE_COMPUTE && pdd->dev->kfd->cwsr_enabled) {
-+		topo_dev = kfd_topology_device_by_id(pdd->dev->id);
-+		if (!topo_dev) {
-+			ret = -EINVAL;
-+			goto exit;
-+		}
-+		qp.ctl_stack_size = topo_dev->node_props.ctl_stack_size;
-+	}
-+
-+	if (q_data->ctl_stack_size > (u64)qp.ctl_stack_size * NUM_XCC(pdd->dev->xcc_mask)) {
-+		ret = -EINVAL;
-+		goto exit;
-+	}
-+
- 	*priv_data_offset += sizeof(*q_data);
- 	q_extra_data_size = (uint64_t)q_data->ctl_stack_size + q_data->mqd_size;
- 
-@@ -1062,9 +1077,6 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 	mqd = q_extra_data;
- 	ctl_stack = mqd + q_data->mqd_size;
- 
--	memset(&qp, 0, sizeof(qp));
--	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->xcc_mask));
--
- 	ret = kfd_queue_acquire_buffers(pdd, &qp);
- 	if (ret) {
- 		pr_debug("failed to acquire user queue buffers for CRIU\n");
--- 
-2.53.0
-
+--=20
+Luiz Augusto von Dentz
