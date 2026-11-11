@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364001;
-	b=QUBFi4RJmR+cjP86Wy3eDFut4XqrsWNgl5NTgSBQFbU+IBIfumf4USwvb1x8VYR9Eu0T
-	 l/rAHrl8QP3Cnes4UmZc7Z6nFyeMXe+U2/PMyonWx474GDhnn9dcpDNc2HB5YnuKfAWco
-	 M/sACCMvccMET1BBpdg+hCnOpx3XZYqO0zrHCvjT4vkEAsqy340vp9ccFUvtqvPqG4tYn
-	 Y0TC9RM5jLKAbPsTdqyugSL1FW3bMNrVzjivEse2dq3+31WUWADY219hCqdOmfdK/8jV5
-	 tqMPxzTGHt3/k4EHjYiX2Gxo/PGY9DaoB5ss28kv5utjqPcQgVAgDNNnEhJeVRHNeNw==
+	t=1794364028;
+	b=FVZn3dT0JtyNZV7oTNxQV4nt/oXBF8zGoGZYC9jTu77k1PnCGH4cPH2Wmo7ueKKcs8s3
+	 B6gOV5ezC+gZIG33NfaozTxwxQrUCbrlmYuy56bZVeJ2e32snMncRLJnR2UfMSaNW0wbN
+	 hcK/iH0igNDB04ms8BfgXdNfeBI/RlR4FBDiL7lv6YKJN8qzSyqGuX5XnqTU2MJ4t+UaY
+	 Y4EYaQSgs1c+GHwtWAfTZBYCAecWBfDR2N30pyHxMQVTOY0/ZB/qdgfJMGz6zVgAX/JDc
+	 dD/78OPP8IPWwkZDChIvIPGnOs3r5cNI4pgy/CpEkbCPJu9ng0eiePV2u1yDN05j9ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364001;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8Plu/cikFWE/FKFdq84iqoxxA/IQ9HZR/mHJJ9/RgDI=;
-	b=dYtEaOefBiLQsB2Y/ueyrWZ+AS8vKqlk9TG5AuOokBre8cfTBhbvIz0BxaSWBBP8SIzf
-	 3qn326H2Tgd+uNkxseqRTonNrqdw1OduMxv5WkD4sENLeitpkW4GLDgdA0fY+E+4Vg9TX
-	 95GH85pnReKzLQvXTJPe6p36nMryxNxLNv3N+fNW0b0MFE9bRtdmFs+SFY3ARQVjJCl5j
-	 KIQd7STjGLCnZNgEHWR1Ivg3vsrybj6Ui3lbhdnVayc3bTUxIy9mLKK9hQNj9ZldaFk86
-	 pj3P3iehA8252F42F1I8LWodj1mTSvEYyUhUXfpQpGOAZG789kWN8tUZOgf+ANR7ciQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794364028;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=PhQURgUIcHKqh7HKNiSdZ1UHIXZTkSo2Cch6MWvnHLM=;
+	b=lyBpihfFiOC3BKF7rBF/D6XD61BL23KKD8+PzqyLT+9mOtPIe21PZFIr//rT6V0l1Tpq
+	 112YLl5E2pygXgeEcIOagONQmQXrqigbJK2vx/5SCWZiAa1CnkPEoEL+Sj68vQPGyOrpQ
+	 yt5dQGOaP4ZsseZIX/lu91pyeM77KgIZ4Awdn7O/JvqDIncQJcovhYHH3egTD4xFGcmVS
+	 UWu/faIhNP+GvCvGh5v0znBDu7Gycym/Vyt2rZQ5ykfgAfTXoum22bYA3PyvArSI/EQPn
+	 i2XblHownqG+MJ2V6PIS9oZVKaEIWmCumAGVQRycvmRVxTQSsU5yDZcpDN3n/17UoUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BYN9l6hv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o83sucRy;
+	arc=none smtp.remote-ip=95.215.58.104
+Received: from mta1.migadu.com (out-104.mta1.migadu.com [95.215.58.104])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F920606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F5E2606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:27:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F5E2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BYN9l6hv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B941F00A03;
-	Wed, 11 Nov 2026 02:26:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794364001;
-	bh=8Plu/cikFWE/FKFdq84iqoxxA/IQ9HZR/mHJJ9/RgDI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BYN9l6hvYHhWBIN1yg/3Y2KumEcAKo/i5A/LblRKPD3mDPFTponqncDb44QJIGIGi
-	 9DQKwzPSAMfIJBgJUqQP65LgAPI57KLeMReSCJiZyTT8wpBeFV13qGv5TQT454eEPs
-	 P4z3DJwcvyEJ5SFtAh0/JjaxC3r5plwyRAqiIhluIKSC+xbMYPZx+mYSXEJi7P63FZ
-	 eFzZ2R7593BI0/aaiAgZINTCSXGxYtDwuTDsnqGiZ+s2QopCGOZUgV9NOBsalKV0yG
-	 Dg1Rp8FkPJ8Uu9xTM0l2HVKPpyT40sGaWRNrUwIq7eY6tOTGL4goh85dwMovPRW7km
-	 EXcAN0yBz2N1Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] power: supply: bq27xxx: Ensure poll work is cancelled on remove
-Date: Tue, 10 Nov 2026 21:26:37 -0500
-Message-ID: <20261111022629.681261-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111022629.681261-1-sashal@kernel.org>
-References: <20261107051652-failed-6.12-db560f4b1c52@kernel.org>
- <20261111022629.681261-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o83sucRy
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Wv9122kMEZf/lFR0DCpqumkP3VwnY7IyQl5g+ItEPc8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794364025; v=1; x=1794968825;
+ b=o83sucRymj2LXoKiyVVIXK6LuAaOSvns2VtDfVRFXz0P/Q0LJGDkPV43/jk8YnXpMEaBMT1U
+ eLwmiJYraKRvEYGWk7uFMJ+4RBKOb5oDnUmSEaw9Na7WvP6ANaOmGhQOsUejn05WeF4e8LnW5nG
+ lcpBkPFkKKnLXZmXjjCrl0l4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6bcbf81a8ca16547;
+	Wed, 11 Nov 2026 02:27:04 +0000
+X-Mizu-Trace-ID: 6bcbf81a8ca16547
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b66188b8-3b55-416c-a296-9313f94b5cfe@linux.dev>
+Date: Wed, 11 Nov 2026 10:26:59 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,81 +58,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: hongfu.li@linux.dev, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Ackerley Tng <ackerleytng@google.com>,
+ Daehyeon Ko <4ncienth@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/hugetlb: charge hugetlb cgroup and memcg in
+ alloc_hugetlb_folio_reserve()
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+References: <20261110-for-alloc_hugetlb-1109-v2-1-25795ce44f80@kylinos.cn>
+ <179431474443.789062.10429880669466859032.b4-reply@b4>
+From: Hongfu Li <hongfu.li@linux.dev>
+In-Reply-To: <179431474443.789062.10429880669466859032.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit db560f4b1c5253853f978385db066220e0c218dc ]
+在 11/10/26 20:45, Gregory Price (Meta) 写道:
+> On 2026-11-10 14:05 +0800, Hongfu Li wrote:
+>> From: Hongfu Li <lihongfu@kylinos.cn>
+>>
+>> alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
+>> consumes a global reservation, but unlike the fault path it never charged
+>> the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
+>> memfd_pin_folios() through memfd_alloc_folio() were therefore silently
+>> bypassing the accounting: they are never charged to the hugetlb cgroup
+>> usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
+>> so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
+>> bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
+>> folios are also not accounted in memory.current and are not bounded by
+>> memory.max.
+>>
+>> Charge the folios to both the hugetlb cgroup and the memcg, just like
+>> hugetlb_alloc_folio() does.
+>>
+>> Test with a process that creates a hugetlb memfd and pins pages through
+>> UDMABUF_CREATE. The counters were read while the folio was still pinned:
+>>
+> ...
+>> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+>
+> one note below that is worth assessing but maybe not a blocker.
+>
+>> +		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
+>> +						gfp_mask | __GFP_RETRY_MAYFAIL);
+>> +		if (ret == -ENOMEM) {
+>> +			folio_put(folio);
+>> +			/*
+>> +			 * Skip uncharging hugetlb_cgroup since the charges
+>> +			 * were committed to the folio and freeing the folio
+>> +			 * would have cleared those up.
+>> +			 */
+>> +			return NULL;
+>> +		}
+> This adds a new -ENOMEM condition on stable which may race subtly on
+> two tasks allocating against the same memory.max and cause failures.
+> In testing, it doesn't cause splats or anything, it may just cause
+> spurious allocation failures that fallback to other paths.
+>
+> This implication may be worth a comment in the changelog.
 
-The di->work poll work is queued from the poll callback itself and from
-bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
-bq27xxx_battery_teardown() runs while the power_supply is still
-registered, so external_power_changed() can re-arm the work after the
-cancel, and it runs after the driver data has been freed.
+Hi Gregory,
 
-Register a devm_delayed_work_autocancel() before
-devm_power_supply_register(), so on unwind the power_supply is
-unregistered first, after which no new external_power_changed()
-callback can be dispatched, and the poll work is cancelled only then.
-Drop the now-redundant cancel from bq27xxx_battery_teardown().
+Thanks for the review and the testing.
 
-This issue was found by an in-house static analysis tool.
+Agreed on the new -ENOMEM condition. It is a real behaviour change that
+affects stable kernels. I will add the following to the commit message
+in v3:
 
-Fixes: 740b755a3b34 ("bq27x00: Poll battery state")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260903081312.225535-1-fanwu01@zju.edu.cn
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/power/supply/bq27xxx_battery.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+memfd_pin_folios() can now fail because the memcg charge fails. Two
+tasks allocating concurrently against the same memory.max may see a
+spurious failure. That failure frees the folio, returns the global
+reservation, and undoes the hugetlb cgroup charge, so no accounting is
+left behind.
 
-diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index b0dec20fb37e8..59d9e2d99c3f3 100644
---- a/drivers/power/supply/bq27xxx_battery.c
-+++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -43,6 +43,7 @@
-  */
- 
- #include <linux/device.h>
-+#include <linux/devm-helpers.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/param.h>
-@@ -2160,7 +2161,6 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	};
- 	int ret;
- 
--	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
- 	ret = devm_mutex_init(di->dev, &di->lock);
- 	if (ret)
- 		return ret;
-@@ -2181,6 +2181,12 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	psy_desc->get_property = bq27xxx_battery_get_property;
- 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
- 
-+	/* Cancel the poll work after the power_supply is unregistered. */
-+	ret = devm_delayed_work_autocancel(di->dev, &di->work,
-+					   bq27xxx_battery_poll);
-+	if (ret)
-+		return ret;
-+
- 	di->bat = devm_power_supply_register(di->dev, psy_desc, &psy_cfg);
- 	if (IS_ERR(di->bat))
- 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
-@@ -2207,8 +2213,6 @@ void bq27xxx_battery_teardown(struct bq27xxx_device_info *di)
- 	mutex_lock(&di->lock);
- 	di->removed = true;
- 	mutex_unlock(&di->lock);
--
--	cancel_delayed_work_sync(&di->work);
- }
- EXPORT_SYMBOL_GPL(bq27xxx_battery_teardown);
- 
+>
+> ~Gregory
+>
 -- 
-2.53.0
+Best regards,
+Hongfu
 
