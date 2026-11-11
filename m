@@ -1,67 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794366616;
-	b=4LuT/Rs1503x19yESYzCRitdBBm0V3GdMxZmH3tyY3z1dOg2EJM2py8w7EdNoXuKaq0A
-	 qyLT0qnfbdZDWCxemEvUjGYGBK1zK2s4PprLb6Bo/y4EgOqHsEZ+2u+K/1lQ9wezzURxg
-	 aFmjaOMerZT9d3XAwNL1QnrIgRuvAw400ldE7N7N4T9WAvMPFqbojP5JczMkV+ORrKKue
-	 kuW5ZlV1sujfywlbopxLVn67UK9yFWsha66VgO+C18OQYWq2y1cj30LIgntkVdtbxNGJZ
-	 M2RVh7mQ31/IFyN93yqvo4u0EREOQPprL31TOC5ww29nQnUACwK8UhMG4Co3PzozAyQ==
+	t=1794366669;
+	b=JSq4r7MzzXzewTtvktfcp1WVfWF/nPqQfTgrSoDpVO0fM/Z7mmThbMkLsRq6X8+g007q
+	 ABJxdnJg9jx8Il7dpPGaIshWV/k2JXABxHuNcarTauCcrxzyWs4vsq3yCRP4Cd9wxca8E
+	 cqD+k2GlRdfOhdfZY8eLWtRIQjLHIYDWl1rt1eXz8ME0vKS98hRtinLXcQ3X3Dm9LWqQA
+	 6XqvJ7AgaHN3+D7YuL3DtZ4y46jls7AFbfQPiYalJ+P41vjQYgYdtNY5LsqVv1sHS/39p
+	 IJqb243uLefxd7tnhXeyT19o663r7Z3jpYJ87wceGwuZE8V1wIY4A/9KSZaqZPDfGJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366616;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366669;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HE5tu25mdPovmnItFL0q7p4FaR8zt1JwgcsiwpEbk90=;
-	b=Gtbc4yH433a5ZImVtWy9R7FbDr5S0B/v2ZzoxZZHjwcqaIufTUX0NXyO9h1Y+ajYPzYV
-	 JAOSUVVfaRo6FqXWs/REAtV0ZFx61WbA7nwsvVsoYiT+eXclOVfMH+h/tVVgpX6ZugJXM
-	 SiolPDUJlVo4DDsGVWzdGvDGpvDynW/AxHJsNHOWoP4E9qvvR7EI4ADjw1afVpajQeEvc
-	 DPtUOQzWzdAEjlPdvv7bq+S/XCrbsH+IMDbdm9M1KMrvDEq4gAUJHicgNWrv4qcGPiPqa
-	 v4VbIfJp57wocLlo4arh+buqpTFCQKJ3sBPcDr5iNejbJa1GHNz6vQg3te4pmAOduRw==
+	bh=89bWGzbad0ztQHLRwpDqaawhnj8cR1EXXB5WyhpTrIc=;
+	b=BZfEfECYxpqHgJ+U2/v0Up5xebq+h2dr0O3sqjJuoE2aZjHYk1h+XAqotHIATGiB4HJk
+	 4VJM16ayA03MdBlgIkZez0+Gw63cD34oki9BdTan43bfVwAHW+gjVYoBBqUH44xOMivIE
+	 az8k19UCSE5qwiBmS1W3yIrxGts5GCnVT9vHfrfAWxdwXuFfR7+VegbZDmJl0OJ5ybHBe
+	 fgFHjO1cTMVnrDd9VsJQSNdA3nfubU5IUTqNxzpOchNuvKwAFVRjGT4/ZgJ5C7+zz8A/2
+	 l7gPXuHqyBG2jvhDmvqkEW+MdQVnAr2mf6UKnVFpyvGr15XULsRalXXWPX2Lckqre2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcwxdSyX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N61yJWfr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98B9606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:10:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707A1606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:11:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcwxdSyX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6C9E1F00A0E;
-	Wed, 11 Nov 2026 03:10:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N61yJWfr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48691F0089F;
+	Wed, 11 Nov 2026 03:11:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794366616;
-	bh=HE5tu25mdPovmnItFL0q7p4FaR8zt1JwgcsiwpEbk90=;
+	s=k20260515; t=1794366669;
+	bh=89bWGzbad0ztQHLRwpDqaawhnj8cR1EXXB5WyhpTrIc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bcwxdSyXpxl7/Dr/LGBvQylyQ9VEud4sOsDPaPyTVw1ri7LcqxoWwb8zchY0lnLsg
-	 2S2CFACCM/YnYWQwS9DqtNNyN/KXjIFnXrSftFnRO7o2oaxqKf+Fckyw9lU1ublAhc
-	 bqBChxKPVYUJB3qK1bmsuk50KAB+YdPg5O0esPX4TlQpWtyC0U9NCBgBHnIG+xdTKu
-	 f578wzzsp/JmtYard5btymTsEkBpLdw0B9tknujt9Vn0BURgP8OF19bz8SSl4KHYUo
-	 jUi5d4sUoQ4sEltQBfjQOMBX/Bq8f2N92BN3+A1W2CaYAN41VQkIHZgs/Nu8cSwBq/
-	 26EWHp/ZDteEQ==
+	b=N61yJWfrloMsCwj2ddcP142QaOnccmyKK6mfbznodnKwp8peqn5SvWiEEMMUBiRG5
+	 mTZdk/6W3bjNwGfElLua6YacCQTvpzHyTPSKkt3J5cl116VbqLZzSI7ZXtuBWywE2/
+	 2iW0O+woIkqHQ65xMN/ZsApdIZ7LOfdeE2a7im1v91zqmzcW/BTj3GkjeBMee1SoAc
+	 xqooJ+A7CrSi8mtVrUv46S7mSyz9s3y6r9bR78EqF1QxzWcFCV0QpZClBP5DoArbVy
+	 69j1ZevvzuF0RWjqG+hUBzMajgq/M3XYRgsasIjmKqzWUe8Ob/ZMKxX1vk9cd4yh2/
+	 dhzK2UYOE06IQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hongfu Li <lihongfu@kylinos.cn>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Chris Down <chris@chrisdown.name>,
+Cc: Joanne Koong <joannelkoong@gmail.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] mm/memcg: migrate per-node hugetlb lruvec stat together with hugetlb folio
-Date: Tue, 10 Nov 2026 22:10:08 -0500
-Message-ID: <20261111030947.831164-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] fuse: don't drop destination page cache on a zero byte copy reply
+Date: Tue, 10 Nov 2026 22:11:06 -0500
+Message-ID: <20261111031003.859453-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111030947.831164-1-sashal@kernel.org>
-References: <20261107051423-failed-6.18-02e0c8cc2815@kernel.org>
- <20261111030947.831164-1-sashal@kernel.org>
+In-Reply-To: <20261107053016-failed-6.6-f7585e1ce341@kernel.org>
+References: <20261107053016-failed-6.6-f7585e1ce341@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,142 +61,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+From: Joanne Koong <joannelkoong@gmail.com>
 
-[ Upstream commit 02e0c8cc2815f0082b5b5aabafe3b46688082adc ]
+[ Upstream commit f7585e1ce3418ec282485854b3d8d31c6a961e37 ]
 
-memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
-stats.  These stats are accounted against folio_nid(): incremented on the
-folio's node when handed to a user, decremented when the folio is returned
-to the pool.
+__fuse_copy_file_range() clears the destination page cache after the
+server replies:
 
-During hugetlb folio migration, mem_cgroup_migrate() moves the charge to
-the new folio and drops the memcg data of the old one, so the free of the
-old folio right after the migration skips the memcg per-node lruvec
-decrement.  The hugetlb count stays attributed to the old node for the
-rest of the life of the charge, while the target folio gets no increment
-on the new node; its later free decrements a counter that was never
-incremented.
+	truncate_inode_pages_range(inode_out->i_mapping,
+				   ALIGN_DOWN(pos_out, PAGE_SIZE),
+				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
 
-Migrate the per-node lruvec accounting alongside migration.  Global memcg
-totals remain balanced because they track resource consumption, not node
-placement.
+A server may legitimately reply that it copied nothing, eg if the source
+file turns out to be shorter than the size the kernel has cached for it.
 
-Link: https://lore.kernel.org/20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn
-Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Chris Down <chris@chrisdown.name>
-Cc: <stable@vger.kernel.org>
+If pos_out is 0 as well, the end of the range is ALIGN(0, PAGE_SIZE) - 1,
+which is -1. lend is a uoff_t and truncate_inode_pages_range() takes -1
+as its end of file sentinel, so rather than clearing nothing it drops
+every folio in the destination mapping.
+
+That is not only a cache drop. truncate_cleanup_folio() calls
+folio_cancel_dirty(), and fuse_writeback_range() only wrote back
+[pos_out, pos_out + len - 1], so dirty data elsewhere in the destination
+file is discarded without ever reaching the server.
+
+Skip the call when the server copied nothing, since there is nothing
+stale to clear in that case.
+
+Fixes: 9b46418c40fe ("fuse: copy_file_range should truncate cache")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+[ sashal: used outarg.size instead of bytes_copied to match the existing copy-length handling ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/memcontrol.h |  8 ++++++++
- mm/hugetlb.c               | 25 +++++++++++++++++++++++++
- mm/memcontrol.c            |  5 ++---
- 3 files changed, 35 insertions(+), 3 deletions(-)
+ fs/fuse/file.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 706ddda4a60b1..f6b25317e7b7d 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -953,6 +953,9 @@ unsigned long lruvec_page_state(struct lruvec *lruvec, enum node_stat_item idx);
- unsigned long lruvec_page_state_local(struct lruvec *lruvec,
- 				      enum node_stat_item idx);
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index aa8c93b38601c..223012fc17891 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -3259,9 +3259,11 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
+ 	if (err)
+ 		goto out;
  
-+void mod_memcg_lruvec_state(struct lruvec *lruvec,
-+			    enum node_stat_item idx, int val);
-+
- void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
- void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg);
+-	truncate_inode_pages_range(inode_out->i_mapping,
+-				   ALIGN_DOWN(pos_out, PAGE_SIZE),
+-				   ALIGN(pos_out + outarg.size, PAGE_SIZE) - 1);
++	if (outarg.size)
++		truncate_inode_pages_range(inode_out->i_mapping,
++					   ALIGN_DOWN(pos_out, PAGE_SIZE),
++					   ALIGN(pos_out + outarg.size,
++						 PAGE_SIZE) - 1);
  
-@@ -1422,6 +1425,11 @@ static inline unsigned long lruvec_page_state_local(struct lruvec *lruvec,
- 	return node_page_state(lruvec_pgdat(lruvec), idx);
- }
- 
-+static inline void mod_memcg_lruvec_state(struct lruvec *lruvec,
-+					  enum node_stat_item idx, int val)
-+{
-+}
-+
- static inline void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
- {
- }
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 92db6fdf44339..da7cc875a0cd9 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -25,6 +25,7 @@
- #include <linux/mmdebug.h>
- #include <linux/sched/signal.h>
- #include <linux/rmap.h>
-+#include <linux/rcupdate.h>
- #include <linux/string_choices.h>
- #include <linux/string_helpers.h>
- #include <linux/swap.h>
-@@ -7957,12 +7958,36 @@ void folio_putback_hugetlb(struct folio *folio)
- 	folio_put(folio);
- }
- 
-+static void move_hugetlb_lruvec_stat(struct folio *old_folio,
-+				     struct folio *new_folio)
-+{
-+	struct mem_cgroup *memcg;
-+	long nr_pages = folio_nr_pages(old_folio);
-+	int old_nid = folio_nid(old_folio);
-+	int new_nid = folio_nid(new_folio);
-+
-+	if (old_nid == new_nid)
-+		return;
-+
-+	guard(rcu)();
-+
-+	memcg = folio_memcg(new_folio);
-+	if (!memcg)
-+		return;
-+
-+	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(old_nid)),
-+			       NR_HUGETLB, -nr_pages);
-+	mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
-+			       NR_HUGETLB, nr_pages);
-+}
-+
- void move_hugetlb_state(struct folio *old_folio, struct folio *new_folio,
- 			enum migrate_reason reason)
- {
- 	struct hstate *h = folio_hstate(old_folio);
- 
- 	hugetlb_cgroup_migrate(old_folio, new_folio);
-+	move_hugetlb_lruvec_stat(old_folio, new_folio);
- 	folio_set_owner_migrate_reason(new_folio, reason);
- 
- 	/*
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 84ab1ed9eb602..2fecc80769f26 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -756,9 +756,8 @@ static void __mod_memcg_lruvec_state(struct mem_cgroup_per_node *pn,
- 	put_cpu();
- }
- 
--static void mod_memcg_lruvec_state(struct lruvec *lruvec,
--				     enum node_stat_item idx,
--				     int val)
-+void mod_memcg_lruvec_state(struct lruvec *lruvec,
-+			    enum node_stat_item idx, int val)
- {
- 	struct mem_cgroup_per_node *pn;
- 
+ 	file_update_time(file_out);
+ 	fuse_write_update_attr(inode_out, pos_out + outarg.size, outarg.size);
 -- 
 2.53.0
 
