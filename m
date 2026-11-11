@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794374098;
-	b=grZrtVLGGmwxB4mhGev1kFIRWEDvgS/Bii5rqYxhsC1MnSn+1QPCvnxqcNS/vt96WaXe
-	 +TdI5Opxv54cr+ZUh40DD8/Mi420trTz06WQj7OHg0oiHAcWIka/6l6bf6AHlv94m9P93
-	 NG/n4s3d+OvHR1aqWnwEf1HE1WWZPh+cf3mlIFjdN0pg/sAjAp0b1+WTxB5ukHcqivDM3
-	 e31vxnEjfTLN/LpKxVEel/gZatGkiLDs99Djq6xv5JbOgC13HKDhiDoCxuAHVxA9Etl/N
-	 Q4eZ34eSgutzNxNqYz34S1/YE2AQ+znN3Yetd4nN2I+hfp8gxMXzCAnbxOS8dzNrqlw==
+	t=1794374162;
+	b=q1I6wlOJEeGnHVKDsKKerpWt/KF3O+5nkKUEX4haJdOhcwc4EJIa2o+ZDF+neq1eRTPi
+	 FeKtijKMfPshGUvh1za0h4ht+oJJVgPPe487zYNRiKUl1QzS9LqZj+vgxudBI0ox4AFZ2
+	 sDya2ShbUwYpSVFUuHvgQb7nBzcKJT8WCQuTMtUXeHkv2DJPQAaUgxUI36nphOu1YQ3Vi
+	 OP6SokSa/NLa46JHT5koRV0MAd/qLLrPoVKNKKTGfEg8lMIjqH+9lL1sfO51+xklRbbSb
+	 DXvhvT09XOTFR7i7xQ7v3depWyE/8hDRSF/YIhNEudll6j9OBE33cJESEPoABEZRHQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794374098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794374162;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GtOh6oPLM/adgBha6hUTiIm2ZX56ro2KBLYal5YCU4M=;
-	b=A1TZ4ajIJZ9UyBl3fheseujLplI18bQ3xlM9ppT7cZYPO7x6Arfz7wnYktNrd3VrSF4X
-	 ULU33EDXyxYwyeVaS7+JlrCt73zOihpYJ+XUObvgn7LovucRzc62R4FlTd+QSkVaJ4KVk
-	 f3sCTyTsjQIra9+WRsssEjLpp+uoNrSq1xfqoT5s3eRWjq8MyUkGSPZWidI1PccqslG2y
-	 q7EL9Cv1+skpapc+YfGSi1cRNcvL4h7Uro66EaCVyDrU8ru1qTCGZ8EOV/zbHyreVQ14y
-	 34db0ZG+tql9lksUFw43rUI8DDImIALk7h8yHKd1AL0pLvSl7gm8KBDaZw2bsbKVFgw==
+	bh=BAz9FWRWy5F3cnV5jSjDMt7FYrfAFpQUjAlQxTjUCkg=;
+	b=tnbMW3ScY1sD2PsbayigkTsHnXRPb/pvaqKJYB+Qg/W+ltA9skoyy9bSw2KKzbI/kfQV
+	 2tua1gCsYwZKAfb8kpDvSgiYYq7BNEuGy2oHNueK2sGFxf3TAJ9PGbklsiiPbwQqztijR
+	 G3sZlGux74B4DuMU+6wjQRPzzV74lpxBxmOnh/U57Mu58UiC/SpCZctR1o24PoG5V5lwM
+	 uX525EEySIpaKgryXRBcKmoZa89QiHL/YgoMVNs/W2rnY0+vs0YEaokRpmDuqN36uqEcX
+	 QZSbHNWH5i/jOEDRKDYNxABnr5ARKoSoScMsbUn2Mm0zNk221CFmdMXz3lw5qGviYZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TA4G2be7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GGCUgoLW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D0E606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:14:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F1F606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:16:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TA4G2be7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385F01F00A06;
-	Wed, 11 Nov 2026 05:14:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GGCUgoLW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9B431F0089F;
+	Wed, 11 Nov 2026 05:16:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794374097;
-	bh=GtOh6oPLM/adgBha6hUTiIm2ZX56ro2KBLYal5YCU4M=;
+	s=k20260515; t=1794374162;
+	bh=BAz9FWRWy5F3cnV5jSjDMt7FYrfAFpQUjAlQxTjUCkg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TA4G2be7u1Z+wn8QiAEddgGrQrAVmG581KUhyI1FL11n/CEwqvPMHWbhAfIMxe3k6
-	 kN0HxoSRryiUHaVLkL9LrsOc9IW0fwsYWQrViiBEQl3HN9NgvN/OVYcxbq+Vtudqdm
-	 j+O3qtBTjYpwv5pqK3D1LASP9Fnh7eiKLa4V3mRSTO/x4Y9rda6UFsmG3wpq18M5Sx
-	 pIjxO0GbOrRw2GLR9UbshMrnQ+qU2gAEVtf9TJuydJuakIYSIiKx80RQbTGdWwtAbN
-	 s2u00fuVm+hc36PtWEmqQvFWqtxNKrXcw0oKo6Oe+UGnCvQyaRNqawZVprwvn89tOC
-	 lSACyS9Tx8dww==
+	b=GGCUgoLW/5yeK/ThYFaOvRN1T5TZwei2BPdFYt+efZR7tHxPhC2vQSC4i7qxhveIp
+	 MY97eaSw1DxEF7VzshBux0gxX6PZ4bA4d7kMM3ZUYA7QVcXwuRSd5cwNm7jpw5JloP
+	 2uZss9bIwnWULBQZ23TA3ZraHQCVvUrK0sA3bytjVVUajQz/WFIogbWWojN+qEtMKx
+	 2Vd4HkwRhnkHQu+LB2Lr0LpQ98qaUao3AgjhTjYyIW2PD6UyDV6lf1NLJKebSKIy3h
+	 z8+iHQ30HegRoxVIarh5jvwK7snJRwCGxVzV4W41rwNU/q3y5iIs5hzf1dNfE0yWhh
+	 gvQAxboYQURpw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Niklas Cassel <cassel@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
+Cc: Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Huacai Chen <chenhuacai@loongson.cn>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ata: libata: Do not leave ata_host_stop() registered when activation fails
-Date: Wed, 11 Nov 2026 00:14:56 -0500
-Message-ID: <20261111050550.1159817-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] LoongArch: Fix one-shot limitation for perf hardware breakpoints
+Date: Wed, 11 Nov 2026 00:16:00 -0500
+Message-ID: <20261111051545.1238767-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055903-failed-5.15-d2f977008cbb@kernel.org>
-References: <20261107055903-failed-5.15-d2f977008cbb@kernel.org>
+In-Reply-To: <20261107051522-failed-6.18-5e0b00fd000a@kernel.org>
+References: <20261107051522-failed-6.18-5e0b00fd000a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,278 +61,268 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Niklas Cassel <cassel@kernel.org>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
 
-[ Upstream commit d2f977008cbbae195df678ee1e70e5802f9bd0b8 ]
+[ Upstream commit 5e0b00fd000a53a5428fed6c96be74019bd0ad17 ]
 
-ata_host_start() registers ata_host_stop() as a devres action as soon as
-it has succeeded, which hands the release of the host resources over to
-devres: ->port_stop() and ->host_stop() are then called by the driver
-core when probe() fails.
+In breakpoint_handler() and watchpoint_handler(), the code disables the
+hardware slot by executing update_bp_registers(regs, 0, ...). This design
+forces the active hardware breakpoint configuration to be wiped out upon
+its first hit, turning standard perf hardware breakpoints into "one-shot"
+events.
 
-ata_host_activate() and ahci_host_activate_multi_irqs() can both fail
-after ata_host_start() has succeeded, e.g. if devm_request_irq() or
-ata_host_register() fails, and they return the error with the devres
-action still registered. A driver which releases the host resources in
-its probe() error path therefore releases them twice: once itself and
-once through ->host_stop().
+Furthermore, while the ptrace single-step path in do_watch() executes a
+hardware single-step skip mechanism to advance the PC, the standard perf
+path lacks any mechanism to bypass the original triggering instruction.
 
-All ahci-platform drivers are in that situation, e.g. ahci_probe() calls
-ahci_platform_disable_resources() while ahci_host_stop() does the same
-through devres. This gives refcount underflow warnings from the clk,
-regulator and phy cores and, for shared resources, can disable resources
-which are still in use by other devices.
+To maintain the long-term persistence of hardware breakpoints for perf
+usage, eliminate the disruptive calls to update_bp_registers() within
+the handler loops to keep the breakpoint configuration enabled.
 
-Add ata_host_undo_start(), which stops the ports and drops the devres
-action without calling ->host_stop(), and call it from both activation
-helpers when they fail. Releasing the host resources on failure is then
-always left to the caller, which is what all callers having a probe()
-error path already assume.
+Concurrently, execute a single, unified register write outside the loop
+to atomize the state transition and explicitly enforce the hardware skip
+mechanism once per exception return, ensuring the processor safely steps
+forward without lockups.
 
-This changes the semantics for the drivers which implement ->host_stop()
-while also completely lacking error handling for the activate host call.
-Add activate host error handling for sata_qstor and sata_fsl. For
-sata_fsl this also means that hcr_base and host_priv are now released
-when activating the host fails, which ->host_stop() did not do when
-ata_host_start() itself failed.
+Meanwhile, in order to prevent status contamination during single-core
+context switches or cross-core thread migrations, the hardware register
+skip state of the previous thread is saved first. Then, the skip state
+is restored and its software skip flag is also cleared only if the next
+thread has the skip flag; otherwise, 0 is written to clear the FWPS and
+MWPS registers, which explicitly clears the skip bit according to the
+architectural specification.
 
-Note that ata_pci_sff_activate_host() is deliberately left as is: none of
-its callers releases the host resources in its probe() error path, they
-all rely on ->host_stop() being called by devres, including
-ata_pci_init_one(), which releases the devres group of the host itself.
+Additionally, explicitly clear hbp_break_skip and hbp_watch_skip inside
+ptrace_hw_copy_thread() which is called by copy_thread() during the task
+creation. This guarantees that a newly cloned child task starts with a
+clean slate.
 
-Fixes: 1896b15eddb4 ("ahci_platform: perform platform exit in host_stop() hook")
+Here is a user-space reproducer to demonstrate the issue.
+
+(1) Test program (test_perf_continuous.c):
+
+  #include <stdio.h>
+  #include <unistd.h>
+  #include <sys/syscall.h>
+  #include <sys/ioctl.h>
+  #include <linux/perf_event.h>
+  #include <linux/hw_breakpoint.h>
+
+  static int var = 0;
+
+  int main(void)
+  {
+  	size_t count = 0;
+  	struct perf_event_attr attr = {
+  		.type = PERF_TYPE_BREAKPOINT,
+  		.size = sizeof(attr),
+  		.bp_type = HW_BREAKPOINT_W,
+  		.bp_addr = (unsigned long)&var,
+  		.bp_len = HW_BREAKPOINT_LEN_1,
+  		.exclude_kernel = 1,
+  	};
+
+  	int fd = syscall(__NR_perf_event_open, &attr, 0, -1, -1, 0);
+  	ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
+
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(11) : "memory");
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(22) : "memory");
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(33) : "memory");
+
+  	ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
+  	read(fd, &count, sizeof(size_t));
+
+  	printf("Watchpoint counts: expected = 3, actual = %zu\n", count);
+
+  	close(fd);
+  	return 0;
+  }
+
+(2) Test steps:
+
+  $ gcc test_perf_continuous.c -o test_perf_continuous
+  $ ./test_perf_continuous
+
+(3) Test results:
+
+Without this patch:
+
+  Watchpoint counts: expected = 3, actual = 1
+
+With this patch:
+
+  Watchpoint counts: expected = 3, actual = 3
+
 Cc: stable@vger.kernel.org
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20260915084127.692494-13-cassel@kernel.org
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Fixes: 3eb2a8b23598 ("LoongArch: Fix multiple hardware watchpoint issues")
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+[ sashal: Adjusted context to preserve the existing __switch_to() call passing task_thread_info(next). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Depends on <20261110143342.1911123-1-sashal@kernel.org>
+ arch/loongarch/include/asm/hw_breakpoint.h |  4 +--
+ arch/loongarch/include/asm/loongarch.h     |  3 ++
+ arch/loongarch/include/asm/processor.h     |  1 +
+ arch/loongarch/include/asm/switch_to.h     |  2 +-
+ arch/loongarch/kernel/hw_breakpoint.c      | 39 +++++++++++++++++++---
+ 5 files changed, 41 insertions(+), 8 deletions(-)
 
- drivers/ata/libahci.c          |  2 +
- drivers/ata/libahci_platform.c |  4 ++
- drivers/ata/libata-core.c      | 75 +++++++++++++++++++++++++++++++---
- drivers/ata/libata-sff.c       |  5 +++
- drivers/ata/sata_fsl.c         |  6 ++-
- drivers/ata/sata_qstor.c       |  8 +++-
- include/linux/libata.h         |  1 +
- 7 files changed, 91 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 29ae34dd428d7..1c010687a3f13 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2619,6 +2619,8 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
- 			      host->ports[i]);
- 	}
+diff --git a/arch/loongarch/include/asm/hw_breakpoint.h b/arch/loongarch/include/asm/hw_breakpoint.h
+index d202052df8a16..f4478936787d6 100644
+--- a/arch/loongarch/include/asm/hw_breakpoint.h
++++ b/arch/loongarch/include/asm/hw_breakpoint.h
+@@ -121,12 +121,12 @@ bool watchpoint_handler(struct pt_regs *regs);
  
-+	ata_host_undo_start(host);
-+
- 	return rc;
+ #ifdef CONFIG_HAVE_HW_BREAKPOINT
+ extern void ptrace_hw_copy_thread(struct task_struct *task);
+-extern void hw_breakpoint_thread_switch(struct task_struct *next);
++extern void hw_breakpoint_thread_switch(struct task_struct *prev, struct task_struct *next);
+ #else
+ static inline void ptrace_hw_copy_thread(struct task_struct *task)
+ {
  }
+-static inline void hw_breakpoint_thread_switch(struct task_struct *next)
++static inline void hw_breakpoint_thread_switch(struct task_struct *prev, struct task_struct *next)
+ {
+ }
+ #endif
+diff --git a/arch/loongarch/include/asm/loongarch.h b/arch/loongarch/include/asm/loongarch.h
+index 642dc9adddceb..9a85227ed84ca 100644
+--- a/arch/loongarch/include/asm/loongarch.h
++++ b/arch/loongarch/include/asm/loongarch.h
+@@ -1093,6 +1093,9 @@
+ #define CSR_FWPS_SKIP_SHIFT		16
+ #define CSR_FWPS_SKIP			(_ULCAST_(1) << CSR_FWPS_SKIP_SHIFT)
  
-diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
-index 43380d1a410e2..1ec2557c27f5c 100644
---- a/drivers/ata/libahci_platform.c
-+++ b/drivers/ata/libahci_platform.c
-@@ -607,6 +607,10 @@ EXPORT_SYMBOL_GPL(ahci_platform_get_resources);
-  * ahci-platform host, note any necessary resources (ie clks, phys, etc.)
-  * must be initialized / enabled before calling this.
-  *
-+ * On failure, ->host_stop() is not called, so the caller has to release the
-+ * resources it enabled (clocks, regulators, resets, PHYs) in its probe()
-+ * error path.
-+ *
-  * RETURNS:
-  * 0 on success otherwise a negative error code
++#define CSR_MWPS_SKIP_SHIFT		16
++#define CSR_MWPS_SKIP			(_ULCAST_(1) << CSR_MWPS_SKIP_SHIFT)
++
+ /*
+  * CSR_ECFG IM
   */
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index 00fafdbafe6e8..0896a9fd72d58 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -5684,6 +5684,46 @@ int ata_host_start(struct ata_host *host)
- }
- EXPORT_SYMBOL_GPL(ata_host_start);
+diff --git a/arch/loongarch/include/asm/processor.h b/arch/loongarch/include/asm/processor.h
+index c3bc44b5f5b30..81af48cbee7b9 100644
+--- a/arch/loongarch/include/asm/processor.h
++++ b/arch/loongarch/include/asm/processor.h
+@@ -138,6 +138,7 @@ struct thread_struct {
+ 	struct loongarch_lbt lbt; /* Also conditionally copied */
  
-+/**
-+ *	ata_host_undo_start - undo ata_host_start()
-+ *	@host: ATA host to undo_start
-+ *
-+ *	Stop the ports of @host and drop the devres action registered by
-+ *	ata_host_start(), without calling ->host_stop().  Nothing is done if
-+ *	@host has not been started.
-+ *
-+ *	This gives the release of the host resources back to the caller, which
-+ *	is what a driver whose probe() error path releases those resources
-+ *	itself needs when starting or activating the host fails.
-+ *
-+ *	LOCKING:
-+ *	Inherited from calling layer (may sleep).
-+ */
-+void ata_host_undo_start(struct ata_host *host)
-+{
-+	int i;
+ 	/* Hardware breakpoints pinned to this task. */
++	bool hbp_break_skip, hbp_watch_skip;
+ 	struct perf_event *hbp_break[LOONGARCH_MAX_BRP];
+ 	struct perf_event *hbp_watch[LOONGARCH_MAX_WRP];
+ };
+diff --git a/arch/loongarch/include/asm/switch_to.h b/arch/loongarch/include/asm/switch_to.h
+index 5b225aff3ba21..3b662b18e19a6 100644
+--- a/arch/loongarch/include/asm/switch_to.h
++++ b/arch/loongarch/include/asm/switch_to.h
+@@ -36,7 +36,7 @@ extern asmlinkage struct task_struct *__switch_to(struct task_struct *prev,
+ do {										\
+ 	lose_fpu_inatomic(1, prev);						\
+ 	lose_lbt_inatomic(1, prev);						\
+-	hw_breakpoint_thread_switch(next);					\
++	hw_breakpoint_thread_switch(prev, next);				\
+ 	(last) = __switch_to(prev, next, task_thread_info(next),		\
+ 		 __builtin_return_address(0), __builtin_frame_address(0));	\
+ } while (0)
+diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kernel/hw_breakpoint.c
+index 1a05350159f7b..df149ff06dd50 100644
+--- a/arch/loongarch/kernel/hw_breakpoint.c
++++ b/arch/loongarch/kernel/hw_breakpoint.c
+@@ -156,6 +156,9 @@ static int hw_breakpoint_slot_setup(struct perf_event **slots, int max_slots,
+ 
+ void ptrace_hw_copy_thread(struct task_struct *tsk)
+ {
++	tsk->thread.hbp_break_skip = 0;
++	tsk->thread.hbp_watch_skip = 0;
 +
-+	if (!(host->flags & ATA_HOST_STARTED))
-+		return;
-+
-+	for (i = 0; i < host->n_ports; i++) {
-+		struct ata_port *ap = host->ports[i];
-+
-+		if (ap->ops->port_stop)
-+			ap->ops->port_stop(ap);
-+	}
-+
-+	/*
-+	 * Drop the action added by ata_host_start() without calling it.
-+	 * It does not exist if neither ->port_stop() nor ->host_stop() is
-+	 * implemented, in which case there is nothing to drop.
-+	 */
-+	devres_destroy(host->dev, ata_host_stop, NULL, NULL);
-+
-+	host->flags &= ~ATA_HOST_STARTED;
-+}
-+EXPORT_SYMBOL_GPL(ata_host_undo_start);
-+
- /**
-  *	ata_host_init - Initialize a host struct for sas (ipr, libsas)
-  *	@host:	host to initialize
-@@ -5770,6 +5810,12 @@ static void async_port_probe(void *data, async_cookie_t cookie)
-  *	starts ports, registers @host with ATA and SCSI layers and
-  *	probe registered devices.
-  *
-+ *	On failure, the host remains started, i.e. the devres action
-+ *	registered by ata_host_start() is kept, so ->host_stop() is called by
-+ *	the driver core when probe() fails.  A caller which releases the host
-+ *	resources in its own probe() error path must therefore call
-+ *	ata_host_undo_start().
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-@@ -5876,6 +5922,10 @@ EXPORT_SYMBOL_GPL(ata_host_register);
-  *	have set polling mode on the port. In this case, @irq_handler
-  *	should be NULL.
-  *
-+ *	On failure, the ports are stopped again and the devres action
-+ *	registered by ata_host_start() is dropped without calling
-+ *	->host_stop(), so releasing the host resources is left to the caller.
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-@@ -5896,27 +5946,40 @@ int ata_host_activate(struct ata_host *host, int irq,
- 	/* Special case for polling mode */
- 	if (!irq) {
- 		WARN_ON(irq_handler);
--		return ata_host_register(host, sht);
-+		rc = ata_host_register(host, sht);
-+		if (rc)
-+			goto undo_start;
-+
-+		return 0;
+ 	memset(tsk->thread.hbp_break, 0, sizeof(tsk->thread.hbp_break));
+ 	memset(tsk->thread.hbp_watch, 0, sizeof(tsk->thread.hbp_watch));
+ }
+@@ -485,6 +488,7 @@ NOKPROBE_SYMBOL(update_bp_registers);
+ bool breakpoint_handler(struct pt_regs *regs)
+ {
+ 	int i;
++	unsigned int clear_mask = 0;
+ 	bool need_sigtrap = false;
+ 	struct perf_event *bp, **slots;
+ 
+@@ -500,11 +504,13 @@ bool breakpoint_handler(struct pt_regs *regs)
+ 			if (bp->attr.sigtrap)
+ 				need_sigtrap = true;
+ 
+-			csr_write32(0x1 << i, LOONGARCH_CSR_FWPS);
+-			update_bp_registers(regs, 0, 0);
++			clear_mask |= (0x1 << i);
+ 		}
  	}
  
- 	irq_desc = devm_kasprintf(host->dev, GFP_KERNEL, "%s[%s]",
- 				  dev_driver_string(host->dev),
- 				  dev_name(host->dev));
--	if (!irq_desc)
--		return -ENOMEM;
-+	if (!irq_desc) {
-+		rc = -ENOMEM;
-+		goto undo_start;
-+	}
- 
- 	rc = devm_request_irq(host->dev, irq, irq_handler, irq_flags,
- 			      irq_desc, host);
- 	if (rc)
--		return rc;
-+		goto undo_start;
- 
- 	for (i = 0; i < host->n_ports; i++)
- 		ata_port_desc_misc(host->ports[i], irq);
- 
- 	rc = ata_host_register(host, sht);
--	/* if failed, just free the IRQ and leave ports alone */
--	if (rc)
-+	if (rc) {
-+		/* Free the IRQ, so that the handler can no longer run */
- 		devm_free_irq(host->dev, irq, host);
-+		goto undo_start;
-+	}
++	if (clear_mask)
++		csr_write32(clear_mask | CSR_FWPS_SKIP, LOONGARCH_CSR_FWPS);
 +
-+	return 0;
-+
-+undo_start:
-+	ata_host_undo_start(host);
- 
- 	return rc;
+ 	return need_sigtrap;
  }
-diff --git a/drivers/ata/libata-sff.c b/drivers/ata/libata-sff.c
-index 5cf8086943256..c7f71456e540c 100644
---- a/drivers/ata/libata-sff.c
-+++ b/drivers/ata/libata-sff.c
-@@ -2352,6 +2352,11 @@ EXPORT_SYMBOL_GPL(ata_pci_sff_prepare_host);
-  *	hosts.  This separate helper is necessary because SFF hosts
-  *	use two separate interrupts in legacy mode.
-  *
-+ *	Note that, unlike ata_host_activate(), the devres action registered
-+ *	by ata_host_start() is kept on failure, i.e. ->host_stop() is called
-+ *	by the driver core when probe() fails.  All callers of this function
-+ *	rely on that, none of them releases the host resources itself.
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-diff --git a/drivers/ata/sata_fsl.c b/drivers/ata/sata_fsl.c
-index 795775070917a..15f30f22a5436 100644
---- a/drivers/ata/sata_fsl.c
-+++ b/drivers/ata/sata_fsl.c
-@@ -1520,8 +1520,10 @@ static int sata_fsl_probe(struct platform_device *ofdev)
- 	 * device discovery process, invoking our port_start() handler &
- 	 * error_handler() to execute a dummy Softreset EH session
- 	 */
--	ata_host_activate(host, irq, sata_fsl_interrupt, SATA_FSL_IRQ_FLAG,
--			  &sata_fsl_sht);
-+	retval = ata_host_activate(host, irq, sata_fsl_interrupt,
-+				   SATA_FSL_IRQ_FLAG, &sata_fsl_sht);
-+	if (retval)
-+		goto error_exit_with_cleanup;
+ NOKPROBE_SYMBOL(breakpoint_handler);
+@@ -512,6 +518,7 @@ NOKPROBE_SYMBOL(breakpoint_handler);
+ bool watchpoint_handler(struct pt_regs *regs)
+ {
+ 	int i;
++	unsigned int clear_mask = 0;
+ 	bool need_sigtrap = false;
+ 	struct perf_event *wp, **slots;
  
- 	host_priv->intr_coalescing.show = fsl_sata_intr_coalescing_show;
- 	host_priv->intr_coalescing.store = fsl_sata_intr_coalescing_store;
-diff --git a/drivers/ata/sata_qstor.c b/drivers/ata/sata_qstor.c
-index ef00ab644afb7..68bd73deb65bc 100644
---- a/drivers/ata/sata_qstor.c
-+++ b/drivers/ata/sata_qstor.c
-@@ -595,8 +595,12 @@ static int qs_ata_init_one(struct pci_dev *pdev,
- 	qs_host_init(host, board_idx);
+@@ -527,11 +534,13 @@ bool watchpoint_handler(struct pt_regs *regs)
+ 			if (wp->attr.sigtrap)
+ 				need_sigtrap = true;
  
- 	pci_set_master(pdev);
--	return ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
--				 &qs_ata_sht);
-+	rc = ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
-+			       &qs_ata_sht);
-+	if (rc)
-+		qs_host_stop(host);
+-			csr_write32(0x1 << i, LOONGARCH_CSR_MWPS);
+-			update_bp_registers(regs, 0, 1);
++			clear_mask |= (0x1 << i);
+ 		}
+ 	}
+ 
++	if (clear_mask)
++		csr_write32(clear_mask | CSR_MWPS_SKIP, LOONGARCH_CSR_MWPS);
 +
-+	return rc;
+ 	return need_sigtrap;
  }
+ NOKPROBE_SYMBOL(watchpoint_handler);
+@@ -555,7 +564,7 @@ static int __init arch_hw_breakpoint_init(void)
+ }
+ arch_initcall(arch_hw_breakpoint_init);
  
- module_pci_driver(qs_ata_pci_driver);
-diff --git a/include/linux/libata.h b/include/linux/libata.h
-index e7645df2f3063..c84043c159fbe 100644
---- a/include/linux/libata.h
-+++ b/include/linux/libata.h
-@@ -1096,6 +1096,7 @@ extern struct ata_host *ata_host_alloc_pinfo(struct device *dev,
- extern void ata_host_get(struct ata_host *host);
- extern void ata_host_put(struct ata_host *host);
- extern int ata_host_start(struct ata_host *host);
-+void ata_host_undo_start(struct ata_host *host);
- extern int ata_host_register(struct ata_host *host,
- 			     struct scsi_host_template *sht);
- extern int ata_host_activate(struct ata_host *host, int irq,
+-void hw_breakpoint_thread_switch(struct task_struct *next)
++void hw_breakpoint_thread_switch(struct task_struct *prev, struct task_struct *next)
+ {
+ 	u64 addr, mask;
+ 	struct pt_regs *regs = task_pt_regs(next);
+@@ -567,6 +576,26 @@ void hw_breakpoint_thread_switch(struct task_struct *next)
+ 			csr_write32(CSR_FWPS_SKIP, LOONGARCH_CSR_FWPS);
+ 		regs->csr_prmd |= CSR_PRMD_PWE;
+ 	} else {
++		unsigned int fwps = csr_read32(LOONGARCH_CSR_FWPS);
++		unsigned int mwps = csr_read32(LOONGARCH_CSR_MWPS);
++
++		prev->thread.hbp_break_skip = !!(fwps & CSR_FWPS_SKIP);
++		prev->thread.hbp_watch_skip = !!(mwps & CSR_MWPS_SKIP);
++
++		if (!next->thread.hbp_break_skip)
++			csr_write32(0, LOONGARCH_CSR_FWPS);
++		else {
++			csr_write32(CSR_FWPS_SKIP, LOONGARCH_CSR_FWPS);
++			next->thread.hbp_break_skip = 0;
++		}
++
++		if (!next->thread.hbp_watch_skip)
++			csr_write32(0, LOONGARCH_CSR_MWPS);
++		else {
++			csr_write32(CSR_MWPS_SKIP, LOONGARCH_CSR_MWPS);
++			next->thread.hbp_watch_skip = 0;
++		}
++
+ 		/* Update breakpoints */
+ 		update_bp_registers(regs, 1, 0);
+ 		/* Update watchpoints */
 -- 
 2.53.0
 
