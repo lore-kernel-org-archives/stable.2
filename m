@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794435874;
-	b=qsHi8tXktq7QgSUnpSh9wz2O8PFCH6w516NVObqFAExql5DmJSFjhZ9icpeqclKNDRiS
-	 H7DxKovmGPZUTuCQkv/dNCbIHtmwd1su1mV4PHb3RqCZN3KjAgKDhgvHzn7+Jfpr20kez
-	 r4s2IlqRAvYDIYbo+v9jj9hjyH9l2B9OmPlGSKBaZYCdL0R/yZ+ObQ537IJMFE8P79EiZ
-	 LG1zU7xR1snB3WDcTJU99g3omYgmjIU1FT4rWOffSlw6niqe+6yB8szQDSRqYAPNN6xUi
-	 heEFOMTuq1nooma8OFhKMEdjx/gOkIVPHqv9ybhuQGCjLdAIlyxIzHW5ayIfh+FVnTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794435874;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ewLyE1aftpkdM1oArd6K7dzXkrABbSm6esaIbu8bXrM=;
-	b=CgrA3ao1yLIuNbKUqQklCvWIFgw3rqcYRauwRpFMMN/jBTsTi4HaKHQVnf7vqDQ5BajN
-	 aZlHjiU3xAAuX++5codhpSdRIuuSSWodTOTKw+TLRPn/U45pZLD4vuWhstrX1MKu0ZX7o
-	 wFnRMemL8I7iUAvygE2K8z3FRGwVyBhHIqMGNUR0BbM3AxAwBf79Vm+Ara7fXSnZOr0xc
-	 6zr8+bT0kveVrXa8MSmtvejWkTvm3ngrfv8Z59L5KymT+wyc0DdC9UhTSO20dwl63LK+k
-	 M0WQrFLgpEYgE6OBXOIbvtWzzODt0EWZJEOlmdJa2HKL0T8u8Ii4q34DS0/WtDwcvlA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZrY1Kqhz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794436003;
+	b=oAvmYNfWH334KIL9tXOSSl6RFOQwUX0GXMxrXQcxV1gWA5CRZWPlMe/7D4ZM8P0w/3Fg
+	 FLHwGu4bo/0u5Bvn9mP6hj6BCUHjdPcvQ3VrAVq78Xs9QUOOOqXdbC+WJDKHK7Zj0PfoZ
+	 AtXq492jYcXpK0kFnt8jIjR4EN4EPRh3sePv0OqRVwuGvxCs3hL5K0hx436dQtaD0LUOh
+	 YHSkCzEW6k+GTwU8auyrXA28Nq7GgjLSRXLnUH54hhOLA9121j2WX3Een6LzGRt14v6g9
+	 hGZfbbe5464roGbkLmbw6PjisgCbJM31sbxglWI8NrKzPVve3PTqXC7d5NR4PdeWMsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794436003;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0qXxJbBqWWiSbLfZQoa2Zp5mRREk6/0luQcqtAQF1PU=;
+	b=gK8/WhryzR2noaDNkQGWD6+b1HOUrJ30Oq/IlrCJehaBRwsif+65mNebpnZ8yEpSE6LO
+	 wPgc86fkQ8jc2ZVR/vuFMZbQxQjupDVKSXLEcRAYccbZCqHpYpWtZeKllGwaGUTrxo6qQ
+	 9AG6IMjJ+YkYA35IytvUtjvCBn7cgIjsN8EBC1JLTufGl6vU8WXnRqrhsKMDKa8sykTq9
+	 ktlUIldy1NzxRNQJziYFMVMfPlhiPji+pK85EI/6E76kl+RNHaAuwAsFPNm1qSWJ/Dl6d
+	 avcp/JEdV0qRV1WgrfOVOJLaK7XF1w242HUu89Us2nOE1Iosf56AyyNit/LiOsOcy7A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UCuaRIHD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3A1606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:24:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA1F606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:26:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACA1F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZrY1Kqhz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83321F00A05;
-	Wed, 11 Nov 2026 22:24:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794435874;
-	bh=ewLyE1aftpkdM1oArd6K7dzXkrABbSm6esaIbu8bXrM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZrY1Kqhz7BPWY5djZTTRTCA0I4MvSnveZqJ+or3SAQVuHQEgqJgl1v8Th3kC1xqQ6
-	 UDc9DMvaARfTVms1JUIk/fVWAUVT6mq/HiWVbQ6zubrY35Gp4e0uXCpZ5qVMjOAW8w
-	 Z1zdeKasRo+U1TGngvOgRRaibxxHBM+Z4Se4SVH0pzfdOKFYVPG/Be5TnQrmpT2mYD
-	 Zgy++rjlt//W93cpaODxhrACusgnkPtCEbjLITRssJR9mHIEmwIukvkQFVvGt99OVE
-	 xrW3rPCjAGr6zWy84oHScDWt1c1KRFyaBRWET3eVzBDx6a+EGgpbhRLhjYdzAUjS44
-	 /IaqkU8HdLVuQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Aleksa Sarai <aleksa@amutable.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] proc: don't let an entry below /proc/<pid>/net be a mountpoint
-Date: Wed, 11 Nov 2026 17:24:32 -0500
-Message-ID: <20261111222406.4137222-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052756-failed-6.12-eeecea75ece2@kernel.org>
-References: <20261107052756-failed-6.12-eeecea75ece2@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UCuaRIHD
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533202fe429so28911cf.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:26:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794436002; cv=none;
+        d=google.com; s=arc-20260327;
+        b=H35IpsVR6Cu4tRX7f30PICgzhK2tYEp7RnRP/U6rStU8W5Qt5SU50b3pw6O/8Lv9At
+         5sqPfi9+ffP25/jrMuls2Bzc5j8BgPHmYEMNpRvHFfvyFgssSKm+scIP9whq9VKqmk8b
+         6sfEoW6GzWWqWhcS37jPWNgiOQ2Kn0A3MHOZE6LwHB2kRH20ZuN3r33AkCfDGk7qLOej
+         W6oOS+vJ7y60D0NUwoA3bf/CV3TRK88waczAcoX453CRpbiIWnpAdKRl4RnSMBbnzj3/
+         9NKzdqK3/fiKazPJr+i4h0NRRSyUwpwOdGJ4gXTP+dkLLGJqcwtDleK3o9O89Rizs0Wx
+         Lg2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0qXxJbBqWWiSbLfZQoa2Zp5mRREk6/0luQcqtAQF1PU=;
+        fh=hZRyKM6aktcUe+Uc4adW+VFuQrDZAIyDXpa5mXZJApA=;
+        b=e9B6evX2qVXqf0+15qZ5ve8CGsk5GycEtTq17rKzBvZOO8mZ2cPfSa0LhKpc0X8MKr
+         m9v00i2SHzCyQE9Xr677t/Pu2QDecm+Xw4kPUxEh4JNbK15/Srw549ZEW/dvClO1uJpI
+         3uQQUM30i8ZC0kLUUYXhQNv2RRepG8LFfKroEK9cM0fRxTEtqlUPytELHgW9dYNiClgS
+         Ff3UTMk5b6bTaVvpDrOMU+H+2mcqM5psnmk0K31kcio3tULz4GIcZhg6ejucERfJ1mhr
+         gLbUZQJDm7HzYjowOkmwTj1diMwRZHmDfiMF5rA7CMFX7zXDzGNV1Ox+NiFka+copE2S
+         jipQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794436002; x=1795040802; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0qXxJbBqWWiSbLfZQoa2Zp5mRREk6/0luQcqtAQF1PU=;
+        b=UCuaRIHDR1v09nZ+20R0pIYkXK/Zw8oSxZdnbR+K8deJYoMO4K8zSW/Ufqc1BNwGdA
+         78CsiV1ewWjSn4MXgiZqu2dhjzeC3Rah7HNq5uG37/t6rJtValM/yZDBnNteOdZrzNsl
+         S40FxJRKh2JyKZQ3V7x1AF8FudlbeOrNUY3CSxd8TOf4qLoq2abD0mgaf3xYkECePmQe
+         E4wuRwVBxYNOd1Bx7QL0R6ibmSJXI/4mMf+t6ivJANt4SiLFbUjMj7GWlP8SAOGM2Dz3
+         CQK9WwNxJ/suMgBPE8HyshQ8D8mG5igzTFAazrQaRpYvXgztiG+Q5zqNtGzcc5QkaskD
+         cNow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794436002; x=1795040802;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0qXxJbBqWWiSbLfZQoa2Zp5mRREk6/0luQcqtAQF1PU=;
+        b=ZjVqw7IN9/QwBoW/is7NKUklIz/XnoKn6J5MWZE2AMpQad5+GrlaMf8V2KYkpICXsD
+         Qp4+nEp+4Uun13BbJ42VhHHX5pGVNjg9VydHE5jT5FZn8csHDsfQdsH6hloKuGjlLHUP
+         xkw1kYVJR6+hjvVDU1b9yOoGy6OisXZRBmZjQkFPQIivBNUadf8bIP6lhr9++2xmz80Z
+         B4iMFkt3fFdtDl84i7tc8LCRC+39eZD6aJ4qYF/MvxSMtT//IKJrOpSji9aQeJJZANpy
+         73an2fsrc/tlDP5EgdaAHREasjFarM549W7t4Slke/qzFzhfjukltE3Hk/kk3/q6OoHw
+         2WXw==
+X-Forwarded-Encrypted: i=1; AL+hErEU5gzXJ816yqz90pWYgnCnBbY//pAhODMiU7LTXECueK6Ayh1Um1I+7pCg0OaJMdz/UuGIQ1s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YjjwP13OoVNUlpCq0AAHGyP+YzzFdgfB2G+I+rjaV5BRCHv1W
+	oH/FQCfaZ4HykuQ9tqPEtAXw32MFZXU97kuRtPmTJd7pvYoUFN/mCxEHzOvwe6ORsleILrLdsSV
+	M9/7xWNPJiwlx0eaFWO6Tp5Xg5o8UB4oqqsDFPcBo
+X-Gm-Gg: AYBFou0GaBGWVEgYsmC9HEzd0b0nTwYIbBhknuRjVIemnyMPMzHO3AR4kggWQSDYnNM
+	Bg4eXHf9XnUtlCTSwneTtK8HUkDKd/7fHbY8d1KcIph51VEn15SrAJ88+ZwgG5INB2zkpJ6nWb9
+	jGRCFV8EABKVo4ezyvb1dTZsuSD9QUOa8xPuec/CYCu2eKQRWsD2zutR65RqJAjM/qhfw6TkmE5
+	4wmeqxdfFNaK147oPvNRPlILsXBasvb2TTKPXXBkE0j7ZVB70G9JkxqXfasZaLz+xFLccPdni9E
+	D1cMS/cxCMDbbECpQBTjLP/xCRv8h4lIPll/RjokzZ9KuCeoMi/8MSKXY4ogtnycKnjXfw832sF
+	zNfTv8UOFGDK1m5IiKFiV6K3FXKCLqkB9tsI+
+X-Received: by 2002:ac8:5c84:0:b0:534:d386:c3f1 with SMTP id
+ d75a77b69052e-5598d505571mr2598201cf.9.1794436000897; Wed, 11 Nov 2026
+ 14:26:40 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,247 +104,230 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1794046188.git.zhengqi.arch@bytedance.com>
+ <586d6c53ab7e4c64d6e89ad3cf0cf7e07dabbfaf.1794046188.git.zhengqi.arch@bytedance.com>
+ <7abb3aa1-385a-422f-86bd-7aac9661c4d8@kernel.org> <423c9b28-ecf2-4fab-817d-2fb326690c73@linux.dev>
+ <3a1a3bb5-0b01-4f20-aa0e-74a952544b8c@kernel.org> <5f68ffba-9f56-4e31-9e7c-9d110f552efc@bytedance.com>
+In-Reply-To: <5f68ffba-9f56-4e31-9e7c-9d110f552efc@bytedance.com>
+From: Frank van der Linden <fvdl@google.com>
+Date: Wed, 11 Nov 2026 14:26:30 -0800
+X-Gm-Features: AclHuK8ui2RDy0cmaEz9Z61Dze9vT6ffy1pZqe99lY-d2GDxcD7lU32xjKq4-x4
+Message-ID: <CAPTztWb0XbjCxtihyp=Tx16Z_kjF+M8sa7YcUjvFv0WcS83MAg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] mm: gup: allow long-term pins of CMA-allocated
+ HugeTLB folios
+To: Qi Zheng <zhengqi.arch@bytedance.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, muchun.song@linux.dev, osalvador@suse.de, 
+	akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev, 
+	Qi Zheng <qi.zheng@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Christian Brauner <brauner@kernel.org>
+On Wed, Nov 11, 2026 at 2:27=E2=80=AFAM Qi Zheng <zhengqi.arch@bytedance.co=
+m> wrote:
+>
+> Hi David,
+>
+> On 11/11/26 3:43 PM, David Hildenbrand (Arm) wrote:
+> > On 11/9/26 04:10, Qi Zheng wrote:
+> >>
+> >>
+> >> On 11/8/26 1:58 AM, David Hildenbrand (Arm) wrote:
+> >>> On 11/7/26 11:30, Qi Zheng wrote:
+> >>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+> >>>>
+> >>>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
+> >>>> unpinnable, causing unnecessary migration or pinning failures.
+> >>>>
+> >>>> These folios already own their CMA bitmap ranges, and memory blocks
+> >>>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
+> >>>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
+> >>>>
+> >>>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic huge=
+pages using cma")
+> >>>> Cc: stable@vger.kernel.org
+> >>>> Suggested-by: Muchun Song <muchun.song@linux.dev>
+> >>>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> >>>> Acked-by: Muchun Song <muchun.song@linux.dev>
+> >>>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+> >>>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> >>>> ---
+> >>>>    include/linux/mm.h | 29 +----------------------------
+> >>>>    mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+> >>>>    2 files changed, 32 insertions(+), 28 deletions(-)
+> >>>>
+> >>>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> >>>> index 2d0b8a4c9974f..75dd40265d3f4 100644
+> >>>> --- a/include/linux/mm.h
+> >>>> +++ b/include/linux/mm.h
+> >>>> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct=
+ folio *folio)
+> >>>>            return is_zero_page(&folio->page);
+> >>>>    }
+> >>>>
+> >>>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+> >>>>    #ifdef CONFIG_MIGRATION
+> >>>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+> >>>> -{
+> >>>> -#ifdef CONFIG_CMA
+> >>>> -  int mt =3D folio_migratetype(folio);
+> >>>> -
+> >>>> -  if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
+> >>>> -          return false;
+> >>>> -#endif
+> >>>> -  /* The zero page can be "pinned" but gets special handling. */
+> >>>> -  if (is_zero_folio(folio))
+> >>>> -          return true;
+> >>>> -
+> >>>> -  /* Coherent device memory must always allow eviction. */
+> >>>> -  if (folio_is_device_coherent(folio))
+> >>>> -          return false;
+> >>>> -
+> >>>> -  /*
+> >>>> -   * Filesystems can only tolerate transient delays to truncate and
+> >>>> -   * hole-punch operations
+> >>>> -   */
+> >>>> -  if (folio_is_fsdax(folio))
+> >>>> -          return false;
+> >>>> -
+> >>>> -  /* Otherwise, non-movable zone folios can be pinned. */
+> >>>> -  return !folio_is_zone_movable(folio);
+> >>>> -
+> >>>> -}
+> >>>
+> >>> Moving code while adding new stuff to it, please don't.
+> >>>
+> >>> Move code first, then modify it.
+> >>>
+> >>> I don't want to play "find the difference between two pictures" on a =
+Saturday
+> >>> evening.
+> >>
+> >
+> > You resent your series way too fast.
+>
+> Got it.
+>
+> >
+> > Now we have discussions in to threads, congratulations ;)
+> >
+> >> ;), got it.
+> >>
+> >> I moved the code to resolve a build dependency.
+> >>
+> >
+> > Why can't that be resolved differently? What is the dependency?
+>
+> The dependency is that the new check wants to use
+> `folio_test_hugetlb_cma()`, which is a HugeTLB-specific inline helper
+> from `include/linux/hugetlb.h`.
+>
+> `folio_is_longterm_pinnable()` currently lives in `include/linux/mm.h`,
+> while `include/linux/hugetlb.h` already includes `linux/mm.h`. So I
+> can't simply use `folio_test_hugetlb_cma()` from `mm.h`
+>
+> >
+> >>>
+> >>>> +bool folio_is_longterm_pinnable(struct folio *folio);
+> >>>>    #else
+> >>>>    static inline bool folio_is_longterm_pinnable(struct folio *folio=
+)
+> >>>>    {
+> >>>> diff --git a/mm/gup.c b/mm/gup.c
+> >>>> index 2b405cce2ca5c..f41701c603500 100644
+> >>>> --- a/mm/gup.c
+> >>>> +++ b/mm/gup.c
+> >>>> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr=
+, int *locked)
+> >>>>
+> >>>>    #ifdef CONFIG_MIGRATION
+> >>>>
+> >>>> +bool folio_is_longterm_pinnable(struct folio *folio)
+> >>>> +{
+> >>>> +#ifdef CONFIG_CMA
+> >>>> +  int mt =3D folio_migratetype(folio);
+> >>>> +
+> >>>> +  /* These HugeTLB folios own the CMA memory, so they can be long-t=
+erm pinned. */
+> >>>> +  if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
+> >>>> +          return true;
+> >>> More hugetlb hackery ... don't like that, sorry.
+> >>
+> >> Agree.
+> >>
+> >>>
+> >>> I think this just goes down to a problem we discussed a while ago tha=
+t is
+> >>> independent of hugetlb: we'd need some way to identify that the the p=
+age was
+> >>> actually allocated by the CMA owner, and it's not just some other mov=
+able
+> >>> allcoation that ended up there.
+> >>>
+> >>> For something generic non-hugetlb thing, can't we call into CMA to as=
+k whether
+> >>> the current chunk is marked allocated?
+> >>
+> >> The existing bitmap is set before allocation completes, so the range
+> >> may still contain borrowed movable pages. A set bit alone cannot
+> >> establish ownership.
+>
+> The more accurate code path is as follows.
+>
+> Assuming the 2M buddy allocation is successful, page P is borrowed from
+> the 1G CMA area.
+>
+> Now, proceed to request a new 1G huge page:
+>
+> only_alloc_fresh_hugetlb_folio
+> --> alloc_gigantic_frozen_folio
+>      --> hugetlb_cma_alloc_frozen_folio
+>          --> cma_range_alloc
+>                  /* set bitmap!! */
+>              --> bitmap_set(cmr->bitmap, bitmap_no, bitmap_count);
+>
+>                  <time A>
+>
+>                  /* may fail */
+>                  alloc_contig_frozen_range
+>
+>          /* set HPG_cma!! */
+>          folio_set_hugetlb_cma(folio);
+>
+> At time A, for page P, a bitmap was set, but HPG_cma was not set.
+>
+> If a concurrent FOLL_LONGTERM pin uses the bitmap alone to determine
+> ownership, it could incorrectly allow P to remain pinned. If
+> alloc_contig_frozen_range() fails, cma_range_alloc() clears the bitmap
+> bits, while the long-term pin on P remains.
+>
+> HPG_cma is set only after explicit CMA allocation succeeds. It records
+> the folio's own CMA ownership, whereas a set bitmap bit can represent
+> another allocation's in-flight reservation. Therefore, the bitmap
+> alone cannot replace HPG_cma in this check.
+>
+> >>
+> >> A generic query may need separate ownership tracking, such as an
+> >> owned_bitmap recording successfully allocated pages. Its updates and
+> >> lookups would also need to handle concurrency with fast GUP.
+> >
+> > Or simply two bitmaps? "trying allocation - allocated"
+>
+> As a fix, perhaps this is a bit too complex? :(
+>
+> Alternatively, we could adjust the timing for setting the bitmap, though
+> this might introduce new concurrency issues.
+>
+> Thanks,
+> Qi
 
-[ Upstream commit eeecea75ece2ba894bee4d3c53ed2e40abda8f0e ]
+Yeah, ideally there would be a way to identify folios allocated
+through cma_alloc. But that would probably require.. dare I say.. a
+page flag. Trying to check bitmaps does seem too complex.
 
-proc_net_d_revalidate() always returns 0 so that a dentry below
-/proc/<pid>/net is never reused after setns(). So lookup_fast() will end
-up calling d_invalidate(), which unhashes the dentry and detaches every
-mount on it, in every mount namespace; including locked mounts.
+And, since we've had a local change that does exactly the same thing
+for a few years (which I apparently forgot to send along with other
+hugetlb_cma changes), I can confirm that this looks good to me and
+works. So,
 
-Then lookup_slow() creates a new dentry for the same entry. So a mount
-on /proc/<pid>/net/dev succeeds and goes away with the first lookup of
-the name by anybody with search permission on the directory. Given it's
-0555 that's everyone's grandma. A mask on such a name hides nothing as
-the repro below shows.
-
-Treat those entries like I did fd/, fdinfo/ and map_files/ and refuse to
-mount on them in the first place. It's nonsensical theater otherwise:
-
-  procnet net/dev stat
-
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * procnet: cover an entry of /proc/<pid>/ with a bind mount, lock the mount,
-   * then look the name up.
-   *
-   * The first task stays alive, <pid> is its pid. The "container" task has its
-   * own mount namespace. There it binds a mask on /proc/<pid>/<name>. It drops to
-   * uid 1000 and enters a new user namespace with a new mount namespace, so that
-   * the mask is locked. Then one task looks the name up:
-   *
-   *   stat    the container calls stat() on the name
-   *   umount  the container calls umount2(MNT_DETACH) on the name
-   *   nobody  a task with uid 65534 in the first namespaces calls stat()
-   *
-   * The container lists its mounts before and after (that does not look the
-   * name up) and then reads the name. MASK is fine. Anything else means that
-   * the lookup uncovered the entry.
-   *
-   * usage: procnet <name> stat|umount|nobody
-   *   name "status" is the control, "net/dev" is a file below net, "net/stat" is
-   *   a directory below net
-   */
-  #define _GNU_SOURCE
-  #include <dirent.h>
-  #include <errno.h>
-  #include <fcntl.h>
-  #include <sched.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <time.h>
-  #include <unistd.h>
-  #include <sys/mount.h>
-  #include <sys/prctl.h>
-  #include <sys/stat.h>
-  #include <sys/wait.h>
-
-  #define WORK "/run/pn"
-
-  static char target[128];
-
-  static void die(const char *what)
-  {
-  	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
-  	exit(2);
-  }
-
-  static void write_str(const char *path, const char *s, int flags)
-  {
-  	int fd = open(path, O_WRONLY | flags, 0644);
-
-  	if (fd < 0 || write(fd, s, strlen(s)) < 0)
-  		die(path);
-  	close(fd);
-  }
-
-  /* list the mounts below /proc without a lookup of the target */
-  static void mounts(const char *when)
-  {
-  	char line[512];
-  	FILE *f = fopen("/proc/self/mountinfo", "r");
-  	int n = 0;
-
-  	if (!f)
-  		die("mountinfo");
-  	while (fgets(line, sizeof(line), f)) {
-  		if (!strstr(line, " /proc/"))
-  			continue;
-  		printf("container: %s: mount: %s", when, line);
-  		n++;
-  	}
-  	fclose(f);
-  	if (!n)
-  		printf("container: %s: nothing is mounted below /proc\n", when);
-  }
-
-  static void show(const char *when, int isdir)
-  {
-  	char buf[48] = "";
-  	int fd;
-
-  	if (isdir) {
-  		struct dirent *de;
-  		DIR *d = opendir(target);
-  		int hit = 0;
-
-  		if (!d) {
-  			printf("container: %s: opendir(%s) = %s\n", when, target, strerror(errno));
-  			return;
-  		}
-  		printf("container: %s: readdir(%s) =", when, target);
-  		while ((de = readdir(d))) {
-  			if (de->d_name[0] == '.')
-  				continue;
-  			printf(" %s", de->d_name);
-  			hit |= strcmp(de->d_name, "MASK");
-  		}
-  		closedir(d);
-  		printf("%s\n", hit ? "   <-- HIT" : "");
-  		return;
-  	}
-  	fd = open(target, O_RDONLY);
-  	if (fd < 0) {
-  		printf("container: %s: open(%s) = %s\n", when, target, strerror(errno));
-  		return;
-  	}
-  	if (read(fd, buf, sizeof(buf) - 1) < 0)
-  		die("read");
-  	close(fd);
-  	if (strchr(buf, '\n'))
-  		*strchr(buf, '\n') = 0;
-  	printf("container: %s: read(%s) = \"%s\"%s\n", when, target, buf,
-  	       strncmp(buf, "MASK", 4) ? "   <-- HIT" : "");
-  }
-
-  int main(int argc, char **argv)
-  {
-  	const char *name = argc > 1 ? argv[1] : "net/dev";
-  	const char *op = argc > 2 ? argv[2] : "stat";
-  	int isdir = !strcmp(name, "net/stat");
-  	int to_host[2], to_cont[2];
-  	struct stat st;
-  	pid_t pid;
-  	char c;
-
-  	setvbuf(stdout, NULL, _IOLBF, 0);
-  	snprintf(target, sizeof(target), "/proc/%d/%s", getpid(), name);
-  	if (unshare(CLONE_NEWNS) || mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
-  		die("unshare");
-  	mkdir(WORK, 0755);
-  	if (mount("W", WORK, "tmpfs", 0, NULL))
-  		die("mount W");
-  	write_str(WORK "/mask", "MASK", O_CREAT);
-  	mkdir(WORK "/maskdir", 0755);
-  	write_str(WORK "/maskdir/MASK", "MASK", O_CREAT);
-  	if (pipe(to_host) || pipe(to_cont))
-  		die("pipe");
-
-  	pid = fork();
-  	if (pid < 0)
-  		die("fork");
-  	if (!pid) {
-  		if (unshare(CLONE_NEWNS))
-  			die("container unshare");
-  		if (mount(isdir ? WORK "/maskdir" : WORK "/mask", target, NULL, MS_BIND, NULL)) {
-  			printf("container: bind the mask on %s: %s\n", target, strerror(errno));
-  			exit(0);
-  		}
-  		printf("container: bind the mask on %s: ok\n", target);
-  		if (setgid(1000) || setuid(1000) || prctl(PR_SET_DUMPABLE, 1))
-  			die("setuid");
-  		/* lock the mount: a new user namespace with a copy of the tree */
-  		if (unshare(CLONE_NEWUSER | CLONE_NEWNS))
-  			die("container userns");
-  		write_str("/proc/self/setgroups", "deny", 0);
-  		write_str("/proc/self/uid_map", "0 1000 1", 0);
-  		write_str("/proc/self/gid_map", "0 1000 1", 0);
-  		mounts("before");
-  		errno = 0;
-  		if (!strcmp(op, "stat")) {
-  			stat(target, &st);
-  			printf("container: stat(%s): %s\n", target, strerror(errno));
-  		} else if (!strcmp(op, "umount")) {
-  			umount2(target, MNT_DETACH);
-  			printf("container: umount2(%s, MNT_DETACH): %s\n", target, strerror(errno));
-  		} else if (write(to_host[1], "g", 1) != 1 || read(to_cont[0], &c, 1) != 1) {
-  			die("sync");
-  		}
-  		mounts("after");
-  		show("after", isdir);
-  		exit(0);
-  	}
-  	close(to_host[1]);
-  	if (read(to_host[0], &c, 1) == 1) {
-  		pid_t p2 = fork();
-
-  		if (!p2) {
-  			if (setgid(65534) || setuid(65534))
-  				die("setuid");
-  			errno = 0;
-  			stat(target, &st);
-  			printf("nobody: uid %u: stat(%s): %s\n", getuid(), target, strerror(errno));
-  			exit(0);
-  		}
-  		waitpid(p2, NULL, 0);
-  		if (write(to_cont[1], "g", 1) != 1)
-  			die("sync");
-  	}
-  	waitpid(pid, NULL, 0);
-  	return 0;
-  }
-
-Fixes: 1fde6f21d90f ("proc: fix /proc/net/* after setns(2)")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261024-work-procfs-fixes-v1-1-46b03c3a8fac@kernel.org
-Acked-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Aleksa Sarai <aleksa@amutable.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: replaced the PROC_ENTRY_FORCE_LOOKUP flag check with de->proc_dops == &proc_net_dentry_ops. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/proc/generic.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index c3cc99973ef64..e8fe204a88c39 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -255,6 +255,10 @@ struct dentry *proc_lookup_de(struct inode *dir, struct dentry *dentry,
- 		inode = proc_get_inode(dir->i_sb, de);
- 		if (!inode)
- 			return ERR_PTR(-ENOMEM);
-+		/* never reused and so never a mountpoint for long */
-+		if (de->proc_dops == &proc_net_dentry_ops)
-+			return proc_splice_unmountable(inode, dentry,
-+						       &proc_net_dentry_ops);
- 		d_set_d_op(dentry, de->proc_dops);
- 		return d_splice_alias(inode, dentry);
- 	}
--- 
-2.53.0
-
+Reviewed-by: Frank van der Linden <fvdl@google.com>
