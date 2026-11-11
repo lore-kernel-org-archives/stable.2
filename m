@@ -1,55 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368011;
-	b=Ua9xYbrepFOeWkWfxKL2uu2VMmom6X9Gky33Eg9svCVObPAP4WsUUmKKMVJxVBvuGo7+
-	 pjfFwJhpTG6In+78leB1/gk1sdLkU9UpGxGUpV7jQRDSlDlGRKxr2bsFloIGp1cXhgxmv
-	 CujeGZ3+cyg9Ey5miAfHp18v9kFeDlZzoHHofIrgwhKJ7Tid6XjLqOqSOyTbDGbDPB14q
-	 ZORcW6gsWDIDodJMoAVAB3ZFSP6gO6sAsrM7XE5Naw3QR+ZiViFpbD+nhl0cvY1xZHidr
-	 MeJVrwWcky79G9ZPk+yY29aA8o2Y1iE4Q5dg7hsdYBjYvaEmJyone9YsgbrkJ9LwHIQ==
+	t=1794368033;
+	b=wD5AzN1Lb1x2KW7ftmNyZzeCIOumZ14WXtNBJ/rDj1C41SodA64Jm666DbBJWoAzLXwS
+	 8s1o+3SSCng7lU3cDumgjdsyyPeylc29vBz+9OfAB2QGMAol8MWTxAEhVU4ypbtV4JQ8U
+	 CDPi2X9f3NOYicj5nMio7Hv/GamTmhhAlIrEO2qhiXGfALckzK7Hh+2qufELWjn/TDgrP
+	 VkaIa5z0NwA0ScfPD2sdTWSYjxNTgQIvG7iKAIgU8iTXJDtc1ghhIZE5xKyI4N1n8MvND
+	 LQAgYBmdv4g4ydbNT/z7dbiT3AUTaHrGTAuTnjsv/wRC3XStjYvrLqvUx/ZbLoQTPbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368033;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1AuWj1mFqkp5pUXRMMdzW5vqvMcYIuWZzTOHEdwcYxQ=;
-	b=l2ShTz1QXDrKlQXjcD8r6Jd92cO7fGamqT2US6R+SSAJ7BkZ6RXcw50O0QOJ2My0kaJ4
-	 3doB1BjhHl9zEmIxVV6BQQDNmsfTDpccA8J7hRubb++FU3u61yUPLibh5NpHuRDPeV8jB
-	 YmJDP+zoaLh199ItrJ80keLZR8g2xqRqpto6/9SHoYdDfbElSp6YiPxWJ6jdtenY8tDZs
-	 5mJ1Z/IGRC0fstS+WU4ocSKLgggthnsKrKUeG3oyCNBCsMQVnKVQpMO9mIMOsjcZ3wTZP
-	 /xS9yfvkhiENhkyAGrk+Nr6IdfbpxM3z+C0i2bO+mEI3BVtZEuhf6TOJNHgSGOhyJZg==
+	bh=ZZMaJa7A8btflg6fzjNWikrxEkfZP7b5T+vroRVbtbs=;
+	b=i9mybpqsAEITqvRVmDyjvpBSYn1VVEel0MXYBDWRiFshLj12AHvIp5t6WHqdZyhjCDi3
+	 ZN6bQJfFg8cU67EvMasDkbJOhy3oUELEWRCMm5buGEJxDtsUqv/15dm1Ifz4lSa2nt/zN
+	 nXty16AnMBeTAOWVdE+IhqrLfu2NUOfPTkRgQ9ImA/D4+KsB9aOrYF1bKb6pHqLAMRaM3
+	 3mHH55K5/aIm6+UtSBabvN78jqf0gUKEHXi+zc+CZycr6+ecccztzVuWdroprSw2eQviC
+	 bTgb6IjcQhhYi7Zg8uwXoYxkSnSQmm/ZidYsDTDz8MSVjgkYUtA2dBGjAGWz+lllKMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ax7xi3jm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LQTv4+r+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16122606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:33:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34B0606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:33:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ax7xi3jm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F6F31F0089F;
-	Wed, 11 Nov 2026 03:33:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LQTv4+r+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F38C1F0089F;
+	Wed, 11 Nov 2026 03:33:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794368010;
-	bh=1AuWj1mFqkp5pUXRMMdzW5vqvMcYIuWZzTOHEdwcYxQ=;
+	s=k20260515; t=1794368033;
+	bh=ZZMaJa7A8btflg6fzjNWikrxEkfZP7b5T+vroRVbtbs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ax7xi3jmCI1fqQN2wrBe+LAeAoQjBzPlKcjp2hfSxooKSpaGLOLZSzLIWJormDZs5
-	 L78LuZwO3p/sXQPlvhl7VJnUyf6IiaRB2qN72j//ddUduRk8Wn6NtSmZ2YOJzrv338
-	 1arRHql6WogR/nJoYfmmZsUsIIe7e7nFWaY1Cjna89XWNGPQ4FCliWmcD/nfWf3Kdw
-	 GZkLGSVGAm6mVvF6vhbUNHDK2kh2TTiweTLs0C7xTeVCcRQ/PJyVMxNVal8Z+QLqnJ
-	 5UIqjQ1VKjzTGM7Fvr9GkM2k+N0rUo2rsyZ7jR0+RZuxpbkJu0s+pF3FUvVjJOboP4
-	 HZta1cbwMrSQA==
+	b=LQTv4+r+EJsQKUO3bD2JVnb+sheUjhvc/y4IOntPLl9i3/+OiipKlgI2jv4fD5eO2
+	 pkxnA3n3K1SL2ixhtW98rYfIzEI7JLnFw3b5hcEQZD2JF/OwK9KliwFd7Jgan3NdO/
+	 d/CcUYxBcYiggLKhS5oum/QqTPPxkZ4nh02cKP/CfcgoULB3LVkX8wq8t7tTSZmU2B
+	 E+KnYfXwJyrlUxR39BW9NVblOKrMWkVGmX9IjcqMk0TW4qs/+8qBMhJWG0NugkAT2W
+	 Rle0Bu5k9qNJOqRP6IfsPur9KZmNTOOdO3W3f2hNjfiLaTPgnLMJRJK5JKRnnu4ioE
+	 +CX1FCybYfjvQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ridham Khurana <khurana.ridham222@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Adam Litke <agl@us.ibm.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Rik van Riel <riel@surriel.com>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] hwmon: (lm70) Fix rounding of negative temperatures
-Date: Tue, 10 Nov 2026 22:33:28 -0500
-Message-ID: <20261111033235.895117-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/vma: don't leak the commit charge on mmap failure
+Date: Tue, 10 Nov 2026 22:33:50 -0500
+Message-ID: <20261111033332.882078-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060016-failed-5.15-eddb0aaacce4@kernel.org>
-References: <20261107060016-failed-5.15-eddb0aaacce4@kernel.org>
+In-Reply-To: <20261107051410-failed-6.18-aa09311c40f6@kernel.org>
+References: <20261107051410-failed-6.18-aa09311c40f6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,62 +79,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ridham Khurana <khurana.ridham222@gmail.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc ]
+[ Upstream commit aa09311c40f6d3aa6037065e17d257ffa48b9402 ]
 
-temp1_input_show() drops the low bits of the temperature register by
-dividing the raw value (raw / 32 on the LM70). These bits are not part
-of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
-return some of them as 1, and the TMP125 fills them with copies of the
-temperature LSB. Division rounds toward zero, so a negative temperature
-with any of these bits set is reported one LSB too high.
+Patch series "mm: various (urgent?) fixes", v1.
 
-For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
-driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
-the driver reports as -24750.
+Here are various MM fixes.  The majority was reported by Josef at
+Anthrophic, the remainder was found while reviewing/overhauling them.
 
-Use an arithmetic right shift instead, which drops the low bits and
-rounds down.
+Two issues/fixes reported are not included, as we are discussing
+(better) alternatives on the list already.
 
-Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
-Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
-Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
-Link: https://patch.msgid.link/20260924205326.1739229-1-khurana.ridham222@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: Omitted the TMP125 hunk because TMP125 support is absent. ]
+I left most of the original commit messages as schloppy as they are: I
+don't particularly care as long as the code is in good shape and as long
+as they are not actively wrong.  But I (and Mike) could not be stopped
+from overhauling at least some of them.
+
+While I don't think there is anything too critical in here, I think this
+is a good opportunity to see how fast we can get pre-screened/pre-reviewed
+fixes upstream that might be security-related.
+
+The majority are hugetlb + uffd issues, that are not actually that
+relevant for most installations.  But all things that should just get
+fixed.  Some uffd fixes need proper follow ups to fix some more of the
+root causes of leftover UFFD PTE bits (or proof that there are none
+remaining).
+
+This patch (of 10):
+
+When an accountable mapping replaces existing mappings (MAP_FIXED),
+__mmap_setup() only charges the difference between the size of the new
+mapping and the VM_ACCOUNT pages it replaces. It then zeroes
+vms->nr_accounted so that unmapping the old VMAs does not return their
+charge, which now backs the new mapping.
+
+If the operation fails after that point, the error path returns
+map->charged, i.e. only the difference. By then vms_clean_up_area() has
+zapped the page tables and closed the old VMAs, so
+vms_abort_munmap_vmas() cannot reattach them. It leaves a gap and
+finishes the unmap with vms_complete_munmap_vmas(), which uncharges
+vms->nr_accounted == 0 pages. The old VMAs are gone, the new one was
+never created, and the charge of the old ones is never returned, not
+even when the process exits.
+
+No privilege is needed to hit this, only a file whose mmap hook fails,
+for example a socket (sock_no_mmap() returns -ENODEV):
+
+	p = mmap(NULL, len, PROT_READ | PROT_WRITE,
+		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	mmap(p, len, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_FIXED,
+	     socket_fd, 0);
+
+Every iteration adds len to Committed_AS for good. With
+vm.overcommit_memory=2 this lets any user make all further accountable
+allocations in the system fail with -ENOMEM.
+
+Once the new mapping has taken over the charge of the mappings it
+replaces, it owns the charge for all of its pages. Record that in
+map->charged, so that the error path returns all of it.
+
+A failure in __mmap_setup() itself is not affected: it happens before
+the charge is taken over and the old VMAs are reattached with their
+charge intact.
+
+Original fix generated by an LLM and sent in private by Josef.
+
+[david@kernel.org: call variable "uncharged" and make it const, adjust/simplify comments]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-0-42796911043b@kernel.org
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-1-42796911043b@kernel.org
+Fixes: 4f87153e82c4 ("mm: change failure of MAP_FIXED to restoring the gap on failure")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Adam Litke <agl@us.ibm.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adapted accountable_mapping(map) to the existing accountable_mapping(map->file, map->vm_flags) signature. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/lm70.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ mm/vma.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hwmon/lm70.c b/drivers/hwmon/lm70.c
-index d2a60de5b8de9..0a9d7bdd0d3c1 100644
---- a/drivers/hwmon/lm70.c
-+++ b/drivers/hwmon/lm70.c
-@@ -90,17 +90,17 @@ static ssize_t temp1_input_show(struct device *dev,
- 	 */
- 	switch (p_lm70->chip) {
- 	case LM70_CHIP_LM70:
--		val = ((int)raw / 32) * 250;
-+		val = ((int)raw >> 5) * 250;
- 		break;
+diff --git a/mm/vma.c b/mm/vma.c
+index 8669da66edc5c..3710cb70ca682 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2462,14 +2462,17 @@ static int __mmap_setup(struct mmap_state *map, struct list_head *uf)
  
- 	case LM70_CHIP_TMP121:
- 	case LM70_CHIP_TMP122:
- 	case LM70_CHIP_LM74:
--		val = ((int)raw / 8) * 625 / 10;
-+		val = ((int)raw >> 3) * 625 / 10;
- 		break;
+ 	/* Private writable mapping: check memory availability. */
+ 	if (accountable_mapping(map->file, map->vm_flags)) {
+-		map->charged = map->pglen;
+-		map->charged -= vms->nr_accounted;
+-		if (map->charged) {
+-			error = security_vm_enough_memory_mm(map->mm, map->charged);
++		const unsigned long uncharged = map->pglen - vms->nr_accounted;
++
++		/* Charge only what's not already charged by mappings we replace. */
++		if (uncharged) {
++			error = security_vm_enough_memory_mm(map->mm, uncharged);
+ 			if (error)
+ 				return error;
+ 		}
  
- 	case LM70_CHIP_LM71:
--		val = ((int)raw / 4) * 3125 / 100;
-+		val = ((int)raw >> 2) * 3125 / 100;
- 		break;
++		/* Our new mapping owns the entire charge now. */
++		map->charged = map->pglen;
+ 		vms->nr_accounted = 0;
+ 		map->vm_flags |= VM_ACCOUNT;
  	}
- 
 -- 
 2.53.0
 
