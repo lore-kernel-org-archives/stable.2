@@ -1,60 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794406989;
-	b=Sdpx+7qrY/LMWktN9HLywxrBKchecUTD2eUQLyXT0MiljNARiXtt8ulCCLcZYlEoiiMt
-	 B7rqBDv5tN/+0Q45q+PK6WNhAb8tPCilp+3ondXcjMXvCOGrJbv0uayhI/uzSdQyiWAYl
-	 gDVYoE6bjGnsP2DWIXjJWbbazlZQl+IWO/rm7HX/hsFdMYbzhGnozT8PvMVOiDIUBFaL8
-	 kxHcFzz8VMthXcKZNsSI7grO+wsIiz8MM2Fe1hKGIvvdcgNGD0aFWqQcg6u9NiqZS1QvW
-	 F3Clw3LkWZjbR1ZrqAKddcaJz9Dt9TJ88CkQbbOtIGXpM07F4att7ARJeCdkMThpTLg==
+	t=1794407054;
+	b=QifcttWlx+0BtOHgG6udybpZl20db8y9Obw6zbVPaYvF1dB4N4Lm7sdy1TmHRE2BslhN
+	 BVmS2psR6N2LoOr9QUY0HiHPCydvul1u8kuSUiW7fAs/1X5b4IYkhaJU9Hbb+7EZDa7cu
+	 Qil6dEyvRxyMZB3SqwxIj1pmBnUaky33ldXwN9ww1WYtCt+KiF3C9hl1PxL5YJDulccGU
+	 yhkgi40DpZJbgcnnRJE7C4MjSGvAuATXme152VZiqrsYLBKSSis8GFLeXzgpTB+i2R3b4
+	 bi0U6gX+hjCwVWYYihp+nnBTUDJkyqCrzXki2VxhGU3++8hg+DrEnr9+DVYdzcfcaxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794406989;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=MfK+Ct1wnKvHqvVJNEe4WyjG/GXhOd1P262DUdXiVco=;
-	b=tDFnarIcbMqTA1p49gm/g1C8wJF1/2jx35jHohS2XTBKsFH44I4Z8vVjwzzu26ZLw0Ia
-	 xNF/6BnbwjYfPhP/NcI4WbH13SJx0VMdt7/nIHpgcicNirlJBzZAN/b0bLrDSZigD+AgM
-	 n1D0qxW4ZYqeWiunMfcQYaasDwVMk66xxQRyW871S4KcYNFr6w2UriwlK49GyOpQZGOu8
-	 uDmBsxXBYXhvhXWCd9bzE+bm1/Ff/FUfebQQQPAgObFbYybjjcvff7neqLZ9qno+iCG19
-	 wvAnPXx0WNWzyDcFEbYnIpXa5zMWbn8a9T4+h25EEC3dGZQg9uVkjBmwMyHNuTI3gww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407054;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Npgvb84M0kJgdnmAsSFiguDvaupmEXtt/RUSJRF0Wy0=;
+	b=AvKM59ZH4/bR489Wnb/Ft07tFJLy2NISpWm84AJS3B8GGrmaSw7ToyURrx/F/sTIkcab
+	 DOYS8ic4dxsN8rq2a+6z9y4X9Ew0UquKZopCC8l69qXOyX2sY7EA4PN8ZSSFFDjGf7LHR
+	 +mus9/bZpnH8lXh1LS7katUQio9cJnokbbjUQF+i5CwKzQfd1JXbicztjNnrdbj8aiJkU
+	 uQ02YwcmHthKu+lMUasDSC4jMm0Zs2ZBTCzwW7fzfI7W4VSJkpPEn/qMwHon1UTE4zDtH
+	 fPfrvB/EHDfqLlfHt0Q/HGM8/pmyo1vU9K1IJHYHbYi3Pwxy7LKRw8hYd0GnrFGS+iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvkiFzwG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZXaskvO2;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FarBWl8t;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EFB606A321;
-	Wed, 11 Nov 2026 14:23:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23546606A897
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:24:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23546606A897
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvkiFzwG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACCC11F00A06;
-	Wed, 11 Nov 2026 14:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794406988;
-	bh=MfK+Ct1wnKvHqvVJNEe4WyjG/GXhOd1P262DUdXiVco=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=HvkiFzwGImnaKNKtYjCIVV+gFBB7XIAz+YJXJdLRYAdfIoGcmJfXWDBvxBjlcJwlf
-	 CeMaM2mj4NdV7AGmzNHXNh8sQe9rVzXiReC5w/JqsIBXdctouFASOe8OaQicgVtoBU
-	 dlVokfIHnHmXhs9ZOQuYRgNfZB3qE9q9Aowh2SrlVEGSCoK6Tjiwuo+hRXUEcfaxs2
-	 2RlxLM9E7Gij9WajaxbX+7tIqxw3dicsSlMJxRqKQfrSh7Mr53cw6HoZc6iaWR7XKg
-	 oz4qFb0d8hRmMIthsq3NQPsStKXGUsUn7v6pBdn8tYzMOHUVq9U+G1tO1YFqlxIgqE
-	 6R/UYIID5zQCw==
-From: Christian Brauner <brauner@kernel.org>
-To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Cc: Josef Bacik <josef@toxicpanda.com>, Serge Hallyn <serge@hallyn.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
- "Andrew G. Morgan" <morgan@kernel.org>, Serge Hallyn <sergeh@kernel.org>, 
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
- keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
-In-Reply-To: <20261110144205.2404088-1-mic@digikod.net>
-References: <20261110144205.2404088-1-mic@digikod.net>
-Subject: Re: [PATCH] userns: Let LSMs deny the CAP_SETFCAP snapshot for
- mapping uid 0
-Message-Id: <20261111-etliche-koala-urzustand-a80a430d8252@brauner>
-Date: Wed, 11 Nov 2026 15:23:03 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZXaskvO2;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=FarBWl8t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794407053;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Npgvb84M0kJgdnmAsSFiguDvaupmEXtt/RUSJRF0Wy0=;
+	b=ZXaskvO2U6JKmz/iG15O9yMJQKIXLiwlTPu4X2HYj0EpthJtyh/xBJ4bLUlL7jOc1BFjSd
+	o1mkYqupb6hM2P3rappVGeFATw5GpT3bB35cOZWGv8tORfFHz5icLv6/GwdkQ31QFOuC1X
+	AnCA8wSWTYQ4t2yYApntj5AdfLFtgxM=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-435-iaqyfH1AOEucfvic0mHqEQ-1; Wed, 11 Nov 2026 09:24:09 -0500
+X-MC-Unique: iaqyfH1AOEucfvic0mHqEQ-1
+X-Mimecast-MFC-AGG-ID: iaqyfH1AOEucfvic0mHqEQ_1794407048
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a027f2e364so25244825e9.3
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 06:24:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794407048; x=1795011848; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Npgvb84M0kJgdnmAsSFiguDvaupmEXtt/RUSJRF0Wy0=;
+        b=FarBWl8tvXi1UumnOLvjKyNUvGVvqKHBHvz0IwXEUMy0YT8wcU2U17ezae3ntnt0H4
+         NiODWSEc9if6AOUfpL35fVd4CzqFkaozQ6YVSAENATtvpcLg3i67R53enj5BOlj1mpH4
+         SE8hiV47ncV0WTfVymNUbic40PN9LqQtxQDDvq6nANt6LVGwNAkwFSkOuQir4G+Zd+6g
+         QY3q3q3sKHA8SNJPgHv2Xlh0/TO+hRNmN1mzrZvcu/7GYGpViozASL5Mjisa7zEGif/W
+         Xxl0TdYB+vfxfpvpI2la/V3DB9P8oPxsZpiVnR8G/Jo998aGOc8elIXyRsLYdwTS7+85
+         ig/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794407048; x=1795011848;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Npgvb84M0kJgdnmAsSFiguDvaupmEXtt/RUSJRF0Wy0=;
+        b=0g0Cqj+kQy78PeaZ8QZg/B+L3PhXrub/iySSp5OrKYCiznH7CKCceBOrsI3MgQzQSg
+         LXOtfBklcuj2vsOas35cPGFxREOTjwdddfJAfClE7hiMl90YzfdPrCcj7DXBBU37MNhe
+         21bxHlT65PHMpoao/gNyRURFu3YrgO/Luc3uc/K2eMgM14eECo9+yXNM0LJyP9vnQMRS
+         VLe1OsGhYpQBK+f8mKe3fYeFZtsvnhZXN1lualmMZBYIfWz2rM06TtkMKRHfl7elZM4k
+         oKrriaBHcPjt63O/VxZuJdK7mbibGHpL4R3lU0Kfy1mHq7BbFyAWmhGs686tPdUzKK2l
+         Y22g==
+X-Forwarded-Encrypted: i=1; AL+hErFQT9XNVxw3bz/hdy7vmwwffoamp6y76SbCV/7ydiKKv+02nkvTudFM5uIhmxiehIIvlgNKJOA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JBUymMyKq6p8VQ+7cktHoFBe8boOeiTnk9lOhUAmX/mR0VngS
+	uKmhv90AsyvbP76Y505P0mABWKfh3DoqMPYkCetjVoLQZ1wF1WsJLArwfQKcg/2wsN92xVPy9Iv
+	xiB+DDTT4pGrcKiRP8OALeP4p42kctOLEz0OqXFnuepq2Lq5PGXvM4cm0dw==
+X-Gm-Gg: AYBFou3LQ47qfRX3RmOlV14SufYoYqct0eDWd2j3fqNs4119qFENCpgjOo5kSEN9OIp
+	O/35k90o7UtZ95JDZCR1vzI2F3ildc5XGHApxTtmnojA/1Iil1NPmbSLTyeTETqUYsm6QVqU4fm
+	n+H8gTH7WjnleBEMkJqbsDpxpPf2+ooX9IY2f26JVzPu73pSjFX9BLOjevsjbFeuswGVbzqsI1J
+	Ssr6A0TKcu/+s5AMO4ZNfJYO3akuIwuOflY6MSeqCAWPv9uMM0QY36Qdd0R6KJsg7xRAH0BfePB
+	07R9hM7MH/P4k0JdajELAiufGY36rca9x+RctE5zM8r83fSqS7hJ9Qs19nJCgabb6xsTlDBqCkd
+	NDS8/fBYvgVP3cnSC7fwf0TtRaL60TOLgjZrl11xDhb/gUdjFhYtEkzggGicNuJXRvMMcVVzclC
+	K9FH8=
+X-Received: by 2002:a05:600c:840c:b0:4af:c210:5b3f with SMTP id 5b1f17b1804b1-4ba09377dbfmr46939685e9.24.1794407048218;
+        Wed, 11 Nov 2026 06:24:08 -0800 (PST)
+X-Received: by 2002:a05:600c:840c:b0:4af:c210:5b3f with SMTP id 5b1f17b1804b1-4ba09377dbfmr46938695e9.24.1794407047403;
+        Wed, 11 Nov 2026 06:24:07 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585c5c4sm9579508f8f.17.2026.11.11.06.24.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 06:24:06 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:24:03 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org, Qais Yousef <qyousef@google.com>
+Subject: Re: [PATCH v5 15/29] sched/deadline: Rebuild the root domains'
+ accounting from the task list
+Message-ID: <avR6g-ndjl8Xdo1y@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-16-mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,35 +128,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.17-dev-ce4c1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-16-mathieu.desnoyers@efficios.com>
 
-On Tue, 10 Nov 2026 15:42:04 +0100, Mickaël Salaün wrote:
-> Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
-> records in parent_could_setfcap whether the creator of a user namespace
-> had CAP_SETFCAP, because a creator writing its own uid_map only has
-> capabilities in the new namespace.  The snapshot uses cap_raised(), so a
-> task whose LSM policy denies CAP_SETFCAP can still map uid 0 in a
-> namespace it creates.
+Hello,
+
+On 08/11/26 13:53, Mathieu Desnoyers wrote:
+> A rebuild of the root domains, as on CPU hotplug, clears their deadline
+> accounting. dl_rebuild_rd_accounting() then adds back the deadline tasks
+> of each cpuset. Without CONFIG_CPUSETS, it is a stub. So the first
+> hotplug drops every deadline task's bandwidth, and their releases wrap
+> total_bw around. In testing, a root domain admitted 9 tasks of 10ms
+> every 100ms before a hotplug with deadline sleepers, and none after.
 > 
-> [...]
+> With cpusets, the rebuild skips a cpuset whose nr_deadline_tasks is 0.
+> This count spares suspend and resume a costly walk of all tasks. An
+> attach moves it by a tally taken in cpuset_can_attach(). A task that
+> leaves the class between the tally and the move is taken off the old
+> cpuset twice. Its count can then reach 0 with a deadline task in it.
+> Every rebuild would then drop that task's bandwidth.
+> 
+> Fix both by walking the task list, with or without cpusets. The walk
+> finds every deadline task, so the count and its hooks go. It holds
+> tasklist_lock for reading, so fork and exit wait meanwhile. It locks
+> only deadline tasks, where the walk that the count avoided took the
+> pi_lock of every task. It leaves out an exited task with a dl_bw of 0.
+> It also leaves out a zombie whose bandwidth an earlier rebuild dropped,
+> as dl_clear_root_domains() does.
+> 
+> Without cpusets, a new dl_accounting_mutex keeps admissions out of a
+> rebuild, as cpuset_mutex does with them.
+> 
+> Three hotplug cases of deadline_bw_test, added later in this series,
+> fail without cpusets. With this patch, its five hotplug cases pass, in 4
+> VMs. Its death_zombie_hotplug case tests the zombie. The Sashiko AI
+> reviews of v3, and of v4 before posting, found the drift and the exited
+> tasks. Its review of v4 found the zombie.
+> 
+> Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
 
-Applied to the namespace-7.5.misc branch of the vfs/vfs.git tree.
-Patches in the namespace-7.5.misc branch should appear in linux-next soon.
+As you most probably know, the count this removes was added because Qais
+reported 10-20ms suspend/resume regressions from the old walk on
+Android, and the merged fix was validated only as "delay no longer
+noticeable" on zero-DL systems. Added him in Cc.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+The new walk drops the per-task pi_lock that dominated the old cost, so
+the approach might be OK, but since this is Cc: stable and will
+eventually reach Android, maybe someone from there can confirm before we
+pull the trigger?
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Alternatively, a single global "any deadline task exist" bail would keep
+suspend/resume free for the no-DL case without reintroducing any
+per-cpuset bookkeeping to drift?
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: namespace-7.5.misc
-
-[1/1] userns: Let LSMs deny the CAP_SETFCAP snapshot for mapping uid 0
-      https://git.kernel.org/vfs/vfs/c/2397c70f7645
+Thanks,
+Juri
 
