@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414001;
-	b=dpu0PvZEmy7m3itWdupuOMnBjR19/O2JjiHGvXhH1mMVGruIUNbtn96O0PMW7gwM2Bk2
-	 FG6FapBv9BTfQWKUsq1APHzoehbIAiV6E7CF93P4UyAZu7yjZ9+xmQ0zut7+r4rPXGBZ+
-	 a4robxyE6mWD7QCfbMG9hsRntVvfjhM64UfwEHTceZFWhgxY2TF/tmxw2/Uw4LTYv0+kr
-	 dhUDhQcJ8Oy8NtCIaJLZQ8t7isgl9ZWps0419zLuhrIWKx+p7Ca3RlqKb8DhH5cnhSeqg
-	 6pmb7yO3t582otHvlH9+KmzprLkyvOVfqnX9i0XZRl+F1ZX149UKSwL59bK6cMhYNDQ==
+	t=1794414134;
+	b=5dptryFhXApwxQ+MXY7B1EHzcJzbWIGktJ3XIkEaGaNpqS9gyPj3M44CyZFxac+nRrWG
+	 d+Y8T7QR1rPflkC6iAQqitZ1COcUHJdKY55wlPiIg+EU1dTw44IAqa3vR92fRCM7Tt0Mk
+	 lZtoNZw1RAN7+XK+xyNMsCHMapIErypxEWsXpFNlx5AMe3AnoYvfGNl/0eYOvOarPJcwb
+	 Lxz1XXLyxgK1aeC+qbRHFvOQ+bUw90oH5sK6BJimipgQEBGz4/nx8075bTVCiGwSkcRxa
+	 5oWL+J6pqi+F/cHZgs4DSHkHHidmgBfbQyPGXXQ0TP4D0BPD0m0WiFQgX0WF8DhUqkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414001;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414134;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=81afY1w5fT54XaQnuizvBfCDI0iM1Cx6D8T2kIBJtXA=;
-	b=xQ7durI+NimWIusTz+cJDvCCrNjMiYA/Vm0DzrP8QcbvfyDAomTW6BFsWoHKD4jrEYKF
-	 IPkxKVsn8loSWTLUt0/PluscVr7AAfArYsJVVRdEa8l4fmX58dz+R6q4ahk1+o1phYk4g
-	 LlTnWZtLySTBJOSJVWUSF3+TVfVqRaJAiWHQ3fHakgxzWD8iCE+a1POXRUaG3AsmZ79Ne
-	 bGY8hHGZ4RMgtHRr0WjG7ksGNRMOAAVuC9cEGf5s4HbwFWBkEN0VqX3pTyL8QoXT3c9ru
-	 YYSAOwOb8lI3m8CeNEYbngnuh1KqKBnqZG4Wox70esXhRFUbcShdeyf94goh3o1eOjA==
+	bh=uc+XbsyDv1Lbk4nCqSnicF7bVtJ2iFuUUXg5zFQrTCk=;
+	b=4gnGDhEI0s+RMSj6G1ehsakicJ3tpoOHBlU6JMl2X2ck/nDXLNCmuXAgmzt5m+6KHczP
+	 R/nkQcm/yo9qsRcW+fG36DMHQcYdEXYPZp0JfjFpFsGn60zLutueuY6j5L3APoRSEabZ4
+	 pyHkpvYWfguHKmuk9NB4VV/Lx2MKekoW2hO1IRHtiK1wiqjFQFr5GPdtWqvzDzhfR21Vf
+	 3PHcDvH8rLzfs6ngrtWhqhKhC/IcjxO0ikCgj8lQYm/J389IC+/LwaQ9rkI8/HRhJ6306
+	 DreNbD/ufzx0KoHn0YtYoyxFRaOcC/u+U8v7NNM/jb4hng6YogUg0HlSL3rNVvFXMsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m/Hsx855";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amKfau5A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFE660A263C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:20:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C098C606A881
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:22:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m/Hsx855
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A436F1F00A0C;
-	Wed, 11 Nov 2026 16:20:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amKfau5A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF1BE1F00A05;
+	Wed, 11 Nov 2026 16:22:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794414001;
-	bh=81afY1w5fT54XaQnuizvBfCDI0iM1Cx6D8T2kIBJtXA=;
+	s=k20260515; t=1794414134;
+	bh=uc+XbsyDv1Lbk4nCqSnicF7bVtJ2iFuUUXg5zFQrTCk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m/Hsx855mIUDYupEf37LVaMpeYmLvop5jc3wRL6zTJA+pW6bHTUawNjIFQsXV/HPI
-	 kCYs0goJ7Nd4y0a2dZWOMMjp5xChz2Om9KlI6h6D3G15Y1UUtizNK2GGeFF3Un7+hn
-	 jWou8mLgz9hLzz2G+2mp4D/+cGvYOED8QRg+ILaGG4hwBKMIQ2cIRBdMT/H0JwtWOR
-	 F/iGxKBHLgMjJXSLsOvzk8/rtgImjhN2FpDfb+Spxji/8IzLyPrJLt3oiZRvBtPfnB
-	 xhbQFmuHrvV9QCD9HncnX7evqZsG/mcaZofhng7UmWQIXFrH2IQ+lpIRKedDVcvhLB
-	 gJWDM6RG0+ByQ==
+	b=amKfau5AS+5cBhpc50RnrZkx06AD09H6F40gJ+uSCO3/YBTiFXiNsZLc3FSufRpuV
+	 0yiBn3IagPi4Ylj+9z6vuAcE0MT5kyqr7pR38IF6+Im4OZsewcteUO52cwG8BpWZUG
+	 vhdaZKN5JwiomZ1xk4LAiO1NioyKV00dRcYS7R1YwVh+Jcy8X7eo0WIaW6y5fv5R66
+	 knP5q6eWVKjHvbQiSzz4eLYSedUdQfzuMxJ9YsQN8HIC4CpJI9wO5GNNN32u1jFpDz
+	 XwnDVHwLrCZs8AAk0p0Qo4nHnrTxOa+jgeb0y72nWKeoXzCwFTO8q2re6rVd/hX23Y
+	 l+zZcXszT5s0A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Farhad Alemi <farhad.alemi@berkeley.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 5/5] splice: avoid stale f_pos writeback on error
-Date: Wed, 11 Nov 2026 11:19:56 -0500
-Message-ID: <20261111161949.3187571-5-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: control: Fix UAF in snd_ctl_elem_add() on card disconnect
+Date: Wed, 11 Nov 2026 11:22:12 -0500
+Message-ID: <20261111162146.3266882-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111161949.3187571-1-sashal@kernel.org>
-References: <20261107063106-failed-5.10-79b496ebe382@kernel.org>
- <20261111161949.3187571-1-sashal@kernel.org>
+In-Reply-To: <20261107060049-failed-5.15-d4febca239be@kernel.org>
+References: <20261107060049-failed-5.15-d4febca239be@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,68 +61,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 79b496ebe382866e3a05090b7dc9ae95e85e65b2 ]
+[ Upstream commit d4febca239be3c91498762dd0535a87d4af1eabc ]
 
-do_splice() snapshots an implicit file position before calling the splice
-helper. Since splice does not take f_pos_lock, another operation on the
-same open file description can update f_pos while the helper is blocked.
-If the helper then fails, the unconditional writeback restores the stale
-snapshot.
+A use-after-free can be triggered via SNDRV_CTL_IOCTL_ELEM_ADD when a
+USB audio card is disconnected while an ELEM_ADD ioctl is in flight.
 
-For a directory without ->splice_read, a file-to-pipe splice fails with
--EINVAL. A concurrent directory mutation and getdents() call can advance
-f_pos and refresh the filesystem's revalidation cookie before that failure
-restores only the old position. The next ext2 readdir can then trust an
-offset inside a directory entry and copy data from the adjacent page to
-userspace.
+The reproducer parks the ioctl thread inside copy_from_user() using
+userfaultfd, then tears down the USB device.  Unlike every other
+ALSA control _user handler (ELEM_INFO, ELEM_READ, ELEM_WRITE, TLV_*),
+snd_ctl_elem_add_user() never calls snd_power_ref_and_wait(), so the
+parked thread holds no power reference.  snd_card_disconnect() therefore
+cannot observe it via snd_power_sync_ref() and proceeds unimpeded:
 
-Only update an implicit file position when splice returns a non-negative
-result, matching read and write. Keep explicit offset updates unchanged.
+  1. card->shutdown is set to 1
+  2. device_del(&card->card_dev) drops the kobject reference on the
+     parent USB interface device (card->dev = &intf->dev)
+  3. The USB core drops its own reference and calls device_release(),
+     freeing the struct usb_interface, including the embedded struct
+     device that card->dev points to
 
-Fixes: 7995bd287134 ("splice: don't pass the address of ->f_pos to methods")
+When the userfaultfd is resolved and the thread resumes,
+snd_ctl_elem_add() acquires controls_rwsem without checking
+card->shutdown and calls __snd_ctl_add_replace().  Because the
+reproducer pre-registered the same control, the CTL_ADD_EXCLUSIVE
+path calls dev_err(card->dev, ...) on the freed USB interface:
+
+  KASAN: slab-use-after-free Read in __dev_printk
+
+Add a card->shutdown guard immediately after acquiring controls_rwsem
+in snd_ctl_elem_add().  At that point card->shutdown is guaranteed to
+be stable: snd_card_disconnect() sets it before freeing the parent
+device, and it never transitions back to 0.  A thread that acquired
+the lock before disconnect sees shutdown=0 and holds the write lock
+through the rest of the operation, preventing concurrent disconnect
+from proceeding past its own controls_rwsem-less shutdown=1 store
+(which happened earlier, outside the lock) from racing with dev_err().
+
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
 Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20261018051708.2422394-1-4ncienth@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260929125346.1478631-3-tiwai@suse.de
+[ sashal: adapted the direct error return to set err and goto unlock for explicit rwsem locking ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/splice.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ sound/core/control.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/splice.c b/fs/splice.c
-index a11d5ab38ca63..300302969fb34 100644
---- a/fs/splice.c
-+++ b/fs/splice.c
-@@ -1078,10 +1078,10 @@ long do_splice(struct file *in, loff_t *off_in, struct file *out,
- 		ret = do_splice_from(ipipe, out, &offset, len, flags);
- 		file_end_write(out);
+diff --git a/sound/core/control.c b/sound/core/control.c
+index bce311cd5326b..3c06f426dadd0 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -1534,6 +1534,10 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
+ 	alloc_size = compute_user_elem_size(private_size, count);
  
--		if (!off_out)
--			out->f_pos = offset;
--		else
-+		if (off_out)
- 			*off_out = offset;
-+		else if (ret >= 0)
-+			out->f_pos = offset;
- 	} else if (opipe) {
- 		if (off_out)
- 			return -ESPIPE;
-@@ -1098,10 +1098,10 @@ long do_splice(struct file *in, loff_t *off_in, struct file *out,
- 
- 		ret = splice_file_to_pipe(in, opipe, &offset, len, flags);
- 
--		if (!off_in)
--			in->f_pos = offset;
--		else
-+		if (off_in)
- 			*off_in = offset;
-+		else if (ret >= 0)
-+			in->f_pos = offset;
- 	} else {
- 		ret = -EINVAL;
- 	}
+ 	down_write(&card->controls_rwsem);
++	if (card->shutdown) {
++		err = -ENODEV;
++		goto unlock;
++	}
+ 	if (check_user_elem_overflow(card, alloc_size)) {
+ 		err = -ENOMEM;
+ 		goto unlock;
 -- 
 2.53.0
 
