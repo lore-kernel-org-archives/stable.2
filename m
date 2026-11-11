@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438303;
-	b=sOWtVBNyxdd733psqNIgDG+D3ACzfuwDSY6XS7roEXRv2ygNgu2YnJVFgcwrMdtOK00m
-	 aM/ZblUAdIaaeEFzjSAYaZhxR8DDG+H36CFljdgIlHegKNQyCP1wcJcaZvdQU3AJTXHA4
-	 +GFGKWaEhgPMk9TQlSufRFP9LdjoA9533dPRKUxkMWWGa/WBwQ5RrYUl/Oe0sUIO7dcrV
-	 O0UsHP7Ay2zJakecd75CwJtWw2Ym7swD3QMuSBhNdZhC6IzvqDJn8WGmT7Sd0l8yrs72M
-	 qZ/HfBQJwHMjBV3IIaC4IOy1HzFI0l5YsGzTFksQHdxuFylBqUvGfB4Sn/7nIxQD4Vw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438303;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SP4kKZr1/rxDpDSqBCS8ofh6a0EM3fbwBhr6xrSIS7Q=;
-	b=gGTY6kAvRXmYU/d0WRnsFgIbCx0VpHsPKSWpmQTbi5q9KdIRtKaXPaRnRDkVyzLgdFuv
-	 04cnATfyghTnSCuVAytzFvvqZ4Q5prjzaeNejip8afr9OgnlUF748O1p9IUHTj6C3qqKz
-	 c8YQAi3LzW9qfB/ymzoHF11EDhhXuZ9GxxCKRDjfKe7o5hWx6jPO8asOwdNp3EewGGlZb
-	 f9GPX60+Wdh1v/KlDM3RlikSqRHpYxg6iBbOfkvgMihVKezZit2gmDN7s1hHGWhC84/Br
-	 ztM9TSHihHxZEMaHxy5e3uoipAmpf/tsWd8sf1c79SHD2GMrx1tySq+jAyKxb/5bB3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGW3WEcB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794438385;
+	b=EpBLZISNd3/GnE0+SfJFIiYxm5qyB/GkptQovvpcng46f+QNkKj7mmNDeizi6ilsSRoO
+	 EYDdql56kRSEIZhauuQA+vWa4WpiXkEcyy112Yk79eP3h5orreltkgBiBulA7aFVTZDDk
+	 xKQ+HMd8Z9Ackl3jvaw5XJCApHrNTp0l9ONdlW2MRRxBXLklf/8075rV1Me5Pw52obL/t
+	 nHFBREiU5mJe9h3rMn1p3SEpoi/wiUGCR/RQvC8u+rLU92jnYij3WI/QwqBMsf16Id+LA
+	 unukbVdL5UyMAYmbgPMkBhmiugWQkQgGp7PLCdYmb3ifPFZiwsb4D8gSfikUN3ZGeNQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438385;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=UBAHlhDi5WQPAtUaYtX9EVzqNVw4F9k31X3Owyz2mLA=;
+	b=JYLUszjPyrhyPqpNhFrgzGY/vS3MbKmOnCF47PemSGo+lGFkHFzh5MQEGYqlp1otWwlb
+	 sHo7M4iah++HyOX8mStGadiSo+Zg0dO8gKEew9JsegSudtrnuap3xTueMZyCps3tCxoBH
+	 CJb1WE2D075+TgaYVfBLkAswvf9lM6WINYR3NIzvQvQYr+unUTd4WIXz9Lg0W26fhiMR+
+	 AiGUxqMXUxMK+uNZukosF5aah2K1kA3Bm0VIjIdQI2FRtx4QwLg+YxJj+0Dtbfb0Huc0a
+	 j41/cdQshudXV6K65EU6isCvGoZq1DXlbkkm5BETD9Cy8bRBsNA1Mb/5Y5mSt5KCLRQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=clyso.com;
+	spf=pass smtp.mailfrom=clyso.com;
+	dkim=pass header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=nuU7BGkg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC198606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC3F606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:06:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FC3F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGW3WEcB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815B71F00A05;
-	Wed, 11 Nov 2026 23:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794438303;
-	bh=SP4kKZr1/rxDpDSqBCS8ofh6a0EM3fbwBhr6xrSIS7Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gGW3WEcBZzwhPxkqlF2+unEElVQcARfz+A/YckpRkrDpN+WmN4UGmU7TX+KXGG7/s
-	 g6coDJIRqaZu29d96sZXS7A22Z1lposOI9b2H0ftQkva7nintzjJeiyE8tNse3GnhO
-	 y2D3G9u+7W8qd8AdeiTbDzdskYDSc97jLJSySEeJgiMblePpt1vSZfrd8XspcY/rHp
-	 4c6aY0alXawf4U+bo6ENASGKUpE7sL3CoKRYGtnds1VlG8yeC7Bj7NV7opOj6y4VDC
-	 mEbdmwKZyWu4sAJk7vsdC2LkHi9yZU3hKf1LtkH6lxsG7RX1V/JPwzhQy+gQkSzhvU
-	 BUd1+0aoUsmyQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/userfaultfd: wake waiters when registration modes are removed
-Date: Wed, 11 Nov 2026 18:05:01 -0500
-Message-ID: <20261111230446.377585-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200508-failed-6.18-4eee9c389b07@kernel.org>
-References: <20261109200508-failed-6.18-4eee9c389b07@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=nuU7BGkg
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b56c428212so4839341a12.2
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:06:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794438381; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cvQuC+V3VfWv/mhpXP4nQ7diCAfe28RAnddX/lDorT/JmyeBwO0ZOUtSuhgEEmuydk
+         17tN9Kdf4Cb7dmIbY1BAb9IHw+OgPeaM24Ik4jQuCn76uyS56EVOw3iNjYWewL+Tt7Wh
+         1Fjhhf/fDag3jnL4IICkAMa/LQtcak+ADwbW7Xhc5gNDin/wFOqLTM01ayNodVMdVOQ9
+         w8kzxm4M7BcoQfUkyLkrCX7onEh9FwdCcmnjPrhmsn0p0ImSs9cGeAO1h6tmqzgfaUOn
+         4y9AylWfXYebOyDZweTkJ1nQhXsyqUXFQVaWXXM5zUG/qBLDbPG6Gm5mcX36uCbKqcbk
+         jjhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=UBAHlhDi5WQPAtUaYtX9EVzqNVw4F9k31X3Owyz2mLA=;
+        fh=bMK/+tmPY5nChx9lF4Ot7Bva0ZVDzJS1nZ+atPDwogs=;
+        b=Wn/Nz4NGtpT/tYvxBOO6aiMl4EgKxhHM4waY60HTLNrDZpnMCUVnw0/CfXa1dqeFSV
+         +9BRm+xYWnZtQIScY1uEne35AhnYm9bUTcqv96JQxzLlKz5NiXvXOMHUtgDARnh7pd+5
+         wccD5lCpfli2s2gbXc2HCa0+I2j41HEZ9PbLF5xRLNAP5znffIVgTlN5JSxgnu7fXfs8
+         zJ9r5U1fOH3BC3gKVt+i7Wtzu+X0E00+V5hkUrsC/QvzzbEcdFi0Duq/veC5afPBhS44
+         mUVd7RoeLxLIBEVH5555cXJZjQhG9v48mz+sttr/mxvYl5LGr8d77XeRax32AWT0D+VG
+         xHZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=clyso.com; s=google; t=1794438381; x=1795043181; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UBAHlhDi5WQPAtUaYtX9EVzqNVw4F9k31X3Owyz2mLA=;
+        b=nuU7BGkgeaBonrt8SiDqzF42Ei7Sj9iRF0pQx0xNoYjkaeJfIUegbcAFZP23/jDlfn
+         f/TjmBk0tZ3jzNTo61K/YOkV5OaIT+VENaOUS0OB1yhiK3HjlARMEsdbeT+1WdrTDABo
+         LLGSdkG49e0VBARKd5QqZcAM2BpayfoI5AjvoIrQ8MK7xlN7rY6sIE4+yZgRrwxNQVuq
+         Od6EaykX2Bp647jWK/q0Wt2YGhhclT2esYQzGg/JMQ7IBeQExgEEpMH+CVwbxjggC8pw
+         D7XXn3A1OcIVpxsb+Gv4edqs4ke2WWLGHfLLcW+jXrEi1nB+dhxN3j+3XIBhD0uNCvY2
+         AYzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794438381; x=1795043181;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UBAHlhDi5WQPAtUaYtX9EVzqNVw4F9k31X3Owyz2mLA=;
+        b=w2JictNMvcWUvdoLYGiXRypjXzEelBagj8bmFfpDhS98yvDBQL+v+QwGJsOz5NiYS/
+         QtOmTkpZw1Qss2YDjBLnPMhVnurU20KQ0HyHV5ZvpWdMx2XwBRngfojhSq/wiuTYtNdp
+         K6piM9PKWKe6w4VeeL4HqP5MeL6jY5rI1/30fp5hpGkwDVvqgAR8SbJpguysk2DjoAST
+         llw0tAyU76jH6O6O88pTgiSZbKMq+rdxy1/nTWKRm+5yigQYYp4SEMFCeE535vu/ijku
+         SlUUX+uzqCN7A1seB5FMb7s/BI/PgFGDNs9qPiH93esYuw4mzBu68oK1mDlq9EdWvCNt
+         Ia9g==
+X-Forwarded-Encrypted: i=1; AL+hErEfigUvqDW6Wt2J/B16FiUgySwJTaGk64zJvK1W5vznVVdEQ1JOV1dHtMR542uFgKyfyI9Qpy8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/baOqbO+AYS2DOUhHDOcoDc2wh3JnT0RlcTzoj8zZfOiLLd6cw
+	DvcY55bKl/ebJGuUKKLABLH+wIw+AwCBVsE5PA4W5xL0Sb4tWTSi7NJkuJYF/0xfvfHLMSQEmeE
+	bUDJsSnWLKIggKPal4OZTglNdAu2H4ytnMhYnCJg0VQ==
+X-Gm-Gg: AYBFou1/KBdLZ5ncDW/cA9z95QJ1ZyNT4AGOc6J02mMHXxl/rrYtcCIssUXYUmCweoi
+	0YQlRR5DLDjznI8NTgQvzrh5r+0Wi1DRRfXIuew2KIK+Fp2HXn6U1ma/Ckz1XIzHvyRw6TKGVr+
+	HzgQ8mE8T74ara4hSIBuw85fv5cZCFWMOfkPNadldisOm+T/0/TCeNhbJtFmV5FjR0PEhCfXB0f
+	FOuKOvKAz6xvI9gYRdXi2EixCv52NVduRsE+3mFL/XwZRHHvCInRdgpSy5PF+2jxu25B/XxgKkQ
+	+2mQvrR+X0oLRqY8QS3EcLl6bEUh9lZmZboz4ohDaSCOKwJArV5BYHiOiuiELcZorNtd1ej2aHs
+	+1HMiA2pil/cWrvoi/G0Y7CE+PrFGE3LcU72Vcjg=
+X-Received: by 2002:a05:6402:2110:b0:6b4:1037:2b87 with SMTP id
+ 4fb4d7f45d1cf-6b7778161f1mr2989176a12.31.1794438381548; Wed, 11 Nov 2026
+ 15:06:21 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,120 +103,174 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111113029.959595-1-max.kellermann@ionos.com>
+In-Reply-To: <20261111113029.959595-1-max.kellermann@ionos.com>
+From: Xiubo Li <xiubo.li@clyso.com>
+Date: Thu, 12 Nov 2026 00:06:09 +0100
+X-Gm-Features: AclHuK9aye7AVhvzAeKWqenEAyLYJI-Y8Iege0JrFoT70qCLwujofRbt6K_kSvU
+Message-ID: <CAOJNxR+fkE3LigjhojZzk-XOpOBpT-2mqe5ky5ho91TmyFmpxw@mail.gmail.com>
+Subject: Re: [PATCH] ceph: fix d_lock leak in debugfs mdsc_show()
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Hi Max,
 
-[ Upstream commit 4eee9c389b072e161549d46dcb1ae10b0222717e ]
+Good catch.
 
-UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
-faults that are already queued. For example, switching an anonymous
-range from MISSING to WP leaves a missing-fault waiter asleep until
-userspace explicitly wakes it.
+I reproduced this on a KASAN + lockdep 7.4-rc1 kernel against a vstart
+cluster.  The real window is only a few instructions wide, because
+ceph_invalidate_dentry_lease() takes dn->d_lock right after d_move(),
+so I widened it with a test-only udelay(2000) in ceph_fill_trace()
+between the lease invalidation and the r_dentry/r_old_dentry swap,
+plus a 50us delay inside the d_lock sections of mdsc_show().  The load
+was 4 tasks doing rename() back and forth while 2 tasks read the
+debugfs "mdsc" file in a loop.
 
-When a registration change removes a UFFD mode, wake waiters in the
-affected interval after updating the VMA. The VMA is write-locked at
-this point, so no new faults can queue under the old modes and woken
-threads cannot retry until mmap_write_unlock(). Waiters for retained
-modes in the same interval may also wake and refault.
+Without the patch it locks up within seconds.  The check in mdsc_show()
+fires first:
 
-The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
-with both read and unread fault events.
+  mdsc_show tid 229 op 4612 r_dentry changed ffff888209d8acb0 ->
+ffff8882939b92e8 while d_lock held
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Cc: stable@vger.kernel.org
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: replaced the upstream wakeup wrapper with a direct cross-file wake_userfault() call using a shared range structure ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/userfaultfd.c              |  9 ++-------
- include/linux/userfaultfd_k.h |  8 ++++++++
- mm/userfaultfd.c              | 12 ++++++++++++
- 3 files changed, 22 insertions(+), 7 deletions(-)
+and then:
 
-diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
-index 7e40eb9131bd7..22d4a7ad54575 100644
---- a/fs/userfaultfd.c
-+++ b/fs/userfaultfd.c
-@@ -71,11 +71,6 @@ struct userfaultfd_wait_queue {
- 	bool waken;
- };
- 
--struct userfaultfd_wake_range {
--	unsigned long start;
--	unsigned long len;
--};
--
- /* internal indication that UFFD_API ioctl was successfully executed */
- #define UFFD_FEATURE_INITIALIZED		(1u << 31)
- 
-@@ -1191,8 +1186,8 @@ static void __wake_userfault(struct userfaultfd_ctx *ctx,
- 	spin_unlock_irq(&ctx->fault_pending_wqh.lock);
- }
- 
--static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
--					   struct userfaultfd_wake_range *range)
-+void wake_userfault(struct userfaultfd_ctx *ctx,
-+		    struct userfaultfd_wake_range *range)
- {
- 	unsigned seq;
- 	bool need_wakeup;
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index 796a380664bd8..d65effb5cbff2 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -78,6 +78,14 @@ struct userfaultfd_ctx {
- 	struct mm_struct *mm;
- };
- 
-+struct userfaultfd_wake_range {
-+	unsigned long start;
-+	unsigned long len;
-+};
-+
-+void wake_userfault(struct userfaultfd_ctx *ctx,
-+		    struct userfaultfd_wake_range *range);
-+
- extern vm_fault_t handle_userfault(struct vm_fault *vmf, unsigned long reason);
- 
- /* A combined operation mode + behavior flags. */
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 579445bddf561..5846fbf8baa09 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2064,6 +2064,8 @@ int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		prev = vma;
- 
- 	for_each_vma_range(vmi, vma, end) {
-+		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
-+
- 		cond_resched();
- 
- 		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
-@@ -2098,6 +2100,16 @@ int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		 */
- 		userfaultfd_set_ctx(vma, ctx, vm_flags);
- 
-+		/* Retry faults for removed modes while the VMA is write-locked. */
-+		if (any_mode_removed) {
-+			struct userfaultfd_wake_range range = {
-+				.start = start,
-+				.len = vma_end - start,
-+			};
-+
-+			wake_userfault(ctx, &range);
-+		}
-+
- 		if (is_vm_hugetlb_page(vma) && uffd_disable_huge_pmd_share(vma))
- 			hugetlb_unshare_all_pmds(vma);
- 
--- 
-2.53.0
+  watchdog: BUG: soft lockup - CPU#4 stuck for 26s! [cat:30609]
+   _raw_spin_lock+0x73/0x80
+   lockref_get+0xd/0x50
+   ceph_mdsc_build_path+0x23e/0x1560 [ceph]
+   mdsc_show+0x242/0xab0 [ceph]
+   seq_read_iter+0x2e9/0x12d0
 
+The ceph-msgr worker is stuck in handle_reply() waiting for
+mdsc->mutex, which the reader holds while it spins.  So this is the
+same leaked d_lock as in your report, with the two CPUs arriving in the
+other order.
+
+With the patch and the same delays, 120s and ~6300 renames went through
+ceph_fill_trace() with no warnings.  bpftrace showed mdsc_show() taking
+1-8ms, so the readers really did wait out the window on r_fill_mutex.
+A further 180s of renames plus fsstress without the test delays was
+also clean.  lockdep stayed enabled throughout, recorded the new
+&mdsc->mutex -> &req->r_fill_mutex dependency and reported nothing.
+
+One side effect, not a problem in my view: a debugfs reader now waits
+for any reply that is being filled (including readdir_prepopulate on a
+large directory) while it holds mdsc->mutex, so it can stall request
+handling on that client for that long.  The abort paths you listed
+already do the same, and this is debugfs, so I think it is fine.  If
+anyone cares, mutex_trylock() with a placeholder in the output would
+avoid it.
+
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+Tested-by: Xiubo Li <xiubo.li@clyso.com>
+
+Thanks
+- Xiubo
+
+On Wed, 11 Nov 2026 at 12:30, Max Kellermann <max.kellermann@ionos.com> wrote:
+>
+> mdsc_show() walks the request tree under `mdsc->mutex` and prints the
+> request's dentries like this:
+>
+>   spin_lock(&req->r_old_dentry->d_lock);
+>   seq_printf(...);
+>   spin_unlock(&req->r_old_dentry->d_lock);
+>
+> (same for `r_dentry`).  The pointer is loaded again for the
+> unlock, but ceph_fill_trace() can change it in the meantime:
+> ceph_fill_trace() runs with req->r_fill_mutex held, but not
+> mdsc->mutex, and:
+>
+> - after d_move() for a rename, it swaps `r_dentry` and `r_old_dentry`
+> - splice_dentry() replaces `r_dentry` with the spliced alias and drops
+>   the request's reference to the old dentry
+> - a lookup without a locked parent assigns a new `r_dentry`
+>
+> If an unsafe rename reply is being processed while mdsc_show() is
+> between spin_lock() and spin_unlock(), mdsc_show() unlocks the other
+> dentry, and the `d_lock` of the one it locked is never released.  The
+> next attempt to lock it spins forever.  I have seen this on a
+> production server, where our monitoring reads the debugfs "mdsc" file
+> periodically:
+>
+>  watchdog: BUG: soft lockup - CPU#67 stuck for 48s! [kworker/67:2:3746175]
+>  Workqueue: ceph-msgr ceph_con_workfn
+>  RIP: 0010:queued_spin_lock_slowpath+0x4a/0x240
+>  Call Trace:
+>   <TASK>
+>   ceph_fill_trace+0x7a4/0x910
+>   mds_dispatch+0x9f4/0x1ac0
+>   ceph_con_process_message+0x66/0x80
+>   ceph_con_v1_try_read+0x392/0x17e0
+>   ceph_con_workfn+0x329/0x590
+>   process_one_work+0x146/0x2b0
+>   worker_thread+0x182/0x2f0
+>   kthread+0xe4/0x1d0
+>
+>  watchdog: BUG: soft lockup - CPU#55 stuck for 49s! [cm4all-kernel-e:16346]
+>  RIP: 0010:queued_spin_lock_slowpath+0x1a2/0x240
+>  Call Trace:
+>   <TASK>
+>   lockref_get+0x47/0x60
+>   ceph_mdsc_build_path.part.0+0x85/0x2a0
+>   mdsc_show+0x239/0x3e0
+>   seq_read_iter+0x11f/0x480
+>   seq_read+0xfd/0x130
+>   full_proxy_read+0x50/0x80
+>   vfs_read+0xa4/0x340
+>
+> Both CPUs were waiting for the `d_lock` of the same dentry, which
+> nobody is locked but nobody will unlock it.  The first CPU was in
+> update_dentry_lease(), called after the rename swap.  The second one
+> was the next read of the debugfs file.  Since the ceph-msgr worker was
+> blocked, all requests to that MDS hung.
+>
+> Replacing `r_dentry` with a spliced alias also means mdsc_show() can
+> call dget() on a dentry whose last reference has just been dropped.
+>
+> Fix this by holding `r_fill_mutex` while mdsc_show() uses `r_dentry`
+> and `r_old_dentry`.  Taking r_fill_mutex with mdsc->mutex held is the
+> established lock order; __do_request(), handle_forward(),
+> ceph_mdsc_wait_request() and ceph_lock_wait_for_completion() do the
+> same.
+>
+> Fixes: 76aa844d5b2f ("ceph: debugfs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+> ---
+>  fs/ceph/debugfs.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/fs/ceph/debugfs.c b/fs/ceph/debugfs.c
+> index 6a9a5551d9d7..83506d9207fa 100644
+> --- a/fs/ceph/debugfs.c
+> +++ b/fs/ceph/debugfs.c
+> @@ -109,6 +109,14 @@ static int mdsc_show(struct seq_file *s, void *p)
+>                 else
+>                         seq_puts(s, "\t");
+>
+> +               /*
+> +                * ceph_fill_trace() may replace r_dentry (dropping the
+> +                * request's reference to the old one) or swap r_dentry
+> +                * and r_old_dentry; it does so while holding
+> +                * r_fill_mutex, so hold it while using them.
+> +                */
+> +               mutex_lock(&req->r_fill_mutex);
+> +
+>                 if (req->r_inode) {
+>                         seq_printf(s, " #%llx", ceph_ino(req->r_inode));
+>                 } else if (req->r_dentry) {
+> @@ -151,6 +159,8 @@ static int mdsc_show(struct seq_file *s, void *p)
+>                                 seq_printf(s, " %s", req->r_path2);
+>                 }
+>
+> +               mutex_unlock(&req->r_fill_mutex);
+> +
+>                 seq_puts(s, "\n");
+>         }
+>         mutex_unlock(&mdsc->mutex);
+> --
+> 2.53.0
+>
