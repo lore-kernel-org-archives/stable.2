@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794421011;
-	b=U2Vg88QpMwx8oBb4UyTxAwkQI/VucGfkCjsRLZjANWIGS6Gh0zd/vYmnR2mgb/OFSZXC
-	 rJVEnmY+IuijENNzIokBO4Mz108qIKMpVZO13fo4OinNI4bKhgBUj0qcDK2tz65rzoNhG
-	 hRHetczjgmGPi0bt9lPU9psJvj9UwlOo9krblKzsU+YTOqIWoM8zbHxr5skmY1DJM7yji
-	 kEmECsSvPFeETRllVEJoHaJD8py1NbpIsOmqjkEQF3CmrO0bMWCWPlwfK1RkMgMUipLHe
-	 +Q3TirZo4LxQts+XkMR+xaQmtf+FTIFzmNk90SW2VYZBOFR/thYPikB8+CTGCc3eJtA==
+	t=1794421076;
+	b=gDcBH1I3x/fTPnY9s5ou2nvgfsbOihXszb9BVto6+kdxVy/I6d5NonEVTby8Ccx4jUfv
+	 Qs5e5XMohnHJfbpqF+y793W9K68dqrC3D0P4zEqrOZ9aDj2ncEMBScltcv6yDSEYFOnnt
+	 McOON5u9AC1TF9tmXmIJEHZ4cxWmV1HiEOtP2G0n7OIN/vrOiwSVd6awwGR9nwFEGWlly
+	 EmD7OxW+RXwTFDNsXgWu7SzDnkHMQ1wtfLkGfrBtipzFhiKsYTsMmfWUoclgLGJrAsQen
+	 a8XWRZnnGUJ8bVdZdW861UOC3F1PcKcsRVZJiUM3WY7tCVGKW6Tg6N6r7rR8hE2Zk2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794421011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794421076;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mWelvUhtUXGQCx2llHxsnjIIFY7dlsr1a1mDC5mmlrc=;
-	b=WTLaCy2vT3MbT2jlqPGy8e+prv1Ccsx0YwjdlKwH1OH1Ct95LfrmE2OCaoW8OA6dyAG3
-	 Vbg8fYDfos25+0RtDSTXLlLE1Stv4MKz/STCUtz/nnm4jt2HI+lW+ACN4zM6Dx0kmXUJ/
-	 gZ8fjKIv6chQZA6RaGzueGV3qF6Dd+tKyo5Ob2cKHU4BNCHiVkWH0KRZ91LlFtbW3RA43
-	 V35ha5IFUlRwNrXwhxkCJgv01YJC1wDBJACkZFiHtAK8V77sp7kfxw+f/NROcCMmU3xs+
-	 TA9vetLlZO1bfMJfu/Js1vUjHYEVOxgMlvUr+dZpwJwnsaDbmGLitxNr7oRZzZ4Pf0w==
+	bh=JySMTmDqir6kxC3CpohRUhPfcg3KuAK+ka6qrtrmmAM=;
+	b=spY4WG8Q9glwO4NTWlr8hQcTVNlBWqnRejv5yEYSF06y4GRNadgqrYxreB2scO1ggMY5
+	 4bNi9hngbJetyn153Ls2tQ39X33Dq/HE1s/fqqncNaWyDotmpzfp9pWZ1QiFR9045zLJg
+	 zmzv5OC9aCFMVZ8O0ijl6DvRZzgIapCnG+BU5xqVEOmFpwdUsm+odMXjqNMxZiRopubc3
+	 4+nZOj5YDD1G0dXq4oEELGwGSykN0bFmAy0o1rwaw5El87arN+59qoKCeCrchwwBaXJVY
+	 nvqqzHbsR5iVqWUYeLyJX5T5zGIKtbr7QWwEraBlYcIKct2+2bJe1uhLbpPDqGc0xEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lpq+t+Tt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcAhojaf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E246606A893
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:16:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04B6606A89A
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:17:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lpq+t+Tt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59601F00A05;
-	Wed, 11 Nov 2026 18:16:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcAhojaf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003E81F00A05;
+	Wed, 11 Nov 2026 18:17:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794421011;
-	bh=mWelvUhtUXGQCx2llHxsnjIIFY7dlsr1a1mDC5mmlrc=;
+	s=k20260515; t=1794421076;
+	bh=JySMTmDqir6kxC3CpohRUhPfcg3KuAK+ka6qrtrmmAM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lpq+t+TtgcIDbY9Ku0/MmPvmznMDwns9IH1TNqgYHdke/bwsdL1v967kMFJOzuHmu
-	 n2liyu+78QtQm0olt+7t2NsOFDs5S3PbT0Vu93RMkscdiYluBPQZbQsdFXOyZydXuj
-	 zVE4aGqkBuS6zMurqQ3QOMd5dHElsCJYS0Wnam9LYDNy/0TcHtuS9jts3uIbNOOAvK
-	 PjKtS+6oQLr9K+QXL6Y0KJk+wCG4O1dqGdfWHGyOgp3bYAn9DcPV41ttHDsEzCY5Le
-	 l3mCFTt8QrgXJQ115tpSZJa/2kkkLzluPZMVta3L5n9iyrR3uIS+661ooXABUzC8Xq
-	 PHPB7Zs6JKQGg==
+	b=OcAhojafWelXzNX9OynLXX5aGI9phwGI1pfl7Y+jdtkvDmesEkeii86MyndA8/Ik5
+	 eLereyKkZSzBPZbTdaXdn4cQ+fhn/pP7DqaarWcwCZoTvhPkEeNGpips78gPRzOxs5
+	 sjpLiPun83l29mwmkfuVP49LYN5ldfkC/hOgpttbk5WwirebCXrAJb9RKTSdELVk5n
+	 6g07vkMBIAR2jPHsd1T5a+GdHzf3a7jPbNBiqsgElIKqCNYOeNTJtz5VocOHR4BEnC
+	 /QC/2YI5LJoaKbeoPICalp/Hwk2WORARREgoM1SzfRuhDZAcD+R2gOf2RDJ1sywPKn
+	 T6x8Zyj8JDcNw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: yanxia <yanxia@cmss.chinamobile.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Henrik Enquist <henrik.enquist@gmail.com>,
+	Pavel Hofman <pavel.hofman@ivitera.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] veth: fix stale peer max_mtu on XDP program replacement
-Date: Wed, 11 Nov 2026 13:16:49 -0500
-Message-ID: <20261111181637.3806221-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: aloop: Don't constrain playback params in notify mode
+Date: Wed, 11 Nov 2026 13:17:54 -0500
+Message-ID: <20261111181732.3810170-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055359-failed-6.1-c955325db639@kernel.org>
-References: <20261107055359-failed-6.1-c955325db639@kernel.org>
+In-Reply-To: <20261107060211-failed-5.15-ded106036984@kernel.org>
+References: <20261107060211-failed-5.15-ded106036984@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,63 +62,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: yanxia <yanxia@cmss.chinamobile.com>
+From: Henrik Enquist <henrik.enquist@gmail.com>
 
-[ Upstream commit c955325db639e9503941227e14e1f1ccc99442a1 ]
+[ Upstream commit ded106036984a9dd766e7e1451b02e2d15c81438 ]
 
-veth_xdp_set() calculates the peer MTU limit from the incoming program's
-XDP fragment capability, but only stores it when no program was attached.
-Replacing a program with one having a different fragment capability
-therefore leaves the peer's max_mtu stale.
+With notify enabled (the pcm_notify module parameter or the "PCM
+Notify" control), the playback side of a cable may change format, rate
+and channels while a capture is running. loopback_check_format() then
+stops the capture and notifies the "PCM Slave" controls, so that the
+capture application can reopen with the new parameters. For this
+reason loopback_open() still gives a notify mode playback the
+unconstrained loopback_pcm_hardware.
 
-Replacing a regular program with an xdp.frags program keeps rejecting
-otherwise valid jumbo MTUs. The opposite replacement leaves a larger
-limit in place and permits MTUs which a fresh attachment of the regular
-program would reject.
+Since commit 898dfe4687f4 ("ALSA: aloop: Fix racy hw constraints
+adjustment") the hw rules refine against the shared cable->hw instead
+of the substream's own runtime->hw. This pins the playback side to the
+parameters of an open capture whatever the notify setting is. A player
+probing the device sees only the capture's rate, format and channels,
+and the format change path in loopback_check_format() can't be reached
+by a new playback.
 
-Update peer->max_mtu after every successful attachment or replacement.
-Keep the GSO feature update conditional on the first attachment.
+Skip the format, rate and channels rules for the playback substream
+when notify is enabled. Skip the period bytes rule as well: with a
+sound timer source, params_change() already takes the period size from
+a notify mode playback, and keeping the old capture's period bytes
+leaves a playback at another rate with a period that doesn't match the
+timer. The capture side stays constrained to the cable parameters.
 
-Found during review of the XDP replacement path and confirmed with
-native XDP on an isolated veth pair. Before the fix, direct replacement
-rejects MTU 9000 after switching to xdp.frags, and accepts it after
-switching back to a regular program. Detaching and attaching instead
-produces the expected results in both directions.
+The capture stop this makes reachable again was hardened by commit
+826af7fa62e3 ("ALSA: aloop: Fix racy access at PCM trigger") and
+commit e5c33cdc6f40 ("ALSA: aloop: Fix peer runtime UAF during
+format-change stop"), which need to be applied first when backporting.
 
-UML tests on net reproduce the problem before this change and match the
-detach/attach controls afterwards, with both devices up or down and
-with either endpoint receiving XDP. Failed replacements preserve the
-previous state; same-type replacements and detach also behave as
-expected. Small-frame traffic passes in the devices-up cases.
+Reproducer, with notify enabled on the cable:
+  arecord -D hw:Loopback,1,0 -r 44100 -f S32_LE -c 2 /dev/null &
+  aplay -D hw:Loopback,0,0 96k.wav
+Before: aplay is forced to 44100 Hz and the capture keeps running.
+After: aplay runs at 96000 Hz, the capture is stopped and "PCM Slave
+Rate" reports 96000.
 
-Fixes: 7cda76d858a4 ("veth: Allow jumbo frames in xdp mode")
+Fixes: 898dfe4687f4 ("ALSA: aloop: Fix racy hw constraints adjustment")
+Reported-by: Pavel Hofman <pavel.hofman@ivitera.com>
+Closes: https://lore.kernel.org/all/b4af9071-f8d7-5b47-4d7a-c5743bd67394@ivitera.com/
 Cc: stable@vger.kernel.org
-Signed-off-by: yanxia <yanxia@cmss.chinamobile.com>
-Link: https://patch.msgid.link/20261020020147.790274-1-yanxia@cmss.chinamobile.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: adjusted context for the missing xdp_features_set_redirect_target(peer, true) call ]
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20261003-aloop-notify-fix-v1-1-ba5dfb831bf5@gmail.com
+[ sashal: adapted scoped_guard() mutex handling to explicit mutex_lock() and mutex_unlock() calls ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/veth.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/drivers/aloop.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index e8064b9253720..b8a2b3be2767e 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1536,10 +1536,9 @@ static int veth_xdp_set(struct net_device *dev, struct bpf_prog *prog,
- 			}
- 		}
+diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index fb507076e006f..7c76f702296e1 100644
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -960,6 +960,11 @@ static int rule_format(struct snd_pcm_hw_params *params,
  
--		if (!old_prog) {
-+		if (!old_prog)
- 			peer->hw_features &= ~NETIF_F_GSO_SOFTWARE;
--			peer->max_mtu = max_mtu;
--		}
-+		peer->max_mtu = max_mtu;
- 	}
+ 	snd_mask_none(&m);
+ 	mutex_lock(&dpcm->loopback->cable_lock);
++	if (dpcm->substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
++	    get_notify(dpcm)) {
++		mutex_unlock(&dpcm->loopback->cable_lock);
++		return 0;
++	}
+ 	m.bits[0] = (u_int32_t)cable->hw.formats;
+ 	m.bits[1] = (u_int32_t)(cable->hw.formats >> 32);
+ 	mutex_unlock(&dpcm->loopback->cable_lock);
+@@ -974,6 +979,11 @@ static int rule_rate(struct snd_pcm_hw_params *params,
+ 	struct snd_interval t;
  
- 	if (old_prog) {
+ 	mutex_lock(&dpcm->loopback->cable_lock);
++	if (dpcm->substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
++	    get_notify(dpcm)) {
++		mutex_unlock(&dpcm->loopback->cable_lock);
++		return 0;
++	}
+ 	t.min = cable->hw.rate_min;
+ 	t.max = cable->hw.rate_max;
+ 	mutex_unlock(&dpcm->loopback->cable_lock);
+@@ -990,6 +1000,11 @@ static int rule_channels(struct snd_pcm_hw_params *params,
+ 	struct snd_interval t;
+ 
+ 	mutex_lock(&dpcm->loopback->cable_lock);
++	if (dpcm->substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
++	    get_notify(dpcm)) {
++		mutex_unlock(&dpcm->loopback->cable_lock);
++		return 0;
++	}
+ 	t.min = cable->hw.channels_min;
+ 	t.max = cable->hw.channels_max;
+ 	mutex_unlock(&dpcm->loopback->cable_lock);
+@@ -1006,6 +1021,11 @@ static int rule_period_bytes(struct snd_pcm_hw_params *params,
+ 	struct snd_interval t;
+ 
+ 	mutex_lock(&dpcm->loopback->cable_lock);
++	if (dpcm->substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
++	    get_notify(dpcm)) {
++		mutex_unlock(&dpcm->loopback->cable_lock);
++		return 0;
++	}
+ 	t.min = cable->hw.period_bytes_min;
+ 	t.max = cable->hw.period_bytes_max;
+ 	mutex_unlock(&dpcm->loopback->cable_lock);
 -- 
 2.53.0
 
