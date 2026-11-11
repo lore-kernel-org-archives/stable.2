@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440897;
-	b=11uJO3yKrD3EmXCZvIum8dIxLkCeX8c8YC/DLmJq1QZdErg/PecwlsKor0FjTg16/xyX
-	 X+chwLPtF8rF6EW6UIbj2lMewdrqRum/9k5BvC7VGVIkeVCUvBU3hEc483P5yr24BsfCx
-	 WKvXjX+86t9NX3joiSZzFwtJwBT+hsKr11OYzZ2+LXixWLaCx8z2eSl6K1RvVZ6VRNC4Q
-	 V6tFsAjZz2Ix4sNbMUo8MdrNyK78ydDA+xmNawBLpQbuqDoCfdw4djfvaPtRGqZ2G67DQ
-	 K9da6Uw/y92LjoEXLnQoIk1xzbAGe06IsZUJ3iYBUNbO0rC91NINx5XqmBUkkVZE5yg==
+	t=1794441007;
+	b=bKPUWKYzXoRcF+XN86DEchmbnzFTfmvkSDXxpYDNn7cNmICItRm88eVXLZNkDGp2zMig
+	 DB/AdV6vvgCF0wkBmqmPK6xuta5CY+D6QWvutr6/uaknGC3t80nJNqY/+jaqthJmYwnMn
+	 xfAwjVCUslg8KanGfyZPkd9qQz/fOXxf2t3P3skWupTh6hX0eThFLnXNEX7cwhb/Kzftu
+	 /KbADPrc4CWNPk44Un1IfHd5p0df1xWAL8BWB9TC620nWO3fbkVCe5cTPsQh9WTuLZxut
+	 CAW0a5cT1WiMXTEKSMm23bafr3d7fPu9SKpV8jl+/o5kAyZj1QDx56BklIPvPWTGE1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440897;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794441007;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gnYbXk/ckj29oTITYzaLGsprlkz4S1KPyKVEaO01Jec=;
-	b=0k7VPCAdFQU7vQBBDTRLESpQNs5b8GXLI2TtCextHRiLAiZKAWVMa3CUSQU8UjMPp3i5
-	 FJaYnDPlRKqPgJ0L+yi/V9s3fquX/0UOxLk5D3Rc+EJE5MmdwoSzhi47jVvecVOJ4cHnh
-	 6M+Xu8afbJpoobg48WEyU1tnjw2kYMgRcZxNASlCBKzVNXLxhsuLUSDyvpic3jdwkVJb+
-	 k1GBv5jnc+c+WkDyABNucxe3gA8amsM9n8OkaFHUivfSKismXudsXFKjWi/G67aNgspuI
-	 fNq4CojtOZyt4zDllol0vAY6jHPPHw+B9JiuYtodsAv2ata0gIiplH2zUQOgVA5wMaQ==
+	bh=M/2wx9+MZCxwSiteUibVzTKd+q+7NQqf5slHy00WdmU=;
+	b=uzersDHnXt/IDxrb6cH8Dt3ldo84phNhCEoHQ+V6W/vA62A2bivqUXhhNowYW3cuIEAk
+	 sf0Q/dQeI03sOEI7bIauojXNSQ31FXzOl3op0e+NyF7lcNEcRgX27+h4vK4zV47MrAMjj
+	 uvQ0RsA5q1/89F4YAYS+hKR524GQEurBpgCK8EoEtz1ZE9gs7gBganaMGaMXoEjfcEsep
+	 u7bG/OyJHX5YN/Z9LqbmwFnImsAN/ZtrPzOSi036DfL7nh8pIw0+H+WWUhzHCSa8hqf+W
+	 FCMDTzm/q3HxgpjBHIIREfeOcMnn44CmNTAbMXg8QmqfIYNGTI+ZBlF26ol9/H4SJrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kT2wKkh5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecYavZI2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3936606A331
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:48:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FDD606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:50:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kT2wKkh5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0C181F00A05;
-	Wed, 11 Nov 2026 23:48:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecYavZI2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F4F1F00A05;
+	Wed, 11 Nov 2026 23:50:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794440897;
-	bh=gnYbXk/ckj29oTITYzaLGsprlkz4S1KPyKVEaO01Jec=;
+	s=k20260515; t=1794441007;
+	bh=M/2wx9+MZCxwSiteUibVzTKd+q+7NQqf5slHy00WdmU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kT2wKkh5q43BG8l/PoaclPWzPh1BctFBkmTi1hRXEQ/u1MFT/ye4DYz3AboP98LXS
-	 MVhMUJzdaM0hogTWRRejtJbmASFYHgg9CxYt7x3Q8TMKwDZci859XHQN8anUEZx6Ch
-	 zIF3eL2A1u/8yQHnMJNJdcMnhNvLFybPoAMSaBtNxwz4+dSrho/UwQuoCFr5Ut/x2f
-	 Vi8llrKFrN5h9lqc1yPCyzKwcZQps+LYLzFdVElNw0wRRLzu9dVl3KGWsRchGsAzb/
-	 BEEkbrmCUcQXXleg9KMbiIUCgv74EOvrhPHVADdtQwP3qJ0/sWQ1n7fqe+Wxl4p4z/
-	 Id7PRmJvAr7jA==
+	b=ecYavZI2XZFuA6zzwiEjm4zP3mnyjnnByb9Y0K99eC0R44NEpyMVkVBJEhFZLRoZK
+	 fY92lWQSe0D16z1fW6qW1P8X5M+rdteBseBTODXldyJnwgh2IPETkUbLgn0WrUb+1h
+	 B1cEWCOzmYC30WiAFqJADAqnIua9pZ416rgC1HRlzE8s/rT8fPObv+Ny+H4k/SaiL+
+	 F44wjnNY1M3o3o31Mgm7WWnsGUR+S7yDN7JLIdIsSLLBEI82QN9CscWA06zzzYLL5p
+	 dIZ3kaMhjitNPGRPcfS/VNjjRDdsqz1aW2rUmA879IteA+MAL9tGbmBrFfPltYm0qc
+	 wgsIN8PBfyxfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] f2fs: fix to update superblock crc in sanity_check_area_boundary()
-Date: Wed, 11 Nov 2026 18:48:15 -0500
-Message-ID: <20261111234756.706194-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] ksmbd: revert fsids on durable reconnect and replay failure
+Date: Wed, 11 Nov 2026 18:50:05 -0500
+Message-ID: <20261111234956.702269-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052648-failed-6.12-f8f956c7ec8c@kernel.org>
-References: <20261107052648-failed-6.12-f8f956c7ec8c@kernel.org>
+In-Reply-To: <20261109200243-failed-6.18-539223f18026@kernel.org>
+References: <20261109200243-failed-6.18-539223f18026@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,42 +61,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Ian Bridges <icb@fastmail.org>
 
-[ Upstream commit f8f956c7ec8c0285d7a80bed497d2f7adcbded15 ]
+[ Upstream commit 539223f18026448f67d33d09719c355b91db7fd0 ]
 
-This patch fixes the bug reported by Sashiko:
+On a durable handle reconnect or a request replay, smb2_open() switches
+to the SMB user's fsids before calling ksmbd_vfs_getattr(). If that call
+fails, the code jumps to err_out2 and skips ksmbd_revert_fsids() at
+err_out1. The user's credentials then stay installed on the shared ksmbd
+worker. Later work on that worker, including other users' requests, runs
+with the first user's fsuid, fsgid and supplementary groups.
+ksmbd_free_work_struct() also warns, because work->saved_cred is still
+set.
 
-We should update superblock crc along w/ raw_super->segment_count in
-sanity_check_area_boundary() if sb_checksum feature is enabled.
+Jump to err_out1 instead. No path is held at this point, so skipping the
+path_put() at err_out is correct.
 
-Cc: stable@kernel.org
-Fixes: d440c52d3151 ("f2fs: support superblock checksum")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: Added sbi as the first argument to f2fs_crc32() to match the older checksum API. ]
+Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+Fixes: bb8bf7eb13b5 ("ksmbd: add SMB3 request replay support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: omitted the hunk for the absent dh_info.replay branch ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/super.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ fs/smb/server/smb2pdu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 31724ab224d4a..73c88a4257565 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -3571,6 +3571,12 @@ static inline bool sanity_check_area_boundary(struct f2fs_sb_info *sbi,
- 		/* fix in-memory information all the time */
- 		raw_super->segment_count = cpu_to_le32((main_end_blkaddr -
- 				segment0_blkaddr) >> log_blocks_per_seg);
-+		if (__F2FS_HAS_FEATURE(raw_super, F2FS_FEATURE_SB_CHKSUM)) {
-+			__u32 crc = f2fs_crc32(sbi, raw_super,
-+					offsetof(struct f2fs_super_block, crc));
-+
-+			raw_super->crc = cpu_to_le32(crc);
-+		}
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index ec4c54c9c6dc9..6ad50aab3dfcb 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3125,7 +3125,7 @@ int smb2_open(struct ksmbd_work *work)
  
- 		if (f2fs_readonly(sb) || f2fs_hw_is_readonly(sbi)) {
- 			set_sbi_flag(sbi, SBI_NEED_SB_WRITE);
+ 			rc = ksmbd_vfs_getattr(&fp->filp->f_path, &stat);
+ 			if (rc)
+-				goto err_out2;
++				goto err_out1;
+ 
+ 			goto reconnected_fp;
+ 		}
 -- 
 2.53.0
 
