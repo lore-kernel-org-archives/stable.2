@@ -1,69 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.118.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794397107;
-	b=bUAYOkZyUQws1ziIeKFiBCVO5U+K3cTezsha5j/wM+uX7yWL1KyQd3MU2rwG8Dttehyd
-	 GbCatHjMVycK3H238zTtdX3hjIcvtWtVdxXghKZ5nk1UcGtf2sSJvWOTCUa+ABxOPaLNr
-	 kwJ2w9DM+TEBSCnCmFiQTHVKbljvOEEIfhMbWy69kiJklO5bjGGASFLrYDurpRibJlBsS
-	 FmOCrOoMozX8TtNM4mVRacW63G+ok0a3FFfDy3nj2RyPgpHZ3Vx44tgHobv3fa558kxpV
-	 yBw7ZtsH2RbV6kIjYiKzZ7U8Zg9qBhqBbyMSMIXV4qToAp+ZxwWNlH0vwalQv7WgzbA==
+	t=1794397123;
+	b=fFc07GmJe6PkS7wE8e7F/W/6hjEABoSBpO46er8SUHr/ihhuQQ8G2BA/+jOSNLICob6I
+	 lVViIJiHJrwaUR4dsGg5LOscxF5I/7c/nAHEbRH+AKFTeEWRzZMU7EzkFSHm1LzLA07FM
+	 pwvcCxVTcNu2DeQrvsUdI3esrbokMdH+2tfwIpQqkdCVAuJJUGbuwo/6myHIf4pA23/ue
+	 r/LiC6DRvaOca3Sc1/grxhfK4iZLV9lrESBMgF+Wnt/8XkxuqKfkQhFkWTzmUDgDOdsev
+	 Gllg1f81YiS0QxYgb3rz53Nl081Jvp3jyIBdZFq1kCs8hE13rTSEcdEDQWQLRPphn3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794397107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397123;
 	h=DMARC-Filter:Received:Content-Transfer-Encoding:Content-Type:
 	 DKIM-Signature:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:X-Originating-IP:
 	 X-ClientProxiedBy:X-Sophos-OBS:X-SASI-Version:X-SASI-RCODE:
 	 X-SASI-SpamProbability:X-SASI-Hits;
-	bh=8GmhIE0oqBf1JqcG2J96nKVToiygcCrIa7v400D372Y=;
-	b=bfdYhMEhjDM/Gs3TZyhfofU59GTwH2/16tcZtOl+E3ORKT84cuW8FPY/Mz93OIuR7rxr
-	 HvOiXGlyB7p5NOeFbctRtPBbjV7mnF8HrfV2ZjLOKHKRWtvuZ3OwDZp1e55BvHqWHMOH+
-	 ydQ8OTJIrWrjF4zjXngjEWuyfJy+eu2AzulTkpuVw2quTxnh8WDRlF3N+6T6wMQM7SBKT
-	 CnS73d/t3yHR0atUlfJPZbWDdpCtU55KcKwtegLy/ks7zyi0Leh9Z+h+JatRfexTOHH3H
-	 agt/yEmq7ILxBHHeY/t+gR0Z4tlWzgBETJUBK53yGBEsS3W8E2GAYkq/ubgh/4LcC4g==
+	bh=iCsFdvMkQ9YF2rcgnSlO+ly4dEz1SG/6/YvyxaxKyAw=;
+	b=3RWSkUsxyUU2JpfLZwwoNFlg6XKPGqPDjNf7D1+nyPyUH67mgqENJmywXs5U69jDprOp
+	 7APJbT4XGZ2gZZ0U33Fb5IDgc8RUa7lukMDpmWdFfenhCDLwOhrHYOdynuFLU1gywbHOm
+	 h2yW4q4ajjFsSeuWr9VwyozofjcVe/IusyEIjGnFKu/Tt0LtVRjS8F78bDv8EmhfSPkx7
+	 pz5pJIJ0NQfd9pF+PkHmhg5ncUBaV180TdLr5YllbqyHp9oIjwUoEgTkq3wGdVu6TPDCu
+	 4WYSWTmdb/qYmPmv4MbY6UG0qFA2K5m8KN782HuGFvlKJso/aZcIstaiRtY8Kd5+QUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=fiveco.ch;
 	spf=pass smtp.mailfrom=fiveco.ch;
-	dkim=pass header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=R61m9tQ5;
+	dkim=pass header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=SnvuerX+;
 	arc=none smtp.remote-ip=46.14.118.250
 Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CFD606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:38:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19CFD606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F44606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:38:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97F44606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=R61m9tQ5
-Received: from [192.168.16.44] (port=61631 helo=remote.fiveco.ch)
+	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=SnvuerX+
+Received: from [192.168.16.44] (port=61671 helo=remote.fiveco.ch)
 	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.96)
 	(envelope-from <valentin.kindschi@fiveco.ch>)
-	id 1xR6eh-000000007qA-2APn
+	id 1xR6ev-000000007sg-0cyv
 	for stable@vger.kernel.org;
-	Wed, 11 Nov 2026 12:38:19 +0100
+	Wed, 11 Nov 2026 12:38:33 +0100
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
-	t=1794397099; h=from:subject:to:date:message-id;
-	bh=vOSkCgv/FZWI2ydjQ+VFyIFqpTrI0qZFkjuOCaAZyPw=;
-	b=R61m9tQ5LOqE8PJQ5Mp/YqHubgxFmawdvrAFKFHewqqpJQwoZ9J2HdWtOk+nFs3T3FmoF6phNVc
-	o12uWrzuh4VEUmj1k9C9dEs1mzouwfkc1Mnc+pWC+spbCGUFeAOFVIgTFAm3UApkjsDr2CMJyE7/1
-	vhsoGAYvcoTeFSLgkfg=
+	t=1794397113; h=from:subject:to:date:message-id;
+	bh=H90x1l4zN7vEBpVvl6ao43D1K2ja22npMHJz+Ossxs0=;
+	b=SnvuerX+VaKq2oTMAz9guC5CTdPMh6Uw1mMTUjupRTrUj7EmhlbrcESggxtZjfVs9OouBdEV6dt
+	faSPfcGclKcJqvOP3W0yWRgbYCC3Uzf17WCJoCJZ7Lrbh3cmF2tbjBs1xwtQ8kzslOrKZCrAaQXp+
+	gfOwWRZcNF09/vgFk2Y=
 Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
  FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Wed, 11 Nov 2026 12:38:19 +0100
+ 15.1.2507.61; Wed, 11 Nov 2026 12:38:32 +0100
 From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
 To: <stable@vger.kernel.org>
 CC: Valentin Kindschi <valentin.kindschi@fiveco.ch>, Luiz Augusto von Dentz
 	<luiz.von.dentz@intel.com>
-Subject: [PATCH 6.6.y] Bluetooth: hci_sync: pause advertising for the scan address update
-Date: Wed, 11 Nov 2026 12:38:11 +0100
-Message-ID: <20261111113811.261084-1-valentin.kindschi@fiveco.ch>
+Subject: [PATCH 6.1.y] Bluetooth: hci_sync: pause advertising for the scan address update
+Date: Wed, 11 Nov 2026 12:38:26 +0100
+Message-ID: <20261111113826.261177-1-valentin.kindschi@fiveco.ch>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261109201159-failed-6.6-56ed6b127a27@kernel.org>
-References: <20261109201159-failed-6.6-56ed6b127a27@kernel.org>
+In-Reply-To: <20261109201641-failed-6.1-56ed6b127a27@kernel.org>
+References: <20261109201641-failed-6.1-56ed6b127a27@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -192,7 +192,7 @@ Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5.5 btmon
 Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ Valentin: Adjusted for 6.6.y: the privacy guard removed in the failed: label
+[ Valentin: Adjusted for 6.1.y: the privacy guard removed in the failed: label
   reads use_ll_privacy(hdev) in this tree, and the line after the added
   resume is only if (hci_is_adv_monitoring(hdev)) {, without the
   HCI_QUIRK_STRICT_DUPLICATE_FILTER term. The added lines are unchanged.
@@ -204,10 +204,10 @@ Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
  1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 5b838b9ff..403cc418c 100644
+index 453ed84d3..12f4c737e 100644
 --- a/net/bluetooth/hci_sync.c
 +++ b/net/bluetooth/hci_sync.c
-@@ -6106,6 +6106,7 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+@@ -5913,6 +5913,7 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
  	u8 filter_policy = 0x00;
  	/* Default is to enable duplicates filter */
  	u8 filter_dup = LE_SCAN_FILTER_DUP_ENABLE;
@@ -215,7 +215,7 @@ index 5b838b9ff..403cc418c 100644
  	int err;
  
  	bt_dev_dbg(hdev, "");
-@@ -6129,6 +6130,12 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+@@ -5936,6 +5937,12 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
  	if (err)
  		goto failed;
  
@@ -228,7 +228,7 @@ index 5b838b9ff..403cc418c 100644
  	/* All active scans will be done with either a resolvable private
  	 * address (when privacy feature has been enabled) or non-resolvable
  	 * private address.
-@@ -6138,6 +6145,9 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+@@ -5945,6 +5952,9 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
  	if (err < 0)
  		own_addr_type = ADDR_LE_DEV_PUBLIC;
  
@@ -238,7 +238,7 @@ index 5b838b9ff..403cc418c 100644
  	if (hci_is_adv_monitoring(hdev)) {
  		/* Duplicate filter should be disabled when some advertisement
  		 * monitor is activated, otherwise AdvMon can only receive one
-@@ -6162,9 +6172,8 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+@@ -5969,9 +5979,8 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
  		return err;
  
  failed:
