@@ -1,63 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794373352;
-	b=5GJVg5PouLQO8bDtaLxIQ1zC04TuTZIja8NTvFfuegU5ekrwrxHNyByraxT8uGF9A999
-	 cpSbUVJWyrvrgXTqBAyyZEPz2rs4KLtFnh7YnlXX1NxJxEE1Tfrwuo1q8o2Tk0ASf7Fnp
-	 gATWhFT3QrHGN3V+vIYetLz83soLepn8E/C8OG2PmUctJHIuA6qeMqihrWPzfhCGE0v/q
-	 ma256Aanby8r+Vx+8uzI1F4G7ckC9QZNLjlFVis7dz44dehfd7CZ/e8IvsZDB0swxq4r/
-	 zlAxJWq3qhP09bq5dcRylFh68EfWcBst0FdcmuWI/mW1fvCrH5oiSOXd+QvHKBUZXLg==
+	t=1794373472;
+	b=jt5ozqHYutAP1xA8JBp7qnPpk7X3ALIfDIaIR0GdxCQyfV1nhj1T7xgxJHcv2x2yH2aC
+	 TzNfzZU16Ga13WxXBVp+rvtxNY9u27QumKC/+szTXtpfWPoUkoh/B0J6IWBDdgrrBpoz7
+	 gCir/xXbeJrVLEr/D7lYQ9NIzAa71pc1uh1F7/wzayK7lD2G2KIseSp9hpnyekiQdNAl8
+	 5xbbCIaRT4S6ZquvMqrCAMemoxd/eJXgflgUQ8UrszPh2rJE7eCMABojDV+tBsQp8jTY4
+	 VOdpZoqTr6u0yD9MDXRe+pDiKxHsqV86f2oqzs4Ka1TJfzEQh7DTQZrB4RuKxkzyWFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794373352;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794373472;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xAN0+OX6Km5v6TVnSWZRB4+appvexYeDMiCzj+pXBgA=;
-	b=XYqt/EGLSUDrgv7KNDfoeFFtEaS30LTd+mZ+Oz3R0ubKmjBwBjFQ3QTQhlBQh6HPrDNd
-	 PkRnwWYYzgjG6iRN/90K3clF3s3MnvYON9Kids4+DJIL9aw8PAdZG0MeUpRSpiYtrUpRY
-	 Emybu4SWBPB+rYvwr8z0Nxw4l+01UHlqkjtDrLrwWYLYVpTtcW6eIIklHllFMEXElax8O
-	 YN+vOiM+5hCZwxUj3uoP3nRpcFnblHi9TUXBlzigJz7w3s4GLMV5affMW1XNcW4LM8mz+
-	 9fhC3VE5MABUJ0ZmcpzNPgAxbyww9HFMNhjxm1yF/9f1H4S7+whYDIR5YFqEg6sZDEA==
+	bh=YFz9tisMFOrPzOv2dauRdBxyF/40BzvAbbRNhQvJTuM=;
+	b=BE45Hk0pbUQQsQLNvHcYESiZgUQkd3LJhuphJ2/f964FqbC0jQ1Enog8+YbU0GaaY2Wx
+	 gs/Qc7rd/0N4Vm6boyKPtEvPkIc81WF5AxeVflUvBM+74q4nWeIylI5+4b8Y4Rm4XrIow
+	 UG84zwcvj+vP6+KeEDBUs+YjN89Gxo5Vmmu2a6qH6CZgUV2iqGVz4/NutHTCa54XaVhdl
+	 KX5FuUPYkwIgZRWOS60UkJy99VmDMC11X7qr1xi2zzlyGDndsnSOHTzeQ3PwpYnkdoBWj
+	 oHjCHs2eN6HmzR81/LAumL7vh+7Hb6IPHkNq0mZPfZAtorJC8SzuKboTAadmK7idAow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDBHmqKB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLr2aakW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500B7606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:02:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3504606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:04:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDBHmqKB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 069FA1F0089F;
-	Wed, 11 Nov 2026 05:02:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLr2aakW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048D81F0089F;
+	Wed, 11 Nov 2026 05:04:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794373351;
-	bh=xAN0+OX6Km5v6TVnSWZRB4+appvexYeDMiCzj+pXBgA=;
+	s=k20260515; t=1794373472;
+	bh=YFz9tisMFOrPzOv2dauRdBxyF/40BzvAbbRNhQvJTuM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VDBHmqKBOFiDi4tHfj0yo51hO7aoSZ1UtDqazqRJQk3ryDfDlKFp/77FJfgycTIbf
-	 QAc4fTyEagC30Puds7yHeSlL8EEjevTRbcKwOW3Mo7Rkl/6hOJDfzUn7PA3M5eziMO
-	 cwqpjRuM5iRzj/GXOGz85gbTUgk6ZITRv2uEyfIiBNyBkghHRmNfqfmc99oEcQ7S0j
-	 xhEczqF25vmUs/at3QgK+gjGWmpMC4aznA/6jKnq3p+2h8aW4yWhNcoeHKOCf9qu0t
-	 JNcFIiM14h5i3RFwvbRfS2e52lVaIqJDJaBqSLvQWlxUFDkc6y9hS94eY6n22k8XWs
-	 3cvTIr7hKRe2Q==
+	b=RLr2aakW3SdLRPmjiy1gLmPh+bHMui+bFEKqAR73CJSTjnL2VTZPKWJqHYiStXS6B
+	 l2XyFwCg97EX85MqDM4byv0DJWAcwWfoakP6MFLWnBE0sBqwxEs5vSxCCAoeVeax8g
+	 7yIxCkYMVb1ntf5Xfs6Kns5lXdoE3OX9OimVNlszJY+4WTPCEXjLUl47f7sHIFwTWk
+	 xf06anGHmE2Ob5Ilxa091h6j9u5gO73fskYQsVjhkDTfPWmYu6arQzWtUWXr41nJrR
+	 ub0Eje9y+H3bKG5se3aXODM+RF/ZpAUr9D38dern6WMPPuxypgSffy1iVra7mrZDKD
+	 KulEUicJq2v3A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qi Xi <xiqi2@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Nanyong Sun <sunnanyong@huawei.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
+Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
+	Jan Kara <jack@suse.cz>,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/page_isolation: fix UBSAN shift-out-of-bounds warning
-Date: Wed, 11 Nov 2026 00:02:28 -0500
-Message-ID: <20261111050201.1215761-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] fs: rotate inodes whose page cache could not be dropped
+Date: Wed, 11 Nov 2026 00:04:30 -0500
+Message-ID: <20261111050341.1063880-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054448-failed-6.1-eba0e6297edd@kernel.org>
-References: <20261107054448-failed-6.1-eba0e6297edd@kernel.org>
+In-Reply-To: <20261107062743-failed-5.10-8ee09f597763@kernel.org>
+References: <20261107062743-failed-5.10-8ee09f597763@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,92 +63,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qi Xi <xiqi2@huawei.com>
+From: Nikolaos Karaolidis <nick@karaolidis.com>
 
-[ Upstream commit eba0e6297edd60a85bc96ff5cfb734d066af62dd ]
+[ Upstream commit 8ee09f597763acfd31c62a578ba88b792fc41b24 ]
 
-Patch series "mm/page_isolation: fix UBSAN shift-out-of-bounds in
-isolate_single_pageblock", v3.
+When inode_lru_isolate() drops the page cache of an unused inode, it
+has to unlock the list, so it returns LRU_RETRY and the walk restarts
+at the head of the list, where the inode still is. If
+invalidate_mapping_pages() could not empty the mapping, the restarted
+walk strips the same inode again, and so on until nr_to_walk runs out.
+Every walk of that list then ends on this inode, and nothing behind it
+is reclaimed for as long as its cache stays.
 
-Patch 1 fixes a UBSAN shift-out-of-bounds warning in the PageBuddy branch
-of isolate_single_pageblock() triggered by concurrent buddy allocation.
+Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
+traversing context") the walker pinned the inode with a reference, and
+dropping it in iput_final() set I_REFERENCED, so the restarted walk
+rotated the inode to the tail. Set I_REFERENCED again when the mapping
+is still populated after the invalidation, in the same i_lock section
+that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
+i_lock to be held, like inode_pin_lru_isolating().
 
-Patch 2 addresses the same class of issue in the PageCompound branch,
-where racy compound_order() and compound_head() reads could lead to
-out-of-range shifts or incorrect page skipping.
+On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
+is left behind if it is locked, under writeback, spliced into a pipe,
+or still in another CPU's LRU-add batch after being read. Without
+HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
+mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
+never removes.
 
-This patch (of 2):
-
-A contig-range allocation racing with buddy allocation on the adjacent
-pageblock can trigger:
-
- UBSAN: shift-out-of-bounds in mm/page_isolation.c:393:15
- shift exponent -749042176 is negative
- Call trace:
-  isolate_single_pageblock
-  start_isolate_page_range
-  alloc_contig_frozen_range_noprof
-  alloc_contig_range_noprof
-
-isolate_single_pageblock() first calls set_migratetype_isolate() with
-zone->lock held, which marks the pageblock MIGRATE_ISOLATE and moves any
-free page straddling the boundary out of the way.  Once the lock is
-dropped, it scans the MAX_ORDER_NR_PAGES-aligned window [start_pfn,
-boundary_pfn) locklessly, only to skip the free pages already handled
-above and to detect in-use pages straddling the boundary.  Since this
-scan only reads page state to decide how far to skip and returns -EBUSY
-on a straddling in-use page, it does not take the lock.
-
-The window also covers the adjacent pageblock, whose free pages stay on
-the normal movable/CMA freelist and can be allocated concurrently.  So
-after the scan observes PageBuddy(page), another CPU can allocate the
-page, leaving a stale value in page->private that makes "1 << order" shift
-out of range.
-
-Use buddy_order_unsafe() with READ_ONCE to read the order, and validate
-it is within MAX_PAGE_ORDER before shifting to prevent UBSAN warnings.
-
-Since pageblock_isolate_and_move_free_pages() already handles free pages
-straddling boundary_pfn under zone->lock, bail out with -EBUSY instead
-of VM_WARN_ON_ONCE() when a PageBuddy page appears to cross the boundary
-during the lockless scan.
-
-Link: https://lore.kernel.org/20260825120549.966271-2-xiqi2@huawei.com
-Fixes: b2c9e2fbba32 ("mm: make alloc_contig_range work at pageblock granularity")
-Signed-off-by: Qi Xi <xiqi2@huawei.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Nanyong Sun <sunnanyong@huawei.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: <stable@vger.kernel.org>
-[ sashal: adapted the order check to use MAX_ORDER while preserving existing boundary-split handling ]
+Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+Link: https://patch.msgid.link/20261016102515.111285-1-nick@karaolidis.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: adapted inode APIs to use xa_empty() and direct i_state bit updates ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/page_isolation.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ fs/inode.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/mm/page_isolation.c b/mm/page_isolation.c
-index 47fbc1696466f..bf098a6d863c0 100644
---- a/mm/page_isolation.c
-+++ b/mm/page_isolation.c
-@@ -372,7 +372,11 @@ static int isolate_single_pageblock(unsigned long boundary_pfn, int flags,
- 		 * always be in the range.
- 		 */
- 		if (PageBuddy(page)) {
--			int order = buddy_order(page);
-+			unsigned int order = buddy_order_unsafe(page);
-+
-+			/* buddy_order_unsafe() is racy. Validate the order before shifting. */
-+			if (order > MAX_ORDER)
-+				goto failed;
+diff --git a/fs/inode.c b/fs/inode.c
+index 40cc72fe37f99..9f246531ae9cb 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -462,12 +462,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
  
- 			if (pfn + (1UL << order) > boundary_pfn) {
- 				/* free page changed before split, check it again */
+ static void inode_unpin_lru_isolating(struct inode *inode)
+ {
+-	spin_lock(&inode->i_lock);
++	lockdep_assert_held(&inode->i_lock);
+ 	WARN_ON(!(inode->i_state & I_LRU_ISOLATING));
+ 	inode->i_state &= ~I_LRU_ISOLATING;
+ 	smp_mb();
+ 	wake_up_bit(&inode->i_state, __I_LRU_ISOLATING);
+-	spin_unlock(&inode->i_lock);
+ }
+ 
+ static void inode_wait_for_lru_isolating(struct inode *inode)
+@@ -821,7 +820,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 			if (current->reclaim_state)
+ 				current->reclaim_state->reclaimed_slab += reap;
+ 		}
++
++		spin_lock(&inode->i_lock);
++		/* The walk restarts here: don't retry leftovers right away */
++		if (!xa_empty(&inode->i_data.i_pages))
++			inode->i_state |= I_REFERENCED;
+ 		inode_unpin_lru_isolating(inode);
++		spin_unlock(&inode->i_lock);
+ 		spin_lock(lru_lock);
+ 		return LRU_RETRY;
+ 	}
 -- 
 2.53.0
 
