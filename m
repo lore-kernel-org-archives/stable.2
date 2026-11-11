@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.67
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794385405;
-	b=twgWd+jRM6ztpHJFJOqyhNbACf/NsdHjLTwJcbOUbJIl/sGLQXisovTzmHCJzRT78jck
-	 k9nT8ioS76JF3WN2AxKM5/AhmRylAN5l4tf7WGgA5y6CbuUtfjI0jzL0vbWntjpt7FlRS
-	 x4ot0106OR6ubfx8O3LFW2IU4XDLX2+JySsVBpe11ptPq/1m7XzuKfTgdr7W36KiFAfFI
-	 NnJnIZztMkNXJRbfAXADb4h9yx8V0QUxE3UrSIEnNJU/bFI41WvoA+jRLDoh8QlLx1yMB
-	 qVlwVijHqs105UeXfBwNGfnhG4fMRT+1YpXlFJnq4evTsEKnszbRRIeJ95NPcT2V07w==
+	t=1794385417;
+	b=mL4mKBIPcg3GXjdLpcJ7pVIIEfM14l5105L1+FwkjclJsrl6gj9POORMV9AVTHMwjrLQ
+	 byPRKXFCrE2H42LCwu0VavmL/rlLgot67Roxz3Glb5nK+RLxufTJouXFUfmHj2Km7WCTN
+	 EGiOP5uRs/YeexY4wOkYFtmD/QNZ7YKKe/wRPbaOM7XTV7PORm6zhiaiAinChxshA4A0H
+	 GtStSCf7Y3KhINt6ozNEDoEqLqKldUvE0xn+docww4Pn8Nh2LoI3Revd552/j87mpQUZO
+	 qbbT6tr2SleFfz9219o/Jxx5dXjDVEJpHkAYA6zoGTmRnS7GQFeJLp2KF9hCmofmpzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794385405;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=q7WNoDNvK27nmUs1OscOlkdJptRoBsF44ZsXFn7l1eA=;
-	b=dCqONXWq+EgTF6DYekz8l2RBglAv1QnRVYzVKVBquSJ1wxENUS8k4Rm2UhL2e1ZLxRbS
-	 FL6bCVHMAk9x5YC/Mrm+sD7/tdRIfYwunKJmIq331qWjLl7pGauBvydQEAtWBK4BaMtER
-	 gGHCeRcy21e5ksSdVGiXatUZEU8Q0QKXhHptsSMVn4HILOlnklK/fR1eyoV6mVUFo7OVx
-	 ATCrFGUBJr/EvYbgCWdFybfv+E4PTB2QPAyvdcpqIoobXU1Zmev0kK32TjXToft9TwseT
-	 iVCvugI/tHsH69IaSrRJdpZxoger5J5764gaIMAH8iVVKf3NtM+3PK+1IdW8eywbkfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385417;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CU4hnlrXZCd9tMMKXfDhfgcXLuc9tfgbhabHI1pc2r4=;
+	b=1L65PUDTR+rJe16Mw1sEryIERF9cW60aALIy94poIEQdC2Hu+CNjpyVb8LZpqudB8ogO
+	 4LAPBhCCd4YQ2WLbk5qaU2wqUzCU620TVrSSMPiv7V6HckfZQjXHHSQaZ5lN9XjIu+l8T
+	 A5X6zX/jJhUjy94sAVr1IKySKa0HdbCueiyVq7ZIw7iTcp/POaKXs+RS1TNmy5RH2xn/a
+	 cbh+rz1zAUKyg96mIKNFh64sUquNj2SmICGfnSerXtoZyIS88LdppiXvIVXUfQRmaILGV
+	 IyOzCqeFJNLLxgBegO8FNW5nPguK+Q5117D3ntt3ZOtR0KFraacSjy6iymD5pkInCyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGqefc3N;
-	arc=none smtp.remote-ip=209.85.210.67
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com [209.85.210.67])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHbhhraw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E7D606A334
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:23:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4E7D606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0DD606A31C;
+	Wed, 11 Nov 2026 08:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGqefc3N
-Received: by mail-ot1-f67.google.com with SMTP id 46e09a7af769-854e904005cso1837414a34.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:23:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794385403; x=1794990203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q7WNoDNvK27nmUs1OscOlkdJptRoBsF44ZsXFn7l1eA=;
-        b=mGqefc3NCxerrmYCjjLVfZT0mIT5UV90VtP0gRC7dXQKyP/reZlPLbjZyQzSZuOOiO
-         iumhvcJGZEbx8jFYMr6oTuRXXdUyikQOINICli7utWsLokxwlckuh9OLDWKm/Egmu8+1
-         ywhtrHxx2XRqa1dQVCvWfzQZVuhTFViTynRuR+Z6Xwti8yO/hVmLMLFgdx7g1UDz+cCq
-         KivpOz6YMcrPaI+GY7FQak6ObCPeWFEm9ftG7jAQsHy/YlVDG6G5qmszxW1gcaf10T37
-         CBdHlMAguWXqv1I41VjyVKdeocbCfhCqFL+wWxgwHP6s93JsAEMeS3i+mXurOovwdFTs
-         7Ukg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794385403; x=1794990203;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q7WNoDNvK27nmUs1OscOlkdJptRoBsF44ZsXFn7l1eA=;
-        b=m36J+L91RhZqUNmi2d/UAdjxE0XthKDs2J06wknVCFeyrzS0BqBg+IO9SvaiM9632v
-         +az4xFBBgLjOjpiso2DS4gdBh7+jonpv6CnzGNv9nv1SwDW4Qdpi7za6BVmMADTeOTG2
-         9a5FEveN+qr38QxNE6IUu26vXD/0QY9UIvAzk6TycfUk/WmphYSANM/YND6bTwwVcBmZ
-         cgXe5iYEFHPdG6XjZdpZwn+rBZYvAtBi5BjtJH1Il/CpEoYKHir94qgoH/wuLRQh2qGZ
-         CAIDcmFxkrhcQQVvBKbnM3uzlomFHEtIL7KeCHzDmxkcDJ0wpQXL6obld5J4v+APL3aO
-         DN2A==
-X-Forwarded-Encrypted: i=1; AL+hErGwZuGDkTVurUJ1Ct7c/Z3CkWG6RGSfuxxzGMyvredPdETRyy/c9BxRa3IRSilDgdkv582O5aA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tfrA1Pw5nyxJ0O1ZrwvKgq0Hcp46hKK7KiY66xSEBEiVPLKix
-	p1dTsqgJ0NpZp6Xucdevz5LjzEyT+zxBU2r2XkWVwy3l8WCIzt2Kah0L
-X-Gm-Gg: AYBFou0uAk6WdIelu+lrAQUzKZfcjkn1i0BRojSPrAHRU83mjxDRx72vaed4y6uFMP0
-	47J77ZR++M11b74rA1up5TQxZ1/GdsNMfb+VXouUnNgRDlpDZyQTVfmPRnH4EMpzsk12W6tYMQe
-	TflS4cPkabP8+kASsOKIviMJjW/8u8Kx4ccciSjJ+v/1WycpKiMoEpvD9zP1WjruD4vHSZku1Cs
-	TT7cgbm/K/eBqRD8ataVbVXJUd+Y7TXXDVG1T/c+sxE/AFYWaiWQ6X1LR53YjGiRPHHD0HaSia7
-	x2KOoFMqZy1RxN7BSiIxLqdf8es44uUXLctfxQQ/GLF2guPIG6QTqpTXlCCVSzNDTadYti8/hZl
-	7u7v5F7F4xRx+8O8QBS88tjjTiFuleLLeKWX2sswGyLTajGFYoXIGop9GBxdG8DVhlRAeEtNkFd
-	IJ0M+oi30wuzrjPN2MGQf5SDT5ErtRP+NL0WPUtK+HcxkcgW4Q6SIIMiKNt5Wc4HOLlaPg9wU9J
-	+IYvp3J9iN2JUu3QudOLUIBA8Bafzpu3IeJPCohENdba8fxWuGrdOpPsGqljmndWergpCIsTuof
-	cyg7dnMal03VVzI3O/AKx91IGpWn39PmfILfNOaRCmRNqaPh0aPJYNqY5bbKk0vF2Cv5
-X-Received: by 2002:a05:6820:290b:b0:70b:930f:9a9d with SMTP id 006d021491bc7-71915c19d90mr1375796eaf.31.1794385403379;
-        Wed, 11 Nov 2026 00:23:23 -0800 (PST)
-Received: from localhost.localdomain ([14.22.11.161])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbfa976sm4056000a34.21.2026.11.11.00.23.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 00:23:22 -0800 (PST)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: lucien.xin@gmail.com,
-	marcelo.leitner@gmail.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	edumazet@kernel.org
-Cc: linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] sctp: fix skb_over_panic when adding addresses with a pending delete of another family
-Date: Wed, 11 Nov 2026 16:23:13 +0800
-Message-ID: <20261111082313.1606366-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <CADvbK_daN6zZNPckkGh=r70ooNwTz59VViJy5jPp1w18SDPrzw@mail.gmail.com>
-References: <CADvbK_daN6zZNPckkGh=r70ooNwTz59VViJy5jPp1w18SDPrzw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHbhhraw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D3A1F00A05;
+	Wed, 11 Nov 2026 08:23:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794385417;
+	bh=CU4hnlrXZCd9tMMKXfDhfgcXLuc9tfgbhabHI1pc2r4=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=QHbhhraw3DXiSH2OvMIT8zikgFolnxYI6yo6kNp8HlhaXPyVH99BWHGiHmP4u+i5l
+	 gCY6OIxgtJgGGUEY5+mkyI5K0SvWFVt1vAD8tzll9oMFV1RuxCsJI+x8CkYXmmKci4
+	 5/nlB26c2WSshqzGzIWx3QfMGn0uSGOuMXEoQZRqdEOdI3mgXil+dd2chSNDlapZk/
+	 U57EGNGL8C/dHFSRmjA3oszXqGQX55H8yT3v4xgq6t7FFviJdH9GeDEQu/qBHNYOFN
+	 C+pwbW5PhGjVAow3SmrtaDSEo4a5DuBu9yzfl+kI5nXRDUP3RrPYLif4DTOzzXBHzr
+	 kXUWjrU/oDQVQ==
+Message-ID: <205eb014-0ebc-422f-8421-f9cf175acad7@kernel.org>
+Date: Wed, 11 Nov 2026 16:23:34 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,96 +51,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] f2fs: wait for node writeback on the first fsync after a
+ checkpoint
+To: Seungbum Ju <seungbum.ju@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20261103101208.4550-1-seungbum.ju@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261103101208.4550-1-seungbum.ju@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-sctp_make_asconf_update_ip() accounts for a pending DEL_IP
-parameter by reusing the length of the address being added. The
-write-back side instead serializes the pending address itself,
-with its own address family. If the pending delete is IPv6
-(20-byte parameter) while the added addresses are IPv4 (8-byte),
-the chunk is allocated 12 bytes short and sctp_addto_chunk()
-writes past the end of the skb. E.g. on mainline (05441d697f7f):
+On 11/3/26 18:12, Seungbum Ju wrote:
+> f2fs_add_fsync_node_entry() numbers each fsync'd warm node page with
+> sbi->fsync_seg_id++, and f2fs_reset_fsync_node_info() sets the counter back
+> to 0 at every checkpoint. The first node page fsync'd after a checkpoint
+> therefore gets seq_id 0, which f2fs_do_sync_file() passes to
+> f2fs_wait_on_node_pages_writeback(). That function treats 0 as "nothing to
+> wait for":
+> 
+>     while (seq_id && cur_seq_id < seq_id) {
+> 
+> so the fsync issues its cache flush without waiting for its own node page.
+> If the flush completes before the node write, the inode's fsync-marked
+> node block (needed by roll-forward recovery) is not covered by the flush,
+> and a power loss can lose data that fsync reported as durable. In our
+> traces the first fsync after a checkpoint returned before its node write
+> completed in many trials.
+> 
+> Start the numbering at 1, so that 0 keeps meaning "no node page written".
+> 
+> Testing (kernel 7.0.0-42, f2fs built as a module from the same source,
+> QEMU/KVM, block-layer FLUSH/FUA model with dm-log-writes replay):
+> - block traces, append+fsync after sync: FLUSH issued before the node
+>   write completed in 29/30 first fsyncs unpatched, 0/30 patched; never
+>   for later fsyncs;
+> - crash-state replay (28 cells x 3 recordings per module): SQLite
+>   WAL/TRUNCATE/PERSIST, LevelDB, RocksDB, LMDB and an append log lose
+>   acknowledged commits or become unopenable in 24 cells unpatched, and
+>   are clean in all of them patched.
+> 
+> The same code is present in Android GKI android12-5.10 through
+> android15-6.6 and in the f2fs dev tree as of 2026-11-02.
+> 
+> Fixes: 50fa53eccf9f ("f2fs: fix to avoid broken of dnode block list")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Seungbum Ju <seungbum.ju@gmail.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-    skbuff: skb_over_panic: text:ffffffff84859c77 len:392 put:20
-        tail:0x188 end:0x180 dev:<NULL>
-    kernel BUG at net/core/skbuff.c:215!
-    CPU: 0 UID: 1000 PID: 379 Comm: poc_sctp
-    Call Trace:
-     skb_panic
-     skb_put
-     sctp_addto_chunk
-     sctp_make_asconf_update_ip
-     sctp_send_asconf_add_ip
-     sctp_setsockopt_bindx
-     __x64_sys_setsockopt
-
-Requires addip enabled on the endpoint (net.sctp.addip_enable=1).
-
-Account for the pending delete with its own address family, as the
-write-back side already does.
-
-This issue was discovered by Tencent CodeBuddy Security.
-
-Cc: stable@vger.kernel.org
-Fixes: 8a07eb0a50ae ("sctp: Add ASCONF operation on the single-homed host")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
-v2: move the pending-delete accounting out of the length loop and
-    drop the del_pickup flag, which no longer guards anything.
-
- net/sctp/sm_make_chunk.c | 16 ++++++++++------
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-index 90de272842512..b8e4db81636e2 100644
---- a/net/sctp/sm_make_chunk.c
-+++ b/net/sctp/sm_make_chunk.c
-@@ -2870,7 +2870,6 @@ struct sctp_chunk *sctp_make_asconf_update_ip(struct sctp_association *asoc,
- 	int addr_param_len = 0;
- 	union sctp_addr *addr;
- 	int totallen = 0, i;
--	int del_pickup = 0;
- 	struct sctp_af *af;
- 	void *addr_buf;
- 
-@@ -2885,16 +2884,21 @@ struct sctp_chunk *sctp_make_asconf_update_ip(struct sctp_association *asoc,
- 		totallen += addr_param_len;
- 
- 		addr_buf += af->sockaddr_len;
--		if (asoc->asconf_addr_del_pending && !del_pickup) {
--			/* reuse the parameter length from the same scope one */
--			totallen += paramlen;
--			totallen += addr_param_len;
--			del_pickup = 1;
--
--			pr_debug("%s: picked same-scope del_pending addr, "
--				 "totallen for all addresses is %d\n",
--				 __func__, totallen);
--		}
-+	}
-+
-+	if (asoc->asconf_addr_del_pending) {
-+		/* The DEL_IP parameter is serialized from the pending address
-+		 * itself below; account for its own address family, which may
-+		 * differ from the added ones.
-+		 */
-+		addr = asoc->asconf_addr_del_pending;
-+		af = sctp_get_af_specific(addr->v4.sin_family);
-+		totallen += paramlen;
-+		totallen += af->to_addr_param(addr, &addr_param);
-+
-+		pr_debug("%s: picked del_pending addr, "
-+			 "totallen for all addresses is %d\n",
-+			 __func__, totallen);
- 	}
- 
- 	/* Create an asconf chunk with the required length. */
-@@ -2917,7 +2921,7 @@ struct sctp_chunk *sctp_make_asconf_update_ip(struct sctp_association *asoc,
- 
- 		addr_buf += af->sockaddr_len;
- 	}
--	if (flags == SCTP_PARAM_ADD_IP && del_pickup) {
-+	if (flags == SCTP_PARAM_ADD_IP && asoc->asconf_addr_del_pending) {
- 		addr = asoc->asconf_addr_del_pending;
- 		af = sctp_get_af_specific(addr->v4.sin_family);
- 		addr_param_len = af->to_addr_param(addr, &addr_param);
+Thanks,
