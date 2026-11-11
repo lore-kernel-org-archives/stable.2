@@ -1,88 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363083;
-	b=NqOk2KMXC7YnVI7chfeCTJVLeaWGmrZlsVzUI0wkNfP8YPVvYtzQyCkhP0BRCE77MM19
-	 hXaUIVs7RSFumHxMiLR2EywCtKi9MkghBsHqP34BvpFd6YKnEbiikT0HwT5eYKq6UH/Gl
-	 HWNnm8B8UmyzZl9RecIuNn25wrPW9FYRPfE9iVn4/oSzn5kH6BgqULXiHdRbjWpO3k7ms
-	 Xs9kvnHT0mVGfG16f/gXimLbB2BN/5l+/cw14RQYkjPGCOyrn1IvHP1MkRho9BnsXQFtz
-	 4wcgeX517jUeZ5BXONkz/X8BYEU3EZkc2WjPaElBTm2UzeVUzJZvyU+CYjt07W+Qx9w==
+	t=1794363096;
+	b=yy2BdA5UPBYqD+UP9XQcM29UjbRXKDn5J5qW0oAD/dK6A9n9x77kmFBQk/SGYnq0h7Li
+	 Z60weruwty7syu2aKPVcX0dAqRsUzmou4BgZDhVsKjpbv+bvZQ3cFx4ZGv0tIElPhg+um
+	 loPgw2Z6fG8lrM84koGEdPatOiyQ+vGZVpMRBasDdC3Q0/Sb0JAxUDYdp+4gPcINxoiwo
+	 8BqU5Ul4UtNe6V/zhIjTUvu7rEaSIkGd3KusjO+6kaRTIfdgxU8kxaww3VOh12xGT8Gnu
+	 D2U55KmTTr2S++dqyTHuZMzV2/O4UynzTlVnIyISndR5+5fDSJ4OmJ9OlS8hFg4M2Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363083;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=ySVn32+21zYg7Tj5ZrVgbfGHI6nDULtj/EICklOEM+0=;
-	b=SFAKFmzLmSh1OIi0KoslbX2uS2VJryyiRp/hoiEsSxM+mIbWciT+TV290Ht1NlA3A9C+
-	 5vaikac4cMZNqEw7ZKnuW2C8vD4JRah1p/Ml0KKiEkEZKUZvqzsqHrNJIAyDF+CXKeeCN
-	 ED5oPmS6p5VIGEsM8YQ3W8X/xe6eCzReV8bo6p4daAXSBqS+2UTD4ucNXAV80uIe8W2HD
-	 e7pjMWqdDeilNWCh9KKnYCG3x4w7bnMzY/X/GgRicJh3lphKZaTZBpTR/0YgH9+stprta
-	 33jTvGgeVWjI6vsTRR0lTvPiP0BcOwrU9e6TkOqGoivKCpZU7zT6vAY4jajbv/nsXlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363096;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wjXgaQfss6+W9H2TgmngKVjySiAYC9wO1OgdTX+jKeE=;
+	b=QOFVxkW90DP/067hns57Gd62CNENe4b+LcUaUiZKyXkv/7HmsWqDq7U1P6PYa9OtzMD2
+	 Atn5AZtU2kwL36HVtS3mYrlWBNPRgNM7M+AjQSQyJXX5bb1i9bTMLJ+G3nHyBmMUXF45a
+	 oli9tl4Fdh4nlJKEH578Xi43LSmQxumKb440yg3DT9NomAGlmP0vEWBp1w2Gs1ZKWTX+j
+	 SxZodjxYkGlovyWj3fnRXVd5aPN54O6L055ccrsTZOlJJt/1UP1ivR9O79ghyPnEfy8eT
+	 TsqjMXOXKUzIYy/bvRHC8crk1Un5CbNuyZnn7e8fculdwufa4pSgMPm9879HfZQGodA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RQSeL3GN;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGF6kCQK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6A1606A320;
-	Wed, 11 Nov 2026 02:11:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA6A1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAFB606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:11:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RQSeL3GN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794363083; x=1825899083;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YIl9mNbtsYzhplOgGa0cGhEfEaFtNRnooftTOeSQs1A=;
-  b=RQSeL3GNx4WR18CTswrPgiR/5xj04UUzPAc4iPgfFadPPjoVocucnqGy
-   Sqj3UKN21Vi60+PLVaLWlYhdXUVvQW0pwt1LPjuV4TNGoMcxN7KHNTJHP
-   6aFHW2PC1H6+gsmsBpnivzY7uCod/j1W1VN6plb9GbCxCm+Nv6ewt+l/h
-   dqscC8BLWKczrFeJd4x5muQ2u0jHbGxSXGwtCgbk1VZclC0VInDW0lIaC
-   bUeGQPuofmORonULsgzRNOBijc80HJUTfBsIqkqsWO20Ugj+ywOPJvuN/
-   Ste1qalVgAJ+QE+X5nKOgNngLqyYjlRy+ekyXV9FrUVvz7XYFvu/dCBaG
-   g==;
-X-CSE-ConnectionGUID: P0qoq/ZRREu4zEQymqY4WQ==
-X-CSE-MsgGUID: MYw8nHOqRfC6DB32bv5gQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3150135"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="3150135"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 18:11:22 -0800
-X-CSE-ConnectionGUID: KWKSWiA6RYG2k7q5uu9mdQ==
-X-CSE-MsgGUID: WcxeZuelSJ60aUdbvg1pug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="8472020"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 10 Nov 2026 18:11:17 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQxns-00000000xt8-1mQS;
-	Wed, 11 Nov 2026 02:11:12 +0000
-Date: Wed, 11 Nov 2026 10:10:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Richard Leitner <richard.leitner@linux.dev>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>,
-	"Paul J. Murphy" <paul.j.murphy@intel.com>,
-	Martina Krasteva <martinax.krasteva@intel.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/8] media: i2c: ov9282: fix flash duration to/from
- microseconds conversion
-Message-ID: <202611110928.rZQK4WSx-lkp@intel.com>
-References: <20261110-ov9282-fixes-v3-3-cb6df80cbc22@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGF6kCQK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970CD1F0089F;
+	Wed, 11 Nov 2026 02:11:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794363096;
+	bh=wjXgaQfss6+W9H2TgmngKVjySiAYC9wO1OgdTX+jKeE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WGF6kCQKOnx1RCDsP133+NCeoa1RgKP+t3QWOhaQPna6f1J1OqJk3atO3rL2SrQi3
+	 ip2Dd7kGllm8aHnRCR3j5jdanBfCVeUr3i8W4RRmdT1vitEPAQKSrsAnlDNSV9aCkV
+	 rUFwXE+CRCM1TgSY+9wSw7wyUCv6Yw97MToo7Bl2CjrH4Y5pHdznO298Nhps/1Vrax
+	 GIKruZMLNr69kB6Z5m4P5ANSXL1GUiPBao3arM/44XYiPDfl2Ov6HAI5cIlDJqvOG9
+	 QEfoT9BEr1wH1m9riEHgPZ4rsSwJfIcP2VpjNVeDawSQmwWL/KbHyQ7tOO06HeLYwe
+	 A33k1W801ATjw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Armin Wolf <W_Armin@gmx.de>,
+	Grant Slater <github@firefishy.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] hwmon: (acpi_power_meter) Fix 18.45 TW bug
+Date: Tue, 10 Nov 2026 21:11:34 -0500
+Message-ID: <20261111021114.582623-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060830-failed-5.15-0b6eda22f9ab@kernel.org>
+References: <20261107060830-failed-5.15-0b6eda22f9ab@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,36 +60,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-ov9282-fixes-v3-3-cb6df80cbc22@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-Hi Richard,
+From: Armin Wolf <W_Armin@gmx.de>
 
-kernel test robot noticed the following build errors:
+[ Upstream commit 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e ]
 
-[auto build test ERROR on 7475ea8b58616b33c04afb976cf0fbaad9dd63fb]
+The ACPI specification says:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Richard-Leitner/media-i2c-ov9282-handle-error-from-exposure-range-update/20261110-141010
-base:   7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-patch link:    https://lore.kernel.org/r/20261110-ov9282-fixes-v3-3-cb6df80cbc22%40linux.dev
-patch subject: [PATCH v3 3/8] media: i2c: ov9282: fix flash duration to/from microseconds conversion
-config: i386-buildonly-randconfig-1004-20261111 (https://download.01.org/0day-ci/archive/20261111/202611110928.rZQK4WSx-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611110928.rZQK4WSx-lkp@intel.com/reproduce)
+"If an error occurs while obtaining the meter reading or if the value
+is not available then an Integer with all bits set is returned"
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611110928.rZQK4WSx-lkp@intel.com/
+This integer can also be 64-bit wide on ACPI 2.0 and later systems,
+so we have to check for that too.
 
-All errors (new ones prefixed by >>):
+Compile-tested only.
 
-   ld: drivers/media/i2c/ov9282.o: in function `ov9282_set_ctrl':
->> ov9282.c:(.text+0x9af): undefined reference to `__udivdi3'
-   ld: drivers/media/i2c/ov9282.o: in function `ov9282_try_ctrl':
-   ov9282.c:(.text+0xe20): undefined reference to `__udivdi3'
+Reported-by: Grant Slater <github@firefishy.com>
+Closes: https://github.com/lm-sensors/lm-sensors/issues/460
+Fixes: 1fefca6c57fb ("hwmon: (acpi_power_meter) Fix 4.29 MW bug")
+Cc: stable@vger.kernel.org
+Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+Link: https://patch.msgid.link/20261006234618.10943-1-W_Armin@gmx.de
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: adapted the unknown-power check from power_meter_read() to show_power() using resource->power instead of res->power ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hwmon/acpi_power_meter.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
+index 1336f77106177..874de8b82adc0 100644
+--- a/drivers/hwmon/acpi_power_meter.c
++++ b/drivers/hwmon/acpi_power_meter.c
+@@ -10,6 +10,7 @@
+ #include <linux/hwmon.h>
+ #include <linux/hwmon-sysfs.h>
+ #include <linux/jiffies.h>
++#include <linux/limits.h>
+ #include <linux/mutex.h>
+ #include <linux/dmi.h>
+ #include <linux/slab.h>
+@@ -31,7 +32,12 @@
+ #define POWER_METER_CAN_NOTIFY	(1 << 3)
+ #define POWER_METER_IS_BATTERY	(1 << 8)
+ #define UNKNOWN_HYSTERESIS	0xFFFFFFFF
+-#define UNKNOWN_POWER		0xFFFFFFFF
++/*
++ * ACPI integers can either be 32-bit or 64-bit wide, so
++ * we have to check for both values.
++ */
++#define UNKNOWN_POWER_32	U32_MAX
++#define UNKNOWN_POWER_64	U64_MAX
+ 
+ #define METER_NOTIFY_CONFIG	0x80
+ #define METER_NOTIFY_TRIP	0x81
+@@ -349,7 +355,7 @@ static ssize_t show_power(struct device *dev,
+ 	update_meter(resource);
+ 	mutex_unlock(&resource->lock);
+ 
+-	if (resource->power == UNKNOWN_POWER)
++	if (resource->power == UNKNOWN_POWER_32 || resource->power == UNKNOWN_POWER_64)
+ 		return -ENODATA;
+ 
+ 	return sprintf(buf, "%llu\n", resource->power * 1000);
+-- 
+2.53.0
+
