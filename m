@@ -1,69 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794397123;
-	b=fFc07GmJe6PkS7wE8e7F/W/6hjEABoSBpO46er8SUHr/ihhuQQ8G2BA/+jOSNLICob6I
-	 lVViIJiHJrwaUR4dsGg5LOscxF5I/7c/nAHEbRH+AKFTeEWRzZMU7EzkFSHm1LzLA07FM
-	 pwvcCxVTcNu2DeQrvsUdI3esrbokMdH+2tfwIpQqkdCVAuJJUGbuwo/6myHIf4pA23/ue
-	 r/LiC6DRvaOca3Sc1/grxhfK4iZLV9lrESBMgF+Wnt/8XkxuqKfkQhFkWTzmUDgDOdsev
-	 Gllg1f81YiS0QxYgb3rz53Nl081Jvp3jyIBdZFq1kCs8hE13rTSEcdEDQWQLRPphn3w==
+	t=1794397158;
+	b=35i8jUjmlCVR9nHkXO/GU0HfpNMz+Vv3yfPnAOSJNu4HAmQGMUPTl39I44sGsk2HrsOn
+	 ub2JM6Zah8h6UiI6cPSevfFC/QIHEp/NtV1a/fxNE7ZS2aIrp26QxdHr3Yygwm9fW4FeS
+	 lViz4WZQMsqOAo6PwyGqDu48GX/ujNWFeidx4taudeUGY9jFQ1o+9dbg+uac7RC4xvwwQ
+	 TDqcS1XatavGEf/yDpBr2OpWNDvbopJP46stbvFhH+mQxr30aSFWHDbf8/lswULrV/Z6/
+	 q+tPQO8l8NSgFqKmRwNlHRytIVzZjZKcBH42h1C56iL5TUKQ+VoNk2dwVioEJ19UmNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794397123;
-	h=DMARC-Filter:Received:Content-Transfer-Encoding:Content-Type:
-	 DKIM-Signature:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:X-Originating-IP:
-	 X-ClientProxiedBy:X-Sophos-OBS:X-SASI-Version:X-SASI-RCODE:
-	 X-SASI-SpamProbability:X-SASI-Hits;
-	bh=iCsFdvMkQ9YF2rcgnSlO+ly4dEz1SG/6/YvyxaxKyAw=;
-	b=3RWSkUsxyUU2JpfLZwwoNFlg6XKPGqPDjNf7D1+nyPyUH67mgqENJmywXs5U69jDprOp
-	 7APJbT4XGZ2gZZ0U33Fb5IDgc8RUa7lukMDpmWdFfenhCDLwOhrHYOdynuFLU1gywbHOm
-	 h2yW4q4ajjFsSeuWr9VwyozofjcVe/IusyEIjGnFKu/Tt0LtVRjS8F78bDv8EmhfSPkx7
-	 pz5pJIJ0NQfd9pF+PkHmhg5ncUBaV180TdLr5YllbqyHp9oIjwUoEgTkq3wGdVu6TPDCu
-	 4WYSWTmdb/qYmPmv4MbY6UG0qFA2K5m8KN782HuGFvlKJso/aZcIstaiRtY8Kd5+QUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794397158;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JsSfYSFniRGmuPRfq48u5DDdTpeJF4QuAl3fe5dik5M=;
+	b=qGRHQgWXksPo8rYkzJ40HSNdJqvdaGDXx3+W5jFEW8GOTgk9hiCdSOY2GXW44RptUq6b
+	 kST9xBvn7oT+xvLeXlmFvtl4YMzwyxpwQ5FrAUoaFpg8iozg1Dzto6pKY6Em4qSjkFCRW
+	 N2/KZbpEftZjeVE922VVjY2mIn5fWEmZf6kDMi1hzv5ONEQhZNP/nI0XkD+YLxQujivav
+	 q2SreN6u7CA0Xy5wEJOGQN0MtXAgOLqHPnPodlsaEFNVM21qoTCadcEISvT9zl/7/M8Iw
+	 1dTa1L7e5nSU29ODFlNtRtdJAdFgwWCXniDNceSGyLgQ2M5J5Psfpf6rAJBycj3FQDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fiveco.ch;
-	spf=pass smtp.mailfrom=fiveco.ch;
-	dkim=pass header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=SnvuerX+;
-	arc=none smtp.remote-ip=46.14.118.250
-Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=O7UvWw6D;
+	arc=none smtp.remote-ip=91.218.175.146
+Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F44606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:38:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97F44606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF58606A33D
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 11:39:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF58606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.a=rsa-sha256 header.s=fiveco header.b=SnvuerX+
-Received: from [192.168.16.44] (port=61671 helo=remote.fiveco.ch)
-	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.96)
-	(envelope-from <valentin.kindschi@fiveco.ch>)
-	id 1xR6ev-000000007sg-0cyv
-	for stable@vger.kernel.org;
-	Wed, 11 Nov 2026 12:38:33 +0100
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
-	t=1794397113; h=from:subject:to:date:message-id;
-	bh=H90x1l4zN7vEBpVvl6ao43D1K2ja22npMHJz+Ossxs0=;
-	b=SnvuerX+VaKq2oTMAz9guC5CTdPMh6Uw1mMTUjupRTrUj7EmhlbrcESggxtZjfVs9OouBdEV6dt
-	faSPfcGclKcJqvOP3W0yWRgbYCC3Uzf17WCJoCJZ7Lrbh3cmF2tbjBs1xwtQ8kzslOrKZCrAaQXp+
-	gfOwWRZcNF09/vgFk2Y=
-Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
- FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Wed, 11 Nov 2026 12:38:32 +0100
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-To: <stable@vger.kernel.org>
-CC: Valentin Kindschi <valentin.kindschi@fiveco.ch>, Luiz Augusto von Dentz
-	<luiz.von.dentz@intel.com>
-Subject: [PATCH 6.1.y] Bluetooth: hci_sync: pause advertising for the scan address update
-Date: Wed, 11 Nov 2026 12:38:26 +0100
-Message-ID: <20261111113826.261177-1-valentin.kindschi@fiveco.ch>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261109201641-failed-6.1-56ed6b127a27@kernel.org>
-References: <20261109201641-failed-6.1-56ed6b127a27@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=O7UvWw6D
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zdZjBwRCrc/bJJQOamLttRr417Z2hw8mLNGL8JIUru8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794397156; v=1; x=1795001956;
+ b=O7UvWw6DTIle1OGgNxQFMYG7hepijbTb6ERfRfSS5opxNxPUNoALMR57ZqMwxeWPXjU/2TcL
+ d5lHg8gMznxqBQ7sVYZ5wcrU9YEz5a7c5OtjzW3+aKxDYzlHL0TfyA1MmkEND2mSznUtlVZrvne
+ 8gKn8dvxGTeZ3CBePG5C4EMs=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 780683f44d9afa50;
+	Wed, 11 Nov 2026 11:39:15 +0000
+X-Mizu-Trace-ID: 780683f44d9afa50
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	apopple@nvidia.com,
+	byungchul@sk.com,
+	david@kernel.org,
+	gourry@gourry.net,
+	jannh@google.com,
+	joshua.hahnjy@gmail.com,
+	liam@infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	matthew.brost@intel.com,
+	mhocko@suse.com,
+	pfalcato@suse.de,
+	rppt@kernel.org,
+	surenb@google.com,
+	vbabka@kernel.org,
+	ying.huang@linux.alibaba.com,
+	ziy@nvidia.com,
+	kas@kernel.org,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	kernel-team@meta.com,
+	baolin.wang@linux.alibaba.com,
+	Nico Pache <nico.pache@linux.dev>,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev
+Cc: Usama Arif <usama.arif@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] mm: don't PTE-batch a swap-in over a hardware-poisoned subpage
+Date: Wed, 11 Nov 2026 03:38:29 -0800
+Message-ID: <20261111113904.650722-2-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111113904.650722-1-usama.arif@linux.dev>
+References: <20261111113904.650722-1-usama.arif@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,183 +96,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
- FIVECO-MX01.fiveco.local (192.168.16.44)
-X-Sophos-OBS: success
-X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.11.11.105719
-X-SASI-RCODE: 200
-X-SASI-SpamProbability: 8%
-X-SASI-Hits: BODY_SIZE_6000_6999 0.000000, BODY_SIZE_7000_LESS 0.000000,
- CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000, DKIM_SIGNATURE 0.000000,
- HTML_00_01 0.050000, HTML_00_10 0.050000, IN_REP_TO 0.000000,
- MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000,
- NO_URI_HTTPS 0.000000, OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000,
- REFERENCES 0.000000, SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000,
- WEBMAIL_XOIP 0.000000, WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000,
- __BODY_NO_MAILTO 0.000000, __BULK_NEGATE 0.000000, __CC_NAME 0.000000,
- __CC_NAME_DIFF_FROM_ACC 0.000000, __CC_REAL_NAMES 0.000000, __CT 0.000000,
- __CTE 0.000000, __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000,
- __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000,
- __DQ_NEG_IP 0.000000, __FRAUD_CONTACT_ADDY 0.000000,
- __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000,
- __HAS_MSGID 0.000000, __HAS_REFERENCES 0.000000, __HAS_XOIP 0.000000,
- __HAS_X_MAILER 0.000000, __IN_REP_TO 0.000000, __MIME_TEXT_ONLY 0.000000,
- __MIME_TEXT_P 0.000000, __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
- __MULTIPLE_RCPTS_CC_X2 0.000000, __NO_HTML_TAG_RAW 0.000000,
- __OUTBOUND_SOPHOS_FUR 0.000000, __OUTBOUND_SOPHOS_FUR_IP 0.000000,
- __OUTBOUND_SOPHOS_FUR_RDNS 0.000000, __PHISH_SPEAR_SUBJ_PREDICATE 0.000000,
- __RCVD_CTE 0.000000, __RCVD_EXIM_4_96_AES_128 0.000000,
- __RCVD_FROM_HOMEUSER 0.000000, __REFERENCES 0.000000, __SANE_MSGID 0.000000,
- __SHIPPING_ACTION 0.000000, __SL_HEAVY 0.000000, __SL_LIGHT 0.000000,
- __SUBJ_ALPHA_END 0.000000, __SUBJ_STARTS_S_BRACKETS 0.000000,
- __TO_MALFORMED_2 0.000000, __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000,
- __URI_NO_WWW 0.000000, __URI_NS 0.000000
+Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 56ed6b127a27c418dc2daa3fd076539d8fe69c4c ]
+do_swap_page() checks PageHWPoison() on the faulting page, but the
+large-folio batching path then maps the rest of the folio without looking
+at the other subpages. A poisoned subpage that is not the one being
+faulted gets mapped anyway, and the fault that would have reported it
+never happens.
 
-hci_active_scan_sync() programs a non-resolvable private address with LE
-Set Random Address on every active scan start.
+Skip batching for such a folio and let each page take its own fault,
+where the existing check catches it.
 
-BLUETOOTH CORE SPECIFICATION Vol 4, Part E, 7.8.4 says the controller
-shall return Command Disallowed (0x0C) for that command while legacy
-advertising or scanning is enabled. hci_pause_addr_resolution(), called
-just above, only stops advertising when LL privacy is in use, so on a
-controller without it the command is issued while advertising is still
-on:
+Scan the subpages rather than testing the folio-level PG_has_hwpoisoned:
+memory_failure() sets PageHWPoison() on the subpage first and only sets
+the folio flag much later, and the bail-outs in between - for example
+get_hwpoison_page() losing a page lifecycle race - return with the
+subpage marked and the folio flag never set.
 
-  Bluetooth: hci0: Opcode 0x2005 failed: -16
-
-It does not converge either. hdev->random_addr is only set on a
-successful command complete, so it stays BDADDR_ANY, and the deferral
-added by commit c2994b008492 ("Bluetooth: hci_sync: Fix not setting
-Random Address when required") requires it to be set. Unlike the
-resolvable address a few lines above, which is reused while rpa_valid(),
-the non-resolvable one is regenerated and rewritten on every call, so a
-controller that refuses the write is asked again at the scan restart
-period of about 10 s, for as long as discovery keeps restarting.
-Observed on a BCM43455, which has no LL privacy and no extended
-advertising, 190 rejections in one capture, every one retrying the same
-address:
-
-  < LE Set Random Address  Address: 02:16:91:90:F1:D4 (Non-Resolvable)
-  > Command Complete       LE Set Random Address, Command Disallowed
-  < LE Set Random Address  Address: 26:90:57:96:9A:3E (Non-Resolvable)
-  > Command Complete       LE Set Random Address, Command Disallowed
-
-Pause advertising for the address update, and resume it once the update
-is done and before the scan is started. The pause does not outlive the
-function: it is taken only when nothing else holds it, and every exit
-resumes advertising, which also releases the pause taken by
-hci_pause_addr_resolution(). A failed pause returns before marking
-anything paused, so the error path is a no-op.
-
-The resume in the error path is no longer guarded by ll_privacy_capable().
-That guard matched a pause taken only under LL privacy; the pause added
-here is unconditional, and hci_resume_advertising_sync() returns early
-when nothing was paused.
-
-One caveat this widens, raised on the previous posting. When
-HCI_ADVERTISING is set, hci_pause_advertising_sync() also clears
-HCI_DISCOVERABLE and HCI_LIMITED_DISCOVERABLE and zeroes discov_timeout,
-and hci_resume_advertising_sync() restores only HCI_ADVERTISING, so the
-discoverable state is lost. It reproduces today on an LL privacy
-controller through hci_pause_addr_resolution(); the unconditional pause
-makes it reachable without LL privacy as well. hci_suspend_sync() also
-pauses unconditionally, so a device that suspends loses the same state
-on any controller today. That asymmetry is pre-existing and is left
-alone here rather than folded into a scan path fix.
-
-Legacy controllers have one random address register, shared by the
-scanner and the advertiser. Restoring the advertiser here can reprogram
-it when the advertiser is non-connectable, so the scan then uses that
-address rather than the one generated for it. Both are non-resolvable
-and neither is linkable to the identity address. With privacy enabled
-both roles already share one resolvable address the same way.
-
-With the patch, on the same hardware:
-
-  < LE Set Advertising Enable    Enable: 0x00              Success
-  < LE Set Random Address                                  Success
-  < LE Set Advertising Parameters                          Success
-  < LE Set Advertising Enable    Enable: 0x01              Success
-  < LE Set Scan Parameters                                 Success
-  < LE Set Scan Enable           Enable: 0x01              Success
-
-The address write is accepted, and advertising is restored before the
-scan is started.
-
-Over 119369 btmon records and about 12 minutes of the normal workload of
-that device, alternating active and passive scanning with ten outgoing
-connection attempts, every LE Set Random Address succeeded and there were
-no Command Disallowed responses of any opcode, against one per scan
-restart before.
-
-Patch 1 is required: without it the resume added here returns -EPERM on
-the controllers this fixes and leaves advertising disabled.
-
-Fixes: 3c44a431d62b ("Bluetooth: hci_sync: Resume adv with no RPA when active scan")
+Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5.5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ Valentin: Adjusted for 6.1.y: the privacy guard removed in the failed: label
-  reads use_ll_privacy(hdev) in this tree, and the line after the added
-  resume is only if (hci_is_adv_monitoring(hdev)) {, without the
-  HCI_QUIRK_STRICT_DUPLICATE_FILTER term. The added lines are unchanged.
-  Requires commit 737139f4157d ("Bluetooth: hci_sync: re-enable legacy
-  advertising on resume"). ]
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- net/bluetooth/hci_sync.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ mm/internal.h | 15 +++++++++++++++
+ mm/memory.c   |  4 ++++
+ 2 files changed, 19 insertions(+)
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 453ed84d3..12f4c737e 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -5913,6 +5913,7 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 	u8 filter_policy = 0x00;
- 	/* Default is to enable duplicates filter */
- 	u8 filter_dup = LE_SCAN_FILTER_DUP_ENABLE;
-+	bool paused;
- 	int err;
+diff --git a/mm/internal.h b/mm/internal.h
+index cd3675c044e0a..e61c02f4019b0 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -28,6 +28,21 @@ struct folio_batch;
+ int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+ 		void *buf, int len, unsigned int gup_flags);
  
- 	bt_dev_dbg(hdev, "");
-@@ -5936,6 +5937,12 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 	if (err)
- 		goto failed;
- 
-+	/* LE Set Random Address is disallowed while advertising is enabled. */
-+	paused = !hdev->advertising_paused;
-+	err = hci_pause_advertising_sync(hdev);
-+	if (err)
-+		goto failed;
++/*
++ * Check every page of the folio for HWPoison, rather than relying on the
++ * folio-level PG_has_hwpoisoned, which memory_failure() can leave clear.
++ */
++static inline bool folio_has_any_hwpoisoned_page(const struct folio *folio)
++{
++	long nr = folio_nr_pages(folio);
++	long i;
 +
- 	/* All active scans will be done with either a resolvable private
- 	 * address (when privacy feature has been enabled) or non-resolvable
- 	 * private address.
-@@ -5945,6 +5952,9 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 	if (err < 0)
- 		own_addr_type = ADDR_LE_DEV_PUBLIC;
- 
-+	if (paused)
-+		hci_resume_advertising_sync(hdev);
++	for (i = 0; i < nr; i++)
++		if (PageHWPoison(folio_page(folio, i)))
++			return true;
++	return false;
++}
 +
- 	if (hci_is_adv_monitoring(hdev)) {
- 		/* Duplicate filter should be disabled when some advertisement
- 		 * monitor is activated, otherwise AdvMon can only receive one
-@@ -5969,9 +5979,8 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 		return err;
+ /* mm/workingset.c */
+ bool workingset_test_recent(void *shadow, bool file, bool *workingset,
+ 			    bool flush);
+diff --git a/mm/memory.c b/mm/memory.c
+index d477a4f986bc8..4b7d456332200 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5158,6 +5158,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 		    swap_pte_batch(folio_ptep, nr, folio_pte) != nr)
+ 			goto check_folio;
  
- failed:
--	/* Resume advertising if it was paused */
--	if (use_ll_privacy(hdev))
--		hci_resume_advertising_sync(hdev);
-+	/* No-op when advertising was not paused. */
-+	hci_resume_advertising_sync(hdev);
- 
- 	/* Resume passive scanning */
- 	hci_update_passive_scan_sync(hdev);
++		/* Let a poisoned subpage take its own fault. */
++		if (folio_has_any_hwpoisoned_page(folio))
++			goto check_folio;
++
+ 		page_idx = idx;
+ 		address = folio_start;
+ 		ptep = folio_ptep;
 -- 
-2.34.1
+2.53.0-Meta
 
