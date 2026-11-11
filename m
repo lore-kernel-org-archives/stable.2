@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417363;
-	b=C/72FNN8EkfTmHKWZhcmwq564/eFJPFPCThW2i83raXwB40Z4RWE7/CzA2R+cBwwQ/kx
-	 iif83IxNjHQkxCGZcdf1NaPod79RwDKM9PPFybNVl/+eEy9D/EFxJpuACkdDBjIFg9TDJ
-	 WBEVxiyl0inDPeMzGkv3m6ZimcZC8aD08T/2zbWoR3lg271ua+hsyn0ydTnYunpNa5QFT
-	 pjK/dGv+rzgydq3cgy3bLPnRXV9SaQNsbvbkS5RaJfTq2eSV/xamBbVCb+XAXrHKvRj6e
-	 0qoca8tsrAAdgbtK8WUjkPC0vaoVPDI45fiupJNyHUcaTm++mqp8ZhX8slRyX0pmDkQ==
+	t=1794417374;
+	b=pJCIgItkuzuV8J+ilA5PBhw0q2LJhldA7a9HVv20DBfR9/IM+AxfwYuQnHUNGhFON1TW
+	 v9ToVgsBUv2GyB6KZNuSbHTMJf/kIjsDloGSO6adVL8DqGThVMdZ54YCgJ+IsvF3D6of0
+	 2PqXJQXQeS4hJMozJMErXXysDb3Z4a7NakhmXDgus7kHSjRk92URnrsBtWL8rrpLPaStE
+	 oK+bstSjs8Kt7FllnjgkK5h6g4adFPxR78z4d5s76RHZoVD76hNDAN0K+9HyXM7zme8Ia
+	 dISP2GB5BMfyz10g4dGwmupRDUVixJQQKXGYgwi0CqLgV5xFatFt+r8F+eepfVGUy8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417374;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=97mLJIJnd3eL0q1fygrW3TE4YSosVo2xloVzW0QVbf8=;
-	b=4tE/Osby/Z9I7mJRjg8/H355s1PtHLqj1fKI4q4JqTW7+fzyEybL/aSOPlbtAcx7LR+P
-	 leV26M0PNdZiNkK+Azo8jGfdzQsGm3gcTf4iEoN7l7O1v3Z3+oEdNUl95h5CthcNKjrzQ
-	 2sIMHE6c1VLqB/rPuu2jQ1G4vjDYaNvZG3OcHXpPOuS9S4qr21SYo1bmiSpUKE2UacQqT
-	 9f82/h1QpOKfjsTJgNoPtiZcA3IK79dAh0hmmLg4+rZszrY51zKAybjU8f9Q9mJOogqSG
-	 b+902QH9yvD9+1JU2eWP2IOreX1A+9gKkpCxE9pXgN0vdARE3tMUKyP9JIrr/aGd/wg==
+	bh=cH7V5ZpGsL47VaHjuSVEOwdVo5Dv19VpOtcdMjrMrHM=;
+	b=DXvJaojtDW4+Zo4u3fcmFTnpy6t8LzPzNuzwFgxgHGZx63tSUBJUBvB1uZv6vIP6XLp5
+	 o/FlCdAqYTFr11qAUGu5H5+8To/N8UK8zds4FKSeqp9QSVxldc1JZCDIwEkLg68FPdjNt
+	 S+spYKAQQcrcVyxFPcGS6gGKSerxLlpDjyqaSJSmiMBLg3+95nqI6u5n7YBnB1rD1fZew
+	 YEZCuKF6X+/yqVWwvYy86VxAd0GgL9K/t7inZei4Ra0Q5rAuzmStyPLBcrxEDpRB9vgpZ
+	 uYuwKKWJhu31TrSDRh4sITXcTsW3FeZj6ooXlGTXMQxXEEf1i2dK90w6m9nMEcfh87g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKZdB4Vp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SE5mKWS4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF58D606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:16:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BE5606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:16:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKZdB4Vp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F4CE1F00A07;
-	Wed, 11 Nov 2026 17:16:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SE5mKWS4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC1E1F00A05;
+	Wed, 11 Nov 2026 17:16:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417362;
-	bh=97mLJIJnd3eL0q1fygrW3TE4YSosVo2xloVzW0QVbf8=;
+	s=k20260515; t=1794417373;
+	bh=cH7V5ZpGsL47VaHjuSVEOwdVo5Dv19VpOtcdMjrMrHM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AKZdB4VpR4Y5eljc4A0k9KgH8jamSo8zLJsS8k3PQ7QmFi0vvytrgtAjFbHvfV7NS
-	 ke/2GKFd1O6eYQPL7rpY9oMFwJG/p1JEpmeyWTJJaVeCOX1jApaN4y0bUMTXxMiC4T
-	 riEuRqJNwwc9/rXTyltleppZ5i+lhhSKzIaufH7jyP7tJ7f1C8JFViSVLLKUiTsL5y
-	 K3PduSqg8BedNJti+9KysUbukefkyGNfyKPYYXb+Rl+r3A4SlisDdeGi6jjpgQ4PzT
-	 OoE73SwTF2JsSPpZ+4TZWmpqB5Pbwh3eFmprRsVUZGNRpyg+pOb6N6yup8ER2aGnRe
-	 UMSmr9UxyePQA==
+	b=SE5mKWS4h1FsYKja406tiTf4nz4xutIFFkK+ynL+iDhRJU8XSt5p+O5wHFjtGYzww
+	 ev6HeGO7LyIY0X5c80l7K+DLo02tk7EcNnslSq9QzH/5hbEFhvxXLsc9Ubvk6SaTy2
+	 PE7zn2srn9CF1G5qfuOIMV3yhP/Y2WhAILIiT6uINkZivvRulkuBkBrEPsylTGwCD1
+	 Wlt5TraHajUCA5PvEPP3jGTNijrPF8jXL+Dmi4quPOZ0jNBxQvCdJFY095BKrZpFMD
+	 FzYPMUuW5Zc0unLdzOY4/wUwUXwZejv885sRet76Xv53JXovotLEKMNpT4A+e81PIx
+	 FQ3N0kx0V7jgg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Jacky Huang <ychuang570808@gmail.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Brian Masney <bmasney@redhat.com>,
+Cc: Gianluca Balboni <gianluca.balboni06@gmail.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks
-Date: Wed, 11 Nov 2026 12:15:58 -0500
-Message-ID: <20261111171543.3521975-4-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx
+Date: Wed, 11 Nov 2026 12:16:11 -0500
+Message-ID: <20261111171535.3333499-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111171543.3521975-1-sashal@kernel.org>
-References: <20261107052657-failed-6.12-1dc3871ce7ec@kernel.org>
- <20261111171543.3521975-1-sashal@kernel.org>
+In-Reply-To: <20261109201535-failed-6.1-1e73257dff33@kernel.org>
+References: <20261109201535-failed-6.1-1e73257dff33@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,55 +62,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Miquel Raynal <miquel.raynal@bootlin.com>
+From: Gianluca Balboni <gianluca.balboni06@gmail.com>
 
-[ Upstream commit 1dc3871ce7ec819030c22297f8960c61cc42a990 ]
+[ Upstream commit 1e73257dff33ff851af60d5bb00d73893a8b6dc8 ]
 
-The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
-possible parents, but the driver never registers the corresponding
-clocks, so these parents could never be used.
+The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
+connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
+AcpDmicConnected _DSD property or the _WOV method, and the board is missing
+from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
+capture device is registered.
 
-Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
-and pclk4 and expose them through the clock provider.
+Add a DMI quirk entry for this model to enable ACP DMIC support.
 
-Reported-by: Jacky Huang <ychuang570808@gmail.com>
-Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
-Suggested-by: Jacky Huang <ychuang570808@gmail.com>
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
 Cc: stable@vger.kernel.org
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-5-48937ee6c9bb@bootlin.com
-[jbrunet@baylibre.com: removed stale link trailer]
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Signed-off-by: Brian Masney <bmasney@redhat.com>
+Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
+Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Link: https://patch.msgid.link/20261031102136.24600-1-gianluca.balboni06@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ sashal: Placed the unchanged entry before HP 8E35 because the upstream HP 8DC2 context entry is missing. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 6aa42a3e1be3b..c914079cee2d4 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -17,7 +17,7 @@
- static DEFINE_SPINLOCK(ma35d1_lock);
- 
- #define PLL_MAX_NUM		5
--#define	MA35D1_CLK_COUNT	236
-+#define	MA35D1_CLK_COUNT	238
- 
- /* Clock Control Registers Offset */
- #define REG_CLK_PWRCTL		0x00
-@@ -544,6 +544,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
- 	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
- 	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
-+	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
-+	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
- 
- 	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
- 	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 6cc6dc56b89d3..420c91288019e 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -612,6 +612,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "BM1403CDA"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
++			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
 -- 
 2.53.0
 
