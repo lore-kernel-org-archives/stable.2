@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405765;
-	b=lrogSZEv/0E/QTyFjXKv/TPR3qgT0PNOS9EQK1XE87VUWF7+EBCq4AW9xa3p7nO+sVZZ
-	 7q0IUQXN4U0vhVRUPAs4gvdI2IaVcPDyI7j91sF9EMPSdjjwOrccPDhhVk8RV8mJ4o+mW
-	 v9486u7G7BFg1kPYsovz4A5gRaWhwkeCBNxayljGEU+rtvINhD/YBDR+1yj4ALi3IRMIy
-	 t33vrw38IVxSJVOlk9AYQ32hZ58ymsu7MFskjV/D+5mCVIPpe7qfsKgO4+6rHmfPdCOIU
-	 BX4PDwktzLZzKE7hTjbMtVlh/98CBkKci4XZ3gWmPlKjhlgx45sAWYCexFW/7UgNW+Q==
+	t=1794405876;
+	b=vuoaAuV5G4DqwFqufhbk+N8Lvrd5K6bm5p7w9trLXUrHLvHGr4KKl56kmaqgWLfeUHIL
+	 bTRjmUzbv+OEgOZMZ4B2J8++GKr89A40N/jvk1QlC8RDWnlEE7oX7QX0lG1zK3+waNS3o
+	 TFqsyD+mas86AssW0F4B4NmI9AJja2nChXPYEt/8if5Hd7qV40AEqb6QRwkax/yHfpdi2
+	 yZU7j1eHkI7A0VCCp0j9v7163vhNxvaBImNKjV0Ae7NUN3W0Gz4QEeJX1Yn7mO8gccGT+
+	 5pe3tIopbS9R7axoaAZbKrJaI5Yd2at9VXuclKgyhf/uTM6PS6sefm+JYryCGPduDgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405765;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405876;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Dukt5yeJZcOdAveQV1IpSzPHi5XOgzKPviUSAYxi3rI=;
-	b=zD5vrwYfycBL/o3rOM6U0GRFPDJYFqqGL49U1E0xxiQar8Fmzpvyxq1987GV6CwigsM2
-	 HZg08Pv06defCpEW7b0HzfylaCVWybYOx/UJR6Fu+65p/9idxl+r6fsklrefvjYV9rbeI
-	 SsVD5FrjRRqm6Uq1eRZF06mIysbq9eIz3A9GbHD7KDUa9gJI9cf09eet3Q9rocjjjM/o/
-	 8IxRyahEcWBnggrpGFq+Qj+Q3gLwetBPY8k6Y6Sa2IfgSni2vxWVs3hKpaxE1W18hgnED
-	 FdxOELgUPJwKDS89R/mQ0SxRvzMKN+sZzQFjlrmh0C0b7c6jZsSuOcfp+HqBFxui9uA==
+	bh=o/3/7YwdNvnfhiJsfdYc5wPcT1t2X0L5LeZ7MOQ0H4s=;
+	b=33W2gc0iI430L1WQYirw31n+nnJd4FrgADXTpvN65buJl+7IbMko5tP1dgmR4rUSU8Jz
+	 y6oPe4PgehQ78gS75UZzCo1EUMqtvo3tJrCmWwVT8RVL/zkDshtg9XOjxXQjgxvQqXCOz
+	 uYCC3PNkWjE/jAvTxSnZtYz64VKODf2aB8Ro+0b9O3mQdubuAGBwNmtF0xl+lIPpBet2d
+	 hH0itk8feddRuKtQNQyxJdh3svegNS9UmsPo6zAgLDrKhPCtzkzpvgAuyICe2GnJgH82B
+	 ROQWFc+kHhpr2p8pyIiSLTj/UswGPCstRpkvO6hvyurlcrKGpwl1+Uxmg8CVq5o5iZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l72GwTkz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1beubmx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2F9606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:02:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B6D606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:04:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l72GwTkz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC66F1F00A08;
-	Wed, 11 Nov 2026 14:02:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1beubmx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4821F00A05;
+	Wed, 11 Nov 2026 14:04:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794405764;
-	bh=Dukt5yeJZcOdAveQV1IpSzPHi5XOgzKPviUSAYxi3rI=;
+	s=k20260515; t=1794405876;
+	bh=o/3/7YwdNvnfhiJsfdYc5wPcT1t2X0L5LeZ7MOQ0H4s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l72GwTkzKP9QyiMj8iUveSz0gTDuVTy804uxDKx7Pfel2klkCriZnW4wJHKTmF3Mr
-	 op+ulr2IRkvYqXJaiC4K6E1xlpc4FSSUK02jUK4340n9DG17twc3cAr8j0N6yq1jgh
-	 hFnU3DmTx9CBuHqW9ub2gw8a1F3cm2KaBoYm/Jeqfn2DjXc8n+cQWlE2lqlkGJsd7w
-	 vj7xqi1Q+GheHjRzuHmuCDSgEhZkaqHaXmnCAm6k7j0r9wXyUJ1M2sdlkcOtPSlAqT
-	 H89po938HVsE6LpPzrD7jEyOfXt/7IZC/vaL3c/sdzm8PjCtZx4r6spjuEeFyIAlVP
-	 raLfpOjBqIKOw==
+	b=V1beubmx0gULtHTK9iZ6ZUie27vhLloRfLrNdbL6BBdHT9FkvegMR8avjNbRl5Cno
+	 xLM30h7xUYamqyMqtXjHaRUkqLoniqKUjopIVK6109V8SzL0/7h8BTFlDoSm2+jQFl
+	 tR+KxZyCufADL+1kdb8aCsQRj0J738d2YX8Ga7l0MDw4ap4jqvM8pLLUHIhflndTyC
+	 bgD/ntXETKXbtIojLZ+LVgLoF7CsPhtiV7IKaO4zXNlHkX53imPp0Ru/AytMEYo6kq
+	 3SSZWNEQJ/SAFD0MigRxnoy2B7937lt52LnGUU2FoNgebQ2kqaYsszxDVQF5EExM3s
+	 ZYlC3YW9vW/pg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Giorgi Kobakhia <gkobakhi@asu.edu>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Xiang Mei <xmei5@asu.edu>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
+Cc: "vladimir.oltean@nxp.com" <vladimir.oltean@nxp.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Aksh Garg <a-garg7@ti.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ocfs2: fix array out of bound access in __ocfs2_find_path()
-Date: Wed, 11 Nov 2026 09:02:40 -0500
-Message-ID: <20261111140226.2169257-2-sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/2] PCI: cadence: Remove device links to PHY
+Date: Wed, 11 Nov 2026 09:04:32 -0500
+Message-ID: <20261111140404.2184541-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111140226.2169257-1-sashal@kernel.org>
-References: <20261107052223-failed-6.12-6193ce7896af@kernel.org>
- <20261111140226.2169257-1-sashal@kernel.org>
+In-Reply-To: <20261107050451-failed-7.3-cfe96ce583c5@kernel.org>
+References: <20261107050451-failed-7.3-cfe96ce583c5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,88 +62,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Giorgi Kobakhia <gkobakhi@asu.edu>
+From: "vladimir.oltean@nxp.com" <vladimir.oltean@nxp.com>
 
-[ Upstream commit 6193ce7896afb52a321a0063c8b6a45e477a84e2 ]
+[ Upstream commit b59e98ae3841f84d0fb21dbf80e69e6c241a29d9 ]
 
-__ocfs2_find_path() walks down the extent tree and records path by calling
-find_path_ins(), which appends entry to path->p_node[].  It only has 5
-spots.
+This is a partial revert of the device link pieces from commit
+dfb80534692d ("PCI: cadence: Add generic PHY support to host and EP
+drivers").
 
-A corrupted ocfs2 image whose extent block is pointing to itself causes
-__ocfs2_find_path() descent endlessly, writing past the end of
-path->p_node[] array.
+The trouble with this is that a PHY consumer driver dereferences fields
+from struct phy, which will become no longer possible.
 
- UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:677:14
- index 5 is out of range for type 'ocfs2_path_item [5]'
- Call Trace:
-  <TASK>
-  find_path_ins (fs/ocfs2/alloc.c:677 fs/ocfs2/alloc.c:1914)
-  __ocfs2_find_path.constprop.0 (fs/ocfs2/alloc.c:1882)
-  ocfs2_commit_truncate (fs/ocfs2/alloc.c:1924 fs/ocfs2/alloc.c:7286)
-  ocfs2_truncate_file (fs/ocfs2/file.c:515)
-  ocfs2_setattr (fs/ocfs2/file.c:1224)
-  notify_change (fs/attr.c:556)
-  do_truncate (fs/open.c:68)
-  do_ftruncate (fs/open.c:194 (discriminator 1))
-  ksys_ftruncate (fs/open.c:206)
-  __x64_sys_ftruncate (fs/open.c:211 fs/open.c:209 fs/open.c:209)
+Since commit 987351e1ea77 ("phy: core: Add consumer device link support")
+from 2019, the PHY core also adds a device link to order PHY provider and
+consumer suspend/resume operations. The reverted functionality is from
+2018 and is redundant with the PHY core now.
 
-Commit a406aff8c051 ("ocfs2: validate l_tree_depth to avoid out-of-bounds
-access") already restricts el->l_tree_depth to be less than
-OCFS2_MAX_PATH_DEPTH, which is equal to 5.  However, does not handle the
-infinite descent case.
-
-Check if the el->l_tree_depth decreases on each descent.  Maximum descents
-are restricted to 4 and the path->p_node[] array does not overflow.
-
-Link: https://lore.kernel.org/20260922202159.2421642-1-gkobakhi@asu.edu
-Fixes: dcd0538ff4e8 ("ocfs2: sparse b-tree support")
-Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: <stable@vger.kernel.org>
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Aksh Garg <a-garg7@ti.com>
+Link: https://patch.msgid.link/20260912161440.1032188-2-vladimir.oltean@nxp.com
+Stable-dep-of: cfe96ce583c5 ("PCI: cadence: Store the core controller in platform drvdata")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/alloc.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ .../pci/controller/cadence/pcie-cadence-plat.c   |  4 ----
+ drivers/pci/controller/cadence/pcie-cadence.c    | 16 +---------------
+ drivers/pci/controller/cadence/pcie-cadence.h    |  2 --
+ 3 files changed, 1 insertion(+), 21 deletions(-)
 
-diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
-index 0a377ec4ed8ff..f33aa48a3bc57 100644
---- a/fs/ocfs2/alloc.c
-+++ b/fs/ocfs2/alloc.c
-@@ -1796,6 +1796,7 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
- 	int i, ret = 0;
- 	u32 range;
- 	u64 blkno;
-+	u32 prev_depth = OCFS2_MAX_PATH_DEPTH;
- 	struct buffer_head *bh = NULL;
- 	struct ocfs2_extent_block *eb;
- 	struct ocfs2_extent_list *el;
-@@ -1803,14 +1804,16 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+index a1ea24fc3b63f..5900d68c6e83a 100644
+--- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
++++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+@@ -41,7 +41,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 	struct pci_host_bridge *bridge;
+ 	struct cdns_pcie_ep *ep;
+ 	struct cdns_pcie_rc *rc;
+-	int phy_count;
+ 	bool is_rc;
+ 	int ret;
  
- 	el = root_el;
- 	while (el->l_tree_depth) {
--		if (unlikely(le16_to_cpu(el->l_tree_depth) >= OCFS2_MAX_PATH_DEPTH)) {
-+		if (unlikely(le16_to_cpu(el->l_tree_depth) >= prev_depth)) {
- 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
--				    "Owner %llu has invalid tree depth %u in extent list\n",
-+				    "Owner %llu has invalid tree depth %u in extent list (max %u)\n",
- 				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
--				    le16_to_cpu(el->l_tree_depth));
-+				    le16_to_cpu(el->l_tree_depth), prev_depth - 1);
- 			ret = -EROFS;
- 			goto out;
+@@ -122,9 +121,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 	pm_runtime_put_sync(dev);
+ 	pm_runtime_disable(dev);
+ 	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
+-	phy_count = cdns_plat_pcie->pcie->phy_count;
+-	while (phy_count--)
+-		device_link_del(cdns_plat_pcie->pcie->link[phy_count]);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/pci/controller/cadence/pcie-cadence.c b/drivers/pci/controller/cadence/pcie-cadence.c
+index a1eada56edba7..0ac9802499414 100644
+--- a/drivers/pci/controller/cadence/pcie-cadence.c
++++ b/drivers/pci/controller/cadence/pcie-cadence.c
+@@ -222,7 +222,6 @@ int cdns_pcie_init_phy(struct device *dev, struct cdns_pcie *pcie)
+ 	struct device_node *np = dev->of_node;
+ 	int phy_count;
+ 	struct phy **phy;
+-	struct device_link **link;
+ 	int i;
+ 	int ret;
+ 	const char *name;
+@@ -238,10 +237,6 @@ int cdns_pcie_init_phy(struct device *dev, struct cdns_pcie *pcie)
+ 	if (!phy)
+ 		return -ENOMEM;
+ 
+-	link = devm_kcalloc(dev, phy_count, sizeof(*link), GFP_KERNEL);
+-	if (!link)
+-		return -ENOMEM;
+-
+ 	for (i = 0; i < phy_count; i++) {
+ 		of_property_read_string_index(np, "phy-names", i, &name);
+ 		phy[i] = devm_phy_get(dev, name);
+@@ -249,17 +244,10 @@ int cdns_pcie_init_phy(struct device *dev, struct cdns_pcie *pcie)
+ 			ret = PTR_ERR(phy[i]);
+ 			goto err_phy;
  		}
-+		prev_depth = le16_to_cpu(el->l_tree_depth);
-+
- 		if (!el->l_next_free_rec || !el->l_count) {
- 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
- 				    "Owner %llu has empty extent list at depth %u\n"
+-		link[i] = device_link_add(dev, &phy[i]->dev, DL_FLAG_STATELESS);
+-		if (!link[i]) {
+-			devm_phy_put(dev, phy[i]);
+-			ret = -EINVAL;
+-			goto err_phy;
+-		}
+ 	}
+ 
+ 	pcie->phy_count = phy_count;
+ 	pcie->phy = phy;
+-	pcie->link = link;
+ 
+ 	ret =  cdns_pcie_enable_phy(pcie);
+ 	if (ret)
+@@ -268,10 +256,8 @@ int cdns_pcie_init_phy(struct device *dev, struct cdns_pcie *pcie)
+ 	return 0;
+ 
+ err_phy:
+-	while (--i >= 0) {
+-		device_link_del(link[i]);
++	while (--i >= 0)
+ 		devm_phy_put(dev, phy[i]);
+-	}
+ 
+ 	return ret;
+ }
+diff --git a/drivers/pci/controller/cadence/pcie-cadence.h b/drivers/pci/controller/cadence/pcie-cadence.h
+index b4d51adefea53..4a96e1869e535 100644
+--- a/drivers/pci/controller/cadence/pcie-cadence.h
++++ b/drivers/pci/controller/cadence/pcie-cadence.h
+@@ -260,7 +260,6 @@ struct cdns_plat_pcie_of_data {
+  * @is_hpa: indicates if the architecture is HPA
+  * @phy_count: number of supported PHY devices
+  * @phy: list of pointers to specific PHY control blocks
+- * @link: list of pointers to corresponding device link representations
+  * @ops: Platform-specific ops to control various inputs from Cadence PCIe
+  *       wrapper
+  * @cdns_pcie_reg_offsets: Register bank offsets for different SoC
+@@ -276,7 +275,6 @@ struct cdns_pcie {
+ 	bool				     is_hpa;
+ 	int			             phy_count;
+ 	struct phy		             **phy;
+-	struct device_link	             **link;
+ 	const  struct cdns_pcie_ops          *ops;
+ 	const  struct cdns_plat_pcie_of_data *cdns_pcie_reg_offsets;
+ 	int				     max_link_speed;
 -- 
 2.53.0
 
