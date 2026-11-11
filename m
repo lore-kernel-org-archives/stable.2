@@ -1,55 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411529;
-	b=JtRvr4NvRzQZ58qAM+xbd365g8lah+RJpo+F469j2QMVqz/aTbViNp6bssHpD6mWS6Ql
-	 /rDWSHzrFjsiWkBiDpk+eb5kwhf/rRn5FD/FkaicyNlU4niXla0lavm7gCr6qiQ16sTCL
-	 ngnEyfId1lye25hnhYB/OD/gT/cUd+M5Lwds8n0CfKzbLL+cNYdkIUMmIbPVz28AK5GDr
-	 u+EzKQ7J85OQhG3t2QiXgarHDg3Ev66XO/yGUUtHnP4nUnIsUUkfGc//GPegC3TcfujY6
-	 wRrXryU7FEFnML4HsvUR2m+Vb5VNW5cgx3CzFWmZ3q6g5uRXOFwMTVih5xnOzxipb+w==
+	t=1794411625;
+	b=Pp7GQwrYtNy4RQA+hANhBu8eHUnX9LVebW8I8Ze80l1Vf300A1IuJNMbiUUTKrQqivrw
+	 7YJ8gMlLQiEL5ITXzB7boYyscpIoA5Rls2L3ZMWrVnvnfeb/CpuY/C8pz2qXeEq9beB3O
+	 wHcKdndymZW02yjjvl7aj7EN2r9w0DGq8+5n+cbXMvMOr+iW5aqCxBKaZzvgiOT16XOQi
+	 c3Ol59Li++mYE5wtEWlfXp6xpamno73QKEHl54Xkh+bD2ENegxkvZg85fy35W69GLME5R
+	 HJK0/pgRhbEjE2/YXfTxwr/UNLigjIFm3cTO3ZroC4UkRer7ehHXBvkb0HUfIkwXX5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411529;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411625;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=36bxOPDe3wlnXvJDV8rnif/i4RQWosBUYAxyzTH6v4A=;
-	b=2FnClzWEpXeY9bdJV/kodIf2hI+eB++8frhWer6K1ijPpR/L5/QuaQHbXAQvM358ki/g
-	 f3MEBIR/RBRTn8bIbnsBaf+pegwr62SeWg+HXh2x8LR3tYNbp+YTRqNguTvBdCLX5/k6m
-	 czaB3aa+fLyFuxgWIEqAkREseacHC/mzrNG+eQJfglCM/TcYfIh4bc97sxHWgVnMGpnnt
-	 PKIA4I3GReCunJ7Gbon/RqYcVjvZOhiAqQY99Q6Ix1+Xlv/DIb0veFMsuIr8vcXPp3V2b
-	 DVELW6wKjUO2Pv9hH2C5BE5Cm8TRd+ceZn0QlQaizVXzfMwXmyA/LLhI5Ie2popk1NA==
+	bh=nCzbB91QEhjFISS00a0bZHToSF8xWISo9CZPjpkuZCA=;
+	b=zSX+4lVpn1er5EGMnRrHwfFjp+tUX8OwFc0iNG2/TppZkeQx+ZWCr5cgNiwWXqbhafGv
+	 dCH6iBYOMCwNsF5VxvQcKost8xaHagJ/GwfMrEEW0UWhz+yU5U1l7wD6d3c78yGoywDme
+	 hh+vdGa3g1K1LCZ/FjjMYkSi/nMHwWY1Td4LDeS6trnt9fBjpnHbZYYsf883kKCEMGlcZ
+	 Dvj9FycmDea7pcDe5ojBV4Ft+07NbAophkrUEKVuokHwrHZ5bAw8xCIEKfnEWi+1kKMSS
+	 wHW2WaRHvO3zH3NJZ9vEQmsItjN8lTRL7eDYxXjx2bQXiY6ltJbMfV/hcjxaY7UlwyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xh84Dw5j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R/pg5Ows";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D73606A32E
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:38:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A6760A260C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:40:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xh84Dw5j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562C41F00A07;
-	Wed, 11 Nov 2026 15:38:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R/pg5Ows
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A540D1F00A0F;
+	Wed, 11 Nov 2026 15:40:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794411528;
-	bh=36bxOPDe3wlnXvJDV8rnif/i4RQWosBUYAxyzTH6v4A=;
+	s=k20260515; t=1794411624;
+	bh=nCzbB91QEhjFISS00a0bZHToSF8xWISo9CZPjpkuZCA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xh84Dw5j2eP6NpLPcZyrXrIifJE/ruF9jkNnZzvkjWvayqLUWu/ADQ/49xHlZw9uZ
-	 vHRRCCX3ksX56uqOH9laXTkUvKPIpqhKzRrNlOgFw1P3QlLmXXwxA2QxwdmMkHHmlN
-	 BRz90dITkmOAhods7FME6r104yuxpWzfv3aBKWoUJZBlnsALwW2jGw3zmhXrCNCNdn
-	 RTE6oe/XMkYsOkt4x4RC1W5hQSk4MZlqC4I9WryK3TkxBh8Cj92zG2RVyRXLnByGTf
-	 AxMEGHp4CI5SwDEJmFa3O8DGm7FkNEe7Yq6Uzn5vM6rWJ5ZkDBmroqqa6fCSqdOy+8
-	 A6/eQK18nf35w==
+	b=R/pg5OwsEAjbDow0LzevjdVobx6VdhWIhgZeG0QkxAIvsE3zgZC1UYifceOuWS3vp
+	 kXjZvXXRhaShBHEWJk4b82z3kH/ioPRNDfMR/OBHADed+sNKLNFdf9hqOKj1wMlD2k
+	 KQsC5pSROaNcTwfzx2PbYlvsurpblpWemPLAHnj80vmfQuUMLK5dp2lfXIkG4+aZUL
+	 /Nnqv12VCTlPwz2x89MI/RdM6Sld9DZHUc56hZrjvMvzBcmj2iQVI7FP8hvrPpy22g
+	 YOb7Bd2Vt3HyQpw84y5O7gzA1W47SGEjInR155XGtWVXs8E1Ny0agZsQx+IBxDGAaW
+	 Hh3aj3LQ7lQow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>,
-	Lee Jones <lee@kernel.org>,
+Cc: Kyle Zeng <kylebot@openai.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Rik van Riel <riel@surriel.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Lance Yang <lance.yang@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mfd: tps65217: Use devres for IRQ domain and wake teardown
-Date: Wed, 11 Nov 2026 10:38:47 -0500
-Message-ID: <20261111153828.2735139-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/page_vma_mapped: continue past nonmatching huge PMDs
+Date: Wed, 11 Nov 2026 10:40:22 -0500
+Message-ID: <20261111154001.2714628-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062359-failed-5.10-cffd44d2d895@kernel.org>
-References: <20261107062359-failed-5.10-cffd44d2d895@kernel.org>
+In-Reply-To: <20261107062846-failed-5.10-1a2993227e8a@kernel.org>
+References: <20261107062846-failed-5.10-1a2993227e8a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,144 +69,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+From: Kyle Zeng <kylebot@openai.com>
 
-[ Upstream commit cffd44d2d89524e2dda6adc7b0dd59363be1c8e6 ]
+[ Upstream commit 1a2993227e8a27fc4cdea305bbdae82d290bc885 ]
 
-Removing the parent device used to tear the IRQ domain down in
-tps65217_remove() before the MFD children are unbound: the i2c core
-only releases the parent's devres after the remove callback returns,
-whereas devm_mfd_add_devices() registered its own devres action which
-unbinds the children. Children that requested interrupts from the
-domain (e.g. tps65217-charger) therefore call free_irq() on virtual
-IRQs whose descriptors have already been disposed. With
-CONFIG_SPARSE_IRQ free_irq() then returns early without stopping the
-threaded handler, leaking the irqaction, the IRQ kthread and a module
-reference.
+A PTE-mapped large folio can straddle PMD boundaries after an unaligned
+mremap().  If the first part is discarded and replaced with an unrelated
+huge PMD, page_vma_mapped_walk() stops instead of looking for the rest of
+the folio in subsequent PMDs.
 
-Register the domain teardown as a devres action right after the domain
-is created instead. Devres actions are released in reverse order of
-registration, so the MFD children release their IRQs first, then the
-parent interrupt is freed and its thread stopped, and only then is the
-domain torn down. The same ordering covers probe failure, which no
-longer needs manual cleanup, and the remove callback can be dropped
-entirely.
+This also affects migration entries.  A walk that stops at an unrelated
+huge PMD can leave migration PTEs behind when migration or an anonymous
+folio split restores the mappings.  Those entries do not hold mapping
+references and can outlive the source folio.
 
-Balance the enable_irq_wake() in tps65217_irq_init() by registering
-disable_irq_wake() as a devres action as well. Only do so when
-enabling actually succeeded, since the parent chip may not support
-setting wake-up.
+This issue can lead to memory corruption and I have a reproducer for
+it.
 
-Fixes: 6556bdacf646fcaa ("mfd: tps65217: Add support for IRQs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
-Link: https://patch.msgid.link/20261002113624.178588-4-r.zhambakiev@prosoftsystems.ru
-Signed-off-by: Lee Jones <lee@kernel.org>
-[ sashal: moved the loop variable declaration outside the for statement for compatibility with older C syntax ]
+Skip the current PMD rather than ending the walk on a flag or PFN
+mismatch.  Do the same if the PMD became nonpresent before the locked
+recheck.  Release the PMD lock, clear the per-PMD state and advance with
+step_forward(), so the existing range limit controls termination.  This
+covers present, migration and device-private huge PMDs while preserving
+the matching-PMD and split-to-PTE paths.
+
+Link: https://lore.kernel.org/20261016011549.61146-1-kylebot@openai.com
+Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: LLM
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adapted the changes to the page-based PMD walker with combined nonpresent and migration checks. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mfd/tps65217.c | 60 ++++++++++++++++++++++++++++--------------
- 1 file changed, 40 insertions(+), 20 deletions(-)
+ mm/page_vma_mapped.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
-index ca81623a74389..43dbcdb7f35cc 100644
---- a/drivers/mfd/tps65217.c
-+++ b/drivers/mfd/tps65217.c
-@@ -155,6 +155,32 @@ static const struct irq_domain_ops tps65217_irq_domain_ops = {
- 	.map = tps65217_irq_map,
- };
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index 610ebbee787cc..5130e2ae2f576 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -219,9 +219,9 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			pmde = *pvmw->pmd;
+ 			if (likely(pmd_trans_huge(pmde))) {
+ 				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				if (pmd_page(pmde) != page)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			}
+ 			if (!pmd_present(pmde)) {
+@@ -229,11 +229,11 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
  
-+static void tps65217_irq_cleanup(void *data)
-+{
-+	struct tps65217 *tps = data;
-+	unsigned int virq;
-+	int i;
-+
-+	if (!tps->irq_domain)
-+		return;
-+
-+	for (i = 0; i < TPS65217_NUM_IRQ; i++) {
-+		virq = irq_find_mapping(tps->irq_domain, i);
-+		if (virq)
-+			irq_dispose_mapping(virq);
-+	}
-+
-+	irq_domain_remove(tps->irq_domain);
-+	tps->irq_domain = NULL;
-+}
-+
-+static void tps65217_irq_wake_disable(void *data)
-+{
-+	unsigned long irq = (unsigned long)data;
-+
-+	disable_irq_wake(irq);
-+}
-+
- static int tps65217_irq_init(struct tps65217 *tps, int irq)
- {
- 	int ret;
-@@ -178,6 +204,10 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
- 		return -ENOMEM;
- 	}
+ 				if (!thp_migration_supported() ||
+ 				    !(pvmw->flags & PVMW_MIGRATION))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				entry = pmd_to_swp_entry(pmde);
+ 				if (!is_migration_entry(entry) ||
+ 				    migration_entry_to_page(entry) != page)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			}
+ 			/* THP pmd was split under us: handle on pte level */
+@@ -251,8 +251,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
  
-+	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_cleanup, tps);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_threaded_irq(tps->dev, irq, NULL,
- 					tps65217_irq_thread, IRQF_ONESHOT,
- 					"tps65217-irq", tps);
-@@ -187,7 +217,16 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
- 		return ret;
- 	}
+ 				spin_unlock(ptl);
+ 			}
+-			step_forward(pvmw, PMD_SIZE);
+-			continue;
++			goto next_pmd;
+ 		}
+ 		if (!map_pte(pvmw))
+ 			goto next_pte;
+@@ -286,6 +285,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			spin_lock(pvmw->ptl);
+ 		}
+ 		goto this_pte;
++next_pmd:
++		/*
++		 * A large folio can be PTE-mapped across PMDs, so a
++		 * nonmatching PMD does not end the walk.
++		 */
++		if (pvmw->ptl) {
++			spin_unlock(pvmw->ptl);
++			pvmw->ptl = NULL;
++		}
++		pvmw->pmd = NULL;
++		step_forward(pvmw, PMD_SIZE);
+ 	} while (pvmw->address < end);
  
--	enable_irq_wake(irq);
-+	ret = enable_irq_wake(irq);
-+	if (ret) {
-+		dev_warn(tps->dev, "failed to enable IRQ wake: %d\n", ret);
-+		return 0;
-+	}
-+
-+	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_wake_disable,
-+				       (void *)(unsigned long)irq);
-+	if (ret)
-+		return ret;
- 
- 	return 0;
- }
-@@ -388,24 +427,6 @@ static int tps65217_probe(struct i2c_client *client)
- 	return 0;
- }
- 
--static int tps65217_remove(struct i2c_client *client)
--{
--	struct tps65217 *tps = i2c_get_clientdata(client);
--	unsigned int virq;
--	int i;
--
--	for (i = 0; i < TPS65217_NUM_IRQ; i++) {
--		virq = irq_find_mapping(tps->irq_domain, i);
--		if (virq)
--			irq_dispose_mapping(virq);
--	}
--
--	irq_domain_remove(tps->irq_domain);
--	tps->irq_domain = NULL;
--
--	return 0;
--}
--
- static const struct i2c_device_id tps65217_id_table[] = {
- 	{"tps65217", TPS65217},
- 	{ /* sentinel */ }
-@@ -419,7 +440,6 @@ static struct i2c_driver tps65217_driver = {
- 	},
- 	.id_table	= tps65217_id_table,
- 	.probe_new	= tps65217_probe,
--	.remove		= tps65217_remove,
- };
- 
- static int __init tps65217_init(void)
+ 	return false;
 -- 
 2.53.0
 
