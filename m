@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794365009;
-	b=TE2fuUFpRkPjxlCyp8K67FbtDX4hIh4dOZM4O2DrD9SnIPtu9ggxui1EMWoERh58fhjS
-	 vuOnqK/IdthOYLWRjSYmPo5Ah11BZafuw0mBH+aKehzBg9xIv/kFN2eLl3+oEKY9Mxtl8
-	 gfFrHSbmHKrbNrTzHoSrIooOphqP7u27eZpf71l7e2aaXD/KFO/jOyCjOjWXNnhrBhD1x
-	 mesZvLrlTgAS5tgIMi1wExHxgtlfAwOgkIc+hZ2BwRVhjjyDLg2ThhHKjUA24IfVOwKrk
-	 pPicSDUQDWxPvgIK++L7p6nBdjEaE/Aj0gXGbzsvy8PmwzwgvlXP0o+faCfI0gGmVOQ==
+	t=1794365005;
+	b=xzkmmi+Bp3vv3XGJtE3ESfAQOqErYPGB4q+KEKMTEfAxXn+u3+qICQF60hJQZOlkYb0C
+	 8KWG4AxlKBoLN3xBqLU6AK84BO3OEIPp+9PKz6FVxJghuX4raiasQmx/Xl0CUxieyx8V9
+	 yX+yPvCLcLJzQCYhsbuU2h+opOfdLqPP0Wt6xQLw/31HMU7o+MywyOBl9bQ0aqJvQwV6E
+	 lscBz3VEEBETqKfPwcMJH62VMGjxJRCbx6ajy4JNimxKK7q3vvZJ+U3Ruh13ZFjDmNHFj
+	 QqxTqZiWga9rbuAQOIJGc0xkdwaiRn8CAuXj2OKiYgDiCA4VlOaDeQyP5Mj9kATScfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794365009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794365005;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hNLIgky3BdAkjoqPltXY3XMANUVj9JnxXYEGf89JivI=;
-	b=X/Dy2sG/MClvykIHtc+qE9jfEzfkXPrViWR77GVBNrTjLTQoNy48vT1Zn0pPgv304u7l
-	 c3bV627QaZlW9UrRxCcFIS0KJu5NC4bOWf/+PSu8S3+tdsmVBcJNfi4+9ojVcIFJcEyAd
-	 hMYBv+awLoucTkde99mzWN6EMkSlsTbjt2cY8MBYDZ2vs7mYclyYLpYmWT4Fb3vpjMZVl
-	 0ZZz0XsFpq7HZoPm063HloqUDvDdRBPyrRv1BZ5+Fayop+Uh64UHlJLkIax+EekuRIJ+H
-	 +3G+iUvGofElLtw9D28Cr4KTe266DJU87r05D8DBFrZDzdEjIoeX9Ih8+I75IeAo+Eg==
+	bh=XqGF9Q/1ydjTzvENWrNs9yiC6HmybG7sTG0CFXXpCho=;
+	b=jXdjKjx3CpPqhI6EbS0akg0eLkOHyAC03xAuHpA9WqvYG5pVtpg+v6rlpes9JpAGYE2O
+	 UuhUkez+pQP7TYb84Ovb7L5fIhOQKRagZFtB5Kv8+F01sdIAvaFhkm2y6Ho6au3CPEYqx
+	 ICqmIi+K5A0vTI5XfD6AgwhOw0rfYmQ8/B1ZIF2YSB5i3A0jSc4n3fk1gOzqKwd7Gfji1
+	 e/okhbLB/osqN4jWWpW2VQbtlH927ZN1DD1Gat6V/7YVR2mMYCM0zsHNBBeEx+clxg+zA
+	 xJJpQLTbTVsS49to8m7a++eFuqXA8YZoZcTPyIC8mAp61x7zaBbTRMH99HalUKBGWRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CcX4Rg/d";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZip+YhL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1177606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:43:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CCD606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:43:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CcX4Rg/d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164701F00A06;
-	Wed, 11 Nov 2026 02:43:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZip+YhL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568051F0093C;
+	Wed, 11 Nov 2026 02:43:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794365008;
-	bh=hNLIgky3BdAkjoqPltXY3XMANUVj9JnxXYEGf89JivI=;
+	s=k20260515; t=1794365004;
+	bh=XqGF9Q/1ydjTzvENWrNs9yiC6HmybG7sTG0CFXXpCho=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CcX4Rg/dGN5JHIAeDJ0YRF95ArrE2P5EidyyCT5Md2ZR+QAzyELFZ2s226J0l5f1I
-	 HFH3XKLWPsnGPVPFhyt31XmKmQoNtC0fXVF83gqxMBN4bDN3goC/068olpwcWk2p4M
-	 ixZGsk9358fsWeRdRciHiJr5qcOAJjf4+k4X8HOxCOP6HIZHdCRpGCrZ9pXSdxVzEs
-	 g1mNIQHPxX7eU2HFiNuz72sh6mmuKGguViLTuWv6Ext17WNgEy7sbp4n9C97L8des5
-	 NDTxT40xEMi5wkuO3uu8g+36ILGiPk+y6Yddzen7xzXMrqvah19RVPjL1z0VCw3XL/
-	 2cDcx0O/ksCVw==
+	b=GZip+YhLOp13wL/wJOUFR4lwtwMJHr8NQXhGVy3P1YPCynYsFxET3GLwXoAyaoL70
+	 dVZa72XFClqO6o2SpFQeHnWuiNY/LjeNsMxUatZqH9b6R2EVH1lWGTISTEDzZU8i5b
+	 Obqpryu+ggkAcpbDtDoB7wbZ6w+V/imEnZbb6oq6s0NGXAlLgCDekAFxP9Z4zPh+Zw
+	 +FuLCHm0pydN4yRH9xf6ded+AMOuQ+FPQnq5dlYg9vHqMgtbyYz3EtO2DloecyzYpK
+	 LKLNOqIUVBYf+LFQkCoFZjPiE2D0/L71isXAjpN3yWG5CAB09GbfFZbYnyqwp8zEBE
+	 hXbq4lwgqRUQw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nikolaos Karaolidis <nick@karaolidis.com>,
-	Jan Kara <jack@suse.cz>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Mateusz Guzik <mjguzik@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 6/6] fs: rotate inodes whose page cache could not be dropped
-Date: Tue, 10 Nov 2026 21:43:23 -0500
-Message-ID: <20261111024017.675599-6-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/6] fs: assert on ->i_count in iput_final()
+Date: Tue, 10 Nov 2026 21:43:18 -0500
+Message-ID: <20261111024017.675599-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111024017.675599-1-sashal@kernel.org>
+In-Reply-To: <20261107051338-failed-6.18-8ee09f597763@kernel.org>
 References: <20261107051338-failed-6.18-8ee09f597763@kernel.org>
- <20261111024017.675599-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,78 +61,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nikolaos Karaolidis <nick@karaolidis.com>
+From: Mateusz Guzik <mjguzik@gmail.com>
 
-[ Upstream commit 8ee09f597763acfd31c62a578ba88b792fc41b24 ]
+[ Upstream commit be97a4b63ca8c3ed8f5c3f5606a15a8379c78afb ]
 
-When inode_lru_isolate() drops the page cache of an unused inode, it
-has to unlock the list, so it returns LRU_RETRY and the walk restarts
-at the head of the list, where the inode still is. If
-invalidate_mapping_pages() could not empty the mapping, the restarted
-walk strips the same inode again, and so on until nr_to_walk runs out.
-Every walk of that list then ends on this inode, and nothing behind it
-is reclaimed for as long as its cache stays.
+Notably make sure the count is 0 after the return from ->drop_inode(),
+provided we are going to drop.
 
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
-traversing context") the walker pinned the inode with a reference, and
-dropping it in iput_final() set I_REFERENCED, so the restarted walk
-rotated the inode to the tail. Set I_REFERENCED again when the mapping
-is still populated after the invalidation, in the same i_lock section
-that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
-i_lock to be held, like inode_pin_lru_isolating().
+Inspired by suspicious games played by f2fs.
 
-On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
-is left behind if it is locked, under writeback, spliced into a pipe,
-or still in another CPU's LRU-add batch after being read. Without
-HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
-mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
-never removes.
-
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
-Link: https://patch.msgid.link/20261016102515.111285-1-nick@karaolidis.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adjusted context for direct i_state accesses in inode_unpin_lru_isolating() where upstream uses inode state accessors. ]
+Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 8ee09f597763 ("fs: rotate inodes whose page cache could not be dropped")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/inode.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ fs/inode.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/fs/inode.c b/fs/inode.c
-index ec58d248a7ed9..229ac6ff72cb9 100644
+index 24762fd1f2f77..acf09822535ed 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
-@@ -581,12 +581,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
+@@ -1875,6 +1875,7 @@ static void iput_final(struct inode *inode)
+ 	int drop;
  
- static void inode_unpin_lru_isolating(struct inode *inode)
- {
--	spin_lock(&inode->i_lock);
-+	lockdep_assert_held(&inode->i_lock);
- 	WARN_ON(!(inode->i_state & I_LRU_ISOLATING));
- 	inode->i_state &= ~I_LRU_ISOLATING;
- 	/* Called with inode->i_lock which ensures memory ordering. */
- 	inode_wake_up_bit(inode, __I_LRU_ISOLATING);
--	spin_unlock(&inode->i_lock);
- }
+ 	WARN_ON(inode->i_state & I_NEW);
++	VFS_BUG_ON_INODE(atomic_read(&inode->i_count) != 0, inode);
  
- static void inode_wait_for_lru_isolating(struct inode *inode)
-@@ -964,7 +963,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 		else
- 			__count_vm_events(PGINODESTEAL, reap);
- 		mm_account_reclaimed_pages(reap);
-+
-+		spin_lock(&inode->i_lock);
-+		/* The walk restarts here: don't retry leftovers right away */
-+		if (!mapping_empty(&inode->i_data))
-+			inode_state_set(inode, I_REFERENCED);
- 		inode_unpin_lru_isolating(inode);
-+		spin_unlock(&inode->i_lock);
- 		return LRU_RETRY;
+ 	if (op->drop_inode)
+ 		drop = op->drop_inode(inode);
+@@ -1889,6 +1890,12 @@ static void iput_final(struct inode *inode)
+ 		return;
  	}
  
++	/*
++	 * Re-check ->i_count in case the ->drop_inode() hooks played games.
++	 * Note we only execute this if the verdict was to drop the inode.
++	 */
++	VFS_BUG_ON_INODE(atomic_read(&inode->i_count) != 0, inode);
++
+ 	state = inode->i_state;
+ 	if (!drop) {
+ 		WRITE_ONCE(inode->i_state, state | I_WILL_FREE);
 -- 
 2.53.0
 
