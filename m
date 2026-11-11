@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794361062;
-	b=khbMWR9MPcWFMFp6LverDfqJCDkhOgD3a83UtqXPDfq8b5wxojjwZkig2kH45yp6aXNT
-	 2Rs0md7tSLClcbOPm1oxESnb5DszuWcYWWqda8yavvDBMsCoXqZDdTH2TlikPCj1ZcCUe
-	 xTZkaVO7OagfoDEUe4zdkNQbijNjLj9VkO66nH5HwYb++Hz/eI/4yM08/q0pb9jn/KvEd
-	 k9LAAbJNiTeVjOIuXL3dj2Tp3TZPxoyeUCHgghcLezh+a1OJiKnZFGbNkIo7oZgjNqo/R
-	 91y6cshClj6bDdgzQKIb1B1GvGwG2PtKbulQLzWXRA8exBK/lvu9Q+rR3ul8ma1QXYg==
+	t=1794361065;
+	b=FIBB/BJPYnTy/VSbaQ3DOtfXM+kRqY18uGe16dbIiEh3Yho/4ZV4IoQPS7hx0a23BSFM
+	 Ny8IuX37PKGceQUgdVsddpW0y6iX9vzxp3SpWGUtFT+BqiAZ36kKHhTHkYw/np6Qy1HBh
+	 Z15exZvskecWHn4mJguNwoDqjJjB4I9G2bz/iVzA7GnEIWEA1YJaJoFFVj9Sz/QPdoH2n
+	 Z3dWP7uyg3Q/VCweer/2BX4smm0ZCmjsqBsoOJqhQ4vKVQxP7dWVPTEzcrrA3FKQEuvs3
+	 bNJn4X7RCCljHmcf8JZruFp+uvMHtIMU764DfaY9LbqmOvU4Azhr5rTPiN1WWCu/Qsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794361062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794361065;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=30XSSS2lPMy9mINEYK3RCpbcok4KBDV6OBtfUdDAgnQ=;
-	b=od4XX51NL3xB0SVPSHg6vF+QS6YObqick1vjQi2qop4YGceXJOx/K4UQKELF9wRfriZZ
-	 oTTjYk5sZKwjB1YhaXRwfjosfx8lG7OWbFIkneZ6M87cg0EdABF7a3nZVMS0ZaFvJ5pLw
-	 a83R2+LYGdVXyHdBcxHoSjJa8ohihXofN534wohJUalXJwfGfBdqMsXk1Ahu6svkHzjei
-	 N1+DGRqxQpHSSnmZ0ZwmXHWxQ9aGxQbIFJLQ1jRPozuMM0Z7KAKyesRT2j78ChM92RzON
-	 4nywHgQxBF9Zue/Ab0Bm/Sxdr2olFjU6VAsxsDdldXgWfrG0PRN+IU2YcHMstjqA8YA==
+	bh=92U1ObWkaGVpc+cOjyrtLLDbna3r7gbnqMIKO/5ousM=;
+	b=YVSN3+fXdlmVUXgXnq8E5lXfo3zJ98K3FknlDft8Bxl16iXwzM0OQY5rtaJBXqQnux7c
+	 Tfj80odMQ9WkzGUTxjQIHmvndpxvMpUfrnRMMYVmRzJGGh48798AzIOc6ro7Uw/ym7NTn
+	 5sgE6FZbh13uNbQJE9uO1MJv+el6lzIkO/33MSbwhHWwcRDHVfvdTTlBnVqilJuNArRLQ
+	 T1NTF/E0bZRNldssuX8ybZ317kTPJfyk9xivec2DHFpmYzE6PyhVo1AqSjMk/hsZNssdX
+	 pXyhriKFPRP3z5wl/O262JF5Q8NA6KNtMQvWWn0XJ/xNfPC7nZbIiP8KtgIlrCaZSRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9ee9Lpw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYPqKbnS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E544B606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19502606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:37:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9ee9Lpw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D535F1F0093C;
-	Wed, 11 Nov 2026 01:37:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYPqKbnS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3227C1F0089F;
+	Wed, 11 Nov 2026 01:37:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794361061;
-	bh=30XSSS2lPMy9mINEYK3RCpbcok4KBDV6OBtfUdDAgnQ=;
+	s=k20260515; t=1794361064;
+	bh=92U1ObWkaGVpc+cOjyrtLLDbna3r7gbnqMIKO/5ousM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U9ee9LpwHII/8v/VOH8SmYfd7e/c8aiX2UtABIC+uATEdegYhFCcNNb2+XI52xVC9
-	 rFYHQfUZhSotiXsvuvxs4U6RrHsLal4bLV1J558HUxb9SxDzhQooGB10ktqtvhoYOs
-	 +6ijF8JJWnzpeIDbU6o7cQSKfsLPpN/mjgL/d91yDfBzQIBZvXZl7IISl/rqmyqvK0
-	 7P0utxbTu1JEqOl/uDteLVyym8hgGSqmtP+ZGKe/PWD/wwruFhT+cQd0CdxwVQgCk5
-	 JPCvcgDDqdJMflj/lGnMZbmFTrIC4bfGiyi8SleHUbTSV4i5R8B4ASkiJn3ZJRr4rw
-	 BOYfI1MvnHK1A==
+	b=FYPqKbnSKUCVqbTID6tFuiIHdnRWoA3Bn3wKGP6wU8JfVmLw/MqEXmvbLUVf73SvT
+	 YJQsa2TJwebme4aE0ACkbsOuxVxnH7/vKeTGBrJTvYj3rC4nYfVONZ8dYTVC1lHoJV
+	 EaYdJjfbLvNp3ZLxjPcwhj6o7txLVF3LyHw5S8qeYxI5JFW1gdNCDDQs68OrpxDgq/
+	 lBK7magIYIBk2gT2l7A6Vl2t/WvnF8pRtDWqj97B+eIXWFk96NV/I9Gj1D5vvOf8BW
+	 14qWOFk+O5EzDK5a1QR+CkpOOmrahe6lLAyt3VkfGNtYkOHMmLP8lOsnrssiRImDAU
+	 x02U+GF1TLnlg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com,
-	Horst Birthelmer <hbirthelmer@ddn.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Luigi Lauro <luigi.lauro@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] fuse: don't launder folios of a bad inode
-Date: Tue, 10 Nov 2026 20:37:39 -0500
-Message-ID: <20261111013618.72434-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] drm/amd/display: take a runtime PM reference only when a CRTC turns on
+Date: Tue, 10 Nov 2026 20:37:43 -0500
+Message-ID: <20261111013634.93006-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060744-failed-5.15-01d0f3d294af@kernel.org>
-References: <20261107060744-failed-5.15-01d0f3d294af@kernel.org>
+In-Reply-To: <20261107063009-failed-5.10-b456f591f925@kernel.org>
+References: <20261107063009-failed-5.10-b456f591f925@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,71 +61,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joanne Koong <joannelkoong@gmail.com>
+From: Luigi Lauro <luigi.lauro@gmail.com>
 
-[ Upstream commit 01d0f3d294af126f517d92c11e100525537f8be4 ]
+[ Upstream commit b456f591f925fbd6b33770d0eec1b51c2f9d41c1 ]
 
-fuse_flush() and fuse_writepages() reject writing back dirty data for
-any inode that has been marked bad, but fuse_launder_folio() doesn't.
+amdgpu_dm_commit_streams() takes a runtime PM reference for every
+active CRTC that needs a modeset and has a new stream, but
+amdgpu_dm_atomic_commit_tail() drops one only for each CRTC that goes
+from active to inactive. A modeset of a CRTC that is already active (a
+mode change, or anything else that needs a full modeset) therefore
+leaks one reference. Once that has happened, the usage count no longer
+returns to zero with every CRTC off, and the device cannot runtime
+suspend again until reboot. The two also disagree the other way when a
+CRTC turns on without a stream ("Failed to create new stream"): no
+reference is taken, but one is dropped when it turns off.
 
-This can cause the following warning in fuse_write_file_get() to
-trigger, as reported by syzbot:
+Take the reference in the loop that counts the disabled CRTCs, on the
+mirror condition: when the CRTC goes from inactive to active, which is
+what the commit that added it intended ("every time we enable a
+previously disabled CRTC"). Each active CRTC then holds exactly one
+reference.
 
-WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline]
-WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
-Call Trace:
-    iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
-    fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
-    folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
-    invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
-    fuse_open+0x5a6/0x770 fs/fuse/file.c:297
+Tested on an RX 9070 XT (Navi 48) over OCuLink, with the change
+backported to 7.2.9: an unplugged connector forced on, then mode A on a
+CRTC, mode B on the same active CRTC, and the CRTC off, three rounds in
+a row. The usage count rose by 3 with the stock module, by 0 with this
+patch, and by 3 again after reloading the stock module.
 
-This can be hit on a writeback cache mount:
-1) a writeable file is open and a buffered write dirties some pages
-2) another thread opens the same file read-only. fuse_open() passes the
-   bad inode check and sends OPEN to the server.
-3) a SETATTR reply with the wrong file type marks the inode bad
-4) the writeable file is closed. Flush and release skip writeback
-   because the inode is bad. The pages stay dirty but the file gets
-   removed from write_files.
-5) server replies to the OPEN. The reply has no FOPEN_KEEP_CACHE, so
-   fuse_open() calls invalidate_inode_pages2().
-6) the invalidation finds the dirty pages and calls
-   fuse_launder_folio(), which finds no wriable file and hits the
-   WARN_ON in fuse_write_file_get().
-
-Instead of trying to write back dirty data for the bad inode,
-fuse_launder_folio() should return -EIO.
-
-Fixes: 5d069dbe8aaf ("fuse: fix bad inode")
-Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
+Fixes: 97028037a38a ("drm/amdgpu: Grab/put runtime PM references in atomic_commit_tail()")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5951
+Assisted-by: Claude:claude-opus-5-5
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Luigi Lauro <luigi.lauro@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 59ef9a435499777b8e1c4e0eff52f813c64fb920)
 Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Reviewed-by: Horst Birthelmer <hbirthelmer@ddn.com>
-Tested-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ sashal: Adapted the guard from fuse_launder_folio() to fuse_launder_page() using page->mapping->host instead of wpc.inode. ]
+[ sashal: adapted the patch to the separate PM-accounting loop in amdgpu_dm_atomic_commit_tail() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/file.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index b6b06f760162c..b777ec4ec8414 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -2383,6 +2383,10 @@ static int fuse_write_end(struct file *file, struct address_space *mapping,
- static int fuse_launder_page(struct page *page)
- {
- 	int err = 0;
-+
-+	if (fuse_is_bad(page->mapping->host))
-+		return -EIO;
-+
- 	if (clear_page_dirty_for_io(page)) {
- 		struct inode *inode = page->mapping->host;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 3b37aca3781e4..43ad2fa2bafdb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7825,8 +7825,6 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 			if (dm_old_crtc_state->stream)
+ 				remove_stream(adev, acrtc, dm_old_crtc_state->stream);
  
+-			pm_runtime_get_noresume(dev->dev);
+-
+ 			acrtc->enabled = true;
+ 			acrtc->hw_mode = new_crtc_state->mode;
+ 			crtc->hwmode = new_crtc_state->mode;
+@@ -7979,10 +7977,15 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 		mutex_unlock(&dm->dc_lock);
+ 	}
+ 
+-	/* Count number of newly disabled CRTCs for dropping PM refs later. */
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+ 				      new_crtc_state, i) {
+-		if (old_crtc_state->active && !new_crtc_state->active)
++		/*
++		 * One runtime PM reference per active CRTC: take it when the
++		 * CRTC turns on, count it when it turns off for dropping later.
++		 */
++		if (!old_crtc_state->active && new_crtc_state->active)
++			pm_runtime_get_noresume(dev->dev);
++		else if (old_crtc_state->active && !new_crtc_state->active)
+ 			crtc_disable_count++;
+ 
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
 -- 
 2.53.0
 
