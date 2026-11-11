@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794391205;
-	b=xpLfJvk7qz1Ng96nrUklGhls/9clAQrveDme2OKp06d+18T+v+o08zhtsHCT4dnbcuny
-	 VEkb3oJ3wDowGv/WXTkVjKZtk0HikArph90U+02ETDtON/PcbrRwyVLoNCAIiabi3/H1n
-	 iONVoVEHMjETBA3sQA4WXTZZYyJf+J31+1tpzX+FkDmyY6+XM/U3RbQYbwo4ahQZe4I5E
-	 VMtq5JCOt87ka8PjNftauFzu4fhTPFWomz8lr43MIPnGPL5du3yLcSU4TEAhPKBwfbKGb
-	 PmDLbX9bTwEDSVsKEkM/SMXufJa/fbX29knBN8Sp+h+rpdLFajQERlFIYqRHHM4uxvg==
+	t=1794391213;
+	b=OwiyLUdrAUTviLgPl96Fx1+PnuUNChdB2sR8ioNRRfb9QZqt1IkkS+0QAJ54VhIJPmBQ
+	 RxaViK5N3uuwFzxjyG4oDe0oaCsUTG5dA2pQfWD86fnQa4AOBdC0txmS8HjWlMtDSp9Jv
+	 wUQcbeVAk8oxl7MGUQ5Up1cOTc2BJvY+DoqMnekw7dGw1ZOILDj02BnI14OkCNuhvraj/
+	 8OVW0glHM67PHsOfKcjp/cdMesAep4Mj7IkgJwQYLl7XOQAZNJ7PpPSfFxsczLuta+Zqe
+	 HkvZUMiEy3hDhoWvpAt+IT9IZeNc8Man5R1aM29hrfYq/50dY0iwzkTXet3EAIvCqGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794391205;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=59wVNw1zJzlvwp3L7uQ2Ik+N71jZ01U5OCjzBS7fR5E=;
-	b=w7uZJJCVY36pg7nasd8BnKMdTogEccEF2a818MCmNjVKJ5vmI3KPSCc1M2m1wjeRV7iw
-	 SgiVgkgTEf/99kIyjhTS6jyAPcT7QKi/waAM1b/RFW8Y6X8RaRBKg7w+kKJOXtyFXGp2Q
-	 l81WHHb7qEMSQpszowdTXEAoFwVeOo55lvDF45uK0PufbLyXmlHQhOKaEeQuTOrK+EFv1
-	 bgUxxrDx72ThjWGwQNSAmPL5wwCRzZ+gLPigHOIgnnX8UxyNydXDRsj717PasUNt3uh30
-	 juCmNFTb/eyuUFAqZW0RboE0BXEW7Q7Dp6S6V9nTKxFoUg/juLNaitKJFE/jauDA1Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391213;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=erVicnyjczVKlKp332KmmkcaVpFm/vkH+cMMIWc4UWs=;
+	b=X99I0oQjvOWgM/rIL1oOsZ3Afgoh5iO0AB/t46GC1SKqbodeIscsfD5LGEGcnMJTT2K8
+	 WvrPFmgXtE24PeU8ULN0l9xHwbp/ugAVJgbIAtNG3u3AuDLN88nKpphk3BU9y9FPaM4Kz
+	 CoRXdET++/Eq7fxKSkr138FdvwbL1vHAVI6oPfl3ydB+yLvlmYzeco9lUEdUCikeWvYx3
+	 Z+Pv+jAqkVqVQI+c5wccPxv3KXJUJUyh/0Icrz5E7GXFi6AWNc6sjX0ktdiAuhX1g6Hhc
+	 j/12lKMy7FpccSNTmJOy/wlNr3uhxvgQ+ONFNcrMARMTCjESU5vD86Oloq0EkwIfITw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b="bkn/ZI3d";
-	arc=none smtp.remote-ip=220.197.31.8
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJ4W6S9E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00255606A321;
-	Wed, 11 Nov 2026 10:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00255606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193CA60A2602;
+	Wed, 11 Nov 2026 10:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=bkn/ZI3d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=59
-	wVNw1zJzlvwp3L7uQ2Ik+N71jZ01U5OCjzBS7fR5E=; b=bkn/ZI3dblTpkgy3P6
-	9jS9l/FQc4vU68kcVkgnZpqa2Q/qqz+dibQhfSO9ayedxmn0CRoJUyDH7kgIqnQE
-	V3gYK0yuXubWgi4ipyTnrNva1pvd6IKsZ+febHUhUKdQTahgxapKlG+WOJbXr1+0
-	m/XXxk59zVxCwUffDcyumicW0=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PikvCgDH9+1sPPRq4RJQDQ--.51384S2;
-	Wed, 11 Nov 2026 17:59:09 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
-	Guikun Yang <yangguikun19@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] nfc: llcp: fix SNL PDU size truncation in nfc_llcp_allocate_snl()
-Date: Wed, 11 Nov 2026 17:59:07 +0800
-Message-Id: <20261111095907.3366028-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJ4W6S9E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A68E01F00A05;
+	Wed, 11 Nov 2026 10:00:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794391212;
+	bh=erVicnyjczVKlKp332KmmkcaVpFm/vkH+cMMIWc4UWs=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=iJ4W6S9E3fB7xmJN1PqrBfF7/XtlKxHmKlYXHhBt/8b7jdBu0A2NyNBmbqti4qQZK
+	 Hz06Tznkkc/gAigTWncKjg5Z9IgxZTc09gHBfr3ls4JD5FJVJ+9YM84M7eElOFfG4S
+	 7D+lIml68xSB7yJek5kNHTIZZmzAsceG7guuV6hXTlOgj4hT7XIeNs1lr1u6afg687
+	 7l7K981FgpNUxrGVno9zkMBJQwO7h/nbEQ3yZkWoPXdYezoVqVjsVufwYUuxFIdd7e
+	 Kyrq0VQFre0awKtnTcM8wVjBBReYzNyOWI/EJC8H0w+d4ralPzYu/K1QXZAawZQKfx
+	 gujdwn9KJxdGg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B23C38007EB;
+	Wed, 11 Nov 2026 10:00:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,58 +54,45 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgDH9+1sPPRq4RJQDQ--.51384S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFyfCr43Xw1UKF18AF1UJrb_yoW8Zr1rpF
-	W7K34Dtr90qF18Crn2krW0va4Yk39rAFWakF1jyFy2yF98X3Z7WFW09rWF934qvr4kJF1a
-	yF9avw1UCw1UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlhFsUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqQ0C2Gr0PG0aRAAA3v
+Subject: Re: [PATCH net v3] sctp: fix ASCONF address change on single-homed
+ hosts
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179439121114.835340.17836695367484494934.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 10:00:11 +0000
+References: <20261106195126.1563231-1-andrey.misyrov@gmail.com>
+In-Reply-To: <20261106195126.1563231-1-andrey.misyrov@gmail.com>
+To: Andrey Misiurov <andrey.misyrov@gmail.com>
+Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, junvyyang@tencent.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+Hello:
 
-nfc_llcp_allocate_snl() sums the requested TLV payload length into a u16
-variable before passing it to alloc_skb(), but its tlv_length argument
-is a size_t and callers pass a length bounded only by the size of the
-netlink message that produced it.
+This patch was applied to netdev/net.git (main)
+by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
 
-nfc_genl_llc_sdreq() walks the nested NFC_ATTR_LLC_SDP attributes of a
-GENL_ADMIN_PERM request, builds one SDREQ TLV per attribute and sums
-their lengths into the size_t tlvs_len. Each URI is capped at
-U8_MAX - 4 bytes by nfc_sdp_genl_policy, so every TLV fits in its u8
-tlv_len, but nothing caps the number of attributes, so tlvs_len can
-exceed U16_MAX.
+On Fri,  6 Nov 2026 20:51:26 +0100 you wrote:
+> Commit 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in
+> DEL-IP processing") refuses a DEL-IP of the transport the ASCONF was
+> located by, so that a later wildcard DEL-IP cannot use it after free.
+> 
+> This also breaks the single-homed address change (RFC 5061 5.3.2). The
+> host sends [Address Parameter L] [ADD-IP S] [DEL-IP L], the association
+> is located by L, and DEL-IP L is now refused. The sender never gets an
+> all-success ASCONF-ACK, keeps src_out_of_asoc_ok set and stops sending
+> data, so the association stalls.
+> 
+> [...]
 
-When it does, the u16 accumulator wraps and alloc_skb() returns a
-buffer that is far too small. nfc_llcp_send_snl_sdreq() then calls
-skb_put_data() once per TLV and writes all tlvs_len bytes into it,
-which trips skb_over_panic() and panics the machine.
+Here is the summary with links:
+  - [net,v3] sctp: fix ASCONF address change on single-homed hosts
+    https://git.kernel.org/netdev/net/c/5175b2fb34c7
 
-Use size_t for the accumulated size so that it can no longer wrap
-before the allocation. alloc_skb() takes an unsigned int, which is
-still wide enough for any length a netlink message can carry.
-
-Fixes: e0ae7bac06cc ("NFC: llcp: Service Name Lookup SDRES aggregation")
-Reported-by: Guikun Yang <yangguikun19@qq.com>
-Link: https://lore.kernel.org/netdev/tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
----
- net/nfc/llcp_commands.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/nfc/llcp_commands.c b/net/nfc/llcp_commands.c
-index 80a00938c869..0a3d66e6cd59 100644
---- a/net/nfc/llcp_commands.c
-+++ b/net/nfc/llcp_commands.c
-@@ -542,7 +542,7 @@ static struct sk_buff *nfc_llcp_allocate_snl(struct nfc_llcp_local *local,
- {
- 	struct sk_buff *skb;
- 	struct nfc_dev *dev;
--	u16 size = 0;
-+	size_t size = 0;
- 
- 	if (local == NULL)
- 		return ERR_PTR(-ENODEV);
+You are awesome, thank you!
 -- 
-2.25.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
