@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362187;
-	b=E5BcSsINdPpA2kjZl85VMj83QIuKfjO4Pmf/8VMVgR4wXFbSSOvb0UCX6yOGEHWQAc8u
-	 yZrfrdXkZr8c2fnXdYOpgQDxqGwbUaGcOH4L6Bi8XCm5BGwYGqDIEKa7SI4IxKVy1ckud
-	 Hx/9kaeJf6LjDub9m87GJ++M5YmCNaQEOEpwNFxRo0R3TsBbDj1Y5fZmgjdcoVQlH8zev
-	 XM39oorowaIdGyXm2PbmHvBoHVw9tF+qNDVpF+Tcpm7hPUVXKJGgPfE8TdktRAxT3n8Pc
-	 UpNIGSMnMyEfZVv5R/DhI6BjrWRiuSzrS/rVdL0iAaSSnA5IRBnOWOG/p4EVs8eefGg==
+	t=1794362248;
+	b=uBDbFiunDsABFeQ4qTYkSQ1+7Ig7wqGtw+O6ZV6QlY+/xC/DNt/Iq2RbEoIpbkkGreMH
+	 q33E55FgjYCzZgv8J9qK0z+9H9r9Rjat2UynpVJPP80xLwA2ThQQnwar4zSvpgaIJGLRq
+	 FXzwZbvun96Sg92KvaUpJesIuO7Xa+noju8hdTar7UXd4WumCI/HVEicZAsWYKYoYaUxU
+	 zaGR6MSsMq6Z6kVMS7iz/UhHcXq2/5AjiQKAgc9d2jLGgI7IL3lABVRTpoTKoPp82BUEg
+	 MLDhIcujGu6oRI+Zk2juR+j0nAlZ2Mx21pfxgZPKkyBz3oLKb0qObdkutdDkOzcYvgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362248;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gBK4AzbJ7V99AKIMhNAxS+NdtmVyqniQz6K5yYyjo90=;
-	b=cRAluLYMoIDiLt/debjTzsB63ZrKtRUaxJyOx7fFTziKytIreimc1wa82rb9HU51UXyX
-	 TGRpAoRAmNXDHgrev/YdicfG3PxW0ho80dg58PIaa69gFlEbdrjf/zld5BiuJ2tMxwVFC
-	 5BoJ89Qlq1GpsL4s8E6BstVcJ7Sk46tEKxR5O3yqDPI+exCGLruLN/jRgFk3tkstVSlgD
-	 lYAJpGA88wL5rFtjV0pS+tOztI8RzsM2uV2MIfxbXh/67zxC312dRADOlIntitMpG+CG5
-	 YKt634UX4Vojr7FaKD3hrD8qQxdw7FQf3A2aoeFsLle6/sQIw2Y6cIAgnuWoJlI10lA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=gxhrkjxl7/W7W7cDOdDg/PlAtP8upFZdjINyo9nqrhs=;
+	b=TGTBZDI/VUxG/XuVoiOsb83Fc86T4hlWgsKoWnBG071KqxFwPGw2Sa5pI4eaTfMyDE5N
+	 F6Qn92T3wkk2Xht+iPGMqyycWIPgljvdTj8hNc+wZL2mTwXsGqddqpovrcDuk7TJWMKtl
+	 5IJQlWT9BULPvohnkbW4PDi2lGQ2AaPfP5lG5Wsck73vEtE+ZbeODFgMOXhfG9yBiuGoI
+	 U4k3/f5GN3vOxd+Y6CuS6sh95PrcgcAW6N8148P0nHBKZlvulqbCZvoPzwrWH+/DXkzZB
+	 CaeLG5vDsxwfT+nCtWs5GOTFoCGu5SMIskNO9edZ9EKE+FY83iGvQhEiEKI7weHBKbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUhVxLW1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OlHry+56;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA605606A330
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:56:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29A4606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:57:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUhVxLW1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0881D1F0089F;
-	Wed, 11 Nov 2026 01:56:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OlHry+56
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3941A1F0089F;
+	Wed, 11 Nov 2026 01:57:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794362186;
-	bh=gBK4AzbJ7V99AKIMhNAxS+NdtmVyqniQz6K5yYyjo90=;
+	s=k20260515; t=1794362247;
+	bh=gxhrkjxl7/W7W7cDOdDg/PlAtP8upFZdjINyo9nqrhs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aUhVxLW1hqM+uaZOZg/x2N8z1NCLQx9pyWPKE5mU+2ydi0ohyOFSaV1Q/U81CB5LB
-	 imKFOc3q9uPbw3gB4tgC1nSwnWuST/2RUBq29AAOOQfzWc0ZsJj96HGoYyVTDHA+8n
-	 Bk8yPhZRCAdSAJ3V2NKse38aK3GMuHZdzUlm15EUtEAf6yE+EV+dPE0/6YNpo/hyv/
-	 g1tEqbAIbBmeDA6JtgUEb0T8ICXvyno1dKIQFux2l9BimWu8QsPMOtjSvuq2UwL7BD
-	 IaDia9pD46LjXWjZip8Qi5qJJ5bMKpPuk7wvR5WLcX6xLv9QQOZoP3laekhQfbG59S
-	 TG41ok0zccJ/A==
+	b=OlHry+56sJjrKFHOM513d+8+Xsg+yOnoHdgStYdcTXINGqYfuVxKcQmabtl3ThQ/n
+	 q/KPlGmRwJdCcVfq1dgeNrDt0VIxM/1hKddFauFwWJRicQOppOVCDtdeeG6jOArnQX
+	 IL7SVrQKlWAsQH7IYCAdbKaFHQGz+SOHNTuiPX1t7EVhdVG7EZdNYlRqPIAJVOi8V/
+	 bEzwYAD/1H/hmRxjR02SI9COBxnbdNY50d+/ONNpGC8cWRksE3EYgyi2gCD6fZDBAS
+	 4Qi40FuLOL+gwJF231FAYv2RK2JYLZrh4mtyOnAQvovPIS8QyZhC1dqIMm2C7es5Qt
+	 8rwVx2E4csG/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ming Lei <tom.leiming@gmail.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Xiang Mei <xmei5@asu.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ublk: mark the io command cancelable before publishing it
-Date: Tue, 10 Nov 2026 20:56:24 -0500
-Message-ID: <20261111015604.451739-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] fs/ntfs3: validate EA entry layout against ef->size in ntfs_read_ea
+Date: Tue, 10 Nov 2026 20:57:23 -0500
+Message-ID: <20261111015355.444686-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052320-failed-6.12-a261f0cacacc@kernel.org>
-References: <20261107052320-failed-6.12-a261f0cacacc@kernel.org>
+In-Reply-To: <20261107061313-failed-5.15-351817226fbf@kernel.org>
+References: <20261107061313-failed-5.15-351817226fbf@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,115 +60,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ming Lei <tom.leiming@gmail.com>
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-[ Upstream commit a261f0cacacc022e4fab5b8e38c59f74ce4942e8 ]
+[ Upstream commit 01e56820ef52d14a5560fb7c0c6f2f75ef6f9393 ]
 
-FETCH, COMMIT_AND_FETCH and NEED_GET_DATA publish the command in io->cmd
-before marking it cancelable. A cancel from the control path (STOP_DEV,
-QUIESCE_DEV) can complete it in between:
+In ntfs_read_ea(), the ef->size branch only checks that the declared
+entry size fits the remaining buffer; unlike the zero-size branch it
+never verifies that the entry's own name and value fit inside ef->size.
+A crafted image can thus present an in-bounds ef->size with an arbitrary
+elength, which find_ea()/ntfs_get_ea() later use as the memcpy length,
+reading past the allocation and leaking adjacent heap memory:
 
-  issue path                       control-path cancel
-  io->cmd = C
-                                   take C, io_uring_cmd_done(C):
-                                     C not marked, nothing to unlink
-  ublk_prep_cancel(C)
-    the completed C is linked on the cancelable list
-  ring exit: the cancel walk hits it → GPF (KASAN, with a delay added)
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea (fs/ntfs3/xattr.c:302)
+  Read of size 65535 at addr ffff888010770b0f by task exploit/142
+   ...
+   __asan_memcpy (mm/kasan/shadow.c:105)
+   ntfs_get_ea (fs/ntfs3/xattr.c:302)
+   ntfs_getxattr (fs/ntfs3/xattr.c:848)
+   __vfs_getxattr (fs/xattr.c:446)
+   vfs_getxattr (fs/xattr.c:479)
+   do_getxattr (fs/xattr.c:808)
+   filename_getxattr (fs/xattr.c:837)
+   path_getxattrat (fs/xattr.c:876)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+  ...
+  The buggy address is located 15 bytes inside of
+   allocated 20-byte region, cache kmalloc-32
 
-Mark the command before ublk_fill_io_cmd() publishes it. The handlers
-run with uring_lock held, as io_uring's cancel walk does, so marking
-takes no lock and the walk can't see a marked command before it is
-published. smp_wmb() orders the mark before the io->cmd store; the
-cancel loads cmd with READ_ONCE(io->cmd) before reading cmd->flags.
+Validate the name/value layout in the ef->size branch too, bounding it
+against ef->size, as the zero-size branch validates it against the
+buffer.
 
-A marked command has to be completed by io_uring_cmd_done(), so a failed
-FETCH and the inline UBLK_IO_RES_OK of NEED_GET_DATA now do that. The CQE
-is the same.
-
-Fixes: 216c8f5ef0f2 ("ublk: replace monitor with cancelable uring_cmd")
-Cc: stable@vger.kernel.org
-Tested-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Ming Lei <tom.leiming@gmail.com>
-Link: https://patch.msgid.link/20261011063555.1142277-3-tom.leiming@gmail.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ sashal: Omitted out_done because FETCH validation precedes cancellation marking and NEED_GET_DATA already completes asynchronously. ]
+Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+[almaz.alexandrovich@paragon-software.com: remove duplicate check of need > ea_size]
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Stable-dep-of: 351817226fbf ("fs/ntfs3: validate the EA value length in ntfs_read_ea()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/ublk_drv.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ fs/ntfs3/xattr.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 3e7c3b1f0b8a1..f89b36017d979 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -1589,8 +1589,10 @@ static void ublk_cancel_cmd(struct ublk_queue *ubq, unsigned tag,
- 		io->flags |= UBLK_IO_FLAG_CANCELED;
- 	spin_unlock(&ubq->cancel_lock);
- 
-+	/* dependency ordered against smp_wmb() in ublk_prep_cancel() */
- 	if (!done)
--		io_uring_cmd_done(io->cmd, UBLK_IO_RES_ABORT, 0, issue_flags);
-+		io_uring_cmd_done(READ_ONCE(io->cmd), UBLK_IO_RES_ABORT, 0,
-+				  issue_flags);
- }
- 
- /*
-@@ -1807,6 +1809,12 @@ static inline void ublk_fill_io_cmd(struct ublk_io *io,
- 	io->addr = buf_addr;
- }
- 
-+/*
-+ * Call before ublk_fill_io_cmd() publishes @cmd in io->cmd: a control-path
-+ * cancel may complete any command found there, and io_uring_cmd_done() only
-+ * takes it off the cancelable list if it is marked already. The handlers
-+ * hold uring_lock, so marking takes no lock.
-+ */
- static inline void ublk_prep_cancel(struct io_uring_cmd *cmd,
- 				    unsigned int issue_flags,
- 				    struct ublk_queue *ubq, unsigned int tag)
-@@ -1820,6 +1828,8 @@ static inline void ublk_prep_cancel(struct io_uring_cmd *cmd,
- 	pdu->ubq = ubq;
- 	pdu->tag = tag;
- 	io_uring_cmd_mark_cancelable(cmd, issue_flags);
-+	/* pairs with the cancel loading cmd from io->cmd, then cmd->flags */
-+	smp_wmb();
- }
- 
- static int __ublk_ch_uring_cmd(struct io_uring_cmd *cmd,
-@@ -1899,6 +1909,7 @@ static int __ublk_ch_uring_cmd(struct io_uring_cmd *cmd,
- 			goto out;
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index c45133934c3ed..e05fd36cdd89a 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -164,6 +164,8 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+ 			/* ef->size must fit the list and cover the record. */
+ 			if (ea_size > bytes || ea_size < need)
+ 				goto out1;
++			if (bytes < offsetof(struct EA_FULL, name))
++				goto out1;
+ 			continue;
  		}
  
-+		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
- 		ublk_fill_io_cmd(io, cmd, ub_cmd->addr);
- 		ublk_mark_io_ready(ub, ubq);
- 		break;
-@@ -1925,19 +1936,20 @@ static int __ublk_ch_uring_cmd(struct io_uring_cmd *cmd,
- 			goto out;
- 		}
- 
-+		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
- 		ublk_fill_io_cmd(io, cmd, ub_cmd->addr);
- 		ublk_commit_completion(ub, ub_cmd);
- 		break;
- 	case UBLK_IO_NEED_GET_DATA:
- 		if (!(io->flags & UBLK_IO_FLAG_OWNED_BY_SRV))
- 			goto out;
-+		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
- 		ublk_fill_io_cmd(io, cmd, ub_cmd->addr);
- 		ublk_handle_need_get_data(ub, ub_cmd->q_id, ub_cmd->tag);
- 		break;
- 	default:
- 		goto out;
- 	}
--	ublk_prep_cancel(cmd, issue_flags, ubq, tag);
- 	return -EIOCBQUEUED;
- 
-  out:
 -- 
 2.53.0
 
