@@ -1,56 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407254;
-	b=NDEfNIlSzGlEvjalnse+RmORNUTzQdZ6F+FZ35DYBb0/RX1PSGCJsJGWR1Vk/iy/JZ4+
-	 MamkegaasRojKNwLUIZIQ5C51IKgcqawYIOq1KwgHNNjIQD/Ky8TLlMF7L64nO82PuGi0
-	 2VLTvPC4zvpvS3lmBjbf20jAL5gXFC4j64B6McFl+ypPaqEIZqvxZMLRd22cJXH9eSmte
-	 a1wDdXT6jnA21fEzFU5YoOD70j3SEcPIY2FyFVpPQo+RN91BKs218B7i4RcyTQ2o2oGt5
-	 ncYbMDkj4mBZKBe9puO4ZUwf0yI/vqGCvG4Mq0TIFnzo8+lW/+JFvR8RIkRkR5fCSbg==
+	t=1794407270;
+	b=lxMNi2i+UY5FE8ROrFwWhx5W/MxmB4cTekTzBRYH7q3XovaMscEGb0+F5ddqsBcqziYS
+	 LYP8WiLBfv+tZXZaE5av0T3hlzcnHdVopGIXWZN13z7+HUyULCGy+C2lXc9mup3kg9UHT
+	 vjvnYM6SnekU7xDL7TlpAOjHih4t7+ocxvh8wM5cGTIROyy6mzt2bexvXWABmqMGttkGw
+	 KXHmIQT1Ou0RmL9lgz+v6y8Hp9nhAIUniuWPieuKAf/kew9FUawvoYic8zpDc0Sb0KmAI
+	 JOnVYNMMwhalBAmDI1AcIHzx/iLdqafrdegJw9/BJmWc1LQgcv/ZdAt9kgfIrPZuC2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407254;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
-	 X-Mailer;
-	bh=5OdqLlXVofYhgXwfpFpn5S7e9rSwH2M7lMV1Hw+hRww=;
-	b=v0mc6JUowWFU7ApEqCovD/3YiOwhiJSoDBaFpxB3zMaQHodulwScsPB0HTv5STtM8QkV
-	 vlH820dOeOa0Yy/m346AsUgG5Umq/cfmsbNhV/gR9LDV2hJ3VlJZFr6nSwymqLU0zhYAo
-	 GXdnGEzPkuZit8ruvS5OjN85GcgCPKiJvq4rrq069Fw5GbPSPWPBs6tRo8Ioohmmfd5Lp
-	 gRz3s7jSYcJ++eCInmTTQHIut5Tr4/DFmxlVmXAekCkkgB++olD77yzgpYQNZDjNQlKe/
-	 J/kcd7gKDxC7H6wrjHE0AfP4qljRf70hhoS2j5R2dvO+tSCk7eFBALFlK3MbEGUZFsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407270;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=JD9yYuzhqD9PB9BJmZC2ytS9q3GGkyCVPWF5JrGyyxw=;
+	b=mgp+OabIQTrzNybbUnDaq0VyGsyM52D1e5F+bPSdyEjPH7PJBXgZ1+xd4+2HyXf7NbsM
+	 tg/oynYo1AVd+sfIb8ARlPQZKss26Ke4RN+SwDoxw6a5UE7rHiaUbzpMVseSsYMrRhspR
+	 9OtZa1BsGS3Ud/ybe6McNqhhLnPqQMJ+Wdy8ImiRSBIfQjn9RRcLOtDNFDyjG+4r9iipD
+	 Tky8kWQDeI/eBloTiMDcI6vsUhrpQ2psDfxunbV3lk3qBASWVEwlsX+yhtmhZphucNkAu
+	 O+MDNQZeVSnc1yee42q96+WXH35dILuwkTAJ0wpvx5t/VrxORmjwmyiyHUF6e9sdgRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="NS/DzVdQ";
-	arc=none smtp.remote-ip=91.218.175.153
-Received: from mta0.migadu.com (out-153.mta0.migadu.com [91.218.175.153])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LvdC08/O";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38A2606A334
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:27:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A38A2606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD5A606A32D
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:27:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NS/DzVdQ
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n7dKz5VV++RbTugrK9P7KhSNMntn2iLxBmjeZLHK0hc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794407249; v=1; x=1795012049;
- b=NS/DzVdQwYZFY/k5KQ10KPQXnEMR4Pn8/ahwNhVmUu1OPjeb+kPJD2ktdQqY8+MpRfB6WPBK
- 0qn4vozFmRQCSymeuoJIMHKwhU7aQGLqBuIWS3rrX4d92UvY5+zUHIxNTQfVhWajtskSFLbQ6Aw
- 5Z4WpFSCrPcxrSWdkp5Wx4Rc=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2f1b5625be9d2d26;
-	Wed, 11 Nov 2026 14:27:29 +0000
-X-Mizu-Trace-ID: 2f1b5625be9d2d26
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Wed, 11 Nov 2026 09:27:19 -0500
-Subject: [PATCH] scsi: target: alua: Hold tg_pt_gp_lock across the RTPG
- size check
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvdC08/O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 908231F00A05;
+	Wed, 11 Nov 2026 14:27:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794407269;
+	bh=JD9yYuzhqD9PB9BJmZC2ytS9q3GGkyCVPWF5JrGyyxw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LvdC08/OBjRDbIwmBTRNMYsTgnYFVCqrC1IMLXC7NhPDr7Bwz1CWAgUGLEZ7rf1gj
+	 Isq70ll15Q7+UdqsDlO9+cA9OTMHb4vzZNATERX8bFA6SGVEe22Yp5xuD3JOU7nyrZ
+	 vRz+sUdldRlA+6VgPmxs4WOsFnUqIOMGsdzZ0WycqkEi45ZYWodeTFkgSJedmUzTHC
+	 +WiuSF/E1T6HpUexuoU1WXWiPpAX1/0iLbm04C3w8kGmryQ7XgYw2EUjC9RBZz7SfY
+	 f3D0qv2S6Y2YB26pRuRvXsa9EM2MMgl9/461MvQDjFU01qNY3uZZ8IPLSkah57XrCf
+	 ZlZxmQZZodKUw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Carlier <devnexen@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Baoquan he <bhe@redhat.com>,
+	Barry Song <baohua@kernel.org>,
+	Chis Li <chrisl@kernel.org>,
+	Hugh Dickens <hughd@google.com>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/shmem: don't release a swapin-error marker as a swap entry
+Date: Wed, 11 Nov 2026 09:27:47 -0500
+Message-ID: <20261111142655.2313974-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051044-failed-6.18-e4b92891aaca@kernel.org>
+References: <20261107051044-failed-6.18-e4b92891aaca@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,82 +68,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-bug-target-rtpg-oob-v1-1-1c6b9cfb6831@linux.dev>
-X-B4-Tracking: v=1; b=H4sIAEZ79GoC/x3MMQqAMAxA0atIZgNNh4peRRxajTWLlbSKIN7d4
- viG/x/IrMIZhuYB5UuypL2C2gbmze+RUZZqsMY6IjIYzojFa+SCWo6IKQV0biEfjO3s3EMtD+V
- V7v86Tu/7AVymkullAAAA
-To: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Mike Christie <michael.christie@oracle.com>, linux-scsi@vger.kernel.org, 
- target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Qiliang Yuan <qiliang.yuan@linux.dev>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-target_emulate_report_target_port_groups() checks that each target port
-group, with one descriptor per member port, fits in the allocation
-length, and then writes a descriptor for every LUN on the group's list.
+From: David Carlier <devnexen@gmail.com>
 
-The size check reads tg_pt_gp_members without tg_pt_gp_lock, which is
-only taken for the list walk. A LUN attached to the group in between,
-e.g. by a LUN created through configfs, adds a port the check did not
-account for, and its descriptor can be written past cmd->data_length.
+[ Upstream commit e4b92891aaca0d37b5973362dd14747a65406650 ]
 
-Take tg_pt_gp_lock before the size check, so that the member count and
-the list walked stay in sync.
+A failed shmem swapin (eg, EIO) frees the swap slot and leaves a
+PTE_MARKER_POISONED entry in the page cache.  On truncate or eviction
+shmem_free_swap() passes that marker to swap_put_entries_direct(), which
+warns because it is not a swap entry.  There is nothing left to release
+either way.
 
-Fixes: 6b20fa9aaf0c2 ("target: Fix REPORT TARGET PORT GROUPS handling with small allocation length")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
+Skip the release for non-swap entries, as every other caller already does.
+
+Link: https://lore.kernel.org/20260920155002.1030454-1-devnexen@gmail.com
+Fixes: ac2d3268284b ("mm/swapfile.c: remove the unneeded checking")
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=23b25ba3c6bf971f9c57
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baoquan he <bhe@redhat.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Chis Li <chrisl@kernel.org> (Google)
+Cc: Hugh Dickens <hughd@google.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adapted newer softleaf and swap-release APIs to the existing swp_entry_t-based swap helpers ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/target/target_core_alua.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ mm/shmem.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/target/target_core_alua.c b/drivers/target/target_core_alua.c
-index 140154d93c430..c9413e67b7f3f 100644
---- a/drivers/target/target_core_alua.c
-+++ b/drivers/target/target_core_alua.c
-@@ -166,9 +166,17 @@ target_emulate_report_target_port_groups(struct se_cmd *cmd)
- 	spin_lock(&dev->t10_alua.tg_pt_gps_lock);
- 	list_for_each_entry(tg_pt_gp, &dev->t10_alua.tg_pt_gps_list,
- 			tg_pt_gp_list) {
-+		/*
-+		 * Hold tg_pt_gp_lock from the size check to the end of the
-+		 * descriptor list, so that LUNs joining the group cannot make
-+		 * the list longer than the space checked for.
-+		 */
-+		spin_lock(&tg_pt_gp->tg_pt_gp_lock);
- 		/* Skip empty port groups */
--		if (!tg_pt_gp->tg_pt_gp_members)
-+		if (!tg_pt_gp->tg_pt_gp_members) {
-+			spin_unlock(&tg_pt_gp->tg_pt_gp_lock);
- 			continue;
-+		}
- 		/*
- 		 * Check if the Target port group and Target port descriptor list
- 		 * based on tg_pt_gp_members count will fit into the response payload.
-@@ -178,6 +186,7 @@ target_emulate_report_target_port_groups(struct se_cmd *cmd)
- 		if ((off + 8 + (tg_pt_gp->tg_pt_gp_members * 4)) >
- 		     cmd->data_length) {
- 			rd_len += 8 + (tg_pt_gp->tg_pt_gp_members * 4);
-+			spin_unlock(&tg_pt_gp->tg_pt_gp_lock);
- 			continue;
- 		}
- 		/*
-@@ -215,7 +224,6 @@ target_emulate_report_target_port_groups(struct se_cmd *cmd)
- 		buf[off++] = (tg_pt_gp->tg_pt_gp_members & 0xff);
- 		rd_len += 8;
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 5efde9fcc3057..d90225a3b9a4d 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -947,6 +947,7 @@ static long shmem_free_swap(struct address_space *mapping,
+ 			    pgoff_t index, pgoff_t end, void *radswap)
+ {
+ 	XA_STATE(xas, &mapping->i_pages, index);
++	const swp_entry_t swp = radix_to_swp_entry(radswap);
+ 	unsigned int nr_pages = 0;
+ 	pgoff_t base;
+ 	void *entry;
+@@ -963,8 +964,9 @@ static long shmem_free_swap(struct address_space *mapping,
+ 	}
+ 	xas_unlock_irq(&xas);
  
--		spin_lock(&tg_pt_gp->tg_pt_gp_lock);
- 		list_for_each_entry(lun, &tg_pt_gp->tg_pt_gp_lun_list,
- 				lun_tg_pt_gp_link) {
- 			/*
-
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-bug-target-rtpg-oob-66d1ab0272c9
-
-Best regards,
+-	if (nr_pages)
+-		free_swap_and_cache_nr(radix_to_swp_entry(radswap), nr_pages);
++	/* A swapin-error marker holds no swap slot, so just drop it. */
++	if (nr_pages && !non_swap_entry(swp))
++		free_swap_and_cache_nr(swp, nr_pages);
+ 
+ 	return nr_pages;
+ }
 -- 
-Qiliang Yuan <qiliang.yuan@linux.dev>
+2.53.0
 
