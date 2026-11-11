@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362868;
-	b=vEsY6dN6rhKp10ojnGWM4AyzxJB1qH0N/n/l1w1ACr2M/7QH/WBGxJyc2QhhWiCfHkDr
-	 AKjHdC/nvMLjfyoX7yx104TimBvgi+9lufSnKfkDyVBUFcAXzBxKfJG7WWEfBmCfM0kMn
-	 3sE7wViJIhblTA38z88ekHebQ5jCBfJHgw1DzJq700vHR6YcMw+uNBArwt754I/p1jMAb
-	 kv+PJT+1GtZMQBuNhT1wpjlv8kVXszhrgLZf94ciHuJIjloY+Ezpe20hteSiaq2JuiRnp
-	 /KlOhioyWjxd0gRkGLV1Ea5g9K80wMZ9rI6g9HBFxo+TE2sWTWrruJqr/dTZtQJSqLA==
+	t=1794362873;
+	b=eySA+VLU+V2rqIhK0RmS+cYX7bE1uo0ggip8WUkzUL7eB/wT5B3zze2c+uAjXc5CI80h
+	 kKMyiIy43ZxE7OimpQGHbbSoNbdccuQ14dawmtZQ5IqCJ89+xA2VQm0eNlXPjt/CT7nAq
+	 duKwEuivO9YHsuzIDWuS7m1bCLUGn2AvrdUQIvTzCaT0midvPDyH+Gnmf+q7XYxZ/W1qE
+	 iJ7tvVKdJqhsNc68C0dUg6w1r/5YQsYnIpk0yzxecdYAt/LF1koJm6tCwhBmAkRxWsJrQ
+	 GtKUipDDxWfgj2gsWIHOTxrzOySVm9h7Cz8/SWazRMLHcXefw6jeekagFB768F9wh9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362868;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362873;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=THjyRb+90bVUwuUOWa9WoHIUX8NyjA4REQ4b5nzSygQ=;
-	b=4u1It++pgUcoXFw6RVJrE4LFqyBHlS5/QmPWBhnphOI1MezAIIQKZBoX/vpwylV/+LaH
-	 2AGpeLEyRyhbLedJYJWMbUmhEs/R2aS6o+MOPSQSNeDnSSVUASI5e/W/mlItmCbMX7S/2
-	 87c5UAZIFUUnT/CD7dV2l4mdfvAym0JUmbEBGm/m41zYW/9kTL9mRCXyeE9N+d5cr7UH2
-	 /2q5qg2FLx5jqPDM5IVxGfB0r/voHEiAufWYXMSgkHzGw9fvBP8WQIXoAqesKrhKOONsT
-	 8YbFaHupNnmaTevPyPb0p/OOv+byAkZgaa3P2k/8jkmNH1LL7bQ5lCtw6YusTeHAlBg==
+	bh=n2nhmqevJfiSJQacOvaAIJVpher3ZVDBVd+ze/2VYdc=;
+	b=4s7uVE7T0UUoqpHwDl9zs13/NuLW2pfJPwOmXeD6pqHaQQGWoTjLSmdMtiwAkf0MMA9w
+	 5+bgu39JpUrNRVnMwIfXAX/5jqbg3w2GBbtEB0gDRMRxni1ajvWNzxC+RI8PsMcLcjNoV
+	 jnrdkDIc0XNYczPkfqz+lJsdjAP3wBAKa0FA69t2zdzqlON5LL/45QGY1ITee+Apr2yIr
+	 XwNY6I01Myk8vQeVv59/AxB+LiTUG3qk6c4GohaekxWHafdbGWuG664tAewqtLTaql02r
+	 /f1KtalbdqShPS1ZvS9NTZwGipDvOx4UUItdJXy1KFU5Dzbmp2f68QusJVQhDIHT6mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYyiwZ6A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KY03J+QY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3640606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:07:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F2F606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:07:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYyiwZ6A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D73E1F0093C;
-	Wed, 11 Nov 2026 02:07:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KY03J+QY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6F81F0089F;
+	Wed, 11 Nov 2026 02:07:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794362868;
-	bh=THjyRb+90bVUwuUOWa9WoHIUX8NyjA4REQ4b5nzSygQ=;
+	s=k20260515; t=1794362873;
+	bh=n2nhmqevJfiSJQacOvaAIJVpher3ZVDBVd+ze/2VYdc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eYyiwZ6AlxyyMeFQGCJRvSiNzjMwiOTI1V1zEaKug07wMGbs4/yzkCDGqaSJOD0k0
-	 Z2GhzHVKwJev7Umn3Ok85dLLgPDnYEsBlLZ4dxbVqCzjSGBongnRGeQV3KSwUQa/Jw
-	 prlPDlOYIsFFoJSUPPVTt+sjkffops4Ldve85YdpelOKcXJgGp/VD5/V/lXO/S4Xk1
-	 5EeUFkuM7POI/vzS4meIoOPler8BHWm40NFdZyOxi7b6ZN4Hl+5sc+UWHJDpdfXzBI
-	 6bLQFIz4xQ6oRvJhRPYM8xo74XTnUd1HnfJfhBfbFUJMgG/90XnssyTnap4NFbRl++
-	 WqFQDmULDMIPA==
+	b=KY03J+QYqnqm/mPh3JEthzxnicLqWvKR9MqjjncrGoc0Fz2dRweFBvtRj3l/r1sqs
+	 HXXjaH/KHNx4adcwOKOFYinAxDegWKQdAlvZn0+PFN/ErDAyht/vPPGPYQWOJKnTZV
+	 YtUkJfgV7B9t3JzXLyku+AoUP9purrQ+Uc1sipF5c9NcAWmE8EW84qywMFRcACd6pC
+	 +n/ZWKooZvs1muhW5lvVD+ao1ZWMT7QPItPT1Bu6QRzOyLHd/84Rfuq9YF+nnFeKAU
+	 Z8VmKIKv9o1/YkIIepAYsuDIHs7KY+Eirj7xuhMnxxs7eSUPvjld1zc/+BVaclOt3A
+	 wWQpFSHSP2mwg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
+Cc: Eugen Hristev <eugen.hristev@microchip.com>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/4] ALSA: emux: Stop voices before freeing zones in all cases
-Date: Tue, 10 Nov 2026 21:07:44 -0500
-Message-ID: <20261111020723.548248-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] media: atmel: atmel-isc: remove redundant comments
+Date: Tue, 10 Nov 2026 21:07:49 -0500
+Message-ID: <20261111020626.487609-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111020723.548248-1-sashal@kernel.org>
-References: <20261107062607-failed-5.10-8a5d87c2ba30@kernel.org>
- <20261111020723.548248-1-sashal@kernel.org>
+In-Reply-To: <20261107055759-failed-5.15-d8983c47d4d9@kernel.org>
+References: <20261107055759-failed-5.15-d8983c47d4d9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,79 +63,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Eugen Hristev <eugen.hristev@microchip.com>
 
-[ Upstream commit 8a5d87c2ba30e8de31cfbe888fd4d95f43c63db9 ]
+[ Upstream commit 1f0c113cc7abb435e531f5777efe2ca757e1361b ]
 
-The emux voice caches the soundfont zone pointer in vp->zone, which
-is referred to later, e.g. in snd_emux_send_effect().  For avoiding
-dangling pointers, the soundfont code calls the sample_reset callback
-to stop all voices before freeing zones.  However, in a few cases
-(e.g. emu10k1's missing sample_reset or the call path via
-remove_info()), the sample reset isn't called properly, leaving the
-playing voices.
+Remove duplicate comments which are already in place before the struct
+definition.
 
-Fix it by always registering the sample_reset callback, falling back
-to snd_emux_terminate_all() when the driver has no own ops, and by
-calling sample_reset in remove_info() before freeing the zones.
-
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261020101624.205638-2-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Eugen Hristev <eugen.hristev@microchip.com>
+Reviewed-by: Jacopo Mondi <jacopo@jmondi.org>
+Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Stable-dep-of: d8983c47d4d9 ("media: microchip-isc: do not touch WB registers when not streaming")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/synth/emux/emux.c      | 10 +++++++---
- sound/synth/emux/soundfont.c |  9 +++++++++
- 2 files changed, 16 insertions(+), 3 deletions(-)
+ drivers/media/platform/atmel/atmel-isc.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
-index 8e080a4bcd16f..cfd472effe88d 100644
---- a/sound/synth/emux/emux.c
-+++ b/sound/synth/emux/emux.c
-@@ -71,7 +71,12 @@ static int sf_sample_free(void *private_data, struct snd_sf_sample *sp,
- static void sf_sample_reset(void *private_data)
- {
- 	struct snd_emux *emu = private_data;
--	emu->ops.sample_reset(emu);
-+
-+	/* stop all voices that might refer to zones and samples to be freed */
-+	if (emu->ops.sample_reset)
-+		emu->ops.sample_reset(emu);
-+	else
-+		snd_emux_terminate_all(emu);
- }
+diff --git a/drivers/media/platform/atmel/atmel-isc.h b/drivers/media/platform/atmel/atmel-isc.h
+index 2bfcb135ef13b..b0211100a5f23 100644
+--- a/drivers/media/platform/atmel/atmel-isc.h
++++ b/drivers/media/platform/atmel/atmel-isc.h
+@@ -261,7 +261,7 @@ struct isc_device {
+ 	struct video_device	video_dev;
  
- int snd_emux_register(struct snd_emux *emu, struct snd_card *card, int index, char *name)
-@@ -96,8 +101,7 @@ int snd_emux_register(struct snd_emux *emu, struct snd_card *card, int index, ch
- 	sf_cb.private_data = emu;
- 	sf_cb.sample_new = sf_sample_new;
- 	sf_cb.sample_free = sf_sample_free;
--	if (emu->ops.sample_reset)
--		sf_cb.sample_reset = sf_sample_reset;
-+	sf_cb.sample_reset = sf_sample_reset;
- 	emu->sflist = snd_sf_new(&sf_cb, emu->memhdr);
- 	if (emu->sflist == NULL)
- 		return -ENOMEM;
-diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
-index 0a981b636537b..163008b2ee14a 100644
---- a/sound/synth/emux/soundfont.c
-+++ b/sound/synth/emux/soundfont.c
-@@ -480,6 +480,15 @@ remove_info(struct snd_sf_list *sflist, struct snd_soundfont *sf,
- 	struct snd_sf_zone *prev, *next, *p;
- 	int removed = 0;
+ 	struct vb2_queue	vb2_vidq;
+-	spinlock_t		dma_queue_lock; /* serialize access to dma queue */
++	spinlock_t		dma_queue_lock;
+ 	struct list_head	dma_queue;
+ 	struct isc_buffer	*cur_frm;
+ 	unsigned int		sequence;
+@@ -278,8 +278,8 @@ struct isc_device {
+ 	struct isc_ctrls	ctrls;
+ 	struct work_struct	awb_work;
  
-+	/* stop voices before freeing the zones they might refer to */
-+	for (p = sf->zones; p; p = p->next) {
-+		if (!p->mapped && p->bank == bank && p->instr == instr) {
-+			if (sflist->callback.sample_reset)
-+				sflist->callback.sample_reset(sflist->callback.private_data);
-+			break;
-+		}
-+	}
-+
- 	prev = NULL;
- 	for (p = sf->zones; p; p = next) {
- 		next = p->next;
+-	struct mutex		lock; /* serialize access to file operations */
+-	spinlock_t		awb_lock; /* serialize access to DMA buffers from awb work queue */
++	struct mutex		lock;
++	spinlock_t		awb_lock;
+ 
+ 	struct regmap_field	*pipeline[ISC_PIPE_LINE_NODE_NUM];
+ 
 -- 
 2.53.0
 
