@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413723;
-	b=H6FTn8gZjEeKIQ62u0UAZ9IR0xuS2LitoaTNZTVhy+btdDQHCSGOwfPDKE77HHXivavj
-	 7mlMr9kXoXhWT8DnY/MZoJ5pBAxK3uH/x1zbACE32nj8BmOT/2EbHZv40wI88bNhBcpjw
-	 i1CyjD4SWa61NpefuexbkMLZsed2YtqM9ftjuX8zNU1i8FYj92TUmltwiqaL2uopMU5ka
-	 /cR9ocv3vNLhOaPApDEVuaiguqeAAnKyhqbmMea2YSNRZcnMMmIMpp9D1CO/Alc3x6IUZ
-	 QvJqZBnWzKdpXBHa8Mf7fSRhnG8Qdsqrha6cpvaUn1xEz0qZ0x6gUqY457unRL9pUSg==
+	t=1794413917;
+	b=xM8zRxLkYvoqFGpeB9wFM2KXiDs9FqZSHnnk20ls28ZeRH3jzhGd8EJIgPnjwYJrI0/J
+	 Wb/8NxOaIi1HYVW5U9hF1EU4M1SaZB1Iov+evAcKp8xrDN3TVkKoPWw4rt6YI3CbALjdH
+	 izMrAw6iKPlE6TJvvyrAoSMI6+BbKVPl92houhMOnxfnb3Xd8LRyJ8iIVy/4Jn/fYYQVU
+	 My1n6HQb3E7At1fdwFm3ooMHOZxOaKgsu1lG6i85tLHFWvjwgYuTbffBqATXWLlRY99Zt
+	 Xd63YWsM99Bhf2e1QEAnrd5Ynv8LnYdyuZKJS2Ze5+6krTGD61bhtVD40gtHeA8IR+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413723;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=M1JkT3Z+DDFJJ97Db9IK3mgsdiaCw6BZO4UpHNB89r4=;
-	b=1CKciVcCLMc5WNyRMtI5MJZjqlqPoN7w1jfIVweO9coq1Kk/tdXkfWzD10MofzjI/hCS
-	 E3Jkfzja/YL5aGDebJx0/BtyhaFT1wXUrKnDO7GCckfkpRumix725dDrDf8twYBmRJvDA
-	 ZNyyIABlNlSL3uer5RYbMWkrPVvv8odObBGPrNSqN8jLxhqf7a7zXZkfdVqKNaPFAVVkP
-	 nfUdMvnj0ukvV5IyVLTc6uWSxoQ1JybIy491iWdrTs+hwDeMD9mkXcNFFljq2esHlGwa/
-	 REVCrmTOQk2dZ5kjqAqFZzyiYxVcSmLPEHh60oWJp6uSNxHD/dZg9aO2NalXDpOas1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413917;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PywhPEppgcWI+Me/jVt+CP7Qe/6FQfOUGlT878EeRYg=;
+	b=X/w1yz8aQ8Vn50hgafmf/98AkhFF9m6x9qCYHw9Q7KkgoFGvCYELQd6LN6Q0ndMXT4uc
+	 0Ft72uM0VOy4IsGdcE7bjCZexkupKSWSJSDBK144FIkqvnw+kCL5OGOlxP0srwHRD4XNA
+	 eUY9BS/J0Fw5XmxdOixvoa6V7Vu+/EPNniFTqeoAmBFzpbgMqNK2Mtd8yimbjssZmPLqJ
+	 IN1BzoUVl1EBi1OE2XNzOuEupbCbdEgQl0UnzIgCALTcab6U1DP0L2n0ts1NbRHe32h9w
+	 EyQNc27MYk0sJxDl/DMOhBAEt482zux/IZ504b94qnTDyXQHDFQa8pA3gj5Zuu++jIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHRx4lU7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=MAULci7y;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCB2606A32E
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:15:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC157606A32E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:18:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC157606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHRx4lU7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4451F00A05;
-	Wed, 11 Nov 2026 16:15:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794413723;
-	bh=M1JkT3Z+DDFJJ97Db9IK3mgsdiaCw6BZO4UpHNB89r4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SHRx4lU7etS9GtLB/SDlYIJQx4axr2ZRblsmWTQRd5QS+7e7pgxIpLReZKbbw0OXz
-	 pfK5ReJQ+ybax6nhutW2eEB5Vk/sm5EC/PtgLpIgHYoc3sz6URSAYHSA7CsqnDdE8W
-	 xexvu4CabJ6Epsfpk5TyIXP9vB8yoDfVrEZkBf4CXlH5T53lJjKN7Ho4hpx8AJCJEF
-	 vt+EyOyDT+eeDtPPPPV4X/IO/xjGt9T44JVbCb4e6zw8BDXWM3EWcjDeiepzqxs72C
-	 0OBX6IfHFR+gzl7J2hqnB57HRvHjruN/DM+xpLe3DXC/rA2mdzySvWiu9h9e8rhXd2
-	 RMoOntWPd3X5A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ACPI: APEI: accumulate the queued flag across error sections
-Date: Wed, 11 Nov 2026 11:15:21 -0500
-Message-ID: <20261111161509.3259382-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=MAULci7y
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so35847415e9.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:18:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1794413915; x=1795018715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PywhPEppgcWI+Me/jVt+CP7Qe/6FQfOUGlT878EeRYg=;
+        b=MAULci7y91YTKEUFyO/XThAFj2Pe9m5tWcxpxxpPKFaUanSCNrn4fBmKilzd34WSVy
+         F1Rl+ozGWD4G5Lrf1+qZs/31vD47Do6X0Px+St1/m7+GMjp3+b06PHGA4G5TDoTHc/Jk
+         PlHZOdI0PvQpwMieLqh8X1C8gG6fSmoMHQggRwuvU52FLa5qfw0OX9eY0mWZP+o9x/P4
+         7JTJKsWSfHwz1gtTy4+jlmc2v9A4mBHhfHPcwH7NN3ZzhsfHHyk0JVkRMgcdvvnDj6p+
+         EmpBTZrZwmTtWi9pjEBzEpowQ4p+LvPs+JzZi0RuNSyAKMd8KZPs4UGDT1678uLXaDDS
+         HFlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794413915; x=1795018715;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PywhPEppgcWI+Me/jVt+CP7Qe/6FQfOUGlT878EeRYg=;
+        b=RcjgxsqMFjrzECKLkqAnGuys34fCpIJDoLk6vX1LgxadtNvOkFkFDoWKbyggLSbqsG
+         0rP/49PV+ZxzeJTlcHsnEoUipZU7VzoCuqvNCrsl0j0RylPPPDP2/Z+oG8Kk2qUkVSsU
+         /v+K9yAssaLAq8f4GmdHCSYzyBoiWdvhTIxPJ6hNDhHuKBpcqpkBhfLA5fNl2UOxcMM0
+         feqv2R3M5MUKbwjUy8vGk4JwxnT/3VPoMDNh55CPOrjl0L28afib3RJS8u0HANitXwLK
+         a2k0zQUI9kMdpKv+B6OT/Jh2BIlrUSLGU85dbokMZXniUcauFio4OHzmuAIV0XfY8iNU
+         kmYA==
+X-Forwarded-Encrypted: i=1; AL+hErG6h1EyheZHDoDyznUaxk5mbelPlIHaWKilppg2LNKCO4T5GsVJ9Bo+AS/rX35E8WuYiAmZDio=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Bir06fqM8Hg4IYFHDp/iYo5r4HBxRJEWFTWx8iX5SXiqIOJ1V
+	hqNUbNTeZ2HT7N1/YfZ4dzi+eT4xLoVPpXXomIq3s37rSdycFmjOi13zPqAJSn00UQE=
+X-Gm-Gg: AYBFou1moOOSspflfmn9lI4IpkK8Fe0jrXfMfXZjJL3JsJrzHADVMLazGxf2XgSRo+n
+	zSiZ+hAGHlwTVznKI9HHtkTBMzjscvRj3/RldSJ6/WbYZzBSwF/hgmTCxT+K0/bQzeNoKTQrXcA
+	S1ija/luJu/dEhEddEu86dL3QKNJhaLTI3FPpPiDsXToP3ctZIOqR72mo7jqRs4PfCYSusxi17/
+	FORIjj1xRH6SBqSmAG6zgTGnQ6IouAFQ8002Wmw/WVR46zCwWEjXKmTC8CdllrSqnFHjKQIYyki
+	eMatlBexs/SXAeIxSTEOUXukdfhQG5XxpKm/iH8ViVcBuJBBoSqY4tTTlo6hWql/NmryaXWGXnj
+	DQYhNma3fi5PaYLMxY1ilUj6CdQF7O/g9qjJEXd+YzokCJIwj3EuqWV0QTn+2CnyDTbz9pLZTYN
+	LZ8iqWquC/pRz/Hlw+QLtTvzL0i3KPgQM/tocv/OQog4riKsjl3jwWdxnRMvOSBkpCvwQaWtBVs
+	+xAK/GhaEy9ESxZiuKemfNbPciiLTrJP7Bb/mpkv+afHdcgtqa59FJHfnZPs2joSOOCzhguuitD
+	pYBazrlkSxyojS62Y8LFIijuFrbZUIgGLQa3s1dNV9LqB2l29U01eF21LFkp6S3XFOulq7iucg4
+	7Q23+Qru0/MWb7QXsVJfj6s/GoSF2FQ==
+X-Received: by 2002:a05:6000:2008:b0:48e:d88:55f4 with SMTP id ffacd0b85a97d-499c38bce0cmr5171391f8f.2.1794413915273;
+        Wed, 11 Nov 2026 08:18:35 -0800 (PST)
+Received: from raven.intern.cm-ag (p200300dc6f4cbe00023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f4c:be00:230:64ff:fe74:809])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bd6esm12209506f8f.28.2026.11.11.08.18.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 08:18:34 -0800 (PST)
+From: Max Kellermann <max.kellermann@ionos.com>
+To: xiubli@redhat.com,
+	idryomov@gmail.com,
+	amarkuze@redhat.com,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/9] ceph: fix mdsmap use-after-free in ceph_statfs()
+Date: Wed, 11 Nov 2026 17:18:22 +0100
+Message-ID: <20261111161830.1336485-2-max.kellermann@ionos.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060420-failed-5.15-f341307a1489@kernel.org>
-References: <20261107060420-failed-5.15-f341307a1489@kernel.org>
+In-Reply-To: <20261111161830.1336485-1-max.kellermann@ionos.com>
+References: <20261111161830.1336485-1-max.kellermann@ionos.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,67 +104,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+ceph_statfs() reads mdsc->mdsmap without holding mdsc->mutex, but
+ceph_mdsc_handle_mdsmap() replaces the mdsmap and frees the old one
+under that mutex.  A statfs() racing with an mdsmap update can
+therefore read m_num_data_pg_pools from freed memory, and then load
+the m_data_pg_pools pointer from it and dereference it.
 
-[ Upstream commit f341307a14895e5da056fb419a31ef7fb534ab18 ]
+Any user can call statfs(), and mdsmap updates happen whenever an
+MDS changes state.
 
-ghes_do_proc() walks every error section of a CPER record, and
-ghes_handle_arm_hw_error() walks every error-info entry of an ARM
-processor section.  Both assign to "queued" instead of OR-ing into it,
-so only the last iteration counts: a later section or entry that queues
-no memory-failure work clears the flag an earlier one set.
+Read the data pool while holding mdsc->mutex.
 
-Instead of reassigning the variable at every time, just do an `OR`, so,
-if there was a single match, it will return "queued" as set.
-
-The comment above the check says "If no memory failure
-work is queued", which is the semantics this patch implements. I.e, only
-SIGBUS if there are queue was not handled at all. If we want to SIGBUS
-if any event was not handled/queued at all, we will need something more
-sophisticated.
-
-Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
-Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
-Link: https://patch.msgid.link/20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-[ sashal: adjusted context to match the older ghes_do_proc() error-section handling layout ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 06d74376c8af ("ceph: more accurate statfs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
- drivers/acpi/apei/ghes.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ fs/ceph/super.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index 88c01d4a7f8fa..29cece11ccb22 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -529,7 +529,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
- 		 * and don't filter out 'corrected' error here.
- 		 */
- 		if (is_cache && has_pa) {
--			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
-+			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
- 			p += err_info->length;
- 			continue;
- 		}
-@@ -671,13 +671,13 @@ static bool ghes_do_proc(struct ghes *ghes,
- 			ghes_edac_report_mem_error(sev, mem_err);
+diff --git a/fs/ceph/super.c b/fs/ceph/super.c
+index bb5591c1e154..01f92d77ef45 100644
+--- a/fs/ceph/super.c
++++ b/fs/ceph/super.c
+@@ -64,6 +64,7 @@ static int ceph_statfs(struct dentry *dentry, struct kstatfs *buf)
+ {
+ 	struct ceph_fs_client *fsc = ceph_inode_to_fs_client(d_inode(dentry));
+ 	struct ceph_mon_client *monc = &fsc->client->monc;
++	struct ceph_mds_client *mdsc = fsc->mdsc;
+ 	struct ceph_monmap *monmap;
+ 	struct ceph_statfs st;
+ 	int i, err;
+@@ -73,11 +74,14 @@ static int ceph_statfs(struct dentry *dentry, struct kstatfs *buf)
+ 	ceph_blog_enter(fsc, &__ji);
  
- 			arch_apei_report_mem_error(sev, mem_err);
--			queued = ghes_handle_memory_failure(gdata, sev, sync);
-+			queued |= ghes_handle_memory_failure(gdata, sev, sync);
- 		}
- 		else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
- 			ghes_handle_aer(gdata);
- 		}
- 		else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
--			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
-+			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
- 		} else {
- 			void *err = acpi_hest_get_payload(gdata);
+ 	boutc(fsc->client, "begin\n");
+-	if (fsc->mdsc->mdsmap->m_num_data_pg_pools == 1) {
+-		data_pool = fsc->mdsc->mdsmap->m_data_pg_pools[0];
+-	} else {
++
++	/* ceph_mdsc_handle_mdsmap() replaces and frees the mdsmap */
++	mutex_lock(&mdsc->mutex);
++	if (mdsc->mdsmap->m_num_data_pg_pools == 1)
++		data_pool = mdsc->mdsmap->m_data_pg_pools[0];
++	else
+ 		data_pool = CEPH_NOPOOL;
+-	}
++	mutex_unlock(&mdsc->mutex);
  
+ 	err = ceph_monc_do_statfs(monc, data_pool, &st);
+ 	if (err < 0) {
 -- 
 2.53.0
 
