@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418959;
-	b=nllizxfe++GsF/uR7g5vabU1RyXvmNBbtxYnFXjFMM+uzDT8Iz098857Q8pWRwwxVQKb
-	 Ss6vczCZ8IVPYjqG/sDPoUqwkCCa7Xhnlu5AFRlTilySSVMEiL8qv8OG8K744Uh/SL7ey
-	 k62eUtKkzwl33pvk0pnisS6GRaI2j/dWVzo/BRioq+CG3791m+R80cJ5YKXSOVzwhxlvd
-	 SsPHBpoWlzZqYaQAgc9re38baouWf0kyeXGBbI8aIWPL23Q6hXxWckfk6VG2WKCjqtSu5
-	 tmuoUCQoMI+OohkZlo9HftvbgXIH5lednNF84kA6zPeofu5r0vq5smXTeEfeCz5dqqw==
+	t=1794419042;
+	b=R5Tr9xTUzYAb2KmqeiiyDDoIgz+nTcxCfA9ZFmi+R4lftZpWbQucLAQZgDVIL5Yx2kJF
+	 oMF8ksjePUmsCmmSnBi28ajhAXPa5VvjMQP8S8vVQi0LvLzXQkiWt0N1Dpamb8k1UpgSJ
+	 VubGT+G7BD+sCxXXr3eWh7XbEJeJRGUkAwCjEnxdRzo/q6EEZihlpJ+3i7k/qtTsfYmSV
+	 HjwxetpGmx1425usqGw2USRIIzqQ/48Tyk8URODFHYTinmrbHzFinz24RbMzX6RmwX4KX
+	 ZJhyhD7v7ooBUJVVif4FP6ElZwVYRNDysPr6BTayJ4lrme2qQidQmDQ/kMLZTW7TbtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418959;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419042;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/awrkvgaivukY33xJpmIxlXREOmLKLBaHz8ox8yS5RM=;
-	b=KD5CkK46hSYmt7/GCPl8Gg4qoYg5gjDTMSfuUW8g4ERKLZeAMdFpdUjzamVjgGhTQWdm
-	 NjIgoBpMNTGMeXpReB4K5GFJw6cEeWPznpkWSc+EeSYUiqYqoyrbneSae/UN2gEJjijGy
-	 5xw6uKc8DW/nOWm5J3EdUfAebejMiW5H0a56c1S1HkZoIhGq5qlHza1L2Mc4wMPbeOmok
-	 Qy5NsLTxjaLs9o63nY5IKDs0hA8uHa8lqkSzqaYjxff37Cf2x54oainmRYMnDB2nWPLJf
-	 YrhziaGW+E6YwXXyPsgJ2kUOo5/U4uOGo5x1vcT7DPcw0FUsc4CIAvpSLO2zOCSKySQ==
+	bh=ueFX5CI3G7Wd955i94T1keyzaDfcOPXFWwjMvFohilc=;
+	b=FEEuZcbUyGjgJle90QxTG63bD4YqcX/NPxH5Pr5VolTa9wbOD4PzucsAW7mp//2Apfz/
+	 VoocVfIhGyQMryl8hQRAcy+JOnq0vENkyBckZQ2aFHIegraEpEm+HCNTmrgfZD9OI/KX2
+	 UUE5pNfWxE+3WCuyftsWEVwdLOvuIfRsPvxPpmIgrgskM62DvfMqcnfIBTkrTHGYkyCAs
+	 tykJtxlVeyt1DYt2qfc/V2U+6vcQwmm22cTdLOltwfogv8YEZ5i/Xpl26NZitedM+RXy8
+	 lkWN8AlKWccRaGbXwxwn4juKx/4wi/BicBRp0ErCpEiJFRbAfILHFy0HeJ4ye/lbISg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRnzzUeG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M1QYGIAl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCAD60A380A
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:42:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8951F606A89B
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:44:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRnzzUeG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4A61F00A08;
-	Wed, 11 Nov 2026 17:42:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M1QYGIAl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7FF01F00A11;
+	Wed, 11 Nov 2026 17:44:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418959;
-	bh=/awrkvgaivukY33xJpmIxlXREOmLKLBaHz8ox8yS5RM=;
+	s=k20260515; t=1794419042;
+	bh=ueFX5CI3G7Wd955i94T1keyzaDfcOPXFWwjMvFohilc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hRnzzUeGaaYjpOPe4w82GOykY4gksPrrLwO8sYKRZb/PTUqOz9pfZIIDZkOsqyjrq
-	 nBfGsBzjWD/q/PJ9Rld9eAOx21zARUkOAYKVM0OJaw/37jNZYivBv3JdiSYfOE5GAq
-	 D5u00bBIaQUe2gV9E4W4/zIsTqUdRjWKYDne7c5Az/KmJEw6euB42xyyUuLJpXdxlg
-	 dTadNC6RLGIfOqSZhilmG18wagyYBLehvWRPIdJsiBSdsncq8ihpc+tLM6NWcbolwL
-	 hnT3pRgSJscZb9usaCh2+BGPB4T3VQKGopbk2lVQE0UoAjrAOimJWTGPqLnNxeOwMf
-	 cgV+QtlCzXOpg==
+	b=M1QYGIAleDPvw5We0FpEO2teVVVtAxba8KPU3bLJlO9eI+ztB/m5YIZj6Q66SBHJp
+	 zvDTjvi5LTkANdhu1ahGn+KOdoBKmoHWzbmKjAoPU2BTAjw/T3Seu3vPzHJZ/IJ8SB
+	 TEoss1Syl2SRyI7rOdoOaXSvCwujoGrUAxKNMsFaZSy7v6p/xzrkSVHx/2MU8hRf+V
+	 YJ5Vhxh6Emid+ZobRFHHgN7VjplYI1ZXNUkwWQ5c075yqmoVgZxWmhq603Rxjqvj2q
+	 FIuai4D50lvgWuBrsEE5qhxD3iBXqJxVDl9lOUUk6mpVm8nj9TNeLnK8BUGgEZ7/NB
+	 CfYyy4pcpF3xQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Henrik Enquist <henrik.enquist@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ALSA: aloop: Update the PCM Slave controls for a matching playback
-Date: Wed, 11 Nov 2026 12:42:37 -0500
-Message-ID: <20261111174223.3632325-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] KVM: arm64: Turn vcpu->arch.pause into a counter
+Date: Wed, 11 Nov 2026 12:44:00 -0500
+Message-ID: <20261111174337.3633257-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053803-failed-6.6-c3bde2beacbc@kernel.org>
-References: <20261107053803-failed-6.6-c3bde2beacbc@kernel.org>
+In-Reply-To: <20261107060655-failed-5.15-e64309198eda@kernel.org>
+References: <20261107060655-failed-5.15-e64309198eda@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,68 +61,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Henrik Enquist <henrik.enquist@gmail.com>
+From: Marc Zyngier <maz@kernel.org>
 
-[ Upstream commit c3bde2beacbcb40790f0e3c3f909f9e16bbced9c ]
+[ Upstream commit e64309198eda29415a95113def92aa40196cd422 ]
 
-The "PCM Slave" format, rate, channels and access controls report the
-parameters of the playback side of a cable. loopback_check_format()
-updates them when a playback starts, but returns early when a capture
-is open and its parameters match. The controls then keep the module
-defaults, or the parameters of an earlier stream.
+We have situations where we can call kvm_arm_halt_guest() without
+holding config_lock, which means that halt and resume can overlap in
+funny ways when called from separate contexts, and result in situations
+where a vcpu is resumed while other parts of KVM assume it is halted.
+Consequences are left to the imagination of the reader.
 
-A playback that joins an open capture with the same parameters is the
-normal case without notify, where it is constrained to the capture's
-parameters, and also with notify whenever the player happens to use
-them. An application that reads the controls to find the playback's
-parameters, for example to reopen the capture side at the right rate
-after a restart, then gets the wrong values.
+Fix this sorry situation by turning kvm_vcpu_arch::pause into an
+atomic counter, which makes the races described above harmless.
 
-Only skip the capture stop when the parameters match, and update the
-controls in every case. A value event is still sent only for a control
-whose value changes.
-
-Reproducer:
-  arecord -D hw:Loopback,1,0 -r 44100 -f S16_LE -c 2 /dev/null &
-  aplay -D hw:Loopback,0,0 -t raw -r 44100 -f S16_LE -c 2 /dev/zero &
-  amixer -c Loopback cget "iface=PCM,name='PCM Slave Rate',device=1"
-Before: the control reports 48000, the module default.
-After: it reports 44100.
-
-Fixes: 597603d615d2 ("ALSA: introduce the snd-aloop module for the PCM loopback")
+Fixes: 3b92830ad41b2 ("KVM: arm/arm64: implement kvm_arm_[halt,resume]_guest")
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
 Cc: stable@vger.kernel.org
-Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
-Link: https://patch.msgid.link/20261021-aloop-slave-controls-v1-1-62297727177f@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: Adjusted loopback_check_format() context to account for missing access-mode comparisons. ]
+Link: https://patch.msgid.link/20261015100539.1011760-5-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ sashal: Inlined vcpu_can_run() checks using power_off while retaining vcpu_req_sleep() and rcuwait_wake_up(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/drivers/aloop.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ arch/arm64/include/asm/kvm_host.h |  2 +-
+ arch/arm64/kvm/arm.c              | 13 +++++++------
+ 2 files changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
-index 9c7671f034d54..29959455fe072 100644
---- a/sound/drivers/aloop.c
-+++ b/sound/drivers/aloop.c
-@@ -346,11 +346,14 @@ static int loopback_check_format(struct loopback_cable *cable, int stream)
- 			check = runtime->format != cruntime->format ||
- 				runtime->rate != cruntime->rate ||
- 				runtime->channels != cruntime->channels;
--			if (!check)
--				return 0;
--			if (stream == SNDRV_PCM_STREAM_CAPTURE)
-+			/*
-+			 * Matching params also go on to the update below, so that
-+			 * the setup controls follow a playback that joins an open
-+			 * capture.
-+			 */
-+			if (check && stream == SNDRV_PCM_STREAM_CAPTURE)
- 				return -EIO;
--			else if (cruntime->state == SNDRV_PCM_STATE_RUNNING) {
-+			else if (check && cruntime->state == SNDRV_PCM_STATE_RUNNING) {
- 				/* close must not free the peer runtime below */
- 				atomic_inc(&cable->stop_count);
- 				stop_capture = true;
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 6d7b6b5d076d4..660d8ef766796 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -368,7 +368,7 @@ struct kvm_vcpu_arch {
+ 	bool power_off;
+ 
+ 	/* Don't run the guest (internal implementation need) */
+-	bool pause;
++	atomic_t pause;
+ 
+ 	/* Cache some mmu pages needed inside spinlock regions */
+ 	struct kvm_mmu_memory_cache mmu_page_cache;
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 6bff7fd323872..0ef2b4a2b5f1a 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -336,6 +336,7 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
+ 	kvm_arm_pvtime_vcpu_init(&vcpu->arch);
+ 
+ 	vcpu->arch.hw_mmu = &vcpu->kvm->arch.mmu;
++	atomic_set(&vcpu->arch.pause, 0);
+ 
+ 	err = kvm_vgic_vcpu_init(vcpu);
+ 	if (err)
+@@ -496,7 +497,7 @@ int kvm_arch_vcpu_runnable(struct kvm_vcpu *v)
+ {
+ 	bool irq_lines = *vcpu_hcr(v) & (HCR_VI | HCR_VF);
+ 	return ((irq_lines || kvm_vgic_vcpu_pending_irq(v))
+-		&& !v->arch.power_off && !v->arch.pause);
++		&& !v->arch.power_off && !atomic_read(&v->arch.pause));
+ }
+ 
+ bool kvm_arch_vcpu_in_kernel(struct kvm_vcpu *vcpu)
+@@ -636,7 +637,7 @@ void kvm_arm_halt_guest(struct kvm *kvm)
+ 	struct kvm_vcpu *vcpu;
+ 
+ 	kvm_for_each_vcpu(i, vcpu, kvm)
+-		vcpu->arch.pause = true;
++		atomic_inc(&vcpu->arch.pause);
+ 	kvm_make_all_cpus_request(kvm, KVM_REQ_SLEEP);
+ }
+ 
+@@ -646,8 +647,8 @@ void kvm_arm_resume_guest(struct kvm *kvm)
+ 	struct kvm_vcpu *vcpu;
+ 
+ 	kvm_for_each_vcpu(i, vcpu, kvm) {
+-		vcpu->arch.pause = false;
+-		rcuwait_wake_up(kvm_arch_vcpu_get_wait(vcpu));
++		if (atomic_dec_and_test(&vcpu->arch.pause))
++			rcuwait_wake_up(kvm_arch_vcpu_get_wait(vcpu));
+ 	}
+ }
+ 
+@@ -656,10 +657,10 @@ static void vcpu_req_sleep(struct kvm_vcpu *vcpu)
+ 	struct rcuwait *wait = kvm_arch_vcpu_get_wait(vcpu);
+ 
+ 	rcuwait_wait_event(wait,
+-			   (!vcpu->arch.power_off) &&(!vcpu->arch.pause),
++			   !vcpu->arch.power_off && !atomic_read(&vcpu->arch.pause),
+ 			   TASK_INTERRUPTIBLE);
+ 
+-	if (vcpu->arch.power_off || vcpu->arch.pause) {
++	if (vcpu->arch.power_off || atomic_read(&vcpu->arch.pause)) {
+ 		/* Awaken to handle a signal, request we sleep again later. */
+ 		kvm_make_request(KVM_REQ_SLEEP, vcpu);
+ 	}
 -- 
 2.53.0
 
