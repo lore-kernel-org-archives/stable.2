@@ -1,70 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437007;
-	b=Wel6nTF98WC5SFKO4x9XnOTi77anKqcQKcAsgvE4fhjVl8fle6TXAet/t+nZUB57g5yO
-	 lQbPzv29jf9L2haKvOg3lFiuEYOByDSosCbHocQulWj6QWrjH0vBfPoVAi8k+JctwIcgM
-	 +2mbIUFR2tqT5Ex3pn1xNQjjV3TXcuKJKlhiIljV/AhNc8pszAX712RV9Vv7LO2ZMRQCr
-	 CyU8vmuW0P66nq6IXG+P4KGjJh6L0O49A0PMGV1htWWaI6/g2GRLbBxv2vmWQx/bLcpWA
-	 tBJh9oviz8LfoOvgTbmwHPDWVlmej2mB99jANJIAJKAtUJM8gaMVQvhhbuYsyK5JI6w==
+	t=1794437023;
+	b=PDO6IYf7ML/CjTBrKdjLd1PUje6BhYCo76bg9mPrrGoO7VGJVKDT+q93TXd+8531/NHq
+	 1h1EUxDmcCBF6o7xNTdRz+pVOE0qR/cYQ1uBFliCg1JnxxYjUkV08ZvxpPy2E3KFy2Nyy
+	 DbFcMBe/on0dHJLq5Tvp1B18l3wHAU00m/9solOPPI9ImJrA8oRQtbMekdORLttFqNtwQ
+	 qlUfoxMQizoB3QBncMnd46p0E7S1ccjHri8OCdC1nqSFAcVYZ00zxGMemPXjyvy4hcAvx
+	 OZBAsgvJkFesdjZYOWxdGQ+vfEiE+2aH9yWogJqAc6iB1LBJW3hCurz7NaPnZQP/SJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437007;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=dgBET2RSaOCToLo8RlWIwCQekDtOOAs/qg6zrwxRE/g=;
-	b=WDKt3Wa2dTCbaNNG0zSZxAXR3JCCjJhoY9TEIifakI9Qebnxdjb+s8u2kmTunG2utIub
-	 tTkWmoh+XkrP8GcFf4Goc6CeS19go+WijSOoyH9RckUQ3x9fMSIwFwJxMuVetYygnwW4O
-	 s9I6gOiBEao2ZQtVy7yRiqUQ5Dt46CnzaLZQrWCoi8dmZvbayPLNP0XdyW+o/reK5C1Tg
-	 bQKuAcT0ARxLccUC3jxtke7slfc/rXHgjgyo3ccX+Snfbjv0Ro17uQNPzupDsUXkT7dXC
-	 sz6VDXtfufnjtl+J51MCPF3mCXAmJ+oP/L7g9Ie5xULS/1ddFWr/mI1hZ1H+STg4W7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437023;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=B0A0m0f4aU6W9cFO2fuQeLOjLXsdMm9mUbsKPBMWDpI=;
+	b=gS6YQMDEix6vaiDnyZKE582InrwbhciCM5yP7Lqdl1Ge7KqNdDppg1fytjN5bNmAaGlD
+	 nYiMLFzztQap3Fw4t3n7kkoDnWsD1QOrIr4t4hUx5WAfHSj//TRFvKJklAzf+FebTurIh
+	 pf0140HgCvz+nVecmpVmu0XB4XqALjtW1CEE2fiiCQVk4hEDQb7z/5C679Ms3Z3g4OZzw
+	 DCMXjrVfhJDdBtsKordg89Zqo9HLNtM0hQHWYwWrAe3pTR3a26NDq3k7UlcNxx2Wuuv3y
+	 eFwEXmw1/brfaSxWLeGBYKqnhc2uHwDAskXcfgCQh+2ZBPPJqPTabVsMWGetUkiJ/nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=J5VR5RVm;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLFF0rRg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F220E606AED7;
-	Wed, 11 Nov 2026 22:43:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F220E606AED7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08ED3606A8B6
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:43:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=J5VR5RVm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=dgBET2RSaOCToLo8RlWIwCQekDtOOAs/qg6zrwxRE/g=; b=J5VR5RVmq2+ilOpj/wkcyab75v
-	KJlNT/QN/vNP1Sskyh84hU+lGFhJzKLDLW8Cwd+UrK+8dfvKKqdB4s/OSmLl+7Y+SpxKzauV5FREX
-	eRPGlCMaasKpkkBCcAhv7GBP8SiprbmMxBwmOUleOJafj+4X2gjBCuUg2vck+pFLINY+sv7R1Qp2k
-	FRoxUih9SIYeCGbv+Cw/EdGcHjvhQl0n1Rn+WMhR9zGPTA00XhQ74eGQlZp5Gl13nLnxR7SocPgkj
-	2AwUtv7q0sqzmIx4ojE4yDbcJyrONWJ8iL9Us+wdlfviw4voX+vn6Xs9x6TwJD6DbRVVeizWWlCHV
-	rGXn/QIg==;
-Received: from [151.115.150.205] (port=36454 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xRH2G-0000000DOpX-32cG;
-	Wed, 11 Nov 2026 23:43:19 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Miklos Szeredi <miklos@szeredi.hu>,
-	Amir Goldstein <amir73il@gmail.com>
-Cc: linux-unionfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] ovl: reject different lower idmaps on the same fs
-Date: Wed, 11 Nov 2026 22:42:26 +0000
-Message-ID: <20261111224227.2496049-3-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111224227.2496049-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261111224227.2496049-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLFF0rRg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79A391F00A05;
+	Wed, 11 Nov 2026 22:43:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794437022;
+	bh=B0A0m0f4aU6W9cFO2fuQeLOjLXsdMm9mUbsKPBMWDpI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LLFF0rRgVDsDl1l693ia8eC7+1btSSDvIdRtw8Z4Paq76qYGTh+vehgCViYN6e56G
+	 OQpJRlbWK7xB68LmSlZ5iSxFCi6rcwr0V8v1F+5pG+CTaPjQSTv1kNmtlAIS2ojKGD
+	 X9S5XkAPe2km49V1qXMAXaC1g5XP1C5kVY/K68MTJXcMNscOsHVMl8KFKYFA/e/6TS
+	 2r6my8MnB4YqljMGOoZyTHxsZ2dcHjsR18KUCNG8i2n8FNTTH6SwI97ugLb3mPTEil
+	 y6J57f2TQov04EF21Z2EbBCjQE6crlP22sUt2AQ7fqxyM48lqt4Irqiw5nk7dhIorH
+	 gsRrEoTadsA/w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/6] /proc/sys: use d_splice_alias() calling conventions to simplify failure exits
+Date: Wed, 11 Nov 2026 17:43:36 -0500
+Message-ID: <20261111224250.73064-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061331-failed-5.15-eeecea75ece2@kernel.org>
+References: <20261107061331-failed-5.15-eeecea75ece2@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,75 +58,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-Overlay file handles identify a backing filesystem, but not the lower
-mount used to decode it. If lower layers share a superblock and use
-different idmaps, a handle can decode through the wrong layer.
+From: Al Viro <viro@zeniv.linux.org.uk>
 
-Record the first idmap on a private lower clone for each backing
-filesystem. Fail if another clone has a different idmap. Comparing
-the private clones prevents mount_setattr() from changing the checked
-state. Distinct idmap objects are treated as ambiguous.
+[ Upstream commit 1eae9a47835ed4703055afbb3c52fef6d07a8a4c ]
 
-Fixes: bc70682a497c ("ovl: support idmapped layers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Stable-dep-of: eeecea75ece2 ("proc: don't let an entry below /proc/<pid>/net be a mountpoint")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/ovl_entry.h |  2 ++
- fs/overlayfs/super.c     | 15 +++++++++++++++
- 2 files changed, 17 insertions(+)
+ fs/proc/proc_sysctl.c | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/fs/overlayfs/ovl_entry.h b/fs/overlayfs/ovl_entry.h
-index ac07e8769f9b..5b2f1b930daa 100644
---- a/fs/overlayfs/ovl_entry.h
-+++ b/fs/overlayfs/ovl_entry.h
-@@ -24,6 +24,8 @@ struct ovl_config {
- struct ovl_sb {
- 	struct super_block *sb;
- 	dev_t pseudo_dev;
-+	/* Idmap of the first lower layer on this fs */
-+	const struct mnt_idmap *lower_idmap;
- 	/* Unusable (conflicting) uuid */
- 	bool bad_uuid;
- 	/* Used as a lower layer (but maybe also as upper) */
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 8bc970748b96..40eb8428a718 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -1141,6 +1141,21 @@ static int ovl_get_layers(struct super_block *sb, struct ovl_fs *ofs,
- 			return err;
- 		}
+diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
+index 1a22aa43e740d..7f7ffbc9276c5 100644
+--- a/fs/proc/proc_sysctl.c
++++ b/fs/proc/proc_sysctl.c
+@@ -522,13 +522,8 @@ static struct dentry *proc_sys_lookup(struct inode *dir, struct dentry *dentry,
+ 			goto out;
+ 	}
  
-+		if (i < nr_merged_lower) {
-+			const struct mnt_idmap *idmap = mnt_idmap(mnt);
-+			struct ovl_sb *fs = &ofs->fs[fsid];
-+
-+			if (!fs->lower_idmap)
-+				fs->lower_idmap = idmap;
-+			if (fs->lower_idmap != idmap) {
-+				pr_err("lower layer '%pd2' conflicts with idmap of another layer on the same fs\n",
-+				       l->path.dentry);
-+				iput(trap);
-+				kern_unmount(mnt);
-+				return -EINVAL;
-+			}
-+		}
-+
- 		/*
- 		 * Make lower layers R/O.  That way fchmod/fchown on lower file
- 		 * will fail instead of modifying lower fs.
+-	inode = proc_sys_make_inode(dir->i_sb, h ? h : head, p);
+-	if (IS_ERR(inode)) {
+-		err = ERR_CAST(inode);
+-		goto out;
+-	}
+-
+ 	d_set_d_op(dentry, &proc_sys_dentry_operations);
++	inode = proc_sys_make_inode(dir->i_sb, h ? h : head, p);
+ 	err = d_splice_alias(inode, dentry);
+ 
+ out:
+@@ -686,13 +681,8 @@ static bool proc_sys_fill_cache(struct file *file,
+ 			return false;
+ 		if (d_in_lookup(child)) {
+ 			struct dentry *res;
+-			inode = proc_sys_make_inode(dir->d_sb, head, table);
+-			if (IS_ERR(inode)) {
+-				d_lookup_done(child);
+-				dput(child);
+-				return false;
+-			}
+ 			d_set_d_op(child, &proc_sys_dentry_operations);
++			inode = proc_sys_make_inode(dir->d_sb, head, table);
+ 			res = d_splice_alias(inode, child);
+ 			d_lookup_done(child);
+ 			if (unlikely(res)) {
 -- 
-2.47.3
+2.53.0
 
