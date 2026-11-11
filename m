@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794362375;
-	b=pVrQLd/NodI3CpGTlFilLpgaLlAAnAbe7uDqGRAt/q2SIWORpceEW60qJ/P6dzIY/qoy
-	 tWW7kpMYHg9euGoiYatUS1p/MBlJPfDc3R3+IM6E1lm49CEKpo4OiFCF5dnrZN2u9zOWK
-	 8JFACEJL3w6GnXlvkPJujBTFWQ2hnG6Pg0aqqrJqD1XOlzmoreiSLlpMUKZoOR33pSgwL
-	 vcRwWaWZRMgdgrquLC0q+214J2Umb/xOorpLX2G7P24UXv1/bDxIWUvOqtO2JkvsHWRSy
-	 1SglXD0zg0uAuc4z9Y2o/73e62I7phtwc6yNp8hxpsz4Uy6zVIfI3b1JYIJasuAii8A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362375;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JNwnJPp+yu31nyo75SU+VysFK5l8+BlztC8tNoAM//s=;
-	b=VYT4Xh/bOJ/oYenhgMcKD5wscZfyKiwh8DPi6nzNq84wtgdfYZOxbI6Bm9i1O+1ls947
-	 VlsU2PeASEhUFIWFqfv9YuH3xT6bagP0enGCvoL32LpDc6bc4Ms35gw3N7j1vXSGdC/yK
-	 AFk9sCyPIzg8AeTT+713VGfOcOEKvxAsTigbmTxXHg4YJlEGr7K3caNyZJmRQrjopDV9g
-	 5lTpVUU/QLH38yvTFCm8ccIJLTf1AxdSd5/ywOrelz3KOiNwqPHhuJ5bsP+L7t6DOuWyn
-	 8grHVp8gGZMwYV0aXtRj093uHVtKZ5wBqAOe7U8lgGnNzDDEvifiBevH58exqe0nbRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IYXgZFIA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794362386;
+	b=0EPBGDKssZl03HbwPHiJa2KH5x4vnSTvktfiTRsRUOzReeqgG+nOGzz3uJh97BfP5a/u
+	 PZlgRIoouQaPr8UYhJFhx6Vyzy7K8XEWEyb+2ReznGB7y8blO3eH819otajloGYBACwGG
+	 of66b43DBKTq3xTzCrGVEMH2kn6xaJ28GbUYRPilbdBlpp/5T2NTKyi7u2d4uZFzeD6zt
+	 TsIx4/epggoutGyamUNOJTgkN3AEvsX+ix9dm+1OO7BxEBY0Bjj6SY136zVirN+0oGtq/
+	 ypLkWBNhguiUGmELFYAIyuexa49FuBoFZb7Boo3FY6lFx3YsZZXdlTW0YQ4CWGI6UyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362386;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=eJQRWMgBraZChFUfl0wBOVyZe96i91WA49Js/szFzPE=;
+	b=btXNojyEGVlPV1W2WOjRgFXydRJ0ekq4leWBSsaAtS/vQBGktubkhiyucHxnr+6nD34G
+	 AsAN7DSjiLOYFm9BCy7HrXsuEmuDvp0ahSY91r63nWehkBxsVOMbtCQ96KPdKBLAkniLJ
+	 FUeA/qvhLYqMrd43fnLKVPWhUU/qOGizfoASUFv3vMy0nxhkYBsaZvTJWvH7q7sxecB74
+	 MmffsUxQptawRyfm/ySv8gnPFW3eyd0mrvFyMW4dylU4yKrk8vh1GsQixDqJqtyzXRTnH
+	 Qym0vqJ1AGDpycJ+bitPmPjdz0C0GasAwyZW9Pribr1HE0liQwq1/OBzafmi6rSk3XQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qkf283ME;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55805606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:59:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55805606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0F9606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:59:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IYXgZFIA
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so26898325e9.3
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:59:35 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794362374; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FpJnylPCBKW1IegogW/YkqWa2oFtUy+zL2HT5BQfqWdHU6abgLjfCQ8DmbjZApnuc1
-         Jcl51EaAkRnrcYZOMBw7kaTaJKAx3clGUrDsDiC5MdH505KLRP90D6os2o/scjGwMMvD
-         3DFyQD4hQNNu+A7uF9yDkFBD5AUYJGYyKhla2u4VqFeSyQrO5UBZ/VaNR11RlPaByIy5
-         tHmZkG+OaIuE5kv6Lb0inIXLtrZ3QZGOpuPMTLK54Ema1CyWgsxhJeC9Rr29/FvPoLHl
-         GzZ4g30fseJGWae8OJDvpfp0YCXFFM1pa68sdjvCOMBezogE9t5vtpj/NyUp9h9tLYVy
-         VZBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JNwnJPp+yu31nyo75SU+VysFK5l8+BlztC8tNoAM//s=;
-        fh=2lBIszkehkHKKMkQA9oEOa39ymf89Rqf8snJvNEUtfE=;
-        b=hOMUFzHYIg9PzTRhRUTyCNL3MeIUV9wa6GE1HzlvIAoQPNHqJIGjE1O/wTqVMOyIaO
-         CXr6CAJNVgR4BO3Td/7788+jDY0QUor5J50x0oHdCpQlhZT62qyI6A0P6YaWkxjkVdlv
-         H0BrDx+IzceOVswHjjSeOFV8x7djw2ha7pxoUkeoGJZ1avPHR9cHaGMwVOQlRna/4DK0
-         txyEOAojJCIMmVNjK35LXL18GP0tQSoyEY5ENEpuWCrW+Fx3s/bhJ637O/e5Zj6HgCit
-         hsP62k9YX4UdebLUKDGKoMH9kAbksi3CAy8ibGAG5oDmykdA4dJKDvbDVyxRD9mYjQv/
-         kvcQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794362374; x=1794967174; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JNwnJPp+yu31nyo75SU+VysFK5l8+BlztC8tNoAM//s=;
-        b=IYXgZFIAqYhKsk7hty4s+M40+ZNHa2IeMm17PFMqVWMCIl9YGy6wAzeGgxImhlt1VA
-         n8BrRvYWFq/Ceq0eNRqZswZD2vs4agkBBpCDGyANyCt2UN6Y4TyFh1QnxVutuWhomYiV
-         PTvnYFh4516+U7+8ptBWKhC7e+C/9xdaNT/+tfRPZOGgdw61N2JdW+Slwy+pIzUuSPyT
-         SQI/GxQnOzyj8vOgwcpFbCbDHeIDrHoKjh+a4d+MxJsLGzbU/NgQ4EOd8byjnWoh82Nh
-         2bLtxrK418qV3dd74mJTtDWN4B/QXbiHnBEkQloO+MMra273mgSbV//c6KXapzPXRq0M
-         LcYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794362374; x=1794967174;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JNwnJPp+yu31nyo75SU+VysFK5l8+BlztC8tNoAM//s=;
-        b=KnJbKT1y31uq52maZR9pHU7xQQys7VrPVv9zrT+LkfL46rbuVB+JPho0cIRqXs993w
-         8dNGKZts3hfz6//CgQcNYjfq6TWUPRwRkPAPgKzAq87Rf1xU6HMx0bkW01yHtn3MtIJK
-         Bigl2is9Fcg45A+tg2yFjevt+sCrNmGCGqMMASvT8cqviP4FMxMpSdQqV3gv//ma213o
-         hRIfv1ZTame8HyVfQEZhkWTaCkyHEKok4SfLos/UOe7rJULJKpIZY+Y2sIMPIWYIxEoi
-         9kIBLbjH0FWKf8ymWTxlEWdCmkVFynYrUERFJFfHdnz7yqOAegd99BOZFRnKGBtM+IH2
-         KiFw==
-X-Gm-Message-State: APuU4Z8Zklhex78/zO3BqhXJK7TEg+KmeJ+0QTAqnqWXVwrsGAcOwDoM
-	UUxccl6LVx658oi57p9NpWmmKmegni9k2IwzYc1aR35FLK3F/ae+jNN2v/kjagmjspU5+vgHZVi
-	PGGnrcuyGc4Mxglk0wTYhvHIlqqprONc=
-X-Gm-Gg: AYBFou1WYX3MQZ+PCInhBhybOzpte8bbwwWj763fzXXrZ+sI4KkZuj9vLE8Ar1t5Lpn
-	BB0Pifrmic+t1PvRjZwAMkkNeqAp5xWhB73lm5XPZUOML1SuTgB9EiOu+hZ0qv6mSZM0oBDlcYT
-	lzqPGw8MhcgojcnrZ5qdPtFuAS0QBXdjT12Yl9pqIXpK1uBfYwEyhEunJUWrSHr0OP0TMaTZdu2
-	o8h5E97c9Wgy44qkmRVvAuZan+X4oQvLL3RQXjTEOY6/UH3dNcI5z5F23d5BHJw/mhdL0m5ZBOK
-	KXaMUdcmv/5aoMqQuRMIUdAJQJbTGWMKKXULT4DHVwg2Eb9MDDWvMD9a4aaU7imLy7V3a/3Pgjc
-	IJSOv0AFKNJefb5Llkn4oM3dXKizAPCvij3DWew==
-X-Received: by 2002:a05:600c:1e04:b0:4a7:9025:5c3b with SMTP id
- 5b1f17b1804b1-4ba093b9702mr11727895e9.19.1794362373409; Tue, 10 Nov 2026
- 17:59:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qkf283ME
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815FF1F0089F;
+	Wed, 11 Nov 2026 01:59:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794362386;
+	bh=eJQRWMgBraZChFUfl0wBOVyZe96i91WA49Js/szFzPE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Qkf283MEFuw8xyz74lmqAlZLn1Rjf+jbifsLaje/TbhQ45swYK/PS/eFJAyrz4e81
+	 ixm+WfEsIDnOxEcMAMNsNvbLNU8dClpxP1OFYHqMwuB7GAk02jOWsnhna00PSTlVRa
+	 4bI7HT+MRP5Asy/2n27YGKellBmWcEDZjxSq1wkVr80umZkaAKwSi9gJkqCEWsTIky
+	 ZHfMNEc1YxYX0CCy5CeNuFpon/e51INepW1G6WQvbPR8sGlRaxyTYUQaUbGwp4I/Nh
+	 CLwtM11WGm8f2DicKvvjQSeUqZjHqDQmaR6Y+bdvnTdD/5+00amXp9w5Nu5Ijhzxw9
+	 tsrl96aarPqNQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] ALSA: emu10k1: prune vestiges of SNDRV_SFNT_SAMPLE_{BIDIR,REVERSE}_LOOP support
+Date: Tue, 10 Nov 2026 20:59:41 -0500
+Message-ID: <20261111015933.483997-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060913-failed-5.15-8a5d87c2ba30@kernel.org>
+References: <20261107060913-failed-5.15-8a5d87c2ba30@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,178 +59,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107054332-failed-6.1-7131aaa74bcc@kernel.org> <20261111013114.470246-1-wangjianjian3@huawei.com>
-In-Reply-To: <20261111013114.470246-1-wangjianjian3@huawei.com>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Wed, 11 Nov 2026 10:59:15 +0900
-X-Gm-Features: AclHuK9AxeLBGjjT8dWzkU1zDD3mx1rSay4eO5XNNsBfSe9dQhUQVfxov59X1BQ
-Message-ID: <CAKFNMoneZ4jzi025V4w4Ep2N_VpHediHwwoe7TY6OowVjmq9_g@mail.gmail.com>
-Subject: Re: [PATCH 6.1.y] nilfs2: ignore non-fatal signals during synchronous
- log write wait
-To: Wang Jianjian <wangjianjian3@huawei.com>
-Cc: stable@vger.kernel.org, 
-	syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com, 
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 10:33=E2=80=AFAM Wang Jianjian wrote:
->
-> From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
->
-> Based on a syzbot report, Wang Jianjian pointed out that following a
-> successful directory operation in nilfs_rename(), a synchronous write
-> requested within nilfs_transaction_commit(), triggered by a sync flag
-> set by nilfs_commit_chunk(), could be interrupted by a user signal.
-> This interruption leaves in-memory metadata updates intact while
-> returning an error, causing inconsistency with the VFS dentry cache and
-> ultimately triggering a kernel warning.
->
-> According to "signal(7)", local disks are not classified as "slow
-> devices" (such as terminals, FIFOs, or pipes) and their I/O operations
-> on disk devices are not interrupted by signals.  In kernel space,
-> waiting for such disk I/O should therefore not be aborted by ordinary
-> (non-fatal) signals.
->
-> Suppress this issue by modifying nilfs_segctor_sync(), which waits for
-> the log writer thread to complete synchronous writes, to catch only
-> fatal signals via fatal_signal_pending() and return -EINTR rather than
-> -ERESTARTSYS.  To complement this change and prevent the wait loop from
-> busy-looping when schedule() returns immediately due to a pending
-> non-fatal signal, switch the wait state from TASK_INTERRUPTIBLE to
-> TASK_KILLABLE.
->
-> This serves as an effective interim stabilization measure without
-> structural changes until a comprehensive fix for metadata consistency
-> is implemented.
->
-> Reported-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Df6c7e1f1809f235eeb90
-> Fixes: 9ff05123e3bf ("nilfs2: segment constructor")
-> Tested-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-> Cc: Wang Jianjian <wangjianjian3@huawei.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-> Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-> (cherry picked from commit 7131aaa74bcc7c9da1f1d1c8724da75c775557a0)
-> ---
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-Hi Wang Jianjian,
+[ Upstream commit 1edeac6555e9df008b1729ca445868c1177baa8b ]
 
-The patches that the fix patch depends on have also been submitted to
-the stable tree, so the conflicts should be resolved.
+This is required only to implement WAVE_BIDIR_LOOP and WAVE_LOOP_BACK in
+the GUS patch loader. It has not worked on emu10k1 since before ALSA hit
+mainline, yet nobody appears to have complained. And as it isn't super
+easy to implement, just admit defeat and clean up the code.
 
-Considering future backports, I think Sasha Levin's approach of
-simultaneously sending acceptable dependency patches to resolve the
-issue is preferable.
+If somebody wanted to resurrect the feature, the emu8k driver could
+serve as a template, but the code would be quite different. But
+arguably, this should be done in user space in the first place, as this
+doesn't represent a hardware feature (somewhat ironically, the actual
+GUS driver has no synth support, and therefore no GUS patch loader).
 
-Could you please check the link below?
+Note that instead of properly rejecting affected samples, we continue to
+just pretend that the feature wasn't requested. This is extremely
+questionable behavior, but avoids that possibly unused instruments
+suddenly prevent loading the entire file, which would break backwards
+compatibility. But at least we log a warning now.
 
-[6.12.y] https://lore.kernel.org/all/20261110131241.1664282-1-sashal@kernel=
-.org/
-[6.6.y] https://lore.kernel.org/all/20261110131728.1706995-1-sashal@kernel.=
-org/
-[6.1.y] https://lore.kernel.org/all/20261110132237.1722151-1-sashal@kernel.=
-org/
-[5.15.y] https://lore.kernel.org/all/20261110132713.1736389-1-sashal@kernel=
-.org
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Message-ID: <20240406064830.1029573-6-oswald.buddenhagen@gmx.de>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 8a5d87c2ba30 ("ALSA: emux: Stop voices before freeing zones in all cases")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/pci/emu10k1/emu10k1_patch.c | 73 ++++---------------------------
+ 1 file changed, 8 insertions(+), 65 deletions(-)
 
-Please let me know if your intention was different.
+diff --git a/sound/pci/emu10k1/emu10k1_patch.c b/sound/pci/emu10k1/emu10k1_patch.c
+index 89890f24509f0..49214c2268084 100644
+--- a/sound/pci/emu10k1/emu10k1_patch.c
++++ b/sound/pci/emu10k1/emu10k1_patch.c
+@@ -28,8 +28,6 @@ snd_emu10k1_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
+ {
+ 	int offset;
+ 	int truesize, size, blocksize;
+-	__maybe_unused int loopsize;
+-	int loopend, sampleend;
+ 	unsigned int start_addr;
+ 	struct snd_emu10k1 *emu;
+ 
+@@ -43,32 +41,24 @@ snd_emu10k1_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
+ 		return 0;
+ 	}
+ 
++	if (sp->v.mode_flags & (SNDRV_SFNT_SAMPLE_BIDIR_LOOP | SNDRV_SFNT_SAMPLE_REVERSE_LOOP)) {
++		/* should instead return -ENOTSUPP; but compatibility */
++		printk(KERN_WARNING "Emu10k1 wavetable patch %d with unsupported loop feature\n",
++		       sp->v.sample);
++	}
++
+ 	/* recalculate address offset */
+ 	sp->v.end -= sp->v.start;
+ 	sp->v.loopstart -= sp->v.start;
+ 	sp->v.loopend -= sp->v.start;
+ 	sp->v.start = 0;
+ 
+-	/* some samples have invalid data.  the addresses are corrected in voice info */
+-	sampleend = sp->v.end;
+-	if (sampleend > sp->v.size)
+-		sampleend = sp->v.size;
+-	loopend = sp->v.loopend;
+-	if (loopend > sampleend)
+-		loopend = sampleend;
+-
+ 	/* be sure loop points start < end */
+ 	if (sp->v.loopstart >= sp->v.loopend)
+ 		swap(sp->v.loopstart, sp->v.loopend);
+ 
+ 	/* compute true data size to be loaded */
+ 	truesize = sp->v.size + BLANK_HEAD_SIZE;
+-	loopsize = 0;
+-#if 0 /* not supported */
+-	if (sp->v.mode_flags & (SNDRV_SFNT_SAMPLE_BIDIR_LOOP|SNDRV_SFNT_SAMPLE_REVERSE_LOOP))
+-		loopsize = sp->v.loopend - sp->v.loopstart;
+-	truesize += loopsize;
+-#endif
+ 	if (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_NO_BLANK)
+ 		truesize += BLANK_LOOP_SIZE;
+ 
+@@ -96,8 +86,8 @@ snd_emu10k1_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
+ 	snd_emu10k1_synth_bzero(emu, sp->block, offset, size);
+ 	offset += size;
+ 
+-	/* copy start->loopend */
+-	size = loopend;
++	/* copy provided samples */
++	size = sp->v.size;
+ 	if (! (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_8BITS))
+ 		size *= 2;
+ 	if (offset + size > blocksize)
+@@ -108,53 +98,6 @@ snd_emu10k1_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
+ 		return -EFAULT;
+ 	}
+ 	offset += size;
+-	data += size;
+-
+-#if 0 /* not supported yet */
+-	/* handle reverse (or bidirectional) loop */
+-	if (sp->v.mode_flags & (SNDRV_SFNT_SAMPLE_BIDIR_LOOP|SNDRV_SFNT_SAMPLE_REVERSE_LOOP)) {
+-		/* copy loop in reverse */
+-		if (! (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_8BITS)) {
+-			int woffset;
+-			unsigned short *wblock = (unsigned short*)block;
+-			woffset = offset / 2;
+-			if (offset + loopsize * 2 > blocksize)
+-				return -EINVAL;
+-			for (i = 0; i < loopsize; i++)
+-				wblock[woffset + i] = wblock[woffset - i -1];
+-			offset += loopsize * 2;
+-		} else {
+-			if (offset + loopsize > blocksize)
+-				return -EINVAL;
+-			for (i = 0; i < loopsize; i++)
+-				block[offset + i] = block[offset - i -1];
+-			offset += loopsize;
+-		}
+-
+-		/* modify loop pointers */
+-		if (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_BIDIR_LOOP) {
+-			sp->v.loopend += loopsize;
+-		} else {
+-			sp->v.loopstart += loopsize;
+-			sp->v.loopend += loopsize;
+-		}
+-		/* add sample pointer */
+-		sp->v.end += loopsize;
+-	}
+-#endif
+-
+-	/* loopend -> sample end */
+-	size = sp->v.size - loopend;
+-	if (size < 0)
+-		return -EINVAL;
+-	if (! (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_8BITS))
+-		size *= 2;
+-	if (snd_emu10k1_synth_copy_from_user(emu, sp->block, offset, data, size)) {
+-		snd_emu10k1_synth_free(emu, sp->block);
+-		sp->block = NULL;
+-		return -EFAULT;
+-	}
+-	offset += size;
+ 
+ 	/* clear rest of samples (if any) */
+ 	if (offset < blocksize)
+-- 
+2.53.0
 
-Thanks,
-Ryusuke Konishi
-
-
-
->  fs/nilfs2/ioctl.c    |  2 +-
->  fs/nilfs2/recovery.c |  2 ++
->  fs/nilfs2/segment.c  | 10 +++++++---
->  3 files changed, 10 insertions(+), 4 deletions(-)
->
-> diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-> index 4e964549bc4c..cbbe49bb4926 100644
-> --- a/fs/nilfs2/ioctl.c
-> +++ b/fs/nilfs2/ioctl.c
-> @@ -960,10 +960,10 @@ static int nilfs_ioctl_clean_segments(struct inode =
-*inode, struct file *filp,
->   * Return: 0 on success, or one of the following negative error codes on
->   * failure:
->   * * %-EFAULT          - Failure during execution of requested operation=
-.
-> + * * %-EINTR           - Interrupted.
->   * * %-EIO             - I/O error.
->   * * %-ENOMEM          - Insufficient memory available.
->   * * %-ENOSPC          - No space left on device (only in a panic state)=
-.
-> - * * %-ERESTARTSYS     - Interrupted.
->   * * %-EROFS           - Read only filesystem.
->   */
->  static int nilfs_ioctl_sync(struct inode *inode, struct file *filp,
-> diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-> index ce30b51ac593..34462039ae7d 100644
-> --- a/fs/nilfs2/recovery.c
-> +++ b/fs/nilfs2/recovery.c
-> @@ -744,6 +744,8 @@ static void nilfs_abort_roll_forward(struct the_nilfs=
- *nilfs)
->   * Return Value: On success, 0 is returned.  On error, one of the follow=
-ing
->   * negative error code is returned.
->   *
-> + * %-EINTR - Interrupted.
-> + *
->   * %-EINVAL - Inconsistent filesystem state.
->   *
->   * %-EIO - I/O error
-> diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-> index a412abdfbbf3..3a256f786db2 100644
-> --- a/fs/nilfs2/segment.c
-> +++ b/fs/nilfs2/segment.c
-> @@ -2236,7 +2236,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info =
-*sci)
->         wake_up(&sci->sc_wait_daemon);
->
->         for (;;) {
-> -               set_current_state(TASK_INTERRUPTIBLE);
-> +               set_current_state(TASK_KILLABLE);
->
->                 /*
->                  * Synchronize only while the log writer thread is alive.
-> @@ -2250,11 +2250,11 @@ static int nilfs_segctor_sync(struct nilfs_sc_inf=
-o *sci)
->                         err =3D wait_req.err;
->                         break;
->                 }
-> -               if (!signal_pending(current)) {
-> +               if (!fatal_signal_pending(current)) {
->                         schedule();
->                         continue;
->                 }
-> -               err =3D -ERESTARTSYS;
-> +               err =3D -EINTR;
->                 break;
->         }
->         finish_wait(&sci->sc_wait_request, &wait_req.wq);
-> @@ -2289,6 +2289,8 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_in=
-fo *sci, int err, bool force)
->   * Return Value: On success, 0 is returned. On errors, one of the follow=
-ing
->   * negative error code is returned.
->   *
-> + * %-EINTR - Interrupted.
-> + *
->   * %-EROFS - Read only filesystem.
->   *
->   * %-EIO - I/O error
-> @@ -2324,6 +2326,8 @@ int nilfs_construct_segment(struct super_block *sb)
->   * Return Value: On success, 0 is returned. On errors, one of the follow=
-ing
->   * negative error code is returned.
->   *
-> + * %-EINTR - Interrupted.
-> + *
->   * %-EROFS - Read only filesystem.
->   *
->   * %-EIO - I/O error
-> --
-> 2.34.1
->
