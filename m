@@ -1,64 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794407270;
-	b=lxMNi2i+UY5FE8ROrFwWhx5W/MxmB4cTekTzBRYH7q3XovaMscEGb0+F5ddqsBcqziYS
-	 LYP8WiLBfv+tZXZaE5av0T3hlzcnHdVopGIXWZN13z7+HUyULCGy+C2lXc9mup3kg9UHT
-	 vjvnYM6SnekU7xDL7TlpAOjHih4t7+ocxvh8wM5cGTIROyy6mzt2bexvXWABmqMGttkGw
-	 KXHmIQT1Ou0RmL9lgz+v6y8Hp9nhAIUniuWPieuKAf/kew9FUawvoYic8zpDc0Sb0KmAI
-	 JOnVYNMMwhalBAmDI1AcIHzx/iLdqafrdegJw9/BJmWc1LQgcv/ZdAt9kgfIrPZuC2g==
+	t=1794407315;
+	b=O7koY0COX3AmTlJBNEi379w5bCYGseX97jwixz0SbufOU/RRNvSetjjpeWnktW4EsBM0
+	 /hg37DrKDdmmiUSHTpNDBGWjN1EhiFPEoC2YAOSFtmt9DPXShwBjN8q9QmEsxAe02YZcm
+	 XwHjyab0ToQ6nJ9hsJpI2iP0QZdrsRGsvV8qk1Vrw7dxplCVmIGkTb5rOsj3KdwZFoF67
+	 wx85uaU6QqXgnlLpJm+gO2mKUEpvi6gxKsN/Zs3exGcsEZTu9Cew3mpE/u/7b44E7Turo
+	 7UQvpAt2XN0glKLcgG9pQ/sLwSCt4Pyvkebr1WoV244s3kWjC1Jz4bgd67yspG2aG2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794407270;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794407315;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JD9yYuzhqD9PB9BJmZC2ytS9q3GGkyCVPWF5JrGyyxw=;
-	b=mgp+OabIQTrzNybbUnDaq0VyGsyM52D1e5F+bPSdyEjPH7PJBXgZ1+xd4+2HyXf7NbsM
-	 tg/oynYo1AVd+sfIb8ARlPQZKss26Ke4RN+SwDoxw6a5UE7rHiaUbzpMVseSsYMrRhspR
-	 9OtZa1BsGS3Ud/ybe6McNqhhLnPqQMJ+Wdy8ImiRSBIfQjn9RRcLOtDNFDyjG+4r9iipD
-	 Tky8kWQDeI/eBloTiMDcI6vsUhrpQ2psDfxunbV3lk3qBASWVEwlsX+yhtmhZphucNkAu
-	 O+MDNQZeVSnc1yee42q96+WXH35dILuwkTAJ0wpvx5t/VrxORmjwmyiyHUF6e9sdgRg==
+	bh=HsiZBOPfv0VyvXuJqbg+xI6yQZLQgrx7s1DCfaSLVq0=;
+	b=VJNGcYURyPdDMXtS0pfkASRBrc2PAD6bIUOSgSjHUEQJx7ufyBQjYoNTEeihJ8k3ShG3
+	 QHgeAgNQDtwLmuQb8VCjiQjLCn4fEW+Xw+1MEaN6H8xKW7FYY4EsRYfptDJDW8bHlECwT
+	 hoeFMzouF4dgDw0hqgdYWYTI8AJmrsF94EIj4SU4Irnn1OiRDQNbkb2KmYwS0Gc/VnLMo
+	 DeaPf28SajAUw2/EVTtuw5JWQ2QAdeQwf4cFVl1W+eNrHAzLFB9zLLNN8Jp/HcZzVlArG
+	 avD+PULuKEEKmejWIviIJ1UzFEcwVlZ5VK5ZThBSEBMx6oIFHGJaTqJKY2LXBjproOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LvdC08/O";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3E71j74;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD5A606A32D
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:27:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021A7606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:28:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvdC08/O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 908231F00A05;
-	Wed, 11 Nov 2026 14:27:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3E71j74
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352971F00A05;
+	Wed, 11 Nov 2026 14:28:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794407269;
-	bh=JD9yYuzhqD9PB9BJmZC2ytS9q3GGkyCVPWF5JrGyyxw=;
+	s=k20260515; t=1794407314;
+	bh=HsiZBOPfv0VyvXuJqbg+xI6yQZLQgrx7s1DCfaSLVq0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LvdC08/OBjRDbIwmBTRNMYsTgnYFVCqrC1IMLXC7NhPDr7Bwz1CWAgUGLEZ7rf1gj
-	 Isq70ll15Q7+UdqsDlO9+cA9OTMHb4vzZNATERX8bFA6SGVEe22Yp5xuD3JOU7nyrZ
-	 vRz+sUdldRlA+6VgPmxs4WOsFnUqIOMGsdzZ0WycqkEi45ZYWodeTFkgSJedmUzTHC
-	 +WiuSF/E1T6HpUexuoU1WXWiPpAX1/0iLbm04C3w8kGmryQ7XgYw2EUjC9RBZz7SfY
-	 f3D0qv2S6Y2YB26pRuRvXsa9EM2MMgl9/461MvQDjFU01qNY3uZZ8IPLSkah57XrCf
-	 ZlZxmQZZodKUw==
+	b=g3E71j74Or2X+Em2kjz7efVj0z6jvbdrLx4tzsajJ7Hovu06NA80WtSyuX0F3McdO
+	 3bc/mfbGdDB9JUvwJzUbITFN380tFES5FV+cLyjk5izHcPAWrDThefE7zFI2YvcYjy
+	 M538itWG27gUn0fZwbPIvSCspz/N6yXcjj6yf8EW+P6NQ+7fBTh7o1a3VWxNX93tiY
+	 FSmRZHy5j/I/+5hHTl7lfsgtsJlTtvFXSRAqG8zbx+7DT16s68gKBcWPfEDi/ZHNMH
+	 NN/jO+ArpbJN8uR0UszNjxb9kVBeRI1Uy2LGIW7Y8Q2Owk586A86YHDUCDFQyIXO9h
+	 2FIUo7drJe7oQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Carlier <devnexen@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Baoquan he <bhe@redhat.com>,
-	Barry Song <baohua@kernel.org>,
-	Chis Li <chrisl@kernel.org>,
-	Hugh Dickens <hughd@google.com>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
+Cc: Linmao Li <lilinmao@kylinos.cn>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Aksh Garg <a-garg7@ti.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/shmem: don't release a swapin-error marker as a swap entry
-Date: Wed, 11 Nov 2026 09:27:47 -0500
-Message-ID: <20261111142655.2313974-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] PCI: cadence: Store the core controller in platform drvdata
+Date: Wed, 11 Nov 2026 09:28:32 -0500
+Message-ID: <20261111142805.2347807-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051044-failed-6.18-e4b92891aaca@kernel.org>
-References: <20261107051044-failed-6.18-e4b92891aaca@kernel.org>
+In-Reply-To: <20261107052250-failed-6.12-cfe96ce583c5@kernel.org>
+References: <20261107052250-failed-6.12-cfe96ce583c5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,63 +63,123 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Carlier <devnexen@gmail.com>
+From: Linmao Li <lilinmao@kylinos.cn>
 
-[ Upstream commit e4b92891aaca0d37b5973362dd14747a65406650 ]
+[ Upstream commit cfe96ce583c51bf6e034d4038c652a1e8227867c ]
 
-A failed shmem swapin (eg, EIO) frees the swap slot and leaves a
-PTE_MARKER_POISONED entry in the page cache.  On truncate or eviction
-shmem_free_swap() passes that marker to swap_put_entries_direct(), which
-warns because it is not a swap entry.  There is nothing left to release
-either way.
+cdns_plat_pcie_probe() stores a struct cdns_plat_pcie pointer with
+platform_set_drvdata(). cdns_plat_pcie_shutdown() and the callbacks in
+cdns_pcie_pm_ops retrieve the same pointer with dev_get_drvdata() but use
+it as a struct cdns_pcie pointer. This makes them read phy_count and phy
+beyond the wrapper.
 
-Skip the release for non-swap entries, as every other caller already does.
+struct cdns_plat_pcie only contains a pointer to struct cdns_pcie. Drop
+the redundant wrapper and store the struct cdns_pcie pointer directly.
 
-Link: https://lore.kernel.org/20260920155002.1030454-1-devnexen@gmail.com
-Fixes: ac2d3268284b ("mm/swapfile.c: remove the unneeded checking")
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=23b25ba3c6bf971f9c57
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Baoquan he <bhe@redhat.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Chis Li <chrisl@kernel.org> (Google)
-Cc: Hugh Dickens <hughd@google.com>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adapted newer softleaf and swap-release APIs to the existing swp_entry_t-based swap helpers ]
+Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Aksh Garg <a-garg7@ti.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260915082826.4135665-1-lilinmao@kylinos.cn
+[ sashal: adapted probe error cleanup to access PHY device links through pcie ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/shmem.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ .../controller/cadence/pcie-cadence-plat.c    | 33 +++++++------------
+ 1 file changed, 11 insertions(+), 22 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 5efde9fcc3057..d90225a3b9a4d 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -947,6 +947,7 @@ static long shmem_free_swap(struct address_space *mapping,
- 			    pgoff_t index, pgoff_t end, void *radswap)
+diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+index 0456845dabb96..c1ec619ab0a4e 100644
+--- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
++++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+@@ -14,14 +14,6 @@
+ 
+ #define CDNS_PLAT_CPU_TO_BUS_ADDR	0x0FFFFFFF
+ 
+-/**
+- * struct cdns_plat_pcie - private data for this PCIe platform driver
+- * @pcie: Cadence PCIe controller
+- */
+-struct cdns_plat_pcie {
+-	struct cdns_pcie        *pcie;
+-};
+-
+ struct cdns_plat_pcie_of_data {
+ 	bool is_rc;
+ };
+@@ -40,9 +32,9 @@ static const struct cdns_pcie_ops cdns_plat_ops = {
+ static int cdns_plat_pcie_probe(struct platform_device *pdev)
  {
- 	XA_STATE(xas, &mapping->i_pages, index);
-+	const swp_entry_t swp = radix_to_swp_entry(radswap);
- 	unsigned int nr_pages = 0;
- 	pgoff_t base;
- 	void *entry;
-@@ -963,8 +964,9 @@ static long shmem_free_swap(struct address_space *mapping,
+ 	const struct cdns_plat_pcie_of_data *data;
+-	struct cdns_plat_pcie *cdns_plat_pcie;
+ 	struct device *dev = &pdev->dev;
+ 	struct pci_host_bridge *bridge;
++	struct cdns_pcie *pcie;
+ 	struct cdns_pcie_ep *ep;
+ 	struct cdns_pcie_rc *rc;
+ 	int phy_count;
+@@ -56,11 +48,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 	is_rc = data->is_rc;
+ 
+ 	pr_debug(" Started %s with is_rc: %d\n", __func__, is_rc);
+-	cdns_plat_pcie = devm_kzalloc(dev, sizeof(*cdns_plat_pcie), GFP_KERNEL);
+-	if (!cdns_plat_pcie)
+-		return -ENOMEM;
+-
+-	platform_set_drvdata(pdev, cdns_plat_pcie);
+ 	if (is_rc) {
+ 		if (!IS_ENABLED(CONFIG_PCIE_CADENCE_PLAT_HOST))
+ 			return -ENODEV;
+@@ -72,9 +59,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 		rc = pci_host_bridge_priv(bridge);
+ 		rc->pcie.dev = dev;
+ 		rc->pcie.ops = &cdns_plat_ops;
+-		cdns_plat_pcie->pcie = &rc->pcie;
++		pcie = &rc->pcie;
+ 
+-		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
++		ret = cdns_pcie_init_phy(dev, pcie);
+ 		if (ret) {
+ 			dev_err(dev, "failed to init phy\n");
+ 			return ret;
+@@ -99,9 +86,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 
+ 		ep->pcie.dev = dev;
+ 		ep->pcie.ops = &cdns_plat_ops;
+-		cdns_plat_pcie->pcie = &ep->pcie;
++		pcie = &ep->pcie;
+ 
+-		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
++		ret = cdns_pcie_init_phy(dev, pcie);
+ 		if (ret) {
+ 			dev_err(dev, "failed to init phy\n");
+ 			return ret;
+@@ -119,18 +106,20 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 			goto err_init;
  	}
- 	xas_unlock_irq(&xas);
  
--	if (nr_pages)
--		free_swap_and_cache_nr(radix_to_swp_entry(radswap), nr_pages);
-+	/* A swapin-error marker holds no swap slot, so just drop it. */
-+	if (nr_pages && !non_swap_entry(swp))
-+		free_swap_and_cache_nr(swp, nr_pages);
++	platform_set_drvdata(pdev, pcie);
++
+ 	return 0;
  
- 	return nr_pages;
+  err_init:
+  err_get_sync:
+ 	pm_runtime_put_sync(dev);
+ 	pm_runtime_disable(dev);
+-	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
+-	phy_count = cdns_plat_pcie->pcie->phy_count;
++	cdns_pcie_disable_phy(pcie);
++	phy_count = pcie->phy_count;
+ 	while (phy_count--)
+-		device_link_del(cdns_plat_pcie->pcie->link[phy_count]);
++		device_link_del(pcie->link[phy_count]);
+ 
+-	return 0;
++	return ret;
  }
+ 
+ static void cdns_plat_pcie_shutdown(struct platform_device *pdev)
 -- 
 2.53.0
 
