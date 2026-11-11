@@ -1,58 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389087;
-	b=BvOypxbqz58MoNtVztir6Q3A8eiOOw1B8xkbGzeMKYOR8NqNQfIuo7BkJvs9RYAwEHm0
-	 O1avvumfrzdEpRSgP+46MEPbqzcQLTcR5mgorc/m03M1Ld4PwrOERWvGdpbQeGFjwfjJt
-	 fDtxJ9x6yFH2SPN9CUSof+71xHsbMWosFV5QAbjLTYWBLFQyCQd7zyVPnhX6dUvtX7cLU
-	 HIj+fiYLq4z32C8oHB/dj5CxC9G5Q9MT788sg+hWygUGxzVMj5/lHpRWTcWEYINySYijS
-	 NP573i/LE15+FUjsV9z+Bk8wzgw5STt85irLpqzLc0USXHu2rQ/yxo6YKDRQ3QrZxUQ==
+	t=1794389117;
+	b=xBQF9xQ9b9TcOtWmEmxkxRh30x7a7vqLdPAeXZlQXFmpHRbeA2SQni/jvAf0PzsEYVHg
+	 Cm9bKuliqM3GUSDcFI4OFVQt275I1mmSVWGvpWXzYjkCFm/HBJQaXrix6EHew+R12E5rx
+	 ZIpHinl3NKDJI4/gzYROz311kgjG9fj/0FKh0WiJGircD9ma0hjXh/O499YmhzT/yG/Hz
+	 GBB9qs6NT5ANLdk5xtzyiPH/EDlv8vruIHN/rQg0jkCX5YLwqO9l0JVHLeD3bkiu3Rac+
+	 SafIAO/hSCaDIWTUvVyKBidVpFk/msTqC4l92jZeTi7aM7wrxHWT7qHBFMeW0pHpWHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389087;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=1HiZVoGdgP26KTrqD2XwxNDHWJELschXpQq9mDiL7Kw=;
-	b=0GDQSxyuK08BmeWUF2LvtMH15v0VZHc7au3M459CNcDCAobFSv27xyV6jrLm7Ef8qBVe
-	 QpJAc1EPqEOuA89e5Ng9uSgB19MmmyYR4/v1UPGAtVMufuWlOyAnpbyStzP2+N5qohHD0
-	 sZ8+UEgYEUlD2SBEU0Jc4518gKJSxmcT5UPYQfRKQ0Z4fIf5Uft/kME/bFp5y8qxwdfTH
-	 vxahSfPMui7ruzk7K1AkcDKQlRd0iQB53Qvoco5Ykha83fi8zW2SIUb1XdR9XHcNjW8sz
-	 aElJntu/f1kj4W8I46vE7QPYyOGtQJUighpmrS3eMvx62jg8K/tGieGP03Cfhd8Bf4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389117;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=t72sNJnqelVxW7tMNBYj3QYeSiG1gsHJgNsNyONTGQU=;
+	b=iFRXxcUNwJnyEtYTYo6HrnOcrctu17mt3vKG4K+nN0mYAmlmBCLDmMYKHuXcpC0cWFgw
+	 j6t5rDCflmvHumD3aefcodmqNRA5mvZNCU7spWgWlHBRNtMs8tJrbO3xqMqBN4A7NcQhi
+	 yhX0IoA0cj4ISoSlJJzgKI9jeM6pfNNKCl1vDXzjwtobPp5h27JQ5QwGjbjp2qAxsyDE8
+	 UAZwrLOp65cJVYnpUPrINR8F67vT0Vj/ICPvYUPc5lmpSUi2L5SdLWVdcfSOZFPTDr39O
+	 3m/Lm8KiYCNsvGYakCrtaW75IGwH53CsvVi5jUB7suOanXtWEwd+aOFj0oZ/XRbJ8nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DCF52606A330;
-	Wed, 11 Nov 2026 09:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCF52606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.17])
-	by gateway (Coremail) with SMTP id _____8AxXdJZNPRq238eAA--.22658S3;
-	Wed, 11 Nov 2026 17:24:41 +0800 (CST)
-Received: from kernelserver (unknown [223.64.69.17])
-	by front1 (Coremail) with SMTP id qMiowJDxxMxRNPRqU7IzAA--.12611S2;
-	Wed, 11 Nov 2026 17:24:39 +0800 (CST)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	stable@vger.kernel.org,
-	Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: [PATCH] lib/smp_processor_id: Don't warn if there is only one CPU
-Date: Wed, 11 Nov 2026 17:24:21 +0800
-Message-ID: <20261111092421.3771992-1-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.52.0
+	dmarc=pass header.from=jaeyeong.cc;
+	spf=pass smtp.mailfrom=jaeyeong.cc;
+	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=VYKYLJoG;
+	arc=none smtp.remote-ip=79.135.106.25
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B84B60A2614;
+	Wed, 11 Nov 2026 09:25:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B84B60A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=VYKYLJoG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
+	s=protonmail2; t=1794389112; x=1794648312;
+	bh=t72sNJnqelVxW7tMNBYj3QYeSiG1gsHJgNsNyONTGQU=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=VYKYLJoGs3E/auiB0+FO4ZRYLj6Lq2h0dYavcsa0ek+t/6D0dnrIjexZBRbzco+/c
+	 mF9etL0kq2xTvQa3yIUojd4LGpAiHNWOkINCjxfwC6nfbf23jx4yX8x/hvoNen7220
+	 UIBMkWp+0oZOXcJeVED23mUN4iuWpzbTIaIYmHZ69t3augZ++Ie4UGxSOjBZPHtHLd
+	 2VEaLBYtq4ENb5YyG6H469eJ7o9eV9CXuWedVHlTVOUGeC5XN9xqov8EPeuUXXvmXQ
+	 kW/kJNMvODwiJRVlyecJnUASJ0WbkMo77I+wor6elw//MvI05hGtTdNFCoeKZBFTnX
+	 Phq9z+P073zOQ==
+Date: Wed, 11 Nov 2026 09:25:09 +0000
+To: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, linux-rdma@vger.kernel.org
+From: Jaeyeong Lee <lee@jaeyeong.cc>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Shiraz Saleem <shiraz.saleem@intel.com>, Mustafa Ismail <mustafa.ismail@intel.com>, "Gustavo A . R . Silva" <gustavoars@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] RDMA/irdma: publish APBVT entries after hardware setup
+Message-ID: <20261111092505.3121847-1-lee@jaeyeong.cc>
+Feedback-ID: 177356447:user:proton
+X-Pm-Message-ID: 2d1eaac3c5fc578784f218339f59e76562d0a354
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,84 +61,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxxMxRNPRqU7IzAA--.12611S2
-X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7uryDZr4fCr43CrW3JF47trc_yoW8KFyDpa
-	40k3y8Kr48Cr1jva17Ja4kGry5Xas8ua93Cw17Aw45Zr15Aw1DJry5tF12gFyrCF4UGayU
-	GF1vqr1Fvr1rXwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUP529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUtVW8ZwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
-	6r1j6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
-	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
-	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
-	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
-	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0L0ePUUUUU==
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) kernel,
-calls to smp_processor_id() in preemptible contexts trigger some false
-positive "BUG: using smp_processor_id() in preemptible" warnings, which
-are harmless noise because the process always executes on CPU 0 and CPU
-migration is impossible.
+irdma_add_apbvt() inserts a new entry into apbvt_hash_tbl before
+sending the CQP command that creates the hardware entry. If the command
+fails, the entry is freed without being removed from the hash table. A
+later lookup of the same port traverses the freed entry.
 
-Here are some of the trimmed log messages:
+Removing the entry on failure is not sufficient because another thread
+can find it and increment use_cnt while the CQP command is in progress.
 
-  Call Trace:
-  [<9000000000d33e28>] show_stack+0xf8/0x1c0
-  [<9000000000d2fdac>] dump_stack_lvl+0x4c/0x78
-  [<9000000002456fc0>] check_preemption_disabled.isra.0+0x100/0x110
-  [<9000000002456ff8>] debug_smp_processor_id+0x18/0x40
-  [<9000000000d31118>] init_cache_level+0x18/0x90
-  [<9000000001adbe2c>] detect_cache_attributes+0x4c/0x640
-  [<9000000001adc44c>] cacheinfo_cpu_online+0x1c/0x310
-  [<9000000000d5ae04>] cpuhp_issue_call.constprop.0+0x94/0xd0
-  [<9000000000d5b278>] __cpuhp_setup_state_cpuslocked+0x208/0x320
-  [<9000000000d30148>] do_one_initcall+0x68/0x200
-  [<90000000024711b8>] kernel_init_freeable+0x1fc/0x294
-  [<900000000245824c>] kernel_init+0x20/0x134
-  [<9000000002455b54>] ret_from_kernel_thread+0x24/0x1d0
-  [<9000000000d31650>] ret_from_kernel_thread_asm+0xc/0x9c
+Serialize APBVT additions and publish new entries only after the hardware
+command succeeds. Since the allocation no longer runs under apbvt_lock,
+use GFP_KERNEL.
 
-This warning only exists for the !CONFIG_SMP build. This is because for
-CONFIG_SMP cpuhp_issue_call() invokes callbacks in cpuhp_thread_fun()
-which is a percpu thread, but for !CONFIG_SMP build it invoke callbacks
-in the init process which is not a percpu thread. And there is such a
-skip condition in check_preemption_disabled():
+The issue was found by static analysis and confirmed with a KASAN
+reproducer that forces the CQP failure and retries the same port.
 
-    if (is_percpu_thread())
-            goto out;
+BUG: KASAN: slab-use-after-free in irdma_add_apbvt+0xa0/0x280 [irdma]
+Read of size 2 at addr ffff8880092d10d4 by task insmod/72
 
-Since there is only one CPU for the !CONFIG_SMP, we can simply skip the
-warning if (nr_cpu_ids == 1) in check_preemption_disabled().
+Call Trace:
+ irdma_add_apbvt+0xa0/0x280 [irdma]
+ init_module+0x232/0xff0 [irdma_apbvt_repro]
+ do_one_initcall+0x13d/0x340
 
+Allocated by task 72:
+ irdma_add_apbvt+0xda/0x280 [irdma]
+ init_module+0x210/0xff0 [irdma_apbvt_repro]
+
+Freed by task 72:
+ kfree+0x155/0x470
+ irdma_add_apbvt+0x1e9/0x280 [irdma]
+ init_module+0x210/0xff0 [irdma_apbvt_repro]
+
+Fixes: 44d9e52977a1 ("RDMA/irdma: Implement device initialization definitio=
+ns")
 Cc: stable@vger.kernel.org
-Reported-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
 ---
- lib/smp_processor_id.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/infiniband/hw/irdma/cm.c |  1 +
+ drivers/infiniband/hw/irdma/cm.h |  3 ++-
+ drivers/infiniband/hw/irdma/hw.c | 28 ++++++++++++++++------------
+ 3 files changed, 19 insertions(+), 13 deletions(-)
 
-diff --git a/lib/smp_processor_id.c b/lib/smp_processor_id.c
-index 94b3f6b19538..64901d33c0ee 100644
---- a/lib/smp_processor_id.c
-+++ b/lib/smp_processor_id.c
-@@ -19,6 +19,9 @@ unsigned int check_preemption_disabled(const char *what1, const char *what2)
- 	if (irqs_disabled())
- 		goto out;
- 
-+	if (nr_cpu_ids == 1)
-+		goto out;
+diff --git a/drivers/infiniband/hw/irdma/cm.c b/drivers/infiniband/hw/irdma=
+/cm.c
+index 91c0e7298283..bc30e465c670 100644
+--- a/drivers/infiniband/hw/irdma/cm.c
++++ b/drivers/infiniband/hw/irdma/cm.c
+@@ -3281,6 +3281,7 @@ int irdma_setup_cm_core(struct irdma_device *iwdev, u=
+8 rdma_ver)
+ =09spin_lock_init(&cm_core->ht_lock);
+ =09spin_lock_init(&cm_core->listen_list_lock);
+ =09spin_lock_init(&cm_core->apbvt_lock);
++=09mutex_init(&cm_core->apbvt_add_mutex);
+ =09switch (rdma_ver) {
+ =09case IRDMA_GEN_1:
+ =09=09cm_core->form_cm_frame =3D irdma_form_uda_cm_frame;
+diff --git a/drivers/infiniband/hw/irdma/cm.h b/drivers/infiniband/hw/irdma=
+/cm.h
+index 48ee285cf745..6c5f4335f09d 100644
+--- a/drivers/infiniband/hw/irdma/cm.h
++++ b/drivers/infiniband/hw/irdma/cm.h
+@@ -357,7 +357,8 @@ struct irdma_cm_core {
+ =09struct workqueue_struct *event_wq;
+ =09spinlock_t ht_lock; /* protect CM node (active side) list */
+ =09spinlock_t listen_list_lock; /* protect listener list */
+-=09spinlock_t apbvt_lock; /*serialize apbvt add/del entries*/
++=09spinlock_t apbvt_lock; /* serialize APBVT entry access */
++=09struct mutex apbvt_add_mutex; /* serialize APBVT hardware adds */
+ =09u64 stats_nodes_created;
+ =09u64 stats_nodes_destroyed;
+ =09u64 stats_listen_created;
+diff --git a/drivers/infiniband/hw/irdma/hw.c b/drivers/infiniband/hw/irdma=
+/hw.c
+index c345cc654256..23ad18167607 100644
+--- a/drivers/infiniband/hw/irdma/hw.c
++++ b/drivers/infiniband/hw/irdma/hw.c
+@@ -2474,29 +2474,33 @@ struct irdma_apbvt_entry *irdma_add_apbvt(struct ir=
+dma_device *iwdev, u16 port)
+ =09struct irdma_apbvt_entry *entry;
+ =09unsigned long flags;
+=20
++=09mutex_lock(&cm_core->apbvt_add_mutex);
+ =09spin_lock_irqsave(&cm_core->apbvt_lock, flags);
+ =09entry =3D irdma_lookup_apbvt_entry(cm_core, port);
+-=09if (entry) {
+-=09=09spin_unlock_irqrestore(&cm_core->apbvt_lock, flags);
+-=09=09return entry;
+-=09}
++=09spin_unlock_irqrestore(&cm_core->apbvt_lock, flags);
++=09if (entry)
++=09=09goto out;
+=20
+-=09entry =3D kzalloc_obj(*entry, GFP_ATOMIC);
+-=09if (!entry) {
+-=09=09spin_unlock_irqrestore(&cm_core->apbvt_lock, flags);
+-=09=09return NULL;
+-=09}
++=09entry =3D kzalloc_obj(*entry, GFP_KERNEL);
++=09if (!entry)
++=09=09goto out;
+=20
+ =09entry->port =3D port;
+ =09entry->use_cnt =3D 1;
+-=09hash_add(cm_core->apbvt_hash_tbl, &entry->hlist, entry->port);
+-=09spin_unlock_irqrestore(&cm_core->apbvt_lock, flags);
+=20
+ =09if (irdma_cqp_manage_apbvt_cmd(iwdev, port, true)) {
+ =09=09kfree(entry);
+-=09=09return NULL;
++=09=09entry =3D NULL;
++=09=09goto out;
+ =09}
+=20
++=09spin_lock_irqsave(&cm_core->apbvt_lock, flags);
++=09hash_add(cm_core->apbvt_hash_tbl, &entry->hlist, entry->port);
++=09spin_unlock_irqrestore(&cm_core->apbvt_lock, flags);
 +
- 	if (is_percpu_thread())
- 		goto out;
- 
--- 
-2.52.0
++out:
++=09mutex_unlock(&cm_core->apbvt_add_mutex);
++
+ =09return entry;
+ }
+=20
+--=20
+2.43.0
+
 
