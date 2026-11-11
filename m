@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362864;
-	b=vJtzPYEJce5DjJxdcmPV5UQcBKGJYovSh3Xv5QR5j8pEQzWfNQn0DoYORLrXBnkIIdcx
-	 oeofY7hzh9ISyeuIIFQVCnWjUo4RPQeYnUdr45ovzKarnKeX+WJwGBlAl0O1SVpm6PijD
-	 gmqUrvpNQ9P3s4BaaTFc0unjou4/ybBe4zw3arXIyMBylwjgv8ZRzkQz7leBOpjY9gx9a
-	 TRA0pPnvDtV4qdCojkpzy0AojgEYEvMr40vzBcf08JDqabGOYDZTZ8gFfH+oavRywSn0B
-	 0O3q20RzfCzEeLKyMH4KPO3mgEN1ODEpgNKPNLz0KyC8UgTl+lnx7wHkTOtjeKg0PUA==
+	t=1794362866;
+	b=v+YKC/iX9ocijRDSkpPfnqxTXf0c1m++gBNJKXiIXJo5yehe7oCWoUUCzzHCC38YZbU1
+	 2CbQvh16pTKapjZrUAFbqFKj+W2/fxW1oMm5NdYs9iTsJwvJSEhRRofzQKp05fVMA3yk2
+	 8L2HAMOde2WHpIIrlBGK7ubpwBrrYxOfy42IadCUfT8kqMk+CDRWjYR7PJZLqG88O0xpE
+	 eAKaiuFKdE00e+r5HnpzRwxiKBCQ73IvuvN7KE5RqsQZMDqJg5X9PHDDeb3POfnN7IYtN
+	 Msss2EjuVm+Mg7BLjCjkQSIHrNrijb6zriw2RTpNAEmvJi5gGLv0vHwwZqcPW6XFN0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362864;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362866;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bqxCkV9WJyxvVgd7Hes3hNzceRrlZ+sSCAMGIQL6+OQ=;
-	b=sKHhVRVHgJUxqMsAby/9jZpeJPyZCHnmPqORMp16ftQxBhM8jcI/Bke4h4LevPqpkK/I
-	 Yb8UxPR5/P4ZLgStlLgnOxv5JRP93/7Hfwt0sSDRnrKpwujSATif3MLeWrVGnwQFSxZO1
-	 HYulnjfDIbMx1I4wVVMhHJC3jVZRY8+vwbGEPqK+t66TGJCkmqAKrQuSkVBrmbXEkL7Ve
-	 fU9MDLLQ3uyCdISJUWz0Laln402CGWhu+k6NSMiL9OMtr027xrm9ALSPDVP1+bI9EUGSp
-	 k9DD2bdSndn7HxG2ARhxKYV9M3gTkytCn9OsfzffJLBmcWjnpaWGBbQfbdQenN+BBBg==
+	bh=eJQRWMgBraZChFUfl0wBOVyZe96i91WA49Js/szFzPE=;
+	b=5JRmISI369ln13x68vruK4zHaV05V64Fz44lUKTbt9YKlKRaQbjb8QnZE0NIbXPA7usw
+	 c/80cPIGjK6rQv8inE+zoP3++ZhBDj7aJPcwrgS4dAZYWz9PV68E0UqWTp3md2m+dmWG+
+	 86gERbJrpKKmgwex8rJahRRPaFyd+Uz4rm6Wmk1JMOJGMEVvgCSLm5GwFy0i/2WHwzTje
+	 0yHQcKJJZ17mXe8IIdPsdfa2tNvE+kyW2peWJuRWoiXl0m/iBKWN9QChClJaRcdJW63Xd
+	 /wZqZ0uF12e1FowPRcrqs+xishDSQFCk+3o8m7LXS8BMVDGvoIkoVSFTJTa8FrGABcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfvvyFhT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtuOT1eD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDBDA606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:07:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF633606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:07:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfvvyFhT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E96D71F0089F;
-	Wed, 11 Nov 2026 02:07:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtuOT1eD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D014E1F0089F;
+	Wed, 11 Nov 2026 02:07:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794362864;
-	bh=bqxCkV9WJyxvVgd7Hes3hNzceRrlZ+sSCAMGIQL6+OQ=;
+	s=k20260515; t=1794362866;
+	bh=eJQRWMgBraZChFUfl0wBOVyZe96i91WA49Js/szFzPE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dfvvyFhTVmQfUPVjo2+VoiYvhOAC0rukhDn6pLIh2GQ1Orilupk3M9SlK+bDQpjnF
-	 lyo/1GI/LpSo51ySdDLv8ODmk9RYzCoy8/4oaM8AwQO9lYpKFpDiae7PjTM0To1z60
-	 080NDRcvV3nw8zwQLhbVB3MOR1pcwjnw1JmtH94eBfc0ojq8Si8fLctwXObqrSLjMq
-	 70JoTC7PLSPcEgbcqz2QkBnUakNCZFkPv1S32Gn9MNy3uNeM1zLrTvlbuV+llGxQnm
-	 b5zx7jQhnM/i5rwB8Y3dCiSN6QQzvYHo1buuelMMFkZ9OC+5lYUit6lyH6IEUUU1lK
-	 qdloBQSUDA1XA==
+	b=EtuOT1eDrcXcvBAl1ydMrc7jDvMoKsYkf9r5EBAjcW0RCW9UG5YpnHyAjTsQVbFMz
+	 dZ/JiDeGXVtjx1wThKrjtP74p0O2wgjdF5sdaWf9taUQH7FcPLC70UJaN+Ni52GY6o
+	 1KDxTjqX1pqp3bGyFQWgYSDJfbDTW52tAJxkSZzHiD+Y5VgfrkPyFgbL8M+eSPEwfE
+	 MVghP0tO045m4F2Vt6IHxn1sVZbxrU4YoKT5eijtpdpldTmpHtmnUCF6f/hlUEVMah
+	 yzxEoaJYBWMTfsvgYCnwCoZTglNJcNc/yG/9KVfpVqCeulLFzVQWLzMCQ+SHUQ983k
+	 XPnf/yUFU/Sfw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alexey Charkov <alchark@flipper.net>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] nvmem: rockchip-otp: Serialize reads
+Subject: [PATCH 5.10.y 1/4] ALSA: emu10k1: prune vestiges of SNDRV_SFNT_SAMPLE_{BIDIR,REVERSE}_LOOP support
 Date: Tue, 10 Nov 2026 21:07:41 -0500
-Message-ID: <20261111020643.543837-2-sashal@kernel.org>
+Message-ID: <20261111020723.548248-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111020643.543837-1-sashal@kernel.org>
-References: <20261107053315-failed-6.6-9fc6a1592d84@kernel.org>
- <20261111020643.543837-1-sashal@kernel.org>
+In-Reply-To: <20261107062607-failed-5.10-8a5d87c2ba30@kernel.org>
+References: <20261107062607-failed-5.10-8a5d87c2ba30@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,100 +61,153 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alexey Charkov <alchark@flipper.net>
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-[ Upstream commit 9fc6a1592d844c0397f115ee8cbd935169b9a71e ]
+[ Upstream commit 1edeac6555e9df008b1729ca445868c1177baa8b ]
 
-The OTP controller is driven through a single set of registers holding a
-state machine which has to be stepped through for every word read, yet
-nothing keeps two readers out of each other's way. Concurrent reads
-interleave, and the outcome is either a reader bailing out:
+This is required only to implement WAVE_BIDIR_LOOP and WAVE_LOOP_BACK in
+the GUS patch loader. It has not worked on emu10k1 since before ALSA hit
+mainline, yet nobody appears to have complained. And as it isn't super
+easy to implement, just admit defeat and clean up the code.
 
-  rockchip-otp 2a580000.otp: timeout during read setup
+If somebody wanted to resurrect the feature, the emu8k driver could
+serve as a template, but the code would be quite different. But
+arguably, this should be done in user space in the first place, as this
+doesn't represent a hardware feature (somewhat ironically, the actual
+GUS driver has no synth support, and therefore no GUS patch loader).
 
-or, worse, one of them silently taking delivery of the other's data.
+Note that instead of properly rejecting affected samples, we continue to
+just pretend that the feature wasn't requested. This is extremely
+questionable behavior, but avoids that possibly unused instruments
+suddenly prevent loading the entire file, which would break backwards
+compatibility. But at least we log a warning now.
 
-Reading two cells in parallel from userspace on RK3576 reproduces both
-within 150 iterations - 53 read errors and 9 corrupted results, the latter
-either losing their first word or, in one case, ending in the two bytes
-which belong to the other reader's cell - whereas the same reads issued
-sequentially never fail. Concurrency is not hypothetical here, as six
-thermal sensors source their trim values from the OTP and reach the driver
-straight from asynchronous driver probing.
-
-Guard the read path with a mutex. Reads are the only way into the hardware,
-as the driver registers no write callback, and they always run in process
-context, so a plain mutex spanning the whole clock-enable, read,
-clock-disable sequence is enough.
-
-Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20261002101329.1084348-2-srini@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Message-ID: <20240406064830.1029573-6-oswald.buddenhagen@gmx.de>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 8a5d87c2ba30 ("ALSA: emux: Stop voices before freeing zones in all cases")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvmem/rockchip-otp.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ sound/pci/emu10k1/emu10k1_patch.c | 73 ++++---------------------------
+ 1 file changed, 8 insertions(+), 65 deletions(-)
 
-diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
-index f5b7d3f6986b5..e5a24283ced76 100644
---- a/drivers/nvmem/rockchip-otp.c
-+++ b/drivers/nvmem/rockchip-otp.c
-@@ -12,6 +12,7 @@
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/nvmem-provider.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-@@ -79,6 +80,8 @@ struct rockchip_otp {
- 	void __iomem *base;
- 	struct reset_control *rst;
- 	const struct rockchip_data *data;
-+	/* Serializes access to the OTP controller state machine */
-+	struct mutex mutex;
- 	struct clk_bulk_data clks[];
- };
+diff --git a/sound/pci/emu10k1/emu10k1_patch.c b/sound/pci/emu10k1/emu10k1_patch.c
+index 89890f24509f0..49214c2268084 100644
+--- a/sound/pci/emu10k1/emu10k1_patch.c
++++ b/sound/pci/emu10k1/emu10k1_patch.c
+@@ -28,8 +28,6 @@ snd_emu10k1_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
+ {
+ 	int offset;
+ 	int truesize, size, blocksize;
+-	__maybe_unused int loopsize;
+-	int loopend, sampleend;
+ 	unsigned int start_addr;
+ 	struct snd_emu10k1 *emu;
  
-@@ -239,16 +242,21 @@ static int rockchip_otp_read(void *context, unsigned int offset,
- 	if (!otp->data || !otp->data->reg_read)
- 		return -EINVAL;
- 
-+	mutex_lock(&otp->mutex);
-+
- 	ret = clk_bulk_prepare_enable(otp->data->num_clks, otp->clks);
- 	if (ret < 0) {
- 		dev_err(otp->dev, "failed to prepare/enable clks\n");
--		return ret;
-+		goto unlock;
+@@ -43,32 +41,24 @@ snd_emu10k1_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
+ 		return 0;
  	}
  
- 	ret = otp->data->reg_read(context, offset, val, bytes);
- 
- 	clk_bulk_disable_unprepare(otp->data->num_clks, otp->clks);
- 
-+unlock:
-+	mutex_unlock(&otp->mutex);
++	if (sp->v.mode_flags & (SNDRV_SFNT_SAMPLE_BIDIR_LOOP | SNDRV_SFNT_SAMPLE_REVERSE_LOOP)) {
++		/* should instead return -ENOTSUPP; but compatibility */
++		printk(KERN_WARNING "Emu10k1 wavetable patch %d with unsupported loop feature\n",
++		       sp->v.sample);
++	}
 +
- 	return ret;
- }
+ 	/* recalculate address offset */
+ 	sp->v.end -= sp->v.start;
+ 	sp->v.loopstart -= sp->v.start;
+ 	sp->v.loopend -= sp->v.start;
+ 	sp->v.start = 0;
  
-@@ -333,6 +341,11 @@ static int rockchip_otp_probe(struct platform_device *pdev)
+-	/* some samples have invalid data.  the addresses are corrected in voice info */
+-	sampleend = sp->v.end;
+-	if (sampleend > sp->v.size)
+-		sampleend = sp->v.size;
+-	loopend = sp->v.loopend;
+-	if (loopend > sampleend)
+-		loopend = sampleend;
+-
+ 	/* be sure loop points start < end */
+ 	if (sp->v.loopstart >= sp->v.loopend)
+ 		swap(sp->v.loopstart, sp->v.loopend);
  
- 	otp->data = data;
- 	otp->dev = dev;
-+
-+	ret = devm_mutex_init(dev, &otp->mutex);
-+	if (ret)
-+		return ret;
-+
- 	otp->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(otp->base))
- 		return dev_err_probe(dev, PTR_ERR(otp->base),
+ 	/* compute true data size to be loaded */
+ 	truesize = sp->v.size + BLANK_HEAD_SIZE;
+-	loopsize = 0;
+-#if 0 /* not supported */
+-	if (sp->v.mode_flags & (SNDRV_SFNT_SAMPLE_BIDIR_LOOP|SNDRV_SFNT_SAMPLE_REVERSE_LOOP))
+-		loopsize = sp->v.loopend - sp->v.loopstart;
+-	truesize += loopsize;
+-#endif
+ 	if (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_NO_BLANK)
+ 		truesize += BLANK_LOOP_SIZE;
+ 
+@@ -96,8 +86,8 @@ snd_emu10k1_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
+ 	snd_emu10k1_synth_bzero(emu, sp->block, offset, size);
+ 	offset += size;
+ 
+-	/* copy start->loopend */
+-	size = loopend;
++	/* copy provided samples */
++	size = sp->v.size;
+ 	if (! (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_8BITS))
+ 		size *= 2;
+ 	if (offset + size > blocksize)
+@@ -108,53 +98,6 @@ snd_emu10k1_sample_new(struct snd_emux *rec, struct snd_sf_sample *sp,
+ 		return -EFAULT;
+ 	}
+ 	offset += size;
+-	data += size;
+-
+-#if 0 /* not supported yet */
+-	/* handle reverse (or bidirectional) loop */
+-	if (sp->v.mode_flags & (SNDRV_SFNT_SAMPLE_BIDIR_LOOP|SNDRV_SFNT_SAMPLE_REVERSE_LOOP)) {
+-		/* copy loop in reverse */
+-		if (! (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_8BITS)) {
+-			int woffset;
+-			unsigned short *wblock = (unsigned short*)block;
+-			woffset = offset / 2;
+-			if (offset + loopsize * 2 > blocksize)
+-				return -EINVAL;
+-			for (i = 0; i < loopsize; i++)
+-				wblock[woffset + i] = wblock[woffset - i -1];
+-			offset += loopsize * 2;
+-		} else {
+-			if (offset + loopsize > blocksize)
+-				return -EINVAL;
+-			for (i = 0; i < loopsize; i++)
+-				block[offset + i] = block[offset - i -1];
+-			offset += loopsize;
+-		}
+-
+-		/* modify loop pointers */
+-		if (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_BIDIR_LOOP) {
+-			sp->v.loopend += loopsize;
+-		} else {
+-			sp->v.loopstart += loopsize;
+-			sp->v.loopend += loopsize;
+-		}
+-		/* add sample pointer */
+-		sp->v.end += loopsize;
+-	}
+-#endif
+-
+-	/* loopend -> sample end */
+-	size = sp->v.size - loopend;
+-	if (size < 0)
+-		return -EINVAL;
+-	if (! (sp->v.mode_flags & SNDRV_SFNT_SAMPLE_8BITS))
+-		size *= 2;
+-	if (snd_emu10k1_synth_copy_from_user(emu, sp->block, offset, data, size)) {
+-		snd_emu10k1_synth_free(emu, sp->block);
+-		sp->block = NULL;
+-		return -EFAULT;
+-	}
+-	offset += size;
+ 
+ 	/* clear rest of samples (if any) */
+ 	if (offset < blocksize)
 -- 
 2.53.0
 
