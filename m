@@ -1,79 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794404970;
-	b=wBrjr1/Z2bFy7v2DMPPCn98b0tbWdga44g3+TEQ3ywOEAAQqezge4BjcCR3qpkP1pWrb
-	 e9KgOxfIlzfBchh08bk+hy0kRpj3od5+jWKJquJGds1uxlOGr2RfOd9RLJKupQedbmoPp
-	 62aAkIZXhFPb8XzpJE+4GD1RoUipgO407pvHWBiM9vfdQfNMmNt58XYi6/e0Ro2MZD3ma
-	 I2587pDopLvYhHE2D0DTc4IXA0yxMkcFYa3xjQnc4OSxOK9DjEYiQk5e2K/x0i/Bk15u6
-	 u7f3C3ykt98MUJvDMNVvtJgcul41upi53G+PA1KxHLwDYljAhCcnBljavhS+pbA12fw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404970;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Bw9aWihjYWPZ2pc+cK7u1BOm3yUetlpv3HqSoI26ksM=;
-	b=f4U2ONsnhIc1aJbOvbbSv2DjmaTm4irz2SiRtNQUynmEePoQ5OIDXy8MkicgvWH1e9Z7
-	 ZkLb1hXk5lpWmBjQQQbSS7JRdJ7LArbliHSqOGzTcFVInLWbphSitNvw3o6p2R44CW9MQ
-	 Tl84wVz1/Kt0b8Qw5XeioXNxKD1GJsq60WIkyj1QjosaBNZPvJs6VTe5p/jaefZFlSVmr
-	 CeYT53iQu9W4fmuPzJdUgV90bCeOL+2LpavR32B8Xs5sGe4jKs666i9UkFaH8ttxY6Q8B
-	 VlNSyYxA/5U3jG1iRDWYpvZOffBqrZCL/ym58EXzIwSMbEMuozOnXbXs61JlFAIJn5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfUljFbI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F891606A31C;
-	Wed, 11 Nov 2026 13:49:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfUljFbI
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794404969;
-	b=kpLNfU3tKpDxA2BAtCAUy1cKRkGV0rS5dwR9wTwNn94ty5LVq6uaeWBzfVf7B4SIDDzN
-	 aquRdVdWyLUQKSX3X37osQbyDScGqjAoex92KBXbgaLoh2yax+0Bamem9KNOPg5dYAjWh
-	 KN8kbYMaw+5Tt1utQ08eosU+rlRHXhJFkYH5iKlTTwZSqEFj5DbVXGacz2CBM8+ftJvSd
-	 fm2o2+h5mtEyoTJ2ET7LVdorHH5sotQCksXWXYyq+CHXrJvDh/vPokUjjxzu1bqUuTNOI
-	 jPnTb65y7SoDGbahMH4AG3oPhy2SYkjHM89qk6RBwkq9iiMjLbtgcnb6fqVdPlzXNjA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794404969;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Bw9aWihjYWPZ2pc+cK7u1BOm3yUetlpv3HqSoI26ksM=;
-	b=qPp0iX4ZmAbA6itnpUTWgnC7azhFI+ZSqxbeDUpjpdbhVYc3GkbxX6XAf7e5OBJueP7L
-	 INvgogA5YQyFcC+xPKujwPJDZ2uO+5k/F5iNi7YxxCD6vWBgkZoLGMmVMyypUidAVKjce
-	 JBzGsPrfuy8eI06FWJMmyKp4dUPwn2k0KVohK4OnVAAVP4SxL3cN3vySAcwl0gP7buFL8
-	 vMANpyplZdiYjam9LMuJPEaXP11uKBBm25LcL/xZ1ePK2AoJUMwuxuiX8YlUtBmmFGvzL
-	 w8p+J93hBhfQspd6afvMyIjvmW22W1Mn+wwSs1RtLoUAohTtqrz9vW8Jt8uiJJz2H6g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794404985;
+	b=3yQ7it9yVzA619c806PEqsaR10lIitdgQxkj6zdImCRQZGyinWbcLSa29zDksv7UZgd8
+	 zsGLNOE2jCFMVkrfVSAdREs1FfijP1UzyAqVbjqAu1Y9HUEks3TkWaVa6wew9AWUEteEB
+	 FKzWKv/+ymu0rLdTB22rjjssEynax6D6AZ2VQ/uJjSuVAVT5BjJIF9Vxn1780ZyF468rh
+	 9f/eedt8yrvZVAFNN9T5IOJt9l4me7PseE3bsAbeJ+WCNGli27KJuxaoCyl64H5v/ub1X
+	 AhAxcR7eh1aq2Ixn3j/lm3NT7LNZubMQBseviNUr1tdNqez79mKHd1723XkXwbisP4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404985;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QrqbGrUeaMzxTtNKFPqZn9l9SynA7oL6rbPLiV4WlNk=;
+	b=qjRfaXe1+XVKhnQ3fINrgCuOipEC87P3iZ/iXWFlVQAO0D4qhnzPqKLYJJp8em+w1uda
+	 op3zkG2nrT16iTJ1xryqpM0rnTkedADEXbolCHAa+s7dTYl8VUxnw3aWSmuHcnDctDNwt
+	 znznE8XMBWcRb+qTiWvvZzhSe8kudMCwZovU9F/+SDRTVzkTnxutp3ZD5XvWTBemN1sFU
+	 CZokCqUySeg1PXZWavZzgf9OBjKB8CBvN8cU9Lwk8mk95knx6WEHeapzZ4vvDuj1eYngR
+	 4oN2meuAGG7qu5Vq6slUJ22ajmAAGwAr8Qsu1a/lUUqZDB+rpTYsh2LP8wWWBPqGuiQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Dxa+lxRe;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=i7GQQlT9;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 523891F00A05;
-	Wed, 11 Nov 2026 13:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404969;
-	bh=Bw9aWihjYWPZ2pc+cK7u1BOm3yUetlpv3HqSoI26ksM=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=LfUljFbIN8QEIUFk4G0Ke44qKTy1st9HOOWB4s9BAZbyU3YL5Glb8hgEZSZLJLg4K
-	 LSfR+XKZKDlJ7wjp+WBmf9GBRf0FNO9qxffDjawjRnGRYQPuQulAilia6GvLXLOeFm
-	 efpk2xL/2rUpHTIWi4JAxREBuOWei93aPk111/gn3+CCYZ22MEgxxHn+okutSvn3yG
-	 IbntZXWhshjoPY3WmADgCN0LuM2cftBB3aVNlSqOgcaZsnJcur0RE4L3iaGwhqT/aF
-	 aHWLZy+YIVxf7fWBDe4aG2ZiSqqdZFkOn/c8Io1Tg6j7GEO9/Lx1uJ0H+4ZziYo4vA
-	 YXp8XIj/Jw2pg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 99E8E48FC1;
-	Wed, 11 Nov 2026 13:49:28 +0000 (UTC)
-From: Marc Herrero via B4 Relay <devnull+marcht.proton.me@kernel.org>
-Date: Wed, 11 Nov 2026 13:49:27 +0000
-Subject: [PATCH] ASoC: qcom: audioreach: apply volume changes to a running
- graph
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A4606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A8A4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Dxa+lxRe;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=i7GQQlT9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794404983;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QrqbGrUeaMzxTtNKFPqZn9l9SynA7oL6rbPLiV4WlNk=;
+	b=Dxa+lxReamTY9bp7EcOWVafTkGHpIkIwVWZ4Wk1F/qz2TmtgCHN4s2aeSMcSQG6qw1Yz0f
+	aZ3DwhFUVXkGGeOV3MxruAq91CHHk/Iraqsz6LWJctd2/VJQRKiWatJXLBKMUCDxRn+O/F
+	vevXgaHOA4MwGrM0tYF81AP8HdhYcDw=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-360-6sdf_gDvMm2Flt5xjJOVgg-1; Wed, 11 Nov 2026 08:49:42 -0500
+X-MC-Unique: 6sdf_gDvMm2Flt5xjJOVgg-1
+X-Mimecast-MFC-AGG-ID: 6sdf_gDvMm2Flt5xjJOVgg_1794404981
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a20fd059ddso23413725e9.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:49:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794404981; x=1795009781; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QrqbGrUeaMzxTtNKFPqZn9l9SynA7oL6rbPLiV4WlNk=;
+        b=i7GQQlT95Sb7l8iWRKyldHDMVoU8dEQ8LiXnZ/hsSPVTmpVPPFHPcB6HPY4EJj9pXU
+         Nyw0+YSthtfLeTFqEMaMCW2lXgBUEMBHGxPVxY3RyRUtE2fccvhNeF+yeloPLamC0ct+
+         1tLlBJjv7LjgleRz4OsNRroLTN/NQHrdCy5Vr73XAYrVVO98+580y6l/t5Xx5YglOKkh
+         8UMvx9Zwo+ctLLVC8glyZtIIlsb34h51iIjhpJvjDrF1gzLRU2XUgZ3fVtFU/hfcBgCI
+         YKvSjo6cy2EUeE5zbOmSB9/OfNnw8+mkIQ/C7gLj+OQw8eK/UY6c9DH7M1WLUopEffRe
+         q30Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794404981; x=1795009781;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QrqbGrUeaMzxTtNKFPqZn9l9SynA7oL6rbPLiV4WlNk=;
+        b=2FVmalxpXl2aKJjEFyaTTchrwACw8fNH1hV7tKmFkObzOm4G/IyQ950lreIlIKlx97
+         3RMU9FJY4AAIwu83QTnNJSwJIC0g/QDEME2RJz63n6/F9dR9b8YSpLypVJ8vMvcFwBoG
+         CX9A0mrmTuV3vMaHMZQJmOHLJW7kgLyshv4vc6qOnnWdewpgD98ZHd3yvS4zf0Sbkpta
+         JzNur8oDDM/oyHZBpGj+RDE4SuT9DQNr3APVGNhRW7AFtOZROkXZY4L+JuVlbIhYWfuR
+         U9p7beDFmchvg4+ERs5Nd3TxagUj9vcp96BwJobSjutZG3gYRbS81Ekb4B1ey8J1foAF
+         XVag==
+X-Forwarded-Encrypted: i=1; AL+hErH+TPofvAz0Yi3XvIBZRwX5Lql5ZIDW2rhyaz8Pyk2TfxAVzvRIh7kyR29wFM9Kwr1rxu/R9Qo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eHaaT1ecf3vPn0xsxsE0ObdzvwSHfARe1a1p3fA1leGuPg7c+
+	vvT2mETCyYaBajkZ3jBbKgGkashsCRJI80ui68AMn+5OvgNQBj/zIeuuvzVQhG70L6pucAx2Y/w
+	VNRWhiOfu6vzq/APWRwj8IJCbHOiSgT1k9z3UQF9am0Q8HsT44GK/sK+Qow==
+X-Gm-Gg: AYBFou3jVRRe58tnXt7Wnn3TbOqg0ikp9NgS+GAyQSOmAYpL7YnUfq6FwG8tdbgIYGK
+	eB+cc/+B3COsnwDdYNoOhZswfnS7LrzksRXskHWGGkoYNsQdELUgM/ujOlvqxmY06DxUTz2D5Ht
+	ukCclkIHES1pWX1eoI5NzrULgN0ztNKDx3FQH7DkGvxcaTrZVVSTSRnAWVkT4Cppb0WtKi0hWDL
+	3BqQFFZJj41W/7degaNXXtldauEmEJuDfBEsXxGUAa+pFsItrW6y+PwVPoO63nQXFhQCRoY0J8f
+	ClQtK2rM1QlbDRYtIsiBEpQ9UyUH9v++jQXu+ho68EWX1KwqM9R0fKU9s5wm2s2qaG9efaZMA1Z
+	EvHV5XSQhjnej5jIyP8dJKG1wljnqx0XUBC0ORerP6uvz2f1H6JUruc45bQAnHir4LLEd4CzP6y
+	jpPyE=
+X-Received: by 2002:a05:600c:6308:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4ba09381867mr49914065e9.22.1794404981065;
+        Wed, 11 Nov 2026 05:49:41 -0800 (PST)
+X-Received: by 2002:a05:600c:6308:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4ba09381867mr49913635e9.22.1794404980722;
+        Wed, 11 Nov 2026 05:49:40 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe2f09sm159753605e9.4.2026.11.11.05.49.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:49:40 -0800 (PST)
+Date: Wed, 11 Nov 2026 14:49:37 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 14/29] sched/deadline: Fix this_bw when a task is
+ changed during a remote wakeup
+Message-ID: <avRycWTxtUr9gug6@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-15-mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,95 +128,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-q6apm-vol-live-v1-1-be85eef649c1@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MywqAIBAAfyX23EJ6MOpXooOPrRbMSkEC8d+T5
- jaHmQKJIlOCuSsQKXPiKzQRfQf20GEnZNcc5CCVaOCj9H1ivjx6zoROGSOcITvaCVp0R9r4/Yf
- LWusHTawBiGAAAAA=
-X-Change-ID: 20261111-q6apm-vol-live-d6bb1dbec7c9
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Marc Herrero <marcht@proton.me>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794404968; l=2295;
- i=marcht@proton.me; s=20261111; h=from:subject:message-id;
- bh=SqVgjL7+4cci4LPqvCK4Yw6wIkE/kOA+SDqD9jR9pW8=;
- b=FX1Y+Wi7BB5DpHA+0W6yE2XKgDCznVqlJos0UpJ8hstQWnTb3zNutOendQ72+lQoI638F5yi4
- 7XppBorHE+kCr74otdQVCgfAsNs5c2orZsVM06hNcGbVazYVy6NqYr/
-X-Developer-Key: i=marcht@proton.me; a=ed25519;
- pk=pIPy6L+INgiuJt7L7umVilPgpzy/Ni3QS77ToLj/H9c=
-X-Endpoint-Received: by B4 Relay for marcht@proton.me/20261111 with
- auth_id=1490
-X-Original-From: Marc Herrero <marcht@proton.me>
-Reply-To: marcht@proton.me
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-15-mathieu.desnoyers@efficios.com>
 
-From: Marc Herrero <marcht@proton.me>
+Hello,
 
-audioreach_put_vol_ctrl_audio_mixer() only stores the new gain in the
-module. The gain reaches the DSP from audioreach_pga_event() on
-SND_SOC_DAPM_POST_PMU, that is when a stream starts, so changing the
-"<stream> Playback Volume" control while playing has no effect until the
-next stream.
+On 08/11/26 13:53, Mathieu Desnoyers wrote:
+> The this_bw of a runqueue is the bandwidth of the deadline tasks
+> assigned to it, running or not. GRUB uses it to compute the inactive
+> utilization of the runqueue. When a task wakes up on another CPU,
+> migrate_task_rq_dl() takes its bandwidth off the old runqueue. The
+> enqueue adds it to the new one.
+> 
+> Between these two steps, no runqueue counts the bandwidth.
+> try_to_wake_up() can leave the enqueue to the wake list of the new CPU,
+> and return before it runs. task_cpu() already points at the new CPU. A
+> change of the task in that window gets this_bw wrong.
+> 
+> In this example, T is a deadline task that blocks on CPU 0. A timer
+> wakes it up there, and try_to_wake_up() picks CPU 1. S, on CPU 2,
+> changes the bandwidth of T from "old bw" to "new bw":
+> 
+>   CPU 0                               CPU 1                       CPU 2
+>   T blocks
+>   this_bw of CPU 0 counts T
+>   <timer> try_to_wake_up(T)
+>     set_task_cpu(T, 1)
+>       migrate_task_rq_dl()
+>         sub_rq_bw(): CPU 0 drops T
+>     T on the wake list of CPU 1
+>     return
+>                                                                   S: sched_setattr(T)
+>                                                                     task_rq_lock(T): CPU 1
+>                                                                     T is not queued
+>                                                                     dl_change_utilization()
+>                                                                       this_bw of CPU 1:
+>                                                                       - old bw + new bw
+>                                       sched_ttwu_pending()
+>                                         enqueue_task_dl(T)
+>                                           task_contending()
+>                                             add_rq_bw():
+>                                             this_bw of CPU 1:
+>                                             + new bw
+> 
+> CPU 1 then counts the new bandwidth twice, less the old one. Repeated,
+> this makes this_bw drift until it underflows. If T left the class in
+> that window, switched_from_dl() would take its bandwidth off CPU 1 the
+> same way. A task that enters the class in that window would be counted
+> twice, by switched_to_dl() and by the enqueue.
+> 
+> This needs a wakeup that moves the task, so a root domain of more than
+> one CPU, with busy CPUs. CONFIG_SCHED_PROXY_EXEC=y makes such wakeups
+> more common. In testing, a task sleeps and wakes in a busy two-CPU
+> partition root, and another CPU changes its runtime. The kernel warns
+> within a second in each of 8 VMs:
+> 
+>   WARNING: kernel/sched/deadline.c:352 at dl_rq_change_utilization+0x71/0x2e0, CPU#0: wake_race/109
+>    __sub_rq_bw(): this_bw underflow
+>   WARNING: kernel/sched/deadline.c:316 at task_contending+0x244/0x260, CPU#6: swapper/6/0
+>    __add_running_bw(): running_bw overflow
+> 
+> Fix this with a new bit, dl_bw_oncpu, that tells whether a runqueue
+> counts the bandwidth of the task. add_rq_bw() adds the bandwidth only if
+> no runqueue counts it. sub_rq_bw() takes it off only if one does.
+> dl_change_utilization() does nothing while no runqueue counts the
+> bandwidth. The enqueue adds the new one.
+> 
+> With this patch, none of the 8 VMs warns. deadline_bw_test, added later
+> in this series, tests this in params_waking and random_mix. The Sashiko
+> AI review of the first posting found the double count, and a bit that
+> the first version of this patch left set.
+> 
+> Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
 
-On QCS6490 (Radxa Dragon Q6A) shairport-sync uses this control as its
-hardware volume: the volume set when an AirPlay session starts is
-applied, but every later change from the phone is ignored.
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 
-Send the gain to the DSP right away when the widget is powered, and
-report no change when the value is the same.
-
-Fixes: 36ad9bf1d93d ("ASoC: qdsp6: audioreach: add topology support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Marc Herrero <marcht@proton.me>
----
-Found on the Radxa Dragon Q6A together with the two fixes in
-"[PATCH 0/2] ASoC: qcom: audioreach: fix S24_LE playback and route mixer
-disconnects", sent earlier today. This one is independent of them.
-
-Tested on 7.2.9: with the patch, moving the AirPlay volume while
-playing changes the output immediately; without it nothing changes
-until the next stream. Builds on asoc/for-next.
----
- sound/soc/qcom/qdsp6/topology.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/qcom/qdsp6/topology.c b/sound/soc/qcom/qdsp6/topology.c
-index 612d8f03e6e9..5b3378fd29fc 100644
---- a/sound/soc/qcom/qdsp6/topology.c
-+++ b/sound/soc/qcom/qdsp6/topology.c
-@@ -1323,8 +1323,19 @@ static int audioreach_put_vol_ctrl_audio_mixer(struct snd_kcontrol *kcontrol,
- {
- 	struct snd_soc_dapm_widget *dw = snd_soc_dapm_kcontrol_to_widget(kcontrol);
- 	struct audioreach_module *mod = dw->dobj.private;
-+	long gain = ucontrol->value.integer.value[0];
- 
--	mod->gain = ucontrol->value.integer.value[0];
-+	if (mod->gain == gain)
-+		return 0;
-+
-+	mod->gain = gain;
-+
-+	/* The PGA event only applies the gain when the widget powers up */
-+	if (dw->power) {
-+		struct snd_soc_component *c = snd_soc_dapm_to_component(dw->dapm);
-+
-+		audioreach_gain_set_vol_ctrl(dev_get_drvdata(c->dev), mod, gain);
-+	}
- 
- 	return 1;
- }
-
----
-base-commit: cde5523c75f1320a55ac1d55a717ccbb566557f0
-change-id: 20261111-q6apm-vol-live-d6bb1dbec7c9
-
-Best regards,
--- 
-Marc Herrero <marcht@proton.me>
-
+Thanks,
+Juri
 
