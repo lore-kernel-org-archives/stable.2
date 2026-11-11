@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409678;
-	b=3KW78g3ACNzqhYwAJrHM7j0Qsvv14VQqSTv+bIHHgPt6brpW8+zGctK7o01Y8aFuXMj2
-	 Xrxdj+mwIc7bPnUV4TSOqFCIuWFYHcfWQlvgOqj/sV1SFtl0XhKlPYSkNlh3h3l8sOUL9
-	 BznPIXIgFHjcQ68PY3VQeVPQviFPFnWA2cWqlfaJZ5ibQm1ayAMi3N3yo0NY/uK2p7ckG
-	 g6PIHF93O6HQ2308VebsLIiDV9S2pqQykSoO0Bu8278kxWx+OjUoD8LDEiXip2yDrAOvg
-	 bViRRC2u0RIujNDI1TdJ7jxOYQlXw1iOTes74f+EV10ZQE09TTjkp9lrLB7aNuzBDDg==
+	t=1794409691;
+	b=zUWFd3EIIISCoKyvpI/OW8OHPmog7WqjPqcXJAO/DXzVmAEpCCC6saUpFL1Xld0pBexc
+	 V2/u5w4rIbO+KmSoNRbqmw1D9v9yh/UxA+mAmDbTZ02cbTlR4B8yh1m6ekHYXn+iR+qQD
+	 IHUvjPv6fOFbOty79eiZnYw3PoceqzetM8aZsvLNylCFU+YPJXxAeZq20POPwMpfGIDQM
+	 rj28CtzU3DHmg0xnF7HOEmgM95d3X8GI5mMtXpUc7hU8VbjPtfJm6s56E4hPVMjA3LV3u
+	 7Du66SPtAKmwB9lVSpoiI1+xnUzTkqj+UHDSmC0oa5KpQvOgqgdm7bKXPSHjlyyiMKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409678;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409691;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jTg4NwvYWDU6YdIr8WyNrufRY3Ef/ygRz2H0XAtJx2Q=;
-	b=h0TiqA9fHQCGhUbqH3+aZW05iWTCSQ5tQ5+wYhSw4/oPTieZsZlkCeIp3RehRTEDOZf/
-	 kqi3DHOTujLA+zLqlhAKaz1Ik0ALmarEjJnST4gmMa7UjyTrBWXKe5VUw2bY/IDBqY+00
-	 Q6VxnZ4x8cSUC8S/iWFXt1/l/L7iM1db82n0+2/mYgvvj07tzRFc9q9QPathThQ3bKMaD
-	 ILCSKYykNkbv2SVp5rACX/fwIxxyHov5KCBxFjqPbwijJIw//o3fKmQzcfL5VZmU1wmav
-	 ME6WPxzoUV11xvIG/K8bCQ4UrlblBal1vY6DxyQPuvx3qy6bV9u989I1zV4tCW7L1Kw==
+	bh=FvJzox++Vr9rqn+r0wGp9yA1pXcCJ28CkqGuvOQFGLw=;
+	b=vEdVJM+FN1ACsC1wrnuDhYuX2noKqkpsYWHj8B6Bie4vC9SQh67+d/po9B47n9ydiIOL
+	 W5z6B8YMDwGz8SJ946lM4GV4WiTmWZlnS9FK8r7VZ1SJly2Tn3e0hoaWaE2WzKmvkWWnm
+	 84AuUrWcoJ7LdhSCi3jfvwba3GKuuqIN6lUU6yqndz58jpAPCO5k0IyS/lp7mFpjQ8olx
+	 RCb3rb/w3taGPJaSOxNYhGKb3NMLcW2IC94pF4DuwvoSo4n0vq45JZghAtdPPHpxgNGQz
+	 d8F5aRoRDLLBUfd7U6T0H6OUzpWoK8HT+m5dl4oR4Ggpezk08fsWtfuk4ap60RNS/RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AK32ScvS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h376NfOL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BCD606A331
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:07:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01540606A33C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:08:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AK32ScvS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9CA1F00AD6;
-	Wed, 11 Nov 2026 15:07:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h376NfOL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E421F00A05;
+	Wed, 11 Nov 2026 15:08:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409678;
-	bh=jTg4NwvYWDU6YdIr8WyNrufRY3Ef/ygRz2H0XAtJx2Q=;
+	s=k20260515; t=1794409690;
+	bh=FvJzox++Vr9rqn+r0wGp9yA1pXcCJ28CkqGuvOQFGLw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AK32ScvSFzpwHcpMcOeqT8xEhzWQ6pLvlYCML99g20x1439tsL2NuOqjkFgbs/nGm
-	 J3M/9VKjGn7mVfb5SnZXOdkKBGYRigWKFkqZ7mKHZscOqFnFvWhF2ddvJmW9ucsVnN
-	 LHmBZBOCy4VTrTkm0aYCHmuwcIvCeotPyXsmt4TdjCnfAGyFAurx5uLH3CVCkMhKn4
-	 5dctRMPzZOIWobVwyGOGYOoSZuSTC4v7WDzuAQDxPo0tHGZLMheMekfFHNYIL/Cp+X
-	 00kaO5jakvecK6N1U5g8POHeNZd0p0ofn7Bq265yWz5K1q8EW9MH9NDoTVMAo5rOVJ
-	 bdlcYLnN+c8Lg==
+	b=h376NfOLDXse7IGT6fw6IBFSV7qhsFs4LjMeH7flPgwHIdRnvmO+jz8QlM6mHabFU
+	 MpvWC9ELPAmhsUjXfeC5QFRBRfyyGrYH5XzL3pNH59w9pXpHXH/kBibKlT29RX/xNT
+	 7YjRSuhQ7mc46QRMV1kSnXObBZ8WtpZgASMkNxPgsB9Pi0MCHRWKP31b9xMHXykYkX
+	 EibIJImojP2mdomHrKxRM4mTXlzG+N2UOSXJUcyDGM5mXlJnlzeWt2SHPvYqXNVEAL
+	 7jIzd4BnOuICaZQ2vGlN3/EYeyZsbQBBtQkJKmGabZkB8QPQbCFqo2VvwFLZThr/i3
+	 kbF1bsV97kyPQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] media: serial_ir: Fix race condition where timer can be re-armed
-Date: Wed, 11 Nov 2026 10:07:56 -0500
-Message-ID: <20261111150738.2590511-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] iomap: don't mark unwritten parts of a folio uptodate
+Date: Wed, 11 Nov 2026 10:08:09 -0500
+Message-ID: <20261111150754.2593002-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052952-failed-6.6-d74ac4016ba6@kernel.org>
-References: <20261107052952-failed-6.6-d74ac4016ba6@kernel.org>
+In-Reply-To: <20261107063037-failed-5.10-a4193b4af359@kernel.org>
+References: <20261107063037-failed-5.10-a4193b4af359@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,35 +61,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Young <sean@mess.org>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit d74ac4016ba64cb3b20f395511d0b18025ca0ba9 ]
+[ Upstream commit a4193b4af359db84b2cdf3a040752861984c636b ]
 
-Ensure the timer cannot be re-armed.
+For a buffered write into a hole, an unwritten or new extent, or past
+EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
+write and then marks the blocks uptodate. That includes the range of the
+write itself which still holds whatever was in the folio before. It only
+becomes valid once the copy from userspace has filled it in.
 
-Fixes: 2940c7e49775 ("[media] serial_ir: generate timeout")
-Signed-off-by: Sean Young <sean@mess.org>
+But the copy can come up short and __iomap_write_end() only rejects a
+short copy if the folio isn't uptodate. If the zeroed blocks were all
+that was missing the folio is uptodate by then, the short copy is
+accepted, and the rest of the range is exposed to readers and can end up
+on disk. A source buffer that ends in an unmapped page is enough:
+
+        ftruncate(fd, 4096);
+        pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
+        pread(fd, buf, 4096, 0);
+
+The write returns 16 and the read returns 2984 bytes of whatever was in
+that page before. If other blocks of the folio aren't uptodate the short
+copy is rejected but the zeroed blocks keep their uptodate bits and the
+retry with the copied length leaves the same bytes behind.
+
+Only mark blocks uptodate in __iomap_write_begin() after reading them.
+__iomap_write_end() marks the zeroed blocks uptodate once the copy has
+succeeded and rejects a short copy.
+
+Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
+fix (cf. [2]) but it never got merged.
+
+[1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
+[2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
+
+Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Cc: stable@vger.kernel.org
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: replaced the existing del_timer_sync() call instead of timer_delete_sync() ]
+Link: https://patch.msgid.link/20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: adapted iomap_set_range_uptodate() to use page instead of folio in the older __iomap_write_begin() context ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/serial_ir.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/iomap/buffered-io.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/rc/serial_ir.c b/drivers/media/rc/serial_ir.c
-index 96ae0294ac102..dac341c68b2bb 100644
---- a/drivers/media/rc/serial_ir.c
-+++ b/drivers/media/rc/serial_ir.c
-@@ -797,7 +797,7 @@ static int __init serial_ir_init_module(void)
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index d0a141816f125..8756797f224d0 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -582,14 +582,15 @@ __iomap_write_begin(struct inode *inode, loff_t pos, unsigned len, int flags,
+ 		if (iomap_block_needs_zeroing(inode, srcmap, block_start)) {
+ 			if (WARN_ON_ONCE(flags & IOMAP_WRITE_F_UNSHARE))
+ 				return -EIO;
++			/* uptodate once copied, see __iomap_write_end() */
+ 			zero_user_segments(page, poff, from, to, poff + plen);
+ 		} else {
+ 			int status = iomap_read_page_sync(block_start, page,
+ 					poff, plen, srcmap);
+ 			if (status)
+ 				return status;
++			iomap_set_range_uptodate(page, poff, plen);
+ 		}
+-		iomap_set_range_uptodate(page, poff, plen);
+ 	} while ((block_start += plen) < block_end);
  
- static void __exit serial_ir_exit_module(void)
- {
--	del_timer_sync(&serial_ir.timeout_timer);
-+	timer_shutdown_sync(&serial_ir.timeout_timer);
- 	serial_ir_exit();
- }
- 
+ 	return 0;
 -- 
 2.53.0
 
