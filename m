@@ -1,77 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370821;
-	b=01OBeZ8DuHyMhUysG+PeG5bVXJ2I9QkDQiNkuZ4FTeyktvJc/iwT9oB3VjFSGQpkj5Oj
-	 e4CDJoaUodjIXycwu37oGOG1vpArYC23JzmQZHiuZ6l5QFqnJrzremTX7kx5RA1LQJEej
-	 8bnf2QTjuDpBIXtUTRThVFvTrfXpdJp4Jjkk4kaLJRHSSsEAVy9bl5EbqxgZkmZrGLjR7
-	 JHr5i6nbJeP0xM99Z2+vDpbz/k8vp8PObiHJBn84GB+10rm7X6M3OAjQx0iUbIRSdg6mE
-	 xcglUIcKv/6jTAPclD8iWlRBk3sdg03PWLulaXEbvr8yJNHivoLoC+PfUDozNzXu6+g==
+	t=1794370823;
+	b=n/vLJlGCqhfQfJ4SKalsrjKQwOs8oHiJMLafgi8I421Ke1dpbzNwzmoaRsTC8QV801tA
+	 59gCGRqdLdHqUzseI5xbpBohM8buBbblVGNj7UULit6YrAJjTzve4A+j/UjeYRFZQUwUa
+	 hbylKKhleQl/bxzcc/L8FOGMF4Qxq7/lm3+yi7hZeGgUDhRjOg/PCiLR1bSjFinOuIu6j
+	 05oWF/dvJDIPhtjrfCHpJ1zNMX63GcGMrMszSc9n3XjKV7Fy/sdzYQW3NnZvYiG+tDi3k
+	 g6BZf7ewsOSVNX5Yksd0lvcYHbNKa8+Q+g4SfBH9r6qYa8CmQNVuKSkLtboAR2B5IPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370821;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370823;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=V1Sj35ku1zJWQN6KeSpIgfXMCAPO1Gzk9fB9CjnE+0g=;
-	b=ce598aSSj1L+vuVAMBXg4RXLdBj5Y7XEXc66SEeNOXRGq+fUMrv9eUyMelruii1CO/FY
-	 +y5aXAT4gwJOR7ZEzKLh14Si82qDOXE9Ru8cE8xJMxb8zPeFK3sEJlM2po2gf9LsaH7pS
-	 gsCuyWJ7ADY9F32AkcsttvX6lmj7OHC99TMjp/3IDCwAQnNn01D/3pF9M268n32OJ+sFK
-	 8Bo/NIa8aYnquZBPJqRPhWLp5a+4fDGMXBqiiPjtcKQvzYAPUcTw5N1KdWZMuufy8S/wo
-	 /sRtlPSUWO1Jao1cIEWr8KUK/m4bAXNv1AGOjDvaZIr2DJqS3CttkW/MS1JynuT+AVg==
+	bh=y46kTuhFS3pdFZXMnTpIZWohn+16FYvelrkuLSGYIho=;
+	b=hd217ZtK6SG72tCNH7pShjTHZfFTYP+9a6jWXDu66uQHqDNwwFMXDN+Ou+k4sAskB3Gw
+	 mSBj2xmqZx17DY7Fe7GdFjyaNUr94+OCLO0hkeZhjZ9UwDogGvZDfLDOIUgF02hQkEWvN
+	 ESR4CQ/liQ/z8GZfAE//fXfRMZ/VuZhFJZcte6X7+9d7+IuKSMSjX20l3CGLPyD/6UJky
+	 Zeb5tYvA5AuHr3hC2DY6oc/i529K4diIxXQlbtP8Fc1I4Vpr1zAEW60jP5SJA7R3akqeu
+	 DA5L/kRLFpCXgx2HEaAUOLTw6QpeVsMc2pM+lM3Bcqe+1WZrod/Xx3UMT33IjlTgmEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jvDtP6eB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbrRDWwk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABF8606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:20:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E67A606A330
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:20:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jvDtP6eB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06FA81F0089F;
-	Wed, 11 Nov 2026 04:20:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbrRDWwk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59761F00A03;
+	Wed, 11 Nov 2026 04:20:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794370821;
-	bh=V1Sj35ku1zJWQN6KeSpIgfXMCAPO1Gzk9fB9CjnE+0g=;
+	s=k20260515; t=1794370823;
+	bh=y46kTuhFS3pdFZXMnTpIZWohn+16FYvelrkuLSGYIho=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jvDtP6eBqX1kw1REawKXDNumQ5EEO4yAorCZ6OA/iq5qIQiy94QXnQ7vDX0UFsRhH
-	 2sKsBVCGpon0C+8dYpAFzHCOJxeSUMIJWNn5ZsywaH6xooQraJXqeJORzhhHssZ07m
-	 5BeUXHnjfi9me+06OHEgDvc6BaM1YKTr1W2z9n7kjiF29T6IwmdJC2/c3+N01nxNW9
-	 TyY+lCUIRtI6dvya61g9JXiwkb8b5J1f/j52ItppPgCsn8cYUw7oTcfLZeA0T+oNx2
-	 zGGWA6rB6PSzcFQLpHK1vV3TZXEsTzXWVBbkbiXl2vb+Mm5zUTcraHYYqMVe2FdeYK
-	 LijoaxJOSgAkQ==
+	b=QbrRDWwk1XCFGt9gpJdAuHDAOwCUWQPWL05q+PWUPjzh4TvtnN+E9ly8nBezhOlc6
+	 6PSZJL/dReihkE1/ymQWCjChoGOZp08T8JfEwnobKKw77XKzzn+1KgLkTvLlfbjoWd
+	 0FOGwU/Ktt94E5MIcgPtRWlCTH1dd172SlIuidqPJoDYH4bJ80AkLm7+u6UPlAfmsV
+	 ttWe1TmiyNqMn+hW5aV1VmFWqacaVhYsy7x+fqy2C5uaJexhPN8SSnaVvOjXxDnQbT
+	 pvEO4GVzJ1CLFI1fX5ektEmdYexLKTdQYSdM0ZLWLIh/KJ5zYSfUOSbq+zPK7xq6ya
+	 N0Rbxg70ZniuQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kairui Song <kasong@tencent.com>,
+Cc: Arnd Bergmann <arnd@arndb.de>,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Baoquan He <baoquan.he@linux.dev>,
 	Barry Song <baohua@kernel.org>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Chris Li <chrisl@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
 	Johannes Weiner <hannes@cmpxchg.org>,
-	Kairui Song <ryncsn@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lian Wang <lianux.mm@gmail.com>,
+	Kairui Song <kasong@tencent.com>,
 	Lorenzo Stoakes <ljs@kernel.org>,
 	Michal Hocko <mhocko@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
 	Shakeel Butt <shakeel.butt@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
 	Wei Xu <weixugc@google.com>,
 	Yuanchu Xie <yuanchu@google.com>,
-	Yu Zhao <yuzhao@google.com>,
-	Zi Yan <ziy@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] mm/mglru: use explicit tier range in read_ctrl_pos()
-Date: Tue, 10 Nov 2026 23:20:16 -0500
-Message-ID: <20261111041806.1021595-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] mm/vmscan: avoid false-positive -Wuninitialized warning, again
+Date: Tue, 10 Nov 2026 23:20:17 -0500
+Message-ID: <20261111041806.1021595-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050419-failed-7.3-ca6e32f3f424@kernel.org>
+In-Reply-To: <20261111041806.1021595-1-sashal@kernel.org>
 References: <20261107050419-failed-7.3-ca6e32f3f424@kernel.org>
+ <20261111041806.1021595-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,120 +74,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kairui Song <kasong@tencent.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-[ Upstream commit c1d0e799321c817a22eab2abf2485250cffad7b4 ]
+[ Upstream commit ca6e32f3f4240d0335775a11afc21e0451dd8d8f ]
 
-read_ctrl_pos() encodes the tier range in a single "tier" parameter via
-"tier % MAX_NR_TIERS" as the start and "min(tier, MAX_NR_TIERS-1)" as the
-end.  This is hard to follow, maintain, or extend.  Tier values 0..3
-select a single tier, while tier == MAX_NR_TIERS selects the full range.
+I previously worked around a false-postive gcc-16 warning in the
+get_tier_idx() function, by adding a fake initializer. This happens with
+the -fsanitize=bounds sanitizer when the compiler creates a specialized
+variant of isolate_folios():
 
-Replace it with explicit (tier_min, tier_max) parameters using a closed
-[tier_min, tier_max] interval, and add LRU_TIER_MIN and LRU_TIER_MAX for
-the tier bounds.  The call sites now become self-documenting:
+In function 'get_tier_idx',
+    inlined from 'isolate_folios.constprop' at mm/vmscan.c:4982:9:
+mm/vmscan.c:4934:9: error: 'sp.refaulted' is used uninitialized [-Werror=uninitialized]
+ 4934 |         read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+mm/vmscan.c: In function 'isolate_folios.constprop':
+mm/vmscan.c:4946:25: note: 'sp.refaulted' was declared here
+ 4946 |         struct ctrl_pos sp, pv = {};
+      |                         ^~
 
-  - get_tier_idx:   (LRU_TIER_MIN, LRU_TIER_MIN) for the first tier,
-                    (tier, tier) for each subsequent tier
-  - get_type_to_scan: (LRU_TIER_MIN, LRU_TIER_MAX) for the full range
+Adding another "= {}" would solve the problem as well, but to prevent
+this from happening again after the next code refactoring, try instead to
+prevent this by forbidding interprocedural optimizations on this function.
 
-No functional change.
-
-Link: https://lore.kernel.org/20260906-mglru-flags-cleanup-v6-5-9aacbd77d4ca@tencent.com
-Signed-off-by: Kairui Song <kasong@tencent.com>
+Link: https://lore.kernel.org/all/20260213123902.3466040-1-arnd@kernel.org/
+Link: https://lore.kernel.org/20260916083456.4136132-1-arnd@kernel.org
+Fixes: 3de705a43a46 ("mm/vmscan: avoid false-positive -Wuninitialized warning")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
 Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
 Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <ryncsn@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lian Wang <lianux.mm@gmail.com>
+Cc: Kairui Song <kasong@tencent.com>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Qi Zheng <qi.zheng@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
 Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Wei Xu <weixugc@google.com>
 Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Stable-dep-of: ca6e32f3f424 ("mm/vmscan: avoid false-positive -Wuninitialized warning, again")
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mmzone.h |  2 ++
- mm/vmscan.c            | 18 ++++++++++--------
- 2 files changed, 12 insertions(+), 8 deletions(-)
+ mm/vmscan.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 94f9c3ff54160..da8dd04fb462a 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -492,6 +492,8 @@ enum lruvec_flags {
-  * folio->flags, masked by LRU_REFS_MASK.
-  */
- #define MAX_NR_TIERS		4U
-+#define LRU_TIER_MIN		0U
-+#define LRU_TIER_MAX		(MAX_NR_TIERS - 1)
- 
- #ifndef __GENERATING_BOUNDS_H
- 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 963cdd67039d1..8ec8fdede5dd8 100644
+index 8ec8fdede5dd8..88fd31d135853 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -3194,8 +3194,8 @@ struct ctrl_pos {
+@@ -3194,8 +3194,11 @@ struct ctrl_pos {
  	int gain;
  };
  
--static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
--			  struct ctrl_pos *pos)
-+static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
-+			  int tier_max, int gain, struct ctrl_pos *pos)
+-static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
+-			  int tier_max, int gain, struct ctrl_pos *pos)
++/*
++ * __noipa works around gcc-16 warning for uninitialized use of pos->refaulted
++ */
++static void __noipa read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
++				  int tier_max, int gain, struct ctrl_pos *pos)
  {
  	int i;
  	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-@@ -3204,7 +3204,7 @@ static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
- 	pos->gain = gain;
- 	pos->refaulted = pos->total = 0;
+@@ -4801,7 +4804,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ static int get_tier_idx(struct lruvec *lruvec, int type)
+ {
+ 	int tier;
+-	struct ctrl_pos sp, pv = {};
++	struct ctrl_pos sp, pv;
  
--	for (i = tier % MAX_NR_TIERS; i <= min(tier, MAX_NR_TIERS - 1); i++) {
-+	for (i = tier_min; i <= tier_max; i++) {
- 		pos->refaulted += lrugen->avg_refaulted[type][i] +
- 				  atomic_long_read(&lrugen->refaulted[hist][type][i]);
- 		pos->total += lrugen->avg_total[type][i] +
-@@ -4808,9 +4808,9 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
- 	 * This value is chosen because any other tier would have at least twice
- 	 * as many refaults as the first tier.
- 	 */
--	read_ctrl_pos(lruvec, type, 0, 2, &sp);
--	for (tier = 1; tier < MAX_NR_TIERS; tier++) {
--		read_ctrl_pos(lruvec, type, tier, 3, &pv);
-+	read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
-+	for (tier = LRU_TIER_MIN + 1; tier <= LRU_TIER_MAX; tier++) {
-+		read_ctrl_pos(lruvec, type, tier, tier, 3, &pv);
- 		if (!positive_ctrl_err(&sp, &pv))
- 			break;
- 	}
-@@ -4831,8 +4831,10 @@ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
- 	 * Compare the sum of all tiers of anon with that of file to determine
- 	 * which type to scan.
- 	 */
--	read_ctrl_pos(lruvec, LRU_GEN_ANON, MAX_NR_TIERS, swappiness, &sp);
--	read_ctrl_pos(lruvec, LRU_GEN_FILE, MAX_NR_TIERS, MAX_SWAPPINESS - swappiness, &pv);
-+	read_ctrl_pos(lruvec, LRU_GEN_ANON, LRU_TIER_MIN, LRU_TIER_MAX,
-+		      swappiness, &sp);
-+	read_ctrl_pos(lruvec, LRU_GEN_FILE, LRU_TIER_MIN, LRU_TIER_MAX,
-+		      MAX_SWAPPINESS - swappiness, &pv);
+ 	/*
+ 	 * To leave a margin for fluctuations, use a larger gain factor (2:3).
+@@ -4820,7 +4823,7 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
  
- 	return positive_ctrl_err(&sp, &pv);
- }
+ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
+ {
+-	struct ctrl_pos sp, pv = {};
++	struct ctrl_pos sp, pv;
+ 
+ 	if (swappiness <= MIN_SWAPPINESS + 1)
+ 		return LRU_GEN_FILE;
 -- 
 2.53.0
 
