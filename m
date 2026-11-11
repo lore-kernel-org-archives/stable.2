@@ -1,46 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.181.193.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794390540;
-	b=VVifGigWTsUe77pMMfQHOFLtnrE6SJ+eRcRTLRihzWcHUY3ONihiKt8MkE0Cmgr/S5M/
-	 +JwlUUqkKpnFIGGZlmXE+N7Cslz4zD6jrZUbNsfZJeYyFAnohr5BbF0x3aiz+pJmVAO2w
-	 4BX6Zr6fVQH8nJHHfkGWbvJMFNZokV39xdBn7zKvhr08CvZmiCFaADz7SneFJlAnFvdT8
-	 ov4w0RNFTylmGeD4up0Eoy7gpgbsJMRfdCeR+sjtVPMMvgkHDpms6FEiOHIxvUYEPfdCi
-	 8A4pJNnU69Z5KeSAm0j2TcMgVQcKz2mAcoo4pIwU/GLhaH4kHH0Aq7Mqk1rUTA5qUNQ==
+	t=1794391205;
+	b=xpLfJvk7qz1Ng96nrUklGhls/9clAQrveDme2OKp06d+18T+v+o08zhtsHCT4dnbcuny
+	 VEkb3oJ3wDowGv/WXTkVjKZtk0HikArph90U+02ETDtON/PcbrRwyVLoNCAIiabi3/H1n
+	 iONVoVEHMjETBA3sQA4WXTZZYyJf+J31+1tpzX+FkDmyY6+XM/U3RbQYbwo4ahQZe4I5E
+	 VMtq5JCOt87ka8PjNftauFzu4fhTPFWomz8lr43MIPnGPL5du3yLcSU4TEAhPKBwfbKGb
+	 PmDLbX9bTwEDSVsKEkM/SMXufJa/fbX29knBN8Sp+h+rpdLFajQERlFIYqRHHM4uxvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794390540;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=xJpl9h/MzQlpcaQsEK0zyQehtU4pMzO61s1fxmJsrqM=;
-	b=M9Ze7/WszLyd6VTQVxM8uTY3Au5RtJASak2uwP2I94RCnmR/mv5cowwZPsaSWBGgvrp3
-	 4l5gqV/2OCer8VBJQj+XllJUmIEWEWZqvlDlPuOLJnvEIHuGiDwN2dglHvQ/Fqwwn2095
-	 dm801HxGXcoRBW/s7F5SdSkf6H1FusDQyKPaxdTcjcDH0Yta378Hq8oqkx4Zw9CLlCB6o
-	 kS2LoLGiFcF4UHj3dDjSSiRRBFnt3IOz0Iq/oQ4fqp0ho/eEb5KOQ4DER903QMqPoHKwx
-	 oUPegy8ETxSlPnCRM7fkkLADPf/oKHLMq7U+rB2Br490qT8J7Z+/02TFRoZJXOy6tww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794391205;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=59wVNw1zJzlvwp3L7uQ2Ik+N71jZ01U5OCjzBS7fR5E=;
+	b=w7uZJJCVY36pg7nasd8BnKMdTogEccEF2a818MCmNjVKJ5vmI3KPSCc1M2m1wjeRV7iw
+	 SgiVgkgTEf/99kIyjhTS6jyAPcT7QKi/waAM1b/RFW8Y6X8RaRBKg7w+kKJOXtyFXGp2Q
+	 l81WHHb7qEMSQpszowdTXEAoFwVeOo55lvDF45uK0PufbLyXmlHQhOKaEeQuTOrK+EFv1
+	 bgUxxrDx72ThjWGwQNSAmPL5wwCRzZ+gLPigHOIgnnX8UxyNydXDRsj717PasUNt3uh30
+	 juCmNFTb/eyuUFAqZW0RboE0BXEW7Q7Dp6S6V9nTKxFoUg/juLNaitKJFE/jauDA1Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=auroraos.dev;
-	spf=pass smtp.mailfrom=auroraos.dev;
-	arc=none smtp.remote-ip=95.181.193.9
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b="bkn/ZI3d";
+	arc=none smtp.remote-ip=220.197.31.8
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55952606A321;
-	Wed, 11 Nov 2026 09:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55952606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from pc.omp.ru (77.37.240.142) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Wed, 11 Nov
- 2026 12:48:58 +0300
-From: Georgiy Osokin <g.osokin@auroraos.dev>
-To: <stable@vger.kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>, <devicetree@vger.kernel.org>
-Subject: [PATCH 5.15.y] of/fdt: Ignore disabled memory nodes
-Date: Wed, 11 Nov 2026 12:48:37 +0300
-Message-ID: <20261111094837.601200-1-g.osokin@auroraos.dev>
-X-Mailer: git-send-email 2.54.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00255606A321;
+	Wed, 11 Nov 2026 10:00:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00255606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=bkn/ZI3d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=59
+	wVNw1zJzlvwp3L7uQ2Ik+N71jZ01U5OCjzBS7fR5E=; b=bkn/ZI3dblTpkgy3P6
+	9jS9l/FQc4vU68kcVkgnZpqa2Q/qqz+dibQhfSO9ayedxmn0CRoJUyDH7kgIqnQE
+	V3gYK0yuXubWgi4ipyTnrNva1pvd6IKsZ+febHUhUKdQTahgxapKlG+WOJbXr1+0
+	m/XXxk59zVxCwUffDcyumicW0=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PikvCgDH9+1sPPRq4RJQDQ--.51384S2;
+	Wed, 11 Nov 2026 17:59:09 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	Guikun Yang <yangguikun19@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] nfc: llcp: fix SNL PDU size truncation in nfc_llcp_allocate_snl()
+Date: Wed, 11 Nov 2026 17:59:07 +0800
+Message-Id: <20261111095907.3366028-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,95 +69,58 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+X-CM-TRANSID:PikvCgDH9+1sPPRq4RJQDQ--.51384S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFyfCr43Xw1UKF18AF1UJrb_yoW8Zr1rpF
+	W7K34Dtr90qF18Crn2krW0va4Yk39rAFWakF1jyFy2yF98X3Z7WFW09rWF934qvr4kJF1a
+	yF9avw1UCw1UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlhFsUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqQ0C2Gr0PG0aRAAA3v
 
-From: Andre Przywara <andre.przywara@arm.com>
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-commit df5cd369876114f91f9ae60658fea80acfb15890 upstream.
+nfc_llcp_allocate_snl() sums the requested TLV payload length into a u16
+variable before passing it to alloc_skb(), but its tlv_length argument
+is a size_t and callers pass a length bounded only by the size of the
+netlink message that produced it.
 
-When we boot a machine using a devicetree, the generic DT code goes
-through all nodes with a 'device_type = "memory"' property, and collects
-all memory banks mentioned there. However it does not check for the
-status property, so any nodes which are explicitly "disabled" will still
-be added as a memblock.
-This ends up badly for QEMU, when booting with secure firmware on
-arm/arm64 machines, because QEMU adds a node describing secure-only
-memory:
-===================
-	secram@e000000 {
-		secure-status = "okay";
-		status = "disabled";
-		reg = <0x00 0xe000000 0x00 0x1000000>;
-		device_type = "memory";
-	};
-===================
+nfc_genl_llc_sdreq() walks the nested NFC_ATTR_LLC_SDP attributes of a
+GENL_ADMIN_PERM request, builds one SDREQ TLV per attribute and sums
+their lengths into the size_t tlvs_len. Each URI is capped at
+U8_MAX - 4 bytes by nfc_sdp_genl_policy, so every TLV fits in its u8
+tlv_len, but nothing caps the number of attributes, so tlvs_len can
+exceed U16_MAX.
 
-The kernel will eventually use that memory block (which is located below
-the main DRAM bank), but accesses to that will be answered with an
-SError:
-===================
-[    0.000000] Internal error: synchronous external abort: 96000050 [#1] PREEMPT SMP
-[    0.000000] Modules linked in:
-[    0.000000] CPU: 0 PID: 0 Comm: swapper Not tainted 5.18.0-rc6-00014-g10c8acb8b679 #524
-[    0.000000] Hardware name: linux,dummy-virt (DT)
-[    0.000000] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[    0.000000] pc : new_slab+0x190/0x340
-[    0.000000] lr : new_slab+0x184/0x340
-[    0.000000] sp : ffff80000a4b3d10
-....
-==================
-The actual crash location and call stack will be somewhat random, and
-depend on the specific allocation of that physical memory range.
+When it does, the u16 accumulator wraps and alloc_skb() returns a
+buffer that is far too small. nfc_llcp_send_snl_sdreq() then calls
+skb_put_data() once per TLV and writes all tlvs_len bytes into it,
+which trips skb_over_panic() and panics the machine.
 
-As the DT spec[1] explicitly mentions standard properties, add a simple
-check to skip over disabled memory nodes, so that we only use memory
-that is meant for non-secure code to use.
+Use size_t for the accumulated size so that it can no longer wrap
+before the allocation. alloc_skb() takes an unsigned int, which is
+still wide enough for any length a netlink message can carry.
 
-That fixes booting a QEMU arm64 VM with EL3 enabled ("secure=on"), when
-not using UEFI. In this case the QEMU generated DT will be handed on
-to the kernel, which will see the secram node.
-This issue is reproducible when using TF-A together with U-Boot as
-firmware, then booting with the "booti" command.
-
-When using U-Boot as an UEFI provider, the code there [2] explicitly
-filters for disabled nodes when generating the UEFI memory map, so we
-are safe.
-EDK/2 only reads the first bank of the first DT memory node [3] to learn
-about memory, so we got lucky there.
-
-[1] https://github.com/devicetree-org/devicetree-specification/blob/main/source/chapter3-devicenodes.rst#memory-node (after the table)
-[2] https://source.denx.de/u-boot/u-boot/-/blob/master/lib/fdtdec.c#L1061-1063
-[3] https://github.com/tianocore/edk2/blob/master/ArmVirtPkg/PrePi/FdtParser.c
-
-Reported-by: Ross Burton <ross.burton@arm.com>
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-Signed-off-by: Rob Herring <robh@kernel.org>
-Link: https://lore.kernel.org/r/20220517101410.3493781-1-andre.przywara@arm.com
-[ Georgiy: 5.15 lacks commit 1f012283e936 ("of/fdt: Rework
-  early_init_dt_scan_memory() to call directly"), so the function still
-  handles one node per of_scan_flat_dt() call: return 0 instead of
-  continue and use initial_boot_params instead of the local fdt. ]
-Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
+Fixes: e0ae7bac06cc ("NFC: llcp: Service Name Lookup SDRES aggregation")
+Reported-by: Guikun Yang <yangguikun19@qq.com>
+Link: https://lore.kernel.org/netdev/tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
- drivers/of/fdt.c | 3 +++
- 1 file changed, 3 insertions(+)
+ net/nfc/llcp_commands.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index 338171c978cc..342fdea26380 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -1102,6 +1102,9 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
- 	if (type == NULL || strcmp(type, "memory") != 0)
- 		return 0;
+diff --git a/net/nfc/llcp_commands.c b/net/nfc/llcp_commands.c
+index 80a00938c869..0a3d66e6cd59 100644
+--- a/net/nfc/llcp_commands.c
++++ b/net/nfc/llcp_commands.c
+@@ -542,7 +542,7 @@ static struct sk_buff *nfc_llcp_allocate_snl(struct nfc_llcp_local *local,
+ {
+ 	struct sk_buff *skb;
+ 	struct nfc_dev *dev;
+-	u16 size = 0;
++	size_t size = 0;
  
-+	if (!of_fdt_device_is_available(initial_boot_params, node))
-+		return 0;
-+
- 	reg = of_get_flat_dt_prop(node, "linux,usable-memory", &l);
- 	if (reg == NULL)
- 		reg = of_get_flat_dt_prop(node, "reg", &l);
+ 	if (local == NULL)
+ 		return ERR_PTR(-ENODEV);
 -- 
-2.54.0
+2.25.1
 
