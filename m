@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414173;
-	b=1GaGeB9YjXK6XHJQv7QLXFN8SkjEoq5gYeyJIbGQhuxq+zYm4UrzDCL0IMZqqhFJr2FP
-	 GTO7+lz8IqHDfoRWLnXMjXAUiLtw66j81pTyS0Sz4B/wP3QBReXwv9mH6gV26BN/Jnh2S
-	 6QmbOvuURabxnr17/v+EdpUwo9WTo1olx2TlIeQE2IWou8wGWOg8UM2NcHSNLyagQx6em
-	 N+frLs/n1qoFVaiWqtwLUGRQbasp1o1Fd/NTC3j9Nhgg3RAyCjnvdJjVDFmWBa/ylAuIy
-	 BbuK2htwHBueIhTUqBefHC2k+caML7L0NOA56SYZ/RA2ZVi60Du8nNZxnsp3XLL2V9w==
+	t=1794414189;
+	b=qkZD0XNGjdFI3jSnFAHlbW0G4In0uDFQ6syzD/iCn229hH2FjPEBWjqUSU3DiC7opkAM
+	 bfRGYiGb9TyatbkIkhAUO3Wxhv41KV+zrzjWsGNGpqmxyG+WjS3dYAqA4kayTa2uQCd+u
+	 MlnQbsVPXnRuzyodByqNbSNW0U8tRnGK30po35V5HGte4O0GiYBuMmVI3Jde0r4W1xv5Q
+	 dYSoS5rTcqG5NumKGTILaXIcnToXulGoW/jx28bZXYQO8Rw8jlanDGITUK4CrtcB92atZ
+	 dO2Od7VQXvhub6CtxE3h3pLdK7HuC21+DmEE0Qk8KWydqKxqeGTVJYkqk4RJehDI/EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414173;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794414189;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TV1/IUoHhrFDEWIOUfarFqeU/VdtBNUm7dphO6SR5sA=;
-	b=suunAZs5BedCvbwvZu2Bf4xE61yvyg5aF3qKOKpGp+aqwjseDB7B4H8abaat+SaZ20eZ
-	 fiRJ6BazfcYHKd6G6bdpeDw7gWUAJmxOWPpZvRh9ATqD+Iq9CbdWsNA30YDJXyZ9ZUWu1
-	 39eL9RHDGv9c2x3hE/4xNQhhq32ywKfv6j6olvydHzokxgp+JXmEjjL3q+0hBAx9ioO5T
-	 YtJEeQ2+xy+Go/Z2EA5GapsQzeN9el9Ekcc0PpOY9SD/RILN1TWRcyyvj0uDWSnCBQoOm
-	 LswiZeqxHK8yPKiU5S1ypDFURioDGmtCFPGbYicboMy88raxwfJWRe7awUbiYhouUCQ==
+	bh=asJLg+4iFeuVzhaHRel1gXB2lsm/WtNZxntwpquS1aw=;
+	b=Wtcqde9yZvDeWUXAeGKFQcSPcUNnM4YBkABXu8ZzWzP2J8GvE9YfTwWxv1M9BrwZNISX
+	 GhbkcY5Z8bb9wiIbLy40RJC5Gl5SpMFASItrWsvH+ZlrCJYSryLXto3q7K8+1AgivMXlU
+	 pOfzMIZb9H5PruukTqqnw6UbFIyL/Q3QwlMyUGLbvrx9WxqFArt8cAFOOW+UUVT1H6+j1
+	 2PkLVpkxoZND4wS5QfN+EPW7FJDX7V9oRXgoEZIB3Kh3dNo+iDe0cXyMIEpv8tyfrwWo5
+	 VFT3RXFd0KZxjEXHj1QkVkTGzuUv2XkTw35+J/RmLNT0I/g56v41TAXLeTpXtiinnLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azNGrn1V;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XitGnwer;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D85606A339
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:22:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BD7606A32A
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:23:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azNGrn1V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BEFC1F00A05;
-	Wed, 11 Nov 2026 16:22:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XitGnwer
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01C161F00A05;
+	Wed, 11 Nov 2026 16:23:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794414173;
-	bh=TV1/IUoHhrFDEWIOUfarFqeU/VdtBNUm7dphO6SR5sA=;
+	s=k20260515; t=1794414189;
+	bh=asJLg+4iFeuVzhaHRel1gXB2lsm/WtNZxntwpquS1aw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=azNGrn1VgZOZRGAHKEHi/Xor7pS3R67bhqlGHAC+T+HIYnK1sqTwk301uN2FnF13Z
-	 P/e+SNuEKLTto+EhWK/jIrE30yo0ZrhgYyVIPGw+sF2yHTpbVqirvQDlB0vuGqczZ8
-	 5VJNwbgaPef11kPO4rb0LQmDF4NIQDmi1h5T6MXKy3FFRFxt55Jxbma+HjfGAlDf0V
-	 siTitre4vOhoWn0qnngx5ggSJ92qwsiBkSUBz83wzAVUnXLEjz7DA1OU03OaYrl0xu
-	 XqVFU8uVA9luXJ3zawmScGEJrUAb7jPkCsGBotJXhuLH8F9j2ixhVZ43G0OuikXus4
-	 /sQBNShJSuWWA==
+	b=XitGnwerDjo14tNhVxQ/PQjWA7NeV7MKy6bMRhEmUyGJt6dAxAl4wpo+9gRVQ+OcE
+	 MtqRJeprmZv/c0iHgzu84K0d/WnKyubzxBWPOJV/Y/yNV6ET45eFHcv5eCm5oDr/FC
+	 eidAr8c1p4rqC6U1ncTfcDNerQcUSHKuP/KGd1g9f0sMDlmSMeq8difrlAWr8qEaXN
+	 Byluf3PUa7GvLb/oLbFB3oexcpmhM5HKVofkSJsAtwFlCEfh2Umasu5qIvzPwfPy4n
+	 /5mmyI/5wpRUSytmpwEVD4Ohu/HeGHpIBNEgINU4wsWDjDoNnhRN+rOXBi8Yp7Oc8Z
+	 ZdAKXldQgEvAQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Rudi Heitbaum <rudi@heitbaum.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Richard Zhu <hongxing.zhu@nxp.com>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] PCI: imx6: Avoid dereferencing a NULL clock name
-Date: Wed, 11 Nov 2026 11:22:51 -0500
-Message-ID: <20261111162238.3258975-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/4] ip6mr: ip6mr_sk_done() can exit early in common cases
+Date: Wed, 11 Nov 2026 11:23:04 -0500
+Message-ID: <20261111162230.3239471-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051121-failed-6.18-e60d0d4dfddf@kernel.org>
-References: <20261107051121-failed-6.18-e60d0d4dfddf@kernel.org>
+In-Reply-To: <20261107062657-failed-5.10-6ace56ed7b13@kernel.org>
+References: <20261107062657-failed-5.10-6ace56ed7b13@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,49 +61,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Rudi Heitbaum <rudi@heitbaum.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit e60d0d4dfddfac3058753a1c2255251401c92dad ]
+[ Upstream commit f2f2325ec79970807012dfc9e716cdbb02d9b574 ]
 
-of_clk_bulk_get() leaves 'clk_bulk_data->id' as NULL for every clock that
-has no matching entry in "clock-names", which is legal: a node may list
-more "clocks" phandles than it names. Both scans of the bulk array
-dereference that id unconditionally, so such a node oopses during probe.
+In many cases, ip6mr_sk_done() is called while no ipmr socket
+has been registered.
 
-The loop in imx_pcie_probe() has been wrong since it was written. The
-loop in imx_setup_phy_mpll() was not: it read a fixed clks[] whose ids
-came from the driver's own clk_names[] and were never NULL, and only
-became wrong when the driver moved to the bulk array.
+This removes 4 rtnl acquisitions per netns dismantle,
+with following callers:
 
-Check 'clk_bulk_data->id' before dereferencing it in both.
+igmp6_net_exit(), tcpv6_net_exit(), ndisc_net_exit()
 
-Fixes: f6a1fdfc78e2 ("PCI: imx6: Use devm_clk_bulk_get_all() to fetch clocks")
-Fixes: d8574ce57d76 ("PCI: imx6: Add external reference clock input mode support")
-Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Acked-by: Richard Zhu <hongxing.zhu@nxp.com>
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/am8iBwJSEhYhWTqk@6cfee64030a6/
-Link: https://patch.msgid.link/aqfqE4OLhnN4a1lW@b65e9c1eb12f
-[ sashal: Omitted the extref clock-name guard because the corresponding scan is absent. ]
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: 6ace56ed7b13 ("ipv6: remove ifaddr from hash during ifdown list cleanup")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/controller/dwc/pci-imx6.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/ipv6/ip6mr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index de09cc2a63112..4235f1fb7b337 100644
---- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -540,7 +540,7 @@ static int imx_setup_phy_mpll(struct imx_pcie *imx_pcie)
- 		return 0;
+diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
+index 43bb75ea93898..bcb2f8513d847 100644
+--- a/net/ipv6/ip6mr.c
++++ b/net/ipv6/ip6mr.c
+@@ -1581,6 +1581,9 @@ int ip6mr_sk_done(struct sock *sk)
+ 	    inet_sk(sk)->inet_num != IPPROTO_ICMPV6)
+ 		return err;
  
- 	for (i = 0; i < imx_pcie->num_clks; i++)
--		if (strncmp(clks[i].id, "pcie_phy", 8) == 0)
-+		if (clks[i].id && strncmp(clks[i].id, "pcie_phy", 8) == 0)
- 			phy_rate = clk_get_rate(clks[i].clk);
- 
- 	switch (phy_rate) {
++	if (!atomic_read(&net->ipv6.devconf_all->mc_forwarding))
++		return err;
++
+ 	rtnl_lock();
+ 	ip6mr_for_each_table(mrt, net) {
+ 		if (sk == rtnl_dereference(mrt->mroute_sk)) {
 -- 
 2.53.0
 
