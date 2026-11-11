@@ -1,56 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794437404;
-	b=vZlXry/JbJNQ4PLOo+BwTPf3z26dzXrPNrNWk1qk7UBclcoPvhMF05OstUkrmVeultOf
-	 dQglkdliRSj0Lu+iTQhPov5xJ2hpx09Ph7iDyiGZjX5VS1HisQcxOjfvJxYv/0OthUtUa
-	 DhszgRNalvijz8vZFQZGvtfkAkowBjhqo/R/uFMTfxP37zLBx/5G/U1dS5BfIzAwa9StJ
-	 4re7o+ZV553CGjdnKR2JlD43Wyw1Hl1X0v06IzWpWfNGwS/ilxZKFeejitnr7tTiZeux1
-	 tNyKbgdWW576Qjl6LnStaFzF4SRgcm32BHFH0UWz71g1lxO7hNij6wGyw4YhQyy4uyg==
+	t=1794437537;
+	b=PZjHY4z10rdIHM7C1bQt34QU78mvuTdS2M3uze/XV4rnO/BwNN1/5QUiw2IVuGwF/r+D
+	 fb+AI10sKo37wMhB/439yyec2yCc3bJYZIJIYFdxSBBhu1QRVJljXyY90L6mnZNgGUK4S
+	 OPZNB18dONpHs9nG+uI8ibTcy2riNqOlWDu6sjZV1HuT4DnVU6jy+erTb8sV05wBWiT4I
+	 1vr2RcefbcY//sUSmNooBsbrDEh9Pf2ejdPTO+aOIC8235Gy25nBc5yY83xSifnL0XBcc
+	 J10ZyHr2PIsS6aE/NTU2/vVxTP2UucMubZm4LcFqAPjpiVGoURW13NzUajj6xa2e+8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794437404;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794437537;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uvuWkmR5cSVG5819SAj7bOcVR2rL3YncXgbCnmeAeNs=;
-	b=d0vkZ5qFojaBw0lor68ahDbJigLFcOCaE6QZx5O9KxZ4J0w5RGyz31AcSuGGXbn67cYW
-	 C8StnOICSvgQi/e8esZdVJwvhxsuJVtXSn14ZRRjp46pdAXWH8M0GTIQUmorqL3MJTkNt
-	 8ANrgNSMhJoT9VTRPStD4nBkN91NzV5+7+J+/qfQnk1NBoF/cB0sgGaw4e9t/a5L9m6em
-	 Kj+6hMoKUSwAlY/T29GHfqzEMumLWCeoqc1e8KQAkOGO5o9o+9mCmOGDuH8vwioX/UBNy
-	 UNDh2Qnn0IjnbsJE6sfuoEIBpgNzVFJKfI5E/8fWUNtsuZmuLriJ7LNnl7Cai/q0kWw==
+	bh=DHqK0uCawwUL5Hmj0Aedm8zJpJeUXelll3zmXheNcXw=;
+	b=Tsp/oB+yXRXdo2FaIYC1zDReveadQabc+videotZ0N+OpP+xwH49zdE5t8Ht48wRQAB5
+	 u1Sw6YmfCLO/vAIKtT2TDX9aQrOHzanlo6hakN358T0R+LFzT/ZLtcAubRKKH8WbI20Dt
+	 cf0wGqLgD5LnayK12XK7t7B3v4n4WufvRpRH49VFFMj4kRthgyAbtnKHRMPNzlJY6c57j
+	 Yc7b1RNUHrZFEU+uysBNdV4cf/MqgWa2v7XS7sfb8Nc9fKAwbFardhvDFBmlK8FDh/BmC
+	 Q2EN6gqNmzvC7NocgxzuEvlHlAI3gEyl+7NdG3I45vHO4d4CbnP6gDh0+kyEH/z77Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jQ+vQW0m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bdFK+6Z/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA147606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:50:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB979606AEF6
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:52:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jQ+vQW0m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF931F00A05;
-	Wed, 11 Nov 2026 22:50:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bdFK+6Z/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33DBD1F00A05;
+	Wed, 11 Nov 2026 22:52:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794437404;
-	bh=uvuWkmR5cSVG5819SAj7bOcVR2rL3YncXgbCnmeAeNs=;
+	s=k20260515; t=1794437537;
+	bh=DHqK0uCawwUL5Hmj0Aedm8zJpJeUXelll3zmXheNcXw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jQ+vQW0mXJf5PH18ebeQV8ZBCBSngs8ImPymVu9RBHdkEcYuIWPTHoS3UGeVURBo6
-	 /2zKNDxsoIeEksDJL1Bno/tRE/bFR4DLry9Xmer9fWT5dAt9840bFsRhd9SVA4zebc
-	 Lb+9yyBvUE6skspJlr3bu7blyuxxoHyXLV3PGYXvJwCVNGO931rxghDjCEXK0pPPR2
-	 JKV7brfuu5/1PewwkZuA08PWoK4x6L+wDD7ZtYbzBMamg0duj/574lnuY3M2DxSU2W
-	 0IyJn6xpujTc8m2O6mMtXy7kr5/uH0fnGLw+zpAJwBPHEXcnhBIomhKfghbqGWSJPT
-	 E06OkHfVEDHiw==
+	b=bdFK+6Z/tuo8vbsvOZFJ3wGaXQEgtiOB3/ohA4P+hgjG68pS6GhWBLpA9LDPGmR86
+	 EpHKGJ6smsfhEXgSQXZPDOlyvmDNyPrQ3GjbTdXlYsgLKXscheR68b4RwGTnF4OfYk
+	 6lVg3NsshWTjpy+zxFr/B75GdfWoXuytMoKyPtBXc3DC5dFYj8Cl6Qdrbge3xRux/y
+	 mKixPXQilI/96DDUlWpuB9iUaMsZBC+4oqDZohGdJaRrtYDE56pyomRB2Lhsfo8qVP
+	 POQqaZk2/jNz2a0w6AKxq26HRHpRDnPfQwfLHF9dtf7CCpa6jUIdxq3gpO4KlbhOcA
+	 t3wWxFP5AZdyQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jake Labelle <southampton.jake.labelle@gmail.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Mason <mason@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Adam Litke <agl@us.ibm.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Rik van Riel <riel@surriel.com>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] nilfs2: validate directory position after llseek in readdir
-Date: Wed, 11 Nov 2026 17:50:02 -0500
-Message-ID: <20261111224938.251235-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/hugetlb: fix endless write fault on a leftover uffd bit
+Date: Wed, 11 Nov 2026 17:52:13 -0500
+Message-ID: <20261111225144.189646-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054541-failed-6.1-de7f49c12566@kernel.org>
-References: <20261107054541-failed-6.1-de7f49c12566@kernel.org>
+In-Reply-To: <20261107051414-failed-6.18-f61e1cf15fb4@kernel.org>
+References: <20261107051414-failed-6.18-f61e1cf15fb4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,94 +79,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jake Labelle <southampton.jake.labelle@gmail.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit de7f49c12566cc5c7437a2f26c6c754b9d4d5648 ]
+[ Upstream commit f61e1cf15fb44f9cf89d43d8ef01f926322bb1c4 ]
 
-nilfs_readdir() uses ctx->pos, which userspace can set to an arbitrary
-value via llseek, as an offset into the directory folio and parses
-whatever bytes sit there as a directory entry.  A position pointing
-into the middle of an entry -- or at unused bytes of a corrupted image
-that the page validator never inspected -- makes dir_emit() copy up to
-255 (name_len) bytes from a bogus entry, possibly reading past the end
-of the folio and returning unrelated memory contents to userspace.
+hugetlb_fault() resolves the uffd bit on a write fault only if the VMA is
+registered for userfaultfd write protection, and hugetlb_wp() bails out
+for any entry with the uffd bit set assuming hugetlb_fault() has already
+resolved it.
 
-Snap unaligned positions onto a valid entry boundary by walking the
-rec_len chain from the chunk start before parsing, as ext2 does in
-ext2_validate_entry().
+When a read-only hugetlb entry with the uffd bit set is mapped in a VMA
+that is not registered for uffd-wp, a write fault to it never makes
+progress. If the access comes from the kernel, e.g. read(2) from
+/dev/zero into such page, the task spins in the page fault handler,
+ignores SIGKILL and keeps holding the locks taken by the system call.
 
-[ryusuke: fixed offset wrap-around in nilfs_validate_entry() and
- conformed AI tag to guidelines]
+Such entries should not exist, but an unprivileged user can create them,
+for example with MADV_DONTNEED of a page protected with UFFDIO_RWPROTECT
+or with UFFDIO_COPY in MODE_WP racing with UFFDIO_UNREGISTER.
 
-Fixes: 2ba466d74ed7 ("nilfs2: directory entry operations")
-Assisted-by: Claude:claude-mythos-5
-Signed-off-by: Jake Labelle <southampton.jake.labelle@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-[ sashal: adjusted helper insertion context to follow nilfs_set_de_type() instead of nilfs_next_entry() ]
+Clear the uffd bit when the VMA is not registered for uffd-wp and let the
+fault proceed to hugetlb_wp(), like do_wp_page() does for regular pages.
+
+Note that a FOLL_FORCE write to a page protected with UFFDIO_RWPROTECT in
+a private VMA that was made PROT_NONE now drops the RWP protection of
+that page.
+
+Original fix generated by an LLM and sent in private by Josef.
+
+[rppt@kernel.org: massage commit message]
+[david@kernel.org: convert comment into a TODO]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-6-42796911043b@kernel.org
+Fixes: 60d5b473d61b ("mm/hugetlb: fix uffd wr-protection for CoW optimization path")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Chris Mason <mason@kernel.org>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Adam Litke <agl@us.ibm.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: retained the older huge_pte_uffd_wp() and huge_pte_clear_uffd_wp() helper names. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nilfs2/dir.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ mm/hugetlb.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/fs/nilfs2/dir.c b/fs/nilfs2/dir.c
-index 0f3753af16741..0c68db4e4bd53 100644
---- a/fs/nilfs2/dir.c
-+++ b/fs/nilfs2/dir.c
-@@ -265,11 +265,27 @@ static void nilfs_set_de_type(struct nilfs_dir_entry *de, struct inode *inode)
- 	de->file_type = nilfs_type_by_mode[(mode & S_IFMT)>>S_SHIFT];
- }
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index bf1188e9b1c9b..4057a25f3803b 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -6846,15 +6846,19 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
+ 		goto out_ptl;
  
-+static inline unsigned int
-+nilfs_validate_entry(char *base, unsigned int offset, unsigned int mask)
-+{
-+	struct nilfs_dir_entry *de = (struct nilfs_dir_entry *)(base + offset);
-+	struct nilfs_dir_entry *p =
-+		(struct nilfs_dir_entry *)(base + (offset & mask));
-+
-+	while ((char *)p < (char *)de) {
-+		if (p->rec_len == 0)
-+			break;
-+		p = nilfs_next_entry(p);
-+	}
-+	return (char *)p - base;
-+}
-+
- static int nilfs_readdir(struct file *file, struct dir_context *ctx)
- {
- 	loff_t pos = ctx->pos;
- 	struct inode *inode = file_inode(file);
- 	struct super_block *sb = inode->i_sb;
-+	unsigned int chunk_size = nilfs_chunk_size(inode);
- 	unsigned int offset = pos & ~PAGE_MASK;
- 	unsigned long n = pos >> PAGE_SHIFT;
- 	unsigned long npages = dir_pages(inode);
-@@ -288,6 +304,24 @@ static int nilfs_readdir(struct file *file, struct dir_context *ctx)
- 			ctx->pos += PAGE_SIZE - offset;
- 			return -EIO;
+ 	/* Handle userfault-wp first, before trying to lock more pages */
+-	if (userfaultfd_wp(vma) && huge_pte_uffd_wp(huge_ptep_get(mm, vmf.address, vmf.pte)) &&
++	if (huge_pte_uffd_wp(huge_ptep_get(mm, vmf.address, vmf.pte)) &&
+ 	    (flags & FAULT_FLAG_WRITE) && !huge_pte_write(vmf.orig_pte)) {
+-		if (!userfaultfd_wp_async(vma)) {
++		if (userfaultfd_wp(vma) && !userfaultfd_wp_async(vma)) {
+ 			spin_unlock(vmf.ptl);
+ 			hugetlb_vma_unlock_read(vma);
+ 			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+ 			return handle_userfault(&vmf, VM_UFFD_WP);
  		}
+ 
 +		/*
-+		 * ctx->pos comes from userspace via llseek and may point
-+		 * into the middle of an entry -- or at unvalidated bytes
-+		 * of a crafted image. offset is only nonzero here on the
-+		 * very first iteration (subsequent pages always start at
-+		 * offset 0, which -- like any chunk boundary -- is always
-+		 * a legitimate entry start, since no rec_len chain crosses
-+		 * a chunk boundary). Snap a non-chunk-aligned offset onto
-+		 * a real entry boundary by walking the chain from the
-+		 * enclosing chunk's start, as ext2 does; otherwise
-+		 * dir_emit() copies name_len bytes from a fake entry,
-+		 * reading past the end of the folio.
++		 * TODO: fix all cases where uffd PTE bits remain in VMAs that
++		 * are no longer registered with uffd.
 +		 */
-+		if (offset & (chunk_size - 1)) {
-+			offset = nilfs_validate_entry(kaddr, offset,
-+					~(chunk_size - 1));
-+			ctx->pos = ((loff_t)n << PAGE_SHIFT) + offset;
-+		}
- 		de = (struct nilfs_dir_entry *)(kaddr + offset);
- 		limit = kaddr + nilfs_last_byte(inode, n) -
- 			NILFS_DIR_REC_LEN(1);
+ 		vmf.orig_pte = huge_pte_clear_uffd_wp(vmf.orig_pte);
+ 		set_huge_pte_at(mm, vmf.address, vmf.pte, vmf.orig_pte,
+ 				huge_page_size(hstate_vma(vma)));
 -- 
 2.53.0
 
