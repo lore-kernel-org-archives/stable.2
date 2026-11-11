@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794417119;
-	b=EJU8wwfNVHWrzj5UkgpT0qzJWNdfUC8z1kXDdV9U7GMF/pLR5Kl2YHk26j4ccWCsiVYR
-	 LtMepkZdLkzpmCAgq7kDqoLYkTTmkGy71r27tJ+mQJD+iTCKY2zzfj3CF7Q3YLLu7Dsnn
-	 Wh59z8pCxkh3TybQlQBqZv5Ep7na8SBkfeQ54vakctN74q37yzxaBLabRNBNlM74svgoL
-	 WBGGc30wl4lSZOf9KoplA1J1561QPGlYjjT0jli5bOsPgAJBsdyAhRrd1sjYT/C5sZvbb
-	 Xuw+taq7YOKM+txotG9zKTmdjvuqPFgZfhTFdaC9HPlqvcnZrbYUs1VBksH2GdIikUQ==
+	t=1794417120;
+	b=Hy0V7PsLFSuXN8/Z4HvrmWgOfovNiZjRwBblOEcb24+AYlQ0sIV3DErSnga3Au/hCe6I
+	 NpJLSFPHaa0veqSmrE6IOdWZvJBfdx932nBiGX+Fh5tzNsJM37NoC7Qxw4jDmqJ+cOhiQ
+	 SGzlepHI6tlA9W6WSfohMONneu18EHrvztZSZAtcaULVVVPiHA85vDyxFR+H2xiZcZmfX
+	 sXV5fWsFCz8IyN8mh3TLoUMHkydGi5tptn/NICL3IJMD1tJivxP55n9KhPZV/uX6mkuK7
+	 m6Sg6DAu9JZNCECwcJiiwwkESiydvk5Nvj4yS3lD/5hz8FNEpTc4eSECjyefBjRVUmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794417119;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794417120;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Bg/Kgc6L7imsGE/8F9XOk762txfGaoS9sODIJYRJBdA=;
-	b=S504Ork9AROvQhw2MQo9opgnyeeeGBtXYG3hz0G2O/wUXc192X2rsxtuOaxeZ2KgmFYb
-	 Dk7fRhSLn/Cg102tmIB/KKx5fTKkd287J/vhyAj+QA+iTlYA+CTWSVKS4VVt7pH6sJ5Dk
-	 mh2LEGHOhyvUu/2HMjpYro4eBkneKPJJlJfc1wW4c8iejUu8z3UlSRpsQHfdilFkeCsxL
-	 l4qZjHvzjR/VQ9PH9T3ge6JiL8SW+MGyrmbCBHmEn7RcYAHUIqtieZfrkJnvOiWIgS/KS
-	 uZJVVUwAIKhEPheCVSfu1s5nS8z7zT0oR6CJw//7MfpUFuK0E+l7nuEy4oxiEmMFAPg==
+	bh=ns0mK7GB2aUiMzbKbDOEOFNZvgJgjycCEjFF6FmprIU=;
+	b=KIz/OMznzfesHII/MtIDFMWESPthcJV/T8sgeiLQ6xQ4M4/TwwPR7/18fO3MfWhxGGjC
+	 +7mDF/pduNIWferXMVTO6YEidjF6DBfpzch0rNsyx7k+NTZ/UgM+YgX7oBufUe/xuapVY
+	 Y28CO36i+0j2K8uxbfj4gsZxNMoHz5AJa/CRsOR9SRXfgH0wd9uk/CbMWkii5s7zFNhZf
+	 VdCFwIPpO8Ko1gKN+C1UhTDb2H2AqelSHApR9RN5QtDe/ZAlupdWpAktFevYXr7Tg8ifX
+	 TRw5RHNo6w5zAZlxHgvfsAgoaXB52plrmD3uk6wT8/PlXb58eko4v6KSPIp5PSBGU3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJiTE9sX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABaa9qnK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0891F606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A6D606A335
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:11:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SJiTE9sX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD1E1F00A07;
-	Wed, 11 Nov 2026 17:11:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABaa9qnK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24F641F00A08;
+	Wed, 11 Nov 2026 17:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794417118;
-	bh=Bg/Kgc6L7imsGE/8F9XOk762txfGaoS9sODIJYRJBdA=;
+	s=k20260515; t=1794417119;
+	bh=ns0mK7GB2aUiMzbKbDOEOFNZvgJgjycCEjFF6FmprIU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SJiTE9sX+pMLVivnxHKn83Zr4H/hzXLa5YfSBHSWEC2IYKHWTVesKKIIjsed4CGcH
-	 LvhokFJqDO5TPBPLlGF6soWHDLwPXbBYcHZbFLqRdEUSjyhZ+seJaFiSTQPJ+5QdNS
-	 /aw8RojtdnioDwYRbZXAzNAKegBrVMPnudftuBo5HVnqzi+A8g1gwArE4HTlxjF72w
-	 Eb0UPJeKLlaUcWYTVzWenG2L1auyHhdygIA+zDsrwPNeg4FAfbqphdwQHDFNRPmkjp
-	 wh2EFpdyh9e5NXYsU9m6Z1mkt3O2TzwklqLVVsPqYhdVclHEiNX5zIAxGfTwkh237u
-	 U49rzzYXZqcEg==
+	b=ABaa9qnKIzfRkg4Gk6Z8CV5dhOU5+cZOo6G8EULsPm244QEQDq+Z4/lB8UEhhwCwv
+	 ZF7pNliekpczVRdmrHbFzANeNPXdntGz6TLlnmpAOU6KQCTKWmGsHXzf4EgFt7+uZ4
+	 scn/P/d1rKza2UAk/L8La0E2Nemm1wKmduvyXmZn+cA2eo2lZ0FHRawzKocq1jZjGP
+	 hMrKwlbhBFLVzMdL1vTaP/cIH45s8H9rOP4jbcstiKjbMfl1vbdVVL2x4PQ05MYKIN
+	 RZ5nZlLAVBqgFmUgpI+t1AjR4hUIWCXP7QVor8MaKwxH7UfAW3QNPe0NWauShp6y58
+	 Lp9ce56CtmjsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -46,9 +46,9 @@ Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Jerome Brunet <jbrunet@baylibre.com>,
 	Brian Masney <bmasney@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/4] dt-bindings: clock: ma35d1: Drop CLK_MAX_IDX define
-Date: Wed, 11 Nov 2026 12:11:54 -0500
-Message-ID: <20261111171146.3480409-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/4] dt-bindings: clock: ma35d1: Add missing WDT/WWDT parent clocks
+Date: Wed, 11 Nov 2026 12:11:55 -0500
+Message-ID: <20261111171146.3480409-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111171146.3480409-1-sashal@kernel.org>
 References: <20261107051509-failed-6.18-1dc3871ce7ec@kernel.org>
@@ -66,31 +66,34 @@ Content-Transfer-Encoding: 8bit
 
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 
-[ Upstream commit 653738db38c7c7f0fb959a7870f9461cf4987825 ]
+[ Upstream commit 8c7453cb0b01bee47ec2f902a9ac1872d3b77f3d ]
 
-Drop CLK_MAX_IDX define of MA35D1 include. This is not a binding and
-should not be placed here. Value is defined in the user driver.
+The WDT and WWDT muxes have PCLK3/4096 and PCLK4/4096 among their
+possible parents, but these fixed factor clocks are currently not
+defined, even though they are needed to properly describe the clock
+tree. Add them to the bindings.
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-3-48937ee6c9bb@bootlin.com
+Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-4-48937ee6c9bb@bootlin.com
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 Stable-dep-of: 1dc3871ce7ec ("clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 1 -
- 1 file changed, 1 deletion(-)
+ include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-index ba2d70f776a6d..2d6a44a7e55c4 100644
+index 2d6a44a7e55c4..764d837d6162a 100644
 --- a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
 +++ b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-@@ -248,6 +248,5 @@
+@@ -248,5 +248,7 @@
  #define ADC_GATE	233
  #define EADC_DIV	234
  #define EADC_GATE	235
--#define	CLK_MAX_IDX	236
++#define PCLK3_DIV4096	236
++#define PCLK4_DIV4096	237
  
  #endif /* __DT_BINDINGS_CLOCK_NUVOTON_MA35D1_CLK_H */
 -- 
