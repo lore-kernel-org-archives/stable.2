@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794382933;
-	b=rRDdWP8MjL7qn9ggiXyZ6Q2+hrd7s/gnzxfJbsB+o3Ff7iia14InTpMthsJEKGrn8Mhw
-	 ++jNrByVcRMzC+/AawwNRXW2h+E20zG1JG/ty3VL9ju+eZKa92Q/cwpynNwf2aTrrMOIf
-	 nvVnFk5cE9ljwTF8B+F31x9eO4xYkfPVLNFbAs2U6cOzoOzwUXFdN8y5naquXDVEGPByb
-	 cGVBxGFgUBLlKupVQqdFP0ViB9OyWJlnC/Vj55JP9Fci93mLmxM+9oR+DL9/CGEckIZW6
-	 Lpp8OTA1zyn727c+/V7I4/T5EVDxEJR5QD0DRZgx+7PGPMb7sE8BFY7usi4n5+9Wz+w==
+	t=1794382996;
+	b=aALR++MvXOCUZl4mw7dV8caZHcz6M52bKN8hoPX4hMv1ThsNRoWcuZFi41rf4egU/KRW
+	 NmBfE7P8cz/OLWYcBaO8aqtSqC7823AwVn7SEW7D+gTSthHG0+9hble0Vl0/iwVjdzTXs
+	 sZzC5JE74Id+Sk4nrRrNNHsHzVWLfd/Xnpt3/hqYrVxkxLn4DyLFq0ERuSw/1fw3ie8dH
+	 uoNSveHrA69DEYWBTi+kvAW9hiVKIMARa2t8AZs8U1gZJaMUsb4fNR69HZYvk4pVMIMg2
+	 EkuYBpkwmfYnoTk6dz6VVR8gtJ8ktahJo/jg2+hewYuO+YuwKovNHXV/KG/UUZQxORQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794382933;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=173yMYYw7ZcLxgKiy0jg0nsIJyUryKORRWD5GlUnhak=;
-	b=iyV4eB7wyACrgU9FFQvZfBVy0Zos/jrXFS+U5Q7LRWDp5jCwJzQCgy3tmoEPd2mIIHB1
-	 jyV/Lngudt3Ht4+91IPrp/H6oHhkFvIlkA0rd5lRkq0qJitGDIVhds3FAhXPg1Ng/4eBI
-	 l/huMfkudhOKeVL6xiyqiNwE66EEWKr8rEuHjDJfru5EGJ4ZDA3GzQdS+LCEGDadcVndV
-	 ddCIXRETduhcX9Vb+cLaeFjAenMT4eyjvJekJDbPo3CBtQHa5S+Vkjl0MA+/4ORibSWis
-	 urUk6yHzmXYmkCgboV66FNaYOfRSX5Ypt1lFA+L1RMWsWVDAqM/2Z3foSCLqM0Tv28A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794382996;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=EfxdzkdgDHIptdiFFicHU4j+CsK16rJHdQjUlG9Ac2o=;
+	b=hAThczqMtw5WX6/iqH0eFKDCOz0eKpe9R1LEjP4VXoWS+l57ckS5+jHALeELiKpXQnaB
+	 y/ASQDDqZUbSk35kNIIKnfB/dWHYgS2MTiCQ8YVeCgnPZIQLx72kFL2efplerCA/ukZSh
+	 o763TmLV4AZZi2F6V+86bhHarUojkiBDhfLqio4FROOJixkoNVvpfGMUImkOV9MBcSpur
+	 o/fU4ml4BN7EPhMxpVrzVNx4VUviNA/5Gfd0lQt5r79kkXWRFKZ7+JEawJjJQ/q0w04ie
+	 cn/T/nTkv8/+LNvqUcrlQ0e7GOGbkRG6Oh3rU3CHZKyA6BiCWch5QhU2ex6AkNhanUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZrKPgrKE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kcr8dbbk;
+	arc=none smtp.remote-ip=91.218.175.233
+Received: from mta0.migadu.com (out-233.mta0.migadu.com [91.218.175.233])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50194606A31C;
-	Wed, 11 Nov 2026 07:42:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB8C606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:43:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACB8C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZrKPgrKE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB16B1F00A05;
-	Wed, 11 Nov 2026 07:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794382933;
-	bh=173yMYYw7ZcLxgKiy0jg0nsIJyUryKORRWD5GlUnhak=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZrKPgrKEYhJ3yrT5CDmjH+84XqAPuC8dBR6n+o7uRVewZeDxtBU2esNhdUhlKZDGE
-	 5/OF8Zp10h+LNC4wePwc242X5r0kA9voZ5MGuPjjE5dVW3bbYyojijX+SXp25q5yz7
-	 pterk5xVQD/sj/5wJ8ps8IK2ZzriKEki/mJ5baXKQLA0xGsjApnODfEKbZLLYvQOzN
-	 +HjL8O3rKTiiWnl5jF5TLaKxnviMquCws9mMONye0NSZABK80mzBQnPuPWKNps/mzh
-	 InlthapJu41kW/sIjVNzmijcKciWkTZ/IObbE2c61U2ZW++XL25Arq/TAlS9Yu5PsE
-	 eDcz2l1F79syw==
-Message-ID: <0a971398-35d6-457c-81b4-0fd706da12b8@kernel.org>
-Date: Wed, 11 Nov 2026 08:42:06 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kcr8dbbk
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2ou7idqYN0vwf8nRLylpa5vOfvnrhR/VXDNnnd6BgTQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794382992; v=1; x=1794987792;
+ b=Kcr8dbbk8h+TSq+Yyw2YDIeSvwq6yLwpn8tc9FoowpR6nJsm66vFNZV0q63S6RgLxmroBChc
+ WecxsGdtXIm0yDJpOcwWcwvoeDE1fmBqgl2/rqwDO3dDRbmCq7NHYAHz0g9Pc24beyB4ykRUhPD
+ IYs1LeyW5IqEBhh54uHO5AjM=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 12f4ebcce8353a82;
+	Wed, 11 Nov 2026 07:43:12 +0000
+X-Mizu-Trace-ID: 12f4ebcce8353a82
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,81 +57,156 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
 Subject: Re: [PATCH v4 2/3] mm: gup: allow long-term pins of CMA-allocated
  HugeTLB folios
-To: Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev, osalvador@suse.de,
- akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <503c9f6d869e3206c6fd591de962c3d619b73825.1794379433.git.zhengqi.arch@bytedance.com>
+Date: Wed, 11 Nov 2026 15:42:56 +0800
+Cc: osalvador@suse.de,
+ David Hildenbrand <david@kernel.org>,
+ akpm@linux-foundation.org,
+ azpijr@gmail.com,
+ Lance Yang <lance.yang@linux.dev>,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <80FED512-77D2-4D49-BAE5-745CE1F711CA@linux.dev>
 References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
  <503c9f6d869e3206c6fd591de962c3d619b73825.1794379433.git.zhengqi.arch@bytedance.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <503c9f6d869e3206c6fd591de962c3d619b73825.1794379433.git.zhengqi.arch@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Qi Zheng <qi.zheng@linux.dev>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-On 11/11/26 07:46, Qi Zheng wrote:
+
+
+> On Nov 11, 2026, at 14:46, Qi Zheng <qi.zheng@linux.dev> wrote:
+>=20
 > From: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
+>=20
 > Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
 > unpinnable, causing unnecessary migration or pinning failures.
-> 
+>=20
 > These folios already own their CMA bitmap ranges, and memory blocks
+
+Commit message needs updating to bitmap as well.
+
 > overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
 > HPG_cma to be pinned directly, including in ZONE_MOVABLE.
+>=20
+> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic =
+hugepages using cma")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Muchun Song <muchun.song@linux.dev>
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> ---
+> include/linux/mm.h | 29 +----------------------------
+> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+> 2 files changed, 32 insertions(+), 28 deletions(-)
+>=20
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index b0da9be413098..47d1d96bfc7fd 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2954,35 +2954,8 @@ static inline bool is_zero_folio(const struct =
+folio *folio)
+> 	return is_zero_page(&folio->page);
+> }
+>=20
+> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+> #ifdef CONFIG_MIGRATION
+> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
 
-You should really describe here what this patch does (move stuff) and why, and
-document why you decided to add more hugetlb hacks to core-MM that I absolutely
-hate.
+I think David prefer to move this function first, then fix it in a =
+separate patch,
+right?
 
--- 
-Cheers,
+Thanks,
+Muchun
 
-David
+> -{
+> -#ifdef CONFIG_CMA
+> -	int mt =3D folio_migratetype(folio);
+> -
+> -	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
+> -		return false;
+> -#endif
+> -	/* The zero page can be "pinned" but gets special handling. */
+> -	if (is_zero_folio(folio))
+> -		return true;
+> -
+> -	/* Coherent device memory must always allow eviction. */
+> -	if (folio_is_device_coherent(folio))
+> -		return false;
+> -
+> -	/*
+> -	 * Filesystems can only tolerate transient delays to truncate =
+and
+> -	 * hole-punch operations
+> -	 */
+> -	if (folio_is_fsdax(folio))
+> -		return false;
+> -
+> -	/* Otherwise, non-movable zone folios can be pinned. */
+> -	return !folio_is_zone_movable(folio);
+> -
+> -}
+> +bool folio_is_longterm_pinnable(struct folio *folio);
+> #else
+> static inline bool folio_is_longterm_pinnable(struct folio *folio)
+> {
+> diff --git a/mm/gup.c b/mm/gup.c
+> index ebbfee09b7278..fdafc5a1b78ed 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -2219,6 +2219,37 @@ struct page *get_dump_page(unsigned long addr, =
+int *locked)
+>=20
+> #ifdef CONFIG_MIGRATION
+>=20
+> +bool folio_is_longterm_pinnable(struct folio *folio)
+> +{
+> +#ifdef CONFIG_CMA
+> +	int mt =3D folio_migratetype(folio);
+> +
+> +	/* These HugeTLB folios own the CMA memory, so they can be =
+long-term pinned. */
+> +	if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
+> +		return true;
+> +
+> +	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
+> +		return false;
+> +#endif
+> +	/* The zero page can be "pinned" but gets special handling. */
+> +	if (is_zero_folio(folio))
+> +		return true;
+> +
+> +	/* Coherent device memory must always allow eviction. */
+> +	if (folio_is_device_coherent(folio))
+> +		return false;
+> +
+> +	/*
+> +	 * Filesystems can only tolerate transient delays to truncate =
+and
+> +	 * hole-punch operations
+> +	 */
+> +	if (folio_is_fsdax(folio))
+> +		return false;
+> +
+> +	/* Otherwise, non-movable zone folios can be pinned. */
+> +	return !folio_is_zone_movable(folio);
+> +}
+> +
+> /*
+>  * An array of either pages or folios ("pofs"). Although it may seem =
+tempting to
+>  * avoid this complication, by simply interpreting a list of folios as =
+a list of
+> --=20
+> 2.54.0
+>=20
+
