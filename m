@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368952;
-	b=SfAxxIl3PmWom3eRa0qQJmeltq0hp1IQQeaZkfc9jemL27D6EwR5OPAI362+6ku5NlF5
-	 K1t9uPZkMhqkXH/vDhzMI21AcLi318G8nHT9alxyuXwETpfXsejfSEJ/++Pj9ECUHB1Hc
-	 W6TLoFJE0eYPxqDgU/tnYPm/IDcQU1nZ+oxdHy6wNh88Ym0366aNcFF99p5iik+ZiV7o3
-	 /Rj2/lZBDqtNLZxyOpMwqWJlTjKc517ZGKQSocEiGGcvOPakzPiO2DPi2HU2yr1PnpV4J
-	 zK5GwHHpjR1Fm/pHeASGThj2KxK70mXcBb1/qSVb/Ne4G/r2YNWrYxr+Cr8poAr50Yw==
+	t=1794368988;
+	b=zd/JRni84aaTwtbIJb8UCw82qaln00yNISJNWTmCypIpDv5zp+4tyunG6QbKOrRVTueV
+	 OD2t8yXhDA1zYpu995iIxfHNiaSIzxlV+wllurbZlcQCKrKf/WS2yOhtfgIOal3tTBvNs
+	 1IimrHgvMOieBhxA9rfM0KWEnLqICZhfKimT2WsCYCOMqGt1o64ycqwATBkSOonN51gZF
+	 D2nhDJ8hxTJCzeWc4w3TB81kjuVZoKRzQmHwpQFjmYgxKNxHNH+jnOs/7DyOGTNdAtkCE
+	 SV3n2sozWAkW2luYhezH9D8BsVTubWTRqXKcNGnn9JcM+V8seCbhQt80onWTBDO+e+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368952;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368988;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kcktSizCxUm5xQbaY/IYJXaASp5uHmYXxLYf6zbUP50=;
-	b=M/WCiIXJkgz0QHdhi9uYdd1cOt9ZXb6ia1VKNcdLuyBNV/Sw21ahJouQ+OzsCuhFebTr
-	 YM7VCtwpL2XtojezMsXujbMU+QbgQpWl8D7tY6BCZgsEuNeXj1PcRfSCtfQPXcg7niCiO
-	 CiN2MN5EZjAIDbNE8I6iX94zdEV/I9yMva00MbNeXYqbN1oVpMK191ES2nqkPWIo5vUkI
-	 g5XnpM+1iRvscD8cSgCA3jHjKqYqPAMVh5slsQ8BZXnHiHGqhQVuP9GUiJMubvarfTNDb
-	 fGGebDQf2ipBl2IoPQnJxbNbPqlSjGmaPEr/oLVYxMoVliuqzNzNyqtvssagt5ywN9g==
+	bh=D+2EikDpmjQ4AIRNGUuT3f19AeL4z3WPj0WO/xd62Zc=;
+	b=hU+UJNrnXiS8YVgnGlKf6C1Jlh44trdR2UOHwu+XeimvGnAP0NTGD7Q0hq4511FzEpJ2
+	 ZaBzWt38nYFDmFW1BbmqR10mMj5ZO9fTYDRhUEzxO5zbYnCYnmYOqp6KRzkIUEiGaUIvl
+	 aDisMGZ0512Fos9CIiIZxACp0u12W/wj50pUBxcZ9FdMzkV+7Fp049DloNgfquQQtuI5u
+	 DFEwXK2CU1nIn+KHA/RY2O3Bm9C1N3auv+nC5HOKSdQG20zMzp7hZIwFuppOObmGdeHaP
+	 lC6Wax1/tf4UqHiwZImrvlur0icV1ivIqVoRinBlQtzdq0CvJc6ZpGlGjxMkGVG4tlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4yZIWSm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jqVyJt70;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B421606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:49:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FDA606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:49:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4yZIWSm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430291F0089F;
-	Wed, 11 Nov 2026 03:49:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jqVyJt70
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942B71F0089F;
+	Wed, 11 Nov 2026 03:49:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794368951;
-	bh=kcktSizCxUm5xQbaY/IYJXaASp5uHmYXxLYf6zbUP50=;
+	s=k20260515; t=1794368988;
+	bh=D+2EikDpmjQ4AIRNGUuT3f19AeL4z3WPj0WO/xd62Zc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C4yZIWSmcan/wTxNgyxDU7AihoKVWG0gAVbCu2xJhhdzQp/LlhHwk+OAUxy8hE+FG
-	 dAVnmXG/104Y0gr/cHknp3sOGK5TKuaRaT0XT07yDbil0JoPaHOYtjzVnN/p0rQ+xz
-	 GA/nU2SSyoBdMZYduYsvaeQ4fZnTyddRZYBfgkrzNs7VU4Zy/DYz+MJ/ctIvE3OXPK
-	 +0GoWGrluhQ6x5Oz6TXUOo4dP1nnwB+0EBw/toHGDpJoNzVMqm7hIhOpljfM/5O5Wh
-	 2Na+Afw7LW4JcMoLLtSyH7lrXkHpHOfj1x45/y3Pv6jFEiL9EymA/gOT5DrFfMwBOZ
-	 a+SIid9BCSGUQ==
+	b=jqVyJt709vo3MFzCENaMTSg/bcIf/Dr1W8JbwEEmt2EMWRp1WtFkoa/RxbUYirMct
+	 7iM05bXlo+b7NPnqEQbRdCFGl28VjD0VNOqeYvU0KHLvV1no8lO0vlgrBub4elzD3l
+	 uyG7N2bKNqqi52gMYwdVoc+juXFb+E9wAtb8da/D5t98tzETLaMhUokvgG0cQF95wU
+	 e5Yg/TKlsQVT38l8fADUHb++w5mIRM4VG1McUmMKnHGtQqQkia/uqNDr8qmhSgKKln
+	 phFwmNh0B2jRvBBt6keF2qMbo66IYEb7qW06u9lC6jUc5ovCplA+pceaiBEOjfOtcT
+	 Ijy+5pIA0KQ3g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Niklas Cassel <cassel@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ata: libata: Do not leave ata_host_stop() registered when activation fails
-Date: Tue, 10 Nov 2026 22:49:10 -0500
-Message-ID: <20261111033904.839948-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] media: qcom: camss: Move vfe_disable into a common routine where applicable
+Date: Tue, 10 Nov 2026 22:49:44 -0500
+Message-ID: <20261111034941.1012493-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052921-failed-6.6-d2f977008cbb@kernel.org>
-References: <20261107052921-failed-6.6-d2f977008cbb@kernel.org>
+In-Reply-To: <20261107054314-failed-6.1-e5d4b0e69a40@kernel.org>
+References: <20261107054314-failed-6.1-e5d4b0e69a40@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,278 +62,231 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Niklas Cassel <cassel@kernel.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-[ Upstream commit d2f977008cbbae195df678ee1e70e5802f9bd0b8 ]
+[ Upstream commit 90cc4555730bfd0fc6af5c8a5a81d80bfce4cff7 ]
 
-ata_host_start() registers ata_host_stop() as a devres action as soon as
-it has succeeded, which hands the release of the host resources over to
-devres: ->port_stop() and ->host_stop() are then called by the driver
-core when probe() fails.
+We can move vfe_disable() into a common routine in the core VFE file
+provided we make wm_stop() a VFE specific callback.
 
-ata_host_activate() and ahci_host_activate_multi_irqs() can both fail
-after ata_host_start() has succeeded, e.g. if devm_request_irq() or
-ata_host_register() fails, and they return the error with the devres
-action still registered. A driver which releases the host resources in
-its probe() error path therefore releases them twice: once itself and
-once through ->host_stop().
+The callback is required to capture the case where VFE 17x currently isn't
+VC enabled where as VFE 480 is.
 
-All ahci-platform drivers are in that situation, e.g. ahci_probe() calls
-ahci_platform_disable_resources() while ahci_host_stop() does the same
-through devres. This gives refcount underflow warnings from the clk,
-regulator and phy cores and, for shared resources, can disable resources
-which are still in use by other devices.
-
-Add ata_host_undo_start(), which stops the ports and drops the devres
-action without calling ->host_stop(), and call it from both activation
-helpers when they fail. Releasing the host resources on failure is then
-always left to the caller, which is what all callers having a probe()
-error path already assume.
-
-This changes the semantics for the drivers which implement ->host_stop()
-while also completely lacking error handling for the activate host call.
-Add activate host error handling for sata_qstor and sata_fsl. For
-sata_fsl this also means that hcr_base and host_priv are now released
-when activating the host fails, which ->host_stop() did not do when
-ata_host_start() itself failed.
-
-Note that ata_pci_sff_activate_host() is deliberately left as is: none of
-its callers releases the host resources in its probe() error path, they
-all rely on ->host_stop() being called by devres, including
-ata_pci_init_one(), which releases the devres group of the host itself.
-
-Fixes: 1896b15eddb4 ("ahci_platform: perform platform exit in host_stop() hook")
-Cc: stable@vger.kernel.org
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20260915084127.692494-13-cassel@kernel.org
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Stable-dep-of: e5d4b0e69a40 ("media: qcom: camss: vfe: Fix VFE reset while another line is streaming")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Depends on <20261110141601.1834083-1-sashal@kernel.org>
+ .../media/platform/qcom/camss/camss-vfe-170.c | 40 +------------------
+ .../media/platform/qcom/camss/camss-vfe-480.c | 40 +------------------
+ drivers/media/platform/qcom/camss/camss-vfe.c | 39 ++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.h |  9 +++++
+ 4 files changed, 50 insertions(+), 78 deletions(-)
 
- drivers/ata/libahci.c          |  2 +
- drivers/ata/libahci_platform.c |  4 ++
- drivers/ata/libata-core.c      | 75 +++++++++++++++++++++++++++++++---
- drivers/ata/libata-sff.c       |  5 +++
- drivers/ata/sata_fsl.c         |  6 ++-
- drivers/ata/sata_qstor.c       |  8 +++-
- include/linux/libata.h         |  1 +
- 7 files changed, 91 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index d18876c6052ae..fc809d6e1bc38 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2761,6 +2761,8 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
- 			      host->ports[i]);
- 	}
- 
-+	ata_host_undo_start(host);
-+
- 	return rc;
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-170.c b/drivers/media/platform/qcom/camss/camss-vfe-170.c
+index a6625aa050b66..47049a1fe5787 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-170.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-170.c
+@@ -492,22 +492,6 @@ static int vfe_enable_output(struct vfe_line *line)
+ 	return 0;
  }
  
-diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
-index 7308d48cf748b..7703c22ef532d 100644
---- a/drivers/ata/libahci_platform.c
-+++ b/drivers/ata/libahci_platform.c
-@@ -692,6 +692,10 @@ EXPORT_SYMBOL_GPL(ahci_platform_get_resources);
-  * ahci-platform host, note any necessary resources (ie clks, phys, etc.)
-  * must be initialized / enabled before calling this.
-  *
-+ * On failure, ->host_stop() is not called, so the caller has to release the
-+ * resources it enabled (clocks, regulators, resets, PHYs) in its probe()
-+ * error path.
-+ *
-  * RETURNS:
-  * 0 on success otherwise a negative error code
-  */
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index 97f07d7b3ce76..b2c78c3adf367 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -5921,6 +5921,46 @@ int ata_host_start(struct ata_host *host)
+-static void vfe_disable_output(struct vfe_line *line)
+-{
+-	struct vfe_device *vfe = to_vfe(line);
+-	struct vfe_output *output = &line->output;
+-	unsigned long flags;
+-	unsigned int i;
+-
+-	spin_lock_irqsave(&vfe->output_lock, flags);
+-	for (i = 0; i < output->wm_num; i++)
+-		vfe_wm_stop(vfe, output->wm_idx[i]);
+-	output->gen2.active_num = 0;
+-	spin_unlock_irqrestore(&vfe->output_lock, flags);
+-
+-	vfe_reset(vfe);
+-}
+-
+ /*
+  * vfe_enable - Enable streaming on VFE line
+  * @line: VFE line
+@@ -553,29 +537,6 @@ static int vfe_enable(struct vfe_line *line)
+ 	return ret;
  }
- EXPORT_SYMBOL_GPL(ata_host_start);
  
-+/**
-+ *	ata_host_undo_start - undo ata_host_start()
-+ *	@host: ATA host to undo_start
-+ *
-+ *	Stop the ports of @host and drop the devres action registered by
-+ *	ata_host_start(), without calling ->host_stop().  Nothing is done if
-+ *	@host has not been started.
-+ *
-+ *	This gives the release of the host resources back to the caller, which
-+ *	is what a driver whose probe() error path releases those resources
-+ *	itself needs when starting or activating the host fails.
-+ *
-+ *	LOCKING:
-+ *	Inherited from calling layer (may sleep).
-+ */
-+void ata_host_undo_start(struct ata_host *host)
+-/*
+- * vfe_disable - Disable streaming on VFE line
+- * @line: VFE line
+- *
+- * Return 0 on success or a negative error code otherwise
+- */
+-static int vfe_disable(struct vfe_line *line)
+-{
+-	struct vfe_device *vfe = to_vfe(line);
+-
+-	vfe_disable_output(line);
+-
+-	vfe_put_output(line);
+-
+-	mutex_lock(&vfe->stream_lock);
+-
+-	vfe->stream_count--;
+-
+-	mutex_unlock(&vfe->stream_lock);
+-
+-	return 0;
+-}
+-
+ /*
+  * vfe_isr_sof - Process start of frame interrupt
+  * @vfe: VFE Device
+@@ -770,4 +731,5 @@ const struct vfe_hw_ops vfe_ops_170 = {
+ 	.vfe_enable = vfe_enable,
+ 	.vfe_halt = vfe_halt,
+ 	.violation_read = vfe_violation_read,
++	.vfe_wm_stop = vfe_wm_stop,
+ };
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-480.c b/drivers/media/platform/qcom/camss/camss-vfe-480.c
+index fa818517ab0da..784013a4e035d 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-480.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-480.c
+@@ -329,22 +329,6 @@ static int vfe_enable_output(struct vfe_line *line)
+ 	return 0;
+ }
+ 
+-static void vfe_disable_output(struct vfe_line *line)
+-{
+-	struct vfe_device *vfe = to_vfe(line);
+-	struct vfe_output *output = &line->output;
+-	unsigned long flags;
+-	unsigned int i;
+-
+-	spin_lock_irqsave(&vfe->output_lock, flags);
+-	for (i = 0; i < output->wm_num; i++)
+-		vfe_wm_stop(vfe, output->wm_idx[i]);
+-	output->gen2.active_num = 0;
+-	spin_unlock_irqrestore(&vfe->output_lock, flags);
+-
+-	vfe_reset(vfe);
+-}
+-
+ /*
+  * vfe_enable - Enable streaming on VFE line
+  * @line: VFE line
+@@ -392,29 +376,6 @@ static int vfe_enable(struct vfe_line *line)
+ 	return ret;
+ }
+ 
+-/*
+- * vfe_disable - Disable streaming on VFE line
+- * @line: VFE line
+- *
+- * Return 0 on success or a negative error code otherwise
+- */
+-static int vfe_disable(struct vfe_line *line)
+-{
+-	struct vfe_device *vfe = to_vfe(line);
+-
+-	vfe_disable_output(line);
+-
+-	vfe_put_output(line);
+-
+-	mutex_lock(&vfe->stream_lock);
+-
+-	vfe->stream_count--;
+-
+-	mutex_unlock(&vfe->stream_lock);
+-
+-	return 0;
+-}
+-
+ /*
+  * vfe_isr_reg_update - Process reg update interrupt
+  * @vfe: VFE Device
+@@ -584,4 +545,5 @@ const struct vfe_hw_ops vfe_ops_480 = {
+ 	.vfe_disable = vfe_disable,
+ 	.vfe_enable = vfe_enable,
+ 	.vfe_halt = vfe_halt,
++	.vfe_wm_stop = vfe_wm_stop,
+ };
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index ee4d7dccefe16..3597788cc02fd 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -407,6 +407,45 @@ int vfe_put_output(struct vfe_line *line)
+ 	return 0;
+ }
+ 
++static int vfe_disable_output(struct vfe_line *line)
 +{
-+	int i;
++	struct vfe_device *vfe = to_vfe(line);
++	struct vfe_output *output = &line->output;
++	unsigned long flags;
++	unsigned int i;
 +
-+	if (!(host->flags & ATA_HOST_STARTED))
-+		return;
++	spin_lock_irqsave(&vfe->output_lock, flags);
++	for (i = 0; i < output->wm_num; i++)
++		vfe->ops->vfe_wm_stop(vfe, output->wm_idx[i]);
++	output->gen2.active_num = 0;
++	spin_unlock_irqrestore(&vfe->output_lock, flags);
 +
-+	for (i = 0; i < host->n_ports; i++) {
-+		struct ata_port *ap = host->ports[i];
-+
-+		if (ap->ops->port_stop)
-+			ap->ops->port_stop(ap);
-+	}
-+
-+	/*
-+	 * Drop the action added by ata_host_start() without calling it.
-+	 * It does not exist if neither ->port_stop() nor ->host_stop() is
-+	 * implemented, in which case there is nothing to drop.
-+	 */
-+	devres_destroy(host->dev, ata_host_stop, NULL, NULL);
-+
-+	host->flags &= ~ATA_HOST_STARTED;
++	return vfe_reset(vfe);
 +}
-+EXPORT_SYMBOL_GPL(ata_host_undo_start);
 +
- /**
-  *	ata_host_init - Initialize a host struct for sas (ipr, libsas)
-  *	@host:	host to initialize
-@@ -5993,6 +6033,12 @@ static void async_port_probe(void *data, async_cookie_t cookie)
-  *	starts ports, registers @host with ATA and SCSI layers and
-  *	probe registered devices.
-  *
-+ *	On failure, the host remains started, i.e. the devres action
-+ *	registered by ata_host_start() is kept, so ->host_stop() is called by
-+ *	the driver core when probe() fails.  A caller which releases the host
-+ *	resources in its own probe() error path must therefore call
-+ *	ata_host_undo_start().
++/*
++ * vfe_disable - Disable streaming on VFE line
++ * @line: VFE line
 + *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-@@ -6099,6 +6145,10 @@ EXPORT_SYMBOL_GPL(ata_host_register);
-  *	have set polling mode on the port. In this case, @irq_handler
-  *	should be NULL.
-  *
-+ *	On failure, the ports are stopped again and the devres action
-+ *	registered by ata_host_start() is dropped without calling
-+ *	->host_stop(), so releasing the host resources is left to the caller.
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-@@ -6119,27 +6169,40 @@ int ata_host_activate(struct ata_host *host, int irq,
- 	/* Special case for polling mode */
- 	if (!irq) {
- 		WARN_ON(irq_handler);
--		return ata_host_register(host, sht);
-+		rc = ata_host_register(host, sht);
-+		if (rc)
-+			goto undo_start;
++ * Return 0 on success or a negative error code otherwise
++ */
++int vfe_disable(struct vfe_line *line)
++{
++	struct vfe_device *vfe = to_vfe(line);
 +
-+		return 0;
- 	}
- 
- 	irq_desc = devm_kasprintf(host->dev, GFP_KERNEL, "%s[%s]",
- 				  dev_driver_string(host->dev),
- 				  dev_name(host->dev));
--	if (!irq_desc)
--		return -ENOMEM;
-+	if (!irq_desc) {
-+		rc = -ENOMEM;
-+		goto undo_start;
-+	}
- 
- 	rc = devm_request_irq(host->dev, irq, irq_handler, irq_flags,
- 			      irq_desc, host);
- 	if (rc)
--		return rc;
-+		goto undo_start;
- 
- 	for (i = 0; i < host->n_ports; i++)
- 		ata_port_desc_misc(host->ports[i], irq);
- 
- 	rc = ata_host_register(host, sht);
--	/* if failed, just free the IRQ and leave ports alone */
--	if (rc)
-+	if (rc) {
-+		/* Free the IRQ, so that the handler can no longer run */
- 		devm_free_irq(host->dev, irq, host);
-+		goto undo_start;
-+	}
++	vfe_disable_output(line);
++
++	vfe_put_output(line);
++
++	mutex_lock(&vfe->stream_lock);
++
++	vfe->stream_count--;
++
++	mutex_unlock(&vfe->stream_lock);
 +
 +	return 0;
++}
 +
-+undo_start:
-+	ata_host_undo_start(host);
+ /**
+  * vfe_isr_comp_done() - Process composite image done interrupt
+  * @vfe: VFE Device
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index cbc314c4e244b..e8dad209207f1 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -116,6 +116,7 @@ struct vfe_hw_ops {
+ 	int (*vfe_enable)(struct vfe_line *line);
+ 	int (*vfe_halt)(struct vfe_device *vfe);
+ 	void (*violation_read)(struct vfe_device *vfe);
++	void (*vfe_wm_stop)(struct vfe_device *vfe, u8 wm);
+ };
  
- 	return rc;
- }
-diff --git a/drivers/ata/libata-sff.c b/drivers/ata/libata-sff.c
-index ab4bd43bd2cbd..b013a1b25d116 100644
---- a/drivers/ata/libata-sff.c
-+++ b/drivers/ata/libata-sff.c
-@@ -2265,6 +2265,11 @@ EXPORT_SYMBOL_GPL(ata_pci_sff_prepare_host);
-  *	hosts.  This separate helper is necessary because SFF hosts
-  *	use two separate interrupts in legacy mode.
-  *
-+ *	Note that, unlike ata_host_activate(), the devres action registered
-+ *	by ata_host_start() is kept on failure, i.e. ->host_stop() is called
-+ *	by the driver core when probe() fails.  All callers of this function
-+ *	rely on that, none of them releases the host resources itself.
+ struct vfe_isr_ops {
+@@ -194,6 +195,14 @@ int vfe_reserve_wm(struct vfe_device *vfe, enum vfe_line_id line_id);
+  */
+ int vfe_reset(struct vfe_device *vfe);
+ 
++/*
++ * vfe_disable - Disable streaming on VFE line
++ * @line: VFE line
 + *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-diff --git a/drivers/ata/sata_fsl.c b/drivers/ata/sata_fsl.c
-index 3865cfb3c2e8f..c64c9d99cd6c2 100644
---- a/drivers/ata/sata_fsl.c
-+++ b/drivers/ata/sata_fsl.c
-@@ -1489,8 +1489,10 @@ static int sata_fsl_probe(struct platform_device *ofdev)
- 	 * device discovery process, invoking our port_start() handler &
- 	 * error_handler() to execute a dummy Softreset EH session
- 	 */
--	ata_host_activate(host, irq, sata_fsl_interrupt, SATA_FSL_IRQ_FLAG,
--			  &sata_fsl_sht);
-+	retval = ata_host_activate(host, irq, sata_fsl_interrupt,
-+				   SATA_FSL_IRQ_FLAG, &sata_fsl_sht);
-+	if (retval)
-+		goto error_exit_with_cleanup;
- 
- 	host_priv->intr_coalescing.show = fsl_sata_intr_coalescing_show;
- 	host_priv->intr_coalescing.store = fsl_sata_intr_coalescing_store;
-diff --git a/drivers/ata/sata_qstor.c b/drivers/ata/sata_qstor.c
-index 8a62861590441..90289560e7cd8 100644
---- a/drivers/ata/sata_qstor.c
-+++ b/drivers/ata/sata_qstor.c
-@@ -584,8 +584,12 @@ static int qs_ata_init_one(struct pci_dev *pdev,
- 	qs_host_init(host, board_idx);
- 
- 	pci_set_master(pdev);
--	return ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
--				 &qs_ata_sht);
-+	rc = ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
-+			       &qs_ata_sht);
-+	if (rc)
-+		qs_host_stop(host);
++ * Return 0 on success or a negative error code otherwise
++ */
++int vfe_disable(struct vfe_line *line);
 +
-+	return rc;
- }
- 
- module_pci_driver(qs_ata_pci_driver);
-diff --git a/include/linux/libata.h b/include/linux/libata.h
-index eb9646b959fbc..89f629f2f00d7 100644
---- a/include/linux/libata.h
-+++ b/include/linux/libata.h
-@@ -1075,6 +1075,7 @@ extern struct ata_host *ata_host_alloc_pinfo(struct device *dev,
- extern void ata_host_get(struct ata_host *host);
- extern void ata_host_put(struct ata_host *host);
- extern int ata_host_start(struct ata_host *host);
-+void ata_host_undo_start(struct ata_host *host);
- extern int ata_host_register(struct ata_host *host,
- 			     const struct scsi_host_template *sht);
- extern int ata_host_activate(struct ata_host *host, int irq,
+ extern const struct vfe_hw_ops vfe_ops_4_1;
+ extern const struct vfe_hw_ops vfe_ops_4_7;
+ extern const struct vfe_hw_ops vfe_ops_4_8;
 -- 
 2.53.0
 
