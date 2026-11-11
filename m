@@ -1,73 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794374512;
-	b=dOhwSDgLKA55W56Bfk7KFHlFjINHu4pPJ9L8lhkvfbX5XZdOE8IsO6RnjK3h/S9lA3BC
-	 DIEK8gZ/h+JvtiuJ+JcjRPi0u23xu82btB7eVrRxR14xmcAhF66abCgwpWlO6qfzwUZvs
-	 VMPRg14tr0uGJOI4HY5joZ9eAxMx2uFTNWXH40VaCRLFt0BFTX1UCMFYmPxo+PDDXLFR7
-	 0huM7piBXZGUYZeKuL+S4WnqHsPtMTe5kDg3PLj02uqEoVEl4/2qlRyTSkgMawWPDDcw1
-	 3d0LFkUWdU6j68j/1lCFADC7vcSVPMlHEwEmjiUOzOktoJbowqEue6RrYBYo5Bt+sTg==
+	t=1794374656;
+	b=e9+mM3+iCH/lS7Lz5WcS6kPPc8KdkC2BYEsf2M82JYLBx0bsQM/+9IzeaLf6TwnPjJcy
+	 19JNx8ZZMb5Fix8QwM0AOA6w9KIIp2LKJ1haXk0SDdhNuxOMC9HTaOA0HZPk1p4MfAG2q
+	 oe5Sgcc2LY1TFWSDR/Vr2Ke8MOJzDF/Hj9Bi4lfxljdMGobwnSYmY3DWlnr5alGPAt0wD
+	 qS/dm5pkUJ7mvsjL1m5KrGtvDJovnoqhN+CAUJmfeGzGExhg50GxIp1mNNEwFdpVkAjFA
+	 lCsMu+erl57YTKEoLjYae+BAu0SQL1PKRjrBZ8v92jGB0/FDt+4XeuymaxtuTM7SJng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794374512;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=bxBhehEVB7GhBTyrxNNIZW3iu/okUMlI0I+39Z3+sLw=;
-	b=Tt6plAwfUmJoRKXpuFgxEJWqxRBh6Gh4TtgidUMZuGVkRLCLX3AqrGuTIvTl0cvZDyAf
-	 fE/k1v24EPOaDx5fc4ZkJl7qR7g/lN4Mja+lvZ9Qq1JIPnKxmClhB5e8hgW9DkjXVTRIF
-	 KPrNwLh+y5dfUyoOUhkRXrieWBFUHrr4t85I1tqYR6Ikc5+7pX2mYMfAIjyxHT7ignBUK
-	 8fw6r+8GoWdSl2RoVuxruzLSrdxYKXPcBLUu0I2enLD/a2md7+BbuC1kKAKR34ROdGGgR
-	 ov6szGSNkSjRQr0O3J4KpJJBjyrk8LwiWzWpzo/VehN4tCpwgTJW97rrkxpa6uKArmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794374656;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6Jc00mKnanZ3da5hH0+I7mHHJ98tVQwcJ/Pa5x9OdDg=;
+	b=QOYnoMPjMcctvvWfNCHj2sUPO24pBx5/Wr+XC+0aOhShF/LjZRdFmLPU5ZYvZXjywlVY
+	 unCTiru5fcQxRvLkRTTVuNW+KIqZYuSk2pLObUyk1l6KTp92TyeqnYv3snhQED8heAtE/
+	 t3edjEmLhGDJR+8+Odpv2Nv4CKb0W1lggJBhozfFIsEByAaV6JphhoU6ra+AofgqklTwc
+	 n3ZsOX30uWqDMfU5BaXj/0ISmpo7+QE8dOCfllQm6c3svVo8DKwa7KNACC8vLqwQtk4xT
+	 AIGkb/0T15pGb1wIqa7hOucBFpYgMSRAXJ9ng/PR0N/nkmYgQKcBql2dCV4Ttmd3vWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pJSV5dg+;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q3/EB3qW";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0D0606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F0D0606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548AA606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:24:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pJSV5dg+
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ea71803effso28110855ad.3
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:21:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794374512; x=1794979312; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bxBhehEVB7GhBTyrxNNIZW3iu/okUMlI0I+39Z3+sLw=;
-        b=pJSV5dg+mhaD50UdQfyywMAVAMQnMO1VJCg6UT42ganiTChwGMg2OKV3fXKN+oE8nd
-         ZRlSOknDfevWqRUm8Byc7sESdXB4FhGqANthVSegZigbVRWaaNvdpXCnCFEjVSIy9u56
-         AGaVtUGd9ifS0n6d8y9R9EB3nCTNdhM8EbUKxOtX4Z0voc1TM1sfkM3J4tTnyAAHgodF
-         FuyjvRxBvj/0eOGRUyPyDMxHORSJr/KE3A9sZNNP3WKqhNYJL3DQltraYvEKaOPx2aHj
-         M+golgNEpemm2Y+KzaN1VZl1wGc+Fjqq4aW8yPC91a5IUzMPp6eSCRsAqiO2a6hf5l/U
-         ro6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794374512; x=1794979312;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bxBhehEVB7GhBTyrxNNIZW3iu/okUMlI0I+39Z3+sLw=;
-        b=YctGamROhFNtH5/YXTc2Dl9+Fo6V16BL6PhVokfmVniP4Qq/6G62GlIflbTlNkia78
-         amlBgawmBpiG5hbQnXBZxVLuxhFJVoCwf+9gguiU+2/+Kx5L1RcEaQHFOw6CcCp62Epx
-         sZ3n14YP150FMN4CG5tut3peu09v3tSOQhMB1i0N5JB9lCfR7Q9H/YN+pG68E9ewJmUG
-         ohjf04I/qnvUk5mJ/piF/aPagQJ3WOcA7UhauQK7U/qcK505Fz1t03fLZa/7l294GKfR
-         5DwpKeHqFxhQmIliPrixafG0/O/ccz8Ha5beCjrDljXij/o6Ax1v02SQCg5fJHZx8qKQ
-         2d1Q==
-X-Gm-Message-State: APuU4Z+SBCl4O9cY96wOoXnTKfyYE4xczk7Wm+vNECz9yaUCGtkN4U4/
-	S0Nb0MmGPvdlHF2/TVLJ1x5qBpoHMpfBToFo/fnp+Vu7xRhFgMFxqOly5/TLrgpy91DSoXjXvxF
-	Af0ZTtw==
-X-Received: from plrq9.prod.google.com ([2002:a17:902:b109:b0:2ed:b80d:bc91])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2ecb:b0:2e3:1bb4:6121
- with SMTP id d9443c01a7336-2edd7bf156bmr15084625ad.49.1794374511503; Tue, 10
- Nov 2026 21:21:51 -0800 (PST)
-Date: Wed, 11 Nov 2026 05:21:51 +0000
-In-Reply-To: <2026-11-09-1-daily-reply-0039-af-unix-oob-5.15@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q3/EB3qW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E731F0089F;
+	Wed, 11 Nov 2026 05:24:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794374656;
+	bh=6Jc00mKnanZ3da5hH0+I7mHHJ98tVQwcJ/Pa5x9OdDg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Q3/EB3qWNiV0ixYe3Ohy6vPM7gMHV+x2SlTbChQjQln1SMV8QUXrLClDhTMWbYhwb
+	 sdmgbV0DUBa+SmADDzFI62NC2b3Ll0ZN0qiyafHl40/kn3cYsLekYKAs1C3ZYCDSJz
+	 FS/zP9Nx406NuS+pqBsX+womA4J3y/hrKPvLQZC/NLyvdU4RMrudJn6qtmKWaCXECu
+	 2cposb1ZAApJv8Koz3BztwUkQ4Yq8LUF8TTDkGmdK8UFaXdhW58nvGPH1sRoNaC3fL
+	 GDwFjOeE3THdnkTEcqQM8fQaZNo7MAJO4XI2GJsps74UUVA41bGOAVJ0gwQGGbA/H1
+	 Y5VcGkigd/c0A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] LoongArch: Fix one-shot limitation for perf hardware breakpoints
+Date: Wed, 11 Nov 2026 00:24:14 -0500
+Message-ID: <20261111052102.1273416-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054010-failed-6.6-5e0b00fd000a@kernel.org>
+References: <20261107054010-failed-6.6-5e0b00fd000a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,26 +58,271 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <179418529889.10436.12048717656065553331@auth.ink> <2026-11-09-1-daily-reply-0039-af-unix-oob-5.15@kernel.org>
-Message-ID: <avP62mmu06rM5gaj@google.com>
-Subject: Re: [PATCH v2 5.15.y] af_unix: Clear oob_skb in scan_inflight()
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, lee@kernel.org, netdev@vger.kernel.org, 
-	rodrigo.zaiden@canonical.com, Tamir Awad <tamir@auth.ink>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 09 Nov 2026 10:53:21 -0500, Sasha Levin wrote:
-> > af_unix: Clear oob_skb in scan_inflight()
-> 
-> This v2 applies cleanly to 5.15 and looks right to me, but it is a stable-only
-> fix to the old GC with no mainline equivalent, so I would like an Acked-by
-> before queueing it.
-> 
-> Kuniyuki, could you ack v2?
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
 
-Code-wise, looks good.
+[ Upstream commit 5e0b00fd000a53a5428fed6c96be74019bd0ad17 ]
 
-Not sure why the changelog was not used as is and some useful
-info was dropped.
+In breakpoint_handler() and watchpoint_handler(), the code disables the
+hardware slot by executing update_bp_registers(regs, 0, ...). This design
+forces the active hardware breakpoint configuration to be wiped out upon
+its first hit, turning standard perf hardware breakpoints into "one-shot"
+events.
+
+Furthermore, while the ptrace single-step path in do_watch() executes a
+hardware single-step skip mechanism to advance the PC, the standard perf
+path lacks any mechanism to bypass the original triggering instruction.
+
+To maintain the long-term persistence of hardware breakpoints for perf
+usage, eliminate the disruptive calls to update_bp_registers() within
+the handler loops to keep the breakpoint configuration enabled.
+
+Concurrently, execute a single, unified register write outside the loop
+to atomize the state transition and explicitly enforce the hardware skip
+mechanism once per exception return, ensuring the processor safely steps
+forward without lockups.
+
+Meanwhile, in order to prevent status contamination during single-core
+context switches or cross-core thread migrations, the hardware register
+skip state of the previous thread is saved first. Then, the skip state
+is restored and its software skip flag is also cleared only if the next
+thread has the skip flag; otherwise, 0 is written to clear the FWPS and
+MWPS registers, which explicitly clears the skip bit according to the
+architectural specification.
+
+Additionally, explicitly clear hbp_break_skip and hbp_watch_skip inside
+ptrace_hw_copy_thread() which is called by copy_thread() during the task
+creation. This guarantees that a newly cloned child task starts with a
+clean slate.
+
+Here is a user-space reproducer to demonstrate the issue.
+
+(1) Test program (test_perf_continuous.c):
+
+  #include <stdio.h>
+  #include <unistd.h>
+  #include <sys/syscall.h>
+  #include <sys/ioctl.h>
+  #include <linux/perf_event.h>
+  #include <linux/hw_breakpoint.h>
+
+  static int var = 0;
+
+  int main(void)
+  {
+  	size_t count = 0;
+  	struct perf_event_attr attr = {
+  		.type = PERF_TYPE_BREAKPOINT,
+  		.size = sizeof(attr),
+  		.bp_type = HW_BREAKPOINT_W,
+  		.bp_addr = (unsigned long)&var,
+  		.bp_len = HW_BREAKPOINT_LEN_1,
+  		.exclude_kernel = 1,
+  	};
+
+  	int fd = syscall(__NR_perf_event_open, &attr, 0, -1, -1, 0);
+  	ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
+
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(11) : "memory");
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(22) : "memory");
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(33) : "memory");
+
+  	ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
+  	read(fd, &count, sizeof(size_t));
+
+  	printf("Watchpoint counts: expected = 3, actual = %zu\n", count);
+
+  	close(fd);
+  	return 0;
+  }
+
+(2) Test steps:
+
+  $ gcc test_perf_continuous.c -o test_perf_continuous
+  $ ./test_perf_continuous
+
+(3) Test results:
+
+Without this patch:
+
+  Watchpoint counts: expected = 3, actual = 1
+
+With this patch:
+
+  Watchpoint counts: expected = 3, actual = 3
+
+Cc: stable@vger.kernel.org
+Fixes: 3eb2a8b23598 ("LoongArch: Fix multiple hardware watchpoint issues")
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+[ sashal: adjusted switch_to() context for the existing __switch_to() call that passes task_thread_info(next) ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/loongarch/include/asm/hw_breakpoint.h |  4 +--
+ arch/loongarch/include/asm/loongarch.h     |  3 ++
+ arch/loongarch/include/asm/processor.h     |  1 +
+ arch/loongarch/include/asm/switch_to.h     |  2 +-
+ arch/loongarch/kernel/hw_breakpoint.c      | 39 +++++++++++++++++++---
+ 5 files changed, 41 insertions(+), 8 deletions(-)
+
+diff --git a/arch/loongarch/include/asm/hw_breakpoint.h b/arch/loongarch/include/asm/hw_breakpoint.h
+index d202052df8a16..f4478936787d6 100644
+--- a/arch/loongarch/include/asm/hw_breakpoint.h
++++ b/arch/loongarch/include/asm/hw_breakpoint.h
+@@ -121,12 +121,12 @@ bool watchpoint_handler(struct pt_regs *regs);
+ 
+ #ifdef CONFIG_HAVE_HW_BREAKPOINT
+ extern void ptrace_hw_copy_thread(struct task_struct *task);
+-extern void hw_breakpoint_thread_switch(struct task_struct *next);
++extern void hw_breakpoint_thread_switch(struct task_struct *prev, struct task_struct *next);
+ #else
+ static inline void ptrace_hw_copy_thread(struct task_struct *task)
+ {
+ }
+-static inline void hw_breakpoint_thread_switch(struct task_struct *next)
++static inline void hw_breakpoint_thread_switch(struct task_struct *prev, struct task_struct *next)
+ {
+ }
+ #endif
+diff --git a/arch/loongarch/include/asm/loongarch.h b/arch/loongarch/include/asm/loongarch.h
+index e0072b0e28652..546034c5c2fc1 100644
+--- a/arch/loongarch/include/asm/loongarch.h
++++ b/arch/loongarch/include/asm/loongarch.h
+@@ -1046,6 +1046,9 @@
+ #define CSR_FWPS_SKIP_SHIFT		16
+ #define CSR_FWPS_SKIP			(_ULCAST_(1) << CSR_FWPS_SKIP_SHIFT)
+ 
++#define CSR_MWPS_SKIP_SHIFT		16
++#define CSR_MWPS_SKIP			(_ULCAST_(1) << CSR_MWPS_SKIP_SHIFT)
++
+ /*
+  * CSR_ECFG IM
+  */
+diff --git a/arch/loongarch/include/asm/processor.h b/arch/loongarch/include/asm/processor.h
+index c3bc44b5f5b30..81af48cbee7b9 100644
+--- a/arch/loongarch/include/asm/processor.h
++++ b/arch/loongarch/include/asm/processor.h
+@@ -138,6 +138,7 @@ struct thread_struct {
+ 	struct loongarch_lbt lbt; /* Also conditionally copied */
+ 
+ 	/* Hardware breakpoints pinned to this task. */
++	bool hbp_break_skip, hbp_watch_skip;
+ 	struct perf_event *hbp_break[LOONGARCH_MAX_BRP];
+ 	struct perf_event *hbp_watch[LOONGARCH_MAX_WRP];
+ };
+diff --git a/arch/loongarch/include/asm/switch_to.h b/arch/loongarch/include/asm/switch_to.h
+index 5b225aff3ba21..3b662b18e19a6 100644
+--- a/arch/loongarch/include/asm/switch_to.h
++++ b/arch/loongarch/include/asm/switch_to.h
+@@ -36,7 +36,7 @@ extern asmlinkage struct task_struct *__switch_to(struct task_struct *prev,
+ do {										\
+ 	lose_fpu_inatomic(1, prev);						\
+ 	lose_lbt_inatomic(1, prev);						\
+-	hw_breakpoint_thread_switch(next);					\
++	hw_breakpoint_thread_switch(prev, next);				\
+ 	(last) = __switch_to(prev, next, task_thread_info(next),		\
+ 		 __builtin_return_address(0), __builtin_frame_address(0));	\
+ } while (0)
+diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kernel/hw_breakpoint.c
+index 1a05350159f7b..df149ff06dd50 100644
+--- a/arch/loongarch/kernel/hw_breakpoint.c
++++ b/arch/loongarch/kernel/hw_breakpoint.c
+@@ -156,6 +156,9 @@ static int hw_breakpoint_slot_setup(struct perf_event **slots, int max_slots,
+ 
+ void ptrace_hw_copy_thread(struct task_struct *tsk)
+ {
++	tsk->thread.hbp_break_skip = 0;
++	tsk->thread.hbp_watch_skip = 0;
++
+ 	memset(tsk->thread.hbp_break, 0, sizeof(tsk->thread.hbp_break));
+ 	memset(tsk->thread.hbp_watch, 0, sizeof(tsk->thread.hbp_watch));
+ }
+@@ -485,6 +488,7 @@ NOKPROBE_SYMBOL(update_bp_registers);
+ bool breakpoint_handler(struct pt_regs *regs)
+ {
+ 	int i;
++	unsigned int clear_mask = 0;
+ 	bool need_sigtrap = false;
+ 	struct perf_event *bp, **slots;
+ 
+@@ -500,11 +504,13 @@ bool breakpoint_handler(struct pt_regs *regs)
+ 			if (bp->attr.sigtrap)
+ 				need_sigtrap = true;
+ 
+-			csr_write32(0x1 << i, LOONGARCH_CSR_FWPS);
+-			update_bp_registers(regs, 0, 0);
++			clear_mask |= (0x1 << i);
+ 		}
+ 	}
+ 
++	if (clear_mask)
++		csr_write32(clear_mask | CSR_FWPS_SKIP, LOONGARCH_CSR_FWPS);
++
+ 	return need_sigtrap;
+ }
+ NOKPROBE_SYMBOL(breakpoint_handler);
+@@ -512,6 +518,7 @@ NOKPROBE_SYMBOL(breakpoint_handler);
+ bool watchpoint_handler(struct pt_regs *regs)
+ {
+ 	int i;
++	unsigned int clear_mask = 0;
+ 	bool need_sigtrap = false;
+ 	struct perf_event *wp, **slots;
+ 
+@@ -527,11 +534,13 @@ bool watchpoint_handler(struct pt_regs *regs)
+ 			if (wp->attr.sigtrap)
+ 				need_sigtrap = true;
+ 
+-			csr_write32(0x1 << i, LOONGARCH_CSR_MWPS);
+-			update_bp_registers(regs, 0, 1);
++			clear_mask |= (0x1 << i);
+ 		}
+ 	}
+ 
++	if (clear_mask)
++		csr_write32(clear_mask | CSR_MWPS_SKIP, LOONGARCH_CSR_MWPS);
++
+ 	return need_sigtrap;
+ }
+ NOKPROBE_SYMBOL(watchpoint_handler);
+@@ -555,7 +564,7 @@ static int __init arch_hw_breakpoint_init(void)
+ }
+ arch_initcall(arch_hw_breakpoint_init);
+ 
+-void hw_breakpoint_thread_switch(struct task_struct *next)
++void hw_breakpoint_thread_switch(struct task_struct *prev, struct task_struct *next)
+ {
+ 	u64 addr, mask;
+ 	struct pt_regs *regs = task_pt_regs(next);
+@@ -567,6 +576,26 @@ void hw_breakpoint_thread_switch(struct task_struct *next)
+ 			csr_write32(CSR_FWPS_SKIP, LOONGARCH_CSR_FWPS);
+ 		regs->csr_prmd |= CSR_PRMD_PWE;
+ 	} else {
++		unsigned int fwps = csr_read32(LOONGARCH_CSR_FWPS);
++		unsigned int mwps = csr_read32(LOONGARCH_CSR_MWPS);
++
++		prev->thread.hbp_break_skip = !!(fwps & CSR_FWPS_SKIP);
++		prev->thread.hbp_watch_skip = !!(mwps & CSR_MWPS_SKIP);
++
++		if (!next->thread.hbp_break_skip)
++			csr_write32(0, LOONGARCH_CSR_FWPS);
++		else {
++			csr_write32(CSR_FWPS_SKIP, LOONGARCH_CSR_FWPS);
++			next->thread.hbp_break_skip = 0;
++		}
++
++		if (!next->thread.hbp_watch_skip)
++			csr_write32(0, LOONGARCH_CSR_MWPS);
++		else {
++			csr_write32(CSR_MWPS_SKIP, LOONGARCH_CSR_MWPS);
++			next->thread.hbp_watch_skip = 0;
++		}
++
+ 		/* Update breakpoints */
+ 		update_bp_registers(regs, 1, 0);
+ 		/* Update watchpoints */
+-- 
+2.53.0
+
