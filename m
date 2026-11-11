@@ -1,72 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413200;
-	b=h9JFRvbsKGsuarzlfoveV0w1yz6zPXcA4PzeNSNbKOpo/UrtRwrQeDj9Ww9BJVZssNjR
-	 qd28I2Ddd16N+kezigVOKm2BYy6gA7Tfy/OwseUUa2/biu3XwK1saUDEfzyOqT7St8YGW
-	 XfDLC/Lnx3wGsWBFpRXCF0rYXPXorS3X47IlNzvVe4/qXPy2wfMRTI8N0mxUhfpja6Grb
-	 rACn4P9qY1hFrN9kOBufSES5D5wqUr9kV7+w26cGo9U2LtZbvNgGs28hq/81lKAujl8WJ
-	 PRLCjtkcZpbuiW6ktXc9ZMNBsH0z3Td3tEYj0oLYGCWI2p3ni+xPRi+GYDttJQ669ug==
+	t=1794413220;
+	b=KzE32GOEoTel5e/sWqrH/fnxVlNV1PYZ34SDES5nwacGOoWguikqlTHv4Mgoz9SoSMFx
+	 GmC1siKwgC5lWKr1enin65+0/t8+fT5omm6DD5LOyXbAAIlGvuk4vZDWWBRyBflQIHObU
+	 6186OPVPf95i0y/OzJi7lRWIfpyAzWliQgDoaFRA6/zCZGANa+Kp0m5+cbvEJlGHgsrXY
+	 kYMGig9vzFXvm3ZAK04IsnGaOxJmEPy4vOzr6XICNsX8krwaZKwqy0ok7Z0G3YinxPu+a
+	 saXtQIAqMibaz0Zq9Iw9bDLIuXFSskm2gmDVC0UjTB3PGuLxry7mNL3pXSEuznVj7Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413220;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Zwnj5luvWXI+zz4DC9yFt+NfwoUiaj5sZIrQqKOOYdI=;
-	b=CBO6VFaV6PxLw/my5Ec/uErlGZTSYvTf/ET5QBF+LEFC9Y4TThAnvDMtNw5Y8a+S2EhV
-	 RS7PVB1ZLYa2ID6+jbVmSEqbqJoj6fHYF4kKKtXfnDtnjnGu6z0hxZqVB8LNakJ8jTfbJ
-	 BporXkTA2rODDwra2aRY34dbsZChn5EoGzRyTVT+zca6DPLpVjCtQJz0JwcJTq8s5oWgu
-	 4MGj8nuYXzA0HGuvv+1ARqufMmJIvjWa22l35G9ESQXZ7Hp8UDYAO4/2nO64YbAv9FIfm
-	 /yJhK+WER9IF2O4y3hTrGu59iliLMm4ZNx35Geoqtwk7FYd9oB2mKiJoEtbru+5kpzA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9BSVf0nHP4/mhP9EqbQcCZ9FFbpmkiKR53pnCEDo/p4=;
+	b=Js9097gQS/ZCY3D2QMwj+01qpRAXnt/5SSAFh52heXZX8zQD4NliXE5BQX27tuSIJczq
+	 sZf1WxFKbpoGtFRKDbOE+qRgAKZRtcecPaOqsSNwbdMCuWzciYNukBACrC5ML6o/t4ph7
+	 ekOfJGsKRRmg4yz0BBJKDFnNgn/7mbi5KzUf4ad9DovNY4ZcS0RBCG0v9KV4IvT4inGhK
+	 eZ5cIMM+/u16im7v+3sGs9EyXmQSR3V5KpLEJ/P4El5haQ+39aq4fLCXCn7t5MQYuxPRO
+	 0+9Ps38hZqfIvbT+9lkMT0PehuZyD3kKBc7VD7A5maYUAm/XZcXlfks6gTZHv5Wuy1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PxbkSNeg;
-	arc=none smtp.remote-ip=209.85.221.69
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJR7GQih;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3500E606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:06:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3500E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6E0606A32E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:07:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D6E0606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PxbkSNeg
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4915ba023d4so2442657f8f.0
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:06:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zJR7GQih
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso25784965e9.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:07:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794413198; x=1795017998; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Zwnj5luvWXI+zz4DC9yFt+NfwoUiaj5sZIrQqKOOYdI=;
-        b=PxbkSNegdHa5QRH+K7DvMOloPelPQYAJmS+J789kpMcOnguhvxPgJjJh8+XdHOm8ZD
-         3Q6tcMLdmgJTA7Gs1eorYmURm0o4JNOAFRBMOWMya5xKrOAaEV+N58I4MRvjaeLxngTk
-         IDsKsqBp3jz8uqRNJ81SIPSj2UrfSMjjRv8VrjoHp67d0UqxLtinLPTJbN9B9XxQTQKX
-         ibuX6wXov+foqaRc/3spXZW+1Cz11kyZDRaAYsoz9duSX1OE/yGMOZiWN8NL8TqfC5LI
-         8aXqNr/VugfaZWuMObmWIF6RdlSyPF3ZM+H8cD/UJcXvuZmi4F8RSGMKarqw+Is8Dg6Q
-         ViCw==
+        d=gmail.com; s=20260707; t=1794413219; x=1795018019; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9BSVf0nHP4/mhP9EqbQcCZ9FFbpmkiKR53pnCEDo/p4=;
+        b=zJR7GQihQ73Z/nNA1UHEb+m3JMssWqtoH+69LxKJb236waKuGCqP1jBnY1+prralYt
+         wJa/5JZDK5rob/brOCQgzqOCU6cr02+AK7CJFdQL81167FXtD3kIwpTsuEufcDo5D/d9
+         I65c9oFzQR2YeQqMW0jhQNVQi7YHA2DAQwqo9QM5oPH7iGytXu9TJUKrPy3tCqXIKbnU
+         snYM/PYdpPht4CtPBRoQ82UMQzOwTcgMl6UYE5d+5TWC2XMpkZJGx3GaxDomNCNTm4QF
+         aorF8HkdMDqY9GuckAw0gkC7CknPK9+SzAQS3kPwzwFumMGWjJnTHPuqIOJj14CWx7k3
+         lN+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794413198; x=1795017998;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zwnj5luvWXI+zz4DC9yFt+NfwoUiaj5sZIrQqKOOYdI=;
-        b=VEPEYLV45qWbH0fiGeG9l977OOAV7UH7RU5JHxPc5zdQ1F4ETwW0DHXt3iV8aw0rWr
-         /V7s4tMAGbAO6gZnY3srrty788KtWMccMYDgEAidnuLVBYMFDmJYN9V2o+UkDhB1o/EJ
-         wzpeUVLFCkk7LHz8QujPJPsVGoJeENgoM4qi85X2e+n+hhjYeMqP6nYtKwugbaK5uyZX
-         8VnBGmCGrrZ8OE06RD8t50I0gSlK80DeOy+WtF1fDorLDXqGegr+0qMECxTXpBwt8eCW
-         jqS+PQePdYxeVCRQihSaNy70rz+Pz8t9bzUdiQYx2UnpiRl7B2l8ZcUc8n7pkSjzrSH6
-         S/yw==
-X-Forwarded-Encrypted: i=1; AL+hErFr4h87hf/DJAd8s2UglELVMJCaBsLqLg9JDG6HSWDLo16fJJGV8/DakRCUovmAmg2WyeFn6bM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/jMZE/lQEIaZ2umC4w6ZRPMS0/zUgNFMpwWMGCUWz2yEqozq31
-	LpHcfwUIbqXXzfHT5vVVS+qWy191W8gm0e2lwWvEdB7Drd3UDiRIuXn4AsO8Jgh/S7CAwITSuIx
-	AO1ZGPhk9ju/puuRwlW0SHg==
-X-Received: from wroj9.prod.google.com ([2002:adf:f009:0:b0:48d:ef24:b9a0])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a5d:5d0a:0:b0:493:c0a:5087 with SMTP id ffacd0b85a97d-499c75526fcmr6092201f8f.51.1794413198261;
- Wed, 11 Nov 2026 08:06:38 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:06:24 +0000
+        d=1e100.net; s=20260707; t=1794413219; x=1795018019;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9BSVf0nHP4/mhP9EqbQcCZ9FFbpmkiKR53pnCEDo/p4=;
+        b=TElWWMWBM1Y1AVVGXcCiMBIwu1j7m4lvj7CPZbfmZXfcyIBGd0mtni6HUYMk9kItP+
+         k+gtl6AHcdKNeH+n5E6XQ17tS9iVzNUH+FfXjfmSScSRolje8nsAwOEyduRIiYgxfZ5s
+         +M1hcFDK8h68uwDhD9zQeSey7YYBRp26fa9CV/+rVU9R/r4RYJHkMsk3URXsxOnDYX33
+         pVM2kwfUtDabw9IdtBPKAoDrfbS68600Zou3hSGsQKo7zmB7sDkBwkhQzvBsnXEBHxG7
+         fPvHFTXNBbcMmnbLCWCPnktLEzCf0WTFy/xj99kz+3q7rgxaWs9GNxN9AwBkfdQdfG1p
+         /h8A==
+X-Forwarded-Encrypted: i=1; AL+hErG9c7ga17L9mL/1BAw4XR87hwjGtXoiRM3FXAiLGKqjFMIxFAAB9UcLPzqAkatsPvZfP5kNs70=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8J8FQS69sWZeI7ylE50f+0NaSxjQOY+XTppuvDZQhjspKtFxdm
+	x1dxGj9i7tjeAIvku9FkpnDahXrKTAoPasL+VvbwvR5YbgXWzB96eCE=
+X-Gm-Gg: AYBFou2/bQ0ik15VetpUKc6Lw/l7vYrMnsoCIcd4bLbCuP64YD2sffoXi4SGQY90aSl
+	V9J7vP6k3DhnCtOE3rHnAp4Yd1IYoHme7TBQh/TOjRR2xtdB5I+zBBNHMjfQr6Oefq8XQU4JJgC
+	mAKBkm2rs1YWcFCuZN4Bn+F6lHAtpsD8m3wXVrwJq9chRJkAQZzPnvFBGOB1sQJN/asPtmRi0s2
+	XNYLsGECEbOCZxdubpCVExOYY9U4qttczOstKnnEqH1vuP02MDulIfCjVm146/VTRYUonfQA7Cw
+	lpjdpqbNcrYq0V14AcKpvp2Mv1GRET/lY/qVMmunQKyzdd92ijrZfT9aN2Mr9gSiJhUkNjr+imP
+	PCj7K4jlRXLecX8LnLImh6PUX9lhvliF+MlikH2Ne1iKySlS9ckRI/qb1aYA+/BpaeDde+1cAtu
+	V2P5jqu3tGKrq/TBxjUCPV5JENb1JrUN3o7nxwGWauzFwqLs7dswWj4bFfx1xs5k7Z9u/8MbrSM
+	tsKh/z5A/qMqBM5g1Z303NcVAp6sRo5I3kizq9IfQd2+hH6lzguYwDBlkKXv0JkyDWtaxD9tlR4
+	TJ3cvwdomAvuqRM=
+X-Received: by 2002:a05:600c:3e07:b0:4aa:1527:659 with SMTP id 5b1f17b1804b1-4ba0938369amr51998385e9.17.1794413218559;
+        Wed, 11 Nov 2026 08:06:58 -0800 (PST)
+Received: from localhost.localdomain ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4c57e999sm8350485e9.1.2026.11.11.08.06.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 08:06:57 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+	Paul Fertser <fercerpav@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] net/ncsi: use kfree_rcu_mightsleep for RCU-protected list entries
+Date: Wed, 11 Nov 2026 16:06:49 +0000
+Message-ID: <20261111160649.677910-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,158 +101,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261111160624.1294946-1-vdonnefort@google.com>
-Subject: [PATCH] ring-buffer: Let the reader spin on head page update
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>, 
-	Breno Leitao <leitao@debian.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-When a writer hits the head page, it needs to move it. The update
-happens in two steps: first it swaps the HEAD link for UPDATE and then
-swaps the following from NORMAL to HEAD. However, if a stale
-cpu_buffer->head_page sits past the UPDATE link, rb_set_head_page() will
-find HEAD directly and allow swapping.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-This is where things gets hairy. If a outer update is interrupted before
-setting HEAD, this nested writer finishes the update first. Another CPU
-running trace_pipe can swap that newly installed head page with its
-reader page. Now back to the outer writer. It resumes and tries to swap
-the following link from NORMAL to HEAD. It sees PAGE_MOVED which is
-fatal for the ring buffer.
+ncsi_remove_channel(), ncsi_remove_package(), and ncsi_unregister_dev()
+each call list_del_rcu() to remove an entry from an RCU-protected list,
+then immediately call kfree(). Concurrent RCU readers traversing the
+list may still hold references to the freed object.
 
-To prevent the race, mark the newly moved head links with HEAD_UPDATE
-(HEAD | UPDATE) and only convert the final link to PAGE_HEAD when the
-outer writer exists rb_handle_head_page(). This effectively keeps the
-reader spinning.
+A similar pattern was already fixed in the VLAN list, but these three
+sites were missed.
 
-Fixes: 77ae365eca89 ("ring-buffer: make lockless")
-Reported-by: Breno Leitao <leitao@debian.org>
-Closes: https://lore.kernel.org/all/20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org/
+Replace kfree() with kfree_rcu_mightsleep() to defer the free until
+after an RCU grace period.
+
+Fixes: 2d283bdd5b20 ("net/ncsi: Package and channel management")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- kernel/trace/ring_buffer.c | 44 +++++++++++++++++++++++++++++++++-----
- 1 file changed, 39 insertions(+), 5 deletions(-)
+ net/ncsi/ncsi-manage.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 1fd28a72e6ee..73f31e6719f9 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -1306,6 +1306,7 @@ EXPORT_SYMBOL_GPL(ring_buffer_normalize_time_stamp);
- #define RB_PAGE_NORMAL		0UL
- #define RB_PAGE_HEAD		1UL
- #define RB_PAGE_UPDATE		2UL
-+#define RB_PAGE_HEAD_UPDATE	(RB_PAGE_HEAD | RB_PAGE_UPDATE)
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index 54d0df0a9efe6..64274a5058346 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -263,7 +263,7 @@ static void ncsi_remove_channel(struct ncsi_channel *nc)
+ 	np->channel_num--;
+ 	spin_unlock_irqrestore(&np->lock, flags);
  
- 
- #define RB_FLAG_MASK		3UL
-@@ -1455,6 +1456,15 @@ static int rb_head_page_set_head(struct ring_buffer_per_cpu *cpu_buffer,
- 				old_flag, RB_PAGE_HEAD);
+-	kfree(nc);
++	kfree_rcu_mightsleep(nc);
  }
  
-+static int rb_head_page_set_head_update(struct ring_buffer_per_cpu *cpu_buffer,
-+					struct buffer_page *head,
-+					struct buffer_page *prev,
-+					int old_flag)
-+{
-+	return rb_head_page_set(cpu_buffer, head, prev,
-+				old_flag, RB_PAGE_HEAD_UPDATE);
-+}
-+
- static int rb_head_page_set_normal(struct ring_buffer_per_cpu *cpu_buffer,
- 				   struct buffer_page *head,
- 				   struct buffer_page *prev,
-@@ -3699,6 +3709,11 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 	type = rb_head_page_set_update(cpu_buffer, next_page, tail_page,
- 				       RB_PAGE_HEAD);
+ struct ncsi_package *ncsi_find_package(struct ncsi_dev_priv *ndp,
+@@ -326,7 +326,7 @@ void ncsi_remove_package(struct ncsi_package *np)
+ 	ndp->package_num--;
+ 	spin_unlock_irqrestore(&ndp->lock, flags);
  
-+	/* We have interrupted an update */
-+	if (type == RB_PAGE_HEAD_UPDATE)
-+		type = rb_head_page_set_update(cpu_buffer, next_page, tail_page,
-+					       RB_PAGE_HEAD_UPDATE);
-+
- 	/*
- 	 * type can be one of four:
- 	 *  NORMAL - an interrupt already moved it for us
-@@ -3711,6 +3726,7 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 	 */
- 
- 	switch (type) {
-+	case RB_PAGE_HEAD_UPDATE:
- 	case RB_PAGE_HEAD:
- 		/*
- 		 * We changed the head to UPDATE, thus
-@@ -3773,8 +3789,8 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 	new_head = next_page;
- 	rb_inc_page(&new_head);
- 
--	ret = rb_head_page_set_head(cpu_buffer, new_head, next_page,
--				    RB_PAGE_NORMAL);
-+	ret = rb_head_page_set_head_update(cpu_buffer, new_head, next_page,
-+					   RB_PAGE_NORMAL);
- 
- 	/*
- 	 * Valid returns are:
-@@ -3785,7 +3801,7 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 	 *               the page forward again.
- 	 */
- 	switch (ret) {
--	case RB_PAGE_HEAD:
-+	case RB_PAGE_HEAD_UPDATE:
- 	case RB_PAGE_NORMAL:
- 		/* OK */
- 		break;
-@@ -3816,7 +3832,7 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 		    buffer_tail_page != next_page)
- 			rb_head_page_set_normal(cpu_buffer, new_head,
- 						next_page,
--						RB_PAGE_HEAD);
-+						RB_PAGE_HEAD_UPDATE);
- 	}
- 
- 	/*
-@@ -3824,7 +3840,7 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 	 * changed the original pointer from HEAD to UPDATE),
- 	 * then it is up to us to reset it to NORMAL.
- 	 */
--	if (type == RB_PAGE_HEAD) {
-+	if (type == RB_PAGE_HEAD || type == RB_PAGE_HEAD_UPDATE) {
- 		ret = rb_head_page_set_normal(cpu_buffer, next_page,
- 					      tail_page,
- 					      RB_PAGE_UPDATE);
-@@ -3833,6 +3849,24 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 			return -1;
- 	}
- 
-+	if (type == RB_PAGE_HEAD) {
-+		struct buffer_page *prev_page;
-+
-+		do {
-+			/* Interrupts might have moved the head further  */
-+			while (!rb_is_head_page(new_head, new_head->list.prev))
-+				rb_inc_page(&new_head);
-+
-+			prev_page = new_head;
-+			rb_dec_page(&prev_page);
-+
-+			/* Try to release the reader */
-+			ret = rb_head_page_set_head(cpu_buffer, new_head, prev_page,
-+						    RB_PAGE_HEAD_UPDATE);
-+
-+		} while (ret != (RB_PAGE_HEAD_UPDATE));
-+	}
-+
- 	return 0;
+-	kfree(np);
++	kfree_rcu_mightsleep(np);
  }
  
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+ void ncsi_find_package_and_channel(struct ncsi_dev_priv *ndp,
+@@ -1969,6 +1969,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+ 
+ 	disable_work_sync(&ndp->work);
+ 
+-	kfree(ndp);
++	kfree_rcu_mightsleep(ndp);
+ }
+ EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
 -- 
-2.56.0.542.g3ef89b7020-goog
+2.47.3
 
