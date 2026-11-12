@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794456010;
-	b=WOrvqg+c2q/VCSlOuE1qnko53EQHS16V0buXbHlkHbR8HzbyM3BvGXKAUvqxpc8fRKK2
-	 bBzLtLSUpKNcjkcZ7fPIrO76m2S5Md3GCLAIOpZBgiyVGL1rioaoGZwWMYabMHmfy4igw
-	 uHJZu9F0hXI4tZhvIs3DEU4y/KPjOcFylA+q4uB2eVlwgw+Wk5TTDiZ9DMwG880tM1ou0
-	 Unkf9OiazFWz8HCK3y1reo1+ACAkX4nsjo1XMGId+1NbiDbY7XcqH7U6Kb7dciW+4ifeg
-	 zYv9Lqb4RlF20JXYv/a8qlIvhCLjGJ2o7AQxSrQVhBIvjlAp83FhSJQG+SUTQU3/t9w==
+	t=1794456016;
+	b=FrygRzUuYDmK5cZnl7uuIJt89ZZq5lfaPa9itnUXACx29l61irAuwHED2b3jRcstsDz1
+	 KLaT35+kujJ9kWsECK+dJqPsqCTw9EtgZ0x/ASff2v+b0U+N/H9l4oU6foFZs9XAO3FPc
+	 GghfNRtjpG5eiWlvu1zpNJoYgCOIu/NViLEGWSeMYgYZED+YoJRnhBAl6Nneqyt0SMO5t
+	 +qnZF6LTdQ7xnL2LeuKD27+L2SWpHMePuzfXkRq7n7Exa6p19Ak/nUXvlyOGKIJVF1Xgr
+	 wy120o3bcjrOvmprsH46bEuaKJa2Sxv6HdTxwzQquHM9hgJh9khMWQRMxCHANld9LbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456010;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9DMCJyibQYGxf3DCn0HRsKXneZ5ieRpxbWLe2iH9uII=;
-	b=ZYM3znadLh/GSmGj0L6FzGsBCJV5pHc62ZrX7LpqzoXFzGftafguMkoTKd7KwBOJhV3P
-	 y9kg3mv27Nf+Mk4y1EhtlaeArU1LwVyTB8Xl+AeVCfVpGE2m1EhtRIJWGC6CGogJVsXP3
-	 Ee5oooq1R8kk6j0WrYdydROF9LBKluLnFAGBHnd9Jtn6W155JM68BuQxowLe1BbJgPiLJ
-	 zz4iWX0/x6iVyT9XanrI3G9zkTc6n/3qM7XR1m2df8/19ACf9K6ze6wATMPfH6NmhTJx4
-	 NSJDq0J68/+HevFBqmm87Ra3/vah1QF8XpzvXqVch2/Hu6lM41n55O/GyaCt9YQUlIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794456016;
+	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
+	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=KNv41jA8q+1vr1ybXb+ci7oKXbVrazZL7oRggdFyj4o=;
+	b=u5Fg+QbKvA7cCOaqMY9P3NlZLVp1OrURMLLztXI5+jCfpzY5cOIol5ONo92lZlTpJTTr
+	 PtTVdqgu2qdwcXCXbhZ8tBHhvXXXbix+6vdpJzIsZn1lWnPGyK5F50A+s1KcFYM/Nwhu7
+	 VXHZnzXtLFHD7dPrh7EBsp0U/kjVwdnp/L0LbntqhUbojgZG2tilal+jcMSTxgkmp5fhW
+	 WZiGbEAd3PCX273dq/XxbU+HZoDAHNFnWvSbSSzO6ZUaOthS529VvPJcD3UnDELIDsSRc
+	 c6Sg9p+0jMPNhGSR/I3K0spTNrOrqJOS2SWwrlQHDj66UFBcDlfssybUNYd/liczz2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxDWxT86;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826A8606A327
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:00:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxDWxT86
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66AD91F00A05;
-	Thu, 12 Nov 2026 04:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794456010;
-	bh=9DMCJyibQYGxf3DCn0HRsKXneZ5ieRpxbWLe2iH9uII=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jxDWxT86/58wBvyGYwenXDt6Hy4LFDhgRjvhAp8Opf6B7Nwn9Oh50zlyvR+zpJs30
-	 y8zpjYxHOvw/REc1f8PZCCy1SGuxCYX25pXbaYbPHP2GtPsVMyN2H0BKPM5gLSbb0z
-	 yla7dkxi4xT7zzqT45tBFfF47RmDABxHFJjjx95hGlr7UyaxOStN+/l0wbBrap820A
-	 YBUUrBUzMim8K4zGeagYihmCmm2lLc+zKj2XtK1HGjEWokVhj4SCptipO6txeTtvyw
-	 0+yeeupgRXcjJFbPKuECXw6qXYqY9mlsPSuieUAwKgZLpq1n0AMcX7tZCJwNcsx+YQ
-	 To9Z0N9yWK0XA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Xu Xin <xu.xin@linux.dev>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/ksm: fix use of a freed anon_vma at swap-in
-Date: Wed, 11 Nov 2026 23:00:08 -0500
-Message-ID: <20261112035604.1726100-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202821-failed-5.10-4c2dec1dce36@kernel.org>
-References: <20261109202821-failed-5.10-4c2dec1dce36@kernel.org>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF97B606A324;
+	Thu, 12 Nov 2026 04:00:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF97B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8AxdvDMOfVqq8oeAA--.22868S3;
+	Thu, 12 Nov 2026 12:00:12 +0800 (CST)
+Received: from [127.0.0.1] (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJBx5czIOfVq6uEzAA--.13029S2;
+	Thu, 12 Nov 2026 12:00:09 +0800 (CST)
+Subject: Re: [PATCH] lib/smp_processor_id: Don't warn if there is only one CPU
+To: Huacai Chen <chenhuacai@loongson.cn>,
+ Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Huacai Chen <chenhuacai@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261111092421.3771992-1-chenhuacai@loongson.cn>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <1c59d1d6-6ed2-f84e-49ce-2d1baeac6834@loongson.cn>
+Date: Thu, 12 Nov 2026 12:00:08 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,157 +58,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261111092421.3771992-1-chenhuacai@loongson.cn>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:qMiowJBx5czIOfVq6uEzAA--.13029S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9xXoW7GF45Jw47GrWxGrWfAr1kJFc_yoW3Xwc_KF
+	4S9rWUCrW0vrsxG3ZFga1UZF17Z3409a1kW347trW3Xwnrt348Jrs7K3Z3Zw43KryxJrZ5
+	Jan3Wr1avwn8AosvyTuYvTs0mTUanT9S1TB71UUUUb7qnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbqxYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAaw2AFwI0_Jw0_GFyle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
+	WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
+	CYjI0SjxkI62AI1cAE67vIY487MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48J
+	MxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0L0ePUUUU
+	U==
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+On 11/11/26 5:24 PM, Huacai Chen wrote:
+> When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) kernel,
+> calls to smp_processor_id() in preemptible contexts trigger some false
+> positive "BUG: using smp_processor_id() in preemptible" warnings, which
+> are harmless noise because the process always executes on CPU 0 and CPU
+> migration is impossible.
 
-[ Upstream commit 4c2dec1dce368ad9e9b1814307cb5ef3832fa07e ]
+...
 
-A folio read from a swap slot previously shared by KSM can remain in the
-swap cache after the process that first mapped it exits. Its anon_vma
-can then be freed, so ksm_might_need_to_copy() must not dereference it
-to compare roots.
+> Reported-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 
-Doing so can result in some false-positives, resulting in the reverse
-mapping missing the new folio mapping, preventing migration and reclaim.
+Hi all,
 
-SLAB_TYPESAFE_BY_RCU allows individual anon_vma objects to be reused
-immediately after freeing. A stale pointer can then refer to another
-anon_vma whose root matches, even though the target VMA is not linked
-to that anon_vma.
+Just for reference, here is the related LoongArch patch that
+fixes the specific callers in cacheinfo and local TLB flush:
 
-Move the anonymous rmap compatibility checks into
-folio_anon_rmap_compatible(). Keep the page-index check and compare the
-folio's anon_vma pointer against the VMA's own anon_vma and root first.
+LoongArch: Fix preemptible warnings in cacheinfo and local TLB flush
+https://lore.kernel.org/loongarch/20261111113738.862-1-yangtiezhu@loongson.cn/T/#u
 
-If neither matches, bite the bullet and walk the VMA's anon_vma_chain.
-The VMA keeps these anon_vmas alive, and finding a match guarantees that
-reverse mapping can find the new mapping.
-
-Lorenzo Stoakes says in a private discussion:
-
-  "This isn't quite equivalent to the existing check.
-
-  Every anon_vma in an anon_vma_chain shares the same root, but if you
-  split a VMA then fork both of them like this:
-
-                  VMA A
-               /        \         <split>
-            VMA B      VMA C
-               \        /
-        root <- anon_vma 1
-               ----^ ^----        <fork>
-              /   parent  \
-        anon_vma 2   anon_vma 3
-             |            |
-           VMA D        VMA E
-
-  VMA's D and E both get their own new
-  anon_vma's such that:
-
-  VMA D: anon_vma 2 -> anon_vma 1 -> root
-  VMA E: anon_vma 3 -> anon_vma 1 -> root
-
-  And if you found a folio referencing anon_vma 2, the existing check:
-
-	anon_vma->root == vma->anon-vma->root
-
-  Would be true for VMA's B, C, D & E.
-
-  However after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain.
-
-  Whether or not that could actually happen in practice... 🙂 I don't
-  know.
-
-  [...] after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain. [...] I would [...] say that
-  you are making the test stricter but more correct.
-"
-
-If this affects performance when KSM was never even involved, we could
-just track whether KSM ever merged anything and just skip these checks.
-
-There isn't really a lot we can do otherwise: for mapped folios we might
-be able to use folio_get_anon_vma(), but for unmapped folios there really
-is no easy way to see if the anon_vma is still valid.
-
-Document the (confusing) lifetime requirements of folio_anon_vma().
-
-Fixes: ba6f0ff3981e ("ksm: fix ksm swapin time optimization")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Xu Xin <xu.xin@linux.dev>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-40-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: inlined the folio compatibility helper into ksm_might_need_to_copy() using page-based APIs ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/ksm.c  | 16 +++++++++++++---
- mm/util.c | 13 +++++++++++++
- 2 files changed, 26 insertions(+), 3 deletions(-)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 466ca19997551..89a8ae28ff83d 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -2667,6 +2667,7 @@ struct page *ksm_might_need_to_copy(struct page *page,
- 			struct vm_area_struct *vma, unsigned long address)
- {
- 	struct anon_vma *anon_vma = page_anon_vma(page);
-+	struct anon_vma_chain *avc;
- 	struct page *new_page;
- 
- 	if (PageKsm(page)) {
-@@ -2675,9 +2676,18 @@ struct page *ksm_might_need_to_copy(struct page *page,
- 			return page;	/* no need to copy it */
- 	} else if (!anon_vma) {
- 		return page;		/* no need to copy it */
--	} else if (anon_vma->root == vma->anon_vma->root &&
--		 page->index == linear_page_index(vma, address)) {
--		return page;		/* still no need to copy it */
-+	} else if (page->index == linear_page_index(vma, address)) {
-+		/*
-+		 * Careful: anon_vma might have been freed, so we cannot safely
-+		 * dereference it. Add a fast path before we walk the anon_vma chain.
-+		 */
-+		if (anon_vma == vma->anon_vma || anon_vma == vma->anon_vma->root)
-+			return page;	/* still no need to copy it */
-+
-+		list_for_each_entry(avc, &vma->anon_vma_chain, same_vma) {
-+			if (avc->anon_vma == anon_vma)
-+				return page;
-+		}
- 	}
- 	if (!PageUptodate(page))
- 		return page;		/* let do_swap_page report the error */
-diff --git a/mm/util.c b/mm/util.c
-index 9e0c86555adf0..52ea9aa638294 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -766,6 +766,19 @@ bool page_mapped(struct page *page)
- }
- EXPORT_SYMBOL(page_mapped);
- 
-+/**
-+ * page_anon_vma - Get a page's raw anon_vma pointer.
-+ * @page: The page.
-+ *
-+ * The returned pointer may be stale for an unmapped page. The caller
-+ * must ensure the anon_vma stays alive before dereferencing it. A page
-+ * reference or lock alone is insufficient; use page_get_anon_vma() when
-+ * the anon_vma's lifetime is not otherwise protected. Note that
-+ * page_get_anon_vma() is only useful for pages that are still mapped.
-+ *
-+ * Return: The raw anon_vma pointer for an anonymous, non-KSM page, or
-+ * %NULL otherwise.
-+ */
- struct anon_vma *page_anon_vma(struct page *page)
- {
- 	unsigned long mapping;
--- 
-2.53.0
+Thanks,
+Tiezhu
 
