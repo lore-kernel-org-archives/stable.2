@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794449612;
-	b=yj0BJy3sH1Ll0zlmWVAQIrSr2i4GFzBYfeo8+R9Z8+8hzI2U86nx/r4gT3a7SzUC6Rl4
-	 vsWY2KCRoOhIlmsGOkYSIjsP36KcDrTU8+nU0l02I/49Tpyj4r+3Z5zkwL2rhYfiP6sF0
-	 zTTTkeWdNqtzZ4XcQ270rdRdftMu6BikEo33VLPdR6Vki+7lsV1yaJnZNy5iSEsYAi1f1
-	 kX6dw0Ue5Enu/Lf589V50opVRxh8bPIQ0aukekHhPu9QVoNN9qrTiB3DzibLn6F52jov9
-	 Th3FazFtjGkTLs9uoBAzEO2dz39F4FwyGPAMI5B5bCuMWKtq/XHdGaWKLX7UjwoQSMA==
+	t=1794449766;
+	b=1gTC0N+RRlr7LSHCuIQbRkkH0Nh/gLXNWDIZ3uvV5kFKvKrlYs40pWSMRJD9fPvRR7QA
+	 GLa7ZZQMxPnCoM2QZJXwvh4UELcnoVuIhK+ibknkEKBnwmLBW576nH3P6X4X7DZL2nMnH
+	 g8dq4+2pvWV07ao4OAZgyMlpDiAHwcC5cRlbP3Cmax4QR2nf3PJkJquMiXnPfBSbEWXag
+	 0IyDZ8Qo/oekAi6l6O8uwObhS4lKqw2RZkUeqFJLl8yS/aO+zvSF2CeDTISV2NZWfZQ4u
+	 yaw9yABwZNQVS4QJaDlocGEuF5POzI+JRDn2X188IWuDQDOfP7foLngy0s2o3GMYR6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794449612;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=V3k/++eWqsXF0509cPGPss+dGpG7lPPFMyGRH++JIpQ=;
-	b=jHlKkRFKd0L0uofZvanKArD86TVUJYp5WF5xAxNyheUbiAu+OjdZKKHa0wBX2DoRdjxH
-	 n8IZZTjRpKtKMLTb7UHQLOiEWMklLzyf+yAFuYN7ZZELJPPsWr+fvy8cM3Eztar+ytJ8r
-	 KgPlSDV3V9h5MQ5QeoBGsEA+LK06WqRgoCP4gnBYKtEmPPfJq/wBUPEWVzfq7MUbIsmhC
-	 29BKGG0U7P/M3fxIVXa0NMK9AxnXe/vvdGtEIOwOnu4O3Ks51EwUf8ciR6+yvx/yTvqQR
-	 2DepwISGFAJS3gGUTonFtrYehDlGU442fWEt/lXZDf1SaIW6VCVRDKCQ7k55Mvd86Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449766;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=FwTv2GjEBlQR54GrEgezu3FqUMu0/uxeIqk78GyVHCk=;
+	b=uivqFVGAjPbZOBgKC//CnzAwLr7xCQq4SULgA2HbM58lHQ8Qt+IasOx3O2r963d56Nmy
+	 W71I+LgBp+WbdVw+5azyVw4DNgvqyBbYnYi5jds9u8vE+/zKcypDXYfVEFKo5DzBxSGHt
+	 v3CWgsrBemqF06A/0b2GVH0Zwhbhz0Rib0Xr1ZKYrepcfy/Jna0IBK0r5HPaRUH+trvKD
+	 05A6veyt1Xz6WNQNoMHd6Q16U3wtotV0vgu/ejqGn+l5A4tr61r5XPDoqBHoFSiNQY/G4
+	 5WX2JRNxV9FS6pqFBWxbF8/o3Kpp6EWYnRpdUApRTJc0i5wmoL2vCbx9twDrWFB+bxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+pFMJX8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TbsS8hG2;
+	arc=none smtp.remote-ip=91.218.175.41
+Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B51D606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:13:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884E7606A332
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 884E7606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+pFMJX8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B515D1F00A05;
-	Thu, 12 Nov 2026 02:13:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794449612;
-	bh=V3k/++eWqsXF0509cPGPss+dGpG7lPPFMyGRH++JIpQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A+pFMJX8vb7bEgw5ZJbNYLQqDbkK69voUHpezvSo827pp2hu5w2QEo+6uR21Wzk+F
-	 /JsjpxyfCl+Wme1EKaVYjustHcjLeo9wGc2chpIc2UgseVXF9x5wN/fdZJg6967Oer
-	 NHe5HSjwMyTKNmRCAydhymo3ZGnKooFM8Wq0zhRFr/22FelKvVIBEPM5iAqaG6+sMP
-	 fZ8UFWk49fc5HJ4O3l3+HCXzOCzKDIXBPS/f6Q/GV1BBNPvNM3Xd8yHl4fzG1SikFb
-	 +H4GIqGOB3Juoz7RLzoRsAXXBd3z0R8kIX+CupIKHTVxaeME4FAabp75Kk3tzyYZhR
-	 YnN2ltL4Bf0pw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Edvard Conrad <edvard@tuta.io>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ovl: inherit FMODE_NONOTIFY when opening directory realfiles
-Date: Wed, 11 Nov 2026 21:13:30 -0500
-Message-ID: <20261112021048.1302930-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200941-failed-6.12-323899b4ed23@kernel.org>
-References: <20261109200941-failed-6.12-323899b4ed23@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TbsS8hG2
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QdTK9vDoJhaUIW/U2XIf5FYJQ9anojdg/JfxOCFPB4I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794449763; v=1; x=1795054563;
+ b=TbsS8hG2H99euT9cfkFIu7YsULdZtjHsHuxSUFjw8Hba4NXZu0/Oeq3XY6uQpyx1OOqVd1DF
+ z7x4fvyzNZq/zZl6+T91em8H/T15Ux3brX+voPeNeCwq+sbApl3nH58ZfYLLQnQ4uKiDZnML1JQ
+ qApNnAS6yCS77VRM1mXrEV70=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8cb470a74291e90a;
+	Thu, 12 Nov 2026 02:16:03 +0000
+X-Mizu-Trace-ID: 8cb470a74291e90a
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Date: Thu, 12 Nov 2026 10:15:33 +0800
+Subject: [PATCH v3] mm/hugetlb: charge hugetlb cgroup and memcg in
+ alloc_hugetlb_folio_reserve()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,72 +60,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-for-alloc_hugetlb-1109-v3-1-7a144510a373@kylinos.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf4Xs2Zq2AoIn/8MQA8sCq01rWiASw
+ r8L6NXjm8zMmyGQZwpwiWbwNHJgZ1c4HSLArrQtCa5XBi11qpTMReO8KI1xeO+GlnpTiT2WiCU
+ mGaV5rWAdvzw1/N6Pb8WXw1A9CPvtbWt0HHrnp9086q33kyj5TzJqoYROznmCFMdNJq/PybB14
+ YgWimVZPmoS6KLPAAAA
+X-Change-ID: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>
+Cc: hongfu.li@linux.dev, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Ackerley Tng <ackerleytng@google.com>, Gregory Price <gourry@gourry.net>, 
+ Daehyeon Ko <4ncienth@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794449756; l=4820;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=pFMQxDRwAloKyD9un+uH5Do41KW7aYnWyhIKwB42GmM=;
+ b=/krm/uLaEvhDJqjULlNLgkdgLTXQAtC9oZ422Irx8PjuQC4YU55WHVduK3DsU3hy4K7MraGOi
+ h+Slav7AQIXDQvA+jQRTMv8UzitiRTOeRBPXBGpqA0hDZJWg0X+/dif
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-From: Amir Goldstein <amir73il@gmail.com>
+From: Hongfu Li <lihongfu@kylinos.cn>
 
-[ Upstream commit 323899b4ed233d5b6e2fc160c16fbf39cf0317da ]
+alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
+consumes a global reservation, but unlike the fault path it never charged
+the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
+memfd_pin_folios() through memfd_alloc_folio() were therefore silently
+bypassing the accounting: they are never charged to the hugetlb cgroup
+usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
+so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
+bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
+folios are also not accounted in memory.current and are not bounded by
+memory.max.
 
-When fanotify hands a listener an fd for a permission event on an
-overlay directory, ovl_dir_open_realfile() opens the real directory via
-dentry_open(), not backing_file_open(), so the lower open could still
-raise FS_OPEN_PERM and deadlock a listener that also marks the backing
-filesystem.
+Charge the folios to both the hugetlb cgroup and the memcg, just like
+hugetlb_alloc_folio() does.
 
-Export dentry_open_nonotify() and call it from ovl_path_open_realfile()
-when the overlay user file must not generate events.  Ordinary
-ovl_path_open() callers are unchanged.
+Test with a process that creates a hugetlb memfd and pins pages through
+UDMABUF_CREATE. The counters were read while the folio was still pinned:
 
-Reported-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Closes: https://lore.kernel.org/all/20261030-welpen-anbinden-nullen-b2432cee1d10@brauner/
-Fixes: 130fdbc3d1f99 ("ovl: pass correct flags for opening real directory")
+Before this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+0
+$ cat /sys/fs/cgroup/test/memory.current
+1351680
+$
+
+After this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+2097152
+$ cat /sys/fs/cgroup/test/memory.current
+3313664
+$
+
+memfd_pin_folios() can now fail because the memcg charge fails. Two
+tasks allocating concurrently against the same memory.max may see a
+spurious failure. That failure frees the folio, returns the global
+reservation, and undoes the hugetlb cgroup charge, so no accounting is
+left behind.
+
+Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
 Cc: stable@vger.kernel.org
-Tested-by: Edvard Conrad <edvard@tuta.io>
-Link: https://lore.kernel.org/ltp/P5Iny41--F-9@tuta.io/
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: Replaced dentry_open_nonotify() with dentry_open() using __FMODE_NONOTIFY. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- fs/overlayfs/readdir.c | 10 +++++++++-
- fs/overlayfs/util.c    |  2 +-
- 2 files changed, 10 insertions(+), 2 deletions(-)
+Changes in v3:
+- Updated the commit message to describe the new -ENOMEM condition on
+  memfd_pin_folios() when the memcg charge fails, as suggested by
+  Gregory Price.
+- Added Gregory Price's Reviewed-by and Tested-by tags.
 
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index 5d912f887aac7..843c3d5168f4e 100644
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
-@@ -869,9 +869,17 @@ static struct file *ovl_dir_open_realfile(const struct file *file,
+Changes in v2:
+- Rebased on a tree that includes Daehyeon's "mm/hugetlb_cgroup: prevent
+  use-after-free during cgroup offlining", as suggested by Andrew Morton.
+  No functional change.
+- Since 268d64fabbf1 ("mm/hugetlb: fix NR_HUGETLB accounting for surplus
+  folios") reworked the NR_HUGETLB accounting, use mod_hugetlb_memcg_state()
+  instead of lruvec_stat_mod_folio(), called after a successful memcg
+  charge.
+- Return early once a folio has been dequeued, instead of falling
+  through to a shared return.
+- Corrected the Fixes tag to 89c1905d9c14.
+- Updated the commit message to qualify the memory.max claim: only in
+  cgroup v2 with memory_hugetlb_accounting enabled.
+---
+ mm/hugetlb.c | 33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index da1c17f14a62..256bb2095b59 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -2223,12 +2223,19 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
+ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 		nodemask_t *nmask, gfp_t gfp_mask)
  {
- 	struct file *res;
- 	const struct cred *old_cred;
-+	int flags = O_RDONLY | (file->f_flags & O_LARGEFILE);
++	struct hugetlb_cgroup *h_cg = NULL;
++	size_t nr_pages = pages_per_huge_page(h);
+ 	struct folio *folio;
++	int idx = hstate_index(h);
++	int ret;
 +
-+	/*
-+	 * Inherit FMODE_NONOTIFY from a fanotify permission fd so a listener
-+	 * that also watches the real filesystem does not deadlock.
-+	 */
-+	if (FMODE_FSNOTIFY_NONE(file->f_mode))
-+		flags |= __FMODE_NONOTIFY;
++	if (hugetlb_cgroup_charge_cgroup(idx, nr_pages, &h_cg))
++		return NULL;
  
- 	old_cred = ovl_override_creds(file_inode(file)->i_sb);
--	res = ovl_path_open(realpath, O_RDONLY | (file->f_flags & O_LARGEFILE));
-+	res = ovl_path_open(realpath, flags);
- 	revert_creds(old_cred);
+ 	spin_lock_irq(&hugetlb_lock);
+ 	if (!h->resv_huge_pages) {
+ 		spin_unlock_irq(&hugetlb_lock);
+-		return NULL;
++		goto err_uncharge_hugetlb_cgroup;
+ 	}
  
- 	return res;
-diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index 723672073b1e3..4c0881f0b75e0 100644
---- a/fs/overlayfs/util.c
-+++ b/fs/overlayfs/util.c
-@@ -652,7 +652,7 @@ struct file *ovl_path_open(const struct path *path, int flags)
- 	struct mnt_idmap *real_idmap = mnt_idmap(path->mnt);
- 	int err, acc_mode;
+ 	folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask, preferred_nid,
+@@ -2236,11 +2243,31 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 	if (folio) {
+ 		folio_set_hugetlb_restore_reserve(folio);
+ 		h->resv_huge_pages--;
+-	}
++		hugetlb_cgroup_commit_charge(idx, nr_pages, h_cg, folio);
  
--	if (flags & ~(O_ACCMODE | O_LARGEFILE))
-+	if (flags & ~(O_ACCMODE | O_LARGEFILE | __FMODE_NONOTIFY))
- 		BUG();
++		spin_unlock_irq(&hugetlb_lock);
++
++		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
++						gfp_mask | __GFP_RETRY_MAYFAIL);
++		if (ret == -ENOMEM) {
++			folio_put(folio);
++			/*
++			 * Skip uncharging hugetlb_cgroup since the charges
++			 * were committed to the folio and freeing the folio
++			 * would have cleared those up.
++			 */
++			return NULL;
++		}
++
++		mod_hugetlb_memcg_state(folio, nr_pages);
++
++		return folio;
++	}
+ 	spin_unlock_irq(&hugetlb_lock);
  
- 	switch (flags & O_ACCMODE) {
--- 
-2.53.0
+-	return folio;
++err_uncharge_hugetlb_cgroup:
++	hugetlb_cgroup_uncharge_cgroup(idx, nr_pages, h_cg);
++	return NULL;
+ }
+ 
+ /* folio migration callback function */
+
+---
+base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
+change-id: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
+
+Best regards,
+--  
+Hongfu Li <lihongfu@kylinos.cn>
 
