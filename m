@@ -1,124 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506700;
-	b=clcq43gHMjXQund7HzDS59loGccVYdE4zE7ntISvTMiS7zpTDTanLCS68s63PXJFn5q8
-	 1aKlLr2LY8Yv9m7j8n90Na9bgENjtnBBGil02vF8af+wpAPZpRPmZJmwtyy+D4tbW0wkW
-	 ynCw4D6akaDmeeh8I2Kwkt35lfG6b4NeF0jr75P2rKsh5N3B7uakpvZbHXRJhVuuQMGs1
-	 G8qEzFJA+oeKjGyMgivUY0Bvtlr2kwR+2rPiY5ULi+YySUfFo/BnJvS+nCFw0xC7WIONs
-	 0RlJBMKjID6C+IB3JBqPJwRW5LE6qgPnSoy4y6DLx2vTT8fQ4+exaDtuqfX+vIGWi0A==
+	t=1794506732;
+	b=s7UML3Hhp5BWnoOtXRfm/Rylm8m0G1yNIYy8tscZ7cHVrl9LEhjEH/W3UwByfxaGJlDz
+	 7O2y6MVBNOv48zi7PBU1ZS1td6U99FEGMYdNk852j/+ieRQ4rF3x85nBPjDiVuW6yEmGG
+	 Hu8BVp5M+pDgGtnNAlYg5OvjcXR8D4savHwpIaW7tX9+ezESM3DPZCiEsLIg1X/h1Bjz3
+	 3WMk7WJeesmpTbyqk/wK4g1Yv+haoADBmMiZW9IgJLcI9L+nVBQl3bAAFtA2wDIHzISym
+	 PqYMySHUQuf6+pVuZW6e+UmhhpjuSblRhOk76qaJt6s0gayNiJ+GgZUqOqYzFKbzDMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506700;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=bIWDkbxjpmm/7xTStOsWJq0pgwFL0TwKQBYsQzickiM=;
-	b=PS7dpWQCHPViW6q3ocFkrmpZzHYb7+U7mjcIMmFmXkI2pbv88sZXa76SWIw52rdU4Pli
-	 lYFmGniwOPEjAIrd+cfqRsTvvD75LWLvV78f1BpUMv//aOjLQXgYK3uQZaWqz/7at5oYt
-	 pJ2hrr2ImPOmRFtdbgKW8h7lA00smLG7gmqlkhVXzCTY0a7FvSOSkIm4rkbds3G1HUG4e
-	 VnP9rOAiVklN8IQMgpYOuNL5+o73L1fVlL7Lo/a7j6VnwwOt1AzAxlwmA2sBlm3UTMCTg
-	 PuoRX8/cdULlUI2wMpPJaPZp3xfYjPIu5ReSs7AGgk1Wzrh27JiseaB/xSiA12mAEnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506732;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cG8SYyf7w3dlGbNaL5P0O22CIF0Qp5uX3wBmRgVBppY=;
+	b=eomSZpo+dFax9UUnfbEV9Ujl3Pm5zCF2w8XHduFBqVSA/bS4Ob1hb7aymhufl32bMM+E
+	 bhpuxWCuE4rlEGzc0MQo2qRb9UtXdI++K7Hg+sPaOFNgHx/ewWfT+unHUPdqpDC5I48Ns
+	 Ce19CgduzU21ZlB1xxBO3n1311TUIKh/3EHcmSj52iKaZnhRnwapF/97YnIihQ9oPIRDm
+	 RxDfOam5WqDTRvWkUm5jpwZ+BviD8EGy1xASHKyzI9ME1b9JKUbb1PvDlkOlKH4tk7BoN
+	 Wzp9X19mqr7Jq/iJWBe928bAYx3eFfJVJ96kt+oqbLIbH8SaLn9LPrEemL2F18QkoGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=invisiblethingslab.com;
-	spf=pass smtp.mailfrom=invisiblethingslab.com;
-	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm3 header.b=HLVF6vjg;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=DKrQxPcq;
-	arc=none smtp.remote-ip=202.12.124.152
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an6rnEFH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DFD606A327
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:04:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30DFD606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB13606A886;
+	Thu, 12 Nov 2026 18:05:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm3 header.b=HLVF6vjg;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=DKrQxPcq
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 2355E7A01D4
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 13:04:59 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Thu, 12 Nov 2026 13:04:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to; s=fm3; t=1794506698; x=1794593098; bh=bIWDkbxjpmm/7xTStOsWJ
-	q0pgwFL0TwKQBYsQzickiM=; b=HLVF6vjg+hSkplB1uifLSRDVNfzWWu9MY+H8n
-	hasLjBs4AeEXwYudu6Ac0dM4TjGfUqTnfIIXG+C4jw/PWgyHwLWs1dk40Z0GkExl
-	i8nnhXtfrgxJFhvxzGXDQ55xtjCZkVgX/DMOBAvi09jNspk67iWZ3Ms1zN+SWqeq
-	cZKFuC3qYtmVx5ZI4ogzlAWEPuwpFO9Zub4tLdUEPnMN6WiNG/pJJZmgismqDPQJ
-	bdREuOuS0mYnKsh1IOfz/zYdRWabBhvt1O1Znh6zPszA+5i7sG1ya/zc9F76ZXNF
-	tuOMoTEYis975ub2xFgG+AMnQt4l/TXYZiVGQ02825WWZsBdA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794506698; x=1794593098; bh=b
-	IWDkbxjpmm/7xTStOsWJq0pgwFL0TwKQBYsQzickiM=; b=DKrQxPcqtnwO1xwwg
-	tHK7yUrPBHWGK6s+NtQ95M5BGOpdFHSSRSpwKX75WurWWLCvhY+4xDcH/IhbOt3k
-	Yt3Bu0DB6WReQqGqj53DcDK3SXsxVFubGHRV/NV4+eJrW6wWpDG4EOQSl8dX+aKk
-	eXd7/IcmKLpFmLwSarQloycy2TFfxKVONJFp9wsVwFT9sw74RCy49zrt7nb86ZNV
-	RBjN4tuTgLCMlYA5aDQH2k4xJcIyUrnJa4opC3U40bG32nSmFv9XRsjZfFQDS8vR
-	ZlVBEO4N1f9x6Qpv6WmWPHCNByOm2h6Gl+iKq89yYgLB6xbdS8xGUVCsaV2Ms4k4
-	HAUYA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=invisiblethingslab.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794506698; d=invisiblethingslab.com;
-	mf=PGFjY2VrQGludmlzaWJsZXRoaW5nc2xhYi5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:fEtXzVSIhmVqdDw+XXpoBTq5V+KxC/OG0Zg0YRSwlwnLIi/
-	zr3yvi/eKVFB1MYAggFKmTJGvxBOXz+08YDUZabJAAdPlceMD1tOJS98j1cLOpLX
-	Bu6RJqcvBQxoDQpqow00b9LoAmII6PMfvOafubndLizzsE7Dh2G2XrCby1rfK7mq
-	/K/Dj8KvAqkRG3lcy/MEpZowY3UQRElc2n1TT6tlZQNpNJ4VQa148zQHARrfZ55D
-	Uz4qbKa7EwVslSW0xZej+4sQdc/nKu4NDkMFs4BmtiVRFcSbj7iGp8Wgga3r7ntI
-	EtTxUClHwYS2zPuZrv873Q0GLDzXIgYN/7YQLTA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:IvOIwpEJoX1NujdpENhEmYt+bC9JBzJHM3aLQmrVtjg=:bIWDkbxjpmm/7xTStOsWJq0pgwFL0TwKQBYsQzickiM=;
-X-ME-Sender: <xms:yf_1akSf3HbeEWYbkNf3Jdei6uSY3kfrUHtoMs6_B05MifF5on6XgQ>
-    <xme:yf_1arFXpIHOJ3M-xOTqAZfcv6GRzGcgLWns-nJytmWuKQD3V3DiV_vS54Xt6qo8F
-    p933xtJy0J4Jmp74atvh0gvGW7tbqvdoyn43mG_3l4Mf7SsR3vt>
-X-ME-Received: <xmr:yf_1apErZJW0RX7PL1VX0pGQc5V_5l-5fMbfb5UMwBJNIYs4S41Z4xpP5Ja4Gb-HQJsbW22nliBBJw>
-X-ME-Proxy-Cause: dmFkZTE70pgyBIH+aLE1nO4vfhAc2Fh45MC0V7eAwpRWq+pL1EzXbOZx7VJlFp2RmxRleN
-    WOKex6pnVtDR0Fzbgw8iNzr0KlKr8fzcZht7wtWZFmBtm2sAWnWumZIG9h/oO1r4CJOneG
-    WyUxwRjwPOsCXpEO/I7BdPwgbHNk/YQIhDv1b5HEtWuqmeusfLxC5bEWIbH6PTyLHRMqId
-    RaIy4bpuPQQ/FnGjJQLddFwy4PNUN3sjavomqClkyAYvFwbFLsRtXnibb3pSm+mX4a6ZFl
-    OXqf5DOi/4gvvSggMVo32Sf5/sEo2z4luO2Lg9cGTbibn55JONSVs1AYjTUijug8Qwgdrf
-    T03INJxvbJyHu0vwlvg6XSy6MMNgluCUnew21+cyxEdpo998WdMTq8toVCOHxX8CLVmA4T
-    yNdMBbycQUipar4NpzeiTVBFwizDKrTRliurCLbTAiLK85Hzux6UehrTZx6u8Qb6cNzfGs
-    z9D92FOzitS3lGl1kNwrGpmv3q85s/wjeFLQ4ToOejrXmLGtbNnADdTxKUed5A/vxy3PMB
-    lNFMKnVx/FmKs9sIE4e0q9DTo+J2NVj00PZS3Z2BDgeaL4avBLhx8Pk2e+te+Rifwko9bQ
-    Dk3PXVmdpzcjr4TKHTPEyk4caxEYguKXftLds8ztFoGmU6SZPs8RaWOLCuDQ
-X-ME-Proxy: <xmx:yf_1apTxphFBxzBvSbWTUoc7exEVizLo3MyTvErokOy8hZ7zaJXqKg>
-    <xmx:yf_1aqJKmJt98TcPRuKikK-7Vjs1InvBgECMEMHWKz0c3UZbPM8USw>
-    <xmx:yf_1akZXC1udW-kTY_qlWlIMCSBDEMX_XwDKJA4MqJ7NJl31hwZpsg>
-    <xmx:yf_1as_oCAg1ZUFuUFlNV7g_jAZfPGgurHD07-ilEL-ixoCALQyoFw>
-    <xmx:yv_1amD09BtkRtbVkapA2MN5rmkhKnj8pIPnSQrAOo_mt0M4BshHgRqf>
-Feedback-ID: i792e4853:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Nov 2026 13:04:56 -0500 (EST)
-From: =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>
-To: sashal@kernel.org
-Cc: marmarek@invisiblethingslab.com,
-	hch@lst.de,
-	bob.beckett@collabora.com,
-	thomas.hellstrom@linux.intel.com,
-	stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV" failed to apply to 7.3-stable tree
-Date: Thu, 12 Nov 2026 19:04:36 +0100
-Message-ID: <20261112180436.912177-1-accek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050332-failed-7.3-77f704158f09@kernel.org>
-References: <20261107050332-failed-7.3-77f704158f09@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an6rnEFH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229B61F000C4;
+	Thu, 12 Nov 2026 18:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794506732;
+	bh=cG8SYyf7w3dlGbNaL5P0O22CIF0Qp5uX3wBmRgVBppY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=an6rnEFHIEQfMD7hb2IewvTV/EyagK+WFjhHhGs/7elOcrogcIsxGsV7IEc9I16wr
+	 cANtce9G2vgpUy5lhY17FNcwQneKEIcYIY+W5IJ0slGgd16Qk/Qh3Wvfb0zV4chVhc
+	 IWjf74UV4A1kTN4ldOCaeItZJzfYiJbdziIksaMS+AIHq/71swxVE3OezZ1iatBt1x
+	 mY6EFh67QqtG015uZu6gP3MiS82xe2OjWemIl7CKMV8h3i1bYCNpH9tYb/TROWIPLE
+	 piSdwUrsYtmEhsz/5LVnzo3yxJqT7rc1ZXvFCJsvQ/MIJ7Bb3Se55tS3K7ruw2DYyY
+	 auQZ8KPUL8o4Q==
+Date: Thu, 12 Nov 2026 18:05:20 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+	James Houghton <jthoughton@google.com>, Andrea Arcangeli <aarcange@redhat.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, Andrei Vagin <avagin@gmail.com>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
+	Muhammad Usama Anjum <usama.anjum@arm.com>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
+	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 01/12] userfaultfd: use anonymous memory for
+ UFFDIO_ZEROPAGE on private file mappings
+Message-ID: <avX_qlthMqypxHm0@gremlin>
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-1-00713d368976@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,11 +76,145 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-uffd-state-fixes-v1-1-00713d368976@columbia.edu>
 
-No backport needed: this change is already present in the 7.3 tree,
-went into v7.3-rc5 via drm-xe-fixes as commit 141008dec735
-("drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV").
+On Wed, Nov 11, 2026 at 12:55:09PM -0500, Tal Zussman wrote:
+> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
+> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
+> installs it through vma_uffd_ops(), no matter what kind of mapping it
+> is. An s390 KVM guest with storage keys or protected virtualization is
+> such an mm.
+>
+> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
+> cache of the file. That is wrong: a private mapping must never modify
+> the file it maps, and the file might even be mapped from a read-only fd.
+>
+> The ioctl can also fail where it should succeed. A missing fault is only
+> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
+> an address that did not fault, or can race with a write to the file. If
+> the file has a page at that offset by then, inserting the zeroed folio
+> fails and the ioctl returns -EEXIST although nothing is mapped at the
+> destination address.
+>
+> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
+> shared zero page can be used, and what UFFDIO_COPY does: only check that
+> nothing is mapped at the destination address, map zeroed memory there,
+> and leave the page cache alone. The zeroed folio path did that before it
+> was moved to vm_uffd_ops.
+>
+> To fix it, pick the ops in the common folio path, as
+> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
+> mapping, the ops of the VMA otherwise. That makes
+> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
+> so remove them and rename __mfill_atomic_pte() to
+> mfill_atomic_pte_folio().
+>
+> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
+> if something is already mapped at the destination address.
+>
+> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Thanks,
-Szymon
+Looks sensible (also another cleanup in disguise which I like ;):
+
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  mm/userfaultfd.c | 46 ++++++++++++++++------------------------------
+>  1 file changed, 16 insertions(+), 30 deletions(-)
+>
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index d65184d9a480..61a712e1f9f5 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -531,15 +531,27 @@ static int mfill_copy_folio_retry(struct mfill_state *mfill_state,
+>  	return 0;
+>  }
+>
+> -static int __mfill_atomic_pte(struct mfill_state *state,
+> -			      const struct vm_uffd_ops *ops)
+> +static int mfill_atomic_pte_folio(struct mfill_state *state)
+>  {
+> +	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+>  	unsigned long dst_addr = state->dst_addr;
+>  	unsigned long src_addr = state->src_addr;
+>  	uffd_flags_t flags = state->flags;
+>  	struct folio *folio;
+>  	int ret;
+>
+> +	/*
+> +	 * The normal page fault path for a MAP_PRIVATE mapping in a
+> +	 * file-backed VMA will invoke the fault, fill the hole in the file and
+> +	 * COW it right away. The result generates plain anonymous memory.
+> +	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
+> +	 * generate anonymous memory directly without actually filling the
+> +	 * hole. For the MAP_PRIVATE case the robustness check only happens in
+> +	 * the pagetable (to verify it's still none) and not in the page cache.
+> +	 */
+> +	if (!(state->vma->vm_flags & VM_SHARED))
+> +		ops = &anon_uffd_ops;
+> +
+>  	if (!ops) {
+>  		VM_WARN_ONCE(1, "UFFDIO_COPY for unsupported VMA");
+>  		return -EOPNOTSUPP;
+> @@ -597,32 +609,6 @@ static int __mfill_atomic_pte(struct mfill_state *state,
+>  	return ret;
+>  }
+>
+> -static int mfill_atomic_pte_copy(struct mfill_state *state)
+> -{
+> -	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+> -
+> -	/*
+> -	 * The normal page fault path for a MAP_PRIVATE mapping in a
+> -	 * file-backed VMA will invoke the fault, fill the hole in the file and
+> -	 * COW it right away. The result generates plain anonymous memory.
+> -	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
+> -	 * generate anonymous memory directly without actually filling the
+> -	 * hole. For the MAP_PRIVATE case the robustness check only happens in
+> -	 * the pagetable (to verify it's still none) and not in the page cache.
+> -	 */
+> -	if (!(state->vma->vm_flags & VM_SHARED))
+> -		ops = &anon_uffd_ops;
+> -
+> -	return __mfill_atomic_pte(state, ops);
+> -}
+> -
+> -static int mfill_atomic_pte_zeroed_folio(struct mfill_state *state)
+> -{
+> -	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+> -
+> -	return __mfill_atomic_pte(state, ops);
+> -}
+> -
+>  static int mfill_atomic_pte_zeropage(struct mfill_state *state)
+>  {
+>  	struct vm_area_struct *dst_vma = state->vma;
+> @@ -634,7 +620,7 @@ static int mfill_atomic_pte_zeropage(struct mfill_state *state)
+>
+>  	if (mm_forbids_zeropage(dst_vma->vm_mm) ||
+>  	    (dst_vma->vm_flags & VM_SHARED))
+> -		return mfill_atomic_pte_zeroed_folio(state);
+> +		return mfill_atomic_pte_folio(state);
+>
+>  	_dst_pte = pte_mkspecial(pfn_pte(zero_pfn(dst_addr),
+>  					 dst_vma->vm_page_prot));
+> @@ -927,7 +913,7 @@ static __always_inline ssize_t mfill_atomic_pte(struct mfill_state *state)
+>  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_POISON))
+>  		return mfill_atomic_pte_poison(state);
+>  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_COPY))
+> -		return mfill_atomic_pte_copy(state);
+> +		return mfill_atomic_pte_folio(state);
+>  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_ZEROPAGE))
+>  		return mfill_atomic_pte_zeropage(state);
+>
+>
+> --
+> 2.39.5
+>
+
+--
+Cheers, Lorenzo
