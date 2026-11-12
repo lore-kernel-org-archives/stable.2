@@ -1,75 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495162;
-	b=G6ZENJwdKEev0VIwYhSnNKAdkZx13mKtcv0ldPao+Q3co5PbyEXT1hVS/R8zVMy9NhqJ
-	 zze+Tntf8n7lM76EuqGVAI4hIB94mcwoB1Ey4QclPQorjrfPI2P1aVSwD8UY9TobBKcAD
-	 KbyhcDqf/4KbQW6FpDhoLZ7r7mDf1DWSERF4RESLd1xl6Mc8CnTtoRVWBQkWdecbRCAIi
-	 l+smphvNy1t6xWG9LTTvSGEOxyEigwNtcWh7FrDMffamwH7imd2waQuNrK63mAZ0+itLg
-	 wMq8o1h/lHGTO2KuIZSVyEsd8erGEplsCuzCuAnEWibuwp/SmOHq2J+kj73RyxQ6oLg==
+	t=1794495207;
+	b=xNyRTk8ZOqcSVWL3oVYnwW3PfX5k4chptn2G2LID/Nj/W6Ai9fhRvJda/4BkOhWtuz0p
+	 73nXGZSloXtfbAmAnnKtAMcc9D3FwnU+6Y98FeLWsOgnPRKbQOAMK/0LpuvW5CFKk39kF
+	 z9l5Oe8Jk2GsSX45qzXatbzRp7RvWJ6foVxk462Ye5zvC25V+SIkaJKVRxFA+bsSUWgHe
+	 3WbxpoPSMc/AtLikHjyEOnAmh72GCcCEhQpYTKKmDivRAm0tPn9QXG4JaushNWNl6Cyq8
+	 ZWKK4oCAUYcFzs00Z0/yYvDaD6NiTNB8OVGQrkuAY8ggyq/79uycI9CqEVQY61qEq8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495162;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=Q7Giv0YbZtbuh6pswUgbBS7Tjhq3TZVDrjjmxy0wKk8=;
-	b=w9MJXbIO+Ghedf2REibTkY8DqIQD3cNa2h0j6zPrkIZrzK3PwYG9sJcYhAQE5o8/ssgM
-	 SZSCtuk7j1fIXMYv7fYqQMZJ5bnXRWtrbZtQ4VLN1HNpmPZVbWT/4do/xspt8QvSRYJJa
-	 ThA5QOkms+a/LTj7I/Klgo1/5gL//cIxok2caTYIrHX7kv2aeBGXBVtBfNMTAA1zdTCVL
-	 KWaYyrMUEYHe4JsD1lnJ3z3m+o0/6Ceh5/Afy+QCKo6Dt0WnHbFpwxf3fPP+8vFUzH91J
-	 L3Rlfako1ioEbAIAsnGe9K9PLFPRMfZ3fPUUITgPEA9CgTvoUk9Z1j+wyCW/9O5rUZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495207;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=L/v5qWn68YMFs8B3Gf+RGYVilFpufPgqWHu/IxMthQ0=;
+	b=aUOrR8twwg7TO9uwguFmJdBmL1nkEzLWnivXZzEhQFrgZoe52UPdhJiBqFaEDpWabGxe
+	 ziOheSMjlx43leD3otfagWOpi3eWD2UK8wOo7u73yI4xLoT9eyUlteONtXPRqD3UhLovw
+	 ojvL4N/nvzslwaKNJrybtX+MtlJntEMcag82oC8KRJz3Qk7Tu/5Kp+9dSF5Zzm4kWMZkz
+	 rYt3RYff68xp1kQvOxAxW9Wirwwyg1N4/F92uImXLCioeMjrvVNQBGV2Cz+c9P3YviqZq
+	 UC+YdAw4X52aWZk6SEIGZ8z7WoHRdWani7M9sG4Uj8jOaynhBxeiCBaG//gGs9gAp4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--atifashhar.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="XylA/s0o";
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYJzdJAf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC8160A2606
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:52:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AC8160A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--atifashhar.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFC6606A327
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:53:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XylA/s0o
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cdd9fa2a558so2072764a12.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:52:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794495160; x=1795099960; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q7Giv0YbZtbuh6pswUgbBS7Tjhq3TZVDrjjmxy0wKk8=;
-        b=XylA/s0o/lm/yXiTzWdUkyKQ31nCiof9Ms5vJJZ8uKmBohwgsVRAmIirqxOWVkb6zB
-         KzVWNIQjDfsOmZtKmblI9prPr1S3XIvZs947aBjSLP+mSu0ljJ3IOf2AlBDNAHKpUPSa
-         jmGyHiqifPoTt+q0T/sFb3ff6X3pB0IfMRGgWpUXCyfoccoOnnvYLk0HneelkVoMRQ8Y
-         1WU0FI5SFneA5xZ1WcWsCGzQXwJSegBJDYaakvYsr7Z+f6Avxs7nnPOdAAU4l+6F/znJ
-         /liMfuW1AuAyp0vcfTZbQRTnCJDBx69T3vjDL6ac0PK+aToJBV0YLPNYnH84wSeZcImj
-         QsSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794495160; x=1795099960;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q7Giv0YbZtbuh6pswUgbBS7Tjhq3TZVDrjjmxy0wKk8=;
-        b=d7sTETmp8U+PX1XVKPncMmaJG3pobgGeeuamuoFS6fh3cMwmiip7TubwntlfeplJxU
-         /qoK544CVYt0L7Fd4x09/B5j2ATNYnnhtXLCMo/uxSOuDbKcCfuMG8VE1Pi37pgl+HTQ
-         MWRuAfhOz5SZXdIuzhye6etGeXqjMTn5RS4NNavFEYxiwS2unPQHRHqSpzV+BOl2EzUn
-         EMkRxzP8aP/jC96hSd7VhcMoYSH7iQMkYag8Od8pvU+QUTIsPrPpnJJhki/jLPfA9Zeh
-         tHOIkL83yIt200nlt3OKFIXXxcb9Ez00JBr3BRzWpDmMMwUWiPcPBPPZcDLN7jmZNY5e
-         5gjg==
-X-Forwarded-Encrypted: i=1; AL+hErFlt6Kc5EmnAFQMyJXVck1Md3My3cHBj96QGhvZUHmVrjs329DRe1s+89hCmjW8zKqtveLUBII=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/YLX9kKMfxBItclCorqvxUYIaeZK3RiQWviJjnNEEEe1GiYRYz
-	00Kx0tZxXackPXFa5ALHLXPwg8Nhk0tedmNz33tR2T0QqFLjVFxuaRuyXv6et7+Kz0mb5E+3RNC
-	1kL9brl8X5X0FtJvQEd0YVw==
-X-Received: from pgtl16.prod.google.com ([2002:a65:6810:0:b0:cdd:aaa7:beae])
- (user=atifashhar job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:138c:b0:3ed:bdfd:23a8 with SMTP id adf61e73a8af0-3f2fedddad3mr6395544637.61.1794495159901;
- Thu, 12 Nov 2026 06:52:39 -0800 (PST)
-Date: Thu, 12 Nov 2026 14:52:38 +0000
-In-Reply-To: <20261104133745.1432212-1-atifashhar@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYJzdJAf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37AC31F00A0A
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:53:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794495207;
+	bh=L/v5qWn68YMFs8B3Gf+RGYVilFpufPgqWHu/IxMthQ0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=oYJzdJAf4aYMUDBQEeXrpfh22yWpBUKHypF3AObESHT65Ioymi2bT+MZHtB7j6SC0
+	 BDC47WbS3H91OaFjK0ky2fJyhYMyly+R2jaIdF8k3Mz+fV5OVOOaUuMxgZ601idQ1M
+	 8tmVJvDeIddpGiu4yvsMw6Sj5UfgXpzqnrUeIUCY94FOoZl+y1KoJgYZwtaPLzJH66
+	 yxd7/HWXaYbOwbUU2EU9wbOZrmEFJds9rtL63bGYZAyG+06C6hDrbywawjrEagNk1/
+	 x9eAYDW1ovPA0RvsTno7FDg4CpJxUFRdrC8QwyKL6o+8qtm7gANLT5VDVRNfFtyZ/E
+	 01pS85LUPEwWA==
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7d2bf046ceaso2449886137.3
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:53:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGrweI4SPz6ZyV5oaUdAJYg/uBdU3UaZY8EIDyzYttBd1WOp0y7oF0Kyg5sVvgSLfdI9UUJ1KQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wxFR5PEjZJ/0T7g33Kw7Z073sep4oj4jKDV+S3bz92e2gH0iH
+	kaJEHkITV9uSJnUu70/sm0exgSd7nQaQNwsN3LFXAR8jD2bhoVbewG+O8oHI1a8g3yv16+bD96T
+	ftJGUXhPbVW9z7RwxYvb+OTA5dOszRz8=
+X-Received: by 2002:a05:6102:2c81:b0:7c1:9f20:36ad with SMTP id
+ ada2fe7eead31-7d4ee0f082cmr2674233137.2.1794495206400; Thu, 12 Nov 2026
+ 06:53:26 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,155 +58,155 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261104133745.1432212-1-atifashhar@google.com>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-Message-ID: <20261112145238.3736264-1-atifashhar@google.com>
-Subject: [PATCH v2] i2c: designware: Release slave SCL hold in __i2c_dw_disable()
-From: Atif Ashhar <atifashhar@google.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Jarkko Nikula <jarkko.nikula@linux.intel.com>, Wolfram Sang <wsa@kernel.org>, 
-	Luis Oliveira <Luis.Oliveira@synopsys.com>, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Atif Ashhar <atifashhar@google.com>
+MIME-Version: 1.0
+References: <20261111-btrfs-link-unlink-fsync-v1-1-a817d4a890af@columbia.edu>
+In-Reply-To: <20261111-btrfs-link-unlink-fsync-v1-1-a817d4a890af@columbia.edu>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Thu, 12 Nov 2026 14:52:49 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H4xx2_ik775aK9KzNdBF+M=do+01FKVdL-KcdWNaSJnyw@mail.gmail.com>
+X-Gm-Features: AclHuK89qaA7CCVafBDQqtIfrsEWX0NuC-UZNceAjGa8T_eBaD9Xl1LYLKe2ANU
+Message-ID: <CAL3q7H4xx2_ik775aK9KzNdBF+M=do+01FKVdL-KcdWNaSJnyw@mail.gmail.com>
+Subject: Re: [PATCH] btrfs: fix loss of fsynced file after link into new dir
+ and unlink
+To: mt4022@columbia.edu
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Filipe Manana <fdmanana@suse.com>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When an external I2C master initiates a read to the Synopsys DW_apb_i2c
-adapter in slave mode during kexec teardown, runtime suspend, or driver
-unbind, the slave hardware stretches SCL low (0V) waiting for TX data,
-setting DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY.
+On Wed, Nov 11, 2026 at 9:42=E2=80=AFPM Mani Tofigh via B4 Relay
+<devnull+mt4022.columbia.edu@kernel.org> wrote:
+>
+> From: Mani Tofigh <mt4022@columbia.edu>
+>
+> If we create a file, add a hard link to it in a new directory, remove
+> its old name and then fsync the file through a file descriptor opened
+> before the unlink, the file is gone after a power failure.  Example:
+>
+>   mkdir /mnt/A
+>   fd =3D open("/mnt/A/foo", O_CREAT | O_WRONLY)
+>   mkdir /mnt/A/B
+>   ln /mnt/A/foo /mnt/A/B/bar
+>   unlink /mnt/A/foo
+>   fsync(fd)                     /* or fdatasync(fd) */
 
-In master mode, __i2c_dw_disable() issues DW_IC_ENABLE_ABORT to release
-the bus. However, according to the Synopsys DW_apb_i2c Databook, the
-ABORT bit applies only to master transfers and has no effect in slave
-mode. Because the slave cannot disable while stretching SCL,
-__i2c_dw_disable() times out, leaving DW_IC_ENABLE_STATUS[0] = 1 across
-kexec or rebind. Subsequent writes to DW_IC_SAR are write-protected and
-silently dropped by hardware, wedging the slave and blocking any other
-devices sharing the physical bus.
+fdatasync and fsync do exactly the same thing on btrfs, so no need to comme=
+nt.
 
-Fix this by:
+>   <power fail>
+>
+> After log replay, B and B/bar don't exist and the file is gone.
+>
+> The fsync uses the file's dentry, which is still the unlinked A/foo.
+> The inode is new, so btrfs_log_all_parents() finds no parent in the
+> commit root, and log_all_new_ancestors() then takes the fast path for a
+> single link.  That path walks up from the dentry's parent A and never
+> logs B.  On log replay the inode ref for B/bar is skipped because B
+> doesn't exist, and the inode ends up with no links.
+>
+> Fix this by not taking the fast path when the inode had a link, unlink
+> or rename in the current transaction.  The slow path finds the parents
+> from the inode refs in the subvolume tree and logs B and A.  That only
+> adds a search of the subvolume tree.
+>
+> The problem is old, e.g., v7.1 loses the file as well.  It was only
+> hidden, by a fallback to a transaction commit, between
+> commit 0f24ea456ae1 ("btrfs: tracepoints: add trace event for
+> btrfs_log_all_parents()") and commit 36f9aafa46f5 ("btrfs: fix
+> unnecessary transaction commit fallback from btrfs_log_all_parents()").
+>
+> With the fix, the file and its data survive.
+>
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it every time.
 
-1. In __i2c_dw_disable(), if DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY is
-   set while disabling, temporarily re-enable the controller so the APB
-   interface accepts data commands without racing with the slave ISR,
-   clear pending RD_REQ/TX_ABRT interrupts, write a dummy 0xff byte to
-   DW_IC_DATA_CMD to release the SCL stretch, and immediately request
-   disable via __i2c_dw_disable_nowait(). Also drain the RX FIFO if RFNE
-   is set during SLAVE_ACTIVITY.
+This last paragraph is useless in the changelog because:
 
-2. In i2c_dw_reg_slave(), replace __i2c_dw_disable_nowait() with
-   __i2c_dw_disable() to ensure the controller is fully disabled before
-   calling i2c_dw_set_mode(), which programs DW_IC_SAR and DW_IC_CON.
+1) It's pointless to know that it was found using a hypervisor under
+development.
+Unless it exists, has a name, and is available somewhere, it adds
+nothing useful.
 
-Fixes: 9f3e065c54b0 ("i2c: designware: add SLAVE mode functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Atif Ashhar <atifashhar@google.com>
----
-Changes since v1:
-- Use lowercase 0xff instead of 0xFF in regmap_write(), comments, and commit
-  message (Mika Westerberg).
-- Explained on the v1 thread why writing a dummy 0xff byte to DW_IC_DATA_CMD
-  does not generate unintended bus traffic when immediately followed by
-  __i2c_dw_disable_nowait().
+2) Who reads the change log after commiting the patch, has no idea
+what the C reproducer is.
+The link to the reproducer is after the ---, so it does not get to the
+changelog.
+Plus, the log should should be as self contained as possible, with no
+links to  personal github accounts that may disappear anytime.
+The reproducer is also unnecessarily long and complex, nearly 400 lines.
+At the top of the changelog we already have simple steps to reproduce,
+that is enough.
 
-Link: https://lore.kernel.org/linux-i2c/20261104133745.1432212-1-atifashhar@google.com/ [v1]
- drivers/i2c/busses/i2c-designware-common.c | 46 ++++++++++++++++++++++
- drivers/i2c/busses/i2c-designware-slave.c  |  2 +-
- include/linux/designware_i2c.h             |  1 +
- 3 files changed, 48 insertions(+), 1 deletion(-)
+>
+> CC: stable@vger.kernel.org
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/bt=
+rfslink.c
+>
+> It uses dm-flakey to drop all writes once fsync returns.
+>
+> No Fixes: tag since this looks older than the single link fast path.
+> ---
+>  fs/btrfs/tree-log.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
+> index 85ef3c26e0e4..4f24b277f1b7 100644
+> --- a/fs/btrfs/tree-log.c
+> +++ b/fs/btrfs/tree-log.c
+> @@ -7543,9 +7543,13 @@ static int log_all_new_ancestors(struct btrfs_tran=
+s_handle *trans,
+>
+>         /*
+>          * For a single hard link case, go through a fast path that does =
+not
+> -        * need to iterate the fs/subvolume tree.
+> +        * need to iterate the fs/subvolume tree. But not if the inode ha=
+d a
+> +        * link, unlink or rename in the current transaction, since then =
+the
+> +        * dentry used for the fsync may be an unlinked one, whose parent=
+ is
+> +        * not the parent of the remaining link.
+>          */
+> -       if (inode->vfs_inode.i_nlink < 2) {
+> +       if (inode->vfs_inode.i_nlink < 2 &&
+> +           inode->last_unlink_trans < trans->transid) {
 
-diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
-index a1eca6cd4b75..46866baa9d9c 100644
---- a/drivers/i2c/busses/i2c-designware-common.c
-+++ b/drivers/i2c/busses/i2c-designware-common.c
-@@ -619,6 +619,50 @@ static int i2c_dw_set_sda_hold(struct dw_i2c_dev *dev)
- 	return ret;
- }
- 
-+/*
-+ * DW_IC_ENABLE_ABORT only aborts master transfers. If the adapter is acting
-+ * as a slave and holding SCL low waiting for TX data (SLAVE_HOLD_TX_FIFO_EMPTY),
-+ * hardware refuses to disable (IC_ENABLE_STATUS[0] stays 1) until a byte is
-+ * written to DW_IC_DATA_CMD.
-+ *
-+ * Mask interrupts and temporarily set DW_IC_ENABLE_ENABLE so the APB interface
-+ * accepts writes to the TX/RX FIFOs without racing with the slave ISR, clear
-+ * pending RD_REQ/TX_ABRT interrupts, feed a dummy 0xff byte to release SCL
-+ * (or drain any pending RX byte), and immediately request disable again via
-+ * __i2c_dw_disable_nowait() so the controller initiates disable upon
-+ * completing the current byte.
-+ */
-+static void i2c_dw_release_slave_hold(struct dw_i2c_dev *dev)
-+{
-+	unsigned int status, dummy;
-+	bool tx_hold, rx_pending;
-+
-+	if (!IS_ENABLED(CONFIG_I2C_DESIGNWARE_SLAVE) || dev->mode != DW_IC_SLAVE)
-+		return;
-+
-+	regmap_read(dev->map, DW_IC_STATUS, &status);
-+
-+	tx_hold = status & DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY;
-+	rx_pending = (status & DW_IC_STATUS_SLAVE_ACTIVITY) &&
-+		     (status & DW_IC_STATUS_RFNE);
-+
-+	if (!tx_hold && !rx_pending)
-+		return;
-+
-+	regmap_write(dev->map, DW_IC_INTR_MASK, 0);
-+	regmap_write(dev->map, DW_IC_ENABLE, DW_IC_ENABLE_ENABLE);
-+
-+	if (tx_hold) {
-+		regmap_read(dev->map, DW_IC_CLR_RD_REQ, &dummy);
-+		regmap_read(dev->map, DW_IC_CLR_TX_ABRT, &dummy);
-+		regmap_write(dev->map, DW_IC_DATA_CMD, 0xff);
-+	}
-+	if (rx_pending)
-+		regmap_read(dev->map, DW_IC_DATA_CMD, &dummy);
-+
-+	__i2c_dw_disable_nowait(dev);
-+}
-+
- void __i2c_dw_disable(struct dw_i2c_dev *dev)
- {
- 	struct i2c_timings *t = &dev->timings;
-@@ -676,6 +720,8 @@ void __i2c_dw_disable(struct dw_i2c_dev *dev)
- 		if (!(status & 1))
- 			return;
- 
-+		i2c_dw_release_slave_hold(dev);
-+
- 		/*
- 		 * Wait 10 times the signaling period of the highest I2C
- 		 * transfer supported by the driver (for 400kHz this is
-diff --git a/drivers/i2c/busses/i2c-designware-slave.c b/drivers/i2c/busses/i2c-designware-slave.c
-index 0abcc7757b23..e51a6b60292a 100644
---- a/drivers/i2c/busses/i2c-designware-slave.c
-+++ b/drivers/i2c/busses/i2c-designware-slave.c
-@@ -40,7 +40,7 @@ int i2c_dw_reg_slave(struct i2c_client *slave)
- 		return ret;
- 
- 	pm_runtime_get_sync(dev->dev);
--	__i2c_dw_disable_nowait(dev);
-+	__i2c_dw_disable(dev);
- 	dev->slave = slave;
- 	i2c_dw_set_mode(dev, DW_IC_SLAVE);
- 
-diff --git a/include/linux/designware_i2c.h b/include/linux/designware_i2c.h
-index 53f37f18a722..113a9d84e34d 100644
---- a/include/linux/designware_i2c.h
-+++ b/include/linux/designware_i2c.h
-@@ -100,6 +100,7 @@
- #define DW_IC_STATUS_MASTER_ACTIVITY		BIT(5)
- #define DW_IC_STATUS_SLAVE_ACTIVITY		BIT(6)
- #define DW_IC_STATUS_MASTER_HOLD_TX_FIFO_EMPTY	BIT(7)
-+#define DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY	BIT(9)
- 
- /* DW_IC_SMBUS_INTR_* bits */
- #define DW_IC_SMBUS_INTR_ALERT			BIT(10)
--- 
-2.56.0.567.gdb80ae8cd5-goog
+So this now introduces the possibility of entering the fast path for
+an inode with no refs (link count of 0),
+wich will result in the function returning 1 (coming from the
+btrfs_search_slot() call), and triggering a
+transaction commit.
 
+Early after the tracepoint call we should have:
+
+if (inode->vfs_inode.i_nlink =3D=3D 0) {
+    ret =3D 0;
+    goto out;
+}
+
+See:  https://sashiko.dev/#/patchset/20261111-btrfs-link-unlink-fsync-v1-1-=
+a817d4a890af%40columbia.edu
+
+Otherwise it looks good, thanks.
+
+
+>                 ret =3D log_new_ancestors_fast(trans, inode, parent, ctx)=
+;
+>                 goto out;
+>         }
+>
+> ---
+> base-commit: 4c34f0909344e48d917afac0eeffb6e1c2681524
+> change-id: 20261111-btrfs-link-unlink-fsync-28ea82e5c56b
+>
+> Best regards,
+> --
+> Mani Tofigh <mt4022@columbia.edu>
+>
+>
+>
