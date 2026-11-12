@@ -1,85 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503704;
-	b=FycpPiPoISAmB1fGuzs5D65/M1sBoC07U+U8fuW0jZ6siUsN/jb7dqTmWIQZM011hS4X
-	 Cx3Zez/R5n/QH7XAStWNGWYfDbhTSAzhXaMJCDS5Y5NcR/E91gDSqx7tiB+0+rITMHuQL
-	 L5gkCBbIh9nUXw12Xdx4OkngWaVMbsP68c8bfh1sXbITtOYjapxB8TLH76sI67XqoP1im
-	 a5PkW5MEKE+U1r7Mfi5a7+RHgziLkuunqL2oewA4rDjwDS6ehE+SiXi2byHfb7CkqvpN+
-	 jCLz8ITh8XAcy3Xn+7qw5HBzqxKhRZlYL0+jHbCRcOQ4FIlfruURceIrZyZNjX6p8HQ==
+	t=1794503759;
+	b=hq6OyPCLvw/bw7HZXTur5soNvE7jwttvA+TiHzwABbqektU8xweadinyo/1RXCgDRFzl
+	 3Y1/EQvTlTPX+MgncLcTXH+4fuGiZJ1W3YE+jN9LGeJZzU8V65jJb8YpK+1KjMua3e0l0
+	 EqZv8PpqLIBOIFXv2wCaqZbqUb877Z0T498x3P8sg8iRPmLkGRvr+IPNtLKtzxCC2rCKs
+	 pk3Okr44p2WHIU5/SZ1Xjb3Fs7pdftLC5KeaAgcDBcKZbkQHJPT40R8lJG2WQJJKf18A1
+	 Fhrm9QprAyCmyey/wUgg5ZtN5/wmA7/hLHyybzq5mtMsffNhkRNTEvCYinfkR3UDOyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503704;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=pkUNJy/G/i2yr1NWN9oiSB6swWvpLvuFtnABa0SM57s=;
-	b=kIo2aBGVre7pVl0aBIQHRAJeIb07NCR5zkBVNUbdIaeRYjTDv5bAZ4ezfVotwfstqNVE
-	 iAih6/rwL81UVR/OzgGDVgcncPP+b3pOKEKyC2+NxjaRmTQFHZYbsaXzPvXWrxkhMHOMt
-	 MyTb8YEaE5G5EOu+bNUUmc7VBfBv0072Rc/qnT0ojabK9e9nThgTHUe19LFkKrp7dONM7
-	 x7T9jqDRrgUXMfE7pxPnAGWTX2QpfhYbflztZSMyQmMJW7ANfwSYnh738G2YgJjkYaWb/
-	 N21iW317JJ2lGJ8036E0oDgHpDr5b3sLOHTkHcMLA/Jcrvmkrti6o84QU/P1MxHtOyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503759;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=YrQKWHVkSfoTy6LzaCoo5XjdQE9DxwlwMVFy7Z78e4I=;
+	b=yxUYXI+5QixmYGxwCocPt2VdMIFkzTCRiFgM19HHUydcq9X/2Y+4bUKONKTN4yFmhV6T
+	 q5k4VoJdD1aZH4/j5F6Wi38TaBOpPZ/VlCR83TV6Al6aVzmJgZVOj7RXOmEEjcp8I3dK8
+	 +CsD2FoqUxIgbiof9VgvNpoY1i1Er3aM2U/tNgcuyO+ypLcBbtNuKSqG626BBef+Z5iHG
+	 CAO1pOXT3XXOBU2R8gCH6/v0peqDqBMb5DO/bvIx+behIJBjZnAmtQUUJNbdbvJwyTXaE
+	 sF7/QyF465EbTzT69sI87AVwE18WIxOMRPCwDo+kYBu8offwBd3PTyZARM1fI36/4Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=pmyoi0DA;
-	arc=none smtp.remote-ip=209.85.160.174
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b/bgRBzh";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BDB606A886
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:15:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08BDB606A886
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66302606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:15:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=pmyoi0DA
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-53634b8328eso37785651cf.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:15:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794503703; x=1795108503; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pkUNJy/G/i2yr1NWN9oiSB6swWvpLvuFtnABa0SM57s=;
-        b=pmyoi0DAQQlNFzltCnW5ORgDwnPgssF9tc5Yb41egpqJgqO1bCD46e5CH1aNeekBwW
-         zNHDZbnO+IlIj94erHAXPMOAM++MXQqoXuZCMU4A5rLvl3ueWGShLAmTxgxlGbCB3/gG
-         ZHjvXlyYIqd6r+/SuPQvrTTCMPGpgZUnR+AgV5/jt45EQ2tyGvJM+kMslERvdjYJbMT1
-         9TMAzYgSYsdtz2+/xGf4uEOHM3MHtE71s0/etNjpd1b+uuTHQYTAfstQQM6azn5B8XfM
-         Jrp4nZhrib4IHL3HIQOCPoXU85VZDXpBpYjP8UIEY8bs1f3sG0zr3OlkX5wrMUEsI0qf
-         ujQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794503703; x=1795108503;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pkUNJy/G/i2yr1NWN9oiSB6swWvpLvuFtnABa0SM57s=;
-        b=HGYfsH+i0wCn5LZe4AJKCX4ji7pBaUTExe8dRYZ3t0hkq3Ryt4Am4fTHkQBzy8dBGb
-         xQPrvKbSuY/sLblfiWfq271J2a3L0V33DnRk+YAssJIHLiY8SV49YMGKFGfYwaidUKOk
-         W8dEVKUYEv3wwRqHtn5yRZRBEsrVs5BDKMto4h9XCDWiXSw1L/hYHw9w2AwglxFk6qJw
-         XHJQeUSgkEzvYKLa3/j8Kg0xzIzRVC5pwCA6ukQJpcZju1SffApAzk5M4Y3lcM4yCARk
-         DpIDZQeRmsX+Ffrws8KaN+cGLNZG8PyheAc0DwHFRnGMAlbei46VepVLN74UfDztPZ8M
-         LoVA==
-X-Forwarded-Encrypted: i=1; AL+hErETI9IQpPfaV8nw0i2PqiiwZxWmqXhYoUMqSrXw/WBUXbpHuaB9Rn6E5bcL+77uWlNeRTJvlGw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DsQ17n01inSzq/e2zl2WM74bxrNpH+K5cll++ieCVR6WsxSAB
-	8n9khzxavs+qBxJdonhaGebyIt6vaQeIg6SoMLexdjqo7UWoprDFT6cLywuI2SQbrdM=
-X-Gm-Gg: AYBFou1yuCl1mW0CXkzMiIKp48SuEHj6gX8uwB1rUjLYuULA2C8d/w2Fqv+Q3/eXxw+
-	HbH2VVd9fqk/4JPWPzJBGBD+Ek1yHyGxhkm37v5zIDuwUnnIsYf/IdCMeTBud9ZvrmDIoGCpQ7n
-	9bXYdzz0wNDo0a76DJHWr7sPekqe+mXYy3pVaITvqq04tE182HM6wt9iBj4cY1p0f1XCXvLFyll
-	dDzTPDi4ulX2fVy614rCvJCpJlebyybqPe8zvdOxGFj0y6HjvjmYtJRcK4ccSRCuTgwm54F/L7B
-	VcxDP/JD2JpKC7pe7JO9wnLuLjm0dEBKNm2fGnpj635a7y4JYtY+ytFnwKwkwTNpU3flHA6H3+Z
-	WMn2KXfcnyMbmDN7Ogk0z0H4Zss1cfkdmNALTbmotPoz26wtgcYSEQmOU43i35WmRphoIXtu1iZ
-	ti72fgWkCEoW/yL00lTeJCVV7j9ylJ4YPxQq4Zj9kP9M6Ql1HA3Vc2dOOCqahXIjMX6K4yxnLPA
-	4SOfiZwZSs5dqdm6SLXq8dgSGDCs6TK1PPnK5ElUrqaP6wCBol0/KZ7xRfjGY0pDZ1QhKR7XDyE
-	sWCjqUsVPdfo38pZhiHu/HgjIWE7JA8we+G5ZE3UeZk/z5W1KRzvxSxdPRdMJhTp3ZwmS8/150t
-	Pb39L2Bs=
-X-Received: by 2002:a05:622a:5793:b0:54f:863d:92c7 with SMTP id d75a77b69052e-55ac786019emr462181cf.41.1794503702764;
-        Thu, 12 Nov 2026 09:15:02 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550af5f339sm78250641cf.9.2026.11.12.09.15.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:15:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b/bgRBzh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491F31F000C4;
+	Thu, 12 Nov 2026 17:15:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794503758;
+	bh=YrQKWHVkSfoTy6LzaCoo5XjdQE9DxwlwMVFy7Z78e4I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=b/bgRBzhRbfHpwgR5ydDD8P/uYIDEOQTsaJ5FGwaNrM1IE8Sm7Uv4UKoJTvHoMNkD
+	 5hi5n6LfCLKMfAuw/NZuA5kxBe0HtFBZGr9VqqXZC1ACquoZvx1eTECexFjjHk9eUB
+	 W5CzYX66Cb6CWj9s4lg4zgJli7Yh++SpNwhRogmU+Di5XQQNoyLdGHgtIXcjNrff3a
+	 kPLmpZDmn+4Sa+Ypj66AuKWUHIY2r7q7XOXLe/mAhmpe3FQhCG3uTuseIcUm2YQNI0
+	 nda1p16E0cYefydip5p44qlHps2A9F2Aq+HhvEqtWEosGHA7LXT32Q7fgXzycAW1UM
+	 Hpc7MPocnjUVQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Balbir Singh <balbirs@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Salvatore Dipietro <dipiets@amazon.it>,
+	Christoph Hellwig <hch@lst.de>,
+	Dave Chinner <dgc@kernel.org>,
+	Matt Fleming <matt@readmodwrite.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Michal Hocko <mhocko@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm: page_alloc: do not give all non-blocking requests reserve access
+Date: Thu, 12 Nov 2026 12:15:55 -0500
+Message-ID: <20261112171543.3069410-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200416-failed-6.18-6ee3d87b9408@kernel.org>
+References: <20261109200416-failed-6.18-6ee3d87b9408@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,78 +72,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 05/13] mm/migrate_device: don't collect a range twice
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
- Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
- Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-5-3d2454362e8d@kernel.org>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-5-3d2454362e8d@kernel.org>
-Date: Thu, 12 Nov 2026 12:15:01 -0500
-Message-Id: <179450370120.482102.8019443935242743968.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> migrate_vma_collect_pmd() drops the page table lock to split a large folio
-> which it finds in the middle of a page table, and then starts over at the
-> "again" label. The entries for [start, addr) are in migrate->src[] and
-> migrate->dst[] by then.
-> 
-> While the page table lock is dropped the page table can go away, in which
-> case the restarted walk invokes migrate_vma_collect_huge_pmd(). However
-> this is passed start rather than addr, so [start, addr) is collected a
-> second time.
-> 
-> This can result in migrate->npages exceeding the number of pages the
-> caller asked for, and therefore in writes past the end of the
-> migrate->src[] and migrate->dst[] arrays.
-> 
-> Fix this by only handing over what has not yet been collected,
-> page-by-page, and flush the TLB for those entries which have been
-> previously replaced, similar to the other returns in the function.
-> 
-> Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ ljs: cleanup commit message ]
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+From: Johannes Weiner <hannes@cmpxchg.org>
 
-Reproduced and observed the out of bounds condition with a KASAN kernel.
+[ Upstream commit 6ee3d87b940848aaed5d4e8d005c5f674bf2637a ]
 
-Fix looks reasonable to me.
+Patch series "mm: page_alloc: fix reserve access for non-blocking
+requests", v2.
 
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Two fixes for how non-blocking allocations interact with the highatomic
+reserve.  There are prerequisites for Salvatore's "mm/page_alloc: avoid
+direct reclaim and compaction for costly __GFP_NORETRY allocations" [0].
 
+Patch 1 narrows which requests may physically take highatomic pages,
+patch 2 narrows which requests may count them in their watermark check.
+
+Both are prerequisites for Salvatore's patch: it clears
+__GFP_DIRECT_RECLAIM for costly __GFP_NORETRY requests, which turns every
+large page cache folio allocation that reaches the slowpath into a
+non-blocking one.  Without patch 1, those requests may fall back to the
+highatomic freelists reserved for atomic requests.  Without patch 2, they
+count the free highatomic pages in their watermark check while being
+served from regular memory, so they can consume regular high-order blocks
+below the min watermark by the size of the reserve.  GFP_NOWAIT requests
+hit both paths today, so these are existing problems worthy of their own
+stable backports; but Salvatore's patch would widen them significantly.
+
+Patch 2 reproduction: a GFP_NOWAIT burst under memory pressure can drain
+regular free memory to zero while the highatomic reserve sits idle.
+Measured on a 32G box with an anonymous working set, swap, and a full 290M
+reserve, three synthetic bursts drove the 28G Normal zone's regular free
+memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
+its swap table allocation inside reclaim, reclaim scanned 13M pages to
+free 200k, and page faults stalled for tens to hundreds of milliseconds.
+With the fix the burst stops at the min watermark and nothing else
+happens.  This was found in review and reproduced synthetically; it has
+not been observed in production.
+
+GFP_ATOMIC order-0 requests have a milder version of the same problem:
+They are entitled to the reserve but are served regular memory first, so
+the fix there has to change the watermark check and the freelist order
+together.  Salvatore's change doesn't interact with this, though; fixing
+that is left for a separate patch.
+
+This patch (of 2):
+
+281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
+highatomic reserves") accidentally gave all non-blocking allocation
+requests access to highatomic reserves, which includes GFP_NOWAIT and
+other sites clearing __GFP_DIRECT_RECLAIM.
+
+While this improved atomic request success rate, it's unintentionally
+broad and can actually worsen highatomic requests by squandering the
+reserves on requests that don't need it.
+
+There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
+for costly order __GFP_NORETRY requests, which would then also fall
+into this exemption and deplete reserves even faster.
+
+What GFP_ATOMIC has over the others is __GFP_HIGH, which
+alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
+
+Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
+ALLOC_MIN_RESERVE.
+
+Link: https://lore.kernel.org/20261001082152.2879289-1-dipiets@amazon.it [0]
+Link: https://lore.kernel.org/linux-mm/arFBWvzXPYrKuIYi@cmpxchg.org/ [1]
+Link: https://lore.kernel.org/linux-mm/20261001082152.2879289-1-dipiets@amazon.it/ [2]
+Link: https://lore.kernel.org/20261028171719.2043421-1-hannes@cmpxchg.org
+Link: https://lore.kernel.org/20261028171719.2043421-2-hannes@cmpxchg.org
+Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Salvatore Dipietro <dipiets@amazon.it>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Matt Fleming <matt@readmodwrite.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: placed ALLOC_MASK_ATOMIC in the existing internal header because the dedicated allocator header is absent ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/internal.h   | 3 +++
+ mm/page_alloc.c | 4 +++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index e0adafc45c8c3..e36c46e865956 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1315,6 +1315,9 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
+ /* Flags that allow allocations below the min watermark. */
+ #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ 
++/* Flags that mean GFP_ATOMIC */
++#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
++
+ enum ttu_flags;
+ struct tlbflush_unmap_batch;
+ 
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 2685e570bf7de..bce50449902cb 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3241,7 +3241,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+ 			 * reserves as failing now is worse than failing a
+ 			 * high-order atomic allocation in the future.
+ 			 */
+-			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
++			if (!page &&
++			    ((alloc_flags & ALLOC_OOM) ||
++			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
+ 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+ 
+ 			if (!page) {
 -- 
-~Gregory
+2.53.0
 
