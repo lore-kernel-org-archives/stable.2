@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450706;
-	b=25gBmAzvRXIjHiTVnkhgZBQh09letQPBnH6IKRAwDViSNLWTvY7BNXeeJrKre+Bluv6A
-	 3OvwovOaLxno+UUzaliOKx5uxWT2kqnk/dOZs9N+Xuz2f6fIpFjHWedUCG9eHVX9w4vZI
-	 fIVYgBU86Fk7GKbZjbtWAV02HAURY6qhLv52B1acP5TSIXf2/AU0YSX7VHzkI13nE8xWT
-	 unljZ+mqGVm+ovbNGl9m/exF0xeHOkPrcUUY5fBTGnD9W66zx59v33WXgd+yTpARMcRN0
-	 uPxMl+xrF+hodRJP3A1IBMX66QbMbOsdUUsuoYv4h1YqUd/2ZXO84V6RvpY8G9+c8WA==
+	t=1794450729;
+	b=3i2QnSZ6mfGFA8TLU3LtweP5LVC0WOBZkY0EKB+XLfyebBriSxv0xtKTzCprif2QjrJT
+	 cV0oMBm8UmTke5wCb1XhGwQMfv+OGWy9cBWNxvUERQ6I1p8oK2cT6y1CfB4zZ4Ly7y7JL
+	 7P+0qfpzmC6KS8/E3kwpvGcu5oTzhVSITO3sJqH3yd3H/POuwFgvhYFOsWJBo5OWaGOcp
+	 orYWENoUxVCKMo6BWKw6fxnYyH2jV2YLSAY+4aZvYreH0pgYbM2Rx7HbQTj+hrnw5etzx
+	 FbRHyf91/Y0t4j4a/+kULJd/3p//yunpETXUOAc4Zj2quieEXOvwH+yxKFKDpMx3kbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450729;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gMhbTe7d0+CUwBGxWyS0q0maY/Ana1VK2WRJlRG+NP0=;
-	b=2xRIr6wK4KLwVXlrj/DPannyJzUpLF45MXRzdKxcXFR2utak3U6P6WJg43E06gxJqme2
-	 ZK7FFISfIraCEe9tad4J5u8xrXlQDvjMPVe+mqqiHt7QwxFLF3zcInAhxpd4wIwNrtWU4
-	 OBnh5iGRud+eqMhSCYDFKENAtU/jhHelRdkn7JkxlEWARGoItoF9LaxuLYLIn9sBd0voA
-	 cZ78k6YfvsfQwxWYaURjCyTtw/GmEoXbUzkzOPt9fYITCKMYDFjGQQ9mx4w8l9yAxXYvW
-	 N+EH8sPpL4Uw8nMj6itIfUmAIY67m06AYY+8nfASH50e8D1CqOrEAQKw+q5yWsgmkCA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=i/f1+warxd7XIjjAXYyltlpTjpNK2mQUr+Pi9PIa3ZM=;
+	b=cwJfzp7vFN+A30tHyz7AETw+93mKEoSShOLmZxEi9WOmjK1Jhg+eEMlQclitB1a8dWRp
+	 mDGWKgFDuFYx0KJX5c87cxX7jkT3z6AcU5AgBcpYgsyWFPUQ3iBgM5sN84IVq0rJER5iK
+	 jsd48H1g5I9J4nqbUe6+L+q8Hu23sCNQmAnDNE6fBtg84y0yPMxYgXATDllnz7/x6mneh
+	 uHC/73uqXt8vn0iKB2FAhx31zgpuZXk+szXrSGDyqsEVC4mG7k1e68SRq2kLBxI+ErA7l
+	 vOqKYjoEly7bl9+7oC0ZE1/8HQuTU00fjl4Peae2rtMm3261QUWSONaXkdG9C+7O/Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Rog/7ZJK";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=am3cCBvM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3320D606A33F
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:31:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78526606A334
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:32:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rog/7ZJK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717221F00A0D;
-	Thu, 12 Nov 2026 02:31:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=am3cCBvM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932AD1F00A06;
+	Thu, 12 Nov 2026 02:32:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794450705;
-	bh=gMhbTe7d0+CUwBGxWyS0q0maY/Ana1VK2WRJlRG+NP0=;
+	s=k20260515; t=1794450729;
+	bh=i/f1+warxd7XIjjAXYyltlpTjpNK2mQUr+Pi9PIa3ZM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rog/7ZJKvYMQOSZVXS2+99lCk22f/QW3sW1zmub1o78VyVMG8u/xM93OBGA5O4urW
-	 WipXgX/uAUBrWSb+eCtdFC37vt5VGZ3YLxF1/q1D2yYYVSuMafHanc/Xd0evfI6iDA
-	 9OoR6/t775ynN7HJ1qNJGbSnXHYtury7OmESdqx2m4ORkQ11LpOeTYX3VMK6Q+lpC8
-	 ShlImAY1At4wSrbgLflJuqLICEn6dVJ3ExzIC+ndC55WKzbH1l06Q3mLRvxBgdQn6L
-	 xrk+8Vj+3pvjopTbScMfjs/m3dSzlhTLPKTuZgN9hvKGjZ8q9LEK30SeyqMbuq1E/2
-	 YcekzeT9eOaSQ==
+	b=am3cCBvMNrvvEQpZMJPdC/celAw/12w9mtB0Yxghm4SVp40ch7+ju3Irpkez0ckhN
+	 dskJRQlBznzhPP6HJqOCBJw1ZWOpSQ0dw+Ovrp3UAUYOziDl+qIwq18/Jis7bZfBey
+	 O1hmsIQcbZYcXJVjXcSZURiuyB2tblq/g47wN0upZdplP6oXGfrPNC01I/3AXYHyVZ
+	 GXNR1IIErvw0rTWNQXuRAkQZM2troCvpBfOxUKtFLxEY3za3fv5rOynCnSjfHLQv0U
+	 eVHESWqa6UuM4R2zAupmqm+g7UJ3lG6Nf5tduUc1L2JUnatWhPYc2nUTnE1aRgjKZw
+	 QbiQGsoalQHbA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ciro Pedrini <ciro.pedrini@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: Darong Lu <zzyy19904204639@163.com>,
+	Vega <vega@nebusec.ai>,
+	Ren Wei <weir@nebusec.ai>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support
-Date: Wed, 11 Nov 2026 21:31:43 -0500
-Message-ID: <20261112023128.1376145-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] libceph: initialize CRUSH choose argument weights
+Date: Wed, 11 Nov 2026 21:32:07 -0500
+Message-ID: <20261112023143.1393659-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112023128.1376145-1-sashal@kernel.org>
-References: <20261107052143-failed-6.12-d35a1ea827a2@kernel.org>
- <20261112023128.1376145-1-sashal@kernel.org>
+In-Reply-To: <20261107062915-failed-5.10-c3a995ff0782@kernel.org>
+References: <20261107062915-failed-5.10-c3a995ff0782@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,62 +62,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ciro Pedrini <ciro.pedrini@gmail.com>
+From: Darong Lu <zzyy19904204639@163.com>
 
-[ Upstream commit d35a1ea827a2efaea7fb059ffafefae7c13b9556 ]
+[ Upstream commit c3a995ff0782587789333c621e1f6bd5e574371e ]
 
-The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
-so hp-wmi uses the generic thermal profile query. The firmware only
-stores that value and never acts on it, so the EC stays in its default
-mode and the CPU is held at 45 W whatever profile is selected.
-
-The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
-v1) and also needs the timed profile quirk: without it, the EC drops
-back to the default mode about two minutes after each profile change.
-
-Add 8A17 to omen_thermal_profile_boards and
-omen_timed_thermal_profile_boards.
-
-With this, all three profiles work and sustained package power under
-load goes from 45 W to 56-79 W.
+Initialize the CRUSH choose argument weight-set array before decoding so
+entries start in a defined state while the decoder fills them.
 
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
-Link: https://patch.msgid.link/20260925205226.883724-1-ciro.pedrini@gmail.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-[ sashal: Adjusted context to match the shorter omen_thermal_profile_boards array. ]
+Fixes: 5cf9c4a9959b ("libceph, crush: per-pool crush_choose_arg_map for crush_do_rule()")
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Signed-off-by: Darong Lu <zzyy19904204639@163.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ sashal: used kcalloc() with an explicit element size instead of kzalloc_objs() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/hp/hp-wmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/ceph/osdmap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index d189da2205609..e20f1ba937c09 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -67,7 +67,7 @@ static const char * const omen_thermal_profile_boards[] = {
- 	"886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "88F6",
- 	"88F7", "88FD", "88FE", "88FF",
- 	"8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "89EB",
--	"8A15", "8A42",
-+	"8A15", "8A17", "8A42",
- 	"8BAD",
- };
+diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
+index 2a3ab4ef39c28..d180863865166 100644
+--- a/net/ceph/osdmap.c
++++ b/net/ceph/osdmap.c
+@@ -304,7 +304,7 @@ static int decode_choose_arg(void **p, void *end, struct crush_choose_arg *arg)
+ 	if (arg->weight_set_size) {
+ 		u32 i;
  
-@@ -85,7 +85,7 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
-  * "balanced" when reaching zero.
-  */
- static const char * const omen_timed_thermal_profile_boards[] = {
--	"8A15", "8A42",
-+	"8A15", "8A17", "8A42",
- 	"8BAD",
- };
- 
+-		arg->weight_set = kmalloc_array(arg->weight_set_size,
++		arg->weight_set = kcalloc(arg->weight_set_size,
+ 						sizeof(*arg->weight_set),
+ 						GFP_NOIO);
+ 		if (!arg->weight_set)
 -- 
 2.53.0
 
