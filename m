@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487148;
-	b=tTC38kI5fJbwwAMlc9jH9TEPZSxExa09dJavSuoLoTWlll9HEJ+RWRHcVujLBrweZgqI
-	 wMpN28L4xxLF+GKLi5P+2vFCfXgUnFETQ8XhGDt6f9hQkBC/y18p/B5kOWCfTulfXauHp
-	 lJcCnV2BVhne8g98RVzR0EEIhYQA49+kjvDYJxQ1trEhTuakemqltruCxMAt/G6/vkvw9
-	 a/gGy/QdGM09aYpyeHqxcTQ8aSTSWVzro+W5dFD+xYFiubzrQMiBDpiCb2c2vBTcKMEST
-	 +5ya3ubWup+VHwcCdCZwdeGMHdq+IW1xo0fokUE+5ejiehZItgcOKeBTPNsgYtWC4wg==
+	t=1794487561;
+	b=RJY76POsFOewTAuTRxoAoy8pT76wsiTbSRJRRbCXaVUNxzJXaZ+CDCtbet7Sm+yus9AY
+	 EsfXJ0QiCIuxW8OYqgAwyG14DIKcSv6a4/zf6/r+g2S1j3359yZOQ/J4S4XyCbF0b3Rdl
+	 q0aInsWo+oniEnD6d522qWBdzLROPLzYkc8tuLD/lRxLoCi68/yTUjoS8IWOC+ZyD4oYc
+	 BnvRAltoWqvR3jEgIQt5pPbJneOyY1r44PFFE7JNtHzBJSqCLsO+rc+42tURIXYgkF+16
+	 yZVMtYr3Kgoq4Q25Hnr+/IhFMIl7qPSCzRPe26IzGQXtto/Ftatgznp78AFrdReIdxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487148;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=vh0wEAdasYoPETQarwZ1upH2wgAJIcq1wNovfVXcsvM=;
-	b=pT3Yf6o0693pecQ+Wxg+U8Fn0FlJtoiNQKRKnDh8+CTJNp9MOZ4G9NJSwFXMHkMppTuU
-	 LtUB8x8L/Gyau+gAusyWHmSRC5njKRyw2RN4iQkx+GlRHAwxE8QblW2AloK1apPRPC4y+
-	 N1ROLqPrm8bNUlJq60wYfbNXmBuZ1Am7RlkTZdXIEs5QrCoN+LdcyTOKXJoPyVQ+AlR65
-	 u/wUCSXG+FGsqRzprTJ7aBRxgSWGx+JF+nIJv1F0PEedtfKVSUgNMGP1vn0HYi+HPMz9w
-	 x9oEU41vZls95MQIff8s/m+CpU+Es2Ej0IDYsj9+fYt/EjZN14Tdx5/voC1bD1EkSsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487561;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JqmpB5V0UJQajlsRMfwMtixeo10RY8jo/QPsCgZA0d0=;
+	b=b3dzz9z2n7emlKqMtREzWZN49hI3KNvGZTZJUqEkd4rcOsmyEvdwg/q3bvkKsWMeT4CG
+	 SoUVb9fn/c9eyeCYEGzZVXK9j/qiehDOXFXG2d6JuaNZ1blgZieYGUsaQxDU1ZciOgT7Q
+	 bbgMhSUgmjmBkVAeaOWCq8d50ovCt189Mw+TIS4et+kYo9vTTKMIH3pzaXgxolNhg/ikC
+	 M7mALEd3GnzHJqMw8u4Z+iqaBO5X3Z9svQcgqcvZH9ShuX+yHJjoagRNqoSpAXtvComMT
+	 +06avzG5mqnOTe/qW+C+lH/O8dXPLRnegazlWtwLTUlzUzUGwEbgJh07u1mNnqEoPag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZ801P0m;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kHo7EZ9U;
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811F7606A339;
-	Thu, 12 Nov 2026 12:39:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33E9606A337;
+	Thu, 12 Nov 2026 12:45:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B33E9606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZ801P0m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4A9A1F00A05;
-	Thu, 12 Nov 2026 12:39:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794487148;
-	bh=vh0wEAdasYoPETQarwZ1upH2wgAJIcq1wNovfVXcsvM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=IZ801P0mO831HJkHpzTQChJSe9EGTEVSnliF4yzppHntTAOIz4vW3s+5i6liGSaoB
-	 ISZ8oACkEGCzXkzokMHHdDR2PIxprZ7qSxJo07e0xadmkQ14gOFkJSr9khYdGRQpM2
-	 srTEyrLKJzwI3kHxZNOO1iEBsoyOB+0VWIjonkTNS0/eK7WEvg3C7HiL4/Twh9k+i0
-	 U7Tnjd1cz4cI9Kzu8EEa66SLwJ28f1zPr4dG5aPxXZozDDrRpspkCiNTxNLnq/MGwP
-	 Lm9BOIEdqeUOc+n3cyt9XDmbqxsydTmCCgN7N95rVKgAIAv3CeqrfsKh3MbkzxxKy8
-	 UcNf7QKLJzExg==
-Subject:
- Re: [PATCH net v4 2/2] xfrm: fix selector matching for IPv6 atomic fragments
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- davem@davemloft.net, dsahern@kernel.org, idosch@nvidia.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- kuba@kernel.org
-Date: Thu, 12 Nov 2026 12:39:07 +0000
-Message-ID: <179448714728.2199510.9531579994326693774@kernel.org>
-In-Reply-To: <20261109213803.1785516-6-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261109213803.1785516-6-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kHo7EZ9U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794487554; bh=JqmpB5V0UJQajlsRMfwMtixeo10RY8jo/QPsCgZA0d0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kHo7EZ9UsL2ZrfiBY3IxAXLVh/7LfYfS/9OXzo01hS93BHitatOalsEMlJz+LKSR3
+	 9r6dmZYUNocP59fmhClhPmTXggdtiapklkHUK0feo7i3+fvD60JEdF5/wf/u6uwvav
+	 2cmNa3jcNQWAeBXFJ5WMV7D2jMSk2U2TuBHmyV7c=
+Received: from localhost.localdomain ([2409:8d5c:8f0:65e5:e498:8f16:a485:ceef])
+	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+	id B70218AE; Thu, 12 Nov 2026 20:45:48 +0800
+X-QQ-mid: xmsmtpt1794487550tmaw77872
+Message-ID: <tencent_28A2BD1631FE531992E91753BA6419FFC506@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJcREJkrvuUFCtWib1OPE3zJrun6iOGxYUjNRmFzinPQeY3ZFj9S
+	 OX4fwCIbRte4ky5NM+1mQIpDpYXMEAPAg11hBuagfwLa1TBspC05uwLz/ETALXv733TijF2W3Gap
+	 8yAF4dRmgBf95NTm/++pIqRvKMBdnnSlvyCACGB+KSflIBwtrn3SvXbT05POgLOZeVbMOiuGJ9K+
+	 o9+gUaDZFcbR5d38K8fftjmLoXgDXNSh+KKhpfj33PoNOsO9fRJtfKLhA8hHd9HPNgkHfL5QuVs8
+	 R4l8fB0+pqXc7jisR90iPKm81JfrVGDDeFBa/uahvlbulpztdTzj90QwPndR/iXWdzSVoWcNk4bw
+	 gD+JMfCDT/119EsJw/lRRk3v9RyjQu62/MM7yBRi2IhLcgr+BZlTN6XHey+rVyVsuv5JRi+JfxDI
+	 tDaeO46iVuJ5o1iEVwkRX9bbc87A3Pc9ej4GHUs2d9cBoNRG5o9WgiqHTdREjki3HWdv/uOvYSQy
+	 qsENugSnGl1fJjsE7IRgswk+6vSJe9ZwIx8M2YM1kK8q9vJxK8LuX/ogtmXeoBisrp/GzOamBcEm
+	 CGmDTB0Gtub7yd5gGp+Jb4wwfFjRFYExJddrKH1vIzbBaLl4S2Xd57fpiNjyMSWi0hFv1R0a2yOg
+	 SpGiLh4eLB8qfWg6zQfvWr5umkgUsQlSeS7mZ3AnDiuq0+ZaVZ8i4ZUTtqOwIwnfBbRxpu9Rj00h
+	 o4Kilx/RXdoilxSzlmwBbQ4VRnlUf9jfTgLcf0Of0Ci6FcXxwV5oY3HKbOHi1BP4S/3+Q33rYMGL
+	 AdGnGOau+CXbniPBBBx+iHpEGKUA/KfkkhyN+/i8JeRITEnFBAFO9l2lkrIs+uENySnV1OMhWCM0
+	 RHxIheVMo1q5MEo1AQme/Fi1YYwSwZFpHwkKx6tx9NNfNiHg9TJ62NJkc9KnfrY3jo21APCvMrAk
+	 4w01dxwLzEiBISQxQBvsjPuf8j7iqdY2IZIjZ6bn6BIFVnbQ1ni3enaPg6w5H+newufXC4HKAfRz
+	 TZ2Ok3wQsFNkrqyWQ02nlw30bLRcO4ilnobNpXwl/RlmdRPzGwA/nDvkSmHTJxDaQdx9jcVfEm3X
+	 iQw8aK
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Hang Nan <2122295973@qq.com>
+To: netdev@vger.kernel.org
+Cc: mptcp@lists.linux.dev,
+	matttbe@kernel.org,
+	martineau@kernel.org,
+	geliang@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	kuniyu@google.com,
+	willemb@google.com,
+	linux-kernel@vger.kernel.org,
+	Hang Nan <2122295973@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net 1/2] net: mptcp: take token lookup references with acquire ordering
+Date: Thu, 12 Nov 2026 20:45:46 +0800
+X-OQ-MSGID: <20261112124547.193812-2-2122295973@qq.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261112124547.193812-1-2122295973@qq.com>
+References: <20261112124547.193812-1-2122295973@qq.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,135 +92,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+mptcp_token_get_sock() validates the token and the network namespace,
+takes a reference on the socket and then validates them again.  The
+second validation only rejects a socket that is being torn down if it is
+ordered after the reference acquisition: mptcp_token_destroy() unlinks
+the socket and does WRITE_ONCE(msk->token, 0), so a reader that observes
+the token before the acquisition can return a socket whose token has
+already been cleared.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+refcount_inc_not_zero() does not provide acquire ordering since the
+refcount_t consolidation in fb041bb7c0a9, which removed the ordering
+that the previous atomic_add_unless() based implementation gave.  On
+weakly ordered CPUs the loads of msk->token and sock_net(sk) can
+therefore be reordered before the refcount increment, defeating the
+re-validation.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The same pattern was fixed for the IPv4 and IPv6 established lookups,
+inet_twsk_purge() and bpf_sk_assign() in 5b5d8f351dd9.  The iterator
+below has the same shape and is converted as well.
 
-- [High] The fix still leaves SCTP over IPv6 atomic fragments with zero
-  ports in the XFRM flow, so the policy bypass the commit claims to…
-- [Low] The new AF_INET6 branch in __xfrm_decode_session() takes
-  FLOW_DIS_IS_FRAGMENT as proof that the dissector parsed an IPv6…
+No behaviour change on strongly ordered architectures; this only
+restores the ordering the second validation relies on.
 
---
+Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hang Nan <2122295973@qq.com>
+---
+ net/mptcp/token.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-xfrm: fix selector matching for IPv6 atomic fragments
-
-This patch restores IPv6 selector fields (ports, ICMPv6 type/code, GRE
-key) in __xfrm_decode_session() when every Fragment header in the chain is
-atomic. ipv6_find_hdr() gains an IP6_FH_F_NON_ATOMIC flag and now reads the
-initial IPv6 header through skb_header_pointer(). The ports are taken
-from the transport offset found by the flow dissector.
-
-> diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-> index 4f6a5b81e3b5a..9ea816a8c5f63 100644
-> --- a/net/xfrm/xfrm_policy.c
-> +++ b/net/xfrm/xfrm_policy.c
-> @@ -3530,9 +3530,23 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
->  		decode_session4(&flkeys, fl, reverse);
->  		break;
->  #if IS_ENABLED(CONFIG_IPV6)
-> -	case AF_INET6:
-> +	case AF_INET6: {
-> +		unsigned int offset = 0;
-> +		int fh_flags = 0;
-> +
-> +		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
-> +		    ipv6_find_hdr(skb, &offset, -1, NULL, &fh_flags) >= 0 &&
-
-[Severity: Low]
-
-Can FLOW_DIS_IS_FRAGMENT be set here for a packet that isn't IPv6? The
-IPv4 branch of __skb_flow_dissect() sets the same flag:
-
-    key_control->flags |= FLOW_DIS_IS_FRAGMENT;
-
-With *offset == 0, the new ipv6_find_hdr() code also skips the version
-check:
-
-    if (!ip6 || (*offset && ip6->version != 6))
-        return -EBADMSG;
-
-vti6_rcv_cb(), vti_rcv_cb() and xfrmi_rcv_cb() pass
-family = x->inner_mode.family. xfrm_inner_mode_encap_remove() picks the
-decap routine from the inner nexthdr instead. An IPIP inner packet goes
-through xfrm4_remove_tunnel_encap(), which sets
-skb->protocol = ETH_P_IP, and the packet is then checked with AF_INET6.
-
-In that case ipv6_find_hdr() parses the IPv4 header as IPv6. Byte 6 is
-the IPv4 flags/fragment offset byte, and 0x2C there reads as
-NEXTHDR_FRAGMENT. The parser then walks the IPv4 fragment payload as
-extension headers.
-
-If those payload bytes look like an atomic Fragment header, this branch
-clears FLOW_DIS_IS_FRAGMENT and loads ports from the fragment payload.
-Before this patch those ports were always zero.
-
-The addresses are already mis-decoded in this case, and the reassembled
-packet gets checked again with AF_INET, so the impact looks small. Should
-this branch also check flkeys.basic.n_proto == htons(ETH_P_IPV6) before
-it calls ipv6_find_hdr()?
-
-> +		    (fh_flags & IP6_FH_F_FRAG) &&
-> +		    !(fh_flags & IP6_FH_F_NON_ATOMIC)) {
-> +			flkeys.control.flags &= ~FLOW_DIS_IS_FRAGMENT;
-> +			flkeys.ports.ports = skb_flow_get_ports(skb,
-> +								flkeys.control.thoff,
-> +								flkeys.basic.ip_proto,
-> +								NULL, 0);
-
-[Severity: High]
-
-For SCTP over IPv6 atomic fragments, do the ports still end up as zero?
-
-sctp_rcv() pulls skb->data past the SCTP common header before it calls
-the policy check:
-
-net/sctp/input.c:sctp_rcv() {
-    ...
-    __skb_pull(skb, sizeof(struct sctphdr));
-    ...
-    if (!xfrm_policy_check(sk, XFRM_POLICY_IN, skb, family))
-    ...
-}
-
-When __xfrm_decode_session() runs, the transport header therefore sits
-before skb->data. The dissector finishes with nhoff = -12. On the
-fragment path __skb_flow_dissect() clamps that value:
-
-    thoff = min_t(u32, nhoff, skb ? skb->len : hlen);
-
-Converted to u32, the negative nhoff becomes a very large number, so
-thoff becomes skb->len. skb_flow_get_ports() at that offset fails and
-returns 0. FLOW_DIS_IS_FRAGMENT has already been cleared at that point,
-so decode_session6() copies sport = dport = 0 into the flowi6. The
-non-fragment port path uses the signed nhoff and does not have this
-problem.
-
-sctpv6_protocol is INET6_PROTO_NOPOLICY, so this is the only IN policy
-check SCTP/IPv6 gets. Could a plaintext IPv6 + atomic Fragment + SCTP
-packet still miss a policy such as "proto sctp dport X" that requires
-ESP?
-
-The ipv6_find_hdr() call above already handles a start before
-skb->data. It leaves the correct transport offset in offset and returns
-IPPROTO_SCTP. Could those values be used here instead of
-flkeys.control.thoff and flkeys.basic.ip_proto?
-
-> +		}
->  		decode_session6(&flkeys, fl, reverse);
->  		break;
-> +	}
->  #endif
->  	default:
->  		return -EAFNOSUPPORT;
-
+diff --git a/net/mptcp/token.c b/net/mptcp/token.c
+index e0f2823f92ef..3429b43a9f7c 100644
+--- a/net/mptcp/token.c
++++ b/net/mptcp/token.c
+@@ -309,7 +309,7 @@ struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token)
+ 		    !net_eq(sock_net(sk), net))
+ 			continue;
+ 
+-		if (!refcount_inc_not_zero(&sk->sk_refcnt))
++		if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
+ 			goto not_found;
+ 
+ 		if (READ_ONCE(msk->token) != token ||
+@@ -370,7 +370,7 @@ struct mptcp_sock *mptcp_token_iter_next(const struct net *net, long *s_slot,
+ 			if (num <= *s_num)
+ 				continue;
+ 
+-			if (!refcount_inc_not_zero(&sk->sk_refcnt))
++			if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
+ 				continue;
+ 
+ 			if (!net_eq(sock_net(sk), net)) {
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109213803.1785516-2-Jeremy.Jean%40oss.cyber.gouv.fr
+2.53.0
+
