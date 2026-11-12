@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794456779;
-	b=OWHcX6uTYuuNcbqQhbGAhgFLlTVeHHsobTKwb+3EkNCYPeW2YalZhB4gwqTR9J2X0lpS
-	 eK5rG+otJhpc2M8KAOzdLBgeQSwMK4PW950qWQ4lPceaQ5qbiBGdkHmSGsdL3La+6Y0Jn
-	 wIy+g7iGo77fzT1HmLDOcb+KenQhO5reVuCoUY2ZZ+mOPs6NnCUsrYLCyVwHIRciSPD7W
-	 2esxsmVhvIJ/P8qSA+TnUFmNXdcEszxj+qxef+7mwfknqesFLn7ztYyzLQgCKNz+SIoTp
-	 8SgT6XPptr7hPVakcoNYGHm+A7AKX4JryUxQ3nqKKaNQNxERFg6dIFzl8Zy6S7lZKuA==
+	t=1794456786;
+	b=HvlqSF/QTB9QD/RKiRtjK4hYVsWdGSAQTFNJP2JIvHBYu2PkV7g/Fxd1oIEBWMaibCIU
+	 QOHJ5pNL6r5mNakO6rsibNuNh7XOTTYuypGBnx8HXwm4wF7xIeKcVaGDpUWWPlnHWquZh
+	 ZdnB+XMLOFP4bjcidEc8cwFYpkkinuqELNyGzI+yGgSJEwtnPoqo1AE9cHw07A7Z1OdfY
+	 okQHvZ+WhNylnvYCjusHztqLe97XQqWuvKBad7RyJREAnKSDzyEg3GPwT+elc9ayOfYcP
+	 UtJQgsV6l9JkI2pApXLBqDZPckCn9syOGPBoMJ4FJX+jueC4PgYKKOrlc9j7mNq7EOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794456786;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=cb5obflgdjLo8+XlhF7MpnjCCe8r/1kAHNWYSeIRm+Q=;
-	b=cLf45fQPGNGwUjhCu5tl1fvm6zTgAZDNVMk811eOvlG9XswO1HQXSqgBEm12jYeVPfif
-	 jZ1Z2GmJR04YAsFBzq1Q66q7GPXMWvjlAKAmNKVJakWvYTBWhALkEYZhtw6MheGDYNmPq
-	 QCAozwNOzqG4mNb6+mD0kMgiYu1Ua5jMQiBze5t0X7lqUkbDpteU4Mj1OXiEiDkgbSp51
-	 fN/FZbvoPV1GNgH9ckv2HTB+butFQvOuqjYJCYTqNKvW5kSXnR800bSGBGPYyjbXfVlkJ
-	 QyxHN2zmIQfS0xqF6pueYffHcHYeLSWNYjP26GztXPBntGyciCU+8D4NhvdInPliuqg==
+	bh=IpWUmRExnEtcbdALoE0Cr5qSf7fpbyBSfGicozo/2Fk=;
+	b=5cX/mdG7mHWAVQYL5SLswmEpnfw1MIQiMEPuJChwbiHXtbrXLiZkuRFUXV7b2jPChaTv
+	 zeNDkNG/YndbuLJHUsvZ41/YxGfTD1YNIdGOQl/Sr5mHf1kQsVdgto9exOERKACFsdqmt
+	 BjhDVK8hJQyhqAxAAkkVLlG6VnlD5Ynrgvdm/jSteRG1W12nv8jWJpRyt24t+q+jfZoY8
+	 Oaq9F8C6psLCd5V2g1UNP6zlAdn8PYaosg3cEJnkSHGPQ+49zl1eVKGNrf4Kxdpx7L3AF
+	 dD6r+zBIyn821/vRPmpTi0KrDpg94zJRtuAXphVk7dkuGzfBPAmXzQDCWiHckkomQ5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=tpMyBUOe;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=JvcMI2h3;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29624606A323;
-	Thu, 12 Nov 2026 04:12:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29624606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB24606A31C;
+	Thu, 12 Nov 2026 04:13:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEB24606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=tpMyBUOe
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=JvcMI2h3
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQ6S765rLz8Xrr9;
-	Thu, 12 Nov 2026 12:12:55 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jQ6SC2vKtz57HS9;
+	Thu, 12 Nov 2026 12:12:59 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794456775;
-	bh=tlBiVJzWbGNGR99ZbsJuFMRnwt2+GmTnvfSshwizJCw=;
+	s=z202610; t=1794456779;
+	bh=IpWUmRExnEtcbdALoE0Cr5qSf7fpbyBSfGicozo/2Fk=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=tpMyBUOe+9HJE9nJm0FvBTNXHWbd1D4EzFntyaMAo0g5eNY6BYJpbuCrAORPg+NIV
-	 GC3lrRVqr3+Lt6sCmwUb/KdfKhYDDHHpqDXwjiXxhTL9empzwKZnuSyDuVlZV6Arec
-	 GTOv+pLz4quKOB4+oZe4En0kXLoqOPeFNUMf0UlkvNPy/hZzQTRlol9lseMgL7vD5x
-	 vRHRKHxAbwrqNnr9NPzsvHoTJSqhUCdfoan0kcCJFTfOeSK4EUbcaLb9ViXhyP+KUV
-	 juQW+O8yzSLPyBs8TQLLGhSwfb+SKgyXMUcbBVhajimNuUOzUzxuzveQwdsFxjY/Ju
-	 N/yhvPVupElaw==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6AC4CmRu074280;
-	Thu, 12 Nov 2026 12:12:48 +0800 (+08)
+	b=JvcMI2h3JoKiI/KvRzu2NO1PF5ll+pfYF35RFM7evo9gTDOGXx5HtolaC5gtvQiNI
+	 sabWN068QBkccJ5MTwNMpKdd5tdaw79L5uCkSMk1b58do7vp4czmuJS7G6mH8nP7gX
+	 Ro/8XfsQgZ5uMGgDuO/IKsnJLAhv6SO3m9yB3SeknGBh7X5Gfz0F40etGx6Tk4sH0Z
+	 wxoUFkj1bUn/ukpXrqA7XV14X/sVhuYDZsnN6hNOC+qOokpWLbVe/2uw5sd+87+gX7
+	 oXYnE0SukjRkM+g5zL0hIa7Y8aGp8vMgxbqH0zddoV1hhA35r/jophBVq7csSv/t54
+	 C0E53NtO1uqYg==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6AC4Cr1t062157;
+	Thu, 12 Nov 2026 12:12:53 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
+Received: from mapi (xaxapp05[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Thu, 12 Nov 2026 12:12:49 +0800 (CST)
-X-Zmail-TransId: 2afa6af53cc1a82-62570
+	Thu, 12 Nov 2026 12:12:54 +0800 (CST)
+X-Zmail-TransId: 2afc6af53cc6d55-44861
 X-Mailer: Zmail v1.0
-Message-ID: <20261112121249497K1uXj4qW2lrd4ZbaTHDM-@zte.com.cn>
-In-Reply-To: <20261111164311.GB18076@lst.de>
-References: 20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn,20261111224247129g0VbfWdGlwDMhBpChnT-8@zte.com.cn,20261111164311.GB18076@lst.de
-Date: Thu, 12 Nov 2026 12:12:49 +0800 (CST)
+Message-ID: <20261112121254674Lwi5B4G97rdqfX-kLlNRj@zte.com.cn>
+In-Reply-To: <440db014-a58c-44e4-bc96-e950e69b6763@kernel.org>
+References: 20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn,440db014-a58c-44e4-bc96-e950e69b6763@kernel.org
+Date: Thu, 12 Nov 2026 12:12:54 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,26 +74,28 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
-To: <hch@lst.de>
-Cc: <kbusch@kernel.org>, <axboe@kernel.dk>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCAyLzJdIG52bWV0OiB1c2Ugb3ZlcmZsb3ctc2FmZSByYW5nZSBjaGVja3MgaW4gdGhlIGZpbGUgYmFja2VuZA==?=
+To: <dlemoal@kernel.org>
+Cc: <cassel@kernel.org>, <linux-ide@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2MiAxLzRdIGF0YTogbGliYXRhLXNjc2k6IHNraXAgTVVMVElQTEVfQ09VTlQgZm9yIDMyLWJ5dGUgcGFzc3RocnU=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AC4CmRu074280
+X-MAIL:mse-fl2.zte.com.cn 6AC4Cr1t062157
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Thu, 12 Nov 2026 12:12:55 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Thu, 12 Nov 2026 12:12:59 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF53CC7.000/4jQ6S765rLz8Xrr9
+X-Fangmail-MID-QID: 6AF53CCB.001/4jQ6SC2vKtz57HS9
 
-Hi Christoph,
+Hi Damien,
 
-Agreed.  I'll fold the open-coded check into nvmet_file_check_lba_range()
-(a byte-length variant) so that pos64 stays local, and resend the series
-as v2; 1/2 is unchanged and keeps your Reviewed-by.
+You're right -- those bits are reserved in ATA 32 and must be zero, so
+silently ignoring them is wrong.
+
+I'll reject a 32-byte CDB with any of them set (fp = 1), keep the existing
+multiple-count check for the 12/16-byte forms, and resend the series as v3.
+2/4-4/4 are unchanged and keep their tags.
 
 Thanks,
 Shao
