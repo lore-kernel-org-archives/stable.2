@@ -1,55 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524412;
-	b=w9zMc7rW1exMcyVr9o1UCeN8LBS73BKAU6yyOl+bm9xZn0Rm7Wn4EracmhBWcowJcSQK
-	 v54QoIoa8QynsUteJr3kZMWEktZJpZ8KRsUhuIqM5tcksL7pszZ2XdCB+oLgyoLJA3iIV
-	 uE/XAAM6l8URhddHITFkVSMuhQT8fK4i4kk0YMXRSaoKLi1TthVTqySlErA+hUbWNcxax
-	 waakwmuTyME6tLjDP8CmLWhPOOs7qVkg/jpYyW+NQmCRtxcLdhERCXYhtNPBirIGc3TyD
-	 wpUU3M7jrHXHvGsQ6IgdmUvSxxRVxOE8udQ0/+yx+YaK/L7pLj8mDOvNyBHRSLUrX+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524412;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oiNSXAcoGi/JldYohLXptsVAIK3X+9WLuWCmpuBMd8c=;
-	b=MrPLLjuamMKW7erDNunzXasftmMs5Sat6oIQ6lF2KoK1GknY9Bu6Dvp8olu62S2gFz96
-	 R/qEpQaYrKN4QOuH5Lp/1p8aDukxyfagYXqT1wFXDKz21uPj0hBvIgpwT+h6rb0AHSI+/
-	 nc0M8NFsjJoDuAztsVmQxxvJwJpzdcb99R4ZOTsdbL2o01sNnAFvWkAr6dBwZz93EpJah
-	 ezk9cMPzB9zr9+pw+puazkLpbcKq1krAcItfbHwAyW4lbFHJVdFSL8bnuOm8mzK48E46h
-	 bu8osNF8ecvefqF3TgsiEkiKEgENe7uYP7OK7COyE3ShgE+rxZQ4/uobze4NXJU/Azg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IaAe42Xx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794524468;
+	b=vapfnt5+zevr+4Cg2wNvjDqO3Hz7xKjehsU8GSLOtnn505AM/P7BL6RvQuUhc7PfmSqS
+	 91+sfWLUV7iE76UwKat8VgNGKJ4iFO5qH3pDum095cu32G/5ojZ13p6wRlK7Ra1gewDK3
+	 LVz5uF3MRFkh+ieSecScsCkjhSNaYzpHK9SkZociAN+kSXg3MCHVM3sL45d1kramOUWpR
+	 Idjt3L6W9X4WIP5SnOKT1PmQuE8PHH3tiV3Obr37zIv/DBKx+E8ADJha+ioDDtMKQQnF9
+	 MNpdSwJjS2ftCA3Wy2z5K7Yy/vJQlfNOCImTXU7P10Q2pZHer6VP0s//il2XuMQPwPg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524468;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=XeZTUBvhgpIr/mryTTLRvu/xMyKUEKxDCy6a+x8xHAE=;
+	b=cVF87WjsPwTfc3h8d1djdaf9ZoYqThYErrgMd4dwEVb4Cgd78nJ9PWPwba6XzAj4jJJG
+	 qSpY0dNgHdT0A/It/9VluqL02oIWPikCvz5ybwPZse6Sa5Hj85whj8QwyFJQzrWHtfE2C
+	 9O4tvh7nypGlyqSS6lxbBEsUu8EsEA7wUcPd53S4BzB5SHmkC+j2s7saM5agtWh1Iw2jL
+	 Ofaac1y26miBpWKiEqyov/jkhP+Az//7G+wR8MxIoqvbK9O+C1vIQK5QWpNXkAkBHkSbC
+	 vZHhRpURdHSszwA5s32znoLZziGP23AOouKpZYDiSloLXops2MZNfPftoNnLzjKT9ng==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ORwCc0Rf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B297E606A336
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:00:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700B0606A884
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:01:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 700B0606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IaAe42Xx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 458311F000C9
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:00:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794524412;
-	bh=oiNSXAcoGi/JldYohLXptsVAIK3X+9WLuWCmpuBMd8c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IaAe42XxFR1obgLPXMc6jWkNe9VgtWl4Q1NgXDIJdNAjuGRJI6O2sKbV+CEruttpL
-	 78GEf/2qOW5IrNfQ50v4yapxozHX5FcMYINPstu46HPq+kJIhYqymShQ1I/4354wva
-	 Q4yx6evsxlPn9xMNdMV2pmlt/3DLO3zxI9HMW6B0SVwVw2Msy3RpkUZGTKnXcUy+Oi
-	 j5oQNx4nsgyNW7ogd2fj33QCHL03htiVF6hPq4oeGU27eAjNFDXWsbWkNGoxhUc/0g
-	 59Wcdm3fBrRh6Dn6J9LhpBBfPxKYs0NwnILk/arohjvuMLRO2Abdf/9IC6TFlVt11o
-	 qWedH9VFEuHYA==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so9708966b.2
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:00:12 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFzls03v3qjTM6VZdxvHEMsMG/LdQ14luMPZ9ptIrR46KypQ7isp35wqwFdC/s+rjuA0p5g//c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0TXkdko9SvMygvoDT/tl4LhDPz2GyTrztq+FSUfWwpsHf04NK
-	ZEcskxKYz9L79j17ASRGgw7fgU6OyTuMVHl89na6ll4wK/gxXuk7EnuNP+ROJdvj3ht9BNVaWyR
-	+2IsBBB6R11QdiiMyNUuvJHlFflRtD6I=
-X-Received: by 2002:a17:907:8e98:b0:c48:9228:bdcb with SMTP id
- a640c23a62f3a-c509614e920mr65839766b.3.1794524410953; Thu, 12 Nov 2026
- 15:00:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ORwCc0Rf
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so3974025e9.3
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:01:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794524467; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZHHBdiImxwUX+SlNHdzIZw6l9vY77KLOc2G7kn+DFDvuKuNCoCR7S4amxv5xIfTjku
+         4hHgq0NvykXYOz4GkkBfjtnI2efJ86HTEclE5rJlHVMRMh0sYUmzTQJh3WvDL60NLm4G
+         QiapxJ17HiPZyyd0bWTnws3IX/U2OUaC5kqz0GAPhDwFRE134nRtn+tpsz8NmQ2uWebE
+         dY/a4+f6FXrzRIKGJbgAU+Kdbon2hjf8WTIHCsx0DcUrfteFeHeS6UPTWnD1N8bYtR0P
+         qcYXwtOWxMiN4AFPiBFZSxzwSUptvoMmkxm1WzOlvKnEU33k10R+cAUYHR+2DgyLQdAn
+         1K5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XeZTUBvhgpIr/mryTTLRvu/xMyKUEKxDCy6a+x8xHAE=;
+        fh=KrPGG6tc2JWtsYKnBXy0jjKc9nhhGznLZbl2fnemvo0=;
+        b=bEdcIo/eenuYAe5g/+AKn4ym8XFjTrR7CaLzyXW9f6qA2AEsFp50fDMy/KfKzP0eCA
+         Gg71HOVgZj5tBv+62HEDzqEiYXSgDokdnSFEJbqN/K+/6VF31CymT3S+ledS45srj1RY
+         AuKXIys73y4j+yfJCqCFehIFRvlTwWVINQZW3G6J5n1OwOc6PY2gmJmol4W7dhQl6c9q
+         hf7lh7p/MNK/kYLofvCX0MLA/PUfPRVEEGPq58Ky/Jrk1l+p0qKcpi0NQvfdyYg7orQL
+         xNCMKekYxNYW5BX1UA5ETaj6RmYcCMuWgz/BWiTMgOIEVGPgf+M6Zi0n6+aZzUCiq1y9
+         YH4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794524467; x=1795129267; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XeZTUBvhgpIr/mryTTLRvu/xMyKUEKxDCy6a+x8xHAE=;
+        b=ORwCc0RfO5g12dP7DXRFOapIjWsMZprR43pPYuTX5mzuufCJ+FSeXnwUhWLdW5uQcT
+         pUhjEZ6JndcGeqBS2exd1A6EPEaFxGnzAxxa3p1FYRbJgY/kNs2HrPyjO5jEV0eVTrCU
+         MpV6JvRAyTtMc63c2sWcGhIVMtn9or0kHHYQxmTnxGzXPJi4ugNlUDjHOnnvbxlv5WQy
+         j6WOnF+fX1TKbps7pGcWObt5jUeVGoqMY4fduHB+irTQuU9h+MkFBPWFJ//1njBTIxYG
+         FEqOW2CkK6tHrOgCL4gg3YFE7gHukHSnJrunAODa8JKo+sBjGY0Ntec7QRCPypPNNCF8
+         nZpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794524467; x=1795129267;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XeZTUBvhgpIr/mryTTLRvu/xMyKUEKxDCy6a+x8xHAE=;
+        b=D4k2o3LjAQmoKOYXEbH9qWoQfcCPVcujfLvBdZQo8K+gxUktQUgAUqzSun435xt+4U
+         bQdMQGOlI7RRbziupNs9OANQvZaC3g+3WSFs6X4rh00455DOC3uAo5dNL2OA+j+JNU/i
+         1J8OLg8hXJf1yUhxv1/BF7Y9csQo3WUuztKCON7+tTSnpy6WXAd6bRKRwXIbHBQ0wZ97
+         c1emU1qPczvdAyA+up2GbPFEZns3NKed3dYwFvq2y0Cwd+ezirErIVtg/gCqa0vN0AkE
+         BqFY/AQ0/7Wcrpz9AyNYX+zPReZaLDhJ/0A+6oVtUeU0HNYPPUYXje/RCFmiIC4qlMHh
+         2EFg==
+X-Forwarded-Encrypted: i=1; AL+hErH9QpG5Yh3zC1I+5UP9mRUaYM6oRUvpTTyek8mI66vlyTMlekmU6upNZ7Y9qVZZyV1K+tLT0O4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+EJRMo0je/B4Dqaxgf2vCuzlK1xDeVmP1cx9K0DVHxldEoBonL
+	Xj31V7+cSlvuN31RqdPbb2aGAsg8Iw17+uDVlJ0Tk9xwR6m0cyj8YIKMzR4jz1/8Q4BmicSpIJo
+	0aVlKVPwtR7ixxGtO3HFWrMBzIj1bZpcf1kM5
+X-Gm-Gg: AYBFou2LwVSmAh56JsoGQdLqh39tQY/MxoYQOWnX8UpIjqAFhBW+fnoHTO2+tgRZny3
+	kTgHIOq/DP+s80kDSIPf58/KP6xnTm6BX+zTqpaVYON4jXQRYHvr9U50g0vYr17fYIm7/xFb74O
+	+GyiTFesB3s1Gz5sec+DMWqX7OQTkrgDlSW1ZYmxe50fmCBCWM6fCT0hrCm5H77gOs/UOwej67V
+	FbZMJYu/NOpuoUHSYhwFzABugchjX2GMdJwQFLxck+J1Ulf6B22Cs4h1+LQI3GrQspmJ/L3ozZJ
+	ouOaq6pUFTGVYSQA5o6OgqtIh6AnK4IIh+GyvAlx9HkJ0emZSuGgQ1NO0D2S+32pymy0XVzKBVQ
+	QjigIwuio72F6quo2ALEWp/I3hSXLoAdFj5mZVrQQqwTz/ujVGS1jAisgBTCacYMJi7TJQIyIW/
+	rycZ2HRlHs6m/Y1uQJ6fcqj08ScxLfZLhZuA==
+X-Received: by 2002:a05:600c:840c:b0:49c:d019:70c5 with SMTP id
+ 5b1f17b1804b1-4bb5599bda8mr15428035e9.0.1794524466778; Thu, 12 Nov 2026
+ 15:01:06 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,65 +105,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112111637.184045-1-koray.fra@gmail.com> <20261112111637.184045-2-koray.fra@gmail.com>
-In-Reply-To: <20261112111637.184045-2-koray.fra@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 13 Nov 2026 07:59:54 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8OZ1hfRfEcerPec0nZwXqRqzb=pkUW96ee8i3GQGMUEQ@mail.gmail.com>
-X-Gm-Features: AclHuK8l1-UKHD65oG1w6WnmQKu1UA7Jw7DcQGP4E2lwY59C9HyzbQv_tALtD3I
-Message-ID: <CAKYAXd8OZ1hfRfEcerPec0nZwXqRqzb=pkUW96ee8i3GQGMUEQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] cifs: fix negative timestamps being read from smb
-To: koraynilay <koray.fra@gmail.com>
-Cc: Paulo Alcantara <pc@manguebit.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Tom Talpey <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
-	Hyunchul Lee <hyc.lee@gmail.com>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
-	Shyam Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>, 
-	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <CAEf4BzYDmzNoN-5Rnfj4RrAU8wKnZe+tDFApng61L0mubXqung@mail.gmail.com>
+ <tencent_3455CE5C67BEF809176851A476321557E70A@qq.com>
+In-Reply-To: <tencent_3455CE5C67BEF809176851A476321557E70A@qq.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Thu, 12 Nov 2026 15:00:55 -0800
+X-Gm-Features: AclHuK9-JNkpmr-iGpGEl47XwzmIYWiDVtXbPH3fGOAQAo_1XzuYJoGM1mVSO4A
+Message-ID: <CAEf4BzbdC_+KSCN8C=+E+3n4H70p9c+xbFvEOQC-RXADWbGB5Q@mail.gmail.com>
+Subject: Re: [PATCH bpf] bpf: check cpu_possible() in per-cpu helpers
+To: bo cao <treebacker@foxmail.com>
+Cc: andrii@kernel.org, ast@kernel.org, bpf@vger.kernel.org, 
+	daniel@iogearbox.net, netdev@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 8:16=E2=80=AFPM koraynilay <koray.fra@gmail.com> wr=
-ote:
+On Sun, Nov 8, 2026 at 6:41=E2=80=AFPM bo cao <treebacker@foxmail.com> wrot=
+e:
 >
-> When reading a timestamp before epoch 0, cifs converts it from NT format
-> to Unix format without normalizing it, leading to the nanoseconds field
-> to be used as a negative number, which leads to a garbled stat command
-> output.
 >
-> This bug also violates a struct timespec64 invariant, as documented in
-> the set_normalized_timespec64() kernel-doc:
-> [...]
->  * Note: The tv_nsec part is always in the range of 0 <=3D tv_nsec < NSEC=
-_PER_SEC.
->  * For negative values only the tv_sec field is negative !
->  */
+> > please trim the commit message down, it's way too verbose
 >
-> Reproducer, with /tmp as the local filesystem folder exported as [test]
-> in ksmbd.conf and /mnt as the smb folder mounted with mount -t cifs:
+> Will do -- a trimmed version follows as v4.
 >
->   mount -t cifs //127.0.0.1/test /mnt -o username=3Duser,password=3Dpass
->   touch -d "1969-07-20 20:17:40.123456789" /tmp/test.txt
->   stat -c "Server local (/tmp):   %y" /tmp/test.txt
->   stat -c "CIFS client  (/mnt):   %y" /mnt/test.txt --cached=3Dnever
->   smbclient //127.0.0.1/test -U user%pass -c "allinfo test.txt"
+> > not sure this is right, bpf_per_cpu_ptr_proto specifies
+> >
+> >  .ret_type      =3D RET_PTR_TO_MEM_OR_BTF_ID | PTR_MAYBE_NULL | MEM_RDO=
+NLY,
+> >
+> > it already is marked as maybe_null
 >
-> which prints (stat output is garbled because of negative value):
+> The proto is marked, but check_helper_call() drops the flag on the
+> path this hunk touches.  For BPF_FUNC_per_cpu_ptr with a percpu obj
+> argument (R1 tagged MEM_RCU), returns_cpu_specific_alloc_ptr is set,
+> and the return type is then assigned as:
 >
->   Server local (/tmp):   1969-07-20 20:17:40.123456789 +0000
->   CIFS client  (/mnt):   1969-07-20 20:17:41.()*+,--00 +0000
->   altname: TESTT~K6.TXT
->   [...]
->   access_time:    Sun Jul 20 20:17:40 1969 UTC
->   write_time:     Sun Jul 20 20:17:40 1969 UTC
->   [...]
+>         if (returns_cpu_specific_alloc_ptr) {
+>                 regs[BPF_REG_0].type =3D PTR_TO_BTF_ID | MEM_ALLOC | MEM_=
+RCU;
+>         } else {
+>                 /* MEM_RDONLY may be carried from ret_flag, but it
+>                  * doesn't apply on PTR_TO_BTF_ID.  Fold it, otherwise ..=
+.
+>                  */
+>                 ret_flag &=3D ~MEM_RDONLY;
+>                 regs[BPF_REG_0].type =3D PTR_TO_BTF_ID | ret_flag;
+>         }
 >
-> Fix this by using set_normalized_timespec64() in cifs_NTtimeToUnix().
+> The cpu-specific branch does not carry ret_flag at all, so
+> PTR_MAYBE_NULL never reaches R0 there -- only the ksym path (the
+> else branch) keeps it.  Nothing after the switch re-adds the flag
+> for this case either: the code below only assigns an id when the
+> register type is already maybe-null, and clears the flag for
+> ptr-cast functions.
 >
-> Fixes: 2ae83bf93882 ("[CIFS] Fix setting time before epoch (negative time=
- values)")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.5.3
-> Signed-off-by: koraynilay <koray.fra@gmail.com>
-Looks good to me.
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+> Since bpf_per_cpu_ptr() does return NULL for cpu >=3D nr_cpu_ids
+> (since 01cc55af9388), a program that calls it on a percpu obj and
+> writes through the result without the NULL test passes verification
+> and oopses on NULL + offset at run time.  The hunk carries
+> (ret_flag & PTR_MAYBE_NULL) into that branch, which only restores
+> what the proto already declares.
+
+makes sense, thanks for elaborating!
+
+>
+> Thanks,
+> Bo Cao
+>
