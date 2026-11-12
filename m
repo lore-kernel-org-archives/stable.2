@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794467751;
-	b=bGk3UGqUfqbG6VhX8WV0qQOlsxry9H4Ob/pvUzq669voJC/9Yn3UJkFhmtzkWveSf49N
-	 PmgpoJUHzyX+LvaTAgo+UKK6GWXqm/37OXdNXYuM6qxagpJFYPNZFJ+cBrrxtqr7u0ecj
-	 5xWfWdf/QdWKFg4uclZoEyX4tSuxc6503slqq/BLJWt8hPKFQB8P2Lh5JLTWzy4S0lSAM
-	 tHF2EpHuM9MJY/ayz7p1cLc0GHuBroD2CyFxo2weVyhZPrXBTETUOZvt0QWDXBckL1lcj
-	 CLLAZjZKO1BaKwKM86XVO0TiZyFD9GQ9XS7VThVGk8ukvCPF9pv4VPLZmC1AlTojVJw==
+	t=1794467804;
+	b=v2h/NRNYeiwmychZc5Soh3/WpMh1ETA8XCf5qmv50aX+MEiCHwfn478kGQEJ9HaJKAHE
+	 DGu0CUnU5BEYIEwspY7u57OUaiHMndcIhaTwCj255YidDtH9M6zRaGvKOEbKb7eNFu/Bw
+	 3HsuA474AfihscbVHkDXrKHk0tz1YVZypWHkAMeHEZ+wWb9le3oX1Q613nP41OpbYs/eO
+	 zq6+Y1FK+DSEptFjuDN2KYz6ilNolmzJCvT1m4nqGGn3Fy4fdPueTtJ2VE4rmRkKJDGyw
+	 LStnN8jsOgh/9DJv+NlgtzUQkMWq1CGl2OQ96iGnFxzFtmSsZ8wy/8H/jqjlkMhfk3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794467751;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794467804;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
 	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=4r9XXFTO8ZQmRlSOe0BepTMvXqZOcL+GZ1GXT5k3Ep8=;
-	b=eUnTDZhSMbzf+uj46EfdHLnZe82NyYfzjlsyCaLwn3yXgYb+gWyyM/a4w6SgXN41zzg9
-	 i1wrCnK2F3C8l8pKnYaPkv9tgVfJjVD8giuxAMBiaC+PftJeeYRlPTWeo5KANwm3Oi+hM
-	 vnD8Z5bkndQV8HSCx/PbPl/s6PFmwXU/ITq4+vnDx10k8P6BLgBleBzo3fJ/O7G6UxKYi
-	 OW9t8wQ54dKE/LCfi6BVsI8PDWdzEjB05BijVqqDwcatPhaZD1pBBw5esnbRKFMswYSut
-	 E3wPwpH0R/8pZ/Lig3mQgt3Wzy3xdua8BHbq85lKOjpWUnXPgDEwzId+zxcMMvgghRg==
+	bh=JQI6EwSlsPtuclLjJZxJ5CXmReWwBQ7kHNHZwvtFiGU=;
+	b=yaozV637q1Xqa4C3gU2zw6MV0GEteeeDn8JvOC4rP/pLfbQwxljycK83QOSvlLHP06A3
+	 uyk78v92OykGM7E+OJ6ircJyx7Z5FPUg2atTCXuV7WufRojpnz+sU1ZC+jyIeOY55yJVy
+	 5BlfbwipRxQtcTK3DbMG++tlwOE1CXHBpL2DtExzjUL8P4IFXeMoCoMgUJQaujLE30/od
+	 AMSg4mkfyD9kJyFwkdOacE05zcHfm3L5/HxHWU10NvRLP+gazECvnJblkLYkrLIz7Qlb5
+	 2qGq5ThMHeQ8snAUYJY65DO5nwNoCPhZGq+0lhxFsrUKE7CrPHx43RabAevpUYt/7BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PWFGoF5c;
-	arc=none smtp.remote-ip=115.124.30.132
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TBBKXB2x;
+	arc=none smtp.remote-ip=115.124.30.124
+Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C87606A8A3;
-	Thu, 12 Nov 2026 07:15:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C87606A8A3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D805606A891;
+	Thu, 12 Nov 2026 07:16:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D805606A891
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PWFGoF5c
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TBBKXB2x
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1794467742; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=4r9XXFTO8ZQmRlSOe0BepTMvXqZOcL+GZ1GXT5k3Ep8=;
-	b=PWFGoF5cnjqGeA7lczyyZ5NPyzyeyZuU8Bh1KwEdFsfvos1tLTR3rwhHyI2UAYl+zcT5OwG0KZP2vxuygprSTrBMnZQSHeTjQY/+l+wEGXMq33ZlOXey3bUPyvoVB9rUidzgyUnf0TNjlsamEOFTL08sXdvUi0FeX9uRv7ZtloA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R431e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XEbBYxb_1794467739;
-Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEbBYxb_1794467739 cluster:ay36)
+	t=1794467795; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=JQI6EwSlsPtuclLjJZxJ5CXmReWwBQ7kHNHZwvtFiGU=;
+	b=TBBKXB2xxDByYcM5nSZrxxbU8sRjKIthZRlt+F3aR70C4fy+P/+gYfdRsNGTUFv9bKKmDnzgoiT6O5HRREreXsEsZzolP45ddOkvPnnE8f4l46i9weROo1pJvBZIK2x71JBHZV4OotNkTT/YFwugOicfyNUYFjQ7GlBlJtwo6iA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XEbBZGA_1794467792;
+Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEbBZGA_1794467792 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Thu, 12 Nov 2026 15:15:40 +0800
-Message-ID: <df38cd19-9554-4183-984c-70287e821de8@linux.alibaba.com>
-Date: Thu, 12 Nov 2026 15:15:39 +0800
+          Thu, 12 Nov 2026 15:16:33 +0800
+Message-ID: <08ae2f1d-964e-4f20-a66c-d2ce3460220b@linux.alibaba.com>
+Date: Thu, 12 Nov 2026 15:16:31 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] mm/userfaultfd: fix PTE table overruns in UFFDIO_MOVE
+Subject: Re: [PATCH 2/3] mm/rmap: fix PTE table overruns during batched unmap
 To: "David Hildenbrand (Arm)" <david@kernel.org>,
  Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
  Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
@@ -67,79 +67,30 @@ To: "David Hildenbrand (Arm)" <david@kernel.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Chris Mason <mason@kernel.org>
 References: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
- <20261111-pte_table_clamped_end-v1-1-2dbe339c487a@kernel.org>
+ <20261111-pte_table_clamped_end-v1-2-2dbe339c487a@kernel.org>
 From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261111-pte_table_clamped_end-v1-1-2dbe339c487a@kernel.org>
+In-Reply-To: <20261111-pte_table_clamped_end-v1-2-2dbe339c487a@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 11/12/26 5:59 AM, David Hildenbrand (Arm) wrote:
+On 11/12/26 6:00 AM, David Hildenbrand (Arm) wrote:
 > With a folded PMD, pmd_addr_end() simply returns the supplied end.
-> move_present_ptes() can therefore walk past the source or destination
-> PTE table during UFFDIO_MOVE.
-> 
-> pmd_addr_end() is only intended for page table traversal, in patterns
-> like "next = pmd_addr_end(addr, end);". With folded PMDs, a higher level
-> has already clamped the range to the PTE table.
+> folio_unmap_pte_batch() can therefore walk past the PTE table when
+> unmapping a large folio.
 > 
 > Folded PMDs are uncommon, but can occur even on arm64, for example
 > with 64K pages and a 42-bit virtual address space.
 > 
-> Extract the calculation from folio_pte_range() into
-> pte_table_clamped_end() and use it to clamp both ranges. This preserves
-> the wraparound handling from commit f681d4580d5c ("mm: fix address
-> wraparound when scanning large folio PTEs").
+> Use pte_table_clamped_end() to clamp the range to the PTE table and
+> VMA boundaries.
 > 
-> Fixes: 50944692052b ("userfaultfd: opportunistic TLB-flush batching for present pages in MOVE")
+> Fixes: 354dffd29575 ("mm: support batched unmap for lazyfree large folios during reclamation")
 > Cc: stable@vger.kernel.org
 > Reported-by: Chris Mason <mason@kernel.org>
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > ---
->   include/linux/pgtable.h | 24 ++++++++++++++++++++++++
->   mm/memory.c             |  7 +------
->   mm/userfaultfd.c        |  4 ++--
->   3 files changed, 27 insertions(+), 8 deletions(-)
-> 
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index 780fe849ff8b7..66d369870a740 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -12,6 +12,7 @@
->   #ifdef CONFIG_MMU
->   
->   #include <linux/mm_types.h>
-> +#include <linux/minmax.h>
->   #include <linux/bug.h>
->   #include <linux/errno.h>
->   #include <asm-generic/pgtable_uffd.h>
-> @@ -1518,6 +1519,29 @@ static inline void arch_swap_restore(swp_entry_t entry, struct folio *folio)
->   })
->   #endif
->   
-> +/**
-> + * pte_table_clamped_end() - Limit a range to a single PTE table.
-> + * @addr: Start address.
-> + * @end: Exclusive end address.
-> + *
-> + * Only use pmd_addr_end() when traversing page tables, in a pattern like::
-> + *
-> + *     next = pmd_addr_end(addr, end);
-> + *
-> + * Higher levels already bound the range when PMDs are folded. Use this
-> + * helper elsewhere to clamp the range regardless of PMD folding.
-> + *
-> + * Return: The exclusive end of the PTE table containing @addr, capped at @end.
-> + */
-> +static inline unsigned long pte_table_clamped_end(unsigned long addr,
-> +		unsigned long end)
-> +{
-> +	const unsigned long pmd_end = (addr & PMD_MASK) + PMD_SIZE;
-> +
-> +	/* Compare inclusive ends to avoid wraparounds. */
-> +	return min(pmd_end - 1, end - 1) + 1;
-> +}
 
-Thanks. The helper makes the code more readable.
+LGTM.
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
