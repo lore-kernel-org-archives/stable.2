@@ -1,54 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453975;
-	b=HwZ5I+nukxv3DfT39LhNczgC5zm3Kgxhrpx/jXnbItIVT82vqv78l/CjUyMlOZbfQ6Eo
-	 kXJqAn+7cl3KreF+CY+viOLlGDoWgnCSdHJz49UZPQqE6NEu3JlKlWeD9n27dCLmVbTzY
-	 hJgFR70KWul9tC7/JHNuyR9U4Hyj7Cb9h3+XQHZkORO1r5kuOIrBfv3THl2j7YykukyE5
-	 FED8GfgFXsCTF8xPsNiurBAtmjNoAmZfxQJJkQrhOx5AXsR8XzjLNF4c9nTSfOgrXclBX
-	 IuUPM7Aiz0ZjFTYdunx/V/07CDyo3PIr1/FrHpfrlfrA3zGHM3SJiZU4ZsoFpnBeoxA==
+	t=1794453995;
+	b=papVpmkXzZEzYG8LWDIJHg0iwfDju2UM3LvK7s83YaPyJEPR4SYykCWYVw+4ltVdcKwv
+	 9ldG+uKTMqJfv878T4w8xyMjJAWRJEtvG9f40jtfkfXC0b16fdAllXMOBJMiz/vPKnNZ+
+	 WZvL/GA1meMXwJrfvc9qBkqALIp2zxjorn6yY1neqlxiriUmf1otzyxFCJjMoyhtO0E7I
+	 oP701yPCa4bXkkCATL/wU+BKO+V+szgB2+Pa1pzB65WSiTKLBX8qfJiig19Yi8IoIwfHK
+	 MtyCM7Sxl7BUG0JTCwsFRniKR/q4XRWHv2mFIAjfTp45Zw+ZaDjOeWp0w1xnRwm7lYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453975;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453995;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Cwu9uN2xsFX+8xXweGyl07mV7+X3MKV5DN8L+W6j9BM=;
-	b=fd9If+IUEqWKJtOKzERZwdJ0o89OOXTsck1zp3Waza+r77A0Fy431szp4iJxslQJEX8X
-	 WpgH/DkAif5/szxlszTWAfYGmzQhKn3f+YGnLbKbK7WJJURKq69q6aGWGavrfFm03n/y+
-	 qSKzKi/+OWjxPaK+vB4eqvU13UXtzbIzMT5KJ0ATosVvYyQyURNgp4JCugiQLToSPdSDb
-	 yix5liwIg3v4oLd0OOBEQKKCBnpaA0vY+8yaB5WH9KXLqgNt3rtYpB56tulTDVPjnQKKk
-	 hcs7gdd0OfLno03vbNQXQyzpxxnm0T4ZAcWPWT1iA6TeRkk5kjAcsn/RAXgnzumJLVA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kZLfCEkYNR3aTFkGE62Dpsbp4vXo3cgt1ovFL5UjwOw=;
+	b=GTyh94gw4ndP6ETXKB1vqu8lxprmRSdLlp1GN7JX/z9IINxJBoXj7bNPPr2IALCTt/9M
+	 F8RdCueMevC4hDgmkWrNsOTv/CZ1pLXuwMTD8WtZyrN+wR9fehUJ0TWL/jPq47qiSlWAS
+	 /Gl7lVJvZZwAZf4n9wVNrnYxuR7U7W91j3I4JjxazKYNlT3QtmKO6LuFBj6wMWbeDpJ5T
+	 pA31JvmDOCF+PrAiwD3A6jzXSm2FF99df8DMOaF6OkACaK8UE2DbNv4xhs+5JsDAV03QQ
+	 Mxdpa89KQsM6dJqyhZvmCj+sp/82quZ973/wnO/COK8KEtS6UWxv1iQY9KMmsp4Seww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CF3fIUl5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m4D/jMl7";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F9E606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:26:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95388606A321
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:26:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CF3fIUl5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD5CC1F00A05;
-	Thu, 12 Nov 2026 03:26:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4D/jMl7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7882F1F00A05;
+	Thu, 12 Nov 2026 03:26:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794453975;
-	bh=Cwu9uN2xsFX+8xXweGyl07mV7+X3MKV5DN8L+W6j9BM=;
+	s=k20260515; t=1794453995;
+	bh=kZLfCEkYNR3aTFkGE62Dpsbp4vXo3cgt1ovFL5UjwOw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CF3fIUl5YF5lkue2kY+AgXq/PK8F5BpxtPH4RKftsGB6EBDm731A6DqbwAFjY2du2
-	 p+yhU5rQVe7Jak2+74/0LvkAo+m1Kjlk6Sh4yJFaSmk82NmHar/JdODOlucyoP6YnM
-	 vYqgxLbPzxvOs/ikYGB3kiAXg5mto2++UypeGRWorJh/XK8fIM8CVzK7E+D/BQKYcm
-	 O/sM9P9EhdPspOSgpExQ/FclpaQRoj2O/UaXwsnXadFMBt2znPzOOflBT4XQ1BMaPz
-	 12Q86A71qEsghtSZJ577+aNaniNW4affXqR1DLjL0eG2V0ONAqQ8w5SuUXFs5G1hRV
-	 GCasQDCyXsRdg==
+	b=m4D/jMl78kXT33pL9Qzx1gnsFezNG4znPSaas/3S4iClivV/CEjJFCYxBu8+mzLvb
+	 ge2XiIizVCgt/0GzANYwbjkfxuz5Rs+YRsMqIlx4CbD6d706F6a8l/ZUpjfU3rs5OC
+	 pNzoprkfDzVKlSXBLIZLOwk6qRqZtu7xfogPf34frpUVpNb/0yoLrdr3j27B9R1GpZ
+	 0i6LGx2r/Z3u9g7mO3HhKmFx9E1MLlm/mYxXHV5rUgVuNWSbudKzFDP76KauTzwx9z
+	 CoYgF8EBP0i6DmMG6u0JJJ9gk2xZrUDO4fhEkgof3q8bVDm7mcCnIk+yOr38iLVsvn
+	 qpi/am+CHjikA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Luiz Capitulino <luizcap@redhat.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Jann Horn <jannh@google.com>,
+	=?UTF-8?q?Jakub=20Mat=C4=9Bna?= <matenajakub@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] hwmon: (pmbus) Check return value from pmbus_thermal_add_sensor()
-Date: Wed, 11 Nov 2026 22:26:13 -0500
-Message-ID: <20261112032548.1518180-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
+Date: Wed, 11 Nov 2026 22:26:33 -0500
+Message-ID: <20261112032559.1526093-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201145-failed-6.6-11dfbd835b17@kernel.org>
-References: <20261109201145-failed-6.6-11dfbd835b17@kernel.org>
+In-Reply-To: <20261109200401-failed-6.18-8146c6478224@kernel.org>
+References: <20261109200401-failed-6.18-8146c6478224@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,157 +66,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Guenter Roeck <linux@roeck-us.net>
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit 11dfbd835b17b75f7cc7a4a969f33ff702b1b081 ]
+[ Upstream commit 8146c6478224d8f6395c6b08a19c344a56d79867 ]
 
-During PMBus device probe, if registering a temperature sensor with the
-thermal subsystem fails, pmbus_add_sensor() silently ignores the error and
-returns success.
-When a valid temperature sensor is detected (class PSC_TEMPERATURE and type
-"input"), pmbus_add_sensor() invokes pmbus_thermal_add_sensor() to hook it
-into the kernel's thermal framework. However, the return value of this call
-is completely discarded. If thermal registration fails, such as from an
--ENOMEM allocation failure or an invalid device tree configuration like a
-malformed #thermal-sensor-cells property, no error is propagated.
+Commit ca3d76b0aa80 ("mm: add merging after mremap resize") combined
+merging with expansion of mremap()'d VMAs, however it also unintentionally
+disallowed the expansion of unmergeable VMAs.
 
-Because the hardware monitor probe falsely succeeds despite the failure to
-register the thermal zone, the system is left without thermal mitigation
-for the affected PMBus device. This silently blinds the system to actual
-PMIC temperatures, preventing the execution of necessary cooling mechanisms
-or emergency shutdowns and risking localized overheating.
+Previously it was possible to expand a mixed mapping which mremap() had
+already ensured was a legal expansion.
 
-Pass the return value from pmbus_thermal_add_sensor() to the calling code
-to fix the problem. To enable passing the actual error, change the error
-return from pmbus_add_sensor() from NULL to ERR_PTR() and extract the error
-from in the calling code.
+This is clearly seen in the mremap() logic, as it checks
+vma_is_fixed_mapping() to determine legality of an expansion rather than
+vma_can_merge().
 
-Fixes: 3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adapted pmbus_add_sensor() calls for the missing writeonly argument and readonly/writeonly limit-attribute fields ]
+Additionally, copy_vma() allows for a failed merge to result in a new VMA
+being instantiated if MREMAP_MAYMOVE is specified.
+
+However, this is not attempted, as a failure in vma_merge_extend() is
+assumed to be an -ENOMEM failure.
+
+Since vma_merge_extend() is used exclusively by mremap() to perform a merge
+and/or expansion, resolve the issue by invoking vma_expand() for
+unmergeable VMAs there.
+
+Explicitly assert that the VMA is both non-fixed and a mixed mapping.
+This provides double insurance against broken changes in future.
+
+Note that khugepaged_enter_vma() (which vma_merge_new_range() runs) is
+redundant in this case, as a mixed mapping is not subject to khugepaged.
+
+Also update the VMA userland tests to add a required predicate.
+
+Link: https://lore.kernel.org/20261023-vma-expansion-fix-v1-1-6142baf1f46b@kernel.org
+Fixes: ca3d76b0aa80 ("mm: add merging after mremap resize")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Luiz Capitulino <luizcap@redhat.com>
+Closes: https://lore.kernel.org/all/20261023023106.515365-1-luizcap@redhat.com/
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Jakub Matěna <matenajakub@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: replaced newer VMA helpers with equivalent vm_flags checks using the existing is_vm_hugetlb_page() helper ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/pmbus/pmbus_core.c | 42 ++++++++++++++++++--------------
- 1 file changed, 24 insertions(+), 18 deletions(-)
+ mm/vma.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-index 5500f1827ae68..973ad91a3368b 100644
---- a/drivers/hwmon/pmbus/pmbus_core.c
-+++ b/drivers/hwmon/pmbus/pmbus_core.c
-@@ -1374,10 +1374,11 @@ static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
+diff --git a/mm/vma.c b/mm/vma.c
+index 8669da66edc5c..6f9e3d0c2681c 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -1770,12 +1770,28 @@ struct vm_area_struct *vma_merge_extend(struct vma_iterator *vmi,
+ 					struct vm_area_struct *vma,
+ 					unsigned long delta)
  {
- 	struct sensor_device_attribute *a;
- 	struct pmbus_sensor *sensor;
-+	int err;
+-	VMG_VMA_STATE(vmg, vmi, vma, vma, vma->vm_end, vma->vm_end + delta);
++	const bool can_merge = !(vma->vm_flags & (VM_PFNMAP | VM_DONTEXPAND |
++						  VM_MIXEDMAP)) &&
++			      !is_vm_hugetlb_page(vma);
++	const unsigned long start =
++		can_merge ? vma->vm_end : vma->vm_start;
++	VMG_VMA_STATE(vmg, vmi, vma, vma, start, vma->vm_end + delta);
  
- 	sensor = devm_kzalloc(data->dev, sizeof(*sensor), GFP_KERNEL);
- 	if (!sensor)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 	a = &sensor->attribute;
+-	vmg.next = vma_iter_next_rewind(vmi, NULL);
+ 	vmg.middle = NULL; /* We use the VMA to populate VMG fields only. */
  
- 	if (type)
-@@ -1401,14 +1402,17 @@ static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
- 			pmbus_show_sensor, pmbus_set_sensor, -1);
- 
- 	if (pmbus_add_attribute(data, &a->dev_attr.attr))
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 
- 	sensor->next = data->sensors;
- 	data->sensors = sensor;
- 
- 	/* temperature sensors with _input values are registered with thermal */
--	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0)
--		pmbus_thermal_add_sensor(data, sensor, seq);
-+	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0) {
-+		err = pmbus_thermal_add_sensor(data, sensor, seq);
-+		if (err)
-+			return ERR_PTR(err);
+-	return vma_merge_new_range(&vmg);
++	if (can_merge) {
++		vmg.next = vma_iter_next_rewind(vmi, NULL);
++		return vma_merge_new_range(&vmg);
 +	}
- 
- 	return sensor;
++
++	/* Mixed mappings are permitted to be expanded, not merged. */
++	VM_WARN_ON_ONCE(vma->vm_flags & (VM_PFNMAP | VM_DONTEXPAND));
++	VM_WARN_ON_ONCE(!(vma->vm_flags & VM_MIXEDMAP));
++	vma_prev(vmi); /* Reposition to start of VMA. */
++	vmg.target = vma;
++	if (vma_expand(&vmg))
++		return NULL;
++	return vma;
  }
-@@ -1509,8 +1513,8 @@ static int pmbus_add_limit_attrs(struct i2c_client *client,
- 						page, 0xff, l->reg, attr->class,
- 						attr->update || l->update,
- 						false, true);
--			if (!curr)
--				return -ENOMEM;
-+			if (IS_ERR(curr))
-+				return PTR_ERR(curr);
- 			if (l->sbit && (info->func[page] & attr->sfunc)) {
- 				ret = pmbus_add_boolean(data, name,
- 					l->alarm, index,
-@@ -1549,8 +1553,8 @@ static int pmbus_add_sensor_attrs_one(struct i2c_client *client,
- 	}
- 	base = pmbus_add_sensor(data, name, "input", index, page, phase,
- 				attr->reg, attr->class, true, true, true);
--	if (!base)
--		return -ENOMEM;
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
- 	/* No limit and alarm attributes for phase specific sensors */
- 	if (attr->sfunc && phase == 0xff) {
- 		ret = pmbus_add_limit_attrs(client, data, info, name,
-@@ -2180,8 +2184,8 @@ static int pmbus_add_fan_ctrl(struct i2c_client *client,
- 				  0xff, PMBUS_VIRT_FAN_TARGET_1 + id, PSC_FAN,
- 				  false, false, true);
  
--	if (!sensor)
--		return -ENOMEM;
-+	if (IS_ERR(sensor))
-+		return PTR_ERR(sensor);
- 
- 	if (!((data->info->func[page] & PMBUS_HAVE_PWM12) ||
- 			(data->info->func[page] & PMBUS_HAVE_PWM34)))
-@@ -2191,15 +2195,15 @@ static int pmbus_add_fan_ctrl(struct i2c_client *client,
- 				  0xff, PMBUS_VIRT_PWM_1 + id, PSC_PWM,
- 				  false, false, true);
- 
--	if (!sensor)
--		return -ENOMEM;
-+	if (IS_ERR(sensor))
-+		return PTR_ERR(sensor);
- 
- 	sensor = pmbus_add_sensor(data, "pwm", "enable", index, page,
- 				  0xff, PMBUS_VIRT_PWM_ENABLE_1 + id, PSC_PWM,
- 				  true, false, false);
- 
--	if (!sensor)
--		return -ENOMEM;
-+	if (IS_ERR(sensor))
-+		return PTR_ERR(sensor);
- 
- 	return 0;
- }
-@@ -2216,6 +2220,7 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
- 		int f;
- 
- 		for (f = 0; f < ARRAY_SIZE(pmbus_fan_registers); f++) {
-+			struct pmbus_sensor *sensor;
- 			int regval;
- 
- 			if (!(info->func[page] & pmbus_fan_flags[f]))
-@@ -2236,10 +2241,11 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
- 			    (!(regval & (PB_FAN_1_INSTALLED >> ((f & 1) * 4)))))
- 				continue;
- 
--			if (pmbus_add_sensor(data, "fan", "input", index,
--					     page, 0xff, pmbus_fan_registers[f],
--					     PSC_FAN, true, true, true) == NULL)
--				return -ENOMEM;
-+			sensor = pmbus_add_sensor(data, "fan", "input", index,
-+						  page, 0xff, pmbus_fan_registers[f],
-+						  PSC_FAN, true, true, true);
-+			if (IS_ERR(sensor))
-+				return PTR_ERR(sensor);
- 
- 			/* Fan control */
- 			if (pmbus_check_word_register(client, page,
+ void unlink_file_vma_batch_init(struct unlink_vma_file_batch *vb)
 -- 
 2.53.0
 
