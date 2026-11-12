@@ -1,124 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476286;
-	b=v0lP53VCo9Va5BAtfzd6+ZALHvr9IutAE+xGDHXyztx+65J29oVcmL+QQ1fx8fBTJ/qr
-	 D9rKcgwvqfvGFmVXUhRMrpTHgvMLnLhI/ke0k7Vh89zc8kr+5Jg82fgmXEzoSIqtvV5kv
-	 EhSXSHc+ITp1ASdO5BmdH7L40JankyzgqiUSXahQm+x/kzOoGDjILGj2zJRyZu0O6EczU
-	 qIKlAT0hPocQdLOASVJRnt3LqpAnpdvxgxYdanAZtqdKLjr7S08/2q9AgHk1YzNmHQ/d2
-	 uTL3fTQ6eorkc7RcHctzoQw+oM7z/u5fiEElY7qLFEHXAVn/E8h6qJeYSoVisjBcplw==
+	t=1794476405;
+	b=38O1/0JD0y/b3cGrhD/w0ixgXHL54ddVlYq3SLiJ8b0zQsbuxL5/sXH0pRsO9f0Y/AWO
+	 nffuFDauq1c4S/0sVKhOrrHjFKd8TVFDSS6opB4pNMqGmlvaa6C30NiKn2iscdQkf2LH5
+	 7uSL0GDHhn1bxjSPLUwf9ea3otKI4Y3I5FR8W8KZLBxlajjRUAeq5xkMrW/H0rsdFN2qv
+	 VU4wZe7gODDcj2I2TjaBI9NKqSfBrZqvCfSAbJI/z1azB6Wo9qiFRvntU3W5eC3YW5wF7
+	 DHWy2U8XiZRXfVaCbizU4WDyCMxPSEcH4QbGuH+dZUIVtvP0aFZMjkCJXcjvuI6ts+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476286;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2Q2wLBAvQA7zhI3hvi4k1wNI9CYCQNcNSH4dFF1LSMs=;
-	b=jekEdHl0eYvBk61RnhLIctdbYoOq6hpEQ8pFiLUWKI3/9CJyGyzoYWnsNAHu+w9UPbmG
-	 CWjRm0/Rocll11LSmSJ64wOgEEfJYpF7JcE+bI0mCu1/N2xLlYjbyXr+ljUguIxJHebzD
-	 dkA87wrLFniS7eFkpJ4w3Na2nYftO1FMPbeDoUGCBmuCV3qihgeapPuD3OJcfVsNSrZOa
-	 t61EPR0vCNoeaZO0KnQiZyd+lN4OOCu8Q/ASWJnfVhV/yGbHDOYh1uMj/3eaFKmaC4iyd
-	 3Zg7ibXa2I1K5zwdf4jkhM5I+LAaJC7eZdG9NnQnBGV1uSIJ1F7Xpou9AvIU+hnYHnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476405;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=IfhBgU9bzNjyzCbMLI08qHDpGZfOfIhIVxpnfJz9+gQ=;
+	b=vnvf7V4yKLpYkAJ8AV1sglG+jC4jQ9lRpO0nXIKEGUxyhKnOdzh58/o8jDhdBVtb4ZdX
+	 ghwg3/WpzPi9uLH+0xhqF1t/3xvcSyAfzF8SIlcWGQ/VrmUaRjKjbL6Pd3dtHCH1ioyBU
+	 8behmcXMcujxtQFqxpqTcDbYDd1dTc5LWLsu//UfmzSi4ACiI7Bm6lId/7VTm3SHMEe9O
+	 ZbUiwTvwZIjdu9ADxGrQOnscXd2aQa9vKalNvWu3G/zJcq1A+sKmg81nlbfxQutL7nFW/
+	 QhpiTVYcUtML5007Mc3hxZelTvtRDSyLiDj33HiFSQwolAeLCBlCRBX29luTbWygXYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MUz+cl08;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BBSmUs+g;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoMrAWhy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C93C606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:38:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C93C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0076B606A321;
+	Thu, 12 Nov 2026 09:40:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MUz+cl08;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BBSmUs+g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794476284;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2Q2wLBAvQA7zhI3hvi4k1wNI9CYCQNcNSH4dFF1LSMs=;
-	b=MUz+cl08ak+OfTibrMm7X6gZQ0AW5YqWpKn5A0JOj3zqrn0Hl3dDc/ewJTok31/vOeIh8N
-	v2bwYL/MXLD5OX+hLfacoIcrmZW6U1obqh8qZRVz/B1XD2a/06dYzyMV0TmZ0Zc9ORmTQU
-	GXNNdb00bfIxE5XJACUHeazlfu4d5ug=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-160-nCwNVuTCMJuVvCDAhjwHJA-1; Thu, 12 Nov 2026 04:38:02 -0500
-X-MC-Unique: nCwNVuTCMJuVvCDAhjwHJA-1
-X-Mimecast-MFC-AGG-ID: nCwNVuTCMJuVvCDAhjwHJA_1794476282
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a204f135ffso22660695e9.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:38:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794476281; x=1795081081; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2Q2wLBAvQA7zhI3hvi4k1wNI9CYCQNcNSH4dFF1LSMs=;
-        b=BBSmUs+gQM2O89srxVufMBVcWy9YYrey4WVZRAoYSAu9kYgPlwBEtLHPZnJpC+OQoz
-         3oudl8gdExAQQCPU7MSvc5QyYaQGqiF/EeGvlaWu7SfkbtUogXG3ke+iZ7s37gZr55ZC
-         ayWWkvHgkZS8NHsQGrX4V2pKMH/7iEAx7+/tmKV9L89yWO+Ndq17+R6ma10h1IZj89iB
-         GSbdo8aFKJygrbrCnQqvX7ZbFzH4EDpKrspAK2+MN7CH135pswjunxJoC+YnDL2isd29
-         rzPt6Mks5ht+01fHo0y+wjViWs8F3Yn3wtYONSYRJJmfRftVpG6X6RCkdzmNuA8VrZ9b
-         ulZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794476281; x=1795081081;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2Q2wLBAvQA7zhI3hvi4k1wNI9CYCQNcNSH4dFF1LSMs=;
-        b=HxvgSUMbRoHJpk4etyyXQGKVzKjKb3MDkOFUku7L5ZRdjqLb/zLuOMu6re3dfzK+ZV
-         leZ11uk6nweKMpG4pu6B6X3qbOlTqUZmIfUmMY+2bOuehOlYZuJd9OgMWYMAu0eYOrFa
-         +ql6o1Cut0wfPJKnOG5WnbUSDaiTalY/K2x/OmzrZSPuliAC1YaxsVvqQ7tMngBHQobK
-         dTNrRTOsxnjKpr2Pcms4eCJY8FMGKSvtDHJpRBHjuCCQG6/Oo4rf3o/r5ZRXXMxSbdQu
-         wsSsGZQjphLyIOwIYabicH7g1r9Ku+m8Gkxbyq+oFKz0URrdz8pQJsBGeRMvch/XYes8
-         UjYQ==
-X-Forwarded-Encrypted: i=1; AL+hErFw6kTIcR7uI50CArCSL1ZncsaP2jS5OkGlRClqAEPVcwSmn2cigJ32ElWjnolDY6/mdPBCCK8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lyUNJRNfV1C9SHmrlhsw3XGKO6Z3WAoS32O0oa18Mm6HNJ82u
-	4NW/Sy1yMjjbVbUl/q2QfXzIJx82sDslOV6QzKiNiF0qygDNZIVDRDCQx6B5fBBs/3kAi4Sn58K
-	HmFEpfqUvg7FMpAU83FbHoo0Urpcj0TYsG/vXchQP/QswJ6xYZfleI9TF/w==
-X-Gm-Gg: AYBFou1oAvfGUusCDJZcz+Wv9mkJImT7vi7aPvclvvBgrctK0dltqYuXNF1c7qu0YWN
-	xc4TnQ647h9igukxGe158/VGgkT2A6hYLySz+6yb1Hddii6fOmkftHl+DKKOZYTctzlX6WHO6yG
-	kH6BzlTxl6MQjIhkY4RQNBi21zowI60pYAE10qDiu7pppeubyfhK+Jjh9vU3uJ82nfR/8GjBPPe
-	l+5WGnI2ZquBN0CJbIXzQSiMyIgs3aVizOZ1nCTnviSj7Pha6Z3pPO78IEiBDpO4nxWtJ8IgIiJ
-	4Pi9aZCOuAgf0fvHgKCRjEboaE9w6sJF5qotryKbywsEDKgpUzhCfx+mvRO0/zfXCgZbOpniJpV
-	nvEvK5i7VA7pmurSDDYiiOxzRavFFFqQbxfuM5LAu/dGEeeWH6WcORAFfLXva+Z0v2OewA6fQog
-	u88bE=
-X-Received: by 2002:a05:600c:8b31:b0:4a8:9a2f:d27 with SMTP id 5b1f17b1804b1-4ba0938af50mr81189095e9.25.1794476281604;
-        Thu, 12 Nov 2026 01:38:01 -0800 (PST)
-X-Received: by 2002:a05:600c:8b31:b0:4a8:9a2f:d27 with SMTP id 5b1f17b1804b1-4ba0938af50mr81188685e9.25.1794476281207;
-        Thu, 12 Nov 2026 01:38:01 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm103301585e9.1.2026.11.12.01.37.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 01:38:00 -0800 (PST)
-Date: Thu, 12 Nov 2026 10:37:57 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 24/29] sched/deadline: Cancel the replenishment timer
- with the parameters
-Message-ID: <avWI9aAp46J0ezI6@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-25-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoMrAWhy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C635B1F00A05;
+	Thu, 12 Nov 2026 09:39:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794476404;
+	bh=IfhBgU9bzNjyzCbMLI08qHDpGZfOfIhIVxpnfJz9+gQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=VoMrAWhyX9Mu8dmXuJL0tzpqovAGH67dTxFbjd4TxmhmE1/c0FPVOzA9Ic0I2dr8O
+	 R1LEPqRDp5AZW1NtPA3Ct7Mk7SEKbgWIVeFl1BNL5iEUe1bTvUvtWIzoKx+CYUZmQy
+	 GE8NIXtSJJ7ZrGaRM5fNNGKitBWEN5/Q6Tq+JK0378GDgv0YZwNQ5bsIqcTjglpUxq
+	 +rRcWDYtIVXhXlC40Ldkc9s2FE3hdEDpugkRygfnLxQixI1iNmJpEI1jDUtJdy6Kj8
+	 Vw/b/Oo7ZPcLQ5a4p4SUexF7KHm5VqcENXFZHkOCDlVpUBNHuwr/mELTYjRHRonOtj
+	 9U2s9/qqKtsKQ==
+From: David Hildenbrand <david@kernel.org>
+To: Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Song Liu <songliubraving@fb.com>, 
+ Rik van Riel <riel@surriel.com>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Steve Sistare <steven.sistare@oracle.com>, 
+ John Hubbard <jhubbard@nvidia.com>, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+ Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Linus Torvalds <torvalds@linux-foundation.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, 
+ linux-arch@vger.kernel.org, iommu@lists.linux.dev, netdev@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+In-Reply-To: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+Subject: Re: (subset) [PATCH v3 0/9] mm: limit pagecache folio refcount
+Message-Id: <179447638951.7244.5228149003624496001.b4-ty@b4>
+Date: Thu, 12 Nov 2026 10:39:49 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,50 +93,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108185406.1549770-25-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Hello,
+On Tue, 10 Nov 2026 21:35:40 +0100, David Hildenbrand (Arm) wrote:
+> Note: I really would prefer doing something else right now, but this is
+> rather urgent.
+> 
+> Users can create a lot of folio references to pagecache folios, making
+> it possible to overflow the refcount of large folios.
+> 
+> While we knew that one could in theory overflow a folio's refcount, we
+> mostly assumed that bad things would happen and it wouldn't go
+> unnoticed.
+> 
+> [...]
 
-On 08/11/26 13:54, Mathieu Desnoyers wrote:
-> A task that leaves SCHED_DEADLINE has its parameters cleared at its
-> 0-lag time. Its replenishment timer can still be armed then. If the
-> task comes back and throttles before that timer fires, start_dl_timer()
-> does not restart it, since it is queued. The replenishment would then
-> come at the period of the reservation the task left. Too early, it would
-> give the task runtime it has not earned. Too late, it would delay the
-> task by up to a period.
-> 
-> Commit a649f237db18 ("sched,dl: Fix sched class hopping CBS hole") armed
-> the replenishment timer when a task leaves the class. The timer then
-> reset the task if it was still out. Commit 209a0cbda7a0
-> ("sched/deadline: Improve the tracking of active utilization") moved
-> that reset to the inactive timer, at the 0-lag time. Nothing cancels
-> the replenishment timer there.
-> 
-> The timer of a throttled task fires at its next period, which can come
-> after the 0-lag time:
-> - A task that yielded is throttled with runtime left. Its 0-lag time
->   comes before its deadline.
-> - A constrained-deadline task that overran by little reaches its 0-lag
->   time before the end of its period.
-> 
-> Fix this by cancelling the timer where the parameters are cleared. This
-> includes switched_from_dl(), when it releases the bandwidth of a task
-> that leaves asleep past its 0-lag time. A constrained task that overran
-> as it blocked has the timer armed there too.
-> 
-> The Sashiko AI review of the first posting of this series found this.
-> It has no reproducer.
-> 
-> Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
+Applied, thanks!
 
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+tree: mm/core.git
+branch: for-next-fixes
 
-Thanks,
-Juri
+Applied patches will appear soon in mm-next, followed by linux-next.
+
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/9] mm: limit pagecache folio refcount when mapping pages
+      https://git.kernel.org/mm/core/c/61351dc9
+[2/9] mm: limit pagecache folio refcount when splicing into pipes
+      https://git.kernel.org/mm/core/c/0ff9a420
+[3/9] mm/mmu_gather: flush pending references early before the folio limit
+      https://git.kernel.org/mm/core/c/bfbf74ba
+[4/9] iommufd: fix cleanup when adding memfd folio pins fails
+      https://git.kernel.org/mm/core/c/6d0d782f
+[5/9] mm/gup: limit pagecache folio refcount when grabbing references
+      https://git.kernel.org/mm/core/c/6d3ff38d
+
+-- 
+Cheers,
+
+David
 
