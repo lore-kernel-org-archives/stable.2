@@ -1,58 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794456701;
-	b=o8gsXo9kqWtK61crNElZPQBGrGNmZdTAQz2jYd+BhvSpNwS/DJhbS1zlr9Er36APXzvq
-	 oDAU/0tiq2YQZzBiByJnBVgn8fOt41RU4dPcIfmcZF+b6Cp3DSNuOregQ4yixi33fecB2
-	 VvM7a45LE4kjOGQeejra2mMHztEulje4UJ01T5rG2szrFIxEo68ygDmuzyDS5aFFc5bQK
-	 C8zdD0Fs1ImdW3X1+xp0SUKOXf/HmN5IW8NEkH1b6Hl/d1gOwPqqObbxRAXhDYhuyR5Pi
-	 J9L3N5s2XmDNZkIIt25o2G4HjwoB8eqJo1VVt1iX68xaA+ZFLg/AO54v9cDyITyxPpg==
+	t=1794456779;
+	b=OWHcX6uTYuuNcbqQhbGAhgFLlTVeHHsobTKwb+3EkNCYPeW2YalZhB4gwqTR9J2X0lpS
+	 eK5rG+otJhpc2M8KAOzdLBgeQSwMK4PW950qWQ4lPceaQ5qbiBGdkHmSGsdL3La+6Y0Jn
+	 wIy+g7iGo77fzT1HmLDOcb+KenQhO5reVuCoUY2ZZ+mOPs6NnCUsrYLCyVwHIRciSPD7W
+	 2esxsmVhvIJ/P8qSA+TnUFmNXdcEszxj+qxef+7mwfknqesFLn7ztYyzLQgCKNz+SIoTp
+	 8SgT6XPptr7hPVakcoNYGHm+A7AKX4JryUxQ3nqKKaNQNxERFg6dIFzl8Zy6S7lZKuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456701;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LqFHUtyzwsSbPCDPfBI44pRsVmkwWg7w5AZpHmdhFJo=;
-	b=GMBdItnev3N6Ygn/MSmz9auxEiC9Vyf3eD6kzpblY0DtURxfY2Dny78hUCRG3deGP9TL
-	 4SuPb/h8jvOgG/hEOerA+zrzq3gklLst8usTfWZBxu1g3xTXuFlzYtJhBR8Y/WzXbDUVN
-	 T37uecnOsDqz1ib3w2NnUnd7gakwjxurD1nRj35MS/YHl4XD/x6lGL5vCWIVCYUbGFr5R
-	 b4va8spQmM1YoF/h4TlKUMMJQFo4RHeUHQctx25GKCqWLM2+pb5BrfGIjieGoVoeaq1q9
-	 lk0ePKTmDbSSz2hfREp0Y0RryncpM899hFQWtTPtaz4vIymgB2XfY0Vx4NO5xto6tFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794456779;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=cb5obflgdjLo8+XlhF7MpnjCCe8r/1kAHNWYSeIRm+Q=;
+	b=cLf45fQPGNGwUjhCu5tl1fvm6zTgAZDNVMk811eOvlG9XswO1HQXSqgBEm12jYeVPfif
+	 jZ1Z2GmJR04YAsFBzq1Q66q7GPXMWvjlAKAmNKVJakWvYTBWhALkEYZhtw6MheGDYNmPq
+	 QCAozwNOzqG4mNb6+mD0kMgiYu1Ua5jMQiBze5t0X7lqUkbDpteU4Mj1OXiEiDkgbSp51
+	 fN/FZbvoPV1GNgH9ckv2HTB+butFQvOuqjYJCYTqNKvW5kSXnR800bSGBGPYyjbXfVlkJ
+	 QyxHN2zmIQfS0xqF6pueYffHcHYeLSWNYjP26GztXPBntGyciCU+8D4NhvdInPliuqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K17+CW4h;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=tpMyBUOe;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DE8606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:11:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29624606A323;
+	Thu, 12 Nov 2026 04:12:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29624606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K17+CW4h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2F5E1F00A05;
-	Thu, 12 Nov 2026 04:11:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794456701;
-	bh=LqFHUtyzwsSbPCDPfBI44pRsVmkwWg7w5AZpHmdhFJo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K17+CW4hYgeEpGhhjcC/WY2HYPULDq9Tu/UA0gpu2xtXOwVL9sBrElLmrxv5q9Hth
-	 nVbzZCk/zlN5ds3+mWg7Ob2G4osuu7ATRfYX5z89XVeeQbrS0AJn2S8bFHOfL3NYeb
-	 nPUFgy9jZEkCrAZqcStMrdMQfB6nvXSBs7YuPj0b4sD3XzIXP0LjhzKwb8i3aw/Ari
-	 TcuVmfNS1MW+QBEced7PohP+T53to3wCHZUmLZF7RB1tR3WszFF8b//o5m1XRD/uuk
-	 l0lkdZN9i0q8ZVBqcw0H0ysj+OFeIsL27LA6G9SY2l5ee2Z/fjeeaFnjq7BCsU5IfE
-	 CGczs8Rn3GB5g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/mremap: recheck PUDs under the page table lock
-Date: Wed, 11 Nov 2026 23:11:39 -0500
-Message-ID: <20261112041120.1884451-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200913-failed-6.12-402882943dfa@kernel.org>
-References: <20261109200913-failed-6.12-402882943dfa@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=tpMyBUOe
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQ6S765rLz8Xrr9;
+	Thu, 12 Nov 2026 12:12:55 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794456775;
+	bh=tlBiVJzWbGNGR99ZbsJuFMRnwt2+GmTnvfSshwizJCw=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=tpMyBUOe+9HJE9nJm0FvBTNXHWbd1D4EzFntyaMAo0g5eNY6BYJpbuCrAORPg+NIV
+	 GC3lrRVqr3+Lt6sCmwUb/KdfKhYDDHHpqDXwjiXxhTL9empzwKZnuSyDuVlZV6Arec
+	 GTOv+pLz4quKOB4+oZe4En0kXLoqOPeFNUMf0UlkvNPy/hZzQTRlol9lseMgL7vD5x
+	 vRHRKHxAbwrqNnr9NPzsvHoTJSqhUCdfoan0kcCJFTfOeSK4EUbcaLb9ViXhyP+KUV
+	 juQW+O8yzSLPyBs8TQLLGhSwfb+SKgyXMUcbBVhajimNuUOzUzxuzveQwdsFxjY/Ju
+	 N/yhvPVupElaw==
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl1.zte.com.cn with SMTP id 6AC4CmRu074280;
+	Thu, 12 Nov 2026 12:12:48 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 12 Nov 2026 12:12:49 +0800 (CST)
+X-Zmail-TransId: 2afa6af53cc1a82-62570
+X-Mailer: Zmail v1.0
+Message-ID: <20261112121249497K1uXj4qW2lrd4ZbaTHDM-@zte.com.cn>
+In-Reply-To: <20261111164311.GB18076@lst.de>
+References: 20261111224134934XG6vMtntrNJQL1ztj7imr@zte.com.cn,20261111224247129g0VbfWdGlwDMhBpChnT-8@zte.com.cn,20261111164311.GB18076@lst.de
+Date: Thu, 12 Nov 2026 12:12:49 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,82 +72,28 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <hch@lst.de>
+Cc: <kbusch@kernel.org>, <axboe@kernel.dk>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCAyLzJdIG52bWV0OiB1c2Ugb3ZlcmZsb3ctc2FmZSByYW5nZSBjaGVja3MgaW4gdGhlIGZpbGUgYmFja2VuZA==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6AC4CmRu074280
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Thu, 12 Nov 2026 12:12:55 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF53CC7.000/4jQ6S765rLz8Xrr9
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Hi Christoph,
 
-[ Upstream commit 402882943dfa8bab5c2bcc66189f9fb2828f248e ]
+Agreed.  I'll fold the open-coded check into nvmet_file_check_lba_range()
+(a byte-length variant) so that pos64 stays local, and resend the series
+as v2; 1/2 is unchanged and keeps your Reviewed-by.
 
-Once get_old_pud() is fixed to accept PUD leaves, unmap_mapping_range() can
-clear a leaf between the lookup and the move. Holding mmap_lock in write
-mode does not prevent this.
-
-If the zap happens before move_page_tables() tests the entry, an empty
-PUD can reach move_normal_pud(), where pud_populate() turns it into a
-present page table entry. If it happens after the test, move_huge_pud()
-can instead try to move an empty entry, triggering CONFIG_DEBUG_VM
-warnings on powerpc.
-
-Recheck the source under the page table lock in both helpers. Treat an
-empty source in move_normal_pud() as a completed move, and use
-__pud_trans_huge_lock() in move_huge_pud().
-
-In the future we should likely have the code lookup a PUD/PMD lockless
-once, instead of multiple times, because one of the problematic bits
-here is the:
-
-	pud_trans_huge(*old_pud)
-
-Fixes: 0881ace292b6 ("mm/mremap: use pmd/pud_poplulate to update page table entries")
-Cc: stable@vger.kernel.org
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-31-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adapted pagetable_move_control context to use direct vma and address arguments. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/mremap.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 8b507e228a274..838e1237ca204 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -345,14 +345,18 @@ static bool move_normal_pud(struct vm_area_struct *vma, unsigned long old_addr,
- 	if (new_ptl != old_ptl)
- 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
- 
--	/* Clear the pud */
- 	pud = *old_pud;
-+	if (unlikely(pud_none(pud)))
-+		goto out_unlock;
-+
-+	/* Clear the pud */
- 	pud_clear(old_pud);
- 
- 	VM_BUG_ON(!pud_none(*new_pud));
- 
- 	pud_populate(mm, new_pud, pud_pgtable(pud));
- 	flush_tlb_range(vma, old_addr, old_addr + PUD_SIZE);
-+out_unlock:
- 	if (new_ptl != old_ptl)
- 		spin_unlock(new_ptl);
- 	spin_unlock(old_ptl);
-@@ -387,7 +391,9 @@ static bool move_huge_pud(struct vm_area_struct *vma, unsigned long old_addr,
- 	 * We don't have to worry about the ordering of src and dst
- 	 * ptlocks because exclusive mmap_lock prevents deadlock.
- 	 */
--	old_ptl = pud_lock(vma->vm_mm, old_pud);
-+	old_ptl = __pud_trans_huge_lock(old_pud, vma);
-+	if (unlikely(!old_ptl))
-+		return false;
- 	new_ptl = pud_lockptr(mm, new_pud);
- 	if (new_ptl != old_ptl)
- 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
--- 
-2.53.0
-
+Thanks,
+Shao
