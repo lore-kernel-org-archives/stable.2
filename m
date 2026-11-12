@@ -1,86 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478519;
-	b=aoKSqNg9fy3L7tOz06P3vHlH4f7NOIKn0is1lIDaYcSWd9TyCOI1eks7S2rufu61oJjJ
-	 TE2WqsPW1Kk0XnYlIb+KtiUEXPefrcVRAyCVIanLpmA9FDiPSl4XeXcMpaTmX7vTKSgnk
-	 wJkyn6DSo28B4KE4k7+7IatIivUiSUm8JDB7fhhv8TKmZH5wL76U5sPRn6A2lZSDyvJPl
-	 q6wFWh+XU+dUrdiOQWO65E8TAH+OKTe9VlbiXxoY9YPumEhCriwhaXE0us6CmBBGO6ESq
-	 rHI6f6Mc9kDT8WFeXRDlUK6iWqV9H37biCPA6p94lvsRZ71tc2cvEfXS55DYEzrIkfA==
+	t=1794478620;
+	b=Js+HAOkHfuP+Nf+zv7e9WOzB8CCHy55NXf9DYuT8HkMZ2yybX9num+QKTs0EsBEu1RYM
+	 jsueQxSJwNZpDNMoZ+8oyXccbJfRlCWZit4ql+bt7MkpoWROUvAC7onCJJnkViVt+f95y
+	 ylnE+v5ZExf1wAqO0zSiyoaIcqG4MsILFqGN226fGa2FKl6ZVLBeTYI6n4NTaepgGpywP
+	 1nzInUGQG+hPJdnEG8ilPYiwO3/rO+C9EhxJ4xLH9K6rPo8WQqNWQlIwR696LAudy4+fm
+	 Oo/y1u/Q+ycxpHxqJalf1CHhDsmxNCXOzK8NM/ysbn+1OE/nniQ6gBF6x3DiKZG0/pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478519;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=/1Q/PUELyNwj2qbyBRmSt0cgWWpENEFwGaSV2JeSfBc=;
-	b=Z+F4cbcGgJ8mKjw61ETOYFclsleQmr49Ddm56WEeNlMMpF6AnETAwyccdgk7ZRU/0ktl
-	 i+D6VfOkhIy7ozbgiWZ34xlmqdbtRXUy3a/fnfDLOXIErOyAvIKGX/S3fqb+OYeJ0Dbsh
-	 mwc1LJl9MgifyLDGCdcaDi0ijEHXaUBDtMMG6N5gjyhz6xp6glIXGlHw0dUb4+xeR+4cJ
-	 /m9EF+R6N83gDG5TJwkIDOKzC9I/3U+K5UiwdhytDm3AzMdaUxwLsCnCcrm86TU/eCpcm
-	 8DKSkrLufUNJyx4TAU6hvA+kyud/KZWcG7GNmPUtu9AMnj9E/zsClY3ZMHuf43ZD4oA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478620;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/RdHwbquKi+MVjjdJwJhpJsAsG12vtsmDqJfkK4Jwn4=;
+	b=euOSgK5tEthNf6F5iTr6XKbRo+xa58DTGMeRIHiGv8HSkbXcImb9xDOy672A4xV3P13t
+	 L0S4fQMyfSS75spN2JnKGypW3faag4T1gKUBGPHwwQ5Fuxn70tlhAz7Ree3THUkE4pWKj
+	 kSz/FzbCQ8dphKp9C06Otwr6jrAbEwpiUOo84kJsSEecwa4p1ZA42xJnwrFnWOCR3fvkS
+	 iKhVBBK0C/mSiJSXJW5kI1V0ey0veNqRgkF40mxcrhiDV+Bb9ZKTzqJ1EbcUS396b+9Gg
+	 ++Xqv6xg/VQ58uiP/ncY63MSfzaIlHmG03tOO1qVqYDkdfT8A5iVkCgS4ky+5ZqUABw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o28cZZr9;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATxohBFD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B693606A323
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 10:15:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B693606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32C8606A323;
+	Thu, 12 Nov 2026 10:17:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o28cZZr9
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so43006215e9.2
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:15:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794478518; x=1795083318; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/1Q/PUELyNwj2qbyBRmSt0cgWWpENEFwGaSV2JeSfBc=;
-        b=o28cZZr9g9jpgYFv2IkAdXN/FB30Ic2Om9QMaoI9ptc/Dkeq/fsb+ikjytptwp0jTM
-         q7tA+X/K+O3Pk/FuYrVXthU4TrnP+3E5EnIejJqCn4boNKG0biOUA1GBrf8AzQRzIKH0
-         xnKEjzYujKDlA1FV+NPcLYP2vrl1DKhmkwduP1Uc4aMXEHNihvTgDDQGppuRJ/4052qn
-         GF6GrrWInW2v27loCh6kOUH4RlNMIHanQVUhdsRRlLvWW2afxHB5CbP39iByEX29auVe
-         ex756m+6QLhIlcsHJjwFiCK1RJWKoo3OtKPZstJAJp43gXOtrqW5njw0txhEY1AupJGt
-         V9Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794478518; x=1795083318;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/1Q/PUELyNwj2qbyBRmSt0cgWWpENEFwGaSV2JeSfBc=;
-        b=rWde7iACfyop9/tQ3Q+PtqCHWXIPEu4px+kaqgBjHGfyxBZhXOfUCptgBsUq2q5taz
-         ksl9to6bWpDZhwdWbJHRNflfHcyV4TmnHiHSlbt9+07ztM2SequHka6sLWzhDHgCw06L
-         5dNo7fPtlHnTyXOZCQDej9GZYtr2oQFVldLl0oeiUL2AwTsaFe6ndcxdxMD/asA8RwaG
-         +VigbUEX450QAUB7ftY6P+OaY3Yrk0DCzxMOwriBcF8GJHNkggeQNyoGbb9MdnB/p3Lb
-         I7obnA06vWZ/o8zZMuMdXqYPoknRt3WdCTksaTlFnGc0j2ppu6QEr0F9MiWXsXGuUGzQ
-         TvhA==
-X-Forwarded-Encrypted: i=1; AL+hErHXBxosmAm6O/7V9rs/045LQY2NHExO5gNoWZrxHXh8EUfSA+swozRXjDbPfHi+Mkinb+Gq2cg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lKGqTboWE4Y68Vm+LmGx3/mCnvXHacbgnWVbnYF5HXpdJYFzT
-	3t0Y3v26FqvR2yz+scfcmu/tFTBA7bsUdVkH9H9MMeyI5iSxSXfnv9QY
-X-Gm-Gg: AYBFou1JC15Ao5fZGFUR3d3lyrfzYlBc4oRLbYfcO+pMkQ3ajJNpCyudd5RW8L2mRMP
-	1FgsOux+zFynS70bNFQ/g3b3/8web0OaM0thxXMmOr9cMRgYaDWHE7UV4xMiMJ1TI83hGMaVicu
-	d0avE+ZiEoYLkvYAa8QyAuT6crBZM2rf0+v/OFd9qnSsF4DejGBFRP5A25aT2E5c1BwORAhcyCj
-	DfJdwAkTGixPDxieMCubIr3dgYb4sxG9SEq5wb3rE/AFbMPcUVbJmgkLKctMyDJqm06uCIJ6hGl
-	SIYNh1e4mR47gT0N1ie6o8eWlRpC3owhrJp0bRTslEWMv2JfzYKbvQfGLC/HVpRWyfSpXItEXdO
-	x9eyi5QKthoDhbXXLQVpA44+pWnZ8TbDMMSUWg2dX4l0D6lMe6KXdde258G4QpprGYMkYBdEqIQ
-	Upb9//CbCZ0eKMwesoX0yJ7dRZzxsAQYz+5C3DGHtud4IqTt3Hz6RTg1ZkRqIuWXz0GV9myLKyV
-	HM5plE/UQnkWzcU50qnNUFqro6zXCg6oN3vi5+TRntThFiWosKczxRUHRkQYPFigq1Mnl0erKdr
-	U5LniacT1NEtTd4bybRVAZr0GMD4y8g4lVnxCKINldDJmfNuGpo=
-X-Received: by 2002:a05:600d:2:b0:4bb:52bd:a3c7 with SMTP id 5b1f17b1804b1-4bb52bda3e9mr9993475e9.6.1794478517767;
-        Thu, 12 Nov 2026 02:15:17 -0800 (PST)
-Received: from smtpclient.apple ([217.111.110.194])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e26700fsm66747305e9.10.2026.11.12.02.15.17
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 12 Nov 2026 02:15:17 -0800 (PST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATxohBFD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FCB91F00A05;
+	Thu, 12 Nov 2026 10:16:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794478620;
+	bh=/RdHwbquKi+MVjjdJwJhpJsAsG12vtsmDqJfkK4Jwn4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ATxohBFDTHfYEdsLHe3UlmOS+O+rFc4eVDkGQL5vNv2fMs7+RZQ2uS9LAQMpJ1WDX
+	 U1nnxjcThcj2dp6SOM2vKMcWmndIUgm3S4M7Ha/SXQrFkVe5VCcYa5pUh9hMYtPSiZ
+	 oX/bb7PANfMg5zXIfar1jQGaoikxEQjvW75B4nky5n3nuzE2IHXAFi9nwXJsYCP8Cq
+	 5C6rEl1ZWVu/4tBGW98KN2t3IODQgff1XJ4XLYblSVIVTIg9RhhyfMk96CBd3cBQMQ
+	 bRd0FZ7V5P/zmWo6gyv4lDynLqam2JyY4ffjqKzj5/V1QBlMI/xgkuLr6eYus1kvQT
+	 sSL9YR6adL6rA==
+Date: Thu, 12 Nov 2026 10:16:56 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, regressions@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared
+ fwnode owner is rejected
+Message-ID: <20261112-truthful-zircon-narwhal-fa5d80@sudeepholla>
+References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
+ <20261112100448.GA53281@francesco-nb>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,45 +65,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH ipsec v2 4/7] xfrm: prevent AES-GCM nonce reuse after
- early GSO
-From: Usman Malik <usmalik90@gmail.com>
-In-Reply-To: <20261108142652.1330952-5-Jeremy.Jean@oss.cyber.gouv.fr>
-Date: Thu, 12 Nov 2026 11:15:06 +0100
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Sabrina Dubroca <sd@queasysnail.net>,
- "David S. Miller" <davem@davemloft.net>,
- Boris Pismenny <borisp@nvidia.com>,
- Saeed Mahameed <saeedm@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>,
- Tariq Toukan <tariqt@nvidia.com>,
- Mark Bloch <mbloch@nvidia.com>,
- netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <7A2301CE-C145-4CB2-81CA-4A2BACBA8430@gmail.com>
-References: <20261108142652.1330952-1-Jeremy.Jean@oss.cyber.gouv.fr>
- <20261108142652.1330952-5-Jeremy.Jean@oss.cyber.gouv.fr>
-To: =?utf-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112100448.GA53281@francesco-nb>
 
-On Sun, 8 Nov 2026 14:26:49 +0000, Jeremy Jean wrote:
-> With software ESP offload, xfrm_output() attaches a secpath before
-> calling xfrm_output_gso() for an encapsulated GSO packet, but
-> skb_gso_segment() leaves the splitted skbs sharing the same secpath,
-> including xo->seq.
+On Thu, Nov 12, 2026 at 11:04:48AM +0100, Francesco Dolcini wrote:
+> +regression list
+> 
+> Hello,
+> 
+> On Mon, Sep 28, 2026 at 07:49:01PM +0800, Peng Fan (OSS) wrote:
+> > From: Peng Fan <peng.fan@nxp.com>
+> > 
+> > When multiple devices share the same fwnode (e.g. the SCMI bus creates
+> > both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
+> > the first device registered becomes the fwnode owner (fwnode->dev, set in
+> > device_add()). If that owner never binds -- for example its driver returns
+> > -ENODEV because it is blocklisted on this SoC, or because its driver is
+> > not compiled in at all -- then driver_bound() is never called for it, so
+> > fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
+> > are never run for the fwnode. The child fwnode supplier links (pin group
+> > nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
+> > consumer of those child nodes defers probe forever.
+> > 
+> > On i.MX95 this manifests as a complete boot failure: the generic "pinctrl"
+> > SCMI device claims fwnode ownership but its driver returns -ENODEV, while
+> > the vendor "pinctrl-imx" device binds successfully. Because
+> > dev->fwnode->dev still points at the rejected "pinctrl" device,
+> > driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
+> > consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
+> > controllers wait forever for their pinctrl suppliers.
+> > 
+> > Fix this in two places:
+> > 
+> > 1. In really_probe() failure path: when the driver definitively rejects
+> >    a device (-ENODEV / -ENXIO), fw_devlink_release_shared_fwnode() is
+> >    called. If the rejected device is the fwnode owner, it either
+> >    transfers ownership to an already-bound sibling (and runs the
+> >    purge/pickup on its behalf) or clears ownership so the next sibling
+> >    to bind can re-acquire it.
+> > 
+> > 2. In device_links_driver_bound(): re-acquire the fwnode when it is
+> >    unowned (!fwnode->dev) or when the current owner has no driver at
+> >    all (!fwnode->dev->driver, meaning the driver was never compiled in
+> >    or loaded as a module). This covers the case where probe rejection
+> >    never happens because no driver ever matches.
+> > 
+> > fwnode->dev is not serialized by a lock; instead every writer only ever
+> > touches a fwnode->dev it already owns (== dev, as device_del() does when
+> > it clears ownership) or one that is currently unowned (== NULL, as
+> > device_add() does when it claims ownership). This patch follows the same
+> > discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
+> > when this device is the current owner; device_links_driver_bound() only
+> > claims fwnode->dev when it is NULL or when the current owner has no
+> > driver (and therefore cannot be in the process of binding).
+> > 
+> > Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> > ---
+> > This issue is triggered by 
+> > aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard protocols")
+> > in linux-next next-20260925.
+> > 
+> > But I think this is a fix to
+> > f9aa460672c9 ("driver core: Refactor fw_devlink feature")
+> > 
+> > Detailed information could be found in patch commit log.
+> 
+> Sudeep's series [1] fixes this in linux-next, but it is not yet in
+> mainline. I'd like to have this tracked so that it is not lost.
+> 
 
-I tested v1 of this patch and posted the results in the v1 thread:
-=
-https://lore.kernel.org/netdev/20260930144523.435271-6-Jeremy.Jean@oss.cyb=
-er.gouv.fr/T/
+I have already sent it as fixes for SoC team, it must land in v7.4
 
-In v2 only the commit message and the code comment changed, the code
-is the same, so the results hold.
-
-Tested-by: Usman Malik <usmanmalik@engineer.com>
-
+-- 
+Regards,
+Sudeep
