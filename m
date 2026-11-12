@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794527064;
-	b=fl/NV3OYbILjLFCRK0lHJAxTsMVmWuSjBv+fD1vGLU/rMQrzixrWarhkc88wNYDxOEiZ
-	 jo19mjmmJdCFmg5bmW2Z7B9fUshw3yU3LPFfCFvgXQkFB7lSEKixB1tXUsOPqT6DFifs9
-	 DaRV2mNwPgh7NUVD3Y7QOAFa/AS0X1dGj6DJ1xD7MyVYqgtXlluclzHncIAKkkrBIfEUa
-	 hpnG8JGD+iHYWaI4nT3e0IMLiOEqIM63WgU92Z6GZ0jhRIv70Y0jqXCRidH9W/2xQg9fn
-	 xR/9Fp8PRDa6C6PJiL37MabfZVBXdhtxqZ6J9B+pzsxiK2atjLuGO1qh5HN9V1cnvfQ==
+	t=1794527825;
+	b=QFruwnyyqRMhX/aU6nZwyXErXQt26T9lktj5rxOEagYZ/nnkaJhF2Z22wKKkP8u3idfH
+	 WOEWWaCcm6+xmYk4G39pWxBRH9Sutu9aZcVJMTJc8e5T9Zu9O6yhBqEUefT5Jf/segJJo
+	 41IrzU3X2+bzLd0OFcyh4MRdfQo+Byj834cEGIOeh+royVpyZCI9rGkdvNpztk0lZtAMV
+	 vFNFwJeD/YAZVZn0GDEuUr3SRm72Y1FxejpozeOnWCZ9L+y9mic/GRIfm/MLZw5sSIR7+
+	 342Da882Jj079FLpHNl/qq1DiIa1UUSkTY4QsGRuGw69r7cQP/KlFgWq0wP0modnz7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794527064;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7Tr+nvH1iRjNmrI8twQlPIMvhOSPOoWGVKGBgmEcMbE=;
-	b=LGPulWJhaxa10Swf93tZaVr33GV8+4A0EGcQhfQ5IxrlX2YlsZL7otSJFaW8cbB7bl3g
-	 iP3+4MtkjuAl3VSUYZt+XQDP8f7qsky7mqSCy/L8Zoza3oGM5/uKbdZUnTNJmtsJ8dTTx
-	 m9BE0XOmNNhNMO1aRFfzLPNZ2JOAwLg6LJdMJ7AI7env7Koh2frPeIhPB+ICsROboNGfW
-	 9XxZLD5T69ug19quUMJqPkCiqv3c/sIXmxB9Iy3jaNgUCqQnfBrG/WFzxhZtepHspznpZ
-	 zw+md28q23pSKvBOFSAzHlgOfvyI5dMO6pHVVtRyBMJWW2+AZ94a67cVkHzICPhufPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794527825;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ElwPfqXeirLqqsU4zQh4EAXIe0nkzZW28c2DWS+oP2I=;
+	b=GlnFOYSpSInRDHMJryr55jh7kQA66TxgYtSTrSdLhqaqkYiOM1vZ4V8qd9zie3gVyVsY
+	 KQxonlGALRisaBeDArHgprns1qYGtJXelzFbSzwmkXhjSUkWjJzRKbrCgSIYNIhgyMbOD
+	 YMsXTSSAvSp2wBHbElGSLkIcb5p8a+jzfEthCks+4BRcQ3PHjXFddxZQZ/M4kn9p+NBC5
+	 bzDeEEJ/7nl3lq20yfJVqfL0RH/7BpbpamY6OONCUfnacPnhNA20oW0TxweuQl8GiW1kD
+	 77tCaQsC5nNQC3K1y5SH7FBMdHYghe9/MaQQ6T5J7IXaf3E4S8aUUX9y65KTL1sovBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFLxaNNf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Bdj+rMlp;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD7F606A333
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:44:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFAA606A337
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:57:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFFAA606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFLxaNNf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 762311F000C5;
-	Thu, 12 Nov 2026 23:44:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794527064;
-	bh=7Tr+nvH1iRjNmrI8twQlPIMvhOSPOoWGVKGBgmEcMbE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QFLxaNNfSUlM1tlj1zLZeXOsu042HaS8a4/T+BVBo/sELlebq+20GESAQYletLJVS
-	 VCDHhBmh3qOSc/6Dtbf3Rg81IK+7WaIh8xq3XtJq3dij1sewbUGw8B2qJz80gSY5H5
-	 mDY+Pd7Tidgq3/g/G4oOqzRM4+5DOfKLV39ZaYUU4IL7d9FZVrdZczOTOpW6KHxyAc
-	 yqbqcU/VItCNpArtnUeBNWzMJhX6SMNurrdfglrQsomX6etc83j0OPFLwz1j+HmTaO
-	 vMjOM+xtL7KIdyk+KivtQFiNdc5ZidYFEiHF4ly5Psp8ujjwU48E7l0pPPGOUHglgW
-	 WzdXGP/hQgRCw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Leo Liu <leo.liu@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/amdgpu: cancel idle work in hw_init failure paths for vcn/uvd/vce/jpeg
-Date: Thu, 12 Nov 2026 18:44:22 -0500
-Message-ID: <20261112234400.4141170-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202426-failed-5.15-a56c2536c399@kernel.org>
-References: <20261109202426-failed-5.15-a56c2536c399@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Bdj+rMlp
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4db3db8687fso502688b6e.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:57:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794527824; x=1795132624; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ElwPfqXeirLqqsU4zQh4EAXIe0nkzZW28c2DWS+oP2I=;
+        b=Bdj+rMlpDgrKiXqotTW4jXcvpzcUv0e0jeQma6c38CAO/UzPspO7FbIsvkeOruRh3G
+         1OHjcdOgjt8UpaeV8MvBDAQqQp676tX1+3HO4NEVB2+pWR2BY5E6G2GwaqGlVTY18ZG8
+         myhSQGN1pus0aOgIi7CPaWi3hUfODzuVltFNaOPJVPYJhdVbOurfCYBDhZq/9Ahs4HRR
+         yx6pz4+buNymzccyhZkrgHKEPyCoI/r7KzEY1IO3wFgnbib6oMFyJln8s8ndxITEi5R0
+         lXp43gJGFjw0HRq/e6ThbCYd50GU5Jegggx+tBMqJ+VzwAj4Ng6TW3lVfzB8rLhfr2D0
+         Fg8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794527824; x=1795132624;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ElwPfqXeirLqqsU4zQh4EAXIe0nkzZW28c2DWS+oP2I=;
+        b=rLoBAiRL/hlqnWRUFCNaW82cCwq+erFYGmwTM6yHfWla3pesA2LDJ4SN9g5avZG6av
+         T+oiK9aEulF2tyRNMY9XzmhqcXvV46c/nFr4UjYkFSQBBylghPaTpe6NPoqRh+MXqMQu
+         aNd3yf7jOJsYp6FUTlVIdwxSsqcJWrYz6Y0lT1S0ermSipr31voTeD+GXZB2A8pdPTm5
+         diX+hsELs2nz39DXCNJS78HiAADIOsU4I91RhrxLmhKX5Fa1IbTWGtlcTQEUGiWsdh8C
+         ctRn2APdYsEh6NK7QNNmW/dVvCT6sBRNzQbSHDb1TDvKwb6IM4QNVnVEHOpzoLV0pFhc
+         MWPQ==
+X-Forwarded-Encrypted: i=1; AL+hErHiXFNqO8w1i04+QdwupwMflxBCBAJbCsBCLHBkJAuJ0KMrJOhhYFQia/nKsURA7cz+p1DMfng=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sNSofZ8Cuy3fig2E6Ec0/qR4pAavIKeAn1vRhZhbDfIJIaJbv
+	5Xe7JpLBMdRuaWDmN079tzRJVQisYuC8Rvoq7oW8lOLac7OKpwHhLyZtLkh7kYD+CiSkFIqMe2Y
+	joOKKyHXvxbmVSg==
+X-Received: from iocot30-n2.prod.google.com ([2002:a05:6602:c29e:20b0:9ca:bccb:ca8a])
+ (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:181d:b0:564:3fe1:2fad with SMTP id 5614622812f47-56e645d54a4mr794959b6e.42.1794527823209;
+ Thu, 12 Nov 2026 15:57:03 -0800 (PST)
+Date: Thu, 12 Nov 2026 23:57:00 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,305 +75,120 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261112235700.2029562-1-skhawaja@google.com>
+Subject: [PATCH] vfio/pci: Only lock the upstream bridge if the reset may need it
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Anthony Pighin <anthony.pighin@nokia.com>, Dave Jiang <dave.jiang@intel.com>, 
+	Dan Williams <dan.j.williams@intel.com>, kvm@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Leo Liu <leo.liu@amd.com>
+Commit 962ae6892d8b ("vfio/pci: Lock upstream bridge for
+vfio_pci_core_disable()") makes vfio_pci_core_disable() trylock the
+upstream bridge before resetting the device, and skips the reset if the
+trylock fails.
 
-[ Upstream commit a56c2536c399d57a9bb1c02fd411e0c25859af3b ]
+All VFs of a PF have the same upstream bridge. Take a device with two
+VFs, both used by one process. When the process is killed, both VFs can
+be released at the same time. The first one takes the bridge lock and
+does its FLR, the second one fails the trylock and is never reset.
 
-When hw_init() fails, amdgpu_device_ip_fini_early() skips hw_fini()
-because status.hw was never set.  For VCN, UVD (including UVD ENC), VCE,
-and JPEG, hw_fini() is where cancel_delayed_work_sync() is called.  Any
-idle work queued during the partial hw_init() is therefore left pending
-after sw_fini() frees the adev state the handler touches.
+The bridge lock is only needed for a bus reset, which is done through
+the bridge. A VF is reset with FLR, and pci_parent_bus_reset() never
+resets the bus for it because the PF and the other VFs are on the same
+bus.
 
-Cancel the idle work in each hw_init() error path, immediately before
-returning the error, so that hw_fini() remains the sole cancel site on
-the normal teardown path with no duplication.
+Add pci_reset_needs_bridge_lock(), which returns true if any reset
+method enabled for the device is a bus reset, and only lock the bridge
+in vfio_pci_core_disable() when it does.
 
-Link: https://github.com/ROCm/amdgpu/issues/234
-Fixes: 416e1fab4752 ("drm/amdgpu: drop redundant cancel_delayed_work_sync call")
-Assisted-by: Claude:Claude-Sonnet-4.6
-Signed-off-by: Leo Liu <leo.liu@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 7ff2327fde029e97d0050fcb94e3f4063c318547)
+Fixes: 962ae6892d8b ("vfio/pci: Lock upstream bridge for vfio_pci_core_disable()")
 Cc: stable@vger.kernel.org
-[ sashal: Replaced per-instance VCN idle-work cancellations with a single cancellation of the shared worker, which also covers integrated JPEG. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c | 4 +++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 4 +++-
- drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c  | 4 +++-
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c  | 4 +++-
- drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c  | 4 +++-
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c  | 4 +++-
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c  | 4 +++-
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c  | 6 +++++-
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c  | 6 +++++-
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c  | 6 +++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c  | 4 +++-
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c  | 4 +++-
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c  | 4 +++-
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c  | 4 +++-
- 15 files changed, 53 insertions(+), 15 deletions(-)
+Tested in QEMU with an igb PF behind a PCIe root port, bound to vfio-pci
+with two VFs. Both VFs are opened through VFIO and then closed from two
+threads at the same time, counting FLRs with a kprobe on pcie_flr().
+Without this patch one VF missed its FLR in 50 of 50 rounds, with it
+both VFs were reset in every round. I will send a VFIO selftest for this
+separately.
+---
+ drivers/pci/pci.c                | 28 ++++++++++++++++++++++++++++
+ drivers/vfio/pci/vfio_pci_core.c |  3 ++-
+ include/linux/pci.h              |  1 +
+ 3 files changed, 31 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-index 8e20ae3f0f117..25f034d5bafb3 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-@@ -155,7 +155,9 @@ static int jpeg_v2_0_hw_init(void *handle)
- 		(adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
- 
- 	r = amdgpu_ring_test_helper(ring);
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	else
- 		DRM_INFO("JPEG decode initialized successfully.\n");
- 
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index c682d1fab7f0d..db7a24c509779 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -169,12 +169,16 @@ static int jpeg_v2_5_hw_init(void *handle)
- 
- 		r = amdgpu_ring_test_helper(ring);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	DRM_INFO("JPEG decode initialized successfully.\n");
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 7c6f2aba8144..c44e4d4d8774 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -5256,6 +5256,34 @@ int __pci_reset_function_locked(struct pci_dev *dev)
  }
+ EXPORT_SYMBOL_GPL(__pci_reset_function_locked);
  
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-index 8c49a67bf0408..62b517699180e 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-@@ -144,8 +144,10 @@ static int jpeg_v3_0_hw_init(void *handle)
- 		(adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
- 
- 	r = amdgpu_ring_test_helper(ring);
--	if (r)
-+	if (r) {
-+		cancel_delayed_work_sync(&adev->jpeg.idle_work);
- 		return r;
++/**
++ * pci_reset_needs_bridge_lock - check whether a reset of @dev may need the
++ * upstream bridge to be locked
++ * @dev: PCI device to check
++ *
++ * A bus reset of @dev is done through its upstream bridge, so the caller must
++ * hold the bridge lock. The other reset methods only access @dev itself.
++ *
++ * Return: true if any of the reset methods enabled for @dev is a bus reset.
++ */
++bool pci_reset_needs_bridge_lock(struct pci_dev *dev)
++{
++	int i, m;
++
++	for (i = 0; i < PCI_NUM_RESET_METHODS; i++) {
++		m = dev->reset_methods[i];
++		if (!m)
++			break;
++
++		if (pci_reset_fn_methods[m].reset_fn == pci_reset_bus_function ||
++		    pci_reset_fn_methods[m].reset_fn == cxl_reset_bus_function)
++			return true;
 +	}
- 
- 	DRM_INFO("JPEG decode initialized successfully.\n");
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-index 3a27bed57b4ff..482007346fe14 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-@@ -712,7 +712,9 @@ static int uvd_v3_1_hw_init(void *handle)
- 	amdgpu_ring_commit(ring);
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	else
- 		DRM_INFO("UVD initialized successfully.\n");
- 
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-index 01d8e7d2caf97..abcdf37f0cb15 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-@@ -195,7 +195,9 @@ static int uvd_v4_2_hw_init(void *handle)
- 	amdgpu_ring_commit(ring);
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	else
- 		DRM_INFO("UVD initialized successfully.\n");
- 
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-index 563493d1f8306..ddc44841f3722 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-@@ -192,7 +192,9 @@ static int uvd_v5_0_hw_init(void *handle)
- 	amdgpu_ring_commit(ring);
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	else
- 		DRM_INFO("UVD initialized successfully.\n");
- 
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-index 72f8762907681..0d8cd2e1ddb34 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-@@ -522,7 +522,9 @@ static int uvd_v6_0_hw_init(void *handle)
- 	}
- 
- done:
--	if (!r) {
-+	if (r) {
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	} else {
- 		if (uvd_v6_0_enc_support(adev))
- 			DRM_INFO("UVD and UVD ENC initialized successfully.\n");
- 		else
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-index 1fd9ca21a091b..79cf2746aea16 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-@@ -589,7 +589,9 @@ static int uvd_v7_0_hw_init(void *handle)
- 		}
- 	}
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	else
- 		DRM_INFO("UVD and UVD ENC initialized successfully.\n");
- 
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-index ddbcfcc70df5c..d9e690e5ff4a2 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-@@ -467,12 +467,16 @@ static int vce_v2_0_hw_init(void *handle)
- 	for (i = 0; i < adev->vce.num_rings; i++) {
- 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	DRM_INFO("VCE initialized successfully.\n");
- 
- 	return 0;
 +
-+error:
-+	cancel_delayed_work_sync(&adev->vce.idle_work);
-+	return r;
- }
- 
- static int vce_v2_0_hw_fini(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-index 6095ddf1d7b79..fcf7ebad605c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-@@ -477,12 +477,16 @@ static int vce_v3_0_hw_init(void *handle)
- 	for (i = 0; i < adev->vce.num_rings; i++) {
- 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	DRM_INFO("VCE initialized successfully.\n");
- 
- 	return 0;
++	return false;
++}
++EXPORT_SYMBOL_GPL(pci_reset_needs_bridge_lock);
 +
-+error:
-+	cancel_delayed_work_sync(&adev->vce.idle_work);
-+	return r;
- }
- 
- static int vce_v3_0_hw_fini(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-index 70b8c88d30513..2050b890bb4a3 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-@@ -530,12 +530,16 @@ static int vce_v4_0_hw_init(void *handle)
- 	for (i = 0; i < adev->vce.num_rings; i++) {
- 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	DRM_INFO("VCE initialized successfully.\n");
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->vce.idle_work);
-+	return r;
- }
- 
- static int vce_v4_0_hw_fini(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index 462008d506904..923a71350962c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -213,7 +213,9 @@ static int vcn_v1_0_hw_init(void *handle)
- 		goto done;
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->vcn.idle_work);
-+	else
- 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
- 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mode");
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index 02ae3e7a8a552..5eaf3e13d0efc 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -248,7 +248,9 @@ static int vcn_v2_0_hw_init(void *handle)
- 	}
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->vcn.idle_work);
-+	else
- 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
- 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mode");
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index a0956d8623770..063d732869de5 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -307,7 +307,9 @@ static int vcn_v2_5_hw_init(void *handle)
- 	}
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->vcn.idle_work);
-+	else
- 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
- 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mode");
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 7085c1f45cf74..f1ad7fdd035fa 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -372,7 +372,9 @@ static int vcn_v3_0_hw_init(void *handle)
- 	}
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->vcn.idle_work);
-+	else
- 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
- 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mode");
- 
+ /**
+  * pci_init_reset_methods - check whether device can be safely reset
+  * and store supported reset mechanisms.
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index fcbb2da860e2..ba3dfdadae39 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -777,7 +777,8 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
+ 	 * overwrite the previously restored configuration information.
+ 	 */
+ 	if (vdev->reset_works) {
+-		bridge = pci_upstream_bridge(pdev);
++		bridge = pci_reset_needs_bridge_lock(pdev) ?
++			 pci_upstream_bridge(pdev) : NULL;
+ 		if (bridge && !pci_dev_trylock(bridge))
+ 			goto out_restore_state;
+ 		if (pci_dev_trylock(pdev)) {
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index aa3765a20a96..cb2856f444ca 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1486,6 +1486,7 @@ void pcie_print_link_status(struct pci_dev *dev);
+ int pcie_reset_flr(struct pci_dev *dev, bool probe);
+ int pcie_flr(struct pci_dev *dev);
+ int __pci_reset_function_locked(struct pci_dev *dev);
++bool pci_reset_needs_bridge_lock(struct pci_dev *dev);
+ int pci_reset_function(struct pci_dev *dev);
+ int pci_reset_function_locked(struct pci_dev *dev);
+ int pci_try_reset_function(struct pci_dev *dev);
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.53.0
+2.56.0.611.g1030f0b940-goog
 
