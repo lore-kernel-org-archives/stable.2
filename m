@@ -1,65 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496338;
-	b=o8SLr7PcAX2zxdsV5ffhoqQ5/+5HuGtUk0SBpkgaNjMHcfue1iaGkTPIjbwQDZoh9pPe
-	 L3m5LuhrNPUe859M1xVNywZW/v8jl5+KW5cJLgy6cL5skRBhE7AZzO+Wi4R/r4tntdM5l
-	 ZTWa84wFxBD3OxTynlsuKcXvBuxscBNLIty+p1WmX4aUspNhdXTFc87f/N24gFvkruBEU
-	 sL67+7IXa8Nc13CM86WBWVp343zQ/y352CH6qnMXMqMntxhNJTdeVm6JStDA6/hoa1k5m
-	 mM2p22HG2zS4J3nE8HdtBNp1YG+Y04UhAikO1oTXqKfxemz5JUUObHpxrqCTrUbbobQ==
+	t=1794496341;
+	b=Rk6RB40Lf/S/4GDJtDIYntCALOI1t4uZLZpXW0v5W5JDLstEwHd9Nfbr/L1IrScvEPk7
+	 ynmqxUPJZw+qJjYuZE4f0u9tFrnXEaDcvELMg23p7J6IoAiMGrrtln22iwCE6fhys/fJN
+	 gRPJDkLZwYyEI6foHCb+DP9kx7cuBcmwvAh/R90B1dce5QNreKClIGNVyAaDLXC53n86F
+	 LJAWULAshKcydGFHfSn76NQgXhYbcDgKc1MeMMDpN2XF+2HVO9LYLz0Ss0F4ygzRvP7Tt
+	 Rjnq2zU3H6EWMeRtFpVuMtghzXVg11rI9Wes2zgAvCMikmxXoxfLlpQFx33Gm5z/D8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496338;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=QCLY6GzZNwTavS5eEWpjuyaCz72Jc6PbdiGpZVL3/WU=;
-	b=Z7zgvPrVJX3NuvW51t8vk6bsEewReuybXhKCX1wz7Ylbgkrs+Jnn3U5NnuS91q47cdkS
-	 p1Lk1qPt00Qzu+KYXWIz4BDYwT5qXaEYgyTtkpooA8zueyoaTpd/5kvE1kYsd73gBPS7j
-	 5bB6yqojIIgc5vM46bf3QFpU1Eq1nOuBxngGrt6AojitYDQZsz9hActmlthoxXIWJ7Hue
-	 09OoOcSE0B/RSzfodYxdSomdOcx7vGRq/Kvr8oXe02VhpfQkg34KS/1eSUy1cDiakGcDP
-	 lBnTlkUn+ZMn4/hStlQmacDnogxkXtrvVDxY+ZUu3GHChQa5DiGiFr4q5I3xJFV0TQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794496341;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ao8/+Hhm6PmG9ujCJCc0WSzt76ZNCfRYeI8J8JiLVbs=;
+	b=OJf04sgNfJvejZg4ch5pSCKVaOT5oL9ersSvHaDvcUoQ1XGgGf2f5dVeGq7jaY00hGPF
+	 UaOnz8Ni76Hk2m89xiHc53hRVTZ0KUJUunuysaD5r4l93Duuwjvwrh+IoGt2LS466ss8x
+	 qKEWhFmkNnHvPchYdH5HSIGav4696tSJ7s2LLt7Xcv0ms9dvuVw1J2RY6gUTCEbywAkVn
+	 fb2290KjX/PpkaN9y4r5kW1fx3IQvnTH9qwmYOHMO/NxR3/ePvpGBI1uLrZS29MMGZQBU
+	 P/Lc55MHMYhvPK28aM5FRGV1uOMhSOxeCrUcGm7wLNYp0a7Zcyl2JF0+q0E5Dtk5Ojw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pXwQV6sC;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6529F606A327
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:12:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6529F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W3pIvZO0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1BA606A31C;
+	Thu, 12 Nov 2026 15:12:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pXwQV6sC
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B51021516;
-	Thu, 12 Nov 2026 07:12:13 -0800 (PST)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0979B3F632;
-	Thu, 12 Nov 2026 07:12:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794496336; bh=VUYCKd/6I3o8DDZIe1DPj0Ia3oaTfMkE4oKSORe90Dc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pXwQV6sCFE1/rL3XViBxlz3MUQNRaAoqu6UaRvE2bfiv6870CUX6SbHpdJs69bCE9
-	 z48jlwSnW7eUgD5EoMLvo9Sw1kc/IaRxypLlzKNfeDAoA6xAInX4J9L2kJuyfc1QUC
-	 Cnz27NxSlAWisbYfFuK0fLkkeLDexlVej/g9KUls=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Oliver Upton <oupton@kernel.org>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	kvmarm@lists.linux.dev,
-	Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 8/8] KVM: arm64: Stop leaning on __kvm_inject_sea() for abort injection
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W3pIvZO0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C701F00A06;
+	Thu, 12 Nov 2026 15:12:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794496341;
+	bh=ao8/+Hhm6PmG9ujCJCc0WSzt76ZNCfRYeI8J8JiLVbs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=W3pIvZO0S3F9nHSr41UxG1ifsYasfQs0KrY7WUTuhgNsFdUP5VgYCJgSsC7OEzxd3
+	 AipO66CkNsxuaiK6EdZFUlLTOFFVlOoBhumBRIG58JcO50RHag/jfh1RUAv9odJM+Y
+	 mNqw7DeYwa5MRnzinwFRufMcWT/clFliH01atrKV2GbL8Vx6ibt0XwgqoKgBn38Hdy
+	 5uaBQ2jVwqC1bLAw/QdQNGpuR2nVPvaMz7sTlQqaM43Aod4XeFE9Iwad9XNbhaBdUa
+	 j/iYs1yueFgQN0nklMISEUhkI5qJI7oeIgxEtNtassvMu2DIQJwFVbuvbM3ZKgR4FA
+	 nZdMea5lTB6Nw==
+From: Simon Horman <horms@kernel.org>
+To: xuyuqiabc@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	oe-linux-nfc@lists.linux.dev,
+	david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org,
+	vega@nebusec.ai,
+	weir@nebusec.ai,
+	xuyq21@lenovo.com,
+	mgreer@animalcreek.com,
+	u.kleine-koenig@baylibre.com,
+	ian.ray@gehealthcare.com,
+	dmitry.torokhov@gmail.com,
+	thierry.escande@linux.intel.com,
+	sameo@linux.intel.com
+Subject: Re: [PATCH net v2 1/1] nfc: digital: fix use-after-free in unregister
 Date: Thu, 12 Nov 2026 15:12:08 +0000
-Message-ID: <avXXSLhMCQVOvv4G@LeoBrasDK>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261104192124.3932743-9-oupton@kernel.org>
-References: <20261104192124.3932743-1-oupton@kernel.org> <20261104192124.3932743-9-oupton@kernel.org>
+Message-ID: <20261112151208.496636-1-horms@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107141910.549465-1-xuyuqiabc@gmail.com>
+References: <20261107141910.549465-1-xuyuqiabc@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,280 +74,233 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 11:21:24AM -0800, Oliver Upton wrote:
-> KVM's handling of local abort injection is, politely stated, a giant
-> fscking mess. At surface level, things look somewhat innocuous: inject
-> an SEA and directly update ESR_EL1 with the correct FSC afterwards. But
-> this is broken for a couple reasons.
-> 
-> For one, on implementations with FEAT_DoubleFault2 KVM may inject the
-> SEA as an SError depending on the falue of SCTLR2_EL1.NMEA, meaning that
-> the eventual non-SEA abort is incorrectly taken to the SError vector.
-> 
-> AArch32 is also quite bitrotted. No surprise. The FSR value is written
-> to IFSR not DFSR, when a prefetch abort is injected. So while DFSR is
-> aliased to ESR_EL1 architecturally, fixing up ESR_EL1.FSC after
-> injection has no effect on IFSR.
-> 
-> Finally, injecting aborts into non-LPAE relics may use an invalid value
-> for xFSC.FS, as KVM unconditionally uses the LPAE/VMSAv8-64 format.
-> 
-> Fix the first two by tearing the whole mess, adding __kvm_inject_abort()
-> for injecting non-SEA aborts which takes the desired FSC from the
-> caller. Fix the third one by selecting a fault status value based on the
-> LPAE-ness of the guest.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: fff97df2a0bd ("KVM: arm64: Route SEAs to the SError vector when EASE is set")
-> Fixes: 2937aeec9dc5 ("KVM: arm64: Handle DABT caused by LS64* instructions on unsupported memory")
-> Signed-off-by: Oliver Upton <oupton@kernel.org>
-> ---
->  arch/arm64/kvm/inject_fault.c | 133 +++++++++++++++++++---------------
->  1 file changed, 76 insertions(+), 57 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/inject_fault.c b/arch/arm64/kvm/inject_fault.c
-> index aa2011cc0d5a..89c7890b8743 100644
-> --- a/arch/arm64/kvm/inject_fault.c
-> +++ b/arch/arm64/kvm/inject_fault.c
-> @@ -102,12 +102,32 @@ static bool effective_sctlr2_nmea(struct kvm_vcpu *vcpu)
->  	return __effective_sctlr2_bit(vcpu, SCTLR2_EL1_NMEA_SHIFT);
->  }
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107141910.549465-1-xuyuqiabc@gmail.com?part=1
+---
+nfc: digital: fix use-after-free in unregister
+
+This patch aborts the in-flight driver command in
+nfc_digital_unregister_device() before freeing the command queue. It
+also blocks new submissions once shutting_down is set and frees any
+leftover req/resp skbs. Per-driver changes in port100, nfcsim,
+trf7970a and st95hf try to make sure no completion callback can run
+after abort_cmd() returns.
+
+> diff --git a/drivers/nfc/trf7970a.c b/drivers/nfc/trf7970a.c
+> index ddfc58c299649..87c833abb36af 100644
+> --- a/drivers/nfc/trf7970a.c
+> +++ b/drivers/nfc/trf7970a.c
+> @@ -1903,6 +1903,7 @@ static void trf7970a_abort_cmd(struct nfc_digital_dev *ddev)
+>  		trf->aborting = true;
+>  		break;
+>  	case TRF7970A_ST_LISTENING:
+> +	case TRF7970A_ST_LISTENING_MD:
+>  		trf->ignore_timeout = !cancel_delayed_work(&trf->timeout_work);
+>  		trf7970a_send_err_upstream(trf, -ECANCELED);
+>  		dev_dbg(trf->dev, "Abort process complete\n");
+
+[Severity: Low]
+
+The commit message presents this as part of the unregister fix ("handle
+its MD listening state in abort and shutdown"). Does this abort_cmd case
+take effect on the unregister path?
+
+trf7970a_remove() calls trf7970a_shutdown() first. With this patch,
+every active state, LISTENING_MD included, goes through
+send_err_upstream()->switch_rf_off()->power_down() and ends in PWR_OFF.
+When nfc_digital_unregister_device() later calls digital_abort_cmd(),
+trf7970a_abort_cmd() sees PWR_OFF and takes the default: break case.
+
+This hunk does change behaviour on the normal digital_stop_poll(),
+digital_dep_link_down() and digital_deactivate_target() paths. An abort
+during MD listening now cancels the timeout and sends -ECANCELED
+upstream right away. Before, the listen ran on until -ETIMEDOUT or until
+a target arrived.
+
+The same applies to suspend, because trf7970a_suspend() calls
+trf7970a_shutdown(). Before this patch, LISTENING_MD hit the default
+case there, power_down() returned -EBUSY, and the chip stayed powered.
+
+Could the commit message describe these behaviour changes? A stable
+backporter would otherwise assume all of them are needed for the
+use-after-free fix.
+
+> @@ -2017,6 +2018,8 @@ static void trf7970a_shutdown(struct trf7970a *trf)
+>  	case TRF7970A_ST_WAIT_FOR_RX_DATA_CONT:
+>  	case TRF7970A_ST_WAIT_TO_ISSUE_EOF:
+>  	case TRF7970A_ST_LISTENING:
+> +	case TRF7970A_ST_LISTENING_MD:
+> +		trf->ignore_timeout = !cancel_delayed_work(&trf->timeout_work);
+
+[Severity: High]
+
+Can this assignment overwrite an ignore_timeout = true that the IRQ
+thread set for a timeout handler that is already running?
+
+Say the state is WAIT_FOR_TX_FIFO or WAIT_FOR_RX_DATA. The timeout
+expires and trf7970a_timeout_work_handler() (H1) starts running, but it
+has not taken trf->lock yet.
+
+trf7970a_irq() holds trf->lock and runs:
+
+	case TRF7970A_ST_WAIT_FOR_TX_FIFO:
+		if (status & TRF7970A_IRQ_STATUS_TX) {
+			trf->ignore_timeout =
+			    !cancel_delayed_work(&trf->timeout_work);
+			trf7970a_fill_fifo(trf);
+
+H1 is running, so the cancel fails and ignore_timeout becomes true. Then
+fill_fifo()->trf7970a_transmit() re-arms timeout_work. The SRX branch
+does the same via trf7970a_drain_fifo().
+
+Now trf7970a_remove() or trf7970a_suspend() takes trf->lock before H1
+does. This new line cancels the re-armed work, the cancel returns true,
+and ignore_timeout becomes false. send_err_upstream(-ECANCELED)
+completes the command, and the state ends in PWR_OFF.
+
+H1 then takes the lock, sees ignore_timeout == false, and falls through
+to:
+
+	else
+		trf7970a_send_err_upstream(trf, -ETIMEDOUT);
+
+That leads to:
+
+trf7970a_send_upstream()
+  trf->cb(trf->ddev, trf->cb_arg, trf->rx_skb)
+    digital_send_cmd_complete()
+      cmd->resp = resp;
+      schedule_work(&ddev->cmd_complete_work);
+
+trf->cb_arg is still the old one. Doesn't this write cmd->resp into a
+digital_cmd that was already freed, either by digital_wq_cmd_complete()
+or by the new cleanup loop in nfc_digital_unregister_device()?
+
+It also re-queues ddev->cmd_complete_work after unregister's final
+cancel_work_sync(). On remove, the new cancel_delayed_work_sync() only
+waits for H1 after the fact, and nfc_digital_free_device() then frees
+ddev while cmd_complete_work is still queued. On suspend, the second
+completion either hits the freed cmd or completes an unrelated queued
+command with resp == NULL.
+
+Before this patch, shutdown did not touch ignore_timeout in these
+states. In the same interleaving, send_err_upstream() cancelled the
+re-armed work, ignore_timeout stayed true, and H1 did nothing.
+
+H1 also moves the state from PWR_OFF to IDLE here. Doesn't that
+contradict the new comment in trf7970a_remove() that no command path
+can arm the timeout again?
+
+>  		trf7970a_send_err_upstream(trf, -ECANCELED);
+>  		fallthrough;
+>  	case TRF7970A_ST_IDLE:
+> @@ -2230,6 +2233,14 @@ static void trf7970a_remove(struct spi_device *spi)
+>  	mutex_unlock(&trf->lock);
 >  
-> -static void inject_abt64(struct kvm_vcpu *vcpu, bool is_iabt, unsigned long addr)
-> +static void __inject_abt64(struct kvm_vcpu *vcpu, bool iabt, u32 iss, unsigned long addr)
->  {
-> -	unsigned long cpsr = *vcpu_cpsr(vcpu);
-> -	bool is_aarch32 = vcpu_mode_is_32bit(vcpu);
-> -	u64 esr = 0, fsc;
-> -	int level;
-> +	u64 esr;
-> +	u8 ec;
+>  	nfc_digital_unregister_device(trf->ddev);
 > +
-> +	if (vcpu_mode_priv(vcpu))
+> +	/*
+> +	 * shutdown() leaves the chip powered off, so no IRQ or command path
+> +	 * can arm the timeout again and unregister has cancelled cmd_work.
+> +	 * Wait for a handler that was already running before freeing trf.
+> +	 */
+> +	cancel_delayed_work_sync(&trf->timeout_work);
 
-Maybe I am getting this wrong, but this line was previously:
--	if (is_aarch32 || (cpsr & PSR_MODE_MASK) == PSR_MODE_EL0t)
+[Severity: High]
 
-but vcpu_mode_priv() does not test exactly the same thing, it would test:
-vcpu_mode_is_32bit(), tested in is_aarch32, &&
-cpsr_mode > PSR_AA32_MODE_USR, not tested above, ||
-*vcpu_cpsr(vcpu) & PSR_MODE_MASK != PSR_MODE_EL0t
+Can a timeout handler that is already running still deliver a
+completion into a freed digital_cmd before this point?
 
-This last line is testing the exact opposite of what was here. 
-Is that another fix?
+The IRQ thread's error paths call trf7970a_send_err_upstream() without
+setting ignore_timeout. For example, in trf7970a_irq():
 
-> +		ec = iabt ? ESR_ELx_EC_IABT_CUR : ESR_ELx_EC_DABT_CUR;
-> +	else
-> +		ec = iabt ? ESR_ELx_EC_IABT_LOW : ESR_ELx_EC_DABT_LOW;
+		} else {
+			trf7970a_send_err_upstream(trf, -EIO);
+		}
+
+The WAIT_TO_ISSUE_EOF case and the LISTENING/LISTENING_MD !NFC_RF cases
+do the same. send_err_upstream() only calls the non-sync
+cancel_delayed_work(), which cannot stop a handler that has already
+started.
+
+Suppose the timeout handler H1 is running when such an IRQ completes the
+command. The state becomes IDLE and ignore_timeout stays false.
+trf7970a_shutdown() in IDLE only calls switch_rf_off() and power_down(),
+ending in PWR_OFF, and does not touch ignore_timeout.
+
+H1 then sees PWR_OFF with ignore_timeout == false and runs:
+
+trf7970a_timeout_work_handler()
+  trf7970a_send_err_upstream(trf, -ETIMEDOUT)
+    trf7970a_send_upstream()
+      trf->cb(trf->ddev, trf->cb_arg, trf->rx_skb)
+        digital_send_cmd_complete()
+          cmd->resp = resp;
+          schedule_work(&ddev->cmd_complete_work);
+
+trf->cb_arg is never cleared, so this cmd has already been freed, either
+by digital_wq_cmd_complete() or by the cleanup loop in
+nfc_digital_unregister_device(). cmd_complete_work is also re-queued
+after unregister's final cancel_work_sync().
+
+This cancel_delayed_work_sync() only waits for H1 to finish, after that
+has already happened. nfc_digital_free_device() then frees ddev with
+cmd_complete_work still queued.
+
+The race between the IRQ and timeout completions is older than this
+patch. However, the commit message says trf7970a's timeout work and IRQ
+completions are handled for unregister, and the new comment says remove
+waits for a handler that was already running. Is the trf7970a part of
+the fix complete?
+
 > +
-> +	esr = FIELD_PREP(ESR_ELx_EC_MASK, ec) | FIELD_PREP(ESR_ELx_ISS_MASK, iss) |
-> +	      ESR_ELx_IL;
-> +
-> +	vcpu_write_sys_reg(vcpu, addr, exception_far_elx(vcpu));
-> +	vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
-> +}
-> +
-> +static void inject_abt64(struct kvm_vcpu *vcpu, bool iabt, u32 iss, u64 addr)
-> +{
-> +	pend_sync_exception(vcpu);
-> +	__inject_abt64(vcpu, iabt, iss, addr);
-> +}
-> +
-> +static void inject_sea64(struct kvm_vcpu *vcpu, bool iabt, u64 addr)
-> +{
-> +	u8 fsc;
+>  	nfc_digital_free_device(trf->ddev);
 >  
->  	/*
->  	 * If injecting an abort from a failed S1PTW, rewalk the S1 PTs to
-> @@ -116,7 +136,7 @@ static void inject_abt64(struct kvm_vcpu *vcpu, bool is_iabt, unsigned long addr
->  	 */
->  	if (kvm_vcpu_abt_iss1tw(vcpu)) {
->  		u64 hpfar = kvm_vcpu_get_fault_ipa(vcpu);
-> -		int ret;
-> +		int ret, level;
->  
->  		if (hpfar == INVALID_GPA)
->  			return;
-> @@ -137,28 +157,7 @@ static void inject_abt64(struct kvm_vcpu *vcpu, bool is_iabt, unsigned long addr
->  	else
->  		pend_sync_exception(vcpu);
->  
-> -	/*
-> -	 * Build an {i,d}abort, depending on the level.
-> -	 * Report an external synchronous abort.
-> -	 */
-> -	esr |= ESR_ELx_IL;
-> -
-> -	/*
-> -	 * Here, the guest runs in AArch64 mode when in EL1. If we get
-> -	 * an AArch32 fault, it means we managed to trap an EL0 fault.
-> -	 */
-> -	if (is_aarch32 || (cpsr & PSR_MODE_MASK) == PSR_MODE_EL0t)
-> -		esr |= (ESR_ELx_EC_IABT_LOW << ESR_ELx_EC_SHIFT);
-> -	else
-> -		esr |= (ESR_ELx_EC_IABT_CUR << ESR_ELx_EC_SHIFT);
-> -
-> -	if (!is_iabt)
-> -		esr |= ESR_ELx_EC_DABT_LOW << ESR_ELx_EC_SHIFT;
-> -
-> -	esr |= fsc;
-> -
-> -	vcpu_write_sys_reg(vcpu, addr, exception_far_elx(vcpu));
-> -	vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
-> +	__inject_abt64(vcpu, iabt, fsc, addr);
->  }
->  
->  void kvm_inject_sync(struct kvm_vcpu *vcpu, u64 esr)
-> @@ -174,31 +173,41 @@ static void inject_undef64(struct kvm_vcpu *vcpu)
->  	kvm_inject_sync(vcpu, esr);
->  }
->  
-> -#define DFSR_FSC_EXTABT_LPAE	0x10
-> -#define DFSR_FSC_EXTABT_nLPAE	0x08
-> -#define DFSR_LPAE		BIT(9)
-> -#define TTBCR_EAE		BIT(31)
-> +#define DFSR_FS_4			BIT(10)
-> +#define DFSR_FS_3_0			GENMASK(3, 0)
-> +#define DFSR_FS_EXTABT_nLPAE		0x08
-> +#define DFSR_FS_EXCL_ATOMIC_nLPAE	0x15
+>  	regulator_disable(trf->vddio_regulator);
+> diff --git a/include/net/nfc/digital.h b/include/net/nfc/digital.h
+> index bb3e8fdc06929..d5ae45da5a337 100644
+> --- a/include/net/nfc/digital.h
+> +++ b/include/net/nfc/digital.h
+> @@ -131,7 +131,11 @@ typedef void (*nfc_digital_cmd_complete_t)(struct nfc_digital_dev *ddev,
+>   * @switch_rf: Turns device radio on or off. The stack does not call explicitly
+>   *	switch_rf to turn the radio on. A call to in|tg_configure_hw must turn
+>   *	the device radio on.
+> - * @abort_cmd: Discard the last sent command.
+> + * @abort_cmd: Discard the last sent command. When called from
+> + *	nfc_digital_unregister_device(), the command is freed after this
+> + *	returns, so the driver must ensure that its completion callback
+> + *	cannot run afterwards. Completions delivered from work items, IRQ
+> + *	handlers or timers must be cancelled or flushed before returning.
 
-Maybe I am reading the wrong place, but in M.d, I see:
-DFSR.FS = 0b10101
-IMPLEMENTATION DEFINED fault (Unsupported Exclusive access fault).
+[Severity: Low]
 
-> +#define DFSR_FSC			GENMASK(5, 0)
-> +#define DFSR_FSC_EXTABT_LPAE		0x10
+Do the in-tree implementations follow this new contract?
 
-Wouldn't this be STATUS bits instead of FSC?
-(Maybe FSC got renamed STATUS in the meantime)
+st95hf_abort_cmd() is still an empty stub:
 
+/* TODO st95hf_abort_cmd */
+static void st95hf_abort_cmd(struct nfc_digital_dev *ddev)
+{
+}
 
-> +#define DFSR_LPAE			BIT(9)
-> +#define TTBCR_EAE			BIT(31)
->  
->  static void inject_undef32(struct kvm_vcpu *vcpu)
->  {
->  	kvm_pend_exception(vcpu, EXCEPT_AA32_UND);
->  }
->  
-> +static bool vcpu_trans_32bit_non_lpae(struct kvm_vcpu *vcpu)
-> +{
-> +	return vcpu_el1_is_32bit(vcpu) && !(vcpu_read_sys_reg(vcpu, TCR_EL1) & TTBCR_EAE);
-> +}
-> +
->  /*
->   * Modelled after TakeDataAbortException() and TakePrefetchAbortException
->   * pseudocode.
->   */
-> -static void inject_abt32(struct kvm_vcpu *vcpu, bool is_pabt, u32 addr)
-> +static void inject_abt32(struct kvm_vcpu *vcpu, bool is_pabt, u8 status, u32 addr)
->  {
->  	u64 far;
->  	u32 fsr;
->  
-> -	/* Give the guest an IMPLEMENTATION DEFINED exception */
-> -	if (vcpu_read_sys_reg(vcpu, TCR_EL1) & TTBCR_EAE) {
-> -		fsr = DFSR_LPAE | DFSR_FSC_EXTABT_LPAE;
-> +	if (vcpu_trans_32bit_non_lpae(vcpu)) {
-> +		/* Ensure status actually fits in DFSR.FS */
-> +		KVM_BUG_ON(status > 0x1F, vcpu->kvm);
-> +		fsr = FIELD_PREP(DFSR_FS_4, FIELD_GET(BIT(4), status)) |
-> +		      FIELD_PREP(DFSR_FS_3_0, FIELD_GET(GENMASK(3, 0), status));
->  	} else {
-> -		/* no need to shuffle FS[4] into DFSR[10] as it's 0 */
-> -		fsr = DFSR_FSC_EXTABT_nLPAE;
-> +		fsr = FIELD_PREP(DFSR_FSC, status) | DFSR_LPAE;
->  	}
->  
->  	far = vcpu_read_sys_reg(vcpu, FAR_EL1);
-> @@ -218,12 +227,28 @@ static void inject_abt32(struct kvm_vcpu *vcpu, bool is_pabt, u32 addr)
->  	vcpu_write_sys_reg(vcpu, far, FAR_EL1);
->  }
->  
-> +static void inject_sea32(struct kvm_vcpu *vcpu, bool is_pabt, u32 addr)
-> +{
-> +	if (vcpu_trans_32bit_non_lpae(vcpu))
-> +		inject_abt32(vcpu, is_pabt, DFSR_FS_EXTABT_nLPAE, addr);
-> +	else
-> +		inject_abt32(vcpu, is_pabt, DFSR_FSC_EXTABT_LPAE, addr);
-> +}
-> +
->  static void __kvm_inject_sea(struct kvm_vcpu *vcpu, bool iabt, u64 addr)
->  {
->  	if (vcpu_el1_is_32bit(vcpu))
-> -		inject_abt32(vcpu, iabt, addr);
-> +		inject_sea32(vcpu, iabt, addr);
->  	else
-> -		inject_abt64(vcpu, iabt, addr);
-> +		inject_sea64(vcpu, iabt, addr);
-> +}
-> +
-> +static void __kvm_inject_abort(struct kvm_vcpu *vcpu, bool iabt, u8 fsc, u64 addr)
-> +{
-> +	if (vcpu_el1_is_32bit(vcpu))
-> +		inject_abt32(vcpu, iabt, fsc, addr);
-> +	else
-> +		inject_abt64(vcpu, iabt, fsc, addr);
->  }
->  
->  static bool kvm_sea_target_is_el2(struct kvm_vcpu *vcpu)
-> @@ -270,28 +295,25 @@ static int kvm_inject_nested_excl_atomic(struct kvm_vcpu *vcpu, u64 addr)
->   */
->  int kvm_inject_dabt_excl_atomic(struct kvm_vcpu *vcpu, u64 addr)
->  {
-> -	u64 esr;
-> -
->  	if (is_nested_ctxt(vcpu) && (vcpu_read_sys_reg(vcpu, HCR_EL2) & HCR_EL2_VM))
->  		return kvm_inject_nested_excl_atomic(vcpu, addr);
->  
-> -	__kvm_inject_sea(vcpu, false, addr);
-> -	esr = vcpu_read_sys_reg(vcpu, exception_esr_elx(vcpu));
-> -	esr &= ~ESR_ELx_FSC;
-> -	esr |= ESR_ELx_FSC_EXCL_ATOMIC;
-> -	vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
-> +	if (vcpu_trans_32bit_non_lpae(vcpu))
-> +		__kvm_inject_abort(vcpu, false, DFSR_FS_EXCL_ATOMIC_nLPAE, addr);
-> +	else
-> +		__kvm_inject_abort(vcpu, false, ESR_ELx_FSC_EXCL_ATOMIC, addr);
-> +
->  	return 1;
->  }
->  
->  void kvm_inject_size_fault(struct kvm_vcpu *vcpu)
->  {
-> -	unsigned long addr, esr;
-> +	bool iabt = kvm_vcpu_trap_is_iabt(vcpu);
-> +	unsigned long addr;
->  
->  	addr  = kvm_vcpu_get_fault_ipa(vcpu);
->  	addr |= FAR_TO_FIPA_OFFSET(kvm_vcpu_get_hfar(vcpu));
->  
-> -	__kvm_inject_sea(vcpu, kvm_vcpu_trap_is_iabt(vcpu), addr);
-> -
->  	/*
->  	 * If AArch64 or LPAE, set FSC to 0 to indicate an Address
->  	 * Size Fault at level 0, as if exceeding PARange.
-> @@ -299,13 +321,10 @@ void kvm_inject_size_fault(struct kvm_vcpu *vcpu)
->  	 * Non-LPAE guests will only get the external abort, as there
->  	 * is no way to describe the ASF.
->  	 */
-> -	if (vcpu_el1_is_32bit(vcpu) &&
-> -	    !(vcpu_read_sys_reg(vcpu, TCR_EL1) & TTBCR_EAE))
-> -		return;
-> -
-> -	esr = vcpu_read_sys_reg(vcpu, exception_esr_elx(vcpu));
-> -	esr &= ~GENMASK_ULL(5, 0);
-> -	vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
-> +	if (vcpu_trans_32bit_non_lpae(vcpu))
-> +		__kvm_inject_sea(vcpu, iabt, addr);
-> +	else
-> +		__kvm_inject_abort(vcpu, iabt, ESR_ELx_FSC_ADDRSZ, addr);
+trf7970a_abort_cmd() in the WAIT_FOR_TX_FIFO, WAIT_FOR_RX_DATA,
+WAIT_FOR_RX_DATA_CONT and WAIT_TO_ISSUE_EOF states only sets
+trf->aborting = true. The completion is left for the IRQ thread or the
+timeout work to deliver later.
 
-The rest seems correct, and make easier to comprehend. :)
+st95hf is safe only because st95hf_remove() holds rm_lock across
+unregister and free, and sets nfcdev_free. trf7970a relies on calling
+shutdown() before unregister.
 
-Thanks!
-Leo
+Should the documentation allow driver-side serialization in remove() as
+an alternative? Or should these abort_cmd() implementations actually
+stop or drain their IRQ- and timer-driven completions?
+
+>   *
+>   * Notes: Asynchronous functions have a timeout parameter. It is the driver
+>   *	responsibility to call the digital stack back through the
+
+[ ... ]
