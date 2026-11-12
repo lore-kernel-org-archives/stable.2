@@ -1,81 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.85.9.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494600;
-	b=ZM8IgMuZxceVyseg8ZriwzuqO8wiZru1ekO7MCU/ml4vSRGb+wDnDOwRtGL4T6fUWniu
-	 XFwAhT+lVtGsEctFyCBuOVPQt+wy2EQeKIUA8aha6ZXNJR55vkF69w3PALXhgwDwudxGm
-	 A3eTOTN71SjfywulDTvD6+H+R9eHZzl7omMWSed4DtlotfbfjZD/vMHdU8p3tAK6jsf30
-	 KpBrvC5upZ44XlizzZq0xmbEdjuUW/BhYu0OqGWibtRWKbQkvarKksQuN04RAEgoonXL5
-	 rInvHeIKhJ1d6MoMvQBXSTV0xtKhFJlyQ9Dk7+j5617pC+Kuk71TmXj/Y9WF+eFcmfA==
+	t=1794494619;
+	b=P5FMa0q3fY2OfI39rkyJ6aa65Ipnw8P+EeAkX5OyYz2AR5jmuHexZwbWcNVpPqOUCEfk
+	 /V0QIE7ADmzCV5vBK3gcY3eZyFOZgjdgFl9W9S2hF5Noc/tmu/HH0nFBJVN+D0VLOn/xt
+	 6SFq4rt7XaTJZ1tF7fPrXhKUitJRFhajk+cIAXTkTr5dS5O8r8KuQ3ef7OzDJKtD9eexZ
+	 X7u1wN2pMCBb9K3B/+JRaXsQCgNdweeQrwlAtNtWgEJkUfoWpSim2RBjGKyuIZMVVzFlU
+	 H23jxlTILMZhsxy70p0+ADG7CUVOFaCJf10MGTXUzJS7R06Zo7XA3A9a/YVRgk89QtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494600;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=doRR2hlsDqY4KYCxE3inoPjG+grnCS2sG965WCAyZas=;
-	b=yjc6affV0/Bscp2EwLy5cCufhngni8CUAnH9U62EEbxB58MiKqgsUkFf0wwj3mYpdqhK
-	 4TyOCzkOxYCPtGP5WF15XLEui395s0X1bsq7vUIIlO9Xbqh006xWWnxkC+4BTtIrFpMEh
-	 AE6K7J8fzrXXCvDIdibZ41UtpS3DkJ9grannRyfExmAKvR4/ngtAJSxjyfdFG3aZcLD5H
-	 SyipghTN/ynLfjw+laUuPHZe0xK9K1VNAXNYi0J5W+e8+oSWcXtB6IijSoU8jgL3keRs0
-	 dWbStvO1t2WJAZEBbaQ9+LbWTJXvM+ON6CikBvQ6sbAz63PyZuIe7AAtTq+uBBradSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494619;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=BmLmIRXTRT6cun9WV23K9Y6TFiMIhvIIl7/j6XtjqH0=;
+	b=FdC0SS8jX2nD9NRXb0FK0ZXpyK6l2ADN0036iOl+sqdMx96miPIA5cOgc/NpO1ELpcpP
+	 +XsoDz5/K94PWuuZDssI6WEKCY7TMqm9UvKwxCgdw+BlF83DoHVsmd31RdpDT1gtbseuW
+	 yyfShoEXFGiewxskpYbDwTTQwoU7ghJypKBwmZEVGXx/75av+1dHQAh32ehLW5H2JE+qu
+	 qLPz/HLSq2d537TTFURXW+8GAWMAVy6CLahAOcWZuuaU55R138BlErUqXRE7HjOApxj4U
+	 36mJyH8RpsJJ174zH0EDW77kAQRgmwPvkio1kFN9aMitxBwPzzPwnatIXV6eXFRfNqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mit.edu;
-	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PCpUqHRW;
-	arc=none smtp.remote-ip=18.9.28.11
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=irl.hu;
+	spf=pass smtp.mailfrom=irl.hu;
+	arc=none smtp.remote-ip=95.85.9.111
+Received: from irl.hu (irl.hu [95.85.9.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C60606A332
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:43:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1C60606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PCpUqHRW
-Received: from macsyma.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ACEgZrS029468
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 09:42:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1794494561; bh=doRR2hlsDqY4KYCxE3inoPjG+grnCS2sG965WCAyZas=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=PCpUqHRWzITexZeciyh8kmVbkihYGX8mwUkz4BDsbPPLX+qgXZSgK0siPFYDtsNvw
-	 vhi19YCkVdpN2IOIuCQkUbTABBSJH34jKgUk1v7pcRSM1aF+AI/t36ClaWCrfW2JJN
-	 FcvflnJ9GzeSyh+wHskHLh8VisHyED/GCv1zGigO8l7ebgLy4JiNG3DwOYnQyWrVta
-	 EQI9zCjNPdNU2JePDhpFJerpbV/T9UDaDhfs+O06B95xIv8USzHrU41itNr13pVwFh
-	 S4khQLaNAECVY8NIwKjwYoV0mGOMtac6jtKQmU3og6QNRrEW6ISyYhUHAEkjw/6H5q
-	 +6t7Ei0rd0G3g==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id CC8FE26E540E; Thu, 12 Nov 2026 09:42:35 -0500 (EST)
-Date: Thu, 12 Nov 2026 09:42:35 -0500
-From: "Theodore Tso" <tytso@mit.edu>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Leon Romanovsky <leon@kernel.org>,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-        Thorsten Leemhuis <linux@leemhuis.info>,
-        "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
-        Geert Uytterhoeven <geert@linux-m68k.org>,
-        Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-        Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
-        Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
-        stable@vger.kernel.org
-Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
- similar bugs, and commit messages
-Message-ID: <avXOSg4jOlzBY1r5@mit.edu>
-References: <20261111225940.1573565-1-tytso@mit.edu>
- <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org>
- <avXCcPYM9VAP0JHf@mit.edu>
- <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id ECDF3606A321;
+	Thu, 12 Nov 2026 14:43:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECDF3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
+Received: from [192.168.2.4] (51b6855e.dsl.pool.telekom.hu [::ffff:81.182.133.94])
+  (AUTH: CRAM-MD5 soyer@irl.hu, SSL: TLS1.3,256bits,ECDHE_RSA_AES_256_GCM_SHA384)
+  by irl.hu with ESMTPSA
+  id 00000000000C60CB.000000006AF5D092.000045AF; Thu, 12 Nov 2026 15:43:30 +0100
+Message-ID: <504167422048bb8197a1ca3fac079cec9dea1ae7.camel@irl.hu>
+Subject: Re: [PATCH] ALSA: hda/tas2781: Only accept CRC-less V1 data if all
+ entries are valid
+From: Gergo Koteles <soyer@irl.hu>
+To: regressions@lists.linux.dev
+Cc: med.jebabli@gmail.com,
+  Cristian Castellano <cristian.castellano@icloud.com>,
+  stable@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+  Jaroslav Kysela <perex@perex.cz>, linux-sound@vger.kernel.org,
+  linux-kernel@vger.kernel.org,
+  Thorsten Leemhuis <regressions@leemhuis.info>,
+  Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>
+Date: Thu, 12 Nov 2026 15:43:20 +0100
+In-Reply-To: <7cd4c010f13ee085e3aa4396705b6b06ed58f7e1.camel@irl.hu>
+References: <20261103-tas2781-v1-nocrc-fix-v1-1-a769c27f21ce@gmail.com>
+	 <7cd4c010f13ee085e3aa4396705b6b06ed58f7e1.camel@irl.hu>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,27 +63,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
 
-On Thu, Nov 12, 2026 at 02:49:09PM -0500, Krzysztof Kozlowski wrote:
-> 
-> Specification is also documentation, just like for example specification
-> for our ABI. It's also located in Documentation directory.
+Hi,
 
-Source and header files can also contain documentation.  But we don't
-put them in the Documentation directory because they do not contain
-*exclusively* documentation.
+On Wed, 2026-11-04 at 16:55 +0100, Gergo Koteles wrote:
+> Hi Mohamed,
+>=20
+> On Tue, 2026-11-03 at 10:27 +0100, Mohamed Yassine Jebabli via B4 Relay
+> wrote:
+> > From: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
+> >=20
+> > Commit 408249089c48 ("ALSA: hda/tas2781: Accept V1 calibration data
+> > without CRC") only checked the first device entry. On machines where
+> > the BIOS populates fewer entries than p->ndev, the remaining all-zero
+> > entries are applied and tas2781_cali_preproc() divides by zero on
+> > playback open.
+> >=20
+> > Accept CRC-less V1 data only if every expected entry is non-zero and
+> > self-consistent (R0 * 1/R0 close to 1.0), otherwise reject it as
+> > before.
+> >=20
+>=20
+> ...
+>=20
+> > =20
+> > +/*
+> > + * V1 data without CRC is only trusted if every expected device has a
+> > + * populated, self-consistent entry: R0 (Q27) * 1/R0 (Q31) must be
+> > + * close to 1.0 in Q58.
+> > + */
+>=20
+> Just out of curiosity, where do Q27, Q31, Q58 come from?
+> I couldn't find anything about these.
+>=20
+>=20
 
-If the complaint is that it is visible when we run "ls", one
-compromise might be to put the skills in .agents/skills.  This is a
-cross-harness standard which is supported by some code harneses
-(Google Antigravity, Github Copilot, etc.).  Some harneses (including
-Claude Code, Opencode) don't, but people who use these harneses can
-solve it by installing their own symlink from .claude/skills,
-.opencode/skills, etc. to the right place.
+I think it would be good to be able to see which commits were generated
+by an LLM. This way, people wouldn't have to scour the internet trying
+to verify hallucinations. Furthermore, it would be possible to see what
+percentage of the kernel consists of public domain/LLM code.
 
-Cheers,
-
-						- Ted
+Best regards,
+Gergo
