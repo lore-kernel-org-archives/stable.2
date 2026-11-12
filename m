@@ -1,49 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502807;
-	b=dgaN/9WDisVUI/z0dGoMA0OGhOYY05yq22uiorWohNSUOznSIlq87RtxmvXi8tx7+n9p
-	 A37SgIe97kMcQcyCzDuY4HlQeM1SQSgqGZql6C3Df5yuL2SrUee8fyTMdlpDCTDXeuGNE
-	 ibl7vM2iCAv6sQu0F6dlWDYJjCS8ZTX3heX8hSegCSkZ6+N2VB4m04oBgYD6sRbQj79XF
-	 iFsnJd9ceRddYBB4XQa2P9PMIntnxtsal+2UwETGSNGTgrwnlqG4LckEqhUx7kz+9OXKf
-	 d02/3mbEeE9vR9zGeD4ltxvNJ8TckcjO/gwZOhElqrafmGMtntOa9WUtoHHCzqaC5sw==
+	t=1794502828;
+	b=oToZaH6xQOs81CMDQn71bboOXsb1B1e74g0G09iov6ejSCmujq4CGcYdglbdP6cEvdCT
+	 p0pTrTQC6mdp8JnX5X9gjuxLc5cbm3ChkNS1PwF0CBzfm2XcNjdQvIwstjEYYtLYeBonc
+	 VIOB7Uyp+Uuge4h6ZhwxbP4comv8RAFPThsxpRutooUl+d7fVZl1p+DIH08ITZ5zcpr6W
+	 5cTMmV6gZEeZAJnEi1SDt454HV7SwMYe2w9YSHNXeZlmjuC4vniWs8UYyIJGjLCuPT9rK
+	 WroIiZaalrYbg+YPQIXlUuldUYxq0zh7p95yzXx14uvUi1ROBHywrAtZcsy3VeunuKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502807;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=2t3rma/Ew3CnXoPjdRN4C34eFYI/aS1ma94AQq7BCFM=;
-	b=QVGZhOa8EPcJQlp/uXbpYgckPiK6HwR8V61qdleUrb6aLyXGW0ZEIxwx0Q8icF6XPWfe
-	 HVG0xuqgjGvR5aJEHMtKUWUUMQ9+i6Ko9ql9+WOpaT262/OwDDoaCspbj+o077t469vc4
-	 TCt90NFvG0njJHsNcZAfYlrOtN921hqAwDrKCUyaC+CUr6JtxDuCj0p3IycEAn8EsEPY+
-	 dp/yGPOlrCyBktuHLOBFYF5pY5BdrlW6PSffCzXnTXU+Gc6kDgVVVyVun344fsftVkgb2
-	 e/7MBMMPfIpul2C7qDEUHj2QkSF1k1N08MggA1xZJ6c8HAtyFBHdgo8Lx6Vl9U4CzXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502828;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=indUOhe3t87O/YPFL5M9WKMmi7RqM1hyT94T3ZSLeYI=;
+	b=vO7Pm6wMtFljAmuMF4rWNXUdiHF1wo/QH3MkvOySy2h2g3ua/b6Wj1+5FU2rh6ZmssP9
+	 1Uh8AhdnJkaa8oWYZ0lu42uAR6atPVxYXssogUTA05PHNUVSI6xyCKu/Z+QiTTeXvXGCj
+	 LTfDvneB/YIQaH5vTW4Tqmoghxh3brTmeuokJQ7+t0aa+8ruY1y0HVK5slNKT1x//PjAZ
+	 XWu0Ka5F6IhyABWBsuiK4VTWq271AYYqQC8N1NAg30nac781StC9l4mPndR9YNXMJOlee
+	 0/l1nqyuNjbURYz/6L8vof7HQIXg8PLFnsbVfNgSEo1yxL7GdAbOc53Gbvn0rnDpAYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVIbPuJp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X4onsVJD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92818606A32D;
-	Thu, 12 Nov 2026 17:00:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA87606A331
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:00:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVIbPuJp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C936F1F000C5;
-	Thu, 12 Nov 2026 17:00:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X4onsVJD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5801F000C4;
+	Thu, 12 Nov 2026 17:00:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794502806;
-	bh=2t3rma/Ew3CnXoPjdRN4C34eFYI/aS1ma94AQq7BCFM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=GVIbPuJpt2daDa2Cmj4ciL9lXYBHUbxhVyQh/XPnkYNB+9PVo7WLwwVCbZgUN2l03
-	 xdA++VzAKpIHN0SxKrCn0RLLElp7ADLuPY0LaUYM3C1unsoYSfbtDKlrF2bXga4RQq
-	 zjOymZqbxxfPot2XudOH6gnGQIaOYqQfAR91WdVCmFsoaQFvhnQB63PX+1YVT8i1I8
-	 BbALjaArVnhmELBkEpDBSAwA9hgGjxnuKMItexDxOxDI0ur2tCWig8jFi9qzydU2DN
-	 lDry8qnMsLBizxglkuUtZepM3mjyZfkw4nh6tilwyXpyVCQUEcTUvOv+gxn6mfsMwp
-	 GDsd3NdNJP54A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B42CE380AA75;
-	Thu, 12 Nov 2026 17:00:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794502828;
+	bh=indUOhe3t87O/YPFL5M9WKMmi7RqM1hyT94T3ZSLeYI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=X4onsVJD7lyDcdUKIMgBu43E4RfwNiR/juNvH5YvCxTb/kCFUQ77V0jCxahQ3EVs2
+	 +EITbDefaav1meRYbay9as2k4X29gzJSa70HNN96X4ate2Bh1HMEEMeAoys4LYSR5g
+	 LR6J9fvcm9VALUMPjYxMbhFVGeN9/nxIXjOlBo7/vivGmf8QXApKrJ85TllmttAEL/
+	 vliWqgeS2egp7/55wV2lADa1I02DOTIPW0Ee3tYjvyzOPWyhNWuuGHiZ340r6OF5S7
+	 GIQcXNIU9pIwPpo+131Huh91b7mLD9cF6EZ22Zz3wdzOi2xEMfvchG7i9uNA7KenRC
+	 xzp0aDyD2H6lA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chris Mason <mason@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] backing-file: always end a queued write
+Date: Thu, 12 Nov 2026 12:00:26 -0500
+Message-ID: <20261112024505.1257604-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107063109-failed-5.10-627cdcbc2a2e@kernel.org>
+References: <20261107063109-failed-5.10-627cdcbc2a2e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,47 +61,78 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3 1/2] ipv6: fix cached route reuse for control
- messages
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179450280527.175938.11721831202062050976.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Nov 2026 17:00:05 +0000
-References: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
-In-Reply-To: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, willemdebruijn.kernel@gmail.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, yana06070@163.com,
- shuah@kernel.org, linux-kselftest@vger.kernel.org, willemb@google.com,
- tpluszz77@gmail.com
 
-Hello:
+From: Chris Mason <mason@kernel.org>
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+[ Upstream commit 627cdcbc2a2eceb0452078a0c14370f9f1f17a91 ]
 
-On Mon,  9 Nov 2026 09:45:25 +0800 you wrote:
-> A connected IPv6 UDP or ping socket can reuse its cached route when an
-> SO_MARK cmsg requests another mark. A packet can then bypass a prohibit
-> rule instead of failing with EACCES.
-> 
-> ip6_sk_dst_lookup_flow() reads the cache even when connected is false.
-> UDP clears connected after parsing IP or socket control messages. Ping
-> always passes false.
-> 
-> [...]
+Writes to a loop device with direct I/O on an overlay file make the
+next freeze of the upper filesystem hang for ever.
 
-Here is the summary with links:
-  - [net,v3,1/2] ipv6: fix cached route reuse for control messages
-    https://git.kernel.org/netdev/net/c/f778e80b3daf
-  - [net,v3,2/2] selftests: net: exercise SO_MARK on connected sockets
-    https://git.kernel.org/netdev/net/c/6785ad21822c
+Every kiocb_start_write() needs a kiocb_end_write(). For a write that
+is queued, vfs_iocb_iter_write() leaves the end to the completion, and
+backing_aio_rw_complete() only calls kiocb_end_write() when IOCB_WRITE
+is set in the flags copied from the submitter. In-kernel submitters
+such as loop do not set that flag, so each queued write keeps the
+freeze protection of the backing filesystem.
 
-You are awesome, thank you!
+Direct writes to a loop device with direct I/O backed by an overlay
+file left fsfreeze of the ext4 upper filesystem, and a later touch
+there, blocked in D state. It takes write access to the node of the
+loop device, which root has by default, to attach the file and to write.
+
+The fix used here is to mark a write in struct backing_aio and to call
+kiocb_end_write() on completion of every marked write.
+
+Reproduced under qemu without KVM, on v7.3-rc6-21-g602042bf29f6 with
+earlier fixes of this series applied, with and without this change,
+once each. The kernel was not changed for the run. With this change
+fsfreeze finished in about a second. Not run: the nvmet and LIO file
+backends, which do not set IOCB_WRITE either, FUSE passthrough, and an
+xfs upper filesystem.
+
+Fixes: 2406a307ac7d ("ovl: implement async IO routines")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+[amir: use aio->is_write to explicitly mark a write aio]
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Link: https://patch.msgid.link/20261029180319.2852090-1-amir73il@gmail.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: adapted backing_aio changes to ovl_aio_req and overlayfs-specific write and cleanup handlers ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/overlayfs/file.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
+index 4440ff43cb66d..2e74de6f4a563 100644
+--- a/fs/overlayfs/file.c
++++ b/fs/overlayfs/file.c
+@@ -19,6 +19,7 @@ struct ovl_aio_req {
+ 	struct kiocb iocb;
+ 	refcount_t ref;
+ 	struct kiocb *orig_iocb;
++	bool is_write;
+ };
+ 
+ static struct kmem_cache *ovl_aio_request_cachep;
+@@ -265,7 +266,7 @@ static void ovl_aio_cleanup_handler(struct ovl_aio_req *aio_req)
+ 	struct kiocb *iocb = &aio_req->iocb;
+ 	struct kiocb *orig_iocb = aio_req->orig_iocb;
+ 
+-	if (iocb->ki_flags & IOCB_WRITE) {
++	if (aio_req->is_write) {
+ 		struct inode *inode = file_inode(orig_iocb->ki_filp);
+ 
+ 		/* Actually acquired in ovl_write_iter() */
+@@ -394,6 +395,7 @@ static ssize_t ovl_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 				     SB_FREEZE_WRITE);
+ 		real.flags = 0;
+ 		aio_req->orig_iocb = iocb;
++		aio_req->is_write = true;
+ 		kiocb_clone(&aio_req->iocb, iocb, get_file(real.file));
+ 		aio_req->iocb.ki_flags = ifl;
+ 		aio_req->iocb.ki_complete = ovl_aio_rw_complete;
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
