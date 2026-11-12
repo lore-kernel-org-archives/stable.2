@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474070;
-	b=vLGNOkcC66L3Pnsb3+Tv5NGx/+VZlp/Xl9S62o4AyFXTirlXiyW/729ieGv4KQ9ZosHL
-	 Ysb2AXMHe/bGuhr++kHeNjM5Pp6432yl2/la2nviHyf9ojLihZWd6oz0SkJ9bRanVh/sb
-	 KMzinlouZOQRUBUlwKjZVK5qROBNcrpPX3915EMdavKYti8P9WfMya9QmAkyifUt55Fow
-	 X9n8x9NeM93VyKsQvSb9YBuvzHzN80qn9ozrMmcRWBBfMhfSTB4FeMnijPc6FAsIfq48f
-	 ADzoKyfxKd6m+h8d0SFG6nueuQZG/sMjhG5U1GpbLPMqHN67TOCRm7wJMYkK1KFjPoQ==
+	t=1794474077;
+	b=4tpePD9MJoknjRiR2Cbd6KDkyiW0FShW/6udrs5v5M5bmVIk9Iwu4ojT1uv68ib7MW5b
+	 +sltdeP9eXBm1wucpgSqJkH5dpvd5hhijzlJk7ZnrJKWZCBkYS+dLDV3FxYcryQG1K48d
+	 C3HcnLWkzxP112+qGEuKsDDD55Whiz29oDsfyNUdrnDJikr1zyT91lc5MAoPLx08287bE
+	 DXTJ87QGJ5yuRbfOnlY6KhuIPlTTANpASDXg01g1Q8Rn1q71A75WB5xNa4MV2QF7lyORs
+	 GhWE/6/UQtyPUK9mUKGPKsJ/VsbX8L8lYZ3WzCpRhdx6Tbtji9x0KYszniZWIlxhJbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474070;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474077;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=qciPwLaBZFP6o7YxCmllxM7jttEflMmVhO8zxQVZp0I=;
-	b=sn5hUDsXjO5U9TTHWB57GNqQ8GV51YjeWj9Cb2h6y4XWF/oR/YxoirRaA53LNlD+8QxA
-	 Ej2aU/qL34VY8sFpy8itAyZC1129L59bVHjnGCuF6SdDsdzksmDJMzI5kUppHPbtQzUu5
-	 A1ZYfqLM1iqRO9fjt3vcPMgBOi5PepjrOMHYjsXdFYUa1YLfxOGTbJ2JSgn3ay/JwO8Ld
-	 fJDrsFg6BhOC0SgiPclP2XJBQfOPeE4pBpzr5yDbUlXBXexRzprFvhCLc7tq0f97bXazM
-	 ETH+ECw6CWYLbxZMmufHqE4OAe2yq91QUuxBiIJiVzaXNkGrwZDS8ozL2qWMKXlr48A==
+	bh=Ui5EsWi10MV5QskRl/qxkNOLjqI3UUc/3+p5XFeUbrc=;
+	b=DO/g6qtdjl9QNKh4Fgo1Ud4BmQtz8DHww6FhUlw4J0MSJ9KQXxvDBBMh7+L3Ip1o5V5S
+	 ul8G/dtVCkLiW7XTrOylhrXSsapKN0isbKhdCzi/1oGLAheSJB5ZuB3hkefU5bJp29DW4
+	 IxvQRDWSUnP4sDd++R9DNMOV/CJm68VA8mXdq+xliK0alY5zKKWk7JT8/qtlt9OJOQIUh
+	 4hm91wOqZw3pYIL6SYsW18Ewn33RcwUssJcyCWTHULCRMZlxNNjhD/p8S+f71JLQlN1ow
+	 G1HVUB4douJ5K9xWtffyHepTxH5TkuUG0dtzgxFY0GNXVIFSBe+W4n7BVJJ7WukHuvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eqJ88WTF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3e+l8T0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280DD606A33C;
-	Thu, 12 Nov 2026 09:01:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83568606A333;
+	Thu, 12 Nov 2026 09:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eqJ88WTF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DADD1F00A05;
-	Thu, 12 Nov 2026 09:01:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3e+l8T0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38DBB1F00A0A;
+	Thu, 12 Nov 2026 09:01:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794474069;
-	bh=qciPwLaBZFP6o7YxCmllxM7jttEflMmVhO8zxQVZp0I=;
+	s=k20260515; t=1794474077;
+	bh=Ui5EsWi10MV5QskRl/qxkNOLjqI3UUc/3+p5XFeUbrc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eqJ88WTFS/snVoxu58sVmq8uHDu4I1OkqM4vdWANTNKIIfmJ1w9MYYdR5HV8jJcZH
-	 awsHKGx8ThOvURM6nxnrnHV1waU8nBFTufG1MQgkjzhaswCWgtLDy1DTkNFm1APez6
-	 YdGKg5ohl5wbpwSAhPTVn16WRnYJcpu+zlmt/RCLWUyHmrbmtN+q1BIWJ9zmKRmPve
-	 +BAGtRBaDKPyAa2bDbG4wPHi8H9u8uE+tyrm+xvYdnDwBD+QFa0hRPnBC8v6qQpdo+
-	 JUAU3QMzAwXA4wz0gIWW4+cYjfb1iQR/S+6XQKUvmIg8xOJVgPy5r/mNZqrALRZppw
-	 T4X7xZAwEYhVg==
-Message-ID: <d74a277f-f14c-436d-868f-2566d90bc144@kernel.org>
-Date: Thu, 12 Nov 2026 09:56:39 +0100
+	b=P3e+l8T0gWTQb/C7XKzRiBY8pIKQ9krHWSQey3gWmvT07gJb4AFbqD9UhUewo471g
+	 XEY9QYW0g7nZRjYvUgpRE4T8D5lBHDPWr1XlwJrVi2olqY+EODn/0zsfm1wJ5y+67V
+	 HhPF++bqEkrHBuiFXLNcOEmM5jajda3NTpqLT3qgQZ7HM7TX95ZOuTaUslLXHs2eW8
+	 NSP+NG8fPY5Uw0/qUVBSbvHEy+LEWOYR+aAKHQKGY+Y1JTdkXJcB+7FPjUs6i4zScq
+	 k6Rsb5kL5gMbQX1pnquucYeGPftg6vODKOs1CuK5fK2R2aLWz1PX1fZxwxlqMSat6y
+	 6ck8qsAfMYUiw==
+Message-ID: <6f5d77fe-213f-44d1-b5e5-551de03eb903@kernel.org>
+Date: Thu, 12 Nov 2026 09:57:38 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,22 +52,22 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] mm: don't PTE-batch a swap-in over a
- hardware-poisoned subpage
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
+Subject: Re: [PATCH 2/3] fs/proc/task_mmu: don't read young/dirty from a
+ non-present PMD in smaps
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
  byungchul@sk.com, gourry@gourry.net, jannh@google.com,
  joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, matthew.brost@intel.com,
- mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org, surenb@google.com,
- vbabka@kernel.org, ying.huang@linux.alibaba.com, ziy@nvidia.com,
- kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
+ matthew.brost@intel.com, mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org,
+ surenb@google.com, vbabka@kernel.org, ying.huang@linux.alibaba.com,
+ ziy@nvidia.com, kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com,
  shakeel.butt@linux.dev, kernel-team@meta.com, baolin.wang@linux.alibaba.com,
  Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
+ baohua@kernel.org, lance.yang@linux.dev
+Cc: stable@vger.kernel.org
 References: <20261111113904.650722-1-usama.arif@linux.dev>
- <20261111113904.650722-2-usama.arif@linux.dev> <avRqaatdOUunxrcZ@gremlin>
+ <20261111113904.650722-3-usama.arif@linux.dev>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -114,84 +114,33 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <avRqaatdOUunxrcZ@gremlin>
+In-Reply-To: <20261111113904.650722-3-usama.arif@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/11/26 14:18, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Nov 11, 2026 at 03:38:29AM -0800, Usama Arif wrote:
->> do_swap_page() checks PageHWPoison() on the faulting page, but the
->> large-folio batching path then maps the rest of the folio without looking
->> at the other subpages. A poisoned subpage that is not the one being
->> faulted gets mapped anyway, and the fault that would have reported it
->> never happens.
->>
->> Skip batching for such a folio and let each page take its own fault,
->> where the existing check catches it.
->>
->> Scan the subpages rather than testing the folio-level PG_has_hwpoisoned:
->> memory_failure() sets PageHWPoison() on the subpage first and only sets
->> the folio flag much later, and the bail-outs in between - for example
->> get_hwpoison_page() losing a page lifecycle race - return with the
->> subpage marked and the folio flag never set.
->>
->> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Usama Arif <usama.arif@linux.dev>
->> ---
->>  mm/internal.h | 15 +++++++++++++++
->>  mm/memory.c   |  4 ++++
->>  2 files changed, 19 insertions(+)
->>
->> diff --git a/mm/internal.h b/mm/internal.h
->> index cd3675c044e0a..e61c02f4019b0 100644
->> --- a/mm/internal.h
->> +++ b/mm/internal.h
->> @@ -28,6 +28,21 @@ struct folio_batch;
->>  int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
->>  		void *buf, int len, unsigned int gup_flags);
->>
->> +/*
->> + * Check every page of the folio for HWPoison, rather than relying on the
->> + * folio-level PG_has_hwpoisoned, which memory_failure() can leave clear.
->> + */
->> +static inline bool folio_has_any_hwpoisoned_page(const struct folio *folio)
->> +{
->> +	long nr = folio_nr_pages(folio);
->> +	long i;
->> +
->> +	for (i = 0; i < nr; i++)
->> +		if (PageHWPoison(folio_page(folio, i)))
->> +			return true;
->> +	return false;
->> +}
->> +
->>  /* mm/workingset.c */
->>  bool workingset_test_recent(void *shadow, bool file, bool *workingset,
->>  			    bool flush);
->> diff --git a/mm/memory.c b/mm/memory.c
->> index d477a4f986bc8..4b7d456332200 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -5158,6 +5158,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->>  		    swap_pte_batch(folio_ptep, nr, folio_pte) != nr)
->>  			goto check_folio;
->>
->> +		/* Let a poisoned subpage take its own fault. */
->> +		if (folio_has_any_hwpoisoned_page(folio))
->> +			goto check_folio;
->> +
+On 11/11/26 12:38, Usama Arif wrote:
+> smaps_pmd_entry() passes pmd_young(*pmd) and pmd_dirty(*pmd) to
+> smaps_account() for every PMD, including migration and device-private
+> entries, where those bits hold part of the swap offset rather than
+> accessed/dirty state. smaps_pte_entry() only reads them when the entry
+> is present.
 > 
-> Hm, isn't scanning every single page in the folio potentially quite costly
-> here?  I thought the point of batching was to improve performance overall?
+> On x86_64 the offset is stored inverted across bits 9-58, which overlap
+> _PAGE_SAVED_DIRTY, so pmd_dirty() returns garbage: a clean 2MB
+> device-private mapping is accounted as 2048 kB dirty, and lazyfree
+> accounting is suppressed. pgtable_64.h also warns that the hardware can
+> set the accessed and dirty bits on non-present entries by mistake.
+> 
+> Only read the bits when the PMD is present.
+> 
+> Fixes: c94b6923fa0a ("/proc/PID/smaps: Add PMD migration entry parsing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
 
-Yeah, we don't really want another helper to check for hwpoison.
+Yes, thanks!
 
-If we race with concurrent hwpoison, bad luck. The slapped on memory-failure
-code is full of races. That needs a proper long-term solution, not more pain to
-core-mm.
-
-So let's please try reusing existing helpers that test the large-folio bit.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
