@@ -1,80 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472285;
-	b=qsT5LYyhE12zgfM0IYCjwlvhJadSZvpwVsWdxzx79M59WLWkSAaDRm2C+R2P/tcM+E6q
-	 3G9h7xK0aY7bXDOVBV1RGnmedYsgXZlf5BbPKs8leqX2jPQ/hPqYYGVgQL6CsJl0vuAK+
-	 50Wbs9aG6swmiTzsHFBwoGpuV3HZ18eMZvWHXZNuDMU6YmdXtM5acBsqpZsEQLv1RHzwk
-	 8Ss0UPxk1vOpFy/+v75KQR2wfoPioLFN92MLfRMRg2CjsWtZ2wCv+xD11qAm4CXe4rLA5
-	 /ffJfPT5rfds+zXfRZjKLxvWpHfwVqfbQ/rLnSNLNRlGTOxeTe6FFHXmu66jsgZXIBw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472285;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=C5ou+jBw95xtnygEz2bMk2ownXTjurNRHkMpcrbJMQc=;
-	b=nTgcq1R87y9R60Iocx3b2HJ+Td92KIS/amPsBbobD61y6VT5pCtpuWnKcM3k5dpVU4xo
-	 vibyq2u1a6hchkbX7s1pRNfMmEkq8aDAPQq8gWuiybnx5ccJvCOfZ4bLuMsY0mq067VmQ
-	 kmT2OJ1Cbnh0XelPnxKr+Hhe2zjrwMzRVl7wQkBUMSIlkW5nWeiZuQ77ockLk0+Lfr+CS
-	 BTfWyn6HdXiwZY3cMI7/gu/M78Mrr8IerTD1Rea+ceqpt5FfZn7wCk34Db4X5t1z/tjng
-	 3yRcNHVvMZdAfmkpzJp0ZXLB/eaoeJBiH5UmYmFdxcyoGbXPaK0Hx8memb/HHXotgZg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d/Oq+vgR";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C6A606A333;
-	Thu, 12 Nov 2026 08:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d/Oq+vgR
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794472285;
-	b=CkbFk4u87W8ATohH9uhcrGKIhsjf8uNpEZ3RyFywxxvq5ersYXYn47jpbFRmLZMhMaYW
-	 wh8c33AzeYyWx2PM9QrDWGMIwjGU0rR3gsgmXiuENc03qFuZOTxuAwJ6/aWSTJUHpmvM8
-	 iey2bv82Nz1xj/+nGHL0jQBhL6AV8eVe9NOsroaFL0TN4otkR4VTVK0xj4JU9MLH0nyaz
-	 UR80id5RD5qHSnXTbGblaBMXdKX2s0nLiv3+nFDuhw0Jn48OcwtiGe5CJZ1jjQ3ToRd79
-	 PXJB4q5AAFROOKvVmUb06RbISIaAr4B21vh3QdyRi0srJPRqcD3/7RxlvQrzviQtw/A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794472285;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=C5ou+jBw95xtnygEz2bMk2ownXTjurNRHkMpcrbJMQc=;
-	b=0kUb14HMJoXQmRaR3L7nbgtif+f0wd92dBAJOLqoh7zDGaWaat3aK2RDcmvA7YLNL/dd
-	 7hD7DmlIrosk2S12WzdTeaB4/hVYpeADaORRlhO/ZgI9u46Mwf8Lz/p9Xf3u04k9xXYxi
-	 b6c2RXadMUirNDtUYaL09HUv7aWCsj6elMscItPyUHdSJ7H8B4SWwONTuhpS9DoBkNwPF
-	 CM/otItFp30gazDowNFC5LSLfVdH1DrBgn03hyVjKkdw0wie/FR03iWgu/wQr5gYEOVjo
-	 z7SWLTk3Eb2EP0tL1FCFcNHNH4GuPg3Ze7KLOuCWdJOyGe8VfJspMLyhRdiagMtwjJA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794472336;
+	b=2T/Uf8qqa4KcTYlhbisERu8MRB//RmzpYLEw+ZfI04MDCBkXFPfy8ufziKl6vx+zSWeX
+	 hJ2Zf82Rx+oKLKE37/fHwdNCl799efq+9OtpjWwC+hxFNPVwvyjlFFQwEYFhda7h2MEsO
+	 S/Qe9saMK2Yl7jA8HtohJ2Kb7OR9a8RGmULasudQQ8oj3gwjIKpkbnk1+Oyket1Rh97tF
+	 vUSV1aFaS9eO9P3LTeZqVOMTsFXKDyODDM4JiMWKBDemJfvqAr7ko1e9IEubu7D8ZdYKx
+	 r8IFk4+KrCvVNG33DM7Dl0JWWI4D1bt34DMjLTx5Sl7RldkXYEWj49ruf4UGbpB5ZLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472336;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=PPWFCZPMdbZsiAXaewX5I067c3oSdHkIBL8gHJXwb+4=;
+	b=oNCfJOnrsjy/t+BuXi+qX6gDtwDY3is5ECymcuzZb5o88g9Z0afUqAXeZ2zHmQetSkO1
+	 0h5RUKAarjTjZUbaxhHhwqkh+nrFHrUTKAcpbLVdQ5H9iCao9obuUFMKVh8tXwETSXXHd
+	 MqR6F9HzDgXEpL4PyMf0Wxf5uurWxDrICTAbZGbvH7nqTq5N4cXb0tP655yqMLC2nce2N
+	 WhW1fIUu/uQ/vG+i4pPs8SewZiAlGIsy1UzGo8XuPL3W/IOcK7VXkKHeRJvlcKS/XGp1n
+	 54XeEzNNQHBf7HAYA2HCxBVO9obopn7fWaNSy7EDfkucq4x/Nrg+B5nyAvbquXjoPlg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mrvaoMjX;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LlbJwqSK;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DD5291F00A05;
-	Thu, 12 Nov 2026 08:31:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794472285;
-	bh=C5ou+jBw95xtnygEz2bMk2ownXTjurNRHkMpcrbJMQc=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=d/Oq+vgRwzeeazgzDzR1NAL5RO1SpF6Z+AMbroKv+UCNvy5sGvWQBZP1V75aZn9xn
-	 svH5mYPCr/6LyHuNf4oCBfx/1Teecg0xkcFGPdUGqHgzHd3Yc41gOaWnq6TZsZpWq/
-	 H1hks/48OC8ThxW5faqCIICun6uCTU8rHQHkApXZnRPl+yFPtGMfsivQZ3zLsQKLLQ
-	 Chjkm+rvnKtkTPPh5PHgAqVDYG1F2Vpqnadca1mAJvUr7SUW5DGBAJAh9UcEXFKRkN
-	 con9jGY0Z4RgMD/HX8XXn+/gFPg69BW3AGqkZc5CmWvBKI7iVd2q1VH+fRlh1SSXWy
-	 /CxuQe+Qwq44Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 68A3B49378;
-	Thu, 12 Nov 2026 08:31:23 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/7] media: verisilicon: Fix the JPEG encoder format
- handling
-Date: Thu, 12 Nov 2026 08:31:22 +0000
-Message-Id: <20261112-hantro-jpeg-enc-fixes-v2-0-de03e643c75d@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BDDD606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BDDD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mrvaoMjX;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LlbJwqSK
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC548oq3477432
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:32:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PPWFCZPMdbZsiAXaewX5I067c3oSdHkIBL8gHJXwb+4=; b=mrvaoMjXok1Dlrsl
+	WpjTc3NXl9lKsGAg51AWl637hNXcryK+bDkayb1E9faNuI/1UxEuEf+8Me0RGtbQ
+	zYJv0HC2hrm6Reh6GkhhbWuTmnudxmx7l/b85pyA40gyKHPEf8Yj4IUFG7H8m29v
+	RfZPM9NjBnhNOZ+2QGCMkD/9Dlt5V/riPBWbIVyo6v6r1zo/DRAc+rm69Eqog7Xw
+	0KcwF0bghurfy/qD3iCYhBC8r5fF01UbTSYy+gYz3knxVoMvmmNIHs+pGGk5oX10
+	39f1mOf7/KjsohUgrRYaHL0roskL5WTFZGkpM4QvPOU5ZEkRKetcwuwOeIhOGngJ
+	mV2PUA==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw6yugpr7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:32:15 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-9806756ea40so3108480241.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:32:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794472334; x=1795077134; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PPWFCZPMdbZsiAXaewX5I067c3oSdHkIBL8gHJXwb+4=;
+        b=LlbJwqSKEEX9lVKTsnGMTeKhgcq24nHZDNr6JvsCOeyB0vcExZheamdpxl2uNVPY3n
+         UsuO7QEXDopG/iJPacbd+CbUbiU4vOBK0PejSXCQvqbi2z1SCkXIcKipmBkX21tOrEAn
+         MUY2gbmfw7j6TeiWbDu/6i4o9nGJjFEe7o4jhOjzSEaH9x1jimX7d5uVeerfJ3LjN9gT
+         k+OIHk15fwP+U5jA2hnVAy2igAh4kYwLI3GhwFBF6cRidN3jA4RsjZUk0Xc3J83iqfMx
+         1mOUtIejV4RCuMGtNsmdz8b/QKogjVejI+lok8GF1feku4Go+g0QrXszSDIxfhx3R1Ru
+         Mp+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794472334; x=1795077134;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PPWFCZPMdbZsiAXaewX5I067c3oSdHkIBL8gHJXwb+4=;
+        b=v15xlsuIPKi35LrSfiRHupsSVNKw5m2Zc3hBRuO3pQpVwJrCah0tfLsw4/C4vFCcky
+         stslLAgJ8FWx/a6KpHFrn9sJOTDmzgj64fCO7uapN74DOiELfXenpezxHjy3NA5lNhB5
+         gjlX+RdZhKRs+WLYILtaXjK5Hwnx2TsI3v4NxL//JnV0KDnsBcwxQQAKiFVh3GFYY4b+
+         usDtukR04cFTBlwzdXVSykm4FH/fYtS9O3X333VimChmhp/zXGmqaEUiRsyHEpzKX40f
+         fXw5Td29FQP9aj2czORlwrFasOGFNZWr+J1spnmZAj8iOuDTLq5TOm1U6m3XEXQho/Iv
+         eQJw==
+X-Forwarded-Encrypted: i=1; AL+hErEOQZWjVb+jn/zwZzujGDxqe87ZhEkkqr60D47/qZ4S/vTlp/lDWxumEg2mQ2ePy44O5kJ+4SI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5XI9JUR22fskXY5oqefwdv1GccuWIefEbZBOeW/vMvvNFT3Me
+	m0HMD5UFbH7V2J1Izyy/LbRMgJyN2nIAXi75v1nFl8wXYQf3R60QN82gxwR/VW13FeHH1584SP5
+	ZLTw4J47tdK8LYBg2z12t5vNM9n6uwJu+rHAaoVYWU41uXMnIcDnwnG2bWMk=
+X-Gm-Gg: AYBFou1z1/2hIGYJCsx4d0y3osRlmD7f+WQ/hp2fSZWPwfXZu/ye3gh97/YHalYgUcE
+	7Pa07CTUsRQ2hQukeOPMcXYLP3JiyNcKvrRP+deRsmlGYLy9bkHsmZl8ZgQ+xrqvxYqHXt+pSRW
+	ie9s/1GLhHTaJUQz6DTAJ8DE8eHzvRbDlNHTSVg6Pq0OQDCFRejYU+SbsZqhaNfZNUf5xqvChJC
+	9yUAeDqYVdzr4N1q4xnTdyGh5APut2dXmnxrzLzq2GpaO0vjQgEbUqAJ0gwWgEm+DLsg7Ij6clL
+	aLs+DHlw6tonkhF9Xi+PD1tr6T+VRZ7oZEVhf6uNqYpAV9wiYhslEswfsrkIJ5DA9epv5zFmv05
+	eI16DjEmLnbvjd7K4F9KvA7yIWvfeXzvIkb66PekCxSxVDcOBA7/o66iXRN4CzW8DoccZlevwFT
+	YqaRBYavjwo34pGfjlBrN4oPA53BCZFQN0SYOO47Mdc+87srH+MmJ5IOoTP4kwRQ==
+X-Received: by 2002:a05:6102:6495:20b0:7d6:2c4a:469 with SMTP id ada2fe7eead31-7d62c4a0557mr1170907137.33.1794472334499;
+        Thu, 12 Nov 2026 00:32:14 -0800 (PST)
+X-Received: by 2002:a05:6102:6495:20b0:7d6:2c4a:469 with SMTP id ada2fe7eead31-7d62c4a0557mr1170898137.33.1794472334012;
+        Thu, 12 Nov 2026 00:32:14 -0800 (PST)
+Received: from brgl-qcom.home (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e29d24dsm52998955e9.11.2026.11.12.00.32.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 00:32:12 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH v2] gpio: shared: fix a race in shared desc release path
+Date: Thu, 12 Nov 2026 09:32:10 +0100
+Message-ID: <179447232869.4814.17727040416334916570.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261110-gpio-shared-refcnt-race-v2-1-8a0b76e01714@oss.qualcomm.com>
+References: <20261110-gpio-shared-refcnt-race-v2-1-8a0b76e01714@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,149 +124,67 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNSw6CMBCGr0Jm7RjaIIIr72FYlDKFIUJJW4mG9
- O4WPIDL739u4MkxebhlGzha2bOdE8hTBnpQc0/IXWKQuSyFEDkmMTiL40I90qzR8Js81sZUrSl
- VUQsDqbs4OoxUfTQ/9q92JB32sT0xsA/WfY7jVey5fx+rwByNLjp9pbq6dPLeT4qfZ20naGKMX
- wd21vbMAAAA
-X-Change-ID: 20261110-hantro-jpeg-enc-fixes-9ff8bf6a491f
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Sergei Khomenkov <shomenkow@gmail.com>, 
- Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472282; l=6267;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=0XAAauAxm37JOSm2PiY0TiJ0Ij6tP2Ehovs7fdJDMuY=;
- b=lcPksa7BU6skLfmFXEeKA9B/GjieFEd/i3d8oNPV/uRi7BTA9CtNlr10+6v8Oyh2whkx6EjO5
- n7x0mufqHvHCJs+Vkx4xWLwbX+SrnsSEF92mdnuAqiHwrg3kHHznCTR
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: sdxfDp00xssUqJpB0FQYobkRlc8yqEUs
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX35emLpdKptwc
+ hlhsDrytz8lwKXVYsUdEtVTsOWrkgDD+fzSQ+UMlaDNWSTKMSueEq47R2cBDFh260noQ+y6aOBN
+ cs5Jvq6Wj+g4ItDVyL4ePKJ52QmldDs=
+X-Proofpoint-ORIG-GUID: sdxfDp00xssUqJpB0FQYobkRlc8yqEUs
+X-Authority-Analysis: v=2.4 cv=d49gWhjE c=1 sm=1 tr=0 ts=6af5798f cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=ZucQ2ySppxIqqdNBKgoA:9 a=QEXdDO2ut3YA:10
+ a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX3MrMfdNL6Bd5
+ UQrKNaKZtxRGzKcmNmfyRAfnSMIt63h6HsJ/3qRyy5ZJfYfyxKbQPRsoMKiJ6YHLHdSvZvk5gS5
+ RmgmRZ9nlU8CvnuM2WxeGrkkvzZ7eUHIFSbTvdcuqDJufZ4CRZcqzvs8yMqawvkeJ/GdYpq/ubV
+ ULMfNwbYfH+gOpcUe8QFJX7r7Q/KH3ab0aJ4+XEyr5ytGZTPJURaL+nwWeti5c4WkKqvyCjKH+U
+ 8d6TRrU+pZVHSfeTkEMTFYrGFv5K6lfzi+K/m5hoZ41rnThEPMzmmaogCKsrSP1xpaL5yVhtjhy
+ lryb31mFv7zb26Z/9vdKNn1UsRMFxKfoLOeIxMvvoP2MWwGhR9iXGkSbKpUt041vMmFgXDD5Ibo
+ Ubsb1kWKZ5s6ktERiILIcuIe/SPjQKT36thOP3yDaE8LXPLJfiR4e+XTwNoG4WDgpiQPnD6LxT7
+ 3BVi8E0GiL/h72yD45w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ adultscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611120033
 
-This series fixes the format handling of the Hantro JPEG encoders, found
-with v4l2-ctl, v4l2-compliance and GStreamer on the RK3588 VEPU121.
 
-The encoder accepted a CAPTURE sizeimage far too small for the selected
-resolution, and setting the OUTPUT format never updated the coded size,
-so the sequence mandated by the stateful encoder specification (CAPTURE
-format first, then OUTPUT) left a 96x32 coded format under a 1920x1088
-raw one. The JPEG encoders program the hardware from the OUTPUT size and
-use the difference as the crop inside the last macroblock, so this ended
-in IOMMU page faults, a frame processing timeout and a wedged encoder.
-Patches 2 and 3 fix the two ioctl paths, patch 4 refuses a job whose
-geometry or CAPTURE buffer the hardware can't be programmed with, as a
-last line of defence, and patch 5 reports the fixed colorimetry of JPEG
-instead of propagating whatever the application set, which also fixes a
-v4l2-compliance failure on the encoder.
+On Tue, 10 Nov 2026 11:10:40 +0100, Bartosz Golaszewski wrote:
+> gpiod_shared_put() races with concurrent calls to
+> devm_gpiod_shared_get() like so:
+> 
+> CPU 0 (unbind / probe failure)      CPU 1 (concurrent proxy probe)
+> ==============================      ==============================
+> gpiod_shared_put()
+>   kref_put(&entry->ref, ...)
+>     refcount_dec_and_test() // -> 0
+>                                     devm_gpiod_shared_get()
+>                                       mutex_lock(&entry->lock);
+>                                       if (entry->shared_desc) {
+>                                         kref_get(&entry->ref); // on 0!
+>                                         shared_desc = entry->shared_desc;
+>                                       }
+>                                       mutex_unlock(&entry->lock);
+>     gpio_shared_release()
+>       mutex_lock(&entry->lock);
+>       kfree(shared_desc);
+>       entry->shared_desc = NULL;
+>       mutex_unlock(&entry->lock);
+>                                       // uses freed shared_desc
+> 
+> [...]
 
-Patch 1 keeps the CAPTURE (coded) format while CAPTURE buffers exist:
-the encoder sizes its CAPTURE buffers for the coded format, so changing
-it under allocated buffers would leave them the wrong size. Patch 6
-keeps the raw OUTPUT format while OUTPUT buffers exist, which also fixes
-a CAPTURE S_FMT that v4l2-ctl --stream-mmap issues after the OUTPUT queue
-is set up: it succeeded but left the raw format descriptor reset
-to the default (three planes) under a negotiated two-plane format, so the
-next job read a plane from IOVA 0.
+Applied, thanks!
 
-Patch 7 limits the advertised frame size to 8176x8176: both Rockchip
-encoder register layouts hold the size in 9-bit macroblock counts, so
-8192 was programmed as 0 macroblocks.
-
-Patch 2 changes the same branch of hantro_try_fmt() as patch 3 of
-"media: verisilicon: fix VEPU1 JPEG encoder writes past the CAPTURE
-buffer" v2 from Sergei Khomenkov [1], which raises a small JPEG
-sizeimage to the header plus 64 bytes. The minimum set here is always
-above that one, so the two don't contradict each other, but the one
-that is applied second needs a rebase of that branch.
-
-[1] https://lore.kernel.org/r/20261110-hantro-buflimit-v2-0-ff7790def9fc@gmail.com
-
-Tested on an Orange Pi 5 (RK3588S, VEPU121): with patches 2-6, an
-explicit CAPTURE 1920x1080 JPEG plus OUTPUT NM12 stream gives 8
-decodable 1920x1088 frames, a requested sizeimage of 1000 is raised to
-4178544 and a larger one is kept, G_FMT on CAPTURE follows the OUTPUT
-format, v4l2-compliance passes 49/49 (58/58 with streaming) with sRGB /
-ITU-R 601 / full range on both queues, nine GStreamer v4l2jpegenc
-pipelines reach EOS, and v4l2-ctl --stream-mmap no longer faults. Patch
-4's checks are not reachable from userspace once the format ioctls are
-fixed; no run printed them. With patch 7, NV12, I420, YUYV and UYVY
-encodes from 96x96 up to 8176x8176 (including 8176x1080, 1920x8176 and a
-cropped 8168x8164) decode back at 53 dB PSNR, 8192 wide or high is
-refused at S_FMT, and a probe with the reserved bit above each field set
-showed the hardware does not take a 512 macroblock count.
-
-The new CAPTURE busy check of patch 1 was tested on the board with v2:
-S_FMT on the CAPTURE queue succeeds before buffers are allocated,
-returns -EBUSY while one is, and succeeds again after they are freed.
-On that kernel v4l2-compliance still passes 49/49 (58/58 with
-streaming), and v4l2-ctl --stream-mmap encodes eight 1920x1088 frames
-with no fault or timeout.
-
-This series was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit messages, and I reviewed and tested
-every change as described above.
-
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Changes in v2:
-- New patch 1: keep the CAPTURE (coded) format while CAPTURE buffers
-  exist, returning -EBUSY from S_FMT, so the coded buffers
-  can't be left sized for a different format (Sashiko: hantro_set_fmt_cap()
-  was missing the CAPTURE busy check)
-- Patches 2, 3 and 5 (the sizeimage, coded-size and colorimetry
-  patches) now carry a Fixes tag (Sashiko)
-- Patch 2: the commit message and the comment no longer call the
-  default size the worst case; no functional change
-- Patch 4: complete the controls of the request when the job is refused
-  by the geometry check, so the media request doesn't hang (Sashiko: the
-  early return left the request uncompleted)
-- Patch 5: the commit message names the mtk-jpeg and imx-jpeg drivers,
-  so the series no longer goes to the MediaTek maintainers and list
-  (matched by a keyword only); no code change
-- Patch 6: commit message corrected, the CAPTURE S_FMT succeeds (the
-  -EBUSY from hantro_set_fmt_out() is ignored) and leaves the raw format
-  descriptor out of sync, and the Fixes tags now name the commits
-  that introduced the reset and the mismatch (Sashiko); no code change
-- Patch 7 (the size limit) unchanged
-- Cover letter: note the overlap with Sergei Khomenkov's series
-- Link to v1: https://patch.msgid.link/20261110-hantro-jpeg-enc-fixes-v1-0-fc4dc7e985d2@gmail.com
-
----
-Arun Iyengar (7):
-      media: verisilicon: Keep the encoder CAPTURE format while buffers exist
-      media: verisilicon: Enforce a minimum CAPTURE sizeimage for the encoder
-      media: verisilicon: Keep the encoder coded size in sync with OUTPUT
-      media: verisilicon: Refuse JPEG encode jobs with inconsistent geometry
-      media: verisilicon: Report fixed JPEG colorimetry on the encoder
-      media: verisilicon: Don't reset the encoder raw format while OUTPUT buffers exist
-      media: verisilicon: rockchip: Limit the JPEG encoder to 8176x8176
-
- .../platform/verisilicon/hantro_h1_jpeg_enc.c      |  9 ++
- drivers/media/platform/verisilicon/hantro_jpeg.c   | 37 +++++++++
- drivers/media/platform/verisilicon/hantro_jpeg.h   |  5 ++
- drivers/media/platform/verisilicon/hantro_v4l2.c   | 97 +++++++++++++++++++---
- .../verisilicon/rockchip_vpu2_hw_jpeg_enc.c        |  9 ++
- .../media/platform/verisilicon/rockchip_vpu_hw.c   | 11 ++-
- 6 files changed, 155 insertions(+), 13 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-hantro-jpeg-enc-fixes-9ff8bf6a491f
+[1/1] gpio: shared: fix a race in shared desc release path
+      https://git.kernel.org/brgl/c/53043b9e83cc7f4e30e70161b67ae93c4c9fdb87
 
 Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
