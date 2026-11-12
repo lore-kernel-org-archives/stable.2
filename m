@@ -1,78 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794473698;
-	b=SAS7qQJckoOtR8KicI6RakpKBpLsK/hPnpzlJCc9K3xrpnJzH2RZz+G32hdTbO9tU6ax
-	 FH0FZkVQ0RfILmubck37igIbqjk2TRfqyxA5Fk2aYZnx3geOBH/JNW6lh9cStO0ymD4pV
-	 Wp7eBcHD/0QXvx7nxp1ybp1PNCpUOF12OYkrC6ttzXgrHZCaXhE4Qs8F8T9b94zZlNvgZ
-	 O7wQ3g1ayIApHWKLYJXkzT0hbyQrYOWv65GTV0vRN34BtEOH4xdkAE+rHTYHUceu+3Cbk
-	 8ve9WkREm51umdf1PVALXW118A1pbNngAKBZ8VtVCKsXxWYw5Ftuu5POedOvRaT0zhQ==
+	b=sPVOKsDnTAJk7CcTQ9cuZSvGtBkoeDxwDXjDBx1JVLtj0r/8kK3LVUlcT87nkseuU9nM
+	 JXx6TQRRQTYpuyM67YwqRkW8b8vjMJPARHuTvYYyXEAHehWGYvLCbIXr80jYthkBnItQx
+	 ZYqkQQ1UMdqiD171I+Gd2jvVnOtwBmho/mK9DNYnwYg2Zh1n4g/ajX9FkBbCF6BZxXxnj
+	 0njvdVXfe/sHXeBVTJ2LUDir2ks+xdMIn0z2VfcxVz7ZyOZC2d1FVyZSsz4Dt2WvQTJVg
+	 nZIc12nL3zWyGipY8VVyQBcIttO5V/imL/1JNx6rbOYEOfrOSQWm1eWcuouhkCLeWqA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794473698;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zC3IcWjEkVLz+74o8+GFj8TEy0mWfUnym+XE0DhCAQM=;
-	b=OYh2dmwd0sZA/pwIDMSZjmpxUdfaydir7dNVVOaF80AZ/vhYLWA7tu7y/5KE8J0b8pvp
-	 TC4je0Dik8vSl4O8nVTx6myhaEqcB+V6MsVzdCuMkvyRz8X1362yM0ZkHm+olSL+jwtvY
-	 IF7c/IRtlhRy+2kydG7nAVzM8twf5qubB3qe1sDKidAUK+dmJm8+Xc6AK133zw2JTDBom
-	 XoPIqEVd4vpTZkcZViAik5QWNf9am3cTT7pQ+DPljauOJvrqRyjiWIEiIhu3Wp/5kglUy
-	 spy/JhQvA4Wttx0IoES39XrWb64y7Gr+N11tyvC69IKry7Z1qJ6c5AIMrqof3a8adYA==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=pi3ws6GnqNcs7b16BSYAZjzx8UNNweD913b2Lj2IYrM=;
+	b=fX/EPTjjtpE3Xv+5zmRYwBbgF4JPzT77s7n6ruG/j40+lCJ1R2xjvIf7qA7uJVkgJuDF
+	 ToRIed0qLo/7tcvOH6qJQyqXQKZlVNFq3UCmQ3yHNhMlAhOFBbLBey/st1EMDFwIpv/Gz
+	 ViqOXE/kN9zSeVL7+lE8fiDKtbjkG+AhU2Cu5PBkygKFcHrXzt7wRR13bUBcyIbDC6Z+W
+	 VrCE72ZibDRUDNnKwbNnVgOi7wTb4SxqJCnpuDuM1qOAP9jXZgzwK0HICQxSI9t53zute
+	 tX8vvcx/GGkPgk9yM2CGGrg4jkMMWTpZ/5VCCTwNJodrpUGQWT803ZnNJJSqi+GvIqw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1UGoGXe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DXbphCkR;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81533606A894;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD665606A89D;
 	Thu, 12 Nov 2026 08:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1UGoGXe
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DXbphCkR
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794473698;
-	b=LQeAin1/7thsxk1Ev1qJWEL2CB5ThZHD4tlcwPc2lvRFDC48+LRwvtdHtShZwsE/TUBJ
-	 Ftj2JXhTUAihE0Ti+6DJCPTYhZ9Cu8UFZz7QmgxnwRHkLW0AI0+ubg8QklE68neN0XT45
-	 YBeg6lZuh9+i1Pm+RgalcqgcyHS9gwGUp1JXNX66zy4f3LKrBIYyYOEuB3F4BCdx6Ir0h
-	 Xbw8sO+zmcd3FojNo/HP4etDWGnaVdyrKUp8JCn6bMhWOVjXWdHYYjyE075GVknXF9agr
-	 ijgCou58sK+9Df/xo89QZUdGccZZS/N2VJgvjkfbn1B6xfaAV3QMzbVSnHGmDaTBUHg==
+	b=OVTXgwgrO3QdmGJbT6nqDEUNcNWF+nwfPDRWY2ltwmLDzwa6oHgmycBxdWQ0xtUCAbeM
+	 ZbuwDJQcM81dE9OoUYi4zklJrKKEASMRjFgFGi/x0b8JmLYEGZ30wUqx1UP0gUF6uaW6T
+	 yNe9C6go2LJQaL+nwpD9c7XAgxKiLBM19XWvr1Pm6lY8e7gGm41fbo72mWIGeku+bhHmC
+	 w5epbPyyaDXO1DIfE1nxKwL/sSpepXgAtuUSsW7QndiXiS4hIL6fB0YFaocyw36j+oa6c
+	 ZqAyY8/vOD7lbwNd7io/28Qtm0pAQCwm3DpFUYkCB8+sr7Qk8WMu0ws2G6EKuxKx8uA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794473698;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zC3IcWjEkVLz+74o8+GFj8TEy0mWfUnym+XE0DhCAQM=;
-	b=1Lx+aMzq5pIIpbacIu/i99r2KnhNfSKg9P8iAvtbc9z3yl3p4m4jNEy8ssG6WIzpZFqn
-	 xR9P/f10uTRxXgBQ6MFQshdM04HqKS8Fh/m+BAKJyLUfuChQozkaf7Y68/IRNWrz15UdF
-	 VgeF3WT4i0zRwB12fuMEv9WJu256aJyZSJUNWtwubj/XFXaDXBO6DV+GCRsmQHrgfsw8B
-	 /8VmR4wIDOVD2sfP7Tm0H88SiURbfRRXmRLQS3uZgRFl0DBR2o7Nxz3L+SiQZ+oV7IG8g
-	 FBfrbmJET96fdRjrwDYk4seg4eblIB5+2EIZQXFtl/QIWeKjX93O7CCCyk9OyX+znog==
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=pi3ws6GnqNcs7b16BSYAZjzx8UNNweD913b2Lj2IYrM=;
+	b=OzyvTS0p2iuvZXLp/mUg6i9lUo5fpucpJqXoQPwdsSIq/A23G+WcZkXbv9T/LKJUWWYw
+	 Gu/W25LEc+6dI/lifRzRB8EDU8850MrVEjK7SV9xfoDBR7V7For3gRFd+7ocXwIE0p8m4
+	 ecaJY56IgO1OtwRMvoq7VVw90qefBtDMmraxYHws8+SZxPlHZH9fkDqkycNF+hUTZ4l9X
+	 dmarDR4XoFFeFB0AlXat/yVzhtuMN1XRE+PgtFTwV0ZyEAuj4a4XrJUijNvKrmgVYrEJ4
+	 2nSJs7/iBoUr1JVGOuPglYRyGQV4780BJ8v27qHQwtYeZFTSjtajDHmdEoilb4dFd6A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8E5891F00A07;
-	Thu, 12 Nov 2026 08:54:57 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7168C1F00A09;
+	Thu, 12 Nov 2026 08:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794473698;
-	bh=zC3IcWjEkVLz+74o8+GFj8TEy0mWfUnym+XE0DhCAQM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=h1UGoGXeYKwXcQ8nwhjPrtcCzA2bKFjArk89K/OgnthmMoBg6LWQ1Wo0QWBYNw/lu
-	 guegmB540AGrFEI0hYq8pFGqfyjIGXjF0+qbqmkx+1SrpF6nGlGtfNqpDWTgcmD7M4
-	 fhY1GBScVO1nyKPdWozfp21z1pbwQd2dYNXvfrwxaXCwuq4xpldbLn67kuM5HTQJmx
-	 N2kUmWLLDexr4WetBSK0/f0VCFeqsojotuB913yRNPAlxn1wAGFrR2WFaSZ3a/eqBd
-	 2rgeJXEpqapP8xWF6RYrADfINrpK6avxj2rw82c8u1BU9wSW0fziGXMqZbFxph4FCv
-	 4vPDYwroPoN4Q==
+	bh=pi3ws6GnqNcs7b16BSYAZjzx8UNNweD913b2Lj2IYrM=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=DXbphCkRY5BdfIlSo9Z6ov2CpEXsHkkglg14VVdUYjaQnbvvshgf+FgmrYi4LrEwd
+	 U4l/haBLD5LyOQPnGstIya5hVCqAa+Q/A1yq4H9Ib3LAEV17uqG18Cyt2ou0yokLS1
+	 3fPRabtOi7Hs68fp/d2kmktnJmP9hLmbZpNO3jVAgm5gmkSrGz3sO35LuW6Z3In0Yd
+	 ZEL/PM5opBwJn5NM+Cyxn7StJGxJrkIuARxLOOJBprOEwOdTrUXzxpHz3DSUE/Z+Za
+	 0Me72ZT1GUTSnp5y/lOo+eEr5npwWjbmUESPCnmzPAXHfDzSMJ4otM8unL/tLgcRN0
+	 1a4pbZcoYi/uA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3B36749417;
-	Thu, 12 Nov 2026 08:54:56 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id C9874493F1;
+	Thu, 12 Nov 2026 08:54:55 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:54:59 +0000
-Subject: [PATCH v2 5/6] media: verisilicon: Reject AV1 frames without tiles
+Subject: [PATCH v2 0/6] media: verisilicon: Fix MPEG-2 field pictures, 4K
+ VP8 and the AV1 tile buffers
+Date: Thu, 12 Nov 2026 08:54:54 +0000
+Message-Id: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,9 +85,12 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-hantro-codec-fixes-v2-5-f44424df585b@gmail.com>
-References: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
-In-Reply-To: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NSw6CMBCGr0Jm7Zi2PBRX3sOwgOkAY4SaFomGc
+ HcL7l1+/3OBwF44wCVZwPMsQdwYwRwSoL4eO0axkcEoU2itFUZx8g7JWSZs5c0B89JmpskLVVI
+ Gsfj0vBuxd6t+HF7NnWnalrZEL2Fy/rO/znrL/T2YNSpUrc3TkyE+p/raDbU8juQGqNZ1/QJi/
+ bxLxgAAAA==
+X-Change-ID: 20261110-hantro-codec-fixes-59d42b5609c4
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>, 
@@ -100,60 +105,121 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473695; l=1803;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473695; l=5709;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=w0RsTz4T3CdOdGdBS9xKk8Iq1upmKZ/s7yYs4Iwwoq4=;
- b=1jIzt0YpSLyNUN1i3u8sdgp/pwRCteGQqy10eDWnlsJ1plRYZEtzBS5wV1vYcztYvLdYwST2j
- YQ95e/YnnimD6li5/hGlc7vLZxUI7uJdnpN1//BScgKO9mR+lG0n3qq
+ bh=14/Usk3FROrX4ekaBxCq2un3fe3l8v6T1pUSFIb3wbU=;
+ b=I8FCbKxmDlXAbZTZczzBATxWUVvHQmGp4VI0DT5ZEhNxCJ4YuU/yy8ZU5s447PCqx6ts3oD/S
+ aC/QOYxxEz5BLLGSQmeL/RRi0jNz4t2pmf0j91/5WXrgTZG1Evte4Gi
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Fixes for the Hantro decoders on Rockchip SoCs, found while running
+conformance streams and v4l2-compliance on the RK3588.
 
-The AV1 control validation only checks the upper bounds of tile_cols
-and tile_rows, and rockchip_vpu981_av1_dec_prepare_run() only checks the
-number of tiles against the tile group entries and the tile buffer, so
-a frame with tile_cols or tile_rows set to 0 is accepted. With no tile
-columns, rockchip_vpu981_av1_dec_tiles_reallocate() computes a size of
-0 for each of the five tile column buffers, which the buffers it has
-always satisfy, so it allocates nothing. On the first frame of a context
-the decoder is then started without tile column buffers (DMA address 0),
-and after a failed allocation with the addresses of the freed ones.
+Patches 1 and 2 make field-coded MPEG-2 decode on the G1 and VPU2: the
+driver refused V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF for MPEG-2, so the
+second field of a frame could not land in the same CAPTURE buffer as the
+first one, and once it can, the second field was identified with
+top_field_first, which is always 0 in field pictures, so it predicted
+from the wrong field. None of the field-picture streams of the ISO/IEC
+13818-4 main-profile suite decoded before; they decode now.
 
-Every AV1 frame has at least one tile, reject frames without any.
+Patch 3 stops advertising VP8 above 1080p on the VDPU2 and RK3399
+tables, whose only CAPTURE format stops at 1920x1088, so that a 4K VP8
+stream is refused instead of mis-decoded.
 
-Fixes: 65e9f52ffdc8 ("media: verisilicon: Fix auxiliary buffer allocation size")
-Cc: stable@vger.kernel.org
+Patch 4 fixes the reuse check of the VPU981 AV1 tile column buffers,
+which only compared the deblocking data buffer although the five buffers
+scale differently with the frame height, bit depth and number of tile
+columns, and clears the sizes when the buffers are freed.
+
+Patches 5 and 6 reject malformed AV1 frames before the decoder is
+programmed with them. With no tile columns the tile column buffers are
+sized to zero and the decoder runs without them (patch 5). A frame that
+is larger than the CAPTURE format does not fit in the buffer the decoder
+writes it to, whose size and layout come from the format, and a frame
+height beyond the limit of the decoder also wraps the 32-bit size
+computation of the tile column buffers, which leaves them too small for
+the height programmed into the hardware (patch 6). Both are rejected at
+prepare time.
+
+Tested on an Orange Pi 5 (RK3588S). Patches 1 and 2 were verified with
+the ISO/IEC 13818-4 main-profile conformance streams through GStreamer's
+v4l2slmpeg2dec on the VPU121, compared with FFmpeg: the field-picture
+streams (sony-ct1..4, tcela-8/9/10, hhi_burst_short/long) went from
+rejected to 53-67 dB PSNR, and the 26 frame-picture streams are
+unchanged. Patch 3: the VPU121 decoder lists VP8F frame sizes from 48x48
+to 1920x1088, S_FMT of a 3840x2160 VP8 OUTPUT format is clamped to
+1920x1088, a 1080p VP8 clip still decodes bit-exact against libvpx, and
+the 4K clip is now refused instead of decoded into 1920x1088 buffers.
+Patch 4: one v4l2slav1dec context decoding a 1920x1080 10-bit
+4-tile-column stream and then an 8-bit 5-column one (and 2048x128 with 4
+then 8 columns) is bit-exact against libdav1d, 32/32 frames each, and a
+kprobe trace of the DMA allocations shows the tile buffers reallocated
+when the second stream needs larger ones.
+
+The new rejects of patches 5 and 6 were tested on the board with v2:
+requests with a no-tile AV1 frame, with a frame height that wraps, and
+with a frame that is wider, taller or, through superres, upscaled wider
+than the 1920x1088 CAPTURE format (3840x2160 among them) are each not
+decoded and both of their buffers come back with V4L2_BUF_FLAG_ERROR,
+and a frame of the format size and a smaller one after them are still
+accepted. Four runs of the fluster AV1 conformance suite give 203/242
+each, failing the same 39 vectors as an earlier run on the same board;
+the streams that change the frame size and the ones with spatial layers
+still decode. In a fifth run av1-1-b8-06-mfmv also failed, with one
+decoder timeout and no reject; it passed in the other four runs. The
+board kernel is 7.3-based and also carries a fix for the ->run() error
+paths (the AV1 one finishes a refused job twice), which Sascha Hauer's
+series "media: verisilicon: Fix error paths in hantro drivers" addresses
+upstream [1].
+
+[1] https://lore.kernel.org/all/20260824-rk3588-jpegdec-v1-0-180a30a2852d@pengutronix.de/
+
+This series was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit messages, and I reviewed and tested
+every change as described above.
+
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Changes in v2:
+- New patch 5: reject an AV1 frame with no tile columns, which would
+  otherwise size the tile column buffers to zero (Sashiko: AV1
+  tile_cols == 0)
+- New patch 6: reject an AV1 frame larger than the CAPTURE format, which
+  does not fit in the buffers of the decoder and whose height can
+  otherwise wrap the 32-bit size computation of the tile column buffers
+  (Sashiko: u32 overflow from frame_height_minus_1)
+- Patches 1-4 unchanged
+- Link to v1: https://patch.msgid.link/20261110-hantro-codec-fixes-v1-0-0fd5372ce831@gmail.com
 
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-index e817c91224d3..8154b405ca63 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-@@ -526,6 +526,13 @@ static int rockchip_vpu981_av1_dec_prepare_run(struct hantro_ctx *ctx)
- 	if (num_tiles > tge->elems || num_tiles > AV1_MAX_TILES)
- 		return -EINVAL;
- 
-+	/*
-+	 * Every AV1 frame has at least one tile. Without tile columns, the
-+	 * tile column buffers would be sized to zero and not allocated.
-+	 */
-+	if (!num_tiles)
-+		return -EINVAL;
-+
- 	ctrls->film_grain =
- 	    hantro_get_ctrl(ctx, V4L2_CID_STATELESS_AV1_FILM_GRAIN);
- 
+---
+Arun Iyengar (6):
+      media: verisilicon: Support holding the CAPTURE buffer for MPEG-2
+      media: verisilicon: Find the second MPEG-2 field without top_field_first
+      media: verisilicon: Don't offer VP8 above 1080p on the Rockchip VDPU2
+      media: verisilicon: Check every VPU981 AV1 tile column buffer before reusing them
+      media: verisilicon: Reject AV1 frames without tiles
+      media: verisilicon: Reject AV1 frames larger than the CAPTURE format
 
--- 
-2.55.0
+ .../platform/verisilicon/hantro_g1_mpeg2_dec.c     |  8 ++--
+ drivers/media/platform/verisilicon/hantro_hw.h     |  8 ++++
+ drivers/media/platform/verisilicon/hantro_mpeg2.c  | 31 +++++++++++++
+ drivers/media/platform/verisilicon/hantro_v4l2.c   |  2 +-
+ .../verisilicon/rockchip_vpu2_hw_mpeg2_dec.c       |  8 ++--
+ .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 53 +++++++++++++++++++---
+ .../media/platform/verisilicon/rockchip_vpu_hw.c   |  8 ++--
+ 7 files changed, 98 insertions(+), 20 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-hantro-codec-fixes-59d42b5609c4
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
