@@ -1,102 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.12.53.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514990;
-	b=U9alZy3xJoXsCbZSwv7+u065xC9eP9NfO3coz3OaSLzPJMw0/VNBkcv/BBPsnTijix8J
-	 nI0p+Z3RtY2BW9NQUqBtkdbryBPAna4IrFsGhpJWBJ8hAd4BXuEtdhVVN6q0dJ+4FYGF2
-	 QXoEV6Qh7g1LhvvrY0bkXToI1O+1FDthQYbm+ZP+HtRz/bMFwYUdS67qx2lZF98YBHfYH
-	 9JXerey4JcvFpCfd3VY65rvrAVzmLwtMk02LivURe3JFhDo7jk+RhURAQB/uQti1hunbW
-	 2lD3HwafBvvyZoU68zmnclJ7ad9O5aqdNuiPOFHHyxncZ0eanjtjvOpupWAeUgmk2WQ==
+	t=1794514994;
+	b=EEDjx/OWQSV71F4OMmnM6NjtVjFFmEJQRxI70bhELRKPZHFZUMPElVuzCsUBchUjZ4SA
+	 +bz6L4w/4TPr2V6ULbmOzvLuJFx6UfMZVuLKO3DpQrfo9i4PIr5SwUUM5j2KUTk+gcBA7
+	 qCeVhUaKsKfIUO9/nFgu2TKCUVNo919TBy+8vNX+nPbwN1y9zx6m9UcS6JU2ibunYxMd7
+	 og0iIczyOktVjOFntp/JDpPcz5Kpz3bjk2ndm/7Eqk3E8/93dLTuajgdMpP9ztlBhyj33
+	 C9cUZ4Nr4Z9AWmypb3yK72okjH9N0YBc8jQo4QCDL1Su3hJS5QPcp2C7gsh70SRvoXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514990;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=oDkF+EHNknttvr/pyjYehgB7V21ORBFZrQ57TwACNvA=;
-	b=Sx2k047qbRYzMLhmK+hB0QKRJ8pvLwn0AafrFLje0yrQBSz++YLz7to9BGRogkiM1a59
-	 aJyN2rMVt1CeGm/E9gTEKSUX3YA0e+zORtUABG7P4+zIcRc2ewjA8dazjbrozyFq8C5Oe
-	 1uzWJTxBhJzCnDz/vQJFeufu/zMLnMWWjkR0RA5b/qe8LOxmcXOsU0ksRpubr5mYZxN1K
-	 xa26tP+GV4zRJAb1clc9Xv8n+tHvN2JUfinGMBYSD26UpwFJbsye17JAIpdwa/rZDQuKf
-	 bc1yq1nOnWMPJ1AXMqKgmdEvSxryVYtzN1KM19BkTk7uibJX44j8r/9f6GLLsvU8YGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794514994;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=8DzqwpdQD5heDHoUrlsNiPFwyABhSek6uK6Bj4NP0hg=;
+	b=CRAV5rYsvWNE/7JtOkYczFzEgHBV0TXjgoeARwAinCDsI7HgoVfmQfEwhuiQjHrFHDVr
+	 nTIs9UCz+fuqPjrQ/Kj8sQJDi8NeK6FHX1UzgnUUiGBUl0hdPswwqrBjuvX42APqjJjOP
+	 GmSup6yyAjB3/+fEBSHreT57JvI55FaVT9++ijd+DZCEQqLX0A1xpgDjwtbZi3kXuGyzF
+	 svWInPPpv5rc3kdz0OpDHU79AIHYDWjnEltKk24rj2mBBeJH4CPgmRU5/4ygAYpx1NTAq
+	 OgcHigcdgqvY114SV9Hv+qNIR6wZ/hcqsIlpW9yc8NMckgrbmcyhI/X1YG3iRpOFOpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VxOYMEa7;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=pDaGQfy9;
+	arc=none smtp.remote-ip=52.12.53.23
+Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A75606A32A
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:23:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79A75606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5E8606A327;
+	Thu, 12 Nov 2026 20:23:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F5E8606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VxOYMEa7
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so25215ad.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:23:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=pDaGQfy9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794514989; x=1795119789; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oDkF+EHNknttvr/pyjYehgB7V21ORBFZrQ57TwACNvA=;
-        b=VxOYMEa7WN5hU3s2AL0gTAK4CGvO8PTwMETyXLtJjhfb1RoqrwwSsIreAjmEhNNqHp
-         mpHOwQsZ3SnU+oqT2m2FizVk/fAFNAsBVCXr3c1X4oL51td54ly5w5hv1/mfk6ZUhtlk
-         3UHK97m66K71g61Mw8fYqxMI5ekb3IXKdjZwzbXdTI4FgqEocNXlVk2WAy4Rb478ZXX6
-         GPqKBs5apfaDV5AyW+X5GEn9eztVMp1jdyrz8OZyYqiuSFB0b/Ti4RuhZsaKqg1LbR+H
-         Gvt1Crpc5zalvK0/B6N8w5Jkr6CMkjWRuqtMxUyy571iVEhEEUkJ8u02iAzP21OyGiYm
-         91dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794514989; x=1795119789;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oDkF+EHNknttvr/pyjYehgB7V21ORBFZrQ57TwACNvA=;
-        b=As+nnzaiawGIQ2XSh4v1InvX30fe6WzMPJxq3SFCyHFSeIZQWW19NF9R3SNxPewrXv
-         4R8UyAm6Zt32JRLTArd8Ldy3o2DwupKJYEQVnxNIXL+ZLuDlEmoS9oOqQ21pW2LfH1Pc
-         XtXlEr+NpxfQhUD2ObqMB0ga/+IMNN5BcYvv+1Xwy+PsxhJUajdZkyaXXp+F35xMPVGJ
-         V9t8wpcQn8CkmUSHgYrz5AqjSJlp5pclADjPtxlJIypZNefEUI6tdx/NzKOPeSRG6WmF
-         RqPMNm6BEtu3JplEFU1M6qfI4HQ6WmNxqNq+BoP0pt3RGakAQEmr9pnpuibs8kgJ2Gvf
-         vskw==
-X-Forwarded-Encrypted: i=1; AL+hErEQh7yL/uUYhObq0qMt6yYgILRq6oGQaZ8PY3tQngn7Ar0NZ7nFYxbja6RGIDMXq3pCa9UqeoA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CAz1GjsqsjZ6Dop0QbDjR5x/AgcgnXQi9Qak/mxHYqFCT3o5u
-	Xc6ZMPifZFWywYN12OOVlzNrY5RVPpgEa/KC9Z1wHvG1ZCyRgEZFdnIdemtpPfpAby004IiGTf9
-	3eIun/Q==
-X-Gm-Gg: AYBFou0jHgXb0UrqCvFr48aDtdXXQY45Nf5qqYh3A8wr2lASSDOF29ZYyb0Fv/Ipd1O
-	anYi9zE6Yx8j1QlE9371E3R/jzlFMZT0RvO7td5ehjO0gf5RjM5FNCoCN7SHiRFooXMEvy96oKv
-	EVJ/rE6S4MPuYT2PJrLHJ/gJHL8Sb+Yqq3l+t1/rqJMQg7jwRx1iKUTGdnsgJRp8UYFqInmBVLs
-	jVRlSBn/yATp8ektEr7GqTZiZBTUXOP4HVmP7MH3HBiGJbfbhJUxwbWGchp9jsU8VXuQhaJsz8q
-	nEdo4js6/GFrxOsuwPiNy82+NeEKAmtQHktXaW6xdam2PjUedVE8onQsWPfr0zs77SrRP8Hxcm8
-	G2ElY6IFuOe44rKx13zQkas7V9xQMWGoRGlRTAf2k47t7P9U/112lLZDARNuIHtruvhNSONYe4w
-	Ep/xciZ5qOkC3m11JLPPsgApRbCHSVPviQBcLB3mpmr9w36gaTGlqV8txF/6s/4oqPnb7YhSOkG
-	QO54XVY2uPR4bSZJz473DNw0IFNyjkdwDG1itw6RvCokRMXc9w1YlKaWJ7mj2jdhuPuxUhf8Vcv
-	IeP7tYCvQwM/TcmyPX+6DqQI4YjP5sE7LxUMnZ1VtWpAeLnns9ZiH5qL0LaL62kvqjoIJfhd91Z
-	d44e9k0SwN735x7P2MpTYSUHO7aedxc/+q01IJPe7Ni7Ar6mPNQJpk2k0MfMk+0iRHydQCfFoRF
-	kTtpYYazfmDc5hVGp6qw+RqAG69W8DwiCVLlMsvt/ieBGSCOxaNxy3p4jfOdtD294PQ2rI
-X-Received: by 2002:a17:902:ce02:b0:2df:42af:2f9f with SMTP id d9443c01a7336-2ee0f0e1667mr1068475ad.1.1794514988112;
-        Thu, 12 Nov 2026 12:23:08 -0800 (PST)
-Received: from google.com (130.155.125.34.bc.googleusercontent.com. [34.125.155.130])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb18b73sm874147a91.3.2026.11.12.12.23.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 12:23:07 -0800 (PST)
-Date: Thu, 12 Nov 2026 20:23:03 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Chris Wiseman <chriswiseman@google.com>
-Cc: Alice Ryhl <aliceryhl@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
-	Todd Kjos <tkjos@android.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] rust_binder: account for deferred work size in
- Thread::read()
-Message-ID: <avYgJ8wIbY9-gFi-@google.com>
-References: <>
- <18e70d7cbc2831c0.3137322e32332e3235332e313736.1920de.0000sendgmr@google.com>
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1794514994; x=1826050994;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=8DzqwpdQD5heDHoUrlsNiPFwyABhSek6uK6Bj4NP0hg=;
+  b=pDaGQfy9QSnV4z2H8V2s7V6Y9FoAtjBAgdpz2s1NTDmAtX7oeGXReC1O
+   mjoXHgIg9A+GKaH8afqLdEZ0FQ2l/gAaec+y8sQ+cPEQHbJT4o2nyca8i
+   4ofCn7rjzYYVJnn04ppaDWgLqcYBzOZtBGDa6DAKWc3LHYMDbOClfpRTQ
+   oeVZQExgm4W50Y9IZRjJSy1oCWaK9yCP/3RxUP8eVtdXXZbkIvrjAjjlm
+   6lK6AEfxuBVz29sqlEhJ45lzDF9/wby0eX50OmsuToff7uszns88epl0y
+   kqODXuIKn/TS5GI15ODGJ60xrnIhi2EaU6TTZTugwN7fjF3xisAGbBf72
+   Q==;
+X-CSE-ConnectionGUID: AEJzRDz1SWGPsKT+gABYmw==
+X-CSE-MsgGUID: 8T5oW8P5QC+831tEvlbIrQ==
+X-IronPort-AV: E=Sophos;i="6.27,210,1787011200"; 
+   d="scan'208";a="33713108"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 20:23:11 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:26049]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
+ id 80d6f0d1-7a47-418a-a4da-54433e9e3046; Thu, 12 Nov 2026 20:23:11 +0000 (UTC)
+X-Farcaster-Flow-ID: 80d6f0d1-7a47-418a-a4da-54433e9e3046
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 20:23:11 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 20:23:09 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: <stable@vger.kernel.org>
+CC: Kyle Zeng <kylebot@openai.com>, Eric Dumazet <edumazet@kernel.org>,
+	"Willem de Bruijn" <willemb@google.com>, Jakub Kicinski <kuba@kernel.org>,
+	<netdev@vger.kernel.org>, Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Bjoern Doebel <doebel@amazon.de>
+Subject: [PATCH 5.10.y] net/packet: check TX_RING fragments before memory accounting
+Date: Thu, 12 Nov 2026 20:22:59 +0000
+Message-ID: <20261112202259.1603271-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,44 +84,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <18e70d7cbc2831c0.3137322e32332e3235332e313736.1920de.0000sendgmr@google.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Wed, Nov 11, 2026 at 05:23:24PM +0000, Chris Wiseman wrote:
-> When a looper thread replies with TF_DEFER_COMPLETE, its 4-byte
-> BR_TRANSACTION_COMPLETE work item is queued via push_work_deferred() in
-> inner.work_list without setting inner.process_work_list. On the next
-> blocking BINDER_WRITE_READ ioctl, inner.should_use_process_work_queue()
-> returns true and Thread::read() checks only whether the remaining output
-> buffer can fit a single transaction (4-byte command code plus
-> size_of::<uapi::binder_transaction_data_secctx>()).
-> 
-> If userspace provides a read buffer with 76 bytes remaining after the
-> initial 4-byte BR_NOOP placeholder (read_size = 80), Thread::read()
-> calls Self::get_work(), sleeps in Process.ready_threads, and receives an
-> incoming synchronous transaction queued behind the deferred
-> BR_TRANSACTION_COMPLETE in inner.work_list. Iteration 1 of the loop
-> writes the 4-byte BR_TRANSACTION_COMPLETE, reducing writer.len() to 72
-> bytes, and iteration 2 exits the loop without delivering the incoming
-> transaction, leaving it stranded in the thread-local work_list.
-> 
-> Add a size(&self) -> usize method to DeliverToRead returning the maximum
-> number of bytes that do_work() may write to the user read buffer, and
-> add InnerThread::pop_deferred_work() and Thread::pop_deferred_work() to
-> drain deferred items from inner.work_list before entering the main work
-> loop in Thread::read() when the remaining buffer is at least 76 bytes
-> but cannot fit both the queued deferred items and an incoming
-> transaction. If any deferred item writes bytes to the buffer, skip the
-> main work loop and return the drained deferred items immediately without
-> mutating inner.process_work_list or waiting for new work.
-> 
-> Suggested-by: Alice Ryhl <aliceryhl@google.com>
-> Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
-> ---
+From: Kyle Zeng <kylebot@openai.com>
 
-Aside from the "patch threading" issue, this LGTM. Thanks!
+[ Upstream commit dc4dd12f80e499dc034710cd8195489abcf0b059 ]
 
-Acked-by: Carlos Llamas <cmllamas@google.com>
+tpacket_fill_skb() adds the full non-linear payload length to
+skb->truesize and sk_wmem_alloc before checking MAX_SKB_FRAGS. With
+PACKET_VNET_HDR, userspace can submit a ring-sized frame even when it
+greatly exceeds the device MTU.
+
+A near-INT_MAX frame can saturate sk_wmem_alloc before the fragment
+loop rejects it. A subsequent refcount_add(0x40000001) can temporarily
+turn REFCOUNT_SATURATED into 1. A concurrent TX completion can then
+drop that apparent last reference and free the still-live packet
+socket before refcount_warn_saturate() restores the counter.
+
+Check that the remaining payload fits in MAX_SKB_FRAGS pages before
+accounting it. Include the initial page offset in the calculation,
+and move the existing -EFAULT handling out of the fragment loop.
+This preserves the accepted packet sizes and error code while
+preventing an invalid frame from injecting an oversized byte charge.
+
+Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
+Cc: stable@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+[edumazet: use net_warn_ratelimited() instead of pr_err(), add a Fixes: tag]
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20261028181450.2221013-1-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ 5.10: adjust for context in kernels lacking 3948b05950fd ("net:
+  introduce a config option to tweak MAX_SKB_FRAGS") ]
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+---
+ net/packet/af_packet.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 66aa5e7819ae7..41ee1113d109d 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2662,6 +2662,12 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+ 	}
+ 
+ 	offset = offset_in_page(data);
++	if (unlikely(to_write > MAX_SKB_FRAGS * PAGE_SIZE - offset)) {
++		net_warn_ratelimited("Packet exceed the number of skb frags(%u)\n",
++				     (unsigned int)MAX_SKB_FRAGS);
++		return -EFAULT;
++	}
++
+ 	len_max = PAGE_SIZE - offset;
+ 	len = ((to_write > len_max) ? len_max : to_write);
+ 
+@@ -2673,12 +2679,6 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+ 	while (likely(to_write)) {
+ 		nr_frags = skb_shinfo(skb)->nr_frags;
+ 
+-		if (unlikely(nr_frags >= MAX_SKB_FRAGS)) {
+-			pr_err("Packet exceed the number of skb frags(%lu)\n",
+-			       MAX_SKB_FRAGS);
+-			return -EFAULT;
+-		}
+-
+ 		page = pgv_to_page(data);
+ 		data += len;
+ 		flush_dcache_page(page);
+-- 
+2.50.1
+
