@@ -1,58 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794449082;
-	b=fzOcMMJ3TnNj2lt2+hAy4pNW4fFOrUqaDSsuc9c6Z96H0hHQy/bHzHs0eefexwLTtwLS
-	 05v1CdbheE2DBmC72brL2cNj7yFEk3Vk4XRr0X6PYCue0TfgE5ay5WqeFB5wN3niQcX4f
-	 a/rAnXFrXwLdanlgaIYPaGDuwiIcd3WyKz1BI6YKmy2PljBHH/scHs1EmO+Ecol60G9Y+
-	 C/IQjA06tn1pIbhoHmC5QEF5WEckjvA2PDkTcjSMcEnes8VUOOPYS+xnJSHO9yWNRk04w
-	 PvMNhdONYSp1rQzFOsz1hp+iIIUwa/oT5YOUb6cOH0g2Lh113wvDhEDM3sZbNDWGTJQ==
+	t=1794449131;
+	b=1v3dDzX5Z1u+33hTD8EKpuJnha4izLmFZsHW6ZWLJNTI45wOmFBrMN6iNpIepX9/jMQj
+	 Q8VvVnI4gSLJB0n6hIS+ghHxecR626vcZCFhBnk0ylfgC+xImSigCg07BTvpfQbQhx24L
+	 gBGsFQa0ybsBFeStbpPZHysSWdg4FeNR7qZCLV/ZLqBevIG8+NJ76d3QDa4WfbF668qya
+	 QHLWGRRPgVxlwPU1TUfL9uBanBDUsGfdkPKu2bWxJL5BN7i1rSoamBHqTK/txMQ7WWa/g
+	 HnsYPOEA2eOoloKjqO909W23YXEnoljTEAR98ydeqefLF9vwdQxZYlMsAKtCHYDiqTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794449082;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/FGOc2MvxTTI0+I3WGWHQYsuPNe3/arM+difr8Q55Qk=;
-	b=PqCVaiMeupyoCQH7Titrq/B6nvtxCp+QA1AyyxW4xhNQdoKB0WwqcnJ0FR+wNZcPimvv
-	 w0pmQ292W1P2sFjVWgykdiNbVsjv6jxYBQD68Ax3GwVY3dBs2McP0i86hAX+OCnmusrzo
-	 DzWhOB85fLqCb0QkAZA+RZ6eX8F/ZoD10UuV8DbK8sYLSZLbrcfmIN9JhbxiDi79JpyKR
-	 oWaYeo825OHX+kDTwQdTEGGoJOZpbONIN4EqK3J8/rhf+VXTW38f/4A5pPDHw/teo53DC
-	 3V/MCcvPUsM8EmkvclU7zGlDohENeYhB/cSMV4rfEd6Bi+oGFn7/nm39Ob6WRdH1N/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449131;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-FangMail-Miltered:X-FangMail-Envelope:
+	 X-FangMail-Bounce-Flag:X-FangMail-Outinfo:X-CLEAN:Message-Id:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=JzkSGwbdyiLHOrmQm9+6tKzAl0MQ2E6RYQLy1MabwoM=;
+	b=V+/n+y9Xs1FaK9/rgFOgmjSziIXH69vwspYdWMgOXjfwrOSGG8izqxQA2Anc+dGzJDW/
+	 aJEhEfB5TiF/bgzRSC901b1Nu51vinAOzCHfhpnuh+LoRG+c7hNra/e1LfjfK+AfIW5+K
+	 zJptmDRIDfHfkDr0EmbEMldstwWsPtHBEsoUh6/7rzsBfs7VT+6pzup75Y1uB7libMgSd
+	 PPqIWwU1CD+Keped3q2jUgpY7MybqD2xo8D4+XDbHpIA/jGt3BOBuGbMPBA6Z041C9ItS
+	 EsFkw/JGQt6zJR8xPfoFOCZ3QW8g8IRFhLQfJAXgNIIkLCTQQF8xoKs9qDgHUrhfRxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMzdxLUS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=isoftstone.com;
+	spf=pass smtp.mailfrom=isoftstone.com;
+	arc=none smtp.remote-ip=219.143.121.9
+Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DED606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMzdxLUS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ECFC1F00A05;
-	Thu, 12 Nov 2026 02:04:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794449081;
-	bh=/FGOc2MvxTTI0+I3WGWHQYsuPNe3/arM+difr8Q55Qk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fMzdxLUSvUsoICMjUelnZBzNYHA5sns8TPaqCQSARb/uTbBZuFITPl3vzVrlQCHsk
-	 GETLf8SUAZA8ad4vLRrSG1JIVTT+5xouM8YyPThj6teLe8g6+d6rMvhcWTxfVMQloS
-	 ORcR0dgobnc7hFlO7u6jNHQVlZqZntCwtN1jSMHLyhcdDiL7BJPZckkN8w/e5KOw7S
-	 AYOewTeY7+RqeYMGflywJjnCPfJTr39GHia0YifThRkXlx6JxzjIgmGFt8PsO6h1Y8
-	 /5PS4sRUpMh+l5AvaH4QEowNThKP4ErjP6/FkvC9w3rhdqYidqCC5bQDwk1/PtL6BD
-	 ZMNgxiYg1ewJg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Darong Lu <zzyy19904204639@163.com>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] libceph: initialize CRUSH choose argument weights
-Date: Wed, 11 Nov 2026 21:04:39 -0500
-Message-ID: <20261112020321.1302654-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052645-failed-6.12-c3a995ff0782@kernel.org>
-References: <20261107052645-failed-6.12-c3a995ff0782@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7FC606A330;
+	Thu, 12 Nov 2026 02:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF7FC606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
+Received: from ldzh.. (unknown [221.226.109.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dlzhangak@isoftstone.com)
+	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jQ3d11KKZz4S5H;
+	Thu, 12 Nov 2026 10:05:25 +0800 (CST)
+From: zhangdaolong <dlzhangak@isoftstone.com>
+To: Antti Palosaari <crope@iki.fi>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Valery Borovsky <vebohr@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+930e6201080a31e9d0c8@syzkaller.appspotmail.com,
+	stable@vger.kernel.org,
+	zhangdaolong <dlzhangak@isoftstone.com>
+Subject: [PATCH v2] media: msi2500: remove !dev->udev check in msi2500_buf_queue()
+Date: Thu, 12 Nov 2026 10:05:24 +0800
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <1794400162.6AF45FA1.000.4jPjWQ0vwVz4SJ0Ls@fangwg02>
+References: <1794400162.6AF45FA1.000.4jPjWQ0vwVz4SJ0Ls@fangwg02>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,41 +64,74 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TLS: YES
+X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
+X-SOURCE-IP: 221.226.109.28 unknown Thu, 12 Nov 2026 10:05:25 +0800
+X-FangMail-Miltered: at fangwg01 with ID 6AF51EE5.000 by FangMail milter!
+X-FangMail-Envelope: 1794449125/4jQ3d11KKZz4S5H/6AF51EE5.000/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
+X-FangMail-Bounce-Flag: 1794449125.6AF51EE5.000
+X-FangMail-Outinfo: 1794449125/6AF51EE5.000/4jQ3d11KKZz4S5H/dlzhangak@isoftstone.com/1
+X-CLEAN: YES
+Message-Id: <1794449127.6AF51EE5.000.4jQ3d11KKZz4S5H@fangwg01>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF51EE5.000/4jQ3d11KKZz4S5H
 
-From: Darong Lu <zzyy19904204639@163.com>
+When vb2_start_streaming() is invoked, it first passes all pre-queued
+buffers on q->queued_list to the driver via buf_queue() before setting
+q->start_streaming_called and invoking start_streaming(). If
+start_streaming() subsequently returns an error, videobuf2 requires all
+buffers passed to the driver to be returned with VB2_BUF_STATE_QUEUED
+and warns via WARN_ON(!list_empty(&q->done_list)) if any buffer was
+completed with VB2_BUF_STATE_ERROR or VB2_BUF_STATE_DONE.
 
-[ Upstream commit c3a995ff0782587789333c621e1f6bd5e574371e ]
+If the USB device disconnects before vb2_start_streaming() runs (for
+example when v4l2_read() races with msi2500_disconnect()), dev->udev is
+already NULL when vb2_start_streaming() enters. msi2500_buf_queue() sees
+!dev->udev and immediately completes each pre-queued buffer with
+VB2_BUF_STATE_ERROR (moving it onto q->done_list) instead of adding it
+to dev->queued_bufs. Right after that, msi2500_start_streaming() also
+sees !dev->udev and returns -ENODEV, triggering
+WARN_ON(!list_empty(&q->done_list)) in vb2_start_streaming().
 
-Initialize the CRUSH choose argument weight-set array before decoding so
-entries start in a defined state while the decoder fills them.
+The !dev->udev check in msi2500_buf_queue() is unnecessary: ioctls check
+video_is_registered() under vb_queue_lock while msi2500_disconnect()
+clears dev->udev and unregisters the video device under the same lock,
+and if v4l2_read() races with disconnect before acquiring vb_queue_lock,
+msi2500_start_streaming() immediately catches !dev->udev and returns all
+buffers on dev->queued_bufs with VB2_BUF_STATE_QUEUED. Remove the check
+from msi2500_buf_queue().
 
+Reported-by: syzbot+930e6201080a31e9d0c8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=930e6201080a31e9d0c8
+Fixes: 977e444f59ad ("[media] Mirics MSi3101 SDR Dongle driver")
 Cc: stable@vger.kernel.org
-Fixes: 5cf9c4a9959b ("libceph, crush: per-pool crush_choose_arg_map for crush_do_rule()")
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Darong Lu <zzyy19904204639@163.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ sashal: replaced kzalloc_objs() with kcalloc() using an explicit element size ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Suggested-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
 ---
- net/ceph/osdmap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v2:
+- Remove the !dev->udev check in msi2500_buf_queue() completely instead
+  of checking vb2_start_streaming_called() (Hans Verkuil).
 
-diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
-index 803514a1bc7ce..fdb8c398f5ecd 100644
---- a/net/ceph/osdmap.c
-+++ b/net/ceph/osdmap.c
-@@ -320,7 +320,7 @@ static int decode_choose_arg(void **p, void *end, struct crush_choose_arg *arg)
- 	if (arg->weight_set_size) {
- 		u32 i;
+ drivers/media/usb/msi2500/msi2500.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/drivers/media/usb/msi2500/msi2500.c b/drivers/media/usb/msi2500/msi2500.c
+index 282256ab812a..3382bb62541f 100644
+--- a/drivers/media/usb/msi2500/msi2500.c
++++ b/drivers/media/usb/msi2500/msi2500.c
+@@ -623,12 +623,6 @@ static void msi2500_buf_queue(struct vb2_buffer *vb)
+ 						     vb);
+ 	unsigned long flags;
  
--		arg->weight_set = kmalloc_array(arg->weight_set_size,
-+		arg->weight_set = kcalloc(arg->weight_set_size,
- 						sizeof(*arg->weight_set),
- 						GFP_NOIO);
- 		if (!arg->weight_set)
+-	/* Check the device has not disconnected between prep and queuing */
+-	if (unlikely(!dev->udev)) {
+-		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_ERROR);
+-		return;
+-	}
+-
+ 	spin_lock_irqsave(&dev->queued_bufs_lock, flags);
+ 	list_add_tail(&buf->list, &dev->queued_bufs);
+ 	spin_unlock_irqrestore(&dev->queued_bufs_lock, flags);
 -- 
-2.53.0
+2.48.1
 
