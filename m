@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794513575;
-	b=JDHz3vEDBfy6pIl/ycTLPGZf5Cc8vuSOCoHOVZpjOCPo8HCAlU+Qbu000YjJNPdoX6MK
-	 r+jokSVE2sA+H8shdcvft7aErWrDPW6zR0PUrMyy0qWgdCX3bZ94heOnEcIFXyIU5+lGs
-	 3ifcJyTj+1BIVVUoJQDHFRW1L5yNIAqmhyvm54HUQUpFFNArAjvbXUgyKCEViEWlHzbik
-	 0QDij3NLeFQhXCH+1kIcpsydSrf7CUYs5JXo6GUrvqkFxJ2TOd3G7FRLvrl+TJMUmtw+I
-	 h9+2YBPKuVvQFCzYANnrgZqKsdUY0y0yI+ZVHGxF5iTINrPxc/HuxXCZ8pTNU4D/6rg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794513575;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4Kc10Xqb88y+UN4MLScxbFOnSlsgrRMJBIMvFvtoC3M=;
-	b=IvttgT7GU59VvFru6ifmIip5vezC4u37ECaxuHStTfZdR/GGlG5P+L1yGrTjuYdQswLx
-	 P2ZY/9mbCCIhYF4PPhjokbS9ba2N3cYrFIPBCs7HCRfiFHp1+DWnncHVdS3CX8Oyklr4V
-	 uFH90KJr+ue3Gk9Z4AiFHHMv+u0pza66xOK37wBX+W12nuZ6xWlCOJkeMuBPbAOuu2woy
-	 wq0bwvMT9h5+fr4TlQqKiPQakRr6JNDTaSojJF0FL/d2g2060h+WYqdnQ9voNP01GTKmp
-	 2Wat4Hj5ioflNnXuo4lxkr3ChPc6DCIOpV9rI5QEE5LEzkUcGkKkkjvU49EOW129qmw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0o4dC13;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794513815;
+	b=0pyZ0m0tElvXnPiG76ao0Hh56m9C2Zzpf9FI5a7llpPkn3YQtnzPyYdQsuGHJYDr4WoS
+	 kqbIWNR67vzymZ1gmSAACbKpNWfDxcyss/msUJuuPpvTj7bzBmZ7IZ1x7QQhwqTaD4gAz
+	 ocgRs/wuieXI2DHqJunrzhKKWNyqHUAoKcOqhGIEIMjy7+H6rq/uo1s0jx1tDoDr+g0bp
+	 aqf3tmq89Iutx7pO1/K46A1/WADFnC5VJYVj3AHoINcwPJdclBNn2pgZHfs971MjC6C7z
+	 5Mn4Q7d1Gnqg30+4twUy8Sh3RCLdAPj+ThF/ufp1RN9nM949okcb0H3QK3QR9PAEEsg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513815;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=0E3W616PIIwYgmjnft8Gf472v/DbdmSZ1OX5fDFqHR4=;
+	b=avqk/ZrWK5gzlJe+BYwgD+YgTzPdWjUtNvLgD5sEWaDbXfQj5D15KWj0xYfCMyX3QnA+
+	 uWughzESaCiE7YHdFjk5/ttUZNmnIlINmAXoH7HcDTfWVkrdpq9tcyCuB0ZTy83wddWGY
+	 z+WDsOHJCkOFam9FLykN6TPjCNlFyWZKTpHXKFRSsK+1HIlCo+HiwfMKn9bR94uJXisR/
+	 5Sqd64k/rvIr9o1YsB1yFcYdLHHK2gaBTtGkHxADye28YUkxNycgHZOFCkbJkiHkT2lDR
+	 v7L3W9gQJMr+GHU/8xxP7FQ3X/Ej1zjNrSq72+mPfWmKUqs6ebKTGL4vzTr/LSXMleA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eldare.de;
+	spf=pass smtp.mailfrom=eldare.de;
+	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=C80fJPC6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
+Received: from mail-200170.simplelogin.co (mail-200170.simplelogin.co [176.119.200.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5158606A333
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 19:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0767606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:03:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0767606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0o4dC13
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72881F000C4;
-	Thu, 12 Nov 2026 19:59:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794513574;
-	bh=4Kc10Xqb88y+UN4MLScxbFOnSlsgrRMJBIMvFvtoC3M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V0o4dC13Dhz3rHEZe01FM3l6k2qMHrpDt0yaiXmInCt26OIb3h0rR7iui4OWMIEs2
-	 WcXS5xSnmLo1GYslE2SjQ9C512gP8weaF8+qv7soBL+V72NSVgmv/xFLZAqu6z9U7h
-	 bnp+bGAWDrC4uXKsehfQrn70jsiizAQTO1eKUithLbW/IUnexDv2P1b1iSTzvYF3Fv
-	 mWY2heELKaX/xVO7NkLLIEcjnfZsMDDzZ5UlpAilGXZUcbgplBzIYYXdn3VF6Un+vi
-	 c30bQpPWRlIgBLFFazhLSb2Ob18by34IIHsY9kaP3BldNT59Hz36j63jxGfAfY8wIN
-	 eKz9GPmqKe1Og==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/mremap: recheck PUDs under the page table lock
-Date: Thu, 12 Nov 2026 14:59:32 -0500
-Message-ID: <20261112195747.3385807-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201344-failed-6.6-402882943dfa@kernel.org>
-References: <20261109201344-failed-6.6-402882943dfa@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=C80fJPC6
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1794513813;
+	cv=none; b=VWsLIO5ZDFdFMSexR1WD0s2jyF5Ecg6aJ7egPZC5KX01jpZdaOM71xq/CWCAJKtAu4XjvqAbrOYrlEC5HOmQIXPQfHNb5cPTzcRO6cnvSDYCPxlfJ8TEp5GdssBeYJ9GfBh+ChZtDGLUT0g3Aryi7uDUkmzGVOi9kTxcM5HJEyFvMSmrR1IkD5H99LXhwW7rqcobNHbV2Ajgsj/9HwEzVVY+CcZRjUF89ICmilkPOukE3YVjZeIZxqFzMqjLXCmQKpRry5+Xy1VBL8C1nBXFXacJzjTRYDVOYYOzS+V+eqt/g60XjDAjH7G3byWQrhjyKLXjjWP4qLi7WPrQe/l/3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1794513813; c=relaxed/simple;
+	bh=0wc9Z/4W6CTXSp1rTTaxIG30rifzfPuvCw+aRoc0wpE=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=NENS0VfnzmH5V90SmV+FD/CZVcM+m4aEp6WZtCNDPq83O0VXEXXL29H5035TNVr2Yzi09OA6BzFce2Af5FXKAzCSCqxZm2E2Qr+DvXC0Bc1N2oGoQOWcDu/b7JNKaG8vTkreYvYNT1L30l6owqNdT7ZOcwF66koOksuf+pXKKCYLOiN8JPnj/gCseqogWhUD4avWRioAIYv9FNyyn1GBpMCG+ACd3sVJgcVfG5z94zFpCkHoSSZn4bT3qCpiMTNhz0zV7CuQGjz+PNp7zYc9Qa7mIOnnkGqGZkVesvlhQPGpXSq6BrSmp4GwKqsgqg8x5Q5Qwr1lpBSVPBCYD851jw==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
+	t=1794513813;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0E3W616PIIwYgmjnft8Gf472v/DbdmSZ1OX5fDFqHR4=;
+	b=C80fJPC6c82t8kBWD1d1BIAZlIX8ADI7iFadx9fa7XQeUBpqdd0ZEPR2PATr9dBXbB6QB8
+	R78HVgSdpPUBG9gH2eCQtzA/ZlUTPoqX5wRQVlIWlciSmDGVeKyHob8PosYa7wzKyZ6yv5
+	uB0ewh3FaDmO2uYttqH0U4Ecn8/uGWk=
+Date: Thu, 12 Nov 2026 20:03:22 +0000
+Subject: Re: [PATCH net v5] vsock/bpf: release sock lock while waiting for
+ data in recvmsg
+In-Reply-To: <179447093204.2199510.8895677421994612994@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,81 +64,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: jrmmhm.kernel@eldare.de
+To: netdev-bot+sashiko@kernel.org
+Cc: Stefano Garzarella <sgarzare@redhat.com>,Bobby Eshleman
+ <bobbyeshleman@meta.com>,"David S. Miller" <davem@davemloft.net>,Eric Dumazet
+ <edumazet@kernel.org>,Jakub Kicinski <kuba@kernel.org>,Paolo Abeni
+ <pabeni@redhat.com>,Simon Horman <horms@kernel.org>,"Michael S. Tsirkin"
+ <mst@redhat.com>,Alexei Starovoitov <ast@kernel.org>,Michal Luczaj
+ <mhal@rbox.co>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
+Message-ID: <179451381226.6.3359410033921765387.1767782037@eldare.de>
+References: <20261109-kbh3-1-022-fix-v2-v5-1-4d9af04f0fad@eldare.de>
+ <179447093204.2199510.8895677421994612994@kernel.org>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1767782070
+X-SimpleLogin-Want-Signing: yes
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+On Thu, Nov 12, 2026 at 08:08:52AM +0000, netdev-bot+sashiko@kernel.org wro=
+te:
+>> -static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock=
+, long timeo)
+>> +/* __vsock_recvmsg() doesn't wait in these states and knows what to ret=
+urn. */
+>> +static bool vsock_rx_done(struct sock *sk)
+>
+>[Severity: Low]
+>Does this comment hold for the sk_err case after a transport reset?
+[ ... ]
+>The wait loop stops on sk_err, but the code it hands off to can't
+>report that error. Could the wait path return the pending error the
+>way the native path does? If not, could the comment be reworded to
+>cover this case?
 
-[ Upstream commit 402882943dfa8bab5c2bcc66189f9fb2828f248e ]
+I reworded the comment and kept -ENOTCONN, which the commit
+message already notes. Returning the pending error from the wait would
+bring back the copy of the native return values that Alexei asked me
+to drop in v4.
 
-Once get_old_pud() is fixed to accept PUD leaves, unmap_mapping_range() can
-clear a leaf between the lookup and the move. Holding mmap_lock in write
-mode does not prevent this.
+>> +    while (!vsock_has_data(sk, psock) && !vsock_rx_done(sk)) {
+>> +        if (!timeo) {
+>> +            ret =3D -EAGAIN;
+>> +            break;
+>> +        }
+>> +        if (signal_pending(current)) {
+>> +            ret =3D sock_intr_errno(timeo);
+>> +            break;
+>> +        }
+>
+>[Severity: Low]
+>What happens when the timeout and a signal land in the same wakeup?
+[ ... ]
+>Would checking signal_pending() right after wait_woken() returns, as
+>the native loop does, make this match?
 
-If the zap happens before move_page_tables() tests the entry, an empty
-PUD can reach move_normal_pud(), where pud_populate() turns it into a
-present page table entry. If it happens after the test, move_huge_pud()
-can instead try to move an empty entry, triggering CONFIG_DEBUG_VM
-warnings on powerpc.
+I'm leaving this one as is: it only changes which error a reader gets
+when the timeout and a signal land in the same wakeup, and I don't
+think that is worth another change to the loop in this patch.
 
-Recheck the source under the page table lock in both helpers. Treat an
-empty source in move_normal_pud() as a completed move, and use
-__pud_trans_huge_lock() in move_huge_pud().
+>> +        release_sock(sk);
+>> +        timeo =3D wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+>> +        lock_sock(sk);
+>>      }
+>
+>[Severity: Medium]
+>Now that the lock is dropped around wait_woken(), can vsk->transport
+>be NULL when the loop condition is checked again?
+[ ... ]
+>Before this patch, the lock was held for the whole wait on the BPF
+>path, so this interleaving could not happen there. Would checking
+>vsock_rx_done() or !vsk->transport before vsock_has_data() in the loop
+>condition avoid the warning?
 
-In the future we should likely have the code lookup a PUD/PMD lockless
-once, instead of multiple times, because one of the problematic bits
-here is the:
+I haven't reproduced this, but the code agrees with it: v6 will check
+vsk->transport first in the wait loop, so a reader woken after its
+transport is gone no longer calls vsock_has_data(). The entry
+WARN_ON_ONCE() in vsock_bpf_recvmsg() stays as it is, so a later recv()
+on such a socket still reaches it, as it does on net today.
 
-	pud_trans_huge(*old_pud)
+pw-bot: cr
 
-Fixes: 0881ace292b6 ("mm/mremap: use pmd/pud_poplulate to update page table entries")
-Cc: stable@vger.kernel.org
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-31-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adjusted context for move functions using explicit vma and old_addr parameters instead of pagetable_move_control ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/mremap.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 0739a31b54eed..be6b4aab93bd2 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -363,14 +363,18 @@ static bool move_normal_pud(struct vm_area_struct *vma, unsigned long old_addr,
- 	if (new_ptl != old_ptl)
- 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
- 
--	/* Clear the pud */
- 	pud = *old_pud;
-+	if (unlikely(pud_none(pud)))
-+		goto out_unlock;
-+
-+	/* Clear the pud */
- 	pud_clear(old_pud);
- 
- 	VM_BUG_ON(!pud_none(*new_pud));
- 
- 	pud_populate(mm, new_pud, pud_pgtable(pud));
- 	flush_tlb_range(vma, old_addr, old_addr + PUD_SIZE);
-+out_unlock:
- 	if (new_ptl != old_ptl)
- 		spin_unlock(new_ptl);
- 	spin_unlock(old_ptl);
-@@ -405,7 +409,9 @@ static bool move_huge_pud(struct vm_area_struct *vma, unsigned long old_addr,
- 	 * We don't have to worry about the ordering of src and dst
- 	 * ptlocks because exclusive mmap_lock prevents deadlock.
- 	 */
--	old_ptl = pud_lock(vma->vm_mm, old_pud);
-+	old_ptl = __pud_trans_huge_lock(old_pud, vma);
-+	if (unlikely(!old_ptl))
-+		return false;
- 	new_ptl = pud_lockptr(mm, new_pud);
- 	if (new_ptl != old_ptl)
- 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
--- 
-2.53.0
+Jerome
 
