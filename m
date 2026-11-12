@@ -1,66 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492085;
-	b=eev8s+0yZyLR3NcEfkewzuWKDapL4auoRpqwtvel5G8Pxd955+9TgF1e6rCr72MekcXf
-	 5mnvqGsCrIJgl8MsYU4A9gfynuubRHg6cp0BAXmVDh9BkQ9DwWp51CsycWVlHi8R8QjTo
-	 6fSH/pWNGk2vhLY8d2q4uKZPjarnjrTycvu2ogCybKcsKTynM0C8LQOb4gp3aK+vXjxGy
-	 H+q9P3vikeaQHhEsurmrGgc6gfleuwR9GEqKVmdz7ZcbKddD5+MunWSRA+VzdObBjPtP+
-	 E1FOVcUrcYA8/InUxWAk7Ga2HolYhvweK6U9p/8I9Cuy0FL0EGVYI718I544xXJDPDA==
+	t=1794492089;
+	b=vx9PEQ/2g5JeoZqIGC+OAN7me49BlCxrAIzUfly8U8G0ptAdQyn3TyRFtp9TJiI4cAHN
+	 znj/An2/+12k7jGj3NErnTQctF9B+LdFAiXnKh6V/Nd2dzm6/MRVSkG6JuP6NEVhUMQHk
+	 HcHlhYl96I7XDZDyiKd9luNCAYfHPeKbklHl7WSHhQMq8YkbndSiCVjbugOxPvtt+mk6x
+	 tTVwU5Q8WbANxoBtkt3Ka/QAvCWz/23+XSwvBHqDOQ0XbN4grzW1abYpjF7nk0UyrJHU9
+	 7+uq8NJZ+3vLJ0R9ynkFGGHHISnRHLwlEGJs1RnbkZq/JJTvCyXBN6gLpV3LLNim0Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492085;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492089;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=LOCwwsQ3nFCCuQn+92JBgFqZgHp6qjYKUsnX5/E4g/c=;
-	b=xk7Fm1XoXqQsQUNZKXxb4tX4+XVVqkKRdj/R2Zn22obVA/KEheCNJ8cITqplBv/sJzjU
-	 vKVz4che6jGiO7dl8ROChJGxp7FAPjxVqU4s0G+zFISimpS0f8fyv7eQzfzOLSMSjWA+x
-	 J78++IsGsLNRjBEBCiV4ZuSU4pWutAvv/bhcH0UEAEdXt3DzBJns+8iwA38uDYlookYPg
-	 kSpAjkZx8Zt8dd8IwMAEOzsji98RL0jzJ6IwG7ijrGwcwS1FIVO+Q+Q1CbpCwnhMgDmU0
-	 vtVv1sz1iMS5FmN8f6Xqj4Jop/4ekLU+KOWD1f6PZGUYOF3Ipyme04JzWDebzNXOy5w==
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=qSrrxlXSrvDW1CQp8qkLH5sycAw35jCLbIKk24p0C9E=;
+	b=e+GP5cXYWbRHV0jbi8MqhkVdbMxH4XHtRKH2jgZVeb0k4IyIiLOA6kSVIm9IQunQHMPV
+	 YghJbcfOjr5Mg+TCXL5eDogA7+LevCbij1i+LrBbTgu7RgC46CLe03ZOkXELQ30vpuP4F
+	 uCYVztk67GJmWWGVom6lLmo+DLJ0hSEgpp5oRjKEzjCmJ4c++M7Y5f9u6yU04DwRfE1hL
+	 wV0xiXnNQz2IMO8nGgFfvq5Ye51pyL2OgsdNPzVW2CyvtA10TvqcCbIjCpVGnYbUje/C4
+	 DcahLwz40d+T6PEkJVDOFHeu2Z4YS0XQ2TvZJg9OlQdTj3qmezlbeQuWgN2traZaoeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=r245EHki;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Fkciihrv;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3855360A382C;
-	Thu, 12 Nov 2026 14:01:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3855360A382C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9344960A5BD7;
+	Thu, 12 Nov 2026 14:01:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9344960A5BD7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=r245EHki
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Fkciihrv
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jQMW22Yfyz58fdJ;
-	Thu, 12 Nov 2026 22:01:18 +0800 (CST)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQMWC15kQz8XrrM;
+	Thu, 12 Nov 2026 22:01:27 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794492078;
-	bh=ABaa6UwTzHtZeufAAFYzwS4SgHiNV500JXrr9ADhf5U=;
-	h=Date:From:To:Cc:Subject;
-	b=r245EHkiNALuAH9Q2pF4Kh8g6LMGCQ7BNNIx7PViaZKYoGklD3pKmCj7HTq2cWPf0
-	 lWJEUsbyggxe4pbDBnU8r5IOg/gi+76byJsH3zOAv9QZqPtYbMpfIwQBdHxhQHoEvl
-	 hJVJF3YZmHNcT4XjRsUphKEpLpQ+GGMqKjTwzD2LO8XaOipGjsLl1BLMmiSMJZ11Hx
-	 9KhLa7QrlRydG8IIL2p99y6mMbXcIF4tOEKPNkbYz4hwYRfi8wC/Xu8XqUHiJWPYjn
-	 OAvBL7kPqYy/Ia0hJz+9mutVPnwIbK6p2qbcfT0DIe586u5vRy7gfjl8YxnzMNqHjj
-	 LHj7Vty31k3aQ==
+	s=z202610; t=1794492087;
+	bh=9Kon7OtLP1/pYdGeNko2YWUcoBpKki3aQ1pnmPC37DI=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=Fkciihrvo/GuHkhLd12h013O7MAibcfyai9XW55MnVCvDjNm7VFJoX9v3ECUiGdQZ
+	 RVt7uN6syUcvcv9llVXf5i539ml7O5x/+9NgHnKI8ETH43pgxldHVthYKp71KHPgC1
+	 5TTevOI0QYXIW90lH+JhZ9V4e5C171oje8AoinJ2C0ABjTs0wEW0pFjLR6qqWcjKv7
+	 Zw/dpXD4VV1fUeMqZ3vLkMtKx3u+Whfh/U6oUVpDmipRR+dIHRMbiezi1oWm6gIXZo
+	 8c5+V3y7J2NythSkztqosoVIekXxDiiHCKlgk3jNrzSJeBGH/NUHyxSfVlCMAJVB67
+	 wYX+wYWlUhqjg==
 Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl2.zte.com.cn with SMTP id 6ACE1AkP036927;
-	Thu, 12 Nov 2026 22:01:10 +0800 (+08)
+	by mse-fl1.zte.com.cn with SMTP id 6ACE1GuG045392;
+	Thu, 12 Nov 2026 22:01:16 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
+Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Thu, 12 Nov 2026 22:01:13 +0800 (CST)
-X-Zmail-TransId: 2af96af5c6a92b2-cfa35
+	Thu, 12 Nov 2026 22:01:20 +0800 (CST)
+X-Zmail-TransId: 2afb6af5c6b0b24-d52a2
 X-Mailer: Zmail v1.0
-Message-ID: <20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn>
-Date: Thu, 12 Nov 2026 22:01:13 +0800 (CST)
+Message-ID: <20261112220120113cXLhRk6iDVvhfgGPoZ5vJ@zte.com.cn>
+In-Reply-To: <20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn>
+References: 20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn
+Date: Thu, 12 Nov 2026 22:01:20 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,45 +76,102 @@ Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
 To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYzIDAvNF0gYXRhOiBsaWJhdGEtc2NzaTogZml4IEFUQSBQQVNTLVRIUk9VR0goMzIpIGhhbmRsaW5n?=
+Subject: =?UTF-8?B?W1BBVENIIHYzIDEvNF0gYXRhOiBsaWJhdGEtc2NzaTogcmVqZWN0IHJlc2VydmVkIGJpdHMgaW4gMzItYnl0ZSBwYXNzdGhydQ==?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ACE1AkP036927
+X-MAIL:mse-fl1.zte.com.cn 6ACE1GuG045392
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Thu, 12 Nov 2026 22:01:18 +0800
+X-SOURCE-IP: 10.5.228.132 unknown Thu, 12 Nov 2026 22:01:27 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF5C6AE.000/4jQMW22Yfyz58fdJ
+X-Fangmail-MID-QID: 6AF5C6B7.000/4jQMWC15kQz8XrrM
 
-ATA PASS-THROUGH(32) still has translation and completion paths that
-interpret fields as if the command used a 12- or 16-byte CDB.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Patch 1 rejects nonzero reserved CONTROL bits, skips the nonexistent
-MULTIPLE_COUNT comparison and corrects the
-invalid-PROTOCOL field pointer. Patch 2 rejects unsupported service
-actions with sense data. Patch 3 honors CK_COND and generates SAT sense
-on completion. Patch 4 corrects the remaining invalid-field pointers,
-including distinguishing READ/WRITE LONG protocol and count errors.
-The four patches can be applied independently; the numbered order groups
-the related translation fixes together.
+ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Byte 1 is CONTROL,
+and bits 7:5 are reserved or obsolete. Interpreting these bits as a
+multiple count can issue spurious count mismatch warnings for multiple
+commands instead of rejecting the invalid CDB.
 
-Changes in v3 (Damien Le Moal):
-- Patch 1: reject nonzero byte 1 bits 7:5 for ATA-32 with field pointer
-  1; retain the device multiple-mode and 12-/16-byte count checks.
-  Update its subject, commit message and CONTROL-byte tests.
-- Patches 2-4: code unchanged. Patches 2 and 3 keep Damien's
-  Reviewed-by tag; patch 4 gains the tag from his v2 review.
-Link to v2: https://lore.kernel.org/all/20261111223123952mgPDVsbO8uOyaDWL2KELB@zte.com.cn/
+Reject nonzero byte 1 bits 7:5 with field pointer 1. Skip the CDB count
+comparison for the 32-byte form while retaining the device multiple-mode
+check. Also point to byte 10 for invalid PROTOCOL. The 12- and 16-byte
+MULTIPLE_COUNT checks remain unchanged.
 
-Shao Mingyin (4):
-  ata: libata-scsi: reject reserved bits in 32-byte passthru
-  ata: libata-scsi: reject unsupported ATA-32 service actions
-  ata: libata-scsi: generate SAT sense data for ATA PASS-THROUGH(32)
-  ata: libata-scsi: fix remaining passthru field pointers
-
- drivers/ata/libata-scsi.c | 64 ++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 46 insertions(+), 18 deletions(-)
-
+Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
+Suggested-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+Changes in v3 (Damien Le Moal):
+- Reject nonzero reserved/obsolete bits 7:5 of byte 1 with fp=1.
+- Retain the short-CDB count and device multiple-mode checks.
+- Update the subject, description and CONTROL-byte test expectations.
+v2: https://lore.kernel.org/all/20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn/
+
+Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiles
+ata_scsi_pass_thru() verbatim with SCSI/device stubs. All 256 CONTROL
+values are checked for both non-multiple and multiple commands. Nonzero
+bits 7:5 are rejected with field pointer 1; values with those bits clear
+are accepted without count warnings. The device multiple-mode check and
+12-/16-byte count checks still pass. Field pointers are observed helper
+arguments; sense construction and device access use stubs.
+
+ drivers/ata/libata-scsi.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index a61fb03312793ca94d81d8061a16c66e786c4cf3..0bc147cf4c0fa50c7d5b84029b7fb1a548c6f1a3 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -3388,7 +3388,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 
+ 	tf->protocol = ata_scsi_map_proto(cdb[1 + cdb_offset]);
+ 	if (tf->protocol == ATA_PROT_UNKNOWN) {
+-		fp = 1;
++		fp = 1 + cdb_offset;
+ 		goto invalid_fld;
+ 	}
+ 
+@@ -3573,27 +3573,32 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 		goto invalid_fld;
+ 	}
+ 
+-	/* sanity check for pio multi commands */
++	/* Sanity check for pio multi commands (not supported with ATA 32). */
++	if (cdb[0] == VARIABLE_LENGTH_CMD && (cdb[1] & 0xe0)) {
++		fp = 1;
++		goto invalid_fld;
++	}
++
+ 	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
+ 		fp = 1;
+ 		goto invalid_fld;
+ 	}
+ 
+ 	if (is_multi_taskfile(tf)) {
+-		unsigned int multi_count = 1 << (cdb[1] >> 5);
+-
+ 		if (!dev->multi_count) {
+ 			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
+ 					   NO_ADDITIONAL_SENSE_INFORMATION);
+ 			return 1;
+ 		}
+ 
+-		/* compare the passed through multi_count
+-		 * with the cached multi_count of libata
+-		 */
+-		if (multi_count != dev->multi_count)
+-			ata_dev_warn(dev, "invalid multi_count %u ignored\n",
+-				     multi_count);
++		if (cdb[0] != VARIABLE_LENGTH_CMD) {
++			unsigned int multi_count = 1 << (cdb[1] >> 5);
++
++			/* Compare with the cached multiple count of libata. */
++			if (multi_count != dev->multi_count)
++				ata_dev_warn(dev, "invalid multi_count %u ignored\n",
++					     multi_count);
++		}
+ 	}
+ 
+ 	/*
