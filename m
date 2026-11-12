@@ -1,58 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794504918;
-	b=iRpLOton4lTRIClBLZfRc2s4m0rHZBd80k9r3Z47415FsCLh4v9skxWZY5taiNJyOKbH
-	 1rmrIQCuteXB2GWt4G1eK4HmqaGyyb1q5xLwDxjT+QgfUtS3f0deOCKLcYctrR1gR5gW3
-	 y8KSI07OoDpcjpStIonpWTyzCl/b/W1avlom2bEy0ddQNFVLgqpAVHBYQ/UAoYSGlNZ21
-	 hmeSDdLsnHEiMYSYpWLJzlllhV1Q59JvAkBS2nsOg4ESJDpMl1MZnyF76UqV7ysp6/im4
-	 o8ZNMwaLqJWnaEt+R+FCkY9j3XsrUeh+CW3bai0cK2SuT65mr7AP09KoEHPWzMBm2ZQ==
+	t=1794504929;
+	b=xggAfjjS6ypUCWF2urub2gjXq6PaDrQ6m+usXsBXPh4yhe1SjAZPEYQKU68sZgOYc3N/
+	 ZlzpsKD+iz4DkLgcbhX6GC6GctizKqmz9PtsP4BO8W7KyovIIgAg8l/0NgynMLKoynCjU
+	 dDW3pI+d1ZKe7PETHrjYjjkRuld1qZtR46rTpU3XuPe3hBAa+vYXK0yFT8m3bbKJK5m0Y
+	 XRXTqOd/WJGRqzXl6OZTfZJrB2JdF1D+ZL1UQRVF7NWTmGXJx7b2lvCAK5xkoD/SPX7RW
+	 2rLRPP5lD/KV5FbUfWrhisbGIlqpnN/p/7TFU24BPH6a/mgJ0lVnvkHzovLTgnusLNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504918;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=U5KzOs4vVOy/F41dp1huMUYqU9c7yYMjxRBQ4Fr2j4g=;
-	b=te4f55DjM5MV+eHo86i9+brwpfG+HhzJtf5HqYg1xQcYd5IO4O1jxn3NYh0dc8HEmgux
-	 7SZBV1GwakO2BqZS41XKK/9AK96yYtS/57RzjTWl3twBb+EwgwVFJaejU3n0d+21XhmQZ
-	 Q0yatIyUbuHKrQsFtYPEbXPglKFiXspVIMr9ywDAIFSBK0u0K7CDB70zKhTcFjTNHqLMc
-	 54wyCB6297J26DX/NOaoluXWIo94E5IaL70I/NttWLQUJln17P/35HUoQCoMzfTGHzkdy
-	 Qs2uSfz4ttJR9ahojliubyr7FNRlMfR7j4JkjTToOo/nSpInasmOY0Et7GNZtR2f+Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504929;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=wY/udgzoTMSU7LblXILhhflOgeGfM9mMJ7q98JCWr+4=;
+	b=2drcb2WPPxwOo4Wbw5fW6bvwqKrOcrPMalmwkNEZP625uf0t0X8b5oH55wbSA1qmkXta
+	 XaXFi5+QyMhIgN5fkgnOddPQE0I+aURcZfYgAc335AwpKHMMGU2Y9TGOoWBUsYzkRH+85
+	 3jpA5vHNvikAieQTzVTORtfJd2qaPiqvE/yudeyYrxN6aFRXxDWCy00hETtWznahigc0X
+	 zW9LOZ10okB8qRy0drdFl7YK9b3EFe1eLLc9w8RRbD1e9KS3mQX+4UNtjYwNBq4jZpeUu
+	 W1yrMCbZgVSomDz29/d4um8V0ueDpuqej4DbipZa3sXvuea/2bLkYYGObSWoS7JFdRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epIJABk3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=oEs3dmHr;
+	arc=none smtp.remote-ip=209.85.160.178
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEF5606A337
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:35:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F756606A33B
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:35:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F756606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epIJABk3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0B7F1F000C5;
-	Thu, 12 Nov 2026 17:35:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504918;
-	bh=U5KzOs4vVOy/F41dp1huMUYqU9c7yYMjxRBQ4Fr2j4g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=epIJABk3Z727KQKajBEayrHVpSB5GTc7r7WHQ3M7JlMTBdoAOP+6Dewxz33jaMmrC
-	 h0sjlRkZwSHInAFGr5llmZKtSIfl9Dwc+NbpU9qps05QBqL7/cGnUYIWi0xefOMmZS
-	 G4RWyWvwvHBhSeznlB6r+tJtdwtkOsACOU4cjiy37zWj6s4OheFlflhdNSEs1apmDQ
-	 65Akxf4UjGqOU+bpo3NgCTVLZxXxz7CBU4oWyc3UvrRd6lN7Czn+Vl+RgrVoPi0H55
-	 fAnRSVnHOUydl2c3al/HigYekmavqkXQ2CUqi7AF/UQN9HGOz0LjBC688kZdaUWSzF
-	 bSIJNDsoHSoiA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Sashiko <sashiko-bot@kernel.org>,
-	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] hwmon: (coretemp) Fix 32-bit jiffies wraparound in show_temp()
-Date: Thu, 12 Nov 2026 12:35:16 -0500
-Message-ID: <20261112173506.3075837-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112173506.3075837-1-sashal@kernel.org>
-References: <20261109200125-failed-7.3-9a6aa085c94c@kernel.org>
- <20261112173506.3075837-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=oEs3dmHr
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53664b4860bso44105281cf.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:35:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794504927; x=1795109727; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wY/udgzoTMSU7LblXILhhflOgeGfM9mMJ7q98JCWr+4=;
+        b=oEs3dmHrtbo3BJbfZOVEDyiKo84vSz7vME9GeiDQFoQ1j5oKIGWHaLXsA6of593DNi
+         LSHuyxe114XTXGNJ1/Y5jCpkW7+pNUmCsJP3ME/2E1iS7aiNUDAMlZgu5frzBx4YzlN7
+         LGU9QrbJB4CDwX/JJQi4yBuDTXoPz+0pNuVnbBxJS3Y+zSavZNYfRzlE+02u6FSxVCfG
+         5AiyrOfkTxftBPH1gDgLAc4621TOLHFN0EDyYtoQh9nuWdC5b80BG3E4rlAu0JFVdD6S
+         Ac+AVCNswFwIvFTGkOL2F1V2xffk16MtyAElYxcTnz4eLh5PrNNOOrZ9e4Pi0Z2PEMrd
+         fzXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794504927; x=1795109727;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wY/udgzoTMSU7LblXILhhflOgeGfM9mMJ7q98JCWr+4=;
+        b=SCC7MuiXz313geOg0QvTbGshF3omRXCqL1GSIxQkXkJKOVQ2VYmrjGZckGmm5lsSC6
+         59+YSjT8pxat57ugtc54bhOmWWatVHYlADaEZYaxf+EckBjRYMM9ekoaM20h2aR48PrG
+         vOCP1VbLB88vwsbvAHR/zMaJmxD35P4/YtqXWwymbkc7YCvh8yJDFqCe60GWqkUvyn6e
+         TCmnvewpjpx6JCP15CP48CRXRDC2GlVIgEELSW3xC+vQ15qZULwERRxqhfCVK+nD2fsr
+         +TpgwdzJ/iRKMAi1J2y/Y/3Giz9EgvU/i5niNuei1QzHIfOgddOhsUIi2u5EZ3hvw9gh
+         iFrg==
+X-Forwarded-Encrypted: i=1; AL+hErFEUhyKxcJKROXClorvMgjuXyPh0zOQ+Z5D2Tvdl8F6yUTPlLpkXNMygdOLoe8mRYzGJxbh00k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xkzApHGsHYelWr7UiYfptuFp+94m45MmLyG5MjFPxVLOg2q4J
+	4D3VXJwgGdSF5pmxrH0XbBDIIaSXD5xdXwV9zpALDHOUdwdhPP5uK8vwtO9TC/O9Nrw=
+X-Gm-Gg: AYBFou3TekBCRY2o4vxrsMbDv6hST47n4W+T49Nt982lZ60ADyv5h0Sh+Ih0sLbZ/EL
+	m7CN/fRo7dT1TlrjC3lP7ZT7s+w4jDJyfqzMAS2obwu5P5Lw5ICZsOFIhbNr3gUTfi/0mXAdpmC
+	WNuiD2Ir3FEUclI+MPQ48h7R9p9qDf/A3UO9L2VR2w1Vj0KS/VPyMHb0Tp5ET3ZusMWahzT8EdS
+	QKtM1c4onATpTqksXwOpRRJPksvgm+bZLuEY20T7wnECpR1lkt69L106nDluq6ODOLfVgLKHNpG
+	wVZ3UtE6XiJrCkTC/5q1LkvCAthq2ieo7JiJK/XZd1Vr4OA+48q784per9k4VslnMWChQE5oGqI
+	HIBCaJ1vmPQB88Ut3EkVHiiFoxqpyBftlnT2SSgztI7D1JW3akk5kxUMBJ+cE+HOu/NyruxfXLC
+	k/5xmcU9/q4gs43d5cKooltiOgA/Q3/naJXZo0yly/rmXDma/uXvy3CfZFtVU0MQBfXucVowyH7
+	RLrvB3Ah86/f9pS2Pn0rzeTtkxVl8q9GxZNqapp6mpHMnGvKodVlpwGtP2MRwnCM+oc4fh5EZGO
+	J04QpretOoCKQcGioZ/A/kGotrAdjICX6QlwyCnanMMLIKu5qeEtBWPRyL38eryuEWJQDE/KLAk
+	qMSMwAL4=
+X-Received: by 2002:ac8:5a0f:0:b0:535:a5f9:752c with SMTP id d75a77b69052e-55ac95894d0mr1164321cf.75.1794504927563;
+        Thu, 12 Nov 2026 09:35:27 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d5e579sm847456d6.17.2026.11.12.09.35.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:35:25 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,86 +89,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 07/13] mm/migrate_device: look up fault folio after a
+ split
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-7-3d2454362e8d@kernel.org>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-7-3d2454362e8d@kernel.org>
+Date: Thu, 12 Nov 2026 12:35:23 -0500
+Message-Id: <179450492332.482102.8905567682196853763.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-From: Guenter Roeck <linux@roeck-us.net>
+On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> migrate_vma_collect_pmd() looks up the folio of migrate->fault_page once,
+> when it is entered, at which point the folio is locked.
+> 
+> The fault folio is assumed not to change after this, however if
+> migrate_vma_split_folio() splits a PTE-mapped large folio which contains
+> the fault page, the fault page ends up in a different folio.
+> 
+> Resolve the issue by looking up fault_folio again after each restart of the
+> walk.
+> 
+> Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ ljs: pared down commit message ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-[ Upstream commit 9a6aa085c94c7f2817c4d50a7264e6fb51286f40 ]
+Was able to reproduce this, and i think this also reveals (and fixes)
+another bug in Nouveau (memory leak).  I think the Nouveau driver still
+needs a patch, but this otherwise looks correct.
 
-show_temp() rate-limits MSR reads by storing tdata->last_updated as an
-unsigned long and comparing it against jiffies using
-time_after(jiffies, tdata->last_updated + HZ).
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 
-time_after() relies on signed long subtraction, which only produces the
-expected result while the two timestamps are within LONG_MAX jiffies of
-each other. On 32-bit kernels, if tempX_input is not read for more than
-LONG_MAX jiffies (~24.85 days at HZ=1000), the signed difference flips
-sign and time_after() evaluates to false. Because tdata->last_updated is
-only refreshed when time_after() succeeds, subsequent reads remain
-blocked from refreshing for another ~24.85 days until jiffies wraps
-past tdata->last_updated + HZ again, returning either a stale cached
-temperature or -ENODATA if the sensor had never been read since
-initialization.
-
-Store tdata->last_updated as a u64 and use get_jiffies_64() with
-time_after64(), which does not wrap in any practical uptime.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: bebe467823c0 ("hwmon: New coretemp driver")
-Cc: stable@vger.kernel.org
-Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hwmon/coretemp.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-index 7fced0e2abeba..96d57fe12de6d 100644
---- a/drivers/hwmon/coretemp.c
-+++ b/drivers/hwmon/coretemp.c
-@@ -76,7 +76,7 @@ struct temp_data {
- 	int temp;
- 	bool temp_valid;
- 	int tjmax;
--	unsigned long last_updated;
-+	u64 last_updated;
- 	unsigned int cpu;
- 	int index;
- 	u32 cpu_core_id;
-@@ -407,7 +407,7 @@ static ssize_t show_temp(struct device *dev,
- 	mutex_lock(&tdata->update_lock);
- 
- 	/* Check whether the time interval has elapsed */
--	if (time_after(jiffies, tdata->last_updated + HZ)) {
-+	if (time_after64(get_jiffies_64(), tdata->last_updated + HZ)) {
- 		tjmax = get_tjmax(tdata, dev);
- 		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
- 		/*
-@@ -417,7 +417,7 @@ static ssize_t show_temp(struct device *dev,
- 		 */
- 		tdata->temp_valid = (val.l >> 31) & 1;
- 		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
--		tdata->last_updated = jiffies;
-+		tdata->last_updated = get_jiffies_64();
- 	}
- 
- 	valid = tdata->temp_valid;
-@@ -521,11 +521,8 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
- 	tdata->cpu = cpu;
- 	tdata->cpu_core_id = topology_core_id(cpu);
- 	tdata->attr_size = MAX_CORE_ATTRS;
--	/*
--	 * A zero timestamp does not look stale on 32-bit, where jiffies
--	 * starts just short of wrapping. Backdate it instead.
--	 */
--	tdata->last_updated = jiffies - HZ - 1;
-+	/* Backdate to force a refresh on the first read */
-+	tdata->last_updated = get_jiffies_64() - HZ - 1;
- 	mutex_init(&tdata->update_lock);
- 	return tdata;
- }
 -- 
-2.53.0
+~Gregory
 
