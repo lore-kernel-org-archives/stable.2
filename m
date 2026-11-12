@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450478;
-	b=CFDAqR0LtrdXYl9eP0LcYstrat9B0ctmxf5iHV1n85BVMT9mJeduy9UvSjv3IdIVFkJ+
-	 mdLs7ah6x0DcDbz10/jtB1DrPmX451g8Y7ItlI1N2yafXhNySBhud7UcxlMiZh1K+42C+
-	 Bk3Z58oDSfP+CTXMT6MB9O3ryHX6GnhBoluqeFhMKq2ivcb/1USw7ShEXZL1oZscA4BV0
-	 P/Feid31XptNnJJkiUiYP/4nisaVqhLiiJx/y2q0kJWoZhDqRPztHkxsxTKz2dFOqeVRM
-	 UaTWa8/4Ht5uJWDDSLrSClyPesBG0kU/nk5cp7phu5jvvNO/+KmzUoxhGt+xCQ6GSrQ==
+	t=1794450546;
+	b=boydhytD0mvUjKABiiCGG2ltddu9j+fv1eN8niMI7CHL7S7zh7M9sSrvdHhMLjaUn05I
+	 84M5378DZF3OXv/Sph/pFxIg/0XWcmORp74/2wMronrRsM3D1JgW49KvppbcrGHzmwSjO
+	 1a1DYA0/4BUzie77yfgh12eHhqrlHoNXIhEHjUfV07HIE9+bnTIoF29Wp3Stgx3OAqN40
+	 Ttw6CzGIR5aPOrbOXFHXMljBbwBW+91HZLVm4x3fJKqBw0xafqice/FO4M21LVUnDwYMd
+	 lFIXoxjOuAFOhe47+keHqxd0MNslnW7PuxuIdGiMdRHxD8PgcTf3TvOFyb+3lI3/Uug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450546;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sS8cTsqNMsFsFV3YUrtZ3NxfkIS4EOPJkQ4z3QuM9KA=;
-	b=uDq3T56ERhByfts38iwTM3m7Lt/tyNoK8i+mOaDGje6T7DZ31nYP3hDi9ZiHVJnRfLK2
-	 HhlCjrM4pwg8VZNc6u0OoPs7plUWHGGRqlZn6K6y6qzFq0rEFFSivf9N1tBKfKp3l9pE2
-	 zNrvWPr6I/TSAcjPk1w0vs0zysQHEpKCUVrEM/xLTthlQSgbKVRiq6yx6Qz0V8I01zuxm
-	 4aoAcAYTCZC3IdSI92A8wc2KOywiUpm1notTH9Dwlj+wam3tze/39M/aILgcPHfMcGsOd
-	 m12DWK3xKywFD9+eSDy/TaAUcc/R8pJsRrS+fmo4h4I+c5DSlKJGEXHA7cKJHqpfsmQ==
+	bh=2oy1M6nGyWdXB54nk9X+IzAXBaZhuIs9mX7/0WSrEZ8=;
+	b=ABxjfgeO0t3FmO9pjQZYzyG0YpQiaBuG4bjmxhrI9/fHdOnxKiEi551C4dVTNXwNXsaW
+	 cIurS4+OAgPLyPia9mn9WdQtktwEJAVgBGIEmVRwZHyo41QvDYoUStBNm1iJLtW6Q70ew
+	 m2lay5KJjjz3/nQ0cSPBPmfXgmLv+S/DLwK/otsTyS9tON/cM/W3q3UzoCBWT+snGExsJ
+	 ysa25yJYv7RING3Zg2a2EwhOTqHnDx418FaK59AuP8aUHpgskmZgmFHkaUVz3QBzz35Ii
+	 okvMorPByJcBAajHC3SRdvj2nlA2dtQrrQ5JQJOQ4E2Y/ZUCXdiPNNexKOuDftFhJTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X3A7DvyS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkvqaIbp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0128D606A327
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:27:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD48606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:29:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X3A7DvyS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382BF1F00A05;
-	Thu, 12 Nov 2026 02:27:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkvqaIbp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 881671F00A05;
+	Thu, 12 Nov 2026 02:29:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794450477;
-	bh=sS8cTsqNMsFsFV3YUrtZ3NxfkIS4EOPJkQ4z3QuM9KA=;
+	s=k20260515; t=1794450546;
+	bh=2oy1M6nGyWdXB54nk9X+IzAXBaZhuIs9mX7/0WSrEZ8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X3A7DvySL6uzTuBJs2fWxzhf7O/Oi7WWj/BbZoIbhVBEPfSrqiJscLbDH41eCe9cC
-	 Gk9Hu/rFCn4jEQSgIq42gStcbaMK2HQTkSLzPjUoFtmWoMOkKnXsaY+thfqKX9uxlL
-	 dz4iRBEzx9/bFckadZJi8hTO2vLijN9ysms53dRlf1NJllsLSFeCyG4S0NiTTkngNo
-	 ibuYJGWWcgKMtCgUPGcsrrj+sIeIQD1FW+8WmYPGtIOEbk9e0uzEK3LP1TjzZlXVir
-	 RxZiE1AI/7/dvIopEdBpQ0j5MT3Eeiudq0NgtoDR6oMnt1a8sS/hmLZxs5Y7/oQyQb
-	 t8fZWpcKEreEQ==
+	b=HkvqaIbpAaWYg0waPOQsa1EEhPvVXfWkWVMnU6eOLuxT40dljucZYpe36l0Uluphq
+	 1T489++UBKJc+kickzDTA7O8FOCwgbfDKt35uG2qm3oLR2SnLBIUDxNLYRtaRrybLu
+	 r/CEoWq3RBM6WQ8UXG6KQCCrh9Z7FZaaJwD39+rymcivjl0uDlOX3+rcF2l+czJDBM
+	 JhKm2BQugnJUOo27sZV7ANPDCpkMpnWb0zLFEoEEz2kDRa38BRy6CfzJLDirbmtrA9
+	 FoRUeVH5LttxK6wljvzAh+yU3/BaXmG6hS+j9j+UkBlvENT4COmrja2Nn2aE8in8Zv
+	 OvbAud95MQmKw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Edvard Conrad <edvard@tuta.io>,
+Cc: Darong Lu <zzyy19904204639@163.com>,
+	Vega <vega@nebusec.ai>,
+	Ren Wei <weir@nebusec.ai>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ovl: inherit FMODE_NONOTIFY when opening directory realfiles
-Date: Wed, 11 Nov 2026 21:27:55 -0500
-Message-ID: <20261112022731.1358008-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] libceph: initialize CRUSH choose argument weights
+Date: Wed, 11 Nov 2026 21:29:04 -0500
+Message-ID: <20261112022844.1374567-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201412-failed-6.6-323899b4ed23@kernel.org>
-References: <20261109201412-failed-6.6-323899b4ed23@kernel.org>
+In-Reply-To: <20261107061213-failed-5.15-c3a995ff0782@kernel.org>
+References: <20261107061213-failed-5.15-c3a995ff0782@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,70 +64,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Amir Goldstein <amir73il@gmail.com>
+From: Darong Lu <zzyy19904204639@163.com>
 
-[ Upstream commit 323899b4ed233d5b6e2fc160c16fbf39cf0317da ]
+[ Upstream commit c3a995ff0782587789333c621e1f6bd5e574371e ]
 
-When fanotify hands a listener an fd for a permission event on an
-overlay directory, ovl_dir_open_realfile() opens the real directory via
-dentry_open(), not backing_file_open(), so the lower open could still
-raise FS_OPEN_PERM and deadlock a listener that also marks the backing
-filesystem.
+Initialize the CRUSH choose argument weight-set array before decoding so
+entries start in a defined state while the decoder fills them.
 
-Export dentry_open_nonotify() and call it from ovl_path_open_realfile()
-when the overlay user file must not generate events.  Ordinary
-ovl_path_open() callers are unchanged.
-
-Reported-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Closes: https://lore.kernel.org/all/20261030-welpen-anbinden-nullen-b2432cee1d10@brauner/
-Fixes: 130fdbc3d1f99 ("ovl: pass correct flags for opening real directory")
 Cc: stable@vger.kernel.org
-Tested-by: Edvard Conrad <edvard@tuta.io>
-Link: https://lore.kernel.org/ltp/P5Iny41--F-9@tuta.io/
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: Replaced dentry_open_nonotify() with __FMODE_NONOTIFY flags passed through the existing ovl_path_open() helper. ]
+Fixes: 5cf9c4a9959b ("libceph, crush: per-pool crush_choose_arg_map for crush_do_rule()")
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Signed-off-by: Darong Lu <zzyy19904204639@163.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ sashal: Adapted kzalloc_objs() to kcalloc() with an explicit element size. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/readdir.c | 10 +++++++++-
- fs/overlayfs/util.c    |  2 +-
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ net/ceph/osdmap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index 9252e20bdab8b..ed79c2ad3593e 100644
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
-@@ -855,9 +855,17 @@ static struct file *ovl_dir_open_realfile(const struct file *file,
- {
- 	struct file *res;
- 	const struct cred *old_cred;
-+	int flags = O_RDONLY | (file->f_flags & O_LARGEFILE);
-+
-+	/*
-+	 * Inherit FMODE_NONOTIFY from a fanotify permission fd so a listener
-+	 * that also watches the real filesystem does not deadlock.
-+	 */
-+	if (file->f_mode & FMODE_NONOTIFY)
-+		flags |= __FMODE_NONOTIFY;
+diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
+index af8b6c01784ec..4fab2aa5789c0 100644
+--- a/net/ceph/osdmap.c
++++ b/net/ceph/osdmap.c
+@@ -304,7 +304,7 @@ static int decode_choose_arg(void **p, void *end, struct crush_choose_arg *arg)
+ 	if (arg->weight_set_size) {
+ 		u32 i;
  
- 	old_cred = ovl_override_creds(file_inode(file)->i_sb);
--	res = ovl_path_open(realpath, O_RDONLY | (file->f_flags & O_LARGEFILE));
-+	res = ovl_path_open(realpath, flags);
- 	revert_creds(old_cred);
- 
- 	return res;
-diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index 0da1cd01d01cf..0a40a4950e9f6 100644
---- a/fs/overlayfs/util.c
-+++ b/fs/overlayfs/util.c
-@@ -586,7 +586,7 @@ struct file *ovl_path_open(const struct path *path, int flags)
- 	struct mnt_idmap *real_idmap = mnt_idmap(path->mnt);
- 	int err, acc_mode;
- 
--	if (flags & ~(O_ACCMODE | O_LARGEFILE))
-+	if (flags & ~(O_ACCMODE | O_LARGEFILE | __FMODE_NONOTIFY))
- 		BUG();
- 
- 	switch (flags & O_ACCMODE) {
+-		arg->weight_set = kmalloc_array(arg->weight_set_size,
++		arg->weight_set = kcalloc(arg->weight_set_size,
+ 						sizeof(*arg->weight_set),
+ 						GFP_NOIO);
+ 		if (!arg->weight_set)
 -- 
 2.53.0
 
