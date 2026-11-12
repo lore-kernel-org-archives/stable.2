@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794457903;
-	b=SdF0eluuaQF6UWtZGU2ODMm4RVMe/DglIUIZGt336ijTq/h0/On1q/3jQfGTbdGH/0Qp
-	 cLYZF0U6agu9p8wR5t1Hhqo3n6T//+K/kVIrIzvTHxv4XHegy/Nd17U1Eyhtr6QxVcoaE
-	 I+ov+OO95+kYS7oav/C9Ri9UN9Y4d4r3+1hDxWBQ3AxWx1NgroVt/SQEz3+44TyamklOx
-	 opG3IJ3BUgrWta9tFI0BnqsSUtDqVRa0bVC+vAy6gGWezvVxpsChQaedswXJRsg7izbML
-	 AN/O/CcDeCPdjjnjyriipfPV/j1DpNRodZ+miDZ+R/zaVzDjHMGv7rGMHPpd9e4V8uA==
+	t=1794457947;
+	b=sPFtCz7P+KA3G3f+XTiLNTSMMIj63HjQZDAV2hmoZ/kFyZlceYzFcVv1534ulXS5UDVM
+	 8pC4A1D485wBu1l3IDGnj/E0FEGWIDsimgc/B5/U5FZQ/gmDJLJbLidwS8UYWEcWcdvqc
+	 BbGvTFGcVFNLDL2K3W5WSm0UK3o3nbD89daasygBfWinrC4yYP39VRC/WqFNKoUL5kziX
+	 sLf3M9pkmLgOPVojQivD0aGSuYQb7AzlR60vAKUIchMh2ALWb77ioVJsv5pwVa/7FRZHi
+	 gw6T/SyuellfGQdU2q6ubNIPi3VpKhDo0DPG6/4xUF8jFZmJlPfSAo3vzYyxsW3wcbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794457903;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sLyZtPTkFdbyABhOZWUDHW8SHa1Rc6mfsRhG3LxmUD0=;
-	b=QQvfsXdIApAaK7qUU6NEPvXXul9yNoOBc4khhASOy5qJbqKQO1xIVTVdfha/dWFI2M4T
-	 SrVQwIAVSAN+oY5PbqRirEWwMeMc7I4XaYQyGhiHJN8WplO8phLF3l2Yjk/tiHjh/gJbB
-	 cxui3A9NlgWufKXDSzEfPRLOMsrOD+Ugf0FU98ViVwRUDaDm2XIlIQbQOTcYC42Sm9fPI
-	 YftFYvLYxwLDKyEjSdseMjmv2dvPrwW0TfRYgUQCSTZi5kkXcz1sCuAMBZunaPbYuTHjg
-	 LOV0GPQ0jKQtQ7YZQG0zytSfmJAAkDfNn0rMF6JPbuIuGV86b/uiKfwxsL41l6YP9bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794457947;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=tSl8MVJnZefCbq5jHR2g4SRTuu2d9u1W5NiENOYHVKA=;
+	b=X/2hYWW68BFDk4/EYyg+vQ2r59bjvgXgcgSNpoHUJZiNw+P4WHsrrcKM+ycHQfJW6oOm
+	 GQ1VBdsJo1Qur7MhVMRCHFAabTf5jbcpvEOUie3uN8XpRztO2iNltwdSUjTE7HaNMyJTS
+	 U9mCpqPdLqe68DdN1JEwAwsyfECjgR6Jo8PmVN+raibo6b7HqeoxKwVzh86i2aPaa76kI
+	 R/tr42dkHhX/xZcJDrwC09E36wNStmEfwVJNUjpJIlHBu62nk9+IXkqJ4RpG7wtapwV8Q
+	 tePd7PwPq/THjgZQNMtb1OVO2vWSwYLyNfm7a0mvn+RRzJnUpLz9m1M5DZVPLiQZtNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eFJx2gWa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=jaeyeong.cc;
+	spf=pass smtp.mailfrom=jaeyeong.cc;
+	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=W3uUTFNT;
+	arc=none smtp.remote-ip=185.70.43.97
+Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FEB9606A32E;
-	Thu, 12 Nov 2026 04:31:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75675606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:32:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75675606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eFJx2gWa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC611F00A08;
-	Thu, 12 Nov 2026 04:31:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794457902;
-	bh=sLyZtPTkFdbyABhOZWUDHW8SHa1Rc6mfsRhG3LxmUD0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eFJx2gWaf0PAyGMPKTFN7gA7fFSrZ7L4sJBNQkWDT3FZ49IX0IfFyf4Xes0eo6T0D
-	 o/Gw2OlLHQ7ppNa3kbFrNoeAL9g3p35V1SsF72O6amDt586QecTcxaJtOTZFyUCrao
-	 aav0RMWLGDApIZG1+EPVulRsW59n1Tlq968s1enfrXnxVWUAesFYjpwdiWUuaVYH83
-	 imBWbUyhhQTM0+I56KnlcXFY6it6148+Ido6XDJPWjsyDVu3td8Jyh8ydhbwl1o9PM
-	 UC1Jttgm6Z/+KoHE83aIpNKNGR+6omkaOx/8e3INJ8AfFLfBpZi7P+sFTEjfEPdvz1
-	 UK3E+hlY5nggA==
-From: netdev-bot+sinfo@kernel.org
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] ip6mr: prevent info-leak in ip6mr_cache_report()
-Date: Thu, 12 Nov 2026 04:31:41 +0000
-Message-ID: <179445790170.2168702.5078709310241498166@kernel.org>
-In-Reply-To: <20261112042415.617221-1-bsdhenrymartin@gmail.com>
-References: <20261112042415.617221-1-bsdhenrymartin@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=W3uUTFNT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
+	s=protonmail2; t=1794457942; x=1794717142;
+	bh=tSl8MVJnZefCbq5jHR2g4SRTuu2d9u1W5NiENOYHVKA=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=W3uUTFNT42Fsc9EQUuqWLn09QQYkG+eTXYlY8O8tiIFJCCIv+XWbWUhsMkTcZbNtw
+	 CgfXW6GuKJ+YRxqVdTmfUW/LpNF77p54C8NQeoihPztnt3JVUuQysU1DLA+r3DYdRE
+	 J7WAH0l+eQNHI3rpzCKl1nmox2SXKazRoKoa7FtyOOEPYnHeU9kQ3Torm+Gmm2zfwP
+	 cq5s6BGOtnf4xghFIe0TqNqaaQg1efazoBSTCKsSOjrUgeI4BSjt3W2T408Q0tip51
+	 D08VULbLheVKtw/ktxDbNWVB7s/ZnZNKk+AWXGa8ZaogD4xy9i/jFrYU18vuOEcF0F
+	 3dOhC7JZQFYeg==
+Date: Thu, 12 Nov 2026 04:32:17 +0000
+To: netdev@vger.kernel.org
+From: Jaeyeong Lee <lee@jaeyeong.cc>
+Cc: john.fastabend@gmail.com, kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, alice.kernel@fastmail.im, tariqt@nvidia.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH net] net/tls: serialize context removal in tls_device_down()
+Message-ID: <20261112043209.102404-1-lee@jaeyeong.cc>
+Feedback-ID: 177356447:user:proton
+X-Pm-Message-ID: 333b79e90391ab3c6eea869158387f16cfae3937
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,21 +61,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+tls_device_down() moves each context to tls_device_down_list while
+holding tls_device_lock. It then drops its reference and removes the
+context after releasing the lock.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+tls_device_queue_ctx_destruction() removes contexts from the same list
+under tls_device_lock. If it removes an adjacent context while
+tls_device_down() is deleting its node, the two list updates can
+interleave. One update can then target a context freed by the other path,
+causing a use-after-free write.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+Drop the reference and remove the context in the existing
+tls_device_lock critical section. Keep tls_device_free_ctx() after
+releasing the lock.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+This issue was found with a static analysis tool.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Fixes: f6336724a4d4 ("net/tls: Remove the context from the list in tls_devi=
+ce_down")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
+---
+Reproduced with a deterministic KUnit harness under KASAN in a 2-vCPU
+x86_64 QEMU guest. The unpatched kernel reported:
+
+  BUG: KASAN: slab-use-after-free in tls_device_racy_list_del
+  Write of size 8
+
+The patched tls_device.o was compile-tested against current net/main with
+KASAN and DEBUG_LIST enabled.
+
+ net/tls/tls_device.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index 4cdfbb57ecff0..fa7170cd4fd10 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -1350,6 +1350,8 @@ static int tls_device_down(struct net_device *netdev)
+ =09spin_unlock_irqrestore(&tls_device_lock, flags);
+=20
+ =09list_for_each_entry_safe(ctx, tmp, &list, list)=09{
++=09=09bool free_ctx;
++
+ =09=09/* Stop offloaded TX and switch to the fallback.
+ =09=09 * tls_is_skb_tx_device_offloaded will return false.
+ =09=09 */
+@@ -1387,17 +1389,19 @@ static int tls_device_down(struct net_device *netde=
+v)
+ =09=09 */
+ =09=09spin_lock_irqsave(&tls_device_lock, flags);
+ =09=09list_move_tail(&ctx->list, &tls_device_down_list);
++=09=09/* Serialize the final removal with sk_destruct. */
++=09=09free_ctx =3D refcount_dec_and_test(&ctx->refcount);
++=09=09if (free_ctx)
++=09=09=09list_del(&ctx->list);
+ =09=09spin_unlock_irqrestore(&tls_device_lock, flags);
+=20
+ =09=09/* Device contexts for RX and TX will be freed in on sk_destruct
+ =09=09 * by tls_device_free_ctx. rx_conf and tx_conf stay in TLS_HW.
+-=09=09 * Now release the ref taken above.
+ =09=09 */
+-=09=09if (refcount_dec_and_test(&ctx->refcount)) {
++=09=09if (free_ctx) {
+ =09=09=09/* sk_destruct ran after tls_device_down took a ref, and
+ =09=09=09 * it returned early. Complete the destruction here.
+ =09=09=09 */
+-=09=09=09list_del(&ctx->list);
+ =09=09=09tls_device_free_ctx(ctx);
+ =09=09}
+ =09}
+--=20
+2.43.0
+
+
