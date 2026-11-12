@@ -1,62 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518964;
-	b=i0yZ8kFLF031jVHgwoYoAvGJ75wF/LWSshODYqnGtZsF0viN9AUY09tXk4QLRhB6vStH
-	 qlUvGLkX8lY+PUEUPwLyvRsNAMbxNa1uja5g2Nc0IflK5BEv8L4oSDZqGcFYgTed5UUW6
-	 bjO61UmDlRBdzCgg27c5uPcNxla+rCYbhqwsIwrRLAWwYy790bPaLRu8lKv+sqeA7o81+
-	 DTZX3pLvIGXpyTlA3FvwHUVVP1ghOezC0jAOo2NrhKWw0NRxOIYbfK16RPpPKe4vNGANs
-	 SLQgwGlgh3rIN61R8qNNw4XcpWoXvF42dJl+Ua1+0/0QasFfrR5b8CqRm4hb6+yZuPQ==
+	t=1794519147;
+	b=p+0rYXMq3qzCK174JTG4IXIfE9DgDwOoDu9gI85JqI2Y7knEhxffY2H8JMC+qzwA4Ybf
+	 3DAEWFP+g6Ljpa+ovWlPB2xGpxvw5HfKKXiJzto3qvAbyqWysN4DUu93nBemk9/zLPAIA
+	 a2s3PT7hwIWVl7p0pzBuyJ5MP3S32LN26lWhabA/r4KpI+80MOla0x0KHSVGp5TM26TBe
+	 aSQZh4gPhRsOTyzXpx8TEHrCWUG8BPtQo47P/f/w5HDYqL7Q/rP0LeR6yEsvA88PptEnJ
+	 UM6eRBGAqBhphKkhh72cB449kQVu+y22gqtJrwfboAmSHJ0HQhj0KYcbWldyfl5ZP8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518964;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=yFf0xu+bjhuFMLvEepScyEDDOqU79rBKKVexTQgAMoU=;
-	b=c5nEq5oWhZfoGXPQC2ICJ2HATiHOtAy6GKXPamVrmLdGEJMw4ygQqFTicuet0ipVa8fK
-	 PTx1Yj0zPSeRWMVGfccoAyqj1j8oQ2kajEPHdy/dgl17S8A6JZLzcVdyVcrrEUeohY4qk
-	 Fg2Jb9PSsYdS8DNuMxvawHDKKcRnigZZV6JN0dC/65hQCxflVJLzxS7WdhlA5ua8zAyIm
-	 sHsX3qmmJvdz0g0w0+oQJ+jbI/SX2iY8i6PxvA0EXigmP2HBZSMz0S2/k4BBYa2jbUuPB
-	 zpTvjVHXMXSY8GACBbkN+r8nufFf4KAjC7Iv0YwcETfiLLuPsCAJJccdMigLH1K/rmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794519147;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=aZzeYCyAJBeLRT7TcBnHWQ7RP0GX2clQIvp0IYxDGls=;
+	b=EmqPxKYTwiM/8p6u53ElS0zVhruezLCdaNmkrZNxAAJU3WbdssDPLAykc6d5nz3kkmH6
+	 GApsj15tdefiC1Q/y/S0JrMSEl8k3jLM/7aEx/ofRoZkp/HxihnEpILecih5NhQRqU2wi
+	 YEPaLM4ZVeC9q+EYo7+N5wowDgaTJFTuu7Gx/CPtcFakS9mDeCpUJTMJD1Bi6JXd8yLBR
+	 tuBPTQGPg0Jm0Uwff6lgeusWg7cZVBYA899B74ki+WSTdYhz2UNCJ+iSAPuTMEiYFelF6
+	 S4uphRNPRsCW7FgWiV5aZL7GhDkmwzY69Pnz5EtPj2P9R3KKbfh/Y/lqafC0fGXJfQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G9oB+AxP;
-	arc=none smtp.remote-ip=95.215.58.75
-Received: from mta1.migadu.com (out-75.mta1.migadu.com [95.215.58.75])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gma6Pdh0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0FC606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 21:29:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C0FC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92EA606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 21:32:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G9oB+AxP
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pdGcRI6mRAZu3eKXGCFrp/P0WULfVug72IxlaEEgoX8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794518961; v=1; x=1795123761;
- b=G9oB+AxP/P3yVE5KTFIkLtSzhpuBKvmQdQ/04ILsx2Go7e3vIjy0h2CkhR3XdR+FUzaLywlJ
- fGAl5L07C8EhcL+iFP15NPiYzwevdAzal9NsboKogLVy5zfEriR3Z5/dtBj14cyHldMSfN+UlSI
- 6FfF6yv95sF82DZlZ6dnkyRA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a2ab71799a8c4f41;
-	Thu, 12 Nov 2026 21:29:21 +0000
-X-Mizu-Trace-ID: a2ab71799a8c4f41
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 12 Nov 2026 22:29:19 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Kalpesh Solanki <skalpesh942@gmail.com>, pkshih@realtek.com
-CC: kvalo@kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v5_2/3=5D_wifi=3A_rtw88=3A_skip_al?=
- =?US-ASCII?Q?ready_reset_station_in_rtw=5Fsta=5Fremove=28=29?=
-In-Reply-To: <20261112131401.236433-3-skalpesh942@gmail.com>
-References: <20261112131401.236433-1-skalpesh942@gmail.com> <20261112131401.236433-3-skalpesh942@gmail.com>
-Message-ID: <F6D72250-ED78-4665-9F4B-5CF6D8FDAE96@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gma6Pdh0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34BF1F000C4;
+	Thu, 12 Nov 2026 21:32:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794519147;
+	bh=aZzeYCyAJBeLRT7TcBnHWQ7RP0GX2clQIvp0IYxDGls=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Gma6Pdh0WvwzZpGBuNqsS2Y47aYj85+tV6ZE4NfS0rYkzc2ByCsIz+gEzo6w9iXW6
+	 IfprcO9PXs3Vmf56cTx2DK9Gin8LlgrP3MF8UiuYr/ZtIwBh5T4yYZYAz6EvSKYaWb
+	 YbJN3en0YwVFkbMFqWB9tRpHbD2enNWoCC4F1CJKCa1cCLiJh/UI3aazsfNtGmmQme
+	 CQbxZp8QA7c71xexj/VSA4UEXeSvmQGhaM3RbWR2VuNQDw2Ntj9rlag+gHoQPwftAl
+	 ylCoaUCJy8KThfbll6VbSAbIwtRjQ3mwsMmXIQD9vGb/D0e+w3NKb0qCgbOeMtUdzT
+	 kzznRfVHSgIOA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Kyle Zeng <kylebot@openai.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] mptcp: pm: kernel: use RCU to free endpoint listeners
+Date: Thu, 12 Nov 2026 16:32:25 -0500
+Message-ID: <20261112213129.3829777-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201446-failed-6.6-49b09ae0bf57@kernel.org>
+References: <20261109201446-failed-6.6-49b09ae0bf57@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,60 +60,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Hi Kalpesh,
+From: Kyle Zeng <kylebot@openai.com>
 
-Thanks for the new version. Two comments below.
+[ Upstream commit 49b09ae0bf57b4230187d4cdd0a370558e44a6e8 ]
 
-On November 12, 2026 2:14:00 PM GMT+01:00, Kalpesh Solanki
-<skalpesh942@gmail.com> wrote:
+mptcp_pm_nl_create_listen_socket() starts the TCP listener directly
+instead of going through mptcp_listen(). It consequently misses setting
+SOCK_RCU_FREE on the parent MPTCP socket.
 
-> diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-> index f7708ad17b6f..a74f199a93ab 100644
-> --- a/drivers/net/wireless/realtek/rtw88/main.c
-> +++ b/drivers/net/wireless/realtek/rtw88/main.c
-> @@ -384,6 +384,9 @@ void rtw_sta_remove(struct rtw_dev *rtwdev, struct ieee80211_sta *sta,
->       struct ieee80211_vif *vif = si->vif;
->       int i;
->
-> +     if (!vif)
-> +             return;
-> +
->       cancel_work_sync(&si->rc_work);
+tcp_child_process() can invoke the listener's subflow_data_ready()
+callback without holding the MPTCP parent lock or a reference to the
+parent. An authenticated MP_JOIN racing with endpoint teardown can
+therefore access the parent after its last reference has been dropped.
+The ADD_ADDR error path can also close an already published listener.
 
-I think my comment on v4 about this got missed:
+Set SOCK_RCU_FREE before __inet_listen_sk() publishes the TCP listener,
+matching mptcp_listen(). This protects the parent on every subsequent
+close path, including a failed endpoint addition.
 
-https://lore.kernel.org/all/83E3139E-BE19-4EAD-9BCB-6DABBF8D1942@linux.dev/
+Fixes: 1729cf186d8a ("mptcp: create the listening socket for new port")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261030042255.74216-1-kylebot@openai.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: redirected the unchanged hunk to the original path-manager source file because the code had not been moved ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/mptcp/pm_netlink.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-rtw_ops_sta_rc_update() can still queue rc_work after the recovery has
-reset the station. If the station is then removed before the restart
-adds it back, this return skips the only cancel_work_sync() and
-rtw_sta_rc_work() could run on a freed station. Moving the check below
-cancel_work_sync() should be enough.
+diff --git a/net/mptcp/pm_netlink.c b/net/mptcp/pm_netlink.c
+index 8eb7fed89d6fc..81d78a5121fb1 100644
+--- a/net/mptcp/pm_netlink.c
++++ b/net/mptcp/pm_netlink.c
+@@ -1273,6 +1273,7 @@ static int mptcp_pm_nl_create_listen_socket(struct sock *sk,
+ 	 * old status is known (TCP_CLOSE).
+ 	 */
+ 	inet_sk_state_store(newsk, TCP_LISTEN);
++	sock_set_flag(newsk, SOCK_RCU_FREE);
+ 	lock_sock(ssk);
+ 	WRITE_ONCE(mptcp_subflow_ctx(ssk)->pm_listener, true);
+ 	err = __inet_listen_sk(ssk, backlog);
+-- 
+2.53.0
 
-[ ... ]
-
->       kfree(si->mask);
-> +     si->mask = NULL;
-
-As far as I can see si->use_cfg_mask stays set here. mac80211 keeps the
-same station across the restart, and when it adds it back, rtw_sta_add()
-calls rtw_update_sta_info(), which gets to this:
-
-        rtw_rate_mask_cfg()
-                if (!si->use_cfg_mask)
-                        return ra_mask;
-                ...
-                cfg_mask = mask->control[band].legacy;
-
-So if I read it right, for a station that got a bitrate mask, a recovery
-now ends in a NULL pointer dereference, where before it read the freed
-mask. Maybe clear si->use_cfg_mask together with si->mask? The mask is
-then dropped after a recovery, since mac80211 doesn't pass it down again
-on restart, but I think that is fine.
-
-Best regards,
-Luka Gejak
