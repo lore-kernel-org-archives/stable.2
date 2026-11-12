@@ -1,58 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501650;
-	b=eyYFN2BnCsGZLm0xi0ln78aLrU0AP3qHw9For6MqlX+P2chIRnRLYiOkStxakgqOUFiD
-	 vtwtVjZXDUK/nCgD/2wvyyhzd9GF3kYjWHDpuzoajlJKr1MMapyvTBZLX6Ne0ILNcVdsh
-	 rJA6sfu2eVXAKKnP/SbwqYHXQDXQq6nhZdNfX0uB9xi4Yv+89oR0bFqXaSq6/AEKB2Fqk
-	 J/ouQzvqzEj2IOnRfXiy+J3grVUfmTZTmly1Ddrf52my9yQq12VVgtX7a16faB5+GqRsw
-	 LzsLOH2WWoVRR7NNaWdapqSbEMZF8j4futU9ApJHIfxYbQCMjihyNJrWQ7w4xMT3XQQ==
+	t=1794501780;
+	b=3eURPYLO7TglfgNmVkTbQCnKjXIRkNBgf5ocjE1AbziTvU6OdMOpVKc0AqR2AlkSM8Nu
+	 bRV1GGjYfVsvmvkU2JAW87TSRiSNO/oWtWoWBy+F5FQzqTQoWIcuofKuTtMeuq6w7AzG/
+	 9idlDFnrqj8oWFCEAF/ikaY7lkRVr5B3jB+4lBhOTx3E6/kam2gEntM/pdz73w/B9YMGM
+	 CjIE++pPKUOSDVA0T01rOb87tdXklV8rRg599BlTq8cMy8FMe+FmPapYcd9lsYpMx23U4
+	 nZQQOItYeRk7WprompwjpJZd/etCbanHy3FFBD/TsAQI2umMQga0rBVRLIDgKs7zpFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501650;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=h4XhdGstHHaoDKhn87VxtYdFBjOR/ijZJS15gJryUyk=;
-	b=xFP2z60z92VCFnhw3sxHn3uRBpsDVu4HOvL+S+fwKtJMsNu/61d2WR2Cw1Z7spsPv5oi
-	 lvykPyQTrY/VsNhxDeVP0cjzHkJjbnhVT6NIxgHVit3AAukxSrngFw9NTX5/RMV6RuXX9
-	 YpuBZIJsa1vlPeE/woQIq5D0wzpmZvHMzvHCXU8SKM32sGWPiWAAHS0HgOg+xfd7kUa8v
-	 HxP0Um+Q0lD8Vce2Sylb4wxGEW6tc5ZpcVUeTESHMl6hS2lQVjee/4lmtB9cL/5bMGNnA
-	 II7OgjCQy5VW7hEiTXLcs9upOs2bqJqcNXHqklQpxClPLDX/p79NLy04SZKNn5Ir09A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501780;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Qi0GHDoo0d+sgVHHbsbvf3TVWeYwlShut9QGcVyVR/c=;
+	b=p1EgziHgMDwFrPOkBdS0CacO0VkaS3S84TJYN95F3xjj01181i57hUclMPEXoljXo7sS
+	 eI5APW8SyRiGGwHTEV3XrT72mEFYvjtn12UOvVMLo7BDHOo9ivOXzVOiUixiL2ObXeiwD
+	 JFOzJ+z+hQpbhC7wuhNkw36nHFIKRHJWJv9Etl588zHqhXf93Db1AK/pFJBHZVgVY7UUO
+	 8zd9pRRJ2xbWrnVQ4cx92NdVhH7+D01sG3iwIN0ZlLSaVkWS+efVcsOqil9KnEbS0mGCP
+	 cm2ntNxraOpNkWjtsh82iHASw4mFu1aHMsn+7xjx7y4WcltO3KOwGlsRpI41XyUodpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Z2HWyp/t";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=4CVmn4gH;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C31606A890;
-	Thu, 12 Nov 2026 16:40:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8769F606A327;
+	Thu, 12 Nov 2026 16:43:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8769F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2HWyp/t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222B31F000C4;
-	Thu, 12 Nov 2026 16:40:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794501649;
-	bh=h4XhdGstHHaoDKhn87VxtYdFBjOR/ijZJS15gJryUyk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z2HWyp/tJDDjjTHcJR3EqrO+Co3DWeMLJ1+cp2ynX2OINbp8WyivGS6bUYCElRnHv
-	 j82yu2W0I6XbhRl6k1jGMrybLRN3rtsxa9jpBTx+ED6Lo2I2lVItYT5jq4zrZSGZzs
-	 JXUgU8bmDotIuPcRgcQnRfdkmCpC0cle2atzG2wdTeGxjiblOhweVWrNK8sHl3qORz
-	 AptP+WXgJYapp1q4qpa21NtXJZGJFCXXQTz9CI+U/mh2RSFbpUGKjXJrisLA5A/IyL
-	 WRrvvgmWPTatgjPr4LX8gIKpHS1COMkia2Rnrxs+diTDADTj0jXe4+8KHHufORL2wP
-	 EtFhzktL6OIhg==
-Date: Thu, 12 Nov 2026 17:40:43 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Breno Leitao <leitao@debian.org>, Chris Mason <mason@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org, kexec@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Hildenbrand <david@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 0/4] crash_dump: recover from machine checks in
- copy_oldmem_page()
-Message-ID: <20261112-singt-gewettert-rohkost-74009dcf3366@brauner>
-References: <20261112-work-procfs-oldmem-v1-0-ecdcafd99265@kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=4CVmn4gH
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Qi0GHDoo0d+sgVHHbsbvf3TVWeYwlShut9QGcVyVR/c=; b=4CVmn4gHc58+kdPEr6KQHyRLM6
+	7CsjW9eILTwcKAO6a/Wno1mZdbmfykAM8wAaz6f1tnw1xBbC1WDEin9GwhVlxqMHleHb6BUhOi+tW
+	UPQhyVz+dYfjCPdB0ag3KhcQgObIDXrLW/sP6CnHViWSgmBLTEdGhgGdipySpTnot6mc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xRXsw-00G4X8-PW; Thu, 12 Nov 2026 17:42:50 +0100
+Date: Thu, 12 Nov 2026 17:42:50 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: joasantonio108@gmail.com
+Cc: steve.glendinning@shawell.net, andrew+netdev@lunn.ch,
+	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+	mim@microchip.com, Eric Dumazet <edumazet@kernel.org>,
+	netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v3] net: usb: smsc75xx: reject frames without a full
+ header and FCS
+Message-ID: <cec36b10-1344-4ad1-9440-a6af8f5f6b00@lunn.ch>
+References: <20261112-smsc75xx-rx-fcs-v3-1-6ad0378d0384@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,28 +65,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112-work-procfs-oldmem-v1-0-ecdcafd99265@kernel.org>
+In-Reply-To: <20261112-smsc75xx-rx-fcs-v3-1-6ad0378d0384@gmail.com>
 
-On Thu, Nov 12, 2026 at 05:37:06PM +0100, Christian Brauner wrote:
-> A capture kernel reads the memory of the crashed kernel. That memory
-> may have uncorrectable errors in it. Which is likely also what murdered
-> the first kernel.
+On Thu, Nov 12, 2026 at 04:23:27PM +0000, Joas Antonio dos Santos via B4 Relay wrote:
+> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 > 
-> On x86 a machine check in the copy that /proc/vmcore does out of an old
-> page panics the capture kernel. On book3s64 the read() comes up short
-> and splice() panics. Breno has observed that on a fleet iiuc. The first
-> kernel dies of a machine check and then there's no vmcore either.
+> smsc75xx_rx_fixup() takes the frame length from the RX command word
+> supplied by the device and strips the FCS by using "size - 4" for the
+> allocation, skb_put() and memcpy() of each frame that is not the last
+> one in the URB.  The length is only checked against an upper bound and
+> against skb->len, so a device can report a length field of 2..5, which
+> gives a size of 0..3 after RXW_PADDING is subtracted.
 > 
-> I had the powerpc half of this as a fix in part 1 of the procfs series
-> because Chris ran into it there. Breno pointed out that x86 has the same
-> hole.
+> size is a u32, so "size - 4" then wraps to 0xfffffffc..0xffffffff.
+> __netdev_alloc_skb() adds NET_SKB_PAD to the unsigned length, which
+> wraps back to a small value and the allocation succeeds.  skb_put()
+> adds the length to the 32-bit skb->tail and skb->len, which also wrap,
+> so the skb_over_panic() check does not fire.  The following memcpy()
+> then tries to copy almost 4 GiB from the URB buffer into that small
+> allocation and writes far beyond it.
 > 
-> I think that likely makes this a kdump problem and not a procfs problem.
-> So I moved this out together with the ioremap_cache() fix.
+> A malicious or malfunctioning USB device can use this to corrupt
+> kernel memory or crash the machine.
+> 
+> A frame that holds an FCS but less than an Ethernet header is not
+> valid either.  usbnet drops it when it is the last frame in the URB,
+> but the other frames go straight to usbnet_skb_return(), where
+> eth_type_trans() reads an Ethernet header that was never copied into
+> the new skb.
+> 
+> Reject frames that are too short to hold an Ethernet header and an
+> FCS, which covers both cases with one check.
+> 
+> The driver does not set FLAG_RX_ASSEMBLE, so usbnet already counts
+> rx_errors when smsc75xx_rx_fixup() returns 0.  Also count
+> rx_length_errors for these frames, as usbnet does for the short frames
+> it drops itself.
+> 
+> Found by LLM-assisted source review.
+> 
+> Fixes: 1b3b2d9e772b ("net: usb: smsc75xx: stop lying about skb->truesize")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-So I'm not super familiar with the machine check stuff. I know that
-@Linus has some familiarity with this. So I guess a yay or nay would be
-nice. Not sure if really a localized fix for the architectures that have
-mc support makes more sense. A common helper seems less fragile to me.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
