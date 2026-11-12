@@ -1,52 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794470969;
-	b=ogdAn3Kw52m/hqrixEUCTVNrqtCt3MiTxuXflBDMUMaIek0lvAj77NZ5mLjIgzpfKuUx
-	 ZivWoKQI9VLwRg+YNValMjKNmL9TFGFsrAasE5zUxak6POLNSeGIx4H2YINf5CfcMLqXi
-	 ow0YYp8ynvtPIBfzRxAlPY7dkd4+34D5SRXJTTJoEgPQMRyZEuoX1Q1oDLCIfd8odiU/v
-	 xS/QPbZqu02sC6RrgquxdaPxjp3Jnj04oNDTbTUQZITCCpKLrs8IsL/Zb/8dPdNT0ZncS
-	 CvRNkdTgXz3mgN+g+pnKeAEtL2YKQvqIIa7OrLk4LwDTWVoe4GujetETckjMLatYA6g==
+	t=1794471079;
+	b=eiMRz78XX9f4LWOT22+veuK9CDQcaj/neqK4mADh9qMrhlHwD2EyRL6yu9hv4C4cS9bm
+	 daz7+SzPXdH3yaNloRzZCaNbxDO4MiRBXXMaH2PWga02qXXGBgJoTui5ge5K/u+7T1Bb5
+	 3quECezh2jKHgUnQi+sRRXcRkwHCUQDbikHSzPqjUGAfzpoAzyyFJEd3DA23kVxqMgZPH
+	 JOjJExWdoY2t0j2Fu94jRrr2hD5pjDBuGl9sjoWt5ZsBfU4tnD5Mr6LMjZO1t/y8CLoKu
+	 GplIElFDKPQPainEn7YRvlGUVUnzEG2hWWhRHddg/v41S0BcV61E+3vN3j9QBdJaMQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794470969;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=988cFYCco2UVxhQOV932+iu6PadrqBML3ozuD8TRvus=;
-	b=cFkBBkCfv/VmfTDgIQ0bYruFbCOn8rWAPmb0/XyQKXLH/eudNvYhex8H9l024+AITYGq
-	 o49+QVt+fDzOR/8BphUx6MizpA5l5R9L4VijBlNpUswkPaMLdyNxR8e7h9MurHYOWBSBT
-	 lph59IdGBY5KIWDvxcnD7eq/oIxyYx6oq16ZT1DauUlWRONBZqifPXc9K6JBHQQJVluo+
-	 1Jq4QZq7urt+Rp+1LtogaCpwwyGD+b9GSa+pBQfkvsaQ7y7puV31ONttVeJ3ExA236YVl
-	 o6Nq+qlG6zVAyLspwfdkN7t8c2AwTA3C8EpfnaJXDnfzULlKo4zyKGvPUMaaqCuRBbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471079;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pd1KA1gwB9M4Zxez2FqD9OUgDPWrVpKDiTkmpN+Klb0=;
+	b=fzFngwx9257jEojGttZARHk8R/G/Gq58Biz4y5zdnABoV6QUWeO/DtRqUOLTlt3uhlrW
+	 RymU1KPo6yXxpujxu1R2GkUDSIVAq+GTo5FL8tsQuRSc9zixRaq7j76CrAn3zLGQpghqo
+	 ZfeCMI9u4CJdYBfDOdYONvYNjoiObBqLQbJRLDUci7rIXP+qFVsW7kIhAKpXdzKlDJPVL
+	 WNjVvsOAyV5mkPVlM0qE0MAAo1nPLUknZrwzDtC/tFFxGp/en77YFhdvCoABToumoM2n1
+	 NNrEVIjx9cqOYiXY30TNZkwL3lyQVlfIXIXRcR2gHxiCNakmMEDkAmoXPhxx+vmipIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=VSFkenfw;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="OxJVJ7/Q";
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E953D606A89C;
-	Thu, 12 Nov 2026 08:09:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E953D606A89C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABA7606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:11:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ABA7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=VSFkenfw
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC874A1675;
-	Thu, 12 Nov 2026 09:09:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794470967; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=988cFYCco2UVxhQOV932+iu6PadrqBML3ozuD8TRvus=;
-	b=VSFkenfwKU44Z6vCXx0hx5yJkJUXNQ/2EWmT/nyBWeQSOZ8+mZ9wWJhw9nBZ6KNrYYekH3
-	leIfrilpl3mS4MGcq2Lwxyf9C8ZDl5Lm8cQt6BY4alVFkjdvwQMmMkDdm4IziIlkRp6jrc
-	1W3LMO4ZQsQ9xPATngXct2G5F/77lxgN2e+o05aFbEYUsW9Q+k1a296bndSi7Y0w2tf2wZ
-	A92dhFgiMkh95J7QMbt/8hZHdjCX8ur9vlfDW/NOwVLF6atDerihXhOTeBifuk6Gblu5Wc
-	pTUW814/UIo7sF74kYJZsczVCjVhn45N6YOroPSLANjFXPhc31/eow9ywmFqRA==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Thu, 12 Nov 2026 09:09:24 +0100
-Subject: [PATCH RESEND] serial: amba-pl011: end an RS485 transmission when
- TX is flushed
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OxJVJ7/Q
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36f936424f2so1464208eec.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:11:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794471078; x=1795075878; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pd1KA1gwB9M4Zxez2FqD9OUgDPWrVpKDiTkmpN+Klb0=;
+        b=OxJVJ7/QbcpRgLv0tyoDo4L2IqjenJBu2+9h/9bukC04n0SyBjTm2j2DD3soZOQX+x
+         V47qQR48UyM8/svEK3AegRzoyIt6fd5fmUjxT1UlnmvF6j5as5xZRebms2pbmC5apiXK
+         f+XP0VZdbqMp9mE1eExJNOM53P/8MU/qzwU+CsFi4h9GPQr1AfaEXSQW6l2O+3eMB6Ff
+         /Hkdbqfi/bDWpFlWNdQo5hifnadpMyWXdd+1mOQQVFiRZvgYJE4yVq3t/TuH+YnXY+O4
+         5Eb5vcjzwdgKwJQVIAc74Buav8h1Fl2c6zq9w+uTXc9UOqrc69QbGlzysUlNefpKHFvU
+         +lYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794471078; x=1795075878;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pd1KA1gwB9M4Zxez2FqD9OUgDPWrVpKDiTkmpN+Klb0=;
+        b=fLUEbv6uXn896Jdkruh2yKkkfEmdrVjAfuO2vEZeT2mKBiQxXuj4P5IJws7uVorplf
+         O32IPedpz6vlsnpjs5cD0pEEnBZuJQfc5sR4ehfFtqfZ58IlbgB5HbhWJnS1CDDcAN2t
+         fJUBc7B8u8+423Mjh4Gks5uKe+UsiygrjHDfvtAuW5Lm9B4VaQ0fAFITSrdssl857COU
+         BkN1/wR0pu8a0HewB6ymN1N/mfjSatw0lbnieKhyLszNOTD72aKhrW9R2FXbobfZ8dpP
+         sG3Zyw4SKAUNt7x044uCWXM/vLSwmsRuO77kFn2ehpZX5+Z05P6boqgLMPzSN5KfWrDf
+         KIuw==
+X-Gm-Message-State: APuU4Z9ArlxsjIEKctdsMwj1JzGp7YrBDBrkwy1Fwm1fVEngL5CsnHhw
+	L/enkQTny6H0nNBceQorgTZBdBPDFXXFddG3kq6q4L/b4O2oC7ZZXOqVQP2xjHXRsWUYCw==
+X-Gm-Gg: AYBFou1a61EoPk7M7J5NK6Yzp8NQtO2BjdevRh3mlpjaTQ7Xwf8aeJCDOtqmQEM+gUf
+	5cFEz+PFkhvPGd2l3yRig8n4DITxtYx2uqgpsmmBvXcLW0br/wPYDLh8PlVu2CI+/8GFkkzcH4I
+	8Y521WVystQfDLpp8rDHNXBBPYBsNZa3u1ZXvxzhz6ZEK1vpzvyk+IxmEMgmw0vaNoQQOz1R+Os
+	/Cp2JP/D36JYyeyW59AJrORd1pS7XYwoaFbHSIpOUfwY47pzujSE/RB4FHuBIbWBXMC9fIjrq2R
+	HNvVlicD9R2yDqCMLmp3R51ufksZsUZ4jT1ZJ1CUkFKVbC8stHAt7xia3FAg8Wimii1WjMjb7aq
+	1ajkS2P1rbl5Q58Ij/Uq5WapbtvT/50pkpPSFt0nWSJ+aDdDMp0gRcEulKpYFTVzUkFoCwhALSf
+	sXy4lDN0+BSNyP3J4OU0M4sbRoJqZKhy2S0bsFEZomrlwEufh10jFMHe2AAcHNvJUNLNbPqn5tv
+	ioKX/qC0Ou5efav6JChurMQM59VHjkghvRm6uHbC6MaloYr+nngI1mOm//zhBV46frU1jMdO527
+	oogM/RQRTRinJF50efksBUm3PT+UycH0nduGQSqojrEWLak57tfdP7bv2XLXCYQtBcYV8advutD
+	u/LfnASpFoJEZ/4LiGYdILCbilVaznWyMHyly6w==
+X-Received: by 2002:a05:7300:f588:b0:376:98e7:eeb5 with SMTP id 5a478bee46e88-37698e7efa9mr4760081eec.14.1794471078493;
+        Thu, 12 Nov 2026 00:11:18 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe29fsm26253422eec.21.2026.11.12.00.11.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 00:11:18 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: stable@vger.kernel.org
+Cc: sashal@kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	David Hildenbrand <david@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	odys.yuan@gmail.com
+Subject: [PATCH 5.10.y] mm/migrate: untag addresses when querying page nodes
+Date: Thu, 12 Nov 2026 08:11:05 +0000
+Message-ID: <20261112081105.6025-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109202700-failed-5.10-7d8746d7dc9c@kernel.org>
+References: <20261109202700-failed-5.10-7d8746d7dc9c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,69 +111,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-devel-nbuchwitz-pl011-rs485-dma-flush-v1-1-6b811391651d@tipi-net.de>
-To: Russell King <linux@armlinux.org.uk>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Lino Sanfilippo <LinoSanfilippo@gmx.de>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- stable@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-A TX flush during an RS485 DMA transmission only stops the DMA. Nothing
-ends the transmission afterwards, so RTS stays asserted and the bus
-stays driven until the next write.
+[ Upstream commit 7d8746d7dc9cc4003661011424e5880ea7ae364b ]
 
-End it from the flush, unless the TX interrupt is still enabled and
-ends it itself.
+When move_pages() is used with nodes == NULL, do_pages_stat_array()
+uses each page address as-is for its VMA lookup. A valid tagged address
+therefore gets -EFAULT in its status entry instead of the NUMA node
+reported for the corresponding untagged address.
 
-Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
-Cc: stable@vger.kernel.org # 6.18.x
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Strip the tag before the VMA lookup while holding the mmap read lock.
+Use untagged_addr(), the helper available in 5.10 and already used by
+the migration path.
+
+Link: https://lore.kernel.org/20261026195330.46757-1-dennylin0707@gmail.com
+Fixes: 057d3389108e ("mm: untag user pointers passed to memory syscalls")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/20260721183257.706661F000E9@smtp.kernel.org
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: <odys.yuan@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
-A separate issue found while preparing v4 of the RS485 reconfiguration
-series:
-https://patch.msgid.link/20261021-devel-nbuchwitz-pl011-rs485-reconfig-stall-v4-0-ed10e219159a@tipi-net.de
+ mm/migrate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tested on a Raspberry Pi CM5 (PL011 on RP1 with TX DMA).
----
- drivers/tty/serial/amba-pl011.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index 79776a882ae35..b21de1f2c7807 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -343,6 +343,7 @@ struct uart_amba_port {
- };
+diff --git a/mm/migrate.c b/mm/migrate.c
+index bf59b09..bf112da 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -1813,7 +1813,7 @@ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
+ 	mmap_read_lock(mm);
  
- static unsigned int pl011_tx_empty(struct uart_port *port);
-+static void pl011_rs485_tx_stop(struct uart_amba_port *uap);
- 
- static unsigned int pl011_reg_to_offset(const struct uart_amba_port *uap,
- 					unsigned int reg)
-@@ -874,6 +875,11 @@ __acquires(&uap->port.lock)
- 		uap->dmacr &= ~UART011_TXDMAE;
- 		pl011_write(uap->dmacr, uap, REG_DMACR);
- 	}
-+
-+	/* Without PIO the TX path won't run again, end an RS485 transmission */
-+	if ((port->rs485.flags & SER_RS485_ENABLED) &&
-+	    uap->rs485_tx_state == SEND && !(uap->im & UART011_TXIM))
-+		pl011_rs485_tx_stop(uap);
- }
- 
- static void pl011_dma_rx_callback(void *data);
-
----
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
-change-id: 20261021-devel-nbuchwitz-pl011-rs485-dma-flush-5f69eafe5b6d
-
-Best regards,
---
-Nicolai Buchwitz <nb@tipi-net.de>
+ 	for (i = 0; i < nr_pages; i++) {
+-		unsigned long addr = (unsigned long)(*pages);
++		unsigned long addr = (unsigned long)untagged_addr(*pages);
+ 		struct vm_area_struct *vma;
+ 		struct page *page;
+ 		int err = -EFAULT;
 -- 
-Nicolai Buchwitz <nb@tipi-net.de>
+2.50.1 (Apple Git-155)
 
