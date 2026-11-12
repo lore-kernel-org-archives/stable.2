@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794510502;
-	b=5LRCidAyF5Zz5JpRSCUXMSYUKA6rREQYHo3UdxmnjaiRE+Hp+wGrnkT3MOrSPVB4rroU
-	 GPQbfI030cNrqZn7b6I18gs9SU/px2hITkugNZRKkEbloi2zzrF6k6nM3EocaQlwEaNVM
-	 2FVsTeynOhLRICWdw5pvpzxZBMvUxLPm8X+X8w/MZVfuJ6zL5F+n1jRsdwepxc520nvg8
-	 s5n+jPciLiPKoWGyb3l3SuuAjzvL4dN7NxdbWZ1bSITvLoxA9mfrV5CKDzpyCTuuzCuX1
-	 ipqaJVrV5eiNKeZJZUlCZjZ1yLhq6ZXRxslf44q5fQMsonf7Klx+dKgIcruJ4q0rkGg==
+	t=1794510593;
+	b=wAichuU5BxvTcCSgVW4ac3i5I6nqDJlryX8bfcoTuMmrA/fbRuBZYSSjFJiRqSkRcA/p
+	 j0py5bXw+xEEifaL3KAxogqdjUU63ak20VZEQihldDohj0o3zuHPceVC4Fz5y1KbKADjY
+	 KoIv85Hs4jMBQ+W4aSXd1QwbTJhq+uB4uyzYcmVw3/4l38K5KEj6d5A8imodOYJWL+2IJ
+	 CXqu/2fdX5BXSwI/MzCyxrIGzvhkJU8LwPl0l63rRx1kVH6Ecer3uNLVKg0i0Sa6miMW4
+	 tIu6LS0l48nQuKT/AxllF9PTs6POD1ktBGE13cKBlMA122bAKe40AJX1Nw6yPooGjjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794510502;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=x7avfF8CE7MQkedzx8waSCJsEYoj4qczcsv6b4mLDHA=;
-	b=z3P8MXCZCsMm/BPVWfRapOrgjyUtLOMG2DK7HN4ypjzPeL8aq3pO47qFeto0a8xmyREN
-	 9wjtkUmBJVWXuMJdyXZPpE/zGI1+AnJXN/XF+WmoyPQeSxorabJAz6RGbtV6m9Mx4moeh
-	 tsLT6DedJ1fkmRUSx4xsXFukR7PxUawRx++NNV6NLoGJr25Hfabs+TjEChG+wUE3RR6FX
-	 81aVVxxdmQ1mBNGnO0IlIhEiNIRQ5MOxzHbUXD8isLbXZQ2bIOr4/f6imZ1B/6rqpsvP9
-	 je0hwiinNrQHc2BmOQWRgaoV/JeOWelPE+0cPtRQ7khooZyTBpeC8mmmGVhzWjqbJHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794510593;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=7vhYx+mU5ZE+8csctxhRGwodyAgV5iSIPIq1rC32lzs=;
+	b=I5oPlzti9F3Lnu7W3vvjPotAgDjLO85FMGbrlTXUBkB/BfU/XQOKEHPDBC2RzZ0abylv
+	 J609uO3THjEjQKz9cayaIQOP4eRUMbtDkLbGYqTdIpCTPQIi7D95oo+5ON0ax2eOBxNdD
+	 9kn/Y2mzroX6jjZEJ4TSU5b33fhInKRIuuYwNyK6BxqWMyH8s5+vbOLT1SFUs6nKdsp/K
+	 c/Slqt2CmBe3zREEE/D244VivlHrYy8zndJKjW5v5IlP4k6PloVW0qevDRvsMy9Ae79vI
+	 Inn3brwbBGTQ/f6ikUxMRZH8Ou0XYINjHQ7QOFlzmLDVBn6xPfmYStN3kuooAYvQXmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.47
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6mPTIqZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D2B606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 19:08:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3D2B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-99075306daaso157347241.3
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 11:08:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794510501; x=1795115301;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=x7avfF8CE7MQkedzx8waSCJsEYoj4qczcsv6b4mLDHA=;
-        b=dt30OZNJOraNEBxWxlQlNiH5Y/2xg3lyG8gtDwEA/HIn+4FqYtzq3qPNQrHOYZjixs
-         u4Bojz+1J1WgacxLH+fAS8TiiFcdn8189Ki7yIKGcZ8uCjrhlnuB98qHGncWHniCRW2X
-         FhG+x6N002C5Ge2Zp8X0lrJ08nSw/tVom7IY0tgirdiOa4mnm5YWHI+Q/mT2YaATa+94
-         FUnZccF9U9Ef6iaijBCWjN91HUcssK9I+Wrq9ULaFhWZPv7fPblGXOb147tIVgXJLksM
-         np7IiZEdqRYU6vsuH9/yUotY13VTRkUxxWIFQvXWlxGLQ+Iwzhh+8YgCN/pgUd9axa2i
-         uBhA==
-X-Forwarded-Encrypted: i=1; AL+hErEDDa58BO31x1e50mNZCLKLV59DSkzz9ChRcn9b2KkIo61BIxGw7fqZEs4RXKwebkAtpEzm7qM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Z1ZZfPpPpcNUn0/YmM5BP7VyntCn0BCiJghZ6PRxRZm1eOuN2
-	IH9kIffNxU/a0jD23V2/MZX6wCpIZZlQlbDu+blPLIF57yuRyeU6hvOplPq6LI+MKPI=
-X-Gm-Gg: AYBFou3UOQcLA1T/I7++7AVbJuS/dFdg1F7vJUR9r1j7A0dbu27UkWjv2JtoXLiIXUd
-	Ke7CYFXbcc7GI4H77ch8QbYhHLhSlILt6ovvbAdlidwnDFio+jUNDbt9E6BskoaKS+FgUECAQaW
-	JrSGEXZdFKJ98+oAcLQy2l1ZDQetHnHsHxwukyT8TItyP7gv/4Zpety/Y+kOHkhiV7OKioGQDQj
-	a8Sp6yFICe8HcxAGmaJkigilptkVnZ9PixVaz+7krj5qmjoEOlMeUPS2OjQUx382CGhEYebKsbO
-	VcjeEJQgBCPuzWAnaKgBgywZRx14kKM9nz9r1MCNMQOix6NKmirTG5Zl5dYPXaiB9X4K+IjuRSd
-	8uepV0VjhPzB3mOBwiRZ5ILeiWUuX7IiMRzurPlnmMw816N58+I3g2ePGyKf6Kv9Nr/1MjEeNp2
-	pxSy5bW6DZe6r0bjskD7li1PSvMR0WUXQ7F6dIR7niWXUfixopqUmi58LgAtarqMErIPHpw7y6l
-	MCnxKu0SS22WzewXUp1u+TO/C+D0CnXZLdfmQCypFP1qRa6Brpio3pVHI0h4LCnaBx/maakufYm
-	tpROFnuoSTM2bNNl4ZJzICHdZ5wp92Ob9qxW/q1PF4MULLN1yR4TeOv5VYYWQG3DBkI=
-X-Received: by 2002:a05:6122:e1a7:b0:5ea:d2fa:c2e6 with SMTP id 71dfb90a1353d-5ee34a970acmr36715e0c.14.1794510501487;
-        Thu, 12 Nov 2026 11:08:21 -0800 (PST)
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com. [209.85.222.54])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee341da79csm90226e0c.7.2026.11.12.11.08.02
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 11:08:10 -0800 (PST)
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-998569550adso141106241.2
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 11:08:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFfJRucKzyDC9S2b2Rk8T5CEVD2ubTiBkY0GMH9iooyFD0ZFTeCQa5XLi/Rj2FaTRNMAONgEcg=@vger.kernel.org
-X-Received: by 2002:a05:6102:c15:b0:7d2:8dd0:2eb with SMTP id
- ada2fe7eead31-7d64d6ed886mr73919137.8.1794510481935; Thu, 12 Nov 2026
- 11:08:01 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88751606A8B5;
+	Thu, 12 Nov 2026 19:09:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6mPTIqZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5DC41F000C5;
+	Thu, 12 Nov 2026 19:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794510593;
+	bh=7vhYx+mU5ZE+8csctxhRGwodyAgV5iSIPIq1rC32lzs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K6mPTIqZ0PqdtRQ0N+/uG83Mvhc5SbmVq/c7r67irEj+eqMifCHccwFKgV3/nQTlx
+	 O9ey+T/MGn53XOU2RQSKWCIZKqq1vmtThLfplc9IEG4tk1ALsBZuwhrc8BUCjEoryH
+	 wFFXOMUbs1ODS++BgEpdVGqILTydG506R8ZGglXYmBDejlENdN67BGKHWuhCEv1z4B
+	 rEzcsk/K4PHb3MKBt9KSukE8IvbAdcV8Bclho6AS1k6ArThMWAyBAZkRNO3qMq97zo
+	 jVItj8fx6+yPwmqAQZomGfNgtPRqYWT0UPtFoiCfc7zTGTYtmu8EywezKmPBo1twwe
+	 EJpV8om5RPyMg==
+Date: Thu, 12 Nov 2026 21:09:48 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: =?utf-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org,
+	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+	Jack Wang <jinpu.wang@ionos.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH] RDMA/rtrs: Fix potential use-after-free on client
+ sysfs setup failure
+Message-ID: <20261112190948.GV8635@unreal>
+References: <ddd08640709b149408b616c3eec8fee847af757e.1793455791.git.liguangshuo@mail.sdu.edu.cn>
+ <20261109111652.GD8635@unreal>
+ <APEA3wD5LFuJxkDei2Ikqqq4.3.1794229006784.Hmail.202321181@mail.sdu.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,47 +62,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-work-procfs-oldmem-v1-0-ecdcafd99265@kernel.org> <20261112-work-procfs-oldmem-v1-2-ecdcafd99265@kernel.org>
-In-Reply-To: <20261112-work-procfs-oldmem-v1-2-ecdcafd99265@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Nov 2026 20:07:50 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUgOGjwOUMxSabUgtaVeKZW1wx78XOJL8joGKkZEj7RZw@mail.gmail.com>
-X-Gm-Features: AclHuK8l5OcVstuPYNpoHJ657hIuMQK5i9ySH9sE9lHb16H-lVuh0fnzCqi0JCs
-Message-ID: <CAMuHMdUgOGjwOUMxSabUgtaVeKZW1wx78XOJL8joGKkZEj7RZw@mail.gmail.com>
-Subject: Re: [PATCH RFC 2/4] sh/crash_dump: check ioremap() in copy_oldmem_page()
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Breno Leitao <leitao@debian.org>, 
-	Chris Mason <mason@kernel.org>, Thomas Gleixner <tglx@kernel.org>, x86@kernel.org, 
-	kexec@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Hildenbrand <david@kernel.org>, stable@vger.kernel.org, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <APEA3wD5LFuJxkDei2Ikqqq4.3.1794229006784.Hmail.202321181@mail.sdu.edu.cn>
 
-On Thu, 12 Nov 2026 at 17:43, Christian Brauner <brauner@kernel.org> wrote:
-> copy_oldmem_page() maps a page of the old kernel with ioremap() and
-> copies from it without checking whether the mapping worked. If it
-> didn't, the copy reads from an offset into the NULL page.
->
-> Return -ENOMEM like the other architectures do. read_from_oldmem() turns
-> that into -EFAULT like any other short copy.
->
-> Fixes: 4d5ade5b29c6 ("sh: kdump support.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Mon, Nov 09, 2026 at 08:56:46PM +0800, 李广硕 wrote:
+> Hi Leon,
+> 
+> Thanks for reviewing.
+> 
+> From: Leon Romanovsky <leon@kernel.org>
+> Date: 2026-11-09 19:16:52
+> To:  Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+> Cc:  Jason Gunthorpe <jgg@ziepe.ca>,stable@vger.kernel.org,"Md. Haris Iqbal" <haris.iqbal@ionos.com>,Jack Wang <jinpu.wang@ionos.com>,linux-rdma@vger.kernel.org,linux-kernel@vger.kernel.org
+> Subject: Re: [PATCH] RDMA/rtrs: Fix potential use-after-free on client sysfs setup failure>On Sat, Oct 31, 2026 at 10:14:46PM +0800, Guangshuo Li wrote:
+> >> rtrs_clt_create_path_files() drops the path reference on failure, but
+> >> its callers still close connections and free the path. This can access
+> >> freed memory and free the path twice.
+> >
+> >Sorry, but how?
+> >
+> Consider an allocation failure while setting the name of the path
+> kobject in rtrs_clt_create_path_files(). kobject_init_and_add() has
+> already initialized the reference count to one when setting the name
+> fails with -ENOMEM. The stats kobject has not been created yet, and
+> adding the path to clt->paths_list did not take a kobject reference.
+> 
+> The error branch then calls kobject_put(&clt_path->kobj). This drops
+> the only reference. With CONFIG_DEBUG_KOBJECT_RELEASE=n,
+> rtrs_clt_path_release() runs synchronously and calls free_path(), which
+> does kfree(clt_path).
+> 
+> Back in rtrs_clt_open(), the first statement on that error path is:
+> 
+>         list_del_rcu(&clt_path->s.entry);
+> 
+> That accesses the list node embedded in the path that was just freed.
+> This is the use-after-free I meant.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+The error handling appears to be incorrect. rtrs_clt_create_path_files()
+should undo only the changes it made internally and error handling of
+call to rtrs_clt_create_path_files() should undo what was done in
+rtrs_clt_open().
 
-Gr{oetje,eeting}s,
+Thanks
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> 
+> Thanks,
+> Guangshuo
