@@ -1,61 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489459;
-	b=QS/LXsdcPa0AQR0kD/RtZ4drwdv75ZY2+Y4/LaOWS/o10m53B/5m6ql6UdQwituzdcZJ
-	 whEpIJIJvJapQIdOqrvQCm/jrGEX7ZiMMwOJz2fGPCIpFamIIR54/79e7+CVOWdRlf6pZ
-	 Q76qMJRTMiWFTioocQB1YJFHgCzo2jzPHWDgA7IW5f9u61Jm3imPP7HGlLfZ2o/77/wdj
-	 sXLBrMUli7CX5nMwSD0Txiy1DLRT6a2k6UhPP99DoUD2O487SCAeEKmx9CHgcQs+qWHqz
-	 e2sCuWhELAg2G3gUs8jBPtLiUDOLzVFCSDUdjyEt2kkIFXK5G8zucguW5+zYPNHD+Ow==
+	t=1794489520;
+	b=GzQLde3PbL8fOt6AkF850suEMRPX7vG5DIAk1VVzZUjEcpuqF+4UZxnDOZrQim1ckThI
+	 TkMsmh6Xq+w842/fzSyVNQTWpvAELRFKilAF0iwYmGnlLH5u3W9ycTwEpEK3MfGh1QEL/
+	 zRz+DeMAuiv7t5NzPqJjo++pdnqiCrZcKiqLTyJQ5+jWSvsdcB2G1keTMZzEgal2idgzk
+	 U6rNSGXIfVImECFLpU5FTpcQtkwhbOiuOW2N5sH5wkz4IvzJJmfetCOJsvYywEjAqHeZU
+	 PbP6rmaUXJckcVDLD3jCCu3x2ePTNkQ18WfkiAg08r0EGuLAd3zxFipze/8yOzZHvMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489459;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Yzj1idXCtJoUHmqfLKHjwJlnUugxQp0V2Hcyn0etTKs=;
-	b=4dcgTXP/pV3NTmAf0eP8DsBsXYanTKqDAlGLoZbe7GpfuC8o9fou+3/MsZeJbfl0mqPD
-	 Qke4SsDxEnHCMzoKloSnmVnTQcqYlW/e2w5Czes/v1RRo0fI7M8waXLlIVh8WKYCtjuCn
-	 9pfwL6paDra6j9gyl8Swyrq1rP6kN81XXg5U7P5tc8VuEaNCQZKowCXRO+Kk4/KF8A5ff
-	 1JkdiSoAyOgTwZNG7bK8HFgETyle02ZDVCUQG8ehqtt3u8SpCO1J/TzQ1gIRW8oev/GRV
-	 uwYd0t4evagcr4xO4jQnmOQEZhYRnGiMx2LqrEH17pXZY/GS5euL0hZAbbGvgE/aCnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489520;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=0reVTygQYZvGgH/DtOXkcK6EGhSpuDmU2CumM9pari8=;
+	b=162jiXrwdc7H4RHXvL3wnrrmm1gec306FFBxjU6nu1Ct0P56+/1KjjGPPxw0FuxStdce
+	 UTu92tNdvMYAIFT2rxB2yH7EMIWMUvW+M5AzeDNIwDeNrs4RyFC+WblyGNpgR0UYd9ucA
+	 CK+XdmpoNe3IbQAFayy404R03xnoLa5ok376IddkKbB10V/NP0JQVmj42soE2ab5F1+Uf
+	 qF9VLEDsxIeECaKzwjlpNphEp7CQt0lcxz1xhnlqxJMp+ughALULMYka3ytJWCpiGgJY+
+	 +jf2s5bl76mWA2DTWDCJWoFU23EGJNKy+pY6P15HID+ucEeR3xXuPxOQ3v+W/HLsPIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KcMjtF7i;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k6oaWtMF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z4kQJXkk;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAB6606A321;
-	Thu, 12 Nov 2026 13:17:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C1F606A327
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 13:18:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9C1F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KcMjtF7i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 610861F00A05;
-	Thu, 12 Nov 2026 13:17:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794489459;
-	bh=Yzj1idXCtJoUHmqfLKHjwJlnUugxQp0V2Hcyn0etTKs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KcMjtF7idjFnXqRPJ0m13utBRo4xxzDotH+skm6X9nKZ2K1b5wdF0nbjbC3KjU2DS
-	 kJszcOzKHfm5P68n0SspMLJxXmyLS+wsyMIudy4l7WjVgGN8AWlC7XkNed2vduudNh
-	 vHiWi1ihOquWeux8BnZ9WUK8GjBJJzglqWINqPwOJ82oKujOFprjPelq/j/EC+EXl0
-	 vCByiK4IhgswlsyI1uw7YVh/ODIPU5sD6Cv8jQkSSDvutkEAPN675AAWtAKlhbesH5
-	 ZPliWXy5tzfG0MED2cjsuawssi/gaSnawhhk2rrSwc6sZIUPY03/ftnXJEqDiZcmYh
-	 T9wnliIizGKrg==
-Subject: Re: [PATCH net v8] net: libwx: fix VF PM suspend/resume flow
-From: netdev-bot+sashiko@kernel.org
-To: mengyuanlou@net-swift.com
-Cc: netdev@vger.kernel.org, jiawenwu@trustnetic.com,
- duanqiangwen@net-swift.com, linglingzhang@net-swift.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, hramamurthy@google.com,
- jacob.e.keller@intel.com, przemyslaw.kitszel@intel.com,
- stable@vger.kernel.org
-Date: Thu, 12 Nov 2026 13:17:37 +0000
-Message-ID: <179448945794.2199510.9916666789815826556@kernel.org>
-In-Reply-To: <20261109101442.84605-1-mengyuanlou@net-swift.com>
-References: <20261109101442.84605-1-mengyuanlou@net-swift.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k6oaWtMF;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z4kQJXkk
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC9Dv5p480050
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 13:18:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=0reVTygQYZvGgH/DtOXkcK
+	6EGhSpuDmU2CumM9pari8=; b=k6oaWtMFbt7v7dpBKEPbHRgaguk/AXr79CCMIA
+	pYowYhoiV7TQWcgNfvL9ZHp8lSojuQngdWRd5eZNNoCI52UWL5E/YHIsGxXslnm+
+	0HCsAVXhIUyPrxvx4ey3y+S0nn5xd8F5qSMZszNFrCcYnhp/KbqsJ7dFKzkrc7Xz
+	DrP7GA1rbekvL0WDG1t8e06WYdLsY8kTV48XF2x06rNB27drGlvJsz2zyX9JkvvJ
+	xlhS4svxPKicXfAJ/3sW8UQKjl674+sPOW+urnTgt90R7ZPFPXkTfKm1TWCOiWG6
+	80hGQMiAeO9wbMuYosH28vf4tmaQafsQwgUjxinUNUr7ySRg==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwan4rsvv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 13:18:38 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36ecd5db581so1179897eec.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 05:18:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794489518; x=1795094318; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0reVTygQYZvGgH/DtOXkcK6EGhSpuDmU2CumM9pari8=;
+        b=Z4kQJXkkuBYcYZ7tSzY6NfHQhbPL/HYDW075fvGpkibLkkkdo3+HG+l2T33fhATo/a
+         yK8E82veWF9s4CygE+pXYrRHDK4m2QV2Ul5yB9Wrs9OAKmnKcLdjuDdWtV8YK52u1LZT
+         VLRrvDl6KuE0ID+oMlvl06ODtwu0Z1qKwKtz50I1KAIVAa9WXn2uuh5/ZH94uKGBeeQj
+         umQkMFPkylZwyGbDI4/AOaSVOy8tudVrsRlzt2ibSduWLEWXp/NxZPm3294eRQSxzZF5
+         DBMh3bffPWHZiDrqVmgqjNpRe+OXTYJ2BCeJuznJIkM6Uxk0LqcRjS0ECXPVVsmftUb+
+         O5nA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794489518; x=1795094318;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0reVTygQYZvGgH/DtOXkcK6EGhSpuDmU2CumM9pari8=;
+        b=Fe85+wMHQl/sgNA53AdWAcHpiQRU/IwZYJNFgcqhjPrCbia/s23o84xK1mAz4O0SCU
+         ziZJSY6cL2BaZmsGWM3Uad+tEobcnuBOSdeqn63wnir9P26Tjd6DAGge36I3z7jWkYCS
+         g0SnjwuymMfDLu9N8Gfh4rcmbQipB/gQzRvig9Q9m11yd7hnAvdO9e9cmnUlpS/aONgU
+         a4eWIca260+wr0YGbjZWN3EdOTkmYIJA1Us1Anj8vcDWQwaDY6JjWQB2HOafZ7i6ar1r
+         w8P0GjWFvqxWvs9NFGrMfaJtAegGRPQT/xU62bVDZwxejfOELWNYJZ8I4qRFlsqFrA2P
+         Tddg==
+X-Forwarded-Encrypted: i=1; AL+hErHflt0WpXFMFM9LQKCizd2khY0z0xUFre83BZTC7EhE5g1/Kq5crfr9SlHuoZ6/SQQ8V+wrMOs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/I49rk4+d0HK88FhmS2T56L2JGyyCtQL+X0jFl6gXex28EagkW
+	4EdH8LNMWq5evuAVFSlgAU8xGGaC/OdMqAEQsMgNO592a0OTPNO2YQF0rMpJsicR0IbKOLdzNmV
+	/jewpbM/QLgK6ByYs8ONcWytUbydoMiHmcJbJ9DF69zUnjbVRvufPrdsZFS4=
+X-Gm-Gg: AYBFou0phG8kePHkEqOs9UjTxpLg3p8kzR3tsIq0sL2nUDBjOKohA2xFdR4Wbp45IwG
+	ttTQ9T4aCCLSWUUuqPEOgf7oK/rDxU55KVLE4w4/TpUkz+SyLX21U7OBWNGIwe6RzrUKM5Adu8h
+	jYhAVHOqBf6ZiqH5FY0Vws6R9QTC7MsO50hWkm6xa3NozjyA914yGwgH/n4dEzmsNIL0CD1x/0E
+	/Pxcl7DjjseNKJfY4tPML1bLOuKVyw6MEJkj86+yrge4+TcnWGLz2eEtOcz4gakeqphJf2cpg3T
+	/fGJhEsL4/6imRW3D6dF8XT6hQSLHpRIuh/6EOcsFA3LFOMCTatmuI3Sy9YKyLCb9qNRvMUObEa
+	ao4E7FprtYJPn8Vwl9gPsE+NRQV9qrxKcN6vG0wL1BLuK9XQsrNLvz/QhLAL4RbFyAk7VKwQPno
+	TgWMvGBPM=
+X-Received: by 2002:a05:701b:2906:b0:143:271a:3df2 with SMTP id a92af1059eb24-1b3c0361cc2mr4490665c88.44.1794489517442;
+        Thu, 12 Nov 2026 05:18:37 -0800 (PST)
+X-Received: by 2002:a05:701b:2906:b0:143:271a:3df2 with SMTP id a92af1059eb24-1b3c0361cc2mr4490638c88.44.1794489516809;
+        Thu, 12 Nov 2026 05:18:36 -0800 (PST)
+Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e7d24sm43798356eec.22.2026.11.12.05.18.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 05:18:36 -0800 (PST)
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Fix MMC/UFS sequence for ICE calls
+Date: Thu, 12 Nov 2026 18:48:16 +0530
+Message-Id: <20261112-qcom_ice_pm_enable-v2-0-177e454d6f22@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,221 +115,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJi89WoC/32NQQqDMBREryJ/3Ujyq1Zd9R5FJMZvTVGjiUqLe
+ PdGu+9m4MGbmQ0cWU0O8mADS6t22gwe8BKAauXwJKZrz4AcE8ER2aRMX2pF5diXNMiqI3ZVcY2
+ iyjKKEHxxtNTo9zn6KH7slupFaj6WDqPVbjb2c76u4vD+HqyCcdbcZBrxNFFJLO7GuXBaZOfdP
+ vQBxb7vX8i1aCDNAAAA
+X-Change-ID: 20261022-qcom_ice_pm_enable-3c5d21b99e42
+To: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+        "Martin K. Petersen" <mkp@kernel.org>,
+        Eric Biggers <ebiggers@google.com>
+Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, linux-mmc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Proofpoint-GUID: Jq66LheROe3aOR9xuONBNrXGgVdimA6-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MiBTYWx0ZWRfX+cBGfGLtxSd0
+ DVF1w4HCPmVj3kh1wWMvHTEe61bA1OgUy3UvAJVBsOUwmH3YiQJD0zGQcxmUFRur6P+KQ6L34Gs
+ 5kkl3tvD9nMnVoT6YcwX8nUEpr9JGVA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MiBTYWx0ZWRfX2Vn1Colvi7r4
+ PGdkspWyq0t0mHpRtT8/5XAJo+SkceuAjt41cpX/O64wxaPM7w9eUFqE6S3aGqtmS/YFF4ZFWbm
+ 4RMl1iIVdAvkZeG//KYEvRtpmQoK6lrnVrSnFOH/y1/YWCTQYoH7tuVmgkd/AFagaV0B1wC1zFg
+ qv3yTuje30cqnM0wpcRAEs6bPoPjWXpWd81PZM1F9gUpNEpVmtZzIbVuWjQF9BzehoD8+KyvnzB
+ BCsGBOxlGQR6g847ap7Jydx9TCE2U4wHu/4hthDWXEGZ6YFvj/lTilU/e4PbvOnkD299Qc1YNXP
+ R7iQN7pTacYtDU1jYawlSccT5sLurn0ZhLN16xEFnPN+M92gkS1SUC4QI0miOMo0FYMz4q27E9F
+ 3Zxdr7eqEwa405eOQfrsLgjanlijKTcb2mukN0hd+C87+ACITiTX6RmJ8AJzIMYI8BiJPxRg9V2
+ w8zEtvwMaJr+POxIWzA==
+X-Proofpoint-ORIG-GUID: Jq66LheROe3aOR9xuONBNrXGgVdimA6-
+X-Authority-Analysis: v=2.4 cv=Gd+CDgXL c=1 sm=1 tr=0 ts=6af5bcae cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=bLk-5xynAAAA:8 a=1XWaLZrsAAAA:8 a=k6_AVi2K15u0NLJkO0wA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22 a=FO4_E8m0qiDe52t0p3_H:22 a=zSyb8xVVt2t83sZkrLMb:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0 clxscore=1011
+ malwarescore=0 phishscore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120052
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+This series fixes ICE initialization sequence where ICE is modeled as a
+standalone device and referenced by storage controllers through
+qcom,ice.
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 2
+Currently, ICE driver enables clocks during probe and keeps them
+prepared after probe completes. This keeps the ICE clock voted and
+hence, any key programming call from blk-crypto succeed even when
+storage driver don't have valid ice instance.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This exposes serious bug in sequencing but it works as of now because
+ice clocks are voted. Storage controller should not rely on ice clock
+state and rather ensure valid ice handle is available before any crypto
+call is triggered.
 
-- [Medium] wxvf_link_config_subtask()
-  (drivers/net/ethernet/wangxun/libwx/wx_vf_common.c) now calls…
-- [Low] The new `if (!wx->num_q_vectors) return -EBUSY;` guard in
-  wx_set_ringparam_vf()…
-- [Low] The new PF-readiness probe in wxvf_reopen_subtask() checks only
-  the return value of wx_mbx_write_and_read_reply().
+Fixing this issue require ice instance at early ufs/emmc probe so that
+correct sequence is established and ice is ready to accept key program
+calls from blk-crypto or any explicit storage operation.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the new resume
-  recovery path depends on it.
+Validation:
+Tested on shikra-evk, kodiak rb3-gen2 and sm8750-mtp.
 
---
+Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+---
+Changes in v2:
+- Drop patch 3/3 and post separately once 1/2 and 2/2 are merged.
+- Tag stable kernel for storage fixes.
+- Link to v1: https://patch.msgid.link/20261022-qcom_ice_pm_enable-v1-0-f7a84086c651@oss.qualcomm.com
 
-net: libwx: fix VF PM suspend/resume flow
+To: Adrian Hunter <adrian.hunter@intel.com>
+To: Ulf Hansson <ulfh@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+To: "Martin K. Petersen" <mkp@kernel.org>
+To: Eric Biggers <ebiggers@google.com>
+Cc: linux-mmc@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
 
-This commit reworks the shared txgbevf/ngbevf PM callbacks. On suspend, a
-running VF is now closed under RTNL, and the service timer and work are
-drained before PCI is disabled. On resume, PCI is re-enabled and the PF
-readiness check, VF reset, interrupt setup and reopen are deferred to the
-service task.
+---
+Kuldeep Singh (2):
+      mmc: sdhci-msm: Enable ICE before enabling crypto support
+      ufs: ufs-qcom: Enable ICE before enabling crypto support
 
-> diff --git a/drivers/net/ethernet/wangxun/libwx/wx_ethtool.c b/drivers/net/ethernet/wangxun/libwx/wx_ethtool.c
-> index 940d2e59876c7..729b1ec65bd75 100644
-> --- a/drivers/net/ethernet/wangxun/libwx/wx_ethtool.c
-> +++ b/drivers/net/ethernet/wangxun/libwx/wx_ethtool.c
-> @@ -790,6 +790,9 @@ static int wx_set_ringparam_vf(struct net_device *netdev,
->  	struct wx_ring *temp_ring;
->  	int i, err = 0;
->  
-> +	if (!wx->num_q_vectors)
-> +		return -EBUSY;
-> +
+ drivers/mmc/host/sdhci-msm.c | 21 ++++++---------------
+ drivers/ufs/host/ufs-qcom.c  | 29 ++++++++++++++++++++---------
+ 2 files changed, 26 insertions(+), 24 deletions(-)
+---
+base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
+change-id: 20261022-qcom_ice_pm_enable-3c5d21b99e42
 
-[Severity: Low]
-Can this check in wx_set_ringparam_vf() ever be reached? Both ethtool entry
-points reject a detached device before they call into the driver:
+Best regards,
+--  
+Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 
-net/ethtool/ioctl.c:__dev_ethtool() {
-    ...
-	if (!netif_device_present(dev)) {
-		rc = -ENODEV;
-		goto out;
-	}
-    ...
-}
-
-net/ethtool/netlink.c:ethnl_ops_begin() {
-    ...
-	if (!netif_device_present(dev) ||
-	    dev->reg_state >= NETREG_UNREGISTERING) {
-		ret = -ENODEV;
-    ...
-}
-
-As far as I can tell, the netdev stays detached under RTNL whenever
-num_q_vectors is zero:
-
-- wxvf_suspend() detaches before wx_clear_interrupt_scheme().
-- wxvf_resume() does not reattach.
-- wxvf_reopen_subtask() calls netif_device_attach() only after
-  wx_init_interrupt_scheme() and wxvf_open() succeed.
-- The err_disable_device path leaves the device detached.
-
-The VF drivers also don't register a PCI err_handler that could reattach
-the device.
-
-wx_get_coalesce() and wx_set_coalesce(), in the same wx_ethtool_ops_vf
-table, don't have this guard and dereference q_vector[0] directly:
-
-	if (wx->q_vector[0]->tx.count && wx->q_vector[0]->rx.count)
-
-If the state can't be reached, should the check be dropped, along with the
-commit message line "Reject ring-parameter changes while queue vectors are
-unavailable."? If it can be reached, wouldn't the coalesce ops need the
-same guard?
-
-> diff --git a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
-> index 26de78e9a69ef..e274a77b3be9d 100644
-> --- a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
-> +++ b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
-
-[ ... ]
-
-> @@ -388,25 +419,101 @@ static void wxvf_link_config_subtask(struct wx *wx)
->  {
->  	struct net_device *netdev = wx->netdev;
->  
-> +	rtnl_lock();
-> +	if (test_bit(WX_STATE_DOWN, wx->state) ||
-> +	    test_bit(WX_FLAG_NEED_REOPEN, wx->flags))
-> +		goto out;
-> +
->  	wxvf_watchdog_update_link(wx);
-
-[Severity: Medium]
-Does this make every running VF take the global RTNL mutex every two
-seconds, even when there is nothing to do?
-
-wxvf_link_config_subtask() now takes rtnl_lock() before it checks any of
-WX_STATE_DOWN, WX_FLAG_NEED_REOPEN or WX_FLAG_NEED_UPDATE_LINK. Meanwhile
-wx_service_timer() re-arms itself every 2 * HZ:
-
-wx_service_timer()
-    mod_timer(&wx->service_timer, next_event_offset + jiffies);
-    wx_service_event_schedule()
-        -> wxvf_service_task()
-            -> wxvf_link_config_subtask()
-                -> rtnl_lock()
-
-wx_msix_misc_vf() sets WX_FLAG_NEED_UPDATE_LINK on every misc interrupt,
-and wxvf_up_complete() sets it too. When it is set,
-wxvf_watchdog_update_link() now runs its mailbox exchange under RTNL. That
-exchange holds mbx_lock with BH disabled and polls with
-readx_poll_timeout_atomic().
-
-wxvf_reopen_subtask() behaves the same way while a reopen is pending and
-the PF does not answer. It takes RTNL every two seconds with no back-off or
-retry limit, and each time it busy-waits on the GET_FW_VERSION ping.
-
-Could the lockless flag checks be done before taking RTNL?
-
-Also, this change to steady-state link polling is only mentioned in the v5
-changelog below the "---" line, so it won't appear in git history. Would it
-be worth describing it in the commit message?
-
-[ ... ]
-
-> +static void wxvf_reopen_subtask(struct wx *wx)
-> +{
-> +	u32 ping[2] = { WX_VF_GET_FW_VERSION };
-> +	int ret;
-
-[ ... ]
-
-> +	spin_lock_bh(&wx->mbx.mbx_lock);
-> +	ret = wx_mbx_write_and_read_reply(wx, ping, ping, ARRAY_SIZE(ping));
-> +	spin_unlock_bh(&wx->mbx.mbx_lock);
-> +	if (ret) {
-> +		rtnl_unlock();
-> +		return;
-> +	}
-
-[Severity: Low]
-Is a zero return here enough to conclude that the PF is ready? ping[0] is
-never checked for a WX_VF_GET_FW_VERSION reply with WX_VT_MSGTYPE_ACK or
-WX_VT_MSGTYPE_NACK set.
-
-If VF MMIO reads return all-ones, every poll in the mailbox transport
-succeeds at once:
-
-- wx_obtain_mbx_lock_vf() sees WX_VXMAILBOX_VFU.
-- wx_poll_for_ack() sees WX_VXMAILBOX_PFACK.
-- wx_poll_for_msg() sees WX_VXMAILBOX_PFSTS.
-- wx_read_mbx_vf() copies 0xffffffff into ping[0] and returns 0.
-
-wx_reset_vf() then writes to the unresponsive function. It only fails later,
-with -EINVAL from the reply check in wx_reset_hw_vf():
-
-	if (msgbuf[0] != (WX_VF_RESET | WX_VT_MSGTYPE_ACK) &&
-	    msgbuf[0] != (WX_VF_RESET | WX_VT_MSGTYPE_NACK))
-		return -EINVAL;
-
-Would validating ping[0] in the same way, for example checking that
-(ping[0] & 0xFFFF) == WX_VF_GET_FW_VERSION with ACK or NACK set, make this
-a real readiness check?
-
-[ ... ]
-
-> +	if (netif_running(wx->netdev) && wxvf_open(wx->netdev))
-> +		goto err_disable_device;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the new resume recovery
-depends on it. wxvf_reopen_subtask() assumes wxvf_open() leaves the device
-quiesced when it fails. However, the wxvf_open() error unwinding frees the
-rings before it stops the hardware queues:
-
-wxvf_open() {
-    ...
-err_free_irq:
-	wx_free_irq(wx);
-err_free_resources:
-	wx_free_resources(wx);
-err_reset:
-	wx_reset_vf(wx);
-	return err;
-}
-
-wx_configure_vf() has already enabled reception before either
-wx_request_msix_irqs_vf() or netif_set_real_num_{tx,rx}_queues() can fail:
-
-- wx_configure_rx_ring_vf() sets WX_VXRXDCTL_ENABLE, calls
-  wx_enable_rx_queue() and posts DMA-mapped page_pool buffers.
-- Through wx_rlpml_set_vf(), the PF has set this VF's bit in WX_RDM_VF_RE.
-
-On failure, wx_free_resources()->wx_free_rx_resources() calls
-dma_free_coherent() on the descriptor ring and then page_pool_destroy().
-WX_VXRXDCTL_ENABLE is cleared only afterwards, in
-wx_reset_vf()->wx_reset_hw_vf()->wx_stop_adapter_vf().
-
-wxvf_resume() has already called pci_set_master() at this point. Can the VF
-write back descriptors or received frames into the freed memory during that
-window, before err_disable_device reaches pci_disable_device()?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109101442.84605-1-mengyuanlou%40net-swift.com
