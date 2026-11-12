@@ -1,115 +1,119 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496982;
-	b=woXmgnZDRBOCP7o13LP16Fj7o2FqowrhGQonJGgXlXS+f0r0m8ewKSFri9su5LrRQw0/
-	 TGD2RJQ71wUni43tBupK+bDCqi2TQKo28v5q2eYdCjr1EPeYudJOQgR38itkT542KjTRz
-	 j0acy+HC7AFtGI3sKiGeYebuyxlHup7t/SPRf5mSavLEIN9RAhT4m3dPGA5DfBLTMHkvY
-	 Fx70Ur3Uo0UUGwI4kPoFc9KMpkrcu9S1my9bHvlXDahGjQmggieTgMja3B8cEZxcuk2VD
-	 IC8GQq0k4lwYjmfp2QQ1W7DILH9yWNjkwIrLgq5Qtt1GU5Qh1WLeQYPo6MQJ8/3cwzg==
+	t=1794497137;
+	b=ASnwWmDZKeAAdzhQjmlmknZWsnKGgAb+xzdVfUiKIAYlZP9hJRt5Vdb2RSfaT11ptJlK
+	 vsurqvjIjyxkBW3WOMnLnTV2x8TY5y66UylmUsyFZR+JSMPR4ysM8sv4Ls6RXpRPvin4v
+	 ykG+du3vvDurNsQs6hwJjoQyJILOcqajNWMwfISXi2Zy44hh7GPg1Syc/HlMXEkOCeTMY
+	 OpABMkV5xfQ/Zq9foN8vtR1gxn0wwqC8gbDyauoMDUr8HvuinBzd1XNrwJ7jesw1dB+RN
+	 5I9D+HcDf0bKDH12RW1Cr712I0qpGq0igKXdirgR7lsDNPTgn8tsC7uGYs8RR78gfZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496982;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497137;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
 	bh=OxUusV0kxIEPkUTlkXJ9JrwRF0G1sxRdLTr9R3f/yFo=;
-	b=MP4Os+lwAlQ56tVk/aGSNHxTzTYkjQ5maY43VGtHf7+FIIkfb40iUw9bByzL/fFWqyPR
-	 VMUv51FZyFgMKQ0KX+MDeVzYCSyFF2VO/Lpn0fpaW7LBLmuaASgBxJgZbdK6aZ+2Bf8aG
-	 xB87LbVb9hw2PV5aulHljYE1hIM4Ufd08lK3qm/A8L0vk0B1EEtkpNUy2OMXrQuFJD9L/
-	 iE1Rlz8vD9z53x6p6cYRh9rB/M/tzOEoWQtqcJnDhf7FKmNKeb/jCFi5AwlcMnnHkw6WI
-	 /PYkABTW0dd0j6xF1J2IZf4OMUBHczvABpbTDkCqmRS0dTpZEGuyC92B3WMgQH/eGzw==
+	b=tkpLxoqS8NRN6BLVFqIhJ4GQi67qjtwGW6Z/ZH8FcgBJr+spIlOqFinATxrZCh3qznEZ
+	 eTpSsbjfXC9Ajm1f2LJguXG8xoIT3KtW8efMC2t3SeYkCp0LYWIfBOhKgh+bC8cBGWglI
+	 lpcHmz70zHt6R+5zatdutOJdfbzRxYEzX0VLyMuJgrifoXroSh476ubcVbmJmt1nEz2L3
+	 VlXjv5UVsOoUOBwtwVO4j7QK0BmI24B4/OrSYLgeTlLdmf/1REpJtOv7EvGCxFRtZE8js
+	 MZ4TzSG43TjVLkApz4DCkIRU9VCtL5FKDi02VkKNG1/d+q8TKB3FZD8waMKcVvbAQeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=daanbouwman.nl;
 	spf=pass smtp.mailfrom=daanbouwman.nl;
-	dkim=pass header.d=daanbouwman.nl header.i=@daanbouwman.nl header.a=rsa-sha256 header.s=fm1 header.b=i6h4XkC5;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=deiPRmHA;
+	dkim=pass header.d=daanbouwman.nl header.i=@daanbouwman.nl header.a=rsa-sha256 header.s=fm1 header.b=Ow7w92ga;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CJbjg1KA;
 	arc=none smtp.remote-ip=103.168.172.154
 Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D006060A3827
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:23:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D006060A3827
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E42606A339
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:25:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53E42606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=daanbouwman.nl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=daanbouwman.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=daanbouwman.nl header.i=@daanbouwman.nl header.a=rsa-sha256 header.s=fm1 header.b=i6h4XkC5;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=deiPRmHA
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id A3547140005A
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 10:22:59 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Thu, 12 Nov 2026 10:22:59 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=daanbouwman.nl header.i=@daanbouwman.nl header.a=rsa-sha256 header.s=fm1 header.b=Ow7w92ga;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CJbjg1KA
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 8B4E41400060
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 10:25:35 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Thu, 12 Nov 2026 10:25:35 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daanbouwman.nl;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm1; t=1794496979; x=1794583379; bh=OxUusV0kxI
-	EPkUTlkXJ9JrwRF0G1sxRdLTr9R3f/yFo=; b=i6h4XkC5048k4nTY01QK5fAs5L
-	5qo7paI8pPNsD/7SnwU8z4pGLAUsv0RQKw/joh8oe/91JcCU1QUJvIceIottVcMa
-	onv0oxfqg472AVSTidbukWWy5XF92wFwlqs4YxkkKwYJURjKbzFIDXgf6UDWRuCG
-	qzX/kNc8rVpQcPpId/8cbSj9J8FGm9RkQ+i9DXuWTdSheKzuWB6+/nQKSdI2DDou
-	gSQ1n7Rskrha1Ljef7I2U0CUvriisUFZ3oyZ5+qG2Mrhx02mY7dsPfOm9+H+1oMx
-	oSRbM0xsnQ9DvQxUfOmpUZ7KxOizs0RsiSbuLhek36q0v7XF9BMaAonb4vFQ==
+	:subject:to:to; s=fm1; t=1794497135; x=1794583535; bh=OxUusV0kxI
+	EPkUTlkXJ9JrwRF0G1sxRdLTr9R3f/yFo=; b=Ow7w92gawUnE7FyqxNasB0cg9a
+	5qz7NejX0ijBnpfPsGmDbarw2ErIoq0/pNClm4WMsenLwwdn2XjrabGZY5jXHx7l
+	fo6xmNskLtxyWE68O29JUlrDKI92HsYt4D59tTAsy7Q6dSgS9EQGiBtO1p2Xdko8
+	ycAHfGmTLem8Oj0QJUDWtZKNl5s7o6sG/ijfxR/5apRztqC/ipbmnuJrbI18GAxX
+	eqgKqgeWHEcossOqOiB9gqST5D+63TuTWYTH7q18WRfIBV6FsXnkVKGyLR0KUCmi
+	7ESnmiSA7AlQcSZRhoOTgW/ba/QYI/nn6qakZdz0TIAWf/ikCZ+9tD70Pcyg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794496979; x=1794583379; bh=OxUusV0kxIEPkUTlkXJ9JrwRF0G1sxRdLTr
-	9R3f/yFo=; b=deiPRmHAWa7ohBP1wxbrRJr+KAS0yClgsTeKt+08dB4LcHjy3mi
-	+jkgYpvx2pU74inAPM3l+6rxqSp5a2xZMIkMrzYvjFVZ5870htIiPXE2N4Lp+/29
-	9K7iKCR7oQep4bKghrxLgiJ8oN0j09pDqVQhL69LJHILwX9To00Oz4iCCek3CWqp
-	rMlMtwuCRW2jkKHKTsGjc5vC8XXRzQqnNo513qnz7gHareLJzzIpgnv8ed9wMaLO
-	abJFA7mkQTbrha3bCZ0gh9vuYJUKQ9RQQt5Rdqi3DXc06vdsb5JlezOajMIkyo4m
-	BPkOlwPUoGmT42vrQX5nx6N1xRgFfDxxz/w==
+	1794497135; x=1794583535; bh=OxUusV0kxIEPkUTlkXJ9JrwRF0G1sxRdLTr
+	9R3f/yFo=; b=CJbjg1KAQPbJ2Z4FO5NPaEqx87zFRMqR97Sera5Aw9bAMRLMID3
+	xa/FZK7NNteqlfz3hD7AQYoCwouyWcRzJHvqJqHz1mXsRCw+VNySUBPdX0NS+D2l
+	EmgfJTqUU8iAwkSpszyKstuaHwsZ7/RNBaPwuKi+ZvulDu1arHMDcQS1e+MKyuTH
+	Z54p/WyeN8cVKqUEbPm26DlLHWoDJqeNCAaxdbtyu42kb9NQP4BzzdXpqEoJJGCd
+	uVnbTngdYodeTbASFeDrTeL0SJru+489UxKu8mGWUU1H3ASlJsN6TpD1yhFniS6j
+	ZTSfcz/OilLwNLXkdTjPNgQPSC6rvinAQWg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=sign d=daanbouwman.nl a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794496979; d=daanbouwman.nl;
+DKIM2-Signature: i=1; m=1; t=1794497135; d=daanbouwman.nl;
 	mf=PGRhYW5AZGFhbmJvdXdtYW4ubmw+;
 	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:KkDdIk2xxtpYTe8nPNxoJRX1PVEvr7a0htLUFzSD1puBOI5
-	hc0rBISmFVJgkUKt65kF5Pyna0aQU22uq6HYLVYGHMB5DM2rvJHxrrTklx4Xh3GG
-	DyLQixtdfm5x0dr8D2ezlletMzzlnvuOqKmQhAuyp0iIWdKdGnB0yu3wkL2v4US6
-	xnErkmgk+LYTRkTcFxzi0WD53dNuAO+xT002xR5I6vXkrfvLrM+rypUvWlTOfy8c
-	YYOfUwGjtYKLUcSNv3KPYpAkXwQkw3L083BvioexW4ILnmHhcimZ1gjnGuT9jXmQ
-	6kaLC3MOuznXMDN7m1xaNaq4ZM1iMTwLTQr4BDg==;
+	s=fm1:rsa-sha256:hmjnWqqyM8sI5dCgcRJlq3AKETy4kkgnO/2IPVIXt7MG+Mi
+	EhbzGcS7yoscuPAXsymafBej9LsnXkIUJqo3M8XkVwr9zphbuacDFUISBhZqNMKz
+	b4cN5Oh5b0LSs2UGuFOn4D1lt2Iqtr+m3t7CiccRhjZGtLCPzDKNHM+t2vrnNTLL
+	bwU3YJq7BqJFR79BL9gvwiI3kHujiTrQ1vkPufPnMWQE0L8w9gktihL4ejaNrBsF
+	jYq+MKJZ9riiDCsWSEBetuo+cK1tjSeEpWiOieIt3P8BxoCZHNizH47VGmJlBZQC
+	KKLeU7vaxnV4fzMQEUs7WTRb9f4yQHtmHVJQmfQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=mi-m=1; hc=9;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
 	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:1SITWTvMZYYmgGUY0H/VyIFTLLIW+g8EYsau3qOY2hQ=:c07zY8anuh8g65MOjUyinIH3uPh7GfiWUgtFYb2C6YM=;
-X-ME-Sender: <xms:09n1aj03ELFkNCyj0lmqsynLLYaHIX1RdF7qP-uIStJFVDhEcQAN-w>
-    <xme:09n1aoHyV6ClFjrq3BXN_YSxmvfNi26xTF2xolUpo5R9Q4AP0TWlGEm3ia2FEPyM8
-    bbMQ99giiymigdzpbKaNLoiQ_HtgSrxlP7WZhA6Dm0rhObyIPJZxFeK>
-X-ME-Received: <xmr:09n1ahgdh-q34NDLZ5KS45Mbnq51Q02R_6ViwSfw5a1tv_PvMyz-Fn8bj8-6y5FjGxcn_7JlU_3b0A81Zt8>
-X-ME-Proxy-Cause: dmFkZTFQicci2EoC1yymtm75+5PpcTExPHdvuWcYqijBrTi9OjoDz8VZDp0arknqhtb7YA
-    kM2DoB+GKCAm/oKVhTPuq9INtVWiBQG9H6+s1OchriCxdKnPLzVn2347hBvMudHSHKtyd/
-    AABKCkiMQ8JAtEZ/4bIesc0CFO5lEeuoxSHCi+w9KzBjon6ZHURpOwTkZtfjNgqhVbhT80
-    rfsWDjFaAQ9fl8V2rgy/PBNlgniLFQsgv/+QrA+mdqH6xjpfeaqfzaorWk4hmzauUEcMmR
-    mDENH/LJmrOMrTJOn6DvRyqgR+DBDSwLiaDyUcqk5gfJ1pQhRFpsxFhhWoDzNwPsBJrTD8
-    dUYG9IKTmGDzZzv+ZBmu3ysTWFvZiFw9gQQstFp31hzI/Icd82I6y+lzFK8wwHgN5CbmOC
-    uRuW7rNoEhXpbWDAGR2wpWA2JIg5+oI7Ce0GOktFSoJjiztas7R6hGH24YfcTVCqdg1oR5
-    f1ASmtSK/1RsDN9nDUu4h84yb5wySkM+dCK70ChbEBWlAKS/i/2Buq2MG8Eg6vJZG5eaPT
-    aAroYwOoA501FxaRKRIrqXbJZfh9w8wjpgR4qaP6xCCcBdFkehN3lX9zYm/441s6R63qpF
-    RXbYxK06FOQ3y1JXxW7lJBUsmC9pwRjWElyV1ORjzCCW4H3hOmnsEvC7sxZA
-X-ME-Proxy: <xmx:09n1aj88pQn1yXk7yXddjX4HMi5HWfdd7VZUEkBwLcpeRU65Kbdr9A>
-    <xmx:09n1aoq-VaU3ZmFjIkKt-JIwhRAksN1luv3sR1XR1uDfsFDQP2LRPQ>
-    <xmx:09n1ai8Igl9B1G6CnrRhI1X1-sTtv1LHD8pU4USImLI1MMhrThHRfA>
-    <xmx:09n1asVooKYycDEWhupxclL4WZ4K4SPDlaD8ud6PEjRUGQNk9fohzQ>
-    <xmx:09n1avOnSmkuokfUKGORwpZg5NEW8Jsd-6XQHuqxW-EdUcwXXgB2aJoI>
+Message-Instance: m=1; h=sha256:dM4JR5TwGCN+oN4b5/XHsK6jee3EK7CnlSX52D+2uOc=:c07zY8anuh8g65MOjUyinIH3uPh7GfiWUgtFYb2C6YM=;
+X-ME-Sender: <xms:b9r1ahtpgAtb97TN6i64EaokK-Wm8JZZGetto-Zcg00a5Awd-qPeYQ>
+    <xme:b9r1alYhLyKKagK9y-PYUyS7xkwau5g9HO0lQtFxF7MfZuwDjGhbeY1ZWHay7Kq6F
+    cNYB-R2DR-uVYDqN1flhBokL8u59pCksiD-Hzq971oU7WCcEcYDT9g>
+X-ME-Received: <xmr:b9r1ajzsVEO-JW1f4ooRJUfpmN2VN1562BJeyjnqFeljAJKWc8YTeOALFg-uOR9La38tKudIP9g5DokLy2A>
+X-ME-Proxy-Cause: dmFkZTFHexHi45wj/oZspy+CZQF2pB4nZvnJvxqOtKMoY9ys9kyD+9oqLgL3XFFxTuyKFb
+    t/rBBLZPT0hTW7F5dS5+BOfN2ylM6Oy3D/qcX3hNkN90Qm5BNilwPL7iW7iaAmoGU9zzMF
+    UJ8ddHpua4mQpdkU4YQh7fe3n9x7mVnaH2UvL5BOCvf1RQ2Ttj4A5p0ZzJwwyx4+Fkt8vN
+    uVtudbNiZ2NsEPbPd5qRTP8rLDlDY03Tz/ovfJfyDNdO1zVNpUAIF6ycBA7oI5mGde2ly8
+    OlFne1TdRx7UAU7gjlAnUCM25nI/qExGuKBI7wI9krNo6bifWobmNyI+xaPlTlPN5tUvIZ
+    6pxQcWprWApG8JS9hwNb3P6vdDzoT3vaRqTtt0C3Qm6TKIo80PC3EhXv6UK9QGbt002QDy
+    Rtk3d6e+VwAsIllTlUu7qiBrjtThX+KaaHBqCUrTrWkpgoPPYRsl3f78t58QJ8whJGUPHw
+    n2FJPQYx+RhkNS6sexDoiEHf/RsO9xlXdhsrXlEqgW3+IphbXtX+XQU9hT3ipvFvGjb8ew
+    GAIyo4lfJr9HUQtMmjEfceJBCQzrNPEYJKkIdGVtYbMnWnVHfnW+ED+bjgvjPrvd2pahCa
+    p7yvJQ16jYxz6VmqpOGJs2v7/SSpUJ1ASXwS+N51/bqj7ZYiM/9iKu6qHawA
+X-ME-Proxy: <xmx:b9r1atiBhMXhJ26EaspQfJZb2VllweEZCwFDAV5wFN8U5PXPf57sUA>
+    <xmx:b9r1avk0dxRiUyhEYmBrlbF_eicqB7oe3wGocITIRWfxG7Mbwr0dag>
+    <xmx:b9r1ajiylCITzedlKfvKhrE3-gO6HQHqte5KDXWzjf0jNqXk03yMEg>
+    <xmx:b9r1aj0Gw3Q1QZwX6gpak4Oq0hrT1-5Ynh5vXjiyAIoaMNytLY5pmA>
+    <xmx:b9r1aj3VMR-FZwts2UVRzwOfDYjxb3OVwvhd-BFc2vOD_u9_l5boItqr>
 Feedback-ID: i83ce4876:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Nov 2026 10:22:58 -0500 (EST)
+ 12 Nov 2026 10:25:34 -0500 (EST)
 From: Daan Bouwman <daan@daanbouwman.nl>
-To: daan@daanbouwman.nl
-Cc: stable@vger.kernel.org
+To: linux-bluetooth@vger.kernel.org
+Cc: Daan Bouwman <daan@daanbouwman.nl>,
+	stable@vger.kernel.org,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-kernel@vger.kernel.org
 Subject: [PATCH] Bluetooth: btusb: Add QCA Rome support for Surface Laptop 3 AMD (0cf3:e303)
-Date: Thu, 12 Nov 2026 16:22:41 +0100
-Message-ID: <20261112152241.9570-1-daan@daanbouwman.nl>
+Date: Thu, 12 Nov 2026 16:24:26 +0100
+Message-ID: <20261112152426.10335-1-daan@daanbouwman.nl>
 X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
