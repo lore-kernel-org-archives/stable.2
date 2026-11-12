@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794469865;
-	b=y/sNMHR0jrWC+EaTs2VvxW/wIeNpyg5ZXbPToaJK80w7ox9Psm7cfuUqx1/1q5GoSLH+
-	 Ah6kGdcUHYpOKFpjDXmdgB4bNRn38pFUwMbnAsyVXkyOs1KIldZzHpHaMHAFFfEZGFjlp
-	 Rme6gR/RaCJMQsh3A8MIqLbBbH4pD/P06WE6E+JO2eZEUJgjTbiypqF6lxHmsWMym5FLH
-	 xe6e/wzjsdl5YINLCJUfvFbymrH0tY2JGSY5NuiOOHvp5pFE4b9QGfXSCu2+bU8HKYM6P
-	 1q9khoTSJudAXAEJtSPFJjopyXBpweFrXp/6qEWcysx3xfS06dCEU2JerSlv4PZjJAA==
+	t=1794469927;
+	b=ccaxz1YrRcLLQtuhP3+IacokNhOC7/kq6i35c2keVEwHDErpf+GH2FrBlLpDWQnXFXvq
+	 EfYoYWcjJtKrMKNOq+evPebawx5r2Kd2yN6kcVBvfB3MbmeaOnS4Nn/Rsv4d4Fikv4uzp
+	 K6IJaaRCC40nAj7BUTaLmuSiCiveWKAypAbmb40B4zhKr6Y4xAIe2OXnH8EjXB5n5lVxg
+	 xVp+KA1Zt0bzY3HE6Z1a6ikdqhvun9gTtMVs91xHavVAL7enfIMhk/I+fSdutL50fcJnq
+	 im+JoW7NfmL5n5s+KQ+iV8QVV+y7So52Ty3LwJYDFLlV8kWiFoimVKuuMtbw7eTDlgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469865;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469927;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=7orpXNHm7wmCmomSgiqCor7sUdVyvLYg6H0PX+ElZU4=;
-	b=rR6j+LBNotZGYPSg8qhQbNmOUttUbS56x1nicNbRvk+GuimF6xqaQZB/I0A/NyOxJ7hf
-	 xCIRbOgI4ZpwSxC8u/XsA7nqAorPk58vU99e+1h3mpUVg11kO0XtMTeAGSxwcTN6G+e+G
-	 0aW6+UjYLvbnvbH3v9pSTjZtUfO1idWPDJy1Q2jMPRQNrvMu7TJ5ENouWdPVOlu5ANUEl
-	 GegMgbIMUvhhTMQSQOneSopVM8YStZly7vYjrYPnlmaHfTue0nzntt7/XBB0iEYFF+8MH
-	 qQQAMuOi0fE1AQ8mDOXj28UgYlsZGjlPr/hOzWDw4MvLdNwigdGevM15jH+doNteN9w==
+	bh=bLdiVK3+ntWca/ii+YWQG2SX3mIKWekX7UIex0zYoYE=;
+	b=xZNcB+sQzK/7LkZ29eGFL8OUtHjbSoNiq4gTDJZR3mEDDhfltO+uCVZ7yjPwGdUl+xV/
+	 YeqbLniCvo7fXfZim13Yr+VsdVrPmnXGFzzF5WddIQH28zTSd3cC9fIgxWeUjEHZPY7Cs
+	 r1yg5Cp7+8hapKQWvQHQZVtv6K/94Ni5B2LjAI4QJNNWXiyT3gqoGbqPepNQnp2YanZ43
+	 GWks7pudmmB6SWx7p3qWCNhuwRac4TbigJZaZObYrGUnf9bMZP1/c2svLTfL549n+uVqz
+	 maNmsPHFcFRMaeG2kMcfJ0fKLvPn2fbj/pqs30VXlHj93bPmlFuQf8QplXSZB7/DR0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjoNwXGs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHoUzJAj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24C6606A33B;
-	Thu, 12 Nov 2026 07:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8EF606A31C;
+	Thu, 12 Nov 2026 07:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjoNwXGs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5A71F00A05;
-	Thu, 12 Nov 2026 07:51:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHoUzJAj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF461F00A05;
+	Thu, 12 Nov 2026 07:52:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794469864;
-	bh=7orpXNHm7wmCmomSgiqCor7sUdVyvLYg6H0PX+ElZU4=;
+	s=k20260515; t=1794469927;
+	bh=bLdiVK3+ntWca/ii+YWQG2SX3mIKWekX7UIex0zYoYE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DjoNwXGskFHUpQCTvuh0EYQ9kCmA93kcVo0YHN1bHHTdwmNCoRLdbEdgBLNvgw5rU
-	 guCCdFWLudNxtR4hMEvaKgXF2auMePtbdeA+YH2PTYJFK58NOOJHuYTe+m+IcyAdxp
-	 G9Gj4QnNA+RBqmoZ3gseaGxoPXUrVCA2BE6/pSkySmQnWWD1qJdXKPfF4cGtzUbAfA
-	 CmOv6+tRjpX6ZF70ikzeAJUjhx3ZepZQQW7EgXCZzd5ZUmzGnnzlArFb7nCCxAqJS+
-	 FcRbcP43YdBc/sYlfOXv27m3CqMz3xrzvMz8qTXi+lkBxSOIfV1IpOdBadUEGu5Qz9
-	 tc1aqkTrTPQGg==
-Message-ID: <9732f8f5-151e-484d-b75f-6ad74b64f041@kernel.org>
-Date: Thu, 12 Nov 2026 08:51:00 +0100
+	b=ZHoUzJAjpbf6TJR0o20fA0lCx0hgc7FIl07G3VH4ajEzO/B3gMjB2kmofMB9D2jr4
+	 248eNeMzXCJLag2Sj9X8AtLB7ZGtiKJBtM08gKAMpE3Eqw2SIA8z42fw98/as41yDc
+	 9F3qvwlQl/9l++lxEBSLyaGPlo7sI0dEIwmDPGRarcpLChIHuKVlgp/9vU6wto2Bc7
+	 oF7CxS7VSO1uXzdrMXViR+Oy/qbw/mT9r1nu503LR65fwvOi1wZFzYU2aCEGfg/I8/
+	 hSnmBwHGN33ZmcvYL+IXRe4VQHmfCKvbgqPRv3jpyQrvQzeKV/YoarRHU/v3RqZdkA
+	 IHhlQE6WW2AZA==
+Message-ID: <fe2e6e14-6d2a-44f1-8c3b-17f0a1bf1213@kernel.org>
+Date: Thu, 12 Nov 2026 08:52:02 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,13 +52,13 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] extcon: ptn5150: request the IRQ after the resources its
- work uses
-To: Myeonghun Pak <mhun512@gmail.com>, MyungJoo Ham
- <myungjoo.ham@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>
+Subject: Re: [PATCH] extcon: max77843: cancel the interrupt work after
+ removing the IRQ chip
+To: Myeonghun Pak <mhun512@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>
 Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Ijae Kim <ae878000@gmail.com>
-References: <20261112070355.38837-1-mhun512@gmail.com>
+References: <20261112070352.38787-1-mhun512@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -104,39 +104,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261112070355.38837-1-mhun512@gmail.com>
+In-Reply-To: <20261112070352.38787-1-mhun512@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12/11/2026 08:03, Myeonghun Pak wrote:
-> The IRQ is requested before the work cleanup action is registered.
-> On unbind, devres cancels irq_work and releases its switches before
-> freeing the IRQ, allowing an interrupt to queue work against released
-> resources. Earlier probe failures can leave the work uncancelled.
+> max77843_muic_remove() cancels irq_work before removing the IRQ chip,
+> so an interrupt can queue it again before the MUIC regmap and driver
+> data are freed. The probe error path does not cancel the work at all.
 > 
-> Request the IRQ after registering the cleanup action so devres frees
-> it before cancelling the work and releasing its resources. Keep
-> ptn5150_init_dev_type() after the IRQ request: clearing pending status
-> before installing the falling-edge handler can lose an interrupt.
+> Cancel irq_work after regmap_del_irq_chip() stops its producer and
+> before unregistering the MUIC I2C client. Apply the same ordering to
+> the probe error path and initialize the work before that path is used.
 > 
 > Found by a static analysis tool under development.
-
-LLM is not a static analysis tool. Mentioning unknown tool is pointless.
-
 > 
 > Compile-tested with W=1 for arm64 and x86_64.
 > Not tested on hardware.
 
-Drop from commit msg. Such information goes to changelog, not commit msg.
+So you are doing the same mistakes as vulab?
 
-> 
-> Fixes: 782cd939cbe0 ("extcon: ptn5150: Add queue work sync before driver release")
-> Cc: stable@vger.kernel.org
-
-With above fixed:
-
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Organize your work correctly. You can also read feedback vulab received.
 
 Best regards,
 Krzysztof
