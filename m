@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472250;
-	b=G75kOOMSgzjBqB4a/X658ypSdqeSEu9yj4KBD6GHvDuE5iNM5m/BbTi/e563aWBPoWQ7
-	 nT2tuoWQ7YkyZEU4XYupCDOW1Ry+TBbrLD3p/HfLJYsb5QXMSC18zBQ3szZcHYABiz/wQ
-	 NbvdEoFznO4yQh1RIjSZvIsTe4J07tGe1RnYBz+K8x+QydCwXWSAGIf7z1/ZRGUSrfS7Y
-	 e/f24k2DF6NmjMMYKXbJAVQHM2RGbFJCyuBt03WexpV8p0jk/lPd0VTmmAhveSDYNdKYO
-	 F1m6LVWfBVA5cpLvsFZhgT3b8CCgaq03qMhDI3GJbsFqkHSqt3nOwOGAa/aogqygxFQ==
+	t=1794472284;
+	b=zggCJDB+T7AyLITEKwoFgl9VJOIJV6l5PALBQ5oNDM0PBC5JY2LawWZUdEIVhQZAs0mS
+	 RCpGr4o+FqBBoeoddgkC6E2ReCPY8Yw1Q+ogqpeGxK0F9JoA+iVJp6LogwHgeZf71PMUH
+	 Iqb0aU7jFxfO30slrbrzYHAvfntd6kiuvnc4PHXdo/EnbY56nWJXmPTMKFcJNlW6e+QXm
+	 9m6n3HaAT04dy45xyqJ5lvwcu3w6Io6YYZZx01Tq6GmrZCQwQkXUiZmDr3eYfWj5kbIoq
+	 hE5R3yyXybAqAqjrVyX39pe3TNp2BSt4pcwFWKcWAm5K5eiAqpMicsGhoRcvDbKBFqQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472250;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472284;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hKuahGHQ0APnWIJaFL6RA1DFujLrUACycNekn7BglGU=;
-	b=jb3nwyfpN3nfYKunCHhchI4KGF3DeFSI/iN5GKM1QzzzBQPs6Kj6d7BClWqxP016wE7d
-	 PJ65l6/logKlbsn21SOp+57Je9bizWwfvsAOqupAmQwUdlC5IY5r/J5VJtRizXSGkvsP+
-	 7egHF7DFHynRqkh0+25ugjKRy1RJKal+Dza8p84Q/zgjGq6E/v2EXW9dDxF67i+QXfYiD
-	 HDHSrMA/XSoMPFSFrbFnyzOG45qdByBW9pZdTam6Cp4L8MwPBUJmDPwvKzA2IVrmDuac9
-	 u5dM2MDQLtsxomQYUHjk6nLN0L5+OSTYuGmsQBiBiPzgc+JnpEqcxHziX0hxTywWciQ==
+	bh=pZakbjmrYAUi2laxy/i8wT4W0cRFx1oiNblobUK/5XY=;
+	b=JCN407ZKsVa5dP3g4JEFrz2naed+4pKijiiZuKMAS7pOqZL7HhLFfyxTz2H0ZUSqwSXb
+	 eRgaPfsNvvHAttYUCxp8T2kU2dgzWsnGc6OClk+bQ5a0VG30bXao6G+lLybhq77yxLIZZ
+	 N4sraaVIdyDx43ypFIo6GMjqj92Lvj4TOX0ML/Qy8OOWw0VSJL+wwyVkgcYg+UQ2oVCI5
+	 mI42GRwfDJAfwIhwIg5HAmvW8TupEL3hfWhfblvRuWjNx3CKHkQl1FOPw3Uifca9J0+Ak
+	 VgdWtbIMSeIqjdkls9GpOGzDeygTvoDZAcESJ7mPmYpnbPq8tFCri6ea8wsVY2fdRqA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYkpzBLe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7HGMSl4;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDEE606A331;
-	Thu, 12 Nov 2026 08:30:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB641606A330;
+	Thu, 12 Nov 2026 08:31:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYkpzBLe
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7HGMSl4
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794472250;
-	b=KtfNqADoq81K3tziX8Ra6eFlkF/d8Bkjj8/A5zShulhyYH2LXgui2TenBv7XXl0bvmCc
-	 IJ7YWBjNEnDvjJx6xKEciyVIKvfzIbqiS5FG9wYMBuH0VoD/0xfFzj2k4bX5HsnJDwpOq
-	 H5dSZ66k7iV0jKMEGcqUj51VyWJLmAo+dim5ejIAQgrcmi8/2ppz2ENaoTALAlT/Wz/7Y
-	 IKqPfHAk6CMXDmwLgrJWEoOGvenEOdNJK/g126ARRisMEJtCj6bcCfW45pMXAWFggdtjz
-	 n8eOpJiEt0psAFUbUYCMXBpnflDTHQkXiEp0dLdwF6geepckIsQCkJ1l0bFKK2uShgw==
+	t=1794472284;
+	b=GfXfT3xLYaZ5waiBO5TgYOIMEsJS2mB6xkuofqbKkbc4zbQr9aGZJ0JlFSKWF0UVMpX0
+	 gIg3gIjEvtQmNj+4k0UstXRZZ8SsBM8ieeiWgLEarpC1YwBP2foHFajbpbpfvbrV+LNfi
+	 ZpJ24oZeJ98xFjlqO5qUxARCGqQWap2FfR5Rk5KPNF8DCV2u55IVGd8OiO+z4PtM3Tcyb
+	 +oz5e4hZrh50a7EDXtZUAMaxAG6AiGzzSXXP0rpJ7Y7afrO61bUEDUQR2ToQw0fRkD/Mt
+	 +eecd5kgeOYax+fQQK6DWe5BttJMdni+IV74m7PCRHiHNHsldAwI6qdCqL3PPOVsNzw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794472250;
+	c=relaxed/relaxed; t=1794472284;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hKuahGHQ0APnWIJaFL6RA1DFujLrUACycNekn7BglGU=;
-	b=ZsV/tbq2tqWLsXNL038JVbaFfsUU2i0+ekwxJe/PL1xFO7nqoFp40cVIe20r54yqUEax
-	 CxltctBCkP4PsbcPGVVugVdoMw6Nke+uHnOL4mNdxPS4Ghwg232SNr29NErBxQujG5b/x
-	 x+TWtCLSGYuLB7J26wZ+/RUPeCCJGImip3jm75xe4GzWreGT4vxwLLXh7bDTxh5RHC1Kp
-	 tldqkxI9Fu01BPsffcXFiVj8YZODPZGdmdSDnvZhs0M52uBhfmAKA8c+j+n6FwnxPi4uI
-	 za5EiMjhwRePsJDi3RBT4X0AGifTKQqNDZ4KwdQp6Vh8jP2AfxvJZkqIKkI3k8uHeyg==
+	bh=pZakbjmrYAUi2laxy/i8wT4W0cRFx1oiNblobUK/5XY=;
+	b=xUuUioBLoz4RMG6RzBWoOrL8xCf8gM72UYcx0j3YCes3pbda6MnNJlYhAHt/PLqu3FKx
+	 8wRGXqJbvgVnKsEPqNgjsOwSlsBHbBeDrzl3LhX5bc+BsVDjdSVF3dq9KkXjXSqcw0NBN
+	 UBopE0XqEaVqvRH54tt+s9A9rcD49KpwkhNHCFO2rHHHKAb/RB3Q/r25GfsESL2W6GVzf
+	 uESwJXN6wqCW/Rs+7+yFs8ALzZoDwrK0iSVx3T0Ke+MNOExkVC+ttWG3rSgK7CP2ud1nD
+	 pWlfEo+i2zRE52jLgxbK7dxDhOO486c9mfjke8zOcEfZKAfdhcIpNJdFeK2g1LYCrxA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8579D1F00A08;
-	Thu, 12 Nov 2026 08:30:48 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id ED3DB1F00A0B;
+	Thu, 12 Nov 2026 08:31:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794472249;
-	bh=hKuahGHQ0APnWIJaFL6RA1DFujLrUACycNekn7BglGU=;
+	s=k20260515; t=1794472284;
+	bh=pZakbjmrYAUi2laxy/i8wT4W0cRFx1oiNblobUK/5XY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WYkpzBLenmwUPf2zd3uq1njx4uMjWtSAQCgvaijuZCh9CJhVV3UA1SFOq1Ntlyo3w
-	 Bhe3c/JklCRAUyQghlVbMfoLHpIjEnDnAxwgx1zPO4ZAGnh+V8M34IF1DsGDhbgoU0
-	 zReUijHlJVAKHw2PP7mF8jfI5kq6CiTPjH+f8fjts1cfv6cAQVPyX847mrwgoYrv2I
-	 FD7R7bdA8nzM7T1mcOB3hMtoskktPe89RhkrF51Ra5YzDiCyy8fD0z2DG53lV1nvKS
-	 l/3WZx92gzEogZ7wpiVK3QLmQjb5y4OdP5guRfRKE7sOR70fWcEYq/IgsaMNWFz5dr
-	 eOKwaUHxzB0gw==
+	b=j7HGMSl4m7aTZKc9NEgGXw+/pyVjGgPx5lJNFaAjpJLaKtCYYVZsm0JrKBd2YSszn
+	 UKQhOBEddQzlJvuovn8+W3jpS2Ge5RDzt5e2h2/CQsuwpQL7lfLxZKYVHqwNS4N5wY
+	 F8gtCn3GBzQp2wZWT5Laf/EAGNbsAzAvBjl64LYnP13PD+w4gm4PG52+sn5NWf8SyX
+	 FuixuS3VhilrOFe0WPpmOYZMF3QlqIacyLhFYZ0VSp+wGC9dHVPYEwWnbbhz4oztlt
+	 9kf2dfBT/DFz3sa2qU5witSbz1t9bvy2Alv+8NQEZsF3w5kgDrXQ/+yILFghw/kiBJ
+	 eY5xRNOY6N61A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0C7964937D;
-	Thu, 12 Nov 2026 08:30:48 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 7CF7149389;
+	Thu, 12 Nov 2026 08:31:23 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:30:48 +0000
-Subject: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
- after remove
+Date: Thu, 12 Nov 2026 08:31:23 +0000
+Subject: [PATCH v2 1/7] media: verisilicon: Keep the encoder CAPTURE format
+ while buffers exist
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,31 +84,28 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-hantro-robust-v2-2-18561fd48838@gmail.com>
-References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
-In-Reply-To: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
+Message-Id: <20261112-hantro-jpeg-enc-fixes-v2-1-de03e643c75d@gmail.com>
+References: <20261112-hantro-jpeg-enc-fixes-v2-0-de03e643c75d@gmail.com>
+In-Reply-To: <20261112-hantro-jpeg-enc-fixes-v2-0-de03e643c75d@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, 
  Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
  Hans Verkuil <hverkuil@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>, 
- Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Sergei Khomenkov <shomenkow@gmail.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472247; l=3396;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472282; l=1571;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=anNmhGiL7WByI9+zM577XJx5bZa3C8k/V1V7McF0Fl4=;
- b=2EFkfYTDn6pLkeZxwuRwLY45wAj10XzVKpR2UnGp21Z3SBiwzuU8sYxnpb0Ga7wuPijpxXsKJ
- 45neb9AXVThCQHWvnSPHT3H7YpXL4Dd+4YAW875XWa2VkLpO4PxprBi
+ bh=7zDhcZU0lTpApx1EUzAD0IAc3hAGo9Ri1nYbxunoybc=;
+ b=VaOagJtxtLbJjMIi0AjpaEOh/LVDBVpBUdjPoVus+uiAlo12MT+Je3MwbMPDvcK8be2lsntXj
+ tamKKUagZw+D59aJB9F/PbI3io6c0VCMIF/IBnr2GKKHPmUkYRE7o3i
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -119,81 +116,43 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On the RK3588, the resets of the AV1 decoder include the AXI and APB
-bus interface resets (SRST_A_AV1_BIU, SRST_P_AV1_BIU), which also cover
-the Verisilicon IOMMU of the decoder. When the driver is unbound, the
-driver core runtime resumes the device and, through the runtime PM
-device link, its IOMMU. hantro_remove() then asserts the resets, and
-when the IOMMU autosuspends 100 ms later, vsi_iommu_suspend() writes to
-its registers while they are held in reset, which raises an SError and
-panics the system:
+Commit bbd267daf4fc ("media: verisilicon: vp9: Allow to change
+resolution while streaming") dropped the busy check of the CAPTURE queue
+in hantro_set_fmt_cap() to let the decoder change resolutions. On the
+encoder, CAPTURE is the coded queue, and its format can now be changed
+while buffers are allocated, prepared or queued: the new sizeimage, and
+the size of the OUTPUT format reset along with it, no longer match the
+buffers.
 
-  SError Interrupt on CPU4, code 0x00000000be000411 -- SError
-  Workqueue: pm pm_runtime_work
-  Call trace:
-   clk_disable+0x30/0x90 (P)
-   clk_bulk_disable+0x44/0x90
-   vsi_iommu_suspend+0x4c/0xc8 [vsi_iommu]
-   pm_generic_runtime_suspend+0x38/0x80
-   genpd_runtime_suspend+0xc4/0x348
-   ...
-  Kernel panic - not syncing: Asynchronous SError Interrupt
+Return -EBUSY again for the encoder when the CAPTURE queue is busy, as
+before that commit.
 
-This was hit when reloading the module, unless the decoder happened to
-be probed again within the autosuspend delay of its IOMMU.
-
-The IOMMU is not the only one to access the bus interface after remove.
-Commit 8e26d4c20ed2 ("media: hantro: disable runtime PM before hardware
-teardown") moved the assert after the runtime PM teardown because the
-power domain code faulted on it when powering the domain off. With the
-resets left asserted, the same domain code runs again when the domain
-is powered on for the next bind, before hantro_probe() deasserts the
-resets, and when the domain is powered off after a failed probe.
-
-A runtime suspended VPU has its resets deasserted and its clocks off.
-Leave it in that state on remove and on the probe error path instead of
-asserting the resets; hantro_probe() deasserts them anyway.
-
-Fixes: ea71631b7129 ("media: hantro: add support for reset lines")
+Fixes: bbd267daf4fc ("media: verisilicon: vp9: Allow to change resolution while streaming")
 Cc: stable@vger.kernel.org
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/hantro_drv.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ drivers/media/platform/verisilicon/hantro_v4l2.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 26e5d5547466..4542322dba71 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -1210,7 +1210,7 @@ static int hantro_probe(struct platform_device *pdev)
- 	ret = clk_bulk_prepare(vpu->variant->num_clocks, vpu->clocks);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to prepare clocks\n");
--		goto err_pm_disable_assert_reset;
-+		goto err_pm_disable;
- 	}
+diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
+index 83af9fa1ce94..d033fe0ecef6 100644
+--- a/drivers/media/platform/verisilicon/hantro_v4l2.c
++++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+@@ -596,7 +596,13 @@ static int hantro_set_fmt_cap(struct hantro_ctx *ctx,
+ 	int ret;
  
- 	ret = v4l2_device_register(&pdev->dev, &vpu->v4l2_dev);
-@@ -1264,11 +1264,6 @@ static int hantro_probe(struct platform_device *pdev)
- 	v4l2_device_unregister(&vpu->v4l2_dev);
- err_clk_unprepare:
- 	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
--err_pm_disable_assert_reset:
--	pm_runtime_dont_use_autosuspend(vpu->dev);
--	pm_runtime_disable(vpu->dev);
--	reset_control_assert(vpu->resets);
--	return ret;
- err_pm_disable:
- 	pm_runtime_dont_use_autosuspend(vpu->dev);
- 	pm_runtime_disable(vpu->dev);
-@@ -1290,7 +1285,6 @@ static void hantro_remove(struct platform_device *pdev)
- 	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
- 	pm_runtime_dont_use_autosuspend(vpu->dev);
- 	pm_runtime_disable(vpu->dev);
--	reset_control_assert(vpu->resets);
- }
+ 	if (ctx->is_encoder) {
+-		struct vb2_queue *peer_vq;
++		struct vb2_queue *vq, *peer_vq;
++
++		/* The CAPTURE buffers are sized for the current coded format. */
++		vq = v4l2_m2m_get_vq(ctx->fh.m2m_ctx,
++				     V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++		if (vb2_is_busy(vq))
++			return -EBUSY;
  
- static int hantro_runtime_resume(struct device *dev)
+ 		/*
+ 		 * Since format change on the CAPTURE queue will reset
 
 -- 
 2.55.0
