@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514340;
-	b=JbLhMbw7TyNmG9+Ou9/ax1xvHAsiI7pSYMH6wLcIeYm9zyv8pXEOce81pjsvxmrHpU5D
-	 XRW4ZtS2knNsUQgVMWKAg1Y+ZM95tNWHuG37TRlDEnYdjpSXr2SLFGIf8cqKyNq+c75AA
-	 01xAJoFOO3yHDak35LgEjlHm3CF6fVYnQHCp0qBKmcBiYIPCGeZHMecyyQchUlPfrR5YG
-	 GhHCSGGGwahdzjMu30W2qhN04UY0a9w0GcZDq0dbgbZw6fd+oNxGDETI7Jt/J90TFivlR
-	 0vOvHGDA2NImDUDwcjURMywDofJcwXaCquU5koolsQFnKAiYwOCToW0M7oJO8aC9ZDQ==
+	t=1794514421;
+	b=A4GqJfX2l3g1tFFxtIHyLd4Kyd6Bkps9KBQshvZJz8/ZS5IYwsnBE1qxUmpqurf2fpAA
+	 MMBoXI9yyjjHe113SlVHmEMBz3iUGOWAOecSzs0XNUNJIu0NuDEQnUJeNzzfqogtpybYC
+	 vvu26OI5nm2CstCOXOhQhsmvPuyYfE2V7khhM0bFSm2rJINx8d2vge2NsY8Y1tJd6JYQP
+	 qR1mesUA4l2t0FiA0tIZHQA1IlHorqiJiO/+avC9Uqqai5Ulxk7ZPbB42IlWZmrYYtd9a
+	 AEzv+7uP4XVp4Q8IwMyz0tt64V/V8d5OxIzeb4GuZ4Migr97lN6OTlAf0nXMFejIFhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514340;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=eakRgnWHv93CEQPpJprbZeATRfmw83XT/BkhRlCQLg8=;
-	b=PSZLQNqnJKIruntKH0MKeY/quQXXgip4QsuSNw9i46uZ8Hvo+nAY5wkPOQZQC33b1C2d
-	 DI1N8MAMUUg1TjDcAap8J/lvLzZ3jkXNFm19Xh4MS7VocFy+nUklY8bxGDSxqxSFPct2a
-	 JKeZWJ+Mkxt2SWB/9zT+6UcyVRwH5/s9kc9ixeJuxvolxFlfJVyeIZ6IVMzVrVe/j6mPr
-	 QbvotSFSv1ivsjQYFx+9QyWgj9luZaeOYRxRjUw0X948XGjFOeU5RJciqM70ZQEzzG7EF
-	 eCpz3t5rhHM7eqIqIauychlQjNhSNtXxHhtBo1O2TCQPa3kHvi9sUsMDkW9WiJ+xkZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794514421;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=fRMHYYZdtvHn+faB0IFiwJllZlMdGNul3fPW03FulrM=;
+	b=EbM/n80DL9R4pxz4WrNLgO1QcmdBWKO9pgf4VtqZQRW4WAXqxLstOcQprf3CsOWEDJ5z
+	 OkTAXbtqyAOFsOUAgO7Xuo/buvUpzUvZ3VmGsyDU1xOUjDLjEGu7UV910fa0isrJvTLEu
+	 H1bbPnaIkbxgjyKHYDxRXG2vDRPZ7D4HsrWATLCaMMBJh7iNG4WWGNLuDPlMDX5nX48GS
+	 ncvucrtZDFV5Y+rAAfP1vui1SEssrSjehUpN9ditqvli4D7LI1XUniiNCpb+JLBJ4MRjc
+	 rqauJ3wJm3Cp+ZmDYsQhHvXtVPqQEmuUarYcUwMU1Nb8DqxtDuwHeOZ9rZ9VVY2PVBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSHbJVnv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxKUpWnu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F8B606A881
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:12:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6103B606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:13:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bSHbJVnv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26061F000D0
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:12:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxKUpWnu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4132A1F000C4;
+	Thu, 12 Nov 2026 20:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794514339;
-	bh=eakRgnWHv93CEQPpJprbZeATRfmw83XT/BkhRlCQLg8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bSHbJVnvKo5zci/a1AG3EHF0wmI3lxnUuv9gNNDuCIUa9Xii0VLak9IqJNPLZgz07
-	 Ep6uTeYWFnkORVWYYXWAyg7SZgXCKfvNk6z/NhDifM4Id8WAepGw8vhSpVItzOqscD
-	 TF2VhaDh2DH2yMOTWY94XPcZy9echX8uG/ncBVHz+DJB5Pr9MgK8ft8ydYXyix3mve
-	 hWrCBu+M9W+3Ln+9mf4dO2kVpEd9Z//hls+ej6fWmz+gownoDGd2DyLr0VO7cJstov
-	 /3YNA8WdNblZK+OsyjcZjgG5Ukde7JElh2g3+Jlod2YdTbI5vfAxx3cuANNhpcxa16
-	 a74kXQpbTvR9w==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3adef977ad9so1426331fa.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:12:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFKoEVOV5O3KL6MNC8Eds4Tke7fiBTvL8GO9yhUzHQl4O0BBGqR65u0SE+SZu+rp9ZzLGwuFMQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8OzHben0eqnB76zaH0B3eTzmIrwGmTI7ycgEGeBqxa3NDB81Ga
-	b9gbPUN9LBkhdMy8GK8yy+YAC9SDRMrcUslQkGftT3c0ZpkUxLfzh3kG9/ZxJLQbY6+XqBH8+mT
-	Eh1I659YpJB8VOAcpXo/m1Ds6sx+y4Vw=
-X-Received: by 2002:a05:6512:1325:b0:5c1:4c83:ae37 with SMTP id
- 2adb3069b0e04-5c1705faa61mr179985e87.2.1794514338096; Thu, 12 Nov 2026
- 12:12:18 -0800 (PST)
+	s=k20260515; t=1794514421;
+	bh=fRMHYYZdtvHn+faB0IFiwJllZlMdGNul3fPW03FulrM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IxKUpWnuADMj5jTBD3vug9+dPLrUrj4HfaO9eZOas9Uqpmx5pH8PX4DyQ4ZFBzDFW
+	 TanzX1iwWKW/Q3wpq6s7YjOoKCUv17F297v6tbdFpVuiGQYWvJW1wtut1YPRHlTmH7
+	 YRNVkQ2m5+afK2HA5v3zvPCJXWgMbsPGyb9anx2+vS6WBdfywPWQ/6BS652ParZWr4
+	 t4Xx899Ph3IVAQt339uFBRfCItqIQxqyKIkQGC5lNiHFGq4+JPmzYRAqaBtaxszvL0
+	 PH3Yd62InahFj5TSBWZj7IbYC1cgvZiY3qh0BaPPPRkmRQOcQ6ti9dFn47Me/HFzPS
+	 4w+24l2r+5LPQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/mremap: recheck PUDs under the page table lock
+Date: Thu, 12 Nov 2026 15:13:38 -0500
+Message-ID: <20261112201247.3549858-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202338-failed-5.15-402882943dfa@kernel.org>
+References: <20261109202338-failed-5.15-402882943dfa@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,105 +62,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111225940.1573565-1-tytso@mit.edu> <20261111225940.1573565-2-tytso@mit.edu>
-In-Reply-To: <20261111225940.1573565-2-tytso@mit.edu>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 12 Nov 2026 21:12:06 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jQh5o8rT0EDZ+zMXmPn8i0Dz+FoRK92OeYGeHbzrf4Lw@mail.gmail.com>
-X-Gm-Features: AclHuK89jLhFcAKrJXWTO7te7t_zZMTV5xHcIHChc6as7m7NjdEkpvKrRplXSrU
-Message-ID: <CAJZ5v0jQh5o8rT0EDZ+zMXmPn8i0Dz+FoRK92OeYGeHbzrf4Lw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/6] agents: add infrastructure for agent resources
-To: "Theodore Ts'o" <tytso@mit.edu>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev, 
-	Sasha Levin <sashal@kernel.org>, Bradley Morgan <brads@mainlining.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Mark Brown <broonie@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Leon Romanovsky <leon@kernel.org>, 
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Thorsten Leemhuis <linux@leemhuis.info>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter <error27@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
-	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 12:00=E2=80=AFAM Theodore Ts'o <tytso@mit.edu> wrot=
-e:
->
-> From: Sasha Levin <sashal@kernel.org>
->
-> Add agents/ as a home for skills and other resources for
-> coding assistants. Describe the skill layout in coding-assistants.rst,
-> together with the rule that skills only inspect and report, and add a
-> MAINTAINERS entry covering the directory.
->
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Reviewed-by: Bradley Morgan <brads@mainlining.org>
-> Link: https://patch.msgid.link/20261020161642.3713052-2-sashal@kernel.org
-> Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-Fine with me, so
+[ Upstream commit 402882943dfa8bab5c2bcc66189f9fb2828f248e ]
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+Once get_old_pud() is fixed to accept PUD leaves, unmap_mapping_range() can
+clear a leaf between the lookup and the move. Holding mmap_lock in write
+mode does not prevent this.
 
-> ---
->  Documentation/process/coding-assistants.rst | 14 ++++++++++++++
->  MAINTAINERS                                 |  6 ++++++
->  2 files changed, 20 insertions(+)
->
-> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/=
-process/coding-assistants.rst
-> index 509dbf23a099..b8f2c74e46fc 100644
-> --- a/Documentation/process/coding-assistants.rst
-> +++ b/Documentation/process/coding-assistants.rst
-> @@ -19,6 +19,20 @@ For guidelines on content generated by AI coding assis=
-tants see:
->
->  * Documentation/process/generated-content.rst
->
-> +Agent resources
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +Skills for coding assistants live under ``agents/skills/``, one director=
-y per
-> +skill with a ``SKILL.md`` entry point in the `Agent Skills format
-> +<https://agentskills.io/specification>`_. Each skill points at the proce=
-ss
-> +documents that apply to its task and adds only what assistants tend to g=
-et
-> +wrong.
-> +
-> +Skills inspect and report. They do not change files, create commits or t=
-ags,
-> +or send mail. A skill returns its result with the evidence for it, or sa=
-ys what
-> +is missing. Do not fill a missing result with a guess or a placeholder, =
-and do
-> +not finalize the work until it is resolved.
-> +
->  Licensing and Legal Requirements
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 222b7fc2c3aa..eb348cc9588f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -734,6 +734,12 @@ F: Documentation/filesystems/afs.rst
->  F:     fs/afs/
->  F:     include/trace/events/afs.h
->
-> +AGENT RESOURCES
-> +M:     Sasha Levin <sashal@kernel.org>
-> +L:     workflows@vger.kernel.org
-> +S:     Maintained
-> +F:     agents/
-> +
->  AGPGART DRIVER
->  M:     David Airlie <airlied@redhat.com>
->  L:     dri-devel@lists.freedesktop.org
-> --
-> 2.53.0
->
->
+If the zap happens before move_page_tables() tests the entry, an empty
+PUD can reach move_normal_pud(), where pud_populate() turns it into a
+present page table entry. If it happens after the test, move_huge_pud()
+can instead try to move an empty entry, triggering CONFIG_DEBUG_VM
+warnings on powerpc.
+
+Recheck the source under the page table lock in both helpers. Treat an
+empty source in move_normal_pud() as a completed move, and use
+__pud_trans_huge_lock() in move_huge_pud().
+
+In the future we should likely have the code lookup a PUD/PMD lockless
+once, instead of multiple times, because one of the problematic bits
+here is the:
+
+	pud_trans_huge(*old_pud)
+
+Fixes: 0881ace292b6 ("mm/mremap: use pmd/pud_poplulate to update page table entries")
+Cc: stable@vger.kernel.org
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-31-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adjusted context for separate vma and old_addr parameters instead of pagetable_move_control ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/mremap.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 5d8b8309ae2ac..810a5006b8dca 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -313,14 +313,18 @@ static bool move_normal_pud(struct vm_area_struct *vma, unsigned long old_addr,
+ 	if (new_ptl != old_ptl)
+ 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+ 
+-	/* Clear the pud */
+ 	pud = *old_pud;
++	if (unlikely(pud_none(pud)))
++		goto out_unlock;
++
++	/* Clear the pud */
+ 	pud_clear(old_pud);
+ 
+ 	VM_BUG_ON(!pud_none(*new_pud));
+ 
+ 	pud_populate(mm, new_pud, pud_pgtable(pud));
+ 	flush_tlb_range(vma, old_addr, old_addr + PUD_SIZE);
++out_unlock:
+ 	if (new_ptl != old_ptl)
+ 		spin_unlock(new_ptl);
+ 	spin_unlock(old_ptl);
+@@ -355,7 +359,9 @@ static bool move_huge_pud(struct vm_area_struct *vma, unsigned long old_addr,
+ 	 * We don't have to worry about the ordering of src and dst
+ 	 * ptlocks because exclusive mmap_lock prevents deadlock.
+ 	 */
+-	old_ptl = pud_lock(vma->vm_mm, old_pud);
++	old_ptl = __pud_trans_huge_lock(old_pud, vma);
++	if (unlikely(!old_ptl))
++		return false;
+ 	new_ptl = pud_lockptr(mm, new_pud);
+ 	if (new_ptl != old_ptl)
+ 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+-- 
+2.53.0
+
