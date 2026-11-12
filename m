@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514421;
-	b=A4GqJfX2l3g1tFFxtIHyLd4Kyd6Bkps9KBQshvZJz8/ZS5IYwsnBE1qxUmpqurf2fpAA
-	 MMBoXI9yyjjHe113SlVHmEMBz3iUGOWAOecSzs0XNUNJIu0NuDEQnUJeNzzfqogtpybYC
-	 vvu26OI5nm2CstCOXOhQhsmvPuyYfE2V7khhM0bFSm2rJINx8d2vge2NsY8Y1tJd6JYQP
-	 qR1mesUA4l2t0FiA0tIZHQA1IlHorqiJiO/+avC9Uqqai5Ulxk7ZPbB42IlWZmrYYtd9a
-	 AEzv+7uP4XVp4Q8IwMyz0tt64V/V8d5OxIzeb4GuZ4Migr97lN6OTlAf0nXMFejIFhg==
+	t=1794514497;
+	b=AXgW0mWGxH5afCR75nNAD/bJh7ijnz8KAZpWXKF1zRcsI86055ZE9VorqWVtarSSY9n0
+	 KtwTuJFGHYZKcKI2gdiWOCXhhaNPlY/NRsuzte53WVAyCOI8IbWSmMqV7T8nucx44iuuA
+	 pmlnA7xw6d9qIwe9LT+ZNpXcVEtO6yPpww6k5riZWrKQI9RR7+RGEByFHpkRp6T0/MzDC
+	 gw73QuIGg+z6QnwQSN7eu2wiEKWm+abeKUKTM7q1Km1hivkiehIfw/vxkAzI/F6QVsAS+
+	 UBLzpm1I+VfLRqdu2e6mm+uLcXt6ie+jC/tji/ErqmNLx7khAmYcv8dlIuWc3iL/NFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514421;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794514497;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fRMHYYZdtvHn+faB0IFiwJllZlMdGNul3fPW03FulrM=;
-	b=EbM/n80DL9R4pxz4WrNLgO1QcmdBWKO9pgf4VtqZQRW4WAXqxLstOcQprf3CsOWEDJ5z
-	 OkTAXbtqyAOFsOUAgO7Xuo/buvUpzUvZ3VmGsyDU1xOUjDLjEGu7UV910fa0isrJvTLEu
-	 H1bbPnaIkbxgjyKHYDxRXG2vDRPZ7D4HsrWATLCaMMBJh7iNG4WWGNLuDPlMDX5nX48GS
-	 ncvucrtZDFV5Y+rAAfP1vui1SEssrSjehUpN9ditqvli4D7LI1XUniiNCpb+JLBJ4MRjc
-	 rqauJ3wJm3Cp+ZmDYsQhHvXtVPqQEmuUarYcUwMU1Nb8DqxtDuwHeOZ9rZ9VVY2PVBg==
+	bh=FYu0ZyoaD1L2sdma2FJNCEQTwtHiOVFsF2IiZdwITDc=;
+	b=sfcM/YoxG4zGxn3UymuFLnHoAsebSK0BkC7JWB0FWI00hRTwID+1bc/l+eUA6HsAmjWG
+	 bzThAn+lWok/r+euHnZEffC4auAkiFs/mSLJaDge8XJLur7Amnhqd88ubhBdiNp1MPkkW
+	 SnnlIj7ewHxnO/JBvw5P7XB5EzsMZZj/S+uglAKM/XZ/SMlXZqQYh6VdyxceGnYEdBynP
+	 KfDrNm80a4pqvFKPG8VRaTvNXGfibqwC1uZJvgvfW8LZhiuDZaCR3ijNkKzxvvfFslmS0
+	 5MN8jAFn7o+n41M4nNnrsDQNYRP51gOa1m2oZYkGpmcj6v146kUilEpG6DLne3ju9tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxKUpWnu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gC6CzjOl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6103B606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:13:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDB2606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:14:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxKUpWnu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4132A1F000C4;
-	Thu, 12 Nov 2026 20:13:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gC6CzjOl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4521E1F000C4;
+	Thu, 12 Nov 2026 20:14:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794514421;
-	bh=fRMHYYZdtvHn+faB0IFiwJllZlMdGNul3fPW03FulrM=;
+	s=k20260515; t=1794514496;
+	bh=FYu0ZyoaD1L2sdma2FJNCEQTwtHiOVFsF2IiZdwITDc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IxKUpWnuADMj5jTBD3vug9+dPLrUrj4HfaO9eZOas9Uqpmx5pH8PX4DyQ4ZFBzDFW
-	 TanzX1iwWKW/Q3wpq6s7YjOoKCUv17F297v6tbdFpVuiGQYWvJW1wtut1YPRHlTmH7
-	 YRNVkQ2m5+afK2HA5v3zvPCJXWgMbsPGyb9anx2+vS6WBdfywPWQ/6BS652ParZWr4
-	 t4Xx899Ph3IVAQt339uFBRfCItqIQxqyKIkQGC5lNiHFGq4+JPmzYRAqaBtaxszvL0
-	 PH3Yd62InahFj5TSBWZj7IbYC1cgvZiY3qh0BaPPPRkmRQOcQ6ti9dFn47Me/HFzPS
-	 4w+24l2r+5LPQ==
+	b=gC6CzjOlcvlEs/5tz0sidNNPfLjiIus/OdEFWbMzR5BMufTWps7YikI72ys+XonFq
+	 MFMapPMQlDXyTRFIvEWyMm2O5mJMXXm8dG7x0nN/f2e2a8IjkEsTttMoLru0b9soy/
+	 Jrg1Z9Rx5AtLxUZM/Jzg15ZDdQ8Jp1HY4jn2ZY5oGVKbrfFVz0kFA4VgjKW9PS5vg7
+	 QEwBKP2Bh3XUUXQFPr8k7bo9Coz+6yy7Rj1k3Gz7ggMCxdv2Uq9+vCJ1dg+zQFjyUA
+	 UstGoWgPMLrt+uzwVqd/sn5Rt8i6CzVIrBaLBSaVIm+r5Lt4lpIojhI9piQkzSu74x
+	 ZvPWsSR44Picw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
+Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/mremap: recheck PUDs under the page table lock
-Date: Thu, 12 Nov 2026 15:13:38 -0500
-Message-ID: <20261112201247.3549858-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check
+Date: Thu, 12 Nov 2026 15:14:53 -0500
+Message-ID: <20261112200225.3377761-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202338-failed-5.15-402882943dfa@kernel.org>
-References: <20261109202338-failed-5.15-402882943dfa@kernel.org>
+In-Reply-To: <20261109200336-failed-6.18-7cd60538073e@kernel.org>
+References: <20261109200336-failed-6.18-7cd60538073e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,79 +61,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Tom Verdonck <tom.verdonck@inspiral.be>
 
-[ Upstream commit 402882943dfa8bab5c2bcc66189f9fb2828f248e ]
+[ Upstream commit 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a ]
 
-Once get_old_pud() is fixed to accept PUD leaves, unmap_mapping_range() can
-clear a leaf between the lookup and the move. Holding mmap_lock in write
-mode does not prevent this.
+tmp108 records a one-shot deadline in ->ready_time at probe (and resume)
+and, on every temperature read, refuses the read with -EAGAIN while
+time_before(jiffies, ready_time) is true, in order to skip the initial
+conversion.
 
-If the zap happens before move_page_tables() tests the entry, an empty
-PUD can reach move_normal_pud(), where pud_populate() turns it into a
-present page table entry. If it happens after the test, move_huge_pud()
-can instead try to move an empty entry, triggering CONFIG_DEBUG_VM
-warnings on powerpc.
+->ready_time is an unsigned long compared with time_before(), whose
+signed difference is only meaningful while the two values are within
+LONG_MAX jiffies of each other. Because ->ready_time is set once and
+never refreshed, jiffies keeps advancing away from it, and after 2^31
+jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
+happens ~248.5 days after boot: time_before() then permanently reports
+"not ready" and the driver returns -EAGAIN on every read, without ever
+touching the sensor, until the next reboot. The continuous-mode path,
+which sets ->ready_time to jiffies with no added conversion delay, wraps
+the same way.
 
-Recheck the source under the page table lock in both helpers. Treat an
-empty source in move_normal_pud() as a completed move, and use
-__pud_trans_huge_lock() in move_huge_pud().
+Store the deadline as a 64-bit jiffies value and compare it with
+get_jiffies_64()/time_before64(), which does not wrap in any practical
+uptime.
 
-In the future we should likely have the code lookup a PUD/PMD lockless
-once, instead of multiple times, because one of the problematic bits
-here is the:
-
-	pud_trans_huge(*old_pud)
-
-Fixes: 0881ace292b6 ("mm/mremap: use pmd/pud_poplulate to update page table entries")
+Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
 Cc: stable@vger.kernel.org
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-31-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adjusted context for separate vma and old_addr parameters instead of pagetable_move_control ]
+Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
+Link: https://patch.msgid.link/525fa49d8c50922344fa53e22be5e6133c9bbb62.1790358356.git.tom.verdonck@inspiral.be
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+
+Keep the opaque per-device parameter pointer next to ready_time so the
+subsequent conversion-delay fix applies cleanly. The pointer remains
+unused; the unrelated device-support tables and register-access changes
+are not needed.
+
+Stable-dep-of: 7cd60538073e ("hwmon: (tmp108) Fix initial conversion delay and wait until ready")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mremap.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/hwmon/tmp108.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 5d8b8309ae2ac..810a5006b8dca 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -313,14 +313,18 @@ static bool move_normal_pud(struct vm_area_struct *vma, unsigned long old_addr,
- 	if (new_ptl != old_ptl)
- 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+index a971ff628435b..f8b2d88d14665 100644
+--- a/drivers/hwmon/tmp108.c
++++ b/drivers/hwmon/tmp108.c
+@@ -74,7 +74,8 @@
+ struct tmp108 {
+ 	struct regmap *regmap;
+ 	u16 orig_config;
+-	unsigned long ready_time;
++	u64 ready_time;
++	const struct tmp108_params *params;
+ };
  
--	/* Clear the pud */
- 	pud = *old_pud;
-+	if (unlikely(pud_none(pud)))
-+		goto out_unlock;
-+
-+	/* Clear the pud */
- 	pud_clear(old_pud);
+ /* convert 12-bit TMP108 register value to milliCelsius */
+@@ -125,7 +126,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+ 		/* Is it too early to return a conversion ? */
+-		if (time_before(jiffies, tmp108->ready_time)) {
++		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
+ 			dev_dbg(dev, "%s: Conversion not ready yet..\n",
+ 				__func__);
+ 			return -EAGAIN;
+@@ -362,7 +363,7 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
+ 		return err;
+ 	}
  
- 	VM_BUG_ON(!pud_none(*new_pud));
+-	tmp108->ready_time = jiffies;
++	tmp108->ready_time = get_jiffies_64();
+ 	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
+ 	    TMP108_MODE_SHUTDOWN)
+ 		tmp108->ready_time +=
+@@ -413,7 +414,7 @@ static int tmp108_resume(struct device *dev)
  
- 	pud_populate(mm, new_pud, pud_pgtable(pud));
- 	flush_tlb_range(vma, old_addr, old_addr + PUD_SIZE);
-+out_unlock:
- 	if (new_ptl != old_ptl)
- 		spin_unlock(new_ptl);
- 	spin_unlock(old_ptl);
-@@ -355,7 +359,9 @@ static bool move_huge_pud(struct vm_area_struct *vma, unsigned long old_addr,
- 	 * We don't have to worry about the ordering of src and dst
- 	 * ptlocks because exclusive mmap_lock prevents deadlock.
- 	 */
--	old_ptl = pud_lock(vma->vm_mm, old_pud);
-+	old_ptl = __pud_trans_huge_lock(old_pud, vma);
-+	if (unlikely(!old_ptl))
-+		return false;
- 	new_ptl = pud_lockptr(mm, new_pud);
- 	if (new_ptl != old_ptl)
- 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+ 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
+ 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
+-	tmp108->ready_time = jiffies +
++	tmp108->ready_time = get_jiffies_64() +
+ 			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
+ 	return err;
+ }
 -- 
 2.53.0
 
