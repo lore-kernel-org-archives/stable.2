@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452410;
-	b=sOsLnHSU9VlPW9d4LD4COqNQ1D92/315SKKtA5YB0hqTJJPJAoAvb9MdmxOWetulBNU7
-	 hEpQtw9m/yLyVpQe2rHrtkgCUuprtGGLWuQTS6ACg1VDNo60A6lG2nY7eLmoKPBdTAVYo
-	 9J/xRzDCFjqBIi9kk2mgeysWKeFZ0Sy9wUwIYU6GIsOuCq0xiQv11xmebzfnFGQZThdmy
-	 +DqpK9czK65WyyILSmhGZ2JNts6ykAZJdgeqKzOkcURI5kHZQkCzEKqB3ou4JwnUH4TXN
-	 sP3oMQ3mJXfumAmH/3iWzaVcfNrE7b45NmUGOC7WTKK9lcI2G/idnYbws2T7YIvrGiw==
+	t=1794452458;
+	b=a+WGeljuIX+jKejffB5UHBF+vzlh55FVR+ww3dsTm0wtiRa3wl9p+dEl3qQImE6OWcpp
+	 RIZ5+4KIgH6BxkvDK6ag0AX9R0e2i9CsK3kDc4dDmtua6dNsdQbgRsTseu1iSwkL0ZGhW
+	 YkJCLyyZABIkq++/ZHvazU+NWQuFe07n8S8hBsXQ68kBb6ayPrXZFK4B6ZOBEcGPv3u0O
+	 UuDglFbCfefvIjp/rFZUTYiv781WQMv0AQp2L4fdTwGDiyFR5AAVDkyendLXmQXD7BVBr
+	 nziC3j0OdSLUAsUnn/I0L+32iUdQ9igVebHTQ0XaQmzC0IbTndNhVQKLXShYQCgLLSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452458;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=h6rK1PKHyuNjiSIhduBRZY6nzbvvp2ADflCW/6GDGN4=;
-	b=0N0y64lh06vcNn5z6E/csUANomSwYH/vFbJMfTC+0Py1sN6SsEZyJ3V1mJkkMPYBDBoa
-	 QuQ2GEMHyQUKVD83hmsIg3l4Ruamhg3TsW+7dewiEf9qrvl/Q+uxtRc84u5dn4fUmB2QM
-	 8URVG/+Ud9fY5CBwQoKJHHNOhrv3LuXcbTdNPWmS5zGqjRYmlj154e83xswjcZUJtBZG4
-	 fwDVHwGljbxRcqnn6wXbQZH0FNiNq5uJWCh7BJHQkGZumMoZHFTALt70AQwNCWU/6y9Fm
-	 0OtdTaIe7H7Bnj1qp5OdY17KkjXhYYhjitJIjv9OqtK1kNXIHY79/ktmJXmb3OK+qYw==
+	bh=xU/+Od+4o2KWxwWkqODlOvT7GxkwfcI6UST+m5r0BhI=;
+	b=kY14bts1vBfTnvMOkMnVL7EiEAzoNflVV6Qrb3apRjm4nh/UX9hnP3qGmsA2PzecK/DI
+	 9mbqUGjHC4Q1gWVHPmywadlbd5TEDsRkHCdXBROruZu8/AyJlNSkQP0iq/yv4/m7nt9lR
+	 3cnWa3lFrg8QECn4nukPf0xs70jTzJyvQ755DNH/ipZLSNZwR8S10NWIvqyCjxaFeJTJF
+	 P2tztPppBOB1bqVXS8nvZfKIh+sejVaIqRFw1NxPx4xCgBn/qGafZJFFuSbsmt10swfyu
+	 ZjwBy13W0PhYj9yYdFHn0cRFAV4JFW3EqsW4WAuXIpgrYyJWmVXZdvJUTunZvkg9YSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9JVW+e6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WrJ/PtC1";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFF8606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:00:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFBC606A337
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9JVW+e6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 433B71F00A06;
-	Thu, 12 Nov 2026 03:00:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrJ/PtC1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C36A1F00A06;
+	Thu, 12 Nov 2026 03:00:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794452409;
-	bh=h6rK1PKHyuNjiSIhduBRZY6nzbvvp2ADflCW/6GDGN4=;
+	s=k20260515; t=1794452457;
+	bh=xU/+Od+4o2KWxwWkqODlOvT7GxkwfcI6UST+m5r0BhI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m9JVW+e60dKL8+UtIKbIA0QJfMKkrMHp+u7D6LIgQaZerCLu3mCBm5QVHVgEpqVoA
-	 xl9L3mVsU8WqYN1WDRyYfgze7ZmKdlZDFkzARgI59AGJ/3RKOtSxgn0XZB3MKtfiHU
-	 WAnWD0jRqGP/98ghggzkv+CBQ7u3lgwofEnKiJTBRj6L1mQI44SaeyiRgPb+KPv9iw
-	 loKhhOUSgA+pYgiFoLPvYS60P6IM/cx2dWAmkZYuXFCC96w5zIzFJuKjukUn/pvO6X
-	 YTv91Hs6l/mOkZgKfLzD8ISIqvwjqxFzir/7ZnQg215SCDWLEwyRe0Ky0hgaeK+8Gn
-	 bffPCFhkeZtdg==
+	b=WrJ/PtC1iqGgKqCm4Au7qOstZYNWXvRT1IaRSNk0ZNZyygypjGXJ+pBDztuqRJ9gL
+	 GoxDWZwJ+a/86RcRu4saDWv2hJVFPWg1MGw3+56puL2VfBlTGXzKh1F93K5ZbOzqrW
+	 aHfLObNgUcdR6O/m6CaaCMmPFOA+tNWvdQe31lDFJW10RE4L3+tewX5CWnvYzRPmWm
+	 +3XmxHivcHefpUHyDOU4v8jABgOT0Y9H9xGeC2NQavD9iNCdjZPmvxn+NO8K4uKkoe
+	 XUHxAXMHTHik5QWg2tbDLF0y7Lm+YwdZnihWcFATA1Vx/GQ8X8Wbqk9P4x3VA7e59B
+	 Ke+m2lcCvd31g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qihang <q.h.hack.winter@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] cipso: fix optlen corruption in cipso_v4_delopt()
-Date: Wed, 11 Nov 2026 22:00:07 -0500
-Message-ID: <20261112025959.1463117-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ksmbd: enforce the read-only share flag when creating a stream
+Date: Wed, 11 Nov 2026 22:00:55 -0500
+Message-ID: <20261112030030.1366587-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112025959.1463117-1-sashal@kernel.org>
-References: <20261109202130-failed-5.15-1f1f8e8c5176@kernel.org>
- <20261112025959.1463117-1-sashal@kernel.org>
+In-Reply-To: <20261109200637-failed-6.12-09139429fab3@kernel.org>
+References: <20261109200637-failed-6.12-09139429fab3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,64 +61,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qihang <q.h.hack.winter@gmail.com>
+From: Ian Bridges <icb@fastmail.org>
 
-[ Upstream commit 1f1f8e8c5176234fa31858cd25f2e9b88aac0a45 ]
+[ Upstream commit 09139429fab3a5114c18d7c15fb161511d4d66c9 ]
 
-cipso_v4_delopt() recomputes the option length by walking the option
-buffer after the CIPSO option has been moved out.  The walk then reads
-the stale bytes at the tail of the buffer as option data, and a crafted
-setsockopt(IP_OPTIONS) buffer can make it treat one of them as an option
-length, increasing opt->opt.optlen beyond the valid option data.
+When a share is read-only, smb2_open() rejects opens that would create
+or truncate a file. Creating a named stream on an existing file with
+streams_xattr sets neither O_CREAT nor O_TRUNC, so it passes this check,
+and smb2_set_stream_name_xattr() then creates the stream. On a Time
+Machine share, opening a missing AFP_AfpInfo stream also writes one. A
+user who can write a file at the filesystem level can therefore add
+streams to it through a read-only share.
 
-The corrupted length stays on the socket and is later used as the copy
-length by getsockopt(IP_OPTIONS) and by the udp/raw/ping sendmsg paths,
-where it exceeds the size of the buffers they copy into.
+Do not create a stream or synthesize AFP_AfpInfo when the share is not
+writable. Existing streams still open normally, and a missing stream
+opened with FILE_OPEN still returns STATUS_OBJECT_NAME_NOT_FOUND.
 
-Compute the new length from the intact options before the move and
-subtract the CIPSO length, and fill the padding with IPOPT_END.
-
-Assisted-by: LLM
-Fixes: 014ab19a69c32 ("selinux: Set socket NetLabel based on connection endpoint")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: eaff8e924f60 ("ksmbd: synthesize empty AFP_AfpInfo xattr on first probe")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
-Acked-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: omitted the writable-tree check in the AFP_AfpInfo stream synthesis branch ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/cipso_ipv4.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ fs/smb/server/smb2pdu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
-index 4d4600de92e91..13f2e7f0531d9 100644
---- a/net/ipv4/cipso_ipv4.c
-+++ b/net/ipv4/cipso_ipv4.c
-@@ -2017,6 +2017,10 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 		cipso_ptr = &opt->opt.__data[cipso_off];
- 		cipso_len = cipso_ptr[1];
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index f7e3d7986c4ca..fdbe4c5664fd2 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2574,6 +2574,9 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 		return -EBADF;
+ 	}
  
-+		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
-+							 opt->opt.optlen);
-+		optlen_new -= cipso_len;
++	if (!test_tree_conn_flag(fp->tcon, KSMBD_TREE_CONN_FLAG_WRITABLE))
++		return -EACCES;
 +
- 		if (opt->opt.srr > opt->opt.cipso)
- 			opt->opt.srr -= cipso_len;
- 		if (opt->opt.rr > opt->opt.cipso)
-@@ -2030,11 +2034,12 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 		memmove(cipso_ptr, cipso_ptr + cipso_len,
- 			opt->opt.optlen - cipso_off - cipso_len);
- 
--		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
--							 opt->opt.optlen);
- 		hdr_delta = opt->opt.optlen;
- 		opt->opt.optlen = (optlen_new + 3) & ~3;
- 		hdr_delta -= opt->opt.optlen;
-+
-+		memset(&opt->opt.__data[optlen_new], IPOPT_END,
-+		       opt->opt.optlen - optlen_new);
- 	} else {
- 		/* only the cipso option was present on the socket so we can
- 		 * remove the entire option struct */
+ 	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
+ 	if (rc < 0)
+ 		pr_err("Failed to store XATTR stream name :%d\n", rc);
 -- 
 2.53.0
 
