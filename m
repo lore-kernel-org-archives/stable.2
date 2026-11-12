@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452911;
-	b=ZsKq4fTUgkW/UrISkdl5Y4KDRrJz4iQSlkqFjpk15bSPLqx6Z0xbJFmnTV2cA+Rz5i7r
-	 DBuyF3ffjeGo6zIFRwCdPl5XlTBhOgWmBtjQS/S4q1wfbPnp0IImgEi7kR8cTT3p1c3FY
-	 aV/Vu2SHdRHWxhz6wpjaY+/MsdOTNPWab3AaH7yjUdyOM8w1fjp4Gh9iSG7Lgl9MgcKoI
-	 3gai5XK+T8loMxNY8RdeBPyDOFrqJACoSlrUDEIbkQdrjg6EJMl3bUrl8nEnZjMejowrV
-	 G19jAPV3p6/HRDQZa5pZLbF/Vi+Vz+24o3mi0fCCUYvJ1Ucr/rd/Fo/4iMPlsOCqADA==
+	t=1794452912;
+	b=0L+kie+K2usB41cfB0T/60UNRApo0zDkvMpLwiaqhjPihLVZNhxmrjdORKEc83kS7MVb
+	 jxvCIFdfOxLIQ9G0mqC8gq5kJ6UpxS60nGGlyfZC/GI0ArT1iWqptWHvjYmdUcUTQPEMc
+	 aHB98RanI/6VYyAyud3Do5V2CPFIho+6d2bHK5ifdA5ldKH9O27Z4HdX9q10WZ0OCBYqG
+	 vfMSiAwc1s1IePz2AibQSMBJiH9RhiquQO5ceFxZ6KBV1JzaJTFGR/4ZEv6Ig/2HFCIAn
+	 MntdTnqn8Wu4xGlkilGfDwlTY8hP0A1dd/KZRBeUvgg5t3VUv48Gbjq8kuo4x2dBcxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452912;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GyyT0WVWHd4LNlKM1nh8zbqlGdY7aLHBjvI/LxA2IyY=;
-	b=2DY21Mz5Eel3Cg/1QFwmgoh87lJhNIGgXYcj93J6fyLk2MSEp7IGS8h6kJ8Jb7r/XUUm
-	 v8Si/tMMSqv95cpe3Bg41zxj+An076tgoxO/QYKHVjVxSTYb5UNZecNGpKLHlMxGSa+vI
-	 2FB9RjYOqIsHLPyPZSp/h3e6VNKKypoKfaKFJVQ+05cJZVE7BwMWM2XZ2Z7lzb/maXofV
-	 ZsVYSmo9fNazvMXjJppORJ9EG22ls8D0+eMSclZ0PoEtfD5lWI5bEEeFABUvz/It7uCgR
-	 mO2cFBcO+Ju/nKnSTETJ1LzJiOnZbr4xjeK7qHwg+nJyKBa3O79mp6Wdpv3LfUY2KmQ==
+	bh=bH3q5C5AjA/I+w8TsiT4zne2NbskR+BRHF3zrzETpIA=;
+	b=JpFYygwYpKGeEyV0YVJ1MibNaz4evFnsGhWPwRctKpBjQZxcJ3e/Uq64fyqTCpZCMgCN
+	 osvEdfb0b7c3Da9RSgzcI2VV4P2vdzVtAMIRg92Hps7GLXVvAq7PLtdYSIUdhcZn3dl1J
+	 VBbuThEk4LO+lZevsygJEZA7McDXsAb9r2jNBJy7oEKGCPBQtcLecnzJGMvJZTXLivjKN
+	 tyVp52I8S//31B6DgxX8vtEhASyoKp83sJURstgkQWXxO6eaz1CrZL1N7uCub/EEM36C2
+	 WE3GDZT3QsAQeWmUpf27d+EJKfQyqhO0r8GNs4fEwsZ1z9OHvn5smuD/wP/qVkCEHZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DoDYaxgh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RugQCfCa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC34606A323
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:08:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AC6606A33C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:08:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DoDYaxgh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 915041F00A05;
-	Thu, 12 Nov 2026 03:08:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RugQCfCa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830AC1F00A0A;
+	Thu, 12 Nov 2026 03:08:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794452911;
-	bh=GyyT0WVWHd4LNlKM1nh8zbqlGdY7aLHBjvI/LxA2IyY=;
+	s=k20260515; t=1794452912;
+	bh=bH3q5C5AjA/I+w8TsiT4zne2NbskR+BRHF3zrzETpIA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DoDYaxghL1qlZFXPxiZD/zm9KsRx0NmigF9bHSyceYVo7CQFutkj1wZwT6VUPTAlu
-	 g4vwY0+X+H//p+NTTzhTNljvB3ke8sUB3ePb34y8NZPScaq68w0OjUXQHSfF/mUzmB
-	 3l+1lRN4zwbQNfWkMsVnjxO8sEyzHtus5HqOaGrJgXxmoFHeb37kEASVdIP0mGhy3x
-	 Fnv3Mby4Tk2T18OhMfNlCSRKlPlt2BOSfHH06JHtOYFV3NCD6e4phKCX0R4XZYteHV
-	 MeLpuBQwKkBGt0b0+T//JTqK5luCGPSx0uo4GbdezCwoBNY2JAzUf/i4LzOxqJGmM/
-	 qF+wqaDEQj9Zg==
+	b=RugQCfCa00DPCbGu1Nr0pm/9qdzRRhX0OVIGf6mpY2afyOKm67wIvv45TF/Z2zqIA
+	 G3CYYIkuLT6YmOlXdCjUZTNyxmowRp9pfPHFU2gZm1ti+iGnaV2aO+JLK2JfEf++Mc
+	 YecL6HLWzLTTV82JJWVl/XaltfMrpBK52vXBUzU1S+TObUfGid3jtzRflGnIpSxNcY
+	 tILt6gjasAS4WFkQiveYMFFY/B3KPaxmQepinJP8I87wuTqI50h0l2Xj2/+boQeS7d
+	 nqlsH5nt3Zx2zYpQGUwmp3w8P22JxL41mpwzZ6qxNqnc1DZz2mV2qXkcswTJZ8qej0
+	 OC1n2HSxS1p+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xin Long <lucien.xin@gmail.com>,
-	David Ahern <dsahern@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Ondrej Mosnacek <omosnace@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/3] net: add a couple of helpers for iph tot_len
-Date: Wed, 11 Nov 2026 22:08:27 -0500
-Message-ID: <20261112030822.1482543-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/3] cipso: make cipso_v4_skbuff_delattr() fully remove the CIPSO options
+Date: Wed, 11 Nov 2026 22:08:28 -0500
+Message-ID: <20261112030822.1482543-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202621-failed-5.10-1f1f8e8c5176@kernel.org>
+In-Reply-To: <20261112030822.1482543-1-sashal@kernel.org>
 References: <20261109202621-failed-5.10-1f1f8e8c5176@kernel.org>
+ <20261112030822.1482543-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,72 +62,159 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xin Long <lucien.xin@gmail.com>
+From: Ondrej Mosnacek <omosnace@redhat.com>
 
-[ Upstream commit 058a8f7f73aae1cc22b53fcefec031b9e391b54d ]
+[ Upstream commit 89aa3619d141d6cfb6040a561aebb6d99d3e2285 ]
 
-This patch adds three APIs to replace the iph->tot_len setting
-and getting in all places where IPv4 BIG TCP packets may reach,
-they will be used in the following patches.
+As the comment in this function says, the code currently just clears the
+CIPSO part with IPOPT_NOP, rather than removing it completely and
+trimming the packet. The other cipso_v4_*_delattr() functions, however,
+do the proper removal and also calipso_skbuff_delattr() makes an effort
+to remove the CALIPSO options instead of replacing them with padding.
 
-Note that iph_totlen() will be used when iph is not in linear
-data of the skb.
+Some routers treat IPv4 packets with anything (even NOPs) in the option
+header as a special case and take them through a slower processing path.
+Consequently, hardening guides such as STIG recommend to configure such
+routers to drop packets with non-empty IP option headers [1][2]. Thus,
+users might expect NetLabel to produce packets with minimal padding (or
+at least with no padding when no actual options are present).
 
-Signed-off-by: Xin Long <lucien.xin@gmail.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Implement the proper option removal to address this and to be closer to
+what the peer functions do.
+
+[1] https://www.stigviewer.com/stig/juniper_router_rtr/2019-09-27/finding/V-90937
+[2] https://www.stigviewer.com/stig/cisco_ios_xe_router_rtr/2021-03-26/finding/V-217001
+
+Signed-off-by: Ondrej Mosnacek <omosnace@redhat.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
 Stable-dep-of: 1f1f8e8c5176 ("cipso: fix optlen corruption in cipso_v4_delopt()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/ip.h  | 21 +++++++++++++++++++++
- include/net/route.h |  3 ---
- 2 files changed, 21 insertions(+), 3 deletions(-)
+ net/ipv4/cipso_ipv4.c | 79 +++++++++++++++++++++++++++++--------------
+ 1 file changed, 54 insertions(+), 25 deletions(-)
 
-diff --git a/include/linux/ip.h b/include/linux/ip.h
-index 3d9c6750af627..d11c25f5030a0 100644
---- a/include/linux/ip.h
-+++ b/include/linux/ip.h
-@@ -35,4 +35,25 @@ static inline unsigned int ip_transport_len(const struct sk_buff *skb)
- {
- 	return ntohs(ip_hdr(skb)->tot_len) - skb_network_header_len(skb);
+diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
+index c5da958e3bbdb..61a8c742ffd0c 100644
+--- a/net/ipv4/cipso_ipv4.c
++++ b/net/ipv4/cipso_ipv4.c
+@@ -1814,6 +1814,29 @@ static int cipso_v4_genopt(unsigned char *buf, u32 buf_len,
+ 	return CIPSO_V4_HDR_LEN + ret_val;
  }
-+
-+static inline unsigned int iph_totlen(const struct sk_buff *skb, const struct iphdr *iph)
-+{
-+	u32 len = ntohs(iph->tot_len);
-+
-+	return (len || !skb_is_gso(skb) || !skb_is_gso_tcp(skb)) ?
-+	       len : skb->len - skb_network_offset(skb);
-+}
-+
-+static inline unsigned int skb_ip_totlen(const struct sk_buff *skb)
-+{
-+	return iph_totlen(skb, ip_hdr(skb));
-+}
-+
-+/* IPv4 datagram length is stored into 16bit field (tot_len) */
-+#define IP_MAX_MTU	0xFFFFU
-+
-+static inline void iph_set_totlen(struct iphdr *iph, unsigned int len)
-+{
-+	iph->tot_len = len <= IP_MAX_MTU ? htons(len) : 0;
-+}
- #endif	/* _LINUX_IP_H */
-diff --git a/include/net/route.h b/include/net/route.h
-index 584b6171e3130..cba21c51ef3fc 100644
---- a/include/net/route.h
-+++ b/include/net/route.h
-@@ -35,9 +35,6 @@
- #include <linux/cache.h>
- #include <linux/security.h>
  
--/* IPv4 datagram length is stored into 16bit field (tot_len) */
--#define IP_MAX_MTU	0xFFFFU
++static int cipso_v4_get_actual_opt_len(const unsigned char *data, int len)
++{
++	int iter = 0, optlen = 0;
++
++	/* determining the new total option length is tricky because of
++	 * the padding necessary, the only thing i can think to do at
++	 * this point is walk the options one-by-one, skipping the
++	 * padding at the end to determine the actual option size and
++	 * from there we can determine the new total option length
++	 */
++	while (iter < len) {
++		if (data[iter] == IPOPT_END) {
++			break;
++		} else if (data[iter] == IPOPT_NOP) {
++			iter++;
++		} else {
++			iter += data[iter + 1];
++			optlen = iter;
++		}
++	}
++	return optlen;
++}
++
+ /**
+  * cipso_v4_sock_setattr - Add a CIPSO option to a socket
+  * @sk: the socket
+@@ -1989,7 +2012,6 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
+ 		u8 cipso_len;
+ 		u8 cipso_off;
+ 		unsigned char *cipso_ptr;
+-		int iter;
+ 		int optlen_new;
+ 
+ 		cipso_off = opt->opt.cipso - sizeof(struct iphdr);
+@@ -2009,23 +2031,8 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
+ 		memmove(cipso_ptr, cipso_ptr + cipso_len,
+ 			opt->opt.optlen - cipso_off - cipso_len);
+ 
+-		/* determining the new total option length is tricky because of
+-		 * the padding necessary, the only thing i can think to do at
+-		 * this point is walk the options one-by-one, skipping the
+-		 * padding at the end to determine the actual option size and
+-		 * from there we can determine the new total option length */
+-		iter = 0;
+-		optlen_new = 0;
+-		while (iter < opt->opt.optlen) {
+-			if (opt->opt.__data[iter] == IPOPT_END) {
+-				break;
+-			} else if (opt->opt.__data[iter] == IPOPT_NOP) {
+-				iter++;
+-			} else {
+-				iter += opt->opt.__data[iter + 1];
+-				optlen_new = iter;
+-			}
+-		}
++		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
++							 opt->opt.optlen);
+ 		hdr_delta = opt->opt.optlen;
+ 		opt->opt.optlen = (optlen_new + 3) & ~3;
+ 		hdr_delta -= opt->opt.optlen;
+@@ -2245,7 +2252,8 @@ int cipso_v4_skbuff_setattr(struct sk_buff *skb,
+  */
+ int cipso_v4_skbuff_delattr(struct sk_buff *skb)
+ {
+-	int ret_val;
++	int ret_val, cipso_len, hdr_len_actual, new_hdr_len_actual, new_hdr_len,
++	    hdr_len_delta;
+ 	struct iphdr *iph;
+ 	struct ip_options *opt = &IPCB(skb)->opt;
+ 	unsigned char *cipso_ptr;
+@@ -2258,16 +2266,37 @@ int cipso_v4_skbuff_delattr(struct sk_buff *skb)
+ 	if (ret_val < 0)
+ 		return ret_val;
+ 
+-	/* the easiest thing to do is just replace the cipso option with noop
+-	 * options since we don't change the size of the packet, although we
+-	 * still need to recalculate the checksum */
 -
- #define RTO_ONLINK	0x01
+ 	iph = ip_hdr(skb);
+ 	cipso_ptr = (unsigned char *)iph + opt->cipso;
+-	memset(cipso_ptr, IPOPT_NOOP, cipso_ptr[1]);
++	cipso_len = cipso_ptr[1];
++
++	hdr_len_actual = sizeof(struct iphdr) +
++			 cipso_v4_get_actual_opt_len((unsigned char *)(iph + 1),
++						     opt->optlen);
++	new_hdr_len_actual = hdr_len_actual - cipso_len;
++	new_hdr_len = (new_hdr_len_actual + 3) & ~3;
++	hdr_len_delta = (iph->ihl << 2) - new_hdr_len;
++
++	/* 1. shift any options after CIPSO to the left */
++	memmove(cipso_ptr, cipso_ptr + cipso_len,
++		new_hdr_len_actual - opt->cipso);
++	/* 2. move the whole IP header to its new place */
++	memmove((unsigned char *)iph + hdr_len_delta, iph, new_hdr_len_actual);
++	/* 3. adjust the skb layout */
++	skb_pull(skb, hdr_len_delta);
++	skb_reset_network_header(skb);
++	iph = ip_hdr(skb);
++	/* 4. re-fill new padding with IPOPT_END (may now be longer) */
++	memset((unsigned char *)iph + new_hdr_len_actual, IPOPT_END,
++	       new_hdr_len - new_hdr_len_actual);
++
++	opt->optlen -= hdr_len_delta;
+ 	opt->cipso = 0;
+ 	opt->is_changed = 1;
+-
++	if (hdr_len_delta != 0) {
++		iph->ihl = new_hdr_len >> 2;
++		iph_set_totlen(iph, skb->len);
++	}
+ 	ip_send_check(iph);
  
- #define RT_CONN_FLAGS(sk)   (RT_TOS(inet_sk(sk)->tos) | sock_flag(sk, SOCK_LOCALROUTE))
+ 	return 0;
 -- 
 2.53.0
 
