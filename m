@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487984;
-	b=KaNuwqr0iXxsdhefx+mJaXsOMXZdHf9qsH3IQVhI5L4sIIT0UL3vd+6DZMzgXeuka6Lt
-	 VC2885knWiNrRvMzjkrQfymMhDyni1nGnVF4XRwsR4ciLjkf2j6BQ3rO6pAKvL4HnJ2YD
-	 6sg71QMv1cJJIdfLCtT/E4u3p41KxNyd3tpv4ykALrJM+2DstyzpyLRhHhX8n1GoBtYTD
-	 glBpq5GaIw93r2ev3laIo5UZfeL7JQerSrElyNhYzQQnXSXPU1rq9OFQ867CSE8r219JS
-	 izCelbbrrUx2OnmvobMEj0g8t+G3zwOHZw3kQOoIo+hY0Et5uLdejJfmeO5wi/m2dIw==
+	t=1794487989;
+	b=IQH3YtrHROPACqpH/UQM9UY2HJ9iqy1WGj+OggxfTABmkyo9+B/Iq5y/UxLAn1qtUbJ9
+	 7e+0jl4FCN8XUVx9IOKcGge45KJ/el9ezWBIWOQPrZqT2DMhW0s/YrX9SVgmbCctiBPWG
+	 AePEWpS2QRahUpiBSr9eQnQe1ZC4NM2YillSfVXJ/Wx2mtaos5FkP4o8cpX+7HuNhoWl3
+	 OEwxSk2Kcdq1VLHY/PAwH5SJPU2pgRKRcwGOFjhpxe0EKr+7YSUEr8nUEZ6GhPjaD3HaB
+	 8CJ1NItbCtq6ZagCjcF9dsi4EICi7TA/xKGLtselrpvdneEI+5pZWGa+LYf/84w2Y9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487989;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
 	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
 	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=tF49+JupgZE9xGK8EKohysErvg0QsCmNr2anu3IocEM=;
-	b=DhcOBCvSymKBranwNtpW44LOZg4jv5DrsWRXQj60X2Qe9UAAYrX8Z3sIadgxLvKuoyJz
-	 8GC/vBI/1OZCkBPVEnaUvru32kab8rRtL2Fwv2QfIo67KaMabmoUBQqMMUog+lpLq0evd
-	 eUNDwqYtlionxXIUia3ryilKRLH/ZadcDVeTcwMsebdeTEtLQtkK7JAcFXHesB7onDf/a
-	 fvRpbIb8hkmWmni0pJ4Oi90V2CX7w/m3h+cVcP53Hl9S2r7PUSI4gb777f7W9pTilTIpF
-	 tO47EdQo4mYhHc2yHi1VJjt8fw/dETh055B2/+b94EHmXNfT4kt3h8mDEwuILGdUN+g==
+	bh=Ho9lfVmh032DRkxc1lN+upULBMkzPGfKHmpBixAPo84=;
+	b=CM6ZYFQbUvLLuTSq9Eg24z+9wAkQVKnHIIJdHMqzPCU4xxGMDYwn1aeMsjmPGFmZys3+
+	 /MjQVW5VBufklhItZ4WW5WZKdRRIaNY4WnENH+w+ama49nLLY00+R7JoIAGcho+Qn644h
+	 qgqREXIKXv84mnDxhYA0/+jTMAcy23ulcYKcN5ILF+y3KMZirTxf2wffUylRzUDU34KOf
+	 1fpaFrZpsaTt+Cgcz0rHy/NZ7NRrYoi7wBaWkdD2pJBekiaj6ho4OFow4V4TRhcssY1WY
+	 oVVUrQdmAYNcObviku/IlZxRhfdJ03F020BuRnFYSiQaWZt29lReEVO94kS/msX3JqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.cyber.gouv.fr;
 	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Sc0PhQT9;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=FHXMsZjK;
 	arc=none smtp.remote-ip=51.159.188.251
 Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59A3606A333;
-	Thu, 12 Nov 2026 12:53:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D59A3606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429F7606A333;
+	Thu, 12 Nov 2026 12:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 429F7606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Sc0PhQT9
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=FHXMsZjK
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=tF49+JupgZE9xGK8EKohysErvg0QsCmNr2anu3IocEM=; b=Sc0PhQT9Su7h7qxLJdtbnFU0Jq
-	m7sPeEM20P9y8mnSG++XUGfE5cfs9sjhxGm0w5nBnWGCA5Bbh5guO6jTW8ymF2Xu6pd5nOpPPNQlm
-	ZkKAlN2hLgh5E0eh+IQm2MzWO7NwRyBFhL2w0RtAt8DJ2nfPsTM7/vvWBogNLtV0OTRUyZEZmiQfV
-	9Y1xsKqdqaQHGLHd9NAlF4WCC/icJQd4wzP/1OIc2k+av3JJTKXxM4NZs7KtHsyV0Rrq9JoIbgWDR
-	7ytgv8rEJDbdHit6sOPt8J/ZPJ4P5jc3fe35MDUc0e6wRac3pjjUNw0drrSWNG0MFjf2tDk4BIzgT
-	HI1TJyDg==;
+	bh=Ho9lfVmh032DRkxc1lN+upULBMkzPGfKHmpBixAPo84=; b=FHXMsZjK+wefAnn50JdCcok8mn
+	TRuHEMnf5i23qBfyHGbHtXnvmXH2Q/9cdqKnFoQ1Jlz+A2ZArjg68bTapmRe5mzC1tuFwSISJSZv2
+	a3mSrAcXMEySMoYz372FwbRIS5WWhTDUmRhdIjEprKJAcDqeQ+5CSSJLV9j5Oln5n71+E6Q7Zzr1z
+	AlNb1wIakd49DInoZAZIyLJmRm2zmluiqo7pivBxiiDJkFU8Pc9p2Pm1HqjjKW2eJ7PJB8XWIaWKU
+	UmX1h04az5ovUpqAY69EBE8cSzzrk0F5a0rW2p1kotj7Dv1YEkGT6hEoO3Amf4gkRw/yUn+RZbfuu
+	XDK3+haA==;
 Received: from [151.115.150.205] (port=38878 helo=gepetto..)
 	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xRUIa-00000003H1G-0duP;
+	id 1xRUIa-00000003H1G-2QwN;
 	Thu, 12 Nov 2026 13:53:02 +0100
 From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -68,9 +68,9 @@ Cc: Eric Snowberg <eric.snowberg@oracle.com>,
 	kexec@lists.infradead.org,
 	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 2/3] ima: keep kexec dump state tied to installed image
-Date: Thu, 12 Nov 2026 12:52:46 +0000
-Message-ID: <20261112125246.2715174-4-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH v2 3/3] ima: clear kexec state when replacing file image
+Date: Thu, 12 Nov 2026 12:52:47 +0000
+Message-ID: <20261112125246.2715174-5-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261112125246.2715174-2-Jeremy.Jean@oss.cyber.gouv.fr>
 References: <20261112125246.2715174-2-Jeremy.Jean@oss.cyber.gouv.fr>
@@ -96,174 +96,155 @@ X-Source:
 X-Source-Args: 
 X-Source-Dir: 
 
-ima_add_kexec_buffer() updates the global measurement scratch buffer
-and segment size for the new image. If kexec_file_load() fails, the
-new image is freed but the scratch buffer and segment size remain. When
-kexec starts the installed image, ima_update_kexec_buffer() dumps the
-measurement list into the IMA segment. A larger failed segment causes an
-OOB write, while a smaller one truncates the log and reports the wrong
-size in the kexec_execute event. KASAN for instsance reports the OOB
-writes as:
+ima_kexec_buffer remains mapped to the IMA segment of the installed
+kexec_file_load image. KEXEC_FILE_UNLOAD and a successful normal
+kexec_load can replace and free that image without clearing the mapping.
+Executing a later kexec_load image can then write the measurement list
+into the freed pages. The new image has an IMA segment size of zero, but
+size does not establish ownership of the mapping.
 
-  BUG: KASAN: vmalloc-out-of-bounds in ima_update_kexec_buffer+0x265/0x280
-  Write of size 868426 at addr ffffc9000004e000 by task init/1
-  ...
-  __asan_memcpy+0x3b/0x60
-  ima_update_kexec_buffer+0x265/0x280
-
-Leave installed scratch state unchanged until all later load steps pass.
-Store new buffers in the candidate and reuse only equal-size installed
-buffers. Emit kexec_load before those steps with the local size.
-Allocation failure still omits the optional segment.
+Record the image whose segment is mapped and verify it before the
+execute-time update. Clear the mapping and scratch state under kexec_lock
+when a normal image is removed without another file image taking its
+place.
 
 Fixes: 9f0ec4b16f2b ("ima: kexec: move IMA log copy from kexec load to execute")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
- security/integrity/ima/ima_kexec.c | 74 ++++++++++++++++--------------
- 1 file changed, 39 insertions(+), 35 deletions(-)
+ include/linux/ima.h                |  1 +
+ kernel/kexec.c                     | 11 +++++++++++
+ kernel/kexec_file.c                |  7 ++++++-
+ security/integrity/ima/ima_kexec.c | 24 ++++++++++++++++++++++++
+ 4 files changed, 42 insertions(+), 1 deletion(-)
 
+diff --git a/include/linux/ima.h b/include/linux/ima.h
+index 8e08baf16c2f..d61b7b7756b7 100644
+--- a/include/linux/ima.h
++++ b/include/linux/ima.h
+@@ -34,6 +34,7 @@ static inline void ima_appraise_parse_cmdline(void) {}
+ #ifdef CONFIG_IMA_KEXEC
+ extern void ima_add_kexec_buffer(struct kimage *image);
+ extern void ima_kexec_post_load(struct kimage *image);
++void ima_kexec_cleanup(void);
+ #else
+ static inline void ima_kexec_post_load(struct kimage *image) {}
+ #endif
+diff --git a/kernel/kexec.c b/kernel/kexec.c
+index 90756dc6339b..297f4657869b 100644
+--- a/kernel/kexec.c
++++ b/kernel/kexec.c
+@@ -11,6 +11,7 @@
+ #include <linux/file.h>
+ #include <linux/security.h>
+ #include <linux/kexec.h>
++#include <linux/ima.h>
+ #include <linux/mutex.h>
+ #include <linux/list.h>
+ #include <linux/syscalls.h>
+@@ -114,6 +115,10 @@ static int do_kexec_load(unsigned long entry, unsigned long nr_segments,
+ 
+ 	if (nr_segments == 0) {
+ 		/* Uninstall image */
++#ifdef CONFIG_IMA_KEXEC
++		if (!(flags & KEXEC_ON_CRASH))
++			ima_kexec_cleanup();
++#endif
+ 		kimage_free(xchg(dest_image, NULL));
+ 		ret = 0;
+ 		goto out_unlock;
+@@ -163,6 +168,12 @@ static int do_kexec_load(unsigned long entry, unsigned long nr_segments,
+ 	if (ret)
+ 		goto out;
+ 
++	/* A kexec_load image has no IMA measurement segment. */
++#ifdef CONFIG_IMA_KEXEC
++	if (!(flags & KEXEC_ON_CRASH))
++		ima_kexec_cleanup();
++#endif
++
+ 	/* Install the new kernel and uninstall the old */
+ 	image = xchg(dest_image, image);
+ 
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index 59f9ba1b0cd7..95b3a9ab1e3b 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -401,8 +401,13 @@ SYSCALL_DEFINE5(kexec_file_load, int, kernel_fd, int, initrd_fd,
+ #endif
+ 		dest_image = &kexec_image;
+ 
+-	if (flags & KEXEC_FILE_UNLOAD)
++	if (flags & KEXEC_FILE_UNLOAD) {
++#ifdef CONFIG_IMA_KEXEC
++		if (image_type == KEXEC_TYPE_DEFAULT)
++			ima_kexec_cleanup();
++#endif
+ 		goto exchange;
++	}
+ 
+ 	/*
+ 	 * In case of crash, new kernel gets loaded in reserved region. It is
 diff --git a/security/integrity/ima/ima_kexec.c b/security/integrity/ima/ima_kexec.c
-index 0d845693a1f7..3aa8b1096f81 100644
+index 3aa8b1096f81..cc15aed8df48 100644
 --- a/security/integrity/ima/ima_kexec.c
 +++ b/security/integrity/ima/ima_kexec.c
-@@ -35,7 +35,8 @@ static void ima_free_kexec_file_buf(struct seq_file *sf)
- 	sf->count = 0;
- }
+@@ -25,6 +25,7 @@ static bool ima_kexec_update_registered;
+ static struct seq_file ima_kexec_file;
+ static size_t kexec_segment_size;
+ static void *ima_kexec_buffer;
++static struct kimage *ima_kexec_image;
  
--void ima_measure_kexec_event(const char *event_name)
-+static void ima_measure_kexec_event_size(const char *event_name,
-+					 size_t segment_size)
+ static void ima_free_kexec_file_buf(struct seq_file *sf)
  {
- 	char ima_kexec_event[IMA_KEXEC_EVENT_LEN];
- 	size_t buf_size = 0;
-@@ -48,35 +49,26 @@ void ima_measure_kexec_event(const char *event_name)
- 	n = scnprintf(ima_kexec_event, IMA_KEXEC_EVENT_LEN,
- 		      "kexec_segment_size=%lu;ima_binary_runtime_size=%lu;"
- 		      "ima_runtime_measurements_count=%ld;",
--		      kexec_segment_size, buf_size, len);
-+		      segment_size, buf_size, len);
- 
- 	ima_measure_critical_data("ima_kexec", event_name, ima_kexec_event, n, false, NULL, 0);
- }
- 
--static int ima_alloc_kexec_file_buf(size_t segment_size)
-+void ima_measure_kexec_event(const char *event_name)
- {
--	/*
--	 * kexec 'load' may be called multiple times.
--	 * Free and realloc the buffer only if the segment_size is
--	 * changed from the previous kexec 'load' call.
--	 */
--	if (ima_kexec_file.buf && ima_kexec_file.size == segment_size)
--		goto out;
-+	ima_measure_kexec_event_size(event_name, kexec_segment_size);
-+}
- 
--	ima_free_kexec_file_buf(&ima_kexec_file);
-+static int ima_alloc_kexec_file_buf(struct kimage *image, size_t segment_size)
-+{
-+	if (ima_kexec_file.buf && ima_kexec_file.size == segment_size)
-+		return 0;
- 
- 	/* segment size can't change between kexec load and execute */
--	ima_kexec_file.buf = vmalloc(segment_size);
--	if (!ima_kexec_file.buf)
-+	image->ima_buffer = vmalloc(segment_size);
-+	if (!image->ima_buffer)
- 		return -ENOMEM;
- 
--	ima_kexec_file.size = segment_size;
--
--out:
--	ima_kexec_file.read_pos = 0;
--	ima_kexec_file.count = sizeof(struct ima_kexec_hdr);	/* reserved space */
--	ima_measure_kexec_event("kexec_load");
--
- 	return 0;
- }
- 
-@@ -160,10 +152,8 @@ void ima_add_kexec_buffer(struct kimage *image)
- 				  .top_down = true };
- 	unsigned long binary_runtime_size;
- 	unsigned long extra_memory;
-+	size_t segment_size;
- 
--	/* use more understandable variable names than defined in kbuf */
--	size_t kexec_buffer_size = 0;
--	void *kexec_buffer = NULL;
- 	int ret;
- 
- 	if (image->type == KEXEC_TYPE_CRASH)
-@@ -182,36 +172,36 @@ void ima_add_kexec_buffer(struct kimage *image)
- 			      extra_memory;
- 
- 	if (binary_runtime_size >= ULONG_MAX - PAGE_SIZE)
--		kexec_segment_size = ULONG_MAX;
-+		segment_size = ULONG_MAX;
- 	else
--		kexec_segment_size = ALIGN(binary_runtime_size, PAGE_SIZE);
-+		segment_size = ALIGN(binary_runtime_size, PAGE_SIZE);
- 
--	if ((kexec_segment_size == ULONG_MAX) ||
--	    ((kexec_segment_size >> PAGE_SHIFT) > totalram_pages() / 2)) {
-+	if (segment_size == ULONG_MAX ||
-+	    (segment_size >> PAGE_SHIFT) > totalram_pages() / 2) {
- 		pr_err("Binary measurement list too large.\n");
- 		return;
+@@ -229,6 +230,11 @@ static int ima_update_kexec_buffer(struct notifier_block *self,
+ 		return ret;
  	}
  
--	ret = ima_alloc_kexec_file_buf(kexec_segment_size);
-+	ret = ima_alloc_kexec_file_buf(image, segment_size);
- 	if (ret < 0) {
- 		pr_err("Not enough memory for the kexec measurement buffer.\n");
- 		return;
- 	}
- 
--	kbuf.buffer = kexec_buffer;
--	kbuf.bufsz = kexec_buffer_size;
--	kbuf.memsz = kexec_segment_size;
-+	ima_measure_kexec_event_size("kexec_load", segment_size);
++	if (ima_kexec_image != kexec_image) {
++		pr_err("Kexec buffer does not match current image.\n");
++		return ret;
++	}
 +
-+	kbuf.memsz = segment_size;
- 	image->is_ima_segment_index_set = false;
- 	ret = kexec_add_buffer(&kbuf);
- 	if (ret) {
- 		pr_err("Error passing over kexec measurement buffer.\n");
--		vfree(kexec_buffer);
-+		vfree(image->ima_buffer);
-+		image->ima_buffer = NULL;
- 		return;
- 	}
+ 	ret = ima_dump_measurement_list(&buf_size, &buf, kexec_segment_size);
  
- 	image->ima_buffer_addr = kbuf.mem;
--	image->ima_buffer_size = kexec_segment_size;
--	image->ima_buffer = kexec_buffer;
-+	image->ima_buffer_size = segment_size;
- 	image->ima_segment_index = image->nr_segments - 1;
- 	image->is_ima_segment_index_set = true;
+ 	if (ret)
+@@ -239,6 +245,7 @@ static int ima_update_kexec_buffer(struct notifier_block *self,
  
-@@ -269,8 +259,22 @@ void ima_kexec_post_load(struct kimage *image)
+ 	kimage_unmap_segment(ima_kexec_buffer);
+ 	ima_kexec_buffer = NULL;
++	ima_kexec_image = NULL;
+ 
+ 	return ret;
+ }
+@@ -258,6 +265,7 @@ void ima_kexec_post_load(struct kimage *image)
+ 		kimage_unmap_segment(ima_kexec_buffer);
  		ima_kexec_buffer = NULL;
  	}
++	ima_kexec_image = image;
  
--	if (!image->ima_buffer_addr)
-+	if (!image->ima_buffer_addr) {
-+		kexec_segment_size = 0;
-+		ima_free_kexec_file_buf(&ima_kexec_file);
- 		return;
-+	}
-+
-+	if (image->ima_buffer) {
-+		ima_free_kexec_file_buf(&ima_kexec_file);
-+		ima_kexec_file.buf = image->ima_buffer;
-+		image->ima_buffer = NULL;
-+	}
-+
-+	kexec_segment_size = image->ima_buffer_size;
-+	ima_kexec_file.size = image->ima_buffer_size;
-+	ima_kexec_file.read_pos = 0;
-+	ima_kexec_file.count = sizeof(struct ima_kexec_hdr);	/* reserved space */
+ 	if (!image->ima_buffer_addr) {
+ 		kexec_segment_size = 0;
+@@ -288,6 +296,22 @@ void ima_kexec_post_load(struct kimage *image)
+ 	}
+ }
  
- 	ima_kexec_buffer = kimage_map_segment(image, image->ima_segment_index);
- 	if (!ima_kexec_buffer) {
++/*
++ * Drop the dump state before its kexec image is replaced.
++ *
++ * This function assumes that kexec_lock is held.
++ */
++void ima_kexec_cleanup(void)
++{
++	if (ima_kexec_buffer) {
++		kimage_unmap_segment(ima_kexec_buffer);
++		ima_kexec_buffer = NULL;
++	}
++	ima_kexec_image = NULL;
++	kexec_segment_size = 0;
++	ima_free_kexec_file_buf(&ima_kexec_file);
++}
++
+ #endif /* IMA_KEXEC */
+ 
+ /*
