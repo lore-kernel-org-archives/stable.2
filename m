@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453052;
-	b=5PfdDlwBb/lSqNTFxvxnmGrUtGyp+VsbguGknBye0tE4wRYaasysSdsFaMhchc0YlyKs
-	 5VyJUxL5MKyAucr/3YYwF6UGJMPwwKN0yp5ntiyjuQotMeqPM5JnrgtMIz0DpQDqVDlRH
-	 FrMHNpJvnYMjr/7IRKMsqVCOakKorPPAUw3S1+sIByyTsjV30fUhiwU1onyMNHz6LQyzB
-	 nK60xOmEzmu7mxHeSrk51e7R8TRDLn9VLtjDG+e7qtG0zYsqWVxF2mZb47/mhPEfxyox0
-	 ekWd33iwrxEG07rbCjZ2Y/CfYbSpyuzdeCLvCUgPJ32kSs40u3F+Wsh+S0IYiw03Umw==
+	t=1794453066;
+	b=LkwOyf8ctgTqsskHrd1FwMlDI44NcS8GSL7G8wMNLFkqIe53F+Xp9olWMEqrPFPtrta8
+	 4c1O6kE8P4GFihA+lNjX3mkrEh/e71bbdd3MQFRnn0tkThQaivFukfP9jCNlzXTGUgSjC
+	 U5wJ9pVF2IdJr9Jocm5wCDKtVpnMXHUwPW+LkleIsk5S7JkI62U3g8I2VXjS83tVlRfVz
+	 z3HochiBzlnYJ1iZ5VaUgEfM7oz92aUCyij8xlFDEjfQt6Xjv+nIKxvRlxuQQvGD7+oO7
+	 03Z6yr8/tUZE4Phj46g4g0LJHQp9OhkaOzPszmB2KpsLeEdejr+ferkZydycD9E+YOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453052;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453066;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1DGXPqp93v2h9lT5FNskLP4hfklZzdq6kW5dPmG0JmU=;
-	b=MIO2nSlFsQ3D41b+JuFcOjdyBsEO3Xqn3QqF9Bi4NQumURuwvaqZNEjmtukwgJH7e5FB
-	 HlH4pxhPdAu7Abp7zcbqRMd/MT792OP+YHSRaPKs4BuQe1dDTXbKzxCfWFceyylWw+LPk
-	 o1rANJAR5pgfN/kXvq7URbarjb4TssKDugEFTwIAk/1s1A3aIXek/ilRarLroV0zNIs1Y
-	 5rSQMyFDYWxt77T+X3hMKvbrXN4FwMiBtFAjVqRjCQwedQsPyirDz2oIWDirfMg3dgy6c
-	 flxiDPvI9Z55AYODQNfYES4QbytT9+bWDV6GwSUnpgVGrn2o0ChNw5pjAAd79l9nQqg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=vY8GWq58G5MHySgcXqs3ebJL7nhtbVPdFZMqopTL/xY=;
+	b=WOc3bEhBqPisJE8gVmXuN72s6WWhB6DBMryh+cRLEVW1j2Sn0M1brXx8fjSewmoXzB5S
+	 aE8x1koUPJA0kKGDzuX7lEB/9cBOJUmP9JTFWnmRvVdnUKqLqwvnqEsY5buogoswjhTvW
+	 FFa/A9CMrpy3H2ACADRf21GgG1QC3v6+5tQx3jNNtaOv2FtBTAUPfPY0gTFJxACnwxRra
+	 5pF8R62PMM7+qBfvcZKtu0PfnSFoOGzQdvEg/Yj0IP2cVdne9ZnveSf0MVn1qKqmEcb2n
+	 yzOFwyQTVujc1VoeflpvQRMn3H6dmHeXgLL09VwUy4K858oF8n8yWUEB1HqvpFVwncw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NO/P97ag";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GL5Wpa+F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57412606A32A
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:10:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A73606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:11:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NO/P97ag
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285791F00A06;
-	Thu, 12 Nov 2026 03:10:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GL5Wpa+F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913D41F00A05;
+	Thu, 12 Nov 2026 03:11:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794453052;
-	bh=1DGXPqp93v2h9lT5FNskLP4hfklZzdq6kW5dPmG0JmU=;
+	s=k20260515; t=1794453066;
+	bh=vY8GWq58G5MHySgcXqs3ebJL7nhtbVPdFZMqopTL/xY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NO/P97agXsK485g8du8KjrMeQW7xoq/atm1gtUXxX6aIfnbEXol2K0Spa4Fqo+AmZ
-	 aU3JriHIQpotwzcRnzmZdq4rtrdcK7EAT8L6hcaFeTcn3L+ZHZjM6w+04fnL8Qc4+a
-	 Sya27MdvYJ0+McCBt7IaowcXIb3FG+0KQ/3ZKwYXLtqI2FrNkZPUE3l/ijf+xOLWhS
-	 P7R2ipzD1RgkZRvuMNOpSEZmpNcNxGklKG3hr3oDS6lWI6k4V48EVQDxMiX4BW3zNp
-	 JuKz7+WB4L8la50BSh8dEebi7i2gZHa4l6fmS+z8peRQktrxl6DHEOtOR3J4fgy7cs
-	 PBx5ZmqmU1O9Q==
+	b=GL5Wpa+FDHqiY+J4la9f7QgWSwtVV8xZYpW418rPyEuCa+XFTJf2m05ZM1FnYhVSS
+	 nQ6h3drNZCRqL2Y9mFvThdve1PUAjwN/uokB9lCYYFFPTS33smlDW8IE6AwjMUCH/c
+	 7v+HnwZ+iZT9404DjKsCsFePEy1MVREVfVMiJVMwq28GBPIvvE6ZGTFwqb171T0f8I
+	 iP98w7oEWKcm6RDXIolY/MduYcWsQfyazGUiLMYOjzmudkVa1VM+pNg5teZU8n4OJK
+	 R8Vu5uEcgv17uJhCbQMqJnEG30VFZ5KPXWq6aGLF9BnU4IklvLkOKKRTBM0ErAvx58
+	 sq9VTxX3JGxaQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Luiz Capitulino <luizcap@redhat.com>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Jann Horn <jannh@google.com>,
-	=?UTF-8?q?Jakub=20Mat=C4=9Bna?= <matenajakub@gmail.com>,
+Cc: Daejun Park <daejun7.park@samsung.com>,
+	Dave Chinner <dgc@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
-Date: Wed, 11 Nov 2026 22:10:50 -0500
-Message-ID: <20261112031021.1419377-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] xfs: don't skip free extents of the longest length in a whole-AG FITRIM
+Date: Wed, 11 Nov 2026 22:11:04 -0500
+Message-ID: <20261112031044.1469518-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200136-failed-7.3-8146c6478224@kernel.org>
-References: <20261109200136-failed-7.3-8146c6478224@kernel.org>
+In-Reply-To: <20261109201606-failed-6.1-5745f4f10a1a@kernel.org>
+References: <20261109201606-failed-6.1-5745f4f10a1a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,96 +61,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Daejun Park <daejun7.park@samsung.com>
 
-[ Upstream commit 8146c6478224d8f6395c6b08a19c344a56d79867 ]
+[ Upstream commit 5745f4f10a1a16aa5bb020acc38afa33f2d5ff99 ]
 
-Commit ca3d76b0aa80 ("mm: add merging after mremap resize") combined
-merging with expansion of mremap()'d VMAs, however it also unintentionally
-disallowed the expansion of unmergeable VMAs.
+Since commit a66d636385d6 ("xfs: fix fstrim offset calculations"), the
+by-length walk of an AG in FITRIM starts with
+xfs_alloc_lookup_ge(cur, 0, pagf_longest) and walks down. The lookup
+lands on the longest free extent with the lowest block number. The
+other free extents of that length sort after it and are never
+discarded.
 
-Previously it was possible to expand a mixed mapping which mremap() had
-already ensured was a legal expansion.
+Start every by-length batch with xfs_alloc_lookup_le() at restart_bno.
 
-This is clearly seen in the mremap() logic, as it checks
-vma_is_fixed_mapping() to determine legality of an expansion rather than
-vma_can_merge().
-
-Additionally, copy_vma() allows for a failed merge to result in a new VMA
-being instantiated if MREMAP_MAYMOVE is specified.
-
-However, this is not attempted, as a failure in vma_merge_extend() is
-assumed to be an -ENOMEM failure.
-
-Since vma_merge_extend() is used exclusively by mremap() to perform a merge
-and/or expansion, resolve the issue by invoking vma_expand() for
-unmergeable VMAs there.
-
-Explicitly assert that the VMA is both non-fixed and a mixed mapping.
-This provides double insurance against broken changes in future.
-
-Note that khugepaged_enter_vma() (which vma_merge_new_range() runs) is
-redundant in this case, as a mixed mapping is not subject to khugepaged.
-
-Also update the VMA userland tests to add a required predicate.
-
-Link: https://lore.kernel.org/20261023-vma-expansion-fix-v1-1-6142baf1f46b@kernel.org
-Fixes: ca3d76b0aa80 ("mm: add merging after mremap resize")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Luiz Capitulino <luizcap@redhat.com>
-Closes: https://lore.kernel.org/all/20261023023106.515365-1-luizcap@redhat.com/
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Jakub Matěna <matenajakub@gmail.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: Replaced vma_can_merge() and vma_is_fixed_mapping() with equivalent flag checks and is_vm_hugetlb_page(). ]
+Suggested-by: Dave Chinner <dgc@kernel.org>
+Link: https://lore.kernel.org/r/ZgiJWxVcVwag0fIP@dread.disaster.area
+Cc: stable@vger.kernel.org
+Fixes: a66d636385d6 ("xfs: fix fstrim offset calculations")
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: adapted the batched xfs_trim_gather_extents() lookup to the unbatched xfs_trim_extents() loop ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/vma.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ fs/xfs/xfs_discard.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index e382fd32f0fff..9863668b9d6bc 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1882,12 +1882,28 @@ struct vm_area_struct *vma_merge_extend(struct vma_iterator *vmi,
- 					struct vm_area_struct *vma,
- 					unsigned long delta)
- {
--	VMG_VMA_STATE(vmg, vmi, vma, vma, vma->vm_end, vma->vm_end + delta);
-+	const bool can_merge = !vma_test_any(vma, VMA_PFNMAP_BIT,
-+					   VMA_DONTEXPAND_BIT, VMA_MIXEDMAP_BIT) &&
-+			      !is_vm_hugetlb_page(vma);
-+	const unsigned long start =
-+		can_merge ? vma->vm_end : vma->vm_start;
-+	VMG_VMA_STATE(vmg, vmi, vma, vma, start, vma->vm_end + delta);
+diff --git a/fs/xfs/xfs_discard.c b/fs/xfs/xfs_discard.c
+index bfc829c07f035..f6305377add4b 100644
+--- a/fs/xfs/xfs_discard.c
++++ b/fs/xfs/xfs_discard.c
+@@ -53,9 +53,10 @@ xfs_trim_extents(
+ 	cur = xfs_allocbt_init_cursor(mp, NULL, agbp, pag, XFS_BTNUM_CNT);
  
--	vmg.next = vma_iter_next_rewind(vmi, NULL);
- 	vmg.middle = NULL; /* We use the VMA to populate VMG fields only. */
+ 	/*
+-	 * Look up the longest btree in the AGF and start with it.
++	 * Start at the last record of the longest length.
+ 	 */
+-	error = xfs_alloc_lookup_ge(cur, 0, be32_to_cpu(agf->agf_longest), &i);
++	error = xfs_alloc_lookup_le(cur, NULLAGBLOCK,
++				    be32_to_cpu(agf->agf_longest), &i);
+ 	if (error)
+ 		goto out_del_cursor;
  
--	return vma_merge_new_range(&vmg);
-+	if (can_merge) {
-+		vmg.next = vma_iter_next_rewind(vmi, NULL);
-+		return vma_merge_new_range(&vmg);
-+	}
-+
-+	/* Mixed mappings are permitted to be expanded, not merged. */
-+	VM_WARN_ON_ONCE(vma_test_any(vma, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT));
-+	VM_WARN_ON_ONCE(!vma_test(vma, VMA_MIXEDMAP_BIT));
-+	vma_prev(vmi); /* Reposition to start of VMA. */
-+	vmg.target = vma;
-+	if (vma_expand(&vmg))
-+		return NULL;
-+	return vma;
- }
- 
- void unlink_file_vma_batch_init(struct unlink_vma_file_batch *vb)
 -- 
 2.53.0
 
