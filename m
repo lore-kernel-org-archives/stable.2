@@ -1,77 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794488175;
-	b=C069NZbq2ujGzo2EwgW1Goult+3x0+TOUMw3KLPVlOjrwyi6WwNoprTdkHrccs6vF6Ik
-	 ZKYAoTXMqZeZAYZR9vurSW1vHMO5I6yfv0NkK9kalwe6nJzrfw3EADxvdrtR1tNjb1bw8
-	 0mpXlL4xbSBpBU2M2pbkzhN5YDetHdJtA6hd64oMlfFXBxJZX+U7ygj4yyS3vMR56EcHw
-	 HuET0xat7Ass7UyG8+rcsrwhbV2KWiLqIpIrG3YD71a37J+LGu6CS30I4CV17/9DY9erG
-	 UjqlMXhUsx+aOhrBE2gNblPIQvSPlq/daELMrm6BiBwlArQqCqn0Z4llX1UEkAcLc3w==
+	t=1794488231;
+	b=ZE4oVUuMs1DG7ck0RtMPVIgiZy/BKta3PcRCFYCJPHDt18Qnm0fabDzId4y615j3M9TC
+	 6GWIWShSTgtbdCZAQ9OabqNiQMNzhzdzlbO8FM97rMN6pvgUFMBsJqYUpS4nj/jVd8a3V
+	 M1yal1pG5CFSOhO/KA+d0NP3+z9ftyshjI7D96IsXGCWfY7HjNidlOJsEZRxHfKXrx6t+
+	 NTRvQRGmrIm88rELbl9IkwP8Bf5gfh+W6pTm2KfA3v3UqN0m3hfQ4o5rPKNwe8gCLJOgV
+	 uVfdhqKc+lgSWhUyujPOlDLH8y70uKcdJc1jkPXXZNaj/pNyQPuTRSOiQ4IxVBiqJew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488175;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=HIutJ6yACOJKX+uQmsN7/6s8/2mZh9QVoLdPsM7BRLU=;
-	b=2W94vZs8U/cRfnBWYgCB5RzJtxdqyZjIAcfWUhT+lzIM70D0EyBF1sa8gSukvOrLaG9/
-	 r5OTGXAHENOiA2cn4KkcEkTqG9xuQRBwq1GmZaa6N3wZwXLccONE0YqTgmJiM5ZHUbyhp
-	 vFLX3Gp/TGA6Izg7d/tw3WUccexv8XxeulbdUR4vjBt4tlVOT7iWhnERSRcBblVW/NmC8
-	 SxqxrIH4j3FOLEYn+HAWaJJYpRCbQpn+Sax54fMwbLO+jvv24B66KkRIOUgsSmfeMGjRb
-	 H4hQ9OlqHgmmmf6nv3/3n1+viY0az9hpRcWNganmdk4hwoaEvV0eGm5V1mQ1Rz45Gzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488231;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=3NQ59OMNKcd9t+j12Tee+t591FmbFKofgobaYbJuglY=;
+	b=f8p3VcKMc+iiXjLYSlDGu9d8m8gqMH7aj2AwaG/PXuw8Y33zbI/cbl5sDnXdT7TlgWFG
+	 o0tV4s54Quhr0nOmaNy2Vhg7XegTPOewuhnLgqptwBJcVAHe6GO0uGsAAFVSi/WRHjOfI
+	 T9brSIo3wbF5HvuljBwInMr5zEDkfUaywdXgaIVJYrtgt7EtE5RViNCJ+Th/0ArkIfn9a
+	 LbJjodP0/xLzI1ECWrcOi2V91pN9t2PkWVn3rFR30oV+fCIfAIHppLdd4CEhWKCcMgq5s
+	 5F1Lptv2qax9U5gcoeb2HI75A+Y/5o0GFLA78wr99vandu49Pb/D9ikRt2fMH9epd0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GxtmYEol;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VPLuB1XS;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA6C606A888
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:56:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AA6C606A888
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF04D606A32E
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF04D606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GxtmYEol
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794488174;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HIutJ6yACOJKX+uQmsN7/6s8/2mZh9QVoLdPsM7BRLU=;
-	b=GxtmYEolLMLDANUQ9ifI44Wf9jVJ8SpcorSL7JgHsZengBwdsT3NY1HzERspxUnK+5Mt56
-	Mib4oaV3NDg+NIZK0dgMHDbGlAu9mii4jo0wNCBiOPD9iokoT5KI2y3IU8aAxeapyyYdkC
-	vHGICYd4erCPzzY73fd+sZLH1y95WEw=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-457-4uDYgcquMemIy5s-3lLvRw-1; Thu,
- 12 Nov 2026 07:56:09 -0500
-X-MC-Unique: 4uDYgcquMemIy5s-3lLvRw-1
-X-Mimecast-MFC-AGG-ID: 4uDYgcquMemIy5s-3lLvRw_1794488168
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DC1A2180060B;
-	Thu, 12 Nov 2026 12:56:07 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id E730641F;
-	Thu, 12 Nov 2026 12:56:04 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Thu, 12 Nov 2026 13:56:07 +0100 (CET)
-Date: Thu, 12 Nov 2026 13:56:03 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	tz2294@columbia.edu, stable@vger.kernel.org,
-	Mani Tofigh <mt4022@columbia.edu>
-Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
-Message-ID: <avW3Y_ea5v_zR48U@redhat.com>
-References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VPLuB1XS
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:From:Reply-To;
+	bh=3NQ59OMNKcd9t+j12Tee+t591FmbFKofgobaYbJuglY=; t=1794488229; x=2109848229; 
+	b=VPLuB1XSpIYTNjaQvzmlrrw3+64wjjCvYoe3WnT7ZPD9fzaLdd7uIQrX5y2/tv8Bxi3VQoTcwRp
+	GZ2wHiZKvj3aMg711aWRmHz/AWEkEjCp830DU9hrly9bTgzHwI15umfLNa1mPOlzS6N3b5D77ZfiZ
+	lxDkaiEN/9ak2JTpI25+0UPXUrB6Cma6nTaemVMNlKNsRWr3J0C5YkN8Jgxc2k05qHoF0QLUiig6q
+	koDB85jVoJFQpz2Xkho8s/IwEHbn1L8g9IE/mGAM91vNzpl84jsbmkd1sQFoIIEKAk8P/LbP4aqWc
+	gsgM1Ejwiu0M1/oY0j8jdxx69GcuFOHYTLBQ==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xRUMS-009Xxy-FO; Thu, 12 Nov 2026 13:57:04 +0100
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/2] drm/vc4: Fix async page flip completion
+Date: Thu, 12 Nov 2026 09:56:54 -0300
+Message-Id: <20261112-vc4-async-flip-fixes-v1-0-42449a703840@igalia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,98 +59,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2LSQqAMAwAvyI5GzDign5FPLQ1akCqNCCK+HeDc
+ xuGeUA5CSv02QOJT1HZownlGYTVxYVRJnMoi7IhA89QodM7Bpw3OXCWixXJk/PUTqHtarD1SPw
+ HO4fxfT+Ho0FeZgAAAA==
+X-Change-ID: 20261111-vc4-async-flip-fixes-1b1ab17dc795
+To: Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2520; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=clP/E8svD4QHx2DDpj4aVerbORgSn1ktcdo4AoG6um0=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq9beZcJn+SwfZR7BIPW10lVdnDDBmgGfrymuBe
+ NzFoKmzIV6JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCavW3mQAKCRA/8w6Kdoj6
+ qiMhCACCodUudZ+/m3kJb0PpvFa3ZKUnzS1EzSHpcmeMpMguLLBN3jie4HlzrmvNNplqKk/fMJR
+ LoxDumJz0GjPh1ToGZaAbBo9iclXdnAEc8jIB5bY6kjVzuqn4lNbeeT4NwH8sY3erVTD/ZlAIf8
+ yenU1uszFdx26sgrhyrW9Cg1np/7rnupr7Usf/EFLbQtJkkZSboJHY1/NvVvyHjKkiUBvsRV+GM
+ R/KwHX/9oZzTjUXr0ovWJlJuIFJ703y8Hkgzbvx1sYmuUSUPpdHIljDZrvmXPMa1q7MHF3qBY/R
+ fqihmyw6qXen6jWHJjyzaxnvW5z856UdlsLXmYBmLNdI8sra
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-This probably needs more discussion... I will write another email.
-But so far I think we don't really care.
+VC4 implements async page flips with a custom code path that waits for
+the BO fence before completing the flip. On VC4_GEN_4 (RPi 0-3), the
+completion also decrements the usecnt of the old FB's BO. This series
+fixes two bugs in that path.
 
-On 11/11, Mani Tofigh via B4 Relay wrote:
->
-> A task blocked in read() on a pipe can sleep while the pipe holds data,
-> when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
-> it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
-> reader, so a write into an empty pipe wakes only the watcher.  The
-> watcher reads without sleeping in anon_pipe_read() and doesn't pass the
-> wakeup on.  Since commit f1cebdec9739 ("pipe: only enable the extra
-> wake_up(rd_wait) for EPOLLET consumers") the next writes into the
-> non-empty pipe don't wake anyone anymore:
->
->   Task E                   Task A                 Task C
->   epoll_wait(ep, -1)
->     /* EPOLLEXCLUSIVE */
->                            read(p[0])
->                                                   write(p[1], "1")
->                                                     /* wakes E only */
->                                                   write(p[1], "2")
->                                                     /* no wakeup */
->   read(p[0], 1 byte)
->   exit()
->                            /* still asleep, "2" is in the pipe */
+Since commit e8941ac97f28 ("drm/vc4: Remove BOs seqnos"), the completion
+runs from a dma_fence callback. VC4 signals that fence from the render
+job IRQ handler. As vc4_bo_dec_usecnt() takes a mutex, running an SDL
+application with SDL_VIDEODRIVER=kmsdrm on the RPi 3 triggers:
 
-Yes, in this case f1cebdec9739 ("pipe: only enable the extra wake_up(rd_wait)
-for EPOLLET consumers") makes a difference.
+  [ 2511.636319] BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
+  [ 2511.636667] in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 0, name: swapper/0
+  [ 2511.636681] preempt_count: 1000002, expected: 0
+  [ 2511.636689] RCU nest depth: 0, expected: 0
+  [ 2511.636698] locks held by swapper/0/0: 1, on CPU#0:
+  [ 2511.636711]  #0: ffff000037183198 (&fence->inline_lock){-...}-{3:3}, at: dma_fence_signal+0x88/0xec
+  <snip>
+  [ 2511.636892] Hardware name: Raspberry Pi 3 Model B Plus Rev 1.3 (DT)
+  [ 2511.636899] Call trace:
+  <snip>
+  [ 2511.636991]  mutex_lock_nested+0x24/0x30
+  [ 2511.637002]  vc4_bo_dec_usecnt+0x40/0x124 [vc4]
+  [ 2511.637070]  vc4_async_page_flip_complete_with_cleanup+0xa0/0xc4 [vc4]
+  [ 2511.637102]  dma_fence_signal_timestamp_locked+0x118/0x290
+  [ 2511.637116]  dma_fence_signal+0x9c/0xec
+  [ 2511.637126]  vc4_irq_render_job_done+0x24/0x114 [vc4]
+  [ 2511.637158]  vc4_irq+0x16c/0x274 [vc4]
 
-However, this trivial test-case
+While looking into this issue, I also noticed that, since commit
+4d12c36fb73b ("drm/vc4: crtc: Move the BO handling out of common page-flip
+callback"), the old FB is released before decrementing its BO usecnt. If
+userspace removes the old FB and closes its handle while the flip is
+pending, vc4_bo_dec_usecnt() runs on a freed or recycled BO.
 
-	#include <unistd.h>
-	#include <sys/epoll.h>
-	#include <sys/wait.h>
-	#include <assert.h>
-	#include <stdio.h>
+Patch 1 fixes the use-after-free and patch 2 moves the completion to a
+worker. The UAF fix comes first, as it affects older stable kernels that
+don't have the dma_fence-based completion.
 
-	int main(void)
-	{
-		int pfd[2], efd;
-		struct epoll_event evt = { .events = EPOLLIN | EPOLLEXCLUSIVE };
-		char c;
+Best regards,
+- Maíra
 
-		pipe(pfd);
-		efd = epoll_create1(0);
-		epoll_ctl(efd, EPOLL_CTL_ADD, pfd[0], &evt);
+---
+Maíra Canal (2):
+      drm/vc4: Drop BO usecnt before releasing the old FB
+      drm/vc4: Complete async page flips from an ordered workqueue
 
-		if (!fork()) {
-			epoll_wait(efd, &evt, 1, -1);
-			read(pfd[0], &c, 1);
-			printf("1st: %c\n", c);
-			return 0;
-		}
-
-		sleep(1);
-
-		if (!fork()) {
-			read(pfd[0], &c, 1);
-			printf("2nd: %c\n", c);
-			return 0;
-		}
-
-		sleep(1);
-
-		write(pfd[1], "12", 2);
-		assert(wait(NULL) > 0);
-		assert(wait(NULL) > 0);
-
-		return 0;
-	}
-
-hangs even with this patch
-
-	+++ b/fs/pipe.c
-	@@ -749,6 +749,7 @@ pipe_poll(struct file *filp, poll_table *wait)
-		    unlikely(!READ_ONCE(pipe->pseudo_edgetrigger)))
-			WRITE_ONCE(pipe->pseudo_edgetrigger, true);
-	 
-	+WRITE_ONCE(pipe->pseudo_edgetrigger, true);
-		/*
-		 * Reading pipe state only -- no need for acquiring the semaphore.
-		 *
-
-which reverts f1cebdec9739.
-
-The 2nd child sleeps in read(pfd[0]) forever even if the pipe is not empty.
-So I am not sure we want to enforce another oddity in pipe_poll/read ...
-
-Oleg.
+ drivers/gpu/drm/vc4/vc4_crtc.c | 108 ++++++++++++++++++++---------------------
+ drivers/gpu/drm/vc4/vc4_drv.h  |   6 +++
+ 2 files changed, 58 insertions(+), 56 deletions(-)
+---
+base-commit: 8bf8cda54c08ee3693f4dd1e2b7607fe5e466c79
+change-id: 20261111-vc4-async-flip-fixes-1b1ab17dc795
 
