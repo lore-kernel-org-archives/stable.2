@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450116;
-	b=1VYIOtW37lb10wAOCalhuUe4BnJ4LXX4ATvreL5nlBhTQ+0wh5ClT0C4iHLzSqH2nVir
-	 kyW6ioJl2vDInqWotqFQyLbTDhXIn6cn5drv6AEMOo6kEePJRIAog2Nso8YzXGf7SVv6n
-	 NNofBDjwEZeSgRkkqVkFoHX+eKotMMfVvLpp+VMWh5U24wGUJqHzlWq8L1iTnKaoiltOO
-	 iehe3oxKACYiAnkEOYqUKtJV5VKH4MBHazaMVMnGLF+hqYfzPMd4iUMRfTmLZEBizYfoD
-	 wK/EMGjJPUw8iwlGCxv29HbVHIyDr+PAK2+bzANFjCzGVsP+ud6oNJSLQNpshuPfGvA==
+	t=1794450169;
+	b=TRqHGbl7PMjga1vdVj0h3SeMD12quVAECtmPPLUyawd1cSQV0cMuBfMDde9mZ89+SbK/
+	 tYIcau7QmHiVU1inTvl5RF3pK10tqPNUBOpFZ1pHVdCIeMFSDbfNK8lN+tv+2KgiHOh+C
+	 Mem5cIHkYCQNpqdbOsq/5BZ/QnPNyobpo3olWiUmRVO3GTDCNaz26G8Y2fnzJQBuipI17
+	 Jso6qdSGOvjvmlNzqk3MCl2utVEjmqjCGNQDcKzmTSMo+qowyJ8dnnELKk6i6y6BZL7Qq
+	 vzbactRtmKlMD4Y7snjd9Zrp2SQm7iISZT592Z5Y7dYvzWQa4k8eaw6f2aftb4+0qvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450116;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450169;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BY0DqDK/obqB4hnuVirYoEUJ9t/TX/Y1bU7Sf3p58k8=;
-	b=xtjcy6xxCIO+86nmoM47lmniW2tFL9uEHjOLzrFNzSfdQNcNbFPIhfW+AsjN+w2tSCux
-	 dA7QRw8Aetvaim+p8jeC+V/hkExk7GCC/RyAng5ThTNuXZNp7hINuhfb2sEZQdLqrFbjt
-	 Avj7rfKM2kEJakL++cKYLgB0HJj3y2rPH1kpWJREv8ATPM4p2xy+HvZAa0Ibhuc2lpryc
-	 ha71P0jClXxbXuWJtylT98b/9Q7TKRT3eO5usuSZwHbENPhL4ljJGhEwI+O/JBpwuws/j
-	 i4yF5JBtjEBeyyxaL2Sh4IH8gLZsw+5sKX10iU0U1EE5v9CsQ2S3u2XqlvB40LgqqkQ==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=OhNMOBVZCvg42TJLQyCBLhN8QRePnhsmiXjg5Ap7tXw=;
+	b=F3fJlqnOePW98MbYC0VAvX6CJy4lG01PS5PQ6OJsGtkZRWCDH6oWHJOHYwOlyCwjvSuh
+	 YvLLQrtHacHDmapQ/6if46rjMW0I79/d/JsTmA6cAQ42h+qNQI9rmPgR5Qw1vQZyaagzK
+	 f5s9b9NB3JklGbWsjdJGEC4KMj/EYvDXDbGwbd2AFMGZ6RqUk/o0/sqrulow3GUhSf1jH
+	 59fMC++Lfe1wsHTfJf0ZkZrPmc6r7+c1ajM0h2XPXerKgFuqhr+4k+7GWf0GIuNH803Nt
+	 Y2svriu+ichZbuVlimA5P5XNRYuGO6xSVB+WIAS8v/WzZ1XmQctjZWW61/uh7k5HZdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRkZwYYM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOiph96A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91851606A8A6
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:21:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A61606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:22:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRkZwYYM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616961F00A14;
-	Thu, 12 Nov 2026 02:21:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOiph96A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455281F00A05;
+	Thu, 12 Nov 2026 02:22:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794450116;
-	bh=BY0DqDK/obqB4hnuVirYoEUJ9t/TX/Y1bU7Sf3p58k8=;
+	s=k20260515; t=1794450168;
+	bh=OhNMOBVZCvg42TJLQyCBLhN8QRePnhsmiXjg5Ap7tXw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VRkZwYYM283IfzjypaRl2SsetbVL4t+FkO8cs8fzNDcm6ND03IF7fjNhE7hJBTESj
-	 Tl0GGco9Oo1/8JXJ8B7/pkPwEuBiaufrX2IzVKsRvAWC9O1kiQroHB9qcRa20QGqmr
-	 vneA6TevUlWkznWmKDugWzpojy8xBJzFFTm1Mn+H7skgE0GO93/kPR2hCx3zL1Us5m
-	 1jz2zKojxn4xnMuUbA149B5ABUck+7bcsKIkZF+0Oc8hmmMBkhaD6fvT0FwTcjb177
-	 i6DGAYYDCP3SPFiNimldQ0iLzCHoQ6pPLQ+xHSgJL9KwpBSJSrjPLJja26VCn0psNn
-	 lTQK4OaCX/OGQ==
+	b=dOiph96Aua084KwnLcp0nYjCbB8PQgzT8PrA8gm3G4WoBcdalQMsg8QMQr2y3adK8
+	 MQ7or4qbDT6RwIernIlVXlSB2l1Nrkhw90r/R8IlmrZpC5ECAerFH8hE2u35Jf/jGo
+	 C+C0EO6zbKTE0g6PfntIH8qosr/DpERA7y7dDdiXpY4PUfule+qZ/u7lN9Tn1KZk27
+	 3Q63rN00iBabs8nBUM+NhBuSWX2W1RX7KeW9lBAxE4fQBV7W25qZDLVbPKYc7icYEd
+	 DGrbCE6/UenQEqL6r32INJL6Rg10wLFlBdeRPVG3gX4A2a53mG6W6t93vkPGUfafZT
+	 fkPQhOtixvpzw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Darong Lu <zzyy19904204639@163.com>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] libceph: initialize CRUSH choose argument weights
-Date: Wed, 11 Nov 2026 21:21:53 -0500
-Message-ID: <20261112021845.1355777-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] platform/x86: hp-wmi: Order DMI board name arrays
+Date: Wed, 11 Nov 2026 21:22:44 -0500
+Message-ID: <20261112022111.1333490-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055516-failed-6.1-c3a995ff0782@kernel.org>
-References: <20261107055516-failed-6.1-c3a995ff0782@kernel.org>
+In-Reply-To: <20261107051047-failed-6.18-d35a1ea827a2@kernel.org>
+References: <20261107051047-failed-6.18-d35a1ea827a2@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,42 +59,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Darong Lu <zzyy19904204639@163.com>
+From: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-[ Upstream commit c3a995ff0782587789333c621e1f6bd5e574371e ]
+[ Upstream commit 68779adbabdbb1891ba4d9b8c7d3be99ed5e0b3d ]
 
-Initialize the CRUSH choose argument weight-set array before decoding so
-entries start in a defined state while the decoder fills them.
+The hp-wmi driver has a number of arrays that are getting new entries
+and all/most entries have been added to the end of the array. As a
+result, the numerical order is mixed up in a few entries.
 
-Cc: stable@vger.kernel.org
-Fixes: 5cf9c4a9959b ("libceph, crush: per-pool crush_choose_arg_map for crush_do_rule()")
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Darong Lu <zzyy19904204639@163.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ sashal: used kcalloc() with an explicit element size instead of kzalloc_objs() ]
+Reorder the array entries. Split lines for each two leading chars to
+make the arrays easier to read.
+
+Add also trailing commas.
+
+Link: https://patch.msgid.link/20251128120215.4450-1-ilpo.jarvinen@linux.intel.com
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Stable-dep-of: d35a1ea827a2 ("platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ceph/osdmap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/hp/hp-wmi.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
-index 803514a1bc7ce..fdb8c398f5ecd 100644
---- a/net/ceph/osdmap.c
-+++ b/net/ceph/osdmap.c
-@@ -320,7 +320,7 @@ static int decode_choose_arg(void **p, void *end, struct crush_choose_arg *arg)
- 	if (arg->weight_set_size) {
- 		u32 i;
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index f92bb3dca2e30..9a9ff35c3b954 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -123,12 +123,16 @@ static struct thermal_profile_params *active_thermal_profile_params;
+  * contains "PerformanceControl".
+  */
+ static const char * const omen_thermal_profile_boards[] = {
+-	"84DA", "84DB", "84DC", "8574", "8575", "860A", "87B5", "8572", "8573",
+-	"8600", "8601", "8602", "8605", "8606", "8607", "8746", "8747", "8749",
+-	"874A", "8603", "8604", "8748", "886B", "886C", "878A", "878B", "878C",
+-	"88C8", "88CB", "8786", "8787", "8788", "88D1", "88D2", "88F4", "88FD",
+-	"88F5", "88F6", "88F7", "88FE", "88FF", "8900", "8901", "8902", "8912",
+-	"8917", "8918", "8949", "894A", "89EB", "8BAD", "8A42", "8A15"
++	"84DA", "84DB", "84DC",
++	"8572", "8573", "8574", "8575",
++	"8600", "8601", "8602", "8603", "8604", "8605", "8606", "8607", "860A",
++	"8746", "8747", "8748", "8749", "874A", "8786", "8787", "8788", "878A",
++	"878B", "878C", "87B5",
++	"886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "88F6",
++	"88F7", "88FD", "88FE", "88FF",
++	"8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "89EB",
++	"8A15", "8A42",
++	"8BAD",
+ };
  
--		arg->weight_set = kmalloc_array(arg->weight_set_size,
-+		arg->weight_set = kcalloc(arg->weight_set_size,
- 						sizeof(*arg->weight_set),
- 						GFP_NOIO);
- 		if (!arg->weight_set)
+ /* DMI Board names of Omen laptops that are specifically set to be thermal
+@@ -136,7 +140,8 @@ static const char * const omen_thermal_profile_boards[] = {
+  * the get system design information WMI call returns
+  */
+ static const char * const omen_thermal_profile_force_v0_boards[] = {
+-	"8607", "8746", "8747", "8749", "874A", "8748"
++	"8607",
++	"8746", "8747", "8748", "8749", "874A",
+ };
+ 
+ /* DMI board names of Omen laptops that have a thermal profile timer which will
+@@ -144,12 +149,13 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
+  * "balanced" when reaching zero.
+  */
+ static const char * const omen_timed_thermal_profile_boards[] = {
+-	"8BAD", "8A42", "8A15"
++	"8A15", "8A42",
++	"8BAD",
+ };
+ 
+ /* DMI Board names of Victus 16-d1xxx laptops */
+ static const char * const victus_thermal_profile_boards[] = {
+-	"8A25"
++	"8A25",
+ };
+ 
+ /* DMI Board names of Victus 16-r and Victus 16-s laptops */
 -- 
 2.53.0
 
