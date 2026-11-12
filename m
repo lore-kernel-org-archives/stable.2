@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794451198;
-	b=PBIft7a7+rpAjw8nQh2eO3mvCK2hmuWCywNeBqwdWtXlzKN1pOG8jVqU3s0lNSEJPPSH
-	 uFIxijKsQ9toMzaVD/7XReX4LQ/mUGJNXhuncR8DdzsGeMCi4qvRRWNW5CSyJ0pi2SKhx
-	 aRXMQ1Vhg/RvOsILOrD4vbGYq0ZibNvnp6B9siv3/40AIQz3XYdw0MyldubhRE+tWyGP7
-	 ifujPtj/kivZSySh/3UbrqXDwKW9nALC5SAJgFTtuoVARNKmjiBPrNB24Iv5qxuHpc6B3
-	 whfZ2OXo20TkjN0Z1Zqz9Q11MtorXnOZiSCLTriToxmJiK3z2ruunwjtZO/06RlGquw==
+	t=1794451367;
+	b=dXVWas6et6OlApz0KdDd9NR9qaHWvpS89ALer3bLKhI5bpipHe8XaQrI81TRQ2NzxnKK
+	 muIF1n3ZfnKwS2sRPmh3aabYTidDOqoPNuGtf4ADwTUUaVwFwY8WlAqD79QGb4YRA1Ux0
+	 ajrfexuqZeQ8+ck7QKaUJ7+5Z5eTq9+cczpaFMX1cH689atT9s9x0drAJ5DaWhdkVs1GE
+	 nn226O6sOsS4Ydurydcbfmd9wFeUdhovU/yDzxgWc/014VDKglPnbx8k27SZJqhXq0A14
+	 y6BgddeXcZ+mVEFedVxvA66YXBzy3c/4yDrfilJm9HQ3R0YHoVOqJPDItAF8aHpYbgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451367;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CapWc1pE3puDcrHN3X8aIWl7trDhBWIriVHGxKG+vEc=;
-	b=DhTIZstYFQSMuDQOhMsjcL6Q8e8dkwSoQKRUGaKoE1efRrTPf/HtZPEUh9ahva3SiSLa
-	 RR2XglEA6tvlTH5l35ZcD+hgfAs514c81rzjXGh/9xR30hmAC9BVziH9G1IhQYL6biu45
-	 jmGI3mog2munH1ljvjpryFirz3kZXXBHiT6R8XAMM35eSWQuAnDiHNkLIbK2iDmRYyXQI
-	 TNtSfp1csFOk2QEOp0roeTBD/YB9zNBuayV/owbAm4N5GhRn1GQydj1+THLzJgj2ZxXZ8
-	 Fm80JF0p+lsD1lJH0NdVG5waQN7VWWVy41RpjmwG4FeS8TiPFrWQT3W2C1Rl8uxuobA==
+	bh=rZIv9VC9UhqiJzFr/WpwY98palQxc8J7SKulkI1gLcA=;
+	b=mWolteA8lVgxxWxaqPUhsQAsBZTenilvXZzov877BHdnQcumzMqWRe3x00u6S9R6gSPV
+	 B8BULklHnpuc8LZxeqkU/OPm6QllGskKvesAU1mUKukk+TIWUxpbTZ4flpd7YCJFB78DN
+	 UbsETXpt1Xzz9krKQiy4Hv5LhOj0Ahru3qZzkAJ+wkWQMawSAWOtfV7E50sRcVW6BD8I7
+	 QISR9zZDZ8Y9di7ZAKMQBwD5BVB1rp6cGtREcjLwSv1w8H5WeA0AYECD4f5xcZ3YxDxXn
+	 R5gE9c8EqnmNarCsvsuisYxISUEuxxSvDvipAqTHIKm84yO4+ZItzVEk7m1XndtqvvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ndw79KU7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nfr1WrGU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878C7606A334
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13817606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:42:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ndw79KU7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3511F00A07;
-	Thu, 12 Nov 2026 02:39:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nfr1WrGU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CBF1F00A05;
+	Thu, 12 Nov 2026 02:42:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794451198;
-	bh=CapWc1pE3puDcrHN3X8aIWl7trDhBWIriVHGxKG+vEc=;
+	s=k20260515; t=1794451366;
+	bh=rZIv9VC9UhqiJzFr/WpwY98palQxc8J7SKulkI1gLcA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ndw79KU7BFONndIpSt/f3sDJneDmQ/++YavlYoZZalcV53+rxSwbH/4iuWNCqOW3B
-	 B86LkP9y5fVpIf/iMdACixxb+LJd8RaqSrroePRq7emCL7gyh/f/RKyj9wbI6I1ByF
-	 8g2d1iJcvJcZABtU5gRPtNap4thNiYM19URufq/Nc3wEbWG4P8O1tDQH87Rp6Fsiln
-	 9UM5EZXE55Bb07j0YnRXvdbz41WT7D2oE3XWpq9sYVbPRiUd5DyDfPLDPY6b4bEfV+
-	 MTcDR7g1uXcLsjLLGFCWXXRnShQuM5YUF9fhgPGpyKddNl90ed7b8jJpES0DZ92ki5
-	 3x5b8vggmYhDg==
+	b=Nfr1WrGU/Dykj59KWZm1G+dcXvKWJxJOo2XZIPph+DuNOhM9AQBuXhjKRhsTlrS5U
+	 a+ztKnFAg6/JCOsenf7laDTQmo1IbYjm+ZyejW/p0qtm7lx2cT2bx5gM1QwZN2fw4B
+	 6H8gtR7q380sxidVgUYIL8lFJhzNeb7OpVd1gq1BhcvqQQ+w6+LcyvO/ZD/zAOms8+
+	 ddWvnR1eXe1NGz7G1+Xd5pjcdY7EMPS3229MM/OzB2MomPQPSNnlImLM1bgmE5COnI
+	 EOcWkCTlQsqozmbhVfZcWoddHEKjIx5ssLAXZ43bmxO4EU0/xj/WnOhOCw6A+Pc6WX
+	 5iM5znsTH56Nw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qihang <q.h.hack.winter@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
+Cc: Amir Goldstein <amir73il@gmail.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Edvard Conrad <edvard@tuta.io>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] cipso: fix optlen corruption in cipso_v4_delopt()
-Date: Wed, 11 Nov 2026 21:39:55 -0500
-Message-ID: <20261112023938.1396308-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ovl: inherit FMODE_NONOTIFY when opening directory realfiles
+Date: Wed, 11 Nov 2026 21:42:44 -0500
+Message-ID: <20261112024218.1420199-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112023938.1396308-1-sashal@kernel.org>
-References: <20261109201138-failed-6.6-1f1f8e8c5176@kernel.org>
- <20261112023938.1396308-1-sashal@kernel.org>
+In-Reply-To: <20261109202833-failed-5.10-323899b4ed23@kernel.org>
+References: <20261109202833-failed-5.10-323899b4ed23@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,64 +62,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qihang <q.h.hack.winter@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
 
-[ Upstream commit 1f1f8e8c5176234fa31858cd25f2e9b88aac0a45 ]
+[ Upstream commit 323899b4ed233d5b6e2fc160c16fbf39cf0317da ]
 
-cipso_v4_delopt() recomputes the option length by walking the option
-buffer after the CIPSO option has been moved out.  The walk then reads
-the stale bytes at the tail of the buffer as option data, and a crafted
-setsockopt(IP_OPTIONS) buffer can make it treat one of them as an option
-length, increasing opt->opt.optlen beyond the valid option data.
+When fanotify hands a listener an fd for a permission event on an
+overlay directory, ovl_dir_open_realfile() opens the real directory via
+dentry_open(), not backing_file_open(), so the lower open could still
+raise FS_OPEN_PERM and deadlock a listener that also marks the backing
+filesystem.
 
-The corrupted length stays on the socket and is later used as the copy
-length by getsockopt(IP_OPTIONS) and by the udp/raw/ping sendmsg paths,
-where it exceeds the size of the buffers they copy into.
+Export dentry_open_nonotify() and call it from ovl_path_open_realfile()
+when the overlay user file must not generate events.  Ordinary
+ovl_path_open() callers are unchanged.
 
-Compute the new length from the intact options before the move and
-subtract the CIPSO length, and fill the padding with IPOPT_END.
-
-Assisted-by: LLM
-Fixes: 014ab19a69c32 ("selinux: Set socket NetLabel based on connection endpoint")
+Reported-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Closes: https://lore.kernel.org/all/20261030-welpen-anbinden-nullen-b2432cee1d10@brauner/
+Fixes: 130fdbc3d1f99 ("ovl: pass correct flags for opening real directory")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
-Acked-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+Tested-by: Edvard Conrad <edvard@tuta.io>
+Link: https://lore.kernel.org/ltp/P5Iny41--F-9@tuta.io/
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[ sashal: passed __FMODE_NONOTIFY through ovl_path_open() flags instead of calling dentry_open_nonotify() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/cipso_ipv4.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ fs/overlayfs/readdir.c | 10 +++++++++-
+ fs/overlayfs/util.c    |  2 +-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
-index 83f58bb82c867..5ccc6f2524dd8 100644
---- a/net/ipv4/cipso_ipv4.c
-+++ b/net/ipv4/cipso_ipv4.c
-@@ -2017,6 +2017,10 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 		cipso_ptr = &opt->opt.__data[cipso_off];
- 		cipso_len = cipso_ptr[1];
- 
-+		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
-+							 opt->opt.optlen);
-+		optlen_new -= cipso_len;
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index abfe17068b7d6..e3ff8828b5a8c 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -845,9 +845,17 @@ static struct file *ovl_dir_open_realfile(const struct file *file,
+ {
+ 	struct file *res;
+ 	const struct cred *old_cred;
++	int flags = O_RDONLY | (file->f_flags & O_LARGEFILE);
 +
- 		if (opt->opt.srr > opt->opt.cipso)
- 			opt->opt.srr -= cipso_len;
- 		if (opt->opt.rr > opt->opt.cipso)
-@@ -2030,11 +2034,12 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 		memmove(cipso_ptr, cipso_ptr + cipso_len,
- 			opt->opt.optlen - cipso_off - cipso_len);
++	/*
++	 * Inherit FMODE_NONOTIFY from a fanotify permission fd so a listener
++	 * that also watches the real filesystem does not deadlock.
++	 */
++	if (file->f_mode & FMODE_NONOTIFY)
++		flags |= __FMODE_NONOTIFY;
  
--		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
--							 opt->opt.optlen);
- 		hdr_delta = opt->opt.optlen;
- 		opt->opt.optlen = (optlen_new + 3) & ~3;
- 		hdr_delta -= opt->opt.optlen;
-+
-+		memset(&opt->opt.__data[optlen_new], IPOPT_END,
-+		       opt->opt.optlen - optlen_new);
- 	} else {
- 		/* only the cipso option was present on the socket so we can
- 		 * remove the entire option struct */
+ 	old_cred = ovl_override_creds(file_inode(file)->i_sb);
+-	res = ovl_path_open(realpath, O_RDONLY | (file->f_flags & O_LARGEFILE));
++	res = ovl_path_open(realpath, flags);
+ 	revert_creds(old_cred);
+ 
+ 	return res;
+diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+index 26f29a3e5ada0..4146ab82dcda6 100644
+--- a/fs/overlayfs/util.c
++++ b/fs/overlayfs/util.c
+@@ -485,7 +485,7 @@ struct file *ovl_path_open(struct path *path, int flags)
+ 	struct inode *inode = d_inode(path->dentry);
+ 	int err, acc_mode;
+ 
+-	if (flags & ~(O_ACCMODE | O_LARGEFILE))
++	if (flags & ~(O_ACCMODE | O_LARGEFILE | __FMODE_NONOTIFY))
+ 		BUG();
+ 
+ 	switch (flags & O_ACCMODE) {
 -- 
 2.53.0
 
