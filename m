@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506732;
-	b=s7UML3Hhp5BWnoOtXRfm/Rylm8m0G1yNIYy8tscZ7cHVrl9LEhjEH/W3UwByfxaGJlDz
-	 7O2y6MVBNOv48zi7PBU1ZS1td6U99FEGMYdNk852j/+ieRQ4rF3x85nBPjDiVuW6yEmGG
-	 Hu8BVp5M+pDgGtnNAlYg5OvjcXR8D4savHwpIaW7tX9+ezESM3DPZCiEsLIg1X/h1Bjz3
-	 3WMk7WJeesmpTbyqk/wK4g1Yv+haoADBmMiZW9IgJLcI9L+nVBQl3bAAFtA2wDIHzISym
-	 PqYMySHUQuf6+pVuZW6e+UmhhpjuSblRhOk76qaJt6s0gayNiJ+GgZUqOqYzFKbzDMQ==
+	t=1794506865;
+	b=MTS3OM55OiIW8GJIb26sEeSHsxsTV5I6FbQ7y8AMV7wyVuRoAhmdI2nVH1QJUnOZzsYr
+	 Q0ixS4XWA3rvTejz+juZKp2dXPWLfDugzBZpbyjGmqAanLDg9seniAofpBaRksS+l9jSS
+	 y5HxvNruGIbvW2mhv+vsQtyyWxh3u+5k4aO2+TKACzFz1N3lslZZnJjFHYpVjMO9OsdOn
+	 NHfWhxVnxtGEGQf1RIqD1zDVr3yJck+D7wa6yMzQeeCmZoaXxAeEckJ/bFqTq54tMa4NP
+	 +dV4WMl/ZneWhm+HmQoBsvJTWroa8XG17aLgphub56XRu1R/xH9mc3Lt+Q2Q5ZuHRSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506732;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506865;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cG8SYyf7w3dlGbNaL5P0O22CIF0Qp5uX3wBmRgVBppY=;
-	b=eomSZpo+dFax9UUnfbEV9Ujl3Pm5zCF2w8XHduFBqVSA/bS4Ob1hb7aymhufl32bMM+E
-	 bhpuxWCuE4rlEGzc0MQo2qRb9UtXdI++K7Hg+sPaOFNgHx/ewWfT+unHUPdqpDC5I48Ns
-	 Ce19CgduzU21ZlB1xxBO3n1311TUIKh/3EHcmSj52iKaZnhRnwapF/97YnIihQ9oPIRDm
-	 RxDfOam5WqDTRvWkUm5jpwZ+BviD8EGy1xASHKyzI9ME1b9JKUbb1PvDlkOlKH4tk7BoN
-	 Wzp9X19mqr7Jq/iJWBe928bAYx3eFfJVJ96kt+oqbLIbH8SaLn9LPrEemL2F18QkoGw==
+	bh=jsNR/pRYGWFaHDwqujtAOATNDQ1mgwcPOKFdvCgM3hE=;
+	b=YkbdWHDZLor+kT+CEzO9LrV+naaqKJnTet8B5lkVHWMbHAfvIgFr257dB31K7wyA77QP
+	 wR+U4XBi0XrTezwbkzcXTKKkMLwFuo2FAQ+EX2o9RWNRR4p28NpHiSw6k9nWvWR6wwX9t
+	 j7RiwOlH+dH5m5o/F5bNj5wVn2KRlL+qq09I3PRighgc60Qx36/2g63n0B+dM5UBHrgP7
+	 dd4pn8w/zd2qBUIB1nvB1qT/jk5WQBaFC06cFlmwarGNWHtqq+nBc0s18g2XWTZm3+far
+	 NvxvJsLDc5lSPlqzstk9vGxBl2q3LiLWNZoOcBDHG+o5yZe2VLsGWRQFipPnsRm+J7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an6rnEFH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ri0Kd36/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB13606A886;
-	Thu, 12 Nov 2026 18:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6369A606A31C;
+	Thu, 12 Nov 2026 18:07:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an6rnEFH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229B61F000C4;
-	Thu, 12 Nov 2026 18:05:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ri0Kd36/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D261F000C4;
+	Thu, 12 Nov 2026 18:07:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794506732;
-	bh=cG8SYyf7w3dlGbNaL5P0O22CIF0Qp5uX3wBmRgVBppY=;
+	s=k20260515; t=1794506864;
+	bh=jsNR/pRYGWFaHDwqujtAOATNDQ1mgwcPOKFdvCgM3hE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=an6rnEFHIEQfMD7hb2IewvTV/EyagK+WFjhHhGs/7elOcrogcIsxGsV7IEc9I16wr
-	 cANtce9G2vgpUy5lhY17FNcwQneKEIcYIY+W5IJ0slGgd16Qk/Qh3Wvfb0zV4chVhc
-	 IWjf74UV4A1kTN4ldOCaeItZJzfYiJbdziIksaMS+AIHq/71swxVE3OezZ1iatBt1x
-	 mY6EFh67QqtG015uZu6gP3MiS82xe2OjWemIl7CKMV8h3i1bYCNpH9tYb/TROWIPLE
-	 piSdwUrsYtmEhsz/5LVnzo3yxJqT7rc1ZXvFCJsvQ/MIJ7Bb3Se55tS3K7ruw2DYyY
-	 auQZ8KPUL8o4Q==
-Date: Thu, 12 Nov 2026 18:05:20 +0000
+	b=Ri0Kd36/I0P3REBf7rp3tYJapb9ri00ThjWxr7bxZQXWTXK5k8HEIv1/xKsjeH8d8
+	 ML/Hfq1bBdz/Q3/TbVrGHRgdbaqpymB8cw3gTS9oB+smix1e+y6ZfRCVLseuZ+5Jbg
+	 iWqeaF5i7JnZfaMJkoxKtM27qLqhGxSrds4bzGhdm6L2LT2JUmPnXbUudgFR/dx6zj
+	 T39tFbntOyrWurf/pnumuiUevGgIA2qgqaRjnfNEkHXoel1UfyoS9emjlTldtPsizn
+	 YentbTKSKr2FMp5rkpFMe3fDXL28YUf17Z0ZkZFlAp0yIYFbOQHrwggE16P0isEVAC
+	 bQju1Bu9kDmdg==
+Date: Thu, 12 Nov 2026 18:07:32 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: Tal Zussman <tz2294@columbia.edu>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -62,11 +62,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>, Michal Hocko <mhocko@suse.com>, 
 	Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
 	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 01/12] userfaultfd: use anonymous memory for
- UFFDIO_ZEROPAGE on private file mappings
-Message-ID: <avX_qlthMqypxHm0@gremlin>
+Subject: Re: [PATCH 02/12] userfaultfd: refuse UFFDIO_MOVE into a non-present
+ huge destination PMD
+Message-ID: <avYAMYr87pHQ29Zh@gremlin>
 References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-1-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-2-00713d368976@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,139 +78,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111-uffd-state-fixes-v1-1-00713d368976@columbia.edu>
+In-Reply-To: <20261111-uffd-state-fixes-v1-2-00713d368976@columbia.edu>
 
-On Wed, Nov 11, 2026 at 12:55:09PM -0500, Tal Zussman wrote:
-> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
-> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
-> installs it through vma_uffd_ops(), no matter what kind of mapping it
-> is. An s390 KVM guest with storage keys or protected virtualization is
-> such an mm.
+On Wed, Nov 11, 2026 at 12:55:10PM -0500, Tal Zussman wrote:
+> move_pages() refuses to move into a destination PMD that already maps a
+> THP, but checks for that with pmd_trans_huge(), which is only true for a
+> present THP. A device-private THP or a THP under migration is a
+> non-present huge PMD leaf and is not refused.
+
+non-present huge PMD softleaf :)
+
 >
-> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
-> cache of the file. That is wrong: a private mapping must never modify
-> the file it maps, and the file might even be mapped from a read-only fd.
+> The destination PMD is then treated as if it pointed to a PTE table. It
+> is not empty, so pte_alloc() leaves it alone, and move_pages_ptes()
+> fails to map a PTE table from it and returns -EAGAIN. move_pages()
+> retries on -EAGAIN, with both VMA read locks held. If the source is a
+> THP, it is split first for nothing.
 >
-> The ioctl can also fail where it should succeed. A missing fault is only
-> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
-> an address that did not fault, or can race with a write to the file. If
-> the file has a page at that offset by then, inserting the zeroed folio
-> fails and the ioctl returns -EEXIST although nothing is mapped at the
-> destination address.
+> For a THP under migration, the loop ends once the migration finishes.
+> A device-private THP can remain in device memory indefinitely, so the
+> caller of UFFDIO_MOVE hangs until it receives a fatal signal, and
+> anything in the mm that needs to write-lock one of the VMAs blocks along
+> with it. This requires a driver that migrates THPs to device memory.
 >
-> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
-> shared zero page can be used, and what UFFDIO_COPY does: only check that
-> nothing is mapped at the destination address, map zeroed memory there,
-> and leave the page cache alone. The zeroed folio path did that before it
-> was moved to vm_uffd_ops.
+> To fix it, check the destination with pmd_is_huge(), which is true for
+> any huge leaf, present or not. UFFDIO_MOVE now fails with -EEXIST in
+> these cases, as it already does for a present THP.
 >
-> To fix it, pick the ops in the common folio path, as
-> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
-> mapping, the ops of the VMA otherwise. That makes
-> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
-> so remove them and rename __mfill_atomic_pte() to
-> mfill_atomic_pte_folio().
->
-> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
-> if something is already mapped at the destination address.
->
-> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
+> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Looks sensible (also another cleanup in disguise which I like ;):
+Looks sensible to me so:
 
 Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 > ---
->  mm/userfaultfd.c | 46 ++++++++++++++++------------------------------
->  1 file changed, 16 insertions(+), 30 deletions(-)
+>  mm/userfaultfd.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
 >
 > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index d65184d9a480..61a712e1f9f5 100644
+> index 61a712e1f9f5..ad9d243dc64b 100644
 > --- a/mm/userfaultfd.c
 > +++ b/mm/userfaultfd.c
-> @@ -531,15 +531,27 @@ static int mfill_copy_folio_retry(struct mfill_state *mfill_state,
->  	return 0;
->  }
+> @@ -2021,12 +2021,13 @@ static ssize_t move_pages(struct userfaultfd_ctx *ctx, unsigned long dst_start,
 >
-> -static int __mfill_atomic_pte(struct mfill_state *state,
-> -			      const struct vm_uffd_ops *ops)
-> +static int mfill_atomic_pte_folio(struct mfill_state *state)
->  {
-> +	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
->  	unsigned long dst_addr = state->dst_addr;
->  	unsigned long src_addr = state->src_addr;
->  	uffd_flags_t flags = state->flags;
->  	struct folio *folio;
->  	int ret;
->
-> +	/*
-> +	 * The normal page fault path for a MAP_PRIVATE mapping in a
-> +	 * file-backed VMA will invoke the fault, fill the hole in the file and
-> +	 * COW it right away. The result generates plain anonymous memory.
-> +	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
-> +	 * generate anonymous memory directly without actually filling the
-> +	 * hole. For the MAP_PRIVATE case the robustness check only happens in
-> +	 * the pagetable (to verify it's still none) and not in the page cache.
-> +	 */
-> +	if (!(state->vma->vm_flags & VM_SHARED))
-> +		ops = &anon_uffd_ops;
-> +
->  	if (!ops) {
->  		VM_WARN_ONCE(1, "UFFDIO_COPY for unsupported VMA");
->  		return -EOPNOTSUPP;
-> @@ -597,32 +609,6 @@ static int __mfill_atomic_pte(struct mfill_state *state,
->  	return ret;
->  }
->
-> -static int mfill_atomic_pte_copy(struct mfill_state *state)
-> -{
-> -	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
-> -
-> -	/*
-> -	 * The normal page fault path for a MAP_PRIVATE mapping in a
-> -	 * file-backed VMA will invoke the fault, fill the hole in the file and
-> -	 * COW it right away. The result generates plain anonymous memory.
-> -	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
-> -	 * generate anonymous memory directly without actually filling the
-> -	 * hole. For the MAP_PRIVATE case the robustness check only happens in
-> -	 * the pagetable (to verify it's still none) and not in the page cache.
-> -	 */
-> -	if (!(state->vma->vm_flags & VM_SHARED))
-> -		ops = &anon_uffd_ops;
-> -
-> -	return __mfill_atomic_pte(state, ops);
-> -}
-> -
-> -static int mfill_atomic_pte_zeroed_folio(struct mfill_state *state)
-> -{
-> -	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
-> -
-> -	return __mfill_atomic_pte(state, ops);
-> -}
-> -
->  static int mfill_atomic_pte_zeropage(struct mfill_state *state)
->  {
->  	struct vm_area_struct *dst_vma = state->vma;
-> @@ -634,7 +620,7 @@ static int mfill_atomic_pte_zeropage(struct mfill_state *state)
->
->  	if (mm_forbids_zeropage(dst_vma->vm_mm) ||
->  	    (dst_vma->vm_flags & VM_SHARED))
-> -		return mfill_atomic_pte_zeroed_folio(state);
-> +		return mfill_atomic_pte_folio(state);
->
->  	_dst_pte = pte_mkspecial(pfn_pte(zero_pfn(dst_addr),
->  					 dst_vma->vm_page_prot));
-> @@ -927,7 +913,7 @@ static __always_inline ssize_t mfill_atomic_pte(struct mfill_state *state)
->  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_POISON))
->  		return mfill_atomic_pte_poison(state);
->  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_COPY))
-> -		return mfill_atomic_pte_copy(state);
-> +		return mfill_atomic_pte_folio(state);
->  	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_ZEROPAGE))
->  		return mfill_atomic_pte_zeropage(state);
->
+>  		dst_pmdval = pmdp_get_lockless(dst_pmd);
+>  		/*
+> -		 * If the dst_pmd is mapped as THP don't override it and just
+> -		 * be strict. If dst_pmd changes into TPH after this check, the
+> -		 * move_pages_huge_pmd() will detect the change and retry
+> -		 * while move_pages_pte() will detect the change and fail.
+> +		 * If the dst_pmd is a huge leaf, present or not, don't
+> +		 * override it and just be strict. If dst_pmd changes into a
+> +		 * leaf after this check, move_pages_huge_pmd() will detect the
+> +		 * change and retry while move_pages_ptes() will fail to map
+> +		 * the PTE table and the next iteration will see the leaf.
+>  		 */
+> -		if (unlikely(pmd_trans_huge(dst_pmdval))) {
+> +		if (unlikely(pmd_is_huge(dst_pmdval))) {
+>  			err = -EEXIST;
+>  			break;
+>  		}
 >
 > --
 > 2.39.5
