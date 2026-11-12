@@ -1,58 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502706;
-	b=DGMcjgqt4S54HlytArCaJNfWvMbh8U4FtKUbGfQ+DyvT6/ft7g86i7rl7s0GHbWyZqqO
-	 Sx5/6Y9wQPK2hzXLkOiXKJgtpMK+JJVsP2BHzhsAvpaVrDz5mR43b7S/lKXkmYQtPEMYS
-	 bONFPGQ8SB7CpfZtmQQ1kk5SBQtuHmYU2QCcsVW1ht+GvpYw+YjX9qv8Q/lNUkqWtXBCt
-	 WgbAlASyWKbjb2f36nkWW1I8l0BQygr0DfZ/RQufunr0qNZ0G/dU4v64s8zG0TP08BYri
-	 2gt7IxHpKK3qxWhErgLKtB0AFEI/X3idyzdiZPC7WH4J4D1L+JZXDU5N0Qe6AJghgXg==
+	t=1794502794;
+	b=1Lh1bx2m7X1s+SBEajbOLntz7rXrFMJqoVwjxF2ZG5ehtE6vAhg94P37J4A2mkSNovR6
+	 FndrsHszzi7ltXK/8oO0KSa2I77t2GO7fv+7ntm8rrsPPfFz96GRIdKMnTbXwYSUbHn8x
+	 Z6CE1r0NDfxiFl6KVd0PCUwng7vdlYGBNccQ7ic9fyqkBwlIPVnwTD/7yKu4ZWC0IhdwB
+	 DO5HRYlz7XpPQXVIQetSCrsygXUFdS3qXoX6TVYtJfLbb3RdntTKJGo6KCkF83GPy6gfg
+	 74JKWjHAa82iLd2mUU0zdUDGIolADLz6Rj3NgWxQpQroMVmSqsZ8VsWMTZ8IRftBh7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502706;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
-	b=yf+Y4AKVzKQ2Grt3v+fVPav0ThMVyVbW+jThTq1mRRwa4bW8xdEUx9rN6GVVycM/ab4Z
-	 0UAEfhJ1MDr1LKbNrSzazz77qckPd/+bz1rCBSdEcjuLi9NHEI/FSlbmdZ1BX1tMcdIZu
-	 tYh2VjnbyRiuPYtP71EFQTmct3xHATu/vm+TS7GJQybePe9s4JxR5fySh3jXKAT+0aj/X
-	 pnId5OyLMGUzjw2BbdxoFIJ0IvXsF/4jdK2AeReNP3rt9gamrsRgynMmVz3VBK+pwHXJA
-	 GGI4xkIgSpZ/3aooozpRsVV0gTIluNdif+fUDlKllRihqPd3Llba0dMzgprF5QDEsdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502794;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=b7AojsWQdmnu8z7CsRmtwQ/iZVkZjTk5+I2/AfHY1s0=;
+	b=MyphEe/FdeGvPA+hTnwSiUG9T5LfVEPnB/I6oaTcoAgeN9Dfa+F4vw0eiqHbhai169O1
+	 VQsGzdJfLonUFd33KQIAEKBT0qzm03Nd8bAowXf4m7llXkZP/gjI9F+tEjGidQFZJhTc3
+	 edFwgI2HH6nrLIDdfcrJqeLpMH5OFdwZfCFp62EJPK8Vk3AxZ/711FEs1d95Ly2b79GcZ
+	 L4D1tpoYKJqTq43Bute8xitAf+sGIE0cAgXTaqEJLOlMZJxOFtcyVqpF/FmgpVw+w7cK7
+	 Dk2OmGSAkyvjs+4lbBODOmrXsW5mvgrQgQAEx8RsINDmF1w6+njub6D1nHcbkTReZKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0trkrO4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=ZU30IxzG;
+	arc=none smtp.remote-ip=209.85.222.170
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D4E606A321;
-	Thu, 12 Nov 2026 16:58:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3926D606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 16:59:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3926D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0trkrO4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 983F51F000C4;
-	Thu, 12 Nov 2026 16:58:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794502705;
-	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F0trkrO4fFaMukQaQ8tOm6B7bfja4LZr3cuEEY4j6lbSQkWAdqD42ufSwv/IHtyVe
-	 GfUZNoNGP3MdIo0dba0e7y10brN+PqbBhuRlWdmup5x5UwwK9/uPax9I6Fya8x+Yzl
-	 GJ5eUCBi4mkJ5rfnNW2Tq2L5Ob6wSIOxpsiwHkiikOKY3N8aXyQVAvqymBIHXnQUN1
-	 fX2BkGe7IMjsgHMJEA/pUawRvfqUE3LN5b5vXrXzA1SQpCeRtFBmXbBArNz37kcY+7
-	 lveJPsVQzsfrOYW2etCYlysJxUVqTmmHHo1Ol5ocgjMPWNbkHD8nxfTrErO2jVDOrN
-	 kJP4Zrs0NH5/w==
-From: netdev-bot+sinfo@kernel.org
-To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH net v3] net/sched: sch_qfq: revalidate aggregate after peek
-Date: Thu, 12 Nov 2026 16:58:25 +0000
-Message-ID: <179450270512.2168702.15196225710453075177@kernel.org>
-In-Reply-To: <20261112164954.2786444-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261112164954.2786444-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=ZU30IxzG
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93a40a9a01aso142304285a.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:59:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794502793; x=1795107593; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=b7AojsWQdmnu8z7CsRmtwQ/iZVkZjTk5+I2/AfHY1s0=;
+        b=ZU30IxzGF8dTAnKh0hg/WW7t2ylFe3MYJYBXubmCf1/k0kqtiBJ0BHFnlPIecHUaEU
+         +IOyPQjcJanpVIfwQEyjiCo6R8ZX6eRq5qe/70rgSGI7XTTUsHeaJdEJ+rt86dO3O4QG
+         IEUiGAj+qbzlD2oBfD0mzrQlpkwUxvBln1wYn9oA8cukVPeDq7dpLvSUXGYb6dXLyEFE
+         vRplzbwFbfz1dfysSc4/vI7lT75Et/sbZuEzEjHfpQS+gx9dYciD/G51J8TE2ue/slis
+         bnZQPk0+xQgbm/k2K/jwW5N5aOs1hrfOWqwRb16xam3/PsiW/U5odSFtLBlksi86RNx9
+         J0SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794502793; x=1795107593;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b7AojsWQdmnu8z7CsRmtwQ/iZVkZjTk5+I2/AfHY1s0=;
+        b=AC73xEfTc+aEjPxaPyf4FUdwz98vk0nDAZq4JsDTWZpHghIrW+f8xaZd4sWeL8kUoj
+         6mJUqM/jJjID5qzs+JyevDPpcSuG+pR1eGQKvtzjwEW8m3wYELP3fLotxjq8QK2FEA3Z
+         DW4QQmxQMpdLhA/9aIMZVItrhEK31tX0GnvvYXmEn1KFrguYP6J/CaAAWxY/Ml8JHRtK
+         9MN3nBtm63Au7QeC4dWJyL5cNxhWJSPYvXbSfKWVoLEEGp7/XWT/RhlF7BV4iXgwW3Cs
+         47zbZfONAE3es3znRACzVmsaNI9wzHxbJrAty0/C2KA6YeBh2b7xfvNCjyadJhHnEHdz
+         GIRg==
+X-Forwarded-Encrypted: i=1; AL+hErHTftFCgCwVu7n3WYUODsePOETaoFA7CYLLATw+fXugCXCAT6A/TOLnmhlVbWQdL48uLU+G85M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Ew6QZtQipoVS0RiOzzGSO2rQhVICvFnGhOf6YXt076jnkqngt
+	WSTZA+WfJg+4JzaCuoAo8xS8Tr+Dbc2I6tw4vrKI6OD6/pmSRGPpL3RjpZZXfrHz+9c=
+X-Gm-Gg: AYBFou3NPEEqSiu+n1PQIP2bYBFTipQKpii3B5maWyBJ++KILUKr1/5FjmcawuSro1U
+	pryIxplR2IZH2uyKUkOUdIROD3oSrqgNBEUxfgraW1YwuWCFgrz0RRusJftwJphCSJhjzZ47RNx
+	tGKJOyWfIOjyZS3LAbg08j1Tn9bT9HGorJ3qZWUBPJeZIWMFztyMRD8BCSpOpwClWXWDb+rlwK4
+	PX/i4x0wx1eX5HbtniRdZPm5xrYY/K3rMNKE+Nwenq1jjL+wyDiexmULtNPsIryrubtVYTO+egv
+	oodnfrdtgpttJfxXJaPOcEy9athe+qi4Ba79lTYNkJTZ1NrgpAgEW/GrvWSqWtMwLC4pUFDT8eh
+	PwNvULlRPK2b1lBut73qVGM9kUWaeWreqvfys0BtXDDPU/IMmK4EIPL8+XXrVUoJeiuKNDnCvT8
+	GbaFKGOFNAsOHxzfz7+I5vkLg3x9wzGLljU+tp0S8G0F6B1EkYpouse8IIcZR/rYjKvmW2zH5g8
+	Kmyn0hhiZeOsGdJQ4eSRQN7A4sBauKKD9kSRIKO/5KZRmAP9d8Tu8DGgzyBAb69xKBB8lDIO+dk
+	BTcR028Bo62N7FW8ZdpeR8vzewDEhAki3VdRteOYmuufvKo7pOxgA8mf6llQb9sH8pFz/24gYSi
+	Pbtz0yAE=
+X-Received: by 2002:a05:620a:6088:b0:945:f5c0:a630 with SMTP id af79cd13be357-94932e8795amr549937885a.40.1794502793241;
+        Thu, 12 Nov 2026 08:59:53 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94935073633sm220651485a.37.2026.11.12.08.59.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:59:52 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,25 +89,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
+Date: Thu, 12 Nov 2026 11:59:50 -0500
+Message-Id: <179450279073.482102.1691484916250559829.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Hi!
+On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
+> The OOM killer can quickly trigger again after having selected a
+> victim. That victim might not have freed its memory yet, but its mm will
+> be marked MMF_OOM_SKIP by this point, so the OOM killer will ignore it.
+> 
+> This can cause the OOM killer to kill an innocent process when the first
+> might have freed enough memory to relieve the memory pressure.
+> 
+> Fix the issue by freeing the memory before marking the mm MMF_OOM_SKIP.
+> 
+> Note that the task which calls mmput() might not be the victim - if it
+> took a reference on the mm (e.g. ptrace), it may hold the last reference
+> and release it when it calls mmput().
+> 
+> Therefore we cannot rely on current to tell whether the mm belongs to an
+> OOM victim. Instead, partially revert commit b3541d912a84 ("mm: delete
+> unused MMF_OOM_VICTIM flag") to reinstate MMF_OOM_VICTIM, which
+> mark_oom_victim() sets on the victim's mm, and check that.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: bf3980c85212 ("mm: drop oom code from exit_mmap")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+I was able to reproduce/observe the unfreed batch and the second victim
+issue.  In the base series i could kill a second victim with the
+in-flight oom in about 26/512 attempts, and 0/512 attempts with this
+patch.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+-- 
+~Gregory
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
