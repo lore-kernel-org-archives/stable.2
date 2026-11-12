@@ -1,56 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794516911;
-	b=3P6B+FYShC3P3UMYgu3YhO6Iib1829J0zWdxz4iZ1zM0jLFaQ/x1z74jbKkHVN2UbbTX
-	 d6Jd+DvlqZ+WM8Da7DZiMqo0nN9N9pQb9EScQ/QXmmujfI//1A2MKFnCIUEWzfMcreU5G
-	 LE/8yHGlfrJoy6kP6utNIJX3r5giBEIuiVuGohXN2Fa3+kkbFMZc5X67hfSnLf8rpCH+s
-	 Wc9CXXQt1nyXyponxeANJrMcCy8Sx0ulfYdyr6vLLNHTLXgE7wMKpKI9tagdm5Q01+Oc5
-	 wu5t41z07AS2vZ4uP5VdeYTGOB/79LTOwYNm8nVpWWJVwQyW1mrnKi3+Z0exv7NMBzw==
+	t=1794517159;
+	b=3lQ0t9H1F+ADOOM0Hn1ZmJXLVlmnLjKCfF7m2jlvi2fCX/WZCR3V3BoUEx5jeWyMTOHb
+	 By3OpwpUPHc4k5HeapMTYeeGB7gBL4W7u4bPWW4w0hzc+3WrtaT4/S6aon55ODJqaTGZV
+	 Nkj+N/DAfkHXi57x3Dcyd3zrI9mcjjL2kV5Tf1ByYm/6tPkACsQemAjeod9jPp9Jaicc2
+	 LBUpsMoHgoExaLNzdoZUjhdsdQCxFjhzQnk5cnX0g5qNH0EdGjOJIRouefGiO79if7d3Y
+	 kS1zJx3Ct+Z5mivNtpK/9vUShg5zRXa2a3b5f6hk8KKjNkoKPWIsosstBGP6TCpcHiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794516911;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BCuzozIjiFZ2TVV4FA5DY4CU4RHDjqMG+/N4bYw60Ek=;
-	b=muuuGOK5ozvJcRGHmcpPqOllxqERoacGXa+sk+oAxZtRRhY2AgmYgGB14ypVntBClJNw
-	 5CTL/XRIptiOnCEtRFdI+plU4ZvDNb/mbbjwBEn/NylpUmO/SWk+IBXE6HKTNfswOWkYq
-	 xAIJ+HpsSgs5i/KtrSJ9fHi1AHqb5JIrZdyEHg+Myn2/7dNMwKm14aylUzLUPUg0iRE8Y
-	 FawRYIrHOLbDjUSUgUcWaz6Hku4mNjv8PdZZiGVGlEi+7T8AKAJ1MQIF4So4xv6x/qxue
-	 GqqORaatQifDanfro7qjZoCJZ9rsBPWRbo0bvbPAZy6tST3RDNUQ10P082RvjkSRVmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794517159;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=DWxW0v3Yp3gUIU8y20wR7hKoi5jJwchqtRdIOf3GtkQ=;
+	b=jkS/CbZ2mxMJxMk03D9QY/W3h61ycZZykCAD8JfdH5JgBxuoHdcwOR8uNBqVdCwp0/8w
+	 3JKPuZJMXyCwNqTkebLR7XOIS0phWQ8z8nkpdI3JBtbH+hY+WSmItRjXTgwiGGQ0q62vd
+	 RTePpr3Rxkn2kqIYGnvgqo14d2gObtjuH0+aXARbU2uOKfZ5EhE6W4iqqOJGSQo2RguXv
+	 5m808cWFKi8MXatmZHxfBCHgfwWhrIF7XTST1AiU2VRRvjhC34vih5d20YIRJanYC4QO3
+	 8CtqS+o5D6jieGp3RZTOWWFM+s+WsxwGroDCXNnWrG0psvaG4NjJG/oQ29g2tphzq+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FR7pRPdT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="O0f92Jl/";
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D2E606A323
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:55:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC79D606A31C;
+	Thu, 12 Nov 2026 20:59:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC79D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FR7pRPdT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9426A1F000C4;
-	Thu, 12 Nov 2026 20:55:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794516911;
-	bh=BCuzozIjiFZ2TVV4FA5DY4CU4RHDjqMG+/N4bYw60Ek=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FR7pRPdTphlXnAezcKrZtLuTBjELn0Fp6OIRvj+g4LpGV0HDOjIebk6W9igb00r/1
-	 +zvviOEKWLZoKwlX+xAgXFm1e1s6SmbWToymR0r4Zo1eYwx/rZhYVIh0rE36rKuKAp
-	 tYTucIp8w358XUKD5txjhghE5GqeggpNbRo6J+IEgW0p11jbCbPYhkOUkLE/LVH2IF
-	 5iGfu63ZzLFHiPBvku8PZvPY8nLwcmgWnfaRnFzr0dUjYmkAkBZ4BaTnPvlZT1Wy5X
-	 yuqooP8wVn4FZ/wN96LIfO1te8JpmFR4GdrQjzoMvejlOtMo03aPI3yHeOLZYNZWTN
-	 u9choX/VAO6gQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] hwmon: (sht15) Stop deferred work before releasing its resources
-Date: Thu, 12 Nov 2026 15:55:09 -0500
-Message-ID: <20261112205343.3701827-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202125-failed-5.15-5eab1e7f7ed1@kernel.org>
-References: <20261109202125-failed-5.15-5eab1e7f7ed1@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=O0f92Jl/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=DWxW0v3Yp3gUIU8y20wR7hKoi5jJwchqtRdIOf3GtkQ=; b=O0f92Jl/Q7JNZC57lF2m123DO3
+	ZdljTMVUMMcWHgd354KPoiCaWYtR04IXtmDeLHs6jL3Hdw3NkGid7JuqrfD86VbShMe5qKFqG93lM
+	xPF0YfPpe6x7snQwKe93O4nUpuJQDwf4pXzje+EttCMdg12x3aOO8xmD5pspmuKCclG34iCVYOwQ+
+	0v3xQyOPAZWqClKkdiqhJYvDJrZmPhbvDlbOH9pq1mAHshLNcKkV+ue/9dzolAZ3QZ1mlsXmhgQo9
+	lc8z1ev5qYOT8qaSHOzu4YTatxSk1r8nfbEkVXuvy3sw9HSfRdDhFTHgzZAKIn4B1lYTKIlUsMdt1
+	ywLEKeNA==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRbt7-0000000B2ea-2awE;
+	Thu, 12 Nov 2026 20:59:17 +0000
+Date: Thu, 12 Nov 2026 15:59:10 -0500
+From: "Liam R. Howlett" <liam@infradead.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
+ uffd-armed VMAs
+Message-ID: <63skl724i2jss7itcq63fbojykh462s3voi6to52ze6v3unp35@kgakyccedf64>
+References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,124 +69,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
 
-From: Myeonghun Pak <mhun512@gmail.com>
+On 26/11/12 05:38PM, Lorenzo Stoakes (ARM) wrote:
+> In order to establish guard regions, guard markers are installed in the
+> page tables of a mapped VMA.
+> 
+> However, problems arise when one tries to combine this with registering a
+> VMA for userfaultfd, as such operations may themselves need to install page
+> table markers such as uffd-wp.
+> 
+> When this installation is attempted the guard marker prevents these markers
+> being applied, which can lead to unexpected results (especially if the
+> guard regions are later removed.)
+> 
+> This is especially problematic because guard region installation causes the
+> regions to be zapped first, meaning that the removal of userfaultfd-tracked
+> ranges will not be logged in this case.
+> 
+> Therefore, disallow this.
+> 
+> This makes sense as conceptually, guard regions mark a part of a VMA as
+> effectively unmapped at the page table level, and removing the markers is
+> like mapping the VMA again, over which operation uffd markers would in any
+> case be lost.
+> 
+> Only check for this on installation, as a VMA can be registered for
+> userfaultfd after guard regions are established.
+> 
+> In this case, the guard regions cannot have new markers installed, and no
+> faults can occur in the guard regions, until they are removed, at which
+> point everything should function normally.
+> 
+> A survey of open source users indicates nobody is relying on installing
+> guard regions in uffd-armed VMAs. Software including glibc, android,
+> tcmalloc and CRIU were checked.
+> 
+> Fix the selftest to reflect the change.
+> 
+> Fixes: 662df3e5c376 ("mm: madvise: implement lightweight guard page mechanism")
+> Reported-by: Tal Zussman <tz2294@columbia.edu>
+> Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-9-00713d368976@columbia.edu/
+> Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-10-00713d368976@columbia.edu/
+> Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-[ Upstream commit 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a ]
+Reviewed-by: Liam R. Howlett (Google) <liam@infradead.org>
 
-The IRQ handler and regulator notifier can leave work pending after a
-measurement or notification completes. Neither work item is drained before
-its resources are released on removal or probe failure.
-
-Disable read_work before freeing the IRQ, since the worker can re-enable
-it. Use request_irq()/free_irq() for explicit teardown. Unregister the
-regulator notifier before cancelling update_supply_work and disabling the
-regulator. Apply the same ordering to probe failures.
-
-Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20261024014044.27853-1-mhun512@gmail.com
-[groeck: Dropped obsolete 'Assisted-by: tag]
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: replaced disable_work_sync() with cancel_work_sync() plus IRQ disabling and a READ_ONCE()/WRITE_ONCE() state guard ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hwmon/sht15.c | 28 +++++++++++++++++++---------
- 1 file changed, 19 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
-index ae4d14257a11d..a0f2f1a2beb87 100644
---- a/drivers/hwmon/sht15.c
-+++ b/drivers/hwmon/sht15.c
-@@ -31,6 +31,7 @@
- #include <linux/bitrev.h>
- #include <linux/gpio/consumer.h>
- #include <linux/of.h>
-+#include <linux/workqueue.h>
- 
- /* Commands */
- #define SHT15_MEASURE_TEMP		0x03
-@@ -804,7 +805,7 @@ static irqreturn_t sht15_interrupt_fired(int irq, void *d)
- 	disable_irq_nosync(irq);
- 	atomic_inc(&data->interrupt_handled);
- 	/* Then schedule a reading work struct */
--	if (data->state != SHT15_READING_NOTHING)
-+	if (READ_ONCE(data->state) != SHT15_READING_NOTHING)
- 		schedule_work(&data->read_work);
- 	return IRQ_HANDLED;
- }
-@@ -976,11 +977,8 @@ static int sht15_probe(struct platform_device *pdev)
- 		goto err_release_reg;
- 	}
- 
--	ret = devm_request_irq(&pdev->dev, gpiod_to_irq(data->data),
--			       sht15_interrupt_fired,
--			       IRQF_TRIGGER_FALLING,
--			       "sht15 data",
--			       data);
-+	ret = request_irq(gpiod_to_irq(data->data), sht15_interrupt_fired,
-+			  IRQF_TRIGGER_FALLING, "sht15 data", data);
- 	if (ret) {
- 		dev_err(&pdev->dev, "failed to get irq for data line\n");
- 		goto err_release_reg;
-@@ -988,15 +986,15 @@ static int sht15_probe(struct platform_device *pdev)
- 	disable_irq_nosync(gpiod_to_irq(data->data));
- 	ret = sht15_connection_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
- 	ret = sht15_soft_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
- 
- 	ret = sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
- 	if (ret) {
- 		dev_err(&pdev->dev, "sysfs create failed\n");
--		goto err_release_reg;
-+		goto err_free_irq;
- 	}
- 
- 	data->hwmon_dev = hwmon_device_register(data->dev);
-@@ -1009,9 +1007,15 @@ static int sht15_probe(struct platform_device *pdev)
- 
- err_release_sysfs_group:
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
-+err_free_irq:
-+	WRITE_ONCE(data->state, SHT15_READING_NOTHING);
-+	disable_irq(gpiod_to_irq(data->data));
-+	cancel_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
- err_release_reg:
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
- 	return ret;
-@@ -1025,12 +1029,18 @@ static int sht15_remove(struct platform_device *pdev)
- 	hwmon_device_unregister(data->hwmon_dev);
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
- 
-+	WRITE_ONCE(data->state, SHT15_READING_NOTHING);
-+	disable_irq(gpiod_to_irq(data->data));
-+	cancel_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
-+
- 	ret = sht15_soft_reset(data);
- 	if (ret)
- 		dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR_PTR(ret));
- 
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
- 
--- 
-2.53.0
-
+> ---
+>  mm/madvise.c                               |  4 ++++
+>  tools/testing/selftests/mm/guard-regions.c | 12 ++++++++----
+>  2 files changed, 12 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index 0214efd2a014..268731e90f12 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -1156,6 +1156,10 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
+>  	if (!is_valid_guard_vma(vma, /* allow_locked = */false))
+>  		return -EINVAL;
+>  
+> +	/* Guard markers are incompatible with UFFD markers. */
+> +	if (userfaultfd_armed(vma))
+> +		return -EINVAL;
+> +
+>  	/*
+>  	 * Set atomically under read lock. All pertinent readers will need to
+>  	 * acquire an mmap/VMA write lock to read it. All remaining readers may
+> diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
+> index 02f69244f9a4..97da54dcf3a4 100644
+> --- a/tools/testing/selftests/mm/guard-regions.c
+> +++ b/tools/testing/selftests/mm/guard-regions.c
+> @@ -1476,7 +1476,7 @@ TEST_F(guard_regions, cold_pageout)
+>  	ASSERT_EQ(munmap(ptr, 10 * page_size), 0);
+>  }
+>  
+> -/* Ensure that guard pages do not break userfaultd. */
+> +/* Ensure that guard regions cannot be installed in uffd-armed VMAs. */
+>  TEST_F(guard_regions, uffd)
+>  {
+>  	const unsigned long page_size = self->page_size;
+> @@ -1526,10 +1526,15 @@ TEST_F(guard_regions, uffd)
+>  	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
+>  	ASSERT_EQ(ioctl(uffd, UFFDIO_REGISTER, &reg), 0);
+>  
+> -	/* Guard the range. This should not trigger the uffd. */
+> +	/* Now try to guard, should fail with EINVAL. */
+> +	ASSERT_EQ(madvise(ptr, 10 * page_size, MADV_GUARD_INSTALL), -1);
+> +	ASSERT_EQ(errno, EINVAL);
+> +
+> +	/* Once unregistered, we should be able to guard the range. */
+> +	ASSERT_EQ(ioctl(uffd, UFFDIO_UNREGISTER, &range), 0);
+>  	ASSERT_EQ(madvise(ptr, 10 * page_size, MADV_GUARD_INSTALL), 0);
+>  
+> -	/* The guarding should behave as usual with no uffd intervention. */
+> +	/* The guarding should behave as usual. */
+>  	for (i = 0; i < 10; i++) {
+>  		char *curr = &ptr[i * page_size];
+>  
+> @@ -1537,7 +1542,6 @@ TEST_F(guard_regions, uffd)
+>  	}
+>  
+>  	/* Cleanup. */
+> -	ASSERT_EQ(ioctl(uffd, UFFDIO_UNREGISTER, &range), 0);
+>  	close(uffd);
+>  	ASSERT_EQ(munmap(ptr, 10 * page_size), 0);
+>  }
+> 
+> ---
+> base-commit: 4318887a3efa4c53d6f083ccfd7105b809a3ac65
+> change-id: 20261112-disallow-uffd-guard-install-a5294129ad7b
+> 
+> Cheers,
+> -- 
+> Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
