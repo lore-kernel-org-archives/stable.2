@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794471811;
-	b=B6daHOA9UiHvmAeZMLpCtx17jDjhqQJIM2SKB1ZwWNXEKX56cWCzZcPRr9x0yb9PZdET
-	 UlmlQAu63GLmHCkD4FpREqxX9dMsOZG0JYgKBnT9uMaR+YTPAmKsSz8gLOxaobp3kWm2E
-	 auZbsxVn+stb9E+ppqJLqkiMkhv/oR1J+3Yar+KtnMFDEPTaGZgwHCXNieYDQrYCl8Yji
-	 J6xq79B4SwCy68Eqs4qrPrYozKafT5+HQjs7keR4HalZom6rzG43IViFrhLiaRf2E2n1L
-	 sgbySAJW1Vo76RmbC3aWpBb9MJm3aeNEU3lelQ4VwHu0r6+dUNFpPX9RlmNKCT1DAJA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471811;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BUIoOdvM/LleNE9vPU9m5wgslnjsbtxMHIyToWC6kpw=;
-	b=F91ip2EjqiUf6gexrpQqrT1JXQZQ36ymkpra++1Tly9l/e3Y+1eb9oPRvTUcUEGuQzkP
-	 Mr4+Myh/nStMwU5dzaYAviH1//HhXS6JlBeigD9/3uxXyrs04anqNcKzfmfF7ompbMbOs
-	 DU2TYjcu08iksU2tk1UI8FLhLe+NB07WR4lPecLcjLzxQgoxQB9jHPCGzvjAZnYjxCs54
-	 28G5jke7T/oI4TM2PxuGyRIUZ7xCri+FzWFtZ4AdPbstlj+Nf2974ys9HVMH0Zh8llHXK
-	 trn/MyAdm1VAeLoqqx3Rv8pvYhvE44nrtAgbrF1VyCr/kFXG9bhOmCsX8k/pgCeSBXA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dXtlBwGX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794471979;
+	b=uW85FW16gTbZ0x9yUyaf3Mqh/Fx79qQDkJ8hj/GeBTeZ+Se+5L+/YeFXsrMVkZYFQ1yc
+	 t4X6LLxIVgjI1Ys2PS5bDgj/1DG+zqmslRWkTZ3+wVK9swwSBDf0WwDTAv+ENjPcHjf6p
+	 /GBXRxGQ5pSLWJSJxAYnc0UT5tFk5kiaoCbp6L2MYHiY2TTUj8QjYxa4THT+inv+lsm4L
+	 EkDZvWh7/S0D+BA6wx1xpPBLY5UjfuqJcjHbPS51VWaJWhb+OtVIPwHtirL/eHCxgsPfO
+	 Cqf1U9Lt3Ic4TdY64bCg7Jw0x/87QpR7lIHFi+4Uw6G18t3PAvgt2foVgLnEu11ACyg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471979;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=5h3741aVBUgMLcvMs4FsULmYyMwtRuaDKpHdJBi6xVE=;
+	b=wWQ443mIRfCW3ofZRZIZRso+5IWFtDncR/bVpYFWBjBxMZdVu/rXnprMPtESBArEX0ds
+	 G2CxzvxAlBrnK+Wjtih5diQAYEahA0yTY3KAqahYdBI0FP4rpZB/0dd6ptnPr7dYPaJku
+	 1uaK3yzLRgbmLxUnhJ2MNbjzWmQjfiKERSkwq8JWpYTY3UmSXlZZiXuARkDOdDLHQdfLn
+	 Uol31zGQz2Ej29rSWeGH9wy+9Ujnm+pw9+YK9mxemdb24afOrF4GSyKEdoy8k2yJkCcn1
+	 Fs/mVZKYo8kVL+CH+Tdxc5dSD5bRnyMdP62ULdcvmPUpYX0waCXv66IfleOxko73/MA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSL29dCx;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF3F606A8A0;
-	Thu, 12 Nov 2026 08:23:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25C6606A32A;
+	Thu, 12 Nov 2026 08:26:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dXtlBwGX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794471811;
-	b=wcMMBd1Hb2Ilk71pww10XRgNP3WD1G/YNlzMfYbNkdrUlkP13BpHvjQsI5DqM51z+0XV
-	 X9eE8vvhcByIYDmJUxz285uzUJoq9yXo8AIQieKSIjj1U/Dc8TxaFa8SgL2+LL8FA9sDu
-	 9O2QFLUUyXQixaaEEzG+biRMuZ0CLFbG+gtmGj4XuP342Dp8rK7+IxDXIFniHP9t03rMb
-	 3wnpsygwWkdg5MtFfG0p2c+HJgmgLv2ImLW5/oIMJfly7I/O3iq5qQ50AjQdNLGygesL/
-	 DEYi20WCpPpl00+NenZVcJck4aCV2qMrxSQIq+P+Q+7eCEZvNcI+LPZfh/lU58YbCVQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794471811;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=BUIoOdvM/LleNE9vPU9m5wgslnjsbtxMHIyToWC6kpw=;
-	b=q9TMJc96QipZfMQ4mRqoBlVs1iupL2g4WhmVmkTwAs/5NTxF0Y0NRNiy+Qp0vRrPqwMf
-	 /lqcw6kIwKQUWfqOeOB1nDKOvtvJp3w7JgD1OH06y4b5omKMXpIPouj4Q/XUXtPQxnpCT
-	 0baHKSOu18HxE3Ss1xywmIuXig7OsiNbQKAUOsLx2qnSGsjCEDLTek2hlTCrvISeqEo4z
-	 nPp44vMXnFQZICCTsHsaVOtgbztgZc4pEDvlh5+eijPTsTUsWhThKnUAzXvSFag7Y/5ex
-	 Bf3Y2XHTKOvP6UCb2bQ8HPqPKteiz46h8K/UH8SuM3o2tHsGZwT3Hk8trzXUXgtVMiw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 41FDD1F00A07;
-	Thu, 12 Nov 2026 08:23:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSL29dCx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4765E1F00A05;
+	Thu, 12 Nov 2026 08:26:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794471811;
-	bh=BUIoOdvM/LleNE9vPU9m5wgslnjsbtxMHIyToWC6kpw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=dXtlBwGX4QADCtFzVbZ8yyIqPyzhEXRUX7iHsRKOzKOKZjA8q8GKblSkCbdgXO4a8
-	 VrgkFCCjp2j0trxNjoYBTX3ybW2yqldayBLDoTboAiR1fdD38E0Blia4gVVSqYIo2s
-	 9UwcKThVYrK428dwTZaV1OdqqEtP5ZwjIxtD0AnIzB4VKZHBV5guO1QU+xc7ef42tK
-	 U0b7xA4yZrFmw2EPxkoTxb++rcXfk+MJojYFgHUed2ThHPSmJJ8Xo/jjx5cEBfxDD9
-	 rQZ7cjyEZUQw80Afo16Zl3WGGBBWlS/QqniEtypVGbb+K/kSVGaO3zo+f2Sd8VJ9dt
-	 pESMySoVPn3VQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AA7E249355;
-	Thu, 12 Nov 2026 08:23:29 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:23:29 +0000
-Subject: [PATCH v2 1/2] pmdomain: rockchip: remove subdomain links before
- the domains on error
+	s=k20260515; t=1794471979;
+	bh=5h3741aVBUgMLcvMs4FsULmYyMwtRuaDKpHdJBi6xVE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iSL29dCxPvP7MpEjriAk5jd1ZwxV+K6VQR+EI29eQhJxHrKxaW/AarTh3NhpywuD7
+	 qRv5pfvbC9Qhq9CJKYNSv4bqy6mL2cu8plaaLB4YG60VIYZyW6jMADaGIZmz2Zv8m+
+	 l+lHOVYPHnprs2K7RhZESTDTcgICKfJ1C3IvJl98I0TQq8x5anhM+Cy1YSciiMrKiH
+	 mnd51lnkiZGy74CahaycnJGBVJNgrpGubm4N7E8P9mp3BCygOVhqxHSxsMZad2qQoi
+	 aqxi3zKfsM7OuwvkT7ggOL3361y3NVxReYGS3BvOOCmsUTFuC0u9JSHisHg/OyA9qj
+	 F41zy6mwojMZw==
+Message-ID: <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org>
+Date: Thu, 12 Nov 2026 09:26:09 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,132 +51,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-pmdomain-rockchip-v2-1-5cd942a23df7@gmail.com>
-References: <20261112-pmdomain-rockchip-v2-0-5cd942a23df7@gmail.com>
-In-Reply-To: <20261112-pmdomain-rockchip-v2-0-5cd942a23df7@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Shawn Lin <shawn.lin@rock-chips.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>, 
- Elaine Zhang <zhangqing@rock-chips.com>
-Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Yao Zi <me@ziyao.cc>, Igor Pecovnik <igor@armbian.com>, 
- Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471809; l=4093;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=HmcyW0DxnBVZSZC6Y5OzDTxCaMmgNoXvaW5puYHZHjI=;
- b=0b42T8GqnJyvy8hetveu/oq6O8tsqKdECKifJLTziXUw4t270sGclByhcSTABlQkPpD9faKz2
- Gx0FUsBgqlmAeBHvtYsN5WD0Ui2jogtMiHD8S1H/WBA4Tq3i1Et/K39
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
+ similar bugs, and commit messages
+To: Theodore Ts'o <tytso@mit.edu>, workflows@vger.kernel.org,
+ ksummit@lists.linux.dev
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Leon Romanovsky <leon@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
+ <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+ Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
+ stable@vger.kernel.org
+References: <20261111225940.1573565-1-tytso@mit.edu>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261111225940.1573565-1-tytso@mit.edu>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On 11/11/2026 23:59, Theodore Ts'o wrote:
+> This is an update of Sasha's v4 patchset with the following changes:
+> 
+>    * Rebased to v7.4-rc2
+>    * Removed references to Assisted-by: per the discussion at the
+>      Maintainers Summit
+>    * Addition of a new skill, writing-kunit-tests which I've been
+>      using to add full KUnit test coverage for ext4.
+> 
+> I've been using the prompt against Gemini Pro; would appreciate
+> comments about how well it works (or doesn't) when used with Claude
+> Code.
+> 
+> Sasha, could you consider updating your patch series with this set?
+> I'll assume that you will send this to Linus, since the bulk of the
+> work is yours.  Thanks!!
 
-When rockchip_pm_domain_probe() fails after some domains were
-registered, for example because a clock of a nested domain is not
-available yet and returns -EPROBE_DEFER, rockchip_pm_domain_cleanup()
-calls pm_genpd_remove() for every registered domain in domain id order.
+All these are docs (even if you call them as a skill, it's the same),
+therefore they should be placed in Documentation, not in top-level. We
+should not create one documentation for humans and another for agents.
+It's just one documentation.
 
-pm_genpd_remove() refuses a domain that is still the parent of another
-domain and returns -EBUSY. The cleanup walks parents before their
-children in id order, and on RK3588 RKVDEC0/RKVDEC1 (ids 14 and 15) are
-also children of VDPU (id 21), so no ordering of the domain array lets
-every removal succeed. Each refused parent only gets the "state may be
-inconsistent" message, and on return devm frees its struct
-rockchip_pm_domain, the embedded generic_pm_domain included, while it
-is still linked on the global gpd_list. The next registration, the
-unused domain power off at late_initcall and the genpd debugfs files
-then walk freed memory.
-
-Remove the parent/child links first, walking the power domain nodes
-depth first in the same way rockchip_pm_add_subdomain() added them, so
-that each child no longer has subdomains of its own when its link is
-removed. With no links left, and no provider or devices attached in the
-probe error path, pm_genpd_remove() succeeds for every domain before
-devm frees it. pm_genpd_remove_subdomain() also drops the parent's
-subdomain count, which removing the child with pm_genpd_remove() alone
-does not.
-
-Fixes: 79d12b7a7f22 ("soc: rockchip: power-domain: use pm_genpd_remove in error cleanup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- drivers/pmdomain/rockchip/pm-domains.c | 46 ++++++++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
-
-diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-index 86b5074b0469..00c7e78f89b5 100644
---- a/drivers/pmdomain/rockchip/pm-domains.c
-+++ b/drivers/pmdomain/rockchip/pm-domains.c
-@@ -955,12 +955,58 @@ static void rockchip_pm_remove_one_domain(struct rockchip_pm_domain *pd)
- 	/* devm will free our memory */
- }
- 
-+static struct generic_pm_domain *
-+rockchip_pm_node_to_genpd(struct rockchip_pmu *pmu, struct device_node *node)
-+{
-+	u32 id;
-+
-+	if (of_property_read_u32(node, "reg", &id) ||
-+	    id >= pmu->genpd_data.num_domains)
-+		return NULL;
-+
-+	return pmu->genpd_data.domains[id];
-+}
-+
-+/*
-+ * Undo the pm_genpd_add_subdomain() calls of rockchip_pm_add_subdomain().
-+ * Links are only ever added between a DT node and its children, so walking
-+ * the tree depth first and removing the links of the children before the
-+ * link to their parent always finds the subdomain without subdomains of its
-+ * own, as pm_genpd_remove_subdomain() requires. This also covers domains with
-+ * more than one parent (RKVDEC0/RKVDEC1 on RK3588), which a walk in domain id
-+ * or registration order does not.
-+ */
-+static void rockchip_pm_remove_subdomains(struct rockchip_pmu *pmu,
-+					  struct device_node *parent)
-+{
-+	struct generic_pm_domain *parent_domain, *child_domain;
-+
-+	parent_domain = rockchip_pm_node_to_genpd(pmu, parent);
-+
-+	for_each_child_of_node_scoped(parent, np) {
-+		rockchip_pm_remove_subdomains(pmu, np);
-+
-+		child_domain = rockchip_pm_node_to_genpd(pmu, np);
-+		if (parent_domain && child_domain)
-+			pm_genpd_remove_subdomain(parent_domain, child_domain);
-+	}
-+}
-+
- static void rockchip_pm_domain_cleanup(struct rockchip_pmu *pmu)
- {
- 	struct generic_pm_domain *genpd;
- 	struct rockchip_pm_domain *pd;
- 	int i;
- 
-+	/*
-+	 * pm_genpd_remove() refuses a domain that still has subdomains, and
-+	 * devm frees the domains on return whether or not they were removed,
-+	 * which would leave freed memory on the global genpd list. Remove all
-+	 * parent/child links first, so every domain can be removed.
-+	 */
-+	for_each_available_child_of_node_scoped(pmu->dev->of_node, np)
-+		rockchip_pm_remove_subdomains(pmu, np);
-+
- 	for (i = 0; i < pmu->genpd_data.num_domains; i++) {
- 		genpd = pmu->genpd_data.domains[i];
- 		if (genpd) {
-
--- 
-2.55.0
-
-
+Best regards,
+Krzysztof
