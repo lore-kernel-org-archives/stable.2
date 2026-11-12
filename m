@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794445418;
-	b=TfLHpVmNNGeooiWsFEgEWIcV93/e3mmbEEp3jC4UdpLg0mK8hyO5zhlp0AMdj5MKcek9
-	 V3ct3bBXjAsdcSmP+4ZAoTLMb+XgoaDMUxuc0ESr9FCFh5hGkmd/IJaMQMMVSAX54nG1A
-	 kX9z1rm1jkuozy97M4/qguRr96uf2yBs5Xi+flpgCqWYXDPf+CG0MvxszK2LAtpWUAd8F
-	 nlNJcHQAA08keTk7urw5D1z3UVEhUCtJ9dY5N/AAGgFxaxzztzvl3EfuWA1aFul9ArP+g
-	 gOI6L/ZiyklTvREBkLbCJGCSArTELH4IeILUI/RwopKbU79BovBQrqdRCRCKG/oNHRg==
+	b=Wp3GG9qh7W5PRvvBVChYY9HuysLTDQUF13/tat+xisYlbBUjZ2VziyNhunEoMRuizxO9
+	 Exn8uija1uxRb3H1lDxiQeQTuQ4D9OXaThurw2wamnwY7Pa+vgHk65j+l6jHOyxa72D1L
+	 gjr0Y9pHJbcrzATCSVYYEqS64W8y4znSeD9zvOR7NyU7GxTMMgkuWwv+US4vWwthwF6DQ
+	 OzCmLafoxpQaQFU6s0XQmgkSyB+FIwvnlGXQ7b1mZGVkvQH8Vao2KXJX9p126MV2m/7rt
+	 pHBwtNbwxQ5UmhJ+l91SB6crjVF8bSX2dCnypYf+EHBa12A0lGN3LCuJefioiqcOOqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794445418;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FaIa9Sb1HEy7dqTo/vDpzlfh6/dac2JGWpc5NQQqyBY=;
-	b=vdiDrihXzoH+shPtGAy+ugTgMYMP2Z8tpHJ70L0H9GlNBfhcXrcwJN928Tu9x8e4uI7w
-	 6G0hli1Y680cDTQJgbleGBx/bqRKplNP3JqrR4HiVa+jhE5i1jpEdHf8irwmUGhTjWt8C
-	 dHTdLjjyz1AHVebfZcCqEu0vXAqCRnKc7qmTKACoKKEBoOJ0sZ0W7gb1/xIVGcPyDbNlQ
-	 /uPNYkZAE7L7LI0rhwt9m6kemfCYWM4TvkT7iUXnvoF60/zcGfZ44g1/qkhRHsAodbXcJ
-	 gLSurgtbX8Up7fGdVEDqrvEjE7mWHLMD0OlsFKTd9Pa3nLA8jQ1APC1ebmp76t4bIeg==
+	bh=KmJxZZZJd+mPmCQy7IG3QMng24WFOCEFYE022Uozr4U=;
+	b=eORPi7y5kh2gAfu7woXeHYCsFxoefPiAyFy1gFr5e6UbFTXROljgix/DoQFKA49WfvAT
+	 B3mCfHD/YRAz9HbStbWEPlfJDRwNbsxJj4V52Sv6mDBHxqpmCBvLbPLZbELz1D+ftp536
+	 r3m9/pj3WkQKAkz6JRbP5djnaXeb5XN11UFJ7/GF/Mesz1A+VOfAiy6qDV8KZO2kNIR/y
+	 perhs80ZW0M6Aga1ucpAAGUXYHwJDjg19n9aWvJ+FVumRxrV4kDQNG8eYOtOjY0qw5JSH
+	 OGV+1sLA2tiHruIfyE7F20Q064wYJhrrDYtmwa96NUqkvU/C6DaIlJcAvkTnrwtM01g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gADbZo5J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLZfYCnJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FB4606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA71C606A32E
 	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:03:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gADbZo5J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57D5D1F00A05;
-	Thu, 12 Nov 2026 01:03:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLZfYCnJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2653A1F00A07;
+	Thu, 12 Nov 2026 01:03:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794445417;
-	bh=FaIa9Sb1HEy7dqTo/vDpzlfh6/dac2JGWpc5NQQqyBY=;
+	s=k20260515; t=1794445418;
+	bh=KmJxZZZJd+mPmCQy7IG3QMng24WFOCEFYE022Uozr4U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gADbZo5JsvHd4HzcFGdhWroGW0k+1f+ZtVv8cvmEvf+S+2Kpjz1qWTaUh+bY91wQS
-	 8qzWzSF8gnu1qYmeARm0uMwRFslnI/qvzgyE0hD6uRVWanq8I+2buA34LTMqoklNtY
-	 JgwzfpBSsQpg0zJGGu+KQRrMSUPibeWXL/t5HD/nV1PQJihGVQiQx5N9h2xyQv3MM+
-	 Ij2jWdWbvRIhLrp/ITjxS9layPFnZcOXqZ4jw0M1ZwGRqxBKtAcfrggwqdTqnFuDAa
-	 jwX68iM5hDQSdVuYddsb9rIA3bLtReTjohfojmVvr48wPMlkVomi1KYt2EpjE75fhT
-	 TyTIvLWC842kA==
+	b=kLZfYCnJBOfpDivkhc67nJb5nmExLneQZa4c7P40f7cm2i3Dbj82IhbIKPhr0WOQF
+	 BlOnR7oPjjRU5tnrX0jLkgpZGTfnaNaqzKNrx+i0s2IrliT2WWrOog0q6661hW29qM
+	 G57co6L1oO1q6FMnpRPr7Ws/QUTIbMS8WGXcfg2ri9usO/ScDJ47XdS3XxbpalvGIF
+	 rOcblEIpaFU/PWMFvNhYSc6RxdhyMmqatMF0M+DkLeyGPkYXJ5tfU8ElgxTBzkpeQi
+	 LEbP48+x9/znihHSKkxft60YA62VcuiDrQh0Eh4S+ZHndnQFmbWrFxiFypCdSli81R
+	 8l0xNtYh4YDiA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
 	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] hwmon: chipcap2: fix IRQ teardown ordering
-Date: Wed, 11 Nov 2026 20:03:34 -0500
-Message-ID: <20261112010329.1211633-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] hwmon: chipcap2: disable device after hwmon teardown
+Date: Wed, 11 Nov 2026 20:03:35 -0500
+Message-ID: <20261112010329.1211633-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200327-failed-6.18-4724ac5556ce@kernel.org>
+In-Reply-To: <20261112010329.1211633-1-sashal@kernel.org>
 References: <20261109200327-failed-6.18-4724ac5556ce@kernel.org>
+ <20261112010329.1211633-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,157 +64,75 @@ Content-Transfer-Encoding: 8bit
 
 From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
-[ Upstream commit d2a66c515d7730fd453485ffb306c412f1f46d72 ]
+[ Upstream commit 4724ac5556ce63f01a3f5d61fc7fcc20f4ddef3f ]
 
-The threaded IRQs are currently requested before the hwmon device
-is registered. Since devres releases resources in reverse order,
-the hwmon device is unregistered before the IRQs are freed during
-driver teardown. An IRQ may therefore still run after the hwmon
-device has been released and access the stale data->hwmon pointer.
+cc2_remove() disables the device while the device-managed hwmon device is
+still registered. A concurrent sysfs callback can then enable the device
+after it has been disabled during removal.
 
-Separate IRQ discovery from IRQ registration so that the IRQ numbers
-and alarm visibility flags are initialized before registering the
-hwmon device while the IRQs are released before the hwmon device
-during devres cleanup.
+Register a device-managed disable action before registering the hwmon
+device, so devres unregisters the hwmon device before disabling the
+physical device.
 
 Fixes: 3af350929e75 ("hwmon: Add support for Amphenol ChipCap 2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Link: https://patch.msgid.link/20261014-chipcap2_locks-v3-5-27ebfc2c5b9e@gmail.com
+Link: https://patch.msgid.link/20261014-chipcap2_locks-v3-6-27ebfc2c5b9e@gmail.com
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-
-Reuse the existing IRQ helpers for discovery and ready IRQ registration,
-and request alarm IRQs directly from probe after hwmon registration. This
-keeps the number of helper functions unchanged. Omit the unrelated label
-property read because label support is absent.
-
-Stable-dep-of: 4724ac5556ce ("hwmon: chipcap2: disable device after hwmon teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/chipcap2.c | 69 ++++++++++++++++++++--------------------
- 1 file changed, 35 insertions(+), 34 deletions(-)
+ drivers/hwmon/chipcap2.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/hwmon/chipcap2.c b/drivers/hwmon/chipcap2.c
-index 5f4b0fd535af8..8ba706ecd4012 100644
+index 8ba706ecd4012..6026514a763d1 100644
 --- a/drivers/hwmon/chipcap2.c
 +++ b/drivers/hwmon/chipcap2.c
-@@ -636,60 +636,41 @@ static int cc2_write(struct device *dev, enum hwmon_sensor_types type, u32 attr,
- 	}
+@@ -167,6 +167,11 @@ static void cc2_disable(struct cc2_data *data)
+ 	data->regulator_enabled = false;
  }
  
--static int cc2_request_ready_irq(struct cc2_data *data, struct device *dev)
-+static int cc2_request_data_ready(struct cc2_data *data, struct device *dev)
- {
- 	int ret = 0;
- 
--	data->irq_ready = fwnode_irq_get_byname(dev_fwnode(dev), "ready");
--	if (data->irq_ready == -EPROBE_DEFER)
--		return data->irq_ready;
--	if (data->irq_ready > 0) {
--		init_completion(&data->complete);
-+	if (data->irq_ready > 0)
- 		ret = devm_request_threaded_irq(dev, data->irq_ready, NULL,
- 						cc2_ready_interrupt,
- 						IRQF_ONESHOT |
- 						IRQF_TRIGGER_RISING,
- 						dev_name(dev), data);
--	}
- 
- 	return ret;
- }
- 
--static int cc2_request_alarm_irqs(struct cc2_data *data, struct device *dev)
-+static int cc2_get_irqs(struct cc2_data *data, struct device *dev)
- {
--	int ret = 0;
-+	data->irq_ready = fwnode_irq_get_byname(dev_fwnode(dev), "ready");
-+	if (data->irq_ready == -EPROBE_DEFER)
-+		return data->irq_ready;
-+	if (data->irq_ready > 0)
-+		init_completion(&data->complete);
- 
- 	data->irq_low = fwnode_irq_get_byname(dev_fwnode(dev), "low");
- 	if (data->irq_low == -EPROBE_DEFER)
- 		return data->irq_low;
--	if (data->irq_low > 0) {
--		ret = devm_request_threaded_irq(dev, data->irq_low, NULL,
--						cc2_low_interrupt,
--						IRQF_ONESHOT |
--						IRQF_TRIGGER_RISING,
--						dev_name(dev), data);
--		if (ret)
--			return ret;
--
-+	if (data->irq_low > 0)
- 		data->rh_alarm.low_alarm_visible = true;
--	}
- 
- 	data->irq_high = fwnode_irq_get_byname(dev_fwnode(dev), "high");
- 	if (data->irq_high == -EPROBE_DEFER)
- 		return data->irq_high;
--	if (data->irq_high > 0) {
--		ret = devm_request_threaded_irq(dev, data->irq_high, NULL,
--						cc2_high_interrupt,
--						IRQF_ONESHOT |
--						IRQF_TRIGGER_RISING,
--						dev_name(dev), data);
--		if (ret)
--			return ret;
--
-+	if (data->irq_high > 0)
- 		data->rh_alarm.high_alarm_visible = true;
--	}
- 
--	return ret;
-+	return 0;
- }
- 
- static const struct hwmon_channel_info *cc2_info[] = {
-@@ -735,13 +716,13 @@ static int cc2_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, PTR_ERR(data->regulator),
- 				     "Failed to get regulator\n");
- 
--	ret = cc2_request_ready_irq(data, dev);
-+	ret = cc2_get_irqs(data, dev);
- 	if (ret)
--		return dev_err_probe(dev, ret, "Failed to request ready irq\n");
-+		return dev_err_probe(dev, ret, "Failed to get IRQs\n");
- 
--	ret = cc2_request_alarm_irqs(data, dev);
-+	ret = cc2_request_data_ready(data, dev);
- 	if (ret)
--		return dev_err_probe(dev, ret, "Failed to request alarm irqs\n");
-+		return dev_err_probe(dev, ret, "Failed to request ready irq\n");
- 
- 	data->hwmon = devm_hwmon_device_register_with_info(dev, client->name,
- 							   data, &cc2_chip_info,
-@@ -750,6 +731,26 @@ static int cc2_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, PTR_ERR(data->hwmon),
- 				     "Failed to register hwmon device\n");
- 
-+	if (data->irq_low > 0) {
-+		ret = devm_request_threaded_irq(dev, data->irq_low, NULL,
-+						cc2_low_interrupt,
-+						IRQF_ONESHOT |
-+						IRQF_TRIGGER_RISING,
-+						dev_name(dev), data);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "Failed to request alarm irqs\n");
-+	}
++static void cc2_disable_action(void *data)
++{
++	cc2_disable(data);
++}
 +
-+	if (data->irq_high > 0) {
-+		ret = devm_request_threaded_irq(dev, data->irq_high, NULL,
-+						cc2_high_interrupt,
-+						IRQF_ONESHOT |
-+						IRQF_TRIGGER_RISING,
-+						dev_name(dev), data);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "Failed to request alarm irqs\n");
-+	}
+ static int cc2_cmd_response_diagnostic(struct device *dev, u8 status)
+ {
+ 	int resp;
+@@ -720,6 +725,10 @@ static int cc2_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get IRQs\n");
+ 
++	ret = devm_add_action_or_reset(dev, cc2_disable_action, data);
++	if (ret)
++		return ret;
 +
+ 	ret = cc2_request_data_ready(data, dev);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to request ready irq\n");
+@@ -754,13 +763,6 @@ static int cc2_probe(struct i2c_client *client)
  	return 0;
  }
  
+-static void cc2_remove(struct i2c_client *client)
+-{
+-	struct cc2_data *data = i2c_get_clientdata(client);
+-
+-	cc2_disable(data);
+-}
+-
+ static const struct i2c_device_id cc2_id[] = {
+ 	{ "cc2d23" },
+ 	{ "cc2d23s" },
+@@ -793,7 +795,6 @@ static struct i2c_driver cc2_driver = {
+ 		.of_match_table = cc2_of_match,
+ 	},
+ 	.probe		= cc2_probe,
+-	.remove		= cc2_remove,
+ 	.id_table = cc2_id,
+ };
+ module_i2c_driver(cc2_driver);
 -- 
 2.53.0
 
