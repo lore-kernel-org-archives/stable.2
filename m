@@ -1,54 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794454078;
-	b=ctudySPIo2kmpmSfsv73dRqiwN421SPxWnwx5By9j0tlpBsf7eYlmGWhK2RErwMvEzSZ
-	 YRBKCzx1s0OrrQT5wPCV+35Jd1pfhwcH2d0Cdz4Nt6X8+QG7QNsREu7n+1hHlmvgBgfSF
-	 eEwLusemK+f0cDnX1MiVNQSlGiAYAfrp1yWu4QLUd2HAn8OD+UK4sqcLtO59KirzAJrsM
-	 DkrsKXSFHwyvXBAx1s0pH3wEtejDR12UB083dI61yyyqctCxjclwABVXV/ZZmIXSGe8ji
-	 IsoBxeShYzHK6jlN14xpRGHykdSN907FMQn5xrttgKwHC+cEREbD9/6VcsO+PCdbFEQ==
+	t=1794454159;
+	b=CnhnKD+we6dXJ6FeZzbG9l9VXkSpax6Yn7FTEbPXbVavX+djQISnLFcDFR5lwbKGLVm2
+	 CtfrxGitox1h5vS5JRxGEiImQ1zknMPL/ZagMHAdQNbBB4dSl/oM2yYLiWKG8h0mHHTZe
+	 uobvXkOmSzW5DgIZo4uVHIjRA8imYgNvJkQducCkWgOXukZrkeabCetb+R1IcxRKfLS0g
+	 xk4yppAFrmF/B2lO/QwGtLzu/DpEHsVDztYiPnWSM3moPhM5tNdZAFmlcS6+ndEmlvByC
+	 F8znWzOPAYuEBTZNHCsi6GC3HX0eWBh+/fvG75nFJOBfGCWzxJxtQ+z0yMNJ5qbBrYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794454078;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794454159;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FJxtok8nywZ/TQgGJyWa/+E2CH+0K50OeaFCvC/H71M=;
-	b=RdB/tY8rDbozUkrkpk318fA0aFdv5RZFqdP48RiguczZiPEHktcGiFCpU849iLrJhuMT
-	 YzNxlm/1sELbOHhXUmB8wdwZb+jSXGKZJWvoh5tlVTjWoGAnnyOtYildd87+/x7kMDb7N
-	 IOb1j2FUYFh8abqEZlaZsBJ7vQDGF1RQ33FVc9sDdsYLB1Vg/yO9SDPGvz7p+amqcVOmr
-	 JDsl6I2BEEcZXQ0sAgQCCkQM+XLLVLp3rZx7M1cWu4hFfawMGE8WvUTYln1QoxzcaPc5k
-	 xgj3kFD8O26+nnXOUWfm4I+LgNZ2Qt2pmUJS3cX9+wL5pBdQ1NYzMo59O3wcWZvkiXg==
+	bh=KKfu9jTS/RUOusy9Q1UFKxQ2pIS8vt+0hv3b0KbLhC4=;
+	b=Xt4S0bxgHQiyL7OFgcVAbqW1JYtBvZpUybiD63RdI//sdbLslotJrnTuzeB/lOcfym9T
+	 0zUNJ9P3CMSVXwYB5FUC8ZHRWJSRCVlm1uPavyieW7BZ2QgrwF08u0q9VmtZ7D45w/116
+	 z12yKYFrdpYQPQxQ5NWHnPLnYLo7t4C3TaWcXMuUf4momf/UYEiOH3Zr6vqKkVihJnx4h
+	 8tP8V2EVTc37whywkZcXSum0ju2byIzmcr6CW2y8rFm2q2x8WTo3PsUREvKSjWPZ0a54R
+	 6EtueZAwfJHeQLsohZ+2noVly+1DfvOAjdiPcbZlqmDQ5O9CnllfUsAZa8Vs4Qzjqsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LFZVCmgP;
-	arc=none smtp.remote-ip=95.215.58.165
-Received: from mta1.migadu.com (out-165.mta1.migadu.com [95.215.58.165])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=jWoVuFzf;
+	arc=none smtp.remote-ip=162.62.57.210
+Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDC8606A324
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:27:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FDC8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03DF606A31C;
+	Thu, 12 Nov 2026 03:29:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C03DF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LFZVCmgP
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mcfYyT8ssdEa144YgXQss8K/JkNJiAW/50JOamvyaFE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794454076; v=1; x=1795058876;
- b=LFZVCmgPiTIEZJ1A5tKZkTFVNGFy6F8sQZ2z7v+0VqqrwOkK5MOLVGteCp7csaavOOeLXOx5
- K6UfAumPyZ11XL6I5aYTeBGMC71C1H4tuBPor6bSUp22nfLMw3qyguuCO94Wo7BFwnxfmZ8bw2t
- CXeuegxbcWb8tSb2xRQ7B7Tw=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d517d826f1cb946c;
-	Thu, 12 Nov 2026 03:27:56 +0000
-X-Mizu-Trace-ID: d517d826f1cb946c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <64a49d81-c836-49b2-890a-096f5ce5e318@linux.dev>
-Date: Thu, 12 Nov 2026 11:27:42 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=jWoVuFzf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794454152; bh=KKfu9jTS/RUOusy9Q1UFKxQ2pIS8vt+0hv3b0KbLhC4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jWoVuFzfJ2LYR6AK4mVk11XkNENZwm5e1IwlJT+4HegsooS6RRxVKSJQa9SQ0cNFc
+	 2lr9yja6wLl6WpYucNCsR9IrvHgMFynVXNiWjuHza3gUS8yUegy2yyKtq/KhAmBTg9
+	 GKrZJjZqdvZjRzHLHYrrHN2Dzj2crGahdbdyzFsw=
+Received: from xkeyc-nixos ([119.97.45.41])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 7479860E; Thu, 12 Nov 2026 11:29:07 +0800
+X-QQ-mid: xmsmtpt1794454147t3afruan1
+Message-ID: <tencent_A4058D24A69C0C118306749F106836CC2406@qq.com>
+X-QQ-XMAILINFO: MJf32pulH4811grMrkLSNSYwvhpy2gTvFr27/m4Z9gczzLpWeLzIv+raJk49Uu
+	 bSlJM6c/uc7D9RRdajzEVJTKAeiA82zeGAigfIKLTd5g+OeUbWjS8E6EhrTVEpRilaTQsWv7ta2G
+	 +REOVlMbQMkBkLOBrk6abem2r+8Oam/IMpltRzMHxA8n6xR9hrBM2w/qiEBr2Jmqt3nA4VbF/EAe
+	 nJYExGYlyAjyRn80GpBbuWcIaZ8rHk5gom/85WEMcnqNHPf1Ca8um5TsfO32Sre0rfb7c7r+7JRJ
+	 eiiMY8sj49wtTeyFnfelF8cJfDc2cO0PAm1d1T3s585fj4z+qk5kcbvenfZ/DSb1KJlGD9SmzjXP
+	 qpOmorhqRwP2Lxi+ZVlrGUYrrhqY6quWpdPASyaW+lI9Q4is6o963lMcSKFTxq9z+qRVeESKcTqA
+	 jMboEdaS7l3Khr0iGWVoEusw0FU4Wy1aHyOF7NWNHAK4rMVUHL0QztGzpzZERzAZxDThbqwxv//d
+	 HiDxdQa9OZXOiR2hGWECFwvGsWE2cCPpYZqRq5ob4zfZzf/vjGZRbVcztu0eERU5bIbTVKr+2x/y
+	 a/Dt6mIC8prZJKhGAcq8Nwk8V94xyKpSnugkoL/7K7APfUuP3VfPJfMOJc/NDw9XgdZyejVY7yC9
+	 OkNrfVTCsJ/niB6wA8/Q9zphHI+xIBAGFzcCZbdQwlB6AZVu4F9XbTsUVOdFX4S2DATXV75c2jGk
+	 jwzxqLO/TTBTj2tntD+JWwz7CAPxVVPoK/pXBx6CVbVVnkrUeaZEFamHPvcGu/ZSQbkHnNuqufKK
+	 MPZkp12mzZgVgTSr2jhB1Kr85xXdUdiwSp8gBHpbCdwwn9Kdk09e/cSZXB+TWrt5WxBjAnUyDCFT
+	 3vSVqQRFGe2Mx4p0K2NgDDACuj6B2zTFxsOrTwb4rlMqEQuYVtyUIVJhj34Y3GqTOGhX6WrSItJW
+	 gxgvkhsKU0ZG+yzasKg1EP0iiOnWWAXVZ8gIRyO1K73Upp3xPg6OfXyk/Lb26IGmzMZQmNg/rkXO
+	 1tiBn20g==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: xkeyC <xkeyc@qq.com>
+To: Hyunchul Lee <hyc.lee@gmail.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ntfs: don't let a fatal signal interrupt metadata reads
+Date: Thu, 12 Nov 2026 11:29:06 +0800
+X-OQ-MSGID: <20261112032906.34927-1-xkeyc@qq.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <avEqgxgLl17nq8SU@hyunchul-PC02>
+References: <tencent_2859327A0C68D0D0429ED90F931234059808@qq.com> <avEqgxgLl17nq8SU@hyunchul-PC02>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,232 +81,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-To: Frank van der Linden <fvdl@google.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, muchun.song@linux.dev,
- osalvador@suse.de, akpm@linux-foundation.org, azpijr@gmail.com,
- lance.yang@linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1794046188.git.zhengqi.arch@bytedance.com>
- <586d6c53ab7e4c64d6e89ad3cf0cf7e07dabbfaf.1794046188.git.zhengqi.arch@bytedance.com>
- <7abb3aa1-385a-422f-86bd-7aac9661c4d8@kernel.org>
- <423c9b28-ecf2-4fab-817d-2fb326690c73@linux.dev>
- <3a1a3bb5-0b01-4f20-aa0e-74a952544b8c@kernel.org>
- <5f68ffba-9f56-4e31-9e7c-9d110f552efc@bytedance.com>
- <CAPTztWb0XbjCxtihyp=Tx16Z_kjF+M8sa7YcUjvFv0WcS83MAg@mail.gmail.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <CAPTztWb0XbjCxtihyp=Tx16Z_kjF+M8sa7YcUjvFv0WcS83MAg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Hi Hyunchul,
 
+Thanks for the review.
 
-On 11/12/26 6:26 AM, Frank van der Linden wrote:
-> On Wed, Nov 11, 2026 at 2:27 AM Qi Zheng <zhengqi.arch@bytedance.com> wrote:
->>
->> Hi David,
->>
->> On 11/11/26 3:43 PM, David Hildenbrand (Arm) wrote:
->>> On 11/9/26 04:10, Qi Zheng wrote:
->>>>
->>>>
->>>> On 11/8/26 1:58 AM, David Hildenbrand (Arm) wrote:
->>>>> On 11/7/26 11:30, Qi Zheng wrote:
->>>>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>>>>
->>>>>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
->>>>>> unpinnable, causing unnecessary migration or pinning failures.
->>>>>>
->>>>>> These folios already own their CMA bitmap ranges, and memory blocks
->>>>>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
->>>>>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
->>>>>>
->>>>>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
->>>>>> Cc: stable@vger.kernel.org
->>>>>> Suggested-by: Muchun Song <muchun.song@linux.dev>
->>>>>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->>>>>> Acked-by: Muchun Song <muchun.song@linux.dev>
->>>>>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->>>>>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
->>>>>> ---
->>>>>>     include/linux/mm.h | 29 +----------------------------
->>>>>>     mm/gup.c           | 31 +++++++++++++++++++++++++++++++
->>>>>>     2 files changed, 32 insertions(+), 28 deletions(-)
->>>>>>
->>>>>> diff --git a/include/linux/mm.h b/include/linux/mm.h
->>>>>> index 2d0b8a4c9974f..75dd40265d3f4 100644
->>>>>> --- a/include/linux/mm.h
->>>>>> +++ b/include/linux/mm.h
->>>>>> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct folio *folio)
->>>>>>             return is_zero_page(&folio->page);
->>>>>>     }
->>>>>>
->>>>>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
->>>>>>     #ifdef CONFIG_MIGRATION
->>>>>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
->>>>>> -{
->>>>>> -#ifdef CONFIG_CMA
->>>>>> -  int mt = folio_migratetype(folio);
->>>>>> -
->>>>>> -  if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
->>>>>> -          return false;
->>>>>> -#endif
->>>>>> -  /* The zero page can be "pinned" but gets special handling. */
->>>>>> -  if (is_zero_folio(folio))
->>>>>> -          return true;
->>>>>> -
->>>>>> -  /* Coherent device memory must always allow eviction. */
->>>>>> -  if (folio_is_device_coherent(folio))
->>>>>> -          return false;
->>>>>> -
->>>>>> -  /*
->>>>>> -   * Filesystems can only tolerate transient delays to truncate and
->>>>>> -   * hole-punch operations
->>>>>> -   */
->>>>>> -  if (folio_is_fsdax(folio))
->>>>>> -          return false;
->>>>>> -
->>>>>> -  /* Otherwise, non-movable zone folios can be pinned. */
->>>>>> -  return !folio_is_zone_movable(folio);
->>>>>> -
->>>>>> -}
->>>>>
->>>>> Moving code while adding new stuff to it, please don't.
->>>>>
->>>>> Move code first, then modify it.
->>>>>
->>>>> I don't want to play "find the difference between two pictures" on a Saturday
->>>>> evening.
->>>>
->>>
->>> You resent your series way too fast.
->>
->> Got it.
->>
->>>
->>> Now we have discussions in to threads, congratulations ;)
->>>
->>>> ;), got it.
->>>>
->>>> I moved the code to resolve a build dependency.
->>>>
->>>
->>> Why can't that be resolved differently? What is the dependency?
->>
->> The dependency is that the new check wants to use
->> `folio_test_hugetlb_cma()`, which is a HugeTLB-specific inline helper
->> from `include/linux/hugetlb.h`.
->>
->> `folio_is_longterm_pinnable()` currently lives in `include/linux/mm.h`,
->> while `include/linux/hugetlb.h` already includes `linux/mm.h`. So I
->> can't simply use `folio_test_hugetlb_cma()` from `mm.h`
->>
->>>
->>>>>
->>>>>> +bool folio_is_longterm_pinnable(struct folio *folio);
->>>>>>     #else
->>>>>>     static inline bool folio_is_longterm_pinnable(struct folio *folio)
->>>>>>     {
->>>>>> diff --git a/mm/gup.c b/mm/gup.c
->>>>>> index 2b405cce2ca5c..f41701c603500 100644
->>>>>> --- a/mm/gup.c
->>>>>> +++ b/mm/gup.c
->>>>>> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, int *locked)
->>>>>>
->>>>>>     #ifdef CONFIG_MIGRATION
->>>>>>
->>>>>> +bool folio_is_longterm_pinnable(struct folio *folio)
->>>>>> +{
->>>>>> +#ifdef CONFIG_CMA
->>>>>> +  int mt = folio_migratetype(folio);
->>>>>> +
->>>>>> +  /* These HugeTLB folios own the CMA memory, so they can be long-term pinned. */
->>>>>> +  if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
->>>>>> +          return true;
->>>>> More hugetlb hackery ... don't like that, sorry.
->>>>
->>>> Agree.
->>>>
->>>>>
->>>>> I think this just goes down to a problem we discussed a while ago that is
->>>>> independent of hugetlb: we'd need some way to identify that the the page was
->>>>> actually allocated by the CMA owner, and it's not just some other movable
->>>>> allcoation that ended up there.
->>>>>
->>>>> For something generic non-hugetlb thing, can't we call into CMA to ask whether
->>>>> the current chunk is marked allocated?
->>>>
->>>> The existing bitmap is set before allocation completes, so the range
->>>> may still contain borrowed movable pages. A set bit alone cannot
->>>> establish ownership.
->>
->> The more accurate code path is as follows.
->>
->> Assuming the 2M buddy allocation is successful, page P is borrowed from
->> the 1G CMA area.
->>
->> Now, proceed to request a new 1G huge page:
->>
->> only_alloc_fresh_hugetlb_folio
->> --> alloc_gigantic_frozen_folio
->>       --> hugetlb_cma_alloc_frozen_folio
->>           --> cma_range_alloc
->>                   /* set bitmap!! */
->>               --> bitmap_set(cmr->bitmap, bitmap_no, bitmap_count);
->>
->>                   <time A>
->>
->>                   /* may fail */
->>                   alloc_contig_frozen_range
->>
->>           /* set HPG_cma!! */
->>           folio_set_hugetlb_cma(folio);
->>
->> At time A, for page P, a bitmap was set, but HPG_cma was not set.
->>
->> If a concurrent FOLL_LONGTERM pin uses the bitmap alone to determine
->> ownership, it could incorrectly allow P to remain pinned. If
->> alloc_contig_frozen_range() fails, cma_range_alloc() clears the bitmap
->> bits, while the long-term pin on P remains.
->>
->> HPG_cma is set only after explicit CMA allocation succeeds. It records
->> the folio's own CMA ownership, whereas a set bitmap bit can represent
->> another allocation's in-flight reservation. Therefore, the bitmap
->> alone cannot replace HPG_cma in this check.
->>
->>>>
->>>> A generic query may need separate ownership tracking, such as an
->>>> owned_bitmap recording successfully allocated pages. Its updates and
->>>> lookups would also need to handle concurrency with fast GUP.
->>>
->>> Or simply two bitmaps? "trying allocation - allocated"
->>
->> As a fix, perhaps this is a bit too complex? :(
->>
->> Alternatively, we could adjust the timing for setting the bitmap, though
->> this might introduce new concurrency issues.
->>
->> Thanks,
->> Qi
-> 
-> Yeah, ideally there would be a way to identify folios allocated
-> through cma_alloc. But that would probably require.. dare I say.. a
-> page flag. Trying to check bitmaps does seem too complex.
+On Mon, Nov 09, 2026 at 11:05:55AM +0900, Hyunchul Lee wrote:
+> Could you double-check the Fixes tag and Could you confirm that
+> xkeyC is your known identify for the sign-off?
 
-Agree.
+You're right, the Fixes tags were incomplete. The directory index lookup
+in ntfs_lookup_inode_by_name() comes from 0a8ac0c1fa0b ("ntfs: update
+directory operations") and ntfs_bdev_write() from 5218cd102aec ("ntfs:
+update misc operations"). v2 adds them, plus the commits behind the
+mount-time reads that v2 also converts (see below).
 
-> 
-> And, since we've had a local change that does exactly the same thing
-> for a few years (which I apparently forgot to send along with other
-> hugetlb_cma changes), I can confirm that this looks good to me and
-> works. So,
-> 
-> Reviewed-by: Frank van der Linden <fvdl@google.com>
+Yes, xkeyC is my known identity. This is my first contribution to the
+kernel. I use the name xkeyC everywhere online, for example
+https://github.com/xkeyC and https://huggingface.co/xkeyC, and it
+identifies only me, so I would like to keep signing off with it.
 
-Thanks for your review and confirmation!
+> The read when writing to non-resident stream should remain
+> interruptible.
 
+Agreed. v2 keeps that read killable for named streams, as
+ntfs_inode_attr_pread() does, and does not call ntfs_error() when it
+fails with -EINTR, so an interrupted stream write no longer turns the
+volume read-only either. I added a test for it to the reproducers.
+Without the patch, an NTFS_IOC_STREAM_WRITE killed partway through made
+the volume read-only on the first run:
 
+  __ntfs_inode_non_resident_attr_pwrite(): Failed to read a page 6 for attr 0x80: -4
 
+With v2 it stayed read-write in 20 runs.
+
+> Other paths still using interruptible reads include $LogFile and
+> $MFTMirr checks, $AttrDef and $Upcase loading, bitmap scans through
+> ntfs_get_locked_folio(), and ntfs_bitmap_check_used().
+
+Thanks for listing them. I had left the mount-time reads alone on
+purpose, but an interrupted read there is not harmless either. Killing
+mount partway through made it fail in all 20 runs, with bogus "Failed to
+load $UpCase from the volume" and "Failed to initialize attribute
+definition table" errors. From the code, an interrupted read in
+check_mft_mirror(), the hibernation check or load_and_check_badclus()
+would instead mount the volume read-only with a $MFTMirr or $BadClus
+error. My tests did not hit those. v2 converts the $LogFile, $MFTMirr,
+hiberfil.sys, $AttrDef, $UpCase and ntfs_bitmap_check_used() reads too,
+and with it the killed mount succeeded read-write in all 20 runs.
+
+I kept the bitmap scans through ntfs_get_locked_folio() as they are.
+They only read, and their callers (free cluster and MFT record counting,
+and FITRIM) skip the page or return the error without calling
+ntfs_error(). FITRIM can walk a large part of the bitmap, so it should
+stay killable.
+
+I'll send v2 shortly.
+
+Thanks,
+xkeyC
 
