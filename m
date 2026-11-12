@@ -1,90 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794471790;
-	b=AggGeTbAvd0kMrz/4nmqmH4qB0B5TE06AqojjwlvoRcKR9/yOzUVpBeA/3LD95d2rjkQ
-	 TcDyKkUo+APXSB0GxcpMP7LiWrXMsd6VSbTwgwHeXntxqlhjyNhXohGzoOYkEQEf+gq0N
-	 ig8RrL5ETtKFLvOltaRMsaf/+j+8ucf8MsF2l55Wj9Yz6kkqfaN95lVHBsjuDO/eZsKPG
-	 hOrckEbSEFXaW5u1cbT2yq7QiF82JHZK6FIfN04aJnw7r++LSAZyaBdmmYtmxN8l51yUz
-	 th3dWxPkFKSuexnqzMqxciBZ0l5NfhB5ELwbmJ/omDEVoRRW6B+VzLp/BTI754FoLsw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471790;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=MXWQrLCbj1VbbXmwzxndXA36ZN5dlLDITfWb5Un2PIg=;
-	b=qT2CgUmcxPSLnQ21ChsGRaRD6KLNl9VTsnIjhmFsJJMVyvS9ErDwJV6oXtqI2GTtgwDB
-	 7FK40xLUiuFCUAWsS8XGe3Mz11EBw5AgjbLaDK/4QwoX/2vJgmY6AEOcyNkbPENRxf51z
-	 wHzLMRVzU4/v1xH/a9SgGGm5RPo/VtTO/mjHaaZzTDIFUVLFxkukcXcjts+hqUZView2D
-	 gvVJV0zh6pd2a1nMq3PtaJSCjhTq/sPp3C7Db3BDU+d4nOOvqbtzTKG2jOQZWjsfwlldc
-	 dzqkAtHM0iWd62b5lLESJlPnLowgwbmNINOQzhtAfvPT4mrhsZMliaTczl20hwW5Tww==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f7w6J55o;
-	arc=none smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794471811;
+	b=vgStwgxndsFJhTT7t/I1RtFbSf83HKVVEep69cTYrXVWr0ggz89OBrRWV4Lhw8X9KTl6
+	 K/t1DL7mPUgSqH1Exggl9nrV1Yyglcfav0ZveDD5znDlnSBPcvb/IAP8+199PDy5XllgD
+	 DhdBEyEaYuGNO3Fvvpwglr3qiWtbpZGlFGfR4+S2OQyPG5Cv+Ed1WJtftsCd8RcsoVNfW
+	 zBKbxnVlkdHGyXmSwpo5Djq3OEJG4Bfrax5RdzP0ZGQ4O7xuzu/qpnpaV2t5WIttld9If
+	 zUI3fC8xpBajxRGJ+X3mZ8/fQe8GHUw+nE9D4Txp4vH984IDJT+hJ2avqBMbmcHVa8A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471811;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=WDvWniJQrezDUB16xlhO8KCfZlmxV+ztbr/1RAmPaQI=;
+	b=KTUaEP5IIGWZmJnn1vs3Ubih+dUVXaJRmLTwPGq3xgb+uSblk1PQAGa+21xmfjXpxNPp
+	 JAOekHFwUsIXeJheSygkjMwIQPqQOh+n98iwngicWnsV8Xxn+YvwgrlFwIufrid115Glk
+	 03fUdRr4zY2DOuNEQtz2PPYSkFAH4dT1/nH4nlECHXu1g7Zh8CA7cL79/atIffbK5LoHO
+	 B8/d6HJP/n7S7gQn659K6Chze7G2qLc70ZGo/sCSCrXGDF7GvSIh69KZ6fCBj43YYVZ91
+	 naNH2+lo5sOuNcab/g7zuzEgQSjbpCOEyPZ1rkqT5bOfO2kkBZWYQCaVHHRp2Uzr7dw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6i9f2fP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A291606A331;
+	Thu, 12 Nov 2026 08:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6i9f2fP
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794471810;
+	b=WCLA9w67jTZn41AzBmW1Ix8XthmQy3V9gU8GsSWseWkQao70krxWxS0r6xNmAmGSbmji
+	 /3u14sTqN3U33LLj4ZSzh0/HxRIRLfqRA3Q8xwJRq6fD3qvCQ7lpCWP1X5jntfVRXo03p
+	 XCikDIhMNZQOzUsMqLLfDmHXAIkOs6gd3grCCID+rwSuknbdDWDC+Qdj/VjDGuYKMq+j2
+	 YO461OBgjvNgwc8VwUZVnee5OiwWJE8tKTHGAMF/434vqon3/zRiXw+eNR6RrowdaZ3uj
+	 xG2CQbUZfCDFvn/I8vuvLxHSvb8reBm3K6TeyOGSNtNr3Bz4TuWkakl5+Day7ZvIx1g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794471810;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=WDvWniJQrezDUB16xlhO8KCfZlmxV+ztbr/1RAmPaQI=;
+	b=UcEDv/k2iqh+k6s2pOvo10pr9qRDGonn7HPHj7eX/G59FMiQKOBxd2EVsoa5Daob6Ozn
+	 JMDZTZX/pxoPvt/i1SwXEUHV0F5idv0cB/ydECAlUV6yUkKhp3PP29YNqsocLamiA5FQU
+	 m8SXLi2TiCyFFI+/5iXFnKNwn924aB6Q3uR8s/toor/g68tqf21dISgbTAy4xHUS+RMrP
+	 qIxSZXV2TbAQJyE8abnc53PS2mMFi70//5uQ920iEITeuRY/3VEG5J8qeQJL5YkQHTR21
+	 rg8C2kZAzP1mDWex9BacZfiIZzaPt6H3k1u7g2nQS28b1g18Of5pqTlKY9G8UGd+MsA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00CE560A261D
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:23:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00CE560A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f7w6J55o
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-48ed0b68895so2584829fac.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:23:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794471789; x=1795076589; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MXWQrLCbj1VbbXmwzxndXA36ZN5dlLDITfWb5Un2PIg=;
-        b=f7w6J55oIUyTOapN6J0/hpQgPiqGiPYypBlMjLjjrQzPlC5aEi3+BeOtjnfjQRi0f3
-         /F+cfXioV3bgQLRmG5NXiF08p1vDk2YeZ9HsNGMTmdmboM2oPdtZUbdQ1bi6efnd71VJ
-         rUOqmqLzwBfZrx7ijmDbQoEUzBHxonCDSFJDE4MkQxye1yMcKfVUkelRGZhbOPYU6lWZ
-         cq22DCcOrtjRUrBNYH3XqO2AGQMiOvw8N1c3aVSV1e9zfQHsVzWy09YUFDQXeY//US2W
-         1UFMl6jDxD40AMfe+iJBtF0+/LYoOI0ZPHaAO17z415I6I0FTs7K1hbhdywQU6QAb6LD
-         LDuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794471789; x=1795076589;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MXWQrLCbj1VbbXmwzxndXA36ZN5dlLDITfWb5Un2PIg=;
-        b=BjogOqUc/9lAmpP/xDMpCIFwdE7fWRSRjYDJzNQBDK7ZD18EyML+YQVSZQu4m4C6nX
-         oX5nw+fq+NdcNWR9ZVaSq4cqRwl4S7aP1+ykqhS3za9xPZTglC9ooTAtf5H4sZ/zMGRn
-         28z5hr69EOrN8Me3Oa2Pa35+cJEkiWJPoLIWGtjtDKJAc+7/O7FkIN1X/0Thyb9nA0MC
-         CZ9aUMu6U0gXT4ySdl3D1PJ+szPQIv0k6MM4ZuGgJ2Vom1JuK3drp50B0fHm8kp7qRHX
-         DfM7BGGloovgdT5qj+zOUnbuI2zbXcvGfhcb0yFoxFknoCKYu0Rfuk1+fwa5pDcYt+T7
-         iy3g==
-X-Forwarded-Encrypted: i=1; AL+hErEOB3PNzP3QsjUdrGWrBKhRfWbeP6JzTd//ZtoDXxNMt87/NZ5v0D1uSh3iLUSJQLGnnKuhrxQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zgOART1KEAbGe79Pfc80rGPVwijRokJOUjf6XdSeXDDQuwQ33
-	7fGiDhvzbwUvRvywcbgE8WXfbaGlJj0MAdCoa//XGvcwrJ2gpezWXrWTRenEvJ1E
-X-Gm-Gg: AYBFou0goPEwXLYqWyxe686j2LZEg1GGx8mxoT5+B0DjgxQdm9X2P+0nuv9tVfR2lJ3
-	UbaW+XPBEy86AcOU4eDbdUyn96vp/xiyDu1gyztkHzH24kqaRQEyiLJR/nSLWe1IfbtV9rdjiQF
-	9+4ydyX2GZoyqVgxWwmjEqQqopomKRMvr/x6MyubfeYsvI9JIExp3+qK/Ch/sml+3TdmvuRF7nt
-	+nFROfQ6e8uTpbh30eM73T04olxelwugKnkZG2c2mSSnSkpdQVEwbKZznlMjLb1omkGjjgmBELh
-	uyTKz0XAyLOLUXnqORaaWAE7+KcEuNzu9OssopAhpZSRZ+H//ruB7Stwh2iMXjysqavS4DqCDUZ
-	vM5DB5SwLIldSODXGuFjo25k/YzOrgTLY2ITjFIP+DcJ/Nw3oxHYxqaTnZIeKX01B+aGFkBa8Gy
-	t/xQ4m0LfPdF3YugoI4WWq/nLzYu79QFSN8MP55B+YWgJsSmnMkZecqFkDPBGsIND+uOECvtpdA
-	K1LZT0QQ4/mTtpcGspUnH1mt7femckuZWdiKDpr3V31IO/WlP9jPLb/KyKjrfwhM/DcIxswLznQ
-	F5yBCFzL0WZBxIpl6yY5e5RCvzZRwkEm+pjsfIDSTMDEKBI5U/D+VbXezQBphO+gJgb7Dn1Qry0
-	x2PwTwCFFGrYCVpZZUhzlxvoGpUrPstuoOdP4l8UU7ehY64pCFUjXu/NFCpxtvveIGyv4Lwi/gN
-	VIRjglsETXEY4g4/HmyvMk2kUZLJ27pDfskppIkrQBrJ5UkgM7bL1LKfMSuR25v9d4qHhEVIa0
-X-Received: by 2002:a05:6808:c1b0:b0:55c:928:69d1 with SMTP id 5614622812f47-56b986255c0mr4313912b6e.56.1794471788880;
-        Thu, 12 Nov 2026 00:23:08 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56905d3bab2sm7411157b6e.12.2026.11.12.00.23.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:23:08 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 12 Nov 2026 01:22:54 -0700
-Subject: [PATCH v4 5/5] dmaengine: dw-axi-dmac: preserve pending pause
- requests
+	by smtp.kernel.org (Postfix) with ESMTPS id 41EC51F00A06;
+	Thu, 12 Nov 2026 08:23:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794471810;
+	bh=WDvWniJQrezDUB16xlhO8KCfZlmxV+ztbr/1RAmPaQI=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=b6i9f2fPT1J7hyhD2DJR5Lsrr4hJMLO8WDudxwxUPdQ4wcFPlxYaod842rnrhOevp
+	 QtCTTf9n7QuXO18Y6Z3FLLly1MvmTCz53nzs6iGN/4Rnveh/T14FSLwbvmZlsVBbFz
+	 h0mAvEcYEhS1bRGR7pazi83ITR9zi/UMpv78snBBT0FtY/o4WIGkxteiKu4q6VrOuc
+	 UrJSlLtFiNi5D2SACge7t+SXiJtHaXPQeN885oIVw1bk0IRcF8+ZC25NWs7Fo1rtn2
+	 SRcG9n1pbHPMVfh1jElaE25nbhh0IHeGmjvf/JtoKHZqlWYrAbV/KNmmsHHsEFvPQB
+	 wNqDvWC9KIB/w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 940054933F;
+	Thu, 12 Nov 2026 08:23:29 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH v2 0/2] pmdomain: rockchip: fix the probe error and
+ deferral paths
+Date: Thu, 12 Nov 2026 08:23:28 +0000
+Message-Id: <20261112-pmdomain-rockchip-v2-0-5cd942a23df7@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,279 +86,124 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-submit-dw-axi-dma-stop-pause-v1-v4-5-3ebc24b243db@gmail.com>
-References: <20261112-submit-dw-axi-dma-stop-pause-v1-v4-0-3ebc24b243db@gmail.com>
-In-Reply-To: <20261112-submit-dw-axi-dma-stop-pause-v1-v4-0-3ebc24b243db@gmail.com>
-To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Sergey Khimich <serghox@gmail.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Sia Jee Heng <jee.heng.sia@intel.com>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OS27EIBBEr2KxDhFgaGyvco9oFjQ0Y5L4E/BYi
+ UZz9+DxPpuWSqp+9e6sUE5U2NDcWaY9lbTMNaiXhvnRzVfiKdTMlFAgpRR8ncIyuTTzvPhPP6a
+ Vt7q3TpGNIRpW/9ZMMf08me+XM5cbfpDfDtDRGFPZlvz7HN3l0fuPv0suOGAfHRA618HbtRa+X
+ v0yscvjHMj0favu27nKVrf5sZoPjVdReEMIYGR9tlpHgFargPV2xgF0JqKVhxa6QrxSp7QNjdX
+ WkOvQdCAB29YL7SL2FnwUsZJCHwK0EavC4w/gnlXvRgEAAA==
+X-Change-ID: 20261110-pmdomain-rockchip-3497a2e7fdf5
+To: Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Shawn Lin <shawn.lin@rock-chips.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>, 
+ Elaine Zhang <zhangqing@rock-chips.com>
+Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Yao Zi <me@ziyao.cc>, Igor Pecovnik <igor@armbian.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471809; l=5076;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=bdn8cYKKzKlZzz1UfUin4coRd279HYZJRzRpgBrt3p4=;
+ b=85fXcymigcazjcdaZJGpvrxzTEvntfsmiXgH3L8DtL0aIS9YckTLoTa3z70D3YMPl1clEnnBl
+ 8nvbJ4WDTlpBqhDCtp1nc5ldIu7WjGvAyD2U/owR8dnZdVkzi+esN9R
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
-dma_chan_pause() clears SUSPENDED even when polling times out. Hardware
-can set that status after the last poll, and the unconditional clear then
-discards an acknowledgment the caller never observed. Another channel's
-interrupt can also consume the status because the shared IRQ handler
-clears every channel's status before taking its lock.
+Two fixes for what happens when a Rockchip power domain clock is not
+available yet and rockchip_pm_domain_probe() defers. They are based on
+patch 1/2 "pmdomain: rockchip: Only put clocks that have been
+successfully obtained" of Yao Zi's series [1], which fixes the
+WARN_ON_ONCE() in __clk_put() on that path and has to be applied first.
 
-Leave SUSPENDED to the pause and resume paths. Track the suspend request
-separately from its acknowledgment so a timeout can be followed by either
-a pause retry or a resume. Wait for acknowledgment before clearing the
-hardware request, since hardware ignores an earlier clear. If that wait
-also times out, return -EAGAIN with the request still pending.
+1. The error cleanup removes the parent/child links before the domains.
+   pm_genpd_remove() refuses a domain that is still a parent, and on
+   RK3588 (RKVDEC0/1 are children of both VCODEC and VDPU) no ordering
+   avoids that, so devm freed domains that were still on gpd_list.
+2. Errors are reported once, where they happen, with dev_err_probe().
+   A deferral is no longer printed as an error, once per probe attempt
+   by rockchip_pm_add_one_domain() and once or twice by its callers,
+   its reason is recorded for devices_deferred, and the paths that
+   relied on the callers' message (clk_bulk_prepare(), pm_qos) now say
+   what failed.
 
-A completed transfer is also quiescent, but its completion handler may
-still need to advance a cyclic descriptor. Defer that restart while a
-pause is pending, and resume it without reprogramming the first LLI.
-Track the active descriptor until its completion handler runs so that
-resume and issue_pending cannot restart a completed cyclic segment or
-reissue a completed noncyclic descriptor while its IRQ is pending.
-Start queued work after the active descriptor is retired, respecting the
-pause request.
+Patch 2 supersedes patch 2/2 "pmdomain: rockchip: Don't log when
+of_clk_get() fails with -EPROBE_DEFER" of [1]. That patch keeps the
+callers' messages and skips them for -EPROBE_DEFER, as v1 of this patch
+did; in the review of v1 Sebastian asked to drop the callers' messages
+and use dev_err_probe() in the error paths instead, which is what patch
+2 does, including the of_clk_get() path that 2/2 of [1] converts.
 
-Clear stale suspension status at the start of a new descriptor rather
-than at each cyclic restart. Reset the software state after successful
-termination and when allocating a channel for a new client.
+Tested on an Orange Pi 5 (RK3588S) with v1 of this series on a v7.3
+based kernel, with a test device tree that gives PD_FEC a clock which
+only appears about 26 s into boot. PD_FEC is nested under PD_VI and is
+reached after 18 domains and their links were registered, so every
+deferral runs the cleanup with nested domains present. devices_deferred
+shows "failed to get clk at index 5", there is no "failed to remove
+domain", list or slab corruption report (booted with page_poison=1
+init_on_free=1), no "-517" error lines, and the controller binds later
+with each of the 26 domains listed once in pm_genpd_summary. The same
+late clock on PD_NPU (the first domain, so nothing is registered yet
+when it defers) was only booted without these two patches; those boots
+are where the "-517" lines quoted in patch 2 come from. A host-side
+model of the probe and cleanup on the board's DTB, deferring at each
+domain in turn, leaves freed domains on gpd_list at 24 of 26 failure
+points without patch 1 and at none with it.
 
-Store the lock-protected pause flags as bitfields in existing padding.
+[1] https://lore.kernel.org/r/20261105001257.1368266-1-me@ziyao.cc
 
-Fixes: 1fe20f1b8454 ("dmaengine: Introduce DW AXI DMAC driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+This series was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code of both patches and the commit messages, and I
+reviewed every change and tested it as described above.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 98 ++++++++++++++++++++++----
- drivers/dma/dw-axi-dmac/dw-axi-dmac.h          |  7 +-
- 2 files changed, 89 insertions(+), 16 deletions(-)
+Changes in v2:
+- Dropped 1/3 "pmdomain: rockchip: put only the clocks that were got on
+  error" (Igor Pecovnik) in favour of Yao Zi's earlier fix for the same
+  bug, 1/2 of [1] (same Fixes tag, the same clocks are put). The series
+  is now based on that patch, and the dev_err_probe() for a failed
+  of_clk_get() that was part of the dropped patch is now in 2/2.
+- 2/2 (was 3/3): drop the "failed to handle (subdomain) node" messages
+  from the callers instead of skipping them for -EPROBE_DEFER, and
+  report each error once where it happens with dev_err_probe(),
+  including the clk_bulk_prepare() and pm_qos paths that relied on the
+  callers' message; new subject (Sebastian Reichel)
+- 2/2: a failed syscon_node_to_regmap() for a pm_qos node now returns
+  its own error (it can be -EPROBE_DEFER) instead of -ENODEV
+- 1/2 (was 2/3): unchanged
+- Cc Yao Zi
+- Not re-tested on the board. For the tested case (-EPROBE_DEFER from
+  of_clk_get()) v2 differs from what was tested only in where the
+  clocks are put (the err_put_clocks label, 1/2 of [1], instead of next
+  to of_clk_get()) and in the callers' messages, which v1 skipped for
+  -EPROBE_DEFER and v2 no longer has. The other changes in 2/2 are on
+  error paths the test did not reach. v2 is build-tested (W=1, arm64).
+- Based on v7.4-rc2; with 1/2 of [1] the series applies to the pmdomain
+  fixes branch as is. On the next branch, 1/2 of [1] conflicts with
+  "pmdomain: rockchip: cycle an optional power-domain reset on power-on"
+  (a reset_control_put() added after the changed line), and 2/2
+  conflicts with it in context only; git am -3 resolves the latter.
+- Link to v1: https://patch.msgid.link/20261110-pmdomain-rockchip-v1-0-6b9fa6ebaa86@gmail.com
 
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-index 1a53fbc951a9..70ff0c500623 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-@@ -481,6 +481,8 @@ static void axi_chan_block_xfer_start(struct axi_dma_chan *chan,
- 	irq_mask |= DWAXIDMAC_IRQ_SUSPENDED;
- 	axi_chan_irq_set(chan, irq_mask);
- 
-+	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-+	chan->desc = first;
- 	axi_chan_enable(chan);
- }
- 
-@@ -489,6 +491,9 @@ static void axi_chan_start_first_queued(struct axi_dma_chan *chan)
- 	struct axi_dma_desc *desc;
- 	struct virt_dma_desc *vd;
- 
-+	if (chan->desc || chan->pause_requested)
-+		return;
-+
- 	vd = vchan_next_desc(&chan->vc);
- 	if (!vd)
- 		return;
-@@ -543,6 +548,10 @@ static int dma_chan_alloc_chan_resources(struct dma_chan *dchan)
- 		pm_runtime_put(chan->chip->dev);
- 		return -ENOMEM;
- 	}
-+	chan->desc = NULL;
-+	chan->pause_requested = false;
-+	chan->is_paused = false;
-+	chan->cyclic_restart = false;
- 	dev_vdbg(dmaengine_chan_dev(dchan), "%s: allocating\n", axi_chan_name(chan));
- 
- 	return 0;
-@@ -1087,6 +1096,8 @@ static noinline void axi_chan_handle_err(struct axi_dma_chan *chan, u32 status)
- 	vchan_cookie_complete(vd);
- 
- 	/* Try to restart the controller */
-+	chan->desc = NULL;
-+	chan->cyclic_restart = false;
- 	axi_chan_start_first_queued(chan);
- 
- out:
-@@ -1134,11 +1145,18 @@ static void axi_chan_block_xfer_complete(struct axi_dma_chan *chan)
- 			}
- 		}
- 
--		axi_chan_enable(chan);
-+		if (chan->pause_requested) {
-+			chan->is_paused = true;
-+			chan->cyclic_restart = true;
-+		} else {
-+			axi_chan_enable(chan);
-+		}
- 	} else {
- 		/* Remove the completed descriptor from issued list before completing */
- 		list_del(&vd->node);
- 		vchan_cookie_complete(vd);
-+		chan->desc = NULL;
-+		axi_chan_start_first_queued(chan);
- 	}
- 
- out:
-@@ -1160,6 +1178,8 @@ static irqreturn_t dw_axi_dma_interrupt(int irq, void *dev_id)
- 	for (i = 0; i < dw->hdata->nr_channels; i++) {
- 		chan = &dw->chan[i];
- 		status = axi_chan_irq_read(chan);
-+		/* Leave suspension status for the pause and resume paths. */
-+		status &= ~DWAXIDMAC_IRQ_SUSPENDED;
- 		axi_chan_irq_clear(chan, status);
- 
- 		dev_vdbg(chip->dev, "%s %u IRQ status: 0x%08x\n",
-@@ -1206,6 +1226,11 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
- 
- 	vchan_get_all_descriptors(&chan->vc, &head);
- 
-+	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-+	chan->desc = NULL;
-+	chan->pause_requested = false;
-+	chan->is_paused = false;
-+	chan->cyclic_restart = false;
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- 
- 	vchan_dma_desc_free_list(&chan->vc, &head);
-@@ -1215,16 +1240,50 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
- 	return 0;
- }
- 
-+static bool axi_chan_is_suspended(struct axi_dma_chan *chan)
-+{
-+	if (!axi_chan_is_hw_enable(chan)) {
-+		/* A completed transfer cannot acknowledge a new suspend request. */
-+		axi_chan_disable(chan);
-+		return true;
-+	}
-+
-+	return axi_chan_irq_read(chan) & DWAXIDMAC_IRQ_SUSPENDED;
-+}
-+
-+/* A timed-out request can still be acknowledged. */
-+static int axi_chan_wait_for_suspend(struct axi_dma_chan *chan)
-+	__must_hold(&chan->vc.lock)
-+{
-+	bool suspended;
-+	int ret;
-+
-+	if (chan->is_paused)
-+		return 0;
-+
-+	ret = readx_poll_timeout_atomic(axi_chan_is_suspended, chan,
-+					suspended, suspended, 2, 40);
-+	if (ret)
-+		return -EAGAIN;
-+
-+	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-+	chan->is_paused = true;
-+	return 0;
-+}
-+
- static int dma_chan_pause(struct dma_chan *dchan)
- {
- 	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
- 	unsigned long flags;
--	u32 status;
- 	int ret;
- 	u64 val;
- 
- 	spin_lock_irqsave(&chan->vc.lock, flags);
- 
-+	chan->pause_requested = true;
-+	if (chan->is_paused || !axi_chan_is_hw_enable(chan))
-+		goto wait;
-+
- 	if (chan->chip->dw->hdata->nr_channels >= DMAC_CHAN_16) {
- 		val = axi_dma_ioread64(chan->chip, DMAC_CHSUSPREG);
- 		if (chan->id >= DMAC_CHAN_16) {
-@@ -1251,17 +1310,11 @@ static int dma_chan_pause(struct dma_chan *dchan)
- 		}
- 	}
- 
--	ret = readx_poll_timeout_atomic(axi_chan_irq_read, chan,
--					status, status & DWAXIDMAC_IRQ_SUSPENDED,
--					2, 40);
--
--	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
--
--	chan->is_paused = true;
--
-+wait:
-+	ret = axi_chan_wait_for_suspend(chan);
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- 
--	return ret ? -EAGAIN : 0;
-+	return ret;
- }
- 
- /* Called in chan locked context */
-@@ -1295,6 +1348,8 @@ static inline void axi_chan_resume(struct axi_dma_chan *chan)
- 		}
- 	}
- 
-+	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-+	chan->pause_requested = false;
- 	chan->is_paused = false;
- }
- 
-@@ -1302,15 +1357,30 @@ static int dma_chan_resume(struct dma_chan *dchan)
- {
- 	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
- 	unsigned long flags;
-+	int ret = 0;
- 
- 	spin_lock_irqsave(&chan->vc.lock, flags);
- 
--	if (chan->is_paused)
--		axi_chan_resume(chan);
-+	if (!chan->pause_requested)
-+		goto out;
-+
-+	/* Hardware ignores resume until the suspend request is acknowledged. */
-+	ret = axi_chan_wait_for_suspend(chan);
-+	if (ret)
-+		goto out;
-+
-+	axi_chan_resume(chan);
-+	if (chan->cyclic_restart) {
-+		chan->cyclic_restart = false;
-+		axi_chan_enable(chan);
-+	} else {
-+		axi_chan_start_first_queued(chan);
-+	}
- 
-+out:
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- 
--	return 0;
-+	return ret;
- }
- 
- static int axi_dma_suspend(struct axi_dma_chip *chip)
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-index 3c86e5d468ea..332f9b9b9fd3 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-@@ -42,6 +42,11 @@ struct axi_dma_chan {
- 	void __iomem			*chan_regs;
- 	u8				id;
- 	u8				hw_handshake_num;
-+	/* Protected by vc.lock. */
-+	bool				pause_requested:1;
-+	bool				is_paused:1;
-+	bool				cyclic_restart:1;
-+
- 	atomic_t			descs_allocated;
- 
- 	struct dma_pool			*desc_pool;
-@@ -50,8 +55,6 @@ struct axi_dma_chan {
- 	struct axi_dma_desc		*desc;
- 	struct dma_slave_config		config;
- 	enum dma_transfer_direction	direction;
--	/* these other elements are all protected by vc.lock */
--	bool				is_paused;
- };
- 
- struct dw_axi_dma {
+---
+Arun Iyengar (2):
+      pmdomain: rockchip: remove subdomain links before the domains on error
+      pmdomain: rockchip: report domain errors once, with dev_err_probe()
 
--- 
-2.53.0
+ drivers/pmdomain/rockchip/pm-domains.c | 144 ++++++++++++++++++++-------------
+ 1 file changed, 89 insertions(+), 55 deletions(-)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261110-pmdomain-rockchip-3497a2e7fdf5
+prerequisite-patch-id: c2f0c5eb6651baa744f66342db63485a6685fb71
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
 
