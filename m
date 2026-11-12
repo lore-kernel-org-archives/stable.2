@@ -1,54 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.36
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794464002;
-	b=EuIi9W7A4M3AD9dx/MAirh+6+rSkqqG3UG63MEmIpA95y44ldVIWdz7Q38Bnao0HSagZ
-	 UgzWaLgOmnsH88X9S/Ult7Lde0fPOWlH5Z5KIydSmDUutOJ+eLjLJ8PctRTAd7AyRjJIl
-	 oCGZtvJR0UKX2jyi1+cwSJ2XTjaBmP5/bx6zV65KW1z+WW4j5m0P5pRGTZ+4rRTvM6cw9
-	 dMzzaeOleik8+Muggdo5E7Hl205wzKDbDs8Q+ECaIAGp/E0vTaMCXoeobzic1wQc/i8hV
-	 71vdpvuEmoa41Rk1uy8Jcgi+DwVv+qjE9hSfLcawZXTzWYB+Q+ZBjAwWPj9wmbVP2HQ==
+	t=1794464114;
+	b=ljtHFL4qsr5gdgm58LVrHDeTSBYwnMRMGsAoi/B0Wfmt1uv11eIngIMv4ZZwYXoUHKYV
+	 KO/x0+h/U7fxXN5pRZBczQRNBEN5olaQ070ijTj81n9oh3+XlbyrdjyauDEwUV1VR9Uzq
+	 CNKAhgnHa09KiUkldjudqVpTNKjwrvwuFFBGy79eWd8XPXHDf35EDnEW2Wk3aFfI3OvHk
+	 H8fdEYi5UnYBpigGO48JAuxWxG+CYb5fBnLuhxYyZ9iyPKz0QgGUPfee1uERS8pS4pYeR
+	 igbnET2J12swVTA0S2My81ZzSkWROJPNmLRkXqH8AzUxfLUc+c+262vx2c9wdB5QdHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794464002;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=IuShiHyRyDZxBf6e8YOm6MFfw5BWDF9yKQbfeeu8nmE=;
-	b=uEzxGs1oWWECpMLxRhvrKDX4/lcbToYtDDS8C9XxjC9NTSB3UV91lDkACHxf0FnnqmIR
-	 cuU56X9dpW/EFbTPAA6vCkAxPGb4uj+WOpaCj6PvG3BNnzTeX3+lOoKDGKlUqH8eWzrbJ
-	 Ce4NAdn7gBhKsuJI5hZrtcPpTNj7b76aeHAtGzOYI1K1n8EINF4o1arRk1cUD8XiCRYY5
-	 kqUwT17nCRXVR3cG/6QBzDoUKwE6+DeXn9d1wzgLHPO0sFrEzHC4xiUQ5QH/fdzPEGmW1
-	 v3pS4ZD9hETdtTLOWe89CKRbOlZCjpclOOlIyOfkKMzxLmbieogmTRS55UKYIpoXX/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794464114;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Vx8jegixfG8ud0k0rnqc4fDDdtC8/64S6FMHMTINRGs=;
+	b=Fzq2saUF9xeJuROx/ZkwNgfvOfU8fOoN+qatqEldzMOivMDHGxEkAZgm9Iox5ENcGoQW
+	 7Z9SXnlyS3pJfShpXPdTHlZP+9U7Uvi/+I7z2bCNadl0lc+ep9Z4q1oVJsKq75FtCJhzE
+	 JpiEcucunl9owbNa+z57Px+9k4zIPd+k7vbVP2v2hqApVKqEk4TnYm7Ch8Xstj1hKY4fN
+	 isfSJksGCapwuDZ09Lk3iL9jd6OCc8Ig/6zp5MpEy9mIBUBGBfcH5OY+ofpGPx35h0Hfb
+	 byV5iwhZw36V9qjJyZPH3Sd4LfuPWGVEY8WSncF6e9SAHwT5d6lNcvxXTVaR0f3sG0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JzuWZzGI;
-	arc=none smtp.remote-ip=91.218.175.36
-Received: from mta0.migadu.com (out-36.mta0.migadu.com [91.218.175.36])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DfBtHZiA;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C17606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:13:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02C17606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0D4606A32A
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:15:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F0D4606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JzuWZzGI
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vN3Xm+gcrUO1WDmKGVle2xItUFZzcDTDyabC98afJ8s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794463999; v=1; x=1795068799;
- b=JzuWZzGIGjhlExhBiHKdumURCs82ANwESjEmR6fuXdFUxD/HMo8GyG7nln5rPeCUPYdOjCjv
- 6Hjcrvi/Kgw8oe2NW5YrQQTszhMNkOjS9GbMAk3/lwMCB89FKKfazRWP5ycxS49rnQHdC42EF91
- A0qw+/EpE/kVNIorHcAQlF4g=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a59a91c215b2ecd2;
-	Thu, 12 Nov 2026 06:13:19 +0000
-X-Mizu-Trace-ID: a59a91c215b2ecd2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1116fd15-a927-4f6e-a0ab-084bc36a90aa@linux.dev>
-Date: Thu, 12 Nov 2026 14:13:10 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DfBtHZiA
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b0a13ae043so4653300a91.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:15:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794464113; x=1795068913; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vx8jegixfG8ud0k0rnqc4fDDdtC8/64S6FMHMTINRGs=;
+        b=DfBtHZiADm8aC1tIo3EBpHmPHMVbr7D6BjdBoK2VJBrjXXlJu/3NFxui5H1d6DCWUw
+         De2QHLNcIqLLTOnXxnkpXkprRoegjS8s+jb8K8ih1VwQnl/3AYLhR7Un2oKQnWvUvPF5
+         f2ChaFGA/RIIarWf+k44PrAyM6EesC0A3rFNoy/JValIylnNdCBggZUA01b4ejL7h3To
+         aNw3p+RaefqN9eHJ7UJKD/wpR6IuBR/NyQS00D/90dLg3W3jhIc+Vf8vezS46xHvrHlX
+         fEEV1Ew9K3rkG9ZooGMxEAFRGww8gOHmr35RKNw6qSuJDjwHprjV5iPx8x/zP5EKTXmR
+         L9yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794464113; x=1795068913;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vx8jegixfG8ud0k0rnqc4fDDdtC8/64S6FMHMTINRGs=;
+        b=ftFhkU73uSToaF76n3A2QCQpSqcFb+uVRKYzZy/5xwJ+DdGVF+b8y66W0ybRO6/lRA
+         eA8N27PWg610+uwIa/o5qqIvW8YNs/v//uRyCed7M0tTaUql45Od1ZeKH8F4tZtyTsXv
+         hboxP+DFnz/DX6d0a1/2RPH6rTw4wsBI2h/PGYvaBqAwTnQZNic5JKm+Jm9CrNOcdFtC
+         KTUwwWL8CkbtXrKSzuQd2aWApfpoNTnw4D9p68yCUaVNE/CyUGgzi4TIEl85xS4dHhIC
+         Jqpgx7rB+EEw/A5RZj24nb9GE1UAevORQeAajaeGOMqp0HnnBE0lHju4FfReqgCCQODb
+         6PLg==
+X-Forwarded-Encrypted: i=1; AL+hErGbL7wAq1RocPHCUTDHaTPeHAWYAxloCrS0zzSXMiL2p0virYOzm9t6TR76QXKBide2bL0vDt8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vu+PgAvPgVlodE/M4mUcVB7nP5s8QCNXGym9h0mGNS+KNWsld
+	wdUO8608qhKF9EWK6/z1j5YUCa4yrbMyOnrOObWsc6T0asUlRVFvwCQawqh+TtYed0GHV7sgq6S
+	yl7e0Yg==
+X-Received: from pjbee14.prod.google.com ([2002:a17:90a:fc4e:b0:3ae:c243:313b])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2245:b0:3b0:ab34:afc8
+ with SMTP id 98e67ed59e1d1-3b182e94123mr4304859a91.20.1794464112721; Wed, 11
+ Nov 2026 22:15:12 -0800 (PST)
+Date: Thu, 12 Nov 2026 06:15:12 +0000
+In-Reply-To: <340d9f1f96e235642e8b47b5e7c836a18de8dd56.1794325665.git.x-professor@outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,75 +77,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-To: Muchun Song <muchun.song@linux.dev>, David Hildenbrand <david@kernel.org>
-Cc: osalvador@suse.de, akpm@linux-foundation.org, azpijr@gmail.com,
- Lance Yang <lance.yang@linux.dev>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
- <503c9f6d869e3206c6fd591de962c3d619b73825.1794379433.git.zhengqi.arch@bytedance.com>
- <80FED512-77D2-4D49-BAE5-745CE1F711CA@linux.dev>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <80FED512-77D2-4D49-BAE5-745CE1F711CA@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <cover.1794325665.git.x-professor@outlook.com> <340d9f1f96e235642e8b47b5e7c836a18de8dd56.1794325665.git.x-professor@outlook.com>
+Message-ID: <avVX-3s3AYwtxQe7@google.com>
+Subject: Re: [PATCH net 1/2] tcp: avoid wrapping Fast Open blackhole timeout
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "mptcp@lists.linux.dev" <mptcp@lists.linux.dev>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "edumazet@kernel.org" <edumazet@kernel.org>, 
+	"ncardwell@google.com" <ncardwell@google.com>, "davem@davemloft.net" <davem@davemloft.net>, 
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, 
+	"horms@kernel.org" <horms@kernel.org>, "matttbe@kernel.org" <matttbe@kernel.org>, 
+	"martineau@kernel.org" <martineau@kernel.org>, "geliang@kernel.org" <geliang@kernel.org>, 
+	"ycheng@google.com" <ycheng@google.com>, "weiwan@google.com" <weiwan@google.com>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-
-
-On 11/11/26 3:42 PM, Muchun Song wrote:
+On Tue, 10 Nov 2026 15:47:58 +0000, Yingjie Wang wrote:
+> tcp_fastopen_active_should_disable() calculates the active-disable
+> interval as multiplier * tfo_bh_timeout * HZ. Since all operands are
+> 32-bit, a large tcp_fastopen_blackhole_timeout_sec can wrap the delay
+> even on 64-bit kernels and re-enable active Fast Open too soon.
 > 
+> For example, with HZ=1000, a timeout of 6912213 seconds and the maximum
+
+No one wants to configure 80 days blackhole timeout.
+
+Please apply a sane limit in proc_tfo_blackhole_detect_timeout().
+
+---
+pw-bot: cr
+
+
+> multiplier of 64 should produce 442381632000 jiffies, but the current
+> calculation truncates it to 512 jiffies.
 > 
->> On Nov 11, 2026, at 14:46, Qi Zheng <qi.zheng@linux.dev> wrote:
->>
->> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>
->> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
->> unpinnable, causing unnecessary migration or pinning failures.
->>
->> These folios already own their CMA bitmap ranges, and memory blocks
+> This issue was found using a static analysis tool. A loopback reproducer
+> induced 12 Fast Open blackholes and waited 1.2 seconds before opening
+> another connection. The unpatched kernel retried active Fast Open, while
+> the patched kernel kept Fast Open disabled and used a regular TCP
+> handshake. The reproducer required neither kernel modifications nor
+> fault injection.
 > 
-> Commit message needs updating to bitmap as well.
-
-Will do.
-
+> Compute the interval in u64 and cap it at MAX_JIFFY_OFFSET before adding
+> it to the saved timestamp. This preserves the existing exponential
+> backoff for representable intervals and prevents large values from
+> wrapping into short timeouts.
 > 
->> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
->> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
->>
->> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
->> Cc: stable@vger.kernel.org
->> Suggested-by: Muchun Song <muchun.song@linux.dev>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> Acked-by: Muchun Song <muchun.song@linux.dev>
->> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
->> ---
->> include/linux/mm.h | 29 +----------------------------
->> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
->> 2 files changed, 32 insertions(+), 28 deletions(-)
->>
->> diff --git a/include/linux/mm.h b/include/linux/mm.h
->> index b0da9be413098..47d1d96bfc7fd 100644
->> --- a/include/linux/mm.h
->> +++ b/include/linux/mm.h
->> @@ -2954,35 +2954,8 @@ static inline bool is_zero_folio(const struct folio *folio)
->> 	return is_zero_page(&folio->page);
->> }
->>
->> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
->> #ifdef CONFIG_MIGRATION
->> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+> Fixes: cf1ef3f0719b ("net/tcp_fastopen: Disable active side TFO in certain scenarios")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  net/ipv4/tcp_fastopen.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> I think David prefer to move this function first, then fix it in a separate patch,
-> right?
-
-Hi David, is this what you mean? If so, I will split it into two patches
-for the v5.
-
-Thanks,
-Qi
-
+> diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
+> index 7f7eb3cc1c04..aeefd605414f 100644
+> --- a/net/ipv4/tcp_fastopen.c
+> +++ b/net/ipv4/tcp_fastopen.c
+> @@ -613,6 +613,7 @@ bool tcp_fastopen_active_should_disable(struct sock *sk)
+>  	unsigned long timeout;
+>  	int tfo_da_times;
+>  	int multiplier;
+> +	u64 delay;
+>  
+>  	if (!tfo_bh_timeout)
+>  		return false;
+> @@ -626,10 +627,11 @@ bool tcp_fastopen_active_should_disable(struct sock *sk)
+>  
+>  	/* Limit timeout to max: 2^6 * initial timeout */
+>  	multiplier = 1 << min(tfo_da_times - 1, 6);
+> +	delay = (u64)multiplier * tfo_bh_timeout * HZ;
+>  
+>  	/* Paired with the WRITE_ONCE() in tcp_fastopen_active_disable(). */
+>  	timeout = READ_ONCE(sock_net(sk)->ipv4.tfo_active_disable_stamp) +
+> -		  multiplier * tfo_bh_timeout * HZ;
+> +		  min(delay, MAX_JIFFY_OFFSET);
+>  	if (time_before(jiffies, timeout))
+>  		return true;
+>  
+> -- 
+> 2.43.0
+> 
