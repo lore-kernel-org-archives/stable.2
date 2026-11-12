@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450227;
-	b=ay4ussl+IT5jBHXK0D2DSRdazKJQ3yPWT5MQ4EI3VESRS6qnVReDLfBcR9bVBn2q8l0R
-	 NKxvVgVgYihWgznstKFjc98o2ZxtEGcT62LY7WW1hUGAYlswReATVutmhymIsLZQfeK+q
-	 CskXFrz+hCC12f0wOIC+WMkBv2s/lOPNtg5B+1GigiPly1GJG9e0jJxDyGpzct+0xvFrg
-	 Tk72peaaoaev2PI0KTkeU06vZ2Qx9Z9ZXiXMZ2JV/N56E7R6OKw6qIDw/6+Z/SWX9xB6W
-	 qmxGkiZ9RMMO6PSgIBP2rrrpEK2hEG3F5/SH36XmJt2LQF6qPTiKLMDkNrOeg3cmQhA==
+	t=1794450228;
+	b=5R1m2gAHjIVPcUEypfNx1KtRXhMYet615HpPs/950btWBPl4FiPoeXAgWFSslxZP30J4
+	 wBN47C/iPKTv94Y3bWeMOcwgayZ2A5ibcuhsor08OIkxyRhku4V1K4THVIxslA3IsRm75
+	 B773vHHcqzowYuPeXRL8L6YS8K8BnEPe4+fMjzA58aJ9zsRS0CfaCoZBwjQ3TODYOrgO4
+	 vpp/ZGfKnn3vdKtGaZrNhtNmxfeQvHmPnfr2YktdiA/cDzMxv5djtsW/gMMYTaL/oWqVW
+	 ABYMnRwAFmfcmlnIYUPRl9BQur/myttvT8/vGd12YlFl+LO+vd57nDRts94atoGBU0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450228;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pYfdROb3cit6zBo3yLVVVslhyBeNHfu21Yw2OBdK9IQ=;
-	b=is4khd7EWUKjVmMP4lAYuEwhJRKrI+t3m6wiYmlH+CWdzn9HojIzDGGgMwjXg+PRIuTW
-	 RWJePf18eSIUbJSDVJLltgathVpWFzYgV6olXziQv9e/WELKEUdplDqgtPnQm7wgXTCB7
-	 Sv14jn3euU+nuRvBr1I+rBpkWD24BxPdDbrCQeASNf/oSqAxFsPGg+9RnCemgkn9gByLo
-	 t2ICs8RTeVzpSUeZInLiWsCg0wIIJPIf6gX4kKqYljGT0yiAqFj8SNzp/0VAD7GgDXTzo
-	 rhDWfbmKygYOzVhQKTyqgsyrDUYNvj71yctvcoL+c4zkSaoyu5lwyGseJaCWLlRfUig==
+	bh=W20oqA6AVVI+ULyDcGNIDJK492G6jgxhW2AFsbF1GYU=;
+	b=cEvPZoc17tfJGvZwVDRD/1hkDKmOmt2VDbKaVPsUsZT0D0Kh9gZiPT9mx+GHyz+2xKRX
+	 ElV9DoVbEwPiAmilalEL1Yb4SgZvKPybeHOD3SDjwljzKRPjmG1CYcxrRV4t06L5jMJVj
+	 RI8te7mXo6ASM4ZYorUZtA69Iubx2O1gnsOFe57BVFX6NNK+gfuUTzRI6I1dmvpTTXCvU
+	 8qspYsSZK7a6axu0F6lr2giZw8I/3bF4yENG8t6GC5LsKhlJeWAlSLq7rOw8P6KxqO9Ri
+	 VAZN4gOlUsebHxb411Z6bjbSw/0clz0egSh8VEhUuhUTX5VvXshBsyaWM7Tjz0CPKAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Sk2pdA/1";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UiLVJnM+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E18606A323
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:23:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D48E606A323
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:23:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sk2pdA/1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFDE71F00A06;
-	Thu, 12 Nov 2026 02:23:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UiLVJnM+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70D51F00A07;
+	Thu, 12 Nov 2026 02:23:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794450227;
-	bh=pYfdROb3cit6zBo3yLVVVslhyBeNHfu21Yw2OBdK9IQ=;
+	s=k20260515; t=1794450228;
+	bh=W20oqA6AVVI+ULyDcGNIDJK492G6jgxhW2AFsbF1GYU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sk2pdA/1oCBUFKZQS2IEg4XfHcc5NyDDCdcSIywtK9S1yHCCut9MOTo0SfQHQNWFP
-	 6/pWXnkWVryJUfTu1AJpUKi6kkc0JQtQGYuJblsN8mhHgDVo0N+NABm4A9vEkryf97
-	 sLAa89L1N0MYbB1zFnyMEEcqXGTO4j74gb5NZl5qKOfQQ6mMxZ+zh4l8pbCIfx1Sbx
-	 Ct90vKxBFE5hhpbMyg2gvDYaZzqg4G/33miKiqH0sYBtxG7CALa/IvzzxKNg1V7uWd
-	 HtLtrwA2PmJbG8zZaEyX75ycTjVzFCJ6ESOiIjBQa+ZCjjSep7QnGb2zzQ2qAEWFu8
-	 lsksnna1/jtZA==
+	b=UiLVJnM+cTMl9chuhY02dqh1QCuZ1LIJfOo4YvFyIv31PQWOMVykcE50U+Q8PVlzF
+	 Y+2D3zIglXOSkF0BhQJ/9g1zEdx4LlfdMsBRfyFyyouzgRks21hvpTzmAI1SB5A11/
+	 hCzZZHB8RaEylVrLTdgzKEzqt1iv7lk026DGvZpA0tZCXTZRtoIwuEi1YtBNWOFrlX
+	 7nPZvQZSh1LnqbafX17PKXNt4fKBAAjvzIbTqAJm25YU8NGSBSOkt3uaQctGmZLgtb
+	 WF6s1Jp9JDkS5E9Ec+ie0HurDFn9i5VnDbmLC9jnSDqGbrJPtLjeIL9aPw0GbWKvWm
+	 DzpiQ6ML6S7Zg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Manish Awasthi <mawasthi@linux.microsoft.com>,
-	Simon Horman <horms@kernel.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Sahil Chandna <sahilchandna@linux.microsoft.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] net: mana: Introduce gdma_bus_ops for bus-specific operations
-Date: Wed, 11 Nov 2026 21:23:44 -0500
-Message-ID: <20261112021329.1243520-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] net: mana: Add support to process throttled EQEs
+Date: Wed, 11 Nov 2026 21:23:45 -0500
+Message-ID: <20261112021329.1243520-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200151-failed-7.3-684603842b78@kernel.org>
+In-Reply-To: <20261112021329.1243520-1-sashal@kernel.org>
 References: <20261109200151-failed-7.3-684603842b78@kernel.org>
+ <20261112021329.1243520-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,1493 +62,421 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Manish Awasthi <mawasthi@linux.microsoft.com>
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
 
-[ Upstream commit c03e69c95a18e957dd461d60bd343e0488a986c4 ]
+[ Upstream commit 684603842b78f75835d21fdf5c19ae717ed8eb1a ]
 
-Introduce per-device gdma_bus_ops for interrupt allocation, IRQ lookup,
-reset, servicing, and bus-specific capabilities. Route the shared GDMA
-code through these callbacks and provide the PCI implementation.
+When an event queue nears full, the hardware coalesces the per-CQ
+GDMA_EQE_COMPLETION notifications into a single throttle EQE (type 4)
+that carries no cq_id. The driver does not handle this event type, so
+it falls through to the default case and is dropped. Any CQ whose
+completion notification was replaced by the throttle EQE can remain
+unserviced, causing its queue to stall.
 
-Move common device bring-up and teardown into mana_gd_setup() and
-mana_gd_cleanup(), including hardware-channel initialization, device
-enumeration, interrupt-pool sizing, and servicing workqueue management.
-Record the vPort count for transport-specific queue sizing and keep shared
-IRQ context bookkeeping in the core.
+This was observed internally as a TX stall:
 
-This prepares the driver for additional bus transports without duplicating
-the core or adding configuration checks throughout it.
+  ens1: NETDEV WATCHDOG: CPU: 45: transmit queue 1 timed out 15133 ms
+  mana 7870:00:00.0: HWC: Request timed out: 60000 ms
+  mana 7870:00:00.0: Gf stats wk handler: gf stats query timed out.
+  ens1: NETDEV WATCHDOG: CPU: 20: transmit queue 0 timed out 15859 ms
+  ens1: NETDEV WATCHDOG: CPU: 15: transmit queue 0 timed out 31731 ms
+  ens1: NETDEV WATCHDOG: CPU: 21: transmit queue 0 timed out 47603 ms
+  ens1: NETDEV WATCHDOG: CPU: 42: transmit queue 0 timed out 62451 ms
 
-Signed-off-by: Manish Awasthi <mawasthi@linux.microsoft.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-Link: https://patch.msgid.link/20260924173054.589291-2-mawasthi@linux.microsoft.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 684603842b78 ("net: mana: Add support to process throttled EQEs")
+Handle the throttle EQE:
+
+- Record up to two child CQs per EQ when a CQ is created with a parent
+  EQ. A mana_en EQ serves one TX CQ and one RX CQ, and the HWC EQ
+  serves the HWC CQ.
+- On a throttle EQE, call the callback of each child CQ that is still
+  in cq_table[].
+- Before a child CQ is freed, unlink it from its parent EQ and from
+  cq_table[] in mana_gd_detach_cq(), then wait for an RCU
+  grace period, because mana_gd_intr() reads both under
+  rcu_read_lock(). mana_destroy_txq() and mana_destroy_rxq() detach
+  the CQ before deleting its NAPI, so the synchronize_net() that NAPI
+  deletion already needs also covers the CQ. mana_hwc_destroy_channel()
+  detaches the HWC CQ and waits for a grace period before freeing the
+  HWC queues.
+- Advertise the capability bit for throttled EQE.
+- Add a throttle eqe counter per queue.
+
+Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+Link: https://patch.msgid.link/20261028084020.2051254-1-sahilchandna@linux.microsoft.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../net/ethernet/microsoft/mana/gdma_main.c   | 907 ++++++++++--------
- drivers/net/ethernet/microsoft/mana/mana_en.c |  10 +-
- include/net/mana/gdma.h                       | 102 +-
- 3 files changed, 630 insertions(+), 389 deletions(-)
+ .../net/ethernet/microsoft/mana/gdma_main.c   | 88 +++++++++++++++++--
+ .../net/ethernet/microsoft/mana/hw_channel.c  |  9 +-
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 22 ++++-
+ .../ethernet/microsoft/mana/mana_ethtool.c    | 19 +++-
+ include/net/mana/gdma.h                       | 19 +++-
+ include/net/mana/mana.h                       |  1 +
+ 6 files changed, 143 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index 8e9bfc1d6a2ae..b076760b2dc50 100644
+index b076760b2dc50..5df4deee57846 100644
 --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
 +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -2,49 +2,42 @@
- /* Copyright (c) 2021, Microsoft Corporation. */
- 
- #include <linux/bitfield.h>
-+#include <linux/cpumask.h>
- #include <linux/debugfs.h>
-+#include <linux/delay.h>
-+#include <linux/list.h>
- #include <linux/module.h>
--#include <linux/pci.h>
- #include <linux/sizes.h>
- #include <linux/utsname.h>
- #include <linux/version.h>
- #include <linux/msi.h>
- #include <linux/irqdomain.h>
- #include <linux/export.h>
-+#include <linux/pci.h>
-+#include <linux/slab.h>
-+#include <linux/topology.h>
- #include <linux/uaccess.h>
-+#include <linux/xarray.h>
- 
- #include <net/mana/mana.h>
- #include <net/mana/hw_channel.h>
- 
- struct dentry *mana_debugfs_root;
- 
--struct mana_dev_recovery {
--	struct list_head list;
--	struct pci_dev *pdev;
--	enum gdma_eqe_type type;
--};
--
--static struct mana_dev_recovery_work {
--	struct list_head dev_list;
--	struct delayed_work work;
--
--	/* Lock for dev_list above */
--	spinlock_t lock;
--} mana_dev_recovery_work;
--
--static u32 mana_gd_r32(struct gdma_context *g, u64 offset)
-+/*
-+ * True if the underlying bus can allocate MSI-X vectors after probe time.
-+ * Buses that size their vector pool at probe install no callback.
-+ */
-+static bool mana_gd_msix_can_alloc_dyn(struct gdma_context *gc)
- {
--	return readl(g->bar0_va + offset);
--}
-+	if (!gc->bus_ops || !gc->bus_ops->msix_can_alloc_dyn)
-+		return false;
- 
--static u64 mana_gd_r64(struct gdma_context *g, u64 offset)
--{
--	return readq(g->bar0_va + offset);
-+	return gc->bus_ops->msix_can_alloc_dyn(gc);
+@@ -754,6 +754,27 @@ void mana_gd_free_service_wq(struct gdma_context *gc)
+ 	gc->service_wq = NULL;
  }
  
--static int mana_gd_init_pf_regs(struct pci_dev *pdev)
-+static int mana_gd_init_pf_regs(struct gdma_context *gc)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	u64 remaining_barsize;
- 	u64 sriov_base_off;
- 	u64 sriov_shm_off;
-@@ -102,9 +95,8 @@ static int mana_gd_init_pf_regs(struct pci_dev *pdev)
- 	return 0;
- }
- 
--static int mana_gd_init_vf_regs(struct pci_dev *pdev)
-+static int mana_gd_init_vf_regs(struct gdma_context *gc)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	u64 shm_off;
- 
- 	gc->db_page_size = mana_gd_r32(gc, GDMA_REG_DB_PAGE_SIZE) & 0xFFFF;
-@@ -148,14 +140,12 @@ static int mana_gd_init_vf_regs(struct pci_dev *pdev)
- 	return 0;
- }
- 
--static int mana_gd_init_registers(struct pci_dev *pdev)
-+int mana_gd_init_registers(struct gdma_context *gc)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
--
- 	if (gc->is_pf && !gc->is_pf2)
--		return mana_gd_init_pf_regs(pdev);
-+		return mana_gd_init_pf_regs(gc);
- 	else
--		return mana_gd_init_vf_regs(pdev);
-+		return mana_gd_init_vf_regs(gc);
- }
- 
- /* Suppress logging when we set timeout to zero */
-@@ -176,9 +166,8 @@ bool mana_need_log(struct gdma_context *gc, int err)
- 	return true;
- }
- 
--static int mana_gd_query_max_resources(struct pci_dev *pdev)
-+int mana_gd_query_max_resources(struct gdma_context *gc)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	struct gdma_query_max_resources_resp resp = {};
- 	struct gdma_general_req req = {};
- 	unsigned int max_num_queues;
-@@ -194,7 +183,7 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
- 	 * MSI-X allocation; on non-dyn platforms msi_sharing is
- 	 * unconditionally true (set in mana_gd_setup_hwc_irqs).
- 	 */
--	if (pci_msix_can_alloc_dyn(to_pci_dev(gc->dev)))
-+	if (mana_gd_msix_can_alloc_dyn(gc))
- 		gc->msi_sharing = false;
- 
- 	mana_gd_init_req_hdr(&req.hdr, GDMA_QUERY_MAX_RESOURCES,
-@@ -207,7 +196,11 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
- 		return err ? err : -EPROTO;
- 	}
- 
--	if (!pci_msix_can_alloc_dyn(pdev)) {
-+	if (!mana_gd_msix_can_alloc_dyn(gc)) {
-+		/* Buses that size their vector pool at probe time cannot grow
-+		 * it afterwards, so never raise num_msix_usable above what has
-+		 * already been allocated.
-+		 */
- 		if (gc->num_msix_usable > resp.max_msix)
- 			gc->num_msix_usable = resp.max_msix;
- 	} else {
-@@ -221,20 +214,24 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
- 
- 	/* MSI-X vectors are allocated by index into the device MSI-X table, so
- 	 * never ask for more than the table holds. It can be smaller than both
--	 * resp.max_msix and the CPU count.
-+	 * resp.max_msix and the CPU count. A bus that cannot report a table
-+	 * size installs no callback and skips the clamp.
- 	 */
--	err = pci_msix_vec_count(pdev);
--	if (err <= 0) {
--		dev_err(gc->dev, "Failed to query MSI-X table size: %d\n", err);
--		return err < 0 ? err : -ENOSPC;
--	}
--	msix_vec_count = err;
-+	if (gc->bus_ops && gc->bus_ops->msix_vec_count) {
-+		err = gc->bus_ops->msix_vec_count(gc);
-+		if (err <= 0) {
-+			dev_err(gc->dev,
-+				"Failed to query MSI-X table size: %d\n", err);
-+			return err < 0 ? err : -ENOSPC;
-+		}
-+		msix_vec_count = err;
- 
--	if (gc->num_msix_usable > msix_vec_count) {
--		dev_info(gc->dev,
--			 "Limiting MSI-X vectors from %u to table size %u\n",
--			 gc->num_msix_usable, msix_vec_count);
--		gc->num_msix_usable = msix_vec_count;
-+		if (gc->num_msix_usable > msix_vec_count) {
-+			dev_info(gc->dev,
-+				 "Limiting MSI-X vectors from %u to table size %u\n",
-+				 gc->num_msix_usable, msix_vec_count);
-+			gc->num_msix_usable = msix_vec_count;
-+		}
- 	}
- 
- 	if (gc->num_msix_usable <= 1)
-@@ -286,6 +283,8 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
- 	if (num_ports > MAX_PORTS_IN_MANA_DEV)
- 		num_ports = MAX_PORTS_IN_MANA_DEV;
- 
-+	gc->num_ports = num_ports;
-+
- 	/*
- 	 * Adjust the per-vPort max queue count to allow dedicated
- 	 * MSIx for each vPort. Prefer at least MANA_DEF_NUM_QUEUES,
-@@ -317,9 +316,8 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
- 	return 0;
- }
- 
--static int mana_gd_query_hwc_timeout(struct pci_dev *pdev, u32 *timeout_val)
-+static int mana_gd_query_hwc_timeout(struct gdma_context *gc, u32 *timeout_val)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	struct gdma_query_hwc_timeout_resp resp = {};
- 	struct gdma_query_hwc_timeout_req req = {};
- 	int err;
-@@ -336,9 +334,8 @@ static int mana_gd_query_hwc_timeout(struct pci_dev *pdev, u32 *timeout_val)
- 	return 0;
- }
- 
--static int mana_gd_detect_devices(struct pci_dev *pdev)
-+int mana_gd_detect_devices(struct gdma_context *gc)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	struct gdma_list_devices_resp resp = {};
- 	struct gdma_general_req req = {};
- 	struct gdma_dev_id dev;
-@@ -657,187 +654,31 @@ void mana_gd_ring_dim(struct gdma_queue *cq, u32 mod_usec, bool mod_usec_vld,
- }
- EXPORT_SYMBOL_NS(mana_gd_ring_dim, "NET_MANA");
- 
--#define MANA_SERVICE_PERIOD 10
--
--static void mana_serv_rescan(struct pci_dev *pdev)
--{
--	struct pci_bus *parent;
--
--	pci_lock_rescan_remove();
--
--	parent = pdev->bus;
--	if (!parent) {
--		dev_err(&pdev->dev, "MANA service: no parent bus\n");
--		goto out;
--	}
--
--	pci_stop_and_remove_bus_device(pdev);
--	pci_rescan_bus(parent);
--
--out:
--	pci_unlock_rescan_remove();
--}
--
--static void mana_serv_fpga(struct pci_dev *pdev)
--{
--	struct pci_bus *bus, *parent;
--
--	pci_lock_rescan_remove();
--
--	bus = pdev->bus;
--	if (!bus) {
--		dev_err(&pdev->dev, "MANA service: no bus\n");
--		goto out;
--	}
--
--	parent = bus->parent;
--	if (!parent) {
--		dev_err(&pdev->dev, "MANA service: no parent bus\n");
--		goto out;
--	}
--
--	pci_stop_and_remove_bus_device(bus->self);
--
--	msleep(MANA_SERVICE_PERIOD * 1000);
--
--	pci_rescan_bus(parent);
--
--out:
--	pci_unlock_rescan_remove();
--}
--
--static void mana_serv_reset(struct pci_dev *pdev)
--{
--	struct gdma_context *gc = pci_get_drvdata(pdev);
--	struct hw_channel_context *hwc;
--	int ret;
--
--	if (!gc) {
--		/* Perform PCI rescan on device if GC is not set up */
--		dev_err(&pdev->dev, "MANA service: GC not setup, rescanning\n");
--		mana_serv_rescan(pdev);
--		return;
--	}
--
--	hwc = gc->hwc.driver_data;
--	if (!hwc) {
--		dev_err(&pdev->dev, "MANA service: no HWC\n");
--		goto out;
--	}
--
--	/* HWC is not responding in this case, so don't wait */
--	hwc->hwc_timeout = 0;
--
--	dev_info(&pdev->dev, "MANA reset cycle start\n");
--
--	mana_gd_suspend(pdev, PMSG_SUSPEND);
--
--	msleep(MANA_SERVICE_PERIOD * 1000);
--
--	ret = mana_gd_resume(pdev);
--	if (ret == -ETIMEDOUT || ret == -EPROTO) {
--		/* Perform PCI rescan on device if we failed on HWC */
--		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
--		mana_serv_rescan(pdev);
--		return;
--	}
--
--	if (ret)
--		dev_info(&pdev->dev, "MANA reset cycle failed err %d\n", ret);
--	else
--		dev_info(&pdev->dev, "MANA reset cycle completed\n");
--
--out:
--	clear_bit(GC_IN_SERVICE, &gc->flags);
--}
--
--static void mana_do_service(enum gdma_eqe_type type, struct pci_dev *pdev)
--{
--	switch (type) {
--	case GDMA_EQE_HWC_FPGA_RECONFIG:
--		mana_serv_fpga(pdev);
--		break;
--
--	case GDMA_EQE_HWC_RESET_REQUEST:
--		mana_serv_reset(pdev);
--		break;
--
--	default:
--		dev_err(&pdev->dev, "MANA service: unknown type %d\n", type);
--		break;
--	}
--}
--
--static void mana_recovery_delayed_func(struct work_struct *w)
--{
--	struct mana_dev_recovery_work *work;
--	struct mana_dev_recovery *dev;
--	unsigned long flags;
--
--	work = container_of(w, struct mana_dev_recovery_work, work.work);
--
--	spin_lock_irqsave(&work->lock, flags);
--
--	while (!list_empty(&work->dev_list)) {
--		dev = list_first_entry(&work->dev_list,
--				       struct mana_dev_recovery, list);
--		list_del(&dev->list);
--		spin_unlock_irqrestore(&work->lock, flags);
--
--		mana_do_service(dev->type, dev->pdev);
--		pci_dev_put(dev->pdev);
--		kfree(dev);
--
--		spin_lock_irqsave(&work->lock, flags);
--	}
--
--	spin_unlock_irqrestore(&work->lock, flags);
--}
--
--static void mana_serv_func(struct work_struct *w)
-+/*
-+ * Queue device servicing or recovery on buses that support it.
-+ *
-+ * Servicing tears the device down and brings it back up, so it depends on
-+ * bus-level facilities the GDMA core does not have. Buses that provide no
-+ * servicing path install no callback and the request is rejected.
-+ */
-+int mana_schedule_serv_work(struct gdma_context *gc, enum gdma_eqe_type type)
- {
--	struct mana_serv_work *mns_wk;
--	struct pci_dev *pdev;
--
--	mns_wk = container_of(w, struct mana_serv_work, serv_work);
--	pdev = mns_wk->pdev;
--
--	if (pdev)
--		mana_do_service(mns_wk->type, pdev);
-+	if (!gc->bus_ops || !gc->bus_ops->schedule_serv_work)
-+		return -EOPNOTSUPP;
- 
--	pci_dev_put(pdev);
--	kfree(mns_wk);
--	module_put(THIS_MODULE);
-+	return gc->bus_ops->schedule_serv_work(gc, type);
- }
- 
--int mana_schedule_serv_work(struct gdma_context *gc, enum gdma_eqe_type type)
-+/* The servicing workqueue is owned by the GDMA core because the queueing
-+ * sites live here and in mana_en.c, which every transport shares. Each bus
-+ * driver creates it during setup and destroys it during cleanup.
-+ */
-+int mana_gd_alloc_service_wq(struct gdma_context *gc)
- {
--	struct mana_serv_work *mns_wk;
--
--	if (test_and_set_bit(GC_IN_SERVICE, &gc->flags)) {
--		dev_info(gc->dev, "Already in service\n");
--		return -EBUSY;
--	}
--
--	if (!try_module_get(THIS_MODULE)) {
--		dev_info(gc->dev, "Module is unloading\n");
--		clear_bit(GC_IN_SERVICE, &gc->flags);
--		return -ENODEV;
--	}
--
--	mns_wk = kzalloc_obj(*mns_wk, GFP_ATOMIC);
--	if (!mns_wk) {
--		module_put(THIS_MODULE);
--		clear_bit(GC_IN_SERVICE, &gc->flags);
-+	gc->service_wq = alloc_ordered_workqueue("gdma_service_wq", 0);
-+	if (!gc->service_wq)
- 		return -ENOMEM;
--	}
- 
--	dev_info(gc->dev, "Start MANA service type:%d\n", type);
--	mns_wk->pdev = to_pci_dev(gc->dev);
--	mns_wk->type = type;
--	pci_dev_get(mns_wk->pdev);
--	INIT_WORK(&mns_wk->serv_work, mana_serv_func);
--	schedule_work(&mns_wk->serv_work);
- 	return 0;
- }
- 
-@@ -904,6 +745,15 @@ ssize_t mana_gd_read_ring(struct gdma_queue *q, char __user *buf,
- 	return copied;
- }
- 
-+void mana_gd_free_service_wq(struct gdma_context *gc)
++static void mana_gd_schedule_eq_cqs(struct gdma_queue *eq)
 +{
-+	if (!gc->service_wq)
-+		return;
++	struct gdma_context *gc = eq->gdma_dev->gdma_context;
++	struct gdma_queue *cq;
++	u8 i;
 +
-+	destroy_workqueue(gc->service_wq);
-+	gc->service_wq = NULL;
++	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
++		cq = rcu_dereference(eq->eq.child_cq[i]);
++
++		if (!cq)
++			continue;
++
++		if (cq->id >= READ_ONCE(gc->max_num_cqs) ||
++		    !gc->cq_table || gc->cq_table[cq->id] != cq)
++			continue;
++
++		if (cq->cq.callback)
++			cq->cq.callback(cq->cq.context, cq);
++	}
 +}
 +
  static void mana_gd_process_eqe(struct gdma_queue *eq)
  {
  	u32 head = eq->head % (eq->queue_size / GDMA_EQE_SIZE);
-@@ -975,7 +825,7 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
- 	}
- }
+@@ -784,6 +805,14 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
  
--static void mana_gd_process_eq_events(void *arg)
-+void mana_gd_process_eq_events(void *arg)
- {
- 	u32 owner_bits, new_bits, old_bits;
- 	union gdma_eqe_info eqe_info;
-@@ -1530,9 +1380,8 @@ void mana_gd_destroy_queue(struct gdma_context *gc, struct gdma_queue *queue)
- }
- EXPORT_SYMBOL_NS(mana_gd_destroy_queue, "NET_MANA");
+ 		break;
  
--int mana_gd_verify_vf_version(struct pci_dev *pdev)
-+int mana_gd_verify_vf_version(struct gdma_context *gc)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	struct gdma_verify_ver_resp resp = {};
- 	struct gdma_verify_ver_req req = {};
- 	struct hw_channel_context *hwc;
-@@ -1546,6 +1395,8 @@ int mana_gd_verify_vf_version(struct pci_dev *pdev)
- 	req.protocol_ver_max = GDMA_PROTOCOL_LAST;
- 
- 	req.gd_drv_cap_flags1 = GDMA_DRV_CAP_FLAGS1;
-+	if (gc->bus_ops)
-+		req.gd_drv_cap_flags1 |= gc->bus_ops->drv_cap_flags1;
- 	req.gd_drv_cap_flags2 = GDMA_DRV_CAP_FLAGS2;
- 	req.gd_drv_cap_flags3 = GDMA_DRV_CAP_FLAGS3;
- 	req.gd_drv_cap_flags4 = GDMA_DRV_CAP_FLAGS4;
-@@ -1574,7 +1425,7 @@ int mana_gd_verify_vf_version(struct pci_dev *pdev)
- 			   &gc->pf_cap_flags1);
- 
- 	if (resp.pf_cap_flags1 & GDMA_DRV_CAP_FLAG_1_HWC_TIMEOUT_RECONFIG) {
--		err = mana_gd_query_hwc_timeout(pdev, &hwc->hwc_timeout);
-+		err = mana_gd_query_hwc_timeout(gc, &hwc->hwc_timeout);
- 		if (err) {
- 			dev_err(gc->dev, "Failed to set the hwc timeout %d\n", err);
- 			return err;
-@@ -1873,7 +1724,7 @@ int mana_gd_poll_cq(struct gdma_queue *cq, struct gdma_comp *comp, int num_cqe)
- }
- EXPORT_SYMBOL_NS(mana_gd_poll_cq, "NET_MANA");
- 
--static irqreturn_t mana_gd_intr(int irq, void *arg)
-+irqreturn_t mana_gd_intr(int irq, void *arg)
- {
- 	struct gdma_irq_context *gic = arg;
- 	struct list_head *eq_list = &gic->eq_list;
-@@ -1888,11 +1739,25 @@ static irqreturn_t mana_gd_intr(int irq, void *arg)
- 	return IRQ_HANDLED;
- }
- 
-+/*
-+ * Reset the device using whatever mechanism the bus provides.
-+ */
-+int mana_gd_dev_reset(struct gdma_context *gc)
-+{
-+	if (!gc->bus_ops || !gc->bus_ops->dev_reset)
-+		return -EOPNOTSUPP;
++	case GDMA_EQE_THROTTLE:
++		u64_stats_update_begin(&eq->eq.stats.syncp);
++		u64_stats_inc(&eq->eq.stats.throttle_count);
++		u64_stats_update_end(&eq->eq.stats.syncp);
 +
-+	return gc->bus_ops->dev_reset(gc);
-+}
++		mana_gd_schedule_eq_cqs(eq);
++		break;
 +
-+/*
-+ * Release a reference on the IRQ context backing an MSI vector, freeing
-+ * the vector once the last user is gone.
-+ */
- void mana_gd_put_gic(struct gdma_context *gc, bool use_msi_bitmap, int msi)
+ 	case GDMA_EQE_TEST_EVENT:
+ 		gc->test_event_eq_id = eq->id;
+ 		complete(&gc->eq_test_event);
+@@ -1029,6 +1058,8 @@ static int mana_gd_create_eq(struct gdma_dev *gd,
+ 	queue->eq.msix_index = INVALID_PCI_MSIX_INDEX;
+ 	queue->id = INVALID_QUEUE_ID;
+ 
++	u64_stats_init(&queue->eq.stats.syncp);
++
+ 	log2_num_entries = ilog2(queue->queue_size / GDMA_EQE_SIZE);
+ 
+ 	if (spec->eq.log2_throttle_limit > log2_num_entries) {
+@@ -1070,25 +1101,66 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
+ 			      struct gdma_queue *queue)
  {
--	struct pci_dev *dev = to_pci_dev(gc->dev);
-+	const struct gdma_bus_ops *ops = gc->bus_ops;
- 	struct gdma_irq_context *gic;
--	struct msi_map irq_map;
- 	int irq;
+ 	u32 log2_num_entries = ilog2(spec->queue_size / GDMA_CQE_SIZE);
++	struct gdma_queue *parent;
++	u8 i;
  
- 	mutex_lock(&gc->gic_mutex);
-@@ -1917,11 +1782,8 @@ void mana_gd_put_gic(struct gdma_context *gc, bool use_msi_bitmap, int msi)
- 	irq_update_affinity_hint(irq, NULL);
- 	free_irq(irq, gic);
- 
--	if (gic->dyn_msix) {
--		irq_map.virq = irq;
--		irq_map.index = msi;
--		pci_msix_free_irq(dev, irq_map);
--	}
-+	if (gic->dyn_msix)
-+		ops->msix_free(gc, msi, irq);
- 
- 	xa_erase(&gc->irq_contexts, msi);
- 	kfree(gic);
-@@ -1944,12 +1806,10 @@ struct gdma_irq_context *mana_gd_get_gic(struct gdma_context *gc,
- 					 bool use_msi_bitmap,
- 					 int *msi_requested)
- {
--	struct pci_dev *dev = to_pci_dev(gc->dev);
-+	const struct gdma_bus_ops *ops = gc->bus_ops;
- 	struct gdma_irq_context *gic;
--	struct msi_map irq_map = { };
--	int irq;
--	int msi;
--	int err;
-+	bool dyn_msix = false;
-+	int msi, irq, err;
- 
- 	mutex_lock(&gc->gic_mutex);
- 
-@@ -1975,27 +1835,34 @@ struct gdma_irq_context *mana_gd_get_gic(struct gdma_context *gc,
- 		goto out;
- 	}
- 
--	irq = pci_irq_vector(dev, msi);
-+	irq = ops->msix_virq(gc, msi);
- 	if (irq == -EINVAL) {
--		irq_map = pci_msix_alloc_irq_at(dev, msi, NULL);
--		if (!irq_map.virq) {
--			err = irq_map.index;
--			dev_err(gc->dev,
--				"Failed to alloc irq_map msi %d err %d\n",
--				msi, err);
--			gic = ERR_PTR(err);
-+		/* A bus that sizes its vector pool up front has nothing left
-+		 * to hand out once every vector has been claimed.
-+		 */
-+		if (!ops->msix_alloc_at) {
-+			dev_err(gc->dev, "No IRQ for MSI %d\n", msi);
-+			gic = ERR_PTR(-ENOENT);
-+			goto out;
+ 	queue->head |= INITIALIZED_OWNER_BIT(log2_num_entries);
+-	queue->cq.parent = spec->cq.parent_eq;
++	parent = spec->cq.parent_eq;
++	queue->cq.parent = parent;
+ 	queue->cq.context = spec->cq.context;
+ 	queue->cq.callback = spec->cq.callback;
++
++	if (!parent)
++		return;
++
++	/* For throttled EQE store the child CQ */
++	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
++		if (!rcu_access_pointer(parent->eq.child_cq[i])) {
++			rcu_assign_pointer(parent->eq.child_cq[i], queue);
++			return;
 +		}
++	}
 +
-+		irq = ops->msix_alloc_at(gc, &msi);
-+		if (irq < 0) {
-+			dev_err(gc->dev, "Failed to alloc irq msi %d err %d\n",
-+				*msi_requested, irq);
-+			gic = ERR_PTR(irq);
- 			goto out;
- 		}
--		irq = irq_map.virq;
--		msi = irq_map.index;
-+
-+		dyn_msix = true;
- 		*msi_requested = msi;
- 	}
- 
- 	gic = kzalloc_obj(*gic);
- 	if (!gic) {
- 		gic = ERR_PTR(-ENOMEM);
--		if (irq_map.virq)
--			pci_msix_free_irq(dev, irq_map);
-+		if (dyn_msix)
-+			ops->msix_free(gc, msi, irq);
- 		goto out;
- 	}
- 
-@@ -2006,11 +1873,11 @@ struct gdma_irq_context *mana_gd_get_gic(struct gdma_context *gc,
- 	spin_lock_init(&gic->lock);
- 
- 	if (!gic->msi)
--		snprintf(gic->name, MANA_IRQ_NAME_SZ, "mana_hwc@pci:%s",
--			 pci_name(dev));
-+		snprintf(gic->name, MANA_IRQ_NAME_SZ, "mana_hwc@%s:%s",
-+			 ops->bus_name, dev_name(gc->dev));
- 	else
--		snprintf(gic->name, MANA_IRQ_NAME_SZ, "mana_msi%d@pci:%s",
--			 gic->msi, pci_name(dev));
-+		snprintf(gic->name, MANA_IRQ_NAME_SZ, "mana_msi%d@%s:%s",
-+			 gic->msi, ops->bus_name, dev_name(gc->dev));
- 
- 	err = request_irq(irq, mana_gd_intr, 0, gic->name, gic);
- 	if (err) {
-@@ -2018,12 +1885,12 @@ struct gdma_irq_context *mana_gd_get_gic(struct gdma_context *gc,
- 			irq, gic->name);
- 		kfree(gic);
- 		gic = ERR_PTR(err);
--		if (irq_map.virq)
--			pci_msix_free_irq(dev, irq_map);
-+		if (dyn_msix)
-+			ops->msix_free(gc, msi, irq);
- 		goto out;
- 	}
- 
--	gic->dyn_msix = !!irq_map.virq;
-+	gic->dyn_msix = dyn_msix;
- 	refcount_set(&gic->refcount, 1);
- 	gic->bitmap_refs = use_msi_bitmap ? 1 : 0;
- 
-@@ -2034,8 +1901,8 @@ struct gdma_irq_context *mana_gd_get_gic(struct gdma_context *gc,
- 		free_irq(irq, gic);
- 		kfree(gic);
- 		gic = ERR_PTR(err);
--		if (irq_map.virq)
--			pci_msix_free_irq(dev, irq_map);
-+		if (dyn_msix)
-+			ops->msix_free(gc, msi, irq);
- 		goto out;
- 	}
- 
-@@ -2067,20 +1934,340 @@ void mana_gd_free_res_map(struct gdma_resource *r)
- 	r->size = 0;
++	WARN_ONCE(1, "mana: EQ %u has no free child CQ slot\n", parent->id);
  }
  
--/*
-- * Spread on CPUs with the following heuristics:
-- *
-- * 1. No more than one IRQ per CPU, if possible;
-- * 2. NUMA locality is the second priority;
-- * 3. Sibling dislocality is the last priority.
-- *
-- * Let's consider this topology:
-- *
-- * Node            0               1
-- * Core        0       1       2       3
-- * CPU       0   1   2   3   4   5   6   7
-- *
-- * The most performant IRQ distribution based on the above topology
-+/* Bring up the GDMA context on a probed device: create the debugfs directory,
-+ * map the shared-memory registers, start the hardware channel and size the
-+ * interrupt pool. Every step here is common to all buses; the ones that are
-+ * not are reached through gdma_bus_ops.
+-static void mana_gd_destroy_cq(struct gdma_context *gc,
+-			       struct gdma_queue *queue)
++/* Unlink queue from its parent EQ's child_cq[] and from gc->cq_table[].
++ *
++ * Return: true if queue was in the parent EQ's child_cq[]. In that case the
++ * caller must wait for an RCU grace period before freeing queue, because
++ * mana_gd_intr() may still be handling a throttle EQE for it.
 + */
-+int mana_gd_setup(struct gdma_context *gc)
-+{
-+	int err;
-+
-+	gc->mana_pci_debugfs = debugfs_create_dir(dev_name(gc->dev),
-+						  mana_debugfs_root);
-+
-+	err = mana_gd_init_registers(gc);
-+	if (err)
-+		goto remove_debugfs;
-+
-+	mana_smc_init(&gc->shm_channel, gc->dev, gc->shm_base);
-+
-+	err = mana_gd_alloc_service_wq(gc);
-+	if (err)
-+		goto remove_debugfs;
-+
-+	err = gc->bus_ops->setup_hwc_irqs(gc);
-+	if (err) {
-+		dev_err(gc->dev, "Failed to setup IRQs for HWC creation: %d\n",
-+			err);
-+		goto free_workqueue;
++bool mana_gd_detach_cq(struct gdma_context *gc, struct gdma_queue *queue)
+ {
++	struct gdma_queue *eq = queue->cq.parent;
++	bool attached = false;
+ 	u32 id = queue->id;
++	u8 i;
+ 
+-	if (id >= gc->max_num_cqs)
+-		return;
++	if (eq) {
++		for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
++			if (rcu_access_pointer(eq->eq.child_cq[i]) == queue) {
++				RCU_INIT_POINTER(eq->eq.child_cq[i], NULL);
++				attached = true;
++			}
++		}
 +	}
-+
-+	err = mana_hwc_create_channel(gc);
-+	if (err)
-+		goto remove_irq;
-+
-+	err = mana_gd_verify_vf_version(gc);
-+	if (err)
-+		goto destroy_hwc;
-+
-+	err = mana_gd_detect_devices(gc);
-+	if (err)
-+		goto destroy_hwc;
-+
-+	err = mana_gd_query_max_resources(gc);
-+	if (err)
-+		goto destroy_hwc;
-+
-+	err = gc->bus_ops->setup_remaining_irqs(gc);
-+	if (err)
-+		goto destroy_hwc;
-+
-+	dev_dbg(gc->dev, "mana gdma setup successful\n");
-+	return 0;
-+
-+destroy_hwc:
-+	mana_hwc_destroy_channel(gc);
-+remove_irq:
-+	gc->bus_ops->remove_irqs(gc);
-+free_workqueue:
-+	mana_gd_free_service_wq(gc);
-+remove_debugfs:
-+	debugfs_remove_recursive(gc->mana_pci_debugfs);
-+	gc->mana_pci_debugfs = NULL;
-+	dev_err(gc->dev, "%s failed (error %d)\n", __func__, err);
-+	return err;
+ 
+-	if (!gc->cq_table[id])
+-		return;
++	/* Check if CQ might have been detached already, only clear if
++	 * it still points to same queue .
++	 */
++	if (id < gc->max_num_cqs && READ_ONCE(gc->cq_table[id]) == queue)
++		WRITE_ONCE(gc->cq_table[id], NULL);
+ 
+-	gc->cq_table[id] = NULL;
++	return attached;
 +}
 +
-+void mana_gd_cleanup(struct gdma_context *gc)
++static void mana_gd_destroy_cq(struct gdma_context *gc,
++			       struct gdma_queue *queue)
 +{
-+	mana_hwc_destroy_channel(gc);
-+
-+	gc->bus_ops->remove_irqs(gc);
-+
-+	mana_gd_free_service_wq(gc);
-+
-+	debugfs_remove_recursive(gc->mana_pci_debugfs);
-+	gc->mana_pci_debugfs = NULL;
-+
-+	dev_dbg(gc->dev, "mana gdma cleanup successful\n");
-+}
-+
-+struct mana_dev_recovery {
-+	struct list_head list;
-+	struct pci_dev *pdev;
-+	enum gdma_eqe_type type;
-+};
-+
-+static struct mana_dev_recovery_work {
-+	struct list_head dev_list;
-+	struct delayed_work work;
-+
-+	/* Lock for dev_list above */
-+	spinlock_t lock;
-+} mana_dev_recovery_work;
-+
-+static int mana_gd_suspend(struct pci_dev *pdev, pm_message_t state);
-+static int mana_gd_resume(struct pci_dev *pdev);
-+
-+#define MANA_SERVICE_PERIOD 10
-+
-+static void mana_serv_rescan(struct pci_dev *pdev)
-+{
-+	struct pci_bus *parent;
-+
-+	pci_lock_rescan_remove();
-+
-+	parent = pdev->bus;
-+	if (!parent) {
-+		dev_err(&pdev->dev, "MANA service: no parent bus\n");
-+		goto out;
-+	}
-+
-+	pci_stop_and_remove_bus_device(pdev);
-+	pci_rescan_bus(parent);
-+
-+out:
-+	pci_unlock_rescan_remove();
-+}
-+
-+static void mana_serv_fpga(struct pci_dev *pdev)
-+{
-+	struct pci_bus *bus, *parent;
-+
-+	pci_lock_rescan_remove();
-+
-+	bus = pdev->bus;
-+	if (!bus) {
-+		dev_err(&pdev->dev, "MANA service: no bus\n");
-+		goto out;
-+	}
-+
-+	parent = bus->parent;
-+	if (!parent) {
-+		dev_err(&pdev->dev, "MANA service: no parent bus\n");
-+		goto out;
-+	}
-+
-+	pci_stop_and_remove_bus_device(bus->self);
-+
-+	msleep(MANA_SERVICE_PERIOD * 1000);
-+
-+	pci_rescan_bus(parent);
-+
-+out:
-+	pci_unlock_rescan_remove();
-+}
-+
-+static void mana_serv_reset(struct pci_dev *pdev)
-+{
-+	struct gdma_context *gc = pci_get_drvdata(pdev);
-+	struct hw_channel_context *hwc;
-+	int ret;
-+
-+	if (!gc) {
-+		/* Perform PCI rescan on device if GC is not set up */
-+		dev_err(&pdev->dev, "MANA service: GC not setup, rescanning\n");
-+		mana_serv_rescan(pdev);
-+		return;
-+	}
-+
-+	hwc = gc->hwc.driver_data;
-+	if (!hwc) {
-+		dev_err(&pdev->dev, "MANA service: no HWC\n");
-+		goto out;
-+	}
-+
-+	/* HWC is not responding in this case, so don't wait */
-+	hwc->hwc_timeout = 0;
-+
-+	dev_info(&pdev->dev, "MANA reset cycle start\n");
-+
-+	mana_gd_suspend(pdev, PMSG_SUSPEND);
-+
-+	msleep(MANA_SERVICE_PERIOD * 1000);
-+
-+	ret = mana_gd_resume(pdev);
-+	if (ret == -ETIMEDOUT || ret == -EPROTO) {
-+		/* Perform PCI rescan on device if we failed on HWC */
-+		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
-+		mana_serv_rescan(pdev);
-+		return;
-+	}
-+
-+	if (ret)
-+		dev_info(&pdev->dev, "MANA reset cycle failed err %d\n", ret);
-+	else
-+		dev_info(&pdev->dev, "MANA reset cycle completed\n");
-+
-+out:
-+	clear_bit(GC_IN_SERVICE, &gc->flags);
-+}
-+
-+static void mana_do_service(enum gdma_eqe_type type, struct pci_dev *pdev)
-+{
-+	switch (type) {
-+	case GDMA_EQE_HWC_FPGA_RECONFIG:
-+		mana_serv_fpga(pdev);
-+		break;
-+
-+	case GDMA_EQE_HWC_RESET_REQUEST:
-+		mana_serv_reset(pdev);
-+		break;
-+
-+	default:
-+		dev_err(&pdev->dev, "MANA service: unknown type %d\n", type);
-+		break;
-+	}
-+}
-+
-+static void mana_recovery_delayed_func(struct work_struct *w)
-+{
-+	struct mana_dev_recovery_work *work;
-+	struct mana_dev_recovery *dev;
-+	unsigned long flags;
-+
-+	work = container_of(w, struct mana_dev_recovery_work, work.work);
-+
-+	spin_lock_irqsave(&work->lock, flags);
-+
-+	while (!list_empty(&work->dev_list)) {
-+		dev = list_first_entry(&work->dev_list,
-+				       struct mana_dev_recovery, list);
-+		list_del(&dev->list);
-+		spin_unlock_irqrestore(&work->lock, flags);
-+
-+		mana_do_service(dev->type, dev->pdev);
-+		pci_dev_put(dev->pdev);
-+		kfree(dev);
-+
-+		spin_lock_irqsave(&work->lock, flags);
-+	}
-+
-+	spin_unlock_irqrestore(&work->lock, flags);
-+}
-+
-+static void mana_serv_func(struct work_struct *w)
-+{
-+	struct mana_serv_work *mns_wk;
-+	struct pci_dev *pdev;
-+
-+	mns_wk = container_of(w, struct mana_serv_work, serv_work);
-+	pdev = mns_wk->pdev;
-+
-+	if (pdev)
-+		mana_do_service(mns_wk->type, pdev);
-+
-+	pci_dev_put(pdev);
-+	kfree(mns_wk);
-+	module_put(THIS_MODULE);
-+}
-+
-+static int mana_pci_schedule_serv_work(struct gdma_context *gc,
-+				       enum gdma_eqe_type type)
-+{
-+	struct mana_serv_work *mns_wk;
-+
-+	if (test_and_set_bit(GC_IN_SERVICE, &gc->flags)) {
-+		dev_info(gc->dev, "Already in service\n");
-+		return -EBUSY;
-+	}
-+
-+	if (!try_module_get(THIS_MODULE)) {
-+		dev_info(gc->dev, "Module is unloading\n");
-+		clear_bit(GC_IN_SERVICE, &gc->flags);
-+		return -ENODEV;
-+	}
-+
-+	mns_wk = kzalloc(sizeof(*mns_wk), GFP_ATOMIC);
-+	if (!mns_wk) {
-+		module_put(THIS_MODULE);
-+		clear_bit(GC_IN_SERVICE, &gc->flags);
-+		return -ENOMEM;
-+	}
-+
-+	dev_info(gc->dev, "Start MANA service type:%d\n", type);
-+	mns_wk->pdev = to_pci_dev(gc->dev);
-+	mns_wk->type = type;
-+	pci_dev_get(mns_wk->pdev);
-+	INIT_WORK(&mns_wk->serv_work, mana_serv_func);
-+	schedule_work(&mns_wk->serv_work);
-+	return 0;
-+}
-+
-+static bool mana_pci_msix_can_alloc_dyn(struct gdma_context *gc)
-+{
-+	return pci_msix_can_alloc_dyn(to_pci_dev(gc->dev));
-+}
-+
-+static int mana_pci_msix_virq(struct gdma_context *gc, int msi)
-+{
-+	return pci_irq_vector(to_pci_dev(gc->dev), msi);
-+}
-+
-+static int mana_pci_msix_alloc_at(struct gdma_context *gc, int *msi)
-+{
-+	struct msi_map irq_map;
-+
-+	irq_map = pci_msix_alloc_irq_at(to_pci_dev(gc->dev), *msi, NULL);
-+	if (!irq_map.virq)
-+		return irq_map.index;
-+
-+	*msi = irq_map.index;
-+	return irq_map.virq;
-+}
-+
-+static void mana_pci_msix_free(struct gdma_context *gc, int msi, int irq)
-+{
-+	struct msi_map irq_map = { .virq = irq, .index = msi };
-+
-+	pci_msix_free_irq(to_pci_dev(gc->dev), irq_map);
-+}
-+
-+static int mana_pci_msix_vec_count(struct gdma_context *gc)
-+{
-+	return pci_msix_vec_count(to_pci_dev(gc->dev));
-+}
-+
-+static int mana_pci_dev_reset(struct gdma_context *gc)
-+{
-+	return pcie_flr(to_pci_dev(gc->dev));
-+}
-+
-+/*
-+ * Spread on CPUs with the following heuristics:
-+ *
-+ * 1. No more than one IRQ per CPU, if possible;
-+ * 2. NUMA locality is the second priority;
-+ * 3. Sibling dislocality is the last priority.
-+ *
-+ * Let's consider this topology:
-+ *
-+ * Node            0               1
-+ * Core        0       1       2       3
-+ * CPU       0   1   2   3   4   5   6   7
-+ *
-+ * The most performant IRQ distribution based on the above topology
-  * and heuristics may look like this:
-  *
-  * IRQ     Nodes   Cores   CPUs
-@@ -2396,101 +2583,52 @@ static void mana_gd_remove_irqs(struct pci_dev *pdev)
- 	gc->num_msix_usable = 0;
++	/* Wait for irq reader holding the cq */
++	if (mana_gd_detach_cq(gc, queue))
++		synchronize_net();
  }
  
--static int mana_gd_setup(struct pci_dev *pdev)
-+static int mana_pci_setup_hwc_irqs(struct gdma_context *gc)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
--	int err;
--
--	gc->mana_pci_debugfs = debugfs_create_dir(pci_name(pdev),
--						  mana_debugfs_root);
--
--	err = mana_gd_init_registers(pdev);
--	if (err)
--		goto remove_debugfs;
--
--	mana_smc_init(&gc->shm_channel, gc->dev, gc->shm_base);
--
--	gc->service_wq = alloc_ordered_workqueue("gdma_service_wq", 0);
--	if (!gc->service_wq) {
--		err = -ENOMEM;
--		goto remove_debugfs;
--	}
--
--	err = mana_gd_setup_hwc_irqs(pdev);
--	if (err) {
--		dev_err(gc->dev, "Failed to setup IRQs for HWC creation: %d\n",
--			err);
--		goto free_workqueue;
--	}
--
--	err = mana_hwc_create_channel(gc);
--	if (err)
--		goto remove_irq;
--
--	err = mana_gd_verify_vf_version(pdev);
--	if (err)
--		goto destroy_hwc;
--
--	err = mana_gd_detect_devices(pdev);
--	if (err)
--		goto destroy_hwc;
-+	return mana_gd_setup_hwc_irqs(to_pci_dev(gc->dev));
-+}
+ int mana_gd_create_hwc_queue(struct gdma_dev *gd,
+diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+index 263e7c4e29341..2f7f32f55785f 100644
+--- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
++++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+@@ -364,7 +364,7 @@ static void mana_hwc_comp_event(void *ctx, struct gdma_queue *q_self)
  
--	err = mana_gd_query_max_resources(pdev);
--	if (err)
--		goto destroy_hwc;
-+static int mana_pci_setup_remaining_irqs(struct gdma_context *gc)
-+{
-+	int err;
+ 	completions = hwc_cq->comp_buf;
+ 	comp_read = mana_gd_poll_cq(q_self, completions, hwc_cq->queue_depth);
+-	WARN_ON_ONCE(comp_read <= 0 || comp_read > hwc_cq->queue_depth);
++	WARN_ON_ONCE(comp_read < 0 || comp_read > hwc_cq->queue_depth);
  
--	err = mana_gd_setup_remaining_irqs(pdev);
-+	err = mana_gd_setup_remaining_irqs(to_pci_dev(gc->dev));
- 	if (err) {
- 		dev_err(gc->dev, "Failed to setup remaining IRQs: %d", err);
--		goto destroy_hwc;
-+		return err;
+ 	for (i = 0; i < comp_read; ++i) {
+ 		comp_data = *(struct hwc_rx_oob *)completions[i].cqe_data;
+@@ -820,9 +820,14 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
+ 	 */
+ 	if (gc->max_num_cqs > 0) {
+ 		mana_smc_teardown_hwc(&gc->shm_channel, false);
+-		gc->max_num_cqs = 0;
++		WRITE_ONCE(gc->max_num_cqs, 0);
  	}
  
- 	if (!gc->msi_sharing) {
- 		gc->msi_bitmap = bitmap_zalloc(gc->num_msix_usable, GFP_KERNEL);
--		if (!gc->msi_bitmap) {
--			err = -ENOMEM;
--			goto destroy_hwc;
--		}
-+		if (!gc->msi_bitmap)
-+			return -ENOMEM;
- 		/* Set bit for HWC */
- 		set_bit(0, gc->msi_bitmap);
- 	}
- 
--	dev_dbg(&pdev->dev, "mana gdma setup successful\n");
- 	return 0;
--
--destroy_hwc:
--	mana_hwc_destroy_channel(gc);
--remove_irq:
--	mana_gd_remove_irqs(pdev);
--free_workqueue:
--	destroy_workqueue(gc->service_wq);
--	gc->service_wq = NULL;
--remove_debugfs:
--	debugfs_remove_recursive(gc->mana_pci_debugfs);
--	gc->mana_pci_debugfs = NULL;
--	dev_err(&pdev->dev, "%s failed (error %d)\n", __func__, err);
--	return err;
- }
- 
--static void mana_gd_cleanup_device(struct pci_dev *pdev)
-+static void mana_pci_remove_irqs(struct gdma_context *gc)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
--
--	mana_hwc_destroy_channel(gc);
--
--	mana_gd_remove_irqs(pdev);
--
--	if (gc->service_wq) {
--		destroy_workqueue(gc->service_wq);
--		gc->service_wq = NULL;
--	}
--
--	debugfs_remove_recursive(gc->mana_pci_debugfs);
--	gc->mana_pci_debugfs = NULL;
--
--	dev_dbg(&pdev->dev, "mana gdma cleanup successful\n");
-+	mana_gd_remove_irqs(to_pci_dev(gc->dev));
- }
- 
-+static const struct gdma_bus_ops mana_pci_bus_ops = {
-+	.bus_name		= "pci",
-+	.msix_can_alloc_dyn	= mana_pci_msix_can_alloc_dyn,
-+	.msix_virq		= mana_pci_msix_virq,
-+	.msix_alloc_at		= mana_pci_msix_alloc_at,
-+	.msix_free		= mana_pci_msix_free,
-+	.msix_vec_count		= mana_pci_msix_vec_count,
-+	.setup_hwc_irqs		= mana_pci_setup_hwc_irqs,
-+	.setup_remaining_irqs	= mana_pci_setup_remaining_irqs,
-+	.remove_irqs		= mana_pci_remove_irqs,
-+	.dev_reset		= mana_pci_dev_reset,
-+	.schedule_serv_work	= mana_pci_schedule_serv_work,
-+	.drv_cap_flags1		= GDMA_DRV_CAP_FLAGS1_PCI,
-+};
++	if (hwc->cq)
++		mana_gd_detach_cq(gc, hwc->cq->gdma_cq);
 +
- static bool mana_is_pf(unsigned short dev_id)
- {
- 	return dev_id == MANA_PF_DEVICE_ID || dev_id == MANA_PF2_DEVICE_ID;
-@@ -2546,9 +2684,10 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	gc->bar0_va = bar0_va;
- 	gc->dev = &pdev->dev;
-+	gc->bus_ops = &mana_pci_bus_ops;
- 	xa_init(&gc->irq_contexts);
- 
--	err = mana_gd_setup(pdev);
-+	err = mana_gd_setup(gc);
- 	if (err)
- 		goto unmap_bar;
- 
-@@ -2576,7 +2715,7 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- cleanup_mana:
- 	mana_remove(&gc->mana, false);
- cleanup_gd:
--	mana_gd_cleanup_device(pdev);
-+	mana_gd_cleanup(gc);
- unmap_bar:
- 	xa_destroy(&gc->irq_contexts);
- 	pci_iounmap(pdev, bar0_va);
-@@ -2629,7 +2768,7 @@ static void mana_gd_remove(struct pci_dev *pdev)
- 	mana_rdma_remove(&gc->mana_ib);
- 	mana_remove(&gc->mana, false);
- 
--	mana_gd_cleanup_device(pdev);
-+	mana_gd_cleanup(gc);
- 
- 	xa_destroy(&gc->irq_contexts);
- 
-@@ -2644,24 +2783,24 @@ static void mana_gd_remove(struct pci_dev *pdev)
- }
- 
- /* The 'state' parameter is not used. */
--int mana_gd_suspend(struct pci_dev *pdev, pm_message_t state)
-+static int mana_gd_suspend(struct pci_dev *pdev, pm_message_t state)
- {
- 	struct gdma_context *gc = pci_get_drvdata(pdev);
- 
- 	mana_rdma_remove(&gc->mana_ib);
- 	mana_remove(&gc->mana, true);
- 
--	mana_gd_cleanup_device(pdev);
-+	mana_gd_cleanup(gc);
- 
- 	return 0;
- }
- 
--int mana_gd_resume(struct pci_dev *pdev)
-+static int mana_gd_resume(struct pci_dev *pdev)
- {
- 	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	int err;
- 
--	err = mana_gd_setup(pdev);
-+	err = mana_gd_setup(gc);
- 	if (err)
- 		return err;
- 
-@@ -2676,7 +2815,7 @@ int mana_gd_resume(struct pci_dev *pdev)
- 	return err;
- 
- cleanup_gd:
--	mana_gd_cleanup_device(pdev);
-+	mana_gd_cleanup(gc);
- 	return err;
- }
- 
-@@ -2690,7 +2829,7 @@ static void mana_gd_shutdown(struct pci_dev *pdev)
- 	mana_rdma_remove(&gc->mana_ib);
- 	mana_remove(&gc->mana, true);
- 
--	mana_gd_cleanup_device(pdev);
-+	mana_gd_cleanup(gc);
- 
- 	pci_disable_device(pdev);
- }
-@@ -2734,26 +2873,19 @@ static struct pci_driver mana_driver = {
- 	.sriov_configure = mana_sriov_configure,
- };
- 
--static int __init mana_driver_init(void)
--{
--	int err;
-+MODULE_DEVICE_TABLE(pci, mana_id_table);
- 
-+static int mana_pci_driver_register(void)
-+{
- 	INIT_LIST_HEAD(&mana_dev_recovery_work.dev_list);
- 	spin_lock_init(&mana_dev_recovery_work.lock);
--	INIT_DELAYED_WORK(&mana_dev_recovery_work.work, mana_recovery_delayed_func);
--
--	mana_debugfs_root = debugfs_create_dir("mana", NULL);
--
--	err = pci_register_driver(&mana_driver);
--	if (err) {
--		debugfs_remove(mana_debugfs_root);
--		mana_debugfs_root = NULL;
--	}
-+	INIT_DELAYED_WORK(&mana_dev_recovery_work.work,
-+			  mana_recovery_delayed_func);
- 
--	return err;
-+	return pci_register_driver(&mana_driver);
- }
- 
--static void __exit mana_driver_exit(void)
-+static void mana_pci_driver_unregister(void)
- {
- 	struct mana_dev_recovery *dev;
- 	unsigned long flags;
-@@ -2771,6 +2903,29 @@ static void __exit mana_driver_exit(void)
- 	spin_unlock_irqrestore(&mana_dev_recovery_work.lock, flags);
- 
- 	pci_unregister_driver(&mana_driver);
-+}
++	synchronize_rcu();
 +
-+static int __init mana_driver_init(void)
-+{
-+	int err;
-+
-+	mana_debugfs_root = debugfs_create_dir("mana", NULL);
-+
-+	err = mana_pci_driver_register();
-+	if (err)
-+		goto err_debugfs;
-+
-+	return 0;
-+
-+err_debugfs:
-+	debugfs_remove(mana_debugfs_root);
-+	mana_debugfs_root = NULL;
-+	return err;
-+}
-+
-+static void __exit mana_driver_exit(void)
-+{
-+	mana_pci_driver_unregister();
+ 	if (hwc->txq)
+ 		mana_hwc_destroy_wq(hwc, hwc->txq);
  
- 	debugfs_remove(mana_debugfs_root);
- 
-@@ -2780,7 +2935,5 @@ static void __exit mana_driver_exit(void)
- module_init(mana_driver_init);
- module_exit(mana_driver_exit);
- 
--MODULE_DEVICE_TABLE(pci, mana_id_table);
--
- MODULE_LICENSE("Dual BSD/GPL");
- MODULE_DESCRIPTION("Microsoft Azure Network Adapter driver");
 diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index a1fb06b239476..44122c2ef7f98 100644
+index 44122c2ef7f98..89af8bf6758b7 100644
 --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
 +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -9,7 +9,6 @@
- #include <linux/ethtool.h>
- #include <linux/filter.h>
- #include <linux/mm.h>
--#include <linux/pci.h>
- #include <linux/export.h>
- #include <linux/skbuff.h>
+@@ -2672,6 +2672,7 @@ static void mana_deinit_txq(struct mana_port_context *apc, struct mana_txq *txq)
  
-@@ -20,6 +19,7 @@
- #include <net/xdp.h>
+ static void mana_destroy_txq(struct mana_port_context *apc)
+ {
++	struct gdma_context *gc = apc->ac->gdma_dev->gdma_context;
+ 	struct napi_struct *napi;
+ 	int i;
  
- #include <net/mana/mana.h>
+@@ -2690,13 +2691,23 @@ static void mana_destroy_txq(struct mana_port_context *apc)
+ 			napi_synchronize(napi);
+ 			napi_disable_locked(napi);
+ 			cancel_work_sync(&apc->tx_qp[i]->tx_cq.dim.work);
+-			netif_napi_del_locked(napi);
+-			apc->tx_qp[i]->txq.napi_initialized = false;
+ 		}
+ 
+ 		if (apc->tx_qp[i]->tx_object != INVALID_MANA_HANDLE)
+ 			mana_destroy_wq_obj(apc, GDMA_SQ, apc->tx_qp[i]->tx_object);
+ 
++		if (apc->tx_qp[i]->txq.napi_initialized) {
++			/* Detach the CQ only after the WQ object is destroyed,
++			 * so a completion EQE that arrives before then still
++			 * finds the CQ in cq_table[] rather than hitting the
++			 * WARN in mana_gd_process_eqe(). One grace period then
++			 * covers both mana_gd_intr() and NAPI users.
++			 */
++			mana_gd_detach_cq(gc, apc->tx_qp[i]->tx_cq.gdma_cq);
++			netif_napi_del_locked(napi);
++			apc->tx_qp[i]->txq.napi_initialized = false;
++		}
 +
- #include <net/mana/mana_auxiliary.h>
- #include <net/mana/hw_channel.h>
+ 		mana_deinit_cq(apc, &apc->tx_qp[i]->tx_cq);
  
-@@ -3754,10 +3754,9 @@ static int mana_dealloc_queues(struct net_device *ndev)
- 				tsleep <<= 1;
- 			}
- 			if (atomic_read(&txq->pending_sends)) {
--				err =
--				    pcie_flr(to_pci_dev(gd->gdma_context->dev));
-+				err = mana_gd_dev_reset(gd->gdma_context);
- 				if (err) {
--					netdev_err(ndev, "flr failed %d with %d pkts pending in txq %u\n",
-+					netdev_err(ndev, "device reset failed %d with %d pkts pending in txq %u\n",
- 						   err,
- 					    atomic_read(&txq->pending_sends),
- 					    txq->gdma_txq_id);
-@@ -4060,6 +4059,9 @@ int mana_rdma_service_event(struct gdma_context *gc, enum gdma_service_type even
- 		return 0;
+ 		mana_deinit_txq(apc, &apc->tx_qp[i]->txq);
+@@ -2903,7 +2914,6 @@ static void mana_destroy_rxq(struct mana_port_context *apc,
+ 
+ 		napi_disable_locked(napi);
+ 		cancel_work_sync(&rxq->rx_cq.dim.work);
+-		netif_napi_del_locked(napi);
  	}
  
-+	if (!gc->service_wq)
-+		return -EOPNOTSUPP;
+ 	if (xdp_rxq_info_is_reg(&rxq->xdp_rxq))
+@@ -2912,6 +2922,12 @@ static void mana_destroy_rxq(struct mana_port_context *apc,
+ 	if (rxq->rxobj != INVALID_MANA_HANDLE)
+ 		mana_destroy_wq_obj(apc, GDMA_RQ, rxq->rxobj);
+ 
++	if (napi_initialized) {
++		/* See the comment in mana_destroy_txq() */
++		mana_gd_detach_cq(gc, rxq->rx_cq.gdma_cq);
++		netif_napi_del_locked(napi);
++	}
 +
- 	serv_work = kzalloc_obj(*serv_work, GFP_ATOMIC);
- 	if (!serv_work)
- 		return -ENOMEM;
+ 	mana_deinit_cq(apc, &rxq->rx_cq);
+ 
+ 	if (rxq->xdp_save_va)
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+index 33db79569d3b6..a91eb12badca4 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+@@ -147,7 +147,8 @@ static int mana_get_sset_count(struct net_device *ndev, int stringset)
+ 		return ARRAY_SIZE(mana_eth_stats) +
+ 		       ARRAY_SIZE(mana_phy_stats) +
+ 		       ARRAY_SIZE(mana_hc_stats)  +
+-		       num_queues * (MANA_STATS_RX_COUNT + MANA_STATS_TX_COUNT);
++		       num_queues * (MANA_STATS_RX_COUNT + MANA_STATS_TX_COUNT +
++				       MANA_STATS_EQ_COUNT);
+ 
+ 	case ETH_SS_PRIV_FLAGS:
+ 		return MANA_PRIV_FLAG_MAX;
+@@ -198,6 +199,9 @@ static void mana_get_strings_stats(struct mana_port_context *apc, u8 **data)
+ 		ethtool_sprintf(data, "tx_%d_csum_partial", i);
+ 		ethtool_sprintf(data, "tx_%d_mana_map_err", i);
+ 	}
++
++	for (i = 0; i < num_queues; i++)
++		ethtool_sprintf(data, "eq_%d_throttle_events", i);
+ }
+ 
+ static void mana_get_strings_priv_flags(u8 **data)
+@@ -234,6 +238,7 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
+ 	void *phy_stats = &apc->phy_stats;
+ 	struct mana_stats_rx *rx_stats;
+ 	struct mana_stats_tx *tx_stats;
++	struct gdma_eq_stats *eq_stats;
+ 	unsigned int start;
+ 	u64 packets, bytes;
+ 	u64 xdp_redirect;
+@@ -251,6 +256,7 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
+ 	u64 csum_partial;
+ 	u64 mana_map_err;
+ 	int q, i = 0, j;
++	u64 throttled;
+ 
+ 	if (!apc->port_is_up)
+ 		return;
+@@ -325,6 +331,17 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
+ 		data[i++] = csum_partial;
+ 		data[i++] = mana_map_err;
+ 	}
++
++	for (q = 0; q < num_queues; q++) {
++		eq_stats = &apc->eqs[q].eq->eq.stats;
++
++		do {
++			start = u64_stats_fetch_begin(&eq_stats->syncp);
++			throttled = u64_stats_read(&eq_stats->throttle_count);
++		} while (u64_stats_fetch_retry(&eq_stats->syncp, start));
++
++		data[i++] = throttled;
++	}
+ }
+ 
+ static u32 mana_get_rx_ring_count(struct net_device *ndev)
 diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index 308950f9b54b0..cdec5558304ff 100644
+index cdec5558304ff..f43028a398d69 100644
 --- a/include/net/mana/gdma.h
 +++ b/include/net/mana/gdma.h
-@@ -422,14 +422,72 @@ enum gdma_context_flags {
- 	GC_IN_SERVICE		= 1,
- };
+@@ -58,6 +58,7 @@ enum gdma_work_request_flags {
  
-+struct gdma_context;
-+
-+/**
-+ * struct gdma_bus_ops - transport-specific operations
-+ *
-+ * Lets the bus-agnostic GDMA core drive PCI and CDX devices without
-+ * testing configuration symbols. Each bus driver installs its own
-+ * instance in gdma_context.bus_ops at probe time.
-+ *
-+ * @bus_name: Bus token used to build the per-vector IRQ names.
-+ * @msix_can_alloc_dyn: True if the bus can allocate MSI-X vectors after
-+ *	probe time. Buses that size their vector pool at probe and cannot
-+ *	grow it later leave this NULL.
-+ * @msix_virq: Return the Linux IRQ number backing an MSI vector, or
-+ *	-EINVAL if the vector has not been allocated yet.
-+ * @msix_alloc_at: Allocate an MSI vector on demand and return its IRQ
-+ *	number, updating @msi with the index actually assigned. Buses that
-+ *	allocate their whole pool up front leave this NULL.
-+ * @msix_free: Release a vector obtained from @msix_alloc_at. Only needed
-+ *	by buses that implement @msix_alloc_at.
-+ * @msix_vec_count: Return the number of entries in the device MSI-X table,
-+ *	used to clamp the vector count the core asks for. Buses that cannot
-+ *	report a table size leave this NULL and the clamp is skipped.
-+ * @setup_hwc_irqs: Set up the interrupts the hardware channel needs before
-+ *	it is created.
-+ * @setup_remaining_irqs: Set up the remaining interrupts once the device
-+ *	resource limits are known.
-+ * @remove_irqs: Release the interrupts set up by @setup_hwc_irqs and
-+ *	@setup_remaining_irqs.
-+ * @dev_reset: Reset the device using the bus-level reset mechanism.
-+ * @schedule_serv_work: Queue device servicing or recovery. Buses without
-+ *	a servicing path leave this NULL.
-+ * @drv_cap_flags1: Extra capability bits this transport can honour, OR'ed
-+ *	into GDMA_DRV_CAP_FLAGS1 when the driver version is negotiated.
-+ */
-+struct gdma_bus_ops {
-+	const char *bus_name;
-+	bool (*msix_can_alloc_dyn)(struct gdma_context *gc);
-+	int (*msix_virq)(struct gdma_context *gc, int msi);
-+	int (*msix_alloc_at)(struct gdma_context *gc, int *msi);
-+	void (*msix_free)(struct gdma_context *gc, int msi, int irq);
-+	int (*msix_vec_count)(struct gdma_context *gc);
-+	int (*setup_hwc_irqs)(struct gdma_context *gc);
-+	int (*setup_remaining_irqs)(struct gdma_context *gc);
-+	void (*remove_irqs)(struct gdma_context *gc);
-+	int (*dev_reset)(struct gdma_context *gc);
-+	int (*schedule_serv_work)(struct gdma_context *gc,
-+				  enum gdma_eqe_type type);
-+	u64 drv_cap_flags1;
+ enum gdma_eqe_type {
+ 	GDMA_EQE_COMPLETION		= 3,
++	GDMA_EQE_THROTTLE		= 4,
+ 	GDMA_EQE_TEST_EVENT		= 64,
+ 	GDMA_EQE_HWC_INIT_EQ_ID_DB	= 129,
+ 	GDMA_EQE_HWC_INIT_DATA		= 130,
+@@ -286,6 +287,7 @@ struct gdma_dev {
+ #define GDMA_EQE_SIZE 16
+ #define GDMA_MAX_SQE_SIZE 512
+ #define GDMA_MAX_RQE_SIZE 256
++#define GDMA_EQ_MAX_CHILD_CQ 2
+ 
+ #define GDMA_COMP_DATA_SIZE 0x3C
+ 
+@@ -313,6 +315,11 @@ struct gdma_event {
+ 
+ struct gdma_queue;
+ 
++struct gdma_eq_stats {
++	u64_stats_t throttle_count;
++	struct u64_stats_sync syncp;
 +};
 +
- struct gdma_context {
- 	struct device		*dev;
- 	struct dentry		*mana_pci_debugfs;
+ struct mana_eq {
+ 	struct gdma_queue	*eq;
+ 	struct dentry		*mana_eq_debugfs;
+@@ -366,6 +373,10 @@ struct gdma_queue {
+ 			unsigned int irq;
  
-+	/* Transport-specific operations, installed by the bus driver */
-+	const struct gdma_bus_ops *bus_ops;
+ 			u32 log2_throttle_limit;
 +
- 	/* Hardware max number of queues */
- 	unsigned int		max_num_queues;
- 	/* Per-vPort max number of queues */
- 	unsigned int		max_num_queues_vport;
-+	/* Number of vPorts reported by the device, capped at
-+	 * MAX_PORTS_IN_MANA_DEV
-+	 */
-+	u16			num_ports;
- 	unsigned int		max_num_msix;
- 	unsigned int		num_msix_usable;
- 	struct xarray		irq_contexts;
-@@ -529,6 +587,10 @@ ssize_t mana_gd_read_ring(struct gdma_queue *q, char __user *buf,
++			struct gdma_eq_stats stats;
++
++			struct gdma_queue __rcu *child_cq[GDMA_EQ_MAX_CHILD_CQ];
+ 		} eq;
  
- int mana_schedule_serv_work(struct gdma_context *gc, enum gdma_eqe_type type);
- 
-+int mana_gd_alloc_service_wq(struct gdma_context *gc);
-+
-+void mana_gd_free_service_wq(struct gdma_context *gc);
-+
+ 		struct {
+@@ -594,6 +605,8 @@ void mana_gd_free_service_wq(struct gdma_context *gc);
  void mana_gd_ring_dim(struct gdma_queue *cq, u32 mod_usec, bool mod_usec_vld,
  		      u32 mod_comps, bool mod_comps_vld);
  
-@@ -686,21 +748,28 @@ enum {
++bool mana_gd_detach_cq(struct gdma_context *gc, struct gdma_queue *queue);
++
+ struct gdma_wqe {
+ 	u32 reserved	:24;
+ 	u32 last_vbytes	:8;
+@@ -748,6 +761,9 @@ enum {
  /* Driver supports non-contiguous queue buffers */
  #define GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS BIT(30)
  
-+/* Capabilities in the PCI-only group below rely on dynamic MSI-X allocation
-+ * and on the servicing and reset paths reached through
-+ * mana_schedule_serv_work(). Transports that provide neither leave
-+ * gdma_bus_ops.drv_cap_flags1 unset so the group is not advertised.
-+ */
-+#define GDMA_DRV_CAP_FLAGS1_PCI \
-+	(GDMA_DRV_CAP_FLAG_1_DYNAMIC_IRQ_ALLOC_SUPPORT | \
-+	 GDMA_DRV_CAP_FLAG_1_SELF_RESET_ON_EQE | \
-+	 GDMA_DRV_CAP_FLAG_1_HANDLE_RECONFIG_EQE | \
-+	 GDMA_DRV_CAP_FLAG_1_PROBE_RECOVERY | \
-+	 GDMA_DRV_CAP_FLAG_1_HWC_TIMEOUT_RECOVERY)
++/* Driver supports handling throttled EQEs */
++#define GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE BIT_ULL(32)
 +
- #define GDMA_DRV_CAP_FLAGS1 \
- 	(GDMA_DRV_CAP_FLAG_1_EQ_SHARING_MULTI_VPORT | \
- 	 GDMA_DRV_CAP_FLAG_1_NAPI_WKDONE_FIX | \
- 	 GDMA_DRV_CAP_FLAG_1_HWC_TIMEOUT_RECONFIG | \
- 	 GDMA_DRV_CAP_FLAG_1_VARIABLE_INDIRECTION_TABLE_SUPPORT | \
- 	 GDMA_DRV_CAP_FLAG_1_DEV_LIST_HOLES_SUP | \
--	 GDMA_DRV_CAP_FLAG_1_DYNAMIC_IRQ_ALLOC_SUPPORT | \
--	 GDMA_DRV_CAP_FLAG_1_SELF_RESET_ON_EQE | \
--	 GDMA_DRV_CAP_FLAG_1_HANDLE_RECONFIG_EQE | \
- 	 GDMA_DRV_CAP_FLAG_1_HW_VPORT_LINK_AWARE | \
- 	 GDMA_DRV_CAP_FLAG_1_PERIODIC_STATS_QUERY | \
- 	 GDMA_DRV_CAP_FLAG_1_SKB_LINEARIZE | \
--	 GDMA_DRV_CAP_FLAG_1_PROBE_RECOVERY | \
+ /* Capabilities in the PCI-only group below rely on dynamic MSI-X allocation
+  * and on the servicing and reset paths reached through
+  * mana_schedule_serv_work(). Transports that provide neither leave
+@@ -772,7 +788,8 @@ enum {
  	 GDMA_DRV_CAP_FLAG_1_HANDLE_STALL_SQ_RECOVERY | \
--	 GDMA_DRV_CAP_FLAG_1_HWC_TIMEOUT_RECOVERY | \
  	 GDMA_DRV_CAP_FLAG_1_EQ_MSI_UNSHARE_MULTI_VPORT | \
  	 GDMA_DRV_CAP_FLAG_1_DYN_INTERRUPT_MODERATION | \
- 	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS)
-@@ -1044,7 +1113,24 @@ struct gdma_destroy_dm_resp {
- 	struct gdma_resp_hdr hdr;
- }; /* HW Data */
+-	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS)
++	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS | \
++	 GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE)
  
--int mana_gd_verify_vf_version(struct pci_dev *pdev);
-+int mana_gd_verify_vf_version(struct gdma_context *gc);
-+int mana_gd_query_max_resources(struct gdma_context *gc);
-+int mana_gd_setup(struct gdma_context *gc);
-+void mana_gd_cleanup(struct gdma_context *gc);
-+int mana_gd_detect_devices(struct gdma_context *gc);
-+int mana_gd_init_registers(struct gdma_context *gc);
-+irqreturn_t mana_gd_intr(int irq, void *arg);
-+void mana_gd_process_eq_events(void *arg);
-+
-+static inline u32 mana_gd_r32(struct gdma_context *g, u64 offset)
-+{
-+	return readl(g->bar0_va + offset);
-+}
-+
-+static inline u64 mana_gd_r64(struct gdma_context *g, u64 offset)
-+{
-+	return readq(g->bar0_va + offset);
-+}
+ #define GDMA_DRV_CAP_FLAGS2 0
  
- int mana_gd_register_device(struct gdma_dev *gd);
- int mana_gd_deregister_device(struct gdma_dev *gd);
-@@ -1077,8 +1163,6 @@ void mana_unregister_debugfs(void);
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index 8c3dc9d0b2993..e46ba02529c29 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -90,6 +90,7 @@ enum mana_priv_flag_bits {
+ /* Update this count whenever the respective structures are changed */
+ #define MANA_STATS_RX_COUNT (6 + MANA_CQE_COAL_PKTS_8 - 1)
+ #define MANA_STATS_TX_COUNT 11
++#define MANA_STATS_EQ_COUNT 1
  
- int mana_rdma_service_event(struct gdma_context *gc, enum gdma_service_type event);
+ #define MANA_RX_FRAG_ALIGNMENT 64
  
--int mana_gd_suspend(struct pci_dev *pdev, pm_message_t state);
--int mana_gd_resume(struct pci_dev *pdev);
- 
- bool mana_need_log(struct gdma_context *gc, int err);
- 
-@@ -1089,4 +1173,6 @@ void mana_gd_put_gic(struct gdma_context *gc, bool use_msi_bitmap, int msi);
- int mana_gd_query_device_cfg(struct gdma_context *gc, u32 proto_major_ver,
- 			     u32 proto_minor_ver, u32 proto_micro_ver,
- 			     u16 *max_num_vports, u8 *bm_hostmode);
-+int mana_gd_dev_reset(struct gdma_context *gc);
-+
- #endif /* _GDMA_H */
 -- 
 2.53.0
 
