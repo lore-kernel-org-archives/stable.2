@@ -1,56 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502828;
-	b=oToZaH6xQOs81CMDQn71bboOXsb1B1e74g0G09iov6ejSCmujq4CGcYdglbdP6cEvdCT
-	 p0pTrTQC6mdp8JnX5X9gjuxLc5cbm3ChkNS1PwF0CBzfm2XcNjdQvIwstjEYYtLYeBonc
-	 VIOB7Uyp+Uuge4h6ZhwxbP4comv8RAFPThsxpRutooUl+d7fVZl1p+DIH08ITZ5zcpr6W
-	 5cTMmV6gZEeZAJnEi1SDt454HV7SwMYe2w9YSHNXeZlmjuC4vniWs8UYyIJGjLCuPT9rK
-	 WroIiZaalrYbg+YPQIXlUuldUYxq0zh7p95yzXx14uvUi1ROBHywrAtZcsy3VeunuKQ==
+	t=1794502952;
+	b=HXCAvUdUwAUA5VoJRCPf7mn1YckHF9Ie2Bkgh6r6nHh0sNWdM1TFEy3fQjxVFx4e+Zs3
+	 b1LJZyPbTq5J3oGsMEEPeV8pFVqPckUScBSJEyWp3pzJwfPmL8QyW/GZlRF/+w7V10/dS
+	 eqA0E9R7ZKa6yFmPrJ5A1xgiflTJ2Pd7BuspoKOS4N/9YruPHiy72GhbBb4Q6AhAW6z9h
+	 oN6APbeDAkWAvT53fCy70e74YHD1t1yEcXZ3WGNUmRG1dudHe7gcg8gKgZkFmdxE4OKjW
+	 a8g/pg06dA6b6HjChSpQuH62ExpFkPIUMrGcDOIq8OtnL7Z+Vx1GlTeReR9hnydjt3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502828;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=indUOhe3t87O/YPFL5M9WKMmi7RqM1hyT94T3ZSLeYI=;
-	b=vO7Pm6wMtFljAmuMF4rWNXUdiHF1wo/QH3MkvOySy2h2g3ua/b6Wj1+5FU2rh6ZmssP9
-	 1Uh8AhdnJkaa8oWYZ0lu42uAR6atPVxYXssogUTA05PHNUVSI6xyCKu/Z+QiTTeXvXGCj
-	 LTfDvneB/YIQaH5vTW4Tqmoghxh3brTmeuokJQ7+t0aa+8ruY1y0HVK5slNKT1x//PjAZ
-	 XWu0Ka5F6IhyABWBsuiK4VTWq271AYYqQC8N1NAg30nac781StC9l4mPndR9YNXMJOlee
-	 0/l1nqyuNjbURYz/6L8vof7HQIXg8PLFnsbVfNgSEo1yxL7GdAbOc53Gbvn0rnDpAYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502952;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=e140q58soQVFIR7wx67wIJ6hITR1M7nvq/sFQdp0L7o=;
+	b=be2sL04wxpMgrnSZE+jguGn6EcfRNfhFCK/kHsy44awWbhJ5FGVCeuGUy1Gu7s9mMPzo
+	 ROZayKi6biPvV/1Df0CCN5RCB2kf5ge58kJtXlmGX2MzovaOntK8X1KrXGLMZHA1/yIYc
+	 +pRXRwDSRSYtgIkwxrgg+96k5/LWz6+sT/gwW9MYXTHd5DR1Edg0D3nk7Yx7RUq1IFGPL
+	 RzbIiLNJ/cBCebcrdJ8Scs9hMXwOG53hJ383nwAXLZw+xDGCTj6UmSysuFN7jcx/D0hgX
+	 lu7d6W7bSWabd2jzBfhBJGpV1QpxWVb/oQV+QwaH4SiF6wg1JqTejy1XrqtCbgoWUAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X4onsVJD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=H+b9CbUw;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA87606A331
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:00:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38814606A321
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:02:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38814606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X4onsVJD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5801F000C4;
-	Thu, 12 Nov 2026 17:00:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794502828;
-	bh=indUOhe3t87O/YPFL5M9WKMmi7RqM1hyT94T3ZSLeYI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X4onsVJD7lyDcdUKIMgBu43E4RfwNiR/juNvH5YvCxTb/kCFUQ77V0jCxahQ3EVs2
-	 +EITbDefaav1meRYbay9as2k4X29gzJSa70HNN96X4ate2Bh1HMEEMeAoys4LYSR5g
-	 LR6J9fvcm9VALUMPjYxMbhFVGeN9/nxIXjOlBo7/vivGmf8QXApKrJ85TllmttAEL/
-	 vliWqgeS2egp7/55wV2lADa1I02DOTIPW0Ee3tYjvyzOPWyhNWuuGHiZ340r6OF5S7
-	 GIQcXNIU9pIwPpo+131Huh91b7mLD9cF6EZ22Zz3wdzOi2xEMfvchG7i9uNA7KenRC
-	 xzp0aDyD2H6lA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] backing-file: always end a queued write
-Date: Thu, 12 Nov 2026 12:00:26 -0500
-Message-ID: <20261112024505.1257604-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107063109-failed-5.10-627cdcbc2a2e@kernel.org>
-References: <20261107063109-failed-5.10-627cdcbc2a2e@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=H+b9CbUw
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b18741aaf8so2490884a91.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:02:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794502951; x=1795107751; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e140q58soQVFIR7wx67wIJ6hITR1M7nvq/sFQdp0L7o=;
+        b=H+b9CbUwryyuXf/mfjsvkYqPekeMTn2TFSfwdiflR5luvYx96042cTpTYF9H7RPB5i
+         L+5IhaB5GQkJwDSCKr8nDp2P296b950XGNvIAdVlQjVm8CV7S8MyJualSEjcoI/wVZ7F
+         9Vx63C/tAi3zJGfDWH0b+IVusToFpU1HDqEw9qB7gJPPxapMsVP/TLt+2VoYOfGYsrV4
+         w6rzT8tVsSfs0t3q2oRUcMRv9ig4HZ0Oc+M6fIeoUYbrH9hOXKKSdAIidykH4cxM3w2v
+         dZ4cjcnSnGNLZm+f4iYD5uVUBCp7MtDM4NDsVosj7Mnsk5cnXRwaLqftdwWKo7OJQDH5
+         A09Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794502951; x=1795107751;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e140q58soQVFIR7wx67wIJ6hITR1M7nvq/sFQdp0L7o=;
+        b=ylhIc9U8D68n5vL3PadD9bzOP6kcFP5Ih7kno2gmDSQmxh8FvdwRsnHTmdmO8u01Pm
+         zIDrrXh6mp7OWa4yk3WeXwmIy8J2kdybELWePQe8dScrN2OsNAgv57PMeksFDKm3ScNT
+         MoBJwwTdlopWzI0rh3cqhkEaH2p5XIQ56hav2TCcvqWMbLcw70/77LDR3LBEJdKcIWH6
+         da4YNi/s6QsDtgx9oct4AfosmjT269uI+40FN17YAzmuQkiDk/O2Ks7OMjk2B6TLM95B
+         3nwRlB5MTBlHWvetRUDjKngO2TffxsUHCwIhg+BQk85PhYg08yh3zWkvruHhz8j+VD3a
+         J2CQ==
+X-Gm-Message-State: APuU4Z93s2y2Kt2b37RZggxaq2pscjT2pAARZ77krb0fp9k4mJPvnvzX
+	qxiiJhCMPpv7iTVMf46CnpyMFZYRUyE/du5/rTsZ+aX94YjQvtzavcbpOVvZ5+3tGjCPf3J7QeL
+	NtaNrTw==
+X-Received: from pjqm20.prod.google.com ([2002:a17:90a:ab14:b0:3b1:479f:4272])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2243:b0:3ac:4291:f569
+ with SMTP id 98e67ed59e1d1-3b182df391dmr6596005a91.8.1794502951075; Thu, 12
+ Nov 2026 09:02:31 -0800 (PST)
+Date: Thu, 12 Nov 2026 09:02:29 -0800
+In-Reply-To: <20261111193111.3654795-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,80 +76,68 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261109202148-failed-5.15-053621535f01@kernel.org> <20261111193111.3654795-1-sashal@kernel.org>
+Message-ID: <avXxJfqVNk--aiMU@google.com>
+Subject: Re: [PATCH 5.15.y] KVM: nSVM: Check validity of vmcs01 save area
+ copied from SMRAM on RSM
+From: Sean Christopherson <seanjc@google.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Bill Wendling <morbo@google.com>, 
+	Stefan Teodorescu <fane@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
 
-From: Chris Mason <mason@kernel.org>
+On Wed, Nov 11, 2026, Sasha Levin wrote:
+> From: Sean Christopherson <seanjc@google.com>
+> 
+> [ Upstream commit 053621535f014085c935879582dd3b65964a0dce ]
+> 
+> When doing RSM to L2, validate L1's state after copying it back into vmcb01
+> from SMRAM, as SMRAM is carved out of guest memory, i.e. is writable by the
+> guest.  Failure to validate L1's state is especially problematic for inputs
+> to MMU context, as KVM can end up with impossible CR4 vs. EFER state.  E.g.
+> without the recent hardening FNAME(walk_addr_generic), a guest can trigger:
+> 
+>   ------------[ cut here ]------------
+>   UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu/paging_tmpl.h:435:15
+>   index 3 is out of range for type 'u32 [2]'
+>   CPU: 3 UID: 0 PID: 92 Comm: CPU 1/KVM Not tainted 7.3.0-rc1 #2 PREEMPT(lazy)
+>   Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x5f/0x90
+>    dump_stack+0x10/0x18
+>    ubsan_epilogue+0x9/0x39
+>    __ubsan_handle_out_of_bounds.cold+0x50/0x55
+>    paging32_walk_addr_generic+0x889/0x970
+>    paging32_page_fault+0x79/0xa60
+>    kvm_mmu_do_page_fault+0x125/0x270
+>    kvm_mmu_page_fault+0x88/0x7b0
+>    npf_interception+0xc8/0x220 [kvm_amd]
+>    svm_invoke_exit_handler+0x16d/0x1d0 [kvm_amd]
+>    svm_handle_exit+0xb7/0x160 [kvm_amd]
+>    vcpu_enter_guest+0x428/0x16a0
+>    kvm_arch_vcpu_ioctl_run+0x479/0x920
+>    kvm_vcpu_ioctl+0x316/0xb00
+>    __x64_sys_ioctl+0xa3/0x100
+>    x64_sys_call+0x281/0x23d0
+>    do_syscall_64+0xba/0x550
+>    entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>   RIP: 0033:0x79bb30deb04b
+>    </TASK>
+>   ---[ end trace ]---
+> 
+> Fixes: 37be407b2ce8 ("KVM: nSVM: Fix L1 state corruption upon return from SMM")
+> Cc: stable@vger.kernel.org
+> Reported-by: Bill Wendling <morbo@google.com>
+> Reported-by: Stefan Teodorescu <fane@google.com>
+> Tested-by: Stefan Teodorescu <fane@google.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Message-ID: <20261022021046.295001-1-seanjc@google.com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> [ sashal: reused nested_vmcb_valid_sregs() with an is_l1 argument instead of
+> adding the upstream cached-save validation helper ] 
 
-[ Upstream commit 627cdcbc2a2eceb0452078a0c14370f9f1f17a91 ]
+Woof, that's ugly.  But I don't see a better option, so,
 
-Writes to a loop device with direct I/O on an overlay file make the
-next freeze of the upper filesystem hang for ever.
-
-Every kiocb_start_write() needs a kiocb_end_write(). For a write that
-is queued, vfs_iocb_iter_write() leaves the end to the completion, and
-backing_aio_rw_complete() only calls kiocb_end_write() when IOCB_WRITE
-is set in the flags copied from the submitter. In-kernel submitters
-such as loop do not set that flag, so each queued write keeps the
-freeze protection of the backing filesystem.
-
-Direct writes to a loop device with direct I/O backed by an overlay
-file left fsfreeze of the ext4 upper filesystem, and a later touch
-there, blocked in D state. It takes write access to the node of the
-loop device, which root has by default, to attach the file and to write.
-
-The fix used here is to mark a write in struct backing_aio and to call
-kiocb_end_write() on completion of every marked write.
-
-Reproduced under qemu without KVM, on v7.3-rc6-21-g602042bf29f6 with
-earlier fixes of this series applied, with and without this change,
-once each. The kernel was not changed for the run. With this change
-fsfreeze finished in about a second. Not run: the nvmet and LIO file
-backends, which do not set IOCB_WRITE either, FUSE passthrough, and an
-xfs upper filesystem.
-
-Fixes: 2406a307ac7d ("ovl: implement async IO routines")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[amir: use aio->is_write to explicitly mark a write aio]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Link: https://patch.msgid.link/20261029180319.2852090-1-amir73il@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adapted backing_aio changes to ovl_aio_req and overlayfs-specific write and cleanup handlers ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/overlayfs/file.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
-index 4440ff43cb66d..2e74de6f4a563 100644
---- a/fs/overlayfs/file.c
-+++ b/fs/overlayfs/file.c
-@@ -19,6 +19,7 @@ struct ovl_aio_req {
- 	struct kiocb iocb;
- 	refcount_t ref;
- 	struct kiocb *orig_iocb;
-+	bool is_write;
- };
- 
- static struct kmem_cache *ovl_aio_request_cachep;
-@@ -265,7 +266,7 @@ static void ovl_aio_cleanup_handler(struct ovl_aio_req *aio_req)
- 	struct kiocb *iocb = &aio_req->iocb;
- 	struct kiocb *orig_iocb = aio_req->orig_iocb;
- 
--	if (iocb->ki_flags & IOCB_WRITE) {
-+	if (aio_req->is_write) {
- 		struct inode *inode = file_inode(orig_iocb->ki_filp);
- 
- 		/* Actually acquired in ovl_write_iter() */
-@@ -394,6 +395,7 @@ static ssize_t ovl_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 				     SB_FREEZE_WRITE);
- 		real.flags = 0;
- 		aio_req->orig_iocb = iocb;
-+		aio_req->is_write = true;
- 		kiocb_clone(&aio_req->iocb, iocb, get_file(real.file));
- 		aio_req->iocb.ki_flags = ifl;
- 		aio_req->iocb.ki_complete = ovl_aio_rw_complete;
--- 
-2.53.0
-
+Acked-by: Sean Christopherson <seanjc@google.com>
