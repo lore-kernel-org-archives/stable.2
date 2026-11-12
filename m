@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794454902;
-	b=e1VPpX2YNqqGWZzGKwnZBE1Ip5Nw8/Xduf0P50q2ijSWz6DW+9QHMJx7jXvnMa+KKZBo
-	 6ZB4CpEM68tTkULu49Z2MxtgC0kXcine4v/8LYHZKliluKIGkTQuN/Gq4Q1Aqi17KNWIt
-	 rjC3KKn8OkxO+0uvuO9e2GZqV7VePYeEE3ngyOh5j2NYhLtJSwzN3OpqCfj6k4hLkrmqB
-	 iV68rOvVfs4l3XqPJ8N1y7RAtIx+L7nCa6oytlnSpKV3Vz2OmgZrm+yYeXq55Vh0ITwu5
-	 baGns9n3hHEbVoWFTc+duvgk+BdN+m8UUIe27oylM/cmKTY//f6ncEnkzUAetvLnr6g==
+	t=1794455065;
+	b=JcFs4940ErH0+OEVQgzmdH+eojesyuvPw0YhdUKGmDw+46qqIf3+bRyOahkx2PxMYNzP
+	 KSEgVinJYZcHZCFzyOx+B2Yg0LG5XQ3Ta+kFyPHdtUzRkKIR1zTI47Cl8v2/LP/9xSkh3
+	 PwNjhDvpdo9pb4poA7D0zVMmgxEKK/9NHwQtqw4Tu757SFTQAh076tl+See6MNjxe1DD+
+	 hnnUVpvsnipl5xCE8PzPkD1Jfb+f7SE9cSXYB5/aHwAFSRUXJiz1WrOIn63lkK+MJwKkj
+	 I5VIkce9tjk2Pw3w6YbDq8w9uUvTPG2FzpPlZTceCCy1gOqHkm61yodLZSWI2ijuMWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794454902;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794455065;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=uopSUL3DR6/ryIAwZjId8B9JTvxf68vjqjL0wspU9RQ=;
-	b=rIRNr2ZlOQjvPGWZv/VgLPmj8SeNJujILr0GLCGcpg+H247OjDh09qGs4HrNgLflT9iy
-	 5ZgOaXIb4sLplibn6pRMa4TWAHckzmJ5Z3d3TrcQvIvLNzr08gwoQToICNxpylunNRpzj
-	 wTr+dJDkA4JCCuAS7VTiwwg/4puNzO6GWrBcA13vkzxI7srmoGNx+GonahesvCwWOY2hL
-	 N/x1KzAGX31GeW7ODNLkIFz7PRriZtE3IYLKI1dJ8t23JgmhlM7xmmjO5v8eypiltMpvS
-	 tBet74IWFOURmcHYH6GaJhseIjUhFzPALHoINXb6oRcK1rLhusgvb8C+Fi/k0kJk6+A==
+	bh=mFUvQ41Qjyros7PN0YXspW273f2gPt+J1QNqqNMDQ54=;
+	b=RAm8j5vz66XVFmRA4HsKqh/0NJef02P1t93NNBClu42MmHp3zyAdk0DkDQD91sRTM9lh
+	 P2rGOR4B6c2Ods0ykXQQiGV2R9QDz2hjGQ5GTMR7zelKYxoVWEKY5yHY0Q7aMnDBeZSdu
+	 iFSaK8fIYXScaffAVRlyVQBP43lMxWpRrufvsPEP8r+rj5C1Pt0vetQQNCOsPcqMINZIa
+	 6NxFjjYcMrpB/Dm205sQ8H13DVgGVCb0rfByMyC4206RBywCJXnufC/tD7m+x/HyCNZ2G
+	 rshgpXbeDzWfv2HwNp76z3zFHnWv9o4eUCUvpYwxo6XMUv3lzQJ3jwEDJcHCYc8+PUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TsOrss/E";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D/D4gPNB";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F270606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:41:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A3C606A321
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:44:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TsOrss/E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FFE11F00A05;
-	Thu, 12 Nov 2026 03:41:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D/D4gPNB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BC871F00A05;
+	Thu, 12 Nov 2026 03:44:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794454901;
-	bh=uopSUL3DR6/ryIAwZjId8B9JTvxf68vjqjL0wspU9RQ=;
+	s=k20260515; t=1794455065;
+	bh=mFUvQ41Qjyros7PN0YXspW273f2gPt+J1QNqqNMDQ54=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TsOrss/EQb92/BUg8GFTACy2hYPE/hrQ03+cleftvq5lMz4AVfn+RlQAE6vlwAMSN
-	 IkQCYAd52n9XNKB4HTwLJRLIupzhfDzqTCMTleFQWuBOgEDTF1LVHprt77l0QUsSQq
-	 81fvLGwrIVuNwByDaFxW5iLoA6Aij/LOAmKF1TMfsrXYsQFJmoyKt/p8U24S8VpTI/
-	 nNV7j2fGxbq0LEhSGRcvZhU68UVanFSc5n9GGaikOMH8dKVBUrNeLK7GkZFZQRS0x1
-	 YqHKQbz2XS+Ba4wBPf2mN0vmjoAoqp8FseZYYyiPK24CJGu35r1gRvtovuiDqmse89
-	 /D8wJYNtIJ58Q==
+	b=D/D4gPNBp0tKu5Bk/7i0S0fIC63j185GHgowxjjpk07LLtZu9MsQwe9MH7nuFwpzQ
+	 Uc4wW9aTW2o9bvYSwFOncACW7PL+LNvo95wCDOdXP0s+M+qdbZJd9sRQYfB88y8cig
+	 Pu1CrFIahd9K80psPSNfb3wEZtbA0hMFZMqKjV4y7RCyLBK3z3QfAgEd1lI4nqfRzu
+	 daOjuG9LxKHIw6TlsARooelbppL4v1LHTUi0SRpfyOaQx+ANx3I3mRAwIaRBFRSZ8Z
+	 KjsrSmMuPUX5GHmjydNqROdLT3IaLLKNSNfxdOFoe2zFZmWZ/Ox/lSaKEcbQVQjg5e
+	 +3jL4pFrSixmg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/amdgpu: drop the gang leader reference when freeing gang jobs
-Date: Wed, 11 Nov 2026 22:41:40 -0500
-Message-ID: <20261112034122.1576993-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/amdgpu: drop the gang leader reference when freeing gang jobs
+Date: Wed, 11 Nov 2026 22:44:23 -0500
+Message-ID: <20261112034408.1581974-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052725-failed-6.12-c1584e10a7de@kernel.org>
-References: <20261107052725-failed-6.12-c1584e10a7de@kernel.org>
+In-Reply-To: <20261107054015-failed-6.6-c1584e10a7de@kernel.org>
+References: <20261107054015-failed-6.6-c1584e10a7de@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,17 +103,17 @@ Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 (cherry picked from commit df4d6d404d44bbc8fc850bc7f9f136a25dabf180)
 Cc: stable@vger.kernel.org
-[ sashal: adjusted cleanup context for an embedded hw_fence instead of separately allocated hardware and VM fences ]
+[ sashal: adjusted cleanup context for an embedded hw_fence using base.ops to check initialization ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 19 +++++--------------
  1 file changed, 5 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 0abc38bb242ca..348a38ee36bb4 100644
+index 56eb3aa1d9d3e..b03860f23c70c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -274,17 +274,7 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
+@@ -181,17 +181,7 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
  
  static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
  {
@@ -132,7 +132,7 @@ index 0abc38bb242ca..348a38ee36bb4 100644
  }
  
  void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
-@@ -305,13 +295,14 @@ void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
+@@ -212,13 +202,14 @@ void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
  
  void amdgpu_job_free(struct amdgpu_job *job)
  {
