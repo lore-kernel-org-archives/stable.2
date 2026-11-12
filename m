@@ -1,93 +1,93 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794515411;
-	b=ld1EbgqRRqHJRBQ54+8izD5c3RumldKdCWXiQ7heON1kcNEapG9jL/daQpgJGsVtsHQu
-	 MNefk3nYGEzRJYij6c3UNg2StaOe81wtzTkYXwJC0GdLYykxHVFC1UDsutSxQEwPKLSsr
-	 ssPICXVv1WBkQxg2OU/97P7L1N5wh/7/iqOPs+2cFLNiCbAZYSUcAiAT0wtfJDHc1TtKD
-	 IbtiN/q5ddTagVYcPlJg4xnZfrGPbKve/JwMT1/BB/e/6OjGkXMZZciBWGYt+FgXPgQKi
-	 owkp9C477GSpO7nVgCdWbT7eSWzrwXEDtWQqw2jLDZtBPfwVY6Ve/4TAFQA8cCEstYQ==
+	t=1794515487;
+	b=cETWim5FApH+kOdfa3ZGNfxFhg5D/wzn2Z7G2bAWxS2++ETxwJV7ukvyNe57O8eePb2A
+	 YswdgRod8r3OxgHn9ePB5oZsDwLfQ87SS0ZiijGLS9FUHBWoFX/pBW4gNd6GodDUX//1k
+	 kkF0vIPUlAH3ucJc8PRRfqq4ALuQgzfVM0kas8iO5mRXXqU4X9HiG5d7nDDi/H2Q3QaMo
+	 atqknvOWeozQgvxR8q9TMnrrvbsd2rJWRf6n452tPeNptS4Xj8o7vi6i8QALXe/fi5Wob
+	 vWeP+xZUrfO4Pyo9rqwhBP2crS+BsLlzXiUV4/EN+AQk80eUpZXPU/e1h5BLi7sREsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794515411;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515487;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
 	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=E5VcegxzmZ/j3G8DjuvGctUHdtXTIRof2+VL5bxBoqA=;
-	b=M8U0P9ARCwuJ2ZqeEr7mUfyLmpIbSxd2oaNLtUddqg1f9aS0WqRjYwgx73M/zbzQxr+W
-	 qKexCO7DlTVbChheqISFlLrilHD3s3/gmae0WreGiQAOTUO6GMXxtcjGaJ3ummlCNBhws
-	 Gm6mRZfHImiAyjejiHHC0gG04cSCQa3Nc+8W4R5Wz/QhoaBxIuHi5ro7lKhn5hhEWr02u
-	 9QBUp5dkSXO69fFBKhjyMQHIpbmwk89BDcLNkXfrK56zgFCubrbNPFOXF/Sf5z/X5No0m
-	 9RQ3jPWgfJdrMZ8RVoDcfwSt1ZNELCuZ2SL6w3n5l8TQ//oMSJD2hknK5DgBsU8hwdA==
+	bh=EEYnyqtfBaZClIC1U4m99W9a2JEMKmddVi2EW2W9bqU=;
+	b=i8xqzIFWfFiLrHqQ7Y8G/MvXOZ1oxTfKCjslrzdVylxy5wfkXetWv8R7UPQijXUHDQm5
+	 pEL200PdsCzbwIjTe4aoX/rRdXQtdlTjLS/QQT9qjfuh6R6/catG8pI+3gSD5pJ1UQTB+
+	 4J01JPj2QvKG8M8yF2q4Cg0LTXhHuPHWIpBcIULzTpUy6JbYsSJJzzRL3vqUux6RwHgWG
+	 PbwJR7VwYfc+QZPx6mWW4n2LRM35zrhVUMvIh94/1ATNJh0t3mL68y2qMFfbztP00nT2m
+	 GbRQphtMjIkNCQ7j460C1hTa80J+27aucfyiu1A/BfWiNQJlb6i0qpUJdbN+LjOBsmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Lf+l18u/";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cyjyY2OS;
 	arc=none smtp.remote-ip=170.10.129.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A975606A323
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:30:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A975606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E206606A333
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:31:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E206606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Lf+l18u/
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cyjyY2OS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794515410;
+	s=mimecast20190719; t=1794515486;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=E5VcegxzmZ/j3G8DjuvGctUHdtXTIRof2+VL5bxBoqA=;
-	b=Lf+l18u/ukNGVgWJ+qeHY1u06+OX0ukgBz8zw6Qt/F+xzFFHKQscoNmY3BD8l5UYI22iDF
-	RiPIXBYL+gGp+1ijCQwjHxH7zkjT9aOgEMw466l5Sr9SRB1wLA9wqFvEFisABmPg5JjcXz
-	BD+gXJMjdtSMu76be3pV71/n0IpZyzY=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=EEYnyqtfBaZClIC1U4m99W9a2JEMKmddVi2EW2W9bqU=;
+	b=cyjyY2OSde4zKO80Vvi3MaC5UFXKjQpF5mddN0eBVoK7GpIPkXs0B8OHvq6b5KQp9g2E3e
+	I3HEPexy7OtT99XlBcC2bRsfyCzivIbkNCVH8eJifmUJNjmR41RVpXY+ELQcWf0iKprzOh
+	W2oJwnETgOClbXDB3X76qLvHIcIcj9Y=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-611-3AWA5Yd9MuyD1p_fiqFvMA-1; Thu, 12 Nov 2026 15:30:08 -0500
-X-MC-Unique: 3AWA5Yd9MuyD1p_fiqFvMA-1
-X-Mimecast-MFC-AGG-ID: 3AWA5Yd9MuyD1p_fiqFvMA_1794515408
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-54af6c38092so1633231cf.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:30:08 -0800 (PST)
+ us-mta-177-YrIaCe9jNnSANuyUe8Apnw-1; Thu, 12 Nov 2026 15:31:24 -0500
+X-MC-Unique: YrIaCe9jNnSANuyUe8Apnw-1
+X-Mimecast-MFC-AGG-ID: YrIaCe9jNnSANuyUe8Apnw_1794515484
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f33438950so32255885a.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:31:24 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794515408; x=1795120208;
+        d=1e100.net; s=20260707; t=1794515484; x=1795120284;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=E5VcegxzmZ/j3G8DjuvGctUHdtXTIRof2+VL5bxBoqA=;
-        b=2teuHCPJHR2ZGmYBF33waJ6JsfU/IvCRcY1M5bjqSwGWPE3mVIUQXuUTp1tcTFdUUa
-         HVU7G/AQ7H6DFcQYMAIRUIqE2c3jOSWWslPTEWQA2zaZMuCPElvzQkWLwf4hVCWDBXYk
-         BjSY5kZecxcoPZneOEOBSJAjeTMIWMw15cx3G8bVY0kYwHD2GFxZVhinaIKzaxSUHbeH
-         k61blOVTXR/KkDso77Ji0jznvfc0kEbUMR2wHbJXDpKvvifqXOizFZnSZSVlnZNgxPKc
-         Zz+OtVmAuL21oH6SyAAO7Wrrz2j6eHVeTWcRHi3cv0VjfYIF7Z2VyDqHcCjqikRwCXmA
-         QPBw==
-X-Forwarded-Encrypted: i=1; AL+hErFCwGuCKm/Am0YwxowDFeGo1Yvpwy1HYkD7wuHkesmGczGwo88oDYnsHAVQujd9nARKdruUYCI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qUMfXDNxU8H0gNjeixsRbanGWkEpdb+xNy+pDZbZ51bzrucW/
-	SIfp7W4DKUkmXeBv7w7g94R4L40RYaMBX6yRnJCfuYcEFAzQTU+GT9xBbKLwOGSZqrTmWb5AIVH
-	b2vcI3cEh9slwcQ9lYSUxzJ3zQ/0/W4uxtUGdHDDSp0x9uoVX9ECr53EnWA==
-X-Gm-Gg: AYBFou0edvXAzK7t4UTr1SgpolMvfzey3EZ728/kFInpJfodLmCZp3d0dbMJU5qazNn
-	wFCsn04zLoOT1cpGEi7FPhoj6uyaLsSKXkMnQKIjk8Jf+6tKkKHirwYNOJix8sgaWwRheYdn0N2
-	ljXd0Fv+JWqHmQpv2RW3NQORLFzP/vD1NfS7pIK2rjmiqSpnz/u2xCgDw1343uZud9tLOpCBtUh
-	qbpbHZfz1l1JGTnleNc4AdygF/O/dSz6ad8rsqkFrptNGE96CmNgF+qeRSzTi/ueehuXYt0Th72
-	gD/4bypk6CP2I7ozK0tkCAWzeOxO7zu3pD3mYXau/8ooY6j0MabCHvhb5bvcN4UMOa6Dhe4wtja
-	pwhrunqfdK+yBMNASOs9dS1JIPqYYFPMWnbR8t3gTQqJb0NUrMs4oNIiM4GWoRbeT3gb/S0vjZR
-	+qZDpywhLk4XjIP7DzzdyxMw2GPdiTs+n9H5NKVxCtNQ==
-X-Received: by 2002:ac8:5c85:0:b0:533:42e0:a1ee with SMTP id d75a77b69052e-55ac8280f20mr9223671cf.37.1794515407667;
-        Thu, 12 Nov 2026 12:30:07 -0800 (PST)
-X-Received: by 2002:ac8:5c85:0:b0:533:42e0:a1ee with SMTP id d75a77b69052e-55ac8280f20mr9222281cf.37.1794515406975;
-        Thu, 12 Nov 2026 12:30:06 -0800 (PST)
+        bh=EEYnyqtfBaZClIC1U4m99W9a2JEMKmddVi2EW2W9bqU=;
+        b=NKlE6O29R0+yNAN3BLMlto2jNjXCkE2iJAghR7bHqApY60XxzPsTKmsypIzkFylj78
+         CjXlv0eiD049Onc/A4ymCZEvTRV3Y5iWn3aVd0q9y1GjO+cYNcylbPJgcxSj8Cb6SAxH
+         aDrxo2luSM8LtapzH3sAfkitjSZe9dj0ogov7hOYGJ4Tlptk+bw+pJfS3/sZydCTw4sB
+         OnfhgXmwQJ6q0VJMOzzGwV46dLRYNa1kxdt27SAjYoPYW6LHbdkjrHl23a0FPD0LXvtu
+         EUXZX6F//SMthnz5Yy5cUPXsvSPxWn01tHmpGye7WRUAqXwexFSVAPQ1xSLXuH223zjd
+         +8KQ==
+X-Forwarded-Encrypted: i=1; AL+hErGluCHPfTVUP7NBgc5d6174m0cvC9R2aRp3tvZ28PSCo/qiSDL6xvwpgweIRZlSATyCSBk85pM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8tl60p4TwP6TdM5YSyGsIBwCTRrFeQD9GPz+/Gon9ppPfN5313
+	HisFwK/LiMDWDZ+lNWs7Bt0Vk7qWW+xcuMiMArp7u/OAwvbvQswYOVMYP7DOVe1nivlX69GjMUx
+	zYMiZwlxv7IqKlRdHsD0i+drNFHLayvtoTAVeLHpGi5TgdclospqH7h0g1w==
+X-Gm-Gg: AYBFou0MSN6juihg65yPu/LIdOuDc8aC463nKc4h5KyHwfl/8SUag0zYay6kAGxn6oI
+	37jQ/UIXl/AxeLLYEOUpfFqRe70iBb6vo+4VB8i9mrvxcCQba3og+cNNRnTy5yaC2cqUpjFb06C
+	Mu+ljNwAALqfQq3cmRgZyOfD4PQULKqsJz7tXDmkY5ex8McA/6eLQvXFZDEWc6IYjrSIYrXVbsJ
+	9LL31hXzAwXk/bDqpJUhFxe3OGUtPNedTZTDn5AFy/HFTLncYVBtlvVFP/wPofdQiFM7UjFLu0g
+	Q1OPZNOokP6k8kiNe0a6ieHTmRskDQAAJDi5NHnZ7GJ9if4762UbehL6Fn1d8VmQ79HDwhbDJC/
+	8UxxLKla3ucfoFet4N2xoOTxcw8gLp8M4I3s3IOhWISO9tIjR+pKHra9Mli/4mOG3WsTWhX2aEf
+	lrMlTsQvjAdIZL567VcgY2WwyCvrJxMSU6lKjmeMonOg==
+X-Received: by 2002:a05:620a:298c:b0:939:4a44:5f99 with SMTP id af79cd13be357-9494b9432aemr102532485a.10.1794515484227;
+        Thu, 12 Nov 2026 12:31:24 -0800 (PST)
+X-Received: by 2002:a05:620a:298c:b0:939:4a44:5f99 with SMTP id af79cd13be357-9494b9432aemr102526285a.10.1794515483278;
+        Thu, 12 Nov 2026 12:31:23 -0800 (PST)
 Received: from [192.168.2.110] (bras-base-aylmpq0107w-grc-07-174-93-165-160.dsl.bell.ca. [174.93.165.160])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23c9dbd2sm4281656d6.4.2026.11.12.12.30.05
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad14f1ecasm3009981cf.24.2026.11.12.12.31.22
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 12:30:06 -0800 (PST)
-Message-ID: <050fed04-ad02-4d63-900e-3cab46a03db8@redhat.com>
-Date: Thu, 12 Nov 2026 15:30:05 -0500
+        Thu, 12 Nov 2026 12:31:22 -0800 (PST)
+Message-ID: <60d486de-6205-4d5f-8a28-0ea9f4a43fb0@redhat.com>
+Date: Thu, 12 Nov 2026 15:31:22 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,7 +98,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3.y] mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
+Subject: Re: [PATCH 6.18.y] mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
 To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
 Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -106,17 +106,17 @@ Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Pedro Falcato <pfalcato@suse.de>, "Liam R. Howlett" <liam@infradead.org>,
  Jann Horn <jannh@google.com>, =?UTF-8?Q?Jakub_Mat=C4=9Bna?=
  <matenajakub@gmail.com>
-References: <20261109200136-failed-7.3-8146c6478224@kernel.org>
- <20261112031021.1419377-1-sashal@kernel.org>
+References: <20261109200401-failed-6.18-8146c6478224@kernel.org>
+ <20261112032559.1526093-1-sashal@kernel.org>
 Content-Language: en-US
 From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <20261112031021.1419377-1-sashal@kernel.org>
+In-Reply-To: <20261112032559.1526093-1-sashal@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
 
-On 11/11/26 10:10 PM, Sasha Levin wrote:
+On 11/11/26 10:26 PM, Sasha Levin wrote:
 > From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 > 
 > [ Upstream commit 8146c6478224d8f6395c6b08a19c344a56d79867 ]
@@ -162,7 +162,7 @@ On 11/11/26 10:10 PM, Sasha Levin wrote:
 > Cc: Jann Horn <jannh@google.com>
 > Cc: Jakub Matěna <matenajakub@gmail.com>
 > Cc: <stable@vger.kernel.org>
-> [ sashal: Replaced vma_can_merge() and vma_is_fixed_mapping() with equivalent flag checks and is_vm_hugetlb_page(). ]
+> [ sashal: replaced newer VMA helpers with equivalent vm_flags checks using the existing is_vm_hugetlb_page() helper ]
 > Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 I tested this against the in-tree reproducer, ran the MM kselftests and
@@ -175,16 +175,16 @@ Tested-by: Luiz Capitulino <luizcap@redhat.com>
 >   1 file changed, 19 insertions(+), 3 deletions(-)
 > 
 > diff --git a/mm/vma.c b/mm/vma.c
-> index e382fd32f0fff..9863668b9d6bc 100644
+> index 8669da66edc5c..6f9e3d0c2681c 100644
 > --- a/mm/vma.c
 > +++ b/mm/vma.c
-> @@ -1882,12 +1882,28 @@ struct vm_area_struct *vma_merge_extend(struct vma_iterator *vmi,
+> @@ -1770,12 +1770,28 @@ struct vm_area_struct *vma_merge_extend(struct vma_iterator *vmi,
 >   					struct vm_area_struct *vma,
 >   					unsigned long delta)
 >   {
 > -	VMG_VMA_STATE(vmg, vmi, vma, vma, vma->vm_end, vma->vm_end + delta);
-> +	const bool can_merge = !vma_test_any(vma, VMA_PFNMAP_BIT,
-> +					   VMA_DONTEXPAND_BIT, VMA_MIXEDMAP_BIT) &&
+> +	const bool can_merge = !(vma->vm_flags & (VM_PFNMAP | VM_DONTEXPAND |
+> +						  VM_MIXEDMAP)) &&
 > +			      !is_vm_hugetlb_page(vma);
 > +	const unsigned long start =
 > +		can_merge ? vma->vm_end : vma->vm_start;
@@ -200,8 +200,8 @@ Tested-by: Luiz Capitulino <luizcap@redhat.com>
 > +	}
 > +
 > +	/* Mixed mappings are permitted to be expanded, not merged. */
-> +	VM_WARN_ON_ONCE(vma_test_any(vma, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT));
-> +	VM_WARN_ON_ONCE(!vma_test(vma, VMA_MIXEDMAP_BIT));
+> +	VM_WARN_ON_ONCE(vma->vm_flags & (VM_PFNMAP | VM_DONTEXPAND));
+> +	VM_WARN_ON_ONCE(!(vma->vm_flags & VM_MIXEDMAP));
 > +	vma_prev(vmi); /* Reposition to start of VMA. */
 > +	vmg.target = vma;
 > +	if (vma_expand(&vmg))
