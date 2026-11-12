@@ -1,65 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794517159;
-	b=3lQ0t9H1F+ADOOM0Hn1ZmJXLVlmnLjKCfF7m2jlvi2fCX/WZCR3V3BoUEx5jeWyMTOHb
-	 By3OpwpUPHc4k5HeapMTYeeGB7gBL4W7u4bPWW4w0hzc+3WrtaT4/S6aon55ODJqaTGZV
-	 Nkj+N/DAfkHXi57x3Dcyd3zrI9mcjjL2kV5Tf1ByYm/6tPkACsQemAjeod9jPp9Jaicc2
-	 LBUpsMoHgoExaLNzdoZUjhdsdQCxFjhzQnk5cnX0g5qNH0EdGjOJIRouefGiO79if7d3Y
-	 kS1zJx3Ct+Z5mivNtpK/9vUShg5zRXa2a3b5f6hk8KKjNkoKPWIsosstBGP6TCpcHiw==
+	t=1794517262;
+	b=p67OTugTKZLaDO1MZDIHLPSaeno1WWK8myxq01qsvFI6uc3KLkKn3xC6Lxhh1ABQ6r42
+	 cnTu3mtDLBvij8IMaJnVXXWZnNHR9HXrDfnHdCs3fqvm0z+QuWV9xGQTmlXFRr4oij8rZ
+	 A29YWTxdEh1Xd0QGShOvlYh3k632E/Mt3zEOeFXX79bgbJgoQ8u5FYqTCRVQMaAE38cH6
+	 IEPuMUuKCQ6Lb1Zu5xFPx31Xmj07uZ68m0YN6kpSKGBNBMkPk4tj/O+eU5ABDWsd8SK05
+	 z3THk8giarD13JZ4UK+1Sc8I7zqyilArIV0cO8iyqoY63z+7iff+4s37T3Q2aPSXpIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794517159;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=DWxW0v3Yp3gUIU8y20wR7hKoi5jJwchqtRdIOf3GtkQ=;
-	b=jkS/CbZ2mxMJxMk03D9QY/W3h61ycZZykCAD8JfdH5JgBxuoHdcwOR8uNBqVdCwp0/8w
-	 3JKPuZJMXyCwNqTkebLR7XOIS0phWQ8z8nkpdI3JBtbH+hY+WSmItRjXTgwiGGQ0q62vd
-	 RTePpr3Rxkn2kqIYGnvgqo14d2gObtjuH0+aXARbU2uOKfZ5EhE6W4iqqOJGSQo2RguXv
-	 5m808cWFKi8MXatmZHxfBCHgfwWhrIF7XTST1AiU2VRRvjhC34vih5d20YIRJanYC4QO3
-	 8CtqS+o5D6jieGp3RZTOWWFM+s+WsxwGroDCXNnWrG0psvaG4NjJG/oQ29g2tphzq+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794517262;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=n9AC9m/U5sc5j+SMiPjyEVWLeF4QDi/C8e8aFNL1ddU=;
+	b=bqkuc47RkcxZ5hJ/tBA84QvUUM8jKlQAtcFxVfOzJTzoWetWmiIK9pxvP4Xd5OJgp+G2
+	 zWbzovAjfwcxeVAa+XGtO6IORV2/NKeEh2wxDBl7Waml/ILM8Fiy7oqjwpiUSk8yxkb04
+	 bZeJNGyFKF00b67eudysyV57n1uFkRxyISudiE7V1CvyFnCc2XW8aNkMD1rmAbHXo8oOy
+	 PGtNx4L+/bbhfA3AsgLEHW6GIxknGwxk6p5JnTJuPPJSVHA6s31Y8L+cGWGnIgRClUT4c
+	 6i2iiKwtGJizH4xJFJLb9hKQW91i4dIGwJxMY7KSPGjqjJEKHS0GVstuVGgovvWm+cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="O0f92Jl/";
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czlrVsHD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC79D606A31C;
-	Thu, 12 Nov 2026 20:59:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC79D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E352A606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 21:01:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=O0f92Jl/
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=DWxW0v3Yp3gUIU8y20wR7hKoi5jJwchqtRdIOf3GtkQ=; b=O0f92Jl/Q7JNZC57lF2m123DO3
-	ZdljTMVUMMcWHgd354KPoiCaWYtR04IXtmDeLHs6jL3Hdw3NkGid7JuqrfD86VbShMe5qKFqG93lM
-	xPF0YfPpe6x7snQwKe93O4nUpuJQDwf4pXzje+EttCMdg12x3aOO8xmD5pspmuKCclG34iCVYOwQ+
-	0v3xQyOPAZWqClKkdiqhJYvDJrZmPhbvDlbOH9pq1mAHshLNcKkV+ue/9dzolAZ3QZ1mlsXmhgQo9
-	lc8z1ev5qYOT8qaSHOzu4YTatxSk1r8nfbEkVXuvy3sw9HSfRdDhFTHgzZAKIn4B1lYTKIlUsMdt1
-	ywLEKeNA==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRbt7-0000000B2ea-2awE;
-	Thu, 12 Nov 2026 20:59:17 +0000
-Date: Thu, 12 Nov 2026 15:59:10 -0500
-From: "Liam R. Howlett" <liam@infradead.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
- uffd-armed VMAs
-Message-ID: <63skl724i2jss7itcq63fbojykh462s3voi6to52ze6v3unp35@kgakyccedf64>
-References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czlrVsHD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91A3D1F000C4;
+	Thu, 12 Nov 2026 21:01:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794517261;
+	bh=n9AC9m/U5sc5j+SMiPjyEVWLeF4QDi/C8e8aFNL1ddU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=czlrVsHDi9BpLJap0DPaA6g3B4sERCQudTkxrPW4HThhxgl16mMQTFQxMShU2V9bH
+	 re4Cf4t7JVau28VfWRKEXtYXuafrJqtzuiXB3nlgcwaG25XLJAjhkIytgdmQO0Ccyl
+	 BxzJSXN5lLNKGp5ujisn8JIE0qah0jA7o0tq9J7tJOXF/XqQVnyJIz/8/ucisb5apX
+	 rKPO4QRURwbcivZDmkrzTWBHkdJcnASpKz5J/IdPiX1bxzpiyYvNfkPcNqP8bpnW+O
+	 vMvI209ZQ7iUmEkO0OzOPn8qsdjjAZTWryIrbRigYGDqN0v5p0j2+eVrQGLaQ5kzUS
+	 bSjtpukbIKnCA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/mremap: fix moving PUD leaves
+Date: Thu, 12 Nov 2026 16:00:59 -0500
+Message-ID: <20261112205952.3707803-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201341-failed-6.6-440c8779757f@kernel.org>
+References: <20261109201341-failed-6.6-440c8779757f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,121 +63,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On 26/11/12 05:38PM, Lorenzo Stoakes (ARM) wrote:
-> In order to establish guard regions, guard markers are installed in the
-> page tables of a mapped VMA.
-> 
-> However, problems arise when one tries to combine this with registering a
-> VMA for userfaultfd, as such operations may themselves need to install page
-> table markers such as uffd-wp.
-> 
-> When this installation is attempted the guard marker prevents these markers
-> being applied, which can lead to unexpected results (especially if the
-> guard regions are later removed.)
-> 
-> This is especially problematic because guard region installation causes the
-> regions to be zapped first, meaning that the removal of userfaultfd-tracked
-> ranges will not be logged in this case.
-> 
-> Therefore, disallow this.
-> 
-> This makes sense as conceptually, guard regions mark a part of a VMA as
-> effectively unmapped at the page table level, and removing the markers is
-> like mapping the VMA again, over which operation uffd markers would in any
-> case be lost.
-> 
-> Only check for this on installation, as a VMA can be registered for
-> userfaultfd after guard regions are established.
-> 
-> In this case, the guard regions cannot have new markers installed, and no
-> faults can occur in the guard regions, until they are removed, at which
-> point everything should function normally.
-> 
-> A survey of open source users indicates nobody is relying on installing
-> guard regions in uffd-armed VMAs. Software including glibc, android,
-> tcmalloc and CRIU were checked.
-> 
-> Fix the selftest to reflect the change.
-> 
-> Fixes: 662df3e5c376 ("mm: madvise: implement lightweight guard page mechanism")
-> Reported-by: Tal Zussman <tz2294@columbia.edu>
-> Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-9-00713d368976@columbia.edu/
-> Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-10-00713d368976@columbia.edu/
-> Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-Reviewed-by: Liam R. Howlett (Google) <liam@infradead.org>
+[ Upstream commit 440c8779757f09f290770b1d361dc1516a9d0b3e ]
 
-> ---
->  mm/madvise.c                               |  4 ++++
->  tools/testing/selftests/mm/guard-regions.c | 12 ++++++++----
->  2 files changed, 12 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/madvise.c b/mm/madvise.c
-> index 0214efd2a014..268731e90f12 100644
-> --- a/mm/madvise.c
-> +++ b/mm/madvise.c
-> @@ -1156,6 +1156,10 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
->  	if (!is_valid_guard_vma(vma, /* allow_locked = */false))
->  		return -EINVAL;
->  
-> +	/* Guard markers are incompatible with UFFD markers. */
-> +	if (userfaultfd_armed(vma))
-> +		return -EINVAL;
-> +
->  	/*
->  	 * Set atomically under read lock. All pertinent readers will need to
->  	 * acquire an mmap/VMA write lock to read it. All remaining readers may
-> diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
-> index 02f69244f9a4..97da54dcf3a4 100644
-> --- a/tools/testing/selftests/mm/guard-regions.c
-> +++ b/tools/testing/selftests/mm/guard-regions.c
-> @@ -1476,7 +1476,7 @@ TEST_F(guard_regions, cold_pageout)
->  	ASSERT_EQ(munmap(ptr, 10 * page_size), 0);
->  }
->  
-> -/* Ensure that guard pages do not break userfaultd. */
-> +/* Ensure that guard regions cannot be installed in uffd-armed VMAs. */
->  TEST_F(guard_regions, uffd)
->  {
->  	const unsigned long page_size = self->page_size;
-> @@ -1526,10 +1526,15 @@ TEST_F(guard_regions, uffd)
->  	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
->  	ASSERT_EQ(ioctl(uffd, UFFDIO_REGISTER, &reg), 0);
->  
-> -	/* Guard the range. This should not trigger the uffd. */
-> +	/* Now try to guard, should fail with EINVAL. */
-> +	ASSERT_EQ(madvise(ptr, 10 * page_size, MADV_GUARD_INSTALL), -1);
-> +	ASSERT_EQ(errno, EINVAL);
-> +
-> +	/* Once unregistered, we should be able to guard the range. */
-> +	ASSERT_EQ(ioctl(uffd, UFFDIO_UNREGISTER, &range), 0);
->  	ASSERT_EQ(madvise(ptr, 10 * page_size, MADV_GUARD_INSTALL), 0);
->  
-> -	/* The guarding should behave as usual with no uffd intervention. */
-> +	/* The guarding should behave as usual. */
->  	for (i = 0; i < 10; i++) {
->  		char *curr = &ptr[i * page_size];
->  
-> @@ -1537,7 +1542,6 @@ TEST_F(guard_regions, uffd)
->  	}
->  
->  	/* Cleanup. */
-> -	ASSERT_EQ(ioctl(uffd, UFFDIO_UNREGISTER, &range), 0);
->  	close(uffd);
->  	ASSERT_EQ(munmap(ptr, 10 * page_size), 0);
->  }
-> 
-> ---
-> base-commit: 4318887a3efa4c53d6f083ccfd7105b809a3ac65
-> change-id: 20261112-disallow-uffd-guard-install-a5294129ad7b
-> 
-> Cheers,
-> -- 
-> Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
+pud_none_or_clear_bad() only really works on page tables. PUD leaves
+confuse the check and make us clear the page table entry and print a
+warning.
+
+Since commit aed877c2b4257 ("device/dax: properly refcount device dax pages
+when mapping"), this also leaks device-DAX folio references, mapcounts
+and RSS accounting, resulting in "Bad rss-counter state" warnings on exit.
+
+Allow PUD leaves in get_old_pud(). If a PUD leaf cannot be moved as a
+whole or the move fails, split it. This unmaps it with proper accounting
+instead of treating the leaf entry as a PMD table.
+
+Keep using pud_trans_huge() for now, in the future this code should be
+cleaned up to just check for PUD leaves.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[ david: fallthrough after splitting ]
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-32-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted PUD handling to use explicit helper arguments and retain separate pud_devmap() checks ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/mremap.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 0739a31b54eed..b0caaa96a3f1a 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -47,7 +47,8 @@ static pud_t *get_old_pud(struct mm_struct *mm, unsigned long addr)
+ 		return NULL;
+ 
+ 	pud = pud_offset(p4d, addr);
+-	if (pud_none_or_clear_bad(pud))
++	if (!pud_trans_huge(*pud) && !pud_devmap(*pud) &&
++	    pud_none_or_clear_bad(pud))
+ 		return NULL;
+ 
+ 	return pud;
+@@ -565,12 +566,11 @@ unsigned long move_page_tables(struct vm_area_struct *vma,
+ 		if (!new_pud)
+ 			break;
+ 		if (pud_trans_huge(*old_pud) || pud_devmap(*old_pud)) {
+-			if (extent == HPAGE_PUD_SIZE) {
+-				move_pgt_entry(HPAGE_PUD, vma, old_addr, new_addr,
+-					       old_pud, new_pud, need_rmap_locks);
+-				/* We ignore and continue on error? */
++			if (extent == HPAGE_PUD_SIZE &&
++			    move_pgt_entry(HPAGE_PUD, vma, old_addr, new_addr,
++					   old_pud, new_pud, need_rmap_locks))
+ 				continue;
+-			}
++			split_huge_pud(vma, old_pud, old_addr);
+ 		} else if (IS_ENABLED(CONFIG_HAVE_MOVE_PUD) && extent == PUD_SIZE) {
+ 
+ 			if (move_pgt_entry(NORMAL_PUD, vma, old_addr, new_addr,
+-- 
+2.53.0
+
