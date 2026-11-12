@@ -1,62 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479704;
-	b=GjXKSjcihrho3dkb2kyb8E00eKOV67HRCgJYeFKlVgyZ64EVCsY4oiBMJHc1O07ImORJ
-	 KI9FSX8B9eNEqzJ0ZbRkjP1Y24JBkjvqIXJQ7CoyLwpElUipaK4VvSRry6UxcwzG3TbFw
-	 77kfkW9rXW5Sc20q5jyvZLp+PGa+Eaecpa5OQlFc0uLjzdyoKJXb/OR49MicwmGf8+tsD
-	 K0JYZNaYCp17S5p2q6YkIKte4JRgGpQJcToXstyz6NdjgMKhcDk8spmOfuYOPWsUytVjX
-	 /Nf4koSAHujhEY66BRlcc34ep1OUIyUPcYPk6QKb/Ul7PwpiymefOIUBk6pxg/f+pxQ==
+	t=1794479718;
+	b=0/e5TqnPmVIJg3XBsytHKljd2424MD4s7wFyHoInunL+c2XaIKFNU4eoQk7nig51krUB
+	 E8aeGtzoYFZRG4w3LMqrCM4D5zRN51nZhTjqB6i1Ixny4DLHQzNKpshe8OOtxQyap++Yb
+	 NhcqvMTTKVGcdIcIMefo+6PlBg5YGNonSndYi/MChKzFZzcIuLWaoWQJVX6m/1rdWNkc7
+	 VPz3/IzugQDPjz5n2L0bxMs1lfM6NdAnXwl3CMVynPFwKhz8+OIyy7/O4I3D++GoG5dnt
+	 WO3WkGrrtMrpKjMDVk5KxE/uIFcYXTcIe/7wXTskz5oacgW5pg0K6WcEzRPaAsRZYVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479704;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Subject:From:To:
-	 Cc:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=nlhRrHgWvvRum1RYDGIC18v3rlZ4VwWkt4FpLNOMNoM=;
-	b=Z9SmCAKq2wbgpVqZVAwWtohfUjM87REorXSqcmOOQBm05d91muQYzQHRfuOZfrBK06cu
-	 W0B6j03Zj9mAlA8qQVp16ZFljs5MLby7YHqZk7NXfmIHxTob5HXhQ5bBXgcKUup4snPbU
-	 IYHYZ9SJ43RXd2OpQZJ/DOvUhzr/IxumcCHIi3U83kdDXieQ8shliEfOjCHFLjxJfAOj8
-	 Ie7crK12d60C9hehWtK6QjPBmPEyEHSIwuztOzRyFC0YQXQQ2cXJFoWL5NS1XiM7Rxv+x
-	 mkugcXDEHbbHHkXpfjG3e0TOvt4FVWZrkWjfBsGpCXj82cmp1rFyMF/K/N1cIYKqmlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794479718;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=WoymvwdfMBFoMyXW+9QTB+Y4rJogi+4Hn0MI83a+cw0=;
+	b=y5nstijybk1YktO4hLoHsUZJx+0EgForywk0BiRzvWQO+xHwxcODuZBx2GZhU4NUZwaB
+	 3xoWvEIZqaTdL9tjQIHfxCJP8jZvI7mo58uIn2vrsdXrCVBdW73MlAGLOz/IytR5NZGPQ
+	 +/lMzad4rf2U7rVZ9ubT3A76H0tzZOWnXv9SZvoNxr8l6V5MeaIN/LZBUCz9v6nBWBSBc
+	 lsjP7tiAVxmAmfi5zdgT26SHd6ejWyySTrLuzxgcyF1mVZO+VQo8PKoFZ6xxyVtI3M9n9
+	 NVIfCn7bvvdw5z/ZH7Q4cMDikLaeCzVO3IRqRf+LBKtEHQCDfiaJ0TpfLuEYsWisNXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=14.137.139.23
-Received: from frasgout11.his.huawei.com (frasgout11.his.huawei.com [14.137.139.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Py+GPyII;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EEE606A323;
-	Thu, 12 Nov 2026 10:35:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3EEE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.18.224.235])
-	by frasgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jQGwR49jSz1HCLW;
-	Thu, 12 Nov 2026 18:34:31 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.218])
-	by mail.maildlp.com (Postfix) with ESMTP id EC39640558;
-	Thu, 12 Nov 2026 18:34:59 +0800 (CST)
-Received: from [10.204.63.22] (unknown [10.204.63.22])
-	by dep2_app2 (Coremail) with UTF8SMTPA id 2hC2B0B2gU9JlvVqkpYSAA--.9187S2;
-	Thu, 12 Nov 2026 11:34:59 +0100 (CET)
-Message-ID: <e4175fd528e31530c6927a125bcdd0d62bcf6107.camel@huaweicloud.com>
-Subject: Re: [PATCH v3] ima: fix races when deleting measurement list entries
-From: Roberto Sassu <roberto.sassu@huaweicloud.com>
-To: Weibin Liu <liuwb@xiaopeng.com>, linux-integrity@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
- <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, James Morris
- <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Steven Chen
- <chenste@linux.microsoft.com>,  stable@vger.kernel.org, Zhu Guanglei
- <zhugl3@xiaopeng.com>
-Date: Thu, 12 Nov 2026 11:34:46 +0100
-In-Reply-To: <20261110071909.2056650-1-liuwb@xiaopeng.com>
-References: <20261110071909.2056650-1-liuwb@xiaopeng.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D68606A888
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 10:35:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64D68606A888
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Py+GPyII
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b12cb3c37bso2017403a91.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:35:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794479717; x=1795084517; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WoymvwdfMBFoMyXW+9QTB+Y4rJogi+4Hn0MI83a+cw0=;
+        b=Py+GPyIIALmRfft6lVLJ+MEqCiRPwksRRsBO/G8oCeiY/WiQH26z95y2Dl+zHZULvI
+         BBtTEPpOeT0CBZsAPsaBeVw4EaOqpmDyPdNYTKJkkSeoX22nKn/VHNCUwqEsCh4X/0hn
+         37TJgDrokGzgm1eO9HbHjaV6NhG4uXiicEBwGt4nTO33IcF8jgFlil2gDTNFF6b9mxhY
+         1SywYV5OvHvY3oLoqQ3Ciyf6Lch3BRoF/vTiaYNjKPWRdmXRNdVg7aPnQhE8DY1Ta27c
+         j/iHTgrduzT2LevDePjXY20iO1embLyQMlm4Gfufu55QA1CVpAtK7Oz2XcoDve+4JMX+
+         QkaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794479717; x=1795084517;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WoymvwdfMBFoMyXW+9QTB+Y4rJogi+4Hn0MI83a+cw0=;
+        b=tPqfYfRmj0WgNmKOxxQ8KscaOsWZ6pqlMsJitlw6dyZmNQKofG9XvNtmRZb5JwgzVp
+         PW+JBSRFfk3WIbOq1tef1uu0ZNT5csgDoM7SVPcKjNam1d6jKsOKFBFyDvkR3mPp2UXP
+         GmxByhtbl04tSiaDf9tnN9d3t9zrhWMrXz6DfesVHboQ1abAUY1y93OtQ0zJHESqyS+i
+         lELQbzFiKnA1HE9VufBmSYtHOLlCxXxnQjESpYR1Dx1YG4buNnwLAeOd6TuQ4Ghi/yHk
+         R9V5m+1fO84UhzPkLp7rljQkIE+cjoQlcc5TehHTQpul+TIAPneiUiEnNyYj8Sktr+6u
+         jdPQ==
+X-Forwarded-Encrypted: i=1; AL+hErGKWNPWuhZjh1mMniEEYt+OSNGQwFhG085UvLVcIzH4GVbGEVHGzE92eODCYPWCvXyIq4jr4LI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8BKRLK4A2ViL/Y88gx9Ow5FOxMbpjahqyn7J5MNRcq7j22Hz3I
+	6j9K0gpzF1yyj8eFi5sO7GSEgqeVa3fdxM6n59QsLrHwds5DUgMdeIj9
+X-Gm-Gg: AYBFou35RoRY6gH8d3WJn41k9wlbdUhE8RE14v1Q8SxMX2VK1pQTg+jBMoK0/XFy16d
+	bcys3ndjJEPKaImrSrEhPHLk1QX391r+dnrSUGxl53r6dvqYTDPG/naxLv+bC6ySv7qQa78xGuY
+	82fRPGgJufPKD+X8jf3QnIR7VrMKk09gWI74BMTBQxSQBxqS8CcXDqdSJrksDV5T13qrBxmaype
+	9A7oqdmmdbLovfJPRsM5k7GA1mScPg2Fqkx6QawugQ+n11t6Qvg7PYZ0gHxQqujqlpiopHPX6Ju
+	bWHc09e+kU4BVmvXetbi09wJEb3zaUyzQnrr/07bs3eDaYX+PNi51NedQogPbelAB/1prDxvfeb
+	ZNfGJog3zIuOJH40SmyrT0xa9cli2k6iajYWSFfUcbaWBjeTBA7Rs6zhIXwqHOqgYb+JSyXqhLV
+	citMyALGuSZnTpj3CjAa8XDerwxXtV4Lm1AiAlQs2qgwp336YRGZklwSuMzaVcgf5bQLKdFImSW
+	YOZlRHIIJZm5zOttiBJyo2xarspLs4QZJXqRLAd6B2CO4XUzRYGDBpw3lCBBNjmBm4UmXMvgIY4
+	87ejVf/N+8BYTOel7VQwdtzMEW3JtczkvY9zrCCdqUxcTHJjLVMID4btcyszkt+LhFiKNR3UXn+
+	Mf3nSpg==
+X-Received: by 2002:a17:90b:4c4c:b0:3b0:e2a9:3466 with SMTP id 98e67ed59e1d1-3b182eebe65mr4740116a91.16.1794479716567;
+        Thu, 12 Nov 2026 02:35:16 -0800 (PST)
+Received: from smtpclient.apple (fs98a57cc9.tkyc008.ap.nuro.jp. [152.165.124.201])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce49d6sm4207584a91.4.2026.11.12.02.35.06
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 12 Nov 2026 02:35:16 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,298 +90,160 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-CM-TRANSID:2hC2B0B2gU9JlvVqkpYSAA--.9187S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3CFWfJF15Xr4UXFWxJFW5Jrb_yoWDur1xpa
-	9a9a48Cr1kJ3yxKr1xG3ZxZr4ru3s5Ka1DWr4DG3s7AF15Jr1v9FW5Ar12krs5KrWrJr18
-	ta1YqrZ8uan0yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
-	AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
-	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
-	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
-	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
-	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUF1
-	v3UUUUU
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgABDWr1LzpOtwABs8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH v2] mm: memcontrol: Don't lose track of exiting OOM
+ victims
+From: elenchist <elenchist.dev@gmail.com>
+In-Reply-To: <avA1wXhTMs9eY2NF@chrisdown.name>
+Date: Thu, 12 Nov 2026 19:34:53 +0900
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>,
+ Tejun Heo <tj@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Zhan Xusheng <zhanxusheng1024@gmail.com>,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ kernel-team@meta.com,
+ regressions@lists.linux.dev,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6B8E9261-3FF8-441B-8F47-7D35834A8D35@gmail.com>
+References: <avA1wXhTMs9eY2NF@chrisdown.name>
+To: Chris Down <chris@chrisdown.name>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-On Tue, 2026-11-10 at 15:19 +0800, Weibin Liu wrote:
+On Sun, Nov 08, 2026 at 12:41:37AM -0800, Chris Down wrote:
+> memory.events showed oom_kill 2 in three runs. In one of them the =
+first
+> process hadn't submitted the read yet when it was killed. The slow =
+read
+> just makes the window easier to hit.
 
-Please use measurement list records in the patch title.
+It doesn't need AIO at all.  A plain memcg OOM hits it most of the
+time: the victim only spends 10-20ms in exit_mmap(), and if the
+allocating task fails a charge again in that window, a second (and
+sometimes a third) task gets killed.
 
-> Without this patch, ima_queue_delete_partial() looks up the queue entry
-> at which the measurement list has to be cut without holding
-> ima_extend_list_mutex, and only takes the mutex afterwards for
-> __list_cut_position().  The comment above the cut justifies this with
-> "ima_fs.c enforces single-writer exclusion".
->=20
-> That exclusion only covers cross-process opens.  ima_measure_lock()
+Reproducer: memory.max=3D400M, no swap.  A holds 150M, B 100M, C 50M, =
+and
+T grows by 10M every 0.3s.  Only A should be killed.
 
-Please add: and is only enforced at open() and release() time.
+---8<--- overkill.c
+/* A holds 150M, B 100M, C 50M; T grows by 10M every 0.3s up to 200M.
+ * Run inside a memcg with memory.max=3D400M. Only A should be killed. =
+*/
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
-> registers measure_writer at open() time and even lets the same task
-> open the file again by incrementing measure_writer_extra_writes, while
-> _ima_measurements_write() never checks the caller's identity.  A
-> privileged task can therefore open several descriptors for the
-> measurement list and use them concurrently from its own threads.  Each
-> open() creates a separate struct file, so the f_pos_lock taken by
-> fdget_pos() serializes neither these writers nor their readers.
->=20
-> Two racing writers can then resolve the same, or an overlapping, trim
-> position, and the second one dereferences a queue entry that the first
-> one has already detached and handed to ima_queue_delete().  Depending
-> on the interleaving this corrupts the measurement list, reads freed
-> memory in __list_cut_position(), or frees the same entry twice.
->=20
-> Reproducer: generate some tens of thousands of measurement records,
-> open() the measurement list for writing several times from one task,
-> then write "20000\n" from that many threads using one descriptor each.
-> KASAN reports a stack-out-of-bounds access in ima_queue_delete(),
-> called from ima_queue_delete_partial().
->=20
-> The extend mutex alone cannot protect readers: the binary and ASCII
+static char *volatile sink;	/* keep the stores */
 
-Please make explicit that the concurrent readers are threads of the
-writer process, since readers from other processes are already
-excluded at open time.
+static void hold(size_t mb)
+{
+	sink =3D malloc(mb << 20);
+	memset(sink, 1, mb << 20);
+}
 
-> file operations call seq_read()/seq_lseek(), which traverse the list
-> without taking ima_extend_list_mutex.  An independent O_RDWR descriptor
-> lets a reader race with deletion from the same task.  Adding a
-> concurrent reader to the writer reproducer triggers a general
-> protection fault in ima_measurements_show(), reached from seq_read().
->=20
-> Introduce ima_measurements_rwsem at the file-operation layer.  Writers
-> take it for write around _ima_measurements_write(); readers take it for
-> read around seq_read() and seq_lseek().  Cover the binary/ASCII and
-> current/staged file operations, since they all expose the same list
-> traversal and deletion commands.  The resulting lock order is rwsem
-> followed by seq_file's lock on the read side, or ima_extend_list_mutex
-> on the write side.  Freeing the private trimmed list remains outside
-> the extend mutex but inside the rwsem write-side critical section.
-> The existing open-time exclusion remains unchanged, so one task cannot
-> delete a staged list belonging to another.
->=20
-> Keep the existing RCU lookup outside ima_extend_list_mutex.  The rwsem
-> serializes staging/delete writers, so only ima_extend_list() can race
+int main(void)
+{
+	const char *name[] =3D { "A", "B", "C", "T" };
+	size_t mb[] =3D { 150, 100, 50, 0 };
+	pid_t pid[4];
 
-ima_extend_list() does not exist, I guess you meant
-ima_add_template_entry().
+	for (int i =3D 0; i < 4; i++) {
+		pid[i] =3D fork();
+		if (pid[i])
+			continue;
+		if (mb[i]) {
+			hold(mb[i]);
+		} else {
+			sleep(3);
+			for (int j =3D 0; j < 20; j++, usleep(300000))
+				hold(10);
+		}
+		pause();
+	}
+	sleep(10);
+	for (int i =3D 0; i < 4; i++) {
+		int st, dead =3D waitpid(pid[i], &st, WNOHANG) =3D=3D =
+pid[i];
 
-Also, I would write "RCU list traversal" instead of "RCU lookup".
+		printf("%s %s=C2=A5n", name[i],
+		       dead && WIFSIGNALED(st) ? "killed" : "alive");
+		if (!dead) {
+			kill(pid[i], SIGKILL);
+			waitpid(pid[i], NULL, 0);
+		}
+	}
+	return 0;
+}
+---8<--- run.sh
+#!/bin/sh
+# cgroup v2, no swap, as root: gcc -O2 -o overkill overkill.c; ./run.sh
+CG=3D/sys/fs/cgroup/overkill
+mkdir $CG && echo 400M > $CG/memory.max || exit 1
+sh -c "echo =C2=A5$=C2=A5$ > $CG/cgroup.procs && exec ./overkill"
+grep '^oom_kill ' $CG/memory.events
+rmdir $CG
+---8<---
 
-> with the lookup by appending an entry.  The selected entry stays valid
-> until the cut.  Take the extend mutex only for the suspended check, the
-> cut and the accounting updates.  Preserve the error precedence: a short
-> list returns -ENOENT before the suspended check.
->=20
-> Suggested-by: Roberto Sassu <roberto.sassu@huawei.com>
-> Fixes: fcb0318a2969 ("ima: Support staging and deleting N measurements re=
-cords")
+Over-kill (oom_kill >=3D 2) per 20 runs, ThinkPad X1 Carbon Gen3
+(i5-5200U, 8 GB), x86_64.  "4a" is the same layout driven from a
+systemd-run scope with Python tasks; "C" is the program above:
 
-The race between a reader and the deletion of staged measurements comes
-from the staging with prompt patch, so please add a Fixes: tag for that
-one too.
+  kernel                                      4a      C
+  6.8.0-149-generic (Ubuntu)                  0/20    -
+  7.0.0-42-generic (Ubuntu)                  19/20   19/20
+  v7.4-rc1                                   20/20    -
+  v7.4-rc1 + this patch                       0/20    0/20 *
+  v7.0 + 60f21a264930 + this patch            2/20    0/20
 
-> Cc: stable@vger.kernel.org # v7.2+
-> Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-> ---
-> Changes in v3:
-> - Keep the RCU lookup outside ima_extend_list_mutex, as Roberto
->   suggested.  The rwsem excludes staging/delete writers; only append can
->   race with the lookup.
-> - Take the extend mutex only for the suspended check, the cut and the
->   accounting updates.
-> - Rebase on current mainline and rebuild.  Current and staged KASAN and
->   LOCKDEP QEMU tests passed.
->=20
-> Link: https://lore.kernel.org/all/20261109123335.432186-1-liuwb@xiaopeng.=
-com/ [v2]
->=20
->  security/integrity/ima/ima_fs.c    | 66 ++++++++++++++++++++++++------
->  security/integrity/ima/ima_queue.c |  7 ++--
->  2 files changed, 58 insertions(+), 15 deletions(-)
->=20
-> diff --git a/security/integrity/ima/ima_fs.c b/security/integrity/ima/ima=
-_fs.c
-> index 3b8174a91a34..9da881308d52 100644
-> --- a/security/integrity/ima/ima_fs.c
-> +++ b/security/integrity/ima/ima_fs.c
-> @@ -39,6 +39,8 @@ static DEFINE_MUTEX(ima_measure_mutex);
->  static long ima_measure_users;
->  static struct task_struct *measure_writer;
->  static long measure_writer_extra_writes;
-> +/* Lock order: ima_measurements_rwsem -> ima_extend_list_mutex. */
-> +static DECLARE_RWSEM(ima_measurements_rwsem);
+  * an earlier, longer version of the same program
 
-Could also be ima_measure_rwsem.
-=20
->  bool ima_canonical_fmt;
->  static int __init default_canonical_fmt_setup(char *str)
-> @@ -161,7 +163,11 @@ void ima_putc(struct seq_file *m, void *data, int da=
-talen)
->   */
->  int ima_measurements_show(struct seq_file *m, void *v)
->  {
-> -	/* the list never shrinks, so we don't need a lock here */
-> +	/*
-> +	 * seq_file callers hold ima_measurements_rwsem.  The kexec dump caller
-> +	 * relies on reboot notifier ordering: measurements are suspended and
-> +	 * staging/deletion are forbidden while it walks the lists locklessly.
-> +	 */
->  	struct ima_queue_entry *qe =3D v;
->  	struct ima_template_entry *e;
->  	char *template_name;
-> @@ -400,32 +406,68 @@ static ssize_t _ima_measurements_write(struct file =
-*file,
->  	return datalen;
->  }
-> =20
-> +static ssize_t ima_measurements_read(struct file *file, char __user *buf=
-,
-> +				     size_t datalen, loff_t *ppos)
-> +{
-> +	ssize_t ret;
-> +
-> +	down_read(&ima_measurements_rwsem);
+v2 has the same code as v1, which is what I tested (identical tree
+after git am).  On v7.0 the patch also needs CSS_TASK_ITER_WITH_DEAD
+from 60f21a264930 ("cgroup, sched_ext: Include exiting tasks in cgroup
+iter"); only its cgroup hunks apply there, so that's what I used.  The
+2/20 left on that kernel look like a separate issue that mainline has
+already fixed.  On v7.0, MGLRU's page table walk in T's reclaim can
+hold an mm_users reference on A's mm (get_next_mm() used
+mmget_not_zero() until d14514c66cb9 "mm/vmscan: prevent MGLRU reclaim
+from pinning address space" in v7.1-rc1).  A's own mmput() is then
+not the last one, so A finishes exiting and drops out of the scan
+right away, and exit_mmap() runs later from mmput_async() in a
+kworker.  The next OOM picks B.  I traced 2 such over-kills in 40
+runs; with MGLRU page table walks turned off (lru_gen/enabled =3D
+0x0005) I got 0/40.  So a 7.0.y backport probably wants d14514c66cb9
+as well; it applies to v7.0 and v6.19 as is.  I haven't built v7.0
+with all three.
 
-I would use down_read_killable() and down_write_killable(), and return
--EINTR on failure.
+Zhan's series [1] is a different problem (thread groups migrated after
+their leader exited); v7.4-rc1 with it still gave 20/20 here.  The two
+patches change the same css_task_iter_start() line, so they will
+conflict.
 
-Roberto
+Tested-by: elenchist <elenchist.dev@gmail.com>
 
-> +	ret =3D seq_read(file, buf, datalen, ppos);
-> +	up_read(&ima_measurements_rwsem);
-> +
-> +	return ret;
-> +}
-> +
-> +static loff_t ima_measurements_llseek(struct file *file, loff_t offset,
-> +				      int whence)
-> +{
-> +	loff_t ret;
-> +
-> +	down_read(&ima_measurements_rwsem);
-> +	ret =3D seq_lseek(file, offset, whence);
-> +	up_read(&ima_measurements_rwsem);
-> +
-> +	return ret;
-> +}
-> +
->  static ssize_t ima_measurements_write(struct file *file, const char __us=
-er *buf,
->  				      size_t datalen, loff_t *ppos)
->  {
-> -	return _ima_measurements_write(file, buf, datalen, ppos, false);
-> +	ssize_t ret;
-> +
-> +	down_write(&ima_measurements_rwsem);
-> +	ret =3D _ima_measurements_write(file, buf, datalen, ppos, false);
-> +	up_write(&ima_measurements_rwsem);
-> +
-> +	return ret;
->  }
-> =20
->  static ssize_t ima_measurements_staged_write(struct file *file,
->  					     const char __user *buf,
->  					     size_t datalen, loff_t *ppos)
->  {
-> -	return _ima_measurements_write(file, buf, datalen, ppos, true);
-> +	ssize_t ret;
-> +
-> +	down_write(&ima_measurements_rwsem);
-> +	ret =3D _ima_measurements_write(file, buf, datalen, ppos, true);
-> +	up_write(&ima_measurements_rwsem);
-> +
-> +	return ret;
->  }
-> =20
->  static const struct file_operations ima_measurements_ops =3D {
->  	.open =3D ima_measurements_open,
-> -	.read =3D seq_read,
-> +	.read =3D ima_measurements_read,
->  	.write =3D ima_measurements_write,
-> -	.llseek =3D seq_lseek,
-> +	.llseek =3D ima_measurements_llseek,
->  	.release =3D ima_measurements_release,
->  };
-> =20
->  static const struct file_operations ima_measurements_staged_ops =3D {
->  	.open =3D ima_measurements_staged_open,
-> -	.read =3D seq_read,
-> +	.read =3D ima_measurements_read,
->  	.write =3D ima_measurements_staged_write,
-> -	.llseek =3D seq_lseek,
-> +	.llseek =3D ima_measurements_llseek,
->  	.release =3D ima_measurements_release,
->  };
-> =20
-> @@ -440,7 +482,7 @@ void ima_print_digest(struct seq_file *m, u8 *digest,=
- u32 size)
->  /* print in ascii */
->  static int ima_ascii_measurements_show(struct seq_file *m, void *v)
->  {
-> -	/* the list never shrinks, so we don't need a lock here */
-> +	/* The caller holds ima_measurements_rwsem. */
->  	struct ima_queue_entry *qe =3D v;
->  	struct ima_template_entry *e;
->  	char *template_name;
-> @@ -497,9 +539,9 @@ static int ima_ascii_measurements_open(struct inode *=
-inode, struct file *file)
-> =20
->  static const struct file_operations ima_ascii_measurements_ops =3D {
->  	.open =3D ima_ascii_measurements_open,
-> -	.read =3D seq_read,
-> +	.read =3D ima_measurements_read,
->  	.write =3D ima_measurements_write,
-> -	.llseek =3D seq_lseek,
-> +	.llseek =3D ima_measurements_llseek,
->  	.release =3D ima_measurements_release,
->  };
-> =20
-> @@ -519,9 +561,9 @@ static int ima_ascii_measurements_staged_open(struct =
-inode *inode,
-> =20
->  static const struct file_operations ima_ascii_measurements_staged_ops =
-=3D {
->  	.open =3D ima_ascii_measurements_staged_open,
-> -	.read =3D seq_read,
-> +	.read =3D ima_measurements_read,
->  	.write =3D ima_measurements_staged_write,
-> -	.llseek =3D seq_lseek,
-> +	.llseek =3D ima_measurements_llseek,
->  	.release =3D ima_measurements_release,
->  };
-> =20
-> diff --git a/security/integrity/ima/ima_queue.c b/security/integrity/ima/=
-ima_queue.c
-> index 67782c004cdf..34a42f323fc8 100644
-> --- a/security/integrity/ima/ima_queue.c
-> +++ b/security/integrity/ima/ima_queue.c
-> @@ -429,8 +429,8 @@ int ima_queue_delete_partial(unsigned long req_value)
-> =20
->  	/*
->  	 * list_for_each_entry_rcu() without rcu_read_lock() is fine because
-> -	 * only list append can happen concurrently. No list replace due to the
-> -	 * staging/delete writers mutual exclusion.
-> +	 * only list append can happen concurrently: staging/delete writers are
-> +	 * serialized by ima_measurements_rwsem.
->  	 */
->  	list_for_each_entry_rcu(qe, &ima_measurements, later, true) {
->  		size_to_remove +=3D get_binary_runtime_size(qe->entry);
-> @@ -451,7 +451,8 @@ int ima_queue_delete_partial(unsigned long req_value)
->  	}
-> =20
->  	/*
-> -	 * qe remains valid because ima_fs.c enforces single-writer exclusion.
-> +	 * qe remains valid because staging/delete writers are serialized by
-> +	 * ima_measurements_rwsem.
->  	 */
->  	__list_cut_position(&ima_measurements_trim, &ima_measurements,
->  			    &qe->later);
+Adding the regressions list: a72f73c4dd9b is in v7.0 and was also
+backported to 6.19.9.
+
+#regzbot introduced: a72f73c4dd9b
+#regzbot title: memcg OOM kills more tasks while the first victim exits
+#regzbot fix: mm: memcontrol: Don't lose track of exiting OOM victims
+
+I used an AI coding assistant (Claude Code) to build the kernels, run
+the tests, analyse the traces and draft this mail; I have checked the
+results and the text.
+
+[1] =
+https://lore.kernel.org/linux-mm/20261027144016.2582880-1-zhanxusheng1024@=
+gmail.com/
 
