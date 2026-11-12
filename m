@@ -1,123 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794467033;
-	b=Lg8y3r6KJXUn1djfEVwYi+CIWs13u44H9fdQhOnW1rC24JvuNuMUf5mYeYQPdcO9B+10
-	 jZUQF3zhk2c5D7Ho2d4ZDfls0KYjZhP5Q8tCIxFgeeuNHKyejjdtIO0gcmZDUGeuhXNC3
-	 l80nJ7G+iY5v6/FgmJpWPPOuAEmQf/Xermqhnnooqh/TaC9Wn4HTcw3Vne2rAwwxX4UBx
-	 FJpwPFUbWq6aZtpvhL53zKNzPXPRE6oYYFQAVuINN6UfLBIFPWAaCtzBEsaRiQj/aDdi1
-	 YFZY2BZ4LIuKmAUjnhAfYM/c2MzwjGh+VkGz2rFJUCDreWGyeFAOGGfktUbTm6PWpGg==
+	t=1794467037;
+	b=uqz5A6hqr3kY0++LPmnEelDstJMv/XKOHg4wRYYE4wiOJADzhNF0nO1coIsA0FIQ5IRu
+	 K0hoUQvPXzXVQNI/tqcaBIyvfCVtwdQpr42KYbExbDqb4oUscLj4d95aKEekE42AlqRid
+	 dvNgmd2Kr4vlm3s9XHB6MGJoKBMrQajTLgZE/4URYkh7+6Jg/AQeGPKaNFOmJhd1XIlMD
+	 eFXKLc4vCuKaDAYhF5534RV4jVHn9m62ywAQ0PdtDZUPUySd/ovLDuBbLaq/i1pEJwLqq
+	 m67o8v8GCht2lXb8DZKo1LxFSUzxIux3J3ZRq4a8g2z+qS7U+FMdxmUW7+vfgz0gIVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794467033;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MzKSTO8LvpR1kk43PP3scsPYLloAVo4g9q+JhIcdw+g=;
-	b=TDx1gPIwTaea+ay5sYtOVqkKqgNdz0I+nRXDxTIcs76zdO/JmY0DlZV5/pp7TeboMLj0
-	 EBBmeJNmCvyyaiJE09xihl8IknPtiC7gObxgxFXtOOo6l4dpdd5uARsrVIFVzeR9CQeAU
-	 DAcnYtukpcZr1SEiU22goM+TMuDYu+a1A/ld3Gk61hQocT55IbTZyp+tgQeRP9tWqVbRj
-	 okj/IYSCCshTwPUJXpJ8a55gKcyeD/d31yfQnya70VBtd+wvGa3gIt3bMnnmszGE8yHG2
-	 remu8+Ld6vLNsBQI8RAWGEoesiQvt/T7p9/FHHIe0XweHWxDF759rE7zhcL0xnqBk4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794467037;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eyUouVpnZGfif3VWuPv+zR8XYoo75xxjg1KonBFeRN0=;
+	b=DY2vnj9ciNaF0bTmyDf1Nw4jjtZ6y1JYCPZy7fIxAoVpa4n5G7/7bpS7PBOZkdnB+96P
+	 50mT5d7GjMpvLJnHko8U1SsctXI4UC8SaOqHf/ctrGFL0w5dK+aOrKi7OLg6XqlB5qFyy
+	 HoBUKt2vobnvMNkbBbykGCy/LhE6ajIckXbb/ayvQBfHYLEK1bPJsH8sZ/EKBrR32ZZh6
+	 ldJtFpob7h11vlmJriDpklss9KL/ferqsd0xsYL4APOYFps2P+Cmbxs2VtjmadvwuOUed
+	 uaNeC3t4o0d0vf/8Iq99O9hHkSwHkrTXEI0OGV9E6PYLR3Xp5JReJgqyskQqeAFnOyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UU4sr+KE;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qV7AOgop;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B4GxaJ2o;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B9D606A330
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:03:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B9D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FB2606A884
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:03:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86FB2606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UU4sr+KE;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qV7AOgop
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794467032;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MzKSTO8LvpR1kk43PP3scsPYLloAVo4g9q+JhIcdw+g=;
-	b=UU4sr+KEXLWG/VMn1tojphdaL3NHxohGi1XR7H6d1DZnX2DZ/Dmoe4EXaCaFOPROeVmBuD
-	2Bfbh3HCYBFXXQFQrUCiXcYUeVnOSG812IacDyGUJsnzLOreHMjOSegjGGe6KiHolligtl
-	OeRD6FxIHNmw1C/SrndI+EtsqjnDOk8=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-394-PY4ihT4XNxWzdITWQOvE0w-1; Thu, 12 Nov 2026 02:03:50 -0500
-X-MC-Unique: PY4ihT4XNxWzdITWQOvE0w-1
-X-Mimecast-MFC-AGG-ID: PY4ihT4XNxWzdITWQOvE0w_1794467030
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a0284121c6so30224755e9.3
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:03:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B4GxaJ2o
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91e7af9a67fso27783446d6.2
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:03:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794467029; x=1795071829; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MzKSTO8LvpR1kk43PP3scsPYLloAVo4g9q+JhIcdw+g=;
-        b=qV7AOgop0W01vPhiKpcbR1iniUM5nKXxDo0iqseOsfEa7Vdop3uUtjikrlcz9SfGhX
-         swRduSSzYFGPA6SA1t0n/QbHVPGxqpAkLR364JdwWI2FHto12oirN84ozqFqFMq20r1F
-         WUyGD/gKFIKiGOgs8EB7mvjygEmIB6oYqrdDeV6MTrTONcrBiyutaMcXH9UZPOTY+izo
-         bdNJUrD04e5vd9Ifm+3QURW2XY1Q0PG5n3UAVMkxJDF3iaDVeuxNhWZcsf/3oDmoYqfu
-         VTbWQJzjrzM8tI5fxMlDn45A68wJutyg/8IB6/YQC8CI8F4D7IsPPkKg4DmE7om/b3Tw
-         eJEQ==
+        d=gmail.com; s=20260707; t=1794467035; x=1795071835; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eyUouVpnZGfif3VWuPv+zR8XYoo75xxjg1KonBFeRN0=;
+        b=B4GxaJ2ob0yOBMg8QtdSBTXjZuj1RHSf8s792QA+V9vftReqKTNlcJ/qAiyLXwGLVd
+         9k6n2FtGjJ0kNf32avhaxr3z2REIm8WR1EBjwicJIEhovRgrr48jSzLQZ1h6c+NNxlr2
+         yMPGcE3WgTy7ZNT3kclIj2WAb4YHbos65NVxULp31l/G9C6OTiOqqFI5ns3PF4pVCadn
+         wNJJZrRLHta62uw25s5DDuIFzZUZPKUoQncX6SUOltXOLBcvsq50WBWFxVJeYWrKlIve
+         OJoTeHf/FJLiYpIzacAibny4y7QSY9BmPPnhOS1LKxFq2222lJOX2po0KywvC5yfFVG9
+         sabg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794467029; x=1795071829;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MzKSTO8LvpR1kk43PP3scsPYLloAVo4g9q+JhIcdw+g=;
-        b=G2a06OPRv+sPP/LqQLHbnfKS6khKdFlaQIzOJXQpOokmvDLRaZCzymBMAt7b07UaEx
-         e/CUi5mZ7BnrtBC9sI/3AZc5GlK0c2AU3OBSN81/6J8fIn74SmIEzmvF1vGq4qB1DNjH
-         py4zA1Vdc/8pDa2SwcZh8qbaeUY4gpKCG9UD0++NV2fuadg0HRGRovOr/OIWjdhhTxQI
-         LPJblwFhsZI8gZ/PJHDiclUCiHXz/meF2hbq0wmuQV3UNIyiy47fB7fJsbLU2OQ/P4CK
-         cA3i/utUfb0FdmoSy9nkq72laAVAlyB5q/Pim1mKJV2ErOG1qRWQmhd5uVgGooeBwGcc
-         UDEQ==
-X-Forwarded-Encrypted: i=1; AL+hErEpi+fPK6S13Yxd+zKnqB7LKchaHhf8sRczohf/mz2HLF9l1N+th60b0xo/8rosgh0m14K6pik=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ckcZoSrIQvZEuCoMxLqHFIEIcJrVItlObcUy+e9+239neOm0p
-	fPKGxCl4V6rfVhTsl44erdwRYXM9Jz3owzTq+oOAfVGIURaIySXppnvFcwkwdIf6o4TDu/uBLid
-	b1ysjV0zcbOh45iEEKSP3hyMy4HUJ88FcdEqwtdnRfqlbtb/Xep5NZDouDw==
-X-Gm-Gg: AYBFou0N/o7NAl4peAIljzTh5b3jGW4NfZw/WTxFYGfcLGCcHaT9Wjn5Bn+iDKHdkJD
-	kfU+ax4C+j3IqyAyVermo1jlfdWAekZinqEb87of9ZWOGxRDX+kDgOS3U+eV/EwDrNYjQPIs2i1
-	GDSgL+fUnNzyJK9FDo4/t1beOnExSJbyTJUaog413KqG44MzWYLDGyW3PPUzj6wvG2mWqGj6HnK
-	iFeZMWSYk20BAJZnCvY4gGEYnOSbUYdrJSGcRjbCqaXCOw+HbFvgIKThAs4u4IksVPpPpBIY9nX
-	2jcyR1+/qwkWYA8S+X05fOul//MchFMPRMDPWmf+e3lDFTrTqNVY22MCmcFZfZMfYJvo2ufhH2i
-	p3szHKE0nSj2hYz7/EFl9n7mm7BeZddzr2L+XhEqtCGsrfxxl565DXh5fHWSVteAi
-X-Received: by 2002:a05:600c:46c5:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4ba093ab88emr83497565e9.32.1794467029420;
-        Wed, 11 Nov 2026 23:03:49 -0800 (PST)
-X-Received: by 2002:a05:600c:46c5:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4ba093ab88emr83497045e9.32.1794467028991;
-        Wed, 11 Nov 2026 23:03:48 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a495csm14952955f8f.55.2026.11.11.23.03.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 23:03:48 -0800 (PST)
-Date: Thu, 12 Nov 2026 08:03:45 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 18/29] sched/deadline: Move a task's bandwidth only
- where room was made
-Message-ID: <avVk0UU8IRGoo77v@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-19-mathieu.desnoyers@efficios.com>
+        d=1e100.net; s=20260707; t=1794467035; x=1795071835;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eyUouVpnZGfif3VWuPv+zR8XYoo75xxjg1KonBFeRN0=;
+        b=Cm95myeXlku2AwoTHi+hWbvVHH8Mi/KUKshgWuvZLsR1YwIfWlli6jzhf0ySyNyC6Z
+         TA1C4i9rpeYrCe5z1uYE5KWo184RhPxUqRyvRI1p/3+iq6d6qGiwdoX9YELLKLfB/U6/
+         LtCO2p6XGzvmE/IueDw0OKKSMi+dR94dkqYaqNjeaKdkacEZXbci0FCHFe+jpe6Hggf9
+         UWCBaUUKp/HKiUk8WVO7nLDJMD+J1lQXOxrKtxx08PMSQKxX3tqXYepkbbs2lh02Qvvp
+         S0IFiYn2H+Lceqp2uwDGSjH3jglisoH/ASlVIak1/71V2nj4vfSV7ftupGDO/D/1dbbc
+         h7kQ==
+X-Forwarded-Encrypted: i=1; AL+hErFj1h+LzwkeGYMH5oKRymH2KWloTkrylfrudAt2LRVQ9mjlPr3rU1aqLnzmN3eqEPdLAHTL7TA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8p6FOMG7MRTNVDtA9F6Xh08gLqt2D1+GAY4wVyrL/hcbex+pC7
+	3piuGL/ofeRlNwST1xpxfN0bg0O7P6yyIPbH8qn71xZkMqzOnh+TPtM=
+X-Gm-Gg: AYBFou2D1wcUhj6F7tX38n0qxFeyFBzr8JXl+KUCHnWL5mh3cISRwyRDhtjmKNRQGkj
+	kOU8bJZ7lFv2JDMyQYqCExDlPxL4ovOmKmIh4nwjSXXdQiY47dQKS0n5U3AGUpFgouYKY88vBa8
+	KvzlMBsU1OPyAZNLce0Y26Xq+vTd4US1Kk86x74QPBrhtiMJ0+IFfz4IGUtOspbi7UWw589w1mN
+	ZE97p0xxURyupzJxZZbNhE/fzy3ysVSitEZvqN3gfYL4p2DkrFUaw6f6BBAeJnDAiI9BfE+ylUg
+	u/TeMS1/g1w0bF/CFxZmccJ+C8CeC7K26FR/0aSk8CetZWuiIsHKocZPWtTLc4aZAEqVdTWb0Vz
+	0YrQQMy3RQJu9BSMqQ9tbC96/BonD+ZF/ClMFunGD+r4SuqUxMUn7JIXsFfO0TSiZZTKwAoIlyX
+	wKro7KZTAfqf8/UNfmVWDjL82tepzXiCt1h3ixcMnyfxuvDfDgDiX9wx7RYTL6sgAKBfxbVEiM9
+	Hzj9vwZ2A7TU8KWTyQKS0Cv1ZnRwREQnkwZsxUNHqJXmRhJHg/PjZWUfLKn7hBYBWzMdhO1kFny
+	geL43yEY9KVLir3YQXrbD4yIA5ncuMuU+s7lB+RKhh98Ayn6j4Vn6Kj1+0pGKXJ9FHZv1W9R/g0
+	VEHv/Jj+/gzKTyMpADcLm6Y5hYkNWipLRp3XXPrYsLqTxLohytG6WIypC9xpalg7gnpmWKX3gvo
+	LCLGMDzH7a8v5CTvH4iyDF8kpCXEDiQTWK
+X-Received: by 2002:a05:6214:451e:b0:91e:ef41:a7d2 with SMTP id 6a1803df08f44-91f04091198mr84093396d6.24.1794467035222;
+        Wed, 11 Nov 2026 23:03:55 -0800 (PST)
+Received: from localhost.localdomain (h16.44.55.139.dynamic.ip.windstream.net. [139.55.44.16])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f11e2cd01sm18137816d6.38.2026.11.11.23.03.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 23:03:53 -0800 (PST)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Chanwoo Choi <cw00.choi@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	MyungJoo Ham <myungjoo.ham@samsung.com>
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] extcon: max77843: cancel the interrupt work after removing the IRQ chip
+Date: Thu, 12 Nov 2026 02:03:52 -0500
+Message-ID: <20261112070352.38787-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,59 +99,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108185406.1549770-19-mathieu.desnoyers@efficios.com>
+Content-Transfer-Encoding: 8bit
 
-Hello,
+max77843_muic_remove() cancels irq_work before removing the IRQ chip,
+so an interrupt can queue it again before the MUIC regmap and driver
+data are freed. The probe error path does not cancel the work at all.
 
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> Commit 7f51412a415d ("sched/deadline: Fix bandwidth check/update when
-> migrating tasks between exclusive cpusets") moves a deadline task's
-> bandwidth in two halves. cpuset_can_attach() reserves it in the
-> destination root domain. set_cpus_allowed_dl() then frees it in the
-> source, when the task's affinity changes. Its comment relies on the
-> first half: "We already made space for us in the destination domain".
-> 
-> But set_cpus_allowed_dl() runs on every change of affinity. It frees
-> the bandwidth whenever the new mask leaves the task's root domain, with
-> or without a reservation. sched_setaffinity() gets there too, if the
-> task's cpuset spans two root domains. With admission control on,
-> __sched_setaffinity() refuses such a mask. With sched_rt_runtime_us
-> at -1, nothing refuses it. The bandwidth then moves with no room made,
-> and no root domain counts it any more. The destination would underflow
-> when the task leaves.
-> 
-> Fix this by flagging the affinity changes that come with a reservation,
-> as SCA_DL_BW_RESERVED. cpuset_attach_task() sets it, through the new
-> set_cpus_allowed_bw_reserved(). set_cpus_allowed_dl() moves the
-> bandwidth only with the flag. Without it, the bandwidth stays where it
-> is counted, until the next rebuild of the accounting counts it anew.
-> 
-> The attach still flags a task that became a deadline task after
-> cpuset_can_attach(), with nothing reserved for it. "cgroup/cpuset: Give
-> back the bandwidth an attach did not move" fixes that.
-> 
-> Fixes: 7f51412a415d ("sched/deadline: Fix bandwidth check/update when migrating tasks between exclusive cpusets")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
+Cancel irq_work after regmap_del_irq_chip() stops its producer and
+before unregistering the MUIC I2C client. Apply the same ordering to
+the probe error path and initialize the work before that path is used.
 
-...
+Found by a static analysis tool under development.
 
-> @@ -2957,6 +2957,8 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
->  #define SCA_MIGRATE_DISABLE	0x02
->  #define SCA_MIGRATE_ENABLE	0x04
->  #define SCA_USER		0x08
-> +/* The caller made room for the deadline bandwidth in the new root domain. */
-> +#define SCA_DL_BW_RESERVED	0x20
+Compile-tested with W=1 for arm64 and x86_64.
+Not tested on hardware.
 
-Why not 0x10?
+Fixes: 27a28d32b4f2 ("extcon: max77843: Add max77843 MUIC driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
 
-Also, nit, the comment looks off compared to the other flags w/o
-comments. But maybe they just need to gain comments (I keep forgetting
-what SCA stands for - Set CPUs Allowed, maybe? :).
+    Based on next-20261109 without Hongyan Xu's cable-detection fix [1].
+    The patches conflict textually; if [1] is applied first, keep its
+    cancel_delayed_work_sync() at the start of max77843_muic_remove().
 
-Thanks,
-Juri
+    [1] https://lore.kernel.org/all/20260728075429.838-1-getshell@seu.edu.cn/
+
+ drivers/extcon/extcon-max77843.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/extcon/extcon-max77843.c b/drivers/extcon/extcon-max77843.c
+index c16606b23855..0d45c374fcb4 100644
+--- a/drivers/extcon/extcon-max77843.c
++++ b/drivers/extcon/extcon-max77843.c
+@@ -825,6 +825,9 @@ static int max77843_muic_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, info);
+ 	mutex_init(&info->mutex);
+ 
++	/* Support virtual irq domain for max77843 MUIC device */
++	INIT_WORK(&info->irq_work, max77843_muic_irq_work);
++
+ 	/* Initialize i2c and regmap */
+ 	ret = max77843_init_muic_regmap(max77843);
+ 	if (ret) {
+@@ -879,9 +882,6 @@ static int max77843_muic_probe(struct platform_device *pdev)
+ 	}
+ 	dev_info(info->dev, "MUIC device ID : 0x%x\n", id);
+ 
+-	/* Support virtual irq domain for max77843 MUIC device */
+-	INIT_WORK(&info->irq_work, max77843_muic_irq_work);
+-
+ 	/* Clear IRQ bits before request IRQs */
+ 	ret = regmap_bulk_read(max77843->regmap_muic,
+ 			MAX77843_MUIC_REG_INT1, info->status,
+@@ -923,6 +923,7 @@ static int max77843_muic_probe(struct platform_device *pdev)
+ 
+ err_muic_irq:
+ 	regmap_del_irq_chip(max77843->irq, max77843->irq_data_muic);
++	cancel_work_sync(&info->irq_work);
+ 	i2c_unregister_device(max77843->i2c_muic);
+ 
+ 	return ret;
+@@ -933,8 +934,8 @@ static void max77843_muic_remove(struct platform_device *pdev)
+ 	struct max77843_muic_info *info = platform_get_drvdata(pdev);
+ 	struct max77693_dev *max77843 = info->max77843;
+ 
+-	cancel_work_sync(&info->irq_work);
+ 	regmap_del_irq_chip(max77843->irq, max77843->irq_data_muic);
++	cancel_work_sync(&info->irq_work);
+ 	i2c_unregister_device(max77843->i2c_muic);
+ }
+ 
+
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+-- 
+2.43.0
 
