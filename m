@@ -1,133 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492068;
-	b=3v5QZ3cKZlAbjQ2sF+pNBrNp0iQqa+E9Qe+7s0lia6IfYmHEh1NAHUKPW5NvanpHGnjr
-	 NSc/MaBb3fNs+7j9pfgDc32/D2DWOVxgu6VGcVl1a/QXbZtQqscC56obN32avhh8GQxv7
-	 r5infZ9oTbwg7XfXfXfATVMTdIXXpXmVHRyrLCArC1z0PICOTpvzLKN0pMxbflEohaO8C
-	 6pYHZAqg0StQp2AMB49UjrI7Znu80b6OrmpLy0lkC3K7dhNMk4P0NXPCjSiFrtzE9bxFs
-	 YqwYXJgkD/93BPoErwk47qV8g8GxThiiwGwfL5HFhMWjbLbLfT51kRMyQIXtlLAC7gA==
+	t=1794492074;
+	b=pI5zKTP0ALEhdk+1q5ER9oioXY68AAJ4DGBWvZdm8bTpDNnVx0bZddkrbN7D/k1if7Ps
+	 ZWlgCtI403NWGtJUywVbTl0Rf5b0tPB9n9B1KfK8q1cSgRhdAHJ7gIPa6UOoj70+ZaePq
+	 oqIWAv/SCwFeBZk/WrFa8v2tACqUawJmaJXod0FVlFsm3xSucc4eaqRtuo586eL47Ed0q
+	 bJidwgvUpqpEFEdt8sff6OmGkTnpJWOAwwDq2EyhYvX2Wzd+NUgySjSALKTeyH9vi3qht
+	 /Log2GpNKf3EdmdRSS+SrBP/+2vsxHFuSikdYkQgiEcFfDGW8wkqSd6oodsZgFMb7ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492068;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=WTNMIFQg7vEsr/bVsx6max9Hp2mlrFDIwp0Z0arBhBY=;
-	b=yWMWibeJlnSaQE2XRNJxPo6/VNBPzKArSOEuqpACewRmP0lb8I8QKd4g5cpve1EiGO/p
-	 awJoX/2HzitPhpeuLDUTwCRxpejVXWfXMvqVyeFgh/eJqwrLvxOY3Mp4hPhVszZBkP6lD
-	 ZBF0vKIaoZt4bfqjatH7tfXK/KqbXF80x84feJtyuHagIZCLXsUQurbtBKSfx8yXyxDFR
-	 SyrJynZ16gjABqu+Bacbkik7od61SLNplePF8Xn8P5mlu8HTXBbTlO80jNVdblIQ1iTL7
-	 J4IWoP1Fv+7xjniVXbY7nNYjKGcmiM59JSmvGzwXH+oGpCM0qOj7mwWi9V4jKmCYVlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492074;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=m794oFJxY0m+FJ1g0fjPeP5sYKwotuC4zOar6dDhflA=;
+	b=BOCoJQaiSd09puVaaw1kmjaMgrJZ/CJsxdONcgCZfkG76X6zrPjMlgmAxzWMw2rjPXve
+	 VqiJXdN9qxVTx0Lux4gUIgqTPmtLvjI8wcQ4W2YKYsp5ShQ9iPJGnOCxKIhSKR5l0tiY5
+	 P4x5eTXydU7I9GiETaIPhigGV9R9Iclj/iKIsSvBexLFviIieczPoyvG29dGqmfgHrD8d
+	 5upKQsNmYVhTs6mOAdmptGhw7uPQ5zK1w0JIs5QYcBiceEF2Jlhn9vW4So0SOrBzkIyhI
+	 ywXX/LBLpk1DUL5ABuAmODbdZKwwkm3ZpeDqTf5Nu0H2u55dSdEw40omH97rXY+DZEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gJlFM33D;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="LisWq/Fp";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gJlFM33D;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="LisWq/Fp";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=aMXOfHyH;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876E8606C73C;
-	Thu, 12 Nov 2026 14:01:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 876E8606C73C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582DF60A261E;
+	Thu, 12 Nov 2026 14:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 582DF60A261E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gJlFM33D;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LisWq/Fp;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gJlFM33D;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LisWq/Fp
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=aMXOfHyH
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0FF2C21E41;
-	Thu, 12 Nov 2026 14:01:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794492065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WTNMIFQg7vEsr/bVsx6max9Hp2mlrFDIwp0Z0arBhBY=;
-	b=gJlFM33DOlLsXo/fMz8rj/qpJNd1/LAfw06dbMqIfLoc4IuQh9/RzMXaHgeNvRN5r4o0B4
-	DgqDCnXzADpLagRmMbfxO/HW+Bg9xItuDkWUO82GFfItmNejFrXZhBUW2oHpytiyUlvPP+
-	TNvMTYoYQXGAiLUv3uBgb7s2eQv/WNU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794492065;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WTNMIFQg7vEsr/bVsx6max9Hp2mlrFDIwp0Z0arBhBY=;
-	b=LisWq/Fpj8SqT6u2xIBros+39GjGe1Tr75xCt4eKCv/fmjYu3CJDOJW1YNVOTyGrVDIuJq
-	vZrJ+kiUtvHXFUCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794492065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WTNMIFQg7vEsr/bVsx6max9Hp2mlrFDIwp0Z0arBhBY=;
-	b=gJlFM33DOlLsXo/fMz8rj/qpJNd1/LAfw06dbMqIfLoc4IuQh9/RzMXaHgeNvRN5r4o0B4
-	DgqDCnXzADpLagRmMbfxO/HW+Bg9xItuDkWUO82GFfItmNejFrXZhBUW2oHpytiyUlvPP+
-	TNvMTYoYQXGAiLUv3uBgb7s2eQv/WNU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794492065;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WTNMIFQg7vEsr/bVsx6max9Hp2mlrFDIwp0Z0arBhBY=;
-	b=LisWq/Fpj8SqT6u2xIBros+39GjGe1Tr75xCt4eKCv/fmjYu3CJDOJW1YNVOTyGrVDIuJq
-	vZrJ+kiUtvHXFUCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5F9A4134A0;
-	Thu, 12 Nov 2026 14:01:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id M0T5C53G9WrPJQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 14:01:01 +0000
-Date: Thu, 12 Nov 2026 14:00:59 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Steve Sistare <steven.sistare@oracle.com>, 
-	John Hubbard <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
-	Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
-	iommu@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/9] mm: limit pagecache folio refcount when splicing
- into pipes
-Message-ID: <avXFlI_5fhUvFyct@pedro-suse.tail5790ac.ts.net>
-References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
- <20261110-refcount_overflow_stable-v3-2-318625d63a98@kernel.org>
- <avW3v-oLxcHXXNQD@pedro-suse.tail5790ac.ts.net>
- <4ae22b7a-c160-4003-a029-8a20381d196f@kernel.org>
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jQMVn06Fsz58fdL;
+	Thu, 12 Nov 2026 22:01:05 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794492065;
+	bh=pe/DgnYm8uD3TZB4qvRZD+eJYrzD0zGxyXSxMz9yUec=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=aMXOfHyHHhoxOiBIYHMnZ4D8mIxYTDixSaQOFs/WB2FMv4u32zWR/euA3AsWuFojX
+	 KVWbaCRjolPoW8E/1XcrvZnau3OACXQI6V7+oou4A5r7YPlkJ/f55qSECMjlf24hN2
+	 9YTsLEy/T63fQNsvQBD+oqQzQnDIMawbqDVcTOSpKfwUuqmSzy0z+YqN+dGSQG9ST3
+	 3To+IhIjsr0Yaa+VjlsQB5WZPpOQKDzOdYXMxjv5DYMbOjMMfzwxl9TpR8SkLDfGdE
+	 aplMX87lfqTGi2zBSGBPTnGiXjfYJFWAIiQQ4u90k9PH5coyDyaHak5B831qmGWdOp
+	 KDlvR3ONOp48A==
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 6ACE13Ml036818;
+	Thu, 12 Nov 2026 22:01:03 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 12 Nov 2026 22:01:06 +0800 (CST)
+X-Zmail-TransId: 2afa6af5c6a2955-f60b2
+X-Mailer: Zmail v1.0
+Message-ID: <20261112220106682vEsVrn_uCY7k7JVslANjN@zte.com.cn>
+In-Reply-To: <20261112220058755zQhw_h6UkcVSjRnu478lb@zte.com.cn>
+References: 20261112220058755zQhw_h6UkcVSjRnu478lb@zte.com.cn
+Date: Thu, 12 Nov 2026 22:01:06 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -136,193 +72,135 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4ae22b7a-c160-4003-a029-8a20381d196f@kernel.org>
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,suse.cz,linux-foundation.org,nvidia.com,linux.alibaba.com,linux.dev,arm.com,intel.com,gmail.com,sk.com,gourry.net,redhat.com,cmpxchg.org,fb.com,surriel.com,szeredi.hu,zeniv.linux.org.uk,arndb.de,ziepe.ca,8bytes.org,oracle.com,toxicpanda.com,davemloft.net,kvack.org,vger.kernel.org,lists.linux.dev];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[62];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -11.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYyIDIvMl0gbnZtZXQ6IHVzZSBvdmVyZmxvdy1zYWZlIHJhbmdlIGNoZWNrcyBpbiB0aGUgZmlsZSBiYWNrZW5k?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6ACE13Ml036818
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Thu, 12 Nov 2026 22:01:05 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF5C6A1.000/4jQMVn06Fsz58fdL
 
-On Thu, Nov 12, 2026 at 02:24:09PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/12/26 14:09, Pedro Falcato wrote:
-> > On Tue, Nov 10, 2026 at 09:35:42PM +0100, David Hildenbrand (Arm) wrote:
-> >> Similar to mapping pagecache folios into page tables, let's reject
-> >> additional references when splicing folios into a pipe if the refcount
-> >> is at its limit, similar to how we handle it during GUP.
-> >>
-> >> This will prevent more cases of possible folio refcount overflows with
-> >> large pagecache folios.
-> >>
-> >> Introduce folio_get_checked() for checked reference acquisition when
-> >> the caller already holds a reference. It warns and fails on a non-positive
-> >> refcount and rejects additional references at the limit.
-> >>
-> >> Use folio_get_checked() in splice_folio_into_pipe() and
-> >> fuse_ref_folio(), returning -EFAULT on failure, like we already do for
-> >> pipe-buffer duplication. Similarly, make try_get_page() use it instead.
-> >>
-> >> Likely try_get_page() should be renamed (or removed) later, as it doesn't
-> >> match the folio_try_get() semantics and is confusing.
-> >>
-> >> If we hit the limit after splicing some data, return the number of bytes
-> >> already spliced. Teach the callers to handle errors, and stop
-> >> filemap_splice_read() if we only spliced part of a folio, so we don't
-> >> skip ahead to the next folio.
-> >>
-> >> The check in try_get_page() also covers pipe-buffer duplication by tee()
-> >> and partial pipe-to-pipe splicing.
-> >>
-> >> Note that we deliberately will not fall back to the slow path of copying
-> >> the folio, particularly as the folio might have an invalid refcount. If
-> >> it is ever really required, we can revisit.
-> >>
-> >> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> >> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> >> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> >> ---
-> 
-> [...]
-> >> index 0f6d57432a7e5..e6e73e37f3ea4 100644
-> >> --- a/mm/filemap.c
-> >> +++ b/mm/filemap.c
-> >> @@ -3047,10 +3047,11 @@ generic_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
-> >>  EXPORT_SYMBOL(generic_file_read_iter);
-> >>  
-> >>  /*
-> >> - * Splice subpages from a folio into a pipe.
-> >> + * Splice subpages from a folio into a pipe. Return the number of bytes spliced,
-> >> + * or -EFAULT if we cannot splice from the folio.
-> > 
-> > -EFAULT is a weird error code to return from splice, et al.
-> 
-> We might be able to use ETOOMANYREFS (have to check if that could confuse
-> callers), but IMHO EFAULT is good enough.
-> 
-> What would be your suggestion?
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-ETOOMANYREFS I think is good, also EBUSY, EMLINK (though this would be weird)
-or even a generic -EIO.
+The file backend shifts a host-supplied SLBA to form a byte offset
+before checking it against the namespace size. The shift can discard
+high bits: with a 4 KiB block size, SLBA 2^52 + 1 becomes offset 4096.
+The range check then accepts a command aimed outside the namespace and
+the backend accesses data at the wrapped offset.
 
-> 
-> > 
-> >>   */
-> >> -size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
-> >> -			      struct folio *folio, loff_t fpos, size_t size)
-> >> +ssize_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
-> >> +			       struct folio *folio, loff_t fpos, size_t size)
-> >>  {
-> >>  	struct page *page;
-> >>  	size_t spliced = 0, offset = offset_in_folio(folio, fpos);
-> >> @@ -3063,13 +3064,15 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
-> >>  		struct pipe_buffer *buf = pipe_head_buf(pipe);
-> >>  		size_t part = min_t(size_t, PAGE_SIZE - offset, size - spliced);
-> >>  
-> >> +		if (!folio_get_checked(folio))
-> >> +			return spliced ? spliced : -EFAULT;
-> > 			return spliced ?: -EFAULT;
-> > 
-> > I don't know if there's much kernel code out there doing this, but I like
-> > the trick :)
-> 
-> There are a couple of thousands, but yes, one doesn't encounter it that often.
-> 
-> > 
-> >> +
-> >>  		*buf = (struct pipe_buffer) {
-> >>  			.ops	= &page_cache_pipe_buf_ops,
-> >>  			.page	= page,
-> >>  			.offset	= offset,
-> >>  			.len	= part,
-> >>  		};
-> >> -		folio_get(folio);
-> >>  		pipe->head++;
-> >>  		page++;
-> >>  		spliced += part;
-> >> @@ -3094,9 +3097,10 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
-> >>   * Return: On success, the number of bytes read will be returned and *@ppos
-> >>   * will be updated if appropriate; 0 will be returned if there is no more data
-> >>   * to be read; -EAGAIN will be returned if the pipe had no space, and some
-> >> - * other negative error code will be returned on error.  A short read may occur
-> >> - * if the pipe has insufficient space, we reach the end of the data or we hit a
-> >> - * hole.
-> >> + * other negative error code will be returned on error; -EFAULT will be returned
-> >> + * if acquiring a folio reference fails and no data has been spliced.
-> >> + * A short read may occur if the pipe has insufficient space, we reach the
-> >> + * end of the data, hit a hole or hit a folio refcount limit.
-> >>   */
-> >>  ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
-> >>  			    struct pipe_inode_info *pipe,
-> >> @@ -3154,7 +3158,7 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
-> >>  
-> >>  		for (i = 0; i < folio_batch_count(&fbatch); i++) {
-> >>  			struct folio *folio = fbatch.folios[i];
-> >> -			size_t n;
-> >> +			ssize_t n;
-> >>  
-> >>  			if (folio_pos(folio) >= end_offset)
-> >>  				goto out;
-> >> @@ -3170,13 +3174,15 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
-> >>  
-> >>  			n = min_t(loff_t, len, isize - *ppos);
-> >>  			n = splice_folio_into_pipe(pipe, folio, *ppos, n);
-> >> -			if (!n)
-> >> +			if (n <= 0) {
-> >> +				error = n;
-> >>  				goto out;
-> >> +			}
-> >>  			len -= n;
-> >>  			total_spliced += n;
-> >>  			*ppos += n;
-> >>  			in->f_ra.prev_pos = *ppos;
-> >> -			if (pipe_is_full(pipe))
-> >> +			if (pipe_is_full(pipe) || *ppos < folio_next_pos(folio))
-> > 
-> > I'm confused. Why does this need to be done here?
-> >  
-> 
-> I have above:
-> 
-> "stop filemap_splice_read() if we only spliced part of a folio, so we don't
-> skip ahead to the next folio"
+Reject overflowing LBA-to-byte conversions and check the transfer
+length against the remaining namespace size without adding it to the
+offset. Apply the checks to reads, writes, discard and write zeroes.
 
-Yes, but is this a separate fix? A folio could be partially spliced previously
-as well, no?
+Fixes: 9c891c139894 ("nvmet: check fileio lba range access boundaries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+Changes in v2 (Christoph Hellwig):
+- Share nvmet_file_check_lba_range() with read/write and hide pos64
+  inside it. Pass byte lengths; check block-to-byte length conversion
+  separately for discard and write zeroes. No functional change.
+v1: https://lore.kernel.org/all/20261111224247129g0VbfWdGlwDMhBpChnT-8@zte.com.cn/
 
-> 
-> Thanks a lot for the review!
+A userspace test compiled the range helper and the kernel shift-overflow
+macro with GCC 13 and UBSAN. Boundary and random inputs matched the v1
+checks and a 128-bit arithmetic oracle, including wrapped LBAs, byte and
+block lengths, exact-end access and one-byte overruns.
 
-You're welcome! :)
+ drivers/nvme/target/io-cmd-file.c | 40 ++++++++++++++++++++++---------
+ 1 file changed, 29 insertions(+), 11 deletions(-)
 
-FWIW, you can add my
-
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-
-to whatever comes out of these nits :)
-
--- 
-Pedro
+diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
+index e95ab1f08cff39b0a1147e53bbd7749a831d29a6..3098b902f51987f3da30dcc3cbb47729f62f7718 100644
+--- a/drivers/nvme/target/io-cmd-file.c
++++ b/drivers/nvme/target/io-cmd-file.c
+@@ -117,6 +117,19 @@ static void nvmet_file_io_done(struct kiocb *iocb, long ret)
+ 	nvmet_req_complete(req, status);
+ }
+ 
++static bool nvmet_file_check_lba_range(struct nvmet_req *req, u64 slba,
++				       u64 len, loff_t *pos)
++{
++	u64 pos64;
++
++	if (check_shl_overflow(slba, req->ns->blksize_shift, &pos64) ||
++	    pos64 > req->ns->size || len > req->ns->size - pos64)
++		return false;
++
++	*pos = pos64;
++	return true;
++}
++
+ static bool nvmet_file_execute_io(struct nvmet_req *req, int ki_flags)
+ {
+ 	ssize_t nr_bvec = req->sg_cnt;
+@@ -131,8 +144,9 @@ static bool nvmet_file_execute_io(struct nvmet_req *req, int ki_flags)
+ 	if (req->f.mpool_alloc && nr_bvec > NVMET_MAX_MPOOL_BVEC)
+ 		is_sync = true;
+ 
+-	pos = le64_to_cpu(req->cmd->rw.slba) << req->ns->blksize_shift;
+-	if (unlikely(pos + req->transfer_len > req->ns->size)) {
++	if (unlikely(!nvmet_file_check_lba_range(req,
++						 le64_to_cpu(req->cmd->rw.slba),
++						 req->transfer_len, &pos))) {
+ 		ret = -ENOSPC;
+ 		goto complete;
+ 	}
+@@ -282,19 +296,22 @@ static void nvmet_file_execute_discard(struct nvmet_req *req)
+ 	int i;
+ 
+ 	for (i = 0; i <= le32_to_cpu(req->cmd->dsm.nr); i++) {
++		u64 len64;
++
+ 		status = nvmet_copy_from_sgl(req, i * sizeof(range), &range,
+ 					sizeof(range));
+ 		if (status)
+ 			break;
+ 
+-		offset = le64_to_cpu(range.slba) << req->ns->blksize_shift;
+-		len = le32_to_cpu(range.nlb);
+-		len <<= req->ns->blksize_shift;
+-		if (offset + len > req->ns->size) {
++		if (check_shl_overflow((u64)le32_to_cpu(range.nlb),
++				       req->ns->blksize_shift, &len64) ||
++		    !nvmet_file_check_lba_range(req, le64_to_cpu(range.slba),
++					len64, &offset)) {
+ 			req->error_slba = le64_to_cpu(range.slba);
+ 			status = errno_to_nvme_status(req, -ENOSPC);
+ 			break;
+ 		}
++		len = len64;
+ 
+ 		ret = vfs_fallocate(req->ns->file, mode, offset, len);
+ 		if (ret && ret != -EOPNOTSUPP) {
+@@ -339,16 +356,17 @@ static void nvmet_file_write_zeroes_work(struct work_struct *w)
+ 	int mode = FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE;
+ 	loff_t offset;
+ 	loff_t len;
++	u64 len64;
+ 	int ret;
+ 
+-	offset = le64_to_cpu(write_zeroes->slba) << req->ns->blksize_shift;
+-	len = (((sector_t)le16_to_cpu(write_zeroes->length) + 1) <<
+-			req->ns->blksize_shift);
+-
+-	if (unlikely(offset + len > req->ns->size)) {
++	if (check_shl_overflow((u64)le16_to_cpu(write_zeroes->length) + 1,
++			       req->ns->blksize_shift, &len64) ||
++	    !nvmet_file_check_lba_range(req, le64_to_cpu(write_zeroes->slba),
++				len64, &offset)) {
+ 		nvmet_req_complete(req, errno_to_nvme_status(req, -ENOSPC));
+ 		return;
+ 	}
++	len = len64;
+ 
+ 	ret = vfs_fallocate(req->ns->file, mode, offset, len);
+ 	nvmet_req_complete(req, ret < 0 ? errno_to_nvme_status(req, ret) : 0);
