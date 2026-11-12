@@ -1,80 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508339;
-	b=zxlue4RYp6nJkXmkAjw0UqzngnqaudESUr4a+KvOUiAw/OgIZuimRNuDPBdv/PwhnWYy
-	 7bbM+lm4UvQnwL9ClhmEfhvVNUAtXuos/jzPN44uNiDnyPz9ykLhp5gLIa1708pO6N8LN
-	 9xsEXq+Af3JguK8x0xl8zswjELW1C9A2R3yoEZSt6NAqBQcMODwSocZ+g28URZWtk50ga
-	 LPg75KNm1ArbJZTv4wIKUEHp5/M15QFPnwIaZAq+he0S5LynJ35DHMBUH2XcmRblL7/6p
-	 Hjt0Cl1TEgBHSxfsSMhcTKDAc24JZlaSUA1OeTGXnkOaGOeSRv4R1+Fik5MY26yd86g==
+	t=1794508418;
+	b=rx+sp8YCRPAQXxn6KRzqqqvAyLA/qkxGjiMnEOtpCrGslEWT6+bmRlu9axPypcjUmpFT
+	 hUrDG8GmgxtmFPPq9d35xlgVh6e76MGImqLoBWNNZy69YHJAO6iVh2ZaxdzZxeVowgIat
+	 FP+ad98SiVXVtORBVrFk6KHDyk774D+qo0Bv/xhKgDxaeFfxwVj91zv27Y0SEKhQGKTmb
+	 3iRNKYj8b3C4KxgyU8CMBE6Xm8Az4ci9p6JEVujWvjOQSn+7wrrSEMCV6BszNnsbJ5XBP
+	 CPXfzrr/MX4d9g+DUTZXhDVCtxA/Zj66+qjuKysXDAV/ft3+y65mtV9qCeOvaikurmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508339;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MCjGHsn872d8KofdKGL65svKL4PNja6pq4PIoM1w/9g=;
-	b=5lTQq21D3g3G15y2HwhDpekvx8RN4HatnIYxuTV/zrizhnPPI/dgdN4sPU05a5j0t10N
-	 ckztgAYMmK9M3eJnttS2zfpN3vkcFnDMP//7JZUDn6sqiuWGv3fFtowtXoylV7hMNDaTg
-	 dfAm4COp1SKyP7pQZd1Nvj5pSM1WfZrCd+AL4Q5mvvidLxaLkula41bfYfe9ZhGhFBpiP
-	 S7w0uzkZ8q47tR+RsMTREL++6iXPRGrl1+rzvbS212+9ylSQ4Oztrisidr5YbGR9YANEn
-	 iis2k7ivs5v9+Xqwxf7KnmHNMYPgAaOzqGrwRBck0VIiNQAr3VdPoDe3vpyKObcdt5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508418;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=E0X/oBNSd837oq8qemdGMRW3gOZl3XdynAbQm9FPXsA=;
+	b=WC+TSsYqgp0l5Yi/UTzdYyrrqMwectaUIDRsLBV1aqdjjPsrK/1boIarzXj92H9RAn6J
+	 V2yAcM8D4qR/mCtYg198iq7vrXuqoXWXpjoA6VFY0qGRPiqrvEuhu1RZfizSt5e0VEdat
+	 8HSZ2aXh+cYMznbNeK+YwCNWa6pGKyBug7OrrywNIRJz5rUdVZucePBzSefjapcA4hjvw
+	 K3mfl4AyLiBzVgDAyNWA0xsDktMKg6YXFAf9sD07Mq65UYPTi0SYOb06w+swqOJuT4Bi6
+	 ATZPgfT1TQwhIHou6COyVLMZCgTWi1zfmObb7icLLw3pZS5AXT17voRfa/Vto7AdLiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=axtWnStn;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vOr2VvyR;
+	arc=none smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A7D60A2612;
-	Thu, 12 Nov 2026 18:32:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78A7D60A2612
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D545C606A33A
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D545C606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=axtWnStn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794508340; x=1826044340;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=6II4ZThJGq3dR8oKhWLJPD70EGoV0mqzUUJP+s30b9s=;
-  b=axtWnStny04glvf4i9VLRUjqKyPQyA8PnPXIDD+fO9TPOC85eaJgl4as
-   sIcgbAbGTBdE7rX7bBNRvTsI1BlHhz24ZLs/TtmJOjg4FbcUdA2c8WiK/
-   s1mQ/AR6YjVON3zMOez37HHqrkIRjqXBnsFTO6C/oTCRhqCTSkFDC7jZy
-   0OuQybYYkjlu7Lmo4LgCt3ncNWVjLKmO0a4S/ql61NMHOfI+k/EjEhJuV
-   y6tHzPqkCX8F3obERJxpA07snzRsS/b1iyLbGdMpLwZBFJ5twA1M16Azg
-   i7nA/Uw+3oJvpZDMORcjWXbza5L4AnrXuAY/0We68afsSXLMrhL+uH1eI
-   w==;
-X-CSE-ConnectionGUID: 05UFM+D+TWquLBXBmPzqtg==
-X-CSE-MsgGUID: NLJlYQuDQcGC77L/4fpBLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3347782"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3347782"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 10:32:20 -0800
-X-CSE-ConnectionGUID: IfaXPzcmR/KbcV982RD93g==
-X-CSE-MsgGUID: xSF2KndPTQm8yyiMP4y72g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="8618134"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO mdjait-mobl.intel.com) ([10.245.244.103])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 10:32:18 -0800
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: michael.riesch@collabora.com
-Cc: linux-media@vger.kernel.org,
-	paul.elder@ideasonboard.com,
-	daniel@makrotopia.org,
-	linux-rockchip@lists.infradead.org,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v1 1/2] media: rockchip: rkcif: Don't reset the hardware in runtime suspend
-Date: Thu, 12 Nov 2026 19:32:07 +0100
-Message-ID: <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
-References: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=vOr2VvyR
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91eda36322fso575526d6.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 10:33:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794508417; x=1795113217; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E0X/oBNSd837oq8qemdGMRW3gOZl3XdynAbQm9FPXsA=;
+        b=vOr2VvyRtP+KBt6PNgpsroLYuZ2WDXRyTOc5i95zgwooIsYRcxqQzqiTLUmi/IXsxY
+         hHwNRJhCrscdVv/HsHUP4QAcTt1cJdndeVKPMDxbJ861WXUxNdUDlH6/AnX5mNWc7Ok7
+         gz1LKAJ7k9EX0GE3xjhFTEeo+pTWtrYXtUOm92dteko0p+d/6NHk9jVtPuT8NDgnPWvg
+         XtxTBeTZ4wwWnSR7wfGblG7vb8M3uTKovXED6EyA5tN4BZTkv+jChVYvxAiFXwAYGK8k
+         e0QYgsMMPmx9nO2Garn9QvjiEbljM9VzEiJMpYxfNqtFGezq9HjbZijLAU2AbIeA4Mjf
+         wCtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794508417; x=1795113217;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E0X/oBNSd837oq8qemdGMRW3gOZl3XdynAbQm9FPXsA=;
+        b=rYyOOo/uKDlEJJHwR1pqeijeHy71bfd2aa1OdFLvzeBsanQa9Hs4ZGXu9dhxxsaCKC
+         SZJxWnP1yaC0MpM5QzMqX0MMfjYEtxqbg9eQ1+ZI5fDZKepeqdbG2r/yXRW0KcSIzsIZ
+         PJQdrVWnGPN0QoGFe7PVxlrHa+aJADlTPLZ+NiNsCBWehghH9h6DnyRENZ5ZAJdO0aMH
+         AulTIT+GoOD19mStPD5jl0+HJk+OyFy85o46NgTWTSIklK299hnUAP11YyU7vQvJiyeT
+         rZE6oRtAbiM9VNlr51ODYuoNLN0KYKY0PeqZc0gK9RbZhs+xQqnYaBWOjI+gvGpzBjuB
+         NVJw==
+X-Forwarded-Encrypted: i=1; AL+hErENEE4OxotfmN/WLhOeytUdhyKcvOn/+Mh7tsF3+CeJG+gcTW70BRcQrXXEKSJQe8/qo+QYtOc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/K8OWcMWAheb45Z7T4FaFRCTG4TfVsQi5nwXfMBD0SaySZsi5i
+	10AW1fU2QYrnbPrnorgPH1KQ+HIvC0Q6ca+rcMITl4mZVRIp+FQ/qS/eI7To/HjJqeo=
+X-Gm-Gg: AYBFou39eRKT/zaWsbaSGOqtmHRsPNawWNpUqdnaYSiE+rNUkv04GRZKMhUi66kXDx4
+	du91k2F3P8KqTpocgkT0H6bNGw4/MkaaiC6kenJ/aq5GIDnNcXl6WVSW4svMJUhiw75GtEKpN7O
+	o/6Cl2BQpNFUoi3A7IPmvOsa9JNN7hmMnVj06i6PNxOxkYLQ01TOukwPVyhgzTntpiZF7qGi076
+	uQ+hffPHg5U0WlOWheNBBvKm5KRssG37csHAT7gdf3mKcRoWhbNgSZPz3yFaM5rSwpgmQXK6d1U
+	S9Vq/l/LRdzHyxDuGXIWORuE11S3y8XQAmScCfkeUJYyoFhMruVhoswBViH3ZsYCKUeV4hByXMj
+	z4LuAzfcC7bWeoDZE7ubaRSZJ2pXtxRDRZcCF/EsbbCI6oHuAwvifbFV2xcvG5VAbF5LjdAKPEg
+	s/bDN2uCMOqYb5q8HfRWacnGbZg7DMvRiHf8D34/x1Dpv0ZvYAG3p9I4tZ2d4zlFEbtOtv224jL
+	gi32HWWn9IugbjC+fqNyimmPjycItRQeY9mXh8CF7bWH5dZyo8ReVhN3MqkrGWEljvRdxN20Vay
+	ZTHyzKrFIJ+2EAnrVMQ4d0FA9P7r4+iNzwuKfbDnObRRSdnYoQgToICWe3NfFT1/QzWH7lzBk+S
+	WoCDRmns=
+X-Received: by 2002:a05:620a:27d0:b0:945:ad43:1d59 with SMTP id af79cd13be357-9494bbef3b9mr40481685a.75.1794508416926;
+        Thu, 12 Nov 2026 10:33:36 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d456b2sm2035036d6.12.2026.11.12.10.33.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 10:33:36 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,83 +89,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 12/13] percpu: search the whole reserved chunk
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-12-3d2454362e8d@kernel.org>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-12-3d2454362e8d@kernel.org>
+Date: Thu, 12 Nov 2026 13:33:35 -0500
+Message-Id: <179450841509.482102.2272758511939089806.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-The reset in the runtime suspend also resets the VICAP IOMMU.
+On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
+> Loading a module with static percpu data can fail with -ENOMEM even
+> though the reserved chunk has a free area that fits the data.
+> 
+> pcpu_find_block_fit() does not scan the allocation bitmap, rather it
+> tests the request against hints, starting with the contig_hint of the
+> chunk, which describes its largest free area. If that area is too small
+> once aligned, the search gives up even if a smaller free area fits.
+> 
+> Consider:
+> 
+>     request:      256 bytes, aligned to 256 bytes
+>     contig_hint:  260 bytes, starts 4 bytes after a 256-byte boundary,
+>                   so 8 bytes remain after alignment
+>     also free:    256 bytes, starts on a 256-byte boundary
+> 
+> Ordinarily this is fine as the allocator moves on to the next chunk or
+> creates a new one, but the static percpu data of modules can only come
+> from the reserved chunk.
+> 
+> Fix this by searching the allocation bitmap of the reserved chunk
+> directly rather than using hints.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: 13f966373f92 ("percpu: skip chunks if the alloc does not fit in the contig hint")
+> Fixes: b4c2116cfae6 ("percpu: update pcpu_find_block_fit to use an iterator")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-When the IOMMU driver accesses the IOMMU registers inside the delay window
-between the assert and deassert, e.g. in rk_iommu_zap_lines() to shootdown
-IOTLB entries, the system hangs.
+Reproduced the exact issue.
 
-Drop the reset and the now unused reset control.
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Fixes: f53fb31a3889 ("media: rockchip: add driver for the rockchip camera interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mehdi Djait <mehdi.djait@linux.intel.com>
----
- .../media/platform/rockchip/rkcif/rkcif-common.h  |  1 -
- drivers/media/platform/rockchip/rkcif/rkcif-dev.c | 15 ---------------
- 2 files changed, 16 deletions(-)
-
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-index 4d9211ba9bda..38208e8b7b2d 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-@@ -237,7 +237,6 @@ struct rkcif_device {
- 	struct clk_bulk_data clks[RKCIF_CLK_MAX];
- 	unsigned int clks_num;
- 	struct regmap *grf;
--	struct reset_control *reset;
- 	void __iomem *base_addr;
- 
- 	struct rkcif_interface interfaces[RKCIF_IF_MAX];
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-index be3a174b9aab..dceabee2ecd6 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-@@ -10,7 +10,6 @@
-  */
- 
- #include <linux/clk.h>
--#include <linux/delay.h>
- #include <linux/interrupt.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
-@@ -18,7 +17,6 @@
- #include <linux/of_graph.h>
- #include <linux/of_platform.h>
- #include <linux/pm_runtime.h>
--#include <linux/reset.h>
- 
- #include <media/v4l2-fwnode.h>
- #include <media/v4l2-mc.h>
-@@ -201,10 +199,6 @@ static int rkcif_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to get clocks\n");
- 
--	rkcif->reset = devm_reset_control_array_get_exclusive(dev);
--	if (IS_ERR(rkcif->reset))
--		return PTR_ERR(rkcif->reset);
--
- 	rkcif->grf = syscon_regmap_lookup_by_phandle(dev->of_node,
- 						     "rockchip,grf");
- 	if (IS_ERR(rkcif->grf))
-@@ -273,15 +267,6 @@ static int rkcif_runtime_suspend(struct device *dev)
- {
- 	struct rkcif_device *rkcif = dev_get_drvdata(dev);
- 
--	/*
--	 * Reset CIF (CRU, DMA, FIFOs) to allow a clean resume.
--	 * Since this resets the IOMMU too, we cannot issue this reset when
--	 * resuming.
--	 */
--	reset_control_assert(rkcif->reset);
--	udelay(5);
--	reset_control_deassert(rkcif->reset);
--
- 	clk_bulk_disable_unprepare(rkcif->clks_num, rkcif->clks);
- 
- 	return 0;
 -- 
-2.56.0
+~Gregory
 
