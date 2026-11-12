@@ -1,47 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794471979;
-	b=uW85FW16gTbZ0x9yUyaf3Mqh/Fx79qQDkJ8hj/GeBTeZ+Se+5L+/YeFXsrMVkZYFQ1yc
-	 t4X6LLxIVgjI1Ys2PS5bDgj/1DG+zqmslRWkTZ3+wVK9swwSBDf0WwDTAv+ENjPcHjf6p
-	 /GBXRxGQ5pSLWJSJxAYnc0UT5tFk5kiaoCbp6L2MYHiY2TTUj8QjYxa4THT+inv+lsm4L
-	 EkDZvWh7/S0D+BA6wx1xpPBLY5UjfuqJcjHbPS51VWaJWhb+OtVIPwHtirL/eHCxgsPfO
-	 Cqf1U9Lt3Ic4TdY64bCg7Jw0x/87QpR7lIHFi+4Uw6G18t3PAvgt2foVgLnEu11ACyg==
+	t=1794472046;
+	b=r+4ghlmRomjeTpJAE8g8kK0YFsFCd1eCIS5Ov3IxiAQrXInV60cytWkrI/LaiwSiC2JK
+	 FOVL2Jk+3Fk1KJu1a6sSBDUe9dxkQ3kKE9BjpJF+qpNS0JotTKtIkKGHyXk8FhpXSt3Me
+	 Rky9UNGjhWi5JBNV6B5YNejXo1dyXpTbVc03Twivwv7I5jY7mjP+HOwl4fsc7dLSsht/1
+	 ldByZmARyrRzOgQkqLO3pP7PnNOW8y7gV6SFhrBwbxg9ECXirleAFfP/gXEYaGCUd45FJ
+	 WQzETjxh3dsI3l0zUsG9nz1gG5+tfVobFqLs3UrcsBL4N+jnMQRZHg+ORe4R37Ec/MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471979;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=5h3741aVBUgMLcvMs4FsULmYyMwtRuaDKpHdJBi6xVE=;
-	b=wWQ443mIRfCW3ofZRZIZRso+5IWFtDncR/bVpYFWBjBxMZdVu/rXnprMPtESBArEX0ds
-	 G2CxzvxAlBrnK+Wjtih5diQAYEahA0yTY3KAqahYdBI0FP4rpZB/0dd6ptnPr7dYPaJku
-	 1uaK3yzLRgbmLxUnhJ2MNbjzWmQjfiKERSkwq8JWpYTY3UmSXlZZiXuARkDOdDLHQdfLn
-	 Uol31zGQz2Ej29rSWeGH9wy+9Ujnm+pw9+YK9mxemdb24afOrF4GSyKEdoy8k2yJkCcn1
-	 Fs/mVZKYo8kVL+CH+Tdxc5dSD5bRnyMdP62ULdcvmPUpYX0waCXv66IfleOxko73/MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472046;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
+	bh=jhvXTI4sODq2+dggflhtRsWs9TkwJN/yc87cnG7v71M=;
+	b=HgRFezF//njjc2OBSw5PdDrnFOMTec/IN8S25IB6jcpQGybZ4rxbGaNtWFf44/ODJNZB
+	 VKiEogf5G3vjz4oQyp/LwFwD1VeH5tMtO4BG4AgZiuEUUzCp2laqrtWyUUP5eIMvugeLj
+	 8B9GTcxc1un3mQf+CCyGy4ZknwStMCK+Vajnh9Rzn+2iZlabkar1HN2VVoYWFxtO7qNYE
+	 Zj0xY7udkglvkEdL2x74MsrJoVauM3kDrwxCrK6WsOHc50i07DeKeXtPK3Qf9iDnaZCjr
+	 zFnoswyIx8dV2V4lOgAsbV+h+NMyI0jfDmirhcJ2OrEaTTFY0EagAO278VJG2sMF3vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSL29dCx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25C6606A32A;
-	Thu, 12 Nov 2026 08:26:19 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=fPJ2xZsQ;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 34D66606A323
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:27:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34D66606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSL29dCx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4765E1F00A05;
-	Thu, 12 Nov 2026 08:26:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794471979;
-	bh=5h3741aVBUgMLcvMs4FsULmYyMwtRuaDKpHdJBi6xVE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iSL29dCxPvP7MpEjriAk5jd1ZwxV+K6VQR+EI29eQhJxHrKxaW/AarTh3NhpywuD7
-	 qRv5pfvbC9Qhq9CJKYNSv4bqy6mL2cu8plaaLB4YG60VIYZyW6jMADaGIZmz2Zv8m+
-	 l+lHOVYPHnprs2K7RhZESTDTcgICKfJ1C3IvJl98I0TQq8x5anhM+Cy1YSciiMrKiH
-	 mnd51lnkiZGy74CahaycnJGBVJNgrpGubm4N7E8P9mp3BCygOVhqxHSxsMZad2qQoi
-	 aqxi3zKfsM7OuwvkT7ggOL3361y3NVxReYGS3BvOOCmsUTFuC0u9JSHisHg/OyA9qj
-	 F41zy6mwojMZw==
-Message-ID: <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org>
-Date: Thu, 12 Nov 2026 09:26:09 +0100
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=fPJ2xZsQ
+Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.18])
+	by linux.microsoft.com (Postfix) with ESMTPSA id E866220B716A;
+	Thu, 12 Nov 2026 00:27:19 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E866220B716A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794472042;
+	bh=jhvXTI4sODq2+dggflhtRsWs9TkwJN/yc87cnG7v71M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=fPJ2xZsQioAecDc9d5dNgL8HrNrSXzJoT9HopWH0R3uifF4teTnaHUv6g2yjfHtj2
+	 diOpZcEOoPvkZYrjyMt/xvEEkPCokWNM78sZ3f1lzGUXq016m4yEI6/qwCsuQY4MnJ
+	 bOux+1db/4EPNmt0gVqBPCiN0HfEzGHr5ikBfhuM=
+From: Naman Jain <namjain@linux.microsoft.com>
+To: stable@vger.kernel.org,
+	Sasha Levin <sashal@kernel.org>
+Cc: namjain@linux.microsoft.com,
+	bp@alien8.de,
+	tglx@kernel.org,
+	vdso@mailbox.org,
+	hargar@linux.microsoft.com,
+	decui@microsoft.com
+Subject: [PATCH 5.10.y] x86/init: Initialize wall clock in get_rtc_noop()
+Date: Thu, 12 Nov 2026 08:27:19 +0000
+Message-ID: <20261112082719.555102-1-namjain@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109202714-failed-5.10-7d5af1f256fd@kernel.org>
+References: <20261109202714-failed-5.10-7d5af1f256fd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,97 +65,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
- similar bugs, and commit messages
-To: Theodore Ts'o <tytso@mit.edu>, workflows@vger.kernel.org,
- ksummit@lists.linux.dev
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Leon Romanovsky <leon@kernel.org>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin"
- <mst@redhat.com>, Kees Cook <kees@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
- <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
- Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
- stable@vger.kernel.org
-References: <20261111225940.1573565-1-tytso@mit.edu>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261111225940.1573565-1-tytso@mit.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/11/2026 23:59, Theodore Ts'o wrote:
-> This is an update of Sasha's v4 patchset with the following changes:
-> 
->    * Rebased to v7.4-rc2
->    * Removed references to Assisted-by: per the discussion at the
->      Maintainers Summit
->    * Addition of a new skill, writing-kunit-tests which I've been
->      using to add full KUnit test coverage for ext4.
-> 
-> I've been using the prompt against Gemini Pro; would appreciate
-> comments about how well it works (or doesn't) when used with Claude
-> Code.
-> 
-> Sasha, could you consider updating your patch series with this set?
-> I'll assume that you will send this to Linus, since the bulk of the
-> work is yours.  Thanks!!
+get_rtc_noop() is used when an RTC is unavailable, but leaves its output
+argument untouched. When CONFIG_INIT_STACK_ALL_ZERO is not enabled,
+timekeeping_init() may therefore receive a nonzero invalid persistent
+clock value and warn:
 
-All these are docs (even if you call them as a skill, it's the same),
-therefore they should be placed in Documentation, not in top-level. We
-should not create one documentation for humans and another for agents.
-It's just one documentation.
+  "Persistent clock returned invalid value"
 
-Best regards,
-Krzysztof
+Initialize the output to zero, the documented representation of an
+unsupported persistent clock.
+
+Fixes: c311ed6183f4 ("x86/init: Allow DT configured systems to disable RTC at boot time")
+Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Roman Kisel <vdso@mailbox.org>
+Reviewed-by: Hardik Garg <hargar@linux.microsoft.com>
+Reviewed-by: Dexuan Cui <decui@microsoft.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260831082528.1623843-1-namjain@linux.microsoft.com
+(cherry picked from commit 7d5af1f256fdecff6a7986bbc9146b69cb355bb5)
+---
+ arch/x86/kernel/x86_init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/kernel/x86_init.c b/arch/x86/kernel/x86_init.c
+index b758eeea6090b..9b78fb832d9c7 100644
+--- a/arch/x86/kernel/x86_init.c
++++ b/arch/x86/kernel/x86_init.c
+@@ -33,7 +33,7 @@ static void iommu_shutdown_noop(void) { }
+ bool __init bool_x86_init_noop(void) { return false; }
+ void x86_op_int_noop(int cpu) { }
+ static int set_rtc_noop(const struct timespec64 *now) { return -EINVAL; }
+-static void get_rtc_noop(struct timespec64 *now) { }
++static void get_rtc_noop(struct timespec64 *now) { *now = (struct timespec64){0}; }
+ 
+ static __initconst const struct of_device_id of_cmos_match[] = {
+ 	{ .compatible = "motorola,mc146818" },
+-- 
+2.43.0
+
