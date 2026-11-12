@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794498981;
-	b=p8F/S/jtXVPcV4oHPbpBIZ7aFl3+9duu2g614MD3aEl/6nWrRxGH0Hfu/OYJrJrnqqSK
-	 UXDUjctNypvM5pIVRtz++qTQyXE6TcRMNWfLL5ite0yh4N9jqwNAc83XK/7hhkVSrQZhX
-	 uxFofxCg9aBJe6vgWFgBklqQ4sRSW6rNPs7D9ChPRIoeqX0KhRy2lOpLhrhGjA1dMpS63
-	 OJIK4PedfUTDmx/dNocKJ85LhdGS1lYR5LkEW2WJdng/IEfDPCNVV8A3t4Kj49aDDj+Oz
-	 kWWfAnfrMmRtVrZ0DVmyufLzkFq4ojXEVZqFJMjrKEa+BTDFU4u45JzTc4Pati5lGLg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794498981;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794499507;
+	b=MPUoyuiiR0Qz8CCK3Cwy+15pYBCDy9bR1gkMgw9+aVWLZbIR2UNDE9qtav+QS0qPez7Z
+	 UzqLzSvAR6FrGUcik7a4mFEBkr1xZaeFwuUj++hD/AExHC1ETsohlhLkoMkLQ1iPAG9A+
+	 fyiCYxVmywD6eO5RKzngUYiZHFoDfVcpFwFdn9MzoWhgYxLCjkREXSj1vSAZtDmAGnatH
+	 Hfvjs4hzVCM5EsxBVcl8MxoHGRBN/1/yHnqNdWLuT1nYpbj+JVP/afJfvX/MctG5nKdKg
+	 03iE8d2tqfrgqnUykbjMaSSqaeQbjIwFPTN5i7KDS5gFK6G1KR5KBv9nSX6j2oNdNag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499507;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Q6vCcmO9UnueyWU0efgozjB5WIAOqxMCCYGcp8pVZSk=;
-	b=Qo6xIxgn35X+GeLZtjLZPWE9YXRqGI94ZWjzAxXjmrAjmlwPBz76ezftTZYyf7cMGcyN
-	 AeubFEsev70oqr0ly1FX5xE8Ft3scNvvo07sSPYjSQIMt9PUrPsN0+bpfgSwxExr7d0zM
-	 mxehMOcyoaXuQZokS30SSgs+f+p+hDtKS3B3lEF8098iSdfTJb12xa5ASziStJkAVy/aH
-	 Cpfl9jlpksmb75NUpu2sjyykXEbZl36tkOV2Nz4Nd6MhNtrW4Bpy+bQf1wlJBDgUR6sPA
-	 OH4yI8NTv3UNMLKIk2v35icSBbMLtCH7sJNza+p8w4ppEQB0o19YhVEIT6eLW+Snklw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=c5fUWHXnz9/d2cpHdb7ew9JGxO2bNNQHDUJStnqKQgQ=;
+	b=h4dqu3a5W+qn+4J0bktvypbLtpsvhCwNwUhJi46C/saV+0kwEZebdf7SyPUFBqeWC6t9
+	 O4OMFn4OAh1k9OaAH5oKDrw4jBqOXhi7zZ2NEQ2vHAnEvGcDz8QswXIHsnxXiwQBSOQss
+	 VN9wGP26K2Vhs2n42+MllTVghnfzcMIllUm42MYAgnFAioN6RrFY+4YxsQB5+sY98wmhY
+	 2yPyd5R1eRodqD5jahFTM0FfkQhQMNa/I2Vlzh+ghXDWhZmotjTXojfl0lqn2N6S2EIyx
+	 eX7algP4dl2PMpkmeyEMHq0s9ZKkOcX/VOw+/DBUb6yR5+iqkF2YFIyDdxEyPXKCyeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FMMQwfxn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RgxezAXx;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A72606A334
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:56:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03A72606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B77606A338
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 16:05:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B77606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FMMQwfxn
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b68e59ab33so1020041b3a.2
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:56:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794498979; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WgVQwGlpcDaZ/17dSAXNeSbFnjv2GQkumJdwoDzU5eh2VMMvHGqXxJCEGmFblj0nuR
-         1hmTlk2oWvl9pIKWEB8DN08bo0XtzdQ8jXISDehvTqJPewOvGe+t9enNRy1VtHh7rEYu
-         cqK31GxXo5XN+s35AJQ2L8tPLlLfCz2DVo0NhPte32mY1UqLuLwLD9G1fRuVWrjBmcfm
-         etRMKX7zBPoufGgkC9FHumg1ISTSRHS73Qoh47n98g9yFImGtqiQH8HloVB4emXzx0AC
-         PLdmD4GbBJnwHICmlClT/bWovB+XjI7ypi3i0U2Lb5o+Uz6NTRfhZxM0xRmvAjw3kNE5
-         gblQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q6vCcmO9UnueyWU0efgozjB5WIAOqxMCCYGcp8pVZSk=;
-        fh=7lWQtcs6QEvu1eqRY5JP8cEhGfRTR5bamWLxvi7zInU=;
-        b=bxYW8qcMQBXuXy0xVYncidtp8ZnY6xyGfh/Fq69j3FqCzW4UjAQw6JI1ZBRWftyDfD
-         Wu1Aqpf5P8gKlaGFQWtoFLb6bfwgng+X7obpE+c89WOIGuQU6jt50nkhkIOPyXOM7+FQ
-         SnvVpTViWB9AmO/jC8717kBQ42Kn2UFgeJ5on4MDZhUkwm28wDrArRFi1aWsp4+g6hHF
-         hDX8ba3mTXHVwU69qbQ9i8D0GJY1nePoIziFh8V+yGJsQWPef/TxVUsYmpKXpBoaUJ/P
-         oqOZ23sOEC0yWbicZwUdtyQ/99QyNehWmoRoxWOj5N3mrOpYqbwOg5uvQ1SnCGeY6AaZ
-         Vngg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RgxezAXx
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-370f4e5cfc9so3955eec.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:05:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794498979; x=1795103779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q6vCcmO9UnueyWU0efgozjB5WIAOqxMCCYGcp8pVZSk=;
-        b=FMMQwfxnGhQl73SmXTmz3Uz/fR5DEkmGqGslOlDNHRgRQuERn1ilxuNemrRhzkBGqJ
-         TC/nbvr3M/UlfSDu0l0pmWhaGHUZQekv6rpZTy/rK6iz00ZHta13GKrHNvKh5xfPuT5g
-         I838dUJLIEB3vfrekuxhJlBI1FAwzgFDwVDPJ2h5ZKy4tpyqQv4/yAHUkstGe39jCV+H
-         hIZKrD8EB+m1u4yeOLlXftBg2cduPxnDRmRczR9bKcrC8XSO++rYLTPEaF6he/OOqXBJ
-         PudvFY1qdb4BbH/1pp3C/xdGCdyusJ5RrMhGcpEQ8k+UxMN+2bJLYbHbn1Nz3ew5b/e0
-         8qXw==
+        d=gmail.com; s=20260707; t=1794499506; x=1795104306; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c5fUWHXnz9/d2cpHdb7ew9JGxO2bNNQHDUJStnqKQgQ=;
+        b=RgxezAXxzugSUgmEKKuaXhj1uqmjMeLkQpSgnb9KDNlzU+jE3UU+hP4THbr/bFvPeI
+         k1y0wSZv2YIJQvL/+WX2WxbhPzT/lRSMOfJ8ZU7xcWwGZdeSb0qweWJwn15y+2jBI81D
+         yyw2gR1RWk5tHj0CD/SzEFEnE8vz6dbZqQaQXjBekG87IlvhTqfeAajkeQxo3MyuzReL
+         b+dGFdPsfwiIMt0ngyGZBcqHuvU7RE8ob/0SqAxPf/V6JU14kx2Kve+ZchnBNeh2VBC2
+         +skZga7FN956o3knCntxYOZ6uWICgDn5hzgOwwk0uG3v9PKaWwsNolHiho5F1R9OYNca
+         mXFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794498979; x=1795103779;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q6vCcmO9UnueyWU0efgozjB5WIAOqxMCCYGcp8pVZSk=;
-        b=yUDCC5/3+pwcmZSiyp7nDtNQTr6us3nn2cOHTTj10egWayhM1yhNZ3qUWS65lKx4i1
-         kljHnFp8Rlyzxp0+vdnUh/v0HmQoY9oKzZlOgHDKM4/yDbAytzfHcwnkEPUWzIbNPgtq
-         U8JiKdVZPyr5cSW23a4fA/WrFsdSpSKePwvFPFe2fCdwkHKLa4T2nu3AEEZAQDhuF9rE
-         qhTc2g3ducDp+8/USwHWqE1EmeMGjTk7IbPagSbg0uD2qXFqj/gi6HwCdj90xBdK9Zdq
-         FWD7cZftFY0RSa2n+/w/JLQvGnAYunVt4hmaAuHN2lmfoyJRuG9gPidWcRWiaSK28SLX
-         gwVw==
-X-Forwarded-Encrypted: i=1; AL+hErFu4nsir/wnZwcjTysz3RitlE2Kg1WXrG0yN3mDA/FR40839+W607OTzbu3Td/tBUn3YMRTREQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xhkcZg6+smfoxrz+MzHpFzWNZrbhnURsPuub3q7t7LgxjSX9I
-	/6LrDToXbQoZUk+ENuv4LrSAipDdXoUz+884D4YgJeG8XBjM39UPb4T9N/Ua3cJ5whsdJLibRIe
-	cAkcQ9YoSmHequchRMat0LfLQuLuZ5rY=
-X-Gm-Gg: AYBFou0RLBytUxBqQaa+qPHZH1Kfa4wMWR2T5ypkI4mVshiWYhrXnrvaav3rQvRRyyl
-	vFUNp+GFIUwGeioQLIoWXVu+yFsN3pZtztEEFmK+alNHzVu1kiO/Ywvi5QmltX86gRfwc7NcaCt
-	MzwqYDDjQN8Mvxvs2gcKaX9Jtb9WRjDAki9v8qqYl2JM5EUkdcc3AibRkEz+pj8iyipQY7i693f
-	0QrnUmhNOQ+dINtedH6VL3L4fU1ozUM67e48EXRPCWAPoXuGty1/a7/6tyDtVomhXbkKhH+RjBX
-	ZMbC14THL0AWph+wkhqJWXgIF5mUoPu1EP8fjXOVfq7TbhQZSOttFXGPvHfugG2RN/rXjnsS8rY
-	ieGMOdJbdkMoYRWl7uIgVmgeoepjNarYqG3db2iZ7FzQbet5wVDXpb8GXLj/KhDqa6J9I77vWwi
-	yC+9DNv8lS9SR+twE+pydzfSnvmQsyOZYjFj5jLw==
-X-Received: by 2002:a05:6a00:13a9:b0:8a5:7006:1ecf with SMTP id
- d2e1a72fcca58-8bc1ca74f3dmr6405399b3a.39.1794498979018; Thu, 12 Nov 2026
- 07:56:19 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794499506; x=1795104306;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c5fUWHXnz9/d2cpHdb7ew9JGxO2bNNQHDUJStnqKQgQ=;
+        b=xZWvsV/38Pqu/nYuCGPGY7VxqFiL0D8DB0pcTGJHSFq3E4OxLflkpBla+kXNs74bT0
+         0uDcNzF4GeMQTY2qbCDHzXLC3QwcOHphbrsNmSM5rLKWGJmzg8a9qJZjD4eOh5MSPaBt
+         JDovbD7KjN1IYS3uT5x6bY2siIZNp7sUWBLl2Y0t9+kQ1FbNyWlKMt8B447ckiE2fnbx
+         Ys6+5z5n4inR5SLYMlCLQIIwnKR2enXzB9/Rc23fJQKT+hkOBZW5enkjXWmNEbelhpWS
+         DEU3I2DW1wpUIQiExCfy3mVg9laYSiTIKGf7r5jWJRv5H+etkOhwFehHXHnUEdVsbi++
+         FRqw==
+X-Forwarded-Encrypted: i=1; AL+hErGWb2orS0sqpaHNplK1UCfP92WWWaLWJxil+37eGQ1MtPr1aVofRawX5sQlJSP8qalUeQoOGyc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WEhJht3wlXQImrrLJ1IYqTxkWkJZ156Wbrnn9l9rUQZaJr0Jd
+	xlLH76eqT+GzenyhuNUllDD9ysM2X/GAX3N8gBGdkI2aLXUq6/vb+kJO
+X-Gm-Gg: AYBFou2QvDFLH2cQ0KW4whHFc9GCsHNZS1vQ7yDjTbQWRzmU8dTYOJVBHU6VJ2/5g04
+	l7WSp3GqZ/Cipk9texHEAH0x4RNk8ZlTmesP1C+iehkyFFL1n4PyIJARxZCEw7U41rrlG0Ckjpq
+	RbP3qrhjX7ui8Q0pj4yYMuXj+RAwW6BbGfaTS5guoKAOeTCAWgsdLnHr3X2cH/rmqvfWP7Bvvm0
+	mvOCoN8Jmm3aYt9JE60tGNlkGgiBoo0T8W7YdNdEaSpJwotgsHlGdQFScWM1ozMtFqD8yKOjtom
+	oYnYhCjfzam1a4hDnSbTjbT+uECRMzcJrTMQ24wOlb8Kr9mXN9kD2E8A64Q02jVuLJtRgbtR4lD
+	RIVLwiXkYBZxSOT/6zGsedOrcLv1AeXjQphIMPWyKO6djYfdq6bGT9979U1JV4L1Hw8/B57OKq4
+	H5/EUZpKpic0miwf1kZJ4ANSdwfgDYt569xAbmMF1kU36ugo2nvgSfwriOxwuq+J7ig1bwLTQ4K
+	5R4btmOElR0p8bomRHQoEir2H+BLvlF8d3/cmn+SoVETILmPZLiziWFMQOBvP9Rnky+5SoKLET7
+	X3vzSO7UOEHc+f4UKrm5OZL208twcIfodAxsxKfRQ10I5FMJR1f9qH/8UQ/saXU=
+X-Received: by 2002:a05:693c:41cb:20b0:36e:66d8:1424 with SMTP id 5a478bee46e88-37680a60bbdmr9273913eec.0.1794499505681;
+        Thu, 12 Nov 2026 08:05:05 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37922d49049sm613673eec.1.2026.11.12.08.04.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:05:04 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: b-liu@ti.com,
+	gregkh@linuxfoundation.org,
+	nkapron@google.com,
+	tony@atomide.com,
+	bigeasy@linutronix.de,
+	balbi@ti.com,
+	shimoda.yoshihiro@renesas.com,
+	robert.jarzmik@free.fr,
+	Chengyu Liu <lui2012qwq@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] usb: musb: cancel irq_work after masking interrupts in musb_remove()
+Date: Fri, 13 Nov 2026 00:04:45 +0800
+Message-Id: <20261112160448.41566-2-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261112160448.41566-1-lui2012qwq@gmail.com>
+References: <20261112160448.41566-1-lui2012qwq@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,122 +105,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110224233.82977-1-yves.bieri@theori.io>
-In-Reply-To: <20261110224233.82977-1-yves.bieri@theori.io>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Thu, 12 Nov 2026 10:56:07 -0500
-X-Gm-Features: AclHuK-WWnb_Avs24C603cZWJLj9kdWOrIpfiyA-Mg7U4Ik96B8IwVtXOHQS-lI
-Message-ID: <CADvbK_edbUYvFXPGJzRspdG+RpV4ZnfP_WwuS4e4_sS2kbDAZw@mail.gmail.com>
-Subject: Re: [PATCH net] sctp: do not free a new asoc peeled off while sendmsg slept
-To: Yves Bieri <yves.bieri@theori.io>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 5:42=E2=80=AFPM Yves Bieri <yves.bieri@theori.io> w=
-rote:
->
-> When sctp_sendmsg() creates a new association and sending on it fails
-> with anything but -ESRCH, it frees the association. The send can
-> sleep in sctp_wait_for_sndbuf(), which releases the socket lock, and
-> meanwhile another thread can peel the new association off to a new
-> socket. The wait then returns -EPIPE, and sctp_sendmsg() frees an
-> association that now belongs to the peeled-off socket, without holding
-> that socket's lock.
->
-> If the peeled-off socket frees the association first, e.g. on close(),
-> sctp_sendmsg() frees it a second time. Otherwise a syscall running
-> concurrently on the peeled-off socket can use it after sctp_sendmsg()
-> freed it. Both are reachable by an unprivileged user. The double free
-> on net with KASAN:
->
->   BUG: KASAN: double-free in sctp_tsnmap_free+0x5c/0x80
->    sctp_association_free+0x1eb/0x750
->    sctp_sendmsg+0x15ff/0x2020
->   Freed by task 836:
->    sctp_association_free+0x1eb/0x750
->    sctp_primitive_ABORT+0x85/0xe0
->    sctp_close+0x22a/0x8d0
->
-> Commit dfcb9f4f99f1 ("sctp: deny peeloff operation on asocs with threads
-> sleeping on it") fixed this double free by denying the peeloff.
-> Commit cea0cc80a677 ("sctp: use the right sk after waking up from
-> wait_buf sleep") replaced that check, and commit a0ff660058b8 ("sctp:
-> return error if the asoc has been peeled off in sctp_wait_for_sndbuf")
-> reverted it to return -EPIPE, without restoring the check.
->
-> Fix this by holding a reference on the new association while sending
-> on it, and by freeing it on error only if this socket still owns it.
-> asoc->base.sk only changes in sctp_sock_migrate(), which runs with this
-> socket locked, so the ownership check is stable. The reference keeps
-> the check safe if the new owner frees the association meanwhile.
-> Userspace still gets -EPIPE, and the association stays with the socket
-> it was peeled off to.
->
-> This was found by Xint Code, an AI code review agent, and reproduced as
-> an unprivileged user on net with KASAN (trace above), without modifying
-> the kernel or using error injection. With this patch the sender gets
-> -EPIPE and the association keeps working on the peeled-off socket.
-> Without a peeloff, a failed send that created the association (EAGAIN,
-> EINTR) still frees it, and a peer ABORT while the sender sleeps still
-> frees it exactly once. The SCTP selftest sctp_vrf.sh passes. The
-> reproducer is available on request.
->
-> Fixes: a0ff660058b8 ("sctp: return error if the asoc has been peeled off =
-in sctp_wait_for_sndbuf")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yves Bieri <yves.bieri@theori.io>
-> ---
-> Tested on net at b71c101bbb98.
->
-> The fix and this message were drafted with Claude, and reviewed and
-> tested by me.
->
->  net/sctp/socket.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
->
-> diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-> index b5a57f6..e7e14a0 100644
-> --- a/net/sctp/socket.c
-> +++ b/net/sctp/socket.c
-> @@ -2082,10 +2082,20 @@ static int sctp_sendmsg(struct sock *sk, struct m=
-sghdr *msg, size_t msg_len)
->         /* Update snd_info with the asoc */
->         sctp_sendmsg_update_sinfo(asoc, sinfo, &cmsgs);
->
-> +       /* sctp_sendmsg_to_asoc() may release the socket lock while waiti=
-ng,
-> +        * and a new asoc can be peeled off to another socket meanwhile. =
- Hold
-> +        * it, and free it on error only if it is still owned by sk.
-> +        */
-> +       if (new)
-> +               sctp_association_hold(asoc);
-> +
-It doesn't look nice to add another 'if (new)' check. Can you move
-this 'sctp_association_hold(asoc);' to after new =3D true; line?
+musb_stage0_irq() can schedule irq_work while handling stage-0 USB
+interrupts, and the work can also re-arm itself from the session
+recheck path (musb_pm_runtime_check_session()).  musb_remove()
+cancels irq_work while the interrupt is still enabled and the IRQ
+line not yet freed: an interrupt landing after the cancel re-arms
+the work, and musb_irq_work() then runs after musb_free() has
+released the struct.
 
-Thanks.
+Move the cancel behind musb_disable_interrupts() and synchronize the
+IRQ line first, so no handler can be running or re-arm the work past
+the cancel.
 
+Found by static analysis.
 
->         /* Send msg to the asoc */
->         err =3D sctp_sendmsg_to_asoc(asoc, msg, msg_len, transport, sinfo=
-);
-> -       if (err < 0 && err !=3D -ESRCH && new)
-> -               sctp_association_free(asoc);
-> +       if (new) {
-> +               if (err < 0 && err !=3D -ESRCH && asoc->base.sk =3D=3D sk=
-)
-> +                       sctp_association_free(asoc);
-> +               sctp_association_put(asoc);
-> +       }
->
->  out_unlock:
->         release_sock(sk);
->
-> base-commit: b71c101bbb9814d163c00234d43c41f0a17907d4
-> --
-> 2.43.0
+Fixes: c5340bd14336 ("usb: musb: cancel work on removal")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+---
+Build-tested on x86_64: musb_core.o compiles clean
+(USB_MUSB_HDRC).  No runtime reproducer: requires MUSB-based OTG
+hardware.  Fix written with AI assistance.
+
+ drivers/usb/musb/musb_core.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
+index 9b63b56edc45..eea43a20a1d0 100644
+--- a/drivers/usb/musb/musb_core.c
++++ b/drivers/usb/musb/musb_core.c
+@@ -2630,7 +2630,6 @@ static void musb_remove(struct platform_device *pdev)
+ 	 */
+ 	musb_exit_debugfs(musb);
+ 
+-	cancel_delayed_work_sync(&musb->irq_work);
+ 	cancel_delayed_work_sync(&musb->finish_resume_work);
+ 	cancel_delayed_work_sync(&musb->deassert_reset_work);
+ 	pm_runtime_get_sync(musb->controller);
+@@ -2642,6 +2641,15 @@ static void musb_remove(struct platform_device *pdev)
+ 	musb_disable_interrupts(musb);
+ 	musb_writeb(musb->mregs, MUSB_DEVCTL, 0);
+ 	spin_unlock_irqrestore(&musb->lock, flags);
++
++	/*
++	 * musb_stage0_irq() arms irq_work, so it can only be cancelled
++	 * for good once interrupts are masked and any in-flight handler
++	 * has completed.
++	 */
++	synchronize_irq(musb->nIrq);
++	cancel_delayed_work_sync(&musb->irq_work);
++
+ 	musb_platform_exit(musb);
+ 
+ 	pm_runtime_dont_use_autosuspend(musb->controller);
+-- 
+2.25.1
+
