@@ -1,71 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492748;
-	b=KxC4y2GW3iYgtUrTPfzSP4FrOqvHNg57LpxS1P5hM0LhVEALH8Z7a96PjC8mrUiBusSY
-	 tqe75u0On2j2X+IyVDoKJ3V7hyO0sIfV8vumPqOUarzDs6OXK/Wxj61tA+MG6XUICzQF4
-	 EqHW7L9cbJ+LRiwI3RDmeEf5Z8YRY1v3KPKB/MW/GZDGVfjZEinaU/XhbpxjPUsT4kVT5
-	 rhs/UcHpH5zuMF8dPkOBFyMIe1PxETpH12vHFJtLDDH0cKR4Iku2OsgiL9WulpITJb0TP
-	 i6LUTgWmlDup4TQGO5JExDEqk4Q+GDaDQWCNsTiXvv2eqsidC+WhGV0qVVtsh2ZC67A==
+	t=1794492758;
+	b=vZHLkKZ6nWyN7kTzWYBaALEwKtFcASrDqp7MXCvvjXyNEfMc6oySFNL7Y0TsqYqzmI/E
+	 XnZkS0i277LjcGPWGVv68TohI6PM3JyP37PeD7dmdQawPYUvT8qj5Fv5gzvaZAI2txa0H
+	 zbnkodtxhbsHFPloxoKq8q5fV0Lw/WVzk0FsMeQAOtur2nVMLD6hjSzUrzjPiLPxVKi4n
+	 t0gAKsZhQ/k7WK+xYAltrM52slwisX2/Dfh3ap1UfEcJCVy10K6ox4AUAoDihLyQ5PKO8
+	 r+ak9AlMFHv2CIODdU8+FN5eW3XKNZo6F2h/CtUc8O0eN06NemP7f75Xi9pSwUohFCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492748;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LLgepSpmTFKlnz1y/yhLoyuPFm3/4g3SJxDL0aIX9Js=;
-	b=QU/lJYcSP2+a/lb0lI1JbWxexXoQA+qqUjxrXYg2T8oVwMjyyOPqqZS/5SUyV/gg9wjb
-	 kzg0e40O9TTn3ZWiV3FICWC0nfZ7mApXkbP9+Ncfl/F41eypk/rGUQkMPi6Iu9BWxdhRb
-	 LNGmpDAwDeFsXntRKCouHVx7hJYlCMTdd9oXtPsU23aZzfDrpJt6BS/6Ty3RrAEudXCiX
-	 AKreOxcPVCaXe3+JPvDnOUXe9l3YBFtrGB+eSk68xnAdoXv/38uKmsvx8IRpV53CGs65b
-	 xiPoRAb6PUPaEOX4PGhq5ASsL/xtzsidABShaMqemujZjnkxCQ3eaNJAZvDg0iXOI2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492758;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=TDbuZxkNvN8aowxyfC/X+PDPpn3jYmSKVZv63IIsnfI=;
+	b=1+Kl3bYN5e0N3677SS1IU+XeBz641617SVJeOmk6mw0F4V8nUwFzERjC9DCDRiBu/qjg
+	 ycC9bBdZFtD+hHTub0VtFdqXBjc5S+1V8orcd339D+6s7Wov9un5jyG+aFNGf5D+LOgtr
+	 s3SigrUoQt9WoaZX7AZBhpkbQV4WPq4J2TawteeeWa47D5qXy4mbcDqUrSGAULpGIE7MR
+	 QTZUESUN7wa/ZnocZIERQ4wMfvs5khiWNARgzVOyl3r+5TLu15iRmhStfMiIFSaB0jOZh
+	 rhaJ1in6vmSgLvuAiZoBuc0xcpzSKDTBe0boDJjTbsAjxICMMp4X19tsAxgkzOj7nlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbUv2Bdg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="bD/0ZNpr";
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5154606A31C;
-	Thu, 12 Nov 2026 14:12:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB5A606A323;
+	Thu, 12 Nov 2026 14:12:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FB5A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbUv2Bdg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310C31F00A05;
-	Thu, 12 Nov 2026 14:12:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794492748;
-	bh=LLgepSpmTFKlnz1y/yhLoyuPFm3/4g3SJxDL0aIX9Js=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BbUv2BdguZCP3qKWTVs4X2hEbpYe5LftvnZVtHAJSag7IUmxIi1F3uLofwtRQodXa
-	 cHMylkh2Ehxhbu/lhSDiBE3UZ7Y4cPnWlvpvPjPmdNl92d+5DVryFIw2vGpVGQJOVt
-	 aOH3DcBHUTTb8OIHl6geEgQ8siBzrfZF4pddRQ4DYju0/EnBRGqS1PjHqK8gAqp32/
-	 USdzgTD+grb2FekH2CPFWpVcnmzH6yuIJc5F1HDHrOpWlSR3JEMkqXRcMWAVVwn4It
-	 hpVdE3pMIirn9HdaWMIwuKICKXMi2aVL7ljtZGPX2TTxykprori1a4MpTe+9NKOJHg
-	 S0RxDjO/5XTSg==
-Date: Thu, 12 Nov 2026 09:12:26 -0500
-From: Sasha Levin <sashal@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Theodore Tso <tytso@mit.edu>, workflows@vger.kernel.org,
-	ksummit@lists.linux.dev, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
- similar bugs, and commit messages
-Message-ID: <avXJSt_3DYx6aQsD@laps>
-References: <20261111225940.1573565-1-tytso@mit.edu>
- <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org>
- <avXCcPYM9VAP0JHf@mit.edu>
- <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=bD/0ZNpr
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQMm35kmZz8Xrrd;
+	Thu, 12 Nov 2026 22:12:35 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794492755;
+	bh=ZcRuN24Wmn6hU9IiLgVcQF+SwN9RnpHIPOCRI81K2QE=;
+	h=Date:From:To:Cc:Subject;
+	b=bD/0ZNprS7MupyjdbU4v5xfOZWyxzbTbA1Z5Tt9asJYD1KmpE+JjHvHf9+sXYKEAO
+	 0phmjCgHwG/QToZOHJVSeOnMtAzas/JGQ1c0iModaJXPeJnMrZJQCNbQSwLO1xEt5S
+	 h5T60Cf2F1ZRuUCvxiBsiKM4nnpxFEyS6bZVyNt8RIok0xnSYnW7RyIyKzoPnA+3K0
+	 fjl2fgnAuBHrRBEJXxvDpnNmr7RcpsltGSJNkbdKq23a/T8dsJwSqWDetNvy4y6sOh
+	 JQk5A8pBhywslJH/06Kv1VZ/z86rxbL9gnBsV2WF1EfhvE+mRtbAFFHOoK2EC9JwOn
+	 +CgMOUnjZl1CQ==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6ACECQg5055419;
+	Thu, 12 Nov 2026 22:12:26 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 12 Nov 2026 22:12:30 +0800 (CST)
+X-Zmail-TransId: 2af96af5c94e674-dcdea
+X-Mailer: Zmail v1.0
+Message-ID: <20261112221230052E8YTrPU5pi8AJJy6dnh9E@zte.com.cn>
+Date: Thu, 12 Nov 2026 22:12:30 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,51 +69,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvNV0gYXRhOiBmaXggcGxhdGZvcm0gZHJpdmVyIHByb2JlLCByZW1vdmFsIGFuZCBsb2NraW5nIGlzc3Vlcw==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6ACECQg5055419
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Thu, 12 Nov 2026 22:12:35 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF5C953.000/4jQMm35kmZz8Xrrd
 
-On Thu, Nov 12, 2026 at 02:49:09PM +0100, Krzysztof Kozlowski wrote:
->On 12/11/2026 14:46, Theodore Tso wrote:
->> On Thu, Nov 12, 2026 at 09:26:09AM -0500, Krzysztof Kozlowski wrote:
->>>
->>> All these are docs (even if you call them as a skill, it's the same),
->>> therefore they should be placed in Documentation, not in top-level. We
->>> should not create one documentation for humans and another for agents.
->>> It's just one documentation.
+The ATA platform drivers in this series have independent defects in
+their probe, removal or locking paths.  They share the same shape:
+state established in probe is not checked, torn down or serialized
+consistently.
 
-Right. The idea here is that agent skills will mostly refer to our existing
-Documentation/ and will only act as a glue layer to make agents behave better.
+Patch 1 fixes recursive locking in the IXP4xx CF PIO callback, which
+can hang the first data transfer, including IDENTIFY during probe.  Patch 2
+returns the host activation error from the Buddha probe path instead of
+reporting a successful bind.  Patch 3 makes the QorIQ and Seattle
+drivers inherit ahci_platform_ops so that host teardown runs host_stop.
+Patch 4 stops only the Gemini SATA bridges that started successfully.
+Patch 5 serializes the controller-wide SGPIO update in the Seattle LED
+callback.
 
-Consider, for example, one of the most common feedback points we have to AI
-users: "make your commit message way less verbose". This is the type of things
-that would make sense as an agent-only instruction.
+Each patch touches one driver, except patch 3, which covers the QorIQ
+and Seattle AHCI platform drivers.  The patches are independent and any
+subset can be applied; the order lists the more severe failures first.
 
->> Skills aren't necessarily *just* documentation.  The skills
->> specification[1] also defines a structured location in the skill's
->> directory hierarchy for Python scripts or other executables.
->
->Specification is also documentation, just like for example specification
->for our ABI. It's also located in Documentation directory.
+All five patches carry QEMU A/B test descriptions after the --- line.
 
-One of the reasons to keep it out of Documentation/ was that it doesn't mesh
-with the infrastructure Documentation/ uses. For example, Documentation/ is all
-.rst, while the agents.md spec specifically calls out for markdown, and a very
-particular construction of that file.
+Shao Mingyin (5):
+  ata: pata_ixp4xx_cf: avoid recursive locking in the PIO callback
+  ata: pata_buddha: propagate host activation errors
+  ata: ahci: release QorIQ and Seattle platform resources on removal
+  ata: pata_ftide010: stop only successfully started Gemini bridges
+  ata: ahci_seattle: serialize SGPIO register updates
 
->Agents supposedly "are just tools", thus just as sparse, smatch and
->compilers such tools do not get another top-level directory.
+ drivers/ata/ahci_qoriq.c     |  2 +-
+ drivers/ata/ahci_seattle.c   |  8 ++++----
+ drivers/ata/pata_buddha.c    |  6 ++----
+ drivers/ata/pata_ftide010.c  | 37 +++++++++++++++++++------------------
+ drivers/ata/pata_ixp4xx_cf.c |  5 +----
+ 5 files changed, 27 insertions(+), 31 deletions(-)
 
-I'm a bit confused by this... the original reasoning was the it doesn't really
-fit into either Documentation/ , scripts/, or tools/, so we just gave it it's
-own home. Why does it matter if it's a top-level dir or not?
-
-It's something we can always move around later - agents don't care where it
-lives as long as it's refered to by the main AGENTS.md, so if we later come to
-the conclusion that it makes sense to move it, for example, under scripts/,
-then we can easily do that.
-
--- 
-Thanks,
-Sasha
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
