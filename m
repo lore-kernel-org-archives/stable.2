@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450256;
-	b=KfxyAC77mDflpLs1nGNzdXNjWDfWft6ZiV+/sbh+U+DymZU6mNP3lmif1wvF5V6x/XmD
-	 bSuxu1g1DxSoyfswva0TWqUhbPdC/FZk8R+2PaplK0I7x9F4y14eAoAc6ZCy/B+IPEyD9
-	 5qZYxDoAR30++MVJYRkFgp721BOYTN3Jsz/eFWGoniTS5+iCZljhjj7ME5dI4zYShVsqH
-	 nfFUzqbz1TNdIDD496oAs4Yj0YF6TaYvLuH7jXPjuAPiPf0eIiaZbHsLvq4gS2/wZh39C
-	 6curv0omgNT6Gp1ARpUxtJM19T02DpsmiqJ5ew5boV7b3VNhAj5xGcSAQDwQVu3TCaA==
+	t=1794450286;
+	b=k/ULU/Eta82jvQPXsId+hCPzr+iNVGp4zTXy6PFlX5ZXhGcJSrAsVYKfUutE02igovk/
+	 cjJIZd3N+Gjy/cj2aq648RrOMCtQ39QjS4ulOKT+/L0jEiJX5F+uvut1MRLtyIy3gSMi0
+	 mCjkp//fNPcfyU4paqZJPSmtsWCzxwHMAP7oUFyaSddajEye4TVbNdcIcBP8pMyg3269o
+	 9VjxoE0BMx5jWJeP9E2Ep0YKqwN72Y4yEjNDyQwLTzjgL3zPyZIj9sOjCRQ7Av9pNo7FR
+	 D+EaU+fWtns9HqoPwBlnTe3Yrn42KEp8W5z3Vk7frydMFGbx7NbFozKT6EXjYAbuJlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450256;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=CMs2hiL6dqSvXmpMCUhFT/HCLWI00jj+E7D9u8d37HY=;
-	b=uWico86B2hk3NxpbbxrRAs4+EWpBODQK7iaLHK2WXEQnfftrv9nFqrIUNSDSLS/ORNOi
-	 zHla21vhuqMjim+AbtadeSQO5oDYmM/KYT/kZpMOwy2K+JkUTyYlIzZNjB8D+RQWpYHzm
-	 iRlT0+bcqV2+u4mDfnnSYIUNp35YhAtqjE/G6kdHGj+056q/ztjZzPvX5i4i+Ne6hMjf5
-	 +w6SVTfFeG5K6hL5yqld2I4c2Ln4/7ZThx4B92/xXSwIUNhpXHNm2bZ+wAaS7aUj6la+T
-	 Dh4DntVhsQlo0FH0iSSu6z4k1ebkA5tsFVIIdLIoLJNkB3Sxe0d3/MNMDzys28cUrWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450286;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jnAv2BERtbCBbfO158BVte75MIf0+cHvohKDqhQt7Hk=;
+	b=AX4ER/LtWrHfelwvGk7Snfh1e19PDjVIzs3PYMBpBYq0UNaK6XJ8eBRDZTO7Vn2t6xG1
+	 pjgfvU0mn6IAhqx1hO+RxRHoKfVH5skaffu7NMmYXK6Jx14mA4sGzt0PZ0FKpc88oJJKb
+	 QQAy2ru+1UI2/ElOYGLujOzJEJvP4bvmuVzgAe3bZWA+7Sgj9WXDrwKni+4jYXG7dlVbC
+	 K1yL+O4mnXPSvb/BywjCJ526nAZi8uI5PitK1bCTPYZ91H3AhbaM9bVmc5FnoFcQk3Xfr
+	 DHtmJYPbGZ4Tzb3T8b6lJncdB5tjjpnMTFasoJoJyUi7KlJ6PoTDJ6BYbG/tU8x2bjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ECBexlUT;
-	arc=none smtp.remote-ip=220.197.31.7
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OoD2V44F;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDF1606A31C;
-	Thu, 12 Nov 2026 02:24:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDF1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BC0606A337
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:24:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ECBexlUT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=CMs2hiL6dqSvXmpMCUhFT/HCLWI00jj+E7D9u8d37HY=;
-	b=ECBexlUTfMcU0TzeyeHJyBObIRgfVHH9ZR0gINCJCnsug2Cp4UNT/iEyM7AELu
-	++HPY/30SbDlpzGBbsnCLK4KAb/5NJYdGt6RNWEHhBFBsd/UnQhfg1jRwcd5pCMN
-	5bh6cJCv+0izBRSJr1M5OXFEgLIc2hTdKBEyTIWfsXgQw=
-Message-ID: <3b2e263b-6cef-4267-be94-50751dfee494@126.com>
-Date: Thu, 12 Nov 2026 10:23:18 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OoD2V44F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99B671F00A0F;
+	Thu, 12 Nov 2026 02:24:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794450286;
+	bh=jnAv2BERtbCBbfO158BVte75MIf0+cHvohKDqhQt7Hk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OoD2V44FLMKsMGXtJPq5w1B10/9O27sgmrYSuYIXEViyDSzZO9jd5yaR3uHrOFmP8
+	 gtywGSdAqU22B+7ocT8jpzh4Y8/GhXoNcWe+l4UUzXCfR8H982caWy8LbZZJhPZvli
+	 MJ9/YusDp7Q3Em2C/bQniocUzU42cAlM5EEd8mdY7FTxCdOnjblW8UcXUxulZCUfhz
+	 vZbSeByczTQG0HHmugWaQCl81qHuXL24gRV09Dd+nw9U0ROMqdR7gzUydYPQWWo1Ly
+	 CBbKcX2jT11q6GcMkc1OjfPDtIPgcoze7RyAt89nq3MywqPhp8FMzY1djjkIiuaXCC
+	 /tghbkG1LCGbQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Li Jinyue <jinyue.li@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/vma: update VMA iterator state on error in new VMA merge
+Date: Wed, 11 Nov 2026 21:24:44 -0500
+Message-ID: <20261112022425.1343808-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200805-failed-6.12-168ed9c5d5ec@kernel.org>
+References: <20261109200805-failed-6.12-168ed9c5d5ec@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,72 +64,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] nfc: llcp: fix SNL PDU size truncation in
- nfc_llcp_allocate_snl()
-To: netdev-bot+sinfo@kernel.org
-Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Linkui Xiao <xiaolinkui@kylinos.cn>, Guikun Yang <yangguikun19@qq.com>,
- stable@vger.kernel.org
-References: <20261111095907.3366028-1-xiaolinkui@126.com>
- <179439136381.2168702.3784011162899965365@kernel.org>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <179439136381.2168702.3784011162899965365@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD33x8WI_VqBr_FDA--.30825S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tr4DuF1DJr4DWrWfXFy5Jwb_yoW8WF4Dpa
-	yjgrsYy3Z5Jr1xCa18ta1jva4Fq395GFy5Wr45Kr1Y9as8WF1UKrWIgr4Y9a4q9r9Ygw1F
-	vr42grs2yw1qvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UZZ2-UUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlBjmvWr1IxjZqwAA3B
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-Thanks for the reminder.
+[ Upstream commit 168ed9c5d5ec2fd326715eba5750c2b69e559ff3 ]
 
-On 2026/11/11 18:02, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->   - Whether the issue was actually triggered, or is only theoretical
->     (e.g. found by LLM and not proven at runtime). If it was triggered
->     please include the symptoms, like the stack trace or kernel messages.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+Commit cacded5e42b9 ("mm: avoid using vma_merge() for new VMAs") shared
+code between vma_merge_new_range() and vma_expand().
 
-This patch is a fix for the issue previously reported here:
+However in doing so, it failed to correctly restore the VMA iterator when
+vma_expand() errors out.
 
-Link: 
-https://lore.kernel.org/netdev/tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com/
+This is a problem when the immediately preceding VMA is mergeable and
+vmg->just_expand isn't specified, at which point the VMA iterator is moved
+to the previous VMA.
 
-The commit message already includes:
+(Note that vmg->just_expand is a special case for brk(), where the
+iterator will already be positioned at the VMA to be expanded.)
 
-Reported-by: Guikun Yang <yangguikun19@qq.com>
-Link: 
-https://lore.kernel.org/netdev/tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com/
+Resolve things by restoring the VMA iterator on error. Use
+vma_iter_next_range() to do this, so it will correctly stop on the gap
+after the previous VMA, rather than skip to the next VMA after it (this is
+a new VMA merge, so is being applied at a gap).
 
-To clarify: I did not reproduce this issue at runtime in my testing.
-The problem was identified by code review/static analysis of
-nfc_llcp_allocate_snl(), where the SNL PDU size can be truncated.
-So this is a code-review/static-analysis finding rather than a
-runtime-triggered crash in my environment.
+To isolate the error handling, return early when a merge isn't
+possible (what the vmg->target check was doing before), then handle the
+merge success/failure case explicitly.
 
-Please let me know if further information is needed. As requested,
-I will not repost the series just to add this clarification.
+While here, update vma_expand() to jump to the nomem case when
+dup_anon_vma() fails, so vmg->state is correctly updated.
 
-Thanks,
-Linkui
+This doesn't impact anything in practice, but is the correct course and
+since it's part of the error path that this patch addresses, it makes sense
+to update it also.
+
+Users are very unlikely to have observed the issue this patch addresses in
+practice, as it is near-impossible to fail an allocation for an anon_vma,
+but a process under memory pressure that receives a fatal signal could
+trigger it.
+
+This issue was originally reported by Li Jinyue for which I am grateful. He
+indicated this was uncovered by a private syzkaller instance.
+
+Link: https://lore.kernel.org/20261027-fix-new-merge-bug-v1-1-7023a787e6b9@kernel.org
+Fixes: cacded5e42b9 ("mm: avoid using vma_merge() for new VMAs")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Li Jinyue <jinyue.li@linux.alibaba.com>
+Closes: https://lore.kernel.org/all/20261025093921.1011927-1-jinyue.li@linux.alibaba.com/
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: <stable@vger.kernel.org>
+[ sashal: Retained merge descriptor cleanup on expansion failure because the caller reuses the descriptor for retries. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/vma.c | 44 +++++++++++++++++++++++++-------------------
+ 1 file changed, 25 insertions(+), 19 deletions(-)
+
+diff --git a/mm/vma.c b/mm/vma.c
+index 66b0472b7d8a6..aaf75bd4e33e5 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -931,6 +931,7 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+ 	pgoff_t pglen = PHYS_PFN(end - start);
+ 	bool can_merge_left, can_merge_right;
+ 	bool just_expand = vmg->merge_flags & VMG_FLAG_JUST_EXPAND;
++	bool move_iter_back = false;
+ 
+ 	mmap_assert_write_locked(vmg->mm);
+ 	VM_WARN_ON(vmg->vma);
+@@ -968,33 +969,38 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+ 			vmg->end = end;
+ 
+ 		/* In expand-only case we are already positioned at prev. */
+-		if (!just_expand) {
+-			/* Equivalent to going to the previous range. */
+-			vma_prev(vmg->vmi);
+-		}
++		if (!just_expand)
++			move_iter_back = true;
+ 	}
+ 
++	if (!can_merge_left && !can_merge_right)
++		return NULL;
++
++	if (move_iter_back)
++		vma_prev(vmg->vmi);
++
+ 	/*
+ 	 * Now try to expand adjacent VMA(s). This takes care of removing the
+ 	 * following VMA if we have VMAs on both sides.
+ 	 */
+-	if (vmg->vma && !vma_expand(vmg)) {
+-		khugepaged_enter_vma(vmg->vma, vmg->flags);
+-		vmg->state = VMA_MERGE_SUCCESS;
+-		return vmg->vma;
+-	}
++	if (vma_expand(vmg)) {
++		/* Error occurred, restore iterator. */
++		if (move_iter_back)
++			vma_iter_next_range(vmg->vmi);
+ 
+-	/* If expansion failed, reset state. Allows us to retry merge later. */
+-	if (!just_expand) {
+-		vmg->vma = NULL;
+-		vmg->start = start;
+-		vmg->end = end;
+-		vmg->pgoff = pgoff;
+-		if (vmg->vma == prev)
+-			vma_iter_set(vmg->vmi, start);
++		/* If expansion failed, reset state. Allows us to retry merge later. */
++		if (!just_expand) {
++			vmg->vma = NULL;
++			vmg->start = start;
++			vmg->end = end;
++			vmg->pgoff = pgoff;
++		}
++		return NULL;
+ 	}
+ 
+-	return NULL;
++	khugepaged_enter_vma(vmg->vma, vmg->flags);
++	vmg->state = VMA_MERGE_SUCCESS;
++	return vmg->vma;
+ }
+ 
+ /*
+@@ -1032,7 +1038,7 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 		vma_start_write(next);
+ 		ret = dup_anon_vma(vma, next, &anon_dup);
+ 		if (ret)
+-			return ret;
++			goto nomem;
+ 	}
+ 
+ 	/* Not merging but overwriting any part of next is not handled. */
+-- 
+2.53.0
 
