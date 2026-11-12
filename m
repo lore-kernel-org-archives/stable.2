@@ -1,107 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794520877;
-	b=Zki4rbtte0VQ8OjgNwnj8d4L0QOrOTyZAs7IMohvjdL/0nnFTAqGq88dtYTbvuL9xUmS
-	 zTB1QdI0C6a9BKH+0HBJOqO/21n6j1uofJ1dQmavTTmuUxiAfTul9/xB1UvsFaYtARgXk
-	 cwYaEy4d9qUILSKkEvWIDk6YTYN+rOBUvx93BhOeDd/O7Axe3Mfa/FJQft4fu4r1iJd+r
-	 3QjstcQE5Nz1UpAWzTUD8F+kYHwUs1kpBKBe75KTH9Rg/rIHWw2eUT7zOxLHk0y8cUpEr
-	 kyuuevf6vWnCEm+aQDexsOHJvRAn62TzrvnX/A9fZoV+ilvyx0Lel9Z7lma+S0MwUpA==
+	t=1794520897;
+	b=SaIz2jZImyo30b0I8oWX4zf9FffIJEPDvudCDQty7nf7nCh7U9hvsCvoulJpW+AxD3m9
+	 0YpfKy0GWF8KATQlZC8JXJXlRU1lIvXALuYvlc/7ddc6Uf7Dhh233ZqXEgDmghBkpKmRJ
+	 YerBkVfbDX6TtlIUjLRO/vXysR7ZTKw96c9rlg6f1w8yMBU3eUDVAvKPWnut9E4m2GZ2C
+	 iqQtBon8WKLo4xN+fmj99UcFJdyTWiZ5PXVml8wO+ki2D0PIz55vcICs+3cMXfkyLD8RG
+	 duMCwGJdMdhnprnVwIJKho0qSNX7kAvDy+exyiZT5IBGD4qP6dvF8ToMV11LpRKXbqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794520877;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NPahPdj6bq+f1tXgN0owcrCGpqBtYrj35FRosbGsj3U=;
-	b=at4IrEMYs8RiQu4IqaBQFOMD7B3+VSu4V+TIDWWZ2tiesQ1sHIVi7NfM+vAqtxpFAiry
-	 aY6kIQElI1K6kyvkxMKsazZejo0rmxublxTBfWkEjaQSnj9v61FVRLrC+cVtl1D7vCQS1
-	 HvFTRFjNtI/s9JG0m465kNygLFblx6Dpn/SfZB7y2AFT1IkRTaJwJljT4C8Mevd5DaVIk
-	 lbbR9cxhgO1mVgDmTeBtPQDXDwQTs4FLLftkmIEMAT7DLJ5Kt4od6QObEz/csiKid1OAR
-	 4PkU49DAEbQm1lPqns8//Yx5XaqILtRzc4lk9nj2e9XsRXZlstdnm2as8cDVmayIeEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794520897;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=nYAvoSz1A76P7GMxxUw4ni69cJw2k++GQ4cfCIGFRUU=;
+	b=061GI6Z5HG6ZvFjc6h3uozJ0QEoXxQowozijeP3ifgV3ccv6XrZ0GqtZ+MAkjSlS4DkT
+	 Hll1KQT4JCYx09psidh0TW4K61Kwmjog8j+7cG9nydYfTXgsLocUGDB1rKERH0N+3OYI9
+	 /pp7bM08JjSCrB+KCqiRQt3QXx+3m5b0LIPjehwktDfZ1c01ZLDwcqES1LF29gW803Qsb
+	 eriAP1U1F71iSoLl/G/ydFziRewItMDu10eTAn+C5tq7tArl/mSldtjg/UMKir+oCxyVU
+	 OreomlQxYmzDCP38QSiAO/I8cqm+NNp1gEP6n3aoD/1imvhkg1ytYXAPM+WkyD+KEpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=crBdnlNF;
-	arc=none smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Apt7oOvV;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF846606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 22:01:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF846606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FC5606A31C;
+	Thu, 12 Nov 2026 22:01:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79FC5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=crBdnlNF
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5ec3561b07dso359206e0c.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:01:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794520876; x=1795125676; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NPahPdj6bq+f1tXgN0owcrCGpqBtYrj35FRosbGsj3U=;
-        b=crBdnlNFjY1CopAF5BSuM/Cf9DBpPovYPuQA2z7PeQVyJ+ri4LNxZmxMDPHLkjZzUX
-         YXEzOIQeu6jOZ3Vfu257SgR28n2/o9WTUJCp4jX7AQ7CwJ6YZGCdqEvsESdYstOZwtr+
-         y5FBcD9vtzU6ScBTuCmwItQBHhHS0Mioftcwxh5sxhRkxZMwdqZs32gy7TnOkO41Z//w
-         b+DcVH8r8+7GAwFf+mxoEBW5G262Tu7m4NZhIR8eUceDPkfmewcP0wS9q2g4DVsAbEag
-         6Foc7aCnro/jz9/AvCXbzQbLBsNZeaEuTlMbkY+C29++MTkwbwOd/h4YQrFCZBLAzoOZ
-         o9Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794520876; x=1795125676;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NPahPdj6bq+f1tXgN0owcrCGpqBtYrj35FRosbGsj3U=;
-        b=jzMTmcAzDxLjiEsZ1L2QsD5BSLmGBXNMVc3ht4jGzRJzjVDLxkjKtx24hJX/I5Itiu
-         PoWiJUb/GgiCHcABuuBuyL5JcEOG4NCPFZ1vd8eFgfayvJPaLwFbbogU1fd5nHQjPrf3
-         TV2BlToNT1DiMHc4DcvEMmHCwc04sI09MSEPtNMDM2zswXwKzeh84+hIoNdSu16o9pK3
-         cFnLUsvFwObLNnuu1gpmaimwA89Vj8RStQ5uQkPiYH+andZHcThz4o/e1bdUKqD1ZvDZ
-         Q/C29vBBggt1t2LH6lva84nTGVxr/uch0Oj5eJ+ArNMVI3SlXeck4iPGBKv8I4ogPD0w
-         SeGA==
-X-Forwarded-Encrypted: i=1; AL+hErFk64F3owN+n+Gzha+PWr+TFfjsqCqscPzHIRoYDCO/413j7/hxpL1q5LLPav+rQhiIZGugxx0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vRM2aD2o/1e6FOs8Aai3cRCvGRsBaj58aBVyWNUZpt2JppNCe
-	BKdNF87bTfR5BL5xnWKSe+aQlR5ZT4NCIg4DhDNBC8Ub09CtaHHVipi6
-X-Gm-Gg: AYBFou033shek/p9K6rQRjXp/AGN8vw37D+UQiuwdQhIzUl7fS1gXwQoVOVSNS3siSa
-	W+cVZFhHxlGKap5RMnIDIvHNZv7Yt5jNoMzR369mpC5ilBp+dfz7kwHaXaQ0gQb0dIyusvkAoL6
-	MMdemN+xzcQy+iDInwbnSUt+qOD+zkfFdPcZ3+uAoXagE5V/WQ6TTN7WbGqE/XFsHTjHqNN4jFw
-	zfUVm3sIpPHZuCFRcZ/ImqQWqfxB/1QG9DgOOz3YVjfiU0Vxc0Hnidfm4aFPNYw4AtxXKcFHuF7
-	GLqSqaHEzYAGgQI338vjOQ3tS9MCN4vBvn27lp3EDCjT4axtWJkJ5qGTfPYQyP9nOGVN6RKf7Pm
-	c/aG0AEecTPbI6CnLKxyQaUSydsEwPPSBRFjmNf3BsETVLMaoIQnYzq4OyVHAfPC90/02sFJ78I
-	0k5C9MKGboOLiIOd52D2nqyw+4SldjvAAxGrW21BBa5TJEbd+z5qT2Tk85HoLOAygFIb3KTQTtW
-	s+1e2UHA8K508Wq6t05/bR+2rFydNSQVv8L9QUaX9O5Tpbpm0KVDhfPlAcDcJKlpX84r2N3Yf2R
-	prQJceWvvh3CqaVB/9pVAvO2uDkqtDsNjve01DVG45ntKUL7z84ygmfasDaTZVjUG/MsR42ANC2
-	j5EbureLxImP1/qoblC2IVDXn5AIUBPuIxO4lnn4IGNdaUmndxswmuT8hA02Y+7M=
-X-Received: by 2002:a05:6122:2906:b0:5ea:c3bc:c54b with SMTP id 71dfb90a1353d-5ee34a512c0mr136619e0c.3.1794520875632;
-        Thu, 12 Nov 2026 14:01:15 -0800 (PST)
-Received: from gmail.com (15.60.86.34.bc.googleusercontent.com. [34.86.60.15])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee34e32f83sm214802e0c.6.2026.11.12.14.01.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 14:01:15 -0800 (PST)
-Date: Thu, 12 Nov 2026 17:01:14 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: KhaiWenTan <khai.wen.tan@linux.intel.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Vinicius Costa Gomes <vinicius.gomes@intel.com>, 
- Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Song Yoong Siang <yoong.siang.song@intel.com>, 
- Looi Hong Aun <hong.aun.looi@intel.com>, 
- KhaiWenTan <khai.wen.tan@intel.com>
-Message-ID: <willemdebruijn.kernel.2721e06a6436@gmail.com>
-In-Reply-To: <20261111053728.2611070-1-khai.wen.tan@linux.intel.com>
-References: <20261111053728.2611070-1-khai.wen.tan@linux.intel.com>
-Subject: Re: [PATCH net 1/1] af_packet: Fix wrong timestamps in tcpdump
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Apt7oOvV
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=nYAvoSz1A76P7GMxxUw4ni69cJw2k++GQ4cfCIGFRUU=; b=Apt7oOvVaHX4TicoqGSGBkX1xh
+	BHtbNZyS50r5CpIeV3U1BsRvrpzJqArlV/4d0yz+S8HnDMPjS0XZC54MSwtmNxRT2HJfnvPsww+4C
+	suCFcgRwSliM8e9YVKk8u+N+3YEW5Rd/w8b3oCsOSKnvA6M8C4bz6jDQsFZ884Pk1nwvwsI1A2N3n
+	f+xrWkbK7qPUP+JmYRq45tq8YFBKDQRduspc6JARQPWlHSv+j52wx5eVS/gOg1H7347fjZmjN7ln4
+	bOBI+JbeYHPsd96SzSym3Sc+NB/D6Hl6L7poxSBh9DBshwpDfDAjzepc6pTJbxbLIcdWsmj9ezIf8
+	V5iVBaWQ==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRcrQ-0000000B8jr-0gBG;
+	Thu, 12 Nov 2026 22:01:36 +0000
+Date: Thu, 12 Nov 2026 17:01:34 -0500
+From: "Liam R. Howlett" <liam@infradead.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Li Jinyue <jinyue.li@linux.alibaba.com>
+Subject: Re: [PATCH] mm/vma: update VMA iterator state on error in new VMA
+ merge
+Message-ID: <gp4huj53rndmngvzajdfelalmh5gkhzqv73t2v6rotmr37hgpb@g4a33cixtylu>
+References: <20261027-fix-new-merge-bug-v1-1-7023a787e6b9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,109 +67,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fix-new-merge-bug-v1-1-7023a787e6b9@kernel.org>
 
-KhaiWenTan wrote:
-> From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-> 
-> Since commit 97dc7cd92ac6 ("ptp: Support late timestamp determination"),
-> timestamps may need to be retrieved with input from the driver
-> .ndo_get_tstamp(). Support was missing from mmap'ed AF_PACKET sockets.
-> 
-> The problem was noticed using the igc driver, that since commit
-> 069b142f5819 ("igc: Add support for PTP .getcyclesx64()") has migrated to
-> use .ndo_get_tstamp() that timestamps were wrong on the receiving side,
-> when using tcpdump.
-> 
-> Fixes: 069b142f5819 ("igc: Add support for PTP .getcyclesx64()")a
+On 26/10/27 11:25AM, Lorenzo Stoakes (ARM) wrote:
 
-Fixes: 97dc7cd92ac6 ("ptp: Support late timestamp determination")
+I'm a bit late on this one..
 
+> Commit cacded5e42b9 ("mm: avoid using vma_merge() for new VMAs") shared
+> code between vma_merge_new_range() and vma_expand().
+> 
+> However in doing so, it failed to correctly restore the VMA iterator when
+> vma_expand() errors out.
+> 
+> This is a problem when the immediately preceding VMA is mergeable and
+> vmg->just_expand isn't specified, at which point the VMA iterator is moved
+> to the previous VMA.
+> 
+> (Note that vmg->just_expand is a special case for brk(), where the
+> iterator will already be positioned at the VMA to be expanded.)
+> 
+> Resolve things by restoring the VMA iterator on error. Use
+> vma_iter_next_range() to do this, so it will correctly stop on the gap
+> after the previous VMA, rather than skip to the next VMA after it (this is
+> a new VMA merge, so is being applied at a gap).
+> 
+> To isolate the error handling, return early when a merge isn't
+> possible (what the vmg->target check was doing before), then handle the
+> merge success/failure case explicitly.
+> 
+> While here, update vma_expand() to jump to the nomem case when
+> dup_anon_vma() fails, so vmg->state is correctly updated.
+> 
+> This doesn't impact anything in practice, but is the correct course and
+> since it's part of the error path that this patch addresses, it makes sense
+> to update it also.
+> 
+> Users are very unlikely to have observed the issue this patch addresses in
+> practice, as it is near-impossible to fail an allocation for an anon_vma,
+> but a process under memory pressure that receives a fatal signal could
+> trigger it.
+> 
+> This issue was originally reported by Li Jinyue for which I am grateful. He
+> indicated this was uncovered by a private syzkaller instance.
+> 
+> Fixes: cacded5e42b9 ("mm: avoid using vma_merge() for new VMAs")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-> Signed-off-by: KhaiWenTan <khai.wen.tan@linux.intel.com>
+> Reported-by: Li Jinyue <jinyue.li@linux.alibaba.com>
+> Closes: https://lore.kernel.org/all/20261025093921.1011927-1-jinyue.li@linux.alibaba.com/
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
->  net/packet/af_packet.c | 29 ++++++++++++++++++++---------
->  1 file changed, 20 insertions(+), 9 deletions(-)
+>  mm/vma.c | 28 ++++++++++++++++++----------
+>  1 file changed, 18 insertions(+), 10 deletions(-)
 > 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index cf6429f09477..7197236c8a3b 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -456,15 +456,20 @@ static int __packet_get_status(const struct packet_sock *po, void *frame)
+> diff --git a/mm/vma.c b/mm/vma.c
+> index af8e65ada23b..d416ba58eb4c 100644
+> --- a/mm/vma.c
+> +++ b/mm/vma.c
+> @@ -1141,6 +1141,7 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+>  	struct vm_area_struct *next = vmg->next;
+>  	unsigned long end = vmg->end;
+>  	bool can_merge_left, can_merge_right;
+> +	bool move_iter_back = false;
+
+The name move_iter_back is a bit confusing because you use it to move it
+to the next entry.  I get what you mean, move it back to where it was, not
+go to prev, but the name is a bit off when used to go to the next entry.
+
+reposition_iter, maybe?
+
+>  
+>  	mmap_assert_write_locked(vmg->mm);
+>  	VM_WARN_ON_VMG(vmg->middle, vmg);
+> @@ -1182,23 +1183,30 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+>  			vmg->end = end;
+>  
+>  		/* In expand-only case we are already positioned at prev. */
+> -		if (!vmg->just_expand) {
+> -			/* Equivalent to going to the previous range. */
+> -			vma_prev(vmg->vmi);
+> -		}
+> +		if (!vmg->just_expand)
+> +			move_iter_back = true;
 >  	}
+>  
+> +	if (!can_merge_left && !can_merge_right)
+> +		return NULL;
+> +
+> +	if (move_iter_back)
+> +		vma_prev(vmg->vmi);
+> +
+>  	/*
+>  	 * Now try to expand adjacent VMA(s). This takes care of removing the
+>  	 * following VMA if we have VMAs on both sides.
+>  	 */
+> -	if (vmg->target && !vma_expand(vmg)) {
+> -		khugepaged_enter_vma(vmg->target, vmg->vm_flags);
+> -		vmg->state = VMA_MERGE_SUCCESS;
+> -		return vmg->target;
+> +	if (vma_expand(vmg)) {
+> +		/* Error occurred, restore iterator. */
+> +		if (move_iter_back)
+> +			vma_iter_next_range(vmg->vmi);
+> +		return NULL;
+>  	}
+>  
+> -	return NULL;
+> +	khugepaged_enter_vma(vmg->target, vmg->vm_flags);
+> +	vmg->state = VMA_MERGE_SUCCESS;
+> +	return vmg->target;
 >  }
 >  
-> -static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec64 *ts,
-> -				   unsigned int flags)
-> +static __u32 tpacket_get_timestamp(struct net_device *dev, struct sk_buff *skb,
-> +				   struct timespec64 *ts, unsigned int flags,
-> +				   unsigned int sk_tsflags)
->  {
->  	struct skb_shared_hwtstamps *shhwtstamps = skb_hwtstamps(skb);
+>  /*
+> @@ -1288,7 +1296,7 @@ int vma_expand(struct vma_merge_struct *vmg)
+>  	if (!ret && vmg->copied_from)
+>  		ret = dup_anon_vma(target, vmg->copied_from, &anon_dup);
+>  	if (ret)
+> -		return ret;
+> +		goto nomem;
 >  
-> -	if (shhwtstamps &&
-> -	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE) &&
-> -	    ktime_to_timespec64_cond(shhwtstamps->hwtstamp, ts))
-> -		return TP_STATUS_TS_RAW_HARDWARE;
-> +	bool cycles = sk_tsflags & SOF_TIMESTAMPING_BIND_PHC;
-
-nit: whitespace line between variable declarations
-
-> +
-> +	if (shhwtstamps && shhwtstamps->hwtstamp &&
-> +	    (flags & SOF_TIMESTAMPING_RAW_HARDWARE)) {
-> +		ktime_t tstamp = netdev_get_tstamp(dev, shhwtstamps, cycles);
-
-Does this call need to be conditional on SKBTX_HW_TSTAMP_NETDEV, to
-interpret the union as netdev_data?
-
-like get_timestamp, resolve the orig_dev.
-
-> +
-> +		return ktime_to_timespec64_cond(tstamp, ts) ? TP_STATUS_TS_RAW_HARDWARE : 0;
-> +	}
->  
->  	if ((flags & SOF_TIMESTAMPING_SOFTWARE) &&
->  	    ktime_to_timespec64_cond(skb_tstamp(skb), ts))
-> @@ -476,11 +481,16 @@ static __u32 tpacket_get_timestamp(struct sk_buff *skb, struct timespec64 *ts,
->  static __u32 __packet_set_timestamp(struct packet_sock *po, void *frame,
->  				    struct sk_buff *skb)
->  {
-> +	struct net_device *dev = skb->dev;
-
-validate skb->dev != NULL
-
-> +	unsigned int sk_tsflags;
->  	union tpacket_uhdr h;
->  	struct timespec64 ts;
->  	__u32 ts_status;
->  
-> -	if (!(ts_status = tpacket_get_timestamp(skb, &ts, READ_ONCE(po->tp_tstamp))))
-> +	sk_tsflags = READ_ONCE(po->sk.sk_tsflags);
-> +	ts_status = tpacket_get_timestamp(dev, skb, &ts, READ_ONCE(po->tp_tstamp), sk_tsflags);
-> +
-> +	if (!(ts_status))
->  		return 0;
->  
->  	h.raw = frame;
-> @@ -2424,9 +2434,10 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
->  	/* Always timestamp; prefer an existing software timestamp taken
->  	 * closer to the time of capture.
->  	 */
-> -	ts_status = tpacket_get_timestamp(skb, &ts,
-> +	ts_status = tpacket_get_timestamp(dev, skb, &ts,
->  					  READ_ONCE(po->tp_tstamp) |
-> -					  SOF_TIMESTAMPING_SOFTWARE);
-> +					  SOF_TIMESTAMPING_SOFTWARE,
-> +					  READ_ONCE(sk->sk_tsflags));
->  	if (!ts_status)
->  		ktime_get_real_ts64(&ts);
->  
-> -- 
-> 2.34.1
+>  	if (remove_next) {
+>  		vma_start_write(next);
 > 
-
-
+> ---
+> base-commit: 1eb36316305767b54fac2cd40b88b3499791bdf2
+> change-id: 20261027-fix-new-merge-bug-71c2200d40fb
+> 
+> Cheers,
+> -- 
+> Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
