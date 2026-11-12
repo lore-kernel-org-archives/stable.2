@@ -1,120 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472387;
-	b=pUqlkM7HTrMGzKTCCV0B1JMisBZSQpRWxTfrLUkfYi7gJMtSrYRE6E/fN1JPjKtnMah6
-	 8Z0u8w6bRwFG+wRq9up5pez1BwmtZFSK/p6YcWGgmelAdx/xd9J6W1T30/GpHjdCXQD9J
-	 JjkBWipLRp8fikcSPZXVm59Y3QgvUAc4+3Ds/n2NiKQI4egfVmsrJmQ3QpshSsQMBMQcR
-	 L/TTaQGfo04nbno/hsmbx0fqif8woquRLrpagnQ6cv43a4WJj/T6GqHobJwiKnYKbb9TT
-	 ePca7zpP1xeyUfxzogUpRG5fD0uNevPINCqDJTlDOCIqmF15pbcf66oHyMokal7pCTw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472387;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Len3Udn6sbD28+Q6LTbgf/hUErCOXt1JZSbfv4wLLms=;
-	b=WjE4d0aJXILqtD4qs6RSzjmUFMLRJL2sSVy+1lN70G9sKejNqv6Kv3qrc+QOXwdn+Nvn
-	 tBnmcRBLbGXlisg7skASNWg23HaiIvYgXjuUQmRHqV+/N1BaUsSzXIUEkxWQP8QbX2UOJ
-	 GAVhcovOOKO/jU0eDoyyF7MKZX7ubdHOoVEULkFLrtAPnfmqRnM6ldx9JQ9sQeHMvdFDQ
-	 BwGGkaYXUuds9vRU8ueqqXGt8bROM1Qh4ey4w7CgQcSiX1/0LW++gnn33iXFN283GWkA7
-	 s0yaP+a2aTNB3mPU/zkqqUC4ZiM/VGQ0ObLz7AlRBv0Xvd/sUG44tyGemZLDeBcSwJA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nDjGUTWu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EwH4+mSz;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794472389;
+	b=U5lcWiFUiEQM//fVbqCrchIaMqbqK3s3LkX/N43TSrqix+30lbCIVpSCiY0p5LaqsUO6
+	 Qrl4YDEOC8mGpYl6we+hzYEY1SsT0lmOmAiJ6VUVj5fyjBnam+wVSgtJC8RHp6HnMvxsh
+	 rkCTDEMCCpzO4KcK+/6FOVnJ7i3YrhapGuezGOt5KsLwY88LHsKMSUgbjakS+D893avlB
+	 ee/DUOQ7ANrcRm396dM60QaWYp/2iV42PC8OFrLFqkk/auflWOfnrd6c2kd/Th2LUuwaw
+	 LT+miUH1ghmMfTZGozj+oCv96XYFBHtayzjRgH8EuOG5TXZB3Xi71fwOSaSo4gr+x/Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472389;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=VpQ/+iowHyrQjEkYL9X0OjJSOe5lvW4ubEUDr7PhZ0s=;
+	b=m3vCo8G6WWAWC6xS3W1JIVlTgF65FqcOpir+7VdRWac6Aq5kY6jV1GnxNvU8XrWG4ppv
+	 QRv4yRSAYfrfliNYVONevaLs0WQxRJxbBMonJborLvxu0yMuKnPp3cGQ7M+PcQokaYHO0
+	 XT8xKfSJV7xgut3N1VqXcUYH8j/vBV9Flrt9o7OvfhKTUAYFWuXkEY8rlUlVILuQaWFyX
+	 gfHJCOO+gvmWO12EzKwxKo4GOmU6eEcKp4D5E2smHx7OPetiDv7aNqDHQdgdyNP3AoOT/
+	 f1+VgElv8QrXbWwtxH8cRt4KMrqb7ZKFV0J2kQdRH19CFhxDAD3QZaOU/tTuSZi1Jzw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEa6SWT3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72370606C83B;
+	Thu, 12 Nov 2026 08:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEa6SWT3
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794472389;
+	b=WIC3dsBtyaclCZzocfN4W1AjgOTkgdYo2srfIUcg+ZsJ/95vavV4zEchllFl/Ic3G06B
+	 kB+XjEXzNR4boHr0oDlAFerDrQNthFNcy/T3pgNgq5iUsWtwPbPm27KReUW7CxvUWpX/O
+	 fdMimwaKwqvZqzx0jVpOiyKyTOQ1vXEhx2XM3ASx42cxK/d6Y9fZ9fV8fGi7RoLWn+m3V
+	 KjcgipHVcmv5HdfZIUdSx9QBKZ60/jg/eoEiAD7Cr48XTMv0Ew9rSV/DBDXIM3LEB7d63
+	 RwdGYYjGtxHKTHiKXY1xHtUSfBsgwgqqCzShRiyehWS3vBTiGazuKYclpTiz6socBuQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794472389;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=VpQ/+iowHyrQjEkYL9X0OjJSOe5lvW4ubEUDr7PhZ0s=;
+	b=Sooh/lK6BBJQ/bn/hF9+ALmIxIXq8pNigcVf+yS6tOFn1fOWApDMW8RkHr0kd0ilvxhg
+	 FL6lOIbQD/OByLQnho4WQahnjwEMu3LqJGYUCoHENAsLxovdlghsN79OF3JUpsVL0kjKk
+	 sNnnF1biu7bmXudjGm9OeIMY8mOjC3D4+Ppl35XWdQsQY1VQA/YyghFnEUeEvjy6VjbPz
+	 K27cW8I6M5+x1YjBFnOo4DIiu0pN2aWZoyYlM3InNHBOtvxM/EPU3ypDbY2LedcA50dLb
+	 WuJeFs8l8ok5BMkski+KCunsOoYQSH29GxROnAyr7nc3XuiID//5ymyUzXxYMwJDU0g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6C660A6F7A
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE6C660A6F7A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nDjGUTWu;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EwH4+mSz
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC2Zd8e597386
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:33:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Len3Udn6sbD28+Q6LTbgf/hUErCOXt1JZSbfv4wLLms=; b=nDjGUTWuarL0gomG
-	UiYUJvOfTJzCppFIuH04vgZteDGys4xua+WQ2rQvyrPYi3J74KvkjbBx+kVUOwds
-	t5cZth1KVAxpmdBXvikHsloUpL5yKFQ5A8ZDzalpxse31oahRXVNA+yrbCm4y9Zp
-	S+mkzi6A5iFR8RUAPAeQunWmS1H7/JtwDXq5/oB6HllnoevfRCeNWro6AxROawqV
-	7QP8xdIXVRh4Te8Dqnl75vH3jn21d7OjC9cs8peg+RxsH3TMj612uLOuVy8vW0CN
-	AVfCIKZzuAw+JUtf+Iquw+aZUJX0vuLZzXiWV+yWPJkov+ZtjhWq/u30KxDN8IVw
-	OqBWJQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvt153urm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:33:05 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f2c0e6653so771261885a.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:33:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794472385; x=1795077185; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Len3Udn6sbD28+Q6LTbgf/hUErCOXt1JZSbfv4wLLms=;
-        b=EwH4+mSzdFw0Fiz8KNZkU7w/+uDzB+PZ9h4gO3ou5mu53eqSGp51JEwVaXOa45P1yI
-         3WLJTbyjmApHDs7xPUm6Hr7+kGA089n0Ixx5gDaXuoGsrYue9ZJXeJaj3NRdI9RReBcE
-         4K2X0NrdEp2qPES7yQsdBfOmcIh6KJh7M/v67i+aU2hZOyXW8tXkGtZt3/7kAurx4lRD
-         ZuYAavcRKqdpoCj4jSr+1LIllsUSsQ0ztoGQW/aEQ1gKW45SFXUZ0rt+3mPop6rSXbQs
-         0jf0aXwVtjXsPTYKK3QAOy6mfZtd4Ak/P9mgsnBtHlNbn2OeopORKXGRBBJHzQMj9IQ+
-         Eh+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794472385; x=1795077185;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Len3Udn6sbD28+Q6LTbgf/hUErCOXt1JZSbfv4wLLms=;
-        b=YMmCr5W759TjlQgF6RTV7ibmlrtfOoh0iVqKU2xdRj7IQ5quhd9i8MCN0dRPk5zhh4
-         xgqqfkiI1PkQUnFpmpp7qiRDsVTQ2x6WQRzqwmk5gYD+/8n1pi0Tq+qMDrZdrNqtP9zF
-         ipnAI7+JKCjdOs+r+GUthXrH1rrCkjdpnIwFbr8WU9TqN5QpTzsAAW/SqLfq32/gq1xV
-         jlO6Vzkpj9ieT0N6nJxwrBF50Io7PjNt2tIXFayj6Sv4U6ZGGf1qNfyMOYOj1YCySUIp
-         X/wZ63yL59a7D78K1cJ/lOGHKi5ft3rhq+qEcxQKJl6clqaqflXEUGkIcC5cYa6ZHwgT
-         +tnQ==
-X-Forwarded-Encrypted: i=1; AL+hErGB/iMEZ3z90fU5o+QnQ4fupdxxxZYS5GxS9ZbI2O251llcddKlLUpwOTyuamOs0Tib6S4QLCM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8w9R7Nn9n/rzllxngmEAG5AE3MGMyKSSpVof3we3S3ZFg30ERR
-	5Y9qKYA68Y0voAf9pS66eYVtIsXaZsQ17pD7GngvggYeN1O3o7ndB6zdSWt0vEuzqFCqdtUAWLJ
-	VYMQhX8DDIvVlaItQANAidlrBfys+ZzRxT4rbJhQdkarXJCbVtG3hHZ++egE=
-X-Gm-Gg: AYBFou3CQzzorNR33YAorEEPRVG8rkIrRaUFUzPtpRXIHGwVvxTElxkllbyKMlLlUTi
-	4Ua0thoWFQJ5H57Yc5y+y742DWPHEsrp5PAOtG35LYRCvsGHLAvfHQAHa+07CiQ9IeKdmMOTESk
-	TN2CN1hgYWpHsczSBk/7pUWRoSAfjwOEdUFWwkP2Al6xiKVgjSM+jI/kiDAkQ0KzeCc9ZjhO9fT
-	9VEzUDS6iA+7ZfHl3JA4gkTFRlsiw4DzQ1Ho3mFXh2CdHyiTZgXIPHf0ML93Hc9t5ibH9aCc19a
-	f9ZQ9owhYpM1La9whh50s8WymBZlr+2ThMxMmjHVFf46dzRAapyASaJOXfWWbPHhiMUnA7ueWIF
-	kddcql/KSlwS842OwkYOhaPGCwCqbGJa/Ryy7AokDaa9qsJuFY6jgCFVSg3GFezyerm1i71P01y
-	cz
-X-Received: by 2002:a05:620a:258b:b0:93f:2463:f784 with SMTP id af79cd13be357-947b00a70d8mr830040385a.66.1794472385002;
-        Thu, 12 Nov 2026 00:33:05 -0800 (PST)
-X-Received: by 2002:a05:620a:258b:b0:93f:2463:f784 with SMTP id af79cd13be357-947b00a70d8mr830036685a.66.1794472384376;
-        Thu, 12 Nov 2026 00:33:04 -0800 (PST)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49bad3cd31dsm1070593f8f.56.2026.11.12.00.33.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:33:03 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH v2] gpiolib: fix stack out-of-bounds access in gpiochip_add_hog()
-Date: Thu, 12 Nov 2026 09:33:01 +0100
-Message-ID: <179447237994.4979.16703071994688693548.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110-gpiolib-hog-stack-corruption-v2-1-c5b28cb8dc8e@oss.qualcomm.com>
-References: <20261110-gpiolib-hog-stack-corruption-v2-1-c5b28cb8dc8e@oss.qualcomm.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id BE5CC1F00A09;
+	Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794472389;
+	bh=VpQ/+iowHyrQjEkYL9X0OjJSOe5lvW4ubEUDr7PhZ0s=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=dEa6SWT3OPZIp2VS8jdoI7aKgYQcl6rXstbL28lY2aAww7+bKfOFC/5rdZ9FU3c8o
+	 FdIRRS252854E7Ep3D9gNydgv090u4m8MAN5QeNsHuBW2R5vxJALV2q6jhsJgdcWpg
+	 CeSv+B7917r59cYkpNG8mLQPIycUBJBhnDFREeWmJCfs36l/jmQIHbByvneFuvA+iO
+	 0iAeffNgrNdBNxQDJvvEfjZAf6pR/UF5BVtuorPounWnX6rVpk388siU5QWAHhHEja
+	 M5bxQxgz5ghMJ8/gu5coAjt7TEeTHU5qOI5miMm77mhCbu4CBkCv0lSQ3HCnLWCXia
+	 pyxhx2Jgv9rDg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 376BA49378;
+	Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH v2 0/9] drm/rockchip: vop2: RK3588 clocking, sync polarity,
+ AXI port and window fixes
+Date: Thu, 12 Nov 2026 08:33:04 +0000
+Message-Id: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -125,53 +85,180 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX7N+W99PC8BxC
- wNNMbMoQBdFZJHbSOealMiM1nvHHuP2GF9xfrwEKiskIDLQ6/geEHVE5RvrfJjKkPE5RETk5j0p
- uqcyGTXxkcU/hXuL1FlclJRTUxV4HUk=
-X-Authority-Analysis: v=2.4 cv=Yrya1IYX c=1 sm=1 tr=0 ts=6af579c1 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=1Ip7nPS8rvKNqrQfddsA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: IqEUWu4sbUb9BuyD3Y2Yf4ic3jaRrZEZ
-X-Proofpoint-ORIG-GUID: IqEUWu4sbUb9BuyD3Y2Yf4ic3jaRrZEZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAzMyBTYWx0ZWRfX79NWa0TzKo37
- 4+eT3x9dXXjLXCJTQwLcH+tr1wpat9BopnZkjw+tEa2U9jZmLN97Io9QUz7LUmgzxCrYX4viJyp
- cd9pBTlkI/nBmaZpfR74+Gzv9PtJkutknA53S9xUmNU5J5HoKd85RHWIUxxQvTSxKW4qiHKL+Sg
- W6qpoEAVw3Qik4U5ayqPWVzZ3AWdm6nR/G/IvC/JjagYynuJlrYeEpA2Z1RtuQO1mR50OsY1r/r
- Me1Sm9b5PxbCZmG0I5HDflkigCmSHrFwaKE2hfmMkvK1SqI37q0GhEaY3iyFUIm4DEWjyaNUr1h
- kvtemYLC4kk4v/gdU42cAXr/SbygaYyRh4NR2WaSXCpv7f22VpbN9nU7aMyfjkG6hrUBQ+zOazn
- q5VWFR9o/iZ6E4ah+FJ8j7I9lAgmSDpp6mUjKaYwgDsLwliz7fuZXyksstVYDAXi1palHCRSjj+
- LVIWU2VxrUVGv9TFlpg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 suspectscore=0 impostorscore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 priorityscore=1501 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120033
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBBEf4Xs2Zpui5h68j8MB2wXWCOUtNhoC
+ P9uwavHl3kzs0CkwBThUiwQKHFkP2ZQhwJs34wdCXaZQUlVIaIUyU9KtPymKNqmPGGpzsZYhFy
+ YAu1B9m/1j+Pr/iA7bwub0XOcffjsbwk37+9wQiGF07oi45yRTl+7oeHn0foB6nVdv4x7vQG2A
+ AAA
+X-Change-ID: 20261110-vop2-fixes-fa45142799c1
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472385; l=8125;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=BjFRBbEQB8leGzKTbYhxTpTTCIReMNAR0rDWrzczLYI=;
+ b=pVqilutBPBcBjnQREXu7s4yo8H2Fwtll/ftNxDI/v53Wkhd04vbCzyqcqoVLNnc1S/0VvvDFh
+ lPUaRUejKYzCRllQ1XZmeB2axOHXlKb9BJCRU4pgem/IBgf39ZaqItp
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
+This series collects fixes for the RK3588 VOP2 found while bringing up
+HDMI and DisplayPort output on an Orange Pi 5 (RK3588S).
 
-On Tue, 10 Nov 2026 11:01:10 +0100, Bartosz Golaszewski wrote:
-> In gpiochip_add_hog(), parsing a device tree with an excessively large
-> "#gpio-cells" property causes a stack out-of-bounds write when populating
-> the GPIO specification.
-> 
-> The value read from #gpio-cells is used to copy the values into right
-> places in struct fwnode_reference_args but that struct's args field is
-> an array of size NR_FWNODE_REFERENCE_ARGS so a value larger than it will
-> make the loop write past the end of that array.
-> 
-> [...]
+Patch 1 is new in v2 and fixes a bug that is as old as the driver:
+the chroma plane of a multi-planar YUV framebuffer is fetched from the
+GEM object of the luma plane, which is wrong when the planes are in
+different objects (two handles in ADDFB2).
 
-Applied, thanks!
+Patches 2 and 3 fix the RK3588 interface setup: rk3588_calc_cru_cfg()
+leaves dividers it does not use uninitialised and the garbage ends up in
+VP_CLK_CTRL, and rk3588_get_hdmi_pol() decodes the POLFLAG bits it is
+handed as DRM mode flags, so the GRF sync polarity bits are wrong for
+most modes.
 
-[1/1] gpiolib: fix stack out-of-bounds access in gpiochip_add_hog()
-      https://git.kernel.org/brgl/c/f8a4fdf57cedb9cb3f47d94269ff27fea8e819e8
+Patch 4 stops the RK3588 Cluster windows from advertising AFBC with the
+lossless colour transform (YTR) for RGB565/BGR565, which the decoder
+cannot display (black picture plus POST_BUF_EMPTY).
+
+Patches 5 and 6 deal with POST_BUF_EMPTY underflows. The VOP2 fetches
+through two AXI read ports but the port of each window is fixed in the
+window table, so the usual primary plane plus overlay configuration of
+a video port puts both layers on one port while the other sits idle.
+One port cannot sustain two full screen 4K@120Hz layers (measured: the
+fetch rate collapses from ~6 GB/s to ~3 GB/s and about half of all
+lines underflow). ACLK_VOP was 750 MHz in the 4K@120Hz measurements
+(the HDMI FRL patches on the test kernel raise it from the default
+500 MHz for these modes), and raising it to 850 MHz changes nothing,
+while moving one of the two windows to the other port removes the
+underflows. Patch 5 assigns the port of a window when it starts
+fetching, balancing the estimated load, in the atomic check from the
+whole new state; patch 6 limits the POST_BUF_EMPTY interrupt to once
+per frame, since an underflowing port otherwise keeps the CPU in the
+interrupt handler 50000 to 300000 times per second.
+
+Patches 7 to 9 are smaller fixes: the start mixer search skipped
+Esmart3 (for_each_set_bit() was given the highest window id as the bit
+count), a gamma LUT update cleared the other fields of LUT_PORT_SEL
+(the VP0/VP2 dclk source selection and the VP0/VP1 merge enable), and
+the AFBC tile count and transform offset were wrong for a source that
+starts inside a 16 pixel superblock.
+
+Tested on an Orange Pi 5 (RK3588S) with an HDMI 2.1 TV and a
+DisplayPort monitor, pictures judged with a camera. Patches 2 and 3:
+VP0_CLK_CTRL reads back without the garbage dclk_out divider, the sync
+polarities seen by the HDMI controller (VIDEO_INTERFACE_STATUS0) match
+the mode flags for +/+ (1080p, 2160p) and -/- (720x480, 640x480) modes,
+and the picture is correct over TMDS and FRL modes from 27 to
+1188 MHz. Patch 4: RGB565 is offered on the Cluster windows only
+without YTR, and those planes scan out correctly on three Cluster
+windows. Patches 7 to 9 were found while driving Esmart3 and partial
+AFBC overlays: an AFBC overlay placed at x=1001 shows correctly.
+v1 of patches 5 and 6: 3840x2160@120 with a full screen overlay
+(previously ~120000 POST_BUF_EMPTY per second and a scrambled picture)
+and a dual-display session (HDMI 4K@60 plus DP 4K@30, two video players,
+ten minutes) ran with zero underflows.
+v2 of patches 1, 5 and 6 on the same board: an NV12 overlay with luma
+and chroma in two GEM objects shows correctly; at 3840x2160@120 the
+overlay is assigned the port the primary plane is not on, also when
+another overlay is switched off in the same commit, with zero
+POST_BUF_EMPTY; a window started on the DisplayPort video port avoids
+the port of a window with the same read IDs that is switched off on
+HDMI in the same commit; after a forced underflow and an HDMI off/on
+cycle the video port raises no frame start interrupts while vblank
+reporting is off.
+The DRM KUnit tests pass (they don't cover this driver), and every patch
+builds with W=1 on arm64.
+
+This series was developed with Claude (Anthropic) as a coding assistant:
+it wrote the code and the commit messages, and I reviewed and tested
+every change as described above.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+Changes in v2:
+- New patch 1: take the UV plane address from fb->obj[1] (pre-existing
+  bug reported by the Sashiko review of v1 patch 4).
+- Patch 5 (AXI ports), after the Sashiko review:
+  - The ports are assigned in the CRTC atomic check from the whole new
+    state and kept in a private object; the plane update only programs
+    them. v1 chose the port in the plane update, in plane order, so a
+    window saw the stale state of windows switched off later in the
+    same commit (Sashiko: commit order skews vop2_win_get_axi_bus()).
+  - The load counts all planes of the framebuffer, e.g. 12 bpp for NV12
+    instead of 8 (Sashiko: UV plane AXI load omitted).
+  - A switched off window keeps its read IDs in use until the frame
+    start of its own video port, or until the commit that switched it
+    off is done, instead of releasing them in atomic_disable (Sashiko:
+    premature AXI bus release).
+  - The windows that start fetching are assigned busiest first.
+  - The plane update takes the port from the plane state (new struct
+    vop2_plane_state), not from the private state: commits on
+    different video ports aren't ordered against each other, so a
+    later one may have freed the private state by then.
+- Patch 6 (POST_BUF_EMPTY), after the v1 reviews:
+  - Clear the stale FS status before enabling FS while vblank reporting
+    is off, so it doesn't fire mid-frame (Sashiko).
+  - Disable POST_BUF_EMPTY and a pending FS re-arm when the CRTC is
+    switched off and on the atomic_enable error path (Sashiko).
+  - enable_vblank() doesn't clear a pending FS while POST_BUF_EMPTY
+    waits to be re-armed (Sashiko).
+  - Fixes: tag added (Sashiko).
+  - The comment above the FS enable says why it is there: masking
+    POST_BUF_EMPTY does not touch FS, since VP_INT_EN is
+    write-masked, but POST_BUF_EMPTY is unmasked again from the FS
+    interrupt at the next frame start, so FS has to be on. It is
+    only enabled here when vblank reporting has it off; v1 wrote it
+    unconditionally and its comment hid the reason (Chaoyi Chen).
+- Patches 7 and 8: Fixes: tags added (Sashiko).
+- Patch 7: ROCKCHIP_VOP2_MAX_LAYER_ID added after the last window id and
+  used as the bound of the search instead of ROCKCHIP_VOP2_ESMART3 + 1
+  (Chaoyi Chen).
+- Patch 8: Reviewed-by added (Chaoyi Chen).
+- Cover letter: says what ACLK_VOP was during the measurements and that
+  raising it doesn't help (Chaoyi Chen asked; the details are in the
+  commit message of patch 5).
+- Patch 9: the x offset in the superblock is taken modulo the
+  superblock width, 32 with AFBC_FORMAT_MOD_BLOCK_SIZE_32x8 (Sashiko),
+  and a Fixes: tag added (Sashiko).
+- Cc Piotr Zalewski (author of the commit patch 8 fixes).
+- Link to v1: https://patch.msgid.link/20261110-vop2-fixes-v1-0-d336e9dd90d3@gmail.com
+
+---
+Arun Iyengar (9):
+      drm/rockchip: vop2: Take the UV plane address from the second GEM object
+      drm/rockchip: vop2: Don't use uninitialised dividers on RK3588
+      drm/rockchip: vop2: Fix the HDMI sync polarity on RK3588
+      drm/rockchip: vop2: Don't accept AFBC YTR for RGB565 on RK3588
+      drm/rockchip: vop2: Balance window fetches across both AXI ports on RK3588
+      drm/rockchip: vop2: Report POST_BUF_EMPTY at most once per frame
+      drm/rockchip: vop2: Find the first mixer of a video port with Esmart3 too
+      drm/rockchip: vop2: Keep the other LUT_PORT_SEL fields on gamma LUT updates
+      drm/rockchip: vop2: Fix the AFBC offsets of a source that starts inside a superblock
+
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 453 ++++++++++++++++++++++++++-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  53 ++++
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c |  27 +-
+ 3 files changed, 512 insertions(+), 21 deletions(-)
+---
+base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+change-id: 20261110-vop2-fixes-fa45142799c1
 
 Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
+
