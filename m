@@ -1,77 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494188;
-	b=rhKpfFLyj3AtDFWhd1d06VR4igAn+5my7BqKqEic4b4qyoTR9Oj+TWBcy6dwjbUST8OE
-	 siMUz/piqQikx/eJ0CBDFrgu4a5Evua7Ub3h/2//0jqoXwlXhiUQEkT6sVlYELcCfDnn6
-	 lpYLA6fvs5wtZUklXlQG7ZQGjmONMB4kLkss1uKh6BxbqzypmUG1AZAIsdDd3f5PyNYUs
-	 jnAX9slBFs/geD9JaDhEmygknvPgU8/Hc5nn5TZAvxUMedBIp9g1AB+ti9RK1QpfdiSvp
-	 pqZaeBy5J7vD6cSLcU0UPaMnMMDVFyIJWZGIMMmESIfMkE1W+4DPPRHK1/OFZW78wtA==
+	t=1794494350;
+	b=syuK/tQ7+IlFIBnLz62ktARKGAJ1Sl39AJxIFVFoh3j2ieW7MCKslLD+WisITRZP/C+x
+	 Gty6aB+6qZDuEfjGdWp678YzKREZtIE04YzdRjOe+QNgixUqTgZPb6Dje78fc9VZjF5BF
+	 g1BkjTekDuOPK3SE4VxEvv1W+JTpwWxLZDxiFlETWeAHebY+9b4X2BHLEimpTsa7F0IZ1
+	 iu/n/cxgIRkZad0IPywu5P6LeRDtYHETaN/gbVcanERojdgZFbLHOL8UH9vvEFT40xtT/
+	 rZir2aaxmKHFJOatCHO3JbRYWvqGhZcmfbVl3l+6YWIjbKWTHRRIeeCpfOqBIc9jc5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494188;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=iuzgYOetjEwmWta8zi0uoBa/jwtVmeRA9xZ/AyBm8jo=;
-	b=kG4xt+xv6v0+LzAI5XaaNvvyZDCgt3TQpoZ5xEbJDPZuymq7BSBD3Vvu42lEORIkS48E
-	 l9j9gh/88P4YrYUWcEda+uPff4C/Lcgx3GQT+8XS1Sb4Q0JTbREN+OrveLURkJ8vYB5jV
-	 /cRtsl6KU/jEFIgQAV9YQMAGwsklkU3xRt/GBpCBt3xl7YPahDrEVsL28/0wonzSr39Vn
-	 wtRzQTvoz8p86o2GH6TZYLws/EqVTSsrFFDF8mVcpuVNe+vCMqEMT/d920DKlVer1Bf3E
-	 +dS1XBFYEbJUcIkdwoOnahNtE4BN3f+Ku9ho9V2KYX1pdcOiQL8qeksYeVt4KfiY1ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494350;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JPCGNF/jEMU9xJrqkGIaHxvjMBqA0bWCrPxQL0nBrZo=;
+	b=TCerqJjsusRR8ZdB6binPJzKLS0OOi5839sbGJ9UQIl72/dhcgeIlvkFX9nEAKKJWqyA
+	 OAYHJlS/L9x+arT4ld6xAh7sWyuVkM5xWQUDm/c4nexQFLbJWNub/2BTA9Si8RLGL+Sly
+	 qhnFfHzDWYEVs3gp6x/FSTEqJMtvj+Izl1PkSnSibTBCjDY1x6P7CSQjGAZCEw8pJy9gi
+	 zMvSmdmI4Ps6gyhqRAbIWDjorO68AMuKR3tYday4jSRt2rk26HE6JnqtulUXIEYYdBwtX
+	 LK6uOT2cGJLTmVdwFtGw5hciA/GpmfDnaWfZCpcRuXxIyXpsrWNe1uRlSzmgP1YfDtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=G6JlhGgc;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f8mnD/IJ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A8D606A896;
-	Thu, 12 Nov 2026 14:36:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A8D606A896
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBE5606A321;
+	Thu, 12 Nov 2026 14:39:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=G6JlhGgc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1794494184;
-	bh=asyjPwOhKptYqzqqVtJaS27mflvDHUXnhBb4i7GC64A=;
-	h=From:To:Cc:Subject:Date:From;
-	b=G6JlhGgcdMSw0tQ9S0fq1SAhDXC3WT3Y7003Xj7xGK8uOkhaFNzz7FOaGwmxz0AVN
-	 3pc7KPph0qeXPVwLNEpMDlIZQJb+L1KQ2FxfreEUEYKNVKAlEB/DR+pcs8H6+fue4H
-	 DFG5S2bA1S3xNHtuvZXo44DHArpUDv0DyN+IqH22MycRR8+KJucoNRO7vnZyvW4WkU
-	 XR2DLfIehb0WeNHQQRRO3uOxTUE5XJWiGHWwERiGZFgqJP8wFeKOjlvRz8cbvF1fSj
-	 ln98dKuWN6q2fafvpAVvBU9W0K7PLWuEMGWDQCXbLRm5JhYQcB7UQ+93n4dzFQ+diU
-	 UOkuYyVfsBfzw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 2E7B2255D3;
-	Thu, 12 Nov 2026 17:36:24 +0300 (MSK)
-Received: from mail.astralinux.ru (unknown [10.205.207.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Thu, 12 Nov 2026 17:36:23 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (rbta-msk-lt-981255.astralinux.ru [10.198.28.246])
-	by mail.astralinux.ru (Postfix) with ESMTPA id 4jQNHV64J7zWBb;
-	Thu, 12 Nov 2026 17:36:22 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: Jan Kara <jack@suse.cz>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	linux-fsdevel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH] isofs: limit empty zisofs blocks to their uncompressed size
-Date: Thu, 12 Nov 2026 17:35:40 +0300
-Message-ID: <20261112143541.269-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8mnD/IJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38F651F00A0A;
+	Thu, 12 Nov 2026 14:38:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794494349;
+	bh=JPCGNF/jEMU9xJrqkGIaHxvjMBqA0bWCrPxQL0nBrZo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=f8mnD/IJDys4pA4TeVplHqPuVUfXqGCBlqTLjIenB7gApydQVzgQ7FKsApOjymKoG
+	 uoxlhVqbleJeLcQbHt5sG3/YCao8omJde+LI+Zry9Zf+D7eJQ43/cy9LfzDcI/BP6n
+	 59jf7Yk0E6oQ4ndx2WarOOMIOHOscf4lgBvg30XKqlVusvQHhnKQ56hfSOLHFXtqsO
+	 EvolT6DBDg4yO5pVhjYeYQQWWjGT7i8guvwpRcR7e7ysv6z3Wdrle0pzptbwklFN6w
+	 +hGHxd06iIp13iFBvUdxsoi8NV3KZFViRrZXNgUMAuxDnN60aj3/GIZ6wIZUduAG+I
+	 LxvkBDtRNAxDw==
+Message-ID: <1aa2d6a0-0104-4f94-821f-3a8a74636028@kernel.org>
+Date: Thu, 12 Nov 2026 15:38:45 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,82 +51,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/12 14:03:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, sashiko.dev:7.1.1;mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207443 [Nov 12 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/12 14:02:00 #28858911
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/12 14:03:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/9] mm: limit pagecache folio refcount when mapping
+ pages
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Steve Sistare <steven.sistare@oracle.com>, John Hubbard
+ <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+ Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org,
+ iommu@lists.linux.dev, netdev@vger.kernel.org, Chris Mason
+ <mason@kernel.org>, stable@vger.kernel.org
+References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+ <20261110-refcount_overflow_stable-v3-1-318625d63a98@kernel.org>
+ <avW0HGjF6wuqn12T@pedro-suse.tail5790ac.ts.net>
+ <86206f64-fefa-4a13-95bc-eddf756eecc8@kernel.org>
+ <avXGtysfRk3uQpNu@pedro-suse.tail5790ac.ts.net>
+ <2f9b90fd-fe50-4afa-ab59-0c4a00e5e276@kernel.org>
+ <avXMKH__gwi6BwVy@pedro-suse.tail5790ac.ts.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <avXMKH__gwi6BwVy@pedro-suse.tail5790ac.ts.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When a zisofs block is smaller than a page, the empty-block path in
-zisofs_uncompress_block() zeroes the rest of the page and returns that
-length. zisofs_fill_pages() then advances past the page without reading
-the remaining blocks, returning zeros instead of their contents.
+On 11/12/26 15:26, Pedro Falcato wrote:
+> On Thu, Nov 12, 2026 at 03:16:00PM +0100, David Hildenbrand (Arm) wrote:
+>> On 11/12/26 15:06, Pedro Falcato wrote:
+>>>
+>>> Alright.
+>>>
+>>>
+>>> Yes. As far as I know, it's always fine, even under NMI. But definitely fine
+>>> with IRQs disabled.
+>>>
+>>>
+>>> I had the impression we had some stuff in-tree that isn't marked as GPL. But a quick
+>>> grep shows that everything is either GPL or dual-licensed.
+>>>
+>>> In any case, yes, this will quite possibly break debug builds for people OOT.
+>>> I think folio_get() might be a bit too ubiquitous to do this to.
+>>
+>> Thinking again, folio_get() should not be affected, it rightfully only checks
+>> for a refcount underflow (when we exceed the limit + headroom). So only
+>> try_get_page() is affected, which OOT very likely doesn't use.
+> 
+> Aha, yes, you're right. I mixed up your folio_get() change. Would it make sense
+> to VM_WARN_ON() on this as well, or does the <= 0 check cover us already?
 
-For example, with 64 KiB pages and 32 KiB zisofs blocks, an empty first
-block should zero only the first half of the page. Instead, it zeroes
-the entire page and returns 64 KiB, so the second block is never read.
+<=0 is sufficient for folio_get(). There are valid cases where we can exceed the
+limit into the rather large headroom (e.g., reaching the limit through page
+table mappings, then performing harmless read/write that take bounded references
+for a short time).
 
-Commit 68d4d3e78150 ("isofs: fix out-of-bounds page array access on empty
-zisofs block") accounted for poffset but left this older problem in
-place. It was pointed out by Sashiko while reviewing a 5.10 backport.
-
-Limit the zeroed range and returned length to one uncompressed block
-and the available output space. Only mark a folio uptodate when the
-range reaches its end. zisofs_fill_pages() already zeroes the tail and
-marks the partially filled folio uptodate at EOF.
-
-Fixes: 59bc055211b8 ("zisofs: Implement reading of compressed files when PAGE_CACHE_SIZE > compress block size")
-Cc: stable@vger.kernel.org
-Link: https://sashiko.dev/#/patchset/20261105083209.922-1-mdmitrichenko%40astralinux.ru
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
- fs/isofs/compress.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/fs/isofs/compress.c b/fs/isofs/compress.c
-index 2d23abaeb874..c471007a76ed 100644
---- a/fs/isofs/compress.c
-+++ b/fs/isofs/compress.c
-@@ -64,16 +64,24 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
- 	}
- 	/* Empty block? */
- 	if (block_size == 0) {
--		for ( i = 0 ; i < pcount ; i++ ) {
-+		unsigned int bytes = min_t(loff_t, 1U << zisofs_block_shift,
-+					  (((loff_t)pcount) << PAGE_SHIFT) - poffset);
-+		unsigned int remaining = bytes;
-+
-+		for (i = 0; i < pcount; i++) {
- 			unsigned int off = i ? 0 : poffset;
-+			unsigned int len = min_t(unsigned int, remaining,
-+						 PAGE_SIZE - off);
- 			struct folio *folio = folios[i];
- 
-+			remaining -= len;
- 			if (!folio)
- 				continue;
--			folio_zero_range(folio, off, folio_size(folio) - off);
--			folio_mark_uptodate(folio);
-+			folio_zero_range(folio, off, len);
-+			if (off + len == folio_size(folio))
-+				folio_mark_uptodate(folio);
- 		}
--		return (((loff_t)pcount) << PAGE_SHIFT) - poffset;
-+		return bytes;
- 	}
- 
- 	/* Because zlib is not thread-safe, do all the I/O at the top. */
 -- 
-2.43.0
+Cheers,
 
+David
