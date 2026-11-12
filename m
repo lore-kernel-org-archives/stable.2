@@ -1,56 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450228;
-	b=5R1m2gAHjIVPcUEypfNx1KtRXhMYet615HpPs/950btWBPl4FiPoeXAgWFSslxZP30J4
-	 wBN47C/iPKTv94Y3bWeMOcwgayZ2A5ibcuhsor08OIkxyRhku4V1K4THVIxslA3IsRm75
-	 B773vHHcqzowYuPeXRL8L6YS8K8BnEPe4+fMjzA58aJ9zsRS0CfaCoZBwjQ3TODYOrgO4
-	 vpp/ZGfKnn3vdKtGaZrNhtNmxfeQvHmPnfr2YktdiA/cDzMxv5djtsW/gMMYTaL/oWqVW
-	 ABYMnRwAFmfcmlnIYUPRl9BQur/myttvT8/vGd12YlFl+LO+vd57nDRts94atoGBU0A==
+	t=1794450256;
+	b=KfxyAC77mDflpLs1nGNzdXNjWDfWft6ZiV+/sbh+U+DymZU6mNP3lmif1wvF5V6x/XmD
+	 bSuxu1g1DxSoyfswva0TWqUhbPdC/FZk8R+2PaplK0I7x9F4y14eAoAc6ZCy/B+IPEyD9
+	 5qZYxDoAR30++MVJYRkFgp721BOYTN3Jsz/eFWGoniTS5+iCZljhjj7ME5dI4zYShVsqH
+	 nfFUzqbz1TNdIDD496oAs4Yj0YF6TaYvLuH7jXPjuAPiPf0eIiaZbHsLvq4gS2/wZh39C
+	 6curv0omgNT6Gp1ARpUxtJM19T02DpsmiqJ5ew5boV7b3VNhAj5xGcSAQDwQVu3TCaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450228;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=W20oqA6AVVI+ULyDcGNIDJK492G6jgxhW2AFsbF1GYU=;
-	b=cEvPZoc17tfJGvZwVDRD/1hkDKmOmt2VDbKaVPsUsZT0D0Kh9gZiPT9mx+GHyz+2xKRX
-	 ElV9DoVbEwPiAmilalEL1Yb4SgZvKPybeHOD3SDjwljzKRPjmG1CYcxrRV4t06L5jMJVj
-	 RI8te7mXo6ASM4ZYorUZtA69Iubx2O1gnsOFe57BVFX6NNK+gfuUTzRI6I1dmvpTTXCvU
-	 8qspYsSZK7a6axu0F6lr2giZw8I/3bF4yENG8t6GC5LsKhlJeWAlSLq7rOw8P6KxqO9Ri
-	 VAZN4gOlUsebHxb411Z6bjbSw/0clz0egSh8VEhUuhUTX5VvXshBsyaWM7Tjz0CPKAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450256;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=CMs2hiL6dqSvXmpMCUhFT/HCLWI00jj+E7D9u8d37HY=;
+	b=uWico86B2hk3NxpbbxrRAs4+EWpBODQK7iaLHK2WXEQnfftrv9nFqrIUNSDSLS/ORNOi
+	 zHla21vhuqMjim+AbtadeSQO5oDYmM/KYT/kZpMOwy2K+JkUTyYlIzZNjB8D+RQWpYHzm
+	 iRlT0+bcqV2+u4mDfnnSYIUNp35YhAtqjE/G6kdHGj+056q/ztjZzPvX5i4i+Ne6hMjf5
+	 +w6SVTfFeG5K6hL5yqld2I4c2Ln4/7ZThx4B92/xXSwIUNhpXHNm2bZ+wAaS7aUj6la+T
+	 Dh4DntVhsQlo0FH0iSSu6z4k1ebkA5tsFVIIdLIoLJNkB3Sxe0d3/MNMDzys28cUrWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UiLVJnM+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ECBexlUT;
+	arc=none smtp.remote-ip=220.197.31.7
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D48E606A323
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:23:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDF1606A31C;
+	Thu, 12 Nov 2026 02:24:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDF1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UiLVJnM+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70D51F00A07;
-	Thu, 12 Nov 2026 02:23:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794450228;
-	bh=W20oqA6AVVI+ULyDcGNIDJK492G6jgxhW2AFsbF1GYU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UiLVJnM+cTMl9chuhY02dqh1QCuZ1LIJfOo4YvFyIv31PQWOMVykcE50U+Q8PVlzF
-	 Y+2D3zIglXOSkF0BhQJ/9g1zEdx4LlfdMsBRfyFyyouzgRks21hvpTzmAI1SB5A11/
-	 hCzZZHB8RaEylVrLTdgzKEzqt1iv7lk026DGvZpA0tZCXTZRtoIwuEi1YtBNWOFrlX
-	 7nPZvQZSh1LnqbafX17PKXNt4fKBAAjvzIbTqAJm25YU8NGSBSOkt3uaQctGmZLgtb
-	 WF6s1Jp9JDkS5E9Ec+ie0HurDFn9i5VnDbmLC9jnSDqGbrJPtLjeIL9aPw0GbWKvWm
-	 DzpiQ6ML6S7Zg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sahil Chandna <sahilchandna@linux.microsoft.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] net: mana: Add support to process throttled EQEs
-Date: Wed, 11 Nov 2026 21:23:45 -0500
-Message-ID: <20261112021329.1243520-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112021329.1243520-1-sashal@kernel.org>
-References: <20261109200151-failed-7.3-684603842b78@kernel.org>
- <20261112021329.1243520-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ECBexlUT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=CMs2hiL6dqSvXmpMCUhFT/HCLWI00jj+E7D9u8d37HY=;
+	b=ECBexlUTfMcU0TzeyeHJyBObIRgfVHH9ZR0gINCJCnsug2Cp4UNT/iEyM7AELu
+	++HPY/30SbDlpzGBbsnCLK4KAb/5NJYdGt6RNWEHhBFBsd/UnQhfg1jRwcd5pCMN
+	5bh6cJCv+0izBRSJr1M5OXFEgLIc2hTdKBEyTIWfsXgQw=
+Message-ID: <3b2e263b-6cef-4267-be94-50751dfee494@126.com>
+Date: Thu, 12 Nov 2026 10:23:18 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,423 +51,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] nfc: llcp: fix SNL PDU size truncation in
+ nfc_llcp_allocate_snl()
+To: netdev-bot+sinfo@kernel.org
+Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, oe-linux-nfc@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, Guikun Yang <yangguikun19@qq.com>,
+ stable@vger.kernel.org
+References: <20261111095907.3366028-1-xiaolinkui@126.com>
+ <179439136381.2168702.3784011162899965365@kernel.org>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <179439136381.2168702.3784011162899965365@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD33x8WI_VqBr_FDA--.30825S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tr4DuF1DJr4DWrWfXFy5Jwb_yoW8WF4Dpa
+	yjgrsYy3Z5Jr1xCa18ta1jva4Fq395GFy5Wr45Kr1Y9as8WF1UKrWIgr4Y9a4q9r9Ygw1F
+	vr42grs2yw1qvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UZZ2-UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlBjmvWr1IxjZqwAA3B
 
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+Hi,
 
-[ Upstream commit 684603842b78f75835d21fdf5c19ae717ed8eb1a ]
+Thanks for the reminder.
 
-When an event queue nears full, the hardware coalesces the per-CQ
-GDMA_EQE_COMPLETION notifications into a single throttle EQE (type 4)
-that carries no cq_id. The driver does not handle this event type, so
-it falls through to the default case and is dropped. Any CQ whose
-completion notification was replaced by the throttle EQE can remain
-unserviced, causing its queue to stall.
+On 2026/11/11 18:02, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by LLM and not proven at runtime). If it was triggered
+>     please include the symptoms, like the stack trace or kernel messages.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-This was observed internally as a TX stall:
+This patch is a fix for the issue previously reported here:
 
-  ens1: NETDEV WATCHDOG: CPU: 45: transmit queue 1 timed out 15133 ms
-  mana 7870:00:00.0: HWC: Request timed out: 60000 ms
-  mana 7870:00:00.0: Gf stats wk handler: gf stats query timed out.
-  ens1: NETDEV WATCHDOG: CPU: 20: transmit queue 0 timed out 15859 ms
-  ens1: NETDEV WATCHDOG: CPU: 15: transmit queue 0 timed out 31731 ms
-  ens1: NETDEV WATCHDOG: CPU: 21: transmit queue 0 timed out 47603 ms
-  ens1: NETDEV WATCHDOG: CPU: 42: transmit queue 0 timed out 62451 ms
+Link: 
+https://lore.kernel.org/netdev/tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com/
 
-Handle the throttle EQE:
+The commit message already includes:
 
-- Record up to two child CQs per EQ when a CQ is created with a parent
-  EQ. A mana_en EQ serves one TX CQ and one RX CQ, and the HWC EQ
-  serves the HWC CQ.
-- On a throttle EQE, call the callback of each child CQ that is still
-  in cq_table[].
-- Before a child CQ is freed, unlink it from its parent EQ and from
-  cq_table[] in mana_gd_detach_cq(), then wait for an RCU
-  grace period, because mana_gd_intr() reads both under
-  rcu_read_lock(). mana_destroy_txq() and mana_destroy_rxq() detach
-  the CQ before deleting its NAPI, so the synchronize_net() that NAPI
-  deletion already needs also covers the CQ. mana_hwc_destroy_channel()
-  detaches the HWC CQ and waits for a grace period before freeing the
-  HWC queues.
-- Advertise the capability bit for throttled EQE.
-- Add a throttle eqe counter per queue.
+Reported-by: Guikun Yang <yangguikun19@qq.com>
+Link: 
+https://lore.kernel.org/netdev/tencent_634C55A23C7CCCA3985283BFED46A69C9E09@qq.com/
 
-Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
-Link: https://patch.msgid.link/20261028084020.2051254-1-sahilchandna@linux.microsoft.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../net/ethernet/microsoft/mana/gdma_main.c   | 88 +++++++++++++++++--
- .../net/ethernet/microsoft/mana/hw_channel.c  |  9 +-
- drivers/net/ethernet/microsoft/mana/mana_en.c | 22 ++++-
- .../ethernet/microsoft/mana/mana_ethtool.c    | 19 +++-
- include/net/mana/gdma.h                       | 19 +++-
- include/net/mana/mana.h                       |  1 +
- 6 files changed, 143 insertions(+), 15 deletions(-)
+To clarify: I did not reproduce this issue at runtime in my testing.
+The problem was identified by code review/static analysis of
+nfc_llcp_allocate_snl(), where the SNL PDU size can be truncated.
+So this is a code-review/static-analysis finding rather than a
+runtime-triggered crash in my environment.
 
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index b076760b2dc50..5df4deee57846 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -754,6 +754,27 @@ void mana_gd_free_service_wq(struct gdma_context *gc)
- 	gc->service_wq = NULL;
- }
- 
-+static void mana_gd_schedule_eq_cqs(struct gdma_queue *eq)
-+{
-+	struct gdma_context *gc = eq->gdma_dev->gdma_context;
-+	struct gdma_queue *cq;
-+	u8 i;
-+
-+	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
-+		cq = rcu_dereference(eq->eq.child_cq[i]);
-+
-+		if (!cq)
-+			continue;
-+
-+		if (cq->id >= READ_ONCE(gc->max_num_cqs) ||
-+		    !gc->cq_table || gc->cq_table[cq->id] != cq)
-+			continue;
-+
-+		if (cq->cq.callback)
-+			cq->cq.callback(cq->cq.context, cq);
-+	}
-+}
-+
- static void mana_gd_process_eqe(struct gdma_queue *eq)
- {
- 	u32 head = eq->head % (eq->queue_size / GDMA_EQE_SIZE);
-@@ -784,6 +805,14 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
- 
- 		break;
- 
-+	case GDMA_EQE_THROTTLE:
-+		u64_stats_update_begin(&eq->eq.stats.syncp);
-+		u64_stats_inc(&eq->eq.stats.throttle_count);
-+		u64_stats_update_end(&eq->eq.stats.syncp);
-+
-+		mana_gd_schedule_eq_cqs(eq);
-+		break;
-+
- 	case GDMA_EQE_TEST_EVENT:
- 		gc->test_event_eq_id = eq->id;
- 		complete(&gc->eq_test_event);
-@@ -1029,6 +1058,8 @@ static int mana_gd_create_eq(struct gdma_dev *gd,
- 	queue->eq.msix_index = INVALID_PCI_MSIX_INDEX;
- 	queue->id = INVALID_QUEUE_ID;
- 
-+	u64_stats_init(&queue->eq.stats.syncp);
-+
- 	log2_num_entries = ilog2(queue->queue_size / GDMA_EQE_SIZE);
- 
- 	if (spec->eq.log2_throttle_limit > log2_num_entries) {
-@@ -1070,25 +1101,66 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
- 			      struct gdma_queue *queue)
- {
- 	u32 log2_num_entries = ilog2(spec->queue_size / GDMA_CQE_SIZE);
-+	struct gdma_queue *parent;
-+	u8 i;
- 
- 	queue->head |= INITIALIZED_OWNER_BIT(log2_num_entries);
--	queue->cq.parent = spec->cq.parent_eq;
-+	parent = spec->cq.parent_eq;
-+	queue->cq.parent = parent;
- 	queue->cq.context = spec->cq.context;
- 	queue->cq.callback = spec->cq.callback;
-+
-+	if (!parent)
-+		return;
-+
-+	/* For throttled EQE store the child CQ */
-+	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
-+		if (!rcu_access_pointer(parent->eq.child_cq[i])) {
-+			rcu_assign_pointer(parent->eq.child_cq[i], queue);
-+			return;
-+		}
-+	}
-+
-+	WARN_ONCE(1, "mana: EQ %u has no free child CQ slot\n", parent->id);
- }
- 
--static void mana_gd_destroy_cq(struct gdma_context *gc,
--			       struct gdma_queue *queue)
-+/* Unlink queue from its parent EQ's child_cq[] and from gc->cq_table[].
-+ *
-+ * Return: true if queue was in the parent EQ's child_cq[]. In that case the
-+ * caller must wait for an RCU grace period before freeing queue, because
-+ * mana_gd_intr() may still be handling a throttle EQE for it.
-+ */
-+bool mana_gd_detach_cq(struct gdma_context *gc, struct gdma_queue *queue)
- {
-+	struct gdma_queue *eq = queue->cq.parent;
-+	bool attached = false;
- 	u32 id = queue->id;
-+	u8 i;
- 
--	if (id >= gc->max_num_cqs)
--		return;
-+	if (eq) {
-+		for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
-+			if (rcu_access_pointer(eq->eq.child_cq[i]) == queue) {
-+				RCU_INIT_POINTER(eq->eq.child_cq[i], NULL);
-+				attached = true;
-+			}
-+		}
-+	}
- 
--	if (!gc->cq_table[id])
--		return;
-+	/* Check if CQ might have been detached already, only clear if
-+	 * it still points to same queue .
-+	 */
-+	if (id < gc->max_num_cqs && READ_ONCE(gc->cq_table[id]) == queue)
-+		WRITE_ONCE(gc->cq_table[id], NULL);
- 
--	gc->cq_table[id] = NULL;
-+	return attached;
-+}
-+
-+static void mana_gd_destroy_cq(struct gdma_context *gc,
-+			       struct gdma_queue *queue)
-+{
-+	/* Wait for irq reader holding the cq */
-+	if (mana_gd_detach_cq(gc, queue))
-+		synchronize_net();
- }
- 
- int mana_gd_create_hwc_queue(struct gdma_dev *gd,
-diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-index 263e7c4e29341..2f7f32f55785f 100644
---- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-+++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-@@ -364,7 +364,7 @@ static void mana_hwc_comp_event(void *ctx, struct gdma_queue *q_self)
- 
- 	completions = hwc_cq->comp_buf;
- 	comp_read = mana_gd_poll_cq(q_self, completions, hwc_cq->queue_depth);
--	WARN_ON_ONCE(comp_read <= 0 || comp_read > hwc_cq->queue_depth);
-+	WARN_ON_ONCE(comp_read < 0 || comp_read > hwc_cq->queue_depth);
- 
- 	for (i = 0; i < comp_read; ++i) {
- 		comp_data = *(struct hwc_rx_oob *)completions[i].cqe_data;
-@@ -820,9 +820,14 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
- 	 */
- 	if (gc->max_num_cqs > 0) {
- 		mana_smc_teardown_hwc(&gc->shm_channel, false);
--		gc->max_num_cqs = 0;
-+		WRITE_ONCE(gc->max_num_cqs, 0);
- 	}
- 
-+	if (hwc->cq)
-+		mana_gd_detach_cq(gc, hwc->cq->gdma_cq);
-+
-+	synchronize_rcu();
-+
- 	if (hwc->txq)
- 		mana_hwc_destroy_wq(hwc, hwc->txq);
- 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 44122c2ef7f98..89af8bf6758b7 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -2672,6 +2672,7 @@ static void mana_deinit_txq(struct mana_port_context *apc, struct mana_txq *txq)
- 
- static void mana_destroy_txq(struct mana_port_context *apc)
- {
-+	struct gdma_context *gc = apc->ac->gdma_dev->gdma_context;
- 	struct napi_struct *napi;
- 	int i;
- 
-@@ -2690,13 +2691,23 @@ static void mana_destroy_txq(struct mana_port_context *apc)
- 			napi_synchronize(napi);
- 			napi_disable_locked(napi);
- 			cancel_work_sync(&apc->tx_qp[i]->tx_cq.dim.work);
--			netif_napi_del_locked(napi);
--			apc->tx_qp[i]->txq.napi_initialized = false;
- 		}
- 
- 		if (apc->tx_qp[i]->tx_object != INVALID_MANA_HANDLE)
- 			mana_destroy_wq_obj(apc, GDMA_SQ, apc->tx_qp[i]->tx_object);
- 
-+		if (apc->tx_qp[i]->txq.napi_initialized) {
-+			/* Detach the CQ only after the WQ object is destroyed,
-+			 * so a completion EQE that arrives before then still
-+			 * finds the CQ in cq_table[] rather than hitting the
-+			 * WARN in mana_gd_process_eqe(). One grace period then
-+			 * covers both mana_gd_intr() and NAPI users.
-+			 */
-+			mana_gd_detach_cq(gc, apc->tx_qp[i]->tx_cq.gdma_cq);
-+			netif_napi_del_locked(napi);
-+			apc->tx_qp[i]->txq.napi_initialized = false;
-+		}
-+
- 		mana_deinit_cq(apc, &apc->tx_qp[i]->tx_cq);
- 
- 		mana_deinit_txq(apc, &apc->tx_qp[i]->txq);
-@@ -2903,7 +2914,6 @@ static void mana_destroy_rxq(struct mana_port_context *apc,
- 
- 		napi_disable_locked(napi);
- 		cancel_work_sync(&rxq->rx_cq.dim.work);
--		netif_napi_del_locked(napi);
- 	}
- 
- 	if (xdp_rxq_info_is_reg(&rxq->xdp_rxq))
-@@ -2912,6 +2922,12 @@ static void mana_destroy_rxq(struct mana_port_context *apc,
- 	if (rxq->rxobj != INVALID_MANA_HANDLE)
- 		mana_destroy_wq_obj(apc, GDMA_RQ, rxq->rxobj);
- 
-+	if (napi_initialized) {
-+		/* See the comment in mana_destroy_txq() */
-+		mana_gd_detach_cq(gc, rxq->rx_cq.gdma_cq);
-+		netif_napi_del_locked(napi);
-+	}
-+
- 	mana_deinit_cq(apc, &rxq->rx_cq);
- 
- 	if (rxq->xdp_save_va)
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-index 33db79569d3b6..a91eb12badca4 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-@@ -147,7 +147,8 @@ static int mana_get_sset_count(struct net_device *ndev, int stringset)
- 		return ARRAY_SIZE(mana_eth_stats) +
- 		       ARRAY_SIZE(mana_phy_stats) +
- 		       ARRAY_SIZE(mana_hc_stats)  +
--		       num_queues * (MANA_STATS_RX_COUNT + MANA_STATS_TX_COUNT);
-+		       num_queues * (MANA_STATS_RX_COUNT + MANA_STATS_TX_COUNT +
-+				       MANA_STATS_EQ_COUNT);
- 
- 	case ETH_SS_PRIV_FLAGS:
- 		return MANA_PRIV_FLAG_MAX;
-@@ -198,6 +199,9 @@ static void mana_get_strings_stats(struct mana_port_context *apc, u8 **data)
- 		ethtool_sprintf(data, "tx_%d_csum_partial", i);
- 		ethtool_sprintf(data, "tx_%d_mana_map_err", i);
- 	}
-+
-+	for (i = 0; i < num_queues; i++)
-+		ethtool_sprintf(data, "eq_%d_throttle_events", i);
- }
- 
- static void mana_get_strings_priv_flags(u8 **data)
-@@ -234,6 +238,7 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
- 	void *phy_stats = &apc->phy_stats;
- 	struct mana_stats_rx *rx_stats;
- 	struct mana_stats_tx *tx_stats;
-+	struct gdma_eq_stats *eq_stats;
- 	unsigned int start;
- 	u64 packets, bytes;
- 	u64 xdp_redirect;
-@@ -251,6 +256,7 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
- 	u64 csum_partial;
- 	u64 mana_map_err;
- 	int q, i = 0, j;
-+	u64 throttled;
- 
- 	if (!apc->port_is_up)
- 		return;
-@@ -325,6 +331,17 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
- 		data[i++] = csum_partial;
- 		data[i++] = mana_map_err;
- 	}
-+
-+	for (q = 0; q < num_queues; q++) {
-+		eq_stats = &apc->eqs[q].eq->eq.stats;
-+
-+		do {
-+			start = u64_stats_fetch_begin(&eq_stats->syncp);
-+			throttled = u64_stats_read(&eq_stats->throttle_count);
-+		} while (u64_stats_fetch_retry(&eq_stats->syncp, start));
-+
-+		data[i++] = throttled;
-+	}
- }
- 
- static u32 mana_get_rx_ring_count(struct net_device *ndev)
-diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index cdec5558304ff..f43028a398d69 100644
---- a/include/net/mana/gdma.h
-+++ b/include/net/mana/gdma.h
-@@ -58,6 +58,7 @@ enum gdma_work_request_flags {
- 
- enum gdma_eqe_type {
- 	GDMA_EQE_COMPLETION		= 3,
-+	GDMA_EQE_THROTTLE		= 4,
- 	GDMA_EQE_TEST_EVENT		= 64,
- 	GDMA_EQE_HWC_INIT_EQ_ID_DB	= 129,
- 	GDMA_EQE_HWC_INIT_DATA		= 130,
-@@ -286,6 +287,7 @@ struct gdma_dev {
- #define GDMA_EQE_SIZE 16
- #define GDMA_MAX_SQE_SIZE 512
- #define GDMA_MAX_RQE_SIZE 256
-+#define GDMA_EQ_MAX_CHILD_CQ 2
- 
- #define GDMA_COMP_DATA_SIZE 0x3C
- 
-@@ -313,6 +315,11 @@ struct gdma_event {
- 
- struct gdma_queue;
- 
-+struct gdma_eq_stats {
-+	u64_stats_t throttle_count;
-+	struct u64_stats_sync syncp;
-+};
-+
- struct mana_eq {
- 	struct gdma_queue	*eq;
- 	struct dentry		*mana_eq_debugfs;
-@@ -366,6 +373,10 @@ struct gdma_queue {
- 			unsigned int irq;
- 
- 			u32 log2_throttle_limit;
-+
-+			struct gdma_eq_stats stats;
-+
-+			struct gdma_queue __rcu *child_cq[GDMA_EQ_MAX_CHILD_CQ];
- 		} eq;
- 
- 		struct {
-@@ -594,6 +605,8 @@ void mana_gd_free_service_wq(struct gdma_context *gc);
- void mana_gd_ring_dim(struct gdma_queue *cq, u32 mod_usec, bool mod_usec_vld,
- 		      u32 mod_comps, bool mod_comps_vld);
- 
-+bool mana_gd_detach_cq(struct gdma_context *gc, struct gdma_queue *queue);
-+
- struct gdma_wqe {
- 	u32 reserved	:24;
- 	u32 last_vbytes	:8;
-@@ -748,6 +761,9 @@ enum {
- /* Driver supports non-contiguous queue buffers */
- #define GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS BIT(30)
- 
-+/* Driver supports handling throttled EQEs */
-+#define GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE BIT_ULL(32)
-+
- /* Capabilities in the PCI-only group below rely on dynamic MSI-X allocation
-  * and on the servicing and reset paths reached through
-  * mana_schedule_serv_work(). Transports that provide neither leave
-@@ -772,7 +788,8 @@ enum {
- 	 GDMA_DRV_CAP_FLAG_1_HANDLE_STALL_SQ_RECOVERY | \
- 	 GDMA_DRV_CAP_FLAG_1_EQ_MSI_UNSHARE_MULTI_VPORT | \
- 	 GDMA_DRV_CAP_FLAG_1_DYN_INTERRUPT_MODERATION | \
--	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS)
-+	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS | \
-+	 GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE)
- 
- #define GDMA_DRV_CAP_FLAGS2 0
- 
-diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
-index 8c3dc9d0b2993..e46ba02529c29 100644
---- a/include/net/mana/mana.h
-+++ b/include/net/mana/mana.h
-@@ -90,6 +90,7 @@ enum mana_priv_flag_bits {
- /* Update this count whenever the respective structures are changed */
- #define MANA_STATS_RX_COUNT (6 + MANA_CQE_COAL_PKTS_8 - 1)
- #define MANA_STATS_TX_COUNT 11
-+#define MANA_STATS_EQ_COUNT 1
- 
- #define MANA_RX_FRAG_ALIGNMENT 64
- 
--- 
-2.53.0
+Please let me know if further information is needed. As requested,
+I will not repost the series just to add this clarification.
+
+Thanks,
+Linkui
 
