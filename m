@@ -1,59 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794501023;
-	b=33f94/MwjcE7/o059DwRyddo8TXBiQmjE9rYWXPWEhnWZ8AdCjfzhKijJ5lockiC35uY
-	 0QuzxFwv7ilxw2aeNhjMVtqI2c55ror3BNAVCD9vT3rZzyX5XW+Ak6OmFzCXY3hWgvgTi
-	 wj+v+cUFOZbOgEVdmZNoMAljYlvznmIQXsldsWqcRTlqVz7u1JqsUQUOMcJkoZOhOjkDn
-	 i4yFxCPfEHde0g5keZaP7PRkqnOkkUGamRtpi4VobDnq3zU2GoVcaSTmmv8NdYRzomMK8
-	 hf0OUm484a2jDDS4RKLQ1thZVpbA/uXTgSbm5CK9cR1u6EaISqmX8hEADMdyHyZc7Yw==
+	t=1794501475;
+	b=re/Sz8Z5yjLMLhkXhl2KnzNW8HCnlac4nNq4ku706MszVhrJT9qZLz9iViCoq/9cYikQ
+	 Jo9HF1Ea5RP9gJXMMVX0FGLuKm25F0fFYozNAwNUQlsXIsqJo6FufciFP2sgIvO7rR++1
+	 E/3hVvAEnGPiCMVNc52EIqQGqgleAWlditRH6SS4s3rNP9JWxOozsO0rr5a1yeeRsltMY
+	 qcLszOsFB33eHkgdq/qao6NmAO63V8Ewu9rQhwbQoAfe4Dp8VyVc1d/OctopsxRH3UEPj
+	 TnJkjcqZ3yEsJwmYIXIp84VMenS5cQQeJ+EMWhzppf3hGmMjNguJ2gPjgFcW/cTSMxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794501023;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=kj3jY71KNu7EonmjA6hia9bcgwhknY40spNJGqFG/Dk=;
-	b=rtxXPjlldIOGIJ5g/NAKYKWeU80UOdNE7rRfxsAlC24S9kU4N+R6JYxRdT/zAIRzn9HF
-	 KeUMH5gnp9SvokrckhnZQHmpgfhVRDlqH+1xSOIYvP/Z7G2rf8KqatVKDMnwJzGMyie5l
-	 EgGMbwm1I1sdDbZg09P01rwObKAcQd6H9u0G4lQQoSv8XYIUqWx6qV4tF6X9ybppKa80/
-	 yYl610mBvYQUtHa3IZRIcwZay4lRo7WPqiu1urTCrnmta5uN0rMze4cyQI/Gy+RECKmxx
-	 L1hTbwcjCCtcAf4E01UVxC7GYIj2qWnGFnjkqyLHkIBryIs1PzqB2/9dFMJxNHB5vRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501475;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=jCZcwaVbEXSO6fmP+AQbtigP75VIYTb9aAjDi7oBhe8=;
+	b=sapR9csF0QTLBibpBehDZTIjQGEPL6cxnPNTK36hoDLcCnZ6cMh4lwVk8lh5yAUghG11
+	 vWpJAaXo6apupJRu6k8IxAb1jGB6Xmq6yIDabDHsBbFCZruoqKlli9w/756sGRiJvGW8U
+	 80Fu1H9laa3ZMoaoxRjFzT6krNYaqIBA4eGBU9qMa6rTTlvN8vXxR1NTThd/x6g7R958X
+	 22xmMnBxqOPDq2ZuR9Za3QyzWQVWDyYyrO6AUN97KOWJGUcWjTMg/GTJkQ/wromoNKNf/
+	 XUkg3Cr+0mVQTNYiHEQhTR7O7VEDzwqwzKvn0+g2ibJTXqfWAeWMW0zxOpEdilC9Wpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hI414lJ5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2ksWvqT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE6B606A323;
-	Thu, 12 Nov 2026 16:30:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AEC606A31C;
+	Thu, 12 Nov 2026 16:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hI414lJ5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C85351F000C4;
-	Thu, 12 Nov 2026 16:30:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2ksWvqT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527B61F000C5;
+	Thu, 12 Nov 2026 16:37:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794501023;
-	bh=kj3jY71KNu7EonmjA6hia9bcgwhknY40spNJGqFG/Dk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hI414lJ5ZvaBmJMUDAvcxHQPBmcysI+sMi7p4MjcAAG4WOnlpABfwnIdj2KqfC7f2
-	 PYPRnC46QtRmRjSRER5ZkUcKNSF1LCWNMkzx4LjTVRivaMXVDs30PLwXZhjk28Z8qQ
-	 TiFO8gw3/kL+/WPPkE5Ms4DCXSbWtjNHeVSIdhgDurDdlKk/NazdvWqgc+0IzrlkIN
-	 ilWjZKuBE8u/oK/MU3pzwY8OpvyCKT+zwSPzkJoE+i1b2NMvA2koRNjCquxgXZJURv
-	 iLPQByQoMQ3sJmjuz/dLpL1rM6epLmmOOJRFwzkUl05huk3O8k5hW1PzF3uEwD9H0s
-	 slcZyy7rOiMnQ==
-Subject: Re: [PATCH net] net: 8139too: cancel the thread work after
- unregister_netdev()
-From: netdev-bot+sashiko@kernel.org
-To: mhun512@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, ae878000@gmail.com
-Date: Thu, 12 Nov 2026 16:30:22 +0000
-Message-ID: <179450102226.2199510.1336538624039413031@kernel.org>
-In-Reply-To: <20261110042903.55991-1-mhun512@gmail.com>
-References: <20261110042903.55991-1-mhun512@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794501474;
+	bh=jCZcwaVbEXSO6fmP+AQbtigP75VIYTb9aAjDi7oBhe8=;
+	h=From:Subject:Date:To:Cc;
+	b=j2ksWvqTjSpZRpEsyTzmS8gn1fYVO4+77jjtVD2TTFlIgfkVQlOk4zXryc2kB9+JC
+	 T3OtQ+rN/tMSqHZomvQ/G5Cx/WXIMv3mMEYGQ4qvgX8LiABhA8sQK0N6QYHi7Fsp4e
+	 Hk2pUwIxYgFmsDpRsRCOCGb79e9HTkdNFz9F9ThBcu/ofn6qdF/vOYMyi0NhEk2ePx
+	 zyjSDNgbA4HYZWd2NgF4NUeouIylYH4zt8BRnBbYz8tK66jZQcBHuvxyulHFFfvNoQ
+	 HvYmM4CcWOgiMGC6XGwj7KPtbncI/6XyGlUbOREprjSfMgxNUVuKQRC+//pxEYh94L
+	 81/mSZ987PGpA==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH RFC 0/4] crash_dump: recover from machine checks in
+ copy_oldmem_page()
+Date: Thu, 12 Nov 2026 17:37:06 +0100
+Message-Id: <20261112-work-procfs-oldmem-v1-0-ecdcafd99265@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,120 +54,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSw7CMAxEr1J5jasmC35bJA7AFrGIU5cGaFLZ/
+ KSqdyehy3kz8yZQlsAK+2oC4XfQkGIOZlWB7128MoY2Z7CNXRtjLH6S3HGU5DvF9GgHHnDH28Z
+ bJkcbgnwchbvw/UvPcDoe4LJAfdGN/bPoyoycMpK46PuCirhexHWpYJ5/L4zYOZ4AAAA=
+X-Change-ID: 20261112-work-procfs-oldmem-9e80c2ebab7b
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Breno Leitao <leitao@debian.org>, Chris Mason <mason@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, x86@kernel.org, 
+ kexec@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ David Hildenbrand <david@kernel.org>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2874; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=sqtljLIH8KoO+/k7KE1Gt/hrphFZnwIFPTrrlrdZ//8=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWR9fR2u/02Pnzf6SneSIY/3/COb93oukuRYOudztZZ0u
+ oHTlZwPHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABO5G8jwP0xmhXO+VVRl/K9S
+ y+eKH67dmLyl77jre1aL/4d5T4k1eDIyXFQTW+N5kUUj5zrH27dnf60ybtdbuU7Bn/07Y+aJqU7
+ lTAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+A capture kernel reads the memory of the crashed kernel. That memory
+may have uncorrectable errors in it. Which is likely also what murdered
+the first kernel.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+On x86 a machine check in the copy that /proc/vmcore does out of an old
+page panics the capture kernel. On book3s64 the read() comes up short
+and splice() panics. Breno has observed that on a fleet iiuc. The first
+kernel dies of a machine check and then there's no vmcore either.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I had the powerpc half of this as a fix in part 1 of the procfs series
+because Chris ran into it there. Breno pointed out that x86 has the same
+hole.
 
-- [High] After this patch, the case the commit says it fixes (the thread
-  work still live when __rtl8139_cleanup_dev() calls free_netdev()) can…
+I think that likely makes this a kdump problem and not a procfs problem.
+So I moved this out together with the ioremap_cache() fix.
 
---
+The first two patches make powerpc's and sh's copy_oldmem_page() check
+whether mapping the old page worked.
 
-net: 8139too: cancel the thread work after unregister_netdev()
+Every architecture that maps a page of the old kernel copies it out with
+copy_to_iter(). The third patch puts that copy into a new
+copy_oldmem_to_iter() helper. It's just copy_to_iter() with
+_copy_mc_to_iter() underneath.
 
-This patch moves cancel_delayed_work_sync(&tp->thread) in
-rtl8139_remove_one() so it runs after unregister_netdev(). Before the move,
-rtl8139_open() or the TX watchdog could queue the work again after the
-cancel and before the netdev is freed.
+On x86_64 (and book3s64 - whatever that is) that's the machine check
+safe copy and the machine check turns into a short read and -EFAULT.
+Everywhere else it's copy_to_iter() under another name.
 
-> diff --git a/drivers/net/ethernet/realtek/8139too.c b/drivers/net/ethernet/realtek/8139too.c
-> index 8241bcf766644..efcf46fd9842f 100644
-> --- a/drivers/net/ethernet/realtek/8139too.c
-> +++ b/drivers/net/ethernet/realtek/8139too.c
-> @@ -1103,10 +1103,10 @@ static void rtl8139_remove_one(struct pci_dev *pdev)
->  
->  	assert (dev != NULL);
->  
-> -	cancel_delayed_work_sync(&tp->thread);
-> -
->  	unregister_netdev (dev);
->  
-> +	cancel_delayed_work_sync(&tp->thread);
-> +
+I then convert the remaining architectures so the copy lives in one
+place and any new architecture with ARCH_HAS_COPY_MC later gets this for
+free.
 
-[Severity: High]
-Can a running instance of tp->thread still be live when
-__rtl8139_cleanup_dev() calls free_netdev()?
+I reproduced the x86 panic in a kdump VM by injecting a machine check
+into the copy. Without it the capture kernel is gone, with it the read()
+fails with EFAULT and the kernel logs the event and keeps going.
 
-The commit message says rtl8139_tx_timeout() reinitializes the work, and
-that code is still present:
+The helper is a static inline in crash_dump.h and that pulls uio.h into
+it. If people would rather have it out of line it can go into
+kernel/crash_core.c, which builds for CRASH_DUMP just like the arch
+crash_dump.c files do.
 
-drivers/net/ethernet/realtek/8139too.c:rtl8139_tx_timeout() {
-    ...
-	tp->watchdog_fired = 1;
-	if (!tp->have_thread) {
-		INIT_DELAYED_WORK(&tp->thread, rtl8139_thread);
-		schedule_delayed_work(&tp->thread, next_tick);
-	}
-}
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (4):
+      powerpc/crash_dump: check ioremap_cache() in copy_oldmem_page()
+      sh/crash_dump: check ioremap() in copy_oldmem_page()
+      crash_dump: recover from a machine check in copy_oldmem_page()
+      crash_dump: use copy_oldmem_to_iter() everywhere
 
-On every HAS_LNK_CHNG chip except CH_8139_K, have_thread stays 0,
-because rtl8139_start_thread() returns early:
+ arch/arm/kernel/crash_dump.c       |  2 +-
+ arch/arm64/kernel/crash_dump.c     |  2 +-
+ arch/loongarch/kernel/crash_dump.c |  2 +-
+ arch/mips/kernel/crash_dump.c      |  2 +-
+ arch/powerpc/kernel/crash_dump.c   |  6 ++++--
+ arch/riscv/kernel/crash_dump.c     |  2 +-
+ arch/sh/kernel/crash_dump.c        |  5 ++++-
+ arch/x86/kernel/crash_dump_32.c    |  2 +-
+ arch/x86/kernel/crash_dump_64.c    |  2 +-
+ include/linux/crash_dump.h         | 22 ++++++++++++++++++++++
+ 10 files changed, 37 insertions(+), 10 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261112-work-procfs-oldmem-9e80c2ebab7b
 
-	else if (tp->drv_flags & HAS_LNK_CHNG)
-		return;
-
-So this INIT path runs on most RTL8139 boards.
-
-dev_watchdog() does not refresh trans_start, and only the work itself
-wakes the stopped queue, via rtl8139_tx_timeout_task(). While the queue
-stays stopped, ndo_tx_timeout fires again every TX_TIMEOUT (6*HZ).
-
-Here is one possible sequence:
-
-dev_watchdog()->rtl8139_tx_timeout()
-  INIT_DELAYED_WORK() + schedule_delayed_work()   /* instance A */
-
-rtl8139_thread() (instance A)
-  rtnl_lock();                                    /* blocks */
-
-dev_watchdog()->rtl8139_tx_timeout()
-  INIT_DELAYED_WORK()   /* work->data reset to WORK_STRUCT_NO_POOL */
-  schedule_delayed_work()                         /* instance B */
-
-rtl8139_remove_one()
-  unregister_netdev()
-  cancel_delayed_work_sync()
-    __cancel_work_sync()->start_flush_work()
-      pool = get_work_pool(work);  /* NULL, or B's pool */
-  __rtl8139_cleanup_dev()
-    free_netdev(dev);
-
-rtl8139_thread() (instance A)
-  /* gets RTNL */
-  if (!netif_running(dev))         /* dev and tp already freed */
-
-cancel_delayed_work_sync() finds running instances only through the pool
-stored in work->data. Once the INIT has orphaned instance A, the cancel
-does not wait for it. Wouldn't that leave the use-after-free this patch
-is meant to close?
-
-The same re-init looks like it can also corrupt state while the device
-is running. next_tick is a file-scope static. rtl8139_thread_iter() sets
-it to HZ * 60 whenever any have_thread=1 device (RTL8129 or 8139K) is in
-the system. A have_thread=0 device that then hits a TX timeout would call
-INIT_DELAYED_WORK() on a timer that is still armed. timer_setup() clears
-the timer linkage while the old timer wheel bucket still points to it.
-
-Likewise, if the work is queued but not yet running, INIT_LIST_HEAD() is
-applied to an entry that is still linked on pool->worklist.
-
-Would it be better to also drop the INIT_DELAYED_WORK() from
-rtl8139_tx_timeout() and keep only schedule_delayed_work()? Probe already
-initializes tp->thread. The INIT line was added by 83cbb4d25771, the
-commit named in the Fixes: tag.
-
->  	__rtl8139_cleanup_dev (dev);
->  	pci_disable_device (pdev);
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110042903.55991-1-mhun512%40gmail.com
