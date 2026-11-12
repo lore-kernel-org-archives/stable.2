@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466582;
-	b=Ab2GBbH3kcVQeImoHAnUBLgo+VNOixxYvfv7Qd4+/VKtcKE1DpyGJ4Y38bAdMOeKGQnt
-	 GwTH7Yzm1H7M6z/rMU58ORRozbwaqhmEWDOv5izBDCbsqbKcsv6DyW1X9vntc+5rESiKK
-	 qYC17tew9W9E+opm5ZjlG92zIHYgJEJ+vTR1NEorsC9OtDeFIdwVSwa6E7UnrV0a4utFa
-	 jS8W2a0niova8fSf4b66xQVQYEHket5hLbOBRqaQLKZcpK+w579esicD1bTeXi4040ho4
-	 hmZQT4R8w39Jib5IQzdzyKj6oz0SRjyPEueIeZ+lLBCDunYgpZtJbJk1yjs/SnL9FCw==
+	t=1794466584;
+	b=jWwP2FPdbqeCOiwjSFT97ShZOr1N+XPqy9A3NR1hQ2neEJikpVw0bVRyGmfiqZiLkGOb
+	 0sw4QOSFaRwrbqFqCtXO84AZyScSQV4LP41V8niOpXCwgkY2JtG2I0VXGbgnlr7zVTL0I
+	 cDVce0jhFw1uRVzSMNiJY2rpr0CShm7Vbga1anyj2Z9ZV8I2QMnQny+Dp7+AQVT9nXpfp
+	 zjRErObQfhcLFGOnkpzZ+SVnfJcWTr2q22ZCUXvEJFlGq8Xzeg7ssiGA9K7VNhWFL6qYB
+	 Qn3hMVDLrU8tZxKsr1tDyAeeN3nUqrCgc6Fi88Br1OWCRuAYgWZ8OcKuwQQJKrWu/HA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466582;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466584;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZG6VhCuHtrCJJzccAUt7IJkMQXU/fhnJBTGZBLb7Mhg=;
-	b=jaRXCbgruezMaCr0oyDGm/MiRRHAWnRTLmTDJx7mGu37NsStlTzALRoAQ5D8Kh9aFZUj
-	 2Kgf7LKtOVwb1HdRHhNn30tLgwhmTmQ8BtEBz6vdEOrQtGaO9oA9cXOPfTAy/18btu3JQ
-	 zc6mcw2ZFT1voBpblrO0Dxha+vVpKflS/pGSdKLQziYxcReOEjiBiErAnar2lZvtT/Mau
-	 TLAUUD1n+TQRUHBt+gHZwQQBwN2VS9zJJi6O7MdBhbxR2uDRxS+jLGbwL7QoKvg0wSnFN
-	 fo6RF65BuvUHSLGjKgP9GN41Djhg4jjHhCEhxuSxaV04GDwRg2XXW54u5NYMWl5OQLQ==
+	bh=vTav8FAXb6nFTtunUSm9Oo3pbBRDYrw795godDfr3bA=;
+	b=Bz7p2ICZg9kGlr+cW9cBAuxlPJHyT16OHRComyYMQTPRX/tDKYKsJ7se5rwArw2RLgvy
+	 yU4x7VIXCQY5ZcS6kntxB2hqFoL6VQ9DPDKjI7jR/MC+V43rwdcCnB2LNe+WgCgfYOJpv
+	 ZuFBIb10Imibv2SisoH/aOoMPaxY+WVNDCN4hqw1/4xvjlfnfXFtcosQf5sDI/rmsPf0O
+	 9OdP4VETrZOZv62UWPmEvTCdzjjbjsQaqVgwLgDek+L8ZnuP8667UCtqsanV97T9ayApF
+	 FbhE/vUP2osSpKu98vRtJNUFLhVGe0Kr5KgE7WewKka6UfVwAmMXsbZISDLPmQV5K5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tfrR1tH4;
-	arc=none smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UxyEoZuZ;
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFCF5606A899
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:56:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFCF5606A899
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06594606A8B0
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:56:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06594606A8B0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tfrR1tH4
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-536c8f958d7so30611721cf.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:56:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UxyEoZuZ
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93efc0452b5so259589885a.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:56:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794466581; x=1795071381; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794466583; x=1795071383; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZG6VhCuHtrCJJzccAUt7IJkMQXU/fhnJBTGZBLb7Mhg=;
-        b=tfrR1tH4wMon/iJLwE71zZ5ygcvlIRUqDsKCDxPD8+nXPK+7SbGjbpUgB4ux08bFwR
-         kAedk4D1uytudKaOMM6K9vzrVi6TLbJ5GhyrXQeYI2kr4NcdaR/5c25OG+YH24qo4fUr
-         CJ9dmIBr2gUuhlrPGg/3BUkOwNKoiVO4NHlC+Znl74NmN8uKi88uQ3w8HXwgrGyZD5vD
-         jvIMF6xlzSNGLH8Z8sb8gNdNVzlC3rYRQ6QlbK5iUxajt0f9WYdv2I0zkzNtgxtovI0x
-         4RznnMrCmGIK+8Jx/YEru48Hpp9cV5P+05YC6Pe0Ks3xVgudX2sabAVlzHwPYGEsCv1p
-         MQFA==
+        bh=vTav8FAXb6nFTtunUSm9Oo3pbBRDYrw795godDfr3bA=;
+        b=UxyEoZuZZPTpShq4yKIoeWQVufiwYeT6C69K4s4wsmxpWWb29QQTHCwJBZ4JcKQ3np
+         qWq9MEbtxFWwBGbxG+GJ2lJj/UDk+yRg4L2Ud4rYX6V2knajD8KaJDkv4yLyr6s9C9wT
+         IAr2K/VZiMY5a4NBQocjqklXKnCDk2L7c3RXsuAWVKvFUmU35gE6V0rrTNxuDgz+6neU
+         qbOt3i6kBYDqRCRqz7f2/OwUHLZ/tqp/4xRbr7U0SZTtCKzfAua5rqGYO6kjSx0VMkvU
+         o8CFYrkC5zqMEbNUnylldLJhDH4Msnh55xEQeIf4WS7DbZBAOPEoyG9DU0+Ye6VwzbrZ
+         UxiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466581; x=1795071381;
+        d=1e100.net; s=20260707; t=1794466583; x=1795071383;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZG6VhCuHtrCJJzccAUt7IJkMQXU/fhnJBTGZBLb7Mhg=;
-        b=p8m4r/cJd3iohwBmHt9WbDNye3d3skFynSzHTfdzFEN1d8knMoBXE7z81uPvmoXeNj
-         tSvLakwA5uGtl6EiugwuyXkYOa7PLHTSl3WSHIQ/CmQuCCmznujV827cw0tQMNAjtHYj
-         Tw1CWrwpeMo3ruBByVA/GMDw1/V9zbVQP6sqF0qBCrVdmtKGWem8L+MuEPniJzHXhfSY
-         O5sMCHxKfVWkgOmLmMmgBNqY7r72rraHDxJogrfB3zAQ6YnSdgBYkoA8WEfho0r82QtU
-         cOlzxOG8yPY2cyAHSoLlXpgZuXz3jE1ckmvqYCHr+/IuE6Taqqrpv5CmcB57cmAQUkMI
-         O5bg==
-X-Forwarded-Encrypted: i=1; AL+hErERH7X9tw7CzxaXBp1dlF2hFj03PK0txLNPnqOVnYB0Gg4yV74KPp/rNHs0DT0AujFinGSJ71c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/d6IZrfIW5gmHHw+8evg+91NaU4N6otvW7HWlZv9Q6nDtHuRr
-	9rS/QcFac+/fjrPKTrtG1MaW1S041VEDEXuSZ6T6jeTj8BHuTHfz4D6zgpGx
-X-Gm-Gg: AYBFou3V1j1Fjlr9XpQsNxupPzzATjB0m4s4VSSZyWkODQALUeMThq/IQyZ/q/w4VUO
-	+sdhcynLK6UjduNbpl4e6IoDB5qe2xcUiJ+3yEuOjSEvoaAmDB0/BOL/WZP44eSCg7Vx/1jpglg
-	W4PW6ohioDZYRExOvislj+Bz/D9qr36npIxriNbpL3ndxiF4eo4lk8t14Sek1hG7Mww0rU4+cJL
-	bXC/s6goxriMw2D3WcTXhJsqWTn6K4YhJzv6tHQIMihpTJFtu9khKeb34kjjmabNj527S2PmUMI
-	NzuLNNl6rXH7JWybCxmUA4kWJeTk/KLp+6yZGQ0jnpCOlRSmgVQoYocp1miq4iowzeClJyIyTyy
-	TkbNFkovLnCjr2V7ukv1/ltUkJhtUR3Upz4Elup0iku7FcNedP1prr2fDTYUQzZZDbI4W+b9MaI
-	RpvTNnjYN3AE8if8FH7DNLu2SF7yhqxVl8m0fqkx3LOBYogQnhPLtgU/TWBz5snoDHkmKoxtcbw
-	TiSOiZgIAQn11gAq2OJkSd3cq4sXS1CgpvaX2XcSPlVTP4dAj2JLHhaXwJeONw2uLXf3OYQMv1l
-	BCJfBIv2iMgwJ8rwo08IRhUWWP0BRukXOWHIGGgIJTl5zQIdtOwzis13QM89+UVZG9hIY4wD8+1
-	tkKpFbpchkI+sNjTiOVR1py7tRkhQBwHAHk3ymcdEbCUicVJwLMx2zmAPQy3HF8OmeQ4Tcn6tiA
-	2WDU8Lo5HeGQKMTJy1KM5jMV35eFr6tNGS
-X-Received: by 2002:a05:622a:34b:b0:537:8400:ab71 with SMTP id d75a77b69052e-556c04f78bamr79867681cf.39.1794466580744;
-        Wed, 11 Nov 2026 22:56:20 -0800 (PST)
+        bh=vTav8FAXb6nFTtunUSm9Oo3pbBRDYrw795godDfr3bA=;
+        b=MUmIXb4ibnpUgvV1J+0j1t735lpCfuu/MWpIXoozm+K5gaT4g6lwTy1wWhcUZvw8fP
+         UgKwJVcYW+1OjShDRxCfZhkcg7QGNae3tRtiNHm+2vWk9Cb3l5f/KpeFcZhBeH4aqe4O
+         vlWqbSaqqamCYUXUtrczcsxQuVrGMdvkQWRboCjNhguW8GateQL2i/ADzBQui22u8jpm
+         9YZM3F4SIpA1UlBK+X1K0l+htQ65bwEgTj8O2iB8xK6ivBVtvwC/c4tJxZB9voUXwEmY
+         0dZEGqqWnRh+X/ZiFYJ1DL9rUlhcNew8cWFSHSp/SM/Dfsqc9x4EVr4zqdfUy9B7d3Jc
+         lF4g==
+X-Forwarded-Encrypted: i=1; AL+hErG097E6NCJE38zhuB7U42Px2YxIPx9eie+cPJdQu+5iooSUAl7L2Ufdr1yn0qbzoRsf/hIOIDQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aklG3nXt93JNcYopVZkiKK03PIiclwVTiDCgNgUhPkhMtchWl
+	z3v8Mm+eg7yUIio8PMTlO0VLnENdsgsh+p/sh91DDNM4/vSBsemvja0=
+X-Gm-Gg: AYBFou02NnDlrmm8U88xZQtpszBYEGq0nBZxmv64xpB1A0eSWU7+uoEZNzHd2EqzJOc
+	msi4IJbpaHfGlm2QcRSv4PZEcor5vdb+kaO6EMi6eZwvudiDcdFTrrpEBY0HcnkOijgp2YmyhLK
+	dX2y1m/ln9Zky8mxnhIJI+RS2+njy+leOoRHMnT/hWd1JD7ElsLLyy92gyHEVO994m2DUHMRNNO
+	3ouwPte5uku+DKvkuvbIhgYg2vR87ak7dODPEhle9pY2ZqhUqn2MzXRLJiJOQVhlfzT3t6mAqYY
+	vj1hLujS5AFQxQM6w+py4hdZIdCLbAiFHUvdb5CAPwZNT5ccar7YGM9Vcr0UsIf5VeDY3HhAuve
+	2zFrD0d0QTtg4KQF2TMKGN6kSTViInQRaHkquyssJYXG+jXcIWfqa+K8x2ZeRX+FNzFkzPglAY7
+	UeT6gDsoBt1cPyembRNgySitPyPriJjjFpFMZP9Onkti0M4BIA7nPUG2ieaOo0jdKRZOwlYYG7L
+	8ddRphL6tRWdQaEKYx+iYwmd5J8Fp25BHEyyTFXhwiktlUsRvDwZjSSk4JSfcMgqtR4Q2Hllt5N
+	1Alz/+LUh7bfNhiuOkAUUGO0JICdQSRR75i9RCFYZlzc55vwdHzReZ6nAdgdM2U3swX/JyOcdKR
+	MuXfJZl94JnT1gP0d+EK+q5Xq28/IiZDKpZu1psSHiLPjyVMWGofh2Cx//BkC5Xk84GWlWZHEOq
+	RDUMHxQxa0+8sZyuW63DJ6l0L7pDXdOd8H
+X-Received: by 2002:a05:620a:28c9:b0:93b:eb9a:ca47 with SMTP id af79cd13be357-947affa6f31mr888523185a.31.1794466582945;
+        Wed, 11 Nov 2026 22:56:22 -0800 (PST)
 Received: from localhost.localdomain (h16.44.55.139.dynamic.ip.windstream.net. [139.55.44.16])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef0318890sm63824076d6.4.2026.11.11.22.56.19
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e784e77sm661246985a.20.2026.11.11.22.56.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 22:56:20 -0800 (PST)
+        Wed, 11 Nov 2026 22:56:22 -0800 (PST)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Sean Young <sean@mess.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Zhangfei Gao <zhangfei.gao@linaro.org>,
-	linux-media@vger.kernel.org,
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Amelie Delaunay <amelie.delaunay@foss.st.com>,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] media: ir-hix5hd2: Disable the interrupt before freeing the rc device
-Date: Thu, 12 Nov 2026 01:56:18 -0500
-Message-ID: <20261112065618.34238-1-mhun512@gmail.com>
+Subject: [PATCH] usb: typec: stusb160x: disable the interrupt before tearing down
+Date: Thu, 12 Nov 2026 01:56:20 -0500
+Message-ID: <20261112065620.34269-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -102,41 +102,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The devm-managed IRQ remains active while hix5hd2_ir_remove() disables
-the clock and frees the rc device. The receiver may still be running
-after open() or resume(), allowing the handler to access unclocked
-registers or pass a freed rc device to the raw event code.
+The devm-managed IRQ remains active while stusb160x_remove() tears down
+the partner, VBUS, role switch and Type-C port. An attach or detach event
+can race with partner removal or access the port and role switch after
+they are released.
 
-Call disable_irq() first to stop and synchronize the handler before
-clock shutdown and rc device teardown. This must also precede
-rc_unregister_device(), whose close callback can disable the clock or
-reset the hardware.
+Disable and synchronize the IRQ at the start of remove(), before any of
+these resources are torn down.
 
 Found by a static analysis tool under development.
 Not tested on hardware.
 
-Fixes: a84fcdaa9058 ("[media] rc: Introduce hix5hd2 IR transmitter driver")
+Fixes: da0cb6310094 ("usb: typec: add support for STUSB160x Type-C controller family")
 Cc: stable@vger.kernel.org
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
 
- drivers/media/rc/ir-hix5hd2.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/usb/typec/stusb160x.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/media/rc/ir-hix5hd2.c b/drivers/media/rc/ir-hix5hd2.c
-index f74deb408218..e6770588399b 100644
---- a/drivers/media/rc/ir-hix5hd2.c
-+++ b/drivers/media/rc/ir-hix5hd2.c
-@@ -344,6 +344,7 @@ static void hix5hd2_ir_remove(struct platform_device *pdev)
+diff --git a/drivers/usb/typec/stusb160x.c b/drivers/usb/typec/stusb160x.c
+index a2ec0565bd85..ec2f4d7f7ed3 100644
+--- a/drivers/usb/typec/stusb160x.c
++++ b/drivers/usb/typec/stusb160x.c
+@@ -801,6 +801,9 @@ static void stusb160x_remove(struct i2c_client *client)
  {
- 	struct hix5hd2_ir_priv *priv = platform_get_drvdata(pdev);
+ 	struct stusb160x *chip = i2c_get_clientdata(client);
  
-+	disable_irq(priv->irq);
- 	clk_disable_unprepare(priv->clock);
- 	rc_unregister_device(priv->rdev);
- 	rc_free_device(priv->rdev);
++	if (client->irq)
++		disable_irq(client->irq);
++
+ 	if (chip->partner) {
+ 		typec_unregister_partner(chip->partner);
+ 		chip->partner = NULL;
 
 base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
 -- 
