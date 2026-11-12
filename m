@@ -1,133 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508072;
-	b=kKoGVUwxowLYkeZOwL9zmWSKEcac8T0FmfU9QkRLgAIcSmbcMO7OdDv9k+YbEfx1GUNE
-	 nw3b3wjVrMF9eM1ByyFbQy2keucSMwJeq5mmxIvJTDv8oZIm3T8FGqLXJryYwKf52tESS
-	 PxuA2uHbVScknm425XhfVHKE1wRfcC7cD+hrQaH9roXmTZk3lYfWYpxUMIsWoJlRpUSru
-	 HxyqI13ZqdM0/IEXAQici0JrXBhqJo8QatrbFXVBEBQ3FBlDWGQ3bPCCb7FeNLJ+O20rQ
-	 4F6qRrxqNLJAcJrhKASzGaDtsOZd2dhSXxBQHuVzzEt90XTcu4IrCZxOAPCNmoVPMig==
+	t=1794508339;
+	b=zxlue4RYp6nJkXmkAjw0UqzngnqaudESUr4a+KvOUiAw/OgIZuimRNuDPBdv/PwhnWYy
+	 7bbM+lm4UvQnwL9ClhmEfhvVNUAtXuos/jzPN44uNiDnyPz9ykLhp5gLIa1708pO6N8LN
+	 9xsEXq+Af3JguK8x0xl8zswjELW1C9A2R3yoEZSt6NAqBQcMODwSocZ+g28URZWtk50ga
+	 LPg75KNm1ArbJZTv4wIKUEHp5/M15QFPnwIaZAq+he0S5LynJ35DHMBUH2XcmRblL7/6p
+	 Hjt0Cl1TEgBHSxfsSMhcTKDAc24JZlaSUA1OeTGXnkOaGOeSRv4R1+Fik5MY26yd86g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508072;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=hyOe1qIYSAlaopLsmdJoSIHlKwSSKycDo2uGB7z/DWk=;
-	b=OGVadB2sXT9BY6y5Ed7eKHurvBAowjhXD4r0QEuxa85p0i8EpV2Wipq3wPgvAn0IdpNK
-	 +LzDSFz2j341BaXmPv+S0ByUkcu/ieKT6j69GVg/k+GuobFdnukprdze8241ZRnvdhPdG
-	 vUPQ302Z5CbxCxKB/y9UCCDSOkNCaPpyTIjll0jhzdtzgFxCsbB4smeYhPM7cAaLOcxlC
-	 VzAxROVGYIdGt91J4IR/UZgufat8mPU9cbQ2e+a8R00WtyPa5nzn43WJIq2l5qOgEDkzG
-	 2j0A98wbbGQqg4hqNYwaGoZ7m7GlosWct9wAy+t/cojN/4LDfKkquu0KJUsoN7Y6dgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794508339;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=MCjGHsn872d8KofdKGL65svKL4PNja6pq4PIoM1w/9g=;
+	b=5lTQq21D3g3G15y2HwhDpekvx8RN4HatnIYxuTV/zrizhnPPI/dgdN4sPU05a5j0t10N
+	 ckztgAYMmK9M3eJnttS2zfpN3vkcFnDMP//7JZUDn6sqiuWGv3fFtowtXoylV7hMNDaTg
+	 dfAm4COp1SKyP7pQZd1Nvj5pSM1WfZrCd+AL4Q5mvvidLxaLkula41bfYfe9ZhGhFBpiP
+	 S7w0uzkZ8q47tR+RsMTREL++6iXPRGrl1+rzvbS212+9ylSQ4Oztrisidr5YbGR9YANEn
+	 iis2k7ivs5v9+Xqwxf7KnmHNMYPgAaOzqGrwRBck0VIiNQAr3VdPoDe3vpyKObcdt5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SUraC97l;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=L92YtupR;
-	arc=none smtp.remote-ip=103.168.172.138
-Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=axtWnStn;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC857606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:27:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC857606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A7D60A2612;
+	Thu, 12 Nov 2026 18:32:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78A7D60A2612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SUraC97l;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=L92YtupR
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.phl.internal (Postfix) with ESMTP id E46881381C4F
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 13:27:49 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Thu, 12 Nov 2026 13:27:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794508069; x=
-	1794515269; bh=hyOe1qIYSAlaopLsmdJoSIHlKwSSKycDo2uGB7z/DWk=; b=S
-	UraC97ld/ZWGqluUoVKkoM3M5onanyZf5ksQs8TMhnm4DBBIghTFTQWx50XHAaex
-	l4gOygNfIK8VXbSVbP4KPpcdqgbWPhLqnWTHmcQ5x7981TNMuB6ryirg505VL1Ju
-	t7Joc3EvuGjUPj8+RcNZIKlJLqLYOMXypiPFuJAUXRRiski+I7iKuhb3DzYWypnS
-	+Qjia1IFPXoNhJKelG0Q1yPOz1GnwM4xSvJBBqVIIpznWhQJqRQE1pKnajxeB18/
-	qPjsi3WoV+A81x3f+W64veyRqidx7TrObN46vON5QAAEOxXxTodVyW1cfYeMNYLN
-	ixUXK81NqZmSKo0Ypo7+A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794508069; x=1794515269; bh=h
-	yOe1qIYSAlaopLsmdJoSIHlKwSSKycDo2uGB7z/DWk=; b=L92YtupR47aqC5gzt
-	Jh70DCaWAgFAReuhdjlXkE5E2fdP0jnse5+Wg6fOqIV6BpCzftFKnNh0uPbrDacu
-	XrjUIoQhPQM+r0XeCPZ27OEbfu3UgDISt4AiwvHDHPHpMB2f8k78za8pqUgyRfyW
-	QoLqw6g4N5Xvl/mvSZ1sEwyzVNG6cNFSxg21D4Mkc8240+SFG5T/GpBg2prRidni
-	dqZGuIpZMizj39PDWXVH+nZUBAGYVO8ixh7qovn2pgcAVPYhyPdQ5m5BVaV2Dyua
-	3ZiXfAygtNrUtCuFAvreA94zH97tK+6vhOFSS5u3vb4psirKXxIwkpukdbhQ3qKP
-	6tbzg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794508069; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:RScmbEsc9ca7srqwOyRGSd6pJpvReKxp7hmwqD69XE7c48L
-	VuSBlOu9wC32iL8GcqgvfmR1GTQBJf67FXfgG1Rqszjy836zqxQxbwplHTX5xscI
-	MYkDNj0a45n3cdpY4R++vC5b6bxsFrveBrLBlTYk9aUNSRyXjPVImCEFY4QB4cQY
-	3gWJ0Rjpsee/OyT3y5GwUy3/Wf27umCEPFnw4CW4a+ZYTiU6WJl38spZ9TpTf5IP
-	M0z5sCTI153L5Gav8wf2P6TCNDmmyKZXCU4gV3eq+b7VIEfgfD7frot3L5EpIBBV
-	Q/So0RWoBsLN5kNJ6lhHlwvNctuMiIBTpYHLOZg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:+BExkCelfBm5VPLFvEeTIWT30V6rV0q+4Zo/RGtKJ/0=:hyOe1qIYSAlaopLsmdJoSIHlKwSSKycDo2uGB7z/DWk=;
-X-ME-Sender: <xms:JAX2anjnB3N85qav4ej7nTHwEnZudiWxeq0XNheg8odpw5D6lPPEVg>
-    <xme:JAX2akfRnboLAFQP66Y6JMR7sqENjTejYrR6xF-m2_zsMfwfbghgX1AdzyFc1UEFw
-    pXdkhTub3fOliqNkpdBFP5W92UjAjbBsNfT4_oaP48nst74JhN2EA>
-X-ME-Received: <xmr:JAX2am1Vjx-Az5YjQ3FAohPyGPC5yMpHyX5W4q-e2WigXMtePvVaZEzZ8KPzWmVb>
-X-ME-Proxy-Cause: dmFkZTFmlfyrKBOLV9UX274YD8pS/pTy/qCUAlkh87MPZQO3Hk1dnsDnFDzIM6ZPo8fUN0
-    yFrUad9pEaMOFZADkLNTes/olIPi4QhVXYp7r0F9+70zStg1RYJY/V+NcvMVzzv5Xj12/L
-    LAy/Lib/KhnsrDJ5mBE0huqcGiprrQpv9RPWQEKIql+2CpwQCQP38RV1m9+12NqeAI3BVw
-    4drmwq4Fm71RwuTVe+j3ilhAER4Vuf7ltdaqmBYQF0vBX/Uu1eCQLwG2P0nSRYAsqX2e+v
-    UVbMWKx/FYZUfWF7ZL9f1zPVSBDXuC1Mlvx5K86P9v+fLeiTT59ZiLAd43NC0WlKXtbLKh
-    Rx0siicelKCSswIowMUpXORqGWg18gDwoBvrSeNpwPZI6O/UJSAsM7AZgnjfQfMhT3snFD
-    5gyJYx315+soHXuxxWOx6PEXc3s3/80QD4ouC4arUMUCT+aQD4hyNDXMMGPryq850Lb6Ei
-    L+CDYIb/sINHjD2bu/+EQkVFNfyf7bLOcnStazV2oIO4FRdZIaoSopH9wFrLXwSMmhP6ew
-    Q5ZvIRKPN62HfkQ+OE5fQhRM/k0rlPMjJ/KMc8jFDyI43EQlvwXTJhmY51pBUBQnV+sSDr
-    1Pptd3/Tyae1x3T0Bd2DOAJViDQQiKEvlTyiXixqrNjPKYervZ3ukFrRWOwQ
-X-ME-Proxy: <xmx:JAX2agod1dOdMkWVfBs7bh8mYobtGzLGOXJONA0ljg3g5Q_W0Z3jpA>
-    <xmx:JAX2auhjtzUACeLY4H2NBUSkwTAMifIuGtpX6dCP04-12-p6ZaPgnw>
-    <xmx:JAX2aklZa6DoztU-EE1zCTkEfCQovIS1mTJtUMrmb7DoYPnHC74nRA>
-    <xmx:JAX2avohinEwBKLAr5OTq4XxYP9_Rz7d0dMSA3C2WIRfhJipJZBYTw>
-    <xmx:JQX2arMUyG3aF-4KdYea0ltecY1YYvJn2qLD1w77EwTiPhUzjfH-dnBw>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Nov 2026 13:27:47 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: koray.fra@gmail.com
-Cc: linkinjeon@kernel.org,
-	pc@manguebit.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	hyc.lee@gmail.com,
-	ronniesahlberg@gmail.com,
-	sprasad@microsoft.com,
-	bharathsm@microsoft.com,
-	linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH 1/2] ksmbd: fix negative timestamps being saved to disk
-Date: Thu, 12 Nov 2026 12:27:37 -0600
-Message-ID: <20261112182737.1659245-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112111637.184045-1-koray.fra@gmail.com>
-References: <20261112111637.184045-1-koray.fra@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=axtWnStn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794508340; x=1826044340;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=6II4ZThJGq3dR8oKhWLJPD70EGoV0mqzUUJP+s30b9s=;
+  b=axtWnStny04glvf4i9VLRUjqKyPQyA8PnPXIDD+fO9TPOC85eaJgl4as
+   sIcgbAbGTBdE7rX7bBNRvTsI1BlHhz24ZLs/TtmJOjg4FbcUdA2c8WiK/
+   s1mQ/AR6YjVON3zMOez37HHqrkIRjqXBnsFTO6C/oTCRhqCTSkFDC7jZy
+   0OuQybYYkjlu7Lmo4LgCt3ncNWVjLKmO0a4S/ql61NMHOfI+k/EjEhJuV
+   y6tHzPqkCX8F3obERJxpA07snzRsS/b1iyLbGdMpLwZBFJ5twA1M16Azg
+   i7nA/Uw+3oJvpZDMORcjWXbza5L4AnrXuAY/0We68afsSXLMrhL+uH1eI
+   w==;
+X-CSE-ConnectionGUID: 05UFM+D+TWquLBXBmPzqtg==
+X-CSE-MsgGUID: NLJlYQuDQcGC77L/4fpBLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3347782"
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="3347782"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 10:32:20 -0800
+X-CSE-ConnectionGUID: IfaXPzcmR/KbcV982RD93g==
+X-CSE-MsgGUID: xSF2KndPTQm8yyiMP4y72g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="8618134"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO mdjait-mobl.intel.com) ([10.245.244.103])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 10:32:18 -0800
+From: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: michael.riesch@collabora.com
+Cc: linux-media@vger.kernel.org,
+	paul.elder@ideasonboard.com,
+	daniel@makrotopia.org,
+	linux-rockchip@lists.infradead.org,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v1 1/2] media: rockchip: rkcif: Don't reset the hardware in runtime suspend
+Date: Thu, 12 Nov 2026 19:32:07 +0100
+Message-ID: <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
+References: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -139,22 +86,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+The reset in the runtime suspend also resets the VICAP IOMMU.
 
-On Thu, Nov 12, 2026 at 12:16:36PM +0100, koraynilay wrote:
-> When setting a timestamp before epoch 0, ksmbd converts it from NT
-> format to Unix format without normalizing it, leading to the nanoseconds
-> field to be saved (on-disk too) as a negative number, which leads to a
-> garbled stat command output and a reported +4 seconds in the timestamp.
+When the IOMMU driver accesses the IOMMU registers inside the delay window
+between the assert and deassert, e.g. in rk_iommu_zap_lines() to shootdown
+IOTLB entries, the system hangs.
 
-I tested this with the ksmbd code from ksmbd-for-next. Before the
-patch, setting an access or write time before 1970 with a fraction of
-a second stored the wrong time on disk. The stored time was about four
-seconds late, stat showed garbage for the fraction, and a query over
-SMB returned the wrong time too. With the patch, the time on disk and
-the time returned over SMB match the time that was set. Times after
-1970, and whole seconds before it, behave as before. smbtorture gives
-the same results as without the patch, and KASAN reports nothing.
+Drop the reset and the now unused reset control.
 
-Reviewed-by: Ian Bridges <icb@fastmail.org>
-Tested-by: Ian Bridges <icb@fastmail.org>
+Fixes: f53fb31a3889 ("media: rockchip: add driver for the rockchip camera interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+---
+ .../media/platform/rockchip/rkcif/rkcif-common.h  |  1 -
+ drivers/media/platform/rockchip/rkcif/rkcif-dev.c | 15 ---------------
+ 2 files changed, 16 deletions(-)
+
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+index 4d9211ba9bda..38208e8b7b2d 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+@@ -237,7 +237,6 @@ struct rkcif_device {
+ 	struct clk_bulk_data clks[RKCIF_CLK_MAX];
+ 	unsigned int clks_num;
+ 	struct regmap *grf;
+-	struct reset_control *reset;
+ 	void __iomem *base_addr;
+ 
+ 	struct rkcif_interface interfaces[RKCIF_IF_MAX];
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+index be3a174b9aab..dceabee2ecd6 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+@@ -10,7 +10,6 @@
+  */
+ 
+ #include <linux/clk.h>
+-#include <linux/delay.h>
+ #include <linux/interrupt.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
+@@ -18,7 +17,6 @@
+ #include <linux/of_graph.h>
+ #include <linux/of_platform.h>
+ #include <linux/pm_runtime.h>
+-#include <linux/reset.h>
+ 
+ #include <media/v4l2-fwnode.h>
+ #include <media/v4l2-mc.h>
+@@ -201,10 +199,6 @@ static int rkcif_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to get clocks\n");
+ 
+-	rkcif->reset = devm_reset_control_array_get_exclusive(dev);
+-	if (IS_ERR(rkcif->reset))
+-		return PTR_ERR(rkcif->reset);
+-
+ 	rkcif->grf = syscon_regmap_lookup_by_phandle(dev->of_node,
+ 						     "rockchip,grf");
+ 	if (IS_ERR(rkcif->grf))
+@@ -273,15 +267,6 @@ static int rkcif_runtime_suspend(struct device *dev)
+ {
+ 	struct rkcif_device *rkcif = dev_get_drvdata(dev);
+ 
+-	/*
+-	 * Reset CIF (CRU, DMA, FIFOs) to allow a clean resume.
+-	 * Since this resets the IOMMU too, we cannot issue this reset when
+-	 * resuming.
+-	 */
+-	reset_control_assert(rkcif->reset);
+-	udelay(5);
+-	reset_control_deassert(rkcif->reset);
+-
+ 	clk_bulk_disable_unprepare(rkcif->clks_num, rkcif->clks);
+ 
+ 	return 0;
+-- 
+2.56.0
+
