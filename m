@@ -1,47 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495386;
-	b=dj9FJiX+gXlo47kRoqq/5NcEeqHIdpfPVyALUAQtgeL96sCCpyigcbouj60fr6GIBNjj
-	 ZUrtN8rpwOuhl7+C6KD1MjWx/dFwpv5LKg/wv2ULPgXELZ8ZuPAIMUJBbSpA6jCYqmxB7
-	 +/wu3yEl0m1EV3lR+1fbcT2PomhRpUg2r4i9TuEl2eEVHHm+Y5ZdMWU8yDHLZxoGRqmAY
-	 6GPrs25Z6j59Vqr/C7SxCNppyX2XitURc7GTlFVlxNEkedsp39Io/f3pDHlWWWs5MUvyJ
-	 2MKRv/vbx3UYhuceNP2ynCaan/lOPBwQadtuoQvHaw/liklEvztVTu+iOnoN+Gf/8WA==
+	t=1794495933;
+	b=HaENfltaEUr5LmdPN3+/Xi78GFSpfpr9yFr2eKIdrrdJMl+/33tiUL07F5cujqhluCNw
+	 CriUi2GnGPILYNUPcCeDWHZwJV7GUPN1DSr0uosPNFK60o28Yn/2SQ7U3U2yU+0rJNpZe
+	 SgZgbOlN4kLaWMAWsU0ChRxuPLPQ7lb5yEIlHPJQFL1VmuhiepnGOJ7ebS51xiINScnuH
+	 bAloM2lMf7l66OC9mAP4aeMMSNBrXBnfSiFUeFUVAugt6+zCJbA1j+ZGP+OM5BxDMoZKA
+	 xUzOMetddxrZZhttsK0OqqLymv/GQuNECYqQvfbwSBoIGvu3yDirnYYKtke7RENQzTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495386;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eR/dgfTX4uX3tTDw1oIx0quyMtQsSjo0do2Wb4F29/s=;
-	b=GihHFFicksl7hpdm5+gsBrmIWtt4bdP9NWIdj+9RJly92xNVyBE+emYon4ub8ECoeVRF
-	 OLrAKTCgIqoJZ/AuebTLOWc6rBpFVXyyX/dikwOKYIPR0BnIfSnEtWe6qqUyiidqRNIez
-	 M6tynTHJTXOsBSthjcuEgqml5up5e6zeb0SfP2xt1onkY54bPmPkX0DKCWS9Mwry9/50g
-	 DhiNb/vWO+/cW4mSULd0O4hz79uWw2tz8MqWS3gliyisVDAUlDL9Y+h6PGVvezI/X7nHg
-	 v8w+ys3UU1iB2RVREgSRHO1uLXD0h7rY7gxHMvZPNmhHwLQQeevE5T+8OfxeZTxdxzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495933;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=GOqpkyo4LPYyLkLcWc/OmF1B6GtriSScGQCA7EInhEE=;
+	b=IIPJ83ZQs0pj4U/ZVGlshiVEcNEAmjH4jEeCbXte3YnQj622lme1P40m5OVfegPDr0Uj
+	 EU19AhldJfzIRnBbrls0QhuIDRkeBFQW+/wElxBGlyWswZ75km1TQkrvNhXrp51/8n7Xe
+	 QSSqLbw3q6eYeoouK4LFT2qTV2Kt4nqr085KJUo0N/KyFgkzqEO9qpUK1K9VHPUn7xxlJ
+	 kchqDn1LVuj6j3hf22pWw26LBu0FUJVkmOz76+d18uEhX4snjpsWlIYry0pR8KPdVobog
+	 H5ZeF8SeT3dI5TDyN6Ks79Zfnx9/tadDpO3EB5cbag4wyOH/VQeJT8sNYO8uOtGqxUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFAL8ciK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ez3blgOu;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="F//A/5n4";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B33D606A31C;
-	Thu, 12 Nov 2026 14:56:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46502606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:05:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46502606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFAL8ciK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B6B1F00A06;
-	Thu, 12 Nov 2026 14:56:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794495386;
-	bh=eR/dgfTX4uX3tTDw1oIx0quyMtQsSjo0do2Wb4F29/s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jFAL8ciKEPVfAPoFJqaLI+cRjztWGxLzlgZ2ubFd8NzVcqMHflFmdg6cBG5Ea3qjr
-	 cAsCTFkQ1DLiHdTb3b7tEJx9lTfP4X3ouFkbcwzDHDtV5DVcg57mDlApUrs9lMZozH
-	 wIiyeIWYQjdjciPnOgA566JuvnvZDjabQ1Nq435e6TcbAmDdRI2w7AYsm7bZclylNn
-	 V/4Fl3/vi8CQdYAP4UiyRkaA3HmO1132K5MwyVyls4rh/T1L9eJLQdKz76LO0Y3x0a
-	 PTvQng3hL63LTAWArdr0iyj/zBtrojSGz61c3HSC2WwRH2L1u3MH3/skHjjta55OCt
-	 nILJqbzVcn2fw==
-Message-ID: <45fd1a88-8fbf-4735-9892-c374d8bf4df5@kernel.org>
-Date: Thu, 12 Nov 2026 15:56:15 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ez3blgOu;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=F//A/5n4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794495932;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GOqpkyo4LPYyLkLcWc/OmF1B6GtriSScGQCA7EInhEE=;
+	b=ez3blgOuE9pj3UAeRe62EYaQpHQxYKfuyEdcI5KGCHTfzmtFa+YWyToL95acBtq5VPKC+k
+	gmDGMEYabRwYP1Sh7LNqHnaM0Ii6/cqAdbV3EwauoI+/wi9K7EOV09RrcNTdWy2aBSGEQ6
+	sq2HXITT2lVYIUjEQ5/eUpYuFLp1H1Q=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-80-kZVI4-eYNliSQ2MIijsKCQ-1; Thu, 12 Nov 2026 10:05:30 -0500
+X-MC-Unique: kZVI4-eYNliSQ2MIijsKCQ-1
+X-Mimecast-MFC-AGG-ID: kZVI4-eYNliSQ2MIijsKCQ_1794495930
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a4654add56so37139225e9.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:05:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794495929; x=1795100729; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GOqpkyo4LPYyLkLcWc/OmF1B6GtriSScGQCA7EInhEE=;
+        b=F//A/5n4pQpDyMCnhlgIVbYdrM7RbFo+BdEuiCYObiEwZSLgVxjUXaSj8siJjlevCs
+         vsX2pH1A+BoqXzfHhTjCGYtRJKd/JwEVaZXN1Pu38YkEDBmK5e3p+7hld6U9gjKRtene
+         zF6qrpx/7O2oOvop729rO2GJF3Y6M3Ho0QTklkiARvJMLF6tYvJ/BLWzytxrnbj6THWD
+         ngbrtqSnAcDV+uyL3iGaAaKxR5Z7M0PoNDy1Lbo+0k/DFjBqrYGTRaBPSQYUfv0P8NbX
+         IT22NqA+gBevaE9Qp6Yed4EohOB4oH7QcEcLdJiflhxIU8Yimh/k8KYVUvYJeXSERYkN
+         +4JA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794495929; x=1795100729;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GOqpkyo4LPYyLkLcWc/OmF1B6GtriSScGQCA7EInhEE=;
+        b=Xs15DtoxnzQJmLHiFplpAPH3MbIoqrc7BoqOxOBobc+gb7E0sOUtdBcmxQ+MMg5Afd
+         g6G+joGvKHyZ5uwx3GnK2NPWsVGEZIN1uq4Bkc153r5XESFxG/eIQxmDkDWWbDFRvVCZ
+         BuJPgxb7/AfmOv6o3ZiI2Ea6AM9Lb2U/7Kwb9jqWrfk0bmvTZZXXcOkOXSP67t2cOdzJ
+         DMUlHPG/9JY0ajd37fb8blqZ45d9BbY7hc5mIc9vnXECVqrV7SfjUP6BYf3Zw5IxiXy/
+         dbtT+3Em525jJfuRR0skIP3Eg2mY5FyOAK7dRykF81VW+n45xXO4fg7I/KaId/qbQqW+
+         lBvQ==
+X-Forwarded-Encrypted: i=1; AL+hErHMLxcpY0a0JhKvh9cbOVQt1EimIISuIgmudwD9oyNA9RMTDCoNaIiRK3YGYtalENDIudbjUq0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SRgGvj1EMkXTV1BOD4NrMbiFJ8F0/6D8wIUm5HkxZ7VcgYu3T
+	uQ9gZaTVgzT9gx/APVP/tup/x71d6X3BGTtmUwLw/Fsb7p8JVGFrfmHGktiYmmKAH0Wy839qnlU
+	KeaYWhrgUf0KxYJKDpx/KE5Y97b30Bn/5U9OurUBjABL3TmSlr0a9zWLaHg==
+X-Gm-Gg: AYBFou0SySDrfUWKwvE+D8W9di/bwKfivysPcvsnh5oOEo6WC4tkvXvt/64h2Cp10u/
+	7tDO/sacp48h+GYJtB3gd7OpxFwlwql08z0XRQ6ToxETmon5QQVCqISEJg7Km9kM2kDOb7Vznu9
+	uKHMlIuzM79tAaWxVAE39Z146i0+RfnNo1B7syfVdgcBQr4SPH+WJ6Vvb6qeB5HGNfLNApk3to4
+	XxHMZ3C3maukOeVkJU9k2juFT+hbG2AKjxpzxPEHhsircMO3bY9CPVpm6K4GjZbfIH0GhCMhiHb
+	CEM78LcDHvI1Ld378VDzFHHBO9vCPfYsvC8Tmct8BEjbf0t8/zr29zV7r64ARogRdd8VdiQ3U9P
+	oe5tXJdAy75fYLwwBhPAAGUhWfnkfCe8SoaDhFrFnQQVwzadm4ZgfQSfTAHZXpf5gQcForgeOiW
+	YksUgoW2pb/xV7g4I5qpmmXqU8vFKYU1zQuX4FJoChcASu
+X-Received: by 2002:a05:600c:1389:b0:4a1:f8cb:7d70 with SMTP id 5b1f17b1804b1-4ba09388518mr111954085e9.24.1794495929600;
+        Thu, 12 Nov 2026 07:05:29 -0800 (PST)
+X-Received: by 2002:a05:600c:1389:b0:4a1:f8cb:7d70 with SMTP id 5b1f17b1804b1-4ba09388518mr111953325e9.24.1794495929170;
+        Thu, 12 Nov 2026 07:05:29 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2842e6sm75067305e9.4.2026.11.12.07.05.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 07:05:28 -0800 (PST)
+Message-ID: <2dcdcc8c-0484-4fd0-b09e-723b32cbacd1@redhat.com>
+Date: Thu, 12 Nov 2026 16:05:26 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,113 +113,36 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
- similar bugs, and commit messages
-To: Theodore Tso <tytso@mit.edu>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Leon Romanovsky <leon@kernel.org>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin"
- <mst@redhat.com>, Kees Cook <kees@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
- <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
- Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
- stable@vger.kernel.org
-References: <20261111225940.1573565-1-tytso@mit.edu>
- <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org> <avXCcPYM9VAP0JHf@mit.edu>
- <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org> <avXOSg4jOlzBY1r5@mit.edu>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH net] ptp: vmclock: keep the device state until the last
+ file is closed
+To: Chad Aldreda <ca@modelmiser.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ David Woodhouse <dwmw2@infradead.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Shuangpeng Bai <shuangpeng.kernel@gmail.com>, netdev@vger.kernel.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261107150344.3946529-2-ca@modelmiser.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <avXOSg4jOlzBY1r5@mit.edu>
-Content-Type: text/plain; charset=UTF-8
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261107150344.3946529-2-ca@modelmiser.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/11/2026 15:42, Theodore Tso wrote:
-> On Thu, Nov 12, 2026 at 02:49:09PM -0500, Krzysztof Kozlowski wrote:
->>
->> Specification is also documentation, just like for example specification
->> for our ABI. It's also located in Documentation directory.
-> 
-> Source and header files can also contain documentation.  But we don't
-> put them in the Documentation directory because they do not contain
-> *exclusively* documentation.
+On 11/7/26 16:03, Chad Aldreda wrote:
+> @@ -649,9 +680,20 @@ static void vmclock_remove(void *data)
+>   	if (st->miscdev.minor != MISC_DYNAMIC_MINOR)
+>   		misc_deregister(&st->miscdev);
+>   
+> +	/* Files still open now fail, and a poll() in progress returns */
+> +	WRITE_ONCE(st->removed, true);
+> +	wake_up_interruptible(&st->disrupt_wait);
 
-The type of file and its main purpose is a C unit file. Documentation is
-only an addon to that.
+I think that sashiko comment about using wake_up_interruptible_all()
+is relevant:
 
-Here, the main purpose and type of file is documentation. Specification
-IS a documentation, just like in-kernel ABI specification is.
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107150344.3946529-2-ca@modelmiser.com
 
-I found no other than RST and MD files in this patchset, so I really do
-not understand why this is not documentation.
+/P
 
-> 
-> If the complaint is that it is visible when we run "ls", one
-
-Yes, that's one complain and making it hidden is improving the
-perception, but it does not solve the point - it's Documentation so
-should be placed in respective directory.
-
-> compromise might be to put the skills in .agents/skills.  This is a
-> cross-harness standard which is supported by some code harneses
-> (Google Antigravity, Github Copilot, etc.).  Some harneses (including
-> Claude Code, Opencode) don't, but people who use these harneses can
-> solve it by installing their own symlink from .claude/skills,
-> .opencode/skills, etc. to the right place.
-
-Why does it have to be in the top-level in the first place? There is no
-point in making LLM stuff visible to humans, except maybe pleasing
-people behind upcoming IPO...
-
-Best regards,
-Krzysztof
