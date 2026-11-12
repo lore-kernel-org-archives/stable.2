@@ -1,72 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794527825;
-	b=QFruwnyyqRMhX/aU6nZwyXErXQt26T9lktj5rxOEagYZ/nnkaJhF2Z22wKKkP8u3idfH
-	 WOEWWaCcm6+xmYk4G39pWxBRH9Sutu9aZcVJMTJc8e5T9Zu9O6yhBqEUefT5Jf/segJJo
-	 41IrzU3X2+bzLd0OFcyh4MRdfQo+Byj834cEGIOeh+royVpyZCI9rGkdvNpztk0lZtAMV
-	 vFNFwJeD/YAZVZn0GDEuUr3SRm72Y1FxejpozeOnWCZ9L+y9mic/GRIfm/MLZw5sSIR7+
-	 342Da882Jj079FLpHNl/qq1DiIa1UUSkTY4QsGRuGw69r7cQP/KlFgWq0wP0modnz7A==
+	t=1794527947;
+	b=b5+ixsRUSQKbu+Oo4u6UTbhmQBKV8AV3LWnqDOKFTylAlUdDRRSVNJhw+TW4cb4zMAPk
+	 lf7J+KUqPvBQTxRyxLeYaxdT1U3w5ubG63qcbPV3O7Y5IUv9ukXCZdJinX0JdlF6KYnbu
+	 3OMF7qYeQNSkuDqv184U2UJhyjeVJ634fsx/uhQQ8GJYuLhsCIpu9hw3H7iiYvPxOqMUP
+	 lQKL9fvGzzohFpUUZm+K5La6+BrrdgTmddEmovH+kaorANK7u2wGe1ieEk8oW4VG2Qaa6
+	 8jK3VLHHyGUoXRrKTz3aEL+rfYhA9LbTuJx4CzM1/zKw0pxOrgPCuHs73GG7L/Ssofw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794527825;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=ElwPfqXeirLqqsU4zQh4EAXIe0nkzZW28c2DWS+oP2I=;
-	b=GlnFOYSpSInRDHMJryr55jh7kQA66TxgYtSTrSdLhqaqkYiOM1vZ4V8qd9zie3gVyVsY
-	 KQxonlGALRisaBeDArHgprns1qYGtJXelzFbSzwmkXhjSUkWjJzRKbrCgSIYNIhgyMbOD
-	 YMsXTSSAvSp2wBHbElGSLkIcb5p8a+jzfEthCks+4BRcQ3PHjXFddxZQZ/M4kn9p+NBC5
-	 bzDeEEJ/7nl3lq20yfJVqfL0RH/7BpbpamY6OONCUfnacPnhNA20oW0TxweuQl8GiW1kD
-	 77tCaQsC5nNQC3K1y5SH7FBMdHYghe9/MaQQ6T5J7IXaf3E4S8aUUX9y65KTL1sovBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794527947;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=WxgEX4388zF6U8KM4KgbrPSeQjWqRryJtZ/6cfDPpWs=;
+	b=yGlzcA8VfB0AcPVo0ZfOur+cJ+J/hbQ/DT5ZYbU+i8hEeibbtZgwzx6w6gtZlHav2fdj
+	 eyeaCXLkz2NBRr7FsWzejTmc+s+uP5T8Cko0Jq4sxmqT3dvlJ9IJSCQSnBVrpn+nbCIFY
+	 6kyXiURezVzosr89vkqDgqvP3+Rw0XNGelGgpLq1vD7B3oRrMTviGJDMj8IOAeXFF44xM
+	 ZWBAJOgmJ0vR9BpVWHMNxDjNJupeJbyMfxYGqmGEV7KbPnH63P0GJp84cPhnDy80yvBw7
+	 wZbk7G11rZSQ0oFvzsBeYpnO4e1+wGMrXcuqsBqTMrOjwLO1L9mu1mi9W7W9X+vqOBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Bdj+rMlp;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fChm8D0E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFAA606A337
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:57:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFFAA606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9A6606A327;
+	Thu, 12 Nov 2026 23:59:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Bdj+rMlp
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4db3db8687fso502688b6e.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:57:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794527824; x=1795132624; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ElwPfqXeirLqqsU4zQh4EAXIe0nkzZW28c2DWS+oP2I=;
-        b=Bdj+rMlpDgrKiXqotTW4jXcvpzcUv0e0jeQma6c38CAO/UzPspO7FbIsvkeOruRh3G
-         1OHjcdOgjt8UpaeV8MvBDAQqQp676tX1+3HO4NEVB2+pWR2BY5E6G2GwaqGlVTY18ZG8
-         myhSQGN1pus0aOgIi7CPaWi3hUfODzuVltFNaOPJVPYJhdVbOurfCYBDhZq/9Ahs4HRR
-         yx6pz4+buNymzccyhZkrgHKEPyCoI/r7KzEY1IO3wFgnbib6oMFyJln8s8ndxITEi5R0
-         lXp43gJGFjw0HRq/e6ThbCYd50GU5Jegggx+tBMqJ+VzwAj4Ng6TW3lVfzB8rLhfr2D0
-         Fg8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794527824; x=1795132624;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ElwPfqXeirLqqsU4zQh4EAXIe0nkzZW28c2DWS+oP2I=;
-        b=rLoBAiRL/hlqnWRUFCNaW82cCwq+erFYGmwTM6yHfWla3pesA2LDJ4SN9g5avZG6av
-         T+oiK9aEulF2tyRNMY9XzmhqcXvV46c/nFr4UjYkFSQBBylghPaTpe6NPoqRh+MXqMQu
-         aNd3yf7jOJsYp6FUTlVIdwxSsqcJWrYz6Y0lT1S0ermSipr31voTeD+GXZB2A8pdPTm5
-         diX+hsELs2nz39DXCNJS78HiAADIOsU4I91RhrxLmhKX5Fa1IbTWGtlcTQEUGiWsdh8C
-         ctRn2APdYsEh6NK7QNNmW/dVvCT6sBRNzQbSHDb1TDvKwb6IM4QNVnVEHOpzoLV0pFhc
-         MWPQ==
-X-Forwarded-Encrypted: i=1; AL+hErHiXFNqO8w1i04+QdwupwMflxBCBAJbCsBCLHBkJAuJ0KMrJOhhYFQia/nKsURA7cz+p1DMfng=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sNSofZ8Cuy3fig2E6Ec0/qR4pAavIKeAn1vRhZhbDfIJIaJbv
-	5Xe7JpLBMdRuaWDmN079tzRJVQisYuC8Rvoq7oW8lOLac7OKpwHhLyZtLkh7kYD+CiSkFIqMe2Y
-	joOKKyHXvxbmVSg==
-X-Received: from iocot30-n2.prod.google.com ([2002:a05:6602:c29e:20b0:9ca:bccb:ca8a])
- (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:181d:b0:564:3fe1:2fad with SMTP id 5614622812f47-56e645d54a4mr794959b6e.42.1794527823209;
- Thu, 12 Nov 2026 15:57:03 -0800 (PST)
-Date: Thu, 12 Nov 2026 23:57:00 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fChm8D0E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B85D1F000C4;
+	Thu, 12 Nov 2026 23:59:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794527946;
+	bh=WxgEX4388zF6U8KM4KgbrPSeQjWqRryJtZ/6cfDPpWs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fChm8D0EaIVF/iA0odcAXXSgtLTuReq648ASLwVx75+fiP4hIn2IxqLOz393lT+YY
+	 dI8xkbOHhpkbeTDq49ki1fgPcIHoVyx1+iZ7zaGmN6hCbjsvGXdDGgiwJvYx3klF5e
+	 O5UVzIf7JepO57KRDdTFadPkEVTj5ipcuzLl84Jc8p4boWXZ7hEMKmtBfiA3xf1Stf
+	 a3XKSwLSu+8hq2nPVjCaLlJOWZVVtC6rH+jtL9Y5tn9d4ybEcMlJwSUsDYuHHrC4MU
+	 s1wQta+FgpLtpRPpuq1QPBR0dfJKP8XE5E9LXzW3BEYZwID1RrNmguRyzXA0OJAFs0
+	 MmIfRR0TmzGFg==
+Message-ID: <0e3e876e-c3df-4660-ad89-a5f0fd7dedc8@kernel.org>
+Date: Fri, 13 Nov 2026 00:59:00 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,120 +50,118 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261112235700.2029562-1-skhawaja@google.com>
-Subject: [PATCH] vfio/pci: Only lock the upstream bridge if the reset may need it
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Anthony Pighin <anthony.pighin@nokia.com>, Dave Jiang <dave.jiang@intel.com>, 
-	Dan Williams <dan.j.williams@intel.com>, kvm@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
+ uffd-armed VMAs
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>,
+ stable@vger.kernel.org
+References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Commit 962ae6892d8b ("vfio/pci: Lock upstream bridge for
-vfio_pci_core_disable()") makes vfio_pci_core_disable() trylock the
-upstream bridge before resetting the device, and skips the reset if the
-trylock fails.
+On 11/12/26 18:38, Lorenzo Stoakes (ARM) wrote:
+> In order to establish guard regions, guard markers are installed in the
+> page tables of a mapped VMA.
+> 
+> However, problems arise when one tries to combine this with registering a
+> VMA for userfaultfd, as such operations may themselves need to install page
+> table markers such as uffd-wp.
 
-All VFs of a PF have the same upstream bridge. Take a device with two
-VFs, both used by one process. When the process is killed, both VFs can
-be released at the same time. The first one takes the bridge lock and
-does its FLR, the second one fails the trylock and is never reset.
+How does this interact with UFFDIO_POISON markers that can outlive even
+userfaultfd registration?
 
-The bridge lock is only needed for a bus reset, which is done through
-the bridge. A VF is reset with FLR, and pci_parent_bus_reset() never
-resets the bus for it because the PF and the other VFs are on the same
-bus.
+I'd assume it's just the same thing, just like having proper hwpoison marker in
+anon mappings, so it just works (uffd-wp will skip, guard installation will zap).
 
-Add pci_reset_needs_bridge_lock(), which returns true if any reset
-method enabled for the device is a bus reset, and only lock the bridge
-in vfio_pci_core_disable() when it does.
+> 
+> When this installation is attempted the guard marker prevents these markers
+> being applied, which can lead to unexpected results (especially if the
+> guard regions are later removed.)
+> 
+> This is especially problematic because guard region installation causes the
+> regions to be zapped first, meaning that the removal of userfaultfd-tracked
+> ranges will not be logged in this case.
 
-Fixes: 962ae6892d8b ("vfio/pci: Lock upstream bridge for vfio_pci_core_disable()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
----
-Tested in QEMU with an igb PF behind a PCIe root port, bound to vfio-pci
-with two VFs. Both VFs are opened through VFIO and then closed from two
-threads at the same time, counting FLRs with a kprobe on pcie_flr().
-Without this patch one VF missed its FLR in 50 of 50 rounds, with it
-both VFs were reset in every round. I will send a VFIO selftest for this
-separately.
----
- drivers/pci/pci.c                | 28 ++++++++++++++++++++++++++++
- drivers/vfio/pci/vfio_pci_core.c |  3 ++-
- include/linux/pci.h              |  1 +
- 3 files changed, 31 insertions(+), 1 deletion(-)
+Again, similar to trying to uffd-wp-protect'ing a hwpoison marker (which will be
+ignored), and then zapping that.
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 7c6f2aba8144..c44e4d4d8774 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -5256,6 +5256,34 @@ int __pci_reset_function_locked(struct pci_dev *dev)
- }
- EXPORT_SYMBOL_GPL(__pci_reset_function_locked);
- 
-+/**
-+ * pci_reset_needs_bridge_lock - check whether a reset of @dev may need the
-+ * upstream bridge to be locked
-+ * @dev: PCI device to check
-+ *
-+ * A bus reset of @dev is done through its upstream bridge, so the caller must
-+ * hold the bridge lock. The other reset methods only access @dev itself.
-+ *
-+ * Return: true if any of the reset methods enabled for @dev is a bus reset.
-+ */
-+bool pci_reset_needs_bridge_lock(struct pci_dev *dev)
-+{
-+	int i, m;
-+
-+	for (i = 0; i < PCI_NUM_RESET_METHODS; i++) {
-+		m = dev->reset_methods[i];
-+		if (!m)
-+			break;
-+
-+		if (pci_reset_fn_methods[m].reset_fn == pci_reset_bus_function ||
-+		    pci_reset_fn_methods[m].reset_fn == cxl_reset_bus_function)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+EXPORT_SYMBOL_GPL(pci_reset_needs_bridge_lock);
-+
- /**
-  * pci_init_reset_methods - check whether device can be safely reset
-  * and store supported reset mechanisms.
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index fcbb2da860e2..ba3dfdadae39 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -777,7 +777,8 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
- 	 * overwrite the previously restored configuration information.
- 	 */
- 	if (vdev->reset_works) {
--		bridge = pci_upstream_bridge(pdev);
-+		bridge = pci_reset_needs_bridge_lock(pdev) ?
-+			 pci_upstream_bridge(pdev) : NULL;
- 		if (bridge && !pci_dev_trylock(bridge))
- 			goto out_restore_state;
- 		if (pci_dev_trylock(pdev)) {
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index aa3765a20a96..cb2856f444ca 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1486,6 +1486,7 @@ void pcie_print_link_status(struct pci_dev *dev);
- int pcie_reset_flr(struct pci_dev *dev, bool probe);
- int pcie_flr(struct pci_dev *dev);
- int __pci_reset_function_locked(struct pci_dev *dev);
-+bool pci_reset_needs_bridge_lock(struct pci_dev *dev);
- int pci_reset_function(struct pci_dev *dev);
- int pci_reset_function_locked(struct pci_dev *dev);
- int pci_try_reset_function(struct pci_dev *dev);
+Isn't guard marker installation/removal just another form of zapping?
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+So to me this all sounds like "if user space does something stupid, it's user
+space's fault".
+
+> 
+> Therefore, disallow this.
+> 
+> This makes sense as conceptually, guard regions mark a part of a VMA as
+> effectively unmapped at the page table level, and removing the markers is
+> like mapping the VMA again, over which operation uffd markers would in any
+> case be lost.
+
+Right, but that to me just says "on the parts of the VMA where you mess with
+guard markers, your uffd-wp protection is similarly ignored".
+
+So disallowing it entirely for a VMA, I am not sure. I could see use cases for
+that, although you might argue that user space should then register uffd-wp on
+the separate pieces. But then you get multiple VMAs again.
+
+
 -- 
-2.56.0.611.g1030f0b940-goog
+Cheers,
 
+David
