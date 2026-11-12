@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485789;
-	b=Mqrn4Ld2OY3F8Fv7jybMdNdS9YDSuocqezoyOalKisyEE0FIP3AO9TdMAi6iRSkeqwb5
-	 qBxrja65tTT/FocquS/AaV8/5Z1xKXNlRdntYGf0iG0gSEMVSwpSlLJIgsuilhxGEhxOW
-	 1JTfmz9iizjIRkIT+rSIC0iiYlr0RqqWM3UW1EO3cda33PGfcYMsuHzY/3TFqwRcsdSZb
-	 aYGoievmukEpL9OHIe1tVSiCnhB3ptrZNMg5DBaOllAXXHP2eN01H6Yt734PuBZlHDopQ
-	 oQdQ4uKo0asaFCqtiebcju7BHljMeVGiwuB74jLAHsZeGg/ONQ9/ojXMfM+RPSj3QgQ==
+	t=1794485833;
+	b=4jc2hYi7pnxWSnc408wuRrNsJPSVpV6+GP9z7dGeM1yOgG5U42aJyuaqFIS6WZpGHQX6
+	 UffwtEQbtJ8RQNJ8uamkRISjobbE9b+k3eyO/ImyOSjb1jYF9bzThpDX0XY7HKxxmx/9F
+	 8ytBYYS941YV2anjln409nuQjaH7FXrc06VqBYguI/eWfeQzUXvDMOZSSZsTKFW2SYCi/
+	 Gvl/0yNJMfUguq10FZJdRwrdUXASwQDB5bjK1Lw9g9ePBKzW5o0m7S0MEVKXxU5XdxbZ3
+	 cB5NN8BJIGvkyPFZfM1VqGUSE8l+qU1JXEkiQg1nRbItd1nGsns2pAFmXD1ChtjC57w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485789;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DCibk3esbM9aP9RQ7ZoKH3SlkoeG0DaznIMSZGChnao=;
-	b=XP9qNJppmJcu//flDCuqAUlvSAuvMAbVLg+I0JT1IEV1ldblxWTO2m1TCKTpjGbklFuT
-	 1BZqn12dxCPr+5knUsCNq5G2es28US1sBQ2NZZzsYz5ZzNerdJGtweuj9Z3nKG7/Ls9NG
-	 AedAjh0Q3pyN1QOja2zNjwr43O8NvgcyBI3/Dn+opap0RJqn/YTqqIts8VqzCzkIqU8mR
-	 68q3H85oA93tD7SuG5fDdPLFVRbZWx7LwkQ1+dmiA3hL3KTA9zxGIr0oa3TI9KYSa13dP
-	 DEJrkb2UFWYIW37V5AlmMD3DJs+06nCrizeol3PsgMTdFQZzE+IoP6u4QJ3QR8OaW0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485833;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=YPGrZtQTSZxURuuST0ifATlw9hrQHZEhB5CNPEdDARA=;
+	b=L13FGYNkqV85UIkWWIS8idQNDg7+jufbAMINNWuUr4DeWSRmf+HUI5JhykImg4cu6Owz
+	 jbVpiR3m2tPuFRZ2ZV5XbQCWmPDhwlpGgVZBWitxHr2EzqDnp2N3VTHo0PFFhcCn4CnsZ
+	 Tx0qx/UfJhQtgDtIL3IliTWUQ/X5jHesLIGmdqxiCFkSaH7sErr4LQu3Kndx/MDc/32P4
+	 CN0+YhrsIPUx8cM8uGH/oeAkqkx4rxQJtZbGcWhmX7EGhMkKiOF1yAQujaL+r4jR42sr1
+	 1AXwiZtX76gzCvwBekOH+UMYOeIhUXZ5k5YF6T746Oa/QiMQElSXVCL27uf6FPsWW8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=becholey.ch;
-	spf=pass smtp.mailfrom=becholey.ch;
-	arc=none smtp.remote-ip=185.70.43.98
-Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=HYZ6aL4v;
+	arc=none smtp.remote-ip=54.92.39.34
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D942606A32E
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:16:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D942606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1794485786; x=1794744986;
-	bh=DCibk3esbM9aP9RQ7ZoKH3SlkoeG0DaznIMSZGChnao=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=mCaQ3qoSm+rFH/KLRwA7LURfaWqUZwGE7CtopOUZiRHMYuNNGGU3ZWEwdcxoPksOs
-	 uAKDusQph1BkDvTn5OmO2Gyx3GVqIwgH6WC9FWr72GMTqZTWgZ5PtbAtsuSI1E4hNI
-	 oDa15dHlXYBEAVy2/sNl+fFO8w8NiZlRRyuQ5lHqBuZS7EikEj4CLoKMyKXsNqoObE
-	 1tv3EIrQQ39ikBaMOTbtOQmHubeAv3kBdcIohygsj64nq3b2iwlbdzrWcRr/07NWxT
-	 ONC6zKX4uKYHQynwTki8xie6x1lMPR/cHuuFX//pVywr7Fk9g50kWplUQohvpTTkAa
-	 Znc67iY3BZF4w==
-Date: Thu, 12 Nov 2026 12:16:20 +0000
-To: johannes@sipsolutions.net
-From: Alexandre Becholey <alex@becholey.ch>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org
-Subject: [PATCH] wifi: rsi: fix use-after-free of in-flight USB rx buffer
-Message-ID: <20261112121524.96610-1-alex@becholey.ch>
-Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: af1b45cd88e1635e254e5e2ad6feabbfdd8f2597
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C9D606A337
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:17:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59C9D606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=HYZ6aL4v
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794485827;
+	bh=YPGrZtQTSZxURuuST0ifATlw9hrQHZEhB5CNPEdDARA=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=HYZ6aL4vSbb3X9ysZnG5qwP2CDphHhaTWsCplLDRHTupluUoxu29jjgV5a+ol76JZ
+	 ePLd8KEKy9Ew2mUI+vkY+JwULBXRGYSRqvrp7a+H8cZUC3d9zKDzlHHo4RfApjNlAQ
+	 z8kwfyrpyrHMdktX6FO1wsxrgd2INhWqeI6mmxnQ=
+X-QQ-mid: zesmtpgz8t1794485812t43c5ec44
+X-QQ-Originating-IP: JL79jULWRDamYAJoOF8fuylu44LwFj2biUTYVg1xBn0=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 12 Nov 2026 20:16:50 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 6304755034306503568
+EX-QQ-RecipientCnt: 13
+From: raoxu <raoxu@uniontech.com>
+To: valentina.manea.m@gmail.com
+Cc: shuah@kernel.org,
+	i@zenithal.me,
+	luiz.von.dentz@intel.com,
+	pengpeng@iscas.ac.cn,
+	brgl@kernel.org,
+	pmenzel@molgen.mpg.de,
+	raoxu@uniontech.com,
+	gregkh@linuxfoundation.org,
+	ihadzic@research.bell-labs.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] usbip: Close all listening sockets in request workers
+Date: Thu, 12 Nov 2026 20:16:48 +0800
+Message-ID: <E063498E65C71B8D+20261112121648.1458957-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,135 +77,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NMMSTmykDl9bNJoFlxnndTCTMIIE8oS4PG3qy8p7EzvNMH3P6F33cwZI
+	tcE2OZHrB8Jo0XenV2+MwiuAxyaBJuXEApJ8sanEsBdZ2daU4pjOZ6XVvAF+GNQTDot/dvm
+	H6fMgs+y1E756kfEBopFsn19zjQ+oyTDH7vJY3yBXqCl+WKTAk+BAN8wQEuEJi+5nSSyIaw
+	cl66vDPKAkyrw3rnp5kPjTmln1ccheXBlWPzAZWmXVKk0m6Z2cYaJ8hmtXnv0xEe6gJyGp4
+	Mr0rE++oeW8nLOAIAWBhF0ZsK8ylnryhkcpQOdTSjxg95XVVmyOLF+0Ia2sEzwJL8VPmeOQ
+	Z55ByGEhLRqaTLJrpl16KVLWlgnoj7MYXnY1WFWW1efutlyXhPy1CXCRYow/4FksyDsVs3h
+	Z4hlNNWj+y3Sn8oIr9nyFOZ26xigdte5BjNWFAbEkJnwHTGr4oDlkRo7clW7M/d+rxSD3nC
+	1pw+3r1jCxiJAo8Cv2hg/BOmcYZZkSDhsHfcutV859G+cQsbOjwKcVQS0HcxLGRMBzYbFOS
+	+fwBa0zA+M+IyFra3hvnBQKO4Xus0oF1ZwM5Cff5ZM1bv8CLTSM9USJnFbh1727HwqF2JPp
+	LYaS4XNP0Cq7R40fDucq7LWWZoaSLBRVKmHKA/trGCQNHANLoTcMQ9Rs+ZlB2J6OwOXfVxo
+	1GGySE4ICga2rvrw/g3pcPUm/LyLGK6cwYcaCghhgqwksln3SPKgadsyn4aRMCfXo6wQci0
+	uQgatJH5ejOoEkB/X54CC7iEIm5CF3gEaOl5j+zYZApA+OK2nhD4UEEDsbUXIntLMhhsy/8
+	kludwBkqIq8PnGf7l1XC6sAIF2aakYn1mymuqL7qbcjhYvb1iUEh/k4BXifr91yQ0hxdui2
+	kHuaD8NHlr/nM6Zmlep+ARk28ncHS2A/hCdoaTlLKuwxmAkPcZgknu7x0qWoXAr0NpQxZLH
+	XA1rk+e5oyM8p5ynTMS5t3Uvhv2r2y2bRr3pjRJdpgkxCTeTiiOC+oLJgpmyXJJkPpveIRX
+	W4G4JRyv6XEJz5Vg1wJ3/D+adbTtUnOCLjw0geHYRwMq62wa/4BDqzPTQH1UuGmILfJXzGJ
+	w==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-When an rx URB completes successfully but the packet is rejected
-(actual_length is 0 or larger than the skb, or the rx queue already
-holds RSI_MAX_RX_PKTS skbs), rsi_rx_done_handler() jumps to the out
-label with status still set to -EINVAL. There it first calls
-rsi_rx_urb_submit(), which allocates a new skb, stores it in
-rx_cb->rx_skb and resubmits the URB with that skb as transfer buffer,
-and only then frees rx_cb->rx_skb because status is non-zero.
+From: Xu Rao <raoxu@uniontech.com>
 
-At that point rx_cb->rx_skb is the buffer of the URB that was just
-submitted. The in-flight buffer is freed, the next packet received on
-that endpoint is written into freed memory, and the skb of the
-completed URB is leaked. A USB device bound to rsi_91x can trigger this
-by sending a zero-length packet on a bulk IN endpoint right after
-probe, followed by a normal packet. With dummy_hcd and KASAN on current
-master this shows up as:
+process_request() forks a worker after accepting a connection, but the
+child only closes the listener used for that connection. All other
+listening sockets are inherited and remain open until the worker exits.
+This occurs when usbipd listens on multiple addresses, including the
+default IPv4 and IPv6 setup.
 
-  BUG: KASAN: use-after-free in dummy_timer+0x95f/0x3360
-  Write of size 2560 at addr ffff88800f5add40 by task swapper/1/0
+A worker waiting for a client request can therefore keep an unrelated
+listener alive after the main daemon exits. Restarting usbipd then fails
+to bind that address with EADDRINUSE, or starts with only the addresses
+that are still available. A single-listener configuration is unaffected.
 
-The device chooses the contents and length of the data (up to about
-2.9 KiB per packet in our tests) that end up in freed memory. In one
-run the freed page had been reused for a kmalloc-4k slab and the write
-went into a live object. Each zero-length packet also leaks one skb.
+Pass the complete listening socket array and its count to
+process_request(), and close every listener in the child before handling
+the request. The accepted connection remains open, and the parent's
+descriptors are unaffected. Make process_request() static as its only
+caller is in the same file.
 
-Commit b07e3c6ebc0c ("rsi: Fix use-after-free in rsi_rx_done_handler()")
-made the handler bail out on the next completion, but the in-flight
-buffer was still freed.
-
-Free the skb of the completed URB before resubmitting, so that the
-buffer of the newly submitted URB is left alone.
-
-The bug was found by AI agents (Claude Mythos and Claude Opus models). The
-analysis and the patch were reviewed by a human, who also reproduced the
-bug on x86_64 and aarch64 with current master.
-
-Fixes: a1854fae1414 ("rsi: improve RX packet handling in USB interface")
+Fixes: 328f7f8a0a1c ("staging: usbip: userspace: eliminate glib dependency")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexandre Becholey <alex@becholey.ch>
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
-Notes for reviewers (not part of the commit message):
+ tools/usb/usbip/src/usbipd.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-Trigger: an emulated USB device (raw-gadget + dummy_hcd under QEMU)
-with ID 1618:9113 that reports the firmware as already running
-(FW_STATUS_REG bit 0), so no firmware file is needed. Right after
-probe it sends a zero-length packet on bulk IN 0x81 and then a
-2900-byte packet on the same endpoint. No action on the host is
-needed. The reproducer is available to maintainers on request.
-
-Trace from torvalds/master 067c5c24cef2 (x86_64, QEMU q35, KASAN):
-
-  BUG: KASAN: use-after-free in dummy_timer (drivers/usb/gadget/udc/dummy_h=
-cd.c:1411 (discriminator 18) drivers/usb/gadget/udc/dummy_hcd.c:1514 (discr=
-iminator 18) drivers/usb/gadget/udc/dummy_hcd.c:2035 (discriminator 18))
-  Write of size 2560 at addr ffff88800f5add40 by task swapper/1/0
- =20
-  CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted 7.4.0-rc2-00092-g067c5c2=
-4cef2 #1 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS Arch Linux 1.17.=
-0-2-2 04/01/2014
-  Call Trace:
-   <IRQ>
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
-   __asan_memcpy (mm/kasan/shadow.c:106 (discriminator 1))
-   dummy_timer (drivers/usb/gadget/udc/dummy_hcd.c:1411 (discriminator 18) =
-drivers/usb/gadget/udc/dummy_hcd.c:1514 (discriminator 18) drivers/usb/gadg=
-et/udc/dummy_hcd.c:2035 (discriminator 18))
-   __hrtimer_run_queues (kernel/time/hrtimer.c:2079 kernel/time/hrtimer.c:2=
-136)
-   hrtimer_run_softirq (kernel/time/hrtimer.c:2153)
-   handle_softirqs (kernel/softirq.c:669)
-   __irq_exit_rcu (kernel/softirq.c:703 kernel/softirq.c:542 kernel/softirq=
-.c:786)
-   irq_exit_rcu (kernel/softirq.c:809)
-   sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discrimin=
-ator 37) arch/x86/kernel/apic/apic.c:1062 (discriminator 37))
-   </IRQ>
- =20
-  The buggy address belongs to the physical page:
-  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0xf5a
-
-dummy_hcd is the emulated host controller copying the received packet
-into the URB buffer that rsi_rx_done_handler() freed.
-
-The same report reproduces on arm64 (QEMU virt), and on v7.3.1 as well
-as master; rsi_91x_usb.c is identical in v7.3.1, v7.3.4 and 067c5c24cef2.
-
-Testing on v7.3.1: with the patch the reproducer runs clean (10/10),
-without it KASAN reports the use-after-free (2/2), and rx keeps working
-after zero-length packets.
-Testing on master 067c5c24cef2: with the patch clean (10/10 with
-dummy_hcd), without it KASAN (3/3); rx keeps working after zero-length
-packets (15/15 plugs), also on an emulated xHCI host (no KASAN report
-there either way: the controller writes the freed buffer by DMA).
-
-Thanks,
-Alexandre Becholey
-
- drivers/net/wireless/rsi/rsi_91x_usb.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/wireless/rsi/rsi_91x_usb.c b/drivers/net/wireless/=
-rsi/rsi_91x_usb.c
-index 8765cac6f875..bd049ca72919 100644
---- a/drivers/net/wireless/rsi/rsi_91x_usb.c
-+++ b/drivers/net/wireless/rsi/rsi_91x_usb.c
-@@ -295,13 +295,13 @@ static void rsi_rx_done_handler(struct urb *urb)
- =09status =3D 0;
-=20
- out:
--=09if (rsi_rx_urb_submit(dev->priv, rx_cb->ep_num, GFP_ATOMIC))
--=09=09rsi_dbg(ERR_ZONE, "%s: Failed in urb submission", __func__);
--
- =09if (status) {
- =09=09dev_kfree_skb(rx_cb->rx_skb);
- =09=09rx_cb->rx_skb =3D NULL;
- =09}
-+
-+=09if (rsi_rx_urb_submit(dev->priv, rx_cb->ep_num, GFP_ATOMIC))
-+=09=09rsi_dbg(ERR_ZONE, "%s: Failed in urb submission", __func__);
+diff --git a/tools/usb/usbip/src/usbipd.c b/tools/usb/usbip/src/usbipd.c
+index 3e22b651c754..5ff5b46674a2 100644
+--- a/tools/usb/usbip/src/usbipd.c
++++ b/tools/usb/usbip/src/usbipd.c
+@@ -339,17 +339,20 @@ static int do_accept(int listenfd)
+ 	return connfd;
  }
-=20
- static void rsi_rx_urb_kill(struct rsi_hw *adapter, u8 ep_num)
---=20
-2.53.0
 
+-int process_request(int listenfd)
++static int process_request(int listenfd, const int *listenfds, int nlistenfds)
+ {
+ 	pid_t childpid;
+ 	int connfd;
++	int i;
+
+ 	connfd = do_accept(listenfd);
+ 	if (connfd < 0)
+ 		return -1;
+ 	childpid = fork();
+ 	if (childpid == 0) {
+-		close(listenfd);
++		/* Do not keep unrelated listening sockets alive in workers. */
++		for (i = 0; i < nlistenfds; i++)
++			close(listenfds[i]);
+ 		recv_pdu(connfd);
+ 		exit(0);
+ 	}
+@@ -568,7 +571,8 @@ static int do_standalone_mode(int daemonize, int ipv4, int ipv6)
+ 				if (fds[i].revents & POLLIN) {
+ 					dbg("read event on fd[%d]=%d",
+ 					    i, sockfdlist[i]);
+-					process_request(sockfdlist[i]);
++					process_request(sockfdlist[i], sockfdlist,
++							nsockfd);
+ 				}
+ 			}
+ 		} else {
+--
+2.50.1
 
