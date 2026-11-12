@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794517262;
-	b=p67OTugTKZLaDO1MZDIHLPSaeno1WWK8myxq01qsvFI6uc3KLkKn3xC6Lxhh1ABQ6r42
-	 cnTu3mtDLBvij8IMaJnVXXWZnNHR9HXrDfnHdCs3fqvm0z+QuWV9xGQTmlXFRr4oij8rZ
-	 A29YWTxdEh1Xd0QGShOvlYh3k632E/Mt3zEOeFXX79bgbJgoQ8u5FYqTCRVQMaAE38cH6
-	 IEPuMUuKCQ6Lb1Zu5xFPx31Xmj07uZ68m0YN6kpSKGBNBMkPk4tj/O+eU5ABDWsd8SK05
-	 z3THk8giarD13JZ4UK+1Sc8I7zqyilArIV0cO8iyqoY63z+7iff+4s37T3Q2aPSXpIA==
+	t=1794517557;
+	b=r6ktnZXAKfgsrVOJ1Zq9UvrX7tUA1e9DOfZFuxaoNOgDr9MrVccEjNwinT4o/2ulDx4D
+	 nKThWuc3xwNeUTr/sq5OcnZmGcMJbtq3ky8Ix3zhe199n5aVFKdra2i0vlHOlYPcZ710x
+	 8tv28aCv/4GC0L8mbi+xiFsu2xNwE+icsj5YE401f3yWXLXJ4rOAywLzgATC5QxuZ+x7C
+	 waYaJ0P8CAK4c966ZUMf1NFY8R5jvE7RzKq5HZ1slZhEG8NQRUyaMbWsNXCyJqzqbCDW9
+	 7OMpV4NU58+WPL5yR3N7A8hQ9TslUdF5Fgg0i8DT7qJyaYjc+M7Z+9gZSWyxFVndyhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794517262;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794517557;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=n9AC9m/U5sc5j+SMiPjyEVWLeF4QDi/C8e8aFNL1ddU=;
-	b=bqkuc47RkcxZ5hJ/tBA84QvUUM8jKlQAtcFxVfOzJTzoWetWmiIK9pxvP4Xd5OJgp+G2
-	 zWbzovAjfwcxeVAa+XGtO6IORV2/NKeEh2wxDBl7Waml/ILM8Fiy7oqjwpiUSk8yxkb04
-	 bZeJNGyFKF00b67eudysyV57n1uFkRxyISudiE7V1CvyFnCc2XW8aNkMD1rmAbHXo8oOy
-	 PGtNx4L+/bbhfA3AsgLEHW6GIxknGwxk6p5JnTJuPPJSVHA6s31Y8L+cGWGnIgRClUT4c
-	 6i2iiKwtGJizH4xJFJLb9hKQW91i4dIGwJxMY7KSPGjqjJEKHS0GVstuVGgovvWm+cw==
+	bh=9O4yP8/nfU3JZ3lTxf1NxPoOTQpA7q0XRRCwNFnHkzM=;
+	b=Xo02OgOxEj8cj0gPlr4PLGtardFN3WIBhG9dNfBzdwI2T7fZz8XjwqJtCKdBFuvd3a1i
+	 qJcTBlV9KUlv8a5g2sUqRqBliM2BCtLpJzJCB6lbU48B47zovxrsP0qPszieUQBzZvPie
+	 VV0uZncxVrP505FIoi+VLC/8yPgJt6snOGazKSYqsl7Mw9UIr6NmJtprrJMPXomS8jOUt
+	 8MYffPgGaLnYPp078b/6N2Fy7Bs9+yOvZZlSkj/xiMJteXAbtWF162FiOjLrlDnPYa/gq
+	 fIPgDIgJezr6NLwdRBfMBxMEmPtzLwU/uPant1xlFIKm2WLsiOXBMzBaYEGbRyGmrfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czlrVsHD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AchTtJKn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E352A606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 21:01:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9C6606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 21:05:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czlrVsHD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91A3D1F000C4;
-	Thu, 12 Nov 2026 21:01:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AchTtJKn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1F81F000C4;
+	Thu, 12 Nov 2026 21:05:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794517261;
-	bh=n9AC9m/U5sc5j+SMiPjyEVWLeF4QDi/C8e8aFNL1ddU=;
+	s=k20260515; t=1794517556;
+	bh=9O4yP8/nfU3JZ3lTxf1NxPoOTQpA7q0XRRCwNFnHkzM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=czlrVsHDi9BpLJap0DPaA6g3B4sERCQudTkxrPW4HThhxgl16mMQTFQxMShU2V9bH
-	 re4Cf4t7JVau28VfWRKEXtYXuafrJqtzuiXB3nlgcwaG25XLJAjhkIytgdmQO0Ccyl
-	 BxzJSXN5lLNKGp5ujisn8JIE0qah0jA7o0tq9J7tJOXF/XqQVnyJIz/8/ucisb5apX
-	 rKPO4QRURwbcivZDmkrzTWBHkdJcnASpKz5J/IdPiX1bxzpiyYvNfkPcNqP8bpnW+O
-	 vMvI209ZQ7iUmEkO0OzOPn8qsdjjAZTWryIrbRigYGDqN0v5p0j2+eVrQGLaQ5kzUS
-	 bSjtpukbIKnCA==
+	b=AchTtJKnZrKOaWnghbF0DKgyW4Lxl+MjBSXoKC+1kxN1rR53ymhe3bFA7YTga+Isz
+	 vY4PoC6YKySZd50YYBbyEauaLgcwGlwC9FvcZUQz+JhLld/QkIH2rTY2ajsdThxdPx
+	 BaxRF7uMJP18R6OPpW8UNAnihCVgvkTM63j3Nsg0dD7yBQmHz2bSvNyPSbvtPhaqYk
+	 NVYyirl5wNUkaD2iQ9qKOsq5MSUCMk7YzMlJJES38OMZyXBULK7wgF9W4/mPJGDDwg
+	 fEzf5lfOJPGsoDN8r0j5dbOj0eE4usk9QUEH4JPOBSwK58g7wJi+hn0+BwD928Kybr
+	 4FmZD2cEsfTxg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Josef Bacik <josef@toxicpanda.com>,
@@ -48,12 +48,12 @@ Cc: Josef Bacik <josef@toxicpanda.com>,
 	Lance Yang <lance.yang@linux.dev>,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/mremap: fix moving PUD leaves
-Date: Thu, 12 Nov 2026 16:00:59 -0500
-Message-ID: <20261112205952.3707803-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/mremap: fix moving PUD leaves
+Date: Thu, 12 Nov 2026 16:05:54 -0500
+Message-ID: <20261112210452.3756418-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201341-failed-6.6-440c8779757f@kernel.org>
-References: <20261109201341-failed-6.6-440c8779757f@kernel.org>
+In-Reply-To: <20261109201838-failed-6.1-440c8779757f@kernel.org>
+References: <20261109201838-failed-6.1-440c8779757f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,14 +96,14 @@ Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Link: https://patch.msgid.link/20261031-fixes_core-v3-32-d6437171ecc3@kernel.org
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted PUD handling to use explicit helper arguments and retain separate pud_devmap() checks ]
+[ sashal: adapted PUD handling to explicit VMA and address arguments while preserving pud_devmap() support ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  mm/mremap.c | 12 ++++++------
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/mm/mremap.c b/mm/mremap.c
-index 0739a31b54eed..b0caaa96a3f1a 100644
+index ec66e7be8afea..cc0eb5489e89a 100644
 --- a/mm/mremap.c
 +++ b/mm/mremap.c
 @@ -47,7 +47,8 @@ static pud_t *get_old_pud(struct mm_struct *mm, unsigned long addr)
@@ -116,7 +116,7 @@ index 0739a31b54eed..b0caaa96a3f1a 100644
  		return NULL;
  
  	return pud;
-@@ -565,12 +566,11 @@ unsigned long move_page_tables(struct vm_area_struct *vma,
+@@ -547,12 +548,11 @@ unsigned long move_page_tables(struct vm_area_struct *vma,
  		if (!new_pud)
  			break;
  		if (pud_trans_huge(*old_pud) || pud_devmap(*old_pud)) {
