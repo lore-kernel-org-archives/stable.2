@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794504918;
-	b=hHlI6lSoXgO9kmhRO4ONDxrYQl28hJnvJwd/GNzabxSLnQiVCXzOAHFR69iS0V6PVyeN
-	 6IV5wQzgsbeirGD9OxQTxFOvOU5jXeBiB1gAM3mSdQbSnPOA1thp/ktboKrFbMJe17q7e
-	 pAbrtxpU9U9Yr42tGy/QHL/6b4HPia3uaDEr804jGKA+5pd7MnCuyCBc6e3JEoEfd9XG+
-	 UPmJDmhJW/uAEK7hCeCAd7eYtv0rBoS5KWjn0L1m2xC9xesIx9WfbgI7/ybFH9mE134on
-	 v9em80AgErrk2knrcqFyUtOTq5AJCX2H1ZrRTpGqE8sQu8M8tfJpEGtk/WksEr6xSCA==
+	b=iRpLOton4lTRIClBLZfRc2s4m0rHZBd80k9r3Z47415FsCLh4v9skxWZY5taiNJyOKbH
+	 1rmrIQCuteXB2GWt4G1eK4HmqaGyyb1q5xLwDxjT+QgfUtS3f0deOCKLcYctrR1gR5gW3
+	 y8KSI07OoDpcjpStIonpWTyzCl/b/W1avlom2bEy0ddQNFVLgqpAVHBYQ/UAoYSGlNZ21
+	 hmeSDdLsnHEiMYSYpWLJzlllhV1Q59JvAkBS2nsOg4ESJDpMl1MZnyF76UqV7ysp6/im4
+	 o8ZNMwaLqJWnaEt+R+FCkY9j3XsrUeh+CW3bai0cK2SuT65mr7AP09KoEHPWzMBm2ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794504918;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ma+uMnAhYBbLBU28/E88OEuhYN6ixczw6Fbs6IO+2z0=;
-	b=z/Jfmq31V8oqNQ/Hf2iV3yp2X+7lLyaV4/b+MOQVxVj/clKlslCs5apK9jSsJcIcF85A
-	 vcs70UdLwlpCAd03aJNLfBsMYGjP5+dkxH9P76+MtsU1RVC5N8imnXbp33H1QcD7ht2Lm
-	 JXC+GVIyUqi+BBv68VH7CTKNWWrm7Bq7Bz6ZHM1X77RUU1IIx/l993/yg1RekhTvlcZXl
-	 Fdp4XVFe6dAJ+ob38jafTXUj5umuPqKgkFHbPO3Lzq1xnub8GSU/JbX2uoYnyVrjWPBQ+
-	 TgTfn2j1jZmQrr2UvqLrk629hQqp46FgV80cyP9V6lWjiv6QwAaZaUBTSaTcOzWuguA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=U5KzOs4vVOy/F41dp1huMUYqU9c7yYMjxRBQ4Fr2j4g=;
+	b=te4f55DjM5MV+eHo86i9+brwpfG+HhzJtf5HqYg1xQcYd5IO4O1jxn3NYh0dc8HEmgux
+	 7SZBV1GwakO2BqZS41XKK/9AK96yYtS/57RzjTWl3twBb+EwgwVFJaejU3n0d+21XhmQZ
+	 Q0yatIyUbuHKrQsFtYPEbXPglKFiXspVIMr9ywDAIFSBK0u0K7CDB70zKhTcFjTNHqLMc
+	 54wyCB6297J26DX/NOaoluXWIo94E5IaL70I/NttWLQUJln17P/35HUoQCoMzfTGHzkdy
+	 Qs2uSfz4ttJR9ahojliubyr7FNRlMfR7j4JkjTToOo/nSpInasmOY0Et7GNZtR2f+Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2Xo0J7h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epIJABk3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FFBF606A33F
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:35:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEF5606A337
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:35:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2Xo0J7h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C601F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=epIJABk3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0B7F1F000C5;
 	Thu, 12 Nov 2026 17:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504917;
-	bh=Ma+uMnAhYBbLBU28/E88OEuhYN6ixczw6Fbs6IO+2z0=;
+	s=k20260515; t=1794504918;
+	bh=U5KzOs4vVOy/F41dp1huMUYqU9c7yYMjxRBQ4Fr2j4g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k2Xo0J7hbx4Gr/Q774AjQWRKJmUSn/wfKXYK6gollzQaEyWtnyzbAbCXzJvUV553x
-	 eTpB8i8/DpVYYH4ZBj1lo0+CZkLeGGhbpUr/1UHBJjVZIiF8uIlJ59a9RsXFtoFVjg
-	 RuyIrBjBheo40hwZv7zgbZzs9mgl8nuoUzKiq5u/YLMPZiB8WbToXwINqjk61z9nc8
-	 Mq5cDZHJcE9skP3137sdwHCNL+o6U1Ip1G0p1IoQsB3plzJ6ByoLCKizNzSWyu5LgE
-	 QorlvaIaQZb20/8cPdWUOOMJc1VGe/nHco//epIywJ1TcyyCZyH9ahudP21iKMUTXE
-	 UcLaR/aR9ex0w==
+	b=epIJABk3Z727KQKajBEayrHVpSB5GTc7r7WHQ3M7JlMTBdoAOP+6Dewxz33jaMmrC
+	 h0sjlRkZwSHInAFGr5llmZKtSIfl9Dwc+NbpU9qps05QBqL7/cGnUYIWi0xefOMmZS
+	 G4RWyWvwvHBhSeznlB6r+tJtdwtkOsACOU4cjiy37zWj6s4OheFlflhdNSEs1apmDQ
+	 65Akxf4UjGqOU+bpo3NgCTVLZxXxz7CBU4oWyc3UvrRd6lN7Czn+Vl+RgrVoPi0H55
+	 fAnRSVnHOUydl2c3al/HigYekmavqkXQ2CUqi7AF/UQN9HGOz0LjBC688kZdaUWSzF
+	 bSIJNDsoHSoiA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Sashiko <sashiko-bot@kernel.org>,
+	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] hwmon: (coretemp) Read TjMax only when refreshing the temperature
-Date: Thu, 12 Nov 2026 12:35:15 -0500
-Message-ID: <20261112173506.3075837-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] hwmon: (coretemp) Fix 32-bit jiffies wraparound in show_temp()
+Date: Thu, 12 Nov 2026 12:35:16 -0500
+Message-ID: <20261112173506.3075837-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200125-failed-7.3-9a6aa085c94c@kernel.org>
+In-Reply-To: <20261112173506.3075837-1-sashal@kernel.org>
 References: <20261109200125-failed-7.3-9a6aa085c94c@kernel.org>
+ <20261112173506.3075837-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,52 +62,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit 5407d2b7d5279b7100621d92f2181184c8f00d62 ]
+[ Upstream commit 9a6aa085c94c7f2817c4d50a7264e6fb51286f40 ]
 
-show_temp() reads TjMax before checking whether the cached temperature is
-still fresh, but consumes it only when recomputing that temperature. On a
-cache hit the value is discarded.
+show_temp() rate-limits MSR reads by storing tdata->last_updated as an
+unsigned long and comparing it against jiffies using
+time_after(jiffies, tdata->last_updated + HZ).
 
-Discarding it is not free. On CPUs that report TjMax in
-MSR_IA32_TEMPERATURE_TARGET, get_tjmax() returns the value it just read
-without storing it in tdata->tjmax, so every call reads the MSR again.
-That is a cross-CPU call whenever the CPU owning the sensor is not the
-current one, and it is made while holding tdata->update_lock.
+time_after() relies on signed long subtraction, which only produces the
+expected result while the two timestamps are within LONG_MAX jiffies of
+each other. On 32-bit kernels, if tempX_input is not read for more than
+LONG_MAX jiffies (~24.85 days at HZ=1000), the signed difference flips
+sign and time_after() evaluates to false. Because tdata->last_updated is
+only refreshed when time_after() succeeds, subsequent reads remain
+blocked from refreshing for another ~24.85 days until jiffies wraps
+past tdata->last_updated + HZ again, returning either a stale cached
+temperature or -ENODATA if the sensor had never been read since
+initialization.
 
-Read TjMax where it is used. The value cannot go stale in the meantime:
-bits 23:16 of MSR_IA32_TEMPERATURE_TARGET are read-only, and the register
-is package-scoped, so every CPU of the package reads the same value.
+Store tdata->last_updated as a u64 and use get_jiffies_64() with
+time_after64(), which does not wrap in any practical uptime.
 
-The temperature reported to userspace does not change.
-
-Signed-off-by: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Link: https://patch.msgid.link/20260924-coretemp-temp-fault-v1-2-1884f0ff97d5@linux.intel.com
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: bebe467823c0 ("hwmon: New coretemp driver")
+Cc: stable@vger.kernel.org
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Stable-dep-of: 9a6aa085c94c ("hwmon: (coretemp) Fix 32-bit jiffies wraparound in show_temp()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/coretemp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hwmon/coretemp.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-index 2d7487b2f80a1..7fced0e2abeba 100644
+index 7fced0e2abeba..96d57fe12de6d 100644
 --- a/drivers/hwmon/coretemp.c
 +++ b/drivers/hwmon/coretemp.c
-@@ -406,9 +406,9 @@ static ssize_t show_temp(struct device *dev,
- 
+@@ -76,7 +76,7 @@ struct temp_data {
+ 	int temp;
+ 	bool temp_valid;
+ 	int tjmax;
+-	unsigned long last_updated;
++	u64 last_updated;
+ 	unsigned int cpu;
+ 	int index;
+ 	u32 cpu_core_id;
+@@ -407,7 +407,7 @@ static ssize_t show_temp(struct device *dev,
  	mutex_lock(&tdata->update_lock);
  
--	tjmax = get_tjmax(tdata, dev);
  	/* Check whether the time interval has elapsed */
- 	if (time_after(jiffies, tdata->last_updated + HZ)) {
-+		tjmax = get_tjmax(tdata, dev);
+-	if (time_after(jiffies, tdata->last_updated + HZ)) {
++	if (time_after64(get_jiffies_64(), tdata->last_updated + HZ)) {
+ 		tjmax = get_tjmax(tdata, dev);
  		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
  		/*
- 		 * Bit 31 indicates whether the reading is valid. Some CPUs
+@@ -417,7 +417,7 @@ static ssize_t show_temp(struct device *dev,
+ 		 */
+ 		tdata->temp_valid = (val.l >> 31) & 1;
+ 		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
+-		tdata->last_updated = jiffies;
++		tdata->last_updated = get_jiffies_64();
+ 	}
+ 
+ 	valid = tdata->temp_valid;
+@@ -521,11 +521,8 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
+ 	tdata->cpu = cpu;
+ 	tdata->cpu_core_id = topology_core_id(cpu);
+ 	tdata->attr_size = MAX_CORE_ATTRS;
+-	/*
+-	 * A zero timestamp does not look stale on 32-bit, where jiffies
+-	 * starts just short of wrapping. Backdate it instead.
+-	 */
+-	tdata->last_updated = jiffies - HZ - 1;
++	/* Backdate to force a refresh on the first read */
++	tdata->last_updated = get_jiffies_64() - HZ - 1;
+ 	mutex_init(&tdata->update_lock);
+ 	return tdata;
+ }
 -- 
 2.53.0
 
