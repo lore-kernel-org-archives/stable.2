@@ -1,73 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485833;
-	b=4jc2hYi7pnxWSnc408wuRrNsJPSVpV6+GP9z7dGeM1yOgG5U42aJyuaqFIS6WZpGHQX6
-	 UffwtEQbtJ8RQNJ8uamkRISjobbE9b+k3eyO/ImyOSjb1jYF9bzThpDX0XY7HKxxmx/9F
-	 8ytBYYS941YV2anjln409nuQjaH7FXrc06VqBYguI/eWfeQzUXvDMOZSSZsTKFW2SYCi/
-	 Gvl/0yNJMfUguq10FZJdRwrdUXASwQDB5bjK1Lw9g9ePBKzW5o0m7S0MEVKXxU5XdxbZ3
-	 cB5NN8BJIGvkyPFZfM1VqGUSE8l+qU1JXEkiQg1nRbItd1nGsns2pAFmXD1ChtjC57w==
+	t=1794485853;
+	b=PuC45sRi5zFAi/J31b829Efjp2FnA92XquCw34wluBMnFmJMKgcTuluPY3BwW+UcwZd/
+	 xQiFRZPaHdbL2pKMkc1aoj8ThR8eQuyFqVzraQ/asRq6ag/yAF/G8NKU+Tij91sqvIeyO
+	 UnSLbl8BbMTz5c88E6YLDqayWdl4qgWuMtPPR6C+SpSVFIbIIk2qAJ3yBd+ai98U1NkL2
+	 MkrzvsuphK9623XUgZ8RasAoNFBMHfjSGXFClMonmZEpXdnR1ucHZM7m1rs1iaG/LVQrJ
+	 vm3wdpyIi97dBX1zGGWnfot1h5aUu2161XVeyHDAwsidlTaOq/7GExMrQ0/dkFuwy6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485833;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=YPGrZtQTSZxURuuST0ifATlw9hrQHZEhB5CNPEdDARA=;
-	b=L13FGYNkqV85UIkWWIS8idQNDg7+jufbAMINNWuUr4DeWSRmf+HUI5JhykImg4cu6Owz
-	 jbVpiR3m2tPuFRZ2ZV5XbQCWmPDhwlpGgVZBWitxHr2EzqDnp2N3VTHo0PFFhcCn4CnsZ
-	 Tx0qx/UfJhQtgDtIL3IliTWUQ/X5jHesLIGmdqxiCFkSaH7sErr4LQu3Kndx/MDc/32P4
-	 CN0+YhrsIPUx8cM8uGH/oeAkqkx4rxQJtZbGcWhmX7EGhMkKiOF1yAQujaL+r4jR42sr1
-	 1AXwiZtX76gzCvwBekOH+UMYOeIhUXZ5k5YF6T746Oa/QiMQElSXVCL27uf6FPsWW8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485853;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=egNOu/7Vf2X7W7uluAYTFo+WYTwOy0dGXa9yzgt6ZV4=;
+	b=4QimI0uiCpfJTuyHA3mls1nHTRBxe3kZIWZrcHne0DW2Cw3EovBAuTZed3E4UbgmQyNA
+	 Uq6c0DWOagZ61dsCGHAmi5uqmwLVNBOA3W4h1gzOVjMTUfGrEIzbk7UBmXW+Fe/Gq1wqF
+	 UQt95JvzWf/3pfot1lL27s5KAo/M7Wqk3zQ0BtxHS16/Ti8hpqtHG7eDUqDg5TYj85i5V
+	 /5DvpXZ55C5tITUTsOKQvY2ECtdITVHIzxItOj6riLADTUX/nLHE3PmJ1/1ulkA5nFrsx
+	 1oev7IX7LSKY4JXyAGZFBRoY742qLSqlJTj++hq+h8J8OfwoCd7J3z414yyY9HldaBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=HYZ6aL4v;
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CYRNQDKY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C9D606A337
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:17:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59C9D606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7065D606A31C;
+	Thu, 12 Nov 2026 12:17:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=HYZ6aL4v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794485827;
-	bh=YPGrZtQTSZxURuuST0ifATlw9hrQHZEhB5CNPEdDARA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=HYZ6aL4vSbb3X9ysZnG5qwP2CDphHhaTWsCplLDRHTupluUoxu29jjgV5a+ol76JZ
-	 ePLd8KEKy9Ew2mUI+vkY+JwULBXRGYSRqvrp7a+H8cZUC3d9zKDzlHHo4RfApjNlAQ
-	 z8kwfyrpyrHMdktX6FO1wsxrgd2INhWqeI6mmxnQ=
-X-QQ-mid: zesmtpgz8t1794485812t43c5ec44
-X-QQ-Originating-IP: JL79jULWRDamYAJoOF8fuylu44LwFj2biUTYVg1xBn0=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 12 Nov 2026 20:16:50 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6304755034306503568
-EX-QQ-RecipientCnt: 13
-From: raoxu <raoxu@uniontech.com>
-To: valentina.manea.m@gmail.com
-Cc: shuah@kernel.org,
-	i@zenithal.me,
-	luiz.von.dentz@intel.com,
-	pengpeng@iscas.ac.cn,
-	brgl@kernel.org,
-	pmenzel@molgen.mpg.de,
-	raoxu@uniontech.com,
-	gregkh@linuxfoundation.org,
-	ihadzic@research.bell-labs.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CYRNQDKY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715601F00A05;
+	Thu, 12 Nov 2026 12:17:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794485853;
+	bh=egNOu/7Vf2X7W7uluAYTFo+WYTwOy0dGXa9yzgt6ZV4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CYRNQDKYwSNE75OEpsjDv9dNjJDH/9wXWcwkCgRl1QqXE62f4uONxtXX5dc0wsQs0
+	 WbCx16kboXxBlB/B0vsnb5k03ky8z3i9dC9u0iLcFuSE+DKSeVNQJbZ6jceq38gQM+
+	 qClCIRgvLECQGDxobOp51GqtjVLU4bNoIhY+asA/hxdLcGHuJqvg4TnLEhAFmGvmTZ
+	 wEtb2rgiHZDLfVRt2osxfliQTOGWmbK41tGCAp+eIHjHnaVIZiFkTdH6xWp5LQtArj
+	 FZvbiFaDY52nL/ZO4W05TXfdFxXIfIlMagq48ev+KEKfMAxYYWNy2VJEFaZHE/O2Ki
+	 zNMvaBxoDQWaw==
+Date: Thu, 12 Nov 2026 12:17:21 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Jann Horn <jannh@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
 	stable@vger.kernel.org
-Subject: [PATCH] usbip: Close all listening sockets in request workers
-Date: Thu, 12 Nov 2026 20:16:48 +0800
-Message-ID: <E063498E65C71B8D+20261112121648.1458957-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
+Message-ID: <avWtxdIHSJJ_uNwG@gremlin>
+References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+ <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
+ <avWgulaWoKBfIFlo@pedro-suse.tail5790ac.ts.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,92 +76,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NMMSTmykDl9bNJoFlxnndTCTMIIE8oS4PG3qy8p7EzvNMH3P6F33cwZI
-	tcE2OZHrB8Jo0XenV2+MwiuAxyaBJuXEApJ8sanEsBdZ2daU4pjOZ6XVvAF+GNQTDot/dvm
-	H6fMgs+y1E756kfEBopFsn19zjQ+oyTDH7vJY3yBXqCl+WKTAk+BAN8wQEuEJi+5nSSyIaw
-	cl66vDPKAkyrw3rnp5kPjTmln1ccheXBlWPzAZWmXVKk0m6Z2cYaJ8hmtXnv0xEe6gJyGp4
-	Mr0rE++oeW8nLOAIAWBhF0ZsK8ylnryhkcpQOdTSjxg95XVVmyOLF+0Ia2sEzwJL8VPmeOQ
-	Z55ByGEhLRqaTLJrpl16KVLWlgnoj7MYXnY1WFWW1efutlyXhPy1CXCRYow/4FksyDsVs3h
-	Z4hlNNWj+y3Sn8oIr9nyFOZ26xigdte5BjNWFAbEkJnwHTGr4oDlkRo7clW7M/d+rxSD3nC
-	1pw+3r1jCxiJAo8Cv2hg/BOmcYZZkSDhsHfcutV859G+cQsbOjwKcVQS0HcxLGRMBzYbFOS
-	+fwBa0zA+M+IyFra3hvnBQKO4Xus0oF1ZwM5Cff5ZM1bv8CLTSM9USJnFbh1727HwqF2JPp
-	LYaS4XNP0Cq7R40fDucq7LWWZoaSLBRVKmHKA/trGCQNHANLoTcMQ9Rs+ZlB2J6OwOXfVxo
-	1GGySE4ICga2rvrw/g3pcPUm/LyLGK6cwYcaCghhgqwksln3SPKgadsyn4aRMCfXo6wQci0
-	uQgatJH5ejOoEkB/X54CC7iEIm5CF3gEaOl5j+zYZApA+OK2nhD4UEEDsbUXIntLMhhsy/8
-	kludwBkqIq8PnGf7l1XC6sAIF2aakYn1mymuqL7qbcjhYvb1iUEh/k4BXifr91yQ0hxdui2
-	kHuaD8NHlr/nM6Zmlep+ARk28ncHS2A/hCdoaTlLKuwxmAkPcZgknu7x0qWoXAr0NpQxZLH
-	XA1rk+e5oyM8p5ynTMS5t3Uvhv2r2y2bRr3pjRJdpgkxCTeTiiOC+oLJgpmyXJJkPpveIRX
-	W4G4JRyv6XEJz5Vg1wJ3/D+adbTtUnOCLjw0geHYRwMq62wa/4BDqzPTQH1UuGmILfJXzGJ
-	w==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avWgulaWoKBfIFlo@pedro-suse.tail5790ac.ts.net>
 
-From: Xu Rao <raoxu@uniontech.com>
+On Thu, Nov 12, 2026 at 11:21:38AM +0000, Pedro Falcato wrote:
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-process_request() forks a worker after accepting a connection, but the
-child only closes the listener used for that connection. All other
-listening sockets are inherited and remain open until the worker exits.
-This occurs when usbipd listens on multiple addresses, including the
-default IPv4 and IPv6 setup.
+Thanks!
 
-A worker waiting for a client request can therefore keep an unrelated
-listener alive after the main daemon exits. Restarting usbipd then fails
-to bind that address with EADDRINUSE, or starts with only the addresses
-that are still available. A single-listener configuration is unaffected.
+> > diff --git a/mm/mmap.c b/mm/mmap.c
+> > index 7618e72766a5..4cb18b217048 100644
+> > --- a/mm/mmap.c
+> > +++ b/mm/mmap.c
+> > @@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
+[ ... ]
+> > +	if (mm_is_oom_victim(mm))
+> > +		tlb_flush_mmu(&tlb);
+>
+> I see there's a different tlb_flush_mmu() call below (in the actual function).
+> Is tlb_flush_mmu() idempotent?
 
-Pass the complete listening socket array and its count to
-process_request(), and close every listener in the child before handling
-the request. The accepted connection remains open, and the parent's
-descriptors are unaffected. Make process_request() static as its only
-caller is in the same file.
+No, tlb_flush_mmu() is cromulent.
 
-Fixes: 328f7f8a0a1c ("staging: usbip: userspace: eliminate glib dependency")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- tools/usb/usbip/src/usbipd.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/tools/usb/usbip/src/usbipd.c b/tools/usb/usbip/src/usbipd.c
-index 3e22b651c754..5ff5b46674a2 100644
---- a/tools/usb/usbip/src/usbipd.c
-+++ b/tools/usb/usbip/src/usbipd.c
-@@ -339,17 +339,20 @@ static int do_accept(int listenfd)
- 	return connfd;
- }
-
--int process_request(int listenfd)
-+static int process_request(int listenfd, const int *listenfds, int nlistenfds)
- {
- 	pid_t childpid;
- 	int connfd;
-+	int i;
-
- 	connfd = do_accept(listenfd);
- 	if (connfd < 0)
- 		return -1;
- 	childpid = fork();
- 	if (childpid == 0) {
--		close(listenfd);
-+		/* Do not keep unrelated listening sockets alive in workers. */
-+		for (i = 0; i < nlistenfds; i++)
-+			close(listenfds[i]);
- 		recv_pdu(connfd);
- 		exit(0);
- 	}
-@@ -568,7 +571,8 @@ static int do_standalone_mode(int daemonize, int ipv4, int ipv6)
- 				if (fds[i].revents & POLLIN) {
- 					dbg("read event on fd[%d]=%d",
- 					    i, sockfdlist[i]);
--					process_request(sockfdlist[i]);
-+					process_request(sockfdlist[i], sockfdlist,
-+							nsockfd);
- 				}
- 			}
- 		} else {
 --
-2.50.1
-
+Cheers, Lorenzo
