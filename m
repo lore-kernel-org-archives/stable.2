@@ -1,63 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794525918;
-	b=xWdvSfaWsDsk3qUY3HRo1ipv7aRG+4WN4f1l03vsguQ9u3szDSO1Ho9A8FLdl6NjXvJG
-	 C3kAQatVh2JW9P4rlmy4t0lOkVedU9RmQ5dZ41pJjq2ojlqp5TyNLgSWMS9nSheAEltbr
-	 0hJ7EJLkNM5lBaDqNcYSoHScJpyobIZ17a5pWrBu14X02h7kdfH7zvDpy2DZx8jGuc/LE
-	 hCu+hg4z1UPwuJA2DizV/eScxEInx9ptnh0qucChohj3oZgFKZD/mmgRquHao4gS6dn7Y
-	 iM5a4yq1P27HB34nKs3jwbEe0C9pNSKPD7FjvbeLF1Zw6PSQN94tv52Qu66ck8zW0Sw==
+	t=1794526320;
+	b=PYwjbgvRrq0lFq+XOZJGMGMrT5M3k1CKb2ibf3XpQivmQ8l9pTOKwPXKwo+bc+SXfcMl
+	 xoNKKd9mQ8C06W1+EZpyhuY6LgsvtNTmOg4QLRSKJ2du7Eh7KCmXbSxovZxmkajD7iY1F
+	 Kv8Vn4vH5TS8bpTYjJ6mPcqj71lo8EVCDt8CVw5yClqTMI3XThz84ueUdoAEEd1SSX3X0
+	 1lncrAbskgy2oS/wjeBBgfa0Wx6i5C6G3A3tvGP3yF3JjgUl2+J7zS6VVpcEG9zZ6Znmi
+	 rM5444/XCH0akC8rYgrgsVM1vV0sw1i/uFoiGQaqJ/HkZdAnFVAc4jPiktgiiKyuz4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794525918;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Infomaniak-Routing;
-	bh=flRGmW4d8UtNlDD87yf7rhJ0aJW0FN8fSmJOwF+K9Ro=;
-	b=b8kuW0ikjJ/xp25Nf1DEImoJ9XT8LO9/tHb3RpiXzEjsI7Ey7OoY/nkXY34+wOOgNL7x
-	 jwApBaDxhYJiLL3MkwW5i44jXSX+EAOT6OxdWHDcZca7QVchthQVVceVrX2XiZsLRg5Zq
-	 2J+UfC6i9BjIJVJtqTpdHyFLf7qUFdeRo3lu7GvpP8w/zUbKgBH5A/O5mDIMcYh+kF3AN
-	 l4YHaEiW1Cm7YYhYKyE8g9SNGTFIOelycu4V73P13gqDW8G1IqDt6UwPxPemdWzx2mYoO
-	 /jrytU0XWUKVpqFArllWjJYC0DzgrXshEhqKDWkfTkQ+MT6vBCpPVbOcqwUeZ2+er1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794526320;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=kMzA7RdrHgK7flc6um3AlTABD686DqJETvpWPCal8Zw=;
+	b=ZnyrcG1RNLKXnJSo5gMLz0sgQTz/d0n0pVG9CObjchUV/VD/ZUXswPyrjsrR97rNLit8
+	 xkezvEDfaChh+es3wkMKZNU1e+Bz/00H1Z6ySeu5pHOy1gfJnsEqKvVowMMTx5Mco1DUl
+	 BSuLcXb8GzYlH9zqViUDIwhoy7Amt4e97Zhq7DgzafPzfN1g+qis6mWyP9Y8YAM3Qwcmo
+	 71qzn55f2460m+l2NyRX7Gb2IJR5Fmpa2xjUfNA6PLhxcnEdTEz9bQkEJex/wWk4z35YY
+	 L8YtjHy0kGg4EZcj4k/VQlFsLizUt6NNqWOlrpTFgycXuNug7iH8Hy/zpkvkadtGdMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=ZttEeMjp;
-	arc=none smtp.remote-ip=84.16.66.170
-Received: from smtp-42aa.mail.infomaniak.ch (smtp-42aa.mail.infomaniak.ch [84.16.66.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VzWPUERq;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C4F606A327
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:25:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C4F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DFA606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:31:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05DFA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=ZttEeMjp
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jQc1d4PW3zGQw;
-	Fri, 13 Nov 2026 00:25:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794525909;
-	bh=flRGmW4d8UtNlDD87yf7rhJ0aJW0FN8fSmJOwF+K9Ro=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZttEeMjpoAZBEhWdJYwvM3Y/+MmD+wmyDPpWwtWKoGceHTobl4Dmvz9JywLGNJl/5
-	 b380W89bLmw+MdwGGkdgQ2gYUGH9tqDfy8GoSeIm+Mm1N650OIi2I4VgBB1rU5BZB0
-	 YURyErSosF6VWKlEKujdUuDaxTBZvseEpI6AXiQY=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jQc1b4mZ9zZvv;
-	Fri, 13 Nov 2026 00:25:07 +0100 (CET)
-Date: Fri, 13 Nov 2026 00:25:07 +0100
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>
-Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, 
-	Shuah Khan <shuah@kernel.org>, Dwi Siswanto <me@dw1.io>, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] landlock: Fix layer composition of
- LANDLOCK_ACCESS_FS_REFER
-Message-ID: <20261113.hij1gi7Ees1A@digikod.net>
-References: <20261108-b4-landlock-refer-nonfs-layer-v2-0-2b405fc1b3aa@gmail.com>
- <20261108-b4-landlock-refer-nonfs-layer-v2-1-2b405fc1b3aa@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VzWPUERq
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8b6a88e4341so131184b3a.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:31:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794526318; x=1795131118; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kMzA7RdrHgK7flc6um3AlTABD686DqJETvpWPCal8Zw=;
+        b=VzWPUERqqSmQqQM5hDEsdSFki9n/UIur1VKToOCJ+u7iNAsnJjDwlsAXYeJLLJNrIC
+         DRBtJ9rMTryt7Mjghelz7Vtc0JMaAAG/tOICpWH6hEIGIb3nQN7QjgDRo/z1hKg4VeWe
+         8xSl1upKsD0Cn9UV1DMYg088MTCGOgpC8pQsxVQ1rZM+Dzzftddx07AoAobG2ki5Qy4p
+         DUNVzKWZO/uCmXmZdr/mOrxgJcCFozcNCSHKAKN6+Q4GHfXDTYXp8whxShRhLWt/3IPp
+         T09dgztMTHpowzzy9ZH/UlDTtAhXo9SGPilZraGS1Sp3RVlG24Z1EvoTJGKVX3UUyNfO
+         rpwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794526318; x=1795131118;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kMzA7RdrHgK7flc6um3AlTABD686DqJETvpWPCal8Zw=;
+        b=VzyJ4HfY5slkuTtiERF2GMWaFVF6U3o4/BCIoHgcSghzI/8XEEpx8EkqkMJhe3fEzG
+         f2JOsxkiRPaEXhOvSY2RXiDkWKmT/EZFOnrg0cSGz4FDkewDm2HjnSHX52JJEFM3FdFz
+         IoQ2NRFRMbhQGTCJPGcoIZzOkoveAZfiLmZxQfCmNWDEUByQHVMRRc5rrDnZ6xoNtTdS
+         NJBI2VEZ49FizoaMqyJRkIiV46kh93LC4XGbdUtD7hL7s6eCpu8n/F00uBcmnsv7AZSe
+         WRAvAqdOUEIv8bGj/JmEtul8dMl4m5tNfGR9wrs/80BCT5uUQQ/n0moRBMtVxqmTinDw
+         iWvA==
+X-Forwarded-Encrypted: i=1; AL+hErE0ZgrSdPy16lpbHskigWMCimb5jwjZSdHhob40qsSGlXcQIOE612vOZauEOBFjPmFrzkV6uUc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9agU6CztE37qVC142I91N9gtUjCDrESriKkG8wlw64Woi+PIq0
+	FnrN7US0i2845QromxdICdWoyfmqkTuadSNb3AB33PwUaU2Ls4LM7136
+X-Gm-Gg: AYBFou16c5VU92BLn96zQFTMOGdZLMiJlvwTmqnwRtcZrJyTHAuoIBieKiWWD0IzO4e
+	gqIjkbZRTsu7D5tc3NxRFiFQI3ohUsXW8CS2IpJ8p0uKDlmuxp0lu+tBtAgWUM0pAvPBLrmMeoM
+	V4FfCSC/3CCRlOMyPQX/NUglz6t0Y1Yz/7pMaBldBQTJ041eHjYibSt8cGK4Wgz05uuBRR3fsM7
+	tXIDvvYysXv7+vXyO5NyxuKkQiImHb3HKahq30FHW0ZmaeDKlVqFCnUTFlbmiTHEMmnzr3pTTj/
+	lp/Q4ba2vXlm4Y4yd39bDBDkq48qf1wLq2xuLHJ7/mXxgcyyAFRQBGz16u15AYpulUOnoC0CfDA
+	d+dL0Pb0a+yBlioLbsIWSzreQKcX5Nu2+f27qdmTXgbnot0qVuA2T5225Zp7VKHmAftE9ypNqOU
+	3jRDrvHKG6LLOwMqND/dfyDX8+HurtB5tQjfzQqbuEVkreWEY49HUMy08IhqS8eMlfdS3kePDie
+	lyxM0bAYNHHbzVe8KArVmdN3vdXqm4tVkEjRykPDUV+2ytQu9SxV6nWrCpCT9WREZ5eNxTTmiWn
+	348NJLLus0TJGN0zrBQgxOlDRr0jnqlvKFhL0RaMI9o5zHbLOP/n8zVrXWmO20yGr2PjDSbf810
+	ULmvkkrgZv9pa99rugTnsH71kKj37
+X-Received: by 2002:a05:6a21:6f09:b0:3e8:b7fd:6265 with SMTP id adf61e73a8af0-3f7a72ba1d5mr589620637.23.1794526318165;
+        Thu, 12 Nov 2026 15:31:58 -0800 (PST)
+Received: from prox-debian13-dev.listerlab.win (203-96-142-148.dsl-dynamic.connections.net.nz. [203.96.142.148])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18adce4sm317815a12.23.2026.11.12.15.31.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 15:31:57 -0800 (PST)
+Date: Fri, 13 Nov 2026 12:31:37 +1300
+From: Patrick Lister <patrick.lister.dev@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Russell King <linux@armlinux.org.uk>, Ard Biesheuvel <ardb@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Keith Packard <keithpac@amazon.com>,
+	Nicolas Pitre <nico@fluxnic.net>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Nick Clifton <nickc@redhat.com>,
+	Richard Earnshaw <richard.earnshaw@arm.com>,
+	Ramana Radhakrishnan <ramanara@nvidia.com>,
+	Peter Maydell <peter.maydell@linaro.org>, qemu-arm@nongnu.org,
+	Riku Voipio <riku.voipio@iki.fi>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	luis.machado.foss@gmail.com, thiago.bauermann@linaro.org
+Subject: Re: [PATCH] ARM: nwfpe: use task_pt_regs() to find user registers
+Message-ID: <avZMWY2UBFdBLrqW@prox-debian13-dev.listerlab.win>
+References: <20261112025159.473997-1-patrick.lister.dev@gmail.com>
+ <0384a52a-31f6-4bbd-9de8-8efe73610e28@app.fastmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,68 +108,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261108-b4-landlock-refer-nonfs-layer-v2-1-2b405fc1b3aa@gmail.com>
-X-Infomaniak-Routing: alpha
+In-Reply-To: <0384a52a-31f6-4bbd-9de8-8efe73610e28@app.fastmail.com>
 
-Good. Please add erratum 5 in this patch with abi-4.h .
+On Thu, Nov 12, 2026 at 08:58:53AM +0100, Arnd Bergmann wrote:
+> The patch looks fine, and it's clearly harmless to merge as there
+> are no users, so please add it to the patch tracker according to
+> the instructions at https://www.arm.linux.org.uk/developer/patches/info.php
 
-On Sun, Nov 08, 2026 at 09:23:48PM +0100, Günther Noack wrote:
-> In landlock_get_fs_access_mask(), only add the
-> LANDLOCK_ACCESS_FS_REFER right if any filesystem access rights are
-> handled at all.  This prevents us from accidentally treating
-> non-filesystem layers as if they handled LANDLOCK_ACCESS_FS_REFER.
-> 
-> landlock_get_fs_access_mask() is used when initializing the layer
-> masks for doing access right checks, so this bug meant that we
-> unintentionally denied "refer" (e.g., link, rename) operations in
-> layered cases, where the same operation would have been accepted if
-> only either one of the two layers had been enforced.  If the rulesets
-> individually allow an operation, the composition of these rulesets
-> should also allow it.
-> 
-> The bug only manifests as soon as one other layer handles filesystem
-> access rights.  Otherwise, Landlock filesystem path walk is guarded by
-> an early exit for the case that no filesystem-enforcing layer exists.
-> 
-> Reported-by: Dwi Siswanto <me@dw1.io>
-> Link: https://github.com/landlock-lsm/linux/issues/67
-> Link: https://github.com/landlock-lsm/go-landlock/issues/66
-> Fixes: fff69fb03dde ("landlock: Support network rules with TCP bind and connect")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Günther Noack <gnoack3000@gmail.com>
-> ---
->  security/landlock/domain.h | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/security/landlock/domain.h b/security/landlock/domain.h
-> index 935e18b12b3c..d9ebf4857fce 100644
-> --- a/security/landlock/domain.h
-> +++ b/security/landlock/domain.h
-> @@ -262,9 +262,16 @@ static inline access_mask_t
->  landlock_get_fs_access_mask(const struct landlock_domain *const domain,
->  			    const u16 layer_level)
->  {
-> -	/* Handles all initially denied by default access rights. */
-> -	return domain->layers[layer_level].handled.fs |
-> -	       _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-> +	access_mask_t handled = domain->layers[layer_level].handled.fs;
-> +
-> +	/*
-> +	 * Handles all initially denied by default access rights, but only for
-> +	 * layers handling filesystem accesses.
-> +	 */
-> +	if (handled)
-> +		handled |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-> +
-> +	return handled;
->  }
->  
->  static inline access_mask_t
-> 
-> -- 
-> 2.56.0
-> 
-> 
+I have submitted patch 9527/1 as requested, thanks!
