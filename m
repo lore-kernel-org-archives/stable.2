@@ -1,85 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794507100;
-	b=pCBW2MvPJjJKEoeBub3RPOd6ffQ1iUOjlZhwtNvg5xRbWj6ORv+cMV0ZMIqgY36vwFlV
-	 gUkxnTl38fJIaO1pEhD03EUXlDKVVuh5+ah/z4ADB1m5Zo0vA+qzeJFH50KOrXZOhbjPP
-	 M0vaXNdXMY+cVn5EeitQ3ufEYF6XXtWldg5KnKcANG+lQIeex9HkrFPTcwM1xToeXMV6s
-	 EjhB4RT8X+LeqNp6sCL/Zkve5vX06aftCe/dWHDMU94XTxBybWtmQzviGsvg80dqwxciO
-	 bJRu1XRt8Y0/hhqjZP7FKsLBzXvana6EdehbNWUFNr0ILwJf8I0BvS93qVEKitaGGsg==
+	b=4ijmzUU+Sd9+oo6YodZS+9+AVJZ5ycGfnmO+3Um8YZjssnIfsBr64RjsyzkAJbL/bGk+
+	 d61if0T/IyfY2EKrvQX99rdBnekXOjifQBMRUksVEG+rOYJ+XMuvLik8nUKEXkkFsG1R6
+	 XMzL7pTucF7o4UepvNhA0q4mdpdSzwXPgP4gbJMHBAcejvD2vBsww/lUC5E12QnSc0m3F
+	 dU4b5iQcPGM1BANqtcr69seJf3BpjU9PPth9uNRj9vNcck6r6wqWDVWSo4loW1+PJHq7A
+	 Bd5dNlySdi0oHOOPnJPnyw+FtewBhZXsLMqT6UAYBX73fZqlggG5cajNUjPNYC5JWOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794507100;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=vbhDJD4+BQC4thd2CH24LWDde1jZ/0BhOjMBI9uZ0t8=;
-	b=4lVxqnrDvH4MtNgDbTcb0dEG64qkRJ0LWN7XE1H1ehM+Pp/XkDUDoqM2GhejwMKJM9IE
-	 oI9xNa1q2hYyJGSw0+cGA6hcB5tH6ZnUCKhGaZWQ3mZLgxVDsGfkglE97/WS/0R9HBTuJ
-	 0jAfsXhSzQE5biOhtVAuo+L0kVJL7ulJjYmKlDvwyyme3DDG3tKPZdgFCTkeNRhhBD6Na
-	 SoLx7dwaQjeODRddFAYtEq37hXxe6fnYmmf0LpT8JkTyIvocs/raBA3Qu1qXpE7yV3Cjf
-	 lPDcd2v9WbB/gAl7m6iPTBmouflPfk0gNMkyPHH3kDsmd0T9CvgQkXaplSRZRL1/QHw==
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
+	b=4iv1H1Su7Dp3yDzF4DXEYoc+BX3KYxeGWwWB5oTc/uSLsY+2oiXkwOIHEN5/vF4vgyu2
+	 tC4TDc7AKVAmfvTtYfRfT34GTvRzb+uRNLC5PywaaponcfDmV8huUt2mQCOOr1DNq7Gk3
+	 ybynlB3KyFc6IfEu/shd9tTJGdX2yYii/Dhn5+Aran6AoWJqpOUGTAJpruIHUXceyfIvM
+	 bNR7YriSgjn0cjCobJKVSdqO8WXIgAuIxsDUSRLx7ZSYa0jXoEppXBoykxVlB8RFa76uV
+	 oyV8eCyeS5LA2KAf3683oLFDhPUmttZnCprpewVVJ14B2v/zn6YXDvRghltVaYPCP0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=M+YUKf86;
-	arc=none smtp.remote-ip=209.85.222.169
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bteK92xW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eq1GcahI;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bteK92xW;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eq1GcahI;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422F7606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:11:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 422F7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E7B606A334;
+	Thu, 12 Nov 2026 18:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E7B606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=M+YUKf86
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93cc1ab5f6cso3535485a.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 10:11:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794507099; x=1795111899; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vbhDJD4+BQC4thd2CH24LWDde1jZ/0BhOjMBI9uZ0t8=;
-        b=M+YUKf86JBPSifV9KHZNo/IxkhlariouSze/wFvYmxecLP4M+6xAZUhrMz8gE2MYHO
-         lYJ49kyJas62Vgxh4zG1raIwc9fO2zqjj7bJz+BNADsw6yR4eLA38ko27KzlYs3Vpy0y
-         UeDHfXAx7Tugez+dsbekHeJIex+zCllOcxf0v070kEeCohrpccAuYuwq4oubwcUfhVGb
-         m4ExPq/MTUzCs9adjOmKOJpRMD+Z4DgmQXD6QdMV8OyBgqBXTYzOV7QiruZECqK/4xt7
-         BoXXHg6uHdXiLuxrua+v0stzvXViN1wB/1q/3QErXiw5TKlV38h9pHDcTC+3HnbBwoxo
-         Z7UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794507099; x=1795111899;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vbhDJD4+BQC4thd2CH24LWDde1jZ/0BhOjMBI9uZ0t8=;
-        b=mSLCJRWScXz0xDNMUbgWcLv/yUPDWjlKPiM7pGAaalxxw7TocpEgtk21gL/8Nybo/S
-         4Dl1bGvGvAepQRFyZk+GuJtxuuoRB/ogeszM1GW7D5fd3ey5OD1sV+yHxpHFS7CwnuSp
-         21O7mJUlQPwaQYkQVfpW9KnLLTOnq2xAvbbHkvYjGRXUXyyylSA69jCii1zshMghyAuU
-         7qzeEmYiCsS+aqnZuII2w2HR9AKWirtAf2y4yD99mMUuzMFW3KW6AU7JI/XGrX7mbT0z
-         hJkZEY6o4tQD/gDQ+KJ2hONgTslOzA0Dhzub03L8x4lcYZXRCtJzXLEbztydkK9roTay
-         yggQ==
-X-Forwarded-Encrypted: i=1; AL+hErF2bkMpJkUFLD9mBzFznzo+RSS+Tr+ITw04+yeMqyUXl/e1vxrExaEbNFPEnmBI0uadQ8j5pbI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7iNfuMBFYjztB1iapAUqyfcUqptJJ4G5viNHc8d6HSAcdGOI0
-	NMHtq3/qMvSh1AavsLgEP4ECC9/A8wJe6JdjExJIMSvRNX2M9cXd3nhPwsXCjd+XpV0=
-X-Gm-Gg: AYBFou3SOfmVQO4nXrZnDkQ9LuLnp7axSKR2Z2lNT0u1eOb4VZ61yEBfZRroWbbbl0H
-	duehsTaw+dB1eVVGt1K50rHOOIe6CGJawGVWrG5Tf0BIUj3ahJWwGjgozjsrbhUHAQISpLHxd03
-	NIG8Ru8ss2HkRCbYS/MMNuFvZ6Ln8FgIk4qFwV2yWVsOFcXrsxwG+DDT4qPlh/uz1GJbSlbFbZc
-	QBWbX2pyylqLKJg9eDBgxkoKq/70ZjDVld+Xqe9iL3TUTEStWlA6HGuqmKl13lsYbpqE2aUmIVj
-	3EJ6B9XpLd0K2I5iqP95iks/l7nc3u4Z53KgovGRvBix4I5MrIi3wzLEuqNPOXCQzoKuUid9eMO
-	290E3+hmji2LydMsNQvW47iqDGf2E//BmfEaXDwEK5Znf8JcrIJ4HUUYNYDwvwepCAp7TpE/HaM
-	KMEeklueMuvxYvPHWWOwsmjyvtc/HsK3/vTfcN+ry+WNyMCJQWEAXZXkb+7HKrgaz8L4cIa6LI+
-	tc9cQa2kGwVo9y0Xv3vEWnHrgEW+6o6rJ1+yAKMujTzOXh0L4FWaRVRCNeExdXsQGv4pycmT+IA
-	Rni41dSGyaEEqsp/46pyP5M85ckdmrE7nkkamITkW9qV77kp35r8Tqf9FM8gxT50dlOmvqyohX4
-	kmAK8BLY=
-X-Received: by 2002:a05:620a:410e:b0:93e:c12c:fbc4 with SMTP id af79cd13be357-9494bcaf24cmr27719385a.81.1794507098958;
-        Thu, 12 Nov 2026 10:11:38 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7845fasm776538885a.18.2026.11.12.10.11.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 10:11:38 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bteK92xW;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eq1GcahI;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bteK92xW;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eq1GcahI
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 278691F7CE;
+	Thu, 12 Nov 2026 18:11:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794507098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
+	b=bteK92xWwILulLFJBTyYTeH+vD3loZ4YW1kYfR6l+JJ99ue9NkjEXtGZeIHk1dNko/8Iis
+	McWYgxcY6IyJu9HnmoN+WHAkBPRTVK/2zW/ugqe7dncGOmBEWr/SZxNmE6ZSylRusUnU0w
+	B6T847t9NH5kQyNpQZoMZF7aXF7dqzQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794507098;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
+	b=eq1GcahIE8BIo3ZdgeXKet6VrbMMzZCM9cN5wbkl6zNBSjDCscd/CsJ9HG8MvHYUH4boqk
+	XpEzWctmukEgEdAQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=bteK92xW;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=eq1GcahI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794507098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
+	b=bteK92xWwILulLFJBTyYTeH+vD3loZ4YW1kYfR6l+JJ99ue9NkjEXtGZeIHk1dNko/8Iis
+	McWYgxcY6IyJu9HnmoN+WHAkBPRTVK/2zW/ugqe7dncGOmBEWr/SZxNmE6ZSylRusUnU0w
+	B6T847t9NH5kQyNpQZoMZF7aXF7dqzQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794507098;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LM8wBhNRNhOCG/pAJr6opW9xMvaqFILD9ZI28NtAf/s=;
+	b=eq1GcahIE8BIo3ZdgeXKet6VrbMMzZCM9cN5wbkl6zNBSjDCscd/CsJ9HG8MvHYUH4boqk
+	XpEzWctmukEgEdAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0349413432;
+	Thu, 12 Nov 2026 18:11:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id FXq8MFgB9mrpKQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 18:11:36 +0000
+Date: Thu, 12 Nov 2026 18:11:35 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: reject shmem collapse ranges beyond i_size
+Message-ID: <avYBFPhB46XWAG4A@pedro-suse.tail5790ac.ts.net>
+References: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,91 +119,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 09/13] mm/migrate_device: fix use-after-free of the
- anon rmap
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
- Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
- Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-9-3d2454362e8d@kernel.org>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-9-3d2454362e8d@kernel.org>
-Date: Thu, 12 Nov 2026 13:11:36 -0500
-Message-Id: <179450709690.482102.6960491372735414259.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Rspamd-Queue-Id: 278691F7CE
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.51
 
-On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
-> A munmap() of anonymous memory can result in a use-after-free of the
-> anonymous rmap if a concurrent device memory migration occurs and the
-> migration runs without the mmap_lock held.
+On Thu, Nov 12, 2026 at 02:23:35PM +0000, Jérémy Jean wrote:
+> MADV_COLLAPSE lets collapse_file() treat absent shmem pages as holes
+> filled with zeros. It does not check i_size, which allows one present
+> page to become a huge mapping that covers the whole collapse range,
+> including pages beyond EOF. This makes those pages writable. A later
+> file extension can expose their contents after F_SEAL_WRITE.
 > 
-> This can occur for a long-term pin of device-coherent memory, or a driver
-> evicting its device memory by PFN.
-> 
-> Consider:
-> 
->     eviction                        munmap()
->     ========                        ========
->     migrate_device_range()
->       migrate_device_unmap()
->         try_to_migrate()
->                                     zap the migration entry
->                                     unlink_anon_vmas()
->                                       last VMA: free the anon_vma
->     migrate_device_finalize()
->       remove_migration_ptes()
->         /* locks and walks the freed anon_vma */
-> 
-> If munmap() runs before try_to_migrate() instead, the folio is no longer
-> mapped and gets no migration entry. The walk still runs, and follows the
-> stale folio->mapping to the freed anon_vma.
-> 
-> Resolve this by pinning the anon rmap of each folio which possesses one in
-> migrate_device_range(), migrate_device_pfns() and
-> migrate_device_coherent_folio() before its PTEs are replaced, and
-> unpinning it once the walk is done.
-> 
-> A folio which is no longer mapped cannot be pinned and has no migration
-> entries to remove, so skip it rather than migrating it.
-> 
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: e778406b40db ("mm/migrate_device.c: add migrate_device_range()")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Hold inode i_rwsem in read mode while collapsing shmem so i_size
+> cannot change. Reject a collapse if its page range extends past
+> i_size rounded up to PAGE_SIZE. Keep i_size_read() outside the
+> page-cache XArray lock because its 32-bit SMP reader is not IRQ
+> safe.
 
-Was able to reproduce/observe a slab-UAF in rmap_walk_anon with KASAN
-enabled, and that this patch resolves it.
-
-Can't say i understand the change well enough to R-by, but I can say
-this resolves a clear bug.
-
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+I don't think this is an issue. shmem/tmpfs purposefully maps with large pages
+across i_size, and collapsing across i_size is a feature, not a bug.
 
 -- 
-~Gregory
-
+Pedro
