@@ -1,47 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489869;
-	b=dAcoXEwdwGY2yZWZ/BD2pGfe0V9vJOQNivRNidiqA5+MSBmjUYhYe7wnPbMXjxvBWFLZ
-	 AYH3iJVeXr7xtLV4cxOtNC+/h9rr18iduQTfwBkSyZcIi/6Z9xGB5UWt14b05oTtMRPox
-	 7OWm5H38FT4SNQRxVRZ2HdP8vt4o7oRYD585Bqmb8KgCkqtnmD/pFREAwZOy22k2Dv3nQ
-	 lZ2gvYG/78xZFBLpMGdgefYgt/lDHa9CI9ZDTRf5EYx8UWR0WFWFw+ho+JlIG/4/oo/Us
-	 tG+EFxnw0tUzsqqazA/Pneb4HPaisxwxSTX3Z5GKkL5vrRnWe/PNgPeEDSQD7phdq1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489869;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7xmjRmraj6hajKCrG/rMZBddCcIUHPD2VWLoAxsDBOs=;
-	b=fsEeFM/y58K8clIvX4WioB/WtweZMe/JF8dq9nqn/xm6Jrvl7AO8qCCo04LGzSVULoeh
-	 JI58ldctRvlVqhdqAxYD2n0ZmA+GNRdYSP+tr6WcFBHg4EEtH9lcnFP0L2H+kzPA0njYE
-	 otOhUuWrC348u5FbbjnRa3gwwv+toRkUMUdS2GNc/O5ezRu1SQtIsrV3XkenYmXv14U74
-	 irJsYjfwPUQ0D/sEIBa4YUh+NuGBrD5WmZf9zoxqM/1CbR/Uq1z7CGW+FR/iEC7EfetyM
-	 1agAQPThcGQjmt+y9Y2IaFZu+rdjzv10snMU3h72eR2KfKBuuFxrYEUkqDQVW3j58og==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKMrbqce;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794490090;
+	b=Iqq3XPiJKlcTySjAdFV2ixRUu4y36hVWjijHISOUacWq+H1cf2wIWJj6oAFdhpu3e4MZ
+	 mHZKP1k8DgRj/qVa6dpw9eF5PznOap0VsgCasgV/UFcVhXdndnKwpr9qLwT3XFDHMXDF+
+	 usjgOQaP24IRcDKPA1YayOegwD61Y7Cb22fUWZ9YZo2OxOW7e2Gwx9zwY8dprkVL+cdmD
+	 vrEIrq5CqE3cMUpuxsThbqLiP+rt2ZUZqkBWxJ6h4rn2KYOp3paoqAxZs1ShHbx1v0Svw
+	 V2oCTU3O7AH7PM1n0eDKMJcY2thcL/+7So45QxTIIkAt2ZO1Her1BkWRnBK9yHtLRwQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490090;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:X-B4-Tracking:X-Change-ID:To:CC:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-NV-OnPremToCloud:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OwuN+LCiYj80Uw3ja1i6M7jUN+qSf4MIFyinyu/bjFs=;
+	b=mfEAbu+QQ2sSfBYtD7xfz/m8If9KcAhXt4HDfzUCWa7IYOOLQl+kA7i7Wypgj1AdXvyn
+	 c1UwxtqnMaC4DLgTvEnbDHOL+YlTjJP5g8dzC2pCWgEacL9cIWISf+jjC6LvrDuUSUV0H
+	 J8iZTZaF7m65jDbgcrBaIujkgEiSEI0UWXsdPFFeGjLuZypv+hpR5nEN9YjzcGbmlkJZO
+	 rPKnrKFG+whXql+HqT4/YwURyavvLyew3C+e+uWI77l6suxIA8ShfOkNE8RHAOzowBP1n
+	 oq9H1iFjRUQvZXKjELUHqOXr3zpR3+ydIy4Z3Az00szfJHTgUgwH+ucWuJNnpCkboog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=uLpNYM0W;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.6
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013006.outbound.protection.outlook.com [40.93.201.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C056606A31C;
-	Thu, 12 Nov 2026 13:24:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC0F606A31C;
+	Thu, 12 Nov 2026 13:28:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CC0F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKMrbqce
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4522E1F00A05;
-	Thu, 12 Nov 2026 13:24:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794489869;
-	bh=7xmjRmraj6hajKCrG/rMZBddCcIUHPD2VWLoAxsDBOs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lKMrbqcelcaBTBGaUr87HDTzI186L8p7uxe/R71dZb5jnFEWOt2ZzD+umyEqWRurC
-	 JT0tVrTFJvZ2ZWIjLFu9OHHqm3J9lqfi6fJk5xJdAarAHcppGuLg2Wov53d2v/n98j
-	 EyrlI+Au+8f4CMeYPUR6+pOyTfsWkNMtXIX/sVRTcpT/txuHalkPKrCX0a6Pttvq7f
-	 B1YhwwMB+oqZa1vAa/s67LjWAKW3YR+CjtLXB0YtFwBnF2u+vyg40wLqnuDPKWU6R2
-	 84mtk/sQzGKh76nBjk/kgwfOhINXcdtQzO3rZ2tN8H8HMi2IhHb0KNkgTawloAbWvW
-	 HCyhuk1jMYGDQ==
-Message-ID: <4ae22b7a-c160-4003-a029-8a20381d196f@kernel.org>
-Date: Thu, 12 Nov 2026 14:24:09 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=uLpNYM0W
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z4YwTknrXGW9E09+QApVFQrx1LhChJxwGQw3Ot2T+JVpxKJveT5bE71QIK/GD0D/31vp8gGpcC3yeHUDCZbcv5csKLB/5KLrE7wxs3zi+9SfEoQA9TXcLI7W2CvsEZ/wIq9+lxUvPySqjM1zgS4gjZ77YbRVyfLggamD9xdqErH3RcwHA6RuD7HlNcheESKOJXCZ17f7Iy5dfvHSmK0DNJej/+ZpUxd+Yy0Xd4df+/q3llzMqY6w224AUsp5POvS2DFotVt2Obv1jXgCi0jRgxJGPU1W7ycdjv6ywYtwi9rFd6jB7ymSUvwWTifGSC7/U0lIqzmmHLeXYZXrH6eckw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OwuN+LCiYj80Uw3ja1i6M7jUN+qSf4MIFyinyu/bjFs=;
+ b=fS/ZRE9f4FQg2oTlV8GduHvEpQw2ZZuvmosKMHd3g3L/1hnNo9O2L5vCcfFe+A26QYg6SLG3mkvbDaBMrAopEG0BrqOTYPI28fPUEwCt40c2CPGRIAxPQLCix5AiAY7qiks/lt25GyfM5Q64JrhdVXoiT23xHM80+oDuStTSBsRZCky8RPn7Lts842VDbfxRhXNX5vy0WTFR0hpuAlAM/2PZ5SH21X2oobgnm621ckL6W5hRgemYKQSlimejoWMMUqbduv/rdYpsMXWi7GjZJ3WAM8zDmDfXpNs0L2Vyy9S5X3PAXED3lBe7keqXlIuLyiHn3IbqOdhxD0GDHaaQPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=cybernetics.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OwuN+LCiYj80Uw3ja1i6M7jUN+qSf4MIFyinyu/bjFs=;
+ b=uLpNYM0WG4ogiTFKbzQWRIrNUCFYxbTuexk98K/2SEj6EytZyfvYV76ynNUJTya6qzZ1+wWc8KnQtFVPEqM1QlD6b9DIDgyP5yPdJ6106iDXoZjAGynHpEe8EC9knajRUZl5BLKz6gm0/keovyj6+1a2IV8ksgmZTTumDoCJfdZFtrLB0/mAlM8WdUdhPb7NwO7js2u0qSHCRs1brQnqQeVNoX5cNd2L616K6gBhrAVlCEsKhltKIhpeVi4Ly2w+GmW48qb8GZHH1BOhmUR744w5EI1AwLmNB228R8/GaM/WCUOuEG20PseOPgTxEQuU2Rz6BSXDBf/e9Oz+1HAUIw==
+Received: from DS7PR05CA0044.namprd05.prod.outlook.com (2603:10b6:8:2f::10) by
+ CH3PR12MB504406.namprd12.prod.outlook.com (2603:10b6:610:34b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
+ 2026 13:28:06 +0000
+Received: from CH1PEPF0005BD62.namprd02.prod.outlook.com
+ (2603:10b6:8:2f:cafe::80) by DS7PR05CA0044.outlook.office365.com
+ (2603:10b6:8:2f::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Thu, 12
+ Nov 2026 13:28:06 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ CH1PEPF0005BD62.mail.protection.outlook.com (10.167.244.251) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 13:28:06 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 12 Nov
+ 2026 05:27:45 -0800
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 12 Nov 2026 05:27:45 -0800
+Received: from [192.168.122.1] (10.127.8.10) by mail.nvidia.com
+ (10.126.190.180) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Thu, 12 Nov 2026 05:27:43 -0800
+From: Edward Srouji <edwards@nvidia.com>
+Date: Thu, 12 Nov 2026 15:27:19 +0200
+Subject: [PATCH rdma-rc] RDMA/mlx5: Skip vport context query on FW without
+ ib_virt support
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,280 +109,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/9] mm: limit pagecache folio refcount when splicing
- into pipes
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard
- <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org,
- iommu@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
-References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
- <20261110-refcount_overflow_stable-v3-2-318625d63a98@kernel.org>
- <avW3v-oLxcHXXNQD@pedro-suse.tail5790ac.ts.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <avW3v-oLxcHXXNQD@pedro-suse.tail5790ac.ts.net>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261112-moshe-ib-virt-guard-v1-1-6d2caf8bdb1b@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIALa+9WoC/x2MQQqDMBBFryKzdqBxkdJepbiIya+ZRVQmrQiSu
+ zv4du/B/ydVqKDSuztJsUuVdTFxfUcxh2UGSzKn4TF4Z3BZa7Y48S764/kfNDEiEvD0L+c92XJ
+ TfOW4Xz+kqQTWSGNrFxpRbgduAAAA
+X-Change-ID: 20261111-moshe-ib-virt-guard-ecedee769166
+To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, "Artemy
+ Kovalyov" <artemyko@mellanox.com>
+CC: <linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Moshe
+ Shemesh" <moshe@nvidia.com>, <stable@vger.kernel.org>, Tony Battersby
+	<tonyb@cybernetics.com>, Edward Srouji <edwards@nvidia.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794490062; l=2649;
+ i=edwards@nvidia.com; s=20251029; h=from:subject:message-id;
+ bh=nWKDCkiRsrrXYt0Uwiwt/yuZKPfda3/Ad6QnfMCDNzE=;
+ b=wJTg8Lx4UFs9X6Rkn5oVbI9rvrt4ZHfXtVdXCfTl+aslB3d7bl0rsJvCZTiqsh4detAP13v3P
+ zwyiT8DRpfBAPdLEe72Dqd0kog5q63A0SAJtsHjdzwMH6nvPD4x4uCd
+X-Developer-Key: i=edwards@nvidia.com; a=ed25519;
+ pk=VME+d2WbMZT5AY+AolKh2XIdrnXWUwwzz/XLQ3jXgDM=
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0005BD62:EE_|CH3PR12MB504406:EE_
+X-MS-Office365-Filtering-Correlation-Id: bea03728-a2e1-4c0e-139e-08df40c0c931
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|261009223027099003|5023799004|11063799006|56012099006|261028144727099003|261102123227099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|261021121427099003|260925022911599003|10067099003|260925021311599003|260925021911599003;
+X-Microsoft-Antispam-Message-Info:
+	FFw97NuH8SkCIu9B23CNce7DSLyUaJGhJCMZ+NlkjR87imQ+zBWy0nWue5hWWXpgxgD7mX4jXwlG0sZmmvKYUxz154SQ9BTgs7yaRdIto2qfONRc5Cm++Dg+o2tFRS8DusNYp0GPXEIdGhqeUpEXCyM3OAjGbvVBeMBkLL0kByJUC0aHRw85KmZ45uANWO7rcyoM8GHFVw0yDK7oLcGDFPD+P4cPEmo9sUKkttwydJkEp3N6STt90FHIUQYCLNtsEqr9PU2YXss2gQonFlSzK8xmLIOO5bKKKJugfpQNWY3cnLaneXxbBR4+kIm7TgM/pJOZnoQO92OeP39Qmg3YFvuuKTVu0z073/WrCTjzXB48Li7IxclB2FIkoVdHgcpqxKHCDzFRIXDHU33LGiKWNipjJ6N6YCzzUM/pSPXBjjAjTfTzqwPfpgF+nLS70hdybosapIrhpbdbpEwbFweZMsKSDDN4oaeWQc+swraEnNJVicpno83pKoH8dTWth11Ks/x6XzMfRtRTs8mlZBoyUmEITCmHWFr1TmgRFyW8BvwjODLTs/dEcTQ63yjtoLknmi9TZ0AoY0hM7I2wpWgsGMjuiwVgbqTZP5rGpAumuKz5sSuBuBZ9kXfhr12Tf1QCMGO0JgYpfiebWunp8C5bdDeQ4M+3fAH9CnJ2rYUnQU9qvTmY5SnUEriJjyeZSvNPfHacXTNBo76MZXg3LmwqkA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(261009223027099003)(5023799004)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(261021121427099003)(260925022911599003)(10067099003)(260925021311599003)(260925021911599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FmUcLqWcG6yqBRKGg14dUVwzfMbKCQf0jxDikvjL3cRX7AIGXFV5g7ciI6W3JiMqsHfhc9B1KAgm8VPDFS785W3JpRKUgH+SZX2/WEEbc2AIC62Zac9YLLQP81gFIPAkagaZvL2aZtiQk+08J/s5FB7vEuF6Wr88bSwbUU5Nj43zkl4XzDmeW33z0vd1jBugs+s3KtLu3DUy/5Ek52x/HqDcEnM5yn10Nx7yfk9+j5RT6ZDR73L2M3PRU8v41hsmt71GB7j5UzIoVynmx8XojBXM7+D6/bGIWi4ZfxfIabBIMCfTQ25qGr+b6PUxB4rT/q9g1pNopH0GXF5EodddtSeb4kzF1HkFVzR9w7bQsFzsvPqAUMA+WLdIImLxJANgMKu2kW9TdeD2yqV59Zxlw4oaDe8ZaIVP368LxzNNYzqq10oNI8zIIAKOwAy3qwZT
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 13:28:06.1764
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bea03728-a2e1-4c0e-139e-08df40c0c931
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0005BD62.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB504406
 
-On 11/12/26 14:09, Pedro Falcato wrote:
-> On Tue, Nov 10, 2026 at 09:35:42PM +0100, David Hildenbrand (Arm) wrote:
->> Similar to mapping pagecache folios into page tables, let's reject
->> additional references when splicing folios into a pipe if the refcount
->> is at its limit, similar to how we handle it during GUP.
->>
->> This will prevent more cases of possible folio refcount overflows with
->> large pagecache folios.
->>
->> Introduce folio_get_checked() for checked reference acquisition when
->> the caller already holds a reference. It warns and fails on a non-positive
->> refcount and rejects additional references at the limit.
->>
->> Use folio_get_checked() in splice_folio_into_pipe() and
->> fuse_ref_folio(), returning -EFAULT on failure, like we already do for
->> pipe-buffer duplication. Similarly, make try_get_page() use it instead.
->>
->> Likely try_get_page() should be renamed (or removed) later, as it doesn't
->> match the folio_try_get() semantics and is confusing.
->>
->> If we hit the limit after splicing some data, return the number of bytes
->> already spliced. Teach the callers to handle errors, and stop
->> filemap_splice_read() if we only spliced part of a folio, so we don't
->> skip ahead to the next folio.
->>
->> The check in try_get_page() also covers pipe-buffer duplication by tee()
->> and partial pipe-to-pipe splicing.
->>
->> Note that we deliberately will not fall back to the slow path of copying
->> the folio, particularly as the folio might have an invalid refcount. If
->> it is ever really required, we can revisit.
->>
->> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
->> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
->> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
+From: Moshe Shemesh <moshe@nvidia.com>
 
-[...]
+Since commit b02289b3d60f ("RDMA: Validate grh_required when handling
+AVs"), mlx5_port_immutable() unconditionally issues
+QUERY_HCA_VPORT_CONTEXT on InfiniBand ports to read grh_required.
+Devices that do not support the InfiniBand virtualization interface
+(ib_virt cleared) are not guaranteed to implement this command. For
+example, Connect-IB with FW 10.10.5020 rejects it and mlx5_ib fails to
+probe:
 
->> +static inline __must_check bool folio_get_checked(struct folio *folio)
->>  {
->> -	page = compound_head(page);
->> -	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
->> +	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
->>  		return false;
->> -	page_ref_inc(page);
->> +	if (unlikely(folio_ref_count_over_limit(folio)))
->> +		return false;
-> 
-> Ah nice, the helper I wanted :)
-> 
-> Nit: Having these two functions called back-to-back will result in two
-> separate loads on the refcount (folio_ref_count() distills into a READ_ONCE).
+  mlx5_core 0000:01:00.0: mlx5_cmd_out_err:810:(pid 731): QUERY_HCA_VPORT_CONTEXT(0x762) op_mod(0x0) failed, status bad operation(0x2), syndrome (0x3590f5), err(-22)
+  infiniband mlx5_0: Couldn't create per-port data
+  mlx5_ib.rdma: probe of mlx5_core.rdma.0 failed with error -12
 
-Ack, something to optimize. I'd likely leave that for future work, as we'd need
-yet another helper.
+All other HCA vport context users in mlx5_ib are already gated on
+ib_virt, either directly, as in set_has_smi_cap(),
+mlx5_ib_get_plane_num() and mlx5_ib_modify_port(), or via
+mlx5_use_mad_ifc(), which selects MAD_IFC for port queries when
+ib_virt is not supported.
 
-Unless I can convince myself that it is easy to do.
+Skipping the query loses nothing. grh_required indicates a GID-based
+vport, which only exists with InfiniBand virtualization. Without
+ib_virt the port is always LID-based and the field is zero, even on
+firmware that accepts the command. This also matches the behavior
+before b02289b3d60f, when grh_required was filled in only by
+mlx5_query_hca_port() and was never set on the MAD_IFC path.
 
-> 
->> +	folio_ref_inc(folio);
->>  	return true;
->>  }
->>  
->> +static inline __must_check bool try_get_page(struct page *page)
->> +{
->> +	return folio_get_checked(page_folio(page));
->> +
-> 
-> God I hate this. I never realized try_get_page() isn't atomic, but
-> folio_try_get() is.
+Fixes: b02289b3d60f ("RDMA: Validate grh_required when handling AVs")
+Cc: stable@vger.kernel.org
+Reported-by: Tony Battersby <tonyb@cybernetics.com>
+Closes: https://lore.kernel.org/all/064dfa67-8fd4-40f0-b925-6d1e0cd42e6a@cybernetics.com/
+Tested-by: Tony Battersby <tonyb@cybernetics.com>
+Signed-off-by: Moshe Shemesh <moshe@nvidia.com>
+Signed-off-by: Edward Srouji <edwards@nvidia.com>
+---
+ drivers/infiniband/hw/mlx5/main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Yeah, but that's for another purpose and more expensive.
+diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/mlx5/main.c
+index 65455aedd559b6291831492e92a68b24a6bd361e..2ab38068db838880419f1f9d446c6527bc567c59 100644
+--- a/drivers/infiniband/hw/mlx5/main.c
++++ b/drivers/infiniband/hw/mlx5/main.c
+@@ -3536,7 +3536,8 @@ static int mlx5_port_immutable(struct ib_device *ibdev, u32 port_num,
+ 	if (err)
+ 		return err;
+ 
+-	if (ll == IB_LINK_LAYER_INFINIBAND) {
++	if (ll == IB_LINK_LAYER_INFINIBAND &&
++	    MLX5_CAP_GEN(dev->mdev, ib_virt)) {
+ 		if (ibdev->type == RDMA_DEVICE_TYPE_SMI)
+ 			port_num = smi_to_native_portnum(dev, port_num);
+ 
 
-> 
->> +
->>  /**
->>   * folio_put - Decrement the reference count on a folio.
->>   * @folio: The folio.
->> diff --git a/mm/filemap.c b/mm/filemap.c
->> index 0f6d57432a7e5..e6e73e37f3ea4 100644
->> --- a/mm/filemap.c
->> +++ b/mm/filemap.c
->> @@ -3047,10 +3047,11 @@ generic_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
->>  EXPORT_SYMBOL(generic_file_read_iter);
->>  
->>  /*
->> - * Splice subpages from a folio into a pipe.
->> + * Splice subpages from a folio into a pipe. Return the number of bytes spliced,
->> + * or -EFAULT if we cannot splice from the folio.
-> 
-> -EFAULT is a weird error code to return from splice, et al.
+---
+base-commit: 915fb85a378e02f22c9bc3c9c9166582d276629e
+change-id: 20261111-moshe-ib-virt-guard-ecedee769166
 
-We might be able to use ETOOMANYREFS (have to check if that could confuse
-callers), but IMHO EFAULT is good enough.
-
-What would be your suggestion?
-
-> 
->>   */
->> -size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
->> -			      struct folio *folio, loff_t fpos, size_t size)
->> +ssize_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
->> +			       struct folio *folio, loff_t fpos, size_t size)
->>  {
->>  	struct page *page;
->>  	size_t spliced = 0, offset = offset_in_folio(folio, fpos);
->> @@ -3063,13 +3064,15 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
->>  		struct pipe_buffer *buf = pipe_head_buf(pipe);
->>  		size_t part = min_t(size_t, PAGE_SIZE - offset, size - spliced);
->>  
->> +		if (!folio_get_checked(folio))
->> +			return spliced ? spliced : -EFAULT;
-> 			return spliced ?: -EFAULT;
-> 
-> I don't know if there's much kernel code out there doing this, but I like
-> the trick :)
-
-There are a couple of thousands, but yes, one doesn't encounter it that often.
-
-> 
->> +
->>  		*buf = (struct pipe_buffer) {
->>  			.ops	= &page_cache_pipe_buf_ops,
->>  			.page	= page,
->>  			.offset	= offset,
->>  			.len	= part,
->>  		};
->> -		folio_get(folio);
->>  		pipe->head++;
->>  		page++;
->>  		spliced += part;
->> @@ -3094,9 +3097,10 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
->>   * Return: On success, the number of bytes read will be returned and *@ppos
->>   * will be updated if appropriate; 0 will be returned if there is no more data
->>   * to be read; -EAGAIN will be returned if the pipe had no space, and some
->> - * other negative error code will be returned on error.  A short read may occur
->> - * if the pipe has insufficient space, we reach the end of the data or we hit a
->> - * hole.
->> + * other negative error code will be returned on error; -EFAULT will be returned
->> + * if acquiring a folio reference fails and no data has been spliced.
->> + * A short read may occur if the pipe has insufficient space, we reach the
->> + * end of the data, hit a hole or hit a folio refcount limit.
->>   */
->>  ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
->>  			    struct pipe_inode_info *pipe,
->> @@ -3154,7 +3158,7 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
->>  
->>  		for (i = 0; i < folio_batch_count(&fbatch); i++) {
->>  			struct folio *folio = fbatch.folios[i];
->> -			size_t n;
->> +			ssize_t n;
->>  
->>  			if (folio_pos(folio) >= end_offset)
->>  				goto out;
->> @@ -3170,13 +3174,15 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
->>  
->>  			n = min_t(loff_t, len, isize - *ppos);
->>  			n = splice_folio_into_pipe(pipe, folio, *ppos, n);
->> -			if (!n)
->> +			if (n <= 0) {
->> +				error = n;
->>  				goto out;
->> +			}
->>  			len -= n;
->>  			total_spliced += n;
->>  			*ppos += n;
->>  			in->f_ra.prev_pos = *ppos;
->> -			if (pipe_is_full(pipe))
->> +			if (pipe_is_full(pipe) || *ppos < folio_next_pos(folio))
-> 
-> I'm confused. Why does this need to be done here?
->  
-
-I have above:
-
-"stop filemap_splice_read() if we only spliced part of a folio, so we don't
-skip ahead to the next folio"
-
-Thanks a lot for the review!
-
+Best regards,
 -- 
-Cheers,
+Edward Srouji <edwards@nvidia.com>
 
-David
