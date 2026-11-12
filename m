@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794451891;
-	b=eMrVFcHFQhWbRmGHRhGmFfgTdsIKKO/fZvDoEQoKKLsKxHD3WvzPHrYTfVAZXLQ3i2gv
-	 ULFgoWGcn7cNIHkthcQ6aMYC6F5TLhm6ZsupoKd6OeQmt/nTxaUUMvHJBrJPStUm/ySmn
-	 oMh21t1jnVexuuRLUp3/zlQZPM9n28aEgNCvKfliQs51IYwLHKpUZsGOWvvDgRAoGhRiv
-	 Rm3GKFj1AxtJb2CTqOEJCDOaAZeW1T5b2hHULb6IRIfV+0cfGD7AG+QuSAA7Qmp1iIv8Y
-	 iGB+zcS8qHKHSclAJaVAfWBfhauAxgKCM1no1QussM8KUSSu/Zi1kDU3toG8a1E/XLQ==
+	t=1794451978;
+	b=Q8C2bJBPnjAvB69M2PXx26utOuyOLfvl+wfNPZ4GD7rxnviCeN6yQzR3zdrj1TzOhKBU
+	 9mAFU/RqQikAf3vY8ytBWSoU4pJe7qzUo1I1Mv5OAXF1x1mqaRqER2zMPbLieruTI+Ctk
+	 2LjPJyWu+rBoKl1ENUth42poTM80D/sKW5uDcOx/k103mpW2E/3wJ9/M2luG6H93/jDjE
+	 SBMIFOeoL56oDu66EjRPGBlGIztP+oFDPLouSQjwi+ywUmkCHslLgimu3haYNrqLttIOY
+	 vSVTiAfxE8XJp4F+vWCAzlll1mBYtyzZZJrYR4kwdFYjubxQ9snQfIXx3Tv4M5zbpyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451891;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451978;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/ts/au/KJpKoNidMcJnphVRMJT1c+QZAMo1n3A4EG7Y=;
-	b=06ndtljrw2A5njYqAUaOn8/Vs/HqScfbAOHNLMMv8hRTggEoxk8P+D+jjVbnBV4kQS42
-	 QOmTQ1SDRgjB61/NoUgFuU/qI0et3owNT0fA+2XdVqDzVVzr5L+b+iPtfNLJozAXLmolD
-	 tzznGYqccEs48hRDjONsQ3T+wQ28uTjm4w0b6D/Fq0Uggsfj0dYLmyTlkOlXJKhpFek2i
-	 ZSLYtRJYRNdos0iWZVxNTbYoxhyrDwaFDCEi+NHewV9WK1FRvnIic05kfMKZRBgED7HAg
-	 7GjGMMjjPdST6w31xalogLVKfwy+/HrwSsTIqBLkUxV+vf+Dl6de9R2tYYcjchUf72g==
+	bh=fgGZa76Y9ISvpwxgseL4hkrbekxnVtweZJ8Tt0vYoyQ=;
+	b=Y40nBQWyRwFjPwKJCo6mJR+pCSbIxYUK20xN/v4n/Nf07O+wYECXw3baG47Dnd7J/bev
+	 juJ+/aF4WHa+BDwTR+zsIqD0OiewzojuHuniqvoKlb9vai1CODDKqMpyHDamzEhS0qLTG
+	 zKFqVdFnYpTum/8gh/84mnKVZAxexB8vlli/rbn9aHJxtH3C1NODk+9ugm/AW4lJZ1rce
+	 7DKCi0YJW5zG6GkPK9VcMcdJu1xhC+DuyMxTyNfiQ1xOLlO0wMkA6nqZ0CNMx/rFvBa0L
+	 LbGx1ZA5p+F23DzcUmTzFWtSAuKwSVmC4OMzUzUvPTAcTBDHXkZyxcltPlRFsBffn5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J23ED3NU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJd0YkVl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C52E606A327
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:51:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F42C606A323
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:52:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J23ED3NU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B860B1F00A07;
-	Thu, 12 Nov 2026 02:51:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJd0YkVl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1168A1F00A05;
+	Thu, 12 Nov 2026 02:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794451891;
-	bh=/ts/au/KJpKoNidMcJnphVRMJT1c+QZAMo1n3A4EG7Y=;
+	s=k20260515; t=1794451977;
+	bh=fgGZa76Y9ISvpwxgseL4hkrbekxnVtweZJ8Tt0vYoyQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J23ED3NUFTlzdPXxTtthA4Ou1ztISAqzQw0JFwEhONLoClebpUSwp3Vhg7XfRARsh
-	 5ZyndGeumxqFK3tnAeZPxbGlmU37aiyQpkoDjD4P0qzXlgej/aQMudxhYdVNQUrsto
-	 rOoBaEjukiTw8B5RhLtTWxVbTvXM+ll2VyaeYUqlhFOPyON7exAKq0sRo2mIGiiyQa
-	 +IR87oBsOPR+RL55jWM4uYdmVaAqJrDVHRxAl5w1Wu7cvwymF5TJEGf/iJf5itmjHH
-	 IvkraKzIiRZpAoUF+ZIzAzIxdYLvv7sP/tF3J9lV9/tWvj2u5W8uEj1nxMB+VbJOrL
-	 euclZ6rhHYtEw==
+	b=BJd0YkVl41eb50JNzwpEwMIlduTDNr3gA4VQS46CmkgZJHAOiUJHv0NVhf2V0k6R2
+	 qHs8Ki1J5raRFS/bdtUlUDhr/TwUB1hcC06+rMbCANmQ9rGA47mQ//+ydFwD0X1djc
+	 UWw9yBhzggV7K5F0kl73f+huRi8wuuQV5kitG4pE/QoMkw6AO4HqsGbI8Srke2fwMJ
+	 VtvH5rKc5n8IrPEfuflgUKKvOA5ZbvffIqV2KLcLa0y9UwM1nAHWl9PkFFv+S7aCN6
+	 I6pfv3WErkvy4EqLHmKEaKca6E3HYHrGW4EOxZ9tJZKbo+XS7WV2umFkrr+KOzdx16
+	 fGYi6atd59C8w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qihang <q.h.hack.winter@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] cipso: fix optlen corruption in cipso_v4_delopt()
-Date: Wed, 11 Nov 2026 21:51:28 -0500
-Message-ID: <20261112025121.1435065-2-sashal@kernel.org>
+Subject: [PATCH 7.3.y] f2fs: fix to fetch ino via ino_of_node() under cache lock
+Date: Wed, 11 Nov 2026 21:52:55 -0500
+Message-ID: <20261112025244.1404443-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112025121.1435065-1-sashal@kernel.org>
-References: <20261109201610-failed-6.1-1f1f8e8c5176@kernel.org>
- <20261112025121.1435065-1-sashal@kernel.org>
+In-Reply-To: <20261107050544-failed-7.3-cd6d8b189139@kernel.org>
+References: <20261107050544-failed-7.3-cd6d8b189139@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,64 +62,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qihang <q.h.hack.winter@gmail.com>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit 1f1f8e8c5176234fa31858cd25f2e9b88aac0a45 ]
+[ Upstream commit cd6d8b1891395b681f2060916a4b83880b765698 ]
 
-cipso_v4_delopt() recomputes the option length by walking the option
-buffer after the CIPSO option has been moved out.  The walk then reads
-the stale bytes at the tail of the buffer as option data, and a crafted
-setsockopt(IP_OPTIONS) buffer can make it treat one of them as an option
-length, increasing opt->opt.optlen beyond the valid option data.
+In f2fs_writeback_node_caches(), it's better to fetch ino via ino_of_node()
+under cache lock, otherwise, node cache content may become stale after cache
+is unlocked due to racing w/ truncation.
 
-The corrupted length stays on the socket and is later used as the copy
-length by getsockopt(IP_OPTIONS) and by the udp/raw/ping sendmsg paths,
-where it exceeds the size of the buffers they copy into.
+Commit 493b9dc8b52c ("f2fs: cache: use node cache") fixes similar issue in
+f2fs_flush_inline_data() introduced in commit 34c061ad85a2 ("f2fs: Avoid double
+lock for cp_rwsem during checkpoint").
 
-Compute the new length from the intact options before the move and
-subtract the CIPSO length, and fill the padding with IPOPT_END.
-
-Assisted-by: LLM
-Fixes: 014ab19a69c32 ("selinux: Set socket NetLabel based on connection endpoint")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
-Acked-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+Cc: stable@kernel.org
+Fixes: 2049d4fcb057 ("f2fs: avoid multiple node page writes due to inline_data")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: adapted cache-entry operations in f2fs_writeback_node_caches() to folio operations in f2fs_sync_node_pages() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/cipso_ipv4.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ fs/f2fs/node.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
-index 7229833d08612..cdd751dd3c989 100644
---- a/net/ipv4/cipso_ipv4.c
-+++ b/net/ipv4/cipso_ipv4.c
-@@ -2017,6 +2017,10 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 		cipso_ptr = &opt->opt.__data[cipso_off];
- 		cipso_len = cipso_ptr[1];
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index b23fe1383009a..afb8de517e7ad 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2183,9 +2183,11 @@ int f2fs_sync_node_pages(struct f2fs_sb_info *sbi,
  
-+		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
-+							 opt->opt.optlen);
-+		optlen_new -= cipso_len;
+ 			/* flush inline_data */
+ 			if (folio_test_f2fs_inline(folio)) {
++				nid_t ino = ino_of_node(folio);
 +
- 		if (opt->opt.srr > opt->opt.cipso)
- 			opt->opt.srr -= cipso_len;
- 		if (opt->opt.rr > opt->opt.cipso)
-@@ -2030,11 +2034,12 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 		memmove(cipso_ptr, cipso_ptr + cipso_len,
- 			opt->opt.optlen - cipso_off - cipso_len);
+ 				folio_clear_f2fs_inline(folio);
+ 				folio_unlock(folio);
+-				flush_inline_data(sbi, ino_of_node(folio));
++				flush_inline_data(sbi, ino);
+ 				goto lock_node;
+ 			}
  
--		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
--							 opt->opt.optlen);
- 		hdr_delta = opt->opt.optlen;
- 		opt->opt.optlen = (optlen_new + 3) & ~3;
- 		hdr_delta -= opt->opt.optlen;
-+
-+		memset(&opt->opt.__data[optlen_new], IPOPT_END,
-+		       opt->opt.optlen - optlen_new);
- 	} else {
- 		/* only the cipso option was present on the socket so we can
- 		 * remove the entire option struct */
 -- 
 2.53.0
 
