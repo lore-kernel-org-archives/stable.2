@@ -1,49 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794508806;
-	b=u4Rd9OwpqjcEAMCms1vygVtgYPqT2TAsLZvw8RRVE5vzwHe8KpoQubbmU4hTovPPmgbA
-	 bBFi2XzWsLzADwn7dHu8R3w8JwDzpxIxnDmCuO9axHwJW4zlk22UDh+uONrs2ToQXikzd
-	 gU+J22eHWbgQBLj6SXsKkZqNDvW3ySJt1dl469HuASWj0IpFWuVO8CEmzM1v1vDVFcg33
-	 vfeKYFsUouaOm1+R83+3M2pfiG4juiJlpr4O+1uUr7YSHoMre6XjUTpdENU7VKzVAEF4q
-	 OUPR+txji0KslenUEOaWpT/37d5EFkOjTHFP2OvSXMF5nrmlS2LxqLgHuV+ilwY9mXw==
+	t=1794509150;
+	b=VySgV20PKV7qsKydAn4dHYj2A3Y25AdVhyRxS+fopmXcKRBEbSLKOKWud4quqSrHX5RU
+	 NwsMnq+igTNWlVM4ximV1v6XwQlQ7QwPUurqDnYyLtBm1Qg6wVmOTFdFcSTu1xX+lE2cc
+	 vk7IljV0AAcmq50rfLCKXaxtv73FIDaDV5pfTPDhkYkayf3hA6XUDqi7lof25+vdi+Qxs
+	 1tmGODbjnuxQb4qHXsm2NRtd1m176vsgA+2e6mpmCV368sqwpUP9H9skq7d8f/vqwDhLb
+	 f1Dzl/KGZBqGzwUXoEUm8najqAso6YUoxZC0MRFosmUzcRj7yMmieET8vvNcr1ItnlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794508806;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=//DGCwL3Y1u1mfVqzISzAnZGj/wOqtSDLZS1SHCj9Es=;
-	b=YaAl0OFz4tRLUaFvQjlV8wpmcCB6ARTMLvJAcIcyRWGlMrk66BfxOjHdbrx4cTWcyRSI
-	 4O/LN3ulc9debkH/21CqcmjyqKu0jTabeS5JEYfLgLbxA6sITHeroXoZWUTgvnktHNAzU
-	 lC1JWAwUJjUmbGwMsbePCO9nuIsnw1OsshcwrcsyhwBLo1cPM19RTV+e2p5QBhYT+4Zt7
-	 nxzpahR4wkSc2IKjbiagIrD1Sy5gdiwb7JrIh4ooRlOXwVH0N8FyBTw5hz3/MUwLx74Mn
-	 nBDw3wRjgOMtlbAL5OQbrU+l5z02AdO30EG2BfE+wSyUJ2iL6JmHFgopqDzVG66dk8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794509150;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cx07ziGcA50aUj85Mm/ZBnVBryK8gFtKvDY2YMtoJYc=;
+	b=zgVWfI51OJSljoRo+W3Ca6bTS/SOnicGrRB0z/Vix0Kl7o62HSYOweqT00vmdt2QSrlm
+	 WqNXPLwkFYKH7VhtRsfm4d97T0t5rBaVoolpVcGqwQwC/eHpl9xaI4UMjO7cHjhM7QV5Q
+	 lxLXKkeoONAwvu9Bu1EMozq4hDy8RHBsn/8vtQwPKSRjmOzcX+ynBNsFzEqkgGPu4pXxi
+	 9ZMdzS9e8lFmG2UlCQFGfelknf5+gUW/cWLXxLkK1anixPCbihdV2YqZrysVLi3kh3RsP
+	 od7lAsImZ54PE4TREi32MmeunGP/6bAySZS1/ZK0VDxJf6oVTf8V5Kb9qdtumaHmSGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cpmtM0TP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tvqCJG4s;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B66C606A32E;
-	Thu, 12 Nov 2026 18:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0400F606A33B
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:45:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0400F606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cpmtM0TP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0753C1F000C5;
-	Thu, 12 Nov 2026 18:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794508806;
-	bh=//DGCwL3Y1u1mfVqzISzAnZGj/wOqtSDLZS1SHCj9Es=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=cpmtM0TPt8HPg8KetPSukxQGiC6Y8NS2UWC03RfxMyl4AkR+dA6hQ7An2GXvXzeXx
-	 3dq5u7gcnApuQvVEXmWxW16XMi0SbjazYND54ORM4+cIGHBQ3/nLy6Xr4Q7326+40N
-	 VNTMm3xBudS+qXvf0F+3LQKtLQu5YLzHinF53pgMYfIUAI8Ucgeg9SgFJSsTBzxKY3
-	 LlOjGe9DjSuCWWZMbqeP0AC4+8pmAoER9exX+G4BUUJwHxi0nJ1HQeRZCdnuTbH++P
-	 obaUe5iy90y0+S5jOWR2Q4hJJQD3L3fkO57Djd7Ly7HlDj2YqZyKN8wKMsYdGsHe+i
-	 6J6yU+Keh+cqw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1586380AAFF;
-	Thu, 12 Nov 2026 18:40:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tvqCJG4s
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-372bdb942dbso227181eec.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 10:45:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794509149; x=1795113949; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cx07ziGcA50aUj85Mm/ZBnVBryK8gFtKvDY2YMtoJYc=;
+        b=tvqCJG4sadbpnO9DnV+uFosM78XxQbI81mrM9a+WHoU2qGeXvav0WbusoVQ6AnJpYj
+         tZd/x4021EFc285UdhOKNe06ZSJi8txJuYz+iANhdPUat88400IL3CNIQotARvfES6NW
+         Xd0gE5Imo8+N21hsoZJnXanCSCSrPvUJLWdLo4UpR4tp3qyu/CX+nfDV1R6iUrde4tdU
+         6Q5cQtl8j6sngNzYfyeeW7QcO8Hn4RXclW2JVOgz3wpyumLZjbD6G3BcUkIkL+moEKOV
+         xkUV0ozBi2XNL+QLf/EtSLKqXyJ9F96PcSaHiSd396HX2MyoK6sJJIWLdncNDXW7VihA
+         TC9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794509149; x=1795113949;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cx07ziGcA50aUj85Mm/ZBnVBryK8gFtKvDY2YMtoJYc=;
+        b=qLLZo3vPYnbOrYa3cTRnUW9wAbsjJYPngH3P66Yas0HGD8zI3GXslEWWHnIZY+5uKm
+         ATTcZeUCc7pjHiFwOzxWnX7YmkzWFbXohV9YlU+wlu/LWsGkEKx1MPzpzbdedOR/ZMui
+         HhjXiCHOs7Rl3+kse8WFetItL4WpvVKV5uqI4W9hXi1HionggpVV0h8w9CuLS5NKq5n3
+         uX4cJyW3w81NEj51vFF4W9NAZCDg9SwNEK5R1/BpLaYCcFJZnIQT9OZMbA0FTYH6GvR8
+         mhYlqUFgefRJ1e9LVB6hS6g1rZrMvI69cluAMhdq7r8UI7XGWhYxOzDCGI1GlLu8D/HL
+         XFHg==
+X-Forwarded-Encrypted: i=1; AL+hErHdI+b3TEIOO7WQjyZNeKEWz6oLYiQJ2PPvlEeLIK+pqmphUQbJtqgjgsyFD1APDYfu/a9Pkbw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UP0F7fdxB4fwUVVnmnSLrewNUJjGQ5KJKBlNpPCB+L0UrUNuS
+	mRNMDTAGXdQF28FyWudbJIXhD14sMNV7JQHHm8Qb92SLivbphUD85Zzh
+X-Gm-Gg: AYBFou2eEM/5XP6zG4sKIjjYcUKfHwRPMJv1wFjKR7bh+SLS6gvih5oGlwk6gMFl4He
+	1dbKfqMRstGS0qvlj9rd6IqMxIl/0jjotD65OF2owvkvjQkbWCAh6ZABuSpceaxzYMjyDzqI7Dy
+	0rKN7IHpsk2dj6ltIwPWavS9Yc/jMSjYwwcEf6qr+G6QJlakvQFITeqOlGQqooi73aO8dfHBzuu
+	lL2KOqgTVXhltbpRwDUp1Rrb5BWgBnRzdHRXWA95QRfPgzMUaQOM5W3PwyhYsLP93nX4aJsfKeJ
+	vC5AmlmgV4Me+U14sGgmhz3ubZsiIlsCM+4fSZFIxcC6K2r4RiOggWfmsBWwhcQr55QbOrHtqGV
+	T8c0X+PFfe50H2R3A/HYCl/GzajHXuFgaYU/Uwpnb9ih5kzJX8FTPLGFvmcY8p58IoWpJBejI80
+	k/KJvr1jC9wHx94VTo11AX3QFtwbyGYvBJFSbhdmj2sXFhqDVTfefPXkYTvQB49vYr8032tO2L8
+	+TGxZv3vE+hMPHLSSMwTbQrooRF+XND67/5+wo8yJL7DohyqIXgbewg2cgbvzV7NorDefaVfl0Q
+	Nb4X3QRn
+X-Received: by 2002:a05:7300:d181:b0:36a:1807:75a4 with SMTP id 5a478bee46e88-37967cde7c5mr17495eec.20.1794509148932;
+        Thu, 12 Nov 2026 10:45:48 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad134sm369524eec.27.2026.11.12.10.45.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 10:45:48 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	stable@vger.kernel.org,
+	Paul Cercueil <paul@crapouillou.net>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Paul Burton <paulburton@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	=?UTF-8?q?=E5=91=A8=E7=90=B0=E6=9D=B0=20=28Zhou=20Yanjie=29?= <zhouyanjie@wanyeetech.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	linux-kernel@vger.kernel.org (open list),
+	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
+	hns@goldelico.com,
+	paul@boddie.org.uk
+Subject: [PATCH v4 1/3] clk: ingenic: Poll JZ4780 CPU1 power status atomically
+Date: Thu, 12 Nov 2026 10:44:39 -0800
+Message-ID: <20261112184441.3724150-2-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112184441.3724150-1-f.fainelli@gmail.com>
+References: <20261112184441.3724150-1-f.fainelli@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,49 +110,43 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v5] bnxt_en: Take RTNL before netif_close() when
- aborting
- FW reset
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179450880478.585389.16589339038635282296.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Nov 2026 18:40:04 +0000
-References: <20261110044235.204386-1-bcochrane@google.com>
-In-Reply-To: <20261110044235.204386-1-bcochrane@google.com>
-To: Bryan Cochrane <bcochrane@google.com>
-Cc: michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
- netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, sdf@fomichev.me,
- joe@dama.to, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+The CPU1 clock enable callback runs under the clock framework's spinlock
+with interrupts disabled. Its readl_poll_timeout() can sleep between
+reads, which is invalid in this context when SMP powers up CPU1.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Use readl_poll_timeout_atomic() with the existing interval and timeout.
+This is a prerequisite for the JZ4780 SMP bring-up path. The original
+CPU1 clock implementation by Zhou Yanjie is already upstream.
 
-On Mon,  9 Nov 2026 20:42:35 -0800 you wrote:
-> netif_close() must be called with RTNL held in addition to the netdev
-> instance lock: __dev_close_many() asserts it, and the NETDEV_GOING_DOWN
-> and NETDEV_DOWN notifier chains it runs rely on it for serialization.
-> 
-> Commit 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
-> replaced rtnl_lock() with netdev_lock() in bnxt_fw_reset_task() and
-> bnxt_fw_reset(). That is sufficient for the paths that only tear the
-> NIC down internally with __bnxt_close_nic(), but the abort paths close
-> the netdev via bnxt_fw_reset_abort() -> netif_close(), and the error
-> path in bnxt_fw_reset() calls netif_close() directly. Those now run
-> without RTNL and trigger a WARN_ONCE() cascade when a firmware reset is
-> aborted:
-> 
-> [...]
+Cross-built for CI20; the subsequent SMP-enabled image brought up both
+CPU cores. Development and validation used Codex assistance.
 
-Here is the summary with links:
-  - [net,v5] bnxt_en: Take RTNL before netif_close() when aborting FW reset
-    https://git.kernel.org/netdev/net/c/bf83b257423b
+CC: stable@vger.kernel.org
+Fixes: 6673db4f3f26 ("clk: JZ4780: Add function for enable the second core.")
+Link: https://lkml.kernel.org/r/1582215889-113034-3-git-send-email-zhouyanjie@wanyeetech.com
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+Tested-by: Paul Cercueil <paul@crapouillou.net>
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+ drivers/clk/ingenic/jz4780-cgu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-You are awesome, thank you!
+diff --git a/drivers/clk/ingenic/jz4780-cgu.c b/drivers/clk/ingenic/jz4780-cgu.c
+index 1e88aef7ac0f..1809f8859c7e 100644
+--- a/drivers/clk/ingenic/jz4780-cgu.c
++++ b/drivers/clk/ingenic/jz4780-cgu.c
+@@ -242,8 +242,8 @@ static int jz4780_core1_enable(struct clk_hw *hw)
+ 	spin_unlock_irqrestore(&cgu->lock, flags);
+ 
+ 	/* wait for the CPU to be powered up */
+-	retval = readl_poll_timeout(cgu->base + CGU_REG_LCR, lcr,
+-				 !(lcr & LCR_SCPUS), 10, timeout);
++	retval = readl_poll_timeout_atomic(cgu->base + CGU_REG_LCR, lcr,
++					   !(lcr & LCR_SCPUS), 10, timeout);
+ 	if (retval == -ETIMEDOUT) {
+ 		pr_err("%s: Wait for power up core1 timeout\n", __func__);
+ 		return retval;
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
