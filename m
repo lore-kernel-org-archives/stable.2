@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794472388;
-	b=NKTc7t4YgG4D3eccbv+FvrpQqr7nCWogfNKs7Iqm3yJKqD0dgBcbS4wzT+cjl1M794tz
-	 X2r4Ol+cHsx9eBvTFlGSrCfEqjShwKGyNqjjmU4ulxPMgKxFuHww9Mc/e5piVMAEMg6wj
-	 +qY1FXDD4/TK1i0QD8pyIHWCBtsnRUUc9aV293IgXab0+B5YGyquP5pgRRBzP15RL1cyc
-	 bxpmzKUJKEjO1PRRDsDDi9uLk7bk1Jm2dHlxOZ9h7/lirBX7gUPoRhr9KZ/9MjNtlgdE5
-	 3hEmbhq7CmpSpuOP+/GTWa7EjVgobjkPD7HSy0zNd7WKJyUlEr2/gewESCMyOWzCymQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.161.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794472429;
+	b=mIX0sWjDeG6F0WgdAmZqIKAO87794z4N7V773WvR+xSZe66TDt24If39XHKvBKYvdoS0
+	 EqLSbSzZ3WahZvumTY65rlXacgzwLdvkXKS5F193yjBHUlOcQUrfcoOVhB82py2X0c5rf
+	 RsfTY4SevioGf+Ozv0mfnKqOo8mgKtsvHI9W3fxaY4WLQue81LIGcBSc4Vwt+ENvvZU1u
+	 JA/NT20YDE3L3MCECN6njEsisyKriRaochyCxUnxDUuhmfSKuiUHAoEg0pHKG5aXLAgz6
+	 1NeYkbrkm3d4dUp+Ec7yIcZXhfZaxa9FHaHiWdoIDII4ASe2af2LNi8rOOh71Jyf6OA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472388;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RhdgniR7Xv7Tq5+THcnfG7FzL9goeLQzbhmqdAGPw54=;
-	b=l91cn5RMecbEHeQfCn8mvBolnsh6msfh5ckd3va+x9jJCQm4xyqom1hqge8E3mlfgfsl
-	 aUdFoeM7XD70l/6sOJbUmj4JsO/HWDe+Spx7lS7KzwKI4Agw2lBt3YcklZ+Z7uPxxv4Zd
-	 OAuf3jZhXkQqhzKubITRphyYgceilFIDt+m1JwYLtZydsZQM05KBLjuXys3oey/9ruI4U
-	 DyPIlzZ3fXY1yeypN3r2629i9FdUimYVof+3TmHIwmLuCs2PA+nH0pSKZxjFHaVU2CbLm
-	 qRXaCAhUeh0c7jHkDrJXJ3ULQQawt8yoy2gOrLNN2mTHsTxSo3Dt6lSyG+VWkdMTL7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472429;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=uOYvxf+M0Ap4noHF2nmW81cSBmYvF6P+PnsYCByXef8=;
+	b=ANFL0YxGF5VkmfdOJtX6aKoG83llAiM2g+2rWNjPv+gbbAqwFjUQo3ia7GIM/AQPWao5
+	 u0FQpngitp6s0Gjwr9TuccPrjPPxpzsWppABTtfYHPuPSHcaxLXSTyj4ugRkelJu+uriP
+	 WRLBAQdJ27RI8JhFUujxLCHZrIdL3DGbik6sH8MsuosdAM5hLM9LDWifV5nQCyz884+f0
+	 rb/Rz2CEhIZVv0RkN6BSN/UX3AhIQUvlOlUehnMA8G0xMRTjgmCB4JU22pr3/F7JdmYA9
+	 9XIrbxXSpc6oyEc0FAhldirgIuVqsTu1vzEtXX5rAvgq7aacNSLuBWkQcTRoh0FU3fQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VvpYQmxc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3DB606C818;
-	Thu, 12 Nov 2026 08:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VvpYQmxc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794472387;
-	b=midOdj1lEXBligdJ8Q5mhxR8xgtQUBpLR5XeWnezNplrsewJsrMkWu9Uz9IsNFzEBiTX
-	 dghw3N1REs3JXL9OCiQ+U1a1vuJGjRl5rdDZtDJNEbIzcsaBvqSMDiVFGFa4v+xJU88Vb
-	 LuVyRIKaJ74kYHPPV9eI7l3QzknLlVTvRZ8xBYRGnhIOAYJ1zsdsQMSirTrofloGt2drG
-	 m0nfpvZ4+HY6jehXPKlkLrdVtrLdbJcrilJqvNNGssKgIPUWUNV/YsFV3r5zZp2c3fKDF
-	 V4EnIbOP9p0+T239G2MpnhAU/oghJxfKdfE5L12u9AOcZ/8EqGb2R1Q8Eh1C3ky6ToQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794472387;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=RhdgniR7Xv7Tq5+THcnfG7FzL9goeLQzbhmqdAGPw54=;
-	b=Wc/ocfOBGFXP2Vth0rkJ3HEIyZ7obUuWXlkH0hD4pLokDdE4m2ZGwx8sG4k5BedtSHrm
-	 1HT1y1Bdi+S0mAhlsD4EkVmWtDy3f5dElU9GyEv/y5rfdXxqrGF8PPCEwNn7bRaaG7ZLu
-	 2iletN1dKbGDLjrHXbjNdMZaXA9dYoUuoHe/lqSH2JlISofUfVT8n0u9cVqed1oZFEWiE
-	 ZS22sjzLnwXJnhO/nVkqicGaExJK1ZKXBkziBX7oDApsjLJg3TMR4+8/hS7AG45VX8rUi
-	 r8i6OD/6BP7SAl1T3+d1tdOGDocNtj4i9TROCmJyNIw2kzEbMEKo0f8TrtR3lzQc3aA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oi8b8PLn;
+	arc=fail smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CB6CC1F00A0C;
-	Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794472387;
-	bh=RhdgniR7Xv7Tq5+THcnfG7FzL9goeLQzbhmqdAGPw54=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VvpYQmxc83SJbPJeKVGeQ3hXL7ZpBI5Zq2825/p9PKTn4YzzkHZdbWYdO6h8n4qUd
-	 8itrjuwEFHQRS7N9qW89WyBh86imBWjHkGkm4NH+LX7enJMkH21tFE46G0PtP5f6oH
-	 eQg3fHFVCvxxhnORn4gFhvYy6P3ZH7dHFNUzx2isTILER2JFxNyMy+zLw1OmaKOVIw
-	 cLoLUV8T50Jklv/k5dR3/04Q2+x4jFyWue2YfVwkFsTVc0kIyrBGw8LJehd5Crn5gx
-	 ZMlOmeqJHsJ2vK4+B8tn9PqzeShi+wFBUWK91wVcRSXXAY3tBS2MpK8enSuGXiRYbO
-	 Ufpu3qu7jAm/A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4FB9B4939E;
-	Thu, 12 Nov 2026 08:33:06 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:33:05 +0000
-Subject: [PATCH v2 1/9] drm/rockchip: vop2: Take the UV plane address from
- the second GEM object
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE5060734AC
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:33:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FE5060734AC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oi8b8PLn
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-702dedeb70dso2209131eaf.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:33:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794472428; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PJas8AULBLnTve7SRHUACas2sZNoI7gzouMkgtBE4PjwEt+RfrgSsMcjIsDLkCqSj5
+         GvCIpt6JK01McqEU5SgAzlWTByzWNqsetwpu3ySrg1H6nAVabO9Ij5dABWLtPPmGmNXL
+         cn+knLRxQbsION8KwTf1vR8JTkzXveMV1sT9JxNXL0s98nyIHWR90KCJLnL6Mb62wAED
+         46UD4SyDo+l+3VmvUGWMFkFlXODfKA3pQCXWvyDxphyU3PiF67HI4LVsavBnqLO3UhkR
+         7saNjauUWRF6Tkj8T9IOOgEC4AChdRDxgzWbVLg833BQHFh6e03g9SA2/tqo/vMA6vUI
+         bFog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uOYvxf+M0Ap4noHF2nmW81cSBmYvF6P+PnsYCByXef8=;
+        fh=5q5+b32ss8ueoFUiHqklT4NqsAOrDABRgBSEam6lEvU=;
+        b=BlVb3D6sss8DOC045kM2agpiwsJVJqjy/YY7MYUVK7ZYAtjWOSVtEV9MhOARmrKvaZ
+         oznPgJuJ6c6Ux/+cBuAQchYOyLtvozi9F+ib5IaA9Zmd5rxofG+R9QElhICidqmGQGIl
+         s+VRcReiBJisl7fs+CkIH3RoH7p28gtW+6ORqS4kx3Lfb5Z8kKj7AELXPD2LhdVjqFdR
+         wdJvkj7b6aSVesV8yUMyXz5Z+BikETcmvFuUzScmOZZueCjAPX3z+zCm6f10zInysNEW
+         foKgYkIRffz+bxyDkk9FsO1aLJGvpwOaXu1nmfNofvGiIGdW5piuN2fQvDymXnhGij/P
+         iSUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794472428; x=1795077228; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uOYvxf+M0Ap4noHF2nmW81cSBmYvF6P+PnsYCByXef8=;
+        b=Oi8b8PLnrmaQ64bFFPurb/0NRJSzOTgERT3w52aHLchDiGE24NvNc053MGzsM+qWdL
+         ab6xBre0Y27SWz0NmrywKH21t/466fyW7knd2Doyzxy9qhiNmu8hkmno4/lsE2WZxlzH
+         22p9C4gSoYQpEuV2L4h42JiLHb7tpw27dm67IQiaIuePmeBEJg6W/XbL5OHHBuPAlJCI
+         tu8qeYoLlHJf4HiWDS3uu5OIG+pmyFXb+l1gKtpZgQdPdyaeJLe6UZf8HBUW6dA3vAfS
+         gdzKhEwM4a7ocp3W88w62eMBgYlyvTCne/5bB0mwVJwyZ0Rx5kM1dCLfo8OxSdQh7aZp
+         ba2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794472428; x=1795077228;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uOYvxf+M0Ap4noHF2nmW81cSBmYvF6P+PnsYCByXef8=;
+        b=Fo8z3FhRxjll8lUS6Nf7WuCon8ht8UoE+nVFYrI9QgghqjPfKAwFjfeh6hoApgL0t2
+         jZl4GSJa7BoZSj33Ot8kQGKO5bBBGlDJysNXsR1SeSbo1bhCxDYsfPgy/4MF4ISO/4xy
+         80u1iv88GPtCGtDg65tIMQzoI31mgaCk+YL4pSd8cXkfnMaI+YmGmQcpZxetzlJy8291
+         SV86ev63t7WM5rm1CnMxPJk4L3HoVMLwp9OZunjFAjSyiZnUA4bmeqFm+NUb4fxfRGUV
+         N3S1IhxHgI2fssI/Y1oithLqByHwwkqTrN30FLSkhwPLjxtgLbWluqpfuQ0DHOhclIiv
+         8v5g==
+X-Forwarded-Encrypted: i=1; AL+hErHGDr+i/ummBdFvtxUbKypIbhQSVjbJmLqAuAXdCz8jFFqqsemgOq9uqPI6gQbm4vvUrJuOpLQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/B6MMNTRR+MrmnBi4fYaxAt2lVG/6p41h9zWkLcwWnb9uGNjqW
+	VXq8DykRcqyWX6E2AoHnTG3F+j7aSqkh+xJy9qMuem82cVLOlxKfFB+dJWY6sKVDURe9AUHNsnr
+	fxdOkhfkIPKbc26FknvG3L4CRE6z7M9k=
+X-Gm-Gg: AYBFou3gCgeUcnVM7JA9GioL8aLeGW8pAXNVOlyYnT0CWBPazWEhA/NvjEbe316m9Mh
+	bB94ZsN7b/1geRR/K+fjTDB4Nqw2L/1zBOFOPBwCkENC2A1E5DGQk6LQa3tNO6batRD4sSAGe5S
+	urzEm52tsPdk0IUjLLKqZeNHeNw1jk/apFZxL0JgKn0ieqof6hMC78m6wQrCT27UKSDxJSetQSX
+	m7S4C9L6OiHH+LB2CNnFmKnb3BmaDMWCsy9S5RygYW/j5iFfhdsP7fsQADF6KamCqaQJcqfE7w6
+	e1M6f4DL0/FMgWsIuGeXkqxfPb9qSEEn62pt+AEi5ww9AbzG3M4f1ZLbjFmpv5qW9c1g3qqC9t2
+	3oiAzrIaQKV9Lgct3HHaPc1wPqBjxUKfMsz6w6fDxg/9oMU/DiEp+QLdyFYsY4wTaASAb2bQmey
+	00w5vfbrbbLH120A==
+X-Received: by 2002:a05:6820:8912:b0:70e:78ba:1193 with SMTP id
+ 006d021491bc7-71917852a66mr2642193eaf.27.1794472428165; Thu, 12 Nov 2026
+ 00:33:48 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,77 +105,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-vop2-fixes-v2-1-8218c1cf8ac8@gmail.com>
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
-In-Reply-To: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Piotr Zalewski <pZ010001011111@proton.me>, 
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472385; l=1838;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=c6L45VmSkCBmk0ERX5lNSIXdj9a2eckfk+73qA8sDb8=;
- b=bNeTudL523j6Oh7G+s25KWoAvRH5h9NVLNWYV+GSaMqLiTaDWtX4j2lI+02qf8Y5TtY6yHfN3
- 3AEArtFHBkpAOJZNZx6SmuxwHhXYzW9/VSt7E2jNe1ayGQUaGNQSjax
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261109100437.331423-1-amaan.cheval@gmail.com>
+ <20261109100437.331423-2-amaan.cheval@gmail.com> <CALuQH+Uee+=2NyhCXVmmESwXxSqDYKY3Foj70KM2qY6g5UsOXw@mail.gmail.com>
+In-Reply-To: <CALuQH+Uee+=2NyhCXVmmESwXxSqDYKY3Foj70KM2qY6g5UsOXw@mail.gmail.com>
+From: Amaan Cheval <amaan.cheval@gmail.com>
+Date: Thu, 12 Nov 2026 14:03:36 +0530
+X-Gm-Features: AclHuK8jw0nrbYX6MTsSZqQlwj6_5UHh4mClUVm7LQtL7_VDZNXktjTz3rcpg6s
+Message-ID: <CAG+wEg1fWbnaWmEBeCA0RcwYvMDrAcacX4qCO++bsNK98FS=Vw@mail.gmail.com>
+Subject: Re: [PATCH net v5 1/2] gve: refuse XDP on queue formats without XDP support
+To: Joshua Washington <joshwash@google.com>
+Cc: netdev@vger.kernel.org, hramamurthy@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	bcf@google.com, jordanrhee@google.com, przemyslaw.kitszel@intel.com, 
+	maciej.fijalkowski@intel.com, pkaligineedi@google.com, maolson@google.com, 
+	csully@google.com, willemb@google.com, yangchun@google.com, npl@google.com, 
+	awogbemila@google.com, shailend@google.com, nktgrg@google.com, 
+	maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com, 
+	hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Tue, Nov 10, 2026 at 1:16=E2=80=AFAM Joshua Washington <joshwash@google.=
+com> wrote:
+>
+> On Mon, Nov 9, 2026 at 2:05=E2=80=AFAM Amaan Cheval <amaan.cheval@gmail.c=
+om> wrote:
+> >
+> > Commit d8a8ca14c937 ("gve: add XDP_TX and XDP_REDIRECT support for DQ
+> > RDA") enabled XDP on DQO-RDA by dropping the queue_format check from
+> > verify_xdp_configuration(), which until then refused every format but
+> > GQI-QPL. Nothing replaced it: gve_set_netdev_xdp_features() advertises
+> > no XDP features for DQO-QPL and gve_xdp_xmit() rejects it, but the core
+> > only checks that ndo_bpf exists, so a native XDP program, and an AF_XDP
+> > socket on top of it, can still be attached on a queue format the driver
+> > does not support.
+> >
+> > The DQO-QPL RX path was never written for that. Its page accounting
+> > assumes the driver keeps a reference of its own across every handoff:
+> > gve_xdp_done_dqo() passes the buffer to xdp_do_redirect() and then
+> > recycles it with gve_reuse_buffer(), so a redirect target that releases
+> > the buffer synchronously, such as an AF_XDP socket in copy mode, can
+> > drop the page's last reference when pagecnt_bias runs out. The page is
+> > then freed while it is still DMA-mapped and registered in the QPL, and
+> > the driver posts it back to the device.
+> >
+> > Refuse XDP setup in gve_verify_xdp_configuration() whenever the driver
+> > advertises no XDP features for the current queue format, which today
+> > means DQO-QPL. A zero-copy XSK pool bind is already refused by the core
+> > for the same reason, and a copy-mode bind never reaches the driver and
+> > is harmless without a program.
+> >
+> > Fixes: d8a8ca14c937 ("gve: add XDP_TX and XDP_REDIRECT support for DQ R=
+DA")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
+> Reviewed-by: Joshua Washington <joshwash@google.com>
 
-vop2_plane_atomic_update() computes the address of the chroma plane of a
-multi-planar YUV framebuffer from fb->obj[0], the object of the luma
-plane, plus the offset of the chroma plane. A framebuffer may have its
-planes in different GEM objects though (DRM_IOCTL_MODE_ADDFB2 with two
-handles, as with an NV12M buffer from a V4L2 decoder imported as two
-DMA-BUFs). The window then fetches the chroma plane from the luma buffer,
-at an offset meant for another buffer, which shows a wrong picture or
-reads past the end of the luma buffer.
-
-Use fb->obj[1] for the chroma plane. Single plane YUV formats like
-DRM_FORMAT_YUV420_8BIT have no second object and keep using fb->obj[0].
-This is also what the vendor kernel does.
-
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206550@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 76d151b8bc52..ea8d837d661f 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1369,7 +1369,9 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 		if ((pstate->rotation & DRM_MODE_REFLECT_Y) && !afbc_en)
- 			offset += fb->pitches[1] * ((pstate->src_h >> 16) - 2) / vsub;
- 
--		rk_obj = to_rockchip_obj(fb->obj[0]);
-+		/* Single plane formats like YUV420_8BIT have no second object */
-+		if (fb->format->num_planes > 1)
-+			rk_obj = to_rockchip_obj(fb->obj[1]);
- 		uv_mst = rk_obj->dma_addr + offset + fb->offsets[1];
- 	}
- 
-
--- 
-2.55.0
+Thank you for the review and guidance!
 
 
+>
+> > ---
+> > v5:
+> >  - Check dev->xdp_features instead of queue_format, and reword the
+> >    subject and message around that (Joshua).
+> > v4: https://lore.kernel.org/netdev/20261106114551.212675-2-amaan.cheval=
+@gmail.com/
+> >
+> >  drivers/net/ethernet/google/gve/gve_main.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/e=
+thernet/google/gve/gve_main.c
+> > index 2437cd8ba633..fe560f5c5408 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_main.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_main.c
+> > @@ -1723,6 +1723,12 @@ static int gve_verify_xdp_configuration(struct n=
+et_device *dev,
+> >         struct gve_priv *priv =3D netdev_priv(dev);
+> >         u16 max_xdp_mtu;
+> >
+> > +       if (!(dev->xdp_features & NETDEV_XDP_ACT_BASIC)) {
+> > +               NL_SET_ERR_MSG_MOD(extack,
+> > +                                  "XDP is not supported on this queue =
+format.");
+> > +               return -EOPNOTSUPP;
+> > +       }
+> > +
+> >         if (dev->features & NETIF_F_GRO_HW) {
+> >                 NL_SET_ERR_MSG_MOD(extack,
+> >                                    "XDP is not supported when HW-GRO is=
+ on.");
+> > --
+> > 2.47.3
+> >
+>
+> Thanks!
