@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794504476;
-	b=iipd8ejwAppv34fJQ/35bJnPpuVvPENdM9LY8UWeBJ09pCx7QNh0cF3PPs/F/TLWFgTp
-	 ONvBaBcbhF8heBwZWGEVZE0PYCQU/t7sYulg0V4/+PrjPvxQCXBpsEWzUKxd/Ho0682I+
-	 qYFdPNeYR/G9EiGgZIvIcVlK23LyhnFjRZhzmqqVL+vAvCBk6GzXrj3uZUwYI20tAz71y
-	 Ipznpvv51ShK9ASf/8MQj0cWFFlhAWzmhEdb+a3C3dkW+3i6GiQqTLfemO0nbhKofFCAo
-	 +shVYITbgB63CZPVWqhaccSQlr+2YR8LksNi1fXqPeryAPFHhql6yaujiH0igkqKGVg==
+	t=1794504756;
+	b=IgvCA8grLP2q/Q4EUEM8whnXRD6k0R++OxtOV84qr3OT9kEBPyWdVJullHRhwOu86NE4
+	 TSJiCujHV4+Gk1MhYhNaHe+sO1OE33JIboEw5ujLUm3tmGP4ADCHUdYjqEMaY+Bt8Xqpb
+	 /MIPwxlvacoBq0Tpy7903i0F9f2hNH3i0pVl/Ey0+FkKIB6wmVetXsO0/2C959/lHZX9J
+	 3ytmZ7emI4ivIZ8sHaOfs8AOZp8/HAyAlg3lfXwiqVGdih0dY/AEMDPEUi2PmTi8e0io8
+	 XpkP5+iW9fRhHOHkKT4Y+FmyY7PP/TDXxrabkQAX5z1ZBScdWqWuU4z14o0joeGl7+g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794504476;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FQRPAOczeChNohAnaECEMnatXU5EQobFRvNRBtV70cc=;
-	b=gAZU8AzPOVu7zwjFtKL80qf4LAa8Th28DPOiZ6ky/ktIM5xa2vGxabfAMZORhzClcVZX
-	 e/gYhL+dBuXiXKNlPO5cOapKOC2rB21lo7te8hn9SN8867JynPrkK9MwoqGDbFx8L1Wir
-	 1Y5qX77APUIhKHDbScJrcIGS6vd+4qTY5wSuUoRmq1owSlBZNYPrh/dF+uOUpz60cq2P+
-	 R+5JwGCt9clFBOUFAAAlOrxE9D8DrSPiK7rh8Ud/WJcmg7O8PLAzNJFmCE7ZYWtjKBE3m
-	 cycNtAd0UZT8g1LZlLEL3ZeeGNS7RMpOU1o2QX1Dfg26T3QqsgBUtmeFnJYHjU8j37g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794504756;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=uvlpRV6PcTM08/lEakwe3Mf9uWtn57n5IAUH/fdgelQ=;
+	b=Cume9I4Iu4JAoXRUPo2VqDIUKQpikSzIqUlXnt3WMrq7dVnbHHdgVBXQoBLSidyyW9ZQ
+	 MJW0qhFkAhQhcx3fwOewPO2u6DlydXGcQzQi6tOHhGdjV/GbYmHHVwjzCBnqta4IoSgwc
+	 JJcAGPOJ5kMul/mB6IMYco1ST1LI9jyflYVAOtJOfbVjssnoX+Gi5+XX/8hsZevfD1Qxo
+	 SAohU7tEMfDo92bqsU3408gJmDDaWk5cV0BAxcVFwbYsPPJF3W57mf5nJaFllcKyhW3Gw
+	 7KK8LDAjw4kAbkJjM+vzbwChtEhr+WnkVZ56tfgiQYi65x5LKTqtXJTD66C24F4hwVA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ge0n0eNg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCF8606A89C;
-	Thu, 12 Nov 2026 17:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ge0n0eNg
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794504476;
-	b=qduKTI2WCWq68UTTvHHAtm8P8R999UWNGtPKsyj3fX9gBim9xKTIQ3j6mLDKihggXjd7
-	 +MvNEZ//jivUdn4MIHPADXdi+zE0sl+3puJr3p8BqUO5vPI8o7vtO5m6zlLzMlGyymZJc
-	 +aP0yZ3fHOtDFsflGb7zgazknmKqsfC6vF2IA5XZXHRS83oniK+ZyBoLNLMl1nrblbbak
-	 rFSiZZpOl1x5gH9lJmI9xvsRez5h6nT7Ap9aNxPwD81xbSPbExxxupGS59A6D+rOVJxGI
-	 F1wPfvI5AnEId0WfNQTwyFMyrmxBtghBosKf+vmsHPZUzQPj3hPgnHI2dIlPtFIyN9w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794504476;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FQRPAOczeChNohAnaECEMnatXU5EQobFRvNRBtV70cc=;
-	b=Zq7OYqf+lvdd/IOxbV1+qhyIHdLJ4/bSQnur8yzRLil/ahz5fM2/heMfnpx8INjrjsF8
-	 DwAVza5xCp2Zec0EEs+5gW2LCzg0njEiMx7kjHnVsQJF0KuxAgNmuF3r5UvG00mqNjYKC
-	 WTlGKf39Zm/yjsmKzBr0eYD4nhcp8hHR//nHP5VN1j5mgv8IKWfSwmd0bpCDKqvazQlNU
-	 KoUNbUzzZ6/MK3HWqVAz1cECRCHl4VXkec7uO8ikIxO/fVT3o6GFAqfICkZDnod/yaUNU
-	 KiF+buhQGsWgs0yQB4wkq9ZHaHS2Ua1I+Sw0EbD3xYCsa9wLfPCf2uSUU2pA1a4G7Dw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cPYgXY+E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DB8E81F000C7;
-	Thu, 12 Nov 2026 17:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794504476;
-	bh=FQRPAOczeChNohAnaECEMnatXU5EQobFRvNRBtV70cc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ge0n0eNg1KgJYvTqgfRMoSR1JPCmn5oV5ubIULSq5jOrLFx/4l3HgeYf0IJBDly3O
-	 6evaInpa5cz2s5ru9bDvwqknOs98Fx64SLWDK9UmgFpR6GbbmPmagh2aohkvHSjIil
-	 J19upDhnOciZZzR7+2vqoBJZqYdaFUaAKL/U6hvadLsM3F7GVRXo1z7K11El+PA3hB
-	 Qti2ezP2IPsAhn3h34LO8qdEi6A+EolF/sVH3g7AHUfRUdWKNqjyB35SgraSdCBhJ7
-	 sJ7/wb8I2r1xZLtQGz+cMrEYmR4CP9qZQU9Msk8NBj7htFBuXTxQKSep54VmZKAXMH
-	 x+k3FG/dJ2rbQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 69D9D45A88;
-	Thu, 12 Nov 2026 17:27:55 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 17:27:56 +0000
-Subject: [PATCH v3 2/4] can: kvaser_usb: reject devices reporting zero max
- outstanding tx
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7FB606A332
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:32:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C7FB606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cPYgXY+E
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3adb75e65ecso1474111fa.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:32:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794504755; cv=none;
+        d=google.com; s=arc-20260327;
+        b=n5rRGPQwcqpDBS0dgMzp76bnrcJCgHYz/XkRey9oUXos4kE3X3dAS/6wBe5XR4VE5X
+         IiwVS9R1gKOE7PTprmP4rjudl9Uq0RaLbwdH3AEo3z3nhyJaMdIuITIwcu2O9IB6y4SB
+         L/K7bwXjX+nOdfea5RzuLtj3fiB2QeSgCqI7NcyYwX2bBQBXGWxrzCgNJ+tyIm6PsWAr
+         1aaRIHF2cgdf3roHuSyDRJOHZfKr8MPNxtHiOUWVmy6pk/C12Mr92hQeM0JKc2bOV9lo
+         I+Q+2j43ntJH1mr1ybKlTwrsEqgj4m+my6NmQ8J+BWp5jClqKnouBn0ManUhbMUvrQfw
+         17FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=uvlpRV6PcTM08/lEakwe3Mf9uWtn57n5IAUH/fdgelQ=;
+        fh=Od4BhZ1N1s4ieyxnsI1Fxl2NLZPW4KVi72/l+Zplhkc=;
+        b=Iv2+LJDYWegR1gWxDS9PwQLvRqxkGi6Ven0Pnfx0wTs7XUCDXzkCsjPWFD4Df/EfJu
+         ZNwaD2teEmUTcz8StGzaT6JfwLP2WwBLiQlcPBL/ZAG1k3jEyuCjhd3PBA4LxQjIl76a
+         tt6wJSDI4rzArvKTcdV0egYHIyRRrbSLormWpOoIcruLOsktvHd5/axBsStaPFuqEhNp
+         56Kpcs6uvJhYhvQ3ZVEJRiQ/KwhRkkg1bWDiw+YR0fDo2R5AA5rlz66xnwgvMyzV14O6
+         c2c9r0LUPjjA76Oe6Y54q4vd49OOGSuyvmygpqA75BQPTStf/t2BMfFtLNb825mMGQE1
+         IlnQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794504755; x=1795109555; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uvlpRV6PcTM08/lEakwe3Mf9uWtn57n5IAUH/fdgelQ=;
+        b=cPYgXY+E7vomXUXiemWyiQitJ8jT6w2ZLe7bOXWEzdEWJS94K5FgEdC+j00BRJeUuk
+         C36z8XglLt3Bhpy9JGLe1SD8KgMGBjK7qulURDLvHYBM+pt7dwbpkAQZWyYaz7aCk3+d
+         FE29rmRQyOJJOLGci7tIyAWGAambKQJhElA9pyZ2JmYPlZ6/oKXEgkNHihpt/dSxFhfw
+         V28x/gsoDAXdfjbCAF+Bby5x3K4v9sgtU54H5jb1BMGYQCD5lDt88fqHRs7UE69ZZR6s
+         +12A9ZV/AA9AlZ6vG9CVlI2E862CXkHOHhGtDbakt+WpxKFh3T9mto/7COtk1K23IhWD
+         tlCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794504755; x=1795109555;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uvlpRV6PcTM08/lEakwe3Mf9uWtn57n5IAUH/fdgelQ=;
+        b=XUpfnDxgXuFliwJhrfggMmiVqlAlFi82e/vKqOHAHr/YMf+CQ6DGURo07N8XLsMxiW
+         eJp+Jui2XbMXh3/4jDMFMjUyDwXhJN+aCImHOtQs4zwv3MixvxU9m42wjnuLrZgLytT9
+         rDrv5hcADooi5NPI05O/CCtH9hh1BuAYMhe3Uc3Rzv7b87fJfgpU7hzf7K6OUkE3aA2+
+         FIpOD1OYnH5j5XmovIockbgwgPRLPmnTwKucjBG/Ld18IME88TZpO4LQKT1RCEMVou7d
+         2CSkfgGUQHcf7cgvShNLRPzUJLtXo527w4PVts6z7zNC6NmusU//Y0bjqtakmrh6npg0
+         xsyQ==
+X-Forwarded-Encrypted: i=1; AL+hErEsUf48XtToP07/hWq0ImWZeivd5N4N4/av9P793yl2yrMl0842GaoDqE9PqS6OGp3LiEQiV3U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cMawkJ58ZV7h7Z8WAr3nJhk0k3PYixYVKFne4w2NRfZCA5eEJ
+	Nvtem5suRzwWBcS0HKxArFcSvc7AxsuBdUgNnTGHn1BpPXvFZ+nv+vvt1+n8dT/rmrAb0amAe5y
+	0jWK0O6rb5KkDFQpB2yieifBuRaPjea8=
+X-Gm-Gg: AYBFou1rq1QkRtik8+9QMij709HM6EWk6kcYhpdjQ3XwLdtO3ftYQrVfwd2QiY2WlRY
+	4j5Agfw1vncNtStBlNsn3g7RUJ9Ml/ByVnIpyhOVJwCd+yUZL/Wo++IExUAsw5kCwQnCggmt/f6
+	uc7pYXIwB5TY3rX6xmCybCARhjDSqnmfqTqfNa14AzXF8N7TWPNuR8+adEP5DSoL3dDTfXdPusJ
+	1y4oSD+NIDhyNl1YTJVpuz9W+DhFef0dDrdKkfGK4Tmn0GSoP0HcmB1vr4oIiAvRKcIx/+Ygvtc
+	PE3mH1x6HEKlUrdPJoU5mOqx2kZGuciSQM9TGdrRBVr4ibBCLVqlwb2OzKt7hxIY8HYsnVANl0Z
+	b3zqTGYeUPOQpQmLZA8MOwlgjW3lxsBmumrNvoLken7cfcAT6lYodCgI4+bHijpx/Dzj3g3I=
+X-Received: by 2002:a05:6512:1288:b0:5c1:5703:46ed with SMTP id
+ 2adb3069b0e04-5c170a00a41mr22428e87.6.1794504754625; Thu, 12 Nov 2026
+ 09:32:34 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,80 +103,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-kvaser-usb-validate-v3-2-61587f639508@gmail.com>
-References: <20261112-kvaser-usb-validate-v3-0-61587f639508@gmail.com>
-In-Reply-To: <20261112-kvaser-usb-validate-v3-0-61587f639508@gmail.com>
-To: mkl@pengutronix.de, mailhol@kernel.org, joasantonio108@gmail.com
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794504474; l=1920;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=CWXGNrvsTmGzERh91MhkIoNvIPE1iZLcRy1k5EnUGBw=;
- b=eWhwCB2ec+u2+vusPuOzFD336EmcdeHrufYk+hYi+V49i8qBMBj0YB8sF2wOTzoKwP/LwzN41
- SR+dSnTOsbuBz6Zxch7pFjc28hPvlebD1NxQ/Py2Sgr/HnVDovpNSeR
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261112-iommu-probe-race-v1-1-8c0b986b7e6e@gmail.com>
+In-Reply-To: <20261112-iommu-probe-race-v1-1-8c0b986b7e6e@gmail.com>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+Date: Thu, 12 Nov 2026 09:32:23 -0800
+X-Gm-Features: AclHuK9Z7jBSZWw9Fn8TnUnk2iUH3q-Sin-aeWc7hO6RSzhS2Undt4qpZ9_1474
+Message-ID: <CAEy9hNXRwH9qD-=Gj3NiY=ZVrVq02hAj0dPU+o8YfEmCcbSdNg@mail.gmail.com>
+Subject: Re: [PATCH] iommu: Don't let a driver bind while bus_iommu_probe()
+ still probes its device
+To: aiyengar1990@gmail.com
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	"Rob Herring (Arm)" <robh@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Please don't apply v1, and it should not go to stable. On re-reading
+I found three problems:
 
-The number of tx contexts is taken from the max_outstanding_tx field of
-the software info reply sent by the device.  The leaf driver uses the
-value as is and the hydra driver only limits it to
-KVASER_USB_MAX_TX_URBS, so a device can report zero.
+1. "A fwspec without a group means a probe is in progress" does not
+   hold on ACPI. On the driver bind path acpi_iommu_configure_id()
+   creates a fwspec, and nothing there probes the device or frees the
+   fwspec. So a device whose IOMMU probe failed earlier would get
+   -EPROBE_DEFER from iommu_device_use_default_domain() on every bind
+   attempt, where today it binds without the IOMMU. OF does not have
+   this, because of_iommu_configure() either probes or frees.
 
-dev->max_tx_urbs is then used as a divisor when a tx acknowledge is
-received:
+2. Drivers with driver_managed_dma never call
+   iommu_device_use_default_domain(), so the window stays open for
+   them (e.g. pcieport with a modular IOMMU driver), and the changed
+   WARN condition can then hide it.
 
-  kvaser_usb_leaf_tx_acknowledge()
-	context = &priv->tx_contexts[tid % dev->max_tx_urbs];
+3. Replaying dma_configure for a device whose driver is inside probe()
+   is wider than I described. It applies to every such device on the
+   bus that has no group yet, including a client that went ahead
+   without its IOMMU after the deferred probe timeout; that client
+   would get its group and default domain while its driver is probing,
+   without a warning.
 
-  kvaser_usb_hydra_tx_acknowledge()
-	context = &priv->tx_contexts[transid % dev->max_tx_urbs];
+The race itself is as in the commit message: the client's dma_configure
+sees the dev->iommu or fwspec of a concurrent bus_iommu_probe() replay
+while iommu_probe_device_lock is dropped.
 
-With max_tx_urbs == 0 a tx acknowledge sent by the device while the
-interface is up is a division by zero in the URB completion handler on
-architectures that trap on it.  On architectures that do not
-trap, the index is not reduced at all and tx_contexts[], which was
-allocated with zero elements, is accessed out of bounds.
+For v2 I intend to mark the in-progress probe explicitly in dev->iommu,
+have of_iommu_configure() and acpi_iommu_configure_id() defer any caller
+other than the replay while the mark is set, and leave the replay
+condition and iommu_device_use_default_domain() alone. The other
+ordering in the commit message (the client sets dev->driver before the
+replay check) would then still warn, although nothing is wrong there
+besides the warning; I would look at that separately. If you would
+rather see this solved another way, please say so.
 
-A device that cannot accept any outstanding tx frame is not usable, so
-fail the probe when it reports zero.
-
-Found by LLM-assisted source review.
-
-Fixes: 082d70b6142f ("can: kvaser_usb: Comply with firmware max tx URBs value")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
- drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c
-index d0a2a2a33c1c..a915e529290b 100644
---- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c
-+++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c
-@@ -977,6 +977,12 @@ static int kvaser_usb_probe(struct usb_interface *intf,
- 		goto free_devlink;
- 	}
- 
-+	if (!dev->max_tx_urbs) {
-+		dev_err(&intf->dev, "Invalid max outstanding tx (0)\n");
-+		err = -ENODEV;
-+		goto free_devlink;
-+	}
-+
- 	if (ops->dev_get_software_details) {
- 		err = ops->dev_get_software_details(dev);
- 		if (err) {
-
--- 
-2.43.0
-
-
+Tudor: you are on Cc because this is the same "!dev->iommu" gate on the
+readiness check as in your thread
+<20260323-iommu-ready-check-v1-1-5f6fef8f9f59@linaro.org>, for a
+different case (one IOMMU, concurrent bind).
