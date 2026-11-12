@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492986;
-	b=huUjEPggLMhwl9o/Du0YFRqAk8QPu9wYvAuEY/PWpMpz0G4ftSRoxWJjEy80w2iruUFE
-	 lzz+YgIB0HT7e0Jt+h7DmfTT0PR99u9HwJpPo+ssWF7tvGERj0aM588QDYiYeSdy4y9T/
-	 KBkKHTsf0kiK1V/zEQh8K+ikUDAwTl34FAXZxgXG3roOrCUue8GWTs0ojmDz0jihWxjYT
-	 OoGhV8q6xmyQfalx61/VWK3lRMiiuqHGg3AAQi/APsj1KHZKIMi0v5RTG1GQyH6raLBiV
-	 dkTvz3t56czsPo9wBnv9McU7gGJrlVUrKvC6F9MKtClPfF6EwIHUE2GzfIFp4s5DB7g==
+	t=1794493062;
+	b=oRrE7FuUTTg0lBC0LdQK6xa4fRJsy+h9btMSVZbMKlsCGQLOQrgaRTELaSwR6x1JVDSV
+	 iaOPmQ0p697EcaRpzkuOxqhJ7HBAyeoTi/0KToCYPOZ5iojdNeHS1ZcxQropdhwXTO5IB
+	 LVpOu3FI8SD3WEU5/o1sw7CdkbHTaPAG0/bb0Dru/o6EiPg2GesIaUkjQ40kt/r0Yu6Fy
+	 /ahmfLBwVmRV9KxYz71V4l6DNuqpyIwe26IlN8KNaBfZOEGzp5NrO0plyf3p42XlkiaZ/
+	 Hbw0Xmv2/KgqsEypI2TOubHsxuHPLwf+PR+4mPN6yppyqYCbHHyp+wSV/Boht9eyKFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493062;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=H8yidXqYxb8+FTcip6WkrxcfhGiKCGC6uWz8jObdA/A=;
-	b=D2M8OO6xdz59dEXxHZKb4oxaEGIT119XDMSQlw8B/M2l/GNt4WINgVIRkLti+goQqQvy
-	 pO7kCAGJU73UYeiUxtUONY1e2XOiklT29vOD44a2ZQK8DNDyQxH8l8PLA8d2ppqrI/vNh
-	 ZEzfKkKNnR/VRjFd9xPQ0AYAuc0g9HC/lBsXP1hFpohO5QnlcYsJdpu8fwqbNYHWhkYO3
-	 99QGiWEbwoXYuCKTBQEMLfTF+hc+K5G7Tegzx55BMgG/tfWq6iktFiYmQn32tF5O2G3+4
-	 mRMcVZeHutN36gMrp8/PTS4sKLMi8K0OKGyZ8+MKsUjBIqUeOb1lN3eEWA7CGwGhlTA==
+	bh=uVC1UZvNpbPR+bgPqRTm15L5xYy+BXidKU0ZA+GOJTQ=;
+	b=RJ9b/Vo4XoFzc4RT4+fme5jDp3YUVPAHTBZynKtqOcussJDL1ViSVUWfvBYZsIOeNaju
+	 1w1ZrHY39slTq7GD/OjaYA3JNaVuAPTiQMzrCMupgcTnMxUlRgox63szu8iQ1kxs/QUlS
+	 C6VPnJIrE+njsnaTXEPk0RATFVYHjI9WC2T4PsdrWcpl2l7aROpSOK6778DdjtoZjMHeQ
+	 jVjMYnU1yfnvvTQFepRob/WovPyLGpXLM6qpp9FOO+0QimoZl6hn3lN7y4hyg9f0AKY7L
+	 GGe8icsFKl0vZYcoY291NmZjc9FKvPDS5mziQr4QlQWD55hA2HgV71Z6lIwY6+pmIqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SbnU2x9z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juy3VrPE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C9B606A321;
-	Thu, 12 Nov 2026 14:16:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147A1606A887;
+	Thu, 12 Nov 2026 14:17:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SbnU2x9z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B6271F00A05;
-	Thu, 12 Nov 2026 14:16:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juy3VrPE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A27D1F00A05;
+	Thu, 12 Nov 2026 14:17:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794492985;
-	bh=H8yidXqYxb8+FTcip6WkrxcfhGiKCGC6uWz8jObdA/A=;
+	s=k20260515; t=1794493061;
+	bh=uVC1UZvNpbPR+bgPqRTm15L5xYy+BXidKU0ZA+GOJTQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SbnU2x9zL0m0SFEEjVy7sSyzOLdbuObzbbAZ+CCaTjfsoj2fSZ7Abf/OlBeei5Uzx
-	 0rp2zSoYw1lcmyH3WdzT9hOf7vaBSjoD3eeXt0tH5jf078JpO410TAyg6V1m+V3lk7
-	 d6tnBAA0Epfa8h7aHhOtU2Ulz1QmiFToeb6uY70EPLB7FdaZeturZSfjCvkCS+I2Gr
-	 X6RfvPgrB3OfORjlbzJ7KQLRdLJEhhnCUsB6bJTYE1pPf3NbI7lPX56sUAzSJ3DmHi
-	 Od7H/EP+ijkE/szicKCwCAE7sGAL/1HobVIjXQg2OtNk6x2KBxK3U5DYAmns2i9Lnf
-	 Uxkey4rw08LdA==
-Message-ID: <2f9b90fd-fe50-4afa-ab59-0c4a00e5e276@kernel.org>
-Date: Thu, 12 Nov 2026 15:16:00 +0100
+	b=juy3VrPEurVo5mfr+33Q94ZroL1plyGVoPn2mT/38eat1u6CtVIxD67NREnEICYfl
+	 dBVJso7hE+4dugVUr3Wlfqyel5uy4pyf20hdEaFcGlVPHTYDv2vDRnNSa70FqenejE
+	 2m8tYS5oiL4v8XcMj3neOfk4dSlv83KdnwusJGhr4FNEpE21jpMilVEt7lFuQbEG7/
+	 OObs+PlcxwBqloSxGJL8URX6N9Sp0WMy+/sUl7aZoCYyNiXCKuTnXLPmyoFVHoNDRg
+	 MfvXNcLTSS51Us0kR9nmjs0T5abv7Zs3DrOkZ03xq9yPTcVN+s/H+As5oIIzLsuMcy
+	 myQrl+dRnuuvw==
+Message-ID: <6af42f08-c052-48f4-b0e7-32cb340edbff@kernel.org>
+Date: Thu, 12 Nov 2026 15:17:30 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,170 +52,138 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] mm: limit pagecache folio refcount when mapping
- pages
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard
- <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org,
- iommu@lists.linux.dev, netdev@vger.kernel.org, Chris Mason
- <mason@kernel.org>, stable@vger.kernel.org
-References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
- <20261110-refcount_overflow_stable-v3-1-318625d63a98@kernel.org>
- <avW0HGjF6wuqn12T@pedro-suse.tail5790ac.ts.net>
- <86206f64-fefa-4a13-95bc-eddf756eecc8@kernel.org>
- <avXGtysfRk3uQpNu@pedro-suse.tail5790ac.ts.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
+ similar bugs, and commit messages
+To: Sasha Levin <sashal@kernel.org>
+Cc: Theodore Tso <tytso@mit.edu>, workflows@vger.kernel.org,
+ ksummit@lists.linux.dev, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Leon Romanovsky <leon@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
+ <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+ Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
+References: <20261111225940.1573565-1-tytso@mit.edu>
+ <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org> <avXCcPYM9VAP0JHf@mit.edu>
+ <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org> <avXJSt_3DYx6aQsD@laps>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <avXGtysfRk3uQpNu@pedro-suse.tail5790ac.ts.net>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <avXJSt_3DYx6aQsD@laps>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/12/26 15:06, Pedro Falcato wrote:
-> On Thu, Nov 12, 2026 at 02:16:33PM +0100, David Hildenbrand (Arm) wrote:
->>> Mostly LGTM, with some comments:
->>>
->>> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->>
->> Thanks for the review, Pedro!
->>
->>>
->>>
->>> I see you use this pattern often. Would it make sense to have a
->>> bool folio_get_unless_overflow()?
->>
->> I commented somewhere (in v2 I think) that I played with using
->> folio_get_checked() from #2, but didn't quite like it so I discarded it as
->>
->> (a) it cannot be used everywhere here, as I'd need more functions to add
->> multiple references. next_uptodate_folio() also could use it as I would need yet
->> another temporary helper for a try_get().
->>
->> (b) these changes here are going to get reverted fairly soon once I change the
->> way how mappings are refcounted (which is, unfortunately, not suitable for
->> stable, otherwise I wouldn't be throwing in this temporary change in the first
->> place)
->>
->> So everything that is expected to stay in later patches uses the proper helper.
+On 12/11/2026 15:12, Sasha Levin wrote:
+> On Thu, Nov 12, 2026 at 02:49:09PM +0100, Krzysztof Kozlowski wrote:
+>> On 12/11/2026 14:46, Theodore Tso wrote:
+>>> On Thu, Nov 12, 2026 at 09:26:09AM -0500, Krzysztof Kozlowski wrote:
+>>>>
+>>>> All these are docs (even if you call them as a skill, it's the same),
+>>>> therefore they should be placed in Documentation, not in top-level. We
+>>>> should not create one documentation for humans and another for agents.
+>>>> It's just one documentation.
 > 
-> Alright.
+> Right. The idea here is that agent skills will mostly refer to our existing
+> Documentation/ and will only act as a glue layer to make agents behave better.
 > 
->>
->> [...]
->>
->>>
->>> A comment as to what's going on here with VM_MIXEDMAP would be useful. I guess
->>> the idea is that faulting on a mixedmap later will not necessarily hand you the
->>> exact same page fault result?
->>
->> I can throw in a comment, yes.
->>
->> [...]
->>
->>>
->>> In case this function ever returns over limit, we probably want to log this
->>> in the kernel log. If this function gets the folio you could even print
->>> the problematic file offset/inode/filesystem/etc. Ratelimited of course.
->>
->> You mean, if this function returns "true", right? Is printing always fine?
->> (e.g., irqs disabled?)
-> 
-> Yes. As far as I know, it's always fine, even under NMI. But definitely fine
-> with IRQs disabled.
-> 
->>
->>>
->>>
->>> I'm fairly sure this will break the build for a number of non-GPL drivers
->>> when calling folio_get() with CONFIG_DEBUG_VM=y.
->>
->> You mean, breaking OOT drivers, right? I can switch to EXPORT_SYMBOL if that's a
->> concern.
-> 
-> I had the impression we had some stuff in-tree that isn't marked as GPL. But a quick
-> grep shows that everything is either GPL or dual-licensed.
-> 
-> In any case, yes, this will quite possibly break debug builds for people OOT.
-> I think folio_get() might be a bit too ubiquitous to do this to.
+> Consider, for example, one of the most common feedback points we have to AI
+> users: "make your commit message way less verbose". This is the type of things
+> that would make sense as an agent-only instruction.
 
-Thinking again, folio_get() should not be affected, it rightfully only checks
-for a refcount underflow (when we exceed the limit + headroom). So only
-try_get_page() is affected, which OOT very likely doesn't use.
+I am not objecting to have the instructions for agents. They should be
+however placed in Documentation.
+> 
+>>> Skills aren't necessarily *just* documentation.  The skills
+>>> specification[1] also defines a structured location in the skill's
+>>> directory hierarchy for Python scripts or other executables.
+>>
+>> Specification is also documentation, just like for example specification
+>> for our ABI. It's also located in Documentation directory.
+> 
+> One of the reasons to keep it out of Documentation/ was that it doesn't mesh
+> with the infrastructure Documentation/ uses. For example, Documentation/ is all
+> .rst, while the agents.md spec specifically calls out for markdown, and a very
+> particular construction of that file.
 
--- 
-Cheers,
+Documentation already has YAML files for Devicetree and other ABI, thus
+difference of format does not matter. It's just minor technical aspect -
+tweak the Makefile.
 
-David
+> 
+>> Agents supposedly "are just tools", thus just as sparse, smatch and
+>> compilers such tools do not get another top-level directory.
+> 
+> I'm a bit confused by this... the original reasoning was the it doesn't really
+> fit into either Documentation/ , scripts/, or tools/, so we just gave it it's
+
+Oh, it can go to tools/, I don't mind.
+
+> own home. Why does it matter if it's a top-level dir or not?
+
+Because we do not need one more top-level directory for something which
+is already categorized. We do not create another top-level for
+"drivers-embedded" or "drivers-acpi". We do not have "tools" and
+"tools-ai". Neither "Documentation" and
+"Documentation-for-ai-but-we-will-call-it-agents".
+
+
+> 
+> It's something we can always move around later - agents don't care where it
+> lives as long as it's refered to by the main AGENTS.md, so if we later come to
+> the conclusion that it makes sense to move it, for example, under scripts/,
+> then we can easily do that.
+
+So place it deeper please.
+
+Best regards,
+Krzysztof
