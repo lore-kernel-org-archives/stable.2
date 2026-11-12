@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794469843;
-	b=zKAopXL6pozUGXcSFL4dDmPk8FSDR4HWweKJshX0sb18seHXmyf7rSE4EMA9HxyrXYRm
-	 Msw1NLPwb7WuHl5cOqvVV60s7hWHIwTDETxa8XPPkMQc/HzHWUSiyW5sK94oo08HnoFqz
-	 PvS9DfqPX5N+mTu9RSdQZTobUJIDA1hOmGVY5N7y/fkiUqcqMpfVn5XTrf3/1GJezaLyM
-	 JS2E6PLmT8Xw0mhpZVFy15A1IB8GMqqAW1D7t73aPUMswT1wShchOhvwbvfoDqEwy+AWl
-	 PECNMBOa4BRbTIU89GzTf2cXNJsyU6JK+VCoyBxdMl4u2+zkVmINNSbsCEqk8re/XlA==
+	t=1794469865;
+	b=y/sNMHR0jrWC+EaTs2VvxW/wIeNpyg5ZXbPToaJK80w7ox9Psm7cfuUqx1/1q5GoSLH+
+	 Ah6kGdcUHYpOKFpjDXmdgB4bNRn38pFUwMbnAsyVXkyOs1KIldZzHpHaMHAFFfEZGFjlp
+	 Rme6gR/RaCJMQsh3A8MIqLbBbH4pD/P06WE6E+JO2eZEUJgjTbiypqF6lxHmsWMym5FLH
+	 xe6e/wzjsdl5YINLCJUfvFbymrH0tY2JGSY5NuiOOHvp5pFE4b9QGfXSCu2+bU8HKYM6P
+	 1q9khoTSJudAXAEJtSPFJjopyXBpweFrXp/6qEWcysx3xfS06dCEU2JerSlv4PZjJAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469843;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=tjgKFT4/p+CvJU6by4XpSqkzIsRiw3CwVavlpfOjBZ4=;
-	b=rfsjXg6+gaKJrN9PW1nIwi4+0fZj9g2FBSnuPmEu6rorGL9kk6TyEEXC1Vx8ZM8Ou3xe
-	 55x3uROZwZqcGfjEApvZFpHNrJJPeqFybE2J9pgwehUs/+bmNqsaW6qF9dR0yPd4X5JuB
-	 e/9vWck/8uO4C0iJCfFrW22M9QfJesFBI7fWyNhHfFACKHgU6kbZ/AriwlgxGgrwA3wdR
-	 caBmm/Wh9aZrVjApAoxnV9BO7187XT6yNStSRWfNgZeZeWXdSCfKGqNtwbFiEG37ayiWN
-	 3JLapIrPxPW5yfu7NQAlB/Sih3Keodv45Ay6bfbRCI6HhSaaZZJID+2EkadObxAs3Dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469865;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7orpXNHm7wmCmomSgiqCor7sUdVyvLYg6H0PX+ElZU4=;
+	b=rR6j+LBNotZGYPSg8qhQbNmOUttUbS56x1nicNbRvk+GuimF6xqaQZB/I0A/NyOxJ7hf
+	 xCIRbOgI4ZpwSxC8u/XsA7nqAorPk58vU99e+1h3mpUVg11kO0XtMTeAGSxwcTN6G+e+G
+	 0aW6+UjYLvbnvbH3v9pSTjZtUfO1idWPDJy1Q2jMPRQNrvMu7TJ5ENouWdPVOlu5ANUEl
+	 GegMgbIMUvhhTMQSQOneSopVM8YStZly7vYjrYPnlmaHfTue0nzntt7/XBB0iEYFF+8MH
+	 qQQAMuOi0fE1AQ8mDOXj28UgYlsZGjlPr/hOzWDw4MvLdNwigdGevM15jH+doNteN9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjoNwXGs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D759F606A89B
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:50:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D759F606A89B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b26d8d2498so4603452b6e.2
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:50:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794469842; x=1795074642;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tjgKFT4/p+CvJU6by4XpSqkzIsRiw3CwVavlpfOjBZ4=;
-        b=UMCqn6EDV/OBH8orPyRajczYe1r4eidtcom+0isGJqUtLQOXtqjepu51cZX0rwna2y
-         v9xxvWJyvLQfWxrz0MqsMZxB/AqS9DcxgbdeQywp17sUl3CtHsWMoi0lXNokpVTu6sXf
-         KP/WIfb9xpE/gQ4QTYp40HikvNJN25Si5kIbRaG3e+EGzxJt7iCa7oajmtf9W2pLyk2I
-         0uqGGlnZRTEPRwh3wAToCM61rQ8Qi7iex1BboboYxJjNPctNR6SvHKyGKPc9KXSiODhm
-         pMQgFZKYU5u++ViRO6z5dn9KwOtgDZno0W/dmFTZ2uyU59ZKua4N3AbcuUYMksy1/SzH
-         KgQA==
-X-Forwarded-Encrypted: i=1; AL+hErFGohPyxmdvcJs7GP7yYEVo8XilxB5BMnUt+74kqXkMhHTNA+iczKUtOEP0heaoyjZ54SUv9Dk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YRncOV+lChWQ7fu9LfchiW9+iiKiOh0m+Wd9E+sLDMvCCu4Ry
-	sE9ON7E9uRfZekPmPrOYCzVE40dUD07ykTtJbO94mV+Ptj97RLm3S5dHG+BHogQJxzI3rBg4TqF
-	GyWZTekF5nuVckqfa7EEC8SjUMJ2DnFRG6OnqJ4cydHiaU2NP1EcXDLTDcIg=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24C6606A33B;
+	Thu, 12 Nov 2026 07:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjoNwXGs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5A71F00A05;
+	Thu, 12 Nov 2026 07:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794469864;
+	bh=7orpXNHm7wmCmomSgiqCor7sUdVyvLYg6H0PX+ElZU4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DjoNwXGskFHUpQCTvuh0EYQ9kCmA93kcVo0YHN1bHHTdwmNCoRLdbEdgBLNvgw5rU
+	 guCCdFWLudNxtR4hMEvaKgXF2auMePtbdeA+YH2PTYJFK58NOOJHuYTe+m+IcyAdxp
+	 G9Gj4QnNA+RBqmoZ3gseaGxoPXUrVCA2BE6/pSkySmQnWWD1qJdXKPfF4cGtzUbAfA
+	 CmOv6+tRjpX6ZF70ikzeAJUjhx3ZepZQQW7EgXCZzd5ZUmzGnnzlArFb7nCCxAqJS+
+	 FcRbcP43YdBc/sYlfOXv27m3CqMz3xrzvMz8qTXi+lkBxSOIfV1IpOdBadUEGu5Qz9
+	 tc1aqkTrTPQGg==
+Message-ID: <9732f8f5-151e-484d-b75f-6ad74b64f041@kernel.org>
+Date: Thu, 12 Nov 2026 08:51:00 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,76 +51,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6809:24a:10b0:56b:220d:cc5d with SMTP id
- 5614622812f47-56b961943b0mr3349644b6e.10.1794469841906; Wed, 11 Nov 2026
- 23:50:41 -0800 (PST)
-Date: Wed, 11 Nov 2026 23:50:41 -0800
-In-Reply-To: <6af3562b.17ff5aea.1b027f.0196.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af56fd1.7afbdece.117ea2.0026.GAE@google.com>
-Subject: Re: [syzbot] [dm?] WARNING in integrity_commit
-From: syzbot <syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com>
-To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, mpatocka@redhat.com, sashiko-bot@kernel.org, 
-	snitzer@kernel.org, stable@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] extcon: ptn5150: request the IRQ after the resources its
+ work uses
+To: Myeonghun Pak <mhun512@gmail.com>, MyungJoo Ham
+ <myungjoo.ham@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Ijae Kim <ae878000@gmail.com>
+References: <20261112070355.38837-1-mhun512@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261112070355.38837-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-syzbot has found a reproducer for the following issue on:
+On 12/11/2026 08:03, Myeonghun Pak wrote:
+> The IRQ is requested before the work cleanup action is registered.
+> On unbind, devres cancels irq_work and releases its switches before
+> freeing the IRQ, allowing an interrupt to queue work against released
+> resources. Earlier probe failures can leave the work uncancelled.
+> 
+> Request the IRQ after registering the cleanup action so devres frees
+> it before cancelling the work and releasing its resources. Keep
+> ptn5150_init_dev_type() after the IRQ request: clearing pending status
+> before installing the falling-edge handler can lose an interrupt.
+> 
+> Found by a static analysis tool under development.
 
-HEAD commit:    79eb6679ef6a Merge tag 'loongarch-fixes-7.4-1' of git://gi..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1249a44d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
-dashboard link: https://syzkaller.appspot.com/bug?extid=94dac3c75477e184f0b0
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12adb1a1580000
+LLM is not a static analysis tool. Mentioning unknown tool is pointless.
 
-AI-generated root cause summary:
-In drivers/md/dm-integrity.c, journal accounting variables (including
-ic->free_sectors, ic->free_section, and section counts) are initialized
-exclusively within replay_journal() rather than during target allocation in
-dm_integrity_ctr(). When a dm-integrity target configured in journal mode ('J')
-is resumed, dm_integrity_resume() checks whether the on-disk superblock was
-modified while suspended; if superblock_changed() evaluates to true, it logs an
-error and jumps to skip_writes, completely bypassing replay_journal(). When the
-device is subsequently suspended or receives a flush bio, integrity_commit() is
-scheduled and calls pad_uncommitted(), which validates that total journal
-sections match the sum of uncommitted, committed, and free sectors; because
-replay_journal() was skipped, these counters remain zero, causing the invariant
-check to fail and trigger the WARN_ON.
+> 
+> Compile-tested with W=1 for arm64 and x86_64.
+> Not tested on hardware.
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=94dac3c75477e184f0b0
+Drop from commit msg. Such information goes to changelog, not commit msg.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com
+> 
+> Fixes: 782cd939cbe0 ("extcon: ptn5150: Add queue work sync before driver release")
+> Cc: stable@vger.kernel.org
 
-------------[ cut here ]------------
-ic->journal_sections * ic->journal_section_entries != (ic->n_uncommitted_sections + ic->n_committed_sections) * ic->journal_section_entries + ic->free_sectors
-WARNING: drivers/md/dm-integrity.c:2885 at pad_uncommitted drivers/md/dm-integrity.c:2885 [inline], CPU#1: kworker/1:2/1043
-WARNING: drivers/md/dm-integrity.c:2885 at integrity_commit.cold+0x6/0x75 drivers/md/dm-integrity.c:2917, CPU#1: kworker/1:2/1043
-Modules linked in:
-CPU: 1 UID: 0 PID: 1043 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: dm-integrity-commit integrity_commit
-RIP: 0010:pad_uncommitted drivers/md/dm-integrity.c:2885 [inline]
-RIP: 0010:integrity_commit.cold+0x6/0x75 drivers/md/dm-integrity.c:2917
-Code: ff e9 9d 9d 63 07 48 8b 7c 24 58 e8 11 a2 23 01 e9 e7 fe ff ff 48 8b 7c 24 40 e8 02 a2 23 01 e9 21 ff ff ff e8 88 48 a9 00 90 <0f> 0b 90 41 54 8b 8c 24 d0 00 00 00 89 da 44 89 f6 41 89 d9 45 89
-RSP: 0018:ffffc90005497a68 EFLAGS: 00010093
-RAX: 0000000000000000 RBX: 0000000000000050 RCX: 0000000000000001
-RDX: ffff88802aa08000 RSI: ffffffff81653878 RDI: 0000000000000004
-RBP: 0000000000000050 R08: 0000000000000050 R09: 0000000000000000
-R10: 0000000000000003 R11: 000000000000776b R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000001 R15: 1ffff92000a92f6a
-FS:  0000000000000000(0000) GS:ffff8880d4573000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f8bc17ba008 CR3: 000000005652c000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+With above fixed:
+
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
