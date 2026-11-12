@@ -1,69 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487944;
-	b=Oogd8bY5W7Suunk0wEHDXvi56Gg0jJmyliVwogb5FOhvW3L0pRzg8RQcZNnnq/RII7J+
-	 bUASKdjBi10QJ9HuYxM0N381xVrXNT+TpzHxZHa1+1JpjJJSqGEtxDcVR4S5QNVhCJL74
-	 cGuXotTgWTDtsZof4qv9mKrLYnNMS0+XeU+oEtgKsVdUuKnSs52TRlTeE+jKo5p0M7Tss
-	 I5nANNEjEqFS41nlcPmurjZQNov6z0ydQhJCK548RSs5ZSkRNzPSiLQ9+MjmTy91WVR84
-	 owjp3HcjoIyNVpTvkyeeuWwGowbnIGiVT800cpmdxCwqbx7F5zu/vCulVLi7Y/FsMGg==
+	t=1794487957;
+	b=TqFww3zHpN3hnTAY/E4ehLJuc9nvyVYINySxlkElurkWBg8D9m60kzCkVwBTAQ0hGs1W
+	 v4YMJvM8F1xbAmmicE4sr2F1T5sHrkTsO3hoxPDgJw5AEmA8oElKVFVnMpxnSp9yyGx6I
+	 Z3BI5/TD5cHZIXSTIXUcEkE1K2yD5B+O1VN0o332s0SOz8Q26NPntec6d0dP8V2chkvTB
+	 fGhMLj9LPaOghZuvvtuG+F0/AA/ceINd77ePwncKSBQVfVhEuGou5Ijll3KldwnVTYySh
+	 5KU2fc7FJ0qLfhn+z0rFaai+F4tXdicW7UqGzyzIC91h/1yL893lFEkPJ2qtrGkvq6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487944;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kGz2caQrn/oMaBFUZ5fLhiO81Wz2kqTnrt9ceNW8k3M=;
-	b=ndUXV1PAwlBjdFVrH8lfEvqFVD7QqMa01yi0ZAWeTEtaDEd3jwsoRV8by1FuV2gN5YFH
-	 mBjb8+AYKExDzQBo4d99aZSAa7MNBPYQtj8O8ijq6flT5RATzevfVFWAKNdTkhxLZIAHt
-	 9DL5QEbHkoqRpaIqLjjIpbBCtYTLd5SafgCEjeYYjImUmGNj5HC4/ajGCToZctza/sykn
-	 dwk/HJFiJkPnaAmiS4OVsCiKU19JIepegcxeV9+uI4DD1GbKWo9ML5dJLQlcKdwsRt47Z
-	 8rYbKsWMjMCtAkabhmIb06NTbU5PG52Dq7i45iM0qkvYsPNGG62J/00yx7Zy/4b0ndQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487957;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:In-Reply-To:References:
+	 X-OQ-MSGID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=zERbofYw8/MQs4m2Z97sLUq0t8UMU/kOMROzADV/pVQ=;
+	b=lv5o3qhyuDs/SP8w/GP3WtGYj7H3kmrzjWoQnLoZI26wLWNluCz9CuYSAfMulsQqF4CO
+	 CJMLnETMroRMCYNmuOiEk00WOJXW9GpkRT9XUcRFVkT9p8gVLTCmOIJtPDWExPNOmyHPp
+	 s1HwCLOdbp+A4UCRD887uI0fl1ZECnqUVfrvbA3xJcIBT2+Rz2PlouLgDXIbGibPbJylu
+	 XK7BvMpo74xSyI5TZjgnDcB+spd5DZxhWfz8luJN84U4R+cGl4CQLOd7cAUjZCw5ImYw2
+	 MVsSweXABjPPbBtJ++koZFfJkfVUrtoTv0P+2vzoLGznJeuM0YF20i0hG1zkYp9wiRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b="BFV8/T7l";
-	arc=none smtp.remote-ip=115.124.28.98
-Received: from out28-98.mail.aliyun.com (out28-98.mail.aliyun.com [115.124.28.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kxTdaM8O;
+	arc=none smtp.remote-ip=203.205.221.240
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A285860A260B;
-	Thu, 12 Nov 2026 12:52:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A285860A260B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7A9606A8A0;
+	Thu, 12 Nov 2026 12:52:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7A9606A8A0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=BFV8/T7l
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1794487932; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=kGz2caQrn/oMaBFUZ5fLhiO81Wz2kqTnrt9ceNW8k3M=;
-	b=BFV8/T7lCsoWR92vc5Saia6k34A4cTUyJv9NipV96jH2Zftc6Xi67Qn//IVuYJCVY2DUauuB/EDG70UIQWYRbgUGDdcBJQ+LPz3gcyxF6eh1afIOCSC2FKh1A5QRdPfY1IbGobgJYmzXJAxfbK45xix/yTg4bBIW4TSM8ca2UeI=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00498463-0.000181134-0.994834;FP=16021593803602805072|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033065158064;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.k0cpdgF_1794487930;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k0cpdgF_1794487930 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 12 Nov 2026 20:52:12 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	netdev@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Maoyi Xie <maoyixie.tju@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
-	stable@vger.kernel.org,
-	Guanglei Zhu <zhugl3@xiaopeng.com>
-Subject: [PATCH net 5/5] net: wwan: iosm: validate the command parameter length
-Date: Thu, 12 Nov 2026 20:52:01 +0800
-Message-ID: <20261112125201.1019-6-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261112125201.1019-1-fangxy@xiaopeng.com>
-References: <20261112125201.1019-1-fangxy@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kxTdaM8O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794487952; bh=zERbofYw8/MQs4m2Z97sLUq0t8UMU/kOMROzADV/pVQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References;
+	b=kxTdaM8OxXNWRv5c1tVA3Gb6kIa4rdauGdfFJki/6BWajxAQce42ns0gVMTxOJTbX
+	 jfjXekde6ctI/DI7FBKgtg4LVuvXbLwUpWBVrPJQ4gLZLEH4Qn1D1+AZ97xO59y8n3
+	 GmHwrWtkQxMIRgjw7JoYmKK+mliMwAzFx9CRbfFQ=
+Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:e498:8f16:a485:ceef])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id D1C80E0B; Thu, 12 Nov 2026 20:52:28 +0800
+X-QQ-mid: xmsmtpt1794487948tku1bgn3k
+Message-ID: <tencent_EB38EF4908C9FDCB369DAA2CE362CB5E8305@qq.com>
+X-QQ-XMAILINFO: NC4p7XQIBeahMxe7Nis9QgSc5JxEKESr4AuDxdFrZ/QYTDiYS9ysjDE1CnnLKM
+	 0rt3fNC31x4iIKHmDwx8FmDTUC4mSfmxvZKo+8Ssa6iAho4UM93ZmHJEE3pQ/BXbL/sGTKg/byPn
+	 67v9lzZthf80XZfrRY6NvaAq5bG9J1dn/dKa6h4z0tiL0OnV5Y/RdbTfLFoHdJiqJfCjEnoVbf3l
+	 O+Jgc+kNBPdp9dGyZLu0d5FEXPH5w7CltAjA7Lh40h99giR1kHDO6UKfzAQYQn34GyM4U/mshvsD
+	 gpiiWv4TZPU3gYvYSUaUis7ZzHtZQdD4846JB2yW479YgHuYIhUY/AbADeV1t4V9KpHlQJDsM9vU
+	 6Md0N7YwD9riXJdEMHxdXm80Xxb/FZBe++IlSWom8PIWV48b9r5bst/diW/Qdk+rFP9w+AloLAQM
+	 Jcob0yapAm4EoRSutkQKH9ZqMp4FiKHaGPQ3r1ovr0D72u7KpS6/vCVYJ6Znz6D+tDf1/NlGHd3K
+	 C0JKB2HCT5WIwMvUOfyndYUTck7rZm7zlZpb9B31OAWkqV/9eydsH/mgKsaOSGlw3VxB0xVj8i5u
+	 DQJTcYLGw36edjA0F/41wRHs77eRDaM5ZxkV3ZFvRelng6PAHIHW7PGUORDLlwb1DjWDFzKIARJd
+	 MMpvJw36pc5qbZkNqHxjP8ACX3/01W449xcZwWLIEIPp5coeJ8RO72xAnfnvQc0iZedOnr6VfN5D
+	 zoetjpNPARW9HDVnfWnqBx8AT8F+sfHB/SJQYA4q5ry7vuKpHRSC9TCswKoh+oukiF24UandgOAN
+	 uVJrK4dAdJ7WYrpcEZqIkh7eo8BKiJR1eEA0UKpb7X64p1E06bz77w256YYn4lCCXakcD/s5kRjr
+	 0qwf0Er3utPTjXuCSG/bTwr5/OXvCRHveckHBcOeFw3KxC2nC2DsUyH+BuMHxs+IEFA7gFlWb4LK
+	 LFjSu7GYk5Rnasd64nVCpruFtfhgdQ9+K2A0sCvXmwWxBWzOjqTIRBcwtYNrtcTHOb7j2qKS4RpO
+	 RPuYy/lwn/JdrYJKzosgPq4dT2585zELl4mfgi5iqPLsfW/LboBK8F8uPWOqQDNTYkpogKsnrmBD
+	 t8WEnSGKUtblBH77f9w0rqvKSwcxbAKZRjdmjfpx26vPeVqcM=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Hang Nan <2122295973@qq.com>
+To: netdev@vger.kernel.org
+Cc: mptcp@lists.linux.dev, matttbe@kernel.org, martineau@kernel.org,
+ geliang@kernel.org, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, willemb@google.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] net: mptcp: take token lookup references with
+ acquire ordering
+In-Reply-To: <20261112124547.193812-2-2122295973@qq.com>
+References: <20261112124547.193812-1-2122295973@qq.com>
+ <20261112124547.193812-2-2122295973@qq.com>
+X-OQ-MSGID: <179448794830.196117.14284634941387773647@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,254 +83,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Both command decoders read members of the parameter union without
-knowing how long the parameter actually is.
-ipc_mux_dl_cmdresps_decode_process() and
-ipc_mux_dl_cmds_decode_process() used to be handed the size of the whole
-union or of the command header, which is a property of the structures,
-not of the received command: an OPEN_SESSION_RESP truncated below its
-twelve byte parameter copied bytes past the command into acb->got_param
-and then resumed the session establishment waiting on it, and a FLOW_CTL
-whose parameter does not fit left the flow control mask and the state of
-the session built from whatever bytes followed.
+Hi,
 
-Derive the parameter length from what the current command owns: for MUX
-Lite the bytes cmd_len declares beyond the header, for a command of an
-aggregated block the bytes up to the next command, or up to the end of
-the received block for the last one. Both stay capped by the received
-length.
+Thanks for the automated review.  Here is the missing information for the
+series.
 
-cmd_len is not used as a per-command parameter bound in the aggregated
-path: next_cmd_index is what identifies the next command, and the flow
-control decoder already treats a cmd_len that does not match the header
-and parameter size as a legacy device instead of as an error, so the
-field is not a hard bound there. In MUX Lite, cmd_len bounds the
-parameter only when it covers at least the header. The protocol asks for
-0x10 or more, but a shorter value is not rejected: the received length
-keeps the limit there, which preserves the handling the existing
-backward compatible code gives legacy devices and is still tighter than
-the unbounded read it replaces. That case stays silent, like the
-compatibility handling itself.
+How it was found: manual code inspection, not a runtime report.  While
+looking at net/ lockless lookups right after 5b5d8f351dd9 landed, I
+enumerated every refcount_inc_not_zero() call site in net/ (101 of them)
+and classified each one by whether the reference is taken only to keep
+the object alive, or whether object state is re-validated after the
+acquisition.  mptcp_token_get_sock() and mptcp_token_iter_next() are in
+the second group: they re-read msk->token and sock_net(sk) after the
+increment, and mptcp_token_destroy() unlinks the socket and then does
+WRITE_ONCE(msk->token, 0), so the re-validation is the only thing that
+rejects a socket whose token has already been cleared.
+reuseport_migrate_sock() in 2/2 is the only other site with that shape
+in net/.  The enumeration of the call sites was tool-assisted; the
+classification and both changes were checked by hand against the
+callers and against the teardown paths.
 
-Check the member each command type really uses against that length: the
-two session responses by their own size, which differ, and the flow
-control mask before it is read. A parameter too short for its command
-type is returned as -EMSGSIZE and the callers no longer hand it to the
-command decoder, so a known but incomplete response is dropped instead
-of being retried as a command.
+Whether it was triggered: no.  This is a theoretical ordering gap, not
+an observed crash.  I have no syzbot report, no KCSAN splat, and no
+runtime reproducer.  The reordering is not observable on x86-64 (TSO
+does not allow it), and demonstrating it would need a weakly ordered
+CPU (arm64) or KCSAN, neither of which I have access to.  So the series
+does not claim to fix an observed bug.
 
-In an aggregated block, ipc_mux_dl_acbcmd_decode() used to swallow that
-error: the command was not acted upon, but the walk went on to the next
-one. It now returns it, so a block that declared a command it cannot
-hold is not trusted for the ones behind it either. A command of unknown
-type still returns -EINVAL, is tried as a command and the walk
-continues, as before.
+What was verified: the re-validation exists and is the guard described
+above; the teardown order is __sk_nulls_del_node_init_rcu() followed by
+WRITE_ONCE(msk->token, 0) in mptcp_token_destroy(); both touched objects
+compile cleanly (net/mptcp/token.o, net/core/sock_reuseport.o) and the
+change is a no-op on strongly ordered CPUs.  The argument is the same
+one used in 5b5d8f351dd9 for the inet lookups: a successful reference
+acquisition has to order the validation that follows it.
 
-Fixes: 9413491e20e1 ("net: iosm: encode or decode datagram")
-Cc: stable@vger.kernel.org
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
- drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 116 +++++++++++++++------
- 1 file changed, 85 insertions(+), 31 deletions(-)
+Happy to drop the series or fold it into a larger ordering series if
+reviewers would rather wait for a KCSAN/arm64 demonstration.
 
-diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-index aea4cd9ec20d..bd6c82746cc4 100644
---- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-+++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-@@ -185,6 +185,7 @@ void ipc_mux_netif_tx_flowctrl(struct mux_session *session, int idx, bool on)
- 
- static int ipc_mux_dl_cmdresps_decode_process(struct iosm_mux *ipc_mux,
- 					      const union mux_cmd_param *param,
-+					      size_t param_len,
- 					      __le32 command_type, u8 if_id,
- 					      __le32 transaction_id)
- {
-@@ -192,9 +193,18 @@ static int ipc_mux_dl_cmdresps_decode_process(struct iosm_mux *ipc_mux,
- 
- 	switch (le32_to_cpu(command_type)) {
- 	case MUX_CMD_OPEN_SESSION_RESP:
--	case MUX_CMD_CLOSE_SESSION_RESP:
-+		if (param_len < sizeof(param->open_session_resp))
-+			return -EMSGSIZE;
-+
- 		/* Resume the control application. */
--		acb->got_param = *param;
-+		acb->got_param.open_session_resp = param->open_session_resp;
-+		break;
-+
-+	case MUX_CMD_CLOSE_SESSION_RESP:
-+		if (param_len < sizeof(param->close_session_resp))
-+			return -EMSGSIZE;
-+
-+		acb->got_param.close_session_resp = param->close_session_resp;
- 		break;
- 
- 	case MUX_LITE_CMD_FLOW_CTL_ACK:
-@@ -229,6 +239,7 @@ static int ipc_mux_dl_cmdresps_decode_process(struct iosm_mux *ipc_mux,
- 
- static int ipc_mux_dl_cmds_decode_process(struct iosm_mux *ipc_mux,
- 					  union mux_cmd_param *param,
-+					  size_t param_len,
- 					  __le32 command_type, u8 if_id,
- 					  __le16 cmd_len, int size)
- {
-@@ -242,6 +253,9 @@ static int ipc_mux_dl_cmds_decode_process(struct iosm_mux *ipc_mux,
- 	case MUX_LITE_CMD_FLOW_CTL:
- 	case IOSM_AGGR_MUX_CMD_FLOW_CTL_DISABLE:
- 
-+		if (param_len < sizeof(param->flow_ctl))
-+			return -EMSGSIZE;
-+
- 		if (if_id >= IPC_MEM_MUX_IP_SESSION_ENTRIES) {
- 			dev_err(ipc_mux->dev, "if_id [%d] not valid",
- 				if_id);
-@@ -315,19 +329,36 @@ static int ipc_mux_dl_cmds_decode_process(struct iosm_mux *ipc_mux,
- static void ipc_mux_dl_cmd_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
- {
- 	struct mux_lite_cmdh *cmdh = (struct mux_lite_cmdh *)skb->data;
-+	size_t hdr_len = offsetof(struct mux_lite_cmdh, param);
-+	size_t param_len;
- 	__le32 trans_id = cmdh->transaction_id;
--	int size;
-+	u16 cmd_len;
-+	int ret, size;
- 
--	if (ipc_mux_dl_cmdresps_decode_process(ipc_mux, &cmdh->param,
--					       cmdh->command_type, cmdh->if_id,
--					       cmdh->transaction_id)) {
-+	cmd_len = le16_to_cpu(cmdh->cmd_len);
-+	param_len = skb->len > hdr_len ? skb->len - hdr_len : 0;
-+	/*
-+	 * A cmd_len below the header is not a usable declaration: the
-+	 * received length stays the limit, as for a legacy device.
-+	 */
-+	if (cmd_len >= hdr_len)
-+		param_len = min_t(size_t, param_len, cmd_len - hdr_len);
-+
-+	ret = ipc_mux_dl_cmdresps_decode_process(ipc_mux, &cmdh->param,
-+						 param_len,
-+						 cmdh->command_type,
-+						 cmdh->if_id,
-+						 cmdh->transaction_id);
-+	if (ret == -EMSGSIZE)
-+		return;
-+
-+	if (ret) {
- 		/* Unable to decode command response indicates the cmd_type
- 		 * may be a command instead of response. So try to decoding it.
- 		 */
--		size = offsetof(struct mux_lite_cmdh, param) +
--				sizeof(cmdh->param.flow_ctl);
-+		size = hdr_len + sizeof(cmdh->param.flow_ctl);
- 		if (!ipc_mux_dl_cmds_decode_process(ipc_mux, &cmdh->param,
--						    cmdh->command_type,
-+						    param_len, cmdh->command_type,
- 						    cmdh->if_id,
- 						    cmdh->cmd_len, size)) {
- 			/* Decoded command may need a response. Give the
-@@ -494,8 +525,9 @@ static void ipc_mux_dl_adgh_decode(struct iosm_mux *ipc_mux,
- 	ipc_mux->session[if_id].flush = 1;
- }
- 
--static void ipc_mux_dl_acbcmd_decode(struct iosm_mux *ipc_mux,
--				     struct mux_cmdh *cmdh, int size)
-+static int ipc_mux_dl_acbcmd_decode(struct iosm_mux *ipc_mux,
-+				    struct mux_cmdh *cmdh, size_t param_len,
-+				    int size)
- {
- 	u32 link_st  = IOSM_AGGR_MUX_CMD_LINK_STATUS_REPORT_RESP;
- 	u32 fctl_dis = IOSM_AGGR_MUX_CMD_FLOW_CTL_DISABLE;
-@@ -503,32 +535,39 @@ static void ipc_mux_dl_acbcmd_decode(struct iosm_mux *ipc_mux,
- 	u32 fctl_ack = IOSM_AGGR_MUX_CMD_FLOW_CTL_ACK;
- 	u32 cmd = link_st;
- 	u32 trans_id;
-+	int ret;
- 
--	if (!ipc_mux_dl_cmds_decode_process(ipc_mux, &cmdh->param,
--					    cmdh->command_type, cmdh->if_id,
--					    cmdh->cmd_len, size)) {
--		if (cmdh->command_type == cpu_to_le32(fctl_ena) ||
--		    cmdh->command_type == cpu_to_le32(fctl_dis))
--			cmd = fctl_ack;
--		else if (cmdh->command_type != cpu_to_le32(link_st))
--			return;
--
--		trans_id = le32_to_cpu(cmdh->transaction_id);
--		/* No response parameter is sent in the aggregated protocol. */
--		ipc_mux_dl_acb_send_cmds(ipc_mux, cmd, cmdh->if_id,
--					 trans_id, NULL, 0, false, true);
--	}
-+	ret = ipc_mux_dl_cmds_decode_process(ipc_mux, &cmdh->param, param_len,
-+					     cmdh->command_type, cmdh->if_id,
-+					     cmdh->cmd_len, size);
-+	if (ret)
-+		return ret;
-+
-+	if (cmdh->command_type == cpu_to_le32(fctl_ena) ||
-+	    cmdh->command_type == cpu_to_le32(fctl_dis))
-+		cmd = fctl_ack;
-+	else if (cmdh->command_type != cpu_to_le32(link_st))
-+		return -EINVAL;
-+
-+	trans_id = le32_to_cpu(cmdh->transaction_id);
-+
-+	/* No response parameter is sent in the aggregated protocol. */
-+	ipc_mux_dl_acb_send_cmds(ipc_mux, cmd, cmdh->if_id, trans_id,
-+				 NULL, 0, false, true);
-+
-+	return 0;
- }
- 
- /* Decode an aggregated command block. */
- static void ipc_mux_dl_acb_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
- {
- 	size_t hdr_len = offsetof(struct mux_cmdh, param);
-+	size_t cmd_end, param_len;
- 	struct mux_acbh *acbh;
- 	struct mux_cmdh *cmdh;
- 	u32 block_length, cmd_index, next_cmd_index;
- 	u8 *block;
--	int size;
-+	int ret, size;
- 
- 	if (skb->len < sizeof(struct mux_acbh))
- 		return;
-@@ -568,12 +607,27 @@ static void ipc_mux_dl_acb_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
- 		     skb->len - next_cmd_index < hdr_len))
- 			break;
- 
--		if (ipc_mux_dl_cmdresps_decode_process(ipc_mux, &cmdh->param,
--						       cmdh->command_type,
--						       cmdh->if_id,
--						       cmdh->transaction_id)) {
-+		/*
-+		 * A command owns the bytes up to the next one, the last
-+		 * one of the chain those up to the end of what arrived.
-+		 */
-+		cmd_end = next_cmd_index ? next_cmd_index : skb->len;
-+		param_len = cmd_end - cmd_index - hdr_len;
-+
-+		ret = ipc_mux_dl_cmdresps_decode_process(ipc_mux, &cmdh->param,
-+							 param_len,
-+							 cmdh->command_type,
-+							 cmdh->if_id,
-+							 cmdh->transaction_id);
-+		if (ret == -EMSGSIZE)
-+			break;
-+
-+		if (ret) {
- 			size = hdr_len + sizeof(cmdh->param.flow_ctl);
--			ipc_mux_dl_acbcmd_decode(ipc_mux, cmdh, size);
-+			ret = ipc_mux_dl_acbcmd_decode(ipc_mux, cmdh, param_len,
-+						       size);
-+			if (ret == -EMSGSIZE)
-+				break;
- 		}
- 
- 		cmd_index = next_cmd_index;
--- 
-2.50.1
+Hang Nan
 
