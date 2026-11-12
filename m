@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794503969;
-	b=2gQEla4MYT+mIZgAvt0RNOsurcVy89di/nkJOf36FHJ5hnKRczaLY4o8m2ppz80OdtG9
-	 NDAJO/OdDWfb0q05H31LuxFN7OrI//h/9aRovfwIIMpH6sn2EEzOuWFCbkraIajTONNPm
-	 GiEf6NXW5N+RMSo1LYcrmDqkHSjP3dCh4wBDVCz1PrEd7XvtZ/BVOHTvY3cMyMcNa10r8
-	 oLmGWkmjra7SqfIY1hhZrrr/dOYA1xeJgg0HzS7D6wxpAX9tbm/i456c938iv1P3TtQTb
-	 5XzGheSO2bCd8NvPuJ8+0ISRP6i9oR4N4ylMW4e8oyd+jMvVpOy/jj8aQ9lzczZ6uWg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503969;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9FXUwzu1RunUGnZn+1IN4sy30G2Duzud58N8Zunx5es=;
-	b=t5b2y7jHu0XVZdxWFMHxpevoDi+yAUFi9fd12VyItxwLfsb9FsJlzhBbYWyVSH70HZa/
-	 xci6s+kewVV2+W98z1plwi0Xsv2V65kYJd6STAva9XqBFFxCH3OL/h1Hy6ELzsy2unjZw
-	 J283afUa09DvfgZM5waOw92fGLfLdHg/z7u98kucZ8Hr5zKXoxx1cZuy0rgFrYN0sR13l
-	 hKxnGWi8ELEuAEe0shjnsBj7eBtu7t325ftl6h8y8T+4QLTqBtViyZflewHQ6tcuVmJh+
-	 G5e/9Ns36J2XMMqk53IjICpGxOlTV1nGsdG7uL3GOYAzyXuUvQ+ZV93JmqIUk2+Ohig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0eNz5PC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794503996;
+	b=0nswEYvL2EFWcmGd6HKLgwKqU9McmeybEOtTO2bz4eVzmJNZpu1BX6IGA6r2589STnOH
+	 qcwNA09wfr5GAEpAajpjydLGxYcekCGx49iIwMFUMSzvgNp9CnSX+Ps/qvsFItnLJnjyC
+	 1ZrZtzkLQa6L+2vC9DeESRXdq15eVUfPHD835Is3xVfhxVcYJGnIiL36BEFPKcBgWYUh0
+	 l2CbJ9j9YP8W6lwfj4UlBZud3BuajG5lLvSXrGOUNtY1j5D1tjReu7onmxpDZGKKjeDXq
+	 3BIMzT8P5eQBQe6IAWlAvjVcTBTSTo7g0J7F3pkz9QEWF0X1P2WSBzmUYGA5uVZITlA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503996;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=yM+umQBBUJ+t8QYydtb0nZre+3Y0T5Yk4Bmmx5vdxz8=;
+	b=KkInr1iBx1WBfYUSZXHZxzgMnuQJQ5gVVY3xo/aDb1Kyxxuyz+HOX4uKdwgTdvVsoGY/
+	 8vIGBHOZmshyWw3Lw0J+sVpeBGhHV6bON88HBVbKHcs77ziCeT0OpGbQb4o8j7JjZhtCq
+	 NLNRFD/zl2T3xi3FDAZGNhDlMfbi67bmgKPY/FOSJufSyqfpUtpaoIYFzgvj5GDwe01sf
+	 as39ebVtQbqz6Qm7RMVksB9lnkx0By/S83bGMo8oau6bhCipRR0baOGfcKuDAy9Y4f4Yo
+	 1CsM2hZnIDZpSG6Zo4ZaN6lY55ReQjckbORJV16zfxH79gKSWl3n+ZbUjAk7620tAgg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGS5N0pl;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A28B606A333;
-	Thu, 12 Nov 2026 17:19:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C063606A327
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0eNz5PC
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794503968;
-	b=v19iPJ6dl4jyjgrdANmfKlR2xlbiTBnV9fNuGh4QC/ja2qhPHFXRx8uL5m6bHsU66tsY
-	 K0/wRjbCTOT3M6wP9jj+LHBhc0mLrMbtgbtiZe09TPgBIyannL9I+EZ8gbZy1+sXuw3jk
-	 pqLda0asdub8UGqIscXxAWUfO+9s3jsCBNnhlTlFEaJBMnr/qCLNOgyUTehRf3WK3dyN6
-	 K7pE4NtyX6UzxF+j/7cFg7qIzplzodDp4oz5740Hhr+faEMrvurumGQAIC4gWGAuNm8Oj
-	 KDwt4Fx4dTPZLcIMI299436hTE0Ddyaa9mKpEt6aqpmZxu6r/kbKlrBcJlZIhwaNgCA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794503968;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9FXUwzu1RunUGnZn+1IN4sy30G2Duzud58N8Zunx5es=;
-	b=RfMimFtOOTisvPpnk61tCw4v50SSEHyn4ZxfueSLV3Ojb8fvAUZfoQ+SKGcv/NZ7qUHI
-	 xUbKJvxaeqyKwLeBB0PT9/TYTojgFCBTDEr3N4MMoT8tSyjR2ZIzLRT5wZOr246iC+Ly7
-	 0K+59hr/SoFuwy32Bns+PeSeDfiltGWeWtQ1HZNNsA1l4pYwXqYZIFiiVS7wsC9/kvg3x
-	 vxM6EBm1aOjwR64gCJN6K/EtmcitwaBz+ZaFENmC3DziC/trWz4P/2LsKMBTdT4ttzw9c
-	 oNpbQtDMY8Eqn6whGklbzugFwMKAZLiKXbDZHhOduBKq5I1WO+weL05VB1lzmemxGHw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3C3FD1F000C6;
-	Thu, 12 Nov 2026 17:19:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGS5N0pl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5931F000C7;
+	Thu, 12 Nov 2026 17:19:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794503968;
-	bh=9FXUwzu1RunUGnZn+1IN4sy30G2Duzud58N8Zunx5es=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=G0eNz5PC9I+Bvd+olNDMRLjbsImU86+O4PeD6phHyv9zpUkLOo2Dt/33Y2m+sYlfU
-	 FjqvJUc9A/2jTclR8jfyLERSVN8ljvdQcdqnN7RCsrKXY9M6tJpPOn/8EkWrZIw1sG
-	 26FLXvzIBaU2hF2RsZrissgiOB0PbWgH3jUQ71bxjl0VYYiBIJJ009JUPvLgkAXTCd
-	 2cMlsJ4TV9o1FnnAV3tZhDV++1UWLVDaPPZvvF7svnW0TjG9pMf5MY0bYtET6+c0Rn
-	 CteaLSnKI8I/QyKSjjkz+P/rnwAgHr8V7YmxRXbjKoKTqtTIHdwN5QKJYyFCRepzyt
-	 iXESjKuYuTZ5w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 93FBC45A64;
-	Thu, 12 Nov 2026 17:19:27 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 17:19:27 +0000
-Subject: [PATCH] iommu: Don't let a driver bind while bus_iommu_probe()
- still probes its device
+	s=k20260515; t=1794503996;
+	bh=yM+umQBBUJ+t8QYydtb0nZre+3Y0T5Yk4Bmmx5vdxz8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KGS5N0plOX1VaCM9+noAA1GwlB2JGg/PfeIdXWlXjvaUwXCbkxHzPrfypQtZp+lSn
+	 ru/ld1Yg1q2nqnpP2B7P/4gO+K0m08nJMotwG8gWUHj8ldtXgpdHdjGr1QAPtmy1j1
+	 AI+FpT2nJO5jU6K49ljlNqf451PLYW9S9FG9L0WRAzo3+fw86rKCCD2eHpXHWgeskt
+	 deXyt642uhltjcf43/hQ/c0EP3hJMzMh7Ooos9YHkNGWQpOrqlTfXLa019b0HpVQ+h
+	 2xl/ZWTSA6TBb5+JM0kfXoTQ60uOWSiBDdOr6uJR9vt8UxshHe9pow15LsMnxbqlX2
+	 WEN9bhyYynj0w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Chanwon Park <flyinrm@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/page_alloc: let the highest memory node recover from hopeless state
+Date: Thu, 12 Nov 2026 12:19:53 -0500
+Message-ID: <20261112171936.3071020-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200358-failed-6.18-83367658a010@kernel.org>
+References: <20261109200358-failed-6.18-83367658a010@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,189 +66,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-iommu-probe-race-v1-1-8c0b986b7e6e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBG4avIrDuQZGFKr1JcmPjbTkEjExVBv
- LvRLr/FeztlqCDTq9pJsUqWNBbYR0Xx244fsHTF5IyrrbWOJQ3DwpOmANY2gjsTzRPee+MDlWx
- S9LLdy3fzd17CD3G+PnQcJxrsoAh0AAAA
-X-Change-ID: 20261112-iommu-probe-race-d0c08e77707b
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, "Rob Herring (Arm)" <robh@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794503967; l=7366;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=8JR6AmMLM7PRkZrhVhsNPrKtTe/yhLbk9BSVJV4P3Rc=;
- b=ZOTtA6myjmY2zdQeuWVsG1/cwKTDmjPPlM2OallkitwgFsANImTg+0ke9LvyITo/CNjKL7gDM
- tXKyJTFih/ACOOM+7LFhzicYP9Zpe75Fw/qj6o9XIFxfDQQm8kLxGvY
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-When an IOMMU driver is a module, udev can load it while the driver of
-one of its client devices is loading too. On an Orange Pi 5 (RK3588)
-with CONFIG_VSI_IOMMU=m and CONFIG_VIDEO_HANTRO=m, 1 of 30 boots gives:
+[ Upstream commit 83367658a01087375ede31ae343c99da03f72ac8 ]
 
-  hantro-vpu fdc70000.video-codec: late IOMMU probe at driver bind, something fishy here!
-  WARNING: drivers/iommu/iommu.c:654 at __iommu_probe_device+0x234/0x5e0
-  Call trace:
-   __iommu_probe_device+0x234/0x5e0 (P)
-   probe_iommu_group+0x40/0x80
-   bus_for_each_dev+0x88/0x110
-   iommu_device_register+0x10c/0x2d8
-   vsi_iommu_probe+0x244/0x280 [vsi_iommu]
+free_frozen_page_commit() clears a hopeless node's kswapd failures once
+its zone recovers above the high watermark, but only if another memory
+node exists for allocations to fall back to.
 
-"iommus" is an optional fw_devlink supplier, so nothing orders the
-client's bind after the IOMMU's probe; that is left to the readiness
-check in iommu_fwspec_init(). That check is skipped when dev->iommu is
-already set, which is meant to identify the bus_iommu_probe() replay of
-dma_configure. But iommu_init_device() allocates dev->iommu and then
-drops iommu_probe_device_lock for the replay, so a driver binding the
-same device in another context sees it too:
+The test `next_memory_node(nid) < MAX_NUMNODES` finds only memory nodes
+with a higher id.  The highest-numbered memory node therefore never
+recovers on this path, and its kswapd stays disabled until reclaim on that
+node makes progress and balances it, or demotion is re-enabled.
 
-  iommu_device_register()            really_probe(client)
-    bus_iommu_probe()
-      iommu_init_device()
-        dev_iommu_get()
-        dev->driver == NULL: replay,
-        unlock                         device_set_driver()
-        dma_configure()                dma_configure()
-                                         of_iommu_configure()
-                                           dev->iommu set, or fwspec
-                                           set by the replay: return 0
-        lock                             iommu_device_use_default_domain()
-      dev->driver set: WARN                no group yet: return 0
-      group, default domain,           call_driver_probe()
-      DMA ops set up under the
-      running driver
+In many cases, direct reclaim many never fully run against a lower node
+(CXL/kmem), and that means its kswapd can end up full disabled in rare
+situations.
 
-So the warning is right that something is fishy: the client driver
-probes before its device is in a group, with no default domain and with
-dma-direct ops that bus_iommu_probe() replaces later. If the client gets
-dev->driver set before the replay check instead, bus_iommu_probe() skips
-the device, the client defers on the readiness check and its retry does
-the probe from the bind path, which warns as well.
+To reproduce, fill the highest memory node with bound, non-THP anonymous
+memory and no swap until kswapd gives up, then free it: /proc/zoneinfo
+keeps showing node_unreclaimable 1 for that node.  A lower node recovers.
 
-Close the window in the pre-probe hook that every bus dma_configure
-already calls: in iommu_device_use_default_domain(), a device that has a
-fwspec but no group is still being probed (a failed probe frees the
-fwspec), so defer the driver as is already done for a group without a
-default domain. The driver core retries it once the IOMMU driver has
-bound. With that, a driver that is binding but not bound can no longer
-run against a half-probed device, so let bus_iommu_probe() replay
-dma_configure for it and warn there only for a device that is already
-bound. The bind path (iommu_probe_device() from of_iommu_configure())
-keeps warning whenever dev->driver is set.
+Count the memory nodes instead.  Adding first_memory_node != nid to the
+existing test would also work, but a count says directly what the check
+means: some other memory node exists.
 
-Fixes: bcb81ac6ae3c ("iommu: Get DT/ACPI parsing into the proper probe path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Link: https://lore.kernel.org/20261019184850.3427905-1-gourry@gourry.net
+Fixes: e7a5f249e6db ("mm: re-enable kswapd when memory pressure subsides or demotion is toggled")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Chanwon Park <flyinrm@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: Retained direct atomic accesses to kswapd_failures because the upstream helpers are unavailable. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-The warning was seen once in 30 boots of an Orange Pi 5 (RK3588) with
-the Verisilicon IOMMU and the Hantro decoder built as modules, with
-udev loading both at the same time. The trace in the commit message is
-from that boot.
+ mm/page_alloc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Testing: this change on a v7.3 based kernel (drivers/iommu/iommu.c
-there is the same as in iommu/next apart from an unrelated
-iommu_dma_prepare_msi() hunk) booted 60 times on the same board with
-the same modules: no "late IOMMU probe" warning and no other
-WARNING/BUG, and in every boot the AV1 and VPU121 decoders were bound
-to hantro-vpu and in an IOMMU group, the AV1 decoder's IOMMU was bound
-to vsi_iommu, nothing was left in devices_deferred, and the log had no
-IOMMU or decoder errors. As the race hit only 1 boot in 30 before, 60
-clean boots are weak evidence that it is closed; they mainly show that
-IOMMU and client binding still work. The logs do not show whether the
-new -EPROBE_DEFER path ran in any boot. No decoding was run in those
-boots.
-
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it analysed the race and wrote the code and the commit message, and I
-reviewed it and tested it as described above.
----
- drivers/iommu/iommu.c | 33 +++++++++++++++++++++++++++++----
- 1 file changed, 29 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index b486b8bbd1fc..ec68fb7dbe04 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -481,8 +481,12 @@ static int iommu_init_device(struct device *dev)
- 	 * still a big job, so for now just invoke the whole thing. The device
- 	 * already having a driver bound means dma_configure has already run and
- 	 * found no IOMMU to wait for, so there's no point calling it again.
-+	 * A driver that is still binding in another context (dev->driver set,
-+	 * but not bound yet) has not got that far: its own dma_configure will
-+	 * defer in iommu_device_use_default_domain() until we are done here.
- 	 */
--	if (!dev->iommu->fwspec && !dev->driver && dev->bus->dma_configure) {
-+	if (!dev->iommu->fwspec && !device_is_bound(dev) &&
-+	    dev->bus->dma_configure) {
- 		mutex_unlock(&iommu_probe_device_lock);
- 		dev->bus->dma_configure(dev);
- 		mutex_lock(&iommu_probe_device_lock);
-@@ -648,9 +652,13 @@ static int __iommu_probe_device(struct device *dev, struct list_head *group_list
- 		return ret;
- 	/*
- 	 * And if we do now see any replay calls, they would indicate someone
--	 * misusing the dma_configure path outside bus code.
-+	 * misusing the dma_configure path outside bus code. For bus_iommu_probe()
-+	 * (@group_list set) dev->driver may also be set by a driver which is
-+	 * binding concurrently in another context; that driver will defer in
-+	 * iommu_device_use_default_domain(), so only a driver that is already
-+	 * bound is a late probe there.
- 	 */
--	if (dev->driver)
-+	if (group_list ? device_is_bound(dev) : !!dev->driver)
- 		dev_WARN(dev, "late IOMMU probe at driver bind, something fishy here!\n");
- 
- 	group = dev->iommu_group;
-@@ -3316,9 +3324,26 @@ static ssize_t iommu_group_store_type(struct iommu_group *group,
- int iommu_device_use_default_domain(struct device *dev)
- {
- 	/* Caller is the driver core during the pre-probe path */
--	struct iommu_group *group = dev->iommu_group;
-+	struct iommu_group *group;
-+	bool probing;
- 	int ret = 0;
- 
-+	/*
-+	 * bus_iommu_probe() in another context may be probing the device right
-+	 * now, with iommu_probe_device_lock dropped while it replays
-+	 * dma_configure. Our own dma_configure can then see its dev->iommu or
-+	 * fwspec and return early, although the device is not in a group yet
-+	 * and has no default domain or DMA ops. A fwspec without a group means
-+	 * exactly that (a failed probe frees the fwspec), so make the driver
-+	 * wait until the probe has finished.
-+	 */
-+	mutex_lock(&iommu_probe_device_lock);
-+	group = dev->iommu_group;
-+	probing = !group && dev->iommu && dev->iommu->fwspec;
-+	mutex_unlock(&iommu_probe_device_lock);
-+
-+	if (probing)
-+		return -EPROBE_DEFER;
- 	if (!group)
- 		return 0;
- 
-
----
-base-commit: 2cf4be57b301ed2d7af82e70cff5dfd96894d8de
-change-id: 20261112-iommu-probe-race-d0c08e77707b
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 2685e570bf7de..f13168bcddf5f 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -2938,7 +2938,7 @@ static void free_frozen_page_commit(struct zone *zone,
+ 		 * kswapd work again by resetting kswapd_failures.
+ 		 */
+ 		if (atomic_read(&pgdat->kswapd_failures) >= MAX_RECLAIM_RETRIES &&
+-		    next_memory_node(pgdat->node_id) < MAX_NUMNODES)
++		    num_node_state(N_MEMORY) > 1)
+ 			atomic_set(&pgdat->kswapd_failures, 0);
+ 	}
+ }
+-- 
+2.53.0
 
