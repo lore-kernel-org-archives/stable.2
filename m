@@ -1,87 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794479718;
-	b=0/e5TqnPmVIJg3XBsytHKljd2424MD4s7wFyHoInunL+c2XaIKFNU4eoQk7nig51krUB
-	 E8aeGtzoYFZRG4w3LMqrCM4D5zRN51nZhTjqB6i1Ixny4DLHQzNKpshe8OOtxQyap++Yb
-	 NhcqvMTTKVGcdIcIMefo+6PlBg5YGNonSndYi/MChKzFZzcIuLWaoWQJVX6m/1rdWNkc7
-	 VPz3/IzugQDPjz5n2L0bxMs1lfM6NdAnXwl3CMVynPFwKhz8+OIyy7/O4I3D++GoG5dnt
-	 WO3WkGrrtMrpKjMDVk5KxE/uIFcYXTcIe/7wXTskz5oacgW5pg0K6WcEzRPaAsRZYVA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794479718;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=WoymvwdfMBFoMyXW+9QTB+Y4rJogi+4Hn0MI83a+cw0=;
-	b=y5nstijybk1YktO4hLoHsUZJx+0EgForywk0BiRzvWQO+xHwxcODuZBx2GZhU4NUZwaB
-	 3xoWvEIZqaTdL9tjQIHfxCJP8jZvI7mo58uIn2vrsdXrCVBdW73MlAGLOz/IytR5NZGPQ
-	 +/lMzad4rf2U7rVZ9ubT3A76H0tzZOWnXv9SZvoNxr8l6V5MeaIN/LZBUCz9v6nBWBSBc
-	 lsjP7tiAVxmAmfi5zdgT26SHd6ejWyySTrLuzxgcyF1mVZO+VQo8PKoFZ6xxyVtI3M9n9
-	 NVIfCn7bvvdw5z/ZH7Q4cMDikLaeCzVO3IRqRf+LBKtEHQCDfiaJ0TpfLuEYsWisNXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Py+GPyII;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794480117;
+	b=vUN4Hz4sJdVnvJ1o/HyyMfbOUCMUJ0+wjaPV/Tp58QYvsV71193cjRCb+73fqoFRz+BQ
+	 zIG0vimBcJcSdR8CWjeyxGaEAXC0XNgxIYbwHAdKOJ3HkxCj5Y6qEiMb6wcoz1esf2IBK
+	 Sc8EMmWRo8HqHK5ZNe2KOkjUU5dOZFwkRCDqIGKXS7EJn370oY9jYnUHI7WVaC53nhpKN
+	 P585jtqwt3hqZTvOrkQ+Jpr0nSlolAsm3r4EaP/SYfxQLSBZsdp3cj4UmOnLx4VYdMPac
+	 N5vrpEhLvAzAko0Iix1h3rAeSTew1sd8HMuYUBepEQJClLtJ6QxWUzKc0y+M1vu6xsQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794480117;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=2Mrgnsv8CDWNAWBrXKr7svRdRpjOfnz5b/OUT8LBuM0=;
+	b=NvNLsh2h5dcugx5CfYTjyhbSZgWBbyWlJMhnfR5YTPMt6YzRPqGw39SCPhALUSyweRXF
+	 xVKIC7Dc1F2cenQIvgjP2j3NQw5RYni7QBSXuK2AMJbTvj7+5yHfHq1ilXB1fjSc7xaR4
+	 4dkFUZEcEoSI0VOQnQI/GBDZPJaxfz/2Zqj7hgXte3dyO7tIjYFX+agPMfsVWegc4DOlt
+	 vvRmJcy99N0PbSR9Dv0kutz+pAuY5ia0hOsUrbj2W9dY2edv0hfDNkrpZKsADSlnDEWhQ
+	 jLQJIz/dAT3+zyOqP920IBvuhEmJv9v8DSQp5SVLKDN7IuPFgnjHlo2ltTnNZau5gcw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DIjyDHn9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.13
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012013.outbound.protection.outlook.com [52.101.66.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D68606A888
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 10:35:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64D68606A888
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A1F606A321;
+	Thu, 12 Nov 2026 10:41:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12A1F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Py+GPyII
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b12cb3c37bso2017403a91.2
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:35:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794479717; x=1795084517; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WoymvwdfMBFoMyXW+9QTB+Y4rJogi+4Hn0MI83a+cw0=;
-        b=Py+GPyIIALmRfft6lVLJ+MEqCiRPwksRRsBO/G8oCeiY/WiQH26z95y2Dl+zHZULvI
-         BBtTEPpOeT0CBZsAPsaBeVw4EaOqpmDyPdNYTKJkkSeoX22nKn/VHNCUwqEsCh4X/0hn
-         37TJgDrokGzgm1eO9HbHjaV6NhG4uXiicEBwGt4nTO33IcF8jgFlil2gDTNFF6b9mxhY
-         1SywYV5OvHvY3oLoqQ3Ciyf6Lch3BRoF/vTiaYNjKPWRdmXRNdVg7aPnQhE8DY1Ta27c
-         j/iHTgrduzT2LevDePjXY20iO1embLyQMlm4Gfufu55QA1CVpAtK7Oz2XcoDve+4JMX+
-         QkaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794479717; x=1795084517;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WoymvwdfMBFoMyXW+9QTB+Y4rJogi+4Hn0MI83a+cw0=;
-        b=tPqfYfRmj0WgNmKOxxQ8KscaOsWZ6pqlMsJitlw6dyZmNQKofG9XvNtmRZb5JwgzVp
-         PW+JBSRFfk3WIbOq1tef1uu0ZNT5csgDoM7SVPcKjNam1d6jKsOKFBFyDvkR3mPp2UXP
-         GmxByhtbl04tSiaDf9tnN9d3t9zrhWMrXz6DfesVHboQ1abAUY1y93OtQ0zJHESqyS+i
-         lELQbzFiKnA1HE9VufBmSYtHOLlCxXxnQjESpYR1Dx1YG4buNnwLAeOd6TuQ4Ghi/yHk
-         R9V5m+1fO84UhzPkLp7rljQkIE+cjoQlcc5TehHTQpul+TIAPneiUiEnNyYj8Sktr+6u
-         jdPQ==
-X-Forwarded-Encrypted: i=1; AL+hErGKWNPWuhZjh1mMniEEYt+OSNGQwFhG085UvLVcIzH4GVbGEVHGzE92eODCYPWCvXyIq4jr4LI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8BKRLK4A2ViL/Y88gx9Ow5FOxMbpjahqyn7J5MNRcq7j22Hz3I
-	6j9K0gpzF1yyj8eFi5sO7GSEgqeVa3fdxM6n59QsLrHwds5DUgMdeIj9
-X-Gm-Gg: AYBFou35RoRY6gH8d3WJn41k9wlbdUhE8RE14v1Q8SxMX2VK1pQTg+jBMoK0/XFy16d
-	bcys3ndjJEPKaImrSrEhPHLk1QX391r+dnrSUGxl53r6dvqYTDPG/naxLv+bC6ySv7qQa78xGuY
-	82fRPGgJufPKD+X8jf3QnIR7VrMKk09gWI74BMTBQxSQBxqS8CcXDqdSJrksDV5T13qrBxmaype
-	9A7oqdmmdbLovfJPRsM5k7GA1mScPg2Fqkx6QawugQ+n11t6Qvg7PYZ0gHxQqujqlpiopHPX6Ju
-	bWHc09e+kU4BVmvXetbi09wJEb3zaUyzQnrr/07bs3eDaYX+PNi51NedQogPbelAB/1prDxvfeb
-	ZNfGJog3zIuOJH40SmyrT0xa9cli2k6iajYWSFfUcbaWBjeTBA7Rs6zhIXwqHOqgYb+JSyXqhLV
-	citMyALGuSZnTpj3CjAa8XDerwxXtV4Lm1AiAlQs2qgwp336YRGZklwSuMzaVcgf5bQLKdFImSW
-	YOZlRHIIJZm5zOttiBJyo2xarspLs4QZJXqRLAd6B2CO4XUzRYGDBpw3lCBBNjmBm4UmXMvgIY4
-	87ejVf/N+8BYTOel7VQwdtzMEW3JtczkvY9zrCCdqUxcTHJjLVMID4btcyszkt+LhFiKNR3UXn+
-	Mf3nSpg==
-X-Received: by 2002:a17:90b:4c4c:b0:3b0:e2a9:3466 with SMTP id 98e67ed59e1d1-3b182eebe65mr4740116a91.16.1794479716567;
-        Thu, 12 Nov 2026 02:35:16 -0800 (PST)
-Received: from smtpclient.apple (fs98a57cc9.tkyc008.ap.nuro.jp. [152.165.124.201])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce49d6sm4207584a91.4.2026.11.12.02.35.06
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 12 Nov 2026 02:35:16 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DIjyDHn9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lYH2oH1H1uELu18DMIOSt0Y7feWVb0AO43XCsTLgLnvqsPgDtBPdmv3eyUqWpwyPIl5I1xpylDs6nSCoA/8aImWtehH6bhS/wG+KN9Rdh0oXPQK0YmBQbcQ9p4Y4ld/446D85Yi/SMIPOIX/JLyk7r40NQucmEpPRLpmb7ipyAkSxhvVKXtRT6XVJUaEkwcRgulIDYUCTmas/FjwXWqG73GBOh8loeI8MpTfgJsOEN/sMb2RCs0XwcFTN5mNDbieOS4aBMvwdXzskGMMSa3RX9w2g0ia4mSfhWeiGl4pGk/WYC6vzPozZKo6QTr5wgpGNAQL7wlvybGeAzVTssGmAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2Mrgnsv8CDWNAWBrXKr7svRdRpjOfnz5b/OUT8LBuM0=;
+ b=BfuPic2TdHZ9jBIl5ZiIlXzAW8fOOv3glXehRBpkCzmZHuAJCDjZoJsf21aaAFaCnHJ76el7VhvzA/RBRBuE7IjVqcl/1VaWVs/Tmf93GIaTiDpnSMiIQxxtG5/Dd3mnUJEoKaTWCa+Q0Gl1e0OUqisgiwGSttZhhDhypvducCBoldxoRNqW85yiZW2g08coMNKB0+mXRmdiW2Hg5doZYUCQ/bVc2HGPO/zs3jxrGQLEl0tnlACRgHNqhl68Pk3GmtTbWZXZBg2fsaY3XJit1S2TlwipfT93X1ngwafCdOhcReHNKm+MUDw6WM0xsHkgygTHbLiWYum3mjc/e428sg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2Mrgnsv8CDWNAWBrXKr7svRdRpjOfnz5b/OUT8LBuM0=;
+ b=DIjyDHn9RIoo4ynYjJgRh7psDnud1QkcTUOlHxyVR3WDRLHwCQOWME+2helcl8a278qWNe0DldMrT6td47w+6+P0rmFtzmVtYmMZnPwUhAkFASFTfjn8/zXALn1Dz4Y6DO+x/NVetLkQ9bWkP/K77zL8XqEsK8D3Lz5IGpyvmxy1dxBDVBsgtf8Wh4ShKiIPVnpvGhq9ShW0RLLX7I49MBxugj/HjEysFduVxVq1dJVSViztgnJ4bJE7kP2J1Zp3ZTWL7M+Vrj/+Jdfz79QTO5+IUNxOHgLTFs8R/bTJV87/+8uMJhn/yxbr9aV2jfqfpooomv3AcEiHoLLlazqGSA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AS1PR04MB9358.eurprd04.prod.outlook.com (2603:10a6:20b:4dc::19)
+ by AM8PR04MB7281.eurprd04.prod.outlook.com (2603:10a6:20b:1d4::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 10:41:53 +0000
+Received: from AS1PR04MB9358.eurprd04.prod.outlook.com
+ ([fe80::677:d5bf:c3ce:3ad4]) by AS1PR04MB9358.eurprd04.prod.outlook.com
+ ([fe80::677:d5bf:c3ce:3ad4%5]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
+ 10:41:53 +0000
+From: Sahil Malhotra <sahil.malhotra@oss.nxp.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: Fabio Estevam <festevam@nabladev.com>,
+	herbert@gondor.apana.org.au,
+	horia.geanta@nxp.com,
+	pankaj.gupta@nxp.com,
+	gaurav.jain@nxp.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: caam: jr: Use dedicated shutdown callback
+Date: Thu, 12 Nov 2026 11:41:51 +0100
+Message-ID: <20261112104151.713649-1-sahil.malhotra@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028132825.657546-1-festevam@gmail.com>
+References: <20261028132825.657546-1-festevam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS4P190CA0005.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5de::17) To AS1PR04MB9358.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dc::19)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,160 +101,87 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH v2] mm: memcontrol: Don't lose track of exiting OOM
- victims
-From: elenchist <elenchist.dev@gmail.com>
-In-Reply-To: <avA1wXhTMs9eY2NF@chrisdown.name>
-Date: Thu, 12 Nov 2026 19:34:53 +0900
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Muchun Song <muchun.song@linux.dev>,
- Tejun Heo <tj@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Zhan Xusheng <zhanxusheng1024@gmail.com>,
- cgroups@vger.kernel.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- kernel-team@meta.com,
- regressions@lists.linux.dev,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6B8E9261-3FF8-441B-8F47-7D35834A8D35@gmail.com>
-References: <avA1wXhTMs9eY2NF@chrisdown.name>
-To: Chris Down <chris@chrisdown.name>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9358:EE_|AM8PR04MB7281:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce2e9886-841a-4252-ad7c-08df40a990b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|19092799006|10067099003|11063799006|56012099006|261022075727099003|261026121527099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	NDhv2ki0u3H5tSuonTFB55VxzzPRGPQx/y75UmclmY9VcczubBxXjk3lUrekkgOZbOUb1VJxpoUCRFLctgKTunwpcu4J93yDsnKuoQvtU4P8sMCfuLzfctGcxyAgkCQ3LrbotiPGEoDLWbWz/avYtohBVng39jygROD5ac9kHgodCrY3z9Wt5tP/rSMA9XpZduypRr53oP8CTyAgeLmyH34wI3NvZA1n80P7kSy8DwlSnonzqOReRX6XONN61l/jsE7IrXG9GJ/YPDOtaJP+oNIH+H+UeWKhkR2TkxWtd+d1Ka5E6zUoBWkLasjhAJ0q1Xcae79cpyMhr3Eb5hcLH2ly5KV9Jef2HkBkp2nLSccJBxI5uZhFEfZUWJ5pEJ2AV8rxmiFlMYJhZAfZSs52FJ+axwHLgQFomAX3hJZ6zJP6AFnfLkCrS+Eipzk+HuMWJ+BmJFAWI3m/3jCYN9M/wOSSkpkDmuZiZ8B8avQdONAx7MOTvMUYkCvD0M95Bh9E/9per985WpLzysN4VMIDNZejuVOl6f9M6eRp0O4ELxvC93DJQa0V7ivvgJFV7GqLsNWzNNYMs/qooN/i53JZ+dNdLKwZuZEvPGxI26gbpowHZtrhzPyZgra7NA7ysGTtvTPQACgT3H4ncCeW9tV/qC2muuH/BgzHyOMEDRZzY3g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS1PR04MB9358.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(19092799006)(10067099003)(11063799006)(56012099006)(261022075727099003)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejhWbDV1ZWU0RzV2YzY4NzdHVDkrR2VDYWtmYXZwM0hZSTV4QTh0RlFRK1NY?=
+ =?utf-8?B?YUdRL1YrUlY0V0taZWJJd1gvWXhEdGtNazAxOEFZdmxWU1BQQ2s5RnNvSkM2?=
+ =?utf-8?B?RVVRLzN6elh4T3k4cTY2bEJsK3ZYREUySjh4MFRBMHU3czdnSGtaUXJWYXJ5?=
+ =?utf-8?B?MTBXVW1IUDBmSGRQSjhtQ2QrVWU4M3VKRWR0ckVLcGV2MjdzTUhVTTZJT1Uz?=
+ =?utf-8?B?K0xDdmEzNnRPanBpMklyRWRILzNBV2YxNytaN1N3QUpnUGJNSTFoTlVaZktS?=
+ =?utf-8?B?cXZRd2pEdDd4cndTNjNXMTZtbEZWTXFWWlZJRUF3b0hsMTA2MnQ2SC9HaFhu?=
+ =?utf-8?B?OHhtZHFGaGwwWGFUM2dNTk1TQWZlSjh5b2FQem4zM1grRGc4RHVYYUlQRWdl?=
+ =?utf-8?B?MUxld0c1K0tlRjg1Qk1xZmxHYU41RWRubCsvTHpHTTJvYVQ4MHEwcFA0aGYx?=
+ =?utf-8?B?WXBlS3c5TTlTaHdZMEFRZ1cvWXlhdzd3bXdyVDJZTTBSWVhmT3BvaFBwMWsv?=
+ =?utf-8?B?ZVZtRWt4bFlWZDRuWSsxZzJsb0xQZ1VqTStOVWZ3VGJpQ0lTSk9YMFZQTWlD?=
+ =?utf-8?B?Uy91MkdPMHFBamVhZHJ2R25pTlFVM2hKL0NGVXlhaXJkaG9ES1ErL1J6elJs?=
+ =?utf-8?B?emlOZ001QVV0QXBNbjVBUmpSVmNPZ24wMkNWUnlSUEhidWtQTkVHY0hOL1R1?=
+ =?utf-8?B?RkcrajZudi9HbnEyRG9NYk5TOGpkbUV3SU16UnhwajN3QlhDNEYzSjN5NFNJ?=
+ =?utf-8?B?UlU2cHl1cTlwemxPN0g1S2RZUEJMVW9SanVrZHoxNEd6K2ZoQ2NSRXVTdzdr?=
+ =?utf-8?B?WEN2bEc2azhQejZMKzIvb1VPRW1uSjJyeTl4RnJheEYwSVZEMm8ycWpKb2lP?=
+ =?utf-8?B?SGp2bDFoUkYwY2VTV0dYZFExOWIrSFBuSjNHM3FNSTY0Qm5YVVpQUmErVjF4?=
+ =?utf-8?B?NGFrajhyQlF4V0tZL0VlVDZua2YvSzByWE1scVEwUkxtOUordUVJVVo2K0JR?=
+ =?utf-8?B?dExscHlBd09WZEc3bHRmSlFDTDdNTG9oREwvK2s0Q0hqV3FGcG5jUzQ1R2xx?=
+ =?utf-8?B?aDRiVFVJWnZHMGFrMXY3VWY2QkkzakY4alQ5VDdzUEdWZG15bWdVQWxVQVNH?=
+ =?utf-8?B?ME83VU5tdDlJSHROM0tmWlhLQ2dBbzJEcUNEcXdML0tyM2RWaUFQb3VFYldk?=
+ =?utf-8?B?dVdCVlpGdFA2YUxQVTE2eTFoL2NQRnNDdGVIbldYZTBpcThmSURZWTNabW85?=
+ =?utf-8?B?WVJZM3lXS1pDZnJ4UEcrbm1VdUJ4TGVmdFU0OFZCMGtLa1JWZlhsRkJnSE5r?=
+ =?utf-8?B?TzZKaDc0aHpPQUtJTEhmOEMxRmxwb280RkZqWWIxNldvQXFtOVFpMFhEUDhV?=
+ =?utf-8?B?aUJibjlUWTdsMHgyV3h1SFJyWm51R2VrMWUzSUtvMDNYbG9EU0pFT2toU3Zr?=
+ =?utf-8?B?SzNxRGVRdXVrMlIrM3pCbUtzeUJMcmhITFZsQnVLWU1JRTZjcm41STBPYlJl?=
+ =?utf-8?B?bHdmVXpYTEVxQWYxckxjcTVHU2pybmNIMTFEREkxR29tanp5NXNnRkI1V2Zt?=
+ =?utf-8?B?MGNybG1pb29wT285cmxkQkVmUFMvNUgrcG1jbGdMVEsvUDdMaHAzd3JtUDBH?=
+ =?utf-8?B?bllZUGkxdHRJQ1RUblFkdEYvam41RlVnRnNXaTdvamptcDV2bU5RSHd1TEZm?=
+ =?utf-8?B?RFdnSjRPRE1JRUpHakZZcS8zY2orOEcySlV3VUcrWkl3LzJTS0JBWElaSWNm?=
+ =?utf-8?B?bXR0MmZndDEzM0xidjFMYTR3cnBHcXhYOFlrcHZHRmdzVmJtOXpMeFJtR3lJ?=
+ =?utf-8?B?VElhbnJncGZUc243cHJwbzZ6ZXBZWUR1aDB6cnMyZXlWV2JCY2llNkdCWVo2?=
+ =?utf-8?B?Z01OakQ3dlJlWmJoL2M5WWgrMzBUdDdoZzFqNHowREc0Z1F2YXpxM25vR0FC?=
+ =?utf-8?B?YlprdWpENm1BLzlvdUY1RXZBak9LRFdJVTdKTlNpaXJqbm5UUEU1emFzNlFP?=
+ =?utf-8?B?QzhNbFdEUDJvMUY0c0svVk5yd3dHZld6ZSt2YUhaVGd5dERHZUNLcm1tSnNX?=
+ =?utf-8?B?UnYyTnRzN2svNWdMSUhrODdMWXZNT3cwbGxkTkZQNVVLMHpFSHVWWmV0Z1FG?=
+ =?utf-8?B?MVo3cWRxNDFubXFkNTNuRmIwNmNWTmxDZ08yN2NWRVhwVnMyeTNHS1V2UXRX?=
+ =?utf-8?B?YmM3TVhaVUNkZ1p3ZDYzZjYxbW42dERRYlVGc0p3QXpOWSs0SVlqWSsvL08v?=
+ =?utf-8?B?YS9tb3U2UFBndFNPT3NubVM1WGdwWWFWZlM0MGJEL0FzZkdxa01yb1JGY0Fx?=
+ =?utf-8?B?a05MT0I1dFRmWUcyZzZJSzlLOXQ1c21LOHVoV0M0eVEyVWNXMlVaa29UMldz?=
+ =?utf-8?Q?+k1PGBPLTv2uQqbPHW7U29cj+pJXrZu02BNIL?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce2e9886-841a-4252-ad7c-08df40a990b7
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9358.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 10:41:53.4908
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZKlOu+7wknXgIt4vcuTxO0diItYvL2nbs/BAfZdx6UbaD4wEkbXePbtDh6y6Am6P4zStCiqWT9G6Bt8MBtSpHsCciUvB0nTEfa6yRTdbL35Un/EAeE3NwWE0rzVpH2uE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7281
 
-On Sun, Nov 08, 2026 at 12:41:37AM -0800, Chris Down wrote:
-> memory.events showed oom_kill 2 in three runs. In one of them the =
-first
-> process hadn't submitted the read yet when it was killed. The slow =
-read
-> just makes the window easier to hit.
+On Wed, Oct 28, 2026 at 10:28:25AM -0300, Fabio Estevam wrote:
+> The remove path refuses to shut down a job ring while crypto
+> consumers still hold references to it. This is necessary during
+> driver unbinding, but causes the following warning on reboot:
+>
+> caam_jr 30903000.jr: Device is busy; consumers might start to crash
 
-It doesn't need AIO at all.  A plain memcg OOM hits it most of the
-time: the victim only spends 10-20ms in exit_mmap(), and if the
-allocating task fails a charge again in that window, a second (and
-sometimes a third) task gets killed.
+[...]
 
-Reproducer: memory.max=3D400M, no swap.  A holds 150M, B 100M, C 50M, =
-and
-T grows by 10M every 0.3s.  Only A should be killed.
+> Tested on a i.MX8MP custom-board.
 
----8<--- overkill.c
-/* A holds 150M, B 100M, C 50M; T grows by 10M every 0.3s up to 200M.
- * Run inside a memcg with memory.max=3D400M. Only A should be killed. =
-*/
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <unistd.h>
+Hi Fabio,
 
-static char *volatile sink;	/* keep the stores */
+Thanks for the patch.
+Can you please tell me how to reproduce this issue ?
 
-static void hold(size_t mb)
-{
-	sink =3D malloc(mb << 20);
-	memset(sink, 1, mb << 20);
-}
-
-int main(void)
-{
-	const char *name[] =3D { "A", "B", "C", "T" };
-	size_t mb[] =3D { 150, 100, 50, 0 };
-	pid_t pid[4];
-
-	for (int i =3D 0; i < 4; i++) {
-		pid[i] =3D fork();
-		if (pid[i])
-			continue;
-		if (mb[i]) {
-			hold(mb[i]);
-		} else {
-			sleep(3);
-			for (int j =3D 0; j < 20; j++, usleep(300000))
-				hold(10);
-		}
-		pause();
-	}
-	sleep(10);
-	for (int i =3D 0; i < 4; i++) {
-		int st, dead =3D waitpid(pid[i], &st, WNOHANG) =3D=3D =
-pid[i];
-
-		printf("%s %s=C2=A5n", name[i],
-		       dead && WIFSIGNALED(st) ? "killed" : "alive");
-		if (!dead) {
-			kill(pid[i], SIGKILL);
-			waitpid(pid[i], NULL, 0);
-		}
-	}
-	return 0;
-}
----8<--- run.sh
-#!/bin/sh
-# cgroup v2, no swap, as root: gcc -O2 -o overkill overkill.c; ./run.sh
-CG=3D/sys/fs/cgroup/overkill
-mkdir $CG && echo 400M > $CG/memory.max || exit 1
-sh -c "echo =C2=A5$=C2=A5$ > $CG/cgroup.procs && exec ./overkill"
-grep '^oom_kill ' $CG/memory.events
-rmdir $CG
----8<---
-
-Over-kill (oom_kill >=3D 2) per 20 runs, ThinkPad X1 Carbon Gen3
-(i5-5200U, 8 GB), x86_64.  "4a" is the same layout driven from a
-systemd-run scope with Python tasks; "C" is the program above:
-
-  kernel                                      4a      C
-  6.8.0-149-generic (Ubuntu)                  0/20    -
-  7.0.0-42-generic (Ubuntu)                  19/20   19/20
-  v7.4-rc1                                   20/20    -
-  v7.4-rc1 + this patch                       0/20    0/20 *
-  v7.0 + 60f21a264930 + this patch            2/20    0/20
-
-  * an earlier, longer version of the same program
-
-v2 has the same code as v1, which is what I tested (identical tree
-after git am).  On v7.0 the patch also needs CSS_TASK_ITER_WITH_DEAD
-from 60f21a264930 ("cgroup, sched_ext: Include exiting tasks in cgroup
-iter"); only its cgroup hunks apply there, so that's what I used.  The
-2/20 left on that kernel look like a separate issue that mainline has
-already fixed.  On v7.0, MGLRU's page table walk in T's reclaim can
-hold an mm_users reference on A's mm (get_next_mm() used
-mmget_not_zero() until d14514c66cb9 "mm/vmscan: prevent MGLRU reclaim
-from pinning address space" in v7.1-rc1).  A's own mmput() is then
-not the last one, so A finishes exiting and drops out of the scan
-right away, and exit_mmap() runs later from mmput_async() in a
-kworker.  The next OOM picks B.  I traced 2 such over-kills in 40
-runs; with MGLRU page table walks turned off (lru_gen/enabled =3D
-0x0005) I got 0/40.  So a 7.0.y backport probably wants d14514c66cb9
-as well; it applies to v7.0 and v6.19 as is.  I haven't built v7.0
-with all three.
-
-Zhan's series [1] is a different problem (thread groups migrated after
-their leader exited); v7.4-rc1 with it still gave 20/20 here.  The two
-patches change the same css_task_iter_start() line, so they will
-conflict.
-
-Tested-by: elenchist <elenchist.dev@gmail.com>
-
-Adding the regressions list: a72f73c4dd9b is in v7.0 and was also
-backported to 6.19.9.
-
-#regzbot introduced: a72f73c4dd9b
-#regzbot title: memcg OOM kills more tasks while the first victim exits
-#regzbot fix: mm: memcontrol: Don't lose track of exiting OOM victims
-
-I used an AI coding assistant (Claude Code) to build the kernels, run
-the tests, analyse the traces and draft this mail; I have checked the
-results and the text.
-
-[1] =
-https://lore.kernel.org/linux-mm/20261027144016.2582880-1-zhanxusheng1024@=
-gmail.com/
-
+Thanks,
+Sahil
