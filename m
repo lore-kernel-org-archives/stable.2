@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794449766;
-	b=1gTC0N+RRlr7LSHCuIQbRkkH0Nh/gLXNWDIZ3uvV5kFKvKrlYs40pWSMRJD9fPvRR7QA
-	 GLa7ZZQMxPnCoM2QZJXwvh4UELcnoVuIhK+ibknkEKBnwmLBW576nH3P6X4X7DZL2nMnH
-	 g8dq4+2pvWV07ao4OAZgyMlpDiAHwcC5cRlbP3Cmax4QR2nf3PJkJquMiXnPfBSbEWXag
-	 0IyDZ8Qo/oekAi6l6O8uwObhS4lKqw2RZkUeqFJLl8yS/aO+zvSF2CeDTISV2NZWfZQ4u
-	 yaw9yABwZNQVS4QJaDlocGEuF5POzI+JRDn2X188IWuDQDOfP7foLngy0s2o3GMYR6w==
+	t=1794449808;
+	b=JMD9vYVVcGODYfbb03JL/sVN+/HhHueKlnJii91+Y8QfmH7jLJ2s8cEZ80JIxT11DAvK
+	 JFlp/4/rgOajhvl5i4FIOqKudRqR1e5cmO0ITj/gpBYbvkPrR4fdWFp0ms/wre7dgv9g0
+	 63/LP+6RpgIY1K4zdsSsLxfoh7rTaYDagChSEgpsBonDUnreM/sq3fgrzvwzVmSX2PrLz
+	 ATmNc6WLjwZMneYiv7uq0OyhJNefQxedv7TmW93y6N+URBzg3ipLHlRoOcjEIy2+7ZHwI
+	 cQ/u0Vd77+QX8yGErWbx2C3rrizbaYOCn3D3wFrkRXTuCJk5ZpyQUYMfCRtWeCFsgjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794449766;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=FwTv2GjEBlQR54GrEgezu3FqUMu0/uxeIqk78GyVHCk=;
-	b=uivqFVGAjPbZOBgKC//CnzAwLr7xCQq4SULgA2HbM58lHQ8Qt+IasOx3O2r963d56Nmy
-	 W71I+LgBp+WbdVw+5azyVw4DNgvqyBbYnYi5jds9u8vE+/zKcypDXYfVEFKo5DzBxSGHt
-	 v3CWgsrBemqF06A/0b2GVH0Zwhbhz0Rib0Xr1ZKYrepcfy/Jna0IBK0r5HPaRUH+trvKD
-	 05A6veyt1Xz6WNQNoMHd6Q16U3wtotV0vgu/ejqGn+l5A4tr61r5XPDoqBHoFSiNQY/G4
-	 5WX2JRNxV9FS6pqFBWxbF8/o3Kpp6EWYnRpdUApRTJc0i5wmoL2vCbx9twDrWFB+bxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794449808;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=5qhvkHyzIWFGrKgL2TfStK8aoYD5bV4KWXUl/ZwsGew=;
+	b=IptdNT2rJuyA/aW9MxZ24cz6N8pwgZgM9zfXpWRotix6EcKFy8zU7/5rwz+XGGEM4KVr
+	 MSXlJwvJsxdZ1xJwHMbwlAkL+b1ALw7/FYNwBGQH1N2Yq7NcZpQvi97C9X/DSaLSK+NHQ
+	 +OtQNhWOBnhvTaxXb7Z3OP5RxcBYyxQfvUzQA3hYqAMwBq/XSMu02/X6tnSFshvE+PBif
+	 wNl+UywKnkULbbM1hhYDd4/2GXmVMy7gJn+x2xUM/FkAQ19GUirNe3+T5trPOo5SEj3Z6
+	 NCJQIj8y9ilvyaKidDmqJv7LU/gT7oZHudvnoK5W5JhSz4G8r3CdHUABzIvwGddrjXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TbsS8hG2;
-	arc=none smtp.remote-ip=91.218.175.41
-Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iG5mTp8E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884E7606A332
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 884E7606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E712D606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TbsS8hG2
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=QdTK9vDoJhaUIW/U2XIf5FYJQ9anojdg/JfxOCFPB4I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794449763; v=1; x=1795054563;
- b=TbsS8hG2H99euT9cfkFIu7YsULdZtjHsHuxSUFjw8Hba4NXZu0/Oeq3XY6uQpyx1OOqVd1DF
- z7x4fvyzNZq/zZl6+T91em8H/T15Ux3brX+voPeNeCwq+sbApl3nH58ZfYLLQnQ4uKiDZnML1JQ
- qApNnAS6yCS77VRM1mXrEV70=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8cb470a74291e90a;
-	Thu, 12 Nov 2026 02:16:03 +0000
-X-Mizu-Trace-ID: 8cb470a74291e90a
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-Date: Thu, 12 Nov 2026 10:15:33 +0800
-Subject: [PATCH v3] mm/hugetlb: charge hugetlb cgroup and memcg in
- alloc_hugetlb_folio_reserve()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iG5mTp8E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018EC1F00A05;
+	Thu, 12 Nov 2026 02:16:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794449807;
+	bh=5qhvkHyzIWFGrKgL2TfStK8aoYD5bV4KWXUl/ZwsGew=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iG5mTp8E4WzdVc6Q+EnWN9Cc/v5vSXuPczdOnse29sNyi1dAr70AEjtzXNfc9zE/H
+	 l8Ocxb55a3xOPG4ktAsEqquOsbOa09BAsawJrZuWOMLarZ0Pw1E2VDdyFMuC2/OjqT
+	 1l/aUFGDh1EKjcEVAK0fzLHc9ExH+Zy+Ih9CIRlGZ2NsolVCKoQXt0GiKanPeNAmdB
+	 PVOfD6cIubQS+xzFqfWHy/Bf2//V17JdoeaAwYsmB1/nedWepbmAvIdYKYwehjPIah
+	 5mhT38b7BG/G8Tn88tFhDoYiHxl7ys67lalr75GozTVptyxRA5dV9KHBU4s/L58LXm
+	 bwsYGS2HAlnyQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ksmbd: enforce the read-only share flag when creating a stream
+Date: Wed, 11 Nov 2026 21:16:45 -0500
+Message-ID: <20261112021345.1241054-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200241-failed-6.18-09139429fab3@kernel.org>
+References: <20261109200241-failed-6.18-09139429fab3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,169 +59,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-for-alloc_hugetlb-1109-v3-1-7a144510a373@kylinos.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf4Xs2Zq2AoIn/8MQA8sCq01rWiASw
- r8L6NXjm8zMmyGQZwpwiWbwNHJgZ1c4HSLArrQtCa5XBi11qpTMReO8KI1xeO+GlnpTiT2WiCU
- mGaV5rWAdvzw1/N6Pb8WXw1A9CPvtbWt0HHrnp9086q33kyj5TzJqoYROznmCFMdNJq/PybB14
- YgWimVZPmoS6KLPAAAA
-X-Change-ID: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>
-Cc: hongfu.li@linux.dev, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Ackerley Tng <ackerleytng@google.com>, Gregory Price <gourry@gourry.net>, 
- Daehyeon Ko <4ncienth@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794449756; l=4820;
- i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
- bh=pFMQxDRwAloKyD9un+uH5Do41KW7aYnWyhIKwB42GmM=;
- b=/krm/uLaEvhDJqjULlNLgkdgLTXQAtC9oZ422Irx8PjuQC4YU55WHVduK3DsU3hy4K7MraGOi
- h+Slav7AQIXDQvA+jQRTMv8UzitiRTOeRBPXBGpqA0hDZJWg0X+/dif
-X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
- pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
+Content-Transfer-Encoding: 8bit
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+From: Ian Bridges <icb@fastmail.org>
 
-alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
-consumes a global reservation, but unlike the fault path it never charged
-the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
-memfd_pin_folios() through memfd_alloc_folio() were therefore silently
-bypassing the accounting: they are never charged to the hugetlb cgroup
-usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
-so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
-bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
-folios are also not accounted in memory.current and are not bounded by
-memory.max.
+[ Upstream commit 09139429fab3a5114c18d7c15fb161511d4d66c9 ]
 
-Charge the folios to both the hugetlb cgroup and the memcg, just like
-hugetlb_alloc_folio() does.
+When a share is read-only, smb2_open() rejects opens that would create
+or truncate a file. Creating a named stream on an existing file with
+streams_xattr sets neither O_CREAT nor O_TRUNC, so it passes this check,
+and smb2_set_stream_name_xattr() then creates the stream. On a Time
+Machine share, opening a missing AFP_AfpInfo stream also writes one. A
+user who can write a file at the filesystem level can therefore add
+streams to it through a read-only share.
 
-Test with a process that creates a hugetlb memfd and pins pages through
-UDMABUF_CREATE. The counters were read while the folio was still pinned:
+Do not create a stream or synthesize AFP_AfpInfo when the share is not
+writable. Existing streams still open normally, and a missing stream
+opened with FILE_OPEN still returns STATUS_OBJECT_NAME_NOT_FOUND.
 
-Before this patch:
-$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
-$ ./memfd-alloc-folio 1 &
-$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
-0
-$ cat /sys/fs/cgroup/test/memory.current
-1351680
-$
-
-After this patch:
-$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
-$ ./memfd-alloc-folio 1 &
-$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
-2097152
-$ cat /sys/fs/cgroup/test/memory.current
-3313664
-$
-
-memfd_pin_folios() can now fail because the memcg charge fails. Two
-tasks allocating concurrently against the same memory.max may see a
-spurious failure. That failure frees the folio, returns the global
-reservation, and undoes the hugetlb cgroup charge, so no accounting is
-left behind.
-
-Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: eaff8e924f60 ("ksmbd: synthesize empty AFP_AfpInfo xattr on first probe")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Omitted the AFP_AfpInfo creation guard because automatic creation on Time Machine shares is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v3:
-- Updated the commit message to describe the new -ENOMEM condition on
-  memfd_pin_folios() when the memcg charge fails, as suggested by
-  Gregory Price.
-- Added Gregory Price's Reviewed-by and Tested-by tags.
+ fs/smb/server/smb2pdu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Changes in v2:
-- Rebased on a tree that includes Daehyeon's "mm/hugetlb_cgroup: prevent
-  use-after-free during cgroup offlining", as suggested by Andrew Morton.
-  No functional change.
-- Since 268d64fabbf1 ("mm/hugetlb: fix NR_HUGETLB accounting for surplus
-  folios") reworked the NR_HUGETLB accounting, use mod_hugetlb_memcg_state()
-  instead of lruvec_stat_mod_folio(), called after a successful memcg
-  charge.
-- Return early once a folio has been dequeued, instead of falling
-  through to a shared return.
-- Corrected the Fixes tag to 89c1905d9c14.
-- Updated the commit message to qualify the memory.max claim: only in
-  cgroup v2 with memory_hugetlb_accounting enabled.
----
- mm/hugetlb.c | 33 ++++++++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index da1c17f14a62..256bb2095b59 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2223,12 +2223,19 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
- struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- 		nodemask_t *nmask, gfp_t gfp_mask)
- {
-+	struct hugetlb_cgroup *h_cg = NULL;
-+	size_t nr_pages = pages_per_huge_page(h);
- 	struct folio *folio;
-+	int idx = hstate_index(h);
-+	int ret;
-+
-+	if (hugetlb_cgroup_charge_cgroup(idx, nr_pages, &h_cg))
-+		return NULL;
- 
- 	spin_lock_irq(&hugetlb_lock);
- 	if (!h->resv_huge_pages) {
- 		spin_unlock_irq(&hugetlb_lock);
--		return NULL;
-+		goto err_uncharge_hugetlb_cgroup;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index ec4c54c9c6dc9..0e65fba990d04 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2567,6 +2567,9 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 		return -EBADF;
  	}
  
- 	folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask, preferred_nid,
-@@ -2236,11 +2243,31 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- 	if (folio) {
- 		folio_set_hugetlb_restore_reserve(folio);
- 		h->resv_huge_pages--;
--	}
-+		hugetlb_cgroup_commit_charge(idx, nr_pages, h_cg, folio);
- 
-+		spin_unlock_irq(&hugetlb_lock);
++	if (!test_tree_conn_flag(fp->tcon, KSMBD_TREE_CONN_FLAG_WRITABLE))
++		return -EACCES;
 +
-+		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
-+						gfp_mask | __GFP_RETRY_MAYFAIL);
-+		if (ret == -ENOMEM) {
-+			folio_put(folio);
-+			/*
-+			 * Skip uncharging hugetlb_cgroup since the charges
-+			 * were committed to the folio and freeing the folio
-+			 * would have cleared those up.
-+			 */
-+			return NULL;
-+		}
-+
-+		mod_hugetlb_memcg_state(folio, nr_pages);
-+
-+		return folio;
-+	}
- 	spin_unlock_irq(&hugetlb_lock);
- 
--	return folio;
-+err_uncharge_hugetlb_cgroup:
-+	hugetlb_cgroup_uncharge_cgroup(idx, nr_pages, h_cg);
-+	return NULL;
- }
- 
- /* folio migration callback function */
-
----
-base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
-change-id: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
-
-Best regards,
---  
-Hongfu Li <lihongfu@kylinos.cn>
+ 	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
+ 	if (rc < 0)
+ 		pr_err("Failed to store XATTR stream name :%d\n", rc);
+-- 
+2.53.0
 
