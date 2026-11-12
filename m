@@ -1,45 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518577;
-	b=5kAgT8+puE0x4g/ELgucO/16o34z7gchbgh5qnOl7qjoCtrvuUiF3qyEX82psokVKC1n
-	 WeGdwv6yC+CZcARdfz5SCy2QwQtn7u0XdqWhAUV9fB0wQDuWbfNu7BorRZ74z4xNVq9EZ
-	 dUa4O4UAQpOqlTH0kC0Y7NY7e6LRoNCebKyKT7pxyXUNhNJrdJpY0tTMYYy+DW/nP2Xr6
-	 8JCyAyP2CAY6AFZG7BM7bWfvZ1lYrMlojCGEfvynWJdr1spYHE1dGXKPppeO+SqGlUGmV
-	 wCEBgOxEKCwZwfZGAIR5zxCpy93NuGjiitpVqTXxjpm7T0G08pxAtX/Okre9Em69CtA==
+	t=1794518852;
+	b=bSuHSBLdxzF7Z1AI8/sqr8vmccwu3SeIKfzszKmRNEFb13E84o+xhBS4IlWG1YfC8pJ2
+	 Ia0/QC46054+3HM8S8POPP0O0+f1fNX+P1oZFsIjDaagm9KyWcMVynI2YOVC1O6i20zxq
+	 BbvWqolAOWhhD3TEm0Ln/ilTmCpWjdp4VT5rR+Pnet6y+nzulVhLNolTc0nDzwqJBIh2/
+	 JDAVsaGxjYl/RXwzwJRAttfmKworHB3CECKBo44POygiZudfvEP+jnAwik5JfETUTNhQx
+	 oVOozu27z83AJuUv9SC+7l1nEmg70JqhiRr3p435tuXmHVzAc8GTwvNaKC8Gx0l26XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518577;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
-	b=pQVYxY17XvtOHE8I1DxKuXnm1mkMDBAIa8OKjLrFkUSWsG3XvJMWHRIkpU9//BJz3uIm
-	 0DKr/DWlAHaUh5qGfYpByHnKygZth57470hyiUiE6jyxwYDvikaIKfib+7ehsI5pHj71D
-	 FRv3DaHl2h34orrzGg2Jxsw0zi+B3wBW3hQnPPg3FZW69hy1ZfaAPyNBf4sNHLHnhCYmT
-	 zX+l/igT8rlMEa6CCEAmc+UGXsPBDVPIbyY6V6WfA0pxKFQrMSFmsPF+ZRYzcoXq2Y5Ze
-	 Z12yn3c1aokJ409s0H81xn9x54a8CuRK81FPHSTtnJNYM/YeAmC1MjtZmih7RArEkOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794518852;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kSL5EzLD37Qg65laOgr6jbI6QqyJ4A+Vm3JJfD72qss=;
+	b=nyTjPCGg5+EtnczjqGByw4SRdkQdlvBCrIE2zv+JzqVX4BH+jBV5BZ/wFRZXzNbuom+T
+	 iAlDZ+av/TlVMibrcZHrVtdH4LJxb0XLycRVFQBc/Oy3VNlYQp9AGUmC4NB0n/WoXVeqf
+	 R2P4CJKRCLUDOWTp41NYXfnuJSi5Fh4fWa15uQMgo8gisuvLPgJQ0P3Bc2GxnIKHbun3R
+	 e+2TxldN/kTBn9n8BcpIsbtHw4a4XAByAn5Zl3Su+yHYbJY4bKyEY9/XuYOTNxPXOOgws
+	 bcxCWUozWj0GNsW7pivd9GzngPZC2LrpjIvPVWu/59oX0EIMbE9EtNPj+/0WJrJ1mug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lst.de;
-	spf=pass smtp.mailfrom=lst.de;
-	arc=none smtp.remote-ip=213.95.11.211
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H9qrqtOt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE21606A89D;
-	Thu, 12 Nov 2026 21:22:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BE21606A89D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 4C28768D12; Thu, 12 Nov 2026 22:22:54 +0100 (CET)
-Date: Thu, 12 Nov 2026 22:22:54 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: shao.mingyin@zte.com.cn
-Cc: kbusch@kernel.org, axboe@kernel.dk, sagi@grimberg.me,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] nvmet: zns: return the namespace lookup error
- for Identify
-Message-ID: <20261112212254.GC11411@lst.de>
-References: <20261106230013815Squ68I1R3ds7pODmhHTwr@zte.com.cn> <20261106230020595sdtR1cTOchAJ3lWjuD06g@zte.com.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D6A606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 21:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H9qrqtOt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5620F1F000C4;
+	Thu, 12 Nov 2026 21:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794518851;
+	bh=kSL5EzLD37Qg65laOgr6jbI6QqyJ4A+Vm3JJfD72qss=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=H9qrqtOtTgaCpFeERwx3wSbSJ12RjFvkDVN3jL3+qI1kiTEKtUlTVohk/FVulHZEt
+	 hqD+54NWlDU4yAKPHi6pfUmg+07UuJ+J71H8a5pzlVC0oklMpJhNXniDqf3DmB7P2a
+	 WW1me2y5MTKHGM4GCzjD4gwZ039/rhfJtHAjuuhBJyGIyayUG4hxLEnoCgypGNsw9T
+	 CTl4ZTKYIgL8VJHVJGNBnefXwmuASRyJXN9HGQI7/ly4Lsx7TN+bNh86lEeXEaBAyp
+	 RG/M2Hwag6jH8kkI1henGCzKK2HU3/dGZtoLgZHym8qdFsHOoJlm40YZsRrSmiwgA3
+	 9BpxUE2tHHQkA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ksmbd: do not read past the DACL in the access denied debug message
+Date: Thu, 12 Nov 2026 16:27:29 -0500
+Message-ID: <20261112212655.3643012-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202055-failed-5.15-8296a64df544@kernel.org>
+References: <20261109202055-failed-5.15-8296a64df544@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,12 +59,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106230020595sdtR1cTOchAJ3lWjuD06g@zte.com.cn>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-Looks good:
+From: Ian Bridges <icb@fastmail.org>
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+[ Upstream commit 8296a64df5448548f410fb246c1d88a93609602b ]
+
+When smb_check_perm_dacl() falls back to the POSIX ACL and then denies
+the request, its debug message prints the access mask of the ACE that
+the second DACL walk stopped at. On that path the walk ran to the end
+of the DACL, so the pointer is one past the last ACE. If the DACL is
+the last part of the stored security descriptor, the message reads 4
+bytes past the buffer, and KASAN reports a slab-out-of-bounds read in
+smb_check_perm_dacl().
+
+Print the requested and allowed masks instead. They are what the check
+compares.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Adjusted file location and context around the older permission check. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ksmbd/smbacl.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ksmbd/smbacl.c b/fs/ksmbd/smbacl.c
+index ed690767837fd..adf9d2d2e108e 100644
+--- a/fs/ksmbd/smbacl.c
++++ b/fs/ksmbd/smbacl.c
+@@ -1417,8 +1417,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ check_access_bits:
+ 	if (granted &
+ 	    ~(access_bits | FILE_READ_ATTRIBUTES | READ_CONTROL | WRITE_DAC | DELETE)) {
+-		ksmbd_debug(SMB, "Access denied with winACL, granted : %x, access_req : %x\n",
+-			    granted, le32_to_cpu(ace->access_req));
++		ksmbd_debug(SMB, "Access denied with winACL, requested : %x, allowed : %x\n",
++			    granted, access_bits);
+ 		rc = -EACCES;
+ 		goto err_out;
+ 	}
+-- 
+2.53.0
 
