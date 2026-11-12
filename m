@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794516194;
-	b=Rl7aXr6Hm+XAaBK2rjBxpzDgcCbmukc8MbpjgzMP1YZJxHp7/MN1ALsttUTZUb2FSNJn
-	 lylXCvyDOJet9+RqI+0idyRpqKqV7WHhnDDS8a/a/4sN1B1XuoHT0UkmeBiLUq0zxJXV9
-	 GgQ2QfBIk26vQTkD5yA05uVSM5wyYxJ37JpYV86nVR78PkGFaef+PcfbMOhYYUHobsXoo
-	 /Q4o9sML8kzMzkXYJ0pLNvmD8aYViBGOKSPYzl/og1StAwvINUj1AkBXmKnZxJPYssZFm
-	 5vR47gPl+MBnyvWcsfuB+F5zm98GOtKSadUHN1NoK9q83S9qn9UwX0305EIWutOUE7A==
+	t=1794516195;
+	b=4LMvC6kLHYd8x8isNsxbxqNw5bKfLNKdVfIph75UgxL0JDp1xsRMlFF9UhVqAGs8Og3K
+	 a2+RagKScZx5b0R8V7fq13fwI8yvrpfHb1IFhLbL97+8TeIFXpTsot/vlKeUyQw8YcoxF
+	 h3lInjpns/ZPy0WY17zYA2AEHhvxEn9d6n+GzgjEpKURf3LRZ8QaA7KldkKgZuNpORG9I
+	 fa5p1SoUacwueNS8XRvZ1bwerNM2MmyTP4p8jCLzYbdqejecOmta79prH8hYIZQt/n1hK
+	 miM+GdsVDiXBKbnBpYMRGob2mqPe3pF4dIp15zKcb2uHJHI2wZpgPrK7Wp9sJW0iGSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794516194;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794516195;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uXwXjqcsDzkJx5tOGNO4BGkZ4DbbosgT5s3MRdWYA88=;
-	b=3CR6XY3+Fw3ZFWH98/emYabRnoPHF9gQ+s77wY+lybB7wdcaq/AiB+6zEsZzM1pPPBg2
-	 kz1JvYb0MClXPgLj7+U6iCVly7Lpzyp7BPPQ1m5NY1aiZXdeZ8rDi4sjMeNABFR6gG2Jd
-	 P7ky5Ad0p+tDA1v9xAuK/j0eHwxdNK0siDBVvOHu2Um3WEO/GlptIcFSy+w7zYxepACRk
-	 qHGGjt1ef9smjXtaTM0OiDdxjm2zyvrHlQgtSPcOsaxQLVU6cj23MxZwYCG8dVdhmxJ9d
-	 gveAn/Ba5ba+8WUvA2GYNPgmyHbDTKti9Rk5DRGXbSudmzj7EhnBxYlRZUW+eWhRjIg==
+	bh=kdEVBEt1ClntwNwB8SzN20dYh+X1xyBgvTT3ehhnRgY=;
+	b=0Cj9OL1ucNnYk/IjNLS9d9YmZgfeUQeLgZ7K3h1ZDC2MpBz45tSeM4QCRVbQ9q5GUebJ
+	 tagt4aMhFKQaQ17PzQy50S6Ng4XXMt5Wm3C7HBYoFWRIIHTR4v7mizVtoJe+OaGGkvFPS
+	 96QPY68+pHNB5aWrBXo3jZ1vHHQsj6aVaAx9up9ayN01FaBHvk0ED7DyMeL0j6s5WDivq
+	 IS/2E1aE6Q7C4OWECK/oS03DbIbKARtOH4zHkJAcWBttZ90amHcO0duLBSrgOHd8+dO5i
+	 K76B8rzAZ8e0NlTspIwAuJQ02StXBDpO4pzyTS1TpC5zkuej81tWFjQjICUy529SqJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0OKusye;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cW8DA7UR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30369606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1658606A32D
 	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0OKusye
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2411F000C7;
-	Thu, 12 Nov 2026 20:43:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cW8DA7UR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D79B1F000C6;
+	Thu, 12 Nov 2026 20:43:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794516194;
-	bh=uXwXjqcsDzkJx5tOGNO4BGkZ4DbbosgT5s3MRdWYA88=;
+	bh=kdEVBEt1ClntwNwB8SzN20dYh+X1xyBgvTT3ehhnRgY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H0OKusyeHW/OLaRQ3gXydp7I/wVG9s7ZSd84sPqAltBwlIhd07qZHEs7aoxK14heM
-	 i0GFfA3pIsBwh6Wdh+qXYtvLlesMeaRjGVX0RG5Pk7YgCmVD+BbDV/Phs/qzOo5GU0
-	 oNaNnjAPEt3tqgEVo5u9hMmw1izGYD7r7ZXrDkWkleDXuRONNmiX6WnyzlAEzzdghW
-	 o8D6PT0ozV5jBKg/Z6K6+u4P9B8hE+fk+5HO4L0+miTXhZcc5GuwEa25Q7g5MUT4va
-	 0DbiVlndVcQJvJUVpSa3ivqbzKbXwnDugza2fMJWzIVnSmalmU449JGzcbwqRQfdjB
-	 hqFIWEj8g09rA==
+	b=cW8DA7URL57r12Uas0L4D6qAGK9PASEYBN98IG+/UTi9rBJ11ovsl/U0fF7R761yt
+	 4a5L2OlYugax8NtWiM7VIZAiX+EXlMiTiIq4iTaRTcV7bnj1dNZFQhZixq3wztjoHc
+	 QykiFlFSEGizNF/a4LKPntqmWmqahpilGLIr/pqcx9ULh1xZvNId7x2ySOj7XatriZ
+	 gLpnsbWyjSKmmxCFQcVEwpJJPmQWAS8eozId6tKeWxrDXlTlKe55MfvTfVUi4VDNLQ
+	 G7KgNV3r/4KnuXzirtavjO/6iVkerV5UdaLzPixr8ro73B8qqc9kvHCom2pFAL+tNW
+	 0paVChXYLjnwA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Amir Goldstein <amir73il@gmail.com>,
-	Nirmoy Das <nirmoyd@nvidia.com>,
+	Edvard Conrad <edvard@tuta.io>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] ovl: add assertions in dir cache code
-Date: Thu, 12 Nov 2026 15:43:11 -0500
-Message-ID: <20261112203246.3570016-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] ovl: inherit FMODE_NONOTIFY when reading directory layers
+Date: Thu, 12 Nov 2026 15:43:12 -0500
+Message-ID: <20261112203246.3570016-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200159-failed-7.3-9ff338af0e00@kernel.org>
+In-Reply-To: <20261112203246.3570016-1-sashal@kernel.org>
 References: <20261109200159-failed-7.3-9ff338af0e00@kernel.org>
+ <20261112203246.3570016-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,101 +64,178 @@ Content-Transfer-Encoding: 8bit
 
 From: Amir Goldstein <amir73il@gmail.com>
 
-[ Upstream commit ba227ed05b385926094741e2d566789525c36085 ]
+[ Upstream commit 9ff338af0e002fe217cfa16b1289b76f6b21fc72 ]
 
-Overlayfs may keep two different types of directory cache
-merged (refcounted) and impure (not refcounted) in the inode.
+Listing a merged or impure overlay directory opens the real layer
+directories from ovl_dir_read(), when the readdir cache is filled.
+Those opens use plain ovl_path_open(), so when the directory fd is
+one that fanotify created for a permission event, they can still raise
+FS_OPEN_PERM.  A listener that also marks the backing filesystem and
+calls getdents() on the event fd before answering then deadlocks the
+same way as with the directory open fixed by the previous commit.
 
-They are mutually exclusive and an overlayfs directory is never
-expected to switch between merged and impure modes.
+Store the overlay user file in struct ovl_readdir_data and pass it to
+ovl_path_open_realfile() from ovl_dir_read(), for both the merged and
+the impure cache.  Internal readers such as ovl_check_empty_dir() and
+the mount-time workdir cleanup still pass no user file.
 
-Nevertheless it is hard to prove that races in the code are not
-possible, so add assertions to fortify the code accessing the
-directory cache to make sure it does not free the unexpected
-cache type.
+A note about severity and real world impact: The FAN_OPEN_PERM event is
+traditionally used by anti-malware protection agents and security/audit
+agents. The scope that is often used in those use cases is FAN_MARK_MOUNT
+and agents typically monitor multiple mounts in a mount namespace.
+FAN_OPEN_PERM from directory open requires user opt-in with FAN_ONDIR.
+It is often not the case that anti-malware agents monitor open of
+directories. Security/audit engines are more likely to opt-into
+FAN_OPEN_PERM on directories, but are less likely to list the content
+of a directory within the scope of FAN_OPEN_PERM event, so the real
+world impact of this bug is likely not significant.
 
-If an assertion fires the code may leak dir cache memory
-but it will not access freed cache memory.
-
-Suggested-by: Nirmoy Das <nirmoyd@nvidia.com>
-Link: https://lore.kernel.org/r/20260511062057.2365769-1-nirmoyd@nvidia.com/
+Reported-by: Edvard Conrad <edvard@tuta.io>
+Closes: https://lore.kernel.org/all/P5Qu3co--N-9@tuta.io/
+Cc: stable@vger.kernel.org
+Tested-by: Edvard Conrad <edvard@tuta.io>
+Link: https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
+Co-developed-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Edvard Conrad <edvard@tuta.io>
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Stable-dep-of: 9ff338af0e00 ("ovl: inherit FMODE_NONOTIFY when reading directory layers")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/readdir.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+ fs/overlayfs/readdir.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
 
 diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index e23331212a29b..5d21a328fad46 100644
+index 5d21a328fad46..4cd4af097e5c1 100644
 --- a/fs/overlayfs/readdir.c
 +++ b/fs/overlayfs/readdir.c
-@@ -36,6 +36,7 @@ struct ovl_cache_entry {
- struct ovl_dir_cache {
- 	long refcount;
- 	u64 version;
-+	bool is_refcounted;
- 	struct list_head entries;
- 	struct rb_root root;
- };
-@@ -479,13 +480,31 @@ static void ovl_seek_cursor(struct ovl_dir_file *od, loff_t pos)
- 	od->cursor = p;
+@@ -43,6 +43,7 @@ struct ovl_dir_cache {
+ 
+ struct ovl_readdir_data {
+ 	struct dir_context ctx;
++	const struct file *user_file;
+ 	struct dentry *dentry;
+ 	bool is_lowest;
+ 	struct rb_root *root;
+@@ -377,7 +378,8 @@ static inline int ovl_dir_read(const struct path *realpath,
+ 	struct file *realfile;
+ 	int err;
+ 
+-	realfile = ovl_path_open(realpath, O_RDONLY | O_LARGEFILE);
++	realfile = ovl_path_open_realfile(rdd->user_file, realpath,
++					  O_RDONLY | O_LARGEFILE);
+ 	if (IS_ERR(realfile))
+ 		return PTR_ERR(realfile);
+ 
+@@ -421,13 +423,14 @@ static void ovl_dir_reset(struct file *file)
  }
  
-+/*
-+ * Merged (refcounted) and impure (not refcounted) caches are never
-+ * expected to be mixed. On mismatch, detach the cache from the inode
-+ * and leak it rather than misuse it. A merged cache is still freed by
-+ * its last ovl_cache_put().
-+ */
-+static struct ovl_dir_cache *ovl_dir_cache_check(struct inode *inode,
-+						 bool is_refcounted)
-+{
-+	struct ovl_dir_cache *cache = ovl_dir_cache(inode);
-+
-+	if (cache && WARN_ON(cache->is_refcounted != is_refcounted)) {
-+		ovl_set_dir_cache(inode, NULL);
-+		return NULL;
-+	}
-+	return cache;
-+}
-+
- static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
+ static int ovl_dir_read_merged(struct dentry *dentry, struct list_head *list,
+-	struct rb_root *root)
++	struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_merge,
+ 		.ctx.count = INT_MAX,
++		.user_file = user_file,
+ 		.dentry = dentry,
+ 		.list = list,
+ 		.root = root,
+@@ -498,9 +501,10 @@ static struct ovl_dir_cache *ovl_dir_cache_check(struct inode *inode,
+ 	return cache;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
++static struct ovl_dir_cache *ovl_dir_cache_get(struct file *file)
  {
  	int res;
++	struct dentry *dentry = file->f_path.dentry;
  	struct ovl_dir_cache *cache;
  	struct inode *inode = d_inode(dentry);
  
--	cache = ovl_dir_cache(inode);
-+	cache = ovl_dir_cache_check(inode, true);
- 	if (cache && ovl_inode_version_get(inode) == cache->version) {
- 		WARN_ON(!cache->refcount);
- 		cache->refcount++;
-@@ -498,6 +517,7 @@ static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
- 		return ERR_PTR(-ENOMEM);
- 
- 	cache->refcount = 1;
-+	cache->is_refcounted = true;
+@@ -521,7 +525,7 @@ static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
  	INIT_LIST_HEAD(&cache->entries);
  	cache->root = RB_ROOT;
  
-@@ -698,7 +718,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
- 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
- 	struct ovl_dir_cache *cache;
- 
--	cache = ovl_dir_cache(inode);
-+	cache = ovl_dir_cache_check(inode, false);
- 	if (cache && ovl_inode_version_get(inode) == cache->version)
- 		return cache;
- 
-@@ -710,6 +730,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
- 	if (!cache)
- 		return ERR_PTR(-ENOMEM);
- 
-+	cache->is_refcounted = false;
- 	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
+-	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root);
++	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root, file);
  	if (res) {
  		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -665,8 +669,8 @@ static bool ovl_fill_plain(struct dir_context *ctx, const char *name,
+ 	return true;
+ }
+ 
+-static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+-			       struct rb_root *root)
++static int ovl_dir_read_impure(const struct path *path, struct list_head *list,
++			       struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+@@ -674,6 +678,7 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_plain,
+ 		.ctx.count = INT_MAX,
++		.user_file = user_file,
+ 		.list = list,
+ 		.root = root,
+ 	};
+@@ -710,9 +715,10 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	return 0;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
++static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
+ {
+ 	int res;
++	const struct path *path = &file->f_path;
+ 	struct dentry *dentry = path->dentry;
+ 	struct inode *inode = d_inode(dentry);
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+@@ -731,7 +737,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	cache->is_refcounted = false;
+-	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
++	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -852,7 +858,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	dput(parent);
+ 
+ 	if (ovl_is_impure_dir(file)) {
+-		rdt.cache = ovl_cache_get_impure(&file->f_path);
++		rdt.cache = ovl_cache_get_impure(file);
+ 		if (IS_ERR(rdt.cache))
+ 			return PTR_ERR(rdt.cache);
+ 	}
+@@ -866,14 +872,13 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ static int ovl_iterate_merged(struct file *file, struct dir_context *ctx)
+ {
+ 	struct ovl_dir_file *od = file->private_data;
+-	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_cache_entry *p;
+ 	int err;
+ 
+ 	if (!od->cache) {
+ 		struct ovl_dir_cache *cache;
+ 
+-		cache = ovl_cache_get(dentry);
++		cache = ovl_dir_cache_get(file);
+ 		if (IS_ERR(cache))
+ 			return PTR_ERR(cache);
+ 
+@@ -1120,7 +1125,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
+ 	struct rb_root root = RB_ROOT;
+ 
+ 	with_ovl_creds(dentry->d_sb)
+-		err = ovl_dir_read_merged(dentry, list, &root);
++		err = ovl_dir_read_merged(dentry, list, &root, NULL);
+ 	if (err)
+ 		return err;
+ 
 -- 
 2.53.0
 
