@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473037;
-	b=D3ZSuQ4sIHE2zcnFxfT6xYjI/d+9Sw/d5+gzJjTGP5pAqTZKIp1hMJfkYUGcbdoRb3gA
-	 taSLkIiCOX/bLa/kNNiwF1jNnVr20ljWdVs9Iv2p75xQRbKwXJ0S6SpM36xW/z7OtTMwS
-	 +A8j46iHCdpQy2DjGrrT6xpNi/i2j/jY2p3MRWWIe4LDuAx5vHUdWUxDUSLcTSa57fCMr
-	 ibGsrOv4oj/zyu4o6Z5pYaz/ixiu/8i62Ioj8vo1S+kYwVcG/WtIWtr83GA6moq+dPP6j
-	 FUldoiDp4YsKhXeZnvZuQmQjFazjVL8TFPrnfi7jySyvgbOxlszNggt+2mGALBbQzkw==
+	t=1794473077;
+	b=1PTUrm7+Srr2v0j3mxDETGhB2bD8Pp5kXpdvGiHnN8bJ2hoFKcgzwE2+k0eKwbJKzWvE
+	 dblA9UTbPhPNyIr0ieeHLgbPYtSCDWZjUPJpb58UNsxa6CNYnQA60QLhAyucoqY/f63EA
+	 ejT6gNTSx2KCk1lg00zVY4k2lwt8GqBleewUMwOC7JoySXQZWwy/2xAhrsrRVVuZ9tJ+0
+	 rzn++GKw8rU3J57p48Lm3H+L3qbmTN3lwzirQYAiBDm/q3Son9zEytQHV0aTZWS1EUyPh
+	 BgVZmmk4H6z0Txd58gDmwIeecUUmoXm/DQxE2KvkqLLhB4ucxvZw0slzCOwQpdUz3wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473037;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473077;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ZG3BxFME2inkNVUmTtwMhep65XUrQaQ08x5OOJ0mIKk=;
-	b=QHLMuv32C40MdeLfbozHyCm/w4P6UkG4rrt+t3rqSjaG0QE99O0Ts7yKck0l6Wy4YCVp
-	 yF2SL3I6lg3AGfFaLsDLmBSYhjoyQa6k3teHzpdRGvHvyDQ1pD7J27tNTyo91TbEmZRcS
-	 ZeF6OTF5EkgaQq4CPzw/HkcnNjY/Ywf8AF2g1xCDCPj6NUS0I+/Shs2H4uAceq1/XVLGV
-	 7oLq3vX/NPeFZ2k6XKISnu3ll8gCygafxXXZssKEzT/8w88qu9LKShnEee+OZUflspjmL
-	 Q1CLrOeoArRUYD/HV4GpPifGNgCruYbPiovE0l6MLQcxy6wCeFF6UqCZWiHPJq4aQSw==
+	bh=pRDfDi9w39w7WSWPejzMl2NAPLZdQXQs1cadPzSxwYI=;
+	b=l5YBP62qb3I/migxCddsvdETrMBcW0uUA9d2ZKYyoW1bfLztrLbySeJqALcboZ7Hxf3N
+	 VpG6WrcBfKmkTtl94q5lK1Ux/4INTAr+TpQOQcnmI3mrDZARScdLg4c/ZljgSbr5WQk7D
+	 S/1/ZFSL4+vPaCKKB+mUINjg4cTYhSUGFBHCfy7RbkETcyYRIA+MBKuRscFyOTMXO0+x6
+	 JRNx8e7kTtYFKHPrL9BfNBKFmtPd/Eeb1oj3NTxZ47UIgo/VZSzUdZvz0G1vegFim1nJj
+	 qnd06LPyk4NpemcH5Fm8Adicf4m0nK5cF6046dcFi5JZd644zal6GNYHSgfXDQuLLWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mfYpU3Th;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Z/V9S+UT";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60645606A8BA
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:43:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60645606A8BA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C311A606A333;
+	Thu, 12 Nov 2026 08:44:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mfYpU3Th
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-35eaf84cc66so3725134eec.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:43:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794473036; x=1795077836; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZG3BxFME2inkNVUmTtwMhep65XUrQaQ08x5OOJ0mIKk=;
-        b=mfYpU3ThNpZKjkuT9jqlbHG0qjszPVt/I71+anTU5MkkIsdS7HFyPHXiJut2gN/3Fw
-         91FQjzZKe4KGN3zrLV/Wqv1YTWWhEs2wpCwaBmFH7h2bfWGh52EHwlojZVTvLRFEEjJz
-         NC5ZV5rx1/rYDhUKmsdo/ubObuA7Nj8FeBkHwuoTlVH+/h2tJymlmeq15F+R1+bna12a
-         SdAm5BrkmprYkLIKkGLYRLgiFdszH30yI5aOvph6U7fDxu71/3CvO6Xar+SU3LY9vsqR
-         f/Np45cny0xb8QjOnjld2V8hL1+louvQmR/xx4F8dT52F8dwOmzBjIlPvz5ZcXM8757T
-         hkKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794473036; x=1795077836;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZG3BxFME2inkNVUmTtwMhep65XUrQaQ08x5OOJ0mIKk=;
-        b=wO8ZA5dS+F8pR0/JVa1P8jq+olPxHYrUBu9J5fplnO7oJiztqHTwSr5Up7r7mseB4W
-         o63N3M0g4tqSj47HIQB5bky8mCoqXJ80nYDIhH5ptFE2GWQ4povRZMVyKxh2Vaxh0IYj
-         mkF5ZJ1HaKvNH4Rck1HAAeyvTccab1cK/jqyssa7Z9i2N4nA++OjXNP8PsjZnvf3WbxP
-         /+5BYMvm0ozaUTjZA4fTFWzjGTHZ4AJcGnzHQby4n1Gsrl3cuFjlLl0rkjTUk7+f6KOm
-         iI7tw0ue3T72SHpeX+9TYv0hKIr03zvVR5F6ozaNWacMoBvKC592xIqRSvH2TqntDASW
-         dskA==
-X-Gm-Message-State: APuU4Z8PUZsgPmYXie0ZaDrL6q7yMEniVKIenEO/o757AFRsVNTkeF3o
-	TGXwiBW0Cchqzc3MP7HuJ0bXURfQ3wI3AZ9P6poPK5OKR4R+liRvbaUEc6/ZTqM3YqFrzg==
-X-Gm-Gg: AYBFou3jdOJJN+WikR9SCHu/oO04XoMy4KWduVGceUPLFQ2IXoCes/NC8VXaPsPA4we
-	rhPCbXuCAV1OLxIEFNaYkr/cUB+VBoh9eEcfqnxi5dV7owqEdQ26UUQsVnRKrD3aM9B85YhMUtM
-	qx8oxKcr5S/IoHx9OCOVlimypwiI6tiDYUpGe/8JGaTmWGyqE20a6R6nkKV2P4asP0oczSACqQo
-	n2yFZtr0kYO+aVRHqyVfDVmYYODKfELn6+2pxjG1cD6SF7te2y6h2JbAYs72GzPlYI89rv8cmnI
-	9i3dI5i+A04Uso0FoBjpCffAy1ji3P/M5gT7cny83bbtdJGheJNmRdQm/2BgCcwpEeURdfW8oP2
-	Vuvg7ARLcPc64nfMf8Brj+Z8YpveCTYfNjurGRSmTFiiMlHqbs3PXT+28n2krzQihTir6reGS66
-	0DmJPEdh/+BI2j6+7vrSGhjOAPys7viiEIyP/Pn8vsf/2y+/EP9+lLZFlv1Feg2Bem75ed4Uvf2
-	3rHLTKznqAz68+dfJ4eFWUv4tNtTeEZpKOk9a2laHqIKbE1EByOcPakpDbMovzqy5+P6oAeS2Zf
-	MssoawUT9ZU+65HYHYHKJvL7iWpintxiZX+EP+XWbwNRnPYZ/RzyeyMaPxIussC3DTUPZ0W33GQ
-	Zi24ervKEI2yNtUqOzxxVk9POIyjGhVzHjV/ZspFcF/4JmOzRDm7D8ohpHi8=
-X-Received: by 2002:a05:693c:42c8:b0:374:ea35:9069 with SMTP id 5a478bee46e88-37687214143mr5164994eec.39.1794473036387;
-        Thu, 12 Nov 2026 00:43:56 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe07dsm25374441eec.20.2026.11.12.00.43.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:43:56 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: stable@vger.kernel.org
-Cc: sashal@kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	Chris Mason <mason@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>
-Subject: [PATCH 6.18.y] ovl: fail the mount if the casefold flag has changed
-Date: Thu, 12 Nov 2026 08:43:47 +0000
-Message-ID: <20261112084347.6208-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109200525-failed-6.18-c782fc8ada81@kernel.org>
-References: <20261109200525-failed-6.18-c782fc8ada81@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z/V9S+UT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A2A1F00A05;
+	Thu, 12 Nov 2026 08:44:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794473077;
+	bh=pRDfDi9w39w7WSWPejzMl2NAPLZdQXQs1cadPzSxwYI=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Z/V9S+UT7lp7DTr98K42zRejsPHSjIVa+ZIiJ68eEfBxctSBgUeQLFlSwg5iuMvxb
+	 Anin6on1+Uy8m2C2cuz3m3HDCD8l+R6ev9JSBwDnuD3LR+LQ09tRtCHynCZ13ND6LY
+	 FAISHSg09Sn3XY9udYfCscgyz70RsL0OmgSA2fjkEjNTHzqilGPzUnqNZUsdqYBRAF
+	 PD++jq8yqqwnI8emJYpepQVNNLTNV4iNbelgxkFLwhJjawcsE+msP0oVGJ1Rg4vNoP
+	 uYVCKx4ti3j15BM1IWR/KwF9hql5kfwDqMF+U3OeEO1CrR/Birzeb3ZTZUJWb6DlZy
+	 02gSjGnU5C4sA==
+Message-ID: <a19fa548-32a2-49a1-86ce-c93fcab7f729@kernel.org>
+Date: Thu, 12 Nov 2026 09:44:33 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,62 +51,174 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v3] media: dvb-core: skip disable_source handler for a
+ released entity
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>, Bin Yu <byu@xidian.edu.cn>,
+ Cheng Wen <wencheng@xidian.edu.cn>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
+ <20261102143415.26942-1-25031212351@stu.xidian.edu.cn>
+Content-Language: en-US, nl
+In-Reply-To: <20261102143415.26942-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Chris Mason <mason@kernel.org>
+On 02/11/2026 15:34, YuanZhe Liu wrote:
+> dvb_remove_device() frees the media entity of a dvb_device through
+> dvb_media_device_free() and sets dvbdev->entity to NULL.  The media
+> device of the adapter can still be registered at that point: au0828,
+> for example, only clears mdev->disable_source in au0828_usb_release(),
+> which runs after au0828_dvb_unregister() has unregistered the frontend
+> device.
+> 
+> A file descriptor that survives the disconnect then reaches
+> dvb_frontend_release() with dvbdev->entity already NULL and calls
+> 
+> 	fe->dvb->mdev->disable_source(dvbdev->entity);
+> 
+> au0828_disable_source() dereferences that argument unconditionally:
+> 
+> 	struct media_device *mdev = entity->graph_obj.mdev;
+> 
+> which faults:
+> 
+> 	general protection fault: 0000 [#1] SMP KASAN
+> 	KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> 	RIP: au0828_disable_source+0x27/0xb70 au0828-core.c:445
+> 	Call Trace:
+> 	 dvb_frontend_release+0x2eb/0x500 dvb_frontend.c:2946
+> 
+> The error path of __dvb_frontend_open() has the same call.
+> 
+> Skip the handler when dvbdev->entity is gone.  For that check to be
+> sufficient, clear dvbdev->entity in dvb_media_device_free() before the
+> entity is unregistered and freed: both frontend paths read the pointer
+> while holding mdev->graph_mutex, and media_device_unregister_entity()
+> takes the same lock, so a reader either still sees a registered entity,
+> for which unregister waits, or sees NULL.  Clearing the pointer after
+> the unregister would leave a window in which the entity is read after
+> it was already freed.
+> 
+> Read the pointer only once, into a local variable, while the lock is
+> held.  dvb_media_device_free() stores NULL before taking graph_mutex,
+> so re-reading the field to pass it as the argument could still observe
+> NULL and hand it to the handler.  That store is not serialised with the
+> locked readers either, so publish the pointer with WRITE_ONCE() and
+> read it with READ_ONCE().
+> 
+> Stopping the pipeline the handler started is not done here.  Only the
+> driver knows how to release the link it owns, and dvb_media_device_free()
+> runs for every dvb_device, including the demux, dvr and ca entities that
+> never own a media link; calling the handler for those would deactivate a
+> link owned by another entity.  The au0828 driver stops the pipeline and
+> clears its saved link in au0828_usb_disconnect(), before the frontend
+> entity is unregistered, in a separate patch.
+> 
+> Fixes: 68ff5767ddc4 ("[media] media: dvb-frontend invoke enable/disable_source handlers")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> ---
+> Changes in v3:
+> - Publish dvbdev->entity with WRITE_ONCE() and read it with READ_ONCE()
+>   at both frontend call sites, so the clear in dvb_media_device_free()
+>   is not a plain data race with the readers that hold graph_mutex.
+> - State why the active pipeline is torn down by the driver rather than
+>   in dvb-core.  The matching au0828 change is attached to this mail.
+> 
+> Link: https://lore.kernel.org/r/20261102142508.24277-1-25031212351@stu.xidian.edu.cn
+> 
+> Changes in v2:
+> - Read dvbdev->entity once into a local variable under graph_mutex at both
+>   call sites.  dvb_media_device_free() clears the pointer without holding
+>   that lock, so re-reading the field for the call argument could still pass
+>   NULL to the handler.
+> ---
+>  drivers/media/dvb-core/dvb_frontend.c | 14 ++++++++++----
+>  drivers/media/dvb-core/dvbdev.c       | 16 +++++++++++++---
+>  2 files changed, 23 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+> index 0286da57f382..bcee88e16576 100644
+> --- a/drivers/media/dvb-core/dvb_frontend.c
+> +++ b/drivers/media/dvb-core/dvb_frontend.c
+> @@ -2826,9 +2826,12 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
+>  #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+>  	mutex_lock(&fe->dvb->mdev_lock);
+>  	if (fe->dvb->mdev) {
+> +		struct media_entity *entity;
+> +
+>  		mutex_lock(&fe->dvb->mdev->graph_mutex);
+> -		if (fe->dvb->mdev->disable_source)
+> -			fe->dvb->mdev->disable_source(dvbdev->entity);
+> +		entity = READ_ONCE(dvbdev->entity);
+> +		if (entity && fe->dvb->mdev->disable_source)
+> +			fe->dvb->mdev->disable_source(entity);
+>  		mutex_unlock(&fe->dvb->mdev->graph_mutex);
+>  	}
+>  	mutex_unlock(&fe->dvb->mdev_lock);
+> @@ -2941,9 +2944,12 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+>  #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+>  		mutex_lock(&fe->dvb->mdev_lock);
+>  		if (fe->dvb->mdev) {
+> +			struct media_entity *entity;
+> +
+>  			mutex_lock(&fe->dvb->mdev->graph_mutex);
+> -			if (fe->dvb->mdev->disable_source)
+> -				fe->dvb->mdev->disable_source(dvbdev->entity);
+> +			entity = READ_ONCE(dvbdev->entity);
+> +			if (entity && fe->dvb->mdev->disable_source)
+> +				fe->dvb->mdev->disable_source(entity);
+>  			mutex_unlock(&fe->dvb->mdev->graph_mutex);
+>  		}
+>  		mutex_unlock(&fe->dvb->mdev_lock);
+> diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+> index d753d329502a..bb6369c3abde 100644
+> --- a/drivers/media/dvb-core/dvbdev.c
+> +++ b/drivers/media/dvb-core/dvbdev.c
+> @@ -208,10 +208,20 @@ static void dvb_media_device_free(struct dvb_device *dvbdev)
+>  {
+>  #if defined(CONFIG_MEDIA_CONTROLLER_DVB)
+>  	if (dvbdev->entity) {
+> -		media_device_unregister_entity(dvbdev->entity);
+> -		kfree(dvbdev->entity);
+> +		struct media_entity *entity = dvbdev->entity;
+> +
+> +		/*
+> +		 * Clear the pointer before the entity is unregistered and
+> +		 * freed.  The frontend release and open paths read it under
+> +		 * mdev->graph_mutex and pass it to the disable_source
+> +		 * handler, so a stale entity must not stay reachable.  Publish
+> +		 * it with WRITE_ONCE() because the store is not serialised by
+> +		 * that lock.
+> +		 */
+> +		WRITE_ONCE(dvbdev->entity, NULL);
 
-[ Upstream commit c782fc8ada811569811c0fdea5c3412511be95d0 ]
+I think this can be simplified: just take call mutex_lock(&fe->dvb->mdev->graph_mutex),
+then set dvbdev->entity to NULL and unlock.
 
-The casefold flag of the overlay root must match the flag recorded when
-validating the layer roots. If these values disagree when creating the
-root inode, fail the mount with -EINVAL instead of warning and allowing
-the mount to continue.
+In __dvb_frontend_open and dvb_frontend_release you can just check if dvbdev->entity is
+non-NULL before calling disable_source.
 
-In 6.18, ovl_fill_super() still owns the credentials and error cleanup.
-Drop the local root dentry before publishing it and use out_err to
-revert credentials and release the overlay state. The root inode
-already owns the overlay entry, so bypass out_free_oe.
+You basically say that in the comment you added: the store is not serialized by
+the lock, so just add that lock here.
 
-Fixes: f9377faaeae0 ("ovl: Add S_CASEFOLD as part of the inode flag to be copied")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Tested-by: Hungyu Lin <dennylin0707@gmail.com>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/overlayfs/super.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+Regards,
 
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 8d4ef5b..52d6f32 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -1370,7 +1370,6 @@ static struct dentry *ovl_get_root(struct super_block *sb,
- 	ovl_dentry_set_flag(OVL_E_CONNECTED, root);
- 	ovl_set_upperdata(d_inode(root));
- 	ovl_inode_init(d_inode(root), &oip, ino, fsid);
--	WARN_ON(!!IS_CASEFOLDED(d_inode(root)) != ofs->casefold);
- 	ovl_dentry_init_flags(root, upperdentry, oe, DCACHE_OP_WEAK_REVALIDATE);
- 	/* root keeps a reference of upperdentry */
- 	dget(upperdentry);
-@@ -1576,6 +1575,17 @@ int ovl_fill_super(struct super_block *sb, struct fs_context *fc)
- 	if (!root_dentry)
- 		goto out_free_oe;
- 
-+	/*
-+	 * The casefold flag of an empty layer root may have changed since the
-+	 * mount options were parsed. The root inode owns oe by now.
-+	 */
-+	if (!!IS_CASEFOLDED(d_inode(root_dentry)) != ofs->casefold) {
-+		pr_err("casefold flag of the root directory has changed\n");
-+		dput(root_dentry);
-+		err = -EINVAL;
-+		goto out_err;
-+	}
-+
- 	sb->s_root = root_dentry;
- 
- 	ovl_revert_creds(old_cred);
--- 
-2.50.1 (Apple Git-155)
+	Hans
+
+> +		media_device_unregister_entity(entity);
+> +		kfree(entity);
+>  		kfree(dvbdev->pads);
+> -		dvbdev->entity = NULL;
+>  		dvbdev->pads = NULL;
+>  	}
+>  
 
