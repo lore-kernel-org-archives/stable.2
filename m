@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794450893;
-	b=PwP3MjA7j7cadHKope0LmahQ4rgJSwn0brYnFadx1X/24wVxh8l/zZRQgldihK6O9uJa
-	 hJ6tbyw7eSDn9HehWhCDf7TsYEDXMFOSnk7tJbsotGMDyIs4rNixfN8xN6jGcLZIORiBJ
-	 7qgboXpeINnJ+DQR2xnOGAtBrPLYpSJzi7V7OKfSgfMsIrYC0oOs+K1ArXvj92Qvge1up
-	 FeyAQ4+5vUDbFPRSuObT71bSFGlRHJpQm6LjPm0kNIfw1OHAEzIMg/VaY2KhqItnhrd3L
-	 R6/fiBSuwOfePcrVNvYV6zIwls1wXY9ul6AhJIhMMw/De3ZWRBw0Xuwh58Yp8cceurg==
+	t=1794450996;
+	b=OJ3/nS8vNTytn2YNXNKnML54pjD4ZZHyV9xfXu6C+eEC0zuabblx0wQuM4PteRRJF2ph
+	 3lmRPARInnTr4DAk8P8tkhs0RhPOv8kz/+Yhmj5hWfWbGvz6pZODycglfU4o9wxjnBMgV
+	 HDSpSQ0cZn4S41hvp7Yx5sl5lQEedEB3NzBhqToZ0RJH6TD5OHY5qW/L5ok7TgFY+nYxA
+	 1Oth0YlNPX+naSXgo06JruHD/oiD2gFySau1r7Y0e925BWj2BOCaJFJsvX11+ZM6/zkzD
+	 VE/8XsuZGLRG+VadxC0IB3e2Fpx6etWdXlZC/mpdTf1HT/2PRY8oMlkhzS7wAKk2Shg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794450893;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794450996;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6YYgDgPxCzso7Pp3rjIppXKuF8Hs/oWWkoVlmPelJjs=;
-	b=R564t5kvJ9ydfWllOc7LTs20aP2p0JGEXyn9fVUaQf1yxBOd0pmItoXviA/LNFX0k81r
-	 15cT6fZNw6siNX9xtAqcpvLgKLoY8MY6LCcT5zUlUm8tpS1rMzKJejhwm/sh2hEwnWXHG
-	 orFih+dNJgFTzBPsmz9PqNS3hm0ih8BZmMn+8fyIx0r9t1DKfHl7xk+g3/k1BHNFVrkob
-	 tquYE28HtqssnFChjvWwXKsB/DW8Fm9tMnQgMd2J6/oUB3z9tBpgzYfYLnw8ug6QKQq/6
-	 yrYp3aAvdU/oYDXRqrsi/91mWnJCm+uXFO0RIyCXMdil5Ugle1vEsr6aD7CZ4u+6IpQ==
+	bh=xZGVOml7+HKAoz2oDlO6zH7bN2XdiV2Sr1i0bf7FP0k=;
+	b=4GJ3xzLQe8veEDLuERRwq8kZugbX+1zoF1WCLmhTHLewuhi6oPLhYDRKgiBjvb6wEl8E
+	 5BnSmV7dNsks0g2X9PMfnDPVbBwx2XRcMq/v4r9By++79qzHNe+NEDoV0gI5WoAcdj27f
+	 Ltw4vvgMLe8FYqXCcOwSK7ouNII4DPUS1vG70f50YTNhTg7jG+hqLjpQyCd+NsGXjywiq
+	 tuu5FiLBPS6k3P3cT6CSvaWposw9CFcfDBL8f78ZF5yrTfXohsPwbDVzNZwa6LNOZysX3
+	 dGYv0argHRlBSjjbRkKBT6Thsn2feGMhqrQIIuDgrtHQrbngGzM8z9WIMqcW1doot5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ohkh+BnD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5++hkE1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F35606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A75606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:36:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ohkh+BnD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF8011F00A08;
-	Thu, 12 Nov 2026 02:34:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5++hkE1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0F01F00A05;
+	Thu, 12 Nov 2026 02:36:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794450893;
-	bh=6YYgDgPxCzso7Pp3rjIppXKuF8Hs/oWWkoVlmPelJjs=;
+	s=k20260515; t=1794450995;
+	bh=xZGVOml7+HKAoz2oDlO6zH7bN2XdiV2Sr1i0bf7FP0k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ohkh+BnD7Mi5uoalWfrG5R8fSRsWExPyWq0o45FkmXaNA0nvBmauAXeTDd/Vr75b0
-	 XrY2x1GOhVvBNduaOnGuZkBkPcpFufqhEHII4fftPPuSZOom2bsldS/U55HGEVyHxV
-	 zm8qaMlz3X5Yk3KQYLFEHPAGMolSRIfAdVnk2/IZXprRuNDuOibTPP9BZsDd2Zdf1L
-	 8y6Vx0/DwUH5lUVQjHmyWvdHAqhZqzX/dmdnO2Y8J29bisRc9OxINog8qXdUxY+nKs
-	 SdoiyFn8RGutOHcKlBy0B4PTXBmUkGm3d5Psj4DsmWwnJk1nYRSH7z2Qant40N44ZX
-	 o/iDDDSEI0Tfw==
+	b=J5++hkE1xpct7+KitP+qUmZWzdu0MVOK469iz1frjGH9iNlyc5lhSUdEqzYWZb1Ir
+	 iTx1quIOuoaz4ucrtnLoMk4TpMZeLHdJQjTHhpX7HUA+P0420CyujraUefkZT2cHsp
+	 TZSZ+1csBhsuDJH3zEt+a3oCidpsy91ekM793lB+h8qmvDh/kX+0SYjB3uhDR1rdgl
+	 ksTqrbf1omcvzIsA63ktNv974CboTqeXurvUOZMStXeu3/owHohQaA4BlNv7LxSOn2
+	 nyFBtl6h4zAL3hQbrSNhnP6aYqKLgXi3wY3eF+zhXY0XtzzYJrNlLCMHl4rkb1eas9
+	 2W1764BXWAcvw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] mm/gup: recheck the PUD under PTL in follow_pud_mask()
-Date: Wed, 11 Nov 2026 21:34:44 -0500
-Message-ID: <20261112023429.1348841-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/shmem: hold off eviction in shmem_writeout()
+Date: Wed, 11 Nov 2026 21:36:32 -0500
+Message-ID: <20261112023510.1371560-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112023429.1348841-1-sashal@kernel.org>
-References: <20261109200900-failed-6.12-79cb51d538ab@kernel.org>
- <20261112023429.1348841-1-sashal@kernel.org>
+In-Reply-To: <20261109200258-failed-6.18-8f59173b5ca3@kernel.org>
+References: <20261109200258-failed-6.18-8f59173b5ca3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,124 +66,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 79cb51d538abc459f74e046d27797d36b133ce0e ]
+[ Upstream commit 8f59173b5ca358bf4d1017b44da3cbe6faa80daf ]
 
-follow_pud_mask() reads the PUD without a lock. If it is a leaf, it takes
-the lock and calls follow_huge_pud(), which reads the entry again, but
-only tests whether it is present.
+Once shmem_writeout() has moved the folio from the page cache to the
+swap cache, the folio lock no longer keeps the inode alive: truncation
+and eviction find a swap entry, free it and do not wait for anybody.
+That did not matter as long as swap_writeout() was the last thing the
+function did.  But since it puts the folio back when swap_writeout()
+returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
+afterwards:
 
-A leaf can be zapped concurrently and a page fault can fill the empty
-entry with a page table.
+  reclaim                               last close of an unlinked file
+  shmem_writeout()
+    shmem_delete_from_page_cache()
+    swap_writeout()
+      zswap_store() fails               shmem_evict_inode()
+      writeback is disabled               shmem_truncate_range()
+      return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
+                                        destroy_inode()
+                                        ... RCU grace period, freed
+    shmem_add_to_page_cache(mapping)
+      xas_lock_irq()            <- use after free
 
-This currently only applies when device-dax makes use of PUD entries,
-and the fault after e.g., MADV_DONTNEED would find THPs to be disabled.
+swap_writeout() behaves that way if zswap is enabled, cannot take the
+folio and the memcg or one of its ancestors has memory.zswap.writeback
+set to 0.
 
-That requires a sequence like
+shmem_unuse() already added infrastructure to deal with that.
+Reuse info->stop_eviction to protect the inode during writeout. Increment
+it before removing the folio from the page cache, and decrement it after
+swap_writeout() and any attempted reinsertion and inode accounting.
+In shmem_evict_inode(), wait for the counter to reach zero even if
+swapoff has already removed the inode from the swap list. Add some helpers
+to make the code easier to digest.
 
-1) Fault in the PUD
-2) Disable THP
-3) Have GUP race against concurrent MADV_DONTNEED + refault
+There is a known remaining issue with two swapoffs racing, and the empty
+list check not being able to detect that race. That will be addressed
+separately later.
 
-Which is rather unlikely to happen in practice, which is why we never
-received a report about such a problem.
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Before commit 1b1676180246 ("mm/gup: handle huge pud for
-follow_pud_mask()"), we performed that check in follow_devmap_pud() by
-testing for pud_devmap().
-
-Let's fix it by just structuring follow_pud_mask() similar to
-follow_pmd_mask(), minus protnone stuff that does not apply and minus
-FOLL_SPLIT_PMD handling. That makes it much easier to spot any such
-inconsistencies.
-
-Perform the pud_bad() check early in follow_pmd_mask() and just forward
-the PUD value. We can drop the pud_present() check in follow_huge_pud(),
-just like we have in follow_huge_pmd().
-
-Even though we are performing more changes than strictly necessary, the
-fix should be easy to backport.
-
-Fixes: 1b1676180246 ("mm/gup: handle huge pud for follow_pud_mask()")
+Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() reactivates")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-19-d6437171ecc3@kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+[ david: code cleanups; improve description ]
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://patch.msgid.link/20261029-fixes_shmem-v4-6-392fc715d8f6@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adjusted hunk context for the older pud_write() permission check in place of can_follow_write_pud() ]
+[ sashal: inlined upstream eviction helpers at their call sites to avoid adding new functions ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/gup.c | 32 ++++++++++++++++++--------------
- 1 file changed, 18 insertions(+), 14 deletions(-)
+ mm/shmem.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index b8367869f7928..5c7ebf897476a 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -632,9 +632,6 @@ static struct page *follow_huge_pud(struct vm_area_struct *vma,
- 	if ((flags & FOLL_WRITE) && !pud_write(pud))
- 		return NULL;
- 
--	if (!pud_present(pud))
--		return NULL;
--
- 	pfn += (addr & ~PUD_MASK) >> PAGE_SHIFT;
- 	page = pfn_to_page(pfn);
- 
-@@ -911,15 +908,17 @@ static struct page *follow_page_pte(struct vm_area_struct *vma,
- }
- 
- static struct page *follow_pmd_mask(struct vm_area_struct *vma,
--				    unsigned long address, pud_t *pudp,
--				    unsigned int flags,
--				    unsigned long *page_mask)
-+		unsigned long address, pud_t *pudp, pud_t pud,
-+		unsigned int flags, unsigned long *page_mask)
- {
- 	pmd_t *pmd, pmdval;
- 	spinlock_t *ptl;
- 	struct page *page;
- 	struct mm_struct *mm = vma->vm_mm;
- 
-+	if (unlikely(pud_bad(pud)))
-+		return no_page_table(vma, flags, address);
-+
- 	pmd = pmd_offset(pudp, address);
- 	pmdval = pmdp_get_lockless(pmd);
- 	if (pmd_none(pmdval))
-@@ -968,18 +967,23 @@ static struct page *follow_pud_mask(struct vm_area_struct *vma,
- 	pud = pudp_get(pudp);
- 	if (!pud_present(pud))
- 		return no_page_table(vma, flags, address);
--	if (pud_leaf(pud)) {
--		ptl = pud_lock(mm, pudp);
--		page = follow_huge_pud(vma, address, pudp, flags, page_mask);
-+	if (!pud_leaf(pud))
-+		return follow_pmd_mask(vma, address, pudp, pud, flags, page_mask);
-+
-+	ptl = pud_lock(mm, pudp);
-+	pud = *pudp;
-+	if (unlikely(!pud_present(pud))) {
- 		spin_unlock(ptl);
--		if (page)
--			return page;
- 		return no_page_table(vma, flags, address);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 5efde9fcc3057..c318b7445d89b 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1407,16 +1407,21 @@ static void shmem_evict_inode(struct inode *inode)
+ 			}
+ 			spin_unlock(&sbinfo->shrinklist_lock);
+ 		}
+-		while (!list_empty(&info->swaplist)) {
+-			/* Wait while shmem_unuse() is scanning this inode... */
++		/*
++		 * Writeout may still use the inode after swapoff has removed it
++		 * from the swaplist, so always wait at least once.
++		 */
++		do {
+ 			wait_var_event(&info->stop_eviction,
+ 				       !atomic_read(&info->stop_eviction));
++			if (list_empty(&info->swaplist))
++				break;
+ 			spin_lock(&shmem_swaplist_lock);
+ 			/* ...but beware of the race if we peeked too early */
+ 			if (!atomic_read(&info->stop_eviction))
+ 				list_del_init(&info->swaplist);
+ 			spin_unlock(&shmem_swaplist_lock);
+-		}
++		} while (!list_empty(&info->swaplist));
  	}
--	if (unlikely(pud_bad(pud)))
--		return no_page_table(vma, flags, address);
-+	if (unlikely(!pud_leaf(pud))) {
-+		spin_unlock(ptl);
-+		return follow_pmd_mask(vma, address, pudp, pud, flags, page_mask);
-+	}
  
--	return follow_pmd_mask(vma, address, pudp, flags, page_mask);
-+	page = follow_huge_pud(vma, address, pudp, flags, page_mask);
-+	spin_unlock(ptl);
-+	return page;
- }
+ 	simple_xattrs_free(&info->xattrs, sbinfo->max_inodes ? &freed : NULL);
+@@ -1681,6 +1686,13 @@ int shmem_writeout(struct folio *folio, struct swap_iocb **plug,
+ 			spin_unlock(&shmem_swaplist_lock);
+ 		}
  
- static struct page *follow_p4d_mask(struct vm_area_struct *vma,
++		/*
++		 * Once the folio has left the page cache, its lock no longer
++		 * keeps the inode from being evicted and freed: hold eviction
++		 * off, in case the folio has to be put back below.
++		 */
++		atomic_inc(&info->stop_eviction);
++
+ 		swap_shmem_alloc(folio->swap, nr_pages);
+ 		shmem_delete_from_page_cache(folio, swp_to_radix_entry(folio->swap));
+ 
+@@ -1688,6 +1700,8 @@ int shmem_writeout(struct folio *folio, struct swap_iocb **plug,
+ 		error = swap_writeout(folio, plug);
+ 		if (error != AOP_WRITEPAGE_ACTIVATE) {
+ 			/* folio has been unlocked */
++			if (atomic_dec_and_test(&info->stop_eviction))
++				wake_up_var(&info->stop_eviction);
+ 			return error;
+ 		}
+ 
+@@ -1704,6 +1718,8 @@ int shmem_writeout(struct folio *folio, struct swap_iocb **plug,
+ 			shmem_recalc_inode(inode, 0, -nr_pages);
+ 			swap_free_nr(folio->swap, nr_pages);
+ 		}
++		if (atomic_dec_and_test(&info->stop_eviction))
++			wake_up_var(&info->stop_eviction);
+ 
+ 		/*
+ 		 * The swap_cache_del_folio() below could be left for
 -- 
 2.53.0
 
