@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794464968;
-	b=jGH9Rf1jPLO0xVb4kuMF4OGtNjJreYe+VN6jW0InAr3zC0gOADo/iKTyqNLBtntfGuq5
-	 RL8o6VrPGRe+2d+Fs6RI5yFRh+TMZ0HL4nbAI4M/BNKumw+gn+cV3BHClrzg7X8P+/EWV
-	 MXZtgGV0lSlFN+mofeDDYe1RdZ6LwciMpBDBfuFVtI78FCYZSCQpOa52+IUTNTiyOEOFZ
-	 WotKP+vLjGWjo22j4gp43WUSU8aNjF6TtMtVC5XeaDbIe7eFQ4uS3IPb8J8Xz5LrAxz5V
-	 FWN31vSbQ5WGjckpoBnvTWZ7WIIat+26YTY2LK8mJqfRf6LUVzW1+V9cwELl5wE+o/w==
+	t=1794464969;
+	b=pHmJFMzyOHtcEWypvD6HCWH/PBTm03GGHX0hujMTu5a3d8hZdDFR1jrD0W1aL2juczEP
+	 6O5PTgNAfK6pf0mnAZAVKMAoNbLNmfGKczzLkOQA1RusjjbAgwnLO7jyNWH35wOo6DlgM
+	 nkHYUnUzlffm14/FUtBjJmGlFhP4/TFJKhA9yuNY7AWsZ3tb3Wk3q+AYmq4zEmwMvrl+k
+	 W3DJ06amaBT65du9vp98VSA8lc8r2k0NsmWZA/msMal+WNRxIJWxjRDCaE6PRJU7MM5bI
+	 gNEe8QGx8dUNlR4qpc/kMTTVz32+6blVywnW1+JlCxaTQ0JbgrZCapoMiWaNBeNLTnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794464968;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794464969;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=QUtPnHYlnt0R1nzUWPR+lt8Jd6d0FvQLBNzTCZroS2s=;
-	b=wPhZJMP6kbdmZ8ZGDMZUdGHdP05Ne5w6mE83DCaC2tz5lIDiVmas6Gb1kejvXELxBUK/
-	 ue9OI4/yFtw9n6WsEK/TGM2WgGf8kWC1ttgpvLg+l+qTiKQkWo1hzJCCLrNZwV9jaqP+G
-	 HiGMBODuW+5AT/AxTFusIeusSPOitwhEUhF5ubda+FS/trBCPcwkD1Pj47a/VFE32T2RX
-	 i9QvC3kYJ/7Srq/Y/xo3ZeMNNcfhI88S3NOc/4xpdepahZKpLmiRrnhGOh2SzWSxj5Eqj
-	 anwn06U4f4GwpcRl3yF94EePP9FdPsYeVBbE/ideRS1LC9c92AhkqJJ2v7K57HFYZGw==
+	bh=9cNvEvk06Psn54GEphqVXNYKMQAfhCjsTk5ucrwLZgU=;
+	b=RVkvOxeA+UrKk1e8G87adkD+XzJPN771/abg6BoVZz5/2+xEZeXN9cFrBsnpWPTuoBIf
+	 lu1JAEJvnPniBaS0EiZATwj3+ZP36sZi0jABhzkQQ54DRxYX8PicyRlSGq1yfoBFIFfbx
+	 5tQpZ0928TWjGYbVoDuWP7J2MTyMtVGirXu5TifolWPz+GhVNv1szFaktaXIXuQ+rouJx
+	 7q9KGZrjrlCIxOte5jGF8MCDrWd/wsvqwUB6W7MGNEGUmnlVk1lPpnCxpOEqNZzGLTRZX
+	 4n66b19z1DfKxezkDr7lHW1OorM3wk2bUMjpKNzZKz9iTGLAlDqZmgNmd1cc16Chcog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=q53HxEfg;
-	arc=none smtp.remote-ip=115.124.28.101
-Received: from out28-101.mail.aliyun.com (out28-101.mail.aliyun.com [115.124.28.101])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=T7ju07mE;
+	arc=none smtp.remote-ip=115.124.28.149
+Received: from out28-149.mail.aliyun.com (out28-149.mail.aliyun.com [115.124.28.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E270606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:29:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E270606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7684606A321
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:29:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7684606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=q53HxEfg
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=T7ju07mE
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1794464958; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=QUtPnHYlnt0R1nzUWPR+lt8Jd6d0FvQLBNzTCZroS2s=;
-	b=q53HxEfgXbkqB5Xt/1dkVjqcUdqNq2/4cW5Z7AR/U/ByTaUQZtq3g1fCuDiq2X0QbpPhOg3YSrUSy9MUoNzNOdNB9S5wNsSjovWHup0HjfiorFz770IzdaXke8B0i9+Yey0XJ50VbbWbV955E49XIlU+/VvzHndxz030C/eMLd4=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437308|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00321527-0.000134495-0.99665;FP=9043054999978446486|1|1|3|0|-1|-1|-1;HT=maildocker-contentspam033037034184;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.k0FE8rr_1794464957;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k0FE8rr_1794464957 cluster:ay29)
+	t=1794464957; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=9cNvEvk06Psn54GEphqVXNYKMQAfhCjsTk5ucrwLZgU=;
+	b=T7ju07mEEmffbHSlIc1GnmT5/NYw8jql7fwD496tZRbjgeNNX34dSzBEwW4duw/lygRv+qhr7kMiEyPhatKf9j+JrDizAIFcLTLg+62zC7hZh8Zg/9oLxteDvoftFjG7zfPmUs9AxkEGWpa3p2U7t+E0deIL7dzvCGk+xdlMaog=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437395|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00258773-0.00019006-0.997222;FP=9040803200164761238|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.k0E9GAX_1794464956;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k0E9GAX_1794464956 cluster:ay29)
           by smtp.aliyun-inc.com;
           Thu, 12 Nov 2026 14:29:17 +0800
 From: Guanglei Zhu <zhugl3@xiaopeng.com>
 To: stable@vger.kernel.org
 Cc: john.johansen@canonical.com,
 	sashal@kernel.org
-Subject: [PATCH 6.6.y v4] apparmor: check accept index + 1 is in bounds
-Date: Thu, 12 Nov 2026 14:29:17 +0800
-Message-ID: <20261112062917.663882-1-zhugl3@xiaopeng.com>
+Subject: [PATCH 6.12.y v4] apparmor: check accept index + 1 is in bounds
+Date: Thu, 12 Nov 2026 14:29:16 +0800
+Message-ID: <20261112062916.663868-1-zhugl3@xiaopeng.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261111063859.496645-1-zhugl3@xiaopeng.com>
-References: <20261111063859.496645-1-zhugl3@xiaopeng.com>
+In-Reply-To: <2026-11-11-1-daily-reply-0022-8bed080b3d441daa9cfe@kernel.org>
+References: <2026-11-11-1-daily-reply-0022-8bed080b3d441daa9cfe@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,7 +82,7 @@ Fixes: 6f442d42c0d89 ("apparmor: fix profile verification and enable it")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 Signed-off-by: John Johansen <john.johansen@canonical.com>
-[ Adapted for 6.6.y: this tree predates ACCEPT_FLAG_OWNER (2e12c5f06017), so aa_lookup_fperms() reads perms[index + 1] whenever fsuid does not match cond->uid and every accept index of a standalone file pdb gets the pair bound.  A compat-mapped policy dfa has one perms slot per state (accept[state] == state, table size == state_count) and aa_lookup_perms() never reads index + 1, and unpack_profile() aliases rules->file to a compat-mapped rules->policy when the profile has no separate file dfa, so verify_dfa_accept_index() takes a pair flag that is set only when rules->file != rules->policy.  The pair check is thus skipped whenever rules->file aliases rules->policy, including when the policy pdb supplies an explicit permission table; unlike upstream, this tree still uses aa_lookup_fperms(), which can access index + 1 on this path, so this backport does not address the aliased-policy case. ]
+[ Adapted for 6.12.y: this tree predates ACCEPT_FLAG_OWNER (2e12c5f06017), so aa_lookup_fperms() reads perms[index + 1] whenever fsuid does not match cond->uid and every accept index of a standalone file pdb gets the pair bound.  A compat-mapped policy dfa has one perms slot per state (accept[state] == state, table size == state_count) and aa_lookup_perms() never reads index + 1, and unpack_profile() aliases rules->file to a compat-mapped rules->policy when the profile has no separate file dfa, so verify_dfa_accept_index() takes a pair flag that is set only when rules->file != rules->policy.  The pair check is thus skipped whenever rules->file aliases rules->policy, including when the policy pdb supplies an explicit permission table; unlike upstream, this tree still uses aa_lookup_fperms(), which can access index + 1 on this path, so this backport does not address the aliased-policy case. ]
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 ---
 v4: pass 'rules->file != rules->policy' instead of 'true' as the pair
@@ -106,13 +106,13 @@ v4: pass 'rules->file != rules->policy' instead of 'true' as the pair
  1 file changed, 15 insertions(+), 4 deletions(-)
 
 diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index 589b43c..2514672 100644
+index 4642058..61d7ef2 100644
 --- a/security/apparmor/policy_unpack.c
 +++ b/security/apparmor/policy_unpack.c
-@@ -1194,13 +1194,22 @@ static int verify_header(struct aa_ext *e, int required, const char **ns)
+@@ -1202,13 +1202,22 @@ static int verify_header(struct aa_ext *e, int required, const char **ns)
   * verify_dfa_accept_index - verify accept indexes are in range of perms table
   * @dfa: the dfa to check accept indexes are in range
-  * table_size: the permission table size the indexes should be within
+  * @table_size: the permission table size the indexes should be within
 + * @pair: the accept indexes reference two slots, index and index + 1
   */
 -static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
@@ -133,7 +133,7 @@ index 589b43c..2514672 100644
  	}
  	return true;
  }
-@@ -1264,15 +1273,17 @@ static int verify_profile(struct aa_profile *profile)
+@@ -1272,15 +1281,17 @@ static int verify_profile(struct aa_profile *profile)
  	if (!rules)
  		return 0;
  
