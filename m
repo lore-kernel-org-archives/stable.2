@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474658;
-	b=HgOp1UNibHZf/OSS33xZ27XHOrAmOGPSnU4qMutm34vMjux54r+25oDfncY80Zzkm7+4
-	 Zbzymxz2Owqdz3wczCB4fX4F2L7/11/n5TMFRF8DBa2p489z0EYwH9OIyVjhYzb+kJ7R4
-	 ue0AIQFEap/+gOXJAEyGja7lYCfL/o91h8AOXkIcuqT3+d9YWXuNk4I5Y+1cAI2hb5h7H
-	 IqGAPjKtHosprcyj7tMyfyzRHGePJwcgYhYFWfiSk7X3A0dJLmTBNbdtYHAQ/gRz8EjgO
-	 KJNOmo7qE6/1AcNlnPSv5Fv9KTtt3VCOl4t8obxJOZzw7XKQvzf1FLmA7m+do/7ekUQ==
+	t=1794474810;
+	b=L9P+5AOVpeucNGPEqtqldW8WP4XTLiKq5J9dzh3prEgChO+nL6nGlizWpBTMYVHsBCxm
+	 gO6/QtmOoLvb5b4pwyzJm3kQR0tHRY0WSPDxHCjY4oLF5N1LB1VkAfJhANoRVOKXUJZQr
+	 NvTY+Pk3MDRCNWpGN1V2AmhX010TRO+9mFCMGNs4j7H8LrwCsqUt2UCm3RpE5umsIZeOt
+	 sEqJ+iVpseCbyDbzSsAx+d2E2E4NjwDmRJGR5CtUBoAq826M2+LcKxzzcoPywnbPzD6bY
+	 bciRHG7ZFp52p0K0S0a9CVkFupJWJeKs7KBVtWQR+OuKujYUxAD05xH965nH0jCsucw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474658;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=kL5yNFxOQr1bNwj2yp9xsvwd7EvfVdlHCAwOgWjtFQ8=;
-	b=PTLeOY3QDrBLrZlxpZJx/bPgn03zEqpPTZicBQcnb4evXaK0e71CweK/pcxDBhlUTD/u
-	 PXLzQzw+psey1/VMO5z+y1DbmoSYLinXPORLlMcL4+jAHn9g1ljiMGjTn3ho4jF/MXJCB
-	 BJGTxdPJWlkBBxgkwfPPEke2NTmJWjIh30mQPtFyIML7J1juC96f87lhmMjcbclJtXhWq
-	 qCiT/3Y0Cx40NPFT5mcQ0rwQctWRp0QISgnPgjxa7PYmY1OszNKPO4fu+aAOHusN9wPl7
-	 1fl+DUlo3vOwhFoWMZAV3Mhxi7upAwQSJs8zTNBhtQEGPmE1D+FVtS68C6T1PyydHeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474810;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=yUZruvBPIEocxGxY1L+qkR4KftDZLF9AyW7Z6G1x5Ds=;
+	b=LGoRXTD17x+HjYSdY/Li7zFAQlmi+x3rVZRmTkh7p/Wjy3LXjhxKc6pLYZwSeO8psvnu
+	 +JLvS4Ut76VHEtpSQDDPkguJ/9+zmzrwun+ZViUeHP/TFWUGvy/aDAxhuxXG9LVPvTE86
+	 FR4/yhJKlqpByovN2FGjWyCG1CLUpl6LqVkYM7EjT5uHONpepTwBRu+6mPtw45va/6pDR
+	 elQxSCjnnL3LOZ2wnw+ncdfqnjaj/ygH4pUvQPBeQq9qEYKP8XXCgZHJGqX0acSQcrBZ3
+	 XvOJjjVcxRZ+F+1cJX9tTOUHV4CpngbToDI5iIX7renebQRC+7AHuspHDxqXIN2wMVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=F8Is5QRG;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dQtrinCY;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E162606A31C;
-	Thu, 12 Nov 2026 09:10:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E162606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF183606A32D;
+	Thu, 12 Nov 2026 09:13:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF183606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=F8Is5QRG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794474612;
-	bh=kL5yNFxOQr1bNwj2yp9xsvwd7EvfVdlHCAwOgWjtFQ8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=F8Is5QRGRArslT0hQqs17+XCYi0XDx8/8CkFCti4JQVvG38wgGUX5j/QelAP40pdd
-	 Y94psaF1g5cgAQKo7UYaWm/xQclNCD9K/jdJvSk+1ky71HcdScColWSFNesdFld3HF
-	 ldO6dJBLI97Celqvk2R9VmG05yJdsiibTLNBsk5M=
-X-QQ-mid: esmtpgz11t1794474596t6e10af42
-X-QQ-Originating-IP: Ia2ZFIUMrwIr2+SQEeFPwzme45b8gAUcBlQNMeYD3iY=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 12 Nov 2026 17:09:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5409456588328214645
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: rafael@kernel.org
-Cc: lenb@kernel.org,
-	sakari.ailus@linux.intel.com,
-	linux-acpi@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dQtrinCY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yU
+	ZruvBPIEocxGxY1L+qkR4KftDZLF9AyW7Z6G1x5Ds=; b=dQtrinCYkvmeCW140l
+	zZqX/7DlgdkLd+WD6qpjdKWTcLXkV7ReY05NWnMP2ynUhMsD9g1xMnY6z84TNaOX
+	XRWcpU5cSPW2dXj9rYJHLI6nAc0YxnBtzRlsixX3VnKX4lkdbBfmUmKRkpypMWp8
+	zLfFx4oAoJjnFp7aWsClvh0cI=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCnbDvngvVqwloxFg--.38026S2;
+	Thu, 12 Nov 2026 17:12:09 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com
+Cc: yukuai@fygo.io,
+	dm-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
+	Li Youhong <liyouhong@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] ACPI: property: Fix leaked buffers after skipped properties
-Date: Thu, 12 Nov 2026 17:09:54 +0800
-Message-ID: <DC796DD7AB1437C8+20261112090954.1388267-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+Subject: [PATCH] dm-raid: fix use-after-free in raid_dtr()
+Date: Thu, 12 Nov 2026 17:12:05 +0800
+Message-Id: <20261112091206.1656622-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,67 +66,51 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MdX6KBrQ9NyucedZzOI13e4aPRB5YJmtlC4eAyT55xPct3WOATXmnaaO
-	16DLlehhi7M/gaKIloyNAZfvV8e4xf7/22ca21JXvXz+0Lll5DbcdSuFpR2wt/PuzMKYKLK
-	8OW+OUj5k0l3Is+xVkHKvXKEufAHO/JwbJOUCz6BiWcVgF1kGCQVdf7Z/9WmAP66O7OMt4S
-	9XoMVFVO5oXuE6O6cyzDBT9Py0OYL36hkI7KpkQP4Bmd2xk/covkbbpx7wreMmX4h5QLQHA
-	Ebj/GAT1b+C74Lbkqj+5/970gJB1YRsSJGHspurTL8gwva9pBi6vkgK6F3iu9a0i0ceCF35
-	MVkw1eG8Z263Y8S4bM813oSzslE9tT2cdJW3auhOalICe46guFs1qKg2bwRDdDQ21Ftt5/E
-	oC4CYe/SXKnA6eR5nmMiWvAWlTYshq6Q7/iVcmijh1uKji6YVkQvkV0DQ2yW9a74L+zepLQ
-	H5IAdhh7gAgByA4UAFcSe0lAxWMZUsUDUArFypW+CFwghJKyWKnN5kvQtzRpynGnnE9JUMv
-	7zcFewo3Yr8flbUcw1k35M/CpGi7VODW8Qriqf+zdzTzXHVNvL77MzZPjruku3mMikdZ85W
-	XaA6zZD57zl9ppT5yxLBeffBplrRMBbALzuT0P2gm91x3jk3cyHt+hLQaeGbupZMxUJPPfW
-	12k6yEshIYrHt55KuLWAr0r/aRCxX4wgzDoOmpIjiLaUwZvKpMWLhm3HwUtGcmwctDoYRmf
-	QppvN31WnS2Gt3NDxteKxo9TyDRR6GiEXWTaYo6MI1Tpr5CLNf5KDAjTBrR7Vvol+h64Zrs
-	jN18JcpX49f0JBti2G6x9b7QR5gfPIFrYVJke7IWUSjpCb8Wr9ypsqTwkWJADR4L3qAt/aA
-	d1JmnsjLZ+4TiVJwt/mc/Ojq9NsJPcxyU4G2PEDkpBD4gu387yNnAew5T1XN8RCGZ8jEpCI
-	WPEPW/MmciuuyZRpDyxT4JuUY5VjdTnwQe0VQpYZyQ5owRaDxPGNL3qOVsp8dXOdHyeYeF7
-	K2J7M61IuamIc+oGojUStzrBXvmi/bL2qZu2jO6hV7ZcHENtoXTo+ixisrAtY=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID:PigvCgCnbDvngvVqwloxFg--.38026S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cw4rWFy3Ar1xZFykJry5urg_yoW8XF47pa
+	15XrWakws8trWDXF1DKw4v93WYgw1rWrZYkrW7Ja4rAa4YyF1xua4xKr4Y9F4DXFZ5t3W7
+	Zw43tw4DWryjyFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U6mh7UUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+gnyoWr1gulcEwAA3b
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Li Youhong <liyouhong@kylinos.cn>
 
-acpi_data_add_buffer_props() compacts successfully parsed buffer
-properties into an output package, but stores their separately allocated
-evaluation buffers in props->bufs using the original input index.
-acpi_free_device_properties() only frees entries below the output
-package's successful-property count.
+raid_dtr() currently flushes event_work only if work_pending() is true.
+This is insufficient because once a worker has dequeued the work, the
+PENDING bit is cleared while do_table_event() is still running. In that
+window raid_set_free() can free the raid_set, leading to a
+use-after-free when do_table_event() accesses rs->ti->table.
 
-If a property is skipped because of an invalid format, invalid types or
-a failed object evaluation, later successful entries can be stored past
-the range visited during cleanup. For example, a failed first entry and
-a successful second entry leave the allocation in bufs[1] while cleanup
-only visits bufs[0]. The evaluation buffer is then leaked when the
-properties are destroyed. Lists with no skipped entries do not exhibit
-this mismatch.
+Flush event_work whenever it has been initialized, so raid_set is not
+freed while the event handler is still running. The .func guard skips the
+flush for mddev instances where INIT_WORK has not run yet.
 
-Store each evaluation buffer at the current output count before
-incrementing it. This keeps the ownership array compact and aligned with
-the cleanup bound without changing property order or buffer contents.
-
-Fixes: 103e10c69c61 ("ACPI: property: Add support for parsing buffer property UUID")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Fixes: db29d79b34d9 ("dm-raid: delay flushing event_work() after reconfig_mutex is released")
 Cc: stable@vger.kernel.org
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 ---
- drivers/acpi/property.c | 2 +-
+v2: 
+- Fix incorrect Fixes tag; the work_pending() check in raid_dtr() was
+  introduced by db29d79b34d9, not a17d1bca5aba.
+- v1: https://lore.kernel.org/all/20261112075741.1449168-1-dayou5941@163.com/
+
+ drivers/md/dm-raid.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
-index 8ee5a1f0eb48..fb6b214f2335 100644
---- a/drivers/acpi/property.c
-+++ b/drivers/acpi/property.c
-@@ -523,7 +523,7 @@ static void acpi_data_add_buffer_props(acpi_handle handle,
- 		obj->buffer.length = buf_obj->buffer.length;
- 		obj->buffer.pointer = buf_obj->buffer.pointer;
-
--		props->bufs[i] = buf.pointer;
-+		props->bufs[*count] = buf.pointer;
- 		package++;
- 		(*count)++;
- 	}
---
-2.50.1
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index ac019a0f5a92..c1f546e8c65d 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -3340,7 +3340,7 @@ static void raid_dtr(struct dm_target *ti)
+ 	rs->md.dm_gendisk = NULL;
+ 	mddev_unlock(&rs->md);
+ 
+-	if (work_pending(&rs->md.event_work))
++	if (rs->md.event_work.func)
+ 		flush_work(&rs->md.event_work);
+ 	raid_set_free(rs);
+ }
+ 
+-- 
+2.25.1
 
