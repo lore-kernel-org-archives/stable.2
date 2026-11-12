@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794442009;
-	b=ZeSiX4UTP6EyJC//E6VKmMOQ5QTaLBY3D8fTUJatAHTZYCDAItzAloO6zbER17ybxJrb
-	 /K5D+LsJvnJ8xhxQCfGmRFolOxH0Ru3jeGfegZ3R+5AQ1HmCzdvb4oY/KL8oPbJiTv/w3
-	 8U8HyEEseNkY16VnNp0UrsuageoKWTwB4bpesR4iNu7uq1+0oeWnjowrYaI2Y1ETrkIj8
-	 XDOCDyxZt/5wtRDi/ih1guVEPtbpqvCpSKLJmJI/YerLhXxtBXWUZU1WsrNYVnxZbbzti
-	 G5hI9X3HzDTB6bRvmqvZXj3sb8C1uKIX6O4CtLhm2bKHKtkjzrYNr0zgTvexwjdgG8A==
+	t=1794442124;
+	b=Y1ntZbKxZCUAJiyr5cKhyNK5ejGURqA00NDXZirUit1ClDaktUrypQiZMFovadmBZY1U
+	 tATUZuIuSHxIuf4FU8aAz8JuS3kKXz+Vd7u9EymXr1joTPNhMHNrIOJj28I31OCsQseny
+	 HGDoYd9lsljYZiHrxnNTJ3XOaefmIq82ra8M4vC39JFP6nu4bCufdxv0BYvjGOzu3quth
+	 G43mry5vA82No7fAi3FiMXyse7/2uSsTcI1Oe17N7Azn3/0Lxma7BevjEPmXzh72sb0yV
+	 DzDLvZLwqH2aB1HuXxpwoe0U2/g1bEJa+Nik4Af87MybELMllNmKHthw/w6cbeDPkrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794442009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794442124;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BRfQjUWPptMz1UAMS3vNlUkA1vj1MdhmPpAb6PQGYsM=;
-	b=gHdWTV2UqKwfy9Uzc9YuKT10lZCCawZlvsBjPQN3Yv3tXsClqzfcZhUu6JQgSE6WZXB/
-	 BSmYjKVnvUYRXsakYlVK9ofgdnPZlK+IlUxgdtNrdde/LdAf1vSUL8fGSLW2m7Svr14OD
-	 VNV0B+fFSi8EA2DVJxlSgOhychEiosgPnTTGzg6cwWjC4qvLsUfO5y30qfbFDyNDCU585
-	 dS0HcnB+Pkftzj5W0+WBbqYfGrsVZIFRfpNPmawOyR9x529qFipvxzbYYr2Vt3e8QGuls
-	 5sJA5qWD8qypYWzT7TQtgBzHKMyPQOuaAC2Vg1uAw/hNqlUKMjRjROOzDXKK3nXhpSA==
+	bh=+cbxuFgZm4xD9oFWYc6zff48s57RBgg/r/m8hFI+fKU=;
+	b=PEENL82DIvR/uDuonN/ZizOCn+G2n/oeFrUbOvXLRosVyxWf0FAlky9ro0IZiE6xe5Cg
+	 oA8oDvL7J3y2A/vgpqP+EVSEA/fhAv2wQs95sa7q6qT6ZYsgh0q3JbGOOrhSawJCBGzKn
+	 oIE0bPzw1W70YJQuwEIALqibYC5wN2S6Zm2OVoOCMGhHBeFbFdi47s4MYhDKPQQi1a+fs
+	 D+fV1hpZ5wITZ4Ygd/e5jdXp5ozLMp5PGzGg9hYfn/mqy9SZPzbxfTPYrnjLiflUWzyEr
+	 CixIvidFEf6BJwX8BFahMpqo4D73b3P/WZwouoOCZxZcbtGU8LAnekBMQAmXEvnrslA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LytuN02X;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iD/isOp2";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DC8606A326
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:06:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D43606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:08:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LytuN02X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 896791F00A05;
-	Thu, 12 Nov 2026 00:06:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD/isOp2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A11C1F00A05;
+	Thu, 12 Nov 2026 00:08:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794442009;
-	bh=BRfQjUWPptMz1UAMS3vNlUkA1vj1MdhmPpAb6PQGYsM=;
+	s=k20260515; t=1794442124;
+	bh=+cbxuFgZm4xD9oFWYc6zff48s57RBgg/r/m8hFI+fKU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LytuN02X/jbn9p41csK+frAB9PM2UOEvVTUU2Irr0MqlIXUkd7//GTzKULrI3DiEF
-	 JV/c74oUfYSVtkmnGFBsl54quvRlm2VeH1RLitBkAIzFTE3C1Tnqws/ABoNJcuI1a2
-	 Rn7xM4pZiTxE4lX/WaljHJOnnPvveJ7rS7444dHmZBn55qWoyJqCHO2F++H6epnzMj
-	 EBZ82YaSvKolfT/FVuWEMfMThF8KJFhrbzrpZltCZwBgWQdPYH2AQLhheqSPxvt+qr
-	 Q9O/gw7Uf1+fmis3OM+T8vplVm06HZTn9vNzPQeZ+I/IbL7EHtD7mKnWtNscLK9GM/
-	 3aInvkKIBbGuw==
+	b=iD/isOp2EE8AkqGttw/Xgd6MczmAycfQbIlTGk5vARwVDhaCEiO9rdn6kb7RHnlao
+	 g4N0b8Ln97sMebUiFlKeWm/T7HGP/HXVumrNgL/wmZQqTgoEDiOULYHMUWp7uQcaUE
+	 6n1FjEsn2lMg8fadBJtvpFro+X5im2Cc+elbg2EuBPUWjxjVcgsWY2KuAAgNAJpcww
+	 B9vKfWwsJJOcXFzKezF181VJsNZn3dkEvvfZGr8UMy1XIsiNY7hJU0OChl5CitlV2j
+	 5TnYq5AQdjtRHp1fRb6K3/Z+UPxl7nN11CHmNGsFU0hWEkTM4GuFaIEeOeFk/xKI6W
+	 XSbC4E3n8YIPw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	Dominique Martinet <asmadeus@codewreck.org>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] 9p/xen: drain response work after unbinding IRQ
-Date: Wed, 11 Nov 2026 19:06:47 -0500
-Message-ID: <20261112000635.1061290-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] f2fs: fix to update superblock crc in sanity_check_area_boundary()
+Date: Wed, 11 Nov 2026 19:08:42 -0500
+Message-ID: <20261112000825.963891-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202511-failed-5.10-7b6f2e3c29fb@kernel.org>
-References: <20261109202511-failed-5.10-7b6f2e3c29fb@kernel.org>
+In-Reply-To: <20261107062921-failed-5.10-f8f956c7ec8c@kernel.org>
+References: <20261107062921-failed-5.10-f8f956c7ec8c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,65 +62,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit 7b6f2e3c29fb4d76f1e4973280792eabbd526602 ]
+[ Upstream commit f8f956c7ec8c0285d7a80bed497d2f7adcbded15 ]
 
-commit ea4f1009408e ("9p/xen : Fix use after free bug in
-xen_9pfs_front_remove due to race condition") added cancel_work_sync()
-to keep xen_9pfs_front_free() from freeing a ring while
-p9_xen_response() is still running.
+This patch fixes the bug reported by Sashiko:
 
-The work is currently drained before the event channel IRQ is unbound.
-That leaves a race window where xen_9pfs_front_event_handler() can run
-after cancel_work_sync() returns and queue p9_xen_response() again.  The
-following unbind_from_irqhandler() synchronizes with the IRQ handler, but
-it does not cancel work that the handler already queued.  The teardown
-can then free the ring and private data while the response work remains
-pending, and the worker later dereferences ring->priv and priv->client.
+We should update superblock crc along w/ raw_super->segment_count in
+sanity_check_area_boundary() if sb_checksum feature is enabled.
 
-Unbind the event channel IRQ before draining the work.  Once the IRQ is
-unbound, no new response work can be queued by the backend event channel,
-and cancel_work_sync() waits for any work that was queued before or
-during the unbind.  It is then safe to release the ring resources.
-
-Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
-Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: GLM:GLM-5.1
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Message-ID: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
-[ sashal: adjusted context to the indexed ring cleanup code with its irq > 0 check ]
+Cc: stable@kernel.org
+Fixes: d440c52d3151 ("f2fs: support superblock checksum")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: Added sbi as the first argument to f2fs_crc32() to match the older API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/9p/trans_xen.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/f2fs/super.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-index ff81b323ea7b5..45a16494bd79f 100644
---- a/net/9p/trans_xen.c
-+++ b/net/9p/trans_xen.c
-@@ -310,12 +310,12 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
- 	for (i = 0; i < priv->num_rings; i++) {
- 		struct xen_9pfs_dataring *ring = &priv->rings[i];
- 
--		cancel_work_sync(&ring->work);
--
- 		if (!priv->rings[i].intf)
- 			break;
- 		if (priv->rings[i].irq > 0)
- 			unbind_from_irqhandler(priv->rings[i].irq, ring);
-+		cancel_work_sync(&ring->work);
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index ad0f29f579463..758270da70957 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -2820,6 +2820,12 @@ static inline bool sanity_check_area_boundary(struct f2fs_sb_info *sbi,
+ 		/* fix in-memory information all the time */
+ 		raw_super->segment_count = cpu_to_le32((main_end_blkaddr -
+ 				segment0_blkaddr) >> log_blocks_per_seg);
++		if (__F2FS_HAS_FEATURE(raw_super, F2FS_FEATURE_SB_CHKSUM)) {
++			__u32 crc = f2fs_crc32(sbi, raw_super,
++					offsetof(struct f2fs_super_block, crc));
 +
- 		if (priv->rings[i].data.in) {
- 			for (j = 0;
- 			     j < (1 << priv->rings[i].intf->ring_order);
++			raw_super->crc = cpu_to_le32(crc);
++		}
+ 
+ 		if (f2fs_readonly(sb) || bdev_read_only(sb->s_bdev)) {
+ 			set_sbi_flag(sbi, SBI_NEED_SB_WRITE);
 -- 
 2.53.0
 
