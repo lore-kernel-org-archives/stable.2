@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794468594;
-	b=2gKDgHjvsQDkgIzT/gix9y2glsUckI4/dQ+ctwqiyF183zCDflZPjJ2Viyf6qwJ7dswC
-	 IB3NZql0QNqE6fDc/tp7EUEckrfra8ZOTHJweNwj8hYH4IeM/EuaalCMyp6DfZ0vWoCuA
-	 xXFFobe49lfSz8+Cmig2yVx4lg9aB6SHkBpbsezb0DbRWaB5F71yBnhUbvwgP706XVgw1
-	 y/lzQWKKaM3ieLleW81b8BJ5IRQ0u8SorhZZrap19RA61Aenl1ygIMYOB+sdfkBLi8tKV
-	 TvpNq069MQG7aa/TF4e82Php2LiePD0uo1UASIe8OZmgFVakvNQ4jqeJ5ygkr8g875g==
+	t=1794469116;
+	b=h5Yh3GXVPisQpJ8aaKQDJJexJLQJ9niocmCewptc4Udo73yys+voBl9x3oR25+cJ9fbg
+	 g1UMvOOjZTB+RKiJ2Y7C8yaYQ9shXJEwdRhLlxo+ApNAWaMpvZDJkEfKGLBBF5nGLhZey
+	 etLxKc0MqxudG6pmh2Bej5ltMZKhhyaQjzvBkJBfPPOKqE3zNgnlQr9JTPbc7uXjC/rKR
+	 h7iCMx+fV+w1bY06p70BJVt4yUsA5n09UPy4Hb/qTAIoSpgB9Kq1XO57qR8EgUcuwepgK
+	 xTCUU//kgcnLRi/jfREgt/R2Asi5dojSNEMF5j9e//VKyi1BXaWM/WtrJU5HX/h8Tog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794468594;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lMsj9nudmBv/iI5Os6pRVy6bLDebR7965kvSPVwO+Vg=;
-	b=wkfCEn7bF7CySKl6qoe1zR1lbT7+Xkqp2azJfHqLzpnugN+LzM6yK9Lff8xouMS+NkQ6
-	 R9yF2XChaLD9R5GtCHg+uWQy0ph8JveDBNLy/dOyST3r8AidwQzokAEL4IGMht8LdU2Pf
-	 6WgCNGPh2jCs1ALJvCMxFz/OMnhZDwAMxRYXVZaVwRiWmppWGpOwwVO9c6fo47eeD0qHc
-	 udZGOdi4i66R1TF3bbfTSrPJI2vUj3N/qT5PdX07E3gviE5qnE/KW2r6y67P8yKzC6CfZ
-	 I921fhIfhSj+wYmIPnVvzh1B1+lchDYSApUxJoGAkJanjzPoHQbEQXgNQAhUduwzIcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469116;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0+wehHBGkyeWvPM981t47dy46vlkddnR/+kt8BkCiH0=;
+	b=e9zoqEQVRbKt+f9jrZmG5NQ2jcFv2V4h7CcknClVGSOujjsDJwXUz42dHpOmuoLN8fhc
+	 gOkawz4lgPfiOZPVrXRRolR7GAlYjBlwD9r50MxTD3UcUe+gciNX3LSDgQeuFmhQ8D3fL
+	 ARJ08CDqjfpIAmgUDt+5EDD+M4JqDY+vTXS4oe/BLxvJ2yDNm1QGMWbJM7UNUcz5NpDjH
+	 UcMsU65u7IiW+nIQfG3fSd9QxbMrO+24FKBJD42ODcP9lJ1wZFZSIBbxm12ncIiUfBaqK
+	 qOVjcWqQ9qaDM9LCZnm0Q70dh5eEhTAs+xdCfJ6etk6TtCJgeJktOAQN0sPxVxF4dgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZPX1ieU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TSvWwbk/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087AF606A331
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:29:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF000606A321;
+	Thu, 12 Nov 2026 07:38:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZPX1ieU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D91C31F00A0C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:29:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSvWwbk/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4B91F00A05;
+	Thu, 12 Nov 2026 07:38:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794468593;
-	bh=lMsj9nudmBv/iI5Os6pRVy6bLDebR7965kvSPVwO+Vg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OZPX1ieU+LbZoavvKaae8CDwAXx0pXP/AVuIjvVIEP0B5iqW5LhQXjbWE2Nmk00ow
-	 thRg7jxz6UwzjBfNsrToylEh9RR0J02ECSLdMFzun+Fy03Ax7UAvIp7YXgdR3WaIL2
-	 2ip22Ghvkzq1/YV9OKlCgCgP34BE6rJWRjVrD1lvXNG+iF7B5fIUf3qGjn/c4nG2se
-	 ZJcnsTVICDY7h74vfvoDzKA5u78tH5xp8jkmt8jT5DLdRnoAVMMNrqSfCLxIjqt64E
-	 7S+AwaS1E5uYdLaDoPSv8bRPQqNEzzPOfry0H6Vv/RErkHpEgi+8wnZpx4COFPE6vQ
-	 +lcdFr/WJdCeg==
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b7245ab5e2so814133a12.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:29:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGG9QrtjsdvWPIbLd/Vby4AfzlGq380r1WfM5ZzD1es7OpvxLbajlS3FQFyNd4CUiTaABoU6KQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z99lrm/wrxLOfdRfzKh75Tkp21ED2IY3gIT4HYslK3SUS5MfAxJ
-	4qr5wF8K9HnyUvluOVsGboxuFfTHUohRIY7/MnuGV842LLpkmh0R2oMLuZvpYQjmNNW/ELvLWum
-	OLuFmUrIZaOOqsuE3u3UAqJrxAvFb+HE=
-X-Received: by 2002:a17:907:ea8f:b0:c25:4d9e:bb28 with SMTP id
- a640c23a62f3a-c507b396562mr148147766b.3.1794468592306; Wed, 11 Nov 2026
- 23:29:52 -0800 (PST)
+	s=k20260515; t=1794469116;
+	bh=0+wehHBGkyeWvPM981t47dy46vlkddnR/+kt8BkCiH0=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=TSvWwbk/ReR9rKKjXF7ql7DrfD1dyuGdR4leBOo5fyZKZIIGxs6uXZAR3bsPVWDYo
+	 QSxCtyGO4tQk8uLywVdqd4HoDy7acmzO1DVLAFm5K7t5S4nwZJRtsunEUj/mXmZe4O
+	 jdORUB6rjm1yw8fyXB6aB9grCN6ju3vMJV0c8Mu7zywVAuKsHpSICYf/2DhKn6pWzY
+	 QmxSemomHGmwcAXFOcPTcAAXS3oauXH5oy7x70wQISsH5PvVQSr777szkKZ49DQHjW
+	 PhF/3CehROJfX0+dMRg4CZz68zScz0gAac2B1mGdQhRqMYNMaUqnE63lGMjhRMIdfl
+	 UvuDURFs4S6nQ==
+Message-ID: <a931e754-ab4e-42d8-8555-9a432fe42a1e@kernel.org>
+Date: Thu, 12 Nov 2026 08:38:32 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,43 +51,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111222534.839117-1-koray.fra@gmail.com> <20261112031157.677256-1-icb@fastmail.org>
-In-Reply-To: <20261112031157.677256-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 12 Nov 2026 16:29:38 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9u1EQWXwxiGfdTyvsDCRoYpDTo97A-hqjPKZ868S+3sA@mail.gmail.com>
-X-Gm-Features: AclHuK89hAf45QYH6l79cOyFN2CoMoYTpTZ7STKRVcYi0T6MEFvVcHL7RDTmuoc
-Message-ID: <CAKYAXd9u1EQWXwxiGfdTyvsDCRoYpDTo97A-hqjPKZ868S+3sA@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: fix timestamp corruption on special values
-To: Ian Bridges <icb@fastmail.org>
-Cc: koray.fra@gmail.com, senozhatsky@chromium.org, tom@talpey.com, 
-	chenxiaosong@chenxiaosong.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2 media] media: v4l2-mem2mem: cancel job_work in
+ v4l2_m2m_release
+To: Tristan Madani <tristmd@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Tristan Madani <tristan@talencesecurity.com>
+References: <20261104014248.3761373-1-tristan@talencesecurity.com>
+Content-Language: en-US, nl
+In-Reply-To: <20261104014248.3761373-1-tristan@talencesecurity.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 12:12=E2=80=AFPM Ian Bridges <icb@fastmail.org> wro=
-te:
->
-> Hi,
->
-> On Wed, Nov 11, 2026 at 11:25:34PM +0100, koraynilay wrote:
-> > When a timestamp is being sent with "-1" or "-2" as its value because i=
-t
-> > should be ignored, as specified in MS-FSCC 2.4.7 FileBasicInformation,
-> > ksmbd would clobber it in both the xattr and on-disk value by setting i=
-t
-> > to -1.
->
-> I tested this with the ksmbd code from ksmbd-for-next. Before the
-> patch, setting any of the four times to -1 or -2 stored that value.
-> The access and write times on disk moved to 1901, and the creation
-> time in the DOS attribute xattr was overwritten. With the patch, -1
-> and -2 leave every time unchanged, and valid times are still set as
-> before. smbtorture confirms the result in the commit message, the rest
-> of its results are unchanged, and KASAN reports nothing.
->
-> Reviewed-by: Ian Bridges <icb@fastmail.org>
-> Tested-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks!
+On 04/11/2026 02:42, Tristan Madani wrote:
+> v4l2_m2m_release() frees the m2m_dev struct without cancelling
+> m2m_dev->job_work.  When a job finishes, v4l2_m2m_schedule_next_job()
+> calls schedule_work() to queue the next run.  If the driver tears down
+> concurrently, v4l2_m2m_ctx_release() invokes v4l2_m2m_cancel_job() which
+> handles per-context state (TRANS_RUNNING, TRANS_QUEUED) but does not
+> drain the device-level job_work.  A pending work item can then fire after
+> kfree and access freed memory.
+> 
+> Add cancel_work_sync() before the kfree in v4l2_m2m_release() to ensure
+> the work item is drained.
+> 
+> Fixes: 7f98639def42 ("V4L/DVB: add memory-to-memory device helper framework for videobuf")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+
+This email differs from your gmail address. Which is correct?
+
+Regards,
+
+	Hans
+
+> ---
+> Changes in v2:
+> - Expanded commit message to clarify that cancel_work_sync() complements
+>   the per-context v4l2_m2m_cancel_job(), which handles TRANS_RUNNING and
+>   TRANS_QUEUED flags but does not drain the device-level work item
+>   (Nicolas Dufresne)
+> 
+>  drivers/media/v4l2-core/v4l2-mem2mem.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+> index a65cbb124cfe0..311e2e08d066d 100644
+> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
+> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+> @@ -1207,6 +1207,7 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
+>  
+>  void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
+>  {
+> +	cancel_work_sync(&m2m_dev->job_work);
+>  	kfree(m2m_dev);
+>  }
+>  EXPORT_SYMBOL_GPL(v4l2_m2m_release);
+
