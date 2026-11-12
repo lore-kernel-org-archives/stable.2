@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794442955;
-	b=T2ZPWKlgBbVEiQW4Rk2PkRGjTNgHshiy8olGmyQg1r9y4OddKKRit2QRuGd5Z4JyWt7h
-	 gjs6Sm/TdfRxGAsy+0Dt8/WEk9P1evEw9RMJOdA0Qv59qfUIB05Z8lswRgOqdUUFlYxae
-	 +Oy/DJKdwE0uf2rIvqpRz4SwBMWwkXIr+AvHVzPlF9krOTEaqsoleb7+z0pSmjdcmZjEl
-	 YhTkd4CjvwK71CwAVu/D6dFy0mGKBjmPYk/j8OU+09SUu8egIROM5clN1XkQp1CX1x8eR
-	 nYhBVArO6W9RMKv1aRSazlXwbrRTSGBeBqHcVRzkejVuRgB5vcP/e6nhUljH/kE0mpA==
+	t=1794443006;
+	b=aHykDSwR78Kid6vY5CscgdBFsauLvyeAfkfDHypmVZ4WXH/wyQ+4fTOmt01haabBy0gz
+	 CVw3PKfqGOZO9MZB2FvUfyICVL+UikCF1J3mU00cVx6mM9ACY7suskDKydUK6wAVVv+uh
+	 FA4DGV2uRqx+bsgyHxX9zqM3ukGPrxAK01rMUDDu/emw1YHXClDloJJ3DugLcoduKHFeQ
+	 REzwIWNiimkWtghy67BzBAE/BwQSO5NSIQ3KN1QSz1AOTfpqM0+NElQLtxBnnmj1+e5dQ
+	 MjEGkuajoeiZvF+rmZFV/A//j7bglhouu1r42pnOIdwonUfCZoLNnK9yZMf4t37kp5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794442955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794443006;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=o9nN4K1hpc+aFwsGHDXVDrx7hYL6LIX0M8yg+4Xprqg=;
-	b=2H5Ijw0YEE1U0dqo1LxhZK5lYyyBXsoJJgBtdbx6sn4BMDulttlOWDF/Tw10j1X1RObS
-	 wJYjtn+SGJa99FyacZvraSYFBnk1Z17i12laXtDAv2RckDCdbi89J7DapzLtqr7Qblyrq
-	 0A6c7eud5wmmtbO/almqKtDSJop4lZEQr0asGOHaf6k7QSx+8lL1L/KJ2w372r+xe+AS2
-	 hViYPgQH8Ncc36SKLd+0HFWD8sR24MShlzWlN7x4U45OHvOn3Cy0KJhIjhVHQ5bnsDrkl
-	 h0/nPppn2uUHlQnNR1hLYGHy3RXi96NpEN9JvnUjwiHzLCKBXVGqjJyz8rw64BDns0A==
+	bh=X9RnF7Xeo7TN1lmHL+PWw6xzRRgbjJnrK7eLwvGQc2M=;
+	b=Fy7PfHS6z2j95Z6SdxbNNqzav6+1N5woSUAcjGblFCebF7FrY/b2Jmy/NAQvq3Y6P3uK
+	 fkpUdrNrJyXbq1AwfS8rp6Y/k6i+JC/TaDPjJpvkyktqeJ7L/OkgRpoaSpF9aTiYlYigC
+	 2GHtLrMDx8rKn217MTMv4VE7D8ChJYmPoqRj7lj9X7anBB+5m/7Np3ehzRL/LGzlYmTg6
+	 Jcl3ceQRL6ZXJ1FDkt1QEi3rKmNCWQ2DhfX4bAJRePEM4WK5IrmEp1ensRtywvylW1jil
+	 hhH3QM6F9u9wBc+hnDYKgroi3KwQduB9+AYIyZ3vTijTqI3F/KgDNBNRRAUgENitK+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=igrly0HC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IMl8Jh/Z";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A642D606A324
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:22:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC91606A321
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=igrly0HC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9E901F00A05;
-	Thu, 12 Nov 2026 00:22:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IMl8Jh/Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2D01F00A06;
+	Thu, 12 Nov 2026 00:23:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794442955;
-	bh=o9nN4K1hpc+aFwsGHDXVDrx7hYL6LIX0M8yg+4Xprqg=;
+	s=k20260515; t=1794443006;
+	bh=X9RnF7Xeo7TN1lmHL+PWw6xzRRgbjJnrK7eLwvGQc2M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=igrly0HCMcI4iL48U9BMcnm6R92RaUl1/SbSwFRwy0tR7Yf/5zkL44iXxV3a3Pi0K
-	 R24Nk6r1O5/+M4mZ6SBEuAvjfaUz3xe3oyG1a/x8SNorF+AyYYWWjpAqkGm+7g/Glc
-	 eVoa8JQP0HJIYhN4Nh9PYxpv9xtkKVo5MDn09pbTrS1IRNVW+Rhvd6Z+vkikPSLeqm
-	 f5yx6TeEvycxBRY1kUhNwZw0v5dUSlgyUltgpU83IEObSpUa+GAl/sqDlpFDi8nrf6
-	 MPvel5awGtXjw0Dxb0JQY6k1JuUfDJVgXpNc+VlWzbvfinSMYGm5UwlRC6xSlGJ4q5
-	 eRKtx5S86SaIA==
+	b=IMl8Jh/ZpLJ6CnSxO71PdUi30/UkTQBjNreNwZe7jO5eT4rAGwEC4XWrTVZkMjK9l
+	 mPBpPKqPYuroih60gKLGJWV9qgSusY8tqn6ai6nuF7HUb6YRG0FfZ+DIVbEXocx7AV
+	 jtFveONGu1US4sEGaeXyuIbVfiEOQFV2pPQyxYThbj0w59dwtuGAqQIrpAg3WumosO
+	 8bbnYaGx/0h5jaTLYVNU+lCnaMqAQ0eKqI4GvSs1LeWbSeRRYW8y1nS1EBdrFriP0B
+	 hJFeqkZv15xYV3LVRS12EYMKtYtwkRUJpUGLTSDYM4YLO/so0j8k9ghyUYz6YmOCwj
+	 kQWUSQMwaod8g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: guolingxing <guolingxing@tju.edu.cn>,
-	Qu Wenruo <wqu@suse.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] btrfs: prevent deleting the wrong subvolume by ID
-Date: Wed, 11 Nov 2026 19:22:33 -0500
-Message-ID: <20261112002205.668605-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ksmbd: revert fsids on durable reconnect and replay failure
+Date: Wed, 11 Nov 2026 19:23:24 -0500
+Message-ID: <20261112002313.1062424-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202551-failed-5.10-1960146913b3@kernel.org>
-References: <20261109202551-failed-5.10-1960146913b3@kernel.org>
+In-Reply-To: <20261109201057-failed-6.6-539223f18026@kernel.org>
+References: <20261109201057-failed-6.6-539223f18026@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,62 +61,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: guolingxing <guolingxing@tju.edu.cn>
+From: Ian Bridges <icb@fastmail.org>
 
-[ Upstream commit 1960146913b31b288ed2cd607d103ee3b41681d4 ]
+[ Upstream commit 539223f18026448f67d33d09719c355b91db7fd0 ]
 
-When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
-resolves the requested ID to a name, then looks up that name again
-under the parent directory lock.
+On a durable handle reconnect or a request replay, smb2_open() switches
+to the SMB user's fsids before calling ksmbd_vfs_getattr(). If that call
+fails, the code jumps to err_out2 and skips ksmbd_revert_fsids() at
+err_out1. The user's credentials then stay installed on the shared ksmbd
+worker. Later work on that worker, including other users' requests, runs
+with the first user's fsuid, fsgid and supplementary groups.
+ksmbd_free_work_struct() also warns, because work->saved_cred is still
+set.
 
-A concurrent rename can change which subvolume is associated with
-the name between these operations. Since the deletion path does not
-verify the ID of the resolved subvolume, it can delete a different
-subvolume while leaving the requested one intact.
+Jump to err_out1 instead. No path is held at this point, so skipping the
+path_put() at err_out is correct.
 
-This was reproduced by repeatedly exchanging the names of two
-subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
-them by ID. The wrong subvolume was deleted in 9 out of 14 independent
-tests.
-
-Fix this by checking that the resolved subvolume ID matches the
-requested ID while holding the parent directory lock. Return -EAGAIN
-on a mismatch so that userspace can retry the operation instead of
-being told that the requested subvolume does not exist.
-
-Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
-CC: stable@vger.kernel.org
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
-Signed-off-by: David Sterba <dsterba@suse.com>
-[ sashal: Replaced btrfs_root_id(dest) with dest->root_key.objectid and adapted error handling to use err and out_dput. ]
+Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+Fixes: bb8bf7eb13b5 ("ksmbd: add SMB3 request replay support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: omitted the durable reconnect error-path hunk in smb2_open() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/ioctl.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ fs/smb/server/smb2pdu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 16c397062809f..9d865ac974923 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -3072,6 +3072,17 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b05774050e096..984e194d83f85 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3101,7 +3101,7 @@ int smb2_open(struct ksmbd_work *work)
  
- 	inode = d_inode(dentry);
- 	dest = BTRFS_I(inode)->root;
-+
-+	/*
-+	 * A concurrent rename may have changed which subvolume the name
-+	 * refers to. Verify that the resolved ID still matches the requested ID.
-+	 */
-+	if (destroy_v2 && (vol_args2->flags & BTRFS_SUBVOL_SPEC_BY_ID) &&
-+	    dest->root_key.objectid != vol_args2->subvolid) {
-+		err = -EAGAIN;
-+		goto out_dput;
-+	}
-+
- 	if (!capable(CAP_SYS_ADMIN)) {
- 		/*
- 		 * Regular user.  Only allow this with a special mount
+ 			rc = ksmbd_vfs_getattr(&fp->filp->f_path, &stat);
+ 			if (rc)
+-				goto err_out2;
++				goto err_out1;
+ 
+ 			goto reconnected_fp;
+ 		}
 -- 
 2.53.0
 
