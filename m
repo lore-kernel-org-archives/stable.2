@@ -1,47 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794469116;
-	b=h5Yh3GXVPisQpJ8aaKQDJJexJLQJ9niocmCewptc4Udo73yys+voBl9x3oR25+cJ9fbg
-	 g1UMvOOjZTB+RKiJ2Y7C8yaYQ9shXJEwdRhLlxo+ApNAWaMpvZDJkEfKGLBBF5nGLhZey
-	 etLxKc0MqxudG6pmh2Bej5ltMZKhhyaQjzvBkJBfPPOKqE3zNgnlQr9JTPbc7uXjC/rKR
-	 h7iCMx+fV+w1bY06p70BJVt4yUsA5n09UPy4Hb/qTAIoSpgB9Kq1XO57qR8EgUcuwepgK
-	 xTCUU//kgcnLRi/jfREgt/R2Asi5dojSNEMF5j9e//VKyi1BXaWM/WtrJU5HX/h8Tog==
+	t=1794469221;
+	b=IpD9kzwZvwkKApuPVXZv4lv3zOIyRnSuJWNweCF3BsK39QTo+wky5Knia0UC1E8AlATj
+	 hiFwJdDqzufb3W64DqMOLy0Y2G+ao0DHcKjmro3BKrWfKs8poxJoWcBjSMr4plmErYOYM
+	 jBjesG3kA3N1DE7mBgPpR/U3rLr+dS+jZP2R8wcmsH03zUnGT8jhhyy7ToP4CujzPkUfr
+	 tXRKnW3+LcvLGpwRXN5PjVxS2ul+Voe0kVzFZvdKLc9qM+yerAkh+n0kgLR1IJK+NMHl/
+	 8Ih4XUKqfbTI+EVKFM2FjJGSjHiUsn6SYrbdpua+yixr9oOZBziOnmdPcfSTVask3bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794469116;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0+wehHBGkyeWvPM981t47dy46vlkddnR/+kt8BkCiH0=;
-	b=e9zoqEQVRbKt+f9jrZmG5NQ2jcFv2V4h7CcknClVGSOujjsDJwXUz42dHpOmuoLN8fhc
-	 gOkawz4lgPfiOZPVrXRRolR7GAlYjBlwD9r50MxTD3UcUe+gciNX3LSDgQeuFmhQ8D3fL
-	 ARJ08CDqjfpIAmgUDt+5EDD+M4JqDY+vTXS4oe/BLxvJ2yDNm1QGMWbJM7UNUcz5NpDjH
-	 UcMsU65u7IiW+nIQfG3fSd9QxbMrO+24FKBJD42ODcP9lJ1wZFZSIBbxm12ncIiUfBaqK
-	 qOVjcWqQ9qaDM9LCZnm0Q70dh5eEhTAs+xdCfJ6etk6TtCJgeJktOAQN0sPxVxF4dgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794469221;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=K4R2hK0snJM7f5RU+CVLzgyyCzxkNvFTXNS07H9UUHI=;
+	b=3h210U33qAgXn3yROJ8TMtxJ07JkHYSSQu4/BwGi3SeRTlwDDx5ejvzPROVMTqpQNmOS
+	 KV4atDCX6M0R6g4Kb4Dny3KD6Ps0YVqogGE9ok3AEX0LJln3m2/EqgocLiv5nOgx4u2Oa
+	 9K2YuVHcm+1LjNWiIIZwJIf0t2kXZQN/pHRSCXgPYCvzRTO15dqZBQM+z9qckTefmJGk3
+	 bxxG82znpRenynhuzmuvqwr8vddJDiXYEl4jPllXipzN1swUNchkdjMAIaXP0p7Sktjzb
+	 MCe7Of7D7QE20oxJkT+A9GPjmB4y8DazIyLnt4j48IZ3ZF9c90QCeCa3JhejI3d397w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TSvWwbk/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NnFb3ZDC;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF000606A321;
-	Thu, 12 Nov 2026 07:38:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A532606A31C;
+	Thu, 12 Nov 2026 07:40:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A532606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSvWwbk/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4B91F00A05;
-	Thu, 12 Nov 2026 07:38:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794469116;
-	bh=0+wehHBGkyeWvPM981t47dy46vlkddnR/+kt8BkCiH0=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=TSvWwbk/ReR9rKKjXF7ql7DrfD1dyuGdR4leBOo5fyZKZIIGxs6uXZAR3bsPVWDYo
-	 QSxCtyGO4tQk8uLywVdqd4HoDy7acmzO1DVLAFm5K7t5S4nwZJRtsunEUj/mXmZe4O
-	 jdORUB6rjm1yw8fyXB6aB9grCN6ju3vMJV0c8Mu7zywVAuKsHpSICYf/2DhKn6pWzY
-	 QmxSemomHGmwcAXFOcPTcAAXS3oauXH5oy7x70wQISsH5PvVQSr777szkKZ49DQHjW
-	 PhF/3CehROJfX0+dMRg4CZz68zScz0gAac2B1mGdQhRqMYNMaUqnE63lGMjhRMIdfl
-	 UvuDURFs4S6nQ==
-Message-ID: <a931e754-ab4e-42d8-8555-9a432fe42a1e@kernel.org>
-Date: Thu, 12 Nov 2026 08:38:32 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NnFb3ZDC
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794469215; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=K4R2hK0snJM7f5RU+CVLzgyyCzxkNvFTXNS07H9UUHI=;
+	b=NnFb3ZDChKFrrGDk7uliamI91PduZwoYT1lbfS6P6c2M1Amkobiqg1Li5FbHxIBY+jK2ar4ANQu+zPUUqKj+e/NNduqXMID1gWb+/S44dBfq7YF2X7OEr12xu3Uu1ee64LcRLZo094Y7mUYZQEZ/XMgnQDdi3f+SuvxFR5mmBzI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R831e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=32;SR=0;TI=SMTPD_---0XEbHbqg_1794469212;
+Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEbHbqg_1794469212 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 12 Nov 2026 15:40:13 +0800
+Message-ID: <c92a3132-da7d-46f7-bd06-6beffa3d2e34@linux.alibaba.com>
+Date: Thu, 12 Nov 2026 15:40:11 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,62 +54,48 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v2 media] media: v4l2-mem2mem: cancel job_work in
- v4l2_m2m_release
-To: Tristan Madani <tristmd@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- Tristan Madani <tristan@talencesecurity.com>
-References: <20261104014248.3761373-1-tristan@talencesecurity.com>
-Content-Language: en-US, nl
-In-Reply-To: <20261104014248.3761373-1-tristan@talencesecurity.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 2/3] fs/proc/task_mmu: don't read young/dirty from a
+ non-present PMD in smaps
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
+ byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com,
+ joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
+ matthew.brost@intel.com, mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org,
+ surenb@google.com, vbabka@kernel.org, ying.huang@linux.alibaba.com,
+ ziy@nvidia.com, kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com,
+ shakeel.butt@linux.dev, kernel-team@meta.com,
+ Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev
+Cc: stable@vger.kernel.org
+References: <20261111113904.650722-1-usama.arif@linux.dev>
+ <20261111113904.650722-3-usama.arif@linux.dev>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261111113904.650722-3-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/11/2026 02:42, Tristan Madani wrote:
-> v4l2_m2m_release() frees the m2m_dev struct without cancelling
-> m2m_dev->job_work.  When a job finishes, v4l2_m2m_schedule_next_job()
-> calls schedule_work() to queue the next run.  If the driver tears down
-> concurrently, v4l2_m2m_ctx_release() invokes v4l2_m2m_cancel_job() which
-> handles per-context state (TRANS_RUNNING, TRANS_QUEUED) but does not
-> drain the device-level job_work.  A pending work item can then fire after
-> kfree and access freed memory.
+
+
+On 11/11/26 7:38 PM, Usama Arif wrote:
+> smaps_pmd_entry() passes pmd_young(*pmd) and pmd_dirty(*pmd) to
+> smaps_account() for every PMD, including migration and device-private
+> entries, where those bits hold part of the swap offset rather than
+> accessed/dirty state. smaps_pte_entry() only reads them when the entry
+> is present.
 > 
-> Add cancel_work_sync() before the kfree in v4l2_m2m_release() to ensure
-> the work item is drained.
+> On x86_64 the offset is stored inverted across bits 9-58, which overlap
+> _PAGE_SAVED_DIRTY, so pmd_dirty() returns garbage: a clean 2MB
+> device-private mapping is accounted as 2048 kB dirty, and lazyfree
+> accounting is suppressed. pgtable_64.h also warns that the hardware can
+> set the accessed and dirty bits on non-present entries by mistake.
 > 
-> Fixes: 7f98639def42 ("V4L/DVB: add memory-to-memory device helper framework for videobuf")
+> Only read the bits when the PMD is present.
+> 
+> Fixes: c94b6923fa0a ("/proc/PID/smaps: Add PMD migration entry parsing")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-
-This email differs from your gmail address. Which is correct?
-
-Regards,
-
-	Hans
-
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
-> Changes in v2:
-> - Expanded commit message to clarify that cancel_work_sync() complements
->   the per-context v4l2_m2m_cancel_job(), which handles TRANS_RUNNING and
->   TRANS_QUEUED flags but does not drain the device-level work item
->   (Nicolas Dufresne)
-> 
->  drivers/media/v4l2-core/v4l2-mem2mem.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-> index a65cbb124cfe0..311e2e08d066d 100644
-> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-> @@ -1207,6 +1207,7 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
->  
->  void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
->  {
-> +	cancel_work_sync(&m2m_dev->job_work);
->  	kfree(m2m_dev);
->  }
->  EXPORT_SYMBOL_GPL(v4l2_m2m_release);
 
+Make sense to me.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
