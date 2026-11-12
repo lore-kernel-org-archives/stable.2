@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503759;
-	b=hq6OyPCLvw/bw7HZXTur5soNvE7jwttvA+TiHzwABbqektU8xweadinyo/1RXCgDRFzl
-	 3Y1/EQvTlTPX+MgncLcTXH+4fuGiZJ1W3YE+jN9LGeJZzU8V65jJb8YpK+1KjMua3e0l0
-	 EqZv8PpqLIBOIFXv2wCaqZbqUb877Z0T498x3P8sg8iRPmLkGRvr+IPNtLKtzxCC2rCKs
-	 pk3Okr44p2WHIU5/SZ1Xjb3Fs7pdftLC5KeaAgcDBcKZbkQHJPT40R8lJG2WQJJKf18A1
-	 Fhrm9QprAyCmyey/wUgg5ZtN5/wmA7/hLHyybzq5mtMsffNhkRNTEvCYinfkR3UDOyw==
+	t=1794503950;
+	b=G2GHb9Cu7a5jDpe8u+HN75BqK+gSPW3jgmDLijpeIBqLLVrk+MeO6Tv3giEKfMu9Ql+W
+	 XH64+ua0L1ZoqBYlke4+GsBZtjCTBBoQdWgqa++T6PBprEUtDNjCLZOVJKLwAkV47PKus
+	 Y/yfBvgFuGXH2isSmKHieX64Vg/Ozv78Ysgf9fW71sLJxSmrmGpzBVPEJ7MAuxf2b8GeH
+	 MYuoVeNT5KO3Bh32pXgMkjQ9uY9TeP07EtiGAdud0dlETMSaY4CKPmb6GXayEuIpmdR2P
+	 6lGLl+wH1Gkl/+AqtDJy5EdiJFjA5mcl2rYda3NACSOW+Uc2kQQzZ5AdKZUs3hx9a+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503759;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503950;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YrQKWHVkSfoTy6LzaCoo5XjdQE9DxwlwMVFy7Z78e4I=;
-	b=yxUYXI+5QixmYGxwCocPt2VdMIFkzTCRiFgM19HHUydcq9X/2Y+4bUKONKTN4yFmhV6T
-	 q5k4VoJdD1aZH4/j5F6Wi38TaBOpPZ/VlCR83TV6Al6aVzmJgZVOj7RXOmEEjcp8I3dK8
-	 +CsD2FoqUxIgbiof9VgvNpoY1i1Er3aM2U/tNgcuyO+ypLcBbtNuKSqG626BBef+Z5iHG
-	 CAO1pOXT3XXOBU2R8gCH6/v0peqDqBMb5DO/bvIx+behIJBjZnAmtQUUJNbdbvJwyTXaE
-	 sF7/QyF465EbTzT69sI87AVwE18WIxOMRPCwDo+kYBu8offwBd3PTyZARM1fI36/4Rw==
+	bh=JLP0Dgmd4chx2VpU4ujNrCHgg7L7mhHW+qollvBxX/0=;
+	b=xFrv4vfNwsrYwcbzCCPdwAP4muG5zYVujr2k7QiLzwWxxZ3H0U4Cmmg4iWJIZq//a6Nf
+	 DGyhzpURuV+ahvFYTmyxGwLKliPoQdMjlLPBmF1LAzLNy0NBuDM/NGvkFV26s4+YhR+ch
+	 qEo0D//YKjXuErwDlfG0qiTNqe+z5dZfIpyfxZb5sfIrdgKthW6Bf9SeRR60Hl8uOFEpQ
+	 x7+KrN6b7OsEetGOlncqLbsOif1Ya4hBCPUO6zIhdpS5T8RCSAENk0tGV0MoPooEicKKN
+	 T9lhUG1O1vcXFb2K0ZLNv7BvyDt0ELJKYrhVbNxW1kxYXn27aSMlg5aWrXxiKizJkfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b/bgRBzh";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TH+2jJQM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66302606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:15:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08595606A321
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:19:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b/bgRBzh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491F31F000C4;
-	Thu, 12 Nov 2026 17:15:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TH+2jJQM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66431F000C4;
+	Thu, 12 Nov 2026 17:19:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794503758;
-	bh=YrQKWHVkSfoTy6LzaCoo5XjdQE9DxwlwMVFy7Z78e4I=;
+	s=k20260515; t=1794503949;
+	bh=JLP0Dgmd4chx2VpU4ujNrCHgg7L7mhHW+qollvBxX/0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b/bgRBzhRbfHpwgR5ydDD8P/uYIDEOQTsaJ5FGwaNrM1IE8Sm7Uv4UKoJTvHoMNkD
-	 5hi5n6LfCLKMfAuw/NZuA5kxBe0HtFBZGr9VqqXZC1ACquoZvx1eTECexFjjHk9eUB
-	 W5CzYX66Cb6CWj9s4lg4zgJli7Yh++SpNwhRogmU+Di5XQQNoyLdGHgtIXcjNrff3a
-	 kPLmpZDmn+4Sa+Ypj66AuKWUHIY2r7q7XOXLe/mAhmpe3FQhCG3uTuseIcUm2YQNI0
-	 nda1p16E0cYefydip5p44qlHps2A9F2Aq+HhvEqtWEosGHA7LXT32Q7fgXzycAW1UM
-	 Hpc7MPocnjUVQ==
+	b=TH+2jJQMLvwvy5z3z+uV6T3HjzUbfoKki97IML/PmZPFGH2HIhJj34EntQcZk9S/A
+	 LwJW3Hy3mXYoJOppmt3FKVr1dkdJdbYznZ1uwzx5vSyCbB0USV4GNPVSql9oVBHSrX
+	 dF+B3P9LibEnc4/WQ2meY9uoJGKS76Omxz1+0406kgLhrgiGlWCMu7tBSsslVzUX47
+	 C7I9yH317UB72cpev2Ef3ocXy54G8a4ZdL4AXhkI3+91R5juuGCf8EuuyX19W/v3Cx
+	 oYgD2xFanxgZu7tusoUGSHBqQt5fH8HHd1dUjfrQdUIB0Ys/93W4mmJA59hcR4I9il
+	 pIZosJc4r3dTQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Johannes Weiner <hannes@cmpxchg.org>,
@@ -57,12 +57,12 @@ Cc: Johannes Weiner <hannes@cmpxchg.org>,
 	Brendan Jackman <brendan.jackman@linux.dev>,
 	Zi Yan <ziy@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm: page_alloc: do not give all non-blocking requests reserve access
-Date: Thu, 12 Nov 2026 12:15:55 -0500
-Message-ID: <20261112171543.3069410-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm: page_alloc: do not give all non-blocking requests reserve access
+Date: Thu, 12 Nov 2026 12:19:06 -0500
+Message-ID: <20261112171856.3309378-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200416-failed-6.18-6ee3d87b9408@kernel.org>
-References: <20261109200416-failed-6.18-6ee3d87b9408@kernel.org>
+In-Reply-To: <20261109200808-failed-6.12-6ee3d87b9408@kernel.org>
+References: <20261109200808-failed-6.12-6ee3d87b9408@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -160,7 +160,15 @@ Cc: Suren Baghdasaryan <surenb@google.com>
 Cc: Brendan Jackman <brendan.jackman@linux.dev>
 Cc: Zi Yan <ziy@nvidia.com>
 Cc: <stable@vger.kernel.org>
-[ sashal: placed ALLOC_MASK_ATOMIC in the existing internal header because the dedicated allocator header is absent ]
+
+regular free memory to zero while the highatomic reserve sits idle.
+Measured on a 32G box with an anonymous working set, swap, and a full 290M
+reserve, three synthetic bursts drove the 28G Normal zone's regular free
+memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
+its swap table allocation inside reclaim, reclaim scanned 13M pages to
+free 200k, and page faults stalled for tens to hundreds of milliseconds.
+
+[ sashal: moved the ALLOC_MASK_ATOMIC definition from the page allocation header to the internal header ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  mm/internal.h   | 3 +++
@@ -168,10 +176,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/mm/internal.h b/mm/internal.h
-index e0adafc45c8c3..e36c46e865956 100644
+index 7aca909c54052..9fbed032a9c1a 100644
 --- a/mm/internal.h
 +++ b/mm/internal.h
-@@ -1315,6 +1315,9 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
+@@ -1230,6 +1230,9 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
  /* Flags that allow allocations below the min watermark. */
  #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
  
@@ -182,10 +190,10 @@ index e0adafc45c8c3..e36c46e865956 100644
  struct tlbflush_unmap_batch;
  
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 2685e570bf7de..bce50449902cb 100644
+index 869296e43349e..51a1aad29d5a8 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -3241,7 +3241,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+@@ -3001,7 +3001,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
  			 * reserves as failing now is worse than failing a
  			 * high-order atomic allocation in the future.
  			 */
