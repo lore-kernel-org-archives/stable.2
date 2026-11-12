@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485853;
-	b=PuC45sRi5zFAi/J31b829Efjp2FnA92XquCw34wluBMnFmJMKgcTuluPY3BwW+UcwZd/
-	 xQiFRZPaHdbL2pKMkc1aoj8ThR8eQuyFqVzraQ/asRq6ag/yAF/G8NKU+Tij91sqvIeyO
-	 UnSLbl8BbMTz5c88E6YLDqayWdl4qgWuMtPPR6C+SpSVFIbIIk2qAJ3yBd+ai98U1NkL2
-	 MkrzvsuphK9623XUgZ8RasAoNFBMHfjSGXFClMonmZEpXdnR1ucHZM7m1rs1iaG/LVQrJ
-	 vm3wdpyIi97dBX1zGGWnfot1h5aUu2161XVeyHDAwsidlTaOq/7GExMrQ0/dkFuwy6w==
+	t=1794485912;
+	b=rgkS94d4tEwX9bEm+cdI1PYAEycHg1sCLxZ86/Hd0kj5OUjGXKXKgErjCgvkFRw8Qeun
+	 accbPZnmCBnDSuEP8YTTwt2b1+uOOzM6WY1n8mntpaKhI6eowjkanRq2FKxmiBNYUynnM
+	 0xlP918+vnzd34IylaN7C1MyG1iHUwvJVwUdj8bV4WsI73d7TBeHD+XtP66/q0+TN/oXe
+	 2weEIC3N8BqUdQxkLLKYC43QmKVCX8YLEqiJI+0WSgCV3oNg1F73fKH5xcynLQfttYHrs
+	 m4/usZJ/iaA8Z0j4RMiDF6sw15nqaU46BdIQ0wYXtlKa4nhXWLOktimIe+N4MpQkErQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485912;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=egNOu/7Vf2X7W7uluAYTFo+WYTwOy0dGXa9yzgt6ZV4=;
-	b=4QimI0uiCpfJTuyHA3mls1nHTRBxe3kZIWZrcHne0DW2Cw3EovBAuTZed3E4UbgmQyNA
-	 Uq6c0DWOagZ61dsCGHAmi5uqmwLVNBOA3W4h1gzOVjMTUfGrEIzbk7UBmXW+Fe/Gq1wqF
-	 UQt95JvzWf/3pfot1lL27s5KAo/M7Wqk3zQ0BtxHS16/Ti8hpqtHG7eDUqDg5TYj85i5V
-	 /5DvpXZ55C5tITUTsOKQvY2ECtdITVHIzxItOj6riLADTUX/nLHE3PmJ1/1ulkA5nFrsx
-	 1oev7IX7LSKY4JXyAGZFBRoY742qLSqlJTj++hq+h8J8OfwoCd7J3z414yyY9HldaBQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=TK3aRkLRHP/iqzsQKw5rkUdu5ikzTBwM57q8k3Ae9oU=;
+	b=nxfbQt1bC81z05acWAt3IjaEGVJCGXZe9AHhwrciJ5bKQghEg0b7d07y2BStZlOwuBhM
+	 Us2uOfx8bqreUzJmzDJPAvukGUGZeOcHSlWtecOk/pI0kmc/BwNEFwDz8YFy/9S4RcvHh
+	 27HrUQBwm5t2aLhhGEa5mbOaP2fD1/y23uCJTy1EziwmWc18FHb09tmHANctbb1+R1X9+
+	 J7ciuZiBNQHQ82HUOOtvQ8kl9tPnFNjGWn2N+iPJ7SPl1JAADxX663rWrDKaNCI9DlgoW
+	 dAt+FEs0lAeW59N0eopDYZSu3oOXWnzetHuXZGYJEbBFcKfxYDgfIJGGIxDEaBs27wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CYRNQDKY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZH94E7p;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7065D606A31C;
-	Thu, 12 Nov 2026 12:17:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F70606A31C;
+	Thu, 12 Nov 2026 12:18:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CYRNQDKY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715601F00A05;
-	Thu, 12 Nov 2026 12:17:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZH94E7p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E8D1F00A05;
+	Thu, 12 Nov 2026 12:18:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794485853;
-	bh=egNOu/7Vf2X7W7uluAYTFo+WYTwOy0dGXa9yzgt6ZV4=;
+	s=k20260515; t=1794485912;
+	bh=TK3aRkLRHP/iqzsQKw5rkUdu5ikzTBwM57q8k3Ae9oU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CYRNQDKYwSNE75OEpsjDv9dNjJDH/9wXWcwkCgRl1QqXE62f4uONxtXX5dc0wsQs0
-	 WbCx16kboXxBlB/B0vsnb5k03ky8z3i9dC9u0iLcFuSE+DKSeVNQJbZ6jceq38gQM+
-	 qClCIRgvLECQGDxobOp51GqtjVLU4bNoIhY+asA/hxdLcGHuJqvg4TnLEhAFmGvmTZ
-	 wEtb2rgiHZDLfVRt2osxfliQTOGWmbK41tGCAp+eIHjHnaVIZiFkTdH6xWp5LQtArj
-	 FZvbiFaDY52nL/ZO4W05TXfdFxXIfIlMagq48ev+KEKfMAxYYWNy2VJEFaZHE/O2Ki
-	 zNMvaBxoDQWaw==
-Date: Thu, 12 Nov 2026 12:17:21 +0000
+	b=TZH94E7pGMxvMIthbP4IOtLV3POYGe9pY6rVMkwD9Xv0CEZmQqoO8TYZSjuIQJLu7
+	 h5UdVya5Fuw+xEGSg9KDgiYYKslo7REsw6t5vSCYAmBfsc1EO43pIV5o7YguuaUTR4
+	 b1IYE/pcUNQpWqwTNaUEE5LSdKXQsTX0A3C/CNJ2J3TU5LnUrIGjWowtFGzsZrtcQj
+	 gbGj+5Q9kyQVOjMtMphKQlBe+7D6qM71YziIB9zjPGXcgSmpxo3B6dp1s36MozGJho
+	 F+ypjaDlZBLArB++wBEHgYOsJxEw6KhBigkY93fvxGAgODc2x5bdDvY5Qt0KIOL5IA
+	 mStMyb1AEULow==
+Date: Thu, 12 Nov 2026 12:18:19 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
+To: Usama Arif <usama.arif@linux.dev>
 Cc: David Hildenbrand <david@kernel.org>, 
 	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
 	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
 	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
 	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
 	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
 	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
 	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	stable@vger.kernel.org
+	Alistair Popple <apopple@nvidia.com>, Kairui Song <kasong@tencent.com>, 
+	Balbir Singh <balbirs@nvidia.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
 Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
-Message-ID: <avWtxdIHSJJ_uNwG@gremlin>
+Message-ID: <avWuajpT8RU9_0PL@gremlin>
 References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
  <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
- <avWgulaWoKBfIFlo@pedro-suse.tail5790ac.ts.net>
+ <aa4c71b6-f81d-4544-96fa-ed54e78b0de1@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,28 +76,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <avWgulaWoKBfIFlo@pedro-suse.tail5790ac.ts.net>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aa4c71b6-f81d-4544-96fa-ed54e78b0de1@linux.dev>
 
-On Thu, Nov 12, 2026 at 11:21:38AM +0000, Pedro Falcato wrote:
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-
-Thanks!
-
-> > diff --git a/mm/mmap.c b/mm/mmap.c
-> > index 7618e72766a5..4cb18b217048 100644
-> > --- a/mm/mmap.c
-> > +++ b/mm/mmap.c
-> > @@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
-[ ... ]
-> > +	if (mm_is_oom_victim(mm))
-> > +		tlb_flush_mmu(&tlb);
+On Wed, Nov 11, 2026 at 10:49:34PM +0000, Usama Arif wrote:
 >
-> I see there's a different tlb_flush_mmu() call below (in the actual function).
-> Is tlb_flush_mmu() idempotent?
+>
+> On 11/11/2026 18:13, Lorenzo Stoakes (ARM) wrote:
+> > The OOM killer can quickly trigger again after having selected a
+> > victim. That victim might not have freed its memory yet, but its mm will
+> > be marked MMF_OOM_SKIP by this point, so the OOM killer will ignore it.
+> >
+> > This can cause the OOM killer to kill an innocent process when the first
+> > might have freed enough memory to relieve the memory pressure.
+> >
+> > Fix the issue by freeing the memory before marking the mm MMF_OOM_SKIP.
+> >
+> > Note that the task which calls mmput() might not be the victim - if it
+> > took a reference on the mm (e.g. ptrace), it may hold the last reference
+> > and release it when it calls mmput().
+> >
+> > Therefore we cannot rely on current to tell whether the mm belongs to an
+> > OOM victim. Instead, partially revert commit b3541d912a84 ("mm: delete
+> > unused MMF_OOM_VICTIM flag") to reinstate MMF_OOM_VICTIM, which
+> > mark_oom_victim() sets on the victim's mm, and check that.
+> >
+> > Reported-by: Chris Mason <mason@kernel.org>
+> > Fixes: bf3980c85212 ("mm: drop oom code from exit_mmap")
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+>
+> Makes sense, it will free an OOM victim’s pages before setting MMF_OOM_SKIP,
+> avoiding unnecessary additional kills.
 
-No, tlb_flush_mmu() is cromulent.
+Thanks, yeah I tried to find the smallest way of doing this, it is subtle
+though!
+
+>
+> Acked-by: Usama Arif <usama.arif@linux.dev>
+
+Thanks! :)
 
 --
 Cheers, Lorenzo
