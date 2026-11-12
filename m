@@ -1,47 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472183;
-	b=v3OFupaoCEyL8aJoRfKTfL3uSq9RoKVOGiujn6bp+1N3vZuMjubvH2XTAGxELVZUDo2s
-	 pylDeFlNrGDx/K7xQdB/wb4pIULnxve75KVjCBNvxJlh8073r+Iph+28PJ2Q8NcIvVnOP
-	 o6gTdmjGsZw262vYl+3K5zCqXx0h3VeMjVkfWEiEUwD3Xi3Vi5bGZ6fyxuJYJ6kzzAHTo
-	 pDyJSGWa3f0AGFR2Rn5tYcBd1LrPmpoE3skBNe3bHW1p5XrzfAnhWnaCU4nE5VBWuVy+q
-	 h2Fi1mUMqFN8ppUZCT6MLhzfM7PyOzQvlUIL/x0k8iropzr0YVn8oNgBE3bJL3Yzlxg==
+	t=1794472206;
+	b=XGgpHoAzUibXUKvKIxKBfaruOvQZI6waZNQhAm2eJqIDusUKgsMNbveXpMWG5q7QJGfy
+	 cygLZQ3t8BKEfOcrKVr7Ws2IkjZFAhS/SMvGpJpvC6Z7fE4fG9x6ImPiSL3nA7Vb6PV2T
+	 d+HUJpZnakFM0VyCN1ZWYnTk7EIPIOrIPqEJmgrXeK5neGP96blhpWqjii6KSfmk/lvC9
+	 8+1LTq7aVq57L+0N+YtDQ6ZtOg2pUBeGHrnEjUdtXyLtqeZxGJNImL0+0MybBBuDilkhr
+	 B96Oq6nslAEgKj8Pu5LqVWLsGVSztk3ereb4fKWbcxe1u7tnguyjPux0rxZnzBExKQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472183;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LfFnO2mmUljHjiUSB+JHkBBNtfs+CR7s4DuaVxb5rYE=;
-	b=P4dzZz/O+IFgMAmP+CHY49ethHLmPZtv5OIW+QUH4JJdMioX4hGkh31xodocVNMg/qSc
-	 fc0lm/M55w1nTBxskz67UTIN2pB9QjwRfmq3qv5vLvmqqeW1hqzY2j0W48rDR/NqCY0Pp
-	 exvh0oTWYUZzhUasNiYfP5phs6DQhDsLdJ2hpSy/TojeVTxyXqlNmLszCUXBBaRi8FDfN
-	 v4rasu31eNqHLXFogoe8cQJU0GFwfhhv4EvvJPvM/W3lWaDjNfXSonr7rpkDkp4amomEU
-	 fBW8Jh5onWONH/LepBuQPivAI0oq8WpjboR98TZoxmjgQ6oy6L7Kgb5MSVK+T2J6V8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472206;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=owIgQ/tRdvKdvmncVBsq5hC8UuMcF+wZI1/UpydASOk=;
+	b=r+BX3Qn0B3Dmbq20B3FnkNvT/FWvoJC3XdewIyozyAg917c9GdG8jz4VJomh745gPEOH
+	 MWxB17VFAV8408wv/INAb5aHfc0KJSfNMefZx2gJLEJOTaGsoEHVVoUpUPvUe3wd59Pdp
+	 ATnA0ybvPnT7r2aqBjDkWgBt8EbtrwKm9EaLAwp+wpttjVgsIj/fuwZ19l4iG5aXivPit
+	 lfWxIfnnHD7fENIh1FMVU+EA+YONbZyU5hsZiT9lh0OLHRIbJ/PJZaKIAZVYSZ1Yu0KVl
+	 kul4OP/69eKf7uMdaQJvJtgHSLGQyCQD9dOZT66uZs/rvxZenxi2nu2lnBt6KkZ1pMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nB63p4Uq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="g/Xr6Ba0";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D343606A31C;
-	Thu, 12 Nov 2026 08:29:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144C1606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:30:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 144C1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nB63p4Uq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16B3C1F00A05;
-	Thu, 12 Nov 2026 08:29:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794472182;
-	bh=LfFnO2mmUljHjiUSB+JHkBBNtfs+CR7s4DuaVxb5rYE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nB63p4UqxR5h4UfW+jPSLXJ9RSk5E++eyt78k0yGCrFFQubEByGzJJTsvvAIcFmms
-	 OTd91A2zREUxuBnSe3GBaBsWFmJch5SNaIrRhdP/xzwh57B8zzy7AfoXpGmI76ENu6
-	 oTY55ShnnxhYfEEtLsQZ2AzbAeWVeV+2Q3n8cu5/eNnbVZuJ1NSVreWqdCU2zfKDJH
-	 IbBVHqVWbvANm1i2jExZM1aLhezYUoJ/ECUS+v4TESKabMov/y/rV5pRxdbV2GlYxe
-	 czituN0+d4ncn6yOw5K51uDdaaGcC8gmRH9qbjHbi9ST1SQF6DLQ4j/0R8yJXvddbB
-	 TSIE6DH6AEPnw==
-Message-ID: <33b2549e-f033-42e5-82c4-a72cb0f92324@kernel.org>
-Date: Thu, 12 Nov 2026 09:29:35 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g/Xr6Ba0
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4af52002471so2239845e9.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:30:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794472204; x=1795077004; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=owIgQ/tRdvKdvmncVBsq5hC8UuMcF+wZI1/UpydASOk=;
+        b=g/Xr6Ba0LRccM3YzoISSkbYD/xD6Z0Lq84J71G0Wub/5dyx4F0bj3H6cjhjhP/hWLX
+         HaHDUMlDRQ3yajcKJ4ZBa6U+PpkUMenUWcxxcfJA4H3I6c+CM+Fc1zOHEHEZuMKrwcpI
+         +DXbaZkdiofYAaJSyYKNn/JYiD+5TeNzF2aj9ygv10jd5M72e26ssJ86sASB1fP8TT4W
+         BrkEbYv9UtsVHz5E+3ZyBOdmUUIhvmASZaxXoeDTpfJ7x2erbijFgzUrXUtxz867g8XJ
+         Jhxj5JlH7WdmayqGGPlBWT2dw/QjSs12SAFWmXviEBmOZAufpuCia8mjlhLTGHWn0/A+
+         QeEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794472204; x=1795077004;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=owIgQ/tRdvKdvmncVBsq5hC8UuMcF+wZI1/UpydASOk=;
+        b=0E4f5MIJkyFyVPwVnLCqvwDP6L5+qsHQbvuzwCV00OGMqiprNuUFJ5reoxXe+u63OI
+         rX1+AEmDuJxv6xkKZKaJPKmnukflMCG1DBgvBDZfp0joUyo4+h0TXL5GMwVdntH9Oo9Y
+         DKzibr8o2U0MKVKG5RkvDBDBWnRkgu1WqpUaXJsi3wt3k4YhuOXruNc/uZZyA+S2/s7Y
+         2bMXRvUiFLJxDB4SnEjLsOSoTfXYNEgHnfQhuNaMSYkbVgQz4tepWt074W0IV/2fTT8Z
+         R7psYCSYd7JOX5UP1XP9JLwr3y+CWF5aU5XoM9tS8V8qnSvaTqSShfqxAtExRvr6+NgT
+         YcHw==
+X-Gm-Message-State: APuU4Z9P/ODYggjzpSO7qHBZX+os20z9JKkffKwjf/zV4tLgu7RaHE8Z
+	7iDGbmm8/EtsuETFsWixTPQlKyN0+axxLX1vOjqhqQfeetEP9k/nG4DpjEsX9A==
+X-Gm-Gg: AYBFou0wsy1i9mEu/gNfENPcRsXk5prHi5sCMtXCwGZyUT9o/5LdS4pMK/EehiD3XtE
+	WJZbNozrPncn0SfDSxbnI63nvTUZd5lBBuYf+QR02FImNMdpKpakpK3nmtTzZBniWQTYpu37pRt
+	V/FVr/QSVCfC/eZobytqG+8d89LTR1fmKH+OzD1LJMTZEQnrSK8zvh7A6IbTXVQQor5LQiKLjmn
+	7LFJf9YtJEKpwkdvy2FFBC1akzmLQL4hCQK/piLbYNbCTxWcbGzkyWP43yi7GUiXH1eEp/lkLip
+	Rp6xgiCXIrvr+6S8seoQGHsBdP6bukaPBuz5M9QSXm++i3FhyBRJA7gcJv+W7EvVKcjmo2QrmkO
+	2JAY4ZLrppOh1ZBa2JR6NWa3jWaz2apxdRV7HFWiKXvgfYffFvo9FQC48yknj6nSCczFGJhurgk
+	rVIsInwCaPsf/W7AsGFy96OFwW9Mwg5mCYZ/Blrofalmy/MEjTfUi26Xt2cEe5YBH2wk9hnZRZ3
+	/534YxvQJ+c4xzbliAziLrg5EdhKX+ULo2PkKhq/G4YNsdjJnBCUMyYyEEjtf+FXi8P2v1OISOI
+	aQ9GY4zi30CUgQrnRYDvgArCDxOdObRyOpx/M1LFeg29H4/vail3AP5t2qK288OineFbOldIZml
+	UtIZjNA==
+X-Received: by 2002:a05:600c:4e56:b0:4ad:5ec2:d3b3 with SMTP id 5b1f17b1804b1-4ba09357427mr85388625e9.1.1794472203788;
+        Thu, 12 Nov 2026 00:30:03 -0800 (PST)
+Received: from [127.0.0.1] (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0950f3casm74154915e9.3.2026.11.12.00.30.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 00:30:03 -0800 (PST)
+From: Marek Czernohous <mczernohous@gmail.com>
+To: stable@vger.kernel.org
+Cc: Lyude Paul <lyude@redhat.com>, Fab Stz <fabstz-it@yahoo.fr>
+Subject: [PATCH 6.12.y] drm/nouveau/pci: use config-space MSI rearm on
+ MCP79/MCP7A (NVAC)
+Date: Thu, 12 Nov 2026 09:30:02 +0100
+Message-ID: <179447220251.849346.14034519032960424850@gmail.com>
+In-Reply-To: <20261107051608-failed-6.12-354d47fb3f35@kernel.org>
+References: <20261107051608-failed-6.12-354d47fb3f35@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,108 +99,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] mm/rmap: fix PTE table overruns during batched
- reference checks
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>,
- Lokesh Gidra <lokeshgidra@google.com>, Barry Song <baohua@kernel.org>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Chris Mason <mason@kernel.org>
-References: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
- <20261111-pte_table_clamped_end-v1-3-2dbe339c487a@kernel.org>
- <c31cc8a0-c098-4784-a843-f13f51914094@linux.alibaba.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <c31cc8a0-c098-4784-a843-f13f51914094@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/12/26 08:25, Baolin Wang wrote:
-> 
-> 
-> On 11/12/26 6:00 AM, David Hildenbrand (Arm) wrote:
->> With a folded PMD, pmd_addr_end() simply returns the supplied end.
->> folio_referenced_one() can therefore walk past the PTE table when
->> checking references to a large folio.
->>
->> Folded PMDs are uncommon, but can occur even on arm64, for example
->> with 64K pages and a 42-bit virtual address space.
->>
->> Use pte_table_clamped_end() to clamp the range to the PTE table and
->> VMA boundaries.
->>
->> Fixes: 52e054f71840 ("mm: rmap: support batched checks of the references for
->> large folios")
->> Cc: stable@vger.kernel.org
->> Reported-by: Chris Mason <mason@kernel.org>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
-> 
-> LGTM.
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> 
-> BTW, the 'end' calculation for the batch operation in lru_gen_look_around()
-> could also use the pte_table_clamped_end() helper. But this can be a follow-up.
-> 
-> end = min(addr | ~PMD_MASK, vma->vm_end - 1) + 1;
+From: Marek Czernohous <marek@czernohous.de>
 
-Cool, can you send a cleanup patch? I'd pick it up once these patches are upstream.
+commit 354d47fb3f35461b7f942831c1b2a7105e92b57f upstream.
 
-I'll move these into core.git today, so you can send against that for-next later
-today.
+NVAC (MCP79/MCP7A) uses g94_pci_func, whose .msi_rearm is
+nv40_pci_msi_rearm(): a re-arm write through the MMIO mirror of PCI
+config space.  On this IGP that path is unreliable; when a re-arm is
+missed the interrupt line stays dead, command submission times out and
+the GPU appears hung until reboot.  On an Apple Mac mini (early 2009,
+MCP79, boot0 0x0ac080b1) this showed as sporadic fifo timeouts and GPU
+hangs under load unless MSI was disabled via config=NvMSI=0.
 
+Give NVAC its own pci func that re-arms through real PCI config space
+(nv46_pci_msi_rearm) instead.  This follows existing precedent: nv46.c
+documents the MMIO-mirror re-arm as broken on several related parts,
+and commit 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm") fixed g92
+the same way while moving the remaining chipsets, NVAC included, into
+the newly added shared g94 table, where NVAC stayed on the MMIO path.
+This change completes that fix for NVAC.  The sibling IGP NVAA
+(MCP77/MCP78) has MSI disabled entirely as "reported broken" in
+nvkm_pci_new_(); NVAC works correctly once the re-arm goes through
+config space, so disabling MSI is not necessary.
+
+Only NVAC is switched: that is the hardware this has been validated
+on.  The other users of g94_pci_func (G94/G96/G98/GT2xx and the
+MCP77/MCP89 IGPs) keep their current behavior; MCP77 and MCP89
+plausibly want the same treatment but were not tested.
+
+Tested on the Mac mini as a daily driver for two months with MSI
+enabled and zero fifo timeouts.  Independently confirmed stable on an
+iMac9,1 (MCP79) running 6.12.90 with the v1 form of this change (the
+same one-line functional switch, applied to that kernel's g94
+implementation).
+
+Fixes: 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm")
+Cc: <stable@vger.kernel.org> # v6.16+
+Tested-by: Fab Stz <fabstz-it@yahoo.fr>
+Assisted-by: Claude:claude-opus-4-7
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Marek Czernohous <marek@czernohous.de>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/178688574401.522643.12812428444459119913@gmail.com
+[ Backport note: linux-6.12.y predates commit 2f89bb3264af
+  ("drm/nouveau/pci: add PRI address of config space mirror to
+  nvkm_pci_func"), so struct nvkm_pci_func has no .cfg member here.
+  mcp79_pci_func uses the nv40 .rd32/.wr08/.wr32 accessors instead,
+  exactly as g94_pci_func does in this tree, and still differs from
+  g94_pci_func only in .msi_rearm. ]
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Marek Czernohous <marek@czernohous.de>
+---
+Sorry for the late reply.
+
+Compile- and link-tested on 6.12.117 (nouveau.o, W=1): no warnings in
+the touched files, no unresolved nouveau-internal symbols. Not runtime
+tested here. nvaa_chipset has the same context lines as nvac_chipset in
+base.c, so I checked that the switch lands in nvac_chipset.
+
+Fab, you run 6.12 on MCP79: if you can give this exact patch a spin, a
+Tested-by would help.
+
+ .../gpu/drm/nouveau/include/nvkm/subdev/pci.h |  1 +
+ .../gpu/drm/nouveau/nvkm/engine/device/base.c |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/pci/Kbuild    |  1 +
+ .../gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c   | 36 +++++++++++++++++++
+ 4 files changed, 39 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
+index 3c103101d5..f21d6f1cf4 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
+@@ -46,6 +46,7 @@ int nv4c_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct n
+ int g84_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int g92_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int g94_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
++int mcp79_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gf100_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gf106_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gk104_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+index 9093d89b16..6f13b8b0fc 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+@@ -1237,7 +1237,7 @@ nvac_chipset = {
+ 	.mc       = { 0x00000001, g98_mc_new },
+ 	.mmu      = { 0x00000001, mcp77_mmu_new },
+ 	.mxm      = { 0x00000001, nv50_mxm_new },
+-	.pci      = { 0x00000001, g94_pci_new },
++	.pci      = { 0x00000001, mcp79_pci_new },
+ 	.therm    = { 0x00000001, g84_therm_new },
+ 	.timer    = { 0x00000001, nv41_timer_new },
+ 	.volt     = { 0x00000001, nv40_volt_new },
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
+index 174bdf9952..c5911d7d08 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
+@@ -9,6 +9,7 @@ nvkm-y += nvkm/subdev/pci/nv4c.o
+ nvkm-y += nvkm/subdev/pci/g84.o
+ nvkm-y += nvkm/subdev/pci/g92.o
+ nvkm-y += nvkm/subdev/pci/g94.o
++nvkm-y += nvkm/subdev/pci/mcp79.o
+ nvkm-y += nvkm/subdev/pci/gf100.o
+ nvkm-y += nvkm/subdev/pci/gf106.o
+ nvkm-y += nvkm/subdev/pci/gk104.o
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+new file mode 100644
+index 0000000000..98d85a856b
+--- /dev/null
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Marek Czernohous
++ *
++ * MCP79/MCP7A (NVAC): like g94, but MSI re-arm goes through real PCI
++ * config space.  The MMIO-mirror re-arm is unreliable on this IGP and a
++ * missed re-arm kills the interrupt line (see the nv46 comment; g92
++ * already re-arms through config space for the same reason).
++ */
++#include "priv.h"
++
++static const struct nvkm_pci_func
++mcp79_pci_func = {
++	.init = g84_pci_init,
++	.rd32 = nv40_pci_rd32,
++	.wr08 = nv40_pci_wr08,
++	.wr32 = nv40_pci_wr32,
++	.msi_rearm = nv46_pci_msi_rearm,
++
++	.pcie.init = g84_pcie_init,
++	.pcie.set_link = g84_pcie_set_link,
++
++	.pcie.max_speed = g84_pcie_max_speed,
++	.pcie.cur_speed = g84_pcie_cur_speed,
++
++	.pcie.set_version = g84_pcie_set_version,
++	.pcie.version = g84_pcie_version,
++	.pcie.version_supported = g92_pcie_version_supported,
++};
++
++int
++mcp79_pci_new(struct nvkm_device *device, enum nvkm_subdev_type type, int inst,
++	      struct nvkm_pci **ppci)
++{
++	return nvkm_pci_new_(&mcp79_pci_func, device, type, inst, ppci);
++}
 -- 
-Cheers,
+2.56.1
 
-David
