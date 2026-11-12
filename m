@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794518017;
-	b=xIyO0N9OO90gBDBCeLKKb/SpS3xi6j++sNvCYCxwF+KqjOc46i99pNVXgGCGN4uvcc1M
-	 2K1RQF3gsTGw72u5O8fygXwACJlZdCQZQfVbrNVZMF2a9u3Kc8rSQZr+5XfrhfBuDxB4v
-	 DAbqSOKghSnsgxB5MQuDUl6+O5WBpr493jfAAMu8nXCiNagi2Gb1JBbP30QM933iKeh9X
-	 exs3o49gLjUUt6QbKFupeGQ7dPPzcSlMv6PlYLzm/lqb3Uv7VSqVkGna903yNB2/XKr4G
-	 2veiw0fnVmcJ6+Jga8fM+HnuS4slR29nUfzXi2wjGsqOfuJk0qzQovpOJOu/2G3MkHQ==
+	b=yRZ6cjoxnxEfzvipMctOFUSZ0EeVfdlupJfsEGtN248yKakQ3qTJQvNiJO0GyCm5Jeej
+	 Y9dlO5FOKB36tVvHZhYtgXxaJ2WzKQIfRjuwaS2yjeqr1WrJEa1SVXaIEKDBbFcmIb1Dt
+	 f6HLfbDEeCRRzd1X8FZNpMY5jukGDnzQIe5xFmxBiqXCwvzV6HKqQ4bFUpGhnHx4NlL6g
+	 qUkqw35Y84TR1KEuHFXF5FRIJDygn/bV6HyK1fPNRot2tcNiG1J8VTVZyesQ9BKF3WJ16
+	 YWNQs5vgKa/vjl+76kUCLLyBVULR+9iAf3oYw3mvKmGwWLAvVUEMEj0hmgnVqcrjuYw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794518017;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=8zLPAe+pEVyOyqD5DKu6e/KhHN+V7arcxoqF3zqvpck=;
-	b=SyFIPKdpXBTrNGGILBAUwK1R1KaFWOqx6uBI8mQ3nN8+1WWrwsq5stv5cmRBAnfWpTz8
-	 EDC16bMGrwidMqosRzM23ZdrEePCXRLbjiA6yO4budSbEwHkkEFdiLmG3ZUYLNQ+VmSVZ
-	 vNbcLSXCuxmzf+IOfflFWX8Eog/XQqZsBudz9/enCfsgM6aA85cYgYdIZTLo1bRniYNlL
-	 hFmNd+ALVm3xC0p1uvcTjYVQJcp0y9Cxr2T+ineSpB7HyHb7thTzE5HdMJfy48oSwDt3S
-	 0jK0VNdFZ7iGr4IQs5ZHfReYi4WsfV71FqCUsyfb+FeMoDXHi87Rxy/wpRltswp1yHQ==
+	bh=4E7h/dAcMh6DgfFM0bzw+E2/CsKrlRcwNwCe15KVRis=;
+	b=XvoxSRX5oyY6sU6AK3vfUfmchHzGuEqtkLSTjm7xs4ctdzObW+zU5S/WOWq4ltZ6iWhJ
+	 GiC/7CPAy7VSwiw12+yrcBxAxas4UELscx2Wp/8VZ1XOaTo2heMYDRW1tDadILrwtSXP5
+	 qvIjhA/+rAbvF+9+GszKznA3uhArbpXCmwpNiasQa3o2YoD/QauKByycAOPS3+FJAk/3L
+	 CdRCKFxBycMWkBfDtwBSaJRyMnl5lGtBTRk5oCtI8Z5atWRr697d6M7wrHr9kDCWzI5gA
+	 s0j7hJUQO/p3weF4tOpwWLnDgnOJvuB2+S9sAjNR7JWqsj19G7YW8vthqPSZ32lPLNQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XmemokO7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVYBeRnN;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E93B606A334;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EEF606A883;
 	Thu, 12 Nov 2026 21:13:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XmemokO7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVYBeRnN
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794518017;
-	b=dRlrCNpzKq4oAfOsdWw4DFFZmRHOVzywR/yzZQkf6JI3qnauGm2x1n+utRiKmA+474UB
-	 4Z9CFGPNeev0H+jVbC/SnF3uT4bVUV8eqtb6L+UFxzQ6gXo69uNWVUtT3Sf9pgZ6piKZW
-	 VQlcoAYIrvkG3mhmTevmWdJeGyQC8vU19PGLSH4fumtKHco06uH5E+0lP3yJxVXj857Qd
-	 WzjNqMFcIrMWU6vxGg1egIY3uGnA8vfZjYSgkoVuvYv1d1Aj/Lh3MZGH1BmptYBAdci3i
-	 P3h0CrIleFOrTNC6oazlPnyu8IlJoTcQQK8P0VCM5y8Rs3qp/5heL/e9WFi9vYA6wFw==
+	b=Y+LiVqoqUXtsUj4jR/WY0KbyvVYS+As7t/wdCTjImdRir4kQkMND2q6OJz2RIXwAxRCM
+	 8FZbkee4ZnIbbMo0PIOTrEj1b5BVEYnUJs2cDET5EElIpPAVIAkHirU55R/B5+WDSLDhJ
+	 3OpwevmAv3BitgMd0eQtwMpUHOEvWsAEk0ru3h0cMLeTrGId3PV8HCInGleMdTtA5rLZw
+	 vzgYdHoxDVMbln5PTAHXDCHILMu4iPgS+lUxP3SSOtAcnjfFpDSexWTcunagIk5azfGUa
+	 Me1G2+SGCrKYiONEGR38+UJQm4uRLMCtV1f1yflh5WiABe+0KRqw4/MnVz5/dYUOXMQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794518017;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=8zLPAe+pEVyOyqD5DKu6e/KhHN+V7arcxoqF3zqvpck=;
-	b=xHQTrIlvsQDaXj0ZngaDrgG5kbIj1bJyvFh6thLOeRslWgXthmv3i/g6++XEGQJW3SYE
-	 luB8r26ZOJ+DIkROvkNztFm9x3Txs3ScoKGRDf2F9ifnU5qAFL0ndsnJqAGdVpCLf+SwE
-	 b8k9lUriuSamDPXL3cQv3/r04baHK1DXEN3ewpr3te0Bq5PLu7U9Bh0BCkeADxvufLQwJ
-	 aPcLUkfJ9EQfnj9zxz0KBWB/QHrDffNYfbI9hMzMeqx6N5EQAb+JD3QQ4RAcFWoOccKq+
-	 vikohldg0xfKeyQmT+9W3PA4ontXpYIUreVIq63rJmSFdBU64YSwjg9SwNqOH7mLnEA==
+	bh=4E7h/dAcMh6DgfFM0bzw+E2/CsKrlRcwNwCe15KVRis=;
+	b=tUx3t3XEJX+lCLSlWSqhjZ4kvyez6OQiNiYls2RlZkr81a3ftIn9IAtyl5wupobambln
+	 RmtXWoFzgOGXDiPb+aCqg8y2UKXHJCGwoGPxabwiUAr8HtY19kM5Uew6TX80MYrG1tUNS
+	 7X71j2/mH9CmxfCBmCwuIyOjyfzQyeaOfYNzH9n5F2zpvRPEfToqBV15c/yKaAMFRKJYH
+	 lf51tc/N5BwW6Lp5m1hClkTUt8U0yEx7o09TtSmc350Q9ietQG/Dl3MRbvCW/yKg1DAjv
+	 4orJr9APvz1Cql/kRM8yT8G+6Tvyt2fM275SY6iw5x9b9GGmmr/weC68C+kyglqwR5w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C62781F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id DC5A31F000C7;
 	Thu, 12 Nov 2026 21:13:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794518017;
-	bh=8zLPAe+pEVyOyqD5DKu6e/KhHN+V7arcxoqF3zqvpck=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=XmemokO7WbLv0QXBBOMbNCAz0x+kWjiw3rPS7KPst2jwT2evWk0VTjwC/gdpK6KaR
-	 9i4C7giaSpl77Cj5g4Vp8IDrvhUYt/W/g8WNxKBqJ79+MWeWLUilspcN08UbaR5e8o
-	 w5OisE58YE6ASGShE0Fb6+gh/dr6s/0vzKxMxdjMhSTo5We7UpEfUAnhoHc0Gwesy1
-	 oqexZdff/6h4e1oZIbeL1ZUGzh7BGKK9S6e2bqgywn6W0rOuqIbZB2P4AI1WRRusAh
-	 +BZIBpFCvQkKapNQuVciZJh3yBAmppaieW/EhB7KfL+rL7nzBk12mJEmOekpvK65Rp
-	 8jf2CWa4l/Z3Q==
+	bh=4E7h/dAcMh6DgfFM0bzw+E2/CsKrlRcwNwCe15KVRis=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=SVYBeRnNHa4byo5+KMl6ejx5wFDcEYXAvt0QIh6ftBFp2sp0MsYLRRav42xPHWQ7j
+	 HvL46hITZrOD/Yv3SwloHyiTPyB2MKRaNs3To7kk3k0cHRjgs0N4A1af8p2OMV7Y+N
+	 jgN1QbDquwLaXIXr6hTEqj1KGbQMpNBB61HhVe81SyV1nE8o1EjUXxR0e4fc9oAROE
+	 0BfsD44eotXyJlfMnHbawiT+OokCD2DqC5vpzLUEXRJ50sj6Jzv2zyRACYQbVX9Bco
+	 j2uchYHc9Fo74SVHiXjHbm9o3tJ8eehqZnE6byE2f6aNliv6E/DolLYZCuBYwJ1oBP
+	 AZcG0apPf56Eg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 25DA3474EE;
+	by lkml.kernel.org (Postfix) with ESMTP id 68666474F6;
 	Thu, 12 Nov 2026 21:13:35 +0000 (UTC)
 From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
-Subject: [PATCH v3 0/3] nvme-tcp: consume TLS records without application
- data on a live queue
-Date: Thu, 12 Nov 2026 16:13:33 -0500
-Message-Id: <20261112-nvme-tcp-live-ctrlrec-v3-0-49760bd9eaa8@gmail.com>
+Date: Thu, 12 Nov 2026 16:13:36 -0500
+Subject: [PATCH v3 3/3] nvme-tcp: consume TLS records without application
+ data
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,11 +85,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNyw6CMBQFf4V07TV9QLGu/A/jAsoVanilrY2G8
- O+2uGFjXE4yZ85CHFqDjpyzhVgMxplpjCAOGdFdNbYIpolMOOWSMapgDAOC1zP0JiBob3uLGvJ
- CqFoJRQVlJG5ni3fz2rrX25fds36g9imWjM44P9n3dhxY8v59BAYU8rKuJJMlRVlc2qEy/VFPA
- 0kfge8qjP2q8FiRXBXRq095g/vKuq4fX40k6BIBAAA=
-X-Change-ID: 20261109-nvme-tcp-live-ctrlrec-4539b9390301
+Message-Id: <20261112-nvme-tcp-live-ctrlrec-v3-3-49760bd9eaa8@gmail.com>
+References: <20261112-nvme-tcp-live-ctrlrec-v3-0-49760bd9eaa8@gmail.com>
+In-Reply-To: <20261112-nvme-tcp-live-ctrlrec-v3-0-49760bd9eaa8@gmail.com>
 To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
  Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
  Hannes Reinecke <hare@kernel.org>
@@ -98,11 +95,11 @@ Cc: Martin Belanger <martin.nvme.dev@gmail.com>,
  linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Martin Belanger <martin.belanger@dell.com>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794518014; l=4637;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794518014; l=7069;
  i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
- bh=gUiuSprHs0Mhe0bj56QmCJuP5xldf9QNMSxecLLi/2o=;
- b=PNyQnvgGAPvQ/Z+qUm3sNRm4Rdmg0EyfKVeJopWgNc6Bl9Ms5ciPLv0gaBIvp7Hrm2HGUJk6m
- h1pRRU88zMvDmCNERBmEWWmhckzhUZZSogWXuV39WzHggjqTrkF60Nh
+ bh=BXkzTnuE1CdiV8DxLxpXS4wtJqzfrr8MfvY7b3eLfds=;
+ b=tMT7D7LfgIfbDrB4BZFfVXM1SOfBdkNW1WY14QcdsyoQsFYX9OtBuhYi9yEJaVDppjF7ZkbrS
+ 0+7coV9v28BAQZYb91DiLOxb7kd90UWAprZJc5gnPdsutALk3UIpDlC
 X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
  pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
 X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
@@ -110,116 +107,213 @@ X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
 X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
 Reply-To: martin.nvme.dev@gmail.com
 
-After the TLS handshake, a peer may send records that carry no
-application data: a NewSessionTicket, a KeyUpdate or an alert.
+From: Martin Belanger <martin.belanger@dell.com>
+
+A peer may send a TLS record without application data at any time
+after the handshake: a NewSessionTicket, a KeyUpdate or an alert.
 tls_sw_read_sock() cannot pass such a record to nvme_tcp_recv_skb().
 It returns -EINVAL and leaves the record at the head of the receive
-queue. Since commit 288cfa187208 ("nvme-tcp: start error recovery when
-read_sock fails"), nvme-tcp then starts error recovery, and the
+queue. nvme_tcp_try_recv() then starts error recovery, and the
 controller reconnects.
 
 TLS 1.3 allows a server to send a NewSessionTicket at any time after
 the handshake (RFC 8446, section 4.6.1). Alerts can also arrive at any
 time.
 
-Patch 1 aligns the control message buffer that receives the record
-type.
+On -EINVAL, read the record with recvmsg(), which reports the record
+type. Discard handshake messages other than KeyUpdate. Log alerts, and
+fail the queue on a fatal alert. Fail the queue on a KeyUpdate, which
+nvme-tcp cannot answer, and on any other record type. recvmsg() takes
+the socket lock, so release it around the read.
 
-Patch 2 moves the TLS record read loop into a helper. No functional
-change.
+Handle these records in one helper, also for the records that arrive
+ahead of the ICResp. A warning alert ahead of the ICResp no longer fails
+the connection.
 
-Patch 3 reads the record with recvmsg() when read_sock() returns
--EINVAL, and handles it by type. Handshake messages other than
-KeyUpdate are discarded and alerts are logged. A fatal alert, a
-KeyUpdate or another record type fails the queue. The records that
-arrive ahead of the ICResp use the same handling.
+On a poll queue, nvme_tcp_poll() and nvme_tcp_io_work() can both see
+the record while the socket lock is released. A queue flag makes sure
+that only one of them reads it.
 
-Patch 3 detects a KeyUpdate only when it is the first handshake
-message of the record. A KeyUpdate that follows another message in the
-same record is discarded with it. The next record then fails to
-decrypt, and the queue fails as it does today. kTLS has the same gap
-in tls_check_pending_rekey(). v7 of the kTLS KeyUpdate series will fix 
-it there.
+svc_tcp_recvfrom() in sunrpc handles -EINVAL from read_sock() the same
+way.
 
-All patches are tagged for stable, because 288cfa187208 is in 6.12.117,
-6.18.63 and 7.3.4.
-
-Tool use
-========
-
-I developed this series with the help of an LLM coding assistant. It
-drafted code, tests and changelogs, and helped with analysis of the
-kTLS and sunrpc sources. I reviewed, edited and tested all of it, and
-I am responsible for the content.
-
-Testing
-=======
-
-Host and target in one VM (virtme-ng), on 7.4-rc2. A test-only change
-to net/tls makes the target send records on a live I/O queue during
-I/O. Each case writes data and reads it back with O_DIRECT.
-
-  Records sent by the target   7.4-rc2     With this series
-  ---------------------------  ----------  --------------------------
-  NewSessionTicket, 64 bytes   reconnect   queue stays live
-  2 x 300, 2 x 1000, 6 x 64    reconnect   queue stays live
-  close_notify alert           reconnect   queue stays live
-  warning alert (90)           reconnect   queue stays live, logged
-  fatal alert (40)             reconnect   reconnect, logged
-  KeyUpdate                    reconnect   reconnect, logged
-
-Records sent by the target ahead of the ICResp, on 7.4-rc2 with this
-series:
-
-  Record ahead of the ICResp   Result
-  ---------------------------  ------------------------------------
-  NewSessionTicket, 64, 1000   connect ok
-  close_notify alert           connect ok
-  warning alert (90)           connect ok, logged
-  fatal alert (40)             connect fails, logged
-  KeyUpdate                    connect fails, logged
-
-Data was correct in all cases. Also built with W=1, with and without
-CONFIG_NVME_TCP_TLS.
-
-Poll queues are not tested. Polled I/O hangs in my test VM, also on
-7.4-rc2 without this series.
-
+Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
+Cc: stable@vger.kernel.org
 Signed-off-by: Martin Belanger <martin.belanger@dell.com>
 ---
-Changes in v3:
-- Patch 3: one helper handles the records on a live queue and the
-  records ahead of the ICResp. nvme_tcp_skip_tls_record() is removed.
-  A warning alert ahead of the ICResp no longer fails the connection.
-  (Hannes)
-- Patch 3: shorter KeyUpdate log message. (Hannes)
-- Collect Reviewed-by tags on patches 1 and 2.
-- Link to v2: https://patch.msgid.link/20261111-nvme-tcp-live-ctrlrec-v2-0-6295202b84de@gmail.com
+ drivers/nvme/host/tcp.c | 113 +++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 97 insertions(+), 16 deletions(-)
 
-Changes in v2:
-- New patch 1: use a union with struct cmsghdr for the record type
-  buffer, as sunrpc does. (Sashiko)
-- Patch 3: on a poll queue, nvme_tcp_poll() and nvme_tcp_io_work()
-  could both read the same record. A queue flag lets only one of them
-  read it. (Sashiko)
-- Patch 3: drop a log line that repeated the error of
-  nvme_tcp_try_recv().
-- Link to v1: https://patch.msgid.link/20261109-nvme-tcp-live-ctrlrec-v1-0-47ba61670e65@gmail.com
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index c3bf345c4e92..45e66adcf57d 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -123,6 +123,7 @@ enum nvme_tcp_queue_flags {
+ 	NVME_TCP_Q_LIVE		= 1,
+ 	NVME_TCP_Q_POLLING	= 2,
+ 	NVME_TCP_Q_IO_CPU_SET	= 3,
++	NVME_TCP_Q_TLS_RECORD	= 4,
+ };
+ 
+ #define NVME_TCP_OPT_NR_QUEUES(opts) ((opts)->nr_io_queues + \
+@@ -1450,6 +1451,8 @@ static int nvme_tcp_try_send(struct nvme_tcp_queue *queue)
+ 	return ret;
+ }
+ 
++static int nvme_tcp_recv_tls_record(struct nvme_tcp_queue *queue);
++
+ static int nvme_tcp_try_recv(struct nvme_tcp_queue *queue)
+ {
+ 	struct socket *sock = queue->sock;
+@@ -1462,10 +1465,31 @@ static int nvme_tcp_try_recv(struct nvme_tcp_queue *queue)
+ 	lock_sock(sk);
+ 	queue->nr_cqe = 0;
+ 	consumed = sock->ops->read_sock(sk, &rd_desc, nvme_tcp_recv_skb);
++	/*
++	 * kTLS cannot pass a TLS record without application data to
++	 * nvme_tcp_recv_skb(). It returns -EINVAL and leaves the record at
++	 * the head of the receive queue. recvmsg() takes the socket lock,
++	 * so read the record without it.
++	 */
++	if (unlikely(consumed == -EINVAL && nvme_tcp_queue_tls(queue) &&
++		     queue->rd_enabled)) {
++		/*
++		 * On a poll queue, nvme_tcp_poll() and nvme_tcp_io_work() can
++		 * both get here for the same record. Only one of them reads it.
++		 */
++		if (test_and_set_bit(NVME_TCP_Q_TLS_RECORD, &queue->flags)) {
++			consumed = 0;
++		} else {
++			release_sock(sk);
++			consumed = nvme_tcp_recv_tls_record(queue);
++			lock_sock(sk);
++			clear_bit(NVME_TCP_Q_TLS_RECORD, &queue->flags);
++		}
++	}
+ 	/*
+ 	 * nvme_tcp_recv_skb() handles its own errors, so a queue that is
+-	 * still enabled failed inside read_sock(). Handle it before
+-	 * release_sock() processes the backlog.
++	 * still enabled failed inside read_sock() or while reading a TLS
++	 * record. Handle it before release_sock() processes the backlog.
+ 	 */
+ 	if (unlikely(consumed < 0 && consumed != -EAGAIN &&
+ 		     queue->rd_enabled)) {
+@@ -1666,33 +1690,88 @@ static int nvme_tcp_drain_tls_record(struct nvme_tcp_queue *queue,
+ }
+ 
+ /*
+- * Discard a TLS record that arrived in place of the ICResp. A peer may send
+- * a NewSessionTicket as soon as the handshake completes.
++ * Consume a TLS record without application data. The first @len bytes of
++ * the record were read into @msg and @data.
+  *
+- * Returns 0 when the record was discarded and the ICResp can be read, or a
+- * negative errno if the connection cannot continue.
++ * A KeyUpdate needs new keys that nothing here can supply. Other handshake
++ * messages, such as a NewSessionTicket, are discarded.
++ *
++ * Returns the bytes read after the first @len, or a negative errno if the
++ * connection cannot continue.
+  */
+-static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
+-				    struct msghdr *msg, u8 ctype, int len)
++static int nvme_tcp_consume_tls_record(struct nvme_tcp_queue *queue,
++				       struct msghdr *msg, u8 ctype,
++				       const u8 *data, int len, int flags)
+ {
+ 	int ret;
+ 
+ 	switch (ctype) {
+ 	case TLS_RECORD_TYPE_HANDSHAKE:
++		if (data[0] == TLS_HANDSHAKE_KEYUPDATE) {
++			dev_err(queue->ctrl->ctrl.device,
++				"queue %d: TLS KeyUpdate is not supported\n",
++				nvme_tcp_queue_id(queue));
++			return -EKEYEXPIRED;
++		}
+ 		break;
+ 	case TLS_RECORD_TYPE_ALERT:
+ 		ret = nvme_tcp_recv_tls_alert(queue, msg, len);
+-		return ret ? : -ENOTCONN;
++		if (ret)
++			return ret;
++		break;
+ 	default:
+-		pr_err("queue %d: unhandled TLS record %u\n",
+-		       nvme_tcp_queue_id(queue), ctype);
+-		return -ENOTCONN;
++		dev_err(queue->ctrl->ctrl.device,
++			"queue %d: unexpected TLS record %u\n",
++			nvme_tcp_queue_id(queue), ctype);
++		return -EPROTO;
+ 	}
+ 
+-	/* the ICResp is in a later record, drain this one first */
+-	ret = nvme_tcp_drain_tls_record(queue, msg, 0);
++	return nvme_tcp_drain_tls_record(queue, msg, flags);
++}
++
++/*
++ * Read the TLS record that read_sock() could not pass to
++ * nvme_tcp_recv_skb(). The caller must not hold the socket lock.
++ *
++ * Returns the bytes consumed, or a negative errno if the connection cannot
++ * continue.
++ */
++static int nvme_tcp_recv_tls_record(struct nvme_tcp_queue *queue)
++{
++	u8 buf[NVME_TCP_TLS_REC_CHUNK];
++	union nvme_tcp_tls_cmsg u = {};
++	struct kvec iov = {
++		.iov_base = buf,
++		.iov_len = sizeof(buf),
++	};
++	struct msghdr msg = {
++		.msg_control = &u,
++		.msg_controllen = sizeof(u),
++	};
++	int len, ret;
++	u8 ctype;
++
++	len = kernel_recvmsg(queue->sock, &msg, &iov, 1, sizeof(buf),
++			     MSG_DONTWAIT);
++	if (len <= 0)
++		goto fail;
++
++	ctype = tls_get_record_type(queue->sock->sk, &u.cmsg);
++	ret = nvme_tcp_consume_tls_record(queue, &msg, ctype, buf, len,
++					  MSG_DONTWAIT);
++	if (ret < 0) {
++		len = ret;
++		goto fail;
++	}
++
++	return len + ret;
++
++fail:
++	/* read_sock() left a whole record, so none of it can be missing */
++	if (len == -EAGAIN)
++		return -EPROTO;
+ 
+-	return ret < 0 ? ret : 0;
++	return len ? : -ECONNRESET;
+ }
+ 
+ /*
+@@ -1729,7 +1808,9 @@ static int nvme_tcp_recv_icresp(struct nvme_tcp_queue *queue,
+ 		if (ctype == TLS_RECORD_TYPE_DATA)
+ 			return ret;
+ 
+-		ret = nvme_tcp_skip_tls_record(queue, &msg, ctype, ret);
++		/* the ICResp is in a later record */
++		ret = nvme_tcp_consume_tls_record(queue, &msg, ctype,
++						  (const u8 *)icresp, ret, 0);
+ 		if (ret < 0)
+ 			return ret;
+ 	}
 
----
-Martin Belanger (3):
-      nvme-tcp: use an aligned buffer for the TLS record type
-      nvme-tcp: move the TLS record read loop into a helper
-      nvme-tcp: consume TLS records without application data
-
- drivers/nvme/host/tcp.c | 170 ++++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 136 insertions(+), 34 deletions(-)
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261109-nvme-tcp-live-ctrlrec-4539b9390301
-
-Best regards,
---  
-Martin Belanger <martin.nvme.dev@gmail.com>
+-- 
+2.53.0
 
 
