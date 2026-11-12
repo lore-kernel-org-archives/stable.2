@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447749;
-	b=zL82LAzprKakYmvqV/c7qZMORShX09U9LYjlyO9qSU/SfLle05WKlqSyYEIjqCiG1LJU
-	 PCpPlKjr60S+SXD3QnPK7CFB3Qek8/HRyaEomKIrdD2jWIkmTItBCd0RtZfim6Xk3I00c
-	 07DqxFT7jNbxrOpzucHZFwqERRzfaSwIlp7kBrO0BRgM/PMuqOcEblSmqJIu2e3HhEcYX
-	 vLXfp2yvxl2m8QOe4nT1A4Bq+PS7JhpP6hj+odoBYZtUmhjEq5/ETl8Sin4+ZaekngQZ+
-	 1hYq8X5HGgXd/zMb1L0TZ1+Q8cxrDXOziPeWUOVfP9YFOYLkUKuVmkxP0D1HWKTsDtw==
+	t=1794447777;
+	b=Q4xasZ7Hccxi844/t9mbvFuMS2ckdTDScneLQfbhwDWD4CXnuBamHPp5gfnrCidaOGic
+	 l6hs6k7wmkFnkKUV3xYhUNGPk+Lolh2aIwNJcDloIiInEubUQOUwGUrjZWmxMxYgqcA+p
+	 AZBN8u8NqVEWgopQlwd3znNf9/fIg7kFrZ9gKC7LU5wyrurDl2bqka9LhTmWxtMh6giaI
+	 P5f2cLVdNNoJjeMxb5XSAFVtLDmoKS4EIXZnLjxra90Uzxqn2IO/lnqmfl2UnzY747Rlo
+	 lbxiBtyvzn/UVNdU57rXVi4uaA/dSZ6bYPBwA/BkHFkYGNxQ3VPfOdiy4ywdrEswDag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447749;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=BHcBRQ3iHeuAf3SS57vHF6Z9/C9bxi+ZO0Y7ebvFVz4=;
-	b=FBAynir7Bby8uJupLMCr9zbsbMwddcDWOKTDzjrzXwnlEcELNOZo9NtB5doHJiarz1vY
-	 fcDnc+zp/1G7VEtDSnhI9UpJzkyLKCuhipI9tG0LlwWMm2ljaZDiM1zOxreMAZMaJDvKA
-	 bRxyR1SFerzpTTk5lBRDGbQ0KrCiFwF6cchyFP9Ptx+po6F48u1b2lwb3rnU91HbRwZAq
-	 zofBhuaRrEUB1lH/KNiUydV3kHicBq+/ubUJbxMI1gsbttIVOBe1W4bMdyQXK3+iK74US
-	 hXVmGxsKlAz/2e+8JNz5oXrWRvMj01J/j3cbn6v/8vIFTWhloDZj6RLFYzESSqTiLGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447777;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=2amIad7DCymXtxktdk/h5Rd2UGWk5E5RRoIzlxgbm1w=;
+	b=qyvWkC6soXEe+OhhY19jsYcgW+pzj/mUrREa2iYMCh/D78k1d46EMSH+wq9V/OcIuvYL
+	 HiY4xe2OL6HNEvfzT+GmGlEgkVIVA3OOzJHzZtipgvK6FfImpaFCM8bu7mmKoW0engkqJ
+	 9GgwBg2spLKKNHD0RMtAh1/iv/cBMHXa1exN/rX7+GiPnTxId/d11zsYoJ99WBetaCjii
+	 nMuXoJEHxMq/8fz/A+d7QG4Hbvjr14GKzB7DqRtM0Jh8xpWO2SpBEiLkth2QAG9GwqN7Y
+	 +u/G39pP0f+q4238ncTXZj/PSvXcQCAX4EvAZ6LKqGvCsBcpiL3XDTTdKQtwiV69LXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=auHSWLel;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ueqOyERD;
+	arc=none smtp.remote-ip=91.218.175.54
+Received: from mta0.migadu.com (out-54.mta0.migadu.com [91.218.175.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1286B606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:42:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2429606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:42:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2429606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=auHSWLel
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96E41F00A05;
-	Thu, 12 Nov 2026 01:42:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794447748;
-	bh=BHcBRQ3iHeuAf3SS57vHF6Z9/C9bxi+ZO0Y7ebvFVz4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=auHSWLelWzo3MO2YS3woRB4SUHrfHvwysnVVOQOpTwO8Y4TiLVOTZT8oN7RYPEEwV
-	 NnVpnCNyYSkGceC6IcM250fHW+fhs8ZjCWolAnkWBm9MNkiNK6w0Gj9lV7nN924WCp
-	 /FiaDWODGTsKVXs6/CnVCQDPDDL58Q7wDvPJBoyfmLG552LhBmS5FPGWBFkW7un3CO
-	 pNjKYuCKerAryn/kflFH2/UoBYGHe2llcL84vt8t/VOC07SQjS98SJXr9wA6nuGleu
-	 kK7z5SU1OvesYV2YQwpFSadMzuhWVmA9KbM4tT+qVj6+goP+GzsfSzXrjNSnGv52pS
-	 sv/mPPO/5Ekxw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Xu Xin <xu.xin@linux.dev>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/ksm: fix use of a freed anon_vma at swap-in
-Date: Wed, 11 Nov 2026 20:42:26 -0500
-Message-ID: <20261112013216.1227890-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200517-failed-6.18-4c2dec1dce36@kernel.org>
-References: <20261109200517-failed-6.18-4c2dec1dce36@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ueqOyERD
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2amIad7DCymXtxktdk/h5Rd2UGWk5E5RRoIzlxgbm1w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794447773; v=1; x=1795052573;
+ b=ueqOyERDup5z6Gcwjqq4RksiHf2hxsuXAgGZTIirFSsM8zPUGgZe+0Hsp+BD0oJhGNKmaUk4
+ /HZ14RNCxZ2vJ8lmQWS3FlXo7J1kdC19Tia2jdrxj47fHAYkEYV9Bj4FWKs4aUeZDLFv0Jw+Osw
+ bodN8nbLIFRmGsh+0s45/B0U=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4e91415cff7979f9;
+	Thu, 12 Nov 2026 01:42:53 +0000
+X-Mizu-Trace-ID: 4e91415cff7979f9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d81fe81c-be1b-4766-8030-9cbbe83428b6@linux.dev>
+Date: Thu, 12 Nov 2026 09:42:36 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,180 +58,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18.y] mm/ksm: fix userfaultfd protection during merge
+ and unmerge
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: Samarth Narang <samarth.colleges@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Mel Gorman <mgorman@techsingularity.net>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?=
+ <jglisse@redhat.com>, Andrea Arcangeli <aarcange@redhat.com>,
+ Peter Xu <peterx@redhat.com>, Bobby Powers <bobbypowers@gmail.com>,
+ Brian Geffon <bgeffon@google.com>, Denis Plotnikov
+ <dplotnikov@virtuozzo.com>, Doug Gilbert <dgilbert@interlog.com>,
+ Hugh Dickins <hughd@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Martin Cracauer <cracauer@cons.org>, Marty McFadden <mcfadden8@llnl.gov>,
+ Maya Gokhale <gokhale2@llnl.gov>, Pavel Emelyanov <xemul@openvz.org>,
+ Rik van Riel <riel@surriel.com>, Shaohua Li <shli@fb.com>,
+ James Houghton <jthoughton@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, SJ Park <sj@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Mohammed EL Kadiri <med08elkadiri@gmail.com>
+References: <20261111082809.32654-1-lance.yang@linux.dev>
+ <2026-11-11-1-daily-reply-0026-04883abeb32ad63ca89c@kernel.org>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <2026-11-11-1-daily-reply-0026-04883abeb32ad63ca89c@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 4c2dec1dce368ad9e9b1814307cb5ef3832fa07e ]
 
-A folio read from a swap slot previously shared by KSM can remain in the
-swap cache after the process that first mapped it exits. Its anon_vma
-can then be freed, so ksm_might_need_to_copy() must not dereference it
-to compare roots.
+On 2026/11/12 05:54, Sasha Levin wrote:
+>> [PATCH 6.18.y] mm/ksm: fix userfaultfd protection during merge and unmerge
+> The 6.18, 6.12 and 6.6 patches are based on released stable and do not apply to
+> the stable queue, which already carries 2efc6332f18b ("mm/ksm: keep soft-dirty
+> when merging a page") in replace_page(). The fix itself looks sound. Could you
+> rebase and send a v2 with the two uffd-wp lines placed after the soft-dirty
+> block?
 
-Doing so can result in some false-positives, resulting in the reverse
-mapping missing the new folio mapping, preventing migration and reclaim.
+Sure, thanks!
 
-SLAB_TYPESAFE_BY_RCU allows individual anon_vma objects to be reused
-immediately after freeing. A stale pointer can then refer to another
-anon_vma whose root matches, even though the target VMA is not linked
-to that anon_vma.
+> The 6.1.y series for 990d6c2194a9 ("mm/ksm: fix userfaultfd protection during
+> merge and unmerge") applies fine, but it has to wait until 6.18, 6.12 and 6.6
+> carry the fix, so please resend it together with the v2 of those.
 
-Move the anonymous rmap compatibility checks into
-folio_anon_rmap_compatible(). Keep the page-index check and compare the
-folio's anon_vma pointer against the VMA's own anon_vma and root first.
+Okay. Will rebase and resend all four as v2 :)
 
-If neither matches, bite the bullet and walk the VMA's anon_vma_chain.
-The VMA keeps these anon_vmas alive, and finding a match guarantees that
-reverse mapping can find the new mapping.
-
-Lorenzo Stoakes says in a private discussion:
-
-  "This isn't quite equivalent to the existing check.
-
-  Every anon_vma in an anon_vma_chain shares the same root, but if you
-  split a VMA then fork both of them like this:
-
-                  VMA A
-               /        \         <split>
-            VMA B      VMA C
-               \        /
-        root <- anon_vma 1
-               ----^ ^----        <fork>
-              /   parent  \
-        anon_vma 2   anon_vma 3
-             |            |
-           VMA D        VMA E
-
-  VMA's D and E both get their own new
-  anon_vma's such that:
-
-  VMA D: anon_vma 2 -> anon_vma 1 -> root
-  VMA E: anon_vma 3 -> anon_vma 1 -> root
-
-  And if you found a folio referencing anon_vma 2, the existing check:
-
-	anon_vma->root == vma->anon-vma->root
-
-  Would be true for VMA's B, C, D & E.
-
-  However after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain.
-
-  Whether or not that could actually happen in practice... 🙂 I don't
-  know.
-
-  [...] after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain. [...] I would [...] say that
-  you are making the test stricter but more correct.
-"
-
-If this affects performance when KSM was never even involved, we could
-just track whether KSM ever merged anything and just skip these checks.
-
-There isn't really a lot we can do otherwise: for mapped folios we might
-be able to use folio_get_anon_vma(), but for unmapped folios there really
-is no easy way to see if the anon_vma is still valid.
-
-Document the (confusing) lifetime requirements of folio_anon_vma().
-
-Fixes: ba6f0ff3981e ("ksm: fix ksm swapin time optimization")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Xu Xin <xu.xin@linux.dev>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-40-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Replaced linear_anon_page_index() with linear_page_index() and omitted the unavailable vma_assert_stabilised() assertion. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/ksm.c  | 35 ++++++++++++++++++++++++++++++-----
- mm/util.c | 13 +++++++++++++
- 2 files changed, 43 insertions(+), 5 deletions(-)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index bcaca6e99b1ce..78dc717633818 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -3080,11 +3080,39 @@ void __ksm_exit(struct mm_struct *mm)
- 	trace_ksm_exit(mm);
- }
- 
-+static bool folio_anon_rmap_compatible(const struct folio *folio,
-+		struct vm_area_struct *vma, unsigned long addr)
-+{
-+	const struct anon_vma *anon_vma = folio_anon_vma(folio);
-+	struct anon_vma_chain *avc;
-+
-+	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_large(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_ksm(folio), folio);
-+
-+	if (!anon_vma)
-+		return true;
-+	if (folio->index != linear_page_index(vma, addr))
-+		return false;
-+
-+	/*
-+	 * Careful: anon_vma might have been freed, so we cannot safely
-+	 * dereference it. Add a fast path before we walk the anon_vma chain.
-+	 */
-+	if (anon_vma == vma->anon_vma || anon_vma == vma->anon_vma->root)
-+		return true;
-+
-+	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma) {
-+		if (avc->anon_vma == anon_vma)
-+			return true;
-+	}
-+	return false;
-+}
-+
- struct folio *ksm_might_need_to_copy(struct folio *folio,
- 			struct vm_area_struct *vma, unsigned long addr)
- {
- 	struct page *page = folio_page(folio, 0);
--	struct anon_vma *anon_vma = folio_anon_vma(folio);
- 	struct folio *new_folio;
- 
- 	if (folio_test_large(folio))
-@@ -3094,10 +3122,7 @@ struct folio *ksm_might_need_to_copy(struct folio *folio,
- 		if (folio_stable_node(folio) &&
- 		    !(ksm_run & KSM_RUN_UNMERGE))
- 			return folio;	/* no need to copy it */
--	} else if (!anon_vma) {
--		return folio;		/* no need to copy it */
--	} else if (folio->index == linear_page_index(vma, addr) &&
--			anon_vma->root == vma->anon_vma->root) {
-+	} else if (folio_anon_rmap_compatible(folio, vma, addr)) {
- 		return folio;		/* still no need to copy it */
- 	}
- 	if (PageHWPoison(page))
-diff --git a/mm/util.c b/mm/util.c
-index 31a59c038ba0a..ec9239b1ea1e2 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -668,6 +668,19 @@ void *vcalloc_noprof(size_t n, size_t size)
- }
- EXPORT_SYMBOL(vcalloc_noprof);
- 
-+/**
-+ * folio_anon_vma - Get a folio's raw anon_vma pointer.
-+ * @folio: The folio.
-+ *
-+ * The returned pointer may be stale for an unmapped folio. The caller
-+ * must ensure the anon_vma stays alive before dereferencing it. A folio
-+ * reference or lock alone is insufficient; use folio_get_anon_vma() when
-+ * the anon_vma's lifetime is not otherwise protected. Note that
-+ * folio_get_anon_vma() is only useful for folios that are still mapped.
-+ *
-+ * Return: The raw anon_vma pointer for an anonymous, non-KSM folio, or
-+ * %NULL otherwise.
-+ */
- struct anon_vma *folio_anon_vma(const struct folio *folio)
- {
- 	unsigned long mapping = (unsigned long)folio->mapping;
--- 
-2.53.0
+Cheers, Lance
 
