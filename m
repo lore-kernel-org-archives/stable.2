@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794474077;
-	b=4tpePD9MJoknjRiR2Cbd6KDkyiW0FShW/6udrs5v5M5bmVIk9Iwu4ojT1uv68ib7MW5b
-	 +sltdeP9eXBm1wucpgSqJkH5dpvd5hhijzlJk7ZnrJKWZCBkYS+dLDV3FxYcryQG1K48d
-	 C3HcnLWkzxP112+qGEuKsDDD55Whiz29oDsfyNUdrnDJikr1zyT91lc5MAoPLx08287bE
-	 DXTJ87QGJ5yuRbfOnlY6KhuIPlTTANpASDXg01g1Q8Rn1q71A75WB5xNa4MV2QF7lyORs
-	 GhWE/6/UQtyPUK9mUKGPKsJ/VsbX8L8lYZ3WzCpRhdx6Tbtji9x0KYszniZWIlxhJbA==
+	t=1794474084;
+	b=GV71jwjrzcKwVn65EMR4Oh4b+vEemLogjkwZA6JZ+J3RLbNox4wf16SZzLG4m1Ck/MgM
+	 yAb2C3/ZY1FI7eQ5+pcQr2+QTHgTbMCTLttGgK3e7yxuT0VhFayPhdo5zoQWQcRR/ZDvK
+	 Z8i1OJV4eJAznegCbNipkgiad1++SqcBTqVJNOrNTgYE78f5XgVJDBwZVIqWl80Y5gheo
+	 lrV6DV5+ZEeR3qXbRnHDXTUBt0DYL48mfgV3oQ3Zw+IIKgRkL/WvGydULBunDthxhmL1r
+	 YhezmZv79ADUAGB5UV/RqqWn7cD5sbWobdzJIqs36DrJ87NA5j9mYfFmzyUHxVeFLpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474077;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474084;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Ui5EsWi10MV5QskRl/qxkNOLjqI3UUc/3+p5XFeUbrc=;
-	b=DO/g6qtdjl9QNKh4Fgo1Ud4BmQtz8DHww6FhUlw4J0MSJ9KQXxvDBBMh7+L3Ip1o5V5S
-	 ul8G/dtVCkLiW7XTrOylhrXSsapKN0isbKhdCzi/1oGLAheSJB5ZuB3hkefU5bJp29DW4
-	 IxvQRDWSUnP4sDd++R9DNMOV/CJm68VA8mXdq+xliK0alY5zKKWk7JT8/qtlt9OJOQIUh
-	 4hm91wOqZw3pYIL6SYsW18Ewn33RcwUssJcyCWTHULCRMZlxNNjhD/p8S+f71JLQlN1ow
-	 G1HVUB4douJ5K9xWtffyHepTxH5TkuUG0dtzgxFY0GNXVIFSBe+W4n7BVJJ7WukHuvQ==
+	bh=bu4BdULQIHQlhCcJutXTiMEZNYcwzWTKws8acbVlwyE=;
+	b=shOcZlAiQngUm1Iao8ivdudWcYDxOnrnbbcwCR61Bmyw8n2+ltIdax1q0uQ10EJJ0AOn
+	 OI671MGk2t8btL//p2XCA2ZoKemNt8PmW+izFXx5GAjV3NIy7O/IJjnyIBKyPGGcsy2Ds
+	 Oo75LFVXT49uA5cdNhnK48I8Irvekqdplrj2it4MlqpN6KLidqTtISrg4CBJy8vPEjzm9
+	 Y7H0vFSo/ziUJyXyiqt6wcp5GZ4cKloOHTshevhmTaJvCXeWKQxMdXwfzWVw3f0Xoajef
+	 GSEF0AZ456iBI8FyANbobSbsCKlqe3anPAvlYPjmGj3rIh/i/+AXVT2F5BVr+EVy23g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3e+l8T0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lZO8K1dU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83568606A333;
-	Thu, 12 Nov 2026 09:01:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5089606A8B4;
+	Thu, 12 Nov 2026 09:01:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3e+l8T0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38DBB1F00A0A;
-	Thu, 12 Nov 2026 09:01:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lZO8K1dU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95AB51F00A05;
+	Thu, 12 Nov 2026 09:01:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794474077;
-	bh=Ui5EsWi10MV5QskRl/qxkNOLjqI3UUc/3+p5XFeUbrc=;
+	s=k20260515; t=1794474084;
+	bh=bu4BdULQIHQlhCcJutXTiMEZNYcwzWTKws8acbVlwyE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P3e+l8T0gWTQb/C7XKzRiBY8pIKQ9krHWSQey3gWmvT07gJb4AFbqD9UhUewo471g
-	 XEY9QYW0g7nZRjYvUgpRE4T8D5lBHDPWr1XlwJrVi2olqY+EODn/0zsfm1wJ5y+67V
-	 HhPF++bqEkrHBuiFXLNcOEmM5jajda3NTpqLT3qgQZ7HM7TX95ZOuTaUslLXHs2eW8
-	 NSP+NG8fPY5Uw0/qUVBSbvHEy+LEWOYR+aAKHQKGY+Y1JTdkXJcB+7FPjUs6i4zScq
-	 k6Rsb5kL5gMbQX1pnquucYeGPftg6vODKOs1CuK5fK2R2aLWz1PX1fZxwxlqMSat6y
-	 6ck8qsAfMYUiw==
-Message-ID: <6f5d77fe-213f-44d1-b5e5-551de03eb903@kernel.org>
-Date: Thu, 12 Nov 2026 09:57:38 +0100
+	b=lZO8K1dUoIbaKau1/mQ2XLHj8U7HPGcOc+Jg3qG1bBjqPSXKQuPt5bBUVqkR43GNR
+	 XbNj3yVFbPmlnKpom5Fxsn1EfnG8ogso6U83ClsEGmX8xmbdlboqZTq/00tV1jBWkG
+	 El1lZn5FUCjN0qLn4AcbgEIKiLv26Zf5ZqQxI2rt27EuwkZ+u4hVATLH3ReQVTG5JT
+	 tPYyAH++YbVOWgUKiM3fXw5bBc+Oizv+ZbST6ZIfQO5hvA3Wfzvhz4yHOWRnF0KEG4
+	 lY4wumFPxplRHKvViXKZUXNXdpHNqKNUhadQoF8XC8Eyeg9BPqfr1XbjFo3WTF4Fnx
+	 4oQ9xVunb02EA==
+Message-ID: <3973721c-9524-4a08-9929-e88617d21961@kernel.org>
+Date: Thu, 12 Nov 2026 10:00:59 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] fs/proc/task_mmu: don't read young/dirty from a
- non-present PMD in smaps
+Subject: Re: [PATCH 3/3] fs/proc/task_mmu: account device-private PMDs as
+ present in smaps
 To: Usama Arif <usama.arif@linux.dev>,
  Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
  byungchul@sk.com, gourry@gourry.net, jannh@google.com,
@@ -67,7 +67,7 @@ To: Usama Arif <usama.arif@linux.dev>,
  baohua@kernel.org, lance.yang@linux.dev
 Cc: stable@vger.kernel.org
 References: <20261111113904.650722-1-usama.arif@linux.dev>
- <20261111113904.650722-3-usama.arif@linux.dev>
+ <20261111113904.650722-4-usama.arif@linux.dev>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -114,31 +114,48 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261111113904.650722-3-usama.arif@linux.dev>
+In-Reply-To: <20261111113904.650722-4-usama.arif@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11/11/26 12:38, Usama Arif wrote:
-> smaps_pmd_entry() passes pmd_young(*pmd) and pmd_dirty(*pmd) to
-> smaps_account() for every PMD, including migration and device-private
-> entries, where those bits hold part of the swap offset rather than
-> accessed/dirty state. smaps_pte_entry() only reads them when the entry
-> is present.
+> Device-private PMDs represent mapped pages, but smaps_pmd_entry()
+> passes present=false to smaps_account(). That treats them like migration
+> entries: mapcounts are ignored, PSS is charged in full, and exclusive
+> mappings are accounted as shared.
 > 
-> On x86_64 the offset is stored inverted across bits 9-58, which overlap
-> _PAGE_SAVED_DIRTY, so pmd_dirty() returns garbage: a clean 2MB
-> device-private mapping is accounted as 2048 kB dirty, and lazyfree
-> accounting is suppressed. pgtable_64.h also warns that the hardware can
-> set the accessed and dirty bits on non-present entries by mistake.
+> Match smaps_pte_entry() and mark device-private PMDs as present so
+> smaps_account() uses mapcounts for PSS and private/shared accounting.
 > 
-> Only read the bits when the PMD is present.
-> 
-> Fixes: c94b6923fa0a ("/proc/PID/smaps: Add PMD migration entry parsing")
+> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
+>  fs/proc/task_mmu.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index c0d391186c2b8..ad97532fc1184 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -1032,8 +1032,11 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+>  	} else if (unlikely(thp_migration_supported())) {
+>  		const softleaf_t entry = softleaf_from_pmd(*pmd);
+>  
+> -		if (softleaf_has_pfn(entry))
+> +		if (softleaf_has_pfn(entry)) {
+> +			if (softleaf_is_device_private(entry))
+> +				present = true;
+>  			page = softleaf_to_page(entry);
+> +		}
+>  	}
 
-Yes, thanks!
+I think I even spelled that out somewhere at some point while touching that code
+... or did I fix the smaps_pte_entry() thing at some point?
+
+"present" is a bit misleading in general, because it's not pte_present() ...
+
+Matches smaps_pte_entry()
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
