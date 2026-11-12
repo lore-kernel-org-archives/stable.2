@@ -1,49 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524174;
-	b=FZnbd4oZE90OY72p7dEwXbyaHXhHc4KxuzXxh6smqSH8Vg3G/qur+4gdDNqaLpv8AigT
-	 h6dNco/6xOIElnY/omgvA3xoenZ8j3Y3grTxNo94iGILm1sRP7KjQsq3RRgZ5965an83e
-	 8q4r3yUe2JB7IV2wsk61fjbMaS99x0WY9mi96kNfKVoQc9+2Eq25w7X9bgdHkyhqRvX1o
-	 ZBZOT1U+UIePhEUrKM0wiF6rHOlDS2LkWm8sIE9xlU78yP7lP7f2iWK45FUqRYwIhWcaR
-	 ralntx83PwEROLCSchpMeLzpecNirh/ceLF8sVodxRYSgOGK8KV/17u28F/xo6zrV+w==
+	t=1794524412;
+	b=w9zMc7rW1exMcyVr9o1UCeN8LBS73BKAU6yyOl+bm9xZn0Rm7Wn4EracmhBWcowJcSQK
+	 v54QoIoa8QynsUteJr3kZMWEktZJpZ8KRsUhuIqM5tcksL7pszZ2XdCB+oLgyoLJA3iIV
+	 uE/XAAM6l8URhddHITFkVSMuhQT8fK4i4kk0YMXRSaoKLi1TthVTqySlErA+hUbWNcxax
+	 waakwmuTyME6tLjDP8CmLWhPOOs7qVkg/jpYyW+NQmCRtxcLdhERCXYhtNPBirIGc3TyD
+	 wpUU3M7jrHXHvGsQ6IgdmUvSxxRVxOE8udQ0/+yx+YaK/L7pLj8mDOvNyBHRSLUrX+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524174;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=7KXZct2Nh4QdUFm8d2XuDz0d/faDhoWyH6HWizHXA2E=;
-	b=q9+L+6dvpoxk+bXk5vsuHHtfEhNQUVmm3lNLBDtiBWL0UMc4Jr+n+5DEjF3cjKtiZC+c
-	 YO/wwwzNf0a07XI7K/OPnK/8cQSJxABtNtbRgLrBZZPbqbU3y8ZjoBMahJVc/X2s/2cTo
-	 L2YwvQcn3byxVg0bD48M2gZx+foaMzyGzU8OT6rNd/yzXYTLxRq5ud0lHXncCFSZdNPUC
-	 szJ9MU79MtjqJzOymCkEj47kHbMLef+Y2GQNM1Dodk/T5jGWRfuvkFVmXF0GHMbbP/bxz
-	 iSl0W7U1jcF5GO6rDdxCBgUdI+S06ZBKCEs/ZozCh0zukBZPrrV52+gdqAOrATZTg3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524412;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=oiNSXAcoGi/JldYohLXptsVAIK3X+9WLuWCmpuBMd8c=;
+	b=MrPLLjuamMKW7erDNunzXasftmMs5Sat6oIQ6lF2KoK1GknY9Bu6Dvp8olu62S2gFz96
+	 R/qEpQaYrKN4QOuH5Lp/1p8aDukxyfagYXqT1wFXDKz21uPj0hBvIgpwT+h6rb0AHSI+/
+	 nc0M8NFsjJoDuAztsVmQxxvJwJpzdcb99R4ZOTsdbL2o01sNnAFvWkAr6dBwZz93EpJah
+	 ezk9cMPzB9zr9+pw+puazkLpbcKq1krAcItfbHwAyW4lbFHJVdFSL8bnuOm8mzK48E46h
+	 bu8osNF8ecvefqF3TgsiEkiKEgENe7uYP7OK7COyE3ShgE+rxZQ4/uobze4NXJU/Azg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lpa/UJ09";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IaAe42Xx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63DCF60A262C;
-	Thu, 12 Nov 2026 22:56:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B297E606A336
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpa/UJ09
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17F61F000C9;
-	Thu, 12 Nov 2026 22:55:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IaAe42Xx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 458311F000C9
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794524173;
-	bh=7KXZct2Nh4QdUFm8d2XuDz0d/faDhoWyH6HWizHXA2E=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lpa/UJ09XlXh3NXrGdzLl3Y0yzxu/o2Bzw5r3haCfnWuH7X8CHkF8yj3NsQz0KkSj
-	 vONam95AbPdOBj9C6SkI6dRw7H9KgGH6g6wEXqWeftz8Nk2pZJmw1Jk12PbpEiImdc
-	 2B6PIpgLL3gF5jGr/Gxw8yPAyb+TIkLNV5lE3JggBkwitvGWL2MMQQR+flkvvzRiRU
-	 rMu2dX7Wq6wtwpn2mK6E9ZBK0ZUH4JI2fHrxZhPneJVYInZniV34L+vIM3a41tZcsa
-	 P+jT5nwYN8FQ41gjR9R1A427bI9HACxtMDz4ugRU9nN4n5Yd+pem/niRiHkliLrF65
-	 /7WwZU/xEuh6g==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 12 Nov 2026 23:53:28 +0100
-Subject: [PATCH v4 9/9] net: limit folio refcount when splicing from
- sockets
+	s=k20260515; t=1794524412;
+	bh=oiNSXAcoGi/JldYohLXptsVAIK3X+9WLuWCmpuBMd8c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IaAe42XxFR1obgLPXMc6jWkNe9VgtWl4Q1NgXDIJdNAjuGRJI6O2sKbV+CEruttpL
+	 78GEf/2qOW5IrNfQ50v4yapxozHX5FcMYINPstu46HPq+kJIhYqymShQ1I/4354wva
+	 Q4yx6evsxlPn9xMNdMV2pmlt/3DLO3zxI9HMW6B0SVwVw2Msy3RpkUZGTKnXcUy+Oi
+	 j5oQNx4nsgyNW7ogd2fj33QCHL03htiVF6hPq4oeGU27eAjNFDXWsbWkNGoxhUc/0g
+	 59Wcdm3fBrRh6Dn6J9LhpBBfPxKYs0NwnILk/arohjvuMLRO2Abdf/9IC6TFlVt11o
+	 qWedH9VFEuHYA==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so9708966b.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:00:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFzls03v3qjTM6VZdxvHEMsMG/LdQ14luMPZ9ptIrR46KypQ7isp35wqwFdC/s+rjuA0p5g//c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0TXkdko9SvMygvoDT/tl4LhDPz2GyTrztq+FSUfWwpsHf04NK
+	ZEcskxKYz9L79j17ASRGgw7fgU6OyTuMVHl89na6ll4wK/gxXuk7EnuNP+ROJdvj3ht9BNVaWyR
+	+2IsBBB6R11QdiiMyNUuvJHlFflRtD6I=
+X-Received: by 2002:a17:907:8e98:b0:c48:9228:bdcb with SMTP id
+ a640c23a62f3a-c509614e920mr65839766b.3.1794524410953; Thu, 12 Nov 2026
+ 15:00:10 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,262 +59,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-refcount_overflow_stable-v4-9-ad3deef0bd23@kernel.org>
-References: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
-In-Reply-To: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Song Liu <songliubraving@fb.com>, 
- Rik van Riel <riel@surriel.com>, Miklos Szeredi <miklos@szeredi.hu>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, 
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Steve Sistare <steven.sistare@oracle.com>, 
- John Hubbard <jhubbard@nvidia.com>, 
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
- Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
- iommu@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org, 
- Pedro Falcato <pfalcato@suse.de>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7665; i=david@kernel.org;
- h=from:subject:message-id; bh=YprwJxPujKbTqAJR7+MEgkU1slwl4fvrcUXKr6083QM=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+OWdZhIuraRTZhSu/umUgt+rJTueTAgtSJm4s/rjwj
- O+luT6mHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEyEJZ3hn/lfbe1bRUyliy9c
- uL1I+nC+bFJz4fp76hO89m+oK5yxbCMjw8oYEdvXjHOUMgT4Y5sW1N467Bi75R2f1eEXcVeX3Gr
- 35QEA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+References: <20261112111637.184045-1-koray.fra@gmail.com> <20261112111637.184045-2-koray.fra@gmail.com>
+In-Reply-To: <20261112111637.184045-2-koray.fra@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 13 Nov 2026 07:59:54 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8OZ1hfRfEcerPec0nZwXqRqzb=pkUW96ee8i3GQGMUEQ@mail.gmail.com>
+X-Gm-Features: AclHuK8l1-UKHD65oG1w6WnmQKu1UA7Jw7DcQGP4E2lwY59C9HyzbQv_tALtD3I
+Message-ID: <CAKYAXd8OZ1hfRfEcerPec0nZwXqRqzb=pkUW96ee8i3GQGMUEQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] cifs: fix negative timestamps being read from smb
+To: koraynilay <koray.fra@gmail.com>
+Cc: Paulo Alcantara <pc@manguebit.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Tom Talpey <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
+	Hyunchul Lee <hyc.lee@gmail.com>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+	Shyam Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>, 
+	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Various networking features support splicing data from sockets into
-pipes (TCP, AF_UNIX, KCM, kTLS), whereby spd_fill_page() takes an
-additional page reference for each fragment, while the skb keeps its own
-reference until it was fully consumed. This allows for exceeding folio
-refcount limits.
-
-This is not specific to large pagecache folios, but with them it is a
-lot easier to reach the refcount limit, as page table mappings can cheaply
-create many references.
-
-Let's use try_get_page() in spd_fill_page() and stop splicing with
--EFAULT if that fails. To propagate the error, let spd_fill_page(),
-__splice_segment() and __skb_splice_bits() return an int instead of a
-bool. Keep returning true/false instead of 1/0 to reduce the churn in
-this fix.
-
-If we could not splice anything, return the error from skb_splice_bits():
-returning 0 would make the callers (TCP, AF_UNIX, KCM, kTLS) report EOF,
-although data is still queued. The callers already handle errors.
-
-Use -EFAULT, consistent with splice_folio_into_pipe().
-
-Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-Cc: stable@vger.kernel.org
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- net/core/skbuff.c | 90 +++++++++++++++++++++++++++++++------------------------
- 1 file changed, 51 insertions(+), 39 deletions(-)
-
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 5e3f910eeea0b..a5965f8fa1b00 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -3150,11 +3150,13 @@ static bool spd_can_coalesce(const struct splice_pipe_desc *spd,
- }
- 
- /*
-- * Fill page/offset/length into spd, if it can hold more pages.
-+ * Fill page/offset/length into spd, if it can hold more pages and we can
-+ * take a page reference. Returns non-zero to stop, or a negative error
-+ * if we cannot take a page reference.
-  */
--static bool spd_fill_page(struct splice_pipe_desc *spd, struct page *page,
--			  unsigned int *len, unsigned int offset, bool linear,
--			  struct sock *sk)
-+static int spd_fill_page(struct splice_pipe_desc *spd, struct page *page,
-+			 unsigned int *len, unsigned int offset, bool linear,
-+			 struct sock *sk)
- {
- 	if (unlikely(spd->nr_pages == MAX_SKB_FRAGS))
- 		return true;
-@@ -3168,7 +3170,8 @@ static bool spd_fill_page(struct splice_pipe_desc *spd, struct page *page,
- 		spd->partial[spd->nr_pages - 1].len += *len;
- 		return false;
- 	}
--	get_page(page);
-+	if (!try_get_page(page))
-+		return -EFAULT;
- 	spd->pages[spd->nr_pages] = page;
- 	spd->partial[spd->nr_pages].len = *len;
- 	spd->partial[spd->nr_pages].offset = offset;
-@@ -3177,12 +3180,14 @@ static bool spd_fill_page(struct splice_pipe_desc *spd, struct page *page,
- 	return false;
- }
- 
--static bool __splice_segment(struct page *page, unsigned int poff,
--			     unsigned int plen, unsigned int *off,
--			     unsigned int *len,
--			     struct splice_pipe_desc *spd, bool linear,
--			     struct sock *sk)
-+static int __splice_segment(struct page *page, unsigned int poff,
-+			    unsigned int plen, unsigned int *off,
-+			    unsigned int *len,
-+			    struct splice_pipe_desc *spd, bool linear,
-+			    struct sock *sk)
- {
-+	int ret;
-+
- 	if (!*len)
- 		return true;
- 
-@@ -3200,8 +3205,9 @@ static bool __splice_segment(struct page *page, unsigned int poff,
- 	do {
- 		unsigned int flen = min(*len, plen);
- 
--		if (spd_fill_page(spd, page, &flen, poff, linear, sk))
--			return true;
-+		ret = spd_fill_page(spd, page, &flen, poff, linear, sk);
-+		if (ret)
-+			return ret;
- 		poff += flen;
- 		plen -= flen;
- 		*len -= flen;
-@@ -3213,28 +3219,30 @@ static bool __splice_segment(struct page *page, unsigned int poff,
- }
- 
- /*
-- * Map linear and fragment data from the skb to spd. It reports true if the
-- * pipe is full or if we already spliced the requested length.
-+ * Map linear and fragment data from the skb to spd. It returns non-zero to
-+ * stop: true if the pipe is full or if we already spliced the requested
-+ * length, or a negative error if we cannot take a page reference.
-  */
--static bool __skb_splice_bits(struct sk_buff *skb, struct pipe_inode_info *pipe,
--			      unsigned int *offset, unsigned int *len,
--			      struct splice_pipe_desc *spd, struct sock *sk)
-+static int __skb_splice_bits(struct sk_buff *skb, struct pipe_inode_info *pipe,
-+			     unsigned int *offset, unsigned int *len,
-+			     struct splice_pipe_desc *spd, struct sock *sk)
- {
- 	struct sk_buff *iter;
--	int seg;
-+	int seg, ret;
- 
- 	/* map the linear part :
- 	 * If skb->head_frag is set, this 'linear' part is backed by a
- 	 * fragment, and if the head is not shared with any clones then
- 	 * we can avoid a copy since we own the head portion of this page.
- 	 */
--	if (__splice_segment(virt_to_page(skb->data),
--			     (unsigned long) skb->data & (PAGE_SIZE - 1),
--			     skb_headlen(skb),
--			     offset, len, spd,
--			     skb_head_is_locked(skb),
--			     sk))
--		return true;
-+	ret = __splice_segment(virt_to_page(skb->data),
-+			       (unsigned long)skb->data & (PAGE_SIZE - 1),
-+			       skb_headlen(skb),
-+			       offset, len, spd,
-+			       skb_head_is_locked(skb),
-+			       sk);
-+	if (ret)
-+		return ret;
- 
- 	/*
- 	 * then map the fragments
-@@ -3248,10 +3256,11 @@ static bool __skb_splice_bits(struct sk_buff *skb, struct pipe_inode_info *pipe,
- 		if (WARN_ON_ONCE(!skb_frag_page(f)))
- 			return false;
- 
--		if (__splice_segment(skb_frag_page(f),
--				     skb_frag_off(f), skb_frag_size(f),
--				     offset, len, spd, false, sk))
--			return true;
-+		ret = __splice_segment(skb_frag_page(f),
-+				       skb_frag_off(f), skb_frag_size(f),
-+				       offset, len, spd, false, sk);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	skb_walk_frags(skb, iter) {
-@@ -3260,11 +3269,12 @@ static bool __skb_splice_bits(struct sk_buff *skb, struct pipe_inode_info *pipe,
- 			continue;
- 		}
- 		/* __skb_splice_bits() only fails if the output has no room
--		 * left, so no point in going over the frag_list for the error
--		 * case.
-+		 * left or on error, so no point in going over the frag_list
-+		 * for the error case.
- 		 */
--		if (__skb_splice_bits(iter, pipe, offset, len, spd, sk))
--			return true;
-+		ret = __skb_splice_bits(iter, pipe, offset, len, spd, sk);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	return false;
-@@ -3272,7 +3282,9 @@ static bool __skb_splice_bits(struct sk_buff *skb, struct pipe_inode_info *pipe,
- 
- /*
-  * Map data from the skb to a pipe. Should handle both the linear part,
-- * the fragments, and the frag list.
-+ * the fragments, and the frag list. Returns the number of bytes spliced,
-+ * or an error if we could not splice anything because we could not take
-+ * a page reference.
-  */
- int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
- 		    struct pipe_inode_info *pipe, unsigned int tlen,
-@@ -3287,14 +3299,14 @@ int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
- 		.ops = &nosteal_pipe_buf_ops,
- 		.spd_release = sock_spd_release,
- 	};
--	int ret = 0;
-+	int ret;
- 
--	__skb_splice_bits(skb, pipe, &offset, &tlen, &spd, sk);
-+	ret = __skb_splice_bits(skb, pipe, &offset, &tlen, &spd, sk);
- 
- 	if (spd.nr_pages)
--		ret = splice_to_pipe(pipe, &spd);
--
--	return ret;
-+		return splice_to_pipe(pipe, &spd);
-+	/* Returning 0 would make callers report EOF. */
-+	return ret < 0 ? ret : 0;
- }
- EXPORT_SYMBOL_GPL(skb_splice_bits);
- 
-
--- 
-2.56.0
-
+On Thu, Nov 12, 2026 at 8:16=E2=80=AFPM koraynilay <koray.fra@gmail.com> wr=
+ote:
+>
+> When reading a timestamp before epoch 0, cifs converts it from NT format
+> to Unix format without normalizing it, leading to the nanoseconds field
+> to be used as a negative number, which leads to a garbled stat command
+> output.
+>
+> This bug also violates a struct timespec64 invariant, as documented in
+> the set_normalized_timespec64() kernel-doc:
+> [...]
+>  * Note: The tv_nsec part is always in the range of 0 <=3D tv_nsec < NSEC=
+_PER_SEC.
+>  * For negative values only the tv_sec field is negative !
+>  */
+>
+> Reproducer, with /tmp as the local filesystem folder exported as [test]
+> in ksmbd.conf and /mnt as the smb folder mounted with mount -t cifs:
+>
+>   mount -t cifs //127.0.0.1/test /mnt -o username=3Duser,password=3Dpass
+>   touch -d "1969-07-20 20:17:40.123456789" /tmp/test.txt
+>   stat -c "Server local (/tmp):   %y" /tmp/test.txt
+>   stat -c "CIFS client  (/mnt):   %y" /mnt/test.txt --cached=3Dnever
+>   smbclient //127.0.0.1/test -U user%pass -c "allinfo test.txt"
+>
+> which prints (stat output is garbled because of negative value):
+>
+>   Server local (/tmp):   1969-07-20 20:17:40.123456789 +0000
+>   CIFS client  (/mnt):   1969-07-20 20:17:41.()*+,--00 +0000
+>   altname: TESTT~K6.TXT
+>   [...]
+>   access_time:    Sun Jul 20 20:17:40 1969 UTC
+>   write_time:     Sun Jul 20 20:17:40 1969 UTC
+>   [...]
+>
+> Fix this by using set_normalized_timespec64() in cifs_NTtimeToUnix().
+>
+> Fixes: 2ae83bf93882 ("[CIFS] Fix setting time before epoch (negative time=
+ values)")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.5.3
+> Signed-off-by: koraynilay <koray.fra@gmail.com>
+Looks good to me.
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
