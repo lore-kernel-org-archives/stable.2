@@ -1,66 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794451835;
-	b=W+f2eHMkPU3nRUNXekNsSarNi1h+7fhhwfbc/AUqB28pC/h+NwhEvmfz1uaPEuqLuv1U
-	 Fquhc0t3XD0j/kb8aXaZauR5EABq/bDasAY+XzS98xiRRfZgJZqj1E3OMaqr9I+pYfodm
-	 GhCkTDqs4QmTWwhJGMNTNdIye86Fs0CLkt+VGu88MfvmnsZ0I+wEHSKbayQaS704q1D6B
-	 OTC03GWpIXamesu43jvFQ3Wt2tAnvvyyA/Gj6R6Zq9bP6GYkVLUrv+SIWvyyTJvDJkLqw
-	 nndVpFyY270oRYfq1WjazbD7gplc52Y6Lyxy6AaRTmomOd2ikwl/vCRPMez7tsXdzZQ==
+	t=1794451850;
+	b=GRz5koPprfOMdtAV2Q4RWMPGQKs4H1frnsMQvnEJGUjygmo/57znCHCunF7WViP93MFL
+	 MsT022OH+UfFS1rzLlzWOsOtUvZyRu3no9vzI29mSOXgLJQ3veZ7BIIwnsM1OUjB9fz8e
+	 vXj3r7JOFa3Jjr29uLPFZeYf+ic8z/BPHgQyghxgJUhUgsFmobOawCLJZI8xEliKlhe2t
+	 VmxJ7CHGTYY2CtuSup13SbSsm7PUGx5m8N4Y3klHSgUEpTCTZKRkl4p+WIeKp1OwHSjIa
+	 mZQl9Nb4jXI5tgGpUKQsG9IzC170vH9mz/lQEoXWW6j0FFYvBCMPYVAf+ZhLQ52IEJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451835;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451850;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=maHRWreeb2G3YvT5kykQ/D3QqVJ5ukp4L45ZlwGXvs8=;
-	b=yggeLxL8SRd6HsyQeQKizuq+iocXL30yB+1ZV2EFsPMpunMSv5m7a2Wtvp5w6KCE1RcV
-	 dAV/YQtepLOUYnZlSIskXqRZ63SM4WYJpsuPV0ADrQmnOZdjtSAOs6F9c5kIeF9LhK1EQ
-	 am2ugwqha4uoku3agsQLrwx31CUqmQ18cr7f+YtGGMgNRBZ/H8LJO0l+rfG4zvVzBL6kl
-	 GESYy2umNeVdq4SoVi1KaGR3MA2NQPOCDg+aFvvT9f+hP23/xWjcqdC2ZeI6BVRnlL/OY
-	 p+84ShiScrxa1xMkEzrjmYRwYnJ0J90YfV74GD6FOGxBdWnBq7CyyNCmFUv+sdAlnkw==
+	bh=BziyuS/V3AfxyF1gWbtldyUp6v/DHn2jhLKtElPdUVw=;
+	b=TIYXxcxdRMHvSLqzTdTjeicR3hZkGmL0YJuZ4fRtUgBegl+CO0T0/+aZ0VSLftiQULvk
+	 KjajkuuBosZPkMNbp4GZ0Dee2piYjpEOCnu5n6RO0dQFeqcLbR65wo26VmU15QIYcujpH
+	 0Vw+Ur+KXN2L5FZRp+Jcny+IV/k9/sUpLcBil8teYHfgsmJkeQy5kXtSrNAHz6euCNlK4
+	 nk2chcLrSrrEipZBRHbt8pIo0cgP/xE2y6V6MZU3rvlGMBBkzCDMzt/yB7h+G/hZZFfNq
+	 1QUoFSQFenMCJIqw6Yv+gjHMIwojNsgKT9fknNrYB0E1z5iWq4yIJHCrKZ2o79S+kAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rKvgCkeF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g1vZjeF4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4F0606A332;
-	Thu, 12 Nov 2026 02:50:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0DB606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:50:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rKvgCkeF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588EF1F00A08;
-	Thu, 12 Nov 2026 02:50:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794451835;
-	bh=maHRWreeb2G3YvT5kykQ/D3QqVJ5ukp4L45ZlwGXvs8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=rKvgCkeFyP/AtoPWnaPDas/2Aky7LOPJG73HO5N8j9JBljhGUctT2/GnAu3coNHoj
-	 HwnL/C1/pqXAGUuGjcIAB5xNF1SL8O7n3N+dG+oWBNe8P/4ZsYPRIBJ3PAcBaTKMds
-	 V8DyKKgm7OukZgP+gQpiu3VyZTFEQHrMWUiiXb4g=
-Date: Wed, 11 Nov 2026 18:50:33 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Theodore Ts'o <tytso@mit.edu>, workflows@vger.kernel.org,
- ksummit@lists.linux.dev, Bradley Morgan <brads@mainlining.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Mark
- Brown <broonie@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Leon Romanovsky <leon@kernel.org>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>, Thorsten Leemhuis
- <linux@leemhuis.info>, "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook
- <kees@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
- <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov
- <alexei.starovoitov@gmail.com>, Julia Lawall <julia.lawall@inria.fr>, SJ
- Park <sj@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v5 3/6] agents: add a skill to determine stable tags
-Message-Id: <20261111185033.694802885eb0934ed7452d6a@linux-foundation.org>
-In-Reply-To: <avUlMcKIeJgmCg5J@laps>
-References: <20261111225940.1573565-1-tytso@mit.edu>
-	<20261111225940.1573565-4-tytso@mit.edu>
-	<20261111171055.527b4bf3da705367bc78a64c@linux-foundation.org>
-	<avUlMcKIeJgmCg5J@laps>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g1vZjeF4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773D11F00A05;
+	Thu, 12 Nov 2026 02:50:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794451850;
+	bh=BziyuS/V3AfxyF1gWbtldyUp6v/DHn2jhLKtElPdUVw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g1vZjeF45H/5m4/NIVqSYiy2/QO6+oVnFS45CtVJiyp2bc/jqV+ymkN9i1jg90Dk4
+	 G4agMjyyLg6Ta86VRqnhSrds7acANJdIB4WgO2mj+UNVbWDEk1wngeuHEuiZyGr+q6
+	 H5A6vL0m5IvdXc5TTvLXY0JjupyF5qX9S2UIridAdPp9lSLATP5Lnku6IfSMzy/2Jt
+	 HAUD4uBSpKwI3TApcOYesqg/NjkNMTMqgkVxr2nAHG2HGRPMAJn6G3OU3hm8PX3Xdc
+	 fOJM4lh9OIUIEpy9bFejay1/Wo9glOXjr6zXQZwpNeOeY7XN24cwvUYTiLtmi6Ojni
+	 bG+6F3pGt6iXw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Alexis Belmonte <alexbelm48@gmail.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] platform/x86: hp-wmi: Tidy up module source code
+Date: Wed, 11 Nov 2026 21:50:46 -0500
+Message-ID: <20261112025039.1402391-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053407-failed-6.6-d35a1ea827a2@kernel.org>
+References: <20261107053407-failed-6.6-d35a1ea827a2@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,78 +59,74 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 11 Nov 2026 21:32:17 -0500 Sasha Levin <sashal@kernel.org> wrote:
+From: Alexis Belmonte <alexbelm48@gmail.com>
 
-> On Wed, Nov 11, 2026 at 05:10:55PM -0800, Andrew Morton wrote:
-> >Marco had some thoughts on this just today:
-> >
-> >https://lore.kernel.org/CANpmjNMvM_TCs7Fao9+gM-NNpQyBKYumSuWOt_03ZX+tLwbjWw@mail.gmail.com
-> 
-> This makes a lot of sense.
-> 
-> >And Documentation/process/stable-kernel-rules.rst does ask for real
-> >things, not theoretical stuff.
-> 
-> We've actually dropped[1] the "theoretical" part.
-> 
-> The problem we were seeing is that bots were sending real fixes, with a solid
-> changelog, but not adding the stable@ tag.
-> 
-> Apparently our wording is pretty strong: unless you can prove that the issue is
-> real, it remains theoretical. You'd have to either show a real case where you
-> hit the bug, or to have reproduced the issue and can provide a way for us to
-> reproduce it.
-> 
-> Most bots can't actually do that for technical reasons, even if the bug is 100%
-> affecting our users, so they don't add the stable@ tag.
+[ Upstream commit 24b10e5f8e0d2bee1a10fc67011ea5d936c1a389 ]
 
-OK, I can see that's a problem.  The theoretical userspace-effects
-statement will help here.
+This commit performs four things:
 
-> >Also, I would keenly like to see changelogs clearly explain *why* a
-> >backport is proposed.  As I have said 1000 times, "when fixing a bug
-> >please clearly describe the userspace-visible runtime effects of that
-> >bug".  Can we pleeeeeeeeeeze get this requirement clearly enshrined in
-> >this patcset somewhere where the LLMs will read it and comply?  It's
-> >really simple for the LLMs to cook up a paragraph for this, if so
-> >directed.
-> 
-> This is a great point, and would make our lives much easier too.
+   - fix up the GUID string inconsistency (lower case 'e') from the
+     WMI module alias declaration/macro definition
 
-Oh bless you, yes!
+   - separate GUID macros from the embedded controller offset macros
 
-> It sounds a lot like something that humans would benefit from hearing as well?
+   - rename the description of the module to better represent what it
+     actually achieves as a whole
 
-Humans don't read stuff ;) But it would give me something to ask them to go
-look at.  And to make their LLM go look at.
+   - add a space right before the '*' pointer qualifier to match the
+     other array declarations
 
+This also prepares the terrain for integrating support work for boards
+identified as '8BAD', which corresponds to HP's Omen 17 ck2xxx models.
 
-I picture some poor downstream person looking at a screenful of AI
-babble wondering "should I add this to our kernel and if so why".  We
-should tell them!
+Signed-off-by: Alexis Belmonte <alexbelm48@gmail.com>
+Link: https://lore.kernel.org/r/ZbucrKh36sNxeyfX@alexis-pc
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Stable-dep-of: d35a1ea827a2 ("platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/platform/x86/hp/hp-wmi.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-otoh, downstream people have AI too, so they can do what I do 5-10
-times per day:
-
-describe the worst-case userspace-visible runtime effects of this bug
-<paste>
-
-> If so, I can send a patch tomorrow to add it to
-> Documentation/process/submitting-patches.rst and refer to it explicitly in the
-> agents file?
-
-We can't restate this too often IMO.  It's maddening.  So many
-changelogs follow this form:
-
-- here's what the code does
-- here's why that's wrong
-- here's what I did
-
-So I sit there staring at this thinking "OK, but why should I care?".
-
-Also, what's wrong with today :)
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 869868802160e..81c61e58ec0c9 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -29,15 +29,17 @@
+ #include <linux/dmi.h>
+ 
+ MODULE_AUTHOR("Matthew Garrett <mjg59@srcf.ucam.org>");
+-MODULE_DESCRIPTION("HP laptop WMI hotkeys driver");
++MODULE_DESCRIPTION("HP laptop WMI driver");
+ MODULE_LICENSE("GPL");
+ 
+ MODULE_ALIAS("wmi:95F24279-4D7B-4334-9387-ACCDC67EF61C");
+-MODULE_ALIAS("wmi:5FB7F034-2C63-45e9-BE91-3D44E2C707E4");
++MODULE_ALIAS("wmi:5FB7F034-2C63-45E9-BE91-3D44E2C707E4");
+ 
+ #define HPWMI_EVENT_GUID "95F24279-4D7B-4334-9387-ACCDC67EF61C"
+-#define HPWMI_BIOS_GUID "5FB7F034-2C63-45e9-BE91-3D44E2C707E4"
++#define HPWMI_BIOS_GUID "5FB7F034-2C63-45E9-BE91-3D44E2C707E4"
++
+ #define HP_OMEN_EC_THERMAL_PROFILE_OFFSET 0x95
++
+ #define zero_if_sup(tmp) (zero_insize_support?0:sizeof(tmp)) // use when zero insize is required
+ 
+ /* DMI board names of devices that should use the omen specific path for
+@@ -62,7 +64,7 @@ static const char * const omen_thermal_profile_boards[] = {
+  * profile version 0 by the Omen Command Center app, regardless of what
+  * the get system design information WMI call returns
+  */
+-static const char *const omen_thermal_profile_force_v0_boards[] = {
++static const char * const omen_thermal_profile_force_v0_boards[] = {
+ 	"8607", "8746", "8747", "8749", "874A", "8748"
+ };
+ 
+-- 
+2.53.0
 
