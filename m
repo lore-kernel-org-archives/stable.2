@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794497619;
-	b=0m48v3RcM448wtXvuBr8bMswGqX5WwCf4tyyc8JYDNZOK+FCfOfOzx3FDeuJ+4EdYE8x
-	 5Dz+ipHaJaM3J9UYlCsZEpeDLNpwd/7j/sQHNimDSSOgDpes0+wLL/znemyyKtd3kSHsA
-	 NtjjKN0Nz8v2LCeftBM5UBDvD0LzgD/kYF/vQXT8WRH4eDlEEWoejrYXDldlqSYjC/d3n
-	 cgFf/SBGqEf5qxUtmcZmh0Jp3cYprMPG0i2RmAEeMx9vLYzgWhbsx/yXi0OS5FzfM9gnK
-	 9Xk02NAxtr9khExJvrLZfFIta9ibIyNnRZUmHgYsXb/bFWhKSFWb6wUVyTrj3KsDKWw==
+	t=1794497623;
+	b=41JTQ1R17t5g8ZOl5qVdBhHZbywJk0pXSRylVwt53OJhUdYZh2lQUl01A4L8Mtw0gXGF
+	 c9+7PiQ4z6cYJF43l0h/fMW2InwOjaw4+LkaSuUdkWqZlRt2OpM03LGpLLOxbvlsJ2WKH
+	 ia6bkPJc7NARGGZ94jUBVYIfeIv1ictuB0YWrJjHAilF8bCLgnTH6WxIgNCDIKOicMBnU
+	 EZH1PsCMHAYuI5f4CJsErTYWN9clpxAmEGul9/jUUzeFd13cIsWCHi1Q3XSkwugf9gGtt
+	 vwHMoySyvhuFQryZ30fUMEUCpA1DrgbphdXMthCxoiE/zDBNtsPwl+omcoEIgovAV0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794497619;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794497623;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=p+LcMtXkYJFxrrRpSU30o1iHuZmxD+UW9aeN6zEXvqE=;
-	b=H1RPJqwc/i+5xO5fr2dStyPGemlyjJHe9dAm3w7iEX0e23L5fFw8TUSzXQlIkD5XcJl3
-	 JaVjexrKHq25rwaDwHto+qVkjO5uVCc+NRcN7G7baLUFV3lTsmliLYc6NtcQF6kgTFJ8d
-	 6LuH1gnOOPhv5Bi6YrkY/+Flz82yWHUIeH8J5dpbj07Raj9+fcJck2IXTBmRhgRHC9rmW
-	 B7bB7UnANDuyOV8qIM1QgL8EKyyx+jSYbq4oLxrCBoUdpqpl7SdK9UoDYs26+2GgICPYx
-	 Z1osfjPJZ1H1HsbEF5dadlIEnTd0ZDk71/nPRfG/fuoDehatbHHSkE1KQ+wffRFZFuA==
+	bh=MC71rue+avO5o6pQ9I9Ynejelo3/8d9a+uWMvMZ/yHk=;
+	b=NDVdvpCWJcLLXMN7SdD4XdfCoGyPA21t5BNU6odysf+Kx05sjkwyObLnebhhqyost7F1
+	 mj38SV7Bmx/O62dcHNq+T8IfUMFNEpP6Cb5SF3prnTj0Znv5YRdHcTy2InWqHZhP2gQM2
+	 Rt/hGOFT2uNqrryeb32TSJEMiNNiC0ck9BR7vwLKxWkwPuWUAldRbqMMqB5/bn6MEjKfp
+	 Lv7XUiqxh/FMcMOBSdD3bKST0R/I5hJv1CSHwg+qTzrzlwDGNLKUb8kGUB0lbWClM+n7B
+	 kW+8rTgzvKYz4YY+5eBNUisfSeX4Ji14PzNPw6vlBykllmwFR/7uXQ+wTDkMEbrIsDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MFqta4Vw;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XiLgpF+w;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CD3606A888
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:33:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93CD3606A888
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6741860A260A
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:33:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6741860A260A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MFqta4Vw
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a599e9110eso5125195e9.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:33:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XiLgpF+w
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4aa3a2a5a15so1898835e9.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:33:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794497618; x=1795102418; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794497621; x=1795102421; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p+LcMtXkYJFxrrRpSU30o1iHuZmxD+UW9aeN6zEXvqE=;
-        b=MFqta4VwxR+E9iahrgxAuhn8pUai+bvJy8Vgeebb23TKSSnV/4SSrnUoYczRI/tBj0
-         yqtLc/6M2u3ixrP+fBt8sVxiEq+CqEWk1oPK07vrCsRvZxguJq82sDxMw+Q978AKQz3o
-         6ZoncKO8MQErw5zKUlpnbdwwf0B8BzoAeceapc5KgmMxBgyfpOcgbhNjDEkNycKIM3yt
-         lxSFZN5rlDsOdUGeLbaGzF917/UzaW1dwRj0yJlkC32pSCAQF3MfM4MDwWepdEu8iQ38
-         mIaMIshHiib23TKmFXtUy8+pYZKh7C1wTR5t3dsF32sA9VUNNawHqBk6qyNsISbuvO4y
-         uXdA==
+        bh=MC71rue+avO5o6pQ9I9Ynejelo3/8d9a+uWMvMZ/yHk=;
+        b=XiLgpF+wPrcYNQ7zwPJcJzmHxwB/F9R5kOMp0/T1dxfvFjQhYEqyRxGyKhhSxosoJP
+         k0y4xpY8EgrwFRUku6hx2RCv/rQJcmiiMklmvaP3DdFuuWw5VrplzAO9L5Mwt6oq/+jD
+         IYLxTwYdorJ9x0l/xBWU3o3vWTK4X548YCDDv7ot2anr7Q1HFsICfbkpAlzqacye1Y3t
+         AgLX6OImAXWTRo4B58taPEnPuiegt/WqazqBlK5EL2xg3Z1zYVyWgUeC544HdIc5gDB/
+         CMX4vFPfyqAv1+Qv0XIs7lyWvB6hK/6pX8YR5pHRLGSjVRWRrY6fNy1n3iHAo9IZ/xLt
+         Vpow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794497618; x=1795102418;
+        d=1e100.net; s=20260707; t=1794497621; x=1795102421;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p+LcMtXkYJFxrrRpSU30o1iHuZmxD+UW9aeN6zEXvqE=;
-        b=fzSgxcpZByQQq0jZHa4QWRTEqBcbGbQQlXMs1Ozxm6y4x+N/ZA1KQq/1fM9+n6DBEj
-         vPrL9E0hXTvFBjqyFB+UQXoyU3hxU0prulREXRJp5hCKhOP7Mb/Q0H9dUAQJu5wlso0+
-         ujp5v4sI4RNHo0XcINXmnCv6/l/nXhBItA5H8N8JUPhNTvPVJUMbmqf0EdHdtngUOwFV
-         0ON7n6yCf+BtFuX+HtCoodUe54je99eb3PRx87XaCfE464bXCmHhU1IUfCLfouOMAjaA
-         ujCf7bHOnRKASQr12EgTIZbHbTmN5pkTM5QrFHT0cbj74OmDIHlMUTq+/ecWFEhls+3D
-         DOUQ==
-X-Forwarded-Encrypted: i=1; AL+hErEd6Gj+xVQgHRGG306UiLhOqz+c5LAEWXiWNMrKd+44rYI35QG4NTEjEwCxvY1kuJQYnOSl3PI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QbebIy/d95yqh3X6YBab5+qCQqG7ahuT++yoiudFWRcHxHh5p
-	dx3hthhCz/niOH1gg1Exq3tg0l5iF2mn7btFI1AANKJsR+2B2MS0TP4u
-X-Gm-Gg: AYBFou2lNz/0SOp6a3RRRZSEd7t+jOidxtFOLSAR9i3YN+0HaIztwcfVSKlfI46Mumh
-	G/EwbTAhZYK4BedekIGqYEkYRX03Hiyifp6vwb9tbF+o+TMsvKoocDlaNQJyRc/ghScg6FDhQgZ
-	w3W9Cy6PnZjlTYRBKMeWyxVJ/RmjmRxlvucKdftwoqdkFD1Vo+u20DDxNHX8XTE5MUTYLXbowVx
-	iuvdvblZStyikj3v2szIfVxZYu8KQLF9oLNvngbK+eCuycpcnIn0esBQ0rdLHhSNvMUh/YbExWo
-	a2NJpSDfDns0+4x6M0B2Qhmy1ICHf73ZRDM1spBcyL4c1/NtU7rZK+4AhR415xvQpN8ppv+NkJA
-	M+yw/uJv82RnpMjFKexSkkW3u8Z3gvVu1cz8z4eepivEtONwhsBbH4XhDeZvB2VyLznU9suSh0e
-	7+tdeB8d0v26zKmBaYNpjT3JdKG1rKBja0TxQutEMKq5BSlmPkw0l83QGCtDkoKxYM0c9OJC5/U
-	RYO50G4zn+vr1nJuACLS4FBhzE83OFmzV/FnBU2eHtCgRP/ji/BGsZwOmzc6/57kJroyCOAfx9W
-	/V1DvVfxlWFRK6vEX9ARd80hOrhXbF8HPq8BqRaSzA+geEZtUdZUZ1FJ5KhPUQq/bTChJYmaUHZ
-	mUtOY/vvp24iLBT36LD3llkcdjp4tCX3MbhQJo1dztST57JSWdpINKosZBvlrbYeErAVL8eb3vd
-	+87WMdxzeD
-X-Received: by 2002:a05:600d:8448:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4ba091a59aamr89080845e9.0.1794497617706;
-        Thu, 12 Nov 2026 07:33:37 -0800 (PST)
+        bh=MC71rue+avO5o6pQ9I9Ynejelo3/8d9a+uWMvMZ/yHk=;
+        b=s+8L8KAiNdZBJN4T0kcXk1PaU07nvHkqWHb9qw7nurBVAGQvCOCRVQ+GDrMwGStgYW
+         OlNvv3XAok+lp0b7GKOrAIwQo7630TkUQTDMxx4qdzRaqLhVLRtiBVNpQclbKN+w5hKf
+         HEkifsc8QE5r4BJ/Fwp9edsx2ulgSVE5hLhs+xWqqCfuQf7b/H7JiggYjZ512wk5Oyqt
+         TYcpP0fj7D6VEZChASiPfUGyzYABrWkavYx/NzEKpRgZzhe7VEdY+M8yV+up4ixqmdJJ
+         eqwsK2ItSAzLi+GRRz/Hrb+sUfL77ptaIflfjnHM8RZGt4cvv6Mzh5K4/6T8O5sgJgmy
+         Mb8A==
+X-Forwarded-Encrypted: i=1; AL+hErGKnlDTxCwNJRWKgen5mXK0Sp+a9DfXpIUDwzom3ht/MGtPtiKvV/dDL1mQOLwAgLy5gfqdUDE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9S2IqBkXCdEtibuqYF8McBcxU0jSdpDOERPcbC8TsVkwBoGwYw
+	ZBjRQ6M6u5jfslfA1PWiXUVyzGnL2YaItsdGDi2X/QM5KTHE/5XWwYZ1
+X-Gm-Gg: AYBFou3RMVy6wHhZlgbvot7wjZHCsyey1M+05jpeEHHY7VptmAKklw6pET5iCCKnqHL
+	aanklFVsAtTUzcFeyuz1Ag35uR+J3S8XI49wR3P3N39xkEoo80bU9zkoPYrQOkOuPDG2XJdhoul
+	2QBiesw3j+JQ41h/dDrg8pBuaTpnZJhMYpJOyAayjrVJfzp6US+SRPkRvhTxBD148sqM4DfmxAO
+	DcNyWC75knTBFASY1sU0zXhFKp6NLsJ6Bn351LjdjBdc5VZr91Ra+oozxLDmbbRaoZBuPKUvo7a
+	Z+3MWLao183X8l/IBjsFkNCWUGm8/IIr+BKMSRmdbNPUTqz/EjbUbbljFKQRlOkhzJy5R4xomih
+	XnNGs1QRrh/efM69CS404jiyoKqm4gPhdXx6dyJz4GRjzFbxGZkPEW5V/+ib9+4PbGNaaFZ8uqL
+	zrrE2dm2/KNf5X2psbGuQRYeYUxW/lqtKeLJaycJnQ+Agh6cCcbOeOE4/peiIU2YzPuXyXxSXKT
+	Rcw7k389AhaUyRIu89zV6D5BN0YmMpKP8Hmdsfq/JcQ9Nj0l/GobZDcmzKIXgBvYxuH5wM+jrei
+	20P1dq4ZOZk5ToR312oXLudNFbk0TVeVGHLLoOunHANf6OWFqpdjTZPKToNUnrWiO88A0EvPIWI
+	iPmmLYHhRFZTlmse1/CHWxLkkrRXAaFsoODLjPStyxIGGwlZ6xR6Lo+FtRDIQwmKoAf6u4BU8UN
+	I0FV97ExYG
+X-Received: by 2002:a05:600c:1986:b0:4a1:7dcf:be1f with SMTP id 5b1f17b1804b1-4ba0934e57cmr105777715e9.1.1794497620603;
+        Thu, 12 Nov 2026 07:33:40 -0800 (PST)
 Received: from L-022584.energy.envision.com (dynamic-093-130-172-139.93.130.pool.telefonica.de. [93.130.172.139])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08ddbe68sm229331185e9.0.2026.11.12.07.33.36
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba08ddbe68sm229331185e9.0.2026.11.12.07.33.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 07:33:37 -0800 (PST)
+        Thu, 12 Nov 2026 07:33:40 -0800 (PST)
 From: Xin Xie <xiexinet@gmail.com>
 To: netdev@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
@@ -106,13 +106,10 @@ Cc: davem@davemloft.net,
 	lukma@denx.de,
 	fmancera@suse.de,
 	danishanwar@ti.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH net v9 1/4] net: hsr: keep GRO disabled on HSR/PRP ports
-Date: Thu, 12 Nov 2026 16:33:30 +0100
-Message-ID: <20261112153333.20-2-xiexinet@gmail.com>
+	richardcochran@gmail.com
+Subject: [PATCH net v9 3/4] net: hsr: segment GSO before per-frame forwarding
+Date: Thu, 12 Nov 2026 16:33:32 +0100
+Message-ID: <20261112153333.20-4-xiexinet@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261112153333.20-1-xiexinet@gmail.com>
 References: <20261112153333.20-1-xiexinet@gmail.com>
@@ -127,199 +124,303 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-HSR and PRP tag and de-duplicate each wire frame separately. GRO on a
-member device merges several frames into one skb that cannot get valid
-per-frame metadata, and userspace can turn GRO back on at any time.
+HSR and PRP tag and de-duplicate each wire frame separately. A GSO
+super-packet reaching the forwarding path hides several wire frames,
+which cannot be tagged or numbered per frame. Such skbs reach a member
+even with GRO off, for example from a container or VM attached through
+veth, tap or virtio to a software RedBox, or from a member whose GRO_HW
+cannot be turned off.
 
-Mark direct members (slave A/B, interlink) with a kernel role bit.
-While it is set, __netdev_update_features() drops software GRO and
-configurable GRO_HW from wanted_features as well as from the computed
-features, before ndo_fix_features(). GRO_HW that the driver keeps on
-is left alone. The request has to go too: veth adds and deletes its
-NAPI instances according to wanted_features, so with GRO still
-requested, closing an attached veth spins in napi_disable(), and
-detaching a veth that was attached while down and then brought up hits
-the BUG_ON() in napi_enable(). As for LRO disabled by an upper device,
-GRO is not restored when the port leaves; ethtool can turn it back on.
-The rule covers every direct member, PRP ports and ports with HSR
-offload included: one simple rule is preferred to per-port exceptions,
-at some cost in receive throughput.
+Add one forwarding entry, hsr_forward_input(), for master TX and for
+frames received on any port. It segments GSO input outside seqnr_lock;
+each segment is then numbered and submitted under the lock, one frame
+at a time as before, and follows the normal forwarding and local
+delivery paths. Master TX and interlink RX now take the lock there
+instead of in their callers.
 
-The attach fails if software GRO stays active. A failed attach does
-not restore the GRO request either. The next patch checks all ports
-before any of them is changed, so only a failure at run time, for
-example a driver that cannot turn GRO off or the upper device nesting
-limit (-EMLINK), leaves a port with its GRO request dropped.
-GSO skbs can still arrive, for example from a stacked member whose
-lower device runs GRO; a later patch segments them.
+Classify by the effective inner protocol with the core's bounded VLAN
+decoder (802.1Q, 802.1AD, nested or accelerated). Drop aggregates with
+inner HSR/PRP, unreadable fragments or undecodable headers, and IPv4
+or IPv6 aggregates whose nonzero IP length ends before the skb does,
+since the trailing bytes would become segment payload. GSO_PARTIAL and
+zero IP lengths are left to the segmenter. Drops are counted once on
+the entry device in the core per-CPU drop counters. Segmentation writes
+the control block, the headers and the L4 checksum, so a still-shared
+input is unshared first, and a head still shared with a clone, for
+example from a packet socket, is copied.
 
-Fixes: 5055cccfc2d1 ("net: hsr: Provide RedBox support (HSR-SAN)")
+Older HSR and PRP senders can pass a whole GSO skb with one tag or one
+RCT, for example over tap or virtio. Such aggregates, including locally
+destined ones, are now dropped instead of being delivered.
+
+Remove the NETIF_F_GSO_MASK types from the master's hw_features so the
+core segments local traffic before ndo_start_xmit(). This also holds
+over ports with HSR tag insertion offload, at some cost in performance.
+
+Fixes: f421436a591d ("net/hsr: Add support for the High-availability Seamless Redundancy protocol (HSRv0)")
 Signed-off-by: Xin Xie <xiexinet@gmail.com>
 ---
- .../networking/net_cachelines/net_device.rst  |  1 +
- include/linux/netdevice.h                     |  8 +++
- net/core/dev.c                                | 15 ++++++
- net/hsr/hsr_slave.c                           | 54 +++++++++++++++++++
- 4 files changed, 78 insertions(+)
+Integration with net-next: Sebastian's pending series "hsr: Allow to
+send packets on specific port and pass the timestamp" (v10) changes
+hsr_forward_skb() to take the requested TX port and a has_hsr_header
+flag, and keeps seqnr_lock in hsr_dev_xmit() and in the interlink path
+of hsr_handle_frame(). With both series:
+- keep v10's PTP header parsing in hsr_dev_xmit(), then call
+  hsr_forward_input(skb, master, req_tx_port, has_hsr_header) without
+  taking seqnr_lock there;
+- call hsr_forward_input(skb, port, HSR_PT_NONE, false) from
+  hsr_handle_frame(), without the interlink lock;
+- add both arguments to hsr_forward_input() and hsr_forward_frame()
+  and pass them to hsr_forward_skb() for the skb and for each segment;
+- keep both include sets in hsr_forward.c.
+A frame with the PTP header is not GSO and takes the single-frame path
+under the lock, as in v10. A GSO input with the header is classified
+after the pull: with an HSR header it is dropped like any inner HSR/PRP
+aggregate, otherwise each segment keeps req_tx_port.
+Checked: on net-next fa5196392691 with v10 applied, this series with
+the resolution builds without warnings, and on a lockdep kernel
+hsr_ptp.sh, the two tests of patch 4 and the existing hsr selftests
+pass.
 
-diff --git a/Documentation/networking/net_cachelines/net_device.rst b/Documentation/networking/net_cachelines/net_device.rst
-index 8eceaa80b686..0d87e4d92a58 100644
---- a/Documentation/networking/net_cachelines/net_device.rst
-+++ b/Documentation/networking/net_cachelines/net_device.rst
-@@ -169,6 +169,7 @@ unsigned_long:1                     see_all_hwtstamp_requests
- unsigned_long:1                     change_proto_down
- unsigned_long:1                     netns_immutable
- unsigned_long:1                     fcoe_mtu
-+unsigned_long:1                     hsr_port
- struct list_head                    net_notifier_list
- struct macsec_ops*                  macsec_ops
- struct udp_tunnel_nic_info*         udp_tunnel_nic_info
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 435be7880d7e..0d13c7ecdd1f 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -2110,6 +2110,7 @@ enum netdev_reg_state {
-  *	@change_proto_down: device supports setting carrier via IFLA_PROTO_DOWN
-  *	@netns_immutable: interface can't change network namespaces
-  *	@fcoe_mtu:	device supports maximum FCoE MTU, 2158 bytes
-+ *	@hsr_port:	direct HSR/PRP member (slave A/B or interlink)
-  *
-  *	@net_notifier_list:	List of per-net netdev notifier block
-  *				that follow this device when it is moved
-@@ -2531,6 +2532,13 @@ struct net_device {
- 	unsigned long		change_proto_down:1;
- 	unsigned long		netns_immutable:1;
- 	unsigned long		fcoe_mtu:1;
-+	/* Direct HSR/PRP member: slave A/B or interlink. While set,
-+	 * software GRO and configurable GRO_HW are dropped from the
-+	 * request and before ndo_fix_features(); GRO_HW that the driver
-+	 * keeps on is left alone. Kernel role state only; no user ABI or
-+	 * offload capability.
-+	 */
-+	unsigned long		hsr_port:1;
+ net/hsr/hsr_device.c  |   6 +-
+ net/hsr/hsr_forward.c | 158 ++++++++++++++++++++++++++++++++++++++++++
+ net/hsr/hsr_forward.h |   1 +
+ net/hsr/hsr_slave.c   |  12 ++--
+ 4 files changed, 165 insertions(+), 12 deletions(-)
+
+diff --git a/net/hsr/hsr_device.c b/net/hsr/hsr_device.c
+index 90ee55eb3c19..5db71b49d08e 100644
+--- a/net/hsr/hsr_device.c
++++ b/net/hsr/hsr_device.c
+@@ -232,9 +232,7 @@ static netdev_tx_t hsr_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		skb->dev = master->dev;
+ 		skb_reset_mac_header(skb);
+ 		skb_reset_mac_len(skb);
+-		spin_lock_bh(&hsr->seqnr_lock);
+-		hsr_forward_skb(skb, master);
+-		spin_unlock_bh(&hsr->seqnr_lock);
++		hsr_forward_input(skb, master);
+ 	} else {
+ 		dev_core_stats_tx_dropped_inc(dev);
+ 		dev_kfree_skb_any(skb);
+@@ -686,7 +684,7 @@ void hsr_dev_setup(struct net_device *dev)
+ 	dev->needs_free_netdev = true;
  
- 	struct list_head	net_notifier_list;
+ 	dev->hw_features = NETIF_F_SG | NETIF_F_FRAGLIST | NETIF_F_HIGHDMA |
+-			   NETIF_F_GSO_MASK | NETIF_F_HW_CSUM |
++			   NETIF_F_HW_CSUM |
+ 			   NETIF_F_HW_VLAN_CTAG_TX |
+ 			   NETIF_F_HW_VLAN_CTAG_FILTER;
  
-diff --git a/net/core/dev.c b/net/core/dev.c
-index df1a840b0334..c8c2de212556 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -11269,6 +11269,21 @@ int __netdev_update_features(struct net_device *dev)
+diff --git a/net/hsr/hsr_forward.c b/net/hsr/hsr_forward.c
+index 44f6d9c83180..9aefc5f0249f 100644
+--- a/net/hsr/hsr_forward.c
++++ b/net/hsr/hsr_forward.c
+@@ -12,6 +12,9 @@
+ #include <linux/skbuff.h>
+ #include <linux/etherdevice.h>
+ #include <linux/if_vlan.h>
++#include <linux/ip.h>
++#include <linux/ipv6.h>
++#include <net/gso.h>
+ #include "hsr_main.h"
+ #include "hsr_framereg.h"
  
- 	features = netdev_get_wanted_features(dev);
- 
-+	/* A direct HSR/PRP port needs per-frame metadata. Drop software
-+	 * GRO and configurable GRO_HW from the request as well as from the
-+	 * features passed to ndo_fix_features(), as the core does for
-+	 * upper-disabled features: drivers such as veth derive state from
-+	 * wanted_features and need the requested and the active bit to
-+	 * agree. Fixed-on or driver-required GRO_HW is left to the driver.
-+	 */
-+	if (dev->hsr_port) {
-+		netdev_features_t gro = NETIF_F_GRO |
-+					(dev->hw_features & NETIF_F_GRO_HW);
+@@ -794,3 +797,158 @@ void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port)
+ 	port->dev->stats.tx_dropped++;
+ 	kfree_skb(skb);
+ }
 +
-+		dev->wanted_features &= ~gro;
-+		features &= ~gro;
++/* Master TX and interlink RX are numbered locally: number and submit
++ * one frame at a time under seqnr_lock, as before. LAN A/B input
++ * keeps its received number and needs no lock.
++ */
++static void hsr_forward_frame(struct sk_buff *skb, struct hsr_port *port)
++{
++	struct hsr_priv *hsr = port->hsr;
++	bool numbered = port->type == HSR_PT_MASTER ||
++			port->type == HSR_PT_INTERLINK;
++
++	if (numbered)
++		spin_lock_bh(&hsr->seqnr_lock);
++	hsr_forward_skb(skb, port);
++	if (numbered)
++		spin_unlock_bh(&hsr->seqnr_lock);
++}
++
++/* One count per rejected GSO input on its entry device. */
++static void hsr_gso_drop_stat(struct hsr_port *port)
++{
++	if (port->type == HSR_PT_MASTER)
++		dev_core_stats_tx_dropped_inc(port->dev);
++	else
++		dev_core_stats_rx_dropped_inc(port->dev);
++}
++
++/* Return the inner EtherType using the core's bounded 802.1Q/802.1AD
++ * decoder. An accelerated outer tag is metadata, not frame bytes.
++ */
++static __be16 hsr_gso_effective_proto(const struct sk_buff *skb, int *l3off)
++{
++	struct ethhdr eh;
++	const struct ethhdr *eth;
++
++	if (skb_vlan_tag_present(skb) &&
++	    !eth_type_vlan(skb->vlan_proto))
++		return 0;
++
++	eth = skb_header_pointer(skb, 0, sizeof(eh), &eh);
++	if (!eth)
++		return 0;
++
++	return __vlan_get_protocol(skb, eth->h_proto, l3off);
++}
++
++/* Bytes beyond the IP datagram must not become segment payload. Older
++ * PRP senders can append an RCT to a whole GSO skb. Zero IP lengths and
++ * GSO_PARTIAL headers do not provide the full aggregate length here.
++ */
++static bool hsr_gso_trailing_data(const struct sk_buff *skb, __be16 proto,
++				  int l3off)
++{
++	unsigned int l3len;
++
++	if (skb_shinfo(skb)->gso_type & SKB_GSO_PARTIAL)
++		return false;
++
++	if (proto == htons(ETH_P_IP)) {
++		struct iphdr buffer;
++		const struct iphdr *iph;
++
++		iph = skb_header_pointer(skb, l3off, sizeof(buffer), &buffer);
++		if (!iph)
++			return true;
++		l3len = ntohs(iph->tot_len);
++	} else if (proto == htons(ETH_P_IPV6)) {
++		struct ipv6hdr buffer;
++		const struct ipv6hdr *ip6h;
++
++		ip6h = skb_header_pointer(skb, l3off, sizeof(buffer), &buffer);
++		if (!ip6h)
++			return true;
++		l3len = ntohs(ip6h->payload_len);
++		if (l3len)
++			l3len += sizeof(*ip6h);
++	} else {
++		return false;
 +	}
 +
- 	if (dev->netdev_ops->ndo_fix_features)
- 		features = dev->netdev_ops->ndo_fix_features(dev, features);
++	return l3len && l3off + l3len < skb->len;
++}
++
++/* Unfold GSO super-packets before per-frame processing so that each
++ * wire frame gets its own HSR tag or PRP RCT and sequence number.
++ * Segmentation runs outside seqnr_lock; every segment is numbered and
++ * submitted under it like any other frame.
++ */
++void hsr_forward_input(struct sk_buff *skb, struct hsr_port *port)
++{
++	struct sk_buff *segs, *next;
++	__be16 proto;
++	int l3off;
++
++	if (likely(!skb_is_gso(skb))) {
++		hsr_forward_frame(skb, port);
++		return;
++	}
++
++	/* The gate is content-based, not port-based. An aggregate
++	 * whose effective protocol is ETH_P_HSR or ETH_P_PRP cannot be
++	 * segmented safely and is dropped, as is any skb whose headers
++	 * cannot be read or that is marked unreadable (net_iov device
++	 * memory): software segmentation cannot read its payload, so
++	 * each segment would carry uninitialized data. Ordinary VLAN
++	 * GSO (802.1Q/802.1AD at any reachable tag depth, accelerated
++	 * or in-band) is classified to its inner protocol through the
++	 * core VLAN decoder and segmented like plain input. With
++	 * NETIF_F_HW_HSR_TAG_RM the lower has already stripped the tag,
++	 * so such aggregates arrive plain.
++	 */
++	if (!skb_frags_readable(skb))
++		goto drop;
++	proto = hsr_gso_effective_proto(skb, &l3off);
++	if (!proto)
++		goto drop;
++	if (proto == htons(ETH_P_HSR) || proto == htons(ETH_P_PRP))
++		goto drop;
++	if (hsr_gso_trailing_data(skb, proto, l3off))
++		goto drop;
++
++	/* Segmentation writes skb->cb, header metadata and the L4
++	 * checksum in the head: work on a private skb if the input is
++	 * still shared, and on a private head if a clone (for example
++	 * from a packet socket) still shares it.
++	 */
++	skb = skb_share_check(skb, GFP_ATOMIC);
++	if (!skb) {
++		hsr_gso_drop_stat(port);
++		return;
++	}
++	if (skb_cow_head(skb, 0))
++		goto drop;
++
++	/* features = 0 requests full software segmentation into single
++	 * wire frames; tx_path is true only for locally generated
++	 * traffic on the master.
++	 */
++	segs = __skb_gso_segment(skb, 0, port->type == HSR_PT_MASTER, 0);
++	if (IS_ERR_OR_NULL(segs))
++		goto drop;
++
++	consume_skb(skb);
++	while (segs) {
++		next = segs->next;
++		segs->next = NULL;
++		hsr_forward_frame(segs, port);
++		segs = next;
++	}
++	return;
++
++drop:
++	hsr_gso_drop_stat(port);
++	kfree_skb(skb);
++}
+diff --git a/net/hsr/hsr_forward.h b/net/hsr/hsr_forward.h
+index 206636750b30..ec08c4330259 100644
+--- a/net/hsr/hsr_forward.h
++++ b/net/hsr/hsr_forward.h
+@@ -14,6 +14,7 @@
+ #include "hsr_main.h"
  
+ void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port);
++void hsr_forward_input(struct sk_buff *skb, struct hsr_port *port);
+ struct sk_buff *prp_create_tagged_frame(struct hsr_frame_info *frame,
+ 					struct hsr_port *port);
+ struct sk_buff *hsr_create_tagged_frame(struct hsr_frame_info *frame,
 diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
-index a546f70f9cc8..b7765a4bb992 100644
+index 666220b24dee..7fe7fa68af9e 100644
 --- a/net/hsr/hsr_slave.c
 +++ b/net/hsr/hsr_slave.c
-@@ -11,6 +11,7 @@
- #include <linux/etherdevice.h>
- #include <linux/if_arp.h>
- #include <linux/if_vlan.h>
-+#include <net/netdev_lock.h>
- #include "hsr_main.h"
- #include "hsr_device.h"
- #include "hsr_forward.h"
-@@ -137,6 +138,37 @@ static int hsr_check_dev_ok(struct net_device *dev,
- 	return 0;
- }
+@@ -76,15 +76,11 @@ static rx_handler_result_t hsr_handle_frame(struct sk_buff **pskb)
+ 	skb_reset_mac_len(skb);
  
-+/* Member role and feature policy.
-+ * Setting the role makes __netdev_update_features() clear GRO
-+ * and configurable GRO_HW from the request and before
-+ * ndo_fix_features(). A macvlan follows GRO on its lower device,
-+ * which can turn it back on later. Only the role and feature
-+ * update run under the device ops lock; unlink, promiscuous
-+ * updates and the master recompute stay outside.
-+ */
-+static void hsr_portdev_role_set(struct net_device *dev)
-+{
-+	netdev_lock_ops(dev);
-+	dev->hsr_port = true;
-+	netdev_change_features(dev);
-+	netdev_unlock_ops(dev);
-+}
-+
-+static void hsr_portdev_role_clear(struct net_device *dev)
-+{
-+	netdev_lock_ops(dev);
-+	dev->hsr_port = false;
-+	/* Recompute features without the role. GRO was dropped from
-+	 * the request while the role was set and is not requested
-+	 * again; the user can turn it back on with ethtool. A dying
-+	 * device just drops the role, a netns move stays registered and
-+	 * is recomputed.
-+	 */
-+	if (dev->reg_state == NETREG_REGISTERED)
-+		netdev_change_features(dev);
-+	netdev_unlock_ops(dev);
-+}
-+
- /* Setup device to be added to the HSR bridge. */
- static int hsr_portdev_setup(struct hsr_priv *hsr, struct net_device *dev,
- 			     struct hsr_port *port,
-@@ -169,6 +201,22 @@ static int hsr_portdev_setup(struct hsr_priv *hsr, struct net_device *dev,
- 	if (res)
- 		goto fail_upper_dev_link;
+ 	/* Only the frames received over the interlink port will assign a
+-	 * sequence number and require synchronisation vs other sender.
++	 * sequence number and require synchronisation vs other sender;
++	 * hsr_forward_input() takes seqnr_lock for them, one frame at a
++	 * time.
+ 	 */
+-	if (port->type == HSR_PT_INTERLINK) {
+-		spin_lock_bh(&hsr->seqnr_lock);
+-		hsr_forward_skb(skb, port);
+-		spin_unlock_bh(&hsr->seqnr_lock);
+-	} else {
+-		hsr_forward_skb(skb, port);
+-	}
++	hsr_forward_input(skb, port);
  
-+	/* Enable the member role and recompute before the RX handler
-+	 * is published, so that software GRO on this device is off
-+	 * before frames can arrive. This covers the direct member
-+	 * only: a stacked member receives from a lower device that
-+	 * may still run GRO and can deliver merged frames as GSO skbs.
-+	 * A still-active software GRO rejects the port, a remaining
-+	 * GRO_HW alone does not.
-+	 */
-+	hsr_portdev_role_set(dev);
-+	if (dev->features & NETIF_F_GRO) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "software GRO still on after feature update, cannot join");
-+		res = -EBUSY;
-+		goto fail_role_policy;
-+	}
-+
- 	res = netdev_rx_handler_register(dev, hsr_handle_frame, port);
- 	if (res)
- 		goto fail_rx_handler;
-@@ -177,7 +225,12 @@ static int hsr_portdev_setup(struct hsr_priv *hsr, struct net_device *dev,
- 	return 0;
- 
- fail_rx_handler:
-+fail_role_policy:
-+	/* Rollback order: unlink the upper, clear the role and
-+	 * recompute, then undo this setup's promiscuous increment.
-+	 */
- 	netdev_upper_dev_unlink(dev, hsr_dev);
-+	hsr_portdev_role_clear(dev);
- fail_upper_dev_link:
- 	if (!port->hsr->fwd_offloaded || port->type == HSR_PT_INTERLINK)
- 		dev_set_promiscuity(dev, -1);
-@@ -248,6 +301,7 @@ void hsr_del_port(struct hsr_port *port)
- 		if (port->type == HSR_PT_SLAVE_A || port->type == HSR_PT_SLAVE_B)
- 			vlan_vids_del_by_dev(port->dev, master->dev);
- 		netdev_upper_dev_unlink(port->dev, master->dev);
-+		hsr_portdev_role_clear(port->dev);
- 		if (hsr->prot_version == PRP_V1 &&
- 		    port->type == HSR_PT_SLAVE_B) {
- 			eth_hw_addr_set(port->dev, port->original_macaddress);
+ finish_consume:
+ 	return RX_HANDLER_CONSUMED;
 -- 
 2.53.0
 
