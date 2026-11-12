@@ -1,69 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492774;
-	b=EVwqfnJplifftoWugTfkm/kTk2EpE+RsntVTIJWCQHml2fephL33FwJT0VPm5BsLpvrn
-	 WZUQAr7bXzaAT8Sa61XX61rkwBJqq0euwxer9Qqd8L6mjrAFT0IQgqtXPsfJIjkmC3CsC
-	 cq5l3kLPyqkdTksPQ/uWyCjJgDtC6JRUbenhGVd7LHryB9kenANw/fxh3DTzx1VKeWsu9
-	 XahVIVtTaaa3rQHeohRvq8KELz4+RoCsfkXD/6oi+0Kb0b4pA0Pq55COT8kvR3ETTZCJr
-	 3KbAhRNQep7TmFXFSR+XtkiVnwTo3RKD/p112T2rE4XWzl1ppewYqgm2FFqkgr+899Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492774;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=C33IcFxkCejtNL06E1fQzKXXWvVqitln+U/Dyb3IHY0=;
-	b=Mdtnla/fNi0NWu7nFStvxEZ0KfOoXLOvFVAxUAQoAdrjl1pY5KvgV/ipsGF8mE/6A6DC
-	 Wav1pYaEFWAghu2R4AxyjbNU0RdW4r9cY8w/TtYSHXm4/I2WnYgbn5qIE8/73KqwRlDwQ
-	 CMPllcKBZvykON1HVLjPDYGuO/7/MBYuq3+PBzUIYfBM8vw41b8nG00/MNjFVWTX9aBGT
-	 h9eGsXk0/hWczGj74lqDn9oFqb7bvv/PKb13bTNAKARz/OlmU2xE3gKOaCGUtP+fpZ7Zs
-	 NUnHVA9BUTtCQCywTGDe8cnezpgYus1I9dFlPFamVN1KWcCoYlAQJ00vaEQKSoz//Mw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=TBk7U3hX;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794492864;
+	b=U1/HtHS3mYCrhvT/oQkAJRKqaXZ9LnMxsSW8DWC+/lIQADPOJLC7/5hPeWJkYpEQjCPk
+	 ewuLhpZ0CzcKTmbmZ7K7Tuzch+6iuWflVxYDRfjNfcUETHsfjXPJ1uC+FZPn9A1mFW8qu
+	 XiyqwuwamKNK0emVjfaDXz6vHIphgeZK41gFgNuqOzm8HJRr34B9HyunkFwt1XRuj+uBb
+	 VFWWW+wIPiSUjwBrTO6snLOCucu5iYxziS3LbdfiM1fk9JEGhNFyjsxIOIL94mxDb5r02
+	 3e/Ra2P2NpTwRsUD0GZawbHvv2N6xPO3ofz+qlVU38v/0JHS5Zdly2vxDUyTHnCo7kQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492864;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=;
+	b=jEB2N0FbrehnvVqUPlLWwL2YeXhofrvALCuofJrmYTVLhKAfqbNzHZvqO6d56D/fl2p+
+	 x7d0W9/MWHLzn11QYPSNq/2DHApT2RyDu0dzNlsUpsrp4OrBQet459Z5d/rfI/hF2u5AJ
+	 qx/yXnSQ3tUQ7GjGMxzWFqe9QUQZjCGlNaSydD+tMnY/N4NXqfI9/8nFdMKgDmfgPHeKn
+	 sxcanTHhVNKYqsXSToHvqa4/mMJC4zp7wcQQ/zdVaRRYqZMcy7Z3GVY23uHxky9atRfHF
+	 leAfdRK2Nk755wxl9T9PyBpjno4Eqv/UFgfzDQ/giheynN6WCa0aAqNC84msA7daM7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NAA3skTk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70F9606A33F;
-	Thu, 12 Nov 2026 14:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D70F9606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92E9606A31C;
+	Thu, 12 Nov 2026 14:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D92E9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=TBk7U3hX
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jQMmG00mFz5B17f;
-	Thu, 12 Nov 2026 22:12:45 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794492766;
-	bh=5AGiSFjrfxLpPQtCABfNmTgTRij8Rox0DcLnnsS33Cg=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=TBk7U3hXYhYY3xnN6uLkZ4S0SsC4L2YLU5gOMgZLyZMKFouZIE0ae94AwYgwSloZs
-	 Blol6AJRg4m/O907hvMAGR7jMSPrJ/7hRn1VmY2RqKeB57JYV92BAnAWwCplggvhN6
-	 RY9Uxk/fIeIX89TrYHurwKHmeAOTFRLyhRsoRtfS03IFnNDGAClkO+GTE9yIvkRrMl
-	 4ArBXdizAUM7RZvi2WIglwlZV6xPJHRAh+iEi0Bzm/HdJ6PV/L3SMeL2dCmL52fNzV
-	 aVZ7GbtbigbFyqBsEia1xwMIYm/jJwaeSHonHpMp0TYcIxx+libvSeIgMcpqKE0NbY
-	 tjjoet9urJjrg==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6ACECgsc063423;
-	Thu, 12 Nov 2026 22:12:42 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Thu, 12 Nov 2026 22:12:45 +0800 (CST)
-X-Zmail-TransId: 2afb6af5c95d1ce-e293e
-X-Mailer: Zmail v1.0
-Message-ID: <20261112221245617fVtCglossnmJqcYZwdF9-@zte.com.cn>
-In-Reply-To: <20261112221230052E8YTrPU5pi8AJJy6dnh9E@zte.com.cn>
-References: 20261112221230052E8YTrPU5pi8AJJy6dnh9E@zte.com.cn
-Date: Thu, 12 Nov 2026 22:12:45 +0800 (CST)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NAA3skTk
+ARC-Seal: i=1; a=rsa-sha256; t=1794492841; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=LuyQY12bW/Z83IwfAOxYJxZ41E4wry34UxveT0D7p1+KeG7vuh/g3/Z4PL/QiweY1cAObHPOqdNN/ST9ovLVoulqLB6bQcsSTjpu6+AM2Ic610a4k2B4uTEqtRfchqN3tPwu9RVXJDXtLkU6M0IGvzogik9csYMt7ietj2/S8js=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794492841; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=; 
+	b=Jh3Jwp/xcKr3QKgJDQDf4E73hZu+wtI6ebEk8TbtrWlJP3CZ3MCU6v+pPsoAksowh2AxTMeOVC88QvUJRBWyiUjmn39z10Wfj6SFAwyNTbQsd4y688beAE9MMxDrreNbjzLFt1UAHYle0tb/I2Nc2jHyyiRzD5tU14dDYcElZ2U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
+	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=NAA3skTkaOCGS4WxaR16OMOYO4CU8JVVcpLMtoI7vIovt4Dfwq56POyv8ssffi5G2sLrZk5OMqH5Z9I5dqeVZXLfMkODQj1dVWmhQg9vXsc96zy1cvmu6WHRHj/Gvwhr50LP6e9o0juz27pfKKS/2LPFjTjLzkGAov5QTWIWmCM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794492839836438.0202804362593;
+	Thu, 12 Nov 2026 06:13:59 -0800 (PST)
+Message-ID: <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com>
+Date: Thu, 12 Nov 2026 15:13:54 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,71 +57,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDUvNV0gYXRhOiBhaGNpX3NlYXR0bGU6IHNlcmlhbGl6ZSBTR1BJTyByZWdpc3RlciB1cGRhdGVz?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6ACECgsc063423
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Thu, 12 Nov 2026 22:12:46 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF5C95D.000/4jQMmG00mFz5B17f
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
+ after remove
+To: Philipp Zabel <p.zabel@pengutronix.de>, aiyengar1990@gmail.com,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Hans Verkuil <hverkuil@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>,
+ Tharit Tangkijwanichakul <tharitt97@gmail.com>, stable@vger.kernel.org
+References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
+ <20261112-hantro-robust-v2-2-18561fd48838@gmail.com>
+ <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
+Content-Language: en-US
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+In-Reply-To: <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-seattle_transmit_led_message() updates a controller-wide SGPIO
-register before taking ap->lock. Concurrent LED updates for different
-ports can therefore read the same register value and overwrite each
-other's changes, leaving activity, locate or fault LEDs in the wrong
-state. The lock currently protects only the saved LED state.
+Le 12/11/2026 à 11:19, Philipp Zabel a écrit :
+> On Do, 2026-11-12 at 08:30 +0000, Arun Iyengar via B4 Relay wrote:
+>> From: Arun Iyengar <aiyengar1990@gmail.com>
+>>
+>> On the RK3588, the resets of the AV1 decoder include the AXI and APB
+>> bus interface resets (SRST_A_AV1_BIU, SRST_P_AV1_BIU), which also cover
+>> the Verisilicon IOMMU of the decoder. When the driver is unbound, the
+>> driver core runtime resumes the device and, through the runtime PM
+>> device link, its IOMMU. hantro_remove() then asserts the resets, and
+>> when the IOMMU autosuspends 100 ms later, vsi_iommu_suspend() writes to
+>> its registers while they are held in reset, which raises an SError and
+>> panics the system:
+> If vsi-iommu accesses require these bus interface resets to be
+> deasserted at certain points, why doesn't it request its own reset
+> controls?
+>
+> Depending on implicit assumptions like another driver not asserting its
+> exclusively controlled resets seems fragile.
 
-Take the shared host lock before reading the SGPIO register and hold
-it through the write and the saved-state update, so that each update
-preserves the other ports' LED bits.
+There is a side note on IOMMU doc saying that once the IOMMU has been
+enabled it can't be disabled for security reasons.
+That means that writing 0 on VSI_MMU_AHB_CONTROL_BASE register in vsi_iommu_disable()
+could raise an SError so I would suggest to remove this line from IOMMU driver.
 
-Fixes: 535dac4ab5f4 ("ata: add AMD Seattle platform driver")
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on next-20261105 in an x86-64 QEMU/KVM guest with KASAN and
-lock checking. Two kernel threads on separate CPUs call the original
-LED callback for synthetic libata ports verified to share the host
-lock, using a RAM-backed SGPIO register and TEST-ONLY MMIO observers.
-The observer waits only when unlocked, with IRQs enabled; it never
-waits for another thread while holding the callback's spinlock.
+Regards,
+Benjamin
 
-In 1025 controlled update pairs, the unpatched kernel loses register
-bits 897 times (including expected 0x900, actual 0x100); the patched
-kernel loses none. Another 256 pairs with IRQ-disabled entry preserve
-all updates after the fix. Saved PMP LED states and entry IRQ state
-are correct in both kernels; 482 invalid-PMP calls return -EINVAL.
-This tests callback synchronization, not Seattle hardware or LED I/O.
-
- drivers/ata/ahci_seattle.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/ata/ahci_seattle.c b/drivers/ata/ahci_seattle.c
-index 9758fa0260..a398778ebf 100644
---- a/drivers/ata/ahci_seattle.c
-+++ b/drivers/ata/ahci_seattle.c
-@@ -92,6 +92,8 @@ static ssize_t seattle_transmit_led_message(struct ata_port *ap, u32 state,
- 		return -EINVAL;
- 	emp = &pp->em_priv[pmp];
- 
-+	spin_lock_irqsave(ap->lock, flags);
-+
- 	val = ioread32(plat_data->sgpio_ctrl);
- 	if (state & ACTIVITY_MASK)
- 		val |= 1 << ACTIVITY_BIT_POS((ap->port_no));
-@@ -110,8 +112,6 @@ static ssize_t seattle_transmit_led_message(struct ata_port *ap, u32 state,
- 
- 	iowrite32(val, plat_data->sgpio_ctrl);
- 
--	spin_lock_irqsave(ap->lock, flags);
--
- 	/* save off new led state for port/slot */
- 	emp->led_state = state;
+>
+> regards
+> Philipp
