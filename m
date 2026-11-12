@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794510335;
-	b=DTaOfmODgHd4dbHQcfDTFo02J232/rXJ+qjHPTHaUUbrQ+0bXZpNftTaOS7MVzHjMnDW
-	 J3Qm/ZMj7ylWhPQmT3461Nihxzn8QaqbVH8Gxqttpa682yI2h+AWJQo+rbx2qkiYUgRRA
-	 ez6uzdOFn5aayF9eMTqmtZGgKlhAjwj0++SkKevEDsQVBtR5/H+hEpW8KeY6n1Zz6kH6/
-	 ZDQxISqhkUwN3aaDlO6E/gH7RFwpY7JUDYET/761CIST0nmsuY0erwjgFpUdgEhj3D9Bp
-	 No2X5kEtYpAQBZH1cMY9yuqJvRXeQplS6/Z2c6Rm0ZJUSS7LmLYQYFAgYt2nqNKcMwg==
+	t=1794510502;
+	b=5LRCidAyF5Zz5JpRSCUXMSYUKA6rREQYHo3UdxmnjaiRE+Hp+wGrnkT3MOrSPVB4rroU
+	 GPQbfI030cNrqZn7b6I18gs9SU/px2hITkugNZRKkEbloi2zzrF6k6nM3EocaQlwEaNVM
+	 2FVsTeynOhLRICWdw5pvpzxZBMvUxLPm8X+X8w/MZVfuJ6zL5F+n1jRsdwepxc520nvg8
+	 s5n+jPciLiPKoWGyb3l3SuuAjzvL4dN7NxdbWZ1bSITvLoxA9mfrV5CKDzpyCTuuzCuX1
+	 ipqaJVrV5eiNKeZJZUlCZjZ1yLhq6ZXRxslf44q5fQMsonf7Klx+dKgIcruJ4q0rkGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794510335;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=IkoHKBcs8DdRKlBWjKbq/H9anim+FdWZe45kyXWCaEE=;
-	b=NGgx2dWfqNSE5SR0VS0qQE72ulLtFWdQ3DwJyGCz25nWUVGTt252godl4dJlb/QaVRMb
-	 HTLXOBFLMBG6YgzMCRBqgz/4izB3p36xLTlqmulezxUQ4FSCpuvx2Koy1dqzS6DMRcmPU
-	 uyy4sZU/K2wuvQNB4ODQ5WY0yCF/uVPgpyUrh2dQg3qShks4G1ndeKZZN6UnXzKKq9jOG
-	 5vjzjJJ2ItJIpyBGQveOTwdI+UJKhD/2TxBS0hrdLJnMYPxbcYcbOUSYUBjarBcJzmZ2i
-	 84hbzg2AQGYVKXQmoT+zEctgN8T5y7gidN6T6i0lgRFydyRRa8BhnRjUBzWQXfIItow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794510502;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=x7avfF8CE7MQkedzx8waSCJsEYoj4qczcsv6b4mLDHA=;
+	b=z3P8MXCZCsMm/BPVWfRapOrgjyUtLOMG2DK7HN4ypjzPeL8aq3pO47qFeto0a8xmyREN
+	 9wjtkUmBJVWXuMJdyXZPpE/zGI1+AnJXN/XF+WmoyPQeSxorabJAz6RGbtV6m9Mx4moeh
+	 tsLT6DedJ1fkmRUSx4xsXFukR7PxUawRx++NNV6NLoGJr25Hfabs+TjEChG+wUE3RR6FX
+	 81aVVxxdmQ1mBNGnO0IlIhEiNIRQ5MOxzHbUXD8isLbXZQ2bIOr4/f6imZ1B/6rqpsvP9
+	 je0hwiinNrQHc2BmOQWRgaoV/JeOWelPE+0cPtRQ7khooZyTBpeC8mmmGVhzWjqbJHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=npcAVEsb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.47
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DA6606A32E;
-	Thu, 12 Nov 2026 19:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=npcAVEsb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED52B1F000C4;
-	Thu, 12 Nov 2026 19:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794510334;
-	bh=IkoHKBcs8DdRKlBWjKbq/H9anim+FdWZe45kyXWCaEE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=npcAVEsbt+MvXyBnqd/mZxOAE0GgevXo1brlm9pT0+D6oJS88wlKMSB4QbsLeY6Wv
-	 2nCo1Zig6QLNjRARHHNXFQ+SS6KVzKv93AX21E2117TWOXtBWFMlcMZN4rYOOBYKUx
-	 MV3WrEs2FatSumiWxpmwxUpWXJoQTb3IHihJx0BrzVmQv5ZX/ddNo4BRuFv3kIQkM3
-	 ROEB8lGttz3gMBPJiKwbCcRF+ptggQ14v00rMleFS0DsJ0W42IkHr1uP2+EBgQuNfz
-	 9Kv9kr38/jt/9gPj9X9dAWHTOPyNdsGGzXVnQkQaxwnIXAS2bVdQiE7feBd+kUaHL+
-	 9Cz5/Y49uqbJA==
-Subject: Re: [PATCH net v3] tcp: fix device binding after failed IPv6 connect
-From: netdev-bot+sashiko@kernel.org
-To: yanxia@cmss.chinamobile.com
-Cc: netdev@vger.kernel.org, edumazet@kernel.org, ncardwell@google.com,
- kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, yana06070@163.com, netdev-bot+sashiko@kernel.org,
- jiayuan.chen@linux.dev
-Date: Thu, 12 Nov 2026 19:05:33 +0000
-Message-ID: <179451033353.2199510.15626724662436845169@kernel.org>
-In-Reply-To: <20261111113455.284747-1-yanxia@cmss.chinamobile.com>
-References: <20261111113455.284747-1-yanxia@cmss.chinamobile.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D2B606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 19:08:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3D2B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-99075306daaso157347241.3
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 11:08:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794510501; x=1795115301;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=x7avfF8CE7MQkedzx8waSCJsEYoj4qczcsv6b4mLDHA=;
+        b=dt30OZNJOraNEBxWxlQlNiH5Y/2xg3lyG8gtDwEA/HIn+4FqYtzq3qPNQrHOYZjixs
+         u4Bojz+1J1WgacxLH+fAS8TiiFcdn8189Ki7yIKGcZ8uCjrhlnuB98qHGncWHniCRW2X
+         FhG+x6N002C5Ge2Zp8X0lrJ08nSw/tVom7IY0tgirdiOa4mnm5YWHI+Q/mT2YaATa+94
+         FUnZccF9U9Ef6iaijBCWjN91HUcssK9I+Wrq9ULaFhWZPv7fPblGXOb147tIVgXJLksM
+         np7IiZEdqRYU6vsuH9/yUotY13VTRkUxxWIFQvXWlxGLQ+Iwzhh+8YgCN/pgUd9axa2i
+         uBhA==
+X-Forwarded-Encrypted: i=1; AL+hErEDDa58BO31x1e50mNZCLKLV59DSkzz9ChRcn9b2KkIo61BIxGw7fqZEs4RXKwebkAtpEzm7qM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Z1ZZfPpPpcNUn0/YmM5BP7VyntCn0BCiJghZ6PRxRZm1eOuN2
+	IH9kIffNxU/a0jD23V2/MZX6wCpIZZlQlbDu+blPLIF57yuRyeU6hvOplPq6LI+MKPI=
+X-Gm-Gg: AYBFou3UOQcLA1T/I7++7AVbJuS/dFdg1F7vJUR9r1j7A0dbu27UkWjv2JtoXLiIXUd
+	Ke7CYFXbcc7GI4H77ch8QbYhHLhSlILt6ovvbAdlidwnDFio+jUNDbt9E6BskoaKS+FgUECAQaW
+	JrSGEXZdFKJ98+oAcLQy2l1ZDQetHnHsHxwukyT8TItyP7gv/4Zpety/Y+kOHkhiV7OKioGQDQj
+	a8Sp6yFICe8HcxAGmaJkigilptkVnZ9PixVaz+7krj5qmjoEOlMeUPS2OjQUx382CGhEYebKsbO
+	VcjeEJQgBCPuzWAnaKgBgywZRx14kKM9nz9r1MCNMQOix6NKmirTG5Zl5dYPXaiB9X4K+IjuRSd
+	8uepV0VjhPzB3mOBwiRZ5ILeiWUuX7IiMRzurPlnmMw816N58+I3g2ePGyKf6Kv9Nr/1MjEeNp2
+	pxSy5bW6DZe6r0bjskD7li1PSvMR0WUXQ7F6dIR7niWXUfixopqUmi58LgAtarqMErIPHpw7y6l
+	MCnxKu0SS22WzewXUp1u+TO/C+D0CnXZLdfmQCypFP1qRa6Brpio3pVHI0h4LCnaBx/maakufYm
+	tpROFnuoSTM2bNNl4ZJzICHdZ5wp92Ob9qxW/q1PF4MULLN1yR4TeOv5VYYWQG3DBkI=
+X-Received: by 2002:a05:6122:e1a7:b0:5ea:d2fa:c2e6 with SMTP id 71dfb90a1353d-5ee34a970acmr36715e0c.14.1794510501487;
+        Thu, 12 Nov 2026 11:08:21 -0800 (PST)
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com. [209.85.222.54])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee341da79csm90226e0c.7.2026.11.12.11.08.02
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 11:08:10 -0800 (PST)
+Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-998569550adso141106241.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 11:08:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFfJRucKzyDC9S2b2Rk8T5CEVD2ubTiBkY0GMH9iooyFD0ZFTeCQa5XLi/Rj2FaTRNMAONgEcg=@vger.kernel.org
+X-Received: by 2002:a05:6102:c15:b0:7d2:8dd0:2eb with SMTP id
+ ada2fe7eead31-7d64d6ed886mr73919137.8.1794510481935; Thu, 12 Nov 2026
+ 11:08:01 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,175 +80,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261112-work-procfs-oldmem-v1-0-ecdcafd99265@kernel.org> <20261112-work-procfs-oldmem-v1-2-ecdcafd99265@kernel.org>
+In-Reply-To: <20261112-work-procfs-oldmem-v1-2-ecdcafd99265@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 12 Nov 2026 20:07:50 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdUgOGjwOUMxSabUgtaVeKZW1wx78XOJL8joGKkZEj7RZw@mail.gmail.com>
+X-Gm-Features: AclHuK8l5OcVstuPYNpoHJ657hIuMQK5i9ySH9sE9lHb16H-lVuh0fnzCqi0JCs
+Message-ID: <CAMuHMdUgOGjwOUMxSabUgtaVeKZW1wx78XOJL8joGKkZEj7RZw@mail.gmail.com>
+Subject: Re: [PATCH RFC 2/4] sh/crash_dump: check ioremap() in copy_oldmem_page()
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Breno Leitao <leitao@debian.org>, 
+	Chris Mason <mason@kernel.org>, Thomas Gleixner <tglx@kernel.org>, x86@kernel.org, 
+	kexec@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Hildenbrand <david@kernel.org>, stable@vger.kernel.org, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Thu, 12 Nov 2026 at 17:43, Christian Brauner <brauner@kernel.org> wrote:
+> copy_oldmem_page() maps a page of the old kernel with ioremap() and
+> copies from it without checking whether the mapping worked. If it
+> didn't, the copy reads from an offset into the NULL page.
+>
+> Return -ENOMEM like the other architectures do. read_from_oldmem() turns
+> that into -EFAULT like any other short copy.
+>
+> Fixes: 4d5ade5b29c6 ("sh: kdump support.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Gr{oetje,eeting}s,
 
-- [High] The fix only covers errors that tcp_v6_connect() returns
-  synchronously.
-- [Low] In the late_failure path of tcp_v6_connect()
-  (net/ipv6/tcp_ipv6.c:356-359), the patch now restores sk_bound_dev_if…
-
---
-
-tcp: fix device binding after failed IPv6 connect
-
-This patch saves sk_bound_dev_if when tcp_v6_connect() starts and restores
-it on native IPv6 error returns. The goal is that a scope-id binding left
-by a failed link-local connect does not affect a later connect on the same
-socket. In late_failure the restore happens before tcp_set_state(TCP_CLOSE)
-and inet_bhash2_reset_saddr(), and IPv4-mapped errors keep their existing
-cleanup path.
-
-Link: https://lore.kernel.org/netdev/062d02ca-e9e1-4f4e-ac57-0de27272a205@linux.dev/
-Link: https://lore.kernel.org/netdev/20261110100224.57cbf548@kernel.org/
-
-> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-> index b1dec5d86d633..641b74aaf1963 100644
-> --- a/net/ipv6/tcp_ipv6.c
-> +++ b/net/ipv6/tcp_ipv6.c
-> @@ -134,6 +134,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->  			  int addr_len)
->  {
->  	struct sockaddr_in6 *usin = (struct sockaddr_in6 *) uaddr;
-> +	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
->  	struct inet_connection_sock *icsk = inet_csk(sk);
-
-[ ... ]
-
-> @@ -197,7 +198,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->  			if (!sk_dev_equal_l3scope(sk, usin->sin6_scope_id))
->  				return -EINVAL;
->  
-> -			sk->sk_bound_dev_if = usin->sin6_scope_id;
-> +			WRITE_ONCE(sk->sk_bound_dev_if, usin->sin6_scope_id);
->  		}
-
-[Severity: High]
-The binding is now restored when tcp_v6_connect() fails synchronously.
-What happens when tcp_v6_connect() returns 0 and the handshake fails
-afterwards?
-
-If tcp_connect() sends the SYN, the scope id written here stays in
-sk_bound_dev_if. Some ways the handshake can still fail:
-
-  - a blocking connect() gets an RST, an ICMP unreachable or a SYN
-    timeout
-  - a non-blocking connect returns EINPROGRESS and fails later
-
-Either way the socket ends up in __inet_stream_connect():
-
-net/ipv4/af_inet.c:__inet_stream_connect() {
-    ...
-sock_error:
-	err = sock_error(sk) ? : -ECONNABORTED;
-	sock->state = SS_UNCONNECTED;
-	sk->sk_disconnects++;
-	if (sk->sk_prot->disconnect(sk, flags))
-    ...
-}
-
-tcp_disconnect() never touches sk_bound_dev_if, and the socket can then
-be connected again.
-
-Would a retry to ::1 on the same socket then skip the link-local branch?
-It would use fl6->flowi6_oif = sk->sk_bound_dev_if, which is the old
-interface, and could fail with ENETUNREACH. That is the symptom the
-commit message describes.
-
-The VRF case looks reachable too. Take a socket bound to [::]:P with no
-device. It connects to fe80::x%vrf_slave, the connect fails
-asynchronously, and tcp_disconnect() then runs with the stale binding
-still set:
-
-net/ipv4/tcp.c:tcp_disconnect() {
-    ...
-	inet->inet_dport = 0;
-
-	inet_bhash2_reset_saddr(sk);
-    ...
-}
-
-__inet_bhash2_update_saddr() would look up (any, P, VRF), find nothing,
-and create a new tb2 under the existing tb, whose l3mdev is 0.
-
-A later listen() reaches inet_csk_get_port(). There, l3mdev is computed
-from the stale binding, the existing tb does not match, and this fires:
-
-	WARN_ON(inet_csk(sk)->icsk_bind_hash != tb);
-
-The commit message says the VRF cleanup tests no longer show this
-warning.
-
-For comparison, UDP covers both paths:
-
-  - ip6_datagram_connect() restores old_bound_dev_if on error
-  - __udp_disconnect() does WRITE_ONCE(sk->sk_bound_dev_if, 0)
-
-The commit message only excludes "Deferred Fast Open failures after
-connect() returns success". Should ordinary handshake failures
-(ECONNREFUSED, ETIMEDOUT, EHOSTUNREACH) be covered as well? One option is
-a restore at disconnect time that records whether the binding was
-implicit.
-
-[ ... ]
-
-> @@ -353,9 +354,14 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->  	return 0;
->  
->  late_failure:
-> +	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
->  	tcp_set_state(sk, TCP_CLOSE);
->  	inet_bhash2_reset_saddr(sk);
-
-[Severity: Low]
-When the binding is restored here, the socket is still in ehash.
-
-inet6_hash_connect() has already hashed it, and its 4-tuple uniqueness
-check was done against the scope device. The socket is only unhashed
-later, inside tcp_set_state(TCP_CLOSE), after the BPF STATE_CB and
-bpf_tcp_ops_call(set_state) have run.
-
-Lockless RX lookup reads the binding through inet6_match():
-
-	return inet_sk_bound_dev_eq(net, READ_ONCE(sk->sk_bound_dev_if), dif,
-				    sdif);
-
-and inet_bound_dev_eq() does:
-
-	if (!bound_dev_if)
-		return !sdif || l3mdev_accept;
-	return bound_dev_if == dif || bound_dev_if == sdif;
-
-In this window, can the hashed socket match the same link-local 4-tuple
-arriving on a different interface? With an old binding of 0 that would be
-any non-VRF device. With an old binding of the VRF master it would be any
-slave of that VRF.
-
-Errors that reach late_failure after hashing include:
-
-  - -EKEYREJECTED from tcp_connect() with TCP-AO
-  - -EHOSTUNREACH
-  - -ENOBUFS
-  - -ECONNREFUSED
-
-Such packets would go to the backlog of the closing socket and then be
-discarded by tcp_rcv_state_process() in TCP_CLOSE. A different connection
-using the same link-local 4-tuple on another link could therefore lose
-segments, though retransmission should recover them. Before this patch
-the binding stayed on the scope device until after unhash.
-
-Could the binding be restored after the socket is unhashed but before
-inet_bhash2_reset_saddr()? That would need to fit with the intent that a
-binding set by the CLOSE callback takes priority.
+                        Geert
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111113455.284747-1-yanxia%40cmss.chinamobile.com
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
