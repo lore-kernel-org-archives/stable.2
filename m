@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487957;
-	b=TqFww3zHpN3hnTAY/E4ehLJuc9nvyVYINySxlkElurkWBg8D9m60kzCkVwBTAQ0hGs1W
-	 v4YMJvM8F1xbAmmicE4sr2F1T5sHrkTsO3hoxPDgJw5AEmA8oElKVFVnMpxnSp9yyGx6I
-	 Z3BI5/TD5cHZIXSTIXUcEkE1K2yD5B+O1VN0o332s0SOz8Q26NPntec6d0dP8V2chkvTB
-	 fGhMLj9LPaOghZuvvtuG+F0/AA/ceINd77ePwncKSBQVfVhEuGou5Ijll3KldwnVTYySh
-	 5KU2fc7FJ0qLfhn+z0rFaai+F4tXdicW7UqGzyzIC91h/1yL893lFEkPJ2qtrGkvq6Q==
+	t=1794487984;
+	b=sUp8W2XdGDJ+1mY/tdBsXhDM+J7YG+UwY9qO18Gk0/iXIu/dIiWxLWMkVKybsHphlp8F
+	 26ge1VllHLQ25Z/coyazBOgXPfQqTd5eNkgw7NUdbfV42WxjY/HtvXvmyC+vNSdSlZXww
+	 q6MxI1+haTNapCcxLo0qOQm44EYmHD4Bcq1BWCu+xOVF3PDTZV6qwpfmAWVj9bLxWFpo0
+	 WeQiJV2a0CibvuYfQ9v8d8qgXeeIVsRvZv9w24SRwQHAIOGXM2y6hkikWvBroPJo7hKHU
+	 D/DGkRd0ucFRULDacRk9w+DiELdW3wSnh30PG/V/g5vljHcc3d52cmetaGSr00nvELw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487957;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:In-Reply-To:References:
-	 X-OQ-MSGID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=zERbofYw8/MQs4m2Z97sLUq0t8UMU/kOMROzADV/pVQ=;
-	b=lv5o3qhyuDs/SP8w/GP3WtGYj7H3kmrzjWoQnLoZI26wLWNluCz9CuYSAfMulsQqF4CO
-	 CJMLnETMroRMCYNmuOiEk00WOJXW9GpkRT9XUcRFVkT9p8gVLTCmOIJtPDWExPNOmyHPp
-	 s1HwCLOdbp+A4UCRD887uI0fl1ZECnqUVfrvbA3xJcIBT2+Rz2PlouLgDXIbGibPbJylu
-	 XK7BvMpo74xSyI5TZjgnDcB+spd5DZxhWfz8luJN84U4R+cGl4CQLOd7cAUjZCw5ImYw2
-	 MVsSweXABjPPbBtJ++koZFfJkfVUrtoTv0P+2vzoLGznJeuM0YF20i0hG1zkYp9wiRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487984;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=yX/L1x4ZGZXTilXb62Za88zoxS/rAl+itZPKFnz9f2E=;
+	b=dtUGcXJeLb5SKTH1Gv/UIJuQQkjhoJhGjjJGa6LqQW7TaBCEyNAyDdbT5tBRIQiuOt4Q
+	 b6dKrMkdj2UXHG0M0ctytkUDiV+utTiU5JHR0KDNsIFZ4hfZsd6bsgWm4qwVpOHK/O2EG
+	 aLdZ88k2w2RXb/kbOErwpcbmwoMLcPcMJX8ftynmNsxx6guzZ5qgSw/Jy3dcDT7K0GJ2G
+	 uJROz9Ce1oW+u4gGdDsEFaro4xReeTDXLgiQZPTugnvgnjaZKs8WFcNNyvoykSSB09NYK
+	 4bdiIAXRLG+Qgk/8OwSzC+MuwC5iXHbevLQNi1W19JK6R+VUm7xN5ACMpxOrQw426CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kxTdaM8O;
-	arc=none smtp.remote-ip=203.205.221.240
-Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=SQmozrjb;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7A9606A8A0;
-	Thu, 12 Nov 2026 12:52:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7A9606A8A0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFBA606A32E;
+	Thu, 12 Nov 2026 12:53:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AFBA606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kxTdaM8O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794487952; bh=zERbofYw8/MQs4m2Z97sLUq0t8UMU/kOMROzADV/pVQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References;
-	b=kxTdaM8OxXNWRv5c1tVA3Gb6kIa4rdauGdfFJki/6BWajxAQce42ns0gVMTxOJTbX
-	 jfjXekde6ctI/DI7FBKgtg4LVuvXbLwUpWBVrPJQ4gLZLEH4Qn1D1+AZ97xO59y8n3
-	 GmHwrWtkQxMIRgjw7JoYmKK+mliMwAzFx9CRbfFQ=
-Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:e498:8f16:a485:ceef])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id D1C80E0B; Thu, 12 Nov 2026 20:52:28 +0800
-X-QQ-mid: xmsmtpt1794487948tku1bgn3k
-Message-ID: <tencent_EB38EF4908C9FDCB369DAA2CE362CB5E8305@qq.com>
-X-QQ-XMAILINFO: NC4p7XQIBeahMxe7Nis9QgSc5JxEKESr4AuDxdFrZ/QYTDiYS9ysjDE1CnnLKM
-	 0rt3fNC31x4iIKHmDwx8FmDTUC4mSfmxvZKo+8Ssa6iAho4UM93ZmHJEE3pQ/BXbL/sGTKg/byPn
-	 67v9lzZthf80XZfrRY6NvaAq5bG9J1dn/dKa6h4z0tiL0OnV5Y/RdbTfLFoHdJiqJfCjEnoVbf3l
-	 O+Jgc+kNBPdp9dGyZLu0d5FEXPH5w7CltAjA7Lh40h99giR1kHDO6UKfzAQYQn34GyM4U/mshvsD
-	 gpiiWv4TZPU3gYvYSUaUis7ZzHtZQdD4846JB2yW479YgHuYIhUY/AbADeV1t4V9KpHlQJDsM9vU
-	 6Md0N7YwD9riXJdEMHxdXm80Xxb/FZBe++IlSWom8PIWV48b9r5bst/diW/Qdk+rFP9w+AloLAQM
-	 Jcob0yapAm4EoRSutkQKH9ZqMp4FiKHaGPQ3r1ovr0D72u7KpS6/vCVYJ6Znz6D+tDf1/NlGHd3K
-	 C0JKB2HCT5WIwMvUOfyndYUTck7rZm7zlZpb9B31OAWkqV/9eydsH/mgKsaOSGlw3VxB0xVj8i5u
-	 DQJTcYLGw36edjA0F/41wRHs77eRDaM5ZxkV3ZFvRelng6PAHIHW7PGUORDLlwb1DjWDFzKIARJd
-	 MMpvJw36pc5qbZkNqHxjP8ACX3/01W449xcZwWLIEIPp5coeJ8RO72xAnfnvQc0iZedOnr6VfN5D
-	 zoetjpNPARW9HDVnfWnqBx8AT8F+sfHB/SJQYA4q5ry7vuKpHRSC9TCswKoh+oukiF24UandgOAN
-	 uVJrK4dAdJ7WYrpcEZqIkh7eo8BKiJR1eEA0UKpb7X64p1E06bz77w256YYn4lCCXakcD/s5kRjr
-	 0qwf0Er3utPTjXuCSG/bTwr5/OXvCRHveckHBcOeFw3KxC2nC2DsUyH+BuMHxs+IEFA7gFlWb4LK
-	 LFjSu7GYk5Rnasd64nVCpruFtfhgdQ9+K2A0sCvXmwWxBWzOjqTIRBcwtYNrtcTHOb7j2qKS4RpO
-	 RPuYy/lwn/JdrYJKzosgPq4dT2585zELl4mfgi5iqPLsfW/LboBK8F8uPWOqQDNTYkpogKsnrmBD
-	 t8WEnSGKUtblBH77f9w0rqvKSwcxbAKZRjdmjfpx26vPeVqcM=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Hang Nan <2122295973@qq.com>
-To: netdev@vger.kernel.org
-Cc: mptcp@lists.linux.dev, matttbe@kernel.org, martineau@kernel.org,
- geliang@kernel.org, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, willemb@google.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net 1/2] net: mptcp: take token lookup references with
- acquire ordering
-In-Reply-To: <20261112124547.193812-2-2122295973@qq.com>
-References: <20261112124547.193812-1-2122295973@qq.com>
- <20261112124547.193812-2-2122295973@qq.com>
-X-OQ-MSGID: <179448794830.196117.14284634941387773647@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=SQmozrjb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=yX/L1x4ZGZXTilXb62Za88zoxS/rAl+itZPKFnz9f2E=; b=SQmozrjb+tJVVe8WL8GEdZ4sYg
+	gR3uXOb0qznPCASCyqeO4KUGyqh9c7ezNkKEYwDnQrcY6nyoIdC8CHg1MNDjRtHMaepoDSauZfqKq
+	xbaQaFV8bdl/d/op5bC2rHBwKKVdWMyUHwpLzGPRBjPTVy+s09wD/0Qqvrphn1+2rQSIOy7hKy6ZC
+	BpqSr3M2e5hDqUcE/JoDNKM7sHqthj5UteJc6DqhoVOuJq5RFd2dJsUi6KzjQkQhV9o7FF7uYe5In
+	K73r26ZMk/kRkaTm8SG5TPOiJueuQOWrdVYTIp5wOMyDDohZTStWu3Cz3VdBjDYBCoFj1hBqXsKGZ
+	I/xtjRyQ==;
+Received: from [151.115.150.205] (port=38878 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xRUIZ-00000003H1G-2a6p;
+	Thu, 12 Nov 2026 13:53:01 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
+Cc: Eric Snowberg <eric.snowberg@oracle.com>,
+	linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] kexec_file: update IMA after machine post-load
+Date: Thu, 12 Nov 2026 12:52:45 +0000
+Message-ID: <20261112125246.2715174-3-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261112125246.2715174-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261112125246.2715174-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,44 +83,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Hi,
+ima_kexec_post_load() replaces the global IMA mapping with a mapping for
+the new image. If machine_kexec_post_load() fails, the new image is
+freed but that mapping remains. The installed image no longer receives
+the execute-time IMA update, and the notifier can write the
+measurement list into freed pages.
 
-Thanks for the automated review.  Here is the missing information for the
-series.
+Call the machine hook first. Return its error before updating IMA so IMA
+changes the mapping only for an image which will be installed.
 
-How it was found: manual code inspection, not a runtime report.  While
-looking at net/ lockless lookups right after 5b5d8f351dd9 landed, I
-enumerated every refcount_inc_not_zero() call site in net/ (101 of them)
-and classified each one by whether the reference is taken only to keep
-the object alive, or whether object state is re-validated after the
-acquisition.  mptcp_token_get_sock() and mptcp_token_iter_next() are in
-the second group: they re-read msk->token and sock_net(sk) after the
-increment, and mptcp_token_destroy() unlinks the socket and then does
-WRITE_ONCE(msk->token, 0), so the re-validation is the only thing that
-rejects a socket whose token has already been cleared.
-reuseport_migrate_sock() in 2/2 is the only other site with that shape
-in net/.  The enumeration of the call sites was tool-assisted; the
-classification and both changes were checked by hand against the
-callers and against the teardown paths.
+Fixes: 9f0ec4b16f2b ("ima: kexec: move IMA log copy from kexec load to execute")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ kernel/kexec_file.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Whether it was triggered: no.  This is a theoretical ordering gap, not
-an observed crash.  I have no syzbot report, no KCSAN splat, and no
-runtime reproducer.  The reordering is not observable on x86-64 (TSO
-does not allow it), and demonstrating it would need a weakly ordered
-CPU (arm64) or KCSAN, neither of which I have access to.  So the series
-does not claim to fix an observed bug.
-
-What was verified: the re-validation exists and is the guard described
-above; the teardown order is __sk_nulls_del_node_init_rcu() followed by
-WRITE_ONCE(msk->token, 0) in mptcp_token_destroy(); both touched objects
-compile cleanly (net/mptcp/token.o, net/core/sock_reuseport.o) and the
-change is a no-op on strongly ordered CPUs.  The argument is the same
-one used in 5b5d8f351dd9 for the inet lookups: a successful reference
-acquisition has to order the validation that follows it.
-
-Happy to drop the series or fold it into a larger ordering series if
-reviewers would rather wait for a KCSAN/arm64 demonstration.
-
-Hang Nan
-
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index b668ce8d68ee..59f9ba1b0cd7 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -206,11 +206,17 @@ kimage_validate_signature(struct kimage *image)
+ 
+ static int kexec_post_load(struct kimage *image, unsigned long flags)
+ {
++	int ret;
++
++	ret = machine_kexec_post_load(image);
++	if (ret)
++		return ret;
++
+ #ifdef CONFIG_IMA_KEXEC
+ 	if (!(flags & KEXEC_FILE_ON_CRASH))
+ 		ima_kexec_post_load(image);
+ #endif
+-	return machine_kexec_post_load(image);
++	return 0;
+ }
+ 
+ /*
