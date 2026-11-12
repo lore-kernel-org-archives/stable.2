@@ -1,47 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473650;
-	b=0NtIsZce9J31+6McPi4ghG+AK2rczjLg+NytZAm23UYJGNJXrup7NHESJwebvANzJnWv
-	 I5xNFA+HQTHRg8i2u9kZPNg+USoC87NkiV7UuY2B8wAZJzeFachQTEqDISWfTdZSamuKd
-	 flGfZBwFs9RbD4rJJa/Dlgxg82jADT9ijS1PnZPkMeYOhoe2BOSzqTYnx+obashIW8VdH
-	 t4DhXlLUylWXdnWG2iVaFUvt2hF6kySXM/Lfyq2r2orirAadQS7aP6nx5NGi07YqK6pxs
-	 2zhVb9KZpagmkyZ0Te/Jvf5F5Po7Cl3spiDz7andUsGUAzjmFesY/VbH6hfPof9WI/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473650;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ePkuZsGQpV9jd5TnZXMBz49Rl2IFx60CuIIApPV/Lyo=;
-	b=qruLFjXPl6PlkE5EUszU6+vmt1pH9t9LfOSWdInwpONH/MwYAWQG+PjbW4nfzyiDhpdy
-	 y69gPNiaBLNl6OJDqEUxDN+YMFiGPtetRsnb9pQ8htKkBLV3vxEVCC28oBM1UOo+UMk+Y
-	 /bQvmlV3X7JikjTudmeQd1yfG73dPaxsR2zkQyBec9Gx8sk8zP6Y0zIupf6NZCt32G5HT
-	 TjldQhvprRmgs188AKKukVVFXhdonNlYLdYVcD1yL2NKkGzMYyreMBsmF1vdpchZSvf05
-	 X2mVmpsW8gr0Xwy3j1MIZLczeeaSfpuFq09CFAEdRMbFeHgra/tVAHNbxblMFdBOdmA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltl8ImxL;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794473698;
+	b=Sj91PLLDz82BccvzfmCQOdBtS2e/fSB0qBMU43jrq1kWi1tv80uNUavsdR9shufEMeAK
+	 Tws7JeILdwplZT0zFfhuFCKw4uKsjgg1TZpQw8s6gVwWQllIHL186rRjGGuPCb+Cw3Fdv
+	 e8I3QzLskBsvfQYJBIUhSYuJoHvkzRUeWo6hzpXH4SPu2xSOEAz5eCRXNiMHLkxS8AGid
+	 /4OOm9i16oGxQHP+hYG/TuZy7mhukGilTv0w+uhPXVcyoxLI7l2f6JPpxK7gXP+Fz8hfI
+	 8ja5yXZkDHw72SS8GNk0+BGRNCcasfASdzigUJoFkWOcAZeIC9hdHWn6oSMYIiQW7lg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473698;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4i3GS29HPtypyjBy6AOepteHi17VRcJiMUzTuDJd0IQ=;
+	b=4P/jy+WsEW1yM+0Ire7VmRijVR/eW3358rUpYndt9IPji9sSBVyGFvpGux7OOacfpJJc
+	 lxWLW30eZwD7A2d40cHFJFULKrZ8lI2H8Vj3lOYTSdkR4znIzdVorhL/CoGXOtlvkKW9w
+	 j/D6HQMh2mBS9JtJfWT8eD3LZQ1BDnJh2Z5rvzjI+bGkj0Rt+OFpsBdy4aK2IglTNPkod
+	 ueI29i5aQ7zUqvkdQ4xMldHWrCrcYSA7C9MylGxKQQqQXgRYtBFCmN5/sTxTlLp3xZJbH
+	 MVj5OukrF9FnBv+1V9VmtyfdQYPbzcXaz6ouCPd4kcSN8hx5NZ6P6vAgY4eY+oDLgyQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CysUp71n;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2304606A321;
-	Thu, 12 Nov 2026 08:54:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68735606A88E;
+	Thu, 12 Nov 2026 08:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltl8ImxL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960071F00A07;
-	Thu, 12 Nov 2026 08:54:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CysUp71n
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794473698;
+	b=V7eCl9BpGOaVSsEELOA3D23mt1ALcuYSVOAXlwaBu4kBtYg+Zd20xwbpoEEDH5ARMkZX
+	 HRoiWc9Vg5ZGZmDPWugqLu8AYznv9xldNj4qEjLcInf9e/0w+JH+2l9nB2GxzpRHgYA0F
+	 NeM7rrrJlzgiuXM8aMk5rULnxJgDpU1fxeiI2V45vyFuqfgB4Io73KXhPjGby7+oQXzYq
+	 p3b5SjowvXyUDWsVlNkx8pBQsOe3fDHsUVXTDDNm7WI0aAEPXLzcay1TXsBtmbBd7MkwM
+	 9Gzx1DIpkdZjCCprh7SEGJF4n8B1vyUqJQaChzmPoNctsZhS9lo2FgMT/2ApMOevnfA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794473698;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4i3GS29HPtypyjBy6AOepteHi17VRcJiMUzTuDJd0IQ=;
+	b=ceM+G+QRsBGpV0cLSoXRpNS/Kx2/WY3tf6+Exf7Ek7s3ZC526Qf7wWgOObuwi6Wwjk6i
+	 XBnrrLtvxllH0dQf5+8uzef+dp4oGXcH8vKZhcHo25VwpHoNixktUfNZQb3HW1NsN/hK9
+	 okLHy5wlgFEvSbc4k2y29nFD1V2FNZyBZmLFhzuRmb5kKJBR1xhxVxIPDlGyVjCPZWIF4
+	 oqFxJpjmVq52BIEhxRYgQVsyoLndK0kPlM5vWbGaExF+P9ntb6AM3iw8I46vObMgIGt29
+	 o2pfQHsg3zDB2Z8eOlu/mpbfQM2hDgLz+mfFXdzkF4PQGA4hQtokFaX3A2CKHpeULvg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 96A931F00A0C;
+	Thu, 12 Nov 2026 08:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794473650;
-	bh=ePkuZsGQpV9jd5TnZXMBz49Rl2IFx60CuIIApPV/Lyo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ltl8ImxLoafNcK4EpGTLoPNj5qUQQrLzABRGpWQsvGY1mDdlI6VDdtd1H+ts2pVCP
-	 UNaUiMIS/ZiSZgav9R3+NQ1QnEtCSbRGPylnH7/84HLfeIRwjHIFRibRbkph5z7FuR
-	 7nHX/Ao5Rs/JC/8dPC/017P7gQXwZynLSf4GRDiI2bAe6oL1Zq8t0B2mPfTMDBP2M7
-	 gH//ZjoWG10PI/DHwgsfFRMxTon52cjOWoiBXQdqw9hNFA1pWXkrjzv9VatUuAq+Xg
-	 3nEhT64qFWQwD2QU2V5srpExAnV6DtqecgNhn9pIH/DIfY8s/uIrpk9pkJzL18YYwC
-	 RJoqAbZOaCdWA==
-Message-ID: <ceb2ef49-69e8-425c-9582-ba6fb872e0cf@kernel.org>
-Date: Thu, 12 Nov 2026 09:49:11 +0100
+	s=k20260515; t=1794473698;
+	bh=4i3GS29HPtypyjBy6AOepteHi17VRcJiMUzTuDJd0IQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=CysUp71nZSVVPeXoDqR0iybVvwQ4zgRYGFnjFd+s0ufVHEhCdBZ/CMznMBiQ7eebm
+	 MWJbrIcp4IDF/qY46N8qBvgNhv2Cey0G+3XLNhhWhOgrnqZu7pcUVlhFi2EAuV//ws
+	 8M4Lt60hIBF7aigN50U7BogwwKj10z3K7GmMyXMI+02/9Gzf0SY34xkY7C9eU8mZu0
+	 68BimmL3YRWn8SRUSu2kLEbUYHeI5Hy+1BI81EBDA6zdO9bklNRrT8q2SpTJ+4KlQW
+	 cI04DUfl/poXfj9HAEKOaBiYh0ktY6c2XDmnUcLQoxQIsf/eiyLk3amV70iZb22Xg5
+	 DDOTFOaUbNSZA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 26EB049413;
+	Thu, 12 Nov 2026 08:54:56 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 12 Nov 2026 08:54:58 +0000
+Subject: [PATCH v2 4/6] media: verisilicon: Check every VPU981 AV1 tile
+ column buffer before reusing them
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,210 +83,178 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-To: Qi Zheng <qi.zheng@linux.dev>, Muchun Song <muchun.song@linux.dev>
-Cc: osalvador@suse.de, akpm@linux-foundation.org, azpijr@gmail.com,
- Lance Yang <lance.yang@linux.dev>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
- <503c9f6d869e3206c6fd591de962c3d619b73825.1794379433.git.zhengqi.arch@bytedance.com>
- <80FED512-77D2-4D49-BAE5-745CE1F711CA@linux.dev>
- <1116fd15-a927-4f6e-a0ab-084bc36a90aa@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <1116fd15-a927-4f6e-a0ab-084bc36a90aa@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261112-hantro-codec-fixes-v2-4-f44424df585b@gmail.com>
+References: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
+In-Reply-To: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sebastian Fricke <sebastian.fricke@collabora.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Jeffy Chen <jeffy.chen@rock-chips.com>, Tomasz Figa <tfiga@chromium.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473695; l=6292;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=BT2F0TOczjHLd2TsiRpWYPl5wVI3/1gtJ6eyqTMB414=;
+ b=5qAFPZ2X7x/mB4guhj/l6YFbtBJPsa29419lVc0kEuJGe/lecc39ZEHCozNBUXAl4Jl+HfG1K
+ bXUwkGJjYUxChMrY+tO3fYSj9CFPo1M/SlTsyFUszqNQ/4Gbz/ZVWBb
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On 11/12/26 07:13, Qi Zheng wrote:
-> 
-> 
-> On 11/11/26 3:42 PM, Muchun Song wrote:
->>
->>
->>>
->>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>
->>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
->>> unpinnable, causing unnecessary migration or pinning failures.
->>>
->>> These folios already own their CMA bitmap ranges, and memory blocks
->>
->> Commit message needs updating to bitmap as well.
-> 
-> Will do.
-> 
->>
->>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
->>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
->>>
->>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages
->>> using cma")
->>> Cc: stable@vger.kernel.org
->>> Suggested-by: Muchun Song <muchun.song@linux.dev>
->>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->>> Acked-by: Muchun Song <muchun.song@linux.dev>
->>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
->>> ---
->>> include/linux/mm.h | 29 +----------------------------
->>> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
->>> 2 files changed, 32 insertions(+), 28 deletions(-)
->>>
->>> diff --git a/include/linux/mm.h b/include/linux/mm.h
->>> index b0da9be413098..47d1d96bfc7fd 100644
->>> --- a/include/linux/mm.h
->>> +++ b/include/linux/mm.h
->>> @@ -2954,35 +2954,8 @@ static inline bool is_zero_folio(const struct folio
->>> *folio)
->>>     return is_zero_page(&folio->page);
->>> }
->>>
->>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
->>> #ifdef CONFIG_MIGRATION
->>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
->>
->> I think David prefer to move this function first, then fix it in a separate
->> patch,
->> right?
-> 
-> Hi David, is this what you mean? If so, I will split it into two patches
-> for the v5.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Let's try something that is more future-directed: cma should deal with
-cma details. In the future we might implement something reasonable there.
+rockchip_vpu981_av1_dec_tiles_reallocate() keeps the five tile column
+buffers (deblocking data and control, CDEF, super-res, loop restoration)
+when the deblocking data buffer is big enough for the current frame. The
+buffers don't scale the same way: the deblocking data one grows with the
+frame height and the bit depth, the super-res one only with the number of
+64 pixel rows, and the loop restoration one with the number of
+restoration stripes, which is one more than the number of superblock
+rows. A frame can therefore fit in the old deblocking data buffer and
+still need a larger buffer of another kind. For example, after a 10-bit
+1088 line frame with 4 tile columns, an 8-bit frame of the same height
+with 5 tile columns needs 65280 bytes of deblocking data (65536
+allocated) but 367360 bytes of super-res column data (293888 allocated);
+an 8-bit 128 line frame with 4 columns followed by a 64 line frame with 8
+columns has the same problem with the loop restoration buffer. The
+decoder then writes past the end of the smaller buffer.
 
-diff --git a/include/linux/cma.h b/include/linux/cma.h
-index 8555d38a97b1a..d829fd0355bae 100644
---- a/include/linux/cma.h
-+++ b/include/linux/cma.h
-@@ -21,6 +21,9 @@
- #define CMA_MIN_ALIGNMENT_BYTES (PAGE_SIZE * CMA_MIN_ALIGNMENT_PAGES)
+The sizes are also not reset when the buffers are freed, so after a
+failed allocation the stale size of the deblocking data buffer lets the
+next frame skip the allocation and run with NULL buffers.
+
+Compare each buffer with the size the current frame needs and clear the
+sizes together with the buffers.
+
+Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 34 +++++++++++++++++-----
+ 1 file changed, 27 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+index 2a145433e6d1..e817c91224d3 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+@@ -236,27 +236,32 @@ static void rockchip_vpu981_av1_dec_tiles_free(struct hantro_ctx *ctx)
+ 				  av1_dec->db_data_col.cpu,
+ 				  av1_dec->db_data_col.dma);
+ 	av1_dec->db_data_col.cpu = NULL;
++	av1_dec->db_data_col.size = 0;
  
- struct cma;
-+struct folio;
-+
-+bool cma_folio_is_longterm_pinnable(struct folio *folio);
+ 	if (av1_dec->db_ctrl_col.cpu)
+ 		dma_free_coherent(vpu->dev, av1_dec->db_ctrl_col.size,
+ 				  av1_dec->db_ctrl_col.cpu,
+ 				  av1_dec->db_ctrl_col.dma);
+ 	av1_dec->db_ctrl_col.cpu = NULL;
++	av1_dec->db_ctrl_col.size = 0;
  
- extern unsigned long totalcma_pages;
- extern phys_addr_t cma_get_base(const struct cma *cma);
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 6af3b7008f1ad..5392e225cab9b 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3,6 +3,7 @@
- #define _LINUX_MM_H
+ 	if (av1_dec->cdef_col.cpu)
+ 		dma_free_coherent(vpu->dev, av1_dec->cdef_col.size,
+ 				  av1_dec->cdef_col.cpu, av1_dec->cdef_col.dma);
+ 	av1_dec->cdef_col.cpu = NULL;
++	av1_dec->cdef_col.size = 0;
  
- #include <linux/args.h>
-+#include <linux/cma.h>
- #include <linux/errno.h>
- #include <linux/mmdebug.h>
- #include <linux/gfp.h>
-@@ -2975,7 +2976,10 @@ static inline bool is_zero_folio(const struct folio *folio)
- 	return is_zero_page(&folio->page);
+ 	if (av1_dec->sr_col.cpu)
+ 		dma_free_coherent(vpu->dev, av1_dec->sr_col.size,
+ 				  av1_dec->sr_col.cpu, av1_dec->sr_col.dma);
+ 	av1_dec->sr_col.cpu = NULL;
++	av1_dec->sr_col.size = 0;
+ 
+ 	if (av1_dec->lr_col.cpu)
+ 		dma_free_coherent(vpu->dev, av1_dec->lr_col.size,
+ 				  av1_dec->lr_col.cpu, av1_dec->lr_col.dma);
+ 	av1_dec->lr_col.cpu = NULL;
++	av1_dec->lr_col.size = 0;
  }
  
--/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
-+/*
-+ * MIGRATE_CMA and ZONE_MOVABLE folios cannot normally be long-term pinned.
-+ * CMA may allow pinning folios explicitly allocated from its areas.
-+ */
- #ifdef CONFIG_MIGRATION
- static inline bool folio_is_longterm_pinnable(struct folio *folio)
- {
-@@ -2983,7 +2987,7 @@ static inline bool folio_is_longterm_pinnable(struct folio *folio)
- 	int mt = folio_migratetype(folio);
+ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+@@ -269,15 +274,30 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 	unsigned int height = ALIGN(ctrls->frame->frame_height_minus_1 + 1, 64);
+ 	unsigned int height_in_sb = height / 64;
+ 	unsigned int stripe_num = ((height + 8) + 63) / 64;
++	size_t db_data_size, db_ctrl_size, cdef_size, sr_size, lr_size;
+ 	size_t size;
  
- 	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
--		return false;
-+		return cma_folio_is_longterm_pinnable(folio);
- #endif
- 	/* The zero page can be "pinned" but gets special handling. */
- 	if (is_zero_folio(folio))
-diff --git a/mm/cma.c b/mm/cma.c
-index 9ec1d1fd5dff5..b3bf0014a90f5 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -27,6 +27,7 @@
- #include <linux/log2.h>
- #include <linux/cma.h>
- #include <linux/highmem.h>
-+#include <linux/hugetlb.h>
- #include <linux/io.h>
- #include <linux/kmemleak.h>
- #include <trace/events/cma.h>
-@@ -38,6 +39,16 @@
- struct cma cma_areas[MAX_CMA_AREAS];
- unsigned int cma_area_count;
- 
-+bool cma_folio_is_longterm_pinnable(struct folio *folio)
-+{
-+	/*
-+	 * Explicitly allocated CMA folios own their bitmap ranges and can be
-+	 * pinned even in ZONE_MOVABLE, as CMA memory cannot be offlined.
-+	 * For now, only HugeTLB tracks these allocations with a folio flag.
-+	 */
-+	return folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio);
-+}
+-	if (av1_dec->db_data_col.size >=
+-	    ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols)
++	db_data_size = ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols;
++	db_ctrl_size = ALIGN(height * 2 * 16 / 4, 128) * num_tile_cols;
++	cdef_size = ALIGN(height_in_sb * 44 * ctx->bit_depth * 16 / 8, 128) * num_tile_cols;
++	sr_size = ALIGN(height_in_sb * (3040 + 1280), 128) * num_tile_cols;
++	lr_size = ALIGN(stripe_num * 1536 * ctx->bit_depth / 8, 128) * num_tile_cols;
 +
- phys_addr_t cma_get_base(const struct cma *cma)
- {
- 	WARN_ON_ONCE(cma->nranges != 1);
++	/*
++	 * The five buffers scale differently with the frame height, the
++	 * number of tile columns and the bit depth, so each of them has to be
++	 * big enough for the current frame, not only the deblocking data one.
++	 */
++	if (av1_dec->db_data_col.size >= db_data_size &&
++	    av1_dec->db_ctrl_col.size >= db_ctrl_size &&
++	    av1_dec->cdef_col.size >= cdef_size &&
++	    av1_dec->sr_col.size >= sr_size &&
++	    av1_dec->lr_col.size >= lr_size)
+ 		return 0;
+ 
+ 	rockchip_vpu981_av1_dec_tiles_free(ctx);
+ 
+-	size = ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols;
++	size = db_data_size;
+ 	av1_dec->db_data_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						      &av1_dec->db_data_col.dma,
+ 						      GFP_KERNEL);
+@@ -285,7 +305,7 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 		goto buffer_allocation_error;
+ 	av1_dec->db_data_col.size = size;
+ 
+-	size = ALIGN(height * 2 * 16 / 4, 128) * num_tile_cols;
++	size = db_ctrl_size;
+ 	av1_dec->db_ctrl_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						      &av1_dec->db_ctrl_col.dma,
+ 						      GFP_KERNEL);
+@@ -293,7 +313,7 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 		goto buffer_allocation_error;
+ 	av1_dec->db_ctrl_col.size = size;
+ 
+-	size = ALIGN(height_in_sb * 44 * ctx->bit_depth * 16 / 8, 128) * num_tile_cols;
++	size = cdef_size;
+ 	av1_dec->cdef_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						   &av1_dec->cdef_col.dma,
+ 						   GFP_KERNEL);
+@@ -301,7 +321,7 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 		goto buffer_allocation_error;
+ 	av1_dec->cdef_col.size = size;
+ 
+-	size = ALIGN(height_in_sb * (3040 + 1280), 128) * num_tile_cols;
++	size = sr_size;
+ 	av1_dec->sr_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						 &av1_dec->sr_col.dma,
+ 						 GFP_KERNEL);
+@@ -309,7 +329,7 @@ static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
+ 		goto buffer_allocation_error;
+ 	av1_dec->sr_col.size = size;
+ 
+-	size = ALIGN(stripe_num * 1536 * ctx->bit_depth / 8, 128) * num_tile_cols;
++	size = lr_size;
+ 	av1_dec->lr_col.cpu = dma_alloc_coherent(vpu->dev, size,
+ 						 &av1_dec->lr_col.dma,
+ 						 GFP_KERNEL);
+
 -- 
-2.43.0
+2.55.0
 
 
-
-In a follow-up cleanup folio_is_longterm_pinnable() can be moved to gup.c.
-
--- 
-Cheers,
-
-David
