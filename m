@@ -1,59 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794518523;
-	b=SqQscFzKJ1SGfn2KsNwFXbwIffZ5S/ARv+DkAOvZ0mP+ZYtudt9q8V1OJNysn7ua4AAt
-	 Wm5e8W4kjTVRh2uDreGYZzDDr6BbtpvN7tYM8ynTNXDSNQW9n81M2o7oQn3S6/41IQxYQ
-	 SSQjHWvvhvKdu6b2idpUqibbIrj5QORhLHmvRk1rDgX/ZriV1CNoV71+hGABa1SRnnqB0
-	 ZLukgPDHi3jrMxg2i+VzQTHAQHcIiJuJi6YRKsksbeGxCBIoOvi463vN5CcjotlOgU+QW
-	 FXcRyAwMkw4ANHQNNM6o5jv2WDP59vhj3nCs1V1y6yyAcZFMyXWACKlyWHopip9OsDw==
+	t=1794518554;
+	b=ns/lckd/rUziHM3uzEbVVHPosvIy+GpT84ogwONDiBlPBrSO1Z5VsNdr3yMPVN+2JeqN
+	 /Lq0FP/Gdzpg82Ik1umUFf1onUdqeeR/xCkwsWomrb09uHdAmeMjTlYMlVXScH3/c9GPe
+	 NNnNR1s6EntqXR9DPGE8X0TbvfCDnFsLf9yEZGMJxHxq3U79rPHm3i/SIyCK0vUAWmBv5
+	 sdGGA/QOIBzH31jG6UHyHp7NeMIasBAg42mfIN7LoDFFXUe74pM6XuLRn87uRSSzInOnx
+	 x4CHa+ep6VSdN0+pi1Cpf+o8aUpunlrT3yaMBPGvX4B5ADJErlbPACRIfrDp6bReavg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794518523;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yMug83nLKHxR9FXzvG9LAoy/tgkQAJH1i4Cd67PhO2Y=;
-	b=mnRkdjyNK4LalNEwI/KaADVHgzV/H3D6tKlrlHomBhx81z7SsWO4tjHZR02ucB6RQKi6
-	 HdggDcxnxXBwjVFQtq3T+O3fxkegxKrV70MXVnDuVpHXiW9eRJkltpp2892BMFl7DMPu2
-	 GwpDnbM2ZhYCm/Zh/xCJrM6THExQcx3XqkYt0HzL7nv/feSp7DRQkNBpYiDrGL85eX+Rt
-	 xbZzxUrtYhhW1KkfxDaIjNDsnqaa0FlbcDOc3NwRPRm+vSt48FNP/vtQx6Dzc6txLQUXu
-	 z34EFs0drogppyGthQ5HPp6MLMCI/6u4gf7baOktuJvmAz0ov2TuUma3Dk948oq6Y7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794518554;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	b=XxYNPTGW2l+Ijo2ZCxIqtU+khXZHSndmmLntHZmGjAjJ8VGcvUiM0W7mBnCMPIjabjAY
+	 Vvx8JYE0K5Lu1ISF3J2+gK/bW5snB90AG4eXzmjI7FQmiDZBrjGt/pY4T9MLoHBKc0V8W
+	 AoaYz4b8Sa1IDUmfF25/JeGiwMXpMmbdChEcU+gh0lkmxjL7tKu5E2r4tdNmT28zlyvnE
+	 NPAsxnsT0mA8ZQVxnpvsCBHeYXhtBYWfVURwT4xRi5zU3oaDnzCT5TlxWvAczZGPJEOYU
+	 lvy6G3v8sZ0e9EoxfHRBwFJjyUsyoaNhVmqSmrnnHDyaMEWq3arvzlEAZ/eUuQwRSpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+KxyZL9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCD1606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 21:22:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+KxyZL9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462F31F000C4;
-	Thu, 12 Nov 2026 21:22:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794518523;
-	bh=yMug83nLKHxR9FXzvG9LAoy/tgkQAJH1i4Cd67PhO2Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S+KxyZL9sRFdCbm6Ab7exbH7ItXGZ4ztyBpu2kWHfXTfQxXcW89F2cx+zdoMteCz8
-	 0rEIuhxjFkGOpRiOlHiMuIxkuvPJvhfZAGpgGAPbnxNxiTtLtDSFHkcBBkok4B0Kqj
-	 i8Afve+7SY1Z+hqI3qIRU6eJmHgzlNhGzyTnx44lqQf1I7Jw9Ocpdv+rhP2i7tUaYJ
-	 yy+zd0JxVRhLSmzGHL5Oa3TpbaCf7RP2h0KfMcHrq5pS5P05xR5itMnt8rMHLT0WJ4
-	 kCE86zgVpBaaz5PNMr1W7NWGo3vHNRvv+4IPWy7EABWFxP7Wu54DLbrXlkLntxaI5a
-	 FFfpeeW7TRpgQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/mremap: fix moving PUD leaves
-Date: Thu, 12 Nov 2026 16:22:00 -0500
-Message-ID: <20261112212105.3778698-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202811-failed-5.10-440c8779757f@kernel.org>
-References: <20261109202811-failed-5.10-440c8779757f@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1318C606A332;
+	Thu, 12 Nov 2026 21:22:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1318C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id BEB5868D12; Thu, 12 Nov 2026 22:22:30 +0100 (CET)
+Date: Thu, 12 Nov 2026 22:22:30 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: shao.mingyin@zte.com.cn
+Cc: kbusch@kernel.org, axboe@kernel.dk, sagi@grimberg.me,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] nvmet: zero the entire Get Log Page transfer
+ buffer
+Message-ID: <20261112212230.GB11411@lst.de>
+References: <20261106230013815Squ68I1R3ds7pODmhHTwr@zte.com.cn> <20261106230019343v9OWwbe7yzjYZeoO4htcW@zte.com.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,77 +49,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106230019343v9OWwbe7yzjYZeoO4htcW@zte.com.cn>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-From: Josef Bacik <josef@toxicpanda.com>
+Looks good:
 
-[ Upstream commit 440c8779757f09f290770b1d361dc1516a9d0b3e ]
-
-pud_none_or_clear_bad() only really works on page tables. PUD leaves
-confuse the check and make us clear the page table entry and print a
-warning.
-
-Since commit aed877c2b4257 ("device/dax: properly refcount device dax pages
-when mapping"), this also leaks device-DAX folio references, mapcounts
-and RSS accounting, resulting in "Bad rss-counter state" warnings on exit.
-
-Allow PUD leaves in get_old_pud(). If a PUD leaf cannot be moved as a
-whole or the move fails, split it. This unmaps it with proper accounting
-instead of treating the leaf entry as a PMD table.
-
-Keep using pud_trans_huge() for now, in the future this code should be
-cleaned up to just check for PUD leaves.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: fallthrough after splitting ]
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-32-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: applied split_huge_pud() directly in get_old_pmd() because get_old_pud() and whole-PUD move support are absent ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/mremap.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 79beead5af830..eca03a9789049 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -30,8 +30,9 @@
- 
- #include "internal.h"
- 
--static pmd_t *get_old_pmd(struct mm_struct *mm, unsigned long addr)
-+static pmd_t *get_old_pmd(struct vm_area_struct *vma, unsigned long addr)
- {
-+	struct mm_struct *mm = vma->vm_mm;
- 	pgd_t *pgd;
- 	p4d_t *p4d;
- 	pud_t *pud;
-@@ -46,6 +47,7 @@ static pmd_t *get_old_pmd(struct mm_struct *mm, unsigned long addr)
- 		return NULL;
- 
- 	pud = pud_offset(p4d, addr);
-+	split_huge_pud(vma, pud, addr);
- 	if (pud_none_or_clear_bad(pud))
- 		return NULL;
- 
-@@ -280,7 +282,7 @@ unsigned long move_page_tables(struct vm_area_struct *vma,
- 		next = (new_addr + PMD_SIZE) & PMD_MASK;
- 		if (extent > next - new_addr)
- 			extent = next - new_addr;
--		old_pmd = get_old_pmd(vma->vm_mm, old_addr);
-+		old_pmd = get_old_pmd(vma, old_addr);
- 		if (!old_pmd)
- 			continue;
- 		new_pmd = alloc_new_pmd(vma->vm_mm, vma, new_addr);
--- 
-2.53.0
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
