@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506188;
-	b=WWN0J3ur7DhxmxDpieAjH6qW3cwsryMzwJVD8qAInY0SxWI2iioMaYJvqbK6PfzhI/q9
-	 pKBAsBiUBnxmisDC35todS1lXRUgJqHrZU5vvCOGveMI543d+BPYFMgafSBQEa20+RF5V
-	 01bK1R8Co8EPNIf7X4tpBtQCd6+QPyYEqJD9otfZWQ3st8sp7y22gYlAp7/7beOJgrhPt
-	 rDTuEJXMwd8gU/eC+v6nzG8FhkSXyS+/NhxN/hk/LGshSy63ngcTg63uyCEKAAyq0JwFp
-	 NdKHW6RrGkoRtvwbAEk4cdIt5V8gKSX38Myb0ke3yJ+5yCr2gASBIrhBgPR6gSKI+eg==
+	t=1794506230;
+	b=Id6Cw/RoGK1xJWHEsGfHoy2IBZZhGsGD3BMlK4txUvFoBrxsH2gncHiOYX0ZnXVXgrmh
+	 zWI4i5Mi4xWWEML/ueyUkWtUzLt9exp5mfU1gVaT7mcqC+FL+eHBe63YF2JZafbe/GwVf
+	 r7Tohz1tXWMXCFrnCa7t/lc1evTep78TORRWzwuAY+naLs+Mj7CAJT8HiNengebvgR0rh
+	 Dlsjkx5tkQOh5llsyg34cv43xe2UNoxgGEKepVPIKge+F38IlVCdJ/F60r1/+6g0uHlhp
+	 AISGmHRiI8mp2c81mrve8Uf7+PJ5l5mNIxcfvF82de7XPp+8VgSHsGOkBKzbBpMEFKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506188;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=oX1FfxSvKmY7PUz36O/ZliPw6+lwphICskypKstU3eM=;
-	b=Fz5XB9o+zzhgubi6A/1tNvaW+ivC/9gNL+mKARgREJDVkHvadU4WBeK8Udx7Uo1ZOPsI
-	 UJKuCyoo2EvB3qGHLUpJP9aQO9BItUT71fRmTDrdYgt0s3uBLi5I2KihrCTbIJEEEW1vD
-	 3kHwQRAjCdNrh00fAqbpN4OKOJJKbu5fZamW8XkYf1fjM+y5fue/PJGC7gZ/a+yP3ykQB
-	 /2D/j76N0/mAayeRoydx4HkJuf2HK4DXdiAyEObdQTTdYYxvvMWdhJO3/5UUXpNQ01BqO
-	 mwyLdfrID9oHe8p/IaPZG2bmvPqG8e3yIT9spyLKzFTrm26Z2vsQak8TWj0Mw39hQ4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506230;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=eIMLXS4qMchIdJb9Ke98PARc4KmON9mhZsDy8D1MskE=;
+	b=2tzDpdgjqiME/BJrb/RkrgYziz+PflQOB/PeRW4mqJoZAiXRnju74lbq0Q+7nM1zhhFd
+	 PPZJIA3a8g0kNxeihLWVqxgv3xHaD2Gmq5MsXV0+9z+DDKr6EQgowLFjGkPri2KVsi9kg
+	 9tgR8rgrWEAg423LBfuzC4yPsrpE07/Kx6uelbqcpKcDLW12WjWpC0bEc+RIiC5vuqJ1b
+	 KYbjbicuqVi3MDa/Ac3XlEVfVELb/CaG649ArngUv6WwB55EdpRFP4TU09dVTVptbkyxx
+	 iLbijJF2cfiwPTMmZ++n09IYRrusKH4gCNKVsHgmthR5wh+JpGDkS/Ou6uVOXYVCK6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EHevdXBn;
-	arc=none smtp.remote-ip=209.85.219.41
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30698606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30698606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ha2rj8rQ;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CD2F6070F37;
+	Thu, 12 Nov 2026 17:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CD2F6070F37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EHevdXBn
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91e8938fd01so449996d6.3
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:56:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794506186; x=1795110986; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oX1FfxSvKmY7PUz36O/ZliPw6+lwphICskypKstU3eM=;
-        b=EHevdXBnV4anAfSLKj5v8q2Iozg9+kJRetotcX6QAbpiWWKdfn3IwKbW+VaI2GAaZx
-         1qceClnVl1GgIdWydNamNGFCl6PY/+1OUnJMCW2CqU0QDuIPdyY9QU1jxAV89RBRTHa1
-         2lDsok4KB59SozZzLSpNfWCAD3Y0iYPpXq7vW2m1lZn8Cq3AXVNVdH/2L6JA+JVoVdAu
-         QcT9Fv3EfNxygDjKYfo3ZKS4vQHT0eITMDOGpHaFNElXyCqjANHZeWKD2J2h0dWNDT2v
-         rG89HgkXOJhxDBWcCS6c7h7an2NxYuBSUXIJhH5YT8eEJRaMSDwGmCuuaRJUFI87lodq
-         3phw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794506186; x=1795110986;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oX1FfxSvKmY7PUz36O/ZliPw6+lwphICskypKstU3eM=;
-        b=EmP9Lf9nW91iWqt/nESMuoODNsM0/xOhz9KTUF3G5f/E+HgXQO8rWlRpNwzuYjBLNl
-         SynAZCgBamI5ImivVbUQxBQ9wPZCokAF6N82IBJKYZJMbkiv7g9yZR73YwPciCeo5odH
-         f7bDVTl3Ft/U3BLjWuj5/MWckxnN9lM2Yb8cjnuNJWYllYUYX2yHM/CANRFrgrvCZ8fZ
-         ldulc4ypLx92MUDNP7TeizfE1PeTsNKLLcPsV8COyTP1W6iJZ4gzhhvQZDUfT8rchzN0
-         Mhei0xGaMu+YBoesFcx6heAUW8XpRp8IeqffKLQmlqIZulF+b06oDs2oA3mDAe08t51F
-         Shbw==
-X-Forwarded-Encrypted: i=1; AL+hErFpxZeYDxrr+p2vn5eCKDHOUq2cGr3ZGvYz22VNSbApNx3DN7zyjn3DjZaa94xvoHGSBbHI1wM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rxk0C3A/f3M4ogg+CTtZbGxeoqXpZlkfsZo7Vhhhd0GbJvm2t
-	U2rWpalKuVYj8RmzA18efgEMrMoNtxEFGgZE986WZt1l1ZsnZR1z/v1vnhyFYOhXKgc=
-X-Gm-Gg: AYBFou0HFk3YPANx9IRZeUItQ4iactDGsvJOX+n/e3n9DKryM7zWTO3ClIY0eUhqZEy
-	CYz1ptfJaW6Z/Wcrh+YUZ3oe+QRu6o0qobUAGnpOTOrDedDgOpA3yyrI+If5wWzJzgs+3gPSHMo
-	wboiX3TTYIbm1dHcMswQY6kL0ByJ06STaYNEyViiWIxf8nVG9cGYPiUTQumXQEKFn+nXb296RJO
-	ycAvJciuasBFD3ZexPDSN+h+1uUC5RohkS/53H2wkKnBguFrqjw68EciBiVMAVzjzUM88BZtJuH
-	bevTgfTvj5JzUVs8EQiAtrEW6zLZx4b9u7ESbqjkkYL5cocAQ1ohfJDAK1HUm8Ra9mVb7Ia9Qza
-	HsSvAqdIi80PuKru1conAgTc/BC+in8SPUwsqGTl58ibBC0iZ/3abVPFq+EdoChtHksdba4FjB/
-	M0Xis3JcVsb0d0X8XaAnrxCiPcwy0ov44KJrbe+D/yiXb/Ol2FREhgOnb2Hm6mJGnn/T2TIqJ9O
-	G5FZKpurwJrHG7qMKHX8FADGwfuZPjXS8hDOWuTwBpCdFFV9jcmB0oES+dXV513TEp7KEfqXEdP
-	NfI9rQGdlhZXPJS16yMmW1GbgqRXecKxLjG+fiXQWvNXOqfbXnNSZUiL+ORON3tLds5GmwOkSpv
-	upGlDH34=
-X-Received: by 2002:a05:6214:858d:20b0:91e:9b17:2be9 with SMTP id 6a1803df08f44-91f24203591mr468026d6.36.1794506186056;
-        Thu, 12 Nov 2026 09:56:26 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d70489sm1212506d6.21.2026.11.12.09.56.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 09:56:25 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ha2rj8rQ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6782F1516;
+	Thu, 12 Nov 2026 09:57:05 -0800 (PST)
+Received: from [10.57.89.53] (unknown [10.57.89.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A3CD43F632;
+	Thu, 12 Nov 2026 09:57:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794506228; bh=wHoRLMxpp6VobDxAN5qyra9zMHbwVP85Y8BlmYS7CgY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ha2rj8rQh3U+VewZaJ4W/bQgp16VOjT/3KufP+5DdVFwXMBbtsrFg1Y9TjbfMlQRA
+	 mY9Duipq8IJdakWhob1iJvKhGnY6WGJhrwCUHX0jKUWxwCJlWCQpLfV/Nr+SiR9B5n
+	 7ibv6reHOChTjI5dkjAhkGupUPsS+Kqj6us9H2Ds=
+Message-ID: <472df1c1-e1fb-454a-96bf-4a01dcd383aa@arm.com>
+Date: Thu, 12 Nov 2026 17:57:04 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,88 +53,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu: Don't let a driver bind while bus_iommu_probe()
+ still probes its device
+To: Arun Iyengar <aiyengar1990@gmail.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, "Rob Herring (Arm)" <robh@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Tudor Ambarus
+ <tudor.ambarus@linaro.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261112-iommu-probe-race-v1-1-8c0b986b7e6e@gmail.com>
+ <CAEy9hNXRwH9qD-=Gj3NiY=ZVrVq02hAj0dPU+o8YfEmCcbSdNg@mail.gmail.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <CAEy9hNXRwH9qD-=Gj3NiY=ZVrVq02hAj0dPU+o8YfEmCcbSdNg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 06/13] mm/migrate_device: don't let go of the fault
- page
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
- Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
- Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-6-3d2454362e8d@kernel.org>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
- <20261111-mason-migrate-et-al-fixes-v1-6-3d2454362e8d@kernel.org>
-Date: Thu, 12 Nov 2026 12:56:24 -0500
-Message-Id: <179450618409.482102.8556965317179106876.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-11-11 18:13 +0000, Lorenzo Stoakes (ARM) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
+On 2026-11-12 5:32 pm, Arun Iyengar wrote:
+> Please don't apply v1, and it should not go to stable. On re-reading
+> I found three problems:
 > 
-> When migrate_vma_split_folio() has split the folio of the fault page,
-> the lock and the reference which the fault handler has taken are at the
-> former head page.
+> 1. "A fwspec without a group means a probe is in progress" does not
+>     hold on ACPI. On the driver bind path acpi_iommu_configure_id()
+>     creates a fwspec, and nothing there probes the device or frees the
+>     fwspec. So a device whose IOMMU probe failed earlier would get
+>     -EPROBE_DEFER from iommu_device_use_default_domain() on every bind
+>     attempt, where today it binds without the IOMMU. OF does not have
+>     this, because of_iommu_configure() either probes or frees.
 > 
-> It then moves them to the folio which now holds the fault page, by
-> taking a reference on and locking that folio, then unlocking and putting
-> the former head.
+> 2. Drivers with driver_managed_dma never call
+>     iommu_device_use_default_domain(), so the window stays open for
+>     them (e.g. pcieport with a modular IOMMU driver), and the changed
+>     WARN condition can then hide it.
 > 
-> split_folio() has unlocked the new folio and has dropped its own
-> reference on it, so until folio_get() nothing but the page table entry
-> holds it.
+> 3. Replaying dma_configure for a device whose driver is inside probe()
+>     is wider than I described. It applies to every such device on the
+>     bus that has no group yet, including a client that went ahead
+>     without its IOMMU after the deferred probe timeout; that client
+>     would get its group and default domain while its driver is probing,
+>     without a warning.
 > 
-> Only the mmap lock is held for read, which does not prevent another thread
-> from zapping the entry with MADV_DONTNEED.
+> The race itself is as in the commit message: the client's dma_configure
+> sees the dev->iommu or fwspec of a concurrent bus_iommu_probe() replay
+> while iommu_probe_device_lock is dropped.
 > 
-> If this happens the folio is freed which results in folio_get() taking a
-> reference on a free device page, which the driver can hand out again at any
-> time.
+> For v2 I intend to mark the in-progress probe explicitly in dev->iommu,
+> have of_iommu_configure() and acpi_iommu_configure_id() defer any caller
+> other than the replay while the mark is set, and leave the replay
+> condition and iommu_device_use_default_domain() alone. The other
+> ordering in the commit message (the client sets dev->driver before the
+> replay check) would then still warn, although nothing is wrong there
+> besides the warning; I would look at that separately. If you would
+> rather see this solved another way, please say so.
 > 
-> In addition, folio_lock() can sleep here with the lock of the head page
-> held.
-> 
-> Utilise split_huge_page() which will leave the lock and reference at the
-> fault page correctly.
-> 
-> Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ ljs: tweaked commit message ]
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Tudor: you are on Cc because this is the same "!dev->iommu" gate on the
+> readiness check as in your thread
+> <20260323-iommu-ready-check-v1-1-5f6fef8f9f59@linaro.org>, for a
+> different case (one IOMMU, concurrent bind).
 
-I was able to reproduce/observe the ownership gap trivially.
+Really the dev->driver checks are less than ideal, as they're inherently 
+racy with an unavoidable false-positive window. What we could really do 
+with - which might now be viable with the recent atomic device flags - 
+is a specific indicator that a device has got far enough into binding a 
+driver to be past the point of waiting or an IOMMU. The 
+BUS_NOTIFY_BIND_DRIVER call is in fact in more or less the right place 
+for that, so we could potentially do the flag management from 
+iommu_bus_notifier() rather than clutter up the driver core with yet 
+more hooks, but the flag itself can't be in dev->iommu, since its whole 
+meaning is "we assumed this device didn't have an IOMMU and now it's too 
+late to safely change that".
 
-With some effort i was able to generate folio_get()'s zero-ref BUG()
-
-Can't say I understand the change well enough to give an R-by, but
-the patch does resolve the issue.
-
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-
--- 
-~Gregory
-
+Thanks,
+Robin.
