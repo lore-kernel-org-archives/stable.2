@@ -1,73 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794503473;
-	b=iaxH+hfnFpMQP0j5S4kDD4ViVHDuKfWy4zsc3uXAguMTZIqA7SpGruMIBEGJg01weWnu
-	 HsLRECfUWMpcCLUZoAsqs1CWeXnCApgL77tFlacePrBNeXjX/kcdbnXJQwJIUX32QdmIT
-	 70eIrgtofym8vCigi9o2ya5RsdokqrZQsQrW4v7RE7kzieS8+KbTDH7UYYcuO4Lsj3PSZ
-	 8v/zypkMjmi9Ic7Jd9ed1ABTvRcO9vVWqDBPy7K8kMgo3N7HowMgpIt3ku2xF4HyFl+Mz
-	 hHsQrZ623jL9yeT5CSbVuwkcUbqpbCPWtqqhBZrSuDaao8YHJFRzD9PYWDC9b3Tk5cA==
+	t=1794503484;
+	b=4wPQ0Zqls5zbOdyWCDKCdR3JtwTcNsQKmZulY/k4GTTGZGA6nIgm+mMWug2Bs30gm1xD
+	 J75bq8DZfEmdUrH/AI3VmgPBdXiS58zx4nHsQk4WDHhvfI2V5Su45hWGNDOp/SKYqGuIG
+	 sj+tLbc8kRQICk2mUreOiG3K417t8CvmrtftDBJ1ailFf4tfO2eT3NgvRpCHOy/Fefzh4
+	 Unuq0gzda/jRP8YmMCQQsVZDk3XU8cNC5yO85KTu9go5LRK6svrgI5NO7hH7CIGFlNUe0
+	 m5u2yMvM4ji0Rpuz81e+VqGbzJy9bH1XU/BPhf55Qykws68GVQaFu9DL2VFz0cFNPdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794503473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794503484;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=9LK7DTiATkiZuneWGmRFMWmw25q7gIVXvh7CUGQF4zY=;
-	b=GmtgY9ZqtfW6vL7bKo8NECzR4VXHs+f+VJcE6yINRInmmjDxXy8VX/0WXJxha7V+hm6Q
-	 8kqXkX+IKJvuD+H2/YAR+KpwAg5boSSkFEPJw8Cvdn0veLdWYnknIZBH/EPsr7f/qIUSc
-	 ca75/tFf+a5sJK87kd+O7JCYPx6fol+jkdSu9iPhOqt1bdnTwHMDobD3NpAPjApUk50is
-	 ywebxm1Y3PhsKTGvt8ZdCGdzNHAsd4KwtrkTUF8kiBGM86n9wsU6sX+nyve9jbNCf+F7B
-	 LqefSJpPIR6IZxmVRnihpVgv1zBiDHi6t5fOcwrA//Er9aGOZP2JVa4RjuiYH3pR8Kg==
+	bh=8SezjP7qMV7JA1xyNLi94WxImA0k2Vv32vond9P/7CU=;
+	b=P0u7oT88AQionlNcg8kHfhSJEiPXTGfTbYtuJH62JuH9kZrza8PJeZbNsjXgmeXxizgf
+	 gK1P9+ffusqL/pgZR04akH4R6Z7SWXuCUPkDf+kOhDcebx58wkszEpE9NP/IKZsQtJ+v4
+	 Xb5hXBq5dvH9M1wCjaUyzusAnhBy382vT5dLlPdf5Lp4NYN32wG8uM6Iy68IBzFZerjUF
+	 OeIfdBnVkx8ElVbS1ESo0/1Eux+/0tXCKSXDH7hE1ZTWzfCUUY4F3+BWTzgFSF3fnuUDq
+	 KicNZj80JvvGKSMR+qhaFaVDdSOAdxYOAZejpYx+9zO3ZZId32VrNU/2L5Lhpae+u0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OzjGAZPp;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q+d453Jv;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1442606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:11:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1442606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD11606A33A
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:11:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDD11606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OzjGAZPp
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b0a7cbf164so4876794a91.3
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:11:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q+d453Jv
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b0a528ca65so5553a91.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:11:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794503472; x=1795108272; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794503483; x=1795108283; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9LK7DTiATkiZuneWGmRFMWmw25q7gIVXvh7CUGQF4zY=;
-        b=OzjGAZPpYaUfKD/aCF4/njyVl4C+MO/7S3hQnf+RjjAp8X3f4IAynGqgK2uGSWuADh
-         n3WpTnH3x3aXGN8aupK4NAUB3+PB+LcLX/BziHJeGhP2gr2aK/RTqiK3Bgm7Yo7EYSQL
-         HbQaWItgaXcwIlfbLKtzaktI8uQMTbFqlf3VGHzZPQXguV2V7qIGINPjn92WrS1MEGkD
-         AkanQbZPxMVaSG06Z6MiKPxwa//5GUkaQQ+uBlRkghN6YwPAH/HuRm/GZYmoEwbtERRC
-         G7a0utZrRSM1gfaLOai+Du33nnGm1IlZgUwQ/GWEBnqvTVlau7b/da8lDPQ66on6yVP9
-         rEMg==
+        bh=8SezjP7qMV7JA1xyNLi94WxImA0k2Vv32vond9P/7CU=;
+        b=Q+d453Jvop3A5CK9RjICQ6OG10CQhBnLexCTQJTCwPCK0/k95ls9tG0gDh/6ILseR1
+         3g/lJLi4mXS733gopPoaKjaXKdMdwWJiCID8pHYvJuyMXCBsJSiqGyV/IFAsdMHDPtQW
+         OomfqCFtoPhA9pJyFx9hD5wjfzz5iPcksgUASsJ9o2jJmd6j958dsC/YAopLVXf31ShA
+         q79ps2d8axYXfBnT2yLvMz993A5KtipWliL0p8vq/Y/LSYVARvac0bjFS8/rMzOhAITE
+         rjtYdTIZP6EEryHQV8QHJtv07t8UOSmfQkOaX/tojsk0fMyvMZEEYSxoiEZzSJDvMLDp
+         CB6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794503472; x=1795108272;
+        d=1e100.net; s=20260707; t=1794503483; x=1795108283;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9LK7DTiATkiZuneWGmRFMWmw25q7gIVXvh7CUGQF4zY=;
-        b=x6rO7CEYmTAe6e07NB2NI5ZoU9nPQwdkqbeHwyGaiqgPkelzTsMEtGQ74p+9TFQuG1
-         u2E6km+j8IJBUsy5HjCNxqvMh8O3znV3H91Ap7ZWWWNbvDjrlH6+cH4zgoI/0AhbuzlQ
-         RvYiU313rMY3nSa3k/2sTDN/+RUVdgXm2wz2cZ7C8eG0Dn/Fum1SXkTWqlvvuLG6gNAi
-         NiLiB08htKAymJMks72UkzZXWeCW7gFIbbnBWZ0+cSV6hK8SmzhoPjZJ4CMk03ILDeOs
-         hRbUkVFsdHx9kWhzg+Amt1/6XCI2wHpehRe/dEqaKAzKmYLS5pngQVTvUfhz128h8+Nm
-         6/jg==
-X-Gm-Message-State: APuU4Z8ashSEhQ9uTZXIVW9ax0BIoe+bMjqJl42ZdYK42BCFy91F4PkZ
-	JMnunRLT9W9k26DnXB0Uu0/KDE6MUjIzWqjE/MdaOeGGUotoBRrMzUDsnkv0yaiYbIE7G9Juc//
-	YZwRz9A==
-X-Received: from pjbbp7.prod.google.com ([2002:a17:90b:c07:b0:3b1:2eb3:19c7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2f4e:b0:3ab:36c4:b500
- with SMTP id 98e67ed59e1d1-3b182df3d4amr6490056a91.5.1794503471648; Thu, 12
- Nov 2026 09:11:11 -0800 (PST)
-Date: Thu, 12 Nov 2026 09:11:09 -0800
-In-Reply-To: <20261111170439.3395604-1-sashal@kernel.org>
+        bh=8SezjP7qMV7JA1xyNLi94WxImA0k2Vv32vond9P/7CU=;
+        b=Iyo2QPPfApraaGn/aEhpNaXEuFwCc6NqO1EAb0dK/8fKRGfU4SkLZ1VScUaRtqP/Kx
+         ba7hQM4soUIookeNYnhzumFlKAn603gICIyMIHCRfc9WONIivuJEEuaquhr2T4O1BekX
+         e62lOXDKVs8Y46eDlnyFCw/KcIuCXLEH8WX2brodvDqWfFnHkwKLI32PlNbmFw5iKMMW
+         nKbi2k9OanffLvYYYJdKlYw+O+NpIkM8QOGnMLQN7lGJhPMJhHsbvD/TvHSsptrC0blI
+         q8BiQoRGyK7+FJlUT/LEnpi4XF5Wq+Q2vkLS9O1JR6AdffN+7dXM0czlucxFA+P9B/Yg
+         F5gw==
+X-Gm-Message-State: APuU4Z93qaiFrhvxizH1WayEr7ztQJU2RjLZrhtUJdBh08MtXG8yAzvN
+	ZeJGp6JNkDPmGIAvWSITVwS8mtGWzuaTm8u8Sx0Q0ieQNVj0brreW3b9/d4MR63ZEUkiVRbFOzk
+	sBpqYHw==
+X-Received: from pgbm19-n1.prod.google.com ([2002:a05:6a02:6193:10b0:cd8:b29d:d82a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:580f:b0:3ac:80dc:f40c
+ with SMTP id 98e67ed59e1d1-3b182ec1d23mr6024916a91.14.1794503482718; Thu, 12
+ Nov 2026 09:11:22 -0800 (PST)
+Date: Thu, 12 Nov 2026 09:11:21 -0800
+In-Reply-To: <20261111170439.3395604-2-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,37 +77,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261109200129-failed-7.3-053621535f01@kernel.org> <20261111170439.3395604-1-sashal@kernel.org>
-Message-ID: <avXzLcD_56mvDYYz@google.com>
-Subject: Re: [PATCH 7.3.y 1/2] KVM: SVM: Add a vCPU-aware helper to get
- supported DEBUGCTL bits
+References: <20261109200129-failed-7.3-053621535f01@kernel.org>
+ <20261111170439.3395604-1-sashal@kernel.org> <20261111170439.3395604-2-sashal@kernel.org>
+Message-ID: <avXzOcWZAbejU2In@google.com>
+Subject: Re: [PATCH 7.3.y 2/2] KVM: nSVM: Check validity of vmcs01 save area
+ copied from SMRAM on RSM
 From: Sean Christopherson <seanjc@google.com>
 To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Shivansh Dhiman <shivansh.dhiman@amd.com>, 
-	Nikunj A Dadhania <nikunj@amd.com>
+Cc: stable@vger.kernel.org, Bill Wendling <morbo@google.com>, 
+	Stefan Teodorescu <fane@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 
 On Wed, Nov 11, 2026, Sasha Levin wrote:
-> From: Shivansh Dhiman <shivansh.dhiman@amd.com>
+> From: Sean Christopherson <seanjc@google.com>
 > 
-> [ Upstream commit cd0e6f4d7cec11be97fe6476309719b23ab5accb ]
+> [ Upstream commit 053621535f014085c935879582dd3b65964a0dce ]
 > 
-> Replace DEBUGCTL_RESERVED_BITS with a vCPU-aware helper that provides the
-> set of supported bits so that KVM can handle bits that are conditionally
-> supported based on the vCPU model, e.g. for features like Bus Lock Detect.
+> When doing RSM to L2, validate L1's state after copying it back into vmcb01
+> from SMRAM, as SMRAM is carved out of guest memory, i.e. is writable by the
+> guest.  Failure to validate L1's state is especially problematic for inputs
+> to MMU context, as KVM can end up with impossible CR4 vs. EFER state.  E.g.
+> without the recent hardening FNAME(walk_addr_generic), a guest can trigger:
 > 
-> No functional change intended.
+>   ------------[ cut here ]------------
+>   UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu/paging_tmpl.h:435:15
+>   index 3 is out of range for type 'u32 [2]'
+>   CPU: 3 UID: 0 PID: 92 Comm: CPU 1/KVM Not tainted 7.3.0-rc1 #2 PREEMPT(lazy)
+>   Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x5f/0x90
+>    dump_stack+0x10/0x18
+>    ubsan_epilogue+0x9/0x39
+>    __ubsan_handle_out_of_bounds.cold+0x50/0x55
+>    paging32_walk_addr_generic+0x889/0x970
+>    paging32_page_fault+0x79/0xa60
+>    kvm_mmu_do_page_fault+0x125/0x270
+>    kvm_mmu_page_fault+0x88/0x7b0
+>    npf_interception+0xc8/0x220 [kvm_amd]
+>    svm_invoke_exit_handler+0x16d/0x1d0 [kvm_amd]
+>    svm_handle_exit+0xb7/0x160 [kvm_amd]
+>    vcpu_enter_guest+0x428/0x16a0
+>    kvm_arch_vcpu_ioctl_run+0x479/0x920
+>    kvm_vcpu_ioctl+0x316/0xb00
+>    __x64_sys_ioctl+0xa3/0x100
+>    x64_sys_call+0x281/0x23d0
+>    do_syscall_64+0xba/0x550
+>    entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>   RIP: 0033:0x79bb30deb04b
+>    </TASK>
+>   ---[ end trace ]---
 > 
-> Signed-off-by: Shivansh Dhiman <shivansh.dhiman@amd.com>
-> Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
-> [sean: invert from reserved => supported, massage changelog]
-> Link: https://patch.msgid.link/20260930193634.3415089-12-seanjc@google.com
+> Fixes: 37be407b2ce8 ("KVM: nSVM: Fix L1 state corruption upon return from SMM")
+> Cc: stable@vger.kernel.org
+> Reported-by: Bill Wendling <morbo@google.com>
+> Reported-by: Stefan Teodorescu <fane@google.com>
+> Tested-by: Stefan Teodorescu <fane@google.com>
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Stable-dep-of: 053621535f01 ("KVM: nSVM: Check validity of vmcs01 save area copied from SMRAM on RSM")
+> Message-ID: <20261022021046.295001-1-seanjc@google.com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
-
-The superficial conflict could also be resolved manually, but I don't see any
-harm in grabbing this refactor.
 
 Acked-by: Sean Christopherson <seanjc@google.com>
