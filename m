@@ -1,98 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794488250;
-	b=tPUmyO3MdEhzE5d1KBptMu+X/JvG/iLctO4pJYCzrmT70W3T8nQnetWPGDNU0vlIYTHH
-	 MKz6p/Pqn94BhpWY+odQ+CvXAq4lSUYbMOO1WP4iW9jyEba1ygcM6Th6QZysklPSdasxi
-	 xqibIBYgAtaI1OkspB2KBAjtiJtVI7C4kz2Ww7iMl51kR7wrkj6eX0FfPUmxJMvsEy/Rf
-	 sEkNhj73ikD+73HjINXisVNCp9ZTWLjsUatVgI0rZOmvFosxi79n+Eww3KhhIKYaLLmLO
-	 FHCJyHI7FSX7RNad11Sff+q7WJQoZB16YfX8vmfeFzrTOHPSBIzDFlkA25x6pLxnRwg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794488250;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QwjtaejwHcpDXMAslS3uVhsx3lI/CrcCuwcEtURbnWQ=;
-	b=08MqkzzMOW2ORmyteCc/mktDuXWgvE9KhS5o2R/BB5eGgMO7VQ835plGuVL+Qez7q+lG
-	 Owrr3wRB/CcIiRfrPj68RrBh99AWPuOY7RKXN46kMulaubAWovfQ40Rbl0xLh22y7HL0s
-	 7pIg00d1tmAWa0lXQb4G5iUJDnt7B0TpR0nqEKooKUJGKYWmQtC5DnuUoCPLRpB/e7cjq
-	 vz2LvtIETyduixfBS1a0NM2MEQvWlduWQdLUpvJydEVfXRlVjbZ15jRzGce8Fu4x0wllk
-	 Z7eKsJb7xeC8SjasouUezU5QtULDmyQy3+lV2OnGRL9DTWrruAQq6R0dG/5BSvRXl5Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iiitd.ac.in;
-	spf=pass smtp.mailfrom=iiitd.ac.in;
-	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=Ck8de3oy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794488385;
+	b=oCpaN0RUpofN0P2RaMd+VJfS8oH9/FYXd8oJlimzsFlYUOno9APSvp74EF1mK2H3v87B
+	 WImf92wStfwVVXvF6EYk8fsdt6OZNt5RnACUVYOMqkfN7xmCVVhdQxfkNkasOIlefK7Ft
+	 cFp6Yiw6TQQT0GCQShBPy/XriE5gnefnlNc03p48fHMZ0Q0AyixDQEa6BIDd7xgJUIiuZ
+	 jmgEKMUOtd5NzmnbcJ7Gy/8dd8in+845jHKZJrJWTO8b8xEQBRlmtnfBpn7g49hZwDVu/
+	 L6HltFqD6d2aj4EBoqjGhX1zLi9VHYRgYh8afjiWB7UegwWoTjyAo2DbPJ04M80PnVQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488385;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=rbC0uj/R8RYCcgLSwNbabTGaNUN1wHB6/zypxowFP00=;
+	b=mAsC2kkrl4z/nF5UH/RImvuPlSemBjBH6jlThJuAI/mULn+bqrbGhe9tV2rshAz4aEo5
+	 AcXK8nD7Bk7mrmiqtl2LyGZISPY7Ini/gu1qBmkDEhT8lCx8X/OxDMmwGtTOu9RTGnV9F
+	 xhL4YWCTyBnkFDryaJjgYBb3EJiRcd4gUdNfoYFH/LukkvKTDtNLYtnkq+7udqutDZQpf
+	 U9eSeIv5lh09umcXOq3TaSPxDWUgXRtDjIYZ593YsCLp0qiRfbO9O2jVK48qfsU+ehDf4
+	 nb4YaLJ7OBK/yBsCSOxeVSM7Y1cxIMBNka8NbOyPuNtO4YlqZC3Sp9jijI/2+rD5YZQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gO3ugjsX;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96635606A327
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:57:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96635606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C104606A331;
+	Thu, 12 Nov 2026 12:59:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C104606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=Ck8de3oy
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b4bd3d98bfso5052552a12.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:57:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794488248; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HY7KRYzx06w8apqufT7pfN75ETHSBZ3CJxtzvZhrFbaIKhqPVo+UaH1KQCouQsiwvs
-         22P16h6avrPZUbvJ/mwKgOVTeAhCDDOWZhx0yieQC6fRpuKZNCKW7gr0uOBXJPK1zPNS
-         PGwEhiyc+wNJ6GFvrZ9Z5bnqx6WtGhi63g+oQ/CquhTttPNuc1viSoYVPacFNlReIJwi
-         l0VaFpclk2uRFl79yKYUCRqfLNFW4t+MLLNwMTBYuKVFfRQFRtcj4Fxgc2flISLESJ/X
-         tjF+p+eMya9E6xA5/Xv2HdraHmyOJSHPTnxc64FXlNclLuNyz2p0mBrmvEccT2tYc6WM
-         F1aQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QwjtaejwHcpDXMAslS3uVhsx3lI/CrcCuwcEtURbnWQ=;
-        fh=J3F85fCWB9V72dNBdBfjRIMqp1778f6M47Mcss/62lA=;
-        b=MBR4MO1twpPiB+2sXlbaIOKlSz+504zKbyoOtS7gLI9lJNCny2Udy2UdTRbJBYUppV
-         iwDwCYXQAn2/t7GsO16r+VnHDDBbdj22+q7vk4L9HG5Sl0O9/3sJZPbOt7j/KJTmJXGh
-         Tq8CHAkWHUeSmChV3RS5mbgRcVoKiU4SpdH6JDrmTFUSNHaLs3fwNrRmDzFfBiiB8XKD
-         g0ilq6C7HlSrSa0o6ejN9vMvl6ci/KcqtZ3e6Ax/RilpZl3Sx/RjTJ24G4HfsAlHMJ1k
-         L9M7zi8pkccMWw3eRqsA/y21YEEiwbMHiqDvD2ctP4OlUbnPDju5Pk6i+n9skagXiK0Z
-         Yi6w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iiitd.ac.in; s=google; t=1794488248; x=1795093048; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QwjtaejwHcpDXMAslS3uVhsx3lI/CrcCuwcEtURbnWQ=;
-        b=Ck8de3oyVOuBXjWWNERiRX6kifNx8Y6MwGVEyjQs4mgvSRlaUnGfKsMDQ7pOTpUSxF
-         LLMS9doO2ZHoyUP0Qx9wiKw4888CBVO6ETO8Wk8/v9kucYwkNb5A1MZa7q4Apcf5fFIz
-         M3MM7Y3BrI2lk3WEZG2+KrbFX8qXRLUMcKjr0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794488248; x=1795093048;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QwjtaejwHcpDXMAslS3uVhsx3lI/CrcCuwcEtURbnWQ=;
-        b=RxfiHe45Ocj4LlOclF/tCvFBvImhieHuApgcAtGLB98nt8TqPnGbNXUprrhIyanzop
-         EzIePnrBV23Okinr4ZIbFYLbKZTJxtzpDY6UbDzvbN6xTMj//IpFvTCQaEuBocttQCmg
-         x0pZbcHexVJi1Ndp9tuPtmd2Zxl3Cv3ME9YaHwsYnopMcU5VVtGzrh4+yoW/opVxSbIK
-         DphZdFhM9FpZBaOuslsWR0eXVAOYaP7L8HPY9Te8OF9bO9aASePE4zuiZx57ezl24mcA
-         Qh0I/oeeAL/sfTHnT8yeaXGrMPDkTm2dOefZ1ktpoS4661P+mySJFqmQCv9Tyu5WAN/w
-         6qKQ==
-X-Forwarded-Encrypted: i=1; AL+hErFCLRLHohkA5FwnMC2/yv/qw79sehP3aefyNoyos4mnbaLtOufeEG79viqyF5IrUUlQZpyvYN0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8d15Xh0XGG/LcBA20qMu84Hk9Wck376pxp3Y+jcwqT5fCv8MuU
-	xt14Sd2Oc6EW8x+E2FTPpGN2MYjdWyQnMoLc8xMqqyPOgLv563lekaI2vvJxzuO8HWFkuHlJnE2
-	MaOso0nTEbcbc3iatJKA5dRgVNK5/6HD7mG2yUR6ByA==
-X-Gm-Gg: AYBFou3/VxgpGh93gzgYD53urCUwkSHZCX5DqUYWAPMqD+ctt8oH9ReKZDO/2X01jDQ
-	sw60bfEW+cz3V0y100jWuvW/qJglK+QM8/H+pPsClI/cUCP+3D7iuPn9/ZbGYdRaHN/rY/ZWCDb
-	Q50MeDzl1XxbdnzFNFv6Uz6IFfkwQdFzNrS34Y0tSWXqyppK81LejKbdWNsEjEVd5LuDOArHx+1
-	fK91dP6XuULYjM7kq5eM6qmCTEXTZAHr0HfUfn2SPf5FQM3z/ychvLtxCTvO84dknaMNBm3goOI
-	ybW2uv8cmdMJHJfKduG9TjJCmkBmTGVoJpk2BWvXqqMVT2fsO55EP9i1qs7saCG/q71AHhOHade
-	ZVkGivcXxIHek7e6pkxt8fz3UaoENIz8Vnc3PNE+Yg1F56/pfHp3b85q/WLNQd+VEVvnwKO0qdz
-	RRji3xu29c/XD8QI27k6+yveK9UHuSHNqEiadLtI0iOuIM79XvLwt2BP4=
-X-Received: by 2002:a05:6402:4407:b0:6b7:b0bc:f4af with SMTP id
- 4fb4d7f45d1cf-6b7b0bcf5c5mr873269a12.7.1794488247914; Thu, 12 Nov 2026
- 04:57:27 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gO3ugjsX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794488296;
+	bh=rbC0uj/R8RYCcgLSwNbabTGaNUN1wHB6/zypxowFP00=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=gO3ugjsXniZ/tEryKQaEOBVlWvjA7hrmmWv1m8E7ilw1Wdhm1Hfh2TH2ABtIHrW/+
+	 woUBEIgDMAjq4+MiFg0SCAbQzPcNdV6ryXuixmAmoO7fkz8D/dA3Y8QOqTUuZ3UFMt
+	 AY2FF9neskpJ1ghdSiZlX84VtD1TrjuLgrIr/+fc=
+X-QQ-mid: esmtpgz12t1794488279t300c38f2
+X-QQ-Originating-IP: s7p3bODy86hHuRD0EFL2gaO4sA38kEXvjptkNaYVRMM=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 12 Nov 2026 20:57:57 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 12316763866459756711
+EX-QQ-RecipientCnt: 11
+From: raoxu <raoxu@uniontech.com>
+To: david@ixit.cz
+Cc: luiz.von.dentz@intel.com,
+	pmenzel@molgen.mpg.de,
+	pengpeng@iscas.ac.cn,
+	brgl@kernel.org,
+	raoxu@uniontech.com,
+	sameo@linux.intel.com,
+	christophe.ricard@gmail.com,
+	oe-linux-nfc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] nfc: st-nci: Free received NDLC supervisor frames
+Date: Thu, 12 Nov 2026 20:57:40 +0800
+Message-ID: <09A2C9754909428F+20261112125740.1483464-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,149 +75,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110175334.676816-1-piyus@iiitd.ac.in> <20261110175334.676816-2-piyus@iiitd.ac.in>
- <CABBYNZL9GjdZvU6Z8B2v5_5iGXBno5K-GvqkKfX5vjEaTkV9vw@mail.gmail.com>
-In-Reply-To: <CABBYNZL9GjdZvU6Z8B2v5_5iGXBno5K-GvqkKfX5vjEaTkV9vw@mail.gmail.com>
-From: Piyus Kedia <piyus@iiitd.ac.in>
-Date: Thu, 12 Nov 2026 18:27:16 +0530
-X-Gm-Features: AclHuK8hls-AW8yfs8-PRYUOyj383dNj68tz1FvuidA2KViMtTYZ32vFMU0YiIw
-Message-ID: <CADq=QSxbEXxgbZry=d0F5ACxNUST_u2fChEc8XgZ3YR-zyOmaA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] Bluetooth: hci_sync: drop adv instances the
- controller cannot carry
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Kapil Vaswani <kapil@presceralabs.ai>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NPJBszHJHFtbfsl72xuoAyKKyZq2pqHHQ6gARaUWDBW5VSEn8oixxbq3
+	OhG5NKAa9ujzsx15VM+SeH/yBgamAvz6YZFdglTXpELEGLx7ikGNTtcLiSQiNvF6gvKGMRJ
+	J0tRWrqFXctCs62C45NSyRLWcf1GSIoQduruD1LpIKQOYWN1G+z+k/bs3RzEGaTuYfh/MAW
+	gggMXO05C2qKw5VyeSxbYNEQ6TZtWniPYqJdhDehCuB5TbbKjOM9fhnI34U/itbatdc8IvN
+	MMcueHqh5G7E3RqEjG7a6LpFrWEKvmC3vUMfACi1YJGxdTqHAbA62LFMUPoWwVgA1N7i1EE
+	umNlEIS1eaLcD6aLFafzAXM3O7Apo2SHmOLdXX49ydjMdUUc44HhNFFjGWUoovoeBozFu2W
+	4Al6SxAbD2peuUQhmnXPf4UMgtqEtRnU8lpU0MX7UjyBotxISeRZ8CwBJ6P0z7CRfkrmnpC
+	D4qjWYf/pLaJq2btg1vOJ0wrtSvp5/sQdOLUkOeb/9uVLCyxBDVWr0rtxMTT+R7m78LTkit
+	7ctxxNcQvaS1IQZjExiDYmQow3vpZlKOR/Cqt3V/ksKKfr+m6No0jnpqKvVXAQNrxr94xxr
+	EmecE9Ez6Ltot+JodfxF4xUb9KP1pr1Gu0VDezgXhxqU0f+d5TeMfgLrM05nuuYk60xLPLQ
+	Rjle75ainSIr5o/ora2PNvfzrOkesEtKSno8V2U1dnXQUKxzL0G+0TtnwXmsmpw4RdbChPG
+	UXvX9rKxIYxPGBbqHNYsllRL9KBM6t4dKhW0FKGuOKVjW/Nl2OAHC5q8DA5IEfhrF6MqiAE
+	gOWMU2/HGbbZpps/QGF00epLIKsJs5Av+hM2GOZ2KCV4je/xnuF47WItHrwhPl8RyeWZ07D
+	aXxrz6j2Ujbid5Q+vZsKY7n7N2GvtCZ2WDzqRgEnD7+Xq0t9E2qJzpH2gFJzICJtKki2zHj
+	anH73KHHTM/D1mngq3rlvy3Qdq0v5378J2CF7aM4+ASyHv02ulZ/YSBpcacS0x09s+fUV/A
+	xYUPGfVg4yeJeSTbiN0krDE8fqwsCKwY063tYcm8nViWhfVLntbhh6UHoThUk=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-Hi Luiz,
+From: Xu Rao <raoxu@uniontech.com>
 
-We just submitted another version that addressed the issues raised by Sashi=
-ko.
+llt_ndlc_rcv_queue() dequeues each received skb and handles supervisor
+frames locally. The ACK, NACK and WAIT cases neither release that RX skb
+nor transfer ownership to another queue. ACK also overwrites the RX skb
+pointer with the TX skb dequeued from ack_pending_q and frees only the
+latter.
 
-https://lore.kernel.org/linux-bluetooth/20261112125420.3905719-1-piyus@iiit=
-d.ac.in/T/#u
+Consequently, normal acknowledged traffic leaks one received skb per ACK,
+and NACK or WAIT responses leak their receive buffers as well. The leaked
+buffers are no longer on rcv_q, so device removal cannot reclaim them.
+Unknown supervisor codes already release their RX skb, and data frames
+transfer ownership to the NCI core.
 
-Best,
-Piyus
+Use a separate pointer for the acknowledged TX skb and free the RX skb
+after the supervisor switch. Move the existing default-case free to this
+common path so every supervisor frame is released exactly once, without
+changing acknowledgment, retransmission or timer handling.
 
-On Thu, Nov 12, 2026 at 1:19=E2=80=AFAM Luiz Augusto von Dentz
-<luiz.dentz@gmail.com> wrote:
->
-> Hi Piyus,
->
-> On Tue, Nov 10, 2026 at 12:54=E2=80=AFPM Piyus Kedia <piyus@iiitd.ac.in> =
-wrote:
-> >
-> > An advertising instance stores up to HCI_MAX_EXT_AD_LENGTH (251) bytes
-> > in adv_info. How much of that is accepted when the instance is added is
-> > decided by max_adv_len(), which depends on a feature bit in the
-> > controller's LE Extended Advertising support:
-> >
-> >   ext_adv_capable(dev) ? HCI_MAX_EXT_AD_LENGTH : HCI_MAX_AD_LENGTH
-> >
-> > ext_adv_capable() reads hdev->le_features[1], which is re-read from the
-> > controller on every bring-up, while the instance list is only freed in
-> > hci_release_dev(). Instances therefore outlive a power cycle, and an
-> > instance added while the controller reported LE Extended Advertising
-> > can be far larger than the capability now allows.
-> >
-> > hci_update_adv_data_sync() picks the writing path by that same bit.
-> > Without it the legacy path runs, and hci_set_adv_data_sync() writes
-> > into struct hci_cp_le_set_adv_data, whose data[] is HCI_MAX_AD_LENGTH
-> > (31) bytes on the stack, while eir_create_adv_data() copies
-> > adv->adv_data_len bytes into it. A controller that reports the feature
-> > on one bring-up and not on the next overflows that buffer. This can
-> > happen when, for example, a USB dongle answers LE Read Local Features
-> > differently after a reset. scan_rsp_len has the same problem against
-> > hci_cp_le_set_scan_rsp_data.
-> >
-> >   BUG: KASAN: stack-out-of-bounds in eir_create_adv_data+0x2ab/0x440
-> >   Write of size 220 at addr ffffc90006b679c1 by task syz-executor
-> >
-> >   BUG: KASAN: stack-out-of-bounds in eir_create_scan_rsp+0x119/0x1a0
-> >   Write of size 220 at addr ffffc90006ca79c1 by task syz-executor
-> >
-> > Both are reached from HCIDEVUP by way of hci_powered_update_adv_sync()
-> > re-arming a stored instance.
-> >
-> > Bounding the copy in eir.c would leave the instance registered and
-> > unusable, to be retried on every bring-up. Unregister it instead, once
-> > the features have been re-read and before anything is scheduled, and
-> > report it with MGMT_EV_ADVERTISING_REMOVED. Userspace can add the
-> > instance again at a size this controller will accept. Dropping the
-> > instances before the list_empty() test below also lets the default
-> > instance be set up.
-> >
-> > The removal is under hci_dev_lock() because
-> > hci_schedule_adv_instance_sync() sends commands, which cannot be done
-> > with the lock held.
-> >
-> > Fixes: 112b5090c219 ("Bluetooth: MGMT: Fix always using HCI_MAX_AD_LENG=
-TH")
-> > Cc: stable@vger.kernel.org
-> > Co-developed-by: Kapil Vaswani <kapil@presceralabs.ai>
-> > Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
-> > Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
-> > ---
-> >  net/bluetooth/hci_sync.c | 28 ++++++++++++++++++++++++++++
-> >  1 file changed, 28 insertions(+)
-> >
-> > diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-> > index 9213e3ef9f26..ee8b1cd9dee5 100644
-> > --- a/net/bluetooth/hci_sync.c
-> > +++ b/net/bluetooth/hci_sync.c
-> > @@ -3608,6 +3608,34 @@ static int hci_powered_update_adv_sync(struct hc=
-i_dev *hdev)
-> >         if (!hci_dev_test_flag(hdev, HCI_LE_ENABLED))
-> >                 return 0;
-> >
-> > +       /* An instance's data was accepted against max_adv_len() as it =
-was
-> > +        * when the instance was added, and that is a branch on a contr=
-oller
-> > +        * feature which has just been re-read. Anything too large for =
-the
-> > +        * current capability can no longer be rendered: drop it and te=
-ll
-> > +        * userspace, so it can add the instance again at a size this
-> > +        * controller will take.
-> > +        *
-> > +        * This is safe as long as there is no command send while the l=
-ock is
-> > +        * held.
-> > +        */
-> > +       hci_dev_lock(hdev);
-> > +
-> > +       list_for_each_entry_safe(adv, tmp, &hdev->adv_instances, list) =
-{
-> > +               u8 instance =3D adv->instance;
-> > +
-> > +               if (adv->adv_data_len <=3D max_adv_len(hdev) &&
-> > +                   adv->scan_rsp_len <=3D max_adv_len(hdev))
-> > +                       continue;
-> > +
-> > +               bt_dev_warn(hdev, "instance %u too large for this contr=
-oller",
-> > +                           instance);
-> > +
-> > +               if (!hci_remove_adv_instance(hdev, instance))
-> > +                       mgmt_advertising_removed(NULL, hdev, instance);
-> > +       }
-> > +
-> > +       hci_dev_unlock(hdev);
-> > +
-> >         /* If RPA Resolution has not been enable yet it means the
-> >          * resolving list is empty and we should attempt to program the
-> >          * local IRK in order to support using own_addr_type
-> > --
-> > 2.34.1
->
-> Sashiko flagged a few problems:
->
-> https://sashiko.dev/#/patchset/20261110175334.676816-1-piyus%40iiitd.ac.i=
-n
->
-> --
-> Luiz Augusto von Dentz
+Fixes: 35630df68d60 ("NFC: st21nfcb: Add driver for STMicroelectronics ST21NFCB NFC chip")
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/nfc/st-nci/ndlc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/nfc/st-nci/ndlc.c b/drivers/nfc/st-nci/ndlc.c
+index be4808859cfa..7164e7c3aabd 100644
+--- a/drivers/nfc/st-nci/ndlc.c
++++ b/drivers/nfc/st-nci/ndlc.c
+@@ -146,7 +146,7 @@ static void llt_ndlc_requeue_data_pending(struct llt_ndlc *ndlc)
+
+ static void llt_ndlc_rcv_queue(struct llt_ndlc *ndlc)
+ {
+-	struct sk_buff *skb;
++	struct sk_buff *skb, *pending_skb;
+ 	u8 pcb;
+ 	unsigned long time_sent;
+
+@@ -159,8 +159,8 @@ static void llt_ndlc_rcv_queue(struct llt_ndlc *ndlc)
+ 		if ((pcb & PCB_TYPE_MASK) == PCB_TYPE_SUPERVISOR) {
+ 			switch (pcb & PCB_SYNC_MASK) {
+ 			case PCB_SYNC_ACK:
+-				skb = skb_dequeue(&ndlc->ack_pending_q);
+-				kfree_skb(skb);
++				pending_skb = skb_dequeue(&ndlc->ack_pending_q);
++				kfree_skb(pending_skb);
+ 				timer_delete_sync(&ndlc->t1_timer);
+ 				timer_delete_sync(&ndlc->t2_timer);
+ 				ndlc->t2_active = false;
+@@ -182,9 +182,9 @@ static void llt_ndlc_rcv_queue(struct llt_ndlc *ndlc)
+ 					  msecs_to_jiffies(NDLC_TIMER_T1_WAIT));
+ 				break;
+ 			default:
+-				kfree_skb(skb);
+ 				break;
+ 			}
++			kfree_skb(skb);
+ 		} else if ((pcb & PCB_TYPE_MASK) == PCB_TYPE_DATAFRAME) {
+ 			nci_recv_frame(ndlc->ndev, skb);
+ 		} else {
+--
+2.50.1
+
