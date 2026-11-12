@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794472210;
-	b=X0Kh350oEYcAv0iYEjcGgxItgqRwP+w3a2ZwV/GJb3PAChLIyGnohRODMLdXISg2LvVo
-	 cyM52CHhfGkNhwvXBRdLCU5XrVGr3V8S/9FfOklqKG0X2/sLWbc5MCdTac/SHrwErwFp9
-	 T9kqRwVYNE6LtZTFc+ubPnQ6LJ0bSEVzEVGa88yw2UAaQJ4JzWnU+8TYAF7yBE9wxd8R6
-	 i5VD586HbcjT3mjnAw7CmNahsO6+UAB//xaaRlq6AypPiYyDDBOdn2Yi+j/2PyjVuRpHr
-	 uWxKSbrzJ0ana8atH5uR3uNgsHk2NMM5hkt4FkedswXiEi+3DLZIyHafH75Se7l+gzg==
+	t=1794472213;
+	b=2WJgHtLBPaQOvULWBS6dPlYAErOQ6aL7ULh3TBAdTup+cssHe8WVzheX8L5OHb+rljkN
+	 4Q6wgMy8ZxJc8nuHTNw1jFctMwVtrQLu5DAsHkBxc6efrTd6mDgbAWEo/7YvmcDqdjk6c
+	 82JsFl4BZNyHBPFJj7SzaCyRuosQXQM9nwHXUx2Su/4+AWkCUA4Izzg1isYDTq43aMDqj
+	 /rS8hoShQrRwUAI2FvKls5IEQlGzDpXowtCFvxJXEWT6QJh6Ba4Wo7SLQU/lCJ47BlhUS
+	 Vq+ATg/td3kQOh6ZQNtmP05grmjfFQR9PtO/Ig5R4zrPxlWGp0WqMUcuWo1rp59POlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794472210;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794472213;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=lPMgg8I8cmd3dnPUVJPo7xSLVrsMdfnnBOxd7ysMh8g=;
-	b=tDDraRKusjc+jV3tVfoefNFI1uTDQuev9VUO/dxgMYLOiSzSZidJfZGGzdChK9qr9Tw0
-	 rS1X2g3wMLYQP1+IJRhjbJEBHCz62v2ekISgcKl4jR5SctJpUAbPh6ZGAfV9hhwviioJ6
-	 h1y/9nQejAn9BuUT9A5xfhAoRoCpqwR/eUFEvdtNIKXSTqMvjOFg0Wdf6UoNHdwNrNyS0
-	 alDxNN/eLgL/sQ7B7X+OE+kdJJRSfARv4zAQweKO+aAU/bhH7KUw2SZ4V2Awd6uOmtv1b
-	 +JfLLgi0yFg0OQt5T4waIdQfwbchkmrDGY84P5bD9sX3p4Yq1wgUVhVG3uaOCC1TNdA==
+	bh=GuCRrRPmWIYI5c3VmK8Hg8MW5y/y18QKrRP1NH6/cfg=;
+	b=cMggsld4pmd/V4r3lOtzhztjf2EpSG606MPZvQcVVwi32e36nlrM12TOREYPIUGXeUha
+	 VYTPkMnyLH0gZjEnC/kaJXcfSL861/qzG3JNBdlISIlNLiftRYfDsXW/WS0feaxMQEjDQ
+	 O4hsACdfOwPP9P6iSO3auW1Zh4jxEpXAuIfLjatBL5+i+LVzp+QHT+0APtp8ZMRrHd2fo
+	 m4MvycOmLPKDNwlgmVi8iiM2vsqScVoWWZV6Ctib3VaNS5UD4YH5/K/VVuW8qIdp57pp7
+	 4C96AKMrNANMDaS9W1pgy4tf+1qQDMfxlhOhePZ2vqR63ePg+rzhAsqlSF6gr3I89sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A3TLUd1u;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="m/4t/oLq";
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB5F606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:30:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFB5F606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CAB606A32D
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:30:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92CAB606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A3TLUd1u
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a59ffacb51so2128985e9.2
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:30:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m/4t/oLq
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4aa3a2a5a15so1431085e9.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:30:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794472208; x=1795077008; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794472211; x=1795077011; darn=vger.kernel.org;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=lPMgg8I8cmd3dnPUVJPo7xSLVrsMdfnnBOxd7ysMh8g=;
-        b=A3TLUd1uyhQTbC03FUC+2N+jMkGrX1VLmQanTa8mZfCCjZ1bV/iKJHa88AC21H8fLA
-         fTJPfyOjWSh2LBljZT2bv/bvGOBwCKfhXteL63lePF35mirncIbBMyV5f1Ub+15ar1yZ
-         U0418Waxj+fhtDYZAxULMgnMW2vXBlfsUIAWjf6VMhOQIz3snrkYDp5YHf6urzjbSywI
-         biSeO5lcgr+Mb2cZO2AvvSMHt57GazH9MGHsBRUaIk/TKlPWXzeLCj/0ntFcLwIri/E2
-         ntGfbaJMUVno9VG27BxM5oQfPgbSGX9JkhkYVwa+211R2X3fo34aWHFzXCWtrd3lpqgl
-         imeQ==
+        bh=GuCRrRPmWIYI5c3VmK8Hg8MW5y/y18QKrRP1NH6/cfg=;
+        b=m/4t/oLq/yl5Fkr8nznycBi7hskE9UBGJWH7FpZEr4wdAhTs13gX4RG5eYfRwd0dgv
+         t5U4jFjdxkR0WCIjQ/N7wd577yQVwi+vj4bDph6F6oc36N6GJRbrgIsOZbZGUbBVcG+I
+         JIvN+VlqL/w830PHuh2s/nbk/alQHD6vD0pdc7uMz5eWiKk0AoyUXQFBkwqQmdIehAy/
+         azdHfU1n298F9RlvilBZyGxwgeRRCJUfTojdwRAt1xB8Vo3x/ZfFkvRdJ10fN06JtBGI
+         G7+vx+DvMYObhpkM6/YjzJz2CbS7xAGyYnTha90HZRu4qhdRKLGHB0/6nuEjsBVAB2Ax
+         kJvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794472208; x=1795077008;
+        d=1e100.net; s=20260707; t=1794472211; x=1795077011;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lPMgg8I8cmd3dnPUVJPo7xSLVrsMdfnnBOxd7ysMh8g=;
-        b=B1uyeWic0uhsaoGVr6gqgq5TlmKKH5ONbNaMXNw5CcVwkuKhIqLoUWAs/LTWZA9vyl
-         VYlIvGW+Mb3OODnMcuOf1GtjE7D2DBVE5IkCjLydhEp+kojO7wsp6rGyrn7p/U22V0Jx
-         tUTOtakj5wMdxx3VAQoVfnNbLLMMFjJ/Q+4NurNOalZkM+QHP3Zn9peKMDKZAcmsf0da
-         OoHddZkVYZJ7FVX5OPOtfs9CuNxTi3iFhGi7cR8bUZZuCSdww31Y5sApN7gBGuS0omO3
-         MrUSwzWmKzlYxawEgEMus1FPQPaezs8MhhUZKVfQFl70rMB1QLvi43xRYNBu2Naywslt
-         FCsA==
-X-Gm-Message-State: APuU4Z9PBIKuqJdO3NZBI+cGi0MUe74E/+eqkhWzhZwS/ExOUIGocjm2
-	mx83kR/MEqKBYYnX0nyK7FUGNPenOitFKhvchqOtpV5UdxnmEn2jG+Dy1ucL5g==
-X-Gm-Gg: AYBFou0OswumtXDonwMrn2PqHT1/HhWMTMsvO4z3e60ly8q8DL+Gc+KmNifh+jLxtiH
-	5bCJuz7KY3ysiouMssudwRrEw8LIggItmwSj3rHdIl9zu/S25eFaVx5eRsXKRtkMRDLLrPGoC1a
-	EzPNp1l4Je/qahkyaRBFYrgpAyTia4HzFGjFShluQJaO2lkZhQGxfgeBzLLcdp94HsmRvvhkfUg
-	q3KBlSC6GtjzTUjs5+N2EIU13C9l0lfOxcb8Su2gfRSSfVs0jWuq5Apai4gdT4tDQzmUoKQVIuW
-	cq72VmRHaPlHHNyB2X0ljgY/QRaW4FBni6he8zXf8nhmRMycF9611lZOQikGRScMwYahpAPPnDO
-	EPmwQnTCzVF2wk64ZztNOvLkJRyPhkETh/uNULrniGycO5GvZJnOK2PvxzkSMgZUvhfuTpSM6Ei
-	e7m6Gi3DR1emZO9I3d1QjZ6hEdFeY8cRMvYw27haFjaocwqnT1Xz+bJlikclQEKlfFFbB+03yI/
-	ho1NGICmseLSVV03DGk78jCb+d0IghLlDYMdod6SFgrInw/GjuKV/O06D1AWGs7Zuj+uQW6gKCP
-	sy4gbACb8LSUxoFYVHxcWAZmH7drLhdANpC/n3IsBMLr3MuveJcWDTaIyWPgcUyNlBJPzEM4mCv
-	L7FlKTg==
-X-Received: by 2002:a05:600c:a113:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4ba09353f92mr67367785e9.1.1794472207617;
-        Thu, 12 Nov 2026 00:30:07 -0800 (PST)
+        bh=GuCRrRPmWIYI5c3VmK8Hg8MW5y/y18QKrRP1NH6/cfg=;
+        b=2N18Jf4QoiQoDuOYrN/X0Gq37qjXV1XTpyntjj7nXC3sJNtmQZQWwl+bnm385eOfeD
+         YJLVRhBmjFKOILNZPVEWHlX+JW6GvG4WKAiw3AvIj5neI9hsrEoZ95ERAcOr0xJxXBR+
+         IbeD3HglBPoY+/8oDqBcSaR7Z8ucoFqCcI5uRDvembXnKPSZBm6ZJClGFjqNRYrnKZeH
+         v51rHLFrwCcLiHiWPJvCbqGUYcMQBfgmLDfN+vnRSkglaIgfQFU7i5Q26H7aipi0Abb9
+         1NaMwrZJSIq9xjSCsqAP4ZEVSxwSThAMRWYDQY7suB21WEZpp4X6u0QU0GnunLWtTdVg
+         aFKg==
+X-Gm-Message-State: APuU4Z9xhi14CvQSMkBmIl3W3+Ej41wFTR42kN2PxU7MeEo3TlkWrZaN
+	9e00NUTVvwLGATNiUC30OEFPNB5VjrSfz+Kg5J87nehcpx1BX/vEuGLcsKcapw==
+X-Gm-Gg: AYBFou2fiJI1p73WifaKzfIBmY1OU5zc4R2Vie6VsDisS27Q6zxtYQzzsWoc6uU04Y4
+	8+EDWOLQVnseMPtArMV1X81uvwjr9lBfQlUYEI3WPVFBQtFpt0+iyoLLvgKQSTd9q4rZmZ+TB9J
+	khWJgix9lLQgayMzpBZ0EhNQafVUiVVJGblTa1s31iJUUiScZlPljTDmJTxPyOW5TvyfR1VcTyH
+	zbD34lJBnRc7ZyaPRC1xzSo7QxI6tm+AI3pmt9OJWsazE0dRonPti4wa3/RjGmWabHfVp+BHinu
+	jtWr3bYR7WTUohokFn0JNWwKQpND8J5RaPs4jkKRXhdcPXcH2NjbVuWL4YupPonqyFi8Pv4K+ZV
+	UeXKtsF1PvrFpJ9xcPAZUVwEz3CkP5TBKCkb3rYcXGfbKMg2A7E9dY2jKGgDut+YR4Cnj0wlo2u
+	yrsN7s/WWdIkgyZ38Q+e2kcI9Hoiy1e28RwR3frEgR9jmy8plN5x8TcvHwQi0SvUfDko5YelPlw
+	E56TkD+XMWFMbO6icW5MY6nP44wYqA+hbqVvdYhKQD2WKicbOZjtJ72zHFIR5EAZ/gdD6nmnTOq
+	3mKLnnBu/Ju/NVEerF4Iz7mnRt9GZI3SOFxpVhbnlRMLTAtWQAwKz/dcOmLMCtPiFYOkYJIpdRY
+	A/sWXlQ==
+X-Received: by 2002:a05:600d:8448:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4ba091a59aamr67324915e9.0.1794472210664;
+        Thu, 12 Nov 2026 00:30:10 -0800 (PST)
 Received: from [127.0.0.1] (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0950f3casm74154915e9.3.2026.11.12.00.30.05
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0950f3casm74154915e9.3.2026.11.12.00.30.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:30:06 -0800 (PST)
+        Thu, 12 Nov 2026 00:30:10 -0800 (PST)
 From: Marek Czernohous <mczernohous@gmail.com>
 To: stable@vger.kernel.org
 Cc: Lyude Paul <lyude@redhat.com>, Fab Stz <fabstz-it@yahoo.fr>
-Subject: [PATCH 6.6.y] drm/nouveau/pci: use config-space MSI rearm on
+Subject: [PATCH 6.1.y] drm/nouveau/pci: use config-space MSI rearm on
  MCP79/MCP7A (NVAC)
 Date: Thu, 12 Nov 2026 09:30:02 +0100
-Message-ID: <179447220252.849346.7365249856440289467@gmail.com>
-In-Reply-To: <20261107052812-failed-6.6-354d47fb3f35@kernel.org>
-References: <20261107052812-failed-6.6-354d47fb3f35@kernel.org>
+Message-ID: <179447220252.849346.5806135058355870566@gmail.com>
+In-Reply-To: <20261107054049-failed-6.1-354d47fb3f35@kernel.org>
+References: <20261107054049-failed-6.1-354d47fb3f35@kernel.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -143,7 +143,7 @@ Signed-off-by: Marek Czernohous <marek@czernohous.de>
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 Link: https://patch.msgid.link/178688574401.522643.12812428444459119913@gmail.com
-[ Backport note: linux-6.6.y predates commit 2f89bb3264af
+[ Backport note: linux-6.1.y predates commit 2f89bb3264af
   ("drm/nouveau/pci: add PRI address of config space mirror to
   nvkm_pci_func"), so struct nvkm_pci_func has no .cfg member here.
   mcp79_pci_func uses the nv40 .rd32/.wr08/.wr32 accessors instead,
@@ -154,7 +154,7 @@ Signed-off-by: Marek Czernohous <marek@czernohous.de>
 ---
 Sorry for the late reply.
 
-Compile- and link-tested on 6.6.162 (nouveau.o, W=1): no warnings in the
+Compile- and link-tested on 6.1.192 (nouveau.o, W=1): no warnings in the
 touched files, no unresolved nouveau-internal symbols. Not runtime
 tested here. nvaa_chipset has the same context lines as nvac_chipset in
 base.c, so I checked that the switch lands in nvac_chipset.
@@ -167,7 +167,7 @@ base.c, so I checked that the switch lands in nvac_chipset.
  create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
 
 diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
-index 3c103101d5..f21d6f1cf4 100644
+index 74c19bdfb7..493a6fbd67 100644
 --- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
 +++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
 @@ -46,6 +46,7 @@ int nv4c_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct n
@@ -179,7 +179,7 @@ index 3c103101d5..f21d6f1cf4 100644
  int gf106_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
  int gk104_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
 diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
-index 49b487a265..134c0b0824 100644
+index d8cf71fb05..8ce6a588e5 100644
 --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
 +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
 @@ -1285,7 +1285,7 @@ nvac_chipset = {
