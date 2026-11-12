@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493881;
-	b=EZGPu3McBPfpav/m54C9OKd84J+3i1HTgzxssfYqggB/E7mzpQxap6Z2UvRbokrzjEnq
-	 40b3qWOhZfJsRPFI9JRD0ZcSv4GVGvtDqk7FNs+oDpYTUbSHesCdJaTukKh7oLXrE8RxV
-	 ZrRwWa+25fU0C/tLybZ8wAptrZfgBYT+HtuR17G1lhHX4HMuzx1bTkJBtx8pV6j1euqf6
-	 rMTiEdpnKQJ9fzeC/SY4x3A3UazR5rwvKEHwmTym5zI561Dk3ZH02yz9WQQhH498vncsM
-	 WFW4Dz5IlingU+9ObfQH2eO4B2W/a+WOBsSK6AZD8OBTHR0+IxLXgeu1IrdUiPvvtoQ==
+	t=1794493884;
+	b=4a8HXNDa81vdSbdLTbTigdvtazMmftTLETdkhqUVwSlBxSdJ3Ez24YqqOszIXvxmq/ye
+	 RV/ueJbUuwfVTPPh0tHYuk4VOjLHv0iXUmIAH1CqIkR6N3DjBb3jQihxKN0+yZFWNLcUI
+	 VyJGhLwOfKCwckFM0q35ImleYPdMqG4ySqi3mYxUS8oiVmhFxcHvBYS1z2ey3beMYQ49q
+	 3phsoyps8MsJeQ0LhQKZH9I1yri8W9s0J3dTyGHw1LGF4NXgSiVXd0RaFD/pGs1HJrtbf
+	 0AeyQapjlLkjLOBrHFmN8dsUsjuBmbQQ6wSLK4m8/UJ/syEkFLwXp4wWwQEsW1CDEVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493884;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=+SXZLcvGD5dDIxm01jU+XYU++Y1nw8JzeylBsPqU9Ok=;
-	b=N9U9mpIPbZPUxJWcSjg6kwC8G7nwMABzlrAboNLQut/rvOBFPcpA3v0YDOzFg6hqR1tz
-	 OrDRiNeWnlYQNaMlfOgUY804h/j0UR6hQLzmJcOGLZQ+D04gYP/GeUZQzYMaHZQ4Sw8py
-	 0nZ4YMhMINLtKP47PK/389oqGBWPob3PGg0XqYxbyPxzHW0z7cQiF0Y2rOPoJyAaJDiLj
-	 bISg+HWq96uFsM06WDxknvOCN13iZkBI+Bpk1/Y1R9KxFHjzKeczJ8LEfPtqNd05odY6L
-	 Sni7Jdb9x4LWp+riWMVe34Xk9JERZNocbo/LWpYdcyuXILuXhhJyTBIH4vLpCwWIgYA==
+	bh=dFWyJvTngXPqfaUWjYk5M8MUVWdXx4H8kWQX1Ycvc9I=;
+	b=34VTOxEzTwZ7BNDUlgVu7NqoR/MYMjXS8TUkSh7Qzodi0SzrSEBOr7LMvY2pPPK3ZTNY
+	 GHg9zT7UHkYIEeru/AoVqVqg+hQuA0B1dnZhQW/shs3WP5g6ugGr+QPeliDRj4OKxyGgu
+	 tq+SaMz1kKitItibAdboFgWuQwhmHCQyxPYCz/+Slay2gW2JXNzG5KkUko3VenczOsiXy
+	 aJeZkG55AaS13ndgmJ6Zyt8b9MxBkUowDPgAHE+o0Fn5Tc07FJL2589dINwuMNdBuzoco
+	 aIgR6q9cF2vy5RIqzLJf05Tjnj+yk0LAeJMtGxMkCJqJjjrzTIZ4fWzZZiv53DfiZoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GR22lAwk;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FnJTtJ6T;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146D2606B2F0
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:31:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 146D2606B2F0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9762A60703BD
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:31:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9762A60703BD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GR22lAwk
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FnJTtJ6T
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 2BFF0C79A9D;
-	Thu, 12 Nov 2026 14:31:16 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5E5B94E41591
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:31:22 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D64185FF85;
-	Thu, 12 Nov 2026 14:31:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4E60311BC076B;
-	Thu, 12 Nov 2026 15:31:10 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 341C75FF85;
+	Thu, 12 Nov 2026 14:31:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 990A711BC0326;
+	Thu, 12 Nov 2026 15:31:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794493872; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794493877; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=+SXZLcvGD5dDIxm01jU+XYU++Y1nw8JzeylBsPqU9Ok=;
-	b=GR22lAwkuuQIX7K70Oi7dKnDvYWBWCO8dzQonGYOjBeWfDjCJ0dRol7mtkoPvrPkUWUJJ0
-	VwRgGqHi9a7lJk6AM3mLJfDDZ2LLEH6Ijy07hoe+jvciUfpAjYq8Jcamyj10uCeSZCdsZS
-	DG/cbE3Ix2Lnns+PPTo6HS+g9rXt3BT1loImhZ9envrkMv0xzrhUlLVYJI2MAn5T+FQZcd
-	YyfheaqencGZtpoDK1P2cKb2EV6GgZrjZhU+IITHdr5KQRimYMf1uvfIjXq26BFua+SdpO
-	qfooileOXmyx1bNv4M7LnO3KGeOaWL4rQhWe5Y0sb6T5BfbgsQHS6OKaRYhahQ==
+	bh=dFWyJvTngXPqfaUWjYk5M8MUVWdXx4H8kWQX1Ycvc9I=;
+	b=FnJTtJ6TdHIBj4O+llsgVqouJGgXWjL4TJ0kAnKKmWHGPZT+zyON6x8TsYscgmH4Qc6Jiw
+	z5o0cUkCDYL26sKahjta6PPUykqwsRid5M8S4OssV1v9Y6bsiZXBKiPP4f060tpAIwUT60
+	+cnSplnSCgGZ5btgy1twHwUOlyQtrdXWMZ7bqlcHeQhcvlQU41dm6REQGoQv8o+Wk69rK2
+	0vfBQGVO5HmTrCFH8hIOfj6cHvgkq2Faji6twzzlBWvIhrTVSehuhZl1unP3X3Uf9rUC29
+	qB7CsxZ0c4NL5/3ORdsbsOmpKrn45edu9mwKBDgMKmcIlT76J+yldv1MOSiK0w==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Mark Brown <broonie@kernel.org>
 Cc: linux-spi@vger.kernel.org,
@@ -62,9 +62,9 @@ Cc: linux-spi@vger.kernel.org,
 	George Cherian <gcherian@marvell.com>,
 	stable@vger.kernel.org,
 	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v3 1/6] spi: cadence-xspi: Properly handle errors in .transfer_one_message
-Date: Thu, 12 Nov 2026 15:30:45 +0100
-Message-ID: <20261112143050.53347-2-paul.cercueil@bootlin.com>
+Subject: [PATCH v3 3/6] spi: cadence-xspi: Inform SPI core about size transferred
+Date: Thu, 12 Nov 2026 15:30:47 +0100
+Message-ID: <20261112143050.53347-4-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261112143050.53347-1-paul.cercueil@bootlin.com>
 References: <20261112143050.53347-1-paul.cercueil@bootlin.com>
@@ -82,9 +82,8 @@ X-Last-TLS-Session-Version: TLSv1.3
 
 From: Tanmay Jagdale <tanmay@marvell.com>
 
-The cdns_xspi_transfer_one_message_b0() function was not setting
-m->status on error, causing it to be stuck at -EINPROGRESS, confusing
-the SPI core.
+The SPI core expects the 'actual_length' field of the spi_message to be
+updated with the number of bytes transferred.
 
 Fixes: 931e389ded0f ("spi: cadence: Add Marvell xfer operation support")
 Cc: stable@vger.kernel.org
@@ -94,67 +93,23 @@ Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
 ---
 
-v2: New patch
-
-v3: No change
+v2-v3: No change
 ---
- drivers/spi/spi-cadence-xspi.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/spi/spi-cadence-xspi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index 3687853e4ce4..a584a3c395d0 100644
+index 87b986a318f3..189f87321777 100644
 --- a/drivers/spi/spi-cadence-xspi.c
 +++ b/drivers/spi/spi-cadence-xspi.c
-@@ -1112,6 +1112,7 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- 	int current_transfer_len;
- 	int cs = spi_get_chipselect(spi, 0);
- 	int cs_change = 0;
-+	int ret = -EIO;
- 
- 	/* Enable xfer state machine */
- 	if (!cdns_xspi->xfer_in_progress) {
-@@ -1152,7 +1153,7 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- 							  false, cmd_regs);
- 				cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
- 				if (!cdns_xspi_is_stig_ready(cdns_xspi, true))
--					return -EIO;
-+					goto out;
- 			} else {
- 				cdns_xspi_prepare_generic(cs, txd, 1, true, cmd_regs);
- 				cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
-@@ -1161,11 +1162,11 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- 				cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
- 				cdns_xspi->sdma_xfer_len = current_transfer_len - 1;
- 				if (!cdns_xspi_is_sdma_ready(cdns_xspi, true))
--					return -EIO;
-+					goto out;
- 				if (cdns_xspi->sdma_handler(cdns_xspi))
--					return -EIO;
-+					goto out;
- 				if (!cdns_xspi_is_stig_ready(cdns_xspi, true))
--					return -EIO;
-+					goto out;
- 
- 				if (rxd)
- 					cdns_xspi->in_buffer += current_transfer_len;
-@@ -1202,10 +1203,15 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- 		cdns_xspi->xfer_in_progress = false;
+@@ -1207,6 +1207,7 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 			}
+ 			cs_change = t->cs_change;
+ 			t->len -= current_transfer_len;
++			m->actual_length += current_transfer_len;
+ 		}
+ 		spi_transfer_delay_exec(t);
  	}
- 
--	m->status = 0;
-+	ret = 0;
-+
-+out:
-+	if (m->status == -EINPROGRESS)
-+		m->status = ret;
-+
- 	spi_finalize_current_message(controller);
- 
--	return 0;
-+	return ret;
- }
- #endif
- 
 -- 
 2.47.3
 
