@@ -1,66 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447377;
-	b=FmHCI2Tcho6vSkz/y+eu6JQpofWO3l1AnmqqB1dMJG5nQM9scF/uC3BjJqtW73Ah5XJ/
-	 VKORqe4IZey1t7nxen8Dhpckp5Fy9blbpVw1nKXFuVQYZlNBVjInRm6lu4grpKW1qEFPf
-	 qZMvJjusZlIXSkAWWhPDO1YXn61yW9nTWYatlPw+7OFybYL4Yo19nQXgbSOH0M2R515sI
-	 0gs7p+ighuhwMr6FgPPJ0gwZKPkazmhNFsSgFvm5xuce0aq6y/4nl4HioKKte0px8bV2+
-	 B1cCSEczo6/UyR4p4VcHGwm3rA89Di1KP+oe011PVG8wQKaOmPTsEYFFTZmVoTeLzAw==
+	t=1794447600;
+	b=IVFFeOevL4vJ4N2loPCQjxGwAfHbAbJgvPg32KwmRYN4xVKnCWfmtrZ705Wqddws9sWs
+	 LEUWkNat6nDDKFaKR5SPRzLl1PbzC73lXW//khoXR6/SP70c8UStqFE149vjdnKO1tzvs
+	 bC9AIoJC1q0XEo0O9KiU2H325EaL9gkUyaoG7V9VXyLaKpPo60lOBhsXSXKPE3vNcHMaG
+	 1k//btzn9Su1FAPqXgb900BSeW9AVvcY7yOHoUd0jIAAL5sGpV5H6O7FAwQlQtcLIwFmD
+	 3m3HYTAN82d6gtdHMEkP93jXVzsri7YkMQ8WcEUoW0/v1DjlcuuySQ63/wOzt3MBNcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447377;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=ELLqdcOAA9rFtchadf0YpKl1TUOHi1tEx6RNAEsB1Ng=;
-	b=Sols82Fm4MvDZBVnQFZl6e7JCwpht/8mFW+cx5zz4lTn49Y9aw9Ak/KDSiMLvnQDzoWG
-	 o9jqFPMgvTBFCJ3V4/291ZBkzh0cQYm5/SlZfHxvac6W5pgO6Ky++pQhT9jnZFUoQMUep
-	 6FW/HCF8xhTJogdDnmu/0SBK2kYXv3oTo1s4c5zf23iO0Wzw01svA4MLKanYJa+qp0e1B
-	 KRPxD1GZ7H9RHqAmVS2dbrLoqszn7y6zD5gWzk1K1oku1iNd71dhVuq0cZvJUWq0GSW1H
-	 TM5VaWhcJXA6rveRxH1mDMF1fIc56rg/YNx+ZOa9sI6wK/7sMQrWn1WGrwViYKLDASg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447600;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=NkplOxGSGDrMxpav0jmy0t5ZzlMZyF9ymrW0nd1yEqA=;
+	b=BfTTsNqptoSloGdajQZTCUEGZIjD2gqfPI8N7kaid0nz608+T+A2C+TWtY7arSnHAkCK
+	 5qgM76unwu+939SDelX+8si45NPQayqBSLNyU2vvSxaeD7cNle92YzKI0S8vrwFVddrj2
+	 chGtAegTCxFFdIcNaxAOPmu4l4bCr+yzBExiB1FaSKlwAVcMvegXqpXzjP9DhKt7eAO21
+	 1fb4idS1SUZvdWcdkKos2jhiO7ixCMAksqRDEoOnvMI64L9ps7vJWrazG84efY5ZL1jMH
+	 Y3UkW3oLIZsT3tJ6rHLxtwTDiho6ysNCNx1jhFcKBP/HRCE4wDvvzjQlKiEUhJMndQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jnpUM+nz;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311BD606A337;
-	Thu, 12 Nov 2026 01:36:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 311BD606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jnpUM+nz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=EL
-	LqdcOAA9rFtchadf0YpKl1TUOHi1tEx6RNAEsB1Ng=; b=jnpUM+nz1+F/CW7Tu3
-	DAHsc0kE5QXayzPzFu9XS8WRwY+e0Wcbqf9ceGXoQehX7uADa6N6yfMe137Kcwae
-	RUbhVuHNJg9otWS/iVd4slqDLUr2C8CuGhIO73dFv4FTAYV443bFWZLf6NX++I4x
-	Ct5SxfU9FN32OBmYE5VvqP3QQ=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wCnA2zdF_VqvPswHA--.52798S2;
-	Thu, 12 Nov 2026 09:35:27 +0800 (CST)
-From: "Li Youhong" <dayou5941@163.com>
-To: song@kernel.org,
-	yukuai@fygo.io,
-	agk@redhat.com,
-	snitzer@kernel.org,
-	mpatocka@redhat.com,
-	bmarzins@redhat.com
-Cc: dm-devel@lists.linux.dev,
-	magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Li Youhong <liyouhong@kylinos.cn>,
-	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v5] md: fix sync_work vs array teardown races
-Date: Thu, 12 Nov 2026 09:35:23 +0800
-Message-Id: <20261112013523.120428-1-dayou5941@163.com>
-X-Mailer: git-send-email 2.25.1
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB7D4606A323
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:39:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB7D4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=NkplOxGSGDrMxpav0jmy0t5ZzlMZyF9ymr
+	W0nd1yEqA=; b=jcVXs7IeTGw1t/a3D1jjto1Af93Ry1IJEXMYfmK7AV7G6m0X6g
+	oCuu6RIl4aRqsMyfc4gJmGD7Hvh9LfU8LWQWlFL2GoAkmnjBTKsuMvOmKPwFvm+O
+	DmYXRoHLsO1E6igXaJYhYtWYBPYaBBC8KtM+8cEmfJvYXSGjGg8NCTULU=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkC21PreGPVq5LOAAQ--.22760S2;
+	Thu, 12 Nov 2026 09:39:43 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: stable@vger.kernel.org
+Subject: [PATCH 5.10.y v2] ALSA: hwdep: Serialize DSP load requests
+Date: Thu, 12 Nov 2026 09:39:41 +0800
+Message-Id: <20261112013941.8004-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026-11-11-1-daily-reply-0025-7d3aa7a83ebfc4bfd8b3@kernel.org>
+References: <2026-11-11-1-daily-reply-0025-7d3aa7a83ebfc4bfd8b3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,172 +56,106 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnA2zdF_VqvPswHA--.52798S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Ary7Gr1DCw4fKryfAw1DJrb_yoWxWr18pr
-	WrJFn8Gr4Dt3yxZFZrK3WDua4Yvw1Sq3yDJryxWa4fAw1SyF47uFy09F1jvFWDJas3tayU
-	Zw4rJFZxuFyq9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jj_M-UUUUU=
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3QAWxGr1F+CIuAAA3X
+X-CM-TRANSID:BrQMCkC21PreGPVq5LOAAQ--.22760S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXF1DZF17Gr1UCw4kZw4UXFb_yoW5Zr1xpF
+	4qkFWYkFyDtrnrCw1DAwsrWFyYyws7GFnxGw45J3WFvr15ZF4F93sYqFy7uryFkr4rCFyF
+	9FyjvF1rJFy5Jw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkSb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
+	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGw
+	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUJVWUXwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUcpnQUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUPD2r0h0ZMggAAsW
 
-From: Li Youhong <liyouhong@kylinos.cn>
+The check of the loaded DSP indices and the call of the driver's
+dsp_load callback in snd_hwdep_dsp_load() are not serialized.  A hwdep
+file descriptor can be shared among threads, or inherited across fork,
+so two SNDRV_HWDEP_IOCTL_DSP_LOAD requests for the same index can both
+observe the index as unloaded and enter the driver's callback
+concurrently, even though the device itself is opened exclusively.
 
-dm-raid tears down arrays via md_stop(), which cleared mddev->pers
-without waiting for previously queued sync_work. That work could
-then call remove_spares() with pers == NULL, or keep using mddev
-after raid_dtr() frees it.
+This breaks the assumption behind hw->dsp_loaded that a firmware index
+is loaded only once.  For example, snd-usb-usx2y hits
+WARN_ON(usx2y->as04.buffer) in usx2y_async_seq04_init() and may
+allocate the US-428 sequence URBs twice.
 
-do_md_stop()/md_stop_writes() already call stop_sync_thread() before
-teardown. Do the same in md_stop(). Because md_start_sync() may still
-use mddev after unlocking / clearing MD_RECOVERY_RUNNING, flush
-sync_work whenever it is busy rather than only when work_pending().
+Serialize the check, the callback invocation and the bookkeeping with a
+per-hwdep mutex, so that the second request returns -EBUSY.
 
-Calling stop_sync_thread() from md_stop() can drop reconfig_mutex,
-which introduces two follow-on issues:
+5.10 and 5.15 still build with -std=gnu89, so guard() cannot be used
+after the early returns of this function.  Take the mutex explicitly
+and release it on every exit path instead.
 
-- When nothing is in flight, keep reconfig_mutex if the caller held
-  it (gate the idle early-return with work_busy()). Otherwise clear
-  of an inactive array can race with do_md_run().
-
-- While the mutex is dropped, mddev->thread may run
-  md_reap_sync_thread() and queue event_work. Flush event_work on
-  the raid_ctr() error path before raid_set_free().
-
-Separately, the read-only path in md_check_recovery() queued
-sync_work without honouring MD_RECOVERY_FROZEN, unlike the
-read-write path. Check FROZEN there so freeze/stop cannot race
-with a new queue.
-
-Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
-Fixes: 81e2ce1b3d5a ("md: delay remove_and_add_spares() for read only array to md_start_sync()")
-Reported-by: syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a53c2918175b36cfd601
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Link: https://patch.msgid.link/20261029084810.21910-2-25031212351@stu.xidian.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+(cherry picked from commit aee83c204f80d56b4d55f53acdb8594308ddcd4a)
 ---
-v5:
-- Restore idle early-return in stop_sync_thread() gated by work_busy(),
-  so locked callers keep reconfig_mutex and do not race with do_md_run().
-- Flush event_work before raid_set_free() on the raid_ctr error path
-  (md_stop() may drop the mutex and let md_reap queue it).
-- v4: https://lore.kernel.org/linux-raid/20261111015027.4029184-1-dayou5941@163.com
+ include/sound/hwdep.h |  1 +
+ sound/core/hwdep.c    | 14 ++++++++++----
+ 2 files changed, 11 insertions(+), 4 deletions(-)
 
-v4:
-- Always flush_work(&sync_work) in stop_sync_thread(); do not delay
-  clearing MD_RECOVERY_RUNNING (that can drop MD_RECOVERY_NEEDED via
-  md_check_recovery, and does not cover the successful sync_thread
-  registration path).
-- v3: https://lore.kernel.org/linux-raid/20261110063045.912703-1-dayou5941@163.com
-
-v3:
-- Honour MD_RECOVERY_FROZEN before queueing sync_work on the
-  read-only md_check_recovery() path.
-- (superseded) delayed MD_RECOVERY_RUNNING clear on not_running.
-- v2: https://lore.kernel.org/linux-raid/20261109023055.2164333-1-dayou5941@163.com
-
-v2:
-- Drop the pers NULL check in md_start_sync().
-- Call stop_sync_thread() from md_stop() before clearing pers,
-  matching do_md_stop()/md_stop_writes().
-- v1: https://lore.kernel.org/linux-raid/20261106083543.249267-1-dayou5941@163.com
-
- drivers/md/dm-raid.c |  7 +++++++
- drivers/md/md.c      | 41 ++++++++++++++++++++++++++++++++---------
- 2 files changed, 39 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
-index ac019a0f5a92..f82c09d858de 100644
---- a/drivers/md/dm-raid.c
-+++ b/drivers/md/dm-raid.c
-@@ -3319,6 +3319,13 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	md_stop(&rs->md);
- 	mddev_unlock(&rs->md);
- bad:
-+	/*
-+	 * md_stop() may drop reconfig_mutex so mddev->thread can run
-+	 * md_reap_sync_thread() and queue event_work; wait for it before
-+	 * freeing raid_set. Skip if INIT_WORK has not run yet.
-+	 */
-+	if (rs->md.event_work.func)
-+		flush_work(&rs->md.event_work);
- 	raid_set_free(rs);
+diff --git a/include/sound/hwdep.h b/include/sound/hwdep.h
+index 8d6cdb254..137be4b40 100644
+--- a/include/sound/hwdep.h
++++ b/include/sound/hwdep.h
+@@ -57,6 +57,7 @@ struct snd_hwdep {
  
- 	return r;
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..79c564320f18 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -5184,7 +5184,14 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
- {
- 	int sync_seq = atomic_read(&mddev->sync_seq);
- 
--	if (!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
-+	/*
-+	 * If nothing is in flight, keep reconfig_mutex when locked so
-+	 * callers such as do_md_stop() cannot race with do_md_run().
-+	 * work_busy() is required: md_start_sync() may clear RUNNING and
-+	 * still use mddev after unlocking.
-+	 */
-+	if (!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery) &&
-+	    !work_busy(&mddev->sync_work)) {
- 		if (!locked)
- 			mddev_unlock(mddev);
- 		return;
-@@ -5192,14 +5199,20 @@ static void stop_sync_thread(struct mddev *mddev, bool locked)
- 
- 	mddev_unlock(mddev);
- 
--	set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-+	if (test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
-+		set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-+		/*
-+		 * Thread might be blocked waiting for metadata update which
-+		 * will now never happen
-+		 */
-+		md_wakeup_thread_directly(&mddev->sync_thread);
+ 	struct mutex open_mutex;
+ 	int used;			/* reference counter */
++	struct mutex dsp_mutex;		/* serializes DSP load requests */
+ 	unsigned int dsp_loaded;	/* bit fields of loaded dsp indices */
+ 	unsigned int exclusive:1;	/* exclusive access mode */
+ };
+diff --git a/sound/core/hwdep.c b/sound/core/hwdep.c
+index 0c0298928..2862cbe75 100644
+--- a/sound/core/hwdep.c
++++ b/sound/core/hwdep.c
+@@ -211,14 +211,19 @@ static int snd_hwdep_dsp_load(struct snd_hwdep *hw,
+ 		return -ENXIO;
+ 	if (info->index >= 32)
+ 		return -EINVAL;
++	mutex_lock(&hw->dsp_mutex);
+ 	/* check whether the dsp was already loaded */
+-	if (hw->dsp_loaded & (1u << info->index))
+-		return -EBUSY;
++	if (hw->dsp_loaded & (1u << info->index)) {
++		err = -EBUSY;
++		goto unlock;
 +	}
- 	/*
--	 * Thread might be blocked waiting for metadata update which will now
--	 * never happen
-+	 * md_start_sync() may still use mddev after unlocking. Always
-+	 * flush so teardown waits for that work to return; checking
-+	 * work_pending() is not enough once the work is running.
- 	 */
--	md_wakeup_thread_directly(&mddev->sync_thread);
--	if (work_pending(&mddev->sync_work))
--		flush_work(&mddev->sync_work);
-+	flush_work(&mddev->sync_work);
+ 	err = hw->ops.dsp_load(hw, info);
+ 	if (err < 0)
+-		return err;
++		goto unlock;
+ 	hw->dsp_loaded |= (1u << info->index);
+-	return 0;
++unlock:
++	mutex_unlock(&hw->dsp_mutex);
++	return err;
+ }
  
- 	wait_event(resync_wait,
- 		   !test_bit(MD_RECOVERY_RUNNING, &mddev->recovery) ||
-@@ -7101,6 +7114,14 @@ void md_stop(struct mddev *mddev)
- {
- 	lockdep_assert_held(&mddev->reconfig_mutex);
+ static int snd_hwdep_dsp_load_user(struct snd_hwdep *hw,
+@@ -376,6 +381,7 @@ int snd_hwdep_new(struct snd_card *card, char *id, int device,
  
-+	/*
-+	 * md_check_recovery() may have queued sync_work; that work accesses
-+	 * pers. Wait for it here before __md_stop() clears pers, as
-+	 * do_md_stop()/md_stop_writes() do.
-+	 */
-+	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
-+	stop_sync_thread(mddev, true);
-+
- 	/* stop the array and free an attached data structures.
- 	 * This is called from dm-raid
- 	 */
-@@ -10494,9 +10515,11 @@ void md_check_recovery(struct mddev *mddev)
- 
- 			/*
- 			 * Let md_start_sync() to remove and add rdevs to the
--			 * array.
-+			 * array. Honour MD_RECOVERY_FROZEN like the read-write
-+			 * path so freeze/stop does not race with a new queue.
- 			 */
--			if (md_spares_need_change(mddev)) {
-+			if (md_spares_need_change(mddev) &&
-+			    !test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)) {
- 				set_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
- 				queue_work(md_misc_wq, &mddev->sync_work);
- 			}
+ 	init_waitqueue_head(&hwdep->open_wait);
+ 	mutex_init(&hwdep->open_mutex);
++	mutex_init(&hwdep->dsp_mutex);
+ 	hwdep->card = card;
+ 	hwdep->device = device;
+ 	if (id)
 -- 
-2.25.1
+2.34.1
 
