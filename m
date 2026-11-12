@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794471811;
-	b=vgStwgxndsFJhTT7t/I1RtFbSf83HKVVEep69cTYrXVWr0ggz89OBrRWV4Lhw8X9KTl6
-	 K/t1DL7mPUgSqH1Exggl9nrV1Yyglcfav0ZveDD5znDlnSBPcvb/IAP8+199PDy5XllgD
-	 DhdBEyEaYuGNO3Fvvpwglr3qiWtbpZGlFGfR4+S2OQyPG5Cv+Ed1WJtftsCd8RcsoVNfW
-	 zBKbxnVlkdHGyXmSwpo5Djq3OEJG4Bfrax5RdzP0ZGQ4O7xuzu/qpnpaV2t5WIttld9If
-	 zUI3fC8xpBajxRGJ+X3mZ8/fQe8GHUw+nE9D4Txp4vH984IDJT+hJ2avqBMbmcHVa8A==
+	t=1794471814;
+	b=4eI01/vtzZquLsInInUdf8hhJiXxj4wUD5AJyIHkl2DflMa8H3+sbZC7UiTRIoegurKW
+	 9XYltWGYEuWUg3j+p0QmN1TQzVbNkn8Wi+ibNJP7F+Nc8W8zVc0xPB/dKXlmoE7OSi9Ae
+	 FPqVF/rsypIqLnYTryLYzeenVSImDWTCqgfcXpgE6EbdOOow0gTKQ4bR9eJMEAvYCeU34
+	 sWpvIhS5f35kDTeqpWAPwCb/h4u8EmFURpDoAmtv7PQ7+ISUkbceWr2rrqvUAGjQDBYtk
+	 2qZdU+F3Rsi1N+G9dYmfZTKR57q1sV+JfY+3yxwVEg3ww6qi8C63w58SRcRStyiX0rg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471811;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=WDvWniJQrezDUB16xlhO8KCfZlmxV+ztbr/1RAmPaQI=;
-	b=KTUaEP5IIGWZmJnn1vs3Ubih+dUVXaJRmLTwPGq3xgb+uSblk1PQAGa+21xmfjXpxNPp
-	 JAOekHFwUsIXeJheSygkjMwIQPqQOh+n98iwngicWnsV8Xxn+YvwgrlFwIufrid115Glk
-	 03fUdRr4zY2DOuNEQtz2PPYSkFAH4dT1/nH4nlECHXu1g7Zh8CA7cL79/atIffbK5LoHO
-	 B8/d6HJP/n7S7gQn659K6Chze7G2qLc70ZGo/sCSCrXGDF7GvSIh69KZ6fCBj43YYVZ91
-	 naNH2+lo5sOuNcab/g7zuzEgQSjbpCOEyPZ1rkqT5bOfO2kkBZWYQCaVHHRp2Uzr7dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471814;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=u120nBzjSw85Ua4h2iZr2dC7vRzrh960a8a37kW/TOg=;
+	b=Wsr7Y8ySzu4spPpZvFcsyVTrFcool3jd3HIGM7tNDDrRuTS3qpcYrMbcnUiDijxJ8Qve
+	 9ol/0b0HUTt+1HR7S+/ZiNcbt4ds0RJ2/yGBM1qBI8rUOzIqoenCri0e8R/SjimQwM5yn
+	 yBaNoTRmXjo3iA155P3y5m42XVbdemg8Pr35WpzvKlMKBAH3mlY1enigDbcxx57/6x0tT
+	 8nQI4i3SBN2kWwP3joaGwTFVwyevPZ4lmKuQZ57i3Yi95SjwyDoryJnBQQEb6/BBIct3a
+	 uY/XZNOuV6pHQYQvrrSq9iDudKiMv1WkDB0KcmturPm0odrRhB6Qr1nq19IYweKbhMA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6i9f2fP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHuju1yo;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A291606A331;
-	Thu, 12 Nov 2026 08:23:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD01F606A8B1;
+	Thu, 12 Nov 2026 08:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6i9f2fP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fHuju1yo
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794471810;
-	b=WCLA9w67jTZn41AzBmW1Ix8XthmQy3V9gU8GsSWseWkQao70krxWxS0r6xNmAmGSbmji
-	 /3u14sTqN3U33LLj4ZSzh0/HxRIRLfqRA3Q8xwJRq6fD3qvCQ7lpCWP1X5jntfVRXo03p
-	 XCikDIhMNZQOzUsMqLLfDmHXAIkOs6gd3grCCID+rwSuknbdDWDC+Qdj/VjDGuYKMq+j2
-	 YO461OBgjvNgwc8VwUZVnee5OiwWJE8tKTHGAMF/434vqon3/zRiXw+eNR6RrowdaZ3uj
-	 xG2CQbUZfCDFvn/I8vuvLxHSvb8reBm3K6TeyOGSNtNr3Bz4TuWkakl5+Day7ZvIx1g==
+	t=1794471814;
+	b=B17NsFhy7xxMD9nOKAx46/g5NP3k5697f/lmpSCd7e5DkyfNIqEF1aHXq9sqWxUDYTvD
+	 y70DF+xvaVIZ1CCoz+TJlEyZEBOVo3nS8lmP45yEN/6QWAfu6I5RE4gX41wAeKL0c5gQI
+	 4Wd2Ldl5zzj4eiRynVmioBJqKhRF76hJYFG24g85nY7hytAgqizu/wNItqhlZkQa3uzyL
+	 gAdc0+LdbmWjnRwTehEoSeE/B19wVo4iB+4dvi1PuKCf56C6BBTREM6DMXbKb20fTQf17
+	 5ZBC+snIFRjzgrwnh2fsCH0/Du3DuFS7AIVj8nBHllMOxX6DN6fv9hheumPaOOcxP3w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794471810;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=WDvWniJQrezDUB16xlhO8KCfZlmxV+ztbr/1RAmPaQI=;
-	b=UcEDv/k2iqh+k6s2pOvo10pr9qRDGonn7HPHj7eX/G59FMiQKOBxd2EVsoa5Daob6Ozn
-	 JMDZTZX/pxoPvt/i1SwXEUHV0F5idv0cB/ydECAlUV6yUkKhp3PP29YNqsocLamiA5FQU
-	 m8SXLi2TiCyFFI+/5iXFnKNwn924aB6Q3uR8s/toor/g68tqf21dISgbTAy4xHUS+RMrP
-	 qIxSZXV2TbAQJyE8abnc53PS2mMFi70//5uQ920iEITeuRY/3VEG5J8qeQJL5YkQHTR21
-	 rg8C2kZAzP1mDWex9BacZfiIZzaPt6H3k1u7g2nQS28b1g18Of5pqTlKY9G8UGd+MsA==
+	c=relaxed/relaxed; t=1794471814;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=u120nBzjSw85Ua4h2iZr2dC7vRzrh960a8a37kW/TOg=;
+	b=XNiUTKlj+VcJG2TaY5g0vUTiT5FFaIWkueJPWxeXMEXdMwjzoxcR1YRRIDUMuKNTREiV
+	 B5t0q/YjwyvrFiqFFuVbxK5kNMsQyXhRD/FyvG99rqB9nlpiQBv0pBp7bUGzDA6RQfbDI
+	 ymuOrLj3mOcKxi5pyc4Hj9wRXX3JnJFdN4DmL3PRhymEf20gSJB0kPc0a8YKjqjpaZ6Jv
+	 EUx9ZPU8FxUn3knGXFAy2CbL6qx4Xs30RzTcMm3iVV/j0JknvOk+KpoOOLn1gdBVyDK0o
+	 SNUzvjSe0SF+HEnMf4w5Sw3nViQErN4rodxUYYMKBx8VgJAQQrc16/VQQwb+dnYyYPA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 41EC51F00A06;
-	Thu, 12 Nov 2026 08:23:30 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 50FE61F00AC7;
+	Thu, 12 Nov 2026 08:23:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794471810;
-	bh=WDvWniJQrezDUB16xlhO8KCfZlmxV+ztbr/1RAmPaQI=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=b6i9f2fPT1J7hyhD2DJR5Lsrr4hJMLO8WDudxwxUPdQ4wcFPlxYaod842rnrhOevp
-	 QtCTTf9n7QuXO18Y6Z3FLLly1MvmTCz53nzs6iGN/4Rnveh/T14FSLwbvmZlsVBbFz
-	 h0mAvEcYEhS1bRGR7pazi83ITR9zi/UMpv78snBBT0FtY/o4WIGkxteiKu4q6VrOuc
-	 UrJSlLtFiNi5D2SACge7t+SXiJtHaXPQeN885oIVw1bk0IRcF8+ZC25NWs7Fo1rtn2
-	 SRcG9n1pbHPMVfh1jElaE25nbhh0IHeGmjvf/JtoKHZqlWYrAbV/KNmmsHHsEFvPQB
-	 wNqDvWC9KIB/w==
+	s=k20260515; t=1794471814;
+	bh=u120nBzjSw85Ua4h2iZr2dC7vRzrh960a8a37kW/TOg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=fHuju1yofLcm+DkrzDe5jxxSB3FZtaZdhyu/vcxW+SntVc8byG/Zjz8SCkWcVw41O
+	 DidKV9m6+7o9wXPOFt1mxLq/RIWbY81dTBcAkM+qb3grwddDi7RQsj3MbBnWyPQStY
+	 YbbbmDX95sFFxAc3duMqNEOF3cC2UqZsQzsxqQJk4jteXSUzHYJvDFg+vdsC7uw69/
+	 dTR4abeWqSKdqqlkPtsBlfwAlrhUJihxJhsT1ztu3Eu0Ev7b89Nh88ADc/07Cl6TyO
+	 3aAZ4cGi8LvyBspy8IvF8+UtXSRjRZttRpPm/gccccWCY4FGI9X3hlmwgVkhFdKA3G
+	 KMGOvawRFJjZw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 940054933F;
-	Thu, 12 Nov 2026 08:23:29 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id D995349360;
+	Thu, 12 Nov 2026 08:23:32 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] pmdomain: rockchip: fix the probe error and
- deferral paths
-Date: Thu, 12 Nov 2026 08:23:28 +0000
-Message-Id: <20261112-pmdomain-rockchip-v2-0-5cd942a23df7@gmail.com>
+Date: Thu, 12 Nov 2026 08:23:33 +0000
+Subject: [PATCH v2 1/2] usb: typec: tcpm: Don't cut a pending state delay
+ short on a re-queue
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,125 +84,86 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OS27EIBBEr2KxDhFgaGyvco9oFjQ0Y5L4E/BYi
- UZz9+DxPpuWSqp+9e6sUE5U2NDcWaY9lbTMNaiXhvnRzVfiKdTMlFAgpRR8ncIyuTTzvPhPP6a
- Vt7q3TpGNIRpW/9ZMMf08me+XM5cbfpDfDtDRGFPZlvz7HN3l0fuPv0suOGAfHRA618HbtRa+X
- v0yscvjHMj0favu27nKVrf5sZoPjVdReEMIYGR9tlpHgFargPV2xgF0JqKVhxa6QrxSp7QNjdX
- WkOvQdCAB29YL7SL2FnwUsZJCHwK0EavC4w/gnlXvRgEAAA==
-X-Change-ID: 20261110-pmdomain-rockchip-3497a2e7fdf5
-To: Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Shawn Lin <shawn.lin@rock-chips.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>, 
- Elaine Zhang <zhangqing@rock-chips.com>
-Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Yao Zi <me@ziyao.cc>, Igor Pecovnik <igor@armbian.com>, 
+Message-Id: <20261112-tcpm-attach-reboot-v2-1-b4bc6ca83490@gmail.com>
+References: <20261112-tcpm-attach-reboot-v2-0-b4bc6ca83490@gmail.com>
+In-Reply-To: <20261112-tcpm-attach-reboot-v2-0-b4bc6ca83490@gmail.com>
+To: Badhri Jagan Sridharan <badhri@google.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471809; l=5076;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794471812; l=2363;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=bdn8cYKKzKlZzz1UfUin4coRd279HYZJRzRpgBrt3p4=;
- b=85fXcymigcazjcdaZJGpvrxzTEvntfsmiXgH3L8DtL0aIS9YckTLoTa3z70D3YMPl1clEnnBl
- 8nvbJ4WDTlpBqhDCtp1nc5ldIu7WjGvAyD2U/owR8dnZdVkzi+esN9R
+ bh=f9cETtbmuMeuYvGKqDaJesYJ7nf3lLCpDNSETJ6OO1Q=;
+ b=8LeYYkVSV9H3DvqyT645JP9izzuqYaWIgQ1uDLbfjiBRX8POMf/uQ34dp9ygJq6VmUe61ARjI
+ B8WrR2TZDkLClcHrFvxrxbeZrGee24mdnZzilLL+3t+VslFG/oqOok8
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Two fixes for what happens when a Rockchip power domain clock is not
-available yet and rockchip_pm_domain_probe() defers. They are based on
-patch 1/2 "pmdomain: rockchip: Only put clocks that have been
-successfully obtained" of Yao Zi's series [1], which fixes the
-WARN_ON_ONCE() in __clk_put() on that path and has to be applied first.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-1. The error cleanup removes the parent/child links before the domains.
-   pm_genpd_remove() refuses a domain that is still a parent, and on
-   RK3588 (RKVDEC0/1 are children of both VCODEC and VDPU) no ordering
-   avoids that, so devm freed domains that were still on gpd_list.
-2. Errors are reported once, where they happen, with dev_err_probe().
-   A deferral is no longer printed as an error, once per probe attempt
-   by rockchip_pm_add_one_domain() and once or twice by its callers,
-   its reason is recorded for devices_deferred, and the paths that
-   relied on the callers' message (clk_bulk_prepare(), pm_qos) now say
-   what failed.
+tcpm_state_machine_work() applies port->delayed_state as soon as it
+runs, assuming it only runs when the state machine timer fired. The
+work can also run because it was queued for another reason while it was
+already running.
 
-Patch 2 supersedes patch 2/2 "pmdomain: rockchip: Don't log when
-of_clk_get() fails with -EPROBE_DEFER" of [1]. That patch keeps the
-callers' messages and skips them for -EPROBE_DEFER, as v1 of this patch
-did; in the review of v1 Sebastian asked to drop the callers' messages
-and use dev_err_probe() in the error paths instead, which is what patch
-2 does, including the of_clk_get() path that 2/2 of [1] converts.
+This happens at every port registration: tcpm_init() runs with the port
+lock held and calls tcpm_set_state() twice with no delay (default state,
+then PORT_RESET). The first call queues the work, which starts and
+blocks on the lock; the second call queues it again. The first run
+handles PORT_RESET and schedules PORT_RESET_WAIT_OFF after
+PD_T_ERROR_RECOVERY; the second run then applies it at once. On an
+Orange Pi 5 (FUSB302) the log shows the 100 ms ErrorRecovery taking
+6 us:
 
-Tested on an Orange Pi 5 (RK3588S) with v1 of this series on a v7.3
-based kernel, with a test device tree that gives PD_FEC a clock which
-only appears about 26 s into boot. PD_FEC is nested under PD_VI and is
-reached after 18 domains and their links were registered, so every
-deferral runs the cleanup with nested domains present. devices_deferred
-shows "failed to get clk at index 5", there is no "failed to remove
-domain", list or slab corruption report (booted with page_poison=1
-init_on_free=1), no "-517" error lines, and the controller binds later
-with each of the 26 domains listed once in pm_genpd_summary. The same
-late clock on PD_NPU (the first domain, so nothing is registered yet
-when it defers) was only booted without these two patches; those boots
-are where the "-517" lines quoted in patch 2 come from. A host-side
-model of the probe and cleanup on the board's DTB, deferring at each
-domain in turn, leaves freed domains on gpd_list at 24 of 26 failure
-points without patch 1 and at none with it.
+  pending state change PORT_RESET -> PORT_RESET_WAIT_OFF @ 100 ms
+  state change PORT_RESET -> PORT_RESET_WAIT_OFF [delayed 100 ms]
 
-[1] https://lore.kernel.org/r/20261105001257.1368266-1-me@ziyao.cc
+so the "clean slate" that tcpm_init() asks for never happens.
 
-This series was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code of both patches and the commit messages, and I
-reviewed every change and tested it as described above.
+If the delay has not expired yet, re-arm the timer for the time left
+and return, as tcpm_send_queued_message() already does.
 
+Fixes: 3ed8e1c2ac99 ("usb: typec: tcpm: Migrate workqueue to RT priority for processing events")
+Cc: stable@vger.kernel.org
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Changes in v2:
-- Dropped 1/3 "pmdomain: rockchip: put only the clocks that were got on
-  error" (Igor Pecovnik) in favour of Yao Zi's earlier fix for the same
-  bug, 1/2 of [1] (same Fixes tag, the same clocks are put). The series
-  is now based on that patch, and the dev_err_probe() for a failed
-  of_clk_get() that was part of the dropped patch is now in 2/2.
-- 2/2 (was 3/3): drop the "failed to handle (subdomain) node" messages
-  from the callers instead of skipping them for -EPROBE_DEFER, and
-  report each error once where it happens with dev_err_probe(),
-  including the clk_bulk_prepare() and pm_qos paths that relied on the
-  callers' message; new subject (Sebastian Reichel)
-- 2/2: a failed syscon_node_to_regmap() for a pm_qos node now returns
-  its own error (it can be -EPROBE_DEFER) instead of -ENODEV
-- 1/2 (was 2/3): unchanged
-- Cc Yao Zi
-- Not re-tested on the board. For the tested case (-EPROBE_DEFER from
-  of_clk_get()) v2 differs from what was tested only in where the
-  clocks are put (the err_put_clocks label, 1/2 of [1], instead of next
-  to of_clk_get()) and in the callers' messages, which v1 skipped for
-  -EPROBE_DEFER and v2 no longer has. The other changes in 2/2 are on
-  error paths the test did not reach. v2 is build-tested (W=1, arm64).
-- Based on v7.4-rc2; with 1/2 of [1] the series applies to the pmdomain
-  fixes branch as is. On the next branch, 1/2 of [1] conflicts with
-  "pmdomain: rockchip: cycle an optional power-domain reset on power-on"
-  (a reset_control_put() added after the changed line), and 2/2
-  conflicts with it in context only; git am -3 resolves the latter.
-- Link to v1: https://patch.msgid.link/20261110-pmdomain-rockchip-v1-0-6b9fa6ebaa86@gmail.com
+ drivers/usb/typec/tcpm/tcpm.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
----
-Arun Iyengar (2):
-      pmdomain: rockchip: remove subdomain links before the domains on error
-      pmdomain: rockchip: report domain errors once, with dev_err_probe()
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index d721baef5210..0a19b7665555 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -6569,6 +6569,18 @@ static void tcpm_state_machine_work(struct kthread_work *work)
+ 
+ 	/* If we were queued due to a delayed state change, update it now */
+ 	if (port->delayed_state) {
++		/*
++		 * The work may have been queued again for another reason
++		 * while it was running, for instance by tcpm_init() at port
++		 * registration, which sets two states in a row with the
++		 * port lock held. Do not cut a pending delay short; re-arm
++		 * the timer for the time that is left.
++		 */
++		if (ktime_after(port->delayed_runtime, ktime_get())) {
++			hrtimer_start(&port->state_machine_timer,
++				      port->delayed_runtime, HRTIMER_MODE_ABS);
++			goto done;
++		}
+ 		tcpm_log(port, "state change %s -> %s [delayed %ld ms]",
+ 			 tcpm_states[port->state],
+ 			 tcpm_states[port->delayed_state], port->delay_ms);
 
- drivers/pmdomain/rockchip/pm-domains.c | 144 ++++++++++++++++++++-------------
- 1 file changed, 89 insertions(+), 55 deletions(-)
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261110-pmdomain-rockchip-3497a2e7fdf5
-prerequisite-patch-id: c2f0c5eb6651baa744f66342db63485a6685fb71
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
