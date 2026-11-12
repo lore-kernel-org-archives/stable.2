@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794461287;
-	b=BjRZRYOBrFH/uY1eriU1p6jcN2Kf93NeLSax5kXALgpm5Dvy+2X5ZsD2hONzkpaTVCqw
-	 MNeV9nsMbQztae2w+++7zA1zU2S6YUnSHr39+7PnRbI8h+2jnA5KWDqeIA5m3Xb6xZgcr
-	 mXsw8yjjIXluISpg9mirTVu0j8hwt1iS9jolv82yFNdE1H0DKOhBUEa6nyMNeWqA1nUXv
-	 lnqzl60pXtfAcCklMb/F5bgkZWobFUtqzMsXSaYVzwNkjyfRZGDJVHYDAOslKHXTWVOdY
-	 x3SLhU42qYrEjz/5hCyJwoHG/OvQ1LTngHzWpzzPn1uR5hjUFZgCMTeSRpEcVzKc3IA==
+	t=1794461452;
+	b=QZT3LYgYqb2ytzt67lY7Lcj6yl/4O4U9mNzDIjt6Xw3xEqD+oJEiCckwJ03IUuVny73E
+	 ZPEF9n6kxsfj8IHzy03bInA8LIac/umDy+RloZ3eR/2ZtF7LWBAOsdVNjy625pmFOkAYB
+	 j8d0ZdQ8pUFnG1amamVfngnsWvmCP74ex9k4feP2p3mzm/qdf14AQ4CPxgG2+CmDKz65S
+	 i3OgQwAWIdzSkOOqK+TSoBr2kmKG/9CG1LKQjdM//LQv9wKClB5OqRd2FEwYckZUOYxt9
+	 yENQzQR0AobTVNO/avoqZPZXrnHf45xIzpKHRUBchl/Vgx2nVY3CDDINZQXJxgfBXrw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794461287;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794461452;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=W6mZOJg0qLo6Oh/FE3CEb1vYHcaROZa/HUARz/kORXE=;
-	b=GiA3p2vSPgvLXYkyykb+/Hjg52Olfni68H0Rb0UpuXw3UWTJlEfnb0eaz5kgG0IqFHxf
-	 Byivht8jWedQUC48K+QVKq4AZb+7adkKukrirvY2ASlWr687FTuU4lxvX3/p/Hz1G5wUk
-	 JOPZGfgbGTAnzZGaB5osEnmpUMfAG4lGP81JHjm47w4BYYC4eoDRf8vVVzwH76qQ2td21
-	 ycV3WxqeH/VJL74LIJ+DDaduEoOgo2VrsQZ79qxsVZqfu+KSHMFtQihGNrTQHIktWXreU
-	 L7HFhs3pXNCPwW1ispN8u/EP0Fwap3DU6iXWpFHq2UTgq8xRHf+/3yekwMvMtNFPvdQ==
+	bh=UviLEzCi5yC1tk6oTyIn9YBlv7xdwXYD5u/ePdmahAQ=;
+	b=2bnSy1LCBNQdRHIhjuzPeJIgq6jBwXFgut+geJqtwZrMx2G7zHnIqZpSK1c7+hntqGRn
+	 1Pj6og44tH9QoBdDx7VK1i43bF62fOvlO9xxE2JgSdd8wvBkSdNWQ7Zue0nlgRMjHKYz2
+	 n1e6QKgPV056yqNW8Ll37NcFh3Iqd/y5tLFLbKHgVk1tY2MgYELkzi/CmVDY+yB75+FlE
+	 2CRWClq5xgyryGWLAdHpAcjoANDhgWJ6MSqgk/gK+YRFsCjaPkH0yCIAHpVCSDwMrTz1b
+	 Z+VHSjq5dS9OJs28lLWI4E415k1Z48Ii68dQF4ZgN/XXDeoB/oYTVPdJiQgsi/Sk7OA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZiRt3k+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GUwBi8wW;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAD2606A324;
-	Thu, 12 Nov 2026 05:28:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42250606A327;
+	Thu, 12 Nov 2026 05:30:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oZiRt3k+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GUwBi8wW
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794461286;
-	b=H9vUwjI/2pkawjH/yZx1jvNuHTPxjiRtRdl7q3GBJiAW+cGTyKvzraBxdjf3ac8KUJlS
-	 BhSHLgKygYT2buK7BE/zxMQTr8yah58ekCGWBlac0UiqDtWS1sR6lIXXRzYyFEGCLbtnC
-	 jdR71tL69Rv4BPzsdR1kP0Xl/EoD6ZjUvxdCqRK1R79Mx430WOtx+sC65Jwi31/tHMHrn
-	 S0JmzKtxhLkSFtmrvwxFmecaSBc0OQ+NqJJlU5j7qLrmTXqdfVZdrDPQIVDv+5Lt8MmzA
-	 m+Sxzm3WNYhaDPsUW31rve1VL5++iatVtfGhp554KL2KjPB/UyETXwyVy2ciT0TyiQg==
+	t=1794461451;
+	b=v/3TwPWeNUyph4m0gCDNy3iW2M1clrGxw1u+Q/sFZma27MQQj4+aQUfkW8ZWocqT+qzc
+	 12JFny53rcSZyhvRYfs4/dZa7l5hIhLT4zbjVQtf7GMxdMxskByUBlnTjg3eXMyk/Y+FC
+	 0Z3gd2sWzAx8n1nrEAucrgzbXuj7l7yi8xn/mdY70VaC6bD+A55bmLaG+surZruJ9OW99
+	 rd4oCRn7u10/Kg2RUby3NBelE2rYmG47xR0mD+CaUU7qSd1FBYzRBIQzePCnWHlcKAc9J
+	 PtsbuWr81xO//OBb+dCsR94bP5w/VSCq2ncQbgiWgoe+MSfhPnRKiyhX9nglunl4gCA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794461286;
+	c=relaxed/relaxed; t=1794461451;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=W6mZOJg0qLo6Oh/FE3CEb1vYHcaROZa/HUARz/kORXE=;
-	b=0hMwJi/5kZc60K2cThvoO09Io1eeh0RrhWnGdZXC3eFF0SjfZj5LZvtO0AcaKqHIbffy
-	 qiSD7LzvrjXJtS5/3MKy+LUm9ZnKAL8Btlnp/Si/XVaOOVdGY1vhQ1x+SOLR30dqoSVHC
-	 pNI7ADcZ4TxbTZSnGVImx3Jigl9WYpkIAZDtENfBo49eq4ZE5/Rq1oVc9XGjhKX0delAM
-	 /8TIle5esV+XRKMwOW8BlSt8qJJyWazvS4Kf4UTTLd7M3/lRs+v++8WE8rUQhhe7jYCpi
-	 uM/+kM5o/0YGgjbQSI/y3x/dHXdhfTz5Okhr7PUl9cDdVCA0MT4KRgm9aCX2kGabTQw==
+	bh=UviLEzCi5yC1tk6oTyIn9YBlv7xdwXYD5u/ePdmahAQ=;
+	b=qEwYb9dkwAidr8WX3GxdXdYJ0M2ZM6Fkg0UhGpsxw0NUCI2ICq2BzJBnndbiVYpBhjMg
+	 WowGroQD9CZ0GPJ/cbFNde5aCoqfYwt1M2mv6u+a1xasMGRobJ8nwNctjDqhGXVo9aPvF
+	 pRTDrdKbmn13BCOz1G8niQIfU6KCoys9sHwirjRl9oJGUVzgdnd4wDl8AjITrRtRptw8O
+	 D0YPGxLuyU1DF5iV+893NGpPLyM4+6UQjPnkLZLKX5h0xFnfdk4J4MxFcHEJjdsMyjauG
+	 GS4x3p74IoEiZVMrr8X7opiJOWpN/FEnYHjsphRSHdk6oVB//2Sc5Xzx5DYbcgVr0tw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BE6021F00A09;
-	Thu, 12 Nov 2026 05:28:05 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 436771F00A05;
+	Thu, 12 Nov 2026 05:30:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794461286;
-	bh=W6mZOJg0qLo6Oh/FE3CEb1vYHcaROZa/HUARz/kORXE=;
+	s=k20260515; t=1794461451;
+	bh=UviLEzCi5yC1tk6oTyIn9YBlv7xdwXYD5u/ePdmahAQ=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=oZiRt3k+5VLSUnqmGNXWTTO6XAnuzwR740thG6dGPVl3CLpu1FDFmdE11owrSmqHq
-	 BPFDoflNNhsytwPaBdJ8JhyV754h7lCpwdE/FDqYxIu2aRBrwKBGgstP8qCG3tzZnz
-	 E3LBdofMaNeN4NUv42K00Hcr6EgBj5Puv6/2mIH1CrXXq9A7+t0LbG3IuhNEPt3DCo
-	 ZzplRRTlAQtRWpu0Pqn0zelwNIYYb3W3Mgm7T1PuSHTfpZE2WeiRFX9DEdMVAeQ1oO
-	 vMXvekvdKbmqQM/lPOjKY8cMYI+n8KFblDFKuxL0R+R7EEao16nZI/CADHTZOpXNAV
-	 uVHkLkvs3KyTA==
+	b=GUwBi8wWY6wQbdgsyweWdRlorWzWUgdE9Op5xsZSzz4gQ6RIFYWbGWSrgj3T9rMpT
+	 2nHH5jKx1WuUn1k54RCx2VEhUB/dPXvSGnckZwUf3cROvckFVAoNs2DgNrGZEOoWWN
+	 +X4PROSX8CpJGPN2Szej/gNqRocFWcrsSVoAczPj3MQpXoxH2cK4+PdZDM8nc9MROk
+	 nZmJBiI3nZcqwJF0da4XP63wSWI5JnhKbBREAkTxKEwLBvdypV+twMWZ3GK1g1wCoM
+	 LgXqheck3lo7zpfopgdZOsRjawDoaL26IW2J9mdEtDqxo1FA8QLPp3Ib69QnJO94PR
+	 +bEosHAgaT0KA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3815549191;
-	Thu, 12 Nov 2026 05:28:05 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 05:28:05 +0000
-Subject: [PATCH net] net: stmmac: dwmac-sun8i: Fix use-after-free in the
- MDIO mux error path
+	by lkml.kernel.org (Postfix) with ESMTP id B52AA49191;
+	Thu, 12 Nov 2026 05:30:50 +0000 (UTC)
+From: Weidong Wang via B4 Relay <devnull+weidongw.illinois.edu@kernel.org>
+Date: Wed, 11 Nov 2026 23:30:25 -0600
+Subject: [PATCH] remoteproc: elf_loader: Bound the program header table
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,99 +83,123 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-sun8i-emac-mux-uaf-v1-1-308ae7e6fcf2@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6Xs2QU3YIn+inhI44uu0CjZphRK/
- 91UjzMws5KhKIwu3UoFs5q+cwM5dBSfIT/Aem9M7uh6EXFsNXtljCHyWBeuIbEMwfuTk3MCqIW
- fgqTLb3qljIluf2l1eCFO+4627QucXK9qewAAAA==
-X-Change-ID: 20261112-sun8i-emac-mux-uaf-1ba885219fee
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794461284; l=2672;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=NsburT4Rs6TuKeRLvNh9ntKMBycWNUHji+Gwj+018cs=;
- b=KuvZTvy/m2KLD0YOLU883uIqDNTznxKHAhJWD8davNR1BvQqXeosLyiPNYJbDYPG6qKvJDQdR
- LcFJgmVCqFeAlJD1ouD1bdILIdSCBHTVE1tYyniSitGLJ+rn/Vi2tK2
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+Message-Id: <20261111-c3-n021-v1-1-17c9151d0245@illinois.edu>
+X-B4-Tracking: v=1; b=H4sIAPBO9WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINBNNtbNMzAy1DU3MzC3NDFJNbJINFMCqi4oSk3LrACbFB0L4ReXJmW
+ lJpeAtCvV1gIAFv8ZXWsAAAA=
+X-Change-ID: 20261111-c3-n021-7607944e28a6
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Zijie Zhao <zijie4@illinois.edu>, 
+ Weidong Wang <weidongw@illinois.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794461450; l=3782;
+ i=weidongw@illinois.edu; s=20261108; h=from:subject:message-id;
+ bh=1+dxp4TSkvo99vpszS33ptcnuh7ZLO8mxAuiCbEJZ2s=;
+ b=bVPFLFW4TgQVG01rb6iT1GKoLw3UEMEXZT1PQ1ti01+uV1i5KUnacemlHqoDQKt+eKN/EjRiQ
+ AdOjFspT8u7BJPxCdT1GZ+ecwgUOIhE8YRUWHLAIt+jqJQKGZCwSdUX
+X-Developer-Key: i=weidongw@illinois.edu; a=ed25519;
+ pk=DR2S1xPEa5sELrWPfOpvUphJQ2VHC+MDc/wJavE/ifg=
+X-Endpoint-Received: by B4 Relay for weidongw@illinois.edu/20261108 with
+ auth_id=1449
+X-Original-From: Weidong Wang <weidongw@illinois.edu>
+Reply-To: weidongw@illinois.edu
 Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+From: Weidong Wang <weidongw@illinois.edu>
 
-mdio_mux_init() registers the child MDIO buses one after the other.
-Scanning the internal bus makes mdio_mux_syscon_switch_fn() select the
-internal PHY and power it, which sets gmac->internal_phy_powered. If
-mdio_mux_init() then fails without switching away from the internal
-bus, for example because registering the external bus returns
--EPROBE_DEFER before any access to it, or because an allocation for it
-fails, sun8i_dwmac_probe() jumps to dwmac_mux with the PHY still
-powered.
+rproc_elf_sanity_check() checks that e_phoff lies inside the image, but
+not that the e_phnum program headers after it do.
+rproc_elf_load_segments() then walks all of them, so an image that
+declares more program headers than it contains is read past the end of
+the firmware buffer. Both fields come from the image.
 
-That error path releases gmac->rst_ephy and gmac->ephy_clk and only
-then calls stmmac_pltfr_remove(), which ends in sun8i_dwmac_exit().
-Since the PHY is still marked as powered, sun8i_dwmac_exit() calls
-sun8i_dwmac_unpower_internal_phy(), which passes the clock and the
-reset control that were just freed to clk_disable_unprepare() and
-reset_control_assert().
+Commit b32177ead5f8 ("remoteproc: elf_loader: Bound the section header
+table") added the same bound for section headers. Do the same for the
+program header table.
 
-Unpower the internal PHY before releasing its clock and reset control,
-as sun8i_dwmac_remove() does. The later call from sun8i_dwmac_exit()
-then does nothing because internal_phy_powered is already cleared.
+Found by an AI code review agent (an LLM-based bug-finding tool
+developed by Zijie Zhao and the submitter) and confirmed on an
+unmodified kernel, without error injection, on x86_64 under QEMU with
+KASAN, using an out-of-tree test module that registers a remote
+processor with the stock ELF helpers (rproc_elf_sanity_check,
+rproc_elf_load_segments, rproc_elf_get_boot_addr) and a da_to_va backed
+by a kernel buffer. Booting it with a 120-byte ELF64 image whose header
+claims 64 program headers at e_phoff 64 gives
 
-Fixes: 529254216773 ("net: stmmac: dwmac-sun8i: Balance internal PHY resource references")
+  BUG: KASAN: vmalloc-out-of-bounds in rproc_elf_load_segments+0x4e5/0x6a0
+  Read of size 4 at addr ffffc90000035078 by task run/72
+
+i.e. the first byte past the image, in the buffer allocated by
+kernel_read_file(). The same image with e_phnum 1 boots cleanly.
+
+With this patch the oversized image is rejected with "Program headers
+are out of bounds", and the e_phnum 1 image still boots.
+
+The reproducer, fix and changelog were drafted with AI assistance
+(Claude), then reviewed and tested by the submitter.
+
+Fixes: 400e64df6b23 ("remoteproc: add framework for controlling remote processors")
 Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Cc: Zijie Zhao <zijie4@illinois.edu>
+Signed-off-by: Weidong Wang <weidongw@illinois.edu>
 ---
-The problem was pointed out by the Sashiko AI review of an unrelated
-dwmac-sun8i series of mine. It holds against the code: clk_put() and
-reset_control_put() free the per-consumer struct clk and the exclusive
-reset control, and nothing between the dwmac_mux label and
-sun8i_dwmac_exit() clears internal_phy_powered.
+Tested on v7.4-rc1 (05441d697f7f), x86_64, KASAN, QEMU/KVM, with an
+out-of-tree test module that registers a remote processor using the
+stock ELF helpers and a da_to_va backed by a kernel buffer. Firmware
+is a 120-byte ELF64 image, program headers at e_phoff 64:
 
-This is build-tested only (arm64 and arm, W=1). I have no board with the
-internal PHY (H3, H5 or V3s), so the error path was not exercised.
+               e_phnum 64                      e_phnum 1 (control)
+  unpatched    KASAN vmalloc-out-of-bounds     boots
+               read in rproc_elf_load_segments,
+               first byte past the image
+  patched      "Program headers are out of     boots
+               bounds", -EINVAL
 
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it checked the report against the code and wrote the fix and the commit
-message. I reviewed it.
+No KASAN/UBSAN reports on the patched kernel. The code is unchanged in
+mainline, linux-next (next-20261111) and rproc-next.
+
+The reproducer is not attached (AI-found issue, see security-bugs.rst)
+and can be shared on request.
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/remoteproc/remoteproc_elf_loader.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 47954537b29e..4436532af2dc 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -1245,6 +1245,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
- 	return 0;
+diff --git a/drivers/remoteproc/remoteproc_elf_loader.c b/drivers/remoteproc/remoteproc_elf_loader.c
+index da3cddbe7..54e1fd4bd 100644
+--- a/drivers/remoteproc/remoteproc_elf_loader.c
++++ b/drivers/remoteproc/remoteproc_elf_loader.c
+@@ -46,7 +46,7 @@ int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw)
+ 	struct elf32_hdr *ehdr;
+ 	u32 elf_shdr_get_size;
+ 	u64 phoff, shoff;
+-	size_t shend;
++	size_t shend, phend;
+ 	char class;
+ 	u16 phnum, shnum, shstrndx;
  
- dwmac_mux:
-+	sun8i_dwmac_unpower_internal_phy(gmac);
- 	reset_control_put(gmac->rst_ephy);
- 	clk_put(gmac->ephy_clk);
- dwmac_remove:
+@@ -126,6 +126,13 @@ int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw)
+ 		return -EINVAL;
+ 	}
+ 
++	/* rproc_elf_load_segments() walks all e_phnum program headers */
++	phend = size_add(size_mul(elf_size_of_phdr(class), phnum), phoff);
++	if (phend > fw->size) {
++		dev_err(dev, "Program headers are out of bounds\n");
++		return -EINVAL;
++	}
++
+ 	dev_dbg(dev, "Firmware is an elf%d file\n",
+ 		class == ELFCLASS32 ? 32 : 64);
+ 
 
 ---
-base-commit: 145480b28ca82e9fae789427cc4569e596515a32
-change-id: 20261112-sun8i-emac-mux-uaf-1ba885219fee
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261111-c3-n021-7607944e28a6
 
 Best regards,
 --  
-Arun Iyengar <aiyengar1990@gmail.com>
+Weidong Wang <weidongw@illinois.edu>
 
 
