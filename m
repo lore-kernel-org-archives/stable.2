@@ -1,56 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794516525;
-	b=B6IXpApa6e/ieadQg+4bf1qhokalivGW3BcdUJ7Xp/xX7qhotGd3lHvMTkNEjH+y194v
-	 Aew8EwAg506uByAGZrZxloV6uh8dHgwAmrya5duX4k8TxdW/w/F3Ann961CMiUJkswd/e
-	 4Eyj2qSYx4hU6B7kEQpAN1HA3eXq5yMzxKCeTxYNyA1Oo4b52C5ArCgNPPXO09md4MGkU
-	 EfTJ2T110l2a8OUH7NE3eChed+zRXby2XPOaCS5CQwS1f5snQVUmMYF/puoP3JJKaKjGG
-	 XgLGXwsfY/P0UJ5Nk62siNxWo8k/GBP7VN3Y3eVupk3JULge05KyktDtF8zWI9cf2iQ==
+	t=1794516709;
+	b=eyyOUx8KE0hjE/50AcKIdATjIuJt3Bc/LBEnN4E+5VzPh5A+4xKFUT6bQJYYXzIoWZc8
+	 ASLLmkaqXPuO1wJjc+yAdN/OjxUVzrbYn5mX6gOHtmHqoFzeJ4nZTQfW6TAjE0vM0ue5q
+	 WwIa+8rdvzxf7m5p2jnB129F7SkBBUByN2f6OWlnO6oCUBoFVwPlDYnRBqe2z4iSuPecJ
+	 e3Kp9zkmJ5YTSnsofsKoYDJciogxge1b3igpYWLIUI8J+NwpaKQKsc1yaNnygYscy7hPv
+	 fy6Rm3ITCBRd61SUJYLHVMlTxOqC06ClxCK8jSbE+GoCKdgkwm7TS7aSySxXJfrQVIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794516525;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=W5NkBi8JP7W8CmlWPOKutZvJVzDYyPrvcvle+EgTG8k=;
-	b=EaeK8g2ZWz6oenFfLM825fLKDthfS9qRYdee0POaqlU0JoUdLYhUuUA5JmnalMgT6Xgi
-	 pgmOUd5kbUvvlx0o7AccCTjVvTGIruOaB3J+LgndTzmrYJB0slA2CAQAZZT0pLdU9VX6s
-	 MtGn0BiA1YEf++D2BOvcVK4CcSJY8SR8KjyDlJTfy25K2H9bUygTQxzBVYOd/IzdhchT5
-	 ykfDi9CBW2xaHFWP/gnTdyMN9UcjbPCxORQeSY8oWtlh7hNGzo5h+9HUKJQMKH5QgSEQ1
-	 A1mIWB1Sjx3RNcFXySoCRPByJi2yU/Ent37PyVghqfxQRdRcTR88U3vla89tuFq5Urw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794516709;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=P8hIUpMBWFPVL6mV3TWXWd6G3FSR8vMEZSdZssGprpc=;
+	b=qIVAIFQ82c1uDE2PqoaoRJ8DtM7HI1P550FqoIl/nzOph8zH81O9UCyBu2uNv3xjNxuM
+	 y7cU6thqnRmwfSwoszULnjjcAP1LsYPrAvMunB8YV1l+o+SOWaYIvKpW3HFMB1/G2qlHu
+	 zjYoiFlMAV4Yzaxe8fWNySy+t2nHLfHg9nW2W88HK3rseO53BhXci+PAAAuRKaXrqLhss
+	 1vP96w52Nk98zZmkld3xGxaayMMCvV+XZNfv9aAUQoccJec29FiPWX1jOwzpRto1bpawq
+	 4eVHNXvwOZC9HsZEteMLhFGlofKrLGyLAf9VOdYxSGoMloDsvk+4GxozfpMSVYObSTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ef8/xMcT";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lwot8IUa;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D00606A33B
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953F3606A31C;
+	Thu, 12 Nov 2026 20:51:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 953F3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ef8/xMcT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C43431F000C4;
-	Thu, 12 Nov 2026 20:48:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794516525;
-	bh=W5NkBi8JP7W8CmlWPOKutZvJVzDYyPrvcvle+EgTG8k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ef8/xMcTtgBW9LqPx//z9XCSrrOGdgLjHryJayOzAcvYvl+ulj2mTtQo8+IBkevnW
-	 Z0mHLkbXnTO2PDE/txoNhAhjzcE8gn8WSh2FqBe2RkirW7fIfz3yLRhUziNr5nQMQX
-	 RZylntvmAO/N2AuIMOKKN3wCqIZbyMR22gCG/DDUyL4vVwe89bFSczkD33GUUgpbCm
-	 3x8L0+hKtIRhVOy6eNgA7/9Eak3Ow/GbvGtDsRa0oxIDzGJc66bPJFyx4ZI68PRsmK
-	 fBMFX7QlthVkpdyNuZIPNWyWY10tDn1Rw/b+4w1oglWpKVHUssFROtHtKp3mSQXuLk
-	 EbG92px19dJXg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] hwmon: (sht15) Stop deferred work before releasing its resources
-Date: Thu, 12 Nov 2026 15:48:43 -0500
-Message-ID: <20261112204652.3667601-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201615-failed-6.1-5eab1e7f7ed1@kernel.org>
-References: <20261109201615-failed-6.1-5eab1e7f7ed1@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lwot8IUa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794516709; x=1826052709;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=MRU+T/ZapRMmO0n/n50xZ6wMLQpLIyDCBWRPpE7KrDU=;
+  b=lwot8IUaNS8/r9Lzm6oGPS0fmFXf8PA4EXOZGQG6aSBg7wDPEV0C4hxU
+   NPxUqxUgrAZUcaTykCim72ZwS97zIPQxxTN/QLjun1to9bPel1PtobCIA
+   tWLs14+OBBfgovEiunSaDEGSapfVpnFSdWfyK+VXjVBxBz4vOC8pDDK/z
+   NrOOUk8mFHDHr5zksYomaVJ3RUnK4gotSyoBBk/Sw4kFz7+cx5axFam7p
+   1uD87clVjcQ29Bi+Jrnb7f6t7SbJ6aJrXU4nfz+CRzokkU9TGN0NX94nb
+   cqk5qmBZUxNB5r2F/8+dK2gU73Il4ElXm7PQjq8JV2MSiDYWwaNpPSGuz
+   g==;
+X-CSE-ConnectionGUID: Ky9x87deTGi5CSaWEgkoMw==
+X-CSE-MsgGUID: sv0OG98IRTqC8/hkWI6VFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3346610"
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="3346610"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:51:48 -0800
+X-CSE-ConnectionGUID: iA/Be0LcQ86RdGqRh5sEDQ==
+X-CSE-MsgGUID: vk9FM+/zQuCBpe9MfMpYSw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="9089924"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.68])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 12:51:46 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: luzmaximilian@gmail.com, Wu Enqiang <janussss@163.com>
+Cc: platform-driver-x86@vger.kernel.org, chris@nilk.net, 
+ stable@vger.kernel.org
+In-Reply-To: <20261024054921.48209-1-janussss@163.com>
+References: <20261024054921.48209-1-janussss@163.com>
+Subject: Re: [PATCH v2] surface: aggregator: propagate -EPROBE_DEFER from
+ ssam_irq_setup()
+Message-Id: <179451670088.11882.17094899653516205494.b4-ty@b4>
+Date: Thu, 12 Nov 2026 22:51:40 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,124 +80,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-From: Myeonghun Pak <mhun512@gmail.com>
+On Sat, 24 Oct 2026 13:49:21 +0800, Wu Enqiang wrote:
 
-[ Upstream commit 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a ]
+> gpiod_get() can fail with -EPROBE_DEFER when the GPIO controller
+> providing the "ssam_wakeup-int" GPIO has not been probed yet. The
+> current error path falls back to fwnode_irq_get(), which returns
+> -EINVAL because this device only declares GPIO resources. The probe
+> then fails hard and is never retried.
+> 
+> This has been reported across various Surface devices since v6.12,
+> including the Pro 6 and Pro 9 that were used to reproduce it. With
+> the SSAM controller down, dependent ACPI devices, e.g. the battery
+> with its _DEP on the SAN node, are never enumerated and battery
+> status is missing.
+> 
+> [...]
 
-The IRQ handler and regulator notifier can leave work pending after a
-measurement or notification completes. Neither work item is drained before
-its resources are released on removal or probe failure.
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-Disable read_work before freeing the IRQ, since the worker can re-enable
-it. Use request_irq()/free_irq() for explicit teardown. Unregister the
-regulator notifier before cancelling update_supply_work and disabling the
-regulator. Apply the same ordering to probe failures.
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
 
-Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20261024014044.27853-1-mhun512@gmail.com
-[groeck: Dropped obsolete 'Assisted-by: tag]
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: replaced disable_work_sync() with cancel_work_sync() after guarding the read state and disabling the IRQ ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hwmon/sht15.c | 28 +++++++++++++++++++---------
- 1 file changed, 19 insertions(+), 9 deletions(-)
+The list of commits applied:
+[1/1] surface: aggregator: propagate -EPROBE_DEFER from ssam_irq_setup()
+      commit: 56dd7ee477fd2889babc452106ad3a5301c2040a
 
-diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
-index ae4d14257a11d..a0f2f1a2beb87 100644
---- a/drivers/hwmon/sht15.c
-+++ b/drivers/hwmon/sht15.c
-@@ -31,6 +31,7 @@
- #include <linux/bitrev.h>
- #include <linux/gpio/consumer.h>
- #include <linux/of.h>
-+#include <linux/workqueue.h>
- 
- /* Commands */
- #define SHT15_MEASURE_TEMP		0x03
-@@ -804,7 +805,7 @@ static irqreturn_t sht15_interrupt_fired(int irq, void *d)
- 	disable_irq_nosync(irq);
- 	atomic_inc(&data->interrupt_handled);
- 	/* Then schedule a reading work struct */
--	if (data->state != SHT15_READING_NOTHING)
-+	if (READ_ONCE(data->state) != SHT15_READING_NOTHING)
- 		schedule_work(&data->read_work);
- 	return IRQ_HANDLED;
- }
-@@ -976,11 +977,8 @@ static int sht15_probe(struct platform_device *pdev)
- 		goto err_release_reg;
- 	}
- 
--	ret = devm_request_irq(&pdev->dev, gpiod_to_irq(data->data),
--			       sht15_interrupt_fired,
--			       IRQF_TRIGGER_FALLING,
--			       "sht15 data",
--			       data);
-+	ret = request_irq(gpiod_to_irq(data->data), sht15_interrupt_fired,
-+			  IRQF_TRIGGER_FALLING, "sht15 data", data);
- 	if (ret) {
- 		dev_err(&pdev->dev, "failed to get irq for data line\n");
- 		goto err_release_reg;
-@@ -988,15 +986,15 @@ static int sht15_probe(struct platform_device *pdev)
- 	disable_irq_nosync(gpiod_to_irq(data->data));
- 	ret = sht15_connection_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
- 	ret = sht15_soft_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
- 
- 	ret = sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
- 	if (ret) {
- 		dev_err(&pdev->dev, "sysfs create failed\n");
--		goto err_release_reg;
-+		goto err_free_irq;
- 	}
- 
- 	data->hwmon_dev = hwmon_device_register(data->dev);
-@@ -1009,9 +1007,15 @@ static int sht15_probe(struct platform_device *pdev)
- 
- err_release_sysfs_group:
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
-+err_free_irq:
-+	WRITE_ONCE(data->state, SHT15_READING_NOTHING);
-+	disable_irq(gpiod_to_irq(data->data));
-+	cancel_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
- err_release_reg:
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
- 	return ret;
-@@ -1025,12 +1029,18 @@ static int sht15_remove(struct platform_device *pdev)
- 	hwmon_device_unregister(data->hwmon_dev);
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
- 
-+	WRITE_ONCE(data->state, SHT15_READING_NOTHING);
-+	disable_irq(gpiod_to_irq(data->data));
-+	cancel_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
-+
- 	ret = sht15_soft_reset(data);
- 	if (ret)
- 		dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR_PTR(ret));
- 
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
- 
--- 
-2.53.0
+--
+ i.
 
