@@ -1,51 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447600;
-	b=AHV4gtbXYXsnEvKqWKKAjT8EF7BzBMOaD9xocx6vHezovfYoQibKYV3hgTs6tBJNl0q9
-	 cJm407Qf80jGUw58zgAiNNEyuB0KGexyY9U267XESwZVHfi0YkSuKzZaNUiVoxwkgZVOS
-	 4GDQix9VvSW5dhkN4jNQWlu6eZs1b3/BtCHrOB2gB249zRbtwb+xtGh2IMThop3zTMGCH
-	 oK0zkWotCl/10pQNCniTFMBkVR6d8BhRboDZ8q5COSY0yZJaSEsdjvhq5AUMOYQD8lKZg
-	 OsNEHJX/UX7BpDIYTCjZHq9aHgZbm+wh1pXzwtfSU/hq41D5DsFTeiW4+ei1h2cDnMQ==
+	t=1794447667;
+	b=lXRX/G7112s0v5Zz47lis4ldfIuYtGQwDiKLddvdlcFnmiPLClyb7rEMZYgSzSRa2Q5x
+	 DzwuUGIrmR3fpnxPvxhh6SVUKbTwbWNKs9idQx9xrDxSiKAiQKmiv9zh23d08I03esPdS
+	 QNEzWOsEL0Ch0ROUERRqfMpwFB4EmWzSlpR8Wv6EDCUCAW+Q384MUIOgM38o9NLY6EYGg
+	 MMK62gRO2567Bm0atV/s1cjpc8zf5Wz2bM4eNyjykNCZ7kegiLGjVk9vGu23GJCCrQjIw
+	 iL6A7YxPGP/MnPqDK7njJy7SWQAworIFV6+QsQ+tc+TiHfneQtTzXsakqPFN2/f8VCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447600;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=CB/gSskTR9wvWmmWPupPceXVVxOUepJZ/LaXi7EL3Xk=;
-	b=USgoRSbiURqChHi7cfhPPQHyTb7M9XuLilWntt85B/mqe4ZM7Q/FhRgFrnBHtzPUqJB6
-	 lTjNtd4+J7eDEQwnlQykYRMaSe+3HA0SKc0TwsG7bn1GjxUhrtqBIGBzqs9feA53BREYU
-	 Z6HPasKIAz6ivOY6uTWXzQB2gwUewuMrr6skE9jtuEHplzv8e9DBG3Y+TbLpiqKvmsLOW
-	 hb5RSbttSh6CAqcHKbhv4fSnkZRVj7MkocMOiUt5F6mSyu2wQeHAt2zDTJ+ANDYujCtBX
-	 SGfvceHNkfTcoEViWpu28fUP9vNbqftI9HvhHc8DbJlt/r7N9lN/I0Z46FT67V6erng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447667;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=78GpTlryXdmrJjByh3BUkZG9u0d3fTR+T73cEQZ+ISo=;
+	b=OE9rcyizBOC4hP/iVFb+v4zCvb6J7/phYNlnSX1SQDyA9i6venLLd7mQ8WZWwSYVMcTV
+	 VhXIKJQ+te9f4PdkPLxIClRAx+UX44yhxJ28OU5qbOsNZPQGLHBEY5OTDyFI6Phrg/rXb
+	 7ASv0klUNEg4NXY2EYDoSmmCTMp+/F0ZPYel48akrRTO8YkoUKC2vjzAyw4lVkKTzDnJJ
+	 wMoBUNxUjAlAjBTVoX/Y/+8KJ6+kkd0M6suOOa4Y5rJs3t2mY6IabYQOEMRe60uEL7gTN
+	 mEjpMvDMDyNhrf25/vbb8eT28pGoAVZpRpgmblV0jw0orKiQtHAot/6D087uZ3nyuGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB868606A324
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:39:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB868606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=CB/gSskTR9wvWmmWPupPceXVVxOUepJZ/L
-	aXi7EL3Xk=; b=UBH+ZRibXJXJOPSozUCF6duO/HqjgrDNXRguy5t7jODvH7pIuu
-	KFt0xGeNuDGsFfdZVcrCL0PyJsS+gMSVn4VxyRzSoO5yHJ50ZIohUesPGi40QrDv
-	tpIG7TeXyLPJVD2YDjTFpBtlBVHIyr2MzQNDYzPL13DNlwcOzU1pI0Hww=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBGif7oGPVqa5eAAQ--.28680S2;
-	Thu, 12 Nov 2026 09:39:52 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: stable@vger.kernel.org
-Subject: [PATCH 5.15.y v2] ALSA: hwdep: Serialize DSP load requests
-Date: Thu, 12 Nov 2026 09:39:52 +0800
-Message-Id: <20261112013952.8019-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026-11-11-1-daily-reply-0025-7d3aa7a83ebfc4bfd8b3@kernel.org>
-References: <2026-11-11-1-daily-reply-0025-7d3aa7a83ebfc4bfd8b3@kernel.org>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RMNW/hj3";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9056E606A321;
+	Thu, 12 Nov 2026 01:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMNW/hj3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E0121F00A06;
+	Thu, 12 Nov 2026 01:41:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794447667;
+	bh=78GpTlryXdmrJjByh3BUkZG9u0d3fTR+T73cEQZ+ISo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=RMNW/hj3cip2bnbqZ58DP7ZCuhYbB449WbkhHiLHdXYIbp+Yj0UstquCla7tCJSBP
+	 H1fwSCTJ6hX0PLFgCOyqKHiVnQPByXuUhL2h9rfOUxssaZl10EbHdOx5hiij2kVnFA
+	 W5TTwX7pWlpdHCX6cmfi7wxrVCLrXldYEcwAWJu1saz28hdaRD6oKo1vDvzlS0hcVb
+	 1FyPhmjxhJoS7X0DrdfDc1Cf4Wv4M1iPRxecbSPU8YGoLn2TJP2f1fpKEbt/SjyK4R
+	 EkfWaO38saxffH8JJDH5YTp4mMaE+7cI+39QeMClA18AemjYdyaGwhStSUReEm+3R/
+	 tp/ZCw8zJ8OLg==
+Date: Wed, 11 Nov 2026 17:41:06 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, Sergey Ryazanov
+ <ryazanov.s.a@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Johannes Berg <johannes@sipsolutions.net>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH net] net: wwan: mhi_wwan_mbim: disable rx_refill work on
+ removal
+Message-ID: <20261111174106.09f639ca@kernel.org>
+In-Reply-To: <20261110043006.56681-1-mhun512@gmail.com>
+References: <20261110043006.56681-1-mhun512@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,108 +63,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkBGif7oGPVqa5eAAQ--.28680S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXF1DZF17Gr1UCw4kZw4UXFb_yoW5Zr1xpF
-	4qkFWYkFyDtrnrCwn8JwsrWa4Yyws7GFsxGw45J3WFvr15ZF4093sYqFy7WryFkr4rCFyF
-	9FyUZF1rJFy5Aw7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvFb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
-	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXw
-	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
-	MxkIecxEwVAFwVWkMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWU
-	JVWUXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
-	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvj
-	xU2Pl1UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUPD2r0h0ZMggABsX
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The check of the loaded DSP indices and the call of the driver's
-dsp_load callback in snd_hwdep_dsp_load() are not serialized.  A hwdep
-file descriptor can be shared among threads, or inherited across fork,
-so two SNDRV_HWDEP_IOCTL_DSP_LOAD requests for the same index can both
-observe the index as unloaded and enter the driver's callback
-concurrently, even though the device itself is opened exclusively.
+On Mon,  9 Nov 2026 23:30:06 -0500 Myeonghun Pak wrote:
+> mhi_mbim_remove() cancels rx_refill before wwan_unregister_ops()
+> removes the links. Bringing a link up in between calls mhi_mbim_ndo_open()
+> and queues the work again. With the MHI channels already reset, the
+> work cannot refill RX buffers and keeps re-arming itself, eventually
+> running after devres frees the context.
+> 
+> Use disable_delayed_work_sync() to drain the work and reject later
+> queueing. Probe initializes fresh work on rebind.
+> 
+> Found by a static analysis tool under development.
+> 
+> Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
+> Cc: stable@vger.kernel.org # v6.10+
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> 
+> ---
+> 
+> diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan_mbim.c
+> index 336f89756f10..3b6b0066f673 100644
+> --- a/drivers/net/wwan/mhi_wwan_mbim.c
+> +++ b/drivers/net/wwan/mhi_wwan_mbim.c
+> @@ -650,7 +650,7 @@ static void mhi_mbim_remove(struct mhi_device *mhi_dev)
+>  	struct mhi_controller *cntrl = mhi_dev->mhi_cntrl;
+>  
+>  	mhi_unprepare_from_transfer(mhi_dev);
+> -	cancel_delayed_work_sync(&mbim->rx_refill);
+> +	disable_delayed_work_sync(&mbim->rx_refill);
+>  	wwan_unregister_ops(&cntrl->mhi_dev->dev);
+>  	kfree_skb(mbim->skbagg_head);
+>  	dev_set_drvdata(&mhi_dev->dev, NULL);
 
-This breaks the assumption behind hw->dsp_loaded that a firmware index
-is loaded only once.  For example, snd-usb-usx2y hits
-WARN_ON(usx2y->as04.buffer) in usx2y_async_seq04_init() and may
-allocate the US-428 sequence URBs twice.
+AI says this is not enough for make the teardown correct:
 
-Serialize the check, the callback invocation and the bookkeeping with a
-per-hwdep mutex, so that the second request returns -EBUSY.
-
-5.10 and 5.15 still build with -std=gnu89, so guard() cannot be used
-after the early returns of this function.  Take the mutex explicitly
-and release it on every exit path instead.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Link: https://patch.msgid.link/20261029084810.21910-2-25031212351@stu.xidian.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-(cherry picked from commit aee83c204f80d56b4d55f53acdb8594308ddcd4a)
----
- include/sound/hwdep.h |  1 +
- sound/core/hwdep.c    | 14 ++++++++++----
- 2 files changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/include/sound/hwdep.h b/include/sound/hwdep.h
-index 8d6cdb254..137be4b40 100644
---- a/include/sound/hwdep.h
-+++ b/include/sound/hwdep.h
-@@ -57,6 +57,7 @@ struct snd_hwdep {
- 
- 	struct mutex open_mutex;
- 	int used;			/* reference counter */
-+	struct mutex dsp_mutex;		/* serializes DSP load requests */
- 	unsigned int dsp_loaded;	/* bit fields of loaded dsp indices */
- 	unsigned int exclusive:1;	/* exclusive access mode */
- };
-diff --git a/sound/core/hwdep.c b/sound/core/hwdep.c
-index e95fa275c..f7cde6bb8 100644
---- a/sound/core/hwdep.c
-+++ b/sound/core/hwdep.c
-@@ -212,14 +212,19 @@ static int snd_hwdep_dsp_load(struct snd_hwdep *hw,
- 		return -ENXIO;
- 	if (info->index >= 32)
- 		return -EINVAL;
-+	mutex_lock(&hw->dsp_mutex);
- 	/* check whether the dsp was already loaded */
--	if (hw->dsp_loaded & (1u << info->index))
--		return -EBUSY;
-+	if (hw->dsp_loaded & (1u << info->index)) {
-+		err = -EBUSY;
-+		goto unlock;
-+	}
- 	err = hw->ops.dsp_load(hw, info);
- 	if (err < 0)
--		return err;
-+		goto unlock;
- 	hw->dsp_loaded |= (1u << info->index);
--	return 0;
-+unlock:
-+	mutex_unlock(&hw->dsp_mutex);
-+	return err;
- }
- 
- static int snd_hwdep_dsp_load_user(struct snd_hwdep *hw,
-@@ -377,6 +382,7 @@ int snd_hwdep_new(struct snd_card *card, char *id, int device,
- 
- 	init_waitqueue_head(&hwdep->open_wait);
- 	mutex_init(&hwdep->open_mutex);
-+	mutex_init(&hwdep->dsp_mutex);
- 	hwdep->card = card;
- 	hwdep->device = device;
- 	if (id)
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110043006.56681-1-mhun512@gmail.com
 -- 
-2.34.1
-
+pw-bot: cr
