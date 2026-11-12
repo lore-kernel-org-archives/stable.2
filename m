@@ -1,62 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491652;
-	b=0OIH16fi8013iue1f1B09V4kmoCyzkFwAl5ou1oolFAxPvdqFIrnaO2nV4+nhgOTtsNh
-	 wIs0DPGWO+Wrn+X2avwIbZYrU+fkNQ//yRC1CJtcMIi5AckwDwYwHrKmKZQQaNlVyjMBF
-	 8yC6q8Cw7jAtACAXKYa57OfZ8KtNcZJ5V1F1seMlmw5BHek1pqmyrL4KVXVc7uxR1J/8+
-	 /G9E8YAmOYPge683vD96Q+hy+zaxO0SRqD8L86NOkPcF68at8BO5vgjnK66T2cGY/x5UF
-	 rv53iO1DlA6Cd7W4LP+PkMrzlOHp+X19GMldmavx41eViurWfkJd9BXdawyIX/qkmDA==
+	t=1794491766;
+	b=FwKHwJYjwRWU63Aoe7WISOf374oRSefrQ6mUofrVsU/1XCJpISpUQ02ogN39KxzDdXGX
+	 aJibCsR9gEY+7bXNb0sfPMEthvHx3NTdKqfrSAhXOjcvoMAo+UhVuPuA/4LWWWSjYhx6a
+	 mHFo0bQ7ajZ2I5ZhVKN4RvUVb9jpRctyBz9Q01RpOVQPhb33bLGwhC3Ujc2NotDHVqaGa
+	 BzZCdhK9fnGSnZVK3dIV6y5TQEmPI+QjuHnyJh4WnVi32RApie5vUWf6lNfGN+wu5kHsc
+	 lx/TszZ7xELxfjIqv23p25zgqQyruBrhM/ChCR5e8qLgfJrkYq28OLruIOq2sQRy65w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491652;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MBO38vnlAQ0tkNY12VxqO1riCqLLGif/aZ8s3OaXq+s=;
-	b=aVRZessa5bOQfqM8eNDCYCoPSErYg8PaF8cSbScA/nlQBQoOuZyVdpLaUdK36ZbkKudr
-	 WT0mpgbWxxCpXWt3G0Li3/xPkzZO88urOUwLTn8eCC4MwlFtSiBpPDDZizOmXjG+h2zDf
-	 Y08j39zgDvYs36ryh4VAwpXCIub+JJ4SfanVJmKcDQE2wn8UalgSrn1Y8+tfsCYv0bfrn
-	 aeO/UCOTe4xWKlakjtgdusj9mbhq/2ygbBVNvnkdL5uq7i++WF1RTzpcEPuQzpXXP2Z4d
-	 mNfAoEzRLdd7THws/I5zxl6dqU2zVNTWpUNPnYDU6THUuDPjGV2uGDV5aCG1dwxNbyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491766;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=eWnA9J1ky/G6CgXvOtU5iw1/5fnClz5aMTlWKYAXQSE=;
+	b=D+ttXpbVhvkuXt/mT+/xxgh7boE4TX+Gkm2/0A2i8z6OPmqSrxpCgcWOHI9+KLQqDCh/
+	 6gM3peg+AHgacH9yabv//aGJ09eYx95cqu2ncX+goTH8jloekZN6UfB6cMJmX9HNgFfrL
+	 7S6wmz8uxE24w8FbBdsbvgTxJxyEYSD5cK+CYWpS7L/TzjP1MLkHGpZeHRx86i1dpGih4
+	 6QEvAAeCzeRDAbi5og0evFpRFxhIop13hfCrXy5AgIRRPJAVpvx6Wyi7EMlB/ScXXV1Dz
+	 zpvm2RCd8wUUiBNQJ/YjKncjAcquIN2pbK/nqf7LfCyzq1Qq66yp6qMxGHrsD33kX8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=POO4uN3G;
-	arc=none smtp.remote-ip=115.124.30.112
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=dlBFsB8h;
+	arc=none smtp.remote-ip=44.246.77.92
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2725606A321;
-	Thu, 12 Nov 2026 13:54:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2725606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55C7606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 13:56:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B55C7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=POO4uN3G
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794491649; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=MBO38vnlAQ0tkNY12VxqO1riCqLLGif/aZ8s3OaXq+s=;
-	b=POO4uN3GdPixp/brpGUrQxb+QgSQLJ2Uab4lA9t9uMaCdAGt+j15deu57IsJzq1j2OqnOwV5yFc62dUzBgYPkf4t/Gf3rPI1kV8DeL/Qju8f79Eg7Ckfs6jBXVAi+xFTO7o68t5RhhNF5eJjR05nFpzEUWkLgQVGGX3ikMCwkU0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XEcATOG_1794491647;
-Received: from localhost.localdomain(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XEcATOG_1794491647 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 12 Nov 2026 21:54:08 +0800
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-To: stable@vger.kernel.org
-Cc: sashal@kernel.org,
-	gregkh@linuxfoundation.org,
-	yeoreum.yun@arm.com,
-	suzuki.poulose@arm.com,
-	leo.yan@arm.com,
-	coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	xueshuai@linux.alibaba.com
-Subject: [PATCH] coresight/etm4: fix missing disable active config
-Date: Thu, 12 Nov 2026 21:54:06 +0800
-Message-Id: <20261112135406.71749-1-xueshuai@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=dlBFsB8h
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1794491762; x=1826027762;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=eWnA9J1ky/G6CgXvOtU5iw1/5fnClz5aMTlWKYAXQSE=;
+  b=dlBFsB8h80f/XAFwdkYbOV5/yI+yMMMvfJx/WsZHsWZPH+1aqjkmOauE
+   cea3/yFImq2ybbGbrVX4EacIa3WxQVpl+NVjVKKd+FRAnheyACs05RRQd
+   A+ORTcWY+FrgiWsjqvcovK77iqB3Oi+DErdnzDYkFVn6kzqHGM9Ax/HjP
+   Vp9XI4cqkmd+Z4DkIdEYFXJdyTho4ddk25z6u3C228NnUDh90lMX+M6H7
+   YebSSpn41Q4twx9DPmQfuFqyBmoKEBrgDSXWXCSlFumctp5wwdIjW3tbi
+   hj1WnZRYR4cxiIzZb5APDFjB+Jbd52w/KK5pFpfz1n6dNRe5yFdVXyG4m
+   A==;
+X-CSE-ConnectionGUID: Ue4WbfGyRayT7kzAa/6V0A==
+X-CSE-MsgGUID: pSoRAG/yR9Giax4WrrB8qQ==
+X-IronPort-AV: E=Sophos;i="6.27,209,1787011200"; 
+   d="scan'208";a="33816383"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 13:56:00 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:13511]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.127:2525] with esmtp (Farcaster)
+ id 21c9a8af-a2b3-443f-8fd7-9cdde0783d17; Thu, 12 Nov 2026 13:56:00 +0000 (UTC)
+X-Farcaster-Flow-ID: 21c9a8af-a2b3-443f-8fd7-9cdde0783d17
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 13:55:59 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 13:55:59 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: <stable@vger.kernel.org>
+CC: Chuck Lever <cel@kernel.org>, Kimi Security Team <bug-report@moonshot.ai>,
+	Yilin Zhang <yilinzhang@moonshot.ai>, Bjoern Doebel <doebel@amazon.de>
+Subject: [PATCH 5.10.y v2] SUNRPC: Copy the deferred RPC Call from the head buffer
+Date: Thu, 12 Nov 2026 13:55:43 +0000
+Message-ID: <20261112135550.982415-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261112134001.952224-1-doebel@amazon.de>
+References: <20261112134001.952224-1-doebel@amazon.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,47 +85,99 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Yeoreum Yun <yeoreum.yun@arm.com>
+From: Chuck Lever <cel@kernel.org>
 
-commit 895b12b7d7b8c651f73f57a1ea040d35aa7048cb upstream.
+commit 2192a56b0686599358909c3e12e9a366f5b5d452 upstream.
 
-When etm4 device is disabled via sysfs, it should disable its active
-count.
+svc_defer() snapshots the RPC Call for replay once a pending cache
+upcall resolves. It copies the Call starting (rq_arg.len -
+head[0].iov_len) bytes before head[0].iov_base, a back-up that once
+covered a transport header. No transport has had one since commit
+983084b2672c ("SUNRPC: Remove svc_rqst::rq_xprt_hlen"), so the two
+lengths are meant to be equal.
 
-Fixes: 7ebd0ec6cf94 ("coresight: configfs: Allow configfs to activate configuration")
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-Reviewed-by: Leo Yan <leo.yan@arm.com>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-[ shuai: kept spin_lock()/spin_unlock() in etm4_disable_sysfs(); 6.6.y does not have the raw spinlock conversion ]
-Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
+An RPCSEC_GSS Call breaks that assumption. Unwrapping the integrity
+service truncates rq_arg.len by the length of the trailing checksum,
+and unwrapping the privacy service leaves rq_arg.len short by an
+amount the client sets with trailing bytes after the wrap token.
+Neither adjusts head[0].iov_len. Both lengths are size_t, so the
+subtraction underflows and the copy starts past head[0].iov_base.
+Every deferred integrity Call replays a shifted snapshot.
+
+A deferred replay skips GSS verification, so a shifted snapshot runs
+as an authenticated Call. With the privacy service the offset is
+client-chosen. A forged Call placed in that window, naming another
+user's GSS context handle, runs under that identity.
+
+Copy the Call from head[0].iov_base. Refuse to defer a Call whose
+length runs past the head buffer, so the copy cannot read out of
+bounds.
+
+Fixes: 260c1d1298f6 ("svc: Add transport hdr size for defer/revisit")
+Cc: stable@vger.kernel.org
+Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+Reported-by: Yilin Zhang <yilinzhang@moonshot.ai>
+Link: https://patch.msgid.link/20260902133101.48914-1-cel@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+[doebel: 5.10 lacks 983084b2672c; keep xprt_hlen and its comments in
+ svc_deferred_recv(). The removed skip is zero for all 5.10 transports.]
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 ---
-Note for stable maintainers: this is patch 1/3 of LKML series
-20250514161951.3427590. Its siblings are already in 6.6.y: 2/3
-(53b9e2659719) as 1cd09aaf47a5 and 3/3 (408c97c4a5e0) as
-b3b4efa2e623, but this one was only ever picked into 6.15.y
-(c7f2b00d5e17e) because it does not apply cleanly to 6.6.y without the
-raw spinlock conversion. Without it, each sysfs enable/disable cycle
-leaks one config_desc->active_cnt reference and the module reference
-taken on the config load owner, so the configuration module can never
-be unloaded.
- drivers/hwtracing/coresight/coresight-etm4x-core.c | 3 +++
- 1 file changed, 3 insertions(+)
+v2:
+- Add the "commit <sha1> upstream." line.
+- Document why the backport differs from upstream.
 
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-index 593dcfe4c9457..55b20d23b505d 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@ -1078,6 +1078,9 @@ static void etm4_disable_sysfs(struct coresight_device *csdev)
- 	smp_call_function_single(drvdata->cpu, etm4_disable_hw, drvdata, 1);
+ net/sunrpc/svc_xprt.c | 18 +++++++-----------
+ 1 file changed, 7 insertions(+), 11 deletions(-)
+
+diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
+index 60782504ad3e7..a8bd4f7f9299d 100644
+--- a/net/sunrpc/svc_xprt.c
++++ b/net/sunrpc/svc_xprt.c
+@@ -1181,13 +1181,8 @@ static void svc_revisit(struct cache_deferred_req *dreq, int too_many)
+ }
  
- 	spin_unlock(&drvdata->spinlock);
+ /*
+- * Save the request off for later processing. The request buffer looks
+- * like this:
+- *
+- * <xprt-header><rpc-header><rpc-pagelist><rpc-tail>
+- *
+- * This code can only handle requests that consist of an xprt-header
+- * and rpc-header.
++ * Save the request off for later processing. Only a Call that fits
++ * entirely in rq_arg.head[0] can be deferred.
+  */
+ static struct cache_deferred_req *svc_defer(struct cache_req *req)
+ {
+@@ -1200,8 +1195,11 @@ static struct cache_deferred_req *svc_defer(struct cache_req *req)
+ 		dr = rqstp->rq_deferred;
+ 		rqstp->rq_deferred = NULL;
+ 	} else {
+-		size_t skip;
+ 		size_t size;
 +
-+	cscfg_csdev_disable_active_config(csdev);
++		if (rqstp->rq_arg.len > rqstp->rq_arg.head[0].iov_len)
++			return NULL;
 +
- 	cpus_read_unlock();
+ 		/* FIXME maybe discard if size too large */
+ 		size = sizeof(struct svc_deferred_req) + rqstp->rq_arg.len;
+ 		dr = kmalloc(size, GFP_KERNEL);
+@@ -1216,9 +1214,7 @@ static struct cache_deferred_req *svc_defer(struct cache_req *req)
+ 		dr->argslen = rqstp->rq_arg.len >> 2;
+ 		dr->xprt_hlen = rqstp->rq_xprt_hlen;
  
- 	/*
+-		/* back up head to the start of the buffer and copy */
+-		skip = rqstp->rq_arg.len - rqstp->rq_arg.head[0].iov_len;
+-		memcpy(dr->args, rqstp->rq_arg.head[0].iov_base - skip,
++		memcpy(dr->args, rqstp->rq_arg.head[0].iov_base,
+ 		       dr->argslen << 2);
+ 	}
+ 	trace_svc_defer(rqstp);
 -- 
-2.39.3
+2.50.1
 
