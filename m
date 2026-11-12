@@ -1,89 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.155.198.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794476405;
-	b=38O1/0JD0y/b3cGrhD/w0ixgXHL54ddVlYq3SLiJ8b0zQsbuxL5/sXH0pRsO9f0Y/AWO
-	 nffuFDauq1c4S/0sVKhOrrHjFKd8TVFDSS6opB4pNMqGmlvaa6C30NiKn2iscdQkf2LH5
-	 7uSL0GDHhn1bxjSPLUwf9ea3otKI4Y3I5FR8W8KZLBxlajjRUAeq5xkMrW/H0rsdFN2qv
-	 VU4wZe7gODDcj2I2TjaBI9NKqSfBrZqvCfSAbJI/z1azB6Wo9qiFRvntU3W5eC3YW5wF7
-	 DHWy2U8XiZRXfVaCbizU4WDyCMxPSEcH4QbGuH+dZUIVtvP0aFZMjkCJXcjvuI6ts+g==
+	t=1794476542;
+	b=w/ugbwR89QFKyTRGt0GaQo82zBGEAT2aOZv/r2ZLUhATu1kjdN/5j5eBsuuXvCfdc/6y
+	 nX0r1rWZaPCn+hZyVTq8ywh+EZAfttHy/aWNzb3b/4x/RIERoZpw4DGtRDGAsVB+palD/
+	 sVMww1tuqa6tg3KFQDpjqLLPuxb/Ir5h3AvsSL3wFj4JO7MZSbzEYXexysd/e2lyNBzmX
+	 kAgJlcEs5rAo2kJjA5pV4JAdM6YAwZl3JtjjZfLovoCEawgjM83N9ZRhWve3dIjohJhR8
+	 XDsCgJuLkZWng37+cGJ47VBipSjcVHMFcFRXaSy/082FGinsOd2cnkIu0coxVbWESxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476405;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=IfhBgU9bzNjyzCbMLI08qHDpGZfOfIhIVxpnfJz9+gQ=;
-	b=vnvf7V4yKLpYkAJ8AV1sglG+jC4jQ9lRpO0nXIKEGUxyhKnOdzh58/o8jDhdBVtb4ZdX
-	 ghwg3/WpzPi9uLH+0xhqF1t/3xvcSyAfzF8SIlcWGQ/VrmUaRjKjbL6Pd3dtHCH1ioyBU
-	 8behmcXMcujxtQFqxpqTcDbYDd1dTc5LWLsu//UfmzSi4ACiI7Bm6lId/7VTm3SHMEe9O
-	 ZbUiwTvwZIjdu9ADxGrQOnscXd2aQa9vKalNvWu3G/zJcq1A+sKmg81nlbfxQutL7nFW/
-	 QhpiTVYcUtML5007Mc3hxZelTvtRDSyLiDj33HiFSQwolAeLCBlCRBX29luTbWygXYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476542;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 X-Originating-IP:X-ClientProxiedBy:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5FhPhptoiDnbvGobJSg/2oYz4NalMfRC1p+IyPS8BeI=;
+	b=b6Xt6lZRT50FOI2t5eMWv39ZgXJ2YhnX3God0QFm/hNkrSjb3Y5mUSJKGGeTQFwvh0DC
+	 M33e/U72gboYzYJd2rJ1AWLCZs465OuZvzjcfCRpAGJiCJtbI2tY0N4tdvwWOMZSf/Bl5
+	 efx68X4aXVPf7aj8zljyn0h3uWFtM830WaP2p6Rsy3/3Cg+m3qMAHo/ZQeLekwXcZPb8q
+	 QW3d4x+QzPtoWbfAl7KX6XAJ2WjjiPcfaNrnkUR7agx1zuipE7HVJUuDEKw6cKbZHG7b/
+	 W5LYP4R9gROrVY9tk0TPrHY9kTXfzfcLFnoObXyTBdCMUiTO3otiDPpfQPT5TzRxMHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoMrAWhy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.it;
+	spf=pass smtp.mailfrom=amazon.it;
+	dkim=pass header.d=amazon.it header.i=@amazon.it header.a=rsa-sha256 header.s=amazoncorp2 header.b=H69RsqA+;
+	arc=none smtp.remote-ip=35.155.198.111
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0076B606A321;
-	Thu, 12 Nov 2026 09:40:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A63606A337
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:42:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97A63606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoMrAWhy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C635B1F00A05;
-	Thu, 12 Nov 2026 09:39:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794476404;
-	bh=IfhBgU9bzNjyzCbMLI08qHDpGZfOfIhIVxpnfJz9+gQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=VoMrAWhyX9Mu8dmXuJL0tzpqovAGH67dTxFbjd4TxmhmE1/c0FPVOzA9Ic0I2dr8O
-	 R1LEPqRDp5AZW1NtPA3Ct7Mk7SEKbgWIVeFl1BNL5iEUe1bTvUvtWIzoKx+CYUZmQy
-	 GE8NIXtSJJ7ZrGaRM5fNNGKitBWEN5/Q6Tq+JK0378GDgv0YZwNQ5bsIqcTjglpUxq
-	 +rRcWDYtIVXhXlC40Ldkc9s2FE3hdEDpugkRygfnLxQixI1iNmJpEI1jDUtJdy6Kj8
-	 Vw/b/Oo7ZPcLQ5a4p4SUexF7KHm5VqcENXFZHkOCDlVpUBNHuwr/mELTYjRHRonOtj
-	 9U2s9/qqKtsKQ==
-From: David Hildenbrand <david@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Song Liu <songliubraving@fb.com>, 
- Rik van Riel <riel@surriel.com>, Miklos Szeredi <miklos@szeredi.hu>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, 
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Steve Sistare <steven.sistare@oracle.com>, 
- John Hubbard <jhubbard@nvidia.com>, 
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
- Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Linus Torvalds <torvalds@linux-foundation.org>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, 
- linux-arch@vger.kernel.org, iommu@lists.linux.dev, netdev@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- Jason Gunthorpe <jgg@ziepe.ca>
-In-Reply-To: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
-References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
-Subject: Re: (subset) [PATCH v3 0/9] mm: limit pagecache folio refcount
-Message-Id: <179447638951.7244.5228149003624496001.b4-ty@b4>
-Date: Thu, 12 Nov 2026 10:39:49 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.it header.i=@amazon.it header.a=rsa-sha256 header.s=amazoncorp2 header.b=H69RsqA+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1794476541; x=1826012541;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=5FhPhptoiDnbvGobJSg/2oYz4NalMfRC1p+IyPS8BeI=;
+  b=H69RsqA+fMA9k1/FcsxuDLv1iVlo5sgfd/pixvjcF+DIJaFF1QEj99Ya
+   SVwHNtTQrath26L5XwRbYo6vho8DO7uK7ZzFSnb1Om2jOBt2kUu13kbZA
+   I9/vMkp4oeG0Lpzq60i9tcLpwljheWkqr7Fv7098R5lGYZH0gX/IWe/lu
+   YBMsXWOITwiDCnBG4bTJl5BqqjE9gq58mVk9U6D5HgRmH4NrtjNbPWjFX
+   swJKwtbS+dcAjpVWqpCUs2tbqv5WCRXHurxZZ6XVh9tDWWCAW1S9SFonO
+   9duaQzbftpRmI50kFZdxuijQ1/Jo/ScLBdWddxQjNBPANEFIqtifiRiEo
+   w==;
+X-CSE-ConnectionGUID: pG+pAsDBRd2ZShkzIRXO2g==
+X-CSE-MsgGUID: FQuDohEITmWX7HRwKQviZg==
+X-IronPort-AV: E=Sophos;i="6.27,209,1787011200"; 
+   d="scan'208";a="33702422"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 09:42:18 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:3788]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.231:2525] with esmtp (Farcaster)
+ id 191c253e-7415-4cf6-b337-d056f3a4794f; Thu, 12 Nov 2026 09:42:18 +0000 (UTC)
+X-Farcaster-Flow-ID: 191c253e-7415-4cf6-b337-d056f3a4794f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 12 Nov 2026 09:42:18 +0000
+Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
+ (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Thu, 12 Nov 2026
+ 09:42:16 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <stable@vger.kernel.org>
+CC: <dipietro.salvatore@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+	<linux-mm@kvack.org>
+Subject: [STABLE 7.3.y] 0e05a469c294 ("mm/page_alloc: avoid direct reclaim and compaction for costly __GFP_NORETRY allocations")
+Date: Thu, 12 Nov 2026 09:42:05 +0000
+Message-ID: <20261112094205.994560-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,54 +84,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
 
-On Tue, 10 Nov 2026 21:35:40 +0100, David Hildenbrand (Arm) wrote:
-> Note: I really would prefer doing something else right now, but this is
-> rather urgent.
-> 
-> Users can create a lot of folio references to pagecache folios, making
-> it possible to overflow the refcount of large folios.
-> 
-> While we knew that one could in theory overflow a folio's refcount, we
-> mostly assumed that bad things would happen and it wouldn't go
-> unnoticed.
-> 
-> [...]
 
-Applied, thanks!
+Hi,
 
-tree: mm/core.git
-branch: for-next-fixes
+Please apply to 7.3.y:
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+  0e05a469c294 ("mm/page_alloc: avoid direct reclaim and compaction for costly __GFP_NORETRY allocations")
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+It fixes a regression from 5d8edfb900d5 ("iomap: Copy larger chunks
+from userspace"), in since v6.6: PostgreSQL pgbench on XFS runs at
+0.38x throughput. Andrew and Vlastimil agreed to restore its
+Cc: stable [1], but it was merged without the tag.
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
+It depends on 6ee3d87b9408 and fe21f930d1e6, already queued for 7.3.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
+I'll send backports for 6.18.y, 6.12.y and 6.6.y separately.
 
-[1/9] mm: limit pagecache folio refcount when mapping pages
-      https://git.kernel.org/mm/core/c/61351dc9
-[2/9] mm: limit pagecache folio refcount when splicing into pipes
-      https://git.kernel.org/mm/core/c/0ff9a420
-[3/9] mm/mmu_gather: flush pending references early before the folio limit
-      https://git.kernel.org/mm/core/c/bfbf74ba
-[4/9] iommufd: fix cleanup when adding memfd folio pins fails
-      https://git.kernel.org/mm/core/c/6d0d782f
-[5/9] mm/gup: limit pagecache folio refcount when grabbing references
-      https://git.kernel.org/mm/core/c/6d3ff38d
+[1] https://lore.kernel.org/all/1fc0caa5-43b1-487f-94cf-0d1aff4c03fd@kernel.org/
 
--- 
-Cheers,
+Thanks,
+Salvatore
 
-David
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
 
