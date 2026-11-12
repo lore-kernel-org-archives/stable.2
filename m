@@ -1,131 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794489180;
-	b=UOyGbavhGuNv/xp4KSV3x7n5aSzK09Ir19UP9oVETo7sNFR7nI30m3jl+SHyUMEeOOgz
-	 nmtHGlSzWwJ7QjOIkfThS8sCyRvV/3ELAQuNoJH5jju7J3pN6jxDm19htLfYfLPiGYh/4
-	 vE0YDkMRsRYKN4J7jc1Yn0Sc+NrCQdZe0C1wVS3wVk6h6UTBKZMXWWseAQCGw1qsFEOrr
-	 NhdPizCwZRgt0XUA66tos83G6QlqkCI6AgoN46rbTZBqNhH8aOpSTkugkE6B2h3EOqWOt
-	 GLD1w4//PFaGbQrrSxOA2AG2C77reIjGv3G60uGFqHFFz7nq0hQVr8iU76i9dgFCHiA==
+	t=1794489187;
+	b=K+GESpkBuveuHWwv4dEqOapJXlWu5xosZYjw+4eGkSilQZJgMwk4J42kSlXKzSeGq+Qx
+	 e6D+PAp6Guzx5L7HlXY2UUWpELz3aWq/f6opZVFD4J+lP+tixF2BGeOF+1e1h0JfSUTWG
+	 4fLV/mr/NwzI/vdrNNBVvLRo1JLUBt4z0FEdXYJnnBX7q15oDKAHYR7a7uioO5WA79Egf
+	 nCgECy662ipkBVQKJ2xJLqlch6Dh+ezpiOEE7i5mkZAP4wVKH75AnqKuWsh/yEDD+NDaQ
+	 JNsCaVBDm31pXwCLI3258E3KVnuNnr24muflDBkCjMCh6hdy2sYAHUW9JYN95SmBZNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794489180;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=Kj+6JNPGevjVi2wpJsag3yY/tBbqcW3ftVe3Gs4yeFv7Oc8hUR6FHM7V6il7L7MF+3of
-	 bR/9NHmsJGQVNdeoslHa0eQ1i3f3xL0tReIySYtdKb70jU+ybAYXXKlhav6QS0OTnSqeM
-	 ZAZIWZ5EvT1oCVMYQtuRM0Vll/OIdcn6LDH0MI05jZirLAAviavWU9Z2Non1/f5PAfHQH
-	 LAlZo0hk4OTb2nz0UGUlsn2oOFwTSXSXkLY2iwCYEO1hzlY7aFQs2j82bBg14TrMZYyRh
-	 UEBZ22BtzlKzMSj4aq+xAHOIqW8CqJBZn5Gs2qa1BBl4WVGQ9WWkQ8nO61JI/UFg+1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794489187;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=X04LkhaQLlaV3mioxdzzAAyEpGQXEeHjTvbwzjQY9xU=;
+	b=UXAzeFGa96WAoLP14khS9Gd1wKhp73aOJRnD5pCDlOa7ffFGAD5mPqY68Ur1athPjS64
+	 rRRuFg/eG2pEs6MpgjPjZqQpX5luIqxZJ4pzNAkXlJDs/o8ij89fEK2Flc+YLnY3sHjKP
+	 F8xk3T3Hc9tbqmfsWZZUFfgpckYyWSR0Nn7v9xqBnlJryudZtcUzyTBo4llHUMIf+X1ka
+	 wT0TRUJmGycYGvNvuahIc6FKC+fXONKgcyA96dM8YxhrS3vTx2hfdoTq+w8NNZSI+pOwG
+	 XvlQtwGRSgoBir08RjrxMLuI7p5YPEmQ1VlM6uIRvnAvWmIJA9aMbS5CqmjjpZ7vwoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rSVlAVBA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="K/0F5ksR";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eCAG9TQz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+Ip1OpXF;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FVQromht;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A23606A31C;
-	Thu, 12 Nov 2026 13:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5A23606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A8E606A323
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 13:13:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93A8E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rSVlAVBA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=K/0F5ksR;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eCAG9TQz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+Ip1OpXF
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E96121F7BA;
-	Thu, 12 Nov 2026 13:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794489178; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=rSVlAVBAuFTbEKmNvga87CMsJiAzR6P2jK3iBgYEhwBBW7M/FRgIUozQfpxdflyln1UAQp
-	nh/gLnT58Yone9jFxprqcuST6euBhfXwojj4XxZKxY2ib/aoz/ZcNwGsAiJl0dYmgVkpuJ
-	gBoMyEljV8teWIdoq//KYCj7hBdu09E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794489178;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=K/0F5ksRV1fcZHji05HSZ765KfchtCSSErL2Vc/yTWA97NFYFFH1L56VKvf8XZ8/7prJlo
-	l2ViLDN25EO0J/Cw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794489177; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=eCAG9TQzbbdiUHGqQ1rrVJEmK+TN0G3+jagjuKjYTTIdr/zfnlkgnGKDrHhDB+qsmiM45I
-	Qmg5DK+Lv5CsnkHrL42cmj3p+tWJHH5eQhYAjpj+mzYDP0xxT18QNS23th4uQzxyrgBu+3
-	iwu/iIfrKhdftLrAvrnzr7MufKezlbs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794489177;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OHN1jM98e/rDidDGGpuhhKAQmbd/D3xE71tgIR8sZI0=;
-	b=+Ip1OpXFy6x05CiEfWql/dw5z+HEyAEHtC4MFasKsOyOvnZvX7onaetbPN6Pdx2GKW08xv
-	vkL63C9JoRlmD7Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4EF8A134A0;
-	Thu, 12 Nov 2026 13:12:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3PJECFa79WqQcgAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 13:12:54 +0000
-Date: Thu, 12 Nov 2026 13:12:52 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Steve Sistare <steven.sistare@oracle.com>, 
-	John Hubbard <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
-	Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
-	iommu@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 5/9] mm/gup: limit pagecache folio refcount when
- grabbing references
-Message-ID: <avW7MFzYJJZ0B85d@pedro-suse.tail5790ac.ts.net>
-References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
- <20261110-refcount_overflow_stable-v3-5-318625d63a98@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FVQromht
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so29680085e9.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 05:13:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794489186; x=1795093986; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X04LkhaQLlaV3mioxdzzAAyEpGQXEeHjTvbwzjQY9xU=;
+        b=FVQromhtN/Go/XIDyuYC902RHTcN5TsejdoIaGldu+QyhfxuyH4c3hZSeOxgdGut4P
+         6dfj2etj/NgfxxRUaLJDtuS/Erm5AjNwBSE5KltouHCh+ScqB80NRuUiElnrDAskBYu+
+         jO7JNG4B/jX5w21G2vgepNhBTmf4tb+f+JAHLnNustRzIxWDtm1A8jFMFA2C1wLuMT5V
+         pryw1LtqPgCi3KNz/gKwISKJiWFl2yZubIl3zx3+3N7yNIXhHO5BS4qJUL2oI6EZuFpE
+         rIlFpOdcPV0m0kjQmF1jg1+2oj/aVT+qaKsVhxXLlgRJ8c+ZN1Z6B2aSaYHvUAYc21Z/
+         FiPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794489186; x=1795093986;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X04LkhaQLlaV3mioxdzzAAyEpGQXEeHjTvbwzjQY9xU=;
+        b=HDs9i9dl3W4WWbypSPytGhZ2hKqtiOu06PK7axPwZXo9mvV+1RBUrVxev2Ctox4RE/
+         dN+kYpOAvIov8H00s4vdjesNAxqJM3Pwd31HQcXyqr6hRyQxbbw/gFbz7kK5U0crmX/X
+         5OBtCLaQPB+67PB+Nx/sbK9VTWqgaEfoDjSnZEEh/a+8oRMMEf9KKIIU+/TmkPa4aYje
+         a7BnCiM35IO7ITdjUGhJCjEMtrvrzIg2DGFBgSOe2ZQ3KE7yDzKhFV/DOf+kflWkRisl
+         5rjWC8Sglbj4ecsBHkjJVzxiHkgPLd6UaoKEB6uxoe2diCYzdObfU6PT+pDMHU+G4NtF
+         Mm2A==
+X-Gm-Message-State: APuU4Z8J0Ir4biOQLuL+2TQkRCouoFp2jK7TLgoX4N+7SrByijcqU6OI
+	CTuN66wRXcKs0+B3jLPyIr2iRHaGv4Jr0HoyjG4y9kpK4RIpA4Zp6SLd
+X-Gm-Gg: AYBFou0vVWAkwwdJLx4nEvutfZMnIIBmUsVtSVbX15vUW5UBJjHCLyw0rdrzc11xdP1
+	/saXGuwVTcsXQdeRHchkVR7++SPl1d3L/SrfUoHzEz1Ssswuct6gHW9QGcYkMCZb6OJzjCeJh4i
+	Z+9Vy8+/R4X/vxPyU8AmgXfYfC/+znHWwOewVE5qDjP7HIZst2XP6kn9+khXlXRRIPo79eCb3JE
+	cuZfpuEX6MoRel6FrIiZkwxAzdyRQjZH0qlqkkwkLcknGe1HWO6qM0BiXOIvqqLocvHzxjUMT/R
+	TNUOgIiiZ0GqmWrZZfYTq3k9Or+hvRbBvbx/XgvmkRkOLlbQbiVKB2TkGDjahIqI3f/2iyb5VwS
+	muyjejeyK9e89j7t+d2nXvBBLe00TEdx47tS648PIji0i4LofZvKwp5ClaHB7m+x5nhE1+oQB5E
+	E8vNKqWE/vZr6rrMQ4wOIEwG1vo8DhrjcG3lzp6nyu1VLeccIQk2LS2+QdQz8fVC9lUnOqVeYMf
+	UZJ50Ss5tDF1ia+6B3mjEr6LV6Ez7SDaRKhfTAqItP8+OwxeAn605qyv/7SMVrK0XUqvPJmkPAF
+	UyhzE3WccX5yu81ty2Vxm6gGHXfwo7qGhjdsDex5Lk7kQLTWv/GPwyJeuFJm+0CT+cNPZo3nEXF
+	/i8o7/KPG7rlCTL9FPW8VzDRye1nTVGBIJK1iJQaNs9o=
+X-Received: by 2002:a05:600c:1c22:b0:4a3:d327:6ed with SMTP id 5b1f17b1804b1-4ba093b5bdcmr122698505e9.17.1794489185746;
+        Thu, 12 Nov 2026 05:13:05 -0800 (PST)
+Received: from cachydev ([85.97.71.213])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e25e3bfsm69368635e9.7.2026.11.12.05.13.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 05:13:05 -0800 (PST)
+From: Sercan GOKMEN <gokmensercan@gmail.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	patches@opensource.cirrus.com,
+	Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 7.3.y] ASoC: cs35l56: Wait for firmware timer expiry before system suspend
+Date: Thu, 12 Nov 2026 16:13:03 +0300
+Message-ID: <20261112131303.184083-1-gokmensercan@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <2026-11-11-1-daily-reply-0021-e40967988dae637472c1@kernel.org>
+References: <20261111-cs35l56-fw-timer-7-3-y-v1-1-43fc95730c11@gmail.com> <2026-11-11-1-daily-reply-0021-e40967988dae637472c1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -135,57 +100,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-refcount_overflow_stable-v3-5-318625d63a98@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,suse.cz,linux-foundation.org,nvidia.com,linux.alibaba.com,linux.dev,arm.com,intel.com,gmail.com,sk.com,gourry.net,redhat.com,cmpxchg.org,fb.com,surriel.com,szeredi.hu,zeniv.linux.org.uk,arndb.de,ziepe.ca,8bytes.org,oracle.com,toxicpanda.com,davemloft.net,kvack.org,vger.kernel.org,lists.linux.dev];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[62];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.80
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 09:35:45PM +0100, David Hildenbrand (Arm) wrote:
-> Let's add a folio_ref_count_over_limit() check in fast and slow GUP
-> before acquiring additional references or pins.
-> 
-> Keep it simple and use the check for all folio types.
-> 
-> Also propagate try_grab_folio() errors when grabbing additional
-> references in __get_user_pages() and in memfd_pin_folios(), so hitting
-> the limit returns -ENOMEM instead of -EFAULT and -EINVAL, respectively.
-> 
-> Keep the existing invalid-refcount warnings.
-> 
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On Wed, Nov 11, 2026 at 04:54:54PM -0500, Sasha Levin wrote:
+> The same bug is present on 6.18, 6.12 and 6.6, but 6cc7db9fdd06 ("ASoC:
+> cs35l56: Wait for firmware timer expiry before system suspend") conflicts
+> there. Could you or the Cirrus folks on Cc send backports for those trees?
 
-Same points about funny weird inefficiency applies, in any case:
+Thanks for queueing it. I'll leave the 6.18, 6.12 and 6.6 backports to
+the Cirrus folks. The laptop I tested on only has working sound from
+6.19, so I can't test those trees.
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de> 
-
--- 
-Pedro
+Thanks,
+Sercan
