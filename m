@@ -1,103 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794526692;
-	b=ByiyC2ALZiMvN/1prepXHkbvsVPnNtgdCm/w7oj1uQoGVmc5EKhau3/pTaKWqTChnmX4
-	 rI7no2FzUnbGE5FNM/mJhHZ//t2+ivIurotfCdZxNarSHFzPY3kuimyLsYtZXzEAnVj/w
-	 oUB3VB5+5N0izcAztPIa6HJ1aOEsb8c5RhoFCHq1aTND7BT+jbIXPjlzqjb9gNf1pr3xU
-	 HuwyEDlR8MFkxbMlmM9nAZ2fxpcGl+K/TjcCF83ufMu9tYSqJdb6cCnlrFFBhFPms/Dde
-	 nKoSY/dzCEM66obp8Dp5NIAHDrwzA/ImsP6O1MXha7bhOs0FEVv2X6blTElm+zNhQzg==
+	t=1794527064;
+	b=fl/NV3OYbILjLFCRK0lHJAxTsMVmWuSjBv+fD1vGLU/rMQrzixrWarhkc88wNYDxOEiZ
+	 jo19mjmmJdCFmg5bmW2Z7B9fUshw3yU3LPFfCFvgXQkFB7lSEKixB1tXUsOPqT6DFifs9
+	 DaRV2mNwPgh7NUVD3Y7QOAFa/AS0X1dGj6DJ1xD7MyVYqgtXlluclzHncIAKkkrBIfEUa
+	 hpnG8JGD+iHYWaI4nT3e0IMLiOEqIM63WgU92Z6GZ0jhRIv70Y0jqXCRidH9W/2xQg9fn
+	 xR/9Fp8PRDa6C6PJiL37MabfZVBXdhtxqZ6J9B+pzsxiK2atjLuGO1qh5HN9V1cnvfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794526692;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Bhk1XAMEGUqw4Gd56fR/vruXqPANPGJWP7xiupKdveQ=;
-	b=xOWAWmfpO21AEK/DCgaQCf0Q8Ui6LnSXiB5IS0piEmy2xdoAZO9muwjQaqTkYjMVF6MO
-	 kVfzjnGurMKBCsX7PgHI5l9qg4gaPxUnBCYRac0aW9qJf2KvVCSThWHTlzCMq+Cqd/0p3
-	 l4xWZnJcU1XP6SxAjw1MVDg5xBrL480+HRYxPAka17rU0WLT+r89en0tRCmRGoLFnPQ7y
-	 fYij+LRgx0Zbo7hBEEInvCgVjCuzyRZs3HjAC291QcZgCZA44cvr3cYTK+wGVaJeBRdsj
-	 eeKmf1JkBVsF6J6pljEpKcvOM0alLMriOBse+vBWmXT3YPsO6Yd1oFxg4Ut+/qK0zog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794527064;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=7Tr+nvH1iRjNmrI8twQlPIMvhOSPOoWGVKGBgmEcMbE=;
+	b=LGPulWJhaxa10Swf93tZaVr33GV8+4A0EGcQhfQ5IxrlX2YlsZL7otSJFaW8cbB7bl3g
+	 iP3+4MtkjuAl3VSUYZt+XQDP8f7qsky7mqSCy/L8Zoza3oGM5/uKbdZUnTNJmtsJ8dTTx
+	 m9BE0XOmNNhNMO1aRFfzLPNZ2JOAwLg6LJdMJ7AI7env7Koh2frPeIhPB+ICsROboNGfW
+	 9XxZLD5T69ug19quUMJqPkCiqv3c/sIXmxB9Iy3jaNgUCqQnfBrG/WFzxhZtepHspznpZ
+	 zw+md28q23pSKvBOFSAzHlgOfvyI5dMO6pHVVtRyBMJWW2+AZ94a67cVkHzICPhufPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vK0u1+VN;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFLxaNNf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C01606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:38:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97C01606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD7F606A333
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:44:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vK0u1+VN
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc147d86bebso179877a12.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 15:38:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794526691; x=1795131491; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bhk1XAMEGUqw4Gd56fR/vruXqPANPGJWP7xiupKdveQ=;
-        b=vK0u1+VN/0l4pNQBjE8ZPDsnNrjcxLH2bm12363ihajUoMYdiVbz5JV8e4plpywnPJ
-         qhXTZvhj8ER5QdFPPJyU07Y2i83EtcP1tGluT9/Iq+JR+/PYU0f0E1Tljc4kpeZLJEnk
-         +dI1xD5aQV2297aEwF80OuK2AjvZPibqv25YrrCcA5UTdQccSfWdUkqVZL8dWEvGG9y5
-         smAN4xy163VCm7kcpageDvnDg0QjOrtQ7zOn7iLH52PlXXh3I77P4lOVWiMjcnFuDUTM
-         gmZSnD3MkOZXEcp2Rx21GGxd1gHipejs4/+sKfUUK9pu02/lmCS3ro6ZQ8vKzGc9wgo7
-         hg1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794526691; x=1795131491;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bhk1XAMEGUqw4Gd56fR/vruXqPANPGJWP7xiupKdveQ=;
-        b=zO+RM5k23YT3EN/meFQ/33gWHbXedINlhrxjbB4fjB1OY0OcY5/mF1VLY3U3W+DTmE
-         F5swcpUnxnerib9JrddYntXvzXoYZQc/JkniePi18S4Sy7NKZvmkQzGwfU0HquOZTlXA
-         M0fV9GkVaSZx0yjsUN3q8MHdYsVadB5RVDmWbFpVJPPEeTr85bt3yvb1C9UKvqAwB7zp
-         w/Nhm5CmdzdQFX3nMts2yxLNZCW/kpuCXzgRuAliKREsHprx12fHFflRYrS2CI4U6fy2
-         fdc6dnZytoQgiGjILO2yi+p4KzWagzuC68VXWi6ONDJR3VYPm6u1zTPYEvs+iCacxvZ0
-         rifQ==
-X-Forwarded-Encrypted: i=1; AL+hErExayx3tZlsxBK8Se9voc1dw+uGmjW5+BJoeSnN/UZTEBPetZwcsRpgQMZLRg/cLNFryF255S0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8m8+f+JfOE5eUHr4jLLXLyVvNiIrqQmMvoxtA7GpFjQ0nON95O
-	pFA0gJ6TT5TtnPlQ4mdkFvcWvTgwFx1nmC2tION85lFe8wsS6DYt+iWS
-X-Gm-Gg: AYBFou1FXQBDwTB7fSwyRHLZGEaj74DQ8k1EVEvSvP2A0Q7r5XB2f1QIyqUyXkZCj5w
-	kD8LmJNHwrlh5yWymbzVPQTXjXrx9DTvltau/8k+7sVKafn9sm9cTVYD6CtWrd7uOh3vSRKDkp1
-	HpzdTuA1zOzMIYmvlPSpaOaubpi29S4/6UjeEPgTxXp+WniCpExJmIgyQn/FWR5vz70p1orwwOP
-	pTF+1h2oqRHei/jPknbkHdpLz5xNwBPgnm+gdX1VCnIAsefC1kc6swsdZPXHhsV/h1+cJtB6UvV
-	WcsIfRZeSmusV+yHFx5U+NpigFMiIK6R+R6sNfCDwWl3j/uQmBo809/MnFapKkVi13LuM36Jc2Z
-	/+YOkf29mZDOj5T47QfQDCGuUGmaoRusrukHypDB76rknI3ocX+cJx82UjJuQ/wswoPW2KLs8D3
-	KjwB5EJrfWbWOYmilNs4YoADNIuth1i3I3HzquBXNQJspXiHkA/lG1irrZcU2orkpPCz/mUk7OV
-	jdN0fh0u9g0QN7v5/qztYa2p5P637xFqIZUupp5k5o5HCIxtadTvogIPss/b6eWIxKOZJNl2b6N
-	5HqrzgF7Oolfq76Q4Y/vMsa9uwlmQvCxukmO1xI4XX6/unyAXxjXr64dtZo3nHYElm1PL3BZSHq
-	Qr6j+b6pMOp5rA55zLfRLzjzz3blYdyrNtKgbf67p/oCMWc72rwMIOfjIiV2O19IWMObaS+RKvs
-	8h6nnTngML0XXP4fZ8baVfjk3IxwBXTptvzbH4+AJe
-X-Received: by 2002:a17:90a:d60e:b0:3ad:677f:567f with SMTP id 98e67ed59e1d1-3b1b0d7622bmr327595a91.40.1794526690626;
-        Thu, 12 Nov 2026 15:38:10 -0800 (PST)
-Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3d279d8sm102411a91.2.2026.11.12.15.38.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 15:38:10 -0800 (PST)
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-To: Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Stuart Yoder <stuart.yoder@arm.com>,
-	apais@microsoft.com,
-	rlmenge@gmail.com,
-	hargar@linux.microsoft.com,
-	linux-integrity@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v1 1/1] tpm: tpm_crb_ffa: Only register driver when ACPI TPM2 uses FF-A
-Date: Thu, 12 Nov 2026 23:38:07 +0000
-Message-ID: <20261112233807.70664-1-sidchintamaneni@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFLxaNNf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 762311F000C5;
+	Thu, 12 Nov 2026 23:44:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794527064;
+	bh=7Tr+nvH1iRjNmrI8twQlPIMvhOSPOoWGVKGBgmEcMbE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QFLxaNNfSUlM1tlj1zLZeXOsu042HaS8a4/T+BVBo/sELlebq+20GESAQYletLJVS
+	 VCDHhBmh3qOSc/6Dtbf3Rg81IK+7WaIh8xq3XtJq3dij1sewbUGw8B2qJz80gSY5H5
+	 mDY+Pd7Tidgq3/g/G4oOqzRM4+5DOfKLV39ZaYUU4IL7d9FZVrdZczOTOpW6KHxyAc
+	 yqbqcU/VItCNpArtnUeBNWzMJhX6SMNurrdfglrQsomX6etc83j0OPFLwz1j+HmTaO
+	 vMjOM+xtL7KIdyk+KivtQFiNdc5ZidYFEiHF4ly5Psp8ujjwU48E7l0pPPGOUHglgW
+	 WzdXGP/hQgRCw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Leo Liu <leo.liu@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/amdgpu: cancel idle work in hw_init failure paths for vcn/uvd/vce/jpeg
+Date: Thu, 12 Nov 2026 18:44:22 -0500
+Message-ID: <20261112234400.4141170-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202426-failed-5.15-a56c2536c399@kernel.org>
+References: <20261109202426-failed-5.15-a56c2536c399@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,112 +61,302 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Prior to commit 677042afb97a ("tpm: tpm_crb_ffa: revert defered_probed
-when tpm_crb_ffa is built-in"), built-in tpm_crb_ffa only registered
-tpm_crb_ffa_driver from tpm_crb_ffa_init() after crb_acpi_probe()
-confirmed start_method == ACPI_TPM2_CRB_WITH_ARM_FFA. After that
-commit, tpm_crb_ffa unconditionally registers on the FF-A bus at
-device_initcall time (and when loaded as a module) without checking
-the platform's ACPI TPM2 table.
+From: Leo Liu <leo.liu@amd.com>
 
-A platform's firmware may expose a TPM CRB over FF-A Secure Partition
-for UEFI boot services while advertising a non-FF-A start method to
-the OS in the ACPI TPM2 table. When the ACPI TPM2 table designates a
-non-FF-A start method, Linux has no consumer for tpm_crb_ffa and
-should not probe the FF-A TPM service.
+[ Upstream commit a56c2536c399d57a9bb1c02fd411e0c25859af3b ]
 
-On Microsoft Cobalt 200 systems, the ACPI TPM2 table does not use
-ACPI_TPM2_CRB_WITH_ARM_FFA, yet ffa_init() discovers the FF-A TPM
-partition and tpm_crb_ffa_probe() unconditionally sends
-CRB_FFA_GET_INTERFACE_VERSION via FFA_MSG_SEND_DIRECT_REQ2/REQ SMC.
-That request wedges the calling CPU in Secure World (with Non-Secure
-interrupts and GICv3 pseudo-NMIs masked), hanging boot with an RCU CPU
-stall:
+When hw_init() fails, amdgpu_device_ip_fini_early() skips hw_fini()
+because status.hw was never set.  For VCN, UVD (including UVD ENC), VCE,
+and JPEG, hw_fini() is where cancel_delayed_work_sync() is called.  Any
+idle work queued during the partial hw_init() is therefore left pending
+after sw_fini() frees the adev state the handler touches.
 
-  [    5.507519] ARM FF-A: Driver version 1.2
-  [    5.507519] ARM FF-A: Firmware version 1.2 found
-  [    5.507551] ARM FF-A: Notification setup failed -61, not enabled
-  [    7.150580] Freeing initrd memory: 293640K
-  [   65.515248] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-  [   65.521346] rcu:     10-...0: (3 GPs behind) idle=dd9c/1/0x4000000000000000 softirq=37/37 fqs=5262
-  [   65.530031] rcu:              hardirqs   softirqs   csw/system
-  [   65.535589] rcu:      number:        0          0            0
-  [   65.541146] rcu:     cputime:        0          0            0   ==> 30028(ms)
-  [   65.548102] rcu:     (detected by 66, t=15010 jiffies, g=-951, q=1384 ncpus=132)
-  [   65.555228] Sending NMI from CPU 66 to CPUs 10:
-  [   75.560686] After 10 seconds, these CPUS still haven't responded to the NMI: 10
+Cancel the idle work in each hw_init() error path, immediately before
+returning the error, so that hw_fini() remains the sole cancel site on
+the normal teardown path with no duplication.
 
-Check the ACPI TPM2 table in tpm_crb_ffa_driver_init() and return
--ENODEV before calling ffa_register() unless the table is present and
-specifies ACPI_TPM2_CRB_WITH_ARM_FFA, matching the check_acpi_tpm2()
-pattern in tpm_tis.c. This ensures Linux only issues FF-A TPM requests
-when ACPI advertises the FF-A start method (for both built-in and
-modular builds), while preserving normal FF-A bus probing on platforms
-that use CRB over FF-A.
-
-Fixes: 677042afb97a ("tpm: tpm_crb_ffa: revert defered_probed when tpm_crb_ffa is built-in")
-Fixes: eb93f0734ef1 ("tpm_crb: ffa_tpm: Implement driver compliant to CRB over FF-A")
+Link: https://github.com/ROCm/amdgpu/issues/234
+Fixes: 416e1fab4752 ("drm/amdgpu: drop redundant cancel_delayed_work_sync call")
+Assisted-by: Claude:Claude-Sonnet-4.6
+Signed-off-by: Leo Liu <leo.liu@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 7ff2327fde029e97d0050fcb94e3f4063c318547)
 Cc: stable@vger.kernel.org
-Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+[ sashal: Replaced per-instance VCN idle-work cancellations with a single cancellation of the shared worker, which also covers integrated JPEG. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/char/tpm/tpm_crb_ffa.c | 37 +++++++++++++++++++++++++++++++++-
- 1 file changed, 36 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 6 +++++-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c  | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c  | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c  | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c  | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c  | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/vce_v2_0.c  | 6 +++++-
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c  | 6 +++++-
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c  | 6 +++++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c  | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c  | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c  | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c  | 4 +++-
+ 15 files changed, 53 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm_crb_ffa.c b/drivers/char/tpm/tpm_crb_ffa.c
-index 025c4d4b17ca..8219a8d01344 100644
---- a/drivers/char/tpm/tpm_crb_ffa.c
-+++ b/drivers/char/tpm/tpm_crb_ffa.c
-@@ -9,6 +9,7 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+index 8e20ae3f0f117..25f034d5bafb3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+@@ -155,7 +155,9 @@ static int jpeg_v2_0_hw_init(void *handle)
+ 		(adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
  
- #define pr_fmt(fmt) "CRB_FFA: " fmt
+ 	r = amdgpu_ring_test_helper(ring);
+-	if (!r)
++	if (r)
++		cancel_delayed_work_sync(&adev->jpeg.idle_work);
++	else
+ 		DRM_INFO("JPEG decode initialized successfully.\n");
  
-+#include <linux/acpi.h>
- #include <linux/arm_ffa.h>
- #include <linux/delay.h>
- #include <linux/moduleparam.h>
-@@ -395,7 +396,41 @@ static struct ffa_driver tpm_crb_ffa_driver = {
- 	.id_table = tpm_crb_ffa_device_id,
- };
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+index c682d1fab7f0d..db7a24c509779 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+@@ -169,12 +169,16 @@ static int jpeg_v2_5_hw_init(void *handle)
  
--module_ffa_driver(tpm_crb_ffa_driver);
-+static bool __init tpm_crb_ffa_has_acpi_tpm2(void)
-+{
-+	struct acpi_table_tpm2 *buf;
-+	acpi_status status;
-+	bool match;
-+
-+	if (acpi_disabled)
-+		return false;
-+
-+	status = acpi_get_table(ACPI_SIG_TPM2, 1,
-+				(struct acpi_table_header **)&buf);
-+	if (ACPI_FAILURE(status))
-+		return false;
-+
-+	match = buf->header.length >= sizeof(*buf) &&
-+		buf->start_method == ACPI_TPM2_CRB_WITH_ARM_FFA;
-+	acpi_put_table((struct acpi_table_header *)buf);
-+
-+	return match;
-+}
-+
-+static int __init tpm_crb_ffa_driver_init(void)
-+{
-+	if (!tpm_crb_ffa_has_acpi_tpm2())
-+		return -ENODEV;
-+
-+	return ffa_register(&tpm_crb_ffa_driver);
-+}
-+module_init(tpm_crb_ffa_driver_init);
-+
-+static void __exit tpm_crb_ffa_driver_exit(void)
-+{
-+	ffa_unregister(&tpm_crb_ffa_driver);
-+}
-+module_exit(tpm_crb_ffa_driver_exit);
+ 		r = amdgpu_ring_test_helper(ring);
+ 		if (r)
+-			return r;
++			goto error;
+ 	}
  
- MODULE_AUTHOR("Arm");
- MODULE_DESCRIPTION("TPM CRB FFA driver");
+ 	DRM_INFO("JPEG decode initialized successfully.\n");
+ 
+ 	return 0;
++
++error:
++	cancel_delayed_work_sync(&adev->jpeg.idle_work);
++	return r;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+index 8c49a67bf0408..62b517699180e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+@@ -144,8 +144,10 @@ static int jpeg_v3_0_hw_init(void *handle)
+ 		(adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
+ 
+ 	r = amdgpu_ring_test_helper(ring);
+-	if (r)
++	if (r) {
++		cancel_delayed_work_sync(&adev->jpeg.idle_work);
+ 		return r;
++	}
+ 
+ 	DRM_INFO("JPEG decode initialized successfully.\n");
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+index 3a27bed57b4ff..482007346fe14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+@@ -712,7 +712,9 @@ static int uvd_v3_1_hw_init(void *handle)
+ 	amdgpu_ring_commit(ring);
+ 
+ done:
+-	if (!r)
++	if (r)
++		cancel_delayed_work_sync(&adev->uvd.idle_work);
++	else
+ 		DRM_INFO("UVD initialized successfully.\n");
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+index 01d8e7d2caf97..abcdf37f0cb15 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+@@ -195,7 +195,9 @@ static int uvd_v4_2_hw_init(void *handle)
+ 	amdgpu_ring_commit(ring);
+ 
+ done:
+-	if (!r)
++	if (r)
++		cancel_delayed_work_sync(&adev->uvd.idle_work);
++	else
+ 		DRM_INFO("UVD initialized successfully.\n");
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+index 563493d1f8306..ddc44841f3722 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+@@ -192,7 +192,9 @@ static int uvd_v5_0_hw_init(void *handle)
+ 	amdgpu_ring_commit(ring);
+ 
+ done:
+-	if (!r)
++	if (r)
++		cancel_delayed_work_sync(&adev->uvd.idle_work);
++	else
+ 		DRM_INFO("UVD initialized successfully.\n");
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+index 72f8762907681..0d8cd2e1ddb34 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+@@ -522,7 +522,9 @@ static int uvd_v6_0_hw_init(void *handle)
+ 	}
+ 
+ done:
+-	if (!r) {
++	if (r) {
++		cancel_delayed_work_sync(&adev->uvd.idle_work);
++	} else {
+ 		if (uvd_v6_0_enc_support(adev))
+ 			DRM_INFO("UVD and UVD ENC initialized successfully.\n");
+ 		else
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+index 1fd9ca21a091b..79cf2746aea16 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+@@ -589,7 +589,9 @@ static int uvd_v7_0_hw_init(void *handle)
+ 		}
+ 	}
+ done:
+-	if (!r)
++	if (r)
++		cancel_delayed_work_sync(&adev->uvd.idle_work);
++	else
+ 		DRM_INFO("UVD and UVD ENC initialized successfully.\n");
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+index ddbcfcc70df5c..d9e690e5ff4a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+@@ -467,12 +467,16 @@ static int vce_v2_0_hw_init(void *handle)
+ 	for (i = 0; i < adev->vce.num_rings; i++) {
+ 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
+ 		if (r)
+-			return r;
++			goto error;
+ 	}
+ 
+ 	DRM_INFO("VCE initialized successfully.\n");
+ 
+ 	return 0;
++
++error:
++	cancel_delayed_work_sync(&adev->vce.idle_work);
++	return r;
+ }
+ 
+ static int vce_v2_0_hw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+index 6095ddf1d7b79..fcf7ebad605c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -477,12 +477,16 @@ static int vce_v3_0_hw_init(void *handle)
+ 	for (i = 0; i < adev->vce.num_rings; i++) {
+ 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
+ 		if (r)
+-			return r;
++			goto error;
+ 	}
+ 
+ 	DRM_INFO("VCE initialized successfully.\n");
+ 
+ 	return 0;
++
++error:
++	cancel_delayed_work_sync(&adev->vce.idle_work);
++	return r;
+ }
+ 
+ static int vce_v3_0_hw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+index 70b8c88d30513..2050b890bb4a3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+@@ -530,12 +530,16 @@ static int vce_v4_0_hw_init(void *handle)
+ 	for (i = 0; i < adev->vce.num_rings; i++) {
+ 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
+ 		if (r)
+-			return r;
++			goto error;
+ 	}
+ 
+ 	DRM_INFO("VCE initialized successfully.\n");
+ 
+ 	return 0;
++
++error:
++	cancel_delayed_work_sync(&adev->vce.idle_work);
++	return r;
+ }
+ 
+ static int vce_v4_0_hw_fini(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index 462008d506904..923a71350962c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -213,7 +213,9 @@ static int vcn_v1_0_hw_init(void *handle)
+ 		goto done;
+ 
+ done:
+-	if (!r)
++	if (r)
++		cancel_delayed_work_sync(&adev->vcn.idle_work);
++	else
+ 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mode");
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index 02ae3e7a8a552..5eaf3e13d0efc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -248,7 +248,9 @@ static int vcn_v2_0_hw_init(void *handle)
+ 	}
+ 
+ done:
+-	if (!r)
++	if (r)
++		cancel_delayed_work_sync(&adev->vcn.idle_work);
++	else
+ 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mode");
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index a0956d8623770..063d732869de5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -307,7 +307,9 @@ static int vcn_v2_5_hw_init(void *handle)
+ 	}
+ 
+ done:
+-	if (!r)
++	if (r)
++		cancel_delayed_work_sync(&adev->vcn.idle_work);
++	else
+ 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mode");
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 7085c1f45cf74..f1ad7fdd035fa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -372,7 +372,9 @@ static int vcn_v3_0_hw_init(void *handle)
+ 	}
+ 
+ done:
+-	if (!r)
++	if (r)
++		cancel_delayed_work_sync(&adev->vcn.idle_work);
++	else
+ 		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
+ 			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mode");
+ 
 -- 
-2.45.4
+2.53.0
 
