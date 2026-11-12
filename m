@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794522729;
-	b=NgSFiSRZJnRxo40BTdGP+kqaz8iQZdGSDAqWiXC8AJibD3tzD4QegvyK89jN9nN9cuh5
-	 HV8fyKH688QSc2UST3yOfqnejpwyU404cBsUrBLEPdsYON6EnBF/APoeFGj+DcPZj0S1Z
-	 XZ+BwVqYgyNHMpqSNf9PnmqjeXuArwR3ymtLErl4VTbBTICxDgmLddc3mRrW8hi9ikefN
-	 bcdzeMjAWEb6+I9pJITCAOnkMgoYNnKefjSZzUpzeG17WF0lzL4UlwLFqlYpaCK/K4jkg
-	 zcSAkaaJwB7NsvLZ7V9BIoX/tEZ7wRlFoA3aOLL5tFrFq0vHJ1FJ2Y2v9vMg0tTQVnQ==
+	t=1794522726;
+	b=pepPYLDiQTORkQiiDN5PyuO55bCSxtEYwOp08ZIDG8Wy4ZtatL4lump8ErCXDif9zS6c
+	 sAk+nIga5oKu6LiHiC0X9Z+C5v+a08ZDFILgjVJjYf323b8ZWjqxIWqW9733ydLdSc8pb
+	 9KEhKhhZPdhiKY5PPHYAfEQLo0s04NYd1AAXnHcQvee8L7YclXtXqeqjlLFU3STcb9QfM
+	 +vrHn225ohRC40O7QX8b8H7iDae6LdUH5Q6F4ThGagSoaFsK1NF77JQco6yGerC7cEWzr
+	 gs63qVNUnpz4PB4xhIHT01nOE9qskhfCf15Tg5qv4/Pf3VsfLAfy2Y0ccTTVtjxeOsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794522729;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794522726;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=8bqvMnyVEvBroB2d7Xzxe6U8AVpllM+eYYP2hE1nUBE=;
-	b=rsCXFkftXXhepsOLeEflKKnoVL6MkGSv4sPGeSsxSOJK6Eaf5qXR9VhhNfzR0CV5D/K5
-	 ci40mBBL2Z/dIW+kdz/rHSaPDcAL3Ab+BIdpS8DP3Y690D+nP0zzqUy43jWqzWfRTkaE+
-	 BAl3rIyVqfUjElndPMThQgT7kJVQDn4T6Df66kmTZIYRPJSPkDGzB9pWX4ZK85+YqdRB+
-	 hpgVE3pc0nUn3275lzSWW9RIzrMlF5BoN1GG+n3vikIb21bjOlYvmqdZPDElT7VMzVYJ9
-	 vryefH0YgUCUdTBHxDR93eFqbKABa8Y7xLdRmZAfunYUjTffo79navTn7ENTM/y5xDg==
+	bh=7Dww7rLEK29Z8yiJXV5V5KMhrywlVHiQMndBRuw4E/0=;
+	b=U6kvSDm9saedIENkHWGZD/hP3iE5srjWVzVH/ra/WO50kSLetl9lWj6FvZ3L1Qk4dmXH
+	 h5w/P/yc6eYS2hW1Cl2OjFtuekZM2hNba7/iX3OF9KdkGfMq2skxxdPObm7v8NvePmcgr
+	 2Uog5JpRaUPEnLTai+qAkehTOf4Tw+cC8CjYdadsQwxhrFWmgWauU6ABlJ1EEI7IYSY1S
+	 AGcFDIK3sDvxAZewMIUzZkbu9FCN0Bwpqfzsd57ZSiW7us+QoWK6AMlkcOuydazcraetA
+	 l0BKFI6tXXCX+uJNsuLRb2HR4vOPGqL04CGH2YyB6cmpWLcIHTZ1nM9FJibU+gAJ2Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rb8Wmlwk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qu4iskwl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB4D606A8A7;
-	Thu, 12 Nov 2026 22:32:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB70606A31C;
+	Thu, 12 Nov 2026 22:32:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rb8Wmlwk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 433AA1F000CA;
-	Thu, 12 Nov 2026 22:32:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qu4iskwl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53AD1F000C4;
+	Thu, 12 Nov 2026 22:32:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794522729;
-	bh=8bqvMnyVEvBroB2d7Xzxe6U8AVpllM+eYYP2hE1nUBE=;
+	s=k20260515; t=1794522725;
+	bh=7Dww7rLEK29Z8yiJXV5V5KMhrywlVHiQMndBRuw4E/0=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Rb8WmlwkkN8eW1QyRTBK5Hqqvke4TxCEcBmr5FFJJU454l6AstuqjtdgKNnkxjejO
-	 4nX0qSnlV1/zzh201Zx1C4uAPlNKKRwS48dbE0xaFgI3EKeXHItBtlvh68cgjBenDA
-	 uoW8RlDcgWPJ+r+HGfIdRnmcwp5hN5zTBGx9vYO9ulo/GLgnPvaqUng4VnaPPU7RyH
-	 03ZEomcjO97MSDvl9qy3GvxSwZsmRo37rD70/SAYOdZea6L3/IILtTymTZCHmpuI+i
-	 hN76EfRIobqjBTVaM7YbG+CJE+jXJ+mi4raeNdwjmpmZ10FRzzPscicsh3hPf+D884
-	 ud1skVr3vjEcQ==
-Subject:
- Re: [PATCH net v9 03/10] can: rockchip_canfd: retry the outstanding TX buffer
+	b=Qu4iskwlFTCn0sPnAuYguLRUDzos0rP2oiB2AV6297+eONMYTmxzBG9ldyx/ZiwMH
+	 4BY6Bbuc8BzogjDhd1FpX2D22Bq66YV3QjstHiZVSsAEAvwBb+IGvdpRR74rHU+oa8
+	 KBMUbqeMZcw0Oi/dEada+JA93TRZo6z9Ru+aC1yc8NlYXImB561/9XVKiugV9zc3U4
+	 JSoYaEkEnSBNr67EPpqg/LjteW0gzZHlx1WD/ZvUv+5UWCga6NW18cNLWNCGd823qe
+	 Aj3DX1K027sMoeGt+7Dnkhqg/2zyOjFh7nkH3/Ab2FVepFBESbMmCI2HNXYfJ1ZTfV
+	 /qZN/Ot3wccGg==
+Subject: Re: [PATCH net v9 01/10] can: rockchip_canfd: prevent TX stall on
+ echo skb failure
 From: netdev-bot+sashiko@kernel.org
 To: 1579567540@qq.com
 Cc: mkl@pengutronix.de, kernel@pengutronix.de, mailhol@kernel.org,
@@ -52,10 +52,10 @@ Cc: mkl@pengutronix.de, kernel@pengutronix.de, mailhol@kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  stable@vger.kernel.org
-Date: Thu, 12 Nov 2026 22:32:07 +0000
-Message-ID: <179452272781.488853.6815349480401824438@kernel.org>
-In-Reply-To: <20261111-rockchip-canfd-restart-close-v9-3-6643f3825ba3@qq.com>
-References: <20261111-rockchip-canfd-restart-close-v9-3-6643f3825ba3@qq.com>
+Date: Thu, 12 Nov 2026 22:32:04 +0000
+Message-ID: <179452272422.488853.17004807498883326670@kernel.org>
+In-Reply-To: <20261111-rockchip-canfd-restart-close-v9-1-6643f3825ba3@qq.com>
+References: <20261111-rockchip-canfd-restart-close-v9-1-6643f3825ba3@qq.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -75,58 +75,66 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message for "can: rockchip_canfd: retry the
-  outstanding TX buffer" leaves out a likely bus-visible effect of the…
+- [Low] The commit message understates how bad the bug is.
 
 --
 
-can: rockchip_canfd: retry the outstanding TX buffer
+can: rockchip_canfd: prevent TX stall on echo skb failure
 
-This patch changes rkcanfd_xmit_retry() to pick the TX buffer for the
-erratum 6 retransmission with tx_tail instead of tx_head. With a TX FIFO
-depth of two and one frame outstanding, tx_head points at the free buffer
-and not at the pending one.
+This commit moves can_put_echo_skb() in rkcanfd_start_xmit() so it runs
+before the hardware TX buffer is written. If no echo skb was installed, the
+frame is dropped and tx_head and the BQL bytes are left unchanged. It also
+passes an extra skb reference to can_put_echo_skb() and releases the
+original skb once submission finishes or fails.
 
-> Use tx_tail to retry the outstanding buffer. Otherwise, the pending echo
-> entry can remain incomplete and leave the TX queue stopped.
+> rkcanfd_start_xmit() advances tx_head and requests transmission even when
+> can_put_echo_skb() fails. Completion matches self-received frames against
+> the echo ring, so an entry without an echo skb cannot be completed and
+> can leave the TX queue stopped.
 
 [Severity: Low]
-The tx_head to tx_tail change looks correct for the one-pending case. Does
-this paragraph describe the full impact of the old code, though?
+The code change looks right to me. Does this description cover the whole
+impact, though? It looks like RX stops as well as TX.
 
-The erratum 6 retry can only run when exactly one frame is pending and
-that frame is EFF. In that state rkcanfd_get_effective_tx_free() returns 0:
+can_create_echo_skb() uses skb_clone(GFP_ATOMIC), so can_put_echo_skb() can
+fail with -ENOMEM under memory pressure. Before this patch, the empty slot
+still became tx_tail, so rkcanfd_get_tx_pending() stayed non-zero.
 
-	if (priv->devtype_data.quirks & RKCANFD_QUIRK_RK3568_ERRATUM_6 &&
-	    rkcanfd_tx_tail_is_eff(priv))
-		return 0;
+After that, every received frame goes through rkcanfd_rxstx_filter():
 
-So before this patch, the masked tx_head in rkcanfd_xmit_retry() always
-pointed at the other hardware buffer.
+drivers/net/can/rockchip/rockchip_canfd-rx.c:rkcanfd_rxstx_filter() {
+    ...
+	skb = priv->can.echo_skb[tx_tail];
+	if (!skb) {
+		netdev_err(priv->ndev, ...);
 
-The fix assumes that RKCANFD_REG_CMD_TX_REQ(i) sends whatever is already
-stored in buffer i. If so, did every erratum 6 retry with the old code
-re-send the stale contents of the non-pending buffer instead of the
-mangled EFF frame? That would usually be an earlier SFF frame that had
-already completed.
+		return -ENOMSG;
+	}
+    ...
+}
 
-If that happened, other nodes on the bus would see a duplicate frame.
-Locally, the self-received copy would not match echo_skb[tx_tail] in
-rkcanfd_rxstx_filter(). It would then go to local sockets as a normal
-received frame through rkcanfd_handle_rx_int_one().
+By this point rkcanfd_handle_rx_int_one() has already pulled the frame out
+of the FIFO with rkcanfd_read_rep(). It then returns before
+alloc_can_skb() and can_rx_offload_queue_timestamp() are called:
 
-If instead TX_REQ(i) latches the shared FD_TXFRAMEINFO, FD_TXID and
-FD_TXDATA registers written in rkcanfd_start_xmit(), the old and new code
-would both send the EFF frame. In that case the stall described above
-would not happen.
+drivers/net/can/rockchip/rockchip_canfd-rx.c:rkcanfd_handle_rx_int_one() {
+    ...
+	if (rkcanfd_get_tx_pending(priv)) {
+		bool tx_done = false;
 
-The driver code alone doesn't show which of these is the real hardware
-behavior. Could the commit message say which TX_REQ semantics the fix
-depends on? If they apply, could it also mention the duplicate
-transmission and the phantom local RX frame?
+		err = rkcanfd_rxstx_filter(priv, cfd, header->ts, &tx_done);
+		if (err)
+			return err;
+    ...
+}
 
-Was this reproduced or tested on RK3568 hardware? If so, a note on that
-or a Tested-by tag would help.
+rkcanfd_handle_rx_int() then leaves its FIFO loop on that error. tx_tail
+never advances, so the same thing happens on every later RX interrupt, with
+a netdev_err() each time. Frames from other nodes on the bus are lost as
+well until the interface is restarted.
+
+Could the commit message say that both RX and TX stop? That would help
+stable backporters judge how urgent this fix is.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-rockchip-canfd-restart-close-v9-0-6643f3825ba3%40qq.com
