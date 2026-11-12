@@ -1,94 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452902;
-	b=EPIh0EAvU/XXqp5oKLc24qBLuh+Es9MvF4CnlQyNhC7SrIl3AA5ydFHl+meB3lfiqcEb
-	 aoyP+408teHT6judO3BxGXn9wUMe8n33A5S1jxkva0lPhraQ5clLu2CR5jWl++sIxKoMW
-	 L+nB5n8cpZ3t8JoBb6siaWYqfdyV+SSUKCC/H/HumClcnZe0j01xDhmpVb1z0c+vVf+L2
-	 xSPHA40MSAfhx0627p7strDxlZi5lBQRmWbIUMPLK7rRTqCEPNMTX9XSF73DC1v26Ts5e
-	 q2pjO0TdFK0cOGXICrvS7s//KSULqLG8M39EWbwZ57B8LVaQgbLok3rRhQqt3cyKP2Q==
+	t=1794452911;
+	b=ZsKq4fTUgkW/UrISkdl5Y4KDRrJz4iQSlkqFjpk15bSPLqx6Z0xbJFmnTV2cA+Rz5i7r
+	 DBuyF3ffjeGo6zIFRwCdPl5XlTBhOgWmBtjQS/S4q1wfbPnp0IImgEi7kR8cTT3p1c3FY
+	 aV/Vu2SHdRHWxhz6wpjaY+/MsdOTNPWab3AaH7yjUdyOM8w1fjp4Gh9iSG7Lgl9MgcKoI
+	 3gai5XK+T8loMxNY8RdeBPyDOFrqJACoSlrUDEIbkQdrjg6EJMl3bUrl8nEnZjMejowrV
+	 G19jAPV3p6/HRDQZa5pZLbF/Vi+Vz+24o3mi0fCCUYvJ1Ucr/rd/Fo/4iMPlsOCqADA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452902;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UeXaSvr4SrCTOf1iO2sie7UdIT4yjGWoYerMUs70xPo=;
-	b=UL8JCj7A3ht6k9tlbHsHPrskZ5ehjcGRIMeN3kXxcrxsaxhe5SWKUDFsKoPLk55Om+9c
-	 8RlzXLbt6LiBBibPSnCHWqZKBLIklq69SPLzMBOBOcYCAwSeUy2T+lOdebxfnVHw52jAq
-	 q59s9rl+j4UGaUlM2YirBUrqEC2no4N/o0nP/GwOEhRy8pjIklDkM1BLmhEUNLBg+pGvg
-	 FD0W7pH9LgiuXnAglSCRTT5LWkHlAAZ/VEvsLn0e3k42PLKiuJGP0zmP7jX7vfaEYEvF+
-	 bFy/tTusAg4yMuNuKOPsRJ25Fbj4QvzjOlyu63v8XLOMvLQK09FUXDt9e7gbVF9jenA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452911;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=GyyT0WVWHd4LNlKM1nh8zbqlGdY7aLHBjvI/LxA2IyY=;
+	b=2DY21Mz5Eel3Cg/1QFwmgoh87lJhNIGgXYcj93J6fyLk2MSEp7IGS8h6kJ8Jb7r/XUUm
+	 v8Si/tMMSqv95cpe3Bg41zxj+An076tgoxO/QYKHVjVxSTYb5UNZecNGpKLHlMxGSa+vI
+	 2FB9RjYOqIsHLPyPZSp/h3e6VNKKypoKfaKFJVQ+05cJZVE7BwMWM2XZ2Z7lzb/maXofV
+	 ZsVYSmo9fNazvMXjJppORJ9EG22ls8D0+eMSclZ0PoEtfD5lWI5bEEeFABUvz/It7uCgR
+	 mO2cFBcO+Ju/nKnSTETJ1LzJiOnZbr4xjeK7qHwg+nJyKBa3O79mp6Wdpv3LfUY2KmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vdpjTSsd;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DoDYaxgh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B40606A321
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:08:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03B40606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC34606A323
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:08:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vdpjTSsd
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36dbde64409so7656201eec.0
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:08:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794452901; x=1795057701; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UeXaSvr4SrCTOf1iO2sie7UdIT4yjGWoYerMUs70xPo=;
-        b=vdpjTSsdvfq0rjq3o32YqhchwDrQfUeCgA3g/VNqySe5KDnAFreNsIcdqOJpTogRZi
-         PtXQimxXqJpjJzolRRmrW0AGtrxeWj4cpWBAmcmEwp59qoWHtFbUtXyo6+CS3PoRt+CK
-         PQ1IED9andLLO9c6xRInaU47xKN+8CEY1Q0SoJ90cngYFEUZlvaVXXm1Z9RE59kI4vox
-         amu9A2THiD/UO+CwKIPmhsq9Z/nT7bRmk9piwzUScRWXVvCdW1K58Z7NM4R2k0jSM2pn
-         YmlmukTdCxrMjqkZV94GPO4c5TCFzCQcSiKdjOTpqVBaKzS62rQzMZc/OACLobQW6HnD
-         dkHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794452901; x=1795057701;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UeXaSvr4SrCTOf1iO2sie7UdIT4yjGWoYerMUs70xPo=;
-        b=tfTD8K57ChiEwYSeluS5thW7+2U7TOgzWktOd6Tsl5TJnV4eEhTcJ7QzJEypzfa5GY
-         X8S3OJ6s4goE41Ub/uxCUYEocQNtjCW7BSd9V84VnMkr0MirbkzbypUiiKsYz29LAW5J
-         cvkIHMYcn7t6Tab4XfMrX/wEnR+jKercvX+Nvjwt00aWZc90pP7lpDa66nQstJ9iQNjt
-         iJs9JHnvnygypV9RltAxFN5fWKgF349rYkqX6wjTTJuoPuocZNxlJ1ONGNC1ieNZ1s5D
-         Wrp19Be39zuZ2uUGU82PiNE8eLHQ0WQ8HxknyFdaggfn8rUthp6e8Zjtw1saFBLNNndq
-         ybgA==
-X-Forwarded-Encrypted: i=1; AL+hErGLxcdrZyZHUnSWA4m29RPo+qUgPD6Ar/35ZHknrO0B/6hfw4OH0Nc71nYu9b+/3+y5GG7Tqfk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9MF1uYpCh6hMt2SmxYy3g610P0rkKRT3pv+ydFItcmOiayS08Z
-	9OW0W0ivxbctA0R1cg1pgu0lQqF+6DuGx+hT3Xyn6ojNNiv5N6QeZS2X
-X-Gm-Gg: AYBFou1+salt8/PfHQWKSK09PF4HOPPHXF5m/bD43i6WTEK4q58djqMbKON1gZrMzOy
-	t5MUp+I2ce0m4XUWX/F6fJE9hWq27VX4DPVh1x8ETWGU69kydFCvB/Isuc5GD8n72yFU0JcsTDC
-	+eg7xKcam7wu52zznm1JajkNush+tq2PASqoGSOpnBU4dJqfZFb5sz4EhzHwB43qLUaxJO+COB+
-	XnVqauJNPD9ZqOhzq9Y5Z8lQGDsUi7wU+yfOTAVJ1uBklUomZ1i4Zbl8hMoMTCostx2iMAESzZz
-	/2qabSyIze92bjh3n8U6Q1uy9r0mwBxncuMTRJsp/1sHmleoOZ9Ev2rRf45Yv9ejDwfF/72A1Kb
-	VXbTiWFY8fQtkD6cXisYtmzukGqjCvVOtjEcYRaAqPmIwG1AlE5rKmvBHfzhIrj01ky/AMYcyIw
-	XIIkqLJv6tRbflRsCHKzoVTNKCHsrerzRyPhflZYC/o3UYWZffH51ja11+G+2WWy1XxI0TuzgXL
-	M5y7e0wd5hHopqvMOHhdA8hbCoyDLH/qNNTpcWDVZR2kEddK/gqWPu9NSu3U/lzeC0c8+UBh/Iv
-	7Q0bkXVFaR6r0uNBA1ALfB09VO3qAiQKxnlGg5nymT5kOw==
-X-Received: by 2002:a05:7300:6dac:b0:369:f9da:a70f with SMTP id 5a478bee46e88-37685b7f916mr6937512eec.17.1794452900796;
-        Wed, 11 Nov 2026 19:08:20 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060899asm20406158eec.11.2026.11.11.19.08.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 19:08:20 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: liubaolin12138@163.com,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ntfs: trim the sizes after a short write
-Date: Thu, 12 Nov 2026 11:08:15 +0800
-Message-ID: <20261112030815.982026-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DoDYaxgh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 915041F00A05;
+	Thu, 12 Nov 2026 03:08:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794452911;
+	bh=GyyT0WVWHd4LNlKM1nh8zbqlGdY7aLHBjvI/LxA2IyY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DoDYaxghL1qlZFXPxiZD/zm9KsRx0NmigF9bHSyceYVo7CQFutkj1wZwT6VUPTAlu
+	 g4vwY0+X+H//p+NTTzhTNljvB3ke8sUB3ePb34y8NZPScaq68w0OjUXQHSfF/mUzmB
+	 3l+1lRN4zwbQNfWkMsVnjxO8sEyzHtus5HqOaGrJgXxmoFHeb37kEASVdIP0mGhy3x
+	 Fnv3Mby4Tk2T18OhMfNlCSRKlPlt2BOSfHH06JHtOYFV3NCD6e4phKCX0R4XZYteHV
+	 MeLpuBQwKkBGt0b0+T//JTqK5luCGPSx0uo4GbdezCwoBNY2JAzUf/i4LzOxqJGmM/
+	 qF+wqaDEQj9Zg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Xin Long <lucien.xin@gmail.com>,
+	David Ahern <dsahern@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/3] net: add a couple of helpers for iph tot_len
+Date: Wed, 11 Nov 2026 22:08:27 -0500
+Message-ID: <20261112030822.1482543-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202621-failed-5.10-1f1f8e8c5176@kernel.org>
+References: <20261109202621-failed-5.10-1f1f8e8c5176@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,120 +63,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+From: Xin Long <lucien.xin@gmail.com>
 
-ntfs_file_write_iter() moves the data size and, for a non-resident
-uncompressed file, the initialized size to pos + count before the copy.
-__ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
-so the range [pos, pos + count) is initialized only by the copy itself.
-When iomap_file_buffered_write() copies less than count, it returns a
-positive short count and the error rollback at out: does not run.  The
-file keeps the size pos + count, and [pos + ret, pos + count) reads back
-whatever the freed clusters held before, also after a remount.  A local
-user can read the old contents of freed clusters this way.
+[ Upstream commit 058a8f7f73aae1cc22b53fcefec031b9e391b54d ]
 
-Run the existing rollback for a short write as well, and roll the two
-sizes back to the end of what was written instead of to the old sizes.
-A short copy that ends inside a block can also leave the rest of that
-block cached as read from disk, so clear the page cache beyond the new
-initialized size before shrinking it.
+This patch adds three APIs to replace the iph->tot_len setting
+and getting in all places where IPv4 BIG TCP packets may reach,
+they will be used in the following patches.
 
-Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Note that iph_totlen() will be used when iph is not in linear
+data of the skb.
+
+Signed-off-by: Xin Long <lucien.xin@gmail.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 1f1f8e8c5176 ("cipso: fix optlen corruption in cipso_v4_delopt()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2: also clear the cached tail of the last block, which v1 left in
-place when the write stayed inside the old data size (Baolin).
+ include/linux/ip.h  | 21 +++++++++++++++++++++
+ include/net/route.h |  3 ---
+ 2 files changed, 21 insertions(+), 3 deletions(-)
 
-v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
-
-Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
-with a known pattern first.  Short buffered writes of 4M, old data
-readable after drop_caches and after remount, 3 runs each:
-
-                                    unfixed    v1     v2
-  fallocated, ends block-aligned    3137536    0      0
-  fallocated, ends inside a block   3141332    212    0
-  fallocated, unaligned start       3137536    412    0
-  append                            3137536    0      0
-
-A short write 1M past EOF, O_DIRECT, resident and compressed files and
-full writes give the same results with v2 as with v1.
----
- fs/ntfs/file.c | 33 ++++++++++++++++++++++++++-------
- 1 file changed, 26 insertions(+), 7 deletions(-)
-
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 3213a0c9f96b..1779110a0c4f 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
- 				&ntfs_iomap_folio_ops, NULL);
- out:
--	if (ret < 0 && ret != -EIOCBQUEUED) {
-+	/*
-+	 * Both sizes were moved to end before the copy, so a short write,
-+	 * like a failed one, must take back what it did not write.
-+	 */
-+	if (ret < count && ret != -EIOCBQUEUED) {
-+		loff_t new_init_size = old_init_size;
-+		loff_t new_data_size = old_data_size;
- 		int init_err = 0;
- 		int data_err = 0;
- 
-+		if (ret > 0) {
-+			new_init_size = max(old_init_size, pos + ret);
-+			new_data_size = max(old_data_size, pos + ret);
-+		}
+diff --git a/include/linux/ip.h b/include/linux/ip.h
+index 3d9c6750af627..d11c25f5030a0 100644
+--- a/include/linux/ip.h
++++ b/include/linux/ip.h
+@@ -35,4 +35,25 @@ static inline unsigned int ip_transport_len(const struct sk_buff *skb)
+ {
+ 	return ntohs(ip_hdr(skb)->tot_len) - skb_network_header_len(skb);
+ }
 +
- 		/*
- 		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
- 		 * expects the invalidate lock held across the size
-@@ -940,13 +951,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		filemap_invalidate_lock(vi->i_mapping);
++static inline unsigned int iph_totlen(const struct sk_buff *skb, const struct iphdr *iph)
++{
++	u32 len = ntohs(iph->tot_len);
++
++	return (len || !skb_is_gso(skb) || !skb_is_gso_tcp(skb)) ?
++	       len : skb->len - skb_network_offset(skb);
++}
++
++static inline unsigned int skb_ip_totlen(const struct sk_buff *skb)
++{
++	return iph_totlen(skb, ip_hdr(skb));
++}
++
++/* IPv4 datagram length is stored into 16bit field (tot_len) */
++#define IP_MAX_MTU	0xFFFFU
++
++static inline void iph_set_totlen(struct iphdr *iph, unsigned int len)
++{
++	iph->tot_len = len <= IP_MAX_MTU ? htons(len) : 0;
++}
+ #endif	/* _LINUX_IP_H */
+diff --git a/include/net/route.h b/include/net/route.h
+index 584b6171e3130..cba21c51ef3fc 100644
+--- a/include/net/route.h
++++ b/include/net/route.h
+@@ -35,9 +35,6 @@
+ #include <linux/cache.h>
+ #include <linux/security.h>
  
- 		/* ntfs_attr_set_initialized_size() rejects a resident one. */
--		if (ni->initialized_size != old_init_size &&
-+		if (ni->initialized_size != new_init_size &&
- 		    NInoNonResident(ni)) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
+-/* IPv4 datagram length is stored into 16bit field (tot_len) */
+-#define IP_MAX_MTU	0xFFFFU
+-
+ #define RTO_ONLINK	0x01
  
-+			/*
-+			 * A short copy can leave the rest of the last block
-+			 * cached as read from disk.  Clear what is no longer
-+			 * initialized before shrinking the initialized size.
-+			 */
-+			if (ni->initialized_size > new_init_size)
-+				truncate_pagecache_range(vi, new_init_size,
-+						ni->initialized_size - 1);
- 			mutex_lock(&mrec_ni->mrec_lock);
- 			init_err = ntfs_attr_set_initialized_size(ni,
--					old_init_size);
-+					new_init_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 		}
- 		/*
-@@ -955,13 +974,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		 * the uninitialized tail, so skip it unless the rollback
- 		 * above restored that size.
- 		 */
--		if (ni->data_size != old_data_size && !init_err) {
-+		if (ni->data_size != new_data_size && !init_err) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
- 
--			truncate_setsize(vi, old_data_size);
-+			truncate_setsize(vi, new_data_size);
- 			mutex_lock(&mrec_ni->mrec_lock);
--			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
--					old_data_size);
-+			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
-+					new_data_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 			/* Like ntfs_setattr_size(): stay on the durable size. */
- 			if (data_err)
-
-base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
+ #define RT_CONN_FLAGS(sk)   (RT_TOS(inet_sk(sk)->tos) | sock_flag(sk, SOCK_LOCALROUTE))
 -- 
-2.43.0
+2.53.0
 
