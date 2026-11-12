@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794524060;
-	b=YZKTAyX5DhipgFg1H8nHVVZ1i+cMytocGpsUAqBPG+yihJSXqruxl2o6WEWyGSOcg875
-	 vDrqcPppOHEetICYhRUM7u/RTA3on6B1/vroPqhhD32foXRZsfMTlNB9oeWqQS/tXhjbY
-	 mFK4+gcK4Pu06QMBNVGCp3PZzz9rzbMkg/UcVRRDYUKcFb7IiSvj2ergfvH3iZM+Sc/ad
-	 cZ+GYlU+yckbAVtR+a0eEnjqXgRKHk3r34F+Enea5j3aAqoXPuNkz0x5yr28hHfLMUT7F
-	 HNUaRfY/DHlw/c/qdIqrEzCVT4DrqtFoB80pdOK+P0FTG3GwufFtMto90/NAKnIa4ug==
+	t=1794524076;
+	b=G7B15jvoGdzJ0DVocAhnWl/sZsuq0pyv82VHcDHMXA1cqkwmkrox/qkTDRD+puqWkw+l
+	 +erMpg1GwwR5l6inKHOu1ZYFdlkuCkrFjoY7+iVREFbugLZIBfhkTmOOWGAKRVBw9/eDY
+	 mzderzUNEEVZhK/ekA6OBdNlByqgpWchmKr95wcjP14rMlpBDWA5ts82+vKwZxlzzJBwb
+	 +KtHXjU8AbhhPOoTM3y5wnjekKmFM3geIOx7Zp1r5IH3Tx7RgzUwk1ZZTHBBHatDXssWF
+	 YGWFOi4NxUfGILPFDT+PF26hHlagSS3dFwzDe3J4S71EOxUL34A/Z17uvRBMEXntGsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794524060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794524076;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Tzhio+p5uj/Apj4ZLWHO+xI0TGptYSX3NjSGWNpVGLg=;
-	b=V+KACaMnYnvToUDzPHqywfe8f6hfC6xaEdFjNh/O/FriNTWOmOisMOricrU3mqR/7Xvn
-	 Fn5cAFcNP1nurqDJE5ih/IWhnu3ekmItjaqbRcSsfV1T5cSBtMXeG96xObNaXoqbzGd3x
-	 FBarmwOKkCKcJ85lgQpgjJQ6X9cJtiaijfRQc8ArzVx3Zr7s0fxsgLc9u0PUZjz5wARCZ
-	 ne92ElSunxiKnWTCHkU7f0aGeYM4AooD1SynfeDVtX4c2IeCBIwuAh7UYxQfCLwEONUCc
-	 hsuP/IwxmkaAQUm938ri3W1sX3YCYxLBoT1WE63/Re8N2if3A49as2Zw6qs0m9JidTQ==
+	bh=K1dZH1YvZhyh+cLEFUJEOBrlUWrIfda/lmT3nY2eVCc=;
+	b=TFPDm/AnB07NJkDOHQXL9j843S0HTXh2WCB4ghaQwWTxVXlg3XnMe7QZBdHuVZaJyJDg
+	 rsoEqEKAp7+a+vtNvIrSMZUk2xr5ZBlnunAj5hj/xaaCoUCO0OcSICegBVL8r7idlCa6m
+	 OdVO8qJYbWjVIjhqLu13ymcwnO9Gb9DZykaF6drIYLrbMqv3FThYdh/+6ieQD6arApsfo
+	 pJJ/jEDYgSk/bOXI8kzLMEHF8LmPGqpTedGLX1imG+GDbTrd87Rs1P1g1HhyEOkM6F9g3
+	 7+zssmRF4aJi0Qj4lHvHGn8D2kMacUtwhaYa0DvD7BLeryPdPgRfjiu05ISZ67yOxOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CsH8yQCJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cScRwwZn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6158C606A323;
-	Thu, 12 Nov 2026 22:54:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71742606A31C;
+	Thu, 12 Nov 2026 22:54:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CsH8yQCJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FDD1F000C5;
-	Thu, 12 Nov 2026 22:54:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cScRwwZn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8901F000C4;
+	Thu, 12 Nov 2026 22:54:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794524059;
-	bh=Tzhio+p5uj/Apj4ZLWHO+xI0TGptYSX3NjSGWNpVGLg=;
+	s=k20260515; t=1794524076;
+	bh=K1dZH1YvZhyh+cLEFUJEOBrlUWrIfda/lmT3nY2eVCc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=CsH8yQCJgew0T7yjC+Ye7xILTGbzvytsdr33ROL/O5lsP3hLmfGgysPHKFWDXj+gc
-	 ds9QdstQuwvkm5k6yTjh8L6cFegAqhxEGoqLMdd9PSBMj5u/LxCcssPOSZKfpKH9hf
-	 M8DhWBntbPyxH4tKwXBZrF9Cj6XYgX5xO9LBeEuOVBConxIH5k9dqbRmSexvl/rWAx
-	 AlglCWCRVXBJzNnWwHTKvt/JU5aJTJs8/5wcL/P70yEJchBSltYf9vJbQ3dnbbxkVf
-	 wrifDqmOh2vJtNlj7oT8941F6e7AAiTaEchGiVscz1l9hn8z0GRUvQBwCmfQI5kYs+
-	 qunfQdN/G9A5g==
+	b=cScRwwZnVKDY5k4lrXJBaqIB+uxLEnAOvxE85WolNlWGVAsRU9h8PW3BRF8n/DndM
+	 9HA2xConM66zJWXUn9LzGQ/yvWkswzV8ZshsXzYDkT52bKq/w8vamAhe/si8Wr73Q6
+	 zh63/N5jHEy/4VXmBqE7HBufCnJWZaAp5XtF3Rz/nOzIo3v/B2W0fVuIsff5EYm19Z
+	 8KDxl4709Kgpu4wP0rUR8p2GV/N2rYxOslykEnED8R1B7rtgNxXIJVBQvmzdizikA0
+	 B7rNwI/wmDwlKmP0d99vZ+Os11k4ujZNf5N/9+fdPhYQ6w+4ALN8vBGF/6HwqFTfiE
+	 8Paz4LbPqFjFQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 12 Nov 2026 23:53:21 +0100
-Subject: [PATCH v4 2/9] mm: limit pagecache folio refcount when splicing
- into pipes
+Date: Thu, 12 Nov 2026 23:53:22 +0100
+Subject: [PATCH v4 3/9] mm/mmu_gather: flush pending references early
+ before the folio limit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-refcount_overflow_stable-v4-2-ad3deef0bd23@kernel.org>
+Message-Id: <20261112-refcount_overflow_stable-v4-3-ad3deef0bd23@kernel.org>
 References: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
 In-Reply-To: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
 To: Lorenzo Stoakes <ljs@kernel.org>, 
@@ -92,286 +92,121 @@ To: Lorenzo Stoakes <ljs@kernel.org>,
 Cc: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
  fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
- iommu@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org, 
+ iommu@lists.linux.dev, netdev@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
  Pedro Falcato <pfalcato@suse.de>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9915; i=david@kernel.org;
- h=from:subject:message-id; bh=cKbuqWeh+NwZcJyo9b9LkGYlyqAoqJxb5hRZLYGLI5M=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+OWe+r1t0Vm6RWq31MbHXon8+5eZINfR6Gn49kZjxZ
- c3iF/eDO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZhI+21GhnuCW3Y81xPNXflh
- /zvlVV/zzWd+Eui+vy2accXGEwvSPY0Z/imLXnx0jE/p8/Pr7cdfZ9UvrU/zO50zpUs84Tfv/9w
- 4YS4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4551; i=david@kernel.org;
+ h=from:subject:message-id; bh=M6ZE0TzsSadI7DldS4FZfDzB4hM5y3s4Zcai47p6Ir4=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+OWduvClSHzC3evXB9Lxt78xCsy8tnX7iAfebyKv7o
+ 54JGJ3Y0FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEuL8z/C9Y+PRZek/930u8
+ 28Q3x/6aw+HzmDdG0HehxbomVkMPaz+G/znuRwKExbaphVsrmf5YcP5J553Tduz7/+Z7CF7LlWZ
+ k5QMA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Similar to mapping pagecache folios into page tables, let's reject
-additional references when splicing folios into a pipe if the refcount
-is at its limit.
+When a task zaps mappings (e.g., MADV_DONTNEED), it can drop the PT lock
+and defer dropping the folio references. In the meantime, page faults
+can refault pagecache folios, creating more references for the same
+folios. These deferred references can build up over multiple VMAs.
 
-This will prevent more cases of possible folio refcount overflows with
-large pagecache folios.
+Let's just request a flush after enqueueing folios whose refcount reached
+a certain threshold. Start flushing well before new references are refused,
+regardless of the caller's privileges.
 
-Introduce folio_get_checked() for checked reference acquisition when
-the caller already holds a reference. It warns and fails on a non-positive
-refcount and rejects additional references at the limit.
+When returning "true" from __tlb_remove_folio_pages_size(), PTE zapping
+will flush the TLB before dropping the PT lock, but drop the references
+afterwards. Refaults can still race with that, but flushing early reduces
+the risk of letting others hit the limit.
 
-Add __folio_ref_count_over_limit() so folio_get_checked() can reuse the
-refcount instead of having to read it a second time.
+This is a temporary measure until we have something better.
 
-Use folio_get_checked() in splice_folio_into_pipe() and
-fuse_ref_folio(), returning -EFAULT on failure, like we already do for
-pipe-buffer duplication. Similarly, make try_get_page() use it instead.
-
-Likely try_get_page() should be renamed (or removed) later, as it doesn't
-match the folio_try_get() semantics and is confusing.
-
-If we hit the limit after splicing some data, return the number of bytes
-already spliced. Teach the callers to handle errors, and stop
-filemap_splice_read() if we only spliced part of a folio, so we don't
-skip ahead to the next folio: note that we wouldn't run into this
-scenario before as we always spliced the requested range.
-
-The check in try_get_page() also covers pipe-buffer duplication by tee()
-and partial pipe-to-pipe splicing.
-
-Note that we deliberately will not fall back to the slow path of copying
-the folio, particularly as the folio might have an invalid refcount. If
-it is ever really required, we can revisit.
-
+Reported-by: Chris Mason <mason@kernel.org>
 Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
 Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
 Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
 Cc: stable@vger.kernel.org
 Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/fuse/dev.c      |  4 +++-
- include/linux/mm.h | 49 +++++++++++++++++++++++++++++++++++++++++--------
- mm/filemap.c       | 26 ++++++++++++++++----------
- mm/internal.h      |  4 ++--
- mm/shmem.c         |  7 +++++--
- 5 files changed, 67 insertions(+), 23 deletions(-)
+ include/asm-generic/tlb.h |  4 ++--
+ include/linux/mm.h        |  1 +
+ mm/memory.c               |  4 ++--
+ mm/mmu_gather.c           | 10 ++++++----
+ 4 files changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 3641abb90d6bb..50f41bb287832 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -1230,7 +1230,9 @@ static int fuse_ref_folio(struct fuse_copy_state *cs, struct folio *folio,
- 	if (cs->nr_segs >= cs->pipe->max_usage)
- 		return -EIO;
- 
--	folio_get(folio);
-+	if (!folio_get_checked(folio))
-+		return -EFAULT;
-+
- 	err = unlock_request(cs->req);
- 	if (err) {
- 		folio_put(folio);
+diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+index 3f4a180b48f3c..4bba02fd5d543 100644
+--- a/include/asm-generic/tlb.h
++++ b/include/asm-generic/tlb.h
+@@ -75,8 +75,8 @@
+  *  - __tlb_remove_folio_pages_size()
+  *
+  *    __tlb_remove_folio_pages_size() is the basic primitive that queues pages
+- *    for freeing. It will return a boolean indicating if the queue is (now)
+- *    full and a call to tlb_flush_mmu() is required.
++ *    for freeing. It returns true when a call to tlb_flush_mmu() is required,
++ *    either because the queue is full or a folio is near its refcount limit.
+  *
+  *    tlb_remove_page() and tlb_remove_page_size() imply the call to
+  *    tlb_flush_mmu() when required and has no return value.
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 9b247bebeda2c..383a5c2271d6b 100644
+index 383a5c2271d6b..0d00fc1838a01 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -2237,8 +2237,9 @@ bool folio_ref_count_over_limit_slowpath(const struct folio *folio,
+@@ -2232,6 +2232,7 @@ vm_fault_t finish_fault(struct vm_fault *vmf);
+ /* Leave separate reserves for administrators and concurrent reference gains. */
+ #define FOLIO_REF_COUNT_LIMIT		(INT_MAX - (1U << 26))
+ #define FOLIO_REF_COUNT_ADMIN_LIMIT	(INT_MAX - (1U << 25))
++#define FOLIO_REF_COUNT_FLUSH_LIMIT	(INT_MAX - (1U << 27))
+ 
+ bool folio_ref_count_over_limit_slowpath(const struct folio *folio,
  		unsigned int ref_count);
+diff --git a/mm/memory.c b/mm/memory.c
+index f473df474f1b8..855d7d82ce9ce 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2076,8 +2076,8 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+ 	pte_unmap_unlock(start_pte, ptl);
  
- /**
-- * folio_ref_count_over_limit - Check whether to refuse more folio references.
-+ * __folio_ref_count_over_limit - Check whether to refuse more folio references.
-  * @folio: The folio.
-+ * @ref_count: The sampled folio reference count.
-  *
-  * Check before adding page table mappings or other significant refcount users
-  * to pagecache folios (!hugetlb), either before acquiring references or
-@@ -2252,15 +2253,27 @@ bool folio_ref_count_over_limit_slowpath(const struct folio *folio,
-  *
-  * Return: True if the caller should refuse the operation, false otherwise.
-  */
--static inline bool folio_ref_count_over_limit(const struct folio *folio)
-+static inline bool __folio_ref_count_over_limit(const struct folio *folio,
-+		unsigned int ref_count)
- {
--	const unsigned int ref_count = folio_ref_count(folio);
--
- 	if (likely(ref_count < FOLIO_REF_COUNT_LIMIT))
- 		return false;
- 	return folio_ref_count_over_limit_slowpath(folio, ref_count);
- }
+ 	/*
+-	 * If we forced a TLB flush (either due to running out of
+-	 * batch buffers or because we needed to flush dirty TLB
++	 * If we forced a TLB flush (either to release batched
++	 * references or because we needed to flush dirty TLB
+ 	 * entries before releasing the ptl), free the batched
+ 	 * memory too. Come back again if we didn't do everything.
+ 	 */
+diff --git a/mm/mmu_gather.c b/mm/mmu_gather.c
+index 9f353f0e2ef4d..e98397ac577c4 100644
+--- a/mm/mmu_gather.c
++++ b/mm/mmu_gather.c
+@@ -179,10 +179,7 @@ static bool __tlb_remove_folio_pages_size(struct mmu_gather *tlb,
+ #endif
  
-+/**
-+ * folio_ref_count_over_limit - Check whether to refuse more folio references.
-+ * @folio: The folio.
-+ *
-+ * See __folio_ref_count_over_limit().
-+ *
-+ * Return: True if the caller should refuse the operation, false otherwise.
-+ */
-+static inline bool folio_ref_count_over_limit(const struct folio *folio)
-+{
-+	return __folio_ref_count_over_limit(folio, folio_ref_count(folio));
-+}
+ 	batch = tlb->active;
+-	/*
+-	 * Add the page and check if we are full. If so
+-	 * force a flush.
+-	 */
++	/* Add the pages before deciding whether we need to flush. */
+ 	if (likely(nr_pages == 1)) {
+ 		batch->encoded_pages[batch->nr++] = encode_page(page, flags);
+ 	} else {
+@@ -190,6 +187,11 @@ static bool __tlb_remove_folio_pages_size(struct mmu_gather *tlb,
+ 		batch->encoded_pages[batch->nr++] = encode_page(page, flags);
+ 		batch->encoded_pages[batch->nr++] = encode_nr_pages(nr_pages);
+ 	}
++	/* Flush pending references well before new references are refused. */
++	if (unlikely((unsigned int)folio_ref_count(page_folio(page)) >=
++		     FOLIO_REF_COUNT_FLUSH_LIMIT))
++		return true;
 +
- /**
-  * folio_get - Increment the reference count on a folio.
-  * @folio: The folio.
-@@ -2285,15 +2298,35 @@ static inline void get_page(struct page *page)
- 	folio_get(folio);
- }
- 
--static inline __must_check bool try_get_page(struct page *page)
-+/**
-+ * folio_get_checked - Try to acquire a reference to a live folio.
-+ * @folio: The folio.
-+ *
-+ * The caller must already hold a reference to @folio. Warn and fail on a
-+ * non-positive refcount, and refuse additional references at the limit.
-+ *
-+ * Use folio_try_get() for speculative reference acquisition where the
-+ * refcount can legitimately be zero.
-+ *
-+ * Return: True if the refcount was incremented, false otherwise.
-+ */
-+static inline __must_check bool folio_get_checked(struct folio *folio)
- {
--	page = compound_head(page);
--	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
-+	const int ref_count = folio_ref_count(folio);
-+
-+	if (WARN_ON_ONCE(ref_count <= 0))
-+		return false;
-+	if (unlikely(__folio_ref_count_over_limit(folio, ref_count)))
- 		return false;
--	page_ref_inc(page);
-+	folio_ref_inc(folio);
- 	return true;
- }
- 
-+static inline __must_check bool try_get_page(struct page *page)
-+{
-+	return folio_get_checked(page_folio(page));
-+}
-+
- /**
-  * folio_put - Decrement the reference count on a folio.
-  * @folio: The folio.
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 78f86f1daefe4..b972c6cd992c1 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3047,10 +3047,11 @@ generic_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
- EXPORT_SYMBOL(generic_file_read_iter);
- 
- /*
-- * Splice subpages from a folio into a pipe.
-+ * Splice subpages from a folio into a pipe. Return the number of bytes spliced,
-+ * or -EFAULT if we cannot splice from the folio.
-  */
--size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
--			      struct folio *folio, loff_t fpos, size_t size)
-+ssize_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
-+			       struct folio *folio, loff_t fpos, size_t size)
- {
- 	struct page *page;
- 	size_t spliced = 0, offset = offset_in_folio(folio, fpos);
-@@ -3063,13 +3064,15 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
- 		struct pipe_buffer *buf = pipe_head_buf(pipe);
- 		size_t part = min_t(size_t, PAGE_SIZE - offset, size - spliced);
- 
-+		if (!folio_get_checked(folio))
-+			return spliced ? spliced : -EFAULT;
-+
- 		*buf = (struct pipe_buffer) {
- 			.ops	= &page_cache_pipe_buf_ops,
- 			.page	= page,
- 			.offset	= offset,
- 			.len	= part,
- 		};
--		folio_get(folio);
- 		pipe->head++;
- 		page++;
- 		spliced += part;
-@@ -3094,9 +3097,10 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
-  * Return: On success, the number of bytes read will be returned and *@ppos
-  * will be updated if appropriate; 0 will be returned if there is no more data
-  * to be read; -EAGAIN will be returned if the pipe had no space, and some
-- * other negative error code will be returned on error.  A short read may occur
-- * if the pipe has insufficient space, we reach the end of the data or we hit a
-- * hole.
-+ * other negative error code will be returned on error; -EFAULT will be returned
-+ * if acquiring a folio reference fails and no data has been spliced.
-+ * A short read may occur if the pipe has insufficient space, we reach the
-+ * end of the data, hit a hole or hit a folio refcount limit.
-  */
- ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
- 			    struct pipe_inode_info *pipe,
-@@ -3154,7 +3158,7 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
- 
- 		for (i = 0; i < folio_batch_count(&fbatch); i++) {
- 			struct folio *folio = fbatch.folios[i];
--			size_t n;
-+			ssize_t n;
- 
- 			if (folio_pos(folio) >= end_offset)
- 				goto out;
-@@ -3170,13 +3174,15 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
- 
- 			n = min_t(loff_t, len, isize - *ppos);
- 			n = splice_folio_into_pipe(pipe, folio, *ppos, n);
--			if (!n)
-+			if (n <= 0) {
-+				error = n;
- 				goto out;
-+			}
- 			len -= n;
- 			total_spliced += n;
- 			*ppos += n;
- 			in->f_ra.prev_pos = *ppos;
--			if (pipe_is_full(pipe))
-+			if (pipe_is_full(pipe) || *ppos < folio_next_pos(folio))
- 				goto out;
- 		}
- 
-diff --git a/mm/internal.h b/mm/internal.h
-index b129510b92e2a..08e259758937b 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1276,8 +1276,8 @@ struct migration_target_control {
- /*
-  * mm/filemap.c
-  */
--size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
--			      struct folio *folio, loff_t fpos, size_t size);
-+ssize_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
-+			       struct folio *folio, loff_t fpos, size_t size);
- 
- static inline bool vma_is_single_threaded_private(struct vm_area_struct *vma)
- {
-diff --git a/mm/shmem.c b/mm/shmem.c
-index be4ab228cf67c..8b94877c36c18 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -3751,7 +3751,8 @@ static ssize_t shmem_file_splice_read(struct file *in, loff_t *ppos,
- 	struct inode *inode = file_inode(in);
- 	struct address_space *mapping = inode->i_mapping;
- 	struct folio *folio = NULL;
--	size_t total_spliced = 0, used, npages, n, part;
-+	size_t total_spliced = 0, used, npages, part;
-+	ssize_t n;
- 	loff_t isize;
- 	int error = 0;
- 
-@@ -3837,8 +3838,10 @@ static ssize_t shmem_file_splice_read(struct file *in, loff_t *ppos,
- 			n = splice_zeropage_into_pipe(pipe, *ppos, part);
- 		}
- 
--		if (!n)
-+		if (n <= 0) {
-+			error = n;
- 			break;
-+		}
- 		len -= n;
- 		total_spliced += n;
- 		*ppos += n;
+ 	/*
+ 	 * Make sure that we can always add another "page" + "nr_pages",
+ 	 * requiring two entries instead of only a single one.
 
 -- 
 2.56.0
