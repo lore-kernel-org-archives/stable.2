@@ -1,67 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475200;
-	b=bU1xnZZ5AkPBVxiOVt6tAwWspbVVBl8EmN1yBhrt8pd9Mo26NOee3i5wavnY47hbopMn
-	 lVDQznny4izBrgSXWq7LOxbu8NLhbdUq1soI7v6Qwe/isiEjPIH8l9VtUxI1GWtWUwyfa
-	 VWmQgZlNlxvSocC4/z+YCT9KTFmv5VEXsMHLicurh/vpi2IPxoAb01fjF23B05toYLWCR
-	 zXFwHTkAbBTttIkTe2SbJPjcoYahqn+JwdD0FRuNjwlNTd3+3PKjIMfDFAOIiohw1/2ea
-	 ps3nWOYJaNNJ/g2tlum490KM2uYby1VRjyF7HXxyuB/XmD4vyyTYzRSYsl0VQf512lQ==
+	t=1794475326;
+	b=bO94qebhRp1QB6BvRlXfmT2sqyx6RDyFYoCSjyYoeC4RkKuH+AzmH7ZgxzQhacQqWIOZ
+	 8Z4+A+RPkH6o6WlZfosNxsanC6TAkiw1dh8XayQ8ZoN1+FcVZhS/cNzVnY3xoExOb0/UA
+	 9/S98cm0zGxpGc0CjY3/lf+XyB+A2F0XX51IQMlhMCFd2Zvv2ZYKd6rtPCY3Glz89eZcP
+	 4iApkKXMBG2wY3xkuLnXzn7BY26d5IfcOSeHUoCx05cKKcZYmy4YZSoEhF9FFcX7vJGwP
+	 bcgDD5QR/s2Pl22tdZ+tWP/NAcazPAmKrg4v1sNC6ePpHyGy0mWKDZUsdQfufHyRVQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475200;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=5wHJHaXQBa1716W1dMoYWa0PbRnI7INut6Puhlu3wnY=;
-	b=we7yodpAYDqm7JkwIe7Zbm51ZpjiqBd8vh2sg2PE2KsM8vB/m4UOpmkkBEZzI4a0iP5H
-	 GDfMFl/WB4iQVfnBY/U0Y403/K2M9tvTiZvTBVbcGy8gUAllS4KRo9vRu8Hk9UUNbIxVN
-	 +NSvUp42HwK/6xHgEf8Zv+xzvje9i3oVKtis80EUiPFVoko+Z7CiwGqgNWVaiVVM4HT0/
-	 5hFIlgNaWQSd4BfTLIcY9MiowYb+HX2/G2y9XpQBh7GAoU3uj6/h+L2l/s/RLizORRtyB
-	 oCG3S+4Cu9eeQgMDfGfWJzF3S4UeDxFhujnCflEyFlHIoaU2IwklL1jBINct04fLDRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475326;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=sLyZtPTkFdbyABhOZWUDHW8SHa1Rc6mfsRhG3LxmUD0=;
+	b=Ih42CrRUzqmt/4I6vQ/FdKqT+R6MPUxFe6wb0bwWImPO/yUxo+BhKULyO9xoHzl5j2ez
+	 nxy4frhf05Tt0fII96U0Q0T060U0frN4t8AKgfpbZCzRwY9z5rV4jSVOKXEcRYGY5g7X8
+	 yOijJMG0eODjLH2cuLue5eWL4zrhnL7hik01p7N85SHzAxy6jQuWhwDD+WZblIhpc2IhV
+	 ZUSIvtU0Xy32HjgOgFxhVOVaU2ygDvb2wOXNl+iSxkG+4RCOMN8IL2q4LW9Sfa84VD7TJ
+	 n1fjIbejxyGEdijmdZjs6kDmQGoP91X3S5U+UmhPh0w+IHtygARMOEwWE77Mj4iou5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Zw8yRxXN;
-	arc=none smtp.remote-ip=54.254.200.128
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nAOJwhZu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6719D606A32D;
-	Thu, 12 Nov 2026 09:19:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6719D606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8729B606A31C;
+	Thu, 12 Nov 2026 09:22:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Zw8yRxXN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794475183;
-	bh=5wHJHaXQBa1716W1dMoYWa0PbRnI7INut6Puhlu3wnY=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Zw8yRxXNbPbTKfhzXcBCM/KNG7q8pId8ZZMWSXFGp1zvmFDlK9600Dv7THXsHb127
-	 LC2ER29fhjmIWi9zWUmvA0tutVjkgFIvYNzTBsmRRP1WdZyOHi3Y0ZfXDxl0ikWfVI
-	 E2ljBo8d/T7ujkpU+ire0DGWbhkt6woKUjhK737A=
-X-QQ-mid: zesmtpsz7t1794475177te7180ca5
-X-QQ-Originating-IP: ge1uDlrwCAGPqmU36gNC2yLFw/hg8wdzYiyNV0mMeHU=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 12 Nov 2026 17:19:35 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9293025895918087849
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: rafael@kernel.org
-Cc: lenb@kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ACPI: property: Do not free embedded subnode packages
-Date: Thu, 12 Nov 2026 17:19:35 +0800
-Message-ID: <1D6D9530A62ECE64+20261112091935.1394634-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nAOJwhZu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6271F00A05;
+	Thu, 12 Nov 2026 09:22:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794475326;
+	bh=sLyZtPTkFdbyABhOZWUDHW8SHa1Rc6mfsRhG3LxmUD0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nAOJwhZuPhiifB1pHM4GAjXo0IsTEIy+1AHFfyPCUFvL1ZpMCNwBs0bbAbdnC74Fa
+	 yO/sVppxWLenFnxjtzXfzarxZEgA6ZEGXWTQhfo/IwANEBRpj7+Z9drQDWp+3aRNQa
+	 Ee72GH6Sdet/XOXTEkFX1p9RnjNSacbnI7AJmQIpjPpmmiLMfwl7BZNsPz0FpCsme0
+	 M+elIZ5zR0tS45NiH2JBIVLbwyz2ua0ndLK4vwXXeEWg+mPaF37aZJXIaJtcp5MMv5
+	 ho0qwytX4zefuxynu3VDax+fdf6QQc+ndtU0SxJPjdCAg2C1Smr0WvUwC0q9ibZtdc
+	 /iW2gD44t8cgw==
+From: netdev-bot+sinfo@kernel.org
+To: Amaan Cheval <amaan.cheval@gmail.com>
+Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, bcf@google.com, jordanrhee@google.com,
+ przemyslaw.kitszel@intel.com, maciej.fijalkowski@intel.com,
+ pkaligineedi@google.com, maolson@google.com, csully@google.com,
+ willemb@google.com, yangchun@google.com, npl@google.com,
+ awogbemila@google.com, shailend@google.com, nktgrg@google.com,
+ maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com,
+ hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v6 0/2] gve: fix RX page refcount overflow with the
+ pagecnt bias
+Date: Thu, 12 Nov 2026 09:22:03 +0000
+Message-ID: <179447532371.2168702.1261444176228225499@kernel.org>
+In-Reply-To: <20261112091451.22969-1-amaan.cheval@gmail.com>
+References: <20261112091451.22969-1-amaan.cheval@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,71 +70,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: M7sWA1GV8vClC61usY7OM+X70fPDrGhh9vvaeM+KxEC4esoo9UoAo4dn
-	oNq/uQVLs2S/S5PYtcUpLfsP3xCK8pmdF3Jw0M52rZBRJe3NEdgggnAejz99RC4lQpuz5PO
-	0BdiBn8BaIj2oD/NFsd3PmmsCpFApFQ8LJBQShPrDUx+D6yI6t9WRoC8cMTtZdVel5dQaH1
-	NlfPIBAvbgAdPZM0cGYByzTGrH29edQoDXk/AGQSX+Ci0VV4IvjkBjfJKD4wmPIQ9N3l5yr
-	9k5wb16vdGDCmsCIjM1LwPLTMAD2XqS8eNYJWNwgV84VFP6wgEg9TLNaKVBYiUNMJV8amRq
-	cFC9UMztdfqm5rfL/RCm14X56K3JJyyX0aGRtvlDlXJYDtAy0HpS1e+AWziXB4XyqLeJtCL
-	lnDhlhS5fctXng4m3ZUZ3IBtcNmkdHS/HgESe9dRfL57nZOHUaZr09/3pLeajW2idl5PhYc
-	MLG2T37+rE0pqIRyI8wAeAn7cSxt/EFD2urHySQ/foX+uRnLIHBWblJfwvQ88k9SLEiT0FB
-	g5pmflWHvnUUjYjT3kjfhqCP+KF0XuixK3ovIbYv1rZ5mduWIryB9kaYj0NE2NqzOlDllmS
-	5ewgT5lGx7EQp3thsx4xHf7hGM30atXbAMtzZN6dzAsiNmiuUVHq/Hh5HLorv/MyluXRUR7
-	NH9FhN9H1BV/qqQ3zEoI+fjYqRDYMvaEQr4eBDpmLR3FIC+wDjS2Sdcx01Kpoz7xNjGVaA2
-	ILybJOQoV6vPL14IZV3wPY57broWwsFYR3BVyhzn+q7raS5uxkQfoaHsEedJ8oK+7yq8CMI
-	ByAVyQ/0KC/NgVnifynxZqiocQWWyKwi5ni89khFikp81J7URHOadTZobuH7TnN2Uc3L5FO
-	T5MWCxNFW0hmJsq/xiSSRGrlq9c5kdoTFS5gl3O+Vm/RPzEhoXomKjiAyI5ujlAWXqyTjzu
-	nGZUW8qurXdv5rjs7yuLF485hClwDiG/LI3aJWKIErYhyAzKt/TeA47kGbXfK586ljSvZ++
-	OGZSXfbvl6Vq+kbRachM4rk6sj9joSJeVP/iAP2JZ9IpRpJgV6I2rD5qFFaoLccmPlIndB8
-	LZBRCGm/YGZvC5GvSUlDx3PYKbNGLzae5P4YHJJHbZj
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+Hi!
 
-The _DSD data-subnode parser accepts both named-object paths and packages
-embedded in an enclosing evaluation result. For a named-object path,
-acpi_nondev_subnode_ok() evaluates the object into a separate buffer and
-passes its handle to acpi_nondev_subnode_extract(). For an embedded
-package, acpi_add_nondev_subnodes() passes an interior pointer into the
-enclosing result and a NULL handle instead.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-acpi_destroy_nondev_subnodes() unconditionally frees dn->data.pointer
-in both cases. Unloading an SSDT with embedded data subnodes therefore
-attempts to free an interior address, as reported by KASAN. Subnodes
-created exclusively from named-object paths do not have this problem.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
-Only free a subnode's result buffer when dn->handle is non-NULL. Embedded
-packages are owned by the enclosing evaluation result, which is freed
-after its child nodes have been destroyed. Keep the property-container
-and data-node cleanup for both kinds of subnode.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Fixes: 99db5ff7fe0b ("ACPI / property: Hierarchical properties support update")
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Link: https://lists.openwall.net/linux-kernel/2026/06/05/10
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/acpi/property.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
-index 8ee5a1f0eb48..3a26df35979d 100644
---- a/drivers/acpi/property.c
-+++ b/drivers/acpi/property.c
-@@ -664,7 +664,8 @@ static void acpi_destroy_nondev_subnodes(struct list_head *list)
- 		acpi_destroy_nondev_subnodes(&dn->data.subnodes);
- 		wait_for_completion(&dn->kobj_done);
- 		list_del(&dn->sibling);
--		ACPI_FREE((void *)dn->data.pointer);
-+		if (dn->handle)
-+			ACPI_FREE((void *)dn->data.pointer);
- 		acpi_free_device_properties(&dn->data.properties);
- 		kfree(dn);
- 	}
---
-2.50.1
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
