@@ -1,101 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794466586;
-	b=IC+4eTQlUlbkiayXRlwrzt62ZmXug8KrOkZGbFEl2kBLEa4P+0T3GVO2zL7fGfGoOwpx
-	 tMmUo8PIw9YjMDHcu/3a8OpuVy7bC1WsZ/7jwH91nvvFP02EGqGgwVfXdG0OLMahDddEL
-	 uyOw0+Dr8dHt0vqKT1u4VQr3iVTQyrLhUgPxkRThggv6qxlDs8BRdz15cQMJ9gyB6VsR9
-	 eH0p6ipU2evoYnPGxgwHRkErf+U94Xjw7zSdZ7RVdmAacjoxRFas+V7mYU6JyHFZDhXG8
-	 a4zcl6oI2FYdEH3PXAB759BiPDLiVUCrzAeEv40ACCsq54uJOE5Zqi13SSc8Hxff6Jg==
+	t=1794466622;
+	b=RFEkwzsVdGnNCumK/YjUjBFrszCvHCYEXXwZEXhoeebLqTUmlryxb/ZbUofRCXjVJTlO
+	 782BHqm38/x9wejqaq7mcZJ/X5g+EwjREF7BqVKS8ApRGEZZ7H1IekF8MQxNiqpo291xk
+	 vtkXJGo/2nrOfYBk48jNF7q3u3cyyQdVXThxhjoSYpcoAXT4OfbIOPmCfEo/ZcjnXzDJD
+	 Dcr5WTojKCUlM5uEd2IxANsyq6QdZeGJOHQ+Ozzf0f0qQGSPKdlJqWclsrMoOgLvI6um8
+	 OzVu8Hw+2XszbXyUQ2aWcL/q7iwwBThxsJs4tGOePXd/z86MBaSC6wqHi6hA6oxnzrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794466586;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=csZSNdtphR4UrJionrHwtrF+cPcKbhAt8xmIfm2H+zw=;
-	b=pZlIFrFg58/e40q3AU5bzZ6UpomuA/S/WjNMoxSYdUVITLB8JawgPmeoe0dR+petu0Nk
-	 iSFu1lq12XCD6jWF6Fpl9nzeugt+rM2ZMh08zG5zAz7djaFC32UtHJNCWjf/inBe6tPYS
-	 QK6/GVnAj4DBsZGUNJEWCDfwKsGfXH0d0XVR8UfBU833Ni8MIPmQh+Dl/1Qftgyrc2r8E
-	 EYweH+Xc4DGNbF6EfmcuNyhJjwk6z4roZwAsevGJmWppwQ5lrukAivCsXK1/ZTK/XFQ9j
-	 yxVTLU0HtKgCGwY70CT9Z7wA6s+GkyozZj88KVUpihsxjNQqV0ge3EmmksSpRS0WdHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466622;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=JO6FW3tawApcJIwTTcR4zJNDJEYR841HkFnpVbs8+pI=;
+	b=2PTs0SEPAQKAHdHOE5Rku1qqJpbGwm7ERhfdWi2bnOJUhIJHAzY8S7bdg/R1+Xjam4jT
+	 m+qJrdKh1WHjCCzix/BBA6dnc6KTOia0A3/KQ1vGPLi4vk+WNVX+m1PmMorcS1gZxvt9H
+	 1/R0N5DkmPKx0WUsy4zJqfrdFP0Z5WOWEVZlnYvpYoE9KW3jHYH5eXHfGtQBmo+CSMMl8
+	 eL1KQsl/1/hZdS7iwgPSuCD/fSG3zmLvpyz9JNrT86AdMw9IRDFvs6vP+3s24eKqcfH2Q
+	 bAP6d4l1DE0DAhqCp8suRld5G2iUbjdgMYYkgSy2cJv2bqZxAfyIv7BdCOgDFbGUUdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="z/TJ3Xhf";
-	arc=none smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MSaSPZrw;
+	arc=none smtp.remote-ip=115.124.30.99
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DAD60A2612
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92DAD60A2612
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E2F606A323;
+	Thu, 12 Nov 2026 06:56:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44E2F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z/TJ3Xhf
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5569551d19dso6466731cf.0
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:56:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794466585; x=1795071385; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=csZSNdtphR4UrJionrHwtrF+cPcKbhAt8xmIfm2H+zw=;
-        b=z/TJ3XhfSGoUPqhZUqv/zZmJ9HOGxzJ00XDyo9zsrUC4geZxxRviNE1Gku/8HoBFlu
-         5srUqj87jFT+sAfQ76XHxWgzOMQNmmWzG39wodzkCZPLwPE40EgYuIwHvRsrp8HheZPf
-         DdxXzAyjs8Tu200PkN/XLnzdYqgaUHMA6TPzQAiLrW2s7ITyDnu3+NubVY4PAV/KBWEM
-         Xas2jOtk6DrhPj2Hh5PUN1pa2FoAeEHaTjSREcFqcX7PuvINg+b0ni1KBeMeuLTjCEdE
-         0VmlletuSyAAiecrQWVDCD7ib4zQsK8DYTdP19WgRgCvg2VKi5J79FtmMxHxsLydvoXc
-         o13w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794466585; x=1795071385;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=csZSNdtphR4UrJionrHwtrF+cPcKbhAt8xmIfm2H+zw=;
-        b=JPlTlF560cF150M0uHiMjd1g8zQp7vp/CQspGNloL4W7KF0QzJYRL+WW9cJun5RJ75
-         h4kSssXuCe1BqXzXheD89LhEK0hA5nNSnGKrTRgJSp0t29TGysu8OGP7rWDhK+DAs05s
-         iasnAbuaUOIBYMu6Gb7RAyLjYOp3md6GFmsS2Vp6ckd9NbGkdqJUUhAhD7G/RKEiaWkh
-         dHYUF/UZRXPk0VIkjXPIxNwTNEluPFWUo9KgegU9qzKtYCBa84j2m51bykDleDeKBLib
-         D96gh2gaA+QsEJZ0c1MY2ObcavrsLnq/BWSR/4jHwWj4Iu63WsTIjA1f8dlFVVEDCIu2
-         Bb3A==
-X-Forwarded-Encrypted: i=1; AL+hErFHWAfY4C+NrD153D28hP6kvWri9B4G20L6PdKwlHxqbSvQN+coXNoXO0jJdKC8pnQkZjYGic0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fTYjnRDqT2GTRDmzIes1D+1bqOKa6uwV/Hh3dw1tNP2U10uLb
-	1BAqgaKyHSsApmEn60NKDbsBah5Gma2+OyZse2Z3RT+jEFv9OzKSrgU=
-X-Gm-Gg: AYBFou1MYxoEZJVCkSKXBTajltJLQnfXWK0PvBJreLXbuavpZCLSwTtjzW28fPH+kp+
-	CFkWcpFodlH6+t2vQjfM1XzIZ9gLzV/1MMLTCavyX57A5/pQrmROKY9wsd+M5Fkft55Ylu52Zdi
-	aKoPtGChG3q0VoYutV3ifucJB7fUMzZ5VnWae3xi7+blSSYU7PSKG0fXDlPBSKq8mxGQUWUymAI
-	IBYcckbJ47Dzqr0WzIGZ4mn2EBT8UJ9V42Cy7xeR25e5EZmuzYDf7QgjBTe84vPq/5++/QgtDUJ
-	7Lfdj/0pERpV9JYFqOQExG0WbGbqviAqUlcq8/OCUQauGZzKYhHMy5PGXB9IrSsxYQTK7fNhqLt
-	i0Oad3jhjvDFgGv/viFD0G5Diyp7qwUgHwmQL1izDm6zTNSNp8yFP6ITIilp8cODT2sx7IVF8nO
-	SUQ5ulcFxw8rNyeUhwP0UxlTSJUdbyzz/comfsQyFQdeULsnxrVJwHjt5iiKsPm3kGaT25D/TGV
-	oNzGieAvjsW8enzAscpw1edix5AMwVDjRTks7Ss3HZuNdRCwAKUdGZeXKj2hrZnsZQJgseGx+UU
-	lhj0j6I4dqR05v5QeolthsVlJJDRfiYGoiPGVzay9PcyINQ9anvob6De6jFGVP0ZKPR56mRe6sQ
-	3HvK/Tivr/7uvF3XiUKEnvjid9IE/LIBo/NgKnJ4b3FydMO5uXCjuAZ74TsSFeJbcRDrABW+ViP
-	T75/HdPbsibmiQ3S83uVXg54dsHqvzQSaEp7COxBNbY6EpxlY0tBu4jA==
-X-Received: by 2002:a05:622a:1dc7:b0:54f:7f40:799d with SMTP id d75a77b69052e-55956e5ebd8mr31073631cf.31.1794466585518;
-        Wed, 11 Nov 2026 22:56:25 -0800 (PST)
-Received: from localhost.localdomain (h16.44.55.139.dynamic.ip.windstream.net. [139.55.44.16])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef054f382sm64827376d6.43.2026.11.11.22.56.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 22:56:24 -0800 (PST)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Sean Young <sean@mess.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: sunxi-cir: Disable the interrupt before stopping the hardware
-Date: Thu, 12 Nov 2026 01:56:23 -0500
-Message-ID: <20261112065623.34296-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=MSaSPZrw
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794466616; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=JO6FW3tawApcJIwTTcR4zJNDJEYR841HkFnpVbs8+pI=;
+	b=MSaSPZrwSImpTjQeit7lfj3V7ivitCBnkn4/es+8mH5j77EqkfPublLS0WOasMlSPZoSZtVAY98yov4tdN23/CzsvVFv8s+eyQXgStJ9m8xndSdXNLNOKY/ECSMSRzBmNNVeRn8p4gfKrElg//KP+JJhkSwXDG7DMyVdYJE+Dls=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R601e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XEbCXrk_1794466612;
+Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEbCXrk_1794466612 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 12 Nov 2026 14:56:54 +0800
+Message-ID: <dc7e9478-6f03-4ee9-bf41-ebfc4a8f7edb@linux.alibaba.com>
+Date: Thu, 12 Nov 2026 14:56:52 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,48 +53,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] mm/huge_memory: prevent losing PG_waiters in
+ __split_folio_to_order()
+To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Ye Liu <ye.liu@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261110-fix-split_folio_to_order-race-v4-1-cc5042f33408@nvidia.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261110-fix-split_folio_to_order-race-v4-1-cc5042f33408@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The devm-managed IRQ remains registered after sunxi_ir_hw_exit() stops
-the hardware and rc_free_device() frees the rc device. A running handler
-can therefore access the FIFO with clocks gated or pass a freed rc
-device to the raw event code.
 
-Call disable_irq() after rc_unregister_device() and before
-sunxi_ir_hw_exit() to wait for the handler before stopping the hardware
-and freeing the rc device.
 
-For backports to kernels where rc_unregister_device() frees the rc
-device, disable the IRQ before unregistering it.
+On 11/11/26 11:19 AM, Zi Yan wrote:
+> __split_folio_to_order() calls prep_compound_page() on each new head page
+> to create a compound page after clear_compound_head(). prep_compound_page()
+> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
+> and frozen and no one else is supposed to modify the folio's flags.
+> 
+> However, code calling migration_entry_wait() can reach the folio by PFN,
+> then access its flags. It is because softleaf_entry_wait_on_locked() used
+> by migration_entry_wait() sets PG_waiters concurrently without taking a
+> reference and the frozen refcount during split cannot block it. Meanwhile,
+> __SetPageHead() does a plain read and write, so PG_waiters atomically set
+> by softleaf_entry_wait_on_locked() will be lost if the set happens after
+> __SetPageHead()'s read and before its write.
+> 
+> One example code interleaving:
+> 
+> CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
+> 
+> 1. clear_compound_head(new_head)
+>     new_head->compound_info = 0
+>     (page_folio(new_head) == new_head now)
+> 
+>                                             2. migration_entry_wait()
+>                                               softleaf_to_folio(entry)
+>                                               page_folio() -> new_head
+>                                               (not the old head any more)
+> 
+> 3. prep_compound_page(new_head, new_order)
+>       __SetPageHead(new_head)
+>         tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
+> 
+>                                             4. folio_set_waiters(new_head)
+>                                               set_bit(PG_waiters, &flags.f)
+>                                               enqueue on waitqueue, sleep
+> 
+> 5.     new_head->flags.f = tmp | (1UL << PG_head)
+>         <-- store; overwrites step 4, PG_waiters == 0 again
+> 
+> Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
+> and CPU1 can remain blocked indefinitely.
+> 
+> Fix it by setting PG_head along with other flags in new_folio->flags before
+> smp_wmb() and clear_compound_head(). The remaining compound page metadata
+> is set after clear_compound_head(). In that way, after
+> clear_compound_head() makes new_folio visible, nothing overwrites the
+> PG_waiters from softleaf_entry_wait_on_locked() by modifying
+> new_folio->flags non-atomically.
+> 
+> While at it, use data_race() to suppress the KCSAN issue reported by Ye
+> Liu's patch (the second Closes) on reading folio->flags in
+> __split_folio_to_order().
+> 
+> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> Reported-by: David Hildenbrand <david@kernel.org>
+> Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
+> Reported-by: Ye Liu <ye.liu@linux.dev>
+> Closes: https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
+> Fixes: c010d47f107f6 ("mm: thp: split huge page to any lower order pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> ---
 
-Found by a static analysis tool under development.
-Not tested on hardware.
-
-Fixes: b4e3e59fb59c ("[media] rc: add sunxi-ir driver")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260729153104.3F6641F00AC4@smtp.kernel.org/
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-
- drivers/media/rc/sunxi-cir.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/media/rc/sunxi-cir.c b/drivers/media/rc/sunxi-cir.c
-index e97bd9e03c1f..9d22ad7aa94b 100644
---- a/drivers/media/rc/sunxi-cir.c
-+++ b/drivers/media/rc/sunxi-cir.c
-@@ -374,6 +374,7 @@ static void sunxi_ir_remove(struct platform_device *pdev)
- 	struct sunxi_ir *ir = platform_get_drvdata(pdev);
- 
- 	rc_unregister_device(ir->rc);
-+	disable_irq(ir->irq);
- 	sunxi_ir_hw_exit(&pdev->dev);
- 	rc_free_device(ir->rc);
- }
-
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
--- 
-2.43.0
-
+Make sense to me.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
