@@ -1,49 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794452025;
-	b=jZjB/FkcYgPlI+KwSKl2FJxPY9zPn3woKrvay8YEs/hy6Z1HFreMViuaV0A/zvMe72fc
-	 RH4rg+uzvlALO+2pQZrqBu6idMte8NM6kABSVXtaUwY4n8mg9QNZQo7G88WNRKGXtgHkY
-	 eCl7j+dfnCqllftNU//U9y0zZ5a+ISTehVAykSWUI8a1T9Kbi3mJfx50oxBAGXBeczT6P
-	 6dhozgRNFiEk6C/y0DwBPHTnTNj0UJ2v5idHPiwqhmBG+uXu5TGBDq+9NqKYMXpe+bxj2
-	 F04uROB5AiiREvRh4n0Cd/3tDIC15n89iEn6kdwVZKlY8XXqIOOyeSx2sKcW1IBMe9Q==
+	t=1794452028;
+	b=GU/trdbwZhCTs4l1OfDJ0PotH/KvP89sSNBl+G9bvMdsHAtFrCARZocxSSAAg5Gqosvg
+	 JrJKxgZ1KHvVpHyOp9WnJB0e87Xm+dANKl9hHn/P9C9eDrtCYyGsV10DtXF1y5hnKT36z
+	 VDm/adfJdRhJJj/nTmOvWeDuqTbvCofOQiQkfIdKhP0TPYxFW2yhN175CFQ0Un8ZUs7cK
+	 mElhbKTjutyaE/4/aVoYWfxOMR8I0aqUG6kfOvnqydahOol/++bZBozks/DmsJs7blkBV
+	 6+KFmp0oMawJ4d7MoYHxZiVl5yZHq8S1IMvbnzzsqFdy82aBdkKlIDuUUeGAKHs+dOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794452025;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=/cOEvzfTmLtCNzwUoH+WlzB71QyL8D0I1pIinOCRzTI=;
-	b=Dul/8+2YYNWTI9GDqMy7sHX9P4hGwOHurSKNV6E8WnsnoaDUXlTR33xnnopMZaJ3PvEA
-	 SbVpZS18q4Hn76ifO0tpGYMCHUH42vjqcGR/5DOsDr+BaY8W7fJvijtlvlyaXYL3i9shQ
-	 WDYgVDkn3GrnlT9hyFhlGSELhTZkGManUNUSEIfhgkADsilH4U99QWDpFAddNzRlzTfad
-	 MjOCdec8vgkjwNIbOC+/Meq8gl0Bpwj1ChcEIN1gZediRveN7kK6Aq5VZ6wgcJWqgZY6x
-	 jqZFcaAOgRCixt8zc9IXkGUlHxruxNEqMnxrKEBvmyUpaAOxuPunIP9J7Vzny9bjGDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794452028;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8yMHCtcZ/1cI9oadvNBaz1GIBWo+u42FQNaRXMLSLbc=;
+	b=htq827c6ccwKDzfR6BFqBqqvkMKpJrXtLwE+sv7KCS7/qJ5rIKTELMpO7feMiL/w5HgS
+	 TkTNmkqPhFpl3OOSuYC/fvZVVR+/veKGwjNyFKysH0aO/4HUULzXO/JxFoBrTAyhytNqt
+	 Y2JtCfC0mZJckJt3tTkqhf62OiAkKvHuh9MkzK9PmClRQCKLjtBpbRL0Jh4EoshViXYU+
+	 7MV1g7lvFHIS+2JNrgNgrk+NPXCc1/co506WEEfQrStCm2z+2ns8C0H6HusfpiMd7aJNO
+	 H6n/+yp20zyiVMcNrQ/sAr3lqr9gRdL7BPjGZEfSayUQhSzx5D/c2O5MxnKxlIsCwPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=GwRr4NbL;
-	arc=none smtp.remote-ip=115.124.30.100
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SoHAKYts;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B542606A321;
-	Thu, 12 Nov 2026 02:53:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B542606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA872606A885
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:53:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA872606A885
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=GwRr4NbL
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794452015; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=/cOEvzfTmLtCNzwUoH+WlzB71QyL8D0I1pIinOCRzTI=;
-	b=GwRr4NbL92PaE9dXiYqpfaEQmojlJoXCfa6qSp6fbxgp5NX9teVBnzg2EdupgfFdX/jj8Xbcz0FSRE0EUfnSfOvhd+nDcg0Qi3N+PJhFrljLap0oDnbRZu18Sf0icb9sQbHGslxknnSpCDuzDsrCQOP/3WNYmL8C492jwTifXvM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XEaSnJV_1794452014;
-Received: from 30.221.145.78(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEaSnJV_1794452014 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 12 Nov 2026 10:53:34 +0800
-Message-ID: <c5d699e4-12cd-4321-9b23-7d340ea8e959@linux.alibaba.com>
-Date: Thu, 12 Nov 2026 10:53:33 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SoHAKYts
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso2296876a91.2
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:53:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794452027; x=1795056827; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8yMHCtcZ/1cI9oadvNBaz1GIBWo+u42FQNaRXMLSLbc=;
+        b=SoHAKYts+CYz/wXS2LA4OxGNsSrUcR7FjvkZGOYp9Seetf4436d4GPJtdusZ2ZpaXB
+         3VT1FerWekHSaM7hzUwHLmqTpJnnTHthYLMnwpmN+z03OkuyqnCcmQc8BBUUqp8PuscU
+         n9osR6uokHoBknm9GTc1ZZwyOzczCObDGQ+RnosXayk9oCR4cs6slma7qZ569Wvj9t7+
+         raPDMWMZ9lb2wfPvnSbE3uN/1LP6jqR/TwJp1/qZqk4LY1PRZxXRbfocg9PNELbWNv6u
+         3EnIufpL8tTVmUWJVa7KvYRbwENtXVAkMlowGqwHKkcoZ29e4YyILB/uOBENwmKQ076R
+         4nxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794452027; x=1795056827;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8yMHCtcZ/1cI9oadvNBaz1GIBWo+u42FQNaRXMLSLbc=;
+        b=t014ALjx+0lVZ1MV3JkA5afxcFDW0ajxgFNyrl5hoFx4ok6PHfHPrDX6ID6eU+a9dn
+         E5S14S/yH4vYz0VJwuudPbogRafPNUxL9hHyKulczs/yMBkzM5no/P9wqlQ3x/pv89mZ
+         hhYbxdjg7wvfWCAvWeAPlEUI3hr3vnueIDk1j/56bw2ext8UNEUhNaLeo+QbQv/y90OV
+         akhIV5fcWRvLfQt+HUikAsBt2MqDCH87WkG73mFLYEuxSeEKI9PdlJ9Ol1lRldMEzLGB
+         Led87EgYZcuVtqKqyiU026qjR3FA49cQ+8y5hLb9CIkXeNCGe+Ax9tnG2/vMKh4Z5EHH
+         SOqQ==
+X-Forwarded-Encrypted: i=1; AL+hErHuIKUBuKiZc8Dn/2whJSSuc5Trc1/DDltrySQPfG3GKI/FTfDuAVftS+dRm7ONwPwHBSPm5iI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82aHwZLQ6E5R2E/UTOfuANoto7KG7IJLLNicQ8D9Eep2whtgAS
+	9hK9ixejsPIGw5EXxk+yf8bLJiVU5EGwX96UYHfJ79BlYRiEyZEFCcUJ
+X-Gm-Gg: AYBFou3ut5YWvscpbKZu8nas1TPv07WKXG8cKSXuCMFECD9TVYGoKKYH1TKS5gJvWK8
+	huDBdNeBnrkiO3affdCTPuSMk3xJd1wMdtlZ6ucrpqdmCJcV3mG38Ey7egysK8NaPWDU2Z8AamW
+	2YE/dMvMCKYLMwf1cAk2HyCRP5frkY1l/RGS77JnD0MSZuChnGz4OlfDx8Y1oPve53IhnkPGvRn
+	go2pJ4LLra/aGK5QQ/AEoUUdf+WZ+2PlWgt1hmvlVzNDK3WgQzlYcgBTSHdBuNN1ETE64aQPoN+
+	92+96IudP523zg5mpvRJlIyx6eRQ6hT/bSoo71QHoVLFX2QZSZthGAdhJQM+dVQiLLQ4iJHDDWl
+	JSMRQOFj4OkSkO+O0UqZ9kRtO5mH7tNvHVUGeImmRY64biouUrC0l7sZKwEo4BgbnvobbCP7PWb
+	V3huOxuee3v/DfTqOnHgrzeI5mtwArarvvcxHbmh5caLyy3b0l48HE18IMHc8Yua612+tX8fuKB
+	x0JyHgXogku1pZs8bPjxqxEWIHzUaaAr/5AM4N5rUkermCjc4O8Ixr3ZoXOkV1VdUoUAe2/pDK6
+	d9ro7Fa8PT/KCtXBtpQFHEk4/wnZU92FM1xLEXbb946tAh2ngct25dHTQa9QEUmDzwBbjixlHPD
+	9kFMiOlQp05njGHFgggCf13pm9Z8c
+X-Received: by 2002:a17:90b:4a43:b0:3b0:a3eb:759e with SMTP id 98e67ed59e1d1-3b182e6f662mr4020514a91.17.1794452027099;
+        Wed, 11 Nov 2026 18:53:47 -0800 (PST)
+Received: from prox-debian13-dev.listerlab.win (203-96-142-148.dsl-dynamic.connections.net.nz. [203.96.142.148])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d7bf46sm27052045ad.31.2026.11.11.18.53.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 18:53:46 -0800 (PST)
+From: Patrick Lister <patrick.lister.dev@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: Ard Biesheuvel <ardb@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Keith Packard <keithpac@amazon.com>,
+	Nicolas Pitre <nico@fluxnic.net>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Patrick Lister <patrick.lister.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ARM: nwfpe: use task_pt_regs() to find user registers
+Date: Thu, 12 Nov 2026 15:51:59 +1300
+Message-ID: <20261112025159.473997-1-patrick.lister.dev@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,62 +102,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] gfs2: release the statfs glock when
- gfs2_clear_beyond_eof() fails
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261105054609.2759418-1-joseph.qi@linux.alibaba.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261105054609.2759418-1-joseph.qi@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Ping...
+NWFPE locates the trapping process's saved registers relative to
+current_thread_info(), assuming thread_info sits at the bottom of the
+kernel stack. Since ARM moved thread_info into task_struct, that
+expression points past the end of the task_struct instead.
 
-On 11/5/26 1:46 PM, Joseph Qi wrote:
-> gfs2_file_buffered_write() acquires the master statfs glock before
-> writing to the rindex and releases it once the write is done.  The only
-> error path in between used to be the failure of that acquisition, which
-> gfs2_glock_nq_init() unwinds by itself, so the cleanup code at the end of
-> the function never had to deal with a held statfs glock.
-> 
-> Commit 4982e58669b1 ("gfs2: page poisoning fix") added a call to
-> gfs2_clear_beyond_eof() right after the acquisition and made it jump to
-> out_unlock on failure.  That path only drops the inode glock and then
-> frees statfs_gh, so a failed write to the rindex leaves the master
-> statfs glock held exclusively and frees a holder that is still linked
-> into the glock's holder list.  The GL_NOCACHE demote is requested by
-> __gfs2_glock_dq(), which is never reached, so the glock stays locked for
-> the rest of the mount, and the glock and pid references taken by
-> __gfs2_holder_init() leak as well.  Walking the stale list entry later
-> on, for instance from do_promote() or from a demote callback, is a
-> use-after-free.
-> 
-> gfs2_clear_beyond_eof() zeroes the space beyond eof, which for the
-> rindex ends up in adjust_fs_space(), so the call cannot be moved out
-> from under the statfs glock.  Release the holder in the error path
-> instead, guarded by gfs2_holder_initialized() so that the paths which
-> never acquired it and the one which already released it are unaffected.
-> 
-> Fixes: 4982e58669b1 ("gfs2: page poisoning fix")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> ---
->  fs/gfs2/file.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
-> index 1efd0679badd9..2452d3ecf09c7 100644
-> --- a/fs/gfs2/file.c
-> +++ b/fs/gfs2/file.c
-> @@ -1087,6 +1087,8 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
->  		goto retry;
->  	}
->  out_unlock:
-> +	if (inode == sdp->sd_rindex && gfs2_holder_initialized(statfs_gh))
-> +		gfs2_glock_dq_uninit(statfs_gh);
->  	if (gfs2_holder_queued(gh))
->  		gfs2_glock_dq(gh);
->  out_uninit:
+This breaks FPA instruction emulation, as the user registers are
+never read or written and causes out-of-bounds reads and writes of
+kernel memory beyond the task_struct. Any unprivileged process can
+trigger this.
+
+Fix by using task_pt_regs(current), which finds the registers on the
+stack.
+
+The bug was found with assistance from Claude Code (Anthropic), model
+Claude Opus 5.5 (claude-opus-5-5).
+
+Fixes: 18ed1c01a7dd ("ARM: smp: Enable THREAD_INFO_IN_TASK")
+Fixes: 9c46929e7989 ("ARM: implement THREAD_INFO_IN_TASK for uniprocessor systems")
+Cc: stable@vger.kernel.org # 5.16+
+Signed-off-by: Patrick Lister <patrick.lister.dev@gmail.com>
+---
+Build tested on Russell King's linux-arm tree with footbridge_defconfig
+(CPU_SA110, FPE_NWFPE,THREAD_INFO_IN_TASK), W=1, no new warnings.
+
+Runtime-tested on 6.12.116, where this patch applies unchanged
+(arch/arm/nwfpe/fpa11.h is identical to mainline):
+
+ - QEMU versatilepb (ARM926) with OABI_COMPAT, FPE_NWFPE and KASAN:
+   a test that executes FLT and FIX gets the wrong result back and
+   KASAN reports "slab-out-of-bounds in PerformFLT" without this patch;
+   with it the result is correct and KASAN reports nothing.
+
+ - Nokia 770 (OMAP1710, ARM926, OABI userspace): fixes the maemo
+   battery daemon's FPA arithmetic which would incorrectly calculate
+   the remaining charge of the battery and power off the device.
+
+Not runtime tested on mainline: since 25900bd99d4d ("ARM: limit OABI
+support to StrongARM CPUs") NWFPE is StrongARM-only, and QEMU's only
+StrongARM machine (collie) currently fails to boot mainline.
+
+A reproducer is available on request.
+
+ arch/arm/nwfpe/fpa11.h | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/nwfpe/fpa11.h b/arch/arm/nwfpe/fpa11.h
+index d51195d41f5b..25c327a73a27 100644
+--- a/arch/arm/nwfpe/fpa11.h
++++ b/arch/arm/nwfpe/fpa11.h
+@@ -13,13 +13,12 @@
+ #define GET_FPA11() ((FPA11 *)(&current_thread_info()->fpstate))
+ 
+ /*
+- * The processes registers are always at the very top of the 8K
+- * stack+task struct.  Use the same method as 'current' uses to
+- * reach them.
++ * The process's registers are saved at the top of its kernel stack.
+  */
+-#define GET_USERREG() ((struct pt_regs *)(THREAD_START_SP + (unsigned long)current_thread_info()) - 1)
++#define GET_USERREG() task_pt_regs(current)
+ 
+ #include <linux/thread_info.h>
++#include <linux/sched/task_stack.h>
+ 
+ /* includes */
+ #include "fpsr.h"		/* FP control and status register definitions */
+-- 
+2.47.3
 
