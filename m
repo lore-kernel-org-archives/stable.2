@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794451158;
-	b=h92bjz/36I8y13HhTS8G8YH5mUlIey0HAmuxF9bvCDUsKV/OdMJ/bW5pYl37taNBQxlN
-	 pwfdwN04zxt3vtOVu+BrgXGyELedVybGwWwMDQyJMqd/d6Ln58TdYUZhnkdCedo7x1UDP
-	 HkCi3dLOiuDCZflsJ5GQf2AXEHZzJBRcebTIhjnCl0p4KIA2HaPvFzgBwf/7OyNwiv9Lh
-	 x14VDkoJMmzLrdA4QGqNEv43UiS5LB2YMKxmO8sUuxO5n0pMMs/O5azQRjPaY8N7YUW5S
-	 biRNbvP434KXPpIp+CKEYL17WntnLymXP/nK1vkM7jmBRR0eQRyrdKZhGroan1tvtdw==
+	t=1794451197;
+	b=Ij4BlPyD4RlrB23JUHOobwnDAvu6tEf3aiPonoz0SOcxghLwUU5GrPqd/A2K/owpEOFE
+	 4kQawqZQ1QzhaD/7p/+yaHXd3PZpBZxgZ1aqiH6VRlcv4tYarRkarFLbIT4acY2nCTJRd
+	 lYmYboqZCfyScAdP+Lf1T0dmK6sayhmPlotTN32fPgR2OnU8Mfv5QubBCrOfmg2pTVVq1
+	 OcjKScGS2dGZUlJ++ki8REi7lma+Aa7TdboAPIADTeqMpisQysD1yCgb7k+b8gXCj71Si
+	 AQeQ8NWL6BNtFEeaSwacCr1j84T9pqrPbIv3lxpHaErRmbdGucfTUmj9hrw4GGDkcNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794451158;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794451197;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/s8w8plmH88dsVAGSoItILgEzxooWOwVGFGCpt2lqf4=;
-	b=oDNsvROhw1hrPtb3SjFKDdV/D8HmtDe6KiaD9cJz7OXmBRUbAgMhiqUqmVmbKzsTHuKs
-	 Y7kmhvI721VLLPKGRCeA8QKDx42zkHfwE3T1p4nfdK293xUqqace8trcMBstVhj6+2Jsv
-	 8/D0RCnBBvdvCeY0AUc6/qSknOk8Bxz16KytpKOQsbBBJfAL8bWeG5Da+eNDydks2pH1x
-	 7vYNlGwFsZ+93qal9VpPykphJmO5v2xh8x9DP9ZSH3iDgWnfAx31dbmYQ7HihDqI6YDji
-	 wBWbzZ57yqF5+8g3IBSOhT2npFxwE3x4zUgZiEL7m/k6+K5TVXl5xsqg1iVjRUsq8KQ==
+	bh=oWw3Dki61DbF+g+XlMox63UYqVQujnNueblDRi1gztw=;
+	b=ogD/5PCCaYnUO7cFzkhaWsWINLGdbVDit1SE1/r5e47m5RKiDdWwdHxBVzjmbuAOfwtu
+	 atFtVrQnXwS8qNV++Q42V/qXIzEirVd6K5xj28jO5b4VKIN0+LoLFWO2EtpxkVdNofd3l
+	 juuti1HKZFDMd87qBR+3ydpbh3X5eO6fdnk2aYPUbFGRScCagosCDDjypg5zL6vNLbCXx
+	 e6d2n8t3fqGc9heAJju+zBPhGRRmvcWyRPcYKdHAzw/CpnklzaxDzLKV0owNk8TWVsoqg
+	 1sZedfp6g300RlWhFUd+QcU7A+3WGKIXAAvZ98zCS9GDza5OLvIrZA9RpNy6gcPyYrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jxnd/lu1";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUg3V5vU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412B4606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:39:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA516606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 02:39:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxnd/lu1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A451F00A05;
-	Thu, 12 Nov 2026 02:39:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUg3V5vU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1238B1F00A05;
+	Thu, 12 Nov 2026 02:39:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794451157;
-	bh=/s8w8plmH88dsVAGSoItILgEzxooWOwVGFGCpt2lqf4=;
+	s=k20260515; t=1794451197;
+	bh=oWw3Dki61DbF+g+XlMox63UYqVQujnNueblDRi1gztw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jxnd/lu1vcxUfY9GbAnW8j9lff05Ilm88rWnLy3dPYKXc667TtLjvYNna8Gd+6aDK
-	 kcxYesLjvmMWl3ttBrS3LHlL7mpuc1FRpSEPeTqQ6HqGJtcslZ9dhOOWF3a4Rym47X
-	 +9HMK4gTHzmtalrqNWV96s69spqWYybXRVEoMuxQECHEiQGSkQop4sq1PDdNdAGsPn
-	 o5HHQ/NFAMcXEppIR0d5kj1wZqIVhWlvciNBWJxjuxTQvvOasJKrkIBFvqQSiIiNGK
-	 3KY1DyC5Kd69vAl6+lmwxSRFeZ89+MdeE1BDybSK1+hxlHOMyF+Rk+chDllmT1O8EF
-	 pYIRnpTqHcuUw==
+	b=eUg3V5vUzSqkbV3qbm5jDNwzKV1Y1nP9qj/KmfRWhVqixL7j3F0NN+AQGm2ufaMPo
+	 Z4+wWyZhP0qAQtrl7G/k9+g0KXqAe/cy76FSzcrQ0Z7jYqVNZdSw35SVeKLOR7o9My
+	 etk0hGWOyZ3Wk5Z5JWsRcnTYh4/eePLAbDmH7OaP/cszmW/kM9ud4pGFznVi6tOCGz
+	 2SMnvLH+Y0X1sj6nOA4SEceLRpuoDIX8J81HpHfHiCuakQIhmuRLofjsatWN3NTRkQ
+	 cWOErtMzAYoToWm0Y14V/T9wRMoSYLwPDBeIIy5M/d/yb+FwGbifbwhbsnFnLd7P3c
+	 LpDZ/zBJErfoQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Ondrej Mosnacek <omosnace@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/memory-tiers: unregister empty tiers outside memory_tier_lock
-Date: Wed, 11 Nov 2026 21:39:15 -0500
-Message-ID: <20261112023846.1410920-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] cipso: make cipso_v4_skbuff_delattr() fully remove the CIPSO options
+Date: Wed, 11 Nov 2026 21:39:54 -0500
+Message-ID: <20261112023938.1396308-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201849-failed-6.1-500624f28eca@kernel.org>
-References: <20261109201849-failed-6.1-500624f28eca@kernel.org>
+In-Reply-To: <20261109201138-failed-6.6-1f1f8e8c5176@kernel.org>
+References: <20261109201138-failed-6.6-1f1f8e8c5176@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,108 +61,159 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Ondrej Mosnacek <omosnace@redhat.com>
 
-[ Upstream commit 500624f28eca441e35f978979ccfb373202fefd3 ]
+[ Upstream commit 89aa3619d141d6cfb6040a561aebb6d99d3e2285 ]
 
-When offlining a node's last memory empties its tier,
-clear_node_memory_tier() calls device_unregister() while holding
-memory_tier_lock. A concurrent sysfs read can hold a kernfs active
-reference and block in nodelist_show() on that mutex. device_unregister()
-then waits in kernfs_drain() for the read to finish and release its active
-reference, while the reader waits for the offlining task to release the
-mutex.
+As the comment in this function says, the code currently just clears the
+CIPSO part with IPOPT_NOP, rather than removing it completely and
+trimming the packet. The other cipso_v4_*_delattr() functions, however,
+do the proper removal and also calipso_skbuff_delattr() makes an effort
+to remove the CALIPSO options instead of replacing them with padding.
 
-Return the node's former tier from clear_node_memory_tier(), making the
-helper more similar to set_node_memory_tier(), which also returns a
-memory_tier pointer. Let the caller unlink an empty tier under
-memory_tier_lock before rebuilding demotion targets, then unregister its
-device after dropping the lock.
+Some routers treat IPv4 packets with anything (even NOPs) in the option
+header as a special case and take them through a slower processing path.
+Consequently, hardening guides such as STIG recommend to configure such
+routers to drop packets with non-empty IP option headers [1][2]. Thus,
+users might expect NetLabel to produce packets with minimal padding (or
+at least with no padding when no actual options are present).
 
-Fixes: 9832fb87834e ("mm/demotion: expose memory tier details via sysfs")
-Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-46-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted node hotplug notifications to the older memory notifier API ]
+Implement the proper option removal to address this and to be closer to
+what the peer functions do.
+
+[1] https://www.stigviewer.com/stig/juniper_router_rtr/2019-09-27/finding/V-90937
+[2] https://www.stigviewer.com/stig/cisco_ios_xe_router_rtr/2021-03-26/finding/V-217001
+
+Signed-off-by: Ondrej Mosnacek <omosnace@redhat.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: 1f1f8e8c5176 ("cipso: fix optlen corruption in cipso_v4_delopt()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memory-tiers.c | 29 +++++++++++++----------------
- 1 file changed, 13 insertions(+), 16 deletions(-)
+ net/ipv4/cipso_ipv4.c | 79 +++++++++++++++++++++++++++++--------------
+ 1 file changed, 54 insertions(+), 25 deletions(-)
 
-diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
-index ba863f46759d3..77f531d788e87 100644
---- a/mm/memory-tiers.c
-+++ b/mm/memory-tiers.c
-@@ -495,21 +495,14 @@ static struct memory_tier *set_node_memory_tier(int node)
- 	return memtier;
+diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
+index 8daa6418e25a0..83f58bb82c867 100644
+--- a/net/ipv4/cipso_ipv4.c
++++ b/net/ipv4/cipso_ipv4.c
+@@ -1813,6 +1813,29 @@ static int cipso_v4_genopt(unsigned char *buf, u32 buf_len,
+ 	return CIPSO_V4_HDR_LEN + ret_val;
  }
  
--static void destroy_memory_tier(struct memory_tier *memtier)
-+static struct memory_tier *clear_node_memory_tier(int node)
- {
--	list_del(&memtier->list);
--	device_unregister(&memtier->dev);
--}
--
--static bool clear_node_memory_tier(int node)
--{
--	bool cleared = false;
- 	pg_data_t *pgdat;
- 	struct memory_tier *memtier;
- 
- 	pgdat = NODE_DATA(node);
- 	if (!pgdat)
--		return false;
-+		return NULL;
- 
- 	/*
- 	 * Make sure that anybody looking at NODE_DATA who finds
-@@ -527,14 +520,10 @@ static bool clear_node_memory_tier(int node)
- 		synchronize_rcu();
- 		memtype = node_memory_types[node].memtype;
- 		node_clear(node, memtype->nodes);
--		if (nodes_empty(memtype->nodes)) {
-+		if (nodes_empty(memtype->nodes))
- 			list_del_init(&memtype->tier_sibiling);
--			if (list_empty(&memtier->memory_types))
--				destroy_memory_tier(memtier);
--		}
--		cleared = true;
- 	}
--	return cleared;
-+	return memtier;
- }
- 
- static void release_memtype(struct kref *kref)
-@@ -598,6 +587,7 @@ static int __meminit memtier_hotplug_callback(struct notifier_block *self,
- {
- 	struct memory_tier *memtier;
- 	struct memory_notify *arg = _arg;
-+	bool empty = false;
- 
- 	/*
- 	 * Only update the node migration order when a node is
-@@ -609,9 +599,16 @@ static int __meminit memtier_hotplug_callback(struct notifier_block *self,
- 	switch (action) {
- 	case MEM_OFFLINE:
- 		mutex_lock(&memory_tier_lock);
--		if (clear_node_memory_tier(arg->status_change_nid))
-+		memtier = clear_node_memory_tier(arg->status_change_nid);
-+		if (memtier) {
-+			empty = list_empty(&memtier->memory_types);
-+			if (empty)
-+				list_del(&memtier->list);
- 			establish_demotion_targets();
++static int cipso_v4_get_actual_opt_len(const unsigned char *data, int len)
++{
++	int iter = 0, optlen = 0;
++
++	/* determining the new total option length is tricky because of
++	 * the padding necessary, the only thing i can think to do at
++	 * this point is walk the options one-by-one, skipping the
++	 * padding at the end to determine the actual option size and
++	 * from there we can determine the new total option length
++	 */
++	while (iter < len) {
++		if (data[iter] == IPOPT_END) {
++			break;
++		} else if (data[iter] == IPOPT_NOP) {
++			iter++;
++		} else {
++			iter += data[iter + 1];
++			optlen = iter;
 +		}
- 		mutex_unlock(&memory_tier_lock);
-+		if (empty)
-+			device_unregister(&memtier->dev);
- 		break;
- 	case MEM_ONLINE:
- 		mutex_lock(&memory_tier_lock);
++	}
++	return optlen;
++}
++
+ /**
+  * cipso_v4_sock_setattr - Add a CIPSO option to a socket
+  * @sk: the socket
+@@ -1988,7 +2011,6 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
+ 		u8 cipso_len;
+ 		u8 cipso_off;
+ 		unsigned char *cipso_ptr;
+-		int iter;
+ 		int optlen_new;
+ 
+ 		cipso_off = opt->opt.cipso - sizeof(struct iphdr);
+@@ -2008,23 +2030,8 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
+ 		memmove(cipso_ptr, cipso_ptr + cipso_len,
+ 			opt->opt.optlen - cipso_off - cipso_len);
+ 
+-		/* determining the new total option length is tricky because of
+-		 * the padding necessary, the only thing i can think to do at
+-		 * this point is walk the options one-by-one, skipping the
+-		 * padding at the end to determine the actual option size and
+-		 * from there we can determine the new total option length */
+-		iter = 0;
+-		optlen_new = 0;
+-		while (iter < opt->opt.optlen) {
+-			if (opt->opt.__data[iter] == IPOPT_END) {
+-				break;
+-			} else if (opt->opt.__data[iter] == IPOPT_NOP) {
+-				iter++;
+-			} else {
+-				iter += opt->opt.__data[iter + 1];
+-				optlen_new = iter;
+-			}
+-		}
++		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
++							 opt->opt.optlen);
+ 		hdr_delta = opt->opt.optlen;
+ 		opt->opt.optlen = (optlen_new + 3) & ~3;
+ 		hdr_delta -= opt->opt.optlen;
+@@ -2244,7 +2251,8 @@ int cipso_v4_skbuff_setattr(struct sk_buff *skb,
+  */
+ int cipso_v4_skbuff_delattr(struct sk_buff *skb)
+ {
+-	int ret_val;
++	int ret_val, cipso_len, hdr_len_actual, new_hdr_len_actual, new_hdr_len,
++	    hdr_len_delta;
+ 	struct iphdr *iph;
+ 	struct ip_options *opt = &IPCB(skb)->opt;
+ 	unsigned char *cipso_ptr;
+@@ -2257,16 +2265,37 @@ int cipso_v4_skbuff_delattr(struct sk_buff *skb)
+ 	if (ret_val < 0)
+ 		return ret_val;
+ 
+-	/* the easiest thing to do is just replace the cipso option with noop
+-	 * options since we don't change the size of the packet, although we
+-	 * still need to recalculate the checksum */
+-
+ 	iph = ip_hdr(skb);
+ 	cipso_ptr = (unsigned char *)iph + opt->cipso;
+-	memset(cipso_ptr, IPOPT_NOOP, cipso_ptr[1]);
++	cipso_len = cipso_ptr[1];
++
++	hdr_len_actual = sizeof(struct iphdr) +
++			 cipso_v4_get_actual_opt_len((unsigned char *)(iph + 1),
++						     opt->optlen);
++	new_hdr_len_actual = hdr_len_actual - cipso_len;
++	new_hdr_len = (new_hdr_len_actual + 3) & ~3;
++	hdr_len_delta = (iph->ihl << 2) - new_hdr_len;
++
++	/* 1. shift any options after CIPSO to the left */
++	memmove(cipso_ptr, cipso_ptr + cipso_len,
++		new_hdr_len_actual - opt->cipso);
++	/* 2. move the whole IP header to its new place */
++	memmove((unsigned char *)iph + hdr_len_delta, iph, new_hdr_len_actual);
++	/* 3. adjust the skb layout */
++	skb_pull(skb, hdr_len_delta);
++	skb_reset_network_header(skb);
++	iph = ip_hdr(skb);
++	/* 4. re-fill new padding with IPOPT_END (may now be longer) */
++	memset((unsigned char *)iph + new_hdr_len_actual, IPOPT_END,
++	       new_hdr_len - new_hdr_len_actual);
++
++	opt->optlen -= hdr_len_delta;
+ 	opt->cipso = 0;
+ 	opt->is_changed = 1;
+-
++	if (hdr_len_delta != 0) {
++		iph->ihl = new_hdr_len >> 2;
++		iph_set_totlen(iph, skb->len);
++	}
+ 	ip_send_check(iph);
+ 
+ 	return 0;
 -- 
 2.53.0
 
