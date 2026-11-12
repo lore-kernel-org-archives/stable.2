@@ -1,72 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794485912;
-	b=rgkS94d4tEwX9bEm+cdI1PYAEycHg1sCLxZ86/Hd0kj5OUjGXKXKgErjCgvkFRw8Qeun
-	 accbPZnmCBnDSuEP8YTTwt2b1+uOOzM6WY1n8mntpaKhI6eowjkanRq2FKxmiBNYUynnM
-	 0xlP918+vnzd34IylaN7C1MyG1iHUwvJVwUdj8bV4WsI73d7TBeHD+XtP66/q0+TN/oXe
-	 2weEIC3N8BqUdQxkLLKYC43QmKVCX8YLEqiJI+0WSgCV3oNg1F73fKH5xcynLQfttYHrs
-	 m4/usZJ/iaA8Z0j4RMiDF6sw15nqaU46BdIQ0wYXtlKa4nhXWLOktimIe+N4MpQkErQ==
+	t=1794485939;
+	b=rgX11Kvr/7jyIucbwJ7NEyKxi32p4akjChXkYX8MhCiVppsMMH/uPKOEVi055oIL+5JB
+	 8CLteS9gT7Onlk2ogT51KSRhE7019zsiwJ4JbFHGkfmoxVz/T/N7Mt0eLY4x2ytVWu9az
+	 g0A2eX2yxNsyyF1EvCfBEICyFiw/6hssybuSHtb/cUpHdwc+Tn13/YHkP43Q/lSsXOASV
+	 p8OOBBNUrKSpW+ysqNxGdwFzIbyDvQkepcUBxzV5zB0XhadjyMkyikdtM14fCmnf8K2ae
+	 hc+JHljUXX/wVZqCZBzXBz6DAmdhQoWbIqMRzb435H2V5v/D8eLYywCVHM8/TyKZNrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794485912;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794485939;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=TK3aRkLRHP/iqzsQKw5rkUdu5ikzTBwM57q8k3Ae9oU=;
-	b=nxfbQt1bC81z05acWAt3IjaEGVJCGXZe9AHhwrciJ5bKQghEg0b7d07y2BStZlOwuBhM
-	 Us2uOfx8bqreUzJmzDJPAvukGUGZeOcHSlWtecOk/pI0kmc/BwNEFwDz8YFy/9S4RcvHh
-	 27HrUQBwm5t2aLhhGEa5mbOaP2fD1/y23uCJTy1EziwmWc18FHb09tmHANctbb1+R1X9+
-	 J7ciuZiBNQHQ82HUOOtvQ8kl9tPnFNjGWn2N+iPJ7SPl1JAADxX663rWrDKaNCI9DlgoW
-	 dAt+FEs0lAeW59N0eopDYZSu3oOXWnzetHuXZGYJEbBFcKfxYDgfIJGGIxDEaBs27wQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=25rHB//DTA19AkBG+LmGkOqVCqlrxZXLVv/KBpqslEE=;
+	b=xmnB4W41JZ/KooR2s0VH3nzTEuQtJzbQ2jauUjts8pbkfoL1qoHBl69/JlhSiYZUUKqx
+	 UUfvxQTHJ7VTrOwJl9ROHdL+e4IsKBCE8N9Ylsdq9PA1FE/APtcFnjIVOA7gcKtg9YsQK
+	 /9jopezh61KxnFLpLxpbeNf4o3XKLEajfZcotr9ql9LQGtOK2p5I+RvV8NdOkhxILiTGN
+	 BI27Swl2aewQbSOUonWa0lbkrnke75/y31mM3z5vp7gFl8tb2+nH5lMM2AzibL+pDTCN0
+	 qlUxp/MwIR0Ve6plJotQTbfkskXRm/c5Ej38A4wqMyrnNm9eD/l5kW8tPk4q8w+mTIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZH94E7p;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnMask3p;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F70606A31C;
-	Thu, 12 Nov 2026 12:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19201606A31C;
+	Thu, 12 Nov 2026 12:18:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZH94E7p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E8D1F00A05;
-	Thu, 12 Nov 2026 12:18:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnMask3p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CE031F00A05;
+	Thu, 12 Nov 2026 12:18:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794485912;
-	bh=TK3aRkLRHP/iqzsQKw5rkUdu5ikzTBwM57q8k3Ae9oU=;
+	s=k20260515; t=1794485938;
+	bh=25rHB//DTA19AkBG+LmGkOqVCqlrxZXLVv/KBpqslEE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TZH94E7pGMxvMIthbP4IOtLV3POYGe9pY6rVMkwD9Xv0CEZmQqoO8TYZSjuIQJLu7
-	 h5UdVya5Fuw+xEGSg9KDgiYYKslo7REsw6t5vSCYAmBfsc1EO43pIV5o7YguuaUTR4
-	 b1IYE/pcUNQpWqwTNaUEE5LSdKXQsTX0A3C/CNJ2J3TU5LnUrIGjWowtFGzsZrtcQj
-	 gbGj+5Q9kyQVOjMtMphKQlBe+7D6qM71YziIB9zjPGXcgSmpxo3B6dp1s36MozGJho
-	 F+ypjaDlZBLArB++wBEHgYOsJxEw6KhBigkY93fvxGAgODc2x5bdDvY5Qt0KIOL5IA
-	 mStMyb1AEULow==
-Date: Thu, 12 Nov 2026 12:18:19 +0000
+	b=bnMask3pUReTtazaSjEd7UX4twP0xj2/zq4bNCoLyQMvGzj6B7L8OdMDz8qfunJ3T
+	 IRLcCUL5wUMDwEPlAhgUsaMf/nvYyfH3n+STUeu6alIyswNcgmJhZhomp/K+AvYehQ
+	 ejIoK5dGvB5ofSymMCFArJMx540CVaU5pNHl7JpgnlZ/fQsTld34jALF6uQUQDdaao
+	 7uNZCm1wGFPo+zCXGtsAsnlF8zHEJ21egX1PinGzPUjQSW/DPdndwamEoAolglQJQH
+	 m8UamT18OR3euOYZmbaex1O4mocS+YMwYGUO585Aa3nNTzHF9EkoxQHu0tK9kFSDy4
+	 qZNe8OSGdrOMg==
+Date: Thu, 12 Nov 2026 12:18:46 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
+To: Pedro Falcato <pfalcato@suse.de>
 Cc: David Hildenbrand <david@kernel.org>, 
 	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
 	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
 	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
 	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Jann Horn <jannh@google.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
 	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
 	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
 	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Kairui Song <kasong@tencent.com>, 
-	Balbir Singh <balbirs@nvidia.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
-	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	stable@vger.kernel.org
 Subject: Re: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
-Message-ID: <avWuajpT8RU9_0PL@gremlin>
+Message-ID: <avWunRPQJQctsvYl@gremlin>
 References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
  <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
- <aa4c71b6-f81d-4544-96fa-ed54e78b0de1@linux.dev>
+ <avWgulaWoKBfIFlo@pedro-suse.tail5790ac.ts.net>
+ <avWtxdIHSJJ_uNwG@gremlin>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,49 +77,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aa4c71b6-f81d-4544-96fa-ed54e78b0de1@linux.dev>
+In-Reply-To: <avWtxdIHSJJ_uNwG@gremlin>
 
-On Wed, Nov 11, 2026 at 10:49:34PM +0000, Usama Arif wrote:
+On Thu, Nov 12, 2026 at 12:17:21PM +0000, Lorenzo Stoakes (ARM) wrote:
+> On Thu, Nov 12, 2026 at 11:21:38AM +0000, Pedro Falcato wrote:
+> > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 >
+> Thanks!
 >
-> On 11/11/2026 18:13, Lorenzo Stoakes (ARM) wrote:
-> > The OOM killer can quickly trigger again after having selected a
-> > victim. That victim might not have freed its memory yet, but its mm will
-> > be marked MMF_OOM_SKIP by this point, so the OOM killer will ignore it.
+> > > diff --git a/mm/mmap.c b/mm/mmap.c
+> > > index 7618e72766a5..4cb18b217048 100644
+> > > --- a/mm/mmap.c
+> > > +++ b/mm/mmap.c
+> > > @@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
+> [ ... ]
+> > > +	if (mm_is_oom_victim(mm))
+> > > +		tlb_flush_mmu(&tlb);
 > >
-> > This can cause the OOM killer to kill an innocent process when the first
-> > might have freed enough memory to relieve the memory pressure.
-> >
-> > Fix the issue by freeing the memory before marking the mm MMF_OOM_SKIP.
-> >
-> > Note that the task which calls mmput() might not be the victim - if it
-> > took a reference on the mm (e.g. ptrace), it may hold the last reference
-> > and release it when it calls mmput().
-> >
-> > Therefore we cannot rely on current to tell whether the mm belongs to an
-> > OOM victim. Instead, partially revert commit b3541d912a84 ("mm: delete
-> > unused MMF_OOM_VICTIM flag") to reinstate MMF_OOM_VICTIM, which
-> > mark_oom_victim() sets on the victim's mm, and check that.
-> >
-> > Reported-by: Chris Mason <mason@kernel.org>
-> > Fixes: bf3980c85212 ("mm: drop oom code from exit_mmap")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
+> > I see there's a different tlb_flush_mmu() call below (in the actual function).
+> > Is tlb_flush_mmu() idempotent?
 >
-> Makes sense, it will free an OOM victim’s pages before setting MMF_OOM_SKIP,
-> avoiding unnecessary additional kills.
+> No, tlb_flush_mmu() is cromulent.
 
-Thanks, yeah I tried to find the smallest way of doing this, it is subtle
-though!
-
->
-> Acked-by: Usama Arif <usama.arif@linux.dev>
-
-Thanks! :)
+(kidding, yes it's idempotent :P)
 
 --
 Cheers, Lorenzo
