@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794514497;
-	b=AXgW0mWGxH5afCR75nNAD/bJh7ijnz8KAZpWXKF1zRcsI86055ZE9VorqWVtarSSY9n0
-	 KtwTuJFGHYZKcKI2gdiWOCXhhaNPlY/NRsuzte53WVAyCOI8IbWSmMqV7T8nucx44iuuA
-	 pmlnA7xw6d9qIwe9LT+ZNpXcVEtO6yPpww6k5riZWrKQI9RR7+RGEByFHpkRp6T0/MzDC
-	 gw73QuIGg+z6QnwQSN7eu2wiEKWm+abeKUKTM7q1Km1hivkiehIfw/vxkAzI/F6QVsAS+
-	 UBLzpm1I+VfLRqdu2e6mm+uLcXt6ie+jC/tji/ErqmNLx7khAmYcv8dlIuWc3iL/NFQ==
+	b=LnrBGKzqOVQHXoBtFM8EfltzhHE0C+a0+Jn6QUbB7w3C1BpmTMjoAaPWu0ScPAoxOGrl
+	 8TaZcQ0JSOLxqmbjNgTY+NPCtMTgfV8PqQKD40jJYSqLsjhBHLZRsHUNeKa7xq04tYZsq
+	 qBf+AQK77HEYOrukQ+NTW2LyYTSdHFGVa0V75KyAsCQ1cToe3I+oTi6SdnhErEoamoJKp
+	 PwysIkT4gq62/Pe+mtEwbeKCIttxsEppTG/iIrZqRS2xXISwG8VQEXvEzLC64yd5nMxF1
+	 IqWfYy5AYTB5FYOSK/zhRYLTQamC6n0szPs+u2D8X4AGNzJz/F+hl/MnDLSIRubvj8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794514497;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FYu0ZyoaD1L2sdma2FJNCEQTwtHiOVFsF2IiZdwITDc=;
-	b=sfcM/YoxG4zGxn3UymuFLnHoAsebSK0BkC7JWB0FWI00hRTwID+1bc/l+eUA6HsAmjWG
-	 bzThAn+lWok/r+euHnZEffC4auAkiFs/mSLJaDge8XJLur7Amnhqd88ubhBdiNp1MPkkW
-	 SnnlIj7ewHxnO/JBvw5P7XB5EzsMZZj/S+uglAKM/XZ/SMlXZqQYh6VdyxceGnYEdBynP
-	 KfDrNm80a4pqvFKPG8VRaTvNXGfibqwC1uZJvgvfW8LZhiuDZaCR3ijNkKzxvvfFslmS0
-	 5MN8jAFn7o+n41M4nNnrsDQNYRP51gOa1m2oZYkGpmcj6v146kUilEpG6DLne3ju9tg==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=g/CZDCoSG3PJAggCcQOSUNIaMatEG4InxHYvQELPhME=;
+	b=Ew6UFfZ26YLnBCKJQ5oxE7s5HqUqnEuixEnJXAmFiLsr/G2FVy59pTewuIcL8/ap57GO
+	 wKY+T5BkEgxQkKYQ/LQ9aDvql0Y+kNAg9LfbK+NLVh5x7zUevIZSH2OtdXVRDi3jgUuXP
+	 0HM5E9KzKrzvit7ELctMHw/7W4jgNH+mH2lgO23eHvDR/0BJDkxe1DWDVrcLw3phiCLHK
+	 00B5AEtE4Y/QoHQI2wv2PkesGj9UMAJo59YKG4jTgwWb3VdxQT9a72cE6Bwr0AguoVQR9
+	 x/ZbZGYm8NaI94RDDnVZ6+HXYgFioY9ccYq5mGlQIa8Dq3UtPgGWiPRATufKy5IpxBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gC6CzjOl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+cmq6bT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDB2606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:14:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDB4606A321
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:14:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gC6CzjOl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4521E1F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+cmq6bT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0788D1F000C6;
 	Thu, 12 Nov 2026 20:14:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794514496;
-	bh=FYu0ZyoaD1L2sdma2FJNCEQTwtHiOVFsF2IiZdwITDc=;
+	s=k20260515; t=1794514497;
+	bh=g/CZDCoSG3PJAggCcQOSUNIaMatEG4InxHYvQELPhME=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gC6CzjOlcvlEs/5tz0sidNNPfLjiIus/OdEFWbMzR5BMufTWps7YikI72ys+XonFq
-	 MFMapPMQlDXyTRFIvEWyMm2O5mJMXXm8dG7x0nN/f2e2a8IjkEsTttMoLru0b9soy/
-	 Jrg1Z9Rx5AtLxUZM/Jzg15ZDdQ8Jp1HY4jn2ZY5oGVKbrfFVz0kFA4VgjKW9PS5vg7
-	 QEwBKP2Bh3XUUXQFPr8k7bo9Coz+6yy7Rj1k3Gz7ggMCxdv2Uq9+vCJ1dg+zQFjyUA
-	 UstGoWgPMLrt+uzwVqd/sn5Rt8i6CzVIrBaLBSaVIm+r5Lt4lpIojhI9piQkzSu74x
-	 ZvPWsSR44Picw==
+	b=N+cmq6bT8YW43BTcFxT24jExfBmrGUjcXnBAO1bAUH9LU5HREyB1dHCYabZXNkO7P
+	 oSCqjWQHgXGDNtiIM2POMhjZcqMDA9kWpSQC3LFmd6p/pOBq8L6KNRy2J2rz+LsPTQ
+	 uk3EYzLamEKwpt994p7VPEoVrfwRN2hkfSnSDXTIlAnVQ+OukpHDT5slQFNRR7YXkb
+	 XQttU+GoxElFrExRrbbRWti/DerHd9295aiN5gnZMbu8LLFlV0a3THf8nLxeu6mybk
+	 JtEbWmGNjpisBEnZ5Qf0HCiz7k14em09WxZMYaHXTdTZMzgYOd6LU0z7Qo5Xt/8Ue5
+	 CgsrIl4NrwNtQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Sashiko <sashiko-bot@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check
-Date: Thu, 12 Nov 2026 15:14:53 -0500
-Message-ID: <20261112200225.3377761-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] hwmon: (tmp108) Fix initial conversion delay and wait until ready
+Date: Thu, 12 Nov 2026 15:14:54 -0500
+Message-ID: <20261112200225.3377761-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200336-failed-6.18-7cd60538073e@kernel.org>
+In-Reply-To: <20261112200225.3377761-1-sashal@kernel.org>
 References: <20261109200336-failed-6.18-7cd60538073e@kernel.org>
+ <20261112200225.3377761-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,90 +61,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tom Verdonck <tom.verdonck@inspiral.be>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a ]
+[ Upstream commit 7cd60538073e465310c94b2a2f0ea8d2f03768ef ]
 
-tmp108 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the initial
-conversion.
+In tmp108_common_probe(), the driver only adds the 30 ms conversion delay
+(TMP108_CONVERSION_TIME_MS) to ready_time if the sensor was previously in
+TMP108_MODE_SHUTDOWN. However, the TMP108 hardware defaults to continuous
+conversion mode (TMP108_MODE_CONTINUOUS) upon power-on reset, including
+immediately after enabling the vcc supply regulator during probe, while
+the temperature register retains its power-on reset value of 0x0000 (0°C)
+until the first conversion completes. Because the initial mode is not
+shutdown, the delay is bypassed and early reads via thermal zone
+registration or sysfs before the first conversion finishes return an
+uninitialized 0°C reading.
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot. The continuous-mode path,
-which sets ->ready_time to jiffies with no added conversion delay, wraps
-the same way.
+In addition, returning -EAGAIN from tmp108_read() while waiting for a
+conversion to complete after probe or resume can trigger an unnecessary
+tight retry loop in callers or fail initial reads.
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
+Unconditionally set ready_time to TMP108_CONVERSION_TIME_MS ahead in
+tmp108_common_probe(), track ready_time as ktime_t, and wait for the
+remaining conversion time in tmp108_read() using usleep_range() instead
+of returning -EAGAIN.
 
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/525fa49d8c50922344fa53e22be5e6133c9bbb62.1790358356.git.tom.verdonck@inspiral.be
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-
-Keep the opaque per-device parameter pointer next to ready_time so the
-subsequent conversion-delay fix applies cleanly. The pointer remains
-unused; the unrelated device-support tables and register-access changes
-are not needed.
-
-Stable-dep-of: 7cd60538073e ("hwmon: (tmp108) Fix initial conversion delay and wait until ready")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp108.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/hwmon/tmp108.c | 26 +++++++++++---------------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
-index a971ff628435b..f8b2d88d14665 100644
+index f8b2d88d14665..cb52b99eda4ab 100644
 --- a/drivers/hwmon/tmp108.c
 +++ b/drivers/hwmon/tmp108.c
-@@ -74,7 +74,8 @@
+@@ -14,7 +14,7 @@
+ #include <linux/i2c.h>
+ #include <linux/i3c/device.h>
+ #include <linux/init.h>
+-#include <linux/jiffies.h>
++#include <linux/ktime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+@@ -74,7 +74,7 @@
  struct tmp108 {
  	struct regmap *regmap;
  	u16 orig_config;
--	unsigned long ready_time;
-+	u64 ready_time;
-+	const struct tmp108_params *params;
+-	u64 ready_time;
++	ktime_t ready_time;
+ 	const struct tmp108_params *params;
  };
  
- /* convert 12-bit TMP108 register value to milliCelsius */
-@@ -125,7 +126,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+@@ -96,6 +96,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
+ 	unsigned int regval;
+ 	int err, hyst;
++	s64 delay;
+ 
+ 	if (type == hwmon_chip) {
+ 		if (attr == hwmon_chip_update_interval) {
+@@ -125,12 +126,10 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 
  	switch (attr) {
  	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp108->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n",
- 				__func__);
- 			return -EAGAIN;
-@@ -362,7 +363,7 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
+-		/* Is it too early to return a conversion ? */
+-		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
+-			dev_dbg(dev, "%s: Conversion not ready yet..\n",
+-				__func__);
+-			return -EAGAIN;
+-		}
++		/* Wait if it is too early to return a conversion */
++		delay = ktime_us_delta(tmp108->ready_time, ktime_get());
++		if (delay > 0)
++			usleep_range(delay, delay + 1000);
+ 		err = regmap_read(tmp108->regmap, TMP108_REG_TEMP, &regval);
+ 		if (err < 0)
+ 			return err;
+@@ -363,11 +362,8 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
  		return err;
  	}
  
--	tmp108->ready_time = jiffies;
-+	tmp108->ready_time = get_jiffies_64();
- 	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
- 	    TMP108_MODE_SHUTDOWN)
- 		tmp108->ready_time +=
-@@ -413,7 +414,7 @@ static int tmp108_resume(struct device *dev)
+-	tmp108->ready_time = get_jiffies_64();
+-	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
+-	    TMP108_MODE_SHUTDOWN)
+-		tmp108->ready_time +=
+-			msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
+ 
+ 	err = devm_add_action_or_reset(dev, tmp108_restore_config, tmp108);
+ 	if (err) {
+@@ -414,8 +410,8 @@ static int tmp108_resume(struct device *dev)
  
  	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
  				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
--	tmp108->ready_time = jiffies +
-+	tmp108->ready_time = get_jiffies_64() +
- 			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
+-	tmp108->ready_time = get_jiffies_64() +
+-			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
  	return err;
  }
+ 
 -- 
 2.53.0
 
