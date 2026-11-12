@@ -1,101 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794484093;
-	b=2fKIco4zooS+5btk7uJH1Y9okm/eLTuG0gfMJSoEtxDyMl3mh9bPGzYuY02lfHbeCBr8
-	 /4eip8OqVpTOrgOe2lkQptaHoFY0AWLoL8/K7y6YX5MNJPmq6DhL0iKa498ZSireWu/wB
-	 UemOYQXGOldeWZb+1TIniIYhIwTC+R/00+5EpfZsFgXsfexOqe/uFdSPnwX48tAf9wWBe
-	 AjMUAnlQtuiZEV2jQXzB5b1AxnNDMIWtJNzhmL5OZkOjULz1gCVts47dyU7OLwL8OLdcG
-	 PjmJV1SXZaHfTrMVyhnOivA9xRxcyZXvvLefMbKBgJVM5zTh1ctI1+S73ieo8uWFBtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794484093;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794484296;
+	b=dkVUuFnlYU6nF3JEEM064Pq01gAATPBNqfpQJDUbILsnKoaAb00327M3zQymxKqeB/tt
+	 fAprIH/MVsLyfbDLw/N0M74Vd2p/38EN9Diu/MruRjkc5QHpm9bwbd9UcLqapXsp/8pkU
+	 KhSgvk4cA1uyFNin/Z69OoZvKA5uDg1G7ndt6EcHnqiIvts5e8+vuDVS9z+HjF16yrUAP
+	 sXQCxABLsu1NpCxur/AchV0CXKXjyvyqZri9THxuj7Uue5ApV3dKXKeAhRUlxD7JiYSdp
+	 t4l3jACpu1jCsJmZsjX32+EwY/1Z7YQm1F6UI0+rHailS+DUcN0ybEygpIkkSKr/YKg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794484296;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2G7w3a5fSFO72sjeDlpSXv/kZonU1Ep492RRrSQfwCA=;
-	b=u2h00UJfvwmSzjOyWpe1a21qmr5yO1DTgZ6JZWa47DezC91X3fO/xXV+9gbWq7RMD2dM
-	 pfwiS72ypZ0WvyqJMrUWdPuxLqOc5dTkLIFmA34KDZEzMd2lbWLIEDqOTkywN/KxQeQcO
-	 tF8CoYSFkQFjujgV4Gju2s6X4ggY8Aecmv+3JhYQMGnm1Jw0P51LYoTrnaQgIPABJaRIu
-	 ULV77i8CSnDawDAZn3tGQmFU7mmE2Pk+X0FYZH8P6vOnfPq6BQIpskpoGHjpCwxF7Q0vO
-	 CSRw3fzu+JMMtTRsp7YoPfdxBuh9chZLh3bWLkczNpBdclnpqyZMRlnz9cFQTV0jz7A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nV3J6Zdr;
-	arc=fail smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=L+9OvAGkA5co8PTaVpf/WHREVpFJgAvJ9utwws7KxK0=;
+	b=2ouUV5Gd9l3gDAM5cir6rUvJUZ/Ih5O64nbbIpQbBt3FZ/ZqftttdguHNXhknb/kvOQV
+	 psmuhgfjC522W3Lb5P4IZibs0Lh6M8tTA5XzAzSXTZwvAzDlGuDKSsdpEcjDIRS5uSyi3
+	 UO8okGV3IYd6FRtCuCTJ+OvNXk3OMviWeXGGyTSiI8lbBzihKH4zLddd+pDuAYVdJYAHI
+	 eLGKeqaTSQj1ZXK5cxgorNUt+Nx9sd0tN2lCceX+R1/RhkbWHwxGkVpyWjGSpSELKE3hO
+	 k3pwMBnX6qYUJJYZMzCwphk9aPT1auh6Feun0AUiMe6u/cvqjW5pBvz46neTCAAOTeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D7pI2T9a;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8317D606A327
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 11:48:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8317D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D4A606A327
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 11:51:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77D4A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nV3J6Zdr
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3acc7a0b558so33762301fa.3
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:48:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794484092; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LRODjkT/OSVTHXifC58d+TH7CnPDrc8QLIx9/IYJGIbQA9TuF3C3NWGXncMik3qXAc
-         S7PHXHinVTX2F6j0BXQgZvLF9nyhJjqzOjSeI0YbxW01JnyO41/vb0vgWPaRAvTa14aB
-         GP4RXyrFKKhhE4VjOxkb6o1l7waYLaLzty1aPnMqvTCdv/FriNloh1cxOa/DFVq4eiJ4
-         DKERMMCozZEhcL9wxIN+elW12Kj2IEKOpFh7ojk90QlQaO8529XaB91KSzMYB9Kh3jhz
-         hCMAxyL7xY4g5WyPOmK2Y7ip/Rdzsfm5+P3pfqOpHNZuiv53M+vT1NNaBOWnGDO1xGS5
-         HKVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2G7w3a5fSFO72sjeDlpSXv/kZonU1Ep492RRrSQfwCA=;
-        fh=qlSaC81V6x/QhBZD7ypuql+D/+6/c2hn7zam1UJ8NNw=;
-        b=c0sJilL2xPBaPz7NmL7vpra6Yj9d/yC2mu45dA4xU6oJSALeot9abwTmYOlE6duA23
-         tGnf8FComYBYdHH8vnE2o7At9UaLQkcsBGHnKWNid3brLDqdNtVGVY/GEtoreiFP7asi
-         0ZOi2JoMyhyQadxgMaroINtJx5LQ9MCqAiEMLJADUIuWuffjZAsGc79legFmndR1vZbr
-         2QscW2LbRcU9mbRrTBK2kWRjNuWePvhQj9TppTUe4jHv+3WkPwRnCYGc+07hjpaDYFS9
-         ZgEtJyR8Mw/nKrxbTFvZhVhKgtYfgmq9KIWBEkXOLdGE7QLnz/65tdyKbxERQ3wOcf+c
-         dq/Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D7pI2T9a
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so7313675e9.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:51:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794484092; x=1795088892; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=google.com; s=20260707; t=1794484295; x=1795089095; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2G7w3a5fSFO72sjeDlpSXv/kZonU1Ep492RRrSQfwCA=;
-        b=nV3J6ZdryFVbPzy80vruIcDLwXvsDLos4LsRVp7+6RXO1aO9PFbsobQ9dhE7qi1MEQ
-         9LDpAbYYdBq5qVvcm2xM1Mzw2ueqqjhnwlB/p3lI9G4C9E/LcRmGxWbHfMTiGjJl+wiB
-         2HhESkFrG0hkmqt3hrLd0Q1JZmZbBIVhLaIgVMibt961ShIH4tMYglJCvwRUd47wvJ3P
-         dQRdgGe4vk7dz9YgnPsyUA+Wv9C77PJ+LwVwMhqktWGR4DMdyIA5iLtQ2POpQDLfKPWT
-         +frDGxzM5cQ63KIGkzMVkqHbokDBYvxYQIU1+ysq9aIC2u7b+Z9xOm73dCoeLU8Yg7YZ
-         gMZw==
+        bh=L+9OvAGkA5co8PTaVpf/WHREVpFJgAvJ9utwws7KxK0=;
+        b=D7pI2T9aUlHUPB3rv6sO+Ov1nRrCVtdz1sKmcQ207kMrfnwO5xoLhaLFuNbGbc5clW
+         clwEAKnGyjMJ2LLwb2wh1aM4aMxl+rixQrXW3MY1icYmfNkt/ZzMeI9ao7dxVIxRO4He
+         8jZnfMnsZIvSeGrZPU9MRqkyZB+W65uY7ohwyGDLOVxP6CDhoUpMjEs3F082Pgy/GG9j
+         FHtKk3iaMvmV18s+orFsSOOfahlQcJ1lss+O8QKnEJ3P+4mJsi0GrbznkXGj7jy1KX4c
+         uDCuazl+Hz/TkjbQH4xBiEveaqiAKiFvr3OELpZjTq1APfpIx9l2vrbyPXv4LFYobk1b
+         do0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794484092; x=1795088892;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794484295; x=1795089095;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2G7w3a5fSFO72sjeDlpSXv/kZonU1Ep492RRrSQfwCA=;
-        b=xgtG2UCRjVH7m8skNjtFCkQuBQbhhXYpPlz04MWs9LvxX6/vCeTWOip6GSA+DgY9KU
-         oraTP2v9YfELkmllYUP71Wl/+aIpjAlH3kGcThQeQrWrcQp0HDqXUxUYlt6DnZCiK0OV
-         +cQDPaOmGVVcgrxqPeVVRBn2tybMz7OhRoBr8ntRsQpndM5iqbCrTOLqv6M8gd5JWhUy
-         +09fpKVUqpQgJBMpo6npXH9614qnOPaMNGcxL9rsvLrUpNZTLNCjzP+IR/cY28JfXQqd
-         JHDiHrqKKqZpdychLUt1+IeMhPG/Gv5WoqAoDLyV5dKX053P5ChiuI9H/sVcYmwO3tTN
-         yO3A==
-X-Forwarded-Encrypted: i=1; AL+hErHV/Opj2rbdZ10MHiZtbhiQv7nLmIblZD1DCE9a1i+WxNNetVSeuIRTTSqZ7M059ykIG0xetq4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XN52c4na4brZkEFTbdZl0cFEImCyUyFLjekpTUKgH6J4StwTX
-	VQabJ181ZoryEYFYwrDB2fPQQb+jfwzXlmHTbNrEvu+h9/p/SbtLP4aU7oAAmhfKSzB+o4+faQS
-	n7gBIWTd9L6u50nzY3v+HKoGiGNsBAdU=
-X-Gm-Gg: AYBFou2WCgDErpKe2h9csAd7cTm3/HH35NTESGouBG//rx12ZmCjWFcp7nGgOOKwdmb
-	ViFHf5lJqkMoe6zoKM+NJjstEVDKVA5zQa4mJ8ndTUaqN2XNc0iNYMiCHYII++J5xvMPi1UBHoT
-	GbSohuirBdpQbOa4L4CYb4IG1vZPjzUmAwoRB4kCBL8MUhhv+aq02PiwBlA1RPUDOODYJ5Uk7kp
-	RpUjfHh1CyuKhodOKfQcz53NzpRs7fYgxNwpv+DdWqSISzbeFeEhF7X6hiykN+DfIlgbr0aC2a7
-	sBVwMYdUjazLqmr+0Mz1bBB8BgV2VCv6ehy9IN6tg1203MawLm3x97oFzxjgH2AeamxNUsUD9Z4
-	/O6Kf7XykgYQ60Hq4xJHn72gJYMEZFDYlcxcqXDmMylVTwJAN52PFNAMZC+B8EBVXrefH854XbQ
-	u9thvQ9lBmDDxEMAtLCVfvzNG/Bw==
-X-Received: by 2002:a05:6512:3191:b0:5bf:d54c:1fb1 with SMTP id
- 2adb3069b0e04-5c15d54b357mr1552506e87.2.1794484091504; Thu, 12 Nov 2026
- 03:48:11 -0800 (PST)
+        bh=L+9OvAGkA5co8PTaVpf/WHREVpFJgAvJ9utwws7KxK0=;
+        b=iPQwJDIfq0pwPNV0JVeG83mGAUdZm+eHZXZub7mvT8ElYyma6cqwhW4Z+6qgRAlGe0
+         Jr4YaZbfN34iarsdg6ypwy1jLNmcONyiJ1bayxigAtESZXaWHfN7dNwNwN4sqQGzLQyQ
+         S3aYEc7eSq5f0oQlvyK79pz/uMnpBZrhL0CaKoGExHVDS4GeNZgJqroaboC1imeh6MXn
+         hIH69ulQahPjhkEENTDgJuYJC1lbT3kb/zFGi62Kk8Fs9L/mgw1Gp8pJTZ4zORuXPNqK
+         iq3YmPCibXfi1u5GOVNcIkmMh2hFzfnk9kn9CmJFB0VbRmjcesgQsefxD+c8wZVFSqiS
+         BN3g==
+X-Forwarded-Encrypted: i=1; AL+hErFMmGabFkUVQ/rZMxSl8WVyD9ULRW5Ax7ZzbcmSzWX5B0cySJpXeI/kiYbQ463VAUIvNUdFmj8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zjsgg2/2ru8D0sdSeA7IZGivsxiKSvKF/E+b10OJv5ycUyfHf
+	008wihGJAtkAnemqw0vVqBZYFbwbvz1T20bWW1p8TVbA9IVA7o8SkzThpQ2sCdbORA==
+X-Gm-Gg: AYBFou3DMa77mJZYU9lZwi7FKcoNOsXXVtP55UK5hbwYnMdzC2CgPNggCQ19nA/TUgn
+	kkVMXDKpPrCYU3cdHPLy4RwMtlqRmNpcPZqSYt272ZH1hG/SHj4zgZSjK1hYkQewFs9d7gjnySj
+	vGbRoIjFxeRNqS8/9L/IKBCHwiJK9oNzUfkad2OCxntaQkrPcedvKrnAUmgI08EOXPvpPHL3Ju5
+	HknXpAGIzHjgy5WgrA2+9TReEATKY/SLfWfMDhGb9VHeaQeuM5mGwPQIxIjH6X/4PJ/AcD/daMG
+	GSCfB/OYkKQsEJRYBaf3pODvnnP8vviyzHQ/T9dq1MLtYaRqirItikvmdy091N8gv6bVgu8vrgS
+	Z1KuHKRTIqu48LEiXHGyNkR44wHHIa0bG4fj2Hhy5XvAhBvzin7149NEiYV33uF3s29wwyLm48H
+	Bdn2wzebPVQPQ9xnvmAkGjEsYckXeABC0hZxa4Qg2YawscnZF30uDctDDn1bFexJWifnxEGnweO
+	IaNa9u0cLBHZc7ehN1/g66XH1DfLWovtRFoTKVhIOLqF5+UFqoCyKhsOqHeMF8N7zzc1419TjRn
+	mThmuNbCfcvOielFPwR3LzI6jFiI0xRGSUjUA6Fz5AehOPyvC0b0M2GYgpAXtj/pUQ==
+X-Received: by 2002:a05:600c:a31c:b0:4bb:53e4:a7c5 with SMTP id 5b1f17b1804b1-4bb53e4a861mr3753135e9.14.1794484294459;
+        Thu, 12 Nov 2026 03:51:34 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e251c26sm63991125e9.1.2026.11.12.03.51.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 03:51:31 -0800 (PST)
+Date: Thu, 12 Nov 2026 11:51:28 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Breno Leitao <leitao@debian.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	Steven Rostedt <srostedt@redhat.com>, kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ring-buffer: Handle a reader taking the new head in
+ rb_handle_head_page()
+Message-ID: <avWoQGaDrrY9z9Cr@google.com>
+References: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
+ <20261105155729.0f9c7e4d@gandalf.local.home>
+ <avGQnBjyUMwunknT@google.com>
+ <20261110025202.78c8c03a@fedora>
+ <avRuXVxVrp-Kjiqj@google.com>
+ <20261112061423.59e02261@fedora>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,44 +106,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028132825.657546-1-festevam@gmail.com> <20261112104151.713649-1-sahil.malhotra@oss.nxp.com>
-In-Reply-To: <20261112104151.713649-1-sahil.malhotra@oss.nxp.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Thu, 12 Nov 2026 08:48:00 -0300
-X-Gm-Features: AclHuK93YbB4VWMKEzFyF2uYg_cLba_j6jbM7pY7iyTKLjV65FIWhlOBoNvuhlk
-Message-ID: <CAOMZO5DOBhSY874fAyZZRdyGW8=Qcmf8TT91gnE+++xRAEwizw@mail.gmail.com>
-Subject: Re: [PATCH] crypto: caam: jr: Use dedicated shutdown callback
-To: Sahil Malhotra <sahil.malhotra@oss.nxp.com>
-Cc: Fabio Estevam <festevam@nabladev.com>, herbert@gondor.apana.org.au, 
-	horia.geanta@nxp.com, pankaj.gupta@nxp.com, gaurav.jain@nxp.com, 
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112061423.59e02261@fedora>
 
-Hi Sahil,
+On Thu, Nov 12, 2026 at 06:14:23AM -0500, Steven Rostedt wrote:
+> On Wed, 11 Nov 2026 13:32:13 +0000
+> Vincent Donnefort <vdonnefort@google.com> wrote:
+> 
+> > Yes, now I spent more time on it, I believe it makes sense. I looked at what we
+> > could do and I'm trying to use a temporary RB_PAGE_HEAD | RB_PAGE_UPDATE. This
+> > link flag is then only converted to RB_PAGE_HEAD by the outer writer. I believe
+> > this would fix the race entirely... However that means the reader spins as long
+> > as the buffer writing is interrupted, which I admit is far from ideal.
+> 
+> But it is only interrupted by interrupts ;-) which should be fast.
+> 
+> No different than waiting for a spin lock whose owner got interrupted
+> by an interrupt.
+> 
+> -- Steve
 
-On Thu, Nov 12, 2026 at 7:41=E2=80=AFAM Sahil Malhotra
-<sahil.malhotra@oss.nxp.com> wrote:
+Yes hopefully it shouldn't be too terrible. But, as we disable interrupts on the
+CPU doing the read, it's sort of propagating the latency from one CPU to the
+other, which I believe wasn't the case so far, since an interrupt could
+"release" the reader by setting HEAD.
 
-> Hi Fabio,
->
-> Thanks for the patch.
-> Can you please tell me how to reproduce this issue ?
+Perhaps I could propagate a -EAGAIN back to ring_buffer_consume to temporarily
+release rb_reader_lock() and try again there? But that would be a bit intrusive
+as most of the functions are returning a ring_buffer_event * and not an int.
 
-I observed the warning during a normal reboot on an i.MX8MP-based
-system with CAAM enabled and an encrypted volume:
+The attempt is here [1]. Sashiko had something to say but I haven't processed
+yet how bad it is.
 
-caam_jr 30903000.jr: Device is busy; consumers might start to crash
+[1] https://lore.kernel.org/all/20261111160624.1294946-1-vdonnefort@google.com/
 
-It happened in all 'reboot' cycles, so it's 100% deterministic.
-
-The warning occurs when crypto consumers still hold references to the
-job ring during shutdown.
-
-The patch allows the shutdown callback to quiesce the hardware without
-requiring consumers to release their references first.
-
-Regards,
-
-Fabio Estevam
+-- 
+Vincent
