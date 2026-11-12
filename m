@@ -1,79 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487989;
-	b=IQH3YtrHROPACqpH/UQM9UY2HJ9iqy1WGj+OggxfTABmkyo9+B/Iq5y/UxLAn1qtUbJ9
-	 7e+0jl4FCN8XUVx9IOKcGge45KJ/el9ezWBIWOQPrZqT2DMhW0s/YrX9SVgmbCctiBPWG
-	 AePEWpS2QRahUpiBSr9eQnQe1ZC4NM2YillSfVXJ/Wx2mtaos5FkP4o8cpX+7HuNhoWl3
-	 OEwxSk2Kcdq1VLHY/PAwH5SJPU2pgRKRcwGOFjhpxe0EKr+7YSUEr8nUEZ6GhPjaD3HaB
-	 8CJ1NItbCtq6ZagCjcF9dsi4EICi7TA/xKGLtselrpvdneEI+5pZWGa+LYf/84w2Y9A==
+	t=1794488106;
+	b=cKcP7+2VU71AItwc7EBffEEpbgU3jGo8mUpIcwtqesHdFBUJI8DO3ifwaHeglHIcvAlK
+	 hs8JZsCLFgPqnUP1xU+/k2A43GMMJ2p1JkPNhWXI9FPAITJ+xuCuJcdT4hmN40+0AAflI
+	 apOZOHVKafYyXSoaZja1wBYyEOK1eD2bcyatACXMS09jCtRRQV5MGQk81yQnXf3Ctddwo
+	 FzUHbi4btng1Hhay7C5PArURXNbCcUP9f5Hbo0hCRUhuUlIuDTgxtIS4NzTvcedp1x6U7
+	 F4b8/jZxYYwR0/nI9zAjm56G23y2ErsGWw+XXPZFbgm9+Sv9eR1/9sPskbLMS2FV8iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487989;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=Ho9lfVmh032DRkxc1lN+upULBMkzPGfKHmpBixAPo84=;
-	b=CM6ZYFQbUvLLuTSq9Eg24z+9wAkQVKnHIIJdHMqzPCU4xxGMDYwn1aeMsjmPGFmZys3+
-	 /MjQVW5VBufklhItZ4WW5WZKdRRIaNY4WnENH+w+ama49nLLY00+R7JoIAGcho+Qn644h
-	 qgqREXIKXv84mnDxhYA0/+jTMAcy23ulcYKcN5ILF+y3KMZirTxf2wffUylRzUDU34KOf
-	 1fpaFrZpsaTt+Cgcz0rHy/NZ7NRrYoi7wBaWkdD2pJBekiaj6ho4OFow4V4TRhcssY1WY
-	 oVVUrQdmAYNcObviku/IlZxRhfdJ03F020BuRnFYSiQaWZt29lReEVO94kS/msX3JqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794488106;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=FJWBGylPd+TUvS4fg6aAHxRIHS3fTwweS5Rmh/QZp8M=;
+	b=QlsokCHbiwpOBStGRhOx46SK6E4IXn3QV0Jy27x0/sSfKMrWEKXewpticuXcpxZP3kiS
+	 3lsvhLs5D1fkRp5CD263hG0jYe21yUCs3VPRFrBA1LP0zpTmXy/jjYDeGS51d0/WE9XYw
+	 Ph3f8IWEaRATKIi9VI3ipKPrVMYoq6aNIJpfumoB+yB2hawSZJh3tPGPP5m3UixHoIS08
+	 bE80cq3PXHGBhODZn1i48BFtAdj1xysDrq33QscWsSZUTkqD9bVyDCraeCi+O1wszHO56
+	 cF4ld5eUJKYN2F8LJ5Nr4NWqRlIJQ/zvq0V4dbpSydTDp5nRJWdoM6H2iMOhwGHGoyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=FHXMsZjK;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mpz5ENUg;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ATRO1fxp;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429F7606A333;
-	Thu, 12 Nov 2026 12:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 429F7606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B23C606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:55:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B23C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=FHXMsZjK
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=Ho9lfVmh032DRkxc1lN+upULBMkzPGfKHmpBixAPo84=; b=FHXMsZjK+wefAnn50JdCcok8mn
-	TRuHEMnf5i23qBfyHGbHtXnvmXH2Q/9cdqKnFoQ1Jlz+A2ZArjg68bTapmRe5mzC1tuFwSISJSZv2
-	a3mSrAcXMEySMoYz372FwbRIS5WWhTDUmRhdIjEprKJAcDqeQ+5CSSJLV9j5Oln5n71+E6Q7Zzr1z
-	AlNb1wIakd49DInoZAZIyLJmRm2zmluiqo7pivBxiiDJkFU8Pc9p2Pm1HqjjKW2eJ7PJB8XWIaWKU
-	UmX1h04az5ovUpqAY69EBE8cSzzrk0F5a0rW2p1kotj7Dv1YEkGT6hEoO3Amf4gkRw/yUn+RZbfuu
-	XDK3+haA==;
-Received: from [151.115.150.205] (port=38878 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xRUIa-00000003H1G-2QwN;
-	Thu, 12 Nov 2026 13:53:02 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/3] ima: clear kexec state when replacing file image
-Date: Thu, 12 Nov 2026 12:52:47 +0000
-Message-ID: <20261112125246.2715174-5-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261112125246.2715174-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261112125246.2715174-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mpz5ENUg;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ATRO1fxp
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ACBbr7A441930
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:55:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FJWBGylPd+TUvS4fg6aAHxRIHS3fTwweS5Rmh/QZp8M=; b=Mpz5ENUgcqRabHUP
+	PD3J3yeBOVQuO3lto59EUpQ+arQ2gq2AwvPOsTfYA95ODC3Rd2VWtXnNMSumVmxn
+	IX7m2D4pTpCsNVLNR6W+VCpIfjV5z02Ym5UXkWfYDRbj0W3lmSde+LMcM/Y03e3J
+	pT3c5m/VovkQTPynUrjPx12qtGwROyoAbSXISgQC62QVKXPDyK95qTCf2JLdji07
+	G6XQGZWPa+cs0PVEDzxhTuHVELhXyASTkjc036K/YUv4UBbKkRAsWHD02P9D1rCY
+	7OgLvVZe12vQOHcS6cQaLqmZ/VomqPit472dY/vnqmfJ4jE9DbqRmpCw+0V28/XS
+	XdG5Eg==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw7nc1gkt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:55:04 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so2566781a12.3
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:55:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794488104; x=1795092904; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FJWBGylPd+TUvS4fg6aAHxRIHS3fTwweS5Rmh/QZp8M=;
+        b=ATRO1fxpOaqjoB3TBeRQ2Iq9xgkvwpqdGjYnJh1DFozvHl1ptPVKUSJBMtFO3azSSV
+         wRx1imsYOTRFk5L2lQJsu8A3TDjmu4v6P1S6/k7nMB/zXZ8GPWXrLg8BTbzKk3ygHsiU
+         6fndKA4mHPSqf0FvxRCg3J+ADRMa2VDJTS8GvK6WdvNEdJB0Ddz+n/A3u+yj4Lz+AfNT
+         KwYc8v2ViX5dRWxUO2ltvRMIWyini6HkH9fclVPDGzRjdHp0VBLLnGGW+ZW8RrENPUe4
+         DsO3cbXKfmMaFAsF6a16tc2KUv8DddAVKyZK6THjZnsnMeMfaY60o4oPgC1hUTPPxyUS
+         zrgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794488104; x=1795092904;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FJWBGylPd+TUvS4fg6aAHxRIHS3fTwweS5Rmh/QZp8M=;
+        b=JdIcm963s5a27MWhr1kVRDwI62dBPv1wVERkGNtkCvMVZCWLlZ/gk4gNwDZVJ6GuZK
+         GLhXzTWGx+2Tmx1VldDEakBVdTZtKwamGwjrrl4aXU8TVqxEPRHFKOOJPBV15CtUwfox
+         DTvKeKqlA4DkNdoEMsab7fSaHCs+Nbx2insBzass5rkTSsLeQlgjUAuIbsZpffgWxKEr
+         OKCSNO5C/zYt0OP/r8XGBKk+ub3ELJkPaKF3REbWkMhqjzcmO+FV0EfnOPDrQKpk7AES
+         IMGZyjDvEk5lr9PDASZuSY4HKtzK5deiTbFYojNjISqapdPq1+JPIMZPnrB7c8w9hOMg
+         MC/Q==
+X-Forwarded-Encrypted: i=1; AL+hErFrvMYU4TVWZhSZcsbPgqNBph0NPYZf5Y2WCiaqduVFFWjGqmst4UKwRkpsfgyD70Gz1dgMmGU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OiZ23txZD+cQCcTNOboiEoHJbzO+DaTlPd53xHXakYxQX13vs
+	QFDI+1gAlHZpDQPE27Y9wxMTbcgvEjB/02/DAya7+sQdwQGLsPCE5tl3E0wKRvmnHR+lKAD4Hu+
+	O1PZVqu8tpc+afmHipIHaxiH1PeeAs9wgEc2Y5cAFy4Umv6GHUFqyyNEmPFY=
+X-Gm-Gg: AYBFou1YC1ouuWkZkeKezWESPElHy544WXMN3qiaYU4Xoh0uJzCGi+wGN1jK0bWlj1I
+	hxh1Vs7mbs36tcdG3swRfJbmTURv+JtOPoJWtXkNgokoQyoK/IIoMw3P26e1qJ6DT4grWRtSad/
+	3xm4Dg6dgFF4QcBkFLqc+qeJEGglK1EuIdL1K2RHeWy257X/NmTDlsWfxtfHshg5Mk3v5wO30ua
+	u7h9pFel75yZxJo/b51K4gBGiWoAzYMNAJoiFwvOOWnGW3/VJy7sXdrSwSDidv3Azu+HGnMHE+n
+	vKDb++bGpfrxzDEUAeEOZjoZbM6CU0Lesv0MVhpns+8W5vDlFwCKpFsW4f4ELyduFEe8TbueuH/
+	Lo16sWGrgY8fxPfOIyr0vUK0epxlq6TCqLgebPSjcdcZARBAP1oI1UBN2oLFzbAh+ViWNqyFESB
+	fn25TO4dtby7hgdk9rx87lRRBAWE9I8XHK0fTh2oc0ZtSF
+X-Received: by 2002:a05:6a20:ef01:b0:3e2:2fb7:844a with SMTP id adf61e73a8af0-3f2ff7caf1cmr4970709637.61.1794488104078;
+        Thu, 12 Nov 2026 04:55:04 -0800 (PST)
+X-Received: by 2002:a05:6a20:ef01:b0:3e2:2fb7:844a with SMTP id adf61e73a8af0-3f2ff7caf1cmr4970682637.61.1794488103530;
+        Thu, 12 Nov 2026 04:55:03 -0800 (PST)
+Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa9631absm3493088b3a.28.2026.11.12.04.54.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 04:55:03 -0800 (PST)
+Message-ID: <755d7440-28f1-4c9d-bcef-33beb25c71bf@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 20:54:57 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,168 +116,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq: dt: Set the initial OPP to apply its voltage
+ constraints
+To: Natanael Copa <ncopa@alpinelinux.org>,
+        "Rafael J . Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>,
+        =?UTF-8?Q?Milan_P_=2E_Stani=C4=87?= <mps@arvanta.net>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Yixun Lan <dlan@kernel.org>,
+        Troy Mitchell
+ <troy.mitchell@linux.spacemit.com>,
+        Shuwei Wu <shuwei.wu@mailbox.org>,
+        Aurelien Jarno <aurelien@aurel32.net>, spacemit@lists.linux.dev,
+        linux-riscv@lists.infradead.org, stable@vger.kernel.org,
+        Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+References: <20261111130430.10359-1-ncopa@alpinelinux.org>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20261111130430.10359-1-ncopa@alpinelinux.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: GJvIQ4m65onGjAAaDtrYZlyapxRw-YP2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1MSBTYWx0ZWRfXwJYqOdonf4/4
+ COdX3YTeITYJ3v+Toq01ItUewvXzHVREHrvawGd7BvVbNGbz9+A8rzZnuebVqC7vQfa2FgXIrCL
+ i09z9+Rj/vvQ+eWpzx4wdqEUW/0zyQE=
+X-Proofpoint-GUID: GJvIQ4m65onGjAAaDtrYZlyapxRw-YP2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1MSBTYWx0ZWRfX4VFozsk5bFfN
+ OpIjVek9dhIcSwg0m8EwWrRNQauFfm8wMuce549HbL5vQaia5N5a9EZKOdBKQWeGB2yY3jHioCf
+ i68I+HwqtIKzMilKBaoQMSIGEYEsRbcOe8x4fOo1rkzic4kiEFfMtPEXLc5fLeVenlRQJnqs/+E
+ sDyfNTJcfoDoHN/UCAeneDj5NhVmNIHakjffYbwFCO5vSEqqIQBrqvNAL2B/7gR9v+M55HyhGJ/
+ 9EzG+Zg9jMFyOFKZ7tU0oOtZfovXxVVTdHuZJyGoVy2dngmyQuphm6MzWDo6+ycVPH4VmCs+LUk
+ bVrHrfKSNbzUnIb8bgMrSElKtzdn2rzT72f3yOkJAkfY387Ugs8iuLGbrELN7Bf2IOMb+5/SN1U
+ Tx3ZHhMDpTSCMVyHOzfx8v+ECs0sU1kZlQx27PHeKr0Gz5T3vhL+eV1DaerGbCzJKoA+qAu9THa
+ iJjRFQl6RblhtS6m7Lg==
+X-Authority-Analysis: v=2.4 cv=A8b5rKWG c=1 sm=1 tr=0 ts=6af5b728 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=c92rfblmAAAA:8 a=kmYkUENqAAAA:8 a=VwQbUJbxAAAA:8 a=OUwkjY6KL-vEgWlMa8UA:9
+ a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22 a=GvGzcOZaWPEFPQC_NcjD:22
+ a=p9kz6gysRiz6SGr9lVkz:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611120051
 
-ima_kexec_buffer remains mapped to the IMA segment of the installed
-kexec_file_load image. KEXEC_FILE_UNLOAD and a successful normal
-kexec_load can replace and free that image without clearing the mapping.
-Executing a later kexec_load image can then write the measurement list
-into the freed pages. The new image has an IMA segment size of zero, but
-size does not establish ownership of the mapping.
+Hi Natanael,
+Thanks for the patch.
 
-Record the image whose segment is mapped and verify it before the
-execute-time update. Clear the mapping and scratch state under kexec_lock
-when a normal image is removed without another file image taking its
-place.
+On 11/11/2026 9:04 PM, Natanael Copa wrote:
+> The cpufreq core skips requests for the current frequency, so a policy
+> has no voltage constraint on its supply until its first frequency
+> change. Another policy sharing the supply can then lower the voltage
+> too far.
+> 
+> On the SpacemiT K1, both clusters share one supply and boot at 1.6 GHz.
+> When policy0 scales down, the supply drops to 0.95 V while policy4
+> still runs at 1.6 GHz, causing random crashes during boot.
+> 
+> Set the OPP for the current clock rate of all CPUs before registering
+> the driver.
+> 
+> Fixes: 3b9c34556fc1 ("riscv: dts: spacemit: Add cpu scaling for K1 SoC")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Assisted-by: Claude:claude-fable-5-2
+> Signed-off-by: Natanael Copa <ncopa@alpinelinux.org>
+> ---
+> Reproducer, booted with cpufreq.default_governor=performance:
+> 
+>    # echo 614400 > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+> 
+> buck1 drops to 950000 uV while policy4 is still at 1600000 kHz, which
+> crashed my board within seconds.
+> 
+> Tested on a Banana Pi BPI-F3 with v7.3.3 and v7.4-rc2. Without the
+> patch, v7.3.3 crashed on every boot with schedutil (three). With the
+> patch, the reproducer keeps buck1 at 1050000 uV, and five boots with
+> schedutil were clean on each kernel. Not tested on other SoCs.
+> 
+> Other OPP users that never set their current OPP have the same gap. If
+> you would rather fix this in the OPP core, I can rework it.
 
-Fixes: 9f0ec4b16f2b ("ima: kexec: move IMA log copy from kexec load to execute")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- include/linux/ima.h                |  1 +
- kernel/kexec.c                     | 11 +++++++++++
- kernel/kexec_file.c                |  7 ++++++-
- security/integrity/ima/ima_kexec.c | 24 ++++++++++++++++++++++++
- 4 files changed, 42 insertions(+), 1 deletion(-)
+Which other users do you have in mind? Apart from K1 I couldn't find
+another in-tree cpufreq-dt platform where several policies share one
+cpu-supply. MediaTek CPU/CCI has the similar issue, and
+mtk_cpufreq_set_target() handles it by not going below the boot
+voltage until the CCI driver is ready, so I'd keep this in cpufreq-dt.
+But I'll defer to Viresh on this.
 
-diff --git a/include/linux/ima.h b/include/linux/ima.h
-index 8e08baf16c2f..d61b7b7756b7 100644
---- a/include/linux/ima.h
-+++ b/include/linux/ima.h
-@@ -34,6 +34,7 @@ static inline void ima_appraise_parse_cmdline(void) {}
- #ifdef CONFIG_IMA_KEXEC
- extern void ima_add_kexec_buffer(struct kimage *image);
- extern void ima_kexec_post_load(struct kimage *image);
-+void ima_kexec_cleanup(void);
- #else
- static inline void ima_kexec_post_load(struct kimage *image) {}
- #endif
-diff --git a/kernel/kexec.c b/kernel/kexec.c
-index 90756dc6339b..297f4657869b 100644
---- a/kernel/kexec.c
-+++ b/kernel/kexec.c
-@@ -11,6 +11,7 @@
- #include <linux/file.h>
- #include <linux/security.h>
- #include <linux/kexec.h>
-+#include <linux/ima.h>
- #include <linux/mutex.h>
- #include <linux/list.h>
- #include <linux/syscalls.h>
-@@ -114,6 +115,10 @@ static int do_kexec_load(unsigned long entry, unsigned long nr_segments,
- 
- 	if (nr_segments == 0) {
- 		/* Uninstall image */
-+#ifdef CONFIG_IMA_KEXEC
-+		if (!(flags & KEXEC_ON_CRASH))
-+			ima_kexec_cleanup();
-+#endif
- 		kimage_free(xchg(dest_image, NULL));
- 		ret = 0;
- 		goto out_unlock;
-@@ -163,6 +168,12 @@ static int do_kexec_load(unsigned long entry, unsigned long nr_segments,
- 	if (ret)
- 		goto out;
- 
-+	/* A kexec_load image has no IMA measurement segment. */
-+#ifdef CONFIG_IMA_KEXEC
-+	if (!(flags & KEXEC_ON_CRASH))
-+		ima_kexec_cleanup();
-+#endif
-+
- 	/* Install the new kernel and uninstall the old */
- 	image = xchg(dest_image, image);
- 
-diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-index 59f9ba1b0cd7..95b3a9ab1e3b 100644
---- a/kernel/kexec_file.c
-+++ b/kernel/kexec_file.c
-@@ -401,8 +401,13 @@ SYSCALL_DEFINE5(kexec_file_load, int, kernel_fd, int, initrd_fd,
- #endif
- 		dest_image = &kexec_image;
- 
--	if (flags & KEXEC_FILE_UNLOAD)
-+	if (flags & KEXEC_FILE_UNLOAD) {
-+#ifdef CONFIG_IMA_KEXEC
-+		if (image_type == KEXEC_TYPE_DEFAULT)
-+			ima_kexec_cleanup();
-+#endif
- 		goto exchange;
-+	}
- 
- 	/*
- 	 * In case of crash, new kernel gets loaded in reserved region. It is
-diff --git a/security/integrity/ima/ima_kexec.c b/security/integrity/ima/ima_kexec.c
-index 3aa8b1096f81..cc15aed8df48 100644
---- a/security/integrity/ima/ima_kexec.c
-+++ b/security/integrity/ima/ima_kexec.c
-@@ -25,6 +25,7 @@ static bool ima_kexec_update_registered;
- static struct seq_file ima_kexec_file;
- static size_t kexec_segment_size;
- static void *ima_kexec_buffer;
-+static struct kimage *ima_kexec_image;
- 
- static void ima_free_kexec_file_buf(struct seq_file *sf)
- {
-@@ -229,6 +230,11 @@ static int ima_update_kexec_buffer(struct notifier_block *self,
- 		return ret;
- 	}
- 
-+	if (ima_kexec_image != kexec_image) {
-+		pr_err("Kexec buffer does not match current image.\n");
-+		return ret;
-+	}
-+
- 	ret = ima_dump_measurement_list(&buf_size, &buf, kexec_segment_size);
- 
- 	if (ret)
-@@ -239,6 +245,7 @@ static int ima_update_kexec_buffer(struct notifier_block *self,
- 
- 	kimage_unmap_segment(ima_kexec_buffer);
- 	ima_kexec_buffer = NULL;
-+	ima_kexec_image = NULL;
- 
- 	return ret;
- }
-@@ -258,6 +265,7 @@ void ima_kexec_post_load(struct kimage *image)
- 		kimage_unmap_segment(ima_kexec_buffer);
- 		ima_kexec_buffer = NULL;
- 	}
-+	ima_kexec_image = image;
- 
- 	if (!image->ima_buffer_addr) {
- 		kexec_segment_size = 0;
-@@ -288,6 +296,22 @@ void ima_kexec_post_load(struct kimage *image)
- 	}
- }
- 
-+/*
-+ * Drop the dump state before its kexec image is replaced.
-+ *
-+ * This function assumes that kexec_lock is held.
-+ */
-+void ima_kexec_cleanup(void)
-+{
-+	if (ima_kexec_buffer) {
-+		kimage_unmap_segment(ima_kexec_buffer);
-+		ima_kexec_buffer = NULL;
-+	}
-+	ima_kexec_image = NULL;
-+	kexec_segment_size = 0;
-+	ima_free_kexec_file_buf(&ima_kexec_file);
-+}
-+
- #endif /* IMA_KEXEC */
- 
- /*
+> 
+> Found and fixed with the help of an AI assistant (Claude). I reviewed
+> and tested the result.
+> 
+>   drivers/cpufreq/cpufreq-dt.c | 26 ++++++++++++++++++++++++++
+>   1 file changed, 26 insertions(+)
+> 
+> diff --git a/drivers/cpufreq/cpufreq-dt.c b/drivers/cpufreq/cpufreq-dt.c
+> index eb15650f99bf..2646dda10aac 100644
+> --- a/drivers/cpufreq/cpufreq-dt.c
+> +++ b/drivers/cpufreq/cpufreq-dt.c
+> @@ -153,6 +153,30 @@ static struct cpufreq_driver dt_cpufreq_driver = {
+>   	.suspend = cpufreq_generic_suspend,
+>   };
+>   
+> +/*
+> + * Set the OPP for the current clock rate, so that its voltage constraints
+> + * apply before any policy can change frequency. Otherwise another policy
+> + * sharing the supply could lower the voltage below what this one needs.
+> + */
+> +static void dt_cpufreq_set_initial_opp(struct device *cpu_dev)
+> +{
+> +	struct clk *clk = clk_get(cpu_dev, NULL);
+> +	unsigned long rate;
+> +	int ret;
+> +
+> +	if (IS_ERR(clk))
+> +		return;
+> +
+> +	rate = clk_get_rate(clk);
+> +	clk_put(clk);
+> +	if (!rate)
+> +		return;
+> +
+> +	ret = dev_pm_opp_set_rate(cpu_dev, rate);
+> +	if (ret)
+> +		dev_warn(cpu_dev, "failed to set initial OPP: %d\n", ret);
+> +}
+> +
+>   static int dt_cpufreq_early_init(struct device *dev, int cpu)
+>   {
+>   	struct private_data *priv;
+> @@ -251,6 +275,8 @@ static int dt_cpufreq_early_init(struct device *dev, int cpu)
+>   		goto out;
+>   	}
+>   
+> +	dt_cpufreq_set_initial_opp(cpu_dev);
+
+Does this need to apply to all cpufreq-dt platforms? Could we detect
+this dynamically by checking whether the policies share the same cpu
+supply, and only do it then?
+
+
+> +
+>   	list_add(&priv->node, &priv_list);
+>   	return 0;
+>   
+> 
+> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
+
+
+Besides, Sashiko reported some issues, would you please have a look?
+
+https://sashiko.dev/#/patchset/20261111130430.10359-1-ncopa%40alpinelinux.org
+
+
+-- 
+Thx and BRs,
+Zhongqiu Han
