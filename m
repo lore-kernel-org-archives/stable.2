@@ -1,56 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794506422;
-	b=pjj2w053VV+Z9J+hErEeF4sc2/oFK1ue6LKqeGA3ndJShA/GW1JZfEtKknnw2jtfoWwk
-	 tLVd0Ttn1ECZm9KY91M/YG0wfKQ4Ls1ZiB/maNgUDP4rfOYfDob2/rWjgGtQ2IQRFpKNn
-	 YTMIGKHuLdmpg4hZpcLFMWEaWJDkSOGcZpz52QVh9AoB4a1A8XfpSnObd1Rh+bQZ1RVvu
-	 hfDzvHA7+SN3hUTmz6fqYGimIdXqXWCg6uko47LDSxgCYuM08oVTHLQGh6AvEyiDqz9dC
-	 tAq5EvUtl+pc10ZRu6UEtvQYpI9zVRrg1DV7w2c/4njhpuqpOES14KcxabOaAqx+mUQ==
+	t=1794506700;
+	b=clcq43gHMjXQund7HzDS59loGccVYdE4zE7ntISvTMiS7zpTDTanLCS68s63PXJFn5q8
+	 1aKlLr2LY8Yv9m7j8n90Na9bgENjtnBBGil02vF8af+wpAPZpRPmZJmwtyy+D4tbW0wkW
+	 ynCw4D6akaDmeeh8I2Kwkt35lfG6b4NeF0jr75P2rKsh5N3B7uakpvZbHXRJhVuuQMGs1
+	 G8qEzFJA+oeKjGyMgivUY0Bvtlr2kwR+2rPiY5ULi+YySUfFo/BnJvS+nCFw0xC7WIONs
+	 0RlJBMKjID6C+IB3JBqPJwRW5LE6qgPnSoy4y6DLx2vTT8fQ4+exaDtuqfX+vIGWi0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794506422;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4eroQGgz+m2euzG/A/3E8xgmB0anAkIrTfAseLL/Kuw=;
-	b=2jse31ubZtYu+3+4Wkyd4HIXJ07MKDG7+0nraQL93kgnk4BCxpmWt4VcZNxg+qXllkSF
-	 r1RwLY8gnfjKTEyGE+u7j0CxBqcY2VjZF6BuNMjoRyIZbrbyJuccrKR17ZnAXPCEttgOb
-	 QUCt8K848EzlbD7tc3x661fpvB0jEdtKHlk6dXCluIitQ5MZ/SXtm+h+AGsTxiaIgao+C
-	 uy6CnymDQXshC/aWl4frB/cMlzQGS5iJy85PsLcVNsladu054j++ECjZ3Lw9KVj0NFvDu
-	 wmpKPtOI04HcRMDxSrAdqtodQllxu6eVjGlLYhHx618l3In+fTHfWCF6K1DWlZpFl7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794506700;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=bIWDkbxjpmm/7xTStOsWJq0pgwFL0TwKQBYsQzickiM=;
+	b=PS7dpWQCHPViW6q3ocFkrmpZzHYb7+U7mjcIMmFmXkI2pbv88sZXa76SWIw52rdU4Pli
+	 lYFmGniwOPEjAIrd+cfqRsTvvD75LWLvV78f1BpUMv//aOjLQXgYK3uQZaWqz/7at5oYt
+	 pJ2hrr2ImPOmRFtdbgKW8h7lA00smLG7gmqlkhVXzCTY0a7FvSOSkIm4rkbds3G1HUG4e
+	 VnP9rOAiVklN8IQMgpYOuNL5+o73L1fVlL7Lo/a7j6VnwwOt1AzAxlwmA2sBlm3UTMCTg
+	 PuoRX8/cdULlUI2wMpPJaPZp3xfYjPIu5ReSs7AGgk1Wzrh27JiseaB/xSiA12mAEnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVcRuJYX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=invisiblethingslab.com;
+	spf=pass smtp.mailfrom=invisiblethingslab.com;
+	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm3 header.b=HLVF6vjg;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=DKrQxPcq;
+	arc=none smtp.remote-ip=202.12.124.152
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE79606A332
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:00:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DFD606A327
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:04:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30DFD606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVcRuJYX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32ABA1F000C4;
-	Thu, 12 Nov 2026 18:00:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794506421;
-	bh=4eroQGgz+m2euzG/A/3E8xgmB0anAkIrTfAseLL/Kuw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mVcRuJYX5qfwpJ3R4nstfW4llh97xGY+7N7AZxEkj1uYlM7kWsgbEQy+7yMhcm4g+
-	 fdlm4Hh2DIHywldGG+xeECceIdqgtMGjekhzEzzdHb+ab0Xs8NBAUHVjlk3W5Q5Tn8
-	 pqGMpYW9KhumSilHHtGhYOINrTpntg33Tt6akRi+Gcsd0btzbriD3Dl2wqWaQDBAQ1
-	 PhyBYoEPw9OnG00M8QUkeyCuEt5hcUVAkD0/0sDgEJE2Dh1b9ixJm8K7GLXvPGTVQt
-	 V4+l/u7ZNdRBEwBQCNpz+hruLhQtiEA8+Z4NGZmXwTEbyHCw9V7Wzgo9rnd3ilc8yG
-	 50bzim6wWGtuA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Junjie Cao <junjie.cao@intel.com>,
-	Andy Tsvetinskiy <andrew.tsvetinskiy@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] Bluetooth: btusb: drop BROKEN_EXT_SCAN quirk for 0bda:a728
-Date: Thu, 12 Nov 2026 13:00:19 -0500
-Message-ID: <20261112180004.3452475-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm3 header.b=HLVF6vjg;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=DKrQxPcq
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 2355E7A01D4
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 13:04:59 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Thu, 12 Nov 2026 13:04:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to; s=fm3; t=1794506698; x=1794593098; bh=bIWDkbxjpmm/7xTStOsWJ
+	q0pgwFL0TwKQBYsQzickiM=; b=HLVF6vjg+hSkplB1uifLSRDVNfzWWu9MY+H8n
+	hasLjBs4AeEXwYudu6Ac0dM4TjGfUqTnfIIXG+C4jw/PWgyHwLWs1dk40Z0GkExl
+	i8nnhXtfrgxJFhvxzGXDQ55xtjCZkVgX/DMOBAvi09jNspk67iWZ3Ms1zN+SWqeq
+	cZKFuC3qYtmVx5ZI4ogzlAWEPuwpFO9Zub4tLdUEPnMN6WiNG/pJJZmgismqDPQJ
+	bdREuOuS0mYnKsh1IOfz/zYdRWabBhvt1O1Znh6zPszA+5i7sG1ya/zc9F76ZXNF
+	tuOMoTEYis975ub2xFgG+AMnQt4l/TXYZiVGQ02825WWZsBdA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794506698; x=1794593098; bh=b
+	IWDkbxjpmm/7xTStOsWJq0pgwFL0TwKQBYsQzickiM=; b=DKrQxPcqtnwO1xwwg
+	tHK7yUrPBHWGK6s+NtQ95M5BGOpdFHSSRSpwKX75WurWWLCvhY+4xDcH/IhbOt3k
+	Yt3Bu0DB6WReQqGqj53DcDK3SXsxVFubGHRV/NV4+eJrW6wWpDG4EOQSl8dX+aKk
+	eXd7/IcmKLpFmLwSarQloycy2TFfxKVONJFp9wsVwFT9sw74RCy49zrt7nb86ZNV
+	RBjN4tuTgLCMlYA5aDQH2k4xJcIyUrnJa4opC3U40bG32nSmFv9XRsjZfFQDS8vR
+	ZlVBEO4N1f9x6Qpv6WmWPHCNByOm2h6Gl+iKq89yYgLB6xbdS8xGUVCsaV2Ms4k4
+	HAUYA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794506698; d=invisiblethingslab.com;
+	mf=PGFjY2VrQGludmlzaWJsZXRoaW5nc2xhYi5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:fEtXzVSIhmVqdDw+XXpoBTq5V+KxC/OG0Zg0YRSwlwnLIi/
+	zr3yvi/eKVFB1MYAggFKmTJGvxBOXz+08YDUZabJAAdPlceMD1tOJS98j1cLOpLX
+	Bu6RJqcvBQxoDQpqow00b9LoAmII6PMfvOafubndLizzsE7Dh2G2XrCby1rfK7mq
+	/K/Dj8KvAqkRG3lcy/MEpZowY3UQRElc2n1TT6tlZQNpNJ4VQa148zQHARrfZ55D
+	Uz4qbKa7EwVslSW0xZej+4sQdc/nKu4NDkMFs4BmtiVRFcSbj7iGp8Wgga3r7ntI
+	EtTxUClHwYS2zPuZrv873Q0GLDzXIgYN/7YQLTA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:IvOIwpEJoX1NujdpENhEmYt+bC9JBzJHM3aLQmrVtjg=:bIWDkbxjpmm/7xTStOsWJq0pgwFL0TwKQBYsQzickiM=;
+X-ME-Sender: <xms:yf_1akSf3HbeEWYbkNf3Jdei6uSY3kfrUHtoMs6_B05MifF5on6XgQ>
+    <xme:yf_1arFXpIHOJ3M-xOTqAZfcv6GRzGcgLWns-nJytmWuKQD3V3DiV_vS54Xt6qo8F
+    p933xtJy0J4Jmp74atvh0gvGW7tbqvdoyn43mG_3l4Mf7SsR3vt>
+X-ME-Received: <xmr:yf_1apErZJW0RX7PL1VX0pGQc5V_5l-5fMbfb5UMwBJNIYs4S41Z4xpP5Ja4Gb-HQJsbW22nliBBJw>
+X-ME-Proxy-Cause: dmFkZTE70pgyBIH+aLE1nO4vfhAc2Fh45MC0V7eAwpRWq+pL1EzXbOZx7VJlFp2RmxRleN
+    WOKex6pnVtDR0Fzbgw8iNzr0KlKr8fzcZht7wtWZFmBtm2sAWnWumZIG9h/oO1r4CJOneG
+    WyUxwRjwPOsCXpEO/I7BdPwgbHNk/YQIhDv1b5HEtWuqmeusfLxC5bEWIbH6PTyLHRMqId
+    RaIy4bpuPQQ/FnGjJQLddFwy4PNUN3sjavomqClkyAYvFwbFLsRtXnibb3pSm+mX4a6ZFl
+    OXqf5DOi/4gvvSggMVo32Sf5/sEo2z4luO2Lg9cGTbibn55JONSVs1AYjTUijug8Qwgdrf
+    T03INJxvbJyHu0vwlvg6XSy6MMNgluCUnew21+cyxEdpo998WdMTq8toVCOHxX8CLVmA4T
+    yNdMBbycQUipar4NpzeiTVBFwizDKrTRliurCLbTAiLK85Hzux6UehrTZx6u8Qb6cNzfGs
+    z9D92FOzitS3lGl1kNwrGpmv3q85s/wjeFLQ4ToOejrXmLGtbNnADdTxKUed5A/vxy3PMB
+    lNFMKnVx/FmKs9sIE4e0q9DTo+J2NVj00PZS3Z2BDgeaL4avBLhx8Pk2e+te+Rifwko9bQ
+    Dk3PXVmdpzcjr4TKHTPEyk4caxEYguKXftLds8ztFoGmU6SZPs8RaWOLCuDQ
+X-ME-Proxy: <xmx:yf_1apTxphFBxzBvSbWTUoc7exEVizLo3MyTvErokOy8hZ7zaJXqKg>
+    <xmx:yf_1aqJKmJt98TcPRuKikK-7Vjs1InvBgECMEMHWKz0c3UZbPM8USw>
+    <xmx:yf_1akZXC1udW-kTY_qlWlIMCSBDEMX_XwDKJA4MqJ7NJl31hwZpsg>
+    <xmx:yf_1as_oCAg1ZUFuUFlNV7g_jAZfPGgurHD07-ilEL-ixoCALQyoFw>
+    <xmx:yv_1amD09BtkRtbVkapA2MN5rmkhKnj8pIPnSQrAOo_mt0M4BshHgRqf>
+Feedback-ID: i792e4853:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 12 Nov 2026 13:04:56 -0500 (EST)
+From: =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>
+To: sashal@kernel.org
+Cc: marmarek@invisiblethingslab.com,
+	hch@lst.de,
+	bob.beckett@collabora.com,
+	thomas.hellstrom@linux.intel.com,
+	stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV" failed to apply to 7.3-stable tree
+Date: Thu, 12 Nov 2026 19:04:36 +0100
+Message-ID: <20261112180436.912177-1-accek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051132-failed-6.18-df5e35f1663a@kernel.org>
-References: <20261107051132-failed-6.18-df5e35f1663a@kernel.org>
+In-Reply-To: <20261107050332-failed-7.3-77f704158f09@kernel.org>
+References: <20261107050332-failed-7.3-77f704158f09@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,77 +130,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Junjie Cao <junjie.cao@intel.com>
+No backport needed: this change is already present in the 7.3 tree,
+went into v7.3-rc5 via drm-xe-fixes as commit 141008dec735
+("drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV").
 
-[ Upstream commit df5e35f1663abc2702cf9f9e7eba024129ac5df1 ]
-
-Commit 5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE
-extended scan") set HCI_QUIRK_BROKEN_EXT_SCAN on every RTL8761B, and
-commit ca0583c24661 ("Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN
-quirk to 0bda:a728") kept it on 0bda:a728 on the assumption that the
-USB id separates dongles with broken extended scan from those with a
-broken legacy scan path. It does not. An 0bda:a728 unit (RTL8761BUV,
-fw 0xdfc6d922) on 6.18.51 fails the same way the UB500 and 0bda:8771
-did: LE Set Scan Enable (0x200c) times out with -110 and btusb resets
-the device. With the flag removed from the table entry, scanning works
-on that unit.
-
-Two dongles with the same USB id need opposite settings, so the device
-table cannot key the quirk either. The costs are not symmetric. Without
-the quirk, the unit it was written for gets -EBUSY on LE Set Extended
-Scan Enable (0x2042) while a connection is up. With it, 0x200c times
-out and btusb resets the device on three reported units, two of them in
-a re-enumeration loop.
-
-Remove the flag and the table entry. 0bda:a728 matches the generic
-Realtek entry again and runs without the quirk, as before v7.2.
-
-Reported-by: Andy Tsvetinskiy <andrew.tsvetinskiy@gmail.com>
-Closes: https://lore.kernel.org/all/CAE4bxw+ofDFVx0aTHqCrzns9oP1CRQDm_wzeyHPeMBYOhSpcuA@mail.gmail.com/
-Fixes: 5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE extended scan")
-Fixes: ca0583c24661 ("Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to 0bda:a728")
-Cc: stable@vger.kernel.org
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ sashal: Adapted the patch to the Bluetooth USB driver's original source filename. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/bluetooth/btusb.c | 8 --------
- 1 file changed, 8 deletions(-)
-
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index b6773ef24c438..6143414711c5d 100644
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -67,7 +67,6 @@ static struct usb_driver btusb_driver;
- #define BTUSB_INTEL_NO_WBS_SUPPORT	BIT(26)
- #define BTUSB_ACTIONS_SEMI		BIT(27)
- #define BTUSB_BARROT			BIT(28)
--#define BTUSB_BROKEN_EXT_SCAN		BIT(29)
- 
- static const struct usb_device_id btusb_table[] = {
- 	/*
-@@ -633,10 +632,6 @@ static const struct usb_device_id quirks_table[] = {
- 	{ USB_DEVICE(0x0489, 0xe130), .driver_info = BTUSB_REALTEK |
- 						     BTUSB_WIDEBAND_SPEECH },
- 
--	/* Realtek 8761BU Bluetooth devices */
--	{ USB_DEVICE(0x0bda, 0xa728), .driver_info = BTUSB_REALTEK |
--						     BTUSB_BROKEN_EXT_SCAN },
--
- 	/* Realtek Bluetooth devices */
- 	{ USB_VENDOR_AND_INTERFACE_INFO(0x0bda, 0xe0, 0x01, 0x01),
- 	  .driver_info = BTUSB_REALTEK },
-@@ -4356,9 +4351,6 @@ static int btusb_probe(struct usb_interface *intf,
- 	if (id->driver_info & BTUSB_INVALID_LE_STATES)
- 		hci_set_quirk(hdev, HCI_QUIRK_BROKEN_LE_STATES);
- 
--	if (id->driver_info & BTUSB_BROKEN_EXT_SCAN)
--		hci_set_quirk(hdev, HCI_QUIRK_BROKEN_EXT_SCAN);
--
- 	if (id->driver_info & BTUSB_DIGIANSWER) {
- 		data->cmdreq_type = USB_TYPE_VENDOR;
- 		hci_set_quirk(hdev, HCI_QUIRK_RESET_ON_CLOSE);
--- 
-2.53.0
-
+Thanks,
+Szymon
