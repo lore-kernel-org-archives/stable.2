@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.12.53.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.1.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794514994;
-	b=EEDjx/OWQSV71F4OMmnM6NjtVjFFmEJQRxI70bhELRKPZHFZUMPElVuzCsUBchUjZ4SA
-	 +bz6L4w/4TPr2V6ULbmOzvLuJFx6UfMZVuLKO3DpQrfo9i4PIr5SwUUM5j2KUTk+gcBA7
-	 qCeVhUaKsKfIUO9/nFgu2TKCUVNo919TBy+8vNX+nPbwN1y9zx6m9UcS6JU2ibunYxMd7
-	 og0iIczyOktVjOFntp/JDpPcz5Kpz3bjk2ndm/7Eqk3E8/93dLTuajgdMpP9ztlBhyj33
-	 C9cUZ4Nr4Z9AWmypb3yK72okjH9N0YBc8jQo4QCDL1Su3hJS5QPcp2C7gsh70SRvoXA==
+	t=1794515002;
+	b=MMk56GmOye0QiW5GzTIKhD3j95k0nccycpQm89elskFq1JZLLYMsUKxL/RSjORfAP8Is
+	 iqK696dCwOBLVpX/e9CLv4Hf4AsGdcDO4u1bDiEzHfdsg9hGiuBwWhcK5YNb26QHq+ld6
+	 U/HBzBRRz9EISdh4DnHo88z+CEl/NbURNRDQ14WnH4E+r/2oBQZwcwnDYSs+X1uxLdt1n
+	 AoHvbMpVhl+Kg0dBYuLbKKUTE1LuouOb7bFr+2QcxkGRda5vthhjY5eITtcXLwyAt2yIK
+	 siJU+F+5Jak0k0z+PFsWE5MmKvIQHftWyqmsQub/TKiMF5pzJqEN+IOTzbqlqyMKIDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794514994;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794515002;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=8DzqwpdQD5heDHoUrlsNiPFwyABhSek6uK6Bj4NP0hg=;
-	b=CRAV5rYsvWNE/7JtOkYczFzEgHBV0TXjgoeARwAinCDsI7HgoVfmQfEwhuiQjHrFHDVr
-	 nTIs9UCz+fuqPjrQ/Kj8sQJDi8NeK6FHX1UzgnUUiGBUl0hdPswwqrBjuvX42APqjJjOP
-	 GmSup6yyAjB3/+fEBSHreT57JvI55FaVT9++ijd+DZCEQqLX0A1xpgDjwtbZi3kXuGyzF
-	 svWInPPpv5rc3kdz0OpDHU79AIHYDWjnEltKk24rj2mBBeJH4CPgmRU5/4ygAYpx1NTAq
-	 OgcHigcdgqvY114SV9Hv+qNIR6wZ/hcqsIlpW9yc8NMckgrbmcyhI/X1YG3iRpOFOpg==
+	bh=K2FZCljGaZ5Cae2DMfeHsHJsgiYGyvlnAKdx0u4b/6U=;
+	b=Zo8ClFFPjINAvKopXS1A9m4jZ3eDWPRRNF50a82W11+p9y464jKDTdCHCGqxk+q6KnO6
+	 KM4LzI2OXUtftYifHxCzi/1rAt3zU+0wrZo4ry6FnLfTQGsr+KKEuNIDa4YQOMcKrzYvM
+	 wGHRTelyFQ1xVOHBvIVLWONgQE26uLoWNXgQ5DaggwLDHfGGqMb64gj4GquBbPkvVScLI
+	 hgtQcA+NMLVNuMXJWvlp/eEkRa/ZGiPgfFEbG9IPEBzME4jvW1o4UTAPLHN8V4JItZjsR
+	 LrBW94EkU1d1DEVKww/1jDzcs5RA9LZBJRw6geTqtAtBcNn3nNyYmJegjSocw9fv/Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.de;
 	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=pDaGQfy9;
-	arc=none smtp.remote-ip=52.12.53.23
-Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=qcu04zAn;
+	arc=none smtp.remote-ip=44.246.1.125
+Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5E8606A327;
-	Thu, 12 Nov 2026 20:23:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F5E8606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BB2606A31C;
+	Thu, 12 Nov 2026 20:23:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08BB2606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=pDaGQfy9
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=qcu04zAn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1794514994; x=1826050994;
+  t=1794515002; x=1826051002;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=8DzqwpdQD5heDHoUrlsNiPFwyABhSek6uK6Bj4NP0hg=;
-  b=pDaGQfy9QSnV4z2H8V2s7V6Y9FoAtjBAgdpz2s1NTDmAtX7oeGXReC1O
-   mjoXHgIg9A+GKaH8afqLdEZ0FQ2l/gAaec+y8sQ+cPEQHbJT4o2nyca8i
-   4ofCn7rjzYYVJnn04ppaDWgLqcYBzOZtBGDa6DAKWc3LHYMDbOClfpRTQ
-   oeVZQExgm4W50Y9IZRjJSy1oCWaK9yCP/3RxUP8eVtdXXZbkIvrjAjjlm
-   6lK6AEfxuBVz29sqlEhJ45lzDF9/wby0eX50OmsuToff7uszns88epl0y
-   kqODXuIKn/TS5GI15ODGJ60xrnIhi2EaU6TTZTugwN7fjF3xisAGbBf72
-   Q==;
-X-CSE-ConnectionGUID: AEJzRDz1SWGPsKT+gABYmw==
-X-CSE-MsgGUID: 8T5oW8P5QC+831tEvlbIrQ==
+  bh=K2FZCljGaZ5Cae2DMfeHsHJsgiYGyvlnAKdx0u4b/6U=;
+  b=qcu04zAnQSVi7rFQpLp62VDt2OE8Ofqy3tzyw4wr/dEfPThufYT1+IJH
+   tH6aAd9bzwwgyH3nKBE6z6RwAa6IF1NaWyVEHcw5OKozqFgepfi/Hz7vB
+   KV3gCj9sDwLBzL+N7ftCVG5nXay5Q8g9YeEYU8J4UAGrThw6wDyjYRtDj
+   4GGUHhMfc3V+7WlT17OkPwU4qeYiWe/IKE7CrDBG7lyZRA1HOTHrvbC0g
+   xdYKJZm3+rKiIDg16hg+OzmX7uRnVkO0AlBnf93G3pdSe7yauCwulOt8E
+   wgK1rQSQ57cO25huc1wbCBJuARhf4FEIVGWF7U9Q06YfCnjShh8Dg5lCR
+   g==;
+X-CSE-ConnectionGUID: HRUiPj0YSuCvzbHeC292iQ==
+X-CSE-MsgGUID: yKvHfUh0Ts65FpBL8ihbXA==
 X-IronPort-AV: E=Sophos;i="6.27,210,1787011200"; 
-   d="scan'208";a="33713108"
+   d="scan'208";a="33853166"
 Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 20:23:11 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:26049]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
- id 80d6f0d1-7a47-418a-a4da-54433e9e3046; Thu, 12 Nov 2026 20:23:11 +0000 (UTC)
-X-Farcaster-Flow-ID: 80d6f0d1-7a47-418a-a4da-54433e9e3046
+  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 20:23:19 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:23820]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.50.212:2525] with esmtp (Farcaster)
+ id 5848bfd7-122a-422c-97e6-49be87636d8f; Thu, 12 Nov 2026 20:23:19 +0000 (UTC)
+X-Farcaster-Flow-ID: 5848bfd7-122a-422c-97e6-49be87636d8f
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 20:23:11 +0000
+ Thu, 12 Nov 2026 20:23:19 +0000
 Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 12 Nov 2026 20:23:09 +0000
+ Thu, 12 Nov 2026 20:23:18 +0000
 From: Bjoern Doebel <doebel@amazon.de>
 To: <stable@vger.kernel.org>
 CC: Kyle Zeng <kylebot@openai.com>, Eric Dumazet <edumazet@kernel.org>,
 	"Willem de Bruijn" <willemb@google.com>, Jakub Kicinski <kuba@kernel.org>,
 	<netdev@vger.kernel.org>, Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
 	Bjoern Doebel <doebel@amazon.de>
-Subject: [PATCH 5.10.y] net/packet: check TX_RING fragments before memory accounting
-Date: Thu, 12 Nov 2026 20:22:59 +0000
-Message-ID: <20261112202259.1603271-1-doebel@amazon.de>
+Subject: [PATCH 5.15.y] net/packet: check TX_RING fragments before memory accounting
+Date: Thu, 12 Nov 2026 20:23:11 +0000
+Message-ID: <20261112202311.1603376-1-doebel@amazon.de>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,7 +86,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
+X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
 From: Kyle Zeng <kylebot@openai.com>
@@ -119,7 +119,7 @@ Signed-off-by: Eric Dumazet <edumazet@kernel.org>
 Reviewed-by: Willem de Bruijn <willemb@google.com>
 Link: https://patch.msgid.link/20261028181450.2221013-1-edumazet@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ 5.10: adjust for context in kernels lacking 3948b05950fd ("net:
+[ 5.15: adjust for context in kernels lacking 3948b05950fd ("net:
   introduce a config option to tweak MAX_SKB_FRAGS") ]
 Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 ---
@@ -127,10 +127,10 @@ Signed-off-by: Bjoern Doebel <doebel@amazon.de>
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 66aa5e7819ae7..41ee1113d109d 100644
+index dc9308a22f9e3..76762e3b55226 100644
 --- a/net/packet/af_packet.c
 +++ b/net/packet/af_packet.c
-@@ -2662,6 +2662,12 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+@@ -2666,6 +2666,12 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
  	}
  
  	offset = offset_in_page(data);
@@ -143,7 +143,7 @@ index 66aa5e7819ae7..41ee1113d109d 100644
  	len_max = PAGE_SIZE - offset;
  	len = ((to_write > len_max) ? len_max : to_write);
  
-@@ -2673,12 +2679,6 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+@@ -2677,12 +2683,6 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
  	while (likely(to_write)) {
  		nr_frags = skb_shinfo(skb)->nr_frags;
  
