@@ -1,59 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794458018;
-	b=Pdfeovl5gT8SKEK3caZRhe1paspm08oymRwlIl4S0n9ovpk63inwKTE6yl709TAd0uoG
-	 3UKYvqiqJ6fgGrZaFLifVS4tLiemChAMKvZLkFDS4E0dAQ95fI/01AkDOARMIhFaLp1fT
-	 2r+UyqbhWeV7QgQqDeDGSbWHEsEx2kmK7e0stIr5wOD/6T49LRxJ4m4SYyB2B46naL1wO
-	 //CqW4+cyxtnqnQHYv8lp0OPHABNayht16I9IazMAEETo7zVBjsdw6iEYTb+NGK7MN5U0
-	 VJWk5XwXXBusja3c+cOgGWKWxa/qrK/YizXY62/nj4Hiw08ya65CYt7r9aAviMG72bQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794458018;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5VUPrV4A9tGNvVlk5qb/TEgkVVbRnZI8k+D93O3fHSc=;
-	b=yFGbsChdgJuaZHvXE6hUIMOaps/zYopepaWm/9xm91orWRKl27rqjCVfEVuwWbDvqVL2
-	 s3EbewBGMMQ/9mPvdjSxJjaY597vAYFMDVHAOwn3P2sElAzSTNUTdrPnS1TEJH3irXO8k
-	 cFQCA74vEuijHQlJbX/IxEs3VejQJIjNh/0gpqvg4iyoIYdu6BcKY4HpIs6SHFVt0HIBw
-	 tRdY9PMB1NLwLFZYctdtBw3MaBeIPdCqltnzuFnsyg9LbbDqBWdgKkqoEnLuMiz/N9jmE
-	 NFseKIxAsw5uK6ZNsiCERqeb1BeoAgZx6BV2KUfA2rIXy201UFqe0LHYcl+XwxcEDyw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lE3vJMIP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.122
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794458264;
+	b=cw+hrrx9KaJfe5dsnpsy+VZHxiw/0+DUmLEq9s0EPgdpoH0z+h2JPTT/Sz8AVsLnGZY3
+	 3AVf9R+061EDsoM2aAkFsPUciOBZZQFulUds02wrz4Oi9hiAODFzQ1D715+Q4wMF+xghO
+	 d2v5Mhj/Np687RsGhAOZ8fcbPmeDPLqcOg9CC8tsv1Ek0azKFVyx9Kbowf6n88k0K7RLj
+	 3sfS9BWgzR8EcLNtKerDReD/GqcPFj87gtbbr2BxJkQNvQaEjWaXVWChXBhEQ85yLEszW
+	 zigrBaSjBz2CY1xyAtTYLTRGpKz5T8bkxkzRHvbKHlCXVn3NaY2uSFf1OLOSIxX/QRQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794458264;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ru0UVv3xr4gryqXsGdFkarR2n1+SP2x/tAOcKQIeiRE=;
+	b=McVfDjuy3MvAvqJqZ9jBtAiBpeC1sYmDlJW1fgWTn4/YOSIQMpB6BLhIa9nKS/QNoTfc
+	 vK5J/hmbSwMdT7QWsxeNsVSBObj6itHxKOmEsqOHi9WT28ZSlkhctz5zLS9Dgc6Tpz4Ty
+	 MlB+SlJt2SEYlGIsoPQz2xgB/xKmzbTyvLr9rzppHHIhZWK515+KDWt/GuC6L04cIJ/aG
+	 rz/vUtuYadX1lFU3vrVALGRKMfY8Ejk3yeTT1a6eAR6nMXhiD2P3gdnSNIylI/hNurIaz
+	 zY3JZOQwYgFJo6Q9ZZuwwpe4bML3WWQlHIiDRMD9HBjo807RaXFcb2Aoq6VkgMg85LQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=vaisala.com;
+	spf=pass smtp.mailfrom=vaisala.com;
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=rMdZLHU8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.122
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022122.outbound.protection.outlook.com [52.101.66.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19406606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:33:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A110606A330;
+	Thu, 12 Nov 2026 04:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A110606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lE3vJMIP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145BE1F00A05;
-	Thu, 12 Nov 2026 04:33:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794458017;
-	bh=5VUPrV4A9tGNvVlk5qb/TEgkVVbRnZI8k+D93O3fHSc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lE3vJMIP46NCnnLrrXa8kTsKiQumAX/tgM2sNJ040A9+567bvr19ItMZSEndYCsRA
-	 itFxb6U8TDWAu0PT1cFlo7N6jMnFs5oS7+puJbiPlIVrS9tUPopM5I4gZqOK8W8f+C
-	 5pfKqp8DUDSRe3WAuswGh5/M+zhhhRYhj77OpcItSjtHADcNk82MAd27vWhcUWZtPj
-	 ntk5BlMUF0EXIi/6mQbcE3Z/9J0PM1sLzLbIxhclpNaMICt/NPD6Nx9Xr2RktN7kTb
-	 3CsD8qZi/FXLsLrKMr4Ye3n3xRB2TKL9GG0mCKiKx2OuqwTtENOwir+8GaLm4eTkIZ
-	 ZvomlCi3EMN5Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/mremap: fix moving PUD leaves
-Date: Wed, 11 Nov 2026 23:33:35 -0500
-Message-ID: <20261112043317.2067412-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200915-failed-6.12-440c8779757f@kernel.org>
-References: <20261109200915-failed-6.12-440c8779757f@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=rMdZLHU8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uWAqWjWcCW/2FsWGXVavlykZMWW7YEYM6qFNRiOcl5C6fwiW7rLBZs9dn16NrtkVJASQ028ZcTeUR+kKA4p0IAIFSstyGCpo9tE/pN34XRtsPqdnHll3R1vnviC9VyERYRfqX9N/qbNq0NDLDkbO7el2agR3wYO5OIlfd7tg6KKSWYpFiIvDp10sRS+D6if7YagkDjYYXCwpLkEXITlLqW3tT2BASG3d/g43b21JNdQE4LFLhJX2PqUNOIG1i1XrVnJAAufu9tsN8C9PtfdIXzWNUpcpu87sjGlKTN2CjKbTedclXMbOBXwNSH3Mnip70GFGeO+/pQxfq7QgaYJ6Ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ru0UVv3xr4gryqXsGdFkarR2n1+SP2x/tAOcKQIeiRE=;
+ b=LUIm1wtkY2R0EAPliG0hPqmfB3ri1+O8ZiwyMDS/V7iQFznnAljOhFecPpOiRHQ+8iwC4kXInE4toTJdjGcNN8WMNBdqT2PXBD/DbWFDu8ke9NPXLduZ2d7A8w9cM6uyXq7R5amj0ma2BKS9sC6uu2o1ReCcBIsVqkBKCW26RTxQDs8CZLF7SC7MB9YN0qp7+hCeL/BgRHqFk/dqF0SO2i+6vMpcxDOSssFGiq2jx1ZKenT1jnYPg01nqkgamNpy7PWu1NKcZtnl5r4e48Dqs7Lxh4Fxonx5flXwux+TWPyomMzXJ4ININ+4WRO1J+i0C2nIzhxzI7ZPuLjUQmTOLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ru0UVv3xr4gryqXsGdFkarR2n1+SP2x/tAOcKQIeiRE=;
+ b=rMdZLHU8JOHm6p5vUvhqbT+js7PhedBEZSjp3vxPVFitUz8fVVXdhF+iHxvwd1XdjK8sNsOfaQ+pfu/8WCmRb4+Z+Cvf5HLJJsU0lubSgD7q4/5tan/KOabY7AaUV9tOK4xHwq4fjbbu9ZSZ6RNKH8Ld9Kyw+i8E1WtQ4hVeomLOZfzbVp4ZmKnfyxs+cwjP44/Q+cKUHbHGpsr7tp/NSP28mf4P+lhosVLZzkiNATy1lMHREgmdQeeCHgRKVrG8TIvOjGBVPAqfh0+ZI9z8EAhOVN6B0s1HKD0q78snsam/+tW3F0UZvKHxmmuBQjLB7QsexYRlzjLwKIvn3tpZPA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
+ by VI2PR06MB10826.eurprd06.prod.outlook.com (2603:10a6:800:327::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
+ 2026 04:37:35 +0000
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc%7]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
+ 04:37:35 +0000
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Date: Thu, 12 Nov 2026 04:37:27 +0000
+Subject: [PATCH v2 1/2] serial: core: do not hold the port mutex while
+ waiting for references
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261112-serial-core-remove-deadlock-v2-1-d3ee4ccec37a@vaisala.com>
+References: <20261112-serial-core-remove-deadlock-v2-0-d3ee4ccec37a@vaisala.com>
+In-Reply-To: <20261112-serial-core-remove-deadlock-v2-0-d3ee4ccec37a@vaisala.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: Johan Hovold <johan@kernel.org>, stable@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Tapio Reijonen <tapio.reijonen@vaisala.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794458254; l=2624;
+ i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
+ bh=CDVl3aYvbTd++Zksyu3p9VN13IUQKKqMkyWMz5rDals=;
+ b=LlsvK4GelVEJ9buWMfmQPks7Wl3HS+n1xmK6XzWtnJfjQ2Jtb1myMgGHCUH1vO6kkZfX8o2Kp
+ Dz3olzq6ilYCD0azP0UPyFT8FS4kyLcusEF45COSGdIxtPgz/ML10ib
+X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
+ pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
+X-ClientProxiedBy: GVZP280CA0094.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:275::17) To PA2PR06MB9176.eurprd06.prod.outlook.com
+ (2603:10a6:102:407::17)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,76 +107,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|VI2PR06MB10826:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc34857b-9ee7-417b-e14a-08df4076ac6d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|23010399003|376014|366016|1800799024|261026140227099003|38350700014|10067099003|261021123027099003|261021121427099003|56012099006|261009221227099003|11063799006|261009223027099003|261022075727099003|261028144727099003|261026121527099003|261022105027099003|261102123227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	zPcli3UKZsOyzFU8WZDzYgaXfDhIfA4wDNevss9dVP52drB8aa8waTri+tjAGRB/yJVfPHGF+hVJl7EJZKKKPSenLpoJA4nyNzdCJ9F183Gns1zU22lokXWNmDMVXYcML2FD5g2wBEcTo19zR4kvLtrU0CmEZUpSy+UuB4P3yTnEofGPEnuxHtuzenLjnoaZMC9yeng2QM5awyUUDq1Xo8ag9mMK7SASjkW0axqOdY6RBqprgToSX8WLQIFz2/D9ZY3gdnXQKqXqiuPX0DrquN6OJEof7qE1xVO3jPWEg/lVOZRB4Tfe+1lEfT2Iyfx+xxr9D24gobfDNE9olkBqL88Pgc+Q8ECJ0oQfMuYJ8HM8mf5mDYDYghpVjjvuSfsIJqG56YzXvrcy/AanIwtZVPxe5YD/1PZwSuLjXlDWOMr/205PHqDS5fPnyhB5n1y5rfXD5uQlILDce0sujcGwK6yKMPgq2+qTDX+Zm2ylYzhkfzfMYNIKvQw8i+66KzJWQQw8+Thm1i0TFEhgJbFcO8zNu8uoGx4NEtCOl+JAJWS8Mj7TEIqBr/NOA+5kBL609nyHCz4PqQBzU5Mg2fMuLVrgfrMDPyEdev6Aaaz7emipZurrjUip/g/KqI30tW7LPfgUn2PPWc2fUnk6Ai4v6z1wFfTnqtZLmwyJvMvOBejfEXAp44LVGycNxoh/OzwR4cotDKbK7OKrT5SbTdXXb+oldcwk3H8QgB0r4LnKJvk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(23010399003)(376014)(366016)(1800799024)(261026140227099003)(38350700014)(10067099003)(261021123027099003)(261021121427099003)(56012099006)(261009221227099003)(11063799006)(261009223027099003)(261022075727099003)(261028144727099003)(261026121527099003)(261022105027099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?M2JmNjNrRjV1RXRteW5hNDZHRjR0cG03T3J2ZXZMdW5PendyZXZIWTdyYTR5?=
+ =?utf-8?B?S243MlRPZHZKb3JNcjE3Tkg1QmE1V3JiV0ZPYzU2bHk0WlZOUWFLVk0zZVB6?=
+ =?utf-8?B?N0lWLzYzeGN3ZnhRdW9yTWJ3TlZGV0pnVHE3bGoxUHkwQjJXT3dtLzBYemEr?=
+ =?utf-8?B?OVlhT2g0L3lqUU5Ia1pWN08wdHhsQkpubEVqdHVxU0RkVWJkVGRKQnM1cEpn?=
+ =?utf-8?B?VmYxcFEwZzh2OFFwdVYyRGZmL0pNbHFYRW11Z2JZdTc0RDRteUdFQWMxL2xa?=
+ =?utf-8?B?NnIzZ0pxY3RwUU1YcDlEcUZGU0lIMU5qZHFQZnMwQVJPaXJKcEdMeEFDajE4?=
+ =?utf-8?B?elRnK2pFNmVwL01RSUxBa0g2NFR2b0ZsTnZpRDRkQmo0eU1sTU1SZjRYRFdk?=
+ =?utf-8?B?eWZCOHErUDFNbzNjRFViQmVUemJyUVZwdU1ORFpObmtaYjBPZ0Z2RS9ZQTBq?=
+ =?utf-8?B?N1JGMit4QWpjVktlOTNwRFdQNVg5aUwvaHhIUVBZS1phYzdGQUJiUXNKemZI?=
+ =?utf-8?B?TSt0K2RJQXRqVkhkdWZObmJPejBEUGxoZXR5cXQyN29jeGdzbHZuQzIzSjBO?=
+ =?utf-8?B?RWxXcm1KNkUyZnUrOHk0UWJHdjVMRHBIandhVGZQeEIvODZKU2hBdlpvRmtl?=
+ =?utf-8?B?bm9TVVd2SnZmYlA2ak9iV2YwVDNXVEZUem1vN2ozMHpQNmdlL0owN0xOM2RG?=
+ =?utf-8?B?cjBTbFgxQXgzTGVkZ05wdVYvQ2dZQk1wOFBQdDNmcFlQa1ZsMitJb0lBYnYz?=
+ =?utf-8?B?ZDhzaEFRUkR3Y04zWEhtN3AweDR4b3g5QTI2QWdmSEtVUVV0WWh2ZTc5aVhI?=
+ =?utf-8?B?WVF6ZzFMYVJzYW94a3ZMWGtGRUI1bGppbXhHM2xnekFnNDE3VlJUV1VHaWM1?=
+ =?utf-8?B?TTl6bzd4NVZMOTVZUGF1QWIxMGp2amc4YUJsQ2gyQlBVNHpGdTVlVktYU2NN?=
+ =?utf-8?B?R0pvaEpUMEhqbndZVHg3MG1HWFUzRXVGZHVzZDF2NTJEL0JtYWNZaFdQbFJy?=
+ =?utf-8?B?bzNyTjdCaUR6K3VVbDRaTHFJWHl0MFRJUDhMSFlrd3pIQ1pIRUdYelVOU3lH?=
+ =?utf-8?B?YkNtcWMvVWYyTEp0VGc1bDMvcnZ2b3l1RlZ2aFo4K2pLR1hvZnRjbEZlcStW?=
+ =?utf-8?B?NVlnbE1HR0VGcTRiZFVXNkNRTDFHZlRTQ0w3djVmNEhzUGN0NzNSbmVpZFlQ?=
+ =?utf-8?B?TmsrU2NEOTNpb3V5MGNqUHNvUkcyTFdwSWRic1hKckZaR1lzMHV5dzNaUjdV?=
+ =?utf-8?B?MEVlcEFNMi9pOVhiNTA4RVRBZ2kxVURXckh1SHpuZHVScERUaW1HcmRIQlNz?=
+ =?utf-8?B?c0RGdE9DeXFvRXE0SjQvMzNpSnF3RU1nZ2U0SGFnSWdPdG0rUmloQ3R4UjNJ?=
+ =?utf-8?B?STBaditlM3V5bmVHOTYvSGMrQTM1bm9aaHBJZVZOeTRiclUyUUcycFIrM0hh?=
+ =?utf-8?B?Mjczd3YyNi95bnYzWEJFUEZoZGJpWjJVbkxVeEg0cG83azU4V2dVRHhrWjlZ?=
+ =?utf-8?B?Z2hOTndGbTJHU1k4QndZNjFGOUIxa2IyYWtDSUo1OURPTG4wczMxaktNMFhy?=
+ =?utf-8?B?cWdpaDZFOUY1N05TVEdIMWczclJ3WEhHMU56bEJiZk1LRndsZ252M3dCSlJa?=
+ =?utf-8?B?N3hUemJ5WEM2TDNBV2lLTmoxcFBKdjFaaXhOQkpvUWlMOFhVeXYzNjJmMGF3?=
+ =?utf-8?B?U0VwbXRvckFxeHErMXU2VWdjWnVQRU9wMTF0blF3ZjVlVEc2NDhIYkhxeS9T?=
+ =?utf-8?B?OEsvblBuWkxtZ1BPdk0rUnN1d1Y0YnJkRnF5K3RPMTdLYkR2SEdIQUxWVzVv?=
+ =?utf-8?B?eVNWN1liZ1pTazNERFJBU0c1a0FRUVk2Z0IyTGJoYWY4S0svMXJrVS9nSm42?=
+ =?utf-8?B?TjdPaGNDUCtDWVZSdzlUWWhlWERrY3lZb2JMUmx2TnJsVFUvcnpiTWRCYmdk?=
+ =?utf-8?B?WmQ0TE9SS1RyQ0dpRlZsR2FUcHc1bWFXb013a2MzcjJoVzlNR0hrUkpGeWpR?=
+ =?utf-8?B?V1hxbXg0ZTdqOWZVMVV3M2tEdHo3bHRYelhNVXl1bE1JU21IUjV6eFdXL2Fp?=
+ =?utf-8?B?SEV5eGlGWXNpYXVsQXF2Z0paMW4zOEltL2lidWVyK0xMTGxlMnd6d25BRVRl?=
+ =?utf-8?B?RVhnTk9xbXhBamFuVU1VSE1xWEFjc0gxSXluV2JuYWUxZURaVWFjQlh6UG4v?=
+ =?utf-8?B?S3VuVFo0OGhMZW42M3hPelRLK3dTNUNIOWdobThaY08zblpNZllyTE92VHFW?=
+ =?utf-8?B?azNjdG9CM3AvOXkvRDVCRjZwRWVGVFRBYmVJRFVGTWU5bnV0YUxmVUN0TWZB?=
+ =?utf-8?B?VklnQW9PTkVTc2JvdHRiWXBmMkV5bVFWTXcvVnQ3K0JvZWtKS0FBcUg3Ny9z?=
+ =?utf-8?Q?wOnZgmD9CmuFZcyk=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc34857b-9ee7-417b-e14a-08df4076ac6d
+X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 04:37:35.4349
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n7RnCYzzZicUESYsfypvh9HLPV1F556rO//YnVTN+Iuyb9b/f1G2cvYSuU4AGdOetHJOS72s0JgMhFob2Xb8DwKzwxoYEyV80yV2k8NfTDU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR06MB10826
 
-From: Josef Bacik <josef@toxicpanda.com>
+serial_core_remove_one_port() takes the port mutex and then waits for
+the uart_port_ref() holders to drop their references. Since commit
+8ca59f7baee7 ("serial: fix ioctl hangup race") uart_wait_until_sent()
+takes the port mutex on every poll iteration to check for the hangup
+before it touches the hardware, while holding its reference for the
+whole wait. A tcdrain() in flight when the port is removed therefore
+deadlocks: the removal holds the mutex and waits for the reference,
+the drain holds the reference and waits for the mutex. Both tasks sit
+uninterruptible, and the port is unusable until a reboot.
 
-[ Upstream commit 440c8779757f09f290770b1d361dc1516a9d0b3e ]
+Reproduced by unbinding a UART driver while a process drains a few
+kilobytes at 300 baud: the unbind blocks in wait_event() under the
+mutex, the drain in mutex_lock(), and reading the driver's proc file
+blocks on the same mutex.
 
-pud_none_or_clear_bad() only really works on page tables. PUD leaves
-confuse the check and make us clear the page table entry and print a
-warning.
+Drop the mutex around the decrement and the wait. The decrement is an
+atomic paired with uart_port_ref() and uart_port_deref(), which never
+take the mutex; the clearing of the port pointer stays under it, where
+uart_port_check() readers expect it. Between the hangup and this wait
+the removal already runs without the mutex, so a mutex holder seeing
+the released port is not a new state.
+uart_wait_modem_status() takes a reference and then the mutex in the
+same way, with a smaller window, and is covered by the same change.
 
-Since commit aed877c2b4257 ("device/dax: properly refcount device dax pages
-when mapping"), this also leaks device-DAX folio references, mapcounts
-and RSS accounting, resulting in "Bad rss-counter state" warnings on exit.
-
-Allow PUD leaves in get_old_pud(). If a PUD leaf cannot be moved as a
-whole or the move fails, split it. This unmaps it with proper accounting
-instead of treating the leaf entry as a PMD table.
-
-Keep using pud_trans_huge() for now, in the future this code should be
-cleaned up to just check for PUD leaves.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: fallthrough after splitting ]
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-32-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adapted pagetable_move_control-based calls to individual arguments while retaining explicit pud_devmap() checks. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 8ca59f7baee7 ("serial: fix ioctl hangup race")
+Cc: <stable@vger.kernel.org>
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Tested-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 ---
- mm/mremap.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/tty/serial/serial_core.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 8b507e228a274..d357d36c1157b 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -47,7 +47,8 @@ static pud_t *get_old_pud(struct mm_struct *mm, unsigned long addr)
- 		return NULL;
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index c0deec0e6af41db10de15ccca4169c603d9cebf6..2e53d194ecfe853ade1ac6f33e047eb8ff11e283 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -3266,10 +3266,17 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
+ 	uport->type = PORT_UNKNOWN;
+ 	uport->port_dev = NULL;
  
- 	pud = pud_offset(p4d, addr);
--	if (pud_none_or_clear_bad(pud))
-+	if (!pud_trans_huge(*pud) && !pud_devmap(*pud) &&
-+	    pud_none_or_clear_bad(pud))
- 		return NULL;
+-	guard(mutex)(&port->mutex);
+ 	WARN_ON(atomic_dec_return(&state->refcount) < 0);
++
++	/*
++	 * A reference holder may need the port mutex to see the hangup
++	 * (uart_wait_until_sent() does), so wait for the references
++	 * without holding it.
++	 */
+ 	wait_event(state->remove_wait, !atomic_read(&state->refcount));
+-	state->uart_port = NULL;
++
++	scoped_guard(mutex, &port->mutex)
++		state->uart_port = NULL;
+ }
  
- 	return pud;
-@@ -624,12 +625,11 @@ unsigned long move_page_tables(struct vm_area_struct *vma,
- 		if (!new_pud)
- 			break;
- 		if (pud_trans_huge(*old_pud) || pud_devmap(*old_pud)) {
--			if (extent == HPAGE_PUD_SIZE) {
--				move_pgt_entry(HPAGE_PUD, vma, old_addr, new_addr,
--					       old_pud, new_pud, need_rmap_locks);
--				/* We ignore and continue on error? */
-+			if (extent == HPAGE_PUD_SIZE &&
-+			    move_pgt_entry(HPAGE_PUD, vma, old_addr, new_addr,
-+					   old_pud, new_pud, need_rmap_locks))
- 				continue;
--			}
-+			split_huge_pud(vma, old_pud, old_addr);
- 		} else if (IS_ENABLED(CONFIG_HAVE_MOVE_PUD) &&
- 			   extent == PUD_SIZE && uffd_supports_move) {
- 
+ static struct serial_ctrl_device *
+
 -- 
-2.53.0
+2.47.3
 
