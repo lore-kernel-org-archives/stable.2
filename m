@@ -1,101 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794499529;
-	b=Mkc8mtwQK8jwRalKkGTAdWB2/C1eBlQW2n0FNX3CleyrU/YKUkvzI9cKso0twHF91Pcq
-	 JEL7e2CZQ9WIhVkZv9PiaS7T1Mf4gA/O1Hq47HIuF37SIwRHa/wMaeMQeyRMz8cY0MBTL
-	 zMv0Ecl0WjhYIwgDFPTzEmCCUVaYmHkpddOexbljbXxDjfy2Ff2GdUVX6RO+MZ/fW0x/k
-	 7K39V2k4w/uwW6aqCmTCugSiSqSfkqXAYURbOujRRqvFIdKRf03+SKG1BouMwtNkFwzFy
-	 tGaDW2CwdUs8AXLSGJoeLjVVCmZxggYzUZ9oThecgRJ+9RIlikCMo/pV5Z1LBYSFYxQ==
+	t=1794499555;
+	b=cAWD4uE8Jquz5IRGySzZWzpEbMlWY4l8dZw5kcnsq+UbQZAYJyGrXZW0OY6eq/V/l9a3
+	 hYzgWgeTtVWkyF22irwIEt+1kbjhCGSMmjmSlVzrAUrcbYPHS15rIlblFsRzyApLYK7za
+	 Oxin0aUQ0Vhk6t3pRkRV6IKo3zEEc4Y2WqKhZSffBsSTBRCMXcM58MVdcL+ZXxZ7b/8h0
+	 puSQmPbfojW+pM5AIo0aSM29ynGkxEWVJKtZeNMvcqq3IXWeS2cI8jbUxGOueDIkXefnT
+	 cNSwHCKw9/aC80wde6BLS7W1y6Pv1HhsxVB4IXyNUwdYL3VVaYSmZfxZvdN7zfMRVxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794499529;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VirwsWcUGB+wftXqJRXa0lz3ydc4K0zhD+XqX/ctFlE=;
-	b=tAhhjy6x/mJnJ1bt4GgKZ8CdFuoYWw32tfEGocIwSofBSA8lrtfYxF8znGU+iFwJCTpf
-	 WF1QotPjtcsG18oKg6WGxbM9XVv/96qQmyxSYPcCMttoQXwug4E4NxZNqzBvn2U9kCYfx
-	 uFvFTuTINfp4jU1WlhsikJvxc1nYDgiALzMb0FZP/8D7xrjDKHG+IlcevWmzNxNo7yJR6
-	 7urQfFS2iBooD2osIn7XnOZBEx/K+wONdzNh2keQzPY/Nlk5VknnzmKBFHDgwniT8DPgQ
-	 XxpkMMg8jPcVZo2r0mjDAIrs2HKl9uZDf5zLfQV0DfbeLZ+9MDC3hvIPOv0fzEv8cfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499555;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
+	b=WYVn8xaTZr1WfLoUdaXGe8NTXt4YirbzBsPQ9uFmyE6QVOUWbv1FyLBf5YzA6OBciLea
+	 sOeOsl6am1d/az11mvU1cumv2mW9rZS8Zw3X9Y9hOXU3/ioJXJJrZlY5xj0XHYoDF1xZv
+	 oVYuHwMckhIYESwL+TFSsOVKCQVIoPS+yBJtH00G4cCuTkIwpb/f2e1IkmEoMqcHFhX1T
+	 e7foYT8nlYmH+RozF1y3pxk5u2udiBM+09tvo/iWMCm4J4I61iuYHGuC8fV4im8GSGcuW
+	 AyQMPhFmJlciDkxgzVunbEHbSiPhbVBK30N8B2bJvBHc92S0szyx046hW/fuSBl6IYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0mF15k7n;
-	arc=none smtp.remote-ip=209.85.222.170
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1XqhTbRt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W8xNeInm;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="qJ/9tp20";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HJbtW+mO;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AC3606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 16:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67AC3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B76606A323;
+	Thu, 12 Nov 2026 16:05:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4B76606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0mF15k7n
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93f2551f57fso26327885a.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:05:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794499528; x=1795104328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VirwsWcUGB+wftXqJRXa0lz3ydc4K0zhD+XqX/ctFlE=;
-        b=0mF15k7n1pnwLYSn/PF9bLVIRzcqqMmJGsKWoF2ZoSuJ/yayh9RrP/dQzQSWMOgtgM
-         OwyUI7iGgtVBtqPWldYWiuxsy0slvrCUIMbKDtKntFC4L2JH8wm7yi7kZU+3tg9Sj3l2
-         3C7BlyRfM1iDBjtxRVz6YG6qJQfcQKOqy3Q4bJkZkr16Fx/no8rk8D02ibPCcMyWuEYW
-         C0GBsrZ3fQjHXDFdHH2jT2bqZLz58c9WYqUgQIocuJT+tq1cHjrUn4PtW+Ak1hzwsqKG
-         /kjWz94e20Qq2Hf4N3EjUupe9ACDlo1NITSv3STddJHe5cLah+iMWqimsdZxGw7aNm6V
-         6P5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794499528; x=1795104328;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VirwsWcUGB+wftXqJRXa0lz3ydc4K0zhD+XqX/ctFlE=;
-        b=jG5elqZJWg8udFad38epRBYKqcezKuf75ZTO5MWkZ5UnPqKHntI2zkAoUR7M5+F/Dm
-         mrS2ENs4SHhvlRwnPT6LguTXu8EyHG+GxgxUE667Zuj543jT6QY90gjXtJZyfKxH3M+5
-         xwtCNycsu32LdOVsQVG7MLNmBpj6y7hR2kHnjMTkgvGJvo43Cr4NzogGpHC6yDQbPyHF
-         sjq3rMFV4t+/HAvbEsn57jLTy8dMUsXtlvP7wMTfKCF/01VJbqKWXzMDDqfQnR9peD+u
-         D07AS6sfsJbhqjTZYgceFJBqSWKRaCsEuU+w1hrLNAKWuWI3dLhUtQzVaAuU5j6BTTCh
-         N7FA==
-X-Forwarded-Encrypted: i=1; AL+hErFS87Yl1K2W6yzp9bucbTilZ2RlBa4zAuGmczNUTKu8WhBQyVotDSXibWHJ9THSIj5kHXXtnUc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Mtb0grY+YUod/bRMaLZic9w4f4z4LxuGe3x8e82D9i/vZOoif
-	RKQL2RkdYsoXF2/2bNaXxRaTYDI1VMVxdCIoo3fIgAD2sTw9camJyC7J
-X-Gm-Gg: AYBFou2QQdK5nwEx9cPZ7OyJRiqLaqRLtscAZktH7j9H6M2/iBnhDnXT/L6qd/ejQxH
-	BqWYKAJudLXNoJpO+tB6Ecmv7C+IvIOO4fiMZx5kR0xaRf6SzbzEXmBEU6RP/InvtYA9x7hkk0o
-	i4EUyF5hFLWkBbMJi+h10GOvYc1ncnqqIs66kpAuv1UuOrtPCGQO47fiflYXv1DIuyB21lOm5JM
-	J4V/XOw50LGUbLU+winNz/TI36shLSZvOkP06EPk99WTfJp1ehQ0niVRBJ+8aEA3CU28stSaesI
-	iJR6hL/FdlAFj7uOGFpzQ4DOqSPh1E5sz45x/NheiXn6i1GWvKRyPSlcC2Vd6/msph5xZAb8ys0
-	mYq1atq1B1ksnHvnnfTqcjVvD+ca+si7AIWff8Zm4KeWQ2oT6PKmSV9EXPt1XoXyhj1rVmUxJ9O
-	l1oke6rJnPa9sBBFDg13v2lFVOj/pERzFKwsku6ueEG5vKCoMq4x3nfDG2NjTl9TWGs4ZAmRbfl
-	tQEjbXkwO8oRL0of3ENQSUqQwY+RzI6w87gcRXHvB2qKS1OOhYdror1B1SDgZbwTXkmjkr3yfFJ
-	nAE6xOr5brCN78dVb5KwVtYZAY9tiE8quavmMUpd2jSa/GZR
-X-Received: by 2002:a05:7301:4d10:b0:377:d6e5:e642 with SMTP id 5a478bee46e88-377d6e5e7damr4248214eec.1.1794499517613;
-        Thu, 12 Nov 2026 08:05:17 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37922d49049sm613673eec.1.2026.11.12.08.05.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:05:16 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: linux-usb@vger.kernel.org
-Cc: b-liu@ti.com,
-	gregkh@linuxfoundation.org,
-	nkapron@google.com,
-	tony@atomide.com,
-	bigeasy@linutronix.de,
-	balbi@ti.com,
-	shimoda.yoshihiro@renesas.com,
-	robert.jarzmik@free.fr,
-	Chengyu Liu <lui2012qwq@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/4] usb: gadget: r8a66597: free the IRQ before deleting the timer
-Date: Fri, 13 Nov 2026 00:04:47 +0800
-Message-Id: <20261112160448.41566-4-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261112160448.41566-1-lui2012qwq@gmail.com>
-References: <20261112160448.41566-1-lui2012qwq@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1XqhTbRt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W8xNeInm;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qJ/9tp20;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HJbtW+mO
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9BF261F7C6;
+	Thu, 12 Nov 2026 16:05:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794499552; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
+	b=1XqhTbRtR2Ti2wMF/rvG2bh0JIBFEix+aS565q+brCOymeXkbIxqBQq2r6wsuvjiaO4+2w
+	7vfPm9DxdSKjxbS+lm1t4CLNcFuy/aDguieyK4iugLfLvVw7S9L1Jct/nMqrJprcCEIpD/
+	nkrRSyW3+pMrvBILTWn/2P65EZiNyIA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794499552;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
+	b=W8xNeInmb51XAqwMI01ZB6ZyLVoJIpxMF250ZX/5Jv8Zkh6KoO3jw58ZSy97gjEKKrw5ff
+	TY0JojlmtcRCm4Aw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794499551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
+	b=qJ/9tp20/z5EPRCwjV3Ju3oZQSF63/UXEfbK0qWbglccebVbRVJ17Cow0WhCqK2fPx4oDA
+	1WXHs3iY8Axd+KkJKQ2VhoFG7bhXpndOn67Jt9IA4ZnjiV/fNLyjHE0RFjIFUqn7pPmRTu
+	uOkBoRbKv1DY3FYxsRkePWbviVKDar4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794499551;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YufnmZVNechLqcaL+12tnkQkHsQyEMDzCGtNkLwTnI0=;
+	b=HJbtW+mODGRUVoEOZT6vq0WsF+o5SBwK9SwP09053w/gNrYQYHXjf1sVhXTvZ+CP7MMNSX
+	9U0u9mDp3bfE52Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5E26C13432;
+	Thu, 12 Nov 2026 16:05:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id bcdNCNrj9WqGKQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 16:05:46 +0000
+Date: Thu, 12 Nov 2026 16:05:40 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Steve Sistare <steven.sistare@oracle.com>, 
+	John Hubbard <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+	Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
+	iommu@lists.linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 6/9] RFC: net: limit folio refcount when copying skb
+ frag references
+Message-ID: <avXi-z1MEb9S93Ii@pedro-suse.tail5790ac.ts.net>
+References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+ <20261110-refcount_overflow_stable-v3-6-318625d63a98@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,70 +135,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-refcount_overflow_stable-v3-6-318625d63a98@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,suse.cz,linux-foundation.org,nvidia.com,linux.alibaba.com,linux.dev,arm.com,intel.com,gmail.com,sk.com,gourry.net,redhat.com,cmpxchg.org,fb.com,surriel.com,szeredi.hu,zeniv.linux.org.uk,arndb.de,ziepe.ca,8bytes.org,oracle.com,toxicpanda.com,davemloft.net,kvack.org,vger.kernel.org,lists.linux.dev];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[62];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.80
 
-r8a66597_remove() deletes r8a66597->timer while the interrupt is
-still live: the IRQ is devm-managed and only freed at detach, and
-r8a66597_irq() re-arms the timer when sampling VBUS (VBINT).  An
-interrupt landing after timer_delete_sync() re-arms the timer, and
-r8a66597_timer() then runs on freed memory.
+On Tue, Nov 10, 2026 at 09:35:46PM +0100, David Hildenbrand (Arm) wrote:
+> Various networking features copy frag references of an skb, for example
+> when unsharing a cloned skb (AF_PACKET trimming a clone), when copying an
+> skb (nft dup) or when building NFQUEUE messages. This is an effective
+> way for multiplying folio references held by an skb, allowing for
+> exceeding folio refcount limits.
+> 
+> This is not specific to large pagecache folios, but with them it is a
+> lot easier to reach the refcount limit, as page table mappings can cheaply
+> create many references.
+> 
+> Let's introduce skb_frag_try_ref() and skb_frags_try_ref(), which use
+> try_get_page(), and use them in pskb_expand_head(), __pskb_copy_fclone(),
+> skb_zerocopy() and pskb_carve_inside_*(). All of these can already fail,
+> and their callers handle that.
+> 
+> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Store the requested IRQ number at probe time and free it before
-deleting the timer; freeing also waits for any running handler, so
-nothing can re-arm the timer past the delete.
+Acked-by: Pedro Falcato <pfalcato@suse.de>
 
-Found by static analysis.
+For what it's worth, I tried thinking up a way to avoid all of this stuff.
+I know there are severe recursion limits that (should) avoid a large copy
+chain, but the issue is that, say you have a copy chain limit of 8, you can
+still create 2^31/8 skbs (each with their own reference), then clone each 8
+times such that you get an overflow. Annoying.
 
-Fixes: c41442474a26 ("usb: gadget: R8A66597 peripheral controller support.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
----
-Build-tested on x86_64: r8a66597-udc.o compiles clean
-(USB_R8A66597 + COMPILE_TEST).  No runtime reproducer: requires
-R8A66597 hardware.  Fix written with AI assistance.
-
- drivers/usb/gadget/udc/r8a66597-udc.c | 8 ++++++++
- drivers/usb/gadget/udc/r8a66597-udc.h | 1 +
- 2 files changed, 9 insertions(+)
-
-diff --git a/drivers/usb/gadget/udc/r8a66597-udc.c b/drivers/usb/gadget/udc/r8a66597-udc.c
-index 469075b064ba..bfccc6565e0a 100644
---- a/drivers/usb/gadget/udc/r8a66597-udc.c
-+++ b/drivers/usb/gadget/udc/r8a66597-udc.c
-@@ -1810,6 +1810,13 @@ static void r8a66597_remove(struct platform_device *pdev)
- 	struct r8a66597		*r8a66597 = platform_get_drvdata(pdev);
- 
- 	usb_del_gadget_udc(&r8a66597->gadget);
-+
-+	/*
-+	 * The interrupt handler re-arms the timer on VBUS changes; the
-+	 * IRQ is devm-managed and freed only at detach, so free it
-+	 * before deleting the timer.
-+	 */
-+	devm_free_irq(&pdev->dev, r8a66597->irq, r8a66597);
- 	timer_delete_sync(&r8a66597->timer);
- 	r8a66597_free_request(&r8a66597->ep[0].ep, r8a66597->ep0_req);
- 
-@@ -1896,6 +1903,7 @@ static int r8a66597_probe(struct platform_device *pdev)
- 			       udc_name, r8a66597);
- 	if (ret < 0)
- 		goto clean_up2;
-+	r8a66597->irq = irq;
- 
- 	INIT_LIST_HEAD(&r8a66597->gadget.ep_list);
- 	r8a66597->gadget.ep0 = &r8a66597->ep[0].ep;
-diff --git a/drivers/usb/gadget/udc/r8a66597-udc.h b/drivers/usb/gadget/udc/r8a66597-udc.h
-index 9a115caba661..08acabe02421 100644
---- a/drivers/usb/gadget/udc/r8a66597-udc.h
-+++ b/drivers/usb/gadget/udc/r8a66597-udc.h
-@@ -110,6 +110,7 @@ struct r8a66597 {
- 	unsigned char interrupt;
- 	unsigned char isochronous;
- 	unsigned char num_dma;
-+	int irq;
- 
- 	unsigned irq_sense_low:1;
- };
 -- 
-2.25.1
-
+Pedro
