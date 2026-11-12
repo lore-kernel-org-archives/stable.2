@@ -1,71 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794471237;
-	b=dXNJfc/+GkYYKD2rXSFefdUVdUrSCZ17vbUe9LUpnep0WPti6yPsHXDs0qM5OdH5rAFU
-	 Ir99pTuJoNzoodgkCzpP1LG6+vn4HWQPuJjeRITtpFt9suskBXO4JnoZzTpX8rIi/QMnU
-	 eEJO7vKnAPsTWgbuLM/0rvC3M/3TdvarycfEDPVlk6w15LqXzmF4XIkEXG1ogLKNOE/ev
-	 gYsUxgyvs2M8h0kTZp1iM8FDgeJ3YpS7iLfDk4dEmShc+iwAp2P560QsVa/EsM4Y2cd8i
-	 F9gWbxSKp5X+t8igsoXB7V+fyIba9Bw//DO03nGhHi6TQDPWb41T+Sk1Yw2/fVglYxg==
+	t=1794471314;
+	b=5PjLTARuxvma3iq4XGWW+9AoaI3EowPdTBmX9DZBBfaZ01u96t9gXv+2THgJbbGl3vYr
+	 OvD7g0JnaeQMgaxTicwEOzWcpMGoLKQb7+CdA6kA+s5M/f5LgLQevSuTbj7d/oxxPZCHR
+	 G67jSny9pW+sVyInhUbYPI6aB1frZ+6LVvwj6xps/EycPv66IRG6MkZXOkDDqM5vcCtm1
+	 Xpj819rE2Se77QL95kSN+UAeMdK1RoLN1BUDnONKxBle8W9EJEImo4GdbtrdCskZKm645
+	 TNVQddJ6BjNHXVbxzaAxCuXGNyhMqmXPzUIQmzoziE2uXrPeu32v4TgO/TBvxlblJpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794471237;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=AAYDr7E9radjTyRXS1eA7bh71I8p+v4ZRugl/5oWIR4=;
-	b=VxrCmNDwo5HkpkVLSDHxfPjxm4WT8MCh1PTl+gCGCLBrcjwac3mVOrnV/R+p6WUcgMBy
-	 jZE9us1PkomNRXZpeMIl8LondMw4pnV9K7mjd4/c2tcX/N70YOFqehjASdqW3UV1hN2my
-	 NcwTPIh1M3gioMRSFYxZa1IqmloDsiWa3ZIDG6EIDKPZ5JHa/ZyckUbqvGJcw7lXIfEhH
-	 LdorEM1o29nSzFpL3fQ1lu8sFfQxQTL5TY5O0z0Ey8laWbtZ21/AcR8vMCUFu80rp/yJh
-	 XjCBBkYDoyDxFDUwYI8z0+KY3qbkZLO5WTsOMZxTM2+TdjbL7OFq5P31hK/hkTOkpNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794471314;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1+Qk4yxS+WLSAlHfFLvNSdF60pD3i/Az3wtaXQpUJAI=;
+	b=oqwojwkIATyR0O9Z6+fMMl3N3s7yf6bvz7l+xeOakDioEu3j1OUbCxs4tLSq1nkXA16H
+	 Xa5VSKJnAmW258t6orEnmBHeJxBaCDZo6nFRLxhqDDJeG8Gao2cehR547JlzWVJzD4THt
+	 nUkVrRYOXQVLaNtqIXJ+DusKJVDyHE2kqWWOltxl19VvIxAiD1dXIMweMRmo80vF5FvWx
+	 slWsgMqjea4qM3B1Ovs8sjEt6YzOORq5OFZ8Yc47Vu6xs8GPogTCOVfDI0EWI5JVqm8ce
+	 M7qJfvvvROkXkmDkzbNpi2iKNWYtSZrudodTPJPzhi/lHF21OrpjU/NhBhpwyP4pxgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Z3ToNYQn;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fUalKROb;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E30C606E96A;
-	Thu, 12 Nov 2026 08:13:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E30C606E96A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26913606A8B1
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 08:15:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26913606A8B1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Z3ToNYQn
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=AAYDr7E9radjTyRXS1eA7bh71I8p+v4ZRugl/5oWIR4=; b=Z3ToNYQnxFAsoPoDDgVrvhhZNL
-	dtjRUB7EHRxJZcB12yPrzJEf3Ngqlw0EknhtanbLagP2BHoXEGt5bkNXybMgX1AFqdPDnlwyIYsaF
-	H4bhBvmrXcKoUorNBozISvXJ5bZ2o3hq0gCZ3Isj3aTArlk9ceAL7hw+dkarnLLHOQB9HxEcTTACx
-	B9Oi/xmXR1TfWIEuLoMJi7VPKCzjqBpupX5tUsfflexYI1n9tFkaSPksVvapKky60sOoCErsG9M9z
-	bPLDER2K1Dp3oFnvUzQkKjjdpGFAtTwVOQ5JFF5PM4nqvaV+JAmj6r92L10ZOglAf1NIN4Gj9yK58
-	Ldn54HbA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRPwK-00000004ted-44CE;
-	Thu, 12 Nov 2026 08:13:49 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 831CB30066A; Thu, 12 Nov 2026 09:13:48 +0100 (CET)
-Date: Thu, 12 Nov 2026 09:13:48 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Huacai Chen <chenhuacai@loongson.cn>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fUalKROb
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36fe5944e9aso3907878eec.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 00:15:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794471313; x=1795076113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1+Qk4yxS+WLSAlHfFLvNSdF60pD3i/Az3wtaXQpUJAI=;
+        b=fUalKRObaHNMzuWubdu0Wa6mF+JSgWHFTVR4pjJbUGLDUpUd9csQV9hUB1pA3IRdM3
+         vZtWnA1O1Syx0UtnHW4LEd0edKe+X7Bi5Mt8L8FtSDgYLSBvRLvYrOcla+tN2BSySRBb
+         cnWke7R2nSmt9S0YW/oximQutwS190OifoF7gJgQySoPOGCrlMHdn7aK6beTfodiKp1C
+         8/SFdLDuTjhHPT0qxWpGX0Nex9pttNHbjNx9SAf9jaN9p+KThpjhEEgxXhzNzdX0uKTL
+         XMA6jlaAa2TDKrzNdgZJBKZwHVAATHFxnntKqXJ85tT6TlkYUhmjP9YsmkOWmzHWxPRK
+         rerw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794471313; x=1795076113;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1+Qk4yxS+WLSAlHfFLvNSdF60pD3i/Az3wtaXQpUJAI=;
+        b=mqdJqoydeB6mA/8gL/PUvG6Bfjb6KWNDyECUnWg4YDe6fVDw3/6ISNjtVttmuofFML
+         QQJRof5Mn1d5+x2n5DxOLd7/HDRCjEyDvySkdYl0muUFQrOP22Ee9Y7H9DJQDDr4UaBq
+         93yXeF5n2l5tAwbFI/5BdmG1TKthcPNM/cN06j2xBMjTqDox8di4ij2BEFDT/Uknk/U2
+         vijLpBmv/Gy5KC0ig/UBYtnTvtSGkRf205fUDprwHmIIcVZuKpKO1J1SW/zYKxyCO/Z4
+         dtJVO/hmCVo+vEGY49vQtSv9bMcQRoUGQFZUUlIHghY3Qg7fwT2pAqAbd5L4BVcDSL6n
+         vewA==
+X-Gm-Message-State: APuU4Z/0FfrZ1qQp/SLwjP3lw6cO2Cu1bwkCoMV1KBOUXz4m3X0VLXih
+	1WKqV+xOhcNNci76l6+lJWXIL6FHZWbkzMxje7FOnfTC1fMFF0Hyz+O/dlZw9/vsKovvYw==
+X-Gm-Gg: AYBFou3XVYkafV+ImnQMQpVqVD2mjGYBXv7yg7Y5UuKo26tBf51atp53COe5NqKxqpM
+	R/elEpf+TYkfS7fe4lhDG+TWM5jzqK23ED5FQ5CUALBswKp16qdfeYnmucXIM/6/GZC7FtNB5FC
+	VFrhXPjsEipGip3wn5RgxlmCDJOEb9ond9mmR46+sZ6nHkkt/wpSwb+KgbW2rMKjYak6pXrfKIR
+	XyOCti+FzGUa2LTJaJO4yObwmX4YMD+Sb5nAbGVs0hrfZEG4m2ckGjuqbygVt9JFCpFybGWiEkm
+	X4MEEB60ej26CoI5/O08klV2SpS5dWHAWrKwrRDFaRRmJb38PWq64/pjm70vr606BDqtcmhW/WM
+	oefO+cOUxmKi2bCNMw5d20+gvulJbI0X9vIGDj9Ccr6DdlxChYEgE7L5jX3ga/wLKY9OxO1Yj/j
+	ONcRD4Piebug9cM+hG4lIimg2bGxyJfU7uRhe9oDpMul30N/O6w5TBH+JR+bsR34InKuKneI/pj
+	EfJAwOuIWtahE+4mNsk5CAWoKYUR/PLRIsBIgyeVQ6q3ilOsc9qtavN4upizjIJEm4pzQydXBE3
+	spX9N+GsjRFtR36kRq1GL+bnsE5uxkGyZR9WK2JDv4efdtTpEZAvxIFBjtJZEvJwQDx6LNqtQUg
+	sAEN7IFoPdwE/vtiadNzb6yVfkjZr1GeEdwbOow==
+X-Received: by 2002:a05:693c:638e:10b0:375:dbeb:b363 with SMTP id 5a478bee46e88-37686d341eemr5344731eec.28.1794471312570;
+        Thu, 12 Nov 2026 00:15:12 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe3261csm21034033eec.4.2026.11.12.00.15.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 00:15:12 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: stable@vger.kernel.org
+Cc: sashal@kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Tiezhu Yang <yangtiezhu@loongson.cn>
-Subject: Re: [PATCH] lib/smp_processor_id: Don't warn if there is only one CPU
-Message-ID: <20261112081348.GB2668804@noisy.programming.kicks-ass.net>
-References: <20261111092421.3771992-1-chenhuacai@loongson.cn>
- <20261111170600.GS1779021@noisy.programming.kicks-ass.net>
- <CAAhV-H6SYOjOw+owmStK7sr-HOiADC1zZ4Cii5hv1q+qYAUETg@mail.gmail.com>
+	Sashiko <sashiko-bot@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	David Hildenbrand <david@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	odys.yuan@gmail.com
+Subject: [PATCH 5.15.y] mm/migrate: untag addresses when querying page nodes
+Date: Thu, 12 Nov 2026 08:15:04 +0000
+Message-ID: <20261112081504.6060-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109202213-failed-5.15-7d8746d7dc9c@kernel.org>
+References: <20261109202213-failed-5.15-7d8746d7dc9c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,61 +111,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAhV-H6SYOjOw+owmStK7sr-HOiADC1zZ4Cii5hv1q+qYAUETg@mail.gmail.com>
 
-On Thu, Nov 12, 2026 at 11:14:57AM +0800, Huacai Chen wrote:
-> Hi, Peter,
-> 
-> On Thu, Nov 12, 2026 at 1:06 AM Peter Zijlstra <peterz@infradead.org> wrote:
-> >
-> > On Wed, Nov 11, 2026 at 05:24:21PM +0800, Huacai Chen wrote:
-> > > When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) kernel,
-> > > calls to smp_processor_id() in preemptible contexts trigger some false
-> > > positive "BUG: using smp_processor_id() in preemptible" warnings, which
-> > > are harmless noise because the process always executes on CPU 0 and CPU
-> > > migration is impossible.
-> >
-> > The check is still valid, you don't want to have any code that uses
-> > smp_processor_id() outside of preempt_disable(). Such code would be
-> > invalid on SMP, even when ran on UP.
-> Thank you for your reply.
-> 
-> At first I also think that smp_processor_id() should always be called
-> in preempt disabled context, but after investigation, I found:
-> 
-> There are 5 existing skip conditions.
-> 
-> 1. if (likely(preempt_count()))
-> 2. if (irqs_disabled())
-> 3. if (is_percpu_thread())
-> 4. if (current->migration_disabled)
-> 5. if (system_state < SYSTEM_SCHEDULING)
-> 
-> Condition 1 and 2 is to make sure smp_processor_id() is called in
-> preempt disabled context, but Condition 3, 4 and 5 is not.
-> 
-> Condition 5 can make sure no context switching since the scheduler
-> hasn't begun to work, but Condition 3 and 4 can not.
-> 
-> In other words, Condition 3 and 4 can only make sure the current
-> execution will not be migrated to another CPU, and I think my new
-> condition is exactly the same.
+[ Upstream commit 7d8746d7dc9cc4003661011424e5880ea7ae364b ]
 
-It is not; your patch would suppress any and all checks when ran with
-just a single CPU. Even when the code is clearly buggered.
+When move_pages() is used with nodes == NULL, do_pages_stat_array()
+uses each page address as-is for its VMA lookup. A valid tagged address
+therefore gets -EFAULT in its status entry instead of the NUMA node
+reported for the corresponding untagged address.
 
-> > All code must be SMP ready.
-> This is why I use "if (nr_cpu_ids == 1)" rather than "if
-> (!IS_ENABLED(CONFIG_SMP))".
-> 
-> >
-> > Aside from that, nr_cpu_ids is the wrong number to check.
-> Correct me if I'm wrong, do you mean checking num_online_cpus()?
+Strip the tag before the VMA lookup while holding the mmap read lock.
+Use untagged_addr(), the helper available in 5.15 and already used by
+the migration path.
 
-num_possible_cpus() is what I was thinking of. Notably, there is no
-requirement that the CPU bitmap is dense. You can have nr_cpu_ids at 256
-and use 255 for your boot CPU. It would be completely daft to do so, but
-it is still valid.
+Link: https://lore.kernel.org/20261026195330.46757-1-dennylin0707@gmail.com
+Fixes: 057d3389108e ("mm: untag user pointers passed to memory syscalls")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/20260721183257.706661F000E9@smtp.kernel.org
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: <odys.yuan@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+ mm/migrate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 728fbb0..cea3510 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -1889,7 +1889,7 @@ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
+ 	mmap_read_lock(mm);
+ 
+ 	for (i = 0; i < nr_pages; i++) {
+-		unsigned long addr = (unsigned long)(*pages);
++		unsigned long addr = (unsigned long)untagged_addr(*pages);
+ 		struct vm_area_struct *vma;
+ 		struct page *page;
+ 		int err = -EFAULT;
+-- 
+2.50.1 (Apple Git-155)
+
