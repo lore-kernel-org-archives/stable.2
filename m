@@ -1,110 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487074;
-	b=JmI5/dfoAde5rzsNNuZ1MqOABQThAh+PzylJjCFK/MCQS4EHxmXQI4l7RdJ7/8IwCvQA
-	 D9qeQBR9ydgcHr7Pfplore6IKS9cJvjoKotpUVi9sTKWBrH7Ndi9RcDaYuaouLx7dazom
-	 sFLiJntn47Szlzmk5JFstwAajOXYI/mbKEseuxgEaO/pHlDgnsgU6TN8GoA3n2qOzxVs1
-	 b8CMbDInzXNJ8RZALVCQxMVnF/pK6RdVO2r6chRewjfXyYxcYOXkCD1qqJwU/qj2omsKx
-	 vhRsixaXHVYTifi66ZWoT82K57d9i9O/OVDNwthnrU4XfYiDt9tMG1yQXwvAHrrwkXg==
+	t=1794487121;
+	b=SfBuiy0S5VIx1yrsrRHBirJK9eHl9Y577PFc0CSprR/HNTUuaS3z/wS9KyozBy4CUy1H
+	 LTd4vVjEeg16k7eNbDyJRycLHFv6oGVecIxvJ119gVJAENwAGWaSCrXaknBRWXASaVcC5
+	 i31/WwjsKwPHDR18NyBmEONzvPPDogUv0tVO3i26tct+U5CSM1bDr8xfPVzo5d/vMoUDx
+	 YE8751vI1TcIlt7AOf7fMGR+yEfYiJ14NizK5HC+Y1mbtf0jRBacPfuwEqhOhTPL50nqN
+	 8i9qgvvjD0AKDaLprnvNVFO9GQzKLj+RgBwHFyl3c1ZTj+Za/QVTt/QUJ8gHNdWyaOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487074;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=TqA1A0Utd/xXDxOpPCOZpyywoG2iCNWwVzQmdLil5HQ=;
-	b=ILreGFL4ZOeG7Tx5Skt9bX7swnKytQXgdIjHzzvKo7ISd4kyRjUawnA1NqhO5t4JmQK9
-	 IzdyNZgVbjp4mPqwgaTzxthkuskTYhLta+zb13XlS/3N5vpQOd1XFZAgluASfCP5vlCw3
-	 aO24fMQmnwqkRg3vzPjla85uHlIf6KdAnmUCEG+FZKPOYoiP8bgRkHyYTH3RVbpd6/I9w
-	 3STTmO0ZT7NB/rXqZCyodUGyuxH4Yhw56IVtTCJqBohl57WkX3OoHUhwsdx9xS6OLY8RA
-	 XoaZYO5TDwI5yRxMe3vjUFl/9HyhqBpI+rJhRSz0SIDgB/Meyyih+WaK2graJafVdxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487121;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=6UK6/KKi1vmJaH5c+RsMG+pBls/fTxRgXLxWMTuXdtA=;
+	b=IuiJ4ZG/qcNygg2bZCgudi+CUldf4HQSCRdcIvLyfnB4jkb+xGE7zNp9hZ/kq3X4l9EJ
+	 30SzdumknvJ/SeYqCWz7RJlS/Pnf2TQbMSM9dHx6cGJrjmWEMYkKtSR+s2lFyUz78q3YC
+	 zKlXBEQfSSLbjSqd0LFL3dRvUTJSpV9B+KNarHnvSKpV3lP+9ihheIsezVqMJLN+hQIF8
+	 R18hR/hEJPMYFbj2qi68uwyU8MEqyQKUeqotm6UW66Emquf7EiRdSizSxWY/s51wpOxfD
+	 u6c47dK+zucgVP6qJawZLqonUsr891ONV4pODcaKoryF+7+P4aKD+u+4uzhTHpCFayg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fNCVTHZJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nGee8469;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fNCVTHZJ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nGee8469;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="K/XrF1+5";
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23468606A32A;
-	Thu, 12 Nov 2026 12:37:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23468606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1EA606A323
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 12:38:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F1EA606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fNCVTHZJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nGee8469;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fNCVTHZJ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nGee8469
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 52E9E1F788;
-	Thu, 12 Nov 2026 12:37:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794487072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TqA1A0Utd/xXDxOpPCOZpyywoG2iCNWwVzQmdLil5HQ=;
-	b=fNCVTHZJDPn4YtBmLxhVT7APNoX1fO+OMGCH0s2NKLLuTs8gWtAhFGPyEOfdZmlbGejSXB
-	VKw68ym1o9/bKxBT2QCp1if8WWyF58Ob8uLOCQ2C2Kd3pe7wmTExd6zqpWjo60jJaO3maY
-	3ztXV4Y29P9jiC2BA4DtpkbIuXA6cfE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794487072;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TqA1A0Utd/xXDxOpPCOZpyywoG2iCNWwVzQmdLil5HQ=;
-	b=nGee8469OY3py4LXkaBEqBWcix+JFku2Ix5kU/B4706g/vdm/a7XHUsTjlxVpo4DSOijB1
-	/hlqt683XhHQbECg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794487072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TqA1A0Utd/xXDxOpPCOZpyywoG2iCNWwVzQmdLil5HQ=;
-	b=fNCVTHZJDPn4YtBmLxhVT7APNoX1fO+OMGCH0s2NKLLuTs8gWtAhFGPyEOfdZmlbGejSXB
-	VKw68ym1o9/bKxBT2QCp1if8WWyF58Ob8uLOCQ2C2Kd3pe7wmTExd6zqpWjo60jJaO3maY
-	3ztXV4Y29P9jiC2BA4DtpkbIuXA6cfE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794487072;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TqA1A0Utd/xXDxOpPCOZpyywoG2iCNWwVzQmdLil5HQ=;
-	b=nGee8469OY3py4LXkaBEqBWcix+JFku2Ix5kU/B4706g/vdm/a7XHUsTjlxVpo4DSOijB1
-	/hlqt683XhHQbECg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EB2BD13432;
-	Thu, 12 Nov 2026 12:37:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vIbYLx+z9WqDTQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 12 Nov 2026 12:37:51 +0000
-Date: Thu, 12 Nov 2026 13:37:51 +0100
-Message-ID: <87ld6yrzs0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: London grad <londongrad@gmail.com>
-Cc: clemens@ladisch.de,
-	linux-sound@vger.kernel.org,
-	tiwai@suse.com,
-	perex@perex.cz,
-	Xiang Mei <xmei5@asu.edu>,
-	co+24304d323d28f156@bugs.sh,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: ua101: reject mismatched capture/playback packet sizes
-In-Reply-To: <CANd6Td+b6ituLFzkhvX09vricCY541fQapNOk3rTa=74zWA5LA@mail.gmail.com>
-References: <CANd6Td+b6ituLFzkhvX09vricCY541fQapNOk3rTa=74zWA5LA@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K/XrF1+5
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36de26cb4b3so5398291eec.1
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:38:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794487120; x=1795091920; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6UK6/KKi1vmJaH5c+RsMG+pBls/fTxRgXLxWMTuXdtA=;
+        b=K/XrF1+5uQeap9pI44P2RPX4tS2GuaNG9a3B4XiYyNz2g5kYkyS1mb6fEnQnNet0/r
+         8Hdb1SoLF9wDC9aBHqNWb+evQNYbf9k/eOZmSo6tZ8evUUZnWi2e0Xn6l0CqYgFyierW
+         dTkswGclAbjt/UzUwT5OUOLwjJhg2O2Pg7K+GOdO6pciJPqXixIPbzVOPaFNVYBNUt2p
+         /8aJJ8i7jPVea41VNU2UVSyiVszV/UHnVXNVHfT0bMbgJHME8xFBCytunzLSl+XGW/uT
+         qENQCu3U9Dz151E2bpyakraQOj21EMCH/RLVb85kJ1EQsNIU9yrhxvBwSlJVvUrIfyr/
+         t+bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794487120; x=1795091920;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6UK6/KKi1vmJaH5c+RsMG+pBls/fTxRgXLxWMTuXdtA=;
+        b=xoHIU6AAQA3aBR3CHC5PJ6Jj4DdwqxHjcWdgX//J93jZdy2cw6olX328j9N8Jw9Pjf
+         3HTNAgmMxa4klJMGxc0E3bJgBmR3wQHnSLuXhv6GEu+xuu7DuXVEyLn/SNDWJtRLdS7N
+         BrC9fVJSvmzktTLHeH9jBtK5udVcpd88e+3Z75qhYs5eHoxF8rDlOT3gZzA2FxF1FdlZ
+         5hSBOHa/BWkq1M5TrPnd0yKjMd74AuggnX81ugfPD5aXwbSDBbFPbjGpIXeiCsUMhVoG
+         DAW6xabQuq9NIngVFirj39lACbrrNnKE3iTt0jGrt7arN1pOd2O+vPFa5bpMJzdnlZcA
+         +MTw==
+X-Forwarded-Encrypted: i=1; AL+hErH3QgACuPOT83zaWdinuW4vwoCZkLz5Z/5J5mcCi5Z5dmxfxjlI8Ew26ihNh3dZ4vjLSwVwVkg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sbuxykSKkVBDLDFCWH9klNJPbsoLv6Gv2nGOE4M+C6sKzxkpe
+	NTcune59TgitlIEXK0qdd7YRLx2aKgi1Z3WzGV5aOpQfnfzJHvEy4DX5nKF5xg/VaNXde/nOD3N
+	RL3FXgXXgfTNxMUYGqXTrSW34n68kWA==
+X-Received: from dybcr35.prod.google.com ([2002:a05:7300:aca3:b0:36e:b3e6:ebe2])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:65cd:b0:36a:1807:75a4 with SMTP id 5a478bee46e88-37686176002mr6158828eec.20.1794487119392;
+ Thu, 12 Nov 2026 04:38:39 -0800 (PST)
+Date: Thu, 12 Nov 2026 12:38:38 GMT
+In-Reply-To: <2026111212-unearned-strike-a7a3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,68 +77,33 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-10.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[24304d323d28f156];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -10.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Mime-Version: 1.0
+References: <18e70d7c82c722e3.3137322e32332e3235332e313736.191fb9.0000sendgmr@google.com>
+ <18e70d7cbc2831c0.3137322e32332e3235332e313736.1920de.0000sendgmr@google.com> <2026111212-unearned-strike-a7a3@gregkh>
+Message-ID: <18e74c87090a4d29.3137322e32332e3235332e313736.1e2278.0000sendgmr@google.com>
+Subject: Re: [PATCH v3 2/2] rust_binder: account for deferred work size in Thread::read()
+From: Chris Wiseman <chriswiseman@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
+	=?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 12 Nov 2026 10:25:39 +0100,
-London grad wrote:
-> Hello all
-> 
-> This patch may have broken ua-101?
-> 
-> Kernel 6.8.0-146 still works for me
-> 
-> In kernel 6.8.0-149 my UA-1000 fails with
-> 
-> `snd-ua101` rejects the device during probe at every physical sample rate
-> setting (44.1, 48, 88.2, and 96 kHz), leaving the interface unregistered in
-> ALSA.
-> 
-> ### Relevant `dmesg` Output
-> [ 2622.796887] usb 3-3: new high-speed USB device number 5 using xhci_hcd
-> [ 2622.928793] usb 3-3: New USB device found, idVendor=0582, idProduct=0044,
-> bcdDevice= 1.07
-> [ 2622.928798] usb 3-3: New USB device strings: Mfr=1, Product=2, SerialNumber
-> =3
-> [ 2622.928800] usb 3-3: Product: UA-1000
-> [ 2622.928801] usb 3-3: Manufacturer: EDIROL
-> [ 2622.928802] usb 3-3: SerialNumber: ZT02743
-> [ 2622.934792] usb 3-3: playback packet size 560 too small for 15 capture
-> frames
-> 
-> Submitted bug report here
-> https://bugzilla.kernel.org/show_bug.cgi?id=222261
+On Thu, Nov 12, 2026 at 07:26:30AM -0500, Greg Kroah-Hartman wrote:
+> These patches are not "threaded", what went wrong?
 
-Could you verify that just reverting the commit fixes your problem?
-It's quite possible that this patch is the cause, but just to be sure.
+My wrapper script around our internal sendgmr mailer failed to capture
+the Message-ID of patch 1/2 and stamped an empty In-Reply-To: <> header
+into patch 2/2.  I fixed the script so it fails closed on missing
+Message-IDs going forward.
 
+Patch 1/2 is here on Lore:
+https://lore.kernel.org/r/18e70d7c82c722e3.3137322e32332e3235332e313736.191fb9.0000sendgmr@google.com
+
+Let me know if you would like me to resend the pair properly threaded
+as v4.
 
 thanks,
-
-Takashi
+chris
