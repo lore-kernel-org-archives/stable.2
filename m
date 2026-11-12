@@ -1,16 +1,16 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.122
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794458265;
-	b=V7p0deIh53Hkw0thtn5DxZYX2nLh8pjPQUzoeFOT1ssAADr5nzM58WvO5Geu2aLiyRBM
-	 iPhhO2SYbEGgL7Qt9dwzLaRGYhiklJ7Cc0L+8IdxRolM8Zq0Vjmw1Zw7zDo5E1mKzL90E
-	 0UPmYpm7sRolUt/2Cy8G/+8bOU+udkbtfThZR8F2vtcD0BYIKCuyLw4HCetVjXAVBo5tD
-	 oMKrMhS2rLYfDKpnAme7jd9/xiDXv2+OsQVniuWMDqru6L2LVY/wEuNGJutzryabSxzUp
-	 I+EkUnzvzS30AKe+WZGrtUa5QwVfN9m8s8C507mcFNVd0vtI0Kjg1kdFz3DIwfEniMw==
+	t=1794458266;
+	b=B4V72Kac8w9q1xkZPpUCzgJNH8dxHoMHH7o/SYra9bjG+AM4aNXTO+210II2/K55/AAP
+	 yJ6chOtMsFZuDArJZyGYvFeK3HsH+Swvn6korntOml7/f3w2vM0rWkParKKxzNEBHmtCN
+	 mpffeRLkwdB3uMA0bc02gAImu9b9Hkn3ahJVyFdYRXGAnoqZPlLZRf9IIO5YPn+nrH6u0
+	 iahMPMP3Aa+Sl++dGinNgLzeBVVVmFzu2jwUuu9rrRrkeRfEciVjckeGWkdQ3zhZesOjh
+	 qaUgSvgEG8lRhJ4YFpjinf8EUy84XHn9g+8d75/WJSXY5p/bs7CcWwi2NAEwQQ0bLmA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794458265;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
-	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794458266;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
@@ -25,76 +25,74 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+6h4gw2zPntHuQ0cAqt0ws3Hg5SitD4E685xlhiWZoE=;
-	b=dmVLzGV7XKR1Nk+Im5d+lzxyMih8/S9+oGXo67Kdrzte9FWWWhQhmnR1PbC5YV6pjf0x
-	 exO6OSpEZNemeDF9jUYJsVTdLcMrnZoX1Y02nW1OPYa5dToYX6aWJWyjobtmBadgf8IQz
-	 /Ntwfa8zKU8kxt4hb8OB4to7lMg+IogsBsuN5SMesA8yXs82fb5wZXcAMn4qQ1cpBktfS
-	 wwJ144gi3mpNeiwpNUoZmi6O02RqrKyB9s3/5ta1mA2gWXGZSRVZEsuwgZiyreFw3Os00
-	 XntHyfCfLzWRNJxuMP8k46JMU84fkRZhhuiFnxx2xvnf1U7PWxtE7Gq7AyTp2pnTArw==
+	bh=/RHgIEVnexdMmgUFVs3hGzCq5OiCe1gfTtcVfGCkQ1Q=;
+	b=d1OpsN5wrQ8Xk1K3DCPxVFYNqU0XwmMMO7rsLyn70SLNKl42M2e/thaNXQd/ylHlwLbg
+	 uQvbKRa4tJUpZhWNf8tgug8pz+JT0+ujSVjJn2am25dmnkGier/f3UZ8eW4ulCi16JiNu
+	 SgpjKxkFhbR6nT8AK+OJZalc+pf7d4IFBqR01T/Md8xR5LzyFTsHzNnAW36D9kSzImlcW
+	 ozWTTLjtwBoV7TvQpa2I80UB5BRUS8u42qJBn606Nfv73TapC+HjEIsFv57jwraYIvcSy
+	 32xJgoAbtDQPzWb88iUoTT9sw4B//yMk7uwsyidx+6WJk/oJ41UeSi1yYFQaZK8LOuQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=vaisala.com;
 	spf=pass smtp.mailfrom=vaisala.com;
-	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=yU5HaHzi;
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=cC4DqvmP;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.122
 Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022122.outbound.protection.outlook.com [52.101.66.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1426760A2609;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCECF60A5BC1;
 	Thu, 12 Nov 2026 04:37:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1426760A2609
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCECF60A5BC1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=yU5HaHzi
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=cC4DqvmP
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gyIBeRsrNb2ccmLvHHonRji0zSJFJEX5wD/O2UHfD92vLK+EVdti6AKvhvw27eV7Sol2K02DPGQo0DLZyxe3uSy37UoKbp3PtqaSmWapTWncBXTKcpxFwWlyqkaIDBV9h0PejjJeo7hh4RS/cbMzrZiizBg9OHeLbR5NJ01MI6ec2vPeaQsdqGfjbvGHmorGMimjscrBWuL8ABKHEnaZDtXNSudJ9Yfmje2hQVFnkUO+AXT/e+lZ6uuFmoDMDD1UTlf/6LED2LzlnxzfDxm6rRuSzKoD0LHYru0f+eDvZDIMpV8H7DAJARVwt1ISwwm15E/2YpKUq+sYZf9NXl5w1w==
+ b=d4B+X+nO3bPczFeYUlA4hMOmHlVBfjv0YojZRMCRwCJxJhTTCaOwVdNlf7xZN7akzSSFlrUErf6vrfDNkF6bk34Sp+tvV9dFZWUG0eFCu8x5Qzjh+vILdVvEmMSLotGMZcCvCnI+Nn2Yp9zxMyxF47H5/z/CtYulcWecz//fobKeALs4IlOf5BJWP0VCsaNAfBrTx5wkdmBPoWuBfrwvYPIomLWIbcqVxoWs9EXEis0rcYkgj46q6Yfv+Rhun0fVY0sJBGjBbCVKpr8lNY6uo87Vf8HuFIs1MmMiXnxCGTlOkbIaum/w5iBHBMkMzE067VdId7A6o0oVMW1IoZ5D9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+6h4gw2zPntHuQ0cAqt0ws3Hg5SitD4E685xlhiWZoE=;
- b=HCWY1OM/uT1qJPJRIgBuNYvFiZGz5rJRCdj8/g/rUeFFjBWjw6WHjHtM7ArN8wRpLReZgAL5mHT2FNISSRdjg0EswkA9z8bBsGbnxMdsEmsdSEXoiHI/UudeVb22YKdnxPSBMzbZhol/QTIjS4YO8Qd2XuOkCfmbtRQQrO8/opgEO6jVi4yZCeWSmSoHarrtYHFk+AsXikYaBmvGTjgkf/mHHo8RrhJYvxrx5oxKR4EVOavi3QSRqSf22oCAI7n1emKkIq7gywaKqd7Hws30gMGD734lhpHB4gZeb/r6eS23mPTxreqm8mvsYVDD6B5L6fGuJZIYJv3GwIZo35VxvA==
+ bh=/RHgIEVnexdMmgUFVs3hGzCq5OiCe1gfTtcVfGCkQ1Q=;
+ b=AGKIcinqZHyWnhLwzTvjwDsYeozqNB6GKCC/aYAyQrb9zx2CzL3hzvs2n0vvlShaTf89lcI2ntMSoIh7nPOArTpKKvw1pVlJsnHlne7p5XEefQDrnyxApygiCTouMq9uIh6Va4s7yV5RH2+MFDmFDwahmjGXYcwPSg1c8AA7JF5U50T973VOrUzH5hwrgp4L4aoKc9Wmv4QNd6aU+gg3D1es+PJ/z0z/AROjKG4M3PMrQD4p9BrNJWoFNN9JdcQacPhFzgJw7ca8wnLfDzrDvs54P3A94SQ9zG657OS3Mo6hLlz+Ui4XBHyd66DfIGsNj7pFlklqxsLBXeDm/w2sLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
  dkim=pass header.d=vaisala.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+6h4gw2zPntHuQ0cAqt0ws3Hg5SitD4E685xlhiWZoE=;
- b=yU5HaHziqzSXmGw39C65mi5trV8J8OoeJxSJAImv/SkWcVNOXt/6YXOO8qNHdzSsjnBy7hfq+NwCx0qyYnTpKB1LZR6RxMpCEpoQTa855ar+e0UFkq2qGuAKiGA+NaVPbDLUhDkyFiMQhwZ1V746GEfnCfQ48P7mmChX3fc415a3sP+bB0vdjWoKY4Mh3tXXjHZV3wk5Zrhr2xubiqeKH2o9WbquGWgA7TJzqwc43nX22CGOBInAsLtVWF9e/fLZT2jleISaKNodQofgqnMZxnuiFEZy82jxkll64DRVpZbJuuQQyMOUsvRxm2cbENbd/Gjph5JAyVX6rK5cJJFL/w==
+ bh=/RHgIEVnexdMmgUFVs3hGzCq5OiCe1gfTtcVfGCkQ1Q=;
+ b=cC4DqvmPtzJRts2fsguao9yOHbMmkkKUzxrVyfN8l6lSPqA8C6fbCRYSasZS0OikUJPr73oAhnyWoA3wCweYw9JtAwwAhVx+yDJmO6i1myfz02LnP0KBDiu/sAQ7KyTT9Y2qL32jIWzSK00bSgANLxScxTm1x1UEDf3PxHyjt/skuW9Q788Y1kFRre17uF3/a2aJvwsb6yJPvJOxi1OJXWWVswE9Lzy/PUwuTxLpRS1V4Oa0w8EZV6YiMSQc40CtMH1YCrqHPExbKoCZ5FkllC8Y/bBwfzmLz/yQkNtIEJIYxjwhDfiZvdoReo2ChoP8v/ak16Ief4zF64uooTXjEg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vaisala.com;
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
  by VI2PR06MB10826.eurprd06.prod.outlook.com (2603:10a6:800:327::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 04:37:35 +0000
+ 2026 04:37:36 +0000
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc%7]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 04:37:34 +0000
+ 04:37:36 +0000
 From: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Subject: [PATCH v2 0/2] serial: core: two fixes for the port removal path
-Date: Thu, 12 Nov 2026 04:37:26 +0000
-Message-Id: <20261112-serial-core-remove-deadlock-v2-0-d3ee4ccec37a@vaisala.com>
+Date: Thu, 12 Nov 2026 04:37:28 +0000
+Subject: [PATCH v2 2/2] serial: core: do not touch the port after dropping
+ the last reference
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIZC9WoC/33NwQ6CMAzG8VchPVuzAcPoyfcwHMpWpBGY2cyiI
- by7g8Srx/+X5tcFIgfhCJdigcBJovg5R3kowA403xnF5YZSlY3WqsLtnka0PjAGnnxidExu9Pa
- BqtKq6ywZY2rIwjNwL+9dv7W5B4kvHz77s6S39efWf92kUWFDlTLnEznb9ddEEmmko/UTtOu6f
- gFcwWYQyAAAAA==
-X-Change-ID: 20261103-serial-core-remove-deadlock-0310bbca5554
+Message-Id: <20261112-serial-core-remove-deadlock-v2-2-d3ee4ccec37a@vaisala.com>
+References: <20261112-serial-core-remove-deadlock-v2-0-d3ee4ccec37a@vaisala.com>
+In-Reply-To: <20261112-serial-core-remove-deadlock-v2-0-d3ee4ccec37a@vaisala.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Jiri Slaby <jirislaby@kernel.org>
 Cc: Johan Hovold <johan@kernel.org>, stable@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
  Tapio Reijonen <tapio.reijonen@vaisala.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794458254; l=2765;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794458254; l=1874;
  i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
- bh=5xkbIG/tBS+x8niLhAh9ExKxYX4Pytu9PCxBqUSGP3c=;
- b=febmaBsCK21A9kgiuu4tMVAiBMu1k1/JvJ2tpJa0kvUezasP+Y3h43uiYtxg/MB41XkTZnnsR
- P8eRlfloNjSDXATVcwlsLpmN02fKQqjD7gdOZax6U5IxB13/ri/DDhY
+ bh=kJEkUSfZLjoIn+j8iSkev9B3RYIJG+yXr0FfMVmAEKo=;
+ b=s72aTr4aIbJvv6ImmLQ6JB5BiYzKh1IR4LaOGfYXd+3TCUzXF0Rbj6RunS1851RXfhuHNKEY4
+ +n2eskgNwKUBanOf7rGxWnkxWH88rNtRdM4sgcdl4+bQWcKKWYuqcgj
 X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
  pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
 X-ClientProxiedBy: GVZP280CA0094.SWEP280.PROD.OUTLOOK.COM
@@ -111,123 +109,111 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|VI2PR06MB10826:EE_
-X-MS-Office365-Filtering-Correlation-Id: 503f6bc9-0a48-454c-4855-08df4076abfb
+X-MS-Office365-Filtering-Correlation-Id: 4465d9ef-f25d-4cae-d449-08df4076acd6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|23010399003|376014|366016|1800799024|261026140227099003|38350700014|10067099003|5023799004|261021123027099003|261021121427099003|56012099006|261009221227099003|11063799006|261009223027099003|261022075727099003|261028144727099003|261026121527099003|261022105027099003|261102123227099003|18002099003;
+	BCL:0;ARA:13230040|52116014|23010399003|376014|366016|1800799024|261026140227099003|38350700014|10067099003|261021123027099003|261021121427099003|56012099006|261009221227099003|11063799006|261009223027099003|261022075727099003|261028144727099003|261022105027099003|261102123227099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	dCbDFSK05ZWabJ5OKwfHbW5G7Nadz3iRzVq5KMPUW/WdyGXsuZik2bGMuWtDcXDZKm5KJLa5ZMlsVga6uLiKSC9+rkGnDOqDo/iuuBDzZAB4JrOU6/rbEA08WTx4QeAn2QR3O9WF85AqVr+fSo0a6xM9a31du94UMFadwaus4bSJ+irYtQ9khXhGTQ+tDvtHPTXRdwAmvKL6Uf5PrdWaAdLC2+LJOdEX35dctlSOtul1AbM3kFk945Ox/T7SoOm3eYpbCe3YVQNzuq6/nv36Xv5dQUajLEHWus7QKJVQwhuU3uDBCrj627cNpw6knA1/wB29srsm/CVUShyDMr9bZSyZ4RtvzAC5fDWxeYGJMhN51T3Hrr+jqqaiGZICf5qIJIbbMFwdQS/WkMeI9uPubPLWW2TTJc36QK8/ar5iaxRPGxNTEOmKc8Esr/FmgXVZHkh4gX9OL30o/oJbcYtfP9y6lwbw4vIfdC3FaBE6bzX6gS1DinEFvvsrKqrUAGiofPP1wykYyNIsw7+G8tS/+kWtC61Vc8RmrY0Xtw/3CD+HB68lch76Gt2tvIfd4WWUC0RZGPBIvwU5LG8LLLwSiJ2AbJ+M8xpxXTcVufXWSIBMW7VsO/ZBeXsKXw7hpoOlQrVDI0Kfh55H2DVjXJlK9hhqldfm64QtnPZVrLoqyHM=
+	fVmxMoY52Ja1IeIplhUm6Yu8U8LInqiReJ7RJfIREv5AslXeSNaJyEUw+PpOLiuOXhqVVvqDma3t0MCbF5bN/445mShTIuGQXE0dAQxh3PLKbFDxF4MU27AL64EunaZBK3Yn7VtWl1GI72Tsr30Lh4zBIP7x0xketrbYux7Op+hNnuvAbIMdqRcpNqe8QfvDLOw01zFHwWcnj0yaYjh9c5MAjaSAZCklESTsDGOV43WLoqQbUfsy96Yxfij2twBFYT1LkD/JsOVnvlXdcWO1STkJnVtbFD4pa+l5lg2ywJAvtjBGDsN5CRA112Wyr/fBcRdKEZr2vAhDxyPRSARsEVOPdH4TUfW8QryHKnXX0ElR/7dekbeaLg3xcQvPSZzM6uiWav0VI/qNLos7Zx+pDEdWJrX5Uz2kdyYuVsQCk5xLX8P+j9ZrR0NYX3/yj2grHFEXron3oGoy6VVEXbQY8KXLrCEfv9vyWL3HMYk3zlDr6LiHaYwSTEDY0UtMbgapWIUlWir0HvtlaYIBTQOhJmbAwovAaquYivThqrFKW5Fou+sdJsIUvsCLMeGwcJ+YMi7r8kv0gJZfWBQ34lfD0axiN4+t9GYjfZEy4oMTgNhm+5fAC531ey7T9pj7Nug1riR/cOTmzP+im4Y9sQdO2jJ145XHZYQdz9qkcvosJ8u7CswxAjPJQ+sUdhGB3dTrLtttbTpmqdLmCaEavqi4U1csVQK5WefGWRTtIz7vh+A=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(23010399003)(376014)(366016)(1800799024)(261026140227099003)(38350700014)(10067099003)(5023799004)(261021123027099003)(261021121427099003)(56012099006)(261009221227099003)(11063799006)(261009223027099003)(261022075727099003)(261028144727099003)(261026121527099003)(261022105027099003)(261102123227099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(23010399003)(376014)(366016)(1800799024)(261026140227099003)(38350700014)(10067099003)(261021123027099003)(261021121427099003)(56012099006)(261009221227099003)(11063799006)(261009223027099003)(261022075727099003)(261028144727099003)(261022105027099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c0kyc1FIcFpWUGpXazBvOTNBek5USzk2UVBhK3E4NHpDU0JReXJZaXRNcHZr?=
- =?utf-8?B?ZTBMNmplbHo2a1JWZmFUUEVZQnRKNEhydXRGU3IrMXdUU0ZON3Ztb24za2U1?=
- =?utf-8?B?UXZmdWYrRzBmUnI0ejZWa0toT1ZxYlV6V2MxbTFEUnZJY1dzY3BjR3ZhVm5B?=
- =?utf-8?B?N25BK3htZmg0WnluN3ZWOGlZYWZIbmdCeTNybXhEaFpvdVNyUng4SjVsRTht?=
- =?utf-8?B?STZmWDdQZWYxUCt1MVNEQmJBZlB2MTU4QkdPUzBWUjN2KzRTa29vbStqOWd5?=
- =?utf-8?B?NFdXMGx5OGdVRVZXMk5aMFdKaHJtcmJudy8rdTF0RnBybVkyVm03YXkvVEVn?=
- =?utf-8?B?ZG1KbE1UTXNxNDNnbFNKcVBBei9mZW45cmtxNzFGQnFLbVpTWjczeTZGcGNR?=
- =?utf-8?B?MzYrK0xIY2pZcS9TaGpqeEUxZEN1STR6eU5oL05RcFdIeW9Bb2tDd05RajNV?=
- =?utf-8?B?S2lCbVNoa1ZQU3dlK3MvdGdCeEhDK2hGcXhJNkI4Wml2K05WRDNrZDcyUm5y?=
- =?utf-8?B?Sjc3R3JtWFdudWp6ZFR4RCt1TFp6SFMwZmxIbkp3VDBUdE5iaVl2blg0QVMv?=
- =?utf-8?B?WGRxK09nUVRLUCttYmQ0bGZ3SVVlT3NreEtMZWIrN0VqR1hxR2toRVFWS1Rm?=
- =?utf-8?B?Wnoxekl0QjZVQnJMVnZJMlJzWWh0OEhVMTlPSnFwcFJ6VXYybldocUhPRW1t?=
- =?utf-8?B?MEhBK3VPRm45NENId05aTERKMWFhd2x4YjgyZkZkVDNtR0lJcEJXT3ZFd0pY?=
- =?utf-8?B?ODhITDBrVUFxSENJaDlyUWlIanl2NnpFSHZlMWxxdEx5RERUQndxMzdRVHZE?=
- =?utf-8?B?dkZoT1BBeFdKbzJVRTBsZm50eWMxQWNTTWxjYTUvNkhjMFo5U2FneEdvOXZX?=
- =?utf-8?B?bmZHUEg1bXZTcjV3a2FlMVQvSjFpMVhkS3poc1ZHcnNCV1Z6ZUJLMlZBQ2ZC?=
- =?utf-8?B?WUJNSXptWFFmTHJYdUt2NFRpTkZFeXlqWTZ1NzRCRVpQQ2RXZDNVSlhCSDZH?=
- =?utf-8?B?ZzJYdXp4UUM5RjhzNlAzMjQ1MFBzK2ZYbThERzcvVTlaTUNTbDVDYURWajFV?=
- =?utf-8?B?TVJkY3hxSFZuUFJId000SW5ORGQvWFFKanVNdE9rdjg4SkhmWm5OS00zL0pS?=
- =?utf-8?B?Nzh0RW10eVZMRFVuK2JtR2xDQ1VoRW1GT3dHV08wL0JiOHkrZlJFdktFWE1Q?=
- =?utf-8?B?UzJvVmUzN25OakJucVF4NHJhVlRrNEIvUzdnWGRBQThJVVNaSWhobUdsQWtM?=
- =?utf-8?B?SlJ4QTJYNmtXMjgyZTVTWDJ4aDd5UWJPMW5oL3FaelV6WjRXK0VvSC9YaDQ1?=
- =?utf-8?B?K2x5VG8vS0xSRGdXTnJ1M09YclRJNGUwMEZ3VnRjOENVQjNmQkpNWmVqZ0Fz?=
- =?utf-8?B?dkR6RzlETVdYNXE5M0VIeWVKSDRzWkhsVjFrWjl6eGhoRVJWb0dYNmhQMDQ2?=
- =?utf-8?B?LzMzMFp4clBrWmJqNk12akk4bE5wbVNwWXlqdmk1TWxJTndwanJOTklkdFJX?=
- =?utf-8?B?UEp0YzdXUzZFU2RPTTFhTmg1ZndWcmc3bWZkZElla0o5SWk0SE1OWUZKcjh6?=
- =?utf-8?B?d01OcmtJZi8xLzFrWklDRUNqZEc4eHhHMUxhdm9vOXd5MjZqdktWT1pqUzEw?=
- =?utf-8?B?VnhuaDh0Q3p3TzRzTXVtM0QzcHN5RWU0QzFWanhzeFpTcUlmTzNtZEJ2RWl3?=
- =?utf-8?B?cnFhdHpmZzR4b2ZMMGxzVDFlRFl4RDV5dVJCNndYTzI5cjRYMmlaSEk2RmJx?=
- =?utf-8?B?OFF0R3E4Z2RiY0R1TFI1ZFd6MXFsaXI1SE5CWWhFQUpHSXYxcnNpaGtyVllu?=
- =?utf-8?B?U010a1IxSFR3NktqcC9BTENsSjFqSllJZnRtaWppeiswYytWS0Vpdlc0Tk93?=
- =?utf-8?B?dC9aM1pLYnBBQStkd3VNTWRmenNhbFpzbWtHZ3I3eFJwL0haN2ozZW54MUFo?=
- =?utf-8?B?Q25wNDlDRjA2YnBqY1JrTmlJTmwrSm1tVm1FVWVWeXBHU25EK09MaHlGRXUy?=
- =?utf-8?B?cFpNU01kK2RMdjd5N1Q4MUxNYU5jRjFveDdTczNDSzl0NVU0bGlaSnF5NDhk?=
- =?utf-8?B?Tm4xNjFJeEtZNXEvWXVxUTk0QWF6T2hPckhOMUN5VHhhTUdqNWxURmRFdjdY?=
- =?utf-8?B?THBacTBKdHpGQmQ5Tkl5VjI0QTkyUlJ6QWMvYWl4eDJObGlQcHcxZ0N1aHU2?=
- =?utf-8?B?WWVSOHZ3R3MybTNudGdyK05oTm9QbDY5SEVhWlVhUHg2a2VlQWRkSzVwN0I0?=
- =?utf-8?B?Qk5pNmcvc3ZhY2d5ZDN3SzlnSlNVbU1KTTM0cDhIUzdySVpJSFNibFM0OTNh?=
- =?utf-8?B?eVRGQ2dvN1dGWTlTSDhvOXRDQ29Mc2FSSVkyY1BjSk5KRGJZRGw1azQ4a2g3?=
- =?utf-8?Q?iMiQwPozveD2JzTA=3D?=
+	=?utf-8?B?aVhVTi9jVWZvR0ZFRnM4ckkxL1NWcmtoVmd6dldyMk15WWlpWnpnanUxMmRT?=
+ =?utf-8?B?OGFkRmVIYURUd1RWRTRkb091YVhNNWdQRCtuTHNtRHNqb2FEbERpT2UxZkg2?=
+ =?utf-8?B?dTFzRTVobVBZZDUrVURGMnBnb1hOekliZG12d2RlRm1zb0hZUWFQYnBIaFBZ?=
+ =?utf-8?B?QnF4cTY0M25DN1F0UmhKU3dMdHhzTW9xSmJEb0ZlcG5LdzlkRUhTb20wUFI0?=
+ =?utf-8?B?RW84L0dnMzV4WWFvd1ZsbFVMS3hUUDd6dEtKc0JFWjRUbmkrNFBSeGRndGg2?=
+ =?utf-8?B?MkVvakUyNWRWTGlZMjlBZmJhM0V2NUdtQkk0a2YrS3RWY1pydHQ1czhoN253?=
+ =?utf-8?B?WXR4dHVvTFlpaWswYTEvV1ZMS05MM2dvSmZtcVZ0MlkyNG9NYlFkdUgvUnJv?=
+ =?utf-8?B?bWVDdUlGQXpFc0NVU3lDWURZTmxtUDdDSzdsR0NteDNSWXRxWTRVaFJuWFh5?=
+ =?utf-8?B?dy81YTV5NllobWgyeExXQU9wQjUwZnRZL2tQeWhTK3VwSnY0NGdXeGFKdE9O?=
+ =?utf-8?B?aUs5OHc3V0NydXNWSzIzNmQzT04zdkpxRUtwajV6bHBtZlNwUmZBTzU5Nmdo?=
+ =?utf-8?B?dUYvRjk4VVBuVmY4bFRBRHl0bUh4RXRHbDVVeWhDZ1VNVWY2Nit3elVEck5Y?=
+ =?utf-8?B?c2ZCNDQwM1oyRlozNmxWOHUyNkdaWk52SHZ1RkJScHdDQ3BhR004azc5OXdx?=
+ =?utf-8?B?QnYrT1RoRmM5MlVRWXhBM3pJcHdVUC9SMHRubmZPZ3JGS2xCRmZTampVQWpq?=
+ =?utf-8?B?YUNkeGpxZkNnTzllV3NPeUVwUDUwYnJwMk5URElEOXR0eEEySG5OZC83NHFW?=
+ =?utf-8?B?TlNmQ3FpQXNaMlJPZkt2a2t0R1o2Nm1veGU2Tm9aWExFRzJid0ZJQWFqQzVt?=
+ =?utf-8?B?MnJ1dkJqeGFrUk1iZXpjMHVBWGh5MUVLaGhPRzREeWFHbGx2aFBGdXQyUFV0?=
+ =?utf-8?B?TDNEdGZZL0Ryb2MxSzVpMnFuc0luUlMwSklXNTRYb1Y3UGt0UFpQQ1lNc2N5?=
+ =?utf-8?B?d3VMUjhVTlVGcVN6bmZMUVFGdW4xZVh2R1F3YmdLdFBITXMyQ3NzRXROVExL?=
+ =?utf-8?B?MDAwV0dFV1ZuQjBUS2d0Z3RoeGxEVXhibFdYdXZoM1YvU0pPMFZnNzk2UmV3?=
+ =?utf-8?B?cVhOZGNpdUNoNWNldXMxRnB5TDZPNlpjb0pndzIzTUtIUkhlTHY5Rm9lNnNN?=
+ =?utf-8?B?RnpkZlJHeUtMWS93bHllYklXRHdBQ09OZkYyT0duUXRhcE0xNjRCY2F2U2tI?=
+ =?utf-8?B?Wm1CdHVxNTJPdHdzZnNidE1tQ2F5SXVwcTVVWTZiUXIwM08reUlCcHBoVWt1?=
+ =?utf-8?B?VWQ2ME9DamJnR1VuRmRvZGxHOU1iUFVJcUxPWE9ENjFOOVlUYW1SZTNGVzZz?=
+ =?utf-8?B?Vlg2bFlmVGJxY2RFWm5oR1FDczNJVGcxTUFhRXI1dG9ZS2U1SHBNL08vRkNa?=
+ =?utf-8?B?bk5jU1N3cjlmZ2dlbVJ4MTRwZjFyejlOMmFrU1ZNZ3BkRm00VmxiOVFpdGZT?=
+ =?utf-8?B?ZWNKWHVLQnZtTS96L21WU0k0Rjc2bjlzRG9xRXRRRWsyeDlUT2lSakpHYzBs?=
+ =?utf-8?B?T1dTeGxhOFN5SHJ3cFBDaWVHVGRMVXZIWGNHVGdZSHd2QXhweDVUdnVtYlcz?=
+ =?utf-8?B?Ty9zd0szbTBiNWtaRm5vUVRrSGJIeVFaNGpVLzErYmQ2TjlVU1dLYlZyTjZR?=
+ =?utf-8?B?YlM1UEZjWkVHaWxuZ2dmYXJ2VThEMGV5d3AxSzh3SzFHNXEydEtRb3ZaSnVx?=
+ =?utf-8?B?dXh5aGEzTGUzeHVKczJGS041Y25mU1BydjN5VGFFNG5VdkZiNUlnOTVlVU5Z?=
+ =?utf-8?B?T09sM0p3NnpvWTBaSVd2L2RoWjVrMUp2aXFrS2I3ZXFIRjhwZkVYdEF5eUxr?=
+ =?utf-8?B?NzY4V2VNSU15dXZoZzFKeTdyK0k2bTRqaTdFeUpMcGxYNldwVmZuZk9XM1JK?=
+ =?utf-8?B?a1VkVS9DS2FYNFF6T0tMd1lYelJmWUF6eTdGL1VpQUJVTGdUTTBqdTZqMXpN?=
+ =?utf-8?B?V2M1Y1JrR2JoVnE4REdMeVV0VTdKdm55cEo3NGpqNVNUUjRLY01MdUdRaWsv?=
+ =?utf-8?B?aERkamZ6SGx6Rkd3cWhQRmF3bFVqS1ZVYzE2ZWJKc0Q4MGlGdmljMitPRkNk?=
+ =?utf-8?B?KzQ5RFlaVU85Sys2RjRzTlVmMEdNcUNVS1lSZC9QbmRWSGxOZXhLNHpQc1ZR?=
+ =?utf-8?B?TGZuUElVNHVsbk1NZkRWMW9zODczUmZQVWlId0dFR2ZYWnFIbmpBdktSWXpm?=
+ =?utf-8?B?cWpwYm54QjRPbUtpdVdzQU94dzlmalB4YXZqbVBTcnVHL25udFZ2S2svL2Mw?=
+ =?utf-8?B?ZEhLVGJqS2xjL25UOEwwRzlPbm9RSzJ4ZXZDTitqUkY0M25sckxLVm9NWVdX?=
+ =?utf-8?Q?Y6rXHuhaJecf9/3M=3D?=
 X-OriginatorOrg: vaisala.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 503f6bc9-0a48-454c-4855-08df4076abfb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4465d9ef-f25d-4cae-d449-08df4076acd6
 X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 04:37:34.7113
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 04:37:36.1012
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1cnmEkFkd6iDvmQ4jveYiGsnH5YZ0HOsHjABjoaqzuXjkB0Wr7X8pe9qwIyrbmp5t0Kh3+blchkLHwTzGhyq2WpdXXm248qFSvS7vXkON4M=
+X-MS-Exchange-CrossTenant-UserPrincipalName: kEL7quVqMKmxlNFQs5YoQmtTnGLx37NoUKhGsIOmgG2BPiLFMt19OyaQZ9MTRWedeRrAv7xos3UwnpreoqHCUxlYkjxEAlYZzvcpG1BPgk0=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR06MB10826
 
-Two fixes in serial_core_remove_one_port() and its reference counting.
+uart_port_deref() decrements the reference count through uport->state
+and then reads uport->state again for the wake_up(). The last
+decrement is what lets serial_core_remove_one_port() return, and the
+driver may free its struct uart_port right after that. A reference
+holder that drops the last reference can therefore read the freed port
+on its way to the wake_up().
 
-Patch 1 fixes a deadlock between port removal and a tcdrain() in
-flight, present since 8ca59f7baee7 ("serial: fix ioctl hangup race").
-Patch 2 fixes a read of the port after its last reference was dropped,
-found by review of the same path and not reproduced.
+Read the state pointer once, before the decrement. The uart_state
+belongs to the uart_driver and lives until uart_unregister_driver(),
+so the wake_up() target outlives the port. Drivers that unregister the
+uart_driver in the same remove() are a separate matter and not changed
+here.
 
-Reproduced on a MAX14830 (max310x) board, on v7.4-rc1 plus the board
-support, by unbinding the driver while four processes drained a few
-kilobytes each at 300 baud: the first unbind never returned, and the
-hung-task detector reported the unbind in wait_event() and a drain in
-mutex_lock(), with the drain "blocked on a mutex likely owned by" the
-unbind; a power cycle was needed. With the two patches the same test
-completed 46 of 46 unbinds with blocked tcdrain() waiters, each unbind
-taking 2 to 3.5 s, the time for the drains to be hung up. A two-hour
-soak with lockdep and kmemleak enabled, 1472 unbind and rebind cycles
-every 3 s while other ports of the same driver carried full traffic,
-completed with nothing reported. The change is independent of the
-driver: it only moves the wait for the reference holders out from under
-the mutex those holders need.
+Found by review of the removal path while fixing the deadlock between
+port removal and a blocked tcdrain(); not reproduced.
 
-Tool use: Claude Code (Anthropic) was used throughout. It analysed the
-hung-task reports and the /proc stacks from the stress bench, located
-the lock order between serial_core_remove_one_port() and
-uart_wait_until_sent(), drafted this change and the commit message, and
-wrote and drove the test harness that reproduced the deadlock and
-verified the fix. I reviewed the locking argument against the code,
-decided the shape of the change, ran the hardware tests and read every
-result. The code and the message are mine to defend.
-
-8ca59f7baee7 is in v7.3 and is tagged for stable back to 2.6.26, so
-patch 1 has to follow it into every tree that takes it. I will send
-backports for the stable trees where the patches do not apply.
-
+Fixes: 9ed19428a51d ("serial: core: Prevent unsafe uart port access, part 2")
+Cc: stable@vger.kernel.org
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 ---
-Changes in v2:
-- Patch 1: dropped the paragraph on stable backports and the comment on
-  the Cc: stable line (Johan).
-- Added Johan's Reviewed-by on both patches and Tested-by on patch 1.
-- No code changes.
-- Link to v1: https://lore.kernel.org/r/20261104-serial-core-remove-deadlock-v1-0-6a30597adcbf@vaisala.com
+ drivers/tty/serial/serial_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
----
-Tapio Reijonen (2):
-      serial: core: do not hold the port mutex while waiting for references
-      serial: core: do not touch the port after dropping the last reference
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 2e53d194ecfe853ade1ac6f33e047eb8ff11e283..c3d21acbd606eb3ea2909736a01a66f204141be1 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -72,8 +72,10 @@ static inline struct uart_port *uart_port_ref(struct uart_state *state)
+ 
+ static inline void uart_port_deref(struct uart_port *uport)
+ {
+-	if (atomic_dec_and_test(&uport->state->refcount))
+-		wake_up(&uport->state->remove_wait);
++	struct uart_state *state = uport->state;
++
++	if (atomic_dec_and_test(&state->refcount))
++		wake_up(&state->remove_wait);
+ }
+ 
+ static inline struct uart_port *uart_port_ref_lock(struct uart_state *state, unsigned long *flags)
 
- drivers/tty/serial/serial_core.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261103-serial-core-remove-deadlock-0310bbca5554
-
-Best regards,
 -- 
-Tapio Reijonen <tapio.reijonen@vaisala.com>
+2.47.3
 
