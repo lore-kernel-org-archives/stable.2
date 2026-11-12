@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493062;
-	b=oRrE7FuUTTg0lBC0LdQK6xa4fRJsy+h9btMSVZbMKlsCGQLOQrgaRTELaSwR6x1JVDSV
-	 iaOPmQ0p697EcaRpzkuOxqhJ7HBAyeoTi/0KToCYPOZ5iojdNeHS1ZcxQropdhwXTO5IB
-	 LVpOu3FI8SD3WEU5/o1sw7CdkbHTaPAG0/bb0Dru/o6EiPg2GesIaUkjQ40kt/r0Yu6Fy
-	 /ahmfLBwVmRV9KxYz71V4l6DNuqpyIwe26IlN8KNaBfZOEGzp5NrO0plyf3p42XlkiaZ/
-	 Hbw0Xmv2/KgqsEypI2TOubHsxuHPLwf+PR+4mPN6yppyqYCbHHyp+wSV/Boht9eyKFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493062;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uVC1UZvNpbPR+bgPqRTm15L5xYy+BXidKU0ZA+GOJTQ=;
-	b=RJ9b/Vo4XoFzc4RT4+fme5jDp3YUVPAHTBZynKtqOcussJDL1ViSVUWfvBYZsIOeNaju
-	 1w1ZrHY39slTq7GD/OjaYA3JNaVuAPTiQMzrCMupgcTnMxUlRgox63szu8iQ1kxs/QUlS
-	 C6VPnJIrE+njsnaTXEPk0RATFVYHjI9WC2T4PsdrWcpl2l7aROpSOK6778DdjtoZjMHeQ
-	 jVjMYnU1yfnvvTQFepRob/WovPyLGpXLM6qpp9FOO+0QimoZl6hn3lN7y4hyg9f0AKY7L
-	 GGe8icsFKl0vZYcoY291NmZjc9FKvPDS5mziQr4QlQWD55hA2HgV71Z6lIwY6+pmIqA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juy3VrPE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794493159;
+	b=ut3GVgUEaDL/hn3cl+Vr0yc/kQCNEE5Sq8mgLnE926+viYK7GEfCDZMYcV5IeeLiaP1f
+	 BQyyYDZEsdt+uIagAHJ40so80x2TlEKkakHvc36m/0Dtgk4Hv123XsALy/46AAwG6QE1i
+	 JDH5y7S8rB0JfKjK9CAmv2C6oYmNlPaQUMHM3AzH3Kic4rdCp5rFH/D+ti0QKlhRhY5h1
+	 XwnWT6oXB94pkNdiec6lf4nCaVyQcboeXwXa5ikeoQ/Gqx9aDv6cLNOYB/2hR2ci1VjFD
+	 vufMAVnBKHpjvEgxKfGsLtBh0otJJ+RvlUzk/ry9S2DGYozqRIG+bIs9n4TAuHWuKQg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493159;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kd+/Nlp8ommBqhSffMOJg7lXCNoL6VMsRA3sgFnMf+Q=;
+	b=HS23g966mraNki5wg/+YRHWdApBegGkxEbBoT2CNEUjFhs9qbMwX1OAJcLUBYyZgaF0z
+	 Pkx67I+qrvVPoqGHHXU9d5/2PvKHUsho3o6sQwicKCgvoE6vV6MokV5qPq2yuevfg/Pva
+	 Zf4x4JQ7yNYTjJOLx78ovoywnutO9XUjoWsPmwH4vnaIJVNy0ahtOaL6v3/dU8Rta2fH8
+	 THvQuwb92+fVL1CshXuC0pU+rjRQuO8m2VV4Fm5Ns+19we+BdzPIDa2qa2rTHy+ScpIi7
+	 8scVBnRzGEjsVuE7DnMPYqo4QptFET0Lg17gP+sOHDQjA0ktDqCoXeeKLiR465r9Y6Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n740z2IW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.41
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147A1606A887;
-	Thu, 12 Nov 2026 14:17:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF6B606F906
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BF6B606F906
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juy3VrPE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A27D1F00A05;
-	Thu, 12 Nov 2026 14:17:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794493061;
-	bh=uVC1UZvNpbPR+bgPqRTm15L5xYy+BXidKU0ZA+GOJTQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=juy3VrPEurVo5mfr+33Q94ZroL1plyGVoPn2mT/38eat1u6CtVIxD67NREnEICYfl
-	 dBVJso7hE+4dugVUr3Wlfqyel5uy4pyf20hdEaFcGlVPHTYDv2vDRnNSa70FqenejE
-	 2m8tYS5oiL4v8XcMj3neOfk4dSlv83KdnwusJGhr4FNEpE21jpMilVEt7lFuQbEG7/
-	 OObs+PlcxwBqloSxGJL8URX6N9Sp0WMy+/sUl7aZoCYyNiXCKuTnXLPmyoFVHoNDRg
-	 MfvXNcLTSS51Us0kR9nmjs0T5abv7Zs3DrOkZ03xq9yPTcVN+s/H+As5oIIzLsuMcy
-	 myQrl+dRnuuvw==
-Message-ID: <6af42f08-c052-48f4-b0e7-32cb340edbff@kernel.org>
-Date: Thu, 12 Nov 2026 15:17:30 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n740z2IW
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-486f013db83so1532412fac.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:19:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794493158; cv=none;
+        d=google.com; s=arc-20260327;
+        b=js8bANyYywk+GVrjI30H2x9CJoWEvVffMMGL6PRmCtc6JUYl0okRVU1g9NaNPOMDVy
+         vf9sNvHuPyU+f4PTSanGD45vKOD8vF/w8JNeHH6neJ9s18jmICA4Mi4cgaWV8zHvfOzG
+         HBhq09zrOBhOEpBNXZ1may53xyyNq6E7llOzsDgSallfes2Ilylw46Znl+4ehvNpYuS1
+         4e88MPEUUhscXmnLQ0nF7ttnj0GtvvsFgSmdiO8rRJQFHqZWvLx4jakRuhI5N3I0vvbH
+         oLh0IAYzhaLxCFqO6x0V6kRzv43HtR+vzkzU7CqkSBRfq1g4wTmWhZYjmK04+KiosprR
+         IMqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kd+/Nlp8ommBqhSffMOJg7lXCNoL6VMsRA3sgFnMf+Q=;
+        fh=OAeyGyC9sUXXLnLFC1/fgzv/esjIHhWwgJB7rtl/LzA=;
+        b=UYcqJczD5n+i+sz/YJCGZyOFRUxzVPguoUe/eGB3Ly79on6tRZYSO1T4dKzs2YvP2w
+         oGFjDgbCQqPuAM/QSlfVYRFiuZ/dViR9r7zyDp68rS7rdTF9dJaQJBrXCTiQyMv1GiKv
+         m5aBvCPV3+xDXMFW1XuzUg+hfLLxl2TyaqrdSfLaIqE/KFGTh89wy0ul2RPD7yYMUHv+
+         XNSLOeUSpplmj9F05OAjJCVpICgKXO9LoPAtMyrJJIXd0lzg7R1aeKgT1WTEiER8eiyu
+         fmziI7MN2W1Dc4PgBvth0PYdxxSyQd03fr18K1Ztw/I6IAxWaBbzRSFfqs27mQnblGT8
+         ZSQQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794493158; x=1795097958; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kd+/Nlp8ommBqhSffMOJg7lXCNoL6VMsRA3sgFnMf+Q=;
+        b=n740z2IWYCmLBpYIgW448OkK5o3ft2gBxMpiTJ48LxTVxlMv+7UQabzWl8F6WGKYQa
+         XOfd8zRj83llakPGeaGvKqWA1+fkHDUv6vc50OyrXLWCPWh6/t8U6bdPN9+S3G1DjowB
+         lj02JtRwQz4UnVKEsAv+Apof0XrKarU3AkD0puPyB+s2T18f7BeAZe/GWMdgaSvY4NLa
+         mpjbtSeIuZPbTZJz+aluoECSmzpKAziUUS83YuZBggqNkBcaBQ9Ob+mKPtJP5/y3xtWK
+         Yboa6/x23UgnFTTfsxFTFIRiSHJ3qlAt+HzWqjptrbJHXV601r5hfhzHbCGQR7h3YTJ6
+         L2Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794493158; x=1795097958;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kd+/Nlp8ommBqhSffMOJg7lXCNoL6VMsRA3sgFnMf+Q=;
+        b=W/2gRdtFJlPsLEgKxqgi0OT4rdJuyOk1KWEHlHMe3mUXcnWCtTHExbALY0sOIl1weX
+         EmGycvHDCM1ixd7Qd2/wOrR/fiqRfqtXqrFMYC3fOttmyRvUTqvwLkPj2u5IlLBWYm0G
+         vvxbO6mcTHF/JxXFJw69rD/dpmbMDBRm7mVTu0lDhESpg4OEC/2umouoPIzY7wQKoeGp
+         x5CgkkrHYOtHkAetDNlBM51g7hu4a92Qt6IYYubuttkKI/FzjFXoMC43tg13/upuny3C
+         GVPMi1k5l5xe7FrocKWFZIrVJdEvdacRi9bNu7MLJdMMhNe3f/LAndFTySu6rXJOzatf
+         lCOA==
+X-Forwarded-Encrypted: i=1; AL+hErGjwlLw/ujMZZP2tW3T7nUgTcTxIghSTRjfLHEKNQdmPs7lGUiyKy7dZI4rzBY3ZoFubOJ5S8Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zi99EmbmLhHYR8epDMJBM8rm9nRMa7X7ojacK3ydbq/XfX/sh
+	ZQOSK65BrheIpCxM2p0hbQSnDiLNdZAETPqjfdLjb6Cztkj7sMKZickkDY7K8atrXMh6VIA7ipn
+	Wd8owZP/WNVrGIdTRd4baA29ZPWdN8ps=
+X-Gm-Gg: AYBFou01h6Linah+uhFpJxu4+icGYlVOcFBeQyswvDiNfXLsiVnHj9OUNX26IRMAgmp
+	+E4QBuExRdpkWW9/WBR/7LT7YRMc6pjkhBudQVcLYLggF30VA5l7Myvyme96QSK5+3TF0py8Hmk
+	tttzK1O5TKnyQPTjq0IKMc04yE9fgsm8KF1B524Cfio/Fa03rLJYbrOERzfnneknoIDWFwCpB6p
+	qjWMVmW1/LO/X3bMkfgnTDKSEXtWU3SvCyXYVFcraCIht/6b9iBuinHSHWlpSZtG0lhK5JZber5
+	9hIP0l3aV/NqxMjJlNflyJ7NcQQuTWKFKZJyfo4IZFoFvm/RGa3IZQ/+GR6oaP9idSCembDqZ+h
+	flXAtUlXtwi3kHODbmSDncxMZYUy39XBnTvAEL4bD3jk6H5InxBqcJjVaF+rzuYTergvj
+X-Received: by 2002:a05:6870:8186:b0:4ad:8800:b277 with SMTP id
+ 586e51a60fabf-4ae46b9f2famr4644533fac.24.1794493157905; Thu, 12 Nov 2026
+ 06:19:17 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,139 +104,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
- similar bugs, and commit messages
-To: Sasha Levin <sashal@kernel.org>
-Cc: Theodore Tso <tytso@mit.edu>, workflows@vger.kernel.org,
- ksummit@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Leon Romanovsky <leon@kernel.org>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin"
- <mst@redhat.com>, Kees Cook <kees@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
- <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
- Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
-References: <20261111225940.1573565-1-tytso@mit.edu>
- <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org> <avXCcPYM9VAP0JHf@mit.edu>
- <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org> <avXJSt_3DYx6aQsD@laps>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <avXJSt_3DYx6aQsD@laps>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261112091451.22969-1-amaan.cheval@gmail.com> <179447532371.2168702.1261444176228225499@kernel.org>
+In-Reply-To: <179447532371.2168702.1261444176228225499@kernel.org>
+From: Amaan Cheval <amaan.cheval@gmail.com>
+Date: Thu, 12 Nov 2026 19:49:06 +0530
+X-Gm-Features: AclHuK-8r8_CUyAx0z3-RpELzn7MRNMdR_7wvQomD_xLmxRhfmXb6fT2JGFsk1A
+Message-ID: <CAG+wEg0k_VuhZ5Y4zPyUvaTmK-erV6=A6TDmFS5E9Ycu5B1Rcw@mail.gmail.com>
+Subject: Re: [PATCH net v6 0/2] gve: fix RX page refcount overflow with the
+ pagecnt bias
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, bcf@google.com, jordanrhee@google.com, 
+	przemyslaw.kitszel@intel.com, maciej.fijalkowski@intel.com, 
+	pkaligineedi@google.com, maolson@google.com, csully@google.com, 
+	willemb@google.com, yangchun@google.com, npl@google.com, 
+	awogbemila@google.com, shailend@google.com, nktgrg@google.com, 
+	maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com, 
+	hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 12/11/2026 15:12, Sasha Levin wrote:
-> On Thu, Nov 12, 2026 at 02:49:09PM +0100, Krzysztof Kozlowski wrote:
->> On 12/11/2026 14:46, Theodore Tso wrote:
->>> On Thu, Nov 12, 2026 at 09:26:09AM -0500, Krzysztof Kozlowski wrote:
->>>>
->>>> All these are docs (even if you call them as a skill, it's the same),
->>>> therefore they should be placed in Documentation, not in top-level. We
->>>> should not create one documentation for humans and another for agents.
->>>> It's just one documentation.
-> 
-> Right. The idea here is that agent skills will mostly refer to our existing
-> Documentation/ and will only act as a glue layer to make agents behave better.
-> 
-> Consider, for example, one of the most common feedback points we have to AI
-> users: "make your commit message way less verbose". This is the type of things
-> that would make sense as an agent-only instruction.
+On Thu, Nov 12, 2026 at 2:52=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
+:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by LLM and not proven at runtime). If it was triggered
+>    please include the symptoms, like the stack trace or kernel messages.
+>
 
-I am not objecting to have the instructions for agents. They should be
-however placed in Documentation.
-> 
->>> Skills aren't necessarily *just* documentation.  The skills
->>> specification[1] also defines a structured location in the skill's
->>> directory hierarchy for Python scripts or other executables.
->>
->> Specification is also documentation, just like for example specification
->> for our ABI. It's also located in Documentation directory.
-> 
-> One of the reasons to keep it out of Documentation/ was that it doesn't mesh
-> with the infrastructure Documentation/ uses. For example, Documentation/ is all
-> .rst, while the agents.md spec specifically calls out for markdown, and a very
-> particular construction of that file.
+Patch 2's bug was triggered at runtime; patch 1's was not.
 
-Documentation already has YAML files for Devicetree and other ABI, thus
-difference of format does not matter. It's just minor technical aspect -
-tweak the Makefile.
+Patch 2 (the refcount overflow) was reproduced on gVNIC with the splice(2)
+relay proxy described in its commit message, on GQI-QPL (n2-standard-8,
+6.12.113 and v7.3 mainline) and on DQO-RDA (c3-standard-4, 6.12.113,
+where DQO-RDA still used the bias). On the stock driver ~78 of 100
+downloads through the proxy failed with EIO on GQI-QPL and ~39 of 100
+on DQO-RDA, and tee() of the pipe failed with EFAULT; with the patch 100
+of 100 completed. Harshitha also ran the reproducer on an N4 VM in
+DQO-QPL mode, the one format I could not test myself, and gave a
+Tested-by on v2:
+https://lore.kernel.org/netdev/CAEAWyHfCM_ZesnChP71AQvxjM4MASwukesgzuWCYECt=
+s7jiNhA@mail.gmail.com/
 
-> 
->> Agents supposedly "are just tools", thus just as sparse, smatch and
->> compilers such tools do not get another top-level directory.
-> 
-> I'm a bit confused by this... the original reasoning was the it doesn't really
-> fit into either Documentation/ , scripts/, or tools/, so we just gave it it's
+Kernel messages on the stock driver:
 
-Oh, it can go to tools/, I don't mind.
+  WARNING: CPU: 5 PID: 1198138 at net/core/skbuff.c:7324
+skb_splice_from_iter+0x118/0x300
+  RDX: 0000000080000000 RSI: ff34c0bcc1881c00 RDI: ff89153145163c60
 
-> own home. Why does it matter if it's a top-level dir or not?
+RDX is the page's refcount at the sendpage_ok() check: INT_MAX + 1.
+With tee():
 
-Because we do not need one more top-level directory for something which
-is already categorized. We do not create another top-level for
-"drivers-embedded" or "drivers-acpi". We do not have "tools" and
-"tools-ai". Neither "Documentation" and
-"Documentation-for-ai-but-we-will-call-it-agents".
+  WARNING: CPU: 7 PID: 3008617 at include/linux/mm.h:1456
+generic_pipe_buf_get+0x51/0x60
 
+And on GQI, once the pinned page comes back around the ring:
 
-> 
-> It's something we can always move around later - agents don't care where it
-> lives as long as it's refered to by the main AGENTS.md, so if we later come to
-> the conclusion that it makes sense to move it, for example, under scripts/,
-> then we can easily do that.
+  Pagecount should never be less than the bias.
+  WARNING: CPU: 0 ... gve_rx.c:507 gve_rx_can_recycle_buffer+0x58/0x70 [gve=
+]
+   gve_rx_poll ... gve_napi_poll ... __napi_poll ... net_rx_action
+  gve 0000:00:04.0: Performing reset
 
-So place it deeper please.
+The reset recovered on its own within 1-10 s each time and recurred for
+as long as the pinning workload ran. The reproducer, full traces and the
+kprobe measurements of the refcounts are at the Link in patch 2:
+https://github.com/AmaanC/kernel-bias
 
-Best regards,
-Krzysztof
+Patch 1 (refuse XDP on DQO-QPL and GQI-RDA) is from code reading, not
+from a crash. The DQO-QPL use-after-free on an XDP_REDIRECT to a copy-mode
+AF_XDP socket was raised by Sashiko on an earlier version and I confirmed
+the path through gve_xdp_done_dqo(), xdp_do_redirect() and xsk_rcv(); the
+GQI-RDA NULL write came from Sashiko's review of v5 and the FIFO
+allocation in gve_tx_alloc_ring_gqi(). I have not run XDP traffic on
+either format and have not reproduced either crash. Patch 1 is in the
+series because patch 2 makes that path matter: with the bias at
+USHRT_MAX the driver hands its last reference to the consumer once every
+65535 handoffs instead of once every INT_MAX, so a copy-mode AF_XDP
+redirect on DQO-QPL would free a page still mapped in the QPL within
+seconds rather than, in practice, never.
+
+What I did confirm is the attach itself: on an n4-standard-4 whose gVNIC
+runs in DQO-QPL (queue format 4), Debian's 7.2.11 kernel accepts a
+native XDP attach once HW-GRO is off, Rx buffers are 2048 bytes and the
+queues are 2/2 to get past the driver's other checks, which is what
+patch 1 closes.
+
+Thanks,
+Amaan
+
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
