@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794457947;
-	b=sPFtCz7P+KA3G3f+XTiLNTSMMIj63HjQZDAV2hmoZ/kFyZlceYzFcVv1534ulXS5UDVM
-	 8pC4A1D485wBu1l3IDGnj/E0FEGWIDsimgc/B5/U5FZQ/gmDJLJbLidwS8UYWEcWcdvqc
-	 BbGvTFGcVFNLDL2K3W5WSm0UK3o3nbD89daasygBfWinrC4yYP39VRC/WqFNKoUL5kziX
-	 sLf3M9pkmLgOPVojQivD0aGSuYQb7AzlR60vAKUIchMh2ALWb77ioVJsv5pwVa/7FRZHi
-	 gw6T/SyuellfGQdU2q6ubNIPi3VpKhDo0DPG6/4xUF8jFZmJlPfSAo3vzYyxsW3wcbA==
+	t=1794458018;
+	b=Pdfeovl5gT8SKEK3caZRhe1paspm08oymRwlIl4S0n9ovpk63inwKTE6yl709TAd0uoG
+	 3UKYvqiqJ6fgGrZaFLifVS4tLiemChAMKvZLkFDS4E0dAQ95fI/01AkDOARMIhFaLp1fT
+	 2r+UyqbhWeV7QgQqDeDGSbWHEsEx2kmK7e0stIr5wOD/6T49LRxJ4m4SYyB2B46naL1wO
+	 //CqW4+cyxtnqnQHYv8lp0OPHABNayht16I9IazMAEETo7zVBjsdw6iEYTb+NGK7MN5U0
+	 VJWk5XwXXBusja3c+cOgGWKWxa/qrK/YizXY62/nj4Hiw08ya65CYt7r9aAviMG72bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794457947;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tSl8MVJnZefCbq5jHR2g4SRTuu2d9u1W5NiENOYHVKA=;
-	b=X/2hYWW68BFDk4/EYyg+vQ2r59bjvgXgcgSNpoHUJZiNw+P4WHsrrcKM+ycHQfJW6oOm
-	 GQ1VBdsJo1Qur7MhVMRCHFAabTf5jbcpvEOUie3uN8XpRztO2iNltwdSUjTE7HaNMyJTS
-	 U9mCpqPdLqe68DdN1JEwAwsyfECjgR6Jo8PmVN+raibo6b7HqeoxKwVzh86i2aPaa76kI
-	 R/tr42dkHhX/xZcJDrwC09E36wNStmEfwVJNUjpJIlHBu62nk9+IXkqJ4RpG7wtapwV8Q
-	 tePd7PwPq/THjgZQNMtb1OVO2vWSwYLyNfm7a0mvn+RRzJnUpLz9m1M5DZVPLiQZtNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794458018;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=5VUPrV4A9tGNvVlk5qb/TEgkVVbRnZI8k+D93O3fHSc=;
+	b=yFGbsChdgJuaZHvXE6hUIMOaps/zYopepaWm/9xm91orWRKl27rqjCVfEVuwWbDvqVL2
+	 s3EbewBGMMQ/9mPvdjSxJjaY597vAYFMDVHAOwn3P2sElAzSTNUTdrPnS1TEJH3irXO8k
+	 cFQCA74vEuijHQlJbX/IxEs3VejQJIjNh/0gpqvg4iyoIYdu6BcKY4HpIs6SHFVt0HIBw
+	 tRdY9PMB1NLwLFZYctdtBw3MaBeIPdCqltnzuFnsyg9LbbDqBWdgKkqoEnLuMiz/N9jmE
+	 NFseKIxAsw5uK6ZNsiCERqeb1BeoAgZx6BV2KUfA2rIXy201UFqe0LHYcl+XwxcEDyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jaeyeong.cc;
-	spf=pass smtp.mailfrom=jaeyeong.cc;
-	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=W3uUTFNT;
-	arc=none smtp.remote-ip=185.70.43.97
-Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lE3vJMIP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75675606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75675606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19406606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:33:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=W3uUTFNT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
-	s=protonmail2; t=1794457942; x=1794717142;
-	bh=tSl8MVJnZefCbq5jHR2g4SRTuu2d9u1W5NiENOYHVKA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=W3uUTFNT42Fsc9EQUuqWLn09QQYkG+eTXYlY8O8tiIFJCCIv+XWbWUhsMkTcZbNtw
-	 CgfXW6GuKJ+YRxqVdTmfUW/LpNF77p54C8NQeoihPztnt3JVUuQysU1DLA+r3DYdRE
-	 J7WAH0l+eQNHI3rpzCKl1nmox2SXKazRoKoa7FtyOOEPYnHeU9kQ3Torm+Gmm2zfwP
-	 cq5s6BGOtnf4xghFIe0TqNqaaQg1efazoBSTCKsSOjrUgeI4BSjt3W2T408Q0tip51
-	 D08VULbLheVKtw/ktxDbNWVB7s/ZnZNKk+AWXGa8ZaogD4xy9i/jFrYU18vuOEcF0F
-	 3dOhC7JZQFYeg==
-Date: Thu, 12 Nov 2026 04:32:17 +0000
-To: netdev@vger.kernel.org
-From: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: john.fastabend@gmail.com, kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, alice.kernel@fastmail.im, tariqt@nvidia.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH net] net/tls: serialize context removal in tls_device_down()
-Message-ID: <20261112043209.102404-1-lee@jaeyeong.cc>
-Feedback-ID: 177356447:user:proton
-X-Pm-Message-ID: 333b79e90391ab3c6eea869158387f16cfae3937
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lE3vJMIP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145BE1F00A05;
+	Thu, 12 Nov 2026 04:33:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794458017;
+	bh=5VUPrV4A9tGNvVlk5qb/TEgkVVbRnZI8k+D93O3fHSc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lE3vJMIP46NCnnLrrXa8kTsKiQumAX/tgM2sNJ040A9+567bvr19ItMZSEndYCsRA
+	 itFxb6U8TDWAu0PT1cFlo7N6jMnFs5oS7+puJbiPlIVrS9tUPopM5I4gZqOK8W8f+C
+	 5pfKqp8DUDSRe3WAuswGh5/M+zhhhRYhj77OpcItSjtHADcNk82MAd27vWhcUWZtPj
+	 ntk5BlMUF0EXIi/6mQbcE3Z/9J0PM1sLzLbIxhclpNaMICt/NPD6Nx9Xr2RktN7kTb
+	 3CsD8qZi/FXLsLrKMr4Ye3n3xRB2TKL9GG0mCKiKx2OuqwTtENOwir+8GaLm4eTkIZ
+	 ZvomlCi3EMN5Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/mremap: fix moving PUD leaves
+Date: Wed, 11 Nov 2026 23:33:35 -0500
+Message-ID: <20261112043317.2067412-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200915-failed-6.12-440c8779757f@kernel.org>
+References: <20261109200915-failed-6.12-440c8779757f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,80 +63,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-tls_device_down() moves each context to tls_device_down_list while
-holding tls_device_lock. It then drops its reference and removes the
-context after releasing the lock.
+From: Josef Bacik <josef@toxicpanda.com>
 
-tls_device_queue_ctx_destruction() removes contexts from the same list
-under tls_device_lock. If it removes an adjacent context while
-tls_device_down() is deleting its node, the two list updates can
-interleave. One update can then target a context freed by the other path,
-causing a use-after-free write.
+[ Upstream commit 440c8779757f09f290770b1d361dc1516a9d0b3e ]
 
-Drop the reference and remove the context in the existing
-tls_device_lock critical section. Keep tls_device_free_ctx() after
-releasing the lock.
+pud_none_or_clear_bad() only really works on page tables. PUD leaves
+confuse the check and make us clear the page table entry and print a
+warning.
 
-This issue was found with a static analysis tool.
+Since commit aed877c2b4257 ("device/dax: properly refcount device dax pages
+when mapping"), this also leaks device-DAX folio references, mapcounts
+and RSS accounting, resulting in "Bad rss-counter state" warnings on exit.
 
-Fixes: f6336724a4d4 ("net/tls: Remove the context from the list in tls_devi=
-ce_down")
+Allow PUD leaves in get_old_pud(). If a PUD leaf cannot be moved as a
+whole or the move fails, split it. This unmaps it with proper accounting
+instead of treating the leaf entry as a PMD table.
+
+Keep using pud_trans_huge() for now, in the future this code should be
+cleaned up to just check for PUD leaves.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[ david: fallthrough after splitting ]
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-32-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Adapted pagetable_move_control-based calls to individual arguments while retaining explicit pud_devmap() checks. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Reproduced with a deterministic KUnit harness under KASAN in a 2-vCPU
-x86_64 QEMU guest. The unpatched kernel reported:
+ mm/mremap.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-  BUG: KASAN: slab-use-after-free in tls_device_racy_list_del
-  Write of size 8
-
-The patched tls_device.o was compile-tested against current net/main with
-KASAN and DEBUG_LIST enabled.
-
- net/tls/tls_device.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-index 4cdfbb57ecff0..fa7170cd4fd10 100644
---- a/net/tls/tls_device.c
-+++ b/net/tls/tls_device.c
-@@ -1350,6 +1350,8 @@ static int tls_device_down(struct net_device *netdev)
- =09spin_unlock_irqrestore(&tls_device_lock, flags);
-=20
- =09list_for_each_entry_safe(ctx, tmp, &list, list)=09{
-+=09=09bool free_ctx;
-+
- =09=09/* Stop offloaded TX and switch to the fallback.
- =09=09 * tls_is_skb_tx_device_offloaded will return false.
- =09=09 */
-@@ -1387,17 +1389,19 @@ static int tls_device_down(struct net_device *netde=
-v)
- =09=09 */
- =09=09spin_lock_irqsave(&tls_device_lock, flags);
- =09=09list_move_tail(&ctx->list, &tls_device_down_list);
-+=09=09/* Serialize the final removal with sk_destruct. */
-+=09=09free_ctx =3D refcount_dec_and_test(&ctx->refcount);
-+=09=09if (free_ctx)
-+=09=09=09list_del(&ctx->list);
- =09=09spin_unlock_irqrestore(&tls_device_lock, flags);
-=20
- =09=09/* Device contexts for RX and TX will be freed in on sk_destruct
- =09=09 * by tls_device_free_ctx. rx_conf and tx_conf stay in TLS_HW.
--=09=09 * Now release the ref taken above.
- =09=09 */
--=09=09if (refcount_dec_and_test(&ctx->refcount)) {
-+=09=09if (free_ctx) {
- =09=09=09/* sk_destruct ran after tls_device_down took a ref, and
- =09=09=09 * it returned early. Complete the destruction here.
- =09=09=09 */
--=09=09=09list_del(&ctx->list);
- =09=09=09tls_device_free_ctx(ctx);
- =09=09}
- =09}
---=20
-2.43.0
-
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 8b507e228a274..d357d36c1157b 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -47,7 +47,8 @@ static pud_t *get_old_pud(struct mm_struct *mm, unsigned long addr)
+ 		return NULL;
+ 
+ 	pud = pud_offset(p4d, addr);
+-	if (pud_none_or_clear_bad(pud))
++	if (!pud_trans_huge(*pud) && !pud_devmap(*pud) &&
++	    pud_none_or_clear_bad(pud))
+ 		return NULL;
+ 
+ 	return pud;
+@@ -624,12 +625,11 @@ unsigned long move_page_tables(struct vm_area_struct *vma,
+ 		if (!new_pud)
+ 			break;
+ 		if (pud_trans_huge(*old_pud) || pud_devmap(*old_pud)) {
+-			if (extent == HPAGE_PUD_SIZE) {
+-				move_pgt_entry(HPAGE_PUD, vma, old_addr, new_addr,
+-					       old_pud, new_pud, need_rmap_locks);
+-				/* We ignore and continue on error? */
++			if (extent == HPAGE_PUD_SIZE &&
++			    move_pgt_entry(HPAGE_PUD, vma, old_addr, new_addr,
++					   old_pud, new_pud, need_rmap_locks))
+ 				continue;
+-			}
++			split_huge_pud(vma, old_pud, old_addr);
+ 		} else if (IS_ENABLED(CONFIG_HAVE_MOVE_PUD) &&
+ 			   extent == PUD_SIZE && uffd_supports_move) {
+ 
+-- 
+2.53.0
 
