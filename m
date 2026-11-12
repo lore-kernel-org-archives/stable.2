@@ -1,55 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447081;
-	b=OjxFVJ6NPP6R8FRBz6i/jUD+XgotgmMSDcPnJCdvEtXX747NBT/CADfiqbPBsgvG0NbT
-	 7jH+Cgjm8xOJW6hKM2X3tJUO7u6S3ZJHaMiBJs+EPciEYGWNFvit+d41NQA0Ro6ZROzy2
-	 LjLrFX7sTdJssXKX7ermiZmo9jXG6EfE9wSnKxqw0QRPsS15tnvuIMKFnE/hLG9NqZJkl
-	 GY+Ts1LH6fE64qY2halXlrTkQc47xM5YsH2bMtjbRPXXxWzWtDd+XfnrBWMJJhmxrjICN
-	 3DDNK/QNBbXY3aj75c45nfIzP27cWU746acwsvzVWOMV4cJ/vgL5IVEI4KaiXIGEgUg==
+	t=1794447157;
+	b=YaCa8zCUa4s1YyP42HmenEJj9o+D/YbM9/ic5REpEMylmwtz87YbdO4vuTQwAUwsKcGu
+	 bZe7IFVrEKJ+OlJHUSw1yiFlmuLm2bRUmZp/qkJXGoP3Psnm/jkWeXb2GU/ez6lJ8HGub
+	 yBKOYxY3IuCLdJMwLpxNm88y/vKN+8bMzywlsilCa5lT6TUZ5mK4r7+0RRr8q2OGtIshN
+	 KCZ4jv440IxtFr7VCPu1huQ5bvVzuP0X7/B6Leraj+vlvwjSc68aGr5xACKHqzu117izA
+	 fD/cqIAAXA91PW1qlGDa3B/2rWs7T8vuKwLki2dUFsqwrY4KRFx9vvc5jq+5EWjy9Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447081;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=tbAelE0MgrzBlqY6meyYnUeXwzPQQ8o74J39xWeGzMI=;
-	b=rZT7gzTxTbTVN0ah4oNFNh6vxHD5K/Mwo9L6y903ML7jIAnqIIFZbs5bPn0ZUm8cFGhf
-	 fooIhYbCtd8PiYeL21+d8Jc7KRW5OIQ17ZUJeDtvc4i80a+aH0W4N7ymWCJZr4z0itsmw
-	 +oiOeYzGHE3rTCKKAKAduqOuKKW8nj/4Hooc7rz+vQfdzQqG3yNOeDhcyElO/7WOJTkxG
-	 lm1tCaL9Ujxcqj15wO/PX0NRNEV+lrNWiRxN6/6T4qCTDR0E95rWW2b3OulaygtxV/QVv
-	 fHWwLy58Gt6C07GnRHI/v0eTy/Rg2vb0sbCnAaJ6du6eWBpZZ+OzQBhbyvZBEQijD4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447157;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=96+MiFGPO2U7PNuJNe4GvGKx5aN5k6zWtMq8p7nurjU=;
+	b=FF23QDSFECF7Kct6S4i7DOeM7/aI9WD8Wq0PK22LtL3Wb2Z3WrbtiPZCSO5vhPMyZIQt
+	 giwhQSzGFMkHAKV12VgXIFeHhqUJASqG4bt1UPqs6uY8V6091va5RD1u4zRKlsSrohyxz
+	 1yo3fRuEtA7Nw2LWsfpskmw8Xc1/XaH1V3myL97mY2vq5pLtj28azokfk9pxDFRMaI0xn
+	 6cb2x8vM5msCtbowHCKjy48fJLXL193oIwXYj7KpBoG91FfoXdTwjIztNvM20O4amQCE6
+	 erRMKmoXdZJn3u4tdodhkj2OdE2LGYe1INhC1eSmhRkz8K9D1Cbq1g0tRuguz3fYF/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAX1KQf1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P5GQvKtD;
+	arc=none smtp.remote-ip=95.215.58.42
+Received: from mta1.migadu.com (out-42.mta1.migadu.com [95.215.58.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4279606A333
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:31:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07027606A326
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:32:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07027606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAX1KQf1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EA301F00A07
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794447080;
-	bh=tbAelE0MgrzBlqY6meyYnUeXwzPQQ8o74J39xWeGzMI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cAX1KQf1Rzsl3baWjSeoL9KqFkTL1LmLNbp0E7qvwOM0SZG/F5dkudx/fNzxgDuMK
-	 GK/I7Yw6HwlPiQQsj3ellpPk3FiAvNUAb+8kNfBwSkPOvSIjKy+Eicot9YEg0s3OPO
-	 3c68Ud/AcuoSMRQcGVhTkxPtAYF2zG8Y855SXbuP6NE9e7yWaEK8/PxZniNNPDXHfl
-	 HW5rJtHZoo3tPzKBs4DbPLKZbDYPi1BTOBK2pPoYbDVc0N7g/NJGX5L6VhpZ7W0WUK
-	 TqwJBmB/5yyxNJJN/6g1OttGDgZ9sS/p46Mx1UFXCzfiPZW5xkagpHbky8bqUYNx71
-	 YXOqfx3pBCcyw==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso4143372e87.3
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:31:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEhF6Ef2DqtpwPo1lVJAV8K2UyKlV0O98qxfZZ8p6iTCTaZqsYxtGOfmLYJ25JOMAxcpyPIq3Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+R0O5OrSW6xOjFn56WUD/Z9loho6fxpTmADnjFyDAJuTgVP7d3
-	B0iiaWmYTFlECxC4J22q1sNNmoN9YGA/Su8P6jjgqb0+olSWr8GsDlLqXQeswuWszXiOMqAlcv5
-	lNJ4cmy2fmU1DzLPpX30Mv1tt+zUVsAk=
-X-Received: by 2002:a05:6512:4011:b0:5c0:a57:2cc5 with SMTP id
- 2adb3069b0e04-5c15d5459a1mr1246023e87.3.1794447079338; Wed, 11 Nov 2026
- 17:31:19 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=P5GQvKtD
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sPpIa3e7L1mAcoyZ9LAbz3c730yx9yguIyx0GpYaPmo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794447154; v=1; x=1795051954;
+ b=P5GQvKtDgYWwg6294JBP/iDUfSd3unmRBLbU2Q5X1Rn/CSrNJYczu1Z8Gy84DaPexwIfgMU1
+ BdbcQM0Fkzo1e348QZXhaIs7ZnYdhG56sIg66zAwH4r4lv06/xkkrJ1AjGpG0eLCf7rSGmr1KxW
+ HSr1FPIPPWW142PpSm8xYCSo=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4ade9aa4cce312ce;
+	Thu, 12 Nov 2026 01:32:33 +0000
+X-Mizu-Trace-ID: 4ade9aa4cce312ce
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Meta kernel team <kernel-team@meta.com>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Chris Mason <mason@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] memcg: flush nr_charged_bytes when the obj stock trylock fails
+Date: Wed, 11 Nov 2026 17:32:20 -0800
+Message-ID: <20261112013220.4064478-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,34 +73,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111033150.847104-1-kj2864@nyu.edu>
-In-Reply-To: <20261111033150.847104-1-kj2864@nyu.edu>
-From: Xiubo Li <xiubli@kernel.org>
-Date: Thu, 12 Nov 2026 02:31:08 +0100
-X-Gmail-Original-Message-ID: <CAOuZWzyKFAfOFDu1p8O4M4qCS6WgvTXtoFq89wnZSx3OcCXz2w@mail.gmail.com>
-X-Gm-Features: AclHuK-2jkI_1P4f-3m0WBpZsZ-pjI-2oWTd2FJHzyQYsGPvJZ5SBMTR5ALOLsI
-Message-ID: <CAOuZWzyKFAfOFDu1p8O4M4qCS6WgvTXtoFq89wnZSx3OcCXz2w@mail.gmail.com>
-Subject: Re: [PATCH] ceph: Use unsigned types for snapshot split counts
-To: Kaho Jiang <kj2864@nyu.edu>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, slava@dubeyko.com, 
-	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	co+408fcc361565713f@bugs.sh, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Kaho
+When interrupt code, such as an RCU callback in softirq, runs on top of
+a task that holds the obj stock lock, its trylock fails and the bytes go
+to objcg->nr_charged_bytes. Nothing empties that counter while every CPU
+using the objcg keeps it in its stock, so it can grow without limit.
 
-Thanks for your patch.
+Users see memory.current and the "kernel" field of memory.stat keep
+growing while the cgroup's real usage does not. With memory.high or
+memory.max set, the cgroup is reclaimed, throttled or even OOM-killed
+for memory it does not use. The counter is 32-bit, so after 4 GiB it
+wraps, and those 4 GiB stay charged to the cgroup and its ancestors
+until reboot, even after the cgroup is removed.
 
-The u32 change fixes the backwards move on 64-bit (I reproduced the
-KASAN slab-out-of-bounds with injected split counts and it is gone with
-this patch), but on 32-bit sizeof(u64) * num_split_inos is still a
-32-bit size_t multiplication and wraps: 0xffffffe0 still moves p
-backwards, and 0x20000000 leaves p in place while the split loop then
-walks split_inos[] far past the front buffer.  Could you bound the
-counts before advancing p instead, like b3bf89767e3c does for the snap
-trace, e.g.
+Fix it by uncharging the whole pages in nr_charged_bytes whenever the
+trylock fails.
 
-        ceph_decode_need(&p, e, size_mul(num_split_inos, sizeof(u64)), bad);
+Fixes: 200577f69f29 ("memcg: objcg stock trylock without irq disabling")
+Reported-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: stable@vger.kernel.org
+---
+ mm/memcontrol.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-for both arrays, and ceph_decode_skip_n() in the non-split branch?
-Also, please rebase onto the current testing branch.
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index f5f567f7d4a9..091401cecf39 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -3553,6 +3553,8 @@ static void __refill_obj_stock(struct obj_cgroup *objcg,
+ 	int i, slot = -1, empty_slot = -1;
+ 
+ 	if (!stock) {
++		nr_bytes += atomic_read(&objcg->nr_charged_bytes)
++			? atomic_xchg(&objcg->nr_charged_bytes, 0) : 0;
+ 		nr_pages = nr_bytes >> PAGE_SHIFT;
+ 		nr_bytes = nr_bytes & (PAGE_SIZE - 1);
+ 		atomic_add(nr_bytes, &objcg->nr_charged_bytes);
+-- 
+2.53.0-Meta
+
