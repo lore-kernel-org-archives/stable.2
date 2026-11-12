@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453160;
-	b=ZfFkBzepz9Bitzaphfgypz5DrBNv/7YDNHQCqdy8shR8FqU1U2FWIvj/QhzeK+Crc7F7
-	 sgkmbk2NOMaj/XEzheUpCu6LOwp9VQUc5iHqK9riT2ExVKOGMGvYSUeVw3DLt8X3kFA1w
-	 Cc2lp3WQDGvPG1rrRsfSA/AccwXlELslpFxMHKKYu7snLjc0RwuMxO12vfZVNqj7CqoNr
-	 H8fR6hsJdxra0Id8Q6Id6Qo9472HuDXozvSktyw/3HONA0TD46ovLUgwEChu1s8mOVbcz
-	 FRyvBnMh/ljMOCGkAs4fUqgqfAcW5Gy24v0+cthqWd1jIUmqUloUcBNOWLZ0f5H4IjQ==
+	t=1794453161;
+	b=W/Iooy/QAIc1BPQhGGqjEpvf0HpyB08RDDD+OtZ9MtWc82mlfdu0/b4TlsBYvg3NSzc/
+	 vtnOTo5iY57KHBBMVNYCsS23JN08OU28kisjzLFUpAas3FPJOrCY+cqydfuYDb9XIzL92
+	 nASzgA4thlqJ6hm2+yuUTx5ySKIAt2w/YR4udCBVX9+F+wdoN1HSXA6/fvxp3KH3cXJKD
+	 b5kw1E5CVJlPGjb/t2kww+kXrH8/ByoIlo3T/IenX+702cYyNsCmqiYMj+L+7A9/585uL
+	 s1NB6sKNNJHqlu2pcZPOYf91n36CrKr8/Mnt00uMr0crVlyvMc8eci1qRjG3NVjA/eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453160;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453161;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=hfEjGfo2rY0mSbC08Mx/p7COgxtfGBib/UQx6eRSdYk=;
-	b=5WPvHrac1Ly3H6nkyEA9vR9tZDLsmwJJFm7aieexWE8d8te9YagBt79y/SqjJdGZCEk5
-	 SOTAkNl/xERuOrkYA6B0FB36XqfVQ9mjXPQofhFr1IRbRW3gZOA2NECU362mvIa3cFcQi
-	 5zTZf3wuYpAdAiufjNfADjO+O8mBxPUK1Zgs+2t7T1Vwyp2f9kuXoKb6PwenaqJRVlE3p
-	 Xxu7HlLQLCqoB/J0J720jnL/pSatBG7WYFXBrHIu2duckJlCSXNKvpJvfrIfuK74YPurb
-	 fmHO3KOdt6Cmo+h2ITaHmkIVfN1fASh/hV6DqNXAZPNnDgFt32FyTVKP9Ao59sfgHHQ==
+	bh=JP9HX/aEv5bIF2lncKmrRpmRWlOimWzxzqMmdrfy6yE=;
+	b=0Zl9xS4YDKnFgR+B7iYYQCrtydwcpjAWLTOEawggCCyIYkViwv2kCnZBwSUY6KN3bdq6
+	 WZsV1eawXPpyIjceR9bMKmgjVCFghoEt6Z9wr925HzxdeOf/BBB1pNv3tqt4vFPQ/n2p0
+	 zw8JTwt165tJNUSEVFdW5GLAd/kCoKlIkX0VydaTF0IyTYm/ggUin8JnkQSyudB88te+r
+	 Hb5TVdDekxSCpcl8ig81gCWIbdVTepgZ1ZcDuKJDRMubrrKlzn0bjLMOYXXDhyUnbwEZl
+	 10fMYZzVkkfh9LEjepZTcmOhR858a1O+mJRbq5ZQwZS3hSvsAdDeB9CD1PVR2/KQimA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNanq22c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VXfio+5j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13BB606A31C
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:12:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3533B606A323
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:12:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNanq22c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E177D1F00A05;
-	Thu, 12 Nov 2026 03:12:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VXfio+5j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907171F00A06;
+	Thu, 12 Nov 2026 03:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794453160;
-	bh=hfEjGfo2rY0mSbC08Mx/p7COgxtfGBib/UQx6eRSdYk=;
+	s=k20260515; t=1794453161;
+	bh=JP9HX/aEv5bIF2lncKmrRpmRWlOimWzxzqMmdrfy6yE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fNanq22cxA9T4CEpDoN/AuKR5+kI1ATMT2b5NbXrRlNCwpZtowEyRXrsgeA1xWKLR
-	 7KdjV3ERBGJFDTtd8KTLdrWXWPrkRvfw/WJIei8gZjonTDtWWXdgHqAQ3lT0eqRYj/
-	 iewAdHe1bWyzpR8L5wxbYrNKlhTFJoWE5KNN+GB3twPqvQqfQSE2KvLLGshsD4xefM
-	 bLJF4jcewPlZ7BENIRNC64wBwTHb6T6XiqWJyjEv42KtsGDTMZFURdnjkXi48b5Kh8
-	 kRnFzMWBMYzLqqDT+XAWgqKT7zE0yFZnMK+OnVFdJMefu6Cpjif0DnYS4yj+FM6EqO
-	 +T+GflmJxiWsQ==
+	b=VXfio+5jQxY7SqZpDtoxHU2kflvdgF3zMIA6f0jfxYJTnp1Fq+OSNQ3aSKLP2y7LN
+	 YoxYHmxlP0lu1HjPG2bXF3mgDFN8KTdB70rVUYrTp2TC6+CNBUiNSqBsr+y2XIUVnk
+	 v6WvNUvncmhiO23vmOr9CwwGwmk8jW69KrXKJV9vYXgNxrnZPbE9c44gpPvh41YUZ+
+	 wc930aHj6jiUau3zHIPUe0fW3Q+WMPlx3N1hLTDL+sQ0GspNEgwaXu26fGD4UnlFFC
+	 20zACMBFQWGLG5jZJUIKUNcGJa84S+mtG1IPGqFj6uTMfa3TrxoSaunB4Xp2hq+IQF
+	 yrEHmMg+LxqlQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: Ciro Pedrini <ciro.pedrini@gmail.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] platform/x86: hp-wmi: Order DMI board name arrays
-Date: Wed, 11 Nov 2026 22:12:35 -0500
-Message-ID: <20261112031152.1461468-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support
+Date: Wed, 11 Nov 2026 22:12:36 -0500
+Message-ID: <20261112031152.1461468-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261112031152.1461468-1-sashal@kernel.org>
 References: <20261107054735-failed-6.1-d35a1ea827a2@kernel.org>
@@ -63,150 +64,57 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+From: Ciro Pedrini <ciro.pedrini@gmail.com>
 
-[ Upstream commit 68779adbabdbb1891ba4d9b8c7d3be99ed5e0b3d ]
+[ Upstream commit d35a1ea827a2efaea7fb059ffafefae7c13b9556 ]
 
-The hp-wmi driver has a number of arrays that are getting new entries
-and all/most entries have been added to the end of the array. As a
-result, the numerical order is mixed up in a few entries.
+The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
+so hp-wmi uses the generic thermal profile query. The firmware only
+stores that value and never acts on it, so the EC stays in its default
+mode and the CPU is held at 45 W whatever profile is selected.
 
-Reorder the array entries. Split lines for each two leading chars to
-make the arrays easier to read.
+The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
+v1) and also needs the timed profile quirk: without it, the EC drops
+back to the default mode about two minutes after each profile change.
 
-Add also trailing commas.
+Add 8A17 to omen_thermal_profile_boards and
+omen_timed_thermal_profile_boards.
 
-Link: https://patch.msgid.link/20251128120215.4450-1-ilpo.jarvinen@linux.intel.com
+With this, all three profiles work and sustained package power under
+load goes from 45 W to 56-79 W.
+
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
+Link: https://patch.msgid.link/20260925205226.883724-1-ciro.pedrini@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-
-Include the prerequisite OMEN board entries and timed-profile table so
-the subsequent 8A17 addition applies directly. Implement the timer quirk
-in the existing profile setter: clear the EC countdown, enable NOTIMER
-and TURBO for performance, and clear both for other profiles. Match the
-upstream OMEN command's 0xff prefix.
-
-Omit the Victus table changes because their profile support is absent.
-
-Stable-dep-of: d35a1ea827a2 ("platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/hp/hp-wmi.c | 62 +++++++++++++++++++++++++++-----
- 1 file changed, 54 insertions(+), 8 deletions(-)
+ drivers/platform/x86/hp/hp-wmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 2e24e528a744c..8829f8a435f0e 100644
+index 8829f8a435f0e..764613cb55fc7 100644
 --- a/drivers/platform/x86/hp/hp-wmi.c
 +++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -38,6 +38,8 @@ MODULE_ALIAS("wmi:5FB7F034-2C63-45E9-BE91-3D44E2C707E4");
- #define HPWMI_EVENT_GUID "95F24279-4D7B-4334-9387-ACCDC67EF61C"
- #define HPWMI_BIOS_GUID "5FB7F034-2C63-45E9-BE91-3D44E2C707E4"
- 
-+#define HP_OMEN_EC_THERMAL_PROFILE_FLAGS_OFFSET 0x62
-+#define HP_OMEN_EC_THERMAL_PROFILE_TIMER_OFFSET 0x63
- #define HP_OMEN_EC_THERMAL_PROFILE_OFFSET 0x95
- 
- #define zero_if_sup(tmp) (zero_insize_support?0:sizeof(tmp)) // use when zero insize is required
-@@ -52,12 +54,18 @@ MODULE_ALIAS("wmi:5FB7F034-2C63-45E9-BE91-3D44E2C707E4");
-  * contains "PerformanceControl".
+@@ -62,7 +62,7 @@ static const char * const omen_thermal_profile_boards[] = {
+ 	"886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "88F6",
+ 	"88F7", "88FD", "88FE", "88FF",
+ 	"8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "89EB",
+-	"8A15", "8A18", "8A42", "8A43",
++	"8A15", "8A17", "8A18", "8A42", "8A43",
+ 	"8BAD",
+ 	"8C58",
+ 	"8E41",
+@@ -82,7 +82,7 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
+  * "balanced" when reaching zero.
   */
- static const char * const omen_thermal_profile_boards[] = {
--	"84DA", "84DB", "84DC", "8574", "8575", "860A", "87B5", "8572", "8573",
--	"8600", "8601", "8602", "8605", "8606", "8607", "8746", "8747", "8749",
--	"874A", "8603", "8604", "8748", "886B", "886C", "878A", "878B", "878C",
--	"88C8", "88CB", "8786", "8787", "8788", "88D1", "88D2", "88F4", "88FD",
--	"88F5", "88F6", "88F7", "88FE", "88FF", "8900", "8901", "8902", "8912",
--	"8917", "8918", "8949", "894A", "89EB"
-+	"84DA", "84DB", "84DC",
-+	"8572", "8573", "8574", "8575",
-+	"8600", "8601", "8602", "8603", "8604", "8605", "8606", "8607", "860A",
-+	"8746", "8747", "8748", "8749", "874A", "8786", "8787", "8788", "878A",
-+	"878B", "878C", "87B5",
-+	"886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "88F6",
-+	"88F7", "88FD", "88FE", "88FF",
-+	"8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "89EB",
-+	"8A15", "8A18", "8A42", "8A43",
-+	"8BAD",
-+	"8C58",
-+	"8E41",
+ static const char * const omen_timed_thermal_profile_boards[] = {
+-	"8A15", "8A42",
++	"8A15", "8A17", "8A42",
+ 	"8BAD",
  };
- 
- /* DMI Board names of Omen laptops that are specifically set to be thermal
-@@ -65,7 +73,17 @@ static const char * const omen_thermal_profile_boards[] = {
-  * the get system design information WMI call returns
-  */
- static const char * const omen_thermal_profile_force_v0_boards[] = {
--	"8607", "8746", "8747", "8749", "874A", "8748"
-+	"8607",
-+	"8746", "8747", "8748", "8749", "874A",
-+};
-+
-+/* DMI board names of Omen laptops that have a thermal profile timer which will
-+ * cause the embedded controller to set the thermal profile back to
-+ * "balanced" when reaching zero.
-+ */
-+static const char * const omen_timed_thermal_profile_boards[] = {
-+	"8A15", "8A42",
-+	"8BAD",
- };
- 
- enum hp_wmi_radio {
-@@ -178,6 +196,11 @@ enum hp_thermal_profile_omen_v1 {
- 	HP_OMEN_V1_THERMAL_PROFILE_COOL		= 0x50,
- };
- 
-+enum hp_thermal_profile_omen_flags {
-+	HP_OMEN_EC_FLAGS_TURBO		= 0x04,
-+	HP_OMEN_EC_FLAGS_NOTIMER		= 0x02,
-+};
-+
- enum hp_thermal_profile {
- 	HP_THERMAL_PROFILE_PERFORMANCE	= 0x00,
- 	HP_THERMAL_PROFILE_DEFAULT		= 0x01,
-@@ -441,7 +464,11 @@ static int hp_wmi_get_tablet_mode(void)
- 
- static int omen_thermal_profile_set(int mode)
- {
--	char buffer[2] = {0, mode};
-+	/* The Omen Control Center actively sets the first byte of the buffer to
-+	 * 255, so let's mimic this behaviour to be as close as possible to
-+	 * the original software.
-+	 */
-+	char buffer[2] = {-1, mode};
- 	int ret;
- 
- 	ret = hp_wmi_perform_query(HPWMI_SET_PERFORMANCE_MODE, HPWMI_GM,
-@@ -1146,6 +1173,8 @@ static int platform_profile_omen_get(struct platform_profile_handler *pprof,
- static int platform_profile_omen_set(struct platform_profile_handler *pprof,
- 				     enum platform_profile_option profile)
- {
-+	const char *board_name = dmi_get_system_info(DMI_BOARD_NAME);
-+	enum hp_thermal_profile_omen_flags flags = 0;
- 	int err, tp, tp_version;
- 
- 	tp_version = omen_get_thermal_policy_version();
-@@ -1180,6 +1209,23 @@ static int platform_profile_omen_set(struct platform_profile_handler *pprof,
- 	if (err < 0)
- 		return err;
- 
-+	if (board_name &&
-+	    match_string(omen_timed_thermal_profile_boards,
-+			 ARRAY_SIZE(omen_timed_thermal_profile_boards),
-+			 board_name) >= 0) {
-+		err = ec_write(HP_OMEN_EC_THERMAL_PROFILE_TIMER_OFFSET, 0);
-+		if (err < 0)
-+			return err;
-+
-+		if (profile == PLATFORM_PROFILE_PERFORMANCE)
-+			flags = HP_OMEN_EC_FLAGS_NOTIMER |
-+				HP_OMEN_EC_FLAGS_TURBO;
-+
-+		err = ec_write(HP_OMEN_EC_THERMAL_PROFILE_FLAGS_OFFSET, flags);
-+		if (err < 0)
-+			return err;
-+	}
-+
- 	return 0;
- }
  
 -- 
 2.53.0
