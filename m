@@ -1,64 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.234.4.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794475334;
-	b=BKxDnIHheHfKuxTYfYiSsZZqq9buL/R95/nL4OX2Fj9KcSv0rV4bfbFrYYjyiepazTrb
-	 RdX/HwXzq3m4v6KSOSNgyew3/wj/TUwJVKYslBNjvxS/PGUmBwFYdRRnjXHDn0kYR1/8+
-	 Le1JZyfa8GF0p4gdz+Pb+DzoZdWk4vl7XIBF/Ydb4iduA4tH7bPyw6wi+VZ6pK+eeesQR
-	 6w5H3SJFdEgDUegtCOXe6AcCHk+T8hZvcPRqqjZhwSFXjr3QDsFs8Cx62H2iLs5SUaTrK
-	 Cn/1kszZo/zGFkPmnBb+ZukCtrKRhcnRAkz4Ntcq/fXFLo0kvYlD39m6fWp/gXdnibA==
+	t=1794475426;
+	b=e2gfBITquUttg9L8fgQsZKCfPjSIQGSAQTEErbLew0yBcHuKsh6QyvL1kjGGeTzxdVbi
+	 1+PkCZzgzjtr6/sqU9mrw2GMnVyqwaT120+2CZriWgwG3My66va0NzBabf6WVcD6X0+p4
+	 6kGkZTnlwVTFZrH8tHW6yFw6EEI3asafV9Etc59PgJOXiVlouZ/0TV96FAlIEwZm8KaG4
+	 vklA5u5Xe1yruEDw4CVnFJeI7vLuYQriuq7bX9aojLAqBZjy2gPkUDYEvLUvwc5s3L5xT
+	 w93E+e77jIV3kjn46LKisE6/rBt1jxevXU0xSt0RPvx+vDFTM3nHrC5Eoic6Nd21J9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794475334;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=lEBNes9WZ6YlYMttj1cy98GuEcLLQz3c97TIzqpDgiw=;
-	b=Mw+X0YSr2HxUp/yhYCvOfWcYVaebvHSsMm5iTKJpJj3d66FU0Lv+/C/TCqjPnwussQDk
-	 1ckblr4W5Kr9jrwq8L4la2sSWXD7CgdtASKr7BpxlSyxNMwRVAnTZoSQOV2wC3uBvTxsb
-	 cr8pIl5G1w18Ft9EMTIeU0fu1hEsi9M7IMXcUeN79X7su1gqe7bJre3H+YAdLr3+pwDN5
-	 fc2p08iiThrfDeFLEdmTZmVyoTfCooqyW8/gvKIEuzpuhLxbf3XSn0lCi4sMZOSgL3FKQ
-	 hJuZpXHJIz92dNZ4d3O8bFfHU7MfL4p3eU8iy6F0G4oBTH6xZA1mDQLzgY9R6p/VS6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794475426;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:X-GeoIP:
+	 X-Spam_score:X-Spam_score_int:X-Spam_bar;
+	bh=wvP1IpdD/AteWXcjJU0nzeoI5hxjbUtZch5zGuNerP8=;
+	b=TLN7s0la5hfZ7pmAO4+GeRjmlx+T4E38BG42lJcJpvs3kYRUsQPkYqilUn9qKBFHzRQ6
+	 BbI9BfmEJQS7uKoPy7JbSDEuIUNvwNbI7WBEEQiDUBuxX+ZUwqHOIMuM3kO9D880sRLyO
+	 844naogEyq4vhcgqW+NPLMTgLSpr05QVihaN20T5rRSoMdTRy7F7jrI2IGumGyt9I6PMb
+	 hI4WX3uhIRgbFrz9QuDU/Sw6ZpjIOhh+PgFVq9Zvu1jWk1t09t7luxnlITVczvoF4k/d9
+	 rI+F9rH3duF9gzKwj8pI0cUt6kB+jOAzCNP5ahC6J3auwmiYpHBw2eeAKcxwCW1FTTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dd2hxb+z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=orcon.net.nz;
+	spf=pass smtp.mailfrom=orcon.net.nz;
+	dkim=pass header.d=orcon.net.nz header.i=@orcon.net.nz header.a=rsa-sha256 header.s=s1 header.b="H+Ntv/v9";
+	arc=none smtp.remote-ip=60.234.4.34
+Received: from smtp-1.orcon.net.nz (smtp-1.orcon.net.nz [60.234.4.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17347606A31C;
-	Thu, 12 Nov 2026 09:22:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8FC606A32E;
+	Thu, 12 Nov 2026 09:23:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D8FC606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=orcon.net.nz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=orcon.net.nz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dd2hxb+z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83FD41F00A09;
-	Thu, 12 Nov 2026 09:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794475333;
-	bh=lEBNes9WZ6YlYMttj1cy98GuEcLLQz3c97TIzqpDgiw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Dd2hxb+zBo3V5eqRPFxmMyyaeh4MczoWOPu2fljcl+Hi/GlqKioECJQFEXurY1pdw
-	 TYDqVg/w4/8eXZsZHpDG2Jq/2NGiIcUqcWgiPAyCLmc6D0PfavU7/MDwQd+hLVCDvf
-	 EBV32TpEIc55z0OwZe2k5xfDu+FcpelKvRRXcA72XT+8nTfWvO3vjanN9LJXVKg/UK
-	 fZB373KULjgugUGxbEKFyxz/Lf0imrdqp8Oivzv/QAj6IkXzmh5Q1sI9so9caPLhRj
-	 k3Y6l/qM5I7iNaHShYon/2mEOFcgc8GbQRJ94KN391W0H285epX40wECoWnv4DkGST
-	 Xs/EkqtHUNTzQ==
-From: David Hildenbrand <david@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Peter Xu <peterx@redhat.com>, Lokesh Gidra <lokeshgidra@google.com>, 
- Barry Song <baohua@kernel.org>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>
-In-Reply-To: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
-References: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
-Subject: Re: [PATCH 0/3] mm: fix PTE table overruns with folded PMDs
-Message-Id: <179447532820.4855.13160220470264902013.b4-ty@b4>
-Date: Thu, 12 Nov 2026 10:22:08 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=orcon.net.nz header.i=@orcon.net.nz header.a=rsa-sha256 header.s=s1 header.b=H+Ntv/v9
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=orcon.net.nz; s=s1; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=wvP1IpdD/AteWXcjJU0nzeoI5hxjbUtZch5zGuNerP8=; b=H+Ntv/v9QVBOsz9oTSYZMoX+9M
+	JvGFe0NQdExOREjXfWYswUeXGdmMeK6KLw0nStVcHCePJiOUNQRKLHDk8M8BOUt2N+YaYuMNnsbwL
+	Npzx7m5G6iH+aY18SCsbKKqYg2T0uTksVBQJ67mp9hTI6BKuI0OS+5QoZhkrnUxV+GNrtXBDM39S/
+	AXbKDAqbF3hr/oqjemzKG6Qzslw6r26cbF+v7IIiOxvEogwl2s7oBu7tFHlsDsVdxv5chCkiSo1xO
+	kvuIqZgLc+AIqlIUNZ7N9EQdglMec6xtIJFvaKxeNi49M+6cYpeGiyuSVz0GAak9+WeabAbHM0o/x
+	VdZPGsQw==;
+Received: from [121.99.247.178] (port=59701 helo=creeky)
+	by smtp-1.orcon.net.nz with esmtpa (Exim 4.90_1)
+	(envelope-from <mcree@orcon.net.nz>)
+	id 1xRR1q-00019G-MK; Thu, 12 Nov 2026 22:23:34 +1300
+Date: Thu, 12 Nov 2026 22:23:33 +1300
+From: Michael Cree <mcree@orcon.net.nz>
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: Matt Turner <mattst88@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] vgacon: Fall back to the dummy console if mapping VGA
+ memory fails
+Message-ID: <avWFlTsLx28YI70L@creeky>
+Mail-Followup-To: Michael Cree <mcree@orcon.net.nz>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Matt Turner <mattst88@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
+References: <20261111-vgacon-ioremap-null-v1-1-6dd05bf390ef@gmail.com>
+ <CA+=Fv5SHTC9XWQJZY7DnZbpMPnk3b7eYNiiH6Dnii+eLJo9YgA@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,48 +78,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+=Fv5SHTC9XWQJZY7DnZbpMPnk3b7eYNiiH6Dnii+eLJo9YgA@mail.gmail.com>
+X-GeoIP: NZ
+X-Spam_score: -2.9
+X-Spam_score_int: -28
+X-Spam_bar: --
 
-On Wed, 11 Nov 2026 22:59:58 +0100, David Hildenbrand (Arm) wrote:
-> Fix 3 pmd_addr_end() abusers that can result in PTE table overruns with
-> folded PMDs. Let's factor out a helper from a place where we
-> recently stumbled over something related, and use it to fix these 3
-> cases.
+On Thu, Nov 12, 2026 at 09:47:05AM +0100, Magnus Lindholm wrote:
+> Hi Matt,
 > 
-> I'd call these more urgent because they can corrupt memory, although
-> folded PMDs are uncommon.
+> On Thu, Nov 12, 2026 at 1:30 AM Matt Turner <mattst88@gmail.com> wrote:
+> >
+> > On Alpha, setup_arch() registers vgacon whenever CONFIG_VGA_CONSOLE is
+> > enabled. On Marvel (EV7) systems whose SRM console is serial, no VGA
+> > hose is set, so marvel_ioremap() finds no hose for 0xb8000 and returns
+> > NULL. vgacon_startup() then probes video memory through that NULL
+> > pointer and oopses in console_init():
+> >
+> >   Unable to handle kernel paging request at virtual address 0000000000000000
+> >   pc is at vgacon_startup+0x174/0x910
+> >
+> > VGA_MAP_MEM() is ioremap() on Alpha and powerpc and can fail. Treat
+> > failure like a failed probe and fall back to the dummy console. If a
+> > VGA card is present, locate_and_init_vga() still switches to vgacon
+> > once PCI is up.
+> >
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: Claude:claude-opus-5-5
+> > Signed-off-by: Matt Turner <mattst88@gmail.com>
+> > ---
+> >  drivers/video/console/vgacon.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/video/console/vgacon.c b/drivers/video/console/vgacon.c
+> > index e7e6750f1f87..09f7c376b468 100644
+> > --- a/drivers/video/console/vgacon.c
+> > +++ b/drivers/video/console/vgacon.c
+> > @@ -324,6 +324,8 @@ static const char *vgacon_startup(void)
+> >         }
+> >
+> >         vga_vram_base = VGA_MAP_MEM(vga_vram_base, vga_vram_size);
+> > +       if (!vga_vram_base)
+> > +               goto no_vga;
+> >         vga_vram_end = vga_vram_base + vga_vram_size;
+> >
+> >         /*
+> >
+> > ---
+> > base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+> > change-id: 20261111-vgacon-ioremap-null-ad4c7184b807
+> >
+> > Best regards,
+> > --
+> > Matt Turner <mattst88@gmail.com>
+> >
+> >
 > 
-> [...]
+> Nice fix! this must have been lingering here for a long time?
+> Cross-builds passed for generic Alpha, including Marvel. The shared
+> vgacon code also compiled successfully for x86-64.
 
-Applied, thanks!
+I wonder whether this is the reason why my ES45 would never boot with
+an AGP video card.  SRM could bring up the console but I recall the
+kernel crashed early on.  In contrast, it boots fine with a PCI radeon
+card. Not sure if I am going to get a chance to test it out in the
+near future though ...
 
-tree: mm/core.git
-branch: for-next-fixes
-
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/3] mm/userfaultfd: fix PTE table overruns in UFFDIO_MOVE
-      https://git.kernel.org/mm/core/c/654b0d18
-[2/3] mm/rmap: fix PTE table overruns during batched unmap
-      https://git.kernel.org/mm/core/c/bd94d906
-[3/3] mm/rmap: fix PTE table overruns during batched reference checks
-      https://git.kernel.org/mm/core/c/dbedd8e6
-
--- 
 Cheers,
-
-David
-
+Michael.
