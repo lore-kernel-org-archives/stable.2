@@ -1,103 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794467232;
-	b=1FvQLbGBU5xD6tHOSHG8ItKMZpfWO8hMDDnteTdcuBS4mCm5N2b/yjYRjTocnu1KiypX
-	 OzUzWXeoj8/q0OU07UR6ukY3ghw4z3xdmxl0IhNIpXC1MPs5x0sQLMxEVL7n/0ARg6QBE
-	 jZC3jufoxdQl8uMeSaPtI9iOKPkEoovpR6PteaSaMxxB9QcO8rm+UTDeaoAiklWh/BwPm
-	 nemNqqpNlrwPeItxIm4/rLZjWjj0iCmbQznsHX+AwppPABTRsjjVdfHzfA2WK01HT2/DI
-	 s9MTHWHKtjPWrf2lh+eVWuKABJzF9MjKPUcElQo1VWqC7EtcfoJ4W2mjOqVLhShcvOQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794467232;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fKnVCHN7E/hSBh2v2WAaZgbrM1NIrcwDb5EE6y41Z7Q=;
-	b=ugiGZmpDaYF2YphCQB15hAJSqeNg3COR03fzg/JGAggpD+DtwBvVTnjkAGV6WIwdjsKx
-	 Kz9VgTKNpV1wtHWT/wqGsB9z+gzqq7L2HaW5Lnv0H27zJq8oeZ5PageUxUuFIbSQVG3Y+
-	 sTOhS0CWDLp2BtUAN8NxU7WVQYH8WfhiuLbgyc+SN+aSRi/1PgLnpAvuyrbrHM1NuM3KR
-	 lfZaP0jexuzXPAOOfqnS3Qpx3s6iXlf+cRbLuofeML/VXJjG6KBAAhb2G8jsBI7Y92kFk
-	 sXPrT2QvJBJfIBhgP8/Wqy2qYxm/F6QVfgT6tfFRHaNyPfp2npojB1Obc9SwbckS3iA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xc44pbNc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794467290;
+	b=hOWz3qu1Bh/drEjx3VZuyK3frRg+uTC0GjA3PvU4ppLxoWtmpcvzI3gJ128WWu3pvtCL
+	 zidgr+X7UiEEqjTkIk0RGTeiEnNVCzqTrPHcoey3DIRr1BBrr6Tpvit6TbK5bWiIa6THS
+	 6KtTD0Aq8E6uCDZZAy7mHcvq80/+EZ3sf4dB6DHQ0yomOskKX/cDFbRoeA7ASosaY8PtV
+	 E21nxuU+Xh5v/tED5tBpv+lvV8nheaLFX4PLd/nEzivK+vxfy48XN7pqX7KN1G/E8Squp
+	 3kyJ0zWRDLEJNmih8bXzdjsOMrA8MUSUsURJ8slKn9UXwKzN6xoFaOyU75+jUCnQ4HQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794467290;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=T1EVA641LW6g9iZivmErL6bCgrLZeRILPc29/4zkGT4=;
+	b=OJbu/jhvIKC8G+tr1StpugeEQbO5c3MmpX//QjfVANxFeo025SbR62pUEuLITvTlIRuq
+	 Z/i3B46qav8whzyILS/in6Vgt/2H97KCj+pO05j8exvxH31mfYeDOQxJQ82sxUx8aX4dJ
+	 JOtD1xhURSWnTX6lTKwY1fWjgL/1j/JXVAcQAbzlGO/79/J3cLR4nGQS8S8mQYK+nLmBY
+	 oIYAAdkCt+ULmhDHT30j/IEqPGUM0zpGwmmYu15kATXLxzPZGxdtMdFeTBt/UPc0loRUN
+	 xEoe45/EcdMDWyEp2h85GdwLRHqG+NWnqS6KGGLR8aPNwXii3+L2jmpFlHmbzBzJlcA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b="S//XLNwV";
+	arc=none smtp.remote-ip=117.135.210.8
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8605606A332
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 07:07:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8605606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D82606A321;
+	Thu, 12 Nov 2026 07:08:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3D82606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xc44pbNc
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36e90071735so221837eec.0
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:07:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794467231; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PI8g2k8BgmNY13ELkI38RQtLstkoW5321yyQHuaUSeh0zVBehD6nBFXY5r3MlZImkB
-         n/dnv0HPKgWaWl8w3OQYQ7BDCdZWcg3wDSIgyIJyg80q9UFhXiIjbuvB2sSlUBULZdH6
-         zSSaD6YM7vcGGvqLHIoLJ+kM++dG6c+kyec4fHdoCLyFKF6aW/sqaAq/Q8lWf0Ed5Ytp
-         uweQfYsA8SOPlede92BTqoqfUtS2NZVExcLpe/Fko1zRQD7qesJr4hPiaukvM9oQTlOp
-         aqhNB2JNkJvZvO2Zkn6anHm/BIt5ULmRavYDUu4Brq8b7qH23wf13i6QNSrpX6q6zgbY
-         5peg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fKnVCHN7E/hSBh2v2WAaZgbrM1NIrcwDb5EE6y41Z7Q=;
-        fh=Cxj025LwhZ2Ixlwb9BtQaE/bMSEJGZ0Rz/YCJCf/GD8=;
-        b=j7wlj5L1c5wG+3wV6BtwHuBoVjTeEckKTllxPWZydtLOz4n0Ot074zvKviGkm3W8aI
-         5Y2qgoHvRRkaPJuJhV1xoYr5HamI/UgRUTJOXUZneUAXsuaUOGvsmOYbnkxhhsYwbxdL
-         NcPokKtN9AGcZrNL2jHEcyKuRid+4Its6avf2CmBnOtlwcD1tnBxbaVmiJRVr2ClDXbL
-         ZBZMgFoXRsiGHZQ1zRzxLTQ8yZnnbGngrZuXouQLSURxk8Ut2VitH6Cxuvd5COpEPS0i
-         oJZiOw4Io8BRTbyTsz/MR0b5LdbF1OT9VM0pzERCztvxctaWkzBDvKoP6V6Wqlm30k6Z
-         rlCw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794467231; x=1795072031; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fKnVCHN7E/hSBh2v2WAaZgbrM1NIrcwDb5EE6y41Z7Q=;
-        b=xc44pbNcxltUHGg4tunSUmN04e2U/jKsJUsnxPYcvA+qqm01NnKPXgtlnQekS7ByVq
-         4AtP7iHvVolgk7MNR4QfFlGkEmt+3sBlL6oSmEktDhFPu/wHAnGbFh0jsqXMaougHBpI
-         gHoW2ClvogVyVXvDiOeyl/DtSGsaERvHOwPNTFiQwuYZ3N87WzCUKI1ouIuw2rv1rSJu
-         ocHwePSnJq+Q8ldOoYCTJCmzWnVlmSFv49wORYfLbrRHdk5QrrM3JmrTCLlA9wX6en6t
-         KdeT0dTF/ux5bGGwY8xtfpaAQ0WlrEw0/9zk41gT10dn7W8jceJBbGr8FB+1KspVxMe7
-         9xnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794467231; x=1795072031;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fKnVCHN7E/hSBh2v2WAaZgbrM1NIrcwDb5EE6y41Z7Q=;
-        b=H89CJkgOXYWq+Jh/SAx6yDHX+Q3vilyjED9Sxc0w/ph1icZ50jUftiL/XJvFKIJ/sz
-         kCYzZbn3w5PF8rd7GA1zfpIx6AqVlKWSch/E/LqkX60cuM+vYk/hJCmZa+9NFi6XShFL
-         G/Oq5sISTtBa7qVxlqjgLW8JO0SpzQlq31HDlDQCPI/dGMYM3dGodbi8n2Igy9EGs4xM
-         7X6QjZrin2UMd5j1Nlwkj1xsDFjMwWar+XmUH4MIH1x3e3zFBxWFJURSXT5G9gk/XHbt
-         XfbmjP4l+jpTPkaKTQeAYrtZP0suO3uk1QsiVVUDaarObeXrqIuUlO8ec1pWahDrxCVz
-         8tCA==
-X-Forwarded-Encrypted: i=1; AL+hErHfnxSO0C78DoU/bYiOQLCTeIGkXtGmByJhXyKTzCN1XqveAiKCg3oMPUzLhHw9YSkK/1OLryc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+a5ct8KqbY0hedajxmXwk5X+LWlBLymtP4iE9Wqcu4+yWTsuam
-	1iEdu6wWpXurlNhuIwvPGynnFWqW0yDsAowxtnonY3Xr/SIkxnICIhW0f3sWYXsNGRNIwof1hTf
-	s5i7beW96c1nNEop6SupJDmtxbpmEHrM=
-X-Gm-Gg: AYBFou1oGdVGeGMWXnKoaSfk76MTQCC9VaR2ZFOeAyHHT91krWrVASz4u43FULaN1Q3
-	BuT3nEexN9o+gDhGoqlFPVnOFuCrg6cojo8cevvF11dIZl1HGrKpAKrx0EOPKylW28UucfqQhr4
-	HD8ADaM9qzogyV0OYzIs7OhsplskcoSeYI9WeNCuEvEYnVdQaXsWQrUYxkasNcnpoLtMGc2UgNc
-	oJqFUf0PgE/fWJHA60AqiV/AO+bZqJxaFEoKnlIyIEVsKdsdUZJExTacb2NaS8f3bpVJpIrsmFj
-	NtmNg6vrrj7llAWkti4TPY4HKIqjXG9UK8ySGuq4daODSBviIGd5ttY7nMKdSOIUlMZADOXgdcC
-	jKoa12i0CA2rapBhkwDZmsKjLazVI7eq5qPNvkP42Xl4qyKCjKpSmgzY4omK4ldJ7nafWqlCz31
-	rIm8YKLMoTmiCBIynpe5F1A23kxuRgG4sB5aBCXBUACZoI3YYUTPxE73PnONaFOudOA9NJOKRng
-	FnE4El0OLhhsb3lpLLRZLuMscxhCHfUKkQRPKTpEY310oL97Wv2ZB0pi3QQo+0og5LFQHsA5/bq
-	BjA3bOMNLBtt5p3Q
-X-Received: by 2002:a05:693c:20cd:20b0:375:f846:5b3f with SMTP id
- 5a478bee46e88-3767fe8f34bmr7678043eec.0.1794467230848; Wed, 11 Nov 2026
- 23:07:10 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=S//XLNwV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=T1EVA641LW6g9iZivmErL6bCgrLZeRILPc29/4zkGT4=;
+	b=S//XLNwVKhOE7xO+/wor137Eqehl62HRrZStQYQm1vHrYC1i4PuLq2nsKwS2sR
+	1InxIpGDfqkNQ91YXV9TFENyITpMYiXDknFw64JMxHAeK5mgKzmz5Z/OcghwMnh1
+	a9HrFE5dU0jyW0psnzbHaajyYIrSrmOGuIHn8PQo5S7uk=
+Message-ID: <82d01fb0-cf0a-473c-bef7-6ccb6d827ec9@126.com>
+Date: Thu, 12 Nov 2026 15:06:29 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,72 +51,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111225940.1573565-1-tytso@mit.edu> <20261111225940.1573565-4-tytso@mit.edu>
-In-Reply-To: <20261111225940.1573565-4-tytso@mit.edu>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 12 Nov 2026 08:06:56 +0100
-X-Gm-Features: AclHuK-0Vjsbk82ppS8gYU_c-KZHXRP49X84VVchA17Y0XwPYJKcU9nKf-NQksU
-Message-ID: <CANiq72mNefHqXnfy_mh_kyRT0SfM8rLj1kRnc-Y-qmdaDq0nvw@mail.gmail.com>
-Subject: Re: [PATCH v5 3/6] agents: add a skill to determine stable tags
-To: "Theodore Ts'o" <tytso@mit.edu>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev, 
-	Sasha Levin <sashal@kernel.org>, Bradley Morgan <brads@mainlining.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Mark Brown <broonie@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Leon Romanovsky <leon@kernel.org>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
-	Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter <error27@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
-	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: ethtool: phy: fix NULL link_topo dereference in
+ phy_prepare_data()
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: maxime.chevallier@bootlin.com, kuba@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
+ nb@tipi-net.de, 2022090917019@std.uestc.edu.cn, devnexen@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261111072146.3293821-1-xiaolinkui@126.com>
+ <1fb006fc-aab9-456d-95c2-0e94df1dfb09@lunn.ch>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <1fb006fc-aab9-456d-95c2-0e94df1dfb09@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3Hxd5ZfVqDhzRDA--.51826S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtF15uryftF1fuFWktr18Zrb_yoW7Wr4rpa
+	yYgF9YkryDGrWSqr4rZry0kFyY9rnayw4rKFy8K345u3s8Gr48ZFW8tryqvr4YkFZ5G3Wj
+	qF4UJa9xWF4DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UcBMNUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRuPZmr1ZXvC7wAA33
 
-On Thu, Nov 12, 2026 at 12:00=E2=80=AFAM Theodore Ts'o <tytso@mit.edu> wrot=
-e:
->
-> +Read Documentation/process/stable-kernel-rules.rst. It says which change=
-s go
+Hi Andrew,
 
-If the LLM is going to read the file, then I wonder if we should just
-clarify this (i.e. the list given below) in that document directly (as
-a guide, i.e. still acknowledging that the stable team decides in the
-end).
+Thanks for the review.
 
-> +Judge a change by what it does, not by how its description labels it: a
-> +"cleanup" that releases a resource on an error path fixes a leak. In pra=
-ctice,
-> +the stable trees take:
+You are right - the ethtool patch was treating the symptom. I have split
+this into two separate [PATCH net] threads: the EMAC driver fix, and a
+reworked ethtool change that warns instead of hiding the bug.
 
-We are adding Rust soundness issues to `stable-kernel-rules.rst` [1],
-so if we are going to have this detailed list here, could we please
-add a bullet point somewhere in this list like:
+ > There is another way to look at this. The MAC driver might be broken,
+ > it is assigning ndev->phydev, which it should not. It needs to call
+ > one of the helpers that get to phy_attach_direct(), which sets
+ > ndev->phydev.
 
-  - Fixes for Rust soundness issues.
+Agreed, and EMAC is the broken one. emac_init_phy() handles a
+"fixed-link" property by registering a fixed PHY for the MAC's own OF
+node and then assigning the netdev pointer by hand:
 
-?
+		res = of_phy_register_fixed_link(np);
+		ndev->phydev = of_phy_find_device(np);
+		if (res || !ndev->phydev)
+			return res ? res : -EINVAL;
+		emac_adjust_link(dev->ndev);
+		put_device(&ndev->phydev->mdio.dev);
 
-Thanks!
+Skipping phy_attach_direct() leaves phydev->attached_dev NULL, installs
+no link change handler, keeps the PHY out of the netdev's
+phy_link_topology, and the put_device() drops the reference the driver
+just took. The user visible part is the missing topology entry:
+ethnl_req_get_phydev() returns dev->phydev as-is for a request without a
+phy-index, so phy_prepare_data() ends up doing xa_load() on a link_topo
+that was never allocated.
 
-[1] https://lore.kernel.org/all/20261020163358.176088-1-ojeda@kernel.org/
+The fix makes the fixed-link branch match what gianfar, fec, davinci_emac
+and nixge already do: of_phy_register_fixed_link() followed by
+of_phy_connect() on the MAC's own OF node (gemini uses
+of_phy_get_and_connect() and stores the result, the same harmless shape
+as the icssg users). The explicit put_device() goes away because
+of_phy_connect() takes over the reference. The manual
+emac_adjust_link() stays; the PHY state machine is still not started,
+which is fine because a fixed link does not change and the driver
+already treats dev->phy.address < 0 as "no PHY to poll". Full
+rationale is in the commit message.
 
-> +  the code it changes. Otherwise, if the Fixes tags are unresolved, so i=
-s the
-> +  stable decision.
+Cross compiled for powerpc with W=1 out of ppc44x_defconfig, no warnings.
+No EMAC hardware here and no in-tree DTS pairs "ibm,emac" with
+"fixed-link", so beyond the build it is inspection only. The hand
+assignment goes back to 08e39982ef64, but it only started touching the
+net_device with baab9de385a8, which is the Fixes: target.
 
-When I was reading this, I wondered if "unresolved" had a particular
-meaning here. I assume it is referring to the output of the call to
-`find-fixes` and how that affects the output of this one. Perhaps
-something like:
+Two adjacent issues I left out on purpose: emac_remove() never calls
+phy_disconnect(), and the fixed-link branch never calls phy_read_status(),
+so emac_adjust_link() copies SPEED_UNKNOWN/DUPLEX_UNKNOWN. Both predate
+this patch and are worth separate fixes; happy to send them.
 
-    Otherwise, if the find-fixes skill cannot determine the Fixes tags,
-    the stable decision cannot be made either.
+ > Are there other MAC drivers which assign ndev->phydev?
 
-is clearer, i.e. being a bit more explicit and using the same words as
-the last paragraph?
+I went through every "->phydev =" in drivers/net/ and net/. EMAC is the
+only driver that leaves net_device::phydev pointing at a PHY that was
+never attached. The others are redundant but harmless:
 
-I hope that helps!
+   - icssg_prueth.c:425 and icssg_prueth_sr1.c:238 assign the result of
+     of_phy_connect(), which already stored the same pointer via
+     phy_attach_direct().
+   - gemini.c:374 stores the result of of_phy_get_and_connect(), same
+     shape.
+   - net/dsa/user.c:2643 pre-fills user_dev->phydev from mdiobus_get_phy()
+     before phylink_connect_phy() overwrites it with the same phy_device;
+     mdiobus_get_phy() takes no reference, so nothing leaks.
+   - Plain "phydev = NULL" right after a disconnect (gemini, rtsn, dpaa,
+     icssg) clears what the disconnect already cleared.
 
-Cheers,
-Miguel
+Everything else called phydev in drivers/net/ is a private member of a
+driver structure rather than net_device::phydev (tehuti, wangxun, r8169,
+xgbe, qualcomm emac, tsnep, hns3, hibmcge, bgx, smsc95xx, oa_tc6,
+dm9051, plus phylib internals and phylink's pl->phydev).  tsnep does
+have a separate of_phy_find_device() reference leak, but that is
+unrelated to net_device::phydev and not touched here.  So EMAC is the
+only offender.
+
+ > This NULL pointer dereference can be considered good, because it might
+ > be pointing out a bug. So we might want to keep it.
+
+Fair, and that is why v2 no longer returns -EOPNOTSUPP silently. It
+warns once and then returns -EOPNOTSUPP:
+
+	if (WARN_ON_ONCE(!topo))
+		return -EOPNOTSUPP;
+
+phy_prepare_data() already returns -EOPNOTSUPP when the phydev is not in
+the topology, so callers do not learn a new error code. The driver bug
+still lands in the log with a stack trace, but a plain ethtool query no
+longer takes the machine down. The dump side returns early when
+dev->link_topo is NULL, so this can only fire from the doit path, at most
+once per boot.
+
+This is also the only spot in net/ethtool/ that touches ->link_topo
+without coping with a missing one - phy_link_topo_empty() is "return
+!dev->link_topo", phy_link_topo_get_phy()/get_port() return NULL, and
+common.c, port.c, tsinfo.c all test it first. Before 9dd2ad5e92b9,
+ethnl_phy_parse_request() had "if (!topo) return 0;" ahead of the xarray;
+that check did not make it into phy_prepare_data().
+
+If you would rather keep the oops as the canary, say the word and I will
+drop the ethtool patch - the EMAC one is the part that actually fixes
+something.
+
+Both v2 patches drop Cc: stable: the EMAC one is latent in mainline, and
+the ethtool one only warns. Say the word if you disagree.
+
+Thanks,
+Linkui
+
