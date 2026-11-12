@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794474028;
-	b=aiu55mTc0b/jTQw2YTGcN+OnuS0MHqyhQOcLgZN1AT91CbxBGbLuej4hem7efXLupSxz
-	 FWwpyaschWdh+Vx0Z9ZB6Thzgv0y8st6zNzRDezNHaTP77zaf0PhVHtwdWs3eY8rsjRmp
-	 g3a/u9RKWhJBqO4BrtLGEUYzAxqU4GN3ad7xyfb4Fq3eEfLQhLFD4XSenrmqPP3zWX8X1
-	 7nUKqv7NqqIFShY1b5IdyEIG7nN8FZ/A2uvN/YlEJ1cCxaXtw4vIcZlP2MQsEtoWFy4D/
-	 vhAYUeRkmPZAnb8aJqOcbqz5KrX5iHPYrH9WFmi6DjqDuIeEEwsHjjgQ06y9qrq/Twg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794474028;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MDCejDW8VBxWNNPFAIfF39q0jltnN04sCRzvotswVSc=;
-	b=gdwdVvd6mum245mtQ/kMfP8hHu0LMqUw1TZJpIh2uACAxKS7NmIXc+dmgQI1AaUft/wR
-	 pWgzLgq5JvvanNMd1Y2hPhUv5oHj1jyotYckauF0aQ9BP78JsmBSU1DL2WYuESR2yBsuI
-	 HgOMIpXN4noZtuIb6cB4qkwxruAbgkktCZmjizmwoHJd4DvpGouyHYWTyFna+nf9Gw3Ul
-	 PYdaC8nh6pDz4g3JjbGs5Er1xDGNqiZEoInhWi/0ln5SYcSqUmATeDk5M8jk5N41NJifj
-	 thpB6tfDxYa28YTRVV8FaoikV2TS3ipMxqpkqqFnthyLsXaLO0XBlEq/i0nSbZxsKjg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AkxPwo4U;
-	arc=fail smtp.remote-ip=209.85.208.172
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794474070;
+	b=vLGNOkcC66L3Pnsb3+Tv5NGx/+VZlp/Xl9S62o4AyFXTirlXiyW/729ieGv4KQ9ZosHL
+	 Ysb2AXMHe/bGuhr++kHeNjM5Pp6432yl2/la2nviHyf9ojLihZWd6oz0SkJ9bRanVh/sb
+	 KMzinlouZOQRUBUlwKjZVK5qROBNcrpPX3915EMdavKYti8P9WfMya9QmAkyifUt55Fow
+	 X9n8x9NeM93VyKsQvSb9YBuvzHzN80qn9ozrMmcRWBBfMhfSTB4FeMnijPc6FAsIfq48f
+	 ADzoKyfxKd6m+h8d0SFG6nueuQZG/sMjhG5U1GpbLPMqHN67TOCRm7wJMYkK1KFjPoQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474070;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qciPwLaBZFP6o7YxCmllxM7jttEflMmVhO8zxQVZp0I=;
+	b=sn5hUDsXjO5U9TTHWB57GNqQ8GV51YjeWj9Cb2h6y4XWF/oR/YxoirRaA53LNlD+8QxA
+	 Ej2aU/qL34VY8sFpy8itAyZC1129L59bVHjnGCuF6SdDsdzksmDJMzI5kUppHPbtQzUu5
+	 A1ZYfqLM1iqRO9fjt3vcPMgBOi5PepjrOMHYjsXdFYUa1YLfxOGTbJ2JSgn3ay/JwO8Ld
+	 fJDrsFg6BhOC0SgiPclP2XJBQfOPeE4pBpzr5yDbUlXBXexRzprFvhCLc7tq0f97bXazM
+	 ETH+ECw6CWYLbxZMmufHqE4OAe2yq91QUuxBiIJiVzaXNkGrwZDS8ozL2qWMKXlr48A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eqJ88WTF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA549606A32D
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:00:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA549606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280DD606A33C;
+	Thu, 12 Nov 2026 09:01:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AkxPwo4U
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ae10409ceaso1674181fa.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 01:00:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794474026; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CCzZuyANe0pWoU/C/zOB/PLSoe9yj6DJtx9meSjVBSZ/QkgZNNJIWU4lLPxmgBf2Um
-         06GUCWLIGRv4Vd2Jvmsbn9V+eHZ0EtVdchwX5kG/yWUc7mnu1hYhMHl74Pkw9bQrxyGG
-         10awQ9n1MCqk/MrJ+ZnfGFZDq/9gONMcr3UMROiWO39v3xCxDIOCrGqIaErmEbvENyd+
-         cXR5sz/MKFqs8hJkRA1LYYJf7HWBsAxtu8YsshQMvrvJUMClS/lbIDEOX8GjB8WbOmSH
-         6miYJ7a+zGK+jYRGO1hX/Io0GB1XZqtk2S03dSjQYbFG3EDlM150+rl5Gg7ndd7Wl6jf
-         9Byg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MDCejDW8VBxWNNPFAIfF39q0jltnN04sCRzvotswVSc=;
-        fh=51qLGP0zXVVQxo6MdArD9V+FO215B3xCbdmZoRhxfTQ=;
-        b=Bx54ixzMEH8ol751Vd9OcnPs+64spHrLkF32UMSJG0FrPSUKSV7HlJ3n2+hUWZRrKg
-         AMiMmrRSOlpGWx9aFpP5CmuDjS6MfgkNRyq5lPnSylo9O/Xt/xJVl35dSnXWifid+qfG
-         bmaYSWSo9grNZoi5tUc7SiLsKKKRyr5AFIzPr5+oqhvgR7s1Q9P/XUCnwGVWR+I7dng9
-         vWbDTdOvO4ERY4cYWVinmhmtSFMQF9Sq7J+lM/quU8N7pG0FQ+MaHqNVU2MOZdc4PuC9
-         gHsafnfle0Ru7dvRFDk0iBXHy60FFc6KMYyqKjOgZ7qlBuYt/HIK/HxmUseMKPbbcj+9
-         7Ukw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794474026; x=1795078826; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MDCejDW8VBxWNNPFAIfF39q0jltnN04sCRzvotswVSc=;
-        b=AkxPwo4UuvS8Fx3lKXS3acYjGFs3MoZbrWOg9QuGvCP9brgnlVOKm22vtGKmYXzlk/
-         ZNkafoCJyRM0UfvHLil42Lvr2GEjep4oX8zR3S22ID5KKsL2bre1R3k1mxmvPj0Dm1Kf
-         un/tDjSprT/xwYUWIoh2ThkQ7lQNzu4cgzcNoDs8xJ8UkmUFPmlM8scxu7yjNQ6m6Zsx
-         gpoNv75Rla/J8/Ik9NVI3JsAGiROHf93tJp20uA79HJJ7xak01ga7+DWTUhkK+z8212y
-         qazeHq81hwYnOk8UGeKY5C63lHfdxAvC/YpiAYDsAuHWPx8sqkBS70/b+KXaqTSSWahN
-         JLTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794474026; x=1795078826;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MDCejDW8VBxWNNPFAIfF39q0jltnN04sCRzvotswVSc=;
-        b=2kwmq41CFf9Dq+kkitIT4BJ7ZYyJTDeKXZUMhu9sXD5dKEZuLrxxoxbtshKJVMko5l
-         Amk24sI5LUtK8TtUx/CsF2LoHRPGOAQ25kX8dXlioYCxiLppVtbCGmg64UZcGgXOywmz
-         0QpDHarOFixvE/aaDPdAh0h00Rne0u28OWxPblqm83UjYXpfZ7RHGrHdu7wKKa8O+Awz
-         E4LOXRxS36uJOSiG34VRItT8HaJapCih5pwp+zGKkiy5Uja4VBy7j4u7sVZn7lqf+IDz
-         d7eCfHPJchGVcYu4tJY4Gvi4jiEy51Zh9e89pqVvKQBsFLlATe2R+44oMC+OksDwidb8
-         Z8Zg==
-X-Forwarded-Encrypted: i=1; AL+hErGRobP9dFG+JCq5Mx0+zuASqqatjGCCRFk3Nq9w6js57SCmJPqbrDfnu+MNlNRzlbtScL6fMlQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8j2ZfPQtsQSRyvI2GfoTrNCg51+RVkYoYpUQETjpO274bgV6Nz
-	WBB6cIT88QqRaq3Z71SRjV0/IqhF/9hTGA2zTUyR16+f+Bn4C1Lu0ekEas4Z0NnBEt+TsGoGVHW
-	KAIuUlwL5NHxP01wX4xJoH73h0/wi4wiibUrFikMT+A==
-X-Gm-Gg: AYBFou3fgxxPrYa3b1NbrXD5REhVXv3ktkh12g647AmT+6XhXph6h2kwtNeEBJHG2pC
-	VStk2ytY2fdlhT1m8BirZfCJv+pA1mCz5JtUcisWCZ2OlU2/+Td4K0seXS6B+NzOHFOGuJ583Um
-	DZxN4Gr8kWI1F02dKp0ormazhspX2XjIIFs870iZdA3yVyTwFGVGAXsIQ6qmB5K3XevH+Oa3EnG
-	IxyJ5u6Q3NKoMMnxAiozUqmYmnFejnUC+S52i5M5e+NtlzDH3P7D7a8hDevMFiX29WDAIcacr5B
-	+ZfvQIvSnfH8BR0GjgiwPGh6MLzE1LdzCfNPJIYS4fxjdDRxO95iPScW7nsuwZf9McU0/nKVPsB
-	6FozdWUsmhvVpjRD7zIMjHqENN0gUTfRM/GGlPdJzd9BDwDfWM2q9ssSQVRY804wDDOjt2hcBNc
-	/qPkA5YZddhvGd5+GV
-X-Received: by 2002:a05:6512:3e01:b0:5c0:b5c:4084 with SMTP id
- 2adb3069b0e04-5c15d54dd2bmr1732485e87.1.1794474025804; Thu, 12 Nov 2026
- 01:00:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eqJ88WTF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DADD1F00A05;
+	Thu, 12 Nov 2026 09:01:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794474069;
+	bh=qciPwLaBZFP6o7YxCmllxM7jttEflMmVhO8zxQVZp0I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eqJ88WTFS/snVoxu58sVmq8uHDu4I1OkqM4vdWANTNKIIfmJ1w9MYYdR5HV8jJcZH
+	 awsHKGx8ThOvURM6nxnrnHV1waU8nBFTufG1MQgkjzhaswCWgtLDy1DTkNFm1APez6
+	 YdGKg5ohl5wbpwSAhPTVn16WRnYJcpu+zlmt/RCLWUyHmrbmtN+q1BIWJ9zmKRmPve
+	 +BAGtRBaDKPyAa2bDbG4wPHi8H9u8uE+tyrm+xvYdnDwBD+QFa0hRPnBC8v6qQpdo+
+	 JUAU3QMzAwXA4wz0gIWW4+cYjfb1iQR/S+6XQKUvmIg8xOJVgPy5r/mNZqrALRZppw
+	 T4X7xZAwEYhVg==
+Message-ID: <d74a277f-f14c-436d-868f-2566d90bc144@kernel.org>
+Date: Thu, 12 Nov 2026 09:56:39 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,89 +51,149 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com> <20261110074853cc5a8882@mail.local>
-In-Reply-To: <20261110074853cc5a8882@mail.local>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Thu, 12 Nov 2026 01:00:14 -0800
-X-Gm-Features: AclHuK9eG45v9F6I7GV15HBzJqSwgKITGyUk_trjz8yzMuRHSrXtJn6NP2-qWxI
-Message-ID: <CAEy9hNWaUB2rFwXFP=pmLv_Gj4Umz2CsDpN7ESJimOsVq2RzLg@mail.gmail.com>
-Subject: Re: [PATCH] rtc: Don't lose a minute-resolution alarm that rounds
- down into the past
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] mm: don't PTE-batch a swap-in over a
+ hardware-poisoned subpage
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
+ byungchul@sk.com, gourry@gourry.net, jannh@google.com,
+ joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, matthew.brost@intel.com,
+ mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org, surenb@google.com,
+ vbabka@kernel.org, ying.huang@linux.alibaba.com, ziy@nvidia.com,
+ kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com,
+ shakeel.butt@linux.dev, kernel-team@meta.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
+References: <20261111113904.650722-1-usama.arif@linux.dev>
+ <20261111113904.650722-2-usama.arif@linux.dev> <avRqaatdOUunxrcZ@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <avRqaatdOUunxrcZ@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Alexandre,
+On 11/11/26 14:18, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Nov 11, 2026 at 03:38:29AM -0800, Usama Arif wrote:
+>> do_swap_page() checks PageHWPoison() on the faulting page, but the
+>> large-folio batching path then maps the rest of the folio without looking
+>> at the other subpages. A poisoned subpage that is not the one being
+>> faulted gets mapped anyway, and the fault that would have reported it
+>> never happens.
+>>
+>> Skip batching for such a folio and let each page take its own fault,
+>> where the existing check catches it.
+>>
+>> Scan the subpages rather than testing the folio-level PG_has_hwpoisoned:
+>> memory_failure() sets PageHWPoison() on the subpage first and only sets
+>> the folio flag much later, and the bail-outs in between - for example
+>> get_hwpoison_page() losing a page lifecycle race - return with the
+>> subpage marked and the folio flag never set.
+>>
+>> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> ---
+>>  mm/internal.h | 15 +++++++++++++++
+>>  mm/memory.c   |  4 ++++
+>>  2 files changed, 19 insertions(+)
+>>
+>> diff --git a/mm/internal.h b/mm/internal.h
+>> index cd3675c044e0a..e61c02f4019b0 100644
+>> --- a/mm/internal.h
+>> +++ b/mm/internal.h
+>> @@ -28,6 +28,21 @@ struct folio_batch;
+>>  int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+>>  		void *buf, int len, unsigned int gup_flags);
+>>
+>> +/*
+>> + * Check every page of the folio for HWPoison, rather than relying on the
+>> + * folio-level PG_has_hwpoisoned, which memory_failure() can leave clear.
+>> + */
+>> +static inline bool folio_has_any_hwpoisoned_page(const struct folio *folio)
+>> +{
+>> +	long nr = folio_nr_pages(folio);
+>> +	long i;
+>> +
+>> +	for (i = 0; i < nr; i++)
+>> +		if (PageHWPoison(folio_page(folio, i)))
+>> +			return true;
+>> +	return false;
+>> +}
+>> +
+>>  /* mm/workingset.c */
+>>  bool workingset_test_recent(void *shadow, bool file, bool *workingset,
+>>  			    bool flush);
+>> diff --git a/mm/memory.c b/mm/memory.c
+>> index d477a4f986bc8..4b7d456332200 100644
+>> --- a/mm/memory.c
+>> +++ b/mm/memory.c
+>> @@ -5158,6 +5158,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+>>  		    swap_pte_batch(folio_ptep, nr, folio_pte) != nr)
+>>  			goto check_folio;
+>>
+>> +		/* Let a poisoned subpage take its own fault. */
+>> +		if (folio_has_any_hwpoisoned_page(folio))
+>> +			goto check_folio;
+>> +
+> 
+> Hm, isn't scanning every single page in the folio potentially quite costly
+> here?  I thought the point of batching was to improve performance overall?
 
-> This is the expected behaviour, userspace has to handle the error
-> properly: the alarm can't be set, set it for a later time or stop there
-> and don't suspend.
+Yeah, we don't really want another helper to check for hwpoison.
 
-OK. One detail: userspace gets no error in this case.
-rtc_timer_enqueue() turns the -ETIME from __rtc_set_alarm() into an
-immediate expiry and returns 0, so RTC_WKALM_SET and the wakealarm
-sysfs file succeed. What userspace gets is an RTC_AF event right away
-and a disabled alarm from RTC_WKALM_RD.
+If we race with concurrent hwpoison, bad luck. The slapped on memory-failure
+code is full of races. That needs a proper long-term solution, not more pain to
+core-mm.
 
-I checked that on the HYM8563 without my patch: RTC_WKALM_SET for 15 s
-ahead in the current minute returned 0 in 5 of 5 tries. rtcwake only
-checks that return value, so "rtcwake -m freeze -s 15" suspended with
-no alarm armed and did not wake up.
+So let's please try reusing existing helpers that test the large-folio bit.
 
-> Never round up, you are going to miss deadlines.
+-- 
+Cheers,
 
-Understood, please drop the patch. I'll fix rtcwake instead: read the
-alarm back after setting it and not suspend when it has already
-expired.
-
-Would you also want rtc_set_alarm() to return -ETIME when the rounding
-moves an alarm that is still in the future into the past? If the
-immediate RTC_AF is the intended signal, I'll leave the kernel as it
-is.
-
-Thanks,
-Arun
-
-On Mon, Nov 9, 2026 at 11:48=E2=80=AFPM Alexandre Belloni
-<alexandre.belloni@bootlin.com> wrote:
->
-> On 10/11/2026 07:13:47+0000, Arun Iyengar via B4 Relay wrote:
-> > From: Arun Iyengar <aiyengar1990@gmail.com>
-> >
-> > For an RTC with RTC_FEATURE_ALARM_RES_MINUTE, rtc_set_alarm() rounds th=
-e
-> > alarm down to the start of its minute, so that it never fires late. Whe=
-n
-> > the alarm is less than a minute away and in the same minute as the
-> > current time, the rounded time is already in the past.
-> > rtc_timer_enqueue() then gets -ETIME from __rtc_set_alarm() and expires
-> > the timer from the irq work right away, and the hardware alarm is never
-> > armed.
->
-> This is the expected behaviour, userspace has to handle the error
-> properly: the alarm can't be set, set it for a later time or stop there
-> and don't suspend.
->
-> >
-> > That loses every short wake alarm. With a HYM8563, which has minute
-> > resolution, "rtcwake -m freeze -s 15" sets an alarm that expires in
-> > software before the system suspends, so nothing wakes it: with the
-> > alarm set at 17:55:00 for 17:55:17, /proc/driver/rtc reads back
-> > "alrm_time: 17:55:00, alarm_IRQ: no", and the system stays in
-> > suspend-to-idle until something else wakes it.
-> >
-> > Round the alarm up to the next minute when rounding down would put an
-> > alarm that is still in the future into the past. It then fires at most
-> > 59 seconds late instead of never. Alarms that are already in the past,
-> > or that round down to a time still in the future, are handled as before=
-.
->
-> Never round up, you are going to miss deadlines.
->
->
-> --
-> Alexandre Belloni, co-owner and COO, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+David
