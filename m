@@ -1,97 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495293;
-	b=o0B1s3+CU6IuGJpGN+ko0KlIkhwthLoUis5iB20H6TF8zoUgjK0sb9nHQpIhrXkGlyfJ
-	 jQaBnxnrnwIZhyRMBDIXdNpKzcopF+sMlXJFngGVAgm08B/Cg73NLdNMkrmwnm06zvp/l
-	 B6zMpSVT49y8DoGPsgY1TGB4BibEYKAiSg+CZC3TeGhenKedB4Ne+vCZfLhM6vv007K3Z
-	 a2mzjmdTyF+7pPaN5cRP+igg2SED0zHyHffq37PWIyqmfV3W2RT2WDV9aADY0zskVzm1j
-	 nJNg+5W0iU1yWw+RH/nqP3nTvP/TDLbZg0gd1ervt+64rjiXu+rqdureTPoJf2FfkSw==
+	t=1794495386;
+	b=dj9FJiX+gXlo47kRoqq/5NcEeqHIdpfPVyALUAQtgeL96sCCpyigcbouj60fr6GIBNjj
+	 ZUrtN8rpwOuhl7+C6KD1MjWx/dFwpv5LKg/wv2ULPgXELZ8ZuPAIMUJBbSpA6jCYqmxB7
+	 +/wu3yEl0m1EV3lR+1fbcT2PomhRpUg2r4i9TuEl2eEVHHm+Y5ZdMWU8yDHLZxoGRqmAY
+	 6GPrs25Z6j59Vqr/C7SxCNppyX2XitURc7GTlFVlxNEkedsp39Io/f3pDHlWWWs5MUvyJ
+	 2MKRv/vbx3UYhuceNP2ynCaan/lOPBwQadtuoQvHaw/liklEvztVTu+iOnoN+Gf/8WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495293;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YJAKVSq5yqKYSt2NYDkWivS5DNZ0RRvFzcrDx4hLtrA=;
-	b=NMEVLuOp8ypmqZGIYbOf74fzT6XcZnswjNlufLQZmr5OfRPhj28uGX6pUFZW7C1IiP/j
-	 n/BHr2kBTXJVlkJ7qpHdfeFXmpbTC4r3huEfG8FTWMofppi3PQoIm3evd78WGIF5Ih6Kr
-	 5saPovOJ3XqxIFo9npiPB7F63BuENi+FgjeW6owHE015zsf+/RAfVp278cmNx2KWNh/EE
-	 4ddWFEHUATzIHCm6eiZOJEYu6EuJXtusSHxqZvldSbHLcLE3IUlFmio49+KDfVRZd9YN9
-	 Rhb0yK8LqLGT3BSVZhjRrkFdVwpo7AfNGo0w2Du7XGFGLPCyshWlONdWqGI9WxlONaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495386;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eR/dgfTX4uX3tTDw1oIx0quyMtQsSjo0do2Wb4F29/s=;
+	b=GihHFFicksl7hpdm5+gsBrmIWtt4bdP9NWIdj+9RJly92xNVyBE+emYon4ub8ECoeVRF
+	 OLrAKTCgIqoJZ/AuebTLOWc6rBpFVXyyX/dikwOKYIPR0BnIfSnEtWe6qqUyiidqRNIez
+	 M6tynTHJTXOsBSthjcuEgqml5up5e6zeb0SfP2xt1onkY54bPmPkX0DKCWS9Mwry9/50g
+	 DhiNb/vWO+/cW4mSULd0O4hz79uWw2tz8MqWS3gliyisVDAUlDL9Y+h6PGVvezI/X7nHg
+	 v8w+ys3UU1iB2RVREgSRHO1uLXD0h7rY7gxHMvZPNmhHwLQQeevE5T+8OfxeZTxdxzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pBy7U8XD;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFAL8ciK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28546606A323
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:54:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28546606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B33D606A31C;
+	Thu, 12 Nov 2026 14:56:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pBy7U8XD
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4b467581b98so40949845e9.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:54:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794495291; x=1795100091; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YJAKVSq5yqKYSt2NYDkWivS5DNZ0RRvFzcrDx4hLtrA=;
-        b=pBy7U8XDNAWse1O6+/qfCw4GU6uCvmoQJcEU8Eub3ENzcDL0eTGFTS74o7FFODs09C
-         zbIBeHzRirh+I6XYVUqC9yrksNitJoDLFqgSSiLWK+Sf0qm3W6NkASrPDHW37+V8Fj2H
-         aPAhXHvj3RIcAB226+cT0eXq8JhUkU4OUeqN3v/lxVm+iemueF3ySxypZZpRHUWrcc9J
-         wZuLPKLSY4SQ34DY6ZvHPHeYsUyQaBpN/MgsZg0+S+HwUNi3b4Nmm9h2BPdDRhs0x3ww
-         C1skj5UNF8RchccJHGsgHimM/1cwLToxgTdMzuIyT2hAoO7ycEiJ+x2NpRF9JWp/uB40
-         eufw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794495291; x=1795100091;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YJAKVSq5yqKYSt2NYDkWivS5DNZ0RRvFzcrDx4hLtrA=;
-        b=apFTHyj1CjZMsjzGYa7Hl4N/PG8fesskLXlhPcZJR12U92Up72ldFxzTp7J4aLCfB/
-         HDs0lsRKR8ek3qNf3F5E4C1ReDVVoFmLD1UxX4XGAo/EKQu6aAiZwOsHC5Nk1g2Ifuld
-         B2dpqaqtA1zW7NiRWRvgxEF68XZpMPE7zQtMGCbDhCVid1hILY8AG7+jS1vxy3QiZpr0
-         i9hD6flMlPxHlb3yLZQ1AeFugl1uLQJv4VBwsqTZcW16agOz+w/4igVSOgA3GqSXXAag
-         zCkGHNlC3UbdGnLq9MGd6jRj1URUxe0KLEOAJbBLHOR7iUzDajuB3vBIPsybqrHbTr5+
-         l/DA==
-X-Forwarded-Encrypted: i=1; AL+hErEzLTgDmwsnVds3dWImRb/zliMX+Iog6+9J0uHkzdFPLlwVZJXyg9/a0NhZ/JoSN/0d6kApJ9o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TQmgzqVXDSMCXJE144Ab36xDYix3n/nrMKUQUukH46r29BQQa
-	roF7ntNu15bfi1Ckv/LHc/ibyY8AdVB5ug+ONIt0EJEhBX7upb73Temt
-X-Gm-Gg: AYBFou14ITH1JRcIIO0IQRzLQHWhzvE7q0cgEAytabmXfy/EyqH7IXxj0flzWtd4iCV
-	AjYaVd4T4cVAyeJxE+6tsUPYLt0CdNEbCm+gWTG2N3fcvMHotZcTsFsgBZdHGPjvtB+RXC6tYg/
-	oFJZ77IveGwmK/+I4jP5qh4PI1rLtU6nnOCudUdqRxlFbKaJBFm1eJ7tqqvDNhDP12LWr71kCmZ
-	fFb1q1BH7wnPhEKBI6aE2w2RhTFGSGxesuXyw6eQdJXn7Q0MWgW3M2A3/TvL5DfEhm6TaTFkJEO
-	m5GfCbg+hVcfzcdbIi8iqSKar73wwc8ECMsIQx3vn6n7fHGwtA0nR/Ai6Q+mxh4SUdS27urw5zZ
-	S4v+YTmgItRcF9V+4+YAe3mXcfc0EWN8PGMQLqime2vGKMGjvM5JmqBZ6DToGtUM6f3wP7un7AV
-	jztgKi5HS+VE0eiaig0WRDpKShqgfLBYbQwD2ZVw1yUxrF1xtXEi2nJPEpI6G1fvxufArlpOCGL
-	cz0h3OSV5im4Vcmjr/9vi0rGZotoDLrwq+gFYufC+NS+j6AZJmo43zSZYExrewGrsD42HJ8RqMD
-	w8Nr7xwJkV4xGt/5CyAw435mpnTcxIymJLA=
-X-Received: by 2002:a05:600c:3152:b0:4a1:d537:1c8d with SMTP id 5b1f17b1804b1-4ba09395149mr112085775e9.19.1794495291269;
-        Thu, 12 Nov 2026 06:54:51 -0800 (PST)
-Received: from build-server.. ([62.96.37.222])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49944d646f9sm13956621f8f.32.2026.11.12.06.54.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 06:54:50 -0800 (PST)
-From: Mikhail Malyshev <mike.malyshev@gmail.com>
-To: "Moessbauer, Felix" <felix.moessbauer@siemens.com>
-Cc: Jens Axboe <axboe@kernel.dk>,
-	io-uring@vger.kernel.org,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] io_uring/io-wq: apply the current cpuset to new workers
-Date: Thu, 12 Nov 2026 14:54:49 +0000
-Message-ID: <20261112145449.1570302-1-mike.malyshev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <b95051ac2caf63d3266bd02b326d0e0166a138b6.camel@siemens.com>
-References: <20261111162705.1150983-1-mike.malyshev@gmail.com> <b95051ac2caf63d3266bd02b326d0e0166a138b6.camel@siemens.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFAL8ciK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B6B1F00A06;
+	Thu, 12 Nov 2026 14:56:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794495386;
+	bh=eR/dgfTX4uX3tTDw1oIx0quyMtQsSjo0do2Wb4F29/s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jFAL8ciKEPVfAPoFJqaLI+cRjztWGxLzlgZ2ubFd8NzVcqMHflFmdg6cBG5Ea3qjr
+	 cAsCTFkQ1DLiHdTb3b7tEJx9lTfP4X3ouFkbcwzDHDtV5DVcg57mDlApUrs9lMZozH
+	 wIiyeIWYQjdjciPnOgA566JuvnvZDjabQ1Nq435e6TcbAmDdRI2w7AYsm7bZclylNn
+	 V/4Fl3/vi8CQdYAP4UiyRkaA3HmO1132K5MwyVyls4rh/T1L9eJLQdKz76LO0Y3x0a
+	 PTvQng3hL63LTAWArdr0iyj/zBtrojSGz61c3HSC2WwRH2L1u3MH3/skHjjta55OCt
+	 nILJqbzVcn2fw==
+Message-ID: <45fd1a88-8fbf-4735-9892-c374d8bf4df5@kernel.org>
+Date: Thu, 12 Nov 2026 15:56:15 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,75 +51,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
+ similar bugs, and commit messages
+To: Theodore Tso <tytso@mit.edu>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Leon Romanovsky <leon@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
+ <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+ Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
+ stable@vger.kernel.org
+References: <20261111225940.1573565-1-tytso@mit.edu>
+ <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org> <avXCcPYM9VAP0JHf@mit.edu>
+ <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org> <avXOSg4jOlzBY1r5@mit.edu>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <avXOSg4jOlzBY1r5@mit.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-11-12 at 07:52 +0000, Moessbauer, Felix wrote:
-> that's a valid finding.
+On 12/11/2026 15:42, Theodore Tso wrote:
+> On Thu, Nov 12, 2026 at 02:49:09PM -0500, Krzysztof Kozlowski wrote:
+>>
+>> Specification is also documentation, just like for example specification
+>> for our ABI. It's also located in Documentation directory.
+> 
+> Source and header files can also contain documentation.  But we don't
+> put them in the Documentation directory because they do not contain
+> *exclusively* documentation.
 
-Thanks for looking at it.
+The type of file and its main purpose is a C unit file. Documentation is
+only an addon to that.
 
->> Keep wq->cpu_mask for the affinity of the io-wq itself, all CPUs or the
->> mask set with IORING_REGISTER_IOWQ_AFF, and intersect it with the cpuset
->> of the worker when the worker starts, falling back to the cpuset if the
->> two do not intersect, as __set_cpus_allowed_ptr() does.
->
-> Why not simply fail the worker creation if the intersection is empty?
-> Just falling back means that the worker threads run on CPUs where they
-> - intentionally - should not run.
+Here, the main purpose and type of file is documentation. Specification
+IS a documentation, just like in-kernel ABI specification is.
 
-This only matters for an application that registered a mask with
-IORING_REGISTER_IOWQ_AFF and does not register a new one after its
-cpuset changes. Nothing tells it about the change, so it may never do
-that. When none of the registered CPUs are left in the cpuset, new
-workers can either fail, or make a best effort: run on the cpuset, and
-on the registered CPUs again once the cpuset includes any of them.
-That is the open question; when some registered CPUs are left, new
-workers get those either way.
+I found no other than RST and MD files in this patchset, so I really do
+not understand why this is not documentation.
 
-The patch makes the best effort. It never takes a worker out of its
-cpuset, it only ignores the registered mask while the mask does not
-fit. That is what the scheduler does with a task's sched_setaffinity()
-mask when a cpuset change leaves none of its CPUs, since da019032819a
-("sched: Enforce user requested affinity"). I preferred it to failing
-for two reasons:
+> 
+> If the complaint is that it is visible when we run "ls", one
 
-- The workers that already exist get the new cpuset whatever we do
-  here: cpuset_update_tasks_cpumask() calls set_cpus_allowed_ptr() on
-  them with the whole cpuset, and the scheduler does not know the
-  registered mask. In the test from my notes, a worker started with
-  2-3 registered had 3-6 once the cpuset changed to 3-6, with or
-  without the patch. Failing to start new workers would not keep the
-  ring's work off those CPUs, the existing workers would go on running
-  it there.
+Yes, that's one complain and making it hidden is improving the
+perception, but it does not solve the point - it's Documentation so
+should be placed in respective directory.
 
-- Nothing reports the failure to the application. When no worker exists
-  and none can be started, io_wq_enqueue() cancels the work, so the
-  requests that go async would complete with -ECANCELED until the
-  cpuset or the registered mask changes. A mask outside the cpuset is
-  refused with -EINVAL when it is registered, where the caller can act
-  on it; here the cause would be a cpuset write by someone else, and the
-  error would land on unrelated I/O.
+> compromise might be to put the skills in .agents/skills.  This is a
+> cross-harness standard which is supported by some code harneses
+> (Google Antigravity, Github Copilot, etc.).  Some harneses (including
+> Claude Code, Opencode) don't, but people who use these harneses can
+> solve it by installing their own symlink from .claude/skills,
+> .opencode/skills, etc. to the right place.
 
-If you and Jens still prefer failing, I can do that in a v2.
+Why does it have to be in the top-level in the first place? There is no
+point in making LLM stuff visible to humans, except maybe pleasing
+people behind upcoming IPO...
 
-> This test program should be added to the liburing testsuite, shouldn't
-> it?
-
-It is, posted separately: the cpuset change and the move to another
-cgroup.
-
-https://lore.kernel.org/io-uring/20261111162716.1151068-1-mike.malyshev@gmail.com/
-
-I can add the IORING_REGISTER_IOWQ_AFF case to it once we agree on what
-an empty intersection should do.
-
-> Shouldn't that also apply to 6.12 (it technically does not apply but
-> semantically it should)?
-
-Yes, 6.12.y has 84eacf177faa and the same bug. The patch needs only
-context changes there (no io_worker_retire(), io_init_new_worker()
-without the acct argument, wq->lock), and I will send a 6.12.y backport
-once this is applied.
-
-Thanks,
-Mikhail
+Best regards,
+Krzysztof
