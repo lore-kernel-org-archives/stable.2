@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794487739;
-	b=xpJEAARj3se6uPKiEbfipqwIT1sUJM2ItFzj22LhDbWauSS29wC/Q251eRGkZweVQNvR
-	 iCc/nW8y5B02l8Q341orxU3DHh6366pIx6pz/Oz9sF+spGL945rDgpzhZtya5AxET07E+
-	 lfgBT6UxM96ArLqlAo+AikY2KIEHoWyxQo1lsyP0j3YA/x/VrS15skuDqvffcn2Y3DBGY
-	 UBQECPAHm0BCHP2Q2kwv+cxLfPkAU8eBk5Gu3uT6VZXC74AFbBhE0zGlekdoRJosYbaFy
-	 bVjkQTXsnUFrzuIPrK3WWXeoGZGq1B0PrJOvZc3ZSEsDP8eorRlFnE4ljRICEDIwbow==
+	t=1794487747;
+	b=1fkVcyUnXNlTfp3y5muFRq/zQ/KEVOcHR9hWADaTFCYsE/PTXPSIWA1FS6a4QAFQ1E+C
+	 5La1iNXM0GahxP4WHxjsWHMEm2cW0Cobs6YeRzKw+e3JqC3WYVp9286K5qKTq/AT34U7D
+	 OIqv4Njgp1Ge6lHO0r8h4vpZvpiK5uQiqfnnX+QXn/VDZ41MQB0+pRq/NzRscfR0+YvDs
+	 W5LQkg3yT3Wsj+7SUobBYPK/9wgcjXIk6qvUQQDJMs3MTVbGb/vR6SC/PWCteV9VztjZw
+	 3Vsns1yylXzgm6yYStwJ2xmmbC5tPNLrghRzBanWZ0wahLG1XzODOLomzVGaVq9WYWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794487739;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794487747;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=WNjSPI9i0E18hyAz79IHT35Q9bphYXezxWEHllFLAWY=;
-	b=dn5cOu5gvlELQT2emNj6QTtXBw8xN5ir+dDAcq90fcNOdz5W9E2onV7KlOGn2wvy10kG
-	 DKkLGzeLUvA1dDp9SRrI/meeFP9lnvVf0Sq1wGgBLp5fIjNwIz8DdEJYoHz59i2MsM0CS
-	 abtWBv2PGs/OyF1mY6iHqDyqF2y1K6RFgJs1JxHuf6paImX46ri2IxiuxmowLLQJrCkUP
-	 IXJSr7rOVDX6kqRHHMj+rcwsn8ab9pXGMbGKsVls7ok0Cy5yK6WiCT5P8Zsck9PgbMw1+
-	 snrjhRb1TZVJJKtOoPPXHBld/xA7GDUaU5RbIB34CHH6wbBsC+SL5D4cLay+AxEc74A==
+	bh=wnFjFy7epBjNWRNLyw8f6LRnczufzKHnOkE+iAdWTCQ=;
+	b=D4pmQGswnz0OqVYvOOrlDQ6WG2EmdChiAKPIzKNEDixZnGQFxXo/FjWEUPEMeIbV7rft
+	 jNeSppnR2pbdolOvPTya8qS9dVHBORRDSzo1Z2+zfX7MAt3fuWzDLIWwFt9rB/KVBPoMH
+	 NfgmDcmdFu4awUMIWBpjktlR011/nUIAmLXBFHxRjrEhaEwDO3RaLLDZBAVIrQVHq5i2t
+	 SaEk1LbOze+RKYIK307PcUGuc+wSq+pJ1HhSsVkxcaefF4pUaqn3d2yLwrS1NkDWRNKgf
+	 I8YXY0w9NbU0+p7WMtNIEvzM/hTUFiMc6jigAhpG/5EVRWeR/OK4pvpvCmBZWKIke2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXlf6O8a;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XSk/FTTs";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA90606A33D;
-	Thu, 12 Nov 2026 12:48:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BF2606A327;
+	Thu, 12 Nov 2026 12:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXlf6O8a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182EF1F00A07;
-	Thu, 12 Nov 2026 12:48:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XSk/FTTs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 552D51F00A0A;
+	Thu, 12 Nov 2026 12:49:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794487739;
-	bh=WNjSPI9i0E18hyAz79IHT35Q9bphYXezxWEHllFLAWY=;
+	s=k20260515; t=1794487747;
+	bh=wnFjFy7epBjNWRNLyw8f6LRnczufzKHnOkE+iAdWTCQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=BXlf6O8acfLBiqc68Kp6LNTKQs6a83pBYz57Sod4IW0xUkaXP7D2l5EwWDGGVVXJx
-	 1acFzjbbPO+or7iweUmDv7NQs4I6tfG+UfA7oRIkboiVX/J2oMHvSDGK0QIO4Z9zsq
-	 1kyOszMBVRAykDsro6JwXbu81DFpViGVTP0FEgQ+a6DWLRZ/dyyMZOVmGk40MI5nAl
-	 cOTWbhkLQL8hryuGEcMvNsNunFO8TX2Avy9+2Y1wntlNResmzPZyWFn+zR0iTGwLMG
-	 +YeJfcNP9QGUYgDiehE0FtFzRbth4rLTnoFd4v0SMrsTZBc1N30RUjv5iaxl5KtH2O
-	 CdF3zzbLVnybg==
+	b=XSk/FTTsAPiFBZCKKRfoqo9X0VN9P6Je6F2pachtiB4RmHIp7pXVvoILNXR03hZj3
+	 JWzWFiLfoF+VLI6mU5H8hJzPl94PpmOl1zMHZRuR9WOPohFmyaMia/8W6MxvR9HjiC
+	 NZcmLicjxcSeE2S/YeBZbCK2fHblEiElQZ/LWgGcjjMRrIvYKf12qKaFLZdXcFrUty
+	 K+viAggid8vFciFhI2dNC+W/jUv1NFF4N8gZeC+Zc/aSan8uq3Vh9o/0sHHoe3haZq
+	 0jFSPG35fDUB9xkRwYNzgjfUGZg3BYvuFaofiPno8saHFTRStYhtphQrBeTCiZgdtE
+	 w/Bx88wdX+APw==
 From: Andreas Hindborg <a.hindborg@kernel.org>
 To: rust-for-linux@vger.kernel.org, chenhan <chenhan0017.work@gmail.com>
 Cc: boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org, 
@@ -50,11 +50,10 @@ Cc: boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
  tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, 
  tomo@flapping.org, georgeandrout13@gmail.com, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>
-In-Reply-To: <20261031103206.24051-3-chenhan0017.work@gmail.com>
-References: <20261031103206.24051-3-chenhan0017.work@gmail.com>
-Subject: Re: [PATCH v5 2/3] rust: time: make Delta division and remainder
- fail consistently
-Message-Id: <179448764512.621816.4917112282648020557.b4-ty@b4>
+In-Reply-To: <20261031103206.24051-2-chenhan0017.work@gmail.com>
+References: <20261031103206.24051-2-chenhan0017.work@gmail.com>
+Subject: Re: [PATCH v5 1/3] rust: time: rename the rem_nanos() divisor
+Message-Id: <179448764511.621816.14570615601029612760.b4-ty@b4>
 Date: Thu, 12 Nov 2026 13:47:25 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,24 +69,21 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16-dev
 
 
-On Sat, 31 Oct 2026 18:32:05 +0800, chenhan wrote:
-> Delta's division and rem_nanos() use Rust operators on 64-bit and C
-> helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
-> a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
-> i64::MIN / -1 case also differs, and neither API documents these inputs.
+On Sat, 31 Oct 2026 18:32:04 +0800, chenhan wrote:
+> The argument to rem_nanos() is the divisor, while self holds the
+> dividend. Rename the argument and correct the documentation. Drop the
+> architecture-specific implementation explanation from the public API
+> documentation; the argument type already states the divisor's width.
 > 
-> Check for zero divisors and i64::MIN with -1 before the architecture-
-> specific code, and document the panic conditions on each method. This
-> matches Rust's signed division and remainder operators, including when
-> overflow checks are disabled. Valid-input results and API signatures
-> are unchanged; invalid inputs now panic on 32-bit too.
+> This does not change the function's type or behavior. It is a preparation
+> for documenting and checking the invalid divisors in the next patch.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/3] rust: time: make Delta division and remainder fail consistently
-      commit: 9687257afe8c2c2c257e2168bc6c44e5145dc73a
+[1/3] rust: time: rename the rem_nanos() divisor
+      commit: c6dce610f733d16849e5a8d491ddf080b839237c
 
 Best regards,
 -- 
