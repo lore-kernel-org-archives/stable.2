@@ -1,105 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794456979;
-	b=QwCkbtLx9cYjvCKwkOQAzaey4ubyiqvNDHMRzAsck9V2Tdu4+XWhKwpQMKhH6f9RROqt
-	 wk8aIM7R3hvOrjBKdeiFq95QjfoA/mJzLIcdCjEDzobU91XUaSGCS3NX7LoihZimYPojT
-	 B+t9pem49oP+wtjA099h6cSPD1YZ3F6awYMfDDG4PlGu30YbpLlencfO+njB0/FEhjAmf
-	 IpqsXLlC2b3PPARJWJkTKa4tTsljUL1+I/3DVOYk8T6igB3k0NLdt4UZTRsq4dlN9Ubex
-	 r1B+VaKNWvQl+nJwoWaX5xXSvVO4vUKTczFpAysDDTtN7O1FvNGwbp54DXYv8UDSW3w==
+	t=1794457137;
+	b=QvyHX2xssoCHusMQh4VJqhFVfV2YJ1Kx6aqPoS0pm1Yp7OyUv+FG/Z5OaDDbgJUyy85M
+	 EL1GMdkhXaWSBXUbDUgLoTSCH9FOlBu9IBCjXZfwrRfKOFdrEA0X8E0kknlNeGs4VCxf5
+	 uC6ktM8IXusCTxXnWYVp4Fg2+IPX0mgQupC3n8ZEJxrPqPc7T8SlBaQ7efo4iCXNmCxaf
+	 jXzVKzVegua/XigStrJ8X52S26aCiZzFXjejT7x5Am3g3dQi7ihyG9UfnBgsn2saooCmf
+	 kLo9KnNy0KPtemvRfgLhnJ/ZIQyiuIl/lLYuGnaRS5iozW48X+fCEwiLtaxVxeIfF0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794456979;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cx07ziGcA50aUj85Mm/ZBnVBryK8gFtKvDY2YMtoJYc=;
-	b=EqAI/jZqee/R0sSOBTww7k3hP0GbGXe8ArVrQDdWpsNkO5V+4LSI0qJJsWtwOuikDz8+
-	 4NP/0ISYwl95aPma+MFoQYcE9Ga5MCHrOx0xwhUeDvfSv40PL/OkbwGQ7GZtxhnOWC+0j
-	 PShS13xX/KBk0phBQt9TgGq75F9n66CJaMj5LdZzaf2O9Dddx8qSTN5w6O9OicvORNtqS
-	 hXQDrkAzbCPQvb/o3LhtAeNIFC2973GjQx7YGF/+ZaRo5XtyuqPJVASWeSIfT+HKig0FA
-	 9a/TynknNThLjtYyr36o5PdOeR5dlU8iEdbTJyG34c5KJXwqd8RW/dS8sBsiJOKJKHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794457137;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=I9JzCy8na1WnVaZ9QnplFC4i6ZeT5HWw/Sckc/KR640=;
+	b=cVnnGPwjQozED4zFYLW0HL4GFEJQBXsFgzvKTN0flndONzICFKjTN7Yq5ogxl6/R8UpC
+	 Rq+tgrlXgqVVwj+cayZ30xtGG2z4EPU58lg3aov7WOxvZI7EpX18HtTLeihReFil6dy/P
+	 4Ae36sSDdRxBh7WL1HM5OhQLY2ElLdgn3nxPeCK/e4V2eWaEbXUrCna+Oro1aeMhfArIf
+	 yz/hOu0fe6mu1uLPwznz6JszFSu4p61Fj2lt2X36ExwpCQjbTS9kZ1s/sNXUW778bL64t
+	 z6iB3v7e5jHPQZSu49sDr99/amR+b2xVi4RX98jH1RVLBpZrMTyZbtR3/px6cKe9AMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RmJGZdJg;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3y4C6zt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CF4606A33A
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:16:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66CF4606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B22C606A31C
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 04:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RmJGZdJg
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-37628596783so3608252eec.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 20:16:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794456978; x=1795061778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cx07ziGcA50aUj85Mm/ZBnVBryK8gFtKvDY2YMtoJYc=;
-        b=RmJGZdJg942OY9rPhScQBPvnVkEnUGRlsngqVgdkiF3pKXoGg2y1cYTwH4oLb8CQg2
-         5N585j9GpOm7a6X5s5k+2F0qU3kMRG0Id6ymOAWHgSX9fYdQTwd7cksIITmK2Y5HXVCH
-         63sRX9aIvluSZaVFvwDpVH1jBUVkYrv3HZT7LIl4X8K+9c0goL5LoyrxNSlZxGIpHstH
-         u5Mx4zbi0PpsGq/6RETVOripdngpUkEHMA0Wu60KDVQHebkEwI6X6GM52/sMvAY+MHqm
-         KzyvfCC3pvLX71DTrsb4OBfQAZe1Nv3lTGMyOUnCGnXQ1MSUZY/8tyjocmoE0RMOf2x7
-         gI8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794456978; x=1795061778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cx07ziGcA50aUj85Mm/ZBnVBryK8gFtKvDY2YMtoJYc=;
-        b=P3Pj35vKSKTX/Bei6chCfQ9YdKu7gpEJJLQ0P7BALATQnoPUo8vmN0rHRHmzmNSHlT
-         5E2KfJcqDkRidRHsSv0pwdEDA2scDI9M9LC2EEF/V7JKuR3QrMF59cKeUzzcNcF97LfP
-         Tno+mHFvImUOhBrliMlDwMxWHUrccjzzyqclaDDPdcR1Uvx+OWCNyH2npeuytEM7zDP7
-         Hrbwm00R4Qo21J2tVmpMIgVinT5k61hOSEaPxHZ/cGxnNRqzO8mtrN6/DziKMWj9OMlP
-         +MVVRrGm0r9zmdyj/vhZ3VoNivglQzCIHJE9qQrQ8GYr8mEWaYUHjjLRpgW8X1m5YnbD
-         9KyA==
-X-Forwarded-Encrypted: i=1; AL+hErGIebtaeWCJOwArkjDIRFu2SB89tQWO5jaWbhlbIX9p05WeuRwLAJvbgRBHEmm8oA2TxErxZg4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94prsUiU3cgb/fxsidwovNNnacPX+0atXhPs0qkR0/dBDjPFLh
-	eTDwusvKHiIGbDm3bGKh1BvNjXhRqn3eLpq+SVggtBKQ78bxmp6j2Ol6
-X-Gm-Gg: AYBFou3V3sm8DKp+/XP0F8OmWajnMu4wccIj0rq9P2kXnsW/54UQ+z8VvjxKCucXM5B
-	lhhw1no+fbnm9wFwja2R0HAq1VWfkfPs4XX2WxKzjv+6oGZM9TKZO0M6FpxJ+D+bFjeupXt1FWp
-	oICWOoWxanCEv5UeKfGusS4TQhiwIR248hT4mkTbhMiNerdo4aq/qjW4+Pfozk63klFEWyNzrt2
-	3akcPsd4JfvKgy+gVTpCvkj5JV2Qo5InKI334EAI1py9P0sKI4tYjA0gU/ksr83Ajn3rF41L8Bl
-	+413BsvhCap14zmvjIGgck3nXSyXtxenJTBRBILRZm9cGBRm/t2YyBk2ESxtchCDYhwFdpV27BD
-	F5WH+zMADUzJFnKtT09TJY767lE+MbC2W3HR3MvasLv5VfqREBtHHQzxYE8n0OW6jhv7eTWvIGq
-	h78L8856q1U69g3WbdweKJq3y5KJN9bKeoIbQ6DxDLRFcBuGJ+dZMJ2z4EOXIHDP9zuMW4RH3W2
-	uJOqH0bwQVEbYle8bssCR90fETKYCTiY1l6zKaENr+AzcoRV9UcBLfHUNfm7fTjA+LvAVbEEdVm
-	4lyLbAd1
-X-Received: by 2002:a05:701b:45d8:20b0:1ab:9266:f50 with SMTP id a92af1059eb24-1b3c03766d2mr4147018c88.46.1794456978493;
-        Wed, 11 Nov 2026 20:16:18 -0800 (PST)
-Received: from eldorado ([2600:8802:b00:1f88::287])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5890c0esm21300801c88.1.2026.11.11.20.16.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 20:16:15 -0800 (PST)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	stable@vger.kernel.org,
-	Paul Cercueil <paul@crapouillou.net>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Paul Burton <paulburton@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	=?UTF-8?q?=E5=91=A8=E7=90=B0=E6=9D=B0=20=28Zhou=20Yanjie=29?= <zhouyanjie@wanyeetech.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	linux-kernel@vger.kernel.org (open list),
-	linux-clk@vger.kernel.org (open list:COMMON CLK FRAMEWORK),
-	hns@goldelico.com,
-	paul@boddie.org.uk
-Subject: [PATCH v3 1/3] clk: ingenic: Poll JZ4780 CPU1 power status atomically
-Date: Wed, 11 Nov 2026 20:14:20 -0800
-Message-ID: <20261112041422.2997275-2-f.fainelli@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3y4C6zt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6761F00A06;
+	Thu, 12 Nov 2026 04:18:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794457137;
+	bh=I9JzCy8na1WnVaZ9QnplFC4i6ZeT5HWw/Sckc/KR640=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Z3y4C6ztGTvfrXj6ESXatAfesWWDND57hysAQ3YRHZMc0glOOFjeJaefMNoQCwALU
+	 JiCBAxssIIb1azBCd9kpqHgv5/o4Y5Z7916UqzyAmrUMxTrLtDmkNP900RWRDumF7t
+	 jWu/lsfGg2g0HTaxyTsnFFtMbuSB/KPNB5U0IuY/xZWEP1Rof3mQwTArCVRqTLGKBW
+	 3Y6Rakz5jiLaFgq/KAXhh7JVxbIPrOot5FwJ6ujjEiJ8gBNPHj46/JPJdN8bYNrSXP
+	 83rb50IaSFCxbIwEwBSfztGGOMtaepug5g1KYa1Tb5MtDWN8WnWVwloVAvhxsDLinu
+	 UF9GE00SE4PKA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Georgia Garcia <georgia.garcia@canonical.com>,
+	John Johansen <john.johansen@canonical.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] apparmor: fix profile leak when a policy load fails
+Date: Wed, 11 Nov 2026 23:18:55 -0500
+Message-ID: <20261112041829.1966481-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112041422.2997275-1-f.fainelli@gmail.com>
-References: <20261112041422.2997275-1-f.fainelli@gmail.com>
+In-Reply-To: <20261107052803-failed-6.12-ce94927fa417@kernel.org>
+References: <20261107052803-failed-6.12-ce94927fa417@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,42 +61,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The CPU1 clock enable callback runs under the clock framework's spinlock
-with interrupts disabled. Its readl_poll_timeout() can sleep between
-reads, which is invalid in this context when SMP powers up CPU1.
+From: Georgia Garcia <georgia.garcia@canonical.com>
 
-Use readl_poll_timeout_atomic() with the existing interval and timeout.
-This is a prerequisite for the JZ4780 SMP bring-up path. The original
-CPU1 clock implementation by Zhou Yanjie is already upstream.
+[ Upstream commit ce94927fa4173fcc1eca27bdc65a140064c8f1e6 ]
 
-Cross-built for CI20; the subsequent SMP-enabled image brought up both
-CPU cores. Development and validation used Codex assistance.
+The error paths of aa_replace_profiles() and aa_unpack() do not break
+the refcount cycle between label and proxy. They just aa_put_profile()
+the new profiles, which drops the label refcount from 2 to 1, and the
+proxy keeps the profile alive. Every failed atomic policy load
+(e.g. "profile can not be replaced", or a later profile in the blob
+failing to unpack) leaks every new profile in the set, along with its
+proxy, rules and its loaddata reference.
 
-CC: stable@vger.kernel.org
-Fixes: 6673db4f3f26 ("clk: JZ4780: Add function for enable the second core.")
-Link: https://lkml.kernel.org/r/1582215889-113034-3-git-send-email-zhouyanjie@wanyeetech.com
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
-Tested-by: Paul Cercueil <paul@crapouillou.net>
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+The leak is usually not visible from userspace, because the raw_data
+directory for a failed load is not created, but it becomes visible
+when the blob is deduplicated onto an existing loaddata, which then
+keeps its policy/raw_data/<rev> directory forever.
+
+Add aa_put_unpublished_profile(), which drops the profile's own proxy
+before putting the profile, and use it on those error paths. The
+proxy of an unpacked profile is always freshly allocated and not
+referenced by anything else before the profile is published, so
+putting it is safe.
+
+Fixes: 637f688dc3dc ("apparmor: switch from profiles to using labels on contexts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+[ sashal: Adjusted helper insertion context to retain the existing non-const AUDIT_MODE() parameter. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/ingenic/jz4780-cgu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ security/apparmor/include/policy.h | 20 ++++++++++++++++++++
+ security/apparmor/policy.c         |  3 +++
+ security/apparmor/policy_unpack.c  |  4 +++-
+ 3 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/clk/ingenic/jz4780-cgu.c b/drivers/clk/ingenic/jz4780-cgu.c
-index 1e88aef7ac0f..1809f8859c7e 100644
---- a/drivers/clk/ingenic/jz4780-cgu.c
-+++ b/drivers/clk/ingenic/jz4780-cgu.c
-@@ -242,8 +242,8 @@ static int jz4780_core1_enable(struct clk_hw *hw)
- 	spin_unlock_irqrestore(&cgu->lock, flags);
+diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
+index e85824c90f430..47199bead884b 100644
+--- a/security/apparmor/include/policy.h
++++ b/security/apparmor/include/policy.h
+@@ -382,6 +382,26 @@ static inline void aa_put_profile(struct aa_profile *p)
+ 		kref_put(&p->label.count.count, aa_label_kref);
+ }
  
- 	/* wait for the CPU to be powered up */
--	retval = readl_poll_timeout(cgu->base + CGU_REG_LCR, lcr,
--				 !(lcr & LCR_SCPUS), 10, timeout);
-+	retval = readl_poll_timeout_atomic(cgu->base + CGU_REG_LCR, lcr,
-+					   !(lcr & LCR_SCPUS), 10, timeout);
- 	if (retval == -ETIMEDOUT) {
- 		pr_err("%s: Wait for power up core1 timeout\n", __func__);
- 		return retval;
++/**
++ * aa_put_unpublished_profile - put a profile that was never made visible
++ * @p: profile  (MAYBE NULL)
++ *
++ * A newly allocated profile and its proxy reference each other
++ * (proxy->label holds a label refcount). That cycle is normally broken
++ * when the profile is replaced or removed, which redirects the proxy.
++ * A profile that is discarded before being added to the policy tree
++ * never goes through either path, so break the cycle here, otherwise
++ * the profile, its proxy and its rawdata are leaked.
++ */
++static inline void aa_put_unpublished_profile(struct aa_profile *p)
++{
++	if (p && p->label.proxy) {
++		aa_put_proxy(p->label.proxy);
++		p->label.proxy = NULL;
++	}
++	aa_put_profile(p);
++}
++
+ static inline int AUDIT_MODE(struct aa_profile *profile)
+ {
+ 	if (aa_g_audit != AUDIT_NORMAL)
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index c9ffb1eec7a7c..62345fad007c3 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -1403,6 +1403,9 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 	}
+ 	list_for_each_entry_safe(ent, tmp, &lh, list) {
+ 		list_del_init(&ent->list);
++		/* new was never added to the policy tree */
++		aa_put_unpublished_profile(ent->new);
++		ent->new = NULL;
+ 		aa_load_ent_free(ent);
+ 	}
+ 
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 46420587bcd52..f55ab21f0465c 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1501,11 +1501,13 @@ int aa_unpack(struct aa_loaddata *udata, struct list_head *lh,
+ 
+ fail_profile:
+ 	kfree(ns_name);
+-	aa_put_profile(profile);
++	aa_put_unpublished_profile(profile);
+ 
+ fail:
+ 	list_for_each_entry_safe(ent, tmp, lh, list) {
+ 		list_del_init(&ent->list);
++		aa_put_unpublished_profile(ent->new);
++		ent->new = NULL;
+ 		aa_load_ent_free(ent);
+ 	}
+ 
 -- 
 2.53.0
 
