@@ -1,56 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794505631;
-	b=KVWJswZC+mPguv/blXyigUyJHp+NiHFgpY8hwKidWFhlpw+rE/uG04phtpIoacA2/60F
-	 7I4sjn86CLBvy4qsufiAgXXy+S7XLHNtUHA+d5nmv8bOg6A+ewd56SiyQ3NGnGF/GVHn/
-	 8M5B5zPvelL/iz6P/l/1vRZV6QT7SDbDTgUpfSDaOX0Vc2g3xwHsSYPByyaSP9rypHp2S
-	 QAOOV5NMSH0nWkS7Jyp8I4w8rLmsHac6QEX67MyAyohRQrA/fw9GiveOGf4WZE06LHMhg
-	 QqVULts6wX9N1D3renDd7EixzCxcT+vTnL0zr+HbaCzvVaE067EvD7z4sPTO+wHm6lg==
+	t=1794505814;
+	b=FRp7wNBTjqaNNQaajQPgEq3sYW1jJ8PkhxWzsbZzP8b+o6vtazsZULMOgxmYwCTHNz5+
+	 BSGl6yARdDlSZ4DAx9dYpLiTBp231QO5zTs2mHx5GdJMMy3bt14Y/Au3Ttq7OS0ZwJ4QX
+	 6x0HJxy8KdvKHeswd4yMU3AMhPfIRgB6/RhS1lU52YjL3IVzspGH1cLjEsEACN/Fs9nkg
+	 hiQJJj4VUAahJ96aALjbHXSQgY02lUMMGWtvpneSYMvAdHJkT0sITHURAyEtTocJdkt2a
+	 gke+svKxHNewvtjVJhMc2Ri0LJScJ2jReqc/YPY4ocZ41MdIjYBCWdaaFm+3PBIuVkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794505631;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Dvp3e8vYqVbqZ5P5ouC2gGN8a6XlkMFDBljy0pDoOFs=;
-	b=wek0kQEmtW1mGnSjqC5P8p/6zLK64UaloeXS24+O/aSgjglniJhbA3gaW2MjDwOwCSAd
-	 fb2bxUcW6lCwkg1L915i95WuIzczrCmIPotIx3QzGKlRcH2rvJ9X0+TxLisP2TvIWwOcd
-	 TiaFkqZyVMhEqJ/GWbG7ZKr1YbR3W4Fs2noXltWY3MUdK+D5KcQSoAyxEv+2YsEdSWDZy
-	 MqaiIgHGp1uLizJpsXLYOJs2+6QqGTzGbFF43sqMfGflBm+XssnCHbcfKa8GirjOv412i
-	 f4yGRWE0xCTC9VVwoyOW13jW4y4SNIbogmdO1SHrGq3FaL9ydPRGtJJf+76LpR4yvAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794505814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ebBi69aOwYuOv4v76Io54mnX1WxFsXlJh7CWwOPIC7M=;
+	b=hHWLsGdH9DF4LgNFDkZxQrf/DsOOW6j5F2Fd5tPbMPPPSu8U9v4gyUIoOVPvVsxYsxza
+	 wUHpTTfIKU5cC+CdZtYmzTno/kpiljRgrVpTOvRGdt0BG6vmZC6Lu0ZfGGzoOEy1VYzpG
+	 9yYzvKIaaSZsZa53KOX4324sjxW8ViBvGp7oG2lh773uyf3hGbX3fmgaMi5HzsPTlRUqE
+	 J79MD/YvCA0o8TlPdp/cG7DrCuBo2eDoaT9QM9PKuj7WqLlNzFIIhF2zoxpVsF87pxCoX
+	 9pK61leyJgmyVq8S+3/Mz5vRP/rv4zhhMvLIMDCRwiy8wrN0DbIXrBLx7JhbPBeM1gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPbnJX7X;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cQUjrV0C;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140BB606A332
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:47:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2CA606A327
+	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A2CA606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPbnJX7X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ACC61F000C6;
-	Thu, 12 Nov 2026 17:47:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794505630;
-	bh=Dvp3e8vYqVbqZ5P5ouC2gGN8a6XlkMFDBljy0pDoOFs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IPbnJX7XJjUwDuTl1v7OdaXIukyvSQ64ZBdx3mZQE2tdharZEEvZ81fCt52KEWlf+
-	 xHAV2u1EJZ9zLpMw3Uiv2aG2nE5HlxA9gbZLCCkNB7dDLVOLA30SLmIQsLy9luuzeS
-	 WVALhoZJnAW0fAbVd9HEn5wEbLN3Y+uty2lIMZIleXgD4Vt2slkdmiswpXC5xozV0J
-	 mAYQVGNOHHmRMNsGBLB+lrnHZMxYT80raDapU4fDnwSH3AI3L7Ou2zkH28o5xCrx4G
-	 QVmvhPTCgde4TSJyUihJ+5tdTuNjf++q6cmTiYsqhZ8+6aIEOzPV/Cy29prTB6hwfY
-	 2mHlLj7AsRsEw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Leo Liu <leo.liu@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 4/4] drm/amdgpu: cancel idle work in hw_init failure paths for vcn/uvd/vce/jpeg
-Date: Thu, 12 Nov 2026 12:47:06 -0500
-Message-ID: <20261112174623.3116347-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261112174623.3116347-1-sashal@kernel.org>
-References: <20261109200201-failed-7.3-a56c2536c399@kernel.org>
- <20261112174623.3116347-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cQUjrV0C
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so1205415e9.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 09:50:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794505812; x=1795110612; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ebBi69aOwYuOv4v76Io54mnX1WxFsXlJh7CWwOPIC7M=;
+        b=cQUjrV0CyahQPCNi5cU5YxS901CR+57CuvbolcO9byjlPxNsPnPJuVVQZ1ys9UHRm8
+         mqZAzSk0r/lFrm6wpcmNXtqZmgHG6hnPbO7peeo3fOpKgtSIdB+voi16FchZ3n+h6Bbx
+         IJqjNGaFfl7fZn3BrMYhsoj6W+RTvX45QR2gYZbvOHS0zJ+R7RhakhjFFaBh5E+ODoxw
+         +Z64DiPbwjKA2mbtzlbTRs6GWaMA0sMlfqvZFi4aZM7HnQHvEcz54q1RFHdoHgHmme+T
+         4p7vs4+77E78N8xxqNiVdlkFstEq3d0O3RbaUxXZEpQ8J+FpXo6xtp2LLGurOiYywzBW
+         ME1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794505812; x=1795110612;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ebBi69aOwYuOv4v76Io54mnX1WxFsXlJh7CWwOPIC7M=;
+        b=hkQCBC+FRa68/3BeJa7H8bkYCp6eV5G6H6SZyrAZDz7RKmizdRxSNx8DWZqsu8Y9G7
+         GUeHzuvRJDou+kQ7aJBO3qtJfgyzlTfLSu+0+azj6JQ7w2Zbs6GWCY+AeuJdy4nn1zGL
+         9QLL4DSIwHZz4BsP+IxhtKNK3mthSKB9y1zUX8uzSqRTb3CPEe5bvoHzHYTFqYtr8CuG
+         OoZ3YJgvHOLy6/jjTny3jearyzlP6Mxi6Gvtej3jJbs1px6bcnOid0fwDrDPJjSaVsaK
+         QSdpd2GpRz2pYxOvXobECTwfkMaRsC3hHsx6aPTI6kYkmgkr2cQHksYT8YvwT65tRlKf
+         KUNg==
+X-Forwarded-Encrypted: i=1; AL+hErGsDeyyyb2Zt5Kz82aDPxi6CiZj3q4oarFCdovDFHtavhcy3YTQw/Eufi1fw9UGrQGubKFJ5rE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8l/21uTOs6MidTS4KAQx8y3ThAdCY6A+JdonlrXrJ9hkWnsg+T
+	f3eMAOllXE2KBm7uuY5m6tdKqS0nP0+4q4+UQQoo537gZejWMU0bPe7gE52TQhRUlbc=
+X-Gm-Gg: AYBFou37y008MIl9A8rHlejkuWdsIhdnvyuBDKOpGmAV6Ug8thNyC7FB5WJE4FMW+Pd
+	sfhuhsf6zpZ+xQuKic3xHJk68vw0Gphuobxnls1fSQPC+4Tsb5w4tkXlBzwHOErIjQjvybek0lm
+	8HkgLIu2n3o/sSmvX6wN4mmnnwR9QP+On0M0lPUKIrq3iLgtjkkDzeCbVEN7GntK2cNyS/IXR08
+	D7lY0pXcJ1SJc8nTbe2kfhoMDodlC5oYLHj2U4tp5Cua+Xq6bKeRMAiA926tWNvrOZNuep4HBpc
+	THTQpWELyQiPMe6V1LE0RuGo6tvce4BvF5khZ2RY+22BUDQNYYINzAp642UDSNiPeufYUubjfmg
+	qYJY88xm8Ik96+yVi91HV4FR/7GFKqoEi5FZB8mzAuvU/Z7CeukV1ZsaXzum5z0+DCkCaz+qhIX
+	IQE6OyTVy4zAcBPX9fwNbofm2d3pI5OT5s05HLyIWrlqHHJyZeVInsaxc+4b5GFdCTx/xMt8TnY
+	EQMmRDOaLI37OZH9aB6qkB4pGyK/wUbOqYL0+MjPXaYCAPZ+iDPyVvv/mg5T51JriXiXf6srISe
+	B1MiNB60bXaVGy5v9hmlnuE9uKGIWfk=
+X-Received: by 2002:a05:600c:5251:b0:4a7:4697:dae3 with SMTP id 5b1f17b1804b1-4ba0938d96dmr121010175e9.24.1794505812295;
+        Thu, 12 Nov 2026 09:50:12 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5ff2be55sm498229f8f.28.2026.11.12.09.50.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 09:50:11 -0800 (PST)
+Date: Thu, 12 Nov 2026 18:50:09 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+	Miroslav Benes <mbenes@suse.cz>, Petr Pavlu <petr.pavlu@suse.com>,
+	Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	live-patching@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] livepatch: Fix races between stack check and module
+ load/unload
+Message-ID: <avX8UWAA4DN44p6o@pathway.suse.cz>
+References: <20261022134433.3595212-1-parri.andrea@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,705 +101,349 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022134433.3595212-1-parri.andrea@gmail.com>
 
-From: Leo Liu <leo.liu@amd.com>
+Hi,
 
-[ Upstream commit a56c2536c399d57a9bb1c02fd411e0c25859af3b ]
+I have finally found time and energy to scratch my head around this.
+I am sorry that it took so long.
 
-When hw_init() fails, amdgpu_device_ip_fini_early() skips hw_fini()
-because status.hw was never set.  For VCN, UVD (including UVD ENC), VCE,
-and JPEG, hw_fini() is where cancel_delayed_work_sync() is called.  Any
-idle work queued during the partial hw_init() is therefore left pending
-after sw_fini() frees the adev state the handler touches.
+The solution is still a bit complicated. But maybe, we could simplify
+it even more, see below.
 
-Cancel the idle work in each hw_init() error path, immediately before
-returning the error, so that hw_fini() remains the sole cancel site on
-the normal teardown path with no duplication.
+On Thu 2026-10-22 15:44:31, Andrea Parri wrote:
+> Unloading a patched module while a livepatch transition is in progress
+> can crash the kernel in klp_find_ops(), called from the scheduler.
+> 
+> The scheduler checks the stack of a task that still has to switch
+> without klp_mutex: __klp_sched_try_switch() -> klp_try_switch_task() ->
+> klp_check_stack().  The check walks the global klp_ops list and each
+> func_stack, and reads obj->patched.
+> 
+> Loading or unloading a patched module changes these lists in
+> klp_patch_func() and klp_unpatch_func() under klp_mutex only, and
+> unloading frees the ops, so the walk can follow a freed entry.
 
-Link: https://github.com/ROCm/amdgpu/issues/234
-Fixes: 416e1fab4752 ("drm/amdgpu: drop redundant cancel_delayed_work_sync call")
-Assisted-by: Claude:Claude-Sonnet-4.6
-Signed-off-by: Leo Liu <leo.liu@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 7ff2327fde029e97d0050fcb94e3f4063c318547)
-Cc: stable@vger.kernel.org
-[ sashal: Adjusted context and indentation in vcn_v5_0_2_hw_init() to account for the missing SR-IOV conditional. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c   |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c   |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c   |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c   |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c    |  4 +++-
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c    |  4 +++-
- drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c    |  4 +++-
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    |  4 +++-
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    |  4 +++-
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c    |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c    |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c    |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c    |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    | 11 +++++++++--
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c    |  8 ++++++--
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c    | 12 ++++++++++--
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c    | 12 ++++++++++--
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c    | 10 +++++++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  | 10 +++++++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c  | 10 +++++++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c  | 10 +++++++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c  | 10 +++++++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c  | 10 +++++++++-
- 29 files changed, 174 insertions(+), 33 deletions(-)
+To make sure that I understand it correctly. I looked at [v1] and it
+solved the problems:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-index a9c00adcfe410..2f4167f74ca22 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-@@ -159,11 +159,15 @@ static int jpeg_v2_0_hw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring = adev->jpeg.inst->ring_dec;
-+	int r;
- 
- 	adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
- 		(adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
- 
--	return amdgpu_ring_test_helper(ring);
-+	r = amdgpu_ring_test_helper(ring);
-+	if (r)
-+		cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index 5208312e7017c..cd3ea918a392e 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -221,10 +221,14 @@ static int jpeg_v2_5_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 		r = amdgpu_ring_test_helper(ring);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-index e9ccadeb76961..e63ee43831c70 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-@@ -174,11 +174,15 @@ static int jpeg_v3_0_hw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
- 	struct amdgpu_ring *ring = adev->jpeg.inst->ring_dec;
-+	int r;
- 
- 	adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
- 		(adev->doorbell_index.vcn.vcn_ring0_1 << 1), 0);
- 
--	return amdgpu_ring_test_helper(ring);
-+	r = amdgpu_ring_test_helper(ring);
-+	if (r)
-+		cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-index 6fd4238a8471a..88646b5792596 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-@@ -204,10 +204,14 @@ static int jpeg_v4_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 		r = amdgpu_ring_test_helper(ring);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-index 0fdc32b3ae91b..d6dbf855c1368 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-@@ -434,12 +434,16 @@ static int jpeg_v4_0_3_hw_init(struct amdgpu_ip_block *ip_block)
- 							VCN_JPEG_DB_CTRL__EN_MASK);
- 				r = amdgpu_ring_test_helper(ring);
- 				if (r)
--					return r;
-+					goto error;
- 			}
- 		}
- 	}
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-index 3f61d5367d946..2e15214525ff3 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-@@ -231,10 +231,14 @@ static int jpeg_v4_0_5_hw_init(struct amdgpu_ip_block *ip_block)
- 		ring = adev->jpeg.inst[i].ring_dec;
- 		r = amdgpu_ring_test_helper(ring);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-index e6e99f7e0a8a9..daead8213bab4 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
-@@ -172,9 +172,13 @@ static int jpeg_v5_0_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 	r = amdgpu_ring_test_helper(ring);
- 	if (r)
--		return r;
-+		goto error;
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-index db3fbe4eabb99..044deab6febde 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c
-@@ -306,11 +306,15 @@ static int jpeg_v5_0_1_hw_init(struct amdgpu_ip_block *ip_block)
- 						    VCN_JPEG_DB_CTRL__EN_MASK);
- 			r = amdgpu_ring_test_helper(ring);
- 			if (r)
--				return r;
-+				goto error;
- 		}
- 	}
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-index ea54a2b6eddb8..ad554733a6995 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-@@ -252,11 +252,15 @@ static int jpeg_v5_0_2_hw_init(struct amdgpu_ip_block *ip_block)
- 						    VCN_JPEG_DB_CTRL__EN_MASK);
- 			r = amdgpu_ring_test_helper(ring);
- 			if (r)
--				return r;
-+				goto error;
- 		}
- 	}
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-index c929d6f83bac6..9f8f3a3cbc041 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-@@ -156,9 +156,13 @@ static int jpeg_v5_3_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 	r = amdgpu_ring_test_helper(ring);
- 	if (r)
--		return r;
-+		goto error;
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-index b7d451f439a76..603ee842fda75 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
-@@ -710,7 +710,9 @@ static int uvd_v3_1_hw_init(struct amdgpu_ip_block *ip_block)
- 	amdgpu_ring_commit(ring);
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	else
- 		drm_info(adev_to_drm(adev), "UVD initialized successfully.\n");
- 
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-index 8a9ba2276275c..174868aebd414 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-@@ -198,7 +198,9 @@ static int uvd_v4_2_hw_init(struct amdgpu_ip_block *ip_block)
- 	amdgpu_ring_commit(ring);
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	else
- 		drm_info(adev_to_drm(adev), "UVD initialized successfully.\n");
- 
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-index 454f109cbb2e2..90e8fbfb5a321 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-@@ -190,7 +190,9 @@ static int uvd_v5_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	amdgpu_ring_commit(ring);
- 
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	else
- 		drm_info(adev_to_drm(adev), "UVD initialized successfully.\n");
- 
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-index bbd0e05d39e51..b084c92609bc9 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-@@ -515,7 +515,9 @@ static int uvd_v6_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	}
- 
- done:
--	if (!r) {
-+	if (r) {
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	} else {
- 		if (uvd_v6_0_enc_support(adev))
- 			drm_info(adev_to_drm(adev), "UVD and UVD ENC initialized successfully.\n");
- 		else
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-index 46222fc30be65..48eac56f758e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-@@ -583,7 +583,9 @@ static int uvd_v7_0_hw_init(struct amdgpu_ip_block *ip_block)
- 		}
- 	}
- done:
--	if (!r)
-+	if (r)
-+		cancel_delayed_work_sync(&adev->uvd.idle_work);
-+	else
- 		drm_info(adev_to_drm(adev), "UVD and UVD ENC initialized successfully.\n");
- 
- 	return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-index 93253db5e2de4..cc9dec9c3621a 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
-@@ -651,12 +651,16 @@ static int vce_v1_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	for (i = 0; i < adev->vce.num_rings; i++) {
- 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	dev_info(adev->dev, "VCE initialized successfully.\n");
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->vce.idle_work);
-+	return r;
- }
- 
- static int vce_v1_0_hw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-index 3a6fc8604108c..f8c65fb4ee56a 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-@@ -483,12 +483,16 @@ static int vce_v2_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	for (i = 0; i < adev->vce.num_rings; i++) {
- 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	drm_info(adev_to_drm(adev), "VCE initialized successfully.\n");
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->vce.idle_work);
-+	return r;
- }
- 
- static int vce_v2_0_hw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-index 4dbbeaf97ad19..e5b7f64b94baf 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-@@ -482,12 +482,16 @@ static int vce_v3_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	for (i = 0; i < adev->vce.num_rings; i++) {
- 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	drm_info(adev_to_drm(adev), "VCE initialized successfully.\n");
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->vce.idle_work);
-+	return r;
- }
- 
- static int vce_v3_0_hw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-index ee445d8abe474..4e1fbc7b50f53 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-@@ -533,12 +533,16 @@ static int vce_v4_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	for (i = 0; i < adev->vce.num_rings; i++) {
- 		r = amdgpu_ring_test_helper(&adev->vce.ring[i]);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	drm_info(adev_to_drm(adev), "VCE initialized successfully.\n");
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->vce.idle_work);
-+	return r;
- }
- 
- static int vce_v4_0_hw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index e9d790914761c..70ad27daeb511 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -252,18 +252,25 @@ static int vcn_v1_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 	r = amdgpu_ring_test_helper(ring);
- 	if (r)
--		return r;
-+		goto error_vcn;
- 
- 	for (i = 0; i < adev->vcn.inst[0].num_enc_rings; ++i) {
- 		ring = &adev->vcn.inst->ring_enc[i];
- 		r = amdgpu_ring_test_helper(ring);
- 		if (r)
--			return r;
-+			goto error_vcn;
- 	}
- 
- 	ring = adev->jpeg.inst->ring_dec;
- 	r = amdgpu_ring_test_helper(ring);
-+	if (r)
-+		goto error_both;
-+	return 0;
- 
-+error_both:
-+	cancel_delayed_work_sync(&adev->jpeg.idle_work);
-+error_vcn:
-+	cancel_delayed_work_sync(&adev->vcn.inst[0].idle_work);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index 0442bfcfd384d..a8bead3124ccf 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -293,7 +293,7 @@ static int vcn_v2_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 	r = amdgpu_ring_test_helper(ring);
- 	if (r)
--		return r;
-+		goto error;
- 
- 	//Disable vcn decode for sriov
- 	if (amdgpu_sriov_vf(adev))
-@@ -303,10 +303,14 @@ static int vcn_v2_0_hw_init(struct amdgpu_ip_block *ip_block)
- 		ring = &adev->vcn.inst->ring_enc[i];
- 		r = amdgpu_ring_test_helper(ring);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	return 0;
-+
-+error:
-+	cancel_delayed_work_sync(&adev->vcn.inst->idle_work);
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 0d8a3cea63ee2..2592927d2fd4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -480,18 +480,26 @@ static int vcn_v2_5_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 			r = amdgpu_ring_test_helper(ring);
- 			if (r)
--				return r;
-+				goto error;
- 
- 			for (i = 0; i < adev->vcn.inst[j].num_enc_rings; ++i) {
- 				ring = &adev->vcn.inst[j].ring_enc[i];
- 				r = amdgpu_ring_test_helper(ring);
- 				if (r)
--					return r;
-+					goto error;
- 			}
- 		}
- 	}
- 
- 	return r;
-+
-+error:
-+	for (i = 0; i <= j; i++) {
-+		if (adev->vcn.harvest_config & (1 << i))
-+			continue;
-+		cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-+	}
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 00d8f35846f22..d4a3d5da3f769 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -416,18 +416,26 @@ static int vcn_v3_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 			r = amdgpu_ring_test_helper(ring);
- 			if (r)
--				return r;
-+				goto error;
- 
- 			for (j = 0; j < adev->vcn.inst[i].num_enc_rings; ++j) {
- 				ring = &adev->vcn.inst[i].ring_enc[j];
- 				r = amdgpu_ring_test_helper(ring);
- 				if (r)
--					return r;
-+					goto error;
- 			}
- 		}
- 	}
- 
- 	return 0;
-+
-+error:
-+	while (i >= 0) {
-+		if (!(adev->vcn.harvest_config & (1 << i)))
-+			cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-+		i--;
-+	}
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index c2ddf3cb368fd..f2e89ba9fe41f 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -348,11 +348,19 @@ static int vcn_v4_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 			r = amdgpu_ring_test_helper(ring);
- 			if (r)
--				return r;
-+				goto error;
- 		}
- 	}
- 
- 	return 0;
-+
-+error:
-+	while (i >= 0) {
-+		if (!(adev->vcn.harvest_config & (1 << i)))
-+			cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-+		i--;
-+	}
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 62e2e04314dca..44a5d57c07a38 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -394,11 +394,19 @@ static int vcn_v4_0_3_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 			r = amdgpu_ring_test_helper(ring);
- 			if (r)
--				return r;
-+				goto error;
- 		}
- 	}
- 
- 	return r;
-+
-+error:
-+	while (i >= 0) {
-+		if (!(adev->vcn.harvest_config & (1 << i)))
-+			cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-+		i--;
-+	}
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index c8879a6e5297d..f3a57cb8b6ae5 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -302,10 +302,18 @@ static int vcn_v4_0_5_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 		r = amdgpu_ring_test_helper(ring);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	return 0;
-+
-+error:
-+	while (i >= 0) {
-+		if (!(adev->vcn.harvest_config & (1 << i)))
-+			cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-+		i--;
-+	}
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-index 886e2c2074a9e..b2936da0786c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-@@ -266,10 +266,18 @@ static int vcn_v5_0_0_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 		r = amdgpu_ring_test_helper(ring);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	return 0;
-+
-+error:
-+	while (i >= 0) {
-+		if (!(adev->vcn.harvest_config & (1 << i)))
-+			cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-+		i--;
-+	}
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-index 011afc0fdc879..5abd0da3dd921 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
-@@ -341,11 +341,19 @@ static int vcn_v5_0_1_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 			r = amdgpu_ring_test_helper(ring);
- 			if (r)
--				return r;
-+				goto error;
- 		}
- 	}
- 
- 	return 0;
-+
-+error:
-+	while (i >= 0) {
-+		if (!(adev->vcn.harvest_config & (1 << i)))
-+			cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-+		i--;
-+	}
-+	return r;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-index 9f9b3a47f63ba..70706703b02c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-@@ -223,10 +223,18 @@ static int vcn_v5_0_2_hw_init(struct amdgpu_ip_block *ip_block)
- 
- 		r = amdgpu_ring_test_helper(ring);
- 		if (r)
--			return r;
-+			goto error;
- 	}
- 
- 	return 0;
-+
-+error:
-+	while (i >= 0) {
-+		if (!(adev->vcn.harvest_config & (1 << i)))
-+			cancel_delayed_work_sync(&adev->vcn.inst[i].idle_work);
-+		i--;
-+	}
-+	return r;
- }
- 
- /**
--- 
-2.53.0
+  + racy access to func->old_func, func->new_func, obj->patched
+    by using READ_ONCE() and WRITE_ONCE().
 
+  + UAF access to ops->node by RCU.
+
+There are few more details in v1 but they do not look that important
+for what I want to say below.
+
+[v1] https://lore.kernel.org/r/20261012140546.154730-1-parri.andrea@gmail.com
+
+> Protect the lists and obj->patched with a raw spinlock, klp_ops_lock.
+> Writers take it only around the list updates, as the ftrace calls in
+> klp_patch_func() and klp_unpatch_func() can sleep, and free the ops
+> after dropping it.  klp_check_stack() only trylocks it, and checks the
+> task again later if that fails.
+> 
+> __klp_unpatch_object() now clears obj->patched before it unpatches the
+> functions, so that the stack check skips an object whose functions are
+> being removed.
+
+So, v2 tries to solve the problems by:
+
+  + taking klp_ops_lock around manipulating: ops->node, func->stack_node,
+      ops->func_stack, obj->patched
+
+  + manipulating obj->patched after obj->funcs are ready
+    manipulating obj->patched before removing obj->funcs
+
+  + taking klp_ops_lock around klp_for_each_object() in
+     klp_check_stack()
+
+You see how the two versions are different. In fact, they have
+only the obj->patched manipulation in common.
+
+IMHO, we need to better document the solution so that
+we understand it later. Or maybe even make it easier,
+see below.
+
+
+> --- a/kernel/livepatch/patch.c
+> +++ b/kernel/livepatch/patch.c
+> @@ -22,11 +22,21 @@
+>  
+>  static LIST_HEAD(klp_ops);
+>  
+> +/*
+> + * klp_check_stack() walks klp_ops and the func_stacks from the scheduler,
+> + * without klp_mutex, while a patched module can be loaded or unloaded.
+> + * Changes to these lists and to obj->patched are made under this lock too.
+> + */
+> +DEFINE_RAW_SPINLOCK(klp_ops_lock);
+> +
+>  struct klp_ops *klp_find_ops(void *old_func)
+>  {
+>  	struct klp_ops *ops;
+>  	struct klp_func *func;
+>  
+> +	lockdep_assert(lockdep_is_held(&klp_mutex) ||
+> +		       lockdep_is_held(&klp_ops_lock));
+> +
+>  	list_for_each_entry(ops, &klp_ops, node) {
+>  		func = list_first_entry(&ops->func_stack, struct klp_func,
+>  					stack_node);
+> @@ -147,11 +157,15 @@ static void klp_unpatch_func(struct klp_func *func)
+>  		WARN_ON(unregister_ftrace_function(&ops->fops));
+>  		WARN_ON(ftrace_set_filter_ip(&ops->fops, ftrace_loc, 1, 0));
+>  
+> +		raw_spin_lock(&klp_ops_lock);
+>  		list_del_rcu(&func->stack_node);
+>  		list_del(&ops->node);
+> +		raw_spin_unlock(&klp_ops_lock);
+>  		kfree(ops);
+
+This is called for the very last entry when the 'ops' is freed.
+Is the lock really needed here?
+
+IMHO, klp_check_stack() should never see this entry because
+obj->patched is disabled before, see below.
+
+
+>  	} else {
+> +		raw_spin_lock(&klp_ops_lock);
+>  		list_del_rcu(&func->stack_node);
+> +		raw_spin_unlock(&klp_ops_lock);
+
+This is called when ops->func_stack has more entries and we
+just remove remove one.
+
+What exactly the lock synchronizes here, please?
+
+IMHO, it is related to:
+
+static int klp_check_stack_func(struct klp_func *func, unsigned long *entries,
+				unsigned int nr_entries)
+{
+[...]
+		/*
+		 * Check for the to-be-patched function
+		 * (the previous func).
+		 */
+		ops = klp_find_ops(func->old_func);
+
+		if (list_is_singular(&ops->func_stack)) {
+			/* original function */
+			func_addr = (unsigned long)func->old_func;
+			func_size = func->old_size;
+		} else {
+			/* previously patched function */
+			struct klp_func *prev;
+
+			prev = list_next_entry(func, stack_node);
+			func_addr = (unsigned long)prev->new_func;
+			func_size = prev->new_size;
+		}
+	}
+
+Now, when I look what v1 did here:
+
+  1. It used RCU to access ops and it expected that it might be NULL.
+     Also it replaced list_next_entry() with list_next_or_null_rcu().
+
+     IMHO, this is only relevant for the last entry in ops
+     which klp_check_stack() should never see as explained above.
+
+
+  2. It used READ_ONCE(func->old_func).
+
+     IMHO, the spin lock would be needed here only when
+     it synchronizes the modification of func->old_func here.
+
+     I think that we do not need the spin lock here because
+     func->old_func is cleared in klp_free_object_loaded()
+     which is called after obj->patched is cleared under
+     the spin lock.
+
+>  	}
+
+Summary: IMHO, we do not need to take the spin lock here in
+	klp_unpatch_func(). It should be enough to take
+	it around manipulating obj->patched.
+
+>  
+>  	func->patched = false;
+> @@ -191,11 +205,13 @@ static int klp_patch_func(struct klp_func *func)
+>  				  FTRACE_OPS_FL_IPMODIFY |
+>  				  FTRACE_OPS_FL_PERMANENT;
+>  
+> -		list_add(&ops->node, &klp_ops);
+> -
+>  		INIT_LIST_HEAD(&ops->func_stack);
+>  		list_add_rcu(&func->stack_node, &ops->func_stack);
+>  
+> +		raw_spin_lock(&klp_ops_lock);
+> +		list_add(&ops->node, &klp_ops);
+> +		raw_spin_unlock(&klp_ops_lock);
+
+First, this is not consistent with the "unpatch" code path
+where we take the lock around both:
+
+		list_del_rcu(&func->stack_node);
+		list_del(&ops->node);
+
+But again, this is the code path for the first entry in the freshly
+allocated "ops". Nobody could see it until obj->patched is enabled
+in klp_patch_object().
+
+   => the lock should not be needed here.
+
+> +
+>  		ret = ftrace_set_filter_ip(&ops->fops, ftrace_loc, 0, 0);
+>  		if (ret) {
+>  			pr_err("failed to set ftrace filter for function '%s' (%d)\n",
+> @@ -213,7 +229,9 @@ static int klp_patch_func(struct klp_func *func)
+>  
+>  
+>  	} else {
+> +		raw_spin_lock(&klp_ops_lock);
+>  		list_add_rcu(&func->stack_node, &ops->func_stack);
+> +		raw_spin_unlock(&klp_ops_lock);
+
+This is the code patch for adding one more entry on the stack.
+I am not sure why we would need the lock here.
+
+It might be needed only for the race in func->old_addr. But I think
+list_add_rcu() already includes the barrier.
+
+>  	}
+>  
+>  	func->patched = true;
+> @@ -221,8 +239,10 @@ static int klp_patch_func(struct klp_func *func)
+>  	return 0;
+>  
+>  err:
+> +	raw_spin_lock(&klp_ops_lock);
+>  	list_del_rcu(&func->stack_node);
+>  	list_del(&ops->node);
+> +	raw_spin_unlock(&klp_ops_lock);
+
+Like above.
+
+>  	kfree(ops);
+>  	return ret;
+>  }
+> @@ -231,6 +251,13 @@ static void __klp_unpatch_object(struct klp_object *obj, bool nops_only)
+>  {
+>  	struct klp_func *func;
+>  
+> +	/* Make klp_check_stack() skip the object before its funcs go away. */
+> +	if (obj->dynamic || !nops_only) {
+> +		raw_spin_lock(&klp_ops_lock);
+> +		obj->patched = false;
+> +		raw_spin_unlock(&klp_ops_lock);
+> +	}
+
+IMHO, this is the only location where we need to take the
+spinlock in the klp_unpatch_object_loaded() code path.
+
+> +
+>  	klp_for_each_func(obj, func) {
+>  		if (nops_only && !func->nop)
+>  			continue;
+> @@ -238,9 +265,6 @@ static void __klp_unpatch_object(struct klp_object *obj, bool nops_only)
+>  		if (func->patched)
+>  			klp_unpatch_func(func);
+>  	}
+> -
+> -	if (obj->dynamic || !nops_only)
+> -		obj->patched = false;
+>  }
+>  
+>  
+> @@ -264,7 +288,10 @@ int klp_patch_object(struct klp_object *obj)
+>  			return ret;
+>  		}
+>  	}
+> +
+
+This would deserve similar comment like klp_unpatch_object(), e.g.:
+
+	/*
+	 * Allow klp_check_stack() to check the object only after funcs
+	 * are initialized.
+	 */
+
+> +	raw_spin_lock(&klp_ops_lock);
+>  	obj->patched = true;
+> +	raw_spin_unlock(&klp_ops_lock);
+
+Also this looks important to avoid races. But maybe not because
+the main problem was when unloading the livepatched module.
+
+>  	return 0;
+>  }
+> --- a/kernel/livepatch/transition.c
+> +++ b/kernel/livepatch/transition.c
+> @@ -266,14 +269,20 @@ static int klp_check_stack(struct task_struct *task, const char **oldname)
+>  		return -EINVAL;
+>  	nr_entries = ret;
+>  
+> -	klp_for_each_object(klp_transition_patch, obj) {
+> -		if (!obj->patched)
+> -			continue;
+> -		klp_for_each_func(obj, func) {
+> -			ret = klp_check_stack_func(func, entries, nr_entries);
+> -			if (ret) {
+> -				*oldname = func->old_name;
+> -				return -EADDRINUSE;
+> +	/*
+> +	 * The lock is taken by module load/unload and by stack checks on other
+> +	 * CPUs.  Do not spin on it from the scheduler, retry the task later.
+> +	 */
+> +	scoped_cond_guard(raw_spinlock_try, return -EAGAIN, &klp_ops_lock) {
+> +		klp_for_each_object(klp_transition_patch, obj) {
+> +			if (!obj->patched)
+> +				continue;
+> +			klp_for_each_func(obj, func) {
+> +				ret = klp_check_stack_func(func, entries, nr_entries);
+> +				if (ret) {
+> +					*oldname = func->old_name;
+> +					return -EADDRINUSE;
+> +				}
+>  			}
+>  		}
+>  	}
+
+And of course, this is important.
+
+> @@ -300,7 +309,7 @@ static int klp_check_and_switch_task(struct task_struct *task, void *arg)
+>  /*
+>   * Try to safely switch a task to the target patch state.  If it's currently
+>   * running, or it's sleeping on a to-be-patched or to-be-unpatched function, or
+> - * if the stack is unreliable, return false.
+> + * if the stack is unreliable, or if klp_ops_lock is busy, return false.
+>   */
+>  static bool klp_try_switch_task(struct task_struct *task)
+>  {
+> @@ -344,6 +353,10 @@ static bool klp_try_switch_task(struct task_struct *task)
+>  		pr_debug("%s: %s:%d is sleeping on function %s\n",
+>  			 __func__, task->comm, task->pid, old_name);
+>  		break;
+> +	case -EAGAIN:	/* klp_check_and_switch_task() */
+> +		pr_debug("%s: %s:%d could not be checked, klp_ops_lock is busy\n",
+> +			 __func__, task->comm, task->pid);
+> +		break;
+
+And this.
+
+>  
+>  	default:
+>  		pr_debug("%s: Unknown error code (%d) when trying to switch %s:%d\n",
+> 
+> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+
+I am sorry once again for the late reply. I hope that you still might
+be able to handle the feedback and eventually test the simplified patch.
+
+Best Regards,
+Petr
