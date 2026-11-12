@@ -1,78 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493515;
-	b=ZIu15VHXaB7z/pY7qXQXniGyRNNI3S9GnHe16EHSkpnfbkqN6zEL1Ag5SRFrGYQyM52O
-	 3KheQx/RzQTUxI3PMCRMM1ZQRAyX5YqSqbSHe9Ait85V8PyrkCFYZUNkge/IuicA/PlD7
-	 v41EYzOzYJvTXH6POvsyYou4CXap13FhMj0z+YMH824f4IjylBZpz4yJBLQpoZ33m8+ME
-	 qS+PRf6/eQ57ir3QQgSZDuvR1ziYJvAJwwHmjWThmSQu+dFMt+7h+MZQSYN7O8A2el0oe
-	 +1xr3RTD11Co+vUTFkfxbvmXebtuB2t9ShF4bD7inMSm3YU8OFkAbtnivibyyc+80eQ==
+	t=1794493591;
+	b=38YegcOgcYEJSYLOL9sIiBdn86EH/2td6UtSTaSUOxyuheb6DlFd1AE4GfcXdxeBDuLN
+	 a8d5ELBLXABA7yVc/vaqNGPlHf2Oq8dYZh1mg4PIZ0i+bLr2NrJZSeABrsHNHsPGD7TXe
+	 9CZmqtsKT06Q6GE0o8QjeWbtloi9WdHQ/DOP7GLXA/xS6ZkvF7S7W/mRACZk6o86OSSrI
+	 DiNonv1QfQ8R3GyXvH0DIpS0odCoA6AYdyVDOHCQhAofnhCE3c40gcp2G7b6JRav+1XdL
+	 vIVwuN//yHZ2N6vQiMWOSY/6F9em/m2BzJrMdPjIRrB3UnpuY2zNQXn/UFPyUGJLF3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493515;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=VaFyFdbYf37IpbzQa49x1rzy8WEarNi6kqPV3fC1o+k=;
-	b=tnFl9An8Bjo8W1+hI/+Nbek8vDY5wi/jjh55wkvHkga4AistZckhc9QbcceL8qROSUJW
-	 YgbzfMRurryqlxT+yhEPu+lqgc1oOxtNk8ySmR8HOVmnSTckEOLDQ188y6gcGcHZ3lN9b
-	 2IgiadT7L4lvWcBYvuAcJBLNiPqEMon9JA90do10+5Fr3mqg9yB3xZaNdeTxAwawQK7Vw
-	 pB0IficUlPeOoF8jxuL1eUOJ2EUSleAiImKrI8idsI2LN1tHhIqYeAt42PmXrBg9dp5nY
-	 QQ+GFPJ8l1hqu96WZI9rZKnXztZhB3z38KapVv9twOXa1JNlNDVXimGieYDNOPq6kDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493591;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=jHr4RUKl7RY4PSbdL2GT5NxxihQwmpjqwvgP01/M+Ac=;
+	b=GTtj1gmhi86OeBmqwPTlwP+8ZByKwxvxSued19YM9D9yIlHENpmnNS6UfI/zxe2NeXta
+	 t1HiVO84jkbLMaTou0zd5loOWT1uKLfJEAjoonqUTzk1nvW+sRKibvJ9PnvQG+rNgYwfD
+	 vl1KUZt6a+SV3PRTjfRZ/E/IMngDzvMZuIa6hvuTqbLcVyS5rjaVBJui90DjtFpBBPKRy
+	 rqYfJA8CZ44UckHk4nJlEZIDycauA7JIpQqugKY27XgPeIdl0RdHnfu05bI6i9DhLpKXV
+	 NrF4wmd5Ez7ga79tF4aUI4zGdFvVdjajK0XuYQ/DWSNclMzAdlN/UDLSvttXmpCHVRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=UPVCyoPF;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kYW8zoDp;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tjn0V528;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kYW8zoDp;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tjn0V528;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487C7606A336;
-	Thu, 12 Nov 2026 14:25:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 487C7606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04704606B2CD;
+	Thu, 12 Nov 2026 14:26:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04704606B2CD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=UPVCyoPF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=VaFyFdbYf37IpbzQa49x1rzy8WEarNi6kqPV3fC1o+k=; b=UPVCyoPFpPOx1HTruMDeJPJUAY
-	3GdeJrv2jkYlO222oTZPECS/N9JbxkFPHVMXl/JHgQU/3kYvOQM2ak0aPBju3N/qUXqzA5Jw36Qw/
-	rjs81UNilNMSCSH9jpcDrTn7Jc1j5co3Xn6qhlzZ4HlG3vvzHtvZYuufgKcOGhykanoHwODBfVczY
-	Znh92751M4i5i3uov7axz2/sCFt40NbS43E/w8fJy6U6VpCXEXzBFMD74+o+kwbZorXrgbmifzXuR
-	C9EaWjAz7wqcIaRVEvlyYX4l2DodAP6F0827LEs0JRnlA/yinm2+JAmFlzYvyK9Uxb3oNpnaKPANe
-	VQajPi8A==;
-Received: from [151.115.150.205] (port=59302 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xRVjm-00000005AE3-0HJX;
-	Thu, 12 Nov 2026 15:25:12 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: David Hildenbrand <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kYW8zoDp;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tjn0V528;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kYW8zoDp;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tjn0V528
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 352F021DEF;
+	Thu, 12 Nov 2026 14:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794493589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jHr4RUKl7RY4PSbdL2GT5NxxihQwmpjqwvgP01/M+Ac=;
+	b=kYW8zoDpxMShaXbNnc9eapJegGiIybzvqwjxCqnm+R2TdEAh36ASZwVv4xO/eJIdXj+9cM
+	9D4IrfT0kvDW90Cves9fCI1ZQjOgverbkC1h8JjL9l8PFxNUq73b7D91YAkzOkysn1ZGw2
+	CWXeWI690YBd0qRlSnh9jtU+06mmwdI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794493589;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jHr4RUKl7RY4PSbdL2GT5NxxihQwmpjqwvgP01/M+Ac=;
+	b=tjn0V528px+d3pLuk5LH3w+4rInyUgou34GTzbKL3K6IA6KH4ammsRhKZEOQcJQ/txfapm
+	aavvgsfYqamIknCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794493589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jHr4RUKl7RY4PSbdL2GT5NxxihQwmpjqwvgP01/M+Ac=;
+	b=kYW8zoDpxMShaXbNnc9eapJegGiIybzvqwjxCqnm+R2TdEAh36ASZwVv4xO/eJIdXj+9cM
+	9D4IrfT0kvDW90Cves9fCI1ZQjOgverbkC1h8JjL9l8PFxNUq73b7D91YAkzOkysn1ZGw2
+	CWXeWI690YBd0qRlSnh9jtU+06mmwdI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794493589;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jHr4RUKl7RY4PSbdL2GT5NxxihQwmpjqwvgP01/M+Ac=;
+	b=tjn0V528px+d3pLuk5LH3w+4rInyUgou34GTzbKL3K6IA6KH4ammsRhKZEOQcJQ/txfapm
+	aavvgsfYqamIknCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6A81013432;
+	Thu, 12 Nov 2026 14:26:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id OIFuDpHM9WrmPwAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 12 Nov 2026 14:26:25 +0000
+Date: Thu, 12 Nov 2026 14:26:23 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Steve Sistare <steven.sistare@oracle.com>, 
+	John Hubbard <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+	Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org, 
+	iommu@lists.linux.dev, netdev@vger.kernel.org, Chris Mason <mason@kernel.org>, 
 	stable@vger.kernel.org
-Subject: [PATCH] mm/khugepaged: reject shmem collapse ranges beyond i_size
-Date: Thu, 12 Nov 2026 14:23:35 +0000
-Message-ID: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+Subject: Re: [PATCH v3 1/9] mm: limit pagecache folio refcount when mapping
+ pages
+Message-ID: <avXMKH__gwi6BwVy@pedro-suse.tail5790ac.ts.net>
+References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+ <20261110-refcount_overflow_stable-v3-1-318625d63a98@kernel.org>
+ <avW0HGjF6wuqn12T@pedro-suse.tail5790ac.ts.net>
+ <86206f64-fefa-4a13-95bc-eddf756eecc8@kernel.org>
+ <avXGtysfRk3uQpNu@pedro-suse.tail5790ac.ts.net>
+ <2f9b90fd-fe50-4afa-ab59-0c4a00e5e276@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,65 +140,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2f9b90fd-fe50-4afa-ab59-0c4a00e5e276@kernel.org>
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,suse.cz,linux-foundation.org,nvidia.com,linux.alibaba.com,linux.dev,arm.com,intel.com,gmail.com,sk.com,gourry.net,redhat.com,cmpxchg.org,fb.com,surriel.com,szeredi.hu,zeniv.linux.org.uk,arndb.de,ziepe.ca,8bytes.org,oracle.com,toxicpanda.com,davemloft.net,kvack.org,vger.kernel.org,lists.linux.dev];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[63];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -11.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-MADV_COLLAPSE lets collapse_file() treat absent shmem pages as holes
-filled with zeros. It does not check i_size, which allows one present
-page to become a huge mapping that covers the whole collapse range,
-including pages beyond EOF. This makes those pages writable. A later
-file extension can expose their contents after F_SEAL_WRITE.
+On Thu, Nov 12, 2026 at 03:16:00PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/12/26 15:06, Pedro Falcato wrote:
+> > On Thu, Nov 12, 2026 at 02:16:33PM +0100, David Hildenbrand (Arm) wrote:
+> >>> Mostly LGTM, with some comments:
+> >>>
+> >>> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> >>
+> >> Thanks for the review, Pedro!
+> >>
+> >>>
+> >>>
+> >>> I see you use this pattern often. Would it make sense to have a
+> >>> bool folio_get_unless_overflow()?
+> >>
+> >> I commented somewhere (in v2 I think) that I played with using
+> >> folio_get_checked() from #2, but didn't quite like it so I discarded it as
+> >>
+> >> (a) it cannot be used everywhere here, as I'd need more functions to add
+> >> multiple references. next_uptodate_folio() also could use it as I would need yet
+> >> another temporary helper for a try_get().
+> >>
+> >> (b) these changes here are going to get reverted fairly soon once I change the
+> >> way how mappings are refcounted (which is, unfortunately, not suitable for
+> >> stable, otherwise I wouldn't be throwing in this temporary change in the first
+> >> place)
+> >>
+> >> So everything that is expected to stay in later patches uses the proper helper.
+> > 
+> > Alright.
+> > 
+> >>
+> >> [...]
+> >>
+> >>>
+> >>> A comment as to what's going on here with VM_MIXEDMAP would be useful. I guess
+> >>> the idea is that faulting on a mixedmap later will not necessarily hand you the
+> >>> exact same page fault result?
+> >>
+> >> I can throw in a comment, yes.
+> >>
+> >> [...]
+> >>
+> >>>
+> >>> In case this function ever returns over limit, we probably want to log this
+> >>> in the kernel log. If this function gets the folio you could even print
+> >>> the problematic file offset/inode/filesystem/etc. Ratelimited of course.
+> >>
+> >> You mean, if this function returns "true", right? Is printing always fine?
+> >> (e.g., irqs disabled?)
+> > 
+> > Yes. As far as I know, it's always fine, even under NMI. But definitely fine
+> > with IRQs disabled.
+> > 
+> >>
+> >>>
+> >>>
+> >>> I'm fairly sure this will break the build for a number of non-GPL drivers
+> >>> when calling folio_get() with CONFIG_DEBUG_VM=y.
+> >>
+> >> You mean, breaking OOT drivers, right? I can switch to EXPORT_SYMBOL if that's a
+> >> concern.
+> > 
+> > I had the impression we had some stuff in-tree that isn't marked as GPL. But a quick
+> > grep shows that everything is either GPL or dual-licensed.
+> > 
+> > In any case, yes, this will quite possibly break debug builds for people OOT.
+> > I think folio_get() might be a bit too ubiquitous to do this to.
+> 
+> Thinking again, folio_get() should not be affected, it rightfully only checks
+> for a refcount underflow (when we exceed the limit + headroom). So only
+> try_get_page() is affected, which OOT very likely doesn't use.
 
-Hold inode i_rwsem in read mode while collapsing shmem so i_size
-cannot change. Reject a collapse if its page range extends past
-i_size rounded up to PAGE_SIZE. Keep i_size_read() outside the
-page-cache XArray lock because its 32-bit SMP reader is not IRQ
-safe.
+Aha, yes, you're right. I mixed up your folio_get() change. Would it make sense
+to VM_WARN_ON() on this as well, or does the <= 0 check cover us already?
+> 
+> -- 
+> Cheers,
+> 
+> David
 
-Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- mm/khugepaged.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 4bbe319..e20416a 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2251,6 +2251,13 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	 */
- 	VM_WARN_ON_ONCE(!is_shmem && !mapping_pmd_folio_support(mapping));
- 	VM_WARN_ON_ONCE(start & (HPAGE_PMD_NR - 1));
-+	if (is_shmem)
-+		inode_lock_shared(mapping->host);
-+	if (is_shmem &&
-+	    end > DIV_ROUND_UP(i_size_read(mapping->host), PAGE_SIZE)) {
-+		result = SCAN_TRUNCATED;
-+		goto out;
-+	}
- 
- 	result = alloc_charge_folio(&new_folio, mm, cc, HPAGE_PMD_ORDER);
- 	if (result != SCAN_SUCCEED)
-@@ -2682,6 +2689,8 @@ rollback:
- out_put:
- 	folio_put(new_folio);
- out:
-+	if (is_shmem)
-+		inode_unlock_shared(mapping->host);
- 	VM_BUG_ON(!list_empty(&pagelist));
- 	trace_mm_khugepaged_collapse_file(mm, new_pfn, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
- 	return result;
 -- 
-2.47.3
-
+Pedro
