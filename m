@@ -1,123 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453536;
-	b=3al2MitDZY4OHKOd+0UYj48r0oGpt/22VRToOis8JVs1RwdJHMIfxGrLWU2dHE/B17dg
-	 MBPc+wGORyVno3ylgVA8fVc2h9T4US02bmBHKsvcd07zyePYMlHB1HggHWPkY6hkmrFX1
-	 A61OMdSFvWwmGdSMocxBWh7BB+Iupvlb5rSTqQQR7nnvZbGhDSYkDg0+EKv9o1Q80u434
-	 PcrBrupQTdSczHTjpOAEVK8v3G7uEMzyqS5shmQZYMtzoLJkDKeThZSma2WfOtANDpbMH
-	 /Uw5wTR7wxYX4CP8+rJO0/aFbbDO6Qb2LZrJUfVwGkwMQo7A9xHUYFnTAfAHq5c1rFQ==
+	t=1794453593;
+	b=kmTGJOXYT+N8qDIpbWGYqA9eLV+HERm5Xk9nh9+eX21mim5KyWw4UT3rXBqxHl/AXY1B
+	 2oC3CS1W8hKiCLlKuj5riEe4BBhad1cRhY1j+xdUMMX1HFkLFKVkVGTljnh4GQHqYS0tW
+	 kuRT4RoDhqAxJkdCvZNkeg1VNqhCdariCEOMQSebhGga2lAOH1G5G+iZ4HqqYFyEjbL2m
+	 t36ZJnJI0gn7fv2CKB2YoU1eLOPyhM6UdzeR6zrxeggnfTZ+mBon2HmawS7yJiDAf455T
+	 L3aFJGPIQYx4EGcDVptXvxZ1iITfQWlHVtgy0embpWaIkUOZoaCZVfnP8H6HF6yzgbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453536;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DxliMSnYix7Z3B5F+OR+QQC2rRyWpstwzDNKYsrKqeQ=;
-	b=KjLpGvbkFeA5dNW3jCBa2RJq3ukUN7iGG223YGz+8Im5nA/Fn6OhvgT/mD0PR3idEot+
-	 HLHj89QkDIE2vDGhCe5xjTcp4v2R24+E+8uovEJTlQDCPo9wMb3erESIGJdhJny1roRYy
-	 mrmPxi+PZ3wyiRr8XCOEP6cRBgKGRq4ZAbqp5YzPDsblp/Ij4cWI2cd8LKAnmsbyNwAs3
-	 iVORUHeNqPXNMKgaS3ufPcmO4IX6RdRbVRP+zaNv9z5yTubSy/gQvSym1dUTHlsWsXZrG
-	 RLR42yjIoD/e5vindeb+OUcQNUW42iq9r0RNnBDAZJorgvcSERWb3e4SfhZ2WRpobzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794453593;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=X1Xcm2Pd3cLKO0qmRlfLp4SKtK/TsLBKcTHeK4JMYaM=;
+	b=VVRAzQHgDwOSpyV7SGAq56fkxQ7cZ6v+TG6RmJN/bQ1ilJMaXpuNM4aqz9Z+NuqvXCY1
+	 4rdbH7IBjTjnkym2hTwbA2bgSCN1PEvQDlLBu5n89ILbDVXOGurSOWtvML94As8SBX0XQ
+	 xfr32/fDmhZcSM9e51Dpv7AeKMDe/eLacCHEE2V33nrRDq7xxoyMq2YkO/acpJKkrmLP/
+	 Mlq4okkvijvIgAM4/0p08iSl4HWQfuJN+cITjKtswasbzF7ExojOS1qXGM9eww8LJhU0p
+	 WXDB6EJQAGscV6b6IrKDFCWdes/lpxUlVQo0OL9PDAW6bwKxUSPGU1F82DzRny8XcJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=m5GNyJMh;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WXu2Vwq8;
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=LV1tmCxG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1831F606A324
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 03:18:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1831F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034F1606A885;
+	Thu, 12 Nov 2026 03:19:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=m5GNyJMh;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WXu2Vwq8
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 474C1EC01F5
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:18:55 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Wed, 11 Nov 2026 22:18:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1794453535; x=1794539935; bh=DxliMSnYix7Z3B5F+OR+Q
-	QC2rRyWpstwzDNKYsrKqeQ=; b=m5GNyJMhPgIM8yeNH5v/iVq+mZwbbUCFhrGtU
-	2h55snlKKrSG7IJYzUCaLnWbFpHMYaGBfMcHmvn9Q5ZHFm0kG9kbPw0o8xCcA+A8
-	pC5eOknZhIqMyxiNNRoyzIR3AreRxp+/I3xJgf6u+s6HBvXveAtpeC4emsny238V
-	fFVdVK1TXt5wJfReaPYNRS6UJ9bKrhI5Lxzl4CJV9Qu21phjfu5VgC5LM61cQJEY
-	Bmttzp5WvbhQhDnm1RaWJaI1atpQbYBz5IpS8KzE+3dMhyGoW73EeTtoPALIMhPh
-	8mbyHqNGkJjCVYtcUYDEz5s1/fLoxbNXLOo/wKaS1MIKcRMEA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794453535; x=1794539935; bh=DxliMSnYix7Z3B5F+OR+QQC2rRyWpstwzDN
-	KYsrKqeQ=; b=WXu2Vwq8ZzhZRNneZrwxHsXmjQzgy0X0F7FbgpnZzc031cTr5S/
-	NC9xebigYIZfqFS8Eb4Wjz5vLwCSP45uSCc4rNWccr5Q0MhC4g0fNOZRb1CcOWSX
-	jONhjch+VS/pYUNUxUETWjxWR8d+zIbd04mFYmJUhBO9FskKfBu9AFe1Y3VryjWZ
-	CPGmaeIrNJ6kt6EBYtgX0Q2fbuSCZjCJT2WT1uA246N9UxFwyHkqshSm0P1Ud80P
-	Wzm6wLBGOjDj+0fIJlfqHZD11von/HNqWk/NTH3NG7pw17kxhqO/wiup9VHIxnzi
-	7vWsA7ok/yXa6TKZJG0fXSMsMigp2pm+9hQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794453535; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:Mt6jyZSelrnqgH0q0zZWvWMIgZbevkMFSa8wSl5yegSbYF5
-	oi1Lg74egkMv1alzYAqfNatY2I1KTfEnVEDW66TJdbPXoiMsWKIMpIQE5O73KpWt
-	VR/NqIwWoMHeR9vVuqxAUvCbuRF8V45I8zNng0MZotM1XCCLze9FW4vakAK4I+wV
-	kQrjGz+9g8Yr2BiOPM8d8sBx54EJtxhRv3HQXYyUtTH/kasd7EYFftYDW9/KPHbo
-	xoQ5ScP8XipT+S4xvHPxgIJc84aJhof1e7CYYyans1pD2A1DBkLg0TSy8I6VFlCf
-	O5VsAPFlGE7peULyFsqywZclcEtIqzaKsF62d2w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:mBg91KtQ9BBe9REXzqGnhXIThVoS/89eW2C6JXOphV0=:wADtaVpL+lPYE1sB30apHbsnl4wJDhhYpBrF3zecc/4=;
-X-ME-Sender: <xms:HzD1alNPSyEaCZ9vVqDuAPxMmaTGCr7MGwOtD6gyh5q42jqdn-KzVQ>
-    <xme:HzD1aoYOewINih3hhrg2pWtskYrxUQXEWl-OT7L7n8AO8h7wY5mPD-8TF1quY8HyU
-    nInABpqcpcmXUYBQe1udM8FqF4Eb052jxD32hQFoXLFCPkagZTV2OSc>
-X-ME-Received: <xmr:HzD1ak-PAP5si52d9Snxx008YHxnZeqtJQmRxgWonW6fEkKCRBUs9cPH3ZNeqfhD>
-X-ME-Proxy-Cause: dmFkZTF1gV8HNpSkgXQ7XXCwAd1i43qIIL91rRT+fSkE1WTDEBeIcw4LaFVdFoP34cTivk
-    V8OgB0rNje/fgYYNvihmcPMbY1CNmAkzTg2oQqFoO3nZR6saPkYT8R3ar1q/yi9iyraLrV
-    hxGOTDHfGvcW5L1PBJEPCUY/RbEpD0LHUQrUwajlTiXElx6rUZ9IjOmoUkHST+RU8iBvUq
-    qFplITDw4zucgst2ggJUJOJpu0IWBC6ix0NshKkac5j4PR1pTCmol82UT/ztgB4eJXFKRY
-    dSDoN74Kr8g5ziPVg6tOyywPi41JTdsbhiCTY+IG7D6tGjkdL2NwWytVbzUnzxn2PGnBfV
-    k+KE1fYNCcOv6LvFEdPBytJkrWalSg5Ldn1I8rKmo/kAEvegq+wFhHBtL92UHpOSj5FaQb
-    f3AEhA7iqNjv68k2QWkpDuA4lF8PTl4wRhXhAcNhRscEzi6gGzuHx2haXovFbWk2Xlh51r
-    tOFnGLXMNr+WVrvktXe/eUYRG0kFe2QMclr2lkNQqE0alW9mX35NaJf7aKeYglPFskgDb9
-    q3tkSoS72jSo+DjtTj1WTa1EF4pdyv73R9+B6eZEaBnPtLsGIjEBl+yPm+50vvnXsj/Xib
-    fk5JNq1QeuM3BDnlrzK5F9Jd6lU2qMOxjXKYef1HqwIv+3x8/9Hs73cEtoIQ
-X-ME-Proxy: <xmx:HzD1apTlnb04gMh0Z2V_b8MTDLuB8xwaVXxMf55ov-ZxstALYZGxuA>
-    <xmx:HzD1aufwkwj8ny_Zzslxj2fjpIoDs37pbWfnNwHy6ISFDG9CjK-ncg>
-    <xmx:HzD1arQd1ijYq3aJVq07Q2WGEKm1odFvj3INElzrF4iZZoJ78uOK7Q>
-    <xmx:HzD1aqI16JdIambvgQnF9swmBKVoxdFl0LCAeFNmp7-21jMEulFRvg>
-    <xmx:HzD1arJmapLqAYWyZnlmjbpNVDk0qAk7b6LZHwYD9_2HROIID3QH7L-T>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 11 Nov 2026 22:18:54 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	mike.michalo@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: fix out-of-bounds read in expired-session LOCK check
-Date: Wed, 11 Nov 2026 21:18:50 -0600
-Message-ID: <20261112031850.712949-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=LV1tmCxG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4501F00A08;
+	Thu, 12 Nov 2026 03:19:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794453592;
+	bh=X1Xcm2Pd3cLKO0qmRlfLp4SKtK/TsLBKcTHeK4JMYaM=;
+	h=Date:To:From:Subject;
+	b=LV1tmCxGL/tgBhCTuoewxhZx/IrLKMe0PzCeAaQsmvlBOXc2bjkw+l7+0wcX2awdT
+	 TxmPfMR9SxiSmdTxoe3rrezqMkEWH9/q9SdyKxR/FsEhAwiPFMBLIqfqBjE34DuIS2
+	 e360o/MnMlOKxe//i+xFT/GI3Q5AjydGnzhSHQdo=
+Date: Wed, 11 Nov 2026 19:19:52 -0800
+To: mm-commits@vger.kernel.org,vivek.kasireddy@intel.com,
+	stable@vger.kernel.org,osalvador@suse.de,muchun.song@linux.dev,
+	kraxel@redhat.com,jgg@ziepe.ca,gourry@gourry.net,david@kernel.org,
+	airlied@redhat.com,ackerleytng@google.com,4ncienth@gmail.com,
+	lihongfu@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-hugetlb-charge-hugetlb-cgroup-and-memcg-in-alloc_hugetlb_folio_reserve.patch added to mm-new branch
+Message-Id: <20261112031952.7E4501F00A08@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,150 +52,170 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-smb2_session_expired_cmd_allowed() runs from smb2_check_user_session()
-before ksmbd_smb2_check_message() has validated the request. For a LOCK
-on an expired Kerberos session it scans the lock elements, using the
-unvalidated NextCommand field as the command length. A malformed request
-makes it read past the request buffer.
 
-  BUG: KASAN: slab-out-of-bounds in smb2_session_expired_cmd_allowed+0x260/0x2a0 [ksmbd]
-  Call Trace:
-   smb2_session_expired_cmd_allowed+0x260/0x2a0 [ksmbd]
-   smb2_check_user_session+0x4ff/0x680 [ksmbd]
-   handle_ksmbd_work+0x465/0x1cb0 [ksmbd]
+The patch titled
+     Subject: mm/hugetlb: charge hugetlb cgroup and memcg in alloc_hugetlb_folio_reserve()
+has been added to the -mm mm-new branch.  Its filename is
+     mm-hugetlb-charge-hugetlb-cgroup-and-memcg-in-alloc_hugetlb_folio_reserve.patch
 
-Decide whether a command may run on an expired session from the command
-alone. Move the unlock-only rule for LOCK into smb2_lock(), which runs
-after the request has been validated. An expired session can still
-release byte-range locks but cannot take new ones, as before.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-charge-hugetlb-cgroup-and-memcg-in-alloc_hugetlb_folio_reserve.patch
 
-A LOCK on an expired session now goes through the normal request checks
-before smb2_lock() sees it, as CLOSE and LOGOFF already do. A malformed
-one is rejected by those checks instead of returning
-STATUS_NETWORK_SESSION_EXPIRED.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets expire")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Hongfu Li <lihongfu@kylinos.cn>
+Subject: mm/hugetlb: charge hugetlb cgroup and memcg in alloc_hugetlb_folio_reserve()
+Date: Thu, 12 Nov 2026 10:15:33 +0800
+
+alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
+consumes a global reservation, but unlike the fault path it never charged
+the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
+memfd_pin_folios() through memfd_alloc_folio() were therefore silently
+bypassing the accounting: they are never charged to the hugetlb cgroup
+usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
+so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
+bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
+folios are also not accounted in memory.current and are not bounded by
+memory.max.
+
+Charge the folios to both the hugetlb cgroup and the memcg, just like
+hugetlb_alloc_folio() does.
+
+Test with a process that creates a hugetlb memfd and pins pages through
+UDMABUF_CREATE. The counters were read while the folio was still pinned:
+
+Before this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+0
+$ cat /sys/fs/cgroup/test/memory.current
+1351680
+$
+
+After this patch:
+$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
+$ ./memfd-alloc-folio 1 &
+$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
+2097152
+$ cat /sys/fs/cgroup/test/memory.current
+3313664
+$
+
+memfd_pin_folios() can now fail because the memcg charge fails. Two
+tasks allocating concurrently against the same memory.max may see a
+spurious failure. That failure frees the folio, returns the global
+reservation, and undoes the hugetlb cgroup charge, so no accounting is
+left behind.
+
+Link: https://lore.kernel.org/20261112-for-alloc_hugetlb-1109-v3-1-7a144510a373@kylinos.cn
+Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: Ackerley Tng <ackerleytng@google.com>
+Cc: Daehyeon Ko <4ncienth@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
 
-Notes:
-    The bug needs an authenticated client whose Kerberos session has
-    expired. The client then sends a malformed LOCK request.
+ mm/hugetlb.c |   33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
 
-    A reproducer is available on request.
-
-    This fix was developed with LLM assistance.
-
-    Tested under KASAN on a kernel whose fs/smb/server matches
-    ksmbd-for-next ffde0bdfc69a. No Kerberos KDC was available, so
-    session expiry was forced with a temporary hook in
-    smb2_session_kerberos_expired() that is not part of this patch.
-    Expiry of a real Kerberos ticket was not tested. With the hook, the
-    malformed LOCK reads out of bounds before the patch and not after
-    it. On an expired session an unlock still succeeds and releases the
-    lock, and a new lock still returns STATUS_NETWORK_SESSION_EXPIRED,
-    also inside a compound. READ is still refused, and CLOSE and LOGOFF
-    still succeed. smbtorture gives the same results as on the base.
-
- fs/smb/server/smb2pdu.c | 57 +++++++++++++++++------------------------
- 1 file changed, 23 insertions(+), 34 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 92843d2944e4..ec87118e50b1 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -1014,39 +1014,15 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
- 	return 0;
- }
- 
--static bool smb2_session_expired_cmd_allowed(struct ksmbd_work *work,
--					      unsigned int cmd)
-+/*
-+ * MS-SMB2 3.3.5.2.9 lets LOGOFF, CLOSE and LOCK proceed on an expired
-+ * session. CANCEL is allowed too. For LOCK, smb2_lock() allows only
-+ * unlocks, after the request has been validated.
-+ */
-+static bool smb2_session_expired_cmd_allowed(unsigned int cmd)
+--- a/mm/hugetlb.c~mm-hugetlb-charge-hugetlb-cgroup-and-memcg-in-alloc_hugetlb_folio_reserve
++++ a/mm/hugetlb.c
+@@ -2223,12 +2223,19 @@ struct folio *alloc_buddy_hugetlb_folio(
+ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
+ 		nodemask_t *nmask, gfp_t gfp_mask)
  {
--	struct smb2_lock_req *req;
--	unsigned int len, lock_count, i;
--
--	if (cmd == SMB2_CANCEL_HE || cmd == SMB2_CLOSE_HE ||
--	    cmd == SMB2_LOGOFF_HE)
--		return true;
--	if (cmd != SMB2_LOCK_HE)
--		return false;
--
--	req = ksmbd_req_buf_next(work);
--	if (req->hdr.NextCommand)
--		len = le32_to_cpu(req->hdr.NextCommand);
--	else {
--		len = get_rfc1002_len(work->request_buf);
--		if (len < work->next_smb2_rcv_hdr_off)
--			return false;
--		len -= work->next_smb2_rcv_hdr_off;
++	struct hugetlb_cgroup *h_cg = NULL;
++	size_t nr_pages = pages_per_huge_page(h);
+ 	struct folio *folio;
++	int idx = hstate_index(h);
++	int ret;
++
++	if (hugetlb_cgroup_charge_cgroup(idx, nr_pages, &h_cg))
++		return NULL;
+ 
+ 	spin_lock_irq(&hugetlb_lock);
+ 	if (!h->resv_huge_pages) {
+ 		spin_unlock_irq(&hugetlb_lock);
+-		return NULL;
++		goto err_uncharge_hugetlb_cgroup;
+ 	}
+ 
+ 	folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask, preferred_nid,
+@@ -2236,11 +2243,31 @@ struct folio *alloc_hugetlb_folio_reserv
+ 	if (folio) {
+ 		folio_set_hugetlb_restore_reserve(folio);
+ 		h->resv_huge_pages--;
 -	}
--
--	lock_count = le16_to_cpu(req->LockCount);
--	if (!lock_count || len < offsetof(struct smb2_lock_req, locks) ||
--	    lock_count > (len - offsetof(struct smb2_lock_req, locks)) /
--			 sizeof(struct smb2_lock_element))
--		return false;
--
--	for (i = 0; i < lock_count; i++) {
--		if (le32_to_cpu(req->locks[i].Flags) != SMB2_LOCKFLAG_UNLOCK)
--			return false;
--	}
--	return true;
-+	return cmd == SMB2_CANCEL_HE || cmd == SMB2_CLOSE_HE ||
-+	       cmd == SMB2_LOGOFF_HE || cmd == SMB2_LOCK_HE;
++		hugetlb_cgroup_commit_charge(idx, nr_pages, h_cg, folio);
+ 
++		spin_unlock_irq(&hugetlb_lock);
++
++		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
++						gfp_mask | __GFP_RETRY_MAYFAIL);
++		if (ret == -ENOMEM) {
++			folio_put(folio);
++			/*
++			 * Skip uncharging hugetlb_cgroup since the charges
++			 * were committed to the folio and freeing the folio
++			 * would have cleared those up.
++			 */
++			return NULL;
++		}
++
++		mod_hugetlb_memcg_state(folio, nr_pages);
++
++		return folio;
++	}
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
+-	return folio;
++err_uncharge_hugetlb_cgroup:
++	hugetlb_cgroup_uncharge_cgroup(idx, nr_pages, h_cg);
++	return NULL;
  }
  
- static bool smb2_session_kerberos_expired(struct ksmbd_session *sess)
-@@ -1124,7 +1100,7 @@ int smb2_check_user_session(struct ksmbd_work *work)
- 			pr_err("compound request on a non-valid session (state %d)\n",
- 					work->sess->state);
- 			if (smb2_session_kerberos_expired(work->sess) &&
--			    smb2_session_expired_cmd_allowed(work, cmd))
-+			    smb2_session_expired_cmd_allowed(cmd))
- 				return 1;
- 			return smb2_session_kerberos_expired(work->sess) ?
- 				-EKEYEXPIRED : -EINVAL;
-@@ -1136,7 +1112,7 @@ int smb2_check_user_session(struct ksmbd_work *work)
- 	work->sess = ksmbd_session_lookup_all_states(conn, sess_id);
- 	if (work->sess) {
- 		if (smb2_session_kerberos_expired(work->sess)) {
--			return smb2_session_expired_cmd_allowed(work, cmd) ?
-+			return smb2_session_expired_cmd_allowed(cmd) ?
- 				1 : -EKEYEXPIRED;
- 		}
- 		if (work->sess->state != SMB2_SESSION_VALID) {
-@@ -10881,6 +10857,19 @@ int smb2_lock(struct ksmbd_work *work)
- 	if (smb2_compound_has_failed(work, &rsp->hdr))
- 		return -EACCES;
- 
-+	/* An expired session may release byte-range locks, not take them. */
-+	if (work->sess && smb2_session_kerberos_expired(work->sess)) {
-+		lock_count = le16_to_cpu(req->LockCount);
-+		for (i = 0; i < lock_count; i++) {
-+			if (le32_to_cpu(req->locks[i].Flags) !=
-+			    SMB2_LOCKFLAG_UNLOCK) {
-+				rsp->hdr.Status = STATUS_NETWORK_SESSION_EXPIRED;
-+				err = -EKEYEXPIRED;
-+				goto out2;
-+			}
-+		}
-+	}
-+
- 	if (work->next_smb2_rcv_hdr_off &&
- 	    !has_file_id(req->VolatileFileId)) {
- 		ksmbd_debug(SMB, "Compound request set FID = %llu\n",
+ /* folio migration callback function */
+_
 
-base-commit: ffde0bdfc69a0f01a081d9c1a213e63d5719e625
--- 
-2.47.3
+Patches currently in -mm which might be from lihongfu@kylinos.cn are
+
+selftests-mm-mlock2-tests-fix-fclosenull-in-is_vmflag_set.patch
+mm-hugetlb-charge-hugetlb-cgroup-and-memcg-in-alloc_hugetlb_folio_reserve.patch
 
