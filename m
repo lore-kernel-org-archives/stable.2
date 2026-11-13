@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558001;
-	b=wRe8Tr1G+I6oMrRBPrtolUsbW/YkDYjWTuUedqAodklHl8zwvcWbxKzjBY/fxYew5GZJ
-	 kDYjODkhUHeONGTlWtIS/i5UEVzw+au3bZfTqvBaCumQm8k31j8m9FKx8yn+dhXM4OcQI
-	 d019PtamtqetSKNzGjuPovAfCybEvUEJnGasVBdUCb9Qjs3F9phmohvmlfTws0WZOdQOT
-	 KhovDTWr31C9PB/b4u7MPQp6heypMvNPOhRmJSQsc+bI+Oef0fTIeCDLFVjEObFDyqWfe
-	 pdeJ/NLtNB2uIvv+zglCpSIccgieDzpz26B2XqquifRhflsyut13BE+FlD6XrN5PBqA==
+	t=1794558004;
+	b=HKFevlpUEshGBNjAuv964mdqYQK5IoZS+QIZ3UUocIyIrd+f3j+Dft2YAqbfCqr5RsfK
+	 9fBcrFV3KgSS/piLXKquKEHuijnSLDe0MDlOnbbdpYxVVB1B2/+3DuOfxM4y9YUkzNrjq
+	 KO/LVZdqj0OfmTSmlQtftv8UgVNQ8KTAXe0pSOFcUZfY1NuIRrWyusymO16+fIQlYP49O
+	 h3Eed2MX9YcS/aNdbtFHpQco52um+4ISYcVyRcMNOVZvYm1Vwx+ziQ+TnakNkHKTcpBdu
+	 MAK4LKyMnp8UXA5eq81D2wOEPrPMOGcjWtrnlvyV+pho5NA5Yvg6QA+7a5ZarZt2RXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558001;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=ylL32ZA+eS78yzSptteM2YgqxrCDp8OR2zVucYyFWyA=;
-	b=VLqa3tuNf6bbTy8f6fSTkQGTAdQuV2pp9Pt58sGoAH1oclHkDU6DR9IBOtZ1xavNEucI
-	 qFf4wYknhrwCZfRY/0MWns8WobqERdf2nXpRlsE6Ujt1qq2tdf+UDEgxCcr9/hbXY0GeY
-	 c6YuRT3lilxncSeaftbIlcULhO9DcZjBLYM/C2scC5+wEvY+JDmuRWhZAvJvyX8BXT6nG
-	 d8QbBtu+maYqdwElrLTnTWJuyX8Dh71WTYOtyZCxi8NDsIYuhM96NXkv7iqXFSDtolhdt
-	 l+ap2lLPKzyUe6In3uF/UJwVtqq6eczblALR+pUv1QxS0temyqdbkAP860RN7gqbFSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558004;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=u6ODy5SnsRQugFSPY6vBQTFSWdeeo67enpuBFMw2vTA=;
+	b=Ph16L9eOnyV3FENM2ES3uD3b47ZkKQUgmG3/eBRBq5UszQpXsx0VKgq/glUTXTdrcQq7
+	 WI6MbYKTPwvlYjFcV/e5icJHlLklyaWejXaRImlpYaEIlOVCaRvGmWs0ziwPuv338hitZ
+	 kzLubid1Aei33Su9B2XT4f60zD63g/RZ5S5RNecK51pkVah2mU7FIzWb9v2MaOnaCX2st
+	 XhK3DLpY+CJAwkh8KpdtxWzEHEMCCxkdgdiyYyuAEsgS49U34W5rxf0WmpwRiZVvIcssY
+	 dNRrG2BQDeNj+OJLdH5IMosb1iQZSC7uQ67rPaMGGEf8G6HTTvxtsy09/xaIldr9W0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=M3I78Ut2;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=OGJEvOtU;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0597606A31C;
-	Fri, 13 Nov 2026 08:19:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0597606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8F7606A895
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 08:20:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D8F7606A895
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=M3I78Ut2
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=ylL32ZA+eS78yzSptteM2YgqxrCDp8OR2zVucYyFWyA=;
-	b=M3I78Ut2h1XzAqRsE6LbAjmsrN6fR2fuGwcNvCl6wBD+WoVt+ymegCUNqBcsK57fm9atPMBpB
-	J+I8PGKpQY35yJYinAI/nmqnhffoMHFKpwrAm7oxY6xidGyrC8s9TC6Z/Ft4u0UoCh6sFLOltCY
-	HIPmxuJM0PIsqR/ryTQlu08=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jQqtf5FCJz12LJQ;
-	Fri, 13 Nov 2026 16:19:54 +0800 (CST)
-Received: from kwepemk300003.china.huawei.com (unknown [7.202.195.93])
-	by mail.maildlp.com (Postfix) with ESMTPS id B120140579;
-	Fri, 13 Nov 2026 16:19:48 +0800 (CST)
-Received: from [10.174.177.243] (10.174.177.243) by
- kwepemk300003.china.huawei.com (7.202.195.93) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 13 Nov 2026 16:19:42 +0800
-Message-ID: <c900aca6-e1a1-4155-a900-ff4abc270427@huawei.com>
-Date: Fri, 13 Nov 2026 16:19:41 +0800
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=OGJEvOtU
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so712567f8f.1
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 00:20:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794558002; x=1795162802; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u6ODy5SnsRQugFSPY6vBQTFSWdeeo67enpuBFMw2vTA=;
+        b=OGJEvOtUEBShLexZaoNIEU0Kv8IFFc6MSOKErs9nl6AT7R1oYdts6gSObwQu4spiUg
+         PuagTz6s+qgS6+pEfJDcBUMrEB+UeARXCPje500BpFu8z+SnfHkrdQY32QSPeimCrmIK
+         fBfyenwoh3fJtWsIrVT+kDdKV2r8W9RBtqTq2mwmiI9x4dXCZ2xC9ZQVvFuNQXwjs2Mc
+         dMMrYCaybPmLrMqxK3OOBmq9ZiN0q/NxNUz4Lw+et1VWbWIP1NTBbD1fohcIk+XdNpYR
+         NXcP2JhODHgUbxvu55f6+W4qbduZASDMaMUrYHPw7Ykr5syj6G54Gmf1Gof1Pmwzphuc
+         7lPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794558002; x=1795162802;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u6ODy5SnsRQugFSPY6vBQTFSWdeeo67enpuBFMw2vTA=;
+        b=yA7B27Bqst4w71Hm/jQ1cFGdWB/oeMW4ItNk6nuWXoMSxOZWzZYs8Q+G5yOY/3cvGg
+         5zW6/ZpftHHkJ57Bu5LrE5P8e8EZoKPbCKwjC6DhDKZAHRzvoziX+X6gsRJe7OakryUR
+         4S8jFqgb3Y+Mb8uULvihpJU2OeJa8iD5FJHF99+YkhCu+FiP0lBn5Q67KEf1rFeIs70+
+         4NCV5kCmAFg9/M5GKSywA2u3TYNPzK9LC+YZyWPH70Exd3qzOYhnUkEUKFZwfR5jrbMn
+         bJFOOpNyCbPDwc07VkpUU15OAm+hr0q2/TXf8rU3hePH5hHlyeK/4pQBeAw5tB6pwZT/
+         /eVg==
+X-Forwarded-Encrypted: i=1; AL+hErGSSrsoaf+hGf6iQcazmMBnQbBxCpkGZl982lMBJa5aEXJ1qjqIavGnwgcoLhOnbCjX2GaWD0k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hGQ5AImuGHFr5ImFSjbUFVSF/fRR1mE1z+FaIh1gmpUt7MUlJ
+	t1mfhC4ay+hj8wXRthk7PVuTwzwEfwTQz0IuRN6Bfp+4n0DgGJNfDc5fYaDIL3oSsbw=
+X-Gm-Gg: AYBFou0p374wCszAJrXv0IwgBnW/unVh4AZ6GfBnTLq1wtwzwjx3mffLACh7JmFO1PG
+	vO2iiM/v5y0jYWNfk9ZajmXlOedAbulgRxIIK34e3mXQxxffhSFkuPbNsgKIhRCXqkRe7Euv0oa
+	LUfe9IYhb/7Km8Fj4t7dsk4F/FDz1gQn1sWHc9S72poGuH/wCWNA+vUobjbgYiOJsYG88PBo8mU
+	WmIzQlL4aP6v/T7qae0fYY7wgBlxfb+T8+9DPvxtxv7A4qMpz207aJwQB1yyGlDUqF3xItkf+xl
+	SfFQWfQAXeTfeyWXczpKz9+RTLmKcYHwuGuFqhYDeXF6rOLzFNpk3LPLs1cd38CU/8EBfMEreCn
+	IMwXifXgXoA707f22OdU3Mkd3oQUnt/H75qeia5lPOCufpQUY4wS3TvbTTW0GYjpokg0r3/HN0m
+	uzDu+xB/oJBA/slvP241VVXf2j0K9XF/PjTa/O2HPWQ9vwYC/UdjUGZPAqVrWrY8OrNdoyuIMxu
+	hSJmwjF7yb/FlDAb6o5G3mmhlkzU5EqrHrvsJLmgo9060mI7Jowm5I3OMKQ8EvAJjwHLjaIISv0
+	K4Hn8z1BOfel2ubvV0oiE5QT/xDfD1knPiD0r1r4ckE=
+X-Received: by 2002:a5d:5d86:0:b0:48e:43a:1d84 with SMTP id ffacd0b85a97d-49c712ac267mr3929586f8f.23.1794558002001;
+        Fri, 13 Nov 2026 00:20:02 -0800 (PST)
+Received: from localhost (109-81-94-245.rct.o2.cz. [109.81.94.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c602dsm3640220f8f.46.2026.11.13.00.20.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 00:20:00 -0800 (PST)
+Date: Fri, 13 Nov 2026 09:19:59 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev, muchun.song@linux.dev,
+	penguin-kernel@i-love.sakura.ne.jp, tj@kernel.org, mkoutny@suse.com,
+	cgroups@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH] mm: memcontrol: don't miss processes whose leader has
+ exited in OOM scans
+Message-ID: <avbIL86R61Lu2YVF@tiehlicka>
+References: <auhiGqKJeukk7t3P@tiehlicka>
+ <20261102114029.1259655-1-zhanxusheng1024@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,87 +102,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] mm: hugetlb: fix GFP mask propagation to CMA
-To: Qi Zheng <qi.zheng@linux.dev>, <muchun.song@linux.dev>,
-	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>,
-	<azpijr@gmail.com>, <lance.yang@linux.dev>, Qi Zheng
-	<zhengqi.arch@bytedance.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<stable@vger.kernel.org>, "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
- <1c5e8c4ae230dc238a16f2f42d65bffac6244ad3.1794379434.git.zhengqi.arch@bytedance.com>
- <7def88b4-cba5-4e8b-9e68-6069c492b582@huawei.com>
- <1cd3c151-24c2-4fec-8356-99853f8d6971@linux.dev>
- <9b46d8e0-104e-4659-8dec-67eb6f059dac@huawei.com>
- <dbfa9791-5a4e-4837-a2cc-ac506826761c@linux.dev>
-Content-Language: en-US
-From: Kefeng Wang <wangkefeng.wang@huawei.com>
-In-Reply-To: <dbfa9791-5a4e-4837-a2cc-ac506826761c@linux.dev>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk300003.china.huawei.com (7.202.195.93)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102114029.1259655-1-zhanxusheng1024@gmail.com>
 
+On Mon 02-11-26 19:40:29, Zhan Xusheng wrote:
+> Hi Michal,
+> 
+> This is v1. v2 [1] reworked the check, but your questions apply to
+> both.
+> 
+> On Mon, Nov 02, 2026 at 11:12:42AM +0100, Michal Hocko wrote:
+> > Is this a desirable/intended behavior? Shouldn't we move the dead leader
+> > along with the rest?
+> 
+> Userspace sees it too. After writing the PID of such a process to
+> dst/cgroup.procs:
+> 
+>   src: cgroup.procs = 85       cgroup.threads = (empty)
+>   dst: cgroup.procs = (empty)  cgroup.threads = 86 87
+> 
+> Moving the leader would fix that, and memcg would then need no change,
+> as the PROCS walk already returns a dying leader with live threads.
+> The catch is that the leader has already gone through
+> cgroup_task_dead() and is still accounted by controllers: pids, for
+> one, uncharges it through task_css() when it is reaped, so the move
+> would also have to transfer its pids charge. Tejun, would that be
+> acceptable in the core?
 
+Do we have any conclusion on this?
 
-On 11/13/2026 2:56 PM, Qi Zheng wrote:
-> 
-> 
-> On 11/13/26 11:56 AM, Kefeng Wang wrote:
->>
->>
->> On 11/13/2026 10:30 AM, Qi Zheng wrote:
->>>
->>>
->>> On 11/12/26 7:27 PM, Kefeng Wang wrote:
->>>>
->>>>
->>>> On 11/11/2026 2:46 PM, Qi Zheng wrote:
->>>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>>>
->>>>> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
->>>>> during the first MPOL_PREFERRED_MANY allocation attempt even though
->>>>> the caller clears __GFP_DIRECT_RECLAIM.
->>>>
->>>> MPOL_PREFERRED_MANY is only used for the partner allocator. Without 
->>>> your
->>>
->>> It's doesn't seem so.
->>>
->>> Gigantic surplus allocations already use MPOL_PREFERRED_MANY, following
->>> eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages"),
->>> which predates 9bda131c6093.
->>>
->>> alloc_buddy_hugetlb_folio
->>> --> MPOL_PREFERRED_MANY
->>>      --> gfp_t gfp = gfp_mask & ~(__GFP_DIRECT_RECLAIM | __GFP_NOFAIL);
->>>          folio = alloc_surplus_hugetlb_folio(h, gfp, mpoli->nid, 
->>> nodemask);
->>>          --> alloc_fresh_hugetlb_folio
->>>              --> only_alloc_fresh_hugetlb_folio
->>>                  --> alloc_gigantic_frozen_folio
->>>                      --> hugetlb_cma_alloc_frozen_folio
->>>                          --> cma_alloc_frozen_compound
->>>
->>> Before 9bda131c6093, cma_alloc_folio() forwarded the caller's GFP mask.
->>> The conversion to cma_alloc_frozen_compound() replaced it with
->>> GFP_KERNEL, re-enabling direct reclaim during the preferred-node
->>> attempt.
->>
->> Oh, I forgot about that commit. The naming and some of the comments 
->> are misleading because alloc_buddy_hugetlb_folio/ 
->> alloc_surplus_hugetlb_folio
->> can allocate both buddy and gigantic folios (which can be allocated from
->> CMA).
->>
->> Maybe rename alloc_buddy_hugetlb_folio to hugetlb_alloc_surplus_folio,
->> or other names...
-> 
-> Naming is difficult. ;)
-> 
-> The Hugetlb implementation seems quite messy in many places; let’s focus
-> on fixing the issues first.
-> 
+[...]
 
-Indeed. thanks for you confirm.
+> [1] https://lore.kernel.org/all/20261027144016.2582880-1-zhanxusheng1024@gmail.com/
+> 
+> Thanks,
+> Zhan Xusheng
+
+-- 
+Michal Hocko
+SUSE Labs
