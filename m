@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794592384;
-	b=D+8EIx4Ra1Z2fqL68LMqszOMB3Ae+8jTd49lQ1CxlpsOUnQLLjkQwCgOkWyAQwW6FZoJ
-	 fQ+dxRvbaFFf2Qaw95JhSzIVb3sg30HGuYTPfUl2GxsySqCQvkGJoZ0mBk1KAfzPBaRZB
-	 iZHrU95NwcWz/9G6+qRhte0fclWLBXm8rnEaCFJ+Y+1H/8u2EqfRmEIJ2EoJxP2msdLwC
-	 g+pZd+4PIubA/IJhXBEkef99OUkVE0N5ommB2y7AFUx3e38tbCC5x98h1TjiH0C3oMIoR
-	 gq3+Cv4SeSqrQLy4tXLlPIDE+aYCcg5AS87IEVSmxnBJNvFOPhY5eQOvWefVSFlKWgg==
+	t=1794592527;
+	b=UVAHCojM38M/L8EsP+rh+UIz2qGv273zj1xhKR9ApdUVE29U9r9nj5kvb0xZapeQvUlp
+	 EiJLa/5QX5I8EO6mERLbrXLymUWkDUm3oRnWh1gOo0QH1+zb6+0O8+uugkV5HzI+iw3Nd
+	 BjLWLQS0jyj8GmiaFxbaI/1MMPt280JLFwH8nVhygPudogNpGEecXorY1pQ/GR7JihMVp
+	 rKCHzbU2Vy8U5PQq0OUH1Zs2FpIPPhFFiX5v8q6Etir5x4CNNg4Qvz20O62LcPjjY8uQF
+	 cGPtbf8MF1kPTybGS9W0KPO6mwyTOWz7Fdi+pKAU/n5bt+McgqObpDhxwsf4BopL5Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794592384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794592527;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=55NlBKv9xoWPMdMyHGvw45XYI/DYvw9l8UCmVMoJ39g=;
-	b=uWu9ZzQjFeihad1vg2LAGsjwNWKVirZU9foHJvPrZ8aHzuLHpgswzUV0xlgyK/dTMJCM
-	 ZL+qRYN84TzC94XSjVsCj2ash3Zk2P/Bl41deCgBobTKGY07CHQ735Gj4CbBZMfHYSt1F
-	 gNoPhtmDkapAypY70MlPa77YiOpONJx3GablbbRz+tKHWg8Ubdt7WOQMKmvlhas8iHsD5
-	 SvqAkq2m+SCgWDP8iNd/HwAc3vxmaAnJ/4vy4zv1hzCHfXQSvnVFkI8XDuYo5v/FAkQBn
-	 5ujlyvqkvJAMGoO85HbobJXey8HatfP7hKeChpD95xcsyMIJsxM1irvk4KBAZFn2TZw==
+	bh=bLjxBShnfl67/4pJwsjF8hrHZJlSmTI0ElHSdTuvQ9o=;
+	b=Ag2milLJ1hYDvOmYmbeIzQieWMHptrkYvSZULPMzANWwQIVhuNU0qZiKLKYzTripLDCH
+	 HYOu3MJ8GTWQ6kMqPqbBjpyetsp4h6rpUyZEfb8upH3eKGq6QZqqq3tAoY++qjtbVz4TA
+	 L1uKf2e0X5Azc4VotABSOR6++eqJlFpNPkuJrLw+MbCKyI2Yle3+d5yNj8w9Hw9cjhNwB
+	 Ll4DHixvC+rKVGZQR2Es28yYjXpINY0FZkL4wJwIvGhglLOhEgJC8LG4tCiGgyzgJ3v2e
+	 Ar4BCI5n//wcOZ3jqYQau3UAfDicZon3RI0Qc+IRtIH3d62Z4nQy7Yahq4VzQCfnlAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7o1sd+M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kGKGQykj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5D4606A89C
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A53606A330
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:55:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7o1sd+M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670B31F000C5;
-	Fri, 13 Nov 2026 17:53:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kGKGQykj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110421F000C4;
+	Fri, 13 Nov 2026 17:55:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794592383;
-	bh=55NlBKv9xoWPMdMyHGvw45XYI/DYvw9l8UCmVMoJ39g=;
+	s=k20260515; t=1794592526;
+	bh=bLjxBShnfl67/4pJwsjF8hrHZJlSmTI0ElHSdTuvQ9o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A7o1sd+MGMS0jR22ktdkHJe5h6QkwBFWZZ7QcAzn76Qw+YIqSp2haEad9jxBwi5QC
-	 SGJ5phEkBr/0S1gj3YMt3WvILbio89BDI44ABUXhquy2ikfN3/xLNgsRMUUfSU0n+j
-	 ZjfHi7+S4ymgbLSCxW0lGvJQ/WCAcxZfK8PhccPg4ua88a3EqXAeZdvto2EAkHSWil
-	 jn+w3s8RJQ8c9rmMeLI9preQaLC+3U/nlHXyPWWVXhSveKujR5AT1fNG8MqEq1VuLt
-	 GPfCIHlSUQPbyE2DtXH7voKeKEN9eJdIt/4Txtsdt5czyeHkIxtsOtkhOewSeRXGyi
-	 O4TjwvTQzqsjg==
+	b=kGKGQykjuKSXQp6uB7JxnDS3ThFFz+SUXNAF3Q8M5JjeArxN1sUfvA4Gq5AmJR/+X
+	 u102KGypLUn01N7WLp2Ij2yRLLaa/GZ2qER7ivSp6G+AtRMiqPdr7CnVSRlQsvduEp
+	 +f8t0M948wKmAh4czfXMxa9BKcGsRtBKRd74PLsb/jkZTxCtWRji6f2gjk53aGiolM
+	 vQHwU7DAceWVS17PFNH8aN865KuXB7icWPanaKAr2m757CtsqLuIx6qJ/9j2eoZkRr
+	 A/lETq3+wjLwf4LgifRin5kqclYRL9jrfwKN9uicwFi3td5WZUH1JP2oMoWZ9ZgJcL
+	 M5nrSdOcPVdng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] l2tp: snapshot sequencing state when building transmit headers
-Date: Fri, 13 Nov 2026 12:53:02 -0500
-Message-ID: <20261113175245.2194245-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] l2tp: snapshot sequencing state when building transmit headers
+Date: Fri, 13 Nov 2026 12:55:24 -0500
+Message-ID: <20261113175509.2199411-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051252-failed-6.18-d06ae66516e1@kernel.org>
-References: <20261107051252-failed-6.18-d06ae66516e1@kernel.org>
+In-Reply-To: <20261107052418-failed-6.12-d06ae66516e1@kernel.org>
+References: <20261107052418-failed-6.12-d06ae66516e1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,7 +111,7 @@ Assisted-by: GPT-6 Astra
 Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 Link: https://patch.msgid.link/20261013090500.1180376-1-nicoyip.dev@gmail.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: Preserved the existing po->chan.hdrlen update in pppol2tp_session_setsockopt(), which upstream had removed. ]
+[ sashal: adapted the setsockopt change to preserve existing PPP channel header-length updates ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  net/l2tp/l2tp_core.c    | 51 +++++++++++++++++++----------------------
@@ -122,7 +122,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  5 files changed, 35 insertions(+), 45 deletions(-)
 
 diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
-index e78e8ea93bb7b..1d575005a58e2 100644
+index 6c83cb02d4345..4f7f2d986c00a 100644
 --- a/net/l2tp/l2tp_core.c
 +++ b/net/l2tp/l2tp_core.c
 @@ -924,11 +924,9 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
@@ -237,8 +237,8 @@ index e78e8ea93bb7b..1d575005a58e2 100644
 -		l2tp_build_l2tpv3_header(session, __skb_push(skb, session->hdr_len));
 +		l2tp_build_l2tpv3_header(session, __skb_push(skb, hdr_len), send_seq);
  
- 	/* Reset control buffer */
- 	memset(skb->cb, 0, sizeof(skb->cb));
+ 	/* Reset skb netfilter state */
+ 	memset(&(IPCB(skb)->opt), 0, sizeof(IPCB(skb)->opt));
 @@ -1299,7 +1302,7 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
  		uh = udp_hdr(skb);
  		uh->source = inet->inet_sport;
