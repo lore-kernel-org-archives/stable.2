@@ -1,95 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794544266;
-	b=Uz8mxJaoAs7fFzehj/RZ2mM19nMavWbQW0yCG0W3JjOM1Uk5zsbFNKaO+DjnDEfdI7du
-	 /noObpnxXxW4RHW0jecBX7GNC7eg5tVCA+mttyUz3+y+mrrAFv0jb6YbETeFL0QzJk5jh
-	 XVkECvvrcxo+zoW3d1FYhYIuJKO/eGE7dQJcQjjLBSQx84RFHDCag5n991ohLuGo8VdWT
-	 GtVVESvNMT3O/WR/9w/KvCn9W1PRKPF3jjsMKdNi+Ic+SxcwfGC3+SmuHKbuiZwBmxcTy
-	 w2qrd3YW2bYlW6aTvobDvaEftbeMiQKJJYYvS2pL18bcIA8gbMvv2sd7zYdsxhM5jNQ==
+	t=1794544663;
+	b=wTOcsystgeSLPQJ+XWFhoR7izCrkVETw3QbXxIU0G0iDvm1SgndypCh9tnbBLtQ1p1sb
+	 xZA6+effsEbF2iNLgDWJYC/7beAXZyzpg6ViVkJG29naX8pPPJiDrgAqBrFtKFmOYq0VV
+	 BcK+cGBEFyCG0F5lcXVlwLahuaqbX3D78A6TMqIlvvEMujgFLyKfDw6JyEKeACeoLzAUH
+	 a8TymMv9qnuELc1tumaMEE1bJeQ3SL5cjNgSVE5gnqEohEr7dNRPsl143XXH1ya844aLM
+	 JpHZmZBvvimLyLR6YSgtjF1xnjpiiivaFQ8iEJFeAO0XuXffGefCxd1dA6065EfVzwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794544266;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=++DzozSDXGoGQ0O1+uMvDLSlApNVfPaQr26d6Yana4s=;
-	b=SRiWTJAG/uqPfOsEGnrEAJIQTUPGk1akyRrdcs164A8smuq62kYTBHq535URhxRiuz6p
-	 O8+HWWOGPy/oFJx7mh/QoFMQu/ZpmUTisr9X4RBDjn3HJArxIesRU2JW/l/kbHkzaawIL
-	 sadc+dZoQVSIPrzDcbfqH94EIpUk6YQk1vQml2IrZ46UusrV8Mc1XNx6mbO1fQEPrQac9
-	 BFgzK/iIRpkO5pdN2Gi6TU6kz6ltNC6sodfB/IaHLYC3XNvbnWQdL/tnrnkiiHEa2BSy5
-	 Ixe1C7LpyZuEnCMfsTGv2XHQ0rbqYGFhe2qJXgQcSIdKEEAKJsIL56uNfuFE/9nsQTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794544663;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=MzPZHAwZUR6XQNi+lr4SvNO3O8lOE7xor3LFCCcEfZw=;
+	b=AslenEya7qauz3ha6w1jH8vKLzowTW0hykOxkW0/IFBxs9fb2q1s9wy83FRuZmsFxjJ0
+	 k6NM2WrqGkLjg4b+MXIAQcosb5mCJh69b7KMq9GaCn41ri8yj9V4zQZWQmmnRGkRY4h3G
+	 ftznHbK+3kQZlTIogU/PStDaQ7jWylrnV1xDAf4IuyjS5YSuYDFvGANKhTUQA/jyTbe7T
+	 s4Qj5MXVMgRaueCiz+agatWSG9GsEJG4WLrjPxUbVJGC9g1qaG57U/yUVq8TDCY7N5Is/
+	 CBcTdBbfS1P0+AlbL5CJfUB/OWYGq4puAly1VSsEgreUnTiSvXg5IVY2bth1S9P/S9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=G9eIfylm;
-	arc=none smtp.remote-ip=209.85.222.172
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=K4spb3f7;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DC0606A323
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 04:31:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5DC0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E44606A321
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 04:37:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96E44606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=G9eIfylm
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e4c00d71aso86265385a.3
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:31:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1794544265; x=1795149065; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=++DzozSDXGoGQ0O1+uMvDLSlApNVfPaQr26d6Yana4s=;
-        b=G9eIfylmt5CojRvIIXwiGqovzH3PjwsiBaGIjEcKbWvZ6g+OCGYrpEV7Lqw4fTbJzN
-         QE0QymcMBlylboQ4+VeJVXL2dSi8rNFWS0uTvYylwTLoaLpI+MJZZ0HTlGJe4j27LCPt
-         96BcFFdT/fYtrX987TeDwZSsd7hR42gka05D5UkcxoF5930mMa0Kc0V/abyoHS5cLW92
-         /NdKfBOZBuPFvLh3a0exZZe7AL1dEqi8aEn1685/9kOHu6pEPAU7DyY7BulfgdZKJ9xk
-         QGOJzLrJyHQj4+AiACGTe/mxqDAtxv7ylCN5/3snDDk8Fd3SCpAqU/GE6GN+sPB7HUtW
-         nLRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794544265; x=1795149065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=++DzozSDXGoGQ0O1+uMvDLSlApNVfPaQr26d6Yana4s=;
-        b=mncb+aVIXqrWjHfeMfD2Q5x+OUsrjdmiyzjQRcM3CLPlgPBAR5BBJgyHnCeq2yrPMu
-         LUYRqUZZtliLTZAKCLzHSO5rMlJzt5cObpCcIu5jlMT8MlxDRqV6W9pChVpkvvhKUAEA
-         FuBbN/CW5pujjsh/+IRIY289dgs9WISq1WD3uwnKxisQF5BDvkweoPSrpX8BCTdOOsbf
-         L2p0SxF/oQ6agq0ILfZE/k9CcQUzbqWZxZBd84dAC0tALvUCAAgJdBXnSMnaUgLasMuJ
-         ZtggUeHrPSmwHdhHUTptqfDJlJJpmCG1OH572sON4staAdSaynME5hBSL5s0pxc7Vxw4
-         pu3g==
-X-Forwarded-Encrypted: i=1; AL+hErF5L1lrRA/n9PV35PFtXm87VbDp4y+2iExhgI/je3gPhc6JcZ/tYJLho7ToQV7zYjUmymd7llk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fe/nb5eQcsApeYGdhVu9ezgOod7yLdPVzenkiJarkpfKVwj1y
-	Jd+eN/fgmzGnr9wJeQsRLnVpdyLZv2BSjbN7S+CKrJyZ8Q0S6odPWAmuCOiQWoSYeQ==
-X-Gm-Gg: AYBFou3CxybxlA455U8GMfK0rRUa00Ia1doYYRw4l6TlUWJM2oZGN3+YHnA+0FANaqk
-	1L1UdWvZ7BuRie5VD7gXz05lxmc+4we8zTpUFF2zo1wf34B7FVgo+qbWej9LmpDRJbcX/cZWURH
-	yGgepMr352ViTnLZa+dqvF3gfNInewqAuYngANhQF98KcbkwY9c3W12W36ISwKXj1kh0lrw9JkT
-	cucB8TLSFxwcs3ze+Bkg7lRezAVXRVglRYEr3Se3UBh7OSCZkt88KVW3cgnxoHjL8Tyd0nWHKTS
-	xUGYnl4m/f7PtiOXt6nKKHBvGFvF1AfscHOOc+6NlkMVQKCK1U9hHEEiU2TkvEZrkhH4XTeQwpS
-	WGu4cgZbIXkkl3vCkPUnTk8MSjS/kQfYuk7B8NpSexrldpdb1Zk+6+wicAvL1QLPHRvdYwQQj1T
-	JUTYVILaclMTL/FcNeqwdDQVaTebxShU0QexQJNVTZY6iUybpJEFZAWXK28ECHiAkCFrPHu1vFq
-	zJ++oNaYMfnr/F6ENXV4l7oZqPaVmHkj2gDOFibLt7jJH1ywXcPNtAoqj7z90aHfbONqYTO9cXj
-	Q44DuITdfN9wID/+fWukw4HAUrYqIfxR7Ki+sJIinFbmMtg3eUJXACRIdQ8nsa1RQZyZ5BtWdQ=
-	=
-X-Received: by 2002:a05:620a:6192:b0:939:b099:d52f with SMTP id af79cd13be357-9494ba7dfd0mr226368285a.20.1794544264634;
-        Thu, 12 Nov 2026 20:31:04 -0800 (PST)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8f9576sm96595585a.42.2026.11.12.20.31.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 20:31:03 -0800 (PST)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	John Garry <john.garry@linux.dev>,
-	Christoph Hellwig <hch@lst.de>,
-	linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] xfs: do not let tr_atomic_ioend raise the minimum log size
-Date: Thu, 12 Nov 2026 23:30:55 -0500
-Message-ID: <20261113043055.2578595-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=K4spb3f7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794544661;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MzPZHAwZUR6XQNi+lr4SvNO3O8lOE7xor3LFCCcEfZw=;
+	b=K4spb3f7IzfHNq0MeCor26ulcXHQZQmnze1/C82chiQ3BSTS9SPmGnIF09ugxCYpFuhSbL
+	1OHgR3MHgS/Bco1AvsapuQPfHz/AsJnNSHq7HLIaCXNoyz7rkbQaRRGsCkNWDoSlUuMvAU
+	YU6NGp9UYkZ+s6Vhvzj94bMo4yMUmUU=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-219-Em2cxYDQMlSJlLId5uNroA-1; Thu,
+ 12 Nov 2026 23:37:37 -0500
+X-MC-Unique: Em2cxYDQMlSJlLId5uNroA-1
+X-Mimecast-MFC-AGG-ID: Em2cxYDQMlSJlLId5uNroA_1794544654
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3014C180024D;
+	Fri, 13 Nov 2026 04:37:33 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 87F8E18004F7;
+	Fri, 13 Nov 2026 04:37:27 +0000 (UTC)
+Message-ID: <bcb60245-abfb-4e3a-aa4e-f134ed310381@redhat.com>
+Date: Thu, 12 Nov 2026 23:37:26 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,72 +71,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 18/29] sched/deadline: Move a task's bandwidth only
+ where room was made
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ juri.lelli@redhat.com, peterz@infradead.org, mingo@redhat.com,
+ vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+ boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+ mathieu.poirier@linaro.org, ridong.chen@linux.dev, tj@kernel.org,
+ hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
+ m.szyprowski@samsung.com, kayracizmeci@gmail.com, weihengqiuu@gmail.com,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-19-mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261108185406.1549770-19-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Commit b1e09178b73a ("xfs: commit CoW-based atomic writes atomically")
-added the tr_atomic_ioend reservation and made
-xfs_log_calc_trans_resv_for_minlogblocks() copy it from the running
-filesystem.
+On 11/8/26 1:53 PM, Mathieu Desnoyers wrote:
+> Commit 7f51412a415d ("sched/deadline: Fix bandwidth check/update when
+> migrating tasks between exclusive cpusets") moves a deadline task's
+> bandwidth in two halves. cpuset_can_attach() reserves it in the
+> destination root domain. set_cpus_allowed_dl() then frees it in the
+> source, when the task's affinity changes. Its comment relies on the
+> first half: "We already made space for us in the destination domain".
+>
+> But set_cpus_allowed_dl() runs on every change of affinity. It frees
+> the bandwidth whenever the new mask leaves the task's root domain, with
+> or without a reservation. sched_setaffinity() gets there too, if the
+> task's cpuset spans two root domains. With admission control on,
 
-However, the copy has the current log count of tr_itruncate. On a
-filesystem with rmapbt and without reflink that count is 4, while the
-function puts the old count of 2 back for tr_itruncate itself. As of
-now, the minimum log size of such a filesystem is larger than the one
-its mkfs.xfs used, and the filesystem does not mount any more when its
-log has the old minimum size.
+For cpuset v2, it is not possible for a cpuset to span two root domains. 
+I believe it is not possible for v1 too, though I am not 100% sure. 
+Please let me know if you are aware of a way to do that.
 
-The issue can be reproduced with mkfs.xfs from xfsprogs 5.13:
-
-    truncate -s 512M xfs.img
-    mkfs.xfs -m rmapbt=1,reflink=0 xfs.img
-    mount -o loop xfs.img /mnt
-
-Before commit b1e09178b73a ("xfs: commit CoW-based atomic writes
-atomically"), the mount succeeds.
-
-After that commit, it fails with EINVAL:
-
-    XFS (loop0): Log size 878 blocks too small, minimum size is 962 blocks
-    XFS (loop0): AAIEEE! Log failed size checks. Abort!
-
-This patch will use the old log count for the copy as well. These
-filesystems have no reflink, so they never use this reservation.
-
-Fixes: b1e09178b73a ("xfs: commit CoW-based atomic writes atomically")
-Cc: stable@vger.kernel.org # v6.16
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-mkfs.xfs 4.9 to 5.13 give such a log to an rmapbt=1,reflink=0
-filesystem below 1 GiB, or up to 16 GiB with -d su=256k,sw=4.
-
-Application impact (Ubuntu 26.04 user space): udisks2 2.10.91 is asked
-to mount a filesystem made as above ("udisksctl mount -b /dev/vda"). On
-v6.15, it mounts it at /run/media/root/STICK513. On v6.16, it fails
-with "Error mounting /dev/vda ... wrong fs type, bad option, bad
-superblock".
-
-Tested on xfs for-next with 45 images made by mkfs.xfs 4.9 to 6.6: 26
-do not mount without this patch, all mount with it, and the largest
-reservation is the same as on v6.15.
-
- fs/xfs/libxfs/xfs_log_rlimit.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/xfs/libxfs/xfs_log_rlimit.c b/fs/xfs/libxfs/xfs_log_rlimit.c
-index 37712b2f8757..9454c91e9fb3 100644
---- a/fs/xfs/libxfs/xfs_log_rlimit.c
-+++ b/fs/xfs/libxfs/xfs_log_rlimit.c
-@@ -128,6 +128,8 @@ xfs_log_calc_trans_resv_for_minlogblocks(
- 		resv->tr_write.tr_logcount = XFS_WRITE_LOG_COUNT;
- 		resv->tr_itruncate.tr_logcount = XFS_ITRUNCATE_LOG_COUNT;
- 		resv->tr_qm_dqalloc.tr_logcount = XFS_WRITE_LOG_COUNT;
-+		/* tr_atomic_ioend starts as a copy of tr_itruncate. */
-+		resv->tr_atomic_ioend.tr_logcount = XFS_ITRUNCATE_LOG_COUNT;
- 	}
- 
- 	/*
-
-base-commit: 48326a2382d80715475d10ce98734ac65d2d2150
--- 
-2.53.0
+Cheers,
+Longman
 
