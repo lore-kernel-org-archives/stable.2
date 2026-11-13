@@ -1,103 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587234;
-	b=pyfftQ9TKNXCfaxR+2abhmK/9n6MHvUHyxVOvqqeg02Q6fsML4NTdO0hwSR1b8h9DuLU
-	 c/FnlHKlbdg4jnzEiA881A1FTkVhmPbnLNkXDLk3lFboszuJHeKoOefJwLdUusWKRQxHq
-	 iypfwJeawwA83lYPjK9pNsegMlIeYATnn8r107uOgBHw6uh57gyrh7oQuAaWNJYHxkYlF
-	 Fw3tQ5WkozVbY0SBATwmpStWeUnlLyOI6qawikjNkA/tq8LJEmK+TD87bSX8wenrBdevT
-	 TxGfE7saJjYuws+hGDmVEnERLIXZndGSubWr2t/UsyGdv06/srbMw4LJcEob9+XNeYQ==
+	t=1794587384;
+	b=wwe5eH1vzhoC4oy+ARggW9W0Qvh32V5Kkm55gnnAwomJGxrjJFcRtCPv7ClQ/7W5HfB1
+	 MarXyHKH8whCOqNo+B3DZ77O06akxogVOUg+RX+yZEfO9wRWHmg/8Wodm1FcYHy38R+na
+	 39ArNdg+KIFHkaRwZpbH+D2nM5u50h+mtA83Pdtc0YIIIC0D8ZVGqqqWY1yS3ZjBGXTc9
+	 61e98GnEjKom405flYAgdcbx9S0wpHrsyKiWy2VIcsZBDo4Lm7ygOyzxCyLyIFt4XwYxg
+	 ZS7i7lWNekJR4RjiK3jdKVjrwIxsuPhPXl7c5PLHugmhT0EMg5cInVgSgjzOHZMeboA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587384;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=nH+4fuf6JFUHnT4EFq7h99rEDt8N7Ykz0lHqkyH7S6o=;
-	b=20i+dcxDYMuie/SkjRLdn+fLdQI0Z/TzOmB6yEI4TWcoFfQu2vsUX9EU5jcmQGfoufI+
-	 /NoM4i5XDvwqNtkC0z3VswId/NVjbWrhBGt38ANG4oapCzrbtG3hAqk+z1UlQqWU5MbnY
-	 caXIdzMJtnp1LYf3SYSNf74og3+Z73dNs/27xiJ6rSzeSWUNUKHGb1YbQ38U4qDjjIqmU
-	 vWyRnBhSGeokAsHukZQdTAo7INmHXUImhqDSRaegqoHHiII75+iH6p0a86s3G3mn9DkPO
-	 p4TVpIOytPPmP/ZKbZpj6O9xJgiHm0JDQgEm5s0FkiM3QjWpVxIwORrC0DVT8F4TSkg==
+	bh=Me8wiQ0HJEeNW8ibwQsvd7QQqaIgXxWtjrcDHkoHDvM=;
+	b=Xa+2TdpHnmRfzBXgKg5tb7nlhGcm7kFZ/sQt9cCAOKklEg/LtX7nu6ao8qXxVHRK8BEd
+	 /FMrdYq+oTnf0DPlGQtl8KC1Hs3hbLxdNRLH8du04vzdeOQhjRrXpWMS4CfB7oeV78CM9
+	 zh0wcgCglKqrw72ffD7jTdUXiIgBiRljn82Wcfbg/Xbs/DJRqE/AYGLpjrnpB1n8XQJLb
+	 9u/n0TeUBTFePyCGqro0qtByljaXrd/Y71XgbgpPsE4MuLviUHnxXMAzxXJKXT/gHKyhT
+	 E6ywQn7tqHpQbSTMKzWrKXtIfImIrpfA3EKr9UKNJx7UmUVi7ud8XqgIdyUxiJU4qMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLRd3oUp;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GTdFEwCA;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F123606BA9F
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 16:27:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F123606BA9F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F80606A887
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 16:29:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94F80606A887
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLRd3oUp
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ad0c2e71ebso170313a91.2
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 08:27:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GTdFEwCA
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-372cba0ecf9so130393eec.2
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 08:29:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794587233; x=1795192033; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794587384; x=1795192184; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nH+4fuf6JFUHnT4EFq7h99rEDt8N7Ykz0lHqkyH7S6o=;
-        b=ZLRd3oUpIuGnrFvB1x4yFiEVgk9qDw5/LfvhoJ3PGm1P9Ouo11Rmm9fmcH+9GHtSRS
-         611Lyem4MLdavVvPctHeySkJ0AiG0BiABkntSKJP1Q98ooL64h0KvnJVuJABy2NZ5Hj/
-         mAUHCdVhTc82gaBIy4aKKnvQ+ergQNABycoTCgMK/LGiFCaOsW3fjwM02edekw22SkU9
-         MNY77CFgrkVHXwhnZ56qomkYz1qnlm9MFH49IXlK4QR0K7t5bObUKq7gDAwqafHCCE6Q
-         Lz/FkqbaRFKg9tXHmB7rgjmeEi4owFaDpXxf18QUUhAlaEFRwFp0tOoMMjfrJod2y414
-         SE6w==
+        bh=Me8wiQ0HJEeNW8ibwQsvd7QQqaIgXxWtjrcDHkoHDvM=;
+        b=GTdFEwCAPipzok1XWTvM0HFdyLLsLDsftiLYc4ltMg5wFLRGab+iaHpPwZcwt+G4jZ
+         nKHSCO6UdEPSSmY0KBVbdjndyc6Fe1bEhMVTw+b4DrUVxJOFK/bH8sM7dq0Cbsw3qqfU
+         mdlUhrStPxP7LVeoR2exSfgEZCLun3zg00mv393zCXmQmnCjts3QBNaTqIcKQsNaSPdd
+         vcOcvzYfQNGVVlOw3Qhcf6OKz+yjyH1QTGzwix1hr7beq3JQ+QKc3M+c8Cu9lmlUSHTc
+         g9tQsJgwKIdCWoH1qckK8frZMvgxVQllWuo4cY5hAvCCnTiPcy0NgGzPXSzbb23RrRS4
+         vhOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794587233; x=1795192033;
+        d=1e100.net; s=20260707; t=1794587384; x=1795192184;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nH+4fuf6JFUHnT4EFq7h99rEDt8N7Ykz0lHqkyH7S6o=;
-        b=EziAuSLx0tOlgsfxXjlCNFjSEPVUawVpLg+IJvTf8QmWmzcNcVfh1Zzb8LTS5/yYI7
-         HTIqEh8m2KglfFfEbxIK8NOa1mKyzl9Me1aWnlf8C32ZZVpiZi3wl85jcsbsnaNq6m44
-         XQt66ZGsg0NPuI4zyKl/oLISyE+drLYlhQuta5s9Qwi8upbwT8U3TIJ8VcjfeJe3bS/n
-         hIU7dbSEj/1Rm2fRLstia+nf4JJotV7o7MjTouFzicCujbUvReB+CiMFDqrMWOlHoGax
-         oKG1WiyUOn1xBzJK7xXmFyyWgzzzD/DiHg0J9+8pAdLM6jGJ7QXQunEElQkK8utKfgMe
-         8j5A==
-X-Forwarded-Encrypted: i=1; AL+hErG3V/MLJRPI0sjH8lB4uttd3e+nGCfnEPDa6AcLvwZIgptfySZGHDL8KFNjDkp6Egfv9NMZxHA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/fbBxueBXIPMfdrMz5JEbg9j9fjaG5daODodFApszXMLiJiwPI
-	VUsiW17CjKg4NhprliG22/Fy4l571X4+R2ucBOikBTuzCA1Yipm6kHae
-X-Gm-Gg: AYBFou2/5wRDsuyTwoIKeQCOMpuRipFrlAFw8GSKRH+9dRSm8XtqQYv0tbnZKG0DCGN
-	LF/DgsQwBZqeb8q2etQyBDn9zD7tCkDbAGD3REwnXcZpUws12P9mqPissDthm5hNw7lubsabjiR
-	/6ZPm6VXW0dHnkQKhqg3Ye8ENapkLByTT8Pd9t1Soy9ZavRg+1QlCGtCQeh0hJBXt9GvTZ1y81z
-	4tDnSrv9S6PvrM/t0cG8gEk1gmo1XbG7s3ZXkkI15zHUNowTprakyysXZIFD1ROyETsBdd4ygeQ
-	lbUfSdkpmYqsMSYezwE7lgoIGGXHdKaWbVtOyLICESmLXJV3XUDEPusEH/3W5FOLu6I86R/3IXt
-	pRSFs7uj7/cOwIZLiXhmNRqTDRf4X+eUcctsfec4QcH50Ln7mJfH90ulBYIWkjzRBKdykH2irak
-	KmEtzcC5i1IR5CnjLHPgJGC8bf5r+aSndpKGmM8OpMAIaKYGGcDOKCRX6KDHqNZO2kCLLWW6Rof
-	+ZFyT6P6iqnSyi4Eb39AnNWIMe7PtJKwTzgSHYNpEMKWTNSV/0OsneR2kw5Er/E7MjE4rr8SOTY
-	BdxWvKQbT1zl4KYlBru/54zfImWAGWtstz5IZLoSUxVYlbm3ymQ7dutFQHotBzddao0OyrZir9z
-	zKiU=
-X-Received: by 2002:a17:90b:568f:b0:3ae:629:ca12 with SMTP id 98e67ed59e1d1-3b1b0b506dbmr4305114a91.3.1794587233028;
-        Fri, 13 Nov 2026 08:27:13 -0800 (PST)
+        bh=Me8wiQ0HJEeNW8ibwQsvd7QQqaIgXxWtjrcDHkoHDvM=;
+        b=18Fl9ItQQ6NrjQoZ9T8SS2spnjEvkbcRN3YKVxwSu96ZEx6+BGvTNpitrcZBX+iJIz
+         UTEL4+RdCvhabMzMMarv6JBKJvzuZbNScL0q+gKkMXmKTGwxKeZOYMpd5ejTLsVCoomI
+         yDBj6jiUxh3s2H79eq5BN7til26Fqa2yfLuDizA5tSomrQ/vCAeGQnRYH4utvT55uIiC
+         +GFsuIRqOvJ36dSaYlHfe//rofIxStcBEOFBpYxZidioFj7PsmIo7Ax0l//TJ5YnT28t
+         B8nH+FZwGA4GvVLxWmRU/xpyIPx1z/EHL4iQxEaI40rW1u1kNvsJBFfL3Y75vots/hBZ
+         qRLg==
+X-Forwarded-Encrypted: i=1; AL+hErGm+aG21HDHjfHab2aq+3+sUJ9HrZEeXsiZ/vgl7YBUSaEI9E5k1UMX85NPL1H7G+DUTKqGqUE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/g10U3T3YzpNmBCw2kP0YiTb07yHxdCCmu6CMEc5EqagUZyxke
+	X3NZcPFaaFPwKz+54CjWMXTLamwdPNB0Qxx0IJ7k68YSCY2hCEBu1TdJ9DMHZCACgXk=
+X-Gm-Gg: AYBFou1tN2fgF1YHvACX+7zRYTpVsUBWuugrh20iuJRe1LkyzjLkQTIuOEsNc3G8hJP
+	degUKpS/UH75TXG4CFiIjL7A+hhu/VpfffLIU1u90rJ3wygkLQk7diWljZjkSBpdTd0Hqxvhj80
+	jp/2etm+AUK7QPWjoxpXCM5PmXok53/Y6p2zAzN9fpz+IdiUSwXEyb8Wd2OIjw+hXnSJGQ+hYTq
+	5uimf6ZuH8OqjTkgRRepFiTwGZqPqAPwPSFWDxTXuPSukb9m7Z1juuWvt/TKd01x8m0cWfRN3pe
+	YCsv/kYLb4LlphEJpvCr+/mbhoiiI1HFWIeHRa5vsjF92AvXEdK/6U6B+1ZIWvRFtsckGQwkHsv
+	S9H0dWNdjqDRt7MCl3UAKCNebZvv7yP/lvvw5OoXrYm/06UGeurwFApumMRuWE877pNh62KTWT+
+	q47v4THEpQ/YKvsIREJx3SmIbKdgYqJtuGJav/NvdWzGb2KDBkGOMig4iRx/wAtTv2OWdm4beN3
+	II75PmgrShJXwRQj6FiQ7biJy/ZsMoOEtjGSKsHRTUb4A2XE2kpNWX8knadothVBtu3c9ymOTR+
+	tQUrvFMcMBcyEmGuA8+XAOPI2+Im8Qw+/UGzGZInQ7RAklkRaYlCJiTTzK2a9hIgS/w6QK0cKXb
+	CMEg=
+X-Received: by 2002:a05:701b:290a:b0:127:def:dd72 with SMTP id a92af1059eb24-1b5030f8a7dmr3833998c88.2.1794587383353;
+        Fri, 13 Nov 2026 08:29:43 -0800 (PST)
 Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1bfb607e7sm712916a91.3.2026.11.13.08.27.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm11835849c88.9.2026.11.13.08.29.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 08:27:09 -0800 (PST)
+        Fri, 13 Nov 2026 08:29:42 -0800 (PST)
 From: Jiwoo Kim <arpe1618@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>
-Cc: Akash Goel <akash.goel@arm.com>,
-	Karunika Choo <karunika.choo@arm.com>,
-	Lukas Zapolskas <lukas.zapolskas@arm.com>,
-	Chris Diamand <chris.diamand@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
+To: "Rob Herring (Arm)" <robh@kernel.org>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Jiwoo Kim <arpe1618@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/panthor: Don't access gpu_contexts of a destroyed heap pool
-Date: Sat, 14 Nov 2026 01:26:51 +0900
-Message-ID: <20261113162648.110226253-1-arpe1618@gmail.com>
+Subject: [PATCH] accel: ethosu: Fix use-after-free of the active perfmon
+Date: Sat, 14 Nov 2026 01:29:31 +0900
+Message-ID: <20261113162930.15751631-1-arpe1618@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -110,129 +102,134 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-panthor_heap_grow() and panthor_heap_return_chunk() compute the heap
-context offset from pool->gpu_contexts before taking pool->lock.
+ethosu_perfmon_start() stores the perfmon in perfmon_state.active
+without taking a reference, and nothing stops the counters when the job
+that started them completes: the perfmon stays active until a later job
+runs with a different perfmon or none, GET_VALUES or CLEAR_GLOBAL stops
+it, or it is destroyed. Meanwhile it is only kept alive by the
+references held by the file's perfmon xarray, the global perfmon and
+the jobs using it.
 
-The tiler OOM work holds references on the group, its VM and the heap
-pool when it calls these functions, but nothing stops
-panthor_vm_destroy() from destroying the pool in the meantime.
-panthor_heap_pool_destroy() frees the gpu_contexts BO under pool->lock
-and marks the pool as destroyed by clearing pool->vm, but leaves
-pool->gpu_contexts pointing to the freed BO. VM destruction doesn't
-wait for the work either: panthor_sched_prepare_for_vm_destruction()
-only flushes the scheduler tick work, and only when the VM is active,
-and evicting the group doesn't help, as group_unbind_locked() uses
-cancel_work(), which doesn't wait for a tiler OOM work that is already
-running. Such a work can then read the freed BO.
+If userspace destroys a perfmon while a job using it is still queued,
+ethosu_perfmon_delete() can only stop it if it happens to be active at
+that point, and the queued job makes it active when it runs. When the
+last such job is released, the perfmon is freed, but
+perfmon_state.active still points to it. The next job's
+ethosu_switch_perfmon() then passes it to ethosu_perfmon_stop_locked(),
+which reads ncounters and updates values[] of the freed perfmon.
 
-Take pool->lock before dereferencing pool->gpu_contexts, and return
--EINVAL if the pool has been destroyed, as panthor_heap_create()
-already does.
+Make perfmon_state.active hold its own reference: take it in
+ethosu_perfmon_start() and drop it in ethosu_perfmon_stop_locked() when
+the perfmon stops being active. As a perfmon can now be kept alive by
+perfmon_state.active alone, also drop that reference when the DRM
+device is released. The counters are still left running after a job
+completes, as before.
 
 The problem was found through AI-assisted source code review. The fix
 is compile-tested only and there is no reproducer, as I don't have
-Mali CSF hardware.
+Ethos-U hardware.
 
-Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
+Fixes: 17cdb54644e7 ("accel: ethosu: Add performance counter support")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 ---
 
 Notes:
-    This conflicts trivially with Osama Abdelkader's pending "drm/panthor:
-    Fix race when retrieving the new chunk in panthor_heap_grow()", as both
-    change the local variables at the top of panthor_heap_grow(). I can
-    rebase on top of it if it lands first.
+    This keeps the counters running after the job that started them
+    completes, as the driver does today, and only fixes the lifetime of the
+    active perfmon. v3d instead stops the job's perfmon when the job
+    completes; I can do that instead if you prefer, but it would also stop
+    the idle and cycle counters at that point.
     
-    While looking at this, I also noticed that panthor_heap_create() reads
-    pool->vm without pool->lock when allocating the initial chunks, in
-    panthor_alloc_heap_chunk(), so a concurrent VM destroy can make
-    panthor_kernel_bo_create() hit its drm_WARN_ON(!vm). That doesn't touch
-    freed memory and is left for a separate patch.
+    It applies to drm-misc-fixes, and on top of v4 of "accel: ethosu:
+    Another batch of fixes".
 
- drivers/gpu/drm/panthor/panthor_heap.c | 44 +++++++++++++++++++-------
- 1 file changed, 33 insertions(+), 11 deletions(-)
+ drivers/accel/ethosu/ethosu_drv.c     | 20 ++++++++++++++++++++
+ drivers/accel/ethosu/ethosu_perfmon.c | 15 +++++++++++++++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-index 99311abdf1..e55f7e648d 100644
---- a/drivers/gpu/drm/panthor/panthor_heap.c
-+++ b/drivers/gpu/drm/panthor/panthor_heap.c
-@@ -90,7 +90,7 @@ struct panthor_heap_pool {
- 	/** @vm: VM this pool is bound to. */
- 	struct panthor_vm *vm;
+diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+index 4a24bbd2bb..b6778196c9 100644
+--- a/drivers/accel/ethosu/ethosu_drv.c
++++ b/drivers/accel/ethosu/ethosu_drv.c
+@@ -341,6 +341,21 @@ static int ethosu_init(struct ethosu_device *ethosudev)
+ 	return 0;
+ }
  
--	/** @lock: Lock protecting access to @xa. */
-+	/** @lock: Lock protecting access to @xa, @vm and @gpu_contexts. */
- 	struct rw_semaphore lock;
- 
- 	/** @xa: Array storing panthor_heap objects. */
-@@ -371,16 +371,27 @@ int panthor_heap_return_chunk(struct panthor_heap_pool *pool,
- 			      u64 heap_gpu_va,
- 			      u64 chunk_gpu_va)
++static void ethosu_put_active_perfmon(struct drm_device *ddev, void *res)
++{
++	struct ethosu_device *ethosudev = to_ethosu_device(ddev);
++	struct ethosu_perfmon *perfmon = ethosudev->perfmon_state.active;
++
++	/*
++	 * A perfmon left active holds a reference, see ethosu_perfmon_start().
++	 * This runs at the final drm_dev_put(), possibly long after unbind,
++	 * when no job or file can use the perfmon any more: just drop the
++	 * reference, without touching the hardware.
++	 */
++	ethosudev->perfmon_state.active = NULL;
++	ethosu_perfmon_put(perfmon);
++}
++
+ static int ethosu_probe(struct platform_device *pdev)
  {
--	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
--	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
- 	struct panthor_heap_chunk *chunk, *tmp, *removed = NULL;
- 	struct panthor_heap *heap;
-+	u32 heap_id;
-+	u64 offset;
  	int ret;
+@@ -367,6 +382,11 @@ static int ethosu_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
  
--	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
--		return -EINVAL;
--
- 	down_read(&pool->lock);
++	ret = drmm_add_action_or_reset(&ethosudev->base,
++				       ethosu_put_active_perfmon, NULL);
++	if (ret)
++		return ret;
 +
-+	/* The heap contexts are gone if the pool has been destroyed. */
-+	if (!pool->vm) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
+ 	ret = ethosu_job_init(ethosudev);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
+index 26f625374f..69c0967f87 100644
+--- a/drivers/accel/ethosu/ethosu_perfmon.c
++++ b/drivers/accel/ethosu/ethosu_perfmon.c
+@@ -54,9 +54,20 @@ void ethosu_perfmon_start(struct ethosu_device *ethosu, struct ethosu_perfmon *p
+ 	writel_relaxed(mask, ethosu->pmu_regs + NPU_REG_PMCNTENSET);
+ 	writel_relaxed(PMCR_CNT_EN | PMCR_EVENT_CNT_RST | PMCR_CYCLE_CNT_RST,
+ 		ethosu->pmu_regs + NPU_REG_PMCR);
 +
-+	offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
-+	heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
-+	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	heap = xa_load(&pool->xa, heap_id);
- 	if (!heap) {
- 		ret = -EINVAL;
-@@ -435,16 +446,27 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
- 		      u32 pending_frag_count,
- 		      u64 *new_chunk_gpu_va)
++	/*
++	 * The counters keep running after the job that started them
++	 * completes, so the perfmon can stay active after that job and its
++	 * handle are gone. Hold a reference for as long as it is active.
++	 */
++	ethosu_perfmon_get(perfmon);
+ 	ethosu->perfmon_state.active = perfmon;
+ }
+ 
++/*
++ * Stops @perfmon if it is the active perfmon. This drops the reference
++ * held by perfmon_state.active, which can free @perfmon.
++ */
+ void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon,
+ 				bool capture)
  {
--	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
--	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
- 	struct panthor_heap_chunk *chunk;
- 	struct panthor_heap *heap;
-+	u32 heap_id;
-+	u64 offset;
- 	int ret;
+@@ -73,6 +84,7 @@ void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perf
  
--	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
--		return -EINVAL;
--
- 	down_read(&pool->lock);
+ 	if (!pm_runtime_get_if_active(ethosu->base.dev)) {
+ 		ethosu->perfmon_state.active = NULL;
++		ethosu_perfmon_put(perfmon);
+ 		return;
+ 	}
+ 
+@@ -94,6 +106,9 @@ void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perf
+ 	ethosu->perfmon_state.active = NULL;
+ 
+ 	pm_runtime_put(ethosu->base.dev);
 +
-+	/* The heap contexts are gone if the pool has been destroyed. */
-+	if (!pool->vm) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
-+	heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
-+	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	heap = xa_load(&pool->xa, heap_id);
- 	if (!heap) {
- 		ret = -EINVAL;
++	/* Drop the reference taken by ethosu_perfmon_start(). */
++	ethosu_perfmon_put(perfmon);
+ }
+ 
+ void ethosu_perfmon_stop(struct ethosu_device *ethosu, struct ethosu_perfmon *perfmon,
 
 base-commit: bafda823590ddf7031ecb765d673572fae7ab44a
 -- 
