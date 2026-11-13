@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582558;
-	b=s6PfnpvmKIHFQxCSN0Qgn/Y5/YGxXHcRsy6Zr88eVJdPJpi8emrD/yXy/yVfnqDkS65u
-	 YL+lJvkH+I8mw6NU3JI18SURk9lhRJ6M/CORmMNiUfY0xSRT04dDLsYJfw3oi+KFgogIU
-	 S0e+aYV11ZSy9F2H8xJWNxseF7p4WqzbI2vn2Dg+juD79aS0QUFiAU2CXw4H8ev2MgOKP
-	 R4kvsrXlwYA15xEGutFF/+a3W/BwlUNKHofhVGpbiaVFr461zUZ5INcAOU5BhFolEsZVR
-	 wlJLRthidWqq0vLgQXMf4SQo7jocpQCyfybHjFagLFShjh7DnLBxe6Fwk0EryAi0ulw==
+	t=1794582559;
+	b=ZtCNRrCEQ2O6EB/ra6hxbzmTeLlRfYDN5T1fVB1R+yVTu3jfcQCP9XLrG51pi3kLQ+N6
+	 XPiyIRNI1e7GMwPL2DyY1TyPetBJ4yAFvIZzZEPlcJn89unQNVCPVgjGbMDDXn8EX3uMf
+	 uSO1tkpmmPf4R67P1wBswUiAr+AMyk/XfWs9gGtB6xM4XBuytOSHpWHeUvgs65kUQs542
+	 +iEnY+7mFAoPnrjzSVZ18ObR40OT6O/oT1hrwnx7QFtAoeIkL8rW8Sp+RXKS1EeybkWLx
+	 VKewQmnEefoiC8eEX9np3eCYyfpwW3yCqduPHLZ3QEmcR44ysfMKXVlJd2PJ8N9yRWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582558;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582559;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xItLxvauvIJtdqmhpxXwYqqf5RzpHs/lxunoq6amVSc=;
-	b=2VEzPwJxppk6OeUl41Z9jNEGvEBfcoIBqYHFDvOLNFLyeSuC8UnxAZMDByXBSI+qJHYR
-	 FNNeiovME/QefFE+4Aji31QqwOlJwJ42N9xffhIYq3IT0cRymG7FDi2PQY9+XsjAzEDID
-	 MIkGCg+Z0eCUaTTtH2CgVLUjWNJ25KwrLP13xKk5E97jl/dvOLzXnGxAR7IUS5r17yroE
-	 9o0ugEIdZ6VrbuxHwI+s6TTQh507gYjE+ssiqixAkrRRbB9gzHGWctjODmOuNCsJHOJtr
-	 TS4ZBV/07Sjrvgc8flOt4dg6b8lem5aYl6bAxm4zNc6HN2VRAWr9LivLW31FUHhVVEQ==
+	bh=ExJNAbJH+qK5MQRUf8ShNf27BBW7tGCJwdIKJeepikQ=;
+	b=MMqoawrwRRsqRtAjVRbNMBK+uZX3glFGfNTRep6y8Lm+GH2U9ogquhuLGfqoNSpm4Plu
+	 CII1ojuLOD6D6PxeS6ZJGhd52uG0ll7FkYRh6Ieh2hWa0EAaVALXat3Hg4etULB7pNer2
+	 u9MzuxXPw+SBrNyTUJIPVA6tTaeKa4khsQCpgOPh7sFMkxF0CHLhmvcp6ngPUHXQeN9gt
+	 Q3/itJaDXJ6lY98SS9SLzZeyRXGK2xtd3euWv5z3u2qhn1iO8m0lRaA6vjeVuk6KPitn2
+	 kdvyAn7MiW1TOeiXXANzByl/ko0uYh2ZZuzQvm7rtJjJMN74wWw13KDN2LEvTg7I6ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsm959sN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q02ZRF8s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0921606A330
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCDC606A33D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:09:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsm959sN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9E701F000C5;
-	Fri, 13 Nov 2026 15:09:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q02ZRF8s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF6DA1F000C7;
+	Fri, 13 Nov 2026 15:09:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794582558;
-	bh=xItLxvauvIJtdqmhpxXwYqqf5RzpHs/lxunoq6amVSc=;
+	s=k20260515; t=1794582559;
+	bh=ExJNAbJH+qK5MQRUf8ShNf27BBW7tGCJwdIKJeepikQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hsm959sNKod+PUmIF2Tk5Hj5Zh76RQagWRftD1BbAtsUUc/+0uelK5IlUcWSvuPAJ
-	 FXOQ5KEPbEDEEUdnTnK4uJqk3zZ043sGGixTMftj7F+yRrZWcwFLNrFG+oInwoQOZ/
-	 XIxY6LrbBmcjhfpCPS7pVMTu3bcd+/4Zm21go9BrhmV/HoHQUE3ghivQK5LULTID+K
-	 lygRK1uLNQNEI7teHt+yZigcC9ivKb3CMDogj1nin1PEPaxRqHOKK9nVQYLPXqAKWQ
-	 N+oZS6JDXNDcqNWV8p6n4Dum0cSu+rLuPYM9biGhdP+6N9sPNapQ04eaKcG6TwZpbg
-	 jB6rp86I5Nw3w==
+	b=Q02ZRF8s67dr4SGmONZ5DX4lS6m5gYq7xD9sZHX62Pm11g8JmGwA0SMqsT56YZBIo
+	 7ecGeOiZa3oC0ExcYod6aRcAwVoSaiCLUVYrYhUTMukQjgsq9inuOY9+qYbJXi7Bv+
+	 or20eNrQsnQHJ5OSfaPsvgtuRoV7jA9sexd5rf25t72RCRe9NXjKN9eYnPlBjELGlQ
+	 u6pmEz2L7/iBG5BSAwj9fQ29k5uguX6xM0pLggkH6TgcEjIADvsDili6Z3EnpRNYln
+	 pulBXPYqLVERHPODKVmYHirLZpH3ffvxNye6tOtsy7wfJf7BK4cuRCyl1/vkzHM9sY
+	 NHTk6RaUjRIrg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] hwmon: (tmp108) Add helper function tmp108_common_probe() to prepare I3C support
-Date: Fri, 13 Nov 2026 10:09:14 -0500
-Message-ID: <20261113150545.1865145-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] i3c: master: replace ENOTSUPP with SUSV4-compliant EOPNOTSUPP
+Date: Fri, 13 Nov 2026 10:09:15 -0500
+Message-ID: <20261113150545.1865145-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200723-failed-6.12-7cd60538073e@kernel.org>
+In-Reply-To: <20261113150545.1865145-1-sashal@kernel.org>
 References: <20261109200723-failed-6.12-7cd60538073e@kernel.org>
+ <20261113150545.1865145-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,97 +63,115 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-[ Upstream commit 700f3250198d51093884254220a96777a922dd47 ]
+[ Upstream commit d10a4c323883c41cf1b652309e61c48bce248e35 ]
 
-Add help function tmp108_common_probe() to pave road to support i3c for
-P3T1085(NXP) chip.
+Replace non-standard ENOTSUPP with the SUSV4-defined error code
+EOPNOTSUPP to fix below checkpatch warning:
+  "ENOTSUPP is not a SUSV4 error code, prefer EOPNOTSUPP"
 
-Use dev_err_probe() to simplify the code.
-
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
-Message-ID: <20241112-p3t1085-v4-1-a1334314b1e6@nxp.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://lore.kernel.org/r/20250628192027.3932-6-wsa+renesas@sang-engineering.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 Stable-dep-of: 7cd60538073e ("hwmon: (tmp108) Fix initial conversion delay and wait until ready")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp108.c | 39 +++++++++++++++++++++------------------
- 1 file changed, 21 insertions(+), 18 deletions(-)
+ drivers/i3c/master.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
-index 18e7c9d9bcbb8..d95957d808e1b 100644
---- a/drivers/hwmon/tmp108.c
-+++ b/drivers/hwmon/tmp108.c
-@@ -323,33 +323,19 @@ static const struct regmap_config tmp108_regmap_config = {
- 	.use_single_write = true,
- };
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index 28a39b2c039b1..1bbfff68a5394 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -844,14 +844,14 @@ static int i3c_master_send_ccc_cmd_locked(struct i3c_master_controller *master,
+ 		return -EINVAL;
  
--static int tmp108_probe(struct i2c_client *client)
-+static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *name)
- {
--	struct device *dev = &client->dev;
- 	struct device *hwmon_dev;
- 	struct tmp108 *tmp108;
--	int err;
- 	u32 config;
--
--	if (!i2c_check_functionality(client->adapter,
--				     I2C_FUNC_SMBUS_WORD_DATA)) {
--		dev_err(dev,
--			"adapter doesn't support SMBus word transactions\n");
--		return -ENODEV;
--	}
-+	int err;
+ 	if (!master->ops->send_ccc_cmd)
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
  
- 	tmp108 = devm_kzalloc(dev, sizeof(*tmp108), GFP_KERNEL);
- 	if (!tmp108)
- 		return -ENOMEM;
+ 	if ((cmd->id & I3C_CCC_DIRECT) && (!cmd->dests || !cmd->ndests))
+ 		return -EINVAL;
  
- 	dev_set_drvdata(dev, tmp108);
--
--	tmp108->regmap = devm_regmap_init_i2c(client, &tmp108_regmap_config);
--	if (IS_ERR(tmp108->regmap)) {
--		err = PTR_ERR(tmp108->regmap);
--		dev_err(dev, "regmap init failed: %d", err);
--		return err;
--	}
-+	tmp108->regmap = regmap;
+ 	if (master->ops->supports_ccc_cmd &&
+ 	    !master->ops->supports_ccc_cmd(master, cmd))
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
  
- 	err = regmap_read(tmp108->regmap, TMP108_REG_CONF, &config);
- 	if (err < 0) {
-@@ -383,13 +369,30 @@ static int tmp108_probe(struct i2c_client *client)
- 		return err;
+ 	ret = master->ops->send_ccc_cmd(master, cmd);
+ 	if (ret) {
+@@ -1441,7 +1441,7 @@ static int i3c_master_retrieve_dev_info(struct i3c_dev_desc *dev)
+ 
+ 	if (dev->info.bcr & I3C_BCR_HDR_CAP) {
+ 		ret = i3c_master_gethdrcap_locked(master, &dev->info);
+-		if (ret && ret != -ENOTSUPP)
++		if (ret && ret != -EOPNOTSUPP)
+ 			return ret;
  	}
  
--	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
-+	hwmon_dev = devm_hwmon_device_register_with_info(dev, name,
- 							 tmp108,
- 							 &tmp108_chip_info,
- 							 NULL);
- 	return PTR_ERR_OR_ZERO(hwmon_dev);
- }
+@@ -2244,7 +2244,7 @@ of_i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
+ 	 */
+ 	if (boardinfo->base.flags & I2C_CLIENT_TEN) {
+ 		dev_err(dev, "I2C device with 10 bit address not supported.");
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
+ 	}
  
-+static int tmp108_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct regmap *regmap;
-+
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_WORD_DATA))
-+		return dev_err_probe(dev, -ENODEV,
-+				     "adapter doesn't support SMBus word transactions\n");
-+
-+	regmap = devm_regmap_init_i2c(client, &tmp108_regmap_config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap), "regmap init failed");
-+
-+	return tmp108_common_probe(dev, regmap, client->name);
-+}
-+
- static int tmp108_suspend(struct device *dev)
- {
- 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
+ 	/* LVR is encoded in reg[2]. */
+@@ -2374,13 +2374,13 @@ static int i3c_master_i2c_adapter_xfer(struct i2c_adapter *adap,
+ 		return -EINVAL;
+ 
+ 	if (!master->ops->i2c_xfers)
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
+ 
+ 	/* Doing transfers to different devices is not supported. */
+ 	addr = xfers[0].addr;
+ 	for (i = 1; i < nxfers; i++) {
+ 		if (addr != xfers[i].addr)
+-			return -ENOTSUPP;
++			return -EOPNOTSUPP;
+ 	}
+ 
+ 	i3c_bus_normaluse_lock(&master->bus);
+@@ -2801,7 +2801,7 @@ static int i3c_master_check_ops(const struct i3c_master_controller_ops *ops)
+  *	    controller)
+  * @ops: the master controller operations
+  * @secondary: true if you are registering a secondary master. Will return
+- *	       -ENOTSUPP if set to true since secondary masters are not yet
++ *	       -EOPNOTSUPP if set to true since secondary masters are not yet
+  *	       supported
+  *
+  * This function takes care of everything for you:
+@@ -2828,7 +2828,7 @@ int i3c_master_register(struct i3c_master_controller *master,
+ 
+ 	/* We do not support secondary masters yet. */
+ 	if (secondary)
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
+ 
+ 	ret = i3c_master_check_ops(ops);
+ 	if (ret)
+@@ -2988,7 +2988,7 @@ int i3c_dev_do_priv_xfers_locked(struct i3c_dev_desc *dev,
+ 		return -EINVAL;
+ 
+ 	if (!master->ops->priv_xfers)
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
+ 
+ 	return master->ops->priv_xfers(dev, xfers, nxfers);
+ }
+@@ -3038,7 +3038,7 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
+ 	int ret;
+ 
+ 	if (!master->ops->request_ibi)
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
+ 
+ 	if (dev->ibi)
+ 		return -EBUSY;
 -- 
 2.53.0
 
