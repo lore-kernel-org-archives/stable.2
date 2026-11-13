@@ -1,61 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794585554;
-	b=k2Nrxs5SN1ShasILGPkOwkd7/1Jd3CO2k2GHVh8PUI8FmTY68xdhyGz7GJ0jQE5QYSXB
-	 mZ3HBgPrgGfb4LCJzV3qfylXqjGsSM1hC/LIrv2JdGCxdPjGt+/Pq3nuQ1rwiGX2uroUS
-	 TDydQfAlBqE0Yo7ReSunhBXaQivO3SuDW6g/iiTTtyHwbXoFGiohUEtcZ9E8WXfQcijVO
-	 lADDkJRVZnAWOaGdGRMJKJAykMiHE/Q0uIuIvEjx/H2b7ApQy9Fh9dFpPCh6O7R8BVQLn
-	 zC0fQuQRym0wzD4SoTi/vEsYycserCobJKGZAepmRJDj4KmZq8QgTeft9Mv3p+oGvSQ==
+	b=O/uP28ngvdEISOwYyi6qvVA9BGpazhUJ/gKhRfm2f3W/JLuQP8+qvnhOADeojFq2e2xo
+	 zS25C8DZx4oNx/XpdRSxMUD3Hyzl7YqHDx/rT6+MOw4FGQWbihcrypADKbk0+/aa91jh1
+	 Ykkl3WzzryEgAZyY0pthKvAQs3hiobNiaC6CzNM2QWRayShI41SUtB6ulWcoR4NrdxrgF
+	 6Qz67dH78IPSmNTDx+K2O+mXQSn8BB6j+hwrEuWLHEvRDZ6V9JMGwJhAiFWV+9baDPG7+
+	 afIO4YQ33TZ0tiGJcI5h97Eozk4RmHkBkOQbpE+DXFhNTnYx0UrEqAq828G7oVR68fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794585554;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=N2YTGIW1DfeI6k36m98kbc/OQFLvZ0j/RHxE8/Py9gU=;
-	b=BebuvyTIctOgWNWtmZtFiup5DCtXfvIsehsdDhBBf7bO6qV9T/DvJb+cspsR7+zbP6c+
-	 o53qVK+Swgg2OWCThPcRBWEKp0RvoIJ2jVsE7nvLCb18+z7rbv1U3fEWbvpvtwhvQBpDi
-	 65hSnZ232Tzyo1G+wTdFuZZZpilu1ifVttRqvG3/jCWQydsZbvI2mTdQTWYYcg6BYpRRP
-	 yf0aS5P//3ZAGda6AElM5r5pKaD9gTnITTixjLyFPhpXN3eGou9NlfkjyCtDj9rx0PDC1
-	 364ufwoeOBts3vgCK8qn2JuAORgyEte5NTqsqpoQi072kOCZ1Qk3qZ7a8mp5GlS3WIA==
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=v7OsVuI68toVGxoukGdn/ITq8yHt6b7No6mV5OpaB5c=;
+	b=sOz9UjnBOk/SFyeCzI7zlkxlLFBNhwrORwlWCfjMUlyaDnZRJMvhDisQe0Mos4x/bEVC
+	 ADJSyrIIK3Yvs7CN3CyrnZBLtpVeNjYOkiUsMjePZp+rOWnO1vG5up9Mbr95nmqo6cFsZ
+	 6/MymXvj/f982vYIuQgbbAd2SGupBl7s7Mm6yBEPPL4YpWMl4Ospg0tt6XSDF2apBiz+L
+	 JeiuEG7ReIlWqtpFc+mq+kGtOiQMXbIMQlMNcYGUHAJQaD/VdrnfBtJUoo/Gl1Cykz7lh
+	 RRb150ZNsOAal8NjtBgkY/+yzvOw/PI/yOP+v2DjBvd7NTd2zVaPlxX15ime75Ix4nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=joqGuMP2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="IQUKC/TD";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F36606BA95;
-	Fri, 13 Nov 2026 15:59:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A3F60A2608
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:59:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26A3F60A2608
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=joqGuMP2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083091F000CA;
-	Fri, 13 Nov 2026 15:59:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794585554;
-	bh=N2YTGIW1DfeI6k36m98kbc/OQFLvZ0j/RHxE8/Py9gU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=joqGuMP26cxsOKmSdlBTSBtW8UtgDqsMRkQXLLB8kpLP4BIZI3cAdFAyH+pEOTvmk
-	 uVdiJOD/zL7R4F3oMGsucRp40PtDyOATc9faKEJFABPiDRD08FaewZ4kLPR29V7hja
-	 rySD3eY9noQj5FRzqEDrmazi2BzuMHxGRga14AZ4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Josef Bacik <josef@toxicpanda.com>,
-	Rik van Riel <riel@surriel.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Zi Yan <ziy@nvidia.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 150/507] mm/filemap: read mapping->a_ops->free_folio under i_lock
-Date: Fri, 13 Nov 2026 10:47:34 -0500
-Message-ID: <20261113153759.514556779@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
-References: <20261113153753.358973689@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IQUKC/TD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794585553;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v7OsVuI68toVGxoukGdn/ITq8yHt6b7No6mV5OpaB5c=;
+	b=IQUKC/TDwX0j1P1J466NJz3WjeZbrhbgn7/3fIw1b3/UMpEM4vsAESL+sZFbmz7ZjgvNse
+	FpknmcNvpEAqZeiX1k8K0xqU8MC24C4RpPEa14nnzN0XvVzxz2rS+PuQMSwVzsMcJRJ7oO
+	21AJrbH6hBoC+ISJsy3VD86x8DPi4Vs=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-693-Ntv96ZN_OVapg2RQPilAHA-1; Fri,
+ 13 Nov 2026 10:59:08 -0500
+X-MC-Unique: Ntv96ZN_OVapg2RQPilAHA-1
+X-Mimecast-MFC-AGG-ID: Ntv96ZN_OVapg2RQPilAHA_1794585545
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 306AE1955F3E;
+	Fri, 13 Nov 2026 15:59:04 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4DC441956040;
+	Fri, 13 Nov 2026 15:58:58 +0000 (UTC)
+Message-ID: <4cdb4452-f11f-4e56-b03a-6d751dcfb62b@redhat.com>
+Date: Fri, 13 Nov 2026 10:58:57 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,126 +71,154 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 19/29] cgroup/cpuset: Wait for an attach before
+ rebuilding the sched domains
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ juri.lelli@redhat.com, peterz@infradead.org, mingo@redhat.com,
+ vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+ boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+ mathieu.poirier@linaro.org, ridong.chen@linux.dev, tj@kernel.org,
+ hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
+ m.szyprowski@samsung.com, kayracizmeci@gmail.com, weihengqiuu@gmail.com,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-20-mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261108185406.1549770-20-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On 11/8/26 1:53 PM, Mathieu Desnoyers wrote:
+> cpuset_can_attach() reserves the bandwidth of the deadline tasks it
+> moves in the destination root domain. cpuset_attach() moves their
+> bandwidth later, on the strength of that reservation.
+>
+> Commit 75f7a25ec6bb ("cgroup/cpuset: Prevent race between task attach
+> and cpuset state change") lets cpuset_attach() rely on what
+> cpuset_can_attach() set up. The writes of cpus, mems and cpus.partition
+> wait for an attach in progress, in wait_attach_done_lock(). CPU hotplug
+> cannot run in between either: it takes cpus_write_lock, and the attach
+> holds cpus_read_lock throughout.
+>
+> But a rebuild of the sched domains does not wait. A write of
+> sched_rt_runtime_us and the energy model rebuild them through
+> rebuild_sched_domains(). The cgroup v1 writes of sched_load_balance and
+> sched_relax_domain_level, and hk_sd_workfn(), use cpuset_full_lock().
+>
+> In this example, a rebuild drops the reservation. T is a deadline task
+> asleep in root domain R. Thread A moves T to a partition root P, which
+> has a root domain of its own. Thread B writes sched_rt_runtime_us:
+>
+>    A                                      B
+>
+>    cpuset_can_attach()
+>      takes cpuset_mutex
+>      cpuset_reserve_dl_bw()
+>        P's total_bw += T's bandwidth
+>      drops cpuset_mutex
+>                                           rebuild_sched_domains()
+>                                             takes cpuset_mutex
+>                                             dl_rebuild_rd_accounting()
+>                                               clears R's and P's total_bw
+>                                               counts T in R (not moved yet)
+>                                             drops cpuset_mutex
+>    cpuset_attach()
+>      takes cpuset_mutex
+>      cpuset_attach_task(T)
+>        set_cpus_allowed_dl(T)
+>          R's total_bw -= T's bandwidth
+>          records a CPU of P
+>
+> P now lacks the bandwidth of T, and admits deadline tasks beyond its
+> capacity. When T leaves P, P's total_bw underflows. In testing, the
+> race left a destination admitting 3 tasks of 10% too many, or P
+> admitting no task at all.
+>
+> Fix this by waiting for an attach in progress in
+> rebuild_sched_domains_cpuslocked() and in cpuset_full_lock(). The
+> latter then takes its locks in the order of the writes of cpus and
+> cpus.partition. A rebuild from CPU hotplug finds no attach in progress.
+> The online, offline and kill of a cpuset never wait: they hold
+> cgroup_mutex, which the attach holds throughout.
+>
+> The move_vs_rebuild case of deadline_bw_test, added later in this
+> series, tests this race. Without this patch, it fails in 5 of 8 VMs with
+> 8 CPUs. With it, the case passes in 8 of 8. The next patch needs this
+> wait too: without it, it would give back a reservation that a rebuild
+> dropped already.
+>
+> Found by the Sashiko AI reviews of v2 (the race) and v3 (the cgroup v1
+> writes) of this series.
+>
+> Fixes: 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach() fails")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
+>   kernel/cgroup/cpuset.c | 16 +++++++++++++---
+>   1 file changed, 13 insertions(+), 3 deletions(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 194a438e25c3..51b6be460794 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -296,17 +296,20 @@ void lockdep_assert_cpuset_lock_held(void)
+>   	lockdep_assert_held(&cpuset_mutex);
+>   }
+>   
+> +static void wait_attach_done_lock(void) __acquires(&cpuset_mutex);
+> +
+>   /**
+>    * cpuset_full_lock - Acquire full protection for cpuset modification
+>    *
+>    * Takes both CPU hotplug read lock (cpus_read_lock()) and cpuset mutex
+> - * to safely modify cpuset data.
+> + * to safely modify cpuset data. Waits for an attach in progress before
+> + * it takes cpuset mutex.
+>    */
+>   void cpuset_full_lock(void)
+>   {
+>   	mutex_lock(&cpuset_top_mutex);
+>   	cpus_read_lock();
+> -	mutex_lock(&cpuset_mutex);
+> +	wait_attach_done_lock();
+>   }
+>   
+>   void cpuset_full_unlock(void)
+> @@ -1005,7 +1008,14 @@ void rebuild_sched_domains_locked(void)
+>   
+>   static void rebuild_sched_domains_cpuslocked(void)
+>   {
+> -	mutex_lock(&cpuset_mutex);
+> +	/*
+> +	 * Wait for an attach in progress. cpuset_can_attach() has reserved
+> +	 * the deadline bandwidth of the moving tasks in their new root
+> +	 * domain, and cpuset_attach() moves it on the strength of that
+> +	 * reservation. A rebuild of the accounting in between would drop
+> +	 * the reservation.
+> +	 */
+> +	wait_attach_done_lock();
+>   	rebuild_sched_domains_locked();
+>   	mutex_unlock(&cpuset_mutex);
+>   }
 
-------------------
+I agree that rebuild_sched_domains() should wait for an in-progress 
+attach operation. The change to cpuset_full_lock(), however, is not 
+really necessary. This cpuset_full_lock() is now mainly used for 
+operations like cpuset_css_online() that are initiated from the cgroup 
+side where cgroup_mutex should have been held. IOW, an attach operation 
+which requires holding cgroup_mutex cannot happen in parallel. The only 
+exception is hk_sd_workfn() which is a work item for updating the 
+housekeeping cpumasks from hotplug which has no dependency on an attach 
+operation.
 
-From: Josef Bacik <josef@toxicpanda.com>
-
-[ Upstream commit dc24e273244e9d712257d5a6c20a32c7f5ca84e6 ]
-
-memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
-after the inode has been freed. Once the folio is deleted from the
-pagecache it no longer pins the mapping, so after i_lock is dropped
-e.g., a concurrent final iput() can evict and free the inode before
-filemap_free_folio() looks up mapping->a_ops->free_folio.
-
-Most callers hold a reference on the inode, but not all.
-
-Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
-must not assume the original address_space mapping still exists.
-
-Fix it by loading ->free_folio while i_lock is still held, similar to
-what folio_unmap_invalidate() does.
-
-Inline filemap_free_folio() into its remaining caller such that
-delete_from_page_cache_batch() also just loads the callback before
-dropping the i_lock.
-
-The bug was found by code inspection and has not been reproduced.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: get rid of filemap_free_folio() entirely; improve patch description ]
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/filemap.c | 29 ++++++++++++++---------------
- 1 file changed, 14 insertions(+), 15 deletions(-)
-
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 00fd89cf6f550..0494c246fb18e 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -227,18 +227,6 @@ void __filemap_remove_folio(struct folio *folio, void *shadow)
- 	page_cache_delete(mapping, folio, shadow);
- }
- 
--static void filemap_free_folio(const struct address_space *mapping,
--		struct folio *folio)
--{
--	void (*free_folio)(struct folio *);
--
--	free_folio = mapping->a_ops->free_folio;
--	if (free_folio)
--		free_folio(folio);
--
--	folio_put_refs(folio, folio_nr_pages(folio));
--}
--
- /**
-  * filemap_remove_folio - Remove folio from page cache.
-  * @folio: The folio.
-@@ -250,6 +238,7 @@ static void filemap_free_folio(const struct address_space *mapping,
- void filemap_remove_folio(struct folio *folio)
- {
- 	struct address_space *mapping = folio->mapping;
-+	void (*free_folio)(struct folio *folio);
- 
- 	BUG_ON(!folio_test_locked(folio));
- 	spin_lock(&mapping->host->i_lock);
-@@ -258,9 +247,12 @@ void filemap_remove_folio(struct folio *folio)
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_lru_list_add(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
- 
--	filemap_free_folio(mapping, folio);
-+	if (free_folio)
-+		free_folio(folio);
-+	folio_put_refs(folio, folio_nr_pages(folio));
- }
- 
- /*
-@@ -320,6 +312,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
- void delete_from_page_cache_batch(struct address_space *mapping,
- 				  struct folio_batch *fbatch)
- {
-+	void (*free_folio)(struct folio *folio);
- 	int i;
- 
- 	if (!folio_batch_count(fbatch))
-@@ -337,10 +330,16 @@ void delete_from_page_cache_batch(struct address_space *mapping,
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_lru_list_add(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
- 
--	for (i = 0; i < folio_batch_count(fbatch); i++)
--		filemap_free_folio(mapping, fbatch->folios[i]);
-+	for (i = 0; i < folio_batch_count(fbatch); i++) {
-+		struct folio *folio = fbatch->folios[i];
-+
-+		if (free_folio)
-+			free_folio(folio);
-+		folio_put_refs(folio, folio_nr_pages(folio));
-+	}
- }
- 
- int filemap_check_errors(struct address_space *mapping)
--- 
-2.53.0
-
-
+Cheers,
+Longman
 
