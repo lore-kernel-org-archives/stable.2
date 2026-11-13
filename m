@@ -1,60 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743019;
-	b=qM/i7wyH3M1KJ5V3fjXPsoJaQ/I9sQEgZ8a1qdCsN265Eoqy5e7/tY624tJp4Ftf48ai
-	 YYK88euuH+LUZndf2gY61QFZuyboiQrL/5UPprn2nJPMtPnlp608h5BJcT7EVZl8yjGE6
-	 jmathH7nvAjEdf8PSpOgtJD6NYV60670zs1s0S4TzXyFhexLOb9taOZWe1kVomz0KqBxK
-	 0Wo+nA2EK4rQoqRD6qcobzI2JkWntumOmzCjB894iOeIN5GYUIcnr3waZuVz5mW7ZgASQ
-	 SIkFEoyWTNSAOFwbR+TcCSaKq8515O/owHIalzRWfPNSxASaaAkjNxFaFySrIJVpDwA==
+	t=1794743020;
+	b=akPDGCKjPv4vgGLpsJMTb0c84ekWYWvBs1moe1tJFV7fAOrMYL3UcQgaD0sFvtMgGdvc
+	 2OHickpbs8sLnU4m6NH6HAfhHdoQPj56Mq06FwgGX/PL3zSWt+Cbxm2LBA89MIJWtXxkQ
+	 ZcOUeJmuy+CEvr+Wpg/pP4mU1XI6lRS8iOTdevl2uDI/OT1CU1swOFaaboNX4qH7JYDRl
+	 ex49RPbJETujxHt23eBmm/KX1+0nsYzzptJ9Y9HcmPm6nUKvNi3bDeK3OpZY/cUM6+sUG
+	 2VwZGVvfgy2U4exVaq2nF0SK82rJurPCR6RnCRmds953do58Ur0AjXnWJbbwjx6kjMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794743020;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=b8sO3FhCekJqG8gkayZyke9pQ9N10NbWdbOeXNfeb+c=;
-	b=CKhWed9pt4/SRAmujk29xeuFL3iR665onNNxnnhL+qcNEOTxQWCluRQ0M2UDSUQiXnYM
-	 lxUCXb/Y+A+IT/VgFmr4UOctbj4QaxEUeBcfPT9EB+4WI6aHlsewhbVU6Dd+eqCSOceMe
-	 iJcadeaN8jV4cdj7rDWS94RT18Iql/5l4UolGd/GfY2YVENSlHG8uplVBfKw7zngPrFX7
-	 GMKDBZISoeBkaDv1cdd/433/Sj7SLxvfM9sXIpxgGovPUg43xUbn4+CBheIuYNjP3apYy
-	 9mOB6a6z82x7KhrOBinkxgm0qlGyIyuatKVw/0nfukPENrXvaKVAl0xA5zmwFLZqz+w==
+	bh=HORPT2+OKhUQX/c+w9CEyiHuwbVnQXzU8FvgGpEczmg=;
+	b=a2gSNiDDDhu7IqxSViqdSN5bMdp7fYY8sxfXy7R3VNsr9pB/y31kLF2BLfHZgUuGneuN
+	 b7+j40RKZumeLk0jGtgB+s6aLTxxM+s4FynzJbHAxdUfbKGR40PAZkbjdOFf7GOgcsk97
+	 9hXlil6C9dkKZsPQGfGAP0V1TvnMWNW3uEwib2xKIMFvX+qi5wr95lvEqVzZ9PpeITBm5
+	 K4WExkb7QDTRCn9o9rVaw+h+g5tQVn1L2UdrpZXocNkGPCoTZf7+BOJUXxRpRS0D0YZME
+	 nmwPtBIIBKc+BoRiW5aiVhPUNyL6v/1LLGvqneEV6OO2K6q5bxw+GmgOgso2oZqKfOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhGzO94Q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhRTarOg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8B6606A32C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288B7606A32F;
 	Sun, 15 Nov 2026 11:43:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhGzO94Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D661F000C4;
-	Sun, 15 Nov 2026 11:43:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhRTarOg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9CB91F000C6;
+	Sun, 15 Nov 2026 11:43:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794743018;
-	bh=b8sO3FhCekJqG8gkayZyke9pQ9N10NbWdbOeXNfeb+c=;
+	s=k20260515; t=1794743019;
+	bh=HORPT2+OKhUQX/c+w9CEyiHuwbVnQXzU8FvgGpEczmg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=nhGzO94Q4SS1VvHLayaaZxBOFzi7kRuCPkIWXL8HlHJuCWzng0F0rSy598bXDCcrw
-	 D4ksi2c5GztShKF07qFidHpj1HdHVb27xRxwZ9726uXBeiPbQgSHpjMaUtpYIn33SQ
-	 cv6RrwmlKdYs2B5GQyyR5joqscb/jRoeH6sp4/+ejju17O275ffF8Gj7C3fSk4JISC
-	 DgdgW/8Tt6KmtAqRohmfsoKZBv4vZd70OeDnI3LcRrUAVkLPonOjvKs579WIW+UbMh
-	 HrEhCPH/rZnvh3TyV+nThGYSyRzfQKSmHcOQrsiZ52aupb6X9JPkB9Y33eYpysMtOG
-	 smu9KUozBjccw==
+	b=hhRTarOgvtkcvoHQCponhnC43YrzXZb9k8hBYH9WUgbOguss8fkqRRwLtcwPgUMz8
+	 qmxre8bRPxJvw7QKepZd9G7XAxDHhb5fIi1FtsJIKy+epPBjwlUrFUM2xEoP1n82xH
+	 9fjoujxjm7VeBE9HZ7x86JRqj/+48Dv1tpfOTnLNv0t5RSop+P8JLm9YpXETQqEiZY
+	 l/ypqv9PXA+WOkC/ax2ry01IlWmQKrYyzLx+O4ohBPiCnQcSS8kCp+2PTNc41uJ/np
+	 YcLyvA/QTkcJTR+BWQKwjRbDRgtj6F19cYcnvkGx22qKS8IRf+BgOF3NXZqog+EqkJ
+	 WIDf15WrJdW+g==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 0E6D13366C01;
+	by traversing.sirena.org.uk (Postfix) with ESMTP id D87813366C0C;
 	Sun, 15 Nov 2026 11:43:37 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, hyunjungg <hj351016@gmail.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261106114628.2555176-1-hj351016@gmail.com>
-References: <20261106114628.2555176-1-hj351016@gmail.com>
-Subject: Re: [PATCH v3] ASoC: codecs: wcd-mbhc-v2: cancel button long-press
- work on deinit
-Message-Id: <179460985134.590303.9887273996770052957.b4-ty@b4>
-Date: Fri, 13 Nov 2026 22:44:11 +0000
+To: Oder Chiou <oder_chiou@realtek.com>, Tristan Madani <tristmd@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Tristan Madani <tristan@talencesecurity.com>
+In-Reply-To: <20261111114919.95639-1-tristmd@gmail.com>
+References: <20261111114919.95639-1-tristmd@gmail.com>
+Subject: Re: [PATCH] ASoC: rt5668: initialize calibrate_mutex before first
+ use
+Message-Id: <179460731193.448985.18161081326814436601.b4-ty@b4>
+Date: Fri, 13 Nov 2026 22:01:51 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,17 +68,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1147; i=broonie@kernel.org;
- h=from:subject:message-id; bh=h/92pmD4OYZXWGmU3Qyf3t7FfRviTjms/y3AfH4XIWM=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+znrxpNNVWMRHuyf4973wEzd6j5dbpp7gWb+xNfCT6
- KX2qL2bO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRGDNGhvMOJ5e8e5Xw9pZz
- v/quhx22N1rC1ugZyT3fs0Kn6cCypGkM/8x9RU/8LtN8eqz+19XvyWG87j5BV4/fspWy5Vi/7Yj
- vCxYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1134; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=kfDqLVqtfwV5YnDdru5bhXRI8M2REBjYV5be8X44nAk=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+znp5lO8vR2zDkU/9G9m4FNWVfP58+/NxT18ye+BD3
+ c2zJ51r7ChlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEXl1n+O99X2DX6yfWmz/L
+ LUnW101Z+lpMn3tK/+TLz6dp/3VSNNnM8D/htEW0VWFbm93srXaGE6coq/RsyfbWXcM+PWQaa/v
+ y7RwA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 06 Nov 2026 20:46:28 +0900, hyunjungg wrote:
-> ASoC: codecs: wcd-mbhc-v2: cancel button long-press work on deinit
+On Wed, 11 Nov 2026 11:49:19 +0000, Tristan Madani wrote:
+> ASoC: rt5668: initialize calibrate_mutex before first use
 
 Applied to
 
@@ -85,8 +86,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: wcd-mbhc-v2: cancel button long-press work on deinit
-      https://git.kernel.org/broonie/sound/c/5f702565496d
+[1/1] ASoC: rt5668: initialize calibrate_mutex before first use
+      https://git.kernel.org/broonie/sound/c/00e80a5f6dcd
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
