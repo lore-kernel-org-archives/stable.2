@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590999;
-	b=dVmNLzhCUFmX8ddMt5VsXdMJjElLKekhKUN9FZQv6j9COVWqmuXnGyubR6Xk4x4o3thx
-	 mCxNwz63As/MfcqDsXO3R38fZc9N5YCNdSB7bEIMVMfyu71XqLNru96rbFHdP4E3m4x7e
-	 eoiXE0nv4fN2uZZ0RN4ThU0LCjcNP+LG5vkIYfkHczFifkTRTwGWXdn8KBd80dnQXfYBF
-	 25yQTm0wdQjAbNWL7sS3fb/0h/EpvZrcARvlEK3c1KxGdqOge1PgOReeUDZQGEOlusKyz
-	 bbaD7IARieEmRKQj0vkF+eIU1Y/Qa/qShR9qDwi+Q4eoPA9HddE8tHspGL4ZisxFvrg==
+	t=1794590995;
+	b=db9rMCOSBSYs0w/qlDCgKfmtSeq9zDz1cjqH5hUrGqa/4Z0Fg2GrJy5sce/il8vpQcnB
+	 9AzbA1ORC0BAvPyPwOuDnMbTHNde+J39Pc0GU8tFFvNzQVbfpgASSXRIKeSPk2E4KPCta
+	 ofXY1PdX7erPq/HX6Hl4IUZudtsW5rvQ+q++suX8tD4t1gBZw3+PfPOays52esyQmC01v
+	 4E8oC5UnzpjeeTT/aJNnfNylEfYXcexB8rqvlYWGzH2ttHHL1n6a3yiJPBGtR29GvHBk4
+	 DR4c6YG9MWB/2Tr4VH+ReJFfb2cp7YN23XcOBVsp4I6CZqykS6QPkYXupIk6xennsVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590999;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590995;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=y8b9+eqfsHfO4L4VaOOvL64FcxHquWzkzmdFPzvhnUg=;
-	b=w9AmQbWLWCF0CKhPsWSePpTi+haT+AL+hj5WWD5JAbZD+gdxaYiZBveamm3NDsPHiAzz
-	 OgBSnYh9Yo+ri1fu3LOzL4xHrFgVoWtElVNIYLANiE0Aue/69NaFXXLljCCGPsuLcF2TO
-	 76a3/44t6iRVhX1AzsvfeNc/UyYIv2fIkZ/8q7P8qDeRCOcVipvoU0geecwHi8KvbqNK5
-	 QMYOBRTmkH0UZwZoZJmBcJqxUej69O9EtohQPejJj+yGFg7SD4fSiQ7OXANT5y/+d48j5
-	 liI6q57qRQ6syAS56S2+FFT4SZ/rg91ZlPnmnJQOQZUBB5nHrUIFWFgoxbPqsyisyYA==
+	bh=oQPyvq/X6VL8YxujpbV2A5EV9TGwIZT8ftwwY4LJnqg=;
+	b=S3SZajY6IGcjEv9lDE4SFxl42B1pmOj0aW08lXVVSZVSSDJ8FmGvTU33pq6XRoE5XX4f
+	 53McZ/oRwALam8xCl33FH4hPBuiRa551MXY43vE6c/7habIkV0eg/LD1k9N6iSsa1pUg7
+	 K0t2/vXuisEt6aIU1Gd01erirNO2YxArWBdBryCEwn6ucUjiEazxlrJCllAt/4Oxa3d4k
+	 37+7InbY8mouCrm8AVpao79Kl5BM+2Upwu+z+r2vz6mY6w9AThl69yCnGOdtP06wx07Ee
+	 fIJSAvohJ8MoUXBXjqCpUYb+684pMSSOZTvOpVUIjYa2g8WYfgmNGlCu7aj9PUQnOcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vUUvoZeO;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SpI2AMtC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC286070F08;
-	Fri, 13 Nov 2026 17:29:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BD860703F9;
+	Fri, 13 Nov 2026 17:29:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vUUvoZeO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28A701F000C4;
-	Fri, 13 Nov 2026 17:29:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SpI2AMtC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF081F000C4;
+	Fri, 13 Nov 2026 17:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794590999;
-	bh=y8b9+eqfsHfO4L4VaOOvL64FcxHquWzkzmdFPzvhnUg=;
+	s=korg; t=1794590995;
+	bh=oQPyvq/X6VL8YxujpbV2A5EV9TGwIZT8ftwwY4LJnqg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vUUvoZeOR/o78V3GtEwYv6gL0BvuXMkss/aiVrSV9fawnNne+YkVcJBJDxSPQQ+sC
-	 yzgtNhge87x2mZn0J/HpC5B03CVUrT0jf/nJJ0WRRIvH0A3Gk5MGIf5YgCrBK3geec
-	 fmYYxkSyE7EWgqHBZ5hI8YRMgoDkKOjKY0LjHB74=
+	b=SpI2AMtCf7BFsAhudCgtFOM4lv/LCu10MvIU5jryort1kpC98qm04miSqh9kqovpr
+	 VRZ5l0hijEAwvNipBvDjMoXSmPu+JwI50kwoSmoyNDJWukBysAmf1hsu00VjjVEwD/
+	 BCDRztTQBxBu2RlMoTf5TAztj4wIJWEfv1Mg5/kY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yifei Gao <gyf161023@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 172/670] 9p/xen: fix refcount leak in p9_xen_response() on wrong tag
-Date: Fri, 13 Nov 2026 10:45:36 -0500
-Message-ID: <20261113153817.891602086@linuxfoundation.org>
+Subject: [PATCH 6.12 169/670] xfrm: retry inexact policy lookup after node reinsertion
+Date: Fri, 13 Nov 2026 10:45:33 -0500
+Message-ID: <20261113153817.797727788@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
 References: <20261113153811.177190860@linuxfoundation.org>
@@ -69,45 +68,85 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yifei Gao <gyf161023@gmail.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit 4d183e6f153245aca2534e372152583b868dd925 ]
+[ Upstream commit 868f63c8bfafa9b827168c9126f85264c39c02ec ]
 
-p9_xen_response() looks up the request for an incoming reply with
-p9_tag_lookup(), which takes a reference on the returned p9_req_t. When
-the tag does not resolve to a request in REQ_STATUS_SENT, the function
-warns and continues the loop without dropping that reference, permanently
-leaking the p9_req_t and its msize buffers. The reply header, including
-the tag, is supplied by the backend, so a malicious or buggy 9P backend
-can leak kernel memory on every crafted response.
+An inexact policy lookup first records pointers to candidate hlist heads
+and then traverses the lists.  A concurrent policy insertion can merge
+inexact tree nodes between those operations:
 
-Drop the reference before continuing.
+  lookup                         policy insertion
+  ------                         ----------------
+  find inexact candidates
+    save obsolete hlist head
+                                 write_seqcount_begin(&bin->count)
+                                 merge inexact tree nodes
+                                   hlist_del_rcu(&policy->bydst)
+                                   reinsert policy->bydst in survivor
+                                 write_seqcount_end(&bin->count)
+  evaluate saved candidate list
+    miss the moved policy
 
-Fixes: 728356dedeff ("9p: Add refcount to p9_req_t")
+The merge immediately reinserts the same hlist node into the surviving
+tree node.  RCU keeps the policy alive, but it does not provide a
+consistent view while its list node is moved.  A lookup that selected the
+obsolete list can observe it empty.  A lookup already traversing a moved
+policy can instead follow the next pointer rewritten by the reinsertion.
+Either case can return an incorrect IPsec policy result.
+
+The per-bin sequence counter already brackets calls to
+xfrm_policy_inexact_insert_node(), including node merges.  The read side,
+however, currently validates the counter only while searching an
+individual rb-tree.  A successful search returns without validation, and
+the later candidate-list traversal is outside that read-side section.
+
+Snapshot the per-bin sequence before discovering candidate heads and
+validate it after evaluating all candidate lists.   Retry the lookup if
+the inexact policy tree changes while it is being searched.
+
+Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Yifei Gao <gyf161023@gmail.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <20260806144255.4167019-1-gyf161023@gmail.com>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/9p/trans_xen.c | 2 ++
- 1 file changed, 2 insertions(+)
+ net/xfrm/xfrm_policy.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-index 068d57515dd58..92701a16511d4 100644
---- a/net/9p/trans_xen.c
-+++ b/net/9p/trans_xen.c
-@@ -201,6 +201,8 @@ static void p9_xen_response(struct work_struct *work)
- 		req = p9_tag_lookup(priv->client, h.tag);
- 		if (!req || req->status != REQ_STATUS_SENT) {
- 			dev_warn(&priv->dev->dev, "Wrong req tag=%x\n", h.tag);
-+			if (req)
-+				p9_req_put(priv->client, req);
- 			cons += h.size;
- 			virt_mb();
- 			ring->intf->in_cons = cons;
+diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+index e033390e77855..106e2f5cc5865 100644
+--- a/net/xfrm/xfrm_policy.c
++++ b/net/xfrm/xfrm_policy.c
+@@ -2157,6 +2157,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+ 	struct xfrm_pol_inexact_bin *bin;
+ 	struct xfrm_policy *pol, *ret;
+ 	struct hlist_head *chain;
++	unsigned int inexact_sequence;
+ 	unsigned int sequence;
+ 	int err;
+ 
+@@ -2191,12 +2192,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+ 		goto skip_inexact;
+ 
+ 	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
+-	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
+-							 daddr))
++	if (!bin)
++		goto skip_inexact;
++
++	inexact_sequence = read_seqcount_begin(&bin->count);
++	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
+ 		goto skip_inexact;
+ 
+ 	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
+ 					  family, if_id);
++	if (read_seqcount_retry(&bin->count, inexact_sequence))
++		goto retry;
++
+ 	if (pol) {
+ 		ret = pol;
+ 		if (IS_ERR(pol))
 -- 
 2.53.0
 
