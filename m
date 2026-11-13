@@ -1,87 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532114;
-	b=XBx+SdWVLhYd/EJTytZzSViLPN75/6i8KBv/ioIRZllKA/Tr6bgQ57iuTgRqZHiXCF+3
-	 3df25j5+vfEndAyfYNEbbyXlKkGdl2kTHLcmoRvZPggjCIvXgFizvKtzKIaXDXTvWnEA6
-	 2u8X7GxdCWacRadOQj9ncJSVeFN3KY49LbBfNo2BZF64WFHYPYD6aiNwZaz5YnvXR3yvq
-	 P3+uPBjZEeZ1s+8eNlVvcVSYzSAThZtFV8AW76WzmfJLIK9Hge5zfOlA2IHNPDDFgRWcN
-	 eVLlbn84BENmNxF7c5UNeCdhreOJe84HyQxVo/PrIbjlPCSmkVLIzVn49M5FbZrxk0Q==
+	t=1794532116;
+	b=PEush5IVfN9aqBiLaOFh9Yhao7zM1bNqeONEk1i5/kRnYsgvTUEN+7BKzX6RP6P3N/Xd
+	 TpJ3OPx3otWqhHI7aExzns39PvA6I4TN7wUjHC/qaoJPvo+J2kvB7b8K6Toq6d52N/NBQ
+	 I+QRx0NHSRiY9P5Oy13zm6S1+QgiFESyfff1ml9qGG0/dByZdtY6IGonuXBQSDDn2Nt2L
+	 PXWReF2VvxfPoF6AlUka9R6hMP0/Ep2MCSje58OD7u+y4TMY5jbdGzcyjZS56G+G9yu7K
+	 jdfP12Tg1VQAc5U8IFd5utEj6jQsdTLutrobIUxSMJzMmsM34hIbuIW9SFeNZlM+/tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532114;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6mKfsE2m1surULkycD7HQgfLz0qt2LKkwV1QgEcEtLM=;
-	b=SZQ7yFeFyFhjsdiGwZL3yyNUwmWw1j1Af156hxHPhzmB0a/Z1akWwfiP4Nszodxp473S
-	 cyUvQi44EoMSoW6IlECKcBtC/wZG5sS0gM1h6+WT9zQsZxvz4z6bRi5wdSWNlvlBFBxo1
-	 XxxdKdGYrmM3K6XTMlEXtB89rLGkZ70DzyFyh0shvtnIYUfUCVzp8Mrr756RZkE4stN6K
-	 dfHSKZTW8V+4HiNIF0tat6YCWom4joGJRZSYELja6hQ2tQ8QrJJO+TvjMa3utyb46wBhB
-	 EfF/b9GsWp/63KHme2QPZygdAb5ZSgHioYJozWm2qII0Bk5YmqJyv60Kwzxs7Hv4pMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532116;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Gk+kPP8lm6AY2IOfXaSY5B8VnQv17iLfHnGOIU09N6k=;
+	b=rhzjsZXpXMp/06f5a1LXv89ex0jUn6ZmD7SN6Cg2z98XZBr5hnZKsBRudh6pezvYWCxd
+	 kYfi3gMqOyST50tZNe2Ur6jh3eBaQYp09I9PpXLBVx9P7mYH5gsKFLNKmzXDC7wP6MWV+
+	 4pNJAb8gy2rClKepKfrk5irVTpKsIGXNffWhouuF7ZFmHsfyIFARfCXML8wC+WFgLNhkW
+	 hEwAzmGTYq7B8fQjWIxngUndciq/cNx2XTKtLCYqMdSIZpg/LeIpfULXAXrnOuwqG8wm5
+	 J2+iUBrJ9fkdQPol24Duzc5rY9DDQmCdUXUng+EWgbWmYHSWTNf9zZxo8Dbvi3g/TLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="j0/nUGqK";
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nw3TQX0P;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A62606A333;
-	Fri, 13 Nov 2026 01:08:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2A62606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1792606A885
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:08:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j0/nUGqK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794532114; x=1826068114;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=69Y+r+H1NTvSh/GiYErO30dYltN2QSlJy2tThmel4rA=;
-  b=j0/nUGqKYfAENZuR94gFwQxiUQotCx/0c8znP+ptJJBAyhZMquFca2rw
-   lQdVPJeYM4J4FhOwOqoEwOi0XaV+RHYRFaYD4m/01PPH1cuYMLCrqpbsN
-   /xRmfbQ5cYGyKOOSMOxaXuXxleIIHD3RJVav6frBzXmWynZG9i3NxhCjN
-   YtFIEcnL3dyqNyoljzYXoBdeUwfvl7+S6ZAehVd6tMl+1PqOPzp/5BlW4
-   IgnrB0vgNw2m4cplaLw0ir39+KdS1eyjn4jMbcnKzc6f4Cxf0r/a+RLqt
-   oZua25mYhP/X26n8VZqpURPFCUUDr9GVbdaPv9DN68P3cdkDyGBK8lhUa
-   A==;
-X-CSE-ConnectionGUID: gAxqCI6hS4ar/pwEJ7NhlQ==
-X-CSE-MsgGUID: HMBK/7wCQJaP0a2pJmYiPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3252596"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3252596"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 17:08:31 -0800
-X-CSE-ConnectionGUID: ekFHjqcYSaSHfQPNSl5zPw==
-X-CSE-MsgGUID: z+eNeXrNSOKtR+6eLppP8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="9214835"
-Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
-  by fmviesa007.fm.intel.com with ESMTP; 12 Nov 2026 16:58:29 -0800
-From: Tony Nguyen <anthony.l.nguyen@intel.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@kernel.org,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org
-Cc: Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	anthony.l.nguyen@intel.com,
-	tj@kernel.org,
-	skunkolee@gmail.com,
-	nsvatoslav515@gmail.com,
-	stable@vger.kernel.org,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Alexander Nowlin <alexander.nowlin@intel.com>
-Subject: [PATCH net 2/3] igb/igbvf: disable work items before device removal
-Date: Thu, 12 Nov 2026 16:58:19 -0800
-Message-ID: <20261113005823.130021-3-anthony.l.nguyen@intel.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20261113005823.130021-1-anthony.l.nguyen@intel.com>
-References: <20261113005823.130021-1-anthony.l.nguyen@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nw3TQX0P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0201F000C9;
+	Fri, 13 Nov 2026 01:08:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794532116;
+	bh=Gk+kPP8lm6AY2IOfXaSY5B8VnQv17iLfHnGOIU09N6k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Nw3TQX0PuxitmT2hGQkijITYe+GRW25Oje8pVBG94wFuPh6ytngN98+XE/D2IXaZS
+	 /n0RGtyzXo5qhZirQzSN1snIKbZjcnsf8T1h2W2Jhc+EDyQhUtPzYucgIG5jd5LJC9
+	 tvl+mOW2QhRP2FMz1RXt73qWaRk6UyHGT6qT+N8bOalDHEjFFVCYZXG6riWy6e8/vj
+	 5fem+IzuEVJyqNyNFZZH2vGd6ckVB6832S7p4ThT4SKQ1huFlQWsjDm4ltuPR5wvLI
+	 JdWqev9RqS0nsrUhqmGTAdq9DVBqwIQ7ZnIaF+mIqK4JHqUSGyNBVvoXWlH0QXd16k
+	 LZ4aF80nL91pA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Joseph Qi <jiangqi903@gmail.com>,
+	Changwei Ge <gechangwei@live.cn>,
+	Gang He <ghe@suse.com>,
+	Jun Piao <piaojun@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] ocfs2: constify struct ocfs2_lock_res_ops
+Date: Thu, 12 Nov 2026 20:08:33 -0500
+Message-ID: <20261113010827.549256-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202232-failed-5.15-5b4696e0bfc3@kernel.org>
+References: <20261109202232-failed-5.15-5b4696e0bfc3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,63 +68,157 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-A watchdog work item that is already running can queue the reset work after
-the remove path has canceled it. The netdev Tx timeout handler can also
-queue the reset work until unregister_netdev() shuts the interface down.
-In igb, device reset interrupts provide another enqueue path. The reset
-work may then run after free_netdev(), resulting in access to the freed
-adapter memory.
+[ Upstream commit 3ebe69c0c3ae3ef5ecd1ad86aa98a3b7cbe3c7e9 ]
 
-Although igb_reset_task() checks __IGB_DOWN, checking the bit already
-dereferences the adapter and therefore cannot protect its lifetime.
+"struct ocfs2_lock_res_ops" are not modified in this driver.
 
-Disable the watchdog work first and the reset work second in both drivers.
-Disabling the work items also prevents racing attempts to queue them during
-device removal.
+Constifying this structure moves some data to a read-only section, so
+increase overall security.
 
-Fixes: 760141a53e5d ("igb[v],ixgbe: don't use flush_scheduled_work()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+In order to do it, "struct ocfs2_lock_res" also needs to be adjusted to
+this new const qualifier.
+
+On a x86_64, with allmodconfig:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  83038	   2632	    400	  86070	  15036	fs/ocfs2/dlmglue.o
+
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  83806	   1992	    272	  86070	  15036	fs/ocfs2/dlmglue.o
+
+Link: https://lkml.kernel.org/r/43d3e2ae3a97d3cbe93d6ba6ce48ae5ec04d7526.1718382288.git.christophe.jaillet@wanadoo.fr
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Joseph Qi <jiangqi903@gmail.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Gang He <ghe@suse.com>
+Cc: Jun Piao <piaojun@huawei.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 5b4696e0bfc3 ("ocfs2: cache the mount context for dentry lock callbacks")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/intel/igb/igb_main.c | 4 ++--
- drivers/net/ethernet/intel/igbvf/netdev.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ fs/ocfs2/dlmglue.c | 28 ++++++++++++++--------------
+ fs/ocfs2/ocfs2.h   |  2 +-
+ 2 files changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-index d4a897a8c82c..933dd1c29950 100644
---- a/drivers/net/ethernet/intel/igb/igb_main.c
-+++ b/drivers/net/ethernet/intel/igb/igb_main.c
-@@ -3887,8 +3887,8 @@ static void igb_remove(struct pci_dev *pdev)
- 	timer_delete_sync(&adapter->watchdog_timer);
- 	timer_delete_sync(&adapter->phy_info_timer);
+diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
+index dacf01536b529..ce61085f3b94b 100644
+--- a/fs/ocfs2/dlmglue.c
++++ b/fs/ocfs2/dlmglue.c
+@@ -222,12 +222,12 @@ struct ocfs2_lock_res_ops {
+  */
+ #define LOCK_TYPE_USES_LVB		0x2
  
--	cancel_work_sync(&adapter->reset_task);
--	cancel_work_sync(&adapter->watchdog_task);
-+	disable_work_sync(&adapter->watchdog_task);
-+	disable_work_sync(&adapter->reset_task);
+-static struct ocfs2_lock_res_ops ocfs2_inode_rw_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_inode_rw_lops = {
+ 	.get_osb	= ocfs2_get_inode_osb,
+ 	.flags		= 0,
+ };
  
- #ifdef CONFIG_IGB_DCA
- 	if (adapter->flags & IGB_FLAG_DCA_ENABLED) {
-diff --git a/drivers/net/ethernet/intel/igbvf/netdev.c b/drivers/net/ethernet/intel/igbvf/netdev.c
-index c686ee120a14..125876a18b5c 100644
---- a/drivers/net/ethernet/intel/igbvf/netdev.c
-+++ b/drivers/net/ethernet/intel/igbvf/netdev.c
-@@ -2901,8 +2901,8 @@ static void igbvf_remove(struct pci_dev *pdev)
- 	set_bit(__IGBVF_DOWN, &adapter->state);
- 	timer_delete_sync(&adapter->watchdog_timer);
+-static struct ocfs2_lock_res_ops ocfs2_inode_inode_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_inode_inode_lops = {
+ 	.get_osb	= ocfs2_get_inode_osb,
+ 	.check_downconvert = ocfs2_check_meta_downconvert,
+ 	.set_lvb	= ocfs2_set_meta_lvb,
+@@ -235,50 +235,50 @@ static struct ocfs2_lock_res_ops ocfs2_inode_inode_lops = {
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH|LOCK_TYPE_USES_LVB,
+ };
  
--	cancel_work_sync(&adapter->reset_task);
--	cancel_work_sync(&adapter->watchdog_task);
-+	disable_work_sync(&adapter->watchdog_task);
-+	disable_work_sync(&adapter->reset_task);
+-static struct ocfs2_lock_res_ops ocfs2_super_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_super_lops = {
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH,
+ };
  
- 	unregister_netdev(netdev);
+-static struct ocfs2_lock_res_ops ocfs2_rename_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_rename_lops = {
+ 	.flags		= 0,
+ };
  
+-static struct ocfs2_lock_res_ops ocfs2_nfs_sync_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_nfs_sync_lops = {
+ 	.flags		= 0,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_trim_fs_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_trim_fs_lops = {
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH|LOCK_TYPE_USES_LVB,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH|LOCK_TYPE_USES_LVB,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
+ 	.get_osb	= ocfs2_get_dentry_osb,
+ 	.post_unlock	= ocfs2_dentry_post_unlock,
+ 	.downconvert_worker = ocfs2_dentry_convert_worker,
+ 	.flags		= 0,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_inode_open_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_inode_open_lops = {
+ 	.get_osb	= ocfs2_get_inode_osb,
+ 	.flags		= 0,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_flock_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_flock_lops = {
+ 	.get_osb	= ocfs2_get_file_osb,
+ 	.flags		= 0,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_qinfo_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_qinfo_lops = {
+ 	.set_lvb	= ocfs2_set_qinfo_lvb,
+ 	.get_osb	= ocfs2_get_qinfo_osb,
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH | LOCK_TYPE_USES_LVB,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_refcount_block_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_refcount_block_lops = {
+ 	.check_downconvert = ocfs2_check_refcount_downconvert,
+ 	.downconvert_worker = ocfs2_refcount_convert_worker,
+ 	.flags		= 0,
+@@ -511,7 +511,7 @@ static inline void ocfs2_init_start_time(struct ocfs2_mask_waiter *mw)
+ static void ocfs2_lock_res_init_common(struct ocfs2_super *osb,
+ 				       struct ocfs2_lock_res *res,
+ 				       enum ocfs2_lock_type type,
+-				       struct ocfs2_lock_res_ops *ops,
++				       const struct ocfs2_lock_res_ops *ops,
+ 				       void *priv)
+ {
+ 	res->l_type          = type;
+@@ -554,7 +554,7 @@ void ocfs2_inode_lock_res_init(struct ocfs2_lock_res *res,
+ 			       unsigned int generation,
+ 			       struct inode *inode)
+ {
+-	struct ocfs2_lock_res_ops *ops;
++	const struct ocfs2_lock_res_ops *ops;
+ 
+ 	switch(type) {
+ 		case OCFS2_LOCK_TYPE_RW:
+diff --git a/fs/ocfs2/ocfs2.h b/fs/ocfs2/ocfs2.h
+index 9de838f1ac555..fd57d798a8bae 100644
+--- a/fs/ocfs2/ocfs2.h
++++ b/fs/ocfs2/ocfs2.h
+@@ -154,7 +154,7 @@ struct ocfs2_lock_stats {
+ 
+ struct ocfs2_lock_res {
+ 	void                    *l_priv;
+-	struct ocfs2_lock_res_ops *l_ops;
++	const struct ocfs2_lock_res_ops *l_ops;
+ 
+ 
+ 	struct list_head         l_blocked_list;
 -- 
-2.47.1
+2.53.0
 
