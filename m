@@ -1,96 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585657;
-	b=Wv8ocs0DI4A8AzDPLTsmMbDS4J4YY9pY9GI5rQ+JWP9LeIGBGbhwmUbc8NgY9TIvW3mn
-	 svKRMutlSNXgrf92uIgh5yroR89iS1lAIUXd9RSHcHUar0DzxfS7Jbh3JHwgwOCaFRRXU
-	 jTdB/UCYDnbQCO8ItqOv1ZPI4c3EqX5QtmEu6yjqDKtTEKV5WmSxlJ8tGdJNG9bTRaAs6
-	 o94NXh05AlrKZCTsHEprZlBDN7Mkf7zIO5n6Nx6FQPrdKDs7hvmVWwwOiPFiDwBXipL7s
-	 cV5eLr9Ty/r1WSFtIucSiobyeGEJlOQ/3XRnnF5S3UuaLBzboKNSfOsXPcgsFvYiLcA==
+	t=1794585662;
+	b=u8MEk25Wmi7OJ3EjQMeoeKp5ytPPWrcGKUw4fJF7e8SEigBtc6qi7yMqOtqoqyyKhgKE
+	 2kgJW6aj02mvYKNuQ+caOklnG2XjoYMiM/zQ1gy1WqlusxK3JovlBmeWhGghrYq289Mgg
+	 3AXXjKYnAK8mEvTDzn47yeMwsH5rr7wVPjPv4W9LXOKy+hN0A9TZBQod5avwlOx5ARQlc
+	 Yd5p44b/mQp17ct0zAJIKcRS69qUd6iKo0ZtUYI2oe6p6AxEu/8OabcrK0adj0VNS8YR8
+	 xMdkil9xm5+fgXCcKXtcX2vjx4oC5qoOvoM/YTlj1BdeM5IuNrAQ/tTqbysXpbLFy4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585657;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=76hK192hwNNcxMcbm0UzywzzRTcZcsnY/gd0BW0R8wc=;
-	b=hVpoz+uhAb5ux+0Sj6aEaW4EGM0ZSEoQNop3QlpUSRhI6TkYcUgwB+lZofmF4EDMg1TL
-	 NSoUOiwn+PgAeBE5tYOKTDWsLnVCcip1OxrVeedO4zZXACIlGZWP2JwgS97TRd6fHnLpE
-	 HM5bQ/VO+XVuf3i7TJjwiMBpw1LE7EyBeyIpH+wKXyneQycdM1MBGed8mFp4yZUktLjg5
-	 iCsNxDCQ8WjnW0yCVPGdMWRAjAG+b+Xu52GQRw/eyJMz1ux2ldm88iKfUQ81mWyUG8/df
-	 0h3DD9rubEGrP8+rpGT4sMm3jqpXST4fyEDRt5pKEQ1UEid6a/rNcbseGK3O3c26dfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585662;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=55VpnoZ/trczYprnOb/VswImAn4i5KBYcv98/UhLhfE=;
+	b=Gvf+iMuo0TvGhz1wZl9N5EuJJbzKlMs0A0nCK5WOQfr6CX67NQgFxuAEtxhtCSTQuE67
+	 7xI7lwGzMMa43WNKZetULfyJ2sWLTleyze86ZBWR7AHigR0Y7wOYk7ZR96Zp+ZbolDCSn
+	 tKjpZcik/J2FLYjyOheqpjC2WqbGt90OD/nnaedL5fCGv3R1oqbRxunfXIFZN8c7/oirr
+	 JirxngXHA6GKFISv6M/kt9w2CxsjwPIxoBhr34l5DKw8bGkySJp7VyyKPQfD47Cyja8hf
+	 0ERjpd2TRDX7mMTv5K9NE6umatKZ2AYMNIvtv1LMfIS4AbFXdWIm3WEbsPtu7ApVtkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FNkjY8c5;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fVer3Z0E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D750606B2D4
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 16:00:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D750606B2D4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04600606B2DA;
+	Fri, 13 Nov 2026 16:01:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FNkjY8c5
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-37986eb6fa2so2719349eec.0
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 08:00:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794585656; x=1795190456; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=76hK192hwNNcxMcbm0UzywzzRTcZcsnY/gd0BW0R8wc=;
-        b=FNkjY8c5qVoxECoy9cH5IqZVYrIDNUHHh+EI386wFkJOvTo8i7gMp6DoGZKImma+8a
-         4xHxER0iCZjoiQFZLsWK4msE8tgrpKQPrqPc6h5XkCBmfK6NvlQAVvavnjIsy2WPIV0y
-         +WHgWAkOUdJF4X++yHTft5Pypxk7CHTT8+Yba/4SSsBXJvqU6phdQhBIJd/g7ExMEg+i
-         OgowQyD9OfSJli99pOCQoJOvLIA9W5SKPuZlnDX2Lne8OmuFhhaKvg7/hb9DVyFoBORa
-         Vpqi7lWnfhJWev1FfnVNfJMP8Dk97aPGObaWfT3OgXLc5CuZzKmIhpszV2ildSXt3Nw5
-         jdTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794585656; x=1795190456;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=76hK192hwNNcxMcbm0UzywzzRTcZcsnY/gd0BW0R8wc=;
-        b=c9RLaTI0L8FOHEvqawNx7usPjWNZPL8tv00ioZnQpBduKz7HRpRhT1sOavoPnQ48O7
-         e9MGI1W0HnleSsWiI9GeUjEsZVaIefdbApyfNHd0aNZDV2MOxvlfaM3dQ9a0ce2IqFA9
-         0c5lrIp4jzeBvavVf8IoJ9KJBGBEqWybsDCXjfzhrpOsUdAE8rssaIofyj1JBxm6/XJI
-         2rWk4VYLEsg/wVzuEB+q7+aqlxG9VKSYOSF0b5OwYXUH4YBhesJiVYumvfGiuayEFe5J
-         9+6414u6mh1petYVLQwRQy9EiLNpRdpw5QXXe9Ee1MjLtIA2t+xFlxFKQfeakwmgLpFQ
-         Kv8g==
-X-Forwarded-Encrypted: i=1; AL+hErGA7NY5xzZVnhuJAQ9NWFbNFGpwqxVVBvwsRHzW1fjAKTChdcl5ZQ6Tl0pQNvgvSZ5/7KEjRCQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8z9gXSY/IRPD74rVQyFK45h7eaqOIG+mX6NNcvGNWJQtn/fnDx
-	AFoUSMGlroHODTsmmlYshkdKfhBmqA9Ybi0ghxvncy8y9bNQ1YeVdK/fKKXw3w==
-X-Gm-Gg: AYBFou2EaldWOgWFUZpIqih9hJr66IYtqw3BrtIPUn8E4lHGKmnmG2p6WIM0iaMtaqo
-	NnAOD8JEOoOEcV9FHgVAdFX1n2rpFWVC1GpmluPKV5PHsy0ywv6Rt0CN+5rFanI/DZbcf3j3CFs
-	VRYQQ9JsOr5elxn9WX1e9ZYa1I+VcluwX++h+8rMA7pIFkF49WFnf6gZCu7BDReWEt+LjoOZUhI
-	ENuLxcVGtA+UsmMNLcoL90MHbKXIvfP98AzboZFHLRMQsbpWFTDQN77vsxRksgqeqekbweROmnp
-	4DuCYGg74ppEGeExwo+m1XDW4T51HrbquoxGCF+upwQQaBBvclaKKzwUdO53yc+ab3IZclNQZys
-	KLF5AH1UjULNl8Ogxuct9W/EMQ5x0yvEnn+cyqbHnGXXD/RRQef6fXLlCgakUUuQPMs4gxLxvos
-	VPRZ4k2AgQmDAelGfGDGllhRDAfT5SYnbR5zEF22poEyfBoJ5dF/L+bRQZJgGN9xDjvstYKkh63
-	sKNGJD7rW61QwBYuilLTJU8uAeID5Y0a1yde6RXs7ShgbckkWLXyb/2CRIvopiGkENSBR6CDHuL
-	0VEHEG4P9KYHW7/OOt0JuxOYOgUciWYnIPinO+ieYaBGFD3knYL/xzsR8kR7BR3lE3H1Dg==
-X-Received: by 2002:a05:693c:8312:b0:374:ea35:9069 with SMTP id 5a478bee46e88-379681cdd7amr2329847eec.39.1794585655380;
-        Fri, 13 Nov 2026 08:00:55 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:48f1:7a0b:9bfb:4205])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379508762a5sm8587820eec.0.2026.11.13.08.00.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 08:00:54 -0800 (PST)
-Date: Fri, 13 Nov 2026 08:00:53 -0800
-Message-ID: <9594e8428a3fbc94e515c9dad2268009@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Vishal Tyagi <vishalxtyagi.oss@gmail.com>
-Cc: Markus Rathgeb <maggu2810@mailbox.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] Revert "Input: synaptics - enable SMBus for HP Elitebook 850 G1"
-In-Reply-To: <179399405216.85438.8327280593401118083@gmail.com>
-References: <179399405216.85438.8327280593401118083@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fVer3Z0E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37C71F000C6;
+	Fri, 13 Nov 2026 16:01:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794585661;
+	bh=55VpnoZ/trczYprnOb/VswImAn4i5KBYcv98/UhLhfE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fVer3Z0ERvmWmjNOwlAtQvqwSLXMqVP6QHQoVI7moSYad8X2jU7T/0zCncEjMHrHH
+	 Q9brArc0WCy9yvRABQOiQ5Oq4fIY+JRe4SwZ6UCum6yMNxs3zDpBJ1Mu5H7g7k1z4r
+	 12KnUFow5MI8QWsrilG7S9vXBxJaCWWRvYUViqCg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Josef Bacik <josef@toxicpanda.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 274/507] blk-mq: end the request if getting a keyslot fails
+Date: Fri, 13 Nov 2026 10:49:38 -0500
+Message-ID: <20261113153804.084133470@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
+References: <20261113153753.358973689@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,32 +64,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi Vishal,
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-On Sat, Nov 07, 2026 at 01:10:52AM +0530, Vishal Tyagi wrote:
-> Commit f04f03d3e99b ("Input: synaptics - enable SMBus for HP Elitebook 850 G1")
-> added PNP ID "SYN3003" to smbus_pnp_ids[] to enable SMBus/InterTouch mode.
->
-> However, on Haswell-generation HP EliteBooks sharing this touchpad controller
-> (including HP EliteBook 840 G1 and HP EliteBook 850 G1), the touchpad fails
-> to resume after ACPI S3 suspend:
->
->   rmi4_smbus 0-002c: failed to get SMBus version number!
->   rmi4_f01 rmi4-00.fn01: Resume failed with code -6.
->   rmi4_physical: Failed to resume rmi4-00: -6
+------------------
 
-Could you please try the patch recently posted by Markus Rathgeb (CCed)
-that retries reading the SMBus version on -ENXIO during resume, and see
-if it resolves the S3 resume issue on your EliteBook without reverting
-SMBus support:
+From: Josef Bacik <josef@toxicpanda.com>
 
-https://lore.kernel.org/linux-input/20261105204953.69572-1-maggu2810@mailbox.org/
+[ Upstream commit e67cb6ed40e7f45912b63d7d575f18dfd2ebc98a ]
 
-Thanks.
+When blk_crypto_rq_get_keyslot() fails, blk_mq_submit_bio() ends the bio
+by hand and frees the request. By then blk_mq_bio_to_request() has done
+the IO accounting, which blk_mq_free_request() doesn't undo, so the
+in_flight counter never drops and iostat shows a device that is 100%
+busy. If the bio went through zone write plugging the zone stays plugged
+as well, and every later write to it waits forever.
 
+Use blk_mq_end_request() like the dispatch path does for a request the
+driver rejected, after marking it for zone write plugging.
+
+Move the call to blk_zone_write_plug_init_request() before
+blk_crypto_rq_get_keyslot() so that it doesn't need to be duplicated.
+It doesn't depend on the keyslot.
+
+Fixes: 99dc422335d8 ("block: support to account io_ticks precisely")
+Fixes: dd291d77cc90 ("block: Introduce zone write plugging")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20261029200110.1328103-1-ebiggers@kernel.org
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ block/blk-mq.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index 5a5dc66fc3b15..6d111c6f0ecd1 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3193,16 +3193,15 @@ void blk_mq_submit_bio(struct bio *bio)
+ 
+ 	blk_mq_bio_to_request(rq, bio, nr_segs);
+ 
++	if (bio_zone_write_plugging(bio))
++		blk_zone_write_plug_init_request(rq);
++
+ 	ret = blk_crypto_rq_get_keyslot(rq);
+ 	if (ret != BLK_STS_OK) {
+-		bio_endio_status(bio, ret);
+-		blk_mq_free_request(rq);
++		blk_mq_end_request(rq, ret);
+ 		return;
+ 	}
+ 
+-	if (bio_zone_write_plugging(bio))
+-		blk_zone_write_plug_init_request(rq);
+-
+ 	if (op_is_flush(bio->bi_opf) && blk_insert_flush(rq))
+ 		return;
+ 
 -- 
-Dmitry
+2.53.0
+
+
+
