@@ -1,61 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794601250;
-	b=d+dGgALh2CfoI5/LtFq2AE3dRlPmQf+XCPZKFZUVBdZ/am5lqqWlAwQ01Ezhh7SCO/As
-	 8lAzkVNBU1xP6C4OWalv32B0vHCnQ0b4IPDwvntab6kNmWg6MTVh8JZzzDblaWmvxdtZ9
-	 SccbPf/Pq9hmq9ZHcXWpLcChm50i2Ko8WFxsBfyyfnYNVW7RLwr3mxCUoojAE03kkK4q3
-	 c8xT9T2lEXk5gMFBEhm4ZCG0b7BJtnzzoVYodVBp2vbV/5ZNZumFEQjdumTl5aLsL1xcx
-	 NcVgeuNUh7U6lInM1MeadecP3A6arJ0KpdiHuEE6V0iH9LHGRQ4jUsPbYw6ma9LFu+Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601250;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lDAm+zBD66b88hz5K7F1FDsYw+RIkjC9cHi9f3iS4y8=;
-	b=T39ovgJbcVPWRjJhL6DCyp8SqJmoK3kVeXM13FK2XaI7YHbsubzksJXySCTSojKjKBVj
-	 wGtzFbN5f2nParJHIIPB4V0GXyCRnQoLK1EZVbEto6dXIWzZP4jPukxZF8vncSV4XYBHK
-	 nO894kOSd+QWNfiwNqOigt6YHn5Y1WkXWHAdO/DKqNz48fsryLFN43y9SnAgK5QAS+Dee
-	 Y5PkTlrv+aIf0hoVpRFOJWaVfmScXdbi9/l/oo2xpwciL2BHDYsd+j8JTF4zDrSvJmMAV
-	 zX+X6Td3vyntth+d/T0ru/6t09A5MgWsEB7Bb4yaYVHKVhZ5gXmCnqApJM0nNBV8dDw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7ZFZGyJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794601327;
+	b=D6QZK88vsuZUodLUQAis67ybIYBxWEWNcWY7AN3cCb5kVMXpZucoXb6VDquaOIC9SMLV
+	 2VpG9E8DLzWCPD1VSaCA1dwrfbWm0U+PSQu7xIKD+EwuUYQoOpgdl0U23rayAQQ8fGnDj
+	 xrt2QeW+nXIvdaHgjmkQ7pcWGkMHVJ9A0O76Pi9GqaBw457IQAEdUZPPB6E6N/oc38RBm
+	 wOBj5IuPOa0xmsmsVddHhIHfCDx/ebNi4lAVhoDgDqR1dFM+DzL9nnHb3vEB901++rIGX
+	 01V13pWz9uwPNE+jMYNGVxOtTKawn3lDqq+rDdzlK1GGHUjMscT54MBqUp6+UBpp09w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601327;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=xtumAuvNbWuwUXK0cxJRs7l5/r2sAahJH/6uzW92HAc=;
+	b=PN/++RPh3dFs0hu60+dFovz6tRBShWhtyO1oh/DCRZYfpN4ColVxuuWVirA1+gwOGjvf
+	 BT8+WhmXhKgdLwINWowLT+dLPeMW4G92oQ3fX8YEv4yEsXxa/yn1m/CTtUOMYTbwOk85B
+	 fSp/IL5dnmVzFBn8xnEyL/1rtz2ffa6eEYHSdPwHbATKBBEEBUaEDnufHBiw1xWUirmlm
+	 aOcAU+IzEDJoSbEG1LuUhoE5SrpMKmdr+Rrt8G8Nhz1C3coBQPD2UZRGzSSkD7WKmaKzU
+	 joi5LDBBHL8wnbq76aOhfjAyqTgNtZFQ9rpZn/VJVk9HUOAXwL+ARP9Lxn6cyxB1IJA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="eliaN/OP";
+	arc=fail smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E0342606A323;
-	Fri, 13 Nov 2026 20:20:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20BA606A336
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 20:22:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B20BA606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7ZFZGyJ
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EF9351F000C4;
-	Fri, 13 Nov 2026 20:20:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794601249;
-	bh=lDAm+zBD66b88hz5K7F1FDsYw+RIkjC9cHi9f3iS4y8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D7ZFZGyJQXMWawyYsmDGFMzswQ9j6Aevq/SNOuHwRx809Bf/ZTxaitWJZrNI2+Rh6
-	 hD1kHONqfBmuMRZnMtq2bozUvHa1QPt94QYnhlc2mnn5b6sWUNQYR6wZJzpFDtuKNA
-	 mUDaEFEl+HNy725s//wTx85CURGa0YUOEsy4/S6z+K5Wh8/RwNxbwiu006YV2tAuSF
-	 Tm820A1tX4ElFYz7M5MYxblO8aJ3v/r/xu7ZwIHxS0iXPCfPBx944QNBX2G+DeRUX0
-	 nf8SVYjNbWC2zJ1X5aKvm4EBnBLGf3hMFYSityFxtvWOT6GqLBjiC+V4CjPNs9VljV
-	 jtq1ViTjK/ZeQ==
-Date: Fri, 13 Nov 2026 22:20:45 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Stuart Yoder <stuart.yoder@arm.com>, apais@microsoft.com,
-	rlmenge@gmail.com, hargar@linux.microsoft.com,
-	linux-integrity@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] tpm: tpm_crb_ffa: Only register driver when ACPI
- TPM2 uses FF-A
-Message-ID: <avdxHSKkqubIrAZ5@kernel.org>
-References: <20261112233807.70664-1-sidchintamaneni@gmail.com>
- <avdXkLKJwuNv0vZ4@kernel.org>
- <CAE5sdEgEFjGz6W0e5g4uxRVC2Otyvr4Pak-aAZogObWaFtNsTA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eliaN/OP
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ae3b5b1027so243011fa.2
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 12:22:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794601325; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ksxOUuXux6+fKfw8307A/zxei80qTsMs0gMAUUqtkNXleadNSbkH+v5vKLg403KQ3r
+         l1eUyporQnvodFLNynw1O7t+ronXe2hJpD04iskyLA4Dup9S9R23rdk+93NkfWiFNVvC
+         EQXOtOjJhiWzp/M90SVN9XJJca8H1vVQuQ4YR8SVPCla6PVPXmkc+5ZgVEtmtzlDnCqK
+         g0TYB6GsoJzd1e3Upgt5Ay0eBMW8VVj1X+Pygcf5eY9CLnjeAZoJdTdGZH2gPn8ONFvb
+         DJuQ7zXE+X1ZTJhA3nwO6EP2LI8YK9L4eFS4ijG8nUBJyBfBfom7SeNjKpwpb/OJS5oj
+         AFSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=xtumAuvNbWuwUXK0cxJRs7l5/r2sAahJH/6uzW92HAc=;
+        fh=WGttablTLi9APGv+p6hSL2LJAIk6fraDwLUl8Y6AEVU=;
+        b=kCMpaNaFWFfWUQJgBlczIc4EUFxXyafDwIF3URPBxv4dGMdiXjWM+dzTShO2NYRqK+
+         jGedZcsyBYks59jV/LDhUuy/xNak0tcVTCHFxNhhoeJNIRDKHkwEXFRZ4nVANQIfn6Bk
+         VGpr59+PS8Jl5K0P8D5pUzhJ9srFD9zvgeKNiIiu77lEGkXckK2+04MpeWzfYEAqqjGI
+         s3DHNUlPFPhOtT3C9ZyRirBmGTAxQRY48Hxqlndpgihm1FYes1wfpIxNp5hN8zPRjUYA
+         Cdv+W1cwLCLDbBsMpnnsEpUqbCVgS5oBThR+6wf4tdADjDeiGmglO+oM55eSuDTJ6nA2
+         pfvg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794601325; x=1795206125; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xtumAuvNbWuwUXK0cxJRs7l5/r2sAahJH/6uzW92HAc=;
+        b=eliaN/OPLV5MQHHag51KNNYs9r1vwyaqcfJdkPEf/RxGAIxD8jHs7xlRZ8nZvj2xWc
+         X+oTBEK8j+nPB2xjkjIpsQ7e0ql3O3uCheaVkZPsuT4Qzr72cKyMRk4ekxeEakNcVIvP
+         56DIHjQtA9jeGJWIsKAS3TnLjuqKom/OdQMD7XwpY9FyxmdSx2XmODmyJuy3cb7/Ya6L
+         dbVdWc+5/H8udaY3R3ewLTMY8GnySiNfHfJbMNidIhZc02OSafSuUgEkBEX6Cq+i3uzP
+         3wacvfEu4+WIm11XYq/xPB2//IpU5VJJCpJTwyik5YREF01ZKwV9uFMwMbtJgb7HtEXK
+         padg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794601325; x=1795206125;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xtumAuvNbWuwUXK0cxJRs7l5/r2sAahJH/6uzW92HAc=;
+        b=WN23YwEkMctFEE1hz1Rm2+vfJI637stxYC1tvOmU7h4MF5hMZsvDAmN5WWyzIqZn8/
+         76xVvgFWgvkp+y64naFKTdUWjELHdLvoURRBGoFln3OdLslh3y3e1VhYICg3FRQZuXRT
+         7ecTqYSti1Y38adhhXjZNUejA2+we5JElkfchkKdApMrQ4ZZMsf+J0R+4bx0zCq4JF6c
+         Pf+c7wkaJ7TdDT5iOwuHsWoBQcwp8oZPHHlCfISR8631MyWp+SGwh9sO/3MnaIiQcJ1p
+         3BAQ1wtsqnkHzq+q1tl68tSjpDW+8RT5noHh7av6kiTs7CVpUb7y7Hx87QU7YtJbNSuY
+         gpgA==
+X-Forwarded-Encrypted: i=1; AL+hErG0HZDIOygJE+R1ab7cVmx8ZIluiWEn3XYDvotQxRTZLwBtMrBwanustD5LeA8OrBlRbCe6fBI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+c4/bLUd+EWB5cNZXkK2SppJWCPe4Q2XtKDM0+8Gm2Iho9yXNp
+	oAyJYhYYdc3wM/SnOrrrueLRBXsk/s1ohoawFnALxQBqRmBnYf9K5/wJD07Duhv2oQIWH1qPBKC
+	8JamsXfxplxkU3CV3ZVFxaPQ4kRAWWHo=
+X-Gm-Gg: AYBFou1pISyNrXZsflt3GiWzja/D97x/6tBN6z0bjK0DX8XHiJdwJrvB4BlNFpBjfiZ
+	bU+oFEBw2xtBc9aYvnjk3POheu7qYe8gnhZ3xt+XXmCn+ZdX+w8nuGnG8Uzg1jDnMbHywpJYpMB
+	q/r60rVZc+0vTTDydA7rz9NJ6QVGqJv2aaCTU7Rd447pCbC5vbxHJ1PBMwgRb+FVa2+n1pVgtI0
+	/N+rbz11HAPMBHK9uw48Q010efGQbNar+6eM196MWAdr8oxWbXngPdFBbrDrhkmykoscOp6dS39
+	K2wLvQWx7DbLkqnwY+B1oHOOUPprNB5EePgZA36hz8apEx6B0sqqHon6vX51UvOKssiyrMt6Iaq
+	HxzLcWL5lwr1ZFPNmU6ZSS+2UM4ihTpD9so90Il+mtGf6h83+D/0+6bnK026xpVd8Bkv/jqJ5fU
+	QbTSqwhoA+KcKwh8th
+X-Received: by 2002:a05:6512:1322:b0:5c1:57b9:90b2 with SMTP id
+ 2adb3069b0e04-5c170746a13mr1720283e87.1.1794601324638; Fri, 13 Nov 2026
+ 12:22:04 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,107 +104,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAE5sdEgEFjGz6W0e5g4uxRVC2Otyvr4Pak-aAZogObWaFtNsTA@mail.gmail.com>
+References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
+ <20261112-hantro-robust-v2-2-18561fd48838@gmail.com> <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
+ <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com> <CAEy9hNU2ox76TFKtdisqUHDxZ=3gPVBDBcjz_W8RtCpCpK5d7g@mail.gmail.com>
+ <b3fa092ec9390cf5bfe2f4338af68327be70e6e1.camel@pengutronix.de>
+In-Reply-To: <b3fa092ec9390cf5bfe2f4338af68327be70e6e1.camel@pengutronix.de>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+Date: Fri, 13 Nov 2026 12:21:52 -0800
+X-Gm-Features: AclHuK_r_rPrVJRj0pkug0EuQb97pNCsN4qnHk9bddNHOrBile8NMgFa-B299mE
+Message-ID: <CAEy9hNXNaAdcL4NMmNf7sETknV+jQBp-inqFd-qAPut041GjJw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
+ after remove
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
+	Andrzej Pietrasiewicz <andrzej.p@collabora.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+	Hans Verkuil <hverkuil@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>, 
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Nov 13, 2026 at 11:31:31AM -0800, Siddharth Chintamaneni wrote:
-> On Fri, 13 Nov 2026 at 10:31, Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> >
-> > On Thu, Nov 12, 2026 at 11:38:07PM +0000, Siddharth Chintamaneni wrote:
-> > > Prior to commit 677042afb97a ("tpm: tpm_crb_ffa: revert defered_probed
-> > > when tpm_crb_ffa is built-in"), built-in tpm_crb_ffa only registered
-> > > tpm_crb_ffa_driver from tpm_crb_ffa_init() after crb_acpi_probe()
-> > > confirmed start_method == ACPI_TPM2_CRB_WITH_ARM_FFA. After that
-> > > commit, tpm_crb_ffa unconditionally registers on the FF-A bus at
-> > > device_initcall time (and when loaded as a module) without checking
-> > > the platform's ACPI TPM2 table.
-> > >
-> > > A platform's firmware may expose a TPM CRB over FF-A Secure Partition
-> > > for UEFI boot services while advertising a non-FF-A start method to
-> > > the OS in the ACPI TPM2 table. When the ACPI TPM2 table designates a
-> > > non-FF-A start method, Linux has no consumer for tpm_crb_ffa and
-> > > should not probe the FF-A TPM service.
-> > >
-> > > On Microsoft Cobalt 200 systems, the ACPI TPM2 table does not use
-> > > ACPI_TPM2_CRB_WITH_ARM_FFA, yet ffa_init() discovers the FF-A TPM
-> > > partition and tpm_crb_ffa_probe() unconditionally sends
-> > > CRB_FFA_GET_INTERFACE_VERSION via FFA_MSG_SEND_DIRECT_REQ2/REQ SMC.
-> > > That request wedges the calling CPU in Secure World (with Non-Secure
-> > > interrupts and GICv3 pseudo-NMIs masked), hanging boot with an RCU CPU
-> > > stall:
-> > >
-> > >   [    5.507519] ARM FF-A: Driver version 1.2
-> > >   [    5.507519] ARM FF-A: Firmware version 1.2 found
-> > >   [    5.507551] ARM FF-A: Notification setup failed -61, not enabled
-> > >   [    7.150580] Freeing initrd memory: 293640K
-> > >   [   65.515248] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-> > >   [   65.521346] rcu:     10-...0: (3 GPs behind) idle=dd9c/1/0x4000000000000000 softirq=37/37 fqs=5262
-> > >   [   65.530031] rcu:              hardirqs   softirqs   csw/system
-> > >   [   65.535589] rcu:      number:        0          0            0
-> > >   [   65.541146] rcu:     cputime:        0          0            0   ==> 30028(ms)
-> > >   [   65.548102] rcu:     (detected by 66, t=15010 jiffies, g=-951, q=1384 ncpus=132)
-> > >   [   65.555228] Sending NMI from CPU 66 to CPUs 10:
-> > >   [   75.560686] After 10 seconds, these CPUS still haven't responded to the NMI: 10
-> > >
-> > > Check the ACPI TPM2 table in tpm_crb_ffa_driver_init() and return
-> > > -ENODEV before calling ffa_register() unless the table is present and
-> > > specifies ACPI_TPM2_CRB_WITH_ARM_FFA, matching the check_acpi_tpm2()
-> > > pattern in tpm_tis.c. This ensures Linux only issues FF-A TPM requests
-> > >
-> > > when ACPI advertises the FF-A start method (for both built-in and
-> > > modular builds), while preserving normal FF-A bus probing on platforms
-> > > that use CRB over FF-A.
-> > >
-> > > Fixes: 677042afb97a ("tpm: tpm_crb_ffa: revert defered_probed when tpm_crb_ffa is built-in")
-> > > Fixes: eb93f0734ef1 ("tpm_crb: ffa_tpm: Implement driver compliant to CRB over FF-A")
-> >
-> > Pick the older.
-> >
-> > I attached a prepending patch that caches the start method, which can be
-> > later used in tpm_tis and tpm_crb.
-> >
-> > So that totals four patches:
-> >
-> > 1. My patch.
-> > 2. Your fix using the cached value.
-> > 3. tpm_tis update to use the cached value.
-> > 4. tpm_crb update to use the cached value.
-> >
-> 
-> Sounds good! I can put together that 4 patch v2 series.
-> 
-> Two quick notes before I spin v2
-> 
-> - Module loading with CONFIG_TCG_CRB=m and CONFIG_TCG_ARM_CRB_FFA=m:
->   As Sashiko flagged on v1 [1], because tpm_crb.ko directly references
->   tpm_crb_ffa_init() and tpm_crb_ffa_start(), returning -ENODEV from
->   tpm_crb_ffa's module_init would prevent modprobe from loading
->   tpm_crb.ko on non-FF-A systems. In v2, I will move the start_method
->   check into tpm_crb_ffa_probe() (matching check_acpi_tpm2() in tpm_tis)
->   so both modules load cleanly while still skipping the FF-A probe on
->   non-FF-A platforms
-> 
-> - regarding the location of caching approach -
->   tpm_crb_ffa never allocates a struct tpm_chip, and both tpm_tis
->   (check_acpi_tpm2()) and tpm_crb (crb_acpi_probe()) check start_method
->   before calling tpmm_chip_alloc().  Would it work for you if patch 1
->   caches start_method once in tpm_init() (subsys_initcall in
->   tpm-interface.c) and exports a small helper (e.g.
->   tpm_acpi_start_method()) so tpm_crb_ffa_probe(), tpm_tis, and tpm_crb
->   can all query it before chip allocation? (Also noticed a small '||' ->
->   '&&' typo on the header.length check in the attached patch.)
+> Would that more correctly describe the hardware though?
 
-Move it to tpm_init() and store the result to a global variable, let's
-say tpm2_acpi_start_method. There's only one of these so it's all fine.
+Yes. The IOMMU is inside the AV1 block and the TRM has no reset for it,
+only these four. v3 adds them to the vsi-iommu binding and node.
 
-You can then mark the resulting commit as:
+> So this likely would require exclusive reset controls with
+> acquire/release.
 
-Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Co-developed-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+v3 does that: both drivers get them as released exclusive controls.
+vsi-iommu acquires them to deassert on probe, hantro for its probe
+deassert and for the timeout pulse of the encoder cores. Remove still
+leaves them deasserted.
 
-I just put those tag because it is easy to mix up with Co-by tag,
-when using it.
+v3: https://lore.kernel.org/r/20261113-hantro-robust-v3-0-82383c722ad2@gmail.com
 
-Br, Jarkko
+Arun
