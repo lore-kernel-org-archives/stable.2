@@ -1,81 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.13.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589043;
-	b=AE7OpC66FQobCsSYOTk3qAePu73SOketHlObJItFw4l/VJXlS/NEzzpRZsbpjIFInk8Z
-	 vzRnC6q9nfJtjAdaSd9kft/qH9yG/r5msdq40rl5v4k3GsvNg++GLn776CuLth0iGt0GC
-	 vtbqm0SPxlFIJ4PIUCVnoP3qsVAeXrq3Txg60n8Wd6A6bD73AQaD9rMsUwYH136QU0dNz
-	 j7ZUn7MyqwaVOYhBteZH7tC7acpISMjCwrKVAPrBWdUHBctvhogXj2ggX60n1gB4puW5d
-	 DyBOd9fDr+JDeVDlSPz2BXzMQgQlABefRb1Orwzv+iRnJQgbjxY80yRID80IfJ2X3EQ==
+	t=1794589044;
+	b=ramQuIrbBeZ/aD/rR9JqZEE5TWXrfBUSQwkJFVyRJxglz2C289Easjr7XhvRj0ghafOz
+	 qyEA+hfzHHzRkTw0ZRihq3IlF5QS2a5CLWap7a9BnBwvrYgxeZG6o50vaubQ/mivVQb+c
+	 y3UiKBpwn+KPn6p6e3K/qKj/MnSOJkOhDN/J1azm08clk9TEJjPv3Krpqi3o3WlDr1qKL
+	 leKKjYqAD9OttWRW7DFflSHvmRd0GqPnQjlgNfk1el91lD/hqvqVA/wuSEh9OPs7sqg1e
+	 rXC4HF9Xgw4GG9b1DF9pAk3XMLvtrtFZQWBIJYowAPT6n1L6Urp7Qg/NbXDy1tGkhpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589043;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=NANNzTYSJub7EmcO8Yd3F4cFaZ67vaqTLlXt8SDnfn0=;
-	b=g0fZ08Nn+xG4BgUyRPNQiOkdYaa0fTH7x+AxWa3nE4o/qO3D22kwUOcSlJY7x8uQr/l8
-	 ppSUHtB1HdXlzY3J26dVz5mk8MSaYJbodRVVi6jcO66V9W7CIl1OHD5wOvYcl1qFgys7V
-	 IxwVjCX4823Mh2sGCK1FBAuTrLZ86G0CC+AobLiPlE2fWCJKW0d9QXRxgyemQ9KQHuV2f
-	 vjfNJaztsyEGOQyQj7ksSriOnfB0560WJVfsfRtRc9aYNAhFJZkVXznG80y1AjUOlmdow
-	 gH3XXVIn4J1IyllTK7rUF7hp+tRfsrAmkLqrVlUGWqCh6r3mHC2/+wRp8Jg3Ds8U5UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589044;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=t7R90zeBhuCAPBYRWGVInzQKZ8XGZNdOKwhHfCCRUDk=;
+	b=bbMRPrv8X/MtsDBn0wjmYI5Qi3OB0s+rnSKg/wdm4ymDQiTlRNrm4jfwl8UU/xxsimCQ
+	 x4W1NfoPwvFeMKRZs/323WPnshFkcHLTC63qKocQdhl+vDFITxJ5qqUnqUzFvZc/asdj/
+	 cRN3Xql13FwT/FuQWYiGUqqoaBHiH0lXXhDZmCVABbZx5CJtnChMPWlftI124RzS0K2Yl
+	 g2YCdL3FWy+f3fthfczpDSlOe4ypYyBJrxUgb+bHtyWUOX1zzRIWBpeaUfVZilI35sBg9
+	 H3szGh6tsjmjOn7JrEnJOkOkNitSE9LJd6iCslomSbeDirGT8Y563UUgXwnSSXFjbBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.de;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=McGaUro5;
-	arc=none smtp.remote-ip=52.13.214.179
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="gG0tfYO/";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AZRJTjLl;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA78606A32E;
-	Fri, 13 Nov 2026 16:57:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAA78606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD42606A33D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 16:57:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFD42606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=McGaUro5
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gG0tfYO/;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AZRJTjLl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794589043;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t7R90zeBhuCAPBYRWGVInzQKZ8XGZNdOKwhHfCCRUDk=;
+	b=gG0tfYO/i9WGOqSfARDcyM6poRvSu5Ng8Q8LRBfTxY1+kar2skDTMYTDYZ7fW8zFMnB/3m
+	szoyfnrtQK4HnU1ujuj2IUEe34ua2mxq4frMiaEec6pgyCHhULlL/awV7KYGQNkLBDGve8
+	c8qnbDy946xXczGfNwY0z0I3H1n705Q=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-79-NeKwhBTiOAerfz5m2rehUw-1; Fri, 13 Nov 2026 11:57:21 -0500
+X-MC-Unique: NeKwhBTiOAerfz5m2rehUw-1
+X-Mimecast-MFC-AGG-ID: NeKwhBTiOAerfz5m2rehUw_1794589040
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-49337a224a8so752255f8f.3
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 08:57:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1794589039; x=1826125039;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=NANNzTYSJub7EmcO8Yd3F4cFaZ67vaqTLlXt8SDnfn0=;
-  b=McGaUro5p8TaSjwmug4SJZKMXJMF/+aAJA0/P72to2djoKJdfXgEUMwl
-   pTwmLnSPwKTDqblRYOt+zwf1XLjyvt6crM6vPsuEJsibELmCoAEWOxWeD
-   p4LrkoA06rpOWgw9PawlwPcxBcF/DTH1kSUcXDJ5KSREanwMUK6T6eWGP
-   xeLRKTvZPaMt41YGkIJ2iCdeB3GX9Uo47CVqRbPKM+QQdQyGU6NdI53yZ
-   rt0/w3O3IPgTNXI0Wi8QFp/cX3dCTQp/lLCalQ2hdTcw6KWPGADt9uYTh
-   7j++UqJIOzJi/2qCFBVTZ/AP20/E6E8Cx2pDveKiCAScWYxCo4fdhR5e+
-   A==;
-X-CSE-ConnectionGUID: agluIRMzSRu80M3KVHsWhw==
-X-CSE-MsgGUID: vEntpmf+Te6zm3mwlRfuiA==
-X-IronPort-AV: E=Sophos;i="6.27,212,1787011200"; 
-   d="scan'208";a="33877856"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 16:57:16 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:7113]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.50.212:2525] with esmtp (Farcaster)
- id 7da23d48-7075-4480-8ba3-3d5427a0698f; Fri, 13 Nov 2026 16:57:16 +0000 (UTC)
-X-Farcaster-Flow-ID: 7da23d48-7075-4480-8ba3-3d5427a0698f
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 13 Nov 2026 16:40:45 +0000
-Received: from dev-dsk-gyokhan-1a-87ab81cc.eu-west-1.amazon.com
- (10.253.85.128) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Fri, 13 Nov 2026
- 16:40:43 +0000
-From: Gyokhan Kochmarla <gyokhan@amazon.de>
-To: Shuah Khan <shuah@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-CC: <linux-kselftest@vger.kernel.org>, <linux-pm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Gyokhan Kochmarla <gyokhan@amazon.de>,
-	<stable@vger.kernel.org>
-Subject: [PATCH] selftests: cpufreq: Disable the runner timeout
-Date: Fri, 13 Nov 2026 16:39:51 +0000
-Message-ID: <20261113163951.1510082-1-gyokhan@amazon.de>
-X-Mailer: git-send-email 2.50.1
+        d=redhat.com; s=google; t=1794589040; x=1795193840; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t7R90zeBhuCAPBYRWGVInzQKZ8XGZNdOKwhHfCCRUDk=;
+        b=AZRJTjLla20/bOP0upZA9DbntAjJGTMNRT3S8PlEwzRNCXOTwmz7ChdydZogcVmJTR
+         Mc++h2/Ld2VCoAw45JbOfNAh3ny0mAlqq3Q/RvvMzAHMKTCwOpE/n0UJVUzLctm8haox
+         hGH0v5bA8SPIRiEW8/+44HBLPtSeJ8AMb8OTNDcwsOHv4B2vKE8HWmhDwLRez/1Wo45U
+         RCkHO0FuuHyBehHWDdybkyuk4wqSlnTfAXMS/on79RCztKaeIZJh64cHBnjbBVvFAdMG
+         IQyjPw7EolOtSCaEtc4/wrP4kITjqCJW2BaQ6TNsAJtcgRSaTVjjYwLGxrVs5WTFEFQt
+         tbeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794589040; x=1795193840;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t7R90zeBhuCAPBYRWGVInzQKZ8XGZNdOKwhHfCCRUDk=;
+        b=nKbseV2DpuO3fkChP0/rm1TN3QCWq1k2c5i5A7gfjRUvhHx+uM/WGY1Dlxn83QkEKT
+         NY/5WGxVL15GbbqLpE/G0gH9/kg3a91ErNrMl3YkbZaAvNp5DZgZFfuiOvH/6OCemrPK
+         sqMzbB2pKLoJLY7XxbR/n0r7M5hS0hzMpFTuy0fL1WwhnbkloR3eV8USZwbrWTvkGPw/
+         jXJjiIXpumR3GTr5NMzr7gwE+fBSVxmEnLAXHspwkxL1gRS+5/V/xJxpE+7NoFUEg+yn
+         e5bQkpzXffUAxp3XLfnOJxJnscHfo9omvPiV5szvw2pk7qbwDJqOii1P9mDJhf3SGLjh
+         OI5w==
+X-Forwarded-Encrypted: i=1; AL+hErG32OhBzg7BQlTD6vpe2R1HeBv1Dx2EtvhxapJIDMJPL/dL9ej2HqNFFysO6C8QS78nDk4RHvM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9V3JSXOJxktzBXbABEiGXZyhzm/HcdzlyS4SEBhGdT8HU9gt+R
+	qIjcoOiRflUkJpy3UW8EZpeTefwJsDNJOyi7p9cix/S02SvwOmv/2F/f4TrgiMjUKmtQunJC+SH
+	4oTx/W+iRuN7NfixlI1W7+MZg74HqdvzZIBQDZdkbGDIMZJAswmb+HQ8Srw==
+X-Gm-Gg: AYBFou3Urz26SIwlKqUT0T8pv4vhyc9B7NCeVaoziBWpVI5MP2HhIAoMBGh9bZGKTMw
+	zD9XLlI+h6a9/Hn3hpQvZTvZDKu6ZoJVK9+N2p4sbcR2TFMCEpRbXV8B/YmQa3gLIH9uCKgv/0x
+	mhf0v4L3V1JLn8Z8f7F6wj7/ooSsJR9NjQjM/PsxxhzuHf+pbWNksLsCJmOYLqN5jcDL/mZCETJ
+	+Vm34fCuCqGf3cD5xLgkukSUncOHYET4qZnv0lq4NvEWkx/4ZXTsO/frcqnpBUCuGEquIqpaz0x
+	36Gscrbf+ZL97XD5FCHvX2/UXfAiBID6/b9deVJwb89JENnhO+DKgAeTdiK47YgUYFUme/nV1RQ
+	cYVyf1lRfF3aclC1QqpTwiLgIuFTS8oejWHqlCfiXlIc+MNZJjW8Ut7bpqyfWjhUFvR+Sxk5pE6
+	CxxtU=
+X-Received: by 2002:a05:6000:4804:b0:49d:57b6:55eb with SMTP id ffacd0b85a97d-49d57b65632mr3158343f8f.17.1794589040314;
+        Fri, 13 Nov 2026 08:57:20 -0800 (PST)
+X-Received: by 2002:a05:6000:4804:b0:49d:57b6:55eb with SMTP id ffacd0b85a97d-49d57b65632mr3158249f8f.17.1794589039729;
+        Fri, 13 Nov 2026 08:57:19 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c604ee47dsm5790370f8f.38.2026.11.13.08.57.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 08:57:17 -0800 (PST)
+Date: Fri, 13 Nov 2026 17:57:14 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 20/29] cgroup/cpuset: Give back the bandwidth an
+ attach did not move
+Message-ID: <avdBakhOOFb_j6y3@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-21-mathieu.desnoyers@efficios.com>
+ <avWEta7b9X4K6hF7@jlelli-thinkpadt14gen4.remote.csb>
+ <e21aaf40-b929-444c-b707-3200e21d7301@efficios.com>
+ <avczaaXEh_xUhxpa@jlelli-thinkpadt14gen4.remote.csb>
+ <3b2419e4-3874-4ccd-8af1-3ca76df20717@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,51 +132,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3b2419e4-3874-4ccd-8af1-3ca76df20717@efficios.com>
 
-cpufreq_basic_tests() reads and writes every policy file, offlines and
-onlines every non-boot CPU five times, and then shuffles all
-frequencies and governors of every policy. The amount of work scales
-with the number of CPUs, but the test runs under the default 45 second
-kselftest timeout.
+On 13/11/26 11:14, Mathieu Desnoyers wrote:
+> Hi Juri,
+> 
+> > I believe we already have (maybe broken in-kernel) EBUSY on trying to
+> > hotplug last cpu with bw standing?
+> 
+> Yes, in dl_bw_manage(), for dl_bw_req_deactivate. It refuses a CPU
+> offline in two cases:
+> - the CPU is the last one of its root domain, and that root domain
+>   counts deadline bandwidth;
+> - the CPUs that remain lack the capacity for that bandwidth.
+> 
+> Both look at the root domain as a whole. The planned next version
+> leaves that check as it is.
+> 
+> The new refusal looks at each task. The root domain keeps other CPUs,
+> but none that the task is allowed on.
+> 
+> The case hotplug_last_refused of deadline_bw_test shows it, in a guest
+> booted with isolcpus="domain". I1 and I2 are isolated CPUs, in the
+> default root domain. H and K are housekeeping CPUs, in another root
+> domain. B is a cpuset of I1, I2 and H, and is not a partition root. T
+> is a deadline task, counted in the root domain of H and K. Without the
 
-On large systems the hotplug loop alone does not fit. On a 256 CPU x86
-machine each offline/online pair takes about 0.5 seconds, so the
-reboot_cpus 5 step needs more than 10 minutes. Even with the timeout
-raised to 180 seconds it is killed in the second of the five loops,
-and the frequency and governor tests never run:
+Oh, wow. So, this is indeed possible today, but of course completely
+broken from a theory/AC point of view. Urgh. :)
 
-  not ok 1 selftests: cpufreq: main.sh # TIMEOUT 180 seconds
+IIUC, what you propose for v6 makes sense, in that at least it should
+close holes we have today. We will then need find time in the future to
+address what dl_bw_capacity() already points out:
 
-A larger fixed value would only move the problem to the next bigger
-machine. The basic test has a fixed number of iterations and does not
-wait on external events, so disable the timeout with timeout=0, as
-ftrace, timers and net/forwarding already do.
+ * XXX Fix: If 'rq->rd == def_root_domain' perform AC against capacity
+ * of the CPU the task is running on rather rd's \Sum CPU capacity.
 
-Fixes: 852c8cbf34d3 ("selftests/kselftest/runner.sh: Add 45 second timeout per test")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gyokhan Kochmarla <gyokhan@amazon.de>
----
- tools/testing/selftests/cpufreq/settings | 5 +++++
- 1 file changed, 5 insertions(+)
- create mode 100644 tools/testing/selftests/cpufreq/settings
+In the example above T should be restricted (and its bw accounted for)
+to either I1, I2 or (H,K). It shouldn't be possible to admit it in a
+cpuset spanning both isolated and housekeeping cpus like B.
 
-diff --git a/tools/testing/selftests/cpufreq/settings b/tools/testing/selftests/cpufreq/settings
-new file mode 100644
-index 000000000000..d3e07370a7e4
---- /dev/null
-+++ b/tools/testing/selftests/cpufreq/settings
-@@ -0,0 +1,5 @@
-+# The basic test hotplugs every non-boot CPU five times and then walks
-+# all frequencies and governors of every policy, so its runtime grows
-+# with the number of CPUs. No fixed timeout fits every machine, and the
-+# test always terminates on its own, so disable the runner timeout.
-+timeout=0
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.50.1
+Thanks,
+Juri
 
