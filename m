@@ -1,56 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532267;
-	b=LHcweJ9dkcuijdRSxT1AudcvmFAcj9P/DwFVGwZ8j0TwuA+kz+eXbjvSQtiWy7m4Qt0P
-	 +MklnllGclY/aS88weZvMBipSshvrsBoG4BRpHAl7VZjhZ/X4WcTeknArGGUZ6R4vt42d
-	 0+DsmpmL6sbGoj6AGPkMVWqPbivkrUztMZ1/uulIf4ORi40ogEzBGEUOknXuyXgvc6n2h
-	 BcGJAdZfeZHkh5GJLMTrJwHcjnp2bKr93B345DOuKiUUgkgx/pU0OrjipCXESv5fYIZD0
-	 40xUZe7o8zNASiKNiY5nsBoFR5DWDsl2cRzb3e0qC4CKwv1QJ4dfDhDpKKFnZQn4+EA==
+	t=1794532341;
+	b=WzHsO589nkJ/VoLrpyGG8Vb3haAYtPJxYS7kXncifUy4YgARAXxLzRH8dKKqC53Sv5bz
+	 21KePNF7uFzoyZiP3J+xWfUt8rlujGn5BaBvCyykyt1wPurOAEeFpg/ZW61CmITlf0v5e
+	 vvxH/e5TjWlWFs4zzBwUzRnww5+HyZ+IkUqy/NHZvzUp64sERiPajvWKTOriZf2WM+KqM
+	 TG99ZbmO1YA8f1sHq3QdSc7OmCVDsMUSLOibwDkuZ0JOC96kpFVdmyYfrWh8lwVPdmINH
+	 RBKj8VxQlriOC0iouCP05qtPjaI2DfUWWxs8FMabKCVwBx69p5pm+jkIbGADhh/UQ+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532267;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532341;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8Gn0m0E/X22IuLoSl4exbuKUJmUWUuLBd4XdNpIBu+Y=;
-	b=abBaf5VHPGfhQBg+L1NLiRgZGhPjpB/WvOmEiMTUyyIilQOLYio5KwaFNYWpXr0983AL
-	 dV9tu8Z2NKYsUw6dlCXrWtSFiS3glM03sxyO2HlPba/6JqyLfA1cTHb1b6mn6PE+owlU7
-	 s3hvqbSgkhwsPVESZvssXNprXhgOxVnK0DK55fwmZMY6Gk8D4W2Qa8jlWEiwwzRA8xqGs
-	 SVeRPW1ekaBpVVwBDD2LXHRUYFBxbm7LH9gHn52gGOrl45iYvmgaVtDuzmX8nkLQ73F3A
-	 t3eIKDKq+FPCttGe8ikk1AGe24LWrxYMvAu06BghuejKkk6R7czb1n1Wvk15pozvILw==
+	bh=gOIoi0IDFWsIP0FDvoLZZLEqXs4XCuTzk7nLDVnqPmM=;
+	b=3H0YD8dPX3uFPP40+2OhwnpMRY8+IGiM0rDiZrZPczjc6PB3KkbVbKm+04cYgUISmws6
+	 E2E7FKRm16n8VG18Rhi0dQSr6TSW5YzynJNeqLftbiUrP6xPIlOupxWTafAeTOuH5ZSUh
+	 O5IXSkl1zhbMhNY1r9iz3BQuq/qO+1l1uafkdg15tsZskokdqrC2xbwBnl+kLpBlEHw8L
+	 1KNJgryonPnTSnBJQNfBkPmW2D+bsfadSAYR/gPPAwVu6oS7UjpOVOSGtvkNbZKHu0UZE
+	 /131KyxWrVT3ViUqq0B0CUv7Cj6k7TaHI240ZqWukKYshO9GUWN3Tr1I/MzrO7EnNIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fy07+AOA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kqU5Qc2z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1850606A323
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:11:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87842606A321
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:12:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fy07+AOA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C24B1F000C5;
-	Fri, 13 Nov 2026 01:11:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kqU5Qc2z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051FA1F000C4;
+	Fri, 13 Nov 2026 01:12:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794532267;
-	bh=8Gn0m0E/X22IuLoSl4exbuKUJmUWUuLBd4XdNpIBu+Y=;
+	s=k20260515; t=1794532341;
+	bh=gOIoi0IDFWsIP0FDvoLZZLEqXs4XCuTzk7nLDVnqPmM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fy07+AOAm0+LDlpFxgIvTGcIa2584vW1EAMypDN+MgPR0E2Vf0QdMYXNPoT6w1fuw
-	 Jyns2cL5TdkFoukpwXAsHgWs5eIasEtZetj19vuWkwakxZgM116SgRXodroeilxkkM
-	 Icq17Lifh+5P9pNmpS99B5VIlKXtdTPzoNfTx1XdEfn5c/CHggqpJnGqNFA1LAzMsG
-	 C63tQ/zf/mQjY1GR4i+tPoxwCZfJkMS3HZuflrMNDJoFZ1cjqM1MvvEBOVEoT901DP
-	 rWBTwELaH2nOBTWdxezy4Rta+0pqmzYdib4H/ADEp/Kvou3zGX/XYU/oswb9jnyfxc
-	 cAAYXZ3iHvEHg==
+	b=kqU5Qc2zB5cUC/T/CMwDlAyxP8H6H2krQaTpVh5jB+gzA5qMGYjfaVl5PAYoHFdzT
+	 yzQY/+u6e1ukBhNHG+xOAD3ZVdgIT/4t8KRjI+aJYK1vBg6kuUWE2QaT8CSq10Nlwr
+	 ajfgrjL6nHGcMXEmTFCyYVwTQMaL3+wIyjTcELATQIbrf6teUJlrFt58jaIjwjGIRT
+	 lr64JkjjPpZg0fsEN38BdOMQho2chB3DYP+4vvtu+AQNRQmkpU61jpa2XNw3TJIC+m
+	 YDczLbA9CZnYWSqyn/l0VPfNKhyBAaQoF03IGJWAU6sxwBTLIIODGOLgE+Vb461NTQ
+	 NtHPW+FQ/N9zg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Bo Cao <treebacker@foxmail.com>,
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Joseph Qi <jiangqi903@gmail.com>,
+	Changwei Ge <gechangwei@live.cn>,
+	Gang He <ghe@suse.com>,
+	Jun Piao <piaojun@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ALSA: pcm: Prevent O_APPEND open on OSS streams
-Date: Thu, 12 Nov 2026 20:11:05 -0500
-Message-ID: <20261113011054.553203-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] ocfs2: constify struct ocfs2_lock_res_ops
+Date: Thu, 12 Nov 2026 20:12:17 -0500
+Message-ID: <20261113011204.583671-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113011054.553203-1-sashal@kernel.org>
-References: <20261109201011-failed-6.12-9017bc3d13da@kernel.org>
- <20261113011054.553203-1-sashal@kernel.org>
+In-Reply-To: <20261109202711-failed-5.10-5b4696e0bfc3@kernel.org>
+References: <20261109202711-failed-5.10-5b4696e0bfc3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,82 +68,157 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-[ Upstream commit 9017bc3d13da0ea4e63be618c87143a7b69185e6 ]
+[ Upstream commit 3ebe69c0c3ae3ef5ecd1ad86aa98a3b7cbe3c7e9 ]
 
-ALSA PCM core accepts to re-use the existing stream when O_APPEND is
-passed, and it's been used for dmix, etc.  However, this mode isn't
-supposed to be used for OSS: the OSS stream allows re-configuration
-via its hw_params/hw_refine procedure even while it's being mmapped,
-so it implies the usage of only a single stream.  Because of this
-assumption, the sanity check is skipped for OSS streams, and if user
-may attach to an existing OSS stream with O_APPEND, it may result in a
-UAF of the mapped pages which could be used as a privilege escalation
-exploit.
+"struct ocfs2_lock_res_ops" are not modified in this driver.
 
-For addressing it, this patch simply prohibits the O_APPEND behavior
-on the OSS stream.  O_APPEND is never used for OSS layer itself, so
-this can't break for the right applications.
+Constifying this structure moves some data to a read-only section, so
+increase overall security.
 
-Fixes: 0df63e44c3e3 ("[ALSA] Add O_APPEND flag support to PCM")
-Cc: stable@vger.kernel.org
-Reported-by: Bo Cao <treebacker@foxmail.com>
-Link: https://lore.kernel.org/tencent_E90BB4F086165FAA3313723567A5C675EA06@qq.com
-Link: https://patch.msgid.link/20261103155844.120838-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+In order to do it, "struct ocfs2_lock_res" also needs to be adjusted to
+this new const qualifier.
+
+On a x86_64, with allmodconfig:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  83038	   2632	    400	  86070	  15036	fs/ocfs2/dlmglue.o
+
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  83806	   1992	    272	  86070	  15036	fs/ocfs2/dlmglue.o
+
+Link: https://lkml.kernel.org/r/43d3e2ae3a97d3cbe93d6ba6ce48ae5ec04d7526.1718382288.git.christophe.jaillet@wanadoo.fr
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Joseph Qi <jiangqi903@gmail.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Gang He <ghe@suse.com>
+Cc: Jun Piao <piaojun@huawei.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 5b4696e0bfc3 ("ocfs2: cache the mount context for dentry lock callbacks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/pcm.c        | 2 ++
- sound/core/pcm_local.h  | 6 ++++++
- sound/core/pcm_native.c | 6 ------
- 3 files changed, 8 insertions(+), 6 deletions(-)
+ fs/ocfs2/dlmglue.c | 28 ++++++++++++++--------------
+ fs/ocfs2/ocfs2.h   |  2 +-
+ 2 files changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index ff1e9f8c1ecae..18979f88f7159 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -923,6 +923,8 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
- 			return -ENODEV;
- 		if (! SUBSTREAM_BUSY(substream))
- 			return -EBADFD;
-+		if (is_oss_stream(substream))
-+			return -EINVAL;
- 		substream->ref_count++;
- 		*rsubstream = substream;
- 		return 0;
-diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
-index ecb21697ae3a4..4b134d435c24f 100644
---- a/sound/core/pcm_local.h
-+++ b/sound/core/pcm_local.h
-@@ -80,4 +80,10 @@ static inline void snd_pcm_dma_buffer_sync(struct snd_pcm_substream *substream,
- 		snd_dma_buffer_sync(snd_pcm_get_dma_buf(substream), mode);
- }
+diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
+index 63c5312a5ed58..6338ee9fc5a47 100644
+--- a/fs/ocfs2/dlmglue.c
++++ b/fs/ocfs2/dlmglue.c
+@@ -223,12 +223,12 @@ struct ocfs2_lock_res_ops {
+  */
+ #define LOCK_TYPE_USES_LVB		0x2
  
-+#if IS_ENABLED(CONFIG_SND_PCM_OSS)
-+#define is_oss_stream(substream)	((substream)->oss.oss)
-+#else
-+#define is_oss_stream(substream)	false
-+#endif
-+
- #endif	/* __SOUND_CORE_PCM_LOCAL_H */
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index f3b17ec2f1778..24b923aabc9a2 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -745,12 +745,6 @@ int snd_pcm_runtime_buffer_set_silence(struct snd_pcm_runtime *runtime)
- }
- EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
+-static struct ocfs2_lock_res_ops ocfs2_inode_rw_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_inode_rw_lops = {
+ 	.get_osb	= ocfs2_get_inode_osb,
+ 	.flags		= 0,
+ };
  
--#if IS_ENABLED(CONFIG_SND_PCM_OSS)
--#define is_oss_stream(substream)	((substream)->oss.oss)
--#else
--#define is_oss_stream(substream)	false
--#endif
--
- static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
+-static struct ocfs2_lock_res_ops ocfs2_inode_inode_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_inode_inode_lops = {
+ 	.get_osb	= ocfs2_get_inode_osb,
+ 	.check_downconvert = ocfs2_check_meta_downconvert,
+ 	.set_lvb	= ocfs2_set_meta_lvb,
+@@ -236,50 +236,50 @@ static struct ocfs2_lock_res_ops ocfs2_inode_inode_lops = {
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH|LOCK_TYPE_USES_LVB,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_super_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_super_lops = {
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_rename_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_rename_lops = {
+ 	.flags		= 0,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_nfs_sync_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_nfs_sync_lops = {
+ 	.flags		= 0,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_trim_fs_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_trim_fs_lops = {
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH|LOCK_TYPE_USES_LVB,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH|LOCK_TYPE_USES_LVB,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
+ 	.get_osb	= ocfs2_get_dentry_osb,
+ 	.post_unlock	= ocfs2_dentry_post_unlock,
+ 	.downconvert_worker = ocfs2_dentry_convert_worker,
+ 	.flags		= 0,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_inode_open_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_inode_open_lops = {
+ 	.get_osb	= ocfs2_get_inode_osb,
+ 	.flags		= 0,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_flock_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_flock_lops = {
+ 	.get_osb	= ocfs2_get_file_osb,
+ 	.flags		= 0,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_qinfo_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_qinfo_lops = {
+ 	.set_lvb	= ocfs2_set_qinfo_lvb,
+ 	.get_osb	= ocfs2_get_qinfo_osb,
+ 	.flags		= LOCK_TYPE_REQUIRES_REFRESH | LOCK_TYPE_USES_LVB,
+ };
+ 
+-static struct ocfs2_lock_res_ops ocfs2_refcount_block_lops = {
++static const struct ocfs2_lock_res_ops ocfs2_refcount_block_lops = {
+ 	.check_downconvert = ocfs2_check_refcount_downconvert,
+ 	.downconvert_worker = ocfs2_refcount_convert_worker,
+ 	.flags		= 0,
+@@ -512,7 +512,7 @@ static inline void ocfs2_init_start_time(struct ocfs2_mask_waiter *mw)
+ static void ocfs2_lock_res_init_common(struct ocfs2_super *osb,
+ 				       struct ocfs2_lock_res *res,
+ 				       enum ocfs2_lock_type type,
+-				       struct ocfs2_lock_res_ops *ops,
++				       const struct ocfs2_lock_res_ops *ops,
+ 				       void *priv)
  {
- 	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
+ 	res->l_type          = type;
+@@ -555,7 +555,7 @@ void ocfs2_inode_lock_res_init(struct ocfs2_lock_res *res,
+ 			       unsigned int generation,
+ 			       struct inode *inode)
+ {
+-	struct ocfs2_lock_res_ops *ops;
++	const struct ocfs2_lock_res_ops *ops;
+ 
+ 	switch(type) {
+ 		case OCFS2_LOCK_TYPE_RW:
+diff --git a/fs/ocfs2/ocfs2.h b/fs/ocfs2/ocfs2.h
+index f046edf129a43..c6905a75d692b 100644
+--- a/fs/ocfs2/ocfs2.h
++++ b/fs/ocfs2/ocfs2.h
+@@ -156,7 +156,7 @@ struct ocfs2_lock_stats {
+ 
+ struct ocfs2_lock_res {
+ 	void                    *l_priv;
+-	struct ocfs2_lock_res_ops *l_ops;
++	const struct ocfs2_lock_res_ops *l_ops;
+ 
+ 
+ 	struct list_head         l_blocked_list;
 -- 
 2.53.0
 
