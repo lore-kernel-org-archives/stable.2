@@ -1,69 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794549932;
-	b=n4cjBYQc8LKDxynYwSgWyO6xdZygTaQRiepqBNA1TCkjHdGhVDoPEdz7o/vql/gu4sDF
-	 nxtKComtSEIxWFuT1EwuY/9L75GKSsjIqgLrYVnNwZarFiu1qTkZD2GgfXkro9jCnKiHd
-	 hHSMEMCe/TA05a7UpKWw7VUEGmIwUOj3DE5gAQkzcvjjGmxrC67NqVCF5+f4nD8bhZ9Gh
-	 IMmd8JtBKogtRugKiT6ojWiQjH+BgTgG9foyJu0A8CmzXkt9FDXTJ0pEDaAtIwL/F/CzH
-	 vYp/55As4cnD1GYo4KY7FvaQMJPBpj5VXEjz9sww0LLy3RQY/0nO5+UBrQJXMF383PQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794549932;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=Cw0aNhtrZXS8kFyEmLL4uH/j57aq3MotWd+22cVvZWs=;
-	b=vmu9apUBQA3AyvJ8hC7lBxWUauwbWsyvOFRl+tuCmLtmm0G9yRrOpStiPDs94CtX0up6
-	 SLLnjKxd9C283qUZcdq7n7TTriBaisboH2W867H/jVRUODz4xB8Zn+VFugep25iAsPOkv
-	 a05TTVsFYuui+HxlNTYh3EnB29HAoKd499RecsipEM19BmqlMJGBuGjN6twQIGxhY7Ans
-	 pSxQbe2z41Z7eDYHLk6Qq04cC/c1kOaRPFPSJxnHFMvte3+aIyWvTsbxHYQn8ehAKOZTd
-	 LuCEPAEbPsIbgwdej37eo7Gs+qgj5Aolf37cXohjJdi0Q6GpOVKDr4dGJwraEo9Gdhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=5+Ud+1vm;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.210.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794550085;
+	b=w/hpqXWQcpgvNGeqOau0E7cmt8Bj/KNd2vNLiftSaAwUM+FNySmClyYhSKGBad2OAGg8
+	 SVJQ3lNeTChUxKMQlcJh7d+47Kac7T30P8+DxTqa6VNRyyAgvUXKgfkm+IoWunGF3xyN1
+	 nY/JZQ3x5xgiWEaH5WEtH+OjlVJCD24mfxMQ2WnyTy7sgHRfoTqm1vxafGa19QBFcTKmf
+	 Mgf2pZFd5OniHPiAhk0Td4RaNVcf0GzN4lc3N4AMnysJGKrMnfMkwtIww86v2nvihXgGx
+	 hxVNwPAg+GMFaTfWPvXdJ0fPpUBpo/MWlDOeA0M1Ix3h42G2qDTQO3jb3bMdw0s+m9Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794550085;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=26A4aPgJxTCdFcMyIZSLE7eGxsYpBIDGl9yj/Yls13k=;
+	b=fchx9KpstXlPPMdiz2HveXYQuZxbytfF5llLbsygfgUh1g41jgtGQaHcqnEgemSEI0a4
+	 L68RpONJ6XFAfZPzUMkigqephrEOYJjuo4rqomg1DC10cC2PE4ibvvXn8IqHvjmvNYF41
+	 IOvIcX12lEGHR7j3CN3TBASxmDe7X52TxeQNQ7M3m+D2VqHAVqlapEuvPgOMMhr8MioFw
+	 USjHg9g3MqyGEpokCREh8N6UKaGflLU7CmTeOL90vtNeECW1e9NADHx65u4oq+sJoIbOV
+	 6WixjLSNT5tr3iKG9Phw0JV6zjKTz/NzebrIzppaDnCmdjL1i/JQ4LtlmJ+gI0CS3oA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XqQPAg2w;
+	arc=fail smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E22E606A31C;
-	Fri, 13 Nov 2026 06:05:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E22E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50634606A323
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 06:08:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50634606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=5+Ud+1vm
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQmvZ1hYYz4yjT0;
-	Fri, 13 Nov 2026 14:05:30 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794549930;
-	bh=kEK/CdjUuLDdYkzvW76iRkve1W1+RjViKn+Zz6zXGgw=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=5+Ud+1vmD13rXc430CPlOpc5b1o4JP+wdtbUUC+UMpnJEGP7yK6Ehi+5m9Ga0Ba8s
-	 rUit8P3zcO201yaDBH9c14hTsrq1kQ3XGvTd92l/K97tcNZ7AspW5BONM05J/QYghA
-	 MqY3GkVro3z66P8IgeIkiLLRa4/gVKL9rx6TyIxFFNLDoKniqwcnwvZOELtb94A9YJ
-	 mSpyA2F7rGsJa+Wy4mcpXMN8lgE6AG7CgCQlq8myk/3k6TGS7lSndFcGtz6ubO8W6b
-	 GAb/dwsJ9QAh/nZh2lSlPF1qqt1+IK8nSqh1vhG9PTnXI+gw8/AWFUglwrA6O4OjhJ
-	 Wb3rR2LuAEgDA==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6AD65HZX055158;
-	Fri, 13 Nov 2026 14:05:18 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 13 Nov 2026 14:05:19 +0800 (CST)
-X-Zmail-TransId: 2afa6af6a89f931-79c0f
-X-Mailer: Zmail v1.0
-Message-ID: <20261113140519708mqg78DW--hT8RANbqMrZB@zte.com.cn>
-In-Reply-To: <20261112211246.GB11126@lst.de>
-References: 20261110230304050fijuDcYKyYPS3lffioSeA@zte.com.cn,20261110230310932grXKWow1mHtiisyby_D4-@zte.com.cn,20261112211246.GB11126@lst.de
-Date: Fri, 13 Nov 2026 14:05:19 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XqQPAg2w
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8bef8d4fb90so79417b3a.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 22:08:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794550084; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MQaMkD6iEGfAi7Eh7ZGUpDNA3WdONZYfhiygvXHUMUFbUOHQ/FhoVXp3vrzbPxlcfK
+         GSQWKH9rJZlbqoUBA73f9tngTfWXdmfR8UT1H2d+QJQrKrbIzeT/386VfX5ywCTzajtA
+         sOkyVtIUDXYJc+Ib9xkq3GmVefHAXaPp9gGKgPCeYwgTDcZtdasvelNx8mc5XQCrV2WT
+         3WSK9i3opXu4+9Kc3350d4CIWpuNf5N9UXnbU8dN7tlfZn6Z+2Bak5jx48yDXcwTJIz0
+         Q2DVMGy95jtR/r1WqelUbXaMHHvaQ8O9DriN73382GJSoLWeUKMrABxuF2RRyIFdLhIB
+         ZhrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=26A4aPgJxTCdFcMyIZSLE7eGxsYpBIDGl9yj/Yls13k=;
+        fh=3FRDd+SBHRpaoEOXYtHvJgokT5hlmEagoUcGN1rsAmk=;
+        b=Fa7kkajHUhqkHW+J9Qxdt03+AGFbP5lxWAire+bpYMHOUm6pHEw7oIisU5rW2T+wXd
+         rRaDObAd0y9txHBM/zet71IRNVn0OV2f3nrJGgQNzrSvEh6Q6PxsFl5oCWaOUgZmD5XG
+         67vQC0bZmWZXxN0Ir0/PDuUBR8Q9IQ1bh+gcb76E1C7x6lX8M9ozBYOKfbmRSJWWuoKm
+         02xMqbbuA4igYJCI5guNsqqAYKxSf/6+HwAgCuBj3mjVAPwxj3eC19TIrCjOcYsQQrAm
+         ZS1ilR8nX/ob6FJd5zNwNHeiUTXcH9SpGD0uEStFYZpYyd46Pqzvx1M/S8G7aj/2xPlo
+         o2kg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794550084; x=1795154884; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=26A4aPgJxTCdFcMyIZSLE7eGxsYpBIDGl9yj/Yls13k=;
+        b=XqQPAg2wO5ObYLSJ60tvagDHEEqP3Em0l/W0NQSA6kdagkLZ043Wop/TCnLuUVnf3w
+         x/vsvW8PT5r9yyFCZepTCoKzi/Tb7r7QryKwZXTE3f7K7jy5mpMtwrq7am3T+aa5x1dX
+         tp3XjPZWx2eJSWtKrNiOct6kcdNbexshA7iv8XLeBp7QNAfUUxzx6/WSThQ7B7YUKSql
+         vKZp125E3dV+HnPwa78G6eHA2ASRHQlltoNj+neu7jsZRYqpt2x4bT0uzMSzw3oLkisK
+         Uxt3XRqoI4JSO52BlDp0lQ15HLyOkSf7rY6u7Su1VIOu0fp9AsPwoNRSjI2fpbQFNtvr
+         G1zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794550084; x=1795154884;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=26A4aPgJxTCdFcMyIZSLE7eGxsYpBIDGl9yj/Yls13k=;
+        b=SlfKqYMBCVg7ajIxrR33ViobRloci3pMRce9NE8Jeyr0QxPveaqYptYqlTYrQwWYcW
+         23SlBWG0IuREv8YQ6oP/kX0Ly2c2a9+OQ1nrbMLwn1zs10Mfok/a6c1jAsZalZtfzHJv
+         wT6ii2lwCXNoTIZYOiQEpDkF4vbKYcb2Jz4RNxD2VaWMSvpYnFNYTffLM1XjLja+dyVu
+         Km7b95GpM2XmIy2DwLajNIeNnyfNQRDes/T8vkUAd03BQ5RgzDbFxtoOwnvfS1YI70/H
+         sFq9k2MaYwX6cj99yhHeMJFewugWF1WR7tLDHPIP66xzm7UWm+G/wKGwe30g5mnX58+q
+         VKWQ==
+X-Forwarded-Encrypted: i=1; AL+hErGbExOjGrL3IPV5WhCdNJNeAFdFcOsg0/TOhbZboyejvpa5EUxdDKijBTvPqZo+BQnZ9BS5g2U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Bz1bWq3SvH25kQLLD/+vlyc4npTVwgVeONH2bq7sJCqnI25Ft
+	UCIMohviFwmIP3QCYrREkukUdSZ0YxRss2GaUuG+m3qhKgMmn/Iq2ZeUw7tqG/7VwnfDt5223vI
+	6a8B2HQP/pZug4mOfrecb6glFvo2Xybgn9z4gxkw=
+X-Gm-Gg: AYBFou2bPiYfqZTDSu7EETunzTZziXJrBFFFGpM6YOfSA1FBc3V6Lzvg92bJN6Iw+Ie
+	LVb5qUJhcGqV2c4JcJxeCfKkWDm7jQYAekaa9zZKRiP/3GNhmHGAv+gH8DFbjTxFceXwqRFJPm/
+	iBJmvQNKyRQCx/iboIsoZpKiIVyNmnxZuRM3EIGO/6GtTeYcg+BMDXc95djqIp5bbTBhr3Nfx/9
+	u2fxVAoFvIyp6hxtdbTD0MJys4zfQ960dXof/ZAaYu3SdF4x2bJdv3nPDjmDpo6hOWgeR41nZmp
+	fYzhesJWiXoGddCfDfo0JXoF4k1D+a1KeYZm/K8ovzlzyV9esj736zXvScOoMsPpJOMUtjhsfx5
+	V3Gil/iILMancm0X5mr+1ohn+dx07wtHKb3w52g==
+X-Received: by 2002:a17:90a:c88f:b0:3b0:9a3e:bf8b with SMTP id
+ 98e67ed59e1d1-3b1b0b5d63amr2053645a91.6.1794550084439; Thu, 12 Nov 2026
+ 22:08:04 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,32 +103,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <hch@lst.de>
-Cc: <kbusch@kernel.org>, <axboe@kernel.dk>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>, <justin.tee@broadcom.com>,
-        <nareshgottumukkala83@gmail.com>, <paul.ely@broadcom.com>,
-        <kch@nvidia.com>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCAyLzZdIG52bWV0LXRjcDogb25seSB3YWl0IGZvciBpbi1jYXBzdWxlIGRhdGEgZm9yIGlubGluZSBTR0xz?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AD65HZX055158
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 13 Nov 2026 14:05:30 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF6A8AA.000/4jQmvZ1hYYz4yjT0
+MIME-Version: 1.0
+References: <20261112160448.41566-1-lui2012qwq@gmail.com> <20261112160448.41566-2-lui2012qwq@gmail.com>
+ <179451113091.3909038.17914676412025517919.b4-review@b4>
+In-Reply-To: <179451113091.3909038.17914676412025517919.b4-review@b4>
+From: Chengyu Liu <lui2012qwq@gmail.com>
+Date: Fri, 13 Nov 2026 14:07:50 +0800
+X-Gm-Features: AclHuK9Lr_yXnIkN3j5RcGH4UR8BkPHdICqoNnYU0U9QDO8Oz1UJmXvDJz9L57U
+Message-ID: <CAE=Q7=4=OX36KCU1TNA_aLp4U8b4EpZE=1XkrKj63JATKFhefg@mail.gmail.com>
+Subject: Re: [PATCH 1/4] usb: musb: cancel irq_work after masking interrupts
+ in musb_remove()
+To: Neill Kapron <nkapron@google.com>
+Cc: linux-usb@vger.kernel.org, b-liu@ti.com, gregkh@linuxfoundation.org, 
+	tony@atomide.com, bigeasy@linutronix.de, balbi@ti.com, 
+	shimoda.yoshihiro@renesas.com, robert.jarzmik@free.fr, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 10:12:46PM +0100, Christoph Hellwig wrote:
-> Nit: this would become much more readable if split into multiple
-> conditions instead of this giant compound expression.
+On Fri, Nov 13, 2026 at 3:18=E2=80=AFAM Neill Kapron <nkapron@google.com> w=
+rote:
+> Shouldn't all three cancel_delayed_work_sync calls be moved to after
+> synchronize_irq? Seems like these other two work queues are subject to
+> similar style issues.
 
-Agreed.  I'll split nvmet_tcp_sgl_is_inline() into separate checks and send
-a v2 of the series; the other five patches are unchanged and keep your
-Reviewed-by.
+Hi Neill,
+
+Good catch. The static analyzer I wrote only reported irq_work, and I
+missed checking the other two work items in the same function.
+
+I checked their scheduling paths:
+finish_resume_work can also be queued from the IRQ handler and
+musb_port_suspend().
+deassert_reset_work can be queued from musb_hub_control() before
+musb_host_cleanup() removes the HCD.
+
+I'll move all three cancellations after host/gadget cleanup, interrupt
+masking, and synchronize_irq() in v2.
 
 Thanks,
-Shao
+Chengyu
