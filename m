@@ -1,57 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598564;
-	b=wdhsJolPaWt4LH8D6gcgFDDzH+/bjwODZ/QcQKBmXIxX/8wTMqiviFzXAHH4kGoUABpb
-	 9b3RYKW10+FKGGtjt1cKukSJymQfKDBGvgq/O0Nk/B0bK0KSLy6XgyXenb3eYK+Ge+gHa
-	 P25y4VjfNcC9dQbjsBjdEqh/dLDrAt+tNNnJ1BHrFW4AgYOuZfUpoKzRR+fCvlLYS5ktb
-	 yeGlalyHS7XtKYY6Wx+B7oCAkJJ/N/mAjz1Zbl1+A0oxM8+zlnh5G9MjnmN65fIOvQ9QT
-	 MfqzBJqzVCDX95dsJ4lgg4zQ+o7eyLw3ME/er1w1MLvROIsj+6qDmBOypiovWnunRwg==
+	t=1794598570;
+	b=GjFcpjvx9z3joh6CMcifYMc2lT+wxMqjlbrQ2RV5FZH6JrAOZLYhFpikOTErzexlfKAn
+	 9/H0uKnjQzLpdYbZmtLnhF6WhCUvOHQnJrxEXxnEcIaQ6fYBfVCsqEtt3vywVT6TI24md
+	 G5WIS0FcR/oxit8BIj/eqE0z8a65U2TEGJ7ROPPZ1XkJ3yEx0m1wHKF4Y7ofOViWBNdt5
+	 xS2EPItkcoPzF8+j92hlobyIfv8NrHyvjKSvStmPi3e0cm6WCY5KFnvL7sX1Enz3tBqwO
+	 8uYosP2HFR3mKpOFwqxrUO/4m0sjQYj5WtRshm9SiXlBehwiCKDi11MxXSlEu83oyCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598564;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598570;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MhL1dopo+6HT3A1/s6uDdPtlRUQ2J6NgmMVPi9TVFDA=;
-	b=IwQCugDZVdyutchLIi3wzeT2DvO6vd97f2B4bh5mCFuKFFkpyq5yynI5jxzsXyaqRFyJ
-	 mt+9rv5IW3KAyh+pGhHlhuF4iH76sWpghcciCRlWeEc7LO6bW8FKEwRMbaWCjYHyr/gHY
-	 7rWd/FDBcGRvSiO1boCQGYGQiuOg+CpzgCTGeeOj5pvS82HcNQhsmSeyfaD7rApmz3iZ5
-	 Aj3e98o7+BK72R1tktS+nYaNW8MqVOjzddsga6E+YyDoDkkFRwM1061mRUFltROxbyPO/
-	 MOSdkRwDIYJmEOAW2cglVlNw/lYH2W99HmRX0qLSV6jtDMlO1QHUZsUWm8M3oIKCa+w==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6KbqMHXHGqHunvle755ZkxdZ+Z6xi5+iGSfarwvLdzs=;
+	b=R0jWWFbelpOqxohDcGoK5drvns7SO4M9nG5UUmlkMdCKxJCW9Zz5j9AITgA6RB+AzjN8
+	 ImyG//tG1CNeNczc+TCAHNCfQj/1rnQ/Ujtan4wITinkdVBKzxEM4cOSyNtxHLySRkZWK
+	 pH5X3stAtENT3NT37fk8vMQrQQcfdBHiAI5UizAh0KqVV6PP8RvrXhl4UECg/qVX/qm5a
+	 dYNH2U1oyJj9zpYpFxd5gB4N3X2YFZpiFyQu9N8bkLZ+Ba2n4VqDdHBHnwMmC0U0P7ngq
+	 qk2d+GC7tnZ4conEOv9vbhGC+wyNW0oZYP72j8PhfX1fJOv2o1H/2hre6QzRMMtspzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CL3i3V1M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZCHA9RhQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57B3606A886
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE14606A323
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:36:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CL3i3V1M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC9691F000C7;
-	Fri, 13 Nov 2026 19:36:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZCHA9RhQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72AA1F000C4;
+	Fri, 13 Nov 2026 19:36:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794598564;
-	bh=MhL1dopo+6HT3A1/s6uDdPtlRUQ2J6NgmMVPi9TVFDA=;
+	s=k20260515; t=1794598570;
+	bh=6KbqMHXHGqHunvle755ZkxdZ+Z6xi5+iGSfarwvLdzs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CL3i3V1M699h+bDK5a9IxyFMEOTBA7tkIn0vDsR2LcDUKH0K4/tFuy+zt9nLY1eMi
-	 fqiwX6WEm6sl2ekkDnzPfF+dB+0HtqN3NDkVNpz+a0OkZUtbdKausBXmhGPWmESWUa
-	 8Z5DtVyxmR+/pN3WXnCv/r3Ic17ZiDOHJvkgWgbvWPfQWr3PulCWwOXI+jn/r0Lmov
-	 WyDghXUqZAcZx1E3EM5AfXHQyvEzPz0XalBZPXAuBzf/E1TojyzUlaM3vpLopOnZwj
-	 TjiweuIqP3fKA753NO3QP9ZwR8SmcpzFbOuRle1+IBCkWuVb+WqAABBC+fG3soQXrp
-	 G+h4Xo2J/Jd2g==
+	b=ZCHA9RhQXQ+Cib/tEABr6tCyH/HEt90HEKc9DiDIEpysAFaALyOF032Kjz4WcT/GP
+	 +vxZ22WtSf74EWB7Wi4KsUSysQPKlDJLV8Tl+P1cDIWCLirD4fmDjsmtlVLSazIxQM
+	 D5ugS39CflrYvDsg7binPjt3yHbPp04/UctfKxBAU5nxBIP6QSHYxeGlkb97sq/Y3L
+	 sMXT5hZaSTeqif//6jFqHiTw8KIgTqnnT+thIiuDhW9jperAPxXEPO72e0yGxPSS0y
+	 ktNzjJ1C5qzElqoCLmuPjEq+iE4MkpZXvX5cy09M6XEiQ0YSS+7Ij04TEhJJ2bgxuX
+	 jB6N9CjnToAWw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jann Horn <jannh@google.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	SJ Park <sj@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Colin Cross <ccross@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] drm/amdgpu: don't walk the CS chunks when allocating them failed
-Date: Fri, 13 Nov 2026 14:36:02 -0500
-Message-ID: <20261113193429.2314835-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names
+Date: Fri, 13 Nov 2026 14:36:07 -0500
+Message-ID: <20261113193528.2433150-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201433-failed-6.6-ade92d50aad6@kernel.org>
-References: <20261109201433-failed-6.6-ade92d50aad6@kernel.org>
+In-Reply-To: <20261109200754-failed-6.12-652f15be3c11@kernel.org>
+References: <20261109200754-failed-6.12-652f15be3c11@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,59 +72,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit ade92d50aad6799a5a9d7e73cd1604fd0576e656 ]
+[ Upstream commit 652f15be3c11415725694ccea317c51e35c0b582 ]
 
-amdgpu_cs_pass1() sets p->nchunks before allocating p->chunks, and the
-allocation failure path skips resetting it. amdgpu_cs_parser_fini() then
-frees the kdata of nchunks chunks from a NULL array. On navi48 with the
-chunk array allocation failed through failslab:
+When changing the anonymous VMA name, madvise_update_vma() calls
+vma_modify_name() to possibly merge with adjacent VMAs. We don't call
+vma_modify_flags() and consequently don't obtain the new VMA flags.
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-  RIP: 0010:amdgpu_cs_parser_fini+0x35d/0x710 [amdgpu]
-   amdgpu_cs_ioctl+0xcae/0x7a20 [amdgpu]
-   drm_ioctl_kernel+0x180/0x320 [drm]
+Later in the function we update the VMA flags to the stale new_vma_flags
+we obtained before. This can result in us losing the VMA_SOFTDIRTY_BIT
+flag set on a VMA we just merged with.
 
-Set nchunks once the array exists.
+There is no need to update the VMA flags at all, so just exit early. This
+skips calling khugepaged_enter_vma(), but since the flags didn't change
+this is fine.
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 0c828445757b86aaa3ed2638832d76f450022bdf)
-Cc: stable@vger.kernel.org
-[ sashal: adapted kvmalloc_objs() to kvmalloc_array() with explicit element size and GFP_KERNEL ]
+[ljs@kernel.org: minor edit of commit message, rebased]
+Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-3-8ff4fae1fc85@kernel.org
+Fixes: 9a10064f5625 ("mm: add a field to store names for private anonymous memory")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: SJ Park <sj@kernel.org>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Colin Cross <ccross@google.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: inferred name-only changes from pre-merge flag equality instead of using a separate name-change indicator ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ mm/madvise.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 99de46eda59be..6d42290d68fb3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -214,13 +214,14 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 	if (IS_ERR(chunk_array))
- 		return PTR_ERR(chunk_array);
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 6ce97106d6d44..2f2f4ba351a0b 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -140,6 +140,7 @@ static int madvise_update_vma(struct vm_area_struct *vma,
+ 			      struct anon_vma_name *anon_name)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
++	bool set_new_anon_name = new_flags == vma->vm_flags;
+ 	int error;
+ 	VMA_ITERATOR(vmi, mm, start);
  
--	p->nchunks = cs->in.num_chunks;
--	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
-+	/* parser_fini() walks nchunks chunks, set it once they exist */
-+	p->chunks = kvmalloc_array(cs->in.num_chunks, sizeof(struct amdgpu_cs_chunk),
- 			    GFP_KERNEL);
- 	if (!p->chunks) {
- 		ret = -ENOMEM;
- 		goto free_chunk;
- 	}
-+	p->nchunks = cs->in.num_chunks;
+@@ -157,6 +158,9 @@ static int madvise_update_vma(struct vm_area_struct *vma,
  
- 	for (i = 0; i < p->nchunks; i++) {
- 		struct drm_amdgpu_cs_chunk __user *chunk_ptr = NULL;
+ 	/* vm_flags is protected by the mmap_lock held in write mode. */
+ 	vma_start_write(vma);
++	if (set_new_anon_name)
++		return replace_anon_vma_name(vma, anon_name);
++
+ 	vm_flags_reset(vma, new_flags);
+ 	/*
+ 	 * If the vma become good for khugepaged to scan,
 -- 
 2.53.0
 
