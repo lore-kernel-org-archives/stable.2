@@ -1,57 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794610326;
-	b=kAfYK8BHZscP+sC5Fgv9K9/tYGRBDM6df+hjzkXM7X0EUUSjiN0bJ24a4Y5JPugcPIlb
-	 Vo7Zt9yErJfFMNsrwYI2+ibvZUu8PfXkUPdZ5bPr6G9qIAdkLWC2UrZADyC4l/Hypzc4w
-	 H3eh1cPc+piMu4Y6vHh060CwmfobMUCL3lhn1Nw78n3HdDk7Ho5qGIS9UCczM7VBeXJdq
-	 2y1GvHdX2tX0pUITgw7FTD44Job1rE7UIheBUytLL9p6CAggoLnCTxNdoB+4YkQ3KZ9oS
-	 q6mw276MegLYQSIhOMSUTaKs3BtR0NJedVyzlsOJp2o0H0wqcotIm+FG4OBq/yYWtNA==
+	t=1794610745;
+	b=OrDJF4SfyTzQHQW8iIJf9EEP0W6p8MAIFb/nFg1JxW3+0lbjWrL4I3jD5jb9cgqWaVFt
+	 mYDo5ZV7xY+J/ct0qE3OInyOP7TZ7q5/HRbp3952vkTiepGq3r0F/ukdEaGK1kb5qVLZ3
+	 EXJs4LQ7E97F5LmaerRwY89HdzV498fvK5GcyZOe0ElCmHgFNScCkJ75yl0Kn/2pRQC3j
+	 Ut+pNyMEq5mRl8mydmdf1WMZPfrlJ+LnYQ8fBKc4TGlpLrRaM3EnFo70H7cqyYKyy3OcY
+	 jnJW8P8HMPJlyDQGRfLY0KHy71L2UtvOiBBuAB2bNWet7erz4v8rpnxWwuKKBhEfNnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794610326;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cJqEH+ns02BeOaEB/4cs6HLckhxebidwLf8B0x34ghM=;
-	b=OLvC2t58MUAo7NhrZovZkGruUhtPCPHw7SbL8w+FgWX8Jl4uEQrGh4nL3uE/npFefoWs
-	 SWbIv4Bb4J974b3N57CimaNP8zn5z1uPnchc2itURK0mSq4El2o0iUDnHReVblBXTAXlX
-	 QH8hQ65PWpQfH3TnYz9+1hLSUIUsSH5EjIezdtESSgxd3yGpCuwP6XYgsLiJAnHWuLYXK
-	 8j5oODzCgGB4NjJrKaU+oExhVxuw8cliRBjNPqX6OihbH0K7YI1YwIOqd2savlbe+S5Of
-	 67yIqJ1ElvvXUuBmVgnf071WATVf9Uzo2twudR/My4so33ETPAWRXZMwTbDc4Wy0wBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794610745;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=954OI/BM2Sj1ZQvB/6VG2CulWyy8PA4vs12zuccnLfU=;
+	b=PsZLTNuxGxsZiZJcLL0HpJfTRdjuENzGtR5Yvl5GRlYhDVObgL8nbh64R/XOIYp8v8Fr
+	 wYicwf2KCFKBq12hC7PHqGNFZVB+TBCQAnys9tS49bhz7WvLRVfXj6fv9eS3bdZ3A5SWY
+	 +Xhzqtq837TKzqKHHvuv3cD7Kj+ep56ooF6AQvUySrymwiZ+gh0fCpBfEn3fK7D3GYiY2
+	 V9H16vNRUfttwNkEarH6ST7SVNMwjHL2Phrq4iuRhjKHGwUK9D7GghwqtN69zbXWkMzTT
+	 JgfMMtZtA9gjOv2drNoI7yR5rcfBbAUeZrc7Dn8PDgNq4KO8eKPkbwbw6cQSOTHNpCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EecKVlRF;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a4MgJS39;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A5A606A331
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:52:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1387A606A330;
+	Fri, 13 Nov 2026 22:59:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EecKVlRF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C741F000C4;
-	Fri, 13 Nov 2026 22:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794610325;
-	bh=cJqEH+ns02BeOaEB/4cs6HLckhxebidwLf8B0x34ghM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EecKVlRFYqb8rQGUl9MdQuC3mQy1xQz+ai3Wf4oJqsQJ1LzxAbd41DV36S+jnkjVL
-	 U+fjzckpUJjSj8thMG1+MnoOKRKFd9wJKqSM7HqeFXDZjjTclVM7y2VKLfnYVaLEkP
-	 pNOiXF4mI9ZTgqQYrIYfD2qJAiF94n/0s2zxemMHvP1PhKuPHfA68rr0RASmnVUwam
-	 ttnOy8UiK4VeyvQUWWZq51QWNIK3v0MeEjtmB/A58epBKS4avYcVMrJHRJU5gC+jYq
-	 jLP3V8pWH+x+do0x4zpBg4xGcsJzYyZYTqvd5/U8C5EOEwFUgR1UEb8LXswqN8DJEx
-	 Z2cN2MKFBfjog==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Cong Zhang <cong.zhang@oss.qualcomm.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] virtio_blk: use synchronous quiesce in virtblk_freeze_priv()
-Date: Fri, 13 Nov 2026 17:52:03 -0500
-Message-ID: <20261113225145.2734747-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202250-failed-5.15-6c6dec7883f8@kernel.org>
-References: <20261109202250-failed-5.15-6c6dec7883f8@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a4MgJS39
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81C521F000C4;
+	Fri, 13 Nov 2026 22:59:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794610744;
+	bh=954OI/BM2Sj1ZQvB/6VG2CulWyy8PA4vs12zuccnLfU=;
+	h=Date:To:From:Subject;
+	b=a4MgJS398YKLw8o2LfEceaThivnDQqC/FIAQiTMpFyv+08b3kT0NOY1DaBxVSa1SP
+	 YUBppoX7UV1mmr+S3rk728z+CqLxR2uGCl1Ry6ad6fyRc251SLReV9Yp6j2pUg3j3b
+	 ptFAnPGqOB9vNwRbALryqyHl1kI7k0qncQTr89qM=
+Date: Fri, 13 Nov 2026 14:59:04 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
+	stable@vger.kernel.org,rppt@kernel.org,pfalcato@suse.de,mhocko@suse.com,
+	ljs@kernel.org,liam@infradead.org,jannh@google.com,david@kernel.org,
+	ivanrwcm25@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-use-pfn_phys-in-phys_mem_access_prot.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261113225904.81C521F000C4@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,59 +51,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Cong Zhang <cong.zhang@oss.qualcomm.com>
 
-[ Upstream commit 6c6dec7883f8eb10b326bc9d109a4990c885d949 ]
+The patch titled
+     Subject: mm: use PFN_PHYS() in phys_mem_access_prot()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-use-pfn_phys-in-phys_mem_access_prot.patch
 
-blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
-blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
-while the flag is clear. It can then be preempted before it gets a
-request. At that time, it has no queue usage reference, so
-blk_mq_freeze_queue() does not wait for it.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-use-pfn_phys-in-phys_mem_access_prot.patch
 
-virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
-blk_mq_unfreeze_queue(). A new request can enter the queue. The old
-dispatcher can run again, use its old flag check, get the new request,
-and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
-reset the device, delete the virtqueues, and free vblk->vqs. The old
-dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
-kernel can crash.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Fix this by using blk_mq_quiesce_queue(), which waits for dispatch code
-that was already running. Keep the existing freeze and unfreeze order.
-The queue remains quiesced until virtblk_restore_priv() calls
-blk_mq_unquiesce_queue().
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
-Cc: stable@vger.kernel.org
-Acked-by: Jason Wang <jasowangio@gmail.com>
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
-Link: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
-Link: https://patch.msgid.link/20261103-virtblk_sync_quiesce-v3-1-f40233f9bdd9@oss.qualcomm.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ sashal: adjusted context to virtblk_freeze() with queue freeze/unfreeze calls that do not use memflags ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Subject: mm: use PFN_PHYS() in phys_mem_access_prot()
+Date: Fri, 13 Nov 2026 16:38:12 -0300
+
+phys_mem_access_prot() stores "pfn << PAGE_SHIFT" in a phys_addr_t.  The
+shift is evaluated as unsigned long, so on a 32-bit kernel with
+CONFIG_PHYS_ADDR_T_64BIT an address above 4 GiB is truncated before
+uncached_access() compares it with __pa(high_memory).
+
+mmap_mem_prepare() already shifts in phys_addr_t, so the mapping is
+accepted and then left cacheable.  PFN_PHYS() casts before the shift.
+
+On a MIPS32 XPA Malta guest, mmap of /dev/mem at 0xf00000000 without
+O_DSYNC used the boot CCA.  The same mapping with O_DSYNC was uncached. 
+With PFN_PHYS() both are uncached.
+
+Link: https://lore.kernel.org/20261113193812.1239880-1-ivanrwcm25@gmail.com
+Fixes: 7e6735c3578e ("/dev/mem: use phys_addr_t for physical addresses")
+Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/block/virtio_blk.c | 2 +-
+
+ mm/char-mem.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index c1087dfa332e6..9fb35af3f9fc9 100644
---- a/drivers/block/virtio_blk.c
-+++ b/drivers/block/virtio_blk.c
-@@ -992,7 +992,7 @@ static int virtblk_freeze(struct virtio_device *vdev)
+--- a/mm/char-mem.c~mm-use-pfn_phys-in-phys_mem_access_prot
++++ a/mm/char-mem.c
+@@ -272,7 +272,7 @@ static pgprot_t phys_mem_access_prot(str
+ 				     unsigned long size, pgprot_t vma_prot)
+ {
+ #ifdef pgprot_noncached
+-	phys_addr_t offset = pfn << PAGE_SHIFT;
++	phys_addr_t offset = PFN_PHYS(pfn);
  
- 	/* Ensure no requests in virtqueues before deleting vqs. */
- 	blk_mq_freeze_queue(q);
--	blk_mq_quiesce_queue_nowait(q);
-+	blk_mq_quiesce_queue(q);
- 	blk_mq_unfreeze_queue(q);
- 
- 	/* Ensure we don't receive any more interrupts */
--- 
-2.53.0
+ 	if (uncached_access(file, offset))
+ 		return pgprot_noncached(vma_prot);
+_
+
+Patches currently in -mm which might be from ivanrwcm25@gmail.com are
+
+mm-use-pfn_phys-in-phys_mem_access_prot.patch
 
