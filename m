@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598701;
-	b=YISuTZVq0B15wcm8ndMwVVPTk/R4xAKeO8ODp5RKgdyKx4nULx7JrEn3VTmkSk4vIsBt
-	 JPDqiRlZEa8mwdjK4/mEROEMegQ8ierWwBSVOzd2KgXdw8mS8tmB34vuU0GU4y+CirfuY
-	 +QBPZmbv/dON/16BxQeLa1KdUjcvFb3qkmU5X5h4lNSeV2tsQv4cvq3Hoz3F861YLZ8Ix
-	 7tWHfx51wp3+OnLQErwfRrwKjwxByYRbxSy4ibMGZxqClYAyaSboSmQ8KsRTX4hDdP8Lu
-	 SqYIx7f+C8XG2PV1Cc2aOSdUbvj5ejVa3byzXkL9bsgeS+s/GAOfgbDCcxW6jEhyrng==
+	t=1794598872;
+	b=K4P8qb3/NYjPncHMJZ54o9PnNOBPM8GHcCHKU0QN/xYhekWwMTbLvlIONWL13El0g+q3
+	 sfaQMn0FJ4Op1qqaruAysGbQngoyPpRTY+CpQE/0P/J1pSVedLsC5Wv/HARmsV3RL3COg
+	 F3mC1XKbo8M69B9X0oswPJgLdxvnqMDneJyA62MZWHOwRhkxCTb4tVm0yD2IOSc+w5aL+
+	 88A4rnBMxbf72qu87PSozvnVzMf/fypavdH7BS9wWgNvEdG9E8mExkvNPnhh7YxkcwtDZ
+	 UmpMVY/hpApwssWD1WLk9bW62ffma2HK0pHLu5Z3u/XuHFk09qf+AabbR2FxMUNIZfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598872;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lprKMd/Cznsmc5fuL6v7XxVzYtKcce6V0NZVQATR6sk=;
-	b=3wg56MOb3N4mkLxjxe1QLmg1NbTmCZiUEGkyhKLHhZPh80zXvnL4Z/h1N7fiZVADb6yv
-	 Rmc+sYKxTGIcZPqEc4vk5M6aKcBqi7kNmJPo38kgavYu2imwDjIbipuGA8RzUOBnlnLkX
-	 VBHwzCoihJ6Z0L/kitLW0xci4qy8LB4w60sIP0KYbOtnqakwujUWOC2/TMpyNea33ZBeb
-	 5RAg2cJ8eZmohNKsK3kr9Jo6d2zsD26XYCNAyU3vrO1Zx4dRMjWLqyNoiScmaRx6IcYrl
-	 CIY6xaLmkmpY+qOfTGzBTzFFIw8n3XqzCAnn6BoHXL/q0f2aVaEo3sjocQ/kgAaRFxw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=rFhcFK7/zd+xhQ8fW4dOWf9BdumBCXdBWAPxNYD5E5Y=;
+	b=Y2hmWE6Yn4CuHqIW9XjBDh/81Hnq7Kj4DWLiZ7VmUmvekmhAvZXw5lmekcA/F3K1oyAj
+	 VibwEg8qsYg/08QzDyhljbhWZFAgkJ+R2Dsae3YF605EbKVYG0JFEN6517mmseyFhL/wu
+	 FZoU51ORJMkAya3Yg3ZxpVRU1OHUhW3Gut63hBrYvGN2ciN64m68ee+9+E5ypQLWGDjzt
+	 FYa5l8Zp9sGyD84AO3GjTkz/NC9sizfrF5+WauLcm7OuaR++N0h/WTPoSSHl5AgSHZU1V
+	 xwJxrTfdgxPaTDP1Z55jUe/KyDWN05z+O6m1iM/3KrDRDF8ptzDqt3WJmwJyHi9tZlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="FE1/vj5q";
-	arc=none smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b="ZNHrF2/h";
+	arc=none smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C03606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C03606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A064B606A334
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:41:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A064B606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FE1/vj5q
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67c58f18765so1126063d50.1
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 11:38:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=ZNHrF2/h
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5363316fa0cso24852481cf.3
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 11:41:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794598699; x=1795203499; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lprKMd/Cznsmc5fuL6v7XxVzYtKcce6V0NZVQATR6sk=;
-        b=FE1/vj5q4B3ICRaes1Lt07YO6ka8qURJ+8xHVawCb2fVuFPpsYEOGtZ8rJjVZpXCel
-         klZ0aP/EwsFcwEV1H7Lwnp5MduJ42S7GEIkBPlz5ze42KCcj9FCE4m/0HUxB9YMEnUkv
-         F4SGSb75vCl+6bS9pwv8hg02zawioTTLC5LjDiG43RE0Fwd4v9IBn0dNGhqEK63SGaSR
-         67KCesYGzkRiTwNvKz8vK7ZGdmXBuqnDo8pRTP81A7mRYOQGCsdYMrmSNRb3P1hj0NMo
-         xKANvFjCntol7in4g1Qea7UkylRdi8gMFffeiyaf0r8HGP+cWZDDOo/xjaZgUUsiX5RW
-         kqgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794598699; x=1795203499;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=cs.unc.edu; s=google; t=1794598870; x=1795203670; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=lprKMd/Cznsmc5fuL6v7XxVzYtKcce6V0NZVQATR6sk=;
-        b=kK5wSM2Va3qmM4dekqK4SFYMyoCJCprvETSCF3/3su1+7Ue3J446VMDaxr1qHX9rEy
-         KgoEXDSVW5mnC8/VEFd7h0TzSvy7ARJeFMr/VuenKMrTyAHu42+JbGnWFoUtzwbOvM+K
-         orZX8kZPGwtKBoZyOrUdhvTk+I5y/9jP1P+AophdzjMEeddyg8tkuhoWymbVYD2qFHTl
-         cNW26xsQDwEc5OVpHdTr4QKJb6t8NyvllS/qGIhx/U9gpIEXKDb68gUrM7Yqe9ZIvICN
-         /RyunTC5tEYDuBwYHSvZhCcwnj49ADrX52QP57fH2c/mBpNoAgWFROJBhm4TYdVmmAGX
-         41FQ==
-X-Forwarded-Encrypted: i=1; AL+hErGvT3DBKZKjo5OrtxrScY/6bLiMTUiXkzwMUEyXACziVq1OGmj0268t30ArOzNL0xLaITASJcY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9W2kOyUluBD+jOyv8H5MDBN66zyRRXksuPQd+Kxd2tuZsgtaal
-	vSSCXefS894A7d75t8aTtmdwNeI/8mSlAKLMLMnmTF/gFWWgLSbFpAI1
-X-Gm-Gg: AYBFou0mykbX7/Bzdt0rfxvWzkhQwL2BuNQxMbLYFT4wtkPRNIyOBaI/YBzkiICyY5e
-	kAFjeDUZhCAeXKedONHCaY4m0bJJQMmHU5lTshCG8DM1A3v12fCnvekdWfMU0eSZ9zgFJK5b9t0
-	N4hcaCi9me5CcXAcHrYS8l0G8rfApgSUglJnlApCc1G8sNUEF3YgzcTPVkHbgSxnio/6BVdz1FT
-	cTRf22EYokBcUtPWVf188vd0NbdayZ8nRQLCuvMqX7kdOtxoQMKCRukCVUTUsmbZ1tkdjFo64c9
-	ZiActcOI6VtHAhtZJYFIDT5rdyS86dNr3SAvtZgrXmP/cSYu2mZ0AhWlwrkbRt3igwblpZkrS43
-	X0/cCCKUIx6ofqPP7b6j1M9bISklT4wMlzfuS/NEcwrEqk2/gHAUmStduRiOGfIdg17PjMcizhs
-	CSzJU7HjrVwot7X5CiJsP1+Qt4QBYJRSWNav1ETQlAsvLwfGcksvbO8DhtWSX5taMzJn6ZwGsLq
-	G11wPX9b/I0zErJyw93BzmFHr28ddRjaESEvHVbyJrkYjqCRJ0UWG1/8w9nkR3fiBTrA0bH+ZgR
-	6rz6uKl84gXV8xbQX/N91mbi
-X-Received: by 2002:a05:690e:1501:b0:675:3507:46f5 with SMTP id 956f58d0204a3-67d89758c74mr1463866d50.89.1794598699469;
-        Fri, 13 Nov 2026 11:38:19 -0800 (PST)
-Received: from unix.. ([181.229.23.179])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a4339c3sm2844892d50.3.2026.11.13.11.38.15
+        bh=rFhcFK7/zd+xhQ8fW4dOWf9BdumBCXdBWAPxNYD5E5Y=;
+        b=ZNHrF2/haGgJJ3YhZJtarvMKEvQx992AcLULsAKI8Ew+keAp509JP1ZAhWWO7Tw5Fa
+         5kgsE+Z/yJGjcts8r4id75BFZJuN23UiqJcYJ0O7/Am/2cbsvCJQ0Vk8XkixgxJqw5PU
+         RHlUt5M2zEwTub1ZMmxc8DHijjCtvvNbv2N/8PaW3PUbZScGsxJ7nOeDPYZN68I7xnvB
+         Edqxo9TiSZIph+AhheKn+DZdxAUMwM3tuC61hgclKxYExc7K6/azt4ouWpTGimsSTXmb
+         40egRRu58OS5SaQK142lucoWy8QbkbVYDMpoo2ye3R4/OVMWxXLvJZRTmq5nPlMAF+Ei
+         /0lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794598870; x=1795203670;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rFhcFK7/zd+xhQ8fW4dOWf9BdumBCXdBWAPxNYD5E5Y=;
+        b=XbN3wctJMie+RuIpwYH62HQ8zfBklm2uZQefTvx77YavAb8ryo9pnW/3xPO/PU15uM
+         0nMdmM1I8qby7PzP/4R7/pA4F1MGwNT93BKhAsEKEsCy3AGD3Fe6E2u1PJF25wn2ILTc
+         VjgG/rZRgq7aM774hELO0JtBonL9G60+Ye05lz3WLe/T3TnXfHf+OryduodMc08QankR
+         RXvg+I+sJEQBI9WSZQUKOy6QYIJ4zsEyRczqGj0mFb9SGHxJSeyZ54DXUFLLGO/NRxRm
+         VArHU+ibqOXbL9GW/AIcqkQwE148A2cMugOjHn02hOL2SEiXb+ERseVPIEK3pJTrGUtt
+         uXjw==
+X-Forwarded-Encrypted: i=1; AL+hErHSs9ARu5aB2jDYkCvxfdN08ymGdup2644EEM+CB925lbP66+05h2WxvAQFmzR0JBO1OFp1kQ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z847lvlbWtPB6fb7wlgf0CuwETO2T8YVSFl6eJsLhCG/3uNsqNK
+	dtMMyEfZMd3cuE/Xduci8Ove111DWQyGwWITw2v8Up7RgnKZsuQNKIAca2iDKhJJVVqeeaOHjfk
+	g1WeLGsVe
+X-Gm-Gg: AYBFou2WWL0fyv1Eb2EQrzl3yzI98RyGTv3nftQ6KCPBNL7MgnFsEraOFALFVftNQON
+	64acMH12UTSb17grgtqGcZiL6XtrNIZoZnUKex4I2Dz/1FCm7n6FR7OYMJb8jBBd2QTze9171Mj
+	XRofXLBRlqMacojwQQ7dIGlkzWm2zc7CleD8xYZeub3+cp0TaJh0eUm1xxffO7MQRepJL3oGpOu
+	Ri8s1iZP5EhhvU6t7QcOnpnv5LzOghonc8SD84yJzAyzPOw/jvNirO8DXNT6S/bqMd5QUz4bMUB
+	966Yz1b6jMFA3yQ2PETI4X1jQbBN37IAuaIsPwZRsPihCy2FYFJWoyvN/mZZr8ZnzPCReokrUiG
+	PLKBzhlH7U8JttUicmmrQa8e34gOQCoJeGXinasqJJtQnweZB8ZNxJjBiQ3nay1zonAwWPEai41
+	S1ZXflbL0qv5LYBEdAVOge59h5bMGWXLA/fU7ecpRio4dvhZPOfbI8MJObPA6THbw6HvXMUmfgR
+	tzIMm7Nm43hy2eBfRxVMn+FyT8R98ceF4qg8bJM2E5Gw02OSanFoQ2/CJ0rcyeXgB1ZuBdNZoQd
+	693k0v7eEDPyZPlZEJPmwUvDZeQRJ6XYiVX0Sxx8o076mWtdeZB+5DTaZ2uyKK/v5kiVxs9WfQ=
+	=
+X-Received: by 2002:a05:622a:4005:b0:535:384d:68ac with SMTP id d75a77b69052e-55ac6c7bc64mr53336161cf.13.1794598870411;
+        Fri, 13 Nov 2026 11:41:10 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55bd520d5a3sm9848131cf.0.2026.11.13.11.41.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 11:38:18 -0800 (PST)
-From: Ivan Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	linux-mm@kvack.org,
+        Fri, 13 Nov 2026 11:41:09 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] mm: use PFN_PHYS() in phys_mem_access_prot()
-Date: Fri, 13 Nov 2026 16:38:12 -0300
-Message-ID: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH v2] hfs: avoid reusing occupied CNIDs after deletion
+Date: Fri, 13 Nov 2026 14:41:03 -0500
+Message-ID: <20261113194103.3825961-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2bbc10eb1dd5ee69329a9307f14fd15b1815b898.camel@dubeyko.com>
+References: <20261112110128.4082071-1-hengyul@cs.unc.edu> <2bbc10eb1dd5ee69329a9307f14fd15b1815b898.camel@dubeyko.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,40 +106,74 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Hi Slava,
 
-phys_mem_access_prot() stores "pfn << PAGE_SHIFT" in a phys_addr_t.
-The shift is evaluated as unsigned long, so on a 32-bit kernel with
-CONFIG_PHYS_ADDR_T_64BIT an address above 4 GiB is truncated before
-uncached_access() compares it with __pa(high_memory).
+On Thu, 2026-11-12 at 14:34 -0800, Viacheslav Dubeyko wrote:
+> I am still not sure that this approach could work. If we haven't the
+> thread records in the b-tree, then we sort records by parent CNID. But
+> folder can contain child with any CNID. So, if we keep the largest CNID
+> in use, then, technically speaking largest CNID - 1 can be located at
+> any node (it doesn't matter if it is used or not). Even if we found
+> node #1 with largest CNID, then it doesn't mean that largest CNID - 1
+> is located at the same node #1. And even if we cannot find the largest
+> CNID - 1 value, then it doesn't mean that this value hasn't been
+> allocated already as child CNID of some parent CNID (because records
+> are ordered by parent CNID). Are you sure that this approach will
+> finally work?
 
-mmap_mem_prepare() already shifts in phys_addr_t, so the mapping is
-accepted and then left cacheable. PFN_PHYS() casts before the shift.
+Yes. The patch never searches for a CNID, neither the largest one nor
+largest - 1. It only needs the maximum of the CNIDs of all file and
+directory records, and a maximum does not depend on the order of the
+records:
 
-On a MIPS32 XPA Malta guest, mmap of /dev/mem at 0xf00000000 without
-O_DSYNC used the boot CCA. The same mapping with O_DSYNC was uncached.
-With PFN_PHYS() both are uncached.
+- max_cnid of a leaf node is the largest DirID / FlNum of its file and
+  directory records. The CNID is read from the record data, not from
+  the key, so the parent ID and the thread records do not matter.
+- max_cnid of an index node is the largest max_cnid of its children.
 
-Fixes: 7e6735c3578e ("/dev/mem: use phys_addr_t for physical addresses")
-Cc: stable@vger.kernel.org
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
----
- mm/char-mem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So the root holds the largest CNID in use, wherever the records are.
+When the record with the largest CNID is removed, only the nodes on the
+path from its leaf to the root are computed again; every other node
+keeps its value. For example:
 
-diff --git a/mm/char-mem.c b/mm/char-mem.c
-index c5761ddedbd7..53ce0034a4c1 100644
---- a/mm/char-mem.c
-+++ b/mm/char-mem.c
-@@ -272,7 +272,7 @@ static pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
- 				     unsigned long size, pgprot_t vma_prot)
- {
- #ifdef pgprot_noncached
--	phys_addr_t offset = pfn << PAGE_SHIFT;
-+	phys_addr_t offset = PFN_PHYS(pfn);
- 
- 	if (uncached_access(file, offset))
- 		return pgprot_noncached(vma_prot);
--- 
-2.43.0
+              root: 20
+             /        \
+     leaf A: 19      leaf B: 20
+     (16, 19, 17)    (20, 18)
 
+  rm 20: leaf B -> 18, root = max(19, 18) = 19, next_id = 20
+  rm 19: leaf A -> 17, root = max(17, 18) = 18, next_id = 19
+
+Both times largest - 1 was in the other leaf, and it was counted because
+that leaf keeps its own maximum.
+
+next_id is then set to max + 1. Every CNID in use is <= max, so max + 1
+is free. Deleted CNIDs below max are never reused, so we never need to
+know which CNIDs are free. A red-black tree of deleted CNIDs would only
+be needed to reuse those holes.
+
+To check it, a debug build compared every cached max_cnid with the
+value computed from the records after each catalog insert and remove:
+about 88,000 full-tree checks on 2,000 files with random operations and
+4 writers, plus a run under memory pressure that freed 55,630 nodes and
+read them again. There was no mismatch.
+
+> Why do we need this flag? If node is created, then it should have valid
+> max_cnid.
+
+max_cnid is not on disk, so a node that hfs_bnode_find() has just read
+does not have it. For a leaf node it could be computed from that node
+alone, but for an index node it needs every node below it. Computing it
+at read time would read the whole catalog at mount, and again for an
+index node that hfs_release_folio() freed and that is read again later.
+
+The flag means "max_cnid of this node has been computed".
+hfs_btree_max_cnid() computes only the nodes without it, and only when
+the newest file or directory is deleted. The first such delete after
+mount still reads the whole catalog once; later ones only recompute the
+nodes on the path of the removed record. The flag is also cleared when
+the largest CNID of a node is removed, and on a split, because records
+move to the new node.
+
+Thanks,
+Hengyu
