@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593007;
-	b=pR9Rm2MgBJRfUXoDKaD7zxYv1OO59sMgI9APDVgt45SzHwEeIsCOgHC9YitCO2uX5ped
-	 SmAfQv0cRRInLJ8t8qsZpDwJv5CrmT0rOOyC0m/Qv0cw5/Twl1aZ61fRct4sCmaH49KbU
-	 YdQLJiS3BPWxwvrviej+Hz5yaJtxMzB817sAqVjd4rKhJOTuvR2r+FvTsRxZlMYfZ+1nA
-	 W1whZuAlB3I0VIa3K0MK1ZTAX5Jo5Z1sbGr5YopkuKuu48lgE4q+SDJXjej5RnsdF7x6A
-	 MVEnm4C5RwX8WD5qM73nLDOYEnmJG0mDLp3K6dM4clXGAh3VvXZOz5n5uUVyrsv6X7Q==
+	t=1794593003;
+	b=lZzao9eXzSjgofT4cr9e2CVCVDuCg1hGcA2NAFqqiUk/IfWXFzDnDcq4uf6r+7t2bZsC
+	 Vzs6r8Ht3J/b145sxau3XXRRhyL1nlonl9Y79BYEmz1sAifjQAgPe5f359jNbk0AG9KTf
+	 yc/qR0Yi+lz5Oa3mg37kowxyIeG4axTEKaOWxYKNiv4o6dDc43gPVyby9snNFB+XnuVB0
+	 EMfgKRHkGwr7iqVdcoghOEbU87EfmBLb+5weAurdFR5lTQHgTZsXFxBO5NcIEz6eHTPpf
+	 h7jIGVPAxsOJ2CKDGtVYdePIczMSfXOCX018mZNYgjSI3q3zQl78LB6EKq3vdQGpGDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593007;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593003;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=JJNsA/o8ELYP7OKhTRd7t+GFqvdxUv9srxKUL6QVJdo=;
-	b=BxwCd+80KFR8lWH2YjB6dX6M0BHEWuC4SxhuNR0SWkkMATW1sObMmZvqyt5xJHYyrFRr
-	 xmnW07BaSaxVXJ1KiPVAGh4uDWA6eavjm0UQc4pvghl9Z9H5QEnJ6N0E8pp67WEQL8oge
-	 dtZ3PhYyqCTl7K2N+AdfOBHuuD+2QQMDihdeRmryGtdhkQyEaT35KuVJHyNHfAdFzto0U
-	 GqHlgT5zw+QlUCiDDH2Ud+YpW62Zv1J8KoGDXqhoRUWqWss5RET1ftf8kNl+nSkoULG0i
-	 Hx5v8qoKozZn6jbBiKo25W636N2mcSlzFGI+RIjiNMOHeDzYQd8R+yDgA/x6lFlZQog==
+	bh=G+adoV0PMqXFKT8tWBJOs534Nn/4DUFwSmqIUTPOYr8=;
+	b=AG2PV79KbHZXuhC7kMwmL75lmQ/W/uHq0o7eFvQJZTRtIaS1o+VA9wNmyC8MI4AIVrxW
+	 xCNUFyAq/h0L1pHlWvOl3ukSk0H2cnLrbwVVFVL22wmXrfEuDLd4/BmejslSU2dXyq2v8
+	 Aq0Tonk2SvUHZPQCxprB1C4z5tgjlDyQmbk6p0TyiZi6UaJKKpdjxadR/Cs06l7UbCl7R
+	 fIP3Q5w1RVPG23N0gID81xKI84igDB0IJE6rE3FRiC2c/k4K7GNQ/2hD+AMS10T7tcvvk
+	 jCSIhkDD8V1VkPp0RUn/sEqTxSJ8zldo6WLKiVR648zISCpTgCkrYY5rDvjO9VF23KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=I0eQF3g4;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=tM09Cjy6;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890AC606B216;
-	Fri, 13 Nov 2026 18:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 890AC606B216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD45606B219;
+	Fri, 13 Nov 2026 18:03:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FD45606B219
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=I0eQF3g4
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=tM09Cjy6
 Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jR4qr2vz2z51Smx;
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jR4qr2ykrz8XrrZ;
 	Sat, 14 Nov 2026 02:03:20 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
 	s=z202610; t=1794593000;
-	bh=e/1ftnoL19LzV4jDwYrzKqd5zjFgzhBYF3wgdCOuF4Y=;
+	bh=yBIQYLbJkZ5lwh8QI0T2TpRVjjIaQ9RAKkjkRfl2e0c=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=I0eQF3g4TJiE3lafu2OXnb8CMNwpZx+Ebh7QoNOreGs81DvAUjSbsgDVtEV4H6oD3
-	 JufP+UrQpGHO1aFvFwQpJiMYwdsYVhCxXvKez1dCL+nEo86WpdCQ4OKxF8qBnoyilv
-	 yXlrKpCNR4nHiCWR4ywbzc/Y5Gm/98e+eJbUQovmtz8ywuALUsoq9NzwfqPsQyHNXO
-	 +u963Ry/f4z5qLmU5U5xhJGZPQ6NmzU75l6aKV7z8cqxg8YeUU68EJSZI0cFYv4+h1
-	 xGJ5vdDOXd8edJhyMlK4WZCRRpyoEAl8dYe89W+NJYAUmO6CCvCzNqg2tknCzePOm4
-	 SauphjH0r/fKQ==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6ADI38cx099945;
-	Sat, 14 Nov 2026 02:03:08 +0800 (+08)
+	b=tM09Cjy6pIFiQOnA2bLoQDe1l2aweyeWG+ZNd56pcZ8QKVhnKTvHaYUpz/Tzu+fkg
+	 +cti5lZe8dy97EjVL1Nz9DsIvi1/rHjWBVNWvZ/cG08HQUs3JAHhMuWYLqvrhoR7kH
+	 M+k+2eM6H3OJA2BgzASJdPSS+JItHKH6UC502NX2tMw4gUPbJNiflxGYDb8ccKPw6S
+	 ziIe9aED3saOakaP4CYwj490+jXOtKh4fX56E4W1pB5ET9VI3kqR4HICUmL/asX4nv
+	 YpQSx8dGaMHYYAylKGrs//TjhixZjyf8QKzT4kyEcTJvluBW2ec8a2oAI0ya+pQDdH
+	 owDX+kQcrYZIg==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 6ADI37Rv099944;
+	Sat, 14 Nov 2026 02:03:07 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
+Received: from mapi (xaxapp01[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sat, 14 Nov 2026 02:03:12 +0800 (CST)
-X-Zmail-TransId: 2afa6af750e09c3-3b8e3
+	Sat, 14 Nov 2026 02:03:11 +0800 (CST)
+X-Zmail-TransId: 2af96af750df226-1616b
 X-Mailer: Zmail v1.0
-Message-ID: <20261114020312969hzPj5VMaGjaujxVeWVaBD@zte.com.cn>
+Message-ID: <202611140203115772rYUcbkXLPF5hieKIzB1T@zte.com.cn>
 In-Reply-To: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
 References: 20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn
-Date: Sat, 14 Nov 2026 02:03:12 +0800 (CST)
+Date: Sat, 14 Nov 2026 02:03:11 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,70 +76,142 @@ Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
 To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIFJFU0VORCA1LzVdIGF0YTogYWhjaV9zZWF0dGxlOiBzZXJpYWxpemUgU0dQSU8gcmVnaXN0ZXIgdXBkYXRlcw==?=
+Subject: =?UTF-8?B?W1BBVENIIFJFU0VORCA0LzVdIGF0YTogcGF0YV9mdGlkZTAxMDogc3RvcCBvbmx5IHN1Y2Nlc3NmdWxseSBzdGFydGVkIEdlbWluaSBicmlkZ2Vz?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6ADI38cx099945
+X-MAIL:mse-fl1.zte.com.cn 6ADI37Rv099944
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
 X-SOURCE-IP: 10.5.228.132 unknown Sat, 14 Nov 2026 02:03:20 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF750E8.000/4jR4qr2vz2z51Smx
+X-Fangmail-MID-QID: 6AF750E8.001/4jR4qr2ykrz8XrrZ
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-seattle_transmit_led_message() updates a controller-wide SGPIO
-register before taking ap->lock. Concurrent LED updates for different
-ports can therefore read the same register value and overwrite each
-other's changes, leaving activity, locate or fault LEDs in the wrong
-state. The lock currently protects only the saved LED state.
+A Gemini ATA port can start successfully when only one of its SATA
+bridges comes online. gemini_sata_start_bridge() disables the clock
+of a failed bridge, but port_stop later stops every mapped bridge,
+including the failed one. A missing disk on one bridge can thus cause
+an unbalanced clk_disable() warning when the port is removed.
 
-Take the shared host lock before reading the SGPIO register and hold
-it through the write and the saved-state update, so that each update
-preserves the other ports' LED bits.
+Record which bridges start successfully and stop only those bridges.
+Clear the bitmap after stopping them so a later start begins with
+no bridges marked active.
 
-Fixes: 535dac4ab5f4 ("ata: add AMD Seattle platform driver")
+Fixes: be4e456ed3a5 ("ata: Add driver for Faraday Technology FTIDE010")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/20260626091006.5A2C11F00A3A@smtp.kernel.org/
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-Tested on next-20261105 in an x86-64 QEMU/KVM guest with KASAN and
-lock checking. Two kernel threads on separate CPUs call the original
-LED callback for synthetic libata ports verified to share the host
-lock, using a RAM-backed SGPIO register and TEST-ONLY MMIO observers.
-The observer waits only when unlocked, with IRQs enabled; it never
-waits for another thread while holding the callback's spinlock.
+Tested on 7.4.0-rc1-next-20261105 under QEMU/KVM (x86_64, 2 vCPUs),
+with lockdep and KASAN. Both kernels carry the same TEST-ONLY harness
+using synthetic ATA hosts, RAM-backed bridge registers and clock
+providers. The original port and bridge callbacks run through libata
+and the real common clock framework; only this fix differs.
 
-In 1025 controlled update pairs, the unpatched kernel loses register
-bits 897 times (including expected 0x900, actual 0x100); the patched
-kernel loses none. Another 256 pairs with IRQ-disabled entry preserve
-all updates after the fix. Saved PMP LED states and entry IRQ state
-are correct in both kernels; 482 invalid-PMP calls return -EINVAL.
-This tests callback synchronization, not Seattle hardware or LED I/O.
+Each kernel completes 24 start/stop cycles covering both partial-failure
+directions, both bridges ready, neither ready, single-bridge controls
+and repeated starts with the same private state. The unpatched kernel
+reports six CCF "already disabled" warnings; the patched kernel reports
+none. Both retain 16 successful starts, eight -EINVAL returns and zero
+clock enables left over. The patched guest shuts down without lockdep
+or KASAN reports. Real Gemini probe, PHY hardware, disk I/O, DMA
+allocation failure and full device unbind were not exercised.
 
- drivers/ata/ahci_seattle.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/ata/pata_ftide010.c | 37 +++++++++++++++++++------------------
+ 1 file changed, 19 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/ata/ahci_seattle.c b/drivers/ata/ahci_seattle.c
-index 9758fa0260..a398778ebf 100644
---- a/drivers/ata/ahci_seattle.c
-+++ b/drivers/ata/ahci_seattle.c
-@@ -92,6 +92,8 @@ static ssize_t seattle_transmit_led_message(struct ata_port *ap, u32 state,
- 		return -EINVAL;
- 	emp = &pp->em_priv[pmp];
+diff --git a/drivers/ata/pata_ftide010.c b/drivers/ata/pata_ftide010.c
+index c41da296eb..ca683fd96f 100644
+--- a/drivers/ata/pata_ftide010.c
++++ b/drivers/ata/pata_ftide010.c
+@@ -29,6 +29,7 @@
+  * @master_cbl: master cable type
+  * @slave_cbl: slave cable type
+  * @sg: Gemini SATA bridge pointer, if running on the Gemini
++ * @sata_bridge_mask: bitmap of Gemini SATA bridges successfully started
+  * @master_to_sata0: Gemini SATA bridge: the ATA master is connected
+  * to the SATA0 bridge
+  * @slave_to_sata0: Gemini SATA bridge: the ATA slave is connected
+@@ -47,6 +48,7 @@ struct ftide010 {
+ 	unsigned int slave_cbl;
+ 	/* Gemini-specific properties */
+ 	struct sata_gemini *sg;
++	unsigned int sata_bridge_mask;
+ 	bool master_to_sata0;
+ 	bool slave_to_sata0;
+ 	bool master_to_sata1;
+@@ -281,28 +283,36 @@ static int pata_ftide010_gemini_port_start(struct ata_port *ap)
+ 	if (ftide->master_to_sata0) {
+ 		dev_info(dev, "SATA0 (master) start\n");
+ 		ret = gemini_sata_start_bridge(sg, 0);
+-		if (!ret)
++		if (!ret) {
++			ftide->sata_bridge_mask |= BIT(0);
+ 			bridges++;
++		}
+ 	}
+ 	if (ftide->master_to_sata1) {
+ 		dev_info(dev, "SATA1 (master) start\n");
+ 		ret = gemini_sata_start_bridge(sg, 1);
+-		if (!ret)
++		if (!ret) {
++			ftide->sata_bridge_mask |= BIT(1);
+ 			bridges++;
++		}
+ 	}
+ 	/* Avoid double-starting */
+ 	if (ftide->slave_to_sata0 && !ftide->master_to_sata0) {
+ 		dev_info(dev, "SATA0 (slave) start\n");
+ 		ret = gemini_sata_start_bridge(sg, 0);
+-		if (!ret)
++		if (!ret) {
++			ftide->sata_bridge_mask |= BIT(0);
+ 			bridges++;
++		}
+ 	}
+ 	/* Avoid double-starting */
+ 	if (ftide->slave_to_sata1 && !ftide->master_to_sata1) {
+ 		dev_info(dev, "SATA1 (slave) start\n");
+ 		ret = gemini_sata_start_bridge(sg, 1);
+-		if (!ret)
++		if (!ret) {
++			ftide->sata_bridge_mask |= BIT(1);
+ 			bridges++;
++		}
+ 	}
  
-+	spin_lock_irqsave(ap->lock, flags);
-+
- 	val = ioread32(plat_data->sgpio_ctrl);
- 	if (state & ACTIVITY_MASK)
- 		val |= 1 << ACTIVITY_BIT_POS((ap->port_no));
-@@ -110,8 +112,6 @@ static ssize_t seattle_transmit_led_message(struct ata_port *ap, u32 state,
+ 	dev_info(dev, "brought %d bridges online\n", bridges);
+@@ -315,24 +325,15 @@ static void pata_ftide010_gemini_port_stop(struct ata_port *ap)
+ 	struct device *dev = ftide->dev;
+ 	struct sata_gemini *sg = ftide->sg;
  
- 	iowrite32(val, plat_data->sgpio_ctrl);
+-	if (ftide->master_to_sata0) {
+-		dev_info(dev, "SATA0 (master) stop\n");
+-		gemini_sata_stop_bridge(sg, 0);
+-	}
+-	if (ftide->master_to_sata1) {
+-		dev_info(dev, "SATA1 (master) stop\n");
+-		gemini_sata_stop_bridge(sg, 1);
+-	}
+-	/* Avoid double-stopping */
+-	if (ftide->slave_to_sata0 && !ftide->master_to_sata0) {
+-		dev_info(dev, "SATA0 (slave) stop\n");
++	if (ftide->sata_bridge_mask & BIT(0)) {
++		dev_info(dev, "SATA0 stop\n");
+ 		gemini_sata_stop_bridge(sg, 0);
+ 	}
+-	/* Avoid double-stopping */
+-	if (ftide->slave_to_sata1 && !ftide->master_to_sata1) {
+-		dev_info(dev, "SATA1 (slave) stop\n");
++	if (ftide->sata_bridge_mask & BIT(1)) {
++		dev_info(dev, "SATA1 stop\n");
+ 		gemini_sata_stop_bridge(sg, 1);
+ 	}
++	ftide->sata_bridge_mask = 0;
+ }
  
--	spin_lock_irqsave(ap->lock, flags);
--
- 	/* save off new led state for port/slot */
- 	emp->led_state = state;
- 
+ static int pata_ftide010_gemini_cable_detect(struct ata_port *ap)
 -- 
 2.27.0
