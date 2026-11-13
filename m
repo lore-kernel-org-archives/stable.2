@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.61
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794595703;
-	b=kPn1mdK8gGM8Q7+HzLd8R8IiZ5B2nXp9wfjditpoztzbivzOfZ3DvvJYrDOFwRTn6El0
-	 aQCeWGopbwUNRFJ09WhgzJPK+R61PBTxil6bDsVK3JPJnX2/geA5CI5LSBeS48weaZUzL
-	 HkkVbQobC648VFgC08cCIwA6NcjMQ+OlTqFR1KtNM7ag48g/PqVM4rKTtEdwBJdjAK+mI
-	 NFgwRs4wZQoMeDYbrTpiCpXD4PTM3ttjPp18Ssv7KSBEqR0YuASzWBL/P9sHgLzx0dIm3
-	 iveeAJ5x1PNphr8IBmd5YvHKuBLlRIjZwCPztqQBgFJYw8aS9VGy3lgezyXWJUKzbQA==
+	t=1794595704;
+	b=D37/X9mlyk8tSuBSU35iTae77P0eY4npyOggqYpYO6LZD7MDs+GXLsTXFnA5UfNDOeCa
+	 X9MHCbqEVuIV62CYaaq6nhrX3bXvdoIz8x15MlmqSUrxZX+Qbetg2kXJ6+Hsgo8lA6Fw3
+	 1yIjp0niOAAtg6mD8NafFRPAbpXYW2ubfJPd8JdTblR09LnEVDh9r3zsNtiK66s0+3Ux5
+	 QE7ADNeUPgUN7zvOigZr2n5buu8o/qASGXLanR67mb6kn/lb1Ysi4xoB6egsYboMGZmc7
+	 Y6uC2zjLiO+ID6aW0kpC3cbxWH7mHPNEJgIugGgq4uz/SxTP9nZKQt/GYBikqRcgmCQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595704;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
@@ -26,76 +26,75 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=NwQw/Qhm/3DyzCAZ0QUMsPWQJ75PNFDp/MNgGf8Z2C4=;
-	b=NRVo304csf0VlHe0PfWZV1cJLm+TFZPE+sOOPwtrbupYtB3EVLtrTGn/J7X9josyKFeI
-	 hTpJCiHlYFE5GTEfeKgGr4jhKtKApwvfZdNRqqoicUCIxumYP5g8ZyW1+FD27YVhfqKOX
-	 nw95LZEh3n7fmABAU03y1xHBB/+XiyS1vikmxwCwEtq5tX8//BVEUe211zUoUsuhWT/ZW
-	 uvw723vS6doKiYe+XsSa6oVAU8rW6K9XMRjHsY3rsvJvBW6GUD8arFF/7UJ/qRPvxSvz7
-	 1Nmxl/IMYQdOVL8ZAT9cRGwyAEr1F92KvXpYDnI5WQLL8X1oIGnbNkYVqihHAny7h+g==
+	bh=+Ku1pcbuqzShJ6+nxWOJ/sWulK2ut5jTJ1zP1rhjDtg=;
+	b=kRXTADGIca4a4tqvN3kqPmZ6gi/8Jktli0EBQRRdy7nX/bjvrvhabu8ca9sUzdKe6eWS
+	 KxFBWZMQkHbB2O0X0+EIGQIf/0aQwx8wYEKuDaBJIh+594NsMacpHd20YBqyH8ec7nqXV
+	 EXP9hR7EvoNyR5Gs+p0gUlVdsJ/bsgDBBqsb+W+MFWCjEiEne2eOjX4Lz/COGruQYIooG
+	 EEUydjvLKhuXGUxBYSX9T0gSEdeiAS4NhmU179tPyRMgPLC2PXiM7IEJl4R1uJ4OnJ7yf
+	 PQjojbdO4oHUmSRX9W7hRhrVJYu0M4MkbSyDY0Qq6AHd7aDazCK28YJ8p/WmILvbgng==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foss.st.com;
 	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b="ac7/DaCI";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.61
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011061.outbound.protection.outlook.com [40.107.130.61])
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=ETcukmun;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.46
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011046.outbound.protection.outlook.com [40.107.130.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB14606A884;
-	Fri, 13 Nov 2026 18:48:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFB14606A884
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55CA606A8A2;
+	Fri, 13 Nov 2026 18:48:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A55CA606A8A2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=ac7/DaCI
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=ETcukmun
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hz49x7BA94HUprUbWQL9caUqydjpZIoLAtzL3jTUhmpjz+/EPrLQOFxfBmW3QqvFT9caQFla4o1Y5tQYWf5Gg4+iav1lU+pO9iOgt1k5adfq9FXuEfgZlAEfWUC/3+QXMmqonXnMbDS0eRAQZZ49VFQUFb/j3CJ+T1pmsjiIMbi438iBDJoo5XMyuZjiVJwq/1UZYnHdm6XxCcZam388c2xROZ0POA81iHR9/46kLu29zOkqVa8ekHJ85L4C1AHp6+BRyRymknd+NtJYilf6yYF4A2yr5B3Ffd4nEbbC+zVj8/622yb5/4r/vS9acpMhad8yS/n958cvTESj5ZpLlA==
+ b=e9ewx8AcTW8/0EkzmR+DKw0PsnGOLNASJNFareSDH7NdNPtK7OqCluxagDEX+aH3C53offgc+Ce8fIlY9UfdH5U3GQ4OZS4fi7sgBA5mt0NT1r5iky6ZsmjU/GsawvAeMK82+qhY4UXnphzkHnCPjG4cn1K9g6q4G5MMepXnshYkaQMOFKxuRpZcIs0eKAAxgptu74Le3swJHiqXV/ZOrLw///JZ/QVDSld4EwzIh1cy8gz9vQGE/fBxjAUsyc5ywRZTF6PE+aYGPVlWgRfoxYyzX8DoVOnMKDLiMJzQCrXq6W0bisSBh7+fWiS3qVV7zEND6wnzmhcv2E50+FpBkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NwQw/Qhm/3DyzCAZ0QUMsPWQJ75PNFDp/MNgGf8Z2C4=;
- b=qBJuUxOR9gFW0vWAisgueXOriicZ6dLUeVJqqb9SH+tSnv8FJ2xi9Roo2vglxD4Qq4HLjwEHiKpGrLulvOHXgrJDoR/SkDjwkwRIBMOH/9pUviRAse/04CqWOfksnPLINK6S1fJq/zG2oM4/Ksagdc7zGhJ34Dz3yoi2ulN8GmPgJ3SRxwNX1ldzUHSdi57dwO3PZ68VwKeYUpJIYHdDcDwiBs+PitbmFJwqHt37RfQD8rz5e5SmVaNby2FashuGe4Wvl+IkiiYcPTZB3CIRwGOI0oEnQDt7AgtzIIKgmhohnJ1jnwUx578gGMsX1CDPureOio/gf4deQlMSbOUgVQ==
+ bh=+Ku1pcbuqzShJ6+nxWOJ/sWulK2ut5jTJ1zP1rhjDtg=;
+ b=HFJrK7SK6WPPOX9otv7xIExk0MmzqTynBEAmwYIB+oUHADdJ+MBqySTzJv8y6ZsaySgwA/J2AbtQYM69qgWUo1xhDTocAy336WeeUg77Z0MywODopCf5u9kWYQRpA0O7ltdpTGyglMouxm17z0DJqa/XdMpmUPuxr9m0a9jewilhfPTwgtFsrf6yh0sphvSs6bMTStVygbR8O0Fl9s+ZiUHfwBYGV8emg+vrVqlCGRygeyayyHukD1GEgM3QEAD1bxKNLaV+CVPXve/XiiADNGS39bymohF8zzbCUvAuVw200E9Vyu9gna+avyof5QiNuHFtFeqIJZvGxE1oQYcjzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=synopsys.com smtp.mailfrom=foss.st.com;
+ 164.130.1.60) smtp.rcpttodomain=synopsys.com smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NwQw/Qhm/3DyzCAZ0QUMsPWQJ75PNFDp/MNgGf8Z2C4=;
- b=ac7/DaCIyW47MXsnQK0L2mK/wSpWPnyM0JsQjAwphE1pUk43oosQfC5XSxVszOwh8GKR1W5N6IrG3fTuVo53AaiiPuJ0QLIhziC0R0FKZO5xJlYQy04kgaJ3vMa7HjjvnzmkKuJzF551OA54KTIfjiMb+2F67ieP5r+PJb9vpptFD/XDSwTgJMstEeNinWyOOqOb+Xtp16H83w/cid8bmXq+vvX4GEMAkwmvoguSUKjpngxc5vx6p7Kf3BAtUMtU0IKYAJq0FhNSKJZnWylYRR4z+CuZvQmKaUIi8DYNve6jlrdhn5SPJjuFkLfSMoG+/AwlNfC07PFY4mahIcnaDw==
-Received: from PA7P264CA0142.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:377::10)
- by MI3PR10MB890059.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:290:9c::8) with
+ bh=+Ku1pcbuqzShJ6+nxWOJ/sWulK2ut5jTJ1zP1rhjDtg=;
+ b=ETcukmun2c97Bpvgh2M6qwnGus9uJGzC4hp+GCxyWak0PpjyqYzUST1Wa7TRDVZiW8i0AuSw3OlhoSddDqOtJkWE/ysNG657jkLyXApTdPtagzPPSX7Pfdb4hQ5mCw+ibWxriYOG0x/PT+BSe7PA0cxjiudV68DVnjpbk7MYLFsMyA77NMWIKFyLAq/iMKUSHxAtPXlxYX3BLXEuzZ56iZM/TSA11fTiht91XtEZ3NX/9CosGHDVX6SMYSnS+vXtQ+TEfWFbSVcjZqY+btdFqGPSrCBAZ/GkOKgDk5F313JyaHDd2TZiVr+brgkCulik7Myn06uOjzy/EkbhcmxHqQ==
+Received: from VI5PEPF00000982.AUTP296.PROD.OUTLOOK.COM (2603:10a6:808:1::814)
+ by AS2PR10MB7107.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5e8::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Fri, 13 Nov
  2026 18:48:19 +0000
-Received: from MI3PEPF00008481.eurprd02.prod.outlook.com
- (2603:10a6:102:377:cafe::4c) by PA7P264CA0142.outlook.office365.com
- (2603:10a6:102:377::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 18:48:19 +0000
+Received: from MI3PEPF00008483.eurprd02.prod.outlook.com (2603:10a6:298:1::6a)
+ by VI5PEPF00000982.outlook.office365.com (2603:10a6:808:1::814) with
+ Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
+ 15.21.615.10 via Frontend Transport; Fri, 13 Nov 2026 18:48:19 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- MI3PEPF00008481.mail.protection.outlook.com (10.167.240.168) with Microsoft
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MI3PEPF00008483.mail.protection.outlook.com (10.167.240.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 18:48:18 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 18:48:19 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 13 Nov
- 2026 19:49:00 +0100
+ 2026 19:49:17 +0100
 Received: from localhost (10.252.31.200) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 13 Nov
- 2026 19:48:17 +0100
+ 2026 19:48:18 +0100
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Fri, 13 Nov 2026 19:48:00 +0100
-Subject: [PATCH v4 3/6] usb: dwc2: fix a possible interrupt storm on
- stm32mp1
+Date: Fri, 13 Nov 2026 19:48:01 +0100
+Subject: [PATCH v4 4/6] usb: dwc2: hcd: fix possible successive vbus supply
+ enables
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,7 +106,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261113-dwc2-low-power-fixes-stm32-v4-3-08a8c962a09e@foss.st.com>
+Message-ID: <20261113-dwc2-low-power-fixes-stm32-v4-4-08a8c962a09e@foss.st.com>
 References: <20261113-dwc2-low-power-fixes-stm32-v4-0-08a8c962a09e@foss.st.com>
 In-Reply-To: <20261113-dwc2-low-power-fixes-stm32-v4-0-08a8c962a09e@foss.st.com>
 To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
@@ -123,98 +122,238 @@ X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF00008481:EE_|MI3PR10MB890059:EE_
-X-MS-Office365-Filtering-Correlation-Id: e87af19f-5a3b-4a35-dcd0-08df41b6aed6
+X-MS-TrafficTypeDiagnostic: MI3PEPF00008483:EE_|AS2PR10MB7107:EE_
+X-MS-Office365-Filtering-Correlation-Id: f483a597-28fb-4a0b-60cb-08df41b6af48
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|82310400026|36860700016|261028144727099003|10067099003|261026121527099003|5023799004|11063799006|56012099006|261021121427099003|261022075727099003|261021123027099003|261022105027099003|261026140227099003|261102123227099003|261009223027099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|376014|7416014|82310400026|261021121427099003|261021123027099003|261026121527099003|11063799006|56012099006|261102123227099003|261022075727099003|5023799004|261009223027099003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	acM4fHhugAIsBvd35ikFN3GgOrSqL/NAr9q2VuM0FwcjyKJ46Q1HFB25eW8TNxCxayRnuyirQcIAjC06NlRR9g9+w3YR2trVCV5wGB/HNCuFVX+eErXdfQtzL6jtihd5V2YpdXH3onvCfjPDxDr3n/N254n2F5RNENi11qXQUxQRIu+fyBu1T1EBMM1IXY+/V+DZPTwL3uqAVz0OkYSIirNOp3+O3qeRuTTDLUa4dVSmsntfUN5sOh5c3gbSjRS4mQkmGspCADqQLWTMrky5UutoWwEUapY9Qs+uumB4O5EuX801Au5FGS3q4WDlRA52IoXEYfAy/tqBmaN84OOb+suPLWIZ7QUJmiHAku5eiBLKoIN/FzvMS/60UFFvIUD9IefIL6u9/n7ihfaMynZwbbJVrbT1Zylb/cIZ6TkpVJN3B7EaEaYwHSC7XNknDrdK7qoNeWGK5ywTPdQ2UFouDr/4pwynXeFmTmHTUYoBEQWTG3Pj+uTN6K1r0TeLLIXmko2g2OEZx2THcd2/uR/sXjY/s/ZpQINUc4brWOD7nkzuH0IB9JoUqBdKcyDKI3eOBVUQCd5qZ3xQ2IeVv8bR/ImAV1QV6qFUlz5005IcGIgpuFYrLDh6bJlnqnMw4/QnCT9jTp2vvsKBz5F0aUrrs3ZgWw0luV3J3OEVc4SDSHvjBdcaC4nNg9msGcjQM5vewUyb3UBtiMrvmxxzaACRZw==
+	LgdBJk5H1b+P2gIPd00nGYythyJnlmoTXtahi0e2XW+fdIAd6PvqEjNEFu7CQXD+ahDiBCEJwyLpOexE8ful5cnBaOQaUS8g53opSytsHpAtLmCmi4QNGfJjzihu8/noyCsF44XbuJaOOWC5ZT0/NyjYXyXJCjTlBjkbgxQT3xMmWh55Ny+BfmIIXec6c3APTl8ySzgLWpS8FeDb2ppRCNL6MC/63QYD09tr26a/F+EUNgnHcsu7C81MiqP4ue7vDnpMG5GOjrsOLFADMVJSC+pYwcg+bE+SQK6/duQxL+t8SY0wyPc4J1wXNTG3fDFt6k5/7UJp0hSQKjZ1xQQzPuocJHUoYqtZsWtuTt0UYSBcTZkQ8iCs0+YxHi1DPDJZmepYLmtvCsWmFp7Uck94vkLU/bOsG/VJ9i0zH/roRPjRTaGhtgVF0weY/Bo2flCOtyEnRH98PlEEM4bnKkJkA5x9VSlfyDZT4IqcQXyhLZ7qcRKoiyFmYSIY5do1FtNOTQfRZfTsPRhKMZsz1NH25TmPKj3R/Mh6gWEn5ogvBOeCbqjYJChYXjE/c/RyAHSKEMzXiehWAHGE0QTmfBlWwU7zK+y7CzQYk18ahI6MW8SlcbuF6rEkP6YTQCQmexGI/GNxP7961+aU1KyExx74K2r8nyIsPhGa9xMOlrUu1u2/To6y9D/6TtfYBU4sdSNc3sgUMFQsaRVVAeiJUjH0dQ==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(82310400026)(36860700016)(261028144727099003)(10067099003)(261026121527099003)(5023799004)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(261021123027099003)(261022105027099003)(261026140227099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(7416014)(82310400026)(261021121427099003)(261021123027099003)(261026121527099003)(11063799006)(56012099006)(261102123227099003)(261022075727099003)(5023799004)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	s3ozDXuV64Ifrj6hoi672qXcfh/4nSR5FVFFmaBv4OJ3Q38CSC+31QoPGk3itanURoMxGoLOTYHxEv6lZdRwV2ed6TJX/7Sd0k6sj4XZB/76a4dofDlh9JKsyOTKDTgglMEb7tOehkKtrpy6mlYWxJssXVK46FDrD0J6tuZAU8t+ZhhYJTvIZdepGkZf/I46q6GkoYhLYbp7mNU0fBuOoEMlGPkiEbK6971/xPO0HCWHZtkhlK/ieWfk0XtqC4m6/3cWPrJU6EwlJas+1G81XrKPrrgvwNLNL4U5PC/HXf8P/ssHgH1vyuB3suR3Rw4xkPOHT1Af+/gIUxijlusZXaC2xmyoKMEaWdeGppzLwNSK+WDopXvvwHTwC8T/Ec25pdNU/xsgOHMEEHOwgDg0ta+gGYMpMX0PYBK8/TZR0rsjc+r4OJSMA0EyOxfkyRMo
+	ME9bXKDh8vrwS9bR99PFxWQpv+tXx3V2NS+FO62ZmvNQW1AniuC/3Fpw++bx0kK8zes18354d9xblFMK7ku0UdxXn1ZCNuA3SODyFZrdmlwevA/Zt9/5yvyH977k3He4J4JJv08QU5cQF9fyyk986hYTpaPMw8DKuWVgAsNe5Dc+kDvsNM4Im/FoXqMkwkiAezMr/jYc07tKP8uZ6F2nGra7ATRk0ZoKvk2TWjk2SkLZsJD0haBr8jfAEI4Q3kSsIFIpafJwwsxSl0Go350Zy8ZGNaWypdiqfNisuG5z9SNxiJ7nWRhozKFBW85JZdM1RRYegZca7+jMgPotNtVNlHww/JtvxFwpdyASsP/haHeW5bMYtH/F1H7tcfS6P+9HkvHnfs4fr1fbEaFMyNe7CHYx1eztnJa1LPTPpcdEwv4EBELne8M2jvRLXwZQeJe/
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 18:48:18.2404
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 18:48:19.0071
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e87af19f-5a3b-4a35-dcd0-08df41b6aed6
+X-MS-Exchange-CrossTenant-Network-Message-Id: f483a597-28fb-4a0b-60cb-08df41b6af48
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008481.eurprd02.prod.outlook.com
+	MI3PEPF00008483.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI3PR10MB890059
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7107
 
-On stm32mp1, upon resume from low power (stop) mode, in host mode, a
-port interrupt storm may be seen before the hardware is accessible.
+Relying on HPRT0_PWR value to call dwc2_vbus_supply_init() shows some
+corner case resulting in vbus enable count to increase.
+As consequence, dwc2_vbus_supply_exit call done when clearing
+PWR bit won't disable vbus (for example upon suspend request).
 
-The core is able to generate interrupts during system resume in
-platform.c when calling dwc2_resume()->__dwc2_lowlevel_hw_enable(). As
-the PHY and clocks become available, a resume IRQ can be seen with a
-Host Port Interrupt (PrtInt).
+Address two case that has been seen:
+- In _dwc2_hcd_start(), external VBUS supply may have already been enabled,
+  before entering dwc2_hcd_reinit (e.g. the controller is in host mode,
+  without any device plugged).
+- Upon resume from low power in case registers have been lost. In clock
+  gating mode PM suspend flow doesn't disable vbus while in host mode:
+  - dwc2_port_suspend() enters clock gating (it sets lx_state to DWC2_L2)
+  - _dwc2_hcd_suspend() nothing more to do as already in L2.
+  - _dwc2_hcd_resume() - checks HPRT0_CONNSTS. If it's not set (register
+    loss) it sets HPRT0_PWR and call dwc2_vbus_supply_init().
 
-The wakeup interrupt handler make the controller to exit power down mode,
-but the HCD handler returns IRQ_NONE, due to the HW accessible flag has
-been cleared in _dwc2_hcd_suspend() earlier. It ends-up with the bad_irq
-handler.
+Fix this by adding a boolean flag to balance vbus enable/disable calls
+instead of relying on HPRT0_PWR value. Clean the existing checks on pwr
+bit. A mutex is added as dwc2_vbus_supply_init/_exit calls can run
+concurrently from hub_control and dwc2_conn_id_status_change.
 
-So set the HCD_FLAG_HW_ACCESSIBLE flag when the resume IRQ is handled to
-exit from power down mode.
-
-Fixes: ef5e0eec4764 ("usb: dwc2: Add clock gating exiting flow by system resume")
+Fixes: cd7cd0e6cedf ("usb: dwc2: fix unbalanced use of external vbus-supply")
 Cc: stable@vger.kernel.org
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
-Changes in v3:
-- Set HCD_FLAG_HW_ACCESSIBLE only when dwc2_exit_partial_power_down()
-  succeeds.
+Changes in v4:
+- drop previous vbus_was_off boolean. Introduce vbus_supply_enabled flag
+  instead and vbus_supply_lock.
+- remove checks on pwr when possible as now replaced by this flag to keep
+  balanced calls.
 
 Changes in v2:
-- Add check on hcd before setting HCD_FLAG_HW_ACCESSIBLE flag, to avoid a
-  NULL pointer dereference on hcd in peripheral-only mode as raised by
-  Sashiko.
-- Add same handling in PPD mode as raised by Sashiko. Only handle clock
-  gating and partial power down mode (PPD) as pre-existing wakeup handler
-  manages these two modes. I don't have Hibernation capable hardware to
-  cross-check this mode.
+- Add a vbus_was_off boolean to check explicitly an off-on transition
+  on port power, to enable vbus supply, instead of relying an XOR check
+  that would be symmetric, e.g. wrongly enable it in case it gets switched
+  off (1 to 0) as reported by Sashiko.
 ---
- drivers/usb/dwc2/core_intr.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/usb/dwc2/core.h     |  6 ++++++
+ drivers/usb/dwc2/hcd.c      | 45 ++++++++++++++++++++++++---------------------
+ drivers/usb/dwc2/platform.c |  1 +
+ 3 files changed, 31 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/usb/dwc2/core_intr.c b/drivers/usb/dwc2/core_intr.c
-index 9565e6a52725..df9f6b963fb8 100644
---- a/drivers/usb/dwc2/core_intr.c
-+++ b/drivers/usb/dwc2/core_intr.c
-@@ -453,18 +453,25 @@ static void dwc2_handle_wakeup_detected_intr(struct dwc2_hsotg *hsotg)
- 		}
- 	} else {
- 		if (hsotg->lx_state == DWC2_L2) {
-+			struct usb_hcd *hcd = hsotg->priv;
+diff --git a/drivers/usb/dwc2/core.h b/drivers/usb/dwc2/core.h
+index 32662cb3d3eb..c97c958b19a5 100644
+--- a/drivers/usb/dwc2/core.h
++++ b/drivers/usb/dwc2/core.h
+@@ -10,6 +10,7 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/device-id/pci.h>
++#include <linux/mutex.h>
+ #include <linux/phy/phy.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/usb/gadget.h>
+@@ -886,6 +887,9 @@ struct dwc2_hregs_backup {
+  *                      removed once all SoCs support usb transceiver.
+  * @supplies:           Definition of USB power supplies
+  * @vbus_supply:        Regulator supplying vbus.
++ * @vbus_supply_lock:	Protects vbus_supply state and regulator operations.
++ * @vbus_supply_enabled: True if this driver holds an enable reference to
++ *			vbus_supply.
+  * @usb33d:		Optional 3.3v regulator used on some stm32 devices to
+  *			supply ID and VBUS detection hardware.
+  * @lock:		Spinlock that protects all the driver data structures
+@@ -1079,6 +1083,8 @@ struct dwc2_hsotg {
+ 	struct dwc2_hsotg_plat *plat;
+ 	struct regulator_bulk_data supplies[DWC2_NUM_SUPPLIES];
+ 	struct regulator *vbus_supply;
++	struct mutex vbus_supply_lock;
++	bool vbus_supply_enabled;
+ 	struct regulator *usb33d;
+ 
+ 	spinlock_t lock;
+diff --git a/drivers/usb/dwc2/hcd.c b/drivers/usb/dwc2/hcd.c
+index 7e4202c145f2..053d1234884b 100644
+--- a/drivers/usb/dwc2/hcd.c
++++ b/drivers/usb/dwc2/hcd.c
+@@ -133,18 +133,32 @@ static void dwc2_gusbcfg_init(struct dwc2_hsotg *hsotg)
+ 
+ static int dwc2_vbus_supply_init(struct dwc2_hsotg *hsotg)
+ {
+-	if (hsotg->vbus_supply)
+-		return regulator_enable(hsotg->vbus_supply);
++	int ret = 0;
+ 
+-	return 0;
++	scoped_guard(mutex, &hsotg->vbus_supply_lock) {
++		if (hsotg->vbus_supply && !hsotg->vbus_supply_enabled) {
++			ret = regulator_enable(hsotg->vbus_supply);
++			if (!ret)
++				hsotg->vbus_supply_enabled = true;
++		}
++	}
 +
- 			if (hsotg->in_ppd) {
- 				ret = dwc2_exit_partial_power_down(hsotg, 1,
- 								   true);
- 				if (ret)
- 					dev_err(hsotg->dev,
- 						"exit partial_power_down failed\n");
-+				else if (hcd)
-+					set_bit(HCD_FLAG_HW_ACCESSIBLE, &hcd->flags);
++	return ret;
+ }
+ 
+ static int dwc2_vbus_supply_exit(struct dwc2_hsotg *hsotg)
+ {
+-	if (hsotg->vbus_supply)
+-		return regulator_disable(hsotg->vbus_supply);
++	int ret = 0;
+ 
+-	return 0;
++	scoped_guard(mutex, &hsotg->vbus_supply_lock) {
++		if (hsotg->vbus_supply && hsotg->vbus_supply_enabled) {
++			ret = regulator_disable(hsotg->vbus_supply);
++			if (!ret)
++				hsotg->vbus_supply_enabled = false;
++		}
++	}
++
++	return ret;
+ }
+ 
+ /**
+@@ -3435,7 +3449,6 @@ static int dwc2_hcd_hub_control(struct dwc2_hsotg *hsotg, u16 typereq,
+ 	u32 port_status;
+ 	u32 speed;
+ 	u32 pcgctl;
+-	u32 pwr;
+ 
+ 	switch (typereq) {
+ 	case ClearHubFeature:
+@@ -3480,11 +3493,9 @@ static int dwc2_hcd_hub_control(struct dwc2_hsotg *hsotg, u16 typereq,
+ 			dev_dbg(hsotg->dev,
+ 				"ClearPortFeature USB_PORT_FEAT_POWER\n");
+ 			hprt0 = dwc2_read_hprt0(hsotg);
+-			pwr = hprt0 & HPRT0_PWR;
+ 			hprt0 &= ~HPRT0_PWR;
+ 			dwc2_writel(hsotg, hprt0, HPRT0);
+-			if (pwr)
+-				dwc2_vbus_supply_exit(hsotg);
++			dwc2_vbus_supply_exit(hsotg);
+ 			break;
+ 
+ 		case USB_PORT_FEAT_INDICATOR:
+@@ -3688,11 +3699,9 @@ static int dwc2_hcd_hub_control(struct dwc2_hsotg *hsotg, u16 typereq,
+ 			dev_dbg(hsotg->dev,
+ 				"SetPortFeature - USB_PORT_FEAT_POWER\n");
+ 			hprt0 = dwc2_read_hprt0(hsotg);
+-			pwr = hprt0 & HPRT0_PWR;
+ 			hprt0 |= HPRT0_PWR;
+ 			dwc2_writel(hsotg, hprt0, HPRT0);
+-			if (!pwr)
+-				dwc2_vbus_supply_init(hsotg);
++			dwc2_vbus_supply_init(hsotg);
+ 			break;
+ 
+ 		case USB_PORT_FEAT_RESET:
+@@ -3727,7 +3736,6 @@ static int dwc2_hcd_hub_control(struct dwc2_hsotg *hsotg, u16 typereq,
+ 			dwc2_writel(hsotg, 0, PCGCTL);
+ 
+ 			hprt0 = dwc2_read_hprt0(hsotg);
+-			pwr = hprt0 & HPRT0_PWR;
+ 			/* Clear suspend bit if resetting from suspend state */
+ 			hprt0 &= ~HPRT0_SUSP;
+ 
+@@ -3741,8 +3749,7 @@ static int dwc2_hcd_hub_control(struct dwc2_hsotg *hsotg, u16 typereq,
+ 				dev_dbg(hsotg->dev,
+ 					"In host mode, hprt0=%08x\n", hprt0);
+ 				dwc2_writel(hsotg, hprt0, HPRT0);
+-				if (!pwr)
+-					dwc2_vbus_supply_init(hsotg);
++				dwc2_vbus_supply_init(hsotg);
  			}
  
- 			if (hsotg->params.power_down ==
- 			    DWC2_POWER_DOWN_PARAM_NONE && hsotg->bus_suspended &&
--			    !hsotg->params.no_clock_gating)
-+			    !hsotg->params.no_clock_gating) {
- 				dwc2_host_exit_clock_gating(hsotg, 1);
-+				if (hcd)
-+					set_bit(HCD_FLAG_HW_ACCESSIBLE, &hcd->flags);
-+			}
+ 			/* Clear reset bit in 10ms (FS/LS) or 50ms (HS) */
+@@ -4344,7 +4351,6 @@ static void _dwc2_hcd_stop(struct usb_hcd *hcd)
+ {
+ 	struct dwc2_hsotg *hsotg = dwc2_hcd_to_hsotg(hcd);
+ 	unsigned long flags;
+-	u32 hprt0;
  
- 			/*
- 			 * If we've got this quirk then the PHY is stuck upon
+ 	/* Turn off all host-specific interrupts */
+ 	dwc2_disable_host_interrupts(hsotg);
+@@ -4353,7 +4359,6 @@ static void _dwc2_hcd_stop(struct usb_hcd *hcd)
+ 	synchronize_irq(hcd->irq);
+ 
+ 	spin_lock_irqsave(&hsotg->lock, flags);
+-	hprt0 = dwc2_read_hprt0(hsotg);
+ 	/* Ensure hcd is disconnected */
+ 	dwc2_hcd_disconnect(hsotg, true);
+ 	dwc2_hcd_stop(hsotg);
+@@ -4362,9 +4367,7 @@ static void _dwc2_hcd_stop(struct usb_hcd *hcd)
+ 	clear_bit(HCD_FLAG_HW_ACCESSIBLE, &hcd->flags);
+ 	spin_unlock_irqrestore(&hsotg->lock, flags);
+ 
+-	/* keep balanced supply init/exit by checking HPRT0_PWR */
+-	if (hprt0 & HPRT0_PWR)
+-		dwc2_vbus_supply_exit(hsotg);
++	dwc2_vbus_supply_exit(hsotg);
+ 
+ 	usleep_range(1000, 3000);
+ }
+diff --git a/drivers/usb/dwc2/platform.c b/drivers/usb/dwc2/platform.c
+index 72214593f431..968b4ba6d814 100644
+--- a/drivers/usb/dwc2/platform.c
++++ b/drivers/usb/dwc2/platform.c
+@@ -471,6 +471,7 @@ static int dwc2_driver_probe(struct platform_device *dev)
+ 		return retval;
+ 
+ 	spin_lock_init(&hsotg->lock);
++	mutex_init(&hsotg->vbus_supply_lock);
+ 
+ 	hsotg->vbus_supply = devm_regulator_get_optional(hsotg->dev, "vbus");
+ 	if (IS_ERR(hsotg->vbus_supply)) {
 
 -- 
 2.43.0
