@@ -1,57 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606655;
-	b=Q2wQyCRrf84YUWErmVhw3fEZ/OWA2l+JorXq+f92nGKWHUqoax/e7Mo0vpKYoxRy3OyT
-	 0Ae+33Ub8LHsweCNoBFrWndk80Lpv/Y9BF0jE5zyZP5yZX7XsHqtkApvOhoTMX1GpBsjM
-	 GivkZSVeuPLzyWePWw0rD4bd8Zx1YhwF8hi+1JKblLuhfIzLr8SeA1abiPTEUtk/yCWwk
-	 jiXco3eV47anOCAX/adWNZt+/p80bfpviYGQ2O51Air/2aL8iTxhDj9bnpori0wocp0Qy
-	 /1jogd78e5t1KIYAv2w9wXDmJwEs39QqE3cTdXJcu0EvFXWF3rjoBc/ar6x0cxp/y4Q==
+	t=1794607150;
+	b=csSVCrPsf/5kMrDTtJ9FoyT2bR6gd9xQ+391hHTtyZO8cldjg1bLsIw0xAOfanJfdIXC
+	 cszKQHmmupOvZtxmnxCvIjyaIKkMd8nTgQe5zsjUaDmHeIAyPDOAXch8q84VGI2pgLSxg
+	 ZBAiYGVU6+/aVfuIPhnUEkRbXYq+Seit29gb8wr29z6iA9YINz3yp6eEGWwNzm64yiXBI
+	 TNoS2WbokqrKVsI9cGeJ1VzjBM9Ugry5DWIFwe5CSVy9RUdcpWeKZ1PvGI49HEGDbc7x4
+	 DW28rNWe17bdeRF50w7XtiAGJai6TJu1fzDqByfgtaTuD9+ONAWjV3VkaF/RWSkJkUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606655;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zoF8wlRvPTLWiUm6fSrKW+JgMTwwdqLVFtnkD+pzhQE=;
-	b=iAFQUHoIsNQ2S7dv2bGtNIHrUB4Z7wEqNPThE19E/Bh0af5sRDEUHPMJ1pKm/ac2mjI6
-	 aqJ3T+a7sYKbmMzAigr4sP2rlWpke3/5Igt+DScffXaCC9x34BTpnJlsyHU+eYUKKi0kE
-	 8sGNkHRes5NA2qt92eFj9DhYENqwhfkA7OwYOqvt2jWGuq2KwCSfuPpBG3TWKPitzs2yF
-	 tQI2ErUhdgKa9IhzGvhYEOLqetbd1tLZ5EOdwxnMHqKgYW9AdNazebXXokjVXc/GHdbeH
-	 zEDnZT+DppNoEA7tyJ1b9B5DQf5x3sW0eIygT/th3+xXXZWtlwaVl4OMsQe81OztoMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794607150;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=AzFeFh7wYogs7Cm8iIjFMUYYFhyWs5Pv0D3GE5BCijQ=;
+	b=vvUIWPKVwZ65TIJFwSU4pDvH4TWEvSm9qBqa9rN2xU2SyJWJGDtagNQ5r2lb4YvzMpiW
+	 pegTcVYWeOvdMeci3bBY91053F3axV2dLmpe3UVBd2BAWjrp3Upspd4wS0S9v2X5LA5jT
+	 Xab3XZTXqnTcwr0v1MdmK9iRoMobY30Nk5JgmDesSNGxZXe+rb68C/VOplljtq+jfVChs
+	 BIY7CGJxzlajLu5mNS+3kanXMVrEUAdv2Wc3G6rL0WQwaQFkU03PvGcfiWPew1JD0qBKL
+	 cJIt1fETy6WGEEqc8cvDKvIU1ipJGSWGjAVxdTQRYiZDP3cvqN3T1azW1hTTe9yRLcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k1Dk9hop;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=d1EYuVrO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02A0606A884
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:50:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A08606A334;
+	Fri, 13 Nov 2026 21:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k1Dk9hop
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D726D1F000C4;
-	Fri, 13 Nov 2026 21:50:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794606655;
-	bh=zoF8wlRvPTLWiUm6fSrKW+JgMTwwdqLVFtnkD+pzhQE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k1Dk9hophFBUVfNTDZyjsS7ZkHMeKTAAAJc0SoMu6sFrjZ1FZMEYOc0XOeky3Y6Bq
-	 PD0RnPkvhEBzpaM1Kx9mrWBkXKNPmPoQ16yzIUvkPS27UyLjyMaFs/P1yTGza9ptwT
-	 xPzqKqCyBPSxbpwkCMmw77m+gD3MC/CiPJVFJHiBooiPxP/8UN+ZChHdAhWJef6l1v
-	 5n1xyxXhX5EFK07IhjjXtzj97E16wqPy6yhbDHquOXiRW88NiRobqvELyT+R4GOz6R
-	 4/L6WFQyoCkK/vX8CV7R2rcJFcNP25NCnyl2AIMEoanhstzEu92zXLwvrhQ6RScPj4
-	 OeipT9CWwj+qA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Cong Zhang <cong.zhang@oss.qualcomm.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] virtio_blk: use synchronous quiesce in virtblk_freeze_priv()
-Date: Fri, 13 Nov 2026 16:50:53 -0500
-Message-ID: <20261113215035.2715683-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201259-failed-6.6-6c6dec7883f8@kernel.org>
-References: <20261109201259-failed-6.6-6c6dec7883f8@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=d1EYuVrO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484791F000C4;
+	Fri, 13 Nov 2026 21:59:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794607149;
+	bh=AzFeFh7wYogs7Cm8iIjFMUYYFhyWs5Pv0D3GE5BCijQ=;
+	h=Date:To:From:Subject;
+	b=d1EYuVrORA7qLXL0Bz/npH0GPMjcdaRgso7ixrXaBLWteXTvQ+efXY5SzzlevlaoV
+	 b1+S1kMYyjbXqH5XnMK4m6MV9jlIm8n8b8F1gXa5WeSixf3MMIFxHksBsNgf5rO88y
+	 17U8p27bxTxeWs7bpZgJyZCtlgz15DivsEj8u0Uc=
+Date: Fri, 13 Nov 2026 13:59:08 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,tz2294@columbia.edu,
+	surenb@google.com,stable@vger.kernel.org,shuah@kernel.org,rppt@kernel.org,
+	mhocko@suse.com,liam@infradead.org,jannh@google.com,david@kernel.org,
+	ljs@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-madvise-zap-markers-from-guard-regions.patch added to mm-new branch
+Message-Id: <20261113215909.484791F000C4@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,59 +51,192 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Cong Zhang <cong.zhang@oss.qualcomm.com>
 
-[ Upstream commit 6c6dec7883f8eb10b326bc9d109a4990c885d949 ]
+The patch titled
+     Subject: mm/madvise: zap markers from guard regions
+has been added to the -mm mm-new branch.  Its filename is
+     mm-madvise-zap-markers-from-guard-regions.patch
 
-blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
-blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
-while the flag is clear. It can then be preempted before it gets a
-request. At that time, it has no queue usage reference, so
-blk_mq_freeze_queue() does not wait for it.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-madvise-zap-markers-from-guard-regions.patch
 
-virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
-blk_mq_unfreeze_queue(). A new request can enter the queue. The old
-dispatcher can run again, use its old flag check, get the new request,
-and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
-reset the device, delete the virtqueues, and free vblk->vqs. The old
-dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
-kernel can crash.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Fix this by using blk_mq_quiesce_queue(), which waits for dispatch code
-that was already running. Keep the existing freeze and unfreeze order.
-The queue remains quiesced until virtblk_restore_priv() calls
-blk_mq_unquiesce_queue().
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
-Cc: stable@vger.kernel.org
-Acked-by: Jason Wang <jasowangio@gmail.com>
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
-Link: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
-Link: https://patch.msgid.link/20261103-virtblk_sync_quiesce-v3-1-f40233f9bdd9@oss.qualcomm.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ sashal: adapted the change to virtblk_freeze(), where queue freeze/unfreeze calls do not use memflags ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/madvise: zap markers from guard regions
+Date: Fri, 13 Nov 2026 21:04:45 +0000
+
+In order to establish guard regions, guard markers are installed in the
+page tables of a mapped VMA.
+
+However, problems arise when one tries to combine this with registering a
+VMA for userfaultfd, as such operations may themselves need to install page
+table markers such as uffd-wp.
+
+When the installation is attempted the guard marker prevents these markers
+being applied, which can lead to unexpected results (especially if the
+guard regions are later removed.)
+
+This is especially problematic because guard region installation causes the
+regions to be zapped first, meaning that the removal of userfaultfd-tracked
+ranges will not be logged in this case.
+
+Additionally, the uffd-wp page table marker will be propagated regardless
+for file-backed mappings as the zap being performed does not clear these
+markers.
+
+This is problematic, as it can cause repeated failure to install guard
+markers resulting in an infinite loop.
+
+Therefore, update guard region installation to invoke the zap with the
+ZAP_FLAG_DROP_MARKER flag applied.
+
+Both before and after this change, uffd remove events will not trigger on
+guard region installation, nor will write protect state be propagated after
+guard region removal.
+
+This makes sense as conceptually, guard regions mark a part of a VMA as
+effectively unmapped at the page table level, and removing the markers is
+like mapping the VMA again, over which operation uffd markers would in any
+case be lost.
+
+A survey of open source users indicates nobody is relying on installing
+guard regions in uffd-armed VMAs. Software including glibc, android,
+tcmalloc and CRIU were checked.
+
+This change means that any already established guard regions are removed on
+zap. These will be overwritten with the newly installed guard markers on
+success.
+
+However, if this fails for some reason (fatal signal likely the only
+reasonable cause), guard regions may remain removed, and concurrent faults
+may succeed in the interim in the range.
+
+Since the installation failing guarantees nothing about the range being
+installed into, and since success overwrites with guard markers, this isn't
+an issue.
+
+Since MADV_DONTNEED does something similar, abstract the zapping to
+zap_range() and call it from both places.
+
+Link: https://lore.kernel.org/20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org
+Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only mappings")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Tal Zussman <tz2294@columbia.edu>
+Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-9-00713d368976@columbia.edu/
+Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-10-00713d368976@columbia.edu/
+Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu/
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/block/virtio_blk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index 65a1f1576e55f..1aeb44304f37a 100644
---- a/drivers/block/virtio_blk.c
-+++ b/drivers/block/virtio_blk.c
-@@ -1628,7 +1628,7 @@ static int virtblk_freeze(struct virtio_device *vdev)
+ mm/madvise.c |   28 +++++++++++++++++++---------
+ 1 file changed, 19 insertions(+), 9 deletions(-)
+
+--- a/mm/madvise.c~mm-madvise-zap-markers-from-guard-regions
++++ a/mm/madvise.c
+@@ -850,6 +850,19 @@ static int madvise_free_single_vma(struc
+ 	return 0;
+ }
  
- 	/* Ensure no requests in virtqueues before deleting vqs. */
- 	blk_mq_freeze_queue(q);
--	blk_mq_quiesce_queue_nowait(q);
-+	blk_mq_quiesce_queue(q);
- 	blk_mq_unfreeze_queue(q);
++static void zap_range(struct madvise_behavior *madv_behavior,
++		      zap_flags_t flags)
++{
++	const struct madvise_behavior_range *range = &madv_behavior->range;
++	struct zap_details details = {
++		.reclaim_pt = true,
++		.zap_flags = flags,
++	};
++
++	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
++			      range->start, range->end - range->start, &details);
++}
++
+ /*
+  * Application no longer needs these pages.  If the pages are dirty,
+  * it's OK to just throw them away.  The app will be more careful about
+@@ -872,13 +885,7 @@ static int madvise_free_single_vma(struc
+ static long madvise_dontneed_single_vma(struct madvise_behavior *madv_behavior)
  
- 	/* Ensure we don't receive any more interrupts */
--- 
-2.53.0
+ {
+-	struct madvise_behavior_range *range = &madv_behavior->range;
+-	struct zap_details details = {
+-		.reclaim_pt = true,
+-	};
+-
+-	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
+-			      range->start, range->end - range->start, &details);
++	zap_range(madv_behavior, 0);
+ 	return 0;
+ }
+ 
+@@ -1217,9 +1224,11 @@ static long madvise_guard_install(struct
+ 
+ 		/*
+ 		 * OK some of the range have non-guard pages mapped, zap
+-		 * them. This leaves existing guard pages in place.
++		 * them. This also drops any PTE markers in the range,
++		 * including existing guard markers, which we reinstall on
++		 * the next attempt.
+ 		 */
+-		zap_vma_range(vma, range->start, range->end - range->start);
++		zap_range(madv_behavior, ZAP_FLAG_DROP_MARKER);
+ 	}
+ 
+ 	/*
+@@ -1845,6 +1854,7 @@ static bool madvise_batch_tlb_flush(int
+ 	case MADV_DONTNEED:
+ 	case MADV_DONTNEED_LOCKED:
+ 	case MADV_FREE:
++	case MADV_GUARD_INSTALL:
+ 		return true;
+ 	default:
+ 		return false;
+_
+
+Patches currently in -mm which might be from ljs@kernel.org are
+
+maintainers-remove-myself-from-mm-core-reviewership.patch
+maintainers-remove-myself-from-mm-misc-reclaim-reviewership.patch
+maintainers-remove-myself-from-mm-rust-reviewerships.patch
+credits-add-entry-for-thp-maintenance.patch
+mm-vma-predicate-vma_assert_stabilised-on-config_debug_vm.patch
+mm-only-assert-mmap-locks-if-config_debug_vm-or-lockdep-is-set.patch
+mm-only-assert-vma-locks-if-config_debug_vm-is-set.patch
+mm-convert-warn_on_onces-to-vm_warn_on_once-in-vma-lock-code.patch
+mm-madvise-zap-markers-from-guard-regions.patch
 
