@@ -1,61 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532508;
-	b=y+FtnD9WPKojym5wpaK/qbeqpg2NvBL2XVRNKulxpId0YlmNPwjh10LrEFvjwhozXuXq
-	 IjavT67OsBJUPIXA0Y7PScUO6TBi93TZaOK/ZGVbe6MJmvc8eH6o0R0FIwNyphL35bmHv
-	 rRCBGMdESiVaprqLrtfiaqidp+xLrPckNRJchlXU0N6JRF1LPzScLrbGQ3oAd1cFVu9/M
-	 orZTmQMI7ekViNOmuBcg7ZgMpfTfTBqb1YwL98/kDGYoNrB6KzO2toMu2mDy4bBMCjMrV
-	 /BQLUqjgjlGF9rtw25jXUBUek843Y4mJLa9Zbqz1l6mgbjzsaXwh3BL7lrdjodUjtBw==
+	t=1794532576;
+	b=EDgfZ4nOtZnlxIsU3TSL8B2Quyjl2zGPWa7+72F48L65gNH1knKv35k5So/OtKkqN0bx
+	 7Jc8sKWoQIC/nBVLuzZrbWGNIMcmNODmhX2QKzHsl30cFyi0mW9OgRXVT2vWAftLvnRcz
+	 PzGgbVIroqBZvf5w4xYAGE8KNk4mlqCOlo1TKMHX0C0Ttxg5qOqM+7ApAmC2tRHsnDYGy
+	 4BlMm9mvaT3HH6eAFwN0fXDIPJuOd9At7eG9IqxwNtk/99HBccqlCjnniiPw4qeCzUuU5
+	 XlGxh2AwHexjfClQUmx3UiDaaEbh69QS7EAjXQ5cPeEdgY8e6MXefCTYcGuwPutRbyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532508;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532576;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4+sySXGh+AEafyOUZEmSm7ZLCws5y56P9dNZ2B0xry4=;
-	b=AZKvaQc63oBvgXX283sxBnTcSdcHA5V8jvBG3xOzw8Y1WKLKgl7ZQd47qcebpZeNiTpv
-	 IfmntbLxAh/4HGUWvPOgGgFeEMdM+xdP/xDIfTBTBHVUmU6ZxAQ3SSmlG2ppSYF6J1sfe
-	 UmwfXUBoi1fTkurJ+NBp2Ew9c/rwMXkh5xGZ7EABeyExPcb3BjuMAr5Hze2ExzsqbiLin
-	 D+IdK6Z2E0FdWtd0o8Yf6Fjk9cPmKD42PfcdACpaAw4doLnIIS7YAkMugWhRgmTX2M0X5
-	 OkmC5dFbeO2ma/D1xyRh8DTegRi1iy5eGjLeaiUrtWuDno/A5oL1T5Q3FVTMn3Z/ixA==
+	bh=JNdBAOa+TFV1IP3lxTmaS3RQ5HdEY6SUzwA1WIODDeU=;
+	b=NBRdagPzgb/VtTiPElBJRnxy6GVwP3vCSpsIVv7vShbuWIHKMX7ebvgb6W2APeSSXzrt
+	 llX4vTycGJC8awaOkWJ42MgvnT/4guE5N0qTcukZ6JCI9O1VAoHcRQ39/VEfnp+12Q9TI
+	 LWQFZLmWeG4q4bJOeZlFDMfk8F5gme1aZMT3A+Fg19Xn5jDj0KwiRl1a46jx0LH2hdsVK
+	 5uDE82rx7elOJPV1zpP/41KV0C0m1KcDe2LO5pmMrg6Gdh5qr5ntgSrT0Wq8Fb1LuB4TX
+	 syRoYm0xCTDBPh0NxgbCmE0N3Vi62IQK23dxc4NtC7TYKZq9MPYQL7HzyALTvtpwPWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTjWU4KE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKgx1JC+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF87A606A8BB
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:15:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30FF606A332
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTjWU4KE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8739F1F000C7;
-	Fri, 13 Nov 2026 01:15:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKgx1JC+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0E01F000C5;
+	Fri, 13 Nov 2026 01:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794532507;
-	bh=4+sySXGh+AEafyOUZEmSm7ZLCws5y56P9dNZ2B0xry4=;
+	s=k20260515; t=1794532575;
+	bh=JNdBAOa+TFV1IP3lxTmaS3RQ5HdEY6SUzwA1WIODDeU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eTjWU4KEhpqA/yXbgl6BCTTJ7g0A0iX8Jm0ihwy8p1YSwzGx7bXXLrHptLB7tqc6M
-	 TBHU10SmWyFpa1IUNA+u3sOHd/LWz5uEgqGqJaf6YLbL5zFi3QM05xYRjywj65f3/g
-	 pvDp9XAYWl3Z6/1fNG6S0Bv8JItOEk3ma6s8+AOzKbslUZXWd6iJtdXjW7wH0nvuP8
-	 uIy43SOYggmDVZ1cSGtES3UQr6c4k3nEK4CEQTDdUFkFwcVQugLInELYgaKNwh2WYL
-	 RwLcez4y6TzwQqujpZh+Zkfp+XXhjuYC6uMYhGYzaiIlo7GaXtCKV4xRcoa/7pIRPv
-	 rdjMSHPA9iHPg==
+	b=cKgx1JC+GHhUTXp3Yxal3fvz0xRDLlhji6pVmDhOjG6R0vi/V86n3rzKpVIhId9tD
+	 F/YSk77VuJqPXf4T/sUkxSRyt8TGBe+BNXMCoqFYFhkoSN2r37EclA6gTa2lDqVxi1
+	 1dqL5cd1yZUybuBTmsi+mbbrbRavgQOMB1A8Re6PqOsU9sa+PiEdMQkAbxl6oBmC8/
+	 EZs+3BG1l8rcfAqcD8cGbynY0okx0uMY8Vf7rx++GBMUyDt47aHC95MwFLdcXJqvgp
+	 jnZ22HL8SLBCkgY28y/Cbad6/g+gqPdx8Z6aJd4bINYvpPfFzK3smrssBuB8d/xUMx
+	 p5uygDQLtjhUg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] hugetlbfs: enforce F_SEAL_EXEC in setattr
-Date: Thu, 12 Nov 2026 20:15:05 -0500
-Message-ID: <20261113011433.550275-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] ALSA: pcm: Optimize cpu_latency_qos_*() calls
+Date: Thu, 12 Nov 2026 20:16:12 -0500
+Message-ID: <20261113011600.592705-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200255-failed-6.18-b7f570e7cea7@kernel.org>
-References: <20261109200255-failed-6.18-b7f570e7cea7@kernel.org>
+In-Reply-To: <20261109201441-failed-6.6-9017bc3d13da@kernel.org>
+References: <20261109201441-failed-6.6-9017bc3d13da@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,56 +60,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit b7f570e7cea761ec7eb4a3a9557a3a082d14e88c ]
+[ Upstream commit 9f6f4e97fd53908aecb0979507d9ff10a22288eb ]
 
-F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
-not check it. As a result, fchmod() can change the execute bits of a
-sealed hugetlbfs memfd.
+We have a few cpu_latency_qos_*() calls in PCM callbacks, but they
+seem suboptimal in a few aspects:
+- We call them at each time when the hw_params changed, but explicitly
+  do remove and (re-)add; this could be
+  cpu_latency_qos_update_request(), instead
+- The setup of cpu_latency_qos_*() doesn't have to be in hw_params at
+  all; it's not the place where the actual parameters are set up, but
+  rather better at the prepare callback.
+- The hw_free calls cpu_latency_qos_remove_request() unconditionally,
+  which may be poking a WARNING when it wasn't queued.
 
-Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
-to execute bits when F_SEAL_EXEC is set.
+For addressing the issues above, this patch cleans up and reorganize
+the cpu_latency_qos_*() calls in the PCM core by a couple helper
+functions.  Now, they are set up at prepare callback, and cleared at
+hw_free and release callbacks via the new helpers.
 
-This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
-fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
-
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-[ david: use common helper; fixup Fixes:; check only regular files ]
-Acked-by: Oscar Salvador <osalvador@suse.de>
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-5-392fc715d8f6@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Replaced the unavailable memfd_check_seals_mode() helper with its equivalent inline condition. ]
+Link: https://patch.msgid.link/20261002150420.879056-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 9017bc3d13da ("ALSA: pcm: Prevent O_APPEND open on OSS streams")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/hugetlbfs/inode.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/core/pcm_native.c | 35 +++++++++++++++++++++++++----------
+ 1 file changed, 25 insertions(+), 10 deletions(-)
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 34ed9966f2ea8..f866dbe4c198f 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -854,6 +854,12 @@ static int hugetlbfs_setattr(struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 4b570d8aa80eb..989e822c1059c 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -726,11 +726,32 @@ EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
+ #define is_oss_stream(substream)	false
+ #endif
  
-+	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
-+		if ((info->seals & F_SEAL_EXEC) &&
-+		    ((inode->i_mode ^ attr->ia_mode) & 0111))
-+			return -EPERM;
++static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
++{
++	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
++		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
++}
++
++static void pcm_qos_req_update(struct snd_pcm_substream *substream, int usecs)
++{
++	if (usecs < 0) {
++		pcm_qos_req_clear(substream);
++		return;
 +	}
 +
- 	trace_hugetlbfs_setattr(inode, dentry, attr);
++	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
++		cpu_latency_qos_update_request(&substream->latency_pm_qos_req,
++					       usecs);
++	else
++		cpu_latency_qos_add_request(&substream->latency_pm_qos_req,
++					    usecs);
++}
++
+ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_pcm_runtime *runtime;
+-	int err, usecs;
++	int err;
+ 	unsigned int bits;
+ 	snd_pcm_uframes_t frames;
  
- 	if (ia_valid & ATTR_SIZE) {
+@@ -837,12 +858,6 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	snd_pcm_timer_resolution_change(substream);
+ 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_SETUP);
+ 
+-	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
+-		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
+-	usecs = period_to_usecs(runtime);
+-	if (usecs >= 0)
+-		cpu_latency_qos_add_request(&substream->latency_pm_qos_req,
+-					    usecs);
+ 	err = 0;
+  _error:
+ 	if (err) {
+@@ -921,7 +936,7 @@ static int snd_pcm_hw_free(struct snd_pcm_substream *substream)
+ 		goto unlock;
+ 	result = do_hw_free(substream);
+ 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_OPEN);
+-	cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
++	pcm_qos_req_clear(substream);
+  unlock:
+ 	snd_pcm_buffer_access_unlock(runtime);
+ 	return result;
+@@ -1976,6 +1991,7 @@ static int snd_pcm_do_prepare(struct snd_pcm_substream *substream,
+ 	err = substream->ops->prepare(substream);
+ 	if (err < 0)
+ 		return err;
++	pcm_qos_req_update(substream, period_to_usecs(substream->runtime));
+ 	return snd_pcm_do_reset(substream, state);
+ }
+ 
+@@ -2750,8 +2766,7 @@ void snd_pcm_release_substream(struct snd_pcm_substream *substream)
+ 		substream->ops->close(substream);
+ 		substream->hw_opened = 0;
+ 	}
+-	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
+-		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
++	pcm_qos_req_clear(substream);
+ 	if (substream->pcm_release) {
+ 		substream->pcm_release(substream);
+ 		substream->pcm_release = NULL;
 -- 
 2.53.0
 
