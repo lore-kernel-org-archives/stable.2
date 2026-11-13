@@ -1,54 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794591075;
-	b=ltltu65wGnv3kWYdhOvBR38YiJs1VWibQjJO1HBzlo/7Q+RPckXrJcrJ4C22xwPI3n5e
-	 qlIj6/X7T2eh9PfWACZucL3hDdtjHD3arVf+cl6dz6eEry1Y1kgDW6w0KgsG51WWVlIQD
-	 FGzSu5qHUENOETz7vfoKmx3XTPx2y2SXsjwV9o/mPx2kcEwsZ7U4lY52Ex8aswQJHU76G
-	 g3EmQBQBtxIdGV2IQ7twwkym747GcoT3W4a8K865CsoS9150m2w5ZjCTAlZJg8HXJsFcC
-	 ck9ujzMMRcmdrWgJ84WOZ9yEJyF9oFPAlvnQjQwDpRRPUa4WfN+2QIfYcttK0mfQpAw==
+	b=q1CDURrSIBarRG0jRVHIw/64+Qr5QnGFe8PvIpISNvnawMpoombMAc4trBH7OjpbXUq/
+	 vt99OdmPZbuCx1Ce88kF5y43d6rczAbHyACt7Z5IiS2ZdOxU3gE8+R84bYF1F2keh8wKY
+	 6SvyW2Q81+FwGe6THQSgtu6TsIjK8MbFyN3GqBd0wh/9SKxcdebvLbuiO23NQBV2QZbNP
+	 tRSN1YD/mvVn1RAPuERBnniQabg8NtmANgvkdDrSmUOPJtSJvLvdyFHxdYFrU5l9azghC
+	 266Z89MWp1L1zWFOzhKBg2Xf/DyjqYi11u+IJwJCC1Cq/xu3HEv1pEbI1ZJntwj927A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794591075;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fax9dsDLfWgV2bx85EWAVzVfZQhzYfTnApIR7+ezcww=;
-	b=0nG5Q54WBhPf4+O5fJnalW98q9vAnGbRja5ALz9kIO2Ckevy+ICD38O3X4YKzZ5+O9Ya
-	 0kvou0VtRO7jZHzNn01TkG1ZOP/SU/kASnFWPt90S9ycY+6e2QKnBSeLEFp2j9qAB0d0E
-	 /BD9Vv7pknsjJ0z1dGnZq4qQBqlChOpws8hrEkHwq9iuTJkWYEa7jfapaFdOesxBbH1P5
-	 N9/Qo3YnuuuZ6QNNriIgizdAUJyj5JsQHKYNd4oApbdh+FMuoNo+9KDYUPvNkFxxPqtEA
-	 rvxIP9ivDyomS3vHv/O5xS8SoGqoiWfxw2uJSgfrR931Ah41SUllubQKh/BzDyRQ1wA==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3xLqv08IzEwqws2Xg5zzaOjtpm2uwNTdqhObkVOhrdk=;
+	b=Nkts8QrAMYKC+sQ01IIbEdNwG2F/EfwObxYkKvMnrkh3+s1lfGMLyquSOHN0rUjJgLPf
+	 3ZMpYxcs8/+sIFyDdwziQLKib4sR53JOtl+eHIM7GYO0WdH4YNOLMTiqJCX9kKDh1Q+qF
+	 yHKkdTtB4eEk8D8Ogl1EWSKvvPyHEjMpET4hq07kdsek7hDx/aqFI3SbtWW+WPbWRCd2k
+	 gMT+ZbnVjOkLt9dWOHuUvnZ0CLoVAtKHPueNaWCcZUA29gDzuU9Umci8lup1aVXjhoAjt
+	 VDE9aH+ng8naQAAeXy91BEZiE+xDAFuWFhpMBehORCyRLtHPdqZNn/g9qOK6Gx4MSDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JY+usgkm;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PWq878cv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522E6606B35A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D299607320A;
 	Fri, 13 Nov 2026 17:31:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JY+usgkm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA921F000C8;
-	Fri, 13 Nov 2026 17:31:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794591075;
-	bh=fax9dsDLfWgV2bx85EWAVzVfZQhzYfTnApIR7+ezcww=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JY+usgkmSJ0sLJLH9HT2wyqRGflYj1R+RXQP5D3LzHR+jL9CcljUGgCkmpaTx3moa
-	 HBDKUOmI4viDo9VqgC1+9+1Ry1uXMTgorwmLISYIV6HZ0lPlHvU8di+kpWxmH/IbQy
-	 1nuFj6FvQpSJlB8CMrPhgYyTc02FWQGXGylQrs01iTTyyOwOV4ya4t4BfN473YJtDD
-	 HcKtuWZaXuLRDbWW+c7qbTf+jy1Wd/wArGqm4uX5Y2298Q7Vv2kVmFuQQ2umv7++LG
-	 vOlLLMnNP9vJ9yrwNHLAum3yhv3JZ0rTRPtRoK3y9rOfJZ2y9p4WHTS45jARWBwrDL
-	 XmO2ZvHEio1/A==
-Date: Fri, 13 Nov 2026 17:31:11 +0000
-From: Simon Horman <horms@kernel.org>
-To: hyunjungg <hj351016@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] nfc: pn533: bounds-check the ATR_RES response before
- parsing it
-Message-ID: <20261113173111.GX18859@horms.kernel.org>
-References: <20261109110016.1511307-1-hj351016@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PWq878cv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11C381F000C5;
+	Fri, 13 Nov 2026 17:31:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794591075;
+	bh=3xLqv08IzEwqws2Xg5zzaOjtpm2uwNTdqhObkVOhrdk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PWq878cv5zw8ONXXAdTRil5MRXqzjUYZAzhdpr2ecW7xCEhh3M2YkeMFh3720gxhi
+	 PhkSb7Kbf1eM2oyR4csuhAl5DZpe9IuGeqRvWkog3Pd5kFKS3TzlijaO0FB148KtgR
+	 gdO7bbigoYa6A8/rm0Xt15yhnSBuStY43cjQ87o4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Josef Bacik <josef@toxicpanda.com>,
+	Rik van Riel <riel@surriel.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Dev Jain <dev.jain@arm.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	"Harry Yoo (Meta)" <harry@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 231/670] mm/mglru: dont use stack pointers when walking PUD and PMD tables
+Date: Fri, 13 Nov 2026 10:46:35 -0500
+Message-ID: <20261113153819.696667136@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
+References: <20261113153811.177190860@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,44 +75,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109110016.1511307-1-hj351016@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 08:00:16PM +0900, hyunjungg wrote:
-> From: Hyunjung Ko <hj351016@gmail.com>
-> 
-> pn533_poll_dep_complete(), pn533_in_dep_link_up_complete() and
-> pn533_activate_target_nfcdep() cast resp->data to the fixed ATR_RES
-> header (struct pn533_cmd_jump_dep_response / pn533_cmd_activate_response)
-> and, on a successful response, read nfcid3t[] and compute the general-
-> bytes length as resp->len - sizeof(header). A short response leaves that
-> read past the end of the skb data, an out-of-bounds read; the copied
-> nfcid3t reaches userspace via nfc_targets_found() and netlink.
-> 
-> Only the success path needs the full fixed header: a no-peer/failure
-> reply is just the status byte, and the existing failure handling (turn
-> the radio off and re-arm polling, or print the error) must keep running
-> for it. So validate resp->len >= sizeof(*rsp) after the status check, on
-> the success path, in all three handlers, before nfcid3t and the general
-> bytes are read.
-> 
-> Found by code review; not reproduced.
-> 
-> Fixes: 361f3cb7f9cf ("NFC: DEP link hook implementation for pn533")
-> Fixes: 673088fb42d0 ("NFC: pn533: Send ATR_REQ directly for active device detection")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-> ---
-> Changes in v2 (thanks to the Sashiko AI review):
->  - move the length check to the SUCCESS path (after the status check), so
->    a no-peer/timeout reply (resp->len == 1) still takes the existing
->    "turn radio off, re-arm polling" / error path instead of returning
->    -EINVAL and stalling the poll loop
->  - also guard pn533_activate_target_nfcdep(), the third ATR_RES parser
->  - add Fixes: tags for the two commits that introduced the parsing
->  - drop the inaccurate claim that the other handlers already length-check
->    resp->len (only pn533_init_target_complete() does)
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+------------------
+
+From: Josef Bacik <josef@toxicpanda.com>
+
+[ Upstream commit 65a9bf08a3e4d6e58df211ed900c16bafb79b267 ]
+
+MGLRU passes stack copies of page-table entries in walk_pud_range() and
+walk_pmd_range() when walking to the next level. These copies can become
+stale when khugepaged or MADV_DONTNEED (CONFIG_PT_RECLAIM) removes a PTE
+table concurrently.
+
+This pattern dates back to commit bd74fdaea146 ("mm: multi-gen LRU:
+support page table walks"). Likely, earlier locking masked the latent
+bug. Later changes exposed it: commit 1d65b771bc08 ("mm/khugepaged:
+retract_page_tables() without mmap or vma lock") allowed concurrent
+retraction, and commit cf4a65539c13 ("memcg-v1: no need for memcg locking
+for MGLRU") dropped the walker's outer RCU protection.
+
+The fix is simple, so just fix the original commit so we don't have to
+speculate. To fix it, pass the actual PMD/PUD pointers. This restores the
+RCU-protected lookup and validation against the live PMD. Note that the PUD
+handling is required as well to handle folded page tables correctly in all
+cases.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+[ david: handle walk_pud_range() as well, clarify+simplify description,
+         adjust Fixes: ]
+
+Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kairui Song <kasong@tencent.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-1-d6437171ecc3@kernel.org
+Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/vmscan.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index de7a50570db36..ae6325a11d42f 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3600,7 +3600,7 @@ static void walk_pmd_range(pud_t *pud, unsigned long start, unsigned long end,
+ 
+ 		walk->mm_stats[MM_NONLEAF_FOUND]++;
+ 
+-		if (!walk_pte_range(&val, addr, next, args))
++		if (!walk_pte_range(pmd + i, addr, next, args))
+ 			continue;
+ 
+ 		walk->mm_stats[MM_NONLEAF_ADDED]++;
+@@ -3636,7 +3636,7 @@ static int walk_pud_range(p4d_t *p4d, unsigned long start, unsigned long end,
+ 		if (!pud_present(val) || WARN_ON_ONCE(pud_leaf(val)))
+ 			continue;
+ 
+-		walk_pmd_range(&val, addr, next, args);
++		walk_pmd_range(pud + i, addr, next, args);
+ 
+ 		if (need_resched() || walk->batched >= MAX_LRU_BATCH) {
+ 			end = (addr | ~PUD_MASK) + 1;
+-- 
+2.53.0
+
+
 
