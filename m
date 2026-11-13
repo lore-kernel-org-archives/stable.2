@@ -1,76 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537456;
-	b=OPxDkEfg2qaxyJj5B5erZUhfOyG6I9j1xN8MJwpHEEtUwzPQmF2oiSQjFfXViMxUgI/r
-	 zWvYfWcJWPb0z1y8jeEkiWdTpwyJpJ6O+ctCkrMIJOvaXHi5vdeDv125eoIcTf7pNhEEl
-	 mg7H5VRfY7KVZjCelQNU2FvzrvwkcqlzidXJO1g6qh7VQFbipWVdEgBUN3uRl73KaCAy0
-	 /WP/r42R2B0KNu5CTMc9kSFlHKKm/6C1zCh1mjJjHmiD5uK2PWo7qkTM30GYim3ByshE6
-	 kMzCUxhWUZjZ8Wn7U+YwDwFJkZj1sleldKd76/rv3S4YcFO/Gq6T4gzADjhvlLQa2Vw==
+	t=1794537680;
+	b=oWoE1I7KLkeKDr9VzRU3R/VpSgRJ85vQg93EMzBLWa21ddy4SuKs6SDtXD7xfuhzbkcy
+	 CVEQ7g190rwY8NHCkuxGwBLjw/hF78/OLKQUq5Xo2TyoQT/g8fUSJCylHzL3dcfH0MO7X
+	 SH0KFfT/Bz7iyNQ+BDnXiOVCXHyjhG6iNEwBQzJ3JY15QWxppxYnqxNfYiD+d+amgmkpK
+	 Zb2r+dtahqTu1TJC1Aak1sAuPOLLk6LzipROFyWqpjUzLm4lgpGaMnrR1ZCxs01Z3rxKr
+	 UQOqRUFRTDZJI1hPla/xjBQefHJsEOlhZpq0qxJoy3lAMS8vTlzj2nb4ZVmOVd9Weyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537456;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=cx2rKaJbOqB/Hvn2K4CIf4NzTLrImGVIRCP3/c1MwVo=;
-	b=ew408xUPYBCwFxBUq5Z4knza5xuIG/jZMzwf11HqZF+lanPqSbXIHZPQZaKV5dgRihWg
-	 miP0/gIM97NIGyrkhC2Z17Hrolhdmb/5zB2Lcvbu8C/lwtl2BqbsBDz3ZPXIh9O2a0mHY
-	 s3+CxG7bhQ1w66ITT7zVhuqRFZMbGfElJjx15X84lxoLql4TZFmvGPKdaCapz0Z46Vk1U
-	 +qPD+6wXyQ7SiA5pYhIoKUFFo9BEFjXkgbc1NplIOUnvQo2oqibOGYxOhxYoo14FQCtE1
-	 qLs79TGrJCOEgzpR+OmsuwyMcdUX5kFfSAwgs0DcIEqijpM7j06tcJ6KJg95J3KBORQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537680;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=4tT5hFpzZAr8Rid5tP1O0Sqf7A6ODSsu5SatFU1cn9o=;
+	b=tc8Mdn2bAXt1nYkTqBwDCB/qAPfu0eQx1iIK6OnGvfEO/pYRbYH4iabod9iLc0Cyr03k
+	 JfY0COj0p3yBQ/Rx4+XTsbgXKDzv4N4gq0y7Cn83PyMiB8yQsFHl9xtMkcA14rUnd8bkL
+	 0071AbgOcdanquJhg3Ni782KnsoacyJB1+av59PwUHX9CoNzfoN/WmwoA7mhUVqdNJqKi
+	 mOUjRWcOA/NjCAzAkwE82Yy54/TtHg/FyfKFz3neCYxt5jGynLLXwPtGZbz1ZWC9/gEgJ
+	 InTKLb0q3AmeQ9HkSBnai2lFmZNQ1h6CnvtuLc95qzFmmd19/uN7HyY3X+9FPokXwpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=W1F5bGtk;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EeUaleQE;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740D5606A32A;
-	Fri, 13 Nov 2026 02:37:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 740D5606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44471606A32A
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:41:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44471606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=W1F5bGtk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794537449;
-	bh=cx2rKaJbOqB/Hvn2K4CIf4NzTLrImGVIRCP3/c1MwVo=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=W1F5bGtkMKa7dTLuyi0NRQOxTIRo03+TeCPwLYdSgkKAWD8/Hh8MC5/N+T7d4kD/m
-	 QNIB3H9KLhYKDrlvJAN0+8UyRSxolNtnNrMRZd28sGqzX7WvIog8Q5JN6iCBbqtESU
-	 ejo7+zKFWa0xOZWONeFi8+pI7Q1uDuEpd8UVK+rU=
-X-QQ-mid: zesmtpgz8t1794537433t19dda35f
-X-QQ-Originating-IP: c4AZLqPOFpr3nxvrVD2TCH/MbBycDcANaNZ/IKhuuVA=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 13 Nov 2026 10:37:11 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11128085979388629745
-EX-QQ-RecipientCnt: 14
-From: raoxu <raoxu@uniontech.com>
-To: skhan@linuxfoundation.org
-Cc: brgl@kernel.org,
-	gregkh@linuxfoundation.org,
-	i@zenithal.me,
-	ihadzic@research.bell-labs.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EeUaleQE
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-372cba0ecf9so55896eec.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:41:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794537679; x=1795142479; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4tT5hFpzZAr8Rid5tP1O0Sqf7A6ODSsu5SatFU1cn9o=;
+        b=EeUaleQEga7fpxbRgo28RXvo5vCKpzkxGoUsRH2DYUHMnsNYm7LaPG8m/oax6Di4ds
+         RaArJAMT6xGYP6qran537lNL7jTjpXuEZOXRnBMzu+f9LBGVX12PSQZ0y2cG9hSpbUKX
+         kpJT/FGZYt8tTahCaIBmLGqqKDznPoHVAB9Hi7MHW449A5sCsfYhp8Aaf9MO9RUgFQ8C
+         uJiXC0EZDteyQ7W+PkKpr3HHguEfY+rTvIio5Gcf+lSGS35rqYoh8Ns5hS9MXJW543z4
+         1I3F0rx7MmsayYhN1XicEC3dWJR+rzPwVcJ86VwVVlTZXCz0vXnTsgYY4V7BjBYvRdLL
+         L7rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794537679; x=1795142479;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4tT5hFpzZAr8Rid5tP1O0Sqf7A6ODSsu5SatFU1cn9o=;
+        b=RefvT3kmXxe1nFvw/3Lz/ewRhIbeHdby8qitC7/tEV8CNSzP6sGH6KbylajrQjGA9M
+         u1gLxcIKHxQVPaaTywKG7yZ2/WCAGrVVYVJcgZITl7wjd1CfP7D0Ft3rHDTWH/aZYADo
+         QKcJsn7TmVvV+fsQKElP+uA8rZrDvsHxuxJotsbaMNzEzTXPQZ7JQxDhduNMnCVMnkPR
+         BLOpJ+HwHWpMK/e7fSfdeptGaRPmi4mGj4yAaOsKAmLZydVBNl2aJz3PSjrGZl1JhgeH
+         TpwzvY/c3ehYexenbIFLbK3SJxd/K5Sibg77I6qdta3rZpi9Zzqcz3kJHsbBK3CNT9Ql
+         QGXw==
+X-Forwarded-Encrypted: i=1; AL+hErGfS9qySS0xSZOHoKf6pAof0Hlc2DrfE7O2KHpReCXnUJ1I8kJOf5s2yStbpOYuNaXH+s0qGGI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tJ1q9mvr8ILW+4ceftn5Lt6/zTIAk1otzt8YD9XfWygyo5q7h
+	wnJecaaGeiv+oi81BNiUyOIkkZ41RJI1kCqBvoTmYTNv6DPOSuQSVZzU
+X-Gm-Gg: AYBFou0TrZabSCh20/hiq53fvdYZwXPs2N8B8E01LXpVYR8psr4rlaPeD3BhAaPqBg2
+	rSxGPO1LKN7odhjaRrcKEiEg0qQ6XdGeMdbZ7BNZIeHLlTt/EgMOsDV0du80R2yDmdjKjzFxLfg
+	xtNx9bWQ9QDzNc3s7Yh/Gczz84QV/x5fpMa5y71Cap9bAU7Ly9zLUGSpelLUTw4//eYI+41wpL7
+	U+kCIcihva8jVYkG2fZyGsc7eosSXrnB5JN1rSpZB77kuyAZVDQ7xNAh+nV2nKffRY1qR7o35VZ
+	eQa6Y0e3wWvwyHci9koyaEPQuqsSFiTHsQAg48nCp98S8HvfWltWdGNfxwzzbMeczzt0gORCix1
+	FuuzDxAZf+huJrCPjOfVtPpCllAwyVqfmfqAFh5JsPn2nSTWpJSCRGPyiXaensmWuz0rjEraqRt
+	x2a1Ij/e1EcOf+wKdQbcGJzGDVRK5mWuqUrN1q24JFXOo1adrtaAKi0ZlN9q786iR7/4Skq9vby
+	tNHeqCErjm9ReqwyYRP/c/fCZ3i4LlPZluHl9ZrSFkyzxrbMV1VCx/3vXiYzG/BkvPyxGl/ZN0e
+	+O1pauUglZtOqY6PT8hjziPa2IlQB3LvDdUUeSTXMQ6MSSu0HQjMxGdSxUUGuZAZ9a7UyExE0CB
+	yC9xpRKzrwLytfvpzRuTZ8DiQJSDluM8CxEZB3LR61+CY41PGsHQgqidmIeMj6awId+r+zWBjEt
+	TKfP0Su1A/XQ==
+X-Received: by 2002:a05:693c:881c:10b0:36d:5fbc:8c8d with SMTP id 5a478bee46e88-379655d503emr1470847eec.2.1794537679252;
+        Thu, 12 Nov 2026 18:41:19 -0800 (PST)
+Received: from esteban.tail1178e6.ts.net ([240b:c020:623:52c6::44d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm2334704eec.22.2026.11.12.18.41.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 18:41:18 -0800 (PST)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	djrscally@gmail.com,
+	dmanresa@gmail.com,
+	dave.stevenson@raspberrypi.com,
 	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	luiz.von.dentz@intel.com,
-	pengpeng@iscas.ac.cn,
-	pmenzel@molgen.mpg.de,
-	raoxu@uniontech.com,
-	shuah@kernel.org,
-	stable@vger.kernel.org,
-	valentina.manea.m@gmail.com
-Subject: Re: [PATCH] usbip: Close all listening sockets in request workers
-Date: Fri, 13 Nov 2026 10:37:10 +0800
-Message-ID: <351AC939AD9B6359+20261113023710.1746483-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <67b2c06e-0caa-4ba1-89ee-17cb814d173c@linuxfoundation.org>
-References: <67b2c06e-0caa-4ba1-89ee-17cb814d173c@linuxfoundation.org>
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/9] media: i2c: ov7251: Use in-range PLL1 dividers for the 319.2 MHz link
+Date: Fri, 13 Nov 2026 11:40:51 +0900
+Message-ID: <20261113024059.1087031-2-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113024059.1087031-1-antoine.pichot@gmail.com>
+References: <20261113024059.1087031-1-antoine.pichot@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,107 +108,55 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: N3hocr3RRwxYAtF1eL2wfGm/DkJurmgZphWaCoCzG18cQ1ooWvXw66s3
-	WFrWHfK3+W16CB3UXSPLFD4qWVJtXaw+sy7mM6cr68ohgsUFxuNUaxiDGMvDTqQJln7Y4u9
-	KDN1x8em4P647it/9xO1NEBPt8As+9W5xch8ZQ6aY8JMZz6TXXHQYNJM5aSXO3QMR6Mbn96
-	kdDMfbtLsNKO19jL6nVR1a+bRGT0GoIHwCYjxN05QhGz1Yv3cOqwb4NQy4r7H7lJLhEBTte
-	5Uu4yVjLVObdkS/igSHUbb+jbUQtPrz/JPNy169zCjDf/7vqN24Ax7vu74JayoKn9R63plZ
-	RZPJr9HxUUznWC3el7ik3E71iPIwrBgXEQsz14G1Ni08eXk/2v69tkg/cHnTDAZSLC5AbhO
-	+yAWVINyf+KR4S8pMFwSb93HBvNn6m6CyZDOa8ihWwkyXLgZTdWvV1Lptf/Mik+1PfQd5xb
-	ZBlSEMsMZYP9lDkpD4MdddYO8Y6CCtcbRjLYu6+ah9UUfx6pCA6DZrwDvbfv8N2y3sbgn/P
-	oLyE3h2Quv7Juk/l67KJOfRKrm+3+Toi87K2mxCzCcI8PCqvFkpWSiqmiGyH4kXq2jrd+iJ
-	BopsfTPzS+8BwfFSzk3jYsFz/SrRlrgTQS5qwZXQaSNktPR4w00Xp4JdLoJ0/LtEQOjhhdP
-	+a4uEg9+DdhgbscdSzYe4FPfrueB5TiSlE4eu+SGPLxekT9BAotofPB4/712Cj4+8/s8POW
-	//Siw+VjyGmIqC4JmCvYFynr6MpXp6I2aoHDsMQR95EtpmN8+BciVfBDbzmb84AP+M7Q++n
-	830KF6C6AkAvH6aoJFrEe6p1A95RYTMpjyIp3Dsk+fAhM/LgeEOJVxqa5BhjF83Dvt7gTWg
-	Dy0CbqC96Vlzqv2IxhJKtUDSVMFCYXIkEegRZWZXtuJYsD5FOYwYYtqFo0ETeYkHErDYPJ2
-	xBilfAMD8kns/D9jn5uS7SJJDP2GtO5JkWEPQXom+3Wf0cVjQtrLpivBZQ7SSvIq2VXaL5o
-	/zjL6T6fYU9gcrf1i1L3c++Ef4QBWodJ2n4x/kMg==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
 
-Hi Shuah,
+The 19.2 MHz PLL1 table for the 319.2 MHz link frequency puts a
+pre-divider of 1 before the multiplier of 133 and a divider of 4 after
+it, so the PLL1 multiplier output (the VCO) runs at 19.2 x 133 =
+2553.6 MHz before being divided down to 638.4 MHz. The OV7750/OV7251
+datasheet (rev 2.12, table 2-11) limits it to 300 to 800 MHz.
 
-Thanks for the review.
+Use pre-divider 4 (register 0x30B4 = 0x04) and divider 1 (0x30B1 =
+0x01). The multiplier output is then 4.8 x 133 = 638.4 MHz, inside the
+range, and the MIPI clock stays 638.4 Mbps, so the link frequency does
+not change. The Windows driver programs these values for the Surface
+Book 2's Windows Hello mode.
 
-I found this while reviewing the listening socket handling across fork() in
-usbipd.c, and then reproduced the issue with the unmodified usbipd binary on
-two UOS test machines.
+On ACPI systems this table has been unreachable since it was added,
+because ov7251_check_hwcfg() selects the wrong index. The next patch
+fixes the index, so the two must go in together. With the index fix
+alone, D. Manresa's Surface Pro 7+ (IPU6) had CSI-2 errors in 7 of 10
+150-frame runs, 3 of them stalls; with this change 0 of 13. A Surface
+Book 2 (IPU3) streams clean with either table. Dave Stevenson measured
+on a 24 MHz Raspberry Pi board that the out-of-range tables miss their
+nominal frequency and proposed the same values [1]. The 24 MHz tables
+have problems of their own and are left to a separate change.
 
-Both machines have usbip 2.0+6.5.10-2 installed, with usbipd located at
-/usr/sbin/usbipd. This package contains the original listener handling.
+Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
+Cc: stable@vger.kernel.org
+Reported-by: D. Manresa <dmanresa@gmail.com>
+Closes: https://lore.kernel.org/linux-media/6ae0e944.b6db0abd.16b13d.d261@mx.google.com/
+Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/ [1]
+Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+---
+ drivers/media/i2c/ov7251.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I used separate test ports to avoid interfering with the default USB/IP
-service.
+diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+index fce6344b5120..f429de5f1f7c 100644
+--- a/drivers/media/i2c/ov7251.c
++++ b/drivers/media/i2c/ov7251.c
+@@ -174,9 +174,9 @@ static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_240_mhz = {
+ };
+ 
+ static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_319_2_mhz = {
+-	.pre_div = 0x01,
++	.pre_div = 0x04,
+ 	.mult = 0x85,
+-	.div = 0x04,
++	.div = 0x01,
+ 	.pix_div = 0x0a,
+ 	.mipi_div = 0x05,
+ };
+-- 
+2.56.0
 
-On 10.20.12.188, the reproduction steps were:
-
-1. Start usbipd as root with both IPv4 and IPv6 listeners:
-
-       sudo /usr/sbin/usbipd -d -4 -6 -t 43241
-
-2. From a client machine, establish an IPv4 TCP connection and keep it open
-   without sending a USB/IP request:
-
-       python3 -c 'import socket,time; s=socket.create_connection(("10.20.12.188",43241)); time.sleep(300)'
-
-3. Terminate only the main usbipd process with SIGTERM, leaving the worker
-   running.
-
-4. Inspect the listening sockets:
-
-       ss -lntp 'sport = :43241'
-
-5. Restart usbipd on the same port.
-
-Before the connection, usbipd had two listeners:
-
-    0.0.0.0:43241 -> parent PID 62216, fd 3
-    [::]:43241    -> parent PID 62216, fd 4
-
-After accepting the IPv4 connection, the forked worker inherited the IPv6
-listener:
-
-    [::]:43241 -> parent PID 62216, fd 4
-                 worker PID 62223, fd 4
-
-After terminating the parent, the worker continued holding that listener:
-
-    [::]:43241 -> worker PID 62223, fd 4
-
-Restarting usbipd then produced:
-
-    usbipd: info: listening on 0.0.0.0:43241
-    usbipd: error: bind: :::43241: 98 (Address already in use)
-    usbipd: debug: listening on 1 address
-
-The restarted daemon therefore had only the IPv4 listener available.
-
-I reproduced the same behavior independently on 10.20.12.199 using port
-43242:
-
-    usbipd: info: listening on 0.0.0.0:43242
-    usbipd: error: bind: :::43242: 98 (Address already in use)
-    usbipd: debug: listening on 1 address
-
-This confirms that the worker inherits the unrelated IPv6 listening socket
-and keeps it alive after the parent daemon exits.
-
-I also used a separate TCP socket/fork reproducer to compare the original and
-patched process_request() logic. The original implementation left the
-unrelated listening socket open in the worker, causing the rebind to fail
-with EADDRINUSE. With the patched logic, the listener could be rebound while
-the worker was still alive. The accepted connection remained usable and the
-parent's descriptors were unchanged.
-
-The affected usbipd source also builds successfully with:
-
-    make -C tools/usb/usbip/src usbipd
-
-These tests confirm the inherited listening socket issue and support closing
-all listening sockets in the child after fork().
-
-Thanks,
-Xu
