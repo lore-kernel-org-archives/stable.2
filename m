@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585585;
-	b=OxpsPwB1lANxxlk+fOYnhOGr3DljNAGc57WbetiF5eT6q5feAbhi/4DP7DNL/KAm4Owh
-	 1cA2Sg3UDdLw5r6IqYAZFWRwMiMsYcRGfMWQ4M+dPsR5lJx+uk1jxKoZwFsW44F0kzPwk
-	 kw2+xUMyHrVGp+c4ipteSd5mFKGhMIZlEb8y1EcWPmAmblon6RJDCjuRo6fPe5wrl0ff4
-	 IqpCqeYgp0o28nsqhDyIJs1jaD1pN53xEGNGdNVPHYeZ64aoRqNY3qMywJxZYDMYHb24K
-	 P5bbmziB2HQVRkWeQgKEgp8NiIV9lqYFXO+rVIPYhuAYowDYfQfsLk1XUcS/LBPxa2A==
+	t=1794585581;
+	b=vwhTMNz3dEpy7Y7txS/CuImURkyDsdYrj8mEkbVamBT6Wk4WRzZIsWHPrLwCuCp2A68Q
+	 0wEJep2+zKHrKSg0q22AEBaDdTSwRwhTKlsxnSCDgb/KA3g9lMs25vU83LpYKqsyPIwSz
+	 T4QjdzYc4H0E4BlEcbJmoaUK4SsAohPMMJfjbLGutLzj/bkZDg5kqPsSqFFWo4GqUguWv
+	 S6aUxt4bovjVvOZaCp9niVNKzEpGG7t1GlNZ3fRIz7eFiqoRZe/toBXqQ82jckRt+2lB0
+	 esfnh7fAD+X9RUupzcHu2YM5xEd0qt3bdTI4e9TtfEsNfTQpTb4LUM4VIkbE9cq4tQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585585;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585581;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=fZsyzlrquM/0GdIaVXK7wZNDo49R14JKRrHjL77C+uk=;
-	b=Byn8PlYDP3LgjOotflyhgXW54adJ3Py8frN/Tpy+gq0z/Zp4L0pUT+OU4K+wRG9jpgo+
-	 MGL/ZbsS6gKSe2rvXPWx2WquJXnar2UXHOScArdmjzjxX6viEi42HR6zdKyEzHttR8kTD
-	 EixTQX69CVn7UVnb0fCKFC41XEDp2nR4qxrJCuFGUPEFyN+faaoJRa8oYZ7DNwqvduIqf
-	 XbwkN14XmarsVCcNpcKaibOwAsllDru1qY2DL4dLl82OIlA8QvQObjc1OPi5WEyNl84jl
-	 ueg3744YVXSILg3tSe5JtQXSm4AmyPeCZujn/k16GoImQ6DkiEE8e9Onlo1jtsIK89A==
+	bh=9eBrws0+ZT3S41wwHdM4NcOwXnTvMR1E6WVHnZv2Oeg=;
+	b=WUATOE2AJasSKKxKDsp1sl5sGAwZjFn+GsJIf+nP0UQeSUXwYt67pwPHQ3KifkxjZudX
+	 9cFfEpK6gns+pAUDUnyJq+BT3HdfW7AcLW/jYNME71uPCWJ+LWwFSUC+AbBV3clkMtMjm
+	 WvWT/7foxB7uBwVu06bpLKe/NgUqPh+ERs6IB/ySSJoTLaKdGSZM0FK21aMgkQSDvJdP7
+	 V6SyfZDx6kQuAK1AjZNlRqYQ9IXDB/Nlg68XZ8P4OES3ybblXdQsf+TxRhjtKW35laZ7z
+	 DRxFq8ReBANJCpouskmb4d7Xhii+M3AFljojlH+AaTOVm9cDiM2fm5EHXbej2au7rnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lX9ZDA3o;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lUWB6ak6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED9A606EA91;
-	Fri, 13 Nov 2026 15:59:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D8F607021A;
+	Fri, 13 Nov 2026 15:59:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lX9ZDA3o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA0B1F000C4;
-	Fri, 13 Nov 2026 15:59:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lUWB6ak6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7341F1F000C4;
+	Fri, 13 Nov 2026 15:59:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794585585;
-	bh=fZsyzlrquM/0GdIaVXK7wZNDo49R14JKRrHjL77C+uk=;
+	s=korg; t=1794585581;
+	bh=9eBrws0+ZT3S41wwHdM4NcOwXnTvMR1E6WVHnZv2Oeg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lX9ZDA3oBd2mYMP71RT/7A+/N68WPxl83VlgckXcyJqTK8E9P5W8DejnLgyc/GNPw
-	 58FQ7RkVLd5XUCRzVsA97niPvIqVWofZ9ICBFMK0fzgkuLZtMsI8udgwzHZrQwa+uo
-	 mIiNnT2ik0CcUdTwZk0zsWmA+0jrS5Gl6dAYmwTs=
+	b=lUWB6ak60AkhkfQJxM6PCuWTTPXVmFo+LIMH4XVgKuLnntt1+zfyg5d/wqmjbkdzT
+	 e8iuTzkE/mzjFirBQbL0D9x/ZJJyxkY7g9pPxufgesRHQTQz5SvVzHaKK2DiIBUl73
+	 +Bo1STQqFrC1B9ZGL1yu3zHcPEvyS/LdTYIS2dbQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Valentin Kindschi <valentin.kindschi@fiveco.ch>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Yingjie Wang <1075151112@qq.com>,
+	Alex Henrie <alexhenrie24@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 215/507] Bluetooth: hci_sync: re-enable legacy advertising on resume
-Date: Fri, 13 Nov 2026 10:48:39 -0500
-Message-ID: <20261113153801.774967012@linuxfoundation.org>
+Subject: [PATCH 7.3 213/507] ipv6: reject wrapped temporary address preferred lifetimes
+Date: Fri, 13 Nov 2026 10:48:37 -0500
+Message-ID: <20261113153801.705595127@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
 References: <20261113153753.358973689@linuxfoundation.org>
@@ -68,91 +70,60 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+From: Yingjie Wang <1075151112@qq.com>
 
-[ Upstream commit 737139f4157d302292a6b937d96922879ecabfa3 ]
+[ Upstream commit c3e67bd82b9b9b1a5118f09a429ccefe2aab0741 ]
 
-hci_resume_advertising_sync() never re-enables advertising on a
-controller without extended advertising.
+ipv6_create_tempaddr() raises a temporary address's preferred lifetime to
+regen_advance + age + 1 when the configured lifetime is too short. The
+result is stored in a u32, while regen_advance and age are unsigned long.
+If the sum wraps or is truncated, the stored lifetime can still be less
+than or equal to regen_advance + age.
 
-It restores HCI_ADVERTISING from advertising_old_state, then calls
-hci_schedule_adv_instance_sync(), which starts with:
+addrconf_verify_rtnl() then sees the new address as due for regeneration
+and creates another one. Temporary addresses are not limited by
+max_addresses since commit 4b08a8f1bd8c ("ipv6: remove max_addresses
+check from ipv6_create_tempaddr"), so this can cause unbounded address
+growth. With dad_transmits set to -1, a baseline kernel reached 2859
+loopback addresses in two seconds.
 
-  if (hci_dev_test_flag(hdev, HCI_ADVERTISING) && !ext_adv_capable(hdev))
-          return -EPERM;
+After storing the adjusted lifetime, verify that it is still greater than
+regen_advance + age. Reject the new address if the check fails.
 
-The flag it tests was set a few lines earlier by the resume itself, so
-the call returns -EPERM without sending anything. The return value is
-discarded by every caller, so the failure is silent: advertising_paused
-is cleared, HCI_ADVERTISING is set, and the controller is not
-advertising.
+On an x86-64 KASAN kernel, the normal configuration created three IPv6
+addresses. The negative dad_transmits, positive multiplication overflow,
+and large retransmission-time cases each left only the loopback and public
+addresses. An i386 defconfig and an x86-64 allmodconfig both built
+addrconf.o with W=1.
 
-Observed on a BCM43455 (no extended advertising) after an active scan:
-btmon shows the pause disabling advertising and no re-enable in the ten
-seconds that follow, the device does not appear in another controller's
-scan, and btmgmt info still reports "advertising" in current settings.
-
-Enable instance 0x00 directly in that case, the way reenable_adv_sync()
-already does for the same situation. Instances continue to go through
-hci_schedule_adv_instance_sync() so the software rotation loop is
-rearmed.
-
-This affects every caller of hci_resume_advertising_sync(), not only the
-scan path: address resolution changes, accept list updates, discovery
-stop, suspend/resume and the end of an LE connection attempt all leave
-advertising disabled on such a controller today.
-
-The resume does nothing when the controller is already advertising, as
-it is after directed advertising was started for a peripheral
-connection, so it does not replace that advertising.
-
-err is initialised because the extended branch leaves it unset when
-adv_instances is empty and HCI_LE_ADV_0 is clear.
-
-Fixes: ad383c2c65a5 ("Bluetooth: hci_sync: Enable advertising when LL privacy is enabled")
+Fixes: f4bcbf360ac8 ("net: ipv6/addrconf: clamp preferred_lft to the minimum required")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5.5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://lore.kernel.org/netdev/20261029175827.GA1411453@shredder/
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Alex Henrie <alexhenrie24@gmail.com>
+Link: https://patch.msgid.link/tencent_7A270291DDE5CD89DAFFE8A745D094D5BD06@qq.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/hci_sync.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ net/ipv6/addrconf.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index a92a81846e9df..4468c1d0b5e58 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -2687,7 +2687,7 @@ static int hci_pause_advertising_sync(struct hci_dev *hdev)
- static int hci_resume_advertising_sync(struct hci_dev *hdev)
- {
- 	struct adv_info *adv, *tmp;
--	int err;
-+	int err = 0;
- 
- 	/* If advertising has not been paused there is nothing  to do. */
- 	if (!hdev->advertising_paused)
-@@ -2720,13 +2720,19 @@ static int hci_resume_advertising_sync(struct hci_dev *hdev)
- 		 */
- 		if (hci_dev_test_and_clear_flag(hdev, HCI_LE_ADV_0))
- 			err = hci_enable_ext_advertising_sync(hdev, 0x00);
--	} else {
-+	} else if (hdev->cur_adv_instance) {
- 		/* Schedule for most recent instance to be restarted and begin
- 		 * the software rotation loop
- 		 */
- 		err = hci_schedule_adv_instance_sync(hdev,
- 						     hdev->cur_adv_instance,
- 						     true);
-+	} else if (hci_dev_test_flag(hdev, HCI_ADVERTISING) &&
-+		   !hci_dev_test_flag(hdev, HCI_LE_ADV)) {
-+		/* hci_schedule_adv_instance_sync() rejects instance 0x00 while
-+		 * HCI_ADVERTISING is set, so enable it directly.
-+		 */
-+		err = hci_start_adv_sync(hdev, 0x00);
- 	}
- 
- 	hdev->advertising_paused = false;
+diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+index a2d3fb187f768..3350330c3f1c2 100644
+--- a/net/ipv6/addrconf.c
++++ b/net/ipv6/addrconf.c
+@@ -1484,7 +1484,8 @@ static int ipv6_create_tempaddr(struct inet6_ifaddr *ifp, bool block)
+ 	age = (now - tmp_tstamp + ADDRCONF_TIMER_FUZZ_MINUS) / HZ;
+ 	if (cfg.preferred_lft <= regen_advance + age) {
+ 		cfg.preferred_lft = regen_advance + age + 1;
+-		if (cfg.preferred_lft > cfg.valid_lft ||
++		if (cfg.preferred_lft <= regen_advance + age ||
++		    cfg.preferred_lft > cfg.valid_lft ||
+ 		    cfg.preferred_lft > if_public_preferred_lft) {
+ 			in6_ifa_put(ifp);
+ 			in6_dev_put(idev);
 -- 
 2.53.0
 
