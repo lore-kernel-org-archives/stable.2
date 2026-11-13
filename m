@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794583549;
-	b=GvMVfwgdPviv4Fdb0Lose7fzmvmSnrcVGuhHh6aOGcBi9KUHiRTBTutM9u6AYB/UiTHe
-	 r9Jz7F+xZV1QOqW6P242rDNe/eiDOCuE23qtNYaeipbbDNsdUKfkyjyKc8x4V2euEq/pz
-	 qv9DBLLj5wPXOxQkOmikiY6l6n0zHs6DqRPrzoB/j9M2HLkihFGnsMWKaiUG4EzHI+7C1
-	 0egx/jpXOGsqHfeqwq2e0Aom/s2iFMTgsZJWhFR+4ckQlNSZbdKKa9X4J+Trn082wx2Ly
-	 tkZhlna05WiJnW95NPIeRJgYD2kvfDuF86o+FLDekIC+Dl9RLhAhBwHEBEcWGp2wHMg==
+	t=1794583551;
+	b=wVnZrjuIp8TCTUHgLgIdBGw93hWnibpnwNxlQ7Hjwyieu3dgpmXukJMVUJfoPRbBVLdB
+	 RIkQDJyV0VgTysp63cpiJlvegXmM39mNnMss0V+YDOMZkuC+a2eji8ukuRo7Q+hxdpUL6
+	 F2AVxSjdRV8fPzdm87b3bGUE4IrooUPdvP5cRcWZK1Oom2NX691oPkHDUh+teLRXpfZot
+	 Nnc+e6ND7zPasY9Lkc+xZ6MTAXybmitEG4YA/GNvKT0y/i3rTPVbHkhn1Gq4nVQsvIqPn
+	 VdPMiHbNMU12GOPHTcVS7BFpVfNhejJDXQtubQ9Q/CTVVJUbH7Rlzi6fsGNyWfSpKGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794583549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583551;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qRIxeRytAu34kev7BEdewjgF9J+Sg2Q/K++0oVSYnUw=;
-	b=GrD4DKd6sSgaFFHst43yehEqf4Lve8n4yV74KzVUed3DFNFFrreViWgrlCeKpX+102e/
-	 /AjyVXIESIzVFqYy0b/fb+105XyCG5uHLGjDgHxdltppfsGcOyNepVTMHntetc+uL8NNy
-	 TGmjegrT6pPOujbbTWzXxKifA2X+8NSb02Wuir63RtWDCLZhRwDUz7Ag8f+N+zJ5Veb9J
-	 CYxl6y0J0XJHDPnIe15U9X0WFo4+3LVfCeucA5o0QOUIu+dqfx4FJHMkZKJaR3LVq01JN
-	 qbDWnRmN8rfXDEyfk76hOcNY5Je6PDOc6lpyRPyqWp7yM14yOmQpy3ge+kIU1nrWKOw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9UIr1+rbk5AXUriZ3QKv6PFT6niCB7NdnKw1bTZBNPY=;
+	b=wsOOmFUGqw7AlaGDRVWvn0lun55YctONNR7mYBhThWil6OQxAz7s28HrKUXxcodbJ4Gd
+	 U7V2GVvhCVV6aqDTjoP+QHrW2vJtzHnzmzCG5H7D+vFEK4zr9VBRjJaYRj6Dm4pEs41C7
+	 bQ3UR8+DaLllK505Ny1zvHMPIx52JFZWgluZwKVVTDZrN+0+UNVhwYziQVrMH/N0rIQ4Z
+	 Ua8UREjiAqIU/ffWCToteX3XJH/ragVl5uCO3cMTQFivUxutNPFanLwQ1/dvJpeFpIDj7
+	 rwxv787egVrI0Wh2asHrhzYjbJPG3ZaFHqaMTlyxqdtlFwUlTAsZSZPMp9kPl0mldVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+zlLFAO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYr0OmAK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68EB606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555B2606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:25:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+zlLFAO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21BD1F000C4;
-	Fri, 13 Nov 2026 15:25:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYr0OmAK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 564921F000C5;
+	Fri, 13 Nov 2026 15:25:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794583549;
-	bh=qRIxeRytAu34kev7BEdewjgF9J+Sg2Q/K++0oVSYnUw=;
+	s=k20260515; t=1794583550;
+	bh=9UIr1+rbk5AXUriZ3QKv6PFT6niCB7NdnKw1bTZBNPY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V+zlLFAOciIv16G4hJzCWoeiR3Ikd7aEJzoVC4wwMWyBKa8zx6RHYRs52eYWRWpE3
-	 rCBZdPFWacqpCUoPvtfYgT4Ho5Rs0ww+2X0eSqg8rOVKXQm3kB4pvnlkNkX0FRL8yi
-	 glL4SEYELjcwPTgKhfWcLPz0G2PHYwVbXmZDSWJrvvohk1+J6k8OteeQC0E6roIC9T
-	 Rn9cHpCLUbV3PZGHUF8WlAkMarj9aasQSNjygVDq/25hwipX56QZH7bOzSy2ufjC6o
-	 tw95magSbVwW3844wxk48vbrf9wTAelSynnhcWZTJukCn5wNzGni8c0kgE+reu0Fs6
-	 ZvnCHFoDDwusw==
+	b=FYr0OmAK9QuksJGiMRqN0KeX3Mnmyx5IDHg5R05WkjmLN0s0FB7a32QJJfqtRSqrT
+	 hQjabDKU95YZycOHfQPXypMACcDALQvOOHDi9a2RBHUJ1fbFPvlUGe+udAestxxjY3
+	 lS//s49t1abwRIXUJXfoyw464j4IganPjYk5hqlpTfeubKV8DmgkVKfZ9d0mLIzewN
+	 DivsagSkuloZeq9Gq2ylSfWlKyRy9ixB/Y7ukBKf1boQmkSLK563yc28P6cBQCQ4G/
+	 xqWDH4xMIUUlzxlOq9z9vQVxrd8Ib1Yfd7xxdHpwABvHaHy0vNKu/CFPEfSF/FgL2o
+	 /EglecmaK8IMw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Harry Yoo (Meta)" <harry@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Sashiko <sashiko-bot@kernel.org>,
+	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/vma: don't leak the charge for stack growth
-Date: Fri, 13 Nov 2026 10:25:47 -0500
-Message-ID: <20261113150909.1841558-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] hwmon: (coretemp) Fix 32-bit jiffies wraparound in show_temp()
+Date: Fri, 13 Nov 2026 10:25:49 -0500
+Message-ID: <20261113150908.1843141-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200520-failed-6.18-b1ee87802111@kernel.org>
-References: <20261109200520-failed-6.18-b1ee87802111@kernel.org>
+In-Reply-To: <20261109200728-failed-6.12-9a6aa085c94c@kernel.org>
+References: <20261109200728-failed-6.12-9a6aa085c94c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,50 +61,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit b1ee87802111156e27557e82acc31fa7dfc76e2a ]
+[ Upstream commit 9a6aa085c94c7f2817c4d50a7264e6fb51286f40 ]
 
-acct_stack_growth() charges stack expansion even without VM_ACCOUNT.
-This can happen for read-only or MAP_NORESERVE mappings created with
-MAP_GROWSDOWN. Unmapping these VMAs does not release the charge, leaking
-Committed_AS.
+show_temp() rate-limits MSR reads by storing tdata->last_updated as an
+unsigned long and comparing it against jiffies using
+time_after(jiffies, tdata->last_updated + HZ).
 
-Only check and charge growth for VM_ACCOUNT VMAs, matching mremap().
-Unaccounted growth skips the overcommit check while remaining subject
-to the other stack-growth limits.
+time_after() relies on signed long subtraction, which only produces the
+expected result while the two timestamps are within LONG_MAX jiffies of
+each other. On 32-bit kernels, if tempX_input is not read for more than
+LONG_MAX jiffies (~24.85 days at HZ=1000), the signed difference flips
+sign and time_after() evaluates to false. Because tdata->last_updated is
+only refreshed when time_after() succeeds, subsequent reads remain
+blocked from refreshing for another ~24.85 days until jiffies wraps
+past tdata->last_updated + HZ again, returning either a stale cached
+temperature or -ENODATA if the sensor had never been read since
+initialization.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Store tdata->last_updated as a u64 and use get_jiffies_64() with
+time_after64(), which does not wrap in any practical uptime.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: bebe467823c0 ("hwmon: New coretemp driver")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-44-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Replaced vma_test() using VMA_ACCOUNT_BIT with the equivalent vma->vm_flags & VM_ACCOUNT check. ]
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: Adjusted show_temp() context to retain rdmsr_on_cpu() and the TjMax read before the refresh condition. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/vma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/hwmon/coretemp.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 0d4f344956642..1f062fa5fe742 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -3068,7 +3068,8 @@ static int acct_stack_growth(struct vm_area_struct *vma,
- 	 * Overcommit..  This must be the final test, as it will
- 	 * update security statistics.
- 	 */
--	if (security_vm_enough_memory_mm(mm, grow))
-+	if ((vma->vm_flags & VM_ACCOUNT) &&
-+	    security_vm_enough_memory_mm(mm, grow))
- 		return -ENOMEM;
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index cc81b849c09ef..8e55ada186b1c 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -77,7 +77,7 @@ struct temp_data {
+ 	int temp;
+ 	bool temp_valid;
+ 	int tjmax;
+-	unsigned long last_updated;
++	u64 last_updated;
+ 	unsigned int cpu;
+ 	int index;
+ 	u32 cpu_core_id;
+@@ -407,7 +407,7 @@ static ssize_t show_temp(struct device *dev,
  
- 	return 0;
+ 	tjmax = get_tjmax(tdata, dev);
+ 	/* Check whether the time interval has elapsed */
+-	if (time_after(jiffies, tdata->last_updated + HZ)) {
++	if (time_after64(get_jiffies_64(), tdata->last_updated + HZ)) {
+ 		rdmsr_on_cpu(tdata->cpu, tdata->status_reg, &eax, &edx);
+ 		/*
+ 		 * Bit 31 indicates whether the reading is valid. Some CPUs
+@@ -416,7 +416,7 @@ static ssize_t show_temp(struct device *dev,
+ 		 */
+ 		tdata->temp_valid = (eax >> 31) & 1;
+ 		tdata->temp = tjmax - ((eax >> 16) & 0xff) * 1000;
+-		tdata->last_updated = jiffies;
++		tdata->last_updated = get_jiffies_64();
+ 	}
+ 
+ 	valid = tdata->temp_valid;
+@@ -526,11 +526,8 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
+ 	tdata->cpu = cpu;
+ 	tdata->cpu_core_id = topology_core_id(cpu);
+ 	tdata->attr_size = MAX_CORE_ATTRS;
+-	/*
+-	 * A zero timestamp does not look stale on 32-bit, where jiffies
+-	 * starts just short of wrapping. Backdate it instead.
+-	 */
+-	tdata->last_updated = jiffies - HZ - 1;
++	/* Backdate to force a refresh on the first read */
++	tdata->last_updated = get_jiffies_64() - HZ - 1;
+ 	mutex_init(&tdata->update_lock);
+ 	return tdata;
+ }
 -- 
 2.53.0
 
