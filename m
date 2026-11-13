@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559500;
-	b=Grm2M9R7XY6QtssXs6T/ruevumDSpNUH1oNulr7gZB7b2myz1jfTBoOsKRoA/4bKOrPM
-	 S3Xzh/HryTdZzFUoTUIL2oFyavYudFiMwkKjn6VSKrywaCp+OikC/PS6MOTwi4ypNNJLF
-	 6KUg0bHSgAS9DUfCg1JNgoWhG2V+3vanBbsY0K+0QFarrEku2jcDwyJOk1o69VGCgX2kL
-	 vAsPmImrIcoxCiCBF96TUTm6xEJxeKyltM8Q1bJyJaKYKhAsHxjKlUdkP2nBX2lrmUT+s
-	 80RyceHQdiUOgXC4u4EVQdUbRPmMRVRLIwT58+fF48K9PfU6MhngebQwSv8yKyMdajQ==
+	t=1794559562;
+	b=cleYV9/mHgaTcxI0p5qfL86aat6/5srRbihZ+IJ16ITwZueBDuUBMZYMB5YY7XneAsqZ
+	 uRNW9C5yHHoXTIEIBwYfUZt6TAJC16TL21ad2zuHjVeIRLNbxmTlkm8iNNm0laaI6Fn7W
+	 7+6E/P6LaU6Bh70icTwBMQed/mBQibJWEC/yVshPuVgdmDM40mu14i2+AWy2stYCsp7YR
+	 QBCpQ8LBJTsBZR8DniOhUdgdm8TLqF6LpCIGjJlOp8JgJO3bH3FKWe2umd3dz+YyJADT5
+	 Qq/vjH6MDfbE6P+KuKgD6Y+A2NSwPNB/idu4ZzbW2YyNGpanAMHeMk9mjIQj+W9pMQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559500;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ILcS6bN6z3SIzwRf1ayUd7W9PQmsIX6xKOxhAQ3Yemo=;
-	b=S/ZI9bj63D7IU8clkb8yfjAGbqfqMpfsUzYzEtJj64uplL+g+akNGGIrcjKqPToGriwH
-	 Qg925vS2UeKyFAXXd6KrpPDQ+iN5utMHFOD1eQBxLQCv79CD5/RfsMXG7RndcpFW+p/Bb
-	 wGM6yllY69fLXmP+hxAAwUEbkDOsHmVCkg8TF2TURBdzo0oywdwB4qubxRlIm0byOGrEd
-	 433FsOZAjXD4lZAjcG0X4zyf7WdvESMAbjtl7/tZKTkMGtsOfDEYef3DYhDfXgLAR+kwA
-	 4XtQHnv0B+WhwHBr0rCkj1VypTjcTbevsy8VwP6StupGAaP5ufpLJU8+YeaYwxhsTFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559562;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=+uM+ZJu79iI/GTnBz7rZQfjffm0TQRskgZytweI8nI8=;
+	b=qNqIWZ9F/9TI6phxqeIqljIonjY/t1XVzvSvjFwAl54SQNsaArUHuNqBXrGcp59oQ4CO
+	 /hgYdcPs2CK0yAykawe82t9RxoLch/vg+QTOpchwBZNGYhbQkFAi7bUlSn95X+WJr1aQe
+	 nBrp6YRO1DOd//Ki+spZP71dn/7GW2kE46lweEIkxaq+khBnRUfQJxnWp1iRqyJ7huopG
+	 U9t6bW2zyF+Fe7CEB7nJ7cRC/06RC6gVgjd1ChEteBRjV9TKpDMEafASuSSRa/p2Jwull
+	 YeZfnPQRKUU6qjwaDdq4rLgLECS87YksE4jS6zHGPOGNoCj9hxI3zNBybanEcty8uvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCkAmQpP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KW1FINwp;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2340860A5BC3;
-	Fri, 13 Nov 2026 08:44:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD941606A321;
+	Fri, 13 Nov 2026 08:46:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD941606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCkAmQpP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8B81F00929;
-	Fri, 13 Nov 2026 08:44:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794559499;
-	bh=ILcS6bN6z3SIzwRf1ayUd7W9PQmsIX6xKOxhAQ3Yemo=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=DCkAmQpPKuaaOBoo8rnCvE3d8lHoXC7DHM4MAf1MsKG2Wxk64DB3VQGd57oIWsIRP
-	 YGVC5qwfSIopx7rgs65XHLSvQdviFfAQu2xHxujiIaD8qOheSDazbZFbIaBWnucf2y
-	 681ekR26P7PZTpYvu7y4U5jODksJP5W2I/6uteAI9A8lqe4OFXBsPf45fijgtUmiJq
-	 WbV0eT1J8p5CILJJHuch/Mj4Ta1khZyC76Xfp8689eybzFxoEYy20L83gpSUF1bzNF
-	 SqjCegxaJDH1wWhm3cqsQ9DPi1sbnzjhibHa5ZmIZBoWOaJHu5XoaeIqV2ydaspWaU
-	 xabzSAlQpZv9w==
-Message-ID: <717863c4-4654-493d-821e-a7bdda0a3453@kernel.org>
-Date: Fri, 13 Nov 2026 09:44:55 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KW1FINwp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=+uM+ZJu79iI/GTnBz7rZQfjffm0TQRskgZytweI8nI8=;
+	b=KW1FINwpzed/XI8006sAlC6zQtBeRL+G16OYeQQfHbd39a6W1zJ8hIJ2/szfh3
+	wKryEDG1T9LmSJMBXWzAff09xS8mPPA8vxOkVzBImS6Gu//DhOzzvqhDipeZq8RZ
+	rMWOgZybUytPUjZsDjwrRjvTtgStR1WZhTOZ4Z2sxnkT8=
+Message-ID: <6e7fd20e-918a-49cd-9634-78fc01249825@163.com>
+Date: Fri, 13 Nov 2026 16:45:25 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,100 +52,77 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
- when the last user is gone
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>,
- Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
- <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
- <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
- <17cb2a11-9c9d-43c9-889e-8581522c7a74@collabora.com>
-Content-Language: en-US, nl
-In-Reply-To: <17cb2a11-9c9d-43c9-889e-8581522c7a74@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 1/2] exfat: fix iomap mapping when writeback races with
+ truncate
+To: Youling Tang <youling.tang@linux.dev>, Namjae Jeon
+ <linkinjeon@kernel.org>, Sungjong Seo <sj1557.seo@samsung.com>
+Cc: Yuezhang Mo <yuezhang.mo@sony.com>, exfat@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Youling Tang <tangyouling@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20261113080658.2440516-1-youling.tang@linux.dev>
+ <20261113080658.2440516-2-youling.tang@linux.dev>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <20261113080658.2440516-2-youling.tang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3v74lzvZqbKqMGw--.46913S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KFWfAFykZFyxCFWkZw43ZFb_yoW8CFW8pr
+	Z8K3WrKF43Xa47uF4rWrs8Zw1Fv3Z7KF1UXw4F93y5u34DtF1SkF9F9Fy5u3W3Jw4kCF40
+	qFZ5Kr17WwnrCFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Us18PUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+AYVsmr2ziZguAAA31
 
-On 04/11/2026 15:18, Dmitry Osipenko wrote:
-> On 10/16/26 14:06, Sascha Hauer wrote:
->> Hi Dmitry,
->>
->> On 2026-10-07 14:20, Dmitry Osipenko wrote:
->>> On 10/5/26 16:28, Sascha Hauer wrote:
->>>> @@ -2792,16 +2807,13 @@ static void hdmirx_remove(struct platform_device *pdev)
->>>>   	hdmirx_disable_irq(dev);
->>>>   
->>>>   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
->>>> -	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
->>>>   	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
->>>>   
->>>> -	/* touched by hdmirx_disable()->hdmirx_plugout() */
->>>> -	hdmirx_dev->rgb_range = NULL;
->>>> -	hdmirx_dev->content_type = NULL;
->>>> -
->>>>   	hdmirx_disable(dev);
->>>>   
->>>>   	reset_control_bulk_assert(HDMIRX_NUM_RST, hdmirx_dev->resets);
->>>> +
->>>> +	v4l2_device_put(&hdmirx_dev->v4l2_dev);
->>>>   }
->>>
->>> This is uncommon v4l driver removal pattern, I suspect it's either not
->>> correct or needs to be fixed in the core code.
->>
->> The pattern looks uncommon because many drivers in the tree are affected
->> by the same issue ;)
->>
->> Just like many other drivers the hdmirx embeds a struct v4l2_device in
->> its private data struct which is allocated with devm_*, thus freed
->> during driver removal. With an opened file descriptor the video_device
->> outlives the driver removal, and v4l2_release(), called on
->> the last file descriptors close then references the already freed memory
->> via vdev->v4l2_dev
->>
->> This is a long standing problem. See [1] for example for an attempt to
->> fix it in the core. It seems consencsus at that time was that it must be
->> fixed in the drivers which is what this patch does for the hdmirx.
->>
->> [1] https://lore.kernel.org/all/20240610100530.1107771-1-sakari.ailus@linux.intel.com/
->>
->>>
->>> What is the user-visible or sanitizer-visible problem? How to reproduce it?
->>
->> It can be reproduced with Kasan on affected drivers, below on the hdmirx
->> driver, but it should be reproducible like this on hantro and others as
->> well.
->> ...
-> Thanks, the patches are good to me (tested on 5b with no problems found) 
-> apart from this one that feels like it's not a proper solution.
+On 11/13/26 4:06 PM, Youling Tang wrote:
+> From: Youling Tang <tangyouling@kylinos.cn>
 > 
-> Will be good to have input from the v4l core maintainers, or have this 
-> fix made separately from the series to not hold rest of the patches.
+> __exfat_iomap_begin() reads i_size twice: once to detect a range that
+> starts beyond EOF, and once to clamp the mapping to EOF.  A concurrent
+> truncate can shrink i_size between the two reads, so the clamp can
+> produce a negative length.  The unsigned cluster index subtraction then
+> underflows, making exfat_map_cluster() believe it has to allocate a huge
+> number of clusters and report a hole.
 > 
+> Fix this by reading i_size once for both the EOF check and the
+> block-aligned clamp.
+> 
+> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Youling Tang <tangyouling@kylinos.cn>
 
-There are two possible options a driver can use: if the driver has just a single
-video device that it registers, then it can use the release callback of the
-video_device to do the cleanup. If there are multiple video_device structs, then
-the release callback of v4l2_device can be used.
+Looks good to me:
 
-Using the release callback of v4l2_device is the more generic option, so this
-is fine.
+Reviewed-by: Chi Zhiling <chizhiling@kylinos.cn>
 
-Many older v4l2 drivers do this wrong, mostly due to a poor understanding of
-how this worked among media developers at the time.
+> ---
+>   fs/exfat/iomap.c | 9 +++++----
+>   1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
+> index 4e6f3ed9dcc8..11823591b3a8 100644
+> --- a/fs/exfat/iomap.c
+> +++ b/fs/exfat/iomap.c
+> @@ -51,8 +51,10 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>   	bool balloc = false;
+>   
+>   	if (!may_alloc) {
+> +		loff_t isize = i_size_read(inode);
+> +
+>   		/* Completely beyond EOF. Treat as hole */
+> -		if (i_size_read(inode) <= offset) {
+> +		if (offset >= isize) {
+>   			iomap->type = IOMAP_HOLE;
+>   			iomap->addr = IOMAP_NULL_ADDR;
+>   			iomap->offset = offset;
+> @@ -61,9 +63,8 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>   		}
+>   
+>   		/* Clamp length if the requested range goes beyond i_size */
+> -		if (offset + length > i_size_read(inode))
+> -			length = round_up(i_size_read(inode),
+> -					  i_blocksize(inode)) - offset;
+> +		if (offset + length > isize)
+> +			length = round_up(isize, i_blocksize(inode)) - offset;
+>   	}
+>   
+>   	num_clusters = exfat_bytes_to_cluster_round_up(sbi,
 
-In any case, I'll take this patch. It's good.
-
-Regards,
-
-	Hans
