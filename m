@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604593;
-	b=KkPzc6fB/NGzEu9jxdYWYON84q0CLHpXJVJLWWbvA893d1bYqC6AC0dfeGyUGieR97Cu
-	 bzqlXUPSiF2+b8UojYDC4qi23Q3Y6AKFrS7PR+RHbs41WSigFD98q/aWVWvXOE9rRoZvd
-	 O83mB/kyNMjfl//DslcausSGf9w/RMXixnxI24phc5OE7rgs+4sCvRXL43HfNs18DN64X
-	 sLA4AKrv9M3PVv6UL4nYsrufOYQPfbg37NhAN587uDiQjnT7uH6Ipkwkq2jYr6DbQ1rg+
-	 hnXS7DCuMYD7WckLLyT74jjhsRMkyG5bpZmBvW7yRXC9rHZ17zl+JyhTopZoz0Fv55A==
+	t=1794604687;
+	b=DNBjqxR6kan9tOj1bI1QXUpCVe7x24q+zHj6qqk/H/x+IyfWEzwrftAvW5NAco6zaFKA
+	 ZD/Q5ss3HCX4TUQ27HmK8rpTsb6JkSxfHxyEiMO+fQfgC5H8rs9CzrzYmkQcHQRLGmmhy
+	 FwkH9hVDGXWDS/1/qjLw3WkH40J7GqXRaEEJ1VqSCbPFvySvkDxElK92wd3hiCVvTKTzz
+	 rUDURGUCoqOfltLmj9fOuhZKfu2Zp1dUheyrhlCn9fotA7S5Hrscz6DLUQVvE9tCr+xCc
+	 Hon7v70OkihSTD4W7PfrmFYi0gI7Q/Yjf+lH+EmN0JYx7fGmab3PHL8lMXA6Pxx10xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604593;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=90W9Qr//iASsQNAQQnw1/5fC4nTcdf0BN6PdDoZSMcA=;
-	b=qIllbcM/ielOqBTaSrjCQ8em2O3TnXHTD+qHaCGkDBF7lo/PMu31LIYh9ZBCCM2uNUQz
-	 6z8IC60jnZIE+MhJou/SOXISKOusOe86A8u0pIFpzTIkwBbKyhpQQ4pXx6pa1A9NPNmkC
-	 xn1NM0zBPVSJ+K5COZ9hwO+Z4itaRrOglu6y0aVw2Q+9knpX1Zskh7nEFWym7ebiYb/aP
-	 fm14QRxARxmGVCPajDN0ZF3OsEIvqXsYWLQg0/H0ladtYfmGQtkicZTskA+I08DcfNgkG
-	 2gLqhsQ0hmSWmW4/Gr1+ftW3SjVT7+cFTjVtarS524qe9pP5qEMpiIT9hPLTVg/ww+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604687;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TI669XTmYP7FbcAC88TL2XD6yh6R2SK28TzCrSk5RdA=;
+	b=S0XF7g1YBV0z3bEV1xVYLD5QKLvp2KcfIGrD+cz63j3wWRbZKqWqQbAIV1ogW0JJJPfs
+	 A1iPJcrALvAuV5K9+dZZfOdGBPYTgoUyHI83bawh1nCt2fg7jpVmQfhHFvgxAE3Tjz6Dy
+	 ai6VNw5rnMTiXddi59OdXtPQO1pOJg5RedGVtGMf2D6CrIyxZZ/u8EvRXD0YBnlUG4utT
+	 NhB5iiBgKBv9g1u8eXUu1hMlI6q4Ap1KMxwH0dp/uBjxyJDh4TGbR6azFnEdJq8r/vXtc
+	 laiKHlPsrT+LtxddvrGRM62XkmjciDjm0hlgsGANLWtzqLPpf/bqnQ+hfFIx02C55BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bRYwbQxt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CA5BO0L8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3242606A338
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:16:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F52606A32E;
+	Fri, 13 Nov 2026 21:18:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bRYwbQxt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 730531F000C5;
-	Fri, 13 Nov 2026 21:16:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CA5BO0L8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0BE1F000C6;
+	Fri, 13 Nov 2026 21:18:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794604593;
-	bh=90W9Qr//iASsQNAQQnw1/5fC4nTcdf0BN6PdDoZSMcA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bRYwbQxtK52ovklHmZymXmOExKnIZiUsoJ/Pdj+b9j3z0pPwgSAIZQiIPz8uBm5wS
-	 zylxudc5tlPPeocF+fc5XW2DsxJIGP+d/DiaTX40MaZLtt9JUZeOi5JqBMJnrSnCY6
-	 Ncnn7Tj3lmD4snS9ZHu+wn8oKXtQY/ZxkgcU9QXsy/kStnJeiPwYFgw3+bFaniVSj5
-	 mVgBA6ifvAdSE5/GjQjX/b/8DwiekWOCGXxLsc9OghzmS6uFzPBcsuuJ+hO7QTusZL
-	 17gi8NpRPHgYXSl40MIG6tZopKrsnnS8NqVZHiN8JifXnBlnnH3U+ft/UgAU5Qpda6
-	 25yz3FdNX6O2g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
-	Francis Perron <francis@akrites.dev>,
-	AutonomousCodeSecurity@microsoft.com,
-	John Johansen <john.johansen@canonical.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] apparmor: fix query_data() output overlapping the lookup key
-Date: Fri, 13 Nov 2026 16:16:31 -0500
-Message-ID: <20261113211613.2682472-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055644-failed-6.1-d30844001360@kernel.org>
-References: <20261107055644-failed-6.1-d30844001360@kernel.org>
+	s=k20260515; t=1794604686;
+	bh=TI669XTmYP7FbcAC88TL2XD6yh6R2SK28TzCrSk5RdA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CA5BO0L8AuZJgiguVAwnoShvwd2dDWCM4Smhq2jprJ2ZQf5ZGyzU1ewh/5Tjb3q20
+	 k7IOtFLsKXE8IlRHoj4LB4HODq8+Efee2OEhZqxBuwMRE+WiCzgQLybkuj40BM9lGN
+	 s3VzfvS2uSEeJtJBTYzVyo1aO62ZeMQcdDPTLif83E70x/itvgTwF1+1xb2zRrQ3yp
+	 lFgi7F7pfcEQ2nmkmQGI3D/H1hyiBstL2qqGOHA0x81fDfKHIZoP+9m992+RV3fNNW
+	 lmuaN0sBGsx6+IhqPPixS9D+q32mVi6H7fuQNvRe1t4ECiLW0saKF17LcPvwIcUAkF
+	 N0RCQRFabjEHw==
+Date: Fri, 13 Nov 2026 21:18:00 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/madvise: zap markers from guard regions
+Message-ID: <avd8-uVPf6BSqwEQ@gremlin>
+References: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
+ <f8b0f20d-90dd-496d-97e9-9a232124e3e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,112 +61,168 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f8b0f20d-90dd-496d-97e9-9a232124e3e0@kernel.org>
 
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+On Fri, Nov 13, 2026 at 10:10:49PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/13/26 22:04, Lorenzo Stoakes (ARM) wrote:
+> > In order to establish guard regions, guard markers are installed in the
+> > page tables of a mapped VMA.
+> >
+> > However, problems arise when one tries to combine this with registering a
+> > VMA for userfaultfd, as such operations may themselves need to install page
+> > table markers such as uffd-wp.
+> >
+> > When the installation is attempted the guard marker prevents these markers
+> > being applied, which can lead to unexpected results (especially if the
+> > guard regions are later removed.)
+> >
+> > This is especially problematic because guard region installation causes the
+> > regions to be zapped first, meaning that the removal of userfaultfd-tracked
+> > ranges will not be logged in this case.
+> >
+> > Additionally, the uffd-wp page table marker will be propagated regardless
+> > for file-backed mappings as the zap being performed does not clear these
+> > markers.
+> >
+> > This is problematic, as it can cause repeated failure to install guard
+> > markers resulting in an infinite loop.
+> >
+> > Therefore, update guard region installation to invoke the zap with the
+> > ZAP_FLAG_DROP_MARKER flag applied.
+> >
+> > Both before and after this change, uffd remove events will not trigger on
+> > guard region installation, nor will write protect state be propagated after
+> > guard region removal.
+> >
+> > This makes sense as conceptually, guard regions mark a part of a VMA as
+> > effectively unmapped at the page table level, and removing the markers is
+> > like mapping the VMA again, over which operation uffd markers would in any
+> > case be lost.
+> >
+> > A survey of open source users indicates nobody is relying on installing
+> > guard regions in uffd-armed VMAs. Software including glibc, android,
+> > tcmalloc and CRIU were checked.
+> >
+> > This change means that any already established guard regions are removed on
+> > zap. These will be overwritten with the newly installed guard markers on
+> > success.
+> >
+> > However, if this fails for some reason (fatal signal likely the only
+> > reasonable cause), guard regions may remain removed, and concurrent faults
+> > may succeed in the interim in the range.
+> >
+> > Since the installation failing guarantees nothing about the range being
+> > installed into, and since success overwrites with guard markers, this isn't
+> > an issue.
+> >
+> > Since MADV_DONTNEED does something similar, abstract the zapping to
+> > zap_range() and call it from both places.
+> >
+> > Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only mappings")
+> > Reported-by: Tal Zussman <tz2294@columbia.edu>
+> > Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-9-00713d368976@columbia.edu/
+> > Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-10-00713d368976@columbia.edu/
+> > Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu/
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> > v2:
+> > * Updated to just zap everything as per David + Tal.
+> >
+> > v1:
+> > https://lore.kernel.org/r/20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org
+> > ---
+> >  mm/madvise.c | 28 +++++++++++++++++++---------
+> >  1 file changed, 19 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/mm/madvise.c b/mm/madvise.c
+> > index 0214efd2a014..4f7728583207 100644
+> > --- a/mm/madvise.c
+> > +++ b/mm/madvise.c
+> > @@ -850,6 +850,19 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
+> >  	return 0;
+> >  }
+> >
+> > +static void zap_range(struct madvise_behavior *madv_behavior,
+> > +		      zap_flags_t flags)
+>
+> Two ... ;) But maybe it's consistent like that in the file, didn't check.
 
-[ Upstream commit d30844001360a403a511cf24fc75ecaa6a7a7544 ]
+I'm a bit exhausted, can you or Andrew just fix up whitespace like this on
+application?
 
-In query_data(), buf and query point into the same multi_transaction
-buffer: buf at the start, query a few bytes in, and the lookup key
-right after the label string that query points to. Reusing the buffer
-is by design and is safe as long as the query is fully parsed before
-buf is written to, but the key is not: it is dereferenced on every
-iteration of label_for_each_confined(), after output has already been
-written. So when the label has more than one profile with a data
-table, the data of the first matching profile is written to buf while
-the key is still needed, and overwrites it if the data is large enough.
-The later lookups then run on a corrupted key. Besides, if the data has
-no NUL byte from the key's position to the end of the allocation,
-strhash() -> strlen() -> jhash() reads past the 4096-byte slab object,
-triggering an out-of-bound read:
+It'll be easier when I have the VMA tree.
 
-  BUG: KASAN: slab-out-of-bounds in jhash+0x595/0x5e0
-  Read of size 1 at addr ff1100001159d000 by task exploit/155
-  CPU: 0 UID: 1000 PID: 155 Comm: exploit Not tainted 7.3.0-rc7 #1
-  Call Trace:
-   jhash+0x595/0x5e0
-   aa_write_access+0x880/0x1400
-   vfs_write+0x26f/0xd20
-   ksys_write+0x115/0x210
+>
+> > +{
+> > +	const struct madvise_behavior_range *range = &madv_behavior->range;
+> > +	struct zap_details details = {
+> > +		.reclaim_pt = true,
+> > +		.zap_flags = flags,
+> > +	};
+> > +
+> > +	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
+> > +			      range->start, range->end - range->start, &details);
+> > +}
+> > +
+> >  /*
+> >   * Application no longer needs these pages.  If the pages are dirty,
+> >   * it's OK to just throw them away.  The app will be more careful about
+> > @@ -872,13 +885,7 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
+> >  static long madvise_dontneed_single_vma(struct madvise_behavior *madv_behavior)
+> >
+> >  {
+> > -	struct madvise_behavior_range *range = &madv_behavior->range;
+> > -	struct zap_details details = {
+> > -		.reclaim_pt = true,
+> > -	};
+> > -
+> > -	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
+> > -			      range->start, range->end - range->start, &details);
+> > +	zap_range(madv_behavior, 0);
+> >  	return 0;
+> >  }
+> >
+> > @@ -1217,9 +1224,11 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
+> >
+> >  		/*
+> >  		 * OK some of the range have non-guard pages mapped, zap
+> > -		 * them. This leaves existing guard pages in place.
+> > +		 * them. This also drops any PTE markers in the range,
+> > +		 * including existing guard markers, which we reinstall on
+> > +		 * the next attempt.
+> >  		 */
+> > -		zap_vma_range(vma, range->start, range->end - range->start);
+> > +		zap_range(madv_behavior, ZAP_FLAG_DROP_MARKER);
+> >  	}
+> >
+> >  	/*
+> > @@ -1845,6 +1854,7 @@ static bool madvise_batch_tlb_flush(int behavior)
+> >  	case MADV_DONTNEED:
+> >  	case MADV_DONTNEED_LOCKED:
+> >  	case MADV_FREE:
+> > +	case MADV_GUARD_INSTALL:
+>
+> Huh why that change? Not spelled out above.
 
-Writing to the .access file is unprivileged (0666), but triggering this
-requires loaded profiles that carry a data table, which needs
-CAP_MAC_ADMIN and is not the case on default distribution policies.
+It's just the established way madvise interacts with TLB maintenance.
 
-Fix by copying the key with kstrdup() before writing any output to buf,
-so the key stays valid across all loop iterations regardless of what
-gets written to the overlapping buffer.
+Anything that uses madv_behaviour->tlb has to return true here so
+madvise_init_tlb() and madvise_finish_tlb() do the right thing.
 
-Fixes: 317d9a054e1c ("apparmor: update query interface to support label queries")
-Cc: stable@vger.kernel.org # v4.13+
-Cc: Francis Perron <francis@akrites.dev>
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-[ sashal: adjusted context for label critical-section helpers without the needput argument ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- security/apparmor/apparmorfs.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+(I didn't really want to spell out something that's just a code convention
+in the commit message, esp. when I get feedback about the messages being
+too long...)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 1476517ddef11..c92e9517a02c0 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -743,7 +743,7 @@ static void profile_query_cb(struct aa_profile *profile, struct aa_perms *perms,
- static ssize_t query_data(char *buf, size_t buf_len,
- 			  char *query, size_t query_len)
- {
--	char *out;
-+	char *out, *keydup;
- 	const char *key;
- 	struct label_it i;
- 	struct aa_label *label, *curr;
-@@ -764,11 +764,18 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 	if (buf_len < sizeof(bytes) + sizeof(blocks))
- 		return -EINVAL; /* not enough space */
- 
-+	/* buf overlaps query, keep a copy of the key for the later lookups */
-+	keydup = kstrdup(key, GFP_KERNEL);
-+	if (!keydup)
-+		return -ENOMEM;
-+
- 	curr = begin_current_label_crit_section();
- 	label = aa_label_parse(curr, query, GFP_KERNEL, false, false);
- 	end_current_label_crit_section(curr);
--	if (IS_ERR(label))
-+	if (IS_ERR(label)) {
-+		kfree(keydup);
- 		return PTR_ERR(label);
-+	}
- 
- 	/* We are going to leave space for two numbers. The first is the total
- 	 * number of bytes we are writing after the first number. This is so
-@@ -786,13 +793,14 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 		if (!profile->data)
- 			continue;
- 
--		data = rhashtable_lookup_fast(profile->data, &key,
-+		data = rhashtable_lookup_fast(profile->data, &keydup,
- 					      profile->data->p);
- 
- 		if (data) {
- 			if (out + sizeof(outle32) + data->size > buf +
- 			    buf_len) {
- 				aa_put_label(label);
-+				kfree(keydup);
- 				return -EINVAL; /* not enough space */
- 			}
- 			outle32 = __cpu_to_le32(data->size);
-@@ -804,6 +812,7 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 		}
- 	}
- 	aa_put_label(label);
-+	kfree(keydup);
- 
- 	outle32 = __cpu_to_le32(out - buf - sizeof(bytes));
- 	memcpy(buf, &outle32, sizeof(outle32));
--- 
-2.53.0
+>
+> Apart from that LGTM.
+>
+> --
+> Cheers,
+>
+> David
 
+--
+Cheers, Lorenzo
