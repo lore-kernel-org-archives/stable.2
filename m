@@ -1,96 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794607365;
-	b=JDuNOm6pfrHBBI2NbkckFwFnGny2ow/+32QKQ+TyrYyR1tLhzCrrnBlDlNeIlDsTaOWk
-	 MKEI4FllbsHRYhzDGbOuHePUX5prp4MxmPJHdlFiGSlTNXoRp1jWQdNf0tEKJSv48kN5+
-	 hU0TVCJ1jdBP/cYm/66qQrRarv1AvFaVOjpCHd8wIZC1q4y8XljHrMVvptReuYLENAMko
-	 TXOBeBGjJSD+sAzGRPsRVgrFmgRYElTYX0LPUD0NN44IOhF2+go5xVHbpFMESZG10tMIa
-	 Hir+iy8Hlnqu3z+at4bXSAnT5jhnFq/3q7UUyyCLnBUla/+44XcNaRP47WVf4ErZ2dg==
+	t=1794607479;
+	b=sz9JYvsxinrEQ6Zhgzqo427/K9j0IZlO/CI3LRvDKJ244ncGeYbrb0ohRmrHwM2SBV1L
+	 30KDIpSJQbpOavqCxm3++aiEIyx2dBjYdCF/4Lrs7AUQjiAa1tInOxPdbEbNrmc4FJJHp
+	 EhqhOAVgkVmZ7pDOx5Ee4jHK2sFNoSjvVU/fCVyi2l6GPUAVFtL2FNyg8E0dFkX05A37L
+	 rKzCjizp/8otXNt9RNmObSG3kt7kn3D8jsVSdaFopK6q1md77ADCzSb+GmLGlPgnwlA6g
+	 XTbcNVnAm/IOzxwrS2VVg4uhZz3MfRCdEfQRRQCq0gcAWeTsr2/1Ihot7IQsvEHoPmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794607365;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=hLTZgrPRMvXWTx2mlzS40LX99kos2rQ4Fybij+QpVFY=;
-	b=FV0vErbJjg+sjV6krSe+0Nmli5trSH3TDYYr0eXTzQIH6bFS4U782qQWoeW/vc7YvQW3
-	 esph2a7UC0me09WP1t29+9pIml5zBaHvvu7ySE845IcZ0u6qhyKFELRoJjeKuRICcsgH6
-	 529NgPvI+Wq2nVbj3f09E9yDr/P65Cc5LK73oBRClizy7cL/D1CtNEP2qV4+hC+rfz55U
-	 Z4Gl1c4fKocSeQliRDNsj4gc0yxMBuVG00uK/eYz3LytXRCCjUHs4sCdo1IeeFU/T9/xF
-	 6BPHdSNGfVxOWVtDapxxQr5NiLEH9b7pPdqgiy4adFUpEXa7jSGJPap4oNLeoDPvpCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794607479;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=060IlpN6nZBHuShVfn1h6xjHXL8bq9e9OYpRoM9tWdM=;
+	b=19gpFulTkdfXHcVUHX/+Ffbo3bAxqP0Ht3QtraGORbK1ndZXNs8T+3m4N7F1VKTFNBdP
+	 QciMjg+zfBtHKdjDIVumb9H3AEnXSp4VNZYwqPc9VKLe7E/9Lew0hqdDmA3vpKyv8Yjm5
+	 exrKDNmfFgXKmwqSGRScClzViNILqmYR28wGqHE0+HlwnRyRV5z8n0HRj+Nrr4fM1TY2g
+	 FGJDKoZOrntvuC34BGGOKQB28uftkcO/BGgPNP+pvW/Hx72lcwtw1uaDrfWB1tD1GNK0U
+	 +locYzmfbUgZ81R7wBhBNKXpbRgGt5r9G3y15gi4Ln6T90nfNmnwj1H+ljr0jTecaDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MxhT712Z;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QtKGYcQI;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0519606A331
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:02:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0519606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D33C606A335
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D33C606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MxhT712Z
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-37000e7234bso2282105eec.1
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:02:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794607363; x=1795212163; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hLTZgrPRMvXWTx2mlzS40LX99kos2rQ4Fybij+QpVFY=;
-        b=MxhT712ZOs+9JNd48QhgsCPVX4B2Me3T9nNcqh3+3RQIFoeMHmW6Wl+WlG2eszHG7G
-         W4bGVTq7kOwx0uGrHE749/Tzt6Y9ubwt7FDE57ZwQZaq+3mRm8NYBnSD32+sxDnpYi1J
-         dgcSCrMRfotrVHqI5i3Kbi+QCZDRMIolbVs9aA+B1iC+BwuNhGViHLF3pMd8wHVK40kr
-         JLrUUdyWvqq0c1RzBf2T6Dv00FUD++njrC800eHkQB4c5nh437/q9qqnhrvfqYN5tBqG
-         O8kvLa0TcHNt6kJys2AnCLSbPPfn/+e8mL6WHWyTzfXZXIDcVL1HTOm9QCxHfoUZRXn9
-         yLEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794607363; x=1795212163;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hLTZgrPRMvXWTx2mlzS40LX99kos2rQ4Fybij+QpVFY=;
-        b=27sHCr9ltX5pzj6oYiyt9xDMB9aBsbXU9deVQGPVnztd2XkNyCEvDBriSOKEsQM7I+
-         XhQDbN4ldkgVnfccUelXaICo7YZr1e1bk1jdm4ZQ2K5F8UQvligZegpvqyEQ7LkyXvWd
-         Jvu0/+twgnE2CKI+aWWUzpYqitlg8Q3eNCCaW2cgY5oLxbpEbN0orQFkJuz/k5oJTO5H
-         bqGu19mQLAIKMQVJBrdoi23HzJMJ4c+CoTj2ELhbpz/EF9+u0EPAxcZWGoug58bd+IHg
-         +cpCxyhYH6LoNkAgS3CoBzGeNTa9jKsO9mHTcXdYvWZZdox9xe1d4m8fjSyLsh2t4L//
-         DXlw==
-X-Forwarded-Encrypted: i=1; AL+hErGMeMTUyh7Ln3Sxg3dwJX6IUvVXn/dDuBh5iX88yrJtFVtAJr/Rl0+g8mh9TiHa1i+PZ4gwPOk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vElmXs8ho/W66wjzf1BL9F9LYVRx3P+zYgY/Ppweb3XVtnzvd
-	7/N6B4hsdjuPcYKCKYJzI67nJrSPJIb2ye7N/m7I/AHe3xnDUH3D4IiVXDy/uLOeFzA=
-X-Gm-Gg: AYBFou1L+opFQ8FYor47qQ0QdS70uzt2OYHRzrWbdUVOZw3CebTMkr2Yq2odfyoScCG
-	EffXnLdeD+f0JxhstaKgto13n7caqGbmQSWPTAQcdrxx8aS3xmgmx4YZeBhDpYzsy9fizr9FYyR
-	aW58QAmG09o4Thuer7YgvKV9/8fK93M96C7uv/K5HUqijcPH3hW50iVHy0LPIcmPhl9JfqKxGPj
-	RNmbmbzQ2M4xX0N19OphCKFXoA2ZX7HxI2QtsGyOrAFKmsHM/O/43Or+LWLkl1Qv7kyGZvHOzVv
-	/542BCi17Sl9q70OfZbgfTqxeGmuOwduKpeScGIfczvRkIkBtAgtMZs5v/m0LvD0ZmBEtbcctMk
-	BcfQgfZExSY6moI8FAzpN+6Mvp6R+IpcUm82LAFrvhrCbHIP4ECy+wl9d/K7Ak3PIcEMlpkMshd
-	laEmOt7Z8RiZ5gF1Qe16NA8x0eMm0u+sJhyJAFepTu0MJVUYPQCurfRhj+7N/M1yODH4BvG0tuj
-	CBP3BysaSvNqFmzGiDwAp6aw7SUYfgDmUrrXLoqD7/d45OBVZsTDb5sbmGYQPaWxcmBB7AtyBXg
-	MtaTS0MHtUPkziXb88WsClv02NeDlcbGaqCFsFNISbRR9IzeYbL7/Gm18cNe7tPVLMDgkCBkxk/
-	gHZN9YWFw14FwMNFHU40lYlfyW6Y3HEQHWg==
-X-Received: by 2002:a05:7301:db11:b0:369:fe4c:b48f with SMTP id 5a478bee46e88-3796047be6bmr3147605eec.0.1794607362850;
-        Fri, 13 Nov 2026 14:02:42 -0800 (PST)
-Received: from [192.168.1.142] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm16981662eec.21.2026.11.13.14.02.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 14:02:42 -0800 (PST)
-From: Jens Axboe <axboe@kernel.dk>
-To: Tejun Heo <tj@kernel.org>, Alex Kazinsky <a.kazinsky@ideco.ru>
-Cc: Josef Bacik <josef@toxicpanda.com>, cgroups@vger.kernel.org, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-In-Reply-To: <20261113110842.4189035-1-a.kazinsky@ideco.ru>
-References: <20261113110842.4189035-1-a.kazinsky@ideco.ru>
-Subject: Re: [PATCH] blk-iocost: Fix overflow in donation weight
- calculation
-Message-Id: <179460736165.18529.16250644917025390352.b4-ty@b4>
-Date: Fri, 13 Nov 2026 15:02:41 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QtKGYcQI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=060I
+	lpN6nZBHuShVfn1h6xjHXL8bq9e9OYpRoM9tWdM=; b=QtKGYcQINLZUbtBvGCrX
+	feBVnRhzy4dEj4v8brwXHAjMaRSL7bcMQaulQM1FlgQOGXCUMedRIYcOXT9cAZCa
+	kRyT5afiDUnnj/EqONlbiNV1sxsCNgDfidTvRAaHQ+4S9wvNzHNT3Rqj6I/DKVeC
+	aXmoKMaCQDVwusYmeKu0SqpliUW7whlJohAEdqKFwD2XMhypU58x38EiedEkywjb
+	DYkYWEEJTtfJ3ODg0NVlHHEHhWrO8oQ1kobOVK0CaA1DwB4A0L/l2UqffG3r+8iw
+	fof+7B1NO0+SruLY6T6U7ByveZh4NZ/m9lz8z6Fdm3hkB/sj1+5m/xmejGZpMLXB
+	NQ==
+Received: (qmail 379181 invoked from network); 13 Nov 2026 23:04:34 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 13 Nov 2026 23:04:34 +0100
+X-UD-Smtp-Session: l3s3148p1@E2f9nC9g+uAujntX
+Date: Fri, 13 Nov 2026 23:04:32 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev,
+	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v2 2/8] i2c: core: fix swnode use-after-free on client
+ deregistration
+Message-ID: <aveJbJBz0lRkpXMV@shikoro>
+References: <20261110085125.2535508-1-johan@kernel.org>
+ <20261110085125.2535508-3-johan@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,30 +75,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="j+L7QhPvMLGA3QYz"
+Content-Disposition: inline
+In-Reply-To: <20261110085125.2535508-3-johan@kernel.org>
+
+--j+L7QhPvMLGA3QYz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Nov 10, 2026 at 09:51:18AM +0100, Johan Hovold wrote:
+> If a client has both a primary and a secondary firmware node, the
+> secondary node is accessed via the ->secondary pointer of the primary
+> node.
+>=20
+> Use a temporary variable to track whether the firmware node is a
+> software node and remove any software node before dropping its reference
+> to avoid a use-after-free in device_remove_software_node() when
+> accessing the secondary firmware node.
+>=20
+> Fixes: df6d7277e552 ("i2c: core: Do not dereference fwnode in struct devi=
+ce")
+> Fixes: 1c24e5fc0c70 ("i2c: core: Fix double-free of fwnode in i2c_unregis=
+ter_device()")
+> Cc: stable@vger.kernel.org	# 6.16
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: Hans de Goede <hansg@kernel.org>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+
+Looks reasonable to me. Thanks for doing this and the cleanup in patch
+4/8.
+
+Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
 
-On Fri, 13 Nov 2026 15:08:40 +0400, Alex Kazinsky wrote:
-> hweight_after_donation() receives usage as u32, clamped to the range
-> [1, WEIGHT_ONE]. Since WEIGHT_ONE is 1 << 16, multiplying it by usage
-> equal to WEIGHT_ONE wraps the 32-bit unsigned result to zero before
-> it is passed to div64_s64().
-> 
-> This makes new_hwi zero, which is then clamped to 1, incorrectly
-> reducing the cgroup's in-use weight to the minimum.
-> 
-> [...]
+--j+L7QhPvMLGA3QYz
+Content-Type: application/pgp-signature; name=signature.asc
 
-Applied, thanks!
+-----BEGIN PGP SIGNATURE-----
 
-[1/1] blk-iocost: Fix overflow in donation weight calculation
-      commit: a56d5a485be4a9d52f0d7b3ed0dc3521367cb986
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr3iWwACgkQFA3kzBSg
+KbaIMA//eWcgbnF7PZjDx4nprctqMRhaYXXJNHPesqlrO7deaWAuj6I1+Cliuco4
+sUxbGoaqeI3Pdn5iMAVHzuzxk4YWp9NqEGaarZZ6oT3MrPx8oTvQwYwnNTsou6yz
+t+x04+dPmw5di/r02KlpuI//3aGLKLVH1TStEZ7fdYdeKf9Cjw1BhzTQ5evVW0H2
+Xurqmq1uWGZ3QUvb7+LppwTkp3wp6AFbjY8Y2pRmxfrM4VgGuYLWExK7P//qqKR1
+pkpxjV4XGIvlZDlX7ynIWf55Yh2xWNjI89dS2ytFYtkXXgKf3KoGzZ+fGg0Y1Yhf
+mHJbnTCL+24rtpfDhPnC1fci8rVLJ2VvKVLtfXK3zaNe6ZOshRh8Rdl+dwfNckLi
+BMzTAr8NWsfp8m+sCrPZUDRk+bDEZiGu5IQbbgw4WwdREq/5g6z3eo+G7PF2D+HY
+cFHkyOVcMkKfq4IyYTm9AVXIKl1Oruz9QyefgNHCmdauegytSfsuI+oBvw66kXBu
+MhPSRrAlD2FLZYmOjfUT1R+rbncrT6tLHHwlRnSsjdvnVrZN5PUr+r3Jx9KTkchQ
+jTkp8P3WIcE3j3A+5DynJ2+VKhN9Pi/n/dLaK84buiyzOlzbm+TZ8NylR2nng6+q
+44eBFj99f+HuUQI/i9a6ovZwD1E9fLT0+J55g4IKqUeVi9KoIak=
+=UwRm
+-----END PGP SIGNATURE-----
 
-Best regards,
--- 
-Jens Axboe
-
-
-
+--j+L7QhPvMLGA3QYz--
