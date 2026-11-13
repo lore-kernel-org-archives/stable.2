@@ -1,81 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794574999;
-	b=TmRaCqa7Kjh7SIgyW28o/Ex5QrBN94J3O7Rre7mgPizL5a92Wzg9Ebt0oePL2OZQ7Fjt
-	 1/cXXiH41qQAUdjpYWm5M/68FvVI/dg4FqewOGUPDv7KONnkGoPborSDG0txfrK5ms3+i
-	 rxBA9YcfyADJiQkniJ6eGLqYugR1f/cHE+QIPOuxcCtMSNvx4mqIFIeNFjDshKy6BPys1
-	 OzOlE4YwOknMbX6LgiIL6aIzCZoSbDwnRk8RXLx349W/+oLu1LOTu+OmnTVQHxE4Gu8mj
-	 /9SR9/xedDyCjdyYEvCCWO5Tbi422w6HESEU+JH2GlpsQgpN12CMSgvFUiRG4slISng==
+	t=1794575047;
+	b=Ptw36B0eStupV0dnpUpgmtJc9e4pj0T7hNUPacZp1W1aRg7AVACyCyK3p6ifm8LV6/gC
+	 HwA3o+tn9YMFwnbqm0LYLW09fYHGDVfqiclYEySdfj5ecfwvNKAjssoGIXxNUjlKuoDTn
+	 oxbOzSkOx3NS8/SsDI4/nW8334ZYNz8NGJpzo26CNChCIiRYxgBONoWM6rQUbH0cLRLGK
+	 L5LaqsHpb7uknT0BGC4lJVWeeDTr/rc94xtXafyJVyOBlW+lrPH+6NoCUdiH4cT0eFLT4
+	 TrZEjM+HaCM3qBYvQ1z6Nr5pRFnciwIqzM0MJpvc940NGnM4bBTmavFhb7q/EM20BAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794574999;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575047;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=atdp2aydRKXMXDIBngPs3VoW6SW6B3JnVooZbiegGyo=;
-	b=fiFBw4C8x4UU0QarbkD2c/lJl3Mbctesfs0x4aEku4cwFli46Yo/ZRMNAMs30HGHTRRC
-	 3xlBjgogkX4/TfIRFhDa3+8iUVlHIbguyLMAI9geKzW/qi5T/ErAEnzPuo8ANED3HzkGE
-	 W8gSHNh1Eihn/FwDEwo8XnJFUMcqgx+GcObc7L6Z3DK8u3me2m3s4O8EyZbtB1qSXtd3K
-	 nEMABxDpacQT8mteTecTgMI0NWesKjzT3xJ8YS0NIQUBFlZTsMWo2de1s9JdEdrEdYnGR
-	 nyfWONMjcZZ7waGhvTGNs6JgD0z1K87cqdzm7pzwQUoItxnC/+dTGeqO6aHeZ0jbHLA==
+	bh=HqTuUMXfM22ySYhQPGjeWLFpYJZoIXrpBRITb/aVutg=;
+	b=v9N709OuN1Qi78SvaAeWAbgoaPeeIpIsx60xmWHWpl/EsOnhZJfKEeAwgvedQ7W30upf
+	 K9FgIU6hTzVu1lP0tkiGSC/YuV/sJcUy2ioQ0ZevnXlQ9V3yFNZQVY8uHltpmjkvq5QOo
+	 j4p38i2RhFrTBfI7H/3UT6PjfHULYtet0kFWi5pICg2ksB3eBEPdRAfgKnu8wyqzXAKVx
+	 sJWPVBlHfLsmc8Qn2p0qIHuA0OM8om7Lsv3gcOPlV4xMUuEA2d81XzZKq6VZ54A6bqsr4
+	 0Q1HnzeEEnBG6v9Ny9VAkQxCzDEm+GisEaosfxC1UIVlo8XLA0wbh/TKUqzCR1I7TBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gondor.apana.org.au;
 	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=LTM9AkCn;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=oSaGoiFO;
 	arc=none smtp.remote-ip=180.181.231.80
 Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC320606A323;
-	Fri, 13 Nov 2026 13:03:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC320606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46ED8606A327;
+	Fri, 13 Nov 2026 13:04:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46ED8606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=LTM9AkCn
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=oSaGoiFO
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=atdp2aydRKXMXDIBngPs3VoW6SW6B3JnVooZbiegGyo=; 
-	b=LTM9AkCnC6t33+hNMotrxV1KakbzcP9xVuiib1rfU38aLSyOpkPkovxRZnCfqm0C9y8wd++cDSA
-	r8x+EnfFoHib35KD7OiQp1BrxbkivMQ2nlJwwL1n/LdWXNr+S2dAh89CYxJ8HJx8UH2b8GFkwvUqg
-	NeYZI2agHB926oPEhvyV2GvCAeP5Bzp4Ujfa8WvuSAuOszTI0LdHGf2OlFBlf+Y2l92wK5wV+qfpW
-	OSwjjtJ/QpRqmXkob/PvIDtaoT8YqZsqurk5O1O0Gy1AvhxF6kxNs8KxHoyfCcv3zuMc80wpO+3DC
-	RBufQeGqrwkPvaWEY4SVtpHLT699JvIPIhyA==;
+	from:content-type:reply-to; bh=HqTuUMXfM22ySYhQPGjeWLFpYJZoIXrpBRITb/aVutg=; 
+	b=oSaGoiFOdjh0rfYr65GZKf3juj7y7Mmj+eDclXhQ+3MngLaduAamh1ryN0xXowbAU6BkkYuPOsM
+	llhb8CP/yOBB/KCpcdzSLhos9sH8thV1kTr3DMVyqyUTXA864m+Ki/KRffvtM7l1+Rlp/bMYEJmfF
+	RCorlpclBc5J6Ez9CJFZOadkUTAiYkv4pebTfHnnN01VLB+6Ga9kyLeD7lsXaf9lu8m2X2hCRDmm5
+	nEedynDzkXDcwrg9yFpUJ98XTvWpB2OQ0KTQu5qxZ88dQjljthv07Y1F3n6wLE0YAx69jfye+NvFE
+	SDBvFndpdIucLkZfIwtKjSl5wKOhpcQf43RQ==;
 Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
 	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xRqvc-0000000EfC0-3U4A;
-	Fri, 13 Nov 2026 21:02:53 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 13 Nov 2026 21:02:52 +0800
-Date: Fri, 13 Nov 2026 21:02:52 +0800
+	id 1xRqwf-0000000EfCh-2DZ2;
+	Fri, 13 Nov 2026 21:03:58 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 13 Nov 2026 21:03:57 +0800
+Date: Fri, 13 Nov 2026 21:03:57 +0800
 From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	"Liam R. Howlett (Google)" <liam@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: [PATCH] mm: kvmalloc: Bail if called with soft or hard IRQs disabled
-Message-ID: <avcKfEvln8_2a7fJ@gondor.apana.org.au>
-References: <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
- <auqtTjXhD8is-y9f@gondor.apana.org.au>
- <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
- <aurAxRpCwzeyXeVj@gondor.apana.org.au>
- <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
- <aurJZ81qnbiHH_P1@gondor.apana.org.au>
- <ausS3LQNkdc6lBy3@milan>
- <auxDm_YO4oACA_d2@gondor.apana.org.au>
- <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
- <auy-7TvVzJ-VCrG4@milan>
+To: Gu Bowen <gubowen5@huawei.com>
+Cc: David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>,
+	Ignat Korchagin <ignat@linux.win>, keyrings@vger.kernel.org,
+	linux-crypto@vger.kernel.org, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	lujialin4@huawei.com
+Subject: Re: [PATCH -next] crypto: asymmetric_keys: verify_pefile: fix
+ integer underflow in pefile_strip_sig_wrapper
+Message-ID: <avcKvXmCOXYwJM5D@gondor.apana.org.au>
+References: <20261102074934.2925339-1-gubowen5@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,48 +70,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <auy-7TvVzJ-VCrG4@milan>
+In-Reply-To: <20261102074934.2925339-1-gubowen5@huawei.com>
 
-On Thu, Nov 05, 2026 at 06:37:49PM +0100, Uladzislau Rezki wrote:
->
-> Probably the simplest option is to return NULL for non-blocking vmalloc()
-> allocations when BH are disabled. That would address the reported
-> rhashtable deadlock.
+On Mon, Nov 02, 2026 at 03:49:34PM +0800, Gu Bowen wrote:
+> The pefile_strip_sig_wrapper() function validates the win_certificate
+> wrapper that precedes the PKCS#7 signature in a PE binary.  It checks
+> that the wrapper length does not exceed the certificate table size
+> (``wrapper.length > ctx->sig_len``) but fails to verify that the
+> wrapper length is at least ``sizeof(struct win_certificate)`` (8 bytes).
+> 
+> When a crafted PE image supplies a wrapper with ``length`` in the range
+> [1, 7], the subsequent arithmetic::
+> 
+>     ctx->sig_len = wrapper.length;      /* e.g. 1 */
+>     ctx->sig_offset += sizeof(wrapper);
+>     ctx->sig_len -= sizeof(wrapper);    /* 1 - 8 = 0xFFFFFFF9 (unsigned) */
+> 
+> underflows the unsigned ``ctx->sig_len`` to a value near UINT_MAX.  The
+> following ``sig_len < 4`` sanity check is bypassed because 0xFFFFFFF9 is
+> greater than 4.
+> 
+> The underflowed ``sig_len`` is then passed to verify_pkcs7_signature()
+> and onwards to asn1_ber_decoder().  The ASN.1 decoder's own
+> ``datalen > 65535`` entry guard can be satisfied by constructing a
+> PKCS#7 length field of exactly 65535 (e.g. ``30 82 ff fb``), allowing
+> the decoder to proceed and attempt to read OID octets beyond the
+> allocated vmalloc buffer, triggering a page fault in look_up_OID()::
+> 
+>   BUG: unable to handle page fault for address: ffffd1e986cb2000
+>   #PF: supervisor read access in kernel mode
+>   RIP: 0010:look_up_OID+0x14/0x100
+>   Call Trace:
+>    pkcs7_note_OID+0x33/0xa0
+>    asn1_ber_decoder+0x363/0xbd0
+>    pkcs7_parse_message+0xd9/0x1b0
+>    verify_pkcs7_signature+0x24/0x80
+>    verify_pefile_signature+0x7b/0xf0
+>    kexec_kernel_verify_pe_sig+0x1b/0x40
+>    kimage_file_alloc_init+0x1d8/0x3f0
+>    __se_sys_kexec_file_load+0xc6/0x270
+> 
+> This is reachable through the kexec_file_load syscall on architectures
+> that verify PE signatures (x86 bzImage with
+> CONFIG_KEXEC_BZIMAGE_VERIFY_SIG, arm64 Image with
+> CONFIG_KEXEC_IMAGE_VERIFY_SIG), requiring CAP_SYS_BOOT.
+> 
+> The oops occurs while the caller holds kexec_lock; if the faulting task
+> is killed, the lock is never released, leaving all subsequent kexec and
+> kdump operations permanently returning -EBUSY until reboot.
+> 
+> Add a lower-bound check on wrapper.length before the subtraction to
+> prevent the underflow.
+> 
+> Fixes: 09dacbbda935 ("pefile: Strip the wrapper off of the cert data block")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gu Bowen <gubowen5@huawei.com>
+> ---
+>  crypto/asymmetric_keys/verify_pefile.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 
-OK let's try this patch:
-
----8<---
-The function kvmalloc may call vmalloc under the hood even when
-used with GFP_ATOMIC.  However, vmalloc uses naked spin locks so
-it must not be called if the caller already holds spin locks that
-can be used in hard or soft IRQ context.
-
-Use the heuristic irqs_disabled() || in_softirq() to detect such
-callers and prevent them from using vmalloc.
-
-Reported-by: Liam R. Howlett (Google) <liam@infradead.org>
-Fixes: c6307674ed82 ("mm: kvmalloc: add non-blocking support for vmalloc")
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-
-diff --git a/mm/slub.c b/mm/slub.c
-index 45e077c7526c..18bc70f44e22 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -7139,6 +7139,14 @@ void *__kvmalloc_node_noprof(DECL_KMALLOC_PARAMS(size, b, token), unsigned long
- 	if (ret || size <= PAGE_SIZE)
- 		return ret;
- 
-+	/*
-+	 * vmalloc uses naked spin locks, so it must not be used if
-+	 * the caller already holds a spin lock that can be used in
-+	 * a soft or hard IRQ.  Use heuristics to detect this.
-+	 */
-+	if (irqs_disabled() || in_interrupt())
-+		return NULL;
-+
- 	/* Don't even allow crazy sizes */
- 	if (unlikely(size > INT_MAX)) {
- 		WARN_ON_ONCE(!(flags & __GFP_NOWARN));
+Patch applied.  Thanks.
 -- 
 Email: Herbert Xu <herbert@gondor.apana.org.au>
 Home Page: http://gondor.apana.org.au/~herbert/
