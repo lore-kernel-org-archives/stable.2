@@ -1,59 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794531260;
-	b=YBuGIJ/qmzuQo6+yXDu/UoeOBwApAcTbUC49l3M0nqz5aaBtd+zUVz+pGP+XDIBXFj2d
-	 FKgijb95GYa1UFN8CFLeT9W9bIz1dxrAvGv/eD4R6PCwXkFP2yDdb5TGi/77ioxl1fH+p
-	 FJNP5ilvetZdmBxw+19pwuwTL7202u9lIXJYqRPj3ItNotDC6V+Dep7xuo7n3473rqfJ7
-	 g8jbiKI41vHloISQdXVQxN90NtZRy5vNBefkUEDM583nzeoyCgoymxS3IGByrbnxqcn1A
-	 n+ziaVktE6I7PViLUQ3zaruSpEbiQxmryZaC4/gWpnpunFfO0yezlUNLJW9ebOXiJxw==
+	t=1794531329;
+	b=A/qjZhfjR9Xuu/rp3U/k3guujdobwjUPUCDHrIfnsB6/9XFspi1/m9cRUZFOp1+JRKlG
+	 +FXCU0d1zPyglUBZMVjpXKg1uRl42GqWdK9N4bnhAI+zARkz2BTXMdo79bQpd18JYXkEL
+	 PpE6mhbDo0lLFKoaTadw8h9iFHaK5pgxMTSvNVBwADTJUZP5NM+q2yKnPQJDfuoEyRq6m
+	 n8PCWHOS9kvvrx6IgP/BNgx1K0ipk4g8rXP2gT3rA8GV6pWLAVrvwYvUD126U3IAEcbTn
+	 Kk3ArO6EYS6mueqI69GYwC+9LT26OO6lStO7yvpAA524GxPvWOMrR2GrOl5l9zM5KGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531260;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=rhIOdnO+7z3iJ3nl14eV8COiDecmopXYxcQjfeMYOOo=;
-	b=GgLe3v/zPsLSy4q4ZNwZXbEBCTcK2xJw0fUBXu7tItqaqIbJwkQK70arlTyATAy5DjJT
-	 PkvMrjDYzrcBnYkfU05ltfJSv45Glq9c7XrGHg/C+yQJXfi5RGNBVhqOMTFBvTpOMwpss
-	 Cb+eldbP5yFS8uhZTHn0O5bQaIzzjDO0CsFd5PUW7XFbtAa449+0iTbyMnOIKpMEHzbmr
-	 3vuQTPOr/sWNPoY2yLznV9DPTnNADebE2JdGhg5vdfwCi0pYcLxsRm5CXgOKdo9zcQ1AB
-	 IE9xF/S4tQq0lzbrpGH0/6sMr59e+Eo1ERCCNzy8QsffZmNihyQzguemJFACefk/tfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531329;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ztzMT77eqwmRCnOaSvkxFvu9WQ+jMhy8pQI4WP+df8g=;
+	b=qPRCHiWCeylL83ObPVS8/2/P9pcqhaSDmYtBBuC094Ldz390jTVBuDWlKahOlE5ao2P/
+	 lznOAT7qvuivcT3qqcOY7FtlmF822hXA74I/gxkVC3S8hlwMq3PSnXDqJGb0Jsb47BGg6
+	 CTVPl42BZnYP0hklCak6p+r2e9OkmCU7kBuOlJE0GNjdgSR0/GeCVemopJRUCwfNtMXS0
+	 Fexa2xfdQSiL17Q4qDGhr6ZdykKPyudGpxGkmhjzz2UJHyN62zwwKeWnyowrXdCb1NSWL
+	 RzvBAbO/Cq+f2KdkBR6rE2GD/gMDxdYRaNHrUrJguTFCD98kprukV+vA/g5P6KzKSDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q3dNufQB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF2y5vua;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D30E606A33E;
-	Fri, 13 Nov 2026 00:54:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1E2606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 00:55:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q3dNufQB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84141F000CE;
-	Fri, 13 Nov 2026 00:54:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF2y5vua
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27BE81F000C4;
+	Fri, 13 Nov 2026 00:55:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794531260;
-	bh=rhIOdnO+7z3iJ3nl14eV8COiDecmopXYxcQjfeMYOOo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Q3dNufQBqyHmO2SuVzp6pbLRNWbaObusq7rV4156b4B43C9GJ6zfcXFcKAu2OrT/r
-	 w0o8jT2OQUm6ghc9w+ty/nP0hjrhXG7rs3NyeZMcMJEu0rnAi94olvAxZkKwqMEviO
-	 jcJdEX8eeVV9Zz15jclwPDzMDIQ7eyanAmKOGDbuYXN/ZIhaIYGIPTB5WdeT+jK0ga
-	 NQYR5A722nJ58CZSZUrivQNDSBXMnmbZ4qVxrZXiOZFhgo4ZoWh3i5nM77GWfhPQWQ
-	 i2/0Bqng/egDeYT22BpxsNIr4oD5o2igwDPduQ7XysQCiS+VtSsE0t7AZuU9VYIaIq
-	 j9nwN+P2GiSvw==
-Subject: Re: [PATCH net v9 4/4] can: j1939: reject a CTS that names more
- packets than the message has
-From: netdev-bot+sashiko@kernel.org
-To: chaosheng.qu.linux@gmail.com
-Cc: robin@protonic.nl, o.rempel@pengutronix.de, socketcan@hartkopp.net,
- mkl@pengutronix.de, kernel@pengutronix.de, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Fri, 13 Nov 2026 00:54:19 +0000
-Message-ID: <179453125932.488853.14502182027318562364@kernel.org>
-In-Reply-To: <20261111-j1939-edpo-v9-v9-4-e779ca334a81@163.com>
-References: <20261111-j1939-edpo-v9-v9-4-e779ca334a81@163.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794531328;
+	bh=ztzMT77eqwmRCnOaSvkxFvu9WQ+jMhy8pQI4WP+df8g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iF2y5vuaazXFxuiLLjOtGkMNzc9EcRRFKbubk9hWs6yVZrhEuak6Ugz0VfSlhW3Fg
+	 t79OxA9rbIyDvEbphUiaYs5LE1qDLMsw7/hYJtz9S4L8Bu2z3ioUYP6OitRS0PtWw+
+	 b2QgnSFLBRjbusvxA+sfWFAtWPwhvL/yh3G3yPl89jOOWRwLJq9sgaefmXZ5nfRuHT
+	 buBcZ01iXc4ENNzDdwdmp0/WApiHbHM4EVU96aZy+90CgTbB1P3zMstiNFSh2i+in5
+	 ivk/vu6grVXSaIAbXO7KGcVsrNi0XdkWtsc0foY97GtId2fzTGS9vov66ISTuuos/Y
+	 i2BfAtgQr5XYw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Balbir Singh <balbirs@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Salvatore Dipietro <dipiets@amazon.it>,
+	Christoph Hellwig <hch@lst.de>,
+	Dave Chinner <dgc@kernel.org>,
+	Matt Fleming <matt@readmodwrite.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Michal Hocko <mhocko@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm: page_alloc: do not give all non-blocking requests reserve access
+Date: Thu, 12 Nov 2026 19:55:25 -0500
+Message-ID: <20261113005511.435938-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201240-failed-6.6-6ee3d87b9408@kernel.org>
+References: <20261109201240-failed-6.6-6ee3d87b9408@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,210 +72,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+From: Johannes Weiner <hannes@cmpxchg.org>
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 3
+[ Upstream commit 6ee3d87b940848aaed5d4e8d005c5f674bf2637a ]
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Patch series "mm: page_alloc: fix reserve access for non-blocking
+requests", v2.
 
-- [Medium] The commit message gets the current behaviour wrong.
-- [Medium] can: j1939: j1939_xtp_rx_cts_one() rejects standard CTS(0)
-  frames
-- [Low] The commit message presents the patch as an ETP-only relocation
-  of a check that already fires ("the transmitter reports that value…
-- [Low] The comment and the role-based abort code in
-  j1939_xtp_rx_dpo_one() are stale once this patch lands.
-- [Low] The new check in j1939_xtp_rx_cts_one() covers both TP and ETP
-  sessions: pkt = dat[2] for J1939_TP_CMD_CTS and…
+Two fixes for how non-blocking allocations interact with the highatomic
+reserve.  There are prerequisites for Salvatore's "mm/page_alloc: avoid
+direct reclaim and compaction for costly __GFP_NORETRY allocations" [0].
 
---
+Patch 1 narrows which requests may physically take highatomic pages,
+patch 2 narrows which requests may count them in their watermark check.
 
-can: j1939: reject a CTS that names more packets than the message has
+Both are prerequisites for Salvatore's patch: it clears
+__GFP_DIRECT_RECLAIM for costly __GFP_NORETRY requests, which turns every
+large page cache folio allocation that reaches the slowpath into a
+non-blocking one.  Without patch 1, those requests may fall back to the
+highatomic freelists reserved for atomic requests.  Without patch 2, they
+count the free highatomic pages in their watermark check while being
+served from regular memory, so they can consume regular high-order blocks
+below the min watermark by the size of the reserve.  GFP_NOWAIT requests
+hit both paths today, so these are existing problems worthy of their own
+stable backports; but Salvatore's patch would widen them significantly.
 
-This patch adds a check to j1939_xtp_rx_cts_one() that rejects a CTS
-whose packet number is larger than pkt.total. The session is aborted
-with J1939_XTP_ABORT_ECTS_TOO_BIG. The commit message describes this as
-moving an existing check from the ETP.CM_DPO path to where the CTS is
-parsed.
+Patch 2 reproduction: a GFP_NOWAIT burst under memory pressure can drain
+regular free memory to zero while the highatomic reserve sits idle.
+Measured on a 32G box with an anonymous working set, swap, and a full 290M
+reserve, three synthetic bursts drove the 28G Normal zone's regular free
+memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
+its swap table allocation inside reclaim, reclaim scanned 13M pages to
+free 200k, and page faults stalled for tens to hundreds of milliseconds.
+With the fix the burst stops at the min watermark and nothing else
+happens.  This was found in review and reproduced synthetically; it has
+not been observed in production.
 
-> That value is what j1939_xtp_rx_dpo_one() now bounds, so an oversized CTS
-> is currently caught one step later and reported as a bad EDPO offset.
-> Reject it where it originates instead, with the abort code that describes
-> it: J1939_XTP_ABORT_ECTS_TOO_BIG, "ECTS requested packets exceeds message
-> size".
+GFP_ATOMIC order-0 requests have a milder version of the same problem:
+They are entitled to the reserve but are served regular memory first, so
+the fix there has to change the watermark check and the freelist order
+together.  Salvatore's change doesn't interact with this, though; fixing
+that is left for a separate patch.
 
-[Severity: Medium]
-Is this description of the current behaviour accurate?
+This patch (of 2):
 
-The transmitter handles the CTS in j1939_xtp_rx_cts_one() and builds the
-ETP.CM_DPO from pkt.tx_acked in j1939_session_tx_dpo(). It only sees that
-DPO again on the local echo. The echo has J1939_ECU_LOCAL_SRC set and
-takes this path, with session->transmission set:
+281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
+highatomic reserves") accidentally gave all non-blocking allocation
+requests access to highatomic reserves, which includes GFP_NOWAIT and
+other sites clearing __GFP_DIRECT_RECLAIM.
 
-j1939_tp_cmd_recv()
-  j1939_xtp_rx_dpo(priv, skb, true)
-    j1939_xtp_rx_dpo_one()
+While this improved atomic request success rate, it's unintentionally
+broad and can actually worsen highatomic requests by squandering the
+reserves on requests that don't need it.
 
-The bound in j1939_xtp_rx_dpo_one() already picks the ECTS code for the
-transmitter:
+There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
+for costly order __GFP_NORETRY requests, which would then also fall
+into this exemption and deplete reserves even faster.
 
-net/can/j1939/transport.c:j1939_xtp_rx_dpo_one() {
-    ...
-		j1939_session_cancel(session,
-				     session->transmission ?
-				     J1939_XTP_ABORT_ECTS_TOO_BIG :
-				     J1939_XTP_ABORT_BAD_EDPO_OFFSET);
-    ...
-}
+What GFP_ATOMIC has over the others is __GFP_HIGH, which
+alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
 
-So the local transmitter already reports J1939_XTP_ABORT_ECTS_TOO_BIG
-before this patch. The commit message of the earlier patch in this series,
-"can: j1939: validate the EDPO packet number", says the same.
+Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
+ALLOC_MIN_RESERVE.
 
-This patch is tagged for stable. Could the changelog describe what
-actually changes? The out-of-range DPO no longer goes out on the bus, and
-TP sessions are now covered as well.
+Link: https://lore.kernel.org/20261001082152.2879289-1-dipiets@amazon.it [0]
+Link: https://lore.kernel.org/linux-mm/arFBWvzXPYrKuIYi@cmpxchg.org/ [1]
+Link: https://lore.kernel.org/linux-mm/20261001082152.2879289-1-dipiets@amazon.it/ [2]
+Link: https://lore.kernel.org/20261028171719.2043421-1-hannes@cmpxchg.org
+Link: https://lore.kernel.org/20261028171719.2043421-2-hannes@cmpxchg.org
+Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Salvatore Dipietro <dipiets@amazon.it>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Matt Fleming <matt@readmodwrite.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
 
-[Severity: Low]
-The changelog presents this as an ETP-only move of a check that already
-fires. However, j1939_xtp_rx_cts_one() also handles TP.CM_CTS (pkt =
-dat[2]). TP never sends a DPO, so before this patch nothing caught an
-oversized TP CTS.
+regular free memory to zero while the highatomic reserve sits idle.
+Measured on a 32G box with an anonymous working set, swap, and a full 290M
+reserve, three synthetic bursts drove the 28G Normal zone's regular free
+memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
+its swap table allocation inside reclaim, reclaim scanned 13M pages to
+free 200k, and page faults stalled for tens to hundreds of milliseconds.
 
-For a TP transmitter, pkt.block is min(j1939_tp_block ?: 255, total). A
-CTS with dat[2] > total therefore passes the old checks, and tx_acked and
-pkt.tx become pkt - 1 >= total. After that:
+[ sashal: placed ALLOC_MASK_ATOMIC in the shared internal header alongside the existing allocation flags ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/internal.h   | 3 +++
+ mm/page_alloc.c | 4 +++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-j1939_xtp_txnext_transmiter()
-  j1939_session_tx_dat()
-    se_skb = j1939_session_skb_get_by_offset(session, session->pkt.tx * 7);
-    if (!se_skb)
-        return -ENOBUFS;
-
-j1939_tp_txtimer() retries on -ENOBUFS every 10-25 ms, up to
-J1939_XTP_TX_RETRY_LIMIT times. The 1250 ms rx timeout set in
-j1939_xtp_rx_cts_one() normally expires first, and j1939_tp_rxtimer()
-then aborts with J1939_XTP_ABORT_TIMEOUT. When the txtimer retries run
-out, the session ends with -ENETUNREACH.
-
-For ETP, before this patch the out-of-range ETP.CM_DPO was actually sent
-on the bus by j1939_tp_tx_ctl() in j1939_session_tx_dpo(). Only its local
-echo triggered the abort.
-
-Could the commit message mention both cases? They look like the
-user-visible fixes behind the Cc: stable tag.
-
-> diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-> index fc2840f334b5b..377991d36dc6a 100644
-> --- a/net/can/j1939/transport.c
-> +++ b/net/can/j1939/transport.c
-> @@ -1512,6 +1512,15 @@ j1939_xtp_rx_cts_one(struct j1939_session *session, struct sk_buff *skb)
->  		goto out_session_cancel;
->  	else if (dat[1] > session->pkt.block /* 0xff for etp */)
->  		goto out_session_cancel;
-> +	else if (pkt > session->pkt.total) {
-> +		/* The responder asks for more packets than the message has.
-> +		 * pkt - 1 becomes pkt.tx_acked below, and the transmitter
-> +		 * reports that value in an ETP.CM_DPO, where it would name a
-> +		 * packet past the end of the message.
-> +		 */
-
-[Severity: Medium]
-This bound is checked before dat[1] is looked at, so it also applies
-to a CTS(0). That is the hold message, with dat[1] == 0, that a
-responder sends to keep the connection open without taking more data.
-
-SAE J1939-21 and ISO 11783-6 have the responder set the next packet
-number in such a hold message to 0xff for TP.CM_CTS and to 0xffffff
-for ETP.CM_CTS. dat[2] and j1939_etp_ctl_to_packet() pass those
-values through unchanged. For any session whose pkt.total is smaller,
-pkt > session->pkt.total is then true, and the session is cancelled
-with J1939_XTP_ABORT_ECTS_TOO_BIG.
-
-Before this patch such a frame got past the checks and reached the
-CTS(0) branch at the end of j1939_xtp_rx_cts_one(), which only calls
-j1939_tp_set_rxtimeout(session, 550). Now a peer that pauses a TP or
-ETP transfer this way has the whole transfer aborted. With the
-Cc: stable tag, that interoperability regression would also land in
-stable kernels.
-
-Should the new bound only apply when dat[1] is non-zero?
-
-The comment just below, "set packet counters only when not CTS(0)",
-suggests the tx_acked, last and tx updates were meant to be skipped
-for CTS(0) as well. The code does them unconditionally, though.
-Before this patch, a 0xff or 0xffffff packet number in a hold message
-ended up in pkt.tx_acked and was used by j1939_session_skb_drop_old().
-
-Would it be cleaner to handle CTS(0) before both the new bound and
-the counter updates?
-
-[Severity: Low]
-This check covers both TP.CM_CTS and ETP.CM_CTS, but the comment only
-gives the ETP.CM_DPO reason. For TP, the consequence is that
-j1939_session_tx_dat() looks up pkt.tx * 7 past the queued skb.
-
-Could the comment describe the TP case too?
-
-On the abort code: enum j1939_xtp_abort and j1939_xtp_abort_to_str()
-document J1939_XTP_ABORT_ECTS_TOO_BIG only as "ECTS requested packets
-exceeds message size". The documentation for code 9, by contrast, gives
-separate ETP and TP meanings.
-
-The -EOVERFLOW path in j1939_tp_txtimer() already sends this code for TP,
-so the choice here matches existing practice. That TP use just isn't
-documented anywhere.
-
-> +		err = J1939_XTP_ABORT_ECTS_TOO_BIG;
-> +		goto out_session_cancel;
-> +	}
->  
->  	/* set packet counters only when not CTS(0) */
->  	session->pkt.tx_acked = pkt - 1;
-
-[Severity: Low]
-With this check in place, tx_acked = pkt - 1 is at most pkt.total - 1.
-The only other writer is j1939_xtp_rx_eoma_one(), which sets tx_acked =
-total but then completes the session.
-
-j1939_session_tx_dpo() copies tx_acked into pkt.dpo. So a DPO the
-transmitter built itself can no longer hit "dpo >= session->pkt.total" in
-j1939_xtp_rx_dpo_one().
-
-Should the comments that the earlier patch in this series added there be
-updated? Both look stale now:
-
-net/can/j1939/transport.c:j1939_xtp_rx_dpo_one() {
-    ...
-	 * This bounds the receiver-side writer only.  j1939_session_tx_dpo()
-	 * copies pkt.tx_acked, which comes from an ETP.CM_CTS packet number
-	 * that the responder controls, and 4/4 bounds it where it is parsed.
-	 */
-    ...
-		/* The transmitter only sees this on the echo of an EDPO it built
-		 * from an oversized ETP.CM_CTS packet number, so it is the
-		 * responder's CTS that is too big, not the EDPO offset.
-		 */
-    ...
-}
-
-"4/4" is a series index and means nothing once merged. Could it name
-j1939_xtp_rx_cts_one() instead?
-
-After this patch, the transmitter branch can only be reached by a DPO
-that carries a locally claimed SA but was not built by this host. main.c
-sets J1939_ECU_LOCAL_SRC for any received frame whose SA is in priv->ents
-with users, and that includes a conflicting or spoofing node. In that
-case, J1939_XTP_ABORT_ECTS_TOO_BIG blames a responder CTS that was valid.
-
-Should the session->transmission ? ... selection in j1939_xtp_rx_dpo_one()
-be revisited as well?
-
+diff --git a/mm/internal.h b/mm/internal.h
+index 03cfd9f736597..ec88688289897 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -917,6 +917,9 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
+ /* Flags that allow allocations below the min watermark. */
+ #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ 
++/* Flags that mean GFP_ATOMIC */
++#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
++
+ enum ttu_flags;
+ struct tlbflush_unmap_batch;
+ 
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index cf93d9da4645c..e0d44b3f31678 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -2714,7 +2714,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+ 			 * reserves as failing now is worse than failing a
+ 			 * high-order atomic allocation in the future.
+ 			 */
+-			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
++			if (!page &&
++			    ((alloc_flags & ALLOC_OOM) ||
++			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
+ 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+ 
+ 			if (!page) {
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-j1939-edpo-v9-v9-0-e779ca334a81%40163.com
+2.53.0
+
