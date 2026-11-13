@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542200;
-	b=OYhrSxqkINnYlAlqSaIv0qJeQ4e09qocc9jaL6hwfqzGiCf4IUR8gy5Oc70C9AHlTtuL
-	 M4lgT1RpKbthjIrWAQ3BGtIU6jNcQtzbZswoMxO7nYv8bHlWqHbAhNEPtwygPdJ6pSv67
-	 rXpI4Xfer/EGHlx/cG/hbUxIcyXp/tyTJvt6Aum/8SKmy8LfhfpTFlvgYnarG+12IXaRx
-	 FhpByAfBMmQNcbBW1oLe0ISRM5MoQHYqZ6wbnI1EnAUSPOyglvcXHJTWPrHixyw4H7+cx
-	 nZ2k5gtZi4ZnZ7vIzm3AmKQeQaf2jLBQFRJ1pxXdSJ4bTNrpM3EB55r2GvAj9gOvi/A==
+	t=1794542225;
+	b=1Bvpapqv9UJlH8R8kMfL2MJe1nVPg67AKQppHP+eYe9WKz65xNxTLGsvQtVYSKJgKNin
+	 ABVLiKArPppiF3SgHDL61osDKyYym6ZRMOAsMhmy59ODRDUN0Q5xA7Fq9/3s4BPS9hkpT
+	 vhcbOaGW0i0qvPnjhA//jqkrboJxpAqt6S8KooIHkSxrrZCNfawHL9G9iW2Sh4Ymj/Asx
+	 AkRgUnts3/3AS2sxC6lPIRCnZvzxQ/ICNU+hi1nZ6Fdb6B9EuLzQqI7CmGpp4LlyCSenr
+	 RK6pPs+fHe5AXOngkD1IsomHEnq+iy4lTKQ3b9AsEhmxqhduBE+stoGfC53ysz5RJ7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542200;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=c3IsyqkDIWcFoAWUz+a4O451BRWK6BgsPtMgW9Nvv/E=;
-	b=M+t+PnvSpF619UsT7ov+tnBG/5jAwjeGWH9ronCjoDK93bhrr8l8mbQzCfyRHvq365F7
-	 24YYlH++CSY145GpLnQB2cIjRFHlZ6qDKsr4m7aIkQ00eJUgU+V4L8Xr/tbr7uMR3YYNW
-	 oI70jv4J1HQNgFBNUszaHy0/sotRtCdlIkymD+1qm07D6T0TL2BfPbPZn7sOL+9GKianV
-	 0XCWz/By/PpwfojDdSC+bXzs7KIw9+DgxdE5Lvj0WSC2wVYAkuekqbz41YBcNyx2BbonT
-	 goaWhAC6f/aKwP3Qc8Yu+Ul6MY2Wsi3S343Qv5BFhbsXOQ5vfq/yAerktxrbsJRm63A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794542225;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=/pwo8ev4ydyn1kAXtq/Jnonk0sk8F7g6AjdNElBpRcU=;
+	b=ZAEqlFuipA0XlLD8Yyvkp2i8ttWHBRgT9cFigaToDlrGkGtMD1qabbin7adAYs5LS1T3
+	 oET7Hf5SEiRLFXyrcUw455MdHVng+b4l8mB8OApJpvjAR/3cmwOfZ9Gjxg5YhvyCj64jy
+	 NU0CiAy/9bSxJiHCpz+hgQUSUFMS5IIuDOa9YhMhds1lxqE4H3QUwgJNH1PaNiZQZuXCm
+	 dXkW7GxulnV0svgXYrujeHPTyOegTG1f3UUG8Y07nV/+QHuKO1DqMq1d5XnsPc8OkgU52
+	 EHpwRkeIN97bKPx7GC7PcH6NZCWcrJGzirTu4jk4OzLWjaFEYRsdhKp7KhZsJoLqMNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=yrjLoZTa;
-	arc=none smtp.remote-ip=113.46.200.218
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2s5UQ+1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE74A606A31C;
-	Fri, 13 Nov 2026 03:56:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE74A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF014606A31C
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:57:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=yrjLoZTa
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=c3IsyqkDIWcFoAWUz+a4O451BRWK6BgsPtMgW9Nvv/E=;
-	b=yrjLoZTab8mWtUhjvpXJDdI+67sJG0vF3QRBhGDCSAvQnHTaOUj159iBcHJs9yXApHa//OCW3
-	BFD4bl5CWqX8S9DyjgNrCIqW+FA2Uybergz+T4pSQZO+W+MlTr27JWcOZU6chYRYuIBJZZsUTxZ
-	wQgHHRHZgOtw1tG8GWPL0lw=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jQk230vZYzpStp;
-	Fri, 13 Nov 2026 11:55:55 +0800 (CST)
-Received: from kwepemk300003.china.huawei.com (unknown [7.202.195.93])
-	by mail.maildlp.com (Postfix) with ESMTPS id B63EB40579;
-	Fri, 13 Nov 2026 11:56:35 +0800 (CST)
-Received: from [10.174.177.243] (10.174.177.243) by
- kwepemk300003.china.huawei.com (7.202.195.93) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 13 Nov 2026 11:56:34 +0800
-Message-ID: <9b46d8e0-104e-4659-8dec-67eb6f059dac@huawei.com>
-Date: Fri, 13 Nov 2026 11:56:33 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2s5UQ+1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53011F000C4;
+	Fri, 13 Nov 2026 03:57:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794542225;
+	bh=/pwo8ev4ydyn1kAXtq/Jnonk0sk8F7g6AjdNElBpRcU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l2s5UQ+1XgR+rKxk0BJMNX1pD8D4LWKD3+ZRPWS0f9cX91VJ+CEGAFn00Dmer/fZH
+	 sdMymR/AXp6k6zRPNIK4Nr2q7yvMMVt+Wfe9BGxAV/fIV2ysRsHzCyi1Q3Q5hKAw6T
+	 K7B7gXlUnHtJf6YFLL2JN8Zfn7WELOZT2w2EJS39zWDXQeQYiX4Y4XqHXqUfMP7ubr
+	 bfpuk67l4obz2A63WHnjR/khoKr8tqRMAmoUJisQGmMF2Py0WMmj/wJ9TsUrkbZBBg
+	 jSbGQ/9zVjmZ4jQES5UOq9u7/sM/xFV8wJU7I44sOuLdNF7Wfo1hMpEenk+LOWT1si
+	 EA8m6OwO+IUBQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Philip Yang <Philip.Yang@amd.com>,
+	Felix Kuehling <Felix.Kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] drm/amdgpu: enable Navi 48-bit IH timestamp counter
+Date: Thu, 12 Nov 2026 22:57:02 -0500
+Message-ID: <20261113035638.1074375-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202406-failed-5.15-146b96974b33@kernel.org>
+References: <20261109202406-failed-5.15-146b96974b33@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,68 +60,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] mm: hugetlb: fix GFP mask propagation to CMA
-To: Qi Zheng <qi.zheng@linux.dev>, <muchun.song@linux.dev>,
-	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>,
-	<azpijr@gmail.com>, <lance.yang@linux.dev>, Qi Zheng
-	<zhengqi.arch@bytedance.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<stable@vger.kernel.org>, "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
- <1c5e8c4ae230dc238a16f2f42d65bffac6244ad3.1794379434.git.zhengqi.arch@bytedance.com>
- <7def88b4-cba5-4e8b-9e68-6069c492b582@huawei.com>
- <1cd3c151-24c2-4fec-8356-99853f8d6971@linux.dev>
-Content-Language: en-US
-From: Kefeng Wang <wangkefeng.wang@huawei.com>
-In-Reply-To: <1cd3c151-24c2-4fec-8356-99853f8d6971@linux.dev>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk300003.china.huawei.com (7.202.195.93)
 
+From: Philip Yang <Philip.Yang@amd.com>
 
+[ Upstream commit 8888e2fe9c77983a9644cd9bf0d23ca9023b16d4 ]
 
-On 11/13/2026 10:30 AM, Qi Zheng wrote:
-> 
-> 
-> On 11/12/26 7:27 PM, Kefeng Wang wrote:
->>
->>
->> On 11/11/2026 2:46 PM, Qi Zheng wrote:
->>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>
->>> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
->>> during the first MPOL_PREFERRED_MANY allocation attempt even though
->>> the caller clears __GFP_DIRECT_RECLAIM.
->>
->> MPOL_PREFERRED_MANY is only used for the partner allocator. Without your
-> 
-> It's doesn't seem so.
-> 
-> Gigantic surplus allocations already use MPOL_PREFERRED_MANY, following
-> eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages"),
-> which predates 9bda131c6093.
-> 
-> alloc_buddy_hugetlb_folio
-> --> MPOL_PREFERRED_MANY
->      --> gfp_t gfp = gfp_mask & ~(__GFP_DIRECT_RECLAIM | __GFP_NOFAIL);
->          folio = alloc_surplus_hugetlb_folio(h, gfp, mpoli->nid, nodemask);
->          --> alloc_fresh_hugetlb_folio
->              --> only_alloc_fresh_hugetlb_folio
->                  --> alloc_gigantic_frozen_folio
->                      --> hugetlb_cma_alloc_frozen_folio
->                          --> cma_alloc_frozen_compound
-> 
-> Before 9bda131c6093, cma_alloc_folio() forwarded the caller's GFP mask.
-> The conversion to cma_alloc_frozen_compound() replaced it with
-> GFP_KERNEL, re-enabling direct reclaim during the preferred-node
-> attempt.
+By default this timestamp is 32 bit counter. It gets overflowed in
+around 10 minutes.
 
-Oh, I forgot about that commit. The naming and some of the comments are 
-misleading because alloc_buddy_hugetlb_folio/alloc_surplus_hugetlb_folio
-can allocate both buddy and gigantic folios (which can be allocated from
-CMA).
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: 146b96974b33 ("drm/amdgpu: clear RB_OVERFLOW bit when enabling interrupts for navi10_ih")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Maybe rename alloc_buddy_hugetlb_folio to hugetlb_alloc_surplus_folio,
-or other names...
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index 6aa1884147c4c..2c42b9a7ba74b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -160,6 +160,7 @@ static int navi10_ih_toggle_ring_interrupts(struct amdgpu_device *adev,
+ 
+ 	tmp = RREG32(ih_regs->ih_rb_cntl);
+ 	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_ENABLE, (enable ? 1 : 0));
++	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_GPU_TS_ENABLE, 1);
+ 	/* enable_intr field is only valid in ring0 */
+ 	if (ih == &adev->irq.ih)
+ 		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enable ? 1 : 0));
+-- 
+2.53.0
+
