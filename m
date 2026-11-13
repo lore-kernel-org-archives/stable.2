@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606360;
-	b=baJgH+seYwpcgrhEvJ5Hys4y48xiBWuoSWRVVYLjSdEGe7mI+6GthFRXlG1Uhs3uirTX
-	 TZ6aSk2dnHQfI3oKLCJjrxJOWr4sR2ImJbDQhBcRHYy73b9CB7jHM0m3aDdjbe8TfpbNI
-	 zyjtrmkPPhNpJJBYcvXsLd2o8cJ68bowzAW7juR1BCFWd6ZoeD2SbpUfOmIX3hkxV5u00
-	 +q/P8Pk2Edo3/CQSzDuKqXqU32B9tuqsJ/tHZfZLFdA/yadJt4M6JLV4Zbm4OiEUK8UGL
-	 037lA7mo0maQMWUbq/2qWNgWVmHQ9C4UkNNHSQKHSwFT0+z/lLdOF4ahrF3h7/YxLYg==
+	t=1794606379;
+	b=MSCTrAxkeJ3pH85NFBiniJFlhOJBDIAp1cSdU+2MvAoVb4V8LzNom2zS8HCg/HXwYxFE
+	 wmIZ8bqR0VP3GB142whkB1DqgrPQTQCOzKHr9mn/lBkGLSuQiED2yp6n4bznZ3bx6wOFB
+	 AlWWC0qIP3zWd1lmqKzDK8cT7dNPW/e5XEiLXY6oKV58yst48Wy4/qeQ8FSfE8LFyxnGS
+	 FOyLUtiW2vs9ksrJHR7RgoHc4SG6cQFtZ7uctetdUxN+lhRxLv0pX9I7HctDNX0UyWXYp
+	 +X1GIk835r/9/meCmu692pwlQsTBb6knFsCtDhVhopwnvKJe3riQaHP8N0vSWiqal8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606360;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606379;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=q7kRhLj0vZ7LFs2r4iaCcpOTG24J8Ze5ZTlEa/aA2j0=;
-	b=GCWAqcKIV7xahpqbdDQnHjnbyHe0P8f6HLGUN0swcWOHaS99i9Lls2OUJXTRJ8Yz7SbW
-	 qew+rcHHUqO08mGu3je2rTvbzi5iLEr4wdC7D5DHWFk4jwbKMdYtoxNrtP2nKRedbLjv+
-	 ZxVzAZFak8mwQg4fBFUf8EmK/yTAgrY/lFRUU5WeGasGlI09qCTds37fMV7iCTxtte+F2
-	 dt6dOl4XXeZkt83XeXtlht/0rxUzChyAuWGVGoB2p/dWakE/O52w0UlYHf4lWNGgrJSEp
-	 u2HSpx6kbKAdMvkIJWSBRFQc3ZI9ExhnkyUL9tp/DvKBIgAMNo9NJQpqjmwOPvVldCA==
+	bh=8rpd6WLSmRU3qOkeaVFoKOfZ/LYCxe6ke3Meyy3vZKg=;
+	b=Qo5Ze9Fmkfil4AJQcCZGo38NmETvpv7U3iE9v/o3uw9xwf8QLjoXQGDLssVH8+wSuJw/
+	 HIT+E9YCIPywqPj05tXdwe98zfIkpPlN5Ajd0fwEwq7l89jUR+J6FoesWyFMmkjkBK1Wd
+	 KiZLa9lkxfY0BqMVTBQMQ7cf/AAmC1HxlDcF24FIlUj3i6mU/ztikwfmkz0+SHnXUvZ84
+	 Fa3u8MlwXv2MpuiWunZSAjVUhVbwy7i51L1tKH5MMaKpuigk6VxUd4KjkkDS7dDipH1Rj
+	 FtFCfkBqq/b2qy+UfY4zsg0/kc5S0UZ/cIf3ScEN/PdoMa3Wg6aID8TEg+4i/g3cHSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y34JoCp4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WMqPKEaj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C123606A33D;
-	Fri, 13 Nov 2026 21:46:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE6C8606A330;
+	Fri, 13 Nov 2026 21:46:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y34JoCp4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B698C1F000C4;
-	Fri, 13 Nov 2026 21:45:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WMqPKEaj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04FD51F000C5;
+	Fri, 13 Nov 2026 21:46:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794606360;
-	bh=q7kRhLj0vZ7LFs2r4iaCcpOTG24J8Ze5ZTlEa/aA2j0=;
+	s=k20260515; t=1794606379;
+	bh=8rpd6WLSmRU3qOkeaVFoKOfZ/LYCxe6ke3Meyy3vZKg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Y34JoCp4LxRMKvUVbRz3LK0bkmsIq9QMdl00WVSlZlUveIlw5q1L7EeOKIai2GI5Q
-	 Qjrky0JL6fDi/DbB5Rl6UfNVPzzsBwtFnK6eoBcIWj6hmEAKkEMqbaQC97cUF1dS/X
-	 ZoLMjON1vwtAz6/HnWMIzGaWTNvjvIp9bawHtjrCbpXYuqC2ekUlbkx4X8kCusGfde
-	 1IVPjFe8OgshVbiNKbHrAw4Sgs+xVcE5xkcFzJBKUr1C9CdnAqLk8T8AgENA5qhtnp
-	 M3Oq7VjXMlb22yaBwO7GfsqLt6fj2oOXnYeQvP/82NZbLIERoO6upynfBJn3O23d2T
-	 W6cATDfdF4YoA==
+	b=WMqPKEajsCLhGzUkvEZaGbSQ54SbihrSASdI/IghM9JQNHOHo3SgRPvLWU3fE6OYt
+	 zKPrH4MjS6QSlFrH7DEK3hVvWDQgpS7FUSUlvjzmGaIfGT9bQq3wFfXNwspyDCJMIb
+	 BYbdz36X4tIC6kUgLslyXhnWQzU1QJQzg81t2YlF5ZDx/akEUFTez5KFc7LOYblgG3
+	 ZoMtLAYLzwBipJe1aqFSXoFYe71qroTQZpJif6I2UPdSd2bz+W8KCvXB8KDdBdR+ly
+	 MB69v33NXvRXb0PA04gQF5hZ+xlel8KrdpgtKS+NSVoyvvnqr4lKUIdPNXOmb/Ryxd
+	 HLmFei1P+LnVg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 13 Nov 2026 21:45:20 +0000
-Subject: [PATCH v2 02/13] mm: cachestat: count each page only once
+Date: Fri, 13 Nov 2026 21:45:22 +0000
+Subject: [PATCH v2 04/13] mm/migrate_device: allocate THP deferred split
+ heads
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-mason-migrate-et-al-fixes-v2-2-50a2ed382b61@kernel.org>
+Message-Id: <20261113-mason-migrate-et-al-fixes-v2-4-50a2ed382b61@kernel.org>
 References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
 In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
 To: David Hildenbrand <david@kernel.org>, 
@@ -83,111 +84,70 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Mark Brown <broonie@kernel.org>, 
  "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
  Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3529; i=ljs@kernel.org;
- h=from:subject:message-id; bh=/lH9dpcfdnjcbyszDCTpwOv7bWKPPrM5NccyMQXngic=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+t/ww8bNfUBhxYVryBs2ZHTNVClfG3pFZoHOxxmwSM
- 8vcRSmMHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIpi8jw68nzNPMH/9y53P+
- Jq3nsW7i9Os5Wr/4p+j9lYnvV7VcJsjI8IPx4QGVTfMXG/37x5q36tMxQQGph5/crEwZEm4E5Wo
- v4gAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1999; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=sueKEVWnjnuf/6gb3KihY296WkpSAIKgZmGa4KnlpQ8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+t/yoSE/Udbn7csn+WJ7VBzJNikVlk3h/7s1tv5Va8
+ W6hXsrXjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAExkijAjwyx/t7W1s5IkpaZf
+ P1a31/eWh7vL5lgdU8nJ3F0l9SfP32NkWHX98ee0Vac8cw7dKN/pKv7BNG89g4Lnd48dfbcsra1
+ CWQE=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Chris Mason <mason@kernel.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-It turns out that filemap_cachestat() can unwittingly return incorrect
-page counts, if large folios are present.
+A THP that device migration maps into an empty PMD can end up on the wrong
+deferred split list when it is later queued for a deferred split.
 
-This can occur due to underflow - nr_cache is nearly 2^64 on a 64-bit
-kernel if the input range starts more than 64 pages into a folio that is
-split during the call.
+This occurs if the memcg has no heads yet (resulting in a warning if
+CONFIG_DEBUG_VM is set), where deferred_split_folio() will then queue the
+folio on the parent's list.
 
-It can also occur due to pages after a large folio being skipped if the
-range starts in its second or later XArray slot and the call reschedules at
-that folio.
+Once a later THP fault in the same memcg allocates the heads,
+__folio_unqueue_deferred_split() and the split path resolve folio_memcg()
+to the memcg's own, now existing, list and take its lock.  They then
+list_del_init() a folio that is linked on the parent's list, racing with
+anything holding the parent's lock, and both lists' nr_items counts go
+wrong.
 
-Finally it can be caused by pages being counted twice due to folios in the
-range being split or collapsed during the call.
+Resolve the issue by calling folio_memcg_alloc_deferred() after the charge
+in migrate_vma_insert_huge_pmd_page() and falling back like a failed charge
+if that fails, as __do_huge_pmd_anonymous_page() does.
 
-filemap_cachestat() walks the page cache under the RCU read lock only,
-and for each entry it counts the pages that lie in the range. It does
-not track how far it has counted, so the counts are only right if the
-walk returns each index once.
+This was originally discovered by code inspection.
 
-But a large folio can be split during the walk, or small folios can be
-collapsed into a large one, and the next entries then cover indices that
-were already counted.
-
-Resolve the issue by tracking the current index as one past the last index
-in the folio, and explicitly using xas_set() to set the current position in
-the XArray.
-
-Additionally, add a check for folio_last_index reaching or exceeding
-last_index and break out of the loop if so.
-
-Fixes: cf264e1329fb ("cachestat: implement cachestat syscall")
+Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ ljs: updated to use curr_index, fixed comments, updated commit message ]
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ ljs: tweak commit message, remove unnecessary comment ]
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Acked-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Usama Arif <usama.arif@linux.dev>
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+Tested-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/filemap.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ mm/migrate_device.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index b04be64a5069..7c05e4fad081 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -4638,6 +4638,7 @@ static void filemap_cachestat(struct address_space *mapping,
- {
- 	XA_STATE(xas, &mapping->i_pages, first_index);
- 	struct folio *folio;
-+	pgoff_t curr_index = first_index;
- 
- 	/* Flush stats (and potentially sleep) outside the RCU read section. */
- 	mem_cgroup_flush_stats_ratelimited(NULL);
-@@ -4667,13 +4668,19 @@ static void filemap_cachestat(struct address_space *mapping,
- 		folio_first_index = round_down(xas.xa_index, 1 << order);
- 		folio_last_index = folio_first_index + nr_pages - 1;
- 
-+		/* Skip already counted entries, e.g. after a split/collapse. */
-+		if (folio_last_index < curr_index)
-+			goto resched;
-+
- 		/* Folios might straddle the range boundaries, only count covered pages */
--		if (folio_first_index < first_index)
--			nr_pages -= first_index - folio_first_index;
-+		if (folio_first_index < curr_index)
-+			nr_pages -= curr_index - folio_first_index;
- 
- 		if (folio_last_index > last_index)
- 			nr_pages -= folio_last_index - last_index;
- 
-+		curr_index = folio_last_index + 1;
-+
- 		if (xa_is_value(folio)) {
- 			/* page is evicted */
- 			void *shadow = (void *)folio;
-@@ -4721,8 +4728,11 @@ static void filemap_cachestat(struct address_space *mapping,
- 			cs->nr_writeback += nr_pages;
- 
- resched:
-+		if (folio_last_index >= last_index)
-+			break;
-+
- 		if (need_resched()) {
--			xas_pause(&xas);
-+			xas_set(&xas, curr_index);
- 			cond_resched_rcu();
- 		}
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 9e19fadfa65c..9e5dab8e1b77 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -833,6 +833,13 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
+ 		goto abort;
  	}
+ 
++	if (folio_memcg_alloc_deferred(folio)) {
++		count_vm_event(THP_FAULT_FALLBACK);
++		count_mthp_stat(HPAGE_PMD_ORDER, MTHP_STAT_ANON_FAULT_FALLBACK);
++		ret = -ENOMEM;
++		goto abort;
++	}
++
+ 	__folio_mark_uptodate(folio);
+ 
+ 	pgtable = pte_alloc_one(vma->vm_mm);
 
 -- 
 2.56.0
