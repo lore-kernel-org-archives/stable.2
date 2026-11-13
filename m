@@ -1,56 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577581;
-	b=d7oHwb4q+lWHibmaP6q7+Pm33ItAQvd10fB5BAJCLKnsQmqFMSoxvhJTFkounwAq+ZQP
-	 uOCPul2Z7LlSxKiQKumtAIbppaVLu5Crj25o6YSzRsy+g2Hc6F0S1LzeeqP42jJ3trbJo
-	 ktA7ZGTNr3WNIok0fBxzuO0feDg6O0oRpb835KXtls6hWUzTP7KJmIh1p4lxHjJie8T5X
-	 Fj7XblHNwxti2f1RGyBGBaGFsyZt3+IIpnkY94hdaO02HUoM91w9CY39zYj+N82hFe1lk
-	 B6JP3mo0Z8lGBovekKPBlYOi0Y3+m8O5QvYHSGVsGp4yvIZfhTSE+4sAN6/qZk6fEmQ==
+	t=1794577647;
+	b=fPrBrsJlw9UHwmV5Bt2DI+6nexKE5obJb1iNKNFkYMZeo1skr0kljVgKdVRofWw1wQcg
+	 y5Bmw6yeD5A9j1nZOrWg2HnTdBHzCtZ+tsuCj6WqIO3dmdi4J/jGHy6xi7hJseisWcvoe
+	 9fXe+8hz1oF+oHu5o8GXr3DKpm2p1bHZwJ9KdGToPdLFMtjcjgUrWf3CRurVEWJJGAXcf
+	 rLCzL5MQ+DGFd576f//cYUKKKXOd+aSOzHydmMzl8SedOS+CWkmA0DBzJR7yxVlKb5kt8
+	 kDg5MLLPD7oC4pRFBlUDB9jd9q5dt09DE39b84DQ9YeonU5UdJrmWrC+iRQWffg/+WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577581;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ZX0yljAyQh2rKwlTnsq2vLY0t0iWxamR20oGH75Ns6I=;
-	b=tdLk0S76dybBZ16AmCFOkLXaLzVnNyTWOhLPeiiyBneSnj84EqDNI7XBDUCm6MnH/Ney
-	 khmb1rHDOhBGZN6kLwnb8C891FIUqwBAvsz3AYm/FFXvV8CTTnRJDhH7i5gh3I6KpUjcc
-	 haDWo/ti/4qZpXB/5YdYUCskmrkpLdzT1SCUwbO1CNLbmy6GxS46jwoJx4Q6vS0x5myTG
-	 MTGMkSQKenmd1MG5oYgWsDnSXYgDjJg0aRuK3roPNrI3fo1jcO3gllFSkwPZu14gt4dD+
-	 Qd1rsy+N1hnLTT8tS9jpBVZdHbHdOfd8IzlSsOzWyIVDXnC4rNS8L/YQGNvac+H040g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577647;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=kLkSOcJpYReFLUI0Gi+43gyJKNu0BPMvCXqZSLQ886Y=;
+	b=XyMGY6eym6jAG32hJNw65iO1MpfDw3OLrNmeQr+qWMwiQmtmrRXUfJjsfwPB/nxZJzj8
+	 pNGyuBn013A/TQxSclFI8ee2J8+jF8Wpcvxp8SH91uLtGsMauFa5DDoUTWa/KCptOFhW1
+	 3FZQv/GIVaVXmRFgLLidMRZAcWl8W34be72d4JsgLFMeCf2dzD1G9b9H9uBIknu88FcBv
+	 hoZY6gQv2LqNCoDZgRrR3jJVMimQeiczlOs8z2DJFH6Mb4TcC6O2sahO+QUWCiM1PQSKS
+	 sYzByS2RMcqVq6eBpFQDW4HEUTdQV84Ma7A4OKypTmbwZT1pHAndTEDV+jxEtAre6Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="An34/eBO";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YN+3fIeR;
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE1D606A332
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:46:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07D1606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C07D1606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=An34/eBO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA9CD1F000C4;
-	Fri, 13 Nov 2026 13:46:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794577581;
-	bh=ZX0yljAyQh2rKwlTnsq2vLY0t0iWxamR20oGH75Ns6I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=An34/eBOu0G4r3XP1AZOjgt8dvtW2dpFDb+XRbFlZhPg6uYJHhH10L7zUwlR5z8+S
-	 rtROj3HzertIivBKANNTc1mE1OJiLkiAZgnQPVb2Tn0raxp9nRjpyiVj1TKiCAtPW7
-	 ALJl9mekjK30pJs9giHGmSU2DapjTF5NLxlRS5Ts/1ZWuKJYmzTECCfUHurK9esPmU
-	 zhlHNih6lVNtT0HPwMGVU98ciZT/cTvHLGQdMeb0HLe+Fb8rwdfLP29F5rwXmk+vwT
-	 6+ybziCXxpPRpjbUVQuSqgzb52NZFg9dmUGvPsfpdSGZCBCoc/aJPvwyyMAHqqnzsQ
-	 4ubT5WoYx7x6g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks
-Date: Fri, 13 Nov 2026 08:46:19 -0500
-Message-ID: <20261113133448.1177701-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200443-failed-6.18-bcf0b7f18ad1@kernel.org>
-References: <20261109200443-failed-6.18-bcf0b7f18ad1@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YN+3fIeR
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cdb8931aeeaso522904a12.1
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 05:47:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794577646; x=1795182446; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kLkSOcJpYReFLUI0Gi+43gyJKNu0BPMvCXqZSLQ886Y=;
+        b=YN+3fIeRCj5FYZK2CTRBYWPgIwK3Modi0TuaTLObsBjVn4ZWo35fyvSYP8SK8Q77Rn
+         2pVkvHg89Posq5P80+RhszdyLd9K5Fbf0PDbWocsD7GSXpwA0dCVR433ZCKpIS10A0xh
+         1rzy8p2bsSatQxBLLuTH3FXlhqyD8nSUxlfPe6mizkdlSVBtqSKKi/t4Q+K47ut1pXso
+         wtq3SEtqTse0Is7KCEbXvTYXVm1xHs0uWzMmiNUfbdPSIDW8fPz0YaPCkGtWZM6K4Lfj
+         hwX6bzueWtIzOsl9a1qMw2U3Si3NbD+6aYCQgOpfNRUUdVV7cD0R9HHWhBAaVumqoo5s
+         HSOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794577646; x=1795182446;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kLkSOcJpYReFLUI0Gi+43gyJKNu0BPMvCXqZSLQ886Y=;
+        b=pKL0PUf9a/avDYBdXqG2XxHywkcMDIgJHPn5dzos592Fk1HjqQ93ZaHSJQfZw+tIDA
+         B4CZUFaOnXo26JnaM0xAsTHxPXfCe27U9d3lTONw2H+1aIVMoVSGOUV2OSKwwdzaW6uM
+         ZkUmlh+TEUNKCjn4HCpI3itiSWVe7UDEm/2bpn/b/fFtABi1Tt1lcUrXKEqJCIxEHjcn
+         oIq4AW3vvpurv34thpHpZR3S46K9ja0ajnyUo28P143McLDXdnP4eP/1nEtZRSzwObR7
+         jPgWB8fgnUW+AICz5W64jyWNPW5bvRq6azVwwTnKM4JfiBjn2bBegIYy1ulxD/ewzryf
+         gDnQ==
+X-Forwarded-Encrypted: i=1; AL+hErEOMXRiYWMIMxO4jMjnBd3uo5eEqKjtvoPA0g3tJZbqvtETBU9wcDOfOwQAavhHOAdb1MN0Luk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fBpLbCRsmZkvck1XbOqiEFpyaYeH6iz2/uwQEkbsg6zIWHLNy
+	pRt3IRJPsOqlXR2oQRtxSJUNUf6nhwu0o/jJLL9sc1WTDHVB7qbSg6j6Qg57Gl3pUi2cPbpqzeg
+	AQzC0ew==
+X-Received: from plbl7.prod.google.com ([2002:a17:902:eb07:b0:2eb:50b1:b505])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1647:b0:3b1:2d60:66cc
+ with SMTP id 98e67ed59e1d1-3b1b07feb76mr2151845a91.8.1794577645893; Fri, 13
+ Nov 2026 05:47:25 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:46:12 -0800
+In-Reply-To: <20261017093016.32348-1-amirmohammad.eftekhar@cispa.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,134 +78,31 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261017093016.32348-1-amirmohammad.eftekhar@cispa.de>
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <179441749877.74221.21689652864513523.b4-ty@b4>
+Subject: Re: [PATCH] KVM: nVMX: Clear nested.smm.guest_mode on a failed RSM-to-L2
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, pbonzini@redhat.com, 
+	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-From: Daejun Park <daejun7.park@samsung.com>
+On Sat, 17 Oct 2026 11:30:10 +0200, Amirmohammad Eftekhar wrote:
+> vmx_leave_smm() consumes nested.smm.vmxon into nested.vmxon up front, but
+> clears nested.smm.guest_mode only on the success path.  On either failure
+> arm (nested_vmx_check_restored_vmcs12() < 0, or
+> nested_vmx_enter_non_root_mode() != NVMX_VMENTRY_SUCCESS) it returns early
+> with nested.smm.guest_mode still true while nested.smm.vmxon is already
+> false.
+> 
+> [...]
 
-[ Upstream commit bcf0b7f18ad11e1d410e82ffef678705eff0a317 ]
+Applied to kvm-x86 fixes, thanks!
 
-A client can commit a hole in a LAYOUTCOMMIT, because nfsd does not
-check the extents against its layouts. xfs_iomap_write_unwritten() then
-allocates written blocks there. A large hole overruns the block
-reservation and shuts XFS down. A small one exposes stale data.
+[1/1] KVM: nVMX: Clear nested.smm.guest_mode on a failed RSM-to-L2
+      https://github.com/kvm-x86/linux/commit/bcc359264f15
 
-Refuse such a range with -EIO, using XFS_BMAPI_CONVERT_ONLY.
-
-Link: https://lore.kernel.org/r/20261014130834.GB15773@lst.de
-Fixes: 527851124d10 ("xfs: implement pNFS export operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: Moved the completion-call change to the existing address-space operations code because ioend handling had not been split into a separate file. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/xfs/xfs_aops.c  |  2 +-
- fs/xfs/xfs_file.c  |  2 +-
- fs/xfs/xfs_iomap.c | 20 +++++++++++++++++---
- fs/xfs/xfs_iomap.h |  3 ++-
- fs/xfs/xfs_pnfs.c  |  9 ++++++++-
- 5 files changed, 29 insertions(+), 7 deletions(-)
-
-diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
-index 4c9afca35fefa..03f432a7938c4 100644
---- a/fs/xfs/xfs_aops.c
-+++ b/fs/xfs/xfs_aops.c
-@@ -156,7 +156,7 @@ xfs_end_ioend(
- 	else if (ioend->io_flags & IOMAP_IOEND_SHARED)
- 		error = xfs_reflink_end_cow(ip, offset, size);
- 	else if (ioend->io_flags & IOMAP_IOEND_UNWRITTEN)
--		error = xfs_iomap_write_unwritten(ip, offset, size, false);
-+		error = xfs_iomap_write_unwritten(ip, offset, size, false, 0);
- 
- 	if (!error &&
- 	    !(ioend->io_flags & IOMAP_IOEND_DIRECT) &&
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 2702fef2c90cd..e00b6c2b7af06 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -584,7 +584,7 @@ xfs_dio_write_end_io(
- 	 * they are converted.
- 	 */
- 	if (flags & IOMAP_DIO_UNWRITTEN) {
--		error = xfs_iomap_write_unwritten(ip, offset, size, true);
-+		error = xfs_iomap_write_unwritten(ip, offset, size, true, 0);
- 		goto out;
- 	}
- 
-diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
-index c7dea4242e8bf..b235dac8f79dc 100644
---- a/fs/xfs/xfs_iomap.c
-+++ b/fs/xfs/xfs_iomap.c
-@@ -619,7 +619,8 @@ xfs_iomap_write_unwritten(
- 	xfs_inode_t	*ip,
- 	xfs_off_t	offset,
- 	xfs_off_t	count,
--	bool		update_isize)
-+	bool		update_isize,
-+	uint32_t	bmapi_flags)
- {
- 	xfs_mount_t	*mp = ip->i_mount;
- 	xfs_fileoff_t	offset_fsb;
-@@ -681,8 +682,21 @@ xfs_iomap_write_unwritten(
- 		 */
- 		nimaps = 1;
- 		error = xfs_bmapi_write(tp, ip, offset_fsb, count_fsb,
--					XFS_BMAPI_CONVERT, resblks, &imap,
--					&nimaps);
-+					XFS_BMAPI_CONVERT | bmapi_flags,
-+					resblks, &imap, &nimaps);
-+		if (error == -ENOSR && (bmapi_flags & XFS_BMAPI_CONVERT_ONLY)) {
-+			/*
-+			 * Nothing was mapped: the rest of the range starts
-+			 * with a hole or a delalloc extent. Nothing was
-+			 * changed either, but xfs_iext_count_extend() may
-+			 * have logged the inode, and cancelling a dirty
-+			 * transaction shuts the filesystem down. Commit it,
-+			 * as xfs_alloc_file_space() does on -ENOSR.
-+			 */
-+			error = xfs_trans_commit(tp);
-+			xfs_iunlock(ip, XFS_ILOCK_EXCL);
-+			return error ? error : -EIO;
-+		}
- 		if (error)
- 			goto error_on_bmapi_transaction;
- 
-diff --git a/fs/xfs/xfs_iomap.h b/fs/xfs/xfs_iomap.h
-index ebcce7d494468..7d9fc86fd5567 100644
---- a/fs/xfs/xfs_iomap.h
-+++ b/fs/xfs/xfs_iomap.h
-@@ -15,7 +15,8 @@ struct xfs_zone_alloc_ctx;
- int xfs_iomap_write_direct(struct xfs_inode *ip, xfs_fileoff_t offset_fsb,
- 		xfs_fileoff_t count_fsb, unsigned int flags,
- 		struct xfs_bmbt_irec *imap, u64 *sequence);
--int xfs_iomap_write_unwritten(struct xfs_inode *, xfs_off_t, xfs_off_t, bool);
-+int xfs_iomap_write_unwritten(struct xfs_inode *ip, xfs_off_t offset,
-+		xfs_off_t count, bool update_isize, uint32_t bmapi_flags);
- xfs_fileoff_t xfs_iomap_eof_align_last_fsb(struct xfs_inode *ip,
- 		xfs_fileoff_t end_fsb);
- 
-diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index 298fdc9e9f1c3..1409ef8ce2be9 100644
---- a/fs/xfs/xfs_pnfs.c
-+++ b/fs/xfs/xfs_pnfs.c
-@@ -324,7 +324,14 @@ xfs_fs_commit_blocks(
- 					(end - 1) >> PAGE_SHIFT);
- 		WARN_ON_ONCE(error);
- 
--		error = xfs_iomap_write_unwritten(ip, start, length, false);
-+		/*
-+		 * A client may only write to blocks that a layout handed out,
-+		 * and xfs_fs_map_blocks() allocates blocks for any hole in a
-+		 * write layout, so refuse to allocate blocks for a hole or a
-+		 * delalloc extent in the committed range.
-+		 */
-+		error = xfs_iomap_write_unwritten(ip, start, length, false,
-+				XFS_BMAPI_CONVERT_ONLY);
- 		if (error)
- 			goto out_drop_iolock;
- 	}
--- 
-2.53.0
-
+--
+https://github.com/kvm-x86/linux/tree/next
