@@ -1,93 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794613826;
-	b=jaqLvipNrZVWfTyGR0vd9MJZf6dERZ3dDUPkH8Qr2VdECvAnKL4e2QHDEAdREVm/zcam
-	 X5/X/cLSPuxEW5eSbiHrRX3MFncK/1PWS7OZZZH1EsAP7gLFZ4PpKIPxQPIMXxLdYlyqg
-	 i5uX3nm1IM2XivOepMw9i6VH5srfZ2+pGZNvn2CMhX3K5TDpDtAiiYVWQI1HZW+v02t8f
-	 BTT+f8XgLpLkn4V5JwjkDt+IVjIabaeX8J7/HbWzxy78J85iU5BJ683IKyt5rk5qcc0eK
-	 XlKynUfAqEpuOO4o14l3hhImMiXahsPn+Um0CVtpNO219YAPTGKnHZxZGwQvqlIGQdg==
+	t=1794614011;
+	b=IVMtYNrGBWjAcd17Xb7//PQsqqH8gXKS/suLcZibLZftQ7c9lNhTy9zHLudpg6/Ho/1T
+	 ZqJpd7topnvWFgmepAsPALXBMLUCPjkzc+vDSc2NLHH74c9/I6Uw4OOXapbQGsw/IG06q
+	 gJkH5uS+JPRS0/PqcShaO3SgyUDuvJP1KQfr5JMt+xSd/ekF94u1gPtJeod3cdsf7IpkK
+	 ZNpJNkns3bMSKtWxmi2DQB00uq+L+wicgX+tz2PhBNHnZeBZCCXET+tJqrG5zE4PKRSWP
+	 VQ0AuLkhbMjd1mTwq5oA/CdGH9o0XQRVdVOrAVtdHZZyanZOvRkbTCNI3mKF6OlK09g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794613826;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4HL/6fjzrUsWBibeS1duDHduZd1C6ZMH5RyDDt56/lU=;
-	b=l8tFs2ZF3nD8jCnbgHhtI6SuiBptbRRD8lHJ4tZLcWzTu6LddHY0YlZu2cA7IDFSUL64
-	 Oghs5chqs816RmO/Jm3kz6U2UN1/VmC5LtundLuEYrqHRMjE7uhPMAlVjlp0YsvtXgbno
-	 15fOArksqpxTUQxBB1jObCpRVkUoJKOrsnT2B6d1uUZGuWQ4edkPOsNY3zofxIArtzUyV
-	 eUv7GcZpUWlOWWiZtUxQ90bSL4Q8+4eYlXfk16FEiIC/xv8TMDz2Qr8MDE+1lbxeK374D
-	 roKwjTNJhQ/lw0zJPTN1kAmIcsZkzlhyr+VKPJF0Sf4VmbK8A6OabZpo5TPqrPcnaIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794614011;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ofzMkWeqC39zfEblKpdCI+AgTlcnHO+vyCGyUjjgVpI=;
+	b=37LxqthBdnu0mOPa48YXwfPz/X1fHbuFMI1HOzs3guopTL/VMyLo6CdjP7Ba8WlX1NcP
+	 ZFzKITZvy+Rnjks1LwIFaFds43l8f4DQ8vqkbxyV9a2bTT6kzvA7H/O85PNVEioSIynQb
+	 K6q9dmHK1BI8/is9N0cw3voiIF6jKTEeLuPCYfqgTB0/QWikjlHXOlP65/9eiA7valMJJ
+	 /1wERPS8nOfQvPDtW61JxweLqmZtM0FDU05o4TOYtcTmixBrHiMwPZwRnp4Djob+n16u8
+	 6niCusIB0WhtyF4S8m5DISIrA/H0T1FJSes6S4s0FJ1OTf7lhZxULWLo7h3qYvcYrdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=bHQU3Plx;
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=DYi87pQB;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A86B606A338
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 23:50:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A86B606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC92606A336;
+	Fri, 13 Nov 2026 23:53:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AC92606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=bHQU3Plx
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-8629ef8613aso175656a34.3
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:50:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1794613824; x=1795218624; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4HL/6fjzrUsWBibeS1duDHduZd1C6ZMH5RyDDt56/lU=;
-        b=bHQU3Plx6fdlleLg+CaZMIjjgEv5lRh9lWi9ZMj8aC21xF5P+1KPcEilrAPKD+MLcY
-         DXEbN005ILLqpc7oTLMgbyCT4i/3L/Mzm6dy76ATMv12sQE3kqSwbMc32wDfYgNkoKDg
-         7feIYX6DyB0poHjiWrASzm8BnyZeMH36U15cw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794613824; x=1795218624;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4HL/6fjzrUsWBibeS1duDHduZd1C6ZMH5RyDDt56/lU=;
-        b=NmNDEBd9EQjG/WVm+7T8acXTGVXDeRANWaCkh7G1v6iK5eMA3oPXPabIGkiJqrMptm
-         zEtiR3WIfJU071+U2x1/NFtpYMzzGrVlDiaSG7UWPbhDQ3kVBfF52mVpZ3A5Jt/iBgy+
-         6a7XcC6wzvbzP8EgCGa6CcgEUuw+NARK2+rNHJXuOkuwVJR86GVmkwii7al/Iqx6bz83
-         bcBbpn70YkKthec9bQR5ZBoR7rkcMWnWfhRgyseuoN3NZcmQV5mX03Kvv9OrXPSICEU0
-         Fiq6QPYt8WlWoX8GtIBSWJU3Csk1twJcnPMcYD830Ks0AuI3L6z9nQ4l4BiuZ2XG44vc
-         8M9Q==
-X-Forwarded-Encrypted: i=1; AL+hErE8sspIWFZEAd0mAfLxxd1g2gmxVqIM8dAAIFlralgQFwojyTD+1D/VvMw0o7iBDMFnkn+Ep90=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9MySznjhbsXjjjeJWcPR9UG2fERtEp284rDOE1WVWhw3vNJFeT
-	MOBUws6+zQauKwiHkbeuZMf1roUpzihtetouejdFEyzjMZtEB671tMF0f3FFE3br2nY=
-X-Gm-Gg: AYBFou1e5rFvjgXX5ic92fHePyZ8pHSxvZzakW24QWvkH5/8j5vGCMuRIbX/H4k2mcl
-	iMq7S6e6QglWkllnXYOihmpl1JqLw2a4qw4taRQGAsYxoZ9GCp567xZIT3z/NykioTulr2kNG15
-	cYcu8iPBPu8PnllMo/I6UHBtRlONld37v8BfbAOGWPkQoSFzhVTaAERx2LteOBfMpbggEHGSr8r
-	zVUPi+SIUzbg/mNZbJYRUGlBkGdp9UD3Jxewq8nm8+m5L/2Sr+zB6nB32pPVM6E+NeH71uzINsM
-	SiDQbLMJvinq4WPc2TLvKGyq3+A0qE7krMplJTS4pK1rp+kXaT7WeKh6VQ+9tvzsSWV67N/kZHg
-	vIQjieZuf3S2HrJxszbrQ+8KBq8NyFFCQ+O6dc0loVFaCkcmMuw2KRRx/k/TS+cFs+zaBGuaXZd
-	nk++uK9yZ8fb1IuLVd5GRIJ7mQOf00uES1C0wj9pNB9T7NwvGYs/mFWUL7ZirEV8I1W8AQ7PR4R
-	6MqNVVxY9CUZheax/Pco4qxewqNJzxk0/GSwZYrLDFepT+71SI+uociRzSq7sP0uoxT2GeYy/Ua
-	D73IB1Y3oJuC78VO5j1X2oTRNv/SI8Z0g0DhhyQANyY3WmCD5+JFV8EFMRNUccpeuyi6+0Wl9eF
-	TCB2RPdwS75p0++pQPviS8cUo/TXdBUw9Se/Zid91wksOsKQMQ54=
-X-Received: by 2002:a05:6830:2b10:b0:861:5c3d:4a97 with SMTP id 46e09a7af769-8628989da76mr3407103a34.19.1794613824291;
-        Fri, 13 Nov 2026 15:50:24 -0800 (PST)
-Received: from com-75606.corp.openai.org ([199.47.143.1])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628818de94sm3562068a34.23.2026.11.13.15.50.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 13 Nov 2026 15:50:23 -0800 (PST)
-From: Kyle Zeng <kylebot@openai.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] net: preserve skb header offsets during headroom changes
-Date: Fri, 13 Nov 2026 15:50:19 -0800
-Message-ID: <20261113235019.74384-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=DYi87pQB
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 066C740E0184;
+	Fri, 13 Nov 2026 23:53:29 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id YzEvr1eMUUKw; Fri, 13 Nov 2026 23:53:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794614005; bh=ofzMkWeqC39zfEblKpdCI+AgTlcnHO+vyCGyUjjgVpI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DYi87pQBTBLGdOlVAxfY/jDFJ8i7MBr9lRudWLSi85+miQTxO8Z9pHPst+PrRivQQ
+	 audgX3QkI32n6LviWC2oD0zutowQJzrCdhG32/9Urn7OF4E0nEFYEelx9mfL93ndkc
+	 9mQAisxyOCW8ymx+jnPZzdzC9Uf/whF9D5fYyBB/UQCK0nMzCfgWcQQY9KST5xqAbW
+	 YnJYC3zFSdVf1Wdzm9BZlicmQDhixd2nK8bwpAPsRWoNAbfzyrZ00KvmMrJLY8lbWc
+	 ZsKCiyuDy60ZH8iTp0z+rZgvJLTQ8+ppYHyGBcu30qMILI/m+5x6+Dni4h/pjVDe7N
+	 bX3vbZn4WJRo5uDltmL23UTs6cfhc19WeqdEbo7SdddfGuUD3Z8MCMgWMzd1aCQ3eb
+	 eI3oqN7tTT41Y5nSt27h/OIi9YHc+QAzZZL7BmOTMmsSa6uPK/AxZLHIGYxKn5wYhF
+	 +zZvP4yeijzn4iRuMB/NRv94RJ6QBK0J+h6zQc90wtscqpxxF1iPSXqjlagn7o6ATf
+	 FShyPyHYdL6Vr8igt0WT9KjwLmMgbb7sdi6e89bsBBFkgwdiAXmX/GgytGrB9GSQgq
+	 ssBPhFPK0yHGebomUrWDoBk4DRo9kTJ6N4y+CrxTYN1TgbTXHarPXhD5yLuU8pL/jI
+	 khArxatRbstVezAbLcrmFfsk=
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 20CF940E019C;
+	Fri, 13 Nov 2026 23:53:11 +0000 (UTC)
+Date: Fri, 13 Nov 2026 15:53:05 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Breno Leitao <leitao@debian.org>
+Cc: Tony Luck <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Qiuxu Zhuo <qzhuo@nvidia.com>,
+	Qiuxu Zhuo <qiuxu.zhuo@intel.com>, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Rik van Riel <riel@surriel.com>,
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] x86/mce: Rate-limit messages from corrected error
+ floods
+Message-ID: <20261113235305.GEavei4ZaT6cVVy_mm@fat_crate.local>
+References: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,145 +85,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
 
-An MPLS LWT route over a netkit device configured with large headroom
-can make aligned skb expansion wrap the 16-bit network_header.
-Neighbour output interprets the resulting negative skb_network_offset()
-as a large unsigned pull length, causing eth_header() to write outside
-the skb allocation.
+On Fri, Nov 13, 2026 at 04:49:13AM -0800, Breno Leitao wrote:
+> A machine check bank that reports corrected errors at a high rate
+> makes the MCE code print two messages without any bound: "Machine
+> check events logged" for every error mce_log() queues, and "CMCI storm
+> detected" / "CMCI storm subsided" every time the bank enters or leaves
+> storm mode.
+> 
+> One host printed about 100 million "Machine check events logged" lines
+> an hour. On another, the storm notices were 82% of everything it wrote
+> to the kernel log.
+> 
+> Patch 1, from Rik, restores the two-per-minute limit that "Machine
+> check events logged" had before it moved into mce_log(). It is a fix
+> and is tagged for stable.
+> 
+> Patch 2 puts both storm notices behind one ratelimit, with the default
+> interval and burst.
 
-Reject growth that cannot preserve the network, set MAC and transport,
-recorded inner-network, or partial-checksum offsets. Do not relocate a
-set MAC or transport header onto its unset value. Check the actual
-post-pop positions in skb_mpls_pop(), bound the native MPLS label pop,
-and reject excessive LWT headroom before reading the IP header.
+Yeah, maybe I wasn't too explicit in my question, sorry. I was asking more about
+whether it would make sense to have a single:
 
-The issue was found by an LLM.
+static DEFINE_RATELIMIT_STATE(shut_up_too_load_mce_prints, DEFAULT_RATELIMIT_INTERVAL,
+                             DEFAULT_RATELIMIT_BURST);
 
-Fixes: 1a37e412a022 ("net: Use 16bits for *_headers fields of struct skbuff")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
-Changes in v3:
-- Check the actual post-pop MAC/network positions and reject the MAC
-  unset value in skb_mpls_pop().
-- Check a set outer MAC header and a recorded inner network header
-  during positive relocation.
-- Move the MPLS LWT entry check before reading the IP header.
+which all the mce printks can use?
 
-v2: https://lore.kernel.org/netdev/20261110051258.64350-1-kylebot@openai.com/
-v1: https://lore.kernel.org/netdev/20261030042246.74144-1-kylebot@openai.com/
+I.e., a single ratelimit for all. Or even:
 
-I have a reproducer for this issue and can share via DM.
+	mce_print_ratelimit(...)
 
- net/core/skbuff.c        | 35 +++++++++++++++++++++++++++++++++++
- net/mpls/af_mpls.c       |  3 +++
- net/mpls/mpls_iptunnel.c |  3 +++
- 3 files changed, 41 insertions(+)
+which does that.
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 1ac1e327ac4c..bc836adafecd 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -2130,6 +2130,28 @@ struct sk_buff *skb_clone(struct sk_buff *skb, gfp_t gfp_mask)
- }
- EXPORT_SYMBOL(skb_clone);
- 
-+static bool skb_header_offsets_fit(const struct sk_buff *skb,
-+				   unsigned int nhead)
-+{
-+	if (!nhead)
-+		return true;
-+	if (nhead > U16_MAX - skb->network_header)
-+		return false;
-+	if (skb_transport_header_was_set(skb) &&
-+	    nhead >= U16_MAX - skb->transport_header)
-+		return false;
-+	if (skb_mac_header_was_set(skb) &&
-+	    nhead >= U16_MAX - skb->mac_header)
-+		return false;
-+	if (skb->ip_summed == CHECKSUM_PARTIAL &&
-+	    nhead > U16_MAX - skb->csum_start)
-+		return false;
-+	if (skb_inner_network_header_was_set(skb) &&
-+	    nhead > U16_MAX - skb->inner_network_header)
-+		return false;
-+	return true;
-+}
-+
- void skb_headers_offset_update(struct sk_buff *skb, int off)
- {
- 	/* Only adjust this if it actually is csum_start rather than csum */
-@@ -2317,6 +2339,9 @@ int pskb_expand_head(struct sk_buff *skb, int nhead, int ntail,
- 		return -EINVAL;
- 	}
- 
-+	if (unlikely(!skb_header_offsets_fit(skb, nhead)))
-+		return -EINVAL;
-+
- 	if (unlikely(skb_shared(skb))) {
- 		DEBUG_NET_WARN_ON_ONCE(1);
- 		return -EINVAL;
-@@ -2535,6 +2560,11 @@ struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
- 		return NULL;
- 
- 	oldheadroom = skb_headroom(skb);
-+	if (unlikely(newheadroom > oldheadroom &&
-+		     !skb_header_offsets_fit(skb, (unsigned int)newheadroom -
-+						  oldheadroom)))
-+		return NULL;
-+
- 	n = __alloc_skb(newheadroom + skb->len + newtailroom,
- 			gfp_mask, skb_alloc_rx_flag(skb),
- 			NUMA_NO_NODE);
-@@ -6804,11 +6834,16 @@ EXPORT_SYMBOL_GPL(skb_mpls_push);
- int skb_mpls_pop(struct sk_buff *skb, __be16 next_proto, int mac_len,
- 		 bool ethernet)
- {
-+	unsigned int headroom = skb_headroom(skb);
- 	int err;
- 
- 	if (unlikely(!eth_p_mpls(skb->protocol)))
- 		return 0;
- 
-+	if (unlikely(headroom >= U16_MAX - MPLS_HLEN ||
-+		     (unsigned int)mac_len > U16_MAX - MPLS_HLEN - headroom))
-+		return -EINVAL;
-+
- 	err = skb_ensure_writable(skb, mac_len + MPLS_HLEN);
- 	if (unlikely(err))
- 		return err;
-diff --git a/net/mpls/af_mpls.c b/net/mpls/af_mpls.c
-index ad4ad6f2001a..18c9654a6b36 100644
---- a/net/mpls/af_mpls.c
-+++ b/net/mpls/af_mpls.c
-@@ -419,6 +419,9 @@ static int mpls_forward(struct sk_buff *skb, struct net_device *dev,
- 	if (!nh)
- 		goto err;
- 
-+	if (unlikely(skb_headroom(skb) > U16_MAX - sizeof(*hdr)))
-+		goto err;
-+
- 	/* Pop the label */
- 	skb_pull(skb, sizeof(*hdr));
- 	skb_reset_network_header(skb);
-diff --git a/net/mpls/mpls_iptunnel.c b/net/mpls/mpls_iptunnel.c
-index 1a1a0eb5b787..5123394234cc 100644
---- a/net/mpls/mpls_iptunnel.c
-+++ b/net/mpls/mpls_iptunnel.c
-@@ -59,6 +59,9 @@ static int mpls_xmit(struct sk_buff *skb)
- 	    !dst->lwtstate || skb_warn_if_lro(skb))
- 		goto drop;
- 
-+	if (unlikely(skb_headroom(skb) > U16_MAX))
-+		goto drop;
-+
- 	skb_forward_csum(skb);
- 
- 	tun_encap_info = mpls_lwtunnel_encap(dst->lwtstate);
+The mce code is full of homegrown shit like per-CPU vars left and right and
+other hackery which got grown for some reason back then and I don't want to
+add more if not absolutely necessary.
 
-base-commit: 2800868f63227c8237d70c41e70d441c919620d6
+I hope that makes more sense.
+
+Thx.
+
 -- 
-2.55.0.openai.911.g06873a30d2f3
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
