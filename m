@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794535591;
-	b=d3p48x4o1HfGtF88N/eg2rKoEWPwljNNokfcv2PWI+kUUu7RedadJ9+dAKaEnl9X7TTY
-	 uFsT3EUQiscRllgo/ss30UKEvR28u2sBEOMhTpVXwharWUQ2uNHp64jtds3/4ItgDtQGc
-	 8fZkq2e9jnZaHAMa5kieHR+hnTj4ZZfLeCz29dwa0PVbZyuxlFLkeDHNY3W5I5FZwF0Ae
-	 MX9tuVIiLwXqkQfyycYqWj5SvHt4rtjSoSWUvMAnzZNIT6ddNZ3O3rco6bXWHedIb/nPY
-	 YGG0CObhozr7EVV1nLbg77S1aDXnZuiPiZjXVhVCT7VhsIKhItCo9HDv7DtWGoufEXw==
+	t=1794536521;
+	b=4cVYe8BgkwGWWi3qIsRDf+IzAtJ1nCnvG9H24WR8xthRsdPLYL5YlVK5RPkfSDCHXaDZ
+	 dmLiIFOLroK50WrtSYyJPjBxUOkuUQ/0ZxGypiy8PUTl6ZSjO6PU1QisQ5Kp3MCu08Qes
+	 xy9I/Ha5UDUWD+e3PzLog6nlyPECUmmowYSXKvHirPWEd2ArVFU1U7Y6f/sVQDGfOwW7v
+	 voKVot7WU2V4U3sHnzuV4yDdx0VuQOH/mR018GmcLYuKUxDwFlPof20c8M2s+jtrFqqW6
+	 m4jJ/ckop05Ibw/w7QolSE0GHIqzeihQeyaIJRDhZo25oFlVKOkxpcBHDmH/BeCBaVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794535591;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XNZDrVcq+boAL+pOGbd+KtTtVDRMXO3ms/PyKJ+Acm0=;
-	b=SiSEoOjdzx1lkTqR1/eWwii3Edxacc1wQvoyAl0GTCp5/hQL9RE5z63qsrF4IZKiwlGg
-	 D9LF4t5AK+QE3womipMrJAue33ktRx6oiYqA07caQE8U5vQ19pruv2tv8QlfN92yRFHM9
-	 gvf2eFTKJbTdAjIFHMQ+rh8fVlzl2a/G9HCmDSIzuNGmZP0g/aWchMSyY5bth62MfULtU
-	 yufSexEdeGXIHkAspEBLPiynUsxytdk699hUQXmJctwWD0ujaoi4SSn6txLl6QLKqnq2H
-	 fEGa+9eadHvNjiW1b4TTNVUyMjwiTRmWPVWXN03vXvrvfaxAPfNp7w3IsOgCBTaJRyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794536521;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1e8Zov3aIUvbqlTHnCV5QfqsM4RMN8sn9PqG4yCFyy8=;
+	b=xfvBdT9bWs4TRHrXzPbagNN4VFKjT4GybMsAw3umarnD62sabBulkqGlwNi4vX/uPh0/
+	 85GLl5DE2jq5HeM5m+nn3pr22zgDocgKmv8+rLyL/hYndWdM4CcY5cQXmEbcUVcwk4s7C
+	 d9plou4YRk3I3UKwW6lW+AGSBEUYKv69mer8DKyAVZrAwKNIQl+zVegFtS9WIkT1q7eki
+	 6aD1L9fAoDusW9bnfZuTLzSBxRzDuPgp3NEmcNRAJn+sUYWyhsSwQ/licOJQhovi3a6HX
+	 5P87zjsVKfJct3EV+aDtM7KQYMlRIp+IJqL85f5+xlFMJ+uO06lmFP/TVWPY2G7nZ3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b/kTqyKr";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NVGbk9a7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D58F606A31C
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:06:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3310F606A31C;
+	Fri, 13 Nov 2026 02:22:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b/kTqyKr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC3DE1F000C6
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:06:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NVGbk9a7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C09C1F000C4;
+	Fri, 13 Nov 2026 02:21:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794535590;
-	bh=XNZDrVcq+boAL+pOGbd+KtTtVDRMXO3ms/PyKJ+Acm0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=b/kTqyKrZHjXWCX5MnPJs6jJRq9YqkjaiEZlUTvB0DoO7c/mUAu5mm5TrQkIBSEvw
-	 pnCz6sIO26Tgp1s91FTJxqJWoZfRyX+udwTLgguVFB/xxWYlRPA3gRkDLAkKO7BqSW
-	 R3MGzYC7DqSA6TT5swxa7P9nkljist5autFdc+3X15XVlS/CZWVapIp9VZvCgX9ASe
-	 vjRvaYTq5KtHiBLhQfTlo9xiQSV7Mr+ba3QaiBHpIDWyftbnF2jTqMS/IUb66lH/nI
-	 Kku/QAxjL5pjlgLPxA5P3z7gRhIGAdjUMNw0bTh2vPeZilEPqE6gQ2XMIP5VHYCbRg
-	 l7CbkDcQPeihQ==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso701156a12.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:06:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH+jc4BUR9KJh6Mh0+SvcUBMQn4cgPwLhUdXgwwdVnIs7IOiPuRdFEzzCWNJNK93kkeOcF2/e8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9vkBMk2DtC+KER8vYQ3LW/NbhMdVNrL8uvMekxCRAy7JjJ0+l
-	bVw+jPNvUEt0UHxkzl1ayYLju2rsQGgNwan8loEuuiOaNQoFLP2SuWFUJqD0n6MK/eiI3GEVEgJ
-	17ACdWsHI8wCBbOApJur8UIo3i+yyrLM=
-X-Received: by 2002:a05:6402:c50b:20b0:6b1:a647:981e with SMTP id
- 4fb4d7f45d1cf-6b7c0c52570mr790505a12.24.1794535589658; Thu, 12 Nov 2026
- 18:06:29 -0800 (PST)
+	s=k20260515; t=1794536520;
+	bh=1e8Zov3aIUvbqlTHnCV5QfqsM4RMN8sn9PqG4yCFyy8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NVGbk9a7SZ6LNOs7VeeCV6jFglmrl5Q9ybXiIdX7ALRKshWpZ4jQPsUcl9vbsaJRK
+	 Y3Cx+ODsIjqrLoVZZ27Z7ptov73B9+KTNSd4HvZdkqMiuzUuFB32eAhOgenw+pH9YC
+	 VUrb7gVT6pJFPnecIhXTwuBNzsCaWUw9Ik27EaOvVqXPdXJ5UdRgDBz2aJnIRmi5H/
+	 2UAJOFiAJaOtRLP7ghqQo4YG+qm45vK6FKODKQJLvLqISFpm8o0/hYkJlk5t7vQlUd
+	 nKvzIcmTqZEmlEeX7+yyThGiwntlR9viGrZZvCkZ0UMW97XQ1uNG/yYWhsyjSUQ8h4
+	 2/HGg3w5YylAg==
+Date: Fri, 13 Nov 2026 02:21:53 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: raoxu <raoxu@uniontech.com>
+Cc: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ luiz.von.dentz@intel.com, pengpeng@iscas.ac.cn, pmenzel@molgen.mpg.de,
+ brgl@kernel.org, u.kleine-koenig@baylibre.com, lars@metafoo.de,
+ mike.looijmans@topic.nl, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Joshua Crofts
+ <crofts@kernel.org>
+Subject: Re: [PATCH v3] iio: adc: ltc2471: Fix LTC2473 differential offset
+Message-ID: <20261113022153.445fdcb7@jic23-hlaptop>
+In-Reply-To: <B29B7229F9C3B748+20261110122414.373459-1-raoxu@uniontech.com>
+References: <B29B7229F9C3B748+20261110122414.373459-1-raoxu@uniontech.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,90 +63,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111092421.3771992-1-chenhuacai@loongson.cn>
- <20261111170600.GS1779021@noisy.programming.kicks-ass.net>
- <CAAhV-H6SYOjOw+owmStK7sr-HOiADC1zZ4Cii5hv1q+qYAUETg@mail.gmail.com> <20261112081348.GB2668804@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261112081348.GB2668804@noisy.programming.kicks-ass.net>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Fri, 13 Nov 2026 10:06:17 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7U5=VYEnb9sv4VF7p6Wc77sy1NW0ZCPH23LzPr7wYkRg@mail.gmail.com>
-X-Gm-Features: AclHuK_JVN4dasIdBgm1TIXgmrLvT8GsJW8f9xBjTyZqO8uWl502owJkHbxQpwE
-Message-ID: <CAAhV-H7U5=VYEnb9sv4VF7p6Wc77sy1NW0ZCPH23LzPr7wYkRg@mail.gmail.com>
-Subject: Re: [PATCH] lib/smp_processor_id: Don't warn if there is only one CPU
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Huacai Chen <chenhuacai@loongson.cn>, Andrew Morton <akpm@linux-foundation.org>, 
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Tiezhu Yang <yangtiezhu@loongson.cn>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 4:13=E2=80=AFPM Peter Zijlstra <peterz@infradead.or=
-g> wrote:
->
-> On Thu, Nov 12, 2026 at 11:14:57AM +0800, Huacai Chen wrote:
-> > Hi, Peter,
-> >
-> > On Thu, Nov 12, 2026 at 1:06=E2=80=AFAM Peter Zijlstra <peterz@infradea=
-d.org> wrote:
-> > >
-> > > On Wed, Nov 11, 2026 at 05:24:21PM +0800, Huacai Chen wrote:
-> > > > When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) ker=
-nel,
-> > > > calls to smp_processor_id() in preemptible contexts trigger some fa=
-lse
-> > > > positive "BUG: using smp_processor_id() in preemptible" warnings, w=
-hich
-> > > > are harmless noise because the process always executes on CPU 0 and=
- CPU
-> > > > migration is impossible.
-> > >
-> > > The check is still valid, you don't want to have any code that uses
-> > > smp_processor_id() outside of preempt_disable(). Such code would be
-> > > invalid on SMP, even when ran on UP.
-> > Thank you for your reply.
-> >
-> > At first I also think that smp_processor_id() should always be called
-> > in preempt disabled context, but after investigation, I found:
-> >
-> > There are 5 existing skip conditions.
-> >
-> > 1. if (likely(preempt_count()))
-> > 2. if (irqs_disabled())
-> > 3. if (is_percpu_thread())
-> > 4. if (current->migration_disabled)
-> > 5. if (system_state < SYSTEM_SCHEDULING)
-> >
-> > Condition 1 and 2 is to make sure smp_processor_id() is called in
-> > preempt disabled context, but Condition 3, 4 and 5 is not.
-> >
-> > Condition 5 can make sure no context switching since the scheduler
-> > hasn't begun to work, but Condition 3 and 4 can not.
-> >
-> > In other words, Condition 3 and 4 can only make sure the current
-> > execution will not be migrated to another CPU, and I think my new
-> > condition is exactly the same.
->
-> It is not; your patch would suppress any and all checks when ran with
-> just a single CPU. Even when the code is clearly buggered.
-OK, now I know my skip condition bypasses too many cases, then is it
-acceptable to use "if (!IS_ENABLED(CONFIG_SMP))"? In this way the SMP
-behaviours are the same as before.
+On Tue, 10 Nov 2026 20:24:14 +0800
+raoxu <raoxu@uniontech.com> wrote:
 
-Huacai
+> From: Xu Rao <raoxu@uniontech.com>
+>=20
+> The LTC2473 reports its differential conversion result as an unsigned
+> 16-bit value spanning -VREF to +VREF. The IIO scale is consequently
+> reported as 2 * VREF divided by 2^16.
+>=20
+> IIO offsets are expressed in raw codes, but the driver currently returns
+> -LTC2471_VREF, which is a millivolt value. This makes the processed
+> reading incorrect: with a 1.25 V reference, the midpoint raw code is
+> shifted by 1250 instead of 32768 codes.
+>=20
+> Return the raw-code offset so that the midpoint maps to 0 mV and the
+> endpoints map to -VREF and +VREF as intended. The single-ended LTC2471
+> does not expose the offset attribute and is unaffected.
+>=20
+> Fixes: 1d3eacbfa644 ("iio: Add LTC2471/LTC2473 driver")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Joshua Crofts <crofts@kernel.org>
+> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Applied to the fixes-togreg branch of iio.git
 
->
-> > > All code must be SMP ready.
-> > This is why I use "if (nr_cpu_ids =3D=3D 1)" rather than "if
-> > (!IS_ENABLED(CONFIG_SMP))".
-> >
-> > >
-> > > Aside from that, nr_cpu_ids is the wrong number to check.
-> > Correct me if I'm wrong, do you mean checking num_online_cpus()?
->
-> num_possible_cpus() is what I was thinking of. Notably, there is no
-> requirement that the CPU bitmap is dense. You can have nr_cpu_ids at 256
-> and use 255 for your boot CPU. It would be completely daft to do so, but
-> it is still valid.
+Thanks
+
+Jonathan
+
+> ---
+> Changes in v3:
+> - Add Reviewed-by tags from Nuno S=C3=A1 and Joshua Crofts.
+> - Move the AI assistance disclosure out of the commit message.
+> - No code changes from v2.
+>=20
+> Changes in v2:
+> - Replace the raw -32768 literal with the named LTC2473_DIFF_OFFSET
+>   macro.
+>=20
+> The supplied fix was reviewed and this commit message prepared with
+> OpenCode AI assistance.
+>=20
+>  drivers/iio/adc/ltc2471.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/iio/adc/ltc2471.c b/drivers/iio/adc/ltc2471.c
+> index 369af700969f..eb418c0fa732 100644
+> --- a/drivers/iio/adc/ltc2471.c
+> +++ b/drivers/iio/adc/ltc2471.c
+> @@ -25,6 +25,7 @@ struct ltc2471_data {
+>=20
+>  /* Reference voltage is 1.25V */
+>  #define LTC2471_VREF 1250
+> +#define LTC2473_DIFF_OFFSET (-32768)
+>=20
+>  /* Read two bytes from the I2C bus to obtain the ADC result */
+>  static int ltc2471_get_value(struct i2c_client *client)
+> @@ -69,7 +70,7 @@ static int ltc2471_read_raw(struct iio_dev *indio_dev,
+>=20
+>  	case IIO_CHAN_INFO_OFFSET:
+>  		/* Only differential chip has this property */
+> -		*val =3D -LTC2471_VREF;
+> +		*val =3D LTC2473_DIFF_OFFSET;
+>  		return IIO_VAL_INT;
+>=20
+>  	default:
+> --
+> 2.50.1
+
