@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530773;
-	b=QCL4Ej+boIIscF0L0jrdGKI66qVWAHDIE0vp1yTNmYtie0kxYePKK1pvQewm6muyjgOV
-	 wVS+PWW/Bz5Zm4JWg/sAGbRdOxytclds1kE4sAMhwe4bKfM6jQGRDcBEOpvnIlUH5mTYl
-	 y6H/ztRj9gXV8rtrezSTqj7X5pYM68HLLSGRRMoxKuAKj/Vaz96uMhAkP/0SZvNF+RZKm
-	 55C//u1IalcLIZJtRCwcOF0o+Xjqs7rFWTaeR50jxIiV4+4lGvqbUonwkNp64Khyakm9E
-	 9ko0WqKD/dL0CQPdPqb2zl3GYlExNrxiZPORi5UkFVu8Dez4OZccKxN7SdBLtjmTakw==
+	t=1794530774;
+	b=4KCB9Un5vJizsWbvDPLkqwR9MZhuy1K8vXAmOGO0QJiFhPVC+o/71gYGEMbespp4Oi+N
+	 xZog2DsIGnnoPYWO9CdYZmkDBHkICH3PbUa/0I16RZynIyDy9Yh6HpfxL63DWwkGqzXCp
+	 vUu4A5axrNavHOVy25Ja95qUgkbwtycaMWqoRSivAp99aOS4vWZL3z317NSMMEL7dQ8Y8
+	 LEMlCxs52joYd9h/3xHJBoKBVyhYh3mvlGTVuYKdo4WeErxRCFBGqOuIq3CGpwpl85kcr
+	 9q22SsyTMyKWxUxxhfCUm+zBH91wVQMJWES7pqJuHQtYtHvvhTmlvTWmFQhpUvO28FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530773;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530774;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=VBvqXZBrg8ZLXBJ9VhBif5IOKYlUEiVGie0TkZwk+Fk=;
-	b=NEFvTBJruKSZzBAeFjvHAjlD3oJhJLEpR4Xa5bYoB6W7SFgWlbyf7yh9wg622dxUJIrL
-	 aRCpH4WGT4U5jZWBsw/B00te5HlXjF00G2oeRN1F9KIAGCEDfe3mS+Grstv2kslZJjq6S
-	 QMNT+hBVBcUU0I2IeT14NRvB53tcfc7XSvLVlc9jqzCS6ea43KgVJMwC1iW+9p3nITlWf
-	 olArCp0QBheoSOpAm+qUT2rnb9DOur1JSya37BXX8uMuijxBgBScLv3XUaILoF7Jvqqsn
-	 /UPO/aTrd/NwJbdz9MEJxEgyNqIOKsLXbZGCWklU862y2IxaDsQfLEOxgMwIaAOJeoA==
+	bh=I8mSshGpx2AHXeoquqR7LIvMNup8y18J1R6//+znhG8=;
+	b=uFNbytlMmzYVB4DRsHOFAlHBIemWJu57QgXuozg/mfVJOHYu2e/dhP6cdlki5OV7bImd
+	 NOYfQHq6xJ6vzW6e/kq5PfNIV44StZIL7jcfgRLY8hkXVxDzExTU+RRKBnCuFLDhudbD0
+	 pkrtdirL70ZalX/i7oUKfR/vtfFAfs/hThutzj0ZImt9PlvPXee6egYisEe8PKTrqO5Kv
+	 AT7MNf7qzpwOJQiyRBCPN4mThF44y5MsAkc8+zGpV9FLMgKE/F0xaXZIr7O1d5w5aDnJH
+	 VyZ1hEk1MAt4PpCqXzW1mJD0TV/fup4SX6gh7NXM5tFri06Hsjrh1C38uYO9zvcQueQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Oy+jbiFc;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BZ2h4QJn;
 	arc=none smtp.remote-ip=198.175.65.20
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360D4606A335;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD3F606A33D;
 	Fri, 13 Nov 2026 00:46:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 360D4606A335
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AD3F606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Oy+jbiFc
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BZ2h4QJn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1794530773; x=1826066773;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=FS8xKdlb579ol/9zLRwDxy8aWB7r/U991SRhEfkpzAg=;
-  b=Oy+jbiFcGNJiTeUrx6A28sJQY5CpHcGmEDKdEm+Zia0T4EXI9oxZZMgW
-   w6+N7eRfCr2aAay30CmtHyYLB7r1sdZPwC/ooCxuWAP6PeyZq/LXPsjF8
-   1pDF5JE99j8BuUsKIc4BBmGOhNk9n1wtCNweSpZ6g+48J94HcCNFXnhKd
-   jpzpDnjjaahdZMXHrueNGRQ4PZGr4M4sw7hQlJhOFxkPdCJpEQyoO1rkn
-   pi1pEqH5w3pixc0Mv+UmHBru6/FboAWY/bNEu1EZpbzhwuScEEiiL0jTS
-   rkp8iQi55sMMWv/VRrgT2vDRLSbuDhxyoyVgPW8G9DD6oqxnVTO2slGd6
-   A==;
-X-CSE-ConnectionGUID: zxxyL4+2RcivWKpwPZ+bzQ==
-X-CSE-MsgGUID: /lYdS2SNTm2T0/vWxVokQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3361674"
+  bh=9mF/uL0eov56MZMw73OmMJmkpD4B2LdC8Tn4XrECHpM=;
+  b=BZ2h4QJn5Nd329P9PiyN3+L/a3DDbHrSFB/3piNZvT9A1PMeld/Q7uCv
+   uJnLFH/eMTo3OKcsRk4i0xc7kVvreWSCLg7UHcclgrreFfd/J+8QSuBti
+   Kqa8K5TqyOOiSLU05fC3efy0geSqGYBJNvqXE6g0iw9/Mw7kIMz3wG0QJ
+   GRXgQPtjS5ex3Oh0PAJgeQL92q8l69leyO1HM2rvrjkYPdOE/Jqe2xmAG
+   g3oybadd1bXLGov4N7TkcmVkA5Y5cIhLdzC4Ha9AH+11SPh6YNRHbtl7y
+   Aa2N+isIkEpRkiFN6Mf6d/d1NlBUVFgBMdZ/rt0GMcgj7azEC/K7vNtEv
+   Q==;
+X-CSE-ConnectionGUID: WWtaYov6QGSWri3S6isSUA==
+X-CSE-MsgGUID: AhEQzxNcRk+1ikQutwThGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3361680"
 X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3361674"
+   d="scan'208";a="3361680"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:46:12 -0800
-X-CSE-ConnectionGUID: aSRG+HCdSZCurinFYVOaJg==
-X-CSE-MsgGUID: 2SU3wGHsTOaoKCNYwYHJbg==
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:46:13 -0800
+X-CSE-ConnectionGUID: yF1f8DB2RrO1xJP/OfngOQ==
+X-CSE-MsgGUID: o0d0L5woSA6ln7e6jRcQrA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="8724617"
+   d="scan'208";a="8724620"
 Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
   by fmviesa004.fm.intel.com with ESMTP; 12 Nov 2026 16:46:13 -0800
 From: Tony Nguyen <anthony.l.nguyen@intel.com>
@@ -68,17 +68,17 @@ To: davem@davemloft.net,
 	edumazet@kernel.org,
 	andrew+netdev@lunn.ch,
 	netdev@vger.kernel.org
-Cc: Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+Cc: Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
 	anthony.l.nguyen@intel.com,
 	mheib@redhat.com,
 	fballuch@redhat.com,
-	luoxuanqiang@kylinos.cn,
-	jbrandeb@kernel.org,
+	aleksandr.loktionov@intel.com,
+	jiri@resnulli.us,
 	stable@vger.kernel.org,
-	Alexander Nowlin <alexander.nowlin@intel.com>
-Subject: [PATCH net 3/6] i40e: avoid resetting BQL state when freeing temporary Tx rings in set_ringparam
-Date: Thu, 12 Nov 2026 16:45:57 -0800
-Message-ID: <20261113004602.129864-4-anthony.l.nguyen@intel.com>
+	Jedrzej Jagielski <jedrzej.jagielski@intel.com>
+Subject: [PATCH net 4/6] iavf: fix QoS capabilities memory leak
+Date: Thu, 12 Nov 2026 16:45:58 -0800
+Message-ID: <20261113004602.129864-5-anthony.l.nguyen@intel.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20261113004602.129864-1-anthony.l.nguyen@intel.com>
 References: <20261113004602.129864-1-anthony.l.nguyen@intel.com>
@@ -93,92 +93,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-Temporary Tx rings built by i40e_set_ringparam() while resizing
-descriptor counts are shallow struct copies of the live vsi->tx_rings[]
-entries, so they retain the same ring->netdev and ring->queue_index as
-the live ring they are staged to replace.
+Commit 4c1a457cb8b0 ("iavf: add support to exchange qos capabilities")
+allocates adapter->qos_caps during probe, but iavf_remove() does not
+free it. This leaks the allocation whenever an iavf device is removed.
 
-If an error path frees one of these clones with
-i40e_free_tx_resources() before i40e_down() has run - either the
-i40e_setup_tx_descriptors() failure unwind loop, or the free_tx: error
-label - i40e_clean_tx_ring() will call netdev_tx_reset_queue() on
-txring_txq(tx_ring), which resolves to the *same* netdev_queue as the
-live ring because netdev/queue_index alias. That call resets the
-queue's BQL/dql state (dql_reset(): num_queued = num_completed = 0)
-while the live ring is still actively transmitting and completing
-Tx on that same queue.
+Free adapter->qos_caps in iavf_remove().
 
-The next time the live ring reports completions for bytes that were
-queued before the reset, dql_completed() can underflow its own
-sanity check and hit:
-
-	BUG_ON(count > num_queued - dql->num_completed);
-
-i.e. a guaranteed kernel panic, not just a warning, given a queue with
-outstanding (queued but not yet completed) Tx traffic at the moment
-the clone is freed.
-
-Reproduced on real hardware by forcing i40e_setup_tx_descriptors() to
-fail partway through building tx_rings[] while flooding real Tx
-traffic on the affected queues:
-
-    kernel BUG at lib/dynamic_queue_limits.c:99!
-    RIP: 0010:dql_completed+0x285/0x2a0
-    Call Trace:
-     <IRQ>
-     i40e_napi_poll+0x74b/0x1700 [i40e]
-     __napi_poll+0x10a/0x200
-     net_rx_action+0x2f7/0x380
-     handle_softirqs+0xcc/0x270
-
-Confirmed the same trigger no longer panics with this fix applied,
-including repeated resize/traffic cycles.
-
-Clear the clone ring netdev before freeing it in both error paths, so
-i40e_clean_tx_ring()'s existing `if (!tx_ring->netdev) return;` guard
-skips the netdev_tx_reset_queue() call for the clone. This mirrors the
-same idiom i40e already uses for XDP Tx rings, which also have no
-netdev_queue of their own (ring->netdev = NULL in i40e_vsi_setup_tx()).
-Only the temporary, about-to-be-freed clone is touched; the live ring
-in vsi->tx_rings[] keeps its netdev.
-
-Fixes: 9f65e15b4f98 ("i40e: Move rings from pointer to array to array of pointers")
+Fixes: 4c1a457cb8b0 ("iavf: add support to exchange qos capabilities")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+Reviewed-by: Jedrzej Jagielski <jedrzej.jagielski@intel.com>
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
 Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 ---
- drivers/net/ethernet/intel/i40e/i40e_ethtool.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/intel/iavf/iavf_main.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/intel/i40e/i40e_ethtool.c b/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
-index ef756487d668..58d842d67642 100644
---- a/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
-+++ b/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
-@@ -2143,6 +2143,8 @@ static int i40e_set_ringparam(struct net_device *netdev,
- 					i--;
- 					if (!i40e_active_tx_ring_index(vsi, i))
- 						continue;
-+					/* not live yet, skip its BQL reset on free */
-+					tx_rings[i].netdev = NULL;
- 					i40e_free_tx_resources(&tx_rings[i]);
- 				}
- 				kfree(tx_rings);
-@@ -2248,8 +2250,11 @@ static int i40e_set_ringparam(struct net_device *netdev,
- 	/* error cleanup if the Rx allocations failed after getting Tx */
- 	if (tx_rings) {
- 		for (i = 0; i < tx_alloc_queue_pairs; i++) {
--			if (i40e_active_tx_ring_index(vsi, i))
-+			if (i40e_active_tx_ring_index(vsi, i)) {
-+				/* not live yet, skip its BQL reset on free */
-+				tx_rings[i].netdev = NULL;
- 				i40e_free_tx_resources(&tx_rings[i]);
-+			}
- 		}
- 		kfree(tx_rings);
- 		tx_rings = NULL;
+diff --git a/drivers/net/ethernet/intel/iavf/iavf_main.c b/drivers/net/ethernet/intel/iavf/iavf_main.c
+index 2f8a80a11336..4de3ea8525b3 100644
+--- a/drivers/net/ethernet/intel/iavf/iavf_main.c
++++ b/drivers/net/ethernet/intel/iavf/iavf_main.c
+@@ -5638,6 +5638,7 @@ static void iavf_remove(struct pci_dev *pdev)
+ 	iounmap(hw->hw_addr);
+ 	pci_release_regions(pdev);
+ 	kfree(adapter->vf_res);
++	kfree(adapter->qos_caps);
+ 	spin_lock_bh(&adapter->mac_vlan_list_lock);
+ 	/* If we got removed before an up/down sequence, we've got a filter
+ 	 * hanging out there that we need to get rid of.
 -- 
 2.47.1
 
