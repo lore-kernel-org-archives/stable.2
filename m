@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593499;
-	b=iY7fGygI8eRwasTMjc8taKreOAGSqLerlQm1/QctQuFfzU/wnwxkfYUgCkuQen4vIsof
-	 LTKtqi0XuukRaRzkPvvrYUR2yuxVwgxK06ATwPUrzLDjsgs7eS6Ix/ktVxnFlTOXMhufx
-	 EOS0c1mHDPkQb/YOlPsf7aOaT5ZRg0++ygCSp57Ch0OLPNqMqbQ2MGsVI3d1/yqIiRQEF
-	 wp685FQ4709kUQNR2uDmtlrbpwxZmSUT8477Q98DL4SrLX4/aA6fIQQDXCg3sUel2AoXK
-	 hw9jG47NX5/tvgetrWWCPVYp6umxuX/vlobHnAn9dmrfNyXy1ia6Mhs5WEkcU/bx0dw==
+	t=1794593632;
+	b=virRZly5tCOct7kB09Omp83QZzrgJ/zxI4nVWW5+zmctmGufsVEbFErYJq0IhPvwgjoA
+	 x9CMPl+pVCgyM0hHIkDIxtC31lyNVmz1IMSXBxufpeDxUQJNsEUSOpi5F6OlH+UBwB7pi
+	 PLx5823x3lL2QBRSWHkVXdeJGUyLh0G8Xq0hAWJVsUyTcTq2+/I3Py0vsogz+EbmDztNv
+	 INq0ph/ZtWgg2aXGkaRDj8/yqJHfAe16wNDEeYJLMjiqlW1nj01UIEv6oMprAcIur302I
+	 yr0jDashHEpJ7m5YGDG1H1Vyu5B7c9r1h/iEsEEP6m2wN+b9r+RqkLtPteI7bmYu8QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593632;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=B8pUGmkSBgG+FH08Q4yAfuGsdVbx75g7RXG/QK/tHnw=;
-	b=ES+XCIZdwqPIt2ZGv0qjhBsZUYLVJ8NyVXt9HKdYgYJkm+fGXoa8WtjdAFA63aDAPTNx
-	 nUFelPEL1tL3CHfXrbvxavlD7uMJi0LKkyFwLuxgKDahrdd6juqWpmyKPS5RVSmuMuqNN
-	 thw+k5uya3XU3Ws79wnpgJLy2wIC3Kzx4gB8W+tyz4nkoWmstoIFvO1YbHVEZkjH3wvza
-	 U53txC3Sn1g8MoG+hdNn5oqHDVOOUubKiRBC2IrO1s4MJCp2HJQTnKtj+jmS795MXWVVq
-	 E7p8wTaaoW+63IP1lcDzUt2DCO23R233BQ1DGmqKB5avGGIGF9EeXYGCUiNnBxJSihg==
+	bh=LsBgGqGKlUnFTEcob5dpIrPI1JXgVTYCw9SqbFDVZjw=;
+	b=HFJoHkrQbfW1f/JruxBKdzpLy0j2RLx7oIQTleOgrmNhn+h36nC2Omho3mZyuNkGLfat
+	 X22VxHm4EJt3xS2Dx0gboXNNJzOvE4R2gpzvnPHeyjfEhl3ytHyQ3TBwnE5KxERULFyU4
+	 8/U72szmkt95mQEOCeI8kMe9UgAKWBIqftKKJVu0fQZ140QE0sqIp6Uu0lWwwREWwRsxU
+	 1/NBQInXf7W1GwL62LRSbKC64en31Y8c3RpxP+AeO8t12NX3VKJSdZb6CUwTTHZMUlCEg
+	 ciorAsgX9gQzPx8wmeHQO2znsuA3kOVVwM5q9PDBEVLTxeY1AuCShMGmtB0gZcUU60w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfPwJD+u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iegh4aXz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5CF606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 18:11:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC57C606A323
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 18:13:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfPwJD+u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527201F000C4;
-	Fri, 13 Nov 2026 18:11:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iegh4aXz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231641F000C4;
+	Fri, 13 Nov 2026 18:13:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794593498;
-	bh=B8pUGmkSBgG+FH08Q4yAfuGsdVbx75g7RXG/QK/tHnw=;
+	s=k20260515; t=1794593632;
+	bh=LsBgGqGKlUnFTEcob5dpIrPI1JXgVTYCw9SqbFDVZjw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lfPwJD+uoNEmbFpNTIPzcbQVDSF+AhoIFPxBxBTX82D28Ecw+MCaI9SQhHrfAGfLM
-	 jRjhPZz5xfZxWatcHjZWtRV47U+0Y7LiOCs4TPIZV3OZvng7yFIvUtBnSbrFYnyGPj
-	 lBgtC3nbYgTHJhypwxkask/ElS+2xNTE5jMdNWJIXFI0FoWwMiQvd3QPZnF4OKIEaE
-	 oEHsMf1Vu0XKbnWQI8xA3Tx+ZjuvrhQFKz8vztazcDLn43bU762ZUJ0rqga0F2ccsS
-	 s/JwkItp+T8QniIMhzRVZvwUKPKWZOg3JnIgwZ8Qa9f7pAdK1SZq+mzb5xvOoZIJVm
-	 +FUmk3wbcBNZA==
+	b=iegh4aXzVk8bQv7M89v5GAxvSqvwS2k6aBZe/meTXIdrDNk+VpmWgQvnVV1XJ6ndo
+	 nDg+M3OZW3Ga6yrCAobWLhuwsG53Dd2glb7uREVyxzMPj6XxB8o0EElW028pgczoMm
+	 TzSiwKLB++s8bnY368lIOXCA3oybaya363fCl++7rk8jtd0S8agDvcpsK846uUYCPt
+	 ioufPsegSxMjxiYKSBdd+xfpoLaMf42xVu3/plp+cFw0/7HHLFnBFV62kuRFKh0Arb
+	 gnZADhYJnPHYoqqy83+ifqqXzjxeLFItpARMUBvcu3+L5VYl8zPeEPwGyv/iyDi9vH
+	 PHuVCKYxNLQqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] l2tp: snapshot sequencing state when building transmit headers
-Date: Fri, 13 Nov 2026 13:11:37 -0500
-Message-ID: <20261113181118.2206400-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] l2tp: snapshot sequencing state when building transmit headers
+Date: Fri, 13 Nov 2026 13:13:51 -0500
+Message-ID: <20261113181333.2218928-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060845-failed-5.15-d06ae66516e1@kernel.org>
-References: <20261107060845-failed-5.15-d06ae66516e1@kernel.org>
+In-Reply-To: <20261107062534-failed-5.10-d06ae66516e1@kernel.org>
+References: <20261107062534-failed-5.10-d06ae66516e1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,7 +111,7 @@ Assisted-by: GPT-6 Astra
 Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 Link: https://patch.msgid.link/20261013090500.1180376-1-nicoyip.dev@gmail.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: retained the two-argument l2tp_session_set_header_len() interface using session->tunnel for encapsulation ]
+[ sashal: adapted l2tp_session_set_header_len() changes to the two-argument signature without an encap parameter ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  net/l2tp/l2tp_core.c    | 47 ++++++++++++++++++++---------------------
@@ -122,7 +122,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  5 files changed, 34 insertions(+), 38 deletions(-)
 
 diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
-index e429a0749ffea..212cf7a61f5fc 100644
+index b03de90e3d418..e92d41d9e54c6 100644
 --- a/net/l2tp/l2tp_core.c
 +++ b/net/l2tp/l2tp_core.c
 @@ -695,10 +695,9 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
@@ -350,7 +350,7 @@ index f34ca225c2199..a5659ea54da5c 100644
  	    (l2tp_tunnel_uses_xfrm(tunnel) &&
  	     nla_put_u8(skb, L2TP_ATTR_USING_IPSEC, 1)) ||
 diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
-index 894ae95b31fcb..e72036d7c9c64 100644
+index 10ae55b46aa9c..90a5e49bc28c6 100644
 --- a/net/l2tp/l2tp_ppp.c
 +++ b/net/l2tp/l2tp_ppp.c
 @@ -1187,14 +1187,13 @@ static int pppol2tp_session_setsockopt(struct sock *sk,
