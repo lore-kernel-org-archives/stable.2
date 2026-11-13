@@ -1,80 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.155.198.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794565614;
-	b=jViK5M/vb98PX3Pm4HO7UdhlJBPSCFCINqqitjTaO2O7yM7syeJEHgIel1W84S94pt14
-	 F/BsC49r5Ey+VQJftI5w5ihknNwfpnmhUaH737kqAq2U0wpIIfc51qFFTgmPzXNEvkT3Q
-	 wiwCGL/0jytko16ebCPGEWLcKc6ZF2As6QPUjplJsCOvA75Hvav21v+Vxia6XFC7HZ9Z5
-	 oqnZmxu59FMqaglFEDMJmtmgGgNCnALutQFH6tuEA5DpfrhloVN/dNfbrF4hYvPr0Ebql
-	 myvQlwOV1GIZDNPl0GcQSvSZbi3kA6MD7w1slCnHU1jmPpsnSOWbXGrF5thHL5UCTJQ==
+	t=1794566202;
+	b=A9x1d5GEBEm6kr7hwKC6U9QF9zoG0xhz/dDqcfPuIxDwnHsFFfX7Q8zm0uy9Ag4behli
+	 RG8JphdQa/0ejETfhTqmwuBoaHxyrkMThvsa7M40ql3HU0fCibs6asM52Kt6z8yN0wBZ5
+	 /wBQijtJypVAkiJ033l1lnQiKUW+9Bd+N/mHgN1ztP/4YkYNUIONJiC/RF/Bl1d4fJRwZ
+	 mtQKrYVvu7uNfzVICk5QlRRERUbCgJhqVbawGX8BL7uuOCy/c6RtEhDQZ9nsv1TbfRTjG
+	 x9HGaJ/ZHdPraIh6uZF7nycAffFvctdnMSgyf7UiUA2BcLw3v55KN3LJdIu7vLCSuOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794565614;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=wn/jw9iu4lSTigZEKz9jEcTglHusaDZG1QQsdSk9ODc=;
-	b=5RAVaEVOm2XIZctk4U1xoVuxfYW96LqoESF7aiUPAYnreEllbwBEQHdFWlHrt6CzwmEU
-	 2mmc+Ll4ODr+hTnLlzoRJP1qouFVCTmbmtjSAv6ZCVw16AUiFRMnyIwB60i+PGPWhwcMq
-	 5lG3HkD23W5d63fRN84D3wjVViktCUseg079DmdrIGZmScOcqtFFqRf5+WJDAgJvvIu1x
-	 lj7qC7sme43caqKqEvqxGlSEo3LmbdS4PKUedI/U6SYt3XdPvRYwg5Qja1YC3hLq1KQl8
-	 tmwLfzB2PfQBfMAkfABWCgNWWGeI+Sa3DKBxtr04vxlA/pmyfQpSYf721FW6Zho9tKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794566202;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=TgEeUGxKovhjdSPgMfNKjzv/ECDclmpQx77zq+F5dDo=;
+	b=N5JJ7ZNGF+Kpvv+5k08xcikiFwC2Xb71+2onKC0yIgTfHaMOeiwH3wBpsEug+ST9iHW8
+	 iFsVApRXxR294D2k4rdnjs/RNvtMHGaO+2RZMB5OA8OcxTS6dhvXTjdcvyVZ2G8YxMkAK
+	 ZPSqIdLp+DzfGXiOQI2ANoRF/yIQyz/lbmU96WVaZwX1jErTHn0gUAs8kdkyHj3iMa7vW
+	 ph8Y91xDC3AhKd/nvtbOGrHjh7X3GhHhxbARRLtqhxzEiMIlqkEy0aAk91/MQ5hiSyKST
+	 LqlWt9aICjgHDJmDUC9faHgVHbpoPqZ2LqLNyB/mmfu0DZRKBodJAMc3EkekgZpjspg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.de;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=BotOhErs;
-	arc=none smtp.remote-ip=35.155.198.111
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="j/7a+IS9";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PiowsmQP;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E94606A31C
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 10:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16E94606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921CA606A31C
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 10:36:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 921CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=BotOhErs
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j/7a+IS9;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PiowsmQP
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD8VNIE2515782
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 10:36:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TgEeUGxKovhjdSPgMfNKjzv/ECDclmpQx77zq+F5dDo=; b=j/7a+IS9KtkitUm0
+	U1+X/l8qLCEiqyzcHkRHohx/+V27/pOSHXufcbXOhYb5Cf7aY+kXWoXo+DkuYTn4
+	kJVAz3LQb4zZwjCPgcUI2gQaQlZin/pVm159XZfcLdxAvzwbA8NyRRwF7rMtc9aI
+	c+a+z6iqpLG9LofmYUb1XrKptwnvCFNnogv8cbKWWSh1k6nwe9K78yOifiIB4Q6l
+	Rr8FordHS8ZGSndNN6Re8C0bCG/zF0k4MYoXyKJD2mE7+sEiavJHeUYV5OKBHhmp
+	zffdhLnUtLiKpmCDlhUur1VHCHmOKjG/GOpub3B143sCNUs1bS3vevYmVvu+4QJb
+	QdHLtQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwg1bbmvp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 10:36:40 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934963b2bc0so170964985a.3
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:36:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1794565614; x=1826101614;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=wn/jw9iu4lSTigZEKz9jEcTglHusaDZG1QQsdSk9ODc=;
-  b=BotOhErsCiHGJkzz9ZDzDbZf/98Si3zBFycMlfhMGLTrL9tx+pQYE+Ac
-   PnhEODPCHmHPzpQaXuGYrY0ykVHpTpNOdvXZ2CB5C8Ukt8uzg4VKGamVx
-   daTV0avG3vIJMaZykbId/+C/istXAGaE9QW3p4lLYcBl3iYrU8ukIPrNq
-   hHUlETMNnImLwoYYiVtE2L0SEO2xgfLa/tkzGO5cFb3VaBOGS7DAcGSSt
-   VY37TE0u1L1J3Qb4xkIi1j1N0vLwPY++lLMGcr9J0JoNMeEHpAYjwt9jW
-   bjHPAwRlxno3fpRSYsjb+Zm6nr5/xRlIymWjCOxDgjhyYb+msaABwrx4F
-   w==;
-X-CSE-ConnectionGUID: WUyFswDwQYOhIPR7DlW5rw==
-X-CSE-MsgGUID: go7bJnjCT5eHrSDaAahrMQ==
-X-IronPort-AV: E=Sophos;i="6.27,211,1787011200"; 
-   d="scan'208";a="33779541"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 10:26:51 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:5128]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
- id 2ca17aaa-cbfc-4247-baec-f42d3fe65b15; Fri, 13 Nov 2026 10:26:51 +0000 (UTC)
-X-Farcaster-Flow-ID: 2ca17aaa-cbfc-4247-baec-f42d3fe65b15
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 13 Nov 2026 10:26:51 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 13 Nov 2026 10:26:50 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: <stable@vger.kernel.org>
-CC: <sashal@kernel.org>, <cel@kernel.org>, <bug-report@moonshot.ai>,
-	<yilinzhang@moonshot.ai>, <doebel@amazon.de>
-Subject: [PATCH 5.10.y v3] SUNRPC: Copy the deferred RPC Call from the head buffer
-Date: Fri, 13 Nov 2026 10:24:27 +0000
-Message-ID: <20261113102638.2399947-1-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <daily-reply-2026-11-12-5417451315@kernel.org>
-References: <daily-reply-2026-11-12-5417451315@kernel.org>
+        d=oss.qualcomm.com; s=google; t=1794566200; x=1795171000; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TgEeUGxKovhjdSPgMfNKjzv/ECDclmpQx77zq+F5dDo=;
+        b=PiowsmQPFtDtr70+mcK7MuRPkYINj/1HEbrIjya8GuriBX7J4N6U4aKLnALQaKNnOd
+         PFkf0amdCH3/U3VL0wg2iZ7bfvEuz3NqwbNoCQryp5wE6RXgjQqfJqWS9Pt+m3LWUl6c
+         i0tRWRqZGbict+OXi4OIDtDdpw0tCL8QuSsGB+FG/W8d5pysc9rwEe3B6G2FIo69lUYG
+         GdX9kYO2LEO3Z/sUQmdoc4u7Zte1zjPvLrcL517WOKcpJvfHWL2oDlskjN9iGDnWtx7U
+         RX12fMtoPRcw5uMl1WRdkkOQ+08ng3OfGjKMxSCLHnV1LmxAsBFpUb9NH8fnXRJdmqT9
+         Qz3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794566200; x=1795171000;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TgEeUGxKovhjdSPgMfNKjzv/ECDclmpQx77zq+F5dDo=;
+        b=HIelQ6CCrogre9vFPJucEJ7cOqw9TI3yktrJ8urMjGIt+L7EuBRI5CFqmdU2wT0SuN
+         9FrXmQMPGhLxxtjPGjegTAYGMHOMkt8bLjKsSsQfqaqQFbTZYj2TjUQdpgyV6t60PjAJ
+         x/w5wqJnGRblmTQwY1f2vrKY3Y2m2Jg9LALNe2gHcmt78axqiFH+ghkN00VoY/QkoXE5
+         kVQyIQXsjRIQ9WnIRmxPuWjehcvdO78NPF7ntIhcG2t+T/C8vbPE2iNKj9946vpVlFO+
+         cEoaSNp7fXFyHOGZ9Lh7bUMhY/445YrGKNJT2Zh7Xd2k1enF5Fq3AStYWk5Lmf86331v
+         yjIQ==
+X-Forwarded-Encrypted: i=1; AL+hErHQh+klG7jMxgKxVjndWYzeo+rGN/pVgDbk58ucVtqogpHHVC3hBWNc0G7w+oern4zdY90kUwU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/N7e/KC0eD26jKsFlcNqUVq1SF/3XKx46zfPUn46eZD2LlnRhp
+	8+muOUtEu7y0Shq6ml8Ff7EDHZHwh51/t5HHjXNBoEdeOfD9wpKg/Ds0O5nfJtmpNbg3R1btWm/
+	EjktAKmH3q/df10cCAcakgdYhMMsyNUiZaIW8EGdV40Yb60FdTfw1N/xLrF4=
+X-Gm-Gg: AYBFou3bPA7canaXrrmkdoH5SeJhLp7RPCDDv4C2Jz/mx/pUf6JHlwNVR9IPsnMJFmM
+	oiFVgUCNwWyQwsxr/EHVUE8k5demQC0snHArGuYy3dVJEMRsoB2yiT4da1XE2nlflWSftCh1ll9
+	kLvOqHIAdUYNUK16bv8UGQ32GxXeFE8onNAJ2lyjezgdca4O4pW8l+Ce1lzA1EZPx3TVQSmty2L
+	7IT8ezEZFlU38Li3YM5b65r0jndP1iOs3rvj1IAmQAfgpCw7WgmTq6PuCNQe/5R6UY2e6DcBkL9
+	VEP/qCWBH7e08nDNXNGeC78KFoSphPSrMquc35Jo8WQLepGgcalMAPPKGsBSpDbkRSuzFiUp5Gq
+	h7RZU7aFreT3BSfTRRhTrnvKT8nHfQAdCXgb6IS3MsiZvT9dRXELVGLg0F+RZHQsapQQhraBZOi
+	3B
+X-Received: by 2002:a05:620a:6290:b0:93b:d79a:c45f with SMTP id af79cd13be357-9494bc2f497mr335809885a.55.1794566199809;
+        Fri, 13 Nov 2026 02:36:39 -0800 (PST)
+X-Received: by 2002:a05:620a:6290:b0:93b:d79a:c45f with SMTP id af79cd13be357-9494bc2f497mr335807185a.55.1794566199260;
+        Fri, 13 Nov 2026 02:36:39 -0800 (PST)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d22394esm4672388f8f.3.2026.11.13.02.36.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 02:36:38 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Kent Gibson <warthog618@gmail.com>,
+        Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/5] gpiolib: improve concurrent access to the flags field of struct gpio_desc
+Date: Fri, 13 Nov 2026 11:36:36 +0100
+Message-ID: <179456619466.14668.6243591882039671593.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261110-gpio-desc-flags-atomic-v3-0-2f463bce8086@oss.qualcomm.com>
+References: <20261110-gpio-desc-flags-atomic-v3-0-2f463bce8086@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,93 +126,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-Authority-Analysis: v=2.4 cv=c6Q+0h9l c=1 sm=1 tr=0 ts=6af6e838 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=EyKgIFjRM3FL70iytX0A:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: Iqop9ThaJUWRgMSIMnkD8Olnm9uLKQhy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA0MiBTYWx0ZWRfX7vW8BQ0qVOBN
+ KjXIbsA0YG3kaJbxWMAMmkKOLQOU5gTxVtcZVYAX5On29N3XG55Hz5WSaEZFnQbxlgO8I+X0Aay
+ qRkx3ReOVsnIQKXCezVCPzcdALdpXJOsNXczjZpLWpGUi5vV9+csGU/CVRbMF8rOFSj6nudf86e
+ nchu3mPa/misCWD32Go78vbdD4DuJdJ5rZ7+t3+sFKTnSbZi++wN8z0m0Yu+KzIVf0jtzQffHy0
+ mARWbnhoHeiqjEt18WLmtINyXBx5FFP67XDXg+t0KLihjMO1fAnxx85SIWCpAWnbHzcxzoaIxlz
+ S4GY40tWRnwi0raLtjBhMCZq+XZuFCo3DnElEqAHMklJdc7vgFntAEcERX/PVRLyMTTxB4r7Pri
+ 5X96Li2MwGz8etvYfovIsPyHdTAQPjXSK2E9jghXc+H1O1rS6AwzV+saq1vYlY1/uTlA8tS+L6c
+ 7y2jPUxiH0IfjXBF8KA==
+X-Proofpoint-ORIG-GUID: Iqop9ThaJUWRgMSIMnkD8Olnm9uLKQhy
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA0MiBTYWx0ZWRfX47EVaimZPKIt
+ S3dCLwbMaxeAGFQBNt7hqkorZTOr+ONys91UWKl+u5+KMYvfKAAIVuCHDsYHbTljJkNxydC0wOk
+ FBn5CJ4kISf1KUwkelgLbWXmIXq6RqE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_03,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130042
 
-From: Chuck Lever <cel@kernel.org>
 
-commit 2192a56b0686599358909c3e12e9a366f5b5d452 upstream.
+On Tue, 10 Nov 2026 14:47:00 +0100, Bartosz Golaszewski wrote:
+> This is a follow-up to our discussion[1] about desc->flags and possible
+> races with users who don't/can't synchronize with other means.
+> 
+> It's an attempt to use try_cmpxchg() to update only the required flags
+> atomically where needed + minor fixes using atomic variants of bitops
+> where it makes sense.
+> 
+> [...]
 
-svc_defer() snapshots the RPC Call for replay once a pending cache
-upcall resolves. It copies the Call starting (rq_arg.len -
-head[0].iov_len) bytes before head[0].iov_base, a back-up that once
-covered a transport header. No transport has had one since commit
-983084b2672c ("SUNRPC: Remove svc_rqst::rq_xprt_hlen"), so the two
-lengths are meant to be equal.
+Applied, thanks!
 
-An RPCSEC_GSS Call breaks that assumption. Unwrapping the integrity
-service truncates rq_arg.len by the length of the trailing checksum,
-and unwrapping the privacy service leaves rq_arg.len short by an
-amount the client sets with trailing bytes after the wrap token.
-Neither adjusts head[0].iov_len. Both lengths are size_t, so the
-subtraction underflows and the copy starts past head[0].iov_base.
-Every deferred integrity Call replays a shifted snapshot.
+[1/5] gpiolib: don't overwrite the entire flags field in gpiod_get_direction()
+      https://git.kernel.org/brgl/c/8ed87a9adf48703b5729f9d020eb15fa79ffb099
+[2/5] gpio: shared: use atomic set_bit() for descriptor flags
+      https://git.kernel.org/brgl/c/7d1d799d6251bc8cd1d5cfc881b0c09060b6b90d
+[3/5] gpiolib: clear debounce period before the "requested" flag
+      https://git.kernel.org/brgl/c/8509d643ffb7be508568c696c9fe45eb1f84c33c
+[4/5] gpiolib: don't overwrite the entire flags field in gpiod_free_commit()
+      https://git.kernel.org/brgl/c/63d7aedf6add8a24415af4c010588f63fa7296ab
+[5/5] gpio: cdev: don't overwrite the whole flags field when configuring lines
+      https://git.kernel.org/brgl/c/fa8bc4aa06674e78a4ee702966419aa4fdd8dc94
 
-A deferred replay skips GSS verification, so a shifted snapshot runs
-as an authenticated Call. With the privacy service the offset is
-client-chosen. A forged Call placed in that window, naming another
-user's GSS context handle, runs under that identity.
-
-Copy the Call from head[0].iov_base. Refuse to defer a Call whose
-length runs past the head buffer, so the copy cannot read out of
-bounds.
-
-Fixes: 260c1d1298f6 ("svc: Add transport hdr size for defer/revisit")
-Cc: stable@vger.kernel.org
-Reported-by: Kimi Security Team <bug-report@moonshot.ai>
-Reported-by: Yilin Zhang <yilinzhang@moonshot.ai>
-Link: https://patch.msgid.link/20260902133101.48914-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[doebel: 5.10 backport. Here rq_arg.len > head[0].iov_len for every
- Call at svc_defer() time, so the upstream guard and copy-from-iov_base
- cannot apply; keep the skip-based snapshot that svc_deferred_recv()
- expects (5.10 still has rq_xprt_hlen). Only gss_unwrap_kerberos_v2()
- breaks the len - iov_len invariant, by resetting buf->len; refuse to
- defer after a GSS integrity/privacy unwrap (rq_auth_slack != 0) or
- when len < head[0].iov_len.]
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
----
-v3:
-- Rework for 5.10's accounting per Sasha's feedback: keep the
-  skip-based snapshot (5.10 still has rq_xprt_hlen and
-  svc_deferred_recv() depends on it); refuse deferral only after a
-  GSS integrity/privacy unwrap (rq_auth_slack != 0) or when
-  len < head[0].iov_len, since gss_unwrap_kerberos_v2() resets
-  buf->len and breaks the len - iov_len invariant.
-v2:
-- Add the "commit <sha1> upstream." line.
-- Document why the backport differs from upstream.
-
- net/sunrpc/svc_xprt.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
-index 60782504ad3e7..8970abdfaab46 100644
---- a/net/sunrpc/svc_xprt.c
-+++ b/net/sunrpc/svc_xprt.c
-@@ -1202,6 +1202,20 @@ static struct cache_deferred_req *svc_defer(struct cache_req *req)
- 	} else {
- 		size_t skip;
- 		size_t size;
-+
-+		/*
-+		 * A GSS integrity/privacy unwrap can reset rq_arg.len so
-+		 * it no longer measures from the start of the receive
-+		 * buffer (see gss_unwrap_kerberos_v2()). In that state
-+		 * len - iov_len does not locate the buffer start, and a
-+		 * snapshot taken here would be replayed without GSS
-+		 * verification. Refuse to defer; the caller fails the
-+		 * request and the client retries.
-+		 */
-+		if (rqstp->rq_auth_slack ||
-+		    rqstp->rq_arg.len < rqstp->rq_arg.head[0].iov_len)
-+			return NULL;
-+
- 		/* FIXME maybe discard if size too large */
- 		size = sizeof(struct svc_deferred_req) + rqstp->rq_arg.len;
- 		dr = kmalloc(size, GFP_KERNEL);
+Best regards,
 -- 
-2.50.1
-
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
