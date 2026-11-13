@@ -1,46 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794539216;
-	b=XIbMnP1lt3gonRdSQe58SugmQXMcCM5hZPBTvtmzOUHsKATrNKgDD1plR0ZTkV9beSbe
-	 bGkcGoqalx62isDxWrRRrgPEdOT8DPbbPi2vT3hh/d5vyMiizDZZtQlRebwiFA6zGHwgt
-	 X27MX/O9kRaTLTHw5wVmGmHIIUotnovVyyTst9s4K5ai3A6n8EOzJNpzOWnJ8xQLaQscs
-	 uKeu4vtYJ1F7XF6rJwhF77+jBdpzEh5MsAd4P2hTLRqG5AGW4ms6e5OMXPt2S5fCM/DSc
-	 zjAuzCOFpfgjAMySVYCRXqfz7ly/x0D8qbUirlE50JpCUlXdOK6rBMuvcq2FQEPcDWw==
+	t=1794539548;
+	b=FwgFIXMopVaYCt4aiPuNxJaPb1gG8Oc7Iua13qwAMn3l0bOOgcQg1nqLRnPBjntwyE6i
+	 xj1Z/v8PrkoC6LT27dBwzLcLlaSmSqzqLiwZ/eG9T2OGS20nSAP0apHqQcLYY5mKBQNgQ
+	 KmO875nc5/RooPGJX0atEXiwwNzjWzrT7q8F2EA2yBhbz+VQUhZvQJOFjWSinMg4YPuG9
+	 0c9scRSDFmusP1pdT7LS9DPrWYrNJ3c8bQ8SpfkET502luflFXUzY4AxmZY6h93qn9WVY
+	 jn8JWET+MUDqQj4ouBaTt0V4WjRJMWpBsTbdqyGzZH0YidUlPheATVoYRopUUaQAA9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794539216;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=aCNUZLhrcivd0AJt+vf1pLWb5VPgRNTU+lwhHQXhqoY=;
-	b=quahpqZBYX7x0iJL9800uD2DDq3eL0MVrnBRgV3UhwBCRt+rblqMJ4fxjHnlHAHrTC7L
-	 Vv2T7a3QrKV/NtJIcuD/TU7ili0UpHS0YYSgFuX8vyn5JpukDr1izKaYODeFFJHYJrHHh
-	 j5/5tou3iWuU4t9/A9JkoFfuJuxEbJZ+PxifjkRikpr0I+goRRwQyCntgZoABVxPj0kJY
-	 dB4yhaSLIh6g9QdcaQq2kDQSFZMSNiJb5Gxdd+BxPFZK7I63Wp8rKS/xejw7AIpaqsYXW
-	 VpTGaXbmP22OebKL+n/ghbvdJpJ17b4JSsSwIuyV0jG9jTKlEx35YUfPzNrmCou9Quw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794539548;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=3IQbivRxWI3ri2R3NSi5Ul6pPpnkbiptTIAvzIrdLHw=;
+	b=kP0+xIZvP2yJQs7No9j1s/u1oBBwTG8mH2ujvHFmSd9pzgaumAV5oUNWhOFL6cu2UfxU
+	 0bO0WbaYQqzdMx4JinmNH6ivj/HSHwgXGCxOnInZLXQ8BVX4Z+77yC76HR1WtXZ+EmXsj
+	 FQJGSy9IbNVkLb1ORmfW24R/wxPvloAACT1szcJMdrCNtg5eAjre6Livr1wb7GhzuNCET
+	 0eBQui+yl2kzYqoiUrrCEShombDydXOU+MyhrRVEXLJrtlqsr4PO/tKtxY95ddCYoKA4U
+	 TWbUIXhabrm06pZ/bWuV1KbVw/GQwfvprzsvo54f9gL0sBTBKFG+97pEzAeQZqWX89w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ntibkS5C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cIKYBPGK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221F4606A323;
-	Fri, 13 Nov 2026 03:06:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61336606A31C
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:12:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ntibkS5C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909501F000C4;
-	Fri, 13 Nov 2026 03:06:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794539215;
-	bh=aCNUZLhrcivd0AJt+vf1pLWb5VPgRNTU+lwhHQXhqoY=;
-	h=Date:To:From:Subject;
-	b=ntibkS5CRMJkJtRFbhqMtJOrSjB56VGyhinutsb9unK+XIAKw9ViHxKrZVIZuUtG2
-	 OieyRekMMJpd9tffIr4P95eMM6AHupU4sBNuC5e4TUGW3JuofuhM0bBgxYoxIBOZLg
-	 70L90Q+/0oyLn1e6ENCEYz96jXUAIUzhXkIP9aM4=
-Date: Thu, 12 Nov 2026 19:06:55 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,phillip@squashfs.org.uk,
-	kmehltretter@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [obsolete] squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit.patch removed from -mm tree
-Message-Id: <20261113030655.909501F000C4@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cIKYBPGK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831F81F000C5;
+	Fri, 13 Nov 2026 03:12:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794539548;
+	bh=3IQbivRxWI3ri2R3NSi5Ul6pPpnkbiptTIAvzIrdLHw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cIKYBPGKrP5b/9r1RZ1OBDmDhCw0lF1oa/II5wmrxYRd/xff5s6m1osjqEKtVzlrV
+	 GfIdArSzT4WOCNZ6ObvDTEs9pJut0q0VHqyKoEuV2KlUhQ/xxuAPHP2fgvre7sM/Y6
+	 Kt4gDQUB4ZiVe3/brBWsNgklZAVm4vnWFSZbvVhVzHhYLPW5aMqM3MD1WX8D4wz1Sx
+	 IQaS6TD7WjF4X4KnGlMNqgp31d89YLm8x9BMaOI3NdQ6dM5sze02vZPwFYMS7rtr4W
+	 gXBVUHkCD+jhqXoo6D3J5p50Vp2yqNUQDB+uT3LoRJOtSFZNVeG2q9aMMDjbe+lFeK
+	 vf2ZXtl1iD88w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chris Mason <mason@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] ovl: look up the index by the decoded origin
+Date: Thu, 12 Nov 2026 22:12:26 -0500
+Message-ID: <20261113031212.979258-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201438-failed-6.6-520ef67f47f6@kernel.org>
+References: <20261109201438-failed-6.6-520ef67f47f6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,92 +58,152 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Chris Mason <mason@kernel.org>
 
-The quilt patch titled
-     Subject: squashfs: fix fragment index table sizing overflow on 32-bit
-has been removed from the -mm tree.  Its filename was
-     squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit.patch
+[ Upstream commit 520ef67f47f69255695859b0008281a384d0bc20 ]
 
-This patch was dropped because it is obsolete
+A file opened by file handle on an overlay with nfs_export=on can show
+the stale lower data of a file that was copied up to the upper layer.
+While the file opened this way stays in the inode cache, a lookup of the
+copied up file by path fails with ESTALE for all users. The open can
+also succeed for a file that was removed, where it has to fail with
+ESTALE. This happens with a handle that has one byte changed. The handle
+comes from an NFS client, or from a process that calls
+open_by_handle_at() with CAP_DAC_READ_SEARCH in the initial user
+namespace.
 
-------------------------------------------------------
-From: Karl Mehltretter <kmehltretter@gmail.com>
-Subject: squashfs: fix fragment index table sizing overflow on 32-bit
-Date: Sat, 22 Aug 2026 16:33:27 +0200
+When a file in a lower layer is about to be modified, overlayfs first
+copies it to the upper layer (copy up). With nfs_export=on, each copy up
+also creates an entry in the index directory, a directory that overlayfs
+keeps for itself on the upper filesystem.
 
-Patch series "squashfs: harden fragment index table sizing".
+The handle of an overlay file that comes from a lower layer wraps the
+handle of its lower inode. Overlayfs calls this lower inode the origin.
+The overlay handle stays valid after a copy up.
 
-Two integer overflows undermine fragment index table handling.  One is in
-the original fragment sizing macros.  The other is in a bounds check added
-by commit 1cac63cc9b2f ("Squashfs: add sanity checks to fragment reading
-at mount time").
+To decode such a handle, ovl_lower_fh_to_d() first decodes the wrapped
+handle to the origin. If no overlay inode is cached for the origin, it
+looks in the index directory:
 
-Patch 1: the fragment byte count wraps on 32-bit, so the index table is
-allocated too small and squashfs_frag_lookup() reads out of bounds.  A
-crafted image triggers a KASAN out-of-bounds read on a 32-bit build.  With
-the fix the same image fails cleanly at mount.
+- An index entry there leads to the upper file.
+- A whiteout, the marker that overlayfs uses for a removed file, means
+  that the overlay file was removed.
 
-Patch 2: the check that the table fits before the next one adds two u64
-values controlled by the filesystem image and can wrap.
+The name of an index entry is the handle that copy up encoded for the
+origin, as a hex string.
 
+ovl_lower_fh_to_d() builds the name for this lookup from the bytes that
+the caller passed in. But handles with different bytes can decode to the
+same inode:
 
-This patch (of 2):
+- Overlayfs ignores some flag bits of the handle.
+- A lower filesystem can accept a different fid type, extra bytes, or
+  generation 0 for any generation.
 
-SQUASHFS_FRAGMENT_BYTES() multiplies the on-disk fragment count (an
-unsigned int) by sizeof(struct squashfs_fragment_entry), a size_t.  On a
-32-bit kernel that product is 32-bit and can wrap.
+Such a handle decodes to the origin but misses the index entry or the
+whiteout. So the decode returns an overlay inode that has only the lower
+file.
 
-squashfs_read_fragment_index_table() sizes the fragment index table from
-it, but squashfs_frag_lookup() bounds the fragment number against
-msblk->fragments, the unwrapped superblock value.  The two disagree: an
-image declaring 0x10000001 fragments wraps the product to 16, so a single
-index entry is allocated, yet the lookup still accepts fragment
-0x0fffffff:
+While that inode is cached, a path lookup of a copied up file fails with
+ESTALE, since the upper file that the lookup finds does not match the
+cached inode, which has none.
 
-	if (fragment >= msblk->fragments)
-		return -EIO;
-	block = SQUASHFS_FRAGMENT_INDEX(fragment);
-	...
-	start_block = le64_to_cpu(msblk->fragment_index[block]);
+Reproduced on tmpfs and on ext4 with open_by_handle_at(), after a copy
+up and a mount cycle. A handle in which one flag bit, the fid type, the
+length or the generation was changed read the old lower data, and path
+lookups returned ESTALE.
 
-block is then 524287 and the read lands ~4MB past an 8-byte allocation. 
-On a 32-bit build KASAN catches it when the crafted image is mounted and
-the file is stat'd.
+Fix this by re-encoding the decoded origin and building the index name
+from that handle.
 
-Cast to u64 in the macro so the multiplication is 64-bit on all targets. 
-After conversion to index-table entries, SQUASHFS_FRAGMENT_INDEX_BYTES()
-is at most 64 MiB for any u32 count, so it fits both the unsigned int
-local and the int argument it feeds.  64-bit builds are unchanged.
-
-Link: https://lore.kernel.org/20260822143328.68867-1-kmehltretter@gmail.com
-Link: https://lore.kernel.org/20260822143328.68867-2-kmehltretter@gmail.com
-Fixes: ffae2cd73a9e ("Squashfs: header files")
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Claude:claude-opus-5
-Cc: Phillip Lougher <phillip@squashfs.org.uk>
-Cc: <stable@vger.kernel.org>
+Fixes: f71bd9cfb692 ("ovl: decode indexed non-dir file handles")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[ sashal: retained ofs->indexdir instead of ovl_indexdir(sb) in the index-directory condition ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ Documentation/filesystems/overlayfs.rst |  3 ++-
+ fs/overlayfs/export.c                   |  4 ++--
+ fs/overlayfs/namei.c                    | 13 ++++++++++---
+ fs/overlayfs/overlayfs.h                |  2 +-
+ 4 files changed, 15 insertions(+), 7 deletions(-)
 
- fs/squashfs/squashfs_fs.h |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/fs/squashfs/squashfs_fs.h~squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit
-+++ a/fs/squashfs/squashfs_fs.h
-@@ -136,7 +136,7 @@ static inline int squashfs_block_size(__
+diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
+index 56a5ad7a4fbd2..6786d4b28b9b0 100644
+--- a/Documentation/filesystems/overlayfs.rst
++++ b/Documentation/filesystems/overlayfs.rst
+@@ -638,7 +638,8 @@ When decoding an overlay file handle, the following steps are followed:
  
- /* fragment and fragment table defines */
- #define SQUASHFS_FRAGMENT_BYTES(A)	\
--				((A) * sizeof(struct squashfs_fragment_entry))
-+			((u64)(A) * sizeof(struct squashfs_fragment_entry))
+ 1. Find underlying layer by UUID and path type information.
+ 2. Decode the underlying filesystem file handle to underlying dentry.
+-3. For a lower file handle, lookup the handle in index directory by name.
++3. For a lower file handle, encode the decoded underlying inode again and
++   lookup that handle in index directory by name.
+ 4. If a whiteout is found in index, return ESTALE. This represents an
+    overlay object that was deleted after its file handle was encoded.
+ 5. For a non-directory, instantiate a disconnected overlay dentry from the
+diff --git a/fs/overlayfs/export.c b/fs/overlayfs/export.c
+index 3a17e4366f28c..7e77fe415a5e5 100644
+--- a/fs/overlayfs/export.c
++++ b/fs/overlayfs/export.c
+@@ -746,9 +746,9 @@ static struct dentry *ovl_lower_fh_to_d(struct super_block *sb,
+ 		}
+ 	}
  
- #define SQUASHFS_FRAGMENT_INDEX(A)	(SQUASHFS_FRAGMENT_BYTES(A) / \
- 					SQUASHFS_METADATA_SIZE)
-_
-
-Patches currently in -mm which might be from kmehltretter@gmail.com are
-
-userfaultfd-docs-fix-an-error-code-two-names-and-the-pollerr-cause.patch
-squashfs-make-the-fragment-index-table-bounds-check-overflow-safe.patch
+-	/* Then lookup indexed upper/whiteout by origin fh */
++	/* Then lookup indexed upper/whiteout by origin */
+ 	if (ofs->indexdir) {
+-		index = ovl_get_index_fh(ofs, fh);
++		index = ovl_get_index_origin(ofs, origin.dentry);
+ 		err = PTR_ERR(index);
+ 		if (IS_ERR(index)) {
+ 			index = NULL;
+diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
+index b717f12f319ca..4dd5fe56e4195 100644
+--- a/fs/overlayfs/namei.c
++++ b/fs/overlayfs/namei.c
+@@ -730,14 +730,21 @@ int ovl_get_index_name(struct ovl_fs *ofs, struct dentry *origin,
+ 	return err;
+ }
+ 
+-/* Lookup index by file handle for NFS export */
+-struct dentry *ovl_get_index_fh(struct ovl_fs *ofs, struct ovl_fh *fh)
++/*
++ * Lookup index by decoded origin for NFS export.
++ *
++ * The name of an index is the hex of the file handle that copy up encoded.
++ * The bytes of the handle to decode cannot be used as the name, because a
++ * lower fs may decode many handles to the same inode.  For example, it may
++ * ignore the fid type, extra fid bytes or a zero generation.
++ */
++struct dentry *ovl_get_index_origin(struct ovl_fs *ofs, struct dentry *origin)
+ {
+ 	struct dentry *index;
+ 	struct qstr name;
+ 	int err;
+ 
+-	err = ovl_get_index_name_fh(fh, &name);
++	err = ovl_get_index_name(ofs, origin, &name);
+ 	if (err)
+ 		return ERR_PTR(err);
+ 
+diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+index d4bc4d2430ead..ceceefb6d2df5 100644
+--- a/fs/overlayfs/overlayfs.h
++++ b/fs/overlayfs/overlayfs.h
+@@ -643,7 +643,7 @@ struct dentry *ovl_index_upper(struct ovl_fs *ofs, struct dentry *index,
+ int ovl_verify_index(struct ovl_fs *ofs, struct dentry *index);
+ int ovl_get_index_name(struct ovl_fs *ofs, struct dentry *origin,
+ 		       struct qstr *name);
+-struct dentry *ovl_get_index_fh(struct ovl_fs *ofs, struct ovl_fh *fh);
++struct dentry *ovl_get_index_origin(struct ovl_fs *ofs, struct dentry *origin);
+ struct dentry *ovl_lookup_index(struct ovl_fs *ofs, struct dentry *upper,
+ 				struct dentry *origin, bool verify);
+ int ovl_path_next(int idx, struct dentry *dentry, struct path *path);
+-- 
+2.53.0
 
