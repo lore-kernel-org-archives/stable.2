@@ -1,115 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.96.220.36
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567199;
-	b=bYPEFl0OTX6x+dYfNd7pGHYPUtlm+t01pC0Mj/bnlz6nrv/mV3WzYg3JOZwhZOlqixs4
-	 mv+iYYHmI1OOYeSpMNDG9abhK4xSCGDmlCJk3IH/asIKsAVeYzxy9WatQvuNmOPQB/+do
-	 r6+jVAm+DljkYbHkw/WcVDPVagcJ7pdR/8z120ob3+Cnv4n/sCuTwVvodBrNf7qCSGFhr
-	 rzsNcbPrzT9WRpILltbwBud7G4/PPmTpvCTmMXcEEz1o3sDt5Ms7SOlzgm5RuW0th6Zbz
-	 jRxWWrLQFx6KavmIMAOTpNBib3hyhZlmC5VAPL9SJQCHltj6jG+K/LGdRWsPYYhW0yg==
+	t=1794567202;
+	b=ypTGtgbyxaYheuURbXS0xFX5Vfnydtf2XXZCVvC80wH2LYRLigloUTrwwpSQ20HVrr17
+	 VuQZq3NxZ/DHBjpruwuOuds05sSVT6tYkCxomkfBGhTXgnlFssnZMdfjD11oyfvOoFgmf
+	 sPLbdit3K2x6PAZfJdTgHrKYM3v8KyRacVCZFF8jg7aDMFXNMYcshVH0QyE5ex2OR5si7
+	 W73H/Uw2AE/G1jwqmLkMwTv2tCYmEaeaiftR0IXhcnLUo9ioBsVlmlZZ7M9KZ0+PciGg7
+	 WECuLxh+gD1/mAzdeU3MvE0BHVAl/NPW5I5dv2NZPD8wRyW+0ddvtNQDFxQj3bgdadA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567199;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FXAR3k2XOmADxmocsX6uctWFtqeJu78i+LhIjLZQduk=;
-	b=AtzhemjTLwrp2MyYDLZeBpYxGpcjFPmvw/jSh/GEZFY7+M7mwXpCn1d6iwHgmVlZ8tHL
-	 7ZPLD4lALT4B41sGQs6+8wwWxsjdIDkFj2ow2LrCJRgsHR9bHgLnyPGlb/GrslZWpk9te
-	 jD6m4umqY0M9vF/XhAVsEUzybrzPEYTTTzqtrU3Wqe8NQS/yCQDSqSUJgCLZ2w2ASEVj1
-	 mebwdW9UvRlP59tvuV2AGcpXTYmv2zN0+4ur4s/GQ/HYTez09jxqxPIPEPcPv7uwRy9rz
-	 27246lcQBNKPBdDZSK1DcZhZHIgdfDyMjTBKtuO/jIUpieM0mAdVN/r69MPjTx5phTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567202;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
+	 DKIM-Signature:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy;
+	bh=G4uEKZRwUfb5zvd/yMth27AlEvMkO2zJDK4qdfnK/fc=;
+	b=BUQTKceTF43zt0PcujPBTtt/pB9wqFslBA1dl58TgfukIYWtWDqgM33xRXgtQMtyGvID
+	 rUfn0586Ee+pvUkW+QVkItRLGRbxXiRfTlGAITQXck0VmWE3xO6A4sHLAggi4EJG+aeUM
+	 cF/94iQqwKsVHUrmUR/HBzDD+d5nWzzg68+/swKjhWhYECympmPQsHtFXsWxLW3PWibKO
+	 7eUoKtAl/wLU6PpQjC1MP68L160Hk7wbfPn3HZcRT/fSeUH2SNGDK9eRcGd2oadEt+1su
+	 3+Qnr6hrPPrlN/OR3+n9uusv79EmEJ3+AHzhwHt2z6tKsDuV3BoxtPplsqTO+stdz+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPtuJoKO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=secunet.com;
+	spf=pass smtp.mailfrom=secunet.com;
+	dkim=pass header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=CcsiSJnE;
+	arc=none smtp.remote-ip=62.96.220.36
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B746606A32A;
-	Fri, 13 Nov 2026 10:53:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC866606A8B9;
+	Fri, 13 Nov 2026 10:53:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC866606A8B9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPtuJoKO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B244E1F000C7;
-	Fri, 13 Nov 2026 10:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794567198;
-	bh=FXAR3k2XOmADxmocsX6uctWFtqeJu78i+LhIjLZQduk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IPtuJoKOgWndeSoW+Ft3DNggXS8gWEaDgnYeDpRAG/BlU2uN9HvsIaEXvK1oh4mgm
-	 39cal93B7HS5m+6upMeYECPQ1Zyxj4IccScKEvkyMn/ULHL58tQ62QNgWDydbwEPyu
-	 +nqDDxVxRKKW680xeSqy0Z02nhINaogVyU61pDYjSDRpfZgAA6tmITzkeVoOKUtKMh
-	 DjWM8Na3+aAeVtBCznGkh8sY+5EA8owX5Qs/0RpY/uxHYPIrwY04cScd11itwqTscW
-	 oXjeS2Gpc/3uepUzBJOBCspIJv1bF5djY+zFcYKECFQH8KUxdf6U7RK8YGjJCOlaV6
-	 V5Di54SflxNNQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Song Liu <songliubraving@fb.com>,
-	Rik van Riel <riel@surriel.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Hugh Dickins <hughd@google.com>,
-	Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Nick Piggin <npiggin@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steve Sistare <steven.sistare@oracle.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	fuse-devel@lists.linux.dev,
-	linux-arch@vger.kernel.org,
-	iommu@lists.linux.dev,
-	netdev@vger.kernel.org,
-	Chris Mason <mason@kernel.org>,
-	stable@vger.kernel.org,
-	Pedro Falcato <pfalcato@suse.de>
-Subject: Re: (subset) [PATCH v4 0/9] mm: limit pagecache folio refcount
-Date: Fri, 13 Nov 2026 11:52:56 +0100
-Message-ID: <179456713145.6906.7073956264359546741.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
-References: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=CcsiSJnE
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id A326C208BB;
+	Fri, 13 Nov 2026 11:53:14 +0100 (CET)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Lhe_RJqkQRYP; Fri, 13 Nov 2026 11:53:13 +0100 (CET)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id A5D11208A5;
+	Fri, 13 Nov 2026 11:53:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com A5D11208A5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1794567193;
+	bh=G4uEKZRwUfb5zvd/yMth27AlEvMkO2zJDK4qdfnK/fc=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=CcsiSJnEutChhlxtaqO8Y0vnf8Gwp+NMl72TqQu/RsLOUeZTAPL7VZJt97Cpls2HZ
+	 PgRHZme/RzV05+AeykbuWQgcyKCtcKUvuGwNBrNrczYxxx8zHrWGsT0BzSAtVIU858
+	 nLCExdnZubTnQVVZq5YK+Pq596pra9S0nt8ct3upfXmM+EHA1s2rZW8k+wtOaJbiTX
+	 u/oIE9bdKAbop0Wu2+m3/GVnDIM3xkVhjh63w5vgZJ0diukr/+4zN8VPJh+vU47Oya
+	 hovgZUscAzI8JkHue7bq08Gwtl5ZcQDV0keyF0sFL74RIv2t0b50rKWtq/ratW6tP+
+	 wCUVA48j9Ffig==
+Received: from gauss4 (10.182.7.102) by EXCH-01.secunet.de (10.32.0.171) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 13 Nov
+ 2026 11:53:12 +0100
+Received: (nullmailer pid 60005 invoked by uid 1000);
+	Fri, 13 Nov 2026 10:53:11 -0000
+Date: Fri, 13 Nov 2026 11:53:11 +0100
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: =?iso-8859-1?B?Suly6W15?= Jean <jeremy.jean@oss.cyber.gouv.fr>
+CC: Florian Westphal <fw@strlen.de>, Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH net v4 2/2] xfrm: fix selector matching for IPv6 atomic
+ fragments
+Message-ID: <avbsF2Fmc2G4Nztg@gauss4>
+References: <20261109213803.1785516-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <20261109213803.1785516-6-Jeremy.Jean@oss.cyber.gouv.fr>
+ <avW9OrfvkAF99uP_@strlen.de>
+ <4231ca089dfd7e7ec42d85f9e72ac535@oss.cyber.gouv.fr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,53 +85,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <4231ca089dfd7e7ec42d85f9e72ac535@oss.cyber.gouv.fr>
+X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-On Thu, 12 Nov 2026 23:53:19 +0100, David Hildenbrand (Arm) wrote:
-> I'm resending this quite quickly, addressing Pedro's review (thanks!!!),
-> so I can replace the version in -next tomorrow and move forward with
-> this to get it fixed.
+On Thu, Nov 12, 2026 at 02:33:35PM +0100, Jérémy Jean wrote:
+> On 2026-11-12 14:20, Florian Westphal wrote:
+> > Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+> > > +		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
+> > > +		    ipv6_find_hdr(skb, &offset, -1, NULL, &fh_flags) >= 0 &&
+> > > +		    (fh_flags & IP6_FH_F_FRAG) &&
+> > > +		    !(fh_flags & IP6_FH_F_NON_ATOMIC)) {
+> > 
+> > Since you need to send a new version anyway, maybe avoid
+> > double-neg, i.e.: (fh_flags & IP6_FH_F_ATOMIC) ?
 > 
-> I un-RFC'ed the -net patches, but I will not pick them up. As mentioned
-> below, they can go in independently.
-> 
-> [...]
+> Thanks for the advice, I will consider this for the next iteration.
 
-Okay, updating the first 5 patches in -next.
+When resending, please make sure to also Cc the new ipsec mailing list
+so that the ipsec patchwork can track it:
 
---
+ipsec@lists.linux.dev
 
-Applied, thanks!
-
-tree: mm/core.git
-branch: for-next-fixes
-
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/9] mm: limit pagecache folio refcount when mapping pages
-      https://git.kernel.org/mm/core/c/86c0d919
-[2/9] mm: limit pagecache folio refcount when splicing into pipes
-      https://git.kernel.org/mm/core/c/6ab934de
-[3/9] mm/mmu_gather: flush pending references early before the folio limit
-      https://git.kernel.org/mm/core/c/89b412c7
-[4/9] iommufd: fix cleanup when adding memfd folio pins fails
-      https://git.kernel.org/mm/core/c/35e8fbf9
-[5/9] mm/gup: limit pagecache folio refcount when grabbing references
-      https://git.kernel.org/mm/core/c/a6f95654
-
--- 
-Cheers,
-
-David
+Thanks!
