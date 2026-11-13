@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794531633;
-	b=gbBhqnVIZuJlIQCD5VAXMW4yTcVTP/F2fAoZn1X82b/OMD7CHJLnrjs9TRYXMC36IzKK
-	 Ua2uhchevTMg5hcdCGjTAyZU+LXbYCud0B3KdX32ZTDoCGKmh0al5PAc2jtW5Cx0NIvPd
-	 S6x7rsTsWsq3Jp35jCxpUITtK6Z+SRpoiVje41wnsfPXZwMshJRvnqYyhl5ywE1RShA04
-	 O6sDnsYMlb7UMj2oH1aNjCPhbUsfTKYj4h0ih2fmCGpj5VEUW3fvEFu2d7IjglEfFaqYR
-	 e6ulPh1wHNthwspRt3QJXtxn20q/qN0upb5NpHJSp8dO1e63oDAIVkl5ohhObZQptCA==
+	b=5Gu2WaYw3xAM+EQUsig4Fv921DIRx30Z9vX3VwO6bU0GPdvshFYpi6215mNMY2jcF4DA
+	 ixMKsRAwHJDYRH7D4hQJvS8U/ipzpXw56wjG8lCxr9VNlixmc7lJIj+G0ES6S1XVBdloP
+	 YnyD4nGrwjQIbxPCigUMVrlLYBDpQYtSEEYNSEMh3PzC5mITouKaT1BKhRn+aJMwtesoM
+	 /Bi4dSKpfhpIviqtrzIBqnBVWQpoc0eZpklVRWmEtnm5rMhXYoJfmudN/kH9vyeN+NPzI
+	 thzXTvpiHbM201VUSo2bd3K0Dn4wq4Y1pF1xmIWcqgYTzI8pNedo0BtJPnI2vqdcc4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794531633;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wHjsVo2mtTcA61ulJbCUavO/dtR4H91tvcjtNBAnrvc=;
-	b=gKXiXNm1cqbfgZ8hDwMORuroCpMdEAMKqeZ9IQZ7Q4XqT6TvkzU2MLlCpEtX/Q5/8W1H
-	 V6mJ2LjdZPJzJ9WTOt49+zj4d88VQHTi4q4GGOngK2vxyESslB2ePNeby5a5y0PlUlIhv
-	 E94BI2fEdnU5cfjOAukAmc9QiRcF+6U8x5zs9dQDwhSUKFpmRt/bds+ERCPUcGmAVW3Ce
-	 Q5uQPEWrZgwgWNjAwsq/LRZsSGaq9lt9eJSC/4UYi7EzAbUO7wwoZ9aJGvLaRp++2rgxs
-	 hL2DoU1Iyd2i/eqX0kOs1MmZ7ZzYYD8dtyFyk38YFy/jC8uoBdUIzrzkz9REsiDV6fA==
+	bh=ydDpOSxjA4tWoSTUf1TI7QTPVhi68XGb9joV1qVbcl4=;
+	b=fSdjiW8CEvu0pVbU1S9etKf/dAsXo7OJ6aFqrNdr2mGgE58TeliiuEblt6vNKBTfo+Vb
+	 j1ogyyLleJluCdH0oF1cu8+oEzVWOtbrcf7hwN/rIt3A/6zjH5wO4QUa1mTBoTZUU6hM1
+	 IBOTQJmHfIcFGjshktuIgO5bq0jhEKh8Y/jYwKvrq0mO+5xWVJtLfGeZj32LWyBgH0ICE
+	 9TFw4rsfvAhhKbcCVq6DL9iTocrLvXjibtFoiL8P0Xd7OMZWsjT1jmOC0Ah+k0onf0sVt
+	 s0uzuFG3ax+oGr8rW/pgz2O46Frmxv3oi/kS0b6qG9Zhwgzrcl2GFFZ6ZFkss+oNlfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Buu6t5ah;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=np4uRedw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF2D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8825606A327
 	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:00:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Buu6t5ah
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FEB81F000C4;
-	Fri, 13 Nov 2026 01:00:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=np4uRedw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA9C1F000C6;
+	Fri, 13 Nov 2026 01:00:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794531633;
-	bh=wHjsVo2mtTcA61ulJbCUavO/dtR4H91tvcjtNBAnrvc=;
+	bh=ydDpOSxjA4tWoSTUf1TI7QTPVhi68XGb9joV1qVbcl4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Buu6t5ahg9xRjLa9h9tPi7hrQPRIvK+gUfS+fDaf28DF8KbXLqq2AZKu9euyiNqYY
-	 7nETNrHM2135MLasoHD4gHR5IbQ0Ghw7wcuVx6KwXLnj36l+ZICgp/2utCMC+eikTK
-	 eW4/CgRSb4hQrKl4XQeHLoeVmQlKBmQ7WiNb68c/y8aO+52Dkkwntb8o4Gf+uSE+XA
-	 WCFhnDNExV7VtE2om7GQKPlxvGVYiENgK5E8XfyTFqYpia+erX5HL4uXm1g93O5AHb
-	 wCdM+aVPBMESCdyfXS8ZRChK3jvDDZIWFGfgGWVJySYa6H8hMVlD3aXfyL7Ijvft6z
-	 M1I4gaJgH7ReA==
+	b=np4uRedw3CHsxTDmcF5LOhT3Zh3+00763G1XYYME5thOf9Uh6g0pte2UYiw0ZNU81
+	 ywSG9i+hHr7sI2/DT+BhlekPTQkn+xUkEvSZlHAzErDV2xRN/sdPoDyk3eL0DX3lTp
+	 uTrQCo5MPFtdxZuDsjKDfMi/RT10ZPkqy0jpo1w2M40gmmNMKMWxhccxlXTaKw9GME
+	 bzk3JE3j5dY69/FTAEWxpz+YivJXH+GzlGjLo+9Y3GLmpJVDvmMBo01seqHOrHIw9K
+	 yrrUhec2TYz63M6PRtWvWvljuKZVEI3yKCevuNplwF2tiOd2j1F0AnIvO++dydKniC
+	 O0IVlG9HkdWFg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Takashi Iwai <tiwai@suse.de>,
+	Bo Cao <treebacker@foxmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] ALSA: pcm: Optimize cpu_latency_qos_*() calls
-Date: Thu, 12 Nov 2026 20:00:30 -0500
-Message-ID: <20261113010023.438195-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] ALSA: pcm: Prevent O_APPEND open on OSS streams
+Date: Thu, 12 Nov 2026 20:00:31 -0500
+Message-ID: <20261113010023.438195-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200206-failed-7.3-9017bc3d13da@kernel.org>
+In-Reply-To: <20261113010023.438195-1-sashal@kernel.org>
 References: <20261109200206-failed-7.3-9017bc3d13da@kernel.org>
+ <20261113010023.438195-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,110 +64,80 @@ Content-Transfer-Encoding: 8bit
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 9f6f4e97fd53908aecb0979507d9ff10a22288eb ]
+[ Upstream commit 9017bc3d13da0ea4e63be618c87143a7b69185e6 ]
 
-We have a few cpu_latency_qos_*() calls in PCM callbacks, but they
-seem suboptimal in a few aspects:
-- We call them at each time when the hw_params changed, but explicitly
-  do remove and (re-)add; this could be
-  cpu_latency_qos_update_request(), instead
-- The setup of cpu_latency_qos_*() doesn't have to be in hw_params at
-  all; it's not the place where the actual parameters are set up, but
-  rather better at the prepare callback.
-- The hw_free calls cpu_latency_qos_remove_request() unconditionally,
-  which may be poking a WARNING when it wasn't queued.
+ALSA PCM core accepts to re-use the existing stream when O_APPEND is
+passed, and it's been used for dmix, etc.  However, this mode isn't
+supposed to be used for OSS: the OSS stream allows re-configuration
+via its hw_params/hw_refine procedure even while it's being mmapped,
+so it implies the usage of only a single stream.  Because of this
+assumption, the sanity check is skipped for OSS streams, and if user
+may attach to an existing OSS stream with O_APPEND, it may result in a
+UAF of the mapped pages which could be used as a privilege escalation
+exploit.
 
-For addressing the issues above, this patch cleans up and reorganize
-the cpu_latency_qos_*() calls in the PCM core by a couple helper
-functions.  Now, they are set up at prepare callback, and cleared at
-hw_free and release callbacks via the new helpers.
+For addressing it, this patch simply prohibits the O_APPEND behavior
+on the OSS stream.  O_APPEND is never used for OSS layer itself, so
+this can't break for the right applications.
 
-Link: https://patch.msgid.link/20261002150420.879056-1-tiwai@suse.de
+Fixes: 0df63e44c3e3 ("[ALSA] Add O_APPEND flag support to PCM")
+Cc: stable@vger.kernel.org
+Reported-by: Bo Cao <treebacker@foxmail.com>
+Link: https://lore.kernel.org/tencent_E90BB4F086165FAA3313723567A5C675EA06@qq.com
+Link: https://patch.msgid.link/20261103155844.120838-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: 9017bc3d13da ("ALSA: pcm: Prevent O_APPEND open on OSS streams")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/pcm_native.c | 35 +++++++++++++++++++++++++----------
- 1 file changed, 25 insertions(+), 10 deletions(-)
+ sound/core/pcm.c        | 2 ++
+ sound/core/pcm_local.h  | 6 ++++++
+ sound/core/pcm_native.c | 6 ------
+ 3 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 6d32c12fb79bd..c9e80617f508b 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -778,11 +778,32 @@ EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
- #define is_oss_stream(substream)	false
- #endif
- 
-+static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
-+{
-+	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
-+		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
-+}
-+
-+static void pcm_qos_req_update(struct snd_pcm_substream *substream, int usecs)
-+{
-+	if (usecs < 0) {
-+		pcm_qos_req_clear(substream);
-+		return;
-+	}
-+
-+	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
-+		cpu_latency_qos_update_request(&substream->latency_pm_qos_req,
-+					       usecs);
-+	else
-+		cpu_latency_qos_add_request(&substream->latency_pm_qos_req,
-+					    usecs);
-+}
-+
- static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
- {
- 	struct snd_pcm_runtime *runtime;
--	int err, usecs;
-+	int err;
- 	unsigned int bits;
- 	snd_pcm_uframes_t frames;
- 
-@@ -889,12 +910,6 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
- 	snd_pcm_timer_resolution_change(substream);
- 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_SETUP);
- 
--	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
--		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
--	usecs = period_to_usecs(runtime);
--	if (usecs >= 0)
--		cpu_latency_qos_add_request(&substream->latency_pm_qos_req,
--					    usecs);
- 	err = 0;
-  _error:
- 	if (err) {
-@@ -971,7 +986,7 @@ static int snd_pcm_hw_free(struct snd_pcm_substream *substream)
- 		goto unlock;
- 	result = do_hw_free(substream);
- 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_OPEN);
--	cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
-+	pcm_qos_req_clear(substream);
-  unlock:
- 	snd_pcm_buffer_access_unlock(runtime);
- 	return result;
-@@ -2005,6 +2020,7 @@ static int snd_pcm_do_prepare(struct snd_pcm_substream *substream,
- 	err = substream->ops->prepare(substream);
- 	if (err < 0)
- 		return err;
-+	pcm_qos_req_update(substream, period_to_usecs(substream->runtime));
- 	return snd_pcm_do_reset(substream, state);
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 41c2cab7a52c4..6aad7a1fbf1a9 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -919,6 +919,8 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
+ 			return -ENODEV;
+ 		if (! SUBSTREAM_BUSY(substream))
+ 			return -EBADFD;
++		if (is_oss_stream(substream))
++			return -EINVAL;
+ 		substream->ref_count++;
+ 		*rsubstream = substream;
+ 		return 0;
+diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
+index ecb21697ae3a4..4b134d435c24f 100644
+--- a/sound/core/pcm_local.h
++++ b/sound/core/pcm_local.h
+@@ -80,4 +80,10 @@ static inline void snd_pcm_dma_buffer_sync(struct snd_pcm_substream *substream,
+ 		snd_dma_buffer_sync(snd_pcm_get_dma_buf(substream), mode);
  }
  
-@@ -2795,8 +2811,7 @@ void snd_pcm_release_substream(struct snd_pcm_substream *substream)
- 		substream->ops->close(substream);
- 		substream->hw_opened = 0;
- 	}
--	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
--		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
-+	pcm_qos_req_clear(substream);
- 	if (substream->pcm_release) {
- 		substream->pcm_release(substream);
- 		substream->pcm_release = NULL;
++#if IS_ENABLED(CONFIG_SND_PCM_OSS)
++#define is_oss_stream(substream)	((substream)->oss.oss)
++#else
++#define is_oss_stream(substream)	false
++#endif
++
+ #endif	/* __SOUND_CORE_PCM_LOCAL_H */
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index c9e80617f508b..1164ee7f14f07 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -772,12 +772,6 @@ int snd_pcm_runtime_buffer_set_silence(struct snd_pcm_runtime *runtime)
+ }
+ EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
+ 
+-#if IS_ENABLED(CONFIG_SND_PCM_OSS)
+-#define is_oss_stream(substream)	((substream)->oss.oss)
+-#else
+-#define is_oss_stream(substream)	false
+-#endif
+-
+ static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
+ {
+ 	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
 -- 
 2.53.0
 
