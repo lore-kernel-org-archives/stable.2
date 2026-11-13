@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794612166;
-	b=37xJPlKrPa8dwU/TwyRRCMdOvW7+CwjJLfwyj/7tPcWAjJSCa4jJ9uwnUR/1fhC1JCrd
-	 G+KeJB9dHwykFOEoN3XNN/oabYCY7mp5Lz9YH/vdLQ7KzM5yoCR0fxeY7ImpRBmw3v6KY
-	 CrtQhFZvxNvqozgmsx6dqEV3euulXmjmy7F9GvFLinJVDiJKCKepV2a3F36+6O9vRpz/v
-	 7abRHmvfEBffOcxRHbROQ7DrkAAJ+KwgLUilLQ3RjaeDeNctPO1kwSr+e6BPLO5yXZBqf
-	 x2KaJMdGg2kuQ40liFAvVoQF4kIrQE2iPkurp5UZMXeBSC5A3lvthVNEbrI96MIh+sA==
+	t=1794612167;
+	b=MnElr2mLrCtTyO/Si4hZhbw2eZO7PlKIjZyTosLLJYJsDnmzrvCWoq0bSm/QxTViXHIT
+	 YR0kAX03e5u2eBpv7StmspGVV0UorMtkeo4ZBLxiiQpihHYwyU4KHGephJkhxJsQK6mwn
+	 U8L1zgzRmI08qdOTM6cVOlcDaQJqP70DD5pmABmq7PmodPF1eVcLldOR7KCyk5JqMkWwz
+	 E+J10u6Aq1XAJfsCRVlFAK1CBe86HKt9Br8kx7a1bVxbMza6OADnqMrc/UmNvz2qKcVPr
+	 q8D9cegzIEX35zmtantFPWKEb6qzZNzM0pukA5agJinmgGKcbJKH5s60lptomAg7TPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794612166;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=vVx+JMwtPBMuQydLLiSO1xhLyBxdv1a3EAkmeOR3hPM=;
-	b=MGVJpBoPLGWR5QmKg1jkV+uxmxUerTllO3lJth3qBhonN87nFOkQ4pZcBO7kWJVpp3+x
-	 UnOeJk2nMVBl/heEsgtGrhpMwAF9Qn4JFCtxam8cM3CY0RUE4fs1iCr7y5xxQ3Ty+hYCQ
-	 +YK2lGtJdGnEHqWrhImWvg0HwcAvFE/Mzwv4TB7wtCWDM+d37grMjK17E0durtKoHs586
-	 xcDeyQSP8wAph4Zm7kMGT3daSH74eX7ZCvWpwZA2e9Y4NFiYSlBo8G6fyeVoO29G7QZPp
-	 IGOm/iEyzBlK1qOriJZSYDc4O+vgmKDItauz/wZzt0s4o9hx8tZN7ZRzoDESw1iUbbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794612167;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4JlziOrXTNMS1OhckK/k5WsJMtCd7SWbYKjtbZqWsQo=;
+	b=ZRvvnrGHo55FuQFVAC5NGqsjk5FWNdsJ09dlTK0Tnps4IVfBXShQOIqRxxDGmwNnNAlW
+	 8zcFP/fO8BZvA3CzaMTJ7KiJtqkEW0M2kZpjv0+ddNHTbvCo0hOyF7FtcWlvWpu1vlDaD
+	 hMuO/WJe/Z8Su3QJaUJDgSQrYlox1n3XFITY1cZByt+ipWcWanDVbIXiOe63Nr7ol98EX
+	 nqXRFv195Ri4cD023mE0gsY+n36AxjSVwW5sMotNudzuLj0QWkQ5y0yLuPAhKqnL+5QcZ
+	 kfmka2QutqbbLOVe454Cwunft3B7ubg04wTr0t2Ozmc4dBaNiiuTvkqYQpLzWimbRbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Mm7oaiMd;
-	arc=none smtp.remote-ip=52.34.181.151
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rebasedinc.com;
+	spf=pass smtp.mailfrom=rebasedinc.com;
+	dkim=pass header.d=rebasedinc.com header.i=@rebasedinc.com header.a=rsa-sha256 header.s=protonmail header.b=od+AOXz+;
+	arc=none smtp.remote-ip=79.135.106.117
+Received: from mail-106117.protonmail.ch (mail-106117.protonmail.ch [79.135.106.117])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5D7606A88A;
-	Fri, 13 Nov 2026 23:22:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C5D7606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9934C606A88C
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 23:22:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9934C606A88C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rebasedinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rebasedinc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Mm7oaiMd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794612163; x=1826148163;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=vVx+JMwtPBMuQydLLiSO1xhLyBxdv1a3EAkmeOR3hPM=;
-  b=Mm7oaiMdV2dj4S/NxRzVUkqYMWlAQBzqj5U+zlNCjcC5p1bl5NXBtTqG
-   Y4udfLwC7mrWIZuei69z4tRbYUDEOk1BeToU9VuW6G3jfiMXlA2SgUVt7
-   MZIuMauTy2l8UnlM9d0fzrEQ4+TKqqsqDN+bq44CTcOL+sKL/N85lwkzJ
-   M4rXaXsWe7nvhtJ/4mREyBd5/uFaX5dkpmRNSGgVjmAYYZbT7xvhuF5c6
-   W9yKE7bJOTR5MEjPe/FwqwBR7+qolH+Fhnp2QZrZBLmhvZ4S32wfcPr34
-   LDVw3oo+f9t0f6RrhycEntuSJISumpJYeLLkGgpYcEOoxa4KL5O+EqAcx
-   g==;
-X-CSE-ConnectionGUID: XISuTTF9QB2og9aEfhXPBg==
-X-CSE-MsgGUID: wsnROOv/RkCcqme1xi+Pgw==
-X-IronPort-AV: E=Sophos;i="6.27,212,1787011200"; 
-   d="scan'208";a="33959237"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 23:22:42 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:28231]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.142:2525] with esmtp (Farcaster)
- id 133f35c7-3562-4cd9-9745-97d73287f980; Fri, 13 Nov 2026 23:22:42 +0000 (UTC)
-X-Farcaster-Flow-ID: 133f35c7-3562-4cd9-9745-97d73287f980
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 13 Nov 2026 23:18:34 +0000
-Received: from dev-dsk-wangnyue-1a-719890fd.us-east-1.amazon.com
- (10.169.101.180) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Fri, 13 Nov 2026
- 23:18:33 +0000
-From: Yue Wang <wangnyue@amazon.com>
-To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
-CC: <linux-nfs@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: [PATCH] NFSv4: avoid an rpciod deadlock when an async RPC frees the nfs_client
-Date: Fri, 13 Nov 2026 23:18:24 +0000
-Message-ID: <20261113231826.21760-1-wangnyue@amazon.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=rebasedinc.com header.i=@rebasedinc.com header.a=rsa-sha256 header.s=protonmail header.b=od+AOXz+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rebasedinc.com;
+	s=protonmail; t=1794612162; x=1794871362;
+	bh=4JlziOrXTNMS1OhckK/k5WsJMtCd7SWbYKjtbZqWsQo=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=od+AOXz+19tDJkD+yV6nmkbza29Ypz/7Zj0wWY78Za4QOwmBBWpI/CR7Fi/fXSPxs
+	 YRNv6O/JPFU1vrNIcwQV43MbD3+AEV4i+2vvVyI2yhCCOdHg8FiIHJvhYH1aog7pQQ
+	 /G5I+gAwRKOElqpZCBXzSMgpaSe934imq3cDy+eZCbDEVtzK3WDv657PvVbjf7+6zX
+	 7b+hFAz6Tv/KmuURSKtf1AmTtBxIjDCYq++Ltl1nlT4QMh//kkEWaka/GuwfN91dYa
+	 iw6XhSIA4vVNoeWrgrtjANbUUC3uQrzGcfQnJ/g32NSrZWSoKNTlCWAYANauph1o5i
+	 GpEa+e51zqUBQ==
+Date: Fri, 13 Nov 2026 23:22:38 +0000
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>
+From: dev@rebasedinc.com
+Cc: "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>, Jens Axboe <axboe@kernel.dk>, Yufan Chen <yufan.chen@linux.dev>
+Subject: Subject: io_uring/eventfd: registered eventfd signals only once after the cd305ee3633a backport (6.18.y, 6.12.y, Ubuntu 26.04)
+Message-ID: <oMhla8VwCWoihfrmgn8znIy60W1QXI8g_v2OyB9i6sWESIDlVJlwoGGOLylJgIHRARNoieXUVRGqzeB__KvHMdXgnCfPPovs8vLMOzaMPEw=@rebasedinc.com>
+Feedback-ID: 231970246:user:proton
+X-Pm-Message-ID: 474fd90d362d4966a5836b434317232f3aed01b8
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,112 +61,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Unmounting many NFSv4 mounts while their server is unreachable can hang
-every NFS mount on the machine for good. The rpciod workers of one NUMA
-node are stuck in:
+While working on my own async runtime on io_uring, I found what looks like =
+a defect in the stable backports. I first saw it on Ubuntu 26.04's kernel, =
+and I can't find any existing report of it.
 
-  rpc_wait_bit_killable <- rpc_call_sync <- nfs4_proc_destroy_session
-  <- nfs41_shutdown_client <- nfs4_free_client <- nfs41_sequence_release
-  <- rpc_free_task <- __rpc_execute <- rpc_async_schedule
+A registered io_uring eventfd stops signaling after its first deferred sign=
+al on kernels that carry the backport of cd305ee3633a ("io_uring: defer eve=
+ntfd signaling when queued from a wakeup handler") but not 04fe9aeb4f3c ("i=
+o_uring/eventfd: reset deferred signal state").
 
-If an async lease renewal (SEQUENCE, or RENEW for NFSv4.0) or an async
-FREE_STATEID holds the last reference to the nfs_client, its release
-callback frees the client and sends DESTROY_SESSION and DESTROY_CLIENTID
-with rpc_call_sync(). The release runs inline in the rpciod worker. With
-the server unreachable, the RPC waits on the delay queue, whose timer has
-been rpciod work since commit 7e0a0e38fcfe ("SUNRPC: Replace the queue
-timer with a delayed work function"). Once one node's rpciod max_active
-share is full of such workers (171 on a 384-CPU, 6-node machine), the
-timer can no longer run, so none of them ever wakes up. The delay queue
-is global, so retries and reconnects of all other mounts stop too.
+What I see, on Ubuntu 26.04 7.0.0-1016-aws, x86_64 and arm64. Ubuntu's 7.0 =
+kernel took the cd305ee3633a backport through the 6.18.49 stable update:
+ =20
+1. A ring with IORING_SETUP_SINGLE_ISSUER | IORING_SETUP_DEFER_TASKRUN | IO=
+RING_SETUP_TASKRUN_FLAG, and an eventfd registered with IORING_REGISTER_EVE=
+NTFD.
+2. Two IORING_OP_RECV on a nonblocking TCP socket. Each gets -EAGAIN, arms =
+poll, and later has data.
+3. The first receive's task work signals the eventfd. For the second, traci=
+ng shows io_uring_task_add, but the eventfd never becomes readable, and pol=
+l() on it blocks.
+4. io_uring_enter with IORING_ENTER_GETEVENTS then runs the work and posts =
+the completion.
 
-Release these tasks from nfsiod, as other NFSv4 async operations with
-sleeping release callbacks already do. Only the release callback moves;
-the RPC and its wake-ups stay on rpciod.
+Debian 12's 6.1 kernel does not show this.
 
-The cost: nfsiod also completes READ, WRITE and COMMIT tasks. If enough
-teardowns pile up to fill a node's nfsiod share, I/O completion on that
-node waits until they time out, about 6 minutes with the default
-timeouts, instead of hanging forever.
+What I THINK is going on (I read the source, w/ help from Opus 5.5; please =
+correct me if I'm wrong): after cd305ee3633a, task work queued from a poll =
+wakeup signals through the deferred path, which sets IO_EVENTFD_OP_SIGNAL_B=
+IT. Without 04fe9aeb4f3c, io_eventfd_do_signal() never clears that bit, so =
+each later deferred signal is skipped.
 
-Tested with 1500 NFSv4.1 mounts unmounted while their renewals were
-stalled, then made unreachable: without the patch, 1024 rpciod workers
-stay blocked and 477 clients are never freed; with it, no rpciod worker
-blocks and all clients are freed within 320 s.
+Where it applies: cd305ee3633a is in 6.18.49 and 6.12.114. 04fe9aeb4f3c (Fi=
+xes: 60b6c075e8eb, in v7.1, no stable tag) is in neither branch, and I didn=
+'t find a copy in the stable queue. I read this in the source of the linux-=
+6.18.y and linux-6.12.y heads, but I didn't run those kernels.
 
-Fixes: 7e0a0e38fcfe ("SUNRPC: Replace the queue timer with a delayed work function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yue Wang <wangnyue@amazon.com>
----
- fs/nfs/nfs40proc.c | 17 +++++++++++++++--
- fs/nfs/nfs4proc.c  |  4 ++++
- 2 files changed, 19 insertions(+), 2 deletions(-)
+If this is correct, a backport of 04fe9aeb4f3c to 6.18.y and 6.12.y looks l=
+ike the right fix; it keeps the CVE-2026-80920 fix in place. The 6.12.y cod=
+e differs, so it may need a small change. I will obviously leave the fix to=
+ you, but I'm happy to test a candidate on the affected Ubuntu kernel.
 
-diff --git a/fs/nfs/nfs40proc.c b/fs/nfs/nfs40proc.c
-index b07f2d6ccde4..2c3ecd9289f4 100644
---- a/fs/nfs/nfs40proc.c
-+++ b/fs/nfs/nfs40proc.c
-@@ -116,7 +116,16 @@ static int nfs4_proc_async_renew(struct nfs_client *clp, const struct cred *cred
- 		.rpc_argp	= clp,
- 		.rpc_cred	= cred,
- 	};
-+	/* The release may free @clp synchronously: keep it off rpciod. */
-+	struct rpc_task_setup task_setup_data = {
-+		.rpc_client = clp->cl_rpcclient,
-+		.rpc_message = &msg,
-+		.callback_ops = &nfs4_renew_ops,
-+		.workqueue = nfsiod_workqueue,
-+		.flags = RPC_TASK_ASYNC | RPC_TASK_TIMEOUT,
-+	};
- 	struct nfs4_renewdata *data;
-+	struct rpc_task *task;
- 
- 	if (renew_flags == 0)
- 		return 0;
-@@ -129,8 +138,12 @@ static int nfs4_proc_async_renew(struct nfs_client *clp, const struct cred *cred
- 	}
- 	data->client = clp;
- 	data->timestamp = jiffies;
--	return rpc_call_async(clp->cl_rpcclient, &msg, RPC_TASK_TIMEOUT,
--			&nfs4_renew_ops, data);
-+	task_setup_data.callback_data = data;
-+	task = rpc_run_task(&task_setup_data);
-+	if (IS_ERR(task))
-+		return PTR_ERR(task);
-+	rpc_put_task(task);
-+	return 0;
- }
- 
- static int nfs4_proc_renew(struct nfs_client *clp, const struct cred *cred)
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index e1018b03c1cb..302f891c7a55 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -9459,6 +9459,8 @@ static struct rpc_task *_nfs41_proc_sequence(struct nfs_client *clp,
- 		.rpc_client = clp->cl_rpcclient,
- 		.rpc_message = &msg,
- 		.callback_ops = &nfs41_sequence_ops,
-+		/* The release may free the nfs_client: keep it off rpciod. */
-+		.workqueue = nfsiod_workqueue,
- 		.flags = RPC_TASK_ASYNC | RPC_TASK_TIMEOUT | RPC_TASK_MOVEABLE,
- 	};
- 	struct rpc_task *ret;
-@@ -10468,6 +10470,8 @@ static int nfs41_free_stateid(struct nfs_server *server,
- 		.rpc_client = server->client,
- 		.rpc_message = &msg,
- 		.callback_ops = &nfs41_free_stateid_ops,
-+		/* The release may free the nfs_client: keep it off rpciod. */
-+		.workqueue = nfsiod_workqueue,
- 		.flags = RPC_TASK_ASYNC | RPC_TASK_MOVEABLE,
- 	};
- 	struct nfs_free_stateid_data *data;
+Thanks,
 
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
--- 
-2.48.2
-
+Nathan - Founder, Lead Developer @ Rebased, Inc.
