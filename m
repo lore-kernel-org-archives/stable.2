@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532994;
-	b=PcbyH8PMIhApNAIFXukgGASQJWJu22H0wajZHwWvBRcZV2l0PbjABBV1O3lLdlyF2w6e
-	 AFelq8zwe49kSmVFOun7KTinZS6i7l+LrpaN0VfLGskFBYy2wmjuL3T0+HFLxRAOJNAVw
-	 AkkdoCmDE414avgQExsi9b6jYEFTXldgOJDdY28N8xqxBQ4l814aq5A37pjZjArhxkllY
-	 KMbrhNgGWb1IJzAGH1lGXvNj0Tb0aJmkfizivZ6VOl2XRjkbfG3+JfTHMjkroPkllFs9x
-	 F0wU0/iWjkeSZuXWXdp2F6WdtDcDghswQCK4kW/rtWQ4iya1R8OI5eskdRmcPMRdKUA==
+	t=1794533197;
+	b=LtjJqVEQz1V/jZBotFzWJiy1d8+rzy4KcKUPV6/m4DCwK2Ca15VRO4Ys2lGkmn+Zo0Q1
+	 4cbzgiWPsxkrSu2lJRNaRyPOnMK7C7UzvpNokcnH/xLxmFJxoJ+uWMgtFVMrgYYUEkeGm
+	 3gEcDtsRQZ8d444Q5GDjNGQefur4vb6iSxcxoP/RmSApOFxP5lqVuI/+Q9+cJKpzJdwx7
+	 Sjwlg0FVcBJjeeQtYnX+xW0cipx9ReKP48cgqSi2sN3lnAyQizkUqnVayITiAKY984y+W
+	 tZ7WUsyu8DNf/CHKDgvv+Q0YxF7JM1EoM412J1AJ1/oIIr8lYJ2YTCTscYHM4rapQRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532994;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794533197;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ltje1PxN2LUu36ZkokgAeEFOAIlFGlh5Y1J+Su66Zwk=;
-	b=JdAnuSTSybjZXUEWLGCM9uL2yYa4advqHj3JFhibmLqfKfAqPXh3xq7J4e8rZOYAaywT
-	 0gY2l7oMOYlYagtOkMvl2+aDDmwcnjfHNbqH/C97KIGoowEBf7LssskoQg7PwWyW/hogX
-	 AxveEJ5425m14xHDCAmfuHXd8qsotbyV1RwQ1dIRZib+Q//63xZBuvEhl/cyLn+Bs6WLj
-	 xCZnK3unCv+w5Y7p6Q0D4vRYvn9Mil19EFA1wqF6FZ5Zof6GTlcejDtMJCHV0R9QZ/auU
-	 r/AYQAR1TWGus9G+evSjOAyz+oOxxopNnh35GgjJwYtimRs1pCOjAUgTJmb1ZSEFq2g==
+	bh=Y+X5BpCWx3kknI458MdwY2ZzCgXl8CI8ltS+EyaaS2k=;
+	b=rPWU2MPvLEzSMsbjpPP5YrRusB4vrk1A3+mPZsDx0jZGOcnAjraU3jaQFFZGLf6MnJ3H
+	 ++HuMHbU0byY0tznwVihdAQRewupPMI8JpgD3UkJykqfYiunTgDQTkF6e30bwDwUKvepP
+	 1B2I3OQi3+rQ1t3ke+bsytPjdinXMehN//EsXlOIJrVQxMZFDpOrd3XW9+zeHSCDHYQZC
+	 5Qfax+UdOMC2rLMRCNOSgPjskjoiW7TH7QcMTXuH60wuQDMsmlNJvZ/gNsCqYSg3VcexV
+	 bUWvhFPMfQvp0i5rkLL/oo8kXsKE+6JroTAnfKx/LieAyYJGYHvlN3YTjIkZ0BNJveA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVTEy8xX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6AG9nvJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493B4606A31C
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:23:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7F0606A884
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:26:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVTEy8xX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D331E1F000C4;
-	Fri, 13 Nov 2026 01:23:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6AG9nvJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F406B1F000C4;
+	Fri, 13 Nov 2026 01:26:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794532993;
-	bh=Ltje1PxN2LUu36ZkokgAeEFOAIlFGlh5Y1J+Su66Zwk=;
+	s=k20260515; t=1794533197;
+	bh=Y+X5BpCWx3kknI458MdwY2ZzCgXl8CI8ltS+EyaaS2k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nVTEy8xX5OnE9jI7Rw4u+GhFXs+aId8ObgCRuZ74gyONtHiC4SKgRMsswdUgByl+k
-	 r63jTF/1KkJwnofO0zBVtoslzF+PTG5iWJ2xF0o6lDaTMDnBWfTdJqD5g5gcZgKQs5
-	 vWJxLWNaKFs03wSKGMnXw+jV8MtkZtcclJT38Etzp+4ZMdax4lb8CnGYDV6whTxG4H
-	 LLQviLh75S3J1xtP+WnAjfvh/62YU/N7z1FyjHETkrnPThsC7+DuLPTI9K57wKflcw
-	 OQDfK1AmFFI7sBbT665Dt8f9ir5Von2CXEU/KrOnAKBixvTs/k43qSfvomnN6Nfmev
-	 OIfE9BntaqMDA==
+	b=V6AG9nvJgvA9TQ8Gi/3h4RzDbVPD9jX+3lVSH4wft4iNGBE0o/pTPrsk210x9ZYF3
+	 O9SX+olTLSUwtVgMfh9LsyzVFOk3Xg27yb6TryQ0I4+m/BankRff/imNHwILnsMzSQ
+	 jRKNrw5tAlUghIY0EFe+WTDPeQ7K47d4wowfuSEPtvvP0KffuSNqltnM6tGVbtc+jF
+	 U4a2gOyP6G/vkc8oTiMMlmiEeEHRShIx0wUYRDg7zLfrVJg5oNhRILp6SlWTwSwxvG
+	 sKrGASQQ/hXXfUDLEqmUg9xyxOyhCTjoa/in64UvHBG93NGxkEA1bo4K5RnHlgnBXn
+	 q38lNoJPza2SA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
@@ -50,12 +50,12 @@ Cc: Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
 	Oscar Salvador <osalvador@suse.de>,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] hugetlbfs: enforce F_SEAL_EXEC in setattr
-Date: Thu, 12 Nov 2026 20:23:11 -0500
-Message-ID: <20261113012239.608219-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] hugetlbfs: enforce F_SEAL_EXEC in setattr
+Date: Thu, 12 Nov 2026 20:26:34 -0500
+Message-ID: <20261113012559.641134-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200651-failed-6.12-b7f570e7cea7@kernel.org>
-References: <20261109200651-failed-6.12-b7f570e7cea7@kernel.org>
+In-Reply-To: <20261109201111-failed-6.6-b7f570e7cea7@kernel.org>
+References: <20261109201111-failed-6.6-b7f570e7cea7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,17 +94,17 @@ Reviewed-by: Muchun Song <muchun.song@linux.dev>
 Acked-by: Oscar Salvador <osalvador@suse.de>
 Link: https://patch.msgid.link/20261029-fixes_shmem-v4-5-392fc715d8f6@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Replaced the unavailable memfd_check_seals_mode() helper call with its equivalent inline check. ]
+[ sashal: replaced memfd_check_seals_mode() with an inline F_SEAL_EXEC and execute-bit check ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  fs/hugetlbfs/inode.c | 6 ++++++
  1 file changed, 6 insertions(+)
 
 diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 1a12932b58806..2856c3bbc38d4 100644
+index 9bc9f04e4b7a6..96ba81081ed42 100644
 --- a/fs/hugetlbfs/inode.c
 +++ b/fs/hugetlbfs/inode.c
-@@ -932,6 +932,12 @@ static int hugetlbfs_setattr(struct mnt_idmap *idmap,
+@@ -964,6 +964,12 @@ static int hugetlbfs_setattr(struct mnt_idmap *idmap,
  	if (error)
  		return error;
  
