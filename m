@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794605860;
-	b=PALq1sVGYicQBBfqVeMolFzoC42uE/607rO5W5CrYAMh0404xDjjs0tCEz7uzg43qVdF
-	 szeDNhGaLELm30KJcl95pByEfTPKeEmiWcRGlDpfTE5xhBUYCUBDqvfJfNwszSgAcEfNp
-	 O3pP+BB2V5pHtSuqFGxuyrMgM4wP3v1TKuUdmMnhH/jqSfTMqFyveDyuXZc3d6ZV0gHoZ
-	 BqzhzmWYXVF82kqN3CDDKGdsGkqoJtQuR+0s1tn3FiDcbm4hH73OvmI2KOGeoPftWQsYJ
-	 AOgq2Fvc1EwCvLJiwiQcF7YahtopHmQ76pFnv8IbeuAtrDc+4NbUiAKMSOK8VwkXxQQ==
+	t=1794605869;
+	b=Vmm/ymFZCW/38nNjNpj/EnVE2wZMIXHkX6CMMP2sjwoH2bO1eJlkBD57FFoQrkrt5+/C
+	 uJ7MdQ6G5/CZK66IgtY1CZ8a5aHN1++ZQUFIm3GGVPK665IpaB8dIo6hfl1zjnc0MrmDH
+	 Z4z6f1UyeaKJLTHDG4VFRUbvnaWjcbNMpYtF3/COgls0hmAaqn/ti4cFBUgIhd2YjYhKm
+	 ULoVXIWJ6MT4K4wesaNhpsrtqoaIAcTV3x24KqsJFaWPVspcfQTCIE9mEoGK5e+EnCkvN
+	 EVxKcnYcZx+OT0pSfPzl8hLu8dYdQbjfq7vIQ3M4+xYZKnPOrb67+XjMpAYoHraQWqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605860;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605869;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=j+XHBJfsKWVYKfgLjZ603k1s2f+H9r7H24RWVMOLts8=;
-	b=fJv18YGTiQcHUIF5ORsQRt/W3xYRacV3PrchvRQqILELsFHRDAlpGHagK3vwGZwkCHp5
-	 q0eOb3zPNjzIKxesRIng8tPgqZpFmjfjlJKPG4QZwjeY99ewDpIgk/heKTkugZrhQkcwG
-	 HcTpG3PFyjJjg62prdBoVpO6t8UJMcqtAl/Ub8I+OALOn/81p+iIFmvfxa7HwRa0qgMRT
-	 alhs0ZWp2ov0ASlqn0AMa0PYHtmqtXuOddWtTzw3AMx4IbjmroL8xjswX9rfCJB+WqCs1
-	 6idH00gfE0NfSYKanuAFwvMtFJ9IVzoHf6v/usuig2qSnBQ7E8TC5x9gkhKPkb+z+/w==
+	bh=PLiqukr56C60XaYU/sHWlWdxScdz3EOuf+dLUbwdnhA=;
+	b=yQ5qkAzud2EUZ9sMF/uS9xmPR9qY6fi88EcxYRoXGGzVIKfqR8asx40MCuvDPu+uVOpn
+	 aNXPTFXlguOwQHuvIs8n6iEu/m0FciVOHmbmKqL07OYITjX3er6xBkf7IYIO+JMKhB0dq
+	 V+UuP7GxoyZhLyYHSfg5yDX7nWwO6oGIMhTaOeK57Dd7lyaKH3Y3pBk35B6Nx1ESrVE+L
+	 hexhUc8Kx8Lov82YtdbcESNxFrAxoNFc1oFONYjNUhPHlMu79c7LtH9idHBE5nEeFjEPX
+	 jrkMas+BBsLmcd/k+aY/awpU5TKsMjoJpv33WB3gPu7azjtI8Qbee5vkt2Dh0a/vULg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GKfDVUk/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8iDfR4F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F2D606A333;
-	Fri, 13 Nov 2026 21:37:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BF0606A32D;
+	Fri, 13 Nov 2026 21:37:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKfDVUk/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFBF1F000C4;
-	Fri, 13 Nov 2026 21:37:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8iDfR4F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A744E1F000C8;
+	Fri, 13 Nov 2026 21:37:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794605860;
-	bh=j+XHBJfsKWVYKfgLjZ603k1s2f+H9r7H24RWVMOLts8=;
+	s=k20260515; t=1794605869;
+	bh=PLiqukr56C60XaYU/sHWlWdxScdz3EOuf+dLUbwdnhA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GKfDVUk/T9FbI5bC52KuJOS5DdrDW1fG5ZnQ6ig4J0d906uYapCBBuSIoTfTB5Ody
-	 Yutf/NXD40ezdSjlV2SC8BcF1QYvgJhTEo4jmb7V+aYsnms1gk7TICFqxxTLiMBUhO
-	 jkZYeymStRH9dX3a6XFgC8elC9xVf1dCSjFPJG1xu0NrLJUt+gYxEkiSaoWGiZurH9
-	 F0ZpKjdw26lfWNdbSDNpCgBUTmhD5XP904pnIBd6H+PczTdkvf6GLvxDbiG1r81cvC
-	 Ugd0o644Y0ZuWIBbnJxMdNwHypGL2jjWGR1+tYo+59MQWaTNTheYKEa+ZsVQkkJ2dO
-	 pogrKP8raIMOg==
-Message-ID: <d7c9c2c4-0c33-4a65-9b42-d7fc5e972b58@kernel.org>
-Date: Fri, 13 Nov 2026 22:19:55 +0100
+	b=l8iDfR4Fn+bZOr3+4kgWweW+qnLrj4VKaTg7QNEbpGu/bEFZFs5nxDoj/kJFmkOuy
+	 EswQFyeO0xhnKCfhg9Fxv8R+Ji1avzOxEhknOfUoFWfFiXvnBRtnwyyyT1s1E5sLGu
+	 rIPhwMSSDY/K7NBkMePLqfgNHfXEju4yXrJZUlkEDDfvGmMgZ+2xSUi5eCDJEAeMnq
+	 WMzbhlrefYk1jGACsD+PV+Ez4GFWp47Mw/5VoaKhHD++z7JVYv/6kJRB9nIiu2zwJO
+	 GmY07jFS33ITqgEDCXs0F5jYryk6WirTuUlUhlluTjjhZp/zdu9BtuPbQv8qObwJJe
+	 2RxDNmut2VdaQ==
+Message-ID: <b290d347-1cd3-4ff1-b303-3cc074667689@kernel.org>
+Date: Fri, 13 Nov 2026 22:37:14 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,15 +52,32 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- jgg@ziepe.ca, leon@kernel.org, akpm@linux-foundation.org, kas@kernel.org,
- dave.hansen@linux.intel.com, bp@alien8.de, rppt@kernel.org,
- stable@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-References: <20261113195536.2660763-1-gourry@gourry.net>
- <69e27ce5-8378-489a-ad8e-37c364cf63c5@kernel.org>
- <179460257810.482102.3687220421358656606.b4-reply@b4>
+Subject: Re: [PATCH 5/5] mm: check permissions and bounds for vm_ops->access
+To: "Kuehling, Felix" <felix.kuehling@amd.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Chris Mason <mason@kernel.org>
+References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
+ <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
+ <4b9042de-973a-4036-a6a0-2294c65a1ee1@amd.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -107,24 +124,41 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <179460257810.482102.3687220421358656606.b4-reply@b4>
+In-Reply-To: <4b9042de-973a-4036-a6a0-2294c65a1ee1@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/13/26 21:42, Gregory Price (Meta) wrote:
-> On 2026-11-13 21:03 +0100, David Hildenbrand (Arm) wrote:
->> On 11/13/26 20:55, Gregory Price (Meta) wrote:
->> Cool, so I can drop
->>
->> 	e27dc0754e3f4 mm/hmm: refuse shadow stack vmas in hmm_range_fault()
->>
->> :)
->>
+On 11/13/26 21:25, Kuehling, Felix wrote:
 > 
-> Haven't seen that one :], i suppose *yoink*
+> On 2026-11-12 17:09, David Hildenbrand (Arm) wrote:
+>> GUP rejects VM_IO and VM_PFNMAP mappings early. __access_remote_vm() then
+>> falls back to vm_ops->access without checking VMA permissions and without
+>> limiting the request to the VMA size.
+>>
+>> Consequently, /proc/<pid>/mem can bypass protections even without
+>> FOLL_FORCE, or cross into another mapping without checking its
+>> permissions.
+>>
+>> Check VMA permissions before calling ->access and limit each request to
+>> the current VMA. Implement similar access permission checks as GUP,
+>> however:
+>>   (1) Reject writes to CoW mappings because the callbacks access backing
+>>       memory directly and cannot handle CoW.
+>>   (2) Allow forced writes to non-CoW mappings with VM_MAYWRITE.
+>>
+>> This intentionally breaks forced writes through legacy amdgpu PROT_NONE,
+>> MAP_PRIVATE debugger mappings. The workaround in commit fa5239f2af98
+>> ("drm/amdgpu: workaround failed COW checks for Thunk VMAs") cleared
+>> VM_MAYWRITE to avoid CoW, but debugger writes still succeeded by
+>> exploiting the missing access-permission checks fixed here. Reads remain
+>> supported. Userspace must use MAP_SHARED instead; ROCm 5.5.0, released
+>> in May 2023, already does so.
+> 
+> Thank you for considering this use case and checking the ROCm history. The patch is
+> 
+> Acked-by: Felix Kuehling <felix.kuehling@amd.com>
 
-Not posted yet, I'm preparing a bigger set again, but I'm happy about anything I
-have to drop! :)
+Thanks a lot for the confirmation, appreciated!
 
 -- 
 Cheers,
