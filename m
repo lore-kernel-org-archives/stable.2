@@ -1,56 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597335;
-	b=TtOymax0lW36hEpDu4b7HWoq799whoSmr1Rp0u6AhW1lXL3sOpiJcCtTB2kO0TlVSptG
-	 EDQfYL12qCuRueTTgs7Leh76saftT1FsqTL8thCCAPxSiAYzQhVLeaH7I3hijwje6lKUR
-	 IlUBw7cls1bhpWC71GDQTwl4SIYGsD9sYJRpFKO1L4gBysm5gKzPL8OUIiAxN0B1dN0PR
-	 kDgax8zxa/U1ujdqCsZjDuocNZvQX/FNCs8Dpp99MGg8/4Oe5zidc9Tyd3CJYHGuRe24F
-	 EWkyru3rkqir3bOa6XFTCdO9HkWd9GEEsjbyGJD5CWf5XiJxAuCOW1qQndI6E5anGpQ==
+	t=1794597338;
+	b=VAt7+V0/wF2WS02CmODfRV9k08gclGVLLkL4uKRJOcyu0UkzExBPsUx8cNAUwB3QCsYC
+	 wT1iNgkv6wRoTnI4ojSuA+jK1ODvj5ZXiDpAEPfkGtLR0Pe7Z2lBIsWLG6v0r8zcBBrrN
+	 59BRrdQ3LUGLqNIAfGSc+bIPe6/cATpLhjaq/VX+RoVb+j9AW1b6Y+L0/tuwuSJOJWjRG
+	 Ltr9EcIPkc6hnLXxFU3ScnmmXbYbOtedUwRQKsbD+umsb4uwc8PbeY1uRAnV962piQZ65
+	 TxrFkuIDDTiLgCOZP7c/nobEvhRd+Y4O4BLRbH6+6G9N7d9/J35WMYZPHJDo6jx6LFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597335;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597338;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WgE+j+C6Mmk18AgZO3JFTXz+SXYpJbb3Y0WQ2F+OhxQ=;
-	b=M5b2uFQLsfxlvxSoA4M4V5IodRu9X+CR0hhVX4CaQC+aNiz2uIxtsudMKZ3Pj+pDLMaz
-	 ZEKXrK3mDh5CE2kXGMXwJJMONgYrb04ikYwftR0DllSFoAps5eGaqnG58OS7rDv73S9Sv
-	 SMIwUbk/1ZYWPEhlXrKGmD+yi1VXd8jMWPuYjtYFkaoOH4g43L9b/vuG9K2kDDO4PwR3c
-	 KMSZfcsPXH7PLQ6+RjNdwqlKY7SR98AGjsgE/ievTFZNVq/fTg7S/jtYk3lme3ipYr2Nu
-	 BVtDrgEhRn0rM20Fi4+dCvNmghTJd6fkYds+eAxGYaYQgzjSY+pNGv9PxG6pffvI8Yg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=oUXHx/WEQfFmdr7mA6vXbE8EgdVFAMZfaOIHh2S3Hlg=;
+	b=2EcstFhT2IwnY3beiup7m1I/lDZjBqshYictw78bLAb3way9WHALNV4OoDpc2eVBfiQm
+	 W6dHZk5omxr3Um8oA0BpIBUglxijYLGO0Q/Oj78XE0roRPP8q7TGUKOKxoEnxReDnY7Fi
+	 HKNxFahqICqJxAA69YcXDxb7s6BSs371DhRFY/DhyfYGEY9R9K5NqutOuYAfxPh3kSRyG
+	 zeiH06xLgSAHShDDJj178RgmRQ+oMgk3Z5rSAgp5ZTrh7NNwbybsAcvLX3cWHCQ3/f09F
+	 73qD3sBI3ACxKeDe03wY0DUH5hXdEeNDE+6aniBbq1SaGc+TnTxXJPPxk94abx1SNkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2y4rat2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ze5XEWRO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EF4606A323
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:15:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF80606A330
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:15:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2y4rat2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F971F000C4;
-	Fri, 13 Nov 2026 19:15:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ze5XEWRO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F3F21F000C5;
+	Fri, 13 Nov 2026 19:15:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597335;
-	bh=WgE+j+C6Mmk18AgZO3JFTXz+SXYpJbb3Y0WQ2F+OhxQ=;
+	s=k20260515; t=1794597337;
+	bh=oUXHx/WEQfFmdr7mA6vXbE8EgdVFAMZfaOIHh2S3Hlg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N2y4rat2hWANfS9nHdlrYgqsduv8378hG/X5qDgLyzgJFMEdSktMo6OrU3tISbHo5
-	 R5yI50vv50SS/emDO76VzmMu18jwuFtktV35+xeWHAd7B+iifZ5H9GiFDgGf8i7wg8
-	 ihwuF5lVsGsqjp3l4Bno5cCUst6UxqnW4iAgWZviFauNayaXmz7/R3qI676IebyynH
-	 ByJYntThNfq6N75ARSX16VUFrl0KoT9KKzpAGfD+ib0SijSeXL9rtbC1y4TkVtvb6A
-	 NuTOG4DfUntH5s+g/63VkYtW3cOk0iw1FhdOYOmwSbqWXjLb+1xDzJeo6LaltB40MR
-	 FLI6J855Ueunw==
+	b=Ze5XEWRO5h6ddRlcnmWRvuZJFufSxO7oAod9m99D8HpbICWiYPjRA6qNeoB7TXnVu
+	 HLQNEiuVjg9HC763DeTLQdp1Xw8nrb/UxiRjvg9ELDS2SnZSbztsZZQQhME45hJdee
+	 TQXurRww7lUp0L3qgiKAz6A2UvB2fUnvP0r0UO06Kb9JAzBWoGoBhj02LwOc8w6VVG
+	 R9gLSQtHU3tK/o2NqTcJP7OBZ46SZ8L+54WgsWoyIhGFJvOMWqgvjjYU4/gOsUSL0K
+	 yO4b1gi2v2E1+9dvK/OdF3fKTeIzKMqMOsuHncqZOgH1sSXa9BBb47N18iIEZ3Y4DH
+	 jhOrUbx+ysdBg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Sashiko <sashiko-bot@kernel.org>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Mason <mason@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Oscar Salvador <osalvador@suse.de>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Adam Litke <agl@us.ibm.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Rik van Riel <riel@surriel.com>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] hwmon: (tmp108) Fix initial conversion delay and wait until ready
-Date: Fri, 13 Nov 2026 14:15:33 -0500
-Message-ID: <20261113191039.1972348-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/hugetlb: don't clear the resv_map of a VMA whose lock is held
+Date: Fri, 13 Nov 2026 14:15:34 -0500
+Message-ID: <20261113191045.2222415-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202140-failed-5.15-7cd60538073e@kernel.org>
-References: <20261109202140-failed-5.15-7cd60538073e@kernel.org>
+In-Reply-To: <20261107052555-failed-6.12-d42032c0fe3c@kernel.org>
+References: <20261107052555-failed-6.12-d42032c0fe3c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,115 +77,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Guenter Roeck <linux@roeck-us.net>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 7cd60538073e465310c94b2a2f0ea8d2f03768ef ]
+[ Upstream commit d42032c0fe3ca007986c1229128775af0340fbec ]
 
-In tmp108_common_probe(), the driver only adds the 30 ms conversion delay
-(TMP108_CONVERSION_TIME_MS) to ready_time if the sensor was previously in
-TMP108_MODE_SHUTDOWN. However, the TMP108 hardware defaults to continuous
-conversion mode (TMP108_MODE_CONTINUOUS) upon power-on reset, including
-immediately after enabling the vcc supply regulator during probe, while
-the temperature register retains its power-on reset value of 0x0000 (0°C)
-until the first conversion completes. Because the initial mode is not
-shutdown, the delay is bypassed and early reads via thermal zone
-registration or sysfs before the first conversion finishes return an
-uninitialized 0°C reading.
+Since commit bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private
+VMAs") the lock of a private hugetlb VMA that owns a reservation is the
+rw_sema of its resv_map.  The hugetlb_vma_*lock*() helpers find it through
+vma->vm_private_data, anew for every lock and every unlock.
 
-In addition, returning -EAGAIN from tmp108_read() while waiting for a
-conversion to complete after probe or resume can trigger an unnecessary
-tight retry loop in callers or fail initial reads.
+At the end of mremap() the old VMA has to let go of the resv_map, which
+now belongs to the new VMA: clear_vma_resv_huge_pages() stores NULL into
+vm_private_data.  mremap() holds mmap_lock for writing and has write
+locked the VMA, which keeps away everybody who comes through the mm.  It
+does not keep away those who find the VMA through the file.  For hole
+punch and truncation hugetlb_vmdelete_list() does
 
-Unconditionally set ready_time to TMP108_CONVERSION_TIME_MS ahead in
-tmp108_common_probe(), track ready_time as ktime_t, and wait for the
-remaining conversion time in tmp108_read() using usleep_range() instead
-of returning -EAGAIN.
+	hugetlb_vma_trylock_write(vma);		locks resv_map->rw_sema
+	unmap_hugepage_range(vma, ...);
+						vm_private_data = NULL
+	hugetlb_vma_unlock_write(vma);		no resv_map: does nothing
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adapted probe changes to tmp108_probe() instead of tmp108_common_probe() ]
+and the rw_sema stays write locked for ever:
+
+  WARNING: lock held when returning to user space!
+  mremap_punch/116 is leaving the kernel with locks still held!
+  locks held by mremap_punch/116: 1, last CPU#1:
+   #0: (&resv_map->rw_sema){+.+.}-{4:4}, at:
+                                       hugetlb_vmdelete_list+0x46/0x160
+
+The next fault in the new VMA sleeps in hugetlb_vma_lock_read(),
+uninterruptibly, and it holds its entry of hugetlb_fault_mutex_table[].
+That table is global, so a fault of any other process on a page that
+hashes to the same entry sleeps uninterruptibly as well.
+
+All those who take the lock of a private VMA without taking the mmap/vma
+lock are affected: rmap walks. So hold i_mmap_rwsem around the clearing
+of the resv_map.
+
+No change of behaviour, other than that mremap() of a hugetlb VMA takes
+i_mmap_rwsem once more.
+
+Original fix generated by an LLM and sent in private by Josef.
+
+[david: avoid local variable, move and refine comment, description cleanups+simplifications]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-5-42796911043b@kernel.org
+Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Adam Litke <agl@us.ibm.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: applied the change around the existing clear_vma_resv_huge_pages() call in move_vma() because fixup_hugetlb_reservations() is absent ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp108.c | 26 +++++++++++---------------
- 1 file changed, 11 insertions(+), 15 deletions(-)
+ mm/mremap.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
-index 4420774e6bff6..1c8614278e9fa 100644
---- a/drivers/hwmon/tmp108.c
-+++ b/drivers/hwmon/tmp108.c
-@@ -14,7 +14,7 @@
- #include <linux/of.h>
- #include <linux/i2c.h>
- #include <linux/init.h>
--#include <linux/jiffies.h>
-+#include <linux/ktime.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
- 
-@@ -73,7 +73,7 @@
- struct tmp108 {
- 	struct regmap *regmap;
- 	u16 orig_config;
--	u64 ready_time;
-+	ktime_t ready_time;
- };
- 
- /* convert 12-bit TMP108 register value to milliCelsius */
-@@ -94,6 +94,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
- 	unsigned int regval;
- 	int err, hyst;
-+	s64 delay;
- 
- 	if (type == hwmon_chip) {
- 		if (attr == hwmon_chip_update_interval) {
-@@ -123,12 +124,10 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 
- 	switch (attr) {
- 	case hwmon_temp_input:
--		/* Is it too early to return a conversion ? */
--		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
--			dev_dbg(dev, "%s: Conversion not ready yet..\n",
--				__func__);
--			return -EAGAIN;
--		}
-+		/* Wait if it is too early to return a conversion */
-+		delay = ktime_us_delta(tmp108->ready_time, ktime_get());
-+		if (delay > 0)
-+			usleep_range(delay, delay + 1000);
- 		err = regmap_read(tmp108->regmap, TMP108_REG_TEMP, &regval);
- 		if (err < 0)
- 			return err;
-@@ -371,11 +370,8 @@ static int tmp108_probe(struct i2c_client *client)
- 		return err;
+diff --git a/mm/mremap.c b/mm/mremap.c
+index d4666f1ab5939..206ddd250b805 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -806,7 +806,14 @@ static unsigned long move_vma(struct vm_area_struct *vma,
  	}
  
--	tmp108->ready_time = get_jiffies_64();
--	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
--	    TMP108_MODE_SHUTDOWN)
--		tmp108->ready_time +=
--			msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
-+	tmp108->ready_time = ktime_add_ms(ktime_get(),
-+					  TMP108_CONVERSION_TIME_MS);
+ 	if (is_vm_hugetlb_page(vma)) {
++		/*
++		 * Rmap walks might still find this VMA and take the lock
++		 * inside the reservation map for __vma_private_lock(). Don't clear
++		 * the reservation map while that is possible.
++		 */
++		i_mmap_lock_write(vma->vm_file->f_mapping);
+ 		clear_vma_resv_huge_pages(vma);
++		i_mmap_unlock_write(vma->vm_file->f_mapping);
+ 	}
  
- 	err = devm_add_action_or_reset(dev, tmp108_restore_config, tmp108);
- 	if (err) {
-@@ -405,8 +401,8 @@ static int __maybe_unused tmp108_resume(struct device *dev)
- 
- 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
- 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
--	tmp108->ready_time = get_jiffies_64() +
--			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
-+	tmp108->ready_time = ktime_add_ms(ktime_get(),
-+					  TMP108_CONVERSION_TIME_MS);
- 	return err;
- }
- 
+ 	/* Conceal VM_ACCOUNT so old reservation is not undone */
 -- 
 2.53.0
 
