@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597537;
-	b=dVFlZWv+DDT7DjkMWC5IoJW94/XrulWKJnRNvrS7SdEjzZPuR4oCIbAgR5xcwB6ybwj3
-	 O8otM1Xl8kDWoMh38Kx61GK1jJ6FCQtY9C3p5M5xCAx2WwvdfGTDPo7OzJxxfbD52FBXr
-	 5K6hqe0Q0XeS3P3RH5waGNzgcJIR9FXjhC9Iq772u2L5NEvTEDEgvZ5Ca4w+Vr0JZZuMB
-	 wyillkEiDMWDbL+gWFfsoNPAKMtQc3717+CFNN+kpH3Hsra6mV+avdNmUgCziXBJGy/EG
-	 7hpNMuRnDFscTBuOEM2GQqIn5FcXkUwN15WsxEu5p8jaNqDqJmpLFdn2NQJzWwFUQOw==
+	t=1794597540;
+	b=xgWUq9ZMgFmJok/UvdT90XmgQkSvzsBYoMa0w1tjEK4SvcnWAk/gV5HvP58nDVjwIALo
+	 TogCHlHY99rtvQgXBfgp1FcOyvExpNgQTfEQYDGmPDyaIDebs0THpNs/nNkx0Up+WZEZ8
+	 ZVAOpPB/+pmgK+8Vy13XOs/A0nj3x4FaVKnJ/56nhF74RxITO46R0FBeJxsi41UD3vJZg
+	 mS80037xHFlmfj1iwXkqXkpdsLasjZGzmWQZjm3Yqgq/kok6cP151wwaPhh486vRTa09k
+	 YNk1PCSAYe572DK+Az6NCRKVg+oNQcO4kUFo0mtQ0J95T2csS2pS50Wp8MPsew+ShWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597540;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=vckSL4Oi+idoTt3/bZvUnXi46Wtb9M9twbtf2xnAseM=;
-	b=0d5jK/refa08ux0PAaYcWYRUUl02HoKbm6XSd+rpRnUVtLdvNViMNLFqnjuO65nAufeH
-	 LOAGZYUKm/KTKd7HoCy1TDiUQ6IbpdHp3glccwDMOgrNrXGQ9R0vCUIeXU7ToKSH6PyxG
-	 bXCEYeIsk4lmUVqbpRTwBkJfZrluGa6m1VjVN9yR+TBikP8pzSQd4MUETCVR27wx0BnxZ
-	 lZxIWY0aTcdRJexOVUHtbufFAeRmrikwQNKqpBHGRnnUfUD7mXK5ux55MBAhTQz2okoNq
-	 Liqv0XeCTj2LkHge0qV0vWFrwuODEkVt3R0ZCxtRA2WMgLJ9ubHX+eVUuimDHKtcpoA==
+	bh=PWltaqhhArMBtmTuKQL1RcN6aVZWcklCJcHV6qRZ7pY=;
+	b=1W8dBLz56dynlwt6z0MYc7bhnebcnYqizUITfiWbPG3mNSGypGRS2UBgiia9IKweXk4j
+	 LOn3R4zNOGdvrpWsvn+m8VPNSvxSQ34RbhZ+pf+NThoXuVTLgGiUBZtDHZEQeYn+yO+BI
+	 Qah02lvdaIgt8K74E7fsexyzayZRIa1RVjTmuNVCdGVSpMkySvXPdzpgSzTPgEfW94/uH
+	 2FPII+/rQ6wVani3DimgXTIJtmWzXz8ot9Oeh904IhknjJY45S2GbuwapjEhnpEHaQuFd
+	 qp73nxXvxtjozi/7x1baW+IQ1OHwmnmXGI+Dxsr+pByl85721Sl1FSdB11QEoB+nCew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mx9Yd9hK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hEeCraZp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FAED606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:18:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94A2606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:19:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mx9Yd9hK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2C71F000C4;
-	Fri, 13 Nov 2026 19:18:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hEeCraZp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9001F000C4;
+	Fri, 13 Nov 2026 19:19:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597537;
-	bh=vckSL4Oi+idoTt3/bZvUnXi46Wtb9M9twbtf2xnAseM=;
+	s=k20260515; t=1794597540;
+	bh=PWltaqhhArMBtmTuKQL1RcN6aVZWcklCJcHV6qRZ7pY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mx9Yd9hKREDD7RQgUy2LKhGpeGBpgHObkakfPbCry3+PL4kYLOjW3jsAFAKRGOHJB
-	 3hXaAk0u60Nk58yLX57+FuoQRNWMZW0VAXm8UVvii/GL6P/tf3e//u6CNW+HdCdmNG
-	 7DJuaQJMcJgjuEXSnKfWSDIEzbKpt3cIiKDgKmepsq14Gu6uOt6MmXNdu/D+fUoQBj
-	 4BmJTBLp5AxeyxwjPbxX4745gyaqhMZGHwSg6ERWdybIkXFy18sK6h/hO/87q8soTm
-	 Q4L9XTcWaxzuJA50sO8G8M3oPIrT2X/qH9eRWoLc950bC5o3YzV/PDfCIcBDMHaG/H
-	 PcX12W0MVkxbw==
+	b=hEeCraZpi+JRMIxKyMvfcru3UR3djYnTqcr5Zq6bQeL8iQl3P6ZczTue0icpUhqUN
+	 4Gze8YyaQKRDU9NsYvWDiMSzj8HdvDDF1NAe7MiNvEpTMzw5M9qLCU4Z5Ll8GFvS8r
+	 JY9eF1Du3MFqYwfbru/OhTdIjdgl1fZXKPLvudrQ12fD23IGMYP0vFN4koEvgaeeI6
+	 L5DCnKsklHzJXWRA0ASx27VkUDuJgs5jfyKXl/ynHpa2r+2FFYyIbnTbRN0kt+qUiH
+	 y+3EjPHFzP7SD3UObdrBMJIHv8oSvK9kx2c12w+ujNIdCyAcpCog/vl6EH8vJg1A4J
+	 P7TxFmKYYNRdg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Sashiko <sashiko-bot@kernel.org>,
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] hwmon: (tmp108) Fix initial conversion delay and wait until ready
-Date: Fri, 13 Nov 2026 14:18:55 -0500
-Message-ID: <20261113191529.2248685-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/amdgpu: don't walk the CS chunks when allocating them failed
+Date: Fri, 13 Nov 2026 14:18:59 -0500
+Message-ID: <20261113191528.2250750-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202631-failed-5.10-7cd60538073e@kernel.org>
-References: <20261109202631-failed-5.10-7cd60538073e@kernel.org>
+In-Reply-To: <20261109201006-failed-6.12-ade92d50aad6@kernel.org>
+References: <20261109201006-failed-6.12-ade92d50aad6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,112 +64,56 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Guenter Roeck <linux@roeck-us.net>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit 7cd60538073e465310c94b2a2f0ea8d2f03768ef ]
+[ Upstream commit ade92d50aad6799a5a9d7e73cd1604fd0576e656 ]
 
-In tmp108_common_probe(), the driver only adds the 30 ms conversion delay
-(TMP108_CONVERSION_TIME_MS) to ready_time if the sensor was previously in
-TMP108_MODE_SHUTDOWN. However, the TMP108 hardware defaults to continuous
-conversion mode (TMP108_MODE_CONTINUOUS) upon power-on reset, including
-immediately after enabling the vcc supply regulator during probe, while
-the temperature register retains its power-on reset value of 0x0000 (0°C)
-until the first conversion completes. Because the initial mode is not
-shutdown, the delay is bypassed and early reads via thermal zone
-registration or sysfs before the first conversion finishes return an
-uninitialized 0°C reading.
+amdgpu_cs_pass1() sets p->nchunks before allocating p->chunks, and the
+allocation failure path skips resetting it. amdgpu_cs_parser_fini() then
+frees the kdata of nchunks chunks from a NULL array. On navi48 with the
+chunk array allocation failed through failslab:
 
-In addition, returning -EAGAIN from tmp108_read() while waiting for a
-conversion to complete after probe or resume can trigger an unnecessary
-tight retry loop in callers or fail initial reads.
+  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:amdgpu_cs_parser_fini+0x35d/0x710 [amdgpu]
+   amdgpu_cs_ioctl+0xcae/0x7a20 [amdgpu]
+   drm_ioctl_kernel+0x180/0x320 [drm]
 
-Unconditionally set ready_time to TMP108_CONVERSION_TIME_MS ahead in
-tmp108_common_probe(), track ready_time as ktime_t, and wait for the
-remaining conversion time in tmp108_read() using usleep_range() instead
-of returning -EAGAIN.
+Set nchunks once the array exists.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 0c828445757b86aaa3ed2638832d76f450022bdf)
 Cc: stable@vger.kernel.org
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adapted tmp108_common_probe() changes to the existing tmp108_probe() function ]
+[ sashal: used kvmalloc_array() with explicit element size and GFP_KERNEL instead of kvmalloc_objs() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp108.c | 26 +++++++++++---------------
- 1 file changed, 11 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
-index 4420774e6bff6..1c8614278e9fa 100644
---- a/drivers/hwmon/tmp108.c
-+++ b/drivers/hwmon/tmp108.c
-@@ -14,7 +14,7 @@
- #include <linux/of.h>
- #include <linux/i2c.h>
- #include <linux/init.h>
--#include <linux/jiffies.h>
-+#include <linux/ktime.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index c49aabb343a72..364fbaf4e0fa5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -215,13 +215,14 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 	if (IS_ERR(chunk_array))
+ 		return PTR_ERR(chunk_array);
  
-@@ -73,7 +73,7 @@
- struct tmp108 {
- 	struct regmap *regmap;
- 	u16 orig_config;
--	u64 ready_time;
-+	ktime_t ready_time;
- };
- 
- /* convert 12-bit TMP108 register value to milliCelsius */
-@@ -94,6 +94,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
- 	unsigned int regval;
- 	int err, hyst;
-+	s64 delay;
- 
- 	if (type == hwmon_chip) {
- 		if (attr == hwmon_chip_update_interval) {
-@@ -123,12 +124,10 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 
- 	switch (attr) {
- 	case hwmon_temp_input:
--		/* Is it too early to return a conversion ? */
--		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
--			dev_dbg(dev, "%s: Conversion not ready yet..\n",
--				__func__);
--			return -EAGAIN;
--		}
-+		/* Wait if it is too early to return a conversion */
-+		delay = ktime_us_delta(tmp108->ready_time, ktime_get());
-+		if (delay > 0)
-+			usleep_range(delay, delay + 1000);
- 		err = regmap_read(tmp108->regmap, TMP108_REG_TEMP, &regval);
- 		if (err < 0)
- 			return err;
-@@ -371,11 +370,8 @@ static int tmp108_probe(struct i2c_client *client)
- 		return err;
+-	p->nchunks = cs->in.num_chunks;
+-	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
++	/* parser_fini() walks nchunks chunks, set it once they exist */
++	p->chunks = kvmalloc_array(cs->in.num_chunks, sizeof(struct amdgpu_cs_chunk),
+ 			    GFP_KERNEL);
+ 	if (!p->chunks) {
+ 		ret = -ENOMEM;
+ 		goto free_chunk;
  	}
++	p->nchunks = cs->in.num_chunks;
  
--	tmp108->ready_time = get_jiffies_64();
--	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
--	    TMP108_MODE_SHUTDOWN)
--		tmp108->ready_time +=
--			msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
-+	tmp108->ready_time = ktime_add_ms(ktime_get(),
-+					  TMP108_CONVERSION_TIME_MS);
- 
- 	err = devm_add_action_or_reset(dev, tmp108_restore_config, tmp108);
- 	if (err) {
-@@ -405,8 +401,8 @@ static int __maybe_unused tmp108_resume(struct device *dev)
- 
- 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
- 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
--	tmp108->ready_time = get_jiffies_64() +
--			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
-+	tmp108->ready_time = ktime_add_ms(ktime_get(),
-+					  TMP108_CONVERSION_TIME_MS);
- 	return err;
- }
- 
+ 	for (i = 0; i < p->nchunks; i++) {
+ 		struct drm_amdgpu_cs_chunk __user *chunk_ptr = NULL;
 -- 
 2.53.0
 
