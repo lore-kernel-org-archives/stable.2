@@ -1,123 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794592082;
-	b=x94X9d2sDptBg7AS5ezT2MXfpvV79jdAmvq/BMVbGttUnxqrOjRQPUNhBFh2aS9ac4Gg
-	 syej6am28rcLbbKT9PAMxYCgZ2XPipbFoqLNf8SWjz+Xyt60GRuGaejcN1LZuQy/1Cf3F
-	 TUaL/CBFL9RFrrIsdhkfOhjsIPu6ygHjEhhbIjsnrSwtwzOegU/8n29tOLYyjuNRdH46P
-	 GsaPIKBqRZ4UzrYbSRZshDYzO1jkDGI1QLcjGA9xfr12LeZU4fFv/UHAm4AEj1u5lIzpq
-	 DecRUAU55qjAigXwB2fGTJSA3rDXesKzLXN6IgbO2469RnuMXeSvniWL8P7SNIGcMHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794592082;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794592086;
+	b=G204X4CXd1DSVxs02tJqfr2zNHefcFzN5RYLdD/1iWu1665C3NWyxy2gn/RcJf6C2Pqi
+	 u/sNYrL8pEjcJYKc6e+Z/Nn7+7HM/xqUt+CZE4I7hxy6vCjZBPhfU/sQqvOt/2G5yi5Pj
+	 k6RdOYGbl1xZQ/sddCe2ejf3BUKbX02cERbY3AMHeaWeZ9Zi/bkYmAHescPZi+exN1DFx
+	 3F8F64aM1FMFUTnVr1swOMgqhnDetf011dnaoDURO7ecNQMPM+JUQfTJ3J4Z0VNZbkj1l
+	 3dLeXqxjYxJYLxBMfN2aD+al5UJBtQuNROIph9YO6xn1IkZSzpu1AUsJtb30zUfgbfw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794592086;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=KsbltrIyDurmJRrLTrle+sgoNwKMPVf5IZ0hW0N52qc=;
-	b=cfPQQMIYp+zmGtccM5kl5s0PRb2Nw1dsMZQULmEnjRiOuRUQl2i5nM1oT/K3xxWB22MK
-	 ZRvB6a8cH0elTfQ5bQsTJ2OvQulguRv+9UbpsCyUmqBV9o5Y/2jpVs92Zc9PNZtBKIMj1
-	 fgvfCwMeMLAZfVObfo6vqlj8kQb2hkVHRCNH1bvkfjmvmx2fEYrppoATTfEFThPahQErc
-	 V004TRkbwPe/5LSVi7+2Kw8lYA5t2uA1CsxzsK4fVeaNo1dodD57iQOdv3OzzHymIYAZi
-	 iw+JJ3YwglqL3dnW/HrJBYQEOfuCObLFs88A/DYc++NvLR2EMPTAiPpTn4ncowNtjzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UQ4DHfbe;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M0EVrriA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=UxAos6a8lt7m6kLZPUZliAQ2VNhadB0xpZbdvzr7aWo=;
+	b=gF+euhvHS3lKozHWcGl0/Id6uXFrXtG3y+zjUk5A19aax9hAyKDnk5h89HpFQqIuAyb3
+	 ajN2A5h83ObaFAgZNeDW64Wtm+sFjZDBFysW2ZpV6s78jHRkEwQ84Uid4xcxkvH2wQJj/
+	 pFyEV6knNajlmqbyJrWBtI2sMIUVFYe0mlCC//DgVFgc6re8+MX2mb9w3Odk2524WdlTa
+	 CucALagL/CxZspbCH/e+ljJoGsjogThXfCF1xqtYcQU3/WFAx17V/WTrjWl64kEQdpwiQ
+	 WSrcUUyIXyEUN/l11GkzOzWKfwF3fPmeF0jAoU/EMMwGZ3TNLiD1F1/o2tiC+BVMIDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=KLluE39z;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7587C606B225
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:48:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7587C606B225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C70606ED84;
+	Fri, 13 Nov 2026 17:48:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C70606ED84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UQ4DHfbe;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M0EVrriA
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFQwcp2022392
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:48:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KsbltrIyDurmJRrLTrle+sgoNwKMPVf5IZ0hW0N52qc=; b=UQ4DHfbertQuo5VT
-	BxZj/K3jFfBkDAEPaBojSwCJlYcpw0G6QfBFjSlmE405V072a1GFuXhx8dps8MTB
-	PbAh5uclUv2E06ayHhKY6ehgB6UBp0kwIZRflEYqwcxwiMFnSMAIIOwuCRs+3mcV
-	9/R3tv6iYbO5t1kNJqzLWaCgSa3tLnlGYL5h62t3ykUdrRGrzyTHjKD+uh9r+mU/
-	dG7krFlKScrfjGx6wBxff0KT4Kx/zjlWQV/hOIO5rtO5WMUk9C8QjZUzUFJHZn17
-	bKQxk852B8nReDUO/HbMi2QDzzqbA2+LM6+bp+UKsj/gZbhOEDrafN70tJHAHqpo
-	jfn6HA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hx0g21ms1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:48:00 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b0f667a666so1694935a91.2
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 09:48:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794592080; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WsnfkRad1M88qZ9SYVzYgZoBZTuNZQWfQt70Qk1lcfeHTcG0ammDQ74ilbk0bJq5hL
-         tjEOHBEaZaeLN+y6LvzyluOt1mXJSI5VVTd9dPuh/3Ey+JEF3R/SjvxYjq+Ic2/fb2bD
-         dhPa0IHwJSJFoY0d6D060w4w+p2RV2wBNB/c8O9d5TJ7PZL5SE1h5WBs4Q+0obog/pU6
-         FgJDgG43A2LQbx2qfbl8KJTxTw62qlJCZ8EmMs1CcV+P4pVn6j3GiFl26G+V5NLzYrMg
-         3EC18TzxQj4uBesAJFT6vCe2foK6BLPOZvyGSoUg0RstBoq6h/3cWrXnZTuWrIM5Zbze
-         pzbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KsbltrIyDurmJRrLTrle+sgoNwKMPVf5IZ0hW0N52qc=;
-        fh=RaeqQdwJibQXlP2PFcGOD8WJlXUN7Etyl4Xou3mZGOI=;
-        b=Mx+7/xSc3B2p1OV7X9voq9QPkmm1HOkxZzHRVGiRKvDtsdS2SErILHMuIWsMWng99w
-         ovzJZweNdaRgYI+6G3BhddT7GHEO8jFKBr7HW1esRc5gPXXyR9Z0mzaXH4c+HFOoqQ/t
-         65CIaFhskrI9PbI+lwgwBUIkFzg5EtNqWUUYxvDEgx2oP5C8CLNXcIYRS75++W99reiQ
-         8NR5Ojzp3EEjJTyI5HIJbCJqlweufnMeq+Mfog232ZypZbbfV39ovCVdC6fVrqa5egKX
-         YTzUrk2hJjuR+8wxQWZiELd0Q+hMM+OqIybnq3j9lv/FvA5fMhB//nksOTMGc0Z2g9up
-         YJWQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794592080; x=1795196880; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KsbltrIyDurmJRrLTrle+sgoNwKMPVf5IZ0hW0N52qc=;
-        b=M0EVrriASVl4BEUn6glnS5ox3E0QgX6PjCKNlaqDj3ym8AQsQP/Gm8udCSFQt0kCw+
-         ojh2802Sz7G7infVLgeh9vT+7+ibuFMUycMkc158kjYEM/38rIgRwjWNPnCOWnzREcWu
-         4yFPtRBAfLdprTfsG4GWSeDrPqcB42qk2zsllrrMVSRCzfadNQzNm8NY6Uxo5Yx62IqQ
-         rHqSkD5+fkB2G1ZAV19sTN8Rz/u3ykG1nYUDmSau4jUO9ED+xuDPOvfH3/a41UedMV0s
-         HOkoS3b7Ll6B+QQaMQrM9/5ZkPpCYbAbad3hF/OLQtwMT56Fkx9KsC8XPxSznK/Pla70
-         RYWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794592080; x=1795196880;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KsbltrIyDurmJRrLTrle+sgoNwKMPVf5IZ0hW0N52qc=;
-        b=RQm9vFYnvCc/A7F7xn9IISBg8wfj3LbA8RaxwFojyA/EVHZUK1sImaKhoq9JYfsQ+P
-         lMQQEXN9c4PJxXT2wabEgJ+fFoRxzIdnVtusGOg2kTLHFSb/AbNiHsrTCGJI7Vm1wlpU
-         TJD5+5q6Vm37vUvPvZpD3jnaJvocvFZD/+pbrrFTMUtZWxsBUskrIWETFDGTQmudkS4t
-         9VvLdfQGtZsPoQBMn35wHIUhSnmZbjDcL/U9HZcYsBkz53qkHLqePYKwrS2geb7r0xkM
-         CdG5hB68/RYpXYqQADjTUKVJSFfMzBz0GgR3lUrDOkKNztNyXpsYRDTQSew7mcaaj9sR
-         2h3g==
-X-Forwarded-Encrypted: i=1; AL+hErHWyD6g4WIBbTidlcTROHRfHqtjz2+BbEJJgA3YnoIqfrWzv9/YneFNqSa7cVPrr3DTyqhjRwg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ah0HUGBrbdjsl/QTXRZHorURkMOVcBKpt2fO3e5gvUMykb0jt
-	X8pY4cjRBr0EE4cG0RBXhbum0XVzHMSBhXa4LLg0wHBplqo07RSvQejImWuBENdMRClPpvM+hiA
-	t/L7NzIJvBKl6P/swsedtM2NltiSVfvW2uQDd2nlLMLJq3uBngfBwf9Gi8M80adtFkhFwquapwZ
-	qyRXfMxODNGqDbXIEilk26o+hV7HmBpI+6BA==
-X-Gm-Gg: AYBFou0Ej3C8ejK2mhBtuePg6uxBImSv4L9y+grwKFHeG6V5yATic8EHSIRM9zpEuYi
-	RjAQynVOM/fXsF5/yEpopjG1AwE4Bmer1FEqrHPfWTg2iKY7ubzsUuD+/tf+HDIGITaBpBSDjVU
-	9SZKA+dTW2eAy+x04OYrWYARn94r1sRlmA3vcZwIlbZHNmvhc2JW+2o124+g==
-X-Received: by 2002:a17:90b:48ce:b0:3ae:5572:c4e2 with SMTP id 98e67ed59e1d1-3b1b0a4e8aemr2984902a91.57.1794592079865;
-        Fri, 13 Nov 2026 09:47:59 -0800 (PST)
-X-Received: by 2002:a17:90b:48ce:b0:3ae:5572:c4e2 with SMTP id
- 98e67ed59e1d1-3b1b0a4e8aemr2984886a91.57.1794592079412; Fri, 13 Nov 2026
- 09:47:59 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=KLluE39z
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jR4VD1VGNz5BNS0;
+	Sat, 14 Nov 2026 01:48:04 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794592084;
+	bh=Zg7cG0Fr7J5R3Fz6w33M2ez6e68CVrJIlkOKPGN908A=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=KLluE39zVSc/gtNCnNCIFsMVMFCQObK2sQ6O23DAsIv6TH4lVkAiAihSEa/X4gnjm
+	 uhMBXLP6f8djrX8nwk5vUisMsJ8jS9rwydHpaDyaEbOrsvZ5lOh3Qn3QlWE2QyUtG0
+	 e3zrh4/V4Z0koEPt64DRjL1Ly7XTZVdWbp2j7+XmP5Rbtl8NzjP1Z6fYW5wjrTa+3u
+	 z9lLQo7wAKHAUOPi8RerXQ81LQDQR43fdQF/N/ikkUg00iilcsuZCT/uc1CydfcZ+E
+	 LYhgpoIRifxbIiYsXrQVfqvPJQwfwrsO0fbMjKJx23VNmpUwoWfmkJ/85SY+CrnzdR
+	 Snh2ux4EKaqKQ==
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 6ADHlwXw088136;
+	Sat, 14 Nov 2026 01:47:58 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sat, 14 Nov 2026 01:48:01 +0800 (CST)
+X-Zmail-TransId: 2af96af74d51470-083c3
+X-Mailer: Zmail v1.0
+Message-ID: <20261114014801031Y999WJfhmUrM7FRlZ-2Qf@zte.com.cn>
+In-Reply-To: <20261114014754440R7cZjW-DgggyExZ9u5t_q@zte.com.cn>
+References: 20261114014754440R7cZjW-DgggyExZ9u5t_q@zte.com.cn
+Date: Sat, 14 Nov 2026 01:48:01 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,130 +72,132 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <ivkwuomer5vsajf2lq6otpgxwqljkwooh3p7e5ne23j37pv22t@iluamo6gxmq3> <20260731131002.142671-1-linux@jaseg.de>
-In-Reply-To: <20260731131002.142671-1-linux@jaseg.de>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 18:47:48 +0100
-X-Gm-Features: AclHuK_ZuwtIA029trmw5F8DdkesfBzk2SXLciir6o9jwwGKO1CXPCiGSeJhXdk
-Message-ID: <CAPx+jO8DKyuNMEKCHyKzw5DS62U2Xu6mcL3BtitRwrYP0gad0A@mail.gmail.com>
-Subject: Re: [PATCH v2] pmdomain: core: Wait for device link removals before
- dropping genpd->dev
-To: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
-        Saravana Kannan <saravanak@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3MCBTYWx0ZWRfX93XJHJ7ZJIa+
- 4UZ70lo1MvYO6OAeg+Svyz1FHhVyYumzsTINYzseIQHJJUclkC9H2n8v+10rA5JGQIIsziVBfdX
- 25CTu43b6Q89gtR1od8AYxcLm/F5kFaERw1VmBSameZfP8bsYeGXAnIBJo95zE78pKvMX14xl7A
- hvqenY+6NHFTCZS0BpLjflysXs0V39GrXzs9jrUXa4jU2Y0KNaPRIdpTkio6vmjpcM3DlGtCjIi
- 8W+bq4d+bkCgLWbRizldTazQUM5gzU8HvcN4w7R/JuNSKadLQedhiGH+JYh+OVr9GhXwA+Vype4
- QbaEC95apGyixEpIckBf3epuC8cadNJLOxXTBrv6sAAjGDHr6xkM5mqf4iKlPOEWN/Da0csqATP
- 18Ho3fp9TDqXOkI4wAOcSNUlZ/dtIZcZWf9kWgfC/MeglhRztTIqUgrEjlndJGpU/Tes5Msh+Rr
- xjKQB729KCGan4T1yZw==
-X-Proofpoint-ORIG-GUID: dWNWGVtOCREWh60q_abT7miYZITJRGbi
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3MCBTYWx0ZWRfX3Ir0cF4TSXnK
- tBJsfAQoa77dZ3BUQn/CtxvMQBkfzFatl2IzyXLYj6RbLBiXIprJ/su+IKu4GRtvij1GvxHtj4J
- lcoVB5NzsrskHoyPr8Pt9qhxKTRB5UA=
-X-Proofpoint-GUID: dWNWGVtOCREWh60q_abT7miYZITJRGbi
-X-Authority-Analysis: v=2.4 cv=SpIFe/O0 c=1 sm=1 tr=0 ts=6af74d50 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=ShrK26NZXz4ow7qFTikA:9 a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 adultscore=0
- malwarescore=0 impostorscore=0 bulkscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611130070
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHY0IDEvNF0gYXRhOiBsaWJhdGEtc2NzaTogcmVqZWN0IHJlc2VydmVkIGJpdHMgaW4gMzItYnl0ZSBwYXNzdGhydQ==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6ADHlwXw088136
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Sat, 14 Nov 2026 01:48:04 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF74D54.000/4jR4VD1VGNz5BNS0
 
-+ Loic
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-On Fri, Jul 31, 2026 at 3:10=E2=80=AFPM Jan Sebastian G=C3=B6tte <linux@jas=
-eg.de> wrote:
->
-> genpd->dev is embedded in struct generic_pm_domain and its release
-> function is empty, so providers free the containing genpd with a plain
-> kfree() once of_genpd_remove_last() returns, ignoring its refcount.
->
-> Since genpd->dev is registered on the genpd provider bus, fw_devlink
-> creates device links to it, and those are torn down asynchronously.
-> Nothing made genpd_remove() wait for those teardowns, so the provider
-> could free the memory backing genpd->dev while the queued workers still
-> used it.
->
-> This is reachable at boot on qrb2210, where the firmware rejects PC mode
-> and psci_cpuidle_domain_probe() removes all the CPU PM domains before
-> returning -EPROBE_DEFER. The bug is asymptomatic on defconfig, but shows
-> up when enabling KASAN or INIT_ON_FREE_DEFAULT_ON. In some builds, it
-> causes the kernel to crash a few hundred ms into the boot.
->
-> Call device_link_wait_removal() before dropping the final reference. All
-> link removal work is queued from device_del(), via
-> device_links_driver_cleanup() and device_links_purge(), which precedes
-> genpd_free_data(), and flush_workqueue() waits for it to complete.
->
-> Assisted-by: Claude:claude-5-opus
-> Fixes: 18a3a510ecfd ("pmdomain: core: Add the genpd->dev to the genpd pro=
-vider bus")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
+ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Byte 1 is CONTROL,
+including vendor-specific bits 7:6, but libata interprets bits 7:5 as
+MULTIPLE_COUNT. This rejects non-multiple commands with those bits set
+and can print spurious count mismatch warnings for multiple commands.
+The reserved bits 7:5 of byte 10 are not checked.
 
-I decided to apply this patch as is, for fixes! Apologize for the delay!
+Reject nonzero reserved bits in byte 10 with field pointer 10. Skip
+the MULTIPLE_COUNT checks for the 32-byte form while retaining the
+device multiple-mode check for READ/WRITE MULTIPLE commands. Also point
+to byte 10 for invalid PROTOCOL. Keep the 12- and 16-byte count checks
+unchanged.
 
-Let's try to come back to this and see if there is a better long term
-solution, along the lines of what Saravana suggested.
+Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
+Suggested-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+Changes in v4 (Niklas Cassel and Damien Le Moal):
+- Check byte 10 bits 7:5 and report fp=10. CONTROL byte 1 is not a
+  MULTIPLE_COUNT field and its bits 7:6 are vendor specific.
+- Skip the short-CDB MULTIPLE_COUNT check for ATA-32, retain support
+  for READ/WRITE MULTIPLE, and correct the misleading comment.
+- Split ata_dev_warn() after dev, as requested by Damien.
+- Do not carry the v3 Reviewed-by tag across this behavioral change.
 
-@Loic, if you have time, can you please have a go and see if $subject
-patch solves the problem you are seeing as well [1]?
+Changes in v3 (Damien Le Moal):
+- Added a byte-1 bits 7:5 check with fp=1. This checked CONTROL
+  instead of the reserved bits and is corrected in v4.
+- Retained the short-CDB count and device multiple-mode checks.
+- Updated the subject, description and CONTROL-byte test expectations.
 
-Kind regards
-Uffe
+Changes in v2 (Niklas Cassel):
+- Skip the nonexistent MULTIPLE_COUNT field for the 32-byte CDB;
+  preserve the device multiple-mode check and the short-CDB checks.
+- Move the invalid-PROTOCOL field pointer fix here from patch 3.
+- Regenerate with git format-patch; do not edit diff hunks or indexes.
+- Do not carry the v1 Reviewed-by tag over the reworked code.
 
-[1]
-https://lore.kernel.org/all/20261020-cpuidl-psci-fix-v1-1-d8ab9ac3b56d@oss.=
-qualcomm.com/
+v3: https://lore.kernel.org/all/20261112220120113cXLhRk6iDVvhfgGPoZ5vJ@zte.com.cn/
+v2: https://lore.kernel.org/all/20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn/
+v1: https://lore.kernel.org/all/20261104220939917jqg8_alGN5sACGWq5M9D-@zte.com.cn/
+Review: https://lore.kernel.org/all/avcujpOaXJPfjgxQ@ryzen/
 
+Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiles
+the translation and completion functions verbatim with SCSI/device
+stubs. It crosses all 256 CONTROL values and all eight byte-10 high-bit
+patterns for non-multiple and READ/WRITE MULTIPLE commands, checking
+rejection with field pointer 10 and no CONTROL-based count warnings.
+It also checks the device multiple-mode and 12-/16-byte count checks,
+service actions, CK_COND and field pointers. Sense construction and
+device access use stubs; this is not a kernel runtime test.
 
+ drivers/ata/libata-scsi.c | 29 ++++++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
 
-
-
-
-> ---
-> v2: remove this note from the commit text.
->
-> Note: This patch was LLM-assisted. I reproduced the issue and tested
-> this patch on hardware, and I did my best to verify it by hand. However,
-> I'm far from an expert in pmdomain, so YMMV.
->
->  drivers/pmdomain/core.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-> index 842c4169e290..4eeb980e5a40 100644
-> --- a/drivers/pmdomain/core.c
-> +++ b/drivers/pmdomain/core.c
-> @@ -2348,6 +2348,9 @@ static int genpd_alloc_data(struct generic_pm_domai=
-n *genpd)
->
->  static void genpd_free_data(struct generic_pm_domain *genpd)
->  {
-> +       /* Pending device link removals still reference genpd->dev. */
-> +       device_link_wait_removal();
-> +
->         put_device(&genpd->dev);
->         if (genpd->device_id !=3D -ENXIO)
->                 ida_free(&genpd_ida, genpd->device_id);
-> --
-> 2.53.0
->
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index a61fb03312793ca94d81d8061a16c66e786c4cf3..8d321197803a839d9586e9f1436d1fbe3f5383c6 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -3388,7 +3388,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 
+ 	tf->protocol = ata_scsi_map_proto(cdb[1 + cdb_offset]);
+ 	if (tf->protocol == ATA_PROT_UNKNOWN) {
+-		fp = 1;
++		fp = 1 + cdb_offset;
+ 		goto invalid_fld;
+ 	}
+ 
+@@ -3573,27 +3573,34 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 		goto invalid_fld;
+ 	}
+ 
+-	/* sanity check for pio multi commands */
+-	if ((cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
++	/* Sanity check for pio multi commands. */
++	if (cdb[0] == VARIABLE_LENGTH_CMD && (cdb[10] & 0xe0)) {
++		fp = 10;
++		goto invalid_fld;
++	}
++
++	if (cdb[0] != VARIABLE_LENGTH_CMD &&
++	    (cdb[1] & 0xe0) && !is_multi_taskfile(tf)) {
+ 		fp = 1;
+ 		goto invalid_fld;
+ 	}
+ 
+ 	if (is_multi_taskfile(tf)) {
+-		unsigned int multi_count = 1 << (cdb[1] >> 5);
+-
+ 		if (!dev->multi_count) {
+ 			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
+ 					   NO_ADDITIONAL_SENSE_INFORMATION);
+ 			return 1;
+ 		}
+ 
+-		/* compare the passed through multi_count
+-		 * with the cached multi_count of libata
+-		 */
+-		if (multi_count != dev->multi_count)
+-			ata_dev_warn(dev, "invalid multi_count %u ignored\n",
+-				     multi_count);
++		if (cdb[0] != VARIABLE_LENGTH_CMD) {
++			unsigned int multi_count = 1 << (cdb[1] >> 5);
++
++			/* Compare with the cached multiple count of libata. */
++			if (multi_count != dev->multi_count)
++				ata_dev_warn(dev,
++					     "invalid multi_count %u ignored\n",
++					     multi_count);
++		}
+ 	}
+ 
+ 	/*
