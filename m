@@ -1,57 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794599740;
-	b=Lv1biYmtQHUbMmvESpSVm3KeR+RtE2hrf8ZzTzNV1RyZBHG1U9h38shDGBpNrfQi5RGl
-	 PrRV6BZGFMcqdyQ5boOBNwfrEo2mLH96QDF5DII/LmVW3WUf+04ld1O1Es+s8HMEt7gEt
-	 GEFH1zMUd0lt0SyUdpqUmNPW72dmbyVxzV+1/vz+dpuwXQAVpeKSwbPzaA/fBbYnCHp3x
-	 snjh9g0PdC/xhtM6pAqXtaizCfPP4ZqyiHbVvVvxX0vMg9mxTaCTnOPi/CVdY9aR0z9kz
-	 N4WygMWA9Slc9twBEWSLyU448lKz8tL4p06PeIUpkIOVmiZuscw8LnZzeuATrdx5adw==
+	t=1794599744;
+	b=TRlcx5ZYH2dsVKan8qRPseicLFYLv29ZKOEX1ylKj05VFwOlGVJsFQE5kmt+pJ7/6P7n
+	 QRmJvEHHUAuqWkMqJ/B7zc1ZnMfEvwpBJ7EogWti66krxnka+dVzt4QTh/ChpAbzRUI1M
+	 vfqDeivTUd3sRRXbXkNniMJTkkF4INWVfaqI1GBs7/I4JC7Ic/Xe/EUz/MlvhR0XqGSvR
+	 4l6EsqhBuASoG6Sssld3UXNRm02J0oIUbnHEqcJARX662knVkNVARceFCOBWcYj06Uxet
+	 UYzwRjDV4kreDPa+Cc52WFCd87AD+lE1SUSPUGgTr5ezMrQYok85F5cXxr7SZd3w+uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794599740;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794599744;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=LMoEF7w8L8Od9vwJXhrUO0hQkBufqQs/ao4oC1jLC+Y=;
-	b=BHvxBEPzzHis6pyqfKHBHLh+4JBMK5R64Av2i/ocwCvetDuAWL911/vy80iRN5KK/L71
-	 Grv16CUdQptCubJKclz/CbnO8TyJ7texL3sd4+MryMIezyT5Prz+cHxGd9/dK3OOEUTEn
-	 p9OJjGGtkWYnSZbQG7iLSP30W3MOZZ0S2tqgG2fMlImBOohCLBG03glJ4uLcZQQkOEmz8
-	 cAH7KwhrF+IcYeNjyPipjfg7RJwCQOQhp3y5yV+MfQtWyKeRgq2rE+/dPGtgtsT/KxvlC
-	 GvySlucJkB87i1wKmsm3VRIe8/81VwDW+PcXlancJAwTU9uuRsi8fA/tDQvNkXdmoWA==
+	bh=UeGRg/WkJsGVpuyAFSuDrs2zUW/JrhTUImqKDlhPu/Q=;
+	b=eTEDUzXDJx0Ah4a1U5MWGYuqncpC9ktP9Z7/7I4JIxjVX/lg5CkjUymmSJEO35j6u+Y5
+	 Xpl/U+oAGG4Py5uqG55UaXU483X9C/KilgiguNWXthqG4hg3YWx2RwxoKCCfz/dNKf5/7
+	 PqVfct3p9nW/0OdiHl5ZY7n+ba+R78UnsNsc+vh2/MocC3lkv1c2c4Ktd1I3AQOyHfWon
+	 LpXbB9NSCShYQmQ8TXjnfI13IswZ3yZpfAq/rRdNP1tpO0tcvKcLE2I5iAWiW5oNKgdCS
+	 5MnGfDGe0dIsXtGzjImAXO1y/lDV+CRHpMBC/CGdWkmC8zyiy1jifaVfW899ak1fb8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QD8sLgdf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=SdXigQuA;
+	arc=none smtp.remote-ip=209.85.160.178
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2746606A88E
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:55:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A69F606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A69F606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QD8sLgdf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 451491F000C4;
-	Fri, 13 Nov 2026 19:55:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794599739;
-	bh=LMoEF7w8L8Od9vwJXhrUO0hQkBufqQs/ao4oC1jLC+Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QD8sLgdfdlWUaLxaoXQPjRFHtg+PU8VWWAN9OGURV4KmLbzz2FiaL88gd23EHDsQR
-	 tU1sMq+6D0rWQQBxy5rNJmcZlb2sa6ta0MBikwbobzK6eGEfDjZMFk1OtDneVS9QwX
-	 SF1FsiYkV3cxU+ip2Qq6kCuX4olWqVIIQOiIAK2+22PzzWK6Tec6DQXeJtMGObrf6N
-	 SKaeTA5EyKisEdaHepwq+1Y5AFyPRSW2dr5mZm7tv2iGeXfM+kMq7ADKq6gxP8UVO/
-	 O8lw1ykVX66tDvFpuvWe9KKfuvOxDW4MwA3GpWNoLoHwfKYYV24bdR5FY9I8i2LoZ7
-	 +yCyDNt6N98tg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	Mika Kahola <mika.kahola@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/i915/display: Add enabled pipe planes into state for selective fetch
-Date: Fri, 13 Nov 2026 14:55:38 -0500
-Message-ID: <20261113195238.2279432-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200646-failed-6.12-94cb1f08b197@kernel.org>
-References: <20261109200646-failed-6.12-94cb1f08b197@kernel.org>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=SdXigQuA
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-55c38cdd5b7so3150001cf.2
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 11:55:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794599743; x=1795204543; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UeGRg/WkJsGVpuyAFSuDrs2zUW/JrhTUImqKDlhPu/Q=;
+        b=SdXigQuA9rPRYvsQD6lB82QqbJ8PJOW0/+lBYrX7DoW1Qe9DozLFb5Gm5MXihOvhPn
+         /PSboJd2ORILXHF3rAj+6g2jCpwvYK/MyvfDt78UvVwVyRdvxIlr3kCOB7k/fl8NU8a2
+         3Zb7lo2khGTNEQDxWViYNqTcJ+x6SUjpBuLNe+YAgCvKQ4k8BjtKSP/bZmrqHk7KS5G0
+         Cj4YIlvALfhcWWhQgl/onRylVBwzQnzPWNMXVytB6T2z/LGxtIY/Zt4YCg03HPdIYjhw
+         QYZhZHCUDxVx9jh+qkOFKPiIx5GUzIxwBVP41Twzfdo4M7bYSzPxH9aUhWqwMvXGL3cc
+         UU7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794599743; x=1795204543;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UeGRg/WkJsGVpuyAFSuDrs2zUW/JrhTUImqKDlhPu/Q=;
+        b=KFJPhwh1PUKPboh6k1euiY5cgfnavkyPh3DAk7+5/NU7Hi2tzKkXbw2bwnn0w+n4PS
+         EOt+DKr5hIRcuNsjCmjawg+O5Iq6ngUBfVSIBaREypsmTdDpzliznD7fQEkd6EBIu3lv
+         So0EZ9qvl7AJ8R0whZUJX7d+a1cq2fTzX4E79MZ/Pgc9ZZagXNCClok+X5GHckTV7H9w
+         cp9HGn5O2021En6HSh2SRz1ZNynVYp7/KkbjR4kswxuBCBNPRC1W6/3ETYTTgNKAsiWl
+         gqsvLXvc2WDUapc2TIHCNndO9ya3WcOlizICDVdZKviNhtD14BaepgzcZYdZE3nL3UB2
+         QDjQ==
+X-Forwarded-Encrypted: i=1; AL+hErHme0xqBrh/hjz1LZ+OZ6Cz6sND9WOZVDL+hzx8hw6iTv69MvD/YjwQu9ZWVQ3W2ILfUzsg1L4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Xx7sty/p1ZE2UvkTolQts7y/wsbzUMbNVqOwN3OxVdPXU125Y
+	2tT9HQRmGB1iETemtnQXvXTEiewZjTAHCNu+QEPTxb58NA3NTTCTCUPuuaom4U01gqw=
+X-Gm-Gg: AYBFou3DgxIVeqSkQTHSEQvtwDi8BH5o5HQ/RtvfeXpDx8OtjedXc583x8jvzYtAVIE
+	NfqIRxumEybU1Bhg8JQURXo9C0gtPlro10u44NUHB+KUaV/JeTE6Utrdi1DwRoQgcvzBj6hraXe
+	Kvx1r11cUcb2XhFQAFOJjeP1cXmcHS2yNQi4uTdAxBI2bLcgVggt3fAOm1uQTq/ywj+5vzhvSpQ
+	+8N7C3u6MPmtay/hWo+RLoosEztnxD2wasfA52koF4ViW/q+zkiq69C2Bn0sH1r0Bd35WMzKFz3
+	JiVbQ+eEdmEtKEQ4ReKnTqc1MmKeyY86ZgSXecc6fAeXGBokQK7IeGUXjLFZrmksP+Z+bnJhFLl
+	CUtYgy/L3jNNWpefATEmp9FC2q9DisDEYsplKUJ+0UefbXeA4CmcT0oGoJP8bFF6gjEGBur+RaI
+	E+30iRmLfEk/LQZpOfC1FY9Eio/SczGv5h9LpAXRH8oN+rT3rU2fA1dMSHYw1JjM3oiIEpoEmir
+	lhUQxIailVRZfOVH9U9heBoKhCN5gPkvwNvkCg2rGJzDEZN7zUIOqlPCKbpQTfZT0Q+DRzrs+X3
+	iBuG0TwMoIsY/EEmg4P+rzAdYSxrTx+FDE4vooKh9YeBhOvLsy8RrtG/CBwvUEyt2MB08N+x0Pw
+	/WOSlWt/hKP/y+70=
+X-Received: by 2002:a05:622a:258e:b0:533:2c5b:d668 with SMTP id d75a77b69052e-55ac8894504mr59124981cf.30.1794599743447;
+        Fri, 13 Nov 2026 11:55:43 -0800 (PST)
+Received: from gourry-fedora-PF4VCD3F (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad0a231dcsm25486351cf.13.2026.11.13.11.55.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 11:55:42 -0800 (PST)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	jgg@ziepe.ca,
+	leon@kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	kas@kernel.org,
+	dave.hansen@linux.intel.com,
+	bp@alien8.de,
+	rppt@kernel.org,
+	stable@vger.kernel.org,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH] mm/hmm: reject shadow-stack mappings
+Date: Fri, 13 Nov 2026 14:55:36 -0500
+Message-ID: <20261113195536.2660763-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,127 +105,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jouni Högander <jouni.hogander@intel.com>
+HMM can grant ordinary device write access to a userspace shadow stack.
+On x86, pte_write() is true for a shadow-stack PTE, so a populated page
+can be returned with HMM_PFN_WRITE without taking a CPU write fault.
 
-[ Upstream commit 94cb1f08b197d9ae932ff98c741bd0dbc96e17e8 ]
+Nouveau translates that flag into a writable GPU mapping.
 
-Selective fetch support for biplanar formats relies on linking of UV and
-the Y planes. Planes that are not part of the atomic state are pulled in by
-the drm_atomic_add_affected_planes. If the UV plane is added into the state
-by drm_atomic_add_affected_planes in the selective fetch calculation, the
-linking isn't done anymore and the Y plane is left disabled.
+Reject shadow-stack VMAs in hmm_vma_walk_test(). Use the existing
+unsupported-range handling: a requested fault returns -EFAULT, while a
+snapshot records HMM_PFN_ERROR.
 
-Fix this by adding affected planes already in intel_add_affected_planes if
-selective fetch is enabled.
-
-Remove redundant drm_atomic_add_affected_planes from
-intel_psr2_sel_fetch_update and redundant check for plane selective fetch
-support that is not needed as all planes are already in atomic state on
-first loop iterating them. Also switch to intel_atomic_get_new_plane_state
-for linked plane new plane state.
-
-Fixes: 3809991ff5f4 ("drm/i915/display: Add initial selective fetch support for biplanar formats")
-Cc: <stable@vger.kernel.org> # v5.17+
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Mika Kahola <mika.kahola@intel.com>
-Link: https://patch.msgid.link/20260929094434.77129-3-jouni.hogander@intel.com
-(cherry picked from commit 0d173898b11157d37de3e5f01ef28a48582167d8)
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-[ sashal: adapted the collection loop to intel_atomic_check_planes() using the existing intel_atomic_add_affected_planes() helper ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://lore.kernel.org/linux-mm/20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org/
+Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+Cc: stable@vger.kernel.org
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++++
- drivers/gpu/drm/i915/display/intel_psr.c     | 25 +++++++-------------
- 2 files changed, 20 insertions(+), 17 deletions(-)
+ mm/hmm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 4a3cc3369180b..841a2129bdd3a 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5879,6 +5879,18 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
- 	struct intel_crtc *crtc;
- 	int i, ret;
+diff --git a/mm/hmm.c b/mm/hmm.c
+index 2f1e98c6b644..fa61ca59d927 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -596,6 +596,7 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
+ 	struct vm_area_struct *vma = walk->vma;
  
-+	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-+		/*
-+		 * Add affected plane here to ensure UV and Y plane linking is
-+		 * in place if UV plane is added as a part of selective update.
-+		 */
-+		if (new_crtc_state->enable_psr2_sel_fetch) {
-+			ret = intel_atomic_add_affected_planes(state, crtc);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
- 	ret = icl_add_linked_planes(state);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 97f82949a3a51..7856d50064ab6 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2561,7 +2561,7 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 		.y2 = crtc_state->hw.adjusted_mode.crtc_vdisplay,
- 	};
- 	bool full_update = false, su_area_changed;
--	int i, ret;
-+	int i;
+ 	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)) &&
++	    !vma_test_single_mask(vma, VMA_SHADOW_STACK) &&
+ 	    vma->vm_flags & VM_READ)
+ 		return 0;
  
- 	/*
- 	 * Selective fetch is not always usable, for instance it is dropped
-@@ -2676,19 +2676,15 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 
- 	intel_psr_apply_su_area_workarounds(crtc_state);
- 
--	ret = drm_atomic_add_affected_planes(&state->base, &crtc->base);
--	if (ret)
--		return ret;
--
- 	do {
- 		bool cursor_in_su_area = false;
- 
- 		/*
- 		 * Adjust su area to cover cursor fully as necessary
--		 * (early transport). This needs to be done after
--		 * drm_atomic_add_affected_planes to ensure visible
--		 * cursor is added into affected planes even when
--		 * cursor is not updated by itself.
-+		 * (early transport). A visible cursor is in the state
-+		 * even when it is not updated by itself as all planes
-+		 * of the pipe are added into the state before the plane
-+		 * checks when selective fetch is enabled.
- 		 */
- 		intel_psr2_sel_fetch_et_alignment(state, crtc, &display_area,
- 						  &cursor_in_su_area);
-@@ -2736,11 +2732,6 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 			continue;
- 		}
- 
--		if (!psr2_sel_fetch_plane_state_supported(new_plane_state)) {
--			full_update = true;
--			break;
--		}
--
- 		sel_fetch_area = &new_plane_state->psr2_sel_fetch_area;
- 		sel_fetch_area->y1 = inter.y1 - new_plane_state->uapi.dst.y1;
- 		sel_fetch_area->y2 = inter.y2 - new_plane_state->uapi.dst.y1;
-@@ -2754,9 +2745,9 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 			struct intel_plane_state *linked_new_plane_state;
- 			struct drm_rect *linked_sel_fetch_area;
- 
--			linked_new_plane_state = intel_atomic_get_plane_state(state, linked);
--			if (IS_ERR(linked_new_plane_state))
--				return PTR_ERR(linked_new_plane_state);
-+			linked_new_plane_state = intel_atomic_get_new_plane_state(state, linked);
-+			if (!linked_new_plane_state)
-+				return -EINVAL;
- 
- 			linked_sel_fetch_area = &linked_new_plane_state->psr2_sel_fetch_area;
- 			linked_sel_fetch_area->y1 = sel_fetch_area->y1;
+@@ -607,6 +608,8 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
+ 	 * allow write access either. HMM does not support architectures that
+ 	 * allow write without read.
+ 	 *
++	 * Devices must not gain ordinary write access to shadow stacks.
++	 *
+ 	 * If a fault is requested for an unsupported range then it is a hard
+ 	 * failure.
+ 	 */
 -- 
-2.53.0
+2.56.0
 
