@@ -1,69 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794592984;
-	b=lIAYZDhuzogB04iwSQtAJNI6VKyAw42joQjJzQserPKid54hq1S45j0nMz9dhpf52JCK
-	 8dTPIbrOPDGw6rfnm4H7yz9vSjCUWhAuKglGSSicOVlEOUAjhsTEVyoTOfhRI39YGp8Br
-	 8FRYAgUmfqnefseck3ZFWXpEEF3B0lvce7k5YlesFCTxktLJZQOdhkXdTk8QZEvs9q4hT
-	 uy0SzBbFFEjd4U2RZpD1AtriLcP7It+6GCEHy0+PcwKXEcNDM7JeVxs4Q2QDIxd+RLWKK
-	 qBC6gpMELRuKvPp56thRMsdYO+4kUJcv0+aUnl+TuwctTke76RGKXJlm9+7hxlb0w7A==
+	t=1794592991;
+	b=qp+feRa1JbO3UZrPUf/e06WD/AC1oSCjUlzTNTYzXlKWkvxrheYH7yY94hbxE8J0058u
+	 WP4yqPdlV8q4qMEspuOtYrqf6/53CQeUsyXQKbtQkFCXtJTcjYxwts8X6GfgJ3wM9BgvB
+	 cmh8NfrZULLF17e7Z5gXueZLybYRqGczMfX0EHJ7ogLbMj2i9RiwxV0V+HMirnNA5KvC9
+	 jri4eL6i3PbzyZCPAnFzb2msGy09vxNPaAx2I4xQYBIvC1T4UyQsks+Nvq1sJYkGW5j3r
+	 SbaokGuLqrJJEg42AJgldzU0YCkR2CYf3xTE3JlrdD0/mXDIPN371xYcwftFcOewiKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794592984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794592991;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=98ex+Pn2nBtI8mxDvjHYBDQsrjNC9orlyIfrJ1lLZwM=;
-	b=cyngKHQIa7WfyRmBuPMYKltcV0PZbqQTyszrnP9KR/3ceI0QnsSmUSfYNPwO2KnceF2j
-	 Jf0uB6cL0cxJAHJb74ovajB8vJxZ17kIBF7Ui+0u84VdfxPRCdPGMeT8DJIVJJ5OVJVpZ
-	 1zTYlQkC7WLLKBfC76AYGmV9FSjl9i7GgcPskNyh7Ji0XHxbil2PJvPuMUwOjkLevM6bK
-	 9W13fXiP/iqeDhWSE45YfNx9EYgkmNWSN5mBG1+QQYfzoCD7ahJ6n1xxHn75E5VnyZVoZ
-	 5J7LGeZcH13YZaskI5NwuTh4bFIqdzYtybXSXCRe3i97KpExza90WOGALRncRO7LMFQ==
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=BDCHJcU2rmlWsGcn+ewx78IR8adyNMNohPpcRFq14As=;
+	b=o99htOYXorzyF5GoWC5W8TSVwz8p6bPmsDI7q85yCDj5hJ/hnxSgQwBhiJFoYY467uur
+	 vwE3RH2qwo9xPmvwKB6VYk/irF+t7MIc6E2CPflGiVP8A9wO9JqmD79idjtAheHTjwFB1
+	 7zQQXlfTCahtCu2eUmwokGvE2NueDqGznrrGauJJ0YH1rOqUpiztlSYZ3UomFfx/9HWy1
+	 WKI/VWVwn8QWwxB6SGEVK+zmeo4FifapdLX70fiBEffvh3cF7M1G05uvDUIYJ1WXroUZN
+	 kq6w1EaiZI6GF/RVctVa/gcfwC6g+PAYa6cDD947mDUc2Hgb2bXw1tSm31xlc3BmDag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=uVepKS4x;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MhyKUQnl;
 	arc=none smtp.remote-ip=160.30.148.34
 Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8558E606D4B7;
-	Fri, 13 Nov 2026 18:03:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8558E606D4B7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FE860A2624;
+	Fri, 13 Nov 2026 18:03:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10FE860A2624
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=uVepKS4x
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MhyKUQnl
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jR4qV0XmPz5BNS0;
-	Sat, 14 Nov 2026 02:03:02 +0800 (CST)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jR4qd60XCz5B0yy;
+	Sat, 14 Nov 2026 02:03:09 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794592982;
-	bh=Wa+PLqTTMCOV+xu/ec1ktJKOPJdj2fOT1wVmnMmRve0=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=uVepKS4xIsG1HyI69BVxuCj8OPGNuTaGG0gI3kOol8NRVHWKHa8CWksx0pIhUMXBy
-	 MPP6aNfVRYDbYUNQcJU5Zn4CNFJOu2jfn8rxmHJomYnsmx2kKp4vzB0yzWvJaNrOtz
-	 UGENEHaARPkzmj5Gsd5dLkRUfiy5fghqOCak23aGUhDLOYU6TEMnuRMy5WujR1FRmK
-	 cSM78LtmYo1VF4U5y0jWvUjRQRQgG6zXz4Fi1wZzNSS3uFwkWhMOWO9QN8wlF9ZMJw
-	 QdaxqoEYvQ2XyON6P+dyQQTHdB6JOAJI2Ud6bp9ZTagvbyMx7tSmQ05LQFU1G40iqF
-	 /Q/6Lj+fHHUTg==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 6ADI2sVg073617;
-	Sat, 14 Nov 2026 02:02:54 +0800 (+08)
+	s=z202610; t=1794592989;
+	bh=Wt8hU2Qj8hmcKvInfU21LWe6vuoriDsz4R9lOL2ZmM8=;
+	h=Date:From:To:Cc:Subject;
+	b=MhyKUQnlRacNizMZCT/VexD9WZJKvjTCAXX1+6qIxKwBodCwnHHEEamAtCweZNTT0
+	 X9rDFUOw2GH+74l3T4V6M0i5hFKCstqtEg11sCBI/R4j+dzEL/iKIyMw91rw1U+W8f
+	 QU/q6MGAcE0IsDXDDrCo4xkEDk3EAkZKJrmissMACySLVmAQAK+DQ8u13N4tN0XjRQ
+	 eHEOIiiEocH5PvijHge8sOAyrXVkGgcHZ5vTbEvV3rXviZdGgvLbL98VHnupOzpAgC
+	 yX5lYsA9DpmDXibfiFZsJqyH+G7+gXFnhaBC1gavSW34Z3jFSG+UmPiBeESkoioEjK
+	 uUMa6X85cj8Ew==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6ADI31Er073681;
+	Sat, 14 Nov 2026 02:03:01 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
+Received: from mapi (xaxapp02[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sat, 14 Nov 2026 02:02:58 +0800 (CST)
-X-Zmail-TransId: 2af96af750d2ec5-15e0b
+	Sat, 14 Nov 2026 02:03:05 +0800 (CST)
+X-Zmail-TransId: 2afa6af750d97c4-3b6e4
 X-Mailer: Zmail v1.0
-Message-ID: <20261114020258146m8zL_TJCcRbcnVKxGbNGw@zte.com.cn>
-In-Reply-To: <20261114020245882Mvd6t10TkCZuRWpYFR3m5@zte.com.cn>
-References: 20261114020245882Mvd6t10TkCZuRWpYFR3m5@zte.com.cn
-Date: Sat, 14 Nov 2026 02:02:58 +0800 (CST)
+Message-ID: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
+Date: Sat, 14 Nov 2026 02:03:05 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,73 +71,60 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
-        <paul.ely@broadcom.com>, <kch@nvidia.com>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYyIDYvNl0gbnZtZXQ6IHJvbGwgYmFjayBxdWV1ZSBiaW5kaW5ncyBvbiBjb25uZWN0aW9uIGZhaWx1cmU=?=
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIFJFU0VORCAwLzVdIGF0YTogZml4IHBsYXRmb3JtIGRyaXZlciBwcm9iZSwgcmVtb3ZhbCBhbmQgbG9ja2luZyBpc3N1ZXM=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ADI2sVg073617
+X-MAIL:mse-fl2.zte.com.cn 6ADI31Er073681
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 14 Nov 2026 02:03:02 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Sat, 14 Nov 2026 02:03:09 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF750D6.000/4jR4qV0XmPz5BNS0
+X-Fangmail-MID-QID: 6AF750DD.001/4jR4qd60XCz5B0yy
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+The ATA platform drivers in this series have independent defects in
+their probe, removal or locking paths.  They share the same shape:
+state established in probe is not checked, torn down or serialized
+consistently.
 
-nvmet_install_queue() publishes the SQ controller pointer before
-claiming the CQ. If the CQ is already connected, it leaves the SQ
-pointer and the controller reference taken for it behind on failure.
+Patch 1 fixes recursive locking in the IXP4xx CF PIO callback, which
+can hang the first data transfer, including IDENTIFY during probe.  Patch 2
+returns the host activation error from the Buddha probe path instead of
+reporting a successful bind.  Patch 3 makes the QorIQ and Seattle
+drivers inherit ahci_platform_ops so that host teardown runs host_stop.
+Patch 4 stops only the Gemini SATA bridges that started successfully.
+Patch 5 serializes the controller-wide SGPIO update in the Seattle LED
+callback.
 
-An install_queue() callback failure also leaves the CQ bound after
-clearing the SQ pointer. The reference taken in nvmet_install_queue()
-is in addition to the one the caller already holds: the caller's put
-releases the reference acquired before the call, while this one belongs
-to the CQ binding. It is not released on this path, so the controller
-stays alive and a Connect retry on the same queue keeps finding the
-stale binding.
+Each patch touches one driver, except patch 3, which covers the QorIQ
+and Seattle AHCI platform drivers.  The patches are independent and any
+subset can be applied; the order lists the more severe failures first.
 
-Clear the tentative SQ binding and release the extra reference on a CQ
-conflict. On a transport installation failure, destroy the CQ binding
-as well, so its controller table entry and reference are released.
+All five patches carry QEMU A/B test descriptions after the --- line.
 
-Link: https://lore.kernel.org/all/20261106015842.3534898-6-kanie@linux.alibaba.com/
-Fixes: bb78836b3a7c ("nvmet: fabrics: add CQ init and destroy")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+This is a resend of [1].  Patches 1/5 and 3/5 lost their final
+context line in transport, so git apply reported a corrupt patch;
+5/5 had the same trailing line.  The diff content is unchanged; all
+five patches now end with the format-patch signature, which keeps the
+blank context line in place.  Sorry for the noise.
+
+[1] https://lore.kernel.org/all/20261112221230052E8YTrPU5pi8AJJy6dnh9E@zte.com.cn/
+
+Shao Mingyin (5):
+  ata: pata_ixp4xx_cf: avoid recursive locking in the PIO callback
+  ata: pata_buddha: propagate host activation errors
+  ata: ahci: release QorIQ and Seattle platform resources on removal
+  ata: pata_ftide010: stop only successfully started Gemini bridges
+  ata: ahci_seattle: serialize SGPIO register updates
+
+ drivers/ata/ahci_qoriq.c     |  2 +-
+ drivers/ata/ahci_seattle.c   |  8 ++++----
+ drivers/ata/pata_buddha.c    |  6 ++----
+ drivers/ata/pata_ftide010.c  | 37 +++++++++++++++++++------------------
+ drivers/ata/pata_ixp4xx_cf.c |  5 +----
+ 5 files changed, 27 insertions(+), 31 deletions(-)
+
 ---
-Changes in v2:
-- Code and commit message unchanged; add Christoph Hellwig's Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/20261110230316687z-VG9wgpFwmzFNKVnMGKY@zte.com.cn/
-
- drivers/nvme/target/fabrics-cmd.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/nvme/target/fabrics-cmd.c b/drivers/nvme/target/fabrics-cmd.c
-index fc626c2fd2c924342b550764f686010103e5ec84..6f0fc695e6499247340d3f17929608e4f03c00f2 100644
---- a/drivers/nvme/target/fabrics-cmd.c
-+++ b/drivers/nvme/target/fabrics-cmd.c
-@@ -216,6 +216,8 @@ static u16 nvmet_install_queue(struct nvmet_ctrl *ctrl, struct nvmet_req *req)
- 	if (old) {
- 		pr_warn("queue already connected!\n");
- 		req->error_loc = offsetof(struct nvmf_connect_command, opcode);
-+		req->sq->ctrl = NULL;
-+		nvmet_ctrl_put(ctrl);
- 		return NVME_SC_CONNECT_CTRL_BUSY | NVME_STATUS_DNR;
- 	}
- 
-@@ -242,6 +244,7 @@ static u16 nvmet_install_queue(struct nvmet_ctrl *ctrl, struct nvmet_req *req)
- 
- err:
- 	req->sq->ctrl = NULL;
-+	nvmet_cq_destroy(req->cq);
- 	return ret;
- }
- 
--- 
-2.27.0
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
