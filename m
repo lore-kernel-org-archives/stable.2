@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542226;
-	b=mokhJp3CnuvnjbFL6396wXqBbSm2rJ58St5UnuLaFAJ3YCEeT19opeGNh3zdgjloTHMQ
-	 tGIgnOSLdN+yXhFk+vcxhhnj9+7NwtkgWBH1Zc/PMN0MTp1nlRyzUDYYGV6SjnZTymh51
-	 Tn2ozkSygn2xKCQmQcnz3qRE0byRVeBwHKuBPaNBUwII3hQW4yHF3ry8Wjr7j2qRogQSn
-	 vcjbxAwJwc5VSw5ttYEcGGojHgHpCawNJVmm7UoTVcVXtUj6/+VtvbsmKBCVy22XpllG4
-	 eJwDw9IqU2d1WqD0rTUkOD1O/PgmHpPbyi88dVXzZ6lQ9hOnNgIGpnLaJOLNPGwqRKA==
+	t=1794542404;
+	b=u87iZ7yuF6SZ4+AZF97iBHtsyceLt7HAm/MtAJ4JfOtc1RSEIk7IBEMjHmdL4ATQw30p
+	 FF9LMkLjdsWoU3WYOE78yKyYjfqD7zp/Iu3T/Kw36gr9xfH5tlGD6MBS0ICUTcpV2RS1k
+	 jA9fVl3Hg7aPpEKe8/DkClL8KyrOR5j8oWur8S2udGGnjzydcbkDgeXZVegzdKr+upZb3
+	 LZDwWxupgenmXz+bz3jdwKQH9BuBR2O7HiUxAA2LkJA3ec+i/NIaSFfS+RVnPLbRGzR7q
+	 qJTOzmu1vLrBjHpAirlDrFLkMgqqGBpBT3WHgDvCfgHZgbifZ7j/YO5YThFrmHqcfjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542226;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794542404;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ARf1xSo1qTt0mrDhYrTV/y+PKtp0zfgdaAAic0fn+K0=;
-	b=Fgul14wgka1+fAT2862glLvhIAEKShyVcEi2jAAifvti5DKXyV//ePY+HrfvVEGtGj3I
-	 kxt5oCNMkBtTAbvCerS6MGGHJmPf3EGvr7xhOQzyOUeQEeSOEj0J7MRfZu8REdSpjLvoW
-	 vXzN3irb2kRVX1zH6YfoHGpnGIaYJxqANEtV1Yva1Rb955fzS+yiH+72tJq3RNa0HD7P9
-	 5S6fP6EyivBcHzb4LXUwm+JSpUXASil8APnW3OHI5f+QbLHXWWlBrEDrb/RolpxqvHmTP
-	 RAKXv/A/em+rD8TVzJpsYLvzgV8x4ZP5V9Y/LmMZfLgeOiE+Sy1wgCM65DafDhZibLA==
+	bh=VTfeZZUSpdFRfoIIBlf15XcWS696F3bp7k41siReJbc=;
+	b=0iMzjbeo7ENjTL7lbI7srdG3k9ulDKFjiu8mJ74WGqf/O9eE9rAizz5rxQcYOh7SRSJO
+	 ESjwnc9lSw0qzYlNK0icCBCb0xmQByL0YR+EsrLQT/5mklGQL2082SQw8+GHMgUeoAtpv
+	 2XLK8TLdZBVFArqbYTimZhy5FnxnVT9NPfa2T9aUsoG6CiZ5LEw59UAA/X+O+OBfQzIxm
+	 s83LjY38l5K1Czf/QAkDrM38+rkwpgoxZOtnyWEZ24uxlJcwODKTQmzMqSufi04GwQt5l
+	 1a3C8iKlfOhol2ToAloOAxkwcdc/YwvXWC02PqQICwM1SBSIgeZyh0XDkJIwJ6wDFaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJmRYekW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G/ZOfVYy";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FD2606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:57:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EAE606A321
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 04:00:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJmRYekW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 809201F000C6;
-	Fri, 13 Nov 2026 03:57:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G/ZOfVYy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780CC1F000C4;
+	Fri, 13 Nov 2026 04:00:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794542226;
-	bh=ARf1xSo1qTt0mrDhYrTV/y+PKtp0zfgdaAAic0fn+K0=;
+	s=k20260515; t=1794542404;
+	bh=VTfeZZUSpdFRfoIIBlf15XcWS696F3bp7k41siReJbc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FJmRYekWkhUhdyGOBYqdzT/NaDiD2cU0iXo+6ILeXrmzf0/YmyV8jlaKxWfaOQigs
-	 +iM9CbWVRW+FR6P3eHsan52MB2iOzmkwpYy/IyIl5QtpmdeJe43tz1fdBqk4S6tljm
-	 MZwmRsCwITszpgLLlt+9qaekLABMi7Bnd22PQGn/wvDHn+8zdkNw0WaK3a0hLSmM8H
-	 AV3rOuk9YkjtfFH76ot4sjIzRbs2shRv75yxMpgbOJG5KZoS+x6Gu2C1+49C/VaIbd
-	 YbSBVQcntRGfESpzbN++cer7enyLGPG1wMJoVcmddXGVMyhP0GOCEOT19N1Tb24SFd
-	 X+vv2rI9fFVMg==
+	b=G/ZOfVYyZR7lmJyp1Ge/hKeG23vup+TEDdm1upWe8MYO9TiMsWLc9h4q/ALd/9iks
+	 r+WWPvl4f4YM/QAKqY6ytHbyXsIQEp+xVZuPssJpqhpGy8IUzcqFAxv+PVjCSPZZ8x
+	 Fl+L5VIp9GE8zEFOLuiZAxjimWNhM4Zygbwdz1AYmKvf2sV9TBI7IebFWPiM8+Jz+Z
+	 IXgkH4LW5HFMsjnUJ1eBX8W8dzCRgpt3d9xy1vHSUEVoiESXWCmF01IeJfHv7H61Mb
+	 pD+HPK1nyKcEIFJJGP8NANostllUi+tl0ftNNNbsYtMAtsO+h5/CCzgo+kTiMCaPxU
+	 DIerF5GlP7Fcg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Milan Milicevic <Milan.Milicevic@amd.com>,
-	Danijel Slivka <Danijel.Slivka@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Daejun Park <daejun7.park@samsung.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] drm/amdgpu: clear RB_OVERFLOW bit when enabling interrupts for navi10_ih
-Date: Thu, 12 Nov 2026 22:57:03 -0500
-Message-ID: <20261113035638.1074375-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] nvme: unregister when pr_register() is given a zero new key
+Date: Thu, 12 Nov 2026 23:00:02 -0500
+Message-ID: <20261113035945.1065258-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113035638.1074375-1-sashal@kernel.org>
-References: <20261109202406-failed-5.15-146b96974b33@kernel.org>
- <20261113035638.1074375-1-sashal@kernel.org>
+In-Reply-To: <20261109201154-failed-6.6-a9d431124fb2@kernel.org>
+References: <20261109201154-failed-6.6-a9d431124fb2@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,68 +62,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Milan Milicevic <Milan.Milicevic@amd.com>
+From: Daejun Park <daejun7.park@samsung.com>
 
-[ Upstream commit 146b96974b33b8cca52755ffed3cd24a82836013 ]
+[ Upstream commit a9d431124fb2e58215daf0299d6fcf47bbc2d6b1 ]
 
-Port this change to navi10_ih.c:
-commit afbf7955ff01 ("drm/amdgpu: clear RB_OVERFLOW bit when enabling interrupts")
+The block layer PR API defines a zero new_key in pr_register() as
+unregistering old_key. nvme_pr_register() sends Replace Reservation
+Key with a zero NRKEY instead. The host stays registered with key 0,
+and its next registration with another key fails with Reservation
+Conflict.
 
-Setting IH_RB_WPTR to 0 does not clear RB_OVERFLOW if RB_ENABLE is not
-set. Pulse WPTR_OVERFLOW_CLEAR after RB_ENABLE (and with
-WPTR_OVERFLOW_ENABLE) so overflow is cleared when interrupts are
-enabled.
+The pNFS SCSI layout client unregisters this way at umount. A later
+mount cannot register and sends all I/O through the metadata server.
 
-Signed-off-by: Danijel Slivka <Danijel.Slivka@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Milan Milicevic <Milan.Milicevic@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 713fb4ab04f4d2af6120f8eb607c5673b2759b38)
+Send Unregister Reservation Key when new_key is zero.
+
+Fixes: 1d277a637a71 ("NVMe: Add persistent reservation ops")
 Cc: stable@vger.kernel.org
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ sashal: changed old_key and new_key references to old and new to match the existing parameter names ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 28 ++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ drivers/nvme/host/pr.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index 2c42b9a7ba74b..9425a9448cf51 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -161,6 +161,34 @@ static int navi10_ih_toggle_ring_interrupts(struct amdgpu_device *adev,
- 	tmp = RREG32(ih_regs->ih_rb_cntl);
- 	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_ENABLE, (enable ? 1 : 0));
- 	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_GPU_TS_ENABLE, 1);
-+
-+	if (enable) {
-+		/* Unset the CLEAR_OVERFLOW bit to make sure the next step
-+		 * is switching the bit from 0 to 1
-+		 */
-+		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-+		if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
-+			if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp))
-+				return -ETIMEDOUT;
-+		} else {
-+			WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-+		}
-+
-+		/* Clear RB_OVERFLOW bit */
-+		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
-+		if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
-+			if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp))
-+				return -ETIMEDOUT;
-+		} else {
-+			WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
-+		}
-+
-+		/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
-+		 * can be detected.
-+		 */
-+		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
-+	}
-+
- 	/* enable_intr field is only valid in ring0 */
- 	if (ih == &adev->irq.ih)
- 		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enable ? 1 : 0));
+diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
+index 566a04290e550..a6e563adb7017 100644
+--- a/drivers/nvme/host/pr.c
++++ b/drivers/nvme/host/pr.c
+@@ -133,7 +133,12 @@ static int nvme_pr_register(struct block_device *bdev, u64 old,
+ 	if (flags & ~PR_FL_IGNORE_KEY)
+ 		return -EOPNOTSUPP;
+ 
+-	cdw10 = old ? 2 : 0;
++	if (!new)
++		cdw10 = NVME_PR_REGISTER_ACT_UNREG;
++	else if (old)
++		cdw10 = NVME_PR_REGISTER_ACT_REPLACE;
++	else
++		cdw10 = NVME_PR_REGISTER_ACT_REG;
+ 	cdw10 |= (flags & PR_FL_IGNORE_KEY) ? 1 << 3 : 0;
+ 	cdw10 |= (1 << 30) | (1 << 31); /* PTPL=1 */
+ 	return nvme_pr_command(bdev, cdw10, old, new, nvme_cmd_resv_register);
 -- 
 2.53.0
 
