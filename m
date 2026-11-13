@@ -1,85 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606107;
-	b=1FQpbGxuvGr1PiwV0ESELzPADYN+Vbz1DPnmno4PRIlvhPK4n4AGJskjBauhF+Br6jOl
-	 t0Q9CtYo5MKOYEYE4XIpmdLUHAI5elGxBsIkM/AYNNXoxCUZTAbHl7DxIROjUtSSi7IDk
-	 j21nUvg5/DSdbo15MCFrJaubJ4F1/Bgm7pFcpx3B0b8Slm8KdZolWNr4tW78McNu+Sam4
-	 f53ID3oqJxQ39DWZzCkWiku/ixxG8egjQQWS7klPWp5Y56l02Lpurm094NfF47opWiOsk
-	 LmX2VXakGhktxQWEV8AiDA0tbbATbPeb+QEkysflD2X7AEib6wPXXwE6g5rQXE/n1qQ==
+	t=1794606153;
+	b=umEKn5X+dXnXbItDGiX/lqvqDKowEguiz+0akk3gyIlC6UyirGS0lb1yRMn5TwJKCz59
+	 V6fySplqGVeZxU45cU+TaOX1Y9o9F+u4NC05wThcvkj2Lk09ftg2FJvZxSY/qfbyh4AEI
+	 yO0yOPgafp6RQZtI1ZrKeU+FFy0cajJR2N1L48Ky9PDdAqRpoO2lasg5VBZ7fGf4OYsgG
+	 PZZFS3vrdaPHZThw+jsXcN1sdEQXaPA7jl4ws2B2PwubHQKC87AfWCPEAnRe6hchYtyc1
+	 Yr/BoqWyiZYDMAQNRycPADXrwiuujvGJhx3F35ZI9b4+mFc+LKiM9oxWKRSa2k+HG/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606107;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xhQIHZA6VTVgBZmCBhoLcYFIgrIijG6i5CWFzX2HxMY=;
-	b=ShaZ0CwS6Mrk61WoiSUMYKWwqvVy8Osql4Lr1VGfmL0R2FERfdIy7gQeiwes06OVqFO8
-	 2z9mfN3fbWppntau7T/bmiFGRHf7MX4MXau/oNKAN4Jyzjk8yUVVlJqtGP3r7UX6hrNmX
-	 HEIUG4HJpkwFlspeAoj/zR9OIVmPNfmikh4tQICPd5TEbGs7STdIzvqdupTtYQlIO8qm9
-	 EKeO+Z5nRAvPXxEzwZz2r9bPYyx3GArID13LP3p59fb0Wg2eespbt4F4O3rE2Xdz/DNqK
-	 JI65gl99fKBR66aRfudjvOezKVb72+G+2qrJvYR/rISRfW1cuDYYYNH7H66/HAHeXMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606153;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Gner5bYpYIFeR0zyHnHICqOBijztzQG+icYK31fBVS4=;
+	b=dD3iBgEKc6tnIU27zycP8K8r748+oAx8CsVrCOGtZG6Adx+tSI2ub+FfYixoBTpwNdSx
+	 Uxw/iOxBgmm722mSR95OSV8OseWwa7ByHdgVSqkLNymQ5bsjtQdmLpFPHcUTGaD2b3+7L
+	 8SqHoMqB1yyjtMU0Vs6z9VKA2Ujb4gqJJHCA3u9mQ9i/4uH21hETYIPHiiHK1dMOYcYV6
+	 t5JNnjXb5mCAMqHXOtzg0rjlMYt56Gtgn3L9qUko+Fhvr5vr8aulofzxcMY1Waoiucqoq
+	 ypUWiqABDJj7s31xNIOKeGDK2xeDGfqsc8WOMz1FIOMwugQ/HxF49aa9s3XkSeVhV1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=FOUZSFM5;
-	arc=none smtp.remote-ip=209.85.210.42
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEsLHYT8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD191606A337
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:41:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD191606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3800A606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:42:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=FOUZSFM5
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-7f48c750afcso1734017a34.0
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:41:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794606105; x=1795210905; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xhQIHZA6VTVgBZmCBhoLcYFIgrIijG6i5CWFzX2HxMY=;
-        b=FOUZSFM5S5d1miA7Lxx0Lf6OhSwlwNfuHZ5Jqx01yrOE9LvH+Q8m8252JavLipl0XJ
-         uTYk6TJLoTtCBo/+0JEVJWlsti+MY7MO5wFKSWClF2sxYLyaHMZ7P0K40cQ0l1G6QM1R
-         SgcPi/Z+Sty77r1hVG6EXHzJoQll7d47WKbik=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606105; x=1795210905;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xhQIHZA6VTVgBZmCBhoLcYFIgrIijG6i5CWFzX2HxMY=;
-        b=Cz6uwUDeNMJkTBB/oR49ayfqfxsx8AbxF8233CgAPKojFh9P2fGNBEITbndiNIwSNN
-         HvRj3+7QgdHtS/w9viiFtYs/mGMksWgfNjF+8uBXd/KEbKq+310B37WT31+AQwcKFqvV
-         UMre2x2fFQKK0tW8UouD/EZZaMrIKPtO6E+cHZvU6IxQ00ZwzQhcJ5Jg97NRUt7CHvuY
-         akD65SspjkHfgDoncpZYB1pK/yvBhVnXEktvV6c9gQw4BK9sqBGRldbh30kPAH42Vvbz
-         V6466nQof+FsJFbPmuTA2etQOqFLcUtk5hBKAUxwAqZW5ggS9d3urpAu1XXRIRmLR2km
-         fFyw==
-X-Forwarded-Encrypted: i=1; AL+hErEKmLXZQAXmitcUo857/TDd2GjrrRXUfU7I8P4KlWzcJuYskiqTbfDZ7bFxg9mPG/ZAz8VB/C0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/36iSjpKYeNn1YO1nwbhW5OdjdiAKQZQ211A6hBPMaNsCdBEkO
-	SDPpWvlg5S98OZbjWnWKHapC8AJNxomEcsmxlc6edZud/Qzhao9sg7phb9+8CjDJ/9Y=
-X-Gm-Gg: AYBFou2XKFHMp2RXtVr/kMKflgcSnoIs5sZBFVSQ6HndHU+SaxC4TuLI9SFUIq3xSMZ
-	hzaxrzw4osC0uHoIYE6gb+URuy3jrw99DLZN4BQK0gJKlJccVSl2dsoYNjPHrfo5JrUpCvcqjiK
-	4Bab97e/K518L2k9LW9ZwZDfnzAlSvJbAuwdaxxcGa/Lf1ISQM4eMLGvfnHo3vdQ7oZOBF2P1MC
-	ej4oXnywHGOl9sDjNCZ0fxF92NZvQeM9UWUnLghYfPt/3jlhX/L9IMbuSAAoGAkl2l8WY5qOjuS
-	SgJQeZ3gb+5WfMuJXWkTOCtKl+ZJaU2YzaaMMuKN7ilYdFQDcXP9Cjp6VbZPduqNZRMKqbuMveF
-	qGrOvOLDmZfvaSaLn45H3sl5qbJjehOiUbEEsl37uFTq+5FLTkxyiRzH5gCft73VQcQZ0YTRhQC
-	Op8OyecPsD1djqETuWh7RXHSUdvOxT7pftGQ2C0TZYxLIgBruByU61vGH1FhSEvaexlEhis8z6w
-	b9VAIAYtTghtBqVYR9/Zvi8YtFFchmS6GgT0unZS57N/Jw71HD6UlL0duz6aSTBuJjobgnUqRMP
-	t36qD0lAk+mmRC3of15DtB0H0i99nBiSivUpBfw=
-X-Received: by 2002:a05:6808:3010:b0:568:1e54:3d74 with SMTP id 5614622812f47-56e64df14ffmr3388527b6e.39.1794606105620;
-        Fri, 13 Nov 2026 13:41:45 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e7094aafcsm3131199b6e.12.2026.11.13.13.41.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 13:41:44 -0800 (PST)
-Message-ID: <573f682d-47ee-4e39-80ed-0ddf0da96cdb@linuxfoundation.org>
-Date: Fri, 13 Nov 2026 14:41:43 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEsLHYT8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488B21F000C4;
+	Fri, 13 Nov 2026 21:42:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794606152;
+	bh=Gner5bYpYIFeR0zyHnHICqOBijztzQG+icYK31fBVS4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nEsLHYT8GVPqw8KoR5s47Qhp+YqR1sW+EmSZnmLYjaMIrqdaXSI3OsLbER8CyeY9S
+	 xjQCw/yah932PTEcSclljdXrfxjFf1ulIcBC7ioYCZMgAuwLyzP7horojuN6lyF7jy
+	 l/Wk46Luy6sKFdZJ0Ngp9FUKXF1i2nSoALIMm1RbTsZyVq9p8NvZ0TkMehHM5gYxAw
+	 ytncqA+lVCyX2lXgCljXemupmct+JFRyHocVwqhpzSRQf3CCpihybf9xw7e4g133Aq
+	 bAUZPL1UdkKfjng51kCRLTnd9iJlsHtFbB9EJY65MzyNmwtC5BBaD2k51B7irfoEEz
+	 mWkZZqZ1uzQ/Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] ksmbd: let the owner read and change the DACL when no ACE names it
+Date: Fri, 13 Nov 2026 16:42:30 -0500
+Message-ID: <20261113214202.2623495-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201545-failed-6.1-ffc855fe16af@kernel.org>
+References: <20261109201545-failed-6.1-ffc855fe16af@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,66 +59,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usbip: Close all listening sockets in request workers
-To: raoxu <raoxu@uniontech.com>
-Cc: brgl@kernel.org, gregkh@linuxfoundation.org, i@zenithal.me,
- ihadzic@research.bell-labs.com, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, luiz.von.dentz@intel.com, pengpeng@iscas.ac.cn,
- pmenzel@molgen.mpg.de, shuah@kernel.org, stable@vger.kernel.org,
- valentina.manea.m@gmail.com, Shuah Khan <skhan@linuxfoundation.org>
-References: <67b2c06e-0caa-4ba1-89ee-17cb814d173c@linuxfoundation.org>
- <351AC939AD9B6359+20261113023710.1746483-1-raoxu@uniontech.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <351AC939AD9B6359+20261113023710.1746483-1-raoxu@uniontech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/12/26 19:37, raoxu wrote:
-> Hi Shuah,
-> 
-> Thanks for the review.
-> 
-> I found this while reviewing the listening socket handling across fork() in
-> usbipd.c, and then reproduced the issue with the unmodified usbipd binary on
-> two UOS test machines.
-> 
-> Both machines have usbip 2.0+6.5.10-2 installed, with usbipd located at
-> /usr/sbin/usbipd. This package contains the original listener handling.
-> 
-> I used separate test ports to avoid interfering with the default USB/IP
-> service.
-> 
-> On 10.20.12.188, the reproduction steps were:
-> 
-> 1. Start usbipd as root with both IPv4 and IPv6 listeners:
-> 
->         sudo /usr/sbin/usbipd -d -4 -6 -t 43241
-> 
-> 2. From a client machine, establish an IPv4 TCP connection and keep it open
->     without sending a USB/IP request:
-> 
->         python3 -c 'import socket,time; s=socket.create_connection(("10.20.12.188",43241)); time.sleep(300)'
-> 
-> 3. Terminate only the main usbipd process with SIGTERM, leaving the worker
->     running.
+From: Ian Bridges <icb@fastmail.org>
 
-You removed all the context from the thread :(
+[ Upstream commit ffc855fe16afe02b22305111aa68cd8d07360941 ]
 
-In the following path in process_request(), child exits after
-handling the pdu - all open fds get closed.
+smb_check_perm_dacl() refuses the owner when neither its DACL lookup nor
+the POSIX ACL fallback matches. The owner then cannot read or replace
+the DACL over SMB. MS-DTYP 2.5.3.2 grants the owner READ_CONTROL and
+WRITE_DAC unless an OWNER RIGHTS ACE applies.
 
-        childpid = fork();
-         if (childpid == 0) {
-                 close(listenfd);
-                 recv_pdu(connfd);
-                 exit(0);
-         }
+An empty DACL allows the owner's explicit requests for these rights but
+refuses MAXIMUM_ALLOWED. smb2_open() uses that check for the maximal
+access reply (MS-SMB2 3.3.5.9.5), so even a READ_CONTROL open fails when
+it asks for that reply.
 
-How does the problem you are describing happen in the normal
-use-case when a child exits after handling the request. If
-it doesn't there is no need for this change you are proposing.
+Grant the owner's implicit rights on both paths, for explicit requests
+and MAXIMUM_ALLOWED, unless an OWNER RIGHTS ACE applies.
 
-thanks,
--- Shuah
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: added missing owner-check prerequisites using the existing i_uid_into_vfsuid(user_ns, inode) API ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/server/smbacl.c | 52 +++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 46 insertions(+), 6 deletions(-)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index f0ec137e4efce..74aaaa1aa8f4d 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -27,6 +27,9 @@ static const struct smb_sid creator_owner = {
+ /* security id for everyone/world system group */
+ static const struct smb_sid creator_group = {
+ 	1, 1, {0, 0, 0, 0, 0, 3}, {cpu_to_le32(1)} };
++/* security id for owner rights */
++static const struct smb_sid sid_owner_rights = {
++	1, 1, {0, 0, 0, 0, 0, 3}, {cpu_to_le32(4)} };
+ 
+ /* security id for everyone/world system group */
+ static const struct smb_sid sid_everyone = {
+@@ -1452,9 +1455,12 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	int i, found = 0;
+ 	unsigned int access_bits = 0, denied = 0;
+ 	struct smb_ace *others_ace = NULL;
++	bool or_ace = false;
+ 	struct posix_acl_entry *pa_entry;
+ 	unsigned int sid_type = SIDOWNER;
+ 	unsigned short ace_size;
++	bool is_owner;
++	vfsuid_t vfsuid;
+ 
+ 	ksmbd_debug(SMB, "check permission using windows acl\n");
+ 	pntsd_size = ksmbd_vfs_get_sd_xattr(conn, user_ns,
+@@ -1475,12 +1481,28 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	if (pdacl_size > acl_size || pdacl_size < sizeof(struct smb_acl))
+ 		goto err_out;
+ 
++	vfsuid = i_uid_into_vfsuid(user_ns, d_inode(path->dentry));
++	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
++
+ 	if (!pdacl->num_aces) {
+-		if (!(pdacl_size - sizeof(struct smb_acl)) &&
+-		    *pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)) {
++		unsigned int allowed = 0;
++
++		/*
++		 * An empty (present, zero-ACE) DACL grants no access to
++		 * anyone except the object owner's implicit READ_CONTROL
++		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
++		 * deny the owner any access beyond those two bits, and do
++		 * not let trailing bytes after a zero-ACE DACL become an
++		 * implicit grant.
++		 */
++		if (is_owner)
++			allowed = READ_CONTROL | WRITE_DAC;
++		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++			requested |= allowed;
++		if (!allowed || requested & ~allowed)
+ 			rc = -EACCES;
+-			goto err_out;
+-		}
++		else
++			*pdaccess = cpu_to_le32(requested);
+ 		goto err_out;
+ 	}
+ 
+@@ -1561,6 +1583,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 			found = 1;
+ 			break;
+ 		}
++		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
++		    !(ace->flags & INHERIT_ONLY_ACE))
++			or_ace = true;
+ 		if (!compare_sids(&sid_everyone, &ace->sid) ||
+ 		    !compare_sids(&sid_authusers, &ace->sid))
+ 			others_ace = ace;
+@@ -1605,8 +1630,23 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		if (others_ace) {
+ 			ace = others_ace;
+ 		} else {
+-			ksmbd_debug(SMB, "Can't find corresponding sid\n");
+-			rc = -EACCES;
++			unsigned int allowed = 0;
++
++			/*
++			 * No ACE names the owner, who may still read and
++			 * change the DACL unless OWNER RIGHTS applies
++			 * (MS-DTYP 2.5.3.2).
++			 */
++			if (is_owner && !or_ace)
++				allowed = READ_CONTROL | WRITE_DAC;
++			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++				requested |= allowed;
++			if (!allowed || requested & ~allowed) {
++				ksmbd_debug(SMB, "Can't find corresponding sid\n");
++				rc = -EACCES;
++				goto err_out;
++			}
++			*pdaccess = cpu_to_le32(requested);
+ 			goto err_out;
+ 		}
+ 	}
+-- 
+2.53.0
+
