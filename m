@@ -1,68 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597855;
-	b=NrF4KTk3FugF4qvRK3Tx2RRaa4Y5mPRWNvOKhv67VPf6yOyVotKAdZbGS6XeqGvoSm2Q
-	 lxF77dfNoWLdg94esIMyCnAZPl7d3u0PQfA1AjyDR4ReIS0MIvrNoRfuHMFZXRewNEQFL
-	 KCoBwSyJLok+3fSM30xGluLvu0XNYKSVyXholjMJGvJLX+swtGp81LFRt2o88cN5Qe4VV
-	 UBPp5JMQVC+JFa3mR94ATt8Or/Qp4K//GFNDeJCpfjm2qeM28l0I9ZY6lFeBpFmrJcrvB
-	 loaFgWmf6b7Lgu+w/JHiJxZicAxf3Wd/znnztTGM5fgt//NcPra/ddtqlGEzz3iwzaA==
+	t=1794597877;
+	b=wtkEm9fPLTJbpb028yE6zQjMfN8c5rJ8mKJSm2sQ8B672k/fhV3YA9PcdFhkFgWVFmkX
+	 EpvKPxE2DLYoksIhHTXPkAcgUjMrNNcXB76mmmI1egKOLrP0Efr+8QLL+jzmYxGF2iqJ8
+	 /khubfKhi6rAzvXC6D+iG9+QdHiac4ux2RTYbCtMf0ybbAZWAzQ4zJaOZ+96i3WHBczYF
+	 xJlpP5FwGCt1HRy9tOVr0VfbRoVHKQzQpoJ4AfGuPRJgtZZYgUKFtXj/qi6lfj/p9Npk0
+	 opZp4NCKNafoL3YSeOqcOQKEizk4RdDMESTYetwfcfHjKAuSGMATcy43idPtYbVQNnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597855;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597877;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=g+jxHAD5tqvDWhn11Lc/6Dz/S9DUj4iP8SRne6Ayzik=;
-	b=ZhEPSziBQt4KvMTW0CJHiHhkOAzzP95gXBPMOnbC5lb9qjxvI1jnRFGoSZ5ybwHuN4oi
-	 N5thNF16tukhXjvAwb5zmgV7McuX2AfZt7gzJXdETsQ5LZHI9yM4oS0w8w/euGGpxsO8k
-	 9TTVPMO7VWrTx71XsTGo816G5wdYXX3uxaF0UGb7yDXfZTjYrp6uMxYkIjOrlwtIVVbI2
-	 bSessfySEdTIDDZsHdJAq7CgbE2wjllShqoY6GokKBTV++NgQvbYu5l+HIbC1s1GkcRDq
-	 si9epp8jNvqOCSQBkYKPHRjVfa7LsCM7cMIp2YZvJb5hI3MTg00uq8Asm+Nw/+1g5eQ==
+	bh=+YBXzEehPseVraIUWVmet5n/zqT/bd2cTLeYKg9ZHv8=;
+	b=4u5cXEJW1xfzS9ZXdh6GHFkmwDhnZitFjZWhYdk28Ovi8y4PWrGyHzcmHbn6VWlhVwa3
+	 SOKcSxAnDK+hC48nJ1qQw5Rkth1o1EvLF+6qIxeAi39wEGvL+q95XDqb2Mwc7oAr7rdwq
+	 1bV2DL2gJDHy02X9pqks+4MdZR1abHpTDi4hIjdThWpWxW5baOEsyLsAF4G+ZqAWmoN7D
+	 y4KpbB7Hwik/4iWOn+BmyMZy6rqnl3EpZYNgC6yZ/DVwipXt/NTTH58qRa5sFSwNCx9st
+	 XD4cWBYBD5ukS901NIdbOr/Hmlb4SL0rR6CrHOEVOHrz3app31EIrzt/9vdqpt2w2ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWWQtrWs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nT4tfXzi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDE9606A323
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:24:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60698606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:24:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWWQtrWs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B346C1F000C6;
-	Fri, 13 Nov 2026 19:24:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nT4tfXzi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECA9A1F000C4;
+	Fri, 13 Nov 2026 19:24:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597855;
-	bh=g+jxHAD5tqvDWhn11Lc/6Dz/S9DUj4iP8SRne6Ayzik=;
+	s=k20260515; t=1794597877;
+	bh=+YBXzEehPseVraIUWVmet5n/zqT/bd2cTLeYKg9ZHv8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bWWQtrWsijskNl+bNWGGDNYsI7Ytyy2/8K0sqFw6+gXHVfJgN/TDeDmiKfXOxjArp
-	 OwabXJCxddrxA2N22y7RV3RtGIwTSWxtiYGPZmtHsNzFt1z4Q+lT0/HJqBj8jvRA2r
-	 NH98P9jx4fZlC0yFsbHvWW33ESkKrEY9g6F4hf4Y0nf/yha8ZMDTjkIHyPKLUum5QF
-	 wXSDil/PpsH77qfOj7Gv7SKGczhtaIr32hsZ4LbnmDtoTQozEy2q36XGsxPxVANgwR
-	 BmlrGZiBJdBwfsemePQnzOLBHaGdCWeS1AaTszmbermcd0Df8TH+o9+x3Cd5VvkhKJ
-	 brmnR7pUPCmcQ==
+	b=nT4tfXzi/n/XZ14OxoWyDYuWTZgAvJad14KEDvwL2hJLykT/iIv3P894vXlAnGzHJ
+	 S4njIrJZ8i5CDNW+wSyfuPjcjK35c4fWyA/1HPvbgYjlUsDPl2zPjU38WFcE2TQ0eO
+	 Az9LKifQxuTC3nY9NPjzMyVnxm/gn+jeqjlS07F0tbuOeKp4AIqRQfhN9h+XJWWONo
+	 GZ3LuvfUBP+4hyxacZVA+UCfZfyxw3fkd9XCpQa/U8P5kkWMjZ6DR+MEkp66H7Dwhh
+	 PVUf/qmgA/6mTkHh20vmGpy/8tIRWRZ1Wm43mToRNaIzNnyEimjywuCMdCPluVV6/b
+	 t84rMj61nWNmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
 	Michal Hocko <mhocko@suse.com>,
-	Jann Horn <jannh@google.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	SJ Park <sj@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Colin Cross <ccross@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names
-Date: Fri, 13 Nov 2026 14:24:12 -0500
-Message-ID: <20261113192402.2278376-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/mempolicy: apply bind policies against the scoped allocation zone
+Date: Fri, 13 Nov 2026 14:24:34 -0500
+Message-ID: <20261113192416.2279504-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200404-failed-6.18-652f15be3c11@kernel.org>
-References: <20261109200404-failed-6.18-652f15be3c11@kernel.org>
+In-Reply-To: <20261107053912-failed-6.6-d4ea410ce4b8@kernel.org>
+References: <20261107053912-failed-6.6-d4ea410ce4b8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,71 +68,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-[ Upstream commit 652f15be3c11415725694ccea317c51e35c0b582 ]
+[ Upstream commit d4ea410ce4b8aa46a316476ea2624a357bf31fa9 ]
 
-When changing the anonymous VMA name, madvise_update_vma() calls
-vma_modify_name() to possibly merge with adjacent VMAs. We don't call
-vma_modify_flags() and consequently don't obtain the new VMA flags.
+QEMU fails to start a guest with a VFIO device when guest RAM comes
+from a memory backend bound to a movable-only node:
 
-Later in the function we update the VMA flags to the stale new_vma_flags
-we obtained before. This can result in us losing the VMA_SOFTDIRTY_BIT
-flag set on a VMA we just merged with.
+  vfio_container_dma_map(0x55b1b1317800, 0x0, 0x10000000,
+                         0x7f39a2200000)
+    = -12 (Cannot allocate memory)
 
-There is no need to update the VMA flags at all, so just exit early. This
-skips calling khugepaged_enter_vma(), but since the flags didn't change
-this is fine.
+VFIO pins guest RAM when the device is realized, and the pin faults
+the pages in. io_uring fixed buffers fail the same way. Faulting the
+range in before pinning lets the same pin succeed, since resident
+pages are migrated off the node instead.
 
-[ljs@kernel.org: minor edit of commit message, rebased]
-Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-3-8ff4fae1fc85@kernel.org
-Fixes: 9a10064f5625 ("mm: add a field to store names for private anonymous memory")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+A long-term pin faults under memalloc_pin_save(). PF_MEMALLOC_PIN makes
+current_gfp_context() clear __GFP_MOVABLE, but policy_nodemask() tests
+apply_policy_zone() against the caller's gfp.
+
+The bind keeps its movable-only nodemask, and the allocation finds no
+usable zone:
+
+  page allocation failure:
+      order:0,
+      mode:0x140dc2(GFP_HIGHUSER|__GFP_ZERO|__GFP_COMP),
+      nodemask=1,cpuset=/,mems_allowed=0-1
+
+  Call Trace:
+   warn_alloc+0x136/0x150
+   __alloc_frozen_pages_noprof+0xed8/0x1720
+   alloc_pages_mpol+0xaa/0x170
+   vma_alloc_folio_noprof+0x65/0xd0
+   __handle_mm_fault+0x137b/0x1ac0
+   handle_mm_fault+0xa0/0x270
+   __get_user_pages+0x250/0xfd0
+   __gup_longterm_locked+0x116/0x870
+   gup_fast_fallback+0xcfc/0xdf0
+   pin_user_pages_fast+0x47/0x60
+   io_pin_pages+0x9a/0x110
+
+Base page faults fail with -ENOMEM.
+hugetlb faults fail with -EFAULT.
+
+Check the policy zone against current_gfp_context(gfp), so a pin-scoped
+fault falls back off the movable-only nodemask, like any other
+non-movable allocation under the same bind.
+
+Tested in qemu with a dax/kmem movable-only node 1. io_uring and VFIO
+pins of unfaulted base pages and 2MB hugetlb pages now succeed and land
+on node 0 (correct). QEMU now starts with the same backend binding.
+
+Link: https://lore.kernel.org/20261018023349.1697434-1-gourry@gourry.net
+Fixes: 8e3560d963d2 ("mm: honor PF_MEMALLOC_PIN for all movable pages")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
 Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
-Cc: SJ Park <sj@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Colin Cross <ccross@google.com>
 Cc: <stable@vger.kernel.org>
-[ sashal: Adjusted context to match vm_flags_reset(vma, new_flags) instead of vma_overwrite_flags(vma, new_vma_flags). ]
+[ sashal: adapted the switch-based MPOL_BIND check using pol to the existing conditional check using policy ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/madvise.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ mm/mempolicy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index bd0a5093a2df2..c500f1cbd4987 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -176,6 +176,9 @@ static int madvise_update_vma(vm_flags_t new_flags,
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 393b2f1fee9ce..c991376056923 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -1839,7 +1839,7 @@ nodemask_t *policy_nodemask(gfp_t gfp, struct mempolicy *policy)
  
- 	/* vm_flags is protected by the mmap_lock held in write mode. */
- 	vma_start_write(vma);
-+	if (set_new_anon_name)
-+		return replace_anon_vma_name(vma, anon_name);
-+
- 	vm_flags_reset(vma, new_flags);
- 	/*
- 	 * If the vma become good for khugepaged to scan,
-@@ -185,9 +188,6 @@ static int madvise_update_vma(vm_flags_t new_flags,
- 	if (new_flags & VM_HUGEPAGE)
- 		khugepaged_enter_vma(vma, new_flags);
- 
--	if (set_new_anon_name)
--		return replace_anon_vma_name(vma, anon_name);
--
- 	return 0;
- }
+ 	/* Lower zones don't get a nodemask applied for MPOL_BIND */
+ 	if (unlikely(mode == MPOL_BIND) &&
+-		apply_policy_zone(policy, gfp_zone(gfp)) &&
++		apply_policy_zone(policy, gfp_zone(current_gfp_context(gfp))) &&
+ 		cpuset_nodemask_valid_mems_allowed(&policy->nodes))
+ 		return &policy->nodes;
  
 -- 
 2.53.0
