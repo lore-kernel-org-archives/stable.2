@@ -1,96 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794561008;
-	b=xGuHxzt62jKg0aT65X/NJW9yVw2oP6TSJEitO1spJGzzV7zGvcOTgZJw53DAoxBhZgTM
-	 Vv3ISMkjUjuD8vjxGyBL+19KUFv/x+LEdHT28eCsBoAn++me1RzFJP8Kcl9/GTWg+mTG5
-	 QdUz2n0CqRvWWaycClogT3tkfOr5TtXt/ujr1AjrIpp1j3p3z3CDdF3zZ4afTfPH2RgZM
-	 Yq9o04LgNhy0rQwOSqO7+2AO8aPB+UIiGbKYu6cEHtry0GStpdd2/kYNe4Xb5Z3EMyZBb
-	 K+QS+XoyGLTZOBLEebQ8s18KE2flxI7ur1l8cfuIa2UY9u97STLL5xrA0TQq3Edu8CA==
+	t=1794562109;
+	b=2Vdpkt3sVUIaBUjAlFoYdvnr4mhAZTyh9k77fNIyEdhrP4Q7rbthdvmLF06OQNA9L4cp
+	 nsyLkTgEkpQ/8K38muG9JnYy/D8cQXvh5I/RBoNinzKYnlLyLq2ARgqSlZlGyCA3toEkV
+	 9FfwpaDKFpa94X5OClolU9kiop1yMqdxvu54rtJRD7YH8gC+/W6GphkKhmsF0f/JtNI68
+	 spz9zKmHBqiYzwp9e7w0pD4VKZTA+KUAfXhvqw2h5qN5gcQMw5H5xR64KyfVo1c/Hf54/
+	 hhfl2rT1SZXI1B7DoeDaw/Jqu98+TQIvxqBlVD8LKAj51yEnsbHc5g/WXKh3zfnwsHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794561008;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794562109;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UrOZrRzHvLOK5Hid6oKGFwpfZe9jQsY3maaMc8x+WXg=;
-	b=QOAPUb+MEeZnPQSqcR+pAPuqa/pNGM9ROehkV5arcbchqXERpuoGYUjFkKuwc2dsXAjM
-	 fsVxZqlcjP0wyVNuSC/PpskwHQFfzcK5ILUTFYmUQr+gIC0kJLrB0hKxHSersw0rXq8L2
-	 FOBZ7nUeEaB6Gp2lhK76q6xzpfRocnj5Y97e0CVFXfKK7gs6XzDQxc9kAjloeq/M4+9kw
-	 jeu2QXjaTRkD6ihc6GP7P5ohi7RksVT3dAiqWmBE63LEgP/nNMY1JTC2ZuVSDq2XXpNTF
-	 mgm1owRYesY1UuiMH0jWMNUKIGrB4FxTSntfNb9A+DUzyQDjW23Aa+9kFyUjeui86KQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=OuPd/zrEz8bnoQVi0hWUxELIPusz8UbhZBM1Yuhapas=;
+	b=FINADwj/Xq0oTZjNqqqF3iowXJR8afReXKB0biHjrj1pfRAJPlLmxX9RQogTsFUqAChB
+	 DViG3WtO6XFqV40ATUGjDpInr+wkJLLHiXzJeZQUoZu8Jw5B3ISdoRafCIGMaxWsUmPX6
+	 Td6KhHcbAlFGujm5tCt33FjKV1nLz/70XDnTWIvJgUuEZE8BFvHPxd8GyjZVsNgIouLlR
+	 kmFpXy/UkXTZ8wSyqEpJhjrdbREgnjgL3OplnfSlzUrht5Zobyk4cG4BNM1YI7U+WD58G
+	 FhiuElH/PbwMUAN4AA7rdlz4XlDsH+WQPmiTVE93BStmOlg57timt2GXi2F9yLRdqtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CvvVd5IM;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=tsNIBQol;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A1F606A327
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 09:10:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56A1F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204A7606A323
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 09:28:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 204A7606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CvvVd5IM
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so757017b3a.3
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:10:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=tsNIBQol
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a208d93758so10542955e9.3
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:28:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794561007; x=1795165807; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UrOZrRzHvLOK5Hid6oKGFwpfZe9jQsY3maaMc8x+WXg=;
-        b=CvvVd5IMmJgjDFlxzQm7zo+4gw4L7PofAIwU8YgxKR3ldOL7V7PpwQPKDW0F+DdW+7
-         xxzGRpJ4iwh4cIC7gg+gXgsqzNu7p4K5HHeWRXR9jV2142i0Ih/zLlyz91irWK+eR2Hr
-         hWRXADEl6tlgEGnXQjOmHF0k58UwG3fn2ZHRyYloYsQq/Xhs5XlRw6uGT0r+e86mp89A
-         H2exGebiAt1PZCzn0+zxb68j6qXouYBQYQ3nhvY4owwr2+RtVGQvFq5DyuG2wrp3GVuB
-         RZUq2Gbd3Vgo5eARD/YWyNrdydqrAjSUBNQOQjTL+XXG0CyHbT3OSVZ4k1Qw0ZyqeXWX
-         4DKA==
+        d=flipper.net; s=google; t=1794562107; x=1795166907; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OuPd/zrEz8bnoQVi0hWUxELIPusz8UbhZBM1Yuhapas=;
+        b=tsNIBQolbzZNJZ2w3Q3Osb6G4TLdxYgu0qX4HZu2gVwtNQ2SAfLjTclJnIdZ+akvme
+         Pfh4siZ+9dWWl8ASBUC+3UXC+uffRozmiSH1VhCCu4MvthLg5qwhw4qrc6lPogCGowZU
+         rmaGVO8bJGgcMbi5SXkHo1t43K9TPhV6NpVvj9+Wc7Wcr9W4uO0C8qBFgvhP3iB3TYlh
+         uCBgd3eW7/klaplqWtycSg4IvArrFtYccESnyWHo6fFg+xaddCQ/tkF3JsfpEz0+/jAs
+         Ldrr52a3Yzsaq2XiyKfZFlrnCv5CHhZbDeijVBv8C4N1EfmPChIqUY+P4WrxApALMAI0
+         VSKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794561007; x=1795165807;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UrOZrRzHvLOK5Hid6oKGFwpfZe9jQsY3maaMc8x+WXg=;
-        b=HTCXOf/VtkTKpVOqqMs1CMhSsqayJcR9b9A64dUU8Eau4sWW/5u7KmG9U1lBflDf8a
-         yrkqT4/yVr+Xfx9aOpGjDsc8WlA1Jl6STxCh0PhLyHRZtLZpohxuLUzQYayiZQfuo4yL
-         BE7PSLm9abyXqRRivlO2/8LPCgdpkIHivvIcYArS5Fv21zmO9TWct8CY3WuZuqkO02cB
-         JmNLSEekwVUOoEzSYiIPWdxHGPzbpWqHPjwZ+413bzdAMD31AoTWys149YvtXLvqchRV
-         A++Qlan2IQHenVl00raFXwQI6OWOI13iH8WGrRjtMnx3RC5egHq6NL5jaYl5pDsQDbPZ
-         ZgqA==
-X-Gm-Message-State: APuU4Z+MgfKriPs+ZW1QxR+dbtQMuO9qNcfIC1/BzjpkaPIhYhTZRMlZ
-	w657WR1tZ3cMdPBfokZXCFbO0S8ju2CeBuLrRKzd6Qz7/dnzomNuDa5hL+nSKg==
-X-Gm-Gg: AYBFou3It0gQGA4xH6HErbLeKckjnQILxdF2WBYInby5TlQ/HK7J3WmarQtBKZsDDWW
-	6E8xwRExek+adftrODFpwxxgKPPEBICLs0cLVVPRI1xwGaCKP3Dx9a0iQIwFwsvsbGFaZ3G996r
-	UAAoG9W7jL49hNgRHfjJFmnYwUxH1Qe+dYtRoTMSMOY8wf8MZr6srymmwDNI8wYI9xCmJ1xs7vo
-	9qlSVuvWmiQl41m8EKN0DCGSGimLuJkm51UR+1Cn6IWbvV10CPUMzi4yBqqm7B8swsr+i8VBrcb
-	a73f+Fa+bsEe9520LMIPbEXrQttqYs8V+oeFELFTZeXcwRJpuRABviP9ROxH/V02RveBbFTKtlP
-	uvJYVAZdou9wpgHQs045th05BRL3sg2GFVOQsnTGRdj6DXOoqsZzgqzQWDRDrW4+yZlepC9pEw0
-	2oQe2thlD7rl0T+XPILQrjpmd5feN4NlL1nXU+/HTOi6XDh0ge1Jdm1qqe239Fp9yyF++0M0FpH
-	lKwYhPHmprGbiHaYoxJ26mcbQnC0XyLKs6fqkOpIfdBoA5bweWes3+PBNy+sf1S75Y4CD8y4NSj
-	KLKNeIHtwgV6lu80Ww5YMr3wwHw4ZxbGJDT9dFKdqHpw
-X-Received: by 2002:a05:6a00:188e:b0:89f:d449:753c with SMTP id d2e1a72fcca58-8beb5fa81e5mr1982511b3a.10.1794561007317;
-        Fri, 13 Nov 2026 01:10:07 -0800 (PST)
-Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2346e73sm817601b3a.40.2026.11.13.01.10.04
+        d=1e100.net; s=20260707; t=1794562107; x=1795166907;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OuPd/zrEz8bnoQVi0hWUxELIPusz8UbhZBM1Yuhapas=;
+        b=odUo6V01gRQ3Gz8a4HmJ3vXf6+10v2ghXn5+o0Puy6DJuY00igXFd/u1uvW0RmUgsK
+         vycwwbpIpCyOLmZL32eb6wtYOrURAmAnYAsvAs4o8XvRAHId+nFCm70/iXJTPBSex2/b
+         jMCixs+ylR5NOB39jjdBF1y4YdqoB0NH22XbH/KsBpzBjZS4hfEZs6waiqoTzhL38mqj
+         1Ci7qLzTQFCxzrvZcYzKiFvNjUaWhxiDNWSjhV5QXxqoHHA6yqrG9gJ5/DMQYPUVGJKu
+         GHMmW32xo36WKx9fODce4F0tG7nQCkINZbLXLsaZwLMPRceSI1rEuZcV65SSYd5g57n9
+         08Wg==
+X-Forwarded-Encrypted: i=1; AL+hErGrg6elbcg4HjoOsGnVoy3HScZdv4O/5GLPy4MRNoNsNIEnDHtrhKqLw6Q+vJ22ebMLS0nxR0k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9C5JU06dvCcu7BSkql5Kxa/tbuaqLeDGAt4mgoIJ7qp/Cciqbo
+	nD0ZL1kBKYi104E0oPEeMnvc2ZofL5p8Rx19ZmMnhQgTr6JCVwGM3/hDNfz3mn/7sqU=
+X-Gm-Gg: AYBFou1NZC3JwPgnGUHTb++YCwunOXe125TAw7KZcALp3PWogLrsUm77CCjITErm8y5
+	eFxz0kZRNysRyWvvZe5QHrHE0Js43j+RsGfnR3jLuUhVpbmx+B6n91gKKWncuCwUHa1SwOKCbgI
+	cUburuNeiDK8LhgTUiBYyP/HO0qZuBqEWAlvmgOal4TNEX71t+Q4tqMDldbPTKqQWPmi99IdaO0
+	dhJUVsV+cEznA/23znSwF87sl3yUBlA/k4kamlyOmihte4lm73Ut+PHzkwYPMLqq8Ufo/pL9P3d
+	O621AHRymWANw09fLiuXoZCh47JRua/jDTbShQta8ucwJwCG2F0IK5rupXREd2dXMIfxOoVXvit
+	a8bof4IH4ftdcEWVUMEIaN92A4cPVKIAGwkCQJ4j6KrCMGJAOVT+7n4Ap3ZzkXVjQqPpDTeLh5d
+	Gcs7zhq6pIg/gIh+yKKcVKTM7maKNRWkWrWx+m6Tas9jz6lrjTo8miIv9u0MSQH/QbLm/yHBzQi
+	aoYJ3X0ZKp4fquSCakCuE2JAdhHLcJbwMeRCJvWEjNb/xc/LyBa489AE5S0bsWoGmOAYw/5Urnr
+	OJ4CTeONm89/x4bPNWb1rk6U5P1ICwH2JFAeT5XI9lD4IcV1fJCqVeMX9LZnrGgJR7hbHcLxCKm
+	ujv0IWTYh
+X-Received: by 2002:a05:600c:6219:b0:4b7:6aac:7406 with SMTP id 5b1f17b1804b1-4bb55a23b41mr34227575e9.3.1794562107357;
+        Fri, 13 Nov 2026 01:28:27 -0800 (PST)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm238668335e9.1.2026.11.13.01.28.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 01:10:06 -0800 (PST)
-From: Vernon Yang <vernon2gm@gmail.com>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	sashal@kernel.org
-Cc: akpm@linux-foundation.org,
-	shuah@kernel.org,
-	liwang@redhat.com,
-	jackmanb@google.com,
-	linux-kernel@vger.kernel.org,
-	Vernon Yang <yanglincheng@kylinos.cn>
-Subject: [PATCH 6.12.y] selftests/mm: include kselftest.h in vm_util.h
-Date: Fri, 13 Nov 2026 17:10:00 +0800
-Message-ID: <20261113091000.382250-1-vernon2gm@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Fri, 13 Nov 2026 01:28:26 -0800 (PST)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH v2 0/4] usb: gadget: udc: Rework when the gadget connects
+Date: Fri, 13 Nov 2026 13:28:15 +0400
+Message-Id: <20261113-udc-connect-v2-0-f51b11f07eb8@flipper.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,51 +93,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr0JmbQ3TKgZX3MOwkDKVMaY0LTQa0
+ rvb4tblS95/f4NAninAtdrAU+TAs80gDxXo6W4fJHjMDLKWDSJKsY5a6Nla0otokGqDqE2rBsg
+ L58nwe6/d+h+HdXhmtSSKMXFYZv/Z7yIW7385okBRK31R8tw2Jzl05sXOkT9aWqBPKX0BBkDpp
+ LoAAAA=
+X-Change-ID: 20261112-udc-connect-61e0f11cf93b
+To: Neill Kapron <nkapron@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Xu Yang <xu.yang_2@nxp.com>, Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Alexey Charkov <alchark@flipper.net>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2015; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=xKH6JPBEauAk2qY839jB1Vb1ODWV8srGYLrwZWkSfMU=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWR9u2GhF7TnQpTsY981pxvzjWQkFq97fyshWeGj2Y+NT
+ mvfFJrO6ZjIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DI10jHWMGLg4BWCqw4oZ/le9ez6r5t3zZZ/exX7S2LE9xZtvkcmVVK+nv5TLQ8/VbRVk+F9/5+k
+ vqetfROPPrTom4Pvpp2z9/9r2OawsvuL2u7yfbuYDAA==
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-From: Vernon Yang <yanglincheng@kylinos.cn>
+The UDC core decides whether to enable the gadget's pullup in several
+places: bind and unbind, VBUS events, usb_gadget_{de,}activate() and the
+soft_connect attribute. Each applies its own rules, and
+gadget->connected records both the pullup state and a request to connect
+later. Since commit 62911bc82b03 ("usb: gadget: udc: skip pullup() if
+already connected"), a VBUS event before bind leaves the gadget
+invisible to the host until it is rebound. That happens on every boot
+of an RK3576 board whose Type-C port controller sets the device role
+before userspace binds a configfs gadget.
 
-commit d8a866c766ebe34b4371d42f4a3edca200f5e645 upstream.
+Patch 1 is the v1 fix, small enough for stable. Patches 2-4 implement
+Alan's scheme: the gadget connects only while a driver is bound, VBUS is
+present, the driver hasn't deactivated it and userspace hasn't
+disconnected it through soft_connect. One helper records that in
+udc->allow_connect under connect_lock and switches the pullup to match.
+The UDC starts and stops only at bind and unbind, and the deactivation
+and soft-disconnect requests are forgotten at unbind.
 
-The 6.12.y backport of commit fdc3bc349794 ("ksm_tests: skip hugepage
-test when Transparent Hugepages are disabled"), added a KSFT_SKIP return
-to khugepaged.c, but the prerequisite include from upstream commit
-d8a866c766eb ("selftests/mm: add commentary about 9pfs bugs") was not
-backported.
-
-As a result, the selftests/mm build fails:
-
-  khugepaged.c:1195:24: error: ‘KSFT_SKIP’ undeclared (first use in this function)
-
-Add the missing include, only the vm_util.h hunk of commit d8a866c766eb
-("selftests/mm: add commentary about 9pfs bugs") is needed here.
-
-The remaining hunks depend on commit 32b42970e861 ("selftests/mm: skip
-gup_longterm tests on weird filesystems") and commit 571a4b62ed63
-("selftests/mm: skip map_populate on weird filesystems"), which are not
-present in this tree, so we don't need to backport the remaining hunks.
-
-Fixes: 6cd1e92981f8 ("ksm_tests: skip hugepage test when Transparent Hugepages are disabled")
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- tools/testing/selftests/mm/vm_util.h | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- Add patches 2-4, reworking the connection control as Alan suggested.
+- Link to v1: https://patch.msgid.link/20261112-udc-connect-v1-1-03c73259642b@flipper.net
 
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index 823d07d84ad0..b3d1d17a09e4 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -5,6 +5,7 @@
- #include <err.h>
- #include <strings.h> /* ffsl() */
- #include <unistd.h> /* _SC_PAGESIZE */
-+#include "../kselftest.h"
- 
- #define BIT_ULL(nr)                   (1ULL << (nr))
- #define PM_SOFT_DIRTY                 BIT_ULL(55)
+---
+Alexey Charkov (4):
+      usb: gadget: udc: Clear a pending connection when starting the UDC
+      usb: gadget: udc: Forget a deactivation when the gadget driver unbinds
+      usb: gadget: configfs: Leave resetting the deactivation to the UDC core
+      usb: gadget: udc: Decide on connecting in one place
 
-base-commit: d3417611a3b40b7f04a29e558cebac2bf69889d7
--- 
-2.56.0
+ drivers/usb/gadget/configfs.c |   1 -
+ drivers/usb/gadget/udc/core.c | 197 +++++++++++++++++++++++-------------------
+ include/linux/usb/gadget.h    |   4 +-
+ 3 files changed, 111 insertions(+), 91 deletions(-)
+---
+base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+change-id: 20261112-udc-connect-61e0f11cf93b
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
