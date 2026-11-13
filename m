@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794612127;
-	b=ZVh71qsvij6f5Wz5rtPcL6eUUTDemO45bMGgV+QOjsD550hZtvS4IQ2wpgSkC8eRP8aV
-	 10lUfhAr/vMTjZF9Cwzvt7LeQGHnSMF/irDfBG5WX4tAsecm08ZDY9PwuPlp9yl+1BLMP
-	 77WFKKOx09e8i/AUczyS9csqnJuFdHAx9+3ap4pAMZW0qeKc7cl0/uz1Y58Eu9o/tXb3I
-	 dOSz5xiqqx74Pu7tgr0ptFPQpiEEKchZutt2AkWfvPR+6wXMuR6J7mqrRjKP7Q+UlfM+L
-	 9yAqB+I5fhzrMJT8PjhI7nnmHIUiNpOKDGXpdcrcJQuYewbtbb8C8yAIkDhUosrdH+g==
+	t=1794612166;
+	b=37xJPlKrPa8dwU/TwyRRCMdOvW7+CwjJLfwyj/7tPcWAjJSCa4jJ9uwnUR/1fhC1JCrd
+	 G+KeJB9dHwykFOEoN3XNN/oabYCY7mp5Lz9YH/vdLQ7KzM5yoCR0fxeY7ImpRBmw3v6KY
+	 CrtQhFZvxNvqozgmsx6dqEV3euulXmjmy7F9GvFLinJVDiJKCKepV2a3F36+6O9vRpz/v
+	 7abRHmvfEBffOcxRHbROQ7DrkAAJ+KwgLUilLQ3RjaeDeNctPO1kwSr+e6BPLO5yXZBqf
+	 x2KaJMdGg2kuQ40liFAvVoQF4kIrQE2iPkurp5UZMXeBSC5A3lvthVNEbrI96MIh+sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794612127;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eG8sIetC7zpwDTaN+oZEyMcNNgTpFmawbIcCT4kAbrI=;
-	b=Y31TuOhK+ZkQ9Lc2fLv3LPbMkOqX21Kf1tClgsaS5TTaz+frWRRA0fx2uzlWUeaQfvDW
-	 //7mZAEP/hsCAm9nMiHSDcqsFWXQktGzTWccbX7DeYGI6Q/7pNQzhyLIS9WKUpC5xOenM
-	 TJ8kkiMBANZD7qdMTTOl894vq+rVvQwewgRQzQ/H097yp6zIImDJVCTIhiB65A/y7k/P9
-	 M+/Vkw4vqa5viXZv9Mi7MHP7SRNo8bluN6vvavBjwvf4HcmUZwWBObbUJ5FlxtXtBcpJ6
-	 8qA0LCqqzswcZeGN2dt0zuF0t2IstSeScePN/RW7xScUuMYMY48wY7rs1edDmNmzy8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794612166;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=vVx+JMwtPBMuQydLLiSO1xhLyBxdv1a3EAkmeOR3hPM=;
+	b=MGVJpBoPLGWR5QmKg1jkV+uxmxUerTllO3lJth3qBhonN87nFOkQ4pZcBO7kWJVpp3+x
+	 UnOeJk2nMVBl/heEsgtGrhpMwAF9Qn4JFCtxam8cM3CY0RUE4fs1iCr7y5xxQ3Ty+hYCQ
+	 +YK2lGtJdGnEHqWrhImWvg0HwcAvFE/Mzwv4TB7wtCWDM+d37grMjK17E0durtKoHs586
+	 xcDeyQSP8wAph4Zm7kMGT3daSH74eX7ZCvWpwZA2e9Y4NFiYSlBo8G6fyeVoO29G7QZPp
+	 IGOm/iEyzBlK1qOriJZSYDc4O+vgmKDItauz/wZzt0s4o9hx8tZN7ZRzoDESw1iUbbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=NDNfvu1w;
-	arc=none smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Mm7oaiMd;
+	arc=none smtp.remote-ip=52.34.181.151
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258F7606A32E
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 23:22:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 258F7606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5D7606A88A;
+	Fri, 13 Nov 2026 23:22:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C5D7606A88A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=NDNfvu1w
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91ea2e29d90so36051826d6.1
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:22:05 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Mm7oaiMd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1794612125; x=1795216925; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eG8sIetC7zpwDTaN+oZEyMcNNgTpFmawbIcCT4kAbrI=;
-        b=NDNfvu1wf2iRj16DT3eUT5BRV92q1asM15vPRmZxAqSpfgP3gBLrjzeJaET6RmRZM6
-         0qfP2ZejcU0vRUhpJwVNKqJheYuxmBuOIZWRPaqnj0Pc8gc1g3wmsdeyqxVqeD1r1uaw
-         mStX/kqos1G2GzJnUkZEWO/pQAF7tie370CcY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794612125; x=1795216925;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eG8sIetC7zpwDTaN+oZEyMcNNgTpFmawbIcCT4kAbrI=;
-        b=TLz5RKq+pBjq3z/us2t2Q6mOiJkIy7NGRavr/ajwM0VI+gOjOt2vQ78qutTWSW9nns
-         /ATzQT657ZUQQnBJFfWXBTRxaYzP4S7nWYd4zddMKjaDmpw41Xp1YU8h4aI7pEiscP/4
-         febCfdeeo8mo2BtwDJE0WtapScFKASIRcDFKnEEEaGBCcQIKOaw62BsMAJS69zDqvMci
-         QPq9reGX9U5L2pag5xVYg7AMOrZGl5oUALqer0OAt3DzCKW8FIj5ixqWdx7HUl+D8/3B
-         E7T8RjFkPPCQ8g/ojLoBzEHYmfgcZ6iUHjiztwzoH/+WS9M9HrvP/L7WZm18P+TPWOqL
-         Hy0A==
-X-Forwarded-Encrypted: i=1; AL+hErHoyUh4f2afGhO1q+SfxUEEybX0OZcBQS6VM+RS5aV7afDhmulbjLiXMkvwo7p8THfCGeHwtWY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81QwJmw7QZdN4XhPr1oGmIcixoFsSl6S4GLwjeUhCSFnCBgtH6
-	znOMIPKqD6XQ0lXtwWbDW2ol0TfK9Eblpmsmb+DkwzzAnrlovrOMs8IQh8Jwb7JzkmU=
-X-Gm-Gg: AYBFou3shkCySDuraNqf2L3hWjQP/7rIDbuzc3LjhQRCuJR9ptNuR48jRwemCAQeD5S
-	X94+7y1ssUQMJB0YN5nGvmUnWjMK+NTVUduddb7D8bkRUdD2N6KugJpAGHHHmFu+mrVI3qX1lyk
-	sYz7Ep0N/aUPKSR6SkMwALCzfd95CyW75LUDpH1kTDuMWr9/gZ+u/uvq/Nx5ECqZzvWJTt4UcLW
-	yuSjCVAcUWiNW8hJ+xzEwo1NxZt70l+PVmZSX+0Wvqr7Ctup9tq1iYEVeJq+9jec0/iHdBDZmPr
-	0syNrEmaT1kYsrXuGrXk/SoLU0tqCgRX5xM/pFVwg0LnKxTZzN2bX47WHy01bZRG1nGTLMqvthW
-	McsaRmy4Al/S0JxmVWWCO/VuwOpVjviN9LGJw+dGkCWHTF5oNDZHADvG9bw6z8qrAi+xGbv2Ry/
-	llmo5gCoXeh1N8kQzwkIeX7OUPkmOq7muFxUQf4OuIqeZgcoY6ua0N/SX5AOqj+qvzfJBikslTA
-	ddVO34O/TQtFsbAZiZxClFTpaIH+PcwSykQuuEGLGxymaN1LLIPYj+IVsetrFjkMtLfvUKBLLRm
-	24HbOwguQSpp0HHuPLSAQBFZzD90/EY4kOEu2a8XLnySlw9nLMofApSd3Q4ORMG/L7eEQBo7aXb
-	C2aU29t/Bu8dpdpV8PblrqiLflQmD9dWu2ClYlM81TsjIXa0krOc=
-X-Received: by 2002:a05:6214:d8d:b0:91f:ffc:69cf with SMTP id 6a1803df08f44-91f13a9513emr121471506d6.35.1794612124812;
-        Fri, 13 Nov 2026 15:22:04 -0800 (PST)
-Received: from com-75606.corp.openai.org ([199.47.143.1])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d7b607sm31147806d6.26.2026.11.13.15.22.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 13 Nov 2026 15:22:04 -0800 (PST)
-From: Kyle Zeng <kylebot@openai.com>
-To: dev@openvswitch.org
-Cc: netdev@vger.kernel.org,
-	aconole@redhat.com,
-	echaudro@redhat.com,
-	i.maximets@ovn.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] net: openvswitch: make transport checksums writable
-Date: Fri, 13 Nov 2026 15:21:58 -0800
-Message-ID: <20261113232158.61174-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794612163; x=1826148163;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=vVx+JMwtPBMuQydLLiSO1xhLyBxdv1a3EAkmeOR3hPM=;
+  b=Mm7oaiMdV2dj4S/NxRzVUkqYMWlAQBzqj5U+zlNCjcC5p1bl5NXBtTqG
+   Y4udfLwC7mrWIZuei69z4tRbYUDEOk1BeToU9VuW6G3jfiMXlA2SgUVt7
+   MZIuMauTy2l8UnlM9d0fzrEQ4+TKqqsqDN+bq44CTcOL+sKL/N85lwkzJ
+   M4rXaXsWe7nvhtJ/4mREyBd5/uFaX5dkpmRNSGgVjmAYYZbT7xvhuF5c6
+   W9yKE7bJOTR5MEjPe/FwqwBR7+qolH+Fhnp2QZrZBLmhvZ4S32wfcPr34
+   LDVw3oo+f9t0f6RrhycEntuSJISumpJYeLLkGgpYcEOoxa4KL5O+EqAcx
+   g==;
+X-CSE-ConnectionGUID: XISuTTF9QB2og9aEfhXPBg==
+X-CSE-MsgGUID: wsnROOv/RkCcqme1xi+Pgw==
+X-IronPort-AV: E=Sophos;i="6.27,212,1787011200"; 
+   d="scan'208";a="33959237"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 23:22:42 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:28231]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.142:2525] with esmtp (Farcaster)
+ id 133f35c7-3562-4cd9-9745-97d73287f980; Fri, 13 Nov 2026 23:22:42 +0000 (UTC)
+X-Farcaster-Flow-ID: 133f35c7-3562-4cd9-9745-97d73287f980
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Fri, 13 Nov 2026 23:18:34 +0000
+Received: from dev-dsk-wangnyue-1a-719890fd.us-east-1.amazon.com
+ (10.169.101.180) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Fri, 13 Nov 2026
+ 23:18:33 +0000
+From: Yue Wang <wangnyue@amazon.com>
+To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
+CC: <linux-nfs@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] NFSv4: avoid an rpciod deadlock when an async RPC frees the nfs_client
+Date: Fri, 13 Nov 2026 23:18:24 +0000
+Message-ID: <20261113231826.21760-1-wangnyue@amazon.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,217 +84,111 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-OVS can still rewrite an IP address after transport-header extraction
-fails. The checksum helpers check skb->len, which includes non-linear
-data, before directly accessing the L4 checksum. If the transport header
-was not pulled into the linear head, the checksum update can read or
-write beyond it.
+Unmounting many NFSv4 mounts while their server is unreachable can hang
+every NFS mount on the machine for good. The rpciod workers of one NUMA
+node are stuck in:
 
-Call skb_ensure_writable() before IPv4 TCP/UDP and IPv6 TCP/UDP/ICMPv6
-checksum updates. Save the original addresses and reload header pointers,
-since even a failed pull can move the skb head.
+  rpc_wait_bit_killable <- rpc_call_sync <- nfs4_proc_destroy_session
+  <- nfs41_shutdown_client <- nfs4_free_client <- nfs41_sequence_release
+  <- rpc_free_task <- __rpc_execute <- rpc_async_schedule
 
-Keep failures nonfatal to preserve the existing policy of rewriting IP
-addresses when the transport header is unavailable. A failed pull or
-unshare may leave a stale checksum or CHECKSUM_PARTIAL seed; the receiver
-may discard the packet.
+If an async lease renewal (SEQUENCE, or RENEW for NFSv4.0) or an async
+FREE_STATEID holds the last reference to the nfs_client, its release
+callback frees the client and sends DESTROY_SESSION and DESTROY_CLIENTID
+with rpc_call_sync(). The release runs inline in the rpciod worker. With
+the server unreachable, the RPC waits on the delay queue, whose timer has
+been rpciod work since commit 7e0a0e38fcfe ("SUNRPC: Replace the queue
+timer with a delayed work function"). Once one node's rpciod max_active
+share is full of such workers (171 on a 384-CPU, 6-node machine), the
+timer can no longer run, so none of them ever wakes up. The delay queue
+is global, so retries and reconnects of all other mounts stop too.
 
-The issue was found by an LLM.
+Release these tasks from nfsiod, as other NFSv4 async operations with
+sleeping release callbacks already do. Only the release callback moves;
+the RPC and its wake-ups stay on rpciod.
 
-Fixes: ccb1352e76cf ("net: Add Open vSwitch kernel components.")
-Fixes: 3fdbd1ce11e5 ("openvswitch: add ipv6 'set' action")
-Suggested-by: Ilya Maximets <i.maximets@ovn.org>
+The cost: nfsiod also completes READ, WRITE and COMMIT tasks. If enough
+teardowns pile up to fill a node's nfsiod share, I/O completion on that
+node waits until they time out, about 6 minutes with the default
+timeouts, instead of hanging forever.
+
+Tested with 1500 NFSv4.1 mounts unmounted while their renewals were
+stalled, then made unreachable: without the patch, 1024 rpciod workers
+stay blocked and 477 clients are never freed; with it, no rpciod worker
+blocks and all clients are freed within 320 s.
+
+Fixes: 7e0a0e38fcfe ("SUNRPC: Replace the queue timer with a delayed work function")
 Cc: stable@vger.kernel.org
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Yue Wang <wangnyue@amazon.com>
 ---
-v3:
-- Select source and destination addresses with booleans instead of
-  calculating offsets. Keep the saved IPv6 address across head movement.
-- Remove the redundant IPv6 fragment check and correct tab alignment.
-- Move testing details below the separator and clean up attribution.
+ fs/nfs/nfs40proc.c | 17 +++++++++++++++--
+ fs/nfs/nfs4proc.c  |  4 ++++
+ 2 files changed, 19 insertions(+), 2 deletions(-)
 
-v2: https://lore.kernel.org/r/20261107040238.27606-1-kylebot@openai.com
-v1: https://lore.kernel.org/r/20261030042304.74291-1-kylebot@openai.com
-
-I have a reproducer for this issue and can share through DM.
-
- net/openvswitch/actions.c | 77 +++++++++++++++++++++++++--------------
- 1 file changed, 49 insertions(+), 28 deletions(-)
-
-diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
-index 12e339cbf791..3b10b3fbadc3 100644
---- a/net/openvswitch/actions.c
-+++ b/net/openvswitch/actions.c
-@@ -319,20 +319,22 @@ static int pop_nsh(struct sk_buff *skb, struct sw_flow_key *key)
- 	return 0;
+diff --git a/fs/nfs/nfs40proc.c b/fs/nfs/nfs40proc.c
+index b07f2d6ccde4..2c3ecd9289f4 100644
+--- a/fs/nfs/nfs40proc.c
++++ b/fs/nfs/nfs40proc.c
+@@ -116,7 +116,16 @@ static int nfs4_proc_async_renew(struct nfs_client *clp, const struct cred *cred
+ 		.rpc_argp	= clp,
+ 		.rpc_cred	= cred,
+ 	};
++	/* The release may free @clp synchronously: keep it off rpciod. */
++	struct rpc_task_setup task_setup_data = {
++		.rpc_client = clp->cl_rpcclient,
++		.rpc_message = &msg,
++		.callback_ops = &nfs4_renew_ops,
++		.workqueue = nfsiod_workqueue,
++		.flags = RPC_TASK_ASYNC | RPC_TASK_TIMEOUT,
++	};
+ 	struct nfs4_renewdata *data;
++	struct rpc_task *task;
+ 
+ 	if (renew_flags == 0)
+ 		return 0;
+@@ -129,8 +138,12 @@ static int nfs4_proc_async_renew(struct nfs_client *clp, const struct cred *cred
+ 	}
+ 	data->client = clp;
+ 	data->timestamp = jiffies;
+-	return rpc_call_async(clp->cl_rpcclient, &msg, RPC_TASK_TIMEOUT,
+-			&nfs4_renew_ops, data);
++	task_setup_data.callback_data = data;
++	task = rpc_run_task(&task_setup_data);
++	if (IS_ERR(task))
++		return PTR_ERR(task);
++	rpc_put_task(task);
++	return 0;
  }
  
--static void update_ip_l4_checksum(struct sk_buff *skb, struct iphdr *nh,
--				  __be32 addr, __be32 new_addr)
-+static void update_ip_l4_checksum(struct sk_buff *skb, __be32 addr,
-+				  __be32 new_addr)
- {
--	int transport_len = skb->len - skb_transport_offset(skb);
-+	struct iphdr *nh = ip_hdr(skb);
- 
- 	if (nh->frag_off & htons(IP_OFFSET))
- 		return;
- 
- 	if (nh->protocol == IPPROTO_TCP) {
--		if (likely(transport_len >= sizeof(struct tcphdr)))
-+		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
-+						sizeof(struct tcphdr))))
- 			inet_proto_csum_replace4(&tcp_hdr(skb)->check, skb,
- 						 addr, new_addr, true);
- 	} else if (nh->protocol == IPPROTO_UDP) {
--		if (likely(transport_len >= sizeof(struct udphdr))) {
-+		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
-+						sizeof(struct udphdr)))) {
- 			struct udphdr *uh = udp_hdr(skb);
- 
- 			if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
-@@ -345,32 +347,34 @@ static void update_ip_l4_checksum(struct sk_buff *skb, struct iphdr *nh,
- 	}
- }
- 
--static void set_ip_addr(struct sk_buff *skb, struct iphdr *nh,
--			__be32 *addr, __be32 new_addr)
-+/* May move the skb head; callers must reload packet pointers. */
-+static void set_ip_addr(struct sk_buff *skb, __be32 new_addr, bool saddr)
- {
--	update_ip_l4_checksum(skb, nh, *addr, new_addr);
--	csum_replace4(&nh->check, *addr, new_addr);
-+	__be32 old_addr = saddr ? ip_hdr(skb)->saddr : ip_hdr(skb)->daddr;
-+
-+	update_ip_l4_checksum(skb, old_addr, new_addr);
-+	csum_replace4(&ip_hdr(skb)->check, old_addr, new_addr);
-+
- 	skb_clear_hash(skb);
- 	ovs_ct_clear(skb, NULL);
--	*addr = new_addr;
-+
-+	if (saddr)
-+		ip_hdr(skb)->saddr = new_addr;
-+	else
-+		ip_hdr(skb)->daddr = new_addr;
- }
- 
- static void update_ipv6_checksum(struct sk_buff *skb, u8 l4_proto,
- 				 __be32 addr[4], const __be32 new_addr[4])
- {
--	int transport_len;
--
--	if (l4_proto == NEXTHDR_FRAGMENT)
--		return;
--
--	transport_len = skb->len - skb_transport_offset(skb);
--
- 	if (l4_proto == NEXTHDR_TCP) {
--		if (likely(transport_len >= sizeof(struct tcphdr)))
-+		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
-+						sizeof(struct tcphdr))))
- 			inet_proto_csum_replace16(&tcp_hdr(skb)->check, skb,
- 						  addr, new_addr, true);
- 	} else if (l4_proto == NEXTHDR_UDP) {
--		if (likely(transport_len >= sizeof(struct udphdr))) {
-+		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
-+						sizeof(struct udphdr)))) {
- 			struct udphdr *uh = udp_hdr(skb);
- 
- 			if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
-@@ -381,7 +385,8 @@ static void update_ipv6_checksum(struct sk_buff *skb, u8 l4_proto,
- 			}
- 		}
- 	} else if (l4_proto == NEXTHDR_ICMP) {
--		if (likely(transport_len >= sizeof(struct icmp6hdr)))
-+		if (likely(!skb_ensure_writable(skb, skb_transport_offset(skb) +
-+						sizeof(struct icmp6hdr))))
- 			inet_proto_csum_replace16(&icmp6_hdr(skb)->icmp6_cksum,
- 						  skb, addr, new_addr, true);
- 	}
-@@ -396,16 +401,28 @@ static void mask_ipv6_addr(const __be32 old[4], const __be32 addr[4],
- 	masked[3] = OVS_MASKED(old[3], addr[3], mask[3]);
- }
- 
-+/* May move the skb head; callers must reload packet pointers. */
- static void set_ipv6_addr(struct sk_buff *skb, u8 l4_proto,
--			  __be32 addr[4], const __be32 new_addr[4],
-+			  const __be32 new_addr[4], bool saddr,
- 			  bool recalculate_csum)
- {
--	if (recalculate_csum)
--		update_ipv6_checksum(skb, l4_proto, addr, new_addr);
-+	struct ipv6hdr *nh = ipv6_hdr(skb);
-+	__be32 old_addr[4];
-+
-+	if (recalculate_csum) {
-+		memcpy(old_addr, saddr ? &nh->saddr : &nh->daddr,
-+		       sizeof(old_addr));
-+		update_ipv6_checksum(skb, l4_proto, old_addr, new_addr);
-+		nh = ipv6_hdr(skb);
-+	}
- 
- 	skb_clear_hash(skb);
- 	ovs_ct_clear(skb, NULL);
--	memcpy(addr, new_addr, sizeof(__be32[4]));
-+
-+	if (saddr)
-+		memcpy(&nh->saddr, new_addr, sizeof(__be32[4]));
-+	else
-+		memcpy(&nh->daddr, new_addr, sizeof(__be32[4]));
- }
- 
- static void set_ipv6_dsfield(struct sk_buff *skb, struct ipv6hdr *nh, u8 ipv6_tclass, u8 mask)
-@@ -479,16 +496,18 @@ static int set_ipv4(struct sk_buff *skb, struct sw_flow_key *flow_key,
- 		new_addr = OVS_MASKED(nh->saddr, key->ipv4_src, mask->ipv4_src);
- 
- 		if (unlikely(new_addr != nh->saddr)) {
--			set_ip_addr(skb, nh, &nh->saddr, new_addr);
-+			set_ip_addr(skb, new_addr, true);
- 			flow_key->ipv4.addr.src = new_addr;
-+			nh = ip_hdr(skb);
- 		}
- 	}
- 	if (mask->ipv4_dst) {
- 		new_addr = OVS_MASKED(nh->daddr, key->ipv4_dst, mask->ipv4_dst);
- 
- 		if (unlikely(new_addr != nh->daddr)) {
--			set_ip_addr(skb, nh, &nh->daddr, new_addr);
-+			set_ip_addr(skb, new_addr, false);
- 			flow_key->ipv4.addr.dst = new_addr;
-+			nh = ip_hdr(skb);
- 		}
- 	}
- 	if (mask->ipv4_tos) {
-@@ -533,10 +552,11 @@ static int set_ipv6(struct sk_buff *skb, struct sw_flow_key *flow_key,
- 		mask_ipv6_addr(saddr, key->ipv6_src, mask->ipv6_src, masked);
- 
- 		if (unlikely(memcmp(saddr, masked, sizeof(masked)))) {
--			set_ipv6_addr(skb, flow_key->ip.proto, saddr, masked,
-+			set_ipv6_addr(skb, flow_key->ip.proto, masked, true,
- 				      true);
- 			memcpy(&flow_key->ipv6.addr.src, masked,
- 			       sizeof(flow_key->ipv6.addr.src));
-+			nh = ipv6_hdr(skb);
- 		}
- 	}
- 	if (is_ipv6_mask_nonzero(mask->ipv6_dst)) {
-@@ -555,10 +575,11 @@ static int set_ipv6(struct sk_buff *skb, struct sw_flow_key *flow_key,
- 							     NULL, &flags)
- 					       != NEXTHDR_ROUTING);
- 
--			set_ipv6_addr(skb, flow_key->ip.proto, daddr, masked,
-+			set_ipv6_addr(skb, flow_key->ip.proto, masked, false,
- 				      recalc_csum);
- 			memcpy(&flow_key->ipv6.addr.dst, masked,
- 			       sizeof(flow_key->ipv6.addr.dst));
-+			nh = ipv6_hdr(skb);
- 		}
- 	}
- 	if (mask->ipv6_tclass) {
+ static int nfs4_proc_renew(struct nfs_client *clp, const struct cred *cred)
+diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
+index e1018b03c1cb..302f891c7a55 100644
+--- a/fs/nfs/nfs4proc.c
++++ b/fs/nfs/nfs4proc.c
+@@ -9459,6 +9459,8 @@ static struct rpc_task *_nfs41_proc_sequence(struct nfs_client *clp,
+ 		.rpc_client = clp->cl_rpcclient,
+ 		.rpc_message = &msg,
+ 		.callback_ops = &nfs41_sequence_ops,
++		/* The release may free the nfs_client: keep it off rpciod. */
++		.workqueue = nfsiod_workqueue,
+ 		.flags = RPC_TASK_ASYNC | RPC_TASK_TIMEOUT | RPC_TASK_MOVEABLE,
+ 	};
+ 	struct rpc_task *ret;
+@@ -10468,6 +10470,8 @@ static int nfs41_free_stateid(struct nfs_server *server,
+ 		.rpc_client = server->client,
+ 		.rpc_message = &msg,
+ 		.callback_ops = &nfs41_free_stateid_ops,
++		/* The release may free the nfs_client: keep it off rpciod. */
++		.workqueue = nfsiod_workqueue,
+ 		.flags = RPC_TASK_ASYNC | RPC_TASK_MOVEABLE,
+ 	};
+ 	struct nfs_free_stateid_data *data;
 
-base-commit: 2800868f63227c8237d70c41e70d441c919620d6
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
 -- 
-2.55.0.openai.911.g06873a30d2f3
+2.48.2
 
