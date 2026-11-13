@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606390;
-	b=zxGMeOZ9uj2x5hOrTPdhq0dtp0AyqiG26mZjZG8cJC/aGhATvrQP86rYJuy/GbClCkCW
-	 YInhpkqNXw5L4dWxo5bPmJGP3dRI58p28TmjBrqxJejU66fWqubj6utgzEgwKSubEIdUC
-	 9wOloBKjjhGz8hZvctbPHatImBPp+L51/VBuzpDwudSW9lx2kU6N1uf+Sa9dYWwIYroiA
-	 buwIm0vC8fB6rDO/chDm2rn1NqDE2xI9ZDCTPIOHMxKJWxSGF5II3P6v/1lAbiUMiYwWI
-	 wv1mzCHNEPGO0VpT6BNmu+2H4S12A9Xjfk2ccg4wnXMzN7u9uc6KspxCHfR3JSKo0YQ==
+	t=1794606400;
+	b=X4OdHhjIiEhWCMhREp2qrG+nwoKFalYP7vlaFuX03EPkg3whfJrMlW+ByhUQpPTe8/9G
+	 YN5Y0+UoF6jJ7nZ8HTCobHqfrTXOtxyMHS+yxDxNztXZpm1yby6BfkebTEfYSOvrdSscY
+	 sZUgmSrYbwVMwRUvXk2e6BRAkj1moBUy12wVkhZzcVoEtHek4nZbImxGTSa3bL1eKbO2F
+	 riH4RUV/sWjYwb5XNHHlxPY0TAyjveA5nJGJfY9isuhCIQLjU/W5p9fNwmDkNUO9gQjr9
+	 L4Zvp19pAiLlP7xNeR3IXzgHSClYL6D9zB7isBjAUAie2Kj7VnNZXgQ+W6HRvjMeksw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606400;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=XWkPwjlZlK7x//RkTE3pY9k5+imno9JdLAaVgFYu5TA=;
-	b=d4PihDsCXPueiRi5EUrgH2AWNgPRb1Yprd+T1UiKw7P3JQbIYbn6PB/Wj7Iwpsyfs+df
-	 mMzpKn7FLN9F7DR52tjUWuVEc4VWOOW1LICj7eG/Fz2nufUBhVOB7DEHunL+2fO6FqA+X
-	 Tc2YA2lADwij/Sr5mge0akFqVtvO2VN7it4L72cJIzpRXOz83qkYHlX8oW7SBjrCKl8ry
-	 kzALxbYCDU34yFzujgmkUL6gceL5vQccxB3SH1C/xpjE5iSUEnV/2plXQul1M8AMgByeY
-	 iAbXpnriSLtUqnfhG4DPAiYUFo3i4DqFffp6QlKEq+IL8bDpNERt4GO9ys4+sGROHow==
+	bh=3YvYeLiyDo2WJY3A7jowQ+v4qJEjUUU9rQqDcUHgwvQ=;
+	b=fEG1T/t7GwqVoZfRjm8WjybyUV/fDcHv3bNyNb4l3RAqJd6ukOyGWulrWeGWP42jPpst
+	 l2Hm6XSyVL+NMwfnyhjTovODXXIL6VWwJhZAQmp2iTki3RtRfcEdbEeeSoz0FPqZ5zxKO
+	 BYJotmodPRF46nWRVKETd1ozaKyBwE7Auh52GGG5xHEdIDzYM+jFmD+8aXyv6Lwf5/oz5
+	 Xz+t/H8JnByDYHI3N+IrnYamw/7hNN4+MrivutFjeu+uRw9LqVaIslGYg5cKTSRR8SD0X
+	 fm6zMm41D40o/G4vMhpnVWLkGiTiJBoMghad/5OS5gZWeocM1hNtm3Nj8+pB0uwVH+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMoaa9mo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iyb3feCR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6139B606A32D;
-	Fri, 13 Nov 2026 21:46:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8C3606A337;
+	Fri, 13 Nov 2026 21:46:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMoaa9mo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79671F000C4;
-	Fri, 13 Nov 2026 21:46:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iyb3feCR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81DDA1F000C4;
+	Fri, 13 Nov 2026 21:46:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794606390;
-	bh=XWkPwjlZlK7x//RkTE3pY9k5+imno9JdLAaVgFYu5TA=;
+	s=k20260515; t=1794606400;
+	bh=3YvYeLiyDo2WJY3A7jowQ+v4qJEjUUU9rQqDcUHgwvQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BMoaa9moDEQDEOfY/UeYTlxNutbvDD1ui+qvqyLzW99U7SkkmMYfzNEGLPAXLHqrA
-	 cq4MauGAeWbBFSj/AsUIlgwXZtw0LQRWaL/zTm2FrQR5/m6WTi8bTEZ5pRoo9s6x8z
-	 TjK9Dj/WatGpdH6zHNjTeA3ZF0XOAeY4bigstcF8nhDFdKVp1vaACaZgqNOCfag+Po
-	 SRnzFIr9qD6nRuHvFPf19RMqwy5414rxAqS17dWPGlZRfTQtp2CdH4YgdTremKD7B1
-	 0uprRUqjPW3rJTwEvKJFMxWzvXmnUslnqYa6P4WCPOZ5eHQNNQTTyWqbLX1NlDjl/Z
-	 tgqeaA3kkghjQ==
+	b=Iyb3feCR/RX6uerHZ7ydY0Vp8mGc1Mc4S5Oo3mx1S+Fs3s+tMrTp5fGbvr0AuVDRC
+	 ln1q1ur2lgU7rWtBP0weSThEceg7c8E5MCfTZoHwo1UgQh0/CeF4ncuMqkcqglDcTb
+	 4hFmURSfLRGsJAOfkobYb+CphFQkkGlvA+g7NbAkT4mTnCRSrPVTg9kAd7vVdip4GZ
+	 +h4BrGqp5Rce+I7bEuq6l9wvwDLguSyMik88B8XEURh5Emr0sUEGp8DbqOv1WH8hll
+	 XnGTX2Xdg2QTQO5t1aybTRgtpRu+xxRuLW/xf4b+jLT4FJHrcdXCA5kpi7m5V8LkHf
+	 8KMyp91i+i8sg==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 13 Nov 2026 21:45:23 +0000
-Subject: [PATCH v2 05/13] mm/migrate_device: don't collect a range twice
+Date: Fri, 13 Nov 2026 21:45:24 +0000
+Subject: [PATCH v2 06/13] mm/migrate_device: don't let go of the fault page
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-mason-migrate-et-al-fixes-v2-5-50a2ed382b61@kernel.org>
+Message-Id: <20261113-mason-migrate-et-al-fixes-v2-6-50a2ed382b61@kernel.org>
 References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
 In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
 To: David Hildenbrand <david@kernel.org>, 
@@ -86,70 +86,106 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
  Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2111; i=ljs@kernel.org;
- h=from:subject:message-id; bh=hNj08MXuSQv65gPbpH6iZuCoCEHUbgtpoDb4ETsvU7g=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+t/yYKOHs4vPqXJ0mr8rdf40RM4UYPAu+uR01nLig5
- qL65Hy7jlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAExE2Zbhf9SPzOdfHv6prm1Q
- 2jDxQIjhZHUll4ovJY8d3xdM3rByYgMjw4qVyaKeEaIzeX0f3Qli273zw6lHsivTI4J9J0eeim5
- y4gUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2811; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=r+tXZxpV3ZAyP9/DK+jG5Vk1RL1Id83MUXHpqCwRA1Q=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+t/z8/0Lm7IunAp4JM1rK3BKUA/R7EsuF/3Wz+ZSop
+ K1R1NrRUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgIlIZDD89zT5cz3oTsi2i3F/
+ HL2/2mzreDxNdv73xmOv/q88b1cT84Dhf7iOjbv976LUMu73DRNe3o646Cz88crzN+/CktYYTrq
+ pyQUA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-migrate_vma_collect_pmd() drops the page table lock to split a large folio
-which it finds in the middle of a page table, and then starts over at the
-"again" label. The entries for [start, addr) are in migrate->src[] and
-migrate->dst[] by then.
+When migrate_vma_split_folio() has split the folio of the fault page,
+the lock and the reference which the fault handler has taken are at the
+former head page.
 
-While the page table lock is dropped the page table can go away, in which
-case the restarted walk invokes migrate_vma_collect_huge_pmd(). However
-this is passed start rather than addr, so [start, addr) is collected a
-second time.
+It then moves them to the folio which now holds the fault page, by
+taking a reference on and locking that folio, then unlocking and putting
+the former head.
 
-This can result in migrate->npages exceeding the number of pages the
-caller asked for, and therefore in writes past the end of the
-migrate->src[] and migrate->dst[] arrays.
+split_folio() has unlocked the new folio and has dropped its own
+reference on it, so until folio_get() nothing but the page table entry
+holds it.
 
-Fix this by only handing over what has not yet been collected,
-page-by-page, and flush the TLB for those entries which have been
-previously replaced, similar to the other returns in the function.
+Only the mmap lock is held for read, which does not prevent another thread
+from zapping the entry with MADV_DONTNEED.
+
+If this happens the folio is freed which results in folio_get() taking a
+reference on a free device page, which the driver can hand out again at any
+time.
+
+In addition, folio_lock() can sleep here with the lock of the head page
+held.
+
+Utilise split_huge_page() which will leave the lock and reference at the
+fault page correctly.
 
 Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
 Cc: stable@vger.kernel.org
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ ljs: cleanup commit message ]
+[ ljs: tweaked commit message ]
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/migrate_device.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ mm/migrate_device.c | 39 ++++++++++-----------------------------
+ 1 file changed, 10 insertions(+), 29 deletions(-)
 
 diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 9e5dab8e1b77..28ed706109da 100644
+index 28ed706109da..ae795fdf36f4 100644
 --- a/mm/migrate_device.c
 +++ b/mm/migrate_device.c
-@@ -257,13 +257,17 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
- 	pte_t *ptep;
+@@ -87,39 +87,20 @@ static int migrate_vma_split_folio(struct folio *folio,
+ {
+ 	int ret;
+ 	struct folio *fault_folio = fault_page ? page_folio(fault_page) : NULL;
+-	struct folio *new_fault_folio = NULL;
+-
+-	if (folio != fault_folio)
+-		folio_lock(folio);
+-
+-	ret = split_folio(folio);
+-	if (ret) {
+-		if (folio != fault_folio) {
+-			folio_unlock(folio);
+-			folio_put(folio);
+-		}
+-		return ret;
+-	}
+-
+-	new_fault_folio = fault_page ? page_folio(fault_page) : NULL;
  
- again:
-+	/* [start, addr) is collected if we get here after splitting a folio */
- 	if (pmd_trans_huge(*pmdp) || !pmd_present(*pmdp)) {
--		int ret = migrate_vma_collect_huge_pmd(pmdp, start, end, walk, fault_folio);
-+		int ret = migrate_vma_collect_huge_pmd(pmdp, addr, end, walk, fault_folio);
+ 	/*
+-	 * Ensure the lock is held on the correct
+-	 * folio after the split
++	 * The lock and the reference of the fault handler stay with the
++	 * folio which holds the fault page after the split.
+ 	 */
+-	if (!new_fault_folio) {
+-		folio_unlock(folio);
+-		folio_put(folio);
+-	} else if (folio != new_fault_folio) {
+-		if (new_fault_folio != fault_folio) {
+-			folio_get(new_fault_folio);
+-			folio_lock(new_fault_folio);
+-		}
+-		folio_unlock(folio);
+-		folio_put(folio);
+-	}
++	if (folio == fault_folio)
++		return split_huge_page(fault_page);
  
- 		if (ret == -EAGAIN)
- 			goto again;
--		if (ret == 0)
-+		if (ret == 0) {
-+			if (unmapped)
-+				flush_tlb_range(walk->vma, start, end);
- 			return 0;
-+		}
- 	}
+-	return 0;
++	folio_lock(folio);
++	ret = split_folio(folio);
++	folio_unlock(folio);
++	folio_put(folio);
++
++	return ret;
+ }
  
- 	ptep = pte_offset_map_lock(mm, pmdp, start, &ptl);
+ /** migrate_vma_collect_huge_pmd - collect THP pages without splitting the
 
 -- 
 2.56.0
