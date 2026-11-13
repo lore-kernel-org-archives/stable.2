@@ -1,52 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585348;
-	b=bysZfMT6pUszNidHaohJUoZ77p0Qxi4PDGt1t8WgbL95Y58W2UzUuIUFPQRfzso2VYH0
-	 FNOHI9dI/F1VdGChEkUtXDmwz8XmpZL2lGhlR+TfbSIb6rnMP65+wvAD0i2XKySIrVbeK
-	 IAA7P22V0HkX+F8x91CslJDZBI2vspuiRdx3Kei886nq8TAhbZz95i4WiOQO6mUzmtWC4
-	 fOblT31YdJNmbbZUYXybPK/97JMiGz8I4B3vRx8LsFJfoSOXc4w29kk8FL+T0BmYY3fo1
-	 QfM/EGJCkbwRWJ5cFUtG5wm+Ut8bz03sDkrHyA4EeraFYAJL7kaNvFzdCZnM51KuJkg==
+	t=1794585351;
+	b=Xf9f+SD2izQVtyi5EoEV6O50q3DzPvEQeQwwY8WRXOl1909wlDGonQjHCe/oPzNV99vW
+	 b0Hq5qSXiFZdlCxzMHXDXCsYe92fIZYGicOlF/ckZ713mJXNezXgGznO5lLwfEr6bvlWL
+	 FL8VXmFtQbhbFOksZWNJgp4kU6MAipJhroKs5PRHKGLSQtR7sHoPk7w6ELyjfBC87NP3C
+	 vQs9MEbD/fpno6aBhUWw/TzDSqPcukcCK6s2CsisIVK7/jrjLjVinwt+5+TaZVYWBxY8s
+	 CHpHVauUaOgQtI+Kh1Z/i8S1nhCpYlVMctMHtoePiueYCtqg6encTcrRWorWme3nccQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585348;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585351;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=kvdhz5V6bPppatGqbZ060sqXptY+ZMCYvaIWlix7/0A=;
-	b=h6HJnhGWmXJ1rmhcgasK05U1ALTNjPdH1m4EFHR6WQUdPJphlRVQ+hRxpxBM2VWkAqoS
-	 O2bR7Fq2ravfh7Tome0mJwjJwqwsNxVtBxy9RST4AtgN8n3cqyLQ9iz3L8QylN0j6Wkbi
-	 TLT37YiCYS1yAUK1aqieHhKmXZpFGg/515QAANrcd9IWNZjSNm4BlWmvGX7LJA9eQYIJk
-	 KwnbfAuitqHQxleaWCXPOfSOI+LwU+iAImEQzZHK/0nx06f3tl/4xNm+Hki6/YQh9c05o
-	 O31FTlR0q85A5V5MfJ09JNGu2AW/K/JQHAF38ESbKzjBSl9SCGcCkiPW0lVf+uckxMA==
+	bh=AQBdoMlp6HhsrmSerSk0n5s2taouaNscTdohebkP/9Q=;
+	b=C+LyDxmnBtbqDm3IkFHZf9WJ8d2m3GHCVzTsfsF94WVoOjxOoDpbjmO5d0hGSN/Vul+6
+	 HGDx/a6pq8Gx44l4qZxlfS2VKsBL+HYXOSOrBB3KHjYHq8xzVPr3FFOhhZ6inACQEYlxn
+	 l6/Cy7bTivb9VNLZWDwIeXbOVmh2CKVbFQK7ilQF4/jscJN2xE7jXhejZB6cGdquDAVs3
+	 TElUFnccaGX7+CRVvqGM9zmixEMng7rA6c+zgh8a0nWoa/mCX8tDUCbtkB9aZznSErbnj
+	 HpWk52mEoIxcvRs8erFBjsdYi8fssNRngwhQhyqHINc4SHSJy8WIdwbzSby6bucTiVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IFk2VKvH;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=anPNJnzT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA7060A380B;
-	Fri, 13 Nov 2026 15:55:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D42A60A5BCC;
+	Fri, 13 Nov 2026 15:55:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IFk2VKvH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AA1F1F000C5;
-	Fri, 13 Nov 2026 15:55:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=anPNJnzT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B131F00933;
+	Fri, 13 Nov 2026 15:55:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794585348;
-	bh=kvdhz5V6bPppatGqbZ060sqXptY+ZMCYvaIWlix7/0A=;
+	s=korg; t=1794585351;
+	bh=AQBdoMlp6HhsrmSerSk0n5s2taouaNscTdohebkP/9Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IFk2VKvHeEeK4xMJRhdKP6LOkYOS1wCYVloiOTDbfmcGA5gj9/g4MEYtJs07p+gGb
-	 BeXk3T8GWTJzegW3ymxsWoqj1fyUpJ9gjSw1+G4ZRVgdZpb0wQOCCtUidt/mx3Or8U
-	 ku+xhS4gDJsfhDlKw9Y3zM9+e59UP3ey9CxB1Ivk=
+	b=anPNJnzTHW3Y5pLy6N+uN10T7Ujb9G81BIIkDnidTt20VGHfv2NfzYbyebseWsnMa
+	 kIlkfpq6L7yKUlI/Ysrdx6J9i3beAsyCRXusABrmR+YZtpMm+9q+meCjMFBSvIFf4e
+	 9FVdinGvrJ4QdaB1k4uKp1n/Wck9/xDpxGncSKTY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yuansheng Yang <0xbeac@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Haocheng Yu <l1za0.sec@gmail.com>,
 	Jens Axboe <axboe@kernel.dk>,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Tal Zussman <tz2294@columbia.edu>,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Hannes Reinecke <hare@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 030/507] io_uring/rsrc: hold uring_lock across index-alloc put_user
-Date: Fri, 13 Nov 2026 10:45:34 -0500
-Message-ID: <20261113153754.399160751@linuxfoundation.org>
+Subject: [PATCH 7.3 032/507] block: restore the iterator when rejecting a misaligned bio
+Date: Fri, 13 Nov 2026 10:45:36 -0500
+Message-ID: <20261113153754.489549426@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
 References: <20261113153753.358973689@linuxfoundation.org>
@@ -68,88 +75,82 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yuansheng Yang <0xbeac@gmail.com>
+From: Andrew Morton <akpm@linux-foundation.org>
 
-Commit d7c7037253f6935af243570635d71b4920b5a4ea upstream.
+commit 40d070cbb1906896d6fd65c39722d2411830ed9f upstream.
 
-io_files_update_with_index_alloc() installs a fixed file via
-io_fixed_fd_install(), which drops ->uring_lock when the request runs on
-io-wq, then put_user()s the allocated slot back to userspace. If that
-faults, the error path calls __io_close_fixed() by slot index after
-re-taking the lock.
+bio_iov_iter_get_pages() can extract some iovecs before encountering a
+misaligned one.  It releases the pages and rejects the entire bio, but
+leaves the supplied iterator advanced.
 
-The slot can be closed and reused between the install and that cleanup:
-another fixed CLOSE plus open/accept/pipe/socket, or a FILES_UPDATE, can
-put an unrelated file into the same slot. The error path then removes
-that file instead of the one this request installed, ending an unrelated
-file's fixed-table reference early. This is a correctness/DoS issue, not
-a use-after-free: fixed-file requests hold an io_rsrc_node reference, so
-the node and file stay alive until they are done.
+An iomap direct-I/O caller may subsequently reexpand the iterator's
+byte count and fall back to buffered I/O.  The reexpanded count then
+includes bytes before the iterator's current segment, potentially
+causing iterate_iovec() to read beyond the imported iovec array.
 
-Hold ->uring_lock across __io_fixed_fd_install() and put_user(), and do
-the failure cleanup with io_fixed_fd_remove() under the same lock. This
-is the same class as the io_pipe_fixed() fix in a3d7ee11289f. Faulting
-while holding ->uring_lock is fine, the registration paths already do
-it.
+In a reproducer using an initial empty iovec followed by 10-byte and
+1015-byte segments, writev() returned 1015 instead of 1025 and KASAN
+reported an 8-byte read beyond the nine-element iovec allocation.
+Saving and restoring the iterator on the rejected-bio path makes
+writev() return 1025 and eliminates the KASAN report.
 
-Fixes: a7c41b4687f5 ("io_uring: let IORING_OP_FILES_UPDATE support choosing fixed file slots")
-Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
-Link: https://patch.msgid.link/20261104154655.81876-1-0xbeac@gmail.com
-[axboe: various touch-ups]
+Restore the entire iterator rather than reverting a byte count:
+advancing past an empty segment changes its position without consuming
+any bytes.
+
+Leave successful and partially accepted bio paths unchanged.
+
+[ Backport to 7.3.y: restore the iterator in the existing inline
+  -EINVAL cleanup, as this tree lacks out_release_pages. ]
+
+Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Haocheng Yu <l1za0.sec@gmail.com>
+Closes: https://lore.kernel.org/20261018081203.2431035-1-l1za0.sec@gmail.com
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Keith Busch <kbusch@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Hannes Reinecke <hare@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261020170250.014BD1F000C9@smtp.kernel.org
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Haocheng Yu <l1za0.sec@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/rsrc.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+ block/bio.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index d69baa47c7e75..c1ab760c4591c 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -521,11 +521,12 @@ static int io_files_update_with_index_alloc(struct io_kiocb *req,
+diff --git a/block/bio.c b/block/bio.c
+index f95b63c0604af..90104e6abbcf2 100644
+--- a/block/bio.c
++++ b/block/bio.c
+@@ -1285,6 +1285,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 			   unsigned mem_align_mask, unsigned len_align_mask)
  {
- 	struct io_rsrc_update *up = io_kiocb_to_cmd(req, struct io_rsrc_update);
- 	__s32 __user *fds = u64_to_user_ptr(up->arg);
-+	struct io_ring_ctx *ctx = req->ctx;
- 	unsigned int done;
- 	struct file *file;
- 	int ret, fd;
+ 	iov_iter_extraction_t flags = 0;
++	struct iov_iter saved_iter;
  
--	if (!req->ctx->file_table.data.nr)
-+	if (!ctx->file_table.data.nr)
- 		return -ENXIO;
+ 	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
+ 		return -EIO;
+@@ -1303,6 +1304,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
+ 		flags |= ITER_ALLOW_P2PDMA;
  
- 	for (done = 0; done < up->nr_args; done++) {
-@@ -539,15 +540,25 @@ static int io_files_update_with_index_alloc(struct io_kiocb *req,
- 			ret = -EBADF;
- 			break;
- 		}
--		ret = io_fixed_fd_install(req, issue_flags, file,
--					  IORING_FILE_INDEX_ALLOC);
--		if (ret < 0)
-+		/*
-+		 * Hold the lock across the put_user(), if it's dropped the
-+		 * slot can be closed and reused before the error path runs.
-+		 */
-+		io_ring_submit_lock(ctx, issue_flags);
-+		ret = __io_fixed_fd_install(ctx, file,
-+					    IORING_FILE_INDEX_ALLOC);
-+		if (ret < 0) {
-+			io_ring_submit_unlock(ctx, issue_flags);
-+			fput(file);
- 			break;
-+		}
- 		if (put_user(ret, &fds[done])) {
--			__io_close_fixed(req->ctx, issue_flags, ret);
-+			io_fixed_fd_remove(ctx, ret);
-+			io_ring_submit_unlock(ctx, issue_flags);
- 			ret = -EFAULT;
- 			break;
- 		}
-+		io_ring_submit_unlock(ctx, issue_flags);
- 	}
++	saved_iter = *iter;
+ 	do {
+ 		ssize_t ret;
  
- 	if (done)
+@@ -1320,6 +1322,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 				bio_release_pages(bio, false);
+ 				bio_clear_flag(bio, BIO_PAGE_PINNED);
+ 				bio->bi_vcnt = 0;
++				*iter = saved_iter;
+ 			}
+ 			if (!bio->bi_vcnt)
+ 				return ret;
 -- 
 2.53.0
 
