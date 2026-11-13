@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598074;
-	b=Nm/dBnXNb8QRU0gteMAGMRdpmq4d94zI70oNtOLt/EPMTfPQ4QUZ5cjk5EZ4upJ/YM9Z
-	 rIFsuoOrX5oXbonhK4M3VEAmwwyEPVAlpxeoOsm0MuXB2JhagK9HqAOinrKPh6DtOyAI2
-	 +8IV2IgUtCN2Fvq7mDUbadp+sFBlEJ+g8lfVHhfCd0oCTBsez0XNQsEztCJx9tT/FkmNG
-	 yADqRkvXqmMh0T4uqJrozn2k/ZNpT7B0HL10SmZezfBUGN1EFK4TNxfN7uGafQVUks+WV
-	 O4bxlnicGRMmmGn+ulYOQruKZ0lOY/Awpz4L/x1QQwTgb0Ivqyla5FXwkoqzFw1Roew==
+	t=1794598236;
+	b=tfmiYU6Vzm8gi4SopR6qMSRWqfC7lem+JUnhfCMPG8H+fg5usXf76+bZSGYp9GsECpzk
+	 la6iMxSMqqFvO0P8eHW/zheDwdHcxkpeTfwn9AW8X+TkdodC8WsRr62MP9mC6YsZlt0PZ
+	 gcCF11trgGCEVuhHRacsD+XIqEKqPz7gfxiC0fg7QYyBBbF0B9Qpslqy3aBhbvgtdF+WB
+	 BVB9GN+MWo1Wqq7pch4dPlxjwuZ9weU++Y9qMgIBOz43fH+gzwbMBzO5FksCItn64mJQj
+	 7VrnqHZSWT1e3vZF8fkj5oazRf+p/EfTcT4p4x9g+iUfnnoFvehLr/81HOZMWHfs75Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598074;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598236;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=U/6ZGVW+yW15M/1+SLW+qt7gXKWGwvYaSscRM0egeXQ=;
-	b=1PIRAUTY9K5n2m7r1osE0jr8XexvAZ1MTl7YrGd6EPapeYiBB9/ix5cQyLyPiGj/xF82
-	 u/kK7/iD/Kjy6WdYPe5Y44Ln0tWKB/UFCLMT0rIeefaton7U/EtiHXzBUS7s3dKx7D671
-	 SJudEphygQyc2H2eekKNlaAgNqWFjVI3MQQ3fi0lp+14W8LVOJDuE4iwOpjcBwcCTbX4l
-	 4+0jAHnZ29kOzTy1tOlZ3kJsw64N5PkeRDYe6nRIDKQhapIsR9lLWwoHA26xjl7JEJFT/
-	 eL1hwxfBci89ENX9anOH2J2S89v7tPhwot4iCI5MTRDhWGmvGWmW8DpUSIxwEL+maMg==
+	bh=ZhsVj9Uw8xaRlCGUE2MpOnrHGhNUb4YrONlaWoimUB0=;
+	b=nGgGQGiwxuWEMzRXNKu29j+EjMGPbkhdJcPjsFLzWmehOWVlX2W56WYDrw3eobCJIbJd
+	 Lf+y0h1PDG/2zmWgl71vxH8Yvbu4lkMtDXeEUU6yGfQCZXuZ2s87pLQRekvG6ZkWt6qQI
+	 TFIZa/Sp7VHhM7ruw3a3ieINnh/RVMEkAzaXUJIm2Ztt4Egum+BUiZ13mXDSikK0nFXJO
+	 MmsLLkwBYMeFf8uhJWFwqZNJZ9StKvbsq8BYoNHwqOlHL1UjXEi/d0mLCUnS2Nt2sA2w/
+	 lji6LUB7biSPKWCi05cIIYKmwjrYZQt4nDo+HmPYpu/hqVTRR+4kRuDj4i18pNT/2pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeAvq+rN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SwSzxDVq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862FB606A331
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:27:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8653B606A88F
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:30:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeAvq+rN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14BEE1F000C4;
-	Fri, 13 Nov 2026 19:27:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SwSzxDVq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F6F31F000CB;
+	Fri, 13 Nov 2026 19:30:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794598074;
-	bh=U/6ZGVW+yW15M/1+SLW+qt7gXKWGwvYaSscRM0egeXQ=;
+	s=k20260515; t=1794598236;
+	bh=ZhsVj9Uw8xaRlCGUE2MpOnrHGhNUb4YrONlaWoimUB0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aeAvq+rN1A2szkMS4tWX3ZisUaxfGqnvKprmUPpeZU96bJIascX0JJZGBYoe04IVk
-	 rR0Dvg6oA03Ac/w0rc/Ubwubn2DgK6CZNGnANwm1D4HDTnNKOK3eLQDZduDoJw41v2
-	 WjpVv/sZaA74EXeO5eV2nnuyLnHIs2jShoYznCF20qlYLM0SgVpre3UM9ymauLO3fX
-	 MqN00hsFfiKhucwp/mmdf46sjVE8fxqZvGYt8rMkR1UZXa+yWtSCH5zPY32cmbcToR
-	 em9wRaex1YhUPVlcYIAzuDPepw5Vn/TW8veETayefmEVOzRQc4WKo+voTRjQnojfUi
-	 C7jMAd8K/Khig==
+	b=SwSzxDVqvSus0xw8zXQC+XzY6wwQLoQB5aOR0gowIFW5AnMa6CJOTTaGiCtpK+B+5
+	 ZV68u6FuMVPN9R3LgxvgfOYJdLCj3NwhrvR4GYdgi0hQcRia6yzrN9t2u0nzJXncSy
+	 jUOu7q0qHH+ek9vfQQpNwmgdAmrsOqMhLnnGZjbdhxrjC9G78646DtMzORmM38bS6f
+	 KQFD87+8PmjUJPRyNi4n807xlPslWLkdI3Edf563yumjzYLdoDYry8AqAvZYZOklWc
+	 MgcIQlYA+CIo35MSFDbgNfLtgQWzgjiwVq2npbR4eAeAYQaAv2pamNE9GMeDvdEyxn
+	 iiOEBqYuJ4ZQQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
@@ -51,12 +51,12 @@ Cc: "Gregory Price (Meta)" <gourry@gourry.net>,
 	Pasha Tatashin <pasha.tatashin@soleen.com>,
 	Michal Hocko <mhocko@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/mempolicy: apply bind policies against the scoped allocation zone
-Date: Fri, 13 Nov 2026 14:27:51 -0500
-Message-ID: <20261113192734.2434712-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/mempolicy: apply bind policies against the scoped allocation zone
+Date: Fri, 13 Nov 2026 14:30:33 -0500
+Message-ID: <20261113193014.2443439-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055447-failed-6.1-d4ea410ce4b8@kernel.org>
-References: <20261107055447-failed-6.1-d4ea410ce4b8@kernel.org>
+In-Reply-To: <20261107061147-failed-5.15-d4ea410ce4b8@kernel.org>
+References: <20261107061147-failed-5.15-d4ea410ce4b8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -132,17 +132,17 @@ Cc: Ying Huang <ying.huang@linux.alibaba.com>
 Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
 Cc: Michal Hocko <mhocko@suse.com>
 Cc: <stable@vger.kernel.org>
-[ sashal: adapted the MPOL_BIND switch case change to the existing conditional in policy_nodemask() ]
+[ sashal: adapted the MPOL_BIND switch-case change to the existing conditional in policy_nodemask() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  mm/mempolicy.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 5bc8ba6fa5189..a8e990a6aa0c0 100644
+index 51ec529425118..421a3a3ee85f5 100644
 --- a/mm/mempolicy.c
 +++ b/mm/mempolicy.c
-@@ -1838,7 +1838,7 @@ nodemask_t *policy_nodemask(gfp_t gfp, struct mempolicy *policy)
+@@ -1766,7 +1766,7 @@ nodemask_t *policy_nodemask(gfp_t gfp, struct mempolicy *policy)
  
  	/* Lower zones don't get a nodemask applied for MPOL_BIND */
  	if (unlikely(mode == MPOL_BIND) &&
