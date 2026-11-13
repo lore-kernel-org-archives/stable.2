@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597013;
-	b=OJQmyEIyKFL4J2zlIZoB7pl0MsCzDPdRwJeU9xnp9iiovRZmZXLobUxLiRHe9kI1CiHd
-	 wMOyfMoO5GTLLRYdFvj1T2Obj/LEfpfjxBNsZDXES6AbDd98bsQoxuotDa3IOlOr0Yhn0
-	 Nvl/PEJ19PwMM+hfRm5NAThGmZBDmd3pqP84/Sh7Fq5NiWh5eZWi64pvxh23a0VUjqZGJ
-	 wQJh/vpE33zoQxx+lokDv5N5jVJzuqxxln84r73YraDYZUCW9HB3iwiYyB9+ja8hGFvq4
-	 I4dpFD3umGGzofIT0Ouvf+6VNwW8mXxtdhzUOnnH9sL1rXjvyYXTEk8ljW4h3KGThgw==
+	t=1794597014;
+	b=KexWX7kToRFjg28X78mrSOG5sn8xSzXvpZS+GMuv61J++fDYfBLocRUJaS1YRHuxVbJ0
+	 X7pjzHoAeDYMzshE3c2QoEpM72Q/3aJfzVewvQSM11o3Pc87C9WPVjc1Pc8FQr9RBS1Jk
+	 x90qbG8ZD0BX0EsY3kyUUa4C81na0jTtqN59h7NumvzvqPLqACBPJ5O+Q1GrAhkdCxT95
+	 w6uE+Bx3i+4XhSolsRUUus70F4Zv3wHVXYMm81kyG5rAJvfMV9qticbl8T/KvxXtj8/45
+	 7+sKCv7GS6v8Wn/L8Y9uQExuSWhxMKPuGHzm96s6IoPQKjw+wNd8s7bGL8b6dGiVc5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597013;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597014;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
 	bh=zabQJqh6t7uxEuYlIQWDR7cku3smA7px6dIU8SpBgYA=;
-	b=fN/kaNa41IRh7ZixtISv5Vs6q52Y016Ebrp8Cp7mFo1lAIZzxQUhq50LHWW7421qFefN
-	 DzI11Ekq+DrMBQopEhvGVIMi1LWZcpri0wN/jirdJbGCLZrMukecucNwQXHsRYHBx0NrM
-	 +G+yYgLwWBFLO/JCLnPNIkOTRsKZPylttpNp2oTCa2tBbocX1Ar9gpTMDrTz9nVaGE3mK
-	 hG1SH86UHWAjM5nzth6//+6hhBnB4XWvofNkcmj76BQ+zFCjYIi11qwcfn3przs1Dbrxe
-	 YWkrsmpLX6deC8Fziiz4CfFFteVX7p/eb/h6S98EuGY1HHA1X3Tgvz4262kfD7W7Knw==
+	b=CfX/Sqi1vOqDjBgq0nF3/toq/Er7/5ds6AdeH17sORCH7scSxsOmUm2jnBaI+o8TLYJM
+	 Ijz6jBab7I7P4qjhgmLU+3xIpoVeRRXot47N9C+N4+oU8qagtmFngSWsLH+SJxrYrroB+
+	 Ui2Rx+RCEYCBbU/liGMUH1iC2JYRWgYyDxtgQ+L3TOucSqU1kJ7GxF3iHquNoTM+sVDrD
+	 21HbIkE3v9kKQYNtr1oHM64EDhccIX1zz642vy6sL6do1KgX8Dj/xfBjt1cbxq2gymj31
+	 w9af94xV3nRvuP94gOdGRIX/bTPhrlS0SXjowIhvbj2RMgEdCNPf8DDTbUav8iZUp1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWTYQg0C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KCX1va/U";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD00A606F33D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:10:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC67B60A2606
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:10:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWTYQg0C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB43B1F000C7;
-	Fri, 13 Nov 2026 19:10:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCX1va/U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C94C01F000D0;
+	Fri, 13 Nov 2026 19:10:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597013;
+	s=k20260515; t=1794597014;
 	bh=zabQJqh6t7uxEuYlIQWDR7cku3smA7px6dIU8SpBgYA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SWTYQg0CgR/xis3k3QzKwIhMJEwlNq0p3qBtiA8bOEVMxTYMo+tzuklGFY+7drVAi
-	 HfI5oWBuKY1tqR7EPRtqiVf8A+TdLMExZ6rbKIhg4EMBylI0fl0HplfyLPFWS3JRhD
-	 EsgFqbMQioG5krlMtyZjak7X0+SMrM6+tCKGeKhf8U5my6BhLc1LtwtAmyJw4YTpGE
-	 RVK/8K5E8VGr3VkICY8Q6d/sZxdxrTRyWqcdzP0KTW8fB/i/kay4R6KZlOViJj2CmP
-	 9q9nUu+gRpmM7U9RiDj/XDasZXz5/lMi33X4lJRcB0A2xSsdhG25kaCeZKCgAOJsLp
-	 0Imh7sydD26RA==
+	b=KCX1va/URfwUs92ucMZeW+ZxpuGSLntx5JR7cSSzNgN7pZFK/p4mUcpxeb4ZIFbL2
+	 5/r9NLLjtrUyhmNRtchf6LK0ZANGxvWLoUfJvgTDxvvLMLb5VcsQJq/kVavVoVUFS/
+	 9stWE15Ffk6SUoRNX1sb+U5GTmcGOzm85LRYnG/pt/i7G1FOas0+R9qXHLADijOHmT
+	 xOXlm1/sQuibQ7LjqtXwvnYPCLaq1q4HI8RkckqbuhIrJK/sXJsI0EwQqRYCSKAxs/
+	 xAWjyqiE6bSy+wh7ZEQ778IzdleKaREycr95c6bwBxUPkb/L8i7vDOVXn7i6slu3qR
+	 kaZ/Ed+R7xi0Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -48,12 +48,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	Johannes Weiner <hannes@cmpxchg.org>,
 	linux-mm@kvack.org,
 	Salvatore Dipietro <dipiets@amazon.it>
-Subject: Re: [PATCH 6.18.y 0/3] mm/page_alloc: fix iomap buffered write regression from 5d8edfb900d5
-Date: Fri, 13 Nov 2026 14:09:57 -0500
-Message-ID: <draft-0007-redipietropagealloc6@kernel.org>
+Subject: Re: [PATCH 6.12.y 0/3] mm/page_alloc: fix iomap buffered write regression from 5d8edfb900d5
+Date: Fri, 13 Nov 2026 14:09:58 -0500
+Message-ID: <draft-0008-redipietropagealloc6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113110259.2901456-1-dipiets@amazon.it>
-References: <20261113110259.2901456-1-dipiets@amazon.it>
+In-Reply-To: <20261113110611.2915381-1-dipiets@amazon.it>
+References: <20261113110611.2915381-1-dipiets@amazon.it>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
