@@ -1,105 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589948;
-	b=lzk1UWcQxzMkTwWCUf4ipt7FWVlIsf2fPxSHtdiieRjfYbDSOjU+jRQdp3nUKmiKPmjZ
-	 tjVBogOHMJMlZVbhuLHJBufDZHSxW/TCF4A3HlPcNBb49fvQDWxNEcTxotetT5eQAQ8bs
-	 dFiFjeiH0CrD8KEEllOC0zZHYDVKjrrnKzyhlhHlKj+qQlvwyo3MsOvS9izcpo3gBLgrF
-	 3Tsg+KbCSE8gcC/ezVXhwtlQdUMdNBOqk+vICEEmwtJX9xOK1pHIrX7NLQVzujyMGJ/Ed
-	 +yx6Imam0J7NoDY0dooaXzI927uTEhXAYItyvzDemdoFxeVwnZDzt9u4J9R0xHS1Dhg==
+	t=1794590015;
+	b=yl5H1rwqJ0BLx5t+fNqoNr5vayt0wcXITg9n8IsroM6m/a319F6AE7zCa81dTaeyP2uV
+	 KE3U6QAiLfHq7d1H6uri3K6FBU9Y3fqszAeqcXvm06nRVjhVcu7LLcuNR4SW3n0oXBcjk
+	 qBCBPag26ET/j6bRSIAd+EryY+R9JTvlWiMqLDGvhWdivE1PMF2qAhZgHFgv1zEKIAK02
+	 Y8HGhQ4v1tVvPi+D1woXDQVkr3uPHCeNZz4RcM9YOtXxjEFB/n9UE7/XReVmc0+l4RFC2
+	 xAXYaXQd57DF12/UdVAo9GjKK/4IBM7aW2TORDjAMZCiaOBN7bM/QJRv8dPbvpKPuhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
-	b=4L+MQ23OFcbz57RAf64UyNLqFmMFHgmOmsFBrrgTM9Icw3qwY+QERmOI7ud8uLcnwPWJ
-	 jXc/ssvuh7PC9xjeu395C29qlvOjI9FgZTtWsd17IIt1SnsdFZrZOpXVfzffWEad1k1Du
-	 bqCwrCbP3UOWyWHt48Vdp+Ow2iVIE8xyEBkgxIQmLjLZwj8W+shG/IBCL4HePxOpa1slp
-	 0NlSdg29PNBPC+WyGQnbhSlAqLXrQLEDVGh2pKpQ9eQbYG8+Xhqjx0URP1xAJufgs7nIk
-	 SJBSH8juMghkYTNmIBmspruuofxxWExJtVUDtxLWhz7OUOSzCzm4SPTHtYEc+CObD0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590015;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RZ4vxl75737Gu4SIFaKh4VW8JMlpcZm7DJvO10DviMs=;
+	b=uwB+mnadVMwnpQb6m/KrxTQ+j0fQ/uqecAk5JSHE8oPKSKKONhhBFFxugVD8yKQ7lfMN
+	 7aXLAC9/CQkTT8EaxlreisLHq7vPjth77REzJmCHkXNc4oODkPaBB90M5au5hrBiEXthH
+	 W7opxVfp2HpCl+eMZB7Ic4urpBeXKIbhUYApN7GXAQ14Pyr9jyuVjFLuNybzO2hBA8ihu
+	 sG7sUG7ouPSEr66lV4xUV8o3dqK/W3ACqi3b0U3vJp/dxNQhD5FZc3pXuS3YUNuJhIybv
+	 yJLBFkh1vDO7O6i1GTu7sLJEPfP14PUjF3mDSyPXbr5beaiRIK2qer+VrJ3yGQHFy6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dk1vCWfG;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TCHa+l7X;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D54606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:12:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1D54606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25005606A331;
+	Fri, 13 Nov 2026 17:13:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dk1vCWfG
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36ecc11bd26so160683eec.3
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 09:12:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794589947; x=1795194747; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
-        b=Dk1vCWfGcdr5xZdt9dq2I9ypVf/Dr1nhuoKzF69Fy3aGZpE7zPiJYOeUBh4Omt7n6B
-         aha6kKwmE7MYPtoRs9WpJ0jd7pv8BR/34CxoeYQgC3Z8qubWhIeYmeHQfXC040+WhEcE
-         w4hu2GvDTiFZRumOJPSaERTQdIppzXJ0ePkV617MhpUtwVEg970NAV/BOk747yVlDtp1
-         S4G7kJwVnnYp/6OqqzmYFaFW314xB7DGfBmd31sphRPXFTKJqRYn95xEqQZ8jvr1Lq3D
-         9mRp+dNr1qR5gqjAKzng6ikGgxkxoxeY6PkimoEiYnpNJ754F5ZjsVwFj9jEufHxaVUE
-         RLfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794589947; x=1795194747;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
-        b=BLSIYxluPRdujQ0snYBaPZYfGZWeE5pu5eDCg3BNFtl6O0wAnCvX0I8ayhFLvcdMFR
-         6LmCCHc39H0lZJVmM+BNt9rtsGW3Mncpdf5UGr/N5pFnjC/tOGucZZJIuoy4stRD46aS
-         is9xkT5wh9pnXi5eBMi4p3awOc+1eIJGOClPj1MKAvYifAC621DVYM2t+dZmVSpUyTBI
-         yVLVkZnjAl7f2QgDgXA0IVY7YMWYSygId/rGiPnq5A6m//mNuEvC5KyDWd4Ba7wl7h9t
-         Fb2VKB8RDEzt0tBTDz0UpYwYC80Kc3rLT2EfFov8agvDvD5+IXjqrIqmjypNLEKUtzz1
-         IFKw==
-X-Forwarded-Encrypted: i=1; AL+hErHbb75ZFPiu9423E/t07en/kTMWt0qYK6pM0egVmoujyYmxvjkvK+sAhdfvdRK8f/QbTO4TqE0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++rbJHt4bEWAiAE+b/OM7XdnYlr+QWqwYgASYJtr5cAySNLnSt
-	RWyybbS2MLJAh1oUOQjeh/V152DaLAJzt3nxY6GwLaxtCIdesACuILhm
-X-Gm-Gg: AYBFou0rKL/HqcI1zQN6m3ojgNtCwbLPcVd0SGAie+6czGs2afd6MqhspWvqg/bLr95
-	d0uTWwGktyQioCSJb+ulNxpR/hqGzxOBKA8jI4VSKxplgy5LLO1FOn4learoW3oNAgAnVf7RIXn
-	nQ8B+nEkLlhiZS3TP/KlcKAwWbRu3i40hIh9H9+cWcgbdfUWXWQuBzC4eGtUerEA7sN3fS5LksH
-	OJ8ZwNruxloqM63YagZb/6M0i/Zvs5sOu6HQgzU4cRE+ckXQYk3pZPbHEVxk2g2i0bMzYRiqYwl
-	AScpl/Zzf8jEMbRzBK8YsfMQmgvYyyKHlYnWn8z1eXvxbD+syScL5LwybEqAzpuc+KfPoBXfbzQ
-	1r4ojd2DfkqTblajscArXYY5dEv7kakPJ5zBn/V1jZySxOcokZp9RjWb3cqF1uEGRdW6GVHUzZ0
-	gv6Nfe4Z1C4VutLr8lbHLm/J2xlZIXQsH9g9InTW3hzFRNZaBAcwPNxWdA4R2r+GTTyEwgZ2hsB
-	6yQ7V7agt3Jk6TI6RznrBqvEpwUEwZSPhVJGjB/oTuU7Q47/D6rNGu1XpqXQn/ct8a7P79wfmpI
-	WDEZZjhaDxOM3ELT6KLNsh6PfptoZsZzRtg7+syY+PQXfIF4ps1tY2biX1ndf/vN7OB7h28JX/o
-	Ltcc=
-X-Received: by 2002:a05:7022:7f04:b0:1a1:9106:cfff with SMTP id a92af1059eb24-1b503097baamr4481535c88.2.1794589946743;
-        Fri, 13 Nov 2026 09:12:26 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b505b5bf76sm5975999c88.10.2026.11.13.09.12.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 09:12:26 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>
-Cc: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
-	Akash Goel <akash.goel@arm.com>,
-	Karunika Choo <karunika.choo@arm.com>,
-	Lukas Zapolskas <lukas.zapolskas@arm.com>,
-	Chris Diamand <chris.diamand@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Jiwoo Kim <arpe1618@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panthor: Fix unlocked pool->vm access in panthor_heap_create()
-Date: Sat, 14 Nov 2026 02:12:14 +0900
-Message-ID: <20261113171211.836427578-1-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TCHa+l7X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A5D1F000C4;
+	Fri, 13 Nov 2026 17:13:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794590014;
+	bh=RZ4vxl75737Gu4SIFaKh4VW8JMlpcZm7DJvO10DviMs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TCHa+l7XugJgP5ZZoLXr73y4RaCWEGviVW9ETV2lCIe+1EpMHLmNsfDVmTDViYNSr
+	 KvMjss0HKuuG/ncZQRaxlabWsS9TSG+mZ1tVgcMKbQnvAlAE1IwNP6fdo5REck7/oW
+	 YT7yfakx9QJ2zWgYkQGliR47ZmT4hYSQB2ETB/Bg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Gael Blivet <gael.blivet@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 057/686] ksmbd: look up stream size by exact xattr name
+Date: Fri, 13 Nov 2026 10:43:10 -0500
+Message-ID: <20261113153822.882205118@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
+References: <20261113153820.902362109@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,116 +64,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-panthor_heap_create() takes a reference on pool->vm under pool->lock,
-because the pool can be destroyed concurrently, and the initial heap
-chunks used to be allocated in that VM. Since commit c63c3bfdde26
-("drm/panthor: Avoid sleep locking in the internal BO size path"),
-panthor_alloc_heap_chunk() takes the pool instead and reads pool->vm
-itself. panthor_heap_grow() calls it with pool->lock held, but
-panthor_heap_create() does not, so pool->vm is read without the lock
-for every initial chunk.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-If TILER_HEAP_CREATE races with VM_DESTROY on the same VM,
-panthor_vm_destroy() calls panthor_heap_pool_destroy(), which sets
-pool->vm to NULL, and panthor_kernel_bo_create() can then be called
-with a NULL VM, which hits its drm_WARN_ON(!vm) and fails with
--EINVAL.
+------------------
 
-Pass the VM to panthor_alloc_heap_chunk() and
-panthor_alloc_heap_chunks() again: panthor_heap_create() passes the VM
-it holds a reference on, and panthor_heap_grow() passes pool->vm, which
-it reads under pool->lock. In the race above, the initial chunks are
-then created in the destroyed but still referenced VM, and
-panthor_heap_create() frees them and fails with -EINVAL when it finds
-the pool destroyed under pool->lock, as it did before that commit.
+From: Gael Blivet <gael.blivet@gmail.com>
 
-The problem was found through AI-assisted source code review. The fix
-is compile-tested only and there is no reproducer, as I don't have
-Mali CSF hardware.
+[ Upstream commit 10ea20d6584ecdaf2f7505855412a856a88d8934 ]
 
-Fixes: c63c3bfdde26 ("drm/panthor: Avoid sleep locking in the internal BO size path")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+get_file_stream_info() walks the xattr list from a single
+ksmbd_vfs_listxattr() and sizes each stream it finds with
+ksmbd_vfs_casexattr_len(), which matches with strncasecmp(). Linux
+xattr names are case-sensitive, so two streams differing only in case
+report each other's size.
+
+The loop already holds the exact name, so query it directly with
+ksmbd_vfs_xattr_len(), which is what casexattr_len() calls once its
+search succeeds. Make it non-static and declare it in vfs.h, and drop
+the comment above it, which describes a different bug and no longer
+matches the code.
+
+This also drops a full listing per stream: casexattr_len() runs its own
+listxattr on every call, so enumerating a file with N xattrs cost N
+listings instead of one.
+
+Fixes: 689f1eb3719d ("ksmbd: report actual xattr value length in stream enumeration")
+Signed-off-by: Gael Blivet <gael.blivet@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: retained non-const struct mnt_idmap pointers to match the existing vfs_getxattr() API ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ fs/smb/server/smb2pdu.c | 13 ++-----------
+ fs/smb/server/vfs.c     |  4 ++--
+ fs/smb/server/vfs.h     |  2 ++
+ 3 files changed, 6 insertions(+), 13 deletions(-)
 
-Notes:
-    This is the follow-up mentioned in "[PATCH] drm/panthor: Don't access
-    gpu_contexts of a destroyed heap pool":
-    https://lore.kernel.org/all/20261113162648.110226253-1-arpe1618@gmail.com/
-    The two patches are independent and apply in either order.
-    
-    It conflicts with Osama Abdelkader's pending "drm/panthor: Fix race
-    when retrieving the new chunk in panthor_heap_grow()", which also
-    changes the panthor_alloc_heap_chunk() arguments. I can rebase on top
-    of it if it lands first.
-
- drivers/gpu/drm/panthor/panthor_heap.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-index 99311abdf1..46f53699a2 100644
---- a/drivers/gpu/drm/panthor/panthor_heap.c
-+++ b/drivers/gpu/drm/panthor/panthor_heap.c
-@@ -137,7 +137,12 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
- 	kfree(chunk);
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index c784aa6d9b6ad..1cbc425d7273e 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -5275,17 +5275,8 @@ static int get_file_stream_info(struct ksmbd_work *work,
+ 		streamlen *= 2;
+ 		kfree(stream_buf);
+ 		file_info->StreamNameLength = cpu_to_le32(streamlen);
+-		/*
+-		 * stream_name_len is the byte length of the xattr's *name*,
+-		 * not its value -- same class of bug ksmbd_stream_eof()
+-		 * (smb2pdu.c) already fixes for EndOfFile/AllocationSize on
+-		 * a stream handle; this enumeration path needs the same
+-		 * real xattr value length, not the name length reused as a
+-		 * size.
+-		 */
+-		slen = ksmbd_vfs_casexattr_len(file_mnt_idmap(fp->filp),
+-						path->dentry, stream_name,
+-						strlen(stream_name) + 1, NULL);
++		slen = ksmbd_vfs_xattr_len(file_mnt_idmap(fp->filp),
++					   path->dentry, stream_name);
+ 		ssize = slen < 0 ? 0 : (loff_t)slen;
+ 		file_info->StreamSize = cpu_to_le64(ssize);
+ 		file_info->StreamAllocationSize = cpu_to_le64(ssize);
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index c470d419e7ce8..a3db77b3c2728 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -950,8 +950,8 @@ ssize_t ksmbd_vfs_listxattr(struct dentry *dentry, char **list)
+ 	return size;
  }
  
-+/*
-+ * @vm must be pool->vm read under pool->lock, or a reference taken from it
-+ * under that lock: panthor_heap_pool_destroy() clears pool->vm.
-+ */
- static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
-+				    struct panthor_vm *vm,
- 				    struct panthor_heap *heap,
- 				    bool initial_chunk)
+-static ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
+-				   struct dentry *dentry, char *xattr_name)
++ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
++			    struct dentry *dentry, char *xattr_name)
  {
-@@ -149,7 +154,7 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
- 	if (!chunk)
- 		return -ENOMEM;
- 
--	chunk->bo = panthor_kernel_bo_create(pool->ptdev, pool->vm, heap->chunk_size,
-+	chunk->bo = panthor_kernel_bo_create(pool->ptdev, vm, heap->chunk_size,
- 					     DRM_PANTHOR_BO_NO_MMAP,
- 					     DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC,
- 					     PANTHOR_VM_KERNEL_AUTO_VA,
-@@ -209,6 +214,7 @@ static void panthor_free_heap_chunks(struct panthor_heap_pool *pool,
+ 	return vfs_getxattr(idmap, dentry, xattr_name, NULL, 0);
  }
- 
- static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
-+				     struct panthor_vm *vm,
- 				     struct panthor_heap *heap,
- 				     u32 chunk_count)
- {
-@@ -216,7 +222,7 @@ static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
- 	u32 i;
- 
- 	for (i = 0; i < chunk_count; i++) {
--		ret = panthor_alloc_heap_chunk(pool, heap, true);
-+		ret = panthor_alloc_heap_chunk(pool, vm, heap, true);
- 		if (ret)
- 			return ret;
- 	}
-@@ -315,7 +321,7 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
- 	heap->max_chunks = max_chunks;
- 	heap->target_in_flight = target_in_flight;
- 
--	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count);
-+	ret = panthor_alloc_heap_chunks(pool, vm, heap, initial_chunk_count);
- 	if (ret)
- 		goto err_free_heap;
- 
-@@ -473,7 +479,7 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
- 	 * further jobs in this queue fail immediately instead of having to
- 	 * wait for the job timeout.
- 	 */
--	ret = panthor_alloc_heap_chunk(pool, heap, false);
-+	ret = panthor_alloc_heap_chunk(pool, pool->vm, heap, false);
- 	if (ret)
- 		goto out_unlock;
- 
-
-base-commit: bafda823590ddf7031ecb765d673572fae7ab44a
+diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
+index e9a5798d7baed..ca5048ebb1308 100644
+--- a/fs/smb/server/vfs.h
++++ b/fs/smb/server/vfs.h
+@@ -106,6 +106,8 @@ ssize_t ksmbd_vfs_getxattr(struct mnt_idmap *idmap,
+ 			   struct dentry *dentry,
+ 			   char *xattr_name,
+ 			   char **xattr_buf);
++ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
++			    struct dentry *dentry, char *xattr_name);
+ ssize_t ksmbd_vfs_casexattr_len(struct mnt_idmap *idmap,
+ 				struct dentry *dentry, char *attr_name,
+ 				int attr_name_len, char *actual_name);
 -- 
-2.43.0
+2.53.0
+
+
 
