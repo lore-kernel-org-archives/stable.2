@@ -1,76 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542729;
-	b=yCNc8hkmhQZzphnTDHSRZ1nD2zybP4339pbSFKxfW18BZ/fWa23Y/7YxM0TfGoSGWEIU
-	 we/32KeJGiR4WaPpCbZ2zz6QoGuQ7KOUexi1XiEchaNqyulMVUI14PwcoWAqBb+WABTIJ
-	 Wo1rxdb6MGqQUk4/CD4cUAyGVNsG8gG3sEJ3eot4EFfvI1tJqCeh8F2hjFD0TiFdQVnck
-	 fcetXgBxRsqDDbKrLCecUetqV/AG58GO6Am40iga8y9gYyLoMTProqsPD3JB8mrUz3Spa
-	 ljyxRQB4GHs5Mft2cFbX0AVUi44RzQORQ4vs62XF6gNNYlgqraEhN3gPQS+yZ/dN8ew==
+	t=1794542903;
+	b=puH4C1yq5oyr2Sagn+hG9ky3Tzvpuq+DoATwlmffiovBaeR+VNWgVxJiNGcBmWQ1zD17
+	 xg2o8qQd2a2kUvNZnMabovjOBnY5ESNrOrrNDOMfyrXUf1m/b9HTqz1ditojSdTxZiERx
+	 JBtBdJy3KlqzV8tWLHwnShIYt+cmaRsyzmlA+gu0hdfect88UikGxeQt6eSwo1JgPSGfj
+	 jJb3A3G9A23f3pYTtsL8ygoHPZpRvr6UC6OM2spO9n2PmVLfQ90ELqUJ4es9jwrsL0ntI
+	 1axToPiIVE7wTy9BQpZx5LLlZOGnmZ/GpzpmzsF4fQU7mbL+YJrwnyN0sdFB3LQ3MgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542729;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
-	b=f9Mn3aMUOeZbTjTwdO/kRZMR04cjKJNtf4+UXZpDteNhzUFX7dNIGnDr7EwPN/GDRtjs
-	 BBRiatOfcpf4gPcOnw1ieBUaT81tJTNQ7CYNaXiVvbAStOO0SmQyi+Z5BJdzJFpq0R892
-	 71N03zW8ibpVHb77RdrWZqckUyGTRmJx+ggRhbarKJlDXe1TBTSke1HuugB6Y92vq/6p3
-	 vCF/mSmiknl0PLSdyFfyw+k7RABmXH1niUeXlogAqIYXLcqCeCkzJLOfKwN+jcfl+cejS
-	 B7XjCFfn96DIQq/9Gu92LlTC+ctvUYZpsIhH2MiTauQkrnkK8JQIYWvCoREEAxUMGQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794542903;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8YARFsfshi83KcJAZu11qEFspbOUXOBNNkYtX280ZF4=;
+	b=ml04ySx3lp3gX6TkhY1YCnoWEald4wsy1iuIE2EAyaGJE6iiO0F9Ropr6Repl+a+3nat
+	 zH7yjaGIT1COatpg3rlKPHxbqW40Z8eaFG3OCaTd6LoqRS0StP5e3HGJZZQhosCKRlRS6
+	 wsLZNwaLX29Z8guCw3aujGCnqNOsLJZaqA0hFCylXyJf7ECkkPSekWSGdBvOzf/F7XGHT
+	 jhq32z5Nh0HEEGsy88ZLOoWXk4FVWP+JEohFdVknYE3fPh7rJMl26exye/CXPdiSc0Xoj
+	 JuU1tsQRMc5MtJNdn4BJdUS9QuFZ6Es204Wfj37cmFYFacFtYdp2wAZnYKgdq6R5BYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sSSBTmRC;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wRcPyN8a;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNlulHIL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4615F606A323;
-	Fri, 13 Nov 2026 04:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4615F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D1F606A323;
+	Fri, 13 Nov 2026 04:08:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sSSBTmRC;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wRcPyN8a
-Date: Fri, 13 Nov 2026 04:05:24 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794542727;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
-	b=sSSBTmRCpi0eiAS4KAqr8V5qDfn/JyZfMtdIhS7Z3Q7+UdVOzoDO3JgbJbAVzIuLXrFsEx
-	JfGy3rxlJ1EH6oweewdlXWxlGnywMZve4IXHlQN0Sa5KBNEAExoNTsGbKOaxLVHBZ462kP
-	y3bEgzjeHjiQ40pJdlE5i/yNt48+itVIEVZ8CkMYRTp4YdxQVGdiUnssvVMD56XXWPifIq
-	oeSznuYKxwyyApZoycCEtHdHL4aID2p+p7p5p/nYrkriTt1nkskzp71TKX77HusCGhQZtb
-	528v16otET/etAWdDmvjzIfzaatJc7Za30yfnWucTPUAFAFzQqCbOuKdS8YEQQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794542727;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
-	b=wRcPyN8aNyAWUnahwuKvbtQEFgPKmtGUFvZPwFQ56tTrsxbI7cnpvuuWQjjQESDsXl/WVz
-	04wdOMtRNkBlcbCw==
-From: "tip-bot2 for Hengyu Liang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/video: Preserve the default VGA fallback for
- legacy modes
-Cc: Hengyu Liang <hengyul@cs.unc.edu>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261103031630.2085194-1-hengyul@cs.unc.edu>
-References: <20261103031630.2085194-1-hengyul@cs.unc.edu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNlulHIL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318871F000C4;
+	Fri, 13 Nov 2026 04:08:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794542902;
+	bh=8YARFsfshi83KcJAZu11qEFspbOUXOBNNkYtX280ZF4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iNlulHIL2SCc/Ua0Dc/VeDfAjB02OCQvHD+MzXAmOhhxh+bZgS+UL96+x2DCtz1op
+	 264qXfZCs2EyN2TtlyLiDMruuz4hw2cNgl8y5RjXdjSy6kSGCM5C3R8Y6/jeBgjvlX
+	 hu5wQXOZ3CUF8bK7vd82ZaaDeBaI2Tr58/pnBQndI8uKpIvywufrXxRY2N9ykpFy9u
+	 MUWrdwXqo8TYz5kR6h8Q825vzr9LcUVa9oJlTsUajpP+rFujxdAMxV3XM3AW3NJ+BD
+	 1jyDoUy90T4f1LMR7Bhgmzref1+wEOAT6c2nTMqKC3NnCJx0d/FLlWMSe9Ftk4gTVS
+	 4seotPE5TqjcA==
+Date: Thu, 12 Nov 2026 20:08:20 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>, linux-mmc@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] ufs: ufs-qcom: Enable ICE before enabling crypto
+ support
+Message-ID: <20261113040820.GE1742@sol>
+References: <20261112-qcom_ice_pm_enable-v2-0-177e454d6f22@oss.qualcomm.com>
+ <20261112-qcom_ice_pm_enable-v2-2-177e454d6f22@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,79 +63,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179454272497.2969448.17262198902355060931.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-qcom_ice_pm_enable-v2-2-177e454d6f22@oss.qualcomm.com>
 
-The following commit has been merged into the x86/urgent branch of tip:
+On Thu, Nov 12, 2026 at 06:48:18PM +0530, Kuldeep Singh wrote:
+> ufs-qcom currently exposes UFS crypto profile and sets UFSHCD_CAP_CRYPTO
+> before enabling ICE. This leaves a window where blk-crypto can issue
+> keyslot programming calls before ufs-qcom has explicitly enabled ICE.
 
-Commit-ID:     3b4c98b47ba7c3c57bcf54fb85f54a854622041c
-Gitweb:        https://git.kernel.org/tip/3b4c98b47ba7c3c57bcf54fb85f54a85462=
-2041c
-Author:        Hengyu Liang <hengyul@cs.unc.edu>
-AuthorDate:    Mon, 02 Nov 2026 22:16:30 -05:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Thu, 12 Nov 2026 20:01:18 -08:00
+Please be more specific about what actually goes wrong, and why.  During
+probe, the crypto profile hasn't actually been registered with the block
+layer yet.  So the above seems inaccurate.  Likewise in the MMC patch.
 
-x86/video: Preserve the default VGA fallback for legacy modes
+>  static int ufs_qcom_ice_init(struct ufs_qcom_host *host)
+>  {
+> @@ -188,6 +190,12 @@ static int ufs_qcom_ice_init(struct ufs_qcom_host *host)
+>  
+>  	host->ice = ice;
+>  
+> +	err = qcom_ice_enable(host->ice);
 
-Commit
+Use the 'ice' local variable.
 
-  596b3678326d ("x86/video: Only fall back to vga_default_device() without sc=
-reen info")
+> @@ -636,12 +645,15 @@ static int ufs_qcom_hce_enable_notify(struct ufs_hba *hba,
+>  		 * is initialized.
+>  		 */
+>  		err = ufs_qcom_enable_lane_clks(host);
+> +		if (err)
+> +			return err;
+> +
+> +		err = ufs_qcom_ice_enable(host);
+>  		break;
+>  	case POST_CHANGE:
+>  		/* check if UFS PHY moved from DISABLED to HIBERN8 */
+>  		err = ufs_qcom_check_hibern8(hba);
+>  		ufs_qcom_enable_hw_clk_gating(hba);
+> -		ufs_qcom_ice_enable(host);
+>  		ufs_qcom_config_ice_allocator(host);
+>  		break;
 
-made video_is_primary_device() rely exclusively on screen_info resources
-whenever any are available.
+Needs an explanation for why ufs_qcom_config_ice_allocator() and
+ufs_qcom_ice_enable() need to be called at different times.
 
-However, screen_info_resources() also returns legacy I/O and memory ranges for
-VGA text modes. These ranges are not PCI BARs, so pci_find_resource() does not
-find them and the default VGA fallback is skipped. As a result, no device is
-primary in VGA text mode.
-
-On a SeaBIOS QEMU guest with bochs and VKMS, the boot VGA (bochs) loses its
-DRM boot_display attribute. VKMS registers fb0 and bochs registers fb1. VKMS
-is not a PCI device, so it is not primary either. With no primary device,
-fbcon keeps the console on fb0 and never remaps it to bochs. This can be
-checked with:
-
-  cat /sys/class/drm/card1/boot_display
-  stty -F /dev/tty1 size
-
-Without the fix, boot_display is missing and tty1 is 48 rows by 128 columns.
-With it, boot_display contains 1 and tty1 is 50 rows by 160 columns. VKMS only
-makes the console part visible. Without VKMS, tty1 has the same size with and
-without the fix, but boot_display is still missing without it.
-
-Use resource-based selection only for linear framebuffers. Fall back to
-vga_default_device() for legacy display modes, while keeping EFI and VESA
-framebuffer ownership authoritative.
-
-Fixes: 596b3678326d ("x86/video: Only fall back to vga_default_device() witho=
-ut screen info")
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261103031630.2085194-1-hengyul@cs.unc.edu
----
- arch/x86/video/video-common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/video/video-common.c b/arch/x86/video/video-common.c
-index 8ed82ff..b8f8334 100644
---- a/arch/x86/video/video-common.c
-+++ b/arch/x86/video/video-common.c
-@@ -45,7 +45,7 @@ bool video_is_primary_device(struct device *dev)
-=20
- #ifdef CONFIG_SCREEN_INFO
- 	numres =3D screen_info_resources(si, res, ARRAY_SIZE(res));
--	if (numres > 0) {
-+	if (numres > 0 && __screen_info_has_lfb(screen_info_video_type(si))) {
- 		for (i =3D 0; i < numres; ++i) {
- 			if (!(res[i].flags & IORESOURCE_MEM))
- 				continue;
+- Eric
