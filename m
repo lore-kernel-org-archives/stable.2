@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598474;
-	b=amIRHwT5xq5bkk7CEjuTF6TQbgSf1uP+zS8UX0JGqzz3AeeG4VtiXnUnn4Jwzldec95t
-	 kVJBTMQu33DmNLj0uSAK8m06QzzOoUkZBUgThYor7qQHHLF+fy9qkB2EH3nUR8/GR5ufW
-	 WofAbO/D3Rsb5L/Y49q0B2CIi5I27YtdaaDLc5RlQssRsI7e28fhLVauaySItHOneqktW
-	 1X1ZankEdd8J3zU+NnkooAmyP3cm7CfVJ/H+zt40XQewilOLMco/AOaj2a2FYIWDudxLm
-	 G6ZepiAe8p3pPi3xcLfSUIz0Hpwx6wUfkXDu/LzVTBR4xIH4kpaqHbRTVcNGpphYERg==
+	t=1794598478;
+	b=Jssd0eJOEFL/VYfjG/gWJMkqXW1r45HDXXcn2XMEf6EH8d/1PBCLQeMpEX/X72y2ceUw
+	 3xedgKDDX+T0NksqeFF279LAgz/uAUJ2r7sW/OW0ekjRlUaDLopzERh6mHxVnXRGiTjLy
+	 l3Zy4DM7g58Hr8YpcA9kEOp/oreh9Gbe7+IVT1xSDg26K9pkH4L/D+tF9CJ3uegvxkAVt
+	 qAou0NoaTBC9J/J/prcJCdIdqAvvLioNta5GBGAs5Umzp+YjSHiOrn8Lenh+B4dAVQA7d
+	 l4IoQK5X6ghv84uSrk8kA99D5906yxGO+aFVSJid/7WO3JrkRWVeK9ukWNshR9Yu5yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598474;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598478;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ybZial6OH2fIDR+0PMVbHbS6Ebe3KSMC4eGg+MKp4LU=;
-	b=1McGMHKslu44P1MFNuQzFJ2k2wUZKisow/F0sltXAb7vEsapbFlAJ36CzlqhkHRdImtd
-	 S1ilT+nhVa+HOjAPMrMt5eCQZFq3odUOzGR0LqBhFeUK2fHx2YRLCgeKUzBZUGHy8WP1d
-	 FmoMftDPwG2ODJ08qvx+GvXxzPSrTYJmwGrcOJbimZ+PZ9UaLPzz++e59mhAW4oJFld3O
-	 OeYw3Zk1WZuZiMnFUCSVSsSYkWMib6MRjfz73jvNnfuPRYXXAjOGy8vvOo+ypS+ogCt8A
-	 bRZ6PNrt3M76jJeTufJxwHU/VmT3D2VhoLoZk26Ls4UW052DcmyyjRgpAeKRbxpaBiw==
+	bh=vsymCTo6Nf/eQfky9bIot12Tdu25i9dgp5S/nqhgtaE=;
+	b=rYDhQof9pH9nFzgEARpW2YYLHeQRbrrRi/pS/MbsQepDJneEnSC1mJ7oLq00cR2uVg3r
+	 j2vbwXz+wJMoe8cNMA0KYwxUicNzkmw0WH/KCWpL+yygvyzpQTqD+V7FmJ5nNXAn2Sve/
+	 XByDJcTkfdlNLIGUNQxXFl/kUwUiU1t2Ce0Kmhlnv0SHb47dDtq4J1B9VkR5qWCx+JspU
+	 E/VqKSpAO6zabkSrnBlj3HJ9V+4LZ09EKsC40aoxC5HaVzFIiddUviMH4yJO+aAgLezzj
+	 hoxdEdcO/JQUmPFdPktxkP6QVe96ok+ceG69L61nZ3V4pCEogZ2H7DZEHBPXLX52HWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4BVVXAR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knjoXP6G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746CE606A327
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:34:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C24606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:34:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4BVVXAR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937F91F000C5;
-	Fri, 13 Nov 2026 19:34:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knjoXP6G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D541F000C4;
+	Fri, 13 Nov 2026 19:34:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794598474;
-	bh=ybZial6OH2fIDR+0PMVbHbS6Ebe3KSMC4eGg+MKp4LU=;
+	s=k20260515; t=1794598478;
+	bh=vsymCTo6Nf/eQfky9bIot12Tdu25i9dgp5S/nqhgtaE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g4BVVXARj/+FKoTiLDSz2DAhF5GxbHlaesiCJUHn2V6DjlGAWDNA5g2VmU2t3GiXO
-	 rxjCRuw3y6BJAGN6zt5rgDQfms6vcRlCmvqMSVBqQExX7tkZgCWVP14kp+u7ed3xJF
-	 uiytjRiWZXVLX/EQf1mEdg0kBr7g1FNIQmikoddXqhj4J5mrSfs0EVNgZCH61nRAQP
-	 vD+uhQpJ1hJlDDKSH6AxchTaSDVpeljbYvpgUUFjWNmkTOQVb4bALgCggtXdl7c6tA
-	 aZnURumlp3qANSUGnqlX+D49b9Ufl4K7PWparkTohOBYKMRocd5EUGZC0tdjrImpXD
-	 REKAUHInFsV9g==
+	b=knjoXP6Gb2JETkgvtyMhsRmnMHo85w+QNOIw+kgBOTBBeqM3u9cbQDeA7+QkPMUew
+	 V73hu3t19B/YiOegYCVVt1SsCRHgLMFfaYCCTAtjSpK1xluU9vGyalK9oxxOEVVIkF
+	 2janhX9NBKl33X0IygylrHe0ZKaAv2rbtF61zqN3EZ+qz3iRV4CxMN6RPrWtxiecwa
+	 TMSUVwCP0uJqk+YqfcunWTKCubhJOYqBaPMUEchJ7r5ZkpCVCpKedCiNrhLz95o9c7
+	 p3OeewidTLaabjIAtIcWJfvtn1mmJpC4fFmKZXsGLRvu+LGSEizG1tH33zD0nnI9xn
+	 V3hWTMsNR2lUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chris Down <chris@chrisdown.name>,
@@ -56,12 +56,12 @@ Cc: Chris Down <chris@chrisdown.name>,
 	Kelley Nielsen <kelleynnn@gmail.com>,
 	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm: make swapoff interruptible when unusing mms/shmem
-Date: Fri, 13 Nov 2026 14:34:31 -0500
-Message-ID: <20261113192840.2281715-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm: make swapoff interruptible when unusing mms/shmem
+Date: Fri, 13 Nov 2026 14:34:36 -0500
+Message-ID: <20261113192843.2333244-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202201-failed-5.15-740128dd1a3f@kernel.org>
-References: <20261109202201-failed-5.15-740128dd1a3f@kernel.org>
+In-Reply-To: <20261109202656-failed-5.10-740128dd1a3f@kernel.org>
+References: <20261109202656-failed-5.10-740128dd1a3f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -138,7 +138,7 @@ Cc: Ying Huang <huang.ying.caritas@gmail.com>
 Cc: Kelley Nielsen <kelleynnn@gmail.com>
 Cc: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context for pagevec and frontswap accounting while using the existing retval return path ]
+[ sashal: Adapted folio-batch context to page vectors while preserving frontswap accounting and the shared retval return path. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  mm/shmem.c    | 4 ++++
@@ -146,10 +146,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/mm/shmem.c b/mm/shmem.c
-index cc5b08d9802cf..04363ece9ecf6 100644
+index 6f2e267aa092f..8858db132090c 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -1285,6 +1285,10 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type,
+@@ -1305,6 +1305,10 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type,
  			}
  		}
  
@@ -161,10 +161,10 @@ index cc5b08d9802cf..04363ece9ecf6 100644
  	} while (true);
  
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 04f10e9c36c54..b8dcfdad0e7c7 100644
+index 9c32c0055cbb1..79b3f0d034a42 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -2039,6 +2039,8 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
+@@ -2048,6 +2048,8 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
  	pmd = pmd_offset(pud, addr);
  	do {
  		cond_resched();
@@ -173,7 +173,7 @@ index 04f10e9c36c54..b8dcfdad0e7c7 100644
  		next = pmd_addr_end(addr, end);
  		if (pmd_none_or_trans_huge_or_clear_bad(pmd))
  			continue;
-@@ -2275,7 +2277,7 @@ int try_to_unuse(unsigned int type, bool frontswap,
+@@ -2284,7 +2286,7 @@ int try_to_unuse(unsigned int type, bool frontswap,
  	if (READ_ONCE(si->inuse_pages)) {
  		if (!signal_pending(current))
  			goto retry;
