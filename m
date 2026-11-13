@@ -1,91 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794572598;
-	b=iOA5NWmc+VtnXJyBx8DIVSnZzIAFOFX13T32AMV2dkBlpEO8crs0Q/2e7/qdaSu4Zc2c
-	 fsUJXOKtLn0uBim7IOX2ee3dG9i0ixQO+u9bi2zj7IRL6T7R1jsccIamoTO4rz51W6+a4
-	 ZfNWJP2kbcfqWDSOQ1qOhbpDZWdAY6Q+DhpvA/GnK17BcopR+S9p0FGxBTZMhv5jrKEqu
-	 rYb/4r53NPAJZgtgUP3NS/Rn1UCXb/D0eEOkhdn6jbVaQES3ornWYPxZNtzpPdkcA5Ugh
-	 9yTB3zsM8O+u8KnCo0y9Lm/GPLvnD3kTt9s3J1M/njEVCBqJm7dF+E2F9qbEFTAwisw==
+	t=1794572811;
+	b=Lf2gE2o6SpxeZOYyvSKdjjSEbaXJvfS9PnG8oleGHM21xTBbdQaTob97l6gXgLzVIBq5
+	 lVtJS4tdYTY1QmBx2iyrn9kaAwDXHQrkINDacHco5W1+pJXEhlIHJ/lJe57ggp+pCmxGq
+	 kaIEOf4H/UKPnKsNMrWD+lkMlbFkW0EM3CakBtnVATK51a/6/zIjhgHnvHneunW9iymjo
+	 jEaHPN3rlRC5WUuZQneLHFOmImH2zR+9YPtF1VLewY3ZBl93AuKVdfGom6VKk63dg2ZYc
+	 jyH223+j+LoWmVWttYsk0xSDyjkmCUHC4kp2/Hh4g8+dxVm6MGEI4HiIR8WqP545+Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572598;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=zlDmTV1GyS6XuBCY2hY++G3SnplVZgYyAQRPIUWV5B0=;
-	b=X4KuVPDrAG4cAMF0S1eLviVF5eJnkKDM4WcwPzO9JBINQrILE/ggeuNe8pHSvRFwqiUa
-	 bRWfYwkbwGoquBglWrHwButAcSm0mxobI1Zro4PbJoAuxrgOR1Myiteg+B7h51isOvF3z
-	 YM2A1rfzyCJ6REzuv3rGhko6GQ78CcYF6vd3AKlx3RF/jf44IFc6JRpw6zLikkK9fyzpF
-	 VdU2yLbXO0eWi6BmLa+oFBYDOWL7pp5/Bd9vyuzd0MGl32WCHm0kT1GGkEUGl7QncAIeB
-	 KSEsvoj/s6tpNB2xkPRrFuoENkFAUIUYtXsObEOul7Do/PhrnB9FMf2zXI/Uzvqsi6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794572811;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eobFKjrLJjHUdQ8mUGpBnz0elePd02pD5nRTeCCKvgU=;
+	b=cwwGUP2T4kjD4sNAdfJkvsmMwIqK26tZX3UrRfeY+JXzVr+YyLQ7d66o7pAijd9DfH55
+	 O/hsFs241E4DnTB7Xjc6N6K69K05ANNfcAa3QRZ1UpbOGTPKzC+TJX5d3FLmcci/ZALtC
+	 pzOs11WozV/QgElxXWSYKbLntWpRGUdZwKGWv7ivvjRQsPnKGqKivZCtKwfaCus+sKD7a
+	 jjp65Kw1G5b6WCsdsyEEA0wvweoGvDhS0QXKhmcCs6cehCFCV68ms+3MRxnjtTxxF3Lou
+	 y3RW8/he0H+nDsLvBn0PmcEPUBjXEXzN5NzIqCaixak5Abd1OyQdwLBwJ7Ryr9FLZpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1KrE5AB;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eS+B0KgS;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC05606A33B
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 12:23:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CC05606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A45606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 12:26:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6A45606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1KrE5AB
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c40e30c26a4so210859166b.0
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 04:23:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794572597; x=1795177397; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zlDmTV1GyS6XuBCY2hY++G3SnplVZgYyAQRPIUWV5B0=;
-        b=S1KrE5ABtnYaepR+FK1FFhl7eOTHfgezF48bLy8QKtPcPYFsnBGVD9wlPzV+sqnRSv
-         5IYADCj4BGpeYO+rPwgkIeydufu4K1Xu54deyrBcHabL1YY/VNvnWsyN2VIzq6/aOvNN
-         kN9RcCmiHIZQiyMTPxpvuK2ATRx9uCGD26ENwlQ5u1CdVuzIlG320xsurSG+Ou/XbXxk
-         KAf4jjO0CEcP9TPYIBXHQ/Bw299p0qBCgcunkhanpFQarVArKI29EoZuAg8H17N1M1YZ
-         Bbw0S477+HJNz0UKYFllU1SUkf0p+XL8MCx7QUg/5JJ9bJ7NsQWXrI2Da+hNxjJkXVVN
-         d2HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794572597; x=1795177397;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zlDmTV1GyS6XuBCY2hY++G3SnplVZgYyAQRPIUWV5B0=;
-        b=X97pEcessp/4RGW4nduY9UunKuFSG+rtlKpK8KKfyT0jv/xohbvJ/0YX7rHnmK5DpZ
-         /pCnQgb5DnGUd1zqNrLsMoEHZrlmF+c/Nm/IRs/Cj7gjntu/9z4oOt9vZ3as2Lk66Tpk
-         6XIspiCEvo+i0sL5c9Jukq/n+RY605SMDZqLRpBkf8CQ6iiIodMCwe/Fl1LPx7KjilKV
-         ZbaEAwubXBJYVCiuYamUR8jPXDrWUuER2AuwRIAIroRZh68gSjxmiRSp4jgBTmmThwsc
-         +Iu0Wf6j+hBUrx75+dpoVR3d8qLRtTIwKf2+GOaLOKlGMNWqBMO0iILll9cGB/d6hFNg
-         xFjg==
-X-Forwarded-Encrypted: i=1; AL+hErEo8uQBrWL2SQb/p2Vib8cWfb0k32i+tORwPQyXhkCNAqWlA4LS+K48ZhL9KtfrJXTMeSILfBU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cZDI/wovSMPtSKN1Ww3EqP1ORTueR6XxrYLKPYDIe1pQ5vgs/
-	6zPIFaoqTPme+5JQe7ZQyGEC/CzcDBXWjk1lwv1rzrzInPyBTvOVae38
-X-Gm-Gg: AYBFou1kapDyNMKnzP7c1D35tdPhrceEpH0NoXF+GvGQ4jHunJrtlRiIKbWSzT5ir4x
-	w3btkYMYquuHzN2XQxgrN7mYWEVAFwVZGNiH8YWyOXETTNJindZg2XK+ZQ2AN6jk9goN9BQO3Ex
-	nsiEkPe/svko4xSToQzvNH0XlITTbcO5c2tGqp0Wga2FyC7Dl4I/WO6rjioB/JMafkOhoJ/mHe7
-	0xNrIhlBEaNm3JCJCbGPTGFd7Bj/IsFRXmCCi2QYNxkOT59iup3d2pHTMF5h8cc61E2s+PGHGzT
-	gcRP5QgpPlhnFLiKQrElt73SPUClkB3zr6ZGHvgN8wr0CvvUwtb4+AcFkf1xBSik1pZfaAYGXch
-	d1EFf2rH22ojhZVsXU5lb8VXWliE9AzYYSRqL7O3jdlVFRM+FzWNgtsmEuJ0NSoIFC0l1Bk6Kv6
-	zVmWBQqEn4pQP9OTV4utVovSwNhwWjI+Rd19iYBnOoSLDKU2gma4d4EDYaoj2e6jXCao9tk2QAI
-	p1wH98M6fbdFoZA0nrLytpqAvjrcfLaAkle69qHI0ulryy5AtxQCMF/YlAZUGYJTAuUAUCFMEH7
-	LQoeJWaw6Th1mw0TmMisZTqepnRcd9N1c85YaXrWHRWtq8oTTOOwyeCuLPfpeoXamYUKOQ==
-X-Received: by 2002:a17:907:3f8d:b0:c46:8b87:c212 with SMTP id a640c23a62f3a-c50963bba0cmr238279566b.20.1794572596311;
-        Fri, 13 Nov 2026 04:23:16 -0800 (PST)
-Received: from localhost ([188.146.170.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b780d6sm85244266b.67.2026.11.13.04.23.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 04:23:15 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:23:14 +0100
-From: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-To: linux-media@vger.kernel.org, mchehab@kernel.org, mkrufky@linuxtv.org, 
-	mkrufky@kernellabs.com
-Cc: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	stable@vger.kernel.org, media-ci@linuxtv.org, patchwork@media-ci.org
-Subject: [PATCH v2] media: mxl111sf: initialize state->d and fe_lock in probe
-Message-ID: <ng3o2if45f7ooswkxqvgh2rmq6vwptmtpfcuwty5wfsmngs2ld@urxpogq5omhe>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eS+B0KgS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794572811; x=1826108811;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=v5TPKGzUH3cTpq0dBCUcvvSRfCucQQqopiBs1cAvyfs=;
+  b=eS+B0KgSAsRVh9wYhESILXHmLathSrCEj9XQQ+ym69vQ6UZfcTCxT+xA
+   Et+lSpPRxV84plwvAddhh6+bwGHrFGbW7SuvEzjK5TL0GMPsTcdIwak7o
+   8WXHEmhNSQ3XQobY5uLPVO0lHmLChf37oyhzH8cbkBkHHS/HD3O1Re/Z+
+   4jZ+fQjdk+uq1JaDjWLKYDtCRqfebtAzPVWxNa0dYyJ/yNcgU4Fo65qIG
+   x3O3q1usAuDRXrwSzLJ+m5qPQFGeHLGP4dJfTX6dUnmXuAWF+n2yC7h55
+   MiQWlkbLUoTkEzF91/Iccxv9coP20WqN7dfDibMldxUScg+n8C2blCRvz
+   A==;
+X-CSE-ConnectionGUID: ZL/6gEibTQOrLCqXXi21og==
+X-CSE-MsgGUID: vuvFnv/hSsGAZmKNWRBCNQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3242550"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3242550"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:26:51 -0800
+X-CSE-ConnectionGUID: ps6VLt46SFeDH1SNEqf4zA==
+X-CSE-MsgGUID: KwlBM1DlQl6+pnibIp3bKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9243326"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:26:48 -0800
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com,
+	suraj.kandpal@intel.com,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/i915/bios: Add quirk to allow eDP joiner on ASUS ROG Strix SCAR 18
+Date: Fri, 13 Nov 2026 17:41:06 +0530
+Message-ID: <20261113121106.3241899-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
+References: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,153 +83,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-During device initialization in dvb_usbv2_probe(), the dvb-usb-v2 core
-allocates the dvb_usb_device structure and its private state (struct
-mxl111sf_state) via kzalloc(), then invokes dvb_usbv2_init(). Within
-dvb_usbv2_init(), dvb_usbv2_i2c_init() registers the I2C adapter with
-i2c_add_adapter(), which immediately exposes the I2C adapter to
-userspace via the /dev/i2c-X character device.
+On Arrow Lake, VBT defaults the eDP pipe joiner enable bit to
+disabled, and commit 650471948e49 ("drm/i915/dp: Avoid joiner for
+eDP if not enabled in VBT") made the driver honor that default.
 
-However, state->d was only assigned later during frontend attachment
-inside dvb_usbv2_adapter_frontend_init() via
-d->props->frontend_attach(). If userspace performs an I2C transaction
-before frontend_attach() completes, mxl111sf_i2c_xfer() delegates to
-mxl111sf_ctrl_msg(), which reads state->d and passes it to
-dvb_usbv2_generic_write() or dvb_usbv2_generic_rw(). Since state->d is
-still NULL, dereferencing &d->usb_mutex inside dvb_usbv2_generic_write()
-triggers a null-pointer dereference crash. Although the crash report was
-captured in compat mode with PTI, the failure is illustrated by the
-following x64/NOPTI trace:
+On the ASUS ROG Strix SCAR 18 (G835LXG), the bit in VBT is left to
+the platform default instead of enabling it, even though the
+3840x2400@240Hz panel requires the joiner to reach its native
+mode. As a result the mode is pruned and the panel is limited to
+120Hz.
 
-Oops: general protection fault, probably for non-canonical address
-0xdffffc0000000018: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x00000000000000c0-0x00000000000000c7]
-RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
-RIP: 0010:__mutex_lock+0x149/0x1550 kernel/locking/mutex.c:821
-Call Trace:
- <TASK>
- dvb_usbv2_generic_write+0x26/0x60
- drivers/media/usb/dvb-usb-v2/dvb_usb_urb.c:77
- mxl111sf_ctrl_msg+0x160/0x2f0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:73
- mxl111sf_write_reg+0xa9/0x1b0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:123
- mxl111sf_i2c_start drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:130
- [inline]
- mxl111sf_i2c_sw_xfer_msg drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:-1
- [inline]
- mxl111sf_i2c_xfer+0x463/0x5060
- drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:813
- __i2c_transfer+0x7bf/0x1fe0 drivers/i2c/i2c-core-base.c:-1
- i2c_transfer+0x1cb/0x2d0 drivers/i2c/i2c-core-base.c:2350
- i2cdev_ioctl_rdwr+0x460/0x740 drivers/i2c/i2c-dev.c:306
- i2cdev_ioctl+0x6a5/0x880 drivers/i2c/i2c-dev.c:467
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
- </TASK>
+Since the VBT bit cannot be relied upon globally for ARL (it is
+needed to block the joiner on at least one other machine), add a
+machine-specific quirk, to bypass the VBT restriction and allow the
+joiner on this machine.
 
-Additionally, state->fe_lock was initialized in mxl111sf_init() (called
-via d->props->init()), which runs after frontend attachment, leaving the
-mutex uninitialized during frontend registration. Although the reported
-I2C fault does not demonstrate a frontend lock race, fe_lock should also
-be initialized before frontend registration.
+v2: set panel->vbt.edp.pipe_joiner_enable directly in intel_bios.c
+(Jani)
 
-Fix this by setting state->d = dev and initializing state->fe_lock in
-mxl111sf_probe(), which runs before dvb_usbv2_init() registers the I2C
-adapter or attaches frontends. Furthermore, remove the redundant
-mutex_init(&state->fe_lock) from mxl111sf_init() and the redundant
-assignments of state->d in the frontend attach functions.
-
-Fixes: 4c66c9205c07 ("[media] dvb-usb: add ATSC support for the Hauppauge WinTV-Aero-M")
-Cc: stable@vger.kernel.org
-Assisted-by: Gemini:gemini-3.8-flash syzbot <syzbot@kernel.org>
-Reported-by: syzbot+f9f5333782a854509322@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f9f5333782a854509322
-Link: https://syzkaller.appspot.com/ai_job?id=c5284b5c-3f14-4e95-a4b7-6ee38f0d2e1f
-Signed-off-by: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-
+Fixes: 650471948e49 ("drm/i915/dp: Avoid joiner for eDP if not enabled in VBT")
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: <stable@vger.kernel.org> # v7.1+
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16854
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
-Changes since v1 (10 Nov [PATCH]):
-- Add stable Cc to the commit trailers and mail recipients.
-- Add the syzbot mailbox to Assisted-by after Media CI could not
-  parse the original value as an email address.
-- Rewrap the commit description. The code diff is unchanged.
+ drivers/gpu/drm/i915/display/intel_bios.c   |  5 +++++
+ drivers/gpu/drm/i915/display/intel_quirks.c | 13 +++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+ 3 files changed, 19 insertions(+)
 
-The earlier RFC v3 carried the same code diff.
-
-diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-index 6404eb74d..fc4010b6e 100644
---- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-+++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-@@ -431,8 +431,6 @@ static int mxl111sf_lgdt3305_frontend_attach(struct dvb_usb_adapter *adap, u8 fe
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 7b6a6f8c3cf1..b77d1599482a 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -41,6 +41,7 @@
+ #include "intel_display_types.h"
+ #include "intel_display_utils.h"
+ #include "intel_gmbus.h"
++#include "intel_quirks.h"
+ #include "intel_rom.h"
+ #include "intel_vdsc.h"
  
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -502,8 +500,6 @@ static int mxl111sf_lg2160_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -587,8 +583,6 @@ static int mxl111sf_lg2161_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -674,8 +668,6 @@ static int mxl111sf_lg2161_ep6_frontend_attach(struct dvb_usb_adapter *adap, u8
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -749,8 +741,6 @@ static int mxl111sf_attach_demod(struct dvb_usb_adapter *adap, u8 fe_id)
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 1 : 2;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -935,8 +925,6 @@ static int mxl111sf_init(struct dvb_usb_device *d)
- 	if (mxl_fail(ret))
- 		pr_err("failed to get chip info during probe");
- 
--	mutex_init(&state->fe_lock);
--
- 	if (state->chip_rev > MXL111SF_V6)
- 		mxl111sf_config_pin_mux_modes(state, PIN_MUX_TS_SPI_IN_MODE_1);
- 
-@@ -1068,7 +1056,9 @@ static int mxl111sf_probe(struct dvb_usb_device *dev)
- {
- 	struct mxl111sf_state *state = d_to_priv(dev);
- 
-+	state->d = dev;
- 	mutex_init(&state->msg_lock);
-+	mutex_init(&state->fe_lock);
- 	return 0;
+@@ -1575,6 +1576,10 @@ parse_edp(struct intel_display *display,
+ 	if (display->vbt.version >= 261)
+ 		panel->vbt.edp.pipe_joiner_enable =
+ 			panel_bool(edp->pipe_joiner_enable, panel_type);
++
++	/* Some machines need the joiner regardless of what VBT says */
++	if (intel_has_quirk(display, QUIRK_ALLOW_EDP_JOINER))
++		panel->vbt.edp.pipe_joiner_enable = true;
  }
  
+ static void
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 96eb9a40df9b..613a847184db 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -108,6 +108,16 @@ static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
+ 	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n");
+ }
+ 
++/*
++ * VBT on some machines defaults the eDP pipe joiner to disabled even though
++ * the panel requires it to achieve its native mode, so allow it regardless.
++ */
++static void quirk_allow_edp_joiner(struct intel_display *display)
++{
++	intel_set_quirk(display, QUIRK_ALLOW_EDP_JOINER);
++	drm_info(display->drm, "Applying allow eDP joiner quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -270,6 +280,9 @@ static struct intel_quirk intel_quirks[] = {
+ 
+ 	/* Xiaomi Book Pro 14 2026 */
+ 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
++
++	/* ASUS ROG Strix SCAR 18 G835LXG */
++	{ 0x7d67, 0x1043, 0x3b29, quirk_allow_edp_joiner },
+ };
+ 
+ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 4996419ae76b..c64d0fc39905 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -24,6 +24,7 @@ enum intel_quirk_id {
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
+ 	QUIRK_ENABLE_DPCD_BACKLIGHT,
++	QUIRK_ALLOW_EDP_JOINER,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
+-- 
+2.50.1
 
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
