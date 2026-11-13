@@ -1,87 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794600096;
-	b=n0GCVAjkbCrjqv4BwiUH5vb+o3hllnfVzIE8Vwf+7DVLDJnD0nUFxeq8bxI9IS41qnT9
-	 hdI/OjVPu0h++ss+6ck8mS2pGDo59NGS4zPDS+1VCy7xKafP9Bg16u//sJw2/4uNhISJm
-	 opfgTBKq+4j9KBuQrXVTzLo1UgR+NFZK1Y9b4ddPav+9VJesy2uVAAXqIJ3BGv1Um2IiG
-	 9C5oRt+b7QWplXQn/CTpHQOKhwP/oce4DLE9HgGZtEPVsZ6r07QNyJHSTt40db3pE/pKf
-	 6n8b0u1WvnHTC+KO6ovDvePSAQS6Qrxn1Fnn4z/Aj2nCfgHtcpM68tqFKMbRfnYhblg==
+	t=1794600142;
+	b=dAx4H6OxMStBc2dNepjD+qs5xLulc2WDsvRToiURg8DFQMl2YBZPIs4pRMKFns/nyO19
+	 7btg+FeXeKWD20p+nGnvk+2btYswIbU1L3Vq7z/jk5pp+nyPxw/s6N0VpErOzMaNuItGC
+	 H6hw8bThZsS7uUs845rV4hTqOY/ZM7dtxGnGHFmvlQi4JBLJBfKGLyM1ROd5gggSw27N6
+	 ToqzK0ZCb0MP4OglssAJCT0WzkqsgUnKuQtjLoY5DyupfZUpbg8ftkcOuQnoE7nCwyz4e
+	 PunFGxLvkyVzgGMn/hpWMIMfZLrCXJzKuqtqRkUsqkVQUHOL9piHBUVOIYUXL/Zq67Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600096;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=EC9RASKFPMm8luP0GQ/7tSz6vapPp12uuDlPtIQw68s=;
-	b=Hc/aziRaEXseDdV8FSq9j5gZS9TlgOuol/RhckkRXzRImAme19RkSdD+lALcBe8zAdQS
-	 KXvWBF44jUGpoCy8IVCPPMWLtADHICbS1jrKYap0MjDhEukpYn1Fkq4ewNHuGSViiPkL+
-	 WmI55o5lBtH9b7tZ7vZuECjmi7w+ldqCRFS7GZAU5l8H4fv6306kmmUtGbV6st0fENlW7
-	 yq7iMz/r1whtTml5xLaaYFNiW0Lgy9rqUX7ln/LUKVLEdL+o+y/X3YW1Qfzf5fgUxrAXU
-	 P9DgeE1bMV1fiSLTpYleKO+jtK3zR0OoufpP4gX1XDo21ZGk+eV/ACud/VHHCr46FVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794600142;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=EfTMf5rCngV87O4gBtlbh3ZrxE+BKQpmcSO0vkCYsYo=;
+	b=gBn19jD9qLiQqPvno+WlR+a8es02kIKdwROc+fAKMTz9Ppd/Y0fLXrQacU/VPBzK4Qme
+	 yQ/P/ID5hlPTJrAW6SNTOJmRtSXi3CispFi4+js7Qie/E5CkdSpiSLbBpM9ReGr7ynNoF
+	 iM/NSaCz+s60cWDz1jbd8z2kIFNk4T6s53J87P3N3ZdLAjZsfFiNKye6XASGHGZMh/rnd
+	 KGn7HDquZ9nH7yYGI+0P7/VQQ46f0EbQ+RPEzIphtpI7nZ/MKcmvDgDqsL8ouOb3H67B6
+	 nbc504aIu/1WW9YUILWy/QoyNT3hCmCP88LhLonnmgBdzXrdx1//zD6S7DhD8vAO6xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudflare.com;
-	spf=pass smtp.mailfrom=cloudflare.com;
-	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b="Ii/Q4AtR";
-	arc=none smtp.remote-ip=209.85.161.53
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVefDKLD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1601D606A887
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 20:01:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1601D606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0B8606A880
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 20:02:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=Ii/Q4AtR
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-71ac798b8bbso541741eaf.1
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 12:01:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1794600094; x=1795204894; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EC9RASKFPMm8luP0GQ/7tSz6vapPp12uuDlPtIQw68s=;
-        b=Ii/Q4AtR+Ka3hto0ms2y390aqMzxmLu8CN8YPpbROMpPT+7mBlffjgccAy64QexD1m
-         /wWxNx6PzyyD5aohb8jfcva8gy9MyZXidbtNC1cwD6YAZVGUoTZZQ5FnfaJU7nGRVbJH
-         5mQuFodpF8yl+6lV00hZvs4Mei6pwi08rBiYYW0TMaR4Ei+hXMM4a5jzlVMh3zVhSu9N
-         +vu2lQb6Qt2o8BF28jOcaBSPdR2OAtepAjhGIwpWdWGMrAThWgFkzHRp7WM1ecEj9EXg
-         5Z1YsiPTERo1fqy8klWRT941zWFNbUa/4sbuz90bdILGzYqVlGsnaTwCB95v5Ok593YO
-         xKDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794600094; x=1795204894;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=EC9RASKFPMm8luP0GQ/7tSz6vapPp12uuDlPtIQw68s=;
-        b=yBdHatvS+26+UlUSYbvCE5aX+7hfMRYRQuuPvZFbv2dxTgQ3M+XHAOGb/TCdvPqs2X
-         LDo/T6ydRVMfXYgctAat4IlJyIVd2DEgK0tHPNCU5+W8xXuoji95v+YVeYcwirWXSZVS
-         2IBSlj1L7mGBud3tsxWHT1d5Mrjy72y8oSwJdNTZyJs48bC8s2iz1fidFTzzurDtkSYz
-         FfNpf29GX7RC4rpsqtc7xhaFnX3d1gtEP4qZ4SOvSLuVNPQZTnf8sz6V6lIrDLu/7mdz
-         co4Wn2d+1A27N7bnMVZ/vIkIN6A0iZriu2kHrBElYtVP9vzsttYdgWHjYK6JG8K6u6cd
-         Izag==
-X-Gm-Message-State: APuU4Z9u/eyk5gRaOwtDb2FOeqDnnbo/7SMZ7XE7qGAzMYUaE3s/wIOb
-	Pr4SV0MhVTCD6l8psufKJllRFvQXdi9tgwaTTgmNxnFP5qfChrHZUGqaFm9CawrVJXc=
-X-Gm-Gg: AYBFou1kC3Uzc8Y5thW9L6AtGHaIXPAP31h3HrpBs+/dhGmx5L6xyuSIp64WLcbOeh1
-	5N/cLu3pRaNZ2aXETLPfzqghVc5yyeOp6stmPUWogFF04UObkHuuH2NQ7cgOi+pqS/ZUg56zJBa
-	z3XMirUKOTj3e4CuqvHs/n3uQGbsfnXNL6YLpT8G1B5hclcKP1BBhhFfbSn6EBwPNgotqI0B29Z
-	PIB/L3xw05Ydl91srVqgQK+h2gQdpE1OxErWNs3g3OBhdB5NK9dICIhR5ut0FDKx+wY+Q2hFjGx
-	rKGA41Yuad0IZD+xhwIMV7ljFNeXMM5d+Y1tgtejVSi94SwrxzUdsqmcuMxN2Kxc9CNUYRjX8Hu
-	WO4wOvTZAASSSt6z6Mupu29AN5BUltzhAaeTcmp3HZTz4RBWuHbJzqPP7j6wIhamfLKvDdNLZva
-	GpCVBviRVjoQTHnM0rF/ACAifMGRhQgKIJriw0sxnz8RCxieS3mAHaJXDORMMZRMutBSiuzTVGo
-	SuWoFUbGSy3yOsQ3xq06sEWyViiSPDDVoitUqHECWjTKxhQEMoxWGsSyr1Y2b/raa3ENLh7bEdo
-	2x/JOMtMIgcuv77Amuw3MevvHE5r/gyn5yihR6A=
-X-Received: by 2002:a05:6820:1355:b0:716:d710:3d6b with SMTP id 006d021491bc7-71ab5083d31mr2286905eaf.49.1794600093872;
-        Fri, 13 Nov 2026 12:01:33 -0800 (PST)
-Received: from [127.0.1.1] ([2a09:bac6:bf21:1923::281:18])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab428b337sm2590808eaf.4.2026.11.13.12.01.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:01:32 -0800 (PST)
-From: Chris J Arges <carges@cloudflare.com>
-Date: Fri, 13 Nov 2026 14:01:23 -0600
-Subject: [PATCH 7.3.y] net: Use a dedicated flag to track disabled napi
- instances
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVefDKLD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA5B1F000C5;
+	Fri, 13 Nov 2026 20:02:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794600141;
+	bh=EfTMf5rCngV87O4gBtlbh3ZrxE+BKQpmcSO0vkCYsYo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YVefDKLDfu4eZReMBmwdOv9vF90BnYsWc7xoe2u7vx0yiZPhM1zOtQaNYJhoX0xij
+	 QT53275giIqPFkYu2T2VWuit/kuWHildgOCplLM1yvTtuBpt+nfZOYUf7kolPJtsgH
+	 JFGl0rdOViuu3oLXmlgDVkQrRk2T0Guy7c6y8aEuYXNuFGBMTgCCOjrC1ne6eyS73R
+	 uP59NddsTlfFR2v4i5yjJ13DpxPBQjARyekBWVz7hkQqqpluT8TjsITYx8lA9pUZmn
+	 Tv1gTjva8QaGsevN+v3syTnbO1rN+3qbNtE2v4KDi738W1x5k3HVPwqzXCoR/TkxOv
+	 JkR2rY4S1iuow==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ksmbd: let the owner read and change the DACL when no ACE names it
+Date: Fri, 13 Nov 2026 15:02:19 -0500
+Message-ID: <20261113200148.2481477-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200250-failed-6.18-ffc855fe16af@kernel.org>
+References: <20261109200250-failed-6.18-ffc855fe16af@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,173 +59,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-napi-disabled-backport-7-3-v1-1-99560caf8bca@cloudflare.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw7CMAwA0atUXuMqbgpFXKVikY8BA0qjuCBQ1
- bsTYDmzeAsoF2GFQ7NA4aeoTKkGbRoIF5fOjBJrQ2e6HRFZTC4LRlHn7xzRu3DLU5lxQItmS73
- ZO2Ni76ECufBJXj98hKG17RuO/60Pf+Uwf2FY1w89Vmd0hQAAAA==
-X-Change-ID: 20261113-napi-disabled-backport-7-3-051408a00d4b
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Samiullah Khawaja <skhawaja@google.com>
-Cc: netdev@vger.kernel.org, kernel-team@cloudflare.com, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org, 
- Daniel Machon <daniel.machon@microchip.com>, 
- Chris J Arges <carges@cloudflare.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openssh-sha256; t=1794600090; l=5274;
- i=carges@cloudflare.com; h=from:subject:message-id;
- bh=Jv9QV00aR+M1g59jP00fdAw8leVncE+PrUsMH8483fU=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
- 9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QHlTpd5TAUpqR3hrf1Ua/ezmcrYrnH8wNvJmqTGKyAi2ptxR/RiI41qfut245SFSLyRaNhYhLWH
- B/NoHh+0KCgY=
-X-Developer-Key: i=carges@cloudflare.com; a=openssh;
- fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
+Content-Transfer-Encoding: 8bit
 
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+From: Ian Bridges <icb@fastmail.org>
 
-commit 8dc87fc5d6a0eb337744737008177342a708bf36
-("net: Use a dedicated flag to track disabled napi instances") upstream.
+[ Upstream commit ffc855fe16afe02b22305111aa68cd8d07360941 ]
 
-Trying to disable the napi threaded state while the napi instance is
-disabled will hang forever in napi_stop_kthread(), as it waits for
-NAPIF_STATE_SCHED_THREADED to clear.
+smb_check_perm_dacl() refuses the owner when neither its DACL lookup nor
+the POSIX ACL fallback matches. The owner then cannot read or replace
+the DACL over SMB. MS-DTYP 2.5.3.2 grants the owner READ_CONTROL and
+WRITE_DAC unless an OWNER RIGHTS ACE applies.
 
-This won't happen until the next ____napi_schedule() call, which won't
-happen as it's disabled.
+An empty DACL allows the owner's explicit requests for these rights but
+refuses MAXIMUM_ALLOWED. smb2_open() uses that check for the maximal
+access reply (MS-SMB2 3.3.5.9.5), so even a READ_CONTROL open fails when
+it asks for that reply.
 
-This happens in 2 instances :
+Grant the owner's implicit rights on both paths, for explicit requests
+and MAXIMUM_ALLOWED, unless an OWNER RIGHTS ACE applies.
 
- - Drivers that create but don't use napi instances (stmmac's rxtx napi
-   for AF_XDP for example), here it's a driver bug
-
- - Drivers that create their napi instances in .probe(). Here, setting
-   threaded off while the interface is down will hang :
-
-   ip link set eth0 down
-   echo 1 > /sys/class/net/eth0/threaded
-   echo 0 > /sys/class/net/eth0/threaded
-   -> hang
-
-Checking on netif_running() isn't enough, as napi instances may be
-transiently disabled when changing the MTU for example, let's use a
-dedicated flag to track if the instance is disabled.
-
-This allows immediately disabling the kthread when the instance is
-disabled.
-
-This was tested on mvpp2 (probe-time napi_add) and stmmac.
-
-[ Backport: place the disabled state after the threaded busy-poll state;
-  the adjacent per-CPU NAPI state is not present in 7.3.y. ]
-
-Fixes: 689883de94dd ("net: stop napi kthreads when THREADED napi is disabled")
-Tested-by: Daniel Machon <daniel.machon@microchip.com>
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Link: https://patch.msgid.link/20261029153130.121204-1-maxime.chevallier@bootlin.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Chris J Arges <carges@cloudflare.com>
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: added the missing sid_owner_rights definition required by the upstream patch ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Backport upstream commit 8dc87fc5d6a0 ("net: Use a dedicated flag to
-track disabled napi instances") to 7.3.y.
+ fs/smb/server/smbacl.c | 37 +++++++++++++++++++++++++++++++++----
+ 1 file changed, 33 insertions(+), 4 deletions(-)
 
-The commit fixes a reproducible hang in napi_stop_kthread() when
-threaded NAPI is turned off while the NAPI instance is disabled. The
-sysfs writer holds the netdev instance lock while waiting, which can
-also block device recovery.
-
-The upstream patch does not apply cleanly because the adjacent per-CPU
-NAPI state is not present in 7.3.y. Place the new disabled state after
-the threaded busy-poll state; the functional changes are unchanged.
----
- include/linux/netdevice.h |  2 ++
- net/core/dev.c            | 15 +++++++++++++--
- 2 files changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 3e64af0b932d..02119fa153c9 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -433,6 +433,7 @@ enum {
- 	NAPI_STATE_SCHED_THREADED,	/* Napi is currently scheduled in threaded mode */
- 	NAPI_STATE_HAS_NOTIFIER,	/* Napi has an IRQ notifier */
- 	NAPI_STATE_THREADED_BUSY_POLL,	/* The threaded NAPI poller will busy poll */
-+	NAPI_STATE_DISABLED,		/* NAPI is disabled */
- };
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 63f7bccb4d9af..3ae4f83202f4e 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -27,6 +27,9 @@ static const struct smb_sid creator_owner = {
+ /* security id for everyone/world system group */
+ static const struct smb_sid creator_group = {
+ 	1, 1, {0, 0, 0, 0, 0, 3}, {cpu_to_le32(1)} };
++/* security id for owner rights */
++static const struct smb_sid sid_owner_rights = {
++	1, 1, {0, 0, 0, 0, 0, 3}, {cpu_to_le32(4)} };
  
- enum {
-@@ -448,6 +449,7 @@ enum {
- 	NAPIF_STATE_SCHED_THREADED	= BIT(NAPI_STATE_SCHED_THREADED),
- 	NAPIF_STATE_HAS_NOTIFIER	= BIT(NAPI_STATE_HAS_NOTIFIER),
- 	NAPIF_STATE_THREADED_BUSY_POLL	= BIT(NAPI_STATE_THREADED_BUSY_POLL),
-+	NAPIF_STATE_DISABLED		= BIT(NAPI_STATE_DISABLED),
- };
+ /* security id for everyone/world system group */
+ static const struct smb_sid sid_everyone = {
+@@ -1466,6 +1469,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	int i, found = 0;
+ 	unsigned int access_bits = 0, denied = 0;
+ 	struct smb_ace *others_ace = NULL;
++	bool or_ace = false;
+ 	struct posix_acl_entry *pa_entry;
+ 	unsigned int sid_type = SIDOWNER;
+ 	unsigned short ace_size;
+@@ -1498,6 +1502,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
  
- enum gro_result {
-diff --git a/net/core/dev.c b/net/core/dev.c
-index cc7b32ab5608..0e0a11ba2ada 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -7264,6 +7264,13 @@ static void napi_stop_kthread(struct napi_struct *napi)
- {
- 	unsigned long val, new;
- 
-+	/* Instance is disabled, we can immediately stop the kthread */
-+	if (test_bit(NAPI_STATE_DISABLED, &napi->state)) {
-+		clear_bit(NAPI_STATE_THREADED, &napi->state);
-+		clear_bit(NAPI_STATE_THREADED_BUSY_POLL, &napi->state);
-+		goto stop;
-+	}
+ 	if (!pdacl->num_aces) {
++		unsigned int allowed = 0;
 +
- 	/* Wait until the napi STATE_THREADED is unset. */
- 	while (true) {
- 		val = READ_ONCE(napi->state);
-@@ -7294,6 +7301,7 @@ static void napi_stop_kthread(struct napi_struct *napi)
- 		msleep(20);
+ 		/*
+ 		 * An empty (present, zero-ACE) DACL grants no access to
+ 		 * anyone except the object owner's implicit READ_CONTROL
+@@ -1506,9 +1512,14 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		 * not let trailing bytes after a zero-ACE DACL become an
+ 		 * implicit grant.
+ 		 */
+-		if (!is_owner ||
+-		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
++		if (is_owner)
++			allowed = READ_CONTROL | WRITE_DAC;
++		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++			requested |= allowed;
++		if (!allowed || requested & ~allowed)
+ 			rc = -EACCES;
++		else
++			*pdaccess = cpu_to_le32(requested);
+ 		goto err_out;
  	}
  
-+stop:
- 	kthread_stop(napi->thread);
- 	napi->thread = NULL;
- }
-@@ -7689,6 +7697,7 @@ void netif_napi_add_weight_locked(struct net_device *dev,
- 	napi->list_owner = -1;
- 	set_bit(NAPI_STATE_SCHED, &napi->state);
- 	set_bit(NAPI_STATE_NPSVC, &napi->state);
-+	set_bit(NAPI_STATE_DISABLED, &napi->state);
- 	netif_napi_dev_list_add(dev, napi);
- 
- 	/* default settings from sysfs are applied to all NAPIs. any per-NAPI
-@@ -7725,7 +7734,8 @@ void napi_disable_locked(struct napi_struct *n)
- 			val = READ_ONCE(n->state);
+@@ -1585,6 +1596,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 			found = 1;
+ 			break;
  		}
- 
--		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC;
-+		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
-+		      NAPIF_STATE_DISABLED;
- 		new &= ~(NAPIF_STATE_THREADED |
- 			 NAPIF_STATE_THREADED_BUSY_POLL |
- 			 NAPIF_STATE_PREFER_BUSY_POLL);
-@@ -7770,7 +7780,8 @@ void napi_enable_locked(struct napi_struct *n)
- 	do {
- 		BUG_ON(!test_bit(NAPI_STATE_SCHED, &val));
- 
--		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC);
-+		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
-+			      NAPIF_STATE_DISABLED);
- 		if (n->dev->threaded && n->thread)
- 			new |= NAPIF_STATE_THREADED;
- 	} while (!try_cmpxchg(&n->state, &val, new));
-
----
-base-commit: 7595a62d45ee1a2297eafa5f2ef5d0a45142d84d
-change-id: 20261113-napi-disabled-backport-7-3-051408a00d4b
-
-Best regards,
---  
-Chris J Arges <carges@cloudflare.com>
++		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
++		    !(ace->flags & INHERIT_ONLY_ACE))
++			or_ace = true;
+ 		if (!compare_sids(&sid_everyone, &ace->sid) ||
+ 		    !compare_sids(&sid_authusers, &ace->sid))
+ 			others_ace = ace;
+@@ -1629,8 +1643,23 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		if (others_ace) {
+ 			ace = others_ace;
+ 		} else {
+-			ksmbd_debug(SMB, "Can't find corresponding sid\n");
+-			rc = -EACCES;
++			unsigned int allowed = 0;
++
++			/*
++			 * No ACE names the owner, who may still read and
++			 * change the DACL unless OWNER RIGHTS applies
++			 * (MS-DTYP 2.5.3.2).
++			 */
++			if (is_owner && !or_ace)
++				allowed = READ_CONTROL | WRITE_DAC;
++			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++				requested |= allowed;
++			if (!allowed || requested & ~allowed) {
++				ksmbd_debug(SMB, "Can't find corresponding sid\n");
++				rc = -EACCES;
++				goto err_out;
++			}
++			*pdaccess = cpu_to_le32(requested);
+ 			goto err_out;
+ 		}
+ 	}
+-- 
+2.53.0
 
