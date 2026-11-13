@@ -1,47 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794571927;
-	b=Z59hZxTim2rr0m5jqJLAfW/FmE/WLxxhERHo7HRLtvI+Kw2vii356kFl+DkudEdMbXPH
-	 qCwZvbDnzdxDbJXn9eSbZj+l95XIZjFGNieMH/mz1kO5ozf1d6ce5UmhcK3Jt3Unz925I
-	 jRKV+YMMgwKS38lBj3emOy3ggjyrV4wrfYyItwVM0go/+pZcrJ4ApHqmQOJGLyoXBnnDZ
-	 w7mV6MyVNmY4kpDKPGZQV0cOItY0d6JMC+HbXHoYETplyPh9Vzs8b5qHHAKj3wgjjiPeZ
-	 4l41gT+uCK6cBH1w34YYp4fhBUYjDCF4EyqDD1DD8LkgG3Pn9lUyS8GTZ/P3YUF6WMw==
+	t=1794572013;
+	b=Oc4HI3JCtjKe0sFCsHn9B0jp/xgi96J5ANMvEXWQQWoBV7ngyH+DQDiYsz0VfCDsVaee
+	 mje8wfoTJGMJBeONEOOFKmbV0d+Z04Mk10zmL5Om7YeJMvkxP9wkZl50f6s0Mt3xmOeuK
+	 EjeRjwZpuBchApqu+X78Jq45yaGLGiS4v1dzmrtoVm2dz+a7NVJAB+/bSZLSQDOLfQdMi
+	 2IZg0NWZXzWg0CznsZQua4gbciMcA9i9wjLRWnetXQW2Uy1uSLTn8DquDNEBmU/tvcxD9
+	 SOrYR640Rp/Z7BrGajVAtNU8OZ1MpvWlM9sBFkDQigLtyHujc8ghoCC5jXsyGwDrvjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794571927;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hUpll3Sqlpstz/baEJwQVT6KXqEOrUirP5628aOYEd8=;
-	b=GV2uIWoZuF69sNSI98q5YfRZMiDFGlsIwkWY6V7+dyqWwmMynBSVTRZZ9oxrrxt/V1Vt
-	 TVeJ/JMOVwwSHWm25eH1RG4XcTOUf8u0WWzoiVca2ugdYHWGxT6n/Dn3pRihFUtSLdQ6e
-	 n39/kQ2IbzueeGAm5lpWgHE4H8Q4kBdquzRn10Xpjl47qDe7uo5cAoc8cq6g/NFrARWA1
-	 Q9epDKp/QSMwyKvlOtsS7efR0FSxEF8PoIpcvJXF2wXis9Q0ihM2nC3jFpGKnV9mgUPFj
-	 B2XcjDv7rRRbqXob+SgSqxB5wfT7zS33xKlE7W253tVPiZSaIeL5G8dSfTDAA95WsqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794572013;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=1iUZT/JRKjiRUq3S3wXoQz2Mr1XA+Ebv5deNzL+Hfx0=;
+	b=yCo2AbfbH8AWbbZit1IPUaz6n/hvQNowYtE+JISkoL/3f8k6B+owzv9+KiUg2LWGxzxZ
+	 WFMJxMYWQJuhmE0lwZb6Fy5BheQeASXyrzo5PsCYMWyAtTn0TcjS3zAQlojq2DVnV0+LU
+	 5UuF9iyiJtjW0045KIbccDDpdwUDHg+OptxMbxOL/lETx/xEK/FNMADmja0UC+lTRa8M1
+	 x8apZz7vAlbbQVm1+a7ZkuIQBh8rJu871dgsc9Xvc+rlB9EBXrq8RRnAmgWqmawi0qLiN
+	 idNGJWf7zfEMek74lZ0ZP0Mt0eMeVrx4aHoVZ6hAJ4nULyqDg5hOZoi0OqLtDzV3EIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBzOp2nr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Fuo0fjLv;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435E5606A31C;
-	Fri, 13 Nov 2026 12:12:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2F2606A323;
+	Fri, 13 Nov 2026 12:13:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A2F2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBzOp2nr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E07B1F000C4;
-	Fri, 13 Nov 2026 12:11:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794571926;
-	bh=hUpll3Sqlpstz/baEJwQVT6KXqEOrUirP5628aOYEd8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mBzOp2nrY2ILEs+Bt2956pFclJkMEqfLIpZeInaPOiT2oreFTereBuBr0Kh6vQXea
-	 8xcTJ/zmvwTvStx41Ih7tV1IX6GYExZeAUMNnkyvcTivBowJse54OL91MUruriP9Ds
-	 hkMt9FsCcAbJJ0oHHdk5NC1t90b+Q6ahA6x5aifpDmZYqsogORYJqyjR45pITR/aD3
-	 SjPqfFYhWFynQW+35TnIjzLU3B4RXJJAmtWesW7vUmv/66jmqPrHRszAzf8COyfga7
-	 Cq/zKOAXkEdD6BGyyAc1eSwDtqe793wiDKdJyLU2vEE8VdiBW5+YjubYANwv2qXNmX
-	 eeFLVXB9hbBIg==
-Message-ID: <66bcbef9-1967-41c0-8204-6e96016be4ff@kernel.org>
-Date: Fri, 13 Nov 2026 13:11:54 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Fuo0fjLv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794572012; x=1826108012;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rHH8i6Jaj4wG/QVHWjBNd4UsOpx6pzu7l9kaAO5hq6U=;
+  b=Fuo0fjLvrze0KqzVK+2WW5qq3YrJg3MdGtNA39cv01DroWDEJIVZUlKg
+   Mas+DEnMhGP+u4Ztz9wGv0+kdrq6Twrtf8QnLEaKpz8U9ZmU+Lrr7NPpn
+   iCR/36fV9rgnJ4qAeUT++pIX1YkkvYUtcMunBIf1FSxxgfjOv7iPikg8D
+   CmSLawqPsfg6JsrlPhwmSMfBwD4FTIba/TSb92BmwhuMh3HfuW5c9sdKi
+   Om9xhJYSrbe1qVU8mhiX+IWWRvT4H5GDHj8gTN3d6vVd4sS3mrJW8noL8
+   OHfNDRb1yO3GVh3HJ8sMu27T2EER0vlFi6xvzCnEftHFeItXH3wGQMXNv
+   A==;
+X-CSE-ConnectionGUID: p+P7pV79RzyZfgAi3G1pOQ==
+X-CSE-MsgGUID: Q6NfsCNGQEGZ/JXhSkYnMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3385781"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3385781"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:13:31 -0800
+X-CSE-ConnectionGUID: TtlvUlykT4SNAU2R1Isc5g==
+X-CSE-MsgGUID: iB+z62UDSbW0eDhITPJ7GA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="8834698"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:13:28 -0800
+Date: Fri, 13 Nov 2026 14:13:26 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: lee@kernel.org, maz@kernel.org, andy@kernel.org, jic23@kernel.org,
+	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org,
+	mfd@lists.linux.dev, linux-iio@vger.kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] mfd: mxs-lradc: Pass parent IRQs to child drivers
+Message-ID: <avb-5lw3JHpfmIlz@ashevche-desk.local>
+References: <20261113013212.470981-1-festevam@gmail.com>
+ <20261113013212.470981-2-festevam@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,108 +82,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/5] iommu: Use resource_size_t for reserved region
- length
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
- Eric Auger <eric.auger@redhat.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Joerg Roedel
- <jroedel@suse.de>, Srinath Mannam <srinath.mannam@broadcom.com>,
- Oza Pawandeep <quic_poza@quicinc.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, devicetree@vger.kernel.org,
- kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
- stable@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
- <20261106-add_iommu_ranges-v7-2-5c0f72083e52@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261106-add_iommu_ranges-v7-2-5c0f72083e52@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113013212.470981-2-festevam@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 06/11/2026 18:14, Vikash Garodia wrote:
-> On 32-bit systems with LPAE, physical addresses are 64-bit. A reserved
-> region can be larger than 4GiB, but its length is stored as size_t,
-> which is only 32-bit there. The length gets truncated.
-> Use resource_size_t for the length so it matches the width of
-> phys_addr_t and holds the full size of the region.
+On Thu, Nov 12, 2026 at 10:32:12PM -0300, Fabio Estevam wrote:
+> The MFD driver stores raw DT interrupt indices in IRQ resources but
+> registers its child devices without an IRQ domain or IRQ base. The child
+> drivers consequently receive the indices as if they were mapped Linux
+> IRQ numbers. IRQ index 0 triggers the platform_get_irq_byname() warning:
 > 
-> Fixes: 2b20cbba3390 ("iommu: iommu_alloc_resv_region")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/d223ee9f-b262-408a-a201-8b16d310bbe0@oss.qualcomm.com
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->  drivers/iommu/amd/iommu.c       | 2 +-
->  drivers/iommu/intel/iommu.c     | 2 +-
->  drivers/iommu/iommu.c           | 2 +-
->  drivers/iommu/of_iommu.c        | 4 ++--
->  drivers/iommu/virtio-iommu.c    | 2 +-
->  drivers/of/address.c            | 2 +-
->  drivers/vfio/vfio_iommu_type1.c | 2 +-
->  include/linux/iommu.h           | 4 ++--
->  include/linux/of_address.h      | 2 +-
->  9 files changed, 11 insertions(+), 11 deletions(-)
+>   0 is an invalid IRQ number
 > 
+> The children then try to recover the indices from their resources and
+> map them against the parent OF node. Besides duplicating IRQ names in
+> the parent and children, this relies on invalid platform IRQ resources
+> and fails when IRQ 0 is rejected.
+> 
+> Resolve the interrupts with platform_get_irq() in the MFD parent and
+> store the mapped IRQs in the shared LRADC data. Drop the child IRQ
+> resources and duplicated name arrays, and have both child drivers
+> request the mapped IRQs directly. Use the MFD memory base support to
+> translate a single relative memory resource shared by both cells.
+> 
+> Tested on an i.MX28 EVK. The mxs-lradc-ts driver probes successfully,
+> touch events are reported, and the touch-detect and LRADC channel 7
+> interrupt counters increase as expected.
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+Thanks for fixing this, I hope it will be applied sooner than later to reduce
+the number of weird cases in the kernel.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-
-Best regards,
-Krzysztof
