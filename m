@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537221;
-	b=FDWaamezdEHHtKWbfKYhxRI+ZL53B3eCbiqJvmgpMVG1VElM1zwXuAUt+4SiqqIdtFZw
-	 4H7clcwmLI0HZJTtJXUPmcXerb/L++CEEy51++8bbmpwZm/qO3S5KvI6ryri8StHE8ov1
-	 HxJILWUzDw7QiJkxvmvPGCTCor0wMRDCa6UuB6teEW2E2VVY43ROLNpnWLlruw2tmgegr
-	 tKkYJtbk2Shrw05cgeo0VF/JQRh2nbcCwUWPWlfBXQ3fbeC08YUyVFrCPX/D5XrKq7M2F
-	 jzXr0dfG2exWx5OJglXB6u85Rccm/rkJZ6Jn0GEKxpicsGrxkSvQLoNNvld3zeE+Bnw==
+	t=1794537222;
+	b=hLRKp/VGlHNDl1uCI/5xsoCejkBDc+NuVJozHJAtmgcVdiPVmFuSqJnltQFvEqNm/dOe
+	 QWZunPUhbpalayKPuFm0olRrZgSWJYtea8Q55CYYyG95L0msG6huExgcOp2oUrW2lwX7S
+	 PqUHrIL5ggb7j/sQSuTULphlTbfr3GWBe9p93Ov20XBDoUxMAxoktdTHKmZC4MkWz/o24
+	 YiOq0iOOjciJFg02m86q/QKYmLObtGvqORQRZNsj9wXa5xxeM13i04QmhHOph+UvYE7nD
+	 N3E5drXN6r3QSvI52b+0xBTqsIN55qxodk5qfxnnwE0TBAdjytKoR/5FyyPNmqD4MYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537222;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aLmJuJGbCzGbs+3KPFGFGdpt1U6F9QLWDWsM2U/Wzno=;
-	b=b09C/uWLpY1nopQwHgVibMndDpl9nIZ+1R1W0iLW/Y8YBf+snNMC29yn+lxEtSwhdZp/
-	 1VdmZBr/C+tBWjLtc1atJwcF/pd/uTdLExfevqaLtXrb/yn5+GKBkgP/RSVmht8kpTXb1
-	 Aq3tPb03qvdYkuwYBBs0uyn033SkuFi37z5+Fe97amM3W3D05NNLdhho+UTK5puYQNzWI
-	 tZAol+mzQHVJLqrCASOgzvhQ+lthpW5579eAzj/XDRUdQbDPGtQRinf20lJnFwLN3pO4k
-	 wqqCdnMe8+rPSfPXoFUmsnAjVi+N/V/0b3wzTiv+DcroCN1vRUG6H1fTAEXO3cP1gCA==
+	bh=6X5QnbyDVBxyazjoaxsxoxAQpPHcQ6RmSftc5tKZOGw=;
+	b=WpHNwby5yN/1dN1aLQd/xWfswe1F0NLasPDeb5NM+1+W8b7XuXk6rvguhtePmu6LmSu1
+	 VdXJxsaKEYy5JpNVYDThBsLnXeExKM1LJEANqveRPiGZ8tdNvg9CKYVCwumIKyJkpK3Xk
+	 cE98+oNV2ItoXnOjeUVzWbKUMWsn3XCU+VY3oGQE1IwmkmWyiWbUrLfCQV5nFDeREf0SN
+	 JEJ+8ttyPAS03s06eRGTqZQsiO1rOfpJA9UdksmuabCDnEi7glHvU/KHpnXrW3fM7QpFa
+	 Gppk49E6s114poYYShDnl0KvYySsSadzDgW1wqTZmgqm5dyA8nI8/F0YVMPFr9HczhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9QpUrtt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZjVIV2f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA31606A330;
-	Fri, 13 Nov 2026 02:33:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A402E606A8B6
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:33:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9QpUrtt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8E01F000C4;
-	Fri, 13 Nov 2026 02:33:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZjVIV2f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDFFE1F000C7;
+	Fri, 13 Nov 2026 02:33:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794537221;
-	bh=aLmJuJGbCzGbs+3KPFGFGdpt1U6F9QLWDWsM2U/Wzno=;
+	s=k20260515; t=1794537222;
+	bh=6X5QnbyDVBxyazjoaxsxoxAQpPHcQ6RmSftc5tKZOGw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F9QpUrttHUPI7phi2f5tCBzpxqNgDeNuelcu+QDRnUGL1IY1uV+7SDEq3LfasQ1Iz
-	 +IZgOqSBg1OnmqfdHX/xUQQDD8PXj2O2CCA6GVvx5DitB/DcJ53f6Mrfj44rayrb9h
-	 vp22Tv33Oj6OL+XOCSDFbQ8OWj03CyZzXUj73PbCG4Yi/J9lJ8SJKLN4AfilHqzURP
-	 BfYZzDdxpwA1/4ofhrrR1FNky8aCkKyEvxgm3kwFSx4vNje6T7ejMDwvvU8q5fYa3k
-	 HnyFec8mdO1N/73I+tXTIAoPJ3k+YUoj16BJAeLoFra3fjHlvIcUJhpqc5GytnSlko
-	 MwzZQU4KI2miA==
+	b=gZjVIV2fhwH171oiUZQf/YbtOFNy8G4L3SYvnndBgJrl+qbYDNtNe2oM2SSgJOA0S
+	 +oaDcfNC8aMD/QbFINjnHP0wgucmZGKExx0EXSnye/xBiKKe8/Im4c0ue5B09dIq0p
+	 toMVoxq0LX7SfEzQXl3SGjeKDxSJcn52LuXWQSEjo32FeFAX4WSOlfm9iNCbkzBwhV
+	 cBs22cZrkVQBnF45k9jmlKasgz70j9+ndYxkY3zd3aJgjuGpFCwX8Dp2Lo3x2GsMny
+	 XS6eOxhxkYTFIIYuLf2FeuP/E347oSEjO0bP4ot+bZu51TqRRqCuG2sj6G/hFIwvar
+	 svpjI2yDsboGw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	linux-wireless@vger.kernel.org,
-	mehmet.fide@screeningeagle.com,
-	Mehmet Fide <mehmet.fide@gmail.com>
-Subject: Re: Please apply the rtw88 USB after-DTIM queue fixes to 7.3.y, 6.18.y, 6.12.y and 6.6.y
-Date: Thu, 12 Nov 2026 21:33:21 -0500
-Message-ID: <daily-reply-2026-11-12-3716209072@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Will Deacon <will@kernel.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Marco Schirrmeister <mschirrmeister@gmail.com>
+Subject: Re: [6.18.y] Request: 10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI structures")
+Date: Thu, 12 Nov 2026 21:33:22 -0500
+Message-ID: <daily-reply-2026-11-12-4571868778@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111232037.628934-1-mehmet.fide@gmail.com>
-References: <20261111232037.628934-1-mehmet.fide@gmail.com>
+In-Reply-To: <avT46huKpXTv09GB@eagle.home.marco.cx>
+References: <avT46huKpXTv09GB@eagle.home.marco.cx>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,13 +63,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 2026-11-12, Mehmet Fide wrote:
-> Please apply the rtw88 USB after-DTIM queue fixes to 7.3.y, 6.18.y, 6.12.y and 6.6.y
+On 2026-11-12, Marco Schirrmeister wrote:
+> [6.18.y] Request: 10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI structures")
 > Hi,
-> please consider these four commits, in this order, for the 7.3.y, 6.18.y,
-> 6.12.y and 6.6.y stable trees:
+> please backport upstream commit
+>   10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI structures")
 
-Queued for 7.3, 6.18, 6.12 and 6.6, thanks.
+10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI
+structures") only adds typedefs for d4bf9e08d412 ("arm64: uapi: Use __u128
+instead of __uint128_t in UAPI headers"), which no stable tree has, and nothing
+in them uses the new types.
+
+What breaks on 6.18.y without it? If it is the resolve_btfids build against
+distro uapi headers, please say so and we can look again.
 
 
 -- 
