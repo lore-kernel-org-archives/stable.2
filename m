@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585659;
-	b=oP3Nnhrqt7NIRjsVGUnwTrYDAjlehlIsO+0kB+vjAPTHPWAnjxQ4pUGadwdzjk09Uc0c
-	 adVA+2bn7cHKmXaqCzjhViGgW4S55ILIk1qpvicCtx99Qh4PqO5xedoaAr3Vd/pO1rwaN
-	 xangeW/pb+Lzy9OYgm4MmRV/uvl4eLm3UK3N5eqRoAK+q2eauOKbyrhi4i5R94igzcFGU
-	 PqffuonXfDJMJAMEAoDEgHrCbJ9W/PEfwMrjPR65h1/CsjbABkw2u/B9uxoiuJsK+IXUD
-	 BRJHmkdDa9WBeXfEbHeSiDQYljEUNuOtdDvp0lBICGHLBfEOSoppVIPjma8TqYjq3pQ==
+	t=1794585655;
+	b=gB1+0E7P5MI0xUkCh8UdrXwtbVlWP/DeGNz8JQxJkLu1BR/uK0sqX6OGqCrS/mTz1yCn
+	 Zlpp/edE20XMnmpdbbqk0UpkIQIqV6rLot2eXS7OUgFNLRmBwi9OCXZGg/YI7SKjDg70g
+	 B7VR/8C+1Rkeu8/400Q2kYIjUsWR1k7tApchI4WvcCT9MaJSO3R0Gbtjp86S9Mj0suZDk
+	 iyPSYnjNm5gRyOox3xE+tXu065DbOaVSSj3poiuxkwnTFSUE3tAuakMrUfqEf++zdHoZk
+	 94mSFV0PUNVWRo0ojjXXRVkatoRY5qxxe8aJal+R/5C++dMzS1BoW0DowhZTLoDGNAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585655;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=he8TxIB4Hn3NTh2kbtBatenbnACunliV6AzQ2B9MsWo=;
-	b=NmRL/jqcUuKDf1wly5+vMIK7d0uRdaP0uM7GZNJpQn003T6DLf0hGN9AR5IFrSLc3d7y
-	 +33OLD350Rqg7QJGaw8o8WhzwkAsGKpIKeMOnfHDj3YsJh3phesTPTdy8y3U+YsYslYO5
-	 +RtGgE2hNvcUlLzZf1Y7mNVdN1UZJ3vHODOSLKOJoJcXRuvtRraBScQEQ7fNc0eTCpZiP
-	 S1f4ZmreIsivyp2xRKs2FhO+zoYe09Yw3WfTegD2AL965nB9v8p+B16Co4+fXPdcYiiEI
-	 8qEpeROEE6UZ1Jx/1HbgdhyqpOygKbZZgbzA79aszWjBVkVzFJH+djYA9W27TTnfCRw==
+	bh=eZa3o7twmPTIcDFVPyTz48KCFoHW/R8NMRDMVLSDZ7Q=;
+	b=sFSMb++iyEYnlGHtaTVx5Al0VXAH+s/ZWhV5IltmbTbI/om/uzv81MB9Zs5CiBzNxjMS
+	 4c4yYHd/ZlJ3SLf0k+W0BgW1kCYsP3xmqCr9x0WMxDpczE+SYqrrar8uQJD/3p0bLzpLY
+	 i0e9u9NqcNfoGiuffYFA/x8KocXygc72f//emKOk+XYXBjDz8buDsfh62Ebw/6K/0tvrO
+	 DV80r4E6Ca0f1h8lFAeNLEHe9+5E+wCgYVPvuQVuLxXnqafqz2ki5h+qimZD2/l+SGKJT
+	 mv7fElAYPPFbV4UxzO+9o4u3Bnciei4kOLgRKFayN3UGOC+slgCwaEHgQ0qwULho4ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xinjiZ70;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yOK2F0rn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB64606B2E8;
-	Fri, 13 Nov 2026 16:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D0D606B5E9;
+	Fri, 13 Nov 2026 16:00:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xinjiZ70
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC661F000C5;
-	Fri, 13 Nov 2026 16:00:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yOK2F0rn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4109C1F000C4;
+	Fri, 13 Nov 2026 16:00:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794585659;
-	bh=he8TxIB4Hn3NTh2kbtBatenbnACunliV6AzQ2B9MsWo=;
+	s=korg; t=1794585655;
+	bh=eZa3o7twmPTIcDFVPyTz48KCFoHW/R8NMRDMVLSDZ7Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xinjiZ70U/UdYUQIkaMUrxD5qqa6HYOj3XGGvEXoxqRg1pz0xItlUGuPUMYjEBpDK
-	 5XJueBBJ6YVFxwMYBUlwikEwrdoZHVzsmf+w9sZb195TwOes+aN8fyNMXj9N617aYU
-	 EYnekPhRi/WWEyttheh31oyrEJdVoNWn2O1a1c8w=
+	b=yOK2F0rnaXRMLEn5rzNn6e5UUj41fHl4/YVbRn+voYqHtie3zgpXfM2j6bWtJXT0r
+	 34/ckU2ZVZeEgRW0ttwPsmtaLkQWON80gaiVKZuIMrAMduQRLbKqt+eFAdzeDYqhhQ
+	 UZEf1jta/zGQTlM1QVSCwA+rI30zjxJuisfTFswU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Xie Yongji <xieyongji@bytedance.com>,
-	"chenglong.ma" <longpareto@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Claude Code <noreply@anthropic.com>
-Subject: [PATCH 7.3 272/507] vduse: fix VA/PA confusion in the coherent page fault path
-Date: Fri, 13 Nov 2026 10:49:36 -0500
-Message-ID: <20261113153803.931199357@linuxfoundation.org>
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jiayuan Chen <jiayuan.chen@shopee.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 234/507] mm/damon/core: move static variable rotation to damon_ctx
+Date: Fri, 13 Nov 2026 10:48:58 -0500
+Message-ID: <20261113153802.425618450@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
 References: <20261113153753.358973689@linuxfoundation.org>
@@ -70,86 +69,70 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: chenglong.ma <longpareto@gmail.com>
+From: SJ Park <sj@kernel.org>
 
-[ Upstream commit bb2e6f166547838fd7c320b01c90918b736f76e2 ]
+[ Upstream commit c4ff3ea30640b394df4156d7ddf60ad8ffe765f1 ]
 
-vduse_domain_get_coherent_page() assumes that iotlb entries above
-bounce_size were installed by vduse_domain_alloc_coherent(), so it
-treats map->addr as a physical address. But vduse registers with
-use_va = true, and when the device is bound to vhost_vdpa,
-vhost_vdpa_va_map() stores a userspace virtual address in map->addr,
-which vduse_domain_set_map() then copies into the same iotlb. A
-process holding the domain file descriptor across a rebind can
-therefore fault in an arbitrary physical page with read/write
-access, ignoring the entry permissions.
+damon_split_some_reigons() uses a static variable, rotation, to remember
+how many times it was called.  It is again used to determine fair
+selection of regions to split.  Since it is a static variable, it can be
+indeterministic and therefore less fair.
 
-Additionally, since the domain file mmap lacks VM_IO, the domain
-file itself can be mapped and passed to vhost_vdpa_va_map(),
-producing self-referential entries that bypass the coherent path
-check.
+The user impact is not critical.  No crash, no leak.  DAMON's
+best-effort and indeterministic monitoring accuracy could be slightly
+more indeterministic when multiple kdamonds are used in parallel.
 
-To fix, only translate entries whose backing file is the domain
-file itself in vduse_domain_get_coherent_page(), reject such
-entries in vduse_domain_set_map() since only external mappings
-should be imported, and set VM_IO on the domain file mmap so
-vhost_vdpa_va_map() refuses to map it in the first place.
+Fix the problem by moving the static variable into the damon_ctx struct.
 
-Fixes: 8c773d53fb7b ("vduse: Implement an MMU-based software IOTLB")
-Cc: Xie Yongji <xieyongji@bytedance.com>
-Cc: stable@vger.kernel.org
-Reported-by: chenglong.ma <longpareto@gmail.com>
-Signed-off-by: chenglong.ma <longpareto@gmail.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Co-Authored-By: Claude Code <noreply@anthropic.com>
+Link: https://lore.kernel.org/20261025164808.152048-4-sj@kernel.org
+Fixes: 1a582e6e0174 ("mm/damon/core: split a fraction of regions when nr_regions exceeds max/2")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
+Cc: Jiayuan Chen <jiayuan.chen@shopee.com>
+Cc: <stable@vger.kernel.org> # 7.3.x
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vdpa/vdpa_user/iova_domain.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ include/linux/damon.h | 5 +++++
+ mm/damon/core.c       | 5 +++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/vdpa/vdpa_user/iova_domain.c b/drivers/vdpa/vdpa_user/iova_domain.c
-index b6c958224b7ce..28a977248a0d3 100644
---- a/drivers/vdpa/vdpa_user/iova_domain.c
-+++ b/drivers/vdpa/vdpa_user/iova_domain.c
-@@ -76,6 +76,10 @@ int vduse_domain_set_map(struct vduse_iova_domain *domain,
- 	for (map = vhost_iotlb_itree_first(iotlb, start, last); map;
- 	     map = vhost_iotlb_itree_next(map, start, last)) {
- 		map_file = (struct vdpa_map_file *)map->opaque;
-+		if (!map_file || map_file->file == domain->file) {
-+			ret = -EINVAL;
-+			goto err;
-+		}
- 		ret = vduse_iotlb_add_range(domain, map->start, map->last,
- 					    map->addr, map->perm,
- 					    map_file->file,
-@@ -226,6 +230,7 @@ vduse_domain_get_coherent_page(struct vduse_iova_domain *domain, u64 iova)
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index c6de3ac2f4453..9772309b2b587 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -919,6 +919,11 @@ struct damon_ctx {
+ 	 * for more details.
+ 	 */
+ 	unsigned long last_nr_regions;
++	/*
++	 * number of damon_split_some_regions() invocations for this context.
++	 * Read damon_split_some_regions() for more details.
++	 */
++	unsigned long region_split_rotation;
+ };
+ 
+ /* Get a random number in [@l, @r) using @ctx's lockless PRNG. */
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 6db6d2a80e812..85bcb6da9ad0b 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3568,12 +3568,13 @@ static void damon_split_regions_of(struct damon_ctx *ctx,
+ static void damon_split_some_regions(struct damon_ctx *ctx,
+ 				     unsigned long split_step)
  {
- 	u64 start = iova & PAGE_MASK;
- 	u64 last = start + PAGE_SIZE - 1;
-+	struct vdpa_map_file *map_file;
- 	struct vhost_iotlb_map *map;
- 	struct page *page = NULL;
+-	static unsigned long rotation;
+ 	struct damon_target *t;
+ 	struct damon_region *r, *next;
+-	unsigned long offset = rotation++ % split_step;
++	unsigned long offset;
+ 	unsigned long idx = 0;
  
-@@ -234,6 +239,10 @@ vduse_domain_get_coherent_page(struct vduse_iova_domain *domain, u64 iova)
- 	if (!map)
- 		goto out;
- 
-+	map_file = (struct vdpa_map_file *)map->opaque;
-+	if (!map_file || map_file->file != domain->file)
-+		goto out;
++	offset = ctx->region_split_rotation++ % split_step;
 +
- 	page = pfn_to_page((map->addr + iova - map->start) >> PAGE_SHIFT);
- 	get_page(page);
- out:
-@@ -579,7 +588,7 @@ static int vduse_domain_mmap(struct file *file, struct vm_area_struct *vma)
- {
- 	struct vduse_iova_domain *domain = file->private_data;
- 
--	vm_flags_set(vma, VM_DONTDUMP | VM_DONTEXPAND);
-+	vm_flags_set(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
- 	vma->vm_private_data = domain;
- 	vma->vm_ops = &vduse_domain_mmap_ops;
- 
+ 	damon_for_each_target(t, ctx) {
+ 		damon_for_each_region_safe(r, next, t) {
+ 			unsigned long sz_region, sz_sub;
 -- 
 2.53.0
 
