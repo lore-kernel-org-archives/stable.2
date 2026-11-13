@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794599593;
-	b=KbZqibRFY8SOlZKotcrxLon0l42pXGRe2j8xl7hfJQkYA8o0SPilr9i0s50IzR7ccgPp
-	 CYniMhEuzoShBXEXjKU6Q9GHqlmXR4gz3twqxSfl4QhaFFgvnqUjMlRDK6YfGo+AoSTII
-	 lEurA2OXaHn+cOoNXb+68ggxMjzR+8NM8XLHycWxBAGJhlFB6TLzFIKKto4XLAY1pO7V9
-	 hAz+ub5xr3I2Fce3U2D8ENaLT8x3P8LJzQ2B671fTUZJS26y9WlgKwUTf7M0E81iAsiKf
-	 EUXRVpfedZiUh/r90l6zPbexBnE+8RTqFWkk0FfyoECZNBmOssIqlsPKneL7QTHWiJA==
+	b=uKVog0D2USLiTcw2L9ADYT7/WLiGguJIxKxqnWioyIBrotVLs7O1IhPkMAdD9IwhdJz4
+	 g9xDn6TbDah9F44skWHaYFRxNRfy+5dljs/6t5okj3dIguFwdff4RtVHesCl13Ng5CG4Q
+	 ZeEVZTBxz/wByp+e/fLFCFwwHrs8wcBBQEz7lYIpm4zFp8dJfkGdRY92yUNykg3CDDFlI
+	 8MW55juOnW/r07gNPe68nVcu+OQih3UyGS2XLXhrSUVj1Ur0MQLsiOysyqJJrUdx6pRYa
+	 FEQsfKMdq/AdE05FXTnknlj0WepXjrJHkEwFPMHn2nptheExhZViwtwC8UNbF9Msu5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794599593;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lPVapoNCY6fZVvqFCE+aP7nNLaMuE2QS0Bx8eZT3j4A=;
-	b=ZRtNtxn1AVUQRbI8Lj5gqzX1CoiZ028X5GTvutLu2STpP+8X45mGDAkx1733vXH7HpgD
-	 xSVJN56DVpgOXddhgAhe8fT+xwo0/pcqhFyLytIlaAdnFaZbiIyVcxjppXaPxx/aMNmC+
-	 mxathOQ94zO3iB5BwMoOcJVjmMRTPosxOIdZr8Z/0Zddlobsz3EHhskTpk+B6cZzOR/Jd
-	 fpAo7g84ECY+jz1LBTOCf7HjrX6eAU5loJg9ixPZ9GsVX6fasl8hgo7LFqOwUbbgLScqE
-	 XGe0tnUqeS4H+x6+hyaQKl9jTWNp+Efxi/N+aPh6jDW3cE6OrthdN5cVfl0Y1I+zdpg==
+	bh=9sGNd4OOoWLtHUW9I2AtmCF7qE7uTrad9opFoSIAFVg=;
+	b=ylQcbDwhM85sxDZCjoPoQ4kgPMPGU/EufoFB59E4wAzAWr/cuLoUHx85HLOS8NQBYVCa
+	 WhyLFx4XHHHNKrumNGqC2oRLhIPFlD0AiaARB2EbJJSvNLNH808rgdA3VQBfSAqNy8SJp
+	 zeky2fBlnlZ3ZtwTJhKXt+JlZ+Lt7bYaW9cUv116jwZkY9gqW13y25SekPDNa4AyR3kYU
+	 HAhBPUmrsTDl4nV3/wiz7dnJO9YUX/0EYFA5ImF48MhVZq/xUSm4zMAtxk0vHPhHXXz7c
+	 abfQTzCWeGonRIASZAMn8cwdVTtnhDpOw3K/F1XTnhaRBEVvieHecvcSdINxgwgAGlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TsEPWf1o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dN0VXL5N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDF0606A330
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:53:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9570606A332
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:53:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TsEPWf1o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1FC1F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dN0VXL5N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D96B1F000C6;
 	Fri, 13 Nov 2026 19:53:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794599592;
-	bh=lPVapoNCY6fZVvqFCE+aP7nNLaMuE2QS0Bx8eZT3j4A=;
+	s=k20260515; t=1794599593;
+	bh=9sGNd4OOoWLtHUW9I2AtmCF7qE7uTrad9opFoSIAFVg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TsEPWf1os/BfCJmwR0OHSjDdh/FMdyl65mmlpmR9234F/QkDlHr2gwdyHv4DII07y
-	 BhZbgHwJ5v8BUW+9Sgd7P8xuUd0T+l9qWP3Iq10eolAIyJGqDeXEghKLNgnlvUBtBg
-	 fHo1Si9gHyXnDUOzpcRk6AdHvfZDTqm1f5Rv3LJpIhDWIXVVemLZinQpFM3D03qDoq
-	 pkJnHpyeIIlcV6Kocw8F+N46irmLMZVw4GBx8GyhbouBisDx/8KDPa39M24Vukrd6N
-	 dj2vayWwZaJ7Ts/7T49ig8f8415Ja3kwA5vG8tbX5RLvVmwYaWWYwI9fExvlC0ehb0
-	 DeflDT7zws/SA==
+	b=dN0VXL5NRV+k4+qYNIm6u8XqvLLzWqyxC+ZbSY3+kszu4w1h2TDhHBKpTSZb/9uI9
+	 KI1SY5IfdbWk23TV8FIm9TjPfLLabMeqt0Oyuyo0fjEHNW3xYbvI+4vwKHk028nBQF
+	 fwplcIy9aBXtFT6f3iGQjzcH2fNRjdouSk+H9BWqytLGvVEa4sRnArFD6lcnKrNDMm
+	 3sqTwRT+6arIDkihlDRjdPH5lmy07um6cY+sPTITlCmY6dfpTtSJBdtPcVFakFrk3R
+	 8XHZDzTwYsKbIck4PWN7mdZ6OCyLOuQ7wDju3ttGx93lOj8gVRRTvV8jiC7hUCpFI8
+	 wEyX92VdlbOmw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Mike Christie <michael.christie@oracle.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	Stefan Hajnoczi <stefanha@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] vhost-scsi: Reduce mem use by moving upages to per queue
-Date: Fri, 13 Nov 2026 14:53:08 -0500
-Message-ID: <20261113195222.2537874-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] vhost-scsi: Allocate T10 PI structs only when enabled
+Date: Fri, 13 Nov 2026 14:53:09 -0500
+Message-ID: <20261113195222.2537874-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201252-failed-6.6-01c3a5fa6d64@kernel.org>
+In-Reply-To: <20261113195222.2537874-1-sashal@kernel.org>
 References: <20261109201252-failed-6.6-01c3a5fa6d64@kernel.org>
+ <20261113195222.2537874-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,121 +65,51 @@ Content-Transfer-Encoding: 8bit
 
 From: Mike Christie <michael.christie@oracle.com>
 
-[ Upstream commit 4c1f3a7d74277903b290dd989cbd2ea8627fc925 ]
+[ Upstream commit bf2d650391be508dd8b5e188b65ed32300cf3489 ]
 
-Each worker thread can process 1 command at a time so there's no need to
-allocate a upages array per cmd. This patch moves it to per queue. Even a
-small device with 128 cmds and 1 queue this brings mem use for the array
-from
+T10 PI is not a widely used feature. This has us only allocate the
+structs for it if the feature has been enabled. For a common small setup
+where you have 1 virtqueue and 128 commands per queue, this saves:
 
-2 MB = 8 bytes per page pointer * 2048 pointers * 128 cmds
+8MB = 32 bytes per sg * 2048 entries * 128 commands
 
-to
-
-16K = 8 bytes per pointer * 2048 * 1 queue
+per vhost-scsi device.
 
 Signed-off-by: Mike Christie <michael.christie@oracle.com>
-Message-Id: <20241203191705.19431-2-michael.christie@oracle.com>
+Message-Id: <20241203191705.19431-3-michael.christie@oracle.com>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 Acked-by: Stefan Hajnoczi <stefanha@redhat.com>
 Stable-dep-of: 01c3a5fa6d64 ("vhost-scsi: zero misaligned I/O bounce pages")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vhost/scsi.c | 24 ++++++++++--------------
- 1 file changed, 10 insertions(+), 14 deletions(-)
+ drivers/vhost/scsi.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-index 7603597efe5ef..5fa9aab9279b6 100644
+index 5fa9aab9279b6..f03170888a896 100644
 --- a/drivers/vhost/scsi.c
 +++ b/drivers/vhost/scsi.c
-@@ -83,7 +83,6 @@ struct vhost_scsi_cmd {
- 	/* Pointer to the SGL formatted memory from virtio-scsi */
- 	struct scatterlist *tvc_sgl;
- 	struct scatterlist *tvc_prot_sgl;
--	struct page **tvc_upages;
- 	/* Pointer to response header iovec */
- 	struct iovec *tvc_resp_iov;
- 	/* Pointer to vhost_scsi for our device */
-@@ -187,6 +186,7 @@ struct vhost_scsi_virtqueue {
- 	struct vhost_scsi_cmd *scsi_cmds;
- 	struct sbitmap scsi_tags;
- 	int max_cmds;
-+	struct page **upages;
- 
- 	struct vhost_work completion_work;
- 	struct llist_head completion_list;
-@@ -613,7 +613,6 @@ vhost_scsi_get_cmd(struct vhost_virtqueue *vq, struct vhost_scsi_tpg *tpg,
- 	struct vhost_scsi_nexus *tv_nexus;
- 	struct scatterlist *sg, *prot_sg;
- 	struct iovec *tvc_resp_iov;
--	struct page **pages;
- 	int tag;
- 
- 	tv_nexus = tpg->tpg_nexus;
-@@ -631,12 +630,10 @@ vhost_scsi_get_cmd(struct vhost_virtqueue *vq, struct vhost_scsi_tpg *tpg,
- 	cmd = &svq->scsi_cmds[tag];
- 	sg = cmd->tvc_sgl;
- 	prot_sg = cmd->tvc_prot_sgl;
--	pages = cmd->tvc_upages;
- 	tvc_resp_iov = cmd->tvc_resp_iov;
- 	memset(cmd, 0, sizeof(*cmd));
- 	cmd->tvc_sgl = sg;
- 	cmd->tvc_prot_sgl = prot_sg;
--	cmd->tvc_upages = pages;
- 	cmd->tvc_se_cmd.map_tag = tag;
- 	cmd->tvc_tag = scsi_tag;
- 	cmd->tvc_lun = lun;
-@@ -663,7 +660,9 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
- 		      struct scatterlist *sgl,
- 		      bool is_prot)
- {
--	struct page **pages = cmd->tvc_upages;
-+	struct vhost_scsi_virtqueue *svq = container_of(cmd->tvc_vq,
-+					struct vhost_scsi_virtqueue, vq);
-+	struct page **pages = svq->upages;
- 	struct scatterlist *sg = sgl;
- 	ssize_t bytes, mapped_bytes;
- 	size_t offset, mapped_offset;
-@@ -1596,11 +1595,11 @@ static void vhost_scsi_destroy_vq_cmds(struct vhost_virtqueue *vq)
- 
- 		kfree(tv_cmd->tvc_sgl);
- 		kfree(tv_cmd->tvc_prot_sgl);
--		kfree(tv_cmd->tvc_upages);
- 		kfree(tv_cmd->tvc_resp_iov);
- 	}
- 
- 	sbitmap_free(&svq->scsi_tags);
-+	kfree(svq->upages);
- 	kfree(svq->scsi_cmds);
- 	svq->scsi_cmds = NULL;
- }
-@@ -1626,6 +1625,11 @@ static int vhost_scsi_setup_vq_cmds(struct vhost_virtqueue *vq, int max_cmds)
- 		return -ENOMEM;
- 	}
- 
-+	svq->upages = kcalloc(VHOST_SCSI_PREALLOC_UPAGES, sizeof(struct page *),
-+			      GFP_KERNEL);
-+	if (!svq->upages)
-+		goto out;
-+
- 	for (i = 0; i < max_cmds; i++) {
- 		tv_cmd = &svq->scsi_cmds[i];
- 
-@@ -1637,14 +1641,6 @@ static int vhost_scsi_setup_vq_cmds(struct vhost_virtqueue *vq, int max_cmds)
+@@ -1649,12 +1649,14 @@ static int vhost_scsi_setup_vq_cmds(struct vhost_virtqueue *vq, int max_cmds)
  			goto out;
  		}
  
--		tv_cmd->tvc_upages = kcalloc(VHOST_SCSI_PREALLOC_UPAGES,
--					     sizeof(struct page *),
--					     GFP_KERNEL);
--		if (!tv_cmd->tvc_upages) {
--			pr_err("Unable to allocate tv_cmd->tvc_upages\n");
+-		tv_cmd->tvc_prot_sgl = kcalloc(VHOST_SCSI_PREALLOC_PROT_SGLS,
+-					       sizeof(struct scatterlist),
+-					       GFP_KERNEL);
+-		if (!tv_cmd->tvc_prot_sgl) {
+-			pr_err("Unable to allocate tv_cmd->tvc_prot_sgl\n");
 -			goto out;
--		}
--
- 		tv_cmd->tvc_resp_iov = kcalloc(UIO_MAXIOV,
- 					       sizeof(struct iovec),
- 					       GFP_KERNEL);
++		if (vhost_has_feature(vq, VIRTIO_SCSI_F_T10_PI)) {
++			tv_cmd->tvc_prot_sgl = kcalloc(VHOST_SCSI_PREALLOC_PROT_SGLS,
++						sizeof(struct scatterlist),
++						GFP_KERNEL);
++			if (!tv_cmd->tvc_prot_sgl) {
++				pr_err("Unable to allocate tv_cmd->tvc_prot_sgl\n");
++				goto out;
++			}
+ 		}
+ 	}
+ 	return 0;
 -- 
 2.53.0
 
