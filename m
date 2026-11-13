@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590303;
-	b=rnX4YYYEjMYjwNVrDfLNICUXdUaPu9cpVTAAPojClL2vikVMYv91IY/O+xwOjfx288pu
-	 LncznXj2hZMIiG7UaPeEhhmHxRO+obTim/XRbHlvmKPi/bWZ80YFUkxvJRIXYJ8aKCanh
-	 aci22sWLPj1Nqg2qZIHnwMUng9I7TRg91sdPB85MBWKkCSWmBYISGN2AA2ZrgIqGGqP+1
-	 zzzdPCOSuovLuQiRodK9PqELIzt0ygZCGBb7ehFmkqdGIVhwBdnkaI1xnd7pBGeUqY2/k
-	 M9tMF99CNepjvOlHnDEbzN+FTb9IcYrE6+MgyzuOMtgZS+hccrUdpz+r+TVT5V2TnsA==
+	t=1794590308;
+	b=alXTgYPFIdDptYO5C9VSKhF+aWW+YOX91jblE/3C558ubcXen60kdVWGSEdQWC5fIANO
+	 //KCHL94BxTwoU+C9ovPDc6SezTCG5bsZPsmqod0buznflkCbsVswEaEMhk867jwgsYgP
+	 vI16gAalgpFZeLmoyhAMBTjLwb2RfMoo8b950pQaY5WvxujfweFpEld3PHLlhW6OBRTnh
+	 bEjCBVlKNKjZx346zdlV5vzDoapi7BPnZYccPKLrZTMD0O3POmieIADlXmgzBLIw3kB0L
+	 DOfuPr/WI8UQomVbr9finizqNgJiaY37DJgHEm77TjQhFOQcHIpqaQ6dk9iqlYQuNkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590303;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590308;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=t5jas0ft+Ua81diBGCjMkgKqsyBRhE3p1ADKJls848w=;
-	b=kzJY9esGsjA7KDJoy2DJ376XM7nQaJ/0qMBi7J5SjkCTUMkkAIcINdil9fV+c/juVwZO
-	 n9ecQ6LoZIx/i+1AbTaxDTWTbDCLMyONQMDLoOaiq5bORG6oqN5Wwz3uknSoHZraV3X0B
-	 q8Lw8Y55lQJwhcbXjPDI8nmOqnHxGDZLDTkiLCCU1VjTUWuksdvfSOS+hxqetQRAk/wkw
-	 CMxfuRAAMizlp4/FxpyerE04I/Z2HahO8a188G4MYyNzUaiJX4CzVmwfEoaCtLHEg2+M1
-	 m5xZiZ7GkNn6B7L3+c93c1RM0C6zI3mOcbt6GZcfS18awFJ0rR+wbiti/ys600I9OYw==
+	bh=28smz1WI3Z1S+5D1KCpd17YAzWfjRZwGaOWgSSWVdXw=;
+	b=v59uptJ+SBjs6fXu0kulR71rW5XCO+Uis0QQ1sfc20ts8p99GYNPk2jk7wU7UT0kkqKT
+	 VTsJcuWgOBfBwI94wGmTx3+vOZLKUvgbue2srS36lDUCIFz0ZKdK8KM/8Yw1IR5AbY7/g
+	 UNAARUKFWhR8mhmxWQ5LSZI+nIbbLuTlDDf4YVP/jor0X5RJ2+0qWFVsY+8zCYGc8x+Pf
+	 gYiffezStfnFsR3X/1BzJbQKGx32o0s+TOqGjVuyeOK0Sun32nKph7gk4KBw0wT6KsWbW
+	 PkA5QDwUMs/1f0KgFgnj8valoLYf9tjP9m7xUvWKadu/c85IycxFb37ehvm/CxaNUkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="K6pVM/a8";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oybUsfZb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0967607C353;
-	Fri, 13 Nov 2026 17:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE34B60A5BCC;
+	Fri, 13 Nov 2026 17:18:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K6pVM/a8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0DE1F000C9;
-	Fri, 13 Nov 2026 17:18:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oybUsfZb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4401F000CB;
+	Fri, 13 Nov 2026 17:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794590303;
-	bh=t5jas0ft+Ua81diBGCjMkgKqsyBRhE3p1ADKJls848w=;
+	s=korg; t=1794590308;
+	bh=28smz1WI3Z1S+5D1KCpd17YAzWfjRZwGaOWgSSWVdXw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K6pVM/a8Tkbk8iabqaN94wbS6vJ1JDUS7YeeaVrzbl729hRvv9k5FXeqsoW6cjHAI
-	 CniQmEUCCuHBbL/L5auwgqbJiyKMBKTdifLJ3irG+xKAUSnmv45pmLZw1xfdYwZUcF
-	 15So2i51rlwAGKSD89rw2neLg+ly8/OPsXwGDEds=
+	b=oybUsfZbe/08zKFgmQDoJyiarlbUJRa+ZYXrDsy9bgMLM0Ljeeo66dcf9aY1vE7yh
+	 7ou+s1zOfRezzqjeB0XyYme8SfB6AuWEdJL2YO0Va08uJLV4Sd31CEMTC/glgBRf5b
+	 Ja1FTcW4GnNf6Q1mC+VLeIkbNc223sGKxhLzwPIM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"Baek Kyu, Kim" <pocj8ur4in@gmail.com>,
+	Vas Zayarskiy <contact@vasily.cc>,
 	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 290/686] hwmon: (gpio-fan) Update the speed cache before dropping the PM reference
-Date: Fri, 13 Nov 2026 10:47:03 -0500
-Message-ID: <20261113153830.802465303@linuxfoundation.org>
+Subject: [PATCH 6.18 293/686] hwmon: (aquacomputer_d5next) Avoid truncating scaled sensor readings
+Date: Fri, 13 Nov 2026 10:47:06 -0500
+Message-ID: <20261113153830.896125561@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
 References: <20261113153820.902362109@linuxfoundation.org>
@@ -68,65 +68,129 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+From: Vas Zayarskiy <contact@vasily.cc>
 
-[ Upstream commit f324179e6ccd05dfdc8e98fba2e9d50aea8e7ea2 ]
+[ Upstream commit c221091f7e30c64280e4cbfa27dc4c05edc96d0c ]
 
-set_fan_speed() writes the GPIO control value before dropping the runtime
-PM reference when stopping the fan. pm_runtime_put_sync() decrements the
-usage count even when suspending the device fails, but the error return
-currently leaves speed_index at the previous running speed.
+High Flow Next power is reported in watts. Multiplying the 16-bit value
+by one million can overflow both the signed intermediate and the u32
+cache. Store power in long, perform the conversion in u64, and clamp to
+LONG_MAX. The other existing power conversions fit in a signed 32-bit
+value. Return -ENODATA for unavailable power instead of exposing the
+stored error as a reading.
 
-A request for that same running speed then returns success without
-changing the GPIOs or taking a runtime PM reference. Retrying the stop
-instead drops a reference the driver no longer owns and can trigger a
-runtime PM usage count underflow warning.
+The power cache is updated by HID reports without the hwmon read mutex.
+Read it once with READ_ONCE() and use that snapshot for both the
+availability check and the returned value. Mark the corresponding
+updates with WRITE_ONCE() so that the shared accesses are explicit.
 
-Update speed_index after writing the GPIOs and before dropping the PM
-reference. The initial same-speed check already excludes a stopped fan,
-so a zero target is sufficient to identify the transition that needs a
-PM put. Preserve the PM error return and the CONFIG_PM=n exception.
+Widen the shared current cache to u32. The Aquastream XT conversion to
+milliamperes can exceed 65535 mA; clamp its negative conversion results
+to zero before assigning to the unsigned cache. This also permits devices
+with scaled aggregate currents to store milliamperes directly.
 
-This keeps the cached control state and PM reference ownership consistent
-without restoring running GPIOs after a possibly partial supply failure.
-It does not clear persistent runtime PM errors or claim that a failing
-regulator has successfully powered off.
-
-Fixes: 0d01110e6356 ("hwmon: (gpio-fan) Add regulator support")
+Fixes: aed80bb91de8 ("hwmon: (aquacomputer_d5next) Add support for Aquacomputer High Flow Next")
 Cc: stable@vger.kernel.org
-Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
-Link: https://patch.msgid.link/20261031095039.11683-1-pocj8ur4in@gmail.com
+Signed-off-by: Vas Zayarskiy <contact@vasily.cc>
+Link: https://patch.msgid.link/20260927191316.4137752-2-contact@vasily.cc
+[groeck: Dropped obsolete 'Assisted-by: tag]
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/gpio-fan.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/hwmon/aquacomputer_d5next.c | 29 ++++++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
-index 1dfc02df9bbb0..34986266180e2 100644
---- a/drivers/hwmon/gpio-fan.c
-+++ b/drivers/hwmon/gpio-fan.c
-@@ -150,7 +150,10 @@ static int set_fan_speed(struct gpio_fan_data *fan_data, int speed_index)
+diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
+index e0052ba4702c6..95ec74c6e67eb 100644
+--- a/drivers/hwmon/aquacomputer_d5next.c
++++ b/drivers/hwmon/aquacomputer_d5next.c
+@@ -19,6 +19,7 @@
+ #include <linux/hwmon.h>
+ #include <linux/jiffies.h>
+ #include <linux/ktime.h>
++#include <linux/limits.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/seq_file.h>
+@@ -614,9 +615,9 @@ struct aqc_data {
+ 	u32 speed_input_min[1];
+ 	u32 speed_input_target[1];
+ 	u32 speed_input_max[1];
+-	u32 power_input[8];
++	long power_input[8];
+ 	u16 voltage_input[8];
+-	u16 current_input[8];
++	u32 current_input[8];
  
- 	__set_fan_ctrl(fan_data, fan_data->speed[speed_index].ctrl_val);
+ 	/* Label values */
+ 	const char *const *temp_label;
+@@ -1009,7 +1010,7 @@ static int aqc_legacy_read(struct aqc_data *priv)
  
--	if (fan_data->speed_index > 0 && speed_index == 0) {
-+	/* The GPIOs have changed, and a PM put drops the reference on error. */
-+	fan_data->speed_index = speed_index;
-+
-+	if (speed_index == 0) {
- 		int ret;
+ 		/* Calculation derived from linear regression */
+ 		sensor_value = get_unaligned_le16(priv->buffer + AQUASTREAMXT_PUMP_CURR_OFFSET);
+-		priv->current_input[0] = DIV_ROUND_CLOSEST(sensor_value * 176, 100) - 52;
++		priv->current_input[0] = max(DIV_ROUND_CLOSEST(sensor_value * 176, 100) - 52, 0);
  
- 		ret = pm_runtime_put_sync(fan_data->dev);
-@@ -158,8 +161,6 @@ static int set_fan_speed(struct gpio_fan_data *fan_data, int speed_index)
- 			return ret;
- 	}
+ 		sensor_value = get_unaligned_le16(priv->buffer + AQUASTREAMXT_PUMP_VOLTAGE_OFFSET);
+ 		priv->voltage_input[0] = DIV_ROUND_CLOSEST(sensor_value * 1000, 61);
+@@ -1042,6 +1043,7 @@ static int aqc_legacy_read(struct aqc_data *priv)
+ static int aqc_read(struct device *dev, enum hwmon_sensor_types type, u32 attr,
+ 		    int channel, long *val)
+ {
++	long power;
+ 	int ret;
+ 	struct aqc_data *priv = dev_get_drvdata(dev);
  
--	fan_data->speed_index = speed_index;
--
- 	return 0;
- }
+@@ -1106,7 +1108,10 @@ static int aqc_read(struct device *dev, enum hwmon_sensor_types type, u32 attr,
+ 		}
+ 		break;
+ 	case hwmon_power:
+-		*val = priv->power_input[channel];
++		power = READ_ONCE(priv->power_input[channel]);
++		if (power == -ENODATA)
++			return -ENODATA;
++		*val = power;
+ 		break;
+ 	case hwmon_pwm:
+ 		switch (priv->kind) {
+@@ -1406,9 +1411,9 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
+ 		priv->speed_input[i] =
+ 		    get_unaligned_be16(data + priv->fan_sensor_offsets[i] +
+ 				       priv->fan_structure->speed);
+-		priv->power_input[i] =
+-		    get_unaligned_be16(data + priv->fan_sensor_offsets[i] +
+-				       priv->fan_structure->power) * 10000;
++		WRITE_ONCE(priv->power_input[i],
++			   get_unaligned_be16(data + priv->fan_sensor_offsets[i] +
++					      priv->fan_structure->power) * 10000);
+ 		priv->voltage_input[i] =
+ 		    get_unaligned_be16(data + priv->fan_sensor_offsets[i] +
+ 				       priv->fan_structure->voltage) * 10;
+@@ -1448,7 +1453,8 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
+ 		priv->speed_input[2] = get_unaligned_be16(data + AQUASTREAMULT_PRESSURE_OFFSET);
+ 		priv->speed_input[3] = get_unaligned_be16(data + AQUASTREAMULT_FLOW_SENSOR_OFFSET);
  
+-		priv->power_input[1] = get_unaligned_be16(data + AQUASTREAMULT_PUMP_POWER) * 10000;
++		WRITE_ONCE(priv->power_input[1],
++			   get_unaligned_be16(data + AQUASTREAMULT_PUMP_POWER) * 10000);
+ 
+ 		priv->voltage_input[1] = get_unaligned_be16(data + AQUASTREAMULT_PUMP_VOLTAGE) * 10;
+ 
+@@ -1461,10 +1467,11 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
+ 	case highflownext:
+ 		/* If external temp sensor is not connected, its power reading is also N/A */
+ 		if (priv->temp_input[1] == -ENODATA)
+-			priv->power_input[0] = -ENODATA;
++			WRITE_ONCE(priv->power_input[0], -ENODATA);
+ 		else
+-			priv->power_input[0] =
+-			    get_unaligned_be16(data + HIGHFLOWNEXT_POWER) * 1000000;
++			WRITE_ONCE(priv->power_input[0],
++				   min_t(u64, get_unaligned_be16(data + HIGHFLOWNEXT_POWER) *
++					 1000000ULL, LONG_MAX));
+ 
+ 		priv->voltage_input[0] = get_unaligned_be16(data + HIGHFLOWNEXT_5V_VOLTAGE) * 10;
+ 		priv->voltage_input[1] =
 -- 
 2.53.0
 
