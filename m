@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581372;
-	b=z/TGxITAxqzevfNlQdNrZd2iao671LHD2ZU8o3ejq63QEB5lveZShCWbBVou0gvSnP74
-	 jA+MB33dioPnSG4gqxJLWlR5BCaU2nxggI8Ou9PKpsWkh8HB4Fn+DVEyv8wtFWUkuOlRg
-	 lups0YpWplCly1fqWJS7JS88J78IaXPh6u+uViP21gxmMQux96GivDjAOVY0LczXMzbT0
-	 breKL4UA1GoAD7N6eV2TKf+Y9saEjd6n9ibfPMZoKQmQixm6pCUq0QH8MT+ZMY3ZHj8xq
-	 zGZnZiWkCCiJveFmYEK7rz4JIVJAXaOD7HLZEc1e9Hzd25igFPZz1PPYr7ITNOl5ARA==
+	t=1794581373;
+	b=iLYAqiBP/i2SZr6eooH75UBAzeSoXsgPut2XhbSGGF1cmEXMvKVC9cBEudrWYd0dhZWh
+	 Fv8OJ3WoN71ULpo7WNuukIcwcpK4d9Dk0HyvlAGxRZ14rLDbeuVK/OMV7EyBPSbE74Z1S
+	 YiKLz8FKTDDyb8qsklCuOZ9HU7+AE0DXP5/UaE5Wc1COe1UrTBVIraCb+nVyosou9eyI4
+	 /PIFX5U3z8zbGcd+lKvP9MfamDXised1q6jqz/pcZ/mwTh7CW3ri/9fKX2ERBDevLby8M
+	 loZfH6qSBJH7KWE1TyEiDm1P5FSxqf0Wvmr7A3FoloMA8NivA9GyNrdLZMjLz5fz7Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581372;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581373;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WS1p13alXjfOL5wXrn5p8fuHl0DAJUYkv4cuJ4+WEOo=;
-	b=lYRLoYuteJx2J5xZpx9HzsXa4D9i2JzGAvXA82FEy3gsZnZXRF0D9oCkO4S9xg/g5LXX
-	 zwssLcgMzanmvpXsEgLLmKlOznZQgeglfrXp0YCERBt3Tkv8FI+PbwBemA/3Cw22qNlih
-	 FYyXsF3JupPmEpcoWwtP5L2AbzoQM/DylZ0r8YTHREWHW1YHaGa5UaIJ2lNDeXIBlHR3C
-	 IXYsPG0H/Q+gWIROXKLkt5mI85ZBIgdVSSzgu2fgkmj0z0AnJyP9mhxJDMaFtVeyacYgS
-	 tW1bhTEu7nunc6xk5zjhsdMCjCjFldasj4bM1Lldb7UjGlWTziwyZpbqPyNF/sn4n0w==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=w/SGgoJc7JLq3lj+uW6y1fUaROBioBlAUQWCPGNXVOE=;
+	b=w8dYpaxJp/OYh4ftYrxnbYxRDyQk8Rc63pMYosYdEzEvmnB7d9WGCFH0OBGUdDvf/yCX
+	 Zv9fr/yiuPy02Fg8ZE6Y5WADYXXApPxa+TbY2KvK15NvqrJE5kipqKM98z2h6xk/v1Nbl
+	 pbqnLHjIBbkq1uZ3TgPqD4841+srJHUou9rae1abz5iUi0OwGEmT9DuNthV4SKhjTYHd6
+	 BTcFu+60m0s/sKy82pH/YAp9jTS68bETthlaY1I+pZnoXpGx6McftqmJeU9gSmXzOCtz5
+	 IdehmLBTdlJcYxW0YSrNbiAYELZiOuxGcUF0FM/PBlTlAa4pktQLu7lUjOKU4tvstag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Hjk/cOEP";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCWgTlxr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F26606A327
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:49:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778ED606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:49:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hjk/cOEP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4611F000C6;
-	Fri, 13 Nov 2026 14:49:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCWgTlxr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A86E1F000C4;
+	Fri, 13 Nov 2026 14:49:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794581372;
-	bh=WS1p13alXjfOL5wXrn5p8fuHl0DAJUYkv4cuJ4+WEOo=;
+	s=k20260515; t=1794581373;
+	bh=w/SGgoJc7JLq3lj+uW6y1fUaROBioBlAUQWCPGNXVOE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hjk/cOEPge8RMtYyAnb9VGaqfl+SmjhnG0TfAuMEtoobcBQzbk2ZyfWXBKDZJ5xtZ
-	 YoekGyXBH51umK6giFWU9kgA5d/fDomt381kenDCQuzvB6yR991HtEXF3vdryHo90m
-	 q3PJIgjE6wKwR5y/qomRQ88onqkJzgIHhm9WTzrhcBwNLpIScH8PiO4BH0b82Bzc5r
-	 sKycjfJeOCzwN8GOMyAXHC0WzzLU71sUJ1FlFbe9X2dooQ3YAnvRrZbYi+YkrAIoM1
-	 1hTKjUXahQaSW3B+hICyd9Wa8fcQbTHuEw2LHV7dWT2tCZWWfDkSS4zzenbQHcNd5t
-	 Lz7ZUgEj8NMRw==
+	b=eCWgTlxrcmIljanP3gzS0NNcTCi+jzHEY9zqr5A2Hd4PstvqD6OY4sovYzVi0hd9F
+	 q2NCsDC1bggBGXFOrvwY+aASLexC6Umqv01Uq8AMQ9SRl+ZtNs2JxuoB9at4nYMV7j
+	 jqmiJeMBPjQwRlC2vpI1sbNBcFQ1Q2IDJKLznexBxzx/5obZTVo8KCr4AT8GALzBm4
+	 l/3AbuOGNT7eNGFDlA1IYLbpizuzP35eLk2UFmTDcxZ/LsX121h7ujlAO+uVFwF1ag
+	 vxzCC2fYnWjJK0RwkeSiqT7/hVyRRb3CMau3fSLcsmsCOQp2NJyYDp4PxboZu3pIUi
+	 /TEsVjdaC23ww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Cen Zhang <zzzccc427@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Jia-Ju Bai <baijiaju1990@gmail.com>,
-	jjzuming@gmail.com,
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ocfs2: validate move extents against a stable EOF
-Date: Fri, 13 Nov 2026 09:49:28 -0500
-Message-ID: <20261113144806.1427542-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] drm/amdgpu: keep the CS user fence BO in GTT
+Date: Fri, 13 Nov 2026 09:49:31 -0500
+Message-ID: <20261113144747.1313099-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113144806.1427542-1-sashal@kernel.org>
-References: <20261109200438-failed-6.18-84db6619cb70@kernel.org>
- <20261113144806.1427542-1-sashal@kernel.org>
+In-Reply-To: <20261109202826-failed-5.10-7a56d929dc23@kernel.org>
+References: <20261109202826-failed-5.10-7a56d929dc23@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,193 +61,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Cen Zhang <zzzccc427@gmail.com>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit 84db6619cb702c37cf848b450c21b9c9706b0775 ]
+[ Upstream commit 7a56d929dc2304edaa6231e1eb5eb82b7e8b74a9 ]
 
-The move-extents range must be bounded by the inode size used for extent
-movement.  ocfs2_ioctl_move_extents() checks and clamps the request before
-taking the local inode and cluster locks in ocfs2_move_extents().  It also
-uses separate i_size_read() calls for the range check and subtraction.
+The CS ioctl hands the GPU the GART address of the user fence BO, but
+since the BO keeps its own preferred and allowed domains, it no longer
+makes sure the BO is in GTT. A user fence in a VRAM BO, which only needs
+to be a page in size, gets its address from amdgpu_bo_gpu_offset(), which
+warns about non-contiguous VRAM. On navi31, a CS with a user fence in a
+4K VRAM BO, or in one created with AMDGPU_GEM_CREATE_VM_ALWAYS_VALID:
 
-A concurrent truncate can invalidate the first check and make the later
-unsigned subtraction underflow:
+  WARNING: amdgpu_object.c:1531 at amdgpu_bo_gpu_offset+0x86/0xb0 [amdgpu], CPU#11: cs_gem_checks/18393
+  RIP: 0010:amdgpu_bo_gpu_offset+0x86/0xb0 [amdgpu]
+  Call Trace:
+   <TASK>
+   amdgpu_cs_parser_bos.isra.0+0x4eb/0x850 [amdgpu]
+   amdgpu_cs_ioctl+0x97e/0x2510 [amdgpu]
+   drm_ioctl_kernel+0xac/0x110 [drm]
+   drm_ioctl+0x2c6/0x5b0 [drm]
+   __x64_sys_ioctl+0xa0/0xf0
+   do_syscall_64+0xa3/0x4d0
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
-  Move-extents ioctl                  Truncate
-  ------------------                  --------
-  check me_start <= i_size
-                                      take inode and cluster locks
-                                      shrink EOF below me_start
-                                      release locks
-  compare me_start + me_len with EOF
-  set me_len = EOF - me_start
-    [unsigned underflow]
-  acquire inode and cluster locks
-  select extents using the bad range
+and BOs which can't be in GTT at all, like GWS or OA ones of a page in
+size, pass the checks as well.
 
-A truncate after clamping can also leave the range extending beyond EOF.
-Conversely, the cached size may be smaller than the size refreshed when
-the cluster inode lock is acquired.  Early validation can then reject a
-valid start or permanently shorten the requested length and threshold.
-The me_start + me_len comparison can also wrap for a large input length.
+Only take BOs which can't be anywhere else than in GTT as user fence,
+which the CS then validates there along with its other BOs. While at it,
+detect userptrs with amdgpu_ttm_tt_is_userptr(); amdgpu_ttm_tt_get_usermm()
+returns NULL once the task which created the userptr is gone.
 
-Validate and adjust the original request once, after inode_lock(), the
-exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
-size.  Read EOF once, reject a start beyond it, and bound the length by
-EOF minus start.  Normalize the threshold using the same EOF snapshot.
-This keeps zero as the default-threshold sentinel until validation uses
-the size that will govern extent movement.
+v2: only take BOs which can only be in GTT instead of special casing the
+    user fence BO in the validation, use amdgpu_ttm_tt_is_userptr()
+    (Christian)
 
-Move goal validation after range adjustment as well.  Its allocation-group
-capacity check uses me_len and must see the EOF-clamped length.  Both
-validation failures use the existing inode-lock unwind path before any
-extent movement or transaction starts.
-
-Range errors now reach the ioctl's normal copyout path, as goal errors
-already did.  Unlike the old early rejection, a failed copyout can
-therefore override -EINVAL with -EFAULT.
-
-Link: https://lore.kernel.org/pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com
-Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
-
-A truncate after clamping can also leave the range extending beyond EOF.
-Conversely, the cached size may be smaller than the size refreshed when
-the cluster inode lock is acquired.  Early validation can then reject a
-valid start or permanently shorten the requested length and threshold.
-The me_start + me_len comparison can also wrap for a large input length.
-
-Validate and adjust the original request once, after inode_lock(), the
-exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
-size.  Read EOF once, reject a start beyond it, and bound the length by
-EOF minus start.  Normalize the threshold using the same EOF snapshot.
-
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit f16989def9561d04d0f2e77216f5319112d29bf1)
+Cc: stable@vger.kernel.org
+[ sashal: adapted p->uf_bo accesses to the local bo variable in amdgpu_cs_user_fence_chunk() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/move_extents.c | 70 +++++++++++++++++++++++------------------
- 1 file changed, 39 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
-index f599978cbb9b1..5952c7f4e7f04 100644
---- a/fs/ocfs2/move_extents.c
-+++ b/fs/ocfs2/move_extents.c
-@@ -902,6 +902,30 @@ static int __ocfs2_move_extents_range(struct buffer_head *di_bh,
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 40146957996f0..38491f05c9d39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -62,7 +62,12 @@ static int amdgpu_cs_user_fence_chunk(struct amdgpu_cs_parser *p,
+ 	if (size != PAGE_SIZE || data->offset > (size - 8))
+ 		return -EINVAL;
  
-+static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
-+						struct ocfs2_move_extents *range)
-+{
-+	u64 i_size = i_size_read(inode);
-+
-+	if (range->me_start > i_size)
+-	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
++	if (amdgpu_ttm_tt_is_userptr(bo->tbo.ttm))
 +		return -EINVAL;
 +
-+	if (range->me_len > i_size - range->me_start)
-+		range->me_len = i_size - range->me_start;
-+
-+	/*
-+	 * The default threshold for defragmentation is 1 MiB, which
-+	 * matches the maximum OCFS2 cluster size.
-+	 */
-+	if (!range->me_threshold)
-+		range->me_threshold = 1024 * 1024;
-+
-+	if (range->me_threshold > i_size)
-+		range->me_threshold = i_size;
-+
-+	return 0;
-+}
-+
- static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
- {
- 	int status;
-@@ -931,6 +955,21 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
- 		goto out_rw_unlock;
- 	}
++	/* The GPU writes the user fence through the GART */
++	if (bo->preferred_domains != AMDGPU_GEM_DOMAIN_GTT &&
++	    bo->allowed_domains != AMDGPU_GEM_DOMAIN_GTT)
+ 		return -EINVAL;
  
-+	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
-+	if (status) {
-+		mlog_errno(status);
-+		goto out_inode_unlock;
-+	}
-+
-+	/* The goal check depends on the adjusted range length. */
-+	if (!context->auto_defrag) {
-+		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
-+		if (status) {
-+			mlog_errno(status);
-+			goto out_inode_unlock;
-+		}
-+	}
-+
- 	/*
- 	 * remember ip_xattr_sem also needs to be held if necessary
- 	 */
-@@ -1023,27 +1062,8 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
- 		goto out_free;
- 	}
- 
--	if (range.me_start > i_size_read(inode)) {
--		status = -EINVAL;
--		goto out_free;
--	}
--
--	if (range.me_start + range.me_len > i_size_read(inode))
--			range.me_len = i_size_read(inode) - range.me_start;
--
- 	context->range = &range;
- 
--	/*
--	 * ok, the default threshold for the defragmentation
--	 * is 1M, since our maximum clustersize was 1M also.
--	 * any thought?
--	 */
--	if (!range.me_threshold)
--		range.me_threshold = 1024 * 1024;
--
--	if (range.me_threshold > i_size_read(inode))
--		range.me_threshold = i_size_read(inode);
--
- 	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
- 			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
- 		status = -EINVAL;
-@@ -1055,23 +1075,11 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
- 
- 		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
- 			context->partial = 1;
--	} else {
--		/*
--		 * first best-effort attempt to validate and adjust the goal
--		 * (physical address in block), while it can't guarantee later
--		 * operation can succeed all the time since global_bitmap may
--		 * change a bit over time.
--		 */
--
--		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
--		if (status)
--			goto out_copy;
- 	}
- 
- 	status = ocfs2_move_extents(context);
- 	if (status)
- 		mlog_errno(status);
--out_copy:
- 	/*
- 	 * movement/defragmentation may end up being partially completed,
- 	 * that's the reason why we need to return userspace the finished
+ 	*offset = data->offset;
 -- 
 2.53.0
 
