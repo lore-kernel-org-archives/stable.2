@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603409;
-	b=03FLFMeAAewtT3hP0fsQhiW9OJJCUBx/9UAHaU6yNwwHufYedhhvrYRE/+giaCj1ulun
-	 VXpqlfBTyJVR/ZuX3JzccX5RnoZO9e18HCAFuAeUnAnD+c2D3XItf+0hj3btd1skgNDHC
-	 IaCtrVTZ8OTamQXCST1GG0mWHm0ABkEU9iZ4Om5PYWW91SN0tcnzOGoZ6xUKrpmYAK7gw
-	 r3KJ1avrEl1xlmJP2n+jx40x3VY91z1v5jZbWsf9AucpsfmhvRNDw1muze38dxeiCEKZV
-	 mlpenecyydQaKAQNCUBpGjotV9QFGgvpfRd1Umj8i3i+orLMLWkK7RT3k++Gc6BADbg==
+	t=1794603511;
+	b=PHACnOjw8usKPbp4U0wl5BjY0pTeik55PpnI3mIc1ZPhpLjexORg1RsES0XqCJxQQt21
+	 DNKqHMi3Ok1cKqLpBlmEjTgixi9pYSrD5ZEnFJ7hE2EUe8qdqeBd5AmBB6noM3yabmkxS
+	 tGAMwtib3oUdXR544d6AIi7YK7IMABzTtW3MSeWdtDdznqGnZyy7T5ak3ELmnPDz05qua
+	 9TY8aIbNPtkuQ9L1d1QBfGHjNnL+beAu5ufIWzmEQkl21FwSDrPed8OfpWdQZY0bblMqH
+	 VokZMQ0TPRxXhxEwmOqoGWYVfLnoP5FFMTCbTPCJ3gvwGtd1Cf1dFirvobZDgAh799g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603511;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ePE3yvePlxHav1TsPKz/9gOmDCm84hdxRakGfr0yZhs=;
-	b=eZJyt01XfWY6Th7s9GqQRQR8ki/DwExss4lH9Rye4OEnEitmmfJ5nlIYCWtHM45+krnw
-	 XZ5LHbaChHzN3UEM9fvflQlFZisFzdN/QP7M1GKTfLuOjPpkiM5EqPOpJ4XRqY7xpCJwB
-	 kqG9c0lEJ+KTE42VYX/UvZg+KQgp8bUthfwj3ImHAxwgt0qHQEL5SLqWaIMcCYNcTPE9E
-	 teKznp1wnYueFlhDXm1dGO69duf20aDC9faabQbwqfZ71dES7TAYTDoesgj8L2GaZcSs0
-	 +4SGQwNc1bwrMX3IC683LI0wt1jgGy3+iIwIjCINhl8uqaiZqqgGFgCkUVc3MjN5s0A==
+	bh=KCeraaoTbm/Bv4yLGDyACGUTMXNE0652l6AyTVsw0mA=;
+	b=4Re6yJjmK6NDQrzS8AvvMYUHROxl8XhgaCI/lK4ly+Y1XUUy+TxWCMYYKy5SGwNiHRs2
+	 2TdXUpG6t8UmJYtUNdmgn5aalseTcbLm9KXnCazDVtDOEsz/+tNStIQvmg9tPLBijsU5k
+	 SvR0Vg31ihXaB46AK2v9dWkykUZNS5g0mxo4PanBOT5bYjMO1XlHGZmlm2sa+GaWP20BA
+	 oglGawcoXTiPOvPOJG7e/AO6giHSArzjGrX8ykj/eCJYy97fJUSPfsHd6rO5LUihBehnJ
+	 sV+v3UlEvzbmvMB9LGjgajFpOj+RAXfXEVM/1wxkMzv4rxMExYYZfC0KFqSoY+lCBtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euuwYSzp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPkwPYGo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F1B606A334
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 20:56:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA9A606A334
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 20:58:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euuwYSzp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784041F000C4;
-	Fri, 13 Nov 2026 20:56:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPkwPYGo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1FD1F000C4;
+	Fri, 13 Nov 2026 20:58:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794603409;
-	bh=ePE3yvePlxHav1TsPKz/9gOmDCm84hdxRakGfr0yZhs=;
+	s=k20260515; t=1794603510;
+	bh=KCeraaoTbm/Bv4yLGDyACGUTMXNE0652l6AyTVsw0mA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=euuwYSzphHqjTXzj4MWfL8zjUbdHHOldnAcUEp5NqTmvr1PgGQrqlv3DyAn0m7Qvp
-	 TqEiHyt3HiO2ThUAN9tSdRYlDimqey+DzMmSWStaiZuk5PbMmw86TC+0UErc0j4qjv
-	 xMIe5szWoa6e9n1KmXMAl9DbQlgen1dYX8y9XwLiwchh97KJqmDrQMLIFsLLJE9Lde
-	 FhK/2R4lv75l7PcUzmrbj2AFjunnhZRCo0BrUR4ml99qltvteWW8HlYaiqSoFUZGR+
-	 Sb3GVWuooF3RMAR8S+vuQzmZnWQmW8CA5fCcFMWbV3ejfI23GhsG1eDYG3OYT5JuXw
-	 I7PIbJoDssD1Q==
+	b=fPkwPYGomFgXIzl2GUwqAvL77Z8R2xbWl5CJ0TqbGEfuKFUjp+BjlYlveWt98Iqdw
+	 R1rDwcITphUIPWtzxKutWIOmJ+NGWM5Luo5DIuGFX8bAOkZHdUct3EDpIyb0gn86GQ
+	 XWJe6v+BTAFxjGODL4ijQeLogKw3WlNWy24nULtxrtvc+kZKPFnJIg5V4LC1RBq9Sq
+	 bYtSttIhBFcK0uLSr5NFOWxiS2umrn/v9ubJX1cfymOgVA6RilZDUJnmtv1yVsoNMw
+	 dEdBLgz6Thz0/hXFeH2+zbI8NjbvuK0cc4oupsijqeWDGd/6jSj0VrZ9NSlA1UUqao
+	 /Zec98NJUsE7A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Chris Mason <mason@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ksmbd: let the owner read and change the DACL when no ACE names it
-Date: Fri, 13 Nov 2026 15:56:47 -0500
-Message-ID: <20261113205617.2612345-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/memory: reject remote COW faults on PFN mappings
+Date: Fri, 13 Nov 2026 15:58:28 -0500
+Message-ID: <20261113194724.2463260-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201107-failed-6.6-ffc855fe16af@kernel.org>
-References: <20261109201107-failed-6.6-ffc855fe16af@kernel.org>
+In-Reply-To: <20261109201841-failed-6.1-8db6921cc07b@kernel.org>
+References: <20261109201841-failed-6.1-8db6921cc07b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,129 +64,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Bridges <icb@fastmail.org>
+From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit ffc855fe16afe02b22305111aa68cd8d07360941 ]
+[ Upstream commit 8db6921cc07b74197a3866d62ed262b68aeadcf3 ]
 
-smb_check_perm_dacl() refuses the owner when neither its DACL lookup nor
-the POSIX ACL fallback matches. The owner then cannot read or replace
-the DACL over SMB. MS-DTYP 2.5.3.2 grants the owner READ_CONTROL and
-WRITE_DAC unless an OWNER RIGHTS ACE applies.
+When handling a COW fault without a normal source page (PFN mappings),
+__wp_page_copy_user() copies from the faulting user address. For remote
+faults, this accesses the wrong address space, resulting in wrong data
+getting copied.
 
-An empty DACL allows the owner's explicit requests for these rights but
-refuses MAXIMUM_ALLOWED. smb2_open() uses that check for the maximal
-access reply (MS-SMB2 3.3.5.9.5), so even a READ_CONTROL open fails when
-it asks for that reply.
+For example, user_events updates an enable bit in the registering
+process's memory. If that memory needs to be faulted in,
+user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
+item. Placing the enable bit in a private PFN mapping can trigger this
+remote COW path.
 
-Grant the owner's implicit rights on both paths, for explicit requests
-and MAXIMUM_ALLOWED, unless an OWNER RIGHTS ACE applies.
+Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
+current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
+the VM_UNPAGED logic"); likely, actual ways to get remote faults in
+there on COW PFN mappings appeared afterwards. But the fix is simple and
+straight forward.
+
+Fix generated by an LLM and sent by Chris Mason in private.
+
+Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: added missing sid_owner_rights definition and is_owner setup required by the upstream patch ]
+Signed-off-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[ david: simplify comment and description ]
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-35-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Changed the -EFAULT check in wp_page_copy() to use ret instead of err. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smbacl.c | 52 +++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 46 insertions(+), 6 deletions(-)
+ mm/memory.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 40b2e6b499457..058367e33f044 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -27,6 +27,9 @@ static const struct smb_sid creator_owner = {
- /* security id for everyone/world system group */
- static const struct smb_sid creator_group = {
- 	1, 1, {0, 0, 0, 0, 0, 3}, {cpu_to_le32(1)} };
-+/* security id for owner rights */
-+static const struct smb_sid sid_owner_rights = {
-+	1, 1, {0, 0, 0, 0, 0, 3}, {cpu_to_le32(4)} };
- 
- /* security id for everyone/world system group */
- static const struct smb_sid sid_everyone = {
-@@ -1466,9 +1469,12 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	int i, found = 0;
- 	unsigned int access_bits = 0, denied = 0;
- 	struct smb_ace *others_ace = NULL;
-+	bool or_ace = false;
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
-+	bool is_owner;
-+	vfsuid_t vfsuid;
- 
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
- 	pntsd_size = ksmbd_vfs_get_sd_xattr(conn, idmap,
-@@ -1489,12 +1495,28 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	if (pdacl_size > acl_size || pdacl_size < sizeof(struct smb_acl))
- 		goto err_out;
- 
-+	vfsuid = i_uid_into_vfsuid(idmap, d_inode(path->dentry));
-+	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
-+
- 	if (!pdacl->num_aces) {
--		if (!(pdacl_size - sizeof(struct smb_acl)) &&
--		    *pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)) {
-+		unsigned int allowed = 0;
-+
-+		/*
-+		 * An empty (present, zero-ACE) DACL grants no access to
-+		 * anyone except the object owner's implicit READ_CONTROL
-+		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
-+		 * deny the owner any access beyond those two bits, and do
-+		 * not let trailing bytes after a zero-ACE DACL become an
-+		 * implicit grant.
-+		 */
-+		if (is_owner)
-+			allowed = READ_CONTROL | WRITE_DAC;
-+		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+			requested |= allowed;
-+		if (!allowed || requested & ~allowed)
- 			rc = -EACCES;
--			goto err_out;
--		}
-+		else
-+			*pdaccess = cpu_to_le32(requested);
- 		goto err_out;
+diff --git a/mm/memory.c b/mm/memory.c
+index 9f965c12ea0c5..ee7faf817fbee 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2895,6 +2895,13 @@ static inline int __wp_page_copy_user(struct page *dst, struct page *src,
+ 		return 0;
  	}
  
-@@ -1575,6 +1597,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			found = 1;
- 			break;
- 		}
-+		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
-+		    !(ace->flags & INHERIT_ONLY_ACE))
-+			or_ace = true;
- 		if (!compare_sids(&sid_everyone, &ace->sid) ||
- 		    !compare_sids(&sid_authusers, &ace->sid))
- 			others_ace = ace;
-@@ -1619,8 +1644,23 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		if (others_ace) {
- 			ace = others_ace;
- 		} else {
--			ksmbd_debug(SMB, "Can't find corresponding sid\n");
--			rc = -EACCES;
-+			unsigned int allowed = 0;
++	/*
++	 * __copy_from_user_inatomic() only works as expected for local faults.
++	 * Reject remote faults.
++	 */
++	if (unlikely(mm != current->mm))
++		return -EFAULT;
 +
-+			/*
-+			 * No ACE names the owner, who may still read and
-+			 * change the DACL unless OWNER RIGHTS applies
-+			 * (MS-DTYP 2.5.3.2).
-+			 */
-+			if (is_owner && !or_ace)
-+				allowed = READ_CONTROL | WRITE_DAC;
-+			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+				requested |= allowed;
-+			if (!allowed || requested & ~allowed) {
-+				ksmbd_debug(SMB, "Can't find corresponding sid\n");
-+				rc = -EACCES;
-+				goto err_out;
-+			}
-+			*pdaccess = cpu_to_le32(requested);
- 			goto err_out;
+ 	/*
+ 	 * If the source page was a PFN mapping, we don't have
+ 	 * a "struct page" for it. We do a best-effort copy by
+@@ -3167,6 +3174,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 				put_page(old_page);
+ 
+ 			delayacct_wpcopy_end();
++			if (ret == -EFAULT)
++				return VM_FAULT_SIGBUS;
+ 			return ret == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
  		}
- 	}
+ 		kmsan_copy_page_meta(new_page, old_page);
 -- 
 2.53.0
 
