@@ -1,55 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589832;
-	b=RpVilFFOW9j2aw6Inc3cUzTjbc57H+Ugrx/Maz0X5Kz+FS/iF8RLF/y/flofM+UzTuKN
-	 zRkptpV9tLaSvAfl4rsfduhJfjUCxocnPrQtho08jHCDFZ0KYCl/t7eHMhxe4LiJreld8
-	 jlTenPFLzPxjtnF5Qu1VesULNOkchfoTYBN940yufleliQP+akePKswyUwqk5pQWusXQI
-	 LpIcsgEXklE8RtJWJdxU9GX40+tI9rTh7Odw/JGmgH5AJCKbn/+URxSt0Ee1rTQM0VUUo
-	 pspx8VFRYEKTS9CMnCvAO6E+7WqBegg6anewNFrbY95jU4kqt0+SzeDBCKB8TqQUKVg==
+	t=1794589948;
+	b=lzk1UWcQxzMkTwWCUf4ipt7FWVlIsf2fPxSHtdiieRjfYbDSOjU+jRQdp3nUKmiKPmjZ
+	 tjVBogOHMJMlZVbhuLHJBufDZHSxW/TCF4A3HlPcNBb49fvQDWxNEcTxotetT5eQAQ8bs
+	 dFiFjeiH0CrD8KEEllOC0zZHYDVKjrrnKzyhlhHlKj+qQlvwyo3MsOvS9izcpo3gBLgrF
+	 3Tsg+KbCSE8gcC/ezVXhwtlQdUMdNBOqk+vICEEmwtJX9xOK1pHIrX7NLQVzujyMGJ/Ed
+	 +yx6Imam0J7NoDY0dooaXzI927uTEhXAYItyvzDemdoFxeVwnZDzt9u4J9R0xHS1Dhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589832;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=f/8e5vVYZWet9bV9YcMfSdtB3sJYPgzJGeoEd72TgKY=;
-	b=Y//axZIg/9R7jSAtmQRbMR49K2KOk34YRfAaRzlbzmMrmlGU4VvTfD5PbIdIiZ9Kf6Ty
-	 RyVifbyFZeTpl+i03ZafTdt+GGPKTzGY7aJ1vKCex+b5rLL7DXuih5dhBU+dB+s+qONoW
-	 xVFTIvopMlDluF8kMVP8fPhQzKDg88idnq32npi8+ODjyLQ3yP6ZP9UXNC7Xw5j3TY9n2
-	 2ChMaJW7mLcgOoZ5gDCidw2aVqOsk4Ho51qWHjjWEEz1nDsfzsJUJyRolzHXixEvuy10W
-	 JiWwHBDRhIdnIe9W+iehJlq/kFI1qS3vNQYcPHDQaMGDO6WnZ6s42jjtbYCKT6eayoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589948;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
+	b=4L+MQ23OFcbz57RAf64UyNLqFmMFHgmOmsFBrrgTM9Icw3qwY+QERmOI7ud8uLcnwPWJ
+	 jXc/ssvuh7PC9xjeu395C29qlvOjI9FgZTtWsd17IIt1SnsdFZrZOpXVfzffWEad1k1Du
+	 bqCwrCbP3UOWyWHt48Vdp+Ow2iVIE8xyEBkgxIQmLjLZwj8W+shG/IBCL4HePxOpa1slp
+	 0NlSdg29PNBPC+WyGQnbhSlAqLXrQLEDVGh2pKpQ9eQbYG8+Xhqjx0URP1xAJufgs7nIk
+	 SJBSH8juMghkYTNmIBmspruuofxxWExJtVUDtxLWhz7OUOSzCzm4SPTHtYEc+CObD0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q/Eo4/Xr";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dk1vCWfG;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50B9606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:10:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D54606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:12:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1D54606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q/Eo4/Xr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0AF1F000C4;
-	Fri, 13 Nov 2026 17:10:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794589831;
-	bh=f/8e5vVYZWet9bV9YcMfSdtB3sJYPgzJGeoEd72TgKY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q/Eo4/Xr+QXIb37LBFhMNXC4IMEsBB5c3dv6sr8vmNRCT2cttyOPDHdYS9o/+L++L
-	 u2eSZP/8bYLyF0MwfVJXYRz/SWG7FVK2t6n5teEU1EmsypTsSeVpTEZ4nk1aIXsDfA
-	 jGC1KLaBrYZZ0AXUWMTGSPZb6BIbfQc3vYxPINDTpAYtu3P653J6qqnDJPp6TfnrKa
-	 2u9shY2EJkuxX5MW7cSzOw//XfQLwwnh6U+CgTiR3tHfaTWC6Bb1CP9lRcvT/OyJo3
-	 pMvdKA7lQ4Bdx9BK0LLgZi/2VNSyBxy2s2j5y++lRiqRj/itGMhjcR6pdWi4NQwoX/
-	 JtPlA/B69+ATA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yu Zhang <yuz08559@gmail.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN teardown
-Date: Fri, 13 Nov 2026 12:10:30 -0500
-Message-ID: <20261113171005.2090594-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202013-failed-5.15-6a6e7d7230cd@kernel.org>
-References: <20261109202013-failed-5.15-6a6e7d7230cd@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dk1vCWfG
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36ecc11bd26so160683eec.3
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 09:12:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794589947; x=1795194747; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
+        b=Dk1vCWfGcdr5xZdt9dq2I9ypVf/Dr1nhuoKzF69Fy3aGZpE7zPiJYOeUBh4Omt7n6B
+         aha6kKwmE7MYPtoRs9WpJ0jd7pv8BR/34CxoeYQgC3Z8qubWhIeYmeHQfXC040+WhEcE
+         w4hu2GvDTiFZRumOJPSaERTQdIppzXJ0ePkV617MhpUtwVEg970NAV/BOk747yVlDtp1
+         S4G7kJwVnnYp/6OqqzmYFaFW314xB7DGfBmd31sphRPXFTKJqRYn95xEqQZ8jvr1Lq3D
+         9mRp+dNr1qR5gqjAKzng6ikGgxkxoxeY6PkimoEiYnpNJ754F5ZjsVwFj9jEufHxaVUE
+         RLfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794589947; x=1795194747;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
+        b=BLSIYxluPRdujQ0snYBaPZYfGZWeE5pu5eDCg3BNFtl6O0wAnCvX0I8ayhFLvcdMFR
+         6LmCCHc39H0lZJVmM+BNt9rtsGW3Mncpdf5UGr/N5pFnjC/tOGucZZJIuoy4stRD46aS
+         is9xkT5wh9pnXi5eBMi4p3awOc+1eIJGOClPj1MKAvYifAC621DVYM2t+dZmVSpUyTBI
+         yVLVkZnjAl7f2QgDgXA0IVY7YMWYSygId/rGiPnq5A6m//mNuEvC5KyDWd4Ba7wl7h9t
+         Fb2VKB8RDEzt0tBTDz0UpYwYC80Kc3rLT2EfFov8agvDvD5+IXjqrIqmjypNLEKUtzz1
+         IFKw==
+X-Forwarded-Encrypted: i=1; AL+hErHbb75ZFPiu9423E/t07en/kTMWt0qYK6pM0egVmoujyYmxvjkvK+sAhdfvdRK8f/QbTO4TqE0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++rbJHt4bEWAiAE+b/OM7XdnYlr+QWqwYgASYJtr5cAySNLnSt
+	RWyybbS2MLJAh1oUOQjeh/V152DaLAJzt3nxY6GwLaxtCIdesACuILhm
+X-Gm-Gg: AYBFou0rKL/HqcI1zQN6m3ojgNtCwbLPcVd0SGAie+6czGs2afd6MqhspWvqg/bLr95
+	d0uTWwGktyQioCSJb+ulNxpR/hqGzxOBKA8jI4VSKxplgy5LLO1FOn4learoW3oNAgAnVf7RIXn
+	nQ8B+nEkLlhiZS3TP/KlcKAwWbRu3i40hIh9H9+cWcgbdfUWXWQuBzC4eGtUerEA7sN3fS5LksH
+	OJ8ZwNruxloqM63YagZb/6M0i/Zvs5sOu6HQgzU4cRE+ckXQYk3pZPbHEVxk2g2i0bMzYRiqYwl
+	AScpl/Zzf8jEMbRzBK8YsfMQmgvYyyKHlYnWn8z1eXvxbD+syScL5LwybEqAzpuc+KfPoBXfbzQ
+	1r4ojd2DfkqTblajscArXYY5dEv7kakPJ5zBn/V1jZySxOcokZp9RjWb3cqF1uEGRdW6GVHUzZ0
+	gv6Nfe4Z1C4VutLr8lbHLm/J2xlZIXQsH9g9InTW3hzFRNZaBAcwPNxWdA4R2r+GTTyEwgZ2hsB
+	6yQ7V7agt3Jk6TI6RznrBqvEpwUEwZSPhVJGjB/oTuU7Q47/D6rNGu1XpqXQn/ct8a7P79wfmpI
+	WDEZZjhaDxOM3ELT6KLNsh6PfptoZsZzRtg7+syY+PQXfIF4ps1tY2biX1ndf/vN7OB7h28JX/o
+	Ltcc=
+X-Received: by 2002:a05:7022:7f04:b0:1a1:9106:cfff with SMTP id a92af1059eb24-1b503097baamr4481535c88.2.1794589946743;
+        Fri, 13 Nov 2026 09:12:26 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b505b5bf76sm5975999c88.10.2026.11.13.09.12.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 09:12:26 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>
+Cc: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+	Akash Goel <akash.goel@arm.com>,
+	Karunika Choo <karunika.choo@arm.com>,
+	Lukas Zapolskas <lukas.zapolskas@arm.com>,
+	Chris Diamand <chris.diamand@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Jiwoo Kim <arpe1618@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: Fix unlocked pool->vm access in panthor_heap_create()
+Date: Sat, 14 Nov 2026 02:12:14 +0900
+Message-ID: <20261113171211.836427578-1-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,167 +111,116 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yu Zhang <yuz08559@gmail.com>
+panthor_heap_create() takes a reference on pool->vm under pool->lock,
+because the pool can be destroyed concurrently, and the initial heap
+chunks used to be allocated in that VM. Since commit c63c3bfdde26
+("drm/panthor: Avoid sleep locking in the internal BO size path"),
+panthor_alloc_heap_chunk() takes the pool instead and reads pool->vm
+itself. panthor_heap_grow() calls it with pool->lock held, but
+panthor_heap_create() does not, so pool->vm is read without the lock
+for every initial chunk.
 
-[ Upstream commit 6a6e7d7230cd4e0a6c003bae5b85bf37a1e77b94 ]
+If TILER_HEAP_CREATE races with VM_DESTROY on the same VM,
+panthor_vm_destroy() calls panthor_heap_pool_destroy(), which sets
+pool->vm to NULL, and panthor_kernel_bo_create() can then be called
+with a NULL VM, which hits its drm_WARN_ON(!vm) and fails with
+-EINVAL.
 
-A demo-mode (generate_node_acls=1) login that allocates a dynamic NodeACL
-populates that ACL's per-LUN dev entries in core_tpg_add_node_to_devs()
-*before* the ACL is linked onto tpg->acl_node_list by
-target_add_node_acl():
+Pass the VM to panthor_alloc_heap_chunk() and
+panthor_alloc_heap_chunks() again: panthor_heap_create() passes the VM
+it holds a reference on, and panthor_heap_grow() passes pool->vm, which
+it reads under pool->lock. In the race above, the initial chunks are
+then created in the destroyed but still referenced VM, and
+panthor_heap_create() frees them and fails with -EINVAL when it finds
+the pool destroyed under pool->lock, as it did before that commit.
 
-	core_tpg_check_initiator_node_acl():
-		...
-		core_tpg_add_node_to_devs(acl, tpg, NULL); /* builds deves */
-		target_add_node_acl(acl);                  /* only now listed */
+The problem was found through AI-assisted source code review. The fix
+is compile-tested only and there is no reproducer, as I don't have
+Mali CSF hardware.
 
-The LUN teardown sweep, core_clear_lun_from_tpg(), enumerates only
-tpg->acl_node_list, so a dev entry whose ACL is still in the window above
-is invisible to the sweep and is never disabled.  It is left on the
-se_lun->lun_deve_list after core_tpg_remove_lun() frees the se_lun; when
-the same unpacked_lun is later re-added and the se_lun is reallocated at
-the same address, the stale dev entry is rediscovered by
-target_nacl_find_deve() and core_enable_device_list_for_node() corrupts
-lun_deve_list:
-
-  BUG: KASAN: slab-use-after-free ...
-   core_enable_device_list_for_node+0x5ce/0x880
-   core_tpg_add_node_to_devs+0x169/0x190
-   core_dev_add_lun+0x146/0x190
-   target_fabric_port_link+0xe9/0x1b0
-   configfs_symlink+0x381/0xae0
-   __x64_sys_symlink+0x55/0x80
-
-The demo-mode login path that drives the ACL/dev-entry creation is
-reachable by an unauthenticated initiator; the colliding LUN add/remove is
-a local configfs operation.
-
-Commit 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun
-shutdown") introduced se_lun->lun_shutdown and guarded the *explicit* ACL
-MappedLUN path (target_fabric_mappedlun_link()), but the demo-mode
-automatic path, core_tpg_add_node_to_devs() ->
-core_enable_device_list_for_node(), was never given the equivalent guard,
-and the publish-after-populate ordering in
-core_tpg_check_initiator_node_acl() was left unchanged.
-
-Fix it in three cooperating parts:
-
- 1) Publish the dynamic NodeACL onto acl_node_list *before* creating its
-    dev entries, so the teardown sweep can observe them.
-
- 2) Refuse to attach a dev entry to an se_lun that is shutting down,
-    checked under nacl->lun_entry_mutex -- the same lock the sweep takes --
-    so once the sweep has passed an ACL any later enable for that LUN
-    observes lun_shutdown and skips it.
-
- 3) In core_enable_device_list_for_node(), insert the new dev entry onto
-    lun->lun_deve_list while still holding nacl->lun_entry_mutex, in both
-    the replace and the new-entry branch.  Previously the entry was added
-    to nacl->lun_entry_hlist under the mutex but to lun->lun_deve_list only
-    after dropping it; with the ACL now published early, the sweep could
-    take the mutex in that gap, find the entry on the hlist,
-    core_disable_device_list_for_node() it (list_del() on the not-yet-
-    linked lun_link succeeds and the entry is freed), and then the enable
-    would list_add_tail() the freed entry back onto lun_deve_list.  Linking
-    both lists under the mutex makes enable and the sweep mutually
-    exclusive, closing that window.
-
-core_tpg_add_node_to_devs() already ignores the return value of
-core_enable_device_list_for_node(), so a shutting-down LUN is simply
-skipped.
-
+Fixes: c63c3bfdde26 ("drm/panthor: Avoid sleep locking in the internal BO size path")
 Cc: stable@vger.kernel.org
-Fixes: 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun shutdown")
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-Tested-by: Yu Zhang <yuz08559@gmail.com>
-Link: https://patch.msgid.link/20261014013746.46705-1-yuz08559@gmail.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ sashal: Replaced the free_stats cleanup jump with kfree(new) and return -ENODEV because statistics are embedded in the device entry. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 ---
- drivers/target/target_core_device.c | 18 +++++++++++++++---
- drivers/target/target_core_tpg.c    | 10 +++++++++-
- 2 files changed, 24 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/target/target_core_device.c b/drivers/target/target_core_device.c
-index 1fcac654cfaa4..3acaae4c5e604 100644
---- a/drivers/target/target_core_device.c
-+++ b/drivers/target/target_core_device.c
-@@ -327,6 +327,19 @@ int core_enable_device_list_for_node(
- 	new->attach_count++;
- 
- 	mutex_lock(&nacl->lun_entry_mutex);
-+	/*
-+	 * Do not attach a new dev entry to an se_lun that is being torn down.
-+	 * lun_shutdown is set by core_tpg_remove_lun() before its
-+	 * core_clear_lun_from_tpg() sweep; checking it here under the same
-+	 * nacl->lun_entry_mutex the sweep takes guarantees that once the sweep
-+	 * has passed this ACL no dev entry can be left dangling on the
-+	 * se_lun->lun_deve_list that is about to be freed.
-+	 */
-+	if (lun->lun_shutdown) {
-+		mutex_unlock(&nacl->lun_entry_mutex);
-+		kfree(new);
-+		return -ENODEV;
-+	}
- 	orig = target_nacl_find_deve(nacl, mapped_lun);
- 	if (orig && orig->se_lun) {
- 		struct se_lun *orig_lun = rcu_dereference_check(orig->se_lun,
-@@ -354,12 +367,12 @@ int core_enable_device_list_for_node(
- 		rcu_assign_pointer(new->se_lun_acl, lun_acl);
- 		hlist_del_rcu(&orig->link);
- 		hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
--		mutex_unlock(&nacl->lun_entry_mutex);
- 
- 		spin_lock(&lun->lun_deve_lock);
- 		list_del(&orig->lun_link);
- 		list_add_tail(&new->lun_link, &lun->lun_deve_list);
- 		spin_unlock(&lun->lun_deve_lock);
-+		mutex_unlock(&nacl->lun_entry_mutex);
- 
- 		kref_put(&orig->pr_kref, target_pr_kref_release);
- 		wait_for_completion(&orig->pr_comp);
-@@ -372,11 +385,10 @@ int core_enable_device_list_for_node(
- 	rcu_assign_pointer(new->se_lun, lun);
- 	rcu_assign_pointer(new->se_lun_acl, lun_acl);
- 	hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
--	mutex_unlock(&nacl->lun_entry_mutex);
--
- 	spin_lock(&lun->lun_deve_lock);
- 	list_add_tail(&new->lun_link, &lun->lun_deve_list);
- 	spin_unlock(&lun->lun_deve_lock);
-+	mutex_unlock(&nacl->lun_entry_mutex);
- 
- 	target_luns_data_has_changed(nacl, new, true);
- 	return 0;
-diff --git a/drivers/target/target_core_tpg.c b/drivers/target/target_core_tpg.c
-index 736847c933e5c..b0221c6206d89 100644
---- a/drivers/target/target_core_tpg.c
-+++ b/drivers/target/target_core_tpg.c
-@@ -265,6 +265,15 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
- 	kref_get(&acl->acl_kref);
- 	acl->dynamic_node_acl = 1;
- 
-+	/*
-+	 * Publish the dynamic NodeACL on tpg->acl_node_list before creating
-+	 * its demo-mode MappedLUN dev entries below, so that a concurrent LUN
-+	 * teardown sweep (core_clear_lun_from_tpg(), which walks acl_node_list)
-+	 * can observe and disable those dev entries.  Otherwise a dev entry can
-+	 * be left on an se_lun->lun_deve_list that is about to be freed.
-+	 */
-+	target_add_node_acl(acl);
-+
- 	/*
- 	 * Here we only create demo-mode MappedLUNs from the active
- 	 * TPG LUNs if the fabric is not explicitly asking for
-@@ -274,7 +283,6 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
- 	    (tpg->se_tpg_tfo->tpg_check_demo_mode_login_only(tpg) != 1))
- 		core_tpg_add_node_to_devs(acl, tpg, NULL);
- 
--	target_add_node_acl(acl);
- 	return acl;
+Notes:
+    This is the follow-up mentioned in "[PATCH] drm/panthor: Don't access
+    gpu_contexts of a destroyed heap pool":
+    https://lore.kernel.org/all/20261113162648.110226253-1-arpe1618@gmail.com/
+    The two patches are independent and apply in either order.
+    
+    It conflicts with Osama Abdelkader's pending "drm/panthor: Fix race
+    when retrieving the new chunk in panthor_heap_grow()", which also
+    changes the panthor_alloc_heap_chunk() arguments. I can rebase on top
+    of it if it lands first.
+
+ drivers/gpu/drm/panthor/panthor_heap.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+index 99311abdf1..46f53699a2 100644
+--- a/drivers/gpu/drm/panthor/panthor_heap.c
++++ b/drivers/gpu/drm/panthor/panthor_heap.c
+@@ -137,7 +137,12 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
+ 	kfree(chunk);
  }
- EXPORT_SYMBOL(core_tpg_check_initiator_node_acl);
+ 
++/*
++ * @vm must be pool->vm read under pool->lock, or a reference taken from it
++ * under that lock: panthor_heap_pool_destroy() clears pool->vm.
++ */
+ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
++				    struct panthor_vm *vm,
+ 				    struct panthor_heap *heap,
+ 				    bool initial_chunk)
+ {
+@@ -149,7 +154,7 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
+ 	if (!chunk)
+ 		return -ENOMEM;
+ 
+-	chunk->bo = panthor_kernel_bo_create(pool->ptdev, pool->vm, heap->chunk_size,
++	chunk->bo = panthor_kernel_bo_create(pool->ptdev, vm, heap->chunk_size,
+ 					     DRM_PANTHOR_BO_NO_MMAP,
+ 					     DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC,
+ 					     PANTHOR_VM_KERNEL_AUTO_VA,
+@@ -209,6 +214,7 @@ static void panthor_free_heap_chunks(struct panthor_heap_pool *pool,
+ }
+ 
+ static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
++				     struct panthor_vm *vm,
+ 				     struct panthor_heap *heap,
+ 				     u32 chunk_count)
+ {
+@@ -216,7 +222,7 @@ static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
+ 	u32 i;
+ 
+ 	for (i = 0; i < chunk_count; i++) {
+-		ret = panthor_alloc_heap_chunk(pool, heap, true);
++		ret = panthor_alloc_heap_chunk(pool, vm, heap, true);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -315,7 +321,7 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
+ 	heap->max_chunks = max_chunks;
+ 	heap->target_in_flight = target_in_flight;
+ 
+-	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count);
++	ret = panthor_alloc_heap_chunks(pool, vm, heap, initial_chunk_count);
+ 	if (ret)
+ 		goto err_free_heap;
+ 
+@@ -473,7 +479,7 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
+ 	 * further jobs in this queue fail immediately instead of having to
+ 	 * wait for the job timeout.
+ 	 */
+-	ret = panthor_alloc_heap_chunk(pool, heap, false);
++	ret = panthor_alloc_heap_chunk(pool, pool->vm, heap, false);
+ 	if (ret)
+ 		goto out_unlock;
+ 
+
+base-commit: bafda823590ddf7031ecb765d673572fae7ab44a
 -- 
-2.53.0
+2.43.0
 
