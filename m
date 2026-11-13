@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567202;
-	b=ypTGtgbyxaYheuURbXS0xFX5Vfnydtf2XXZCVvC80wH2LYRLigloUTrwwpSQ20HVrr17
-	 VuQZq3NxZ/DHBjpruwuOuds05sSVT6tYkCxomkfBGhTXgnlFssnZMdfjD11oyfvOoFgmf
-	 sPLbdit3K2x6PAZfJdTgHrKYM3v8KyRacVCZFF8jg7aDMFXNMYcshVH0QyE5ex2OR5si7
-	 W73H/Uw2AE/G1jwqmLkMwTv2tCYmEaeaiftR0IXhcnLUo9ioBsVlmlZZ7M9KZ0+PciGg7
-	 WECuLxh+gD1/mAzdeU3MvE0BHVAl/NPW5I5dv2NZPD8wRyW+0ddvtNQDFxQj3bgdadA==
+	t=1794567530;
+	b=TxWvVDphcIulXuwi5aIE1hjzgZQkSlAh5luf/ojHyqkGd+xblXEkF2AF4bWpETKYO10C
+	 mhgamkL+MEb9T+1maZOI8BFdQpBBqsblLJi3zcDn9noanys1//cFPDvL9Nem9EMrkEOV6
+	 ok5C5rVwPoMNgx+0o6t+aIqzZd//KpUrSOsDcu4Ti8FPFT0aEj78G/DHxph2gF1S37VUV
+	 19cudFV6nxnQtlN7K7btZ4e5G6q5SK06f1fD8BPpbJe/iry6BzJJlFNj1X2ZjV2QFW2sK
+	 pfVfn+yW1/pfmxxQ40w7uKCLmOtP1cw9Nxbc2JnTxeQQo9DkLlD/ZFT/uk4rFzz4+Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567202;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
-	 DKIM-Signature:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy;
-	bh=G4uEKZRwUfb5zvd/yMth27AlEvMkO2zJDK4qdfnK/fc=;
-	b=BUQTKceTF43zt0PcujPBTtt/pB9wqFslBA1dl58TgfukIYWtWDqgM33xRXgtQMtyGvID
-	 rUfn0586Ee+pvUkW+QVkItRLGRbxXiRfTlGAITQXck0VmWE3xO6A4sHLAggi4EJG+aeUM
-	 cF/94iQqwKsVHUrmUR/HBzDD+d5nWzzg68+/swKjhWhYECympmPQsHtFXsWxLW3PWibKO
-	 7eUoKtAl/wLU6PpQjC1MP68L160Hk7wbfPn3HZcRT/fSeUH2SNGDK9eRcGd2oadEt+1su
-	 3+Qnr6hrPPrlN/OR3+n9uusv79EmEJ3+AHzhwHt2z6tKsDuV3BoxtPplsqTO+stdz+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567530;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=eABLV8g008jJr2G6ZeA0fIMhAhB4uWtAjm7pWUKqD20=;
+	b=y3nW7+r2bYCV5XtUAo9yR2eWY8zxHY/INL2EQRbIQglEv2qLw6eHGQ0KNgKuG97imuRX
+	 GrZ2A9O59mNLH1RGxwEV6ua6kDbf7pauKVBSb3ZamfWdIucKijseklaGxA7BXCZ7dJNGm
+	 pCgehdcQ9r6INkBCG/z89NnjATnBYF8nP/7LbGYZKzhxxwvFvQQbSaCos9WY2KqvwSbNj
+	 1lu4lyJNMoqqyQnsdb9eEC4NIiy3hiTN8m/rTymQco2zDD4tdMv6zDFdZgs2E3m2F2mun
+	 w3qobSpA7uQvxuz1sKBJdL0NXzxv9ElXWnF6CdV0YRlNsI92YoR7X+6LbasDO99/Ctg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=secunet.com;
-	spf=pass smtp.mailfrom=secunet.com;
-	dkim=pass header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=CcsiSJnE;
-	arc=none smtp.remote-ip=62.96.220.36
-Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=CLOkfTMX;
+	arc=none smtp.remote-ip=195.10.208.47
+Received: from mout-b-107.mailbox.org (mout-b-107.mailbox.org [195.10.208.47])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC866606A8B9;
-	Fri, 13 Nov 2026 10:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC866606A8B9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2573D606BD8D;
+	Fri, 13 Nov 2026 10:58:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2573D606BD8D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=CcsiSJnE
-Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id A326C208BB;
-	Fri, 13 Nov 2026 11:53:14 +0100 (CET)
-X-Virus-Scanned: by secunet
-Received: from mx1.secunet.com ([127.0.0.1])
- by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Lhe_RJqkQRYP; Fri, 13 Nov 2026 11:53:13 +0100 (CET)
-Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=CLOkfTMX
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id A5D11208A5;
-	Fri, 13 Nov 2026 11:53:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com A5D11208A5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1794567193;
-	bh=G4uEKZRwUfb5zvd/yMth27AlEvMkO2zJDK4qdfnK/fc=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
-	b=CcsiSJnEutChhlxtaqO8Y0vnf8Gwp+NMl72TqQu/RsLOUeZTAPL7VZJt97Cpls2HZ
-	 PgRHZme/RzV05+AeykbuWQgcyKCtcKUvuGwNBrNrczYxxx8zHrWGsT0BzSAtVIU858
-	 nLCExdnZubTnQVVZq5YK+Pq596pra9S0nt8ct3upfXmM+EHA1s2rZW8k+wtOaJbiTX
-	 u/oIE9bdKAbop0Wu2+m3/GVnDIM3xkVhjh63w5vgZJ0diukr/+4zN8VPJh+vU47Oya
-	 hovgZUscAzI8JkHue7bq08Gwtl5ZcQDV0keyF0sFL74RIv2t0b50rKWtq/ratW6tP+
-	 wCUVA48j9Ffig==
-Received: from gauss4 (10.182.7.102) by EXCH-01.secunet.de (10.32.0.171) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 13 Nov
- 2026 11:53:12 +0100
-Received: (nullmailer pid 60005 invoked by uid 1000);
-	Fri, 13 Nov 2026 10:53:11 -0000
-Date: Fri, 13 Nov 2026 11:53:11 +0100
-From: Steffen Klassert <steffen.klassert@secunet.com>
-To: =?iso-8859-1?B?Suly6W15?= Jean <jeremy.jean@oss.cyber.gouv.fr>
-CC: Florian Westphal <fw@strlen.de>, Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH net v4 2/2] xfrm: fix selector matching for IPv6 atomic
- fragments
-Message-ID: <avbsF2Fmc2G4Nztg@gauss4>
-References: <20261109213803.1785516-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <20261109213803.1785516-6-Jeremy.Jean@oss.cyber.gouv.fr>
- <avW9OrfvkAF99uP_@strlen.de>
- <4231ca089dfd7e7ec42d85f9e72ac535@oss.cyber.gouv.fr>
+	by mout-b-107.mailbox.org (Postfix) with ESMTPS id 4jQvPx32Lrz3yZH;
+	Fri, 13 Nov 2026 11:58:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1794567525;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eABLV8g008jJr2G6ZeA0fIMhAhB4uWtAjm7pWUKqD20=;
+	b=CLOkfTMXA1U+ukSdTBtzQH0garR1WQlsXjPQbBIi2CIgiSpbb4M4vhZSMbXWfJY77Rx1sT
+	JgpF2zn7VN6f8Q2OSQllZlBEgF4WwPQMYhO54stm8S2msxkxi1VblrtmgaalCtGxq/DRE3
+	Zntmof/qXFsu/lkiBLoscIwOJ6Ks0Xen5/WDSNHO7Y//iMP8NpBKUtHQMBBIO94LYjfrGL
+	Us6HuCiY22lP2j+G7dNaLwr4TdGbuymYZQa4uQojPrb1cwgu6lF+9gFmvxHWpa26TR5OF+
+	89QBNUwZfb7nc64y7rgS5tGfeuR5G5svoJkq1as8wv7HSw2OZucfemburVmnjg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
+From: Antonio Quartulli <antonio@mandelbit.com>
+To: intel-wired-lan@lists.osuosl.org
+Cc: Antonio Quartulli <antonio@mandelbit.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Kurt Kanzenbach <kurt@linutronix.de>,
+	Joe Damato <joe@dama.to>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net 2/3] igb: link queues to NAPIs under RTNL after runtime resume
+Date: Fri, 13 Nov 2026 11:58:32 +0100
+Message-ID: <20261113105835.3821433-2-antonio@mandelbit.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113105835.3821433-1-antonio@mandelbit.com>
+References: <20261113105835.3821433-1-antonio@mandelbit.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,29 +84,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4231ca089dfd7e7ec42d85f9e72ac535@oss.cyber.gouv.fr>
-X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
- (10.32.0.171)
+X-Rspamd-Queue-Id: 4jQvPx32Lrz3yZH
 
-On Thu, Nov 12, 2026 at 02:33:35PM +0100, Jérémy Jean wrote:
-> On 2026-11-12 14:20, Florian Westphal wrote:
-> > Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
-> > > +		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
-> > > +		    ipv6_find_hdr(skb, &offset, -1, NULL, &fh_flags) >= 0 &&
-> > > +		    (fh_flags & IP6_FH_F_FRAG) &&
-> > > +		    !(fh_flags & IP6_FH_F_NON_ATOMIC)) {
-> > 
-> > Since you need to send a new version anyway, maybe avoid
-> > double-neg, i.e.: (fh_flags & IP6_FH_F_ATOMIC) ?
-> 
-> Thanks for the advice, I will consider this for the next iteration.
+__igb_open() links queues to NAPIs with netif_queue_set_napi(), which
+requires RTNL, but RTNL isn't held when resuming from runtime suspend:
+this triggers "RTNL: assertion failed".
 
-When resending, please make sure to also Cc the new ipsec mailing list
-so that the ipsec patchwork can track it:
+Don't link them in __igb_open() when resuming: do it right away on
+system resume (RTNL held) and from a work item taking RTNL on runtime
+resume. The links can't be kept across a suspend, because
+__igb_shutdown() frees the q_vectors. These are only freed under RTNL
+with __IGB_DOWN set, so the work item checks __IGB_DOWN under RTNL.
 
-ipsec@lists.linux.dev
+Fixes: b75a1dea500f ("igb: Link queues to NAPI instances")
+Cc: stable@vger.kernel.org # 6.16+
+Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
+Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+---
+Note: igc may have the same issue: __igc_open() also links queues to NAPIs
+(igc_set_queue_napi()) on the RTNL-less runtime resume path. We didn't
+have igc hardware to test a fix with, so no igc patch is sent for now.
 
-Thanks!
+ drivers/net/ethernet/intel/igb/igb.h      |  1 +
+ drivers/net/ethernet/intel/igb/igb_main.c | 38 +++++++++++++++++++++--
+ 2 files changed, 37 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/igb/igb.h b/drivers/net/ethernet/intel/igb/igb.h
+index 0fff1df..ea2d739 100644
+--- a/drivers/net/ethernet/intel/igb/igb.h
++++ b/drivers/net/ethernet/intel/igb/igb.h
+@@ -585,6 +585,7 @@ struct igb_adapter {
+ 
+ 	struct work_struct reset_task;
+ 	struct work_struct watchdog_task;
++	struct work_struct queue_napi_task;
+ 	bool fc_autoneg;
+ 	u8  tx_timeout_factor;
+ 	struct timer_list blink_timer;
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index bd1185d..4d97399 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -2115,6 +2115,30 @@ void igb_set_queue_napi(struct igb_adapter *adapter, int vector,
+ 				     NETDEV_QUEUE_TYPE_TX, napi);
+ }
+ 
++static void igb_link_queue_napis(struct igb_adapter *adapter)
++{
++	int i;
++
++	for (i = 0; i < adapter->num_q_vectors; i++)
++		igb_set_queue_napi(adapter, i, &adapter->q_vector[i]->napi);
++}
++
++/* Linking queues to NAPIs requires RTNL, which isn't held when resuming
++ * from runtime suspend: do it from here instead. The q_vectors are only
++ * freed under RTNL with __IGB_DOWN set, so checking it under RTNL is safe.
++ */
++static void igb_queue_napi_task(struct work_struct *work)
++{
++	struct igb_adapter *adapter = container_of(work, struct igb_adapter,
++						   queue_napi_task);
++
++	rtnl_lock();
++	if (!test_bit(__IGB_DOWN, &adapter->state) &&
++	    netif_running(adapter->netdev))
++		igb_link_queue_napis(adapter);
++	rtnl_unlock();
++}
++
+ /**
+  *  igb_up - Open the interface and prepare it to handle traffic
+  *  @adapter: board private structure
+@@ -3426,6 +3450,7 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ 	INIT_WORK(&adapter->reset_task, igb_reset_task);
+ 	INIT_WORK(&adapter->watchdog_task, igb_watchdog_task);
++	INIT_WORK(&adapter->queue_napi_task, igb_queue_napi_task);
+ 
+ 	/* Initialize link properties that are user-changeable */
+ 	adapter->fc_autoneg = true;
+@@ -3890,6 +3915,7 @@ static void igb_remove(struct pci_dev *pdev)
+ 
+ 	cancel_work_sync(&adapter->reset_task);
+ 	cancel_work_sync(&adapter->watchdog_task);
++	cancel_work_sync(&adapter->queue_napi_task);
+ 
+ #ifdef CONFIG_IGB_DCA
+ 	if (adapter->flags & IGB_FLAG_DCA_ENABLED) {
+@@ -4184,7 +4210,8 @@ static int __igb_open(struct net_device *netdev, bool resuming)
+ 	for (i = 0; i < adapter->num_q_vectors; i++) {
+ 		napi = &adapter->q_vector[i]->napi;
+ 		napi_enable(napi);
+-		igb_set_queue_napi(adapter, i, napi);
++		if (!resuming)
++			igb_set_queue_napi(adapter, i, napi);
+ 	}
+ 
+ 	/* Clear any pending interrupts. */
+@@ -9631,8 +9658,15 @@ static int __igb_resume(struct device *dev, bool rpm)
+ 
+ 	if (!rpm)
+ 		rtnl_lock();
+-	if (!err && netif_running(netdev))
++	if (!err && netif_running(netdev)) {
+ 		err = __igb_open(netdev, true);
++		if (!err) {
++			if (rpm)
++				schedule_work(&adapter->queue_napi_task);
++			else
++				igb_link_queue_napis(adapter);
++		}
++	}
+ 
+ 	if (!err)
+ 		netif_device_attach(netdev);
+-- 
+2.56.0
+
