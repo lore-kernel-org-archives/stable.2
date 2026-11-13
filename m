@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582559;
-	b=ZtCNRrCEQ2O6EB/ra6hxbzmTeLlRfYDN5T1fVB1R+yVTu3jfcQCP9XLrG51pi3kLQ+N6
-	 XPiyIRNI1e7GMwPL2DyY1TyPetBJ4yAFvIZzZEPlcJn89unQNVCPVgjGbMDDXn8EX3uMf
-	 uSO1tkpmmPf4R67P1wBswUiAr+AMyk/XfWs9gGtB6xM4XBuytOSHpWHeUvgs65kUQs542
-	 +iEnY+7mFAoPnrjzSVZ18ObR40OT6O/oT1hrwnx7QFtAoeIkL8rW8Sp+RXKS1EeybkWLx
-	 VKewQmnEefoiC8eEX9np3eCYyfpwW3yCqduPHLZ3QEmcR44ysfMKXVlJd2PJ8N9yRWQ==
+	t=1794582560;
+	b=ZfR1PKkA/KWfJ6/VxRrEn6Yt0NPTzPto4c31XRS5oTaPSYNTccw2ASSNom8qoCIs5pU4
+	 kjUw0K+hzdPMgo89Cwpd9t8YXaTjWyur2QS5EUEY2Nkt/SjdmveY4jt/7njC3ryRj2Zlx
+	 ve1lKY9f1PMCkFcnzsszS7uaOvFFIkdswGKIWfQ7urc6I1pf2ZShfM5B8whd7uX+2mMz7
+	 lRXElPaqXbegPZlfWLnrVQYr38DAatS4Eem6pW+qFo1OWALfF8Ef8M97B1Ew9CRIs60gP
+	 XMEMFYFODNmImk8+xLxPXxLhlBYu+oHhHZhLHFzs3KfSksIUrX7TT21JQcpvEOHtW6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582559;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582560;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ExJNAbJH+qK5MQRUf8ShNf27BBW7tGCJwdIKJeepikQ=;
-	b=MMqoawrwRRsqRtAjVRbNMBK+uZX3glFGfNTRep6y8Lm+GH2U9ogquhuLGfqoNSpm4Plu
-	 CII1ojuLOD6D6PxeS6ZJGhd52uG0ll7FkYRh6Ieh2hWa0EAaVALXat3Hg4etULB7pNer2
-	 u9MzuxXPw+SBrNyTUJIPVA6tTaeKa4khsQCpgOPh7sFMkxF0CHLhmvcp6ngPUHXQeN9gt
-	 Q3/itJaDXJ6lY98SS9SLzZeyRXGK2xtd3euWv5z3u2qhn1iO8m0lRaA6vjeVuk6KPitn2
-	 kdvyAn7MiW1TOeiXXANzByl/ko0uYh2ZZuzQvm7rtJjJMN74wWw13KDN2LEvTg7I6ZA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ExLLxGgYiTuTE0ubyRySuZ1SoID0V1GSu7ud+3dHDRM=;
+	b=t01ckovuyoh1QrRSjHM0gfikVol0H3y6YZ550+Me3ENZyOHC9fFHXv5aS+JftEkil+PB
+	 JIdeVpT82Gt/HCXkj1AUCe6ynGy0AkaKop+zTWhJkOYdfH7OuNJsyc4daf9sgD3iuVUWy
+	 4t0P3JyeAEDSaj56JjNytkYvIPYcvEe+ritfhsRoGIxVNeG14uVOId+GIEAdc04buCJri
+	 3buvnibmrSbLOg8f3Z59u6hcZzBWXlvY/69KLj6zU6RVl4O9IamVTSAINutz3JGewXOdi
+	 4SQ/MHbtSkKLPW+WABSmH2LtCJ21GwmJP3YjpkDoKLv6V/hxj/ZrcevM7BuinaIBuFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q02ZRF8s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X4Gtm1QG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCDC606A33D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:09:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56039606A883
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:09:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q02ZRF8s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF6DA1F000C7;
-	Fri, 13 Nov 2026 15:09:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X4Gtm1QG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BDA71F000C4;
+	Fri, 13 Nov 2026 15:09:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794582559;
-	bh=ExJNAbJH+qK5MQRUf8ShNf27BBW7tGCJwdIKJeepikQ=;
+	s=k20260515; t=1794582560;
+	bh=ExLLxGgYiTuTE0ubyRySuZ1SoID0V1GSu7ud+3dHDRM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q02ZRF8s67dr4SGmONZ5DX4lS6m5gYq7xD9sZHX62Pm11g8JmGwA0SMqsT56YZBIo
-	 7ecGeOiZa3oC0ExcYod6aRcAwVoSaiCLUVYrYhUTMukQjgsq9inuOY9+qYbJXi7Bv+
-	 or20eNrQsnQHJ5OSfaPsvgtuRoV7jA9sexd5rf25t72RCRe9NXjKN9eYnPlBjELGlQ
-	 u6pmEz2L7/iBG5BSAwj9fQ29k5uguX6xM0pLggkH6TgcEjIADvsDili6Z3EnpRNYln
-	 pulBXPYqLVERHPODKVmYHirLZpH3ffvxNye6tOtsy7wfJf7BK4cuRCyl1/vkzHM9sY
-	 NHTk6RaUjRIrg==
+	b=X4Gtm1QGjowRuabRcFsTlTmi7MR9dSG3+eqPiv72AKRuCQFMKFmDvpcU4HAe3IO6j
+	 4hU707FBhXkLvxSQgc9LB2Ht7QxS7BTa3TraaoLNSFOCjuA5GukuddOT6HMJiUowXF
+	 3rKtkZjJ8bv9tmcMZDdlWdy6Xy46M/JLyUce+veAU+T2Qh7R5LlFZAxGO9KR9wmF01
+	 xKtt82eEyvHsDybQaXSVjfFsFkESKStIMzg0wyP4AwusZ3pnGWz1cjZAazP5ZxhuBl
+	 YeN2dZBmhmjKjgazdFTwpCZqqa28E4TrUCavXUtaTNRKe1q3xLXTqo2oCYvkrHgFqM
+	 piIRmvsBQstqw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Sashiko <sashiko-bot@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] i3c: master: replace ENOTSUPP with SUSV4-compliant EOPNOTSUPP
-Date: Fri, 13 Nov 2026 10:09:15 -0500
-Message-ID: <20261113150545.1865145-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] hwmon: (tmp108) Fix initial conversion delay and wait until ready
+Date: Fri, 13 Nov 2026 10:09:16 -0500
+Message-ID: <20261113150545.1865145-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261113150545.1865145-1-sashal@kernel.org>
 References: <20261109200723-failed-6.12-7cd60538073e@kernel.org>
@@ -61,117 +61,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit d10a4c323883c41cf1b652309e61c48bce248e35 ]
+[ Upstream commit 7cd60538073e465310c94b2a2f0ea8d2f03768ef ]
 
-Replace non-standard ENOTSUPP with the SUSV4-defined error code
-EOPNOTSUPP to fix below checkpatch warning:
-  "ENOTSUPP is not a SUSV4 error code, prefer EOPNOTSUPP"
+In tmp108_common_probe(), the driver only adds the 30 ms conversion delay
+(TMP108_CONVERSION_TIME_MS) to ready_time if the sensor was previously in
+TMP108_MODE_SHUTDOWN. However, the TMP108 hardware defaults to continuous
+conversion mode (TMP108_MODE_CONTINUOUS) upon power-on reset, including
+immediately after enabling the vcc supply regulator during probe, while
+the temperature register retains its power-on reset value of 0x0000 (0°C)
+until the first conversion completes. Because the initial mode is not
+shutdown, the delay is bypassed and early reads via thermal zone
+registration or sysfs before the first conversion finishes return an
+uninitialized 0°C reading.
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://lore.kernel.org/r/20250628192027.3932-6-wsa+renesas@sang-engineering.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Stable-dep-of: 7cd60538073e ("hwmon: (tmp108) Fix initial conversion delay and wait until ready")
+In addition, returning -EAGAIN from tmp108_read() while waiting for a
+conversion to complete after probe or resume can trigger an unnecessary
+tight retry loop in callers or fail initial reads.
+
+Unconditionally set ready_time to TMP108_CONVERSION_TIME_MS ahead in
+tmp108_common_probe(), track ready_time as ktime_t, and wait for the
+remaining conversion time in tmp108_read() using usleep_range() instead
+of returning -EAGAIN.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: Adjusted structure context to account for the missing tmp108_params structure and params member. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i3c/master.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/hwmon/tmp108.c | 26 +++++++++++---------------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 28a39b2c039b1..1bbfff68a5394 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -844,14 +844,14 @@ static int i3c_master_send_ccc_cmd_locked(struct i3c_master_controller *master,
- 		return -EINVAL;
+diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+index d95957d808e1b..310f8cae1fd84 100644
+--- a/drivers/hwmon/tmp108.c
++++ b/drivers/hwmon/tmp108.c
+@@ -14,7 +14,7 @@
+ #include <linux/of.h>
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+-#include <linux/jiffies.h>
++#include <linux/ktime.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
  
- 	if (!master->ops->send_ccc_cmd)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
+@@ -73,7 +73,7 @@
+ struct tmp108 {
+ 	struct regmap *regmap;
+ 	u16 orig_config;
+-	u64 ready_time;
++	ktime_t ready_time;
+ };
  
- 	if ((cmd->id & I3C_CCC_DIRECT) && (!cmd->dests || !cmd->ndests))
- 		return -EINVAL;
+ /* convert 12-bit TMP108 register value to milliCelsius */
+@@ -94,6 +94,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
+ 	unsigned int regval;
+ 	int err, hyst;
++	s64 delay;
  
- 	if (master->ops->supports_ccc_cmd &&
- 	    !master->ops->supports_ccc_cmd(master, cmd))
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
+ 	if (type == hwmon_chip) {
+ 		if (attr == hwmon_chip_update_interval) {
+@@ -123,12 +124,10 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
  
- 	ret = master->ops->send_ccc_cmd(master, cmd);
- 	if (ret) {
-@@ -1441,7 +1441,7 @@ static int i3c_master_retrieve_dev_info(struct i3c_dev_desc *dev)
- 
- 	if (dev->info.bcr & I3C_BCR_HDR_CAP) {
- 		ret = i3c_master_gethdrcap_locked(master, &dev->info);
--		if (ret && ret != -ENOTSUPP)
-+		if (ret && ret != -EOPNOTSUPP)
- 			return ret;
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+-		/* Is it too early to return a conversion ? */
+-		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
+-			dev_dbg(dev, "%s: Conversion not ready yet..\n",
+-				__func__);
+-			return -EAGAIN;
+-		}
++		/* Wait if it is too early to return a conversion */
++		delay = ktime_us_delta(tmp108->ready_time, ktime_get());
++		if (delay > 0)
++			usleep_range(delay, delay + 1000);
+ 		err = regmap_read(tmp108->regmap, TMP108_REG_TEMP, &regval);
+ 		if (err < 0)
+ 			return err;
+@@ -357,11 +356,8 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
+ 		return err;
  	}
  
-@@ -2244,7 +2244,7 @@ of_i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
- 	 */
- 	if (boardinfo->base.flags & I2C_CLIENT_TEN) {
- 		dev_err(dev, "I2C device with 10 bit address not supported.");
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 	}
+-	tmp108->ready_time = get_jiffies_64();
+-	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
+-	    TMP108_MODE_SHUTDOWN)
+-		tmp108->ready_time +=
+-			msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
  
- 	/* LVR is encoded in reg[2]. */
-@@ -2374,13 +2374,13 @@ static int i3c_master_i2c_adapter_xfer(struct i2c_adapter *adap,
- 		return -EINVAL;
+ 	err = devm_add_action_or_reset(dev, tmp108_restore_config, tmp108);
+ 	if (err) {
+@@ -408,8 +404,8 @@ static int tmp108_resume(struct device *dev)
  
- 	if (!master->ops->i2c_xfers)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	/* Doing transfers to different devices is not supported. */
- 	addr = xfers[0].addr;
- 	for (i = 1; i < nxfers; i++) {
- 		if (addr != xfers[i].addr)
--			return -ENOTSUPP;
-+			return -EOPNOTSUPP;
- 	}
- 
- 	i3c_bus_normaluse_lock(&master->bus);
-@@ -2801,7 +2801,7 @@ static int i3c_master_check_ops(const struct i3c_master_controller_ops *ops)
-  *	    controller)
-  * @ops: the master controller operations
-  * @secondary: true if you are registering a secondary master. Will return
-- *	       -ENOTSUPP if set to true since secondary masters are not yet
-+ *	       -EOPNOTSUPP if set to true since secondary masters are not yet
-  *	       supported
-  *
-  * This function takes care of everything for you:
-@@ -2828,7 +2828,7 @@ int i3c_master_register(struct i3c_master_controller *master,
- 
- 	/* We do not support secondary masters yet. */
- 	if (secondary)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	ret = i3c_master_check_ops(ops);
- 	if (ret)
-@@ -2988,7 +2988,7 @@ int i3c_dev_do_priv_xfers_locked(struct i3c_dev_desc *dev,
- 		return -EINVAL;
- 
- 	if (!master->ops->priv_xfers)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	return master->ops->priv_xfers(dev, xfers, nxfers);
+ 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
+ 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
+-	tmp108->ready_time = get_jiffies_64() +
+-			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
+ 	return err;
  }
-@@ -3038,7 +3038,7 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
- 	int ret;
  
- 	if (!master->ops->request_ibi)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	if (dev->ibi)
- 		return -EBUSY;
 -- 
 2.53.0
 
