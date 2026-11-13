@@ -1,56 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575181;
-	b=i0rsLmAAl2ZAGeapp5si4+D2blkFDAuwZ87hRj7YTGqLCY8k0SDq9Ixk9dab3WsfH4ip
-	 cOl9nM3G4omkzBiRgd0eQ8KYN0KpCunThOfN0/4UsD2S6FoXmU2fAzLsbLI2XU3mFQpET
-	 JcY9M0uFvlo65hgiFsVnFxir1RnI2U+e898Xnbo3XtB7rbhBMAzDiVTJnAk//eZCwn3BQ
-	 SQDEQ+H9TCYWFJ76LnBGrW7jGmP38OahFm1k4ezpR2zU5i4mPs2fft/yydDFKOsDl57ok
-	 31edMKIQf6LeAwxsanQqcOaMJtPc/r46MeAbjIdG9dvg9sR4N/HQw1jzqfEDD7myMRw==
+	t=1794575187;
+	b=ehGwXC5ElS3tzuYEOjxu9YW9EhCu52yJYZrnrEFutge01+LH3fBVD/PKVNtRZZBB4yin
+	 AzTCr4G34nKSk1BNvr+mXKHP8kq2SuojvhBweJzKgvEHGSczEl0khoKu340bxnJ044zcd
+	 ujyCZwDlNkNirm61ZiVWM7ROp/seQhE7MvC46TUyxdnw7P4pFzMPbmH91ww7UFCW0jcw7
+	 RN+tE+lyktYqbj2xiq5NjM3Un+sjxHcdbM16PsaKCKNcD59wmPX4L+cYEtzYz2o9bIgx/
+	 8YNhnSygOc0+SECpqA8gFFmxgjdJIw+mAbZ8U8S4zVWbXFSOsEg607zAF2Mj4GxSWNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575181;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z4mJF56qyZ7IAtpB06E6YWQ7/rPNPa+Fwwhib6TSnN0=;
-	b=4eRbW4pq7n1Qh+ysRD4G1Bovrc59WnaaMNBRkX1Q5se0QVq64btHFi9bdtkRcgeUtvm5
-	 Xkg94TCMyEiRQ/SLBGMCf0wj7WgAi93g+zZ+Zl38a2VXNMusgukLQlsFAS8Q8jF2f1smz
-	 Mht3+CvnnXUCuzrfztDS4PvY8k+E51RifLjLmGziiWpdTynNLHSSj4DfcC179yQbO/anF
-	 xOGCQefCZty6DyWXhOiNvaN35misJ9pMnEC3G1mBir0cuJtYlHAP7tXaJmI0JCsetcC4q
-	 Fr0/h4zWWVSmhEx7RmsEAlhWoee/JtsebUdx62EVNJWo0tLqd0l+wkaNDy3AqDDBV7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575187;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=B5ZNtzHwATppubMnGNeEocLS4koNmlaPNVsst0aB8OI=;
+	b=TW8PHXcSUCrroHkYx0yrEohu76HC03bo40flqmMHQa7kcc5YK7fCiKc1zKtd35cF3Dv1
+	 rCHzZvCPOijhoqAH4pXZe8wTq8KPH9xR+suh13uBDeMFEK7NKZeOCErjyLAuKtS8i5ivF
+	 C5dEc6BdRFY2cWFraQzA/5fu0cDcKsgwhoAeG04AyC1P8x+kjXEaH8i0opmqwhfMNiB9V
+	 ZKnRfvR0UYLB3fWx9RdI3QlXzsexbWSQE1BHT5KPP6g9mZL+43gtiAK/6xEWPUSGjvx5j
+	 Kx2eeAvllO8dGZJI8cCfsDPfTjk3S/6FATCukwkfImGXTBmNNCHoE9iUEnqZjeW3VIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiQLVc6W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b="jE2piUa/";
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E27F606A330
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:06:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F651606A882;
+	Fri, 13 Nov 2026 13:06:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F651606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiQLVc6W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6671F000C4;
-	Fri, 13 Nov 2026 13:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794575181;
-	bh=Z4mJF56qyZ7IAtpB06E6YWQ7/rPNPa+Fwwhib6TSnN0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DiQLVc6WLSvnFENuBMRRnXMLg5jxyb3xHmBxlMqAdDJCxeIG8onv/SKBQsytwZpnq
-	 uvLIwnKsGTU+wxbcOtEYAR24yBtfOiLHnrv0JX22PbDpNauC9n0qWAJc+o0JrMSkEt
-	 qCMtCLoi9i371xVofaDcNYjv8f6eCPdpfgAxxiHFl27U1+omiH0/hH1FnSEHB2vnf5
-	 L2dyRduEEt+vfIQ/6ACQAazMaOxBPBYeKMDJO8/1uShm5TzWZ/dk1ejKuq5jxftfm7
-	 0+cV/0h+oohfE+oXjnIe8eGDga3T0FMDXji7g37jNSOHcs6N//to+FZv0KyG1Xtv4x
-	 8pxYYR50EJVKg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] nvme: unregister when pr_register() is given a zero new key
-Date: Fri, 13 Nov 2026 08:06:19 -0500
-Message-ID: <20261113130521.1087085-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201627-failed-6.1-a9d431124fb2@kernel.org>
-References: <20261109201627-failed-6.1-a9d431124fb2@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=jE2piUa/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=B5ZNtzHwATppubMnGNeEocLS4koNmlaPNVsst0aB8OI=; 
+	b=jE2piUa/mZZHLRWBsr1FUNefld7eMTtsmcjreEjHvBfegmPZZ6ooZSLbMLa5zhc+7yXjcwz0Sb2
+	WJyeCg1eG9tZAOZhgNaeVVyFd35M4mBiUeWWegld1y6LOgt5AD4lOqoj1YjV1Zy06wNuEInFBLyWj
+	Rp0JPvfiy4N+c8+0L6+sXWOYqUDVQAhbfNFPFgLghhj+r7JxkQ9ZHeFRm3dWZ4LwoHjmdXMh//5Dy
+	HTxyXWnhqWj1wiya8PUbF+wFTM+U2kTz6mNtVPIPnpAvqbwF/lg4zHtOaJOmHNTdoHrkFEzIFymdp
+	x6flPHfdA4VCsijI4hfyUhUIHM3qFuNQRuKA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xRqz1-0000000EfJL-3BSK;
+	Fri, 13 Nov 2026 21:06:24 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 13 Nov 2026 21:06:23 +0800
+Date: Fri, 13 Nov 2026 21:06:23 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: ayush.sawal@chelsio.com, davem@davemloft.net,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: chcr - Balance inflight count on invalid RFC4106
+ AAD length
+Message-ID: <avcLT0_C7b79SWm3@gondor.apana.org.au>
+References: <20261103075255.1114171-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,52 +66,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103075255.1114171-1-vulab@iscas.ac.cn>
 
-From: Daejun Park <daejun7.park@samsung.com>
+On Tue, Nov 03, 2026 at 07:52:55AM +0000, Wentao Liang wrote:
+> chcr_aead_op() increments the device inflight counter before checking
+> the RFC4106 associated data length. If the length is invalid, it returns
+> -EINVAL without submitting a request or decrementing the counter. No
+> completion can balance that increment, so device teardown keeps seeing
+> an outstanding request.
+> 
+> Decrement the counter before returning from this validation failure,
+> matching the other synchronous error exits after chcr_inc_wrcount().
+> 
+> Fixes: d91a3159e8d9 ("Crypto/chcr: fix gcm-aes and rfc4106-gcm failed tests")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/crypto/chelsio/chcr_algo.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-[ Upstream commit a9d431124fb2e58215daf0299d6fcf47bbc2d6b1 ]
-
-The block layer PR API defines a zero new_key in pr_register() as
-unregistering old_key. nvme_pr_register() sends Replace Reservation
-Key with a zero NRKEY instead. The host stays registered with key 0,
-and its next registration with another key fails with Reservation
-Conflict.
-
-The pNFS SCSI layout client unregisters this way at umount. A later
-mount cannot register and sends all I/O through the metadata server.
-
-Send Unregister Reservation Key when new_key is zero.
-
-Fixes: 1d277a637a71 ("NVMe: Add persistent reservation ops")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: adapted the change to the existing nvme_pr_register() implementation using numeric values for unavailable reservation-action constants ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/nvme/host/core.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 61a34581ca70a..d3f4fd67a0ec7 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2236,7 +2236,12 @@ static int nvme_pr_register(struct block_device *bdev, u64 old,
- 	if (flags & ~PR_FL_IGNORE_KEY)
- 		return -EOPNOTSUPP;
- 
--	cdw10 = old ? 2 : 0;
-+	if (!new)
-+		cdw10 = 1;
-+	else if (old)
-+		cdw10 = 2;
-+	else
-+		cdw10 = 0;
- 	cdw10 |= (flags & PR_FL_IGNORE_KEY) ? 1 << 3 : 0;
- 	cdw10 |= (1 << 30) | (1 << 31); /* PTPL=1 */
- 	return nvme_pr_command(bdev, cdw10, old, new, nvme_cmd_resv_register);
+Patch applied.  Thanks.
 -- 
-2.53.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
