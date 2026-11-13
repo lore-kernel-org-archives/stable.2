@@ -1,57 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597540;
-	b=xgWUq9ZMgFmJok/UvdT90XmgQkSvzsBYoMa0w1tjEK4SvcnWAk/gV5HvP58nDVjwIALo
-	 TogCHlHY99rtvQgXBfgp1FcOyvExpNgQTfEQYDGmPDyaIDebs0THpNs/nNkx0Up+WZEZ8
-	 ZVAOpPB/+pmgK+8Vy13XOs/A0nj3x4FaVKnJ/56nhF74RxITO46R0FBeJxsi41UD3vJZg
-	 mS80037xHFlmfj1iwXkqXkpdsLasjZGzmWQZjm3Yqgq/kok6cP151wwaPhh486vRTa09k
-	 YNk1PCSAYe572DK+Az6NCRKVg+oNQcO4kUFo0mtQ0J95T2csS2pS50Wp8MPsew+ShWA==
+	t=1794597548;
+	b=heKFma83BtVZu47FIblndYqruDgi+CVHfskw7uwwxRq4KyhM8eBIJV4KN6+yWb57z2rT
+	 RrSvTXuP6Co1pyP+Pk7Ryx1XOIJwJa+Wz6jdENT3NtAeEOGyCxNfiJseyWm8FgVrrYeVH
+	 UF6Tl2rDePvhIcajxBlZHxoJnqf7WNOnhY/OkSs15BAVikAnGZnlLuv3Dpuydo0bEeyOR
+	 Fg8RToRaLBec0bX6NvofoFvCcWCUEHId3HK3zsoRiZbXxxzbUpkswAEzDmM8Tq+9hxzhy
+	 dZ1Eh0Qr524ub9ZB8N4ODv047TbBX35jzTNU8HLvYwh7WRvTDQlupyevh53a53JC1Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597540;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597548;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PWltaqhhArMBtmTuKQL1RcN6aVZWcklCJcHV6qRZ7pY=;
-	b=1W8dBLz56dynlwt6z0MYc7bhnebcnYqizUITfiWbPG3mNSGypGRS2UBgiia9IKweXk4j
-	 LOn3R4zNOGdvrpWsvn+m8VPNSvxSQ34RbhZ+pf+NThoXuVTLgGiUBZtDHZEQeYn+yO+BI
-	 Qah02lvdaIgt8K74E7fsexyzayZRIa1RVjTmuNVCdGVSpMkySvXPdzpgSzTPgEfW94/uH
-	 2FPII+/rQ6wVani3DimgXTIJtmWzXz8ot9Oeh904IhknjJY45S2GbuwapjEhnpEHaQuFd
-	 qp73nxXvxtjozi/7x1baW+IQ1OHwmnmXGI+Dxsr+pByl85721Sl1FSdB11QEoB+nCew==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=GDyxkB3EB84MtBboCW4xm0OV9AxbT21vpAxfS0ReNCM=;
+	b=1oGzZdraDsHmeIOGnzKVnBywfDla7ACrxNzTdzNtZSPQX2noFmTmmlyYypF3r8cL9Uaf
+	 fLU60DfLUKJd9CeLYIOnX8c0e4PuBdNP0vkhUngzNedwajwrjeINuHobKbrB/VkdxfUz0
+	 AfCPR+/kGMOOfZ6uGlsGUMfdpmkzh19/k2IM0tNI4b1tMgyRnFDubV6OcNOCx2/+j349X
+	 /b2D+Ec6DrrD4Xkt1tNU3pmWMRS3u+AGKXrP1XecPQLrGHdVm2bh2SHZm/4F8tcLKRKpw
+	 g6ekap7pLsGXtD8ezVmhWcsuUHj4qI0KsVrUF4L1i8EEdClxw7IwBbdLCH2P07S0q1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hEeCraZp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VeMZs0Fp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94A2606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:19:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02DD606A323
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:19:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hEeCraZp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9001F000C4;
-	Fri, 13 Nov 2026 19:19:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VeMZs0Fp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31831F000C4;
+	Fri, 13 Nov 2026 19:19:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597540;
-	bh=PWltaqhhArMBtmTuKQL1RcN6aVZWcklCJcHV6qRZ7pY=;
+	s=k20260515; t=1794597547;
+	bh=GDyxkB3EB84MtBboCW4xm0OV9AxbT21vpAxfS0ReNCM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hEeCraZpi+JRMIxKyMvfcru3UR3djYnTqcr5Zq6bQeL8iQl3P6ZczTue0icpUhqUN
-	 4Gze8YyaQKRDU9NsYvWDiMSzj8HdvDDF1NAe7MiNvEpTMzw5M9qLCU4Z5Ll8GFvS8r
-	 JY9eF1Du3MFqYwfbru/OhTdIjdgl1fZXKPLvudrQ12fD23IGMYP0vFN4koEvgaeeI6
-	 L5DCnKsklHzJXWRA0ASx27VkUDuJgs5jfyKXl/ynHpa2r+2FFYyIbnTbRN0kt+qUiH
-	 y+3EjPHFzP7SD3UObdrBMJIHv8oSvK9kx2c12w+ujNIdCyAcpCog/vl6EH8vJg1A4J
-	 P7TxFmKYYNRdg==
+	b=VeMZs0FpY91ppSX1Ft7pKC/k1sieiKVpBRYCbEZzu/kEbFF9LuUUEJHAcfXYItGoT
+	 3lrb7M0xmi3CIY15Mc4e82bN7H2golJsGXtWpwa5hKjAEwtNZwjAVHSAWKs6oFpu9N
+	 PQcVtrRzpU86A9RL+OpvqjCQZJ9bqmEFb5cUl5HcIY6pqVCree2ndIsa371rNyqnLE
+	 fqW+xbWhJR/6uao+EHvo+xf0nhkoY5qlpId4vNLBl4JJ+95lxmz31NR5/396lfNzQW
+	 DxBezyVkdad01V00YLYEyHAKa5Blx4OQA9SY/xVEv9+i5HFAamy/NdBsKGhzixt3qS
+	 dDd4kelPomwXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Kyle Zeng <kylebot@openai.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Hugh Dickins <hughd@google.com>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/amdgpu: don't walk the CS chunks when allocating them failed
-Date: Fri, 13 Nov 2026 14:18:59 -0500
-Message-ID: <20261113191528.2250750-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/khugepaged: flush deferred unmaps before dropping a failed folio
+Date: Fri, 13 Nov 2026 14:19:04 -0500
+Message-ID: <20261113191837.2249604-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201006-failed-6.12-ade92d50aad6@kernel.org>
-References: <20261109201006-failed-6.12-ade92d50aad6@kernel.org>
+In-Reply-To: <20261109201204-failed-6.6-854e5ff8b3ce@kernel.org>
+References: <20261109201204-failed-6.6-854e5ff8b3ce@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,59 +72,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: Kyle Zeng <kylebot@openai.com>
 
-[ Upstream commit ade92d50aad6799a5a9d7e73cd1604fd0576e656 ]
+[ Upstream commit 854e5ff8b3ce2a776586cabebaeae645c992345b ]
 
-amdgpu_cs_pass1() sets p->nchunks before allocating p->chunks, and the
-allocation failure path skips resetting it. amdgpu_cs_parser_fini() then
-frees the kdata of nchunks chunks from a NULL array. On navi48 with the
-chunk array allocation failed through failslab:
+collapse_file() can fail its reference-count or dirty-folio check after
+unmapping with TTU_BATCH_FLUSH.  Both paths put back the isolated folio,
+then unlock it and drop the lookup reference before reaching the common
+try_to_unmap_flush().
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-  RIP: 0010:amdgpu_cs_parser_fini+0x35d/0x710 [amdgpu]
-   amdgpu_cs_ioctl+0xcae/0x7a20 [amdgpu]
-   drm_ioctl_kernel+0x180/0x320 [drm]
+The page-cache reference does not keep the folio stable once the lock is
+released.  Another collapse can replace and free it.  With its PTEs
+already gone, that collapse cannot flush the first task's per-task TLB
+batch, and retract_page_tables() skips short or unaligned VMAs.  A CPU can
+therefore retain a user translation to the freed folio.  This has been
+reproduced with unprivileged MADV_COLLAPSE on a memfd.
 
-Set nchunks once the array exists.
+Flush at out_unlock while the lookup reference and folio lock are still
+held.  The common flush continues to cover the accumulated pagelist on
+both success and rollback, preserving batching on successful collapses.
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 0c828445757b86aaa3ed2638832d76f450022bdf)
-Cc: stable@vger.kernel.org
-[ sashal: used kvmalloc_array() with explicit element size and GFP_KERNEL instead of kvmalloc_objs() ]
+Link: https://lore.kernel.org/20261007041001.43181-1-kylebot@openai.com
+Fixes: 6d9df8a5889c ("mm/thp: collapse_file() do try_to_unmap(TTU_BATCH_FLUSH)")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Hugh Dickins <hughd@google.com>
+Assisted-by: LLM
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: "Liam R. Howlett" <liam@infradead.org>
+Cc: Nico Pache <nico.pache@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Usama Arif <usama.arif@linux.dev>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adapted folio-based cleanup context to the existing unlock_page(page) and put_page(page) calls. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ mm/khugepaged.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index c49aabb343a72..364fbaf4e0fa5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -215,13 +215,14 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 	if (IS_ERR(chunk_array))
- 		return PTR_ERR(chunk_array);
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index c0a3d09cfd976..8a907d636c454 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1999,6 +1999,11 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		list_add_tail(&page->lru, &pagelist);
+ 		continue;
+ out_unlock:
++		/*
++		 * The page may have been unmapped with TTU_BATCH_FLUSH.
++		 * Flush before releasing the lock and our last reference.
++		 */
++		try_to_unmap_flush();
+ 		unlock_page(page);
+ 		put_page(page);
+ 		goto xa_unlocked;
+@@ -2024,9 +2029,8 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ xa_unlocked:
  
--	p->nchunks = cs->in.num_chunks;
--	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
-+	/* parser_fini() walks nchunks chunks, set it once they exist */
-+	p->chunks = kvmalloc_array(cs->in.num_chunks, sizeof(struct amdgpu_cs_chunk),
- 			    GFP_KERNEL);
- 	if (!p->chunks) {
- 		ret = -ENOMEM;
- 		goto free_chunk;
- 	}
-+	p->nchunks = cs->in.num_chunks;
+ 	/*
+-	 * If collapse is successful, flush must be done now before copying.
+-	 * If collapse is unsuccessful, does flush actually need to be done?
+-	 * Do it anyway, to clear the state.
++	 * Flush before copying the pages, or releasing them in rollback.
++	 * This is a no-op if out_unlock already flushed the batch.
+ 	 */
+ 	try_to_unmap_flush();
  
- 	for (i = 0; i < p->nchunks; i++) {
- 		struct drm_amdgpu_cs_chunk __user *chunk_ptr = NULL;
 -- 
 2.53.0
 
