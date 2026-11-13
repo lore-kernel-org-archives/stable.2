@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559789;
-	b=Vl1Pp2hqANm2PH6pf1XhoJ/WSxqp25osUOto3hK8DUOG+h54XvsPKxszv3KzUvIskl/g
-	 G/AjAEG3cYuWwUPGZlUZH2tqSBIIzErBXYz2Dkpsm06vtQHRQu9z8oXAXId5AhT3Ixi1h
-	 on9jaWmbBjQzUAMC6qZx/kHd6+rDd+GbUDB+XH1R1vC16DT6Hrx++1e072CGmqOw5XDDm
-	 gpQiLunpDI4i0BcO2aMnOyZNX9upbtw2Oz10e/DJiBzMpGqvkHgshZHpd6hUKkZmb1Rya
-	 +kMoQpj804NYevyuAH4tDCJ2d0riaVhjT3g0FecnuLMAoVcaX83p3/acP1kc56gckpg==
+	t=1794560340;
+	b=iCrD/QigXLywApmK7RBn2YYsxTsvkpy9DoU1mprLGGz30vmefDgm2b5h8E1OgNiHprLr
+	 o6Gg63yTrIQ578xlC0xkwg7AVZ60/Nv7815rglXK2BetcXOxsBNZOMbuF0UjTtF+LXuwl
+	 SUVMSl9eIzb9PaYc0VmkP7fA6+AMaTFa/5J8GdVzacbSwbbrL0G5cOD68TdAzcL1IBUjM
+	 Lh6X8quPrnVvHAQltLJaSJ0/6EP8my9XaPC/i6p6MJoFdVpSA7zOzW33muN+OXa9xZ++p
+	 5/Je0eWcklUMUPsUJ7YHv1cXe4v5WvUttHqvQ1yNoZCKpH4ieh50mDWHJLDLTV73HRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559789;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uYCF/j3Berl6MM/JQ+PGmzcBwIXAJx/VQr0A1zxvBKY=;
-	b=iH4Qq3EKFMw+ntA/worf2aEDutluk60gOqFkqHWa63KBwSBZ3grZqm9w0nrCbgvqxt8e
-	 2P0GLFdpw9ZxGFbgUVZo9eJA677PDaUGcpP2NAoklsqB7RHlqnnpMowc4Toszrt0RfCOt
-	 E+tI+tJs6v4wjYgTkHAWHDz4Ws5Ele6Z8Y27DBUAQNG8rniIpntDk7zG8W9O5HYSWSdIA
-	 n6JfGbS91n5KLsgeC5XBvl3wD/dZl0ole1gKqVyMeq/R4c7BXxzNdisqflp0++UG0VsjE
-	 6eOB4Jp27lKCKQ5rQJnTl6k09QKMOR956Uz5WcI5RYeO9mz+BrzekWc81yQw1QF1R1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560340;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YF7NHY1fVlGveMHNsJnnjtGJ3+1XgRTTULcBOP2fUbI=;
+	b=AZG+DMFY+Vd5lLKHGrn0vLm/yQsiMbArfrUXNvfSlagp8lMkMlNA1hgwPGEdBDXRQE0t
+	 WexZSyYygIdiRVaWIhOn6aknCvarg/b9r/UJWa8GLLAW4CjacqmM6Ak0nLKne8+t2G8sd
+	 0Jy/63zYCRNGUqQaq1+9UryPI/8g6o2LWoHGihr4gi/OK+yf7PV/dCLcSy37hmJthzYWt
+	 XIV+J29ixkrW85TCVZhW//ubcoInt1XHh6q9ZxbYXazjpvwxLt1yMijEd0QWfN4Ra4ozl
+	 yY0MAem6CCKa2SvElzLr4EJnE402UrTLGuDwEkYHjfmUfZC65s+nsumb7hAk8CUbnxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qZxHKOg9;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B+Sj1rnL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227F1606D93E
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 08:49:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 227F1606D93E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0597E606A321;
+	Fri, 13 Nov 2026 08:58:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qZxHKOg9
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3720addb068so1134980eec.1
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 00:49:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794559788; x=1795164588; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uYCF/j3Berl6MM/JQ+PGmzcBwIXAJx/VQr0A1zxvBKY=;
-        b=qZxHKOg9sWmn6bGlJ4C9tduJ1fzHeH+/ZndhFC9p4jUzJb84HdEYGd0xEX/U5JKnkC
-         2TTA8tkp193y+sOsHVxSdoTRrgMM+6jigdlR1n875Mnqd/e08frQUZjepA872XMqFTWP
-         a38zf+Sprpr9xwIZweMvM9ua0QL9RStTZQWcGDXBXnxTcS9yVOsVM2E4+MUvrQJ672GR
-         mmEOtPNeahrPUuYHew/YgXP6LVWfGVrHjJTWuh2Y7qlTbEO3Tdr29h+sUOwmqidwOHbt
-         3qjQm6isMVD3u+cRlgNk4HyrSmxt4dCVfWQBOj3+dW32DMdks+LY2VytYZ3bu4MUELLS
-         weiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559788; x=1795164588;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uYCF/j3Berl6MM/JQ+PGmzcBwIXAJx/VQr0A1zxvBKY=;
-        b=QsLzOYsKe9XH+iV2WOKSLMWyYIxC4W8W4Qk4EMIgSuspBnZkb52LQ+jh3dBA3PN92i
-         Fhxi3gv7D1e248klF4MxW/fLWIsdVuHcW95oUylqFF5cQSWP1zUboDxNOCO2pczTT9Nw
-         +TudSGioNeADrhup98kBD9wREuNPc7SSyKl+jB1Zae7MluXUBJ7R5z/agqK1fIJW+Ve2
-         VBeq0dvGJk2dm9DaAmVaax+tpRqzkugw1fhGU6ETFJJvOFzrhG7LWkQ6u6GVAsxSxarS
-         Qnh+t2XrlNy2F95My4wVswjEsSYqPNaKzl5dhpGVrOFh5BlQpcBlu1SLftLWRI1IEz04
-         JJBw==
-X-Forwarded-Encrypted: i=1; AL+hErFXy37B+PB9b6pbS688YS5O/ourklithdzG5LxXkd7JVMuNHwB3vE4JK7oYqk08ZLmpXfiWjBM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Ogu7k3SMYJVYif1zNSIpm8xxir+c1aL9zJt1IfRgoM4VknWsh
-	BW9RnMl0LGqb+22kZ+TzmS1Dtk+NPXPmWbDBSoS//7xoqtbooiv4HchC
-X-Gm-Gg: AYBFou1cDogDKnA+qDtxMi2jDTEAIlTQYpmuizNT04luQwz78DF3g975Sa7Gj9rLJ8N
-	EEe6XKHGJWe9zzCkp63kp6WYVlBySZXJUvDCZOTfKZyDjt5tSNa4gosyc0glC8rwE3F0wO69xdJ
-	z+dOspv26fH41L7lXXtrr6B2u6nk6wK9sHgPff8OC856bnXA06uTKqEjX9wLJeGw0S4ouxvbI7+
-	SQ++v0OIzSmrJv6Dagj+aL73uXTMPFeiva5wHE4+n27zcE6ftXRAPs8znJCERSRPoQWHVDlws2I
-	mCJ/n9MCAeIyMA/rm+gpdhgqs5r76sD3u9D9ACtvRd/nkK4hpKW1cX/KbQoHU/4Tntd9o1ajfnq
-	yTyaIP9+Q746uvQsyHZMxwIxbnjJyy6srKUwyGRNgklOzHn+/FfWde1eD95r/cgClh0Hl1QFOW7
-	bbqxrDUZQGX3gki/MEf9Pb8ljpoLUulzP0nqdEW/XsA/d7zT7pXPIbt2/uw0eY1FH5e+4YgRZF5
-	RX4RUOmMfx8XNaC0Gq3rLTPG5wzh34jWOLK9FIXbiCWL4DF9zakT7eisCwE4KLKN3xAWGmuBfUA
-	MOzLpgrREmruSyRK9BrmZSy/xxBEWKQ0XmIi8nunx9FgPZZ+6emN82MjiBm1G9sjfD/dksYVXx0
-	W+Bhw5oG7XUelGljdTHla2rqcIdM9GatnBXbMsmEQgok=
-X-Received: by 2002:a05:7300:fb8c:b0:376:a62b:ae09 with SMTP id 5a478bee46e88-3796676a1e8mr2333338eec.16.1794559787921;
-        Fri, 13 Nov 2026 00:49:47 -0800 (PST)
-Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:ec49:38a8:0:1866])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379558231eesm5387695eec.12.2026.11.13.00.49.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:49:47 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: mchehab@kernel.org
-Cc: hverkuil@kernel.org,
-	nicolas.dufresne@collabora.com,
-	ezequiel@vanguardiasur.com.ar,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: v4l2-mem2mem: wait for job-finish scheduling before freeing a context
-Date: Fri, 13 Nov 2026 16:49:40 +0800
-Message-Id: <20261113084940.211907-1-shunsheng1218@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B+Sj1rnL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA721F000C4;
+	Fri, 13 Nov 2026 08:58:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794560339;
+	bh=YF7NHY1fVlGveMHNsJnnjtGJ3+1XgRTTULcBOP2fUbI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=B+Sj1rnLIABT2rcMAHDb8ZnEfd0jTex4c1qrfj0CSRk0gqZnxgNlbeKj4GqmwtC9I
+	 o8Xe/mfzfwZupSsAirIa5j4T99BWCeooiaGkcPxrha+PA2hMxNFQo1B5qgiclciRvJ
+	 H/0QS47NbbvNelQKUZaLYxLikkesF1eucTGQ3XHglrVcE3sGxrTRW1h3QpwV9v3R4O
+	 YauwalFMafdrHEV4zgip1oDQUDuo7PK7wcQaXMuie0pD5uDbIAM5svIaPto7fRy0mo
+	 a6tlA/n7GVSd3t8dEWO4ZLrpdgPAAEY7SBncyX5yBNeewHKMKVczi4UYxnM0JXkXp/
+	 ptXy6a57Iw/5w==
+Message-ID: <01b19c1e-b87d-4996-acaa-cd5103f30edb@kernel.org>
+Date: Fri, 13 Nov 2026 09:58:55 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,168 +51,177 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
+ uffd-armed VMAs
+Content-Language: en-US
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, David Hildenbrand
+ <david@kernel.org>, Jann Horn <jannh@google.com>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>,
+ stable@vger.kernel.org
+References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When vicodec finishes a job, it calls v4l2_m2m_job_finish(). This clears
-TRANS_RUNNING, but the function still uses the context afterwards to
-schedule the next job. If another thread closes the file or stops
-streaming at that point, v4l2_m2m_cancel_job() can see the job as no
-longer running and return; the context may then be freed while the
-scheduling code is still using it.
+On 11/12/26 18:38, Lorenzo Stoakes (ARM) wrote:
+> In order to establish guard regions, guard markers are installed in the
+> page tables of a mapped VMA.
+> 
+> However, problems arise when one tries to combine this with registering a
+> VMA for userfaultfd, as such operations may themselves need to install page
+> table markers such as uffd-wp.
+> 
+> When this installation is attempted the guard marker prevents these markers
+> being applied, which can lead to unexpected results (especially if the
+> guard regions are later removed.)
+> 
+> This is especially problematic because guard region installation causes the
+> regions to be zapped first, meaning that the removal of userfaultfd-tracked
+> ranges will not be logged in this case.
+> 
+> Therefore, disallow this.
+> 
+> This makes sense as conceptually, guard regions mark a part of a VMA as
+> effectively unmapped at the page table level, and removing the markers is
+> like mapping the VMA again, over which operation uffd markers would in any
+> case be lost.
+> 
+> Only check for this on installation, as a VMA can be registered for
+> userfaultfd after guard regions are established.
+> 
+> In this case, the guard regions cannot have new markers installed, and no
+> faults can occur in the guard regions, until they are removed, at which
+> point everything should function normally.
 
-I reproduced this with vicodec by delaying the scheduling path after the
-running flag was cleared. The unpatched kernel reported a KASAN
-use-after-free in the scheduling tail.
+So IIUC this means the other order of operations (first guard regions, then
+uffd) already prevents the two co-existing. Makes sense to prevent the same
+in the order of uffd and then guard regions then.
 
-Keep a count of scheduling tails that are still using each context.
-Update the count under job_spinlock and make cancellation wait until both
-the running job and all scheduling tails have finished. This keeps the
-context alive until the last user of it is done.
+> A survey of open source users indicates nobody is relying on installing
+> guard regions in uffd-armed VMAs. Software including glibc, android,
+> tcmalloc and CRIU were checked.
+> 
+> Fix the selftest to reflect the change.
+> 
+> Fixes: 662df3e5c376 ("mm: madvise: implement lightweight guard page mechanism")
+> Reported-by: Tal Zussman <tz2294@columbia.edu>
+> Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-9-00713d368976@columbia.edu/
+> Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-10-00713d368976@columbia.edu/
+> Closes: https://lore.kernel.org/all/20261111-uffd-state-fixes-v1-11-00713d368976@columbia.edu/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-The count also handles two jobs finishing close together: the first tail
-cannot make the context look idle to a waiter while the second tail is
-still registered. The wait condition is checked under the same lock that
-protects the count, so the last tail does not wake a waiter before it has
-finished with the context.
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Fixes: cbd9463da1b12 ("media: v4l2-mem2mem: Avoid calling .device_run in v4l2_m2m_job_finish")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
----
-Changes since v1:
-- Replace the completion with a count of active scheduling tails.
-  The count is updated under job_spinlock and cancellation waits
-  until it reaches zero.
-- Simplify the comments to explain why the context must remain
-  alive after TRANS_RUNNING is cleared.
-- Reproduce overlapping tails with vicodec and targeted injection.
-  A test-only release call entered cancellation with two tails
-  active and returned after both had completed. This was not a
-  userspace close test.
-
-AI tools assisted with source review, test harness development, and
-drafting the commit message and source comments. The author reviewed the
-resulting code, comments and test results.
-
-v1: https://lore.kernel.org/r/179378462223.70003.3811321311940400468@gmail.com/
-
- drivers/media/v4l2-core/v4l2-mem2mem.c | 44 ++++++++++++++++++++++++--
- include/media/v4l2-mem2mem.h           |  5 +++
- 2 files changed, 47 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index a65cbb124cfe0..62c4ab542b58a 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -404,6 +404,21 @@ static void v4l2_m2m_device_run_work(struct work_struct *work)
- 	v4l2_m2m_try_run(m2m_dev);
- }
- 
-+/* A context is idle only when its job and scheduling tails are done. */
-+static bool v4l2_m2m_ctx_idle(struct v4l2_m2m_ctx *m2m_ctx)
-+{
-+	struct v4l2_m2m_dev *m2m_dev = m2m_ctx->m2m_dev;
-+	unsigned long flags;
-+	bool idle;
-+
-+	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
-+	idle = !(m2m_ctx->job_flags & TRANS_RUNNING) &&
-+	       !m2m_ctx->sched_tail_active;
-+	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
-+
-+	return idle;
-+}
-+
- /**
-  * v4l2_m2m_cancel_job() - cancel pending jobs for the context
-  * @m2m_ctx: m2m context with jobs to be canceled
-@@ -427,8 +442,6 @@ static void v4l2_m2m_cancel_job(struct v4l2_m2m_ctx *m2m_ctx)
- 		if (m2m_dev->m2m_ops->job_abort)
- 			m2m_dev->m2m_ops->job_abort(m2m_ctx->priv);
- 		dprintk("m2m_ctx %p running, will wait to complete\n", m2m_ctx);
--		wait_event(m2m_ctx->finished,
--				!(m2m_ctx->job_flags & TRANS_RUNNING));
- 	} else if (m2m_ctx->job_flags & TRANS_QUEUED) {
- 		list_del(&m2m_ctx->queue);
- 		m2m_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
-@@ -439,6 +452,17 @@ static void v4l2_m2m_cancel_job(struct v4l2_m2m_ctx *m2m_ctx)
- 		/* Do nothing, was not on queue/running */
- 		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 	}
-+
-+	/*
-+	 * Wait for the running job, if any, and its scheduling tail.
-+	 * TRANS_ABORT prevents new jobs from being queued.  A job that
-+	 * was already running may still finish and register its tail;
-+	 * the idle check covers both states.
-+	 *
-+	 * As with the original cancellation path, progress depends on
-+	 * the active job eventually completing or being aborted.
-+	 */
-+	wait_event(m2m_ctx->finished, v4l2_m2m_ctx_idle(m2m_ctx));
- }
- 
- /*
-@@ -453,6 +477,8 @@ static void v4l2_m2m_schedule_next_job(struct v4l2_m2m_dev *m2m_dev,
- 	 * allow more than one job on the job_queue per instance, each has
- 	 * to be scheduled separately after the previous one finishes.
- 	 */
-+	unsigned long flags;
-+
- 	__v4l2_m2m_try_queue(m2m_dev, m2m_ctx);
- 
- 	/*
-@@ -460,6 +486,15 @@ static void v4l2_m2m_schedule_next_job(struct v4l2_m2m_dev *m2m_dev,
- 	 * but the job must be run in non-atomic context.
- 	 */
- 	schedule_work(&m2m_dev->job_work);
-+
-+	/*
-+	 * The scheduling tail is done with this context.
-+	 * Wake any thread waiting to close it.
-+	 */
-+	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
-+	m2m_ctx->sched_tail_active--;
-+	wake_up_all(&m2m_ctx->finished);
-+	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- }
- 
- /*
-@@ -475,6 +510,11 @@ static bool _v4l2_m2m_job_finish(struct v4l2_m2m_dev *m2m_dev,
- 	}
- 
- 	list_del(&m2m_dev->curr_ctx->queue);
-+	/*
-+	 * The scheduling code still uses this context after TRANS_RUNNING
-+	 * is cleared. Keep it alive until that code has finished.
-+	 */
-+	m2m_dev->curr_ctx->sched_tail_active++;
- 	m2m_dev->curr_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
- 	wake_up(&m2m_dev->curr_ctx->finished);
- 	m2m_dev->curr_ctx = NULL;
-diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
-index 31de25d792b98..e9f390aff3664 100644
---- a/include/media/v4l2-mem2mem.h
-+++ b/include/media/v4l2-mem2mem.h
-@@ -97,6 +97,10 @@ struct v4l2_m2m_queue_ctx {
-  * @job_flags: Job queue flags, used internally by v4l2-mem2mem.c:
-  *		%TRANS_QUEUED, %TRANS_RUNNING and %TRANS_ABORT.
-  * @finished: Wait queue used to signalize when a job queue finished.
-+ * @sched_tail_active: Number of in-flight job-finish scheduling tails for
-+ *		this context, protected by the device job spinlock.
-+ *		v4l2_m2m_cancel_job() waits for it to drop to zero before the
-+ *		context can be released.
-  * @priv: Instance private data
-  *
-  * The memory to memory context is specific to a file handle, NOT to e.g.
-@@ -125,6 +129,7 @@ struct v4l2_m2m_ctx {
- 	struct list_head		queue;
- 	unsigned long			job_flags;
- 	wait_queue_head_t		finished;
-+	unsigned int			sched_tail_active;
- 
- 	void				*priv;
- };
--- 
-2.34.1
+> ---
+>  mm/madvise.c                               |  4 ++++
+>  tools/testing/selftests/mm/guard-regions.c | 12 ++++++++----
+>  2 files changed, 12 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index 0214efd2a014..268731e90f12 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -1156,6 +1156,10 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
+>  	if (!is_valid_guard_vma(vma, /* allow_locked = */false))
+>  		return -EINVAL;
+>  
+> +	/* Guard markers are incompatible with UFFD markers. */
+> +	if (userfaultfd_armed(vma))
+> +		return -EINVAL;
+> +
+>  	/*
+>  	 * Set atomically under read lock. All pertinent readers will need to
+>  	 * acquire an mmap/VMA write lock to read it. All remaining readers may
+> diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
+> index 02f69244f9a4..97da54dcf3a4 100644
+> --- a/tools/testing/selftests/mm/guard-regions.c
+> +++ b/tools/testing/selftests/mm/guard-regions.c
+> @@ -1476,7 +1476,7 @@ TEST_F(guard_regions, cold_pageout)
+>  	ASSERT_EQ(munmap(ptr, 10 * page_size), 0);
+>  }
+>  
+> -/* Ensure that guard pages do not break userfaultd. */
+> +/* Ensure that guard regions cannot be installed in uffd-armed VMAs. */
+>  TEST_F(guard_regions, uffd)
+>  {
+>  	const unsigned long page_size = self->page_size;
+> @@ -1526,10 +1526,15 @@ TEST_F(guard_regions, uffd)
+>  	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
+>  	ASSERT_EQ(ioctl(uffd, UFFDIO_REGISTER, &reg), 0);
+>  
+> -	/* Guard the range. This should not trigger the uffd. */
+> +	/* Now try to guard, should fail with EINVAL. */
+> +	ASSERT_EQ(madvise(ptr, 10 * page_size, MADV_GUARD_INSTALL), -1);
+> +	ASSERT_EQ(errno, EINVAL);
+> +
+> +	/* Once unregistered, we should be able to guard the range. */
+> +	ASSERT_EQ(ioctl(uffd, UFFDIO_UNREGISTER, &range), 0);
+>  	ASSERT_EQ(madvise(ptr, 10 * page_size, MADV_GUARD_INSTALL), 0);
+>  
+> -	/* The guarding should behave as usual with no uffd intervention. */
+> +	/* The guarding should behave as usual. */
+>  	for (i = 0; i < 10; i++) {
+>  		char *curr = &ptr[i * page_size];
+>  
+> @@ -1537,7 +1542,6 @@ TEST_F(guard_regions, uffd)
+>  	}
+>  
+>  	/* Cleanup. */
+> -	ASSERT_EQ(ioctl(uffd, UFFDIO_UNREGISTER, &range), 0);
+>  	close(uffd);
+>  	ASSERT_EQ(munmap(ptr, 10 * page_size), 0);
+>  }
+> 
+> ---
+> base-commit: 4318887a3efa4c53d6f083ccfd7105b809a3ac65
+> change-id: 20261112-disallow-uffd-guard-install-a5294129ad7b
+> 
+> Cheers,
 
