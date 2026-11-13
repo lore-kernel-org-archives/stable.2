@@ -1,55 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794605223;
-	b=jZwG1l0iRLHMRfSoFsRAaX8uVkDPqKzhdjPGqKwKKMdkknvN27tJ0eSVTpr6rDzKG7Te
-	 TwQufptLXWEQCszqVmc6KcSLikMPHLI+xOQEa9gI3AI9ULfM8Vrc2dVm8fqLKflKQKZNT
-	 Pr0qXHD08pOKhLAB1cZgWJJNOszYtdzCJya53Bg8A1GcCuUf1tx7TVQsJsKydS2rPq3L1
-	 fWHQpPS8nqlGa/T4KOjVluWLEJnoBLm5MfM/doAteilwQYiqa+od5FlMNVqB2QCZKqy1Z
-	 yXT18owoEthzcxKXvSninx0bhxJVb2cNYrNpBho0ajPYb8i8WxA1eWWQmpmjNdEOxaA==
+	t=1794605263;
+	b=jx+cwRkTwaMDX17eKXXKTuUQop2asY/+BlZXfulAVXoFXcmSP+L7SeGCbBkGxeayRAui
+	 NO2G53kYOoCfGlJ9i7fMlkz132FWpVDiPmjehrG8p6L8rxiL5jU5wf/abLIeC7RGWc7qW
+	 oQSxqzhO2QRe0PmGK7pDPVeVG0t5m6BvXLTMadoTOz3chWG1staTgaI+eI9u9GY57Cdpb
+	 AzOfH7Pk0VdaOgO+mxcOqYyACBemLJVF60pGI+stEysRA7+ud0feVHkU6pdpmLmnpdsLG
+	 EQPM0NPayH7aQijH8zwQwXEnVmCJJFjUTJ1Y4FPKuI/k0aFan4H/Q/dVayukKXB7HlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605223;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QqDE+TWaESyD6dQ9Fw01nymUxDu4HbdghokdxjFnS1E=;
-	b=uOpCvDB4PMWJ9/+1WYG5rqgoGIWkVq8lcWCAq/nLd1xrUx3rM4uO6gzRHDJnAMczN5lT
-	 +UzybK73qlKZyu/RgBd3kQUGXEJiMg3NHfYo/1+aYwtqNDlp70Bq8zrtzoILngjU0Tdj6
-	 RbwOi4pujuhByBDTF7INvDwR4lhrKnt03eIMx4Ghuvn3h/3PE8l4XPc/ng/tuQTMRbidg
-	 HPOtNLTKWwBoa4N1hAuj/oSmrZW2G+JWdolVmdl3kqoS73gG1IRJDMRFpdCV7Z460P0X7
-	 K+v/MEkZ24ZGSG9TUXmkanqPaucySQyLwH4a43815rhrx3ly8i1L+BhpW4mcbifO2BA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605263;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=bS0DvVihlvNRN9WIlzdJdEPONCUIAgdEli9+Mryd+mo=;
+	b=CCqPdDWSQx2m33CvW4eAe/vIMMaYGHGVRY66ZQ6aT5KbYN7o41nCJBnQ+CT/Je0rPCNY
+	 OB8AhhzUNsQBlN+/fR+QPz9Bh5ZRXDFuaAbzVKNXXdkZwRzGkXkAmCX2SVKVa3FiPD/hn
+	 RaYapuwND7BgE0t4ymdSGw9nUZ4aBIRFOkFb7lETqpLNCwNyKYxehXQ80dietuK/xMy+9
+	 XXe2Pk47/tEyJeCMsfqwLa0JXMiwFutyQ+cQPPBbAdI/hyx6667zSUs6X/S6lTrfXMIUl
+	 mTvxC9ulAUKkrxpsZ46EJpUYh26WAp2/Wj6i1Y3WJvthdzw0HnFPfH2Y4k/vhKEiDdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E//vkd2J";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KZFrc+qh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBFE2606A339
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0A9606A337;
+	Fri, 13 Nov 2026 21:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E//vkd2J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 102891F000C4;
-	Fri, 13 Nov 2026 21:27:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KZFrc+qh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C881F000C5;
+	Fri, 13 Nov 2026 21:27:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794605223;
-	bh=QqDE+TWaESyD6dQ9Fw01nymUxDu4HbdghokdxjFnS1E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E//vkd2JL4sNHcBagTDwEz+etiKcQPGLZejuXkZJUIZbkCK7hFy47sKh3Xrci1qJg
-	 vMAL+I+QE5RydQFYIhLZIrfolZpYcHYLlY6CSGWSGHumneCcuX4p0Favce09h/3ZiY
-	 cWQy7YiXyQsjC/Gf5I9lGsuIlRAT0Xf6kZBAKDnw6hOlKlR6XYmfJpC6GF+/brx+zv
-	 L9F7+xA9kTJ/7PmWJktgrMUUA3+kdyAWdW3kvrPwda3u9bR/wDVkyWS+6n8d2Bk9h4
-	 Ji5xvOpM5bvQdw8qh3Y9qMMl2kTZ/Mcarl2Nn/rDPKuNTrh1sfNAs77uScoOgtZWmO
-	 XDl/PBib+/qOg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] hwmon: (aquacomputer_d5next) reject short status reports
-Date: Fri, 13 Nov 2026 16:27:01 -0500
-Message-ID: <20261113212644.2688639-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202132-failed-5.15-cf8f81babd2e@kernel.org>
-References: <20261109202132-failed-5.15-cf8f81babd2e@kernel.org>
+	s=k20260515; t=1794605263;
+	bh=bS0DvVihlvNRN9WIlzdJdEPONCUIAgdEli9+Mryd+mo=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=KZFrc+qhzGnDmBgFj+CYBKgjH7r3dpiz5Jwc+6C7MoWmT1vxk0aiItMi2LHnvZrJk
+	 i9D/uL/7iMya3boS8csJQEl0IIPMD3C5lgjxljA/KS9sBEbUoVqR+hjHxBxo8CG75T
+	 zegOLncCwKA2dElmKOVMRgfPFiaQGG8bvIMoWcNY/NogQ1MZXCsYC9UQqAr9Jd4l85
+	 7/uLM/M5Kpn/U02INudadMKtIPGex1G+RV/R3Eo7/OgjvpuNxPCoEh2ReA6PHYPH15
+	 hrJaN3N1NwkBOr8aD7LmYskgsDlzZdYA1yjQ3IqJ0xCJ+ZuZPwLj5bpE7s30I2u+fZ
+	 8dksaFNJoRI9g==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.phl.internal (Postfix) with ESMTP id B5BD9F4006B;
+	Fri, 13 Nov 2026 16:27:42 -0500 (EST)
+Received: from phl-imap-04 ([10.202.2.82])
+  by phl-compute-02.internal (MEProxy); Fri, 13 Nov 2026 16:27:42 -0500
+X-ME-Sender: <xms:zoD3au34q9rLngOFq1UZipnq6JzHb0rItvsMVbCxSnDyfoI2vmcRhg>
+    <xme:zoD3ar6-6HgNt5KDYYTJkCDa3-txfvQnyLQ8qJTmwjblI2VEUggcy_XdfJgql5F-l
+    STgtK8Ss3Mtmx4yQlAW4ww-xJv9JTkfloKiyAO7lnA8XVfN5OuFqULC>
+X-ME-Proxy-Cause: dmFkZTFWafa0NwuTL3mJyKkEAzbTO2EdmlJQ2pSARNrb/AmwEAzXufhcrGQ5UC/hDzDRJS
+    Ytg0t4a/OwnSZZXtvz8v0LiGhh2ACpENncOHjob/iYD+08xgOhchN/yYhFVef8aTTeSnB1
+    VbAss/4uVioXNC8GQLgCglxinSo6O/eZzu14h3ZIjekrc+KsztidVGeob4LqcZSpwwkJow
+    NuOl0C5Lhgv0Q1s4LtHGyhKqA4quDzaRcE4VRYsqjQ/hBB4BE9m+BozyIUH1JjUjx64B4q
+    acDSKs0n4sJ9IuJPXAuH8/DyFB7zVMET1LhTQobbeoGhApHgtVUsoTWTl2YQWSrgdbaNQc
+    npmitT5+ilUvXS542xdKEVAb4he4NGfqKMCZo/s6T5k8JX7VAEocnCvtvXWSPfhCZAw94O
+    M9oPCyuSc9rsfi7UIbdtPgBqokAj/jat5pUR9+UC4A6NSVq7XBolsF2PSGxMAWnWolBmSy
+    LFRMFH2KAlLlbNgykBuQHDJ+qa9qTPo3nQx64kqwS1h2T6ecri47TtLAyQQBUguRMKAsSY
+    C/aAzh9VKfjbgBe1+oKgy8zJVELGp3nRs3zeAQPtWVAa7iP6OwyPNrzMzdj57CRlXedoYr
+    77IX8Ir/Pe4swQQ1B4p3TUESgGCK/i6oojOLktsd/iw2FDOHHbuhHIVliEUA
+X-ME-Proxy: <xmx:zoD3asi4D8xmE_R1d76vJRCeh8iQOg4Btop4JE-dhfZm4RUdgkrZ_Q>
+    <xmx:zoD3auXMAq-s3wCSR4wTCokGOqn1Hwo3z2lhflxLAgyJPrWDh_sqVg>
+    <xmx:zoD3arXK2Od35zzxnLxfI9-uMdCneSDe2TfqsGEePM--U9HyLyW46g>
+    <xmx:zoD3augLeeFnhMKUWkmM6gYoFhwcud5YJqu0yvHjzsNk0wBcazVhag>
+    <xmx:zoD3amb4JPmCtIEcRo9WFLhSJYK6uCvA1dXpSDMEh0jPXIqAsXKKxU8G>
+Feedback-ID: i20964851:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 95307B6006E; Fri, 13 Nov 2026 16:27:42 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,77 +77,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AOJsgsVqV2Ts
+Date: Fri, 13 Nov 2026 16:27:22 -0500
+From: "Anna Schumaker" <anna@kernel.org>
+To: "Joseph Qi" <joseph.qi@linux.alibaba.com>,
+ "Trond Myklebust" <trondmy@kernel.org>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Message-Id: <1e807af5-e5f0-4a02-8e3a-312f4d394669@app.fastmail.com>
+In-Reply-To: <4f83b93d-3173-4e04-9b79-df2413c3be18@linux.alibaba.com>
+References: <20261103061654.2036827-1-joseph.qi@linux.alibaba.com>
+ <20261109113244.4136089-1-joseph.qi@linux.alibaba.com>
+ <4f83b93d-3173-4e04-9b79-df2413c3be18@linux.alibaba.com>
+Subject: Re: [PATCH v2] NFS: don't raise i_size for DEALLOCATE in
+ _nfs42_proc_fallocate()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Jiale Yao <yaojiale02@163.com>
+Hi Joseph,
 
-[ Upstream commit cf8f81babd2e96087dedbb74985bc1781c98f73d ]
+On Thu, Nov 12, 2026, at 8:02 PM, Joseph Qi wrote:
+> Ping...
 
-The HID raw_event callback runs before HID core validates the received
-report length. aqc_raw_event() reads device-specific status fields at fixed
-offsets, including multi-byte values, without first ensuring that the
-received buffer contains every field. A truncated report can therefore
-cause out-of-bounds reads and update hwmon state with unrelated data.
+I have this patch applied to a private branch for my own testing and it
+seems okay to me so far. I'm planning to test with it for a bit before
+sending it in to a v7.4-rc.
 
-The required length differs between supported devices and cannot be
-derived from the HID report descriptor. Define the minimum length needed
-by each asynchronous status format, select it while configuring the
-device, and reject reports that do not contain the last field accessed by
-that format. Keep the published length zero until probe configuration is
-complete, which also excludes legacy devices whose status is retrieved
-through feature reports.
+Anna
 
-Suggested-by: Guenter Roeck <linux@roeck-us.net>
-Fixes: 0e35f63f7f4e ("hwmon: add driver for Aquacomputer D5 Next")
-Fixes: 19692f17cd13 ("hwmon: (aquacomputer_d5next) Add support for Aquacomputer Aquastream XT")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Link: https://patch.msgid.link/20261021120408.48495-1-yaojiale02@163.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: Replaced multi-device report-size selection with D5NEXT_PUMP_SPEED + sizeof(u16) for the D5 Next-only driver. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hwmon/aquacomputer_d5next.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
-index fb9341a530511..d3a3795c1cc4e 100644
---- a/drivers/hwmon/aquacomputer_d5next.c
-+++ b/drivers/hwmon/aquacomputer_d5next.c
-@@ -43,6 +43,7 @@
- 
- #define D5NEXT_PUMP_CURRENT		112
- #define D5NEXT_FAN_CURRENT		99
-+#define D5NEXT_MIN_STATUS_REPORT_SIZE	(D5NEXT_PUMP_SPEED + sizeof(u16))
- 
- /* Labels for provided values */
- 
-@@ -86,6 +87,7 @@ struct d5next_data {
- 	struct hid_device *hdev;
- 	struct device *hwmon_dev;
- 	struct dentry *debugfs;
-+	u16 min_report_size;
- 	s32 temp_input;
- 	u16 speed_input[2];
- 	u32 power_input[2];
-@@ -189,6 +191,8 @@ static int d5next_raw_event(struct hid_device *hdev, struct hid_report *report,
- 		return 0;
- 
- 	priv = hid_get_drvdata(hdev);
-+	if (!priv->min_report_size || size < priv->min_report_size)
-+		return 0;
- 
- 	/* Info provided with every report */
- 
-@@ -298,6 +302,8 @@ static int d5next_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	if (ret)
- 		goto fail_and_stop;
- 
-+	priv->min_report_size = D5NEXT_MIN_STATUS_REPORT_SIZE;
-+
- 	priv->hwmon_dev = hwmon_device_register_with_info(&hdev->dev, "d5next", priv,
- 							  &d5next_chip_info, NULL);
- 
--- 
-2.53.0
-
+>
+> On 11/9/26 7:32 PM, Joseph Qi wrote:
+>> _nfs42_proc_fallocate() raises i_size to offset + len on success, so
+>> that the cached size is not left stale when a delegation blocks the
+>> post-op attribute refresh.  The helper is shared by all three
+>> fallocate modes, but DEALLOCATE always carries FALLOC_FL_KEEP_SIZE
+>> and never extends the file on the server, so punching a hole that
+>> reaches past EOF now wrongly enlarges the cached i_size.
+>> 
+>> The post-op update would normally restore the size from the returned
+>> attributes, but nfs_update_inode() applies a differing size only when
+>> no delegation is held, and then only when no write is in flight or the
+>> new size is larger:
+>> 
+>> 	if (new_isize != cur_isize && !have_delegation) {
+>> 		if (!nfs_have_writebacks(inode) || new_isize > cur_isize)
+>> 			i_size_write(inode, new_isize);
+>> 	}
+>> 
+>> With a concurrent mmap writer (nrequests != 0) or any outstanding
+>> delegation, the shrinking server size is therefore ignored and the
+>> client keeps reporting a file larger than the server has, in violation
+>> of KEEP_SIZE, until some later revalidation without writebacks happens
+>> to fix it up.
+>> 
+>> Skip the i_size bump for the DEALLOCATE procedure.  ALLOCATE (mode 0)
+>> and ZERO_RANGE (which nfs42_fallocate() accepts only without
+>> FALLOC_FL_KEEP_SIZE) do extend the file when the range reaches past
+>> EOF, so they keep the update.
+>> 
+>> Fixes: 35168eb947f2 ("NFS: fix eof updates after NFSv4.2 fallocate/zero-range")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+>> ---
+>>  fs/nfs/nfs42proc.c | 4 +++-
+>>  1 file changed, 3 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/fs/nfs/nfs42proc.c b/fs/nfs/nfs42proc.c
+>> index ab86246fc364f..d76bface87f74 100644
+>> --- a/fs/nfs/nfs42proc.c
+>> +++ b/fs/nfs/nfs42proc.c
+>> @@ -84,7 +84,9 @@ static int _nfs42_proc_fallocate(struct rpc_message *msg, struct file *filep,
+>>  		loff_t newsize = offset + len;
+>>  
+>>  		spin_lock(&inode->i_lock);
+>> -		if (newsize > i_size_read(inode))
+>> +		/* DEALLOCATE implies KEEP_SIZE, so don't extend i_size */
+>> +		if (msg->rpc_proc != &nfs4_procedures[NFSPROC4_CLNT_DEALLOCATE] &&
+>> +		    newsize > i_size_read(inode))
+>>  			i_size_write(inode, newsize);
+>>  		nfs_set_cache_invalid(inode, NFS_INO_INVALID_BLOCKS);
+>>  		if (nfs_should_remove_suid(inode))
