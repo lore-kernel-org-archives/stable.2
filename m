@@ -1,68 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603720;
-	b=MdTH4RDEarAPcS3NKsbwiW5TTbWxGMEi10ZbuiEwYhLc49eUwYZZNsQx1z8yEEH3tv5d
-	 v0fXQ4fs/Og4n+T2k86jMJYAGBuS9YAA9380nhcFr2IWadcUYzu/sICU3mDOzq6sfuNjM
-	 wJmKXyPqFReIN4sHcdjoqu3wv5R+OgQPwhoHylKAN9DvT/lWBnLRmNnDOZit0sTIRGVV4
-	 uMaNoytiF6No1moG62yq1aDa3GmRHwgSd1v3PUy/Y+jE39rfVv0ZE2QazMsONf9+ft8M6
-	 Kpq7GucH5/tuGzbBuGqxOyGxzsFNXLXZZhXwaxhifyGagldAG7HxOAeHBI+dHSoVsbw==
+	t=1794603715;
+	b=WdY2uEP7HzCXtMvY24Kta5sisBPwueu/vMGcT7TdTGif8uuEfJG394SJaef1cuvp3Jq4
+	 fFIitlLp9bM4LqjnTAi2uZF04oVlhf2bSrvJDENJUV7/OA76HrewfSevRFWCd49gBZFwW
+	 2VjgOe47SYD0YvCwcpHJBA7RO9b/BZEgT2VtJ3ZCmSIH+08ZrpUoty8jgrvFvQT0b4qb4
+	 FnorAFkFSRu3p9NMtTF5X5Ty5Z3k2pL4ibLdXJKd3eCoPE3Ybj3F+O8Kb80YqhRvNRiaz
+	 eDL9w71QIRzczB4cqFMWgYq9EteQHwQ2rXgwIC7/il10lRCQPQL2gY2csK1FYRlE9QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603720;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603715;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OdFb2CISyTt2bJfUX0cO/FELNTV+1/KNJ103zgslpw8=;
-	b=cHXMNqfIRF6dAkjnvcEvHIfMH3Ra/b1ief2c0fwxcINJInRez6+LkqajAEFJyNEA1+cR
-	 /T9AFFBqfhllldS47JZgQ8HxJXwjngSbnHOpsMKgjlNgV94jH6PEGa0Q/+cPlX3Mjbc74
-	 CIttfyDjaceJgW7GPjWVPGMfIDoOvCAO6qn6y7c/3mrf4d6G9Y37RatlMkIYzW9wt76IY
-	 r9oeh+obo/sFM22U4eY5hZLtl2zuGSIwwXmr2E/VzavbVAV4JvO9DbwZCnP0aVAv73mse
-	 qZ/6uL7C5T4w0GZ6O4OSLST6FZnHObmcpOTXYNsYVgD14HFyQCF8iozRJHNn2l7zx7A==
+	bh=a07pJz5ZIBuY6WuW+x0I9vpqN5yr0zh02iIRpUVghUY=;
+	b=YaHC8c72lsMz81/ZNAtep1zVQ8rtf4lTv4EVm6/h3tJtL/F//gDhLnQScKn7Azt7B9ko
+	 78bEMRGKIS7p6EbSUY4OKGOPYvdII4ZGmr0Otu9xehzLmvN1BH6qj9ZQDNdQ5/Q6ZYQwL
+	 10UP5qDN7ue63b09nekci3E0DGlLMVZEntrDAzJEl6IHt2JEDgHmBznapUWwEAWYKXKpd
+	 hbjAsMvPFbQlr0NiyE6T4IvDUpmNSP3NnJs7vutZNiVhnS1mx85bEH5jp1AwV4UHaAHL5
+	 k+JaAcXnOkQMGQCqSIjzUqW7TLIT161JUXb+ML27mFF6hCP8LmAo1DnveXtV1b79zPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkJpmUMP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GWwE7VJP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8FF606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6358606A33D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkJpmUMP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045B41F000C4;
-	Fri, 13 Nov 2026 21:01:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GWwE7VJP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15AD1F000C6;
+	Fri, 13 Nov 2026 21:01:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794603719;
-	bh=OdFb2CISyTt2bJfUX0cO/FELNTV+1/KNJ103zgslpw8=;
+	s=k20260515; t=1794603715;
+	bh=a07pJz5ZIBuY6WuW+x0I9vpqN5yr0zh02iIRpUVghUY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FkJpmUMPXARDp9wAreXM11tH3dMVsN79BICk8NJUn6v1ZixokXgIRVubnhMGrOcJo
-	 ut2KRon0NRQIbGCRw9v7Gep1ie7+kcaYXpETpEoXMhCiYbSHw8iPYADFCJOoyqS7vh
-	 73UPqntwutCXHo6JjGs4GslEel7Qqhyz6wLfoAl3RqqHvIYjvXbIOlnlQSuwOpnb+w
-	 QkW8z/Ln9egSyU4VNwgVdRmgDknQ0DiNZ63LHF5wI7lWi7s0Ffl1DROlBKmoIplvKL
-	 whegUay+vqMJsQPzofVfW5MwdjJHC5+3rUA7Hb8FzpWPL6stYlsojwlUcYj0dqKD62
-	 W+jiE6XBbkyLg==
+	b=GWwE7VJPYBxoXLLbQ1Ontomy8c+9f7QLFKHjbBkjg00OLQZw6Zj5U2Qr/vFbUEZvM
+	 KnpTGOxPlnFKFQlfbll5M2iFSN2kiMVV4oFQynY8I4sUV1hbpz3g+TVMXTvNpwKk3Y
+	 nfbEqklTYoYpL/sM7841/D+dsRbL4icnPUZ2oU/8MUMWrCCffIUuq/+K+I8c6ZpSqx
+	 T9HO4k8zr846tYrmSksPO2XFHjEl6D9MV0UZw/ZpLbMY7vBor7hykebL+NgbV2Gonc
+	 4DLzJZ/RNETC16un/6+eW/75gkFj0yrl9z+fD+S2ZMq9lrx8lhjZOoTih22Lbv2w1V
+	 kMq+YSrZMLHlw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jann Horn <jannh@google.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	SJ Park <sj@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Colin Cross <ccross@google.com>,
+Cc: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
+	Francis Perron <francis@akrites.dev>,
+	AutonomousCodeSecurity@microsoft.com,
+	John Johansen <john.johansen@canonical.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names
-Date: Fri, 13 Nov 2026 16:01:56 -0500
-Message-ID: <20261113205809.2527579-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] apparmor: fix query_data() output overlapping the lookup key
+Date: Fri, 13 Nov 2026 16:01:53 -0500
+Message-ID: <20261113205818.2480014-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201658-failed-6.1-652f15be3c11@kernel.org>
-References: <20261109201658-failed-6.1-652f15be3c11@kernel.org>
+In-Reply-To: <20261113205818.2480014-1-sashal@kernel.org>
+References: <20261107051559-failed-6.18-d30844001360@kernel.org>
+ <20261113205818.2480014-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,70 +64,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
 
-[ Upstream commit 652f15be3c11415725694ccea317c51e35c0b582 ]
+[ Upstream commit d30844001360a403a511cf24fc75ecaa6a7a7544 ]
 
-When changing the anonymous VMA name, madvise_update_vma() calls
-vma_modify_name() to possibly merge with adjacent VMAs. We don't call
-vma_modify_flags() and consequently don't obtain the new VMA flags.
+In query_data(), buf and query point into the same multi_transaction
+buffer: buf at the start, query a few bytes in, and the lookup key
+right after the label string that query points to. Reusing the buffer
+is by design and is safe as long as the query is fully parsed before
+buf is written to, but the key is not: it is dereferenced on every
+iteration of label_for_each_confined(), after output has already been
+written. So when the label has more than one profile with a data
+table, the data of the first matching profile is written to buf while
+the key is still needed, and overwrites it if the data is large enough.
+The later lookups then run on a corrupted key. Besides, if the data has
+no NUL byte from the key's position to the end of the allocation,
+strhash() -> strlen() -> jhash() reads past the 4096-byte slab object,
+triggering an out-of-bound read:
 
-Later in the function we update the VMA flags to the stale new_vma_flags
-we obtained before. This can result in us losing the VMA_SOFTDIRTY_BIT
-flag set on a VMA we just merged with.
+  BUG: KASAN: slab-out-of-bounds in jhash+0x595/0x5e0
+  Read of size 1 at addr ff1100001159d000 by task exploit/155
+  CPU: 0 UID: 1000 PID: 155 Comm: exploit Not tainted 7.3.0-rc7 #1
+  Call Trace:
+   jhash+0x595/0x5e0
+   aa_write_access+0x880/0x1400
+   vfs_write+0x26f/0xd20
+   ksys_write+0x115/0x210
 
-There is no need to update the VMA flags at all, so just exit early. This
-skips calling khugepaged_enter_vma(), but since the flags didn't change
-this is fine.
+Writing to the .access file is unprivileged (0666), but triggering this
+requires loaded profiles that carry a data table, which needs
+CAP_MAC_ADMIN and is not the case on default distribution policies.
 
-[ljs@kernel.org: minor edit of commit message, rebased]
-Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-3-8ff4fae1fc85@kernel.org
-Fixes: 9a10064f5625 ("mm: add a field to store names for private anonymous memory")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
-Cc: SJ Park <sj@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Colin Cross <ccross@google.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: inferred name-only operations from new_flags == vma->vm_flags before merging instead of using an explicit name-change indicator ]
+Fix by copying the key with kstrdup() before writing any output to buf,
+so the key stays valid across all loop iterations regardless of what
+gets written to the overlapping buffer.
+
+Fixes: 317d9a054e1c ("apparmor: update query interface to support label queries")
+Cc: stable@vger.kernel.org # v4.13+
+Cc: Francis Perron <francis@akrites.dev>
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/madvise.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ security/apparmor/apparmorfs.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 77dfca84d27ae..15d0e10ea400f 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -143,6 +143,7 @@ static int madvise_update_vma(struct vm_area_struct *vma,
- 			      struct anon_vma_name *anon_name)
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index 765812092cacd..48711167956eb 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -755,7 +755,7 @@ static void profile_query_cb(const struct aa_profile *profile,
+ static ssize_t query_data(char *buf, size_t buf_len,
+ 			  char *query, size_t query_len)
  {
- 	struct mm_struct *mm = vma->vm_mm;
-+	bool set_new_anon_name = new_flags == vma->vm_flags;
- 	int error;
- 	pgoff_t pgoff;
+-	char *out;
++	char *out, *keydup;
+ 	const char *key;
+ 	struct label_it i;
+ 	struct aa_label *label, *curr;
+@@ -777,11 +777,18 @@ static ssize_t query_data(char *buf, size_t buf_len,
+ 	if (buf_len < sizeof(bytes) + sizeof(blocks))
+ 		return -EINVAL; /* not enough space */
  
-@@ -179,6 +180,9 @@ static int madvise_update_vma(struct vm_area_struct *vma,
- 	}
- 
- success:
-+	if (set_new_anon_name)
-+		return replace_anon_vma_name(vma, anon_name);
++	/* buf overlaps query, keep a copy of the key for the later lookups */
++	keydup = kstrdup(key, GFP_KERNEL);
++	if (!keydup)
++		return -ENOMEM;
 +
- 	/*
- 	 * vm_flags is protected by the mmap_lock held in write mode.
- 	 */
+ 	curr = begin_current_label_crit_section(&needput);
+ 	label = aa_label_parse(curr, query, GFP_KERNEL, false, false);
+ 	end_current_label_crit_section(curr, needput);
+-	if (IS_ERR(label))
++	if (IS_ERR(label)) {
++		kfree(keydup);
+ 		return PTR_ERR(label);
++	}
+ 
+ 	/* We are going to leave space for two numbers. The first is the total
+ 	 * number of bytes we are writing after the first number. This is so
+@@ -799,13 +806,14 @@ static ssize_t query_data(char *buf, size_t buf_len,
+ 		if (!profile->data)
+ 			continue;
+ 
+-		data = rhashtable_lookup_fast(profile->data, &key,
++		data = rhashtable_lookup_fast(profile->data, &keydup,
+ 					      profile->data->p);
+ 
+ 		if (data) {
+ 			if (out + sizeof(outle32) + data->size > buf +
+ 			    buf_len) {
+ 				aa_put_label(label);
++				kfree(keydup);
+ 				return -EINVAL; /* not enough space */
+ 			}
+ 			outle32 = __cpu_to_le32(data->size);
+@@ -817,6 +825,7 @@ static ssize_t query_data(char *buf, size_t buf_len,
+ 		}
+ 	}
+ 	aa_put_label(label);
++	kfree(keydup);
+ 
+ 	outle32 = __cpu_to_le32(out - buf - sizeof(bytes));
+ 	memcpy(buf, &outle32, sizeof(outle32));
 -- 
 2.53.0
 
