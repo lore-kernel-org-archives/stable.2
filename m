@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593632;
-	b=virRZly5tCOct7kB09Omp83QZzrgJ/zxI4nVWW5+zmctmGufsVEbFErYJq0IhPvwgjoA
-	 x9CMPl+pVCgyM0hHIkDIxtC31lyNVmz1IMSXBxufpeDxUQJNsEUSOpi5F6OlH+UBwB7pi
-	 PLx5823x3lL2QBRSWHkVXdeJGUyLh0G8Xq0hAWJVsUyTcTq2+/I3Py0vsogz+EbmDztNv
-	 INq0ph/ZtWgg2aXGkaRDj8/yqJHfAe16wNDEeYJLMjiqlW1nj01UIEv6oMprAcIur302I
-	 yr0jDashHEpJ7m5YGDG1H1Vyu5B7c9r1h/iEsEEP6m2wN+b9r+RqkLtPteI7bmYu8QQ==
+	t=1794593846;
+	b=41No2lD/GI6kbKMQk8Oaf5g9bGR+JWxhiI6KBsaxUBp/N6h4ERgJAS8Mr0mbaAc/hNTQ
+	 E3l0wwQ/e/+8QUTDEZ0X5ynOwlCBTjI/abncErWuAd4xLbVBMSmaq/IFvl9EwvzU5Y3ZL
+	 WdsXIfLXRIJUQkexminIWHg6xX4UqD4duvu2Ic1VSQ4Db8MwKJVvx5QZqc8Teq0bFg5Lf
+	 N7R8HdENcGWgAKGm0XdYRHkbtqi+junzIoW5NJBUgLdTse3vQZTCkFI+rC4XD/AvZLare
+	 jAJGHeFcmGCp4Y2Dem6HqtGjLyFh43DSdmYPcbL31IkaYjn4fb1ELzqL7V6CnijdTow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593632;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593846;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LsBgGqGKlUnFTEcob5dpIrPI1JXgVTYCw9SqbFDVZjw=;
-	b=HFJoHkrQbfW1f/JruxBKdzpLy0j2RLx7oIQTleOgrmNhn+h36nC2Omho3mZyuNkGLfat
-	 X22VxHm4EJt3xS2Dx0gboXNNJzOvE4R2gpzvnPHeyjfEhl3ytHyQ3TBwnE5KxERULFyU4
-	 8/U72szmkt95mQEOCeI8kMe9UgAKWBIqftKKJVu0fQZ140QE0sqIp6Uu0lWwwREWwRsxU
-	 1/NBQInXf7W1GwL62LRSbKC64en31Y8c3RpxP+AeO8t12NX3VKJSdZb6CUwTTHZMUlCEg
-	 ciorAsgX9gQzPx8wmeHQO2znsuA3kOVVwM5q9PDBEVLTxeY1AuCShMGmtB0gZcUU60w==
+	bh=l6CNGkphXPj/lI9umcnYKkzEK/ujeQ2poIyFQgRGPsg=;
+	b=Pb8gqUzxl5G/gR9E5Gno7cFMis13JYLYJuVq3CsgKzZSFh7jfBeS6rT8IDPddW8jXOUt
+	 uJtr0Wdc/zWt1kwayJ9uOF+8CVp2rsy1ghzNONxrioZSw6IJVPYLAbXiYFUApmjDelova
+	 aUCrjrZY/RD4rUfVb9eveCCoWvKEsB0XREqGQvxqCPM5bcKGwOfSm+K2V+UQcEVogh3rR
+	 V9MdHSpaoH0XZNHU7JOOOxPNXYHnmxt8cByhfo8Te2fTadEP68rmhS/TyBM23mepgp9Ab
+	 BmEZ2rgVPyvO2RAIPg4ukjCczc8gAfhu570FW9UIE4sauc4AMbca7jIqxKv1gtDgwfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iegh4aXz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kni74IQS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC57C606A323
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 18:13:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4FD606A33D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 18:17:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iegh4aXz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231641F000C4;
-	Fri, 13 Nov 2026 18:13:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kni74IQS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE421F000C4;
+	Fri, 13 Nov 2026 18:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794593632;
-	bh=LsBgGqGKlUnFTEcob5dpIrPI1JXgVTYCw9SqbFDVZjw=;
+	s=k20260515; t=1794593845;
+	bh=l6CNGkphXPj/lI9umcnYKkzEK/ujeQ2poIyFQgRGPsg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iegh4aXzVk8bQv7M89v5GAxvSqvwS2k6aBZe/meTXIdrDNk+VpmWgQvnVV1XJ6ndo
-	 nDg+M3OZW3Ga6yrCAobWLhuwsG53Dd2glb7uREVyxzMPj6XxB8o0EElW028pgczoMm
-	 TzSiwKLB++s8bnY368lIOXCA3oybaya363fCl++7rk8jtd0S8agDvcpsK846uUYCPt
-	 ioufPsegSxMjxiYKSBdd+xfpoLaMf42xVu3/plp+cFw0/7HHLFnBFV62kuRFKh0Arb
-	 gnZADhYJnPHYoqqy83+ifqqXzjxeLFItpARMUBvcu3+L5VYl8zPeEPwGyv/iyDi9vH
-	 PHuVCKYxNLQqA==
+	b=Kni74IQSjU55VTedNFRD21W39VftnLbZNJjyDC1ohQoAhaGyDYOo7y/ggmcopwuOf
+	 kQaTF3sWcOM24eUVsIjF1FtlDlOZrd8tAqp6Dj9pPEv37ScgsmaHDZnuYNowi99WYu
+	 +YUXMbaDY5TMqhqQSzh0nMaa447BkiU84/0yEkQqUePsOcO1ht9VMt26Ntl00bowy+
+	 yRyqM8x8+dKxjyIrNfRgj7rj/33avovl+02t9YLj2YPY2rFJdXOtO+O4tCIFPkM9nq
+	 4LSS2OhvDxVFNuB3wMcKS7jIkDmwnksSt35vcBlCvo9TJazwnZRlSnWuPRBzDqmcg2
+	 yPsS7rZRZV5aw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Yu Zhang <yuz08559@gmail.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] l2tp: snapshot sequencing state when building transmit headers
-Date: Fri, 13 Nov 2026 13:13:51 -0500
-Message-ID: <20261113181333.2218928-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN teardown
+Date: Fri, 13 Nov 2026 13:17:24 -0500
+Message-ID: <20261113181700.2168703-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062534-failed-5.10-d06ae66516e1@kernel.org>
-References: <20261107062534-failed-5.10-d06ae66516e1@kernel.org>
+In-Reply-To: <20261109202518-failed-5.10-6a6e7d7230cd@kernel.org>
+References: <20261109202518-failed-5.10-6a6e7d7230cd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,332 +61,167 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Yu Zhang <yuz08559@gmail.com>
 
-[ Upstream commit d06ae66516e1aaf023808912af6292aef09d46c3 ]
+[ Upstream commit 6a6e7d7230cd4e0a6c003bae5b85bf37a1e77b94 ]
 
-Updates to send_seq from netlink, PPP setsockopt and receive-side
-negotiation race with packet transmission. The header length is updated
-separately, while transmit reads both fields repeatedly without
-synchronization.
+A demo-mode (generate_node_acls=1) login that allocates a dynamic NodeACL
+populates that ACL's per-LUN dev entries in core_tpg_add_node_to_devs()
+*before* the ACL is linked onto tpg->acl_node_list by
+target_add_node_acl():
 
-For example, transmit can push a ten-byte L2TPv2 header, then a concurrent
-writer clears send_seq before the header builder reads it. The builder
-writes only six bytes, leaving four bytes of uninitialized skb headroom
-in the outgoing packet. The reverse mismatch overwrites the beginning of
-the payload. A later hdr_len read can also make the UDP length disagree
-with the skb length.
+	core_tpg_check_initiator_node_acl():
+		...
+		core_tpg_add_node_to_devs(acl, tpg, NULL); /* builds deves */
+		target_add_node_acl(acl);                  /* only now listed */
 
-KCSAN reported:
+The LUN teardown sweep, core_clear_lun_from_tpg(), enumerates only
+tpg->acl_node_list, so a dev entry whose ACL is still in the window above
+is invisible to the sweep and is never disabled.  It is left on the
+se_lun->lun_deve_list after core_tpg_remove_lun() frees the se_lun; when
+the same unpacked_lun is later re-added and the se_lun is reallocated at
+the same address, the stale dev entry is rediscovered by
+target_nacl_find_deve() and core_enable_device_list_for_node() corrupts
+lun_deve_list:
 
-  BUG: KCSAN: data-race in l2tp_session_set_header_len / l2tp_xmit_skb
+  BUG: KASAN: slab-use-after-free ...
+   core_enable_device_list_for_node+0x5ce/0x880
+   core_tpg_add_node_to_devs+0x169/0x190
+   core_dev_add_lun+0x146/0x190
+   target_fabric_port_link+0xe9/0x1b0
+   configfs_symlink+0x381/0xae0
+   __x64_sys_symlink+0x55/0x80
 
-  write to 0xffff888100d0944a of 2 bytes by task 116 on cpu 1:
-   l2tp_session_set_header_len+0x81/0xc0
-   l2tp_nl_cmd_session_modify+0x122/0x2c0
-   genl_family_rcv_msg_doit+0x170/0x1d0
+The demo-mode login path that drives the ACL/dev-entry creation is
+reachable by an unauthenticated initiator; the colliding LUN add/remove is
+a local configfs operation.
 
-  read to 0xffff888100d0944a of 2 bytes by task 115 on cpu 0:
-   l2tp_xmit_skb+0x9c/0xc80
-   pppol2tp_sendmsg+0x21c/0x2a0
-   __sys_sendto+0x28c/0x2a0
+Commit 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun
+shutdown") introduced se_lun->lun_shutdown and guarded the *explicit* ACL
+MappedLUN path (target_fabric_mappedlun_link()), but the demo-mode
+automatic path, core_tpg_add_node_to_devs() ->
+core_enable_device_list_for_node(), was never given the equivalent guard,
+and the publish-after-populate ordering in
+core_tpg_check_initiator_node_acl() was left unchanged.
 
-The bug can lead to leak kernel base address for KASLR bypass, the
-corresponding reproducer can be provided per request.
+Fix it in three cooperating parts:
 
-Initialize hdr_len to the maximum header size and leave it unchanged
-when sequencing is toggled. Snapshot send_seq once per packet and use
-that snapshot for the actual header length and header construction,
-including the sequence flag. Use the same length for headroom, the header
-push and the UDP length. PPP callers can safely reserve the maximum size;
-L2TPv3 header sizes do not depend on sequencing.
+ 1) Publish the dynamic NodeACL onto acl_node_list *before* creating its
+    dev entries, so the teardown sweep can observe them.
 
-Make send_seq a separate bool so READ_ONCE() and WRITE_ONCE() can be used
-without sharing a bitfield storage unit with other configuration flags.
-Preserve the netlink attribute's existing low-bit truncation.
+ 2) Refuse to attach a dev entry to an se_lun that is shutting down,
+    checked under nacl->lun_entry_mutex -- the same lock the sweep takes --
+    so once the sweep has passed an ACL any later enable for that LUN
+    observes lun_shutdown and skips it.
 
-Fixes: 3557baabf280 ("[L2TP]: PPP over L2TP driver core")
+ 3) In core_enable_device_list_for_node(), insert the new dev entry onto
+    lun->lun_deve_list while still holding nacl->lun_entry_mutex, in both
+    the replace and the new-entry branch.  Previously the entry was added
+    to nacl->lun_entry_hlist under the mutex but to lun->lun_deve_list only
+    after dropping it; with the ACL now published early, the sweep could
+    take the mutex in that gap, find the entry on the hlist,
+    core_disable_device_list_for_node() it (list_del() on the not-yet-
+    linked lun_link succeeds and the entry is freed), and then the enable
+    would list_add_tail() the freed entry back onto lun_deve_list.  Linking
+    both lists under the mutex makes enable and the sweep mutually
+    exclusive, closing that window.
+
+core_tpg_add_node_to_devs() already ignores the return value of
+core_enable_device_list_for_node(), so a shutting-down LUN is simply
+skipped.
+
 Cc: stable@vger.kernel.org
-Assisted-by: GPT-6 Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Link: https://patch.msgid.link/20261013090500.1180376-1-nicoyip.dev@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: adapted l2tp_session_set_header_len() changes to the two-argument signature without an encap parameter ]
+Fixes: 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun shutdown")
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+Tested-by: Yu Zhang <yuz08559@gmail.com>
+Link: https://patch.msgid.link/20261014013746.46705-1-yuz08559@gmail.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: Replaced the free_stats cleanup path with kfree(new) and a direct -ENODEV return because statistics are embedded in the device entry. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/l2tp/l2tp_core.c    | 47 ++++++++++++++++++++---------------------
- net/l2tp/l2tp_core.h    |  5 ++---
- net/l2tp/l2tp_debugfs.c |  4 ++--
- net/l2tp/l2tp_netlink.c |  9 ++++----
- net/l2tp/l2tp_ppp.c     |  7 +++---
- 5 files changed, 34 insertions(+), 38 deletions(-)
+ drivers/target/target_core_device.c | 18 +++++++++++++++---
+ drivers/target/target_core_tpg.c    | 10 +++++++++-
+ 2 files changed, 24 insertions(+), 4 deletions(-)
 
-diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
-index b03de90e3d418..e92d41d9e54c6 100644
---- a/net/l2tp/l2tp_core.c
-+++ b/net/l2tp/l2tp_core.c
-@@ -695,10 +695,9 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- 		 * check if we sre sending sequence numbers and if not,
- 		 * configure it so.
- 		 */
--		if (!session->lns_mode && !session->send_seq) {
-+		if (!session->lns_mode && !READ_ONCE(session->send_seq)) {
- 			trace_session_seqnum_lns_enable(session);
--			session->send_seq = 1;
--			l2tp_session_set_header_len(session, tunnel->version);
-+			WRITE_ONCE(session->send_seq, true);
- 		}
- 	} else {
- 		/* No sequence numbers.
-@@ -716,11 +715,10 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- 		 * If we're the LNS and we're sending sequence numbers, the
- 		 * LAC is broken. Discard the frame.
- 		 */
--		if (!session->lns_mode && session->send_seq) {
-+		if (!session->lns_mode && READ_ONCE(session->send_seq)) {
- 			trace_session_seqnum_lns_disable(session);
--			session->send_seq = 0;
--			l2tp_session_set_header_len(session, tunnel->version);
--		} else if (session->send_seq) {
-+			WRITE_ONCE(session->send_seq, false);
-+		} else if (READ_ONCE(session->send_seq)) {
- 			pr_debug_ratelimited("%s: recv data has no seq numbers when required. Discarding.\n",
- 					     session->name);
- 			atomic_long_inc(&session->stats.rx_seq_discards);
-@@ -930,7 +928,8 @@ EXPORT_SYMBOL_GPL(l2tp_udp_encap_recv);
+diff --git a/drivers/target/target_core_device.c b/drivers/target/target_core_device.c
+index 50135f8df1b4a..877d4d8e8ebb7 100644
+--- a/drivers/target/target_core_device.c
++++ b/drivers/target/target_core_device.c
+@@ -330,6 +330,19 @@ int core_enable_device_list_for_node(
+ 	new->attach_count++;
  
- /* Build an L2TP header for the session into the buffer provided.
-  */
--static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
-+static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf,
-+				    bool send_seq)
- {
- 	struct l2tp_tunnel *tunnel = session->tunnel;
- 	__be16 *bufp = buf;
-@@ -939,14 +938,14 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
- 	u32 tunnel_id = tunnel->peer_tunnel_id;
- 	u32 session_id = session->peer_session_id;
+ 	mutex_lock(&nacl->lun_entry_mutex);
++	/*
++	 * Do not attach a new dev entry to an se_lun that is being torn down.
++	 * lun_shutdown is set by core_tpg_remove_lun() before its
++	 * core_clear_lun_from_tpg() sweep; checking it here under the same
++	 * nacl->lun_entry_mutex the sweep takes guarantees that once the sweep
++	 * has passed this ACL no dev entry can be left dangling on the
++	 * se_lun->lun_deve_list that is about to be freed.
++	 */
++	if (lun->lun_shutdown) {
++		mutex_unlock(&nacl->lun_entry_mutex);
++		kfree(new);
++		return -ENODEV;
++	}
+ 	orig = target_nacl_find_deve(nacl, mapped_lun);
+ 	if (orig && orig->se_lun) {
+ 		struct se_lun *orig_lun = rcu_dereference_check(orig->se_lun,
+@@ -357,12 +370,12 @@ int core_enable_device_list_for_node(
+ 		rcu_assign_pointer(new->se_lun_acl, lun_acl);
+ 		hlist_del_rcu(&orig->link);
+ 		hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-		mutex_unlock(&nacl->lun_entry_mutex);
  
--	if (session->send_seq)
-+	if (send_seq)
- 		flags |= L2TP_HDRFLAG_S;
+ 		spin_lock(&lun->lun_deve_lock);
+ 		list_del(&orig->lun_link);
+ 		list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 		spin_unlock(&lun->lun_deve_lock);
++		mutex_unlock(&nacl->lun_entry_mutex);
  
- 	/* Setup L2TP header. */
- 	*bufp++ = htons(flags);
- 	*bufp++ = htons(tunnel_id);
- 	*bufp++ = htons(session_id);
--	if (session->send_seq) {
-+	if (send_seq) {
- 		*bufp++ = htons(session->ns);
- 		*bufp++ = 0;
- 		session->ns++;
-@@ -957,7 +956,8 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
- 	return bufp - optr;
- }
+ 		kref_put(&orig->pr_kref, target_pr_kref_release);
+ 		wait_for_completion(&orig->pr_comp);
+@@ -375,11 +388,10 @@ int core_enable_device_list_for_node(
+ 	rcu_assign_pointer(new->se_lun, lun);
+ 	rcu_assign_pointer(new->se_lun_acl, lun_acl);
+ 	hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-	mutex_unlock(&nacl->lun_entry_mutex);
+-
+ 	spin_lock(&lun->lun_deve_lock);
+ 	list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 	spin_unlock(&lun->lun_deve_lock);
++	mutex_unlock(&nacl->lun_entry_mutex);
  
--static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
-+static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf,
-+				    bool send_seq)
- {
- 	struct l2tp_tunnel *tunnel = session->tunnel;
- 	char *bufp = buf;
-@@ -983,7 +983,7 @@ static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
- 	if (session->l2specific_type == L2TP_L2SPECTYPE_DEFAULT) {
- 		u32 l2h = 0;
+ 	target_luns_data_has_changed(nacl, new, true);
+ 	return 0;
+diff --git a/drivers/target/target_core_tpg.c b/drivers/target/target_core_tpg.c
+index 62aa5fa63ac09..9b1c23fafbbe6 100644
+--- a/drivers/target/target_core_tpg.c
++++ b/drivers/target/target_core_tpg.c
+@@ -265,6 +265,15 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
+ 	kref_get(&acl->acl_kref);
+ 	acl->dynamic_node_acl = 1;
  
--		if (session->send_seq) {
-+		if (send_seq) {
- 			l2h = 0x40000000 | session->ns;
- 			session->ns++;
- 			session->ns &= 0xffffff;
-@@ -1017,19 +1017,24 @@ static int l2tp_xmit_queue(struct l2tp_tunnel *tunnel, struct sk_buff *skb, stru
- static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, unsigned int *len)
- {
- 	struct l2tp_tunnel *tunnel = session->tunnel;
-+	bool send_seq = READ_ONCE(session->send_seq);
- 	unsigned int data_len = skb->len;
- 	struct sock *sk = tunnel->sock;
-+	u16 hdr_len = session->hdr_len;
- 	int headroom, uhlen, udp_len;
- 	int ret = NET_XMIT_SUCCESS;
- 	struct inet_sock *inet;
- 	struct udphdr *uh;
- 
-+	if (tunnel->version == L2TP_HDR_VER_2 && !send_seq)
-+		hdr_len -= 4;
++	/*
++	 * Publish the dynamic NodeACL on tpg->acl_node_list before creating
++	 * its demo-mode MappedLUN dev entries below, so that a concurrent LUN
++	 * teardown sweep (core_clear_lun_from_tpg(), which walks acl_node_list)
++	 * can observe and disable those dev entries.  Otherwise a dev entry can
++	 * be left on an se_lun->lun_deve_list that is about to be freed.
++	 */
++	target_add_node_acl(acl);
 +
- 	/* Check that there's enough headroom in the skb to insert IP,
- 	 * UDP and L2TP headers. If not enough, expand it to
- 	 * make room. Adjust truesize.
- 	 */
- 	uhlen = (tunnel->encap == L2TP_ENCAPTYPE_UDP) ? sizeof(*uh) : 0;
--	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + session->hdr_len;
-+	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + hdr_len;
- 	if (skb_cow_head(skb, headroom)) {
- 		kfree_skb(skb);
- 		return NET_XMIT_DROP;
-@@ -1037,9 +1042,9 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
+ 	/*
+ 	 * Here we only create demo-mode MappedLUNs from the active
+ 	 * TPG LUNs if the fabric is not explicitly asking for
+@@ -274,7 +283,6 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
+ 	    (tpg->se_tpg_tfo->tpg_check_demo_mode_login_only(tpg) != 1))
+ 		core_tpg_add_node_to_devs(acl, tpg, NULL);
  
- 	/* Setup L2TP header */
- 	if (tunnel->version == L2TP_HDR_VER_2)
--		l2tp_build_l2tpv2_header(session, __skb_push(skb, session->hdr_len));
-+		l2tp_build_l2tpv2_header(session, __skb_push(skb, hdr_len), send_seq);
- 	else
--		l2tp_build_l2tpv3_header(session, __skb_push(skb, session->hdr_len));
-+		l2tp_build_l2tpv3_header(session, __skb_push(skb, hdr_len), send_seq);
- 
- 	/* Reset skb netfilter state */
- 	memset(&(IPCB(skb)->opt), 0, sizeof(IPCB(skb)->opt));
-@@ -1082,7 +1087,7 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
- 		uh = udp_hdr(skb);
- 		uh->source = inet->inet_sport;
- 		uh->dest = inet->inet_dport;
--		udp_len = uhlen + session->hdr_len + data_len;
-+		udp_len = uhlen + hdr_len + data_len;
- 		if (udp_len > U16_MAX) {
- 			kfree_skb(skb);
- 			ret = NET_XMIT_DROP;
-@@ -1578,15 +1583,10 @@ void l2tp_session_delete(struct l2tp_session *session)
+-	target_add_node_acl(acl);
+ 	return acl;
  }
- EXPORT_SYMBOL_GPL(l2tp_session_delete);
- 
--/* We come here whenever a session's send_seq, cookie_len or
-- * l2specific_type parameters are set.
-- */
--void l2tp_session_set_header_len(struct l2tp_session *session, int version)
-+static void l2tp_session_set_header_len(struct l2tp_session *session, int version)
- {
- 	if (version == L2TP_HDR_VER_2) {
--		session->hdr_len = 6;
--		if (session->send_seq)
--			session->hdr_len += 4;
-+		session->hdr_len = 10;
- 	} else {
- 		session->hdr_len = 4 + session->cookie_len;
- 		session->hdr_len += l2tp_get_l2specific_len(session);
-@@ -1594,7 +1594,6 @@ void l2tp_session_set_header_len(struct l2tp_session *session, int version)
- 			session->hdr_len += 4;
- 	}
- }
--EXPORT_SYMBOL_GPL(l2tp_session_set_header_len);
- 
- struct l2tp_session *l2tp_session_create(int priv_size, struct l2tp_tunnel *tunnel, u32 session_id,
- 					 u32 peer_session_id, struct l2tp_session_cfg *cfg)
-diff --git a/net/l2tp/l2tp_core.h b/net/l2tp/l2tp_core.h
-index 98ea98eb9567b..a140d0f1ff4e5 100644
---- a/net/l2tp/l2tp_core.h
-+++ b/net/l2tp/l2tp_core.h
-@@ -79,7 +79,7 @@ struct l2tp_session {
- 	u8			peer_cookie[8];
- 	int			peer_cookie_len;
- 	u16			l2specific_type;
--	u16			hdr_len;
-+	u16			hdr_len;	/* maximum L2TP header length */
- 	u32			nr;		/* session NR state (receive) */
- 	u32			ns;		/* session NR state (send) */
- 	struct sk_buff_head	reorder_q;	/* receive reorder queue */
-@@ -93,8 +93,8 @@ struct l2tp_session {
- 
- 	char			name[L2TP_SESSION_NAME_MAX]; /* for logging */
- 	char			ifname[IFNAMSIZ];
-+	bool			send_seq;	/* send packets with sequence numbers? */
- 	unsigned int		recv_seq:1;	/* expect receive packets with sequence numbers? */
--	unsigned int		send_seq:1;	/* send packets with sequence numbers? */
- 	unsigned int		lns_mode:1;	/* behave as LNS?
- 						 * LAC enables sequence numbers under LNS control.
- 						 */
-@@ -261,7 +261,6 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb);
- 
- /* Transmit path helpers for sending packets over the tunnel socket. */
--void l2tp_session_set_header_len(struct l2tp_session *session, int version);
- int l2tp_xmit_skb(struct l2tp_session *session, struct sk_buff *skb);
- 
- /* Pseudowire management.
-diff --git a/net/l2tp/l2tp_debugfs.c b/net/l2tp/l2tp_debugfs.c
-index bca75bef82828..66738c3094f28 100644
---- a/net/l2tp/l2tp_debugfs.c
-+++ b/net/l2tp/l2tp_debugfs.c
-@@ -185,12 +185,12 @@ static void l2tp_dfs_seq_session_show(struct seq_file *m, void *v)
- 		   session->pwtype == L2TP_PWTYPE_ETH ? "ETH" :
- 		   session->pwtype == L2TP_PWTYPE_PPP ? "PPP" :
- 		   "");
--	if (session->send_seq || session->recv_seq)
-+	if (READ_ONCE(session->send_seq) || session->recv_seq)
- 		seq_printf(m, "   nr %hu, ns %hu\n", session->nr, session->ns);
- 	seq_printf(m, "   refcnt %d\n", refcount_read(&session->ref_count));
- 	seq_printf(m, "   config 0/0/%c/%c/-/%s %08x %u\n",
- 		   session->recv_seq ? 'R' : '-',
--		   session->send_seq ? 'S' : '-',
-+		   READ_ONCE(session->send_seq) ? 'S' : '-',
- 		   session->lns_mode ? "LNS" : "LAC",
- 		   0,
- 		   jiffies_to_msecs(session->reorder_timeout));
-diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
-index f34ca225c2199..a5659ea54da5c 100644
---- a/net/l2tp/l2tp_netlink.c
-+++ b/net/l2tp/l2tp_netlink.c
-@@ -689,10 +689,9 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
- 	if (info->attrs[L2TP_ATTR_RECV_SEQ])
- 		session->recv_seq = nla_get_u8(info->attrs[L2TP_ATTR_RECV_SEQ]);
- 
--	if (info->attrs[L2TP_ATTR_SEND_SEQ]) {
--		session->send_seq = nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]);
--		l2tp_session_set_header_len(session, session->tunnel->version);
--	}
-+	if (info->attrs[L2TP_ATTR_SEND_SEQ])
-+		WRITE_ONCE(session->send_seq,
-+			   nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]) & 1);
- 
- 	if (info->attrs[L2TP_ATTR_LNS_MODE])
- 		session->lns_mode = nla_get_u8(info->attrs[L2TP_ATTR_LNS_MODE]);
-@@ -735,7 +734,7 @@ static int l2tp_nl_session_send(struct sk_buff *skb, u32 portid, u32 seq, int fl
- 	    (session->peer_cookie_len &&
- 	     nla_put(skb, L2TP_ATTR_PEER_COOKIE, session->peer_cookie_len, session->peer_cookie)) ||
- 	    nla_put_u8(skb, L2TP_ATTR_RECV_SEQ, session->recv_seq) ||
--	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, session->send_seq) ||
-+	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, READ_ONCE(session->send_seq)) ||
- 	    nla_put_u8(skb, L2TP_ATTR_LNS_MODE, session->lns_mode) ||
- 	    (l2tp_tunnel_uses_xfrm(tunnel) &&
- 	     nla_put_u8(skb, L2TP_ATTR_USING_IPSEC, 1)) ||
-diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
-index 10ae55b46aa9c..90a5e49bc28c6 100644
---- a/net/l2tp/l2tp_ppp.c
-+++ b/net/l2tp/l2tp_ppp.c
-@@ -1187,14 +1187,13 @@ static int pppol2tp_session_setsockopt(struct sock *sk,
- 			err = -EINVAL;
- 			break;
- 		}
--		session->send_seq = !!val;
-+		WRITE_ONCE(session->send_seq, !!val);
- 		{
- 			struct pppox_sock *po = pppox_sk(sk);
- 
- 			po->chan.hdrlen = val ? PPPOL2TP_L2TP_HDR_SIZE_SEQ :
- 				PPPOL2TP_L2TP_HDR_SIZE_NOSEQ;
- 		}
--		l2tp_session_set_header_len(session, session->tunnel->version);
- 		break;
- 
- 	case PPPOL2TP_SO_LNSMODE:
-@@ -1304,7 +1303,7 @@ static int pppol2tp_session_getsockopt(struct sock *sk,
- 		break;
- 
- 	case PPPOL2TP_SO_SENDSEQ:
--		*val = session->send_seq;
-+		*val = READ_ONCE(session->send_seq);
- 		break;
- 
- 	case PPPOL2TP_SO_LNSMODE:
-@@ -1550,7 +1549,7 @@ static void pppol2tp_seq_session_show(struct seq_file *m, void *v)
- 		   state, user_data_ok);
- 	seq_printf(m, "   0/0/%c/%c/%s %08x %u\n",
- 		   session->recv_seq ? 'R' : '-',
--		   session->send_seq ? 'S' : '-',
-+		   READ_ONCE(session->send_seq) ? 'S' : '-',
- 		   session->lns_mode ? "LNS" : "LAC",
- 		   0,
- 		   jiffies_to_msecs(session->reorder_timeout));
+ EXPORT_SYMBOL(core_tpg_check_initiator_node_acl);
 -- 
 2.53.0
 
