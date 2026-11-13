@@ -1,126 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582405;
-	b=sfZSgcg/ZBmalTCX8NHooIka70bbX1/yWUrXqncBgkkXA51uhJw4Q091j9B2JnxNt0Xf
-	 kUNDb2wut9G+5v4ICprfdvOQfqSioCn7fLQKRIt/+I8Wq/4FfDoNup2XaD262Y/MWWRx6
-	 Ks06s8NtSJEjqWB5KfJ7V8t3crHSrcwbMe9zgEld6TIQWhlNGGpdB8/sdHC2UZXZewCFh
-	 llYn/d7/dmGyiHFf+Nkj2+QxFZq+D1Rr7megAwYb3nYEu3tTd1/Bf9QuXtPgAZQiGxRew
-	 4rfCnaJ8+UtDv39u46vaB1hB69L2fokP4/YGRT8AzRQJZmhEgSJ+2FZaoYlwyyuyJfw==
+	t=1794582481;
+	b=O+IxYZXs/9B3QF7DhhVdcAlIbKJvI7Cacl/rHIrg8Yv0iCgkUSBYzdsE1m4FiooDoyKF
+	 4F0ClXIyuoUIG+mHNt3W9wNZ9fZHGLfBTvCtyC0hGVVSecgnec0krrNCiDkODYLkM6+XT
+	 krxIGRJWhCNytVwJ5raCQT3lgywcB1XffgZJfVYzdu9w1ryGq8//SpZ/4VAZifPzIG+1A
+	 X30m6C/SMeJO5Y7O4J1VkBxh/xOY6Zrf5rstrwg1zDHJA02UcwVx68pgx44ImwCN4XE/b
+	 9YNITunvoxkAofCkZ6HPcWBaiq1wNGf5/1MymR50bKYgI6UX6y1q9lL5bvDdbxsA/Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582405;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2Tp6iQjkfangii/DKRnGc80WH6QKMSA/4QcC/JVtYtI=;
-	b=uD2xJmJC21psHog7Pf6OcScWqQsouK0akAMizMAolfe9wrQd3X+Mo6AucoRrpTdaAqt1
-	 1DTxHpHYibLA+9iky33BifLFCwb3pMGyiLK/D1smesaatA0cpiVPq/MwxSbaXhI44gGDJ
-	 y1hITZPIMCBpx30kLmbyDJbHocqrp4IWr9amAMagn0ToYe2+/s29sLVJoBFueYWKL6U05
-	 nlx8Z4MsS83HmIxKOBlygnBEHPMmjEb/aYt/S8DsAhsN2QzRhV8Yw4jml9mnLSl0Mjg2r
-	 tnKIskE9iMVsWafzcDK4yec9p8IhA6lOjDuvIOLuOGjX8TzGnOQcMHJSZmuyUNKtm0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582481;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=R0fnhx5z/2RjXybqLtkKhuTwGuopHil9mZ/rtejlAEY=;
+	b=XI098AYxnkHgSIrmBW7H5uysvnmgDptJ2fXm1mdVrsQ4UTLjQtl3xXNia2QUKNOCeJBT
+	 sFJLWmUpqjzr181HEAXWcqCsBawPKJ/6b1efQ6RU3mcZD8nSvD6teHt8VV5sm6ok1xGhj
+	 gcX7+idW1+jhvSrS1NY0dMgr028rub0tp0aGfenB5sw26Iiytbq4U66aAxkDVpGOblonz
+	 aPzvJHXvDrUtKsSqBInsa7QHq2/7mcbpuOS48cDxsr9eZ7/Y0O9zI9JxdyF9gj+/G9Ewv
+	 Bs0jWg0uDhHONc0grCEJu8RI4NsmBNjWOinXQuBLagyoaL6vosZudpk3DBUDJ+xos/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TciBMSmE;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ns5S0Tu7;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBncaMmp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E861960A6F70
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:06:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E861960A6F70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8A7606A89F
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:08:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TciBMSmE;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ns5S0Tu7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794582404;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2Tp6iQjkfangii/DKRnGc80WH6QKMSA/4QcC/JVtYtI=;
-	b=TciBMSmE/FFXG9MYsN+ix7zwV6Y6/GUs5mmtdk4MHuNf8la8FlUCTpWUPSiAEpOvvbOcOe
-	XjOsiRDLwQu3u7vdeSK/7pE6jiIQjWE4OjHh5/Yv9KTgGj/jTqW1e4pG2TfE86saEgepzz
-	FBPEkedIRBc4UF6w6Twyl8zXqj5XgQs=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-357-PixXURTSNVuFLs71II8tNA-1; Fri, 13 Nov 2026 10:06:42 -0500
-X-MC-Unique: PixXURTSNVuFLs71II8tNA-1
-X-Mimecast-MFC-AGG-ID: PixXURTSNVuFLs71II8tNA_1794582401
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a35db2d6b3so6208815e9.3
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 07:06:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794582401; x=1795187201; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2Tp6iQjkfangii/DKRnGc80WH6QKMSA/4QcC/JVtYtI=;
-        b=ns5S0Tu7MrONZXzIzknq9qO83Czobv4jEAo3Ald3QMyVHS3ISoFwgkL7ShfNZ2GFkE
-         0Jk0Fl5u8nkgUaJG9HLkJ1vmAj3Mhf+MuOr3LlU5CRjQsDtNyQ4ro5pnSosiHing3aGj
-         CSVsPusCsNEZ+tFBSX+rvrv/WMErUp0AiSLlbKDl0jnduSPaNh1YYWUwETX0vGso1dx7
-         5g8Bp2hlHDkXrZhrBqhEtigFDnd5SCvAs9gxkf6YOp0Rhz9P5nI7zdKSQaOo4kh41dG1
-         wur3/LJkw8oKkiO+EeTI5cmtNZzHnebHw0cgM1EW8ajBuRPJ2n28z8pNw4gDCd9kXi/V
-         54gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794582401; x=1795187201;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2Tp6iQjkfangii/DKRnGc80WH6QKMSA/4QcC/JVtYtI=;
-        b=bXYzpFPJVw6eLDdfJzxJ1ma5iFQ96xH76KwPcbjUIxnOp2QmdAyRh98T1qcpdPYx+N
-         Dggpo8Si+Z6zY2YxjtRHf4FdhbxCMa7zyJoEB/JYMZyoeeK8Qb4ie0GC6kgNVI1D2Y/e
-         BQD6pX2YJ9ZfIvX6Qm6lNU7EkSmrG56r3pMxRgjt2pFGMCgnmg9YgPUiWwYYT8rvfckv
-         vSYl1eFvPveN14x5e7kXysoCoXr8GtcLtg+AGTigGQ1msl6p7xMGQBpU/kRJ8Li/Kb+L
-         CjNqpOsaZLZMZhi1cPfVcbeN8Qanv2KEQuKjht5uZsFX/ZUSLPeJaqVCQlmyem5eZqpx
-         T7ZQ==
-X-Forwarded-Encrypted: i=1; AL+hErEys39eNg+2Xrq2nCm5zg1owLqbwnAwJuwWwTAcJSTmRrsG+cQX1GfEOaqCf5DkvAzoX19eKZ8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92mmGXX2NmMr1v8/om2+K7X6AIuk8F/w3HfOQwFhmqgSn9OPSd
-	RS8l1LK3kSzsB1nf5raAgRl3cclFaKBKI4hRXzXoy3HUN+hQsPQ5DWUXehTu87p97zOWJW0FM8k
-	i2JWQPiE5xJxLMBlXHpDVqlBeqo0oSQMe5H/eYwndFvwH9SBfH5FYOwUnug==
-X-Gm-Gg: AYBFou1WZuO4oRMdpzjHg/4o0MYXODo+5Ao86++plGqdBP29dwYvHs1oVIL4qn3Z5Ho
-	o2HrbRjb42PuwqCdxtxTQbEdEvWL94CQxJE6PovItGCJn0d7lacVxRzn2znSiVXrId8CgEqFIcw
-	QDB0OUngiD0w2AHhG6/JHulwSghe1cv222fiq/et1FR2mIYJmjwGy3zlxwNnvNy6ja9OaqvM4z9
-	WwzOdtGTHR6l0dG2u4B57buUcAtI2sUSD/d3YThbl0V6b7B3+ozkkdsiY3keVsYiO/dm4WpthMC
-	N73kMHIx4A5EVxjwb8AEmANKp0yGeYsojCkcAHSleWCzKBz+PR+CFiuGOvwARNdacHjryY3bNVR
-	kfF5J5G2ZiHhqH8rEw9KUBt4XOm+Zgh/dlVWdg0EiiUzZs7o2lmeH7i+zpyH69+kB66MyXFf44A
-	WGgW8=
-X-Received: by 2002:a05:600c:a30e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4bb55a5d63fmr51094585e9.11.1794582401497;
-        Fri, 13 Nov 2026 07:06:41 -0800 (PST)
-X-Received: by 2002:a05:600c:a30e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4bb55a5d63fmr51093885e9.11.1794582401031;
-        Fri, 13 Nov 2026 07:06:41 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5d2872edsm20774755e9.12.2026.11.13.07.06.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:06:39 -0800 (PST)
-Date: Fri, 13 Nov 2026 16:06:37 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 16/29] sched/deadline: Record the root domain holding
- a task's bandwidth
-Message-ID: <avcnfTqZzNGLlbHk@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-17-mathieu.desnoyers@efficios.com>
- <avSPoSnNATnwZ8cS@jlelli-thinkpadt14gen4.remote.csb>
- <7459ff0d-d8e1-4fe4-b2de-4b4f06be9bb9@efficios.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBncaMmp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B277B1F000C4;
+	Fri, 13 Nov 2026 15:07:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794582480;
+	bh=R0fnhx5z/2RjXybqLtkKhuTwGuopHil9mZ/rtejlAEY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RBncaMmpjFGeIy+ees0uBDA2zXh4jGS2bHKvZlD/Gh35i9a5i/LkNHfzqy6J5Hmtb
+	 HsRW6kt16G228G3muHOck6g4JV+OzqtrGwxFILMSTWZ76B8HFHMa1NVpA9W0j3NA5H
+	 Nv/7N28ldmWRMJ7y6E6y+VFngd6GltT8KLwAuDiumU1aHAzzqylu0H1qaVyok0RDr2
+	 dUZ34FoNJHXqmUEz8a9ec088SrU0TQ9Bxk575i+ZMCZVf8ECkupFohkQ3AHk8vDBCB
+	 kr3rZTAojVd4m2MPIoc0HwnVG8mv8jHAe4Tao2sowsEgpkxJSByIkp0w/GO9pNNhMB
+	 UhP6XSQdKh3gQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Cen Zhang <zzzccc427@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Jia-Ju Bai <baijiaju1990@gmail.com>,
+	jjzuming@gmail.com,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] ocfs2: validate move extents against a stable EOF
+Date: Fri, 13 Nov 2026 10:07:58 -0500
+Message-ID: <20261113150736.1856589-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200821-failed-6.12-84db6619cb70@kernel.org>
+References: <20261109200821-failed-6.12-84db6619cb70@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -130,51 +65,174 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7459ff0d-d8e1-4fe4-b2de-4b4f06be9bb9@efficios.com>
+Content-Transfer-Encoding: 8bit
 
-On 13/11/26 08:33, Mathieu Desnoyers wrote:
-> Hi Juri,
-> 
-> > > +           if (p->dl.dl_bw_gen == dl_bw_gen) {
-> > 
-> > So, this is not guarded by dl_departed_lock, but then this gets fixed in
-> > later patches?
-> 
-> Yes, but only as a side effect, and the patch should not rely on it.
-> 
-> dl_bw_gen changes in a rebuild, which holds cpuset_mutex. From patch 18
-> on, set_cpus_allowed_dl() reaches this test only from cpuset_attach(),
-> which holds cpuset_mutex too. At this patch, from reading, other
-> callers still reach it without cpuset_mutex: select_fallback_rq(), and
-> sched_setaffinity() with admission control off. A rebuild can then
-> change dl_bw_gen between the test and the __dl_sub().
-> 
-> The planned next version takes dl_departed_lock around the test and the
-> update of the record, from this patch on.
-> 
-> > > +    * enters the class. A runtime below about a millionth of the period
-> > > +    * gives a bandwidth of 0. It counts for nothing, and no move updates
-> > 
-> > Ah right, quite cryptic corner case buried in this comment. :)
-> > 
-> > This is the 1024ns/2s of the test. Which indeed gets dl_bw 0. Don't
-> > think it's a huge deal from a theory/practice pov as to actually make an
-> > impact we probably need quite a lot of these admitted (fork bomb style).
-> > But it's still weird :P. Not sure if we want to impose a min of 1 dl_bw
-> > for these. If it actually complicates the accounting (for no good
-> > returns) or not.
-> 
-> I agree that it is odd. I left it as it is upstream. The accounting
-> needs no special case for it beyond this comment: a bandwidth of 0 is
-> added and removed like any other. The case move_zero_bw of
-> deadline_bw_test covers it.
-> 
-> A minimum of 1 would change what sched_setattr() admits, by one
-> millionth of a CPU for each such task. I would rather not do that in a
-> series of fixes. I can send it as a separate patch afterwards if you
-> want it.
+From: Cen Zhang <zzzccc427@gmail.com>
 
-Makes sense, thanks.
+[ Upstream commit 84db6619cb702c37cf848b450c21b9c9706b0775 ]
+
+The move-extents range must be bounded by the inode size used for extent
+movement.  ocfs2_ioctl_move_extents() checks and clamps the request before
+taking the local inode and cluster locks in ocfs2_move_extents().  It also
+uses separate i_size_read() calls for the range check and subtraction.
+
+A concurrent truncate can invalidate the first check and make the later
+unsigned subtraction underflow:
+
+  Move-extents ioctl                  Truncate
+  ------------------                  --------
+  check me_start <= i_size
+                                      take inode and cluster locks
+                                      shrink EOF below me_start
+                                      release locks
+  compare me_start + me_len with EOF
+  set me_len = EOF - me_start
+    [unsigned underflow]
+  acquire inode and cluster locks
+  select extents using the bad range
+
+A truncate after clamping can also leave the range extending beyond EOF.
+Conversely, the cached size may be smaller than the size refreshed when
+the cluster inode lock is acquired.  Early validation can then reject a
+valid start or permanently shorten the requested length and threshold.
+The me_start + me_len comparison can also wrap for a large input length.
+
+Validate and adjust the original request once, after inode_lock(), the
+exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
+size.  Read EOF once, reject a start beyond it, and bound the length by
+EOF minus start.  Normalize the threshold using the same EOF snapshot.
+This keeps zero as the default-threshold sentinel until validation uses
+the size that will govern extent movement.
+
+Move goal validation after range adjustment as well.  Its allocation-group
+capacity check uses me_len and must see the EOF-clamped length.  Both
+validation failures use the existing inode-lock unwind path before any
+extent movement or transaction starts.
+
+Range errors now reach the ioctl's normal copyout path, as goal errors
+already did.  Unlike the old early rejection, a failed copyout can
+therefore override -EINVAL with -EFAULT.
+
+Link: https://lore.kernel.org/pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com
+Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: inlined the upstream range-validation helper into ocfs2_move_extents() to avoid adding a new function ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ocfs2/move_extents.c | 62 ++++++++++++++++++++---------------------
+ 1 file changed, 31 insertions(+), 31 deletions(-)
+
+diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
+index decf14ea21478..279726e5f7cfe 100644
+--- a/fs/ocfs2/move_extents.c
++++ b/fs/ocfs2/move_extents.c
+@@ -906,8 +906,10 @@ static int __ocfs2_move_extents_range(struct buffer_head *di_bh,
+ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ {
+ 	int status;
++	u64 i_size;
+ 	handle_t *handle;
+ 	struct inode *inode = context->inode;
++	struct ocfs2_move_extents *range = context->range;
+ 	struct ocfs2_dinode *di;
+ 	struct buffer_head *di_bh = NULL;
+ 	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
+@@ -932,6 +934,35 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ 		goto out_rw_unlock;
+ 	}
+ 
++	i_size = i_size_read(inode);
++	if (range->me_start > i_size) {
++		status = -EINVAL;
++		mlog_errno(status);
++		goto out_inode_unlock;
++	}
++
++	if (range->me_len > i_size - range->me_start)
++		range->me_len = i_size - range->me_start;
++
++	/*
++	 * The default threshold for defragmentation is 1 MiB, which
++	 * matches the maximum OCFS2 cluster size.
++	 */
++	if (!range->me_threshold)
++		range->me_threshold = 1024 * 1024;
++
++	if (range->me_threshold > i_size)
++		range->me_threshold = i_size;
++
++	/* The goal check depends on the adjusted range length. */
++	if (!context->auto_defrag) {
++		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
++		if (status) {
++			mlog_errno(status);
++			goto out_inode_unlock;
++		}
++	}
++
+ 	/*
+ 	 * rememer ip_xattr_sem also needs to be held if necessary
+ 	 */
+@@ -1024,49 +1055,18 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+ 		goto out_free;
+ 	}
+ 
+-	if (range.me_start > i_size_read(inode)) {
+-		status = -EINVAL;
+-		goto out_free;
+-	}
+-
+-	if (range.me_start + range.me_len > i_size_read(inode))
+-			range.me_len = i_size_read(inode) - range.me_start;
+-
+ 	context->range = &range;
+ 
+-	/*
+-	 * ok, the default theshold for the defragmentation
+-	 * is 1M, since our maximum clustersize was 1M also.
+-	 * any thought?
+-	 */
+-	if (!range.me_threshold)
+-		range.me_threshold = 1024 * 1024;
+-
+-	if (range.me_threshold > i_size_read(inode))
+-		range.me_threshold = i_size_read(inode);
+-
+ 	if (range.me_flags & OCFS2_MOVE_EXT_FL_AUTO_DEFRAG) {
+ 		context->auto_defrag = 1;
+ 
+ 		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
+ 			context->partial = 1;
+-	} else {
+-		/*
+-		 * first best-effort attempt to validate and adjust the goal
+-		 * (physical address in block), while it can't guarantee later
+-		 * operation can succeed all the time since global_bitmap may
+-		 * change a bit over time.
+-		 */
+-
+-		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
+-		if (status)
+-			goto out_copy;
+ 	}
+ 
+ 	status = ocfs2_move_extents(context);
+ 	if (status)
+ 		mlog_errno(status);
+-out_copy:
+ 	/*
+ 	 * movement/defragmentation may end up being partially completed,
+ 	 * that's the reason why we need to return userspace the finished
+-- 
+2.53.0
 
