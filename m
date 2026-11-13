@@ -1,55 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794539884;
-	b=Vp4iFplFe+8WOqwzxuAEzssgPcy7tAvdKQKAnjnemR5GzvUnutxNv0sAO8mq2K46jFHu
-	 Yjo2xax0EWkJRvU2wHVkWYcsAIYEdzW3psTLoF1PP/vDpWWfAH0wJ6tN3qQlzS64I2UXi
-	 R9P/GgI5iPLlMZTcVwu3Pxgan2TOYeLOSRlAyB+Wjrz99Y2ux/XNq95b+W5FJRAs6/Qf2
-	 1ssjxVj7FudMxN8lif55W7dqxBuVo57GP2qgd4oDPzxpz1nXCp/CCKCAZD+Xzmrwchut9
-	 UQtZV3KvSFtuJx5c4X+656THxVlIEVZ7eLIpvRc+1/gWkTzQR3a+TZ/O+HDaiP0Sy7w==
+	t=1794539895;
+	b=SJLVQD0DMjwLY8BjD6kwL0wSIty0efQtVuc5/sD+DCtBh+JKslFNiy5zsW24LqSzKxVk
+	 m0P3+pnta5wxmhm7XaxB9dVKzHIHi2cu5Xgv3wYGsPJY0EuaZEwaw9H+wz2UCYN2h73eX
+	 9TCnlfV54V3epIAy4CeWYPCQOkwpfHQtQvW3OnW6JE6hHZASydCUBRhmekNIULes4i+7H
+	 CMRNixzqvVvvpfSLVeJWFhiCa4X+FN+7p6xMQhn8pyvTo/veHN2VK6ZCe5kaUyAuyGFYv
+	 L0zBugbHJuKqU7EE3NFtijYI/6L/vX7kSjfg4bWsqtygGMMSQGvE/1t0WCBasUuaq+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794539884;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NGNAl8s1k5Pw6g07F/Q//2T7ujHijuCzGGJhy6VDw/g=;
-	b=3v7JYP7lXO1PUVNLw5s2cxIplx26xyaY3ccMyoF9qKFhr0RT8JlnX/xoaIx87BH9V8OT
-	 lqO2AxW1E7+Hrto32+EQ6H+P5wltn3mvhonaTAUJNe5BtVUprCEajUrQUPaZJFZMAGTxH
-	 vbOwJCr5wzXooO61zH5LRKPszT4+JJ64IlFKeY2AFXIq6D+rYVQJjQG4BVAnCeq+cquSD
-	 vCZUhxchhlLv0CuLuPZvVslmbl0nxNk9TUFHNxoytnuVDlt7YTkO0zN7XZPUaShVpGSxT
-	 Ki5hhs02dz04u5H/eavvu8CV+CeDk1fdflnp3T8W98LB/dliTZdiO1Dii/e5vQbOO8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794539895;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=nWc0P3UFTmQDnMEzGX9xP/Vkt43l2zO1TjQschvRNFw=;
+	b=QsTyYcvxKjyDht2sz2TdqEbWCAxQNBI9Oz5pdwY3dJCgpKJI0J2Mj/ApoKbg5NPDLBmk
+	 jUhL1Ujr/MeNnr0TKpVT9DQrhp2Kn05oH2KNQ+qitBIGAMGIqrJOJPeVAys6nIIingFXk
+	 Em9BeQvbk/iBH444igCelQKZVOXoWTftVhk8WjU7vacGCTfhOFXJSLyX9WLBnRyWtXdQc
+	 4FgPD5jfTEXaIP1anlf12zLy1/PMMnSvLBN3DdKkCS5/i9xVbxANW4LXAfmB5+AGE8Xi2
+	 g8SQx75QanApLSWYYnljYkhH5DcSUNxUa6fIq0igtK/eD2l605G8qTdncOWKQpePRuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0GQjooA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SkHtkpHe;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320FD606A321
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:18:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DF2606A323;
+	Fri, 13 Nov 2026 03:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9DF2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0GQjooA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598B51F000C4;
-	Fri, 13 Nov 2026 03:18:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794539883;
-	bh=NGNAl8s1k5Pw6g07F/Q//2T7ujHijuCzGGJhy6VDw/g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k0GQjooA9TakAmZkHh47eliX1ZaB+7dcVjRqS5fnPWYe5ISCbhAXPar3xlpUIZihO
-	 n0WCz8zM0Yvps4MxQo9HpvgDShT0cwH3rgBGec41LXaRkBVZgbLF3hBEd1dhYezqF2
-	 QuQnq3yNTaRSIZSt3HIH0ErTIqd2hvsMbbBxBmsJoZb/DJ5bP69H7ItzNKfRsE8N4f
-	 XXTuhzKAffrv7NOBMt8Ad6D/nfATyAlP9v4hk9/qOMP9edwfdVEhXtfdzaCfbxYvoC
-	 6rzU3Mib3vxXeGnaG/E9syiTLrCgbviZ6VwEO/JmK9kcUDiyFamTlVPSgCZB4njvq3
-	 HBe1cNpKEmLrw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ovl: look up the index by the decoded origin
-Date: Thu, 12 Nov 2026 22:18:02 -0500
-Message-ID: <20261113031748.1015564-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201935-failed-6.1-520ef67f47f6@kernel.org>
-References: <20261109201935-failed-6.1-520ef67f47f6@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SkHtkpHe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=nWc0P3UFTmQDnMEzGX9xP/Vkt43l2zO1TjQschvRNFw=;
+	b=SkHtkpHe9wM7wgDnQK6Qoe9I9l8fg5eO32VI8Z1bz2QqC/p1UyynDqK0mnEIhn
+	i85mUDWMKZBnnXr5UunAJ8OpoVbr3cIxsV5443gtc+PiMXz0gdEvkCCNParCD70U
+	QomXl5BziBGv/g6h/etTMqfTE/0Md0fnoxZg7kAF2awdw=
+From: Chaosheng Qu <quchaosheng000406@163.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Robin van der Gracht <robin@protonic.nl>, Oleksij Rempel <o.rempel@pengutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>, Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH net v9 1/4] can: j1939: serialize cancel and rearm of the receive timer
+Date: Fri, 13 Nov 2026 11:17:24 +0800
+Message-ID: <179453984495.31919.9405526133383541519@163.com>
+In-Reply-To: <179453125694.488853.2205573161282115259@kernel.org>
+References: <20261111-j1939-edpo-v9-v9-1-e779ca334a81@163.com> <179453125694.488853.2205573161282115259@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,151 +57,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P6ZYgfZq7eHFGw--.4133S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWw47Cr13Kry8uF18Xr18Krg_yoWrJr1xpF
+	W3Kry7tr4DGr4F9w4xZF18XryS9r4fJr4fX3W7Kry3A398CF4jvFy5K3y0gFZrAr97u34a
+	9a1jg3sxWFs0ya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uelk3UUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BvORGr2gVs8wgAA3N
 
-From: Chris Mason <mason@kernel.org>
+Hi,
 
-[ Upstream commit 520ef67f47f69255695859b0008281a384d0bc20 ]
+Replying once for the series rather than per patch.
 
-A file opened by file handle on an overlay with nfs_export=on can show
-the stale lower data of a file that was copied up to the upper layer.
-While the file opened this way stays in the inode cache, a lookup of the
-copied up file by path fails with ESTALE for all users. The open can
-also succeed for a file that was removed, where it has to fail with
-ESTALE. This happens with a handle that has one byte changed. The handle
-comes from an NFS client, or from a process that calls
-open_by_handle_at() with CAP_DAC_READ_SEARCH in the initial user
-namespace.
+1/4
 
-When a file in a lower layer is about to be modified, overlayfs first
-copies it to the upper layer (copy up). With nfs_export=on, each copy up
-also creates an entry in the index directory, a directory that overlayfs
-keeps for itself on the upper filesystem.
+The High holds. hrtimer_try_to_cancel() returns -1 while the callback runs
+and leaves alone a timer that was requeued from inside it, so an arm that
+races the expiry still takes a second reference for a single queued timer.
+The list lock does not help, because the running callback sits on the other
+side of it.
 
-The handle of an overlay file that comes from a lower layer wraps the
-handle of its lower inode. Overlayfs calls this lower inode the origin.
-The overlay handle stays valid after a copy up.
+The three Mediums hold as well. Deactivating on a WAITING_ABORT cancel does
+leave the abort rxtimer queued on a DONE session, and that expiry takes the
+generic else branch and queues a second RX_ABORT. j1939_tp_rxtimer() reads
+session->state before taking the lock, and with try_to_cancel() no longer
+waiting, a concurrent cancel can change state underneath it; the callback
+then calls __j1939_session_cancel() again, which puts a second abort frame on
+the bus and overwrites session->err. And the message is wrong in two places:
+before this patch j1939_session_cancel() called j1939_tp_set_rxtimeout(), it
+did not hand-roll get + hrtimer_start(), only j1939_tp_rxtimer() did; and it
+replaces the 1809c82aa073 workaround without saying so.
 
-To decode such a handle, ovl_lower_fh_to_d() first decodes the wrapped
-handle to the origin. If no overlay inode is cached for the origin, it
-looks in the index directory:
+The pre-existing txtimer leak is real too: j1939_tp_schedule_txtimer() takes
+a reference per hrtimer_start() with no cancel in front, and the do_cts_eoma
+path in j1939_xtp_rx_dat_one() calls it that way, so duplicate DAT frames in
+one softirq batch leak the same reference.
 
-- An index entry there leads to the upper file.
-- A whiteout, the marker that overlayfs uses for a removed file, means
-  that the overlay file was removed.
+So 1/4 needs the reference pinned across the whole queued and running
+lifetime of the timer, not the queued part alone: a flag owned by
+active_session_list_lock, where the clear-to-set transition takes the
+reference and the callback drops it, and both armers and the callback test it
+under the lock. That also fixes the state check in j1939_tp_rxtimer() and
+lets the WAITING_ABORT deactivate go away. It is a rewrite, not another pass
+at this hunk, so it will not be a v10 tomorrow. Zihan Xi is working the same
+reference-lifetime problem and Oleksij has asked him to sync with Tetsuo; I
+will see where that lands before sending and say so in the cover letter.
 
-The name of an index entry is the handle that copy up encoded for the
-origin, as a hex string.
+2/4
 
-ovl_lower_fh_to_d() builds the name for this lookup from the bytes that
-the caller passed in. But handles with different bytes can decode to the
-same inode:
+The abort code rests on a false premise. J1939_ECU_LOCAL_SRC is set from the
+source address alone in j1939_can_recv(), so a second node using our address,
+or a raw frame injected on the interface, is delivered to the transmitter
+session. It sent no CTS, yet the session is aborted with ECTS_TOO_BIG and
+that reason goes out on the bus. Once j1939_xtp_rx_cts_one() bounds the
+packet number, pkt.tx_acked cannot exceed pkt.total - 1, so the next version
+uses BAD_EDPO_OFFSET for both roles and drops the split. The comment will
+name j1939_xtp_rx_cts_one() instead of "4/4", and the "bounds the
+receiver-side writer only" wording goes.
 
-- Overlayfs ignores some flag bits of the handle.
-- A lower filesystem can accept a different fid type, extra bytes, or
-  generation 0 for any generation.
+4/4
 
-Such a handle decodes to the origin but misses the index entry or the
-whiteout. So the decode returns an overlay inode that has only the lower
-file.
+The changelog describes the wrong current behaviour. An oversized
+ETP.CM_CTS already ends in ECTS_TOO_BIG: j1939_xtp_rx_cts_one() stores pkt-1
+in pkt.tx_acked, j1939_session_tx_dpo() copies it into the DPO, and the local
+echo reaches the transmitter branch with session->transmission set. What
+changes is that the out-of-range DPO is no longer sent on the bus. The visible
+change is the TP case: there is no DPO, so pkt.tx >= pkt.total made
+j1939_session_tx_dat() return -ENOBUFS and the session ran until the 1250ms
+rxtimer aborted with TIMEOUT or the retry limit ended it with -ENETUNREACH.
+That leads the new changelog. The comment and the role split follow 2/4.
 
-While that inode is cached, a path lookup of a copied up file fails with
-ESTALE, since the upper file that the lookup finds does not match the
-cached inode, which has none.
+3/4
 
-Reproduced on tmpfs and on ext4 with open_by_handle_at(), after a copy
-up and a mount cycle. A handle in which one flag bit, the fid type, the
-length or the generation was changed read the old lower data, and path
-lookups returned ESTALE.
+Both nits accepted: WARN_ON_ONCE(!se_skb) and session->err = -EBADMSG instead
+of the silent drop, and the comment in j1939_xtp_rx_dpo_one() rewritten as
+part of the EDPO patch.
 
-Fix this by re-encoding the decoded origin and building the index name
-from that handle.
+Thanks,
+Chaosheng
 
-Fixes: f71bd9cfb692 ("ovl: decode indexed non-dir file handles")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: adjusted context for direct ofs->indexdir access instead of ovl_indexdir(sb) ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- Documentation/filesystems/overlayfs.rst |  3 ++-
- fs/overlayfs/export.c                   |  4 ++--
- fs/overlayfs/namei.c                    | 13 ++++++++++---
- fs/overlayfs/overlayfs.h                |  2 +-
- 4 files changed, 15 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
-index 4c76fda076454..e5d38f0211e54 100644
---- a/Documentation/filesystems/overlayfs.rst
-+++ b/Documentation/filesystems/overlayfs.rst
-@@ -534,7 +534,8 @@ When decoding an overlay file handle, the following steps are followed:
- 
- 1. Find underlying layer by UUID and path type information.
- 2. Decode the underlying filesystem file handle to underlying dentry.
--3. For a lower file handle, lookup the handle in index directory by name.
-+3. For a lower file handle, encode the decoded underlying inode again and
-+   lookup that handle in index directory by name.
- 4. If a whiteout is found in index, return ESTALE. This represents an
-    overlay object that was deleted after its file handle was encoded.
- 5. For a non-directory, instantiate a disconnected overlay dentry from the
-diff --git a/fs/overlayfs/export.c b/fs/overlayfs/export.c
-index e55363d343dc6..d43af7c820cff 100644
---- a/fs/overlayfs/export.c
-+++ b/fs/overlayfs/export.c
-@@ -726,9 +726,9 @@ static struct dentry *ovl_lower_fh_to_d(struct super_block *sb,
- 		}
- 	}
- 
--	/* Then lookup indexed upper/whiteout by origin fh */
-+	/* Then lookup indexed upper/whiteout by origin */
- 	if (ofs->indexdir) {
--		index = ovl_get_index_fh(ofs, fh);
-+		index = ovl_get_index_origin(ofs, origin.dentry);
- 		err = PTR_ERR(index);
- 		if (IS_ERR(index)) {
- 			index = NULL;
-diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index cf805c99cfb9f..124c437e65e6a 100644
---- a/fs/overlayfs/namei.c
-+++ b/fs/overlayfs/namei.c
-@@ -667,14 +667,21 @@ int ovl_get_index_name(struct ovl_fs *ofs, struct dentry *origin,
- 	return err;
- }
- 
--/* Lookup index by file handle for NFS export */
--struct dentry *ovl_get_index_fh(struct ovl_fs *ofs, struct ovl_fh *fh)
-+/*
-+ * Lookup index by decoded origin for NFS export.
-+ *
-+ * The name of an index is the hex of the file handle that copy up encoded.
-+ * The bytes of the handle to decode cannot be used as the name, because a
-+ * lower fs may decode many handles to the same inode.  For example, it may
-+ * ignore the fid type, extra fid bytes or a zero generation.
-+ */
-+struct dentry *ovl_get_index_origin(struct ovl_fs *ofs, struct dentry *origin)
- {
- 	struct dentry *index;
- 	struct qstr name;
- 	int err;
- 
--	err = ovl_get_index_name_fh(fh, &name);
-+	err = ovl_get_index_name(ofs, origin, &name);
- 	if (err)
- 		return ERR_PTR(err);
- 
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 18d8cd614ef20..8d15096a3f994 100644
---- a/fs/overlayfs/overlayfs.h
-+++ b/fs/overlayfs/overlayfs.h
-@@ -537,7 +537,7 @@ struct dentry *ovl_index_upper(struct ovl_fs *ofs, struct dentry *index);
- int ovl_verify_index(struct ovl_fs *ofs, struct dentry *index);
- int ovl_get_index_name(struct ovl_fs *ofs, struct dentry *origin,
- 		       struct qstr *name);
--struct dentry *ovl_get_index_fh(struct ovl_fs *ofs, struct ovl_fh *fh);
-+struct dentry *ovl_get_index_origin(struct ovl_fs *ofs, struct dentry *origin);
- struct dentry *ovl_lookup_index(struct ovl_fs *ofs, struct dentry *upper,
- 				struct dentry *origin, bool verify);
- int ovl_path_next(int idx, struct dentry *dentry, struct path *path);
--- 
-2.53.0
+pw-bot: cr
 
