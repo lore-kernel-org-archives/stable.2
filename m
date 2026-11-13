@@ -1,54 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794603715;
-	b=IkAajZgaXy+B4U5YEIQ/7ijJmImD1DotyXg4VcZUq8WSnsDPr008At5uoe/SRzxNB7VU
-	 bhXnnACT09H1Xm8DOIRK6Zx+DdbACe/vRgapcwNu0lzDq6rdxGhRahszHNcdhdOp2Shli
-	 0C9RAJWXN4A6JdtvFmkj7LXxTpoZ25OTfHm/8P5M4niO7l7dLd+84awJ4E7qtBuBORyeU
-	 zOwm7Ae9ST3RFigPbZtvZo5dfjFiaOxohBmKHbg3M2rdhnI3tvbwX9CP0ZumkzXG5O9jl
-	 X/TBhEcHOCrf2W5H+qizWrH9dfO4f8mY1OakD4G/tPqbdBfIMoT/HibocXy+AKFbJ5Q==
+	b=QCwPhn1o+SgpJO4CmIpuxxEUTZ8e+zEKZ3VzPJcpB+zmkH49AYOmC7U7OhoeZkO+V+Ib
+	 fJaNxolHysFii6AHGa7MiQhigZ3E23px8I+ieD/V8LYTjjuCBxNklrFxts4k/7Eb2CART
+	 BL+CE+wji8TnVDQD4iDgwLEKFCVgWxUVy43//jaCm9m7i9oH6h81wDh45X+yFhy14m2RO
+	 6rqCpjbfBVXGvMkbBzjiWY4Xmuc+MKZLc159Wg5RHpAYMwhAjFK0hz6tLQezYT1q53SVE
+	 pQBB6YLylXqF3tGiZYA2EfmPfmkVsTpytX0jkysp4y2naRXd09vAqITAsybjiO/qLwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794603715;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nY0yjBCPYeEk4QmLaLfpXjUOkkfIs6/1p+xzTbLCG9k=;
-	b=m/VHSOPawpmPeSmXKeBUdOpr1AI4YfCd0xQ63dliSdwGaoSGyszQ25a4u4j8bgL0/Yva
-	 VxxQn1LKcBXmYzq8Rsy+zZRX8p6ijjcyXPCL7YyctEvf502Wbv+H+1R1Oq9Cvlk7OBP5i
-	 nWGU0h8n9DXMFpeIsBVqgbeTihIxQNzAK16SgFzD1Bd1CeyCVS9s5G7YrftX8ammZfAbH
-	 CsSmj83vm/rGkV7hACMKiQYOs7W6B1lRb4b/YKz89rYvMsdGGaSx/YVSSzAdKqYO7TbJv
-	 FDBccDxNAkszWcnDQPXDZVaRH4qHy8Z74P5x4Y35ZI6cZ674p6SO1dyrgDSd5kPovMw==
+	bh=pr5CAc1D1gykLwIBUVgTdZA+u4P+OdI+acwqJ5mVYG4=;
+	b=BkotfiV+LFg7u9RmDR0mbuRmqjOIp1ZNDiKf+czhXPDq2STENBtwt8z7y5X8/A50PdNN
+	 kBtvFIcmUA4W2pwErpH3jy6bssbnaj25Hkp0zxqd5kWpwEtJm09m8WveepFP+wVR0M12u
+	 AMyL5BsweaH3CTfMwsRwtiPx4whCJaUYbRgsxMxCEwY1AMDvPMIoeKS9ojVaI/WP+otdu
+	 gUpHVR4wlpD8973jF7qK8gGPBUdk2hOFgfcU1UAsfY3ZWvyVdnUqKMi3XWrTZpdgoJSpJ
+	 RuvWqRIF759RPDfpOQVRvgshOglyEdr1WuS+AplRGrLO4bS4NFImd6Yc6bfTyIkoS+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWCkfIMB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ae7ksmQB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7A3606A33A
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6378606A33E
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWCkfIMB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E621F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ae7ksmQB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14341F000C5;
 	Fri, 13 Nov 2026 21:01:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794603714;
-	bh=nY0yjBCPYeEk4QmLaLfpXjUOkkfIs6/1p+xzTbLCG9k=;
+	s=k20260515; t=1794603715;
+	bh=pr5CAc1D1gykLwIBUVgTdZA+u4P+OdI+acwqJ5mVYG4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RWCkfIMBDzpcruzTweiqSXI5koKVrxx7zDD13BBcXRkzC5+NoryjqkRJeKsnGgSE8
-	 GYs7VjIbfKeD2cSdpP4Sc/AezN4CgToHpZTnUqDBh903xEFhFqNpU9vpk1UH4NVCAC
-	 1rFH0V36yA30UFxGK1IWLuMgIDx7GKbkMyqvIwpaksF+Xbkk+XW/TvlvNPOFtTHPcM
-	 Chi+6UwsyXf+r1oAlKZv+cIMj+CKUbJ1HSHKVvkCPUxlmvulcLv5/qZfTA2OJzL7S9
-	 gPn66kT0F3uymGFHSJbVr/JJhF2PZMaGKhwmrRVh6ftSwr41zbVBNSSGJgO0Mn7vYN
-	 PdmhmeBA259yA==
+	b=ae7ksmQBn5H3wbiNdbpht++Q/81hUQ+KnNnWRx6ZTJQXeV9KRC+QfJ956PCxvc0vy
+	 41EfJVsOBv7MguQaMvFYiioXvd2B4qukJm77ZAhZwW1SVnar/UdRo9EwWHQB3zzyKN
+	 YDoN5pCzhky/BNwIhrZPw41aKnN+TGNLawiVp/pyyJhhMcYrp++wfa3nFU2pjWOf//
+	 KylIBBS2E9szqzAJNOPVcOF7Cge3naETQ9rXoKVN2pEc9nj6Hx0m/bs63kVEuALR+C
+	 bTp8KYelqAWguQyngDQAo6p4FH5WfiFYU+dcXSNnQTdPsac5t1Yy5JUwh9aFFZ+h0W
+	 J3UqmpUhIlpcA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: John Johansen <john.johansen@canonical.com>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Dev Jain <dev.jain@arm.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] apparmor: optimize current_label_crit_section() with needput
-Date: Fri, 13 Nov 2026 16:01:52 -0500
-Message-ID: <20261113205818.2480014-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs
+Date: Fri, 13 Nov 2026 16:01:53 -0500
+Message-ID: <20261113205815.2527553-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051559-failed-6.18-d30844001360@kernel.org>
-References: <20261107051559-failed-6.18-d30844001360@kernel.org>
+In-Reply-To: <20261109201347-failed-6.6-b4417d08034a@kernel.org>
+References: <20261109201347-failed-6.6-b4417d08034a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,584 +65,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: John Johansen <john.johansen@canonical.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 1555a0e2a149cba4578f5270e7fb9efb420b985f ]
+[ Upstream commit b4417d08034a7b4a3083e0e2d95429d4542524f2 ]
 
-The {begin,end}_current_label_crit_section() has the same issue as the
-{__begin,__end} version. That is the check to see if the label has
-been updated in the end check forces an unnecessary memory barrier.
-We can optimize this the same way we do with the {__begin,__end}
-variant by passing in a local variable that carries the state
-information from the begin check into the end check.
+move_huge_pud() reads the old PUD and clears it in separate operations.
+Hardware accessed or dirty updates between those operations can be lost
+when the saved entry is installed at the new address.
 
-No functional change.
+The raw pud_clear() also bypasses page_table_check_pud_clear(), while
+set_pud_at() accounts for the destination mapping. This leaves the
+checker counts unbalanced for mappings tracked by page table checking.
 
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-Stable-dep-of: d30844001360 ("apparmor: fix query_data() output overlapping the lookup key")
+To fix it, simply use pudp_huge_get_and_clear().
+
+Fixes: 7d846db7d0e2 ("mm/mremap: convert huge PUD move to separate helper")
+Cc: stable@vger.kernel.org
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-30-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Replaced pmc->old_addr with the existing old_addr parameter in pudp_huge_get_and_clear(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/apparmor/af_unix.c      | 25 +++++++++-------
- security/apparmor/apparmorfs.c   | 51 +++++++++++++++++++-------------
- security/apparmor/include/cred.h | 16 +++++-----
- security/apparmor/lsm.c          | 45 +++++++++++++++++-----------
- security/apparmor/net.c          |  5 ++--
- 5 files changed, 84 insertions(+), 58 deletions(-)
+ mm/mremap.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
-index 7ba775017586b..5474aa11bca83 100644
---- a/security/apparmor/af_unix.c
-+++ b/security/apparmor/af_unix.c
-@@ -462,13 +462,14 @@ static int aa_unix_label_sk_perm(const struct cred *subj_cred,
- int aa_unix_sock_perm(const char *op, u32 request, struct socket *sock)
- {
- 	struct aa_label *label;
-+	bool needput;
- 	int error;
+diff --git a/mm/mremap.c b/mm/mremap.c
+index ea57f3095076b..8c86487d3318c 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -411,8 +411,7 @@ static bool move_huge_pud(struct vm_area_struct *vma, unsigned long old_addr,
+ 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+ 
+ 	/* Clear the pud */
+-	pud = *old_pud;
+-	pud_clear(old_pud);
++	pud = pudp_huge_get_and_clear(mm, old_addr, old_pud);
+ 
+ 	VM_BUG_ON(!pud_none(*new_pud));
  
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	error = aa_unix_label_sk_perm(current_cred(), label, op,
- 				      request, sock->sk,
- 				      is_unix_fs(sock->sk) ? &unix_sk(sock->sk)->path : NULL);
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -489,13 +490,14 @@ int aa_unix_bind_perm(struct socket *sock, struct sockaddr *addr,
- {
- 	struct aa_profile *profile;
- 	struct aa_label *label;
-+	bool needput;
- 	int error = 0;
- 
- 	error = valid_addr(addr, addrlen);
- 	if (error)
- 		return error;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	/* fs bind is handled by mknod */
- 	if (!unconfined(label)) {
- 		DEFINE_AUDIT_SK(ad, OP_BIND, current_cred(), sock->sk);
-@@ -506,7 +508,7 @@ int aa_unix_bind_perm(struct socket *sock, struct sockaddr *addr,
- 		error = fn_for_each_confined(label, profile,
- 				profile_bind_perm(profile, sock->sk, &ad));
- 	}
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -528,9 +530,10 @@ int aa_unix_listen_perm(struct socket *sock, int backlog)
- {
- 	struct aa_profile *profile;
- 	struct aa_label *label;
-+	bool needput;
- 	int error = 0;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	if (!unconfined(label)) {
- 		DEFINE_AUDIT_SK(ad, OP_LISTEN, current_cred(), sock->sk);
- 
-@@ -538,7 +541,7 @@ int aa_unix_listen_perm(struct socket *sock, int backlog)
- 				profile_listen_perm(profile, sock->sk,
- 						    backlog, &ad));
- 	}
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -549,16 +552,17 @@ int aa_unix_accept_perm(struct socket *sock, struct socket *newsock)
- {
- 	struct aa_profile *profile;
- 	struct aa_label *label;
-+	bool needput;
- 	int error = 0;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	if (!unconfined(label)) {
- 		DEFINE_AUDIT_SK(ad, OP_ACCEPT, current_cred(), sock->sk);
- 
- 		error = fn_for_each_confined(label, profile,
- 				profile_accept_perm(profile, sock->sk, &ad));
- 	}
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -582,9 +586,10 @@ int aa_unix_opt_perm(const char *op, u32 request, struct socket *sock,
- {
- 	struct aa_profile *profile;
- 	struct aa_label *label;
-+	bool needput;
- 	int error = 0;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	if (!unconfined(label)) {
- 		DEFINE_AUDIT_SK(ad, op, current_cred(), sock->sk);
- 
-@@ -592,7 +597,7 @@ int aa_unix_opt_perm(const char *op, u32 request, struct socket *sock,
- 				profile_opt_perm(profile, request, sock->sk,
- 						 optname, &ad));
- 	}
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 7db41581b7b21..765812092cacd 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -494,8 +494,9 @@ static ssize_t policy_update(u32 mask, const char __user *buf, size_t size,
- 	struct aa_loaddata *data;
- 	struct aa_label *label;
- 	ssize_t error;
-+	bool needput;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 
- 	/* high level check about policy management - fine grained in
- 	 * below after unpack
-@@ -514,7 +515,7 @@ static ssize_t policy_update(u32 mask, const char __user *buf, size_t size,
- 		aa_put_profile_loaddata(data);
- 	}
- end_section:
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -562,8 +563,9 @@ static ssize_t profile_remove(struct file *f, const char __user *buf,
- 	struct aa_label *label;
- 	ssize_t error;
- 	struct aa_ns *ns = get_ns_common_ref(f->f_inode->i_private);
-+	bool needput;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	/* high level check about policy management - fine grained in
- 	 * below after unpack
- 	 */
-@@ -585,7 +587,7 @@ static ssize_t profile_remove(struct file *f, const char __user *buf,
- 		aa_put_profile_loaddata(data);
- 	}
-  out:
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 	aa_put_ns(ns);
- 	return error;
- }
-@@ -761,6 +763,7 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 	struct aa_data *data;
- 	u32 bytes, blocks;
- 	__le32 outle32;
-+	bool needput;
- 
- 	if (!query_len)
- 		return -EINVAL; /* need a query */
-@@ -774,9 +777,9 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 	if (buf_len < sizeof(bytes) + sizeof(blocks))
- 		return -EINVAL; /* not enough space */
- 
--	curr = begin_current_label_crit_section();
-+	curr = begin_current_label_crit_section(&needput);
- 	label = aa_label_parse(curr, query, GFP_KERNEL, false, false);
--	end_current_label_crit_section(curr);
-+	end_current_label_crit_section(curr, needput);
- 	if (IS_ERR(label))
- 		return PTR_ERR(label);
- 
-@@ -852,6 +855,7 @@ static ssize_t query_label(char *buf, size_t buf_len,
- 	size_t label_name_len, match_len;
- 	struct aa_perms perms;
- 	struct label_it i;
-+	bool needput;
- 
- 	if (!query_len)
- 		return -EINVAL;
-@@ -870,9 +874,9 @@ static ssize_t query_label(char *buf, size_t buf_len,
- 	match_str = label_name + label_name_len + 1;
- 	match_len = query_len - label_name_len - 1;
- 
--	curr = begin_current_label_crit_section();
-+	curr = begin_current_label_crit_section(&needput);
- 	label = aa_label_parse(curr, label_name, GFP_KERNEL, false, false);
--	end_current_label_crit_section(curr);
-+	end_current_label_crit_section(curr, needput);
- 	if (IS_ERR(label))
- 		return PTR_ERR(label);
- 
-@@ -1240,10 +1244,11 @@ static const struct file_operations seq_ns_ ##NAME ##_fops = {	      \
- static int seq_ns_stacked_show(struct seq_file *seq, void *v)
- {
- 	struct aa_label *label;
-+	bool needput;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	seq_printf(seq, "%s\n", str_yes_no(label->size > 1));
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return 0;
- }
-@@ -1254,8 +1259,9 @@ static int seq_ns_nsstacked_show(struct seq_file *seq, void *v)
- 	struct aa_profile *profile;
- 	struct label_it it;
- 	int count = 1;
-+	bool needput;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 
- 	if (label->size > 1) {
- 		label_for_each(it, label, profile)
-@@ -1266,7 +1272,7 @@ static int seq_ns_nsstacked_show(struct seq_file *seq, void *v)
- 	}
- 
- 	seq_printf(seq, "%s\n", str_yes_no(count > 1));
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return 0;
- }
-@@ -1274,19 +1280,22 @@ static int seq_ns_nsstacked_show(struct seq_file *seq, void *v)
- static int seq_ns_level_show(struct seq_file *seq, void *v)
- {
- 	struct aa_label *label;
-+	bool needput;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	seq_printf(seq, "%d\n", labels_ns(label)->level);
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return 0;
- }
- 
- static int seq_ns_name_show(struct seq_file *seq, void *v)
- {
--	struct aa_label *label = begin_current_label_crit_section();
-+	bool needput;
-+	struct aa_label *label = begin_current_label_crit_section(&needput);
-+
- 	seq_printf(seq, "%s\n", labels_ns(label)->base.name);
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return 0;
- }
-@@ -1937,11 +1946,12 @@ static struct dentry *ns_mkdir_op(struct mnt_idmap *idmap, struct inode *dir,
- 	/* TODO: improve permission check */
- 	struct aa_label *label;
- 	int error;
-+	bool needput;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	error = aa_may_manage_policy(current_cred(), label, NULL, NULL,
- 				     AA_MAY_LOAD_POLICY);
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 	if (error)
- 		return ERR_PTR(error);
- 
-@@ -1986,12 +1996,13 @@ static int ns_rmdir_op(struct inode *dir, struct dentry *dentry)
- 	struct aa_ns *ns, *parent;
- 	/* TODO: improve permission check */
- 	struct aa_label *label;
-+	bool needput;
- 	int error;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	error = aa_may_manage_policy(current_cred(), label, NULL, NULL,
- 				     AA_MAY_LOAD_POLICY);
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 	if (error)
- 		return error;
- 
-diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
-index d37f33f0eec89..e1d7f050f9bd9 100644
---- a/security/apparmor/include/cred.h
-+++ b/security/apparmor/include/cred.h
-@@ -131,12 +131,14 @@ static inline void __end_current_label_crit_section(struct aa_label *label,
- /**
-  * end_current_label_crit_section - put a reference found with begin_current_label..
-  * @label: label reference to put
-+ * @needput: output: bool set by __begin_current_label_crit_section
-  *
-  * Should only be used with a reference obtained with
-  * begin_current_label_crit_section and never used in situations where the
-  * task cred may be updated
-  */
--static inline void end_current_label_crit_section(struct aa_label *label)
-+static inline void end_current_label_crit_section(struct aa_label *label,
-+						  bool needput)
- {
- 	if (label != aa_current_raw_label())
- 		aa_put_label(label);
-@@ -170,24 +172,22 @@ static inline struct aa_label *__begin_current_label_crit_section(bool *needput)
- 
- /**
-  * begin_current_label_crit_section - current's confining label and update it
-+ * @needput: store whether the label needs to be put when ending crit section
-  *
-  * Returns: up to date confining label or the ns unconfined label (NOT NULL)
-  *
-- * Not safe to call inside locks
-- *
-  * The returned reference must be put with end_current_label_crit_section()
-- * This must NOT be used if the task cred could be updated within the
-+ * This should NOT be used if the task cred could be updated within the
-  * critical section between begin_current_label_crit_section() ..
-  * end_current_label_crit_section()
-  */
--static inline struct aa_label *begin_current_label_crit_section(void)
-+static inline struct aa_label *begin_current_label_crit_section(bool *needput)
- {
- 	struct aa_label *label = aa_current_raw_label();
- 
--	if (label_is_stale(label)) {
--		label = aa_get_newest_label(label);
-+	label = __begin_current_label_crit_section(needput);
-+	if (*needput)
- 		aa_schedule_stale_label_replacement();
--	}
- 
- 	return label;
- }
-diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index e47696a7eacf8..dca21162a2140 100644
---- a/security/apparmor/lsm.c
-+++ b/security/apparmor/lsm.c
-@@ -365,15 +365,16 @@ static int apparmor_path_link(struct dentry *old_dentry, const struct path *new_
- {
- 	struct aa_label *label;
- 	int error = 0;
-+	bool needput;
- 
- 	if (!path_mediated_fs(old_dentry))
- 		return 0;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	if (!unconfined(label))
- 		error = aa_path_link(current_cred(), label, old_dentry, new_dir,
- 				     new_dentry);
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -384,13 +385,14 @@ static int apparmor_path_rename(const struct path *old_dir, struct dentry *old_d
- {
- 	struct aa_label *label;
- 	int error = 0;
-+	bool needput;
- 
- 	if (!path_mediated_fs(old_dentry))
- 		return 0;
- 	if ((flags & RENAME_EXCHANGE) && !path_mediated_fs(new_dentry))
- 		return 0;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	if (!unconfined(label)) {
- 		struct mnt_idmap *idmap = mnt_idmap(old_dir->mnt);
- 		vfsuid_t vfsuid;
-@@ -436,7 +438,7 @@ static int apparmor_path_rename(const struct path *old_dir, struct dentry *old_d
- 					     AA_MAY_CREATE, &cond);
- 
- 	}
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -503,11 +505,12 @@ static int apparmor_file_open(struct file *file)
- static int apparmor_file_alloc_security(struct file *file)
- {
- 	struct aa_file_ctx *ctx = file_ctx(file);
--	struct aa_label *label = begin_current_label_crit_section();
-+	bool needput;
-+	struct aa_label *label = begin_current_label_crit_section(&needput);
- 
- 	spin_lock_init(&ctx->lock);
- 	rcu_assign_pointer(ctx->label, aa_get_label(label));
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 	return 0;
- }
- 
-@@ -522,11 +525,12 @@ static void apparmor_file_free_security(struct file *file)
- static int common_file_perm(const char *op, struct file *file, u32 mask)
- {
- 	struct aa_label *label;
-+	bool needput;
- 	int error = 0;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	error = aa_file_perm(op, current_cred(), label, file, mask, false);
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -847,6 +851,7 @@ static int do_setattr(u64 attr, void *value, size_t size)
- 	char *command, *largs = NULL, *args = value;
- 	size_t arg_size;
- 	int error;
-+	bool needput;
- 	DEFINE_AUDIT_DATA(ad, LSM_AUDIT_DATA_NONE, AA_CLASS_NONE,
- 			  OP_SETPROCATTR);
- 
-@@ -907,7 +912,7 @@ static int do_setattr(u64 attr, void *value, size_t size)
- 	return error;
- 
- fail:
--	ad.subj_label = begin_current_label_crit_section();
-+	ad.subj_label = begin_current_label_crit_section(&needput);
- 	if (attr == LSM_ATTR_CURRENT)
- 		ad.info = "current";
- 	else if (attr == LSM_ATTR_EXEC)
-@@ -916,7 +921,7 @@ static int do_setattr(u64 attr, void *value, size_t size)
- 		ad.info = "invalid";
- 	ad.error = error = -EINVAL;
- 	aa_audit_msg(AUDIT_APPARMOR_DENIED, &ad, NULL);
--	end_current_label_crit_section(ad.subj_label);
-+	end_current_label_crit_section(ad.subj_label, needput);
- 	goto out;
- }
- 
-@@ -1047,18 +1052,19 @@ static int apparmor_userns_create(const struct cred *cred)
- 	struct aa_label *label;
- 	struct aa_profile *profile;
- 	int error = 0;
-+	bool needput;
- 	DEFINE_AUDIT_DATA(ad, LSM_AUDIT_DATA_TASK, AA_CLASS_NS,
- 			  OP_USERNS_CREATE);
- 
- 	ad.subj_cred = current_cred();
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	if (!unconfined(label)) {
- 		error = fn_for_each(label, profile,
- 				    aa_profile_ns_perm(profile, &ad,
- 						       AA_USERNS_CREATE));
- 	}
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -1252,13 +1258,14 @@ static int apparmor_socket_create(int family, int type, int protocol, int kern)
- {
- 	struct aa_label *label;
- 	int error = 0;
-+	bool needput;
- 
- 	AA_BUG(in_interrupt());
- 
- 	if (kern)
- 		return 0;
- 
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	if (!unconfined(label)) {
- 		if (family == PF_UNIX)
- 			error = aa_unix_create_perm(label, family, type,
-@@ -1268,7 +1275,7 @@ static int apparmor_socket_create(int family, int type, int protocol, int kern)
- 					   AA_MAY_CREATE, family, type,
- 					   protocol);
- 	}
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
-@@ -1315,9 +1322,10 @@ static int apparmor_socket_socketpair(struct socket *socka,
- 	struct aa_sk_ctx *a_ctx = aa_sock(socka->sk);
- 	struct aa_sk_ctx *b_ctx = aa_sock(sockb->sk);
- 	struct aa_label *label;
-+	bool needput;
- 
- 	/* socks not live yet - initial values set in sk_alloc */
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	if (rcu_access_pointer(a_ctx->label) != label) {
- 		AA_BUG("a_ctx != label");
- 		aa_put_label(rcu_dereference_protected(a_ctx->label, true));
-@@ -1333,7 +1341,7 @@ static int apparmor_socket_socketpair(struct socket *socka,
- 		/* unix socket pairs by-pass unix_stream_connect */
- 		unix_connect_peers(a_ctx, b_ctx);
- 	}
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return 0;
- }
-@@ -1568,13 +1576,14 @@ static int apparmor_socket_getpeersec_stream(struct socket *sock,
- 	int slen, error = 0;
- 	struct aa_label *label;
- 	struct aa_label *peer;
-+	bool needput;
- 
- 	peer = sk_peer_get_label(sock->sk);
- 	if (IS_ERR(peer)) {
- 		error = PTR_ERR(peer);
- 		goto done;
- 	}
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	slen = aa_label_asxprint(&name, labels_ns(label), peer,
- 				 FLAG_SHOW_MODE | FLAG_VIEW_SUBNS |
- 				 FLAG_HIDDEN_UNCONFINED, GFP_KERNEL);
-@@ -1595,7 +1604,7 @@ static int apparmor_socket_getpeersec_stream(struct socket *sock,
- 		error = -EFAULT;
- 
- done_put:
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 	aa_put_label(peer);
- done:
- 	kfree(name);
-diff --git a/security/apparmor/net.c b/security/apparmor/net.c
-index 73a272576d5d6..6376a86f82e17 100644
---- a/security/apparmor/net.c
-+++ b/security/apparmor/net.c
-@@ -308,15 +308,16 @@ static int aa_label_sk_perm(const struct cred *subj_cred,
- int aa_sk_perm(const char *op, u32 request, struct sock *sk)
- {
- 	struct aa_label *label;
-+	bool needput;
- 	int error;
- 
- 	AA_BUG(!sk);
- 	AA_BUG(in_interrupt());
- 
- 	/* TODO: switch to begin_current_label ???? */
--	label = begin_current_label_crit_section();
-+	label = begin_current_label_crit_section(&needput);
- 	error = aa_label_sk_perm(current_cred(), label, op, request, sk);
--	end_current_label_crit_section(label);
-+	end_current_label_crit_section(label, needput);
- 
- 	return error;
- }
 -- 
 2.53.0
 
