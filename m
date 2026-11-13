@@ -1,62 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532118;
-	b=WijSebmJkcbAzllX9r6QZYG1L0XUnmwwQ+i5Kz2KnS40yCyLfVTkfJFZHi67pW66JocU
-	 Rvh3NBkVbiV9BVnW4UgLYtk88hMyIaC6Myva735FWJuHKoEolulN+tmnWkoIUrDwB23RO
-	 lf5uvP+pSzPHiFjGnAJYgtvWtpsZviaVTztBAahWpC7V6yYYYVJR+cwoAPKWeLFWlLG0j
-	 Y6T1pCWYWQ4EPTe4//2pal3pen1ukpahTXyOYBOWbKcC56XWnCUr//xugGyJlkhnWFKKn
-	 KsP+rocvcHPNQ0qSVk8cdbD2NlRxxjD33nvtIx1Zyb07X4d+N87afYKHNztvgA7XtJw==
+	t=1794532214;
+	b=4KI7GRz+KCRUgdiXq9BwVFIhkUrsA7SG8yI84mysnlET/WJCgqFnaYZVSZs+6fjk7QT4
+	 yd9DWZ9p1HQCJ+PoVAXbfX8m21A8W3dwe3syqbLbkfZlcgLE3CZMrsrawnST4XWFhCW/U
+	 bXpHhwGLVDMPi1el+nAuGQnOihGrkzavGnU0R39x2XuSbZQZKoaDMWSJvVZU82HCsoO8s
+	 D2ETtpysfm8ZmQ1Z1CAjYD6BV5s+YBk2iYDtasTqKP2L2RXyDqLGlL4R1mb+dxdNG0dyb
+	 c3ozf77Yp5u2EhdDrUbpmFjZ5+ZvGnOchbqcuVZT/Y53fTeHhURbr978yVfsAX/xCLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532118;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zfEt7iAR+1yOYUIpeMBJ9ba2Y1mfDJ3Khxis2MRlWLw=;
-	b=YbL8yT1NhaIt0h4fyS2EkGDAHFrtCV7lII5efTy5PwhrxGlZfzY839sFDNqHhIV3lfA2
-	 FYwDhrijWBfiyKaZxNdRQt3CrwMqlC4xCE0aGqsTfk/lb+3UZvNyh8O+UrBDmfi0eYeVb
-	 eRK2pObcy3/a7en0z3H0h7NsB+nWiSno8LGTVYE/QFPxWplr8wFTDeBFth5fLWWFqUps7
-	 ojp6XSqbtG/joV7tNIWz7k5v0JhmBIH8YnSKZDvKYnYMHopgN71i1z1yQyvWoI0z4QSzp
-	 S5YJRMgTp85AykeIMpA/BRTY9Oz0arNDFhAAM+h1TSFtOywQxC6tjTLCv8cXu6n7dHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532214;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=KP3chNyPq62LE1SUl5yEk6RTR3rwbe41xhjBB3QL1EU=;
+	b=HwoKT2rwnvkwEQCBGNgfGOuE/dyqTVet/X7+20TB2gJGTtvffk7fMpPsIaUhv34qKRBK
+	 wJX0rIs3qOnSkNQBubvXM/EhBBG5Neq1Fe5DITPCCsjWkrIaSDVXW845PiPplbCjANOtA
+	 NJYOJlbQ0JW/WC6q46wJoirtWAAqUUy7cQ4pSrNxAH//Koz/VyO0wwdIvmwaSueMMVfmB
+	 UOdFA+hWIoqFzk4MV/uf7o317sLVfYGHlFQ6lakgpSaSDtKOPc6y5QlRQd6xPs921b9wy
+	 h4QwZGCi4dHAfXrTQjz34wd59TlekYIpGyWWXdpXUCZeEntYJ2vD1GfJ6qp1/Bj08PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Td8B+pR6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="b8AU/N+5";
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F0C606A881
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:08:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7899A606A31C;
+	Fri, 13 Nov 2026 01:10:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7899A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Td8B+pR6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5F7E1F000C5;
-	Fri, 13 Nov 2026 01:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794532117;
-	bh=zfEt7iAR+1yOYUIpeMBJ9ba2Y1mfDJ3Khxis2MRlWLw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Td8B+pR63fOYDQAOPfdGoOT7ZZisRrLPlVfSVCKDpUyxQmHfnrKfXrU2SBCDrwQZ+
-	 GVtP5jhBsbhfYH1g2wyx7acA4mGpVjJlpLsCaDRxCArIQ71qzbBfL9kF2ij5o6wTI5
-	 pUUdMSv8IDBSuC7zuQOMpDsLG2pRIyG36nSzth/rzoBHzRxfG6c6dqcbmOKXBjR8rH
-	 xsS12xU4FpFpNiHoJ9CdXQ4WRMyE6vDheLHbrl9+oh/fE3JVWozIGKpR2E64llSAWd
-	 Xo7Nain4LCl+NrDM7+MhjdsmPwPBDY52t34Q8+S2YgWukGURAzpEvWPkG5eUYfeUxH
-	 PbZYo0z6FgrcQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Cen Zhang <zzzccc427@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Jia-Ju Bai <baijiaju1990@gmail.com>,
-	jjzuming@gmail.com,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] ocfs2: cache the mount context for dentry lock callbacks
-Date: Thu, 12 Nov 2026 20:08:34 -0500
-Message-ID: <20261113010827.549256-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113010827.549256-1-sashal@kernel.org>
-References: <20261109202232-failed-5.15-5b4696e0bfc3@kernel.org>
- <20261113010827.549256-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=b8AU/N+5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=KP
+	3chNyPq62LE1SUl5yEk6RTR3rwbe41xhjBB3QL1EU=; b=b8AU/N+5DPkDow0Jww
+	2Tg3EVDf59Wqa4sbtKa2Tn0If7hV55K5KcO4zNC7FwpO+WUfaxWmHgypBFutIwF4
+	8tqNLK542eYRpqbNbfOBcf/v/tAfMgdMRTyFBLyVlNGWO3vawo0EQX/xLuuw4Ltp
+	OzWHKDaRzBdGGUQCY6PVZhuhY=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wA3FxM2Y_ZqO82+HA--.10295S2;
+	Fri, 13 Nov 2026 09:09:11 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Youhong <liyouhong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] md: fix stop_sync_thread() hang on new sync in idle path
+Date: Fri, 13 Nov 2026 09:09:09 +0800
+Message-Id: <20261113010909.30324-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,139 +65,56 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wA3FxM2Y_ZqO82+HA--.10295S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tr47Xw1kKFykuF47Jr1fJFb_yoW8Cw1fpF
+	WxtF98WrWrXrWxXa4jg3ykAFyrAw1jqFWUJrZrC3s5Aas5t3W3AryYgF1Dua1DuFySyF4j
+	van0gFsxZ3W29aDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jY89tUUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+hc+7Gr2YzeR2QAA3-
 
-From: Cen Zhang <zzzccc427@gmail.com>
+From: Li Youhong <liyouhong@kylinos.cn>
 
-[ Upstream commit 5b4696e0bfc358619adaeab25ad35b4979af8331 ]
+stop_sync_thread() waits for either MD_RECOVERY_RUNNING to be cleared,
+or (when MD_RECOVERY_FROZEN is clear) for mddev->sync_seq to change.
+The sync_seq counter is only incremented when a sync thread is reaped
+in md_reap_sync_thread(), not on the md_start_sync() not_running path.
 
-ocfs2_drop_dentry_lock() drops the inode reference before releasing the
-DENTRY lock.  This lets inode eviction release the local inode and open
-locks before a remote unlink can proceed past the DENTRY lock.
+If the previous sync attempt took the not_running path, sync_seq does
+not advance. If mddev->thread then queues and runs a new sync in the
+window between flush_work() and wait_event(), that new sync may start
+a real sync thread, leaving MD_RECOVERY_RUNNING set while sync_seq is
+still unchanged. md_idle_sync_thread() then waits until that new sync
+thread is reaped and sync_seq finally changes, even though it only
+needs to wait for the current sync attempt to finish.
 
-A DLM callback can still arrive before the DENTRY lock has been dropped.
-ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
-which can access a freed inode when the downconvert thread drops the
-last inode reference in its post-unlock callback:
+Fix this by incrementing sync_seq on the not_running path as well, so
+that the wait condition correctly observes the current sync attempt has
+completed.
 
-  Downconvert thread                     DLM callback thread
-  ------------------                     -------------------
-  ocfs2_process_blocked_lock()
-    ocfs2_dentry_post_unlock()
-      ocfs2_dentry_lock_put()
-        ocfs2_drop_dentry_lock()
-          iput(dl->dl_inode)
-          [inode reclaimed after RCU]
-                                         ocfs2_blocking_ast()
-                                           ocfs2_get_dentry_osb()
-                                             dl->dl_inode->i_sb
-          ocfs2_simple_drop_lockres()
-
-Store the mount context in the DENTRY lock resource's l_priv field and use
-the default mount-context lookup.  Recover the containing dentry lock with
-container_of(), as already done for refcount locks, and remove
-ocfs2_get_dentry_osb().  ocfs2_dismount_volume() shuts down the DLM before
-freeing the mount context, so callbacks can use it without accessing the
-inode.  Preserve the existing iput-before-unlock order to avoid delaying
-local inode and open lock release until after the DENTRY lock is released.
-
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com
-Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: f52f5c71f3d4 ("md: fix stopping sync thread")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 ---
- fs/ocfs2/dcache.h  |  5 ++---
- fs/ocfs2/dlmglue.c | 16 ++++------------
- 2 files changed, 6 insertions(+), 15 deletions(-)
+v2: 
+- Fix the Fixes: tag to reference the upstream commit f52f5c71f3d4
+  instead of the stable backport a17d1bca5aba.
+- v1: https://lore.kernel.org/all/20261112092634.1700963-1-dayou5941@163.com/
 
-diff --git a/fs/ocfs2/dcache.h b/fs/ocfs2/dcache.h
-index 7f246c5692d82..046ab9a807692 100644
---- a/fs/ocfs2/dcache.h
-+++ b/fs/ocfs2/dcache.h
-@@ -17,9 +17,8 @@ struct ocfs2_dentry_lock {
- 	u64			dl_parent_blkno;
- 
+ drivers/md/md.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 68a72513e884..1970c945e597 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -10352,6 +10352,7 @@ static void md_start_sync(struct work_struct *ws)
+ 	clear_bit(MD_RECOVERY_REQUESTED, &mddev->recovery);
+ 	clear_bit(MD_RECOVERY_CHECK, &mddev->recovery);
+ 	clear_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
++	atomic_inc(&mddev->sync_seq);
+ 	mddev_unlock(mddev);
  	/*
--	 * The ocfs2_dentry_lock keeps an inode reference until
--	 * dl_lockres has been destroyed. This is usually done in
--	 * ->d_iput() anyway, so there should be minimal impact.
-+	 * The inode reference is dropped before dl_lockres is unlocked.
-+	 * Callbacks must not use it to find the mount context during teardown.
- 	 */
- 	struct inode		*dl_inode;
- 	struct ocfs2_lock_res	dl_lockres;
-diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-index ce61085f3b94b..c8cda79945317 100644
---- a/fs/ocfs2/dlmglue.c
-+++ b/fs/ocfs2/dlmglue.c
-@@ -56,7 +56,6 @@ struct ocfs2_mask_waiter {
- #endif
- };
- 
--static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_inode_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_file_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_qinfo_osb(struct ocfs2_lock_res *lockres);
-@@ -256,7 +255,6 @@ static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
- };
- 
- static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
--	.get_osb	= ocfs2_get_dentry_osb,
- 	.post_unlock	= ocfs2_dentry_post_unlock,
- 	.downconvert_worker = ocfs2_dentry_convert_worker,
- 	.flags		= 0,
-@@ -307,7 +305,7 @@ static inline struct ocfs2_dentry_lock *ocfs2_lock_res_dl(struct ocfs2_lock_res
- {
- 	BUG_ON(lockres->l_type != OCFS2_LOCK_TYPE_DENTRY);
- 
--	return (struct ocfs2_dentry_lock *)lockres->l_priv;
-+	return container_of(lockres, struct ocfs2_dentry_lock, dl_lockres);
- }
- 
- static inline struct ocfs2_mem_dqinfo *ocfs2_lock_res_qinfo(struct ocfs2_lock_res *lockres)
-@@ -608,13 +606,6 @@ static __u64 ocfs2_get_dentry_lock_ino(struct ocfs2_lock_res *lockres)
- 	return be64_to_cpu(inode_blkno_be);
- }
- 
--static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres)
--{
--	struct ocfs2_dentry_lock *dl = lockres->l_priv;
--
--	return OCFS2_SB(dl->dl_inode->i_sb);
--}
--
- void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 				u64 parent, struct inode *inode)
- {
-@@ -622,6 +613,7 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 	u64 inode_blkno = OCFS2_I(inode)->ip_blkno;
- 	__be64 inode_blkno_be = cpu_to_be64(inode_blkno);
- 	struct ocfs2_lock_res *lockres = &dl->dl_lockres;
-+	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
- 
- 	ocfs2_lock_res_init_once(lockres);
- 
-@@ -650,9 +642,9 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 	memcpy(&lockres->l_name[OCFS2_DENTRY_LOCK_INO_START], &inode_blkno_be,
- 	       sizeof(__be64));
- 
--	ocfs2_lock_res_init_common(OCFS2_SB(inode->i_sb), lockres,
-+	ocfs2_lock_res_init_common(osb, lockres,
- 				   OCFS2_LOCK_TYPE_DENTRY, &ocfs2_dentry_lops,
--				   dl);
-+				   osb);
- }
- 
- static void ocfs2_super_lock_res_init(struct ocfs2_lock_res *res,
+ 	 * md_start_sync was triggered by MD_RECOVERY_NEEDED, so we should
 -- 
-2.53.0
+2.25.1
 
