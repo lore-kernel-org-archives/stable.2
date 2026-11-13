@@ -1,96 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608784;
-	b=qC700mA/NSQ1CBBhDBqTpeIzcH7HU7npJLl3Pl4AZHUZsfS9ucx64uscI2KKayLC8h6+
-	 CGaDy7JLv2H2vripKOD4nw/qHJSRYndzDWpq166wnGElU+Ep4sPQhB0Qku2waHWZw0wjT
-	 rtpDvQfMr2CYDyv9+3OlclG+ZioFiKZCxwHzVWO8gkalNTQ11i1K/qZ1HoHOXZAoxkZ8b
-	 PU/qVTVxx6/wkeErstp56KEb/xOI4ynoffu6T3SMu/zwOEPyCtBO68XDKO2xhqFqbj922
-	 lnOwz6F6ZeV98+JDqWfhvZTg2EX2g8pOhs6IrrdX7hSXKpn4tPSgIDEOfuTUNtGnb1Q==
+	t=1794608786;
+	b=tAbPsKA0hNyBnBOy0abXuQ0Lo+10r/jJEEWXeKR0EbGkZ/wdxpQakOTpZfM1Bv4Hzeb2
+	 pCtnpGRnBayQbMRPSv9B6sm2b76rl4l4IyX6onAuanTrikugSogT55e1+sAmZStkqDJch
+	 zWpGYBMAQMNvMy2qJMEniHs/JDzDo/4U7fIu7osxFEquaCaTisP9t+ptBmLONhsbvRwvo
+	 SPEgqv4UNf8zZ9WmrUzeMlqCmc/KbJnQPDVhaeufFhTaP8Ttcs/cgz0WWOyQqQv8W/wCI
+	 i7o7a9iG3d+d22OR58kbLzlqS9tPa+PbobZ7PuX+gbmA1wb8entAyxuqUgUVAIvUT+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608784;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608786;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=FJtZRjKgFg90uSeT2CbjH35DbAO/VLflNjScs874eM0=;
-	b=xXNVhYziX+HODcoy8zBoPHas9LP6nymplKu5cqhFXfdGSwpbQ0YHDzyx4zATR/0ShfAa
-	 YNKV9DBnlyE7a9YUEXD0HPju4PQzTBlTLDAubx3XsitBLWuOGRMyD+1Tp+ySkVGF2zPNd
-	 KKS75OHS9bA7YNy3lqnuoHsXtwpgp2Nq1mX7TGhxySPAsTbGwti5QY0ThOUbIB0fjvsXW
-	 yxPGi/Ryl3tnbDypQfAPIN7idvbuiVny4B/LgCYHnOXknZeytzzVZDp9Rthvm99MbuQl5
-	 WnteFl3wZYHTdE5vXkA8N7JaPdH44o0Jjrk7QCgnP8z72+LVwe2hwhfz5ab2yiG0SKA==
+	bh=qN6krYwEOOaADQfooIYZcB5GNu+bZMz584ofrhIVz5M=;
+	b=ieEmIfClXusPaQtx6TFyKY5mqYVZfWIhNABy+WzVpd3BQCzqP8tp1WgGgxjxwRxgnVtv
+	 pZ9n8P8GtxkBfJwWyVVubIfQ0/DX8dlBea1Lra3lwwYQiSjw6QZBo4jMDAoTIZHEYXPeG
+	 kTDRVywHOQkR10rvsqKDrFLoRMiS2WP8t8mAkO/6xF2hU3GAg6t9AkV/etYNUFEd5WbLz
+	 Ism/LmJcWqb5A4TfAV5pcX0YlC6yOlVsPXKz/1y+sNCdRRCvxzGlQwj0VOteri5zKaWXk
+	 5N0VVMv49rGoQhLUz0Os7cZ0zMjmH6gQhjwQDd141j87AP48CGnZgZ17oYMhDtZq0uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LW7hNVN1;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=OckkWaHq;
+	arc=none smtp.remote-ip=209.85.167.176
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF92606A33D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF92606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B391606A889
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:26:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B391606A889
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LW7hNVN1
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-3678f64d078so1536095eec.1
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:26:23 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=OckkWaHq
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4b28d9537bcso1807519b6e.0
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:26:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794608783; x=1795213583; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FJtZRjKgFg90uSeT2CbjH35DbAO/VLflNjScs874eM0=;
-        b=LW7hNVN1/QnvVg3UkSRF0jxLpcaRrLGgFRFHtoTIp+6N3hBqKASEMnp3c3ONAYNXIB
-         7jBo9XudgJ8EIkIEllsKdLrMfSlZRyLVJdZ8ZTm4YPL9UDgC5a86mS9iNltY3TeJoPQq
-         VIYQCAoJTy5pBvL9AXkZaPvnWvf5MWdM2LDqxvOyDnAgJn+LxqCq0jRm+igqA7BFh9ee
-         4rIw+phy0fECX1Kjyis2LvKy5JFSMAIsW9ExuxQ4LGct2uLxK5UdUYSNoDKGAeGQwdAY
-         qsBhs3qGX8pZeKwd/bXuBSewMym9Ays/JuRaznUEQdh1lliYtVopM+5/hBAuCyf0gjTl
-         Beuw==
+        d=linuxfoundation.org; s=google; t=1794608784; x=1795213584; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qN6krYwEOOaADQfooIYZcB5GNu+bZMz584ofrhIVz5M=;
+        b=OckkWaHqZj+lDpiXsd8AHfca0d7kYcQjpoucf/9ciX0JzXnhg2Bl4aE/aEVvygOCNN
+         3Ls887fyzlSVFf3e16mt3Dypj59OPQnRj8LhlSGTJVHzYwv8+R94EQsteMw+TzDr9nI4
+         FOcnYGMY6e4egR3OAXhqVhVUyjscsfM2626x4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794608783; x=1795213583;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794608784; x=1795213584;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FJtZRjKgFg90uSeT2CbjH35DbAO/VLflNjScs874eM0=;
-        b=nclb6/x0jhAnt1FSboSOh4RAAsg/cy0u1pTvHlHl3MhEH+84IMXxyeD2pHMLQjNA+S
-         ykvceuRecs5RK2FqltTuLt4VTm6JnVScMV5bzj9+BSNrlldD8IhWY6gAg5Vz3PNcbg4c
-         Mn3Lmqpx8oyXTHSyiepmaeYDBzIe29jOEPx7m+xGrhq+h9OLS+wk/3KJG6qq79vKPfWE
-         6qPwHnUElNQk8/hygLHZNcdG0DiPk2+rXu+B9Ef7hHGhWtv1WQwz4qrGAtmItEXtBxzd
-         BollV2yHlq0QA5ZL5FB2bHKoXzNyAP5UBlYgAiEMQU86rHse27G+SaiLeiBODMfsWXtW
-         g7XQ==
-X-Forwarded-Encrypted: i=1; AL+hErFmxJbJg+Nr8BTpRx70xtqNFTkvn1hQpb6KEsg2O+xvVnQwTUKBooL7M7qiWFH/EbiL0ILzY2Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8eW99e6IGDoEppPlsv8+tgakfxWU20HeiGtYaooj45aBBMyQta
-	VC5jhITq5ogClcVzvTttVKT9c9zGLL0RXX3rGG59N7uU5RI0+6zksZma
-X-Gm-Gg: AYBFou1HwgdmEHvbJXVmBPL7/3flgrSvSsLeNLWB7x2mYgp+WVT9jDh219cEdXKBFnM
-	PGX/Cvu5m/Q5mkY6zEXNRsYwyRmcXcVPww3xPOA9Gu87n5XeeJqmEM79T7QPxew8riIdwraKSeR
-	RZN573JCoAuOfneL5KF5b7fO+YYji7htB5c1oOBYJouNOQqOTnDirbcjaHmRre+HAeJ1mrALjra
-	stAnbrsio6E26Qn77MxtCvY5F/8RNnDhFWZIt+AKULtpwoHkXEgT+hGcD+2Yrpk+FRXloIe3KBA
-	3HIlwKt6ADJ4NnOsVB+opyahNkbXO6xjVCBP1T/FmjTD2HUMh6U5l4yU7KapHBp2u7HAq3dDodK
-	hTb24uNcWBNPgnBpSnGCPPL1658EHoZ6LZDAABgwAF1rZHDhcTVXgUMW5PDwQUm1msMfmQlmGP9
-	Cyqb2wDa/KvQsWIpspel/egnR8vM0owoinou0EpcwL2WS/ixYejAzeGLvp2+5A6Pp/7nUo77Pi9
-	RrZdpo1WsRAERMQS1TwHC/B/tvxYrh2ZlcMz9Ls0c5fKEP8auO0JYpxCMCofDnaISBNrXtRhwPp
-	zyH04M+l/YFHU6c5ATeBUjt8fkh9DtjeMYzqgtmUT2eDcX93+xiU2EySxNG/G7J1L044VLH3KFw
-	r0GEGDiEXREwzxHFO2mhmFPo78de9zAhi3b5A46c1hgNw86fEnwq9zDOdl9k=
-X-Received: by 2002:a05:693c:3e0a:b0:36b:d3dd:2e9d with SMTP id 5a478bee46e88-37966192e10mr3194904eec.19.1794608782828;
-        Fri, 13 Nov 2026 14:26:22 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm17151380eec.21.2026.11.13.14.26.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 14:26:22 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Parthiban Nallathambi <parthiban@linumiz.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] iio: light: vcnl4035: Fix swapped raw channel readings
-Date: Fri, 13 Nov 2026 22:26:09 +0000
-Message-ID: <20261113222609.97564-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=qN6krYwEOOaADQfooIYZcB5GNu+bZMz584ofrhIVz5M=;
+        b=nAKi0D/q36oJndD2hYWhzP/oca6lIx7A/iUfTOE7HeXCx/+Yn/6tiFZ3nEa42V0fqW
+         ZjC8K5NzOBDMB+g9E6YDB5myRphiHCL5wvultjAHw17T8gndiQ3HiwRR7h38CojPYlq6
+         0xH+KtNWwIzjg5qDDR3JDe50e0gmvS+GvkTakhSHf2BdGhS0DdDu5lsdpBiVKhEPP/9n
+         A8bJYBKxzkljpF3k/QIKlOztVn82AlAW3x8kSfeJVeLj66itQ0whLaG1dY09wB22vt0A
+         TsRnMUspBLmabvXCjR549p+nowIzLvSm6s11eK2Z3QgXbyQn/cXU54hKdwCdkQExGIH4
+         6tcA==
+X-Forwarded-Encrypted: i=1; AL+hErGJ2FXn9+dFCOPnGJwCjaqe0p92Jdo07md4qZEDRN9omiDxxix6aF/D/tWEdTjAovFD4Qix5yQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8chE9cqWCkCPyDQ/LDHJ+uUPHr1LDLJC2fR+rhiIwdU0/dQDE+
+	OQMuTa+xELi6Is55kZV2qvvil5RhYFr4LNFMWxgdX/zegApShmnmejKNovzqDBiK1ww=
+X-Gm-Gg: AYBFou2W6sxe7jgPvhH+mXF6TcrVdAHq2aycLP7cTMceghZY7yw1pGc1todd6vNRfuC
+	QG+jwZ8cRuVaPXzQYeAMKXBO3723/s8pfasdx6rhlmjtWEnTF/KXg7rsxrb2OdjMQH0AQ9UxW+4
+	P1TlB/W/w1xg69Mkw1Kw9Rqzbncr3CZV8t7Ac4nQRsULLSlZpgREOgb/u3IBkgYCUj1IOex1Lsd
+	ZEi2zry+jCY1HLjMevbamdXancfr6k15UzA7nVFHMPsEy2iUMH8Hh2D8mJjsAAsFsT4OSivQ9dT
+	yJWNLMdpvMeYbzWgVurR9mRmsz2NfwdoqWpFkGQX1low3AFgre3Zgnm+BFZa+1gxfQ+P2lS6P/j
+	rHm6uwqgvpRR1wni0Jd8owRueUDHC4G5vaVILaGUlkTAPJaDx5p0sSTQTHfRsbj9yr2dq3TRp8P
+	jUdX915DOUIr6ejZDu9ttO4OhmxkPZ7BMfKMQAYZciQYE8dtTemW2rNnC1xN3Ab3VgU8dhsT4s4
+	CJfP4OU60ZjfVuV0oYI2Bw1QpVIgzCT/FVtCtBcrU1agnEEslQyAV4SNNj0H97ZSv61BBGR9bUm
+	AKRD8bL2kjouyqMw3hM5eshGRqg7gg7z7gvMGZM=
+X-Received: by 2002:a05:6808:1520:b0:4b2:8dbf:ffd with SMTP id 5614622812f47-56cd557713cmr4332703b6e.1.1794608784082;
+        Fri, 13 Nov 2026 14:26:24 -0800 (PST)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e7024673csm3195795b6e.8.2026.11.13.14.26.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 14:26:23 -0800 (PST)
+Message-ID: <695f8bdd-edda-44b7-8cee-e7557c963a1f@linuxfoundation.org>
+Date: Fri, 13 Nov 2026 15:26:20 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,46 +89,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 000/507] 7.3.5-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261113153753.358973689@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The IIO_LIGHT channel has channel number 0 and the IIO_INTENSITY
-channel has channel number 1. vcnl4035_read_info_raw() selects the ALS
-register for a nonzero channel number, so in_illuminance_raw returns
-the white-channel sample and in_intensity_both_raw returns the ALS
-sample. This also causes the illuminance scale to be applied to a
-white-channel sample.
+On 11/13/26 08:45, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.5 release.
+> There are 507 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.5-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
+Compiled and booted on my test system. No dmesg regressions.
 
-Table 13 of the VCNL4035X01 datasheet [1] lists 0x0b as the ALS
-data register and 0x0c as the white data register.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-Select the ALS data register for IIO_LIGHT and the white data register
-for the intensity channel.
-
-Fixes: 55707294c4eb ("iio: light: Add support for vishay vcnl4035")
-Link: https://www.vishay.com/docs/84251/vcnl4035x01.pdf [1]
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v2:
-- Reference the datasheet's register table in the commit message.
-
-v1: https://lore.kernel.org/r/20261113110123.96084-1-dennylin0707@gmail.com/
-
- drivers/iio/light/vcnl4035.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/iio/light/vcnl4035.c b/drivers/iio/light/vcnl4035.c
-index f1cc75245001..4bbb3b458eb5 100644
---- a/drivers/iio/light/vcnl4035.c
-+++ b/drivers/iio/light/vcnl4035.c
-@@ -156,7 +156,7 @@ static int vcnl4035_read_info_raw(struct iio_dev *indio_dev,
- 	if (!iio_device_claim_direct(indio_dev))
- 		return -EBUSY;
- 
--	if (chan->channel)
-+	if (chan->type == IIO_LIGHT)
- 		reg = VCNL4035_ALS_DATA;
- 	else
- 		reg = VCNL4035_WHITE_DATA;
-
-base-commit: 9752760146e642f3e4a2ec860f8767fa72030d2c
+thanks,
+-- Shuah
