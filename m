@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794545712;
-	b=CVYYaW8EOjpLtcC3tgd5AWeuqy2In6/b/7POzyjzOkZiXH/cMIaXm6Vnyz+761l50GBb
-	 EwFAYLaaLkh1xyn+UYs5PC9Y2/lei7bqSsjZfLDvdtpyZ+FskECHkxAvOVkCbHciyXTgC
-	 /a995uOtLuFTIIjHz0tC4+dwYSaJzdcLSA1NKlJe1TIl9lJ7ln4oxifekMvT2gPHTYVt9
-	 +XatIY/B3njE1n3xzSmGCwzOGryGahTmTJYC1s9i0XSDc1Fk2EflXgUjtAvjRH3CmdZga
-	 zOxZdj4OGBJPg1LmnopGBr0RaZ8EW9RHNZVNqt0xeF/Jpw4VZyTaHHiYHj6sOz+spNA==
+	t=1794546115;
+	b=E2i2HFhHk1Ri1u7ZUzV7f+QSUeUQTGeuojn99wDwd/fbjkmIgG8xgPqZ5YP8VF3bqSAi
+	 w5aCi+N+fFQNrVhfbkadjb3G+Oe0XOtUmg5+WH5lAUtg6s+zy2TWttDJ55MnKTVrOyRCg
+	 CZ9fSBUtGN1wt5bpQlnSwiWsAtjOe4bOMZzWkViy0cG5Itqxp+NUB8uwLCFEWf+H+Ot6i
+	 0AdpjZBu/aEYtHuTsNWXlYPiKTa/rck9+l1bfLkc2cYUc+WUzp3mboid0uu2wsubppr2f
+	 HpVqogP+DXmVIdMWLLnu/f7/GU7l2UbrdP0BNRclLrli4KLFqN/hzCRTAhZFdooWpWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794545712;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794546115;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=VTWR5mkpuIgueh87MON9g3ptDUiISJcOv6zs0rvvEGI=;
-	b=n7UX5/SfViuKLbGdRZgwQv8Hwa89m48guSbDHkMvpqrL8kfjhfRQrw9EUR9tUAsRyYqO
-	 CkRv1Hhna0/iFMCxaACGDpP6U+7oP/saWoJYCHDuK/Ydmhd+WmjXIAvKARPEBSJh85pJ9
-	 1IRGb16pPaBYMd4Uo5MOpSCdaugN24osNCNhVPxsqcG2/bDvzglhtTuPcL/6YqV/nEYaB
-	 YPx9LYu32gz43ICngwelz/QPL965IAloi2JhJrnCeWq1D8B7r6ajZbj0RTixitbTDBjFr
-	 umP1No9ahYllfGU71hwKn54CvXbOgfHMwCExJF2Bv6L6F+u8LU8NDta8F9CMm5VI+ww==
+	bh=Ymo7yRI3qo02ZHVhmUVN7yVG+3FBZDE8ll04DLo8nJw=;
+	b=BOR2ZATPVx1CLZozuJWMUlOJS7xVAbtHzKq+tnmTSFpK4PqsXIsO257zz9MrJg/JBkVv
+	 qFs7+fOJpmjvQaR3I6ml6HIpe2mNTHPQ29UyBz6eITDP/ufNmDGWHeHScGNU1rR+VuSMt
+	 S4cYQDGsZB4rBKRYyfINi/xGCCyaRF+218xZU6q76sAfp75UHqN5+1keI+unga4CCydhx
+	 i0zYNtOw1prgi+qPBwDiqRjqFJGl8xwvpICcXXKIZmFdnl9cjXTSrGrP87b+0Rmfq+sUb
+	 64For9MN0Y93VeZtLXggsbxCC95W+YYBXWBkl/NNTvnG/XjeEevQBfoAFG2fkbwHZ9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o5Dp50SO;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QdryjBKn;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B282606A32A
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 04:55:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B282606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB689606A321
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 05:01:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB689606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o5Dp50SO
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9995ce866so8633165ad.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:55:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QdryjBKn
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3791619605cso1266579eec.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 21:01:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794545711; x=1795150511; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794546114; x=1795150914; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VTWR5mkpuIgueh87MON9g3ptDUiISJcOv6zs0rvvEGI=;
-        b=o5Dp50SOZkUrzjKbIIU8LlnPQjbFGb16tD2KhJeRlPSr6wee5OnvJ51J9zKJX6C83a
-         MG6APBbNkBwKu3WPc4Ygh4ByhnF33znwc5M0bcsbkXnAWe5Lw+XKkpYgAGjJDf/yKqSV
-         eUaIYDdSAKsoCDUDEDLnL9wtGr3D/4QdG9FUNQJaW7YnRSRN9gtu1/vpzOBQllMNL2mj
-         pxM79K9zH/lil7gcQXc3v4qarmSjXu//xvIJHUg/y+rc31B/pZosOxcBu4DErd6LDGKf
-         IM2VatuMQFJdWVBKcVB4RvY0JeTdobbMXFfQu0qqyLXUxPp28zFpNKquw85v+mCDq/8w
-         4iLQ==
+        bh=Ymo7yRI3qo02ZHVhmUVN7yVG+3FBZDE8ll04DLo8nJw=;
+        b=QdryjBKngUj1g0YwAIoSQ3RST/ep9ftJ1ZZcaX1fH9HHWMsmugSTznP0hO2Y0zWc63
+         k24XKKBdBEM1Bx7C7WckPuVp25AhDLNM17RVFCb17plJJt6MAUF/u1foJd9PPp9POmp6
+         rwduakuZHtQm6fbs9SXjKKU+WGtmPoHRCmrN0SL7sngZcYrMMzpWtSzrNACI6ZxQWoiJ
+         RPR30XHiUDAWrtqJbDyCS6MWs3tUJbQJLgendtF6xC5LVIZPQcSlThY4xv/4c/9AT2px
+         PI7a9ijdsd5JhLE976lHSlfhn3a+fr+bUeo4ddqX5iOVv8joHBx9Ay8yw+A7+risAczv
+         ydag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794545711; x=1795150511;
+        d=1e100.net; s=20260707; t=1794546114; x=1795150914;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VTWR5mkpuIgueh87MON9g3ptDUiISJcOv6zs0rvvEGI=;
-        b=0wPHUHHBMAP99I/J8381gvtNMzCeRVupH77IgfLGkU9VoARw862P5QEqUR1zbgOYyq
-         FW6hwuE2ZmslTCwIMxpQUCb7NIge3ojHk87qeTHT63W7I+xKPE6ORKhuAHrOilF4KNRI
-         ytwfllE5rLXhZqo7uzZvkVRE8s+J7RRnSmJIndLrIKI+fht96hFlp7QjHOOsxh6I6Rc5
-         SReAS/okM7AaAcDIqNygWkJk6EWuq86Ngzd+eXeamZq7oofBBFeQbGj209D8HVdtWYxu
-         EC+iV2v5/rhbwFfmynHxWZsqBYZFBdCA2F+wzA7ZskHW93eIl0AjNbpCqHThJIMgH//3
-         DjlQ==
-X-Forwarded-Encrypted: i=1; AL+hErGeJWKBFINL9WmzH/Bhbx8vNNdkLR5BEqL7InjCAvGeKvLGFnbzmnYrfR3uzYqgvc6/b3PQitw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9n0LHrRtcKJohuIpPVMV98z3SMQy3v5L9uoV9ijGDRFz6g9RCp
-	623hlLKoetUQNWNK2qYKBFOiFI1vIMrXMc8Dr22MRpz3HVoTaPWQa+qD
-X-Gm-Gg: AYBFou2qRhO503gRh3btgIbNLhru3TzYwks1XQvCxP1ziSdmX0dqobaAohMhdHkCJXr
-	Hty1IqpqmcILVozPsG4V5P8YtIG+ugiDXuAv8gPe7gl30lTiSXB09pqQkDVP/nQg49vbjwisBSf
-	j9d8vXOGFYrpvet4zyRo2qtjp+oteMdkMZbwRltBrsr6BjOHGIFVglpaXiWCy6AHuvL14UGCVLt
-	CTx+ACp90eeV8VWf+5mYmd2ENBj1lIMf428SqGXUQhDRL41lBX3/y9KC6raktzpdVhdVwzITSZs
-	/gRMy0fqZuE2arloz4KPQqJBEhmgEWQk2NOW2eimA/dLId0UjIOsnr3VPXvy9eT0REO/I7o95C1
-	9ICuh7Ij6DltwUSnFhd6BCvz3Fgw1Od83RCslNgEup+FkdFVVLsRB0uwsBJPwRH+rHKIBjUmERc
-	ez5yrFvnRUHdVAGtsgywChQmBoPRepjWXdq2n7IvA4V5zmibu0pb/0kwRldHlUjsAjt75yCCbSc
-	BltWLT//G+/UrqeD8D4TkqqFE4HhfuRScwInaYyaXjxpGcj5XBYt4CAIyOaD6+LLwayeb0RdMmD
-	W3jQF0i+jFaX4aOQRmQ6JZDG0tw7Ef61m0qbXBlVlkpXB0Kdknm/14I78Oo/rKYJyrKQCcW2pIs
-	KZN+as0dRfNxi53MXNSSuu0BHACvsPVy4+mK6QBUpE6KbkNeEO5ZP5uA2u9fYh3ZF7g3nd845YW
-	F2
-X-Received: by 2002:a17:902:f688:b0:2ed:379:158d with SMTP id d9443c01a7336-2ee0da98d27mr14360145ad.9.1794545711133;
-        Thu, 12 Nov 2026 20:55:11 -0800 (PST)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.9])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee10bdd1a4sm3805145ad.11.2026.11.12.20.55.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 20:55:10 -0800 (PST)
-From: Yu Zhang <yuz08559@gmail.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	linux-pm@vger.kernel.org,
+        bh=Ymo7yRI3qo02ZHVhmUVN7yVG+3FBZDE8ll04DLo8nJw=;
+        b=2Mt4/kLB2Zd5rOE1p+nFugEzIhLoDarvCGucQnm3QLpQM/jFIXHeLjYZF1i/aRyTWx
+         926p9NKWol67T3JcemTSOotHU79zbLe1SWOBWrJM+ndBj+AAKB57xml+r+HBPJLRvp9B
+         XY+knY1OSee7IFXR3CYWxxfl1D4lY1g/RgSHaUdqBEf0U+8PCTStV7hhtC4wm0TBZphk
+         elFpCkv+zDDXJYkz0NmDir35Tr3EBF+33HhrQ+boAHgkBD7/j07jkhxHExqPubeHVV1V
+         XLuSp2SpWnhFi+BPt/pu5VbTCgQC+Gnv06eFAaQGs7hMmjA0DBQXTBm/MT4D9+g5lCyj
+         vaSQ==
+X-Forwarded-Encrypted: i=1; AL+hErHVLczRNf07tqlb96FIE5WFF5hfQF9BEDYyFaPWibyhI6DZCHZPeSvgOKmnuhzDrSUQEGXIILg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9UKAZqDzxMNtpY+OpTeS2SgoBKGS9MkHmf+617ThT+mNlmX+Oi
+	imlR2QEYD2xNEbfsWJaWdRQNoFjVNGgDPS8mjJ5vira45viOpMjt0ejt
+X-Gm-Gg: AYBFou15UFwO7Z68QD3WwKZHOVlAzj5dJmJHSrk98cLt0CJyTeDKSAO9vpB7b2PeYZE
+	TfvFVwmpbQ9AeWQ8sSzZG9mZ541fnGJhFTh/LxlneTLQBIVF6Xbg8AsMCmjLDGWLW7vXfHDfjl6
+	g/1S7Efl6WOLhqaf178EO3z9+7JVbQdHnAvHsmkzxi44YhG+YVF5h7X5ioaa84NdqcfkykN56pS
+	dt4q2VEDN8i1HIf8xu/316W2kSeIhNwYoUU6s+Sax35mPjDzsjENaD0O9ZrT9m9OMDnoxoMa4Nn
+	zKxofrz5ZDyOTokNc8Nniwq16e/ddwTe8B3zjBsobIJ+GmIKRuPiFPEpGlgRuIuUy5RxNArCsoT
+	6o7RTdG4426MNt8oDiuLyl+FRhOkO71KrxGZhqJbZzmu1vVJ8O+JvxBk0UF4yvWHrBTl0m/p1RC
+	Io2PMAIfu+1QmRf33T8TiBSWJYYlnxSKlP2XpBM7l7/x4r0xAu/k5crEQEN1/rZwt0StbMPpWY2
+	KHgZMiglJFXMp00F5KSpWU8v1MOj0odaLgV28JzbalKGlJ0cMcLDIfYZ9SXoEiCbTsQU/TzXEzb
+	kjwj4XEf4ZsHv6HSTvNzs7u9Gjf2dI0fo7zLafcWZbnDWg==
+X-Received: by 2002:a05:693c:87d7:20b0:35f:8c5d:5928 with SMTP id 5a478bee46e88-37967125e78mr1109039eec.30.1794546113573;
+        Thu, 12 Nov 2026 21:01:53 -0800 (PST)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm3157060eec.22.2026.11.12.21.01.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 21:01:52 -0800 (PST)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: liubaolin12138@163.com,
+	ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH] thermal: sysfs: take the zone lock in the tzp attribute handlers
-Date: Fri, 13 Nov 2026 14:55:02 +1000
-Message-ID: <20261113045502.68053-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	zhanxusheng@xiaomi.com
+Subject: [PATCH v4] ntfs: trim the sizes after a short write
+Date: Fri, 13 Nov 2026 13:01:47 +0800
+Message-ID: <20261113050148.1466682-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,107 +100,159 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The thermal zone parameter (tz->tzp) sysfs attributes - sustainable_power,
-k_po, k_pu, k_i, k_d, integral_cutoff, slope and offset - dereference
-tz->tzp without holding the zone lock:
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-	if (!tz->tzp)
-		return -EIO;
-	...
-	tz->tzp->name = value;
+ntfs_file_write_iter() moves the data size and, for a non-resident
+uncompressed file, the initialized size to pos + count before the copy.
+__ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
+so the range [pos, pos + count) is initialized only by the copy itself.
+When iomap_file_buffered_write() copies less than count, it returns a
+positive short count and the error rollback at out: does not run.  The
+file keeps the size pos + count, and [pos + ret, pos + count) reads back
+whatever the freed clusters held before, also after a remount.  A local
+user can read the old contents of freed clusters this way.
 
-For a zone registered without thermal zone parameters (tzp == NULL at
-registration - the thermal testing zones, ACPI thermal and every driver
-using thermal_zone_device_register_with_trips(..., NULL, ...)),
-power_allocator_bind() allocates tz->tzp and power_allocator_unbind()
-frees it and sets it back to NULL, both under the zone lock:
+Run the existing rollback for a short write as well, and roll the data
+size back to the end of what was written.  For a buffered write, keep
+the initialized size and zero what the copy did not reach, up to the
+end of the block holding pos + count, because a page fault through a
+shared mapping may already rely on that initialized size.  A direct
+write rolls the initialized size back as before.
 
-	tz->tzp = kzalloc(sizeof(*tz->tzp), GFP_KERNEL);
-	...
-	params->allocated_tzp = true;
-	/* unbind */
-	if (params->allocated_tzp) {
-		kfree(tz->tzp);
-		tz->tzp = NULL;
-	}
-
-bind/unbind run from policy_store() -> thermal_zone_device_set_policy()
-under the zone lock when the governor is switched to or away from
-power_allocator.  The tzp attribute handlers take no lock, so a read or
-write of one of these files racing a governor switch dereferences a
-freed tz->tzp or a NULL pointer.  The read side (0644) is reachable by
-an unprivileged user.
-
-KASAN, one test thermal zone, one loop switching the policy between
-power_allocator and step_wise and one loop writing k_pu, panics in
-seconds:
-
-  BUG: KASAN: slab-use-after-free in k_pu_store+0xd7/0x130
-  Write of size 4 at addr ffff8880064e5c94 by task init
-   k_pu_store+0xd7/0x130
-   dev_attr_store+0x46/0x70
-   sysfs_kf_write+0xed/0x110
-   kernfs_fop_write_iter+0x29f/0x380
-   vfs_write+0x5df/0x950
-   ksys_write+0xfd/0x1e0
-  Allocated by task:
-   power_allocator_bind+0x51a/0x600
-   thermal_set_governor+0x86/0x170
-   thermal_zone_device_set_policy+0x58/0xb0
-  Freed by task:
-   power_allocator_unbind+0xad/0xd0
-   thermal_set_governor+0x57/0x170
-   thermal_zone_device_set_policy+0x58/0xb0
-
-Take the zone lock in the tzp attribute handlers, as mode_show() and
-weight_store() already do ("Don't race with governors using the
-'weight' value").  The governor already reads these fields under the
-zone lock, so this also serialises the PID constant updates against a
-running power_allocator.
-
-Fixes: f5cbb182586e ("thermal: power_allocator: don't require tzp to be present for the thermal zone")
+Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
- drivers/thermal/thermal_sysfs.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+v4: for a buffered write, zero the unwritten range instead of
+truncating the page cache and taking the initialized size back, which
+dropped data stored through a shared mapping during the copy (Baolin).
+v3: clear the cache up to EOF, not up to the extended initialized
+size, which left the rest of the block holding pos + count (Baolin).
+v2: also clear the cached tail of the last block, which v1 left in
+place when the write stayed inside the old data size (Baolin).
 
-diff --git a/drivers/thermal/thermal_sysfs.c b/drivers/thermal/thermal_sysfs.c
---- a/drivers/thermal/thermal_sysfs.c
-+++ b/drivers/thermal/thermal_sysfs.c
-@@ -258,6 +258,8 @@ sustainable_power_show(struct device *de
- {
- 	struct thermal_zone_device *tz = to_thermal_zone(dev);
+v3: https://lore.kernel.org/all/20261112093233.1118469-1-zhanxusheng1024@gmail.com/
+v2: https://lore.kernel.org/all/20261112030815.982026-1-zhanxusheng1024@gmail.com/
+v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
+
+Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
+with a known pattern first.  Short buffered writes of 4M, old data
+readable after drop_caches and after remount, 3 runs each:
+
+                                    unfixed    v3     v4
+  fallocated, ends block-aligned    3137536    0      0
+  fallocated, ends inside a block   3141332    0      0
+  fallocated, unaligned start       3137536    0      0
+  same, pos + count in that page    -          0      0
+  append                            3137536    0      0
+
+With the sequence from the v3 review (marker stored through a shared
+mapping at 64K while pwritev() at 0 is stalled, short count 8192), the
+marker is kept on unfixed and v4 and lost on v3, 3 runs each.  A store
+into [pos + ret, pos + count) itself during the copy is zeroed with v4,
+as that range belongs to the write.  fsx (buffered, no-mmap, O_DIRECT
+and mixed), compressed files, fallocate, insert/collapse range and
+punch hole give the same results with v4 as with v3.
+---
+ fs/ntfs/file.c | 57 +++++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 50 insertions(+), 7 deletions(-)
+
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 3213a0c9f96b..5ac11d60be37 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
+ 				&ntfs_iomap_folio_ops, NULL);
+ out:
+-	if (ret < 0 && ret != -EIOCBQUEUED) {
++	/*
++	 * Both sizes were moved to end before the copy, so a short write,
++	 * like a failed one, must take back what it did not write.
++	 */
++	if (ret < count && ret != -EIOCBQUEUED) {
++		loff_t new_init_size = old_init_size;
++		loff_t new_data_size = old_data_size;
+ 		int init_err = 0;
+ 		int data_err = 0;
  
-+	guard(thermal_zone)(tz);
++		if (ret > 0) {
++			new_init_size = max(old_init_size, pos + ret);
++			new_data_size = max(old_data_size, pos + ret);
++		}
 +
- 	if (tz->tzp)
- 		return sysfs_emit(buf, "%u\n", tz->tzp->sustainable_power);
- 	else
-@@ -271,6 +273,8 @@ sustainable_power_store(struct device *d
- 	struct thermal_zone_device *tz = to_thermal_zone(dev);
- 	u32 sustainable_power;
+ 		/*
+ 		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
+ 		 * expects the invalidate lock held across the size
+@@ -939,14 +950,46 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		 */
+ 		filemap_invalidate_lock(vi->i_mapping);
  
-+	guard(thermal_zone)(tz);
++		/*
++		 * A page fault through a shared mapping may have used the
++		 * extended initialized size while a buffered write was copying,
++		 * so taking it back could drop that data.  Zero what the write
++		 * did not reach instead, including the rest of the block at end
++		 * that the copy may have read from disk, unless such a fault
++		 * already moved the initialized size past end and zeroed it.
++		 */
++		if (!(iocb->ki_flags & IOCB_DIRECT) && NInoNonResident(ni) &&
++		    !NInoCompressed(ni) && ni->initialized_size > new_init_size) {
++			loff_t zend = ni->initialized_size > end ? end :
++				      round_up(end, i_blocksize(vi));
 +
- 	if (!tz->tzp)
- 		return -EIO;
++			zend = min(zend, new_data_size);
++			if (zend > new_init_size)
++				init_err = iomap_zero_range(vi, new_init_size,
++						zend - new_init_size, NULL,
++						&ntfs_seek_iomap_ops,
++						&ntfs_iomap_folio_ops, NULL);
++			new_init_size = min(ni->initialized_size, new_data_size);
++		}
++
+ 		/* ntfs_attr_set_initialized_size() rejects a resident one. */
+-		if (ni->initialized_size != old_init_size &&
++		if (!init_err && ni->initialized_size != new_init_size &&
+ 		    NInoNonResident(ni)) {
+ 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
  
-@@ -289,6 +293,8 @@ sustainable_power_store(struct device *d
- 	{								\
- 		struct thermal_zone_device *tz = to_thermal_zone(dev);	\
- 									\
-+		guard(thermal_zone)(tz);				\
-+									\
- 		if (!tz->tzp)						\
- 			return -EIO;					\
- 									\
-@@ -302,6 +308,8 @@ sustainable_power_store(struct device *d
- 		struct thermal_zone_device *tz = to_thermal_zone(dev);	\
- 		s32 value;						\
- 									\
-+		guard(thermal_zone)(tz);				\
-+									\
- 		if (!tz->tzp)						\
- 			return -EIO;					\
- 									\
++			/*
++			 * A direct write did not use the page cache; drop what
++			 * a concurrent reader may have cached past the new
++			 * initialized size, as __ntfs_extend_initialized_size()
++			 * does.
++			 */
++			if (iocb->ki_flags & IOCB_DIRECT)
++				truncate_pagecache_range(vi, new_init_size,
++						max_t(loff_t, i_size_read(vi),
++						      ni->initialized_size) - 1);
+ 			mutex_lock(&mrec_ni->mrec_lock);
+ 			init_err = ntfs_attr_set_initialized_size(ni,
+-					old_init_size);
++					new_init_size);
+ 			mutex_unlock(&mrec_ni->mrec_lock);
+ 		}
+ 		/*
+@@ -955,13 +998,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		 * the uninitialized tail, so skip it unless the rollback
+ 		 * above restored that size.
+ 		 */
+-		if (ni->data_size != old_data_size && !init_err) {
++		if (ni->data_size != new_data_size && !init_err) {
+ 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
+ 
+-			truncate_setsize(vi, old_data_size);
++			truncate_setsize(vi, new_data_size);
+ 			mutex_lock(&mrec_ni->mrec_lock);
+-			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
+-					old_data_size);
++			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
++					new_data_size);
+ 			mutex_unlock(&mrec_ni->mrec_lock);
+ 			/* Like ntfs_setattr_size(): stay on the durable size. */
+ 			if (data_err)
+
+base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
+-- 
+2.43.0
+
