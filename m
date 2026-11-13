@@ -1,56 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542404;
-	b=u87iZ7yuF6SZ4+AZF97iBHtsyceLt7HAm/MtAJ4JfOtc1RSEIk7IBEMjHmdL4ATQw30p
-	 FF9LMkLjdsWoU3WYOE78yKyYjfqD7zp/Iu3T/Kw36gr9xfH5tlGD6MBS0ICUTcpV2RS1k
-	 jA9fVl3Hg7aPpEKe8/DkClL8KyrOR5j8oWur8S2udGGnjzydcbkDgeXZVegzdKr+upZb3
-	 LZDwWxupgenmXz+bz3jdwKQH9BuBR2O7HiUxAA2LkJA3ec+i/NIaSFfS+RVnPLbRGzR7q
-	 qJTOzmu1vLrBjHpAirlDrFLkMgqqGBpBT3WHgDvCfgHZgbifZ7j/YO5YThFrmHqcfjg==
+	t=1794542729;
+	b=yCNc8hkmhQZzphnTDHSRZ1nD2zybP4339pbSFKxfW18BZ/fWa23Y/7YxM0TfGoSGWEIU
+	 we/32KeJGiR4WaPpCbZ2zz6QoGuQ7KOUexi1XiEchaNqyulMVUI14PwcoWAqBb+WABTIJ
+	 Wo1rxdb6MGqQUk4/CD4cUAyGVNsG8gG3sEJ3eot4EFfvI1tJqCeh8F2hjFD0TiFdQVnck
+	 fcetXgBxRsqDDbKrLCecUetqV/AG58GO6Am40iga8y9gYyLoMTProqsPD3JB8mrUz3Spa
+	 ljyxRQB4GHs5Mft2cFbX0AVUi44RzQORQ4vs62XF6gNNYlgqraEhN3gPQS+yZ/dN8ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542404;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VTfeZZUSpdFRfoIIBlf15XcWS696F3bp7k41siReJbc=;
-	b=0iMzjbeo7ENjTL7lbI7srdG3k9ulDKFjiu8mJ74WGqf/O9eE9rAizz5rxQcYOh7SRSJO
-	 ESjwnc9lSw0qzYlNK0icCBCb0xmQByL0YR+EsrLQT/5mklGQL2082SQw8+GHMgUeoAtpv
-	 2XLK8TLdZBVFArqbYTimZhy5FnxnVT9NPfa2T9aUsoG6CiZ5LEw59UAA/X+O+OBfQzIxm
-	 s83LjY38l5K1Czf/QAkDrM38+rkwpgoxZOtnyWEZ24uxlJcwODKTQmzMqSufi04GwQt5l
-	 1a3C8iKlfOhol2ToAloOAxkwcdc/YwvXWC02PqQICwM1SBSIgeZyh0XDkJIwJ6wDFaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794542729;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
+	b=f9Mn3aMUOeZbTjTwdO/kRZMR04cjKJNtf4+UXZpDteNhzUFX7dNIGnDr7EwPN/GDRtjs
+	 BBRiatOfcpf4gPcOnw1ieBUaT81tJTNQ7CYNaXiVvbAStOO0SmQyi+Z5BJdzJFpq0R892
+	 71N03zW8ibpVHb77RdrWZqckUyGTRmJx+ggRhbarKJlDXe1TBTSke1HuugB6Y92vq/6p3
+	 vCF/mSmiknl0PLSdyFfyw+k7RABmXH1niUeXlogAqIYXLcqCeCkzJLOfKwN+jcfl+cejS
+	 B7XjCFfn96DIQq/9Gu92LlTC+ctvUYZpsIhH2MiTauQkrnkK8JQIYWvCoREEAxUMGQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G/ZOfVYy";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sSSBTmRC;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wRcPyN8a;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EAE606A321
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 04:00:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4615F606A323;
+	Fri, 13 Nov 2026 04:05:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4615F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G/ZOfVYy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780CC1F000C4;
-	Fri, 13 Nov 2026 04:00:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794542404;
-	bh=VTfeZZUSpdFRfoIIBlf15XcWS696F3bp7k41siReJbc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G/ZOfVYyZR7lmJyp1Ge/hKeG23vup+TEDdm1upWe8MYO9TiMsWLc9h4q/ALd/9iks
-	 r+WWPvl4f4YM/QAKqY6ytHbyXsIQEp+xVZuPssJpqhpGy8IUzcqFAxv+PVjCSPZZ8x
-	 Fl+L5VIp9GE8zEFOLuiZAxjimWNhM4Zygbwdz1AYmKvf2sV9TBI7IebFWPiM8+Jz+Z
-	 IXgkH4LW5HFMsjnUJ1eBX8W8dzCRgpt3d9xy1vHSUEVoiESXWCmF01IeJfHv7H61Mb
-	 pD+HPK1nyKcEIFJJGP8NANostllUi+tl0ftNNNbsYtMAtsO+h5/CCzgo+kTiMCaPxU
-	 DIerF5GlP7Fcg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] nvme: unregister when pr_register() is given a zero new key
-Date: Thu, 12 Nov 2026 23:00:02 -0500
-Message-ID: <20261113035945.1065258-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201154-failed-6.6-a9d431124fb2@kernel.org>
-References: <20261109201154-failed-6.6-a9d431124fb2@kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sSSBTmRC;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wRcPyN8a
+Date: Fri, 13 Nov 2026 04:05:24 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794542727;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
+	b=sSSBTmRCpi0eiAS4KAqr8V5qDfn/JyZfMtdIhS7Z3Q7+UdVOzoDO3JgbJbAVzIuLXrFsEx
+	JfGy3rxlJ1EH6oweewdlXWxlGnywMZve4IXHlQN0Sa5KBNEAExoNTsGbKOaxLVHBZ462kP
+	y3bEgzjeHjiQ40pJdlE5i/yNt48+itVIEVZ8CkMYRTp4YdxQVGdiUnssvVMD56XXWPifIq
+	oeSznuYKxwyyApZoycCEtHdHL4aID2p+p7p5p/nYrkriTt1nkskzp71TKX77HusCGhQZtb
+	528v16otET/etAWdDmvjzIfzaatJc7Za30yfnWucTPUAFAFzQqCbOuKdS8YEQQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794542727;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
+	b=wRcPyN8aNyAWUnahwuKvbtQEFgPKmtGUFvZPwFQ56tTrsxbI7cnpvuuWQjjQESDsXl/WVz
+	04wdOMtRNkBlcbCw==
+From: "tip-bot2 for Hengyu Liang" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/video: Preserve the default VGA fallback for
+ legacy modes
+Cc: Hengyu Liang <hengyul@cs.unc.edu>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261103031630.2085194-1-hengyul@cs.unc.edu>
+References: <20261103031630.2085194-1-hengyul@cs.unc.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,52 +80,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179454272497.2969448.17262198902355060931.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Daejun Park <daejun7.park@samsung.com>
+The following commit has been merged into the x86/urgent branch of tip:
 
-[ Upstream commit a9d431124fb2e58215daf0299d6fcf47bbc2d6b1 ]
+Commit-ID:     3b4c98b47ba7c3c57bcf54fb85f54a854622041c
+Gitweb:        https://git.kernel.org/tip/3b4c98b47ba7c3c57bcf54fb85f54a85462=
+2041c
+Author:        Hengyu Liang <hengyul@cs.unc.edu>
+AuthorDate:    Mon, 02 Nov 2026 22:16:30 -05:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Thu, 12 Nov 2026 20:01:18 -08:00
 
-The block layer PR API defines a zero new_key in pr_register() as
-unregistering old_key. nvme_pr_register() sends Replace Reservation
-Key with a zero NRKEY instead. The host stays registered with key 0,
-and its next registration with another key fails with Reservation
-Conflict.
+x86/video: Preserve the default VGA fallback for legacy modes
 
-The pNFS SCSI layout client unregisters this way at umount. A later
-mount cannot register and sends all I/O through the metadata server.
+Commit
 
-Send Unregister Reservation Key when new_key is zero.
+  596b3678326d ("x86/video: Only fall back to vga_default_device() without sc=
+reen info")
 
-Fixes: 1d277a637a71 ("NVMe: Add persistent reservation ops")
+made video_is_primary_device() rely exclusively on screen_info resources
+whenever any are available.
+
+However, screen_info_resources() also returns legacy I/O and memory ranges for
+VGA text modes. These ranges are not PCI BARs, so pci_find_resource() does not
+find them and the default VGA fallback is skipped. As a result, no device is
+primary in VGA text mode.
+
+On a SeaBIOS QEMU guest with bochs and VKMS, the boot VGA (bochs) loses its
+DRM boot_display attribute. VKMS registers fb0 and bochs registers fb1. VKMS
+is not a PCI device, so it is not primary either. With no primary device,
+fbcon keeps the console on fb0 and never remaps it to bochs. This can be
+checked with:
+
+  cat /sys/class/drm/card1/boot_display
+  stty -F /dev/tty1 size
+
+Without the fix, boot_display is missing and tty1 is 48 rows by 128 columns.
+With it, boot_display contains 1 and tty1 is 50 rows by 160 columns. VKMS only
+makes the console part visible. Without VKMS, tty1 has the same size with and
+without the fix, but boot_display is still missing without it.
+
+Use resource-based selection only for linear framebuffers. Fall back to
+vga_default_device() for legacy display modes, while keeping EFI and VESA
+framebuffer ownership authoritative.
+
+Fixes: 596b3678326d ("x86/video: Only fall back to vga_default_device() witho=
+ut screen info")
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: changed old_key and new_key references to old and new to match the existing parameter names ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://patch.msgid.link/20261103031630.2085194-1-hengyul@cs.unc.edu
 ---
- drivers/nvme/host/pr.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ arch/x86/video/video-common.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
-index 566a04290e550..a6e563adb7017 100644
---- a/drivers/nvme/host/pr.c
-+++ b/drivers/nvme/host/pr.c
-@@ -133,7 +133,12 @@ static int nvme_pr_register(struct block_device *bdev, u64 old,
- 	if (flags & ~PR_FL_IGNORE_KEY)
- 		return -EOPNOTSUPP;
- 
--	cdw10 = old ? 2 : 0;
-+	if (!new)
-+		cdw10 = NVME_PR_REGISTER_ACT_UNREG;
-+	else if (old)
-+		cdw10 = NVME_PR_REGISTER_ACT_REPLACE;
-+	else
-+		cdw10 = NVME_PR_REGISTER_ACT_REG;
- 	cdw10 |= (flags & PR_FL_IGNORE_KEY) ? 1 << 3 : 0;
- 	cdw10 |= (1 << 30) | (1 << 31); /* PTPL=1 */
- 	return nvme_pr_command(bdev, cdw10, old, new, nvme_cmd_resv_register);
--- 
-2.53.0
-
+diff --git a/arch/x86/video/video-common.c b/arch/x86/video/video-common.c
+index 8ed82ff..b8f8334 100644
+--- a/arch/x86/video/video-common.c
++++ b/arch/x86/video/video-common.c
+@@ -45,7 +45,7 @@ bool video_is_primary_device(struct device *dev)
+=20
+ #ifdef CONFIG_SCREEN_INFO
+ 	numres =3D screen_info_resources(si, res, ARRAY_SIZE(res));
+-	if (numres > 0) {
++	if (numres > 0 && __screen_info_has_lfb(screen_info_video_type(si))) {
+ 		for (i =3D 0; i < numres; ++i) {
+ 			if (!(res[i].flags & IORESOURCE_MEM))
+ 				continue;
