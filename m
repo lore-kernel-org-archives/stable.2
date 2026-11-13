@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581465;
-	b=wm0++WAzllbGq3YH6t3kzkxRa3Q4z5YuwBeQ+RYJiJajStlRMixHVSum0Z6MU6QQXThR
-	 feNfN3BFTC7LampobwpyB46xplieopRtfq0X+2ggJSLr88zwhH7H3VzT4r9VOBPB5fXOm
-	 r4BMAn93cwB54xeeWxyJQL2PtNb23zjzroLSHs7cjD9pgSrsaC/TajObMRx/sUWxqy5tS
-	 u2/YVzVjRIiUoeEWIlZrU5NbkJNBuktgfkkJ3/yZNNLCruUNS/Exzf9t/dqnS/wXfkFg0
-	 L/zEn7nyMzrd1FKfLp3Lp+cjMoIicGATe10CzGgHV6k2DyW55oTQhyYx7wuK58w/yOQ==
+	t=1794581606;
+	b=hZsKtfSYbwXFMtWmkJhEVeFqQ62HEvgw+znGXqNEuqTxxDO9GF4W1Or3krjrhgcrFT0e
+	 o9XgnKGCmh09LPD/I8vHUuN/xvYYP3d+Gu7/w7/XCKEGlLkXO7vlxgst8q2lKuqhkyU0E
+	 z7I7uWJR/Uod0AMzeCaNLLI5MXdvwIicwIQKIj+whSlj1p2pXUJx0MkohCP96bA1DV2k3
+	 GZrJDR6Mgm/g9IN3bDWQEmOHo6+OGkruH/V7n6zHggHvFjvBvftVvGltA42DmpKm14tS6
+	 l3m0fh8J25H0SQ/98L/hJOn1wQnmXtEun4D1kQY4+XdeVb+5Fa7WIZoo+NRrW0Rg0wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581465;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=IVK54GaVP6TC5oPwMQmrDyfx/5ND6iqMHDE7/VK7o1c=;
-	b=hBLwksiN8/ZxExS2gXINpA/QT2oMWtfYi/w74/NxD+9SRQGOBtHeZ6wUqHek7RNPoeVu
-	 W7lqtbQOrcDxy7dME8swl8FmLbI3yjZUaDzGNOyGzt72MALE6+ae4ZxrHhDE+2+UhZVQO
-	 seGsOmfrQyKAlfEH4aXHY8SMSx1xij//KcBvZcUUmA92Pd30V2hFPBHZg0lfHRbCRd2ZR
-	 AAqoyjWwEb/snXwutiGkBM1Ul2W69L1ar2CoYXHgOUY2p7CgC1mnaegnEhZ+zF4CoX7pt
-	 GL5dLc2Wphu++cg7fNQD+IY6fGOlalxhsgfvshLlKpCPhYrRdKRJfphxNZEZodvpEWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581606;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jlcDsdtlo0slK+vvqG3ptpM7GvIadzb1KxPdJ/tncg8=;
+	b=uCOjpMj4C02cckUgs+eTnIV7DCpbA88lvVnGeeLXVB/6I99/9fwG6I/weeefwqMJlGTr
+	 buc7RLwW+l6FEDUFGtNGDDLdojFi8e6QgsS5FWjn55n2skBS99199rwHGwCC+ceAlmRzO
+	 uxMmz8BREnSw5FcDRtFz5D3eHWjCJjXd/z+EIPrG3kFionC5Qd51k7brc8ZqcW4fDRVUc
+	 IJbUeS2hbSrnW/1r2YYFCi4q0Lepnl54DszS2n1ynOGg9jabjN0W2etfKopTQF+rEcNgZ
+	 N4KFESgo27EZW7YoFWPQyJST3RJ6xuN5Ssg8ZAIb5bmt09SKWxGe3ANvdmZXgkyxKSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iDEKczXb;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DmfxAftj;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593F4606A335
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:51:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 593F4606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FB4606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:53:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99FB4606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iDEKczXb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794581462;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=IVK54GaVP6TC5oPwMQmrDyfx/5ND6iqMHDE7/VK7o1c=;
-	b=iDEKczXbZQHpfSV3IwAJ+oPVzmxdSbaDPaSroTZH42GNVJcOb0zi7WUD6Mopfm53hfKYA8
-	DmjUQrw9thpg8aGfDZCZfdDenmCnE4FS6v6qD4FxixU+BU5xg9LgvH8Teuv2sxjsFRLZ+n
-	8ooPnehQYGuTX9YUGtucFhpJPVbKbo0=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-572-60sgr6khPkWVIzYMAEGyVw-1; Fri,
- 13 Nov 2026 09:50:55 -0500
-X-MC-Unique: 60sgr6khPkWVIzYMAEGyVw-1
-X-Mimecast-MFC-AGG-ID: 60sgr6khPkWVIzYMAEGyVw_1794581453
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 350D21955F43;
-	Fri, 13 Nov 2026 14:50:53 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.rmtusma.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D85CB1800545;
-	Fri, 13 Nov 2026 14:50:50 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
-To: Sathya Prakash <sathya.prakash@broadcom.com>,
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
-	Ranjan Kumar <ranjan.kumar@broadcom.com>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: MPT-FusionLinux.pdl@broadcom.com,
-	linux-scsi@vger.kernel.org,
-	Keith Busch <kbusch@kernel.org>,
-	Mira Limbeck <m.limbeck@proxmox.com>,
-	Chandrakanth Patil <chanpati@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: mpt3sas: Fix off-by-one in NVMe PRP list transfer size limit
-Date: Fri, 13 Nov 2026 09:50:46 -0500
-Message-ID: <20261113145047.623807-1-loberman@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DmfxAftj
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c169ae1cb26so258786866b.1
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 06:53:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794581604; x=1795186404; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jlcDsdtlo0slK+vvqG3ptpM7GvIadzb1KxPdJ/tncg8=;
+        b=DmfxAftjg1G0HivU6QqMf8e3eweoMRPo6IiUtQMJu/JvFCTg0GlhPfANGtdLM8gmEa
+         1Y1gOpfeCPNuBctz9TkVqjg1s7+TCCWsLwdPWVjek06VvFD1Lf+6kzdYcUkrntp4MuHA
+         AGFejj4ke0Zks+9TOi9ApExlrHD/laF5/i/ip2747yxLyNmkORTjO75MxKLXse4hJG06
+         QCED55IhlT9Kvd5FH8qzEKLoFp9Xjij/OyG/q2H6itc4x6clZ3/iCq8/RNAJh5AtSRfh
+         SFmVoZllL7g2CMBG/inRBBpDTnOYdEWwI5HwRqfj1vItt9THSKKrmICGkPie2coiD2A7
+         76AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794581604; x=1795186404;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jlcDsdtlo0slK+vvqG3ptpM7GvIadzb1KxPdJ/tncg8=;
+        b=bVWObdDXpyklQxdTR3CAcy5vl80ZTFPnIicR8CyZZDaOdX8rWRamSRhxEz+wHl/eEM
+         VNauHDp+icTCz3dTgwKJXWAOVjzcK5JcgifagLNKdfimTFAVV0PYPgRqU1b+5NeD6X8h
+         lcfIr7evWFtzlI4+BYG63U7TSkJl2AkA5/R8hIWB5Yq1ILFmjmXSulsB30DRI5Bu/5Gf
+         YPrUTFpQW37BN4jjACUolA/QUo8a6qbYffEw4sgROU1BgdTm9sinsI+J28uEMnYL0hVk
+         ObN0nXYM/835cxZHElOBo9Enr2RZUgVtUOpocRn0AIipgG5cQaRogEqxnOLhhrH622Ei
+         HQog==
+X-Forwarded-Encrypted: i=1; AL+hErE1BN97CtFAY8A2p4E84RHf6VQgx5ycINtpmc+9d5p6Xfmh9Eta0GStCTKVnVZH9+6uDgmjs9M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KFZi25OKURGI7PEVgcH4b6Cx8sAk9Ew71z3n+bMcaKCJ4vcTB
+	OfPJaqk8zDdmJh6CrIw4pnL/X6pE1kTVFXYQwIXvSsYFDd2LNsBA2vja
+X-Gm-Gg: AYBFou0Aei9MStYHfe+TjPfdKIG6YiaINluCHVBaDN3q1MoUPGZOst+Iuz31AfSlHHL
+	bxkna9HPKY8Bkqp26pK4EygES+Y9sTG5t4M7FdETNUSrksiNNsME88ktxFzMk7B129nOkfHlDqG
+	d+5uP7l83QM3bQT9SYhjygoXjHpkr2unmozCB2erjWy0eIBLLcQyNKc89V6m3ZrtQL13xICgB3F
+	jbFlZiVzrvy/M7AEj4zupOp+/f4DECDDZvEfBdJtY3D/6MOH/vaipXOWeg+EgZKFXKhyf8n5klI
+	zpxZpkutj1N+1E4er/0OxvyieHZIhFBT5Hq5tfHbbgAunxXPG4XoRjvoVx/CSjIvfNVawAAffLT
+	UAtsK/R6kCaKqgSxc4lyFm7JCQmC/m0wOWqkoGzo08pZhJtEErC5TCm5lhxkniW6p4B0GeVrbpK
+	2MqBQAfVO68h8sLkRScKa1/tskXMQwDZsKFTG+UeXPRfLXpDdAuzahSBHcFu4MB1B90fERzO5ob
+	5EPd+hGa+Xi6UkGHfVc8wpJeGG/jMRGoMAy9YSgciDYtNIpj2QijA5VnOyP80/CIWsUYopwHrPZ
+	EszAM0sIAgMeTsap
+X-Received: by 2002:a17:906:9c89:b0:c2d:c6e7:9e9a with SMTP id a640c23a62f3a-c509634a669mr257870466b.11.1794581603715;
+        Fri, 13 Nov 2026 06:53:23 -0800 (PST)
+Received: from krava ([173.38.220.49])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b58b66sm111032166b.50.2026.11.13.06.53.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 06:53:23 -0800 (PST)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Fri, 13 Nov 2026 15:53:20 +0100
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	Christian Simon <simon@swine.de>, stable@vger.kernel.org
+Subject: Re: [PATCHv2 bpf-next 2/2] bpf: Disable private stacks for untagged
+ kprobe programs
+Message-ID: <avckYL7KMRk96XQP@krava>
+References: <20261106164043.546879-1-jolsa@kernel.org>
+ <20261106164043.546879-3-jolsa@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,153 +104,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106164043.546879-3-jolsa@kernel.org>
 
-Commit 04631f55afc5 ("scsi: mpt3sas: Limit NVMe request size to 2 MiB")
-capped max_hw_sectors at 2 MiB on the basis that the 4 KiB PRP list
-buffer holds 512 entries. That does not account for how
-base_make_prp_nvme() fills the buffer:
+On Fri, Nov 06, 2026 at 05:40:43PM +0100, Jiri Olsa wrote:
+> Uprobe programs can be preempted and re-entered on the same CPU. Since
+> the private stack is shared per program and CPU, another invocation can
+> overwrite the preempted invocation's stack.
+> 
+> Programs without a multi or session attach type may be standard kprobes
+> or uprobes. Disable private stacks for them, and retain private stacks
+> only for kprobe multi and session programs, which have attach types that
+> identify them as kprobes.
+> 
+> Update verifier tests that rely on private stacks to use kprobe.multi,
+> and add coverage that untagged kprobe and uprobe programs do not use
+> private stacks.
+> 
+> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
 
- - PRP1 is placed in the main message frame and covers the first,
-   possibly partial, page of the transfer.
- - When the list reaches the last 8-byte slot of the page, that slot
-   is used for a chain pointer, so only 511 data PRPs fit.
+hi,
+I did not realize before, but I think this should be added to stable
 
-A transfer of length L starting at page offset O needs
-DIV_ROUND_UP(L - (4096 - O), 4096) list entries. A page aligned 2 MiB
-transfer needs 511 and fits. A transfer that starts at a non-zero page
-offset, which O_DIRECT permits with 512 byte logical blocks, can need
-512: the chain pointer is written to slot 511 and the next PRP to slot
-512, one entry past the end of the per-command PCIe SGL buffer. This is
-not limited to exactly 2 MiB; under the 2 MiB cap, any transfer of
-2 MiB - 3 KiB or more starting at offset 3584 overruns, and likewise
-for other offsets.
-
-This was hit with the 2 MiB cap applied, on a Grace (arm64, SMMUv3 in
-translated mode) system with a SAS3816 and an NVMe drive, running
-xfs_repair from fstests on a KASAN kernel:
-
-  sd 0:2:0:0: [sda] tag#2682 page boundary curr_buff: 0x00000000e986a684
-  BUG: KASAN: vmalloc-out-of-bounds in _base_build_sg_scmd_ieee+0x115c/0x1508 [mpt3sas]
-  Write of size 8 at addr ffff80008cc8a000 by task xfs_repair/210713
-  ...
-  The buggy address belongs to a 0-page vmalloc region starting at
-  0xffff80008cc89000 allocated at dma_common_pages_remap+0x30/0x88
-  ...
-  Unable to handle kernel paging request at virtual address ffff80008cc8a000
-  Internal error: Oops: 0000000096000047 [#1]  SMP
-  pc : _base_build_sg_scmd_ieee+0x380/0x1508 [mpt3sas]
-  Call trace:
-   _base_build_sg_scmd_ieee+0x380/0x1508 [mpt3sas] (P)
-   scsih_qcmd+0xdc8/0x15c8 [mpt3sas]
-   scsi_dispatch_cmd+0x1f8/0x578
-   scsi_queue_rq+0x528/0x12f0
-   ...
-   __blkdev_direct_IO+0x760/0xd40
-   blkdev_direct_IO+0x338/0x4a0
-   blkdev_read_iter+0x1e4/0x370
-
-With the IOMMU remapping the coherent pool page, the overrun faults
-on the guard page. Without that remap it silently corrupts 8 bytes of
-the adjacent physical page.
-
-Limit the transfer to 511 NVMe pages (2 MiB - 4 KiB), which fits the
-PRP list for any starting offset. With this limit the list never
-reaches the last slot of the page, so the "page boundary curr_buff"
-message, which is only printed on the overrun path, can no longer
-trigger.
-
-Fixes: 04631f55afc5 ("scsi: mpt3sas: Limit NVMe request size to 2 MiB")
+Fixes: a76ab5731e32 ("bpf: Find eligible subprogs for private stack support")
 Cc: stable@vger.kernel.org
-Tested-by: Laurence Oberman <loberman@redhat.com>
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
----
 
-Notes:
-    Tested on the system that hit the original oops: Quanta S74G-2U
-    (NVIDIA Grace, arm64, SMMUv3 translated), SAS3816 FW 26.00.01.00,
-    Samsung MZTL21T9 NVMe at 0:2:0:0, 6.12-based KASAN debug kernel.
-    
-    Reproducer: read-only O_DIRECT preads of max_sectors_kb into a hugetlb
-    buffer at page offsets 512/1024/2048/3584, with max_sectors_kb set to
-    max_hw_sectors_kb.
-    
-    Without this patch (2 MiB cap, max_hw_sectors_kb = 2048):
-      2 MiB unaligned preads: system oopses in _base_build_sg_scmd_ieee
-      within the first iterations, matching the trace above.
-    
-    With this patch (max_hw_sectors_kb = 2044):
-      - blktrace confirms each read is issued as a single 4088-sector
-        request (not split)
-      - 10000 unaligned 2044 KiB preads complete
-      - 20 loops of fstests generic/001 generic/004 generic/005 (the
-        sequence that originally crashed in xfs_repair) pass
-      - no "page boundary" messages and no KASAN reports
-    
-    Also validated with a userspace harness that compiles
-    base_make_prp_nvme() verbatim from mpt3sas_base.c, places the PRP
-    buffer in front of a PROT_NONE guard page, sweeps every 512-byte length
-    from 16.5 KiB to the cap at every 512-byte offset (contiguous and split
-    into up to 128 page-aligned segments), and walks each list as the
-    device would:
-    
-      cap 2048 KiB: 292608 cases, 252 overruns, 0 malformed lists
-        first overrun: len 2094080 off 3584 nsg 1
-      cap 2044 KiB: 292032 cases, 0 overruns, 0 malformed lists
-    
-    Reproducer and harness available on request.
+jirka
 
- drivers/scsi/mpt3sas/mpt3sas_scsih.c | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_scsih.c b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-index 085d467..1cb15b5 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-@@ -57,6 +57,14 @@
- 
- #include "mpt3sas_base.h"
- 
-+/*
-+ * Largest NVMe transfer whose PRP list fits in one NVME_PRP_PAGE_SIZE
-+ * buffer (last entry reserved for the chain pointer) for any buffer
-+ * offset: (4096 / 8 - 1) * 4096 = 2 MiB - 4 KiB.
-+ */
-+#define MPT3SAS_NVME_MAX_XFER \
-+	((NVME_PRP_PAGE_SIZE / NVME_PRP_SIZE - 1) * NVME_PRP_PAGE_SIZE)
-+
- #define RAID_CHANNEL 1
- 
- #define PCIE_CHANNEL 2
-@@ -2741,14 +2749,22 @@ scsih_sdev_configure(struct scsi_device *sdev, struct queue_limits *lim)
- 		/*
- 		 * The HBA firmware passes the NVMe drive's MDTS
- 		 * (Maximum Data Transfer Size) up to the driver. However,
--		 * the driver hardcodes a 4K buffer size for the PRP list,
--		 * accommodating at most 512 entries. This strictly limits
--		 * the maximum supported NVMe I/O transfer to 2 MiB.
-+		 * the driver hardcodes a 4K buffer size for the PRP list.
-+		 * base_make_prp_nvme() reserves the last slot of that page
-+		 * for a chain pointer, leaving 511 data PRP entries, and
-+		 * PRP1 in the main message frame covers the first, possibly
-+		 * partial, page.
-+		 *
-+		 * A transfer that is not page aligned spans one more page
-+		 * than its length implies, so a 2 MiB I/O starting at a
-+		 * non-zero page offset needs 512 list entries and overruns
-+		 * the PRP buffer by one. Limit transfers to 511 pages, which
-+		 * fits the PRP list for any starting offset.
- 		 *
- 		 * Cap max_hw_sectors to the smaller of the drive's reported
--		 * MDTS or the 2 MiB driver limit to prevent kernel oopses.
-+		 * MDTS or the driver limit to prevent kernel oopses.
- 		 */
--		lim->max_hw_sectors = SZ_2M >> SECTOR_SHIFT;
-+		lim->max_hw_sectors = MPT3SAS_NVME_MAX_XFER >> SECTOR_SHIFT;
- 		if (pcie_device->nvme_mdts)
- 			lim->max_hw_sectors = min(lim->max_hw_sectors,
- 					pcie_device->nvme_mdts >> SECTOR_SHIFT);
--- 
-2.43.0
-
+> ---
+>  kernel/bpf/verifier.c                         |  9 +++++
+>  .../bpf/progs/verifier_large_stack.c          |  2 +-
+>  .../bpf/progs/verifier_private_stack.c        | 38 ++++++++++++++++++-
+>  3 files changed, 46 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index b7329d164771..1b58a1796a2e 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -5749,6 +5749,15 @@ static enum priv_stack_mode bpf_enable_priv_stack(struct bpf_prog *prog)
+>  	 */
+>  	switch (prog->type) {
+>  	case BPF_PROG_TYPE_KPROBE:
+> +		/*
+> +		 * Uprobes are preemptible and lack recursion protection. Classic
+> +		 * kprobe and uprobe progs have no expected attach type, so enable
+> +		 * private stacks only for kprobe.multi and kprobe.session progs.
+> +		 */
+> +		if (prog->expected_attach_type != BPF_TRACE_KPROBE_MULTI &&
+> +		    prog->expected_attach_type != BPF_TRACE_KPROBE_SESSION)
+> +			return NO_PRIV_STACK;
+> +		fallthrough;
+>  	case BPF_PROG_TYPE_TRACEPOINT:
+>  	case BPF_PROG_TYPE_PERF_EVENT:
+>  	case BPF_PROG_TYPE_RAW_TRACEPOINT:
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_large_stack.c b/tools/testing/selftests/bpf/progs/verifier_large_stack.c
+> index 7e4f5e3463a2..cbabb41d973c 100644
+> --- a/tools/testing/selftests/bpf/progs/verifier_large_stack.c
+> +++ b/tools/testing/selftests/bpf/progs/verifier_large_stack.c
+> @@ -243,7 +243,7 @@ static void priv_stack_frame_2048(void)
+>  "	::: __clobber_all);
+>  }
+>  
+> -SEC("kprobe")
+> +SEC("kprobe.multi")
+>  __description("private stack: two frames of 2048 bytes")
+>  __load_if_large_stack()
+>  __arch_x86_64
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_private_stack.c b/tools/testing/selftests/bpf/progs/verifier_private_stack.c
+> index aa15361bcca5..0ce07bf6b566 100644
+> --- a/tools/testing/selftests/bpf/progs/verifier_private_stack.c
+> +++ b/tools/testing/selftests/bpf/progs/verifier_private_stack.c
+> @@ -22,7 +22,7 @@ struct {
+>  	__type(value, struct elem);
+>  } array SEC(".maps");
+>  
+> -SEC("kprobe")
+> +SEC("kprobe.multi")
+>  __description("Private stack, single prog")
+>  __success
+>  __arch_x86_64
+> @@ -110,6 +110,40 @@ int no_private_stack_stack_args(void)
+>  }
+>  #endif
+>  
+> +SEC("kprobe")
+> +__description("No private stack, untagged kprobe")
+> +__success
+> +__arch_x86_64
+> +__jited("	subq	$0x100, %rsp")
+> +__arch_arm64
+> +__jited("	sub	sp, sp, #0x100")
+> +__naked void no_private_stack_kprobe(void)
+> +{
+> +	asm volatile ("			\
+> +	r1 = 42;			\
+> +	*(u64 *)(r10 - 256) = r1;	\
+> +	r0 = 0;				\
+> +	exit;				\
+> +"	::: __clobber_all);
+> +}
+> +
+> +SEC("uprobe")
+> +__description("No private stack, uprobe")
+> +__success
+> +__arch_x86_64
+> +__jited("	subq	$0x100, %rsp")
+> +__arch_arm64
+> +__jited("	sub	sp, sp, #0x100")
+> +__naked void no_private_stack_uprobe(void)
+> +{
+> +	asm volatile ("			\
+> +	r1 = 42;			\
+> +	*(u64 *)(r10 - 256) = r1;	\
+> +	r0 = 0;				\
+> +	exit;				\
+> +"	::: __clobber_all);
+> +}
+> +
+>  __used
+>  __naked static void cumulative_stack_depth_subprog(void)
+>  {
+> @@ -123,7 +157,7 @@ __naked static void cumulative_stack_depth_subprog(void)
+>  	: __clobber_all);
+>  }
+>  
+> -SEC("kprobe")
+> +SEC("kprobe.multi")
+>  __description("Private stack, subtree > MAX_BPF_STACK")
+>  __success
+>  __log_level(4) __msg("stack depth max 512")
+> -- 
+> 2.43.0
+> 
