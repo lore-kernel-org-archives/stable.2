@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794540102;
-	b=cpWXlwBWdLFQJKq36TLoJaU24m3yDF1gW0aAD+8W0O14vt+MDZzfRqbJtos8660dEI8o
-	 GNtsA3UuotK5BLHAhTIGzDHvFjyVtTLoocx1t7gjnQEnTsq5vdwfM8ffJMtcuXdcjcWPJ
-	 fqtDYefFZNigaZk9GoDWo0/Fypvr03a82Vp8JJgNGtsTRHnLe+5rPY1qUfCrtSvX2Vned
-	 YfnrZ3K8uzA6jfvM+68VdXP5ToB3jWVjBTp27IcHYZ+Q2JK3yo9J4zZr5Csue55ADPT2X
-	 q2RQddIgjZ8GloOBkxkbLhnXsncc6N5ALOfx07Ok9x0ZuUvaAJ+92E5RGBXqU83Lvpw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794540102;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:From:In-Reply-To:References:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=KlC7kz5Wd2GugrQzeadNEBgbSiUKxvLtosrmHbuGMxk=;
-	b=ibVoUOzDcXq6I0PUJJxANqDYuE8P6X0jWChmshjhVOJ7pv8/9005cQ37DVVqNqrbBAg7
-	 yoXlXEhBpVTwRDkGz+3qrVxKonWaO2mzDBiGTuOvRrQx+TJOvUBBcJjywqylgPaYyhtsY
-	 /CgttX8UWHIWWuWqpXlhp5/Np4xCmKpZNZ5S/fD3Xb0z237TTrA5cXLROLuyFvr1owzt+
-	 +SySZrzCv4WHuC0FepnaXfKcWZ3ktgCcOtVlIoV/59O+YM9hRLRQolgEs7AkV6N6sCH2P
-	 nYTAl08wopWTXfZ6O1V9LKlqSh8GSlzB1WW5wO+rOZ4eJbjdaCkURbb27NCVyagJB7w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p+yKKFSE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.52
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794540123;
+	b=tF3FGWHmyYoO1xH6NrAqg3ymgR9Kk/b0IpkoaI5eLEwOpoSKH+WFCY1ID1uhUFFVIFbD
+	 OiFkojNZMGinXA6tVmAizBSd3ZLV4LlnfGls3wElEybsNnGBL4LFxwIirv/TuvnFZJigv
+	 M4vDCVXkE04MlOiQwWWJ6W3o/iLC7JhPpGifAzcsxmd0Y9r7Nq7D2rhc0NVfcXo11z7A8
+	 QnroKlcIctirxvcirOqCPjlJYU/Vw/TwVmOp6lecf8OkowZlNZN86lSnXUI9++KEdLwPP
+	 VU4y1sotjS7NWHrYVKLpTvscX8gQ+u0QwiZG1jOutDFt4mINUOiTSmIYTSVEs5wFwtw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794540123;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=UHNyDIHUYCDCBtW7z+s/DC7oLTYyUMWyM/DD63A4vwo=;
+	b=CiGC+ko3HVQQScisjFKVoSOX+ijFYUHHnY1uKYthwJoq901cvK4yMicqJWS/+DEBC9Oe
+	 KePkeSjqGxRJqz8472T8Y+460rhCJnGDOlJdV487StMhdYmH49YL3oRY4lek9pomDBe2Z
+	 tciUAzyjVTvzD0pB25hryVW/EZw28Gr6+rtLph6jZbgpv5V4r2K0xolN3egB48uxKM2vL
+	 MzHqzhdN1RULwnrHYNnTw/6FkgiYUMtE74jKZ2nIR0/D91ufPI2FvnL6DbNNW9hTVOcyP
+	 mglPjVjeZuaXJwN1h41BYmUD01qWWodzXeEFrtybd4Ssb0VWWQmIaXxb58YouHv2d5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WfPnFo3G;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B869B606A327
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:21:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B869B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309AA606A321
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:22:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p+yKKFSE
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7cc0ccc2fddso114297137.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 19:21:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794540101; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UmzNJ41WQiA2LtiU6trj/Bl4VQvfZrq6f2aiXOBnwusKFfzW5jrDaAliYUO6SGghkv
-         fQ0+Ha8+eNVVLL0wpkazwFbIxOsqUMmJiQrcN9U777mJs5b4+p0ohZ/+RUpzjz/1lQfV
-         bGs4Pd0ha4e1A5hJsgAgFSkiDpe2Ma0apB5lgMYn2insuq22nONd5y8Gn04IE3t4Xe5G
-         MRAXqZS8M26Mfkc2E6MHKt5Grj8q/cjafWp6zat8pqsTtux5v8vJef5TfJVTpq1o2P75
-         JpQWRLBQs7PLN4RI97Tq04q8t+TpaJQDC7GZ5GEbVyEXAawYHs4EdlghX6egOxWuKh3v
-         j31g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=KlC7kz5Wd2GugrQzeadNEBgbSiUKxvLtosrmHbuGMxk=;
-        fh=Szw98snw+xO5AjdgUbrVsMIQcJXeJzrruin6e4a6tpU=;
-        b=bzF6gwiAxJrMoYaCDjpXd3KSmedkICi/BJatAtef7wyy1tfw9k3NthpZWsd7pyL4Rk
-         BFeGAwKA8lA4VEZ5J25WhMwdrspTo7HpklEjaIXGfok1ETyghssqoop+4/o3MDepW7lZ
-         2svynG+wmZ3mUzIJx8Lbz+5NBjt/omlzMlGxGxq0+zah+XeLNP1ycpWl7wE2g3obSCBe
-         p/zuQX67g3N1rfBbGUPid2KPtUoQajVUCOLUVBh4MgkMNIu6GAbq/Vo2jE4QTbbG+xCD
-         F8tyJTpDrKKaY5Z5WH/RMf6/SiNQiNuAkQ6xC1N7YusAxj2GcNA1o2mF9ux7ZypzqJhD
-         zNmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794540101; x=1795144901; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KlC7kz5Wd2GugrQzeadNEBgbSiUKxvLtosrmHbuGMxk=;
-        b=p+yKKFSEqRUjbz47fBwoJzJkS4+jhIUzdjZZZSJ0azUfzJBRj5DHk0RgEvku/oYJxo
-         XxcqzyLF3WMhME6fBoDP+MsSVr/fV3oX3jJQBy0FwS5rOXOZYhgJIKxrjh4O7jZS/MOd
-         HPhv3+N//W02rVjqCkp5DD6PWaKm6pkVcOTmBgAs69qYezPxCuC5P1udn2MiPjTn5Hox
-         rmmWjAXCjA1y1up4AQwQHY054NrxA1WZB1Fp+fNZ34v0JSv2b/oIxvcrB/mI4ckheFe7
-         xrqFDzO/PFUEbh8XoMu5qiIHHdWIzrAOWm9eqUUWS1LHGyzjjqF4gHwTi+XgzArqUMXF
-         kRsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794540101; x=1795144901;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KlC7kz5Wd2GugrQzeadNEBgbSiUKxvLtosrmHbuGMxk=;
-        b=RPcMLaD63krYW1IYNN16PGbFuFc4z6eV1HUXxKhYM9KzOXt+4gYzPF6EgY8VpnLlrm
-         IRkwgEwLTTt+sRyTtWzO/7KjuFvUMSMSv6A4AxiKIB63b9tM8TFvrrBS/nYP+FyT92/B
-         dIhuTtz7I4sZroRNoAiZYAW7yqUxZGqT+HAfZYUO5AKp8LVNxynmwRuLRNRs7mYgxWVq
-         R+BWLlv42w8gkXTocDk6jkes8DL+g6NU+1qp/DQiGKyCRVrpTaEXY2cMH2CnFpG5BlTl
-         grBttZ6uG8bNLqJT4wJcucxi2sOv9L6tu3whdpYNtMmDXO3zZsEbJluLXYTPuLAC+hFa
-         Qwpg==
-X-Forwarded-Encrypted: i=1; AL+hErFZUHyeQXfOLZT02a+ArcIKWwWEiducpkBSmIRHhPYxlT4p0w0YLjyLYq04Z+Ffusdt8xDhtSU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HGBM0MjcmDDDZjLzwtpM0MhZi2b47H7Ijrd2xCvYsIHPNSkgf
-	UYv3q/Dj48+LKR8Ybf+2GnHtveEsT4YEC4TzbJIzneh1UFCIuV8t6oFMeNTJwh21tzu4RMVwwwA
-	eel6ghcBlpKGZR649KSEYUHA2DzG4FymO7g==
-X-Gm-Gg: AYBFou1f1jvqFk1zdMzE4XIT0FjIz+2kxZFr04JDCtfU2KfdQl1hGW1zFxSuG5utZ2E
-	kYAHJ5pmNX4OsOGGXVHZmsbk4BJ3njuljI11W+Loc0vEwkRD4RUxpYc330vZt+Mqc6qO2a+N8c2
-	NtvUFfV7bhlpaEgIOaCjpIqjHH6XKQZfp1MT6YGaE7mOXY09NQbh5cxIrLsZH9LTJMfGh+eFIZw
-	mQ+xAHr9S71uv7im5zW38BRXK5MjM2E+lo+aZY7RWU+wADSeTGQAxFAgKcKc4m0aaNGhxTwUyLx
-	gowtnwTTy1AD2t1Kl33/R9vysNLnRgp5WW7D5p5nGhN+PeMX4S7ZfCZLW1CPUdR7V2sinzk3Sn6
-	jAfmlaJB605gFC/edw/NN6seIlyJk37L9phjQ
-X-Received: by 2002:a05:6102:c86:b0:7cc:2daa:90ee with SMTP id
- ada2fe7eead31-7d64d74eefemr361865137.15.1794540100262; Thu, 12 Nov 2026
- 19:21:40 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 12 Nov 2026 19:21:39 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WfPnFo3G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34EC11F000C4;
+	Fri, 13 Nov 2026 03:22:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794540122;
+	bh=UHNyDIHUYCDCBtW7z+s/DC7oLTYyUMWyM/DD63A4vwo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WfPnFo3GubYMS+DevKA4Sp/qAhKTj4xJw5e2+db5Zy7A6lEVFQaezRTYOtkFw4ynf
+	 470+SfxKizhRyZpQNVXcJm1atdrgC7J41e+wmZx44MVoP4UrJmboX6dn6gx1EXa+fN
+	 oztlJysmX1QxFYm+i1TZohCZQbAV27lbIHKn5KWGI9RycNTpbc43qxo5UOuiWXCVOH
+	 sW32mZUx7yXkRKqbVRB/qzYNxKA2ifVtbIRXNF1+QVV4ZrK/a06r3KzlmGArVkGNLc
+	 7ehcWT7BPvNfbdcWpQl1z/CvjW3PMz79MO6O9iK8vGhejfSm56c/5tq1SArFdiFvTx
+	 MHcpeZqUEtOsQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Melissa Wen <mwen@igalia.com>,
+	"Pierre-Loup A. Griffais" <pgriffais@valvesoftware.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP HDR
+Date: Thu, 12 Nov 2026 22:22:00 -0500
+Message-ID: <20261113032138.981180-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200537-failed-6.18-81f923b06580@kernel.org>
+References: <20261109200537-failed-6.18-81f923b06580@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,116 +61,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: enderaoelyther@gmail.com
-In-Reply-To: <27d2c98928859d47b2c3cf76870d868882685809.camel@sipsolutions.net>
-References: <20261028141751.6728-1-enderaoelyther@gmail.com>
-		 <20261028141751.6728-3-enderaoelyther@gmail.com>		 (sfid-20261028_151822_083722_A5EF7A18)
- <76bc126fb977cac0f0a124fc80eae9fdb803264d.camel@sipsolutions.net>
-	 <CACHPgzw-JeorCAX-b5jjd6d5=L0oYpPdGtstUSaz5sPKZE2HsQ@mail.gmail.com>
-	 (sfid-20261111_204546_211086_1FE84B1B) <27d2c98928859d47b2c3cf76870d868882685809.camel@sipsolutions.net>
-Date: Thu, 12 Nov 2026 19:21:39 -0800
-X-Gm-Features: AclHuK80WoaUMO0xvfMrBMj1IE6hAop1teGb0zcH15s2lA-M5re3Tk-IE5T-ugg
-Message-ID: <CACHPgzyGx7trDo1+j_HKCNaQn8K9ZE_nxDX5ZxDfx=U3kxTAdg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] wifi: mac80211_hwsim: serialize radio removal with
- frame commands
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: "John W. Linville" <linville@tuxdriver.com>, Javier Lopez <jlopex@gmail.com>, 
-	Jukka Rissanen <jukka.rissanen@linux.intel.com>, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> hwsim_tx_info_frame_received_nl() just doesn't do anything that sleeps,
-> so it could just use RCU protection directly?
+From: Melissa Wen <mwen@igalia.com>
 
-Agreed, and the same applies to the inner transmitter lookup (txdata) in
-hwsim_cloned_frame_received_nl(). Extending rcu_read_lock() across the
-full use works there, since teardown unpublishes the radio before
-ieee80211_unregister_hw() and wiphy_unregister() unconditionally runs
-synchronize_rcu() before ieee80211_free_hw().
+[ Upstream commit 81f923b065801c7d30042bcda31ccb9449b4f58b ]
 
-> hwsim_cloned_frame_received_nl() uses it twice - the inner use is not an
-> issue as above, and the outer one is just acquiring the mutex for
-> synchronization with ->started, but given that mac80211 will sync RCU in
-> stop that's perhaps just not needed at all? Or maybe hwsim just needs to
-> synchronize_net() on stop.
+Commit c2791297013e ("drm/amd/display: Add color bit info to freesync
+infoframe") created the app_tf interface for FreeSync HDR and commit
+c21a764a98cb ("drm/amd/display: Send PQ bit in AMD VSIF") used it to set
+PB9 bit 5 (PQ EOTF) in v2/v3 AMD Freesync infopacket. However, Linux
+never made use of this interface: DM ignores what userspace sets
+regarding HDR and always passes TRANSFER_FUNC_UNKNOWN as app_tf, so the
+PQ bit is never set in the infopacket received by the eDP panel.
 
-The existing mac80211 grace period is too early to replace the mutex
-during an ordinary stop. It runs in ieee80211_do_stop() before
-drv_stop() invokes mac80211_hwsim_stop(). Since the hwsim radio remains
-published, a new reader can start after that grace period, observe
-->started as true, and then be delayed until after the driver has
-stopped. That is the window the current data->mutex closes.
+Check the EOTF in the HDR static metadata and set the PQ bit in Freesync
+infopacket for DP accordingly. This fixes gray-washed HDR on KDE/GNOME
+on Framework 13 Pro AI 9 HX 370 (DCN 3.5) and may fix similar issues on
+other VRR-capable panels that advertise Replay in its AMD VSDB.
 
-Setting ->started to false and then calling synchronize_net() in
-mac80211_hwsim_stop() could replace that mutex. That would be a
-different synchronization protocol, with the grace-period cost moved to
-every radio stop instead of keeping the existing per-radio exclusion.
+It doesn't affect color/EOTF bits on infopackets for SDR and native
+HDMI.
 
-> hwsim_pmsr_report_nl() uses the mutex for pmsr_request access/swap and
-> GFP_KERNEL, but both of those could change? might need some more work
-> for abort though, not sure.
+Reported-by: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3200
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit b318f3e13dd73781404670d3b3c6cf2177e0119c)
+Cc: stable@vger.kernel.org
+[ sashal: Inlined dm_dp_in_hdr_mode() checks into the existing static update_freesync_state_on_stream() function. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-The abort ordering is the difficult part. cfg80211 moves the request out
-of its list, calls the driver's abort callback, and frees the request as
-soon as that callback returns. The existing data->mutex therefore does
-more than protect the pointer swap: it prevents abort from returning
-while the report path is still using the request.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a77b55ff9321f..9a360fab13978 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9440,6 +9440,8 @@ static void remove_stream(struct amdgpu_device *adev,
+ 	acrtc->enabled = false;
+ }
+ 
++#define DP_HDR_SDP_EOTF_IDX 2
++
+ static void update_freesync_state_on_stream(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dm_crtc_state *new_crtc_state,
+@@ -9455,6 +9457,8 @@ static void update_freesync_state_on_stream(
+ 	bool pack_sdp_v1_3 = false;
+ 	struct amdgpu_dm_connector *aconn;
+ 	enum vrr_packet_type packet_type = PACKET_TYPE_VRR;
++	enum color_transfer_func app_tf;
++	const struct dc_info_packet *hdr;
+ 
+ 	if (!new_stream)
+ 		return;
+@@ -9506,12 +9510,18 @@ static void update_freesync_state_on_stream(
+ 					&new_stream->adaptive_sync_infopacket);
+ 	}
+ 
++	hdr = &new_stream->hdr_static_metadata;
++	app_tf = dc_is_dp_signal(new_stream->signal) && hdr->valid &&
++		 hdr->sb[DP_HDR_SDP_EOTF_IDX] == HDMI_EOTF_SMPTE_ST2084 ?
++		 TRANSFER_FUNC_PQ2084 :
++		 TRANSFER_FUNC_UNKNOWN;
++
+ 	mod_freesync_build_vrr_infopacket(
+ 		dm->freesync_module,
+ 		new_stream,
+ 		&vrr_params,
+ 		packet_type,
+-		TRANSFER_FUNC_UNKNOWN,
++		app_tf,
+ 		&vrr_infopacket,
+ 		pack_sdp_v1_3);
+ 
+-- 
+2.53.0
 
-Changing the allocation flags or atomically clearing pmsr_request would
-not provide that exclusion. Abort could observe the cleared pointer,
-return, and let cfg80211 free the request while the report path was
-still using its local copy. Avoiding the mutex would require a new
-request-ownership protocol that abort also waits for.
-
-So I agree that direct RCU can cover the two non-sleeping lookup uses,
-and it could cover the outer cloned-frame use with the stop change
-above. It does not cover the PMSR path without redesigning the request
-lifetime.
-
-A hybrid design is possible in principle: use RCU for the frame and
-TX-status paths and retain a per-radio pin for PMSR. The reference
-version instead keeps one lookup-lifetime rule and leaves both the
-existing stop synchronization and PMSR ownership protocol unchanged.
-Its trade-off is the short hwsim_radio_lock critical section and the
-reference operations on every lookup.
-
-I still think the single reference-based rule is the smaller and less
-fragile change overall, but I agree the RCU approach avoids that
-lookup-side cost on the packet paths.
-
-Thanks,
-Zhao
-
-On Wed, 11 Nov 2026 21:34:12 +0100, Johannes Berg
-<johannes@sipsolutions.net> wrote:
-> On Wed, 2026-11-11 at 14:45 -0500, enderaoelyther@gmail.com wrote:
-> >
-> >
-> > The underlying problem is per-radio object lifetime, not command
-> > serialization. get_hwsim_data_ref_from_addr() returns a radio pointer
-> > after rhashtable_lookup_fast() has already ended its RCU read-side
-> > protection. A concurrent deletion can then unpublish and free that radio
-> > while a frame, TX-status, or PMSR command is still using the pointer.
-> >
-> > I reworked the fix around a per-radio reference count.
->
-> I'm not convinced that's necessary.
->
-> There are three users of get_hwsim_data_ref_from_addr:
->
-> hwsim_tx_info_frame_received_nl() just doesn't do anything that sleeps,
-> so it could just use RCU protection directly?
->
-> hwsim_cloned_frame_received_nl() uses it twice - the inner use is not an
-> issue as above, and the outer one is just acquiring the mutex for
-> synchronization with ->started, but given that mac80211 will sync RCU in
-> stop that's perhaps just not needed at all? Or maybe hwsim just needs to
-> synchronize_net() on stop.
->
-> hwsim_pmsr_report_nl() uses the mutex for pmsr_request access/swap and
-> GFP_KERNEL, but both of those could change? might need some more work
-> for abort though, not sure.
->
-> Dunno if that's better overall? Maybe, maybe not.
->
-> johannes
