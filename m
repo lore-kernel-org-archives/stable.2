@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594230;
-	b=bVKRnjpHjsVH775oHLayDGfBBD91ITDWsEUs+uigTr4KMRI4GPAsE0J9iHKZkk/NMfWI
-	 DyKjbKLARmchyTuYaO3Ef+tuOWZ3vHLwypjGB5w8w2SE4SVa1Cd90zqG3tNRJs9gBZIqR
-	 NQ1fZRrHQj5PVJ/TPgZDlbwSHHjdtIo+OhtWMGXrTpDpRsvmyY4FUYGAYXPs9N0+xK7p7
-	 1CVfY9RhGNfkbfUErGfG7Dhas4kryMXwfFdyVNYGWrW4yMEgF3+wRwY/o4ShnczF9tUBT
-	 6aqAVh4lSqoNLTIN1VQUjqbLp/vxc3PVnzz2rJrt6cLvfRboJptnZbrOlA9UpDu6DGQ==
+	t=1794594373;
+	b=iE4JleICuc00131k7yqzDrr4eB3Bgvh1t/K7voWhh4qrmqup8DopZm2Ut2UZLnb9qE9g
+	 42Q3UeWXR23Z08GlCbG5nviuJO9Guy9JHMHPCzlge+CYq299cVFaL9xfb05hHw15cl7G0
+	 5yJcU/0PPBtdYdZY7+/lzLFuQGF1LCCFBDxDsLM+xDq7fBREUA5rL5wNplGzlkcS9tTqT
+	 J947Tp7BWsksOm8Hw/HuczPSyqBixlOsSTWV3zchUNazvQ877mwQzRhIX8vAZxRqm2h0p
+	 S00l2nY+gJi3Qrd109rsnogxFsHpQkiSi6Nl7szX+pjOhc80mG5Kjm1rH/iLYiknRKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594230;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gEmZYkKRuGStdrZ58CF2CeEnhOHYJIve1QUs7ePE6Q8=;
-	b=hETshGCp6FSR7MZ4kq1T1tZZe4ia/H+FtW+sr0Jzxc55ZlWTVE4kAouDsnRjEgcjy8xK
-	 i802OjnV26oye8jA5/rdw3XQykJULsQHiLSMNaJDhmWM0ifP/gqjGJ0GhJ2joHna4nfUk
-	 em7VJ4EU5JCoodWSo/kTMkH5qw6ziUKy5i5hvRn9KGyOaBjUvb/N4z+bFenAIwNblx/Z+
-	 q6rsOJzjo+8XqKkagmd4fEHzsL9ndffZlt5W4eMJqv4KPpCZl7usJt7WAEsBQxvvNBJe+
-	 MFYrGx9pgiw5bOhHL2BVs52YjWPIzjEKBr7yMpjUYKGpyZkd15BfFASFwtYQ32XVMCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594373;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yCt22GINH7VVMqpK3DG4ULuMRP/y9K0Os3XzSbMXiWU=;
+	b=G4DeyoCc//T5IUfqJ4Fz3VpShW8yJp4ErTbioj9mblUV/NUcWFcKPhLePJxEMsCt/d0d
+	 /eCHBT9MNgEVr0ZZh7/2ex1q6ioV7uf8cHLNu8H85xXMTvEzjciKJsD0+rrqZAm2tozPQ
+	 7k8O89f7XBu0lls0HdPyEqlADvueqt3EXfFPO2l4fEjsWwfvfGM8ZIej5FBVajP5o8Dn1
+	 V3KkTwgsaRsh21hYZMfN6riTvmUq+JaTPJfUhShke0DpPtE+pRC2vhv8VWf+c9hhN7J0U
+	 wL2MkJ5TzLzhPpiXkpsuBAP+0Zul0zU2CXZlqjwf7LR38pyAArRdWWxZXea4Zx8Wv1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Mt2h6zVq;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A4B3606A32D;
-	Fri, 13 Nov 2026 18:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A4B3606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xhU9zOdq;
+	arc=none smtp.remote-ip=91.218.175.111
+Received: from mta0.migadu.com (out-111.mta0.migadu.com [91.218.175.111])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0854F606A332
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 18:26:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0854F606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Mt2h6zVq
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3313F143D;
-	Fri, 13 Nov 2026 10:23:46 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C34D83F673;
-	Fri, 13 Nov 2026 10:23:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794594229; bh=Uye60IuEv5YKw+O9A3I4dFufgEY3c8/N5h8UyJOLmU0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mt2h6zVqGLFJ09H6KRxU3dWwcBUHVZ0UIrb2oB+psHtGR8Fgywu9/53rH37KaPtt9
-	 OAIAwjxuiznfuOXIsODnqH8ROdqXBTWZ6/Y6KcsnL9CJ1wP6L8ITW4MzQcJq7vay23
-	 b35sNlOniksb+h0Ij0p81WdnxukdtVy5qeDGUlm0=
-Date: Fri, 13 Nov 2026 18:23:44 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Rui Qi <qirui.001@bytedance.com>
-Cc: will@kernel.org, mark.rutland@arm.com, ardb@kernel.org, song@kernel.org,
-	dylanbhatch@google.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: module: Use text-poke for late PLT/veneer
- emission
-Message-ID: <avdVsAOC_fpoDNDr@arm.com>
-References: <20261111073906.652400-1-qirui.001@bytedance.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xhU9zOdq
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=W3N0HjBs5elGdBPTt/W9l12M7ByILze1TCap73imTEw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794594369; v=1; x=1795199169;
+ b=xhU9zOdqaquKS9aWGoSfuEgiSX73erobQXALPB49juNilyIxJ8SBi29UhPfOULItnmHQ89PP
+ 6t1HEIE+VaIMJ1P4/calTNhQHHNJEcLh2vC2LCEa/6xejQHRI0OiPfigwUf+WavUVxUTSFbsuNg
+ jsA+r+9wjeWJi29f242x0IVA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id e3afecfd60183309;
+	Fri, 13 Nov 2026 18:26:08 +0000
+X-Mizu-Trace-ID: e3afecfd60183309
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org,
+	kprateek.nayak@amd.com,
+	juri.lelli@redhat.com,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	samuelcrossley@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kas@kernel.org,
+	riel@surriel.com,
+	Arnav Aghav <aghav@meta.com>
+Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to select_idle_capacity()"
+Date: Fri, 13 Nov 2026 10:26:00 -0800
+Message-ID: <20261113182601.569981-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.1
+In-Reply-To: <avdIycF_mZV8CHKb@gpd4>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,77 +81,156 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111073906.652400-1-qirui.001@bytedance.com>
+Content-Transfer-Encoding: 8bit
 
-Thanks Rui for respinning.
+On Fri, 13 Nov 2026 18:28:41 +0100 Andrea Righi <arighi@nvidia.com> wrote:
 
-On Wed, Nov 11, 2026 at 03:39:06PM +0800, Rui Qi wrote:
-> diff --git a/arch/arm64/include/asm/module.h b/arch/arm64/include/asm/module.h
-> index fb9b88eebeb1..4a1a47f8ba1a 100644
-> --- a/arch/arm64/include/asm/module.h
-> +++ b/arch/arm64/include/asm/module.h
-> @@ -6,6 +6,7 @@
->  #define __ASM_MODULE_H
->  
->  #include <asm-generic/module.h>
-> +#include <asm/text-patching.h>
->  
->  struct mod_plt_sec {
->  	int			plt_shndx;
-> @@ -29,6 +30,21 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
->  u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
->  				void *loc, u64 val);
->  
-> +/*
-> + * Write a relocation value to @place within a module.  While the module
-> + * is MODULE_STATE_UNFORMED the destination is writable and a direct store
-> + * is used; once the module is fully formed the region is read-only and
-> + * executable, so the write is routed through the text-poke API.
-> + */
-> +#define module_write_place(place, val, mod) do {			\
-> +	__typeof__(*place) __val = (val);				\
-> +									\
-> +	if (mod->state == MODULE_STATE_UNFORMED)			\
-> +		*(place) = __val;					\
-> +	else								\
-> +		aarch64_insn_copy(place, &(__val), sizeof(*place));	\
-> +} while (0)
+> Hi Usama,
+>
 
-A nit here, I'd move this macro to asm/text-patching.h since
-asm/module.h is pulled in by linux/module.h. Even better if you could
-make this a function (either static inline or out of line).
+Hello Andrea!
+ 
+> On Fri, Nov 13, 2026 at 07:31:57AM -0800, Usama Arif wrote:
+> > This reverts commit 61ea17a63719 ("sched/fair: Add SIS_UTIL support to
+> > select_idle_capacity()").
+> > 
+> > That commit applied the SIS_UTIL scan budget to select_idle_capacity().
+> > The early checks in select_idle_sibling() consider a few specific
+> > candidates: the target, previous and recently used CPUs. If none is
+> > selected, the asymmetric path calls select_idle_capacity() to search
+> > the allowed domain. With SIS_UTIL enabled, a zero scan budget makes it
+> > return -1 before that search. The caller then returns the selected
+> > target, even if an unexamined CPU in the domain is idle and fits the
+> > task.
+> 
+> Isn't this consistent with select_idle_cpu(), which also skips the scan
+> when the SIS_UTIL budget is zero? Missing an idle CPU is an intentional
+> tradeoff of that heuristic. Could you clarify why we should remove the
+> budget specifically from the asymmetric path?
+>
 
-> --- a/arch/arm64/kernel/module-plts.c
-> +++ b/arch/arm64/kernel/module-plts.c
-> @@ -76,11 +76,13 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
->  	int i = pltsec->plt_num_entries;
->  	int j = i - 1;
->  	u64 val = sym->st_value + rela->r_addend;
-> +	struct plt_entry entry;
->  
->  	if (is_forbidden_offset_for_adrp(&plt[i].adrp))
->  		i++;
->  
-> -	plt[i] = get_plt_entry(val, &plt[i]);
-> +	entry = get_plt_entry(val, &plt[i]);
-> +	module_write_place(&plt[i], entry, mod);
+It is consistent.
 
-Sashiko reported PLT exhaustion/overrun and ADRP corruption when
-relocations are reapplied after unloading and reloading a target module:
+Symmetric path also has this (I didnt check this before sending the patch).
+The service is running on Grace servers which report capacity differences
+and updating the kernel from 6.16 resulted in the problem I outlined below.
 
-https://sashiko.dev/#/patchset/20261111073906.652400-1-qirui.001@bytedance.com
+Maybe the symmetric path needs to be audited as well?
 
-These look like existing problems, only exposed now because we no longer
-get the ROX fault. I think they can be addressed in separate follow-up
-patches. This patch still fixes the fault on the first application.
+Or maybe this service should not have ever run with SIS_UTIL at all..
+(The only thing is that kernel upgrade caused a serious regression)
 
-However, could we include a bounds check before writing the PLT entry,
-maybe with a WARN_ON_ONCE? Once late writes use text-poke, retrying
-after slot exhaustion can overwrite memory beyond .plt.
+(Should have made this patch RFC :))
 
-Thanks.
+> > 
+> > The budget is derived from aggregate CFS utilization. High aggregate
+> > utilization can coexist with idle CPUs when a task wakes.
+> > 
+> > On a 72-CPU NVIDIA grace arm64 server, small reported capacity differences
+> > (1013-1024) within the single LLC activate asymmetric selection. Both
+> > the reference and affected kernels were observed with a zero scan
+> > hint. The reference kernel ignored it and still searched the domain.
+> > A latency-sensitive, wakeup-heavy production workload saw its reported
+> > minute p50 latencies average 129 ms on the reference kernel and 223 ms
+> > on the affected kernel.
+> 
+> Have you tried forcing the symmetric idle-selection path through
+> select_idle_cpu(), with SIS_UTIL both enabled and disabled?
+> 
 
--- 
-Catalin
+This cant be done from a running kernel, right? My understanding is
+that the cpu capacities come from firmware, so cant be changed at
+runtime to be constant across all CPUs in kernel?
+
+Changing kernel on a production service can be a bit of a process.
+
+> It'd be useful to see whether disabling SIS_UTIL produces the same
+> improvement there and whether symmetric idle selection performs better
+> overall on this system.
+> 
+> > 
+> > Disabling SIS_UTIL reduced the aggregate involuntary context switch
+> > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
+> > raised the rate to 73.7k/s. A five-minute disabled run also reduced
+> > kernel CPU time per request by 10.9%. The available minute p50 samples
+> > averaged 149 ms, compared with 241 ms before the trial.
+> > 
+> > These measurements come from disabling SIS_UTIL on the installed
+> > kernel. The feature toggle also disables the symmetric scan limit and
+> > shared scan-hint updates.
+> > 
+> > Restore the search of the allowed domain, retaining the capacity,
+> > uclamp and SMT selection rules and their early returns. Domains with
+> > no suitable idle CPU can again require a full scan, potentially increasing
+> > scan CPU cost.
+> 
+> Yeah, this is my main concern, full scans can become quite expensive on
+> large systems with lots of CPUs in the same LLC.
+> 
+
+Yeah I imagine this was the reason for the initial patch.
+
+The same workload on 6.16 kernel placed 69% of wakeups on an idle CPU,
+the affected kernel with the patch that this is reverting only placed 7%.
+
+Do you know how much CPU usage can be attributed to the scan on these
+large systems if you do full scans?
+
+> Thanks,
+> -Andrea
+> 
+> > 
+> > Reported-by: Arnav Aghav <aghav@meta.com>
+> > Fixes: 61ea17a63719 ("sched/fair: Add SIS_UTIL support to select_idle_capacity()")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> > ---
+> >  kernel/sched/fair.c | 19 -------------------
+> >  1 file changed, 19 deletions(-)
+> > 
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index d4cc0caee6265..def5cda2e6bad 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -9091,7 +9091,6 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
+> >  	int fits, best_fits = ASYM_IDLE_THREAD_MISFIT;
+> >  	int cpu, best_cpu = -1;
+> >  	struct cpumask *cpus;
+> > -	int nr = INT_MAX;
+> >  
+> >  	cpus = this_cpu_cpumask_var_ptr(select_rq_mask);
+> >  	cpumask_and(cpus, sched_domain_span(sd), p->cpus_ptr);
+> > @@ -9100,28 +9099,10 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
+> >  	util_min = uclamp_eff_value(p, UCLAMP_MIN);
+> >  	util_max = uclamp_eff_value(p, UCLAMP_MAX);
+> >  
+> > -	if (sched_feat(SIS_UTIL) && sd->shared) {
+> > -		/*
+> > -		 * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
+> > -		 * the scan when not preferring an idle core.
+> > -		 */
+> > -		nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
+> > -		/* overloaded domain is unlikely to have idle cpu/core */
+> > -		if (nr == 1)
+> > -			return -1;
+> > -	}
+> > -
+> >  	for_each_cpu_wrap(cpu, cpus, target) {
+> >  		bool preferred_core = !has_idle_core || is_core_idle(cpu);
+> >  		unsigned long cpu_cap = capacity_of(cpu);
+> >  
+> > -		/*
+> > -		 * Stop when the nr_idle_scan is exhausted (mirrors
+> > -		 * select_idle_cpu() logic).
+> > -		 */
+> > -		if (!has_idle_core && --nr <= 0)
+> > -			return best_cpu;
+> > -
+> >  		if (!choose_idle_cpu(cpu, p))
+> >  			continue;
+> >  
+> > -- 
+> > 2.53.1-Meta
+> > 
+> > 
+> 
