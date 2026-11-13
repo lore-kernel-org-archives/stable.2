@@ -1,67 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598478;
-	b=Jssd0eJOEFL/VYfjG/gWJMkqXW1r45HDXXcn2XMEf6EH8d/1PBCLQeMpEX/X72y2ceUw
-	 3xedgKDDX+T0NksqeFF279LAgz/uAUJ2r7sW/OW0ekjRlUaDLopzERh6mHxVnXRGiTjLy
-	 l3Zy4DM7g58Hr8YpcA9kEOp/oreh9Gbe7+IVT1xSDg26K9pkH4L/D+tF9CJ3uegvxkAVt
-	 qAou0NoaTBC9J/J/prcJCdIdqAvvLioNta5GBGAs5Umzp+YjSHiOrn8Lenh+B4dAVQA7d
-	 l4IoQK5X6ghv84uSrk8kA99D5906yxGO+aFVSJid/7WO3JrkRWVeK9ukWNshR9Yu5yg==
+	t=1794598483;
+	b=fUj4RykHxoeUSG8u2SvxR+Enmlbce69ca9kQsWlryv7anFzK2ssrfD6/mbpoE8mxSk5X
+	 XBpyQ51tYTROAwiCvrfnePb48fCxyS5PWgGUrg5jjHV5LNjld4FLxa57iqw6CKAhoIqiZ
+	 tlKCo9a9P8DFwmTq1a2vkQq7+cVZNxbMS1th3LDXjtzytWHLT59EQFXCtntsppsC6eBDm
+	 Fbk9zIKkAyP4M79uoB3jqeQKv8UTYAKkFNu1IB45oZC8v2M5Op0YoVikT1Usk1JpMT6Xj
+	 Ecl9HTUWNuMks07ef4zfZo7RjRYpdc+z3ZzEF06gDJsJVbXIRN9/Qo7Z+wQizQ5XYpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598483;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vsymCTo6Nf/eQfky9bIot12Tdu25i9dgp5S/nqhgtaE=;
-	b=rYDhQof9pH9nFzgEARpW2YYLHeQRbrrRi/pS/MbsQepDJneEnSC1mJ7oLq00cR2uVg3r
-	 j2vbwXz+wJMoe8cNMA0KYwxUicNzkmw0WH/KCWpL+yygvyzpQTqD+V7FmJ5nNXAn2Sve/
-	 XByDJcTkfdlNLIGUNQxXFl/kUwUiU1t2Ce0Kmhlnv0SHb47dDtq4J1B9VkR5qWCx+JspU
-	 E/VqKSpAO6zabkSrnBlj3HJ9V+4LZ09EKsC40aoxC5HaVzFIiddUviMH4yJO+aAgLezzj
-	 hoxdEdcO/JQUmPFdPktxkP6QVe96ok+ceG69L61nZ3V4pCEogZ2H7DZEHBPXLX52HWA==
+	bh=3Tm6ky20NbdautqXgQTTifVFKqXqQLbVpH001XsB6AY=;
+	b=TWSAePHHO/18/4IrV8Qv23ApnwcWZr2Qv1y0hLroPh1IcbFaX2jTXarSMdbuSD6nUXRm
+	 yJcZGZpmWFQhDrfA1HIueGiQwwTQo60bg7jVwtJkVNjeOTUUiaFPa5zItrN2SH3GFm1NQ
+	 T0S5fCiBJUypnXeI4TL8diz82vxByq/scNUdHuy8zGb6LdCmamqcz4EuRVlhbW+ptpjQ5
+	 cxEVneto35meyxEgd9zxnDuQ6DCTmOOGH/fS0Efbwj8OfGY26Z8bXYn6SeVYk/XQ7PPTu
+	 DU2eIJABGZ64pyXCDmaGWeeRwJViuid8MQnLOzvCE7MoYyd80RPMPG3dwTiAaYyr8yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knjoXP6G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+11AyZu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C24606A327
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:34:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462B1606A330
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:34:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knjoXP6G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D541F000C4;
-	Fri, 13 Nov 2026 19:34:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+11AyZu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2821F000C4;
+	Fri, 13 Nov 2026 19:34:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794598478;
-	bh=vsymCTo6Nf/eQfky9bIot12Tdu25i9dgp5S/nqhgtaE=;
+	s=k20260515; t=1794598482;
+	bh=3Tm6ky20NbdautqXgQTTifVFKqXqQLbVpH001XsB6AY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=knjoXP6Gb2JETkgvtyMhsRmnMHo85w+QNOIw+kgBOTBBeqM3u9cbQDeA7+QkPMUew
-	 V73hu3t19B/YiOegYCVVt1SsCRHgLMFfaYCCTAtjSpK1xluU9vGyalK9oxxOEVVIkF
-	 2janhX9NBKl33X0IygylrHe0ZKaAv2rbtF61zqN3EZ+qz3iRV4CxMN6RPrWtxiecwa
-	 TMSUVwCP0uJqk+YqfcunWTKCubhJOYqBaPMUEchJ7r5ZkpCVCpKedCiNrhLz95o9c7
-	 p3OeewidTLaabjIAtIcWJfvtn1mmJpC4fFmKZXsGLRvu+LGSEizG1tH33zD0nnI9xn
-	 V3hWTMsNR2lUw==
+	b=S+11AyZuxr4IGQv+skL5rIFdyw59xuotwocrHEMrAWgI63EpSg4gA1bkWljrs+f1K
+	 iCFPNWX6cd03vc862Y2y7qCmI6dimLgUSfcLt2fVzcCDdCUzQ/ToO0D5KuN9O7O1jC
+	 8vUig8jIk5lia7AOx07BWTn/5a7+9ogtJYrykzwzhEm36OzEI42jgCiqHzmF1QVbIu
+	 gAyyz4pNzuchm/XIRjJetrcXcVLCTlJgrheXrDGgItxLqbWYiVQl0DBmOv/7P3lutf
+	 /pjTBq7DXlesZrN9cR84R1dH9fDByfQei+EAM9yUVdoxNQ7EeZ1vAaxvuLX+/LPotB
+	 Vm0bfWH7nlgJg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Down <chris@chrisdown.name>,
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Kairui Song <kasong@tencent.com>,
-	Hugh Dickins <hughd@google.com>,
-	Chris Li <chrisl@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Ying Huang <huang.ying.caritas@gmail.com>,
-	Kelley Nielsen <kelleynnn@gmail.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm: make swapoff interruptible when unusing mms/shmem
-Date: Fri, 13 Nov 2026 14:34:36 -0500
-Message-ID: <20261113192843.2333244-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] mm: call wp_page_copy() under the VMA lock
+Date: Fri, 13 Nov 2026 14:34:40 -0500
+Message-ID: <20261113192843.2425959-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202656-failed-5.10-740128dd1a3f@kernel.org>
-References: <20261109202656-failed-5.10-740128dd1a3f@kernel.org>
+In-Reply-To: <20261109201352-failed-6.6-8db6921cc07b@kernel.org>
+References: <20261109201352-failed-6.6-8db6921cc07b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,115 +62,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Down <chris@chrisdown.name>
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-[ Upstream commit 740128dd1a3f2bd81a80314d079b6b03c39ba3af ]
+[ Upstream commit 164b06f238b986317131e6b61b2f22aabcbc2cc0 ]
 
-try_to_unuse() only checks for a pending signal between mms, and
-shmem_unuse() doesn't check at all.  That means that once swapoff gets to
-a process or a shmem file with a lot swapped out, nothing can interrupt it
-until every last page of it has been read back in.
+It is usually safe to call wp_page_copy() under the VMA lock.  The only
+unsafe situation is when no anon_vma has been allocated for this VMA, and
+we have to look at adjacent VMAs to determine if their anon_vma can be
+shared.  Since this happens only for the first COW of a page in this VMA,
+the majority of calls to wp_page_copy() do not need to fall back to the
+mmap_sem.
 
-Just as one example of where this can concretely show up, freezing tasks
-for suspend or hibernation has to wait for swapoff to notice the freezer's
-fake signal, and gives up after freeze_timeout_msecs (20 seconds by
-default).
+Add vmf_anon_prepare() as an alternative to anon_vma_prepare() which will
+return RETRY if we currently hold the VMA lock and need to allocate an
+anon_vma.  This lets us drop the check in do_wp_page().
 
-Here's a facetious example where one swaps out 2GiB of one process to a
-swap file on ext4, starts swapoff, and half a second later tries to freeze
-with pm_test=freezer.  Writing to /sys/power/state then fails with EBUSY
-and this in dmesg:
-
-    Freezing user space processes failed after 20.003 seconds (1 tasks refusing to freeze, wq_busy=0):
-    task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:2955   task_flags:0x400100 flags:0x00000419
-    Call trace:
-     [...]
-     io_schedule+0x44/0x70
-     folio_wait_bit_common+0x1ec/0x3d0
-     __folio_lock+0x24/0x40
-     unuse_pte_range+0x2d0/0x348
-     unuse_vma+0x158/0x248
-     unuse_mm+0xfc/0x150
-     try_to_unuse+0x104/0x3f8
-     __do_sys_swapoff+0x220/0x5d8
-     [...]
-
-The same goes for anything else that wants swapoff to stop, like an admin
-hitting ^C in a panic, of course.
-
-Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-try_to_unuse() was driven by find_next_to_unuse() which checks for a
-signal before every entry, so let's restore that behaviour.
-
-Just as an example of the improvements, here's how long freezing takes
-in the same test while swapoff is happening on my computer:
-
-                      before                  after
-    400MiB anon       8.925s                  0.028s
-    400MiB shmem      1.639s                  0.003s
-    2GiB anon         failed after 20.003s    0.011s
-
-Link: https://lore.kernel.org/at9kJwdGkHPsWwgG@chrisdown.name
-Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-Signed-off-by: Chris Down <chris@chrisdown.name>
+Link: https://lkml.kernel.org/r/20231006195318.4087158-3-willy@infradead.org
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Kairui Song <kasong@tencent.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Youngjun Park <youngjun.park@lge.com>
-Cc: Ying Huang <huang.ying.caritas@gmail.com>
-Cc: Kelley Nielsen <kelleynnn@gmail.com>
-Cc: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: Adapted folio-batch context to page vectors while preserving frontswap accounting and the shared retval return path. ]
+Stable-dep-of: 8db6921cc07b ("mm/memory: reject remote COW faults on PFN mappings")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/shmem.c    | 4 ++++
- mm/swapfile.c | 4 +++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ mm/memory.c | 39 ++++++++++++++++++++++++++-------------
+ 1 file changed, 26 insertions(+), 13 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 6f2e267aa092f..8858db132090c 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1305,6 +1305,10 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type,
- 			}
+diff --git a/mm/memory.c b/mm/memory.c
+index 853400f26159b..2ad125baa9504 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -3050,6 +3050,21 @@ static inline void wp_page_reuse(struct vm_fault *vmf)
+ 	count_vm_event(PGREUSE);
+ }
+ 
++static vm_fault_t vmf_anon_prepare(struct vm_fault *vmf)
++{
++	struct vm_area_struct *vma = vmf->vma;
++
++	if (likely(vma->anon_vma))
++		return 0;
++	if (vmf->flags & FAULT_FLAG_VMA_LOCK) {
++		vma_end_read(vma);
++		return VM_FAULT_RETRY;
++	}
++	if (__anon_vma_prepare(vma))
++		return VM_FAULT_OOM;
++	return 0;
++}
++
+ /*
+  * Handle the case of a page which we actually need to copy to a new page,
+  * either due to COW or unsharing.
+@@ -3077,27 +3092,29 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 	pte_t entry;
+ 	int page_copied = 0;
+ 	struct mmu_notifier_range range;
+-	int ret;
++	vm_fault_t ret;
+ 
+ 	delayacct_wpcopy_start();
+ 
+ 	if (vmf->page)
+ 		old_folio = page_folio(vmf->page);
+-	if (unlikely(anon_vma_prepare(vma)))
+-		goto oom;
++	ret = vmf_anon_prepare(vmf);
++	if (unlikely(ret))
++		goto out;
+ 
+ 	if (is_zero_pfn(pte_pfn(vmf->orig_pte))) {
+ 		new_folio = vma_alloc_zeroed_movable_folio(vma, vmf->address);
+ 		if (!new_folio)
+ 			goto oom;
+ 	} else {
++		int err;
+ 		new_folio = vma_alloc_folio(GFP_HIGHUSER_MOVABLE, 0, vma,
+ 				vmf->address, false);
+ 		if (!new_folio)
+ 			goto oom;
+ 
+-		ret = __wp_page_copy_user(&new_folio->page, vmf->page, vmf);
+-		if (ret) {
++		err = __wp_page_copy_user(&new_folio->page, vmf->page, vmf);
++		if (err) {
+ 			/*
+ 			 * COW failed, if the fault was solved by other,
+ 			 * it's fine. If not, userspace would re-fault on
+@@ -3110,7 +3127,7 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 				folio_put(old_folio);
+ 
+ 			delayacct_wpcopy_end();
+-			return ret == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
++			return err == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
  		}
- 
-+		if (signal_pending(current)) {
-+			ret = -ERESTARTSYS;
-+			break;
-+		}
- 		start = indices[pvec.nr - 1];
- 	} while (true);
- 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 9c32c0055cbb1..79b3f0d034a42 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -2048,6 +2048,8 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
- 	pmd = pmd_offset(pud, addr);
- 	do {
- 		cond_resched();
-+		if (signal_pending(current))
-+			return -ERESTARTSYS;
- 		next = pmd_addr_end(addr, end);
- 		if (pmd_none_or_trans_huge_or_clear_bad(pmd))
- 			continue;
-@@ -2284,7 +2286,7 @@ int try_to_unuse(unsigned int type, bool frontswap,
- 	if (READ_ONCE(si->inuse_pages)) {
- 		if (!signal_pending(current))
- 			goto retry;
--		retval = -EINTR;
-+		retval = -ERESTARTSYS;
+ 		kmsan_copy_page_meta(&new_folio->page, vmf->page);
  	}
- out:
- 	return (retval == FRONTSWAP_PAGES_UNUSED) ? 0 : retval;
+@@ -3220,11 +3237,13 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ oom_free_new:
+ 	folio_put(new_folio);
+ oom:
++	ret = VM_FAULT_OOM;
++out:
+ 	if (old_folio)
+ 		folio_put(old_folio);
+ 
+ 	delayacct_wpcopy_end();
+-	return VM_FAULT_OOM;
++	return ret;
+ }
+ 
+ /**
+@@ -3449,12 +3468,6 @@ static vm_fault_t do_wp_page(struct vm_fault *vmf)
+ 		return 0;
+ 	}
+ copy:
+-	if ((vmf->flags & FAULT_FLAG_VMA_LOCK) && !vma->anon_vma) {
+-		pte_unmap_unlock(vmf->pte, vmf->ptl);
+-		vma_end_read(vmf->vma);
+-		return VM_FAULT_RETRY;
+-	}
+-
+ 	/*
+ 	 * Ok, we need to copy. Oh, well..
+ 	 */
 -- 
 2.53.0
 
