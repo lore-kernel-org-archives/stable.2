@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794551414;
-	b=vZjpGYwiBPWQt9U8O4mD0xV6atBgEzW9VgZCjMWvA3H0UXJfx+IM31OIZF1oCav2mip4
-	 7vxlAm1Kv2y3kEg5vh/tsefJMSOHxDXTvvWKPB+8lkAkxm1XKmOL/lLJEA+SOiIf/Ksr5
-	 a1UzJ9Oferq4ZKcAFjWy5aj+XX0nEp/f4eXuDtuuaD9IuvrZCaoHptMmFtMlcLwr8PDzR
-	 OkDqtNcrAdY7pGV04y+IOd5CIdbp2zCUEHbMFYy+mcWR6L33+dKCxEhILm9gmzLVjyoph
-	 2hg7/H16YD0GE9NdpyOxlE/P9JkyZS9zUpm8bwON+3tZeJPQL2aXxhAcDgyBx0EP1PA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551414;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794551673;
+	b=mLGq3ouH7rpOAm6G93lSam67/3u2MusjkeD6uEiMAZCZ4+tJ4APEYV0sLJEWYBtJQk28
+	 S7f0UEybr72R+paP4QTcXZ47K6Efqbfn03bifyxGC7UFSLt+BrT5LuxOSomegSY+wnrxG
+	 KWwXqdt1ax0N95Q8s7uddddAanL03GUYZFcq4AXVWKqdZ8Zkwem72lLC6P2fzjuhlvcwO
+	 1/qE0l4XExbft/QlnTAMFpUXvLSPrV6jmjns/WL9pVHfh9qZqgu+yO+LURKU0XMjkBJ04
+	 TvVsxTZjgswXR7gakRJcqV+zSqSqlffrThNwCIx4j0lm1hnU+27ZB6jSxoegK/rcvLQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551673;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
-	b=K8a+0/jtjfLGNggoPj4rgeDKb5Sc8TdyTlgFDjIFolk3kFAh44LwgoA8b1QjSI0lQ+3e
-	 l1FuQ6v3n6xH0SzmoGeAcgjtlGiAWPOScVVRjonbUltaZYOVv9cao6Ur+wgs25fanVRg+
-	 FqUAphHk3SyzBGCxqA/WKP8Q+/V2P1LVlXNPfvD8rZ05/DcoCoIuJIzQrONnV3ywIVDiq
-	 xwGIiW4Ny778/WdzkGoXqpw6iB9aIGOCmUCx+SDdiGylNrIpTSVntsPdCCvw6DHcpu1Cz
-	 N9dheeJbiqFgf4WvTKOZ+sdMbppnA42DmKOtz64LNjTW+cOvSI8vuErwmzJHCwehpWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=CISkgUyd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.178
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YofMid7RpzpBeuOJEqJTlM4NYFRjnqyXKJCv56rsYTc=;
+	b=MxrvbhHVJz/1/wW6EJOskWdDVKthlXUmpwLMYV9s0+HiyfcFbfBnHamP2CaK3tutyJEq
+	 R/dcc/egcH8aJg7TpWJk9R4YPbb6UchKtB5cj2cqabyd8vgBo5DbA0lIVr8BoCpPvaa6S
+	 iWSaXJ6vouX84DCwuU7FVQzAAfLWRx+HtUPAdjVlKWwgF+iYMuzFpoPbANQxNODUh6KZN
+	 K+WOxjObAJ9v+SeGWQ7+qgynaQAQIcPZgou4e/Zpn3IJgu1zveLL3JdglY+ye5h3c3+vG
+	 OGvKqgRQpUPbzvNfO6FUx0Naas97OIyVPJvqMlxuBwaH/cxCyEmWFISbfzHSHAl1XhQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EqRBi2bH;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A7F606A321
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 06:30:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0A7F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8220F606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 06:34:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8220F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=CISkgUyd
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3acd239776cso8214581fa.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 22:30:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794551412; cv=none;
-        d=google.com; s=arc-20260327;
-        b=A5c++g+MhvmDqeQJpRwsxk6ClMnTi+11686INiO/EkpAh+KHaSzP0EEwrEIqd4gqlx
-         ohdE6ORvHgDE3IzkK+VdbqIJBdA0x48kGGfiW+hL/LNqfJyV69rSwsNspQt7hmqPhQoh
-         vCgsJM8hgvzmMUaah/q8Zhgn2sdOsxEY7LRCwA/XpdDWjp11Pco6og6LLqxNretlqIYj
-         ZKWa1gV+wjYE0ZUhJPXJ1YPrrwCsGIxAkupx8U1O9NCfw5Y2uCBw0lx0VGspP1oPjgqN
-         103gRb9HoWtryJL7IlI3gYg/SeT4I4bkTOwF2Us8SggF2JbIJSHB6QODT++Lr9uuAfxe
-         HvRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
-        fh=YulxbTTzN/5OKFTMZEUOtFfu5ty2oPvQDB57Xnr/6LU=;
-        b=f9ggRn8/DylZB+Uiu4+ZYv0/hQRzHxI8L5ITgQPR3Zp2xWQTCSly0wQj5cIVI5p1Fm
-         BjgQ8IYxHNc4d2cFZWbzuft5AploI89RcxxkumWLpsbIHkLiyOmKjEEJq/ggcHK8dEea
-         EDIf0fE3oMIU7YcqFQ2Aw8AAxVjZrsry2NaTT+TMJ22M9C5c0n4oqb57Wikt9ex1j9Bj
-         pNF8ozZ36kMpav1CiOMvbqoPyt21UbgKB0VJ/NTX7w4rYx0SyVCzgCWOXvvE/kgQwps8
-         +o62ECYNDxDiId/UghyEOVlOA28GY6Ff14fevwKW5+2EE5NeoCKOi6o4FJ0WIc8nRvBG
-         GBFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EqRBi2bH
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35159e0092aso72864eec.2
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 22:34:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1794551412; x=1795156212; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
-        b=CISkgUydz5u2X77u78uCB1fRwoqbwfnH7RNmDCopYJjHDuyVTgOKMzYZCTkmUevY3g
-         3K5gvlQXqrBOx+waPEU20+MtV3M9UX4Ii1fRaHcNSwqHFX/t58xEIIo43Q5/5oat3alL
-         UFWy4s0BgaccGuhvrccPxulBiqx7gFYq9Yi+vvFNKVVZiNyeV/5V2Blol/QBCuMOJ6ir
-         ZeLzky/15YFIooTxDnd5PsFWe7BzdueFp5Fpw8AldUWc4Zoj5yPa8n8UVjdDd7H4zd7j
-         Z3qky2hKscrFwxxJYOYEm+t9zLlgaXK9fnKUk1rCo2A5XxFP0oHrA/TpJMTUZNjV3FSU
-         vVHg==
+        d=gmail.com; s=20260707; t=1794551673; x=1795156473; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YofMid7RpzpBeuOJEqJTlM4NYFRjnqyXKJCv56rsYTc=;
+        b=EqRBi2bHbscU7Sn1G8o5z/iPY/BRg6yYR3WwKQ2FCgy0LUd85YrE1JZbxjmrsAAclI
+         OYw9FBCaGCg5jTuxUwmLGc0gm+8XEFHEZOxtTrQ0/cJq+WS36HKewvRUdPy8CGOsXhrN
+         1nKMoDOxAd7Ahc9SMBHLMP5Q9rWEoKKIDhnulBxXc8ADBaK76a7gRt2IHBTyiI86+cGd
+         4j8DKaSqiwYBVaaoKVTUPg1ETEJeWCe3inTqp7YZhDp9qZNUezx/rCFyzDlB3aP0o6vS
+         dWxtC9qbF7oXPCwmSdMcMwItrlGcQvAW7i0JvEaG2Z/eKad7KyzcMNj+eNhdRRWtyZzC
+         9nwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551412; x=1795156212;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
-        b=VHpURvAMBv2SNBrX44r9lfdceoCH23s0g39f0tf4vtuTYF8NsZTeIIQgUCEYUXlqD5
-         HtpPpBvGZF2uBbL7S1YpouDpIW4FF43YRMsaV3KKgl7mZvI67A1rgQTy648BlhU077Kt
-         CUliKCU1Kj/2KhBnCDjqT8PY33wg8XYgs6WlapYZxtt3nGweetOJtAiM3Y7YWbDPVYvn
-         BEcJc1hYWqJ9N13t9C/Eb5WKZlxs+etIudGCqS3HO14WtriRfAkakmZwOqEunCm58G44
-         Rth+TtlewYJ7jj7hOlMVY927JlaAT9AXl9THNvMPz7cGm+V6rh/GPNIctnMpjM8+B5Ek
-         67rw==
-X-Forwarded-Encrypted: i=1; AL+hErGJPYZHlUOqHyx0RHTuOFlIIX6EcPJqNMlf4AWBMccBbeGQ9tnjOIJY84ThHq+YFoQ9Qh6wPHE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BdbATqH6cQd5/JwvHqOGq89CI6kRcIcSoRx1WFbbKJ62g/HAF
-	QIc+silWHiDPYphdT7EJzpisS/VdKSZmleImGbNPQKwISDRTQX6p+Lztq4qmmzsdoMnJJyT17IQ
-	9zFIkcgBoVf+9DylFiyfIzIx1KD4ar7OfFwzMHQ1LYA==
-X-Gm-Gg: AYBFou0bcTqRWc7lodVlsgz7BM5526vI74X+IRrAvSKcMyy+fnj7uwBK0usDjAbYVgL
-	bM21s+UvJaRsfWDq2VOxplskCFvd6GRkXKW0JYqid0VtzkehxhN8dGGA+FF/5BYmK70Q1p2M29P
-	xoq5ICfGA94wK8bUM+hTxW1eX9KuFP069up0pWjaCrPKgwWko5nzZ8Qwj1MyQW552mL6ybeW6kN
-	pSXQ7QQyyqkzdX2Gvih+jTDvdGjKPkEPEB4wE0+ekKzRFfjNgETOG1U7xFKrofHBsCxFf34tehI
-	ycXHfTynapCL6OanqNDJqLhYekMHG4B92bJrD49q4DyFWBi5/zT6Q5jsVUR84RJe807mIpMQXfB
-	I8Wras6tAhPG4/qFx9LZU5a4Tp/UNB989zcd2ngqv30VKjX6+wYn0oRu+Z3veXGSAarAjDabzUf
-	jRV2B0rIQ2t0ZNcYVjOmEOTGACShUhQGS1W4k1ya1/2H++gK8OmOGa3rD4
-X-Received: by 2002:a05:651c:a182:b0:3ad:f0bb:344c with SMTP id
- 38308e7fff4ca-3ae2b4cd92dmr4405361fa.10.1794551411872; Thu, 12 Nov 2026
- 22:30:11 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794551673; x=1795156473;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YofMid7RpzpBeuOJEqJTlM4NYFRjnqyXKJCv56rsYTc=;
+        b=wZwyRp1OnX6ZYMLLH6S1+kkUllH4f/rxLUgHvFLDh9bnMPQrnVG+8ArGpQ67caxNb6
+         nJWv1vQbt9xb+8ftdAJjicdyfBqbEla+Uuzhg/fz5Z6SoQxs5ad0BnzwW+wYJYEeCk2Q
+         6vYXMGlemLDd5obj4LVhEWiiYfp/nRVyeqIKpqxtIWkUyjbAs57iBnOmFJTlwjQThEGE
+         52ETj9dp8h5u07stkMMb9lTAljqPh9hR1MQay+FvOpTgEKFobpUANhqMppMQ/h6CYh3N
+         MyohMFnmiEGZCfaHC+CSajhN5IOF3RGKT3dPjsHO4IrIjMBSfMUP+K7G1zgZ4qWriHSm
+         GsnA==
+X-Forwarded-Encrypted: i=1; AL+hErGiTvICRxwhdil/Y4ei1EWTZjVUcs8lqPbfX0sHJ1xWbP+xi/4zl/6KTRP8CNZb4mRNXZmi7D8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FclFQlgDFujXl8GGJSSnYq16OUUwJQ+zOk+ciwrXKjOlj+3h1
+	rHLbpOCeOt0cSG3tjB/mKvpEI/ShOB4nRIcVHzTqrdbt4lGM3wnz2oYW
+X-Gm-Gg: AYBFou3bA0dKuD06w9opkuBNYrWFvA9Pgd7txmQfEt/rIna/9mLek5dPNBW1Zkhy92i
+	zke5K20jK+mJVaAYYci7ptzc32PcwgHLJwI4RlH1KBUzbqBKvF15rtFbLfMvtcuHKu2a9TF+L7I
+	Jp9UMytc1qJdKKhxhTmXi+yjkPiDKLQMPtkqmikJZ6XrR33TvB8iWrfVSy/G/DFWAOslGyEZ3Gr
+	L//WnZ7/Y/QlygsSwWnd4747AJKmkc+4SIAi9WdFV8t7Ggj7NEWjcsYK0uQFg7mUBRcCF/ffx63
+	1fDoaVzCr5MIbx9q4mWXCU7O+/8FO5dq+XCFOMETe/QTllDp+/N6GwVj29p8nMaJcrAQwTzrmi5
+	yOAKzFzG9Nw8ukBMkTk0AWtBPQ+cBgWOjMsYAlAHOG+4Ewg4w7cxltQ1DWq0thx/0iwwxCuaujt
+	oesKAd/YtZZmk1gaRjGYgLqe9xfR8Ie8GYzh4bsAC5hwZPXjtuP7sjNF6ua4piMh6/dG7Y6xOvE
+	BbaqFMvsiIYiDnjEdZECW67KqklJ119gPTemZUFsYaq81E8YkQ1ogLDnKsQEgTr7GIeBjFRMAHz
+	Ku6sQ6koTnNZpNC4DlYmst/pqRzi4FD1VfKco4fDhg==
+X-Received: by 2002:a05:693c:83cf:20b0:376:6ba5:6090 with SMTP id 5a478bee46e88-37964e03109mr2624201eec.1.1794551672482;
+        Thu, 12 Nov 2026 22:34:32 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379569b8389sm6745027eec.25.2026.11.12.22.34.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 22:34:32 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: b-liu@ti.com,
+	gregkh@linuxfoundation.org,
+	nkapron@google.com,
+	tony@atomide.com,
+	bigeasy@linutronix.de,
+	balbi@ti.com,
+	shimoda.yoshihiro@renesas.com,
+	robert.jarzmik@free.fr,
+	Chengyu Liu <lui2012qwq@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/4] usb: musb: cancel the delayed works after quiescing the interrupt
+Date: Fri, 13 Nov 2026 14:34:06 +0800
+Message-Id: <20261113063409.47485-2-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261113063409.47485-1-lui2012qwq@gmail.com>
+References: <20261113063409.47485-1-lui2012qwq@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,115 +105,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022025248.477832-1-jinyue.li@linux.alibaba.com>
-In-Reply-To: <20261022025248.477832-1-jinyue.li@linux.alibaba.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Fri, 13 Nov 2026 11:59:59 +0530
-X-Gm-Features: AclHuK8NiJX_tgbZANqAwiOjegb650NzlAml5enSgYn0fBkXeJUfWcHpMs2vGKY
-Message-ID: <CAAhSdy13okqRhJLCygqZajrwDTa64gJt=SnCcZPRQxRd5E=WKQ@mail.gmail.com>
-Subject: Re: [PATCH] RISC-V: KVM: Fix double free of the split page cache
-To: Li Jinyue <jinyue.li@linux.alibaba.com>
-Cc: kvm-riscv@lists.infradead.org, kvm@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	atish.patra@linux.dev, pjw@kernel.org, palmer@dabbelt.com, 
-	aou@eecs.berkeley.edu, alex@ghiti.fr, wang.yechao255@zte.com.cn, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 8:22=E2=80=AFAM Li Jinyue <jinyue.li@linux.alibaba.=
-com> wrote:
->
-> kvm_riscv_mmu_free_pgd() frees pgd_split_page_cache after dropping
-> mmu_lock. It is reached from kvm_arch_flush_shadow_all(), i.e. from the
-> MMU notifier ->release() callback, which can run concurrently for the
-> same VM from exit_mmap() and from mmu_notifier_unregister() in
-> kvm_destroy_vm(). The stage-2 teardown is serialized by mmu_lock and the
-> second caller finds kvm->arch.pgd already cleared, but both callers then
-> go on to free the cache, and kvm_mmu_free_memory_cache() does not
-> tolerate concurrent callers:
->
->   BUG: KASAN: double-free in kvfree+0x28/0x32
->   ...
->    kfree+0xc4/0x428
->    kvfree+0x28/0x32
->    kvm_mmu_free_memory_cache+0x178/0x246
->    kvm_riscv_mmu_free_pgd+0x20e/0x2b4
->    kvm_arch_flush_shadow_all+0x1a/0x24
->    kvm_mmu_notifier_release+0x36/0x7c
->    __mmu_notifier_release+0x182/0x66a
->    exit_mmap+0x7f8/0x8c4
->    mmput+0x7e/0x2fc
->    do_exit+0x57a/0x22b4
->   ...
->   Freed by task 15956 on cpu 3 at 8926.103524s:
->   ...
->    kvm_mmu_free_memory_cache+0x178/0x246
->    kvm_riscv_mmu_free_pgd+0x20e/0x2b4
->    kvm_arch_flush_shadow_all+0x1a/0x24
->    kvm_mmu_notifier_release+0x36/0x7c
->    mmu_notifier_unregister+0xf0/0x328
->    kvm_put_kvm+0x32a/0x7b8
->    kvm_vm_release+0x3a/0x50
->    __fput+0x330/0x974
->
-> The cache only feeds huge page splitting from VM ioctls, so it does not
-> need to be released together with the page table. Free it from
-> kvm_arch_destroy_vm() instead, which runs once after the MMU notifier
-> has been unregistered, as arm64 and x86 already do. The error path in
-> kvm_arch_init_vm() is not affected because the cache cannot have been
-> filled at that point.
->
-> Found by syzkaller.
->
-> Fixes: 6c7f75ef096a ("RISC-V: KVM: Add the split page cache for ioctl con=
-text")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Li Jinyue <jinyue.li@linux.alibaba.com>
+musb_remove() cancels finish_resume_work and deassert_reset_work up
+front, while the interrupt is still enabled and the root hub is still
+registered, and cancels irq_work only later.  All three works can be
+armed past their cancel:
 
-LGTM.
+- musb_handle_intr_resume() schedules finish_resume_work from
+  interrupt context (RESUME in OTG_STATE_A_SUSPEND, via
+  musb_stage0_irq());
+- musb_hub_control() schedules finish_resume_work (ClearPortFeature
+  SUSPEND -> musb_port_suspend()) and deassert_reset_work
+  (SetPortFeature RESET -> musb_port_reset()) from process context,
+  and the root hub is only torn down by musb_host_cleanup();
+- musb_stage0_irq() schedules irq_work, which can also re-arm itself
+  from the session recheck path (musb_pm_runtime_check_session()).
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+A work armed after its cancel runs musb_host_finish_resume(),
+musb_deassert_reset() or musb_irq_work() after musb_free() has
+released the struct.
 
-Queued this as fix for Linux-7.4-rcX
+Tear down the host and gadget sides first so no process-context
+producer remains, mask the interrupts and synchronize the IRQ line so
+no interrupt handler can be running, and only then cancel all three
+works.  This also restores the pre-f730f205cc51 ordering, which had
+the cancels behind the interrupt masking.
 
-Thanks,
-Anup
+Found by static analysis.
 
-> ---
->  arch/riscv/kvm/mmu.c | 2 --
->  arch/riscv/kvm/vm.c  | 2 ++
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-> index 3e955d808743..74dece22d172 100644
-> --- a/arch/riscv/kvm/mmu.c
-> +++ b/arch/riscv/kvm/mmu.c
-> @@ -798,8 +798,6 @@ void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
->
->         if (pgd)
->                 free_pages((unsigned long)pgd, get_order(kvm_riscv_gstage=
-_pgd_size));
-> -
-> -       kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
->  }
->
->  void kvm_riscv_mmu_update_hgatp(struct kvm_vcpu *vcpu)
-> diff --git a/arch/riscv/kvm/vm.c b/arch/riscv/kvm/vm.c
-> index a9f083feeb76..a7e1b518257a 100644
-> --- a/arch/riscv/kvm/vm.c
-> +++ b/arch/riscv/kvm/vm.c
-> @@ -54,6 +54,8 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
->         kvm_destroy_vcpus(kvm);
->
->         kvm_riscv_aia_destroy_vm(kvm);
-> +
-> +       kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
->  }
->
->  int kvm_vm_ioctl_irq_line(struct kvm *kvm, struct kvm_irq_level *irql,
->
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> --
-> 2.25.1
->
+Suggested-by: Neill Kapron <nkapron@google.com>
+Fixes: f730f205cc51 ("usb: musb: Split PM runtime between wrapper IP and musb core")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+---
+v1 -> v2:
+- also move the finish_resume_work and deassert_reset_work cancels
+  behind the interrupt quiesce, per Neill Kapron's review:
+  finish_resume_work is armed from interrupt context as well
+  (musb_handle_intr_resume()), and both it and deassert_reset_work
+  can additionally be re-armed via musb_hub_control() until
+  musb_host_cleanup() tears the host down.
+- correct the Fixes tag to f730f205cc51 (the 2016 PM-runtime split
+  moved the cancels ahead of the interrupt masking)
+v1: https://lore.kernel.org/linux-usb/20261112160448.41566-2-lui2012qwq@gmail.com/
+
+Build-tested on x86_64: musb_core.o compiles clean
+(USB_MUSB_HDRC).  No runtime reproducer: requires MUSB-based OTG
+hardware.  Fix written with AI assistance.
+
+ drivers/usb/musb/musb_core.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
+index 9b63b56edc45..25115217e0af 100644
+--- a/drivers/usb/musb/musb_core.c
++++ b/drivers/usb/musb/musb_core.c
+@@ -2630,9 +2630,6 @@ static void musb_remove(struct platform_device *pdev)
+ 	 */
+ 	musb_exit_debugfs(musb);
+ 
+-	cancel_delayed_work_sync(&musb->irq_work);
+-	cancel_delayed_work_sync(&musb->finish_resume_work);
+-	cancel_delayed_work_sync(&musb->deassert_reset_work);
+ 	pm_runtime_get_sync(musb->controller);
+ 	musb_host_cleanup(musb);
+ 	musb_gadget_cleanup(musb);
+@@ -2642,6 +2639,18 @@ static void musb_remove(struct platform_device *pdev)
+ 	musb_disable_interrupts(musb);
+ 	musb_writeb(musb->mregs, MUSB_DEVCTL, 0);
+ 	spin_unlock_irqrestore(&musb->lock, flags);
++
++	/*
++	 * musb_stage0_irq() arms irq_work (and finish_resume_work on
++	 * remote wakeup) from interrupt context, so the works can only be
++	 * cancelled for good once interrupts are masked and any in-flight
++	 * handler has completed.
++	 */
++	synchronize_irq(musb->nIrq);
++	cancel_delayed_work_sync(&musb->irq_work);
++	cancel_delayed_work_sync(&musb->finish_resume_work);
++	cancel_delayed_work_sync(&musb->deassert_reset_work);
++
+ 	musb_platform_exit(musb);
+ 
+ 	pm_runtime_dont_use_autosuspend(musb->controller);
+-- 
+2.25.1
+
