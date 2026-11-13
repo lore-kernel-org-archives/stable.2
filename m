@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794575085;
-	b=Be6SVc/yiKsK8fyvWIQvwCbPLQzcTO4ecJRNKSebDEv9lV0JDxH2dpR6c7U3MMTTXkNL
-	 aCmhzbMY8U5iO7ZpVbkxTi6dNODHKUZKnsB9WCrSsqCwzJtbgUtS/83oxT0uj6Jf7yn2z
-	 CMda1lhKvH59tuH0IhH09wT4Ha0gvQgSIR4mZ7xAlDsZQYbv904lYx2L4uWCnrxbJJuDc
-	 zwg63xvbDMVzVmf5tGD3Vvx+zGQLaarYZi7oa/9ktAQTCeBjy6QMlpeh9wGaqW12DA4RM
-	 zDjLzfJAchHmmV68oggCD6W0mKFd/5lvklrkXHYMrn8Ve8KOEcDZXMrmDfU6j5pIXFQ==
+	b=q95mkUkGwLL3fiSzu9e0RfEynyWPRC6oqwHNi6XOvEToqPbToQLWV4bfBsJO/79vCadK
+	 SkmibUDh0bpERuw/aY+CDLmFvEYBCoqq+dllj4rP/7AHuipTv3wGB1aU7LgMgeOtZ07n/
+	 HgUtiY+F9yQfH1Hud/uBkZvweA3ObFT6owcSvPo1nLgHj41LFBNeBl5s5FB59slfkMCcA
+	 E08XBMPLPHNSDJXpXlQt2StNjbtRT2gOZdO38J8TwV/LZypSagBc1aiVirtrZn0PlDau0
+	 EC+gKjw9SKrFqf8JaNNvumsmxGCk8RZaX4qCGmbwhjAu4i4j4T5trpnGjbWO6CT2Eyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794575085;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Debian-User;
-	bh=iziSx9es7u8nolVrMECE7Klr8VpVpRBY3HGtY2UpGj0=;
-	b=M+MZT+FaDZKrl5hHjC9A7P9qypjs9G8UdFHM2yZovsHuVaA7F3DcSuaq1XAU5m/YIFcB
-	 i2P0D/g9uNQTQoGVLejU4yc8ClGTgdCh0WUbINGcZZInHL9nMveSYvynmxcaV8JvQwUG0
-	 7wmN4FPNuCvfQSpmaNyoc1tJSAZGcXN/54t4gs7muDJE0uBSsvVAKy+XdZuWWaVSCnxL0
-	 M9De3BRoOvgKUePy3ZLPiuy/dCni3Bm/PyOz2HpNyahhj6D/AFlWqDLFkmlOJRLa/eBH6
-	 wWtkIPquiXI+YAK6dqN/md08KHOQdv/eK4JWak5G+nUzyuklzQtooTkLpAJ4sePTqog==
+	bh=iTH5aDa/sBYBNW7W5yb9FXNPOE3jaqd9zaGvgmhdaMY=;
+	b=okeRVzb+DOqHN37T44EF9IQhEal9kAspgLmhuxIfV2TP08GPcYRmhiHDlUt0WGkvGM2h
+	 7SeuHsYXtX70KzHChvxkfx8rz9dS0sGwiQiYlUGGVoTmHwPT9rJYhSB27Xb+p24s57MZv
+	 an269S7ZrJFB2FOfNfZi4G8lxZMdEZQKM07O6ya5aSFSN6+4bPKd6CTcOy+qQCWTYbEHu
+	 zKdLVH7sErO0Kt/WaQx6Fzr0R0SCd0pctI32mgdTGaIxbw+WVXARRC7xPHOx4MTxp1gLJ
+	 LY6MkPgvJHfrPEKxTbgMTyp5sOTTL6l+Z1qItQMPSiA2widX2Dl/BeJbLXuYmRyzDYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=debian.org;
 	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=cZ+0rblr;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=QI37VH2l;
 	arc=none smtp.remote-ip=82.195.75.108
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110E1606A32E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110B0606A32D;
 	Fri, 13 Nov 2026 13:04:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 110E1606A32E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 110B0606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=cZ+0rblr
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=QI37VH2l
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=iziSx9es7u8nolVrMECE7Klr8VpVpRBY3HGtY2UpGj0=; b=cZ+0rblrdq/NjOA/s8n3/KyRyh
-	DlK4bDrVMe6kRayl0MGo5S3szZOnWZwf4hP6IsznQ6wBCSCzGHHK3CBaT2X2TvtxGNqhp3Uw1wA6I
-	mKVjvIrgcqey7ziRh1OeKc1FNFwusqQ7RIK8Qp0eB04ribkbBuwtqO/ZtcN12G20OgaybcRiDG7me
-	iMvLBJyM6opIVkaKq5k314hgN04Jujx2uEIibc4LcFwhz482MSsZ5DAUdEKiP3yhNAEK5ACCVFtlA
-	saGdMgoZddBcxDod+27JpqD5GwKZjqVpXjqkToG/QxFD5xQDi4EmMzJxFWqv0fN95LaDUr76vCL5y
-	JJY43ncg==;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=iTH5aDa/sBYBNW7W5yb9FXNPOE3jaqd9zaGvgmhdaMY=; b=QI37VH2la/rOalBsa84on14Rlt
+	KfKyp/nfSnQw+WUcxTndB1RmlWnGNOxqZyZbwxPwsHt56vCnuhUqrlJMLk2DV1SegPO9r6RMN2Qxs
+	63NC34irpRtaWb9MVbxeSL9yJurEzKODaHFch3/OA2Y1oOtgjyBd/tlw0+fyED9bCYpGMBL4KOimb
+	draNV9sBhHw009ZIhpwNPrF5BX11WY2noL2UNbCDivczKjXZmU31KmNDx+WiAalteVPdkcxGYuNAq
+	swsvBPf+Pl0ohgOulQR2qQ/AA9r3HNVgXU4CKu6riAjUDCYN1OnNTvCJsYtSoGJBUIA4kLTyvzaab
+	rOBZOdeg==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1xRqxG-00Elkz-2H;
-	Fri, 13 Nov 2026 13:04:35 +0000
+	id 1xRqxL-00Ell5-1w;
+	Fri, 13 Nov 2026 13:04:39 +0000
 From: Breno Leitao <leitao@debian.org>
-Subject: [PATCH v3 0/2] x86/mce: Rate-limit messages from corrected error
- floods
-Date: Fri, 13 Nov 2026 04:49:13 -0800
-Message-Id: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
+Date: Fri, 13 Nov 2026 04:49:14 -0800
+Subject: [PATCH v3 1/2] x86/mce: Restore rate limit on MCE logged message
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,11 +64,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAE8H92oC/3XMTQqDMBBA4auEWZuSjBp/Vr1HKSUmow5ULYlIi
- 3j3ootCC90++N4KkQJThFqsEGjhyNMItUgTAa63Y0eSPdQCUKFRJRZycHwLdqY7DzxLZbIMNaE
- vnYdEwCNQy8/jd7kmAnqO8xRex37Re/13WrTU0ros9W1hqiY1Z08N2/E0hQ721YIfrrXGX447r
- 8gUKs9zNM0X37btDZx/M3fqAAAA
-X-Change-ID: 20260827-mci_ratelimit-064421e2d8cd
+Message-Id: <20261113-mci_ratelimit-v3-1-ada38c5a6c88@debian.org>
+References: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
+In-Reply-To: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
 To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
  Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
  Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
@@ -80,78 +76,68 @@ Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
  Rik van Riel <riel@surriel.com>, Breno Leitao <leitao@debian.org>, 
  kernel-team@meta.com, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2093; i=leitao@debian.org;
- h=from:subject:message-id; bh=94+KDlayX7uX9H0jidozRa4JYF+1X1Q/z33g5mwKxrQ=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9wrdZvKhKkrNBRRf9VGuxgIh2ZHGU9VcSyybU
- HT86BlSxUGJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavcK3QAKCRA1o5Of/Hh3
- bXi9D/0VoAEuAjP18wzeFSgkB2jfrA+v1W/Ef2qY/68V9wWvTBeRtKpITak/iwuy00f3DsB7efV
- fDZkYrWsi8L8Q8TjRzJqtHlxneulMB8p+9bwnS0MYvXrAz++SXCFRalJ0Piqxhk1iUUF2QR16x2
- lJIjDVo2WNb5VB6z54oiqwx5badf3kXo7bsS/DiJOuirkW2F7ZHPqztGufUTNvFbPv5Tp2L+y6c
- ohdCRfrnUpHiJkhfkn8Avw3XX4aaIK8PNtKBv8B52t1PbyhhFZ2iJTH9kh53cE1uPWMP028tfII
- JGNH3WjUitdYYgoqwHWJ+8BhAmXow4GWwOhhnPu/bxCCQykC6cX03VQ5Hp7R/DoexHrv4sH9D3G
- S7evyIXk4QA/4tATZtiWjubjhSIhxPuzmT5SPdOy+kpEHLinRBQ+fTaj0FI0yHX70hT5PjG/cdU
- Vw92MsIxAaaqgL/om8heFdjNYj6/cViLS9HO5LUJEJ4S51eK9uJUSznB3W7ICJOaM31wcTwQMBa
- CE/6AdKiA7gH4dg6m6DiTZ0GA7p7B/5NTU+1FqCA9CD0WPzHLU1ikXqOpCm9TcUuP+mwSTUhDAU
- BHd9oztM36i7pzfkoK6yCS38aGpH34AdkDFv7hhaOPbtQg7IAwHNtvP4uuycc+4oRqqjnflSGHc
- jAfyNQejU5ThDug==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1599; i=leitao@debian.org;
+ h=from:subject:message-id; bh=SSNhLTEFQKWY7woUFhxxhLSjyLI5IV0buGB7ZfIAUdo=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9wrdlRg663z8pZ6fQ81HrT7rrYgEfxGWUR/y2
+ Rut9VWb+fCJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavcK3QAKCRA1o5Of/Hh3
+ bUu7D/wI7EUCQ1Zu879WmMjWvnED8D1le1zSX0/8o7bjpqlRYfKDD4UP2rEE6IwXVaAlankyvhj
+ 71XrWfWHGj1XVrgIhRMZMRgaljSYDAE/tBpXqoGAPqPGFlswZBi1iBJB5fA5QoC2iRoQRA9zHQj
+ n6A7KDSz/hnqqtfy25BGmExpCeHYmq2J03yELMqfkKVTQO/rLtWDnwWWtid3LBAlW6AhcaKymvS
+ qDi67ocWqObwV3VAzYcSok3o4kMSNalyaZOEFlPf/woY2cFqWWA5Hcg1J6v1mRqtXocpMZF80sP
+ Zljt2InGaivCF52k182S53Cw9zK22YUik0nd1G+s1NrKeked5G9ZM5ivBXKZOh2TfusJpX43v2X
+ xFz4GA+IEcoihhgGefyOBHG35nFGzmrhAJt4ZUVTtCo3JWMvq52ncQbXX3aRtFbqCiAd9Q3mdRh
+ 0cUOEgWIVBUdhNt3PApCwi5cN75qOQvvbmvC1kO5slTLvmzx4SmFqdBZKlgybCvsyV5sgMjwfV3
+ 8Msm29IIONpNfkPck2iFiqqiP/aY6phvBQdqAuhZVcN7UhJsXjG/X8G/6V3EjYEVMGkcCoBw7Fl
+ CNoDMTSUiT+vEwy714YKJFx3Fx42/DrBwAfZcOsUI251VghOG9o5KhdnTs6TpbeSNj7DnQ4Dlu9
+ Wl9EXhk6Xzh4/Rg==
 X-Developer-Key: i=leitao@debian.org; a=openpgp;
  fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
 X-Debian-User: leitao
 
-A machine check bank that reports corrected errors at a high rate
-makes the MCE code print two messages without any bound: "Machine
-check events logged" for every error mce_log() queues, and "CMCI storm
-detected" / "CMCI storm subsided" every time the bank enters or leaves
-storm mode.
+From: Rik van Riel <riel@surriel.com>
 
-One host printed about 100 million "Machine check events logged" lines
-an hour. On another, the storm notices were 82% of everything it wrote
-to the kernel log.
+Commit ea324444ece9f ("x86/mce: Restore MCA polling interval halving")
+moved the "Machine check events logged" print from mce_notify_irq()
+into mce_log() and dropped its two-per-minute rate limit as a side
+effect.
 
-Patch 1, from Rik, restores the two-per-minute limit that "Machine
-check events logged" had before it moved into mce_log(). It is a fix
-and is tagged for stable.
+A particularly unhappy system can spew out around 100 million
+of those "Machine check events logged" messages every hour,
+without that rate limit. A large fleet may have several unhappy
+systems, leaving the netcons infrastructure somewhat flustered.
 
-Patch 2 puts both storm notices behind one ratelimit, with the default
-interval and burst.
+Reinstate the rate limit we had before.
 
-Only the messages are limited. The errors are still logged and storm
-handling is unchanged.
-
-Both patches were posted separately before. Borislav asked to merge
-them into one series [1].
-
-[1] https://lore.kernel.org/r/20261112182125.GDavYDpdJpmpU2Piyu@fat_crate.local
-
+Fixes: ea324444ece9f ("x86/mce: Restore MCA polling interval halving")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rik van Riel <riel@surriel.com>
+Reviewed-by: Tony Luck <tony.luck@intel.com>
+Reviewed-by: Qiuxu Zhuo <qzhuo@nvidia.com>
+Reviewed-by: Breno Leitao <leitao@debian.org>
 Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Changes in v3:
-- Add Rik's "x86/mce: Restore rate limit on MCE logged message" as
-  patch 1 (Borislav). It carries the Reviewed-by tags from its
-  posting; only its first changelog sentence changed (typo, commit
-  reference style).
-- Link to Rik's posting: https://patch.msgid.link/20261108143751.3af49e48@fangorn
-- Link to v2: https://patch.msgid.link/20261112-mci_ratelimit-v2-1-a9e67055526b@debian.org
+ arch/x86/kernel/cpu/mce/core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- rebased on linux-next
-- Link to v1: https://patch.msgid.link/20260827-mci_ratelimit-v1-1-ac43df769b36@debian.org
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index 50b1614968be6a..06f858faf2b1cd 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -150,8 +150,12 @@ EXPORT_PER_CPU_SYMBOL_GPL(injectm);
+ 
+ void mce_log(struct mce_hw_err *err)
+ {
++	/* Not more than two messages every minute */
++	static DEFINE_RATELIMIT_STATE(ratelimit, 60*HZ, 2);
++
+ 	if (mce_gen_pool_add(err)) {
+-		pr_info(HW_ERR "Machine check events logged\n");
++		if (__ratelimit(&ratelimit))
++			pr_info(HW_ERR "Machine check events logged\n");
+ 		irq_work_queue(&mce_irq_work);
+ 	}
+ }
 
----
-Breno Leitao (1):
-      x86/mce: Rate-limit the CMCI storm transition notices
-
-Rik van Riel (1):
-      x86/mce: Restore rate limit on MCE logged message
-
- arch/x86/kernel/cpu/mce/core.c      |  6 +++++-
- arch/x86/kernel/cpu/mce/threshold.c | 16 ++++++++++++++--
- 2 files changed, 19 insertions(+), 3 deletions(-)
----
-base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
-change-id: 20260827-mci_ratelimit-064421e2d8cd
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-- 
+2.53.1-Meta
 
