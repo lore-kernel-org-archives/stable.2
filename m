@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603703;
-	b=pG5R78oWQIty2BCTgWQt+NfkBlWyxNPnrANlVUa84YeUdSISLCixY0jEqvN7GaemoSgT
-	 JdaHMa+0dSb0DmvJxYSg7BdmBCit+hdPmIl+6W7FSSrnXyCjRvxR+RgSwxw7M6WNYggIU
-	 ol03pDKYznDAfXZI5Xz8UkQn0v5ZsTgcxmYfulbwzOBPoYhYXe4aJ2JgogRx3smbMBhO/
-	 7GCEkEdJ4uo+XVuqvFe37Zfi0vn7eofsTMI0W+U9+y+F2cdmC/lTd7fzO2EtVffoam6EX
-	 Nr8to4DejemtE/H8mzQFvDGGe4v9DX5hkuZ7PwxhMh1y4g8kLVQw1XhbfQmznpiCB8g==
+	t=1794603708;
+	b=NfeAt+WV/wOAkuBb4jIuOzmpuSJXxU4n2b6/DjihBBx1f9XYfo/mbLKrWzU10RrQvYxW
+	 Ib0CkI2jzBucRFTxGjSMhcjZG59H06IPgf4nYlBJ/lKrnyTu+l/RrtDFsQYNuivmwMK4b
+	 Df2KnRUnDZC8gY3x6vSjnVWRKX35Qe1oW72Jm6S/xoxsuPQFrELazuaGE1chr+laprj51
+	 /6zp++vLipI6iwRxbESG5WLsHeKcsAZU7CVELGC04CsK8FeRpE9hLzYzDwd1HWUG18rzI
+	 Ag/URuvg57Kw/j4/9QdGQ2+ptHwHtkvyUJssLq/xGCPjkcnwhZ8i9D3xJdEoEbg2a1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603708;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6wqni+og4l+rhTlcxddl3L2qxHXHJSGgnHGb5W28yH0=;
-	b=3CUPq4YJM+ox/jxAL4c4qHR4a3NUd/q41o3UFIkIjAorSmftMs/vHyRvAXAHp5HgXCPE
-	 vJESUJNjVe9y7drzGQr8jDVNf+unGlom4ktaYCMQ+CFWJASxpshOVpOiX4L9KTcbM8P8t
-	 Rgi6nD9w95okrcMmoARM+6EnyQtnykzq6CQfebb3EtA4FfyDv3sSnjt9phv1Ph8O8U400
-	 9uZwhXC0fV0ff3OEPQpgP2mO85OHpW+K+vc+fdEOqwyQakLzTj1LQNoOafmnQHKN6e2Hs
-	 2MNZlOJ+pdPbFHOSSjyumPoaf8qYX+WLX1cIMQCAM8F6VhZ6v+EFupC+Z/lDamJBEPQ==
+	bh=m+2PBg+xuY8snzxWrpphNxr/G/qRGP3b9fBq2e2dAcc=;
+	b=sSdb7NyFDzvYiRT+jiiE686xMfDhpogK52Wr/r45R+k9BF8ALVC8SVhoAmwe9UnsiyZ4
+	 13IstpWjGxDEhLF4TEI4RCzRGElMSPcjSKsAYnFrmgls++yP/gV8PHKbNEJR6oX/6W9s4
+	 uz76YqmOQnPII/fhF6CQzCi1pZUtLGF1w4BuLmOdJ2AyDUrhy7Ny1u5jdPfCdZEOm86ov
+	 J6+iJHSWZXi+iH8URvbGApgZl9E+0OXjfUdOgCVee0xjB6CwUWCR2DbsX+WDkLSINjPHb
+	 m67rxE0BbgpzIAOyIfMfh5N0KAmt4+xDvNAExdRx05sPXFATXgleA3QieZGphCNvd8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSijpCPn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rr9FBSg8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F043B606A334
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3147F606A337
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSijpCPn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1171F000C4;
-	Fri, 13 Nov 2026 21:01:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rr9FBSg8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2155C1F000C4;
+	Fri, 13 Nov 2026 21:01:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794603702;
-	bh=6wqni+og4l+rhTlcxddl3L2qxHXHJSGgnHGb5W28yH0=;
+	s=k20260515; t=1794603707;
+	bh=m+2PBg+xuY8snzxWrpphNxr/G/qRGP3b9fBq2e2dAcc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mSijpCPnN2tk9zdBREXiIGk+b3JEecVFOOdsLg6GR83OMcfAwDxp6uB8JvF2N9DGr
-	 foENoy7qoCh/BySt72Jw7yT7rhqH6gQ2QEfNYBFHKuml9G1Am5dxozVj4lkfy583SS
-	 QPxWv6+8b9NUv35Vnvst3QIiGZDLdHrBx0spNg3gNXZ9pL6Tjala3rGLK4BF4fZIQQ
-	 3bQM8v+PIL5KaHjDGsbvNWyDuxAFpK8mUV0LwAABPjKMIwqgQJUzteIuCpBhucftOE
-	 v8kp/nME5MgEd/hTrXRFajrQ/AlIMHI2rqQ8fKdHUeUJ8F/fOFdV6SnY33Vo8JFuJ+
-	 7UOQ4jFrIu6tw==
+	b=Rr9FBSg8YB5QOADalGv3N67g7HgmdUZ1PaQ0Lzynn8hYIUCLyxlu8cCh9fuGCrXJd
+	 252PETojh7kfjyiKTFjpWF21dGgNL9vE9oFH289MQts9CGoZYjFIX2KY/DkcnimK2n
+	 CnG83Ve9NpcIk83e4il2lqPh/qkKT6ilwzX45F6in0PqV82kMnHA4Q5DrX6NWo6Vr6
+	 p/P9dVo222f9OH3G9rHAo1Ghvw37yU8cY6LHvhcpzy1HkH8Jh477xwcwj3Ol8XjM+D
+	 GBwrTIJCaYL5l5etE823AhR5iQwPAfSIQJfY0/eM26z/gi3FY4EXomXwMVXZknvB5l
+	 5TIEqdmNS6zZg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
+Cc: YouYou Yu <youyouyu@amazon.com>,
+	Dylan Johnson <dgj@amazon.com>,
+	Gunnar Kudrjavets <gunnarku@amazon.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/shmem: make shmem_file() check the file's inode
-Date: Fri, 13 Nov 2026 16:01:40 -0500
-Message-ID: <20261113205805.2472530-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] quota: initialize dquot cache before mounting rootfs
+Date: Fri, 13 Nov 2026 16:01:45 -0500
+Message-ID: <20261113205810.2538555-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201552-failed-6.1-d3710111839d@kernel.org>
-References: <20261109201552-failed-6.1-d3710111839d@kernel.org>
+In-Reply-To: <20261109200215-failed-6.18-e21a6f39aa6d@kernel.org>
+References: <20261109200215-failed-6.18-e21a6f39aa6d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,118 +63,135 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: YouYou Yu <youyouyu@amazon.com>
 
-[ Upstream commit d3710111839d11339e414b1bb3fea3d05ab83f6e ]
+[ Upstream commit e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 ]
 
-shmem_file() only checks if file->f_mapping is a shmem mapping. This
-mapping can belong to another file, however, as with a Coda file backed
-by a tmpfs container after mmap().
+On some systems, a tmpfs backed rootfs is extensively used throughout
+system's lifecycle. tmpfs quotas are needed to limit per user rootfs
+usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
+and "initramfs_options=usrquota" panics at boot:
 
-So it does not guarantee that the file inode is an actual shmem inode.
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:dqget+0x1ac/0x490
+  Call Trace:
+   __dquot_initialize
+   dquot_initialize
+   shmem_get_inode
+   shmem_fill_super
+   ...
+   mnt_init
+   vfs_caches_init
+   start_kernel
 
-Seal handling and memfd preservation use this check before accessing
-shmem inode state, so they can access an inode of the wrong type.
+The rootfs is mounted from mnt_init(), but the dquot hash table and
+cache are only set up later by dquot_init(), an fs_initcall. Creating
+the root inode of a quota enabled rootfs thus dereferences the NULL
+dquot_hash in dqget().
 
-Let's make shmem_file() check the inode's file operations instead, to
-identify shmem inodes reliably. This will identify regular shmem inodes,
-including memfds and ordinary tmpfs files, independently of wrapper file
-operations.
+Rename dquot_init() to dquot_cache_init() and call it from
+vfs_caches_init() before mnt_init(). The slab, percpu and early
+workqueue code it relies on is available there, and the workqueue
+rescuer and shrinker debugfs entries are set up later by their own
+subsystems. Keep the sysctl registration in an fs_initcall, as done
+for the dcache, inode and mount sysctls. This only moves existing
+allocations earlier in boot.
 
-Use shmem_mapping() in collapse_file() instead to not change the behavior
-of collapse_file(): it operates on the page cache and uses mapping->host
-for shmem inode operations. Focusing on the file does not seem relevant.
-
-Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
-Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adjusted surrounding context to preserve the existing inline shmem_mapping() implementation ]
+Assisted-by: LLM
+Co-developed-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: YouYou Yu <youyouyu@amazon.com>
+Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
+Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
+Signed-off-by: Jan Kara <jack@suse.cz>
+[ sashal: adjusted patch context to match the existing quota initialization code ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/shmem_fs.h | 15 ++++++---------
- mm/khugepaged.c          |  2 +-
- mm/shmem.c               |  5 +++++
- 3 files changed, 12 insertions(+), 10 deletions(-)
+ fs/dcache.c              |  2 ++
+ fs/quota/dquot.c         | 10 ++++++----
+ include/linux/quotaops.h |  5 +++++
+ 3 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
-index d500ea967dc73..19a1965ff1175 100644
---- a/include/linux/shmem_fs.h
-+++ b/include/linux/shmem_fs.h
-@@ -75,12 +75,18 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags);
- extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
- #ifdef CONFIG_SHMEM
-+bool shmem_file(struct file *file);
- extern const struct address_space_operations shmem_aops;
- static inline bool shmem_mapping(struct address_space *mapping)
- {
- 	return mapping->a_ops == &shmem_aops;
- }
- #else
-+static inline bool shmem_file(struct file *file)
-+{
-+	return false;
-+}
-+
- static inline bool shmem_mapping(struct address_space *mapping)
- {
- 	return false;
-@@ -123,15 +129,6 @@ static inline struct page *shmem_read_mapping_page(
- 					mapping_gfp_mask(mapping));
- }
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 84952f6bbf406..77792a9e86737 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -32,6 +32,7 @@
+ #include <linux/bit_spinlock.h>
+ #include <linux/rculist_bl.h>
+ #include <linux/list_lru.h>
++#include <linux/quotaops.h>
+ #include "internal.h"
+ #include "mount.h"
  
--static inline bool shmem_file(struct file *file)
--{
--	if (!IS_ENABLED(CONFIG_SHMEM))
--		return false;
--	if (!file || !file->f_mapping)
--		return false;
--	return shmem_mapping(file->f_mapping);
--}
+@@ -3288,6 +3289,7 @@ void __init vfs_caches_init(void)
+ 	inode_init();
+ 	files_init();
+ 	files_maxfiles_init();
++	dquot_cache_init();
+ 	mnt_init();
+ 	bdev_cache_init();
+ 	chrdev_init();
+diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
+index 45a46dc4de4ef..c91076c3f05e7 100644
+--- a/fs/quota/dquot.c
++++ b/fs/quota/dquot.c
+@@ -3019,7 +3019,7 @@ static const struct ctl_table fs_dqstats_table[] = {
+ #endif
+ };
+ 
+-static int __init dquot_init(void)
++void __init dquot_cache_init(void)
+ {
+ 	int i, ret;
+ 	unsigned long nr_hash, order;
+@@ -3027,8 +3027,6 @@ static int __init dquot_init(void)
+ 
+ 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
+ 
+-	register_sysctl_init("fs/quota", fs_dqstats_table);
 -
- /*
-  * If fallocate(FALLOC_FL_KEEP_SIZE) has been used, there may be pages
-  * beyond i_size's notion of EOF, which fallocate has committed to reserving:
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 9738b70bbd453..f3f9f9b54abf3 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1774,12 +1774,12 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 			 struct collapse_control *cc)
- {
- 	struct address_space *mapping = file->f_mapping;
-+	const bool is_shmem = shmem_mapping(mapping);
- 	struct page *hpage;
- 	pgoff_t index, end = start + HPAGE_PMD_NR;
- 	LIST_HEAD(pagelist);
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
- 	int nr_none = 0, result = SCAN_SUCCEED;
--	bool is_shmem = shmem_file(file);
- 	int nr;
+ 	dquot_cachep = kmem_cache_create("dquot",
+ 			sizeof(struct dquot), sizeof(unsigned long) * 4,
+ 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
+@@ -3070,7 +3068,11 @@ static int __init dquot_init(void)
+ 					   WQ_UNBOUND | WQ_MEM_RECLAIM, WQ_MAX_ACTIVE);
+ 	if (!quota_unbound_wq)
+ 		panic("Cannot create quota_unbound_wq\n");
++}
  
- 	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 9db6a2488f456..1ed9c1e9abb99 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -239,6 +239,11 @@ static const struct inode_operations shmem_special_inode_operations;
- static const struct vm_operations_struct shmem_vm_ops;
- static struct file_system_type shmem_fs_type;
- 
-+bool shmem_file(struct file *file)
++static int __init init_fs_dquot_sysctls(void)
 +{
-+	return file && file_inode(file)->i_fop == &shmem_file_operations;
++	register_sysctl_init("fs/quota", fs_dqstats_table);
+ 	return 0;
+ }
+-fs_initcall(dquot_init);
++fs_initcall(init_fs_dquot_sysctls);
+diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
+index f9c0f9d7c9d93..bbe22c22439ed 100644
+--- a/include/linux/quotaops.h
++++ b/include/linux/quotaops.h
+@@ -40,6 +40,7 @@ void __quota_error(struct super_block *sb, const char *func,
+ /*
+  * declaration of quota_function calls in kernel.
+  */
++void dquot_cache_init(void);
+ int dquot_initialize(struct inode *inode);
+ bool dquot_initialize_needed(struct inode *inode);
+ void dquot_drop(struct inode *inode);
+@@ -206,6 +207,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
+ 	return 0;
+ }
+ 
++static inline void dquot_cache_init(void)
++{
 +}
 +
- bool vma_is_shmem(struct vm_area_struct *vma)
+ static inline int dquot_initialize(struct inode *inode)
  {
- 	return vma->vm_ops == &shmem_vm_ops;
+ 	return 0;
 -- 
 2.53.0
 
