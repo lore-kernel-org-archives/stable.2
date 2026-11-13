@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794605869;
-	b=Vmm/ymFZCW/38nNjNpj/EnVE2wZMIXHkX6CMMP2sjwoH2bO1eJlkBD57FFoQrkrt5+/C
-	 uJ7MdQ6G5/CZK66IgtY1CZ8a5aHN1++ZQUFIm3GGVPK665IpaB8dIo6hfl1zjnc0MrmDH
-	 Z4z6f1UyeaKJLTHDG4VFRUbvnaWjcbNMpYtF3/COgls0hmAaqn/ti4cFBUgIhd2YjYhKm
-	 ULoVXIWJ6MT4K4wesaNhpsrtqoaIAcTV3x24KqsJFaWPVspcfQTCIE9mEoGK5e+EnCkvN
-	 EVxKcnYcZx+OT0pSfPzl8hLu8dYdQbjfq7vIQ3M4+xYZKnPOrb67+XjMpAYoHraQWqw==
+	t=1794605977;
+	b=wVJu4uciSNvLh/6OJPxy1ubrIGtbyjmrBJY99ArVQullAwGM8wft/Vgi1xV4cGg9hsFU
+	 g4JFbc8sO9kWD9eA/s0bZTw2yJawfXGzlI3KOgfqmBaNxBkku5+TEm/DBz05xXvBvfWJ3
+	 vWz664SJ+k4HKsZgpNLUkGUfIW+8pLg3qjvLxHqwynMPTw90vKJoA9ieNNrM3M10FY/38
+	 vr2MDKxPN5sO7EEIorKRVeXSz7OV81nvI1BtToTS9a2Dn78JZ1VQQ01rVHh032UPVG0U1
+	 eDeFcLU9jjmYGCoHQTiU8Mw6ES2PDVCL9eQ7XeGMcgE9u30oFlJ36HLLY69fIr2ynIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605869;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605977;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=PLiqukr56C60XaYU/sHWlWdxScdz3EOuf+dLUbwdnhA=;
-	b=yQ5qkAzud2EUZ9sMF/uS9xmPR9qY6fi88EcxYRoXGGzVIKfqR8asx40MCuvDPu+uVOpn
-	 aNXPTFXlguOwQHuvIs8n6iEu/m0FciVOHmbmKqL07OYITjX3er6xBkf7IYIO+JMKhB0dq
-	 V+UuP7GxoyZhLyYHSfg5yDX7nWwO6oGIMhTaOeK57Dd7lyaKH3Y3pBk35B6Nx1ESrVE+L
-	 hexhUc8Kx8Lov82YtdbcESNxFrAxoNFc1oFONYjNUhPHlMu79c7LtH9idHBE5nEeFjEPX
-	 jrkMas+BBsLmcd/k+aY/awpU5TKsMjoJpv33WB3gPu7azjtI8Qbee5vkt2Dh0a/vULg==
+	bh=HQYsjuLSgqmkYc+gxSurb8uN4B+g/9xyTOSp3ZLANuo=;
+	b=VNhduAAquQ5JgpSniDYgACvQvJeKGTGw/RPzxdUFQs2JHS++VgI4KwWOV3D9e6MSq8My
+	 GNjcH6vRuljq7cZdHSHCLTAZ1nuwUX8BreqBY3lZ+avG3fHRwIKC1g2i3F6gyoglUGZw/
+	 tecErnFNr97LQoWoWWRUotXByD32wz6XyImEf+wcUVX1RhEvPgDki17NFnjdVcyY3iTzs
+	 6nyH0NIAQffZOdograZkorFgfvwaCv0urd6IVoiO/Ld5djhIMTTgf5EI2kTexgQvEBKo1
+	 tCcv106Iq144+fADX+RqkkS4gjz6uQcyQNujaYXtxnYKZ1CtHb9OjOkxiK675yBtSfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8iDfR4F;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbvfpgu8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BF0606A32D;
-	Fri, 13 Nov 2026 21:37:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B17F606A32E;
+	Fri, 13 Nov 2026 21:39:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8iDfR4F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A744E1F000C8;
-	Fri, 13 Nov 2026 21:37:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbvfpgu8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70B0C1F000C6;
+	Fri, 13 Nov 2026 21:39:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794605869;
-	bh=PLiqukr56C60XaYU/sHWlWdxScdz3EOuf+dLUbwdnhA=;
+	s=k20260515; t=1794605977;
+	bh=HQYsjuLSgqmkYc+gxSurb8uN4B+g/9xyTOSp3ZLANuo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=l8iDfR4Fn+bZOr3+4kgWweW+qnLrj4VKaTg7QNEbpGu/bEFZFs5nxDoj/kJFmkOuy
-	 EswQFyeO0xhnKCfhg9Fxv8R+Ji1avzOxEhknOfUoFWfFiXvnBRtnwyyyT1s1E5sLGu
-	 rIPhwMSSDY/K7NBkMePLqfgNHfXEju4yXrJZUlkEDDfvGmMgZ+2xSUi5eCDJEAeMnq
-	 WMzbhlrefYk1jGACsD+PV+Ez4GFWp47Mw/5VoaKhHD++z7JVYv/6kJRB9nIiu2zwJO
-	 GmY07jFS33ITqgEDCXs0F5jYryk6WirTuUlUhlluTjjhZp/zdu9BtuPbQv8qObwJJe
-	 2RxDNmut2VdaQ==
-Message-ID: <b290d347-1cd3-4ff1-b303-3cc074667689@kernel.org>
-Date: Fri, 13 Nov 2026 22:37:14 +0100
+	b=cbvfpgu8tOow6Wv2h/7RSGys/vhrTWGQUnh4KqZ/MxLpfcdUf3D5uLQJDematIwO6
+	 pF8ZFDoI5V9m6v0E2uv31piPTWg5RXcGhHOMnGB+I01f81xmVBupgzZAhOd1wnhrNW
+	 S9hFDCZ8T/veXtk3HWrex1bO4RiSQWcnyZWnwvE2hEuQIiziMaZL8uAjJVaIED0+dX
+	 8meuP51dZrUS3Vzh9kCgbv2SscDfUdKlnVIslfTnnyoRorO6NK6HfpIJ7CuQZO8P84
+	 WPetnx9aM+9b3QGtptr+vAsx7A4FMTZfolDdiM/+o0o+7Pgeat5j7DADWq6BOdsgh0
+	 uZwK1kSfZhR9w==
+Message-ID: <a502f84a-b349-487d-94d9-aff7d9b95102@kernel.org>
+Date: Fri, 13 Nov 2026 22:39:30 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,32 +52,17 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] mm: check permissions and bounds for vm_ops->access
-To: "Kuehling, Felix" <felix.kuehling@amd.com>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+Subject: Re: [PATCH v2] mm/madvise: zap markers from guard regions
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>,
  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Chris Mason <mason@kernel.org>
-References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
- <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
- <4b9042de-973a-4036-a6a0-2294c65a1ee1@amd.com>
+ Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
+References: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
+ <f8b0f20d-90dd-496d-97e9-9a232124e3e0@kernel.org> <avd8-uVPf6BSqwEQ@gremlin>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -124,41 +109,94 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <4b9042de-973a-4036-a6a0-2294c65a1ee1@amd.com>
+In-Reply-To: <avd8-uVPf6BSqwEQ@gremlin>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/13/26 21:25, Kuehling, Felix wrote:
-> 
-> On 2026-11-12 17:09, David Hildenbrand (Arm) wrote:
->> GUP rejects VM_IO and VM_PFNMAP mappings early. __access_remote_vm() then
->> falls back to vm_ops->access without checking VMA permissions and without
->> limiting the request to the VMA size.
+>>>  mm/madvise.c | 28 +++++++++++++++++++---------
+>>>  1 file changed, 19 insertions(+), 9 deletions(-)
+>>>
+>>> diff --git a/mm/madvise.c b/mm/madvise.c
+>>> index 0214efd2a014..4f7728583207 100644
+>>> --- a/mm/madvise.c
+>>> +++ b/mm/madvise.c
+>>> @@ -850,6 +850,19 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
+>>>  	return 0;
+>>>  }
+>>>
+>>> +static void zap_range(struct madvise_behavior *madv_behavior,
+>>> +		      zap_flags_t flags)
 >>
->> Consequently, /proc/<pid>/mem can bypass protections even without
->> FOLL_FORCE, or cross into another mapping without checking its
->> permissions.
->>
->> Check VMA permissions before calling ->access and limit each request to
->> the current VMA. Implement similar access permission checks as GUP,
->> however:
->>   (1) Reject writes to CoW mappings because the callbacks access backing
->>       memory directly and cannot handle CoW.
->>   (2) Allow forced writes to non-CoW mappings with VM_MAYWRITE.
->>
->> This intentionally breaks forced writes through legacy amdgpu PROT_NONE,
->> MAP_PRIVATE debugger mappings. The workaround in commit fa5239f2af98
->> ("drm/amdgpu: workaround failed COW checks for Thunk VMAs") cleared
->> VM_MAYWRITE to avoid CoW, but debugger writes still succeeded by
->> exploiting the missing access-permission checks fixed here. Reads remain
->> supported. Userspace must use MAP_SHARED instead; ROCm 5.5.0, released
->> in May 2023, already does so.
+>> Two ... ;) But maybe it's consistent like that in the file, didn't check.
 > 
-> Thank you for considering this use case and checking the ROCm history. The patch is
+> I'm a bit exhausted, can you or Andrew just fix up whitespace like this on
+> application?
 > 
-> Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+> It'll be easier when I have the VMA tree.
 
-Thanks a lot for the confirmation, appreciated!
+Yeah, absolutely. I'll let Andrew pick this one.
+
+> 
+>>
+>>> +{
+>>> +	const struct madvise_behavior_range *range = &madv_behavior->range;
+>>> +	struct zap_details details = {
+>>> +		.reclaim_pt = true,
+>>> +		.zap_flags = flags,
+>>> +	};
+>>> +
+>>> +	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
+>>> +			      range->start, range->end - range->start, &details);
+>>> +}
+>>> +
+>>>  /*
+>>>   * Application no longer needs these pages.  If the pages are dirty,
+>>>   * it's OK to just throw them away.  The app will be more careful about
+>>> @@ -872,13 +885,7 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
+>>>  static long madvise_dontneed_single_vma(struct madvise_behavior *madv_behavior)
+>>>
+>>>  {
+>>> -	struct madvise_behavior_range *range = &madv_behavior->range;
+>>> -	struct zap_details details = {
+>>> -		.reclaim_pt = true,
+>>> -	};
+>>> -
+>>> -	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
+>>> -			      range->start, range->end - range->start, &details);
+>>> +	zap_range(madv_behavior, 0);
+>>>  	return 0;
+>>>  }
+>>>
+>>> @@ -1217,9 +1224,11 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
+>>>
+>>>  		/*
+>>>  		 * OK some of the range have non-guard pages mapped, zap
+>>> -		 * them. This leaves existing guard pages in place.
+>>> +		 * them. This also drops any PTE markers in the range,
+>>> +		 * including existing guard markers, which we reinstall on
+>>> +		 * the next attempt.
+>>>  		 */
+>>> -		zap_vma_range(vma, range->start, range->end - range->start);
+>>> +		zap_range(madv_behavior, ZAP_FLAG_DROP_MARKER);
+>>>  	}
+>>>
+>>>  	/*
+>>> @@ -1845,6 +1854,7 @@ static bool madvise_batch_tlb_flush(int behavior)
+>>>  	case MADV_DONTNEED:
+>>>  	case MADV_DONTNEED_LOCKED:
+>>>  	case MADV_FREE:
+>>> +	case MADV_GUARD_INSTALL:
+>>
+>> Huh why that change? Not spelled out above.
+> 
+> It's just the established way madvise interacts with TLB maintenance.
+> 
+> Anything that uses madv_behaviour->tlb has to return true here so
+> madvise_init_tlb() and madvise_finish_tlb() do the right thing.
+
+Ohhh, I see now.
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
