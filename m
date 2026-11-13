@@ -1,55 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590600;
-	b=KWmoKK+UouQ6qkOZa8rSjFCijXT5Tn119A4w5vbrySgdN8qP5SvQ95HfXu02aGL5UO4k
-	 PgkBMnAv7ML1A/cfl9gXpQOl/cc5zp8ok3uxKzeNvKDi2cgSuXeZ+NrgT/MKSkPvZtisZ
-	 IbWdMsMm/xpOuPx0DOdx4KXye0T/lPDE8F48xfXyOhSaHnMXzbMd5nVJKwURqsQqth8SS
-	 Mz+9oBn8x/lCMivhaVGP9nj3bXqjCDsvnaIzQcw1ce9LzopR26CD9GEc79QkB05sRvF88
-	 D5El8W3hx9qvARYee3gbLqIQ5JZgy/QdGQwFERxFsSQFnJHz4y7zlWkAzWVa2hgg5YA==
+	t=1794590601;
+	b=fUOPGS0on+UJrwkjqFKGJdXX832DSQ+zw8IvsVv2WpxiY9q3Py9QfqSKKbCMQfyK7D53
+	 BM4s4iGnweI329rshDV4MPmv2Yh0O1uVtVQzkDy1EvRQIRBXSJdZIQgLkQO2CaepPVmpt
+	 trnAFiOrNgpf2hkOlWiug6ihQzDcR84BtpRfks1/fW2+ApmT1nHdltIWu7FRsIbMjCM8y
+	 PszmZYZjfuwR+wqdJ3xxNuvmmrg808Am8rswljkhXNW2rmdjJrEEnYqdlvvb7sYX1FNTR
+	 wDuJ7f4eCZah+MsKLUOwydKA7RsLIxrAdHt0S2FK5IFGrpoixhgca1sx4X/Zk0sarCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590600;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2c+SwvVe+TYvB1ck0x9BFmui9dOGJzGDRlpiqG9Cfj0=;
-	b=VuKGhxn4AXnAWS3xPT2estbeSIiCbi39YtuCSNR6PeGoYQr9fyAQryt55pbzZNONaYxw
-	 tNjU7gNyEbzOXjdNj42zGqq/HnsnTC/t0fLVWOmWiyRwdA7sjHMYl4RuIodX9+VbbDCBs
-	 kNVK+CzqKNBXKGobZ550ZV4YQp0swsvMrxHi0dcoTzYCtlJSVU9zkzZdiAYO+ls+sl/PW
-	 syMuP2DA8mg7/yT+RpILZC2U4m0aJFqS3yrd/ph2Yatv6SUJMep8wDLP3VI9wJGytu1Nn
-	 Z8z2dAewevfHjdXtaabBzl9igQghE7YBgsaV0S08FKJDewiEmFWh3hCCV3MiUDWwOAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590601;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=arwljd+LKidg1g9kfY7NVQ5OFDzwIZzsQy0t334fqDg=;
+	b=YPUC07MTN/7YEYwAHkGdCi0+h3kBtO9kmYtAo54V2puT6XkPdoWCUZbWEXhOTqAMzWqY
+	 iC/cE1F1M8GGL4lJ3d9VRzoZ+tFkbFfWNYO4TLA+QKKS8wIw+CwKwaUYH1o9YFPmArdLf
+	 3hvrwBJL/mx/e+KkuOHonnlzcTNiSSSsTRsSU5CfoKstc+N/XtoxQp4ZljaROYzlciKpf
+	 A+rWMEvvQwBmwcDRkvpaHZauuMOU+YrejxBXgiSbV0JD/e2Z8/lPcPLRKnBSeQWw2WruW
+	 CzPgWv+PveOkBQhru0QW00xdQEKV8e19PE4Y37fTU2PomrLaMtKajR2NirjqJeovZig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c/YJO4bh";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bNgUNfq+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD1C6073FD7
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:23:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBF8606C0B0;
+	Fri, 13 Nov 2026 17:23:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c/YJO4bh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 290691F000D3
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:23:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794590600;
-	bh=2c+SwvVe+TYvB1ck0x9BFmui9dOGJzGDRlpiqG9Cfj0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=c/YJO4bhCrQWIhSM6EQGg1502+mq+by4yptqz28H6C2QAcVcxo/sv5SDoxBQPi1+y
-	 rzOHHIcEX1NvwpOu1r8J5FHs0ccpqC1d6zeN0+LYuTvlctR3ztCM8VVjeiVYrgp14C
-	 OIp/N0FawMMtckqcRN4VhblDLHRSNpdrpQQZ/Q6DXwI870gA3SD+bAfI55J58DzlE6
-	 eFLNGmVmhfR9N1sOd/QzaGwqCjAdUSacbRwPOtpTJ4srPN+GGxXELmx6ToYKiOBrJG
-	 WbaEz1fWYfaoaPxTLCGdfIUr3m53hxVLM380qbZboiGT3br3uDUtj6Cf+rlK6qDfip
-	 3Tc71H311BoCQ==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ae25c846edso13738411fa.2
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 09:23:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFPRsA1vZOXdQ9YWZWulolKzNH3Bihngs6OSZ76evRr99EcuQWrOGun8DreWlz517++MZ281uA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xy7gpEu5nsHIE9P+coCKCP3dq/GkQ7i0UN37KZs1ZdNaINYD3
-	EFgE+e96vABeuANyA59vIiIMzVAIrs23g+aEUy9UTcuyCIlZMAk+xmW2T4NsCbFo5FuWH67VLDV
-	zrHiQ67KIQvksStsbTSwFjFBguyLtS5E=
-X-Received: by 2002:a05:651c:1a2c:b0:3a3:5a01:a794 with SMTP id
- 38308e7fff4ca-3ae2b48e201mr12006811fa.1.1794590598539; Fri, 13 Nov 2026
- 09:23:18 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bNgUNfq+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60AFC1F000C4;
+	Fri, 13 Nov 2026 17:23:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794590601;
+	bh=arwljd+LKidg1g9kfY7NVQ5OFDzwIZzsQy0t334fqDg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bNgUNfq+wsq8/yqhqPIeE9iJskNYrxqqtB/+/BYzf1UgdHOY39anspLsJa0w+t5Iz
+	 B0kEcZ6H06vyZfaBAWbrllHOcsVG6T/2jrWJVfg17iF+7B9kHbfDYLY5TmPDCe6t2f
+	 1MANuLO0QeNHwDpRuYzOuNbW/hlwD6A694ngn8SY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable@kernel.org,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	Jun Yang <junvyyang@tencent.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 530/686] sctp: re-point retained control chunks on association migration
+Date: Fri, 13 Nov 2026 10:51:03 -0500
+Message-ID: <20261113153839.088702758@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
+References: <20261113153820.902362109@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,87 +65,168 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110085125.2535508-1-johan@kernel.org> <20261110085125.2535508-2-johan@kernel.org>
-In-Reply-To: <20261110085125.2535508-2-johan@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 13 Nov 2026 18:23:06 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0j+GZ_v3=ji4Tcv9mahU3rBvX+WX0H5BwQ6kjhc6HpVpA@mail.gmail.com>
-X-Gm-Features: AclHuK8jFghVnxRICo3FkWZ1EaLI4NGbOw-Xw0BnT0rGkVeLLEHZH-dtxA8z2So
-Message-ID: <CAJZ5v0j+GZ_v3=ji4Tcv9mahU3rBvX+WX0H5BwQ6kjhc6HpVpA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/8] driver core: platform: fix swnode use-after-free
- on device release
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev, 
-	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 9:52=E2=80=AFAM Johan Hovold <johan@kernel.org> wro=
-te:
->
-> When a device has a software node, device_remove_software_node() may
-> drop the last reference and free it during platform_device_release().
-> If the software node is the also the primary node then the device fwnode
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-s/is the also/is also/
+------------------
 
-> pointer is never cleared.
->
-> Use a temporary variable to track whether the firmware node is a
-> software node to avoid a use-after-free in is_software_node() and having
-> fwnode_handle_put() call a function pointer via poisoned or reallocated
-> memory when the primary node is a software node.
->
-> This issue was flagged by Sashiko when reviewing a related fix.
->
-> Fixes: 7d80509ff0da ("driver core: platform: unify release path")
-> Closes: https://sashiko.dev/#/bug/linux-b860000b-f1d0-46a0-ab52-d47cec8ea=
-b99
-> Cc: stable@vger.kernel.org      # 7.3
-> Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
+From: Jun Yang <junvyyang@tencent.com>
 
-I have not found any issues in it apart from the above, so
+[ Upstream commit 52ffeaa358d1f3d91aa87a26ad90d77769cff74b ]
 
-Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+sctp_sock_migrate() transfers DATA chunk ownership but leaves retained
+control chunks pointing at the old socket. A later retransmission can
+therefore access the socket after it has been freed.
 
-> ---
->  drivers/base/platform.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-> index 979593e5cca1..be5d2f315fdb 100644
-> --- a/drivers/base/platform.c
-> +++ b/drivers/base/platform.c
-> @@ -598,13 +598,14 @@ static void platform_device_release(struct device *=
-dev)
->  {
->         struct platform_object *pa =3D container_of(dev, struct platform_=
-object,
->                                                   pdev.dev);
-> +       bool fwnode_is_software_node =3D is_software_node(dev_fwnode(dev)=
-);
->
->         device_remove_software_node(dev);
->         /*
-> -        * If the primary firmware node is a software node, its reference=
- count
-> -        * was already decreased by the call to device_remove_software_no=
-de().
-> +        * If the firmware node is a software node, its reference count
-> +        * was decremented by device_remove_software_node().
->          */
-> -       if (!is_software_node(dev_fwnode(dev)))
-> +       if (!fwnode_is_software_node)
->                 fwnode_handle_put(pa->pdev.dev.fwnode);
->         kfree(pa->pdev.dev.platform_data);
->         kfree(pa->pdev.mfd_cell);
-> --
-> 2.56.0
->
+Extend the migration walk to cover retained control chunks and use
+sctp_control_set_owner_w() to assign their new owner. Reuse the DATA
+ownership check so each chunk is processed once per pass, even when it
+is reachable through multiple lists or retained pointers.
+
+Preserve a control chunk's existing authentication key across migration
+so its final release can still generate SCTP_AUTH_FREE_KEY when needed.
+
+Fixes: d04adf1b3551 ("sctp: reset owner sk for data chunks on out queues when migrating a sock")
+Cc: stable@kernel.org
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Signed-off-by: Jun Yang <junvyyang@tencent.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20261009074244.3718-3-juny24602@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/sctp/sm.h    |  1 +
+ net/sctp/sm_make_chunk.c |  5 ++--
+ net/sctp/socket.c        | 53 ++++++++++++++++++++++++++++++----------
+ 3 files changed, 44 insertions(+), 15 deletions(-)
+
+diff --git a/include/net/sctp/sm.h b/include/net/sctp/sm.h
+index 3bfd261a53cc9..76605d1ee8391 100644
+--- a/include/net/sctp/sm.h
++++ b/include/net/sctp/sm.h
+@@ -252,6 +252,7 @@ struct sctp_chunk *sctp_make_fwdtsn(const struct sctp_association *asoc,
+ 				    struct sctp_fwdtsn_skip *skiplist);
+ struct sctp_chunk *sctp_make_auth(const struct sctp_association *asoc,
+ 				  __u16 key_id);
++void sctp_control_set_owner_w(struct sctp_chunk *chunk);
+ struct sctp_chunk *sctp_make_strreset_req(const struct sctp_association *asoc,
+ 					  __u16 stream_num, __be16 *stream_list,
+ 					  bool out, bool in);
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 8e4e88b1d0c06..317ce9ee32549 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -94,7 +94,7 @@ static void sctp_control_release_owner(struct sk_buff *skb)
+ 	}
+ }
+ 
+-static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
++void sctp_control_set_owner_w(struct sctp_chunk *chunk)
+ {
+ 	struct sctp_association *asoc = chunk->asoc;
+ 	struct sk_buff *skb = chunk->skb;
+@@ -107,7 +107,8 @@ static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
+ 	 *  For now don't do anything for now.
+ 	 */
+ 	if (chunk->auth) {
+-		chunk->shkey = asoc->shkey;
++		if (!chunk->shkey)
++			chunk->shkey = asoc->shkey;
+ 		sctp_auth_shkey_hold(chunk->shkey);
+ 	}
+ 	skb->sk = asoc ? asoc->base.sk : NULL;
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index 285cd8e0a1cfe..5cbc364a53576 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -156,9 +156,24 @@ static void sctp_clear_owner_w(struct sctp_chunk *chunk)
+ 
+ static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
+ {
+-	sctp_set_owner_w(chunk);
+-	if (chunk->shkey)
+-		sctp_auth_shkey_release(chunk->shkey);
++	struct sctp_shared_key *shkey = chunk->shkey;
++
++	if (chunk->msg)
++		sctp_set_owner_w(chunk);
++	else
++		sctp_control_set_owner_w(chunk);
++
++	if (shkey)
++		sctp_auth_shkey_release(shkey);
++}
++
++static void sctp_process_tx_chunk(struct sctp_association *asoc,
++				  struct sctp_chunk *chunk, bool clear,
++				  void (*cb)(struct sctp_chunk *))
++{
++	if ((clear && asoc->base.sk == chunk->skb->sk) ||
++	    (!clear && asoc->base.sk != chunk->skb->sk))
++		cb(chunk);
+ }
+ 
+ #define traverse_and_process()	\
+@@ -166,17 +181,14 @@ do {				\
+ 	msg = chunk->msg;	\
+ 	if (msg == prev_msg)	\
+ 		continue;	\
+-	list_for_each_entry(c, &msg->chunks, frag_list) {	\
+-		if ((clear && asoc->base.sk == c->skb->sk) ||	\
+-		    (!clear && asoc->base.sk != c->skb->sk))	\
+-			cb(c);	\
+-	}			\
++	list_for_each_entry(c, &msg->chunks, frag_list)	\
++		sctp_process_tx_chunk(asoc, c, clear, cb);	\
+ 	prev_msg = msg;		\
+ } while (0)
+ 
+-static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
+-				       bool clear,
+-				       void (*cb)(struct sctp_chunk *))
++static void sctp_for_each_tx_chunk(struct sctp_association *asoc,
++				   bool clear,
++				   void (*cb)(struct sctp_chunk *))
+ 
+ {
+ 	struct sctp_datamsg *msg, *prev_msg = NULL;
+@@ -199,6 +211,21 @@ static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
+ 
+ 	list_for_each_entry(chunk, &q->out_chunk_list, list)
+ 		traverse_and_process();
++
++	list_for_each_entry(chunk, &q->control_chunk_list, list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	list_for_each_entry(chunk, &asoc->asconf_ack_list, transmitted_list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	list_for_each_entry(chunk, &asoc->addip_chunk_list, list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	if (asoc->strreset_chunk)
++		sctp_process_tx_chunk(asoc, asoc->strreset_chunk, clear, cb);
++
++	if (asoc->addip_last_asconf)
++		sctp_process_tx_chunk(asoc, asoc->addip_last_asconf, clear, cb);
+ }
+ 
+ static void sctp_for_each_rx_skb(struct sctp_association *asoc, struct sock *sk,
+@@ -9677,9 +9704,9 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
+ 	 * paths won't try to lock it and then oldsk.
+ 	 */
+ 	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
+-	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
++	sctp_for_each_tx_chunk(assoc, true, sctp_clear_owner_w);
+ 	sctp_assoc_migrate(assoc, newsk);
+-	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
++	sctp_for_each_tx_chunk(assoc, false, sctp_set_owner_w_migrate);
+ 
+ 	/* If the association on the newsk is already closed before accept()
+ 	 * is called, set RCV_SHUTDOWN flag.
+-- 
+2.53.0
+
+
+
