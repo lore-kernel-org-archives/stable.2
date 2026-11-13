@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794600000;
-	b=kH0v3Eox8FokjZR0mFuDJT/Fapptj21p3xumIyLrdqpQfUgMaseXxsF17kX43BRDctPF
-	 o4aEOrDxQG8T0PrONJ/NITiX3NqmP+Ht2GLHG5yIb8YQ+8Iz1LYFwNgSNQebJfo8KCDy5
-	 GS1TxzcZxAis3Y5sg99qgsjqeFY+IYRhuaVPxjaDn+zlObOz4nhpzoVWhrQCYVJvi3WRY
-	 1c0Xz8nxfyj1/92wAUC7d3n98cAPkIL3ncILdziWeQx/61Nz/5ps3e3JvF9Zrl7jpiiae
-	 DaPF7DE/44fihWOklHLQDVG8GW4riHzP846NEUhufy7RAGv/dgiL8irC+5gaIrl1NEA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600000;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bcyEaCTJB5x2lTTiE9sRVpRFqS54gJwf/dcFY/Dj5K4=;
-	b=AJP+KevZpHum0fpFzlvpOe6eoAY6F2d/tYCajJQelDUo0xO0rsUCDH/0CsF874arD3j+
-	 LJGWmfh6E7ZE613F3xe6qZgAdDToNPw4108YjU12oGcL+TkL89CA2Wo+dnmoMUenz8wsM
-	 9STsxZNYnczZl1LVlCqNcQZbhIhOAekej9n3YtW2jM0OPiz+qXfMNpcptBt+h1McKoP8o
-	 lzp1B5qkx7hdnnhyyl+Jc0ZmW3n51zNSqmDebE4bJvRE49qIDZfDM1zzsyk/OochaFH5T
-	 aLkV5LemIwZxzz4BaYYAjA/ulCjp8wVKpVHeaDNf40ox3zxtqzTi6DBMtwKui649RSQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EHbVxTWv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.59
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011059.outbound.protection.outlook.com [52.101.70.59])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794600059;
+	b=WC25/w89FLBa3H8wVLIpNSQ1AziNZZvhMXAa0AhUzYcV+ARvpUWWkq0hK9CYbAWgLV/b
+	 zaZOZTtalAH7QbHH0g2T2wnn0yWufmCrkgyfPsCi2aQWbMuc3I5o4IM1Rfi8+T4P4BXbp
+	 GnhuZ6kvpaluH+Kk6QkA23pKAxFHaQxV6LT9reeHWIhxDPFNaSKrpnciGOkA1Z6hpE9+b
+	 xB0UGfwLRl4rBelJYNT+xqhCtvSpwFRBjoL9ODhs5grC/Gxsa9bZzAgsfsP9+CoerqNdn
+	 mt1S1dejdqYAIp8FYhoWP1M4uy8aXjkB4yrzNtP5Ck1T8gdnqr6btaTaVYUmzzrDzZw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794600059;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=cVUaiMaz3XMN9uwKkKZrpHW2DyS8HoLv5GhhqXeNd3c=;
+	b=HpA7dG5qM3s5sA9gayaROX2UKpq8TZ77uPpsgBJy/3d69EDWdXH0ODfYkxrHrBAD4coh
+	 q6qzPL3QPLkNPq56qwSz3sNtKuV5Agjm6X3MohOqrus+OGNIEMoZw+YxJEEmvjimvN9KR
+	 c7f8I1GOVnnTiOMsQrYwFZjh26giPcC5yyx9p7IuSZ5WiCDOvyMQOs6UW8QfnPhP2+yxy
+	 MW/Wt+1lvpmK0uHA24v9ZtT3PJA9SkFoKYsfVvk0K4J2Vk/yBZLKTm7WxtXFZXupuZAjl
+	 L6MR9u+1LZap2ccuT8SwcnHIT2eZKumOmN8azCPpvftbdn3M/+d67x/afkjHpq9V5jA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyUCD7Uy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32F9606AE97;
-	Fri, 13 Nov 2026 19:59:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E32F9606AE97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D789606A89F;
+	Fri, 13 Nov 2026 20:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EHbVxTWv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gGo773YY+YT2x9m17tJFt3hHl8C7IZM08MPD+nigmhtvq5Aq0+iTPmbUlKsSOdBEzeNsBWI7hRP4pQcUJ95lDZkqKjdScDHI2N9wbHg8cyUz4rptMWlrPNYIadgNb8iXNJXyOB3AXy4UQIX8dac+mdGzJvfGvl7suxnM+KbPgJ/liAsaC1jguHHwChz4nW5c1qSzS+iy3Up8Z/6Afs6YwuMmyELj1D88785XcnJNhA1vyQoP69kbpXZCCQ9yYGUzSwn9iQ4WEuh5O6R6rmisT29ezg2YMtgxD0Acq91OoAPwiQm0Z6OTgZxNgmsQFFZ/G7s/nywMoakfasAgwX1jjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bcyEaCTJB5x2lTTiE9sRVpRFqS54gJwf/dcFY/Dj5K4=;
- b=TgIjM86CW0UiM0YY0O++iC5QxZ/RyHPHZZ0ol587IdYvuDfAvESqMAI+EbmoB0JSqQBz39NMCFev3L7agmWNzCBJhgNuYAQoBn9bLeZ0tHa+QwU32a/GaXNLAolvLH7AKP3MNqabK2daKdG/YZFP45Xzkb/Bjn2BCOu4Hg4osM/ki+/hm0dg0kChXeuHV8u5nP53qGSUbRzkZ4dIm8nGxVutaBrIvnQVE13dScJpSn2kv9Hs9mOuhuEoMZPrnRo5UjKiQ3h6mJZgXQYhWoEzxh/MzHMnzS0+E4WPm8rEZ1vMbbRyJWmxmKeU5C2NODS1XnNMjNlx4bPbLktL0xmzDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bcyEaCTJB5x2lTTiE9sRVpRFqS54gJwf/dcFY/Dj5K4=;
- b=EHbVxTWvuS0c+voJojBbHpG5huFK4qZM3kbnTDWYw+qTSSFPUKqqe5076vTl91GOxOx1VAMA8yjH9TXmJYdOfDulzLg5JHnVyvtqPfodM5Sajr+E4DHZHS3yM/0VQhz/kQ8QzZEVOXld93QPRKvDQiuTvxyJ+s7uH75xrsp/LmboVtOQDFTA1KHZL+88WW/rH2d+D2qws6hHOQOcztOl5pHj8un/I60thOA8sQ665ouUDT8kWJex8TdwpBihLBaEskGluzIviISR5VkKvfPydAWmB2imXva5/9apDNvs6AzntQuqqUq0MguvSWwtv5qHR4TbQBLsrhvtPR0RGgnPWw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM9PPF06182BE30.eurprd04.prod.outlook.com (2603:10a6:20f:fff1::a04) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
- 2026 19:59:56 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
- 19:59:56 +0000
-Date: Fri, 13 Nov 2026 14:59:48 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Binbin Zhou <zhoubinbin@loongson.cn>
-Cc: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev,
-	devicetree@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] dmaengine: loongson: loongson2-apb-cmc-dma: Fix
- cyclic residue wrap NULL dereference
-Message-ID: <avdsNCgta3XIY4FV@lizhi-Precision-Tower-5810>
-References: <cover.1792988985.git.zhoubinbin@loongson.cn>
- <e094c8dc1d01af2f296457f6c18b5d85ae76905f.1792988985.git.zhoubinbin@loongson.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e094c8dc1d01af2f296457f6c18b5d85ae76905f.1792988985.git.zhoubinbin@loongson.cn>
-X-ClientProxiedBy: DS1PR02CA0008.namprd02.prod.outlook.com
- (2603:10b6:8:452::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OyUCD7Uy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E49AC1F000C4;
+	Fri, 13 Nov 2026 20:00:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794600059;
+	bh=cVUaiMaz3XMN9uwKkKZrpHW2DyS8HoLv5GhhqXeNd3c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OyUCD7UyGbgQkY37EnEigD1L/mrS7PBtAgr+4NmGTZUelqoLujjnkQSl5X8ARX9MI
+	 +N/R6NXrTN7PcrCbmG/pn27YFyv29KKY0XQoMMAUfuHO8AlBL7bBkgke2RbJvLRPau
+	 gqlZKfWqdyCRLwVmQBvbVLOkIeDne2b24kKHimyfVWs7mXPP0YasHlDFJjkbRUClJ0
+	 B/2YPA2lbPXMYhcPkl6S0YHYVWhH4pYxJz/ZIFporIOHnC79l8MpxhfGy+VNxSydkm
+	 o5/gV4LFTaPbY5q4iab0I9lC5gCZrC/A7fMlWILAEbgb7ZUXgDiS+PGC1UtJqmTk9S
+	 k8m6JJ8gBDoYA==
+Message-ID: <6630ec25-3648-4d60-beb7-61572053318b@kernel.org>
+Date: Fri, 13 Nov 2026 21:00:42 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,113 +51,228 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PPF06182BE30:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75ef2586-8b9d-41c8-2d5f-08df41c0b0c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|376014|23010399003|7416014|366016|22082099003|18002099003|10067099003|56012099006|11063799006|261026140227099003|261102123227099003|261021121427099003|261009223027099003|261021123027099003|261022075727099003|261028144727099003|261022105027099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	ctRxRYIqEp4mXrUnL4TME8FaRkF4kBrZUssyzYHvV/YgjC+NnS43QHcOGiDkDIDgDHj9walRcOwmcycK8seS0jRClNY3unGZuu4MkH8ah2Nu459enY0BOUJ5datYbjNib486Y7/cu9+Q5tnsNSo9FX0lhXTP+LKhwNrZMQ85rNN4WpjtvExD9Z9b8Sl5UWsFSkL+PCFVTwPtrQK/0BTqZNpj+zlKbmpEuAN222/Mu6Y/7WFOsrQGjq7Z+KGPKb87ub/+M/4zurGPK+S0Bir3VYTsuy4wjXDXk+S3m7sk/0odIod3ENOoCSgCMkMgG2ey+M8IgfeMm5tscWKSP/1243pKY8gu0v+rYz4OOIAqLu/Hyrh78YSOXM8R/ozkP09f76h7leI9d3hzxBpCg0i3rcrfEQFVqH+1Bun0ywiAlOTQTB652SlUeY9XktCxe7Ab1mXksiWmuwVMXe+9RvumzC7XPTFm9LWJkU52n3axuETuFmEXf5xguXq1i4EYR5h+OYfkiDmKoMDdIoy1MtZR0ZstMOK6MjPHu3N8tgjF2cUvQKETMisIdDSClUDlpFHJGZW/h8jh0GV3dMdJjANo7ritRLDVFjKU1eeFQFOIbv+shaeo01luJhz4E+1VrlA4tLJScnzkUb/Kn0zXrfWku+Y4tsi8ngXD7IxxBOVPEP0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(376014)(23010399003)(7416014)(366016)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(261026140227099003)(261102123227099003)(261021121427099003)(261009223027099003)(261021123027099003)(261022075727099003)(261028144727099003)(261022105027099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AhzEAtA8Wzc1At6ebHK2VgDvpF8uut7cIbpmpUZRC3gEiNqekVM+hCR99pcA?=
- =?us-ascii?Q?psNxjohUof2uiBA8NogaXmNgY90XnPPhE1x30kN1RlloDgbaE32PYFRA2PbD?=
- =?us-ascii?Q?XD+VuzYmFhJWUof4bNX635j3wP/aVaL41Qfhoz29cj0i5gm9j6gWDhBgGShs?=
- =?us-ascii?Q?Ct4H/9l2Mkgxolj/tEBQ2WUXGP6AgKPt5YYlLbpI8PAmxOVVWEL+9XCJHjiW?=
- =?us-ascii?Q?LJLiVhKWFapI67yj3PJFaxwf5k2moIHDvksXhm/AGHmkkdYxl6oMc0BEPwYk?=
- =?us-ascii?Q?B8BlE5TlUKgSbXVBHMwHk1cvVbVveOOeKJjmt/rC7tuFNEyr+UbhmCgM7KZf?=
- =?us-ascii?Q?nEIfOCKttQYUy7M8ERf3fegyeqkOOcCCZ7LSvdw20EN5CrbcpuRLow+htKsm?=
- =?us-ascii?Q?fQTHqH033slN/dnb9Bk3JG8BqWlVWD1dt1CbQDYcEws8uK0HoBBJe3qQh6KQ?=
- =?us-ascii?Q?vlnNu2P4ekzhDCLur1ZipmIggxRem7O4tHuA607temSt0NUpKYg2HmclYBvj?=
- =?us-ascii?Q?prZ/To3KOp9G/IMTHJJbt1IciyV0L0cwMvgWdDMd2d+kvFaf+tNeFSR10xya?=
- =?us-ascii?Q?RhqrHS+QTcRK4FypHHVhuwg+jxty4SEfKGyh4pV9R0G17pVF3HR3q+k0b4EY?=
- =?us-ascii?Q?yU4tjhEdaBNetVJvi/D5V2UJgA9/MmPU7k9g90G4aSETZAMTUu2ywBEem3sQ?=
- =?us-ascii?Q?9eawXurIcpSzEpYzAKVI5Q+2ar2BF73qblODYpa/5v/vK0w4AkMp/FQobMEQ?=
- =?us-ascii?Q?kbVN6BTmAcwCpYr/lCnd6DVVAQUBXrqm2ainxfDp8YDkD50X1VkbiA5z8y+W?=
- =?us-ascii?Q?eZCo4JFGx/r5JMIM8+9fTg4XIt4srYebB93HxFRXcaFCnf5IOz61P2UsCLMr?=
- =?us-ascii?Q?Q40eNC232u5UzRpJjFymbptJigBkrcqvh6Lct7zt7X5NU5q1yXNsHFYuxig4?=
- =?us-ascii?Q?7lpX8AMaR6GEb4M60uE91MhbVlwGhQ1jEyWKAfjfLJG08lPaHoJRmNb0w+s+?=
- =?us-ascii?Q?xcS8e5w3RyFhFp/hsAgiJs8Nxp87t0QpA0qOqgPECNQWNdQXGKQkp88EaMIz?=
- =?us-ascii?Q?JBTqclPlUU1KBOZhyP5iHBTAOhDaUtL/vYcedwAMxerKUShV+2FPmt2ET0DX?=
- =?us-ascii?Q?SXg94WmNJxgebUcW2TFjzOgTAb4Phm9B5TcGc9vRoXO2WdJeM9qRgDmAhY/X?=
- =?us-ascii?Q?zjMu8ymKovWMSjn20fdgB3lzRtBqamMfrPriPibDtOVKO0sErn/HB84Wo3v3?=
- =?us-ascii?Q?1loTtuLLDuIBy0Li7OqrkyUwdKmbv66jE5Ip5pTO4gMUtukV+Ntd06ukok+w?=
- =?us-ascii?Q?lEdE5SRpHk2OcvvCKhrj7WcvAgvB8z38l1MPVR9O+UR/DQNlJtGZTBcJWEcF?=
- =?us-ascii?Q?X1vuMqCn2uvUS7P1nA8cqEyqSIWzUd/jNNOU9XNkguuSXCSMTpluRnCvldJh?=
- =?us-ascii?Q?/GM9eg4U7S64QERrY7ddHK5GxyQDchQi+Y5CXtQKNDaBNdisRqMe4rKDrbr/?=
- =?us-ascii?Q?PkCjTu4ZknT5cl69oWsmL++N/GnE83lbR78Oi4j3aadkzwW3IYs01lCmiYVG?=
- =?us-ascii?Q?bbuKAQw6oIx8e+f1lAmQ4d2zLjifR1KyPpoJfMNFiWeNNr7T8JzjZDprroGd?=
- =?us-ascii?Q?pHz/iPfiBq9FZKlwRMODf5ZJsMGHygwZWVz5rBaVC2PTxWw3QYrHyf5yVsK1?=
- =?us-ascii?Q?9txfyqy8RUk7SF1437nsX3WWLbzKpvLNbrUvtFdPgx/ZOiJdNr42dn20yV+q?=
- =?us-ascii?Q?3MLUl+jCkLbaJxsHKDng4NEvrhPrgC5NxH3GdQ2ob1ALavfAz7Ti?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75ef2586-8b9d-41c8-2d5f-08df41c0b0c6
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 19:59:56.6482
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k0nfKZhgtnbQ3t+IjZU+N3u2s4WC81tzvBE7FserXii1DGAJVCrASshi+8S/173cbztVgaEBuNcx+uW8AxMxLektDhNN9+JGWbxk3sC2mcSP5CT4FeLmXO5OcL0FXaif
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PPF06182BE30
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/9] mm: limit pagecache folio refcount when mapping
+ pages
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Steve Sistare <steven.sistare@oracle.com>, John Hubbard
+ <jhubbard@nvidia.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+ Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ linux-arch@vger.kernel.org, iommu@lists.linux.dev, netdev@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org,
+ Pedro Falcato <pfalcato@suse.de>
+References: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
+ <20261112-refcount_overflow_stable-v4-1-ad3deef0bd23@kernel.org>
+ <avdovRTVITLwuit_@casper.infradead.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <avdovRTVITLwuit_@casper.infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 12:31:20PM +0800, Binbin Zhou wrote:
-> loongson2_cmc_dma_desc_residue()'s cyclic wrap special case checks
-> lchan->desc->cyclic instead of desc->cyclic.
->
-> When tx_status() is called for a queued descriptor while no descriptor
-> is active, it reaches the "else if (vdesc)" branch with lchan->desc ==
-> NULL and passes the queued descriptor to this helper. The helper then
-> dereferences lchan->desc->cyclic and oopses.
->
-> Even when lchan->desc is non-NULL, keying the check on lchan->desc is
-> semantically wrong: the wrap decision belongs to the descriptor being
-> queried, not to whatever descriptor happens to be active.
->
-> Use desc->cyclic. This fixes the NULL dereference and makes the helper
-> self-contained.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 1c0028e725f1 ("dmaengine: loongson: New driver for the Loongson Multi-Channel DMA controller")
-> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> ---
+On 11/13/26 20:45, Matthew Wilcox wrote:
+> On Thu, Nov 12, 2026 at 11:53:20PM +0100, David Hildenbrand (Arm) wrote:
+>> Being able to overflow the refcount is not really big news, but it's about
+>> time that we do something about it because some modern technology might
+>> find ways to abuse it :)
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Hi Willy,
 
+thanks for the review!
 
->  drivers/dma/loongson/loongson2-apb-cmc-dma.c | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-> index 2037120b23ca..f090fbe0b8a1 100644
-> --- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-> +++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-> @@ -484,7 +484,19 @@ static size_t loongson2_cmc_dma_desc_residue(struct loongson2_cmc_dma_chan *lcha
->  	ndtr = loongson2_cmc_dma_read(lddev, LOONGSON2_CMCDMA_CNDTR, lchan->id);
->  	residue = ndtr << width;
->
-> -	if (lchan->desc->cyclic && next_sg == 0)
-> +	/*
-> +	 * For a cyclic descriptor that has wrapped (next_sg == 0), the
-> +	 * current period only has the in-flight entry left; the entries
-> +	 * from sg[0] onwards belong to the next period. Adding them would
-> +	 * make residue exceed one period.
-> +	 *
-> +	 * Use desc->cyclic, not lchan->desc->cyclic: this helper is also
-> +	 * reachable with a descriptor that is not lchan->desc, and only
-> +	 * the active-descriptor branch passes lchan->desc today. Keying
-> +	 * the wrap decision on the descriptor being queried keeps the
-> +	 * result correct and avoids depending on lchan->desc being set.
-> +	 */
-> +	if (desc->cyclic && next_sg == 0)
->  		return residue;
->
->  	for (i = next_sg; i < desc->num_sgs; i++)
-> --
-> 2.52.0
->
+Be aware that I want to get this fixed now asap. So I will push back against any
+bigger changes on this for now unless there are real issues to fix.
+
+I want to get this sent early next week to Linus.
+
+With future changes I am planning, mappings will no longer be an issue. I will
+then drop admin reserves (as the chance for DOS will go down drastically) and we
+can use the negative refcount as our limit.
+
+> 
+> Yes.  My primary worry is actually it finding a path where we forget to
+> put the refcount on a folio and that gets exploited into a UAF.  I'm not
+> sure the "reserve for root" aspect really helps recover from that, but
+> I'm not too opposed to it.
+> 
+>> As a short-term solution, let's introduce two folio refcount limits:
+>> one for ordinary consumers and one for admins. Leave some headroom
+>> before the refcount goes negative, which we really don't want (having
+>> the mapcount go negative is also not expected).
+> 
+> I don't think a negative refcount or mapcount is really a problem.  What
+> matters is that we don't get to zero from below (for the refcount)
+> or that we don't get to 0xf000'0000 (for mapcount).
+
+They are a problems in current code with both negative refcount and negative
+mapcounts.
+
+Nothing I want to sort out in this patch set.
+
+So if we reach a negative mapcount of refcount today, we messed up.
+
+> 
+>> +/* Leave separate reserves for administrators and concurrent reference gains. */
+>> +#define FOLIO_REF_COUNT_LIMIT		(INT_MAX - (1U << 26))
+>> +#define FOLIO_REF_COUNT_ADMIN_LIMIT	(INT_MAX - (1U << 25))
+> 
+> I think these specific values will generate bad code.
+
+Again, we can worry about fine tuning once we have a proper fix in place.
+
+> 
+>> +static inline bool folio_ref_count_over_limit(const struct folio *folio)
+>> +{
+>> +	const unsigned int ref_count = folio_ref_count(folio);
+>> +
+>> +	if (likely(ref_count < FOLIO_REF_COUNT_LIMIT))
+>> +		return false;
+> 
+> I would replace this with a simple signed comparison against 0.
+
+As per above, this is something for the future.
+
+> 
+>>  static inline void folio_get(struct folio *folio)
+>>  {
+>> -	VM_BUG_ON_FOLIO(folio_ref_zero_or_close_to_overflow(folio), folio);
+>> +	VM_WARN_ON_FOLIO(folio_ref_count(folio) <= 0, folio);
+>>  	folio_ref_inc(folio);
+>>  }
+> 
+> And I would drop this hunk.
+
+Similarly, for the futue.
+
+> 
+>> diff --git a/mm/util.c b/mm/util.c
+>> index 80f6c714844f2..c9c3dc4b490fa 100644
+>> --- a/mm/util.c
+>> +++ b/mm/util.c
+> 
+> Now we have mm/folio.c, I think it should live in there.
+
+I can move it.
+
+> 
+>> @@ -791,6 +791,32 @@ int folio_mc_copy(struct folio *dst, struct folio *src)
+>>  }
+>>  EXPORT_SYMBOL(folio_mc_copy);
+>>  
+>> +bool folio_ref_count_over_limit_slowpath(const struct folio *folio,
+>> +		unsigned int ref_count)
+>> +{
+>> +	if (ref_count >= FOLIO_REF_COUNT_ADMIN_LIMIT)
+>> +		goto over_limit;
+> 
+> Maybe let this go up to 0x8100'0000?
+> 
+>> +	/* Background threads must not consume admin reserves. */
+>> +	if (current->flags & PF_KTHREAD)
+>> +		goto over_limit;
+>> +	/* Neither must interrupt contexts on behalf of the interrupted task. */
+>> +	if (!in_task())
+>> +		goto over_limit;
+>> +	/* Capability checks are not safe with IRQs disabled. */
+>> +	if (irqs_disabled())
+>> +		goto over_limit;
+>> +	/* Use the task's credentials, which filesystem overrides cannot change. */
+>> +	if (has_capability_noaudit(current, CAP_SYS_RESOURCE))
+>> +		return false;
+>> +
+>> +over_limit:
+>> +	pr_warn_ratelimited("folio:%p refcount:%d mapcount:%d mapping:%p reached refcount limit\n",
+>> +			    folio, (int)ref_count, folio_mapcount(folio),
+>> +			    folio_mapping(folio));
+> 
+> If it's worth doing folio->mapping, maybe also print folio->index?
+> In fact,
+
+I can do.
+
+> 
+>         pr_warn("page: refcount:%d mapcount:%d mapping:%p index:%#lx pfn:%#lx\n",
+>                         folio_ref_count(folio), mapcount, mapping,
+>                         folio->index + idx, pfn);
+> 
+> might be worth pulling out into a mini helper from __dump_folio()?
+
+I want a pr_warn_ratelimited though.
+
+Again, thanks for the review, I want to get this fixed asap now.
+
+-- 
+Cheers,
+
+David
