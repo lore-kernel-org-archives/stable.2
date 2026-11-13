@@ -1,53 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598511;
-	b=owc+d5q55rGj5cthFHnp5w8DWjOExAOj9qY2DruLPj8i/QSlMmb2dMwUX9C2GpkoXj3o
-	 zgAZZcxhLbjgUvzxaVXMSIzWPFcj8F07txxvPefc9EtgnTdZd6zN9Vs/9xJfZEqaM7WQf
-	 JtQLMxLs10G0NkHQ1joUo8ISN/HNVzkLxxMMkHNStHifh4n0jskOKPdlbGo0vzHkpb39Z
-	 dOVhXwKOSD6kmLkeofmJxfBAfLMbaCVmURWyX2swg43CgNNsAn2bEPvTvgoQLDQQNOzwK
-	 3IRoC2lK4aVRlSJI9m50yXZyniyZxDK6+slbBoQrwVNcnwS1ZBQfDhQguXyGSdnCnqQ==
+	t=1794598564;
+	b=wdhsJolPaWt4LH8D6gcgFDDzH+/bjwODZ/QcQKBmXIxX/8wTMqiviFzXAHH4kGoUABpb
+	 9b3RYKW10+FKGGtjt1cKukSJymQfKDBGvgq/O0Nk/B0bK0KSLy6XgyXenb3eYK+Ge+gHa
+	 P25y4VjfNcC9dQbjsBjdEqh/dLDrAt+tNNnJ1BHrFW4AgYOuZfUpoKzRR+fCvlLYS5ktb
+	 yeGlalyHS7XtKYY6Wx+B7oCAkJJ/N/mAjz1Zbl1+A0oxM8+zlnh5G9MjnmN65fIOvQ9QT
+	 MfqzBJqzVCDX95dsJ4lgg4zQ+o7eyLw3ME/er1w1MLvROIsj+6qDmBOypiovWnunRwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598511;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598564;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=J4SqpLYz6xNBDHEM56f/ip5cqnZrQFOa8Gj7x2Hl/bI=;
-	b=eoBXyuA6jd18M0/3RsXMzpGpV5IY0rJLEFBNADQgyEH6tmuAURlhE9vaN+AkzlcnJV6i
-	 Qnor5znNcmkYAgu5fUei1GwKVHzMZ4SuC2VZaPgSM0Q3BkZaB+3Lzg+dtZKfpqHtHv5cR
-	 PAkB702yW1aMTzMhEftq0eFN//oR/Cre6iU68OJ4ZrtFz3j1jktEBReaHjOoWWpS3khGP
-	 QB1vw3W1WeDJ32siryG926AcgGkDVZYWA4eCBtLbzkvlaxIwEDg0GCZtJZU76JKxkdrSL
-	 tyV/8hNWuPjlV6etB1r66k1oRFJj+F3IsghsvtcuJeCmoo1JeGusXpK3Gdp91hEjhVA==
+	bh=MhL1dopo+6HT3A1/s6uDdPtlRUQ2J6NgmMVPi9TVFDA=;
+	b=IwQCugDZVdyutchLIi3wzeT2DvO6vd97f2B4bh5mCFuKFFkpyq5yynI5jxzsXyaqRFyJ
+	 mt+9rv5IW3KAyh+pGhHlhuF4iH76sWpghcciCRlWeEc7LO6bW8FKEwRMbaWCjYHyr/gHY
+	 7rWd/FDBcGRvSiO1boCQGYGQiuOg+CpzgCTGeeOj5pvS82HcNQhsmSeyfaD7rApmz3iZ5
+	 Aj3e98o7+BK72R1tktS+nYaNW8MqVOjzddsga6E+YyDoDkkFRwM1061mRUFltROxbyPO/
+	 MOSdkRwDIYJmEOAW2cglVlNw/lYH2W99HmRX0qLSV6jtDMlO1QHUZsUWm8M3oIKCa+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPmwsPKQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CL3i3V1M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EF1606A32D;
-	Fri, 13 Nov 2026 19:35:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57B3606A886
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:36:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UPmwsPKQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5661F000C4;
-	Fri, 13 Nov 2026 19:35:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CL3i3V1M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC9691F000C7;
+	Fri, 13 Nov 2026 19:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794598510;
-	bh=J4SqpLYz6xNBDHEM56f/ip5cqnZrQFOa8Gj7x2Hl/bI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UPmwsPKQnrDtpeV+Mx8Rttddx/jnCk8//WFXoYAJC+IpTY/9PeceVndv7CrZWo5Tq
-	 j5oQxqDaqmc/hJZG7fCoZSpoYGfI29y/yIGcMkHhgCoWCiH8n7fwntEUZCbEW0GS+q
-	 Cv+GN5KoLhMHOd3Rjva4OZmWwoZpgsaYlMWj+cjdZNNy/XFs5xY7VBlUm7YxA7+bfd
-	 vNSaZFeMo6cyVVMg7oAtOOhCVHXmQFvbteo5i3QWZvxu7EQ1LYNxdeOJjJyuICmYl2
-	 avkF2MBSzI1Nj0lI8haVwenkkN+ForKM6lnjPARyvQffy6YAiGbIuXgysS9yWV/fGd
-	 mD6VZp6eqMb/g==
-Date: Fri, 13 Nov 2026 09:35:10 -1000
-Message-ID: <e7facb8344bb662b82266f9f96b7e70e@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Daejun Park <daejun7.park@samsung.com>
-Cc: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>, Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev, Brian Foster <bfoster@redhat.com>, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] dm: fail a REQ_PREFLUSH bio with data when its preflush fails
-In-Reply-To: <20261112-dm-flush-data-error-v1-1-c83d3f8f3ac4@samsung.com>
-References: <20261112-dm-flush-data-error-v1-1-c83d3f8f3ac4@samsung.com>
+	s=k20260515; t=1794598564;
+	bh=MhL1dopo+6HT3A1/s6uDdPtlRUQ2J6NgmMVPi9TVFDA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CL3i3V1M699h+bDK5a9IxyFMEOTBA7tkIn0vDsR2LcDUKH0K4/tFuy+zt9nLY1eMi
+	 fqiwX6WEm6sl2ekkDnzPfF+dB+0HtqN3NDkVNpz+a0OkZUtbdKausBXmhGPWmESWUa
+	 8Z5DtVyxmR+/pN3WXnCv/r3Ic17ZiDOHJvkgWgbvWPfQWr3PulCWwOXI+jn/r0Lmov
+	 WyDghXUqZAcZx1E3EM5AfXHQyvEzPz0XalBZPXAuBzf/E1TojyzUlaM3vpLopOnZwj
+	 TjiweuIqP3fKA753NO3QP9ZwR8SmcpzFbOuRle1+IBCkWuVb+WqAABBC+fG3soQXrp
+	 G+h4Xo2J/Jd2g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/amdgpu: don't walk the CS chunks when allocating them failed
+Date: Fri, 13 Nov 2026 14:36:02 -0500
+Message-ID: <20261113193429.2314835-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201433-failed-6.6-ade92d50aad6@kernel.org>
+References: <20261109201433-failed-6.6-ade92d50aad6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,25 +61,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 10:35:29AM +0900, Daejun Park wrote:
-> For a bio with REQ_PREFLUSH and data, dm core may send an empty flush
-> first. If the flush fails, __dm_io_complete() still reissues the bio
-> without REQ_PREFLUSH and drops the error. When that write succeeds,
-> the XFS log keeps running and fsync() can return 0.
->
-> End the bio with the flush error instead of writing the data, as
-> blk-mq does.
->
-> Fixes: 6a8736d10cb4 ("dm: relax ordering of bio-based flush implementation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-Acked-by: Tejun Heo <tj@kernel.org>
+[ Upstream commit ade92d50aad6799a5a9d7e73cd1604fd0576e656 ]
 
-Thanks.
+amdgpu_cs_pass1() sets p->nchunks before allocating p->chunks, and the
+allocation failure path skips resetting it. amdgpu_cs_parser_fini() then
+frees the kdata of nchunks chunks from a NULL array. On navi48 with the
+chunk array allocation failed through failslab:
 
---
-tejun
+  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:amdgpu_cs_parser_fini+0x35d/0x710 [amdgpu]
+   amdgpu_cs_ioctl+0xcae/0x7a20 [amdgpu]
+   drm_ioctl_kernel+0x180/0x320 [drm]
+
+Set nchunks once the array exists.
+
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 0c828445757b86aaa3ed2638832d76f450022bdf)
+Cc: stable@vger.kernel.org
+[ sashal: adapted kvmalloc_objs() to kvmalloc_array() with explicit element size and GFP_KERNEL ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 99de46eda59be..6d42290d68fb3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -214,13 +214,14 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 	if (IS_ERR(chunk_array))
+ 		return PTR_ERR(chunk_array);
+ 
+-	p->nchunks = cs->in.num_chunks;
+-	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
++	/* parser_fini() walks nchunks chunks, set it once they exist */
++	p->chunks = kvmalloc_array(cs->in.num_chunks, sizeof(struct amdgpu_cs_chunk),
+ 			    GFP_KERNEL);
+ 	if (!p->chunks) {
+ 		ret = -ENOMEM;
+ 		goto free_chunk;
+ 	}
++	p->nchunks = cs->in.num_chunks;
+ 
+ 	for (i = 0; i < p->nchunks; i++) {
+ 		struct drm_amdgpu_cs_chunk __user *chunk_ptr = NULL;
+-- 
+2.53.0
+
