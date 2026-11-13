@@ -1,47 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794527947;
-	b=b5+ixsRUSQKbu+Oo4u6UTbhmQBKV8AV3LWnqDOKFTylAlUdDRRSVNJhw+TW4cb4zMAPk
-	 lf7J+KUqPvBQTxRyxLeYaxdT1U3w5ubG63qcbPV3O7Y5IUv9ukXCZdJinX0JdlF6KYnbu
-	 3OMF7qYeQNSkuDqv184U2UJhyjeVJ634fsx/uhQQ8GJYuLhsCIpu9hw3H7iiYvPxOqMUP
-	 lQKL9fvGzzohFpUUZm+K5La6+BrrdgTmddEmovH+kaorANK7u2wGe1ieEk8oW4VG2Qaa6
-	 8jK3VLHHyGUoXRrKTz3aEL+rfYhA9LbTuJx4CzM1/zKw0pxOrgPCuHs73GG7L/Ssofw==
+	t=1794528212;
+	b=e1vYEwOV/ISAa8zj88q3qGS+cDxEKhn2b/xI4pa5HCetyG8YS7RBp+QJC5+Ww3uhyM9+
+	 LF8PayEZHjqsMe9B85HWODrRjbjy0C9O6hWqn0w0gK5dUYZXCwKiz2NxyxJMGvOJNbea1
+	 tvYbmFEI+xBbWtGF8mTHd8mB5NDZUqG1D/jDf0jjGQIrI06OeBdkFP/SAagygO2O+T8bl
+	 mg5ldaR99g0Kt5NP11uv6XfQbEkeYGsI4jMCmpzFzbhWjNpgxONBqHs/K4dMOzYnTUFkV
+	 z6JOFUH/EgSaqJ3Y2A5BrvscoTTduKy28ZEKu9cfeV2SLhAgat4jwzJOcDQkZ7n6R7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794527947;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=WxgEX4388zF6U8KM4KgbrPSeQjWqRryJtZ/6cfDPpWs=;
-	b=yGlzcA8VfB0AcPVo0ZfOur+cJ+J/hbQ/DT5ZYbU+i8hEeibbtZgwzx6w6gtZlHav2fdj
-	 eyeaCXLkz2NBRr7FsWzejTmc+s+uP5T8Cko0Jq4sxmqT3dvlJ9IJSCQSnBVrpn+nbCIFY
-	 6kyXiURezVzosr89vkqDgqvP3+Rw0XNGelGgpLq1vD7B3oRrMTviGJDMj8IOAeXFF44xM
-	 ZWBAJOgmJ0vR9BpVWHMNxDjNJupeJbyMfxYGqmGEV7KbPnH63P0GJp84cPhnDy80yvBw7
-	 wZbk7G11rZSQ0oFvzsBeYpnO4e1+wGMrXcuqsBqTMrOjwLO1L9mu1mi9W7W9X+vqOBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794528212;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=mD7pZSBd7EvZHJEFH4uAL2i4QQbvrCkQsbm2ULwufSI=;
+	b=rCCKw86+fqQafii4Dpt1RHUJc85XDm6BLqf1phv0/zxtTG5jCm66mQNLhPYE40cgq6Fp
+	 Lr/2tS6ilu2MzBb/ir0s7iqkpurRg3rC5nyR1I33TU8tKv0ejSmOs2xo3eaSRlLCoo5ld
+	 GLXnHzMu/RpmFaJLO33CL3gHd12EBw4LOnUYpDwskdb6cXdlZm2mvUUtl0pLKdrouu99w
+	 cebEBWN2n4O9v6vg0sM+0VQ4yAzUHFqjOSgsqikdtIV+zhyC93E1xSaH6j02zN4GZG8gh
+	 QtATPiTsH7ve5Npb6rnpMEiYkrjOLyOrgUL+ZOhhAYkbVgc/ALth5hWQLcWGvj5TeuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fChm8D0E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKnUUyyd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9A6606A327;
-	Thu, 12 Nov 2026 23:59:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69D8606A321;
+	Fri, 13 Nov 2026 00:03:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fChm8D0E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B85D1F000C4;
-	Thu, 12 Nov 2026 23:59:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKnUUyyd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AC451F000C4;
+	Fri, 13 Nov 2026 00:03:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794527946;
-	bh=WxgEX4388zF6U8KM4KgbrPSeQjWqRryJtZ/6cfDPpWs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fChm8D0EaIVF/iA0odcAXXSgtLTuReq648ASLwVx75+fiP4hIn2IxqLOz393lT+YY
-	 dI8xkbOHhpkbeTDq49ki1fgPcIHoVyx1+iZ7zaGmN6hCbjsvGXdDGgiwJvYx3klF5e
-	 O5UVzIf7JepO57KRDdTFadPkEVTj5ipcuzLl84Jc8p4boWXZ7hEMKmtBfiA3xf1Stf
-	 a3XKSwLSu+8hq2nPVjCaLlJOWZVVtC6rH+jtL9Y5tn9d4ybEcMlJwSUsDYuHHrC4MU
-	 s1wQta+FgpLtpRPpuq1QPBR0dfJKP8XE5E9LXzW3BEYZwID1RrNmguRyzXA0OJAFs0
-	 MmIfRR0TmzGFg==
-Message-ID: <0e3e876e-c3df-4660-ad89-a5f0fd7dedc8@kernel.org>
-Date: Fri, 13 Nov 2026 00:59:00 +0100
+	s=k20260515; t=1794528211;
+	bh=mD7pZSBd7EvZHJEFH4uAL2i4QQbvrCkQsbm2ULwufSI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lKnUUyydyueSLUDTINIjBGZO+7VYgYenYVCem5b8nts8ODqjuL/5sPwOWDPZKEJFk
+	 TRLumq6fElvERg0T1zYfu3jL9HI6lktNoEpuceP9Gi9CU3bCPS+3adwnsKsyMz5VQx
+	 3DfZJ2yKl0k21MXXYSRMYpo5Tmefr7tjFCKAMhskyNIgYcZbyuf1mXli89Xwyz6C/N
+	 PuqHiZzQqHWSI4kBaxFu6L6BmntDXDzl0LEC1aiT0otwprrkjsOkwgsg3wD460AAH3
+	 1Vezd4xpD5kKwz7R4F7h0atab0sN+XWKY+Olta5tTG+WqrW0zESBQsW9j3daJqhJB3
+	 Qv0w3yF9zxsWw==
+Subject:
+ Re: [PATCH wpan] ieee802154: atusb: complete each transmitted frame only once
+From: netdev-bot+sashiko@kernel.org
+To: joasantonio108@gmail.com
+Cc: stefan@datenfreihafen.org, alex.aring@gmail.com, miquel.raynal@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-wpan@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 13 Nov 2026 00:03:30 +0000
+Message-ID: <179452821058.2199510.6478538599475344430@kernel.org>
+In-Reply-To: <20261110-atusb-tx-once-v1-1-43e2b92f2072@gmail.com>
+References: <20261110-atusb-tx-once-v1-1-43e2b92f2072@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,117 +64,287 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
- uffd-armed VMAs
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>,
- stable@vger.kernel.org
-References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/12/26 18:38, Lorenzo Stoakes (ARM) wrote:
-> In order to establish guard regions, guard markers are installed in the
-> page tables of a mapped VMA.
-> 
-> However, problems arise when one tries to combine this with registering a
-> VMA for userfaultfd, as such operations may themselves need to install page
-> table markers such as uffd-wp.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-How does this interact with UFFDIO_POISON markers that can outlive even
-userfaultfd registration?
+Critical: 0 · High: 1 (3) · Medium: 1 · Low: 0
 
-I'd assume it's just the same thing, just like having proper hwpoison marker in
-anon mappings, so it just works (uffd-wp will skip, guard installation will zap).
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> 
-> When this installation is attempted the guard marker prevents these markers
-> being applied, which can lead to unexpected results (especially if the
-> guard regions are later removed.)
-> 
-> This is especially problematic because guard region installation causes the
-> regions to be zapped first, meaning that the removal of userfaultfd-tracked
-> ranges will not be logged in this case.
+- [High] In atusb_xmit(), the new error-path clear does not close the
+  double-free it is meant to close.
+- [Medium] atusb_tx_done() takes the pending skb with xchg() (line 206)
+  before it compares the reported seq with expect, and the seq-mismatch…
 
-Again, similar to trying to uffd-wp-protect'ing a hwpoison marker (which will be
-ignored), and then zapping that.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  atusb_tx_done() frees the pending skb on any device report, without…
+- [High] This problem wasn't introduced by this patch, but
+  atusb_disconnect() kills and frees tx_urb (lines 1080-1081) and never…
+- [High] This problem wasn't introduced by this patch, but
+  atusb_disconnect() calls usb_free_urb(atusb->tx_urb) (line 1081)…
 
-Isn't guard marker installation/removal just another form of zapping?
+--
 
-So to me this all sounds like "if user space does something stupid, it's user
-space's fault".
+ieee802154: atusb: complete each transmitted frame only once
 
-> 
-> Therefore, disallow this.
-> 
-> This makes sense as conceptually, guard regions mark a part of a VMA as
-> effectively unmapped at the page table level, and removing the markers is
-> like mapping the VMA again, over which operation uffd markers would in any
-> case be lost.
+This patch changes atusb_tx_done() to take the pending skb out of
+atusb->tx_skb with xchg(), and to ignore completion reports when no
+frame is pending. It also clears atusb->tx_skb in atusb_xmit() when
+usb_submit_urb() fails, so no stale pointer is left after mac802154
+frees the skb.
 
-Right, but that to me just says "on the parts of the VMA where you mess with
-guard markers, your uffd-wp protection is similarly ignored".
+> diff --git a/drivers/net/ieee802154/atusb.c b/drivers/net/ieee802154/atusb.c
+> index 5f7fc4ee7a071..2460eb19b72b1 100644
+> --- a/drivers/net/ieee802154/atusb.c
+> +++ b/drivers/net/ieee802154/atusb.c
+> @@ -195,21 +195,26 @@ static void atusb_tx_done(struct atusb *atusb, u8 seq, int reason)
+>  {
+>  	struct usb_device *usb_dev = atusb->usb_dev;
+>  	u8 expect = atusb->tx_ack_seq;
+> +	struct sk_buff *skb;
+>  
+>  	dev_dbg(&usb_dev->dev, "%s (0x%02x/0x%02x)\n", __func__, seq, expect);
+> +
+> +	/* The device may report a tx completion when no frame is pending,
+> +	 * or more than once for the same frame.  Complete each frame only
+> +	 * once.
+> +	 */
+> +	skb = xchg(&atusb->tx_skb, NULL);
+> +	if (!skb)
+> +		return;
+> +
 
-So disallowing it entirely for a VMA, I am not sure. I could see use cases for
-that, although you might argue that user space should then register uffd-wp on
-the separate pieces. But then you get multiple VMAs again.
+[Severity: Medium]
+Is a duplicate report handled if it arrives after the next frame has
+been queued? The pending skb is taken before seq is compared with
+expect. A stale report therefore consumes whatever frame is pending
+when it arrives.
 
+Consider this sequence:
+
+  report with seq N
+    atusb_tx_done()
+      ieee802154_xmit_complete(skbN)
+        ieee802154_release_queue()
+
+  atusb_xmit(skbN+1)
+    atusb->tx_skb = skbN+1;
+    atusb->tx_ack_seq++;          /* now N+1 */
+    usb_submit_urb(atusb->tx_urb, GFP_ATOMIC)
+
+  duplicate report with seq N
+    atusb_tx_done()
+      expect = N+1
+      skb = xchg(&atusb->tx_skb, NULL);   /* skbN+1 */
+      seq != expect
+        ieee802154_xmit_hw_error(atusb->hw, skbN+1)
+
+Here skbN+1 is freed with IEEE802154_SYSTEM_ERROR while its control URB
+may still be using skbN+1->data. When the real report for N+1 arrives,
+tx_skb is NULL, so that report is dropped.
+
+The code before this patch also failed the pending frame on a seq
+mismatch. The new comment, though, says duplicate reports for the same
+frame are handled.
+
+There is a related ordering problem. expect is read before the xchg(),
+and atusb_xmit() writes tx_skb and tx_ack_seq with plain stores. A
+report for N could read the stale expect == N, take skbN+1, and
+complete it as a success.
+
+Could the skb be consumed only when the reported seq matches the seq
+recorded for that skb, checked atomically with the hand-off, and the
+report ignored otherwise? Or could the comment be narrowed to match
+what is actually handled?
+
+>  	if (seq == expect) {
+>  		/* TODO check for ifs handling in firmware */
+>  		if (reason == IEEE802154_SUCCESS)
+> -			ieee802154_xmit_complete(atusb->hw, atusb->tx_skb, false);
+> +			ieee802154_xmit_complete(atusb->hw, skb, false);
+>  		else
+> -			ieee802154_xmit_error(atusb->hw, atusb->tx_skb, reason);
+> +			ieee802154_xmit_error(atusb->hw, skb, reason);
+
+[Severity: High]
+This is a pre-existing issue, but can the skb be freed here while the
+control URB that carries skb->data is still in flight?
+
+atusb_xmit() passes skb->data directly as the transfer buffer of
+tx_urb. The URB completion handler records no state:
+
+static void atusb_xmit_complete(struct urb *urb)
+{
+	dev_dbg(&urb->dev->dev, "atusb_xmit urb completed");
+}
+
+The seq check does not protect against this, because the device learns
+the seq from wIndex of the control request. A device can ACK the SETUP
+stage, NAK the control OUT data stage, and meanwhile send a 1-byte
+report on the bulk-in endpoint:
+
+  atusb_in() -> atusb_in_good() -> atusb_tx_done()
+    -> ieee802154_xmit_complete() -> dev_consume_skb_any(skb)
+
+The HCD still has skb->data mapped. When the device finally accepts the
+data stage, it receives memory that has been freed and may have been
+reallocated.
+
+This completion also releases the mac802154 queue. The next
+atusb_xmit() then rewrites atusb->tx_dr and the fields of the
+still-active tx_urb in usb_fill_control_urb(). usb_submit_urb() hits
+WARN_ONCE("URB %p submitted while active\n") and returns -EBUSY. When
+the original URB completes, the HCD unmaps it using the overwritten
+transfer_buffer_length.
+
+Could skb ownership be tied to completion of the control URB? For
+example, the frame could be completed only after both the URB
+completion and the device report have been seen.
+
+>  	} else {
+> -		/* TODO I experience this case when atusb has a tx complete
+> -		 * irq before probing, we should fix the firmware it's an
+> -		 * unlikely case now that seq == expect is then true, but can
+> -		 * happen and fail with a tx_skb = NULL;
+> -		 */
+> -		ieee802154_xmit_hw_error(atusb->hw, atusb->tx_skb);
+> +		ieee802154_xmit_hw_error(atusb->hw, skb);
+>  	}
+>  }
+>  
+> @@ -351,6 +356,8 @@ static int atusb_xmit(struct ieee802154_hw *hw, struct sk_buff *skb)
+>  			     (unsigned char *)&atusb->tx_dr, skb->data,
+>  			     skb->len, atusb_xmit_complete, NULL);
+>  	ret = usb_submit_urb(atusb->tx_urb, GFP_ATOMIC);
+> +	if (ret)
+> +		atusb->tx_skb = NULL;
+
+[Severity: High]
+Can the skb still be freed twice on this path? atusb_xmit() publishes
+the skb with a plain store, before it reads skb->data and skb->len and
+before it submits:
+
+	atusb->tx_skb = skb;
+	atusb->tx_ack_seq++;
+	...
+	usb_fill_control_urb(..., skb->data, skb->len, ...);
+
+atusb_xmit() runs with only BH disabled. In the meantime,
+atusb_tx_done() can run on another CPU from the bulk-in URB completion,
+or from hardirq on HCDs that complete in IRQ context:
+
+  CPU0                                CPU1
+  atusb_xmit()
+    atusb->tx_skb = skb;
+                                      atusb_in_good()
+                                        atusb_tx_done()
+                                          xchg(&atusb->tx_skb, NULL)
+                                          ieee802154_xmit_complete()
+                                            dev_consume_skb_any(skb)
+                                            atomic_dec_and_test(...)
+    usb_fill_control_urb(..., skb->data, skb->len, ...)
+    ret = usb_submit_urb(...);   /* fails */
+    atusb->tx_skb = NULL;
+    return ret;
+  ieee802154_tx()
+    err_wake_netif_queue:
+      atomic_dec_and_test(&local->phy->ongoing_txs)
+      kfree_skb(skb);
+
+The error path cannot tell whether the driver still owns the skb or
+atusb_tx_done() has already completed it. The result is a second
+kfree_skb() of the same skb. ongoing_txs also underflows, after which
+the wait_event() in ieee802154_sync_queue() never completes.
+
+The device can force the submit to fail. It can report frame N early
+while it NAKs the data stage of N's control transfer. Frame N+1 is then
+sent while tx_urb->hcpriv is still set, and usb_submit_urb() returns
+-EBUSY. An unplug can also make the submit fail with -ENODEV.
+
+Even when the submit succeeds, usb_fill_control_urb() can read
+skb->data and skb->len of an skb that is already freed. The URB is then
+submitted with freed memory as its transfer buffer.
+
+Would it work to read skb->data and skb->len before publishing, and on
+failure do something like this?
+
+	if (cmpxchg(&atusb->tx_skb, skb, NULL) != skb)
+		return 0;
+
+Or, more robustly, could publish and submit be serialized against
+completion with an irqsave spinlock?
+
+>  	dev_dbg(&usb_dev->dev, "%s done (%d)\n", __func__, ret);
+>  	return ret;
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but atusb_disconnect() kills
+and frees tx_urb without completing the skb still held in
+atusb->tx_skb:
+
+drivers/net/ieee802154/atusb.c:atusb_disconnect() {
+	...
+	usb_kill_anchored_urbs(&atusb->rx_urbs);
+	atusb_free_urbs(atusb);
+	usb_kill_urb(atusb->tx_urb);
+	usb_free_urb(atusb->tx_urb);
+
+	ieee802154_unregister_hw(atusb->hw);
+	...
+}
+
+If a frame is pending when the device is unplugged, or the device never
+sends its report, is the skb leaked and phy->ongoing_txs never
+decremented?
+
+This can also deadlock. ieee802154_mlme_tx() takes rtnl_lock() and then
+waits in ieee802154_sync_queue() with no timeout:
+
+	wait_event(local->phy->sync_txq, !atomic_read(&local->phy->ongoing_txs));
+
+ieee802154_mlme_tx() is called from mac802154_transmit_beacon_req() and
+mac802154_transmit_beacon(). If such a transmit is pending when the
+device goes away, the waiter holds RTNL forever. atusb_disconnect() ->
+ieee802154_unregister_hw() -> rtnl_lock() then blocks behind it.
+
+Now that atusb_tx_done() uses xchg(), could disconnect complete the
+pending frame after usb_kill_urb(atusb->tx_urb) and before
+unregistering?
+
+	skb = xchg(&atusb->tx_skb, NULL);
+	if (skb)
+		ieee802154_xmit_hw_error(atusb->hw, skb);
+
+[Severity: High]
+This is also a pre-existing issue. In the atusb_disconnect() sequence
+above, usb_free_urb(atusb->tx_urb) runs before
+ieee802154_unregister_hw().
+
+The wpan interfaces stay registered until ieee802154_unregister_hw() ->
+ieee802154_remove_interfaces() closes the netdevs under RTNL. Their TX
+queues are awake whenever no frame is pending. Can a sender on another
+CPU reach the freed URB in that window?
+
+  ieee802154_subif_start_xmit()
+    ieee802154_tx()
+      drv_xmit_async()
+        atusb_xmit()
+          usb_fill_control_urb(atusb->tx_urb, ...)
+          usb_submit_urb(atusb->tx_urb, GFP_ATOMIC)
+
+atusb_xmit() does not check atusb->shutdown. This path would write into
+a freed URB and then submit it. After a sysfs unbind the device is
+still attached, so the freed URB could even reach the HCD.
+
+Could tx_urb be freed only after ieee802154_unregister_hw()? Or could TX
+be stopped before the URB is killed and freed?
 
 -- 
-Cheers,
-
-David
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110-atusb-tx-once-v1-1-43e2b92f2072%40gmail.com
