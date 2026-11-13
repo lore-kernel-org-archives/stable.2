@@ -1,95 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598361;
-	b=QpFF9KBWfj7I191P0ddxbEPy7OGILlOYCoDjD8WHEfUEgCBfS53eW28WVInLga+2NZQ1
-	 rFbs0m54gfiYidzkCLBxDDjuG6HfDSBzQHwI871AX5S1oSwHiGqXVbjh3zNhpIXOQg5hq
-	 RGlFbwsZ/dcSK2JIB8NUZpDgN9lHN9BrXdV8v6ALgtDncw38eXM/yLsz1jbGaQs8N+Jxy
-	 MDw2kyiiGe0rfWnO2h5pt0KdvFq5baTBEMxEStYXJqt5234capM3SKX9RCqYoJ/3bjEJB
-	 l/k5MEqTH46bqUhFQjbbxDk9biaUECI31/QjBVx8qAGY8wLlV9hU+F+2u0dw5Af08jA==
+	t=1794598474;
+	b=amIRHwT5xq5bkk7CEjuTF6TQbgSf1uP+zS8UX0JGqzz3AeeG4VtiXnUnn4Jwzldec95t
+	 kVJBTMQu33DmNLj0uSAK8m06QzzOoUkZBUgThYor7qQHHLF+fy9qkB2EH3nUR8/GR5ufW
+	 WofAbO/D3Rsb5L/Y49q0B2CIi5I27YtdaaDLc5RlQssRsI7e28fhLVauaySItHOneqktW
+	 1X1ZankEdd8J3zU+NnkooAmyP3cm7CfVJ/H+zt40XQewilOLMco/AOaj2a2FYIWDudxLm
+	 G6ZepiAe8p3pPi3xcLfSUIz0Hpwx6wUfkXDu/LzVTBR4xIH4kpaqHbRTVcNGpphYERg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598361;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=9QUxF+6/St6GJYBN79ESjswsrFJX+8HRrNAXaxieR0M=;
-	b=opxhX9kr4vrpZKxc6BEhUCLBLi/rC3HeVoZ9WdRowaW+W0F6I+TUb0m2UzWa/LNDBHY1
-	 8a2Cz9+OWp2YEdszgWNl1Ebas6HdpbNPlxSDJwzqcH0UBx5o+dvV0r6J4NWQq15cl+xvv
-	 nnECaqc0yAA49zzyD9fOVqWenFFUXuSu6XYzFllVElZeaVxY2J5cf7WkrJBQmwUAESXGf
-	 AfvKmgufhV7n2cc086wHX9yiia2E7dGPCTywQ5aA23PkKD36GMJw2MM69q9P9ifXJvmmH
-	 Aq3M9MvhJ6KUiTYBFjkhW94qTRMxKFqabj920kmdKVws1g0ZNCragBOx6CJXeqpL7Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598474;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ybZial6OH2fIDR+0PMVbHbS6Ebe3KSMC4eGg+MKp4LU=;
+	b=1McGMHKslu44P1MFNuQzFJ2k2wUZKisow/F0sltXAb7vEsapbFlAJ36CzlqhkHRdImtd
+	 S1ilT+nhVa+HOjAPMrMt5eCQZFq3odUOzGR0LqBhFeUK2fHx2YRLCgeKUzBZUGHy8WP1d
+	 FmoMftDPwG2ODJ08qvx+GvXxzPSrTYJmwGrcOJbimZ+PZ9UaLPzz++e59mhAW4oJFld3O
+	 OeYw3Zk1WZuZiMnFUCSVSsSYkWMib6MRjfz73jvNnfuPRYXXAjOGy8vvOo+ypS+ogCt8A
+	 bRZ6PNrt3M76jJeTufJxwHU/VmT3D2VhoLoZk26Ls4UW052DcmyyjRgpAeKRbxpaBiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=h1hHjBnV;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4BVVXAR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1FA606A337;
-	Fri, 13 Nov 2026 19:32:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC1FA606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746CE606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:34:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=h1hHjBnV
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=9QUxF+6/St6GJYBN79ESjswsrFJX+8HRrNAXaxieR0M=; b=h1hHjB
-	nVFaHIqI2nTShzgLNoBl4Y5xGKSecmcR6GbTJQmz0pm1IpOI6yeg0fukP7ofiUPwOOXA+2VKsqHL+
-	TwbC10yORaJc+DtGy7kARpc+uz+0AMwzU7HUgmy9vsGqkb1n8jt37+vwqeHbfTT94QkSOHrCpQORt
-	Wktad4Z0y3PQx/8jRX/MH2HHpYRItT7HgxIilq6e937mX9pxKs8xyX/RYyeptlmRvh86eXcK+XMoI
-	g7R/YFsL/VwYT6WqLqXOSvdQpESsqIyxBeaqhHm8IzCaDFlVDo9+SW/J+vrFfa++RsK/Mh8wasuL6
-	EfkDd93aQudu/SbBxdTH5qi6nuKQ==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xRwzx-00000004rZh-27Ev;
-	Fri, 13 Nov 2026 19:31:45 +0000
-Message-ID: <eba9d3df71f3f37bf7a318854a1ab6bf1cfb1981.camel@surriel.com>
-Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
- select_idle_capacity()"
-From: Rik van Riel <riel@surriel.com>
-To: Usama Arif <usama.arif@linux.dev>, peterz@infradead.org,
- mingo@redhat.com, 	vincent.guittot@linaro.org, kprateek.nayak@amd.com,
- arighi@nvidia.com, 	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
- rostedt@goodmis.org, 	bsegall@google.com, mgorman@suse.de,
- vschneid@redhat.com, samuelcrossley@gmail.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, kas@kernel.org
-Cc: Arnav Aghav <aghav@meta.com>
-Date: Fri, 13 Nov 2026 14:31:45 -0500
-In-Reply-To: <20261113153157.2495664-1-usama.arif@linux.dev>
-References: <20261113153157.2495664-1-usama.arif@linux.dev>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4BVVXAR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937F91F000C5;
+	Fri, 13 Nov 2026 19:34:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794598474;
+	bh=ybZial6OH2fIDR+0PMVbHbS6Ebe3KSMC4eGg+MKp4LU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g4BVVXARj/+FKoTiLDSz2DAhF5GxbHlaesiCJUHn2V6DjlGAWDNA5g2VmU2t3GiXO
+	 rxjCRuw3y6BJAGN6zt5rgDQfms6vcRlCmvqMSVBqQExX7tkZgCWVP14kp+u7ed3xJF
+	 uiytjRiWZXVLX/EQf1mEdg0kBr7g1FNIQmikoddXqhj4J5mrSfs0EVNgZCH61nRAQP
+	 vD+uhQpJ1hJlDDKSH6AxchTaSDVpeljbYvpgUUFjWNmkTOQVb4bALgCggtXdl7c6tA
+	 aZnURumlp3qANSUGnqlX+D49b9Ufl4K7PWparkTohOBYKMRocd5EUGZC0tdjrImpXD
+	 REKAUHInFsV9g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chris Down <chris@chrisdown.name>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Kairui Song <kasong@tencent.com>,
+	Hugh Dickins <hughd@google.com>,
+	Chris Li <chrisl@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Ying Huang <huang.ying.caritas@gmail.com>,
+	Kelley Nielsen <kelleynnn@gmail.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm: make swapoff interruptible when unusing mms/shmem
+Date: Fri, 13 Nov 2026 14:34:31 -0500
+Message-ID: <20261113192840.2281715-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202201-failed-5.15-740128dd1a3f@kernel.org>
+References: <20261109202201-failed-5.15-740128dd1a3f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,63 +71,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-11-13 at 07:31 -0800, Usama Arif wrote:
->=20
-> On a 72-CPU NVIDIA grace arm64 server, small reported capacity
-> differences
-> (1013-1024) within the single LLC activate asymmetric selection. Both
-> the reference and affected kernels were observed with a zero scan
-> hint. The reference kernel ignored it and still searched the domain.
-> A latency-sensitive, wakeup-heavy production workload saw its
-> reported
-> minute p50 latencies average 129 ms on the reference kernel and 223
-> ms
-> on the affected kernel.
->=20
-> Disabling SIS_UTIL reduced the aggregate involuntary context switch
-> rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
-> raised the rate to 73.7k/s.=20
+From: Chris Down <chris@chrisdown.name>
 
-Afaik, the asymmetrical selection is supposed
-to solve a very specific problem: when a task
-requires X amount of CPU capacity to run, we
-try to avoid scheduling it on a CPU that has
-only a fraction of X available.
+[ Upstream commit 740128dd1a3f2bd81a80314d079b6b03c39ba3af ]
 
-This creates the issue that a task that appears
-to "need" exactly X, because it's been running
-on a CPU with full available capacity, ends up
-not being scheduled at all when the available
-idle core has X-3% available capacity, because
-that CPU happens to spend 3% of its time handling
-interrupts, or running something else.
+try_to_unuse() only checks for a pending signal between mms, and
+shmem_unuse() doesn't check at all.  That means that once swapoff gets to
+a process or a shmem file with a lot swapped out, nothing can interrupt it
+until every last page of it has been read back in.
 
-In that situation, it will be better to run the
-task on the CPU with 97% capacity right now,
-than to not run the task until a CPU frees up
-later.
+Just as one example of where this can concretely show up, freezing tasks
+for suspend or hibernation has to wait for swapoff to notice the freezer's
+fake signal, and gives up after freeze_timeout_msecs (20 seconds by
+default).
 
-Things like SMT and power-driven hardware
-scaling complicate the matter further, because
-we simply cannot see the full amount of capacity=C2=A0
-that is available on each CPU.
+Here's a facetious example where one swaps out 2GiB of one process to a
+swap file on ext4, starts swapoff, and half a second later tries to freeze
+with pm_test=freezer.  Writing to /sys/power/state then fails with EBUSY
+and this in dmesg:
 
-That makes me wonder if we should simply accept
-any CPU that's "close enough to X" when dealing
-with asymmetrical placement.
+    Freezing user space processes failed after 20.003 seconds (1 tasks refusing to freeze, wq_busy=0):
+    task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:2955   task_flags:0x400100 flags:0x00000419
+    Call trace:
+     [...]
+     io_schedule+0x44/0x70
+     folio_wait_bit_common+0x1ec/0x3d0
+     __folio_lock+0x24/0x40
+     unuse_pte_range+0x2d0/0x348
+     unuse_vma+0x158/0x248
+     unuse_mm+0xfc/0x150
+     try_to_unuse+0x104/0x3f8
+     __do_sys_swapoff+0x220/0x5d8
+     [...]
 
-Say, anything that's above 3/4 of the capacity
-of X would be considered good enough to run the task.
+The same goes for anything else that wants swapoff to stop, like an admin
+hitting ^C in a panic, of course.
 
-That still prevents us from placing a CPU intensive
-task on a little core in a big.LITTLE system, or
-from placing a task on a CPU that spends 80% of its
-time handling interrupts, but it will allow a task
-to run right now, when the capacity imbalance is small.
+Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+try_to_unuse() was driven by find_next_to_unuse() which checks for a
+signal before every entry, so let's restore that behaviour.
 
-Does that make sense, or am I forgetting something
-important?
+Just as an example of the improvements, here's how long freezing takes
+in the same test while swapoff is happening on my computer:
 
---=20
-All Rights Reversed.
+                      before                  after
+    400MiB anon       8.925s                  0.028s
+    400MiB shmem      1.639s                  0.003s
+    2GiB anon         failed after 20.003s    0.011s
+
+Link: https://lore.kernel.org/at9kJwdGkHPsWwgG@chrisdown.name
+Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+Signed-off-by: Chris Down <chris@chrisdown.name>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Kairui Song <kasong@tencent.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: Ying Huang <huang.ying.caritas@gmail.com>
+Cc: Kelley Nielsen <kelleynnn@gmail.com>
+Cc: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adjusted context for pagevec and frontswap accounting while using the existing retval return path ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/shmem.c    | 4 ++++
+ mm/swapfile.c | 4 +++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index cc5b08d9802cf..04363ece9ecf6 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1285,6 +1285,10 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type,
+ 			}
+ 		}
+ 
++		if (signal_pending(current)) {
++			ret = -ERESTARTSYS;
++			break;
++		}
+ 		start = indices[pvec.nr - 1];
+ 	} while (true);
+ 
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 04f10e9c36c54..b8dcfdad0e7c7 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -2039,6 +2039,8 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
+ 	pmd = pmd_offset(pud, addr);
+ 	do {
+ 		cond_resched();
++		if (signal_pending(current))
++			return -ERESTARTSYS;
+ 		next = pmd_addr_end(addr, end);
+ 		if (pmd_none_or_trans_huge_or_clear_bad(pmd))
+ 			continue;
+@@ -2275,7 +2277,7 @@ int try_to_unuse(unsigned int type, bool frontswap,
+ 	if (READ_ONCE(si->inuse_pages)) {
+ 		if (!signal_pending(current))
+ 			goto retry;
+-		retval = -EINTR;
++		retval = -ERESTARTSYS;
+ 	}
+ out:
+ 	return (retval == FRONTSWAP_PAGES_UNUSED) ? 0 : retval;
+-- 
+2.53.0
+
