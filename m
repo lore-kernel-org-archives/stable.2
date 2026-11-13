@@ -1,92 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794544766;
-	b=S6SG0rk3nI7UkA3ZGHMPn52wdUqjMKd1P0zTXUbU6C9egmBVQZNZwA+JmFM2cw1RNXB7
-	 7GwE7Jq7Y+5qH6ijmxyCYCFmFHr6gwWONWtZQJaN6ihRKM+3DJ+TOWWWoGHZr1pebylut
-	 oWr4DSNEKNxiYcefV0Eny/jJegFjpJ1vzHdn2816dawySOvCwfLpEQOPwOjeD6MPxaXdC
-	 fb6y8OaaWwQUV/N1UABHiWMZCbqds1Y0yh/pvGSk1bWe5sYBsDcbLzeLB0EzC/2ugay/y
-	 3Ub+A/B3r/gKKYJOjYlxLx5FM/Ppzs4znyeX/LMECmf2EQ8GwIV5KmDviyOV+w6z0mQ==
+	t=1794545712;
+	b=CVYYaW8EOjpLtcC3tgd5AWeuqy2In6/b/7POzyjzOkZiXH/cMIaXm6Vnyz+761l50GBb
+	 EwFAYLaaLkh1xyn+UYs5PC9Y2/lei7bqSsjZfLDvdtpyZ+FskECHkxAvOVkCbHciyXTgC
+	 /a995uOtLuFTIIjHz0tC4+dwYSaJzdcLSA1NKlJe1TIl9lJ7ln4oxifekMvT2gPHTYVt9
+	 +XatIY/B3njE1n3xzSmGCwzOGryGahTmTJYC1s9i0XSDc1Fk2EflXgUjtAvjRH3CmdZga
+	 zOxZdj4OGBJPg1LmnopGBr0RaZ8EW9RHNZVNqt0xeF/Jpw4VZyTaHHiYHj6sOz+spNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794544766;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794545712;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=tFaT0DZ6F3QRjTbdaYV7CT46FZwUMHFmzpgE4p3kzPo=;
-	b=phtjiLCrvf5vtFeZ7Wfl/otJ0lWCW+N5jvJM26FIj7keB4AZR9hxMW/Rt1LIX8GTU64s
-	 YqT287LqkeYu6bVs+TpbD2zOAIYvnYc/YwWE2mPWYMlbmD+Gg68tcDTRMsPYHQHXv/5NC
-	 rh0xoWF2PByJ6Ht8brDRbLkighgp4cQDtVmbWp7yry7ASjhFz51pPXBa1i9ev3RGHxzGu
-	 w8LI0yHaL9hEX9BuQsQ/WD/8jOe0yMahRemP9D2gtzX3l3n204L5IVMFefF62fG2Uji8r
-	 xCQIPWPOeqRsuJAYTiziRVTHhCrd74gYJ3il+Zj2i0VkChjHw/glGaLF9mCBL+mvWJA==
+	bh=VTWR5mkpuIgueh87MON9g3ptDUiISJcOv6zs0rvvEGI=;
+	b=n7UX5/SfViuKLbGdRZgwQv8Hwa89m48guSbDHkMvpqrL8kfjhfRQrw9EUR9tUAsRyYqO
+	 CkRv1Hhna0/iFMCxaACGDpP6U+7oP/saWoJYCHDuK/Ydmhd+WmjXIAvKARPEBSJh85pJ9
+	 1IRGb16pPaBYMd4Uo5MOpSCdaugN24osNCNhVPxsqcG2/bDvzglhtTuPcL/6YqV/nEYaB
+	 YPx9LYu32gz43ICngwelz/QPL965IAloi2JhJrnCeWq1D8B7r6ajZbj0RTixitbTDBjFr
+	 umP1No9ahYllfGU71hwKn54CvXbOgfHMwCExJF2Bv6L6F+u8LU8NDta8F9CMm5VI+ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=KBDxmF3I;
-	arc=none smtp.remote-ip=74.125.224.47
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o5Dp50SO;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B18D606A321
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 04:39:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B18D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B282606A32A
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 04:55:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B282606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=KBDxmF3I
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67c6f1019a3so648557d50.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:39:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o5Dp50SO
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9995ce866so8633165ad.0
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 20:55:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1794544765; x=1795149565; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794545711; x=1795150511; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tFaT0DZ6F3QRjTbdaYV7CT46FZwUMHFmzpgE4p3kzPo=;
-        b=KBDxmF3Ij+U4FfCQaLZjUdUB1gdLJ8WW7JSEB1K9WgBXkrcD+fjhYsRfR7O2ntRU40
-         4Sibb6XwHj7eji9fKO6U34e0ySQ78CBBZ95skC6WYKplQlA6NGMIMg4/2+Iqd5cmrOgf
-         fIyLWWidqZz8ZQ/NH6dwFveIb71lB7Z35q3suSPUSrrXy2QNqN8Nek30GPVsJWIz2mog
-         E0o9/W6EVQdStIMoXqVC8qTuUUXUwcY05BtZ3/5pn5iziA/T1hZktg6POXiRa1VeaMKr
-         3H1ypnIvXjCIG/v31j1a5a4ShozkqRvGzd05bQZSPqO9/3hgK+ZcLxv7WAG9nJB/mRJt
-         GppA==
+        bh=VTWR5mkpuIgueh87MON9g3ptDUiISJcOv6zs0rvvEGI=;
+        b=o5Dp50SOZkUrzjKbIIU8LlnPQjbFGb16tD2KhJeRlPSr6wee5OnvJ51J9zKJX6C83a
+         MG6APBbNkBwKu3WPc4Ygh4ByhnF33znwc5M0bcsbkXnAWe5Lw+XKkpYgAGjJDf/yKqSV
+         eUaIYDdSAKsoCDUDEDLnL9wtGr3D/4QdG9FUNQJaW7YnRSRN9gtu1/vpzOBQllMNL2mj
+         pxM79K9zH/lil7gcQXc3v4qarmSjXu//xvIJHUg/y+rc31B/pZosOxcBu4DErd6LDGKf
+         IM2VatuMQFJdWVBKcVB4RvY0JeTdobbMXFfQu0qqyLXUxPp28zFpNKquw85v+mCDq/8w
+         4iLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794544765; x=1795149565;
+        d=1e100.net; s=20260707; t=1794545711; x=1795150511;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tFaT0DZ6F3QRjTbdaYV7CT46FZwUMHFmzpgE4p3kzPo=;
-        b=TQwnxP7sfS69cddDgNeb7aTQ6lFfKk/K5xo8DLc45fDy0Aljt1eBtyunJs4XMq7cLn
-         eqGZ1MgIbA2uklV/40SpQ5XdEpT86VbQlZbWzReb68r826MG5Bg5YkEU0ERyrB29vfIV
-         0jlvpuhdeK9dpNslwloCqunZWyJxNHjQJRAXVfZrLnxOD38brpOcZAz4C3w/A/kaRZyk
-         4cZb7yc4zPBmB2TUNc4bJxtmnqXuHejaUbZ8wnWwjqb/loQrmU03bP4TlQKbo3zA9GOR
-         kLT7Z4BLBnkVTVJcgr8lb0VmMQ8wWFmjyHpfUXmEucASYwKzt67EpXmE53MQtvj0Ra1q
-         YOVQ==
-X-Forwarded-Encrypted: i=1; AL+hErENj9ND3/mi/bDEF94SC4NPpFQpT0pMfNbu2ykGaQZbNZw1EUiuQ6glZtjiCiBGosHuVRM4L4M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9TlDW93kx9aGbEmq+9AoT09gDrWUla2SXWkDYRpq6Rc6PNB87E
-	0ryLkWKyA9iTHACOfSuT8ZG5GlvR3I1iuSe5YzLIt181zqFzOTtwd+KxUXtryEzTFjB38oyRpAf
-	oSi/NlPlR
-X-Gm-Gg: AYBFou2iQiENm4qx+Y2yBamdfWDwWd+COW73+8lsjDTnbt4P1bYrehH0VABdraUbIYZ
-	5kuh3bWpglzJ3Sk59l3DbDOYNfNGBMMUSGb4gmqFEgtJ0I3cCa0LacyGmqqLpbWd0mUi4SxkPRg
-	13ikAy3W0Eq00/lwTaYfFZPVLc3uCxI3uF4EkE6pPcl3Gbo9cixCwhgPGwqJAN/axeouNZKLlWV
-	D9YA8wTSj51UYHDi6G1IKD0RGbTANI9qXbQjzrNQ2j8UxRsVOnqGMkrIqoJkNpsiU5+iGYbs/O+
-	Ioex6QJTIH/wkvv1uMI5ndkZVaagWZOxYSmPQoyUY83SG5jHZ5BOd0emjtHySi3Q5juMryuRgHn
-	EZYx05h7bHDo4ItW67Es420ALSbCvH86EjcjjCpbENLOI6VrGu2Qjry2a+G+6Qp7uh/xCVC73Fh
-	SWNZX0Qs6Z+7MEV5a6Si3xmDw3/1wPZH3YFUizToA56m66ej1bVJLQeBeR7WiDpCTFlXkZlxyyk
-	Yq+/Z/hGKkdARAlfsPx/1bAPvbby01/fesjDyoI+4juT9H8im9stOaLIuBQmG2SXAxtj76C9Wt4
-	bkwSYqGxVn7woJX23Tw0orWB8+FWUFoFt9a9yvupIa28Dpzg6UfhaBacL3W3JsmZkwwMsLy+
-X-Received: by 2002:a05:690e:1917:b0:679:ba40:efaf with SMTP id 956f58d0204a3-67d895e5adamr679117d50.46.1794544765076;
-        Thu, 12 Nov 2026 20:39:25 -0800 (PST)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a64b04bsm1078108d50.23.2026.11.12.20.39.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 20:39:24 -0800 (PST)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
+        bh=VTWR5mkpuIgueh87MON9g3ptDUiISJcOv6zs0rvvEGI=;
+        b=0wPHUHHBMAP99I/J8381gvtNMzCeRVupH77IgfLGkU9VoARw862P5QEqUR1zbgOYyq
+         FW6hwuE2ZmslTCwIMxpQUCb7NIge3ojHk87qeTHT63W7I+xKPE6ORKhuAHrOilF4KNRI
+         ytwfllE5rLXhZqo7uzZvkVRE8s+J7RRnSmJIndLrIKI+fht96hFlp7QjHOOsxh6I6Rc5
+         SReAS/okM7AaAcDIqNygWkJk6EWuq86Ngzd+eXeamZq7oofBBFeQbGj209D8HVdtWYxu
+         EC+iV2v5/rhbwFfmynHxWZsqBYZFBdCA2F+wzA7ZskHW93eIl0AjNbpCqHThJIMgH//3
+         DjlQ==
+X-Forwarded-Encrypted: i=1; AL+hErGeJWKBFINL9WmzH/Bhbx8vNNdkLR5BEqL7InjCAvGeKvLGFnbzmnYrfR3uzYqgvc6/b3PQitw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9n0LHrRtcKJohuIpPVMV98z3SMQy3v5L9uoV9ijGDRFz6g9RCp
+	623hlLKoetUQNWNK2qYKBFOiFI1vIMrXMc8Dr22MRpz3HVoTaPWQa+qD
+X-Gm-Gg: AYBFou2qRhO503gRh3btgIbNLhru3TzYwks1XQvCxP1ziSdmX0dqobaAohMhdHkCJXr
+	Hty1IqpqmcILVozPsG4V5P8YtIG+ugiDXuAv8gPe7gl30lTiSXB09pqQkDVP/nQg49vbjwisBSf
+	j9d8vXOGFYrpvet4zyRo2qtjp+oteMdkMZbwRltBrsr6BjOHGIFVglpaXiWCy6AHuvL14UGCVLt
+	CTx+ACp90eeV8VWf+5mYmd2ENBj1lIMf428SqGXUQhDRL41lBX3/y9KC6raktzpdVhdVwzITSZs
+	/gRMy0fqZuE2arloz4KPQqJBEhmgEWQk2NOW2eimA/dLId0UjIOsnr3VPXvy9eT0REO/I7o95C1
+	9ICuh7Ij6DltwUSnFhd6BCvz3Fgw1Od83RCslNgEup+FkdFVVLsRB0uwsBJPwRH+rHKIBjUmERc
+	ez5yrFvnRUHdVAGtsgywChQmBoPRepjWXdq2n7IvA4V5zmibu0pb/0kwRldHlUjsAjt75yCCbSc
+	BltWLT//G+/UrqeD8D4TkqqFE4HhfuRScwInaYyaXjxpGcj5XBYt4CAIyOaD6+LLwayeb0RdMmD
+	W3jQF0i+jFaX4aOQRmQ6JZDG0tw7Ef61m0qbXBlVlkpXB0Kdknm/14I78Oo/rKYJyrKQCcW2pIs
+	KZN+as0dRfNxi53MXNSSuu0BHACvsPVy4+mK6QBUpE6KbkNeEO5ZP5uA2u9fYh3ZF7g3nd845YW
+	F2
+X-Received: by 2002:a17:902:f688:b0:2ed:379:158d with SMTP id d9443c01a7336-2ee0da98d27mr14360145ad.9.1794545711133;
+        Thu, 12 Nov 2026 20:55:11 -0800 (PST)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.9])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee10bdd1a4sm3805145ad.11.2026.11.12.20.55.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 12 Nov 2026 20:55:10 -0800 (PST)
+From: Yu Zhang <yuz08559@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: do not restart readdir() when entries are added
-Date: Thu, 12 Nov 2026 23:39:20 -0500
-Message-ID: <20261113043920.2583254-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	stable@vger.kernel.org,
+	Yu Zhang <yuz08559@gmail.com>
+Subject: [PATCH] thermal: sysfs: take the zone lock in the tzp attribute handlers
+Date: Fri, 13 Nov 2026 14:55:02 +1000
+Message-ID: <20261113045502.68053-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,109 +103,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit dffc7f2f177b ("fs/ntfs3: allow readdir() to finish after
-directory mutations without rewinddir()") made ntfs_readdir() start
-again from the first entry when it reaches the end of a directory whose
-version has changed. This helps programs that remove the entries while
-they read them.
+The thermal zone parameter (tz->tzp) sysfs attributes - sustainable_power,
+k_po, k_pu, k_i, k_d, integral_cutoff, slope and offset - dereference
+tz->tzp without holding the zone lock:
 
-However, indx_insert_entry() increments the version as well. As of now,
-a program that reads a directory while another program adds files to it
-gets the same names again and again, and reaches the end only after a
-pass during which no file was added.
+	if (!tz->tzp)
+		return -EIO;
+	...
+	tz->tzp->name = value;
 
-The issue can be reproduced on an NTFS volume mounted on /mnt:
+For a zone registered without thermal zone parameters (tzp == NULL at
+registration - the thermal testing zones, ACPI thermal and every driver
+using thermal_zone_device_register_with_trips(..., NULL, ...)),
+power_allocator_bind() allocates tz->tzp and power_allocator_unbind()
+frees it and sets it back to NULL, both under the zone lock:
 
-    mkdir /mnt/d
-    for i in $(seq 3000); do echo > /mnt/d/a$i; done
-    for i in $(seq 10000); do echo > /mnt/d/b$i; done &
-    sleep 1
-    ls /mnt/d | wc -l
+	tz->tzp = kzalloc(sizeof(*tz->tzp), GFP_KERNEL);
+	...
+	params->allocated_tzp = true;
+	/* unbind */
+	if (params->allocated_tzp) {
+		kfree(tz->tzp);
+		tz->tzp = NULL;
+	}
 
-Before commit dffc7f2f177b ("fs/ntfs3: allow readdir() to finish after
-directory mutations without rewinddir()"), the result is:
+bind/unbind run from policy_store() -> thermal_zone_device_set_policy()
+under the zone lock when the governor is switched to or away from
+power_allocator.  The tzp attribute handlers take no lock, so a read or
+write of one of these files racing a governor switch dereferences a
+freed tz->tzp or a NULL pointer.  The read side (0644) is reachable by
+an unprivileged user.
 
-    5489
+KASAN, one test thermal zone, one loop switching the policy between
+power_allocator and step_wise and one loop writing k_pu, panics in
+seconds:
 
-After that commit, the result is:
+  BUG: KASAN: slab-use-after-free in k_pu_store+0xd7/0x130
+  Write of size 4 at addr ffff8880064e5c94 by task init
+   k_pu_store+0xd7/0x130
+   dev_attr_store+0x46/0x70
+   sysfs_kf_write+0xed/0x110
+   kernfs_fop_write_iter+0x29f/0x380
+   vfs_write+0x5df/0x950
+   ksys_write+0xfd/0x1e0
+  Allocated by task:
+   power_allocator_bind+0x51a/0x600
+   thermal_set_governor+0x86/0x170
+   thermal_zone_device_set_policy+0x58/0xb0
+  Freed by task:
+   power_allocator_unbind+0xad/0xd0
+   thermal_set_governor+0x57/0x170
+   thermal_zone_device_set_policy+0x58/0xb0
 
-    1837538
+Take the zone lock in the tzp attribute handlers, as mode_show() and
+weight_store() already do ("Don't race with governors using the
+'weight' value").  The governor already reads these fields under the
+zone lock, so this also serialises the PID constant updates against a
+running power_allocator.
 
-This patch will increment the version only in indx_delete_entry(), so
-that added entries do not restart readdir().
-
-Fixes: dffc7f2f177b ("fs/ntfs3: allow readdir() to finish after directory mutations without rewinddir()")
-Cc: stable@vger.kernel.org # v7.0
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Fixes: f5cbb182586e ("thermal: power_allocator: don't require tzp to be present for the thermal zone")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 ---
-The readdir() + unlink() loop of that commit keeps working: it still
-empties a directory of 20000 files in one pass (298 files are left on
-v6.19).
+ drivers/thermal/thermal_sysfs.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Application impact (Ubuntu 26.04 user space): "tar -cf" (GNU tar 1.35)
-of a folder with 3000 files while "cp -r" adds 2000 files to it. On
-v6.19, tar ends after 1.2 s and the archive has each file once. On
-v7.0, tar runs for 29 s and the archive has 200434 members, each file
-up to 48 times.
-
-Tested on ntfs3 master: without this patch the archive has 261512
-members; with it each file is there once.
-
- fs/ntfs3/dir.c     | 6 +++---
- fs/ntfs3/index.c   | 1 -
- fs/ntfs3/ntfs_fs.h | 2 +-
- 3 files changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
-index 7ee1a5d4189e..defc84693e39 100644
---- a/fs/ntfs3/dir.c
-+++ b/fs/ntfs3/dir.c
-@@ -476,15 +476,15 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
+diff --git a/drivers/thermal/thermal_sysfs.c b/drivers/thermal/thermal_sysfs.c
+--- a/drivers/thermal/thermal_sysfs.c
++++ b/drivers/thermal/thermal_sysfs.c
+@@ -258,6 +258,8 @@ sustainable_power_show(struct device *de
+ {
+ 	struct thermal_zone_device *tz = to_thermal_zone(dev);
  
- 	if (!pos) {
- 		/*
--		 * ni->dir.version increments each directory change.
--		 * Save the initial value of ni->dir.version.
-+		 * ni->dir.version increments when a delete reshapes the
-+		 * name tree. Save the initial value of ni->dir.version.
- 		 */
- 		file->private_data = (void *)ni->dir.version;
- 	}
++	guard(thermal_zone)(tz);
++
+ 	if (tz->tzp)
+ 		return sysfs_emit(buf, "%u\n", tz->tzp->sustainable_power);
+ 	else
+@@ -271,6 +273,8 @@ sustainable_power_store(struct device *d
+ 	struct thermal_zone_device *tz = to_thermal_zone(dev);
+ 	u32 sustainable_power;
  
- 	if (pos >= eod) {
- 		if (file->private_data == (void *)ni->dir.version) {
--			/* No changes since first readdir. */
-+			/* No such delete since first readdir. */
- 			return 0;
- 		}
++	guard(thermal_zone)(tz);
++
+ 	if (!tz->tzp)
+ 		return -EIO;
  
-diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
-index c06b36760448..29884bf3d35e 100644
---- a/fs/ntfs3/index.c
-+++ b/fs/ntfs3/index.c
-@@ -2100,7 +2100,6 @@ int indx_insert_entry(struct ntfs_index *indx, struct ntfs_inode *ni,
- 					      fnd->level - 1, fnd, cmp);
- 	}
- 
--	indx->version += 1;
- out:
- 	fnd_put(fnd_a);
- out1:
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index f400cf94d05b..12212fb7a2be 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -198,7 +198,7 @@ struct ntfs_index {
- 	struct runs_tree alloc_run;
- 	/* read/write access to 'bitmap_run'/'alloc_run' while ntfs_readdir */
- 	struct rw_semaphore run_lock;
--	size_t version; /* increment each change */
-+	size_t version; /* incremented when a delete reshapes the tree */
- 
- 	u8 index_bits; // log2(root->index_block_size)
- 	u8 idx2vbn_bits; // log2(root->index_block_clst)
-
-base-commit: 0c895b1f6ab37a7c72a437818f307ef6e629051c
--- 
-2.53.0
-
+@@ -289,6 +293,8 @@ sustainable_power_store(struct device *d
+ 	{								\
+ 		struct thermal_zone_device *tz = to_thermal_zone(dev);	\
+ 									\
++		guard(thermal_zone)(tz);				\
++									\
+ 		if (!tz->tzp)						\
+ 			return -EIO;					\
+ 									\
+@@ -302,6 +308,8 @@ sustainable_power_store(struct device *d
+ 		struct thermal_zone_device *tz = to_thermal_zone(dev);	\
+ 		s32 value;						\
+ 									\
++		guard(thermal_zone)(tz);				\
++									\
+ 		if (!tz->tzp)						\
+ 			return -EIO;					\
+ 									\
