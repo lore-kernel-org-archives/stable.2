@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794599514;
-	b=laIJUenFwk1Qhtg2szE31S4jLHejHuTfsg3rbv/BbHBB4aZb28DpN0T2sIFKvmhoc+qL
-	 82j8aB9dthIDopXWWqZQqpuXNL8mce4qXh3PVSKpoWP2PEqdgYoxFjEyVkozgQInYRPlU
-	 TDgW/3Jn3BWr+4ZK/9OIaRc+8Tudg7aYkdtd/P9kqnyIcnf7AO0Kg8zKC/YXSvpcsmTy6
-	 cpb2kOi9wQK0ucbX09R2SUX1q3o4vN76VYO00GDqUvxie9DFYn0URMhc+pYX7AxgLP/J3
-	 a4Stf+kbAqFEek9nCpKAouB2KWrLEZcD1dRebAqwQhmdqGeNlYSxcMhsW8WgTeumDsw==
+	t=1794599543;
+	b=Ad0VncYTM38TWjx7MHejntYgktR8gwNnBN7dUGq6NnXOzHuKE1afkQLbFNkS4qM2Suj2
+	 fhxJ7Z5hHdG3wJFdO/YMm/PI30w/SZtJcg+mOpm4ZpDHlAS+VgxLnirWgSKcLWo/6p0Jz
+	 z3Hk4I82BmnRv+V/4TD6wsKS8T5Gwo2W8vTEIEM24Gkmm8jMVq+sr40q38RayHIRH0TiD
+	 3jB0iJ6igLQrh4+DsHpf+cj0/4vQ1ue2POMaGJ3zYWCeSi1tqxoMAQyB4CKoDAZTSrPLA
+	 XfJcVYAYboNZY5GaWuyij4RFpnteYpHBpo+O0KuDbOeWNAxqhKG6mZenGgf8qp1jmXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794599514;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=8ECM7h8v3szvfUHrUOczJsK+T30L8LfIMVGsWq1/EAQ=;
-	b=pA0ceVfomP9ce0aPgl0J37lHZOuNxuBPSpzQJ/yKJ8x86ZnL7NPNPaTDcF3qH7GTii4/
-	 H3EdjIzX86Rn6grJNzFEJqMjKIxLkF9SPqV8t0m9ETwbSrM3E7WAXOFYaBPVRb8jkmWPr
-	 uyabYU2IIbz8vEBDxEK6YJ6LsfjfUC03E5vFhlxGg5k4Zf2wRF75c2USWBUOvT7+cDIw9
-	 bBIkjUMOiGq4G/mH6+OdJyuiao3R2QJD5e9AVehHkdFlFXACtBeNKX2c41qH4aDWQjfM7
-	 hleV05Rpcf2QQesSCnQE3gglcLnYPJX+DRa6Ga3uTmFAQl4nAJ9La+j+6qiTQjMewog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794599543;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=gRcRRaZ0zBHR6AzzngEkus5puXdP7+q6G0foB4y3g6M=;
+	b=yQG/IOvubfY9TsPpMcca1e1lJtY1jAT4JixAuRsAxZ4mPBBM5E+eBcQDLEN6NCoEcboQ
+	 e5iDrlER7F97rNJUKw41A7MUp3HYzlbJV3gAqXxkS402w4Ucx0TyQwDkEhH2kepvvIoz6
+	 fcG+bTqQ527iG3pLs+VsBmz+WOV6Rc3xPmWAUTuwobvXolKDHXkR48G3rzvdJrnRaLbSI
+	 tMbfwYBtW4zPaoVaEusGbQfi+gCLkjpilbGlCg9EIrP+KsspL6SYuHi4KfImxyGBodaTO
+	 Hpp1S6FpBHbHsTeKyGOAM0RTSTw/7Uh39ovR/NuPiCT2CdqX4YISChdfBl4kEdmiVLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TKv4CrLO;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=BShmhzl9;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CDD606A327;
-	Fri, 13 Nov 2026 19:51:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68CDD606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F9E606A335;
+	Fri, 13 Nov 2026 19:52:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7F9E606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TKv4CrLO
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C56AD1A1651;
-	Fri, 13 Nov 2026 19:51:51 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8BBBB60015;
-	Fri, 13 Nov 2026 19:51:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2294911BC03F6;
-	Fri, 13 Nov 2026 20:51:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794599506; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=8ECM7h8v3szvfUHrUOczJsK+T30L8LfIMVGsWq1/EAQ=;
-	b=TKv4CrLOPU1pxDCGtU47n42Fa/M0lGNnyJBNXUrj6YqXfiD7pfP3K9J7hfbuJCz5mV5Kpi
-	tCd+qVpYYtDYk7SbDgfswEYzfZ1Y6fiKuqSGFWxl8Ni2KCY3EYS2aThqwnREjhb6ar2l0B
-	yeWdNl5tT0/8VlzwMv1AO6nPU3JrAAyTIzc/AZsEUw29ZoTsOc7Kd3f/zSg2S4bmAER21/
-	x93OnbaZFlnpU71JTltYjNioZjTRDvVL/Gl9/93EOIjWQXXyRKlvbXTbt8ycUMleyRqIUs
-	4hWyH/gKm1sFlCJSXJ77z7wlaWgkKuIP7OuetY/Y0aSZ7+E3/4aZK1V2RGpVuA==
-Message-ID: <c9d26395-93f8-4e63-9cd0-586ce913931b@bootlin.com>
-Date: Fri, 13 Nov 2026 20:51:44 +0100
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=BShmhzl9
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=gRcRRaZ0zBHR6AzzngEkus5puXdP7+q6G0foB4y3g6M=; b=BShmhzl9dtAhEXDTPI+MxqFOmI
+	ymDsimlTtgfmpYEY77qbIna11D3R9X0ady2NKvpRJHx7EqkRD1WjlbPeN56FoZB4UKqyoDdkRwyGc
+	LWN/mOZpHlON6O5VlpmLsmk/sSO2grns3NwCpBoXkKhR5ztd9236ugXebx/59fDl9j9hifB2EaUE4
+	aOnrlfwGmm/2YTXQV2RBpJLsHZReDd1Rp6xLNH/J/VINijLSGVLYXuVaM5v+zSqt9UsEZUEMCY8ww
+	kuBD+yHdFL4b6KsbCXnA9UAl3NEmSAw8bQCOC/L3Vt2bYxjSgwHNq9g72qY7JiO0RFi3Xz11SnyP+
+	ISjIkexA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject:
+ Re: [PATCH] phy: rockchip: inno-hdmi: Fix potential stale clock provider
+Date: Fri, 13 Nov 2026 20:52:15 +0100
+Message-ID: <lm0TpB3cRZ6mCNfPP6bL8A@sntech.de>
+In-Reply-To: <20261110-9f141e6bc8-phy-rockchip@mail.sdu.edu.cn>
+References: <20261110-9f141e6bc8-phy-rockchip@mail.sdu.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,46 +64,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/9] Congatec Board Controller: Add storage devices
- support
-To: Lee Jones <lee@kernel.org>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
- <20261113194450.GM6323@joneslee-macbookpro.roam.internal>
-Content-Language: en-US
-From: Thomas Richard <thomas.richard@bootlin.com>
-In-Reply-To: <20261113194450.GM6323@joneslee-macbookpro.roam.internal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On 11/13/26 8:44 PM, Lee Jones wrote:
-> On Tue, 03 Nov 2026, Thomas Richard (congatec GmbH) wrote:
-> 
->> In this v5, I re-ordered a bit the patches to fix I2C bus names first.
->> I also made an error message more user friendly.
->>
->> Lee, this series conflicts with some other ongoing patches series:
->> - mfd: Assorted resource lifetime, teardown, and error-handling fixes [1]
->> - mfd: Constify mfd_cell arrays [2]
->>
->> To make your life easier I rebased this series on top of them. Please let
->> me know if you want to proceed in an other way. 
-> 
-> I think these are all applied now - less my I2C patch, which you are
-> free to collect.
-> 
-> I'm ready to apply this set.
-> 
-> Does this have to go in as a set or are the MFD patches orthogonal?
+Am Dienstag, 10. November 2026, 15:32:25 Mitteleurop=C3=A4ische Normalzeit =
+schrieb Guangshuo Li:
+> The clock provider remains registered if PHY provider registration fails.
+> Device-managed cleanup then frees the clock hardware and PHY private
+> data still referenced by the provider.
+>=20
+> Use a device-managed clock provider so both probe failure and removal
+> unregister it before the clock hardware is released.
+>=20
+> This issue was found by our static analysis tool under development.
+>=20
+> Fixes: 53706a116863 ("phy: add Rockchip Innosilicon hdmi phy")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 
-They have to go in a set because of the switch to PLATFORM_DEVID_AUTO
-and plateform data usage.
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-Best Regards,
-Thomas
+
