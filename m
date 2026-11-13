@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597765;
-	b=mA31Dlsbsf8olBl2vbFXIhYSlaoYypNFK6k0tMXpMWXqz6Xusg4W3J+DUEey4Rdqs3m/
-	 aEgWYdizzUQxLH/+PH+uMzn9Zf6gNI/7pX3gV46BTJ/aKWwiw54MLHIJeOMFQcwnnegKO
-	 LCYfpGFA909IIcxSZ3Hn4ik4sibblISva2a9Oo0ITwjnij53AGZZIs4sSetGRbAQggH4e
-	 GxDq39Oy+VfGnbSbP+zJPDvp3ZdS8Mj9sRyRwLIjY5JYWbwGoG4kKgjLlTdao3z0G1O5E
-	 XjBPx5ICiCvLSLQgaSwgSLI8RcSk51o+dQrSRItaQOi3V1CXUfOktJsnNF5AREuqqMw==
+	t=1794597772;
+	b=4W1OClLyi8JulbWaG5FPzsvkChinuPaTmeKG0g7duCfKStch38++pCeXOEz+2Jsk18oR
+	 HWlxzqXSePrzKyMQqjmpXc5qamZmZMLxABdCzySKlM4t66Uznr34n85gvTYEFxfSWd5F4
+	 rdhGj+c5rbcQTiKtX2+HkkD3uyfeto/p5nm16aCDVjjSW99JwC3Ul6qnlwCOsBLrlGJ+m
+	 G3cRbdiSa+mw31qpD1H/nsdWzMa6U6om/QIP5qP7Dp6MLAgrTqj/B3nqSG3QOc4jmD/Cb
+	 eiIX9nMWxS3yoU+Ri60fIwqJ3Ea14spil7gXkC17R14PO0rj+fHU8PKVxYVflOV7FGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597765;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mnNRgWRp+4hv+j6YL+iFcZJMWH6z4jPrEo7PZ8M0U2A=;
-	b=Sn6NBpYdGjFUc+weqtXUFTSazUy368jUknmRQnVB2GdC75zOAWv/7fZ0AyagZ1XsMbMG
-	 psdrfOqnj3tFWiOVviAwsH1IFObT9hNRNLsml7d2TQyscojSGjB8Ev/GkxoaAUWbfLKxb
-	 A47qTZH4/TtZuTEkX7VXB2ePNI0WCzdDSmcTXvKPAwyzCf+dSAdN0tT+mhse91bUoc1vF
-	 q6WJ3gMRwdNw727whFu40wdYuYtxgPM3WE9ej00htqELcYk1cpSfcOVUJsm8KWiu1rsAa
-	 kdszaMmNKWNx/l1ZhhXALS9x4KFqI7sQltqhKGyVNUlwj8Qm7TTQxsiJA74jrv/d1gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597772;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hG1EB293hxr3Jgg2QdT4ZHxs80rfcC0WBpvazP602rI=;
+	b=YuqSZYh5dJ84+o6L1x+amm765lbLDH/t28T/2wJWE/8C1RD9cNVZaPJoEHnfj3+O6zB3
+	 6CvKy3y0wAbjmwkB6bu70oFFGij3YihWpejjTH+K1UaQSWewxBYFL3j5bc36l9+eDg3aR
+	 Q2yz4mLiuDBQVi5b+p/qetfkJVX/uD2tbgMY6vAX9+tEHfiHx/y2cyD1IX6GMR/UIqZUc
+	 aDjF6aaMx61ACfjvIrCvfZKE+Ep1j94ImWO+1bd2T57vgSb3RkiJwVguP8IdQouTDgOCk
+	 XtRj3dk4qxWruqW7/FDEp0VS9meqeZBR6/m12unMwf/Mke5fHNcgIFWV0KzuyA/gW+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9hqhfSE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YHabU7Om;
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6232860A2606
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:22:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1A2606A336
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:22:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D1A2606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9hqhfSE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967DC1F000C4;
-	Fri, 13 Nov 2026 19:22:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597765;
-	bh=mnNRgWRp+4hv+j6YL+iFcZJMWH6z4jPrEo7PZ8M0U2A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i9hqhfSEwH3T24PNTuVRkCVefiacMnyUly2bVlDtYOHBrZGN4QJeVjaIcL6awcnjr
-	 ZZ5k6abgoOepRPV/9od0fjG1NPQ+Sqx8rPHyjRCZJusrJ1clqw/53NOxSrdYvLNnGb
-	 bclsJudF8nA9oF0VLkEuH/jLCR/rMCpUVC1wl68xGThd9lFvlqGYRC9Fi26uA8V4aN
-	 5Im5yVnwFu2RA23OUXwrDM6Q6BgxYVZ9//fmtgnPz4K/LSXcx/WlHlDWTKJqbo7p2B
-	 vVcRogQREgd76f97T/0ij5Qxj6/YpI8jbkPOkySpZOVfYRzLbnOfkci1PITkWqqT6C
-	 Koxgy8FFBhGuA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/shmem: make shmem_file() check the file's inode
-Date: Fri, 13 Nov 2026 14:22:43 -0500
-Message-ID: <20261113192022.2246748-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200701-failed-6.12-d3710111839d@kernel.org>
-References: <20261109200701-failed-6.12-d3710111839d@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YHabU7Om
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so764203b3a.0
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 11:22:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794597771; x=1795202571; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hG1EB293hxr3Jgg2QdT4ZHxs80rfcC0WBpvazP602rI=;
+        b=YHabU7Omftu3FhVQ7LIw5wOHLJ2zWV9rZoxp4VsZ6gZ1NUrAtNBjyNE55BVLGWVpCl
+         x0NObRNP3TA8Kez5zn5gD2QojUceNcb+yasw4i6Hux+5mMmxV81X7prFEGJng9ZSbme/
+         fJflg1FDC6Ex7z8M1V/6BEX2pY9vgpa5jO3sudYMd1rnsZRN/AE2GRzY7LaX4+sev5Yc
+         j3lKVREvcd6zeoi8qSwmY+JIWIZPGahFN9iRmKq9qROXXjfaYtxJ7xxo4SWDFPY9Gmob
+         rK6GHieNhieFYHsTjxum9PCjtPe5Zb/j06sXj+Fi8Oo8r9KhEaEPcvsPp0SxkDZMLSAy
+         GKmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794597772; x=1795202572;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hG1EB293hxr3Jgg2QdT4ZHxs80rfcC0WBpvazP602rI=;
+        b=OnQiAyLtWZ7B4ADEToMtFvs4Pf/6jZa9Bxm1phhZ+8CeUCMbEh6bdPZsZ4Huh/EelR
+         IIZmU2NfLyIz+vSYvg0Cdx8yXmq8pw7/tqR4prQc223dMXuE+VSoXYD0CnPgexU1c3Fo
+         dqbe+wnxg6rZStxaLThEBbZ1mSI9i7uenF9YEeHD9ldAOy3lKLB8qyK4D/mVyCyNQ6hv
+         kKOYeM0GTQ50D6RK3FFwHEB13FlWbelLLjZFgu4hrHgCXRp3JBmIV3jo4ebLApw+e6XK
+         QmHlFWbH00ZMq8CASnuPZYImOh/tG8u+mSaIRAgNRD0Yw0gvu6z2vD2CD1djn4N7xEWp
+         9HCQ==
+X-Forwarded-Encrypted: i=1; AL+hErHuAu0niUE36oLd8lESfeEEJnHamEZ0oOP0Er5vF6hpj8zFD507rDDtdzE1jwFt4X47IeBo3S0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+j96RWneLqVTnyWR21smezMVdZYLeHmTSDHlFp+0BBycBy1YJY
+	3NgfSNkuPNiFUm3mkrZ3HuZvFDwsw/f+L5dj+1sZKLEZ+CCtNAHXSZNK
+X-Gm-Gg: AYBFou335G2dGdiTz9/xHuEKHh36Bl0AQBVpaDKEb4ijA0Lp1FbCNkD/Lz13wXrSE5/
+	Q+3noCRacbSyKBcJXoky7/GAQzZERbcEasMLtSLcsoIBtZsl8xYk89fCM8inTDu60AWP9c75T5M
+	OIReRKO+d6JgRRqjmej+Kld9Z8RbSGu7Pu6Zm1hS74OzMzFwOmVDPbOWOV6yc7v8G7MRQVzGOCv
+	unsLzVAjEQMFsDBAlUTsNYnPGWwJoIfQ30myOekmfOmT4/7AlaoJkX4B8j27lKE9ZredtuOxfcQ
+	m5kWR69GnAJj5ViR+uYEZi89FIoGsZfTPbEF0kRxJB31YMuS98651rEIiY8sebf1HK9h3jCMtzP
+	kjwsDwwRk6sq27GWlLYZyNgSrbhwM15BdtP9jdsL7wIhm1hiytLPErpqa02hyUeUIdCtvj+TVkD
+	EStbwXNsO2i5QPss6C/4ublT+qXYfIEP6ggVx/JAopjTPQiFFSEHEIYFgJPUs/nWt9EIM8xGRIL
+	xi90RHGF12Fh1vaeXvFAj5b6e1FdrYm/zUSzvs9Sq1b54+uRI4dvBMksIxbBYz53zETRf1e4jZM
+	dswPXxhxuomrW+ejfyyLFhI7nOYmIK/qUZuZPVgsgcFPz7Ji6QdStyVhBPo8T+7M1jkJqJ+RuWC
+	MMA==
+X-Received: by 2002:a05:6a00:b49:b0:8b5:ffa4:d618 with SMTP id d2e1a72fcca58-8beb6b771d3mr3233331b3a.43.1794597771515;
+        Fri, 13 Nov 2026 11:22:51 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1d6207fsm1601457b3a.32.2026.11.13.11.22.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 11:22:50 -0800 (PST)
+Message-ID: <36d38251-994a-471b-94b7-d1356326355c@gmail.com>
+Date: Fri, 13 Nov 2026 11:22:48 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,118 +93,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/670] 6.12.118-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261113153811.177190860@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+On 11/13/26 07:42, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.118 release.
+> There are 670 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.118-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-[ Upstream commit d3710111839d11339e414b1bb3fea3d05ab83f6e ]
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-shmem_file() only checks if file->f_mapping is a shmem mapping. This
-mapping can belong to another file, however, as with a Coda file backed
-by a tmpfs container after mmap().
-
-So it does not guarantee that the file inode is an actual shmem inode.
-
-Seal handling and memfd preservation use this check before accessing
-shmem inode state, so they can access an inode of the wrong type.
-
-Let's make shmem_file() check the inode's file operations instead, to
-identify shmem inodes reliably. This will identify regular shmem inodes,
-including memfds and ordinary tmpfs files, independently of wrapper file
-operations.
-
-Use shmem_mapping() in collapse_file() instead to not change the behavior
-of collapse_file(): it operates on the page cache and uses mapping->host
-for shmem inode operations. Focusing on the file does not seem relevant.
-
-Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
-Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adjusted context to preserve the existing non-const shmem_mapping() interface. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/shmem_fs.h | 15 ++++++---------
- mm/khugepaged.c          |  2 +-
- mm/shmem.c               |  5 +++++
- 3 files changed, 12 insertions(+), 10 deletions(-)
-
-diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
-index 515a9a6a3c6f8..183975ead5cf6 100644
---- a/include/linux/shmem_fs.h
-+++ b/include/linux/shmem_fs.h
-@@ -97,8 +97,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags);
- extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
- #ifdef CONFIG_SHMEM
-+bool shmem_file(struct file *file);
- bool shmem_mapping(struct address_space *mapping);
- #else
-+static inline bool shmem_file(struct file *file)
-+{
-+	return false;
-+}
-+
- static inline bool shmem_mapping(struct address_space *mapping)
- {
- 	return false;
-@@ -161,15 +167,6 @@ static inline struct page *shmem_read_mapping_page(
- 					mapping_gfp_mask(mapping));
- }
- 
--static inline bool shmem_file(struct file *file)
--{
--	if (!IS_ENABLED(CONFIG_SHMEM))
--		return false;
--	if (!file || !file->f_mapping)
--		return false;
--	return shmem_mapping(file->f_mapping);
--}
--
- /*
-  * If fallocate(FALLOC_FL_KEEP_SIZE) has been used, there may be pages
-  * beyond i_size's notion of EOF, which fallocate has committed to reserving:
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 1250d878d7242..f1d9af8324c11 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1809,6 +1809,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 			 struct collapse_control *cc)
- {
- 	struct address_space *mapping = file->f_mapping;
-+	const bool is_shmem = shmem_mapping(mapping);
- 	struct page *dst;
- 	struct folio *folio, *tmp, *new_folio;
- 	unsigned long new_pfn = -1;
-@@ -1816,7 +1817,6 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 	LIST_HEAD(pagelist);
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
- 	int nr_none = 0, result = SCAN_SUCCEED;
--	bool is_shmem = shmem_file(file);
- 
- 	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
- 	VM_BUG_ON(start & (HPAGE_PMD_NR - 1));
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 8de38d7a98f92..df6a57f227865 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -270,6 +270,11 @@ static const struct vm_operations_struct shmem_vm_ops;
- static const struct vm_operations_struct shmem_anon_vm_ops;
- static struct file_system_type shmem_fs_type;
- 
-+bool shmem_file(struct file *file)
-+{
-+	return file && file_inode(file)->i_fop == &shmem_file_operations;
-+}
-+
- bool shmem_mapping(struct address_space *mapping)
- {
- 	return mapping->a_ops == &shmem_aops;
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.53.0
-
+Florian
