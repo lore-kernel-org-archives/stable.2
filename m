@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575177;
-	b=fDE7VI74L2fBy5tQYNJ02UrmLX5pfmu9pMXWSAQDaw+R12N8TDkHjL9eKUXPdqy/b7CK
-	 Ut2Wb+WJhxemCevwm6WpEq6XJaT5Qmu25Q9VSQu8EkaOoU/EHn1hmLNWJ7oIHKVpo6NXf
-	 oa0xNPbGZs8iaqRBAYZbJi/Xw/r7O1y2SV2AAznZ6HRTzi1njJ497rSXmCOVUzigDvchL
-	 sfTAaiIb0sV5cwrAOk88K5jkasjMJbbtElNOZTxQd5PABV1RSYC93NdaaUgSgGH3h12Yh
-	 RcYAp2gPOlQPzPiFW6g304MnI/WYynYUs3+mjOxM+Yczw8gzGoFnh69DFO5wdK9BJ+g==
+	t=1794575181;
+	b=i0rsLmAAl2ZAGeapp5si4+D2blkFDAuwZ87hRj7YTGqLCY8k0SDq9Ixk9dab3WsfH4ip
+	 cOl9nM3G4omkzBiRgd0eQ8KYN0KpCunThOfN0/4UsD2S6FoXmU2fAzLsbLI2XU3mFQpET
+	 JcY9M0uFvlo65hgiFsVnFxir1RnI2U+e898Xnbo3XtB7rbhBMAzDiVTJnAk//eZCwn3BQ
+	 SQDEQ+H9TCYWFJ76LnBGrW7jGmP38OahFm1k4ezpR2zU5i4mPs2fft/yydDFKOsDl57ok
+	 31edMKIQf6LeAwxsanQqcOaMJtPc/r46MeAbjIdG9dvg9sR4N/HQw1jzqfEDD7myMRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575181;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=IEx4WFv5zRyoef/ZWpcPGipQSPgKlCPIgV9QMGzoM7o=;
-	b=yDjhxhBwYTm++1o083TteHr8ELHjM6jB1MNl6DyfVS2bXnUQOBHCnUyJ8cSlhjrVYguQ
-	 ANt7qZpoR8fkJiEX0AuL44jZx8cqDqFYBTdZy2hTZrzXQnPvAZo4lCasNhuB/xmodlhFP
-	 JUEc3dGGEclvPG2YZhLCvIzH5VPgQ7R62C7hflGKIN8ZOeAGQJavYX8u0yGY/Rpt9FV3d
-	 dWjjSwQUbelcnVQhWWTxUziGoMY2DyMua623/glY2dCYTFstjyBSsupsYe7KX10xnS7BT
-	 uh53mbkO65E/KyUIKEtcWNFRA/mkEpgxTF8iHJouF9PRK8xWoNvdZSWgDLuEygCIy1A==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Z4mJF56qyZ7IAtpB06E6YWQ7/rPNPa+Fwwhib6TSnN0=;
+	b=4eRbW4pq7n1Qh+ysRD4G1Bovrc59WnaaMNBRkX1Q5se0QVq64btHFi9bdtkRcgeUtvm5
+	 Xkg94TCMyEiRQ/SLBGMCf0wj7WgAi93g+zZ+Zl38a2VXNMusgukLQlsFAS8Q8jF2f1smz
+	 Mht3+CvnnXUCuzrfztDS4PvY8k+E51RifLjLmGziiWpdTynNLHSSj4DfcC179yQbO/anF
+	 xOGCQefCZty6DyWXhOiNvaN35misJ9pMnEC3G1mBir0cuJtYlHAP7tXaJmI0JCsetcC4q
+	 Fr0/h4zWWVSmhEx7RmsEAlhWoee/JtsebUdx62EVNJWo0tLqd0l+wkaNDy3AqDDBV7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a+/IHOBT";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiQLVc6W;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297FD606A897
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:06:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E27F606A330
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:06:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+/IHOBT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9761F000C5;
-	Fri, 13 Nov 2026 13:06:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiQLVc6W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6671F000C4;
+	Fri, 13 Nov 2026 13:06:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794575176;
-	bh=IEx4WFv5zRyoef/ZWpcPGipQSPgKlCPIgV9QMGzoM7o=;
+	s=k20260515; t=1794575181;
+	bh=Z4mJF56qyZ7IAtpB06E6YWQ7/rPNPa+Fwwhib6TSnN0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a+/IHOBTolNLx8d4gvUiy/SbzM2U4+yfsnvjOog6U4iZFpk/gjnG3m4DseyHC4mvc
-	 KWBDSclcVLQQTgpQ9E25ik9ADkiq69E25tXW+bFrMx125w43a1IhsaWHbaNXjhzR7i
-	 2PELYOffo9B+0ttl3zEPAIW1rx4zOrhcPy6isWu2fqmdWBuJpCoa4kC3fKgRnJ8NBD
-	 EXi/6Vm2t6ZD+6sufGd5YNKCGFbULk98Y15FCpsPsq7KHMpTGLeyUb7i6UJ9iOQ928
-	 tsSfmyEEwvbyVaBTD4hK8A4l+Oc1oaaaQ2hkpR30VrWVvn5eTjdaySYIRuphA5I10F
-	 SBfmOSyLn/6Uw==
+	b=DiQLVc6WLSvnFENuBMRRnXMLg5jxyb3xHmBxlMqAdDJCxeIG8onv/SKBQsytwZpnq
+	 uvLIwnKsGTU+wxbcOtEYAR24yBtfOiLHnrv0JX22PbDpNauC9n0qWAJc+o0JrMSkEt
+	 qCMtCLoi9i371xVofaDcNYjv8f6eCPdpfgAxxiHFl27U1+omiH0/hH1FnSEHB2vnf5
+	 L2dyRduEEt+vfIQ/6ACQAazMaOxBPBYeKMDJO8/1uShm5TzWZ/dk1ejKuq5jxftfm7
+	 0+cV/0h+oohfE+oXjnIe8eGDga3T0FMDXji7g37jNSOHcs6N//to+FZv0KyG1Xtv4x
+	 8pxYYR50EJVKg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Sashiko <sashiko-bot@kernel.org>,
-	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
+Cc: Daejun Park <daejun7.park@samsung.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] hwmon: (coretemp) Set nr_cores only after core_data allocation succeeds
-Date: Fri, 13 Nov 2026 08:06:14 -0500
-Message-ID: <20261113130525.1058475-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] nvme: unregister when pr_register() is given a zero new key
+Date: Fri, 13 Nov 2026 08:06:19 -0500
+Message-ID: <20261113130521.1087085-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200339-failed-6.18-95638f1f05ce@kernel.org>
-References: <20261109200339-failed-6.18-95638f1f05ce@kernel.org>
+In-Reply-To: <20261109201627-failed-6.1-a9d431124fb2@kernel.org>
+References: <20261109201627-failed-6.1-a9d431124fb2@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,59 +60,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Guenter Roeck <linux@roeck-us.net>
+From: Daejun Park <daejun7.park@samsung.com>
 
-[ Upstream commit 95638f1f05ced75a82e83f610cd01b636d2a21b1 ]
+[ Upstream commit a9d431124fb2e58215daf0299d6fcf47bbc2d6b1 ]
 
-In init_temp_data(), pdata->nr_cores is populated from
-topology_num_cores_per_package() before allocating pdata->core_data. If
-that allocation fails, init_temp_data() returns NULL with
-pdata->core_data still NULL and pdata->nr_cores set to a positive value.
+The block layer PR API defines a zero new_key in pr_register() as
+unregistering old_key. nvme_pr_register() sends Replace Reservation
+Key with a zero NRKEY instead. The host stays registered with key 0,
+and its next registration with another key fails with Reservation
+Conflict.
 
-coretemp_add_core() logs the error without failing coretemp_cpu_online(),
-so the CPU still comes online with pdata->hwmon_dev registered. When the
-CPU is later taken offline (or the module is unloaded),
-coretemp_cpu_offline() calls get_temp_data(pd, cpu), which loops up to
-pdata->nr_cores and dereferences the NULL pdata->core_data pointer.
+The pNFS SCSI layout client unregisters this way at umount. A later
+mount cannot register and sends all I/O through the metadata server.
 
-Store the core count in a local variable and assign pdata->nr_cores only
-after pdata->core_data is allocated, preserving the invariant that
-pdata->nr_cores is zero whenever pdata->core_data is NULL.
+Send Unregister Reservation Key when new_key is zero.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 1a793caf6f69 ("hwmon: (coretemp) Use dynamic allocated memory for core temp_data")
+Fixes: 1d277a637a71 ("NVMe: Add persistent reservation ops")
 Cc: stable@vger.kernel.org
-Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: Used NUM_REAL_CORES and kcalloc() instead of topology_num_cores_per_package() and kzalloc_objs(). ]
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ sashal: adapted the change to the existing nvme_pr_register() implementation using numeric values for unavailable reservation-action constants ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/coretemp.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/nvme/host/core.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-index 25a9cf8feb311..03b40d643dccf 100644
---- a/drivers/hwmon/coretemp.c
-+++ b/drivers/hwmon/coretemp.c
-@@ -491,11 +491,13 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
- 		 * Will replace hardcoded NUM_REAL_CORES with actual per package core count
- 		 * when this information becomes available.
- 		 */
--		pdata->nr_cores = NUM_REAL_CORES;
--		pdata->core_data = kcalloc(pdata->nr_cores, sizeof(struct temp_data *),
-+		int nr_cores = NUM_REAL_CORES;
-+
-+		pdata->core_data = kcalloc(nr_cores, sizeof(struct temp_data *),
- 					   GFP_KERNEL);
- 		if (!pdata->core_data)
- 			return NULL;
-+		pdata->nr_cores = nr_cores;
- 	}
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 61a34581ca70a..d3f4fd67a0ec7 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2236,7 +2236,12 @@ static int nvme_pr_register(struct block_device *bdev, u64 old,
+ 	if (flags & ~PR_FL_IGNORE_KEY)
+ 		return -EOPNOTSUPP;
  
- 	tdata = kzalloc(sizeof(struct temp_data), GFP_KERNEL);
+-	cdw10 = old ? 2 : 0;
++	if (!new)
++		cdw10 = 1;
++	else if (old)
++		cdw10 = 2;
++	else
++		cdw10 = 0;
+ 	cdw10 |= (flags & PR_FL_IGNORE_KEY) ? 1 << 3 : 0;
+ 	cdw10 |= (1 << 30) | (1 << 31); /* PTPL=1 */
+ 	return nvme_pr_command(bdev, cdw10, old, new, nvme_cmd_resv_register);
 -- 
 2.53.0
 
