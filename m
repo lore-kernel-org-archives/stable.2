@@ -1,55 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589102;
-	b=WSPgTFgBfDi/MfQ3jUAOxwTz41SrbekbAcznyLE9vUyAX97+Gise2sRbjeLD95ZpGjOW
-	 RhR6pUsBioA83s+PakJGDtmldcxo4znTAlFojHUKP8dmhQPZLQZYeuN+h4WzZjzWKkVA0
-	 INXCjOs3PBlrfsoQu+FrO0jbY3ur0Xh5iojgYk5l0ZdWZAnRYhWQA1Ok8YjcPcZ3qHFnq
-	 C7lWeK0HRFArYuhUESCnqUrniHCundtanHD08Vwqt7KNaA3dOVIDc8UlJQy0Vz1DBxiAb
-	 XKyYEZqfBy4R0G5evXOMWxTV/b/W+HtzWrn45sQs4tgq+7qa7kLfJKXUSDjZx+tD15g==
+	t=1794589147;
+	b=hDaSGt0HGTYPoR88RIClHpUitPlNOrLhkPO5Msyoa2fegOzwnQQtUCDl0Eg1DGmT270t
+	 SK/xHaGJNVNPIt/oIK4JXZcigHyEdvi37/yld+KBOfT44rEkPb6rM2LVlrUDUMEGkbs2F
+	 6brmgiWeAOPBMrF/IagrGKRENBME/WriGNg0fpgCbeOtZHDLrtLi64J/36onm/jSY1ZWI
+	 M83BLAU8JxwH22nWVrluRVMVE491CGJCo8p9sxDzL2YNTk4jzi4uyJjF6Hl4e01o45h75
+	 2ZMk+n7UvaYZyMe6qiA69onrzTqQcrlinA03eNGwneeeyxGSmCpr3BpT8DJdWfEgdCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589102;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hRElxMJsDJf5VHSjIG/8pW23E9Fv3Uy5iWG2ez36aFo=;
-	b=oZF3GOhQ3h3rPlCS2j6R+tMQwwhRESW95s7XLv12DiSImmLKgT08IKpaZ834x6Xdg9ii
-	 pPJ6+v24+013HV90ARlnKFmPyNTKFUCdtTVeRz2DyyYZBxsr2ME1nIz5JnS+NCtmiYYnU
-	 KJJDrOYrcTUUtuXarTzRcx2GtUJdSegUsRlNfhkn1AyQuvAqvJOmGDwnYWF19PKD1ZyiU
-	 wydmwCpOM7E+0fQ92cnksE4R7wSXxNX78rEW2Rt186ERYp7zGC2U3HUWs7lSrZHri0gOz
-	 ctmrU3wu1xfjGtI51EbJE0gZabz9cnNd+iQ3DLClogeqnvA+brd4v5CH6o/SV2bKgDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589147;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=MoLrDyTpK9JVXvlO7i8lPdZUMJ4kSTaovGwpnemXpx8=;
+	b=H3M4qgQ+3COgf1dNpqN6tyQGcHJcbP4eHpO4Pzy1Zn5y0CiumSamrwzL5W6wMiBXo7ra
+	 kVT5mn+U4TEczrM4CyrkAdSEp3MypVXtkk4CKIVJVzTb2yZJi47TbccD5FNdsTyhoU7Lp
+	 ytDkfs5uKb/D4dKsRYQICcd8ttSSyRPNgDvijgaZLRNsQg6Ip48jfFSJC4ZMOyIer8ibQ
+	 9z2AD8m+M7FWZSUpjObw4RZr8UYcZAVkr2tSOhTOJbFY2ukuWVYCMAAdyWMIWdgIAQvWI
+	 rou0GtEugu0lSwt0ApQDC0OO2vv150YV2aW6K327AaA+MeKhD3cxsYwx/Vmya6/YJFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lY9v8wGD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=a0lcA5up;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E0E606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 16:58:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BB4606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 16:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64BB4606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lY9v8wGD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEFF81F000C4;
-	Fri, 13 Nov 2026 16:58:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794589102;
-	bh=hRElxMJsDJf5VHSjIG/8pW23E9Fv3Uy5iWG2ez36aFo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lY9v8wGD0volemdMgh7n/T+g/HOxoI/XiIKaD2RSzl/WyD1/xSG18nNy7Ur57UuyU
-	 6OSqytDbe4oI+cULEpr2yfVE9BrfLktJAD7mx37J3RkoyTu54I6hAih/WMegfwtprW
-	 IavFKLMpnqXq5pfPS7Qkd0p2IFYY16H+uopYTjs5sVu32Xnam/LXRtuS3sbxRXUJCT
-	 1hR7jOG5jwPD7slIOc7MXPkOyhuAKGV7coxgZ4DWP3AxyqwI4eYxBeP08HAMUu5tn0
-	 p3dhNpP0Awi2Ed4972L9idiXu3A0dJSLWTvOskm+Rc5rHPAq76yPuS9xx2Cs67MfKN
-	 1C53nvvs7b6qQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Luis Gerardo Lopez Hernandez <gamaerry@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ALSA: hda/realtek: Fix internal speakers on Acer Aspire AL16-31P
-Date: Fri, 13 Nov 2026 11:58:20 -0500
-Message-ID: <20261113165807.2140478-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060747-failed-5.15-d933955c456e@kernel.org>
-References: <20261107060747-failed-5.15-d933955c456e@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=a0lcA5up
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1ae58d17cd9so686792c88.1
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 08:59:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1794589145; x=1795193945; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MoLrDyTpK9JVXvlO7i8lPdZUMJ4kSTaovGwpnemXpx8=;
+        b=a0lcA5upjBwFM6/X6V5HvJWgJoV1FmI0vZqpGAZjv2Isr/rqZKIJq2DzVIqWtK2yue
+         sHlPut3DTjp0pjtYwZJTXQR4bThgP3WS40R8dZnHV/CHdwrSs5S6FgrPRyOo7VZFSmJz
+         SQAEwVaIWJM2t3bD8z7KKP9dIWYjWzTJ97hKz6VsSF4mZUfjAlJ/Bn+NV3zvf01DaU0F
+         j2fBYpa1hqod3HsAUfK3z0TStQeOT0jbJJQ3SNDJMMy3vAfEerKb+kHCj6qw9MOM+P+h
+         1a8MQHSYPmvPmGZezK/iuw1NTzpw1ekqtcaxg1lQtsNGTGTyzpC9fLf0+KCPfAOEd9JY
+         hs6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794589145; x=1795193945;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MoLrDyTpK9JVXvlO7i8lPdZUMJ4kSTaovGwpnemXpx8=;
+        b=zhNB63dcu/28Oqp/o6uSe7TdQzWlqlFTJ0/vdQiQcRCe0zX0ZPtJ92OOpILFA9A1tM
+         2BHt6/ShiS/o1q7kpPkyfrlQhkv1fss3QKnDLW4K8rX59moixMz+0bsc1F53M3bgwBd1
+         dfZ4gCL31izASefOnLPmG5upaeGe58vb7TxuTWIlPAlYRKqZzO61eo004V0qRwZmjvKs
+         JpqXSZZklZaHJMAr7yMf79gBwpFo8qvQgYTQKu24mC/Jj9CUcbZvPZQVY4TrRVFU4aF1
+         Wi/wICHlYdTggdwpeKc7gXjEFdnMOcouWFbjNugTEgjFcd55lA0e6GRd2KShpK2YbQXf
+         hOGQ==
+X-Gm-Message-State: APuU4Z/4P46IK8pvkNRrMPh8YRPbV5rFW3pH3RvxC6jS6XJI23psR7g5
+	+ECcWv1uwTOVATdY2VD1D4u+cMAW0WjlWjVa0t1S2Cs3iPgSBJ0kipCCTx/+ucHBJ+BzOXEI7Wu
+	qJoNJ
+X-Gm-Gg: AYBFou0xONwLCpytPFRxwQAs293FKptEuTpZISZABoXofZe+xYKOL+TM+/Dp+7pjzzO
+	6HQSzjjbQWBBxP6FCbVXaxNovLIkkFpBTytUTe3QnOLm3wjpWWJOmRnsZth18bEiPou259FLJEg
+	TY8CqGA2hX1erIY523mJ2pYB7wrjerGnhUwJ2fPcz/TwgHsRe4V9H8gsU/iDTZtZzwEboJx9Onf
+	x6I/ahmvOz9C5Uiqkjsto8LQatzSGuYsVa8CaaGakQZZe541ISuWtoqQ7O7dg7h2oQjRumMy5Rp
+	ZfPLPS/JOZQQJQ6oCjwl8uwwIjtUIOpwjhdNDmwciVUoQUerwm3v1j3SfilsB66kEq+gsmEnwQr
+	T877uQeREBWJzIFd5kEJtdyFQ6FnycU6o3ScsR4sCUWRf3tzOCHx5X76EkteACzbFu8z9aDYqwQ
+	wxhWSbG+Msxeu1zthjirwRVvarJQ+0XHzBNUgASOsIO6xlueCAHUj9hejs18uezlX1Ia6FNPBJH
+	BoIf7rebtQCXTpYBi54Y4fqcbixXjT8g5C+hjXz0qoNuM/FnidEHgkumaoh7o1KXw8F/afInAqb
+	s/tDlOYmh1owCxpf4L2dAw==
+X-Received: by 2002:a05:701b:2706:b0:16d:dd5c:4261 with SMTP id a92af1059eb24-1b503120981mr2699552c88.46.1794589145168;
+        Fri, 13 Nov 2026 08:59:05 -0800 (PST)
+Received: from 8439c401ee69 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50309b2b5sm7314937c88.1.2026.11.13.08.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 08:59:04 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,49 +89,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-From: Luis Gerardo Lopez Hernandez <gamaerry@gmail.com>
-
-[ Upstream commit d933955c456e0573b40eae4f72a3af37ab1c15c3 ]
-
-The Acer Aspire AL16-31P (Intel Alder Lake-N, Realtek ALC269VC,
-PCI/codec SSID 2782:1718) has its internal speakers wired to pin 0x1b,
-but the BIOS marks that pin as not connected (0x411111f0) and only
-exposes pin 0x14 as the speaker. As a result the internal speakers are
-silent while headphones, HDMI and Bluetooth work.
-
-This is the same layout as the Infinix Y4 Max and MEDION E15433, which
-share the 0x2782 subsystem vendor. Reuse their fixup, which configures
-pin 0x1b as an internal speaker and limits the internal mic boost.
-
-Tested by booting with snd-hda-intel model=2782:1705: the fixup is
-picked, pin 0x1b is used as a speaker output, the internal speakers
-work, and they are muted when headphones are plugged in.
-
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-5.10.y: (build)type specifier missing,
+ defaults to 'int' [-Werror,-Wimplicit-int] ...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Luis Gerardo Lopez Hernandez <gamaerry@gmail.com>
-Link: https://patch.msgid.link/20261017005039.9139-1-gamaerry@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: adjusted insertion context to match the existing snd_pci_quirk table ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reply-To: kernelci@lists.linux.dev
+Date: Fri, 13 Nov 2026 16:59:04 -0000
+Message-ID: <179458914399.43517.5869442967354575360@kernelci.org>
+
+Cc from: regression/stable-rc.yaml
+
+New build issue found on stable-rc/linux-5.10.y:
+
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+type specifier missing, defaults to 'int' [-Werror,-Wimplicit-int] in drivers/pinctrl/pinctrl-sx150x.o (drivers/pinctrl/pinctrl-sx150x.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index dc2fb0a319c1a..66ca1f6988d71 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9722,6 +9722,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x2782, 0x1701, "Infinix Y4 Max", ALC269VC_FIXUP_INFINIX_Y4_MAX),
- 	SND_PCI_QUIRK(0x2782, 0x1705, "MEDION E15433", ALC269VC_FIXUP_INFINIX_Y4_MAX),
- 	SND_PCI_QUIRK(0x2782, 0x1707, "Vaio VJFE-ADL", ALC298_FIXUP_SPK_VOLUME),
-+	SND_PCI_QUIRK(0x2782, 0x1718, "Acer Aspire AL16-31P", ALC269VC_FIXUP_INFINIX_Y4_MAX),
- 	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
- 	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", ALC256_FIXUP_INTEL_NUC8_RUGGED),
- 	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
--- 
-2.53.0
+Log excerpt:
+=====================================================
+/tmp/kci/linux/drivers/pinctrl/pinctrl-sx150x.c:832:1: error: type specifier missing, defaults to 'int' [-Werror,-Wimplicit-int]
+  832 | MODULE_DEVICE_TABLE(i2c, sx150x_id);
+      | ^
+      | int
+/tmp/kci/linux/drivers/pinctrl/pinctrl-sx150x.c:832:21: error: a parameter list without types is only allowed in a function definition
+  832 | MODULE_DEVICE_TABLE(i2c, sx150x_id);
+      |                     ^
+2 errors generated.
 
+=====================================================
+
+When fixing this issue, please attribute this report according to the
+patch submission rules:
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:cb910e76085dc9137fa215cf68d23e9eff539639
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  a320864dd7e3be8aba44919f934c03e20b015e0a
+
+# Builds where the incident occurred:
+
+## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6af738005b429d354e4dd897
+
+#kernelci issue maestro:cb910e76085dc9137fa215cf68d23e9eff539639
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
