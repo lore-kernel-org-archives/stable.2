@@ -1,74 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564143;
-	b=EeiYLg6HK+8hdyUgusVE3CeMza9ln9f8F39G0pDwrS7D+bMai92/MhHbHBXXh0TujXg+
-	 g4rw8PeVXDGCFDdArwKltAMyMppt/p7O7Jeuq9d3KQjYxSryv9Z0KrC1iPlAhREmtq8Po
-	 hT3+whK08kTj0PIAyAzElXTn1zp4gGckSl8hhF4drR6gj90bYD1dh4avKCFkjnY78gf+A
-	 5hT0X92IIAnYU+byB4FQI1ffPswX+bQ0lPkyAncjGGhvtHrdgGK3WpbFOQKRJNA58/9jR
-	 eNZO62X+5pguMaLXp/oDP0fjwfAVM2MaYCx6KIu4RyydRQihe2x8o0PLVCav2TEACZQ==
+	t=1794564382;
+	b=vLq4hhQMFF7gQ11mN38NRFo2tFmaWb2vrwTozztOrbBUlQrRW872HGZvYtgpSg2HVSYU
+	 ZdG5L7EbrQJ/2P+fF/gX6adE9FM2rFVVjm/Kq6z4W6+B52U12qkbH1K4Kym6zUsD08DF+
+	 fEWEPxc/VP+Lc1ltM32QpIZa4Huyj96lW5zir1K2o+AFoxGJySAJ+Ty6RvDHDiLcaah2i
+	 QxDI0LZTbcGYz08EpB0/XSotCPoRWQ+5tTeHGIq9pe7kV08hxFkBeVd8GSYRbhgNL8yjL
+	 9acJdkMRPBFgCRBLQzix5brCoOqaZ0PbyeySmuWPVMlYgPkjtVhnLvHFVTBGDdUeieg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564143;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Fbe4pygIbMaWI9S1f5XjkFJyOwzCJ2fvroyAbvF8+6o=;
-	b=L3CbJ1LN17tojivKBf5A1PYgrwHClIXt4mU/7JNX1P7gb48L/VCuxbxP5/HQrua9Mvt4
-	 03xV20fK5/8yP0P0bX337KEg4yus5yC+HrVLj9lX+fWRJIx4/0z/R1FyB9QWROADjkWCY
-	 juBvbi9zz1NAsIcuq6D5oqTDjlQtgt2n7w6T/KGf4szuMy2FmdtyQVeS/oG8myvlx2xgq
-	 f8sxqrHQe6QvLdKw1C9mV0wVgLahyPY1TadxgQBWcoxkLITCVmgXC4APsCvC2qJ1Ns7M2
-	 MavicM/Cnip+u0K4TWqhFJZJdPELhVrJOLMdqy8JhP0HF/CG7M2ubUbcwesKIsW+WDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564382;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=px/1buHh7TMXhFEIrqiyErLcAOiPn6wL2fWet4+iHOY=;
+	b=0c8wPa6NQSxhMKRtFG18bSSOiVgPntwxG223uWzL/VmztHMt+j61/YOSPNzGiUlrEKYe
+	 ViY8EtuEICCRwWGjeq+AQoFAB3ItUDadjKBVBuKHOK4UXFN04yUSNvu3/YDjC+e5cqR2a
+	 EQ8CvvFRTwxkz1UWzju5WMZfrvJjLfXBlDwJnFXVCwh4AHMh1A0DwqzllhDdUmJa3eg0B
+	 uBm7V8+/c0WFBKGMW0D0dardTBCyGAHlvx+KNzPcynOyoBfCNkbZqw/k002W8vkBDo3W/
+	 ChhCt3RhMTMAAlN62m4RvWlgfdvB05VEKZL5hMlWKTCuzJ82Jch7GVb9nPKw1uAc77Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=jZic3ilP;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=LJGw1WEN;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3271606A8AC;
-	Fri, 13 Nov 2026 10:02:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3271606A8AC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D54606A893;
+	Fri, 13 Nov 2026 10:06:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9D54606A893
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=jZic3ilP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794564140;
-	bh=X1jLNoDnjVgubMenvrcefOxSRaNk8escCylD62v2PbU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=jZic3ilPtAE7ff/SF1XrbewKiLagOOuvHNJs+2SHa7/LBcokuCDwPex7rbv6pXr8d
-	 gk356trxUyyGPqFPgbvIpc0Qj2x0k1A2wEcIPt94Cbeztmriquyvmcsp/Yfqeb5qsQ
-	 KJAYRNTvDkXwLLBxpSuZUyraF+qKwXRfxeTgIqJXhckEIt7/h4nnyRFIFCoFtIs1Qj
-	 mko06yp2b7iRT1IjEo2AwxDEkdrABhFM5NcVh0ykjSF/sRk1dNBSg/WpYSKndxvVRX
-	 inaIxEMRt/yRHhm4nTmexgPjjvqoxu4wohGFyb5HiICNLIZ8uB01UmQ5M0Q8archyW
-	 T/47QOroubjzw==
-Received: from fedora1.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5113417E09C6;
-	Fri, 13 Nov 2026 11:02:20 +0100 (CET)
-Date: Fri, 13 Nov 2026 11:02:17 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Akash Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>, Chris Diamand
- <chris.diamand@arm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Fix race when retrieving the new chunk in
- panthor_heap_grow()
-Message-ID: <20261113110217.6c1513be@fedora1.home>
-In-Reply-To: <20261112191650.735850-1-osama.abdelkader@gmail.com>
-References: <20261112191650.735850-1-osama.abdelkader@gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=LJGw1WEN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=px/1buHh7TMXhFEIrqiyErLcAOiPn6wL2fWet4+iHOY=;
+	b=LJGw1WEN4suwGDDsgi+I6m9gDhFjjOCA+VvXQK9GFlniRKdcCxoUVXKvL16o0h
+	Lhw9IJuGzD/iPLjMhhVqSRj254imJM9OiUmoCbO6kMQU2Ayjc78mZKhHvoJqsPFC
+	rYzubECKLJFILU4MBXz3du7+E0h7kO3R01hoa8PItCgJk=
+Message-ID: <25aefd4f-8d1f-48b6-8915-86079cd19ed7@163.com>
+Date: Fri, 13 Nov 2026 18:05:41 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,91 +51,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] exfat: don't map EXFAT_EOF_CLUSTER as a physical
+ cluster
+To: Youling Tang <youling.tang@linux.dev>, Namjae Jeon
+ <linkinjeon@kernel.org>, Sungjong Seo <sj1557.seo@samsung.com>
+Cc: Yuezhang Mo <yuezhang.mo@sony.com>, exfat@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Youling Tang <tangyouling@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20261113080658.2440516-1-youling.tang@linux.dev>
+ <20261113080658.2440516-3-youling.tang@linux.dev>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <20261113080658.2440516-3-youling.tang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3Hzz14PZqyY2jHQ--.32088S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWFW5JF18Kr1xZw1rtryfXrb_yoW5CF4fpw
+	4DK3W5tFsxJa9rWr43XF1DX34Fkw1fKF48Jwn7Gr15GF90vr40kryqk3Wa9wn8Gw48CF1q
+	qr1Fgw17u3sxCFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UVMKtUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+BfNa2r24PfV-wAA3o
 
-Hello Osama,
-
-On Thu, 12 Nov 2026 20:16:50 +0100
-Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
-
-> panthor_heap_grow() allocates a new chunk with panthor_alloc_heap_chunk(),
-> which adds the chunk at the head of heap->chunks under heap->lock, and
-> then drops the lock. panthor_heap_grow() then assumes the head of the
-> list is the chunk it just added, and reads its GPU VA through
-> list_first_entry() without holding heap->lock.
+On 11/13/26 4:06 PM, Youling Tang wrote:
+> From: Youling Tang <tangyouling@kylinos.cn>
 > 
-> panthor_heap_grow() and panthor_heap_return_chunk() only take pool->lock
-> in read mode, and tiler OOM events of different groups are processed in
-> parallel on the unbound heap_alloc_wq. If two groups use the same heap
-> context, they can modify the chunk list concurrently:
+> exfat_map_cluster() reports a hole by returning success with
+> *clu == EXFAT_EOF_CLUSTER for !create.  __exfat_iomap_begin() does not
+> check that sentinel and converts it into a physical address far beyond
+> the device.  A writeback that races with the i_size/i_blocks window in
+> exfat_cont_expand() can hit this: it submits a bio past the end of the
+> device, and fsync() or msync() returns -EIO.  If the resulting iomap
+> length is zero, iomap_add_to_ioend() can loop on a zero-length bio and
+> hang a concurrent truncate.
 > 
->   group A OOM work                     group B OOM work
->   alloc C_A, list_add()
->                                        alloc C_B, list_add()
->   list_first_entry() -> C_B
->                                        group scheduled out:
->                                        panthor_heap_return_chunk(C_B)
->                                          list_del(), destroy BO, kfree()
->   C_B->bo                              <- use-after-free
+> When a range starts before the end of the cluster chain but extends past
+> it, exfat_map_cluster() returns the sentinel for the whole range.  Map
+> the valid prefix first and only report the part beyond the chain as a
+> hole.  Otherwise a writeback that straddles the end of the chain would
+> skip valid dirty data.
 > 
-> Even without the free, both groups end up being handed the same chunk,
-> and the chunk allocated by group A is never linked to the heap context.
+> Report the remaining range as a hole instead of turning the sentinel
+> into an address, matching the old exfat_get_block() behavior.
 > 
-> Fix this by having panthor_alloc_heap_chunk() return the GPU VA of the
-> chunk it allocated, retrieved before the chunk is published in the list,
-> instead of looking it up afterwards.
-> 
-> Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
+> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5.5
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> Signed-off-by: Youling Tang <tangyouling@kylinos.cn>
 > ---
->  drivers/gpu/drm/panthor/panthor_heap.c | 23 +++++++++++++++--------
->  1 file changed, 15 insertions(+), 8 deletions(-)
+>   fs/exfat/iomap.c | 29 +++++++++++++++++++++++++++++
+>   1 file changed, 29 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-> index 99311abdf1e9..d80f514366fd 100644
-> --- a/drivers/gpu/drm/panthor/panthor_heap.c
-> +++ b/drivers/gpu/drm/panthor/panthor_heap.c
-> @@ -139,7 +139,8 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
->  
->  static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
->  				    struct panthor_heap *heap,
-> -				    bool initial_chunk)
-> +				    bool initial_chunk,
-> +				    u64 *chunk_gpu_va)
->  {
->  	struct panthor_heap_chunk *chunk;
->  	struct panthor_heap_chunk_header *hdr;
-> @@ -181,6 +182,15 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
->  
->  	panthor_kernel_bo_vunmap(chunk->bo);
->  
-> +	/*
-> +	 * Retrieve the GPU VA before the chunk becomes visible in the heap
-> +	 * chunk list: once heap->lock is released, a concurrent grow or
-> +	 * return_chunk on the same heap can modify the list, and the chunk
-> +	 * can be freed.
-> +	 */
-> +	if (chunk_gpu_va)
-> +		*chunk_gpu_va = panthor_kernel_bo_gpuva(chunk->bo);
+> diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
+> index 11823591b3a8..d6b420f615d4 100644
+> --- a/fs/exfat/iomap.c
+> +++ b/fs/exfat/iomap.c
+> @@ -74,6 +74,22 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>   	iomap->bdev = inode->i_sb->s_bdev;
+>   	iomap->offset = offset;
+>   
+> +	if (!may_alloc) {
+> +		unsigned int ondisk_clusters =
+> +			exfat_bytes_to_cluster(sbi, exfat_ondisk_size(inode));
+> +		unsigned int clu_offset =
+> +			exfat_bytes_to_cluster(sbi, offset);
+> +
+> +		/*
+> +		 * exfat_map_cluster() returns the EOF sentinel for the whole
+> +		 * range if it extends past the cluster chain.  Map the valid
+> +		 * prefix first so the hole only covers the part beyond it.
+> +		 */
+> +		if (clu_offset < ondisk_clusters &&
+> +		    num_clusters > ondisk_clusters - clu_offset)
+> +			num_clusters = ondisk_clusters - clu_offset;
+> +	}
 
-Let's make this unconditional and force the user to pass a non-NULL
-chunk_gpu_va.
+It would be better to put this handling in exfat_map_cluster().
+
+Thanks.
 
 > +
->  	mutex_lock(&heap->lock);
->  	list_add(&chunk->node, &heap->chunks);
->  	heap->chunk_count++;
-> @@ -216,7 +226,7 @@ static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
+>   	err = exfat_map_cluster(inode, exfat_bytes_to_cluster(sbi, offset),
+>   			&cluster, &num_clusters, may_alloc, &balloc);
+>   	if (err == -ENOSPC && !(flags & IOMAP_DIRECT)) {
+> @@ -90,6 +106,19 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>   	if (err)
+>   		goto out;
+>   
+> +	/*
+> +	 * exfat_map_cluster() reports a hole by returning success with
+> +	 * EXFAT_EOF_CLUSTER.  Return it as a hole instead of turning the
+> +	 * sentinel into a physical address.
+> +	 */
+> +	if (!may_alloc && cluster == EXFAT_EOF_CLUSTER) {
+> +		iomap->type = IOMAP_HOLE;
+> +		iomap->addr = IOMAP_NULL_ADDR;
+> +		iomap->offset = offset;
+> +		iomap->length = length;
+> +		goto out;
+> +	}
+> +
+>   	cluster_offset = exfat_cluster_offset(sbi, offset);
+>   	cluster_length = exfat_cluster_to_bytes(sbi, num_clusters);
+>   
 
-Let's have panthor_alloc_heap_chunks() retrieve the first chunk GPU VA
-to simplify panthor_heap_create(). The first_chunk_gpu_va pointer can
-be passed directly to panthor_alloc_heap_chunk().
-
-The rest looks good to me.
-
-Thanks,
-
-Boris
