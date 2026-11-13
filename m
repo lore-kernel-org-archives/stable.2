@@ -1,59 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603715;
-	b=QCwPhn1o+SgpJO4CmIpuxxEUTZ8e+zEKZ3VzPJcpB+zmkH49AYOmC7U7OhoeZkO+V+Ib
-	 fJaNxolHysFii6AHGa7MiQhigZ3E23px8I+ieD/V8LYTjjuCBxNklrFxts4k/7Eb2CART
-	 BL+CE+wji8TnVDQD4iDgwLEKFCVgWxUVy43//jaCm9m7i9oH6h81wDh45X+yFhy14m2RO
-	 6rqCpjbfBVXGvMkbBzjiWY4Xmuc+MKZLc159Wg5RHpAYMwhAjFK0hz6tLQezYT1q53SVE
-	 pQBB6YLylXqF3tGiZYA2EfmPfmkVsTpytX0jkysp4y2naRXd09vAqITAsybjiO/qLwQ==
+	t=1794603720;
+	b=MdTH4RDEarAPcS3NKsbwiW5TTbWxGMEi10ZbuiEwYhLc49eUwYZZNsQx1z8yEEH3tv5d
+	 v0fXQ4fs/Og4n+T2k86jMJYAGBuS9YAA9380nhcFr2IWadcUYzu/sICU3mDOzq6sfuNjM
+	 wJmKXyPqFReIN4sHcdjoqu3wv5R+OgQPwhoHylKAN9DvT/lWBnLRmNnDOZit0sTIRGVV4
+	 uMaNoytiF6No1moG62yq1aDa3GmRHwgSd1v3PUy/Y+jE39rfVv0ZE2QazMsONf9+ft8M6
+	 Kpq7GucH5/tuGzbBuGqxOyGxzsFNXLXZZhXwaxhifyGagldAG7HxOAeHBI+dHSoVsbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603715;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603720;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pr5CAc1D1gykLwIBUVgTdZA+u4P+OdI+acwqJ5mVYG4=;
-	b=BkotfiV+LFg7u9RmDR0mbuRmqjOIp1ZNDiKf+czhXPDq2STENBtwt8z7y5X8/A50PdNN
-	 kBtvFIcmUA4W2pwErpH3jy6bssbnaj25Hkp0zxqd5kWpwEtJm09m8WveepFP+wVR0M12u
-	 AMyL5BsweaH3CTfMwsRwtiPx4whCJaUYbRgsxMxCEwY1AMDvPMIoeKS9ojVaI/WP+otdu
-	 gUpHVR4wlpD8973jF7qK8gGPBUdk2hOFgfcU1UAsfY3ZWvyVdnUqKMi3XWrTZpdgoJSpJ
-	 RuvWqRIF759RPDfpOQVRvgshOglyEdr1WuS+AplRGrLO4bS4NFImd6Yc6bfTyIkoS+Q==
+	bh=OdFb2CISyTt2bJfUX0cO/FELNTV+1/KNJ103zgslpw8=;
+	b=cHXMNqfIRF6dAkjnvcEvHIfMH3Ra/b1ief2c0fwxcINJInRez6+LkqajAEFJyNEA1+cR
+	 /T9AFFBqfhllldS47JZgQ8HxJXwjngSbnHOpsMKgjlNgV94jH6PEGa0Q/+cPlX3Mjbc74
+	 CIttfyDjaceJgW7GPjWVPGMfIDoOvCAO6qn6y7c/3mrf4d6G9Y37RatlMkIYzW9wt76IY
+	 r9oeh+obo/sFM22U4eY5hZLtl2zuGSIwwXmr2E/VzavbVAV4JvO9DbwZCnP0aVAv73mse
+	 qZ/6uL7C5T4w0GZ6O4OSLST6FZnHObmcpOTXYNsYVgD14HFyQCF8iozRJHNn2l7zx7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ae7ksmQB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkJpmUMP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6378606A33E
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8FF606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ae7ksmQB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14341F000C5;
-	Fri, 13 Nov 2026 21:01:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkJpmUMP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045B41F000C4;
+	Fri, 13 Nov 2026 21:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794603715;
-	bh=pr5CAc1D1gykLwIBUVgTdZA+u4P+OdI+acwqJ5mVYG4=;
+	s=k20260515; t=1794603719;
+	bh=OdFb2CISyTt2bJfUX0cO/FELNTV+1/KNJ103zgslpw8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ae7ksmQBn5H3wbiNdbpht++Q/81hUQ+KnNnWRx6ZTJQXeV9KRC+QfJ956PCxvc0vy
-	 41EfJVsOBv7MguQaMvFYiioXvd2B4qukJm77ZAhZwW1SVnar/UdRo9EwWHQB3zzyKN
-	 YDoN5pCzhky/BNwIhrZPw41aKnN+TGNLawiVp/pyyJhhMcYrp++wfa3nFU2pjWOf//
-	 KylIBBS2E9szqzAJNOPVcOF7Cge3naETQ9rXoKVN2pEc9nj6Hx0m/bs63kVEuALR+C
-	 bTp8KYelqAWguQyngDQAo6p4FH5WfiFYU+dcXSNnQTdPsac5t1Yy5JUwh9aFFZ+h0W
-	 J3UqmpUhIlpcA==
+	b=FkJpmUMPXARDp9wAreXM11tH3dMVsN79BICk8NJUn6v1ZixokXgIRVubnhMGrOcJo
+	 ut2KRon0NRQIbGCRw9v7Gep1ie7+kcaYXpETpEoXMhCiYbSHw8iPYADFCJOoyqS7vh
+	 73UPqntwutCXHo6JjGs4GslEel7Qqhyz6wLfoAl3RqqHvIYjvXbIOlnlQSuwOpnb+w
+	 QkW8z/Ln9egSyU4VNwgVdRmgDknQ0DiNZ63LHF5wI7lWi7s0Ffl1DROlBKmoIplvKL
+	 whegUay+vqMJsQPzofVfW5MwdjJHC5+3rUA7Hb8FzpWPL6stYlsojwlUcYj0dqKD62
+	 W+jiE6XBbkyLg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
 	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Pedro Falcato <pfalcato@suse.de>,
-	Dev Jain <dev.jain@arm.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jann Horn <jannh@google.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	SJ Park <sj@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Colin Cross <ccross@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs
-Date: Fri, 13 Nov 2026 16:01:53 -0500
-Message-ID: <20261113205815.2527553-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names
+Date: Fri, 13 Nov 2026 16:01:56 -0500
+Message-ID: <20261113205809.2527579-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201347-failed-6.6-b4417d08034a@kernel.org>
-References: <20261109201347-failed-6.6-b4417d08034a@kernel.org>
+In-Reply-To: <20261109201658-failed-6.1-652f15be3c11@kernel.org>
+References: <20261109201658-failed-6.1-652f15be3c11@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,47 +76,68 @@ Content-Transfer-Encoding: 8bit
 
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit b4417d08034a7b4a3083e0e2d95429d4542524f2 ]
+[ Upstream commit 652f15be3c11415725694ccea317c51e35c0b582 ]
 
-move_huge_pud() reads the old PUD and clears it in separate operations.
-Hardware accessed or dirty updates between those operations can be lost
-when the saved entry is installed at the new address.
+When changing the anonymous VMA name, madvise_update_vma() calls
+vma_modify_name() to possibly merge with adjacent VMAs. We don't call
+vma_modify_flags() and consequently don't obtain the new VMA flags.
 
-The raw pud_clear() also bypasses page_table_check_pud_clear(), while
-set_pud_at() accounts for the destination mapping. This leaves the
-checker counts unbalanced for mappings tracked by page table checking.
+Later in the function we update the VMA flags to the stale new_vma_flags
+we obtained before. This can result in us losing the VMA_SOFTDIRTY_BIT
+flag set on a VMA we just merged with.
 
-To fix it, simply use pudp_huge_get_and_clear().
+There is no need to update the VMA flags at all, so just exit early. This
+skips calling khugepaged_enter_vma(), but since the flags didn't change
+this is fine.
 
-Fixes: 7d846db7d0e2 ("mm/mremap: convert huge PUD move to separate helper")
-Cc: stable@vger.kernel.org
+[ljs@kernel.org: minor edit of commit message, rebased]
+Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-3-8ff4fae1fc85@kernel.org
+Fixes: 9a10064f5625 ("mm: add a field to store names for private anonymous memory")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-30-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Replaced pmc->old_addr with the existing old_addr parameter in pudp_huge_get_and_clear(). ]
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: SJ Park <sj@kernel.org>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Colin Cross <ccross@google.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: inferred name-only operations from new_flags == vma->vm_flags before merging instead of using an explicit name-change indicator ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mremap.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ mm/madvise.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index ea57f3095076b..8c86487d3318c 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -411,8 +411,7 @@ static bool move_huge_pud(struct vm_area_struct *vma, unsigned long old_addr,
- 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 77dfca84d27ae..15d0e10ea400f 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -143,6 +143,7 @@ static int madvise_update_vma(struct vm_area_struct *vma,
+ 			      struct anon_vma_name *anon_name)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
++	bool set_new_anon_name = new_flags == vma->vm_flags;
+ 	int error;
+ 	pgoff_t pgoff;
  
- 	/* Clear the pud */
--	pud = *old_pud;
--	pud_clear(old_pud);
-+	pud = pudp_huge_get_and_clear(mm, old_addr, old_pud);
+@@ -179,6 +180,9 @@ static int madvise_update_vma(struct vm_area_struct *vma,
+ 	}
  
- 	VM_BUG_ON(!pud_none(*new_pud));
- 
+ success:
++	if (set_new_anon_name)
++		return replace_anon_vma_name(vma, anon_name);
++
+ 	/*
+ 	 * vm_flags is protected by the mmap_lock held in write mode.
+ 	 */
 -- 
 2.53.0
 
