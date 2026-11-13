@@ -1,65 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582517;
-	b=cmc2uuA9a23CqaB0MQjIMokIjzueHoH1RBPNENn40mROrtQeTWUKH16bWqKmnhm+qoHp
-	 uffK8di097UR1TRILNx91DYJeU/PhHePLt2b8ObJvbM5BCGWxjM2qwVYscc71JB1QwibM
-	 vphQ4utWcHkj+NzE/yXnuLpXuMzuapL+KIzF+jxCGn7KFk19318mx8VCYJY+zIKbQ63JB
-	 uUT7kAhhwYsadA5+kGhWUVpjVmVXBk/frusWkv8ZAoBZn0arSvoFml7d2tdNO2yohUdPi
-	 2r9t5BmWUnTnfoAfvLu5AkmzS9PXvnXVO00ZiYjS8eiILl9KrAKSdPHXy6G/OumTMvQ==
+	t=1794582558;
+	b=s6PfnpvmKIHFQxCSN0Qgn/Y5/YGxXHcRsy6Zr88eVJdPJpi8emrD/yXy/yVfnqDkS65u
+	 YL+lJvkH+I8mw6NU3JI18SURk9lhRJ6M/CORmMNiUfY0xSRT04dDLsYJfw3oi+KFgogIU
+	 S0e+aYV11ZSy9F2H8xJWNxseF7p4WqzbI2vn2Dg+juD79aS0QUFiAU2CXw4H8ev2MgOKP
+	 R4kvsrXlwYA15xEGutFF/+a3W/BwlUNKHofhVGpbiaVFr461zUZ5INcAOU5BhFolEsZVR
+	 wlJLRthidWqq0vLgQXMf4SQo7jocpQCyfybHjFagLFShjh7DnLBxe6Fwk0EryAi0ulw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582517;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=mGrf7JaZq0O646GLAmSYUiskE8wdIOIlTShy4qrY0vM=;
-	b=c07WvhHkmgciPsLJXC6CSCpU8zWb7vCTCPgWbmWmjdnFsKiP9Pcoq+RoSMeWVHX7jBC8
-	 7F76ZVlopY8w3MBu/fjYvE59Z6NA3G9ij8+0HYa4ea1ehVqhKE8KOQNZsQsBRTvOvAqN1
-	 r58v0GR6fteAeEwf3gJXAldB++rJFtnX2lpHzvrKM5HpDaJ0CSY37ga6W3V/bZmvItLHp
-	 qkFojbR81DU4KRIRHd1ZYrI2LNiYQiZrC+4hUQxBPYXGL8eXdS9eJl8H0a1rcl0TW1EEW
-	 /FcG8o08a0zumdfqYxZ8CXCc4kdFQHjkxnzGgbSc93o6pCc9QGCwRpgBA2R14MZbC/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582558;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=xItLxvauvIJtdqmhpxXwYqqf5RzpHs/lxunoq6amVSc=;
+	b=2VEzPwJxppk6OeUl41Z9jNEGvEBfcoIBqYHFDvOLNFLyeSuC8UnxAZMDByXBSI+qJHYR
+	 FNNeiovME/QefFE+4Aji31QqwOlJwJ42N9xffhIYq3IT0cRymG7FDi2PQY9+XsjAzEDID
+	 MIkGCg+Z0eCUaTTtH2CgVLUjWNJ25KwrLP13xKk5E97jl/dvOLzXnGxAR7IUS5r17yroE
+	 9o0ugEIdZ6VrbuxHwI+s6TTQh507gYjE+ssiqixAkrRRbB9gzHGWctjODmOuNCsJHOJtr
+	 TS4ZBV/07Sjrvgc8flOt4dg6b8lem5aYl6bAxm4zNc6HN2VRAWr9LivLW31FUHhVVEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=VjjXHV99;
-	arc=none smtp.remote-ip=79.135.106.113
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsm959sN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6E0606A8BC
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:08:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F6E0606A8BC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0921606A330
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:09:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=VjjXHV99
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1794582513; x=1794841713;
-	bh=mGrf7JaZq0O646GLAmSYUiskE8wdIOIlTShy4qrY0vM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=VjjXHV99mmbhtDEufZikm/ZoocZH2bHKzB79O7HL50lCrWV08l4ZdvUKK9LlfKvlq
-	 WBB9Fmp8jeZFKOUuVNCwNqkLgV8ER/N8zkKwfUZilAZJVQn21Oo5G7D3UlIFL3V+rU
-	 UVbj9q4xyw7HCXaP/7BcttQjG0dxrQMLuy0iA41CfpIfhLFQ9dnAXxe3ZB0+xlSKNi
-	 A0B9fFKkbFxwDupVTk2iK1XZg00lGJy/FsEp70Qf9mPccdrNe5UnO6Pv6czkvKxi55
-	 PAMYo7rf+mI1xY/nUyonFJdlcea2mLBzSnCddY2rqQsBJS3ZAzgCHr/LMHQXXYf1Rb
-	 wmtmR3IAPl4XA==
-X-Pm-Submission-Id: 4jR0y74PzRz1DF5P
-From: Michael McAllister <me@michaelmcallister.org>
-To: dmitry.baryshkov@oss.qualcomm.com
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] drm/msm/dsi: clear the DMA buffer pointer after freeing it
-Date: Fri, 13 Nov 2026 15:08:02 +0000
-Message-ID: <179458248277.51880.11276326781897812340.msm-dsi-double-free@michaelmcallister.org>
-In-Reply-To: <6m4cssgagnpvm2wawyj62veoqbglxv62rcqgxzaxvjynhn3dts@tlkaxvd6ph3n>
-References: <179422752570.88190.13452031230666113805.msm-dsi-pin-leak@michaelmcallister.org>
- <6m4cssgagnpvm2wawyj62veoqbglxv62rcqgxzaxvjynhn3dts@tlkaxvd6ph3n>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsm959sN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9E701F000C5;
+	Fri, 13 Nov 2026 15:09:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794582558;
+	bh=xItLxvauvIJtdqmhpxXwYqqf5RzpHs/lxunoq6amVSc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hsm959sNKod+PUmIF2Tk5Hj5Zh76RQagWRftD1BbAtsUUc/+0uelK5IlUcWSvuPAJ
+	 FXOQ5KEPbEDEEUdnTnK4uJqk3zZ043sGGixTMftj7F+yRrZWcwFLNrFG+oInwoQOZ/
+	 XIxY6LrbBmcjhfpCPS7pVMTu3bcd+/4Zm21go9BrhmV/HoHQUE3ghivQK5LULTID+K
+	 lygRK1uLNQNEI7teHt+yZigcC9ivKb3CMDogj1nin1PEPaxRqHOKK9nVQYLPXqAKWQ
+	 N+oZS6JDXNDcqNWV8p6n4Dum0cSu+rLuPYM9biGhdP+6N9sPNapQ04eaKcG6TwZpbg
+	 jB6rp86I5Nw3w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] hwmon: (tmp108) Add helper function tmp108_common_probe() to prepare I3C support
+Date: Fri, 13 Nov 2026 10:09:14 -0500
+Message-ID: <20261113150545.1865145-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200723-failed-6.12-7cd60538073e@kernel.org>
+References: <20261109200723-failed-6.12-7cd60538073e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,43 +59,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The DSI host survives component unbind. On DSI v2, freeing the command
-buffer leaves tx_buf pointing at freed memory. If a later bind fails
-before allocating a new buffer, another unbind can free it again.
+From: Frank Li <Frank.Li@nxp.com>
 
-Clear tx_buf after freeing it, as we already do for tx_gem_obj.
+[ Upstream commit 700f3250198d51093884254220a96777a922dd47 ]
 
-Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
-Cc: stable@vger.kernel.org
-Link: https://sashiko.dev/#/bug/linux-6f5085d3-ef49-482c-86e4-a2438bc1b91f
-Signed-off-by: Michael McAllister <me@michaelmcallister.org>
+Add help function tmp108_common_probe() to pave road to support i3c for
+P3T1085(NXP) chip.
+
+Use dev_err_probe() to simplify the code.
+
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Message-ID: <20241112-p3t1085-v4-1-a1334314b1e6@nxp.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Stable-dep-of: 7cd60538073e ("hwmon: (tmp108) Fix initial conversion delay and wait until ready")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Hi Dmitry, thanks for flagging. I've addressed the double-free in a separate patch.
+ drivers/hwmon/tmp108.c | 39 +++++++++++++++++++++------------------
+ 1 file changed, 21 insertions(+), 18 deletions(-)
 
-Thanks,
-Michael
-
- drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 64fc54dff4..3feb260a31 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1301,9 +1301,11 @@ void msm_dsi_tx_buf_free(struct mipi_dsi_host *host)
- 		msm_host->vm = NULL;
+diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+index 18e7c9d9bcbb8..d95957d808e1b 100644
+--- a/drivers/hwmon/tmp108.c
++++ b/drivers/hwmon/tmp108.c
+@@ -323,33 +323,19 @@ static const struct regmap_config tmp108_regmap_config = {
+ 	.use_single_write = true,
+ };
+ 
+-static int tmp108_probe(struct i2c_client *client)
++static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *name)
+ {
+-	struct device *dev = &client->dev;
+ 	struct device *hwmon_dev;
+ 	struct tmp108 *tmp108;
+-	int err;
+ 	u32 config;
+-
+-	if (!i2c_check_functionality(client->adapter,
+-				     I2C_FUNC_SMBUS_WORD_DATA)) {
+-		dev_err(dev,
+-			"adapter doesn't support SMBus word transactions\n");
+-		return -ENODEV;
+-	}
++	int err;
+ 
+ 	tmp108 = devm_kzalloc(dev, sizeof(*tmp108), GFP_KERNEL);
+ 	if (!tmp108)
+ 		return -ENOMEM;
+ 
+ 	dev_set_drvdata(dev, tmp108);
+-
+-	tmp108->regmap = devm_regmap_init_i2c(client, &tmp108_regmap_config);
+-	if (IS_ERR(tmp108->regmap)) {
+-		err = PTR_ERR(tmp108->regmap);
+-		dev_err(dev, "regmap init failed: %d", err);
+-		return err;
+-	}
++	tmp108->regmap = regmap;
+ 
+ 	err = regmap_read(tmp108->regmap, TMP108_REG_CONF, &config);
+ 	if (err < 0) {
+@@ -383,13 +369,30 @@ static int tmp108_probe(struct i2c_client *client)
+ 		return err;
  	}
  
--	if (msm_host->tx_buf)
-+	if (msm_host->tx_buf) {
- 		dma_free_coherent(dev->dev, msm_host->tx_size, msm_host->tx_buf,
- 			msm_host->tx_buf_paddr);
-+		msm_host->tx_buf = NULL;
-+	}
+-	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
++	hwmon_dev = devm_hwmon_device_register_with_info(dev, name,
+ 							 tmp108,
+ 							 &tmp108_chip_info,
+ 							 NULL);
+ 	return PTR_ERR_OR_ZERO(hwmon_dev);
  }
  
- void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host)
++static int tmp108_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct regmap *regmap;
++
++	if (!i2c_check_functionality(client->adapter,
++				     I2C_FUNC_SMBUS_WORD_DATA))
++		return dev_err_probe(dev, -ENODEV,
++				     "adapter doesn't support SMBus word transactions\n");
++
++	regmap = devm_regmap_init_i2c(client, &tmp108_regmap_config);
++	if (IS_ERR(regmap))
++		return dev_err_probe(dev, PTR_ERR(regmap), "regmap init failed");
++
++	return tmp108_common_probe(dev, regmap, client->name);
++}
++
+ static int tmp108_suspend(struct device *dev)
+ {
+ 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
 -- 
-2.39.5
+2.53.0
 
