@@ -1,94 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794541132;
-	b=QuyEZO9npZeoqUE8moei5WqtogMdXUKPiDcId3HuqxenXWA0TBHCznheKtxcRmBxym5I
-	 ycsU4keYnuUt3Hxw+4YAiDD3TdkUMOpHZc2jaGmCRAUj/absY58jjFXduSMMOoOLNUu68
-	 GXVpkLGueHcL/GOSPKwO5hwN0zOCLgIQCdn/LQEDbqqK58E15suylhS55riZuHTHD+lRp
-	 MTyClVqSXkAbpJAD6tT5ZImTxfOt/4w+x76fntFnjeSqqQfZku8pgoXn2Sfy34TeRIczS
-	 LidZd2yOatB29swhcWXeriguThiAyVEewjetelpoo1Xw7YXYzsusvq9p9p++hdDoH0Q==
+	t=1794541370;
+	b=F8xx1LMHk3Ff3p7HD9W8nRGX7CcYzfYCXEYjSqf+QMXt2lK2eh8O3MxgdvTDxUjcCkQE
+	 mkueTVXG7rupkwtfVWptop7YEvIJViBHdHJZdftnmaqvtfXg599UHeW7kwwgHWo8OVFJE
+	 ssV2LUUJCMHYqCTXzgGaOZ6WWW+7+nq6PHIWM9xuZEOqNaKsU2uRREdY1Nzh+OWax+vv/
+	 ggJGqQS2MMmI5PgmXSxd1kRDoVtpX3bG8EhbfKp/2SB9fP3odf1tW2ULAguiwcbGJnQI0
+	 AVyyKmGkei8BzVdN87zpqmWNQAuCthM4n1cssj+50AxOz/yD6rsfFEZpWzz7F9L9BUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794541132;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eJED9RvAZ4gBzrtrvfpCnmjx/MMKsZ4K/q+3GDdJTPY=;
-	b=3wSJHBOVg+OprvoYfmXS2qR7KY4fCFma+owVvso1M9nCIxZgfewE38qaXEyjnT+Btetd
-	 rMnXe8SLCBqpsQ17pN/AZiaX3x06KD19tjjRiLJgYIQJ+vcbxbgNfUB58Bn77Gj8Etpjg
-	 E/YLRCATghQh7VmIAjKM5ZYpG32+ZxfiKu2SZcm1awVCRolVu8L1m1e/VfC5e3EGspJKo
-	 PcJ3UneV4fkzC4mvjL0J+UCTWkIueEE6l3Qj6AOtuZ7LQ/86SIxAJ/5egr0e6C3vrEY5w
-	 tFZFiWqSNX1TGURjnM2LmTvkqY1fG6YUdZCCMnA1/6BkMX/kob5mAmyGxBC4n6qmeCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794541370;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=4epO2zqt5s3xT548pgtIvTabx+c/QomR0Yl1lJSYRv4=;
+	b=0pZOQq0mkwBacYdgZpD6vPKpci8BHracsgiCDV15JUepn7UoqST1K1Kud3SsZY4aVDs8
+	 aIUikPYlNXvQ8G0jz7aEBbD/yijRqs0G1YJOqDuuYkd5MexvnOl7LhvswrEjfNXLGc1Pt
+	 orc0Aq9fVaH0riSZD72qdyuB6s4JPfmIRwE+0Tb0Zs8/znhsiROveegjPVt3tSf3YqCIJ
+	 eqaz+dlpPiUxGQ2kVOjtOaewmr9TBhzM/y1JhV5KqQCgQ8Vw+P9kFShhdIF47ZWtATubE
+	 CANFv5F1QBnOZmhwTd4Fb9FoZGeNkbdV64bV9TAkNK+ai0FoWhaNvoV6ZAGsO/V5oqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=k-tech.co.jp;
-	spf=pass smtp.mailfrom=k-tech.co.jp;
-	dkim=pass header.d=k-tech.co.jp header.i=@k-tech.co.jp header.a=rsa-sha256 header.s=google header.b=iryKG6mY;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gVe1R7lG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DDB606A32A
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:38:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00DDB606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=k-tech.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=k-tech.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2710606A337
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=k-tech.co.jp header.i=@k-tech.co.jp header.a=rsa-sha256 header.s=google header.b=iryKG6mY
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ed06b725fdso11588265ad.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 19:38:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=k-tech.co.jp; s=google; t=1794541130; x=1795145930; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eJED9RvAZ4gBzrtrvfpCnmjx/MMKsZ4K/q+3GDdJTPY=;
-        b=iryKG6mYs73xjEAyu3dBySoYUm1Vh9I4P6vYEYqiCw1bwVWOXJoOeLz2J2dXh5tahT
-         flzDQH1WeBD/jt2rORMVABHLxDlg13OiZnefFtTSDIWwiij0AZTNgOX9UYlgDV0Ipm/o
-         ebOcK6ykpQen24SnJQ7pEGRoV3+y+6DelDOe420hb1noWE7yFCwR9XrUz6Bl6i6LlrSx
-         kpZHtJbCu3t68EUQ/9wI6NN76umY1543ZzHxbWo2GDJ3TKDucsuoErN+TG5idBxYvNX7
-         S7re5D0Fe8n2Lh5yFGUVSIK+1DQ4ESJRKSpIIwJD/vlhPK0fUTU7sQhrDiPowiUDwQrz
-         ac2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794541130; x=1795145930;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eJED9RvAZ4gBzrtrvfpCnmjx/MMKsZ4K/q+3GDdJTPY=;
-        b=ckykNLWtca5+C6Ips0hgpiVF8ahD3VB3FX7RkJl2kPIqHjr7Bs5R8Zb8KRRGUWRaE/
-         S9Rter2C+4IOHGC/fqHD+3IUFwuG9lM21aneHLQIKMWXFpFADFdlp7gNQIrOH8Dsm09M
-         IG3wHXpvMIzPutAYEX5kc1RC/pI8UlEh21gWfcgd0rwavD4IJLGNw84RnEd+cn2gYJml
-         1XspfkUpP9Pd66mv/TbghJzthlJYQgE3cPptV9g5Dgxo3MvHly5SH6ZWh0QOmM/85B0I
-         +SIHhd3Ps/Ca0dom/xnLq5Q4/j2ZTek58iqwbD/P9bMKpB3Di4H8tI2CH4HGUU0ra9Xe
-         A+sQ==
-X-Forwarded-Encrypted: i=1; AL+hErE3UMP5yXv/PjSLgKvDlqk256IRwG8/VpwhR9e8n7p5DmXpv0pjr8FXlyTPqRV7rH7rg+02BS0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aDbbs3IHJTpBWA9pQ6SuNxW6YR9p8FKgj4ntcjD49KecPBo8Q
-	bgbgmyj2f8zz+9UsX2QUAeRuL7uymjS4Wtg7CYLUefzQNFXldFWKX/RZZc7wFMwiUM8=
-X-Gm-Gg: AYBFou2WSm3xwjRjZqwg1+5bfGkk2byRq61LfKFGUlojJpfouEIVByMn8KNyN6pRgr7
-	ggTOSNpzPlgSr1e9UeFi1z2E2dR4cnklG9BP+VPnvarnNO213aubuyHej6Qqj5/osQ2fn/+OYpz
-	HHnmKGdlc+avzRA9UOlxYTAW+Curp691b5DjOWM9aAOcB4QoPTAFQPHCW2i9dXXRTbpWcnmZfBr
-	Lrq/gz9mZZqZ2Z+YS0qWw8mZT/oRKN4iKMei65/i2Cy1X3NVURYMFeDq2Z+9p8lDpR/Wdnf1u0n
-	Xd2Llf3q/yDY1llujNEsXhUKtgtojN45aRR4XeqzzzyPJW5Dxa8EWLNDLTdSw5uw7e9zPgcZ6AJ
-	VmISsqwS1AXXDrnrrqlfQ2RWJxWVqRpyHjcSay9UPBdSG1Zv5xgfXg0r9dOQgJyKdlnSSDejZ7s
-	aCpxNQxzYzXQNjCjGK/EapwZu/A7+VtJqXoM+nZpeolr/F1HD8kxtxzX5I5HJGOozmyhyI5kVvs
-	7IbmJjqvWfkYGio1EWnCSBUSV4mqQuZZ0uz88mVncXVKen+KYEgD9jqWhwbvHpWNrg6ZtkOAJPM
-	IcnA3c1NiT/P7pP13wqVdk2inhNaanocEMPzaDsyqOEFU6ZJMKid4cY4QLG6G7i+T2H7tNEt0fq
-	kJTiKXV/vRJR2x1ahSS3B7keCDYJ3JMbmNbrAfw==
-X-Received: by 2002:a17:90b:3806:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3b1b0ca57damr556451a91.25.1794541129791;
-        Thu, 12 Nov 2026 19:38:49 -0800 (PST)
-Received: from localhost.localdomain (g74.115-65-36.ppp.wakwak.ne.jp. [115.65.36.74])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec43699sm2059374a91.10.2026.11.12.19.38.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 19:38:49 -0800 (PST)
-From: Yuichiro Goto <goto@k-tech.co.jp>
-To: a.hindborg@kernel.org
-Cc: leitao@debian.org,
-	viro@zeniv.linux.org.uk,
-	linux-kernel@vger.kernel.org,
-	Yuichiro Goto <goto@k-tech.co.jp>,
-	stable@vger.kernel.org
-Subject: [PATCH] configfs: wait for pending RCU callbacks on module exit
-Date: Fri, 13 Nov 2026 12:38:33 +0900
-Message-ID: <20261113033833.124797-1-goto@k-tech.co.jp>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gVe1R7lG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC91D1F000C4;
+	Fri, 13 Nov 2026 03:42:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794541370;
+	bh=4epO2zqt5s3xT548pgtIvTabx+c/QomR0Yl1lJSYRv4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gVe1R7lGuotyd+M1dTSPWpi+aj1rMHLC6YWwSoJGPuS6Ac9tWYyQE/2nsuk9Vu7jT
+	 XCd56hI9wJjGyfchLSJ5ASUB7SaTa4TEy1leAygX+puq67/bEQR6csj1jWoycTYyvn
+	 YUdIZvfp+s8yZR1l87ARgl3Gp2kBxdo26/UTA4hW+uiNrk4I4MoCVgYj2w4xPA4m/W
+	 u1kNO/MjZU8pbACZgqSqkgAb3NZGhG5ZDz5omEHcZABJf0vjUHAXZTPush6jZ8J+S5
+	 FyEK/QvrIr9Td/b5jQ/dFeh4chhltaqwxK+gs0jX4gLlhDxVbJ2HF+CigYo2RlgGBD
+	 8mOE/AV03wpMQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Melissa Wen <mwen@igalia.com>,
+	"Pierre-Loup A. Griffais" <pgriffais@valvesoftware.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP HDR
+Date: Thu, 12 Nov 2026 22:42:48 -0500
+Message-ID: <20261113034225.1053767-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200955-failed-6.12-81f923b06580@kernel.org>
+References: <20261109200955-failed-6.12-81f923b06580@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,65 +63,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-configfs inodes are freed from an RCU callback: destroy_inode() queues
-i_callback() with call_rcu(), and i_callback() then calls the
-->free_inode() of the super block, configfs_free_inode(). Nothing in
-configfs_exit() waits for these callbacks, so the module can go away
-while some of them are still pending, and they later jump into freed
-module text.
+From: Melissa Wen <mwen@igalia.com>
 
-USB gadget hits this easily. libcomposite pins configfs with
-simple_pin_fs() when it registers its subsystem and drops the internal
-mount on unregister, which frees the root inode. Unloading the modules
-right after that, e.g.
+[ Upstream commit 81f923b065801c7d30042bcda31ccb9449b4f58b ]
 
-  modprobe usb_f_rndis
-  modprobe -r usb_f_rndis
+Commit c2791297013e ("drm/amd/display: Add color bit info to freesync
+infoframe") created the app_tf interface for FreeSync HDR and commit
+c21a764a98cb ("drm/amd/display: Send PQ bit in AMD VSIF") used it to set
+PB9 bit 5 (PQ EOTF) in v2/v3 AMD Freesync infopacket. However, Linux
+never made use of this interface: DM ignores what userspace sets
+regarding HDR and always passes TRANSFER_FUNC_UNKNOWN as app_tf, so the
+PQ bit is never set in the infopacket received by the eDP panel.
 
-oopses a few seconds later with CONFIG_RCU_LAZY=y, which batches
-call_rcu() callbacks for up to 10 seconds:
+Check the EOTF in the HDR static metadata and set the PQ bit in Freesync
+infopacket for DP accordingly. This fixes gray-washed HDR on KDE/GNOME
+on Framework 13 Pro AI 9 HX 370 (DCN 3.5) and may fix similar issues on
+other VRR-capable panels that advertise Replay in its AMD VSDB.
 
-  Unable to handle kernel paging request at virtual address bf17e810 when execute
-  Internal error: Oops: 80000007 [#1] SMP ARM
-  Modules linked in: ... [last unloaded: configfs]
-  CPU: 0 UID: 0 PID: 16 Comm: rcuos/0 Not tainted 6.18.63 #4 VOLUNTARY
-  Hardware name: Freescale i.MX6 Ultralite (Device Tree)
-  PC is at 0xbf17e810
-  LR is at rcu_do_batch+0x190/0x510
-  ...
-  Call trace:
-   rcu_do_batch from rcu_nocb_cb_kthread+0xc8/0x310
-   rcu_nocb_cb_kthread from kthread+0xe8/0x248
-   kthread from ret_from_fork+0x14/0x28
+It doesn't affect color/EOTF bits on infopackets for SDR and native
+HDMI.
 
-RCU_LAZY only widens the window. The same oops also happens on a
-v5.4-based kernel, which has no RCU_LAZY, with the same two commands.
-
-Call rcu_barrier() in configfs_exit() once the file system is
-unregistered, so that no new inodes can be created and all pending
-configfs_free_inode() calls have finished before the module is freed.
-
-Fixes: e9c03af21cc7 ("configfs: calculate the symlink target only once")
+Reported-by: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3200
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit b318f3e13dd73781404670d3b3c6cf2177e0119c)
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Yuichiro Goto <goto@k-tech.co.jp>
+[ sashal: inlined the upstream dm_dp_in_hdr_mode() condition in the existing update_freesync_state_on_stream() function ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/configfs/mount.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/fs/configfs/mount.c b/fs/configfs/mount.c
-index d8cac1cbf3bd..c65d8ff419b2 100644
---- a/fs/configfs/mount.c
-+++ b/fs/configfs/mount.c
-@@ -164,6 +164,8 @@ static void __exit configfs_exit(void)
- {
- 	unregister_filesystem(&configfs_fs_type);
- 	sysfs_remove_mount_point(kernel_kobj, "config");
-+	/* Pending RCU callbacks may still call configfs_free_inode() */
-+	rcu_barrier();
- 	kmem_cache_destroy(configfs_dir_cachep);
- 	configfs_dir_cachep = NULL;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 305a9fe006de4..f1d492d9f8db8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8817,6 +8817,8 @@ static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+ 		      acrtc->crtc_id);
  }
+ 
++#define DP_HDR_SDP_EOTF_IDX 2
++
+ static void update_freesync_state_on_stream(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dm_crtc_state *new_crtc_state,
+@@ -8832,6 +8834,8 @@ static void update_freesync_state_on_stream(
+ 	bool pack_sdp_v1_3 = false;
+ 	struct amdgpu_dm_connector *aconn;
+ 	enum vrr_packet_type packet_type = PACKET_TYPE_VRR;
++	enum color_transfer_func app_tf;
++	const struct dc_info_packet *hdr;
+ 
+ 	if (!new_stream)
+ 		return;
+@@ -8883,12 +8887,18 @@ static void update_freesync_state_on_stream(
+ 					&new_stream->adaptive_sync_infopacket);
+ 	}
+ 
++	hdr = &new_stream->hdr_static_metadata;
++	app_tf = dc_is_dp_signal(new_stream->signal) && hdr->valid &&
++		 hdr->sb[DP_HDR_SDP_EOTF_IDX] == HDMI_EOTF_SMPTE_ST2084 ?
++		 TRANSFER_FUNC_PQ2084 :
++		 TRANSFER_FUNC_UNKNOWN;
++
+ 	mod_freesync_build_vrr_infopacket(
+ 		dm->freesync_module,
+ 		new_stream,
+ 		&vrr_params,
+ 		packet_type,
+-		TRANSFER_FUNC_UNKNOWN,
++		app_tf,
+ 		&vrr_infopacket,
+ 		pack_sdp_v1_3);
+ 
 -- 
-2.47.3
+2.53.0
 
