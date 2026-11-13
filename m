@@ -1,57 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589675;
-	b=x16j6iaUQaOB3DiR8mGc2fWCAoYzd0Qgw1vOCC5pk6qIYl1TIwyz2Z8LGuZhvKnizvq9
-	 covioRi++xuR9Ce5L93p1lt6wMx7owLHoP3OR7k5VcKvR44qTENn03RlhP/c9RIqh65cF
-	 eB3Q779ATwWpxPrX7BXY/eTF6OJocGIagR9n3gJGQkgDiP0YyLd3hJkpiJIsjpCQo6Piy
-	 bE0USg/P8BJ01+yUWiW0x4hQp/uc7Jcu5BEbbL+ja5a4xEEk8t/0k1O97s4VXbhevxMRt
-	 e2Gh98nWEpnwt2S/5DOCJY50RG5SL+tzzM9przSD+ONGhtQuKsPN1BYLeS4jK24Nlrg==
+	t=1794589776;
+	b=DEIGyO/QEXZ2MbRx1SdRy/0Wb2mYmROMyDDzuoSVI+Zfu/QOk7bccDda8a/2igMZnwbR
+	 hjUzYFLKbFFEvGL0Kf+E+pd1zEX5s45uLTgTt1dVgAmriCYNfGd53kX3m6W9ddTqLFGE/
+	 Ilt1p6qw453o/mOMAzao64n+Yk3WMoQMEVzxMTN1K7O2KL18Q2dtzOyYxk/KgTWmpyrzc
+	 Lg0ZrTLf2+DrXJsPeUosndUVdWymuvp88DXdqTMnSa/ovbIet6+qOBpqsimSK1lC63LBR
+	 6x2eIW730BUscdq8lhDhAnL31lawlzVniILICDv75qYdvARDi7d2i169lvafwpp2RFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589675;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589776;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3f9banulEsGIg8JobGIJ2BmQKqHCq7akuArCGoGLEJM=;
-	b=dp5/lP/+oNk8Hc7AhRixlKBBc0R2Cq+p1JkonO7AOGvseVqj2NTQpkdqiyFiC8Nl0GV5
-	 +TaveJzJNv6doAHmI8IbzSuCFIx9o24iei+7XEa8DYyar7U+jLTuYbMAbJnuGFlIK4YVs
-	 o1ZSAvumk82sIzcNmkMyHk/wzn77vFYSv31Tjur1glOJ9WFkZVnyRaGsUNblkftODSG6H
-	 Ev04qLFak+3RRFWZc+h5oUwNiIVFT3jjh4sdxdGMBIoEj79Bq+MZ4xy8OimkuEzn8pa1J
-	 UQnBLtfMFAGhp7OurZsTisEk45kWnzaprn/gwMmqi08Iq0KUmN+4SO5gWMENNqiVGyA==
+	bh=4l1cfrZxt+crpEjRL7Ym2PTiRtxyCRYhZeBH+kog4UQ=;
+	b=mNG0PSp55UR2Mbpv2D+c9/gB+oB03tejEP7AfIxwJXbtch09nRBSXHh8AdV0cp3fqtbM
+	 11Ygu/FeH+X7OTkGBMKRCSPGl5WCBok/mwkS79lNcDEdmJUhBdDx+iTdXiIPn3hU8TTzW
+	 Hzt16VGwkDtntxWvQmvyVEjizqPP+kEb8GG5M4rz2nJRfuOwrn/uhvOnqRmic6qrpVv+u
+	 Oq1PDC5s5vFIu/QAk/ztFrtS5bNs6xGQnvD5OqPPadaKrEp+0koAsBfEKwZuZPf5U7n/q
+	 zA5nPQctUrS8PjexyX3UgdzypuuDxNNKZkcdLs7TP8OE7+rgn0aBw4OVh7Sz+DsXrdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ctlYK3g4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=elPWGu5s;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D308C606A331
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:07:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64310606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:09:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64310606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ctlYK3g4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E67681F000C5;
-	Fri, 13 Nov 2026 17:07:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794589675;
-	bh=3f9banulEsGIg8JobGIJ2BmQKqHCq7akuArCGoGLEJM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ctlYK3g4PKg8Lm4lKSg+0NIjQlkJccvxD0UFWLUabFtsc5ebBRrUduTw6DxLtab1E
-	 WLbJP01c9j2S397fpadY4zAHRwK4fDyrWFWYL8MyLv/klPZk666cHNZDkQH0B/gdqO
-	 9O04pwx4GnwrVTybiPQqvoZTD/NQFNiq3LmwEWxx0rPgxv3sL0S1/5uN4MDcBPSbo4
-	 xQPnBy8CnHldkLsWTFnxWJk13Nz2UTYVfqDn9MngGJsHJLUPZ/8qZ9V2ddVjR1ikXe
-	 yMBUXOY5/jh1mplABHEefptul7zk/EeysCy330ZIa8ghn/J3ES2hseoqRdlw0R8gP5
-	 WNlA1oXzlK9hQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Sashiko <sashiko-bot@kernel.org>,
-	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] hwmon: (coretemp) Fix 32-bit jiffies wraparound in show_temp()
-Date: Fri, 13 Nov 2026 12:07:53 -0500
-Message-ID: <20261113170736.2099600-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202137-failed-5.15-9a6aa085c94c@kernel.org>
-References: <20261109202137-failed-5.15-9a6aa085c94c@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=elPWGu5s
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b3402105b9so11065267b3.0
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 09:09:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794589774; x=1795194574; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4l1cfrZxt+crpEjRL7Ym2PTiRtxyCRYhZeBH+kog4UQ=;
+        b=elPWGu5sS1pA8KRFL4pXWrz9QFRebKuKe+lPLmSGl+vKEtCNfSgTZgavjJPH6l47S/
+         Boamr/ophshle9xAkCxOjT6Pg0gvvxkCTYeOdLP5jFr2d37hcuIKHIruaPzP+Ew7LhzI
+         iDh6yQvMfq04p3PBrBEqGohMCVItqNiIG7XAnpmSdLDZ4lwe3duvgtEyursdeMG1ZyH/
+         M9PbGJ+QXaaJ/psZn9WqSowESdGSqCUhV33GNxoFEyDVpXYqJrpgWpYHKpgayaqndKE8
+         AdeyeHIwo1CgvGMeLr/xWNBN4vvEzesdqRy7/yAfcHmy/Z2tIxijOkJiQEP30ae1q1vk
+         m8bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794589774; x=1795194574;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4l1cfrZxt+crpEjRL7Ym2PTiRtxyCRYhZeBH+kog4UQ=;
+        b=cg7738EYHdrb+zgXOuxiKmrrI5tbLB7RG1fZTTVfcu5Q/EjDp58UnXy7ENar12+u+G
+         zZucvsSWw0ZmeYjx0oG1jZFPwXbXnu7s83/drLi58V45D80UTKPlaTbzwzR2tFRGMN5v
+         hh1M2pzXVb4wh4jo+hzPFMu4GV3T59fPEVjO4mly+Duu18abOAYj58Qf3sXtbgJyMiT5
+         l/m9vt9y+A6hiKB7SgDZ6gVZ736WsOWM7LlECcdmy3ca3sS8L3Lu2+R62Ccw/8jV9895
+         9LQ9y9kHimlyHK4CXMOA2Y6IdT99qVMjp7UQkZ/C2gGMMBRd1qqfTufNV7KX9DO+HpBF
+         RTtA==
+X-Forwarded-Encrypted: i=1; AL+hErFjhJWlNyZSgTjRc6cNYWZGOOIa5MHlIkQrWVskoN4oI6cCRrPWSLiY7XHeHnakiiXGlWL73Vc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Cf5plWdsIa9xmHfHvNAisADPvzbasS9p8A1KOFLlNIerz4/Wa
+	RbHIqAblgcvZn4wHGPtBw0wtNuuzrcNHfPM/49/vGj6k59RQJInJC6lZ
+X-Gm-Gg: AYBFou1Qq4QH6d7vU4gvoKTCRgq6WVk0kpqcBtz0GGsLLkCDmZz9IBRe5DbkesOzJkI
+	/LGeDNPHXDIN66obpNZc1vtRiEtnFeD5kztdadMst0PS5AHM5GCoVaHyuayaFBq43iCIFDf0SAc
+	yQhGiVuPvErMR4FQTKYDKts7/wNi9YCbOOpZD9zFq1P34HXMSIPKZCXrPYbH20fZ4GaehtpQEM6
+	fa6d0sVTLq/SbUyEOq6Hx65P5bBzQNzvp2NoF7G0qxL12AV4B3BNMLTki80PKXwEWGGsUCjfONY
+	kwJ62rEUuQLOWCST3a9vqwIX81Iw+2wfHcV6z6mJEVsdfCfAvcFEuSqLE+kEb3/BtSgOfghjRkW
+	/KPgIkghhX/Dorlnv/2TFHRl+0AizLp3kvGQw4G0EZ/Dp1/q25h72qzmbXtjDDWnWzlMJBOyWc7
+	IapFrgxritHGzVfDLPegPH3Dp9BMQZcNZSm9kdEFn090dzA7MMQPNLs1urzKGsDjLzaFvKba9p9
+	XN8/p21qMY/jn1XS8rBwge4vYU+bIeP63JgwjnnwT9BlANwZHqlnhx2nll38u8+ztm1bbIi+sY1
+	VeoRD44SBzG3dSji2p3IiQ==
+X-Received: by 2002:a05:690c:d87:b0:8b3:4911:2dbd with SMTP id 00721157ae682-8b4aa2f3717mr19185707b3.54.1794589774165;
+        Fri, 13 Nov 2026 09:09:34 -0800 (PST)
+Received: from localhost ([2a03:2880:10ff:2::])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9c79d3sm24049457b3.34.2026.11.13.09.09.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 09:09:33 -0800 (PST)
+From: Vlad Poenaru <vlad.wing@gmail.com>
+To: dsterba@suse.com,
+	linux-btrfs@vger.kernel.org
+Cc: mason@kernel.org,
+	osandov@osandov.com,
+	josef@toxicpanda.com,
+	fdmanana@suse.com,
+	boris@bur.io,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: [PATCH] btrfs: fix bytes_may_use underflow after a failed tree block allocation
+Date: Fri, 13 Nov 2026 09:09:26 -0800
+Message-ID: <20261113170926.1468850-1-vlad.wing@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,74 +100,331 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Guenter Roeck <linux@roeck-us.net>
+When btrfs_alloc_tree_block() fails after btrfs_reserve_extent() has
+succeeded, it frees the reserved extent and then calls
+btrfs_unuse_block_rsv(), which credits blocksize to the block reserve.
+That counts the block twice. btrfs_add_reserved_bytes() already took
+blocksize out of bytes_may_use when it reserved the extent, and
+btrfs_free_reserved_extent() releases it from bytes_reserved without
+returning it to bytes_may_use. bytes_may_use is left a block short of
+what the reserves hold, one more block for every such failure. It
+underflows when the global block reserve is released at unmount, or
+earlier, while the filesystem is in use, once the deficit outgrows the
+reservations outstanding at that moment.
 
-[ Upstream commit 9a6aa085c94c7f2817c4d50a7264e6fb51286f40 ]
+Return without crediting the reserve once the extent has been reserved:
+by then btrfs_add_reserved_bytes() has consumed the block, whether
+btrfs_use_block_rsv() took it from a block reserve or reserved it
+directly in bytes_may_use. The out_unuse path, taken when
+btrfs_reserve_extent() itself fails, still credits the reserve, which is
+correct there because bytes_may_use still holds the block.
 
-show_temp() rate-limits MSR reads by storing tdata->last_updated as an
-unsigned long and comparing it against jiffies using
-time_after(jiffies, tdata->last_updated + HZ).
+Since commit 19d7f65f032f ("btrfs: convert the buffer_radix to an
+xarray") in v6.16, the failure path is reachable under memory cgroup
+pressure. fs_info->buffer_tree is XA_FLAGS_ACCOUNT, so the GFP_NOFS
+xarray node allocated in alloc_extent_buffer() is charged to the
+caller's cgroup. On cgroup v2, try_charge_memcg() fails that charge with
+-ENOMEM when the cgroup or an ancestor is at its limit in these cases,
+among others:
 
-time_after() relies on signed long subtraction, which only produces the
-expected result while the two timestamps are within LONG_MAX jiffies of
-each other. On 32-bit kernels, if tempX_input is not read for more than
-LONG_MAX jiffies (~24.85 days at HZ=1000), the signed difference flips
-sign and time_after() evaluates to false. Because tdata->last_updated is
-only refreshed when time_after() succeeds, subsequent reads remain
-blocked from refreshing for another ~24.85 days until jiffies wraps
-past tdata->last_updated + HZ again, returning either a stale cached
-temperature or -ENODATA if the sensor had never been read since
-initialization.
+- the charging task is dying (an OOM victim, fatally signalled or
+  exiting) after memcg OOM handling has already been invoked for this
+  charge;
+- the charging task is an OOM victim whose mm is already marked
+  MMF_OOM_SKIP, a case added in v7.3 by
+  commit 6b0d1083364f ("memcg: bypass the reclaim and oom killer for
+  dying tasks once oom_reaper is done");
+- no task in the cgroup at its limit can be OOM-killed.
 
-Store tdata->last_updated as a u64 and use get_jiffies_64() with
-time_after64(), which does not wrap in any practical uptime.
+Before the xarray conversion, buffer_radix was not memcg-accounted: it
+was initialised with GFP_ATOMIC and preloaded with GFP_NOFS, neither of
+which carries __GFP_ACCOUNT. Older kernels have the same bug, but there
+it takes an allocation failure outside memcg (or a corruption error),
+which is rare; hence the 6.16+ stable tag.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: bebe467823c0 ("hwmon: New coretemp driver")
-Cc: stable@vger.kernel.org
-Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: Omitted timestamp-backdating initialization because the existing !tdata->valid check already forces the first temperature read. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+We hit this on a large fleet running a 6.16-based kernel, at unmount,
+when close_ctree() releases the global block reserve:
+
+  WARNING: CPU: 1 PID: 855255 at fs/btrfs/space-info.h:265 btrfs_block_rsv_release+0x287/0x290
+  Call Trace:
+   btrfs_release_global_block_rsv+0x1e/0x90
+   btrfs_free_block_groups+0x30e/0x370
+   close_ctree+0x3cc/0x460
+
+Over about eight days of warning logs, 186 hosts logged this warning,
+once each. In the 183 whose register dump could be matched to the
+warning, bytes_may_use was short of the global reserve by a whole number
+of 16K nodes, from 1 to 78 and never a fraction of a node, consistent
+with one node per failed allocation. 84% of the hosts that warned had
+also logged a memcg OOM, against 7% of a random sample of hosts that
+rebooted on the 6.16 builds most of them ran. No host running 6.13,
+which predates the xarray conversion, has logged the warning in 120
+days, although about 150,000 hosts still boot 6.13 every three days.
+
+To reproduce, put a cgroup at its limit with no task that can be
+OOM-killed, the last case above, and update metadata from inside it:
+
+1. Mount a btrfs filesystem on a loop device and create 64 empty files
+   on it.
+2. Create a cgroup v2 group with memory.swap.max set to 0.
+3. Run a single task in the group with oom_score_adj -1000, so nothing
+   in the group can be OOM-killed. The task mlocks 64MiB of anonymous
+   memory and lowers memory.max to 16MiB. It then sets a new 2KiB user
+   xattr on every file, 300 times.
+4. Meanwhile, from a task outside the group, run `sync -f` on the
+   filesystem every 0.2 seconds so that each round COWs new tree
+   blocks.
+
+Some setxattr() calls fail with -ENOMEM without aborting the
+transaction. Once the filesystem is idle, the metadata bytes_may_use in
+sysfs is below the global reserve by a multiple of the nodesize, and
+unmount warns:
+
+  WARNING: fs/btrfs/space-info.h:282 at btrfs_space_info_update_bytes_may_use+0x4d/0x120, CPU#2: umount/664
+
+On v7.4-rc2-108-g79eb6679ef6a without this patch, all 12 runs of this
+workload that read bytes_may_use left it short of the global reserve: by
+130 to 276 nodes of 16K in nine runs, and down to 0 in three. In the
+four runs that also counted btrfs_alloc_tree_block() failures with a
+kretprobe and did not reach 0, the shortfall equalled the failure count
+exactly (130, 161, 187 and 242). The run quoted above left bytes_may_use
+at 1933312 against a 5767168 global reserve, short by 234 nodes.
+
+With this patch, bytes_may_use matched the global reserve in all 12 runs
+that read it, and no run whose log check covered the unmount saw a
+warning. fstests btrfs/002, btrfs/220, generic/475 and generic/476 also
+pass with -o compress-force=zstd:3. Testing on v7.4-rc2 was on x86_64
+without debug options. On 6.16, the same change also passed this
+workload on x86_64 with lockdep and KASAN and on arm64 under QEMU, where
+the unpatched kernel failed.
+
+The same bug class was fixed for data extents by commit a4fe134fc1d8
+("btrfs: fix a double release on reserved extents in cow_one_range()")
+and commit 82323b1a7088 ("btrfs: fix double-decrement of bytes_may_use
+in submit_one_async_extent()").
+
+Fixes: 67b7859e9bfa ("btrfs: handle ENOMEM in btrfs_alloc_tree_block")
+Cc: stable@vger.kernel.org # 6.16+
+Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
 ---
- drivers/hwmon/coretemp.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Reproducer: save the two files below in one directory and run
+`bash repro.sh` there as root, in a VM you can lose. After the workload
+it prints how many setxattr() calls failed with ENOMEM. A run where none
+failed is not a valid test. It then prints bytes_may_use and global_rsv
+from sysfs, then any space-info.h warning among the last 100 kernel log
+lines, which end with the unmount. On an affected kernel bytes_may_use
+is below global_rsv and a WARNING follows; on a fixed kernel the two
+numbers match and it prints "no space-info.h warnings".
 
-diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-index cbe2f874b5e2f..d8ab0175f16b1 100644
---- a/drivers/hwmon/coretemp.c
-+++ b/drivers/hwmon/coretemp.c
-@@ -70,7 +70,7 @@ struct temp_data {
- 	int temp;
- 	int ttarget;
- 	int tjmax;
--	unsigned long last_updated;
-+	u64 last_updated;
- 	unsigned int cpu;
- 	u32 cpu_core_id;
- 	u32 status_reg;
-@@ -157,7 +157,8 @@ static ssize_t show_temp(struct device *dev,
- 	mutex_lock(&tdata->update_lock);
- 
- 	/* Check whether the time interval has elapsed */
--	if (!tdata->valid || time_after(jiffies, tdata->last_updated + HZ)) {
-+	if (!tdata->valid ||
-+	    time_after64(get_jiffies_64(), tdata->last_updated + HZ)) {
- 		rdmsr_on_cpu(tdata->cpu, tdata->status_reg, &eax, &edx);
- 		/*
- 		 * Ignore the valid bit. In all observed cases the register
-@@ -167,7 +168,7 @@ static ssize_t show_temp(struct device *dev,
- 		 */
- 		tdata->temp = tdata->tjmax - ((eax >> 16) & 0x7f) * 1000;
- 		tdata->valid = 1;
--		tdata->last_updated = jiffies;
-+		tdata->last_updated = get_jiffies_64();
- 	}
- 
- 	mutex_unlock(&tdata->update_lock);
--- 
-2.53.0
+With vm.panic_on_oom=2 its memcg OOMs panic the machine, and with
+panic_on_warn an affected kernel panics when bytes_may_use underflows,
+at unmount or earlier. It needs cgroup v2 at /sys/fs/cgroup, btrfs-progs
+and a C compiler, and uses /tmp/repro.img (4G, sparse), /tmp/repro.done,
+/mnt/repro and /sys/fs/cgroup/repro. It enables the memory controller in
+the root cgroup's cgroup.subtree_control and leaves it enabled. Every
+charge that reaches the memcg OOM killer prints an OOM report, a few
+hundred per run; `dmesg -n 1` keeps them off a slow console. An fstests
+case will follow.
 
+==> repro.sh <==
+#!/bin/bash
+# Reproducer for the bytes_may_use underflow after a failed tree block
+# allocation. Run as root next to memcg_setxattr.c.
+set -e
+cd "$(dirname "$0")"
+MNT=/mnt/repro
+CG=/sys/fs/cgroup/repro
+IMG=/tmp/repro.img
+DONE=/tmp/repro.done
+
+cleanup()
+{
+	touch $DONE
+	[ -n "$syncer" ] && wait $syncer
+	rm -f $DONE
+	rmdir $CG 2> /dev/null || :
+	umount $MNT 2> /dev/null || :
+	rmdir $MNT 2> /dev/null || :
+	rm -f $IMG memcg_setxattr
+}
+trap cleanup EXIT
+
+cc -O2 -o memcg_setxattr memcg_setxattr.c
+truncate -s 4G $IMG
+mkfs.btrfs -q -f $IMG
+mkdir -p $MNT
+mount -o loop $IMG $MNT
+mkdir $MNT/d
+touch $MNT/d/f{0..63}
+sync
+
+echo +memory > /sys/fs/cgroup/cgroup.subtree_control
+mkdir $CG
+[ -f $CG/memory.swap.max ] && echo 0 > $CG/memory.swap.max
+
+# Commit from outside the cgroup, so each round COWs new tree blocks.
+rm -f $DONE
+( set +e; while [ ! -f $DONE ]; do sync -f $MNT; sleep 0.2; done ) &
+syncer=$!
+./memcg_setxattr $CG $MNT/d 64 300
+touch $DONE
+wait $syncer
+syncer=
+
+sync -f $MNT
+alloc=/sys/fs/btrfs/$(findmnt -n -o UUID $MNT)/allocation
+echo "bytes_may_use=$(cat $alloc/metadata/bytes_may_use)" \
+	"global_rsv=$(cat $alloc/global_rsv_reserved)"
+umount $MNT
+# OOM reports can push older lines out of the log; the unmount is last.
+dmesg | tail -n 100 | grep 'space-info.h' || echo "no space-info.h warnings"
+
+==> memcg_setxattr.c <==
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * memcg_setxattr <cgroup> <dir> <nfiles> <iters> [max_enomem]
+ *
+ * Join <cgroup> with oom_score_adj -1000, lock 64MiB of anonymous memory,
+ * lower memory.max to 16MiB, then set a new 2KiB xattr on <dir>/f0 ..
+ * f<nfiles-1>, <iters> times. Nothing in the cgroup can be OOM-killed, so
+ * memcg-charged GFP_NOFS allocations fail with -ENOMEM. Stop after
+ * max_enomem failures if it is given and not 0.
+ */
+#define _GNU_SOURCE
+#include <errno.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sys/xattr.h>
+#include <unistd.h>
+
+static int open_file(const char *dir, const char *file)
+{
+	char path[4096];
+	int fd;
+
+	snprintf(path, sizeof(path), "%s/%s", dir, file);
+	fd = open(path, O_WRONLY);
+	if (fd < 0) {
+		perror(path);
+		exit(1);
+	}
+	return fd;
+}
+
+static void put(int fd, const char *val)
+{
+	if (pwrite(fd, val, strlen(val), 0) < 0) {
+		perror("write");
+		exit(1);
+	}
+}
+
+static long number(const char *arg, long min)
+{
+	char *end;
+	long val;
+
+	errno = 0;
+	val = strtol(arg, &end, 10);
+	if (errno || *arg == '\0' || *end != '\0' || val < min) {
+		fprintf(stderr, "invalid number: %s\n", arg);
+		exit(2);
+	}
+	return val;
+}
+
+int main(int argc, char **argv)
+{
+	static char value[2048], path[4096], name[64];
+	long ok = 0, enomem = 0, other = 0;
+	long nfiles, iters, max_enomem = 0;
+	char stack[256 << 10];
+	char *fill;
+	int max_fd;
+
+	if (argc != 5 && argc != 6) {
+		fprintf(stderr,
+			"usage: %s <cgroup> <dir> <nfiles> <iters> [max_enomem]\n",
+			argv[0]);
+		return 2;
+	}
+	nfiles = number(argv[3], 1);
+	iters = number(argv[4], 1);
+	if (argc == 6)
+		max_enomem = number(argv[5], 0);
+
+	put(open_file(argv[1], "cgroup.procs"), "0");
+	put(open_file("/proc/self", "oom_score_adj"), "-1000");
+	/*
+	 * Open memory.max now: once the limit is lowered, nothing can be
+	 * killed and opening a file can fail to charge its struct file.
+	 */
+	max_fd = open_file(argv[1], "memory.max");
+	/*
+	 * Fault in the stack and lock everything: a page fault charged after
+	 * the limit is lowered retries forever when nothing can be killed.
+	 * The barrier keeps the compiler from dropping the unused memset.
+	 */
+	memset(stack, 0, sizeof(stack));
+	asm volatile("" : : "r" (stack) : "memory");
+	memset(value, 'v', sizeof(value));
+	if (mlockall(MCL_CURRENT | MCL_FUTURE)) {
+		perror("mlockall");
+		return 1;
+	}
+	fill = mmap(NULL, 64 << 20, PROT_READ | PROT_WRITE,
+		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_POPULATE, -1, 0);
+	if (fill == MAP_FAILED) {
+		perror("mmap");
+		return 1;
+	}
+	memset(fill, 1, 64 << 20);
+	put(max_fd, "16777216");
+
+	for (long i = 0; i < iters; i++) {
+		snprintf(name, sizeof(name), "user.k%ld", i);
+		for (long f = 0; f < nfiles; f++) {
+			snprintf(path, sizeof(path), "%s/f%ld", argv[2], f);
+			if (!setxattr(path, name, value, sizeof(value), 0))
+				ok++;
+			else if (errno == ENOMEM)
+				enomem++;
+			else
+				other++;
+			if (max_enomem && enomem >= max_enomem)
+				goto out;
+		}
+	}
+out:
+	munmap(fill, 64 << 20);
+	put(max_fd, "max");
+	printf("setxattr: ok=%ld enomem=%ld other=%ld\n", ok, enomem, other);
+	return 0;
+}
+
+ fs/btrfs/extent-tree.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+index 9b0a5c6b96f3c..9e93f35489cf2 100644
+--- a/fs/btrfs/extent-tree.c
++++ b/fs/btrfs/extent-tree.c
+@@ -5433,6 +5433,13 @@ struct extent_buffer *btrfs_alloc_tree_block(struct btrfs_trans_handle *trans,
+ 	free_extent_buffer(buf);
+ out_free_reserved:
+ 	btrfs_free_reserved_extent(fs_info, ins.objectid, ins.offset, false);
++	/*
++	 * btrfs_reserve_extent() moved blocksize from bytes_may_use to
++	 * bytes_reserved, and freeing the extent does not give it back to
++	 * bytes_may_use, so the reservation is consumed. Crediting block_rsv
++	 * here, as out_unuse does, would count the block twice.
++	 */
++	return ERR_PTR(ret);
+ out_unuse:
+ 	btrfs_unuse_block_rsv(fs_info, block_rsv, blocksize);
+ 	return ERR_PTR(ret);
