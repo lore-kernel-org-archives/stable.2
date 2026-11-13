@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584324;
-	b=2PJbaH5Lty+xyiOuvmwwhxGmIyUgyPimKGZ/sAeWsNOAcEEg6HhvgQNNZCLyqcxiKQVm
-	 K8tEAYQr/gBoqUt6UEx1AvwwlKKEzN2l9+m6N25inffsG8mDugEFihzfX3taLRG5+fvBR
-	 2REkmWFd66Qt6GvBHVx41lR9ZwdgY9RI+yNB/umqeVarBfSib1MLBwXJjQeyK6nKMD+Uo
-	 C9OjZVpJDkuMNJZ1OSSOdfSKcOb1WwkLUvscxaakQPMSpOWW1EgQTh/2kP7JgJD0IGgmJ
-	 MPqMnF3OkRBYhedd4RKEzSFFTTj5l1RK0vmoUhmZFb4UtUS8Zu8vzSiX1pxXFSLI7Dw==
+	t=1794584325;
+	b=HYI2ox/c5inyP4++EILnQbichAIirtUJvsgQwrtznuzuyQgEGJlPLKOJxqGL6VdT/y1v
+	 RJHa+aUicHq9LhAHuMcrP/HniCloYPEAN+8Ebjv2eANVuqdRs/vJtYZgdPSCn/i5XOCpr
+	 9dC8Kslvv6pR4GPlKUSteeEEK84AQ0h0f1F0y0NTEYYu1+4zNm5r444BF1PxCqVrevWHb
+	 T3g98+1QdKMo99s3eRSqTGlqlGWdOGXSzTBijpKbD/KYKTuzeq5NmpSE6e/4o33TFk8C6
+	 CfI8GwjD24FCtljcWSTGx3+5j/VwJkD/feQB3m2pG9v4u0iEyWFouJMblWIycvV+xhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584324;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584325;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RfMjvcfRGxZSfwBA+VOEYuhu86t58kZI36FA7/CsuKA=;
-	b=rAsO1L+8ZkZz6LEOoIL3iX4vGDQY5DV161Ey6/NPrCya4y2JaYiDSgLpJ3KiJOZKMjcA
-	 6rjQxnKokARdJllLy0aljlUBtT/mhN7Ff4YwHPfW3jpx0JeT0oQdDk2ncRemlZIgvd94T
-	 lkxaAB65VWG0EfVO+KfeW/ob0Bsnh4Rn/y1mdchGRAegRSvCVanPKpZ/gzTZSej+qBM0Y
-	 1dU/ucShEO/9t4IAGiljFVII4Ma4wAeOgaf7IhR2RmkpYBiSKaC2tovAXfNwsA36+RP4j
-	 B0GKd6Dv2sKpzInC9lZPBxz1UiFZ444gC4uJrj7uIduzbecsTxHgTmpdHoi2w0a/evA==
+	bh=AHtgZ/M1gk0ZYsYF1fzUA/+x7MYoqtaP561yS8IaDhw=;
+	b=OO04zBsUL9Y7Buw6cz5mBpAy8kfDcBto8yQxD85xTnd3AveCXiKZX+5eobbUfEON1z9/
+	 +sYCAkO6BgDlJuqDfRWudme8XuuLFUVSotPTMeXx7sglNmxXa1H8QHA/lDDPd5aUO9QO5
+	 ktBwlSfjd6zXVXNw4Qx/zwyf3KsdTp2Rq/0ig49L67HjgdDqKa4F4kx2DqxhMr71ea9Xl
+	 UwpKtDHYG/b+ljSXQUCqkn1Gv/DXEWerBWOkob91QTh12Fa5CxTtq5ZA5pqDajMmUZsao
+	 jTvtRvvkXpprdgjOsi55U2pr4mHpEMdWjG037joJZAbOkOjZwdRIeEz1KZnStcJCOSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azISgAOI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaA2rNNQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3917F606A323
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:38:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038F5606A32E
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:38:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azISgAOI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85ADA1F000C4;
-	Fri, 13 Nov 2026 15:38:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaA2rNNQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7C21F000C6;
+	Fri, 13 Nov 2026 15:38:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794584324;
-	bh=RfMjvcfRGxZSfwBA+VOEYuhu86t58kZI36FA7/CsuKA=;
+	bh=AHtgZ/M1gk0ZYsYF1fzUA/+x7MYoqtaP561yS8IaDhw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=azISgAOIQntSijVnt2iZ8y+4hENbEd553TydsR0J2O3bdtTU8HwVAnrgOSmTE+2ZK
-	 EL0LuhJXxhUlta92Gi58+SHKBDi6iJpiD7A/h/KUgUdD1irSnPrmIuqEk7Y6rUBdVf
-	 3B5xa4MrcUL5OH4oLF1HQJllxlsSUZGFCTCjjzTk4YvmEIsaYWYbUVFTCpiblyqLKe
-	 AtbOupgzDci8+wqbEwJmKUaow9KI1kxTo2b2ozXVwwtldOqVkIH3KSOWUEYhbAO/yF
-	 9TF0TL+jgnmj5u46TslTw9/YH79h2iSVMRKu1aCnRK1aDIRFpI/+z/DmcTpgxZUB9t
-	 2MK3fyGN+hWnA==
+	b=KaA2rNNQ1oA5/uuU0GqOxvzdOM2qUYy15Sp8+WNlxmMLnYP2YVcRkLAAYFnxBEmX1
+	 rRI3G+JHVnsFjbLIriQoAQDWCqNwZ3iS+ECywIY+aLQGt8Z3ZYngeMuWwtTXubFxHV
+	 D6Ssiz8U/5T/xUDgenWuZjHwoDrbQqrwPGaTRgeLN1OIBFxXKFzELC0/zZ+w17EE0A
+	 EgIrHOI+M/59iuFxDDjTD01p/508/757NcveZLlZciRlWNDUPbxRLDHy1/jYcvdzCB
+	 zOhMeJWVWGBcqnDdwg5rX3al8rmjK/MtAZDRXuPSJI3N22lLdNYeuPyvzaHeLhqmZf
+	 L7VytyuJpqR+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mike Christie <michael.christie@oracle.com>,
-	Hannes Reinecke <hare@suse.de>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
+Cc: Yu Zhang <yuz08559@gmail.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] scsi: target: Move I/O path stats to per CPU
-Date: Fri, 13 Nov 2026 10:38:41 -0500
-Message-ID: <20261113153803.1958765-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN teardown
+Date: Fri, 13 Nov 2026 10:38:42 -0500
+Message-ID: <20261113153803.1958765-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201023-failed-6.6-6a6e7d7230cd@kernel.org>
+In-Reply-To: <20261113153803.1958765-1-sashal@kernel.org>
 References: <20261109201023-failed-6.6-6a6e7d7230cd@kernel.org>
+ <20261113153803.1958765-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,392 +62,166 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mike Christie <michael.christie@oracle.com>
+From: Yu Zhang <yuz08559@gmail.com>
 
-[ Upstream commit 9cf2317b795d6cde0fccb8744b5a080a9586020e ]
+[ Upstream commit 6a6e7d7230cd4e0a6c003bae5b85bf37a1e77b94 ]
 
-The atomic use in the main I/O path is causing perf issues when using
-higher performance backend devices and multiple queues. This moves the
-stats to per CPU. Combined with the next patch that moves the
-non_ordered/delayed_cmd_count to per CPU, IOPS by up to 33% for 8K IOS
-when using 4 or more queues.
+A demo-mode (generate_node_acls=1) login that allocates a dynamic NodeACL
+populates that ACL's per-LUN dev entries in core_tpg_add_node_to_devs()
+*before* the ACL is linked onto tpg->acl_node_list by
+target_add_node_acl():
 
-Signed-off-by: Mike Christie <michael.christie@oracle.com>
-Link: https://lore.kernel.org/r/20250424032741.16216-2-michael.christie@oracle.com
-Reviewed-by: Hannes Reinecke <hare@suse.de>
-Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
-Stable-dep-of: 6a6e7d7230cd ("scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN teardown")
+	core_tpg_check_initiator_node_acl():
+		...
+		core_tpg_add_node_to_devs(acl, tpg, NULL); /* builds deves */
+		target_add_node_acl(acl);                  /* only now listed */
+
+The LUN teardown sweep, core_clear_lun_from_tpg(), enumerates only
+tpg->acl_node_list, so a dev entry whose ACL is still in the window above
+is invisible to the sweep and is never disabled.  It is left on the
+se_lun->lun_deve_list after core_tpg_remove_lun() frees the se_lun; when
+the same unpacked_lun is later re-added and the se_lun is reallocated at
+the same address, the stale dev entry is rediscovered by
+target_nacl_find_deve() and core_enable_device_list_for_node() corrupts
+lun_deve_list:
+
+  BUG: KASAN: slab-use-after-free ...
+   core_enable_device_list_for_node+0x5ce/0x880
+   core_tpg_add_node_to_devs+0x169/0x190
+   core_dev_add_lun+0x146/0x190
+   target_fabric_port_link+0xe9/0x1b0
+   configfs_symlink+0x381/0xae0
+   __x64_sys_symlink+0x55/0x80
+
+The demo-mode login path that drives the ACL/dev-entry creation is
+reachable by an unauthenticated initiator; the colliding LUN add/remove is
+a local configfs operation.
+
+Commit 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun
+shutdown") introduced se_lun->lun_shutdown and guarded the *explicit* ACL
+MappedLUN path (target_fabric_mappedlun_link()), but the demo-mode
+automatic path, core_tpg_add_node_to_devs() ->
+core_enable_device_list_for_node(), was never given the equivalent guard,
+and the publish-after-populate ordering in
+core_tpg_check_initiator_node_acl() was left unchanged.
+
+Fix it in three cooperating parts:
+
+ 1) Publish the dynamic NodeACL onto acl_node_list *before* creating its
+    dev entries, so the teardown sweep can observe them.
+
+ 2) Refuse to attach a dev entry to an se_lun that is shutting down,
+    checked under nacl->lun_entry_mutex -- the same lock the sweep takes --
+    so once the sweep has passed an ACL any later enable for that LUN
+    observes lun_shutdown and skips it.
+
+ 3) In core_enable_device_list_for_node(), insert the new dev entry onto
+    lun->lun_deve_list while still holding nacl->lun_entry_mutex, in both
+    the replace and the new-entry branch.  Previously the entry was added
+    to nacl->lun_entry_hlist under the mutex but to lun->lun_deve_list only
+    after dropping it; with the ACL now published early, the sweep could
+    take the mutex in that gap, find the entry on the hlist,
+    core_disable_device_list_for_node() it (list_del() on the not-yet-
+    linked lun_link succeeds and the entry is freed), and then the enable
+    would list_add_tail() the freed entry back onto lun_deve_list.  Linking
+    both lists under the mutex makes enable and the sweep mutually
+    exclusive, closing that window.
+
+core_tpg_add_node_to_devs() already ignores the return value of
+core_enable_device_list_for_node(), so a shutting-down LUN is simply
+skipped.
+
+Cc: stable@vger.kernel.org
+Fixes: 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun shutdown")
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+Tested-by: Yu Zhang <yuz08559@gmail.com>
+Link: https://patch.msgid.link/20261014013746.46705-1-yuz08559@gmail.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/target/target_core_device.c | 69 +++++++++++++++++++++--------
- drivers/target/target_core_stat.c   | 69 ++++++++++++++++++++++++-----
- include/target/target_core_base.h   | 20 ++++++---
- 3 files changed, 121 insertions(+), 37 deletions(-)
+ drivers/target/target_core_device.c | 18 +++++++++++++++---
+ drivers/target/target_core_tpg.c    | 10 +++++++++-
+ 2 files changed, 24 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/target/target_core_device.c b/drivers/target/target_core_device.c
-index dd041ee18ac9b..60ea1a317065a 100644
+index 60ea1a317065a..c7fb180c19b18 100644
 --- a/drivers/target/target_core_device.c
 +++ b/drivers/target/target_core_device.c
-@@ -56,14 +56,14 @@ transport_lookup_cmd_lun(struct se_cmd *se_cmd)
- 	rcu_read_lock();
- 	deve = target_nacl_find_deve(nacl, se_cmd->orig_fe_lun);
- 	if (deve) {
--		atomic_long_inc(&deve->total_cmds);
-+		this_cpu_inc(deve->stats->total_cmds);
+@@ -350,6 +350,19 @@ int core_enable_device_list_for_node(
+ 	new->attach_count++;
  
- 		if (se_cmd->data_direction == DMA_TO_DEVICE)
--			atomic_long_add(se_cmd->data_length,
--					&deve->write_bytes);
-+			this_cpu_add(deve->stats->write_bytes,
-+				     se_cmd->data_length);
- 		else if (se_cmd->data_direction == DMA_FROM_DEVICE)
--			atomic_long_add(se_cmd->data_length,
--					&deve->read_bytes);
-+			this_cpu_add(deve->stats->read_bytes,
-+				     se_cmd->data_length);
- 
- 		if ((se_cmd->data_direction == DMA_TO_DEVICE) &&
- 		    deve->lun_access_ro) {
-@@ -127,14 +127,14 @@ transport_lookup_cmd_lun(struct se_cmd *se_cmd)
- 	 * target_core_fabric_configfs.c:target_fabric_port_release
- 	 */
- 	se_cmd->se_dev = rcu_dereference_raw(se_lun->lun_se_dev);
--	atomic_long_inc(&se_cmd->se_dev->num_cmds);
-+	this_cpu_inc(se_cmd->se_dev->stats->total_cmds);
- 
- 	if (se_cmd->data_direction == DMA_TO_DEVICE)
--		atomic_long_add(se_cmd->data_length,
--				&se_cmd->se_dev->write_bytes);
-+		this_cpu_add(se_cmd->se_dev->stats->write_bytes,
-+			     se_cmd->data_length);
- 	else if (se_cmd->data_direction == DMA_FROM_DEVICE)
--		atomic_long_add(se_cmd->data_length,
--				&se_cmd->se_dev->read_bytes);
-+		this_cpu_add(se_cmd->se_dev->stats->read_bytes,
-+			     se_cmd->data_length);
- 
- 	return ret;
- }
-@@ -323,6 +323,7 @@ int core_enable_device_list_for_node(
- 	struct se_portal_group *tpg)
- {
- 	struct se_dev_entry *orig, *new;
-+	int ret = 0;
- 
- 	new = kzalloc(sizeof(*new), GFP_KERNEL);
- 	if (!new) {
-@@ -330,6 +331,12 @@ int core_enable_device_list_for_node(
- 		return -ENOMEM;
- 	}
- 
-+	new->stats = alloc_percpu(struct se_dev_entry_io_stats);
-+	if (!new->stats) {
-+		ret = -ENOMEM;
-+		goto free_deve;
+ 	mutex_lock(&nacl->lun_entry_mutex);
++	/*
++	 * Do not attach a new dev entry to an se_lun that is being torn down.
++	 * lun_shutdown is set by core_tpg_remove_lun() before its
++	 * core_clear_lun_from_tpg() sweep; checking it here under the same
++	 * nacl->lun_entry_mutex the sweep takes guarantees that once the sweep
++	 * has passed this ACL no dev entry can be left dangling on the
++	 * se_lun->lun_deve_list that is about to be freed.
++	 */
++	if (lun->lun_shutdown) {
++		mutex_unlock(&nacl->lun_entry_mutex);
++		ret = -ENODEV;
++		goto free_stats;
 +	}
-+
- 	spin_lock_init(&new->ua_lock);
- 	INIT_LIST_HEAD(&new->ua_list);
- 	INIT_LIST_HEAD(&new->lun_link);
-@@ -352,8 +359,8 @@ int core_enable_device_list_for_node(
- 			       " for dynamic -> explicit NodeACL conversion:"
- 				" %s\n", nacl->initiatorname);
- 			mutex_unlock(&nacl->lun_entry_mutex);
--			kfree(new);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto free_stats;
- 		}
- 		if (orig->se_lun_acl != NULL) {
- 			pr_warn_ratelimited("Detected existing explicit"
-@@ -361,8 +368,8 @@ int core_enable_device_list_for_node(
- 				" mapped_lun: %llu, failing\n",
- 				 nacl->initiatorname, mapped_lun);
- 			mutex_unlock(&nacl->lun_entry_mutex);
--			kfree(new);
--			return -EINVAL;
-+			ret = -EINVAL;
-+			goto free_stats;
- 		}
+ 	orig = target_nacl_find_deve(nacl, mapped_lun);
+ 	if (orig && orig->se_lun) {
+ 		struct se_lun *orig_lun = orig->se_lun;
+@@ -376,12 +389,12 @@ int core_enable_device_list_for_node(
+ 		new->se_lun_acl = lun_acl;
+ 		hlist_del_rcu(&orig->link);
+ 		hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-		mutex_unlock(&nacl->lun_entry_mutex);
  
- 		new->se_lun = lun;
-@@ -395,6 +402,20 @@ int core_enable_device_list_for_node(
+ 		spin_lock(&lun->lun_deve_lock);
+ 		list_del(&orig->lun_link);
+ 		list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 		spin_unlock(&lun->lun_deve_lock);
++		mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 		kref_put(&orig->pr_kref, target_pr_kref_release);
+ 		wait_for_completion(&orig->pr_comp);
+@@ -394,11 +407,10 @@ int core_enable_device_list_for_node(
+ 	new->se_lun = lun;
+ 	new->se_lun_acl = lun_acl;
+ 	hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-	mutex_unlock(&nacl->lun_entry_mutex);
+-
+ 	spin_lock(&lun->lun_deve_lock);
+ 	list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 	spin_unlock(&lun->lun_deve_lock);
++	mutex_unlock(&nacl->lun_entry_mutex);
  
  	target_luns_data_has_changed(nacl, new, true);
  	return 0;
+diff --git a/drivers/target/target_core_tpg.c b/drivers/target/target_core_tpg.c
+index c0e429e5ef310..d8f4538e48dc7 100644
+--- a/drivers/target/target_core_tpg.c
++++ b/drivers/target/target_core_tpg.c
+@@ -266,6 +266,15 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
+ 	kref_get(&acl->acl_kref);
+ 	acl->dynamic_node_acl = 1;
+ 
++	/*
++	 * Publish the dynamic NodeACL on tpg->acl_node_list before creating
++	 * its demo-mode MappedLUN dev entries below, so that a concurrent LUN
++	 * teardown sweep (core_clear_lun_from_tpg(), which walks acl_node_list)
++	 * can observe and disable those dev entries.  Otherwise a dev entry can
++	 * be left on an se_lun->lun_deve_list that is about to be freed.
++	 */
++	target_add_node_acl(acl);
 +
-+free_stats:
-+	free_percpu(new->stats);
-+free_deve:
-+	kfree(new);
-+	return ret;
-+}
-+
-+static void target_free_dev_entry(struct rcu_head *head)
-+{
-+	struct se_dev_entry *deve = container_of(head, struct se_dev_entry,
-+						 rcu_head);
-+	free_percpu(deve->stats);
-+	kfree(deve);
+ 	/*
+ 	 * Here we only create demo-mode MappedLUNs from the active
+ 	 * TPG LUNs if the fabric is not explicitly asking for
+@@ -275,7 +284,6 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
+ 	    (tpg->se_tpg_tfo->tpg_check_demo_mode_login_only(tpg) != 1))
+ 		core_tpg_add_node_to_devs(acl, tpg, NULL);
+ 
+-	target_add_node_acl(acl);
+ 	return acl;
  }
- 
- void core_disable_device_list_for_node(
-@@ -444,7 +465,7 @@ void core_disable_device_list_for_node(
- 	kref_put(&orig->pr_kref, target_pr_kref_release);
- 	wait_for_completion(&orig->pr_comp);
- 
--	kfree_rcu(orig, rcu_head);
-+	call_rcu(&orig->rcu_head, target_free_dev_entry);
- 
- 	core_scsi3_free_pr_reg_from_nacl(dev, nacl);
- 	target_luns_data_has_changed(nacl, NULL, false);
-@@ -690,11 +711,13 @@ struct se_device *target_alloc_device(struct se_hba *hba, const char *name)
- 	if (!dev)
- 		return NULL;
- 
-+	dev->stats = alloc_percpu(struct se_dev_io_stats);
-+	if (!dev->stats)
-+		goto free_device;
-+
- 	dev->queues = kcalloc(nr_cpu_ids, sizeof(*dev->queues), GFP_KERNEL);
--	if (!dev->queues) {
--		hba->backend->ops->free_device(dev);
--		return NULL;
--	}
-+	if (!dev->queues)
-+		goto free_stats;
- 
- 	dev->queue_cnt = nr_cpu_ids;
- 	for (i = 0; i < dev->queue_cnt; i++) {
-@@ -708,6 +731,7 @@ struct se_device *target_alloc_device(struct se_hba *hba, const char *name)
- 		INIT_WORK(&q->sq.work, target_queued_submit_work);
- 	}
- 
-+
- 	dev->se_hba = hba;
- 	dev->transport = hba->backend->ops;
- 	dev->transport_flags = dev->transport->transport_flags_default;
-@@ -791,6 +815,12 @@ struct se_device *target_alloc_device(struct se_hba *hba, const char *name)
- 		sizeof(dev->t10_wwn.revision));
- 
- 	return dev;
-+
-+free_stats:
-+	free_percpu(dev->stats);
-+free_device:
-+	hba->backend->ops->free_device(dev);
-+	return NULL;
- }
- 
- /*
-@@ -1001,6 +1031,7 @@ void target_free_device(struct se_device *dev)
- 		dev->transport->free_prot(dev);
- 
- 	kfree(dev->queues);
-+	free_percpu(dev->stats);
- 	dev->transport->free_device(dev);
- }
- 
-diff --git a/drivers/target/target_core_stat.c b/drivers/target/target_core_stat.c
-index c42cbde8a31b3..576d07a8484e3 100644
---- a/drivers/target/target_core_stat.c
-+++ b/drivers/target/target_core_stat.c
-@@ -280,30 +280,51 @@ static ssize_t target_stat_lu_num_cmds_show(struct config_item *item,
- 		char *page)
- {
- 	struct se_device *dev = to_stat_lu_dev(item);
-+	struct se_dev_io_stats *stats;
-+	unsigned int cpu;
-+	u32 cmds = 0;
-+
-+	for_each_possible_cpu(cpu) {
-+		stats = per_cpu_ptr(dev->stats, cpu);
-+		cmds += stats->total_cmds;
-+	}
- 
- 	/* scsiLuNumCommands */
--	return snprintf(page, PAGE_SIZE, "%lu\n",
--			atomic_long_read(&dev->num_cmds));
-+	return snprintf(page, PAGE_SIZE, "%u\n", cmds);
- }
- 
- static ssize_t target_stat_lu_read_mbytes_show(struct config_item *item,
- 		char *page)
- {
- 	struct se_device *dev = to_stat_lu_dev(item);
-+	struct se_dev_io_stats *stats;
-+	unsigned int cpu;
-+	u32 bytes = 0;
-+
-+	for_each_possible_cpu(cpu) {
-+		stats = per_cpu_ptr(dev->stats, cpu);
-+		bytes += stats->read_bytes;
-+	}
- 
- 	/* scsiLuReadMegaBytes */
--	return snprintf(page, PAGE_SIZE, "%lu\n",
--			atomic_long_read(&dev->read_bytes) >> 20);
-+	return snprintf(page, PAGE_SIZE, "%u\n", bytes >> 20);
- }
- 
- static ssize_t target_stat_lu_write_mbytes_show(struct config_item *item,
- 		char *page)
- {
- 	struct se_device *dev = to_stat_lu_dev(item);
-+	struct se_dev_io_stats *stats;
-+	unsigned int cpu;
-+	u32 bytes = 0;
-+
-+	for_each_possible_cpu(cpu) {
-+		stats = per_cpu_ptr(dev->stats, cpu);
-+		bytes += stats->write_bytes;
-+	}
- 
- 	/* scsiLuWrittenMegaBytes */
--	return snprintf(page, PAGE_SIZE, "%lu\n",
--			atomic_long_read(&dev->write_bytes) >> 20);
-+	return snprintf(page, PAGE_SIZE, "%u\n", bytes >> 20);
- }
- 
- static ssize_t target_stat_lu_resets_show(struct config_item *item, char *page)
-@@ -1019,8 +1040,11 @@ static ssize_t target_stat_auth_num_cmds_show(struct config_item *item,
- {
- 	struct se_lun_acl *lacl = auth_to_lacl(item);
- 	struct se_node_acl *nacl = lacl->se_lun_nacl;
-+	struct se_dev_entry_io_stats *stats;
- 	struct se_dev_entry *deve;
-+	unsigned int cpu;
- 	ssize_t ret;
-+	u32 cmds = 0;
- 
- 	rcu_read_lock();
- 	deve = target_nacl_find_deve(nacl, lacl->mapped_lun);
-@@ -1028,9 +1052,14 @@ static ssize_t target_stat_auth_num_cmds_show(struct config_item *item,
- 		rcu_read_unlock();
- 		return -ENODEV;
- 	}
-+
-+	for_each_possible_cpu(cpu) {
-+		stats = per_cpu_ptr(deve->stats, cpu);
-+		cmds += stats->total_cmds;
-+	}
-+
- 	/* scsiAuthIntrOutCommands */
--	ret = snprintf(page, PAGE_SIZE, "%lu\n",
--		       atomic_long_read(&deve->total_cmds));
-+	ret = snprintf(page, PAGE_SIZE, "%u\n", cmds);
- 	rcu_read_unlock();
- 	return ret;
- }
-@@ -1040,8 +1069,11 @@ static ssize_t target_stat_auth_read_mbytes_show(struct config_item *item,
- {
- 	struct se_lun_acl *lacl = auth_to_lacl(item);
- 	struct se_node_acl *nacl = lacl->se_lun_nacl;
-+	struct se_dev_entry_io_stats *stats;
- 	struct se_dev_entry *deve;
-+	unsigned int cpu;
- 	ssize_t ret;
-+	u32 bytes = 0;
- 
- 	rcu_read_lock();
- 	deve = target_nacl_find_deve(nacl, lacl->mapped_lun);
-@@ -1049,9 +1081,14 @@ static ssize_t target_stat_auth_read_mbytes_show(struct config_item *item,
- 		rcu_read_unlock();
- 		return -ENODEV;
- 	}
-+
-+	for_each_possible_cpu(cpu) {
-+		stats = per_cpu_ptr(deve->stats, cpu);
-+		bytes += stats->read_bytes;
-+	}
-+
- 	/* scsiAuthIntrReadMegaBytes */
--	ret = snprintf(page, PAGE_SIZE, "%u\n",
--		      (u32)(atomic_long_read(&deve->read_bytes) >> 20));
-+	ret = snprintf(page, PAGE_SIZE, "%u\n", bytes >> 20);
- 	rcu_read_unlock();
- 	return ret;
- }
-@@ -1061,8 +1098,11 @@ static ssize_t target_stat_auth_write_mbytes_show(struct config_item *item,
- {
- 	struct se_lun_acl *lacl = auth_to_lacl(item);
- 	struct se_node_acl *nacl = lacl->se_lun_nacl;
-+	struct se_dev_entry_io_stats *stats;
- 	struct se_dev_entry *deve;
-+	unsigned int cpu;
- 	ssize_t ret;
-+	u32 bytes = 0;
- 
- 	rcu_read_lock();
- 	deve = target_nacl_find_deve(nacl, lacl->mapped_lun);
-@@ -1070,9 +1110,14 @@ static ssize_t target_stat_auth_write_mbytes_show(struct config_item *item,
- 		rcu_read_unlock();
- 		return -ENODEV;
- 	}
-+
-+	for_each_possible_cpu(cpu) {
-+		stats = per_cpu_ptr(deve->stats, cpu);
-+		bytes += stats->write_bytes;
-+	}
-+
- 	/* scsiAuthIntrWrittenMegaBytes */
--	ret = snprintf(page, PAGE_SIZE, "%u\n",
--		      (u32)(atomic_long_read(&deve->write_bytes) >> 20));
-+	ret = snprintf(page, PAGE_SIZE, "%u\n", bytes >> 20);
- 	rcu_read_unlock();
- 	return ret;
- }
-diff --git a/include/target/target_core_base.h b/include/target/target_core_base.h
-index 159567359bbb0..8874503b8af47 100644
---- a/include/target/target_core_base.h
-+++ b/include/target/target_core_base.h
-@@ -660,15 +660,19 @@ struct se_lun_acl {
- 	struct se_ml_stat_grps	ml_stat_grps;
- };
- 
-+struct se_dev_entry_io_stats {
-+	u32			total_cmds;
-+	u32			read_bytes;
-+	u32			write_bytes;
-+};
-+
- struct se_dev_entry {
- 	u64			mapped_lun;
- 	u64			pr_res_key;
- 	u64			creation_time;
- 	bool			lun_access_ro;
- 	u32			attach_count;
--	atomic_long_t		total_cmds;
--	atomic_long_t		read_bytes;
--	atomic_long_t		write_bytes;
-+	struct se_dev_entry_io_stats __percpu	*stats;
- 	/* Used for PR SPEC_I_PT=1 and REGISTER_AND_MOVE */
- 	struct kref		pr_kref;
- 	struct completion	pr_comp;
-@@ -790,6 +794,12 @@ struct se_device_queue {
- 	struct se_cmd_queue	sq;
- };
- 
-+struct se_dev_io_stats {
-+	u32			total_cmds;
-+	u32			read_bytes;
-+	u32			write_bytes;
-+};
-+
- struct se_device {
- 	/* Used for SAM Task Attribute ordering */
- 	u32			dev_cur_ordered_id;
-@@ -811,9 +821,7 @@ struct se_device {
- 	atomic_long_t		num_resets;
- 	atomic_long_t		aborts_complete;
- 	atomic_long_t		aborts_no_task;
--	atomic_long_t		num_cmds;
--	atomic_long_t		read_bytes;
--	atomic_long_t		write_bytes;
-+	struct se_dev_io_stats __percpu	*stats;
- 	/* Active commands on this virtual SE device */
- 	atomic_t		non_ordered;
- 	bool			ordered_sync_in_progress;
+ EXPORT_SYMBOL(core_tpg_check_initiator_node_acl);
 -- 
 2.53.0
 
