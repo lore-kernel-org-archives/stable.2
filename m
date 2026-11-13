@@ -1,68 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794531329;
-	b=A/qjZhfjR9Xuu/rp3U/k3guujdobwjUPUCDHrIfnsB6/9XFspi1/m9cRUZFOp1+JRKlG
-	 +FXCU0d1zPyglUBZMVjpXKg1uRl42GqWdK9N4bnhAI+zARkz2BTXMdo79bQpd18JYXkEL
-	 PpE6mhbDo0lLFKoaTadw8h9iFHaK5pgxMTSvNVBwADTJUZP5NM+q2yKnPQJDfuoEyRq6m
-	 n8PCWHOS9kvvrx6IgP/BNgx1K0ipk4g8rXP2gT3rA8GV6pWLAVrvwYvUD126U3IAEcbTn
-	 Kk3ArO6EYS6mueqI69GYwC+9LT26OO6lStO7yvpAA524GxPvWOMrR2GrOl5l9zM5KGw==
+	t=1794531342;
+	b=rih4i9lZnlwq6zG326TBdbKttnAtUDy6OyvurRcbkSKf3vTrA5zUQPPBJJBZeb6ZY8ZM
+	 kzaqQwANjZ863wW/zO/vojTXzWrk8nP4gjlIT1jggQ4wAYmpfceBhUhVxG2TVbXHj0CHV
+	 EHQj87p7JEUZTfIIOKdPlKOa8a9QnHOg6JOr/2CW7wDKReVEZn108BP9jl8slrEHhC9GA
+	 Xvf4gNiP0MdMh5ORZLKGD5fWwxiLfcEOGdIYky0NO5zGPnC+jdlpCn0yOc+qqy4JOlqKG
+	 Cw0MV3y3sLAoF0slYfJaf8Ewza/eJ/8/v4eGWGYiCKmeexQBX+bkPWaw1SssNiUporg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531329;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ztzMT77eqwmRCnOaSvkxFvu9WQ+jMhy8pQI4WP+df8g=;
-	b=qPRCHiWCeylL83ObPVS8/2/P9pcqhaSDmYtBBuC094Ldz390jTVBuDWlKahOlE5ao2P/
-	 lznOAT7qvuivcT3qqcOY7FtlmF822hXA74I/gxkVC3S8hlwMq3PSnXDqJGb0Jsb47BGg6
-	 CTVPl42BZnYP0hklCak6p+r2e9OkmCU7kBuOlJE0GNjdgSR0/GeCVemopJRUCwfNtMXS0
-	 Fexa2xfdQSiL17Q4qDGhr6ZdykKPyudGpxGkmhjzz2UJHyN62zwwKeWnyowrXdCb1NSWL
-	 RzvBAbO/Cq+f2KdkBR6rE2GD/gMDxdYRaNHrUrJguTFCD98kprukV+vA/g5P6KzKSDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531342;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=jcVy99/4546IpPlUV+chsxZxg6fKFHtjcBIv8IBgnDA=;
+	b=EFsTA9RjhpjYm1nH+Lq3FNVGPcE6xrIN+jfIR+ELG3kAZKAykAwxHyefi7nGeXZO/AdJ
+	 V828x05nofl+AmF+Kce0QjvtF/BMklDAOoykiA9yywPGLk3ulHWzxEiRBe4qogY1UqF6N
+	 Rfe96TuqbSDqIKg388o6ul02tiIbEnT1vvYGZejSlgXk56y2/5fhX6rXBtYFlI/nyjmFa
+	 HhoFL4DOv5wir53Lx2wznDCWiR1ay0VyWp0KFvzn0CNFs73ePy8K9OSaF38urMrwlAYZA
+	 u4nnjEuuctEKTXXVT1fu5vIOONX2Cte6eJATP3ZbOtZDNdWO7X1+Eth4fE2btnjOrNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF2y5vua;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lbX7Xkre;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1E2606A327
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 00:55:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D292606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 00:55:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D292606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF2y5vua
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27BE81F000C4;
-	Fri, 13 Nov 2026 00:55:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794531328;
-	bh=ztzMT77eqwmRCnOaSvkxFvu9WQ+jMhy8pQI4WP+df8g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iF2y5vuaazXFxuiLLjOtGkMNzc9EcRRFKbubk9hWs6yVZrhEuak6Ugz0VfSlhW3Fg
-	 t79OxA9rbIyDvEbphUiaYs5LE1qDLMsw7/hYJtz9S4L8Bu2z3ioUYP6OitRS0PtWw+
-	 b2QgnSFLBRjbusvxA+sfWFAtWPwhvL/yh3G3yPl89jOOWRwLJq9sgaefmXZ5nfRuHT
-	 buBcZ01iXc4ENNzDdwdmp0/WApiHbHM4EVU96aZy+90CgTbB1P3zMstiNFSh2i+in5
-	 ivk/vu6grVXSaIAbXO7KGcVsrNi0XdkWtsc0foY97GtId2fzTGS9vov66ISTuuos/Y
-	 i2BfAtgQr5XYw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Balbir Singh <balbirs@nvidia.com>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Salvatore Dipietro <dipiets@amazon.it>,
-	Christoph Hellwig <hch@lst.de>,
-	Dave Chinner <dgc@kernel.org>,
-	Matt Fleming <matt@readmodwrite.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm: page_alloc: do not give all non-blocking requests reserve access
-Date: Thu, 12 Nov 2026 19:55:25 -0500
-Message-ID: <20261113005511.435938-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201240-failed-6.6-6ee3d87b9408@kernel.org>
-References: <20261109201240-failed-6.6-6ee3d87b9408@kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lbX7Xkre
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a208d93758so5083155e9.3
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 16:55:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794531340; x=1795136140; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jcVy99/4546IpPlUV+chsxZxg6fKFHtjcBIv8IBgnDA=;
+        b=lbX7XkreAKRNKOu5bAAr78H5T54rlJTQ+uR1EUX5bsk5/uqD3MSuwb5tv4C5IgnNeB
+         /xFLviFjffv29Y4A6i4p9ESY3p//U32kUVrP6/heuTyMixYJ+MTCgu7Xc+gRySu5Iity
+         +vYENv1ugwa8Map53en9lcSuS7np9EDqY4nA3rVGk4qxz5H/P5miXu22NmtXXHrLoqm+
+         fWQwyl9ni4L6I8m1pxTTqBFC3p2JqByRwHUEIFNy8KUfRJrD55J/wN7a0ZWJ5SX+HWxA
+         AcSij5PmZOQdzDGw/IV4F27lA7imS+nAbkzEIBaCqJRoHgzTGIjPHpUxDWDzNfFNRWxo
+         zABw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794531340; x=1795136140;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jcVy99/4546IpPlUV+chsxZxg6fKFHtjcBIv8IBgnDA=;
+        b=bxSkbUKLR3Dd9FNnWpxrpDixANNLQ4oQwKiprhjsYjhSq5IfHsx9cJsge8f/7BR+tO
+         57JlfosAsSf572Z4AtBFOnkzUSVypT4u2k3zu5ffWuaoa2lGovBIby/4/M2c6B/oZ+uh
+         yHgAQvHkj5YLZu5V8sOzDRz1K4zWCh5bE2TCs6YzxN32mILsXYc8H6sr12Rpux2cySiF
+         gptevUkRReVHPg559o+Sj31Mn7mQRMX/myOoLEKImwT9b67fmsYlQcYs0uhI/XmAieIf
+         nmndw0ikOiadaoYVxQnej17a/ZPYnC5RX0JG+0UicG9GSzgJax/PvEcqWwRDqE1MN0cG
+         QFqg==
+X-Forwarded-Encrypted: i=1; AL+hErE9CvYW4CCq49mn/OVxeogJuuLkVdja/fQC5SzGWjcDMO2+yltqus/Lu8lRvxxnQI2MIg6p+94=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dY/qW/JqxPuOvwHV4ItjcTU15QkdrQY+KRXL2dMKAQBh05pB5
+	lRfscOQx0Ig+/za0K7SRgX6Ykmmx2H1CWa5NI5XQWFCiG1zrxuSW3g8wdDWP2uTp7GM=
+X-Gm-Gg: AYBFou0UGf5rtJAp0u7uT9KaMQiqT8tQws6F5JHMnDnwB/wS9GCAUvPiw18fKHLA8Dh
+	3aakvvug2JSfOWDHK0jJkHXbP1L4mbD5aXDya8fzE/SLMnFo9elE3pw4LDMfg9BqY1LK5z2f8Lp
+	sokkYMlMEqUB0vJ8FjTtgZQxQNQDWQYnmw8fe6BAIPlXdwdp4wfS4HN9vko/p9peNmqyeGVk1ir
+	wEWmul5OwcDlO3wnL/r3ulamV4rX1OnUFHe/SCHeyEzNMaZ1l2QRigDv3mJuFeYz4DpgO0EprFC
+	nEyBAMDnmGxW5/gJTrsprXILD28EdrlWg7iwBgjOXJNL3or7lQe9tU0uXg9Z2RVrrZKryS0EptC
+	Go3dSNJITb6uV9bchr5OQt1QWAxsN5JuPmL/36FgHlYGlJ7D5bpBbdCSEhEkbwvg56tary6JKM7
+	dI8LpI5cta/AEykgclGFJpacyLI6ch4WxvdeSXJqgmnkmGB3ZRZck+bo4Y3r4Xt8zxMCW7xti/u
+	CR5XVGl+g+0fUXKrqWiBB0rDVCKNwJ6E1TJ/CGpNDocfII1DIThKNXzb8Fnu22EonsODKA/cDib
+	KEbH49zjBOhz+yvwtKj+K+IaQ3OBOHsu4Ut/NE+LWA==
+X-Received: by 2002:a05:6000:29d3:b0:48e:6a23:4a09 with SMTP id ffacd0b85a97d-49c731641bamr1485962f8f.54.1794531340462;
+        Thu, 12 Nov 2026 16:55:40 -0800 (PST)
+Received: from [192.168.0.167] ([109.78.26.158])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8e794sm2106178f8f.59.2026.11.12.16.55.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 16:55:39 -0800 (PST)
+Message-ID: <c5444a64-ad14-403e-8453-0bb0a16dcfa8@linaro.org>
+Date: Fri, 13 Nov 2026 00:55:37 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,138 +90,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] media: qcom: iris: Wait for threaded IRQ
+ completion during power-off
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Hungyu Lin <dennylin0707@gmail.com>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>,
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Joonhoe Kim <26rote@gmail.com>, Birk Skyum <birk.skyum@pm.me>
+References: <20261111-fix-disable-irq-safely-v2-0-8e13f68c2ef9@oss.qualcomm.com>
+ <20261111-fix-disable-irq-safely-v2-2-8e13f68c2ef9@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261111-fix-disable-irq-safely-v2-2-8e13f68c2ef9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Johannes Weiner <hannes@cmpxchg.org>
+On 11/11/2026 09:05, Vishnu Reddy wrote:
+> +void iris_acquire_core_lock(struct iris_core *core)
+> +{
+> +	mutex_lock(&core->lock);
+> +
+> +	while (READ_ONCE(core->irq_disabling)) {
+> +		mutex_unlock(&core->lock);
+> +		wait_event(core->irq_disable_waitqueue, !READ_ONCE(core->irq_disabling));
+> +		mutex_lock(&core->lock);
+> +	}
+> +}
+> +
 
-[ Upstream commit 6ee3d87b940848aaed5d4e8d005c5f674bf2637a ]
+> +static void iris_vpu_disable_irq(struct iris_core *core)
+> +{
+> +	WRITE_ONCE(core->irq_disabling, true);
+> +	mutex_unlock(&core->lock);
+> +	disable_irq(core->irq);
+> +	mutex_lock(&core->lock);
+> +	WRITE_ONCE(core->irq_disabling, false);
+> +	wake_up_all(&core->irq_disable_waitqueue);
+> +}
+> +
 
-Patch series "mm: page_alloc: fix reserve access for non-blocking
-requests", v2.
+Ouch, this is some mad amount of jumping through hoops.
 
-Two fixes for how non-blocking allocations interact with the highatomic
-reserve.  There are prerequisites for Salvatore's "mm/page_alloc: avoid
-direct reclaim and compaction for costly __GFP_NORETRY allocations" [0].
+As General Pierre François Joseph Bosquet said of the Charge of the 
+Light Brigade in the Crimean war "C’est magnifique, mais ce n’est pas la 
+guerre" - It is magnificent, but it is not war.
 
-Patch 1 narrows which requests may physically take highatomic pages,
-patch 2 narrows which requests may count them in their watermark check.
+Why do we have to hold core->lock over iris_vpu_power_off() at all ?
 
-Both are prerequisites for Salvatore's patch: it clears
-__GFP_DIRECT_RECLAIM for costly __GFP_NORETRY requests, which turns every
-large page cache folio allocation that reaches the slowpath into a
-non-blocking one.  Without patch 1, those requests may fall back to the
-highatomic freelists reserved for atomic requests.  Without patch 2, they
-count the free highatomic pages in their watermark check while being
-served from regular memory, so they can consume regular high-order blocks
-below the min watermark by the size of the reserve.  GFP_NOWAIT requests
-hit both paths today, so these are existing problems worthy of their own
-stable backports; but Salvatore's patch would widen them significantly.
+- What is the data-structure or
+- Logical state (the state variable I suspect)
+- Or guarantee of atomicity
 
-Patch 2 reproduction: a GFP_NOWAIT burst under memory pressure can drain
-regular free memory to zero while the highatomic reserve sits idle.
-Measured on a 32G box with an anonymous working set, swap, and a full 290M
-reserve, three synthetic bursts drove the 28G Normal zone's regular free
-memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
-its swap table allocation inside reclaim, reclaim scanned 13M pages to
-free 200k, and page faults stalled for tens to hundreds of milliseconds.
-With the fix the burst stops at the min watermark and nothing else
-happens.  This was found in review and reproduced synthetically; it has
-not been observed in production.
+We are providing holding that lock ?
 
-GFP_ATOMIC order-0 requests have a milder version of the same problem:
-They are entitled to the reserve but are served regular memory first, so
-the fix there has to change the watermark check and the freelist order
-together.  Salvatore's change doesn't interact with this, though; fixing
-that is left for a separate patch.
+These are pretty much rhetorical questions - the above locking scheme 
+can't be right. It implies we are doing something wrong and not really 
+fixing that wrong thing.
 
-This patch (of 2):
+Holding the lock across power_off() seems to be that wrong thing.
 
-281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
-highatomic reserves") accidentally gave all non-blocking allocation
-requests access to highatomic reserves, which includes GFP_NOWAIT and
-other sites clearing __GFP_DIRECT_RECLAIM.
+disable_irq_nosync() seems to be a correct fix - so if our locking is so 
+muddled we have to go to the above - there better be a fully reasoned 
+and unavoidable reason why.
 
-While this improved atomic request success rate, it's unintentionally
-broad and can actually worsen highatomic requests by squandering the
-reserves on requests that don't need it.
+Perhaps I'm being overly reductive here but - why not "just" refactor 
+the code so that the power-off comes after the piece held in the lock ?
 
-There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
-for costly order __GFP_NORETRY requests, which would then also fall
-into this exemption and deplete reserves even faster.
+i.e. push that into a worker and then do a synchronous wait on the worker ?
 
-What GFP_ATOMIC has over the others is __GFP_HIGH, which
-alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
+The chatbot told me I was wrong about the worker because "it would 
+deadlock" and I can't be bothered burning the tokens to tell it "I 
+didn't mean hold the lock in the worker"
 
-Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
-ALLOC_MIN_RESERVE.
+It did make the point that it thinks the only thing being protected by 
+the lock is
 
-Link: https://lore.kernel.org/20261001082152.2879289-1-dipiets@amazon.it [0]
-Link: https://lore.kernel.org/linux-mm/arFBWvzXPYrKuIYi@cmpxchg.org/ [1]
-Link: https://lore.kernel.org/linux-mm/20261001082152.2879289-1-dipiets@amazon.it/ [2]
-Link: https://lore.kernel.org/20261028171719.2043421-1-hannes@cmpxchg.org
-Link: https://lore.kernel.org/20261028171719.2043421-2-hannes@cmpxchg.org
-Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Matt Fleming <matt@readmodwrite.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
+intr_status = readl(core->reg_base + WRAPPER_INTR_STATUS);
+...
+writel(CLEAR_XTENSA2HOST_INTR, core->reg_base + CPU_CS_A2HSOFTINTCLR);
 
-regular free memory to zero while the highatomic reserve sits idle.
-Measured on a 32G box with an anonymous working set, swap, and a full 290M
-reserve, three synthetic bursts drove the 28G Normal zone's regular free
-memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
-its swap table allocation inside reclaim, reclaim scanned 13M pages to
-free 200k, and page faults stalled for tens to hundreds of milliseconds.
+Which venus does like this:
 
-[ sashal: placed ALLOC_MASK_ATOMIC in the shared internal header alongside the existing allocation flags ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+static irqreturn_t venus_isr(struct venus_core *core)       /* 
+hfi_venus.c */
+{
+	status = readl(wrapper_base + WRAPPER_INTR_STATUS);
+	...
+	writel(1, cpu_cs_base + CPU_CS_A2HSOFTINTCLR);
+	return IRQ_WAKE_THREAD;
+}
+
+i.e. power off in the IRQ.
+
+Perhaps even simpler - just do the power-off directly outside of the 
+locked section... once the IRQ is quiescent ?
+
+Either way I don't think we have a good reason to hold this lock and can 
+certainly find a way not to hold it - assuming the only thing we care 
+about is kicking that register - do it in the IRQ why not else do a 
+worker with a rendezvous or even more straight forward.
+
+void iris_core_deinit(struct iris_core *core)
+{
+	bool power_off = false;
+	int ret;
+
+	ret = pm_runtime_resume_and_get(core->dev);
+
+	mutex_lock(&core->lock);
+	if (core->state != IRIS_CORE_DEINIT) {
+		iris_fw_unload(core);
+		power_off = !ret;
+		iris_hfi_queues_deinit(core);
+		core->state = IRIS_CORE_DEINIT;
+	}
+	mutex_unlock(&core->lock);
+
+	if (power_off)
+		iris_vpu_power_off(core); <- this ?
+
+	if (!ret)
+		pm_runtime_put_sync(core->dev);
+}
+
 ---
- mm/internal.h   | 3 +++
- mm/page_alloc.c | 4 +++-
- 2 files changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 03cfd9f736597..ec88688289897 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -917,6 +917,9 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
- /* Flags that allow allocations below the min watermark. */
- #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
- 
-+/* Flags that mean GFP_ATOMIC */
-+#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
-+
- enum ttu_flags;
- struct tlbflush_unmap_batch;
- 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index cf93d9da4645c..e0d44b3f31678 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -2714,7 +2714,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
- 			 * reserves as failing now is worse than failing a
- 			 * high-order atomic allocation in the future.
- 			 */
--			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
-+			if (!page &&
-+			    ((alloc_flags & ALLOC_OOM) ||
-+			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
- 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
- 
- 			if (!page) {
--- 
-2.53.0
-
+bod
