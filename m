@@ -1,97 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581775;
-	b=WvpRiBnlO1Uhi0KuMQTzZBmGyeVasbAJ1E2k0eK4SIWzhHyxXJxBPY8Geb0JQe5/TO8M
-	 bc+1O8sIbuDF6/IHEh0id3OddkJOI+0iVjz0NroREfsZP5KIaHcxCV7W/lExiUsDNpYnT
-	 w5A6i2qY6gBJzxHsDVEgwGDejIIP9+2NoJ+VJ2Qz00/5dxTBjXDZUhU0TBt40HgonNyjp
-	 Vk7uDkAXP2CmP5yQT/hvJOxdxp4EWpkMbrzr3u9p70Ll0+WtWYW/lWemfrWxFGcXAUQeq
-	 whJuaF9Fk/oW+dlTOT/MDep6MxcG9kuKl72pzSBZmdVzvSh/ySEijw+CnWTu9595uKQ==
+	t=1794581784;
+	b=iM4yjRUyqsLyspi1APHCG6AQFklyOHayPNHECuoLydQEzl1jljL8keWL+VxqfwHbdy1a
+	 vrD6KuN5iGNNhdCdPOJEEzn/gbcLvTjOgRlGp8wkNAZA4cLEp7z5B+dK/zUxtHatKN2wJ
+	 Qa/ZvgriLfLWdmHAddvJU86eWIsqbCv1gOars4LMeC3MzyIS8KAGdR5wa2CkS3lBuH1Ak
+	 2QYE6UzhVWiJtNfYobsKiYrgQTJe3Apn82O/7gN5eMcf+jPcYlLkCJFnbpAP/Uk7qVNgt
+	 LC6+v1zgcoDaJofcEthg5oYvCjM9BUsRKH/A52uqIJM9XZdKKHGefJrHaKheYvN6vqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581775;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HTKei3hMm8BrgIn9MBb98/wkj/SGe/y2Ur5xLD1rNKQ=;
-	b=0zPzw3lakSwXgMbvQ15KGtHj0ExOVEefWrq2yFbyvmDyA22mP0l3wut8VqCjg3Er4Iyy
-	 UEOMzStzAO/GTA+R3iQgAejhTvxVSnzuPJ8WFEWAoWW9l3nTPuUI1dACmw1gArnHmG3KX
-	 07OFZp6NCet4za+FlpVYLbw8v0lNNoHwMHuj6dq46Fm6VT9uwdyAe1p0ciGoNhZ0duv5P
-	 RArkYqnr5S2PeBzjQTHTghR8mWuuLKg3ftumqEVUN9y7Qe5fY2BWACxkJPm/XrQe2w7yD
-	 qqD1PgiGoekhgkvjLKIjNSZia5wezDgXwqZrGwcKM6BSEVrxbnc83GHEYc6cuASU1Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581784;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OH0aiSevvVCIDttAoP6h2DzxTrt17u0Nto4UmtIjPDg=;
+	b=zZeaSJO4efehwekLOBgj06xpCSEpLbMqSP7464vMVtGnUjwd6ba/D93gMWEuGFPsejK+
+	 y4xaq2Uz8hiJKHxz0RXhPVU2rekEo1zRv31nrRXEMQZo0USY/X/RhU85futvxNCy+gn9i
+	 dAcJi9nIKuzL89/U10wlfKSguTAA3e2HDlmesU6Z6c71Pn/xpmCr507i9/jkWRgVQVU17
+	 VBEmDdpQ/NWG9A6L6xoFWGV3BkfDY1xofHZrUQBe2I/AYP+uIl2HavnwuPVSXg58CnIRE
+	 Yt4t6dTdww2GZerlVawwZwnOb2fpgHWh6Dx4FDaetVWrmCUyltU0rpF/cvZoAWNaUTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c1m7vzUQ;
-	arc=none smtp.remote-ip=209.85.161.44
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=rT3fCwEf;
+	arc=none smtp.remote-ip=115.124.28.148
+Received: from out28-148.mail.aliyun.com (out28-148.mail.aliyun.com [115.124.28.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC06F606A332
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:56:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC06F606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BED606A331;
+	Fri, 13 Nov 2026 14:56:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28BED606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c1m7vzUQ
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-7143451981fso1471961eaf.3
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 06:56:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794581774; x=1795186574; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HTKei3hMm8BrgIn9MBb98/wkj/SGe/y2Ur5xLD1rNKQ=;
-        b=c1m7vzUQ962ZBdEwr/0zeh0jHX6t+DLgPr5rDyNH7TyCI4WMFpUjc6STRXXFXdk0bf
-         IcMsmCrRV9e+6+6yPgA9cuQM28MDbKvOzqvNz9NM8DBA0x5scmFTU/+L4/fIl30GlAKA
-         U+p6CBUDtvGn3GE1ISHUaMGj65YHgVKG4sh71Uxpp9O0+EyxDDNdosZqbTNOAwclNNVM
-         u6JXNviREgWf4Ija6P0zPhN8og8TTVDA1+C84ZWqus9/8BNCWguCUr0efo7yJdmXfMt/
-         4Jz3p0g0jrS/YX7IKFRU8B4WWEfwakl7qd/lSD6491uV3rZL9a4cyvqKJsy25KwMvGft
-         7MCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794581774; x=1795186574;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HTKei3hMm8BrgIn9MBb98/wkj/SGe/y2Ur5xLD1rNKQ=;
-        b=bEQp8efg7oxQnnHpnVdVWyXl+mRi4jpHU3fPzV0uJGieS118LtGaAONBH9dUgIP3VO
-         Vui589YzXFLzLhHCdgL3m6GTgtn+qiZobAmJCLNCAaT23dfBEyghhi5tAHn8vGiIPlnw
-         2fYU+s6F8JJ6EZrF4H75QRvQJEJCGi2sHiMp+D62ABZVCFN6cmITql8zhORA9ll7qYer
-         xNbBbCjlZcy94DJw8lvRodDt2wTDd0pfFZLinSjmEGKddg+UK6moxX7raOT9Uj4i3XC1
-         9VvAfXpLpdmvDAnBTywoLgXE536rM0Kwt6jy9IHc2Sdt0rwmLJ9by5CVr0Xgv52v0z9S
-         Hpvg==
-X-Forwarded-Encrypted: i=1; AL+hErEpTAKO8OAJEO5LcAkDrCtA3n82se8oIt32acghRNGJqTwrOAmxYrw2MO+2zr11h58x+6uzNZ8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+B+/Nmsnys4QxOfp5qhUF5UN/xdsjlgXSqVEa82sBQ3g7cCxQx
-	8cGVgYBANIIosyMJ9efMsTqiFRqBVwmnbpLNOx5K92Mu1lOnCcIFYv7Y
-X-Gm-Gg: AYBFou1rtHPBEimigHfLSfeq0MS984NERce4x+QPAvt674gpll252OWCD8GrPKhY7Oc
-	p6i0tnACfN+imaXbk/VgGC79RJrU+5HBy1phIvxLY03cxXY9XUzvrTEMkJVUIsWCLZCWuxr/Dww
-	gOnYrIaf3tK3oqGfd/CP+PJQzuSSITBezHpMZTaKfpTwL05cymcvKaPTv1XC8x0CRfNHYkwCBng
-	9s4yiuPdAX0BiSbXtpUUSM+70GkmtOPQTXbC+Xy6HcxufmVy8p8xie2iI9i0yJRbvRwYI4gw9Cp
-	CcPl8qbBtD8yjjKw5+5oZ//DoHEfgcXtJ8/PRIJXtfjeG/Pw0sp1aSzE2ZhVF0RA6AMhFcSVA20
-	fuDzYglRDu3mP5fWL1MtqDISRaqyMBIu0zOjixA5s2gKyVO9HnIogJl35yXf4CU+XpbaZod9esd
-	IOIAPNWaN+m89wID5FqZ57a1NsPQ7kmhLpMcVVi4MRQRELSPZH8oJFGI6C3doID9rlpmwBImz6d
-	DKMf6EaQuzqK7FCrHOGA8ayoaThCI0l5OyzjbeAewaOU6qzFj1O4CmvOnL69bvDbkTqgjLDul9n
-	k2DsM2j1j33i2jWga5lI0ri1K3L9ONUBlXUV22raSUL3oHmdqYpqO2TvBHz7DUhVedx1J/1FAKe
-	ZBMuJ45HLQjcgTCFwFsES
-X-Received: by 2002:a05:6820:f024:b0:716:d5d7:60f3 with SMTP id 006d021491bc7-71ab4cd9493mr1547569eaf.9.1794581773792;
-        Fri, 13 Nov 2026 06:56:13 -0800 (PST)
-Received: from cachyos-x8664 ([177.245.232.83])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-86288133265sm2844298a34.14.2026.11.13.06.56.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:56:13 -0800 (PST)
-From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=rT3fCwEf
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1794581772; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=OH0aiSevvVCIDttAoP6h2DzxTrt17u0Nto4UmtIjPDg=;
+	b=rT3fCwEfIwTO95qQ9RJA0dL9C40y3Wg/PkcWrGnJIKTfRp4r8pWLjwnR8o6xYhQK1KQDH/4e2cUkw9pqORPpg8Nt/zVFGPFydnozyYkbfJGGc9DeDj5mCzIKWZe20WtW0DVoXeNn+B4aLtFb/w2Sxi/HPErGHlak6ggnCXdwwBI=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0194488-0.0010187-0.979532;FP=1727475787545513210|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045038069;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.k1SQwDR_1794581770;
+Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.k1SQwDR_1794581770 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 13 Nov 2026 22:56:11 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+To: linux-integrity@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Steven Chen <chenste@linux.microsoft.com>,
+	Weibin Liu <liuwb@xiaopeng.com>,
 	stable@vger.kernel.org,
-	syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com,
-	diegomancera.dev@gmail.com
-Subject: [PATCH v3] media: em28xx: clear dev->v4l2 when v4l2 init fails
-Date: Fri, 13 Nov 2026 08:53:59 -0600
-Message-ID: <20261113145359.65440-1-diegomancera.dev@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <CALruWrWRWRU84AkDocSnNMSRp+WQD5ic9G_3peE50BvQR5iGBg@mail.gmail.com>
-References: <CALruWrWRWRU84AkDocSnNMSRp+WQD5ic9G_3peE50BvQR5iGBg@mail.gmail.com>
+	Zhu Guanglei <zhugl3@xiaopeng.com>,
+	Lin Qiaojie <linqj@xiaopeng.com>
+Subject: [PATCH v4] ima: fix races when deleting measurement list records
+Date: Fri, 13 Nov 2026 22:56:10 +0800
+Message-ID: <20261113145610.1826692-1-liuwb@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,60 +73,259 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In em28xx_v4l2_init(), if an error occurs after video_register_device()
-succeeds, the unregister_dev error path unregisters the video devices and
-drops the initial v4l2_dev reference, but leaves dev->v4l2 set.
+Without this patch, ima_queue_delete_partial() looks up the queue entry
+at which the measurement list has to be cut without holding
+ima_extend_list_mutex, and only takes the mutex afterwards for
+__list_cut_position().  The comment above the cut justifies this with
+"ima_fs.c enforces single-writer exclusion".
 
-An em28xx_v4l2_open() call already in progress (such as from v4l_id)
-that blocked on dev->lock while em28xx_v4l2_init() held it will then
-find dev->v4l2 still non-NULL and succeed on an unregistered node
-instead of returning -ENODEV. When the device is later disconnected,
-em28xx_v4l2_fini() also sees dev->v4l2 is still set and calls
-v4l2_device_put() a second time, dropping the refcount to zero and
-freeing v4l2 while v4l_id still holds it, causing a slab-use-after-free
-in v4l2_open().
+That exclusion only covers cross-process opens and is only enforced at
+open() and release() time.  ima_measure_lock() registers measure_writer
+at open() time and even lets the same task open the file again by
+incrementing measure_writer_extra_writes, while
+_ima_measurements_write() never checks the caller's identity.  A
+privileged task can therefore open several descriptors for the
+measurement list and use them concurrently from its own threads.  Each
+open() creates a separate struct file, so the f_pos_lock taken by
+fdget_pos() serializes neither these writers nor their readers.
 
-Fix this by clearing dev->v4l2 under dev->lock in the unregister_dev
-error path of em28xx_v4l2_init().
+Two racing writers can then resolve the same, or an overlapping, trim
+position, and the second one dereferences a queue entry that the first
+one has already detached and handed to ima_queue_delete().  Depending
+on the interleaving this corrupts the measurement list, reads freed
+memory in __list_cut_position(), or frees the same entry twice.
 
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1a7507a194fff09e5c44
-Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+Reproducer: generate some tens of thousands of measurement records,
+open() the measurement list for writing several times from one task,
+then write "20000\n" from that many threads using one descriptor each.
+KASAN reports a stack-out-of-bounds access in ima_queue_delete(),
+called from ima_queue_delete_partial().
+
+The extend mutex alone cannot protect readers: the binary and ASCII
+file operations call seq_read()/seq_lseek(), which traverse the list
+without taking ima_extend_list_mutex.  Readers from other processes
+are already excluded at open time, but an independent O_RDWR descriptor
+lets a reader thread of the writer process race with deletion from
+another thread.  Adding a concurrent reader to the writer reproducer
+triggers a general protection fault in ima_measurements_show(), reached
+from seq_read().
+
+Introduce ima_measure_rwsem at the file-operation layer.  Writers use
+down_write_killable() around _ima_measurements_write(); readers use
+down_read_killable() around seq_read() and seq_lseek().  If a fatal
+signal interrupts lock acquisition, return -EINTR without entering the
+protected operation.  Cover the binary/ASCII and current/staged file
+operations, since they all expose the same list traversal and deletion
+commands.  The resulting lock order is rwsem followed by seq_file's
+lock on the read side, or ima_extend_list_mutex on the write side.
+Freeing the private trimmed list remains outside the extend mutex but
+inside the rwsem write-side critical section.  The existing open-time
+exclusion remains unchanged, so one task cannot delete a staged list
+belonging to another.
+
+Keep the existing list_for_each_entry_rcu() traversal outside
+ima_extend_list_mutex.  The rwsem serializes staging/delete writers, so
+only ima_add_template_entry() can race with the traversal by appending
+an entry.  The selected entry stays valid until the cut.  Take the
+extend mutex only for the suspended check, the cut and the accounting
+updates.  Preserve the error precedence: a short list returns -ENOENT
+before the suspended check.
+
+Suggested-by: Roberto Sassu <roberto.sassu@huawei.com>
+Fixes: e9b491e27bf6 ("ima: Add support for staging measurements with prompt")
+Fixes: fcb0318a2969 ("ima: Support staging and deleting N measurements records")
+Cc: stable@vger.kernel.org # v7.2+
+Reviewed-by: Lin Qiaojie <linqj@xiaopeng.com>
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
 ---
-Changes in v3:
-- Resend: v2 reached lore with the "diff --git" header line split in
-  two, so the Media CI robot could not apply it. No code changes.
+Changes in v4:
+- Rename ima_measurements_rwsem to ima_measure_rwsem.
+- Use killable rwsem acquisition in all four read/lseek/write wrappers,
+  returning -EINTR if a fatal signal interrupts the wait.
+- Clarify the open()/release() exclusion, reader threads and RCU list
+  traversal in the commit message; fix the append function name.
+- Add a Fixes tag for the staging-with-prompt change.
+- Rebuild and rerun the current and staged KASAN+LOCKDEP QEMU tests.
+  Add a deterministic userfaultfd/SIGKILL test covering all four
+  interrupted lock-acquisition paths.
 
-Changes in v2:
-- Drop the non-standard 'Assisted-by: Gemini' trailer that failed
-  checkpatch.
+Link: https://lore.kernel.org/all/20261110071909.2056650-1-liuwb@xiaopeng.com/ [v3]
 
-Note: compile-tested drivers/media/usb/em28xx/em28xx-video.o with
-allmodconfig (no warnings); not runtime-tested locally against the
-syzbot reproducer.
+ security/integrity/ima/ima_fs.c    | 78 ++++++++++++++++++++++++++++++++------
+ security/integrity/ima/ima_queue.c |  7 ++--
+ 2 files changed, 70 insertions(+), 15 deletions(-)
 
- drivers/media/usb/em28xx/em28xx-video.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 84424284d486..f78325a41124 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -3129,6 +3129,12 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 		vb2_video_unregister_device(&v4l2->vdev);
- 	}
+diff --git a/security/integrity/ima/ima_fs.c b/security/integrity/ima/ima_fs.c
+index 3b8174a91a34..5c2919e35332 100644
+--- a/security/integrity/ima/ima_fs.c
++++ b/security/integrity/ima/ima_fs.c
+@@ -39,6 +39,8 @@ static DEFINE_MUTEX(ima_measure_mutex);
+ static long ima_measure_users;
+ static struct task_struct *measure_writer;
+ static long measure_writer_extra_writes;
++/* Lock order: ima_measure_rwsem -> ima_extend_list_mutex. */
++static DECLARE_RWSEM(ima_measure_rwsem);
  
+ bool ima_canonical_fmt;
+ static int __init default_canonical_fmt_setup(char *str)
+@@ -161,7 +163,11 @@ void ima_putc(struct seq_file *m, void *data, int datalen)
+  */
+ int ima_measurements_show(struct seq_file *m, void *v)
+ {
+-	/* the list never shrinks, so we don't need a lock here */
 +	/*
-+	 * Clear dev->v4l2 to prevent an in-progress em28xx_v4l2_open() from
-+	 * succeeding on an unregistered node (returning -ENODEV instead) and
-+	 * to prevent em28xx_v4l2_fini() from tearing down the instance again.
++	 * seq_file callers hold ima_measure_rwsem.  The kexec dump caller
++	 * relies on reboot notifier ordering: measurements are suspended and
++	 * staging/deletion are forbidden while it walks the lists locklessly.
 +	 */
-+	dev->v4l2 = NULL;
- 	mutex_unlock(&dev->lock);
+ 	struct ima_queue_entry *qe = v;
+ 	struct ima_template_entry *e;
+ 	char *template_name;
+@@ -400,32 +406,80 @@ static ssize_t _ima_measurements_write(struct file *file,
+ 	return datalen;
+ }
+ 
++static ssize_t ima_measurements_read(struct file *file, char __user *buf,
++				     size_t datalen, loff_t *ppos)
++{
++	ssize_t ret;
++
++	ret = down_read_killable(&ima_measure_rwsem);
++	if (ret)
++		return ret;
++
++	ret = seq_read(file, buf, datalen, ppos);
++	up_read(&ima_measure_rwsem);
++
++	return ret;
++}
++
++static loff_t ima_measurements_llseek(struct file *file, loff_t offset,
++				      int whence)
++{
++	loff_t ret;
++
++	ret = down_read_killable(&ima_measure_rwsem);
++	if (ret)
++		return ret;
++
++	ret = seq_lseek(file, offset, whence);
++	up_read(&ima_measure_rwsem);
++
++	return ret;
++}
++
+ static ssize_t ima_measurements_write(struct file *file, const char __user *buf,
+ 				      size_t datalen, loff_t *ppos)
+ {
+-	return _ima_measurements_write(file, buf, datalen, ppos, false);
++	ssize_t ret;
++
++	ret = down_write_killable(&ima_measure_rwsem);
++	if (ret)
++		return ret;
++
++	ret = _ima_measurements_write(file, buf, datalen, ppos, false);
++	up_write(&ima_measure_rwsem);
++
++	return ret;
+ }
+ 
+ static ssize_t ima_measurements_staged_write(struct file *file,
+ 					     const char __user *buf,
+ 					     size_t datalen, loff_t *ppos)
+ {
+-	return _ima_measurements_write(file, buf, datalen, ppos, true);
++	ssize_t ret;
++
++	ret = down_write_killable(&ima_measure_rwsem);
++	if (ret)
++		return ret;
++
++	ret = _ima_measurements_write(file, buf, datalen, ppos, true);
++	up_write(&ima_measure_rwsem);
++
++	return ret;
+ }
+ 
+ static const struct file_operations ima_measurements_ops = {
+ 	.open = ima_measurements_open,
+-	.read = seq_read,
++	.read = ima_measurements_read,
+ 	.write = ima_measurements_write,
+-	.llseek = seq_lseek,
++	.llseek = ima_measurements_llseek,
+ 	.release = ima_measurements_release,
+ };
+ 
+ static const struct file_operations ima_measurements_staged_ops = {
+ 	.open = ima_measurements_staged_open,
+-	.read = seq_read,
++	.read = ima_measurements_read,
+ 	.write = ima_measurements_staged_write,
+-	.llseek = seq_lseek,
++	.llseek = ima_measurements_llseek,
+ 	.release = ima_measurements_release,
+ };
+ 
+@@ -440,7 +494,7 @@ void ima_print_digest(struct seq_file *m, u8 *digest, u32 size)
+ /* print in ascii */
+ static int ima_ascii_measurements_show(struct seq_file *m, void *v)
+ {
+-	/* the list never shrinks, so we don't need a lock here */
++	/* The caller holds ima_measure_rwsem. */
+ 	struct ima_queue_entry *qe = v;
+ 	struct ima_template_entry *e;
+ 	char *template_name;
+@@ -497,9 +551,9 @@ static int ima_ascii_measurements_open(struct inode *inode, struct file *file)
+ 
+ static const struct file_operations ima_ascii_measurements_ops = {
+ 	.open = ima_ascii_measurements_open,
+-	.read = seq_read,
++	.read = ima_measurements_read,
+ 	.write = ima_measurements_write,
+-	.llseek = seq_lseek,
++	.llseek = ima_measurements_llseek,
+ 	.release = ima_measurements_release,
+ };
+ 
+@@ -519,9 +573,9 @@ static int ima_ascii_measurements_staged_open(struct inode *inode,
+ 
+ static const struct file_operations ima_ascii_measurements_staged_ops = {
+ 	.open = ima_ascii_measurements_staged_open,
+-	.read = seq_read,
++	.read = ima_measurements_read,
+ 	.write = ima_measurements_staged_write,
+-	.llseek = seq_lseek,
++	.llseek = ima_measurements_llseek,
+ 	.release = ima_measurements_release,
+ };
+ 
+diff --git a/security/integrity/ima/ima_queue.c b/security/integrity/ima/ima_queue.c
+index 67782c004cdf..b35aa0c42f8a 100644
+--- a/security/integrity/ima/ima_queue.c
++++ b/security/integrity/ima/ima_queue.c
+@@ -429,8 +429,8 @@ int ima_queue_delete_partial(unsigned long req_value)
  
  	/*
+ 	 * list_for_each_entry_rcu() without rcu_read_lock() is fine because
+-	 * only list append can happen concurrently. No list replace due to the
+-	 * staging/delete writers mutual exclusion.
++	 * only list append can happen concurrently: staging/delete writers are
++	 * serialized by ima_measure_rwsem.
+ 	 */
+ 	list_for_each_entry_rcu(qe, &ima_measurements, later, true) {
+ 		size_to_remove += get_binary_runtime_size(qe->entry);
+@@ -451,7 +451,8 @@ int ima_queue_delete_partial(unsigned long req_value)
+ 	}
+ 
+ 	/*
+-	 * qe remains valid because ima_fs.c enforces single-writer exclusion.
++	 * qe remains valid because staging/delete writers are serialized by
++	 * ima_measure_rwsem.
+ 	 */
+ 	__list_cut_position(&ima_measurements_trim, &ima_measurements,
+ 			    &qe->later);
 -- 
-2.56.1
+2.50.1
 
