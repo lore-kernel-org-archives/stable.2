@@ -1,99 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794607916;
-	b=GKk9kLxr9uCaMOOypQQfcyHVGVe08PKYnS2jUmhk0Qpl38O3fJqYjKhVWJccSLzeLEs0
-	 4lwDGnGHGkBOObzvTUwvUA7EcVL1ddXds+zEj1PRAq0K+5KwAEAN7G7GCfyBzJvqZFEDy
-	 Pw25zjFN/hmj0ZKwwvSdko7Mc1qmLJscyf2nxA9AF4Hi9Hl9F/l7Svdp1msgQNZlUY5xh
-	 /HQczVtwigSt0ZU/Ulk0rIy5U7ZSjcoxjSKLWQOHQecJNUp4BpX1aCaVMg/um1zhC8p63
-	 HVu0xp2GkflQM9ea8ewv5gOGNC0NlX0kO9dCc7AzVfMMn0HD4C/vL+rPeP9c2OcVv7Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794607916;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ybt8M67biDsHhGooRRbdUNrCGrHYGM9IN8vEnin7R9I=;
-	b=GL3CxKtu28iL6Sx2XHEbTYkAQfNWX3tA9a/AR/WLB4qbG1MP7C3BhIo6XDSDffW57vm2
-	 9BjPHHylsv+8ZEYBr4w1OpJyf+4beqzDdQrklYtDj1wN2UM0S/Ef5PnmzhoD3DCkou8g4
-	 GQY6dNGbqyAGtD2vCra6Vne2ZdikJp2fWYmVpqV2OenucaYxv1rmHPInrUq+4iTPmHzFT
-	 R2zW3N2NVhvw/MMl1tHg30oJb2W1tBCYUvli/f3CQNjKr1W+1/cLutiRWdMVkFxBz9U8m
-	 eqrEuKyUC621myXG0X76x9f/vkqyZagmzrazKCJwQOQyPJz19e+HSZh9S2sLUkpz1Ig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fkKGGul6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794607973;
+	b=11rB6OI888d6gJLbAbxD7yiH1LlVfgaETslw9UjnIt+CFB82Cn0Q5HjffVSkYBXuOHpE
+	 q5E8FCEDYhZ3Aa72JonFmNCVj+XF40nsIbxa70sDGEdOfnUXExbg1pYITX8N0ymHBEOMZ
+	 CDf6UikMZAmrvVt4GNz5ZducGvxI+vZMZvG2h/CJTScvSfOUlGmrk0vV4x6GgH/GB2VSX
+	 UdjYHhiqFBZyQNZJZlDKg+hLPmWUMUHPmPqg0jxdprwYip3zpHXR7mmossBeAywbCeggJ
+	 K9Gy05hc5XounZLevCVm4+dzTC6BlXJde+PQx8sGSQQmKJ1E48T704RDpz+2SkWYI/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794607973;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Provags-ID:
+	 X-Spam-Flag:UI-OutboundReport;
+	bh=bIbjncsqO/4pvbgKTGgg9uQBds+FvcX31Fd72Ll9c/g=;
+	b=bf79O+BiST75flt0izdapojg6hyKskG1Fsv/3oVR+9NH9E9A51lnCkDgShm8Fq2awEbe
+	 0vCT3FpabBoJLWrYHp4qvo9HMnOTOW3G0sQ3hZsYRr5H8j7Mby4c24U9M0KPBja/bRXtN
+	 A0M5qP/hD/AAviqRXSQ2GjSILjkQxwfoH1J6pjpDLQKOiRhBzoprp/ZZT+5VRsCuPOTDr
+	 NUbnq2cRqccviNGCdvT//09H77t6oGuTWjPa6oMNO41C6CgyoYKRjX2dDZZT8AzQ3G/MD
+	 fdYwscjbsLau+z5XUlrjMTr2LhAnk1jf0Al7e3IFMnSPCGZXOTJG7EPJaTT81SuKUKg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=f3lix.dev@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=lbNhEsb3;
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92887606A884
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92887606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361AF606A339
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 361AF606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fkKGGul6
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c40e30c26a4so342401066b.0
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:11:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794607915; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nMTzhVTQg/KFLqF+PZS1IdeSeZcePxl3zl8kJ1uuDvmiD5WrDj27442XTUla06/ODC
-         GDHqCtxI9H5xiyvjehIjpJQV30WA6eoU4AogZGyC8x07kFL+cZnccoqpqbLWixefzbFs
-         Y7Bkkag+WYRhcPEaEX7+3UWtPs6UwcEjZivJna7vKSPyfdv7F/Gir8bXiq9fz5TdfLrJ
-         bYrnqBpdJ8j/7TRSlcv3PSu7HStiVPGMZv8OQjKr/z91a6kGG0QrdFm0q8d94CLUuEas
-         2vf5eIfxiCT0XPY8AhxREelAgKWnnAxOY91r2qm3aCCOBBLHNFLJWcGC3HOUfLPi1ygN
-         fPNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ybt8M67biDsHhGooRRbdUNrCGrHYGM9IN8vEnin7R9I=;
-        fh=5oa06vWD2Q+2z3fALoNYg2Y5/WF5mBvs94G6JnB/uRY=;
-        b=AHEoU+4tdvzH6e829nHGvckO/+XLWUuUh8UotlrDWNvY/wWSm+8d0lHrxKlf5PLBW/
-         H+MIJ+f7vFE0gK8QQXc10HXgBGND6gXVeUKbBeYc3p/jZ2l8vz+V25Ve/fS814ULw8Xm
-         mYKobx56HAqykEwn3r91ubQ7U/3O4dU7YJAohPviX9QoWwGs76X8SNol54sSMwLQZgZZ
-         MuDHLfabvm4v61hDK1ZT6LPOkjCj54v6Ekii0YfjVsYBadcaUe+1Hkeb2QL/5xhK1SKn
-         8Mxz6SURrXUTJVVNs0as+WQsgr4wk3YpaNB1wmpp7xd462bj6kw9KEnLidAhh1DoFwjd
-         2I3g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794607915; x=1795212715; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ybt8M67biDsHhGooRRbdUNrCGrHYGM9IN8vEnin7R9I=;
-        b=fkKGGul6k5DfHm/ywwJyW7SQPx73tf0+mO8q7ouVZBy4v2lrAFxYP4r91QXtNUL1mU
-         irdELIE0V2E5fWF1wUnwTWRviflVxu1d0ac1q+8gI6A1K/9zdHoBEMmjLPi6Jiiqqx6i
-         NmtRAgzjGp978IRelMN3Wyj0kHipRDzJAhpAvG2r8jOpTUOyfxGLBls4G0k/XsAXLw2F
-         U+qfBJCSwcOo/+4LecrpNDbXQFRrVT0Q5GxyNq/UYeU+4nnfe5kaapWHC145/30E+EC/
-         TYHjPXslM+ZoS5zYRloqlvyQg/hPfqS2ZyhiJmMZCB7j9md1jhBttd/Ctb0bS1TBgEBj
-         fphA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794607915; x=1795212715;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ybt8M67biDsHhGooRRbdUNrCGrHYGM9IN8vEnin7R9I=;
-        b=v6akMOLEBdMj9ddBHcGVq6/cKEBY+PuqzGl33XvXpRM0l4dpYGCr2f7Njv3eolvHPk
-         QDvYMg1t5ppyg1nJR+w6uJOU8Xw1xc8kQEGUmaUvTx5YtIO4V1IgXajMrLF2qT0DYCfE
-         QIUgYeFFYhpzecEFNDAErkSegWIbARx8tYFWpNSH2h9l8goJy759Dgi+E45dUHWUiBoX
-         Jw0D2G0O5qQIb9xE8KeIXphe0C0Ox8XIBtCYyVn0vgd3XVMVrAP1KEcjnEeUIpfLuAzD
-         NJr4l9KeUOd3YnyRhw5nr3J3xL6dB/0SiheBGH5S69bxWZv5nkFRO8+BuQGqsH8Sjcna
-         qOrw==
-X-Forwarded-Encrypted: i=1; AL+hErGPRr6keZTcVFw4I2X3+SDdjwhCf7a75nJX8udi1mrWgJFG5bOBTfX/dv7cEymUkgfVKjGidlw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FE2B0/7wRDvKGB8PMPTDdk+bJNTCOaNwgcX8zxs+tNPcoLNnN
-	kHxPogPDTfWCKcxXhbxdo7inkqLQ86bBefdCwr/tuNI0tIs1Cv7nlGXDfvQ+65TZXbUAAXEsy8n
-	XLEVfFyD8H9WdqAMRrcRVFGh9Psr7+cmE8pMMtt2C
-X-Gm-Gg: AYBFou1m62muwmdchqHgE3qJpUdiU3H3Q/rqLY51QaUWtURh+Apgl8KHfjchT6tMP4J
-	kpcfel4XnB9HuBI2HzSi8Xh+dbU003apceZpEfvI7ow/NRKMuJQPdHasPq9g+6sB9k8aqqC801p
-	ZVHBVYORRuyyhrG6wXoUxW9D2WkyVsWEaatoVPQAx3ffd8psbNPaAmbvGT/WOYTErmPf4y7bBGf
-	t4leg3lqk0UMCQJyq797jAtmo+VMkQ4J1NxdvJwXV3Gu2Qa/vdOC2kqhfe4zZYtPIsFoNJ0+ykv
-	UOWwerG5rBaR/JLPO26WGy6YPCGpntAWuuJgILOnIoL59N7G1eB6/6IrHSd/+XyqhdSPW5gD4cJ
-	00E/wiT3tByC3miYwncYBH7t3AS2eXh8tOt8uXYalM7Muqs6vlni7fzy/hqG9QWshtapr
-X-Received: by 2002:a17:907:9285:b0:c49:8bf8:a7a7 with SMTP id
- a640c23a62f3a-c50963173bamr342209766b.7.1794607914514; Fri, 13 Nov 2026
- 14:11:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=f3lix.dev@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=lbNhEsb3
+DKIM2-Signature:  i=1; m=1; t=1794607970;
+ mf=PGYzbGl4LmRldkBnbXguZGU+;
+ rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+ d=gmx.de;
+ s=s31663417:rsa-sha256:DQQRm2Z7QN9G92r9Gkze+8AdqEyL
+   MdFJ6nY7RJeIiGzKJbuqFWPS44N1xY1xVEw1LGPWJRJT9vNnKC/C4aw/A5Ty6wMJ7kfWLLOJU0n
+   wLn1OfFVZTqlx72dsHhTZ4YHXSTqtVq20a82JDQNvvXsA/s4MnNCl2+xUDIaBQSt+/Ea80FSq/W
+   zjezh7wO9G52p19Yovcp0i7P7OSMoa9jwxLVknV7gbsvpk6lXEPiRZVk3lDHbSQg1X+DbsKtma9
+   DUiKpv2KERgtE5Nj+DuQONU4upIVQDENy0LO538Ai6XmEDcl3BWPcCrWfdOLOaG3MSWoVRZ9HuQ
+   YvM23tDSLVohoA==;
+Message-Instance:  m=1;
+ h=sha256:
+   a7+q3gKxZCuWENP4aUNwZ2r84GFElUqI4Z+SEsMKYnI=:
+   7j+GxF8kRqQPdwxWg0x21hzpQno63uZ1HAcP7K/63Sg=,
+  sha512:
+   yarEuFoUG73Ww0NXDi3f9g4xvqcoi1Nl7KvK2GouGX6CsqVRcmbokOc1WYpgu10WtodlLPLcw7vWMs1WkJgiYQ==:
+   vDRf4iAdpMorThC3ozUPnlIykk8PbYOAUGjzik9nP0qPTIGaP3WVTMwOhZ4N1m06jERjq2q6MJoRcBzWrjIy5g==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1794607953; x=1795212753; i=f3lix.dev@gmx.de;
+	bh=bIbjncsqO/4pvbgKTGgg9uQBds+FvcX31Fd72Ll9c/g=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=lbNhEsb33ZGf/CJquxg9smV5wFpgMFqIDvbSPY7o8LqTQXjz/+lAmZDDW3cCTMf7
+	 dGZZWukGvYPl/Ot1cvdoThdVlvEhxk/H4tMJpGp98cUeSqcTMRfuRQhKkxMmTTOVK
+	 LA5vtpG49BSMjHJIiAV6ko6u2HtX6D/WqTDOLbbY01541QU5tY+g0qEEXvOiW/bFj
+	 MoyGovK+IGj40HgdNbDZmB4ib9QhsltggC0ZLLKPCedLZQLiiuhHjnbjyjiWbZjTu
+	 sOM6+D5EDEchVODpEOI9k23L3iMjqDr1af16QPKkF2rgpHp3e6qocjSnNGDx10C8J
+	 zBNpFVuGj8aBWvz7Ug==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MMXQF-1x8XLi0u9v-00INGg; Fri, 13
+ Nov 2026 23:12:33 +0100
+From: Felix Hoffmann <f3lix.dev@gmx.de>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	linux-perf-users@vger.kernel.org
+Cc: Marco Elver <elver@google.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] perf: Hold exec lock until owner-list publication
+Date: Fri, 13 Nov 2026 23:12:20 +0100
+Message-ID: <20261113221220.162338-1-f3lix.dev@gmx.de>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,25 +96,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260918025416.604297-1-dhavale@google.com> <2ednz67kpd2ikrnerrmnvol2mdfntgqhakuoiu7x4cnrlpiugm@ojqolvlfmpnj>
- <CAB=BE-Svy3yoG+nJ7Z6Us5GG2Rj-7dyCY+EMpR9Y+PtyXUKnCQ@mail.gmail.com>
-In-Reply-To: <CAB=BE-Svy3yoG+nJ7Z6Us5GG2Rj-7dyCY+EMpR9Y+PtyXUKnCQ@mail.gmail.com>
-From: Sandeep Dhavale <dhavale@google.com>
-Date: Fri, 13 Nov 2026 14:11:43 -0800
-X-Gm-Features: AclHuK-6Nfu6yXgfsqoXIuZdafpVDjnEAv-_a_h3e0B--jKTepPtMeiRqE-zaPU
-Message-ID: <CAB=BE-QiSn5N=R4aAXSzqvvac7rUb95grTidv6DVfKnjha=drw@mail.gmail.com>
-Subject: Re: [PATCH] ext4: fix race between inline dir conversion and folio read
-To: "Theodore Ts'o" <tytso@mit.edu>
-Cc: kernel-team@android.com, stable@vger.kernel.org, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, 
-	Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Gfi6xHa+n0OvIvo97DzBHqBW6kyEB1Vsdn/83c2R/teVa2aou9H
+ NI5Mzqdu0Vu0flD/h+WI4Hv5u487P7wqcCU/lCkNvGxQaX837x1P4JrEzD+b2xH35RhqzKG
+ bvbQM4MaFcPiqHy6QUsjjSCehg7oI9jcebSfaarkUcwF8lRlNIIfQA51Gi2CWSfbGc5PMf2
+ +d6BU0Q7iLMAMj7ti8Dew==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:W7egKwAczKE=;rdOReuTFot09TvfnIFb2qfJWUHj
+ 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
+ j3vHFPGgafDWkCrkIg==
 
-Hi Ted,
-Can you please provide feedback? Looks like this was not picked up,
-makes me think this slipped through the cracks.
+perf_event_open() installs a remove-on-exec event in the target context
+while holding the target task's exec_update_lock. It then drops that lock
+before linking the event into the opener's perf_event_list.
 
-Thanks,
-Sandeep.
+A concurrent target exec can therefore find the installed event and call
+perf_remove_from_owner() before owner_entry has been initialized as a list
+node. The resulting list_del() on the zeroed node triggers list corruption
+and can panic the kernel.
+
+Keep exec_update_lock held until the event has been published in its
+owner's list. This closes the visibility gap while retaining the existing
+lock ordering.
+
+Fixes: 2e498d0a74e5 ("perf: Add support for event removal on exec")
+Cc: stable@vger.kernel.org
+Signed-off-by: Felix Hoffmann <f3lix.dev@gmx.de>
+=2D--
+Tested on x86-64 with KASAN enabled:
+
+  - on the unmodified current kernel, the unprivileged reproducer triggere=
+d
+    list_del() corruption in perf_remove_from_owner() and panicked at roun=
+d
+    4,400 as UID 1000
+  - with this change, the identical reproducer completed 10,000 rounds and
+    8,395,975 successful perf_event_open() calls without a BUG, warning,
+    KASAN report or panic
+  - kernel/events/core.o builds with W=3D1 and the KASAN-enabled x86-64 ke=
+rnel
+    builds successfully
+
+The reproducer and complete console logs are available privately on reques=
+t.
+ kernel/events/core.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index f5f2261f1fe6f..f4f292f7b47e2 100644
+=2D-- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -14414,15 +14414,15 @@ SYSCALL_DEFINE5(perf_event_open,
+=20
+ 	mutex_unlock(&ctx->mutex);
+=20
++	mutex_lock(&current->perf_event_mutex);
++	list_add_tail(&event->owner_entry, &current->perf_event_list);
++	mutex_unlock(&current->perf_event_mutex);
++
+ 	if (task) {
+ 		up_read(&task->signal->exec_update_lock);
+ 		put_task_struct(task);
+ 	}
+=20
+-	mutex_lock(&current->perf_event_mutex);
+-	list_add_tail(&event->owner_entry, &current->perf_event_list);
+-	mutex_unlock(&current->perf_event_mutex);
+-
+ 	/*
+ 	 * File reference in group guarantees that group_leader has been
+ 	 * kept alive until we place the new event on the sibling_list.
+=2D-=20
+2.43.0
+
