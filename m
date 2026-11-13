@@ -1,55 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606153;
-	b=umEKn5X+dXnXbItDGiX/lqvqDKowEguiz+0akk3gyIlC6UyirGS0lb1yRMn5TwJKCz59
-	 V6fySplqGVeZxU45cU+TaOX1Y9o9F+u4NC05wThcvkj2Lk09ftg2FJvZxSY/qfbyh4AEI
-	 yO0yOPgafp6RQZtI1ZrKeU+FFy0cajJR2N1L48Ky9PDdAqRpoO2lasg5VBZ7fGf4OYsgG
-	 PZZFS3vrdaPHZThw+jsXcN1sdEQXaPA7jl4ws2B2PwubHQKC87AfWCPEAnRe6hchYtyc1
-	 Yr/BoqWyiZYDMAQNRycPADXrwiuujvGJhx3F35ZI9b4+mFc+LKiM9oxWKRSa2k+HG/g==
+	t=1794606340;
+	b=zyYeKBEvFFOwlCAMslMdM1tWW/voHFHziVttmok7pOyr7LsUDfQkRtmfTf6NC1its1Kw
+	 vTSZFT6GZWzNzBbP6KSDUSZIQubYRezIyjSnpYfb2Kdi6mNELM4malBdFo+Y4CAc29xAY
+	 PHrRq0fKMuTEC8aPf0uzHR48m71Ys1o5cGSiJFYJQgQEp3mrRdpUgszrrhpqfsgUit96Z
+	 pEd1MfBwdLp9wnDF9aLjrZ8r+6lF2s2GApofPWqtSsFs2IlQwYmFuUlH9bYcyfeUA/GI3
+	 4uLXF18Fs8DPLbveOFsIVtOSuXQYCdCykxciRn8hSkswheL0MnmTLz5eRYIAjyNjrVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606153;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Gner5bYpYIFeR0zyHnHICqOBijztzQG+icYK31fBVS4=;
-	b=dD3iBgEKc6tnIU27zycP8K8r748+oAx8CsVrCOGtZG6Adx+tSI2ub+FfYixoBTpwNdSx
-	 Uxw/iOxBgmm722mSR95OSV8OseWwa7ByHdgVSqkLNymQ5bsjtQdmLpFPHcUTGaD2b3+7L
-	 8SqHoMqB1yyjtMU0Vs6z9VKA2Ujb4gqJJHCA3u9mQ9i/4uH21hETYIPHiiHK1dMOYcYV6
-	 t5JNnjXb5mCAMqHXOtzg0rjlMYt56Gtgn3L9qUko+Fhvr5vr8aulofzxcMY1Waoiucqoq
-	 ypUWiqABDJj7s31xNIOKeGDK2xeDGfqsc8WOMz1FIOMwugQ/HxF49aa9s3XkSeVhV1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606340;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Q0tWAXinCIgLv5dttmkNHUIbP0pSuN0NtpeU2dsb3tQ=;
+	b=Lhbm+ieR11OHovjj+Etp/ySXecTdzIgeIpP+ueoNne9hEpGE8TJkDe1MCcgKZXjYIq9r
+	 MUHLKNTtp/eKQp73w89y5eKof9rEK3jAopRme6mDeViE1oExk5AHIhPkzlfhq2D36RTqu
+	 13LDp93hD+iLS14Mp08/AeOoJDWMLkAoFdAaSX0V1OgFvKkatiLkgjzFRPHlaf2L/nzbL
+	 HvgwSxxwZK7e7VycEeaqGO15nHV8QLMCHbDKm0f3xZsSlp48j2CHsL1p/kxVV994sX1UP
+	 zqq1yt0f7JEs/YGx/xFLEX/PT/MPhuiqaHzqtB6PJWV5sKGizqkuDMQ2o3d8mJveT/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEsLHYT8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fn8u7LCQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3800A606A32D
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5FB606A327;
+	Fri, 13 Nov 2026 21:45:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEsLHYT8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488B21F000C4;
-	Fri, 13 Nov 2026 21:42:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fn8u7LCQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40EA1F000C4;
+	Fri, 13 Nov 2026 21:45:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794606152;
-	bh=Gner5bYpYIFeR0zyHnHICqOBijztzQG+icYK31fBVS4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nEsLHYT8GVPqw8KoR5s47Qhp+YqR1sW+EmSZnmLYjaMIrqdaXSI3OsLbER8CyeY9S
-	 xjQCw/yah932PTEcSclljdXrfxjFf1ulIcBC7ioYCZMgAuwLyzP7horojuN6lyF7jy
-	 l/Wk46Luy6sKFdZJ0Ngp9FUKXF1i2nSoALIMm1RbTsZyVq9p8NvZ0TkMehHM5gYxAw
-	 ytncqA+lVCyX2lXgCljXemupmct+JFRyHocVwqhpzSRQf3CCpihybf9xw7e4g133Aq
-	 bAUZPL1UdkKfjng51kCRLTnd9iJlsHtFbB9EJY65MzyNmwtC5BBaD2k51B7irfoEEz
-	 mWkZZqZ1uzQ/Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ksmbd: let the owner read and change the DACL when no ACE names it
-Date: Fri, 13 Nov 2026 16:42:30 -0500
-Message-ID: <20261113214202.2623495-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201545-failed-6.1-ffc855fe16af@kernel.org>
-References: <20261109201545-failed-6.1-ffc855fe16af@kernel.org>
+	s=k20260515; t=1794606340;
+	bh=Q0tWAXinCIgLv5dttmkNHUIbP0pSuN0NtpeU2dsb3tQ=;
+	h=From:Subject:Date:To:Cc;
+	b=fn8u7LCQR8nMJZBtx/n+P4sWBF0VR0jTAueDT0Kw27CAclWjmhQl2IpHuHNF4C8MM
+	 ugt0dqKUv+L2lSkFpRfmzzIoPiUJA+wUdOXVRgo/jMskFOgwkLAOvm6vIFbMgxUt/f
+	 iN4GIHbkW5mm6V9AY2D7zBp6NUhIMfi0bl6p2ixusZKmzFosVckwZe8aAf/rBKf4E7
+	 RM7kbiY9hkwSbY2F/O9GLb7dvi1nr9hly4cEQmfCOgKzat8LvvGvf37BeXMgRBnFT4
+	 ZYIW6LnHKVBtODdm1YOCKKbrAHtnM3cIbObeELAzVsf2nf1dgNm+3FZmMr/FsLs5VN
+	 S77fwl6wjEP4A==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH v2 00/13] mm: batch of (urgentish?) fixes in oomk,
+ cachestat, dev-migrate, percpu
+Date: Fri, 13 Nov 2026 21:45:18 +0000
+Message-Id: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,131 +54,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4Xs2TVtWRE9+R+GQ0NXaISWbAnRE
+ P7dSjx7fDN5MyskFs8JrsUKwotPPoYM5lBA29vQMXqXGYwyldbqjKNNMeDoO7EzI89oB3z4Fyd
+ UdCFXUl1TS5D9SXgvsn5vMvc+zVHe+9Wiv+lvVes/q4tGhaUzdKKyMly725Ml8HCM0kGzbdsHe
+ 25PYMMAAAA=
+X-Change-ID: 20261107-mason-migrate-et-al-fixes-0494d34884c4
+To: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+ Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2478; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=YTbJV0/mNdYsHn7jyNW9SuR23YhuI1Yfpt13SCQKfeY=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+t3wNYrrWVpz4Sk/1zqKP3gzhMVUlRlVJBuJVCucy1
+ +VOn/uso5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABNR0WX4K52k3XA4Vvzvvcvr
+ n+bfuvhel/mN/HWuddtf2NYkPNa/4c/IMGPfLwdrdSFrlfTDftPYJONzzlXpHK/rOv1MVjw8ZZc
+ XAwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Ian Bridges <icb@fastmail.org>
+A bunch of fixes for oomk, cachestat, device migration and the per-CPU
+allocator.
 
-[ Upstream commit ffc855fe16afe02b22305111aa68cd8d07360941 ]
+These patches were originally AI-generated, tamed into upstreamable state.
 
-smb_check_perm_dacl() refuses the owner when neither its DACL lookup nor
-the POSIX ACL fallback matches. The owner then cannot read or replace
-the DACL over SMB. MS-DTYP 2.5.3.2 grants the owner READ_CONTROL and
-WRITE_DAC unless an OWNER RIGHTS ACE applies.
+Some are more reworked than others. Those which needed a significant
+rethink are submitted as mine and marked as Reported-by the relevant
+original author, others are smaller edits which are annotated as such in
+the usual fashion.
 
-An empty DACL allows the owner's explicit requests for these rights but
-refuses MAXIMUM_ALLOWED. smb2_open() uses that check for the maximal
-access reply (MS-SMB2 3.3.5.9.5), so even a READ_CONTROL open fails when
-it asks for that reply.
+Please check for correctness, sanity, and whether the cc: stable is
+warranted (I have not included it for 3 where it seemed unwarranted.)
 
-Grant the owner's implicit rights on both paths, for explicit requests
-and MAXIMUM_ALLOWED, unless an OWNER RIGHTS ACE applies.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: added missing owner-check prerequisites using the existing i_uid_into_vfsuid(user_ns, inode) API ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- fs/smb/server/smbacl.c | 52 +++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 46 insertions(+), 6 deletions(-)
+v2:
+* Propagated tags, thanks everybody!
+* Clarified commit message in 1/13 as per Michal.
+* Added a description of the fix and its performance cost to the commit
+  message of 3/13, as per Usama.
+* Updated 8/13 to also refuse to migrate KSM pages to device coherent
+  memory, as per Sashiko.
+* Added Gregory's benchmark numbers to the commit message of 13/13.
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index f0ec137e4efce..74aaaa1aa8f4d 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -27,6 +27,9 @@ static const struct smb_sid creator_owner = {
- /* security id for everyone/world system group */
- static const struct smb_sid creator_group = {
- 	1, 1, {0, 0, 0, 0, 0, 3}, {cpu_to_le32(1)} };
-+/* security id for owner rights */
-+static const struct smb_sid sid_owner_rights = {
-+	1, 1, {0, 0, 0, 0, 0, 3}, {cpu_to_le32(4)} };
- 
- /* security id for everyone/world system group */
- static const struct smb_sid sid_everyone = {
-@@ -1452,9 +1455,12 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	int i, found = 0;
- 	unsigned int access_bits = 0, denied = 0;
- 	struct smb_ace *others_ace = NULL;
-+	bool or_ace = false;
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
-+	bool is_owner;
-+	vfsuid_t vfsuid;
- 
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
- 	pntsd_size = ksmbd_vfs_get_sd_xattr(conn, user_ns,
-@@ -1475,12 +1481,28 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	if (pdacl_size > acl_size || pdacl_size < sizeof(struct smb_acl))
- 		goto err_out;
- 
-+	vfsuid = i_uid_into_vfsuid(user_ns, d_inode(path->dentry));
-+	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
-+
- 	if (!pdacl->num_aces) {
--		if (!(pdacl_size - sizeof(struct smb_acl)) &&
--		    *pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)) {
-+		unsigned int allowed = 0;
-+
-+		/*
-+		 * An empty (present, zero-ACE) DACL grants no access to
-+		 * anyone except the object owner's implicit READ_CONTROL
-+		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
-+		 * deny the owner any access beyond those two bits, and do
-+		 * not let trailing bytes after a zero-ACE DACL become an
-+		 * implicit grant.
-+		 */
-+		if (is_owner)
-+			allowed = READ_CONTROL | WRITE_DAC;
-+		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+			requested |= allowed;
-+		if (!allowed || requested & ~allowed)
- 			rc = -EACCES;
--			goto err_out;
--		}
-+		else
-+			*pdaccess = cpu_to_le32(requested);
- 		goto err_out;
- 	}
- 
-@@ -1561,6 +1583,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			found = 1;
- 			break;
- 		}
-+		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
-+		    !(ace->flags & INHERIT_ONLY_ACE))
-+			or_ace = true;
- 		if (!compare_sids(&sid_everyone, &ace->sid) ||
- 		    !compare_sids(&sid_authusers, &ace->sid))
- 			others_ace = ace;
-@@ -1605,8 +1630,23 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		if (others_ace) {
- 			ace = others_ace;
- 		} else {
--			ksmbd_debug(SMB, "Can't find corresponding sid\n");
--			rc = -EACCES;
-+			unsigned int allowed = 0;
-+
-+			/*
-+			 * No ACE names the owner, who may still read and
-+			 * change the DACL unless OWNER RIGHTS applies
-+			 * (MS-DTYP 2.5.3.2).
-+			 */
-+			if (is_owner && !or_ace)
-+				allowed = READ_CONTROL | WRITE_DAC;
-+			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+				requested |= allowed;
-+			if (!allowed || requested & ~allowed) {
-+				ksmbd_debug(SMB, "Can't find corresponding sid\n");
-+				rc = -EACCES;
-+				goto err_out;
-+			}
-+			*pdaccess = cpu_to_le32(requested);
- 			goto err_out;
- 		}
- 	}
+v1:
+https://lore.kernel.org/r/20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org
+
+---
+Chris Mason (5):
+      mm: cachestat: count each page only once
+      mm: cachestat: restart the walk after each entry
+      mm/migrate_device: fix ksmd oops on a migrated KSM page
+      mm/migrate_device: refuse to migrate shadow stacks
+      percpu: queue the balance work on an unbound workqueue
+
+Josef Bacik (4):
+      mm/migrate_device: allocate THP deferred split heads
+      mm/migrate_device: don't collect a range twice
+      mm/migrate_device: don't let go of the fault page
+      mm/migrate_device: look up fault folio after a split
+
+Lorenzo Stoakes (ARM) (4):
+      mm/mmap: free gathered pages before MMF_OOM_SKIP
+      mm/migrate_device: fix use-after-free of the anon rmap
+      percpu: fix contig hints that are too low
+      percpu: search the whole reserved chunk
+
+ include/linux/migrate.h  |   1 +
+ include/linux/mm_types.h |   2 +
+ include/linux/oom.h      |   9 ++++
+ mm/filemap.c             |  21 +++++++---
+ mm/migrate_device.c      | 107 ++++++++++++++++++++++++++++++++---------------
+ mm/mmap.c                |   9 +++-
+ mm/oom_kill.c            |   4 +-
+ mm/percpu.c              |  69 +++++++++---------------------
+ 8 files changed, 132 insertions(+), 90 deletions(-)
+---
+base-commit: 7f04048247a69019ccaa9c152002d3601b19453c
+change-id: 20261107-mason-migrate-et-al-fixes-0494d34884c4
+
+Cheers,
 -- 
-2.53.0
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
