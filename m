@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597334;
-	b=BpcJk7FyOwK/CA3eyHLycI+/7oJLE/gFjnxgk4EPzJEPOwjbYddRbq52sBcPNUPTi3Pa
-	 GpbDO0LbW5vogPcDwJcE8ms3dZ2hdu7zhbnI5lwMcN24eB2JxDm+utpS/SxykGGOgP++S
-	 +CHf4fr4/El/duatDxfYSHq7CFUBSwlLiQ+Mb1hPJZDoAaWlBNzxMZnMCMMFZpLxsx6+H
-	 FL9qL2zgVmpgX8qKKKJM3L/2seIRT3p2NNj9aIgSrc7gr2abn9Cpm4iuWQ9OQysTvNnEa
-	 DBmaibunuf6/T9wpo8u8xCmHP8Kup1S9sBH8PEo9n09OicbJTMu4TNTxtLViOrmfQrA==
+	t=1794597335;
+	b=TtOymax0lW36hEpDu4b7HWoq799whoSmr1Rp0u6AhW1lXL3sOpiJcCtTB2kO0TlVSptG
+	 EDQfYL12qCuRueTTgs7Leh76saftT1FsqTL8thCCAPxSiAYzQhVLeaH7I3hijwje6lKUR
+	 IlUBw7cls1bhpWC71GDQTwl4SIYGsD9sYJRpFKO1L4gBysm5gKzPL8OUIiAxN0B1dN0PR
+	 kDgax8zxa/U1ujdqCsZjDuocNZvQX/FNCs8Dpp99MGg8/4Oe5zidc9Tyd3CJYHGuRe24F
+	 EWkyru3rkqir3bOa6XFTCdO9HkWd9GEEsjbyGJD5CWf5XiJxAuCOW1qQndI6E5anGpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597334;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597335;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=t6gX1o9HnrJ68NCau+IAle+WU34oA9+PvP8lPYYjGxw=;
-	b=CncHajCNlovKNexEK1Icr7y+1nQLG/ZXGISjXTeCqrwYZIVarnDVHxLX6HHAxsjTpU2N
-	 Vd+l9xxT8YlUWIP4m+PtGEv58dHLCn0nIlk+3TDxq32mlY0CfaGvpZ3ZSb4jctiVVbbbH
-	 IrIXNNRbflybHcmoZvmWdGncC4oXbnGWeVNjh5/PiGj/7w5Uh0P3SM71Z9sflvfjx0E9i
-	 Q+UXHoIevhuwtf4YEl71hy+SEGzF/+wowq/YdAwum9b5DNL+VIdm0iBsYZMclLf0jWH6W
-	 mrraPRKVTk+TzXWk/QH1bwBdcrSYgRyxhX4UNpyGCKdhwUsn9a98iWXZfB47+0IukTA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WgE+j+C6Mmk18AgZO3JFTXz+SXYpJbb3Y0WQ2F+OhxQ=;
+	b=M5b2uFQLsfxlvxSoA4M4V5IodRu9X+CR0hhVX4CaQC+aNiz2uIxtsudMKZ3Pj+pDLMaz
+	 ZEKXrK3mDh5CE2kXGMXwJJMONgYrb04ikYwftR0DllSFoAps5eGaqnG58OS7rDv73S9Sv
+	 SMIwUbk/1ZYWPEhlXrKGmD+yi1VXd8jMWPuYjtYFkaoOH4g43L9b/vuG9K2kDDO4PwR3c
+	 KMSZfcsPXH7PLQ6+RjNdwqlKY7SR98AGjsgE/ievTFZNVq/fTg7S/jtYk3lme3ipYr2Nu
+	 BVtDrgEhRn0rM20Fi4+dCvNmghTJd6fkYds+eAxGYaYQgzjSY+pNGv9PxG6pffvI8Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yy0kvYDl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2y4rat2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE78606A32E
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:15:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EF4606A323
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:15:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yy0kvYDl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 226211F000C4;
-	Fri, 13 Nov 2026 19:15:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2y4rat2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F971F000C4;
+	Fri, 13 Nov 2026 19:15:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597334;
-	bh=t6gX1o9HnrJ68NCau+IAle+WU34oA9+PvP8lPYYjGxw=;
+	s=k20260515; t=1794597335;
+	bh=WgE+j+C6Mmk18AgZO3JFTXz+SXYpJbb3Y0WQ2F+OhxQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yy0kvYDlfM63MV2tixIKqe6pIQ0ZDIF2RBuYdVFldgYhro2CmLX3OivpdvIBxvrK9
-	 qHXQQLJNXBNTyKmhcTCE6EPPQZzWnRXMMMM8vvTOKObha2ALPEVUsGgzxyxLK6VyRh
-	 MfxSyiJTfx1Cc4v40cRcvFzAdCFESRHUuz/5yFAeHQq4EwIbvLRoF24pGcYS7ZULG2
-	 loAWCurTfkUCPSIWG0E4OxI50p8wiUwpw4n5If1nR9rARxiQFbODct8zP6Ij6iprzW
-	 FDy/DzxvH3YvNmZgYP+MC/j6x0ohcREBX52vWZ1TtFAugKW6wVHVAKmLN0o+h91gI2
-	 4wZoLI/rBGsaQ==
+	b=N2y4rat2hWANfS9nHdlrYgqsduv8378hG/X5qDgLyzgJFMEdSktMo6OrU3tISbHo5
+	 R5yI50vv50SS/emDO76VzmMu18jwuFtktV35+xeWHAd7B+iifZ5H9GiFDgGf8i7wg8
+	 ihwuF5lVsGsqjp3l4Bno5cCUst6UxqnW4iAgWZviFauNayaXmz7/R3qI676IebyynH
+	 ByJYntThNfq6N75ARSX16VUFrl0KoT9KKzpAGfD+ib0SijSeXL9rtbC1y4TkVtvb6A
+	 NuTOG4DfUntH5s+g/63VkYtW3cOk0iw1FhdOYOmwSbqWXjLb+1xDzJeo6LaltB40MR
+	 FLI6J855Ueunw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Harry Yoo (Meta)" <harry@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Sashiko <sashiko-bot@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/vma: don't leak the charge for stack growth
-Date: Fri, 13 Nov 2026 14:15:31 -0500
-Message-ID: <20261113191040.2081132-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] hwmon: (tmp108) Fix initial conversion delay and wait until ready
+Date: Fri, 13 Nov 2026 14:15:33 -0500
+Message-ID: <20261113191039.1972348-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201404-failed-6.6-b1ee87802111@kernel.org>
-References: <20261109201404-failed-6.6-b1ee87802111@kernel.org>
+In-Reply-To: <20261109202140-failed-5.15-7cd60538073e@kernel.org>
+References: <20261109202140-failed-5.15-7cd60538073e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,50 +60,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit b1ee87802111156e27557e82acc31fa7dfc76e2a ]
+[ Upstream commit 7cd60538073e465310c94b2a2f0ea8d2f03768ef ]
 
-acct_stack_growth() charges stack expansion even without VM_ACCOUNT.
-This can happen for read-only or MAP_NORESERVE mappings created with
-MAP_GROWSDOWN. Unmapping these VMAs does not release the charge, leaking
-Committed_AS.
+In tmp108_common_probe(), the driver only adds the 30 ms conversion delay
+(TMP108_CONVERSION_TIME_MS) to ready_time if the sensor was previously in
+TMP108_MODE_SHUTDOWN. However, the TMP108 hardware defaults to continuous
+conversion mode (TMP108_MODE_CONTINUOUS) upon power-on reset, including
+immediately after enabling the vcc supply regulator during probe, while
+the temperature register retains its power-on reset value of 0x0000 (0°C)
+until the first conversion completes. Because the initial mode is not
+shutdown, the delay is bypassed and early reads via thermal zone
+registration or sysfs before the first conversion finishes return an
+uninitialized 0°C reading.
 
-Only check and charge growth for VM_ACCOUNT VMAs, matching mremap().
-Unaccounted growth skips the overcommit check while remaining subject
-to the other stack-growth limits.
+In addition, returning -EAGAIN from tmp108_read() while waiting for a
+conversion to complete after probe or resume can trigger an unnecessary
+tight retry loop in callers or fail initial reads.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Unconditionally set ready_time to TMP108_CONVERSION_TIME_MS ahead in
+tmp108_common_probe(), track ready_time as ktime_t, and wait for the
+remaining conversion time in tmp108_read() using usleep_range() instead
+of returning -EAGAIN.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-44-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Replaced vma_test(vma, VMA_ACCOUNT_BIT) with a direct vma->vm_flags & VM_ACCOUNT check. ]
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: adapted probe changes to tmp108_probe() instead of tmp108_common_probe() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mmap.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/hwmon/tmp108.c | 26 +++++++++++---------------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
 
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 10d5e416e80d1..d1cabe718b63f 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -1957,7 +1957,8 @@ static int acct_stack_growth(struct vm_area_struct *vma,
- 	 * Overcommit..  This must be the final test, as it will
- 	 * update security statistics.
- 	 */
--	if (security_vm_enough_memory_mm(mm, grow))
-+	if ((vma->vm_flags & VM_ACCOUNT) &&
-+	    security_vm_enough_memory_mm(mm, grow))
- 		return -ENOMEM;
+diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+index 4420774e6bff6..1c8614278e9fa 100644
+--- a/drivers/hwmon/tmp108.c
++++ b/drivers/hwmon/tmp108.c
+@@ -14,7 +14,7 @@
+ #include <linux/of.h>
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+-#include <linux/jiffies.h>
++#include <linux/ktime.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
  
- 	return 0;
+@@ -73,7 +73,7 @@
+ struct tmp108 {
+ 	struct regmap *regmap;
+ 	u16 orig_config;
+-	u64 ready_time;
++	ktime_t ready_time;
+ };
+ 
+ /* convert 12-bit TMP108 register value to milliCelsius */
+@@ -94,6 +94,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
+ 	unsigned int regval;
+ 	int err, hyst;
++	s64 delay;
+ 
+ 	if (type == hwmon_chip) {
+ 		if (attr == hwmon_chip_update_interval) {
+@@ -123,12 +124,10 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+-		/* Is it too early to return a conversion ? */
+-		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
+-			dev_dbg(dev, "%s: Conversion not ready yet..\n",
+-				__func__);
+-			return -EAGAIN;
+-		}
++		/* Wait if it is too early to return a conversion */
++		delay = ktime_us_delta(tmp108->ready_time, ktime_get());
++		if (delay > 0)
++			usleep_range(delay, delay + 1000);
+ 		err = regmap_read(tmp108->regmap, TMP108_REG_TEMP, &regval);
+ 		if (err < 0)
+ 			return err;
+@@ -371,11 +370,8 @@ static int tmp108_probe(struct i2c_client *client)
+ 		return err;
+ 	}
+ 
+-	tmp108->ready_time = get_jiffies_64();
+-	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
+-	    TMP108_MODE_SHUTDOWN)
+-		tmp108->ready_time +=
+-			msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
+ 
+ 	err = devm_add_action_or_reset(dev, tmp108_restore_config, tmp108);
+ 	if (err) {
+@@ -405,8 +401,8 @@ static int __maybe_unused tmp108_resume(struct device *dev)
+ 
+ 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
+ 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
+-	tmp108->ready_time = get_jiffies_64() +
+-			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
+ 	return err;
+ }
+ 
 -- 
 2.53.0
 
