@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581199;
-	b=1fOh91V3nfP0P3LtQ6fe7t9CwMKykOuHFku8lcjDMOj9jfzDhQtRSqrSCiliHoRuc+dr
-	 VWNk6L8VXjrkfAyOf+0WkH6NIAJgpTJM1Jr58fxTHZ9bdBe4RoupO0b76juPjyDt7Bcuj
-	 nPdE9Q4WjeNuJQz53F6AcZhduAIHq0Fl2AcJ9MxkePO2BEF3U+Z2L4Snjonjc/Vm771d+
-	 RrAAIlh9D8viCM+nvVRxQyZ+bVHnUJLAWqRA03f54WPlsJgtUc8oMYuv04uYkmG4vEWtO
-	 1tonsYEDnWSnXCGIKGsw1kgMkubn+H/NWzvfwcVz1XtyH2bobkuyGU2iEDaM4862qIA==
+	t=1794581272;
+	b=VEzzM6wSTp2ch0E7ThjFfFjOT27NPUbZ/1XL0q5rFrDrC4FiXJfg97w6sQSkoOSvju4q
+	 euAYbVActGeW/6MNaCxKteKFfRf1U9z0yPcdzbZp3nknHq6rPooH0TbbsNdXjJljrgjrw
+	 v+evAv4zOxQJIZ5Npb+zbAmTRz5toFFnMCiyPjMKfeOaEdNFQPTZ5CijeTLyYLVboOYyu
+	 QXJ83KyvadST5q51XWgjJOFJeU7xC7+xr/L9xFR4Z1KOVzz0qmqoTO72sSQhdOPJ3OQh6
+	 TC9kSwKV/RpSrbzkqQ1o/3SvbatxX+RsgHpMfPxYxMUl/Kcavl93tzhdxIZqCyf8UiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581199;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=vkoMBJPo+WdkqZ2neN3GroWz0YU+ZDiV2vvpQrhjj/g=;
-	b=Y5tFk5gOAkeU9wsXqa2jvQMEDkCDi4id/sZ+9R5FtWHG/lhSHVFSsSfX1hSgnCp6IP2S
-	 uxOg+mwCDSxZlJ9rwfvS3THsx0aKkg8yzEkvC5FL5fYAhjy7y3jQ4T0Wy1hnOY6/bSkwP
-	 mZ9UTCm+RHz2jsEV95BoJur1eS+/5ed/2UL1MhD9ipUs1cTRBsfVwjFOJP0t/EsB4hpTV
-	 Jp8USk9JriJVFZAQcL1TFmlNUw8tkbKA9JgWSvp3nss9CAvATfuRT+cnZWxFSpidL0za2
-	 YjK539Ye3vFQgwqUH4LUMR3wMRmzGu/j4f2RvgOG+vWj2bLxR3Dgw70ULcmKJK4z/Eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581272;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=M+aiT4XYIrTKg6608Ukrsg48EgQ5OWjzFBlXdwB7wa0=;
+	b=42lHzNt8dpJ0Hyo4d5zZb5PeqsW0aos9iPMN2FhQ1kv5N3MPBtvk3grJQmp+OF5Q2SHP
+	 a5t4FO/BuNIq75ly4yUi0hmVXb+0EX+O+4+h4wNqn7L0YjaDU5EaM1wTq+tF6SYyr1hhv
+	 uqK/81qrslosAEMrXqBo84gTxpyoUe3MfOZd7ZioV7Steh6p297fmfMzifUWDWhu8BP+u
+	 oXeKqqWED295Uz0TTla3sbDxmAj4ipGguBKk/zVWvaXvbpQ/CFmCt5AZup5yn8wwgMiXw
+	 DM1/aiIVMjW8fWBHef5ikOB0FAqIQ2X1QR11G0sm+3bwK8qj9SJNWMNvWAjwFqbrxGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O6Y/jLt+";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VuVBtcQS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A54606A32D;
-	Fri, 13 Nov 2026 14:46:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80718606A323
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:47:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O6Y/jLt+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D42F1F000C4;
-	Fri, 13 Nov 2026 14:46:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VuVBtcQS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AF1D1F000C4;
+	Fri, 13 Nov 2026 14:47:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794581198;
-	bh=vkoMBJPo+WdkqZ2neN3GroWz0YU+ZDiV2vvpQrhjj/g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=O6Y/jLt+a86yNC2kplFKwXNcKTytfRVKjRKGFCnS+RwVXNjyU9eijooU5uRPpnGyr
-	 CzNvbDHEWNkG4R7Qyj+SrsId/vy4YlICBDEBmQFmdEP+JwcqLOHUFuWtm+NVSTmWBZ
-	 hksGlgKSAPyxw13Ta7oMqYJEkVnMOcBuGJoxSrcgF/pxIArFaFAF1soJVrfq65Jz9Z
-	 4lW8vfAgewvnHR1KLpFBtaoEzf5ClLl90Fyt0PpdDNdyISOORjFUzDI5u8kx/FkAYB
-	 xVbZhPyAUu03SyCftI6sLhun0VGYXPfMfLMhu2bFdlrGsQmWqnLf54lF6w8Cf2wdtG
-	 k0uVPrreEzLmw==
-Message-ID: <84a4c113-e261-4802-9d61-4c7790a5d547@kernel.org>
-Date: Fri, 13 Nov 2026 08:46:32 -0600
+	s=k20260515; t=1794581272;
+	bh=M+aiT4XYIrTKg6608Ukrsg48EgQ5OWjzFBlXdwB7wa0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VuVBtcQSGWbls+cyaHlW320p9bCSa//i1QP9Jyf5213ner+6MB6uF8KitJEdvfxem
+	 JFW/4h/FK3CBE4OnPY51DHu4nuILPhBIAamXBqeRtbbacEy3RRgwAjA7DrNSIN9Ian
+	 vbaeuGzspI/rgA9tl/ppr9Nl6gx6hpUtU7f0sYyVirXaRQbR1j4NEV20Ru7LN664r3
+	 /B1eWE3HTX/SY6IZdOPtq5ToqqHS9DRyaYIU+WXPyVBHPPd4I1FQj104wkENQkTyiF
+	 LX8u5zi2TOiPHk/k1tXDSpsfcvrutSN7m2CP/qCKdeicmStEYoiai+22eHTjFk6xc0
+	 nxM8bYgDciAHQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] hwmon: (coretemp) Read TjMax only when refreshing the temperature
+Date: Fri, 13 Nov 2026 09:47:49 -0500
+Message-ID: <20261113135623.1396306-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200341-failed-6.18-9a6aa085c94c@kernel.org>
+References: <20261109200341-failed-6.18-9a6aa085c94c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,101 +59,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] thunderbolt: Flush the ring interrupt status clear
-Content-Language: en-US
-To: Sven Neuhaus <sven-kernel@sven.de>, linux-usb@vger.kernel.org
-Cc: westeri@kernel.org, andreas.noever@gmail.com, YehezkelShB@gmail.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <1794520303-5758-1-git-send-email-sven-kernel@sven.de>
- <1794520303-5758-3-git-send-email-sven-kernel@sven.de>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <1794520303-5758-3-git-send-email-sven-kernel@sven.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/12/26 15:51, Sven Neuhaus wrote:
-> On hosts without QUIRK_AUTO_CLEAR_INT, ring_msix() clears the ring's
-> bit in REG_RING_INT_CLEAR before it schedules ring_work(). This is a
-> posted write and nothing is read from the NHI afterwards, so the clear
-> can take effect after the next frame on the ring has completed. It
-> then clears the status of that frame as well. The descriptor stays
-> completed and the interrupt stays enabled, but no MSI-X is raised, and
-> the frame waits until another interrupt on the ring runs ring_work().
-> 
-> Before commit 468c49f44759 ("thunderbolt: Disable interrupt auto clear
-> for rings") the status was cleared by reading REG_RING_NOTIFY_BASE,
-> and a read is not posted.
-> 
-> Read back REG_RING_INTERRUPT_BASE after the write, so the clear has
-> taken effect before ring_work() looks at the descriptors. A frame that
-> completed before that point is seen by ring_work(), and a later one
-> raises a new interrupt.
-> 
-> This was seen between two hosts with AMD Strix Halo USB4 host routers
-> (1022:158d, 1022:158e) connected by USB4 cables, running an
-> out-of-tree service driver that exchanges XDomain requests and
-> responses and moves data over its own rings. When one host sent a
-> response and a request back to back, the request sometimes stayed in
-> the peer's control RX ring until tb_xdomain_request() timed out and
-> sent it again. In a request/reply test with 300 us between exchanges,
-> 3-7% of the exchanges took the whole request timeout (about 75 ms).
-> A debug build that checked the control RX ring every 500 us found
-> these frames with RING_DESC_COMPLETED set, the ring's bit set in
-> REG_RING_INTERRUPT_BASE and its bit clear in REG_RING_NOTIFY_BASE.
-> The data rings of the driver lost completions the same way, which
-> showed up as retransmissions after the driver's ack timeout.
-> 
-> With this patch, 6000 exchanges of 8-64 KiB had none above 1.7 ms
-> (99th percentile 0.35-0.58 ms, before about 75 ms), no request was
-> sent twice, and the retransmissions went away (84 in 1000 exchanges
-> before, none after). ib_write_bw at 4 and 8 MiB stayed within
-> run-to-run noise.
-> 
-> Tested on 7.3.3; ring_clear_msix() is unchanged in the thunderbolt.git
-> fixes branch, where the patch applies as is. Not tested: other AMD
-> host routers. Intel hosts set QUIRK_AUTO_CLEAR_INT and return before
-> the write, so they are not affected.
-> 
-> The analysis, the fix and the tests were done with an AI coding
-> assistant.
-> 
-> Fixes: 468c49f44759 ("thunderbolt: Disable interrupt auto clear for rings")
-> Cc: stable@vger.kernel.org
-> Cc: Mario Limonciello <superm1@kernel.org>
-> Signed-off-by: Sven Neuhaus <sven-kernel@sven.de>
-> ---
->   drivers/thunderbolt/nhi.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
-> index e99a3fcc4a29..dd109f6ac70f 100644
-> --- a/drivers/thunderbolt/nhi.c
-> +++ b/drivers/thunderbolt/nhi.c
-> @@ -533,6 +533,14 @@ static void ring_clear_msix(const struct tb_ring *ring)
->   	else
->   		iowrite32(BIT(bit), ring->nhi->iobase + REG_RING_INT_CLEAR +
->   			  4 * (ring->nhi->hop_count / 32));
-> +
-> +	/*
-> +	 * Flush the posted write before ring_work() looks at the
-> +	 * descriptors. Otherwise the clear can take effect after the next
-> +	 * frame has completed and clear its status too, and that frame
-> +	 * never raises an interrupt.
-> +	 */
-> +	ioread32(ring->nhi->iobase + REG_RING_INTERRUPT_BASE);
->   }
->   
->   irqreturn_t ring_msix(int irq, void *data)
+From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
 
-Even if this was reproduced using an out of tree driver, this does make 
-sense to me that it could have happened from any Xdomain comms.  An out 
-of tree driver just helps to accelerate the reproduction (just like a 
-WIP patch doing the same could probably do too). I agree with it.
+[ Upstream commit 5407d2b7d5279b7100621d92f2181184c8f00d62 ]
 
-You might pare down the commit message and move some of the detail about 
-how you got here into a cover letter.  This should be able to stand on 
-it's own.
+show_temp() reads TjMax before checking whether the cached temperature is
+still fresh, but consumes it only when recomputing that temperature. On a
+cache hit the value is discarded.
 
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Discarding it is not free. On CPUs that report TjMax in
+MSR_IA32_TEMPERATURE_TARGET, get_tjmax() returns the value it just read
+without storing it in tdata->tjmax, so every call reads the MSR again.
+That is a cross-CPU call whenever the CPU owning the sensor is not the
+current one, and it is made while holding tdata->update_lock.
+
+Read TjMax where it is used. The value cannot go stale in the meantime:
+bits 23:16 of MSR_IA32_TEMPERATURE_TARGET are read-only, and the register
+is package-scoped, so every CPU of the package reads the same value.
+
+The temperature reported to userspace does not change.
+
+Signed-off-by: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Link: https://patch.msgid.link/20260924-coretemp-temp-fault-v1-2-1884f0ff97d5@linux.intel.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+
+Use the existing rdmsrq_on_cpu() interface and struct msr in show_temp()
+so the subsequent timestamp fix applies without changes. Read the
+validity bit and temperature from the same low word as before.
+
+Stable-dep-of: 9a6aa085c94c ("hwmon: (coretemp) Fix 32-bit jiffies wraparound in show_temp()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hwmon/coretemp.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index 25a9cf8feb311..7c2d531d3ffb7 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -392,24 +392,24 @@ static ssize_t show_ttarget(struct device *dev,
+ static ssize_t show_temp(struct device *dev,
+ 			struct device_attribute *devattr, char *buf)
+ {
+-	u32 eax, edx;
++	struct msr val;
+ 	struct temp_data *tdata = container_of(devattr, struct temp_data, sd_attrs[ATTR_TEMP]);
+ 	int tjmax, temp;
+ 	bool valid;
+ 
+ 	mutex_lock(&tdata->update_lock);
+ 
+-	tjmax = get_tjmax(tdata, dev);
+ 	/* Check whether the time interval has elapsed */
+ 	if (time_after(jiffies, tdata->last_updated + HZ)) {
+-		rdmsr_on_cpu(tdata->cpu, tdata->status_reg, &eax, &edx);
++		tjmax = get_tjmax(tdata, dev);
++		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
+ 		/*
+ 		 * Bit 31 indicates whether the reading is valid. Some CPUs
+ 		 * clear it while the temperature is too low to be measured.
+ 		 * Such a reading is not a temperature. Do not report it.
+ 		 */
+-		tdata->temp_valid = (eax >> 31) & 1;
+-		tdata->temp = tjmax - ((eax >> 16) & 0xff) * 1000;
++		tdata->temp_valid = (val.l >> 31) & 1;
++		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
+ 		tdata->last_updated = jiffies;
+ 	}
+ 
+-- 
+2.53.0
 
