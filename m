@@ -1,69 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794592599;
-	b=xJ/SgxcDNFG456X7g1Ijlb4SzErzaHSSyHPv3plZ9p1onq/O+e8uAxxLzzHwisiL54/o
-	 4J9SWXhrik4g+9TaDeXHV/eNNPXvJBmlyv0bCxulwZpQxJOy8l0a4vguLUHZ8jumK4FS1
-	 zSNM/Nl4tNR59fExZXloQ3ahaK9l2k5NMF7uxnRfg4dfBeeS+50Wi1a+DVjdsQ+Gq/uZQ
-	 d7v4309kQpJQhWaw8g3jmIqC98S2BNFqvA6nq2Z+7wzrtod6Ba6YTLkpealatBUQDRtHn
-	 PofkOt2pf7MLTfrVW/rlxSgDvueXbM+pShcwA8DU9ffc3kQ+aN1tLxTPX28OUdVSU8Q==
+	t=1794592680;
+	b=jbd7rCWzf3wcol3OaL5bpMjExKgvhCv1dTsvSOa2hWrHjIl5ntWmYBbK4hH8t/DwPHrs
+	 rSxCQ/DGG41HvG4C3sGWrAJ+fWsp2m6pfa5wsuDQYYKoR3DCG8LTzDINSVSU9otrbqv2O
+	 whkMRLbO2cBGrbYNM5p7rVbQFzKi/GuoBpIIQHD8Z6cyRfJH5SepM9iMDQfsjKjfrvoKO
+	 L/MrkQVsI4zwV9KUYRQS0nnL9XCZ9ueUHf+8nqwpDP66XCmCCNEeceuOyysQF9UI/aCRl
+	 n871LgrPuggu91/yUjxHRhq8rSpN14hlnaYg89Cyyt0NE2UtCP0X/i3LBpnUiLiXXfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794592599;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=luWOr6xS+R3vZ28ewZawhTBe+Y1Jl6ucuuH1WbWGmmA=;
-	b=0cMt4v7ja/lhQzqH330BQsAvhr23RDOHHmsfpGIGaCao35XBnAHTsQqG2C4sOiKbKkN3
-	 l7FBqfeZb7v1DyrnWSEm1UvdDvT+nj0oLFWyLzWIRZGRwZdbnzLoENxU6dwQxMNOA2vHf
-	 QxC6swofTLNcEPwmI/IsFlGSG+edjb78u91qKDirqiKpR7MEVMZSOxKPpnd1UVKzsKOEb
-	 mxwS2yQMHkxjyOer8lE91GQoPsEa5QSonzEt8rN59tOMNxtHxDqJKQEQsCD8OBnjyVfMc
-	 YK+vQTdfRJE/0NEDHCSUSwn+M9wvFLSpSfGQJwmbzekXlVWD4rdwxe3e69/KkKS9Hiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794592680;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=F3H+KwptT2Vl/tpvOO3ZTezEME/MF0kj3U7FGt3wt1M=;
+	b=Ns852E99jtFTa3cP3cDgg5Ig+72NwWNKAV6EVV07onpJnO1qgBe3WHFUFxuZnjGpAkmd
+	 GBjrX1WI/evLwZtfa6MRtHn9ygnMnwmUYhQau2qH6oKVOBq7iuQzZ38kgGSmUtRGv1ePS
+	 ZZvD0oLLjOTloFuBDnncIvnXS1RGKywNGZV6CFnOwDNNCjedA/cPcZQyKJSZs1DiU3dpG
+	 GsOcgwlK9H3gop6bE3nXvJKZr3qFvBxp89ecwcoTzti6uhVewjR4qiLlLt0oPssLqwZSc
+	 JkmiQ62iQlW58Bzfxzus79gBeK5daUm95vlz1qb2ig4GI3QGrDg2YuCjpn8krRKwiaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=R2hWF5UP;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/GUBGG4";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCA3606B215;
-	Fri, 13 Nov 2026 17:56:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BCA3606B215
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0241606EDA0
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:58:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=R2hWF5UP
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jR4h522Drz8XrrX;
-	Sat, 14 Nov 2026 01:56:37 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794592597;
-	bh=E78CL541WXooalmHbBNGVhXB1Hme7eTmT9e3QtsHgyE=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=R2hWF5UPgGPmQE5lZ/7kLdG0rVcTneVdQCRxmxsB7vIPgcBMQzBLlz7Bk+YR+n1sj
-	 15zfAGCWJh8mG5F2Gij6XKqwupGB9QdcvZ6U5e7vOMxWDd90iTezhNryKB64MJQwNi
-	 blwY3ntR+LG7qNnwdssKjc85tYG6hm5GINWljE8HKU4qGaMAKC97xD6qIH9O5Z63DV
-	 iyY7SnFZWsO2XexaLqo9Hy7Xd48lOH91DygAZ+HoFnS6d82nGRZz8UCKDd7C6rjsKW
-	 28+wrdClWtiKu4pd4KuxMceADuA0Mbeq/zRlCAdeNbZxqcUadJPdpXzsAVgKUINyoJ
-	 AqIWwZw5VNXNQ==
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl2.zte.com.cn with SMTP id 6ADHuTMv067394;
-	Sat, 14 Nov 2026 01:56:29 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sat, 14 Nov 2026 01:56:33 +0800 (CST)
-X-Zmail-TransId: 2afc6af74f5139b-162e0
-X-Mailer: Zmail v1.0
-Message-ID: <20261114015633289UnNV4mqcLd9M7QXi1NBhp@zte.com.cn>
-In-Reply-To: <20261114015622273t9IBdo0FnDVvP3kTsQiZs@zte.com.cn>
-References: 20261114015622273t9IBdo0FnDVvP3kTsQiZs@zte.com.cn
-Date: Sat, 14 Nov 2026 01:56:33 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/GUBGG4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB5E1F000C4;
+	Fri, 13 Nov 2026 17:57:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794592680;
+	bh=F3H+KwptT2Vl/tpvOO3ZTezEME/MF0kj3U7FGt3wt1M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=F/GUBGG4u5iKNbohdhtVSUnNqucEpS4JPlS3gNlTKIePLMneah0oDcPMsVl/HgSuT
+	 mtnRptZCQizW/8iDARTnJG06/JrZSF2FUxJhGn51KcO10Z0nlxSo/Mq/fZuK/zv6HO
+	 6oKp3akgb4HrTrtUYH/MivuntK4YvsaZJB05MZGHveyvUjMo+CbdZR9AJ3JfO1xVnX
+	 x+GDG2jeIpyhr5sCdxCVtYMAfiq3L9Fps5O+OxjgbjdtKlgNXmfWslLh9yDPjVx9cl
+	 3ol3fGrXaS48Cdh2BOVqqUUThg6yLf7ohsg1Q5ZV6hgwfMxXNxoqbHLuY3YTS/o9Ml
+	 6FFgSneFMoTww==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] l2tp: snapshot sequencing state when building transmit headers
+Date: Fri, 13 Nov 2026 12:57:58 -0500
+Message-ID: <20261113175740.2201771-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053704-failed-6.6-d06ae66516e1@kernel.org>
+References: <20261107053704-failed-6.6-d06ae66516e1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,150 +58,343 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIFJFU0VORCB2NCA0LzRdIGF0YTogbGliYXRhLXNjc2k6IGZpeCByZW1haW5pbmcgcGFzc3RocnUgZmllbGQgcG9pbnRlcnM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ADHuTMv067394
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 14 Nov 2026 01:56:37 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF74F55.000/4jR4h522Drz8XrrX
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-Several error paths in ata_scsi_pass_thru() report field pointers for
-the 12- or 16-byte CDB when rejecting a 32-byte CDB. Initiators then
-receive INVALID FIELD IN CDB sense data pointing at an unrelated byte.
-READ/WRITE LONG also reports PROTOCOL when its sector count is invalid.
+[ Upstream commit d06ae66516e1aaf023808912af6292aef09d46c3 ]
 
-Use the PROTOCOL offset and record the FEATURES, SECTOR COUNT and
-COMMAND offsets for each CDB format. Report SECTOR COUNT separately
-from PROTOCOL when validating READ/WRITE LONG.
+Updates to send_seq from netlink, PPP setsockopt and receive-side
+negotiation race with packet transmission. The header length is updated
+separately, while transmit reads both fields repeatedly without
+synchronization.
 
-Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+For example, transmit can push a ten-byte L2TPv2 header, then a concurrent
+writer clears send_seq before the header builder reads it. The builder
+writes only six bytes, leaving four bytes of uninitialized skb headroom
+in the outgoing packet. The reverse mismatch overwrites the beginning of
+the payload. A later hdr_len read can also make the UDP length disagree
+with the skb length.
+
+KCSAN reported:
+
+  BUG: KCSAN: data-race in l2tp_session_set_header_len / l2tp_xmit_skb
+
+  write to 0xffff888100d0944a of 2 bytes by task 116 on cpu 1:
+   l2tp_session_set_header_len+0x81/0xc0
+   l2tp_nl_cmd_session_modify+0x122/0x2c0
+   genl_family_rcv_msg_doit+0x170/0x1d0
+
+  read to 0xffff888100d0944a of 2 bytes by task 115 on cpu 0:
+   l2tp_xmit_skb+0x9c/0xc80
+   pppol2tp_sendmsg+0x21c/0x2a0
+   __sys_sendto+0x28c/0x2a0
+
+The bug can lead to leak kernel base address for KASLR bypass, the
+corresponding reproducer can be provided per request.
+
+Initialize hdr_len to the maximum header size and leave it unchanged
+when sequencing is toggled. Snapshot send_seq once per packet and use
+that snapshot for the actual header length and header construction,
+including the sequence flag. Use the same length for headroom, the header
+push and the UDP length. PPP callers can safely reserve the maximum size;
+L2TPv3 header sizes do not depend on sequencing.
+
+Make send_seq a separate bool so READ_ONCE() and WRITE_ONCE() can be used
+without sharing a bitfield storage unit with other configuration flags.
+Preserve the netlink attribute's existing low-bit truncation.
+
+Fixes: 3557baabf280 ("[L2TP]: PPP over L2TP driver core")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6 Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Link: https://patch.msgid.link/20261013090500.1180376-1-nicoyip.dev@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: adapted the setsockopt change to preserve the existing PPP channel hdrlen update ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v4:
-- Code and commit message unchanged; retain Damien Le Moal's Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/20261112220124003NT-esXu4g2qMJ-uOMc-4G@zte.com.cn/
+ net/l2tp/l2tp_core.c    | 51 +++++++++++++++++++----------------------
+ net/l2tp/l2tp_core.h    |  6 ++---
+ net/l2tp/l2tp_debugfs.c |  4 ++--
+ net/l2tp/l2tp_netlink.c | 11 ++++-----
+ net/l2tp/l2tp_ppp.c     |  8 +++----
+ 5 files changed, 35 insertions(+), 45 deletions(-)
 
-Changes in v3:
-- Code unchanged; retain the Damien Le Moal Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/20261111223133188VjHq0FbmnzuEZWakS-EYD@zte.com.cn/
-
-Changes in v2 (Niklas Cassel):
-- Add a separate patch for the remaining PROTOCOL, FEATURES, COMMAND
-  and READ/WRITE LONG sector-count field pointers.
-v1: https://lore.kernel.org/all/20261104220832716LXKf7OaS9dt1VJ8Q959AG@zte.com.cn/
-
-Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiled
-the translation functions verbatim with SCSI/device stubs. The rejected
-32-byte DMA/NCQ and READ/WRITE LONG protocols passed field pointer 10 to
-the invalid-field helper, SET FEATURES passed 21, and TPM passed 25.
-Invalid READ/WRITE LONG sector counts passed 4, 6 and 23 for 12-, 16-
-and 32-byte CDBs. These are helper arguments observed in the harness.
-
- drivers/ata/libata-scsi.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 374918eae53ef4cb082bccd903773f06e6c55fa1..a5947bd591df8905e6b06f9851f75a46954f2c22 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3383,6 +3383,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	struct ata_device *dev = qc->dev;
- 	const u8 *cdb = scmd->cmnd;
- 	u16 fp;
-+	u8 feature_offset, nsect_offset, command_offset;
- 	u16 cdb_offset = 0;
- 
- 	/* 7Fh variable length cmd means a ata pass-thru(32) */
-@@ -3443,6 +3444,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 		tf->lbah = cdb[12];
- 		tf->device = cdb[13];
- 		tf->command = cdb[14];
-+		feature_offset = 4;
-+		nsect_offset = 6;
-+		command_offset = 14;
- 		break;
- 	case ATA_12:
- 		/*
-@@ -3457,6 +3461,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 		tf->lbah = cdb[7];
- 		tf->device = cdb[8];
- 		tf->command = cdb[9];
-+		feature_offset = 3;
-+		nsect_offset = 4;
-+		command_offset = 9;
- 		break;
- 	default:
- 		/*
-@@ -3482,6 +3489,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 		tf->device = cdb[24];
- 		tf->command = cdb[25];
- 		tf->auxiliary = get_unaligned_be32(&cdb[28]);
-+		feature_offset = 21;
-+		nsect_offset = 23;
-+		command_offset = 25;
- 		break;
- 	}
- 
-@@ -3499,8 +3509,12 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	case ATA_CMD_READ_LONG_ONCE:
- 	case ATA_CMD_WRITE_LONG:
- 	case ATA_CMD_WRITE_LONG_ONCE:
--		if (tf->protocol != ATA_PROT_PIO || tf->nsect != 1) {
--			fp = 1;
-+		if (tf->protocol != ATA_PROT_PIO) {
-+			fp = 1 + cdb_offset;
-+			goto invalid_fld;
-+		}
-+		if (tf->nsect != 1) {
-+			fp = nsect_offset;
- 			goto invalid_fld;
+diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
+index 717559ead628a..a0f7222a5ad0d 100644
+--- a/net/l2tp/l2tp_core.c
++++ b/net/l2tp/l2tp_core.c
+@@ -697,11 +697,9 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
+ 		 * check if we sre sending sequence numbers and if not,
+ 		 * configure it so.
+ 		 */
+-		if (!session->lns_mode && !session->send_seq) {
++		if (!session->lns_mode && !READ_ONCE(session->send_seq)) {
+ 			trace_session_seqnum_lns_enable(session);
+-			session->send_seq = 1;
+-			l2tp_session_set_header_len(session, tunnel->version,
+-						    tunnel->encap);
++			WRITE_ONCE(session->send_seq, true);
  		}
- 		qc->sect_size = scsi_bufflen(scmd);
-@@ -3566,13 +3580,13 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	} else {
+ 		/* No sequence numbers.
+@@ -719,12 +717,10 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
+ 		 * If we're the LNS and we're sending sequence numbers, the
+ 		 * LAC is broken. Discard the frame.
+ 		 */
+-		if (!session->lns_mode && session->send_seq) {
++		if (!session->lns_mode && READ_ONCE(session->send_seq)) {
+ 			trace_session_seqnum_lns_disable(session);
+-			session->send_seq = 0;
+-			l2tp_session_set_header_len(session, tunnel->version,
+-						    tunnel->encap);
+-		} else if (session->send_seq) {
++			WRITE_ONCE(session->send_seq, false);
++		} else if (READ_ONCE(session->send_seq)) {
+ 			pr_debug_ratelimited("%s: recv data has no seq numbers when required. Discarding.\n",
+ 					     session->name);
+ 			atomic_long_inc(&session->stats.rx_seq_discards);
+@@ -934,7 +930,8 @@ EXPORT_SYMBOL_GPL(l2tp_udp_encap_recv);
  
- 	/* We may not issue DMA commands if no DMA mode is set */
- 	if (tf->protocol == ATA_PROT_DMA && !ata_dma_enabled(dev)) {
--		fp = 1;
-+		fp = 1 + cdb_offset;
- 		goto invalid_fld;
- 	}
+ /* Build an L2TP header for the session into the buffer provided.
+  */
+-static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
++static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf,
++				    bool send_seq)
+ {
+ 	struct l2tp_tunnel *tunnel = session->tunnel;
+ 	__be16 *bufp = buf;
+@@ -943,14 +940,14 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
+ 	u32 tunnel_id = tunnel->peer_tunnel_id;
+ 	u32 session_id = session->peer_session_id;
  
- 	/* We may not issue NCQ commands to devices not supporting NCQ */
- 	if (ata_is_ncq(tf->protocol) && !ata_ncq_enabled(dev)) {
--		fp = 1;
-+		fp = 1 + cdb_offset;
- 		goto invalid_fld;
- 	}
+-	if (session->send_seq)
++	if (send_seq)
+ 		flags |= L2TP_HDRFLAG_S;
  
-@@ -3615,7 +3629,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	/* Setup L2TP header. */
+ 	*bufp++ = htons(flags);
+ 	*bufp++ = htons(tunnel_id);
+ 	*bufp++ = htons(session_id);
+-	if (session->send_seq) {
++	if (send_seq) {
+ 		*bufp++ = htons(session->ns);
+ 		*bufp++ = 0;
+ 		session->ns++;
+@@ -961,7 +958,8 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
+ 	return bufp - optr;
+ }
+ 
+-static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
++static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf,
++				    bool send_seq)
+ {
+ 	struct l2tp_tunnel *tunnel = session->tunnel;
+ 	char *bufp = buf;
+@@ -987,7 +985,7 @@ static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
+ 	if (session->l2specific_type == L2TP_L2SPECTYPE_DEFAULT) {
+ 		u32 l2h = 0;
+ 
+-		if (session->send_seq) {
++		if (send_seq) {
+ 			l2h = 0x40000000 | session->ns;
+ 			session->ns++;
+ 			session->ns &= 0xffffff;
+@@ -1021,19 +1019,24 @@ static int l2tp_xmit_queue(struct l2tp_tunnel *tunnel, struct sk_buff *skb, stru
+ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, unsigned int *len)
+ {
+ 	struct l2tp_tunnel *tunnel = session->tunnel;
++	bool send_seq = READ_ONCE(session->send_seq);
+ 	unsigned int data_len = skb->len;
+ 	struct sock *sk = tunnel->sock;
++	u16 hdr_len = session->hdr_len;
+ 	int headroom, uhlen, udp_len;
+ 	int ret = NET_XMIT_SUCCESS;
+ 	struct inet_sock *inet;
+ 	struct udphdr *uh;
+ 
++	if (tunnel->version == L2TP_HDR_VER_2 && !send_seq)
++		hdr_len -= 4;
++
+ 	/* Check that there's enough headroom in the skb to insert IP,
+ 	 * UDP and L2TP headers. If not enough, expand it to
+ 	 * make room. Adjust truesize.
  	 */
- 	if (tf->command == ATA_CMD_SET_FEATURES &&
- 	    tf->feature == SETFEATURES_XFER) {
--		fp = (cdb[0] == ATA_16) ? 4 : 3;
-+		fp = feature_offset;
- 		goto invalid_fld;
- 	}
+ 	uhlen = (tunnel->encap == L2TP_ENCAPTYPE_UDP) ? sizeof(*uh) : 0;
+-	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + session->hdr_len;
++	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + hdr_len;
+ 	if (skb_cow_head(skb, headroom)) {
+ 		kfree_skb(skb);
+ 		return NET_XMIT_DROP;
+@@ -1041,9 +1044,9 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
  
-@@ -3635,7 +3649,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	 * can turn off TC features of their system.
- 	 */
- 	if (tf->command >= 0x5C && tf->command <= 0x5F && !libata_allow_tpm) {
--		fp = (cdb[0] == ATA_16) ? 14 : 9;
-+		fp = command_offset;
- 		goto invalid_fld;
- 	}
+ 	/* Setup L2TP header */
+ 	if (tunnel->version == L2TP_HDR_VER_2)
+-		l2tp_build_l2tpv2_header(session, __skb_push(skb, session->hdr_len));
++		l2tp_build_l2tpv2_header(session, __skb_push(skb, hdr_len), send_seq);
+ 	else
+-		l2tp_build_l2tpv3_header(session, __skb_push(skb, session->hdr_len));
++		l2tp_build_l2tpv3_header(session, __skb_push(skb, hdr_len), send_seq);
  
+ 	/* Reset skb netfilter state */
+ 	memset(&(IPCB(skb)->opt), 0, sizeof(IPCB(skb)->opt));
+@@ -1086,7 +1089,7 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
+ 		uh = udp_hdr(skb);
+ 		uh->source = inet->inet_sport;
+ 		uh->dest = inet->inet_dport;
+-		udp_len = uhlen + session->hdr_len + data_len;
++		udp_len = uhlen + hdr_len + data_len;
+ 		if (udp_len > U16_MAX) {
+ 			kfree_skb(skb);
+ 			ret = NET_XMIT_DROP;
+@@ -1580,16 +1583,11 @@ void l2tp_session_delete(struct l2tp_session *session)
+ }
+ EXPORT_SYMBOL_GPL(l2tp_session_delete);
+ 
+-/* We come here whenever a session's send_seq, cookie_len or
+- * l2specific_type parameters are set.
+- */
+-void l2tp_session_set_header_len(struct l2tp_session *session, int version,
+-				 enum l2tp_encap_type encap)
++static void l2tp_session_set_header_len(struct l2tp_session *session, int version,
++					enum l2tp_encap_type encap)
+ {
+ 	if (version == L2TP_HDR_VER_2) {
+-		session->hdr_len = 6;
+-		if (session->send_seq)
+-			session->hdr_len += 4;
++		session->hdr_len = 10;
+ 	} else {
+ 		session->hdr_len = 4 + session->cookie_len;
+ 		session->hdr_len += l2tp_get_l2specific_len(session);
+@@ -1597,7 +1595,6 @@ void l2tp_session_set_header_len(struct l2tp_session *session, int version,
+ 			session->hdr_len += 4;
+ 	}
+ }
+-EXPORT_SYMBOL_GPL(l2tp_session_set_header_len);
+ 
+ struct l2tp_session *l2tp_session_create(int priv_size, struct l2tp_tunnel *tunnel, u32 session_id,
+ 					 u32 peer_session_id, struct l2tp_session_cfg *cfg)
+diff --git a/net/l2tp/l2tp_core.h b/net/l2tp/l2tp_core.h
+index 61f402c3e7f46..84d1cff323ec0 100644
+--- a/net/l2tp/l2tp_core.h
++++ b/net/l2tp/l2tp_core.h
+@@ -79,7 +79,7 @@ struct l2tp_session {
+ 	u8			peer_cookie[8];
+ 	int			peer_cookie_len;
+ 	u16			l2specific_type;
+-	u16			hdr_len;
++	u16			hdr_len;	/* maximum L2TP header length */
+ 	u32			nr;		/* session NR state (receive) */
+ 	u32			ns;		/* session NR state (send) */
+ 	struct sk_buff_head	reorder_q;	/* receive reorder queue */
+@@ -93,8 +93,8 @@ struct l2tp_session {
+ 
+ 	char			name[L2TP_SESSION_NAME_MAX]; /* for logging */
+ 	char			ifname[IFNAMSIZ];
++	bool			send_seq;	/* send packets with sequence numbers? */
+ 	unsigned int		recv_seq:1;	/* expect receive packets with sequence numbers? */
+-	unsigned int		send_seq:1;	/* send packets with sequence numbers? */
+ 	unsigned int		lns_mode:1;	/* behave as LNS?
+ 						 * LAC enables sequence numbers under LNS control.
+ 						 */
+@@ -261,8 +261,6 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
+ int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb);
+ 
+ /* Transmit path helpers for sending packets over the tunnel socket. */
+-void l2tp_session_set_header_len(struct l2tp_session *session, int version,
+-				 enum l2tp_encap_type encap);
+ int l2tp_xmit_skb(struct l2tp_session *session, struct sk_buff *skb);
+ 
+ /* Pseudowire management.
+diff --git a/net/l2tp/l2tp_debugfs.c b/net/l2tp/l2tp_debugfs.c
+index fe56dbae43bea..c4d10eb3923ef 100644
+--- a/net/l2tp/l2tp_debugfs.c
++++ b/net/l2tp/l2tp_debugfs.c
+@@ -183,12 +183,12 @@ static void l2tp_dfs_seq_session_show(struct seq_file *m, void *v)
+ 		   session->pwtype == L2TP_PWTYPE_ETH ? "ETH" :
+ 		   session->pwtype == L2TP_PWTYPE_PPP ? "PPP" :
+ 		   "");
+-	if (session->send_seq || session->recv_seq)
++	if (READ_ONCE(session->send_seq) || session->recv_seq)
+ 		seq_printf(m, "   nr %u, ns %u\n", session->nr, session->ns);
+ 	seq_printf(m, "   refcnt %d\n", refcount_read(&session->ref_count));
+ 	seq_printf(m, "   config 0/0/%c/%c/-/%s %08x %u\n",
+ 		   session->recv_seq ? 'R' : '-',
+-		   session->send_seq ? 'S' : '-',
++		   READ_ONCE(session->send_seq) ? 'S' : '-',
+ 		   session->lns_mode ? "LNS" : "LAC",
+ 		   0,
+ 		   jiffies_to_msecs(session->reorder_timeout));
+diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
+index 25800de8b4825..9fdaeb4cbc745 100644
+--- a/net/l2tp/l2tp_netlink.c
++++ b/net/l2tp/l2tp_netlink.c
+@@ -689,12 +689,9 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
+ 	if (info->attrs[L2TP_ATTR_RECV_SEQ])
+ 		session->recv_seq = nla_get_u8(info->attrs[L2TP_ATTR_RECV_SEQ]);
+ 
+-	if (info->attrs[L2TP_ATTR_SEND_SEQ]) {
+-		struct l2tp_tunnel *tunnel = session->tunnel;
+-
+-		session->send_seq = nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]);
+-		l2tp_session_set_header_len(session, tunnel->version, tunnel->encap);
+-	}
++	if (info->attrs[L2TP_ATTR_SEND_SEQ])
++		WRITE_ONCE(session->send_seq,
++			   nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]) & 1);
+ 
+ 	if (info->attrs[L2TP_ATTR_LNS_MODE])
+ 		session->lns_mode = nla_get_u8(info->attrs[L2TP_ATTR_LNS_MODE]);
+@@ -737,7 +734,7 @@ static int l2tp_nl_session_send(struct sk_buff *skb, u32 portid, u32 seq, int fl
+ 	    (session->peer_cookie_len &&
+ 	     nla_put(skb, L2TP_ATTR_PEER_COOKIE, session->peer_cookie_len, session->peer_cookie)) ||
+ 	    nla_put_u8(skb, L2TP_ATTR_RECV_SEQ, session->recv_seq) ||
+-	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, session->send_seq) ||
++	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, READ_ONCE(session->send_seq)) ||
+ 	    nla_put_u8(skb, L2TP_ATTR_LNS_MODE, session->lns_mode) ||
+ 	    (l2tp_tunnel_uses_xfrm(tunnel) &&
+ 	     nla_put_u8(skb, L2TP_ATTR_USING_IPSEC, 1)) ||
+diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
+index 21b1016020f3a..92049b9020106 100644
+--- a/net/l2tp/l2tp_ppp.c
++++ b/net/l2tp/l2tp_ppp.c
+@@ -1205,15 +1205,13 @@ static int pppol2tp_session_setsockopt(struct sock *sk,
+ 			err = -EINVAL;
+ 			break;
+ 		}
+-		session->send_seq = !!val;
++		WRITE_ONCE(session->send_seq, !!val);
+ 		{
+ 			struct pppox_sock *po = pppox_sk(sk);
+ 
+ 			po->chan.hdrlen = val ? PPPOL2TP_L2TP_HDR_SIZE_SEQ :
+ 				PPPOL2TP_L2TP_HDR_SIZE_NOSEQ;
+ 		}
+-		l2tp_session_set_header_len(session, session->tunnel->version,
+-					    session->tunnel->encap);
+ 		break;
+ 
+ 	case PPPOL2TP_SO_LNSMODE:
+@@ -1323,7 +1321,7 @@ static int pppol2tp_session_getsockopt(struct sock *sk,
+ 		break;
+ 
+ 	case PPPOL2TP_SO_SENDSEQ:
+-		*val = session->send_seq;
++		*val = READ_ONCE(session->send_seq);
+ 		break;
+ 
+ 	case PPPOL2TP_SO_LNSMODE:
+@@ -1569,7 +1567,7 @@ static void pppol2tp_seq_session_show(struct seq_file *m, void *v)
+ 		   state, user_data_ok);
+ 	seq_printf(m, "   0/0/%c/%c/%s %08x %u\n",
+ 		   session->recv_seq ? 'R' : '-',
+-		   session->send_seq ? 'S' : '-',
++		   READ_ONCE(session->send_seq) ? 'S' : '-',
+ 		   session->lns_mode ? "LNS" : "LAC",
+ 		   0,
+ 		   jiffies_to_msecs(session->reorder_timeout));
 -- 
-2.27.0
+2.53.0
+
