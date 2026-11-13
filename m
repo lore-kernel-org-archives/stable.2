@@ -1,75 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794583656;
-	b=qmLM872McJMDWD5sISNMTgAss05xyaRqDWMPJ60GrjrwX+tyLlDCqivOwMfp5B7zmQaT
-	 1zFornalaO7dPEcjiBrzjaWCCnrUCBYH71n8lO0beCdOwYTsjKXT8wWwP1qWK2if2fQ5T
-	 pnxK/vFNwqGtOMe2H8x1O4IXGinlhzWPHMCnAodo8FDvZ2vOff6GpMyASPbsbiKTEA6GP
-	 gfS2KuQgUaGKQaHNTWx7HCG8mhyLF24AI3LqwajQhihWwoWz0WwnrBkQkYN+ESnulbr6j
-	 yUqB/3z1tlZZkdVcxGEBAKNAuO56YJ1Tz//S8L0Wmq4RzdctZ4JwRaRtkyd9Nr7t0cg==
+	t=1794583694;
+	b=5NP4Ak+9hvu8hVc4ko8kNfrFbO66B0bTYiBUmg+6hPny2upOAAq/bOCv0/r0tkGEKmn8
+	 5/wQjcf9AZvp6WErcpLmPyYT8c17vFe1p40HKcboacTB5XKfIZIrrCJ5VtDbFLZ84lIF1
+	 Gkw2vxycDKMEt2xFOUPZzH7+p7umpVdMbhw3tdSvdlKxuEDWFxLrCernLK+8oPe+i1TAk
+	 LkUmuz/HbmEy20WSufufxK2vPUVYpix1qv858bWNzbRnknygLFHcGMDzqEPuXCEBAwQ1D
+	 tEZ1h65oFIgxsFFqMVmHs89kNTW7LIAldsFKQ2+W9dfh1z/Zx1walggqrbTHnFPypsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794583656;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=FrGK4LQCQBqx0hUtkMsYYjxe3VECT+KAsWnhnUDOZDM=;
-	b=gSeSQLld2qlvobWu4UmAtgUC0tBk/FEsCafBykI1yLwlQeM5hk8R9SZu70GnxuYrkKDV
-	 FlS3cHlXckmF+Kyc0p2TwmuEuthwynfe7I0PMIDTxoeFUWw4svs4GyITh8it1uEdX0sVc
-	 j2XJid6paRIJjTJkP0RJtE5FCd29qKlGji+xIz8OeN2+u++tuet+UnDOpZIVQWCt0r45e
-	 fQIc15sgIuxrdiidYj86l1CZROGUmK1OVGM2KBSDF/neM7J5gRLibQeKwyzexQ7KaNByx
-	 PVvCRBK1N4B9hmS8fE5wfcoag1DCBaxeC20A4PTAu2Lwccxhx5Ml7m0iwU4Ybr9A5Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583694;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Patchwork-Hint:Organization;
+	bh=gkMWrVf0+vta7Qa7hdUUS3FyVzBPUCoeDce5PrKLP+k=;
+	b=G2MgZ8xj+PRu/xJNnNqNoGFiKqycHmH8klpFci3cgviLhMhRPO0uo0dqm+kb7//We/yn
+	 xKdO01hp7QfsoRV5UwMNjt5yD+vSSsvE5V0Fc9wEvpS2FlkgSkpCoynjXXnpXxZt3cOSx
+	 q00WGa+g86ZF4q0nxVILr8y8MA5W8w8RYGlGkPYe6H+4gLDEk6mK8+/qzhLH2LbrUHwv0
+	 cezRCQiguxbE7YF/h42l2LCcC1wlN+0gtP86T8aypV8VGdOviouaJooT6P/4FVPc4H9Au
+	 lJGw6U1+I4WsMva4sbhg2X60OOvPsuHu8BC0vNIZlwXQZIjqxUDdqi8m65UbIujb8yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lbGQVyka;
-	arc=none smtp.remote-ip=209.85.128.69
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LTAy6NSl;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92382606A89F
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:27:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92382606A89F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7B8606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:28:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D7B8606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lbGQVyka
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4b0a307487aso4854265e9.1
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 07:27:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794583655; x=1795188455; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FrGK4LQCQBqx0hUtkMsYYjxe3VECT+KAsWnhnUDOZDM=;
-        b=lbGQVykauPq3rzPl+rYk4kEwNYQrN/P4fG033HJrEKxLSymRIV+nR2A0z67u7F+1PW
-         vZlF0WX9pVUANdVwBtolDAbdNeaLB2eXYIU8GoZzR3+6lTCUsrJfSwlw5fkkPYQuSGYC
-         rrbPKT/ZIFjXQlqQDk9t/UYO62wGzMAiLO3Ej6gTzW7QF9F48hR01asi7RQLjcchiKpW
-         mmAzUVBlVgCmRilly/l4ik1UsdOO7SDMtY2ZgUfKfNdYYGyTKFJNa1nFCQL3enIhGXW3
-         qVD+YewRBkpy8v0ERnp5zgLq9zhdKwELXSDqwfjkV+sCQz8O5pIAIDIoTdL6f+VCJfgM
-         4b5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794583655; x=1795188455;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FrGK4LQCQBqx0hUtkMsYYjxe3VECT+KAsWnhnUDOZDM=;
-        b=RDO7nTX2jY3RHI/BfcEpILXtUF5+7vOAvOe8SZbREbJhxApp8RDV/atu4qWez20kei
-         K7Vr+YdBWez4JgRUInkKxOX+55GR9T9MxCNJH22vzvKQ94EXOmqMHAv39ku3/Izwkqvc
-         GWd/q8bKKgnDrOm4ww8sKp6iUU0QDUtPtYk64P3uoH+uZ0LzdqorlN3C8+JUoh3BzIEa
-         L3yDvGKx4SaqetgcgruKSkCGXVSuVAibxh9Zl3/rsQAGC3QHJWxgsk47mwljGCliYj2s
-         RJD7CuQ8uY0YiisAFi9PgR7ot+GUNuOo6K8u8NL5ySJkOJuJPba8C8A9kJnemeTDZp7S
-         Lkrg==
-X-Forwarded-Encrypted: i=1; AL+hErH89AW6xMr+yiOFYdcWkI7P0hblF1yWUurCPO6yG+ybtFKUITxPz+7kuOny3KxHfqI6A9fF/6Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ChIQb5Lxl82KrOHOAvCNP3bukLTLVFgIITgUMc+N6DmTy3/EU
-	MuxXpVcl6TlzYqLACo6cHVISWW20RywjP2GGcx8DN0ohkvOQyyQucTwtv3Xwirabn+BhS49/wiA
-	mLFm6tkcDcUNNY66WLDdp4w==
-X-Received: from wmfv1.prod.google.com ([2002:a05:600c:15c1:b0:4a1:fe2c:3323])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1c0d:b0:4ba:59f7:9032 with SMTP id 5b1f17b1804b1-4bb55c5f60dmr71390435e9.10.1794583654644;
- Fri, 13 Nov 2026 07:27:34 -0800 (PST)
-Date: Fri, 13 Nov 2026 15:27:12 +0000
-In-Reply-To: <20261113152729.837429-1-vdonnefort@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LTAy6NSl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794583693; x=1826119693;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=7WrI4I1e6AA0i/3C39c8w4Prml7K97duiiPrHEPwGGk=;
+  b=LTAy6NSlpgiw77Zs/fJ9+ZMb3loC4fZY/7cDwhDzmx5sd9UYnlV3/p00
+   BDdz5ucC2Y8bzRyMbj3fe4vDmDZN7LWA/7hEkUJ+wcSs8wTT1QynvJbcS
+   mUT7o+dHeDtExl9PZ/oelLaZSmhkvTvtKgI1BHQ36p3XkCo785o0VNfAU
+   38dZwswUMFVU76v5QrhBRKdnO2lIxSgvASwlrqhayuoXbCtpx5Ny8WFLW
+   9VbJlDSvbwtRHQwbrKC/OfSPY8Pa3u6d03HILTZKzIyAemzQ3gW3gBVKo
+   tIHxmmFelUWONO8GEocDrJpZo0v0T2VQ06EDH0sULwKpXBFtQ1+JrSxZZ
+   A==;
+X-CSE-ConnectionGUID: TYi/8KzQRIWatnYmbuSJtQ==
+X-CSE-MsgGUID: DvG2KcPOSVqIzTLpuu+pCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3395677"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3395677"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:28:13 -0800
+X-CSE-ConnectionGUID: S3qdHoYiQbCcBmAD1HnGKw==
+X-CSE-MsgGUID: s7r55L+SR9a3/QHm3xhOWg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9492044"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.126])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:28:09 -0800
+Date: Fri, 13 Nov 2026 17:28:06 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Hanson Wang <hanson.wang@ugreen.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+	Uma Shankar <uma.shankar@intel.com>,
+	Animesh Manna <animesh.manna@intel.com>,
+	dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/i915/dsb: Realign GOSUB only for QW slots 6 and 7
+Message-ID: <avcshtsLJ1_ugiaW@intel.com>
+References: <20261105134658.3724628-1-hanson.wang@ugreen.com>
+ <20261106102315.1361645-1-hanson.wang@ugreen.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,93 +84,92 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113152729.837429-1-vdonnefort@google.com>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261113152729.837429-4-vdonnefort@google.com>
-Subject: [PATCH v1 3/4] ring-buffer: Order remote page commit with data and timestamp
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, bgrzesik@google.com, 
-	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261106102315.1361645-1-hanson.wang@ugreen.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-__rb_get_reader_page_from_remote() uses page::commit to check if more
-data is available for consumption. However, it needs to make sure that
-data and page::time_stamp are not stale. Enforce page::commit order with
-page::data and page::time_stamp, and defer updating read_stamp on page
-swap until rb_page_size() confirms committed data is present.
+On Fri, Nov 06, 2026 at 06:23:15PM +0800, Hanson Wang wrote:
+> intel_dsb_gosub_align() moves free_pos to the next cacheline
+> unconditionally, but only clears the skipped bytes when at most two
+> QW slots remain. Wa_16024917128 forbids GOSUB in slots 6 and 7 only.
+> A larger gap is still executed. A Panther Lake DSB dump showed
+> nonzero data in that gap, with the tail at 0x58 and GOSUB at 0x80.
+> 
+> Advance free_pos only when the instruction would land in slot 6 or 7,
+> and fill that gap with NOPs. Emit GOSUB in place for every other slot.
+> intel_dsb_align_tail() still clears the rest of the cacheline.
+> 
+> Update free_pos inside the existing gap check in intel_dsb_align_tail()
+> as well, so the two helpers keep the same shape.
+> 
+> Fixes: 2c41d62f6fb1 ("drm/i915/dsb: Implement intel_dsb_gosub()")
+> Cc: stable@vger.kernel.org # v6.17+
+> Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
 
-Cc: stable@vger.kernel.org
-Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
-Fixes: 34e5b958bdad ("tracing: Introduce simple_ring_buffer")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
----
- kernel/trace/ring_buffer.c        | 23 ++++++++++++++++-------
- kernel/trace/simple_ring_buffer.c |  5 +++++
- 2 files changed, 21 insertions(+), 7 deletions(-)
+Thanks. Pushed to drm-intel-next.
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index f70010e2ede7..6016d16d1566 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -5832,11 +5832,8 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
- 	smp_rmb();
- 
- 	/* More to read on the reader page */
--	if (cpu_buffer->reader_page->read < rb_page_size(cpu_buffer->reader_page)) {
--		if (!cpu_buffer->reader_page->read)
--			cpu_buffer->read_stamp = cpu_buffer->reader_page->page->time_stamp;
--		return cpu_buffer->reader_page;
--	}
-+	if (cpu_buffer->reader_page->read < rb_page_size(cpu_buffer->reader_page))
-+		goto out;
- 
- 	if (!rb_num_of_entries(cpu_buffer))
- 		return NULL;
-@@ -5883,10 +5880,22 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
- 	cpu_buffer->reader_page = new_reader;
- 	cpu_buffer->reader_page->read = 0;
- 	cpu_buffer->pages = &new_head->list;
--	cpu_buffer->read_stamp = new_reader->page->time_stamp;
- 	cpu_buffer->lost_events = cpu_buffer->meta_page->reader.lost_events;
- 
--	return rb_page_size(cpu_buffer->reader_page) ? cpu_buffer->reader_page : NULL;
-+	if (!rb_page_size(cpu_buffer->reader_page))
-+		return NULL;
-+
-+out:
-+	/*
-+	 * Order page::commit read before page::data and page::time_stamp, most
-+	 * likely paired with simple_ring_buffer_commit().
-+	 */
-+	smp_rmb();
-+
-+	if (!cpu_buffer->reader_page->read)
-+		cpu_buffer->read_stamp = cpu_buffer->reader_page->page->time_stamp;
-+
-+	return cpu_buffer->reader_page;
- }
- 
- static struct buffer_page *
-diff --git a/kernel/trace/simple_ring_buffer.c b/kernel/trace/simple_ring_buffer.c
-index 5f14ba152fba..2dddaef638dc 100644
---- a/kernel/trace/simple_ring_buffer.c
-+++ b/kernel/trace/simple_ring_buffer.c
-@@ -307,6 +307,11 @@ EXPORT_SYMBOL_GPL(simple_ring_buffer_reserve);
-  */
- void simple_ring_buffer_commit(struct simple_rb_per_cpu *cpu_buffer)
- {
-+	/*
-+	 * Order page::data and page::time_stamp before page::commit. Paired
-+	 * with __rb_get_reader_page_from_remote().
-+	 */
-+	smp_wmb();
- 	local_set(&cpu_buffer->tail_page->page->commit,
- 		  cpu_buffer->tail_page->write);
- 
+> ---
+> v2:
+> - Advance free_pos only for QW slots 6 and 7, and NOP-fill that gap
+>   (Ville)
+> - Update free_pos inside the existing check in intel_dsb_align_tail()
+>   so the two helpers stay in the same shape
+> 
+> Hardware: Intel Core Ultra 5 336H (Panther Lake), 6.18-based kernel
+> Build:    6.18 backport; both xe and i915 intel_dsb.o
+> Upstream: not built or booted
+> Reboots:  7/100 DSB idle timeouts before either fix
+>           v1 (always align): 0/200
+>           v2 (this patch):   0/200
+> 
+>  drivers/gpu/drm/i915/display/intel_dsb.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+> index d9a270362a82..07d864039e82 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dsb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+> @@ -589,10 +589,10 @@ static void intel_dsb_align_tail(struct intel_dsb *dsb)
+>  	tail = dsb->free_pos * 4;
+>  	aligned_tail = ALIGN(tail, CACHELINE_BYTES);
+>  
+> -	if (aligned_tail > tail)
+> +	if (aligned_tail > tail) {
+>  		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
+> -
+> -	dsb->free_pos = aligned_tail / 4;
+> +		dsb->free_pos = aligned_tail / 4;
+> +	}
+>  }
+>  
+>  static void intel_dsb_gosub_align(struct intel_dsb *dsb)
+> @@ -607,11 +607,15 @@ static void intel_dsb_gosub_align(struct intel_dsb *dsb)
+>  	/*
+>  	 * Wa_16024917128
+>  	 * "Ensure GOSUB is not placed in cacheline QW slot 6 or 7 (numbered 0-7)"
+> +	 *
+> +	 * Move to the next cacheline only for those two slots. The skipped
+> +	 * bytes stay in the programmed range, so fill them with NOPs. Any
+> +	 * other slot can take the GOSUB directly.
+>  	 */
+> -	if (aligned_tail - tail <= 2 * 8)
+> +	if (aligned_tail - tail <= 2 * 8) {
+>  		dsb_buffer_fill(dsb, dsb->free_pos, 0, aligned_tail - tail);
+> -
+> -	dsb->free_pos = aligned_tail / 4;
+> +		dsb->free_pos = aligned_tail / 4;
+> +	}
+>  }
+>  
+>  void intel_dsb_gosub(struct intel_dsb *dsb,
+> -- 
+> 2.34.1
+
 -- 
-2.56.0.611.g1030f0b940-goog
-
+Ville Syrjälä
+Intel
