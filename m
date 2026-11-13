@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585554;
-	b=O/uP28ngvdEISOwYyi6qvVA9BGpazhUJ/gKhRfm2f3W/JLuQP8+qvnhOADeojFq2e2xo
-	 zS25C8DZx4oNx/XpdRSxMUD3Hyzl7YqHDx/rT6+MOw4FGQWbihcrypADKbk0+/aa91jh1
-	 Ykkl3WzzryEgAZyY0pthKvAQs3hiobNiaC6CzNM2QWRayShI41SUtB6ulWcoR4NrdxrgF
-	 6Qz67dH78IPSmNTDx+K2O+mXQSn8BB6j+hwrEuWLHEvRDZ6V9JMGwJhAiFWV+9baDPG7+
-	 afIO4YQ33TZ0tiGJcI5h97Eozk4RmHkBkOQbpE+DXFhNTnYx0UrEqAq828G7oVR68fg==
+	t=1794585555;
+	b=boCyQEd/oa80xhTiarV2YorCxExtd2RnI/AzDcu4pXkq/8lTjqQ0CS/QAU0chzihm2as
+	 elvbhmqfpM9tDTEwiw/awP4YSD4g3hABlUEZCI8TLkOr+e/52dS3ES1BRqwIYsaUMy+py
+	 Txv0iiw5w/HCnuYi4wsKOjc3B2oIkdoPMzdDLxqKpZKPmFjnuEA61ijkw+9ihRVY8GM4x
+	 qtYYRMy6QY7h1UuPjclexGW5OL9X1lhQSVdIZj/GHEHfIrg+6YS0P6dbzGPnCV9qnJ3uk
+	 6QprKwumATE/YaCi9z0uYGeVARi+C05D/1u/8NjVBwVDT3DKZX2rCZJRKZlzQWMVoVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585554;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=v7OsVuI68toVGxoukGdn/ITq8yHt6b7No6mV5OpaB5c=;
-	b=sOz9UjnBOk/SFyeCzI7zlkxlLFBNhwrORwlWCfjMUlyaDnZRJMvhDisQe0Mos4x/bEVC
-	 ADJSyrIIK3Yvs7CN3CyrnZBLtpVeNjYOkiUsMjePZp+rOWnO1vG5up9Mbr95nmqo6cFsZ
-	 6/MymXvj/f982vYIuQgbbAd2SGupBl7s7Mm6yBEPPL4YpWMl4Ospg0tt6XSDF2apBiz+L
-	 JeiuEG7ReIlWqtpFc+mq+kGtOiQMXbIMQlMNcYGUHAJQaD/VdrnfBtJUoo/Gl1Cykz7lh
-	 RRb150ZNsOAal8NjtBgkY/+yzvOw/PI/yOP+v2DjBvd7NTd2zVaPlxX15ime75Ix4nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585555;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=JQSgYDk72tpQVvIZF+vyzBnbaXdIw+VK4sUmdst2kn4=;
+	b=plKOpjFCAEYtFs9glLD1QfBSg6Q3lEf+0PsaGRLEzUyfaqjpARXV3yCP/O27jS5eI14N
+	 hLpFaheG0dHgyWNDPCa/0o82ev2YACxIUV5jZEXcDAsEjifCtzT/Vw804TPe5tZoDQ0Mw
+	 dJofpSZe3iNJi4tpqDFkbmrrMcZnBi0DzlSvrcRBeo56qTzmCdLj+R/jokfQBcjO2Ol8U
+	 HRTcNpRCAG8vDQuUKlaI82anBJKPajbCSQRnhvCEslxW24QneLIlHp3Yn1g0L0JtEPY7l
+	 1M6F2jLxQeT2A0nH9yr9y6VhIjHNllfD8IO2oeJWUkJeGO7iXk1Klx2xxsHIC2HvhiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="IQUKC/TD";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HWGXJBvC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A3F60A2608
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:59:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26A3F60A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B49860A2628;
+	Fri, 13 Nov 2026 15:59:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IQUKC/TD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794585553;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v7OsVuI68toVGxoukGdn/ITq8yHt6b7No6mV5OpaB5c=;
-	b=IQUKC/TDwX0j1P1J466NJz3WjeZbrhbgn7/3fIw1b3/UMpEM4vsAESL+sZFbmz7ZjgvNse
-	FpknmcNvpEAqZeiX1k8K0xqU8MC24C4RpPEa14nnzN0XvVzxz2rS+PuQMSwVzsMcJRJ7oO
-	21AJrbH6hBoC+ISJsy3VD86x8DPi4Vs=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-693-Ntv96ZN_OVapg2RQPilAHA-1; Fri,
- 13 Nov 2026 10:59:08 -0500
-X-MC-Unique: Ntv96ZN_OVapg2RQPilAHA-1
-X-Mimecast-MFC-AGG-ID: Ntv96ZN_OVapg2RQPilAHA_1794585545
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 306AE1955F3E;
-	Fri, 13 Nov 2026 15:59:04 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4DC441956040;
-	Fri, 13 Nov 2026 15:58:58 +0000 (UTC)
-Message-ID: <4cdb4452-f11f-4e56-b03a-6d751dcfb62b@redhat.com>
-Date: Fri, 13 Nov 2026 10:58:57 -0500
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HWGXJBvC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DBEF1F000C4;
+	Fri, 13 Nov 2026 15:59:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794585555;
+	bh=JQSgYDk72tpQVvIZF+vyzBnbaXdIw+VK4sUmdst2kn4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HWGXJBvC9zuyQM/WyXHx3/Fl1s6D3htbqnrtudMz/A5QRwlCUOjcec/69GZqoGI5E
+	 HUZOmNc6CCFd5jqolailIYrI9qYEYa7tyMp5CBL6QTnLf0fR3xsLN2rK9JwF/qB5hk
+	 dvp7fbH4CqkKLFcTisJ2Kx/NP7ERinCXz5OPDhxg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Josef Bacik <josef@toxicpanda.com>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 141/507] mm/shmem: preserve allocation errors when swapping in large entries
+Date: Fri, 13 Nov 2026 10:47:25 -0500
+Message-ID: <20261113153759.225941178@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
+References: <20261113153753.358973689@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,154 +65,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 19/29] cgroup/cpuset: Wait for an attach before
- rebuilding the sched domains
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- juri.lelli@redhat.com, peterz@infradead.org, mingo@redhat.com,
- vincent.guittot@linaro.org
-Cc: linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
- boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
- mathieu.poirier@linaro.org, ridong.chen@linux.dev, tj@kernel.org,
- hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
- bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
- m.szyprowski@samsung.com, kayracizmeci@gmail.com, weihengqiuu@gmail.com,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-20-mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20261108185406.1549770-20-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Transfer-Encoding: 8bit
 
-On 11/8/26 1:53 PM, Mathieu Desnoyers wrote:
-> cpuset_can_attach() reserves the bandwidth of the deadline tasks it
-> moves in the destination root domain. cpuset_attach() moves their
-> bandwidth later, on the strength of that reservation.
->
-> Commit 75f7a25ec6bb ("cgroup/cpuset: Prevent race between task attach
-> and cpuset state change") lets cpuset_attach() rely on what
-> cpuset_can_attach() set up. The writes of cpus, mems and cpus.partition
-> wait for an attach in progress, in wait_attach_done_lock(). CPU hotplug
-> cannot run in between either: it takes cpus_write_lock, and the attach
-> holds cpus_read_lock throughout.
->
-> But a rebuild of the sched domains does not wait. A write of
-> sched_rt_runtime_us and the energy model rebuild them through
-> rebuild_sched_domains(). The cgroup v1 writes of sched_load_balance and
-> sched_relax_domain_level, and hk_sd_workfn(), use cpuset_full_lock().
->
-> In this example, a rebuild drops the reservation. T is a deadline task
-> asleep in root domain R. Thread A moves T to a partition root P, which
-> has a root domain of its own. Thread B writes sched_rt_runtime_us:
->
->    A                                      B
->
->    cpuset_can_attach()
->      takes cpuset_mutex
->      cpuset_reserve_dl_bw()
->        P's total_bw += T's bandwidth
->      drops cpuset_mutex
->                                           rebuild_sched_domains()
->                                             takes cpuset_mutex
->                                             dl_rebuild_rd_accounting()
->                                               clears R's and P's total_bw
->                                               counts T in R (not moved yet)
->                                             drops cpuset_mutex
->    cpuset_attach()
->      takes cpuset_mutex
->      cpuset_attach_task(T)
->        set_cpus_allowed_dl(T)
->          R's total_bw -= T's bandwidth
->          records a CPU of P
->
-> P now lacks the bandwidth of T, and admits deadline tasks beyond its
-> capacity. When T leaves P, P's total_bw underflows. In testing, the
-> race left a destination admitting 3 tasks of 10% too many, or P
-> admitting no task at all.
->
-> Fix this by waiting for an attach in progress in
-> rebuild_sched_domains_cpuslocked() and in cpuset_full_lock(). The
-> latter then takes its locks in the order of the writes of cpus and
-> cpus.partition. A rebuild from CPU hotplug finds no attach in progress.
-> The online, offline and kill of a cpuset never wait: they hold
-> cgroup_mutex, which the attach holds throughout.
->
-> The move_vs_rebuild case of deadline_bw_test, added later in this
-> series, tests this race. Without this patch, it fails in 5 of 8 VMs with
-> 8 CPUs. With it, the case passes in 8 of 8. The next patch needs this
-> wait too: without it, it would give back a reservation that a rebuild
-> dropped already.
->
-> Found by the Sashiko AI reviews of v2 (the race) and v3 (the cgroup v1
-> writes) of this series.
->
-> Fixes: 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach() fails")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
->   kernel/cgroup/cpuset.c | 16 +++++++++++++---
->   1 file changed, 13 insertions(+), 3 deletions(-)
->
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 194a438e25c3..51b6be460794 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -296,17 +296,20 @@ void lockdep_assert_cpuset_lock_held(void)
->   	lockdep_assert_held(&cpuset_mutex);
->   }
->   
-> +static void wait_attach_done_lock(void) __acquires(&cpuset_mutex);
-> +
->   /**
->    * cpuset_full_lock - Acquire full protection for cpuset modification
->    *
->    * Takes both CPU hotplug read lock (cpus_read_lock()) and cpuset mutex
-> - * to safely modify cpuset data.
-> + * to safely modify cpuset data. Waits for an attach in progress before
-> + * it takes cpuset mutex.
->    */
->   void cpuset_full_lock(void)
->   {
->   	mutex_lock(&cpuset_top_mutex);
->   	cpus_read_lock();
-> -	mutex_lock(&cpuset_mutex);
-> +	wait_attach_done_lock();
->   }
->   
->   void cpuset_full_unlock(void)
-> @@ -1005,7 +1008,14 @@ void rebuild_sched_domains_locked(void)
->   
->   static void rebuild_sched_domains_cpuslocked(void)
->   {
-> -	mutex_lock(&cpuset_mutex);
-> +	/*
-> +	 * Wait for an attach in progress. cpuset_can_attach() has reserved
-> +	 * the deadline bandwidth of the moving tasks in their new root
-> +	 * domain, and cpuset_attach() moves it on the strength of that
-> +	 * reservation. A rebuild of the accounting in between would drop
-> +	 * the reservation.
-> +	 */
-> +	wait_attach_done_lock();
->   	rebuild_sched_domains_locked();
->   	mutex_unlock(&cpuset_mutex);
->   }
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-I agree that rebuild_sched_domains() should wait for an in-progress 
-attach operation. The change to cpuset_full_lock(), however, is not 
-really necessary. This cpuset_full_lock() is now mainly used for 
-operations like cpuset_css_online() that are initiated from the cgroup 
-side where cgroup_mutex should have been held. IOW, an attach operation 
-which requires holding cgroup_mutex cannot happen in parallel. The only 
-exception is hk_sd_workfn() which is a work item for updating the 
-housekeeping cpumasks from hotplug which has no dependency on an attach 
-operation.
+------------------
 
-Cheers,
-Longman
+From: David Hildenbrand (Arm) <david@kernel.org>
+
+[ Upstream commit f4ce23b1feef16d435aa1188b6c2a637a5373ed5 ]
+
+shmem_swapin_folio() adjusts swap to the requested slot within a large
+swap entry before allocating a folio. If allocation or charging fails,
+the error path compares this adjusted value with the original entry
+still stored in the XArray in shmem_confirm_swap().
+
+Unless the index is at the start of the entry, this turns -ENOMEM into
+-EEXIST even though nothing changed.
+
+The caller retries -EEXIST, so persistent allocation failures can leave
+the task spinning instead of returning the error.
+
+Restore swap to index_entry on allocation failure so the existing error
+path checks the original entry. This preserves the allocation error if
+the entry is unchanged and still retries if it changed concurrently.
+
+Fixes: 91ab656ece13 ("mm/shmem, swap: tidy up swap entry splitting")
+Cc: stable@vger.kernel.org
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://patch.msgid.link/20261029-fixes_shmem-v4-12-392fc715d8f6@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/shmem.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index fab3f1d24550a..2b2f347bb8a71 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -2327,6 +2327,8 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
+ 			else
+ 				error = -ENOMEM;
+ 			folio = NULL;
++			/* Make sure to validate the original value. */
++			swap = index_entry;
+ 			goto failed;
+ 		}
+ 		if (fault_type) {
+-- 
+2.53.0
+
+
 
