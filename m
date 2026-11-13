@@ -1,49 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537773;
-	b=ceSFaE9YE3Ii3hLFRQSpIyUIQUABy5pyPWVPxz7E3c4Gh29b7Ej6bJWJoO6/OCaimRji
-	 wq8SQSXvt9OpykoxRbHTqeYvpZahGkaZWdqhT+NasK/bnKiOAW9Gi3LrYD/CcJWGxLa8l
-	 l+ZWlcUIntQJD8vV5agE+fN5fBfISqmfpFVuKuTG4gOmzQmq8GV1d+lw246dV6Tx621Hm
-	 28WfvEnjanH+dlbLbaWQJoMdzCS14TQHVaaLbAcQfwI6t7RNClpCZyd+NF6P6/nUYtOjm
-	 B78IUH+LW8ww5lWlz8GS8ckHXdRRvls23H6WlcH04FFjB1jXAp+vu4qKL7TkI79bJ1Q==
+	t=1794537868;
+	b=tIYgbtLQZC1L2EaTXHOb/PdbfXanYVDpKe/P6+QytPQE6jtycR5UDbiPRayV4iguGL1Z
+	 ofnGVDgueJX3LsjFPSppsWavABkMQV2vqcp8lIdnbx+Xj7oKh6K0QsnpDi2+VNro60GDN
+	 n4llgcDo3aBT+lY5L3nU3zGY98kdrahI2SiCqLoeBck68S8v1mFkg7WtusuL0vf5jUzZT
+	 gUVQqn2SSovSEM3LUCVulQqxdn9Bb0dV1YG/Kv5arTDuVjcMPPCrcOB3iM/5GrfHhExuf
+	 CPmJFvcTgAgFQ302zLbIdPgYLbhSbqwmcOkIy1rJtaO8K0ulgsImCE3XN5ULqqBxccA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537773;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=rpfqaLD/s0aZ2I2qPUV8mwprDsWG5GFsyO34/kwcrmE=;
-	b=4j04rXvuEcnRLrJReOdxr9ANfBdlFGdBPJYYEFWpHcJGoBRqXCq+rNzJ/+Yc+BnSHlhP
-	 hlv4QNAEOhjCoxk3DWCj4CW2y6Rvd/oIc4X/UNVu52InhZaykz4lcvioZMdm1ehobugew
-	 t9PncbJ7pF1CBPodLh/aYdJvjq/Z6/hayxZtvrQHJcXSNd0KDkSCiZeRR254422JleKos
-	 pIP/KzXKVrGtFyJy5Tof20usV83p1MSmooYr8q4HvfI5WCeCInT7C8mRrqYB7ukp5T9ja
-	 l8sAXcEA0fMVzJxTyOQCAX3Mf3+upbct6cRe5pzcbWYKDUmve7Pwyuj140WVqgUXEZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537868;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=yKLpzjQ6J8yCja5oBDK9zH5qDXnAqD8YWwpc7xYunGw=;
+	b=Qu0oe7TTh/RuE/QYtnhHOL59ZX+xxc++L2Hkg5TobASbGjuXGH8v/s/lnZPkmpqGKiZh
+	 e4IWW3slGh1pF+9zbJBMGN8o3fj0qS39CxgwWRsJSdRXLgv9pBIzs4aXDddzqmuJd1zLc
+	 1DK64W0HKTVHM0DIJ+TTmnjSF5t8ky7OFUIc1Rt5rR4Rb7J0M96UFvdnI7gyc6RSO0xsF
+	 3zVEfh5rukapCEAWDge2y+J+P95uXbqDiP0jVzqtrpl6GtFiAoBbo3suOiskNnjWxpQYF
+	 2s+vEzO0819b9qH2A1qqNDIHHXvuH4bv/C2x0G2xZCGelBLYFtWBMmIQbgRBKGwJ1vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=v2J4x8w4;
-	arc=none smtp.remote-ip=115.124.30.132
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZhC50Xt2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A63F606A32E;
-	Fri, 13 Nov 2026 02:42:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A63F606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E651C606A33E
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:44:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=v2J4x8w4
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794537765; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=rpfqaLD/s0aZ2I2qPUV8mwprDsWG5GFsyO34/kwcrmE=;
-	b=v2J4x8w4xEhBnkI2KXUn9Obj2RPAX7Pm0AMMy1kLpWiU10VOmZmULFBcgr9nLPL6XyBojG03lx+TyWpUnuo9dhfVQxUM/fWx+m4kDo+3HAo1cXY16nG3LvB5VEvEG88b9fl0VUKNPUm8gcrhVwtvUSppvcUk8rAw5vErkQDIHgM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XEdeb.M_1794537762;
-Received: from 30.74.144.124(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEdeb.M_1794537762 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 13 Nov 2026 10:42:43 +0800
-Message-ID: <795b8d8a-4f6f-451f-9274-ccb8380e03dd@linux.alibaba.com>
-Date: Fri, 13 Nov 2026 10:42:42 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZhC50Xt2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1ED41F000CB;
+	Fri, 13 Nov 2026 02:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794537867;
+	bh=yKLpzjQ6J8yCja5oBDK9zH5qDXnAqD8YWwpc7xYunGw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZhC50Xt29pZpBEIx90i62UZAEKht2CDEwamtv/dKk3juILVk6KUh6reLd9YiB7rZl
+	 q3XXCR1wejf+X6bRpCj0W6vbXUQd4fDe1rRCiqxXyOn3ZMxeyakJAV32xwokGJso1C
+	 e0VSPe9G87VrVZh7JVgJpuCGnebWTP47NrJ7zSvA5cu6rAX0hJCrCaPW9w1mA92lFh
+	 /wFLqJkWRVUfROYPeNW9pdF77eJQul3BIn4B6YCPwyGgFPucghQVgjL5Mcs3CYsUc8
+	 2lIKomdFj0YuyB+C3FriGOr8kSm+SrtE2xcgtzFOBi9kJeko5LUnPT47TfIknTnlrW
+	 9C7LE2BothMig==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Balbir Singh <balbirs@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Salvatore Dipietro <dipiets@amazon.it>,
+	Christoph Hellwig <hch@lst.de>,
+	Dave Chinner <dgc@kernel.org>,
+	Matt Fleming <matt@readmodwrite.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Michal Hocko <mhocko@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm: page_alloc: do not give all non-blocking requests reserve access
+Date: Thu, 12 Nov 2026 21:44:24 -0500
+Message-ID: <20261113024316.459926-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201720-failed-6.1-6ee3d87b9408@kernel.org>
+References: <20261109201720-failed-6.1-6ee3d87b9408@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,67 +72,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/khugepaged: reject shmem collapse ranges beyond i_size
-To: Andrew Morton <akpm@linux-foundation.org>,
- Pedro Falcato <pfalcato@suse.de>
-Cc: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261112142335.2749597-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <avYBFPhB46XWAG4A@pedro-suse.tail5790ac.ts.net>
- <20261112145036.97f74a828755d5b9178a3e3a@linux-foundation.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261112145036.97f74a828755d5b9178a3e3a@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Johannes Weiner <hannes@cmpxchg.org>
 
+[ Upstream commit 6ee3d87b940848aaed5d4e8d005c5f674bf2637a ]
 
-On 11/13/26 6:50 AM, Andrew Morton wrote:
-> On Thu, 12 Nov 2026 18:11:35 +0000 Pedro Falcato <pfalcato@suse.de> wrote:
-> 
->> On Thu, Nov 12, 2026 at 02:23:35PM +0000, Jérémy Jean wrote:
->>> MADV_COLLAPSE lets collapse_file() treat absent shmem pages as holes
->>> filled with zeros. It does not check i_size, which allows one present
->>> page to become a huge mapping that covers the whole collapse range,
->>> including pages beyond EOF. This makes those pages writable. A later
->>> file extension can expose their contents after F_SEAL_WRITE.
->>>
->>> Hold inode i_rwsem in read mode while collapsing shmem so i_size
->>> cannot change. Reject a collapse if its page range extends past
->>> i_size rounded up to PAGE_SIZE. Keep i_size_read() outside the
->>> page-cache XArray lock because its 32-bit SMP reader is not IRQ
->>> safe.
->>
->> I don't think this is an issue. shmem/tmpfs purposefully maps with large pages
->> across i_size, and collapsing across i_size is a feature, not a bug.
+Patch series "mm: page_alloc: fix reserve access for non-blocking
+requests", v2.
 
-Yes. finish_fault() even has comments explaining the special case for 
-shmem/tmpfs.
+Two fixes for how non-blocking allocations interact with the highatomic
+reserve.  There are prerequisites for Salvatore's "mm/page_alloc: avoid
+direct reclaim and compaction for costly __GFP_NORETRY allocations" [0].
 
-	/*
-	 * Do not allow to map with PTEs beyond i_size and with PMD
-	 * across i_size to preserve SIGBUS semantics.
-	 *
-	 * Make an exception for shmem/tmpfs that for long time
-	 * intentionally mapped with PMDs across i_size.
-	 */
-	needs_fallback = !shmem_mapping(mapping) &&
-		file_end < folio_next_index(folio);
+Patch 1 narrows which requests may physically take highatomic pages,
+patch 2 narrows which requests may count them in their watermark check.
 
-> hoo boy, this again, See
-> https://lore-kernel.gnuweeb.org/linux-mm/nwkpojnictbg6jicccpxyfi63ol4tmfajrlx24u5xxoxx7lv5f@jkw3o7j6tlfs/T/
-> and enjoy.
-> 
-> It's not good that this sequence permits non-zero data to be exposed in
-> areas which ftruncate() created - the ftruncate() contract says it
-> doesn't do that.
+Both are prerequisites for Salvatore's patch: it clears
+__GFP_DIRECT_RECLAIM for costly __GFP_NORETRY requests, which turns every
+large page cache folio allocation that reaches the slowpath into a
+non-blocking one.  Without patch 1, those requests may fall back to the
+highatomic freelists reserved for atomic requests.  Without patch 2, they
+count the free highatomic pages in their watermark check while being
+served from regular memory, so they can consume regular high-order blocks
+below the min watermark by the size of the reserve.  GFP_NOWAIT requests
+hit both paths today, so these are existing problems worthy of their own
+stable backports; but Salvatore's patch would widen them significantly.
 
-That's a valid concern and this is a known issue for shmem/tmpfs. Brian 
-previously posted a patchset to fix it:
-https://lore.kernel.org/all/20251112162522.412295-1-bfoster@redhat.com/
+Patch 2 reproduction: a GFP_NOWAIT burst under memory pressure can drain
+regular free memory to zero while the highatomic reserve sits idle.
+Measured on a 32G box with an anonymous working set, swap, and a full 290M
+reserve, three synthetic bursts drove the 28G Normal zone's regular free
+memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
+its swap table allocation inside reclaim, reclaim scanned 13M pages to
+free 200k, and page faults stalled for tens to hundreds of milliseconds.
+With the fix the burst stops at the min watermark and nothing else
+happens.  This was found in review and reproduced synthetically; it has
+not been observed in production.
+
+GFP_ATOMIC order-0 requests have a milder version of the same problem:
+They are entitled to the reserve but are served regular memory first, so
+the fix there has to change the watermark check and the freelist order
+together.  Salvatore's change doesn't interact with this, though; fixing
+that is left for a separate patch.
+
+This patch (of 2):
+
+281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
+highatomic reserves") accidentally gave all non-blocking allocation
+requests access to highatomic reserves, which includes GFP_NOWAIT and
+other sites clearing __GFP_DIRECT_RECLAIM.
+
+While this improved atomic request success rate, it's unintentionally
+broad and can actually worsen highatomic requests by squandering the
+reserves on requests that don't need it.
+
+There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
+for costly order __GFP_NORETRY requests, which would then also fall
+into this exemption and deplete reserves even faster.
+
+What GFP_ATOMIC has over the others is __GFP_HIGH, which
+alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
+
+Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
+ALLOC_MIN_RESERVE.
+
+Link: https://lore.kernel.org/20261001082152.2879289-1-dipiets@amazon.it [0]
+Link: https://lore.kernel.org/linux-mm/arFBWvzXPYrKuIYi@cmpxchg.org/ [1]
+Link: https://lore.kernel.org/linux-mm/20261001082152.2879289-1-dipiets@amazon.it/ [2]
+Link: https://lore.kernel.org/20261028171719.2043421-1-hannes@cmpxchg.org
+Link: https://lore.kernel.org/20261028171719.2043421-2-hannes@cmpxchg.org
+Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Salvatore Dipietro <dipiets@amazon.it>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Matt Fleming <matt@readmodwrite.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+
+regular free memory to zero while the highatomic reserve sits idle.
+Measured on a 32G box with an anonymous working set, swap, and a full 290M
+reserve, three synthetic bursts drove the 28G Normal zone's regular free
+memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
+its swap table allocation inside reclaim, reclaim scanned 13M pages to
+free 200k, and page faults stalled for tens to hundreds of milliseconds.
+
+[ sashal: placed ALLOC_MASK_ATOMIC in the existing internal header instead of the separate page allocation header ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/internal.h   | 3 +++
+ mm/page_alloc.c | 4 +++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index 3e3dfc8e0bc6a..a3811e6265b18 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -797,6 +797,9 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
+ /* Flags that allow allocations below the min watermark. */
+ #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ 
++/* Flags that mean GFP_ATOMIC */
++#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
++
+ enum ttu_flags;
+ struct tlbflush_unmap_batch;
+ 
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index de91843b80fad..edafc2c27d407 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3777,7 +3777,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+ 			 * reserves as failing now is worse than failing a
+ 			 * high-order atomic allocation in the future.
+ 			 */
+-			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
++			if (!page &&
++			    ((alloc_flags & ALLOC_OOM) ||
++			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
+ 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+ 
+ 			if (!page) {
+-- 
+2.53.0
+
