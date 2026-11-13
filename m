@@ -1,93 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608271;
-	b=vEqsLdRo0CX4Aj5xsEOmoyUOZktyQGhDD9a14ivqkkwtrF4vmcqLlRf/A5QMtnJ4V1Fv
-	 CHr8HKRA0afYKpTtkHeQAH9LIpuMuxBy91cHl1w/u9f/E67IVWFjtDX8BuXtYY7rboNzz
-	 m9Ecv8Spc2/uTh4u1gw3kdNg5SSShLqdYGqY+wNn1bxgro5jFuM9RLaRFPmYqa5F40c4d
-	 jWgGc2ilNpUU5aVyoDqRjF16GVq1rToxZy3/d+cH/zcYZoL9MdwmZMDd2XLXeClN37v2L
-	 FV1/2mXUVqIQKjk8kq0dNo/SXOU0QUZkaWs6xl9KdKVu+k++g9oadLu3WHGX5Sk/e4A==
+	t=1794608784;
+	b=qC700mA/NSQ1CBBhDBqTpeIzcH7HU7npJLl3Pl4AZHUZsfS9ucx64uscI2KKayLC8h6+
+	 CGaDy7JLv2H2vripKOD4nw/qHJSRYndzDWpq166wnGElU+Ep4sPQhB0Qku2waHWZw0wjT
+	 rtpDvQfMr2CYDyv9+3OlclG+ZioFiKZCxwHzVWO8gkalNTQ11i1K/qZ1HoHOXZAoxkZ8b
+	 PU/qVTVxx6/wkeErstp56KEb/xOI4ynoffu6T3SMu/zwOEPyCtBO68XDKO2xhqFqbj922
+	 lnOwz6F6ZeV98+JDqWfhvZTg2EX2g8pOhs6IrrdX7hSXKpn4tPSgIDEOfuTUNtGnb1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608271;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608784;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=RoOMKJstRsz6kzVltt6LynRLltK4wJnMWDIO5lBxAHs=;
-	b=T4yA4Y9PfutwmjVmS6WApJRAknDwTukdZ6RA2HiX5Qj+988h9D36cGrAVF9a3zEK7kKE
-	 viPoOgxMevpc6SOIAy8hXx4ULR7ZwOFsgz+FaSjfYxCpOlGpE0dMXHqB96j0fcGXKpCvr
-	 T9bf5qmmaEIg4w3J6zY2gt7OODQuKlvQFuIXm79sLSHbU4ZiqUcWn5e/+/iaRbMUYIOyN
-	 xzwD9pi+AeDCI/RLE4aXotrGLCboKUSRDU62KpO/6mWB/inno2YB0EAnTC71C5Eem7JV4
-	 Hh3Px1A4/EhZ3YW+aYXitzMO6RRfJyvwhTp21bFGZTUQkDjTWN8DzcsrD58wBYdKkqw==
+	bh=FJtZRjKgFg90uSeT2CbjH35DbAO/VLflNjScs874eM0=;
+	b=xXNVhYziX+HODcoy8zBoPHas9LP6nymplKu5cqhFXfdGSwpbQ0YHDzyx4zATR/0ShfAa
+	 YNKV9DBnlyE7a9YUEXD0HPju4PQzTBlTLDAubx3XsitBLWuOGRMyD+1Tp+ySkVGF2zPNd
+	 KKS75OHS9bA7YNy3lqnuoHsXtwpgp2Nq1mX7TGhxySPAsTbGwti5QY0ThOUbIB0fjvsXW
+	 yxPGi/Ryl3tnbDypQfAPIN7idvbuiVny4B/LgCYHnOXknZeytzzVZDp9Rthvm99MbuQl5
+	 WnteFl3wZYHTdE5vXkA8N7JaPdH44o0Jjrk7QCgnP8z72+LVwe2hwhfz5ab2yiG0SKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JUm7RyM+;
-	arc=none smtp.remote-ip=74.125.229.8
-Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LW7hNVN1;
+	arc=none smtp.remote-ip=74.125.229.9
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85579606A329
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85579606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF92606A33D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:26:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF92606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JUm7RyM+
-Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-36a6ce64b95so578586eec.1
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:17:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LW7hNVN1
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-3678f64d078so1536095eec.1
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:26:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794608268; x=1795213068; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794608783; x=1795213583; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RoOMKJstRsz6kzVltt6LynRLltK4wJnMWDIO5lBxAHs=;
-        b=JUm7RyM+AXnjvlrIH2lobJSVH0t/Th2jSkDpo0OPg7nx87/mKmOc4/Y+3HOngLad3B
-         O1GBloJGH/x7tNHFVTdP0y+A/2aZxz+nOV+Qy8hdKmVzwcUGBN2stSRPPaqbmvd42lyO
-         v8mk3Ku0eL/v/nhnAgp5pucHc9Qk5NkSJCE5jCGtfLCI/poehuw5Z8YD5UfBdwog0rHE
-         pQJeQieHsN0wksmeC2iEel4yEuYNnbUdNpAmNfOaQQ/GJ1Fjx4E7SnKu7Ezb9Fg0bS0P
-         uqikaNy+J/mIloWXi+sX3FcbCuEjzNl00L3Faaz4FXfxkqQQk+kxq7wSz+XPnioI98uz
-         +u1A==
+        bh=FJtZRjKgFg90uSeT2CbjH35DbAO/VLflNjScs874eM0=;
+        b=LW7hNVN1/QnvVg3UkSRF0jxLpcaRrLGgFRFHtoTIp+6N3hBqKASEMnp3c3ONAYNXIB
+         7jBo9XudgJ8EIkIEllsKdLrMfSlZRyLVJdZ8ZTm4YPL9UDgC5a86mS9iNltY3TeJoPQq
+         VIYQCAoJTy5pBvL9AXkZaPvnWvf5MWdM2LDqxvOyDnAgJn+LxqCq0jRm+igqA7BFh9ee
+         4rIw+phy0fECX1Kjyis2LvKy5JFSMAIsW9ExuxQ4LGct2uLxK5UdUYSNoDKGAeGQwdAY
+         qsBhs3qGX8pZeKwd/bXuBSewMym9Ays/JuRaznUEQdh1lliYtVopM+5/hBAuCyf0gjTl
+         Beuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794608268; x=1795213068;
+        d=1e100.net; s=20260707; t=1794608783; x=1795213583;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RoOMKJstRsz6kzVltt6LynRLltK4wJnMWDIO5lBxAHs=;
-        b=oDKuVJzLufuaqrbf2VCIrhYLxKWGMGTPBHLMEuKUqmjpMv4kT8VQ1nLR+VJNfPZ7Ya
-         8T4U17ElLVO3AkU2DW8L0LmQw5o6EiHWV1WGtXs6gj8Z9Z3YWq0cQqAeSiRxB2EODFs5
-         npeL7S537njzhQhpz5O/HUBsBRdC2pkF39s8cThv8wm4cQTnZQ1xqhYd4WtgWPYAwQvx
-         czJ5wRstTqwxvf3HcVtYKH4CNDBI7AADZD9+AsI4s0UNUs5j3pjPQYcYd9KLGG7BlXiC
-         BT+A1yyLF1rfUsm1nqncTTBySWuCf8vdxpNqQr3BoQtJb5YexvBIrqNlK9JmJ1nRLUGp
-         Kk5A==
-X-Forwarded-Encrypted: i=1; AL+hErGnKjrFltd9pDBEhhuCn3/oEjC/DlMXXwSNykP01TW6uVXt2KuH2VQ53hvJC3mxpR6XAdxQcYE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cQmne9d5UtWR3P4L74lw1m4ub0w9EUi4YdVtI/4pfAWymyYFe
-	tXNLN/FYehzyPOnfqyOknJ6mXX7ZW+MFD9lHNjh2mbD2vOMLsITQS8yF
-X-Gm-Gg: AYBFou2zM4wBGPRkjuezgmryu6ecB7Zr0lZfH2lnt4Aohi6DSD9L+4TxJrLeWyy849k
-	2CWMIwOglOTRyCE/pR6wLe+COMARfPHieWdUg1DFwFjvk1Hn9K2MSikAzpn0QvpT0n+6mWDTNfM
-	Ha+BHMrMGDj0pkkCSvEZ1hhD9p+BaKPgm/cSIs1bZwwvdjeOdF7vq3I7MoBgYLcis4bUdF/wYud
-	1ZNSCv9nLiQZCHoYxdZJiw2AzO5r1Anlf8MpONajafrgrot8+qMOPpfArm9brMfX0pZ8QxJBUD8
-	dRSBHSxqKV8UajXLJOP7TnUcQlHatd4qFxKYdhvDYl3gb9ZBdPAAvwQp/ZC5BMHlajUeVFVtTSa
-	A3SHfN9avphQUqwSp0y5uClf7Wyqtv0v7ygcK3Z/D7oj8CapEq+qSZJxtXU2AR0E0WQQG+hHuO9
-	adrePltfEDrXzCEPH+NqawCZ+TkkcnTcMo6GHWW4nX5AaYChSDmdZVKk6X9JAiouoN0gIiUgQlT
-	5FqYTxPrMkhzF8ws9MrRsz9Y5vbV6v7h9gKEdrbRh9VEKXI+jRUEB9YWIfdNOMl1E4TpE+091kn
-	Jgy5aVDZYRLKHfAVl6PALScnLPAYIQaQNYE+Tk4Z72sH4w9JkHZTkL6r3zRAj066EmicGYQQkzS
-	8kq7+l7mkXeoDDj45gYPIFHMwjl5HwSj/GkRk3Q==
-X-Received: by 2002:a05:701b:230b:b0:1b5:10cf:c458 with SMTP id a92af1059eb24-1b510cff4a1mr939693c88.23.1794608267442;
-        Fri, 13 Nov 2026 14:17:47 -0800 (PST)
+        bh=FJtZRjKgFg90uSeT2CbjH35DbAO/VLflNjScs874eM0=;
+        b=nclb6/x0jhAnt1FSboSOh4RAAsg/cy0u1pTvHlHl3MhEH+84IMXxyeD2pHMLQjNA+S
+         ykvceuRecs5RK2FqltTuLt4VTm6JnVScMV5bzj9+BSNrlldD8IhWY6gAg5Vz3PNcbg4c
+         Mn3Lmqpx8oyXTHSyiepmaeYDBzIe29jOEPx7m+xGrhq+h9OLS+wk/3KJG6qq79vKPfWE
+         6qPwHnUElNQk8/hygLHZNcdG0DiPk2+rXu+B9Ef7hHGhWtv1WQwz4qrGAtmItEXtBxzd
+         BollV2yHlq0QA5ZL5FB2bHKoXzNyAP5UBlYgAiEMQU86rHse27G+SaiLeiBODMfsWXtW
+         g7XQ==
+X-Forwarded-Encrypted: i=1; AL+hErFmxJbJg+Nr8BTpRx70xtqNFTkvn1hQpb6KEsg2O+xvVnQwTUKBooL7M7qiWFH/EbiL0ILzY2Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8eW99e6IGDoEppPlsv8+tgakfxWU20HeiGtYaooj45aBBMyQta
+	VC5jhITq5ogClcVzvTttVKT9c9zGLL0RXX3rGG59N7uU5RI0+6zksZma
+X-Gm-Gg: AYBFou1HwgdmEHvbJXVmBPL7/3flgrSvSsLeNLWB7x2mYgp+WVT9jDh219cEdXKBFnM
+	PGX/Cvu5m/Q5mkY6zEXNRsYwyRmcXcVPww3xPOA9Gu87n5XeeJqmEM79T7QPxew8riIdwraKSeR
+	RZN573JCoAuOfneL5KF5b7fO+YYji7htB5c1oOBYJouNOQqOTnDirbcjaHmRre+HAeJ1mrALjra
+	stAnbrsio6E26Qn77MxtCvY5F/8RNnDhFWZIt+AKULtpwoHkXEgT+hGcD+2Yrpk+FRXloIe3KBA
+	3HIlwKt6ADJ4NnOsVB+opyahNkbXO6xjVCBP1T/FmjTD2HUMh6U5l4yU7KapHBp2u7HAq3dDodK
+	hTb24uNcWBNPgnBpSnGCPPL1658EHoZ6LZDAABgwAF1rZHDhcTVXgUMW5PDwQUm1msMfmQlmGP9
+	Cyqb2wDa/KvQsWIpspel/egnR8vM0owoinou0EpcwL2WS/ixYejAzeGLvp2+5A6Pp/7nUo77Pi9
+	RrZdpo1WsRAERMQS1TwHC/B/tvxYrh2ZlcMz9Ls0c5fKEP8auO0JYpxCMCofDnaISBNrXtRhwPp
+	zyH04M+l/YFHU6c5ATeBUjt8fkh9DtjeMYzqgtmUT2eDcX93+xiU2EySxNG/G7J1L044VLH3KFw
+	r0GEGDiEXREwzxHFO2mhmFPo78de9zAhi3b5A46c1hgNw86fEnwq9zDOdl9k=
+X-Received: by 2002:a05:693c:3e0a:b0:36b:d3dd:2e9d with SMTP id 5a478bee46e88-37966192e10mr3194904eec.19.1794608782828;
+        Fri, 13 Nov 2026 14:26:22 -0800 (PST)
 Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50313d8f5sm16886713c88.3.2026.11.13.14.17.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm17151380eec.21.2026.11.13.14.26.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 14:17:47 -0800 (PST)
+        Fri, 13 Nov 2026 14:26:22 -0800 (PST)
 From: Hungyu Lin <dennylin0707@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Parthiban Nallathambi <parthiban@linumiz.com>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] power: supply: qcom_battmgr: return charge threshold write errors
-Date: Fri, 13 Nov 2026 22:17:32 +0000
-Message-ID: <20261113221732.97506-1-dennylin0707@gmail.com>
+Subject: [PATCH v2] iio: light: vcnl4035: Fix swapped raw channel readings
+Date: Fri, 13 Nov 2026 22:26:09 +0000
+Message-ID: <20261113222609.97564-1-dennylin0707@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -100,43 +102,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both charge threshold setters return success even when
-qcom_battmgr_set_charge_control() fails. If the PMIC GLINK transport
-returns an error or the firmware does not reply in time, the sysfs write
-still reports that it consumed the input while the cached thresholds
-retain their previous values.
+The IIO_LIGHT channel has channel number 0 and the IIO_INTENSITY
+channel has channel number 1. vcnl4035_read_info_raw() selects the ALS
+register for a nonzero channel number, so in_illuminance_raw returns
+the white-channel sample and in_intensity_both_raw returns the ALS
+sample. This also causes the illuminance scale to be applied to a
+white-channel sample.
 
-Return the request status from both setters so userspace can detect the
-failed write.
+Table 13 of the VCNL4035X01 datasheet [1] lists 0x0b as the ALS
+data register and 0x0c as the white data register.
 
-Fixes: cc3e883a0625 ("power: supply: qcom_battmgr: Add charge control support")
+Select the ALS data register for IIO_LIGHT and the white data register
+for the intensity channel.
+
+Fixes: 55707294c4eb ("iio: light: Add support for vishay vcnl4035")
+Link: https://www.vishay.com/docs/84251/vcnl4035x01.pdf [1]
 Cc: stable@vger.kernel.org
 Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- drivers/power/supply/qcom_battmgr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v2:
+- Reference the datasheet's register table in the commit message.
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index 636d6f6acecc..f14d731e0283 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -704,7 +704,7 @@ static int qcom_battmgr_set_charge_start_threshold(struct qcom_battmgr *battmgr,
- 		battmgr->info.charge_ctrl_end = target_soc;
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static int qcom_battmgr_set_charge_end_threshold(struct qcom_battmgr *battmgr, int end_soc)
-@@ -725,7 +725,7 @@ static int qcom_battmgr_set_charge_end_threshold(struct qcom_battmgr *battmgr, i
- 		battmgr->info.charge_ctrl_end = end_soc;
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static int qcom_battmgr_charge_control_thresholds_init(struct qcom_battmgr *battmgr)
+v1: https://lore.kernel.org/r/20261113110123.96084-1-dennylin0707@gmail.com/
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+ drivers/iio/light/vcnl4035.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/iio/light/vcnl4035.c b/drivers/iio/light/vcnl4035.c
+index f1cc75245001..4bbb3b458eb5 100644
+--- a/drivers/iio/light/vcnl4035.c
++++ b/drivers/iio/light/vcnl4035.c
+@@ -156,7 +156,7 @@ static int vcnl4035_read_info_raw(struct iio_dev *indio_dev,
+ 	if (!iio_device_claim_direct(indio_dev))
+ 		return -EBUSY;
+ 
+-	if (chan->channel)
++	if (chan->type == IIO_LIGHT)
+ 		reg = VCNL4035_ALS_DATA;
+ 	else
+ 		reg = VCNL4035_WHITE_DATA;
+
+base-commit: 9752760146e642f3e4a2ec860f8767fa72030d2c
