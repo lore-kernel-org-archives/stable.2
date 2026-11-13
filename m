@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590995;
-	b=db9rMCOSBSYs0w/qlDCgKfmtSeq9zDz1cjqH5hUrGqa/4Z0Fg2GrJy5sce/il8vpQcnB
-	 9AzbA1ORC0BAvPyPwOuDnMbTHNde+J39Pc0GU8tFFvNzQVbfpgASSXRIKeSPk2E4KPCta
-	 ofXY1PdX7erPq/HX6Hl4IUZudtsW5rvQ+q++suX8tD4t1gBZw3+PfPOays52esyQmC01v
-	 4E8oC5UnzpjeeTT/aJNnfNylEfYXcexB8rqvlYWGzH2ttHHL1n6a3yiJPBGtR29GvHBk4
-	 DR4c6YG9MWB/2Tr4VH+ReJFfb2cp7YN23XcOBVsp4I6CZqykS6QPkYXupIk6xennsVQ==
+	t=1794591001;
+	b=H0f1GcRl8E3R2RkPmjVfRWvNyQcvRxnKfI4D9EfldbYy1QmuCRMlR+jaeXpU4Brq/yE3
+	 XczLAI3zAvlIw/RghCUHs26DrodtWMv91Cht+ezW3kgSWS98MVFAtiO0RKKNh/bkMtzzT
+	 PrBdiZ2rbI64Gl6ceev47ZDeRKIsJQki8Xs6AmKnWByS5Og4W5q+xTGx9a55ewDmIXGZp
+	 WV0KUZeQkgHCkaqI7R405FpU5BxWkJJt4MZLPphZZMZ/JS9SMXa0LA61pAJFDcAPZS9+F
+	 ikgZ4KglxJJOLpYw68cCY2oIP5b/5EsbQR7DKRb+HSh8G0FTanYe9n2NA6olFwMPJgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794591001;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=oQPyvq/X6VL8YxujpbV2A5EV9TGwIZT8ftwwY4LJnqg=;
-	b=S3SZajY6IGcjEv9lDE4SFxl42B1pmOj0aW08lXVVSZVSSDJ8FmGvTU33pq6XRoE5XX4f
-	 53McZ/oRwALam8xCl33FH4hPBuiRa551MXY43vE6c/7habIkV0eg/LD1k9N6iSsa1pUg7
-	 K0t2/vXuisEt6aIU1Gd01erirNO2YxArWBdBryCEwn6ucUjiEazxlrJCllAt/4Oxa3d4k
-	 37+7InbY8mouCrm8AVpao79Kl5BM+2Upwu+z+r2vz6mY6w9AThl69yCnGOdtP06wx07Ee
-	 fIJSAvohJ8MoUXBXjqCpUYb+684pMSSOZTvOpVUIjYa2g8WYfgmNGlCu7aj9PUQnOcQ==
+	bh=UwPyAr7s19nJKB8ruvWMMeEZbwAhogbW/jwCvMrHzXs=;
+	b=dkMm7sLl8EGAWpqyigFfKFUmJUcpfdftohEPJ+ci/ok272hlLVg1Gobj38Y1Jdro/Df0
+	 k03bED9C76Ny94I+8PduKFQiAfj/E+erDujqBwHO3o63kspcfTYC9HpkXiBnb6By2a321
+	 X8bY8LkWduujfZfUAB3m2uuAwmdDuwK3JUBzlIoQVFTzNTGqiM6t/4v/cufvRMr10bzhI
+	 Ml+h6ZIJpLRK/04fiel9z5z6TGx7/IjBISFjVPm2EuHiILXMjSATge03QQx+xOUOhdgbQ
+	 ix8xaVP8IC2OW3tkBYj7GIzOu6xSUQiewe+7mwfleOKV0pPw5MtilaaB5esgMYRYOLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SpI2AMtC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wNOhAIEk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BD860703F9;
-	Fri, 13 Nov 2026 17:29:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AEE6070F0D;
+	Fri, 13 Nov 2026 17:30:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SpI2AMtC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF081F000C4;
-	Fri, 13 Nov 2026 17:29:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wNOhAIEk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F4C1F000C4;
+	Fri, 13 Nov 2026 17:30:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794590995;
-	bh=oQPyvq/X6VL8YxujpbV2A5EV9TGwIZT8ftwwY4LJnqg=;
+	s=korg; t=1794591000;
+	bh=UwPyAr7s19nJKB8ruvWMMeEZbwAhogbW/jwCvMrHzXs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SpI2AMtCf7BFsAhudCgtFOM4lv/LCu10MvIU5jryort1kpC98qm04miSqh9kqovpr
-	 VRZ5l0hijEAwvNipBvDjMoXSmPu+JwI50kwoSmoyNDJWukBysAmf1hsu00VjjVEwD/
-	 BCDRztTQBxBu2RlMoTf5TAztj4wIJWEfv1Mg5/kY=
+	b=wNOhAIEk69uQox3IR09AwNErL9temO+8xlwdkKShIaXynhhIglomJzOgkRXTdv0a0
+	 Df4PMFDmyc1JlkQeA77wubVMLqQsfaO9vR2dcoyGd+YCO+ef3efD99zQFb3XAt5/uR
+	 ScHP5DLvJCPp8HEv7dc6G3vcs5OnTTrCQbknPKUk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
+	Ridham Khurana <khurana.ridham222@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 169/670] xfrm: retry inexact policy lookup after node reinsertion
-Date: Fri, 13 Nov 2026 10:45:33 -0500
-Message-ID: <20261113153817.797727788@linuxfoundation.org>
+Subject: [PATCH 6.12 146/670] hwmon: (lm70) Fix rounding of negative temperatures
+Date: Fri, 13 Nov 2026 10:45:10 -0500
+Message-ID: <20261113153816.883611905@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
 References: <20261113153811.177190860@linuxfoundation.org>
@@ -68,85 +68,66 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Ridham Khurana <khurana.ridham222@gmail.com>
 
-[ Upstream commit 868f63c8bfafa9b827168c9126f85264c39c02ec ]
+[ Upstream commit eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc ]
 
-An inexact policy lookup first records pointers to candidate hlist heads
-and then traverses the lists.  A concurrent policy insertion can merge
-inexact tree nodes between those operations:
+temp1_input_show() drops the low bits of the temperature register by
+dividing the raw value (raw / 32 on the LM70). These bits are not part
+of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
+return some of them as 1, and the TMP125 fills them with copies of the
+temperature LSB. Division rounds toward zero, so a negative temperature
+with any of these bits set is reported one LSB too high.
 
-  lookup                         policy insertion
-  ------                         ----------------
-  find inexact candidates
-    save obsolete hlist head
-                                 write_seqcount_begin(&bin->count)
-                                 merge inexact tree nodes
-                                   hlist_del_rcu(&policy->bydst)
-                                   reinsert policy->bydst in survivor
-                                 write_seqcount_end(&bin->count)
-  evaluate saved candidate list
-    miss the moved policy
+For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
+driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
+the driver reports as -24750.
 
-The merge immediately reinserts the same hlist node into the surviving
-tree node.  RCU keeps the policy alive, but it does not provide a
-consistent view while its list node is moved.  A lookup that selected the
-obsolete list can observe it empty.  A lookup already traversing a moved
-policy can instead follow the next pointer rewritten by the reinsertion.
-Either case can return an incorrect IPsec policy result.
+Use an arithmetic right shift instead, which drops the low bits and
+rounds down.
 
-The per-bin sequence counter already brackets calls to
-xfrm_policy_inexact_insert_node(), including node merges.  The read side,
-however, currently validates the counter only while searching an
-individual rb-tree.  A successful search returns without validation, and
-the later candidate-list traversal is outside that read-side section.
-
-Snapshot the per-bin sequence before discovering candidate heads and
-validate it after evaluating all candidate lists.   Retry the lookup if
-the inexact policy tree changes while it is being searched.
-
-Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
+Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
+Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
+Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+Link: https://patch.msgid.link/20260924205326.1739229-1-khurana.ridham222@gmail.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/xfrm_policy.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/hwmon/lm70.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index e033390e77855..106e2f5cc5865 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -2157,6 +2157,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 	struct xfrm_pol_inexact_bin *bin;
- 	struct xfrm_policy *pol, *ret;
- 	struct hlist_head *chain;
-+	unsigned int inexact_sequence;
- 	unsigned int sequence;
- 	int err;
+diff --git a/drivers/hwmon/lm70.c b/drivers/hwmon/lm70.c
+index 0d5a250cb6722..ee06c5641870a 100644
+--- a/drivers/hwmon/lm70.c
++++ b/drivers/hwmon/lm70.c
+@@ -97,21 +97,21 @@ static ssize_t temp1_input_show(struct device *dev,
+ 	 */
+ 	switch (p_lm70->chip) {
+ 	case LM70_CHIP_LM70:
+-		val = ((int)raw / 32) * 250;
++		val = ((int)raw >> 5) * 250;
+ 		break;
  
-@@ -2191,12 +2192,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 		goto skip_inexact;
+ 	case LM70_CHIP_TMP121:
+ 	case LM70_CHIP_TMP122:
+ 	case LM70_CHIP_LM74:
+-		val = ((int)raw / 8) * 625 / 10;
++		val = ((int)raw >> 3) * 625 / 10;
+ 		break;
  
- 	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
--	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
--							 daddr))
-+	if (!bin)
-+		goto skip_inexact;
-+
-+	inexact_sequence = read_seqcount_begin(&bin->count);
-+	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
- 		goto skip_inexact;
+ 	case LM70_CHIP_LM71:
+-		val = ((int)raw / 4) * 3125 / 100;
++		val = ((int)raw >> 2) * 3125 / 100;
+ 		break;
  
- 	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
- 					  family, if_id);
-+	if (read_seqcount_retry(&bin->count, inexact_sequence))
-+		goto retry;
-+
- 	if (pol) {
- 		ret = pol;
- 		if (IS_ERR(pol))
+ 	case LM70_CHIP_TMP125:
+-		val = (sign_extend32(raw, 14) / 32) * 250;
++		val = (sign_extend32(raw, 14) >> 5) * 250;
+ 		break;
+ 	}
+ 
 -- 
 2.53.0
 
