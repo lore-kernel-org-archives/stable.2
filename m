@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794560487;
-	b=WzQtEfY7Hpu3MvxRSORP34PCuKgvv0kT2VnFwy4OSiGAUogsCih7HqKJBwsI+gSRpngL
-	 JBRpLswzQnm4p93fHu2LI8GIP0+VNRXxcahYUlqVud+UPx91BNccRw3HUvAyY9VFja/pG
-	 KSXcF1vRviPXbqcHI0Fg1nuZZj0kdD9gfWqrwpSS2XxqffVFjSegXxKUF++Aof757HisL
-	 rnTQry4BS+vvgHOCMRkJpkrl30KJunXkCPtkLgpSOrIVB6Qqx5kmC3YecQtJidu+cXaBU
-	 WOxWz82bf/JZM63LUkNOj/xWQphvqhxlF8LKvrgWYt1ToQhvzJ1H0+CfL7yrOmjWnYQ==
+	t=1794560509;
+	b=B4jmh4SVyx/4CCCcKn5HKT+HSMDzdYFzKqnWXnYTrn/pStJfNcP8Ps2wb2j7I23MS6HK
+	 BxkXUYeFgwHi85TJvl09ewaNr0AHQ5LBLhmPB4BPlsvaFPp9Iq6VRqSQkP0IoXUrO18uw
+	 2sGqEbLzXTNquNLpADgL2AWbchjUExScESOBliKZLt8Y2Os7eo8tlS0y95ucLW1XBK7qu
+	 +c58v6CfChNRdSxD8EBkE+/DmQg29Yyy9FrMGbf4CzhuvuRmaqHUP8BNs7tDCNbHNnpDD
+	 qTYEWtL5RRwiBECUxhoR6UfVWsROOBCqzc803pRK5T5zOUjpgvyarjaJQ1qbdmpDCdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560487;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560509;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=E3a97Mkr7cqGGxSA1yo/Xc4eASuJjZXRMaeChH71cvE=;
-	b=JvQESwnq6UqPn7usqAym/ROhQ/qgKmmKVPKh7yLtBLVljEYA2nySFohvpTSzOFRLQRBi
-	 P64X22gWwA6uVv5+B9b0fM8EE8f+8BbqlObNZ63EEy9MGDVc75EU/vaCH3ruQcgcT4Mnk
-	 0uFoq3JucmtpZVlGWCGBbNcVAxK8fbbV/PB+KOlG0to3zlpFqR6h7LEBbe1y9nBroMaE/
-	 kY1pbOTbTBRM+gUPC+Q+NkcUr1Ul4NGTov57FuxcghQdAbg9IcZ3wqhApKskRE4dUrpLj
-	 rrL/+JfKAzF+vMY4GxOdiVlkZxWCdDIf4bnjgqFDiVCdnJ3lX1ZbQPX5MDXU+FLY2kQ==
+	bh=M6B8f0IfLCQpM2CN85V5qfdLHaKaGk88JdSAU1srRdw=;
+	b=VXBwQzAvxiQmToBqrVNTRT8RASeJyJO+Rl2MEBNjYWuj5oXX9YxM/eZjcfaXOJbeuHo/
+	 ALaXQthA2TexAQ42Wsb9z/eISIBnrGT/UPOhXNg1rVoO4WNVUwtDHRD+BqCjEPmRVZCr8
+	 UwwCfAj/cim8skDiJE7A58m3qlHCUlLWYezaesv/94fSYIknsl72prLnwRFcxPKOBoh3Y
+	 pS9qg0FRd2G7MpQRRSAo+0jtL6tNjKAE5GQ2oM8jlahz13ZYv6lCESlO9BSZnhGviBAe8
+	 pfpanwX+Prs1dAMs8Ao/v63Mbk9rpWdCxHUFAIWBlvonG0Z37FzH0Wiyc4PG+wGNPbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kNZuCq0z;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WE6EFMsU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8898606A321
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 09:01:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8898606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2472C606A886;
+	Fri, 13 Nov 2026 09:01:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kNZuCq0z
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ed1e9ae5a8so2219885ad.1
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:01:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794560486; x=1795165286; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E3a97Mkr7cqGGxSA1yo/Xc4eASuJjZXRMaeChH71cvE=;
-        b=kNZuCq0zNrhjHBoGvHgoqEvu7LGBEuwEdjNIy7eUNd67NKJ2NyxrR+BbOokPwv/wpn
-         I01FTR0qFkGM36MV+f0cjh/1T1j0L8APHuN8zQ3iBJjNcZ3wRKz7nFsQD4pMJszQrTQh
-         PzMWGbQo3Qn6IHI4Dn9a/8QDg8uz1olXxO2UsF6/PWBrppuqR/GDKd77tcUz4xLXx3iQ
-         pUJH3+a2cpB2hbFyVGcwhlqcUutKMwX01H2R9uAsWW2lkcGZhHEsFEnJLkCbEG/FXkId
-         KE3dTzzb7rUkp/iCDRK3v4cj6d2FTsKZSc5FvVAkgcblXMCwcsXjYkKeeB94b9oaHaON
-         aqGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794560486; x=1795165286;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E3a97Mkr7cqGGxSA1yo/Xc4eASuJjZXRMaeChH71cvE=;
-        b=oztGSlrPd4Nl78Yg0jht7BE2t7EJMLK0tU3FS+Xze2kEyRhza4nuBDpCcxQG1wH5ht
-         h12FacPRBkO03PdnKfPPuL4Gaww8d2x4nB68nOkqSWn3SwiQ7coXDwgcstcmDnVOBrIM
-         ZDcPZQA3B8BbwsZ4jGaBHoGhs1YKyoYHGkzYQSH4dBqxjq5VIa5cMTtZrWqzFGvDDeVO
-         ZC0F4IUUOBt+oKPHgkbODseMeow8umyTQrN8EwdpNG+Z+3lz9X3nx0XPr6452wyTU11r
-         yLTBfdT+T0xxeiMknneNDX4aK9r7wCn7bPyReuN7L7xvg7rPN3nzwxKYM/XnP9zjd60H
-         7KXw==
-X-Gm-Message-State: APuU4Z9yRTGoB1F5VYR+GPnBVSFYNw4r2UdKVhDjMpNeLIpza5v9Xtm+
-	taeleMSK6HvbniVgPcRZLYT8sVu7SIr4TDARsAkYEUkgA4nMcrtC/+/O/wr7Mw==
-X-Gm-Gg: AYBFou31zC1w2Q6KDsR/ncv3/zhME/8ECxpYNatSRu7MuUAowFN7YW4bHDXVe52sTyF
-	xxtxXG9+SPBPmc6qbu4bWpZroOTEISobpinFayN8yWqGBl3LploLZbD4IqoDnJHYBBdUNoFlUoS
-	PLaQvFpSqsaFbVB+2SqZuQwGKFmr3uBYTCkrQKL0h8NW7dxZZ3qAGyxAx+PdyrgvbVQCCrugAel
-	q7o8isR7hUJ+2dfT6lzKY3jLNVJF2YuRqVpH+Gv+QpZh+04F/QZyhdt1qA/laCmu6j7U11Em6eG
-	JR54t/vzN1aWYeYS6UUS8DNfS5ljUb3OJfsDMwlh7BdHC2sut7vQR7GHck+mMJnmarU1xr+eVs5
-	xWCGghd3H0qVSs1L5H7292VbcchzcL/lOIe0Ksiva7ei1QrSA9Ty24bQqqrBTtUZh61nWUHYYlz
-	4tye60zz7bWr6PAYtl6EprwJ6n8GeJ9dAaIEtRn0oaD2XutOQh0ylK4Ma3lfftI2Bf6d0lnb93F
-	yDiayo/VmHFyDQ9FMTHQ5SidCSUwlKXW9IPkYqA/itb22LnNI3Wi9Q6/ReTDHj3CPfdctQwCoPk
-	mV8NGSoGxDzSna+iTiM5aNwbD5hKeb0VRTQw9JA9w46A
-X-Received: by 2002:a17:903:3887:b0:2e9:528c:ba02 with SMTP id d9443c01a7336-2ee0dcca259mr16655485ad.60.1794560485927;
-        Fri, 13 Nov 2026 01:01:25 -0800 (PST)
-Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f8d708fsm6770405ad.58.2026.11.13.01.01.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 01:01:25 -0800 (PST)
-From: Vernon Yang <vernon2gm@gmail.com>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	sashal@kernel.org
-Cc: akpm@linux-foundation.org,
-	shuah@kernel.org,
-	liwang@redhat.com,
-	jackmanb@google.com,
-	linux-kernel@vger.kernel.org,
-	Vernon Yang <yanglincheng@kylinos.cn>
-Subject: [PATCH 6.6.y] selftests/mm: include kselftest.h in vm_util.h
-Date: Fri, 13 Nov 2026 17:00:59 +0800
-Message-ID: <20261113090059.380783-1-vernon2gm@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WE6EFMsU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02021F000CA;
+	Fri, 13 Nov 2026 09:01:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794560508;
+	bh=M6B8f0IfLCQpM2CN85V5qfdLHaKaGk88JdSAU1srRdw=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=WE6EFMsUyMnowKzvAHr9vnxGBEHn+Rg21j+T3LKafH709q8yTd6nWRLdHn5c1acHU
+	 2apMniFhLz9r6ZCdNuo/dzf2tVUccyZS6EPNHaDE3CT34e0vQ0wcJBh9AAp/ztm+Nv
+	 AXx9u9JwwxSMYFHqqZoDhcK4tqI4e26yt/MtB7T2hsm7XKkjkJNZiY5vkJ/E2FJHX/
+	 n4vXqG8/+i0WXFEXZMQryk92nmg69ls7oVQshtpFJYBDno4s0gTQOG0G8OJ/CRgJIC
+	 FHGVN1nAk60MMsQ3kRyPtEzBlcOHAr434jgPiGsaSjjZfg24raeQN+4glU9dqg89m6
+	 8QCMBv567sRRw==
+Message-ID: <5042d545-24ae-4567-a39c-a28bcb1d1ed1@kernel.org>
+Date: Fri, 13 Nov 2026 10:01:44 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,51 +51,176 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v3 00/10] media: synopsys: hdmirx: support an HDMI bridge
+ in front of the receiver
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>
+Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+Content-Language: en-US, nl
+In-Reply-To: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-From: Vernon Yang <yanglincheng@kylinos.cn>
+Hi Sascha,
 
-commit d8a866c766ebe34b4371d42f4a3edca200f5e645 upstream.
+On 05/10/2026 15:28, Sascha Hauer wrote:
+> The Synopsys HDMI receiver driver assumes the HDMI connector belongs to
+> it: the connector's +5V line arrives on hpd-gpios, and there is nothing
+> between the source and the receiver. On the board this series comes from
+> that is not the case. An HDMI bridge owns the connector, the receiver
+> sits behind it, and the two are described by an OF graph endpoint.
+> 
+> Three things follow from that, and the series is arranged in that order.
+> 
+> Patch 1 comes before them and is a fix for the driver as it is. The
+> driver data is devm allocated, but an open file descriptor keeps the
+> video device alive past unbind, so the last close works on freed memory.
+> The media device the series adds would have been torn down the same way,
+> which is why the fix leads the series. It stands on its own and is
+> marked for stable.
+> 
+> Patches 2-3 give the driver a media device and register the video device
+> as an entity with a sink pad. On their own they add a graph with one node
+> in it; they exist so that there is somewhere for the bridge to appear.
+> 
+> Patches 4-5 add the endpoint to the binding and bind the remote subdev
+> through a v4l2 async notifier, linking its source pad to the receiver's
+> sink pad. Such a board cannot provide hpd-gpios, so the binding requires
+> either hpd-gpios or the port. Without an endpoint in the device tree the
+> driver keeps working exactly as before, so boards wired straight to the
+> connector are unaffected.
+> 
+> Patch 6 is fallout from the wait for signal lock, which was bounded by an
+> iteration count whose duration came from the 5V debounce it called
+> each time round. That debounce goes away on a board with no hpd-gpios
+> later in the series, so the wait gets a real timeout first.
+> 
+> Patches 7-10 are the 5V state itself. Patch 7 stops probe requiring an
+> interrupt for hpd-gpios. Patch 8 makes v4l2_device_unregister_subdev()
+> wait for notifications already in flight. Nothing kept a subdev from
+> notifying a v4l2_device that was unbinding it; that is not new with this
+> series, as asynchronously bound subdevs sending V4L2_EVENT_SOURCE_CHANGE
+> race the same way today. Patch 9 adds V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT,
+> and patch 10 has the receiver set v4l2_dev.notify and take the state from
+> whatever is bound in front of it. The notification is only an edge, as
+> the 5V interrupt is with hpd-gpios: the hotplug worker then asks the
+> subdev through g_input_status(), so nothing is cached that could go
+> stale against bind or unbind. Without a det_irq there is nothing to
+> disable across suspend and remove either, so patch 10 disables the
+> hotplug work items themselves instead of cancelling them. Patch 8 is
+> what lets the notify callback read sd->v4l2_dev while the subdev is
+> being unbound.
+> 
+> V4L2_CID_DV_RX_POWER_PRESENT is otherwise the only place this state is
+> published - adv7604, adv7842, tc358743 and tda1997x all set that control
+> from their cable detect interrupt and stop there - while a format change
+> already gets an in-kernel notification through v4l2_subdev_notify_event().
+> An earlier version of this series hooked the control with
+> v4l2_ctrl_notify() instead. That reaches into another device's control
+> handler, and the only thing it bought was working with those four
+> drivers unmodified, which turns out to be worth nothing: they are HDMI
+> sinks, so none of them could sit in front of an HDMI receiver anyway.
+> 
+> Nothing in tree sends the new notification yet. The driver for the device
+> on this board does, and the alternative was a mechanism that no in-tree
+> driver could have used either.
+> 
+> There is no in-tree device tree using the new port yet: the board is not
+> upstream, and the device in front of the receiver, a Lontium LT86102UXE
+> 1:2 HDMI splitter, has no driver upstream either. I would rather send the
+> infrastructure for review now than sit on it until the board lands.
+> 
+> Tested on that board, and build tested for arm64 at each patch with W=1.
+> 
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 
-The 6.6.y backport of commit fdc3bc349794 ("ksm_tests: skip hugepage
-test when Transparent Hugepages are disabled"), added a KSFT_SKIP return
-to khugepaged.c, but the prerequisite include from upstream commit
-d8a866c766eb ("selftests/mm: add commentary about 9pfs bugs") was not
-backported.
+As mentioned in my reply to patch 1/10 I'll take that one. But for the remaining
+9 patches I need to see the 'v4l2-compliance -m /dev/mediaX -s' output to make
+sure the media device topology is sane and streaming works as expected.
 
-As a result, the selftests/mm build fails:
+Use the v4l2-compliance version from the v4l-utils git repo so you have the latest
+code.
 
-  khugepaged.c:1195:24: error: ‘KSFT_SKIP’ undeclared (first use in this function)
+I also need more time to review the v4l2 core notify patches. Apologies for not
+doing that sooner, I hadn't noticed before that this series made core changes as well.
 
-Add the missing include, only the vm_util.h hunk of commit d8a866c766eb
-("selftests/mm: add commentary about 9pfs bugs") is needed here.
+I haven't looked at that notify code for years, so I will need to refresh my
+memory.
 
-The remaining hunks depend on commit 32b42970e861 ("selftests/mm: skip
-gup_longterm tests on weird filesystems") and commit 571a4b62ed63
-("selftests/mm: skip map_populate on weird filesystems"), which are not
-present in this tree, so we don't need to backport the remaining hunks.
+My plan is to merge patch 1/10 today in our next branch. It is probably best
+if you post a v4 rebased to that and including the v4l2-compliance output in
+the cover letter.
 
-Fixes: 6b117e23481d ("ksm_tests: skip hugepage test when Transparent Hugepages are disabled")
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
----
- tools/testing/selftests/mm/vm_util.h | 1 +
- 1 file changed, 1 insertion(+)
+Regards,
 
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index 9816d6e9bce6..f14ebc809585 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -5,6 +5,7 @@
- #include <err.h>
- #include <strings.h> /* ffsl() */
- #include <unistd.h> /* _SC_PAGESIZE */
-+#include "../kselftest.h"
- 
- #define BIT_ULL(nr)                   (1ULL << (nr))
- #define PM_SOFT_DIRTY                 BIT_ULL(55)
+	Hans
 
-base-commit: 5139929c698c273e07cb0635732f6a918a7b8e78
--- 
-2.56.0
+> ---
+> Changes in v3:
+> - new patch 1: free the driver data from the v4l2_device release callback
+>   instead of devres, an open file descriptor keeps the video device alive
+>   past unbind. The media device cleanup Sashiko flagged on the old patch
+>   1 was the same problem, which predates the series (Sashiko on patch 1)
+> - v4l2-device: wait for the SRCU grace period on every subdev
+>   unregistration, not only when the v4l2_device has a notify callback,
+>   as the reader dereferences v4l2_dev either way (Sashiko on patch 7)
+> - Link to v2: https://lore.kernel.org/r/20260924-hdmirx-media-v2-0-c12f641d8b0f@pengutronix.de
+> 
+> Changes in v2:
+> - dt-bindings: squash "add the source port" and "make hpd-gpios optional"
+>   into one patch and require exactly one of hpd-gpios and port (Conor)
+> - dt-bindings: drop the OS-specific sentence from the port description
+>   (Conor)
+> - hdmirx: take graph_mutex around media_create_pad_link() in the async
+>   bound callback, the media device is already registered (Sashiko)
+> - new patch 7: v4l2-device: wait for notifications when unregistering a
+>   subdev, so a notification cannot outlive the unbind of the receiver
+>   (Sashiko on patch 9)
+> - hdmirx: ask the subdev in front for the 5V state on every notification
+>   instead of caching what the notification carries, and disable the
+>   hotplug work items across probe, suspend and remove instead of gating
+>   the workers on a flag and cancelling once more after the notifier is
+>   unregistered
+> - Link to v1: https://lore.kernel.org/r/20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de
+> 
+> ---
+> Gerald Loacker (6):
+>       media: synopsys: hdmirx: add media device infrastructure
+>       media: synopsys: hdmirx: add media entity for video capture device
+>       media: synopsys: hdmirx: add async subdevice support
+>       media: synopsys: hdmirx: give the signal lock wait a real timeout
+>       media: synopsys: hdmirx: skip the 5V detect interrupt without a GPIO
+>       media: synopsys: hdmirx: get the 5V state from the upstream subdev
+> 
+> Sascha Hauer (4):
+>       media: synopsys: hdmirx: free the driver data when the last user is gone
+>       dt-bindings: media: snps,dw-hdmi-rx: add a port for a bridge in front
+>       media: v4l2-device: wait for notifications when unregistering a subdev
+>       media: v4l2-subdev: notify the bridge when the source power changes
+> 
+>  .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml |  21 +-
+>  Documentation/driver-api/media/v4l2-subdev.rst     |   8 +-
+>  drivers/media/platform/synopsys/hdmirx/Kconfig     |   1 +
+>  .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 355 +++++++++++++++++----
+>  drivers/media/v4l2-core/v4l2-device.c              |  42 +++
+>  include/media/v4l2-device.h                        |  15 +-
+>  include/media/v4l2-subdev.h                        |  12 +
+>  7 files changed, 386 insertions(+), 68 deletions(-)
+> ---
+> base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+> change-id: 20260904-hdmirx-media-fe7eb952b2be
+> 
+> Best regards,
 
