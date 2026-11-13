@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794540791;
-	b=ILsKERGqhSnGPhNpIyvWPgPym84JP+iuWPcg7YLuemGso25tUGLpS5xaI/JmRhBf1uBx
-	 FBbJkUTTXAno9D8Y7ce3J2gml7lnc4ieJoIlbu7h7rgIETkHjCodhSWS/e0vMEfyomo4t
-	 J5x01Jx9qRzBKyIDud1DI6zBaySiJYWKX9NlynA9QGJbIO4KuSurBfvObAWEj08nECfxb
-	 8IfEGDSHUh3Na7zH+zLc29QwC081K4sZ5VyEkEpj5qdBaekHjpQrrWyi4t+zwqIO5uS3m
-	 VPbekL8aXJWnrk9GbvSHqiYaOdmtYDJLRyIVoECjHwUH+Y5VQRqRqyuxuG+sspvoTNA==
+	b=vs1I2/tqlZQBTcwQz/8dveAgkARxfwVKx+oXT607Vq0brALLwYDpvmCxJ3VKBocQOI/m
+	 +ysZJjDys1HCIwwCT0Lk8IGRri+/MN61/cMVM3EJok+/uQejqTh55xectY6ltgjSwaq0R
+	 VSSxyoIEPyvdAUZc83xHIR63caoNekA3VZtf05iVySpLyyH3cYeorqn7LGgeTP2eXShXM
+	 XdqdziAMFxB6+DYnMJdzq9bD9W/74q7bstc5QND4Dkq4Ij1t9CzrCb/ZRGXhSKv+SCmKk
+	 gmb+mnX76mfpgHy//lqettBddktcsRVv4uSvLdTesAGZA/1ZkIepS2Fy1W7mGjDKYDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794540791;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1mTRRQugQZyOGvJQ0L3APpVvq+GYLVJgMkssK2kPNyc=;
-	b=MOaMIeiOqQl6A5tuZa7E3qr7CX8l012N9u/x65U6agqfWr+AsMTBgBDo+U1nRTWHZ9gH
-	 Bvj/qEqQt9F1Sd58BQPYUVY+JGIeBEbVmDmoPgr26x93JmAKS3XismFFMkeV4C302v5O2
-	 U7HZ3GoxfV3RQ17wjc4Eu6TQSEmslrMJdqo9cQ5yr+mjbPAh3XrodOgWnX7epx5qeWN3U
-	 PQS7hG3DAFpXvC00Mj7Q7gvw7CN0Z4ZfsSRRxAOefq8E9z/oJoFk29lxgweupfkYcHQUk
-	 GKNQeUMrrwYGQe6ffc3MNfpwebF3VfYG+GPBCXefm3XsG8q7YoTWtoTHKx35Og268Cw==
+	bh=X6mFCGH/HchjzhEDX32ABwVrQHEv6r3E9/UhmFzYce8=;
+	b=gGMA09bqvi8NwYiwsqkwrNNUWhhVI13wjMY65ilCOOIWdeI12NY0PftGEkp/n0xhacJR
+	 0/WCbNLuOB4rdBq0Jn+ztKQTnV/G7I7ntknDCp81ZHCm9ciEP4m+l+uSxK9fxnPy7224Y
+	 a5Z+ct50cGOSn3NmLw1/24jKY6/eexTnCyMmHM5iC/rKiVf3+Be3JOaDhWg9jc4u4TynW
+	 HGk3hE4aP+9ARp8S53yRx3KrHMmF/FvTyKee6PGRrQiHzAy3Zg0FLvH9DUBPfPM1JrTn2
+	 XwTxX/z7/5WJnh1vJbLTAkGmBu7qXI9W4kPLuCTRGO9HChu15xZtYhg45/RhEH1ApOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGeCRKdU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUSk2KId;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A4F606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB010606A32A
 	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:33:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGeCRKdU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5049F1F000C4;
-	Fri, 13 Nov 2026 03:33:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUSk2KId
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247931F000C5;
+	Fri, 13 Nov 2026 03:33:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794540790;
-	bh=1mTRRQugQZyOGvJQ0L3APpVvq+GYLVJgMkssK2kPNyc=;
+	s=k20260515; t=1794540791;
+	bh=X6mFCGH/HchjzhEDX32ABwVrQHEv6r3E9/UhmFzYce8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lGeCRKdUtfuyr2AJ70VsTRBhbSqWrJGl/Dtvl4ECKMQDAKzu0VNnnh9bEDYofNN1U
-	 57xn9ZSR4NTDM4NMDTXxDe/wBd7aePomMynD7t+FbkDs6fG+CGSLJ05+s1MTIGN3ZK
-	 DnlA9JwpBmzmVnFbJ4Duggf+86Upsvj9ZssgyYVTEOGTW9OcndFE51uzkNs++iyQPA
-	 eEh+nf0MF6rtd3rqm5U+g98W61MzDvSce4HR7mFGn8hLSmxYEn1Yi2pMGNlFCFpGzH
-	 e2DB/1Ye1MplE8dgq7FdBOLXNGO3Yp+ffR+fEFHvKgqWVX3BvgqUfOg1ebo0r8mDED
-	 98LU+vO2QX0EA==
+	b=eUSk2KIdmlxIk2+toE8LrINjCMdQDL9zDdhmJQJjrNSHRUFxNC3Qk2u8NY7aFGicP
+	 5MSU0BU/EMwUBumHjvhiLeY/bjqoYso/Du5gXxwWJFqIwLSZ3CNOTef3z8NVmBl7PM
+	 rXyjJubrmR5/yhKNZFjnpUk23CxxzLMEUjNTVe4mhu/OMOjzKIVjnWndeOOQehDetp
+	 4R3os9o4zlIJkP2Iu73cpLUJqq0OClILWk+gubLgOizdObNop3qnqXuDLwShxbrS9D
+	 sKeRJoDYQDMS1PFiejEpQitr0VSdOrhWnFEOb7uzKUhsV4D37ek1bde26RAnkdtbYV
+	 NqoKDCWxerhhQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>,
-	Joerg Roedel <jroedel@suse.de>,
+Cc: Yuho Choi <oss.patchbox@gmail.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] iommu/virtio: Clean up bus_set_iommu()
-Date: Thu, 12 Nov 2026 22:33:08 -0500
-Message-ID: <20261113033251.1042335-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] iommu/virtio: Reset device before deleting virtqueues on probe failure
+Date: Thu, 12 Nov 2026 22:33:09 -0500
+Message-ID: <20261113033251.1042335-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202719-failed-5.10-1f8efac19a08@kernel.org>
+In-Reply-To: <20261113033251.1042335-1-sashal@kernel.org>
 References: <20261109202719-failed-5.10-1f8efac19a08@kernel.org>
+ <20261113033251.1042335-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,77 +62,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Robin Murphy <robin.murphy@arm.com>
+From: Yuho Choi <oss.patchbox@gmail.com>
 
-[ Upstream commit 19d3607c74bc0332f0ee3a2d54ead6e792c0dce9 ]
+[ Upstream commit 1f8efac19a0870cdfdf8477e447e5a07ddce9623 ]
 
-Stop calling bus_set_iommu() since it's now unnecessary, and simplify
-the probe failure path accordingly.
+viommu_probe() marks the device DRIVER_OK before populating the event
+virtqueue and registering the IOMMU device in sysfs.  viommu_fill_evtq()
+hands the device a set of device-writable buffers through
+virtqueue_add_inbuf(), so from that point on the device may write into
+them and into the rings.
 
-Reviewed-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
-Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-Link: https://lore.kernel.org/r/0ff6f9166081724510e6772e43d45b317cab8c58.1660572783.git.robin.murphy@arm.com
-Signed-off-by: Joerg Roedel <jroedel@suse.de>
-Stable-dep-of: 1f8efac19a08 ("iommu/virtio: Reset device before deleting virtqueues on probe failure")
+If either step fails, the error path deletes the virtqueues without
+resetting the device first.  The event buffers are allocated with
+devm_kmalloc_array() and are released as probe unwinds, so the device can
+go on writing to memory that has been freed.
+
+Reset the device before deleting the virtqueues, the way viommu_remove()
+already does.
+
+Fixes: edcd69ab9a32 ("iommu: Add virtio-iommu driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-ID: <20261004182218.177343-1-oss.patchbox@gmail.com>
+[ sashal: Replaced virtio_reset_device(vdev) with vdev->config->reset(vdev). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iommu/virtio-iommu.c | 25 -------------------------
- 1 file changed, 25 deletions(-)
+ drivers/iommu/virtio-iommu.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iommu/virtio-iommu.c b/drivers/iommu/virtio-iommu.c
-index 81dea4caf561f..0aeed650f5366 100644
+index 0aeed650f5366..d015a23c90730 100644
 --- a/drivers/iommu/virtio-iommu.c
 +++ b/drivers/iommu/virtio-iommu.c
-@@ -7,7 +7,6 @@
+@@ -1056,12 +1056,12 @@ static int viommu_probe(struct virtio_device *vdev)
+ 	/* Populate the event queue with buffers */
+ 	ret = viommu_fill_evtq(viommu);
+ 	if (ret)
+-		goto err_free_vqs;
++		goto err_reset_vdev;
  
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 	ret = iommu_device_sysfs_add(&viommu->iommu, dev, NULL, "%s",
+ 				     virtio_bus_name(vdev));
+ 	if (ret)
+-		goto err_free_vqs;
++		goto err_reset_vdev;
  
--#include <linux/amba/bus.h>
- #include <linux/delay.h>
- #include <linux/dma-iommu.h>
- #include <linux/freezer.h>
-@@ -17,7 +16,6 @@
- #include <linux/of_iommu.h>
- #include <linux/of_platform.h>
- #include <linux/pci.h>
--#include <linux/platform_device.h>
- #include <linux/virtio.h>
- #include <linux/virtio_config.h>
- #include <linux/virtio_ids.h>
-@@ -1070,26 +1068,6 @@ static int viommu_probe(struct virtio_device *vdev)
- 
- 	iommu_device_register(&viommu->iommu);
- 
--#ifdef CONFIG_PCI
--	if (pci_bus_type.iommu_ops != &viommu_ops) {
--		ret = bus_set_iommu(&pci_bus_type, &viommu_ops);
--		if (ret)
--			goto err_unregister;
--	}
--#endif
--#ifdef CONFIG_ARM_AMBA
--	if (amba_bustype.iommu_ops != &viommu_ops) {
--		ret = bus_set_iommu(&amba_bustype, &viommu_ops);
--		if (ret)
--			goto err_unregister;
--	}
--#endif
--	if (platform_bus_type.iommu_ops != &viommu_ops) {
--		ret = bus_set_iommu(&platform_bus_type, &viommu_ops);
--		if (ret)
--			goto err_unregister;
--	}
--
- 	vdev->priv = viommu;
- 
- 	dev_info(dev, "input address: %u bits\n",
-@@ -1098,9 +1076,6 @@ static int viommu_probe(struct virtio_device *vdev)
+ 	iommu_device_set_ops(&viommu->iommu, &viommu_ops);
+ 	iommu_device_set_fwnode(&viommu->iommu, parent_dev->fwnode);
+@@ -1076,6 +1076,8 @@ static int viommu_probe(struct virtio_device *vdev)
  
  	return 0;
  
--err_unregister:
--	iommu_device_sysfs_remove(&viommu->iommu);
--	iommu_device_unregister(&viommu->iommu);
++err_reset_vdev:
++	vdev->config->reset(vdev);
  err_free_vqs:
  	vdev->config->del_vqs(vdev);
  
