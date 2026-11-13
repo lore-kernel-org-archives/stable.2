@@ -1,48 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794610745;
-	b=OrDJF4SfyTzQHQW8iIJf9EEP0W6p8MAIFb/nFg1JxW3+0lbjWrL4I3jD5jb9cgqWaVFt
-	 mYDo5ZV7xY+J/ct0qE3OInyOP7TZ7q5/HRbp3952vkTiepGq3r0F/ukdEaGK1kb5qVLZ3
-	 EXJs4LQ7E97F5LmaerRwY89HdzV498fvK5GcyZOe0ElCmHgFNScCkJ75yl0Kn/2pRQC3j
-	 Ut+pNyMEq5mRl8mydmdf1WMZPfrlJ+LnYQ8fBKc4TGlpLrRaM3EnFo70H7cqyYKyy3OcY
-	 jnJW8P8HMPJlyDQGRfLY0KHy71L2UtvOiBBuAB2bNWet7erz4v8rpnxWwuKKBhEfNnQ==
+	t=1794610830;
+	b=KWMwdvOk1Lb3WV/nCezbXoDUNOPHhKYJR2V52KyZdcOzbno8aIY21z6uN80O/TYjINRS
+	 pOvySn/OtcNv+makz1BJHKWvTVTcqV/7kP+DjYxvGb0RCAQh//zqpCZ3s9954npQ7Gkyf
+	 nNuqARPfRst2G2Lpfyvzqo+4tHeq27WBuluOyfcgfMeD1QWK0W5HNOAfh2DPcu2A/Z9dZ
+	 8gtMeVsd2EkdH+wv4qRsyvSgKPhIKSBAUQST2FqTMIz5EUYpghvd3Niwxwpa72Xf48l2j
+	 NDLynCwzCbpUhDdGfQgSsO/e/suLtAdkc16OFtAIxQe/vcuNdlZPEDpVLRQFmAAxwHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794610745;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=954OI/BM2Sj1ZQvB/6VG2CulWyy8PA4vs12zuccnLfU=;
-	b=PsZLTNuxGxsZiZJcLL0HpJfTRdjuENzGtR5Yvl5GRlYhDVObgL8nbh64R/XOIYp8v8Fr
-	 wYicwf2KCFKBq12hC7PHqGNFZVB+TBCQAnys9tS49bhz7WvLRVfXj6fv9eS3bdZ3A5SWY
-	 +Xhzqtq837TKzqKHHvuv3cD7Kj+ep56ooF6AQvUySrymwiZ+gh0fCpBfEn3fK7D3GYiY2
-	 V9H16vNRUfttwNkEarH6ST7SVNMwjHL2Phrq4iuRhjKHGwUK9D7GghwqtN69zbXWkMzTT
-	 JgfMMtZtA9gjOv2drNoI7yR5rcfBbAUeZrc7Dn8PDgNq4KO8eKPkbwbw6cQSOTHNpCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794610830;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mKIWbOpPGbaTuqqJlqYK8lewW5w+kzLONOp9Gcd8l6M=;
+	b=cwzOeWokTJ3I82HkGET7rEFs1f9AVvokAyg4C2evm1L8r1qdnADUyUD4sMN784Fhqeod
+	 RmAlUXtgPlEJhNChDfb2/AGaja4MODKSxsUUZce6bj02MxXjZmkgvz8xbo3SofW67UBPm
+	 f89ndMD6p3HmssvDUwm3Uftotc31jrTO7nDNqNKBC1tgJpJmL9fTlDLmDm+3HAfkmrEfE
+	 J1ZiWWwg/XBKZK6xS4oNGokDZa0QotUCFDJIQsMZUYVDsB1u1XFQlIWFTF836Coy6v3w6
+	 izqrfSdiuiMzeR+/bpv4lIqfKlSJ+4vN+xnxK/SrWAeP5DKRvmhsYiiSEM7yUWBd/Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a4MgJS39;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t2ZwaqCM;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1387A606A330;
-	Fri, 13 Nov 2026 22:59:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8940C606A329
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 23:00:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8940C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a4MgJS39
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81C521F000C4;
-	Fri, 13 Nov 2026 22:59:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t2ZwaqCM
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4bb5f49a61bso2339815e9.0
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:00:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794610744;
-	bh=954OI/BM2Sj1ZQvB/6VG2CulWyy8PA4vs12zuccnLfU=;
-	h=Date:To:From:Subject;
-	b=a4MgJS398YKLw8o2LfEceaThivnDQqC/FIAQiTMpFyv+08b3kT0NOY1DaBxVSa1SP
-	 YUBppoX7UV1mmr+S3rk728z+CqLxR2uGCl1Ry6ad6fyRc251SLReV9Yp6j2pUg3j3b
-	 ptFAnPGqOB9vNwRbALryqyHl1kI7k0qncQTr89qM=
-Date: Fri, 13 Nov 2026 14:59:04 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,rppt@kernel.org,pfalcato@suse.de,mhocko@suse.com,
-	ljs@kernel.org,liam@infradead.org,jannh@google.com,david@kernel.org,
-	ivanrwcm25@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-use-pfn_phys-in-phys_mem_access_prot.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261113225904.81C521F000C4@smtp.kernel.org>
+        d=gmail.com; s=20260707; t=1794610828; x=1795215628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mKIWbOpPGbaTuqqJlqYK8lewW5w+kzLONOp9Gcd8l6M=;
+        b=t2ZwaqCMllU+1+/NOjW17LZT/w3ub7sKoiDH41UTjJFhAptpinU7vdAZCEuF3R/3LE
+         CrfSM5a9jBXQ8coju9TypFqqXzp0TpCUrcZ85WexHznw2X023GyEsLKvqfr9/1rteP8U
+         LVyHanl6WyXSPt3EmKvZFk+HGddI8OKErjP4/ogYMl2xYvXJ/oVP2ie1pbA3CgIZznr2
+         p0RE/7YOa+U+2RQbTV4f5d2NfZrGJA/OQw8DkYP6TW8cnKGlBDTJYs++7jEFWgIrqTtr
+         b7woz8dDhzdFnsGEX0d7sJHkBd2p1cKmp9DGzaAO5i7HW4/B97QWo0P/VcVC0c5pIQXx
+         mhSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794610828; x=1795215628;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mKIWbOpPGbaTuqqJlqYK8lewW5w+kzLONOp9Gcd8l6M=;
+        b=l4Jtz/BLKlA6o11kzdhfiF5JeOK43RXTvMOqNkEmkEX8DRxyp0V09EL6srq6ztabtr
+         50ze375n+hdoQr9914W/o6S7CfXnN0EWOI2HxOAbfApRWSbVDkNQlJOMvRz4gRVuZbpY
+         cLcQPhzPMnUEe8FzNKlyAQL/zo7GjrFVDg+gWovTJgSWfgUIlmb8C3ursuo/CtB/AZLM
+         sc0TuyTtnVcxZ60o9vX7J/NUCgzc3Per9uicLC9x9Qh9u/wGKtB5ddv3u9rR5yU4ipG5
+         sONuwjkX40YunCXcM+CbmghroVl5iZi8+btpsL65LoG02WABAEMNcIm9PqEWRBwGGMo6
+         Svng==
+X-Forwarded-Encrypted: i=1; AL+hErH7krX/SQnD6eE6+M3haBsBECWX9sOdgsvjGgkqGq00bCPnCWbgcsPtM9meGXbDer60HI7h35I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lSNM3W6eizJhXSQJ5IkoWMMxC1+NRnVZGovLc+7c3hEeZkT4F
+	wGjh6xvBy3RLRAymYkxEzXl0fOZWAWjpTtUzF7cwfPFd04xWbGWsktD1
+X-Gm-Gg: AYBFou0FKG2ZXZj1sLLolAivRiSFongr6kE0E8ml+Bq+nzH0MbV237+IuqxI1haA6WE
+	WBeM5LVDKXrLQIJ8YvGk/Jh5fANwJ6H4GKCNUkNuCC6ZxrStqPhgsWZGIjfiueSsKa+JVC+h7El
+	fd+tMYln6PcOAtc5TZ6rOi8H0boAWP8Rze26zMgo4rj/Pbl1bjv6WYiHCzq5pmGKHYK0xUEOx1i
+	4nAQkQDzir1Af7g9pLDiGvtRi47EAPD/+DHvjn/+BleWHX79gWTLT9tUIWWlGbsuxTfN2TciFnG
+	u/6sBQITXxEctcKrsjiDWqo9Us72Z6iejbzEXWveA1mha0zsr+2Zk5hUDPybvDqCaOyWZKi2JnR
+	QQmcOJJaahMnMtV1jgE+xPsMbW2dkQpapilxrK9t00I3yPjv4GtMrAw+gsybld+DRbVepLWdi29
+	b9byUGhK9qffMm+ZZbIqtoOz4QVxtk7JtXiSEEKLQQgXUDZq78U2WA648UJMQssl7CSrQ+RO1hu
+	6nKSWtFMSqqdYgUgKpC9HXW9FNtd/VK86sLzQ15HWg1jSwexCRkPBmgU3UaEMNZHS0ck2gOxSOb
+	Xjaur3oip6xt+BTpWUAt+2DyWN/2gm3sohK954LDc/0B/AEF8Bsy
+X-Received: by 2002:a05:600c:628c:b0:4ba:6d8:dfad with SMTP id 5b1f17b1804b1-4bb55a6b67fmr89886695e9.14.1794610827678;
+        Fri, 13 Nov 2026 15:00:27 -0800 (PST)
+Received: from angelo-Precision-7550 ([94.154.175.53])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c1797sm8617592f8f.11.2026.11.13.15.00.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 15:00:26 -0800 (PST)
+From: Angelo Compagnucci <angelo.compagnucci@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org
+Cc: Ryan Wanner <ryan.wanner@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Radu Pirea <radu.pirea@microchip.com>,
+	Angelo Compagnucci <angelo.compagnucci@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] spi: atmel: keep DMA chunks to whole 16 bit words
+Date: Sat, 14 Nov 2026 00:00:14 +0100
+Message-ID: <20261113230016.4144717-1-angelo.compagnucci@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,81 +99,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+The PDC path cuts a long transfer into chunks of max_dma_len bytes, that
+is SPI_MAX_DMA_XFER: 65535, an odd size. With more than 8 bits per word,
+a chunk takes 65535 bytes off the remaining length, but programs the PDC
+counters with 65535 / 2 = 32767 words, that is 65534 bytes. One byte is
+lost at each chunk, and the next chunk starts in the middle of a word.
 
-The patch titled
-     Subject: mm: use PFN_PHYS() in phys_mem_access_prot()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-use-pfn_phys-in-phys_mem_access_prot.patch
+The SPI core also cuts the DMA scatterlists into segments of max_dma_len
+bytes, so a segment can end in the middle of a word too.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-use-pfn_phys-in-phys_mem_access_prot.patch
+The chunks were PAGE_SIZE, an even size, before SPI_MAX_DMA_XFER. Make
+it 65534: it is even, and still within the limits of the PDC and of the
+DMA controller.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-Subject: mm: use PFN_PHYS() in phys_mem_access_prot()
-Date: Fri, 13 Nov 2026 16:38:12 -0300
-
-phys_mem_access_prot() stores "pfn << PAGE_SHIFT" in a phys_addr_t.  The
-shift is evaluated as unsigned long, so on a 32-bit kernel with
-CONFIG_PHYS_ADDR_T_64BIT an address above 4 GiB is truncated before
-uncached_access() compares it with __pa(high_memory).
-
-mmap_mem_prepare() already shifts in phys_addr_t, so the mapping is
-accepted and then left cacheable.  PFN_PHYS() casts before the shift.
-
-On a MIPS32 XPA Malta guest, mmap of /dev/mem at 0xf00000000 without
-O_DSYNC used the boot CCA.  The same mapping with O_DSYNC was uncached. 
-With PFN_PHYS() both are uncached.
-
-Link: https://lore.kernel.org/20261113193812.1239880-1-ivanrwcm25@gmail.com
-Fixes: 7e6735c3578e ("/dev/mem: use phys_addr_t for physical addresses")
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: <stable@vger.kernel.org>
+Fixes: 7910d9af000a ("spi: atmel: Use core SPI_MASTER_MUST_[RT]X handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 ---
+Changes v1 -> v2:
+  - New patch: make SPI_MAX_DMA_XFER even, so that the transfers and
+    DMA chunks cut at that size keep whole 16 bit words [Mark Brown]
 
- mm/char-mem.c |    2 +-
+ drivers/spi/spi-atmel.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/mm/char-mem.c~mm-use-pfn_phys-in-phys_mem_access_prot
-+++ a/mm/char-mem.c
-@@ -272,7 +272,7 @@ static pgprot_t phys_mem_access_prot(str
- 				     unsigned long size, pgprot_t vma_prot)
- {
- #ifdef pgprot_noncached
--	phys_addr_t offset = pfn << PAGE_SHIFT;
-+	phys_addr_t offset = PFN_PHYS(pfn);
+diff --git a/drivers/spi/spi-atmel.c b/drivers/spi/spi-atmel.c
+index ffc896e4621a..c762e28407d8 100644
+--- a/drivers/spi/spi-atmel.c
++++ b/drivers/spi/spi-atmel.c
+@@ -288,7 +288,7 @@ struct atmel_spi_device {
+ 	u32			csr;
+ };
  
- 	if (uncached_access(file, offset))
- 		return pgprot_noncached(vma_prot);
-_
-
-Patches currently in -mm which might be from ivanrwcm25@gmail.com are
-
-mm-use-pfn_phys-in-phys_mem_access_prot.patch
+-#define SPI_MAX_DMA_XFER	65535 /* true for both PDC and DMA */
++#define SPI_MAX_DMA_XFER	65534 /* even, within the PDC and DMA limits */
+ #define INVALID_DMA_ADDRESS	0xffffffff
+ 
+ /*
+-- 
+2.53.0
 
