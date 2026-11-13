@@ -1,56 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794599095;
-	b=zwYJ55Oz3iFuEPDj9deSSnaWSj2To66klpuOMh3VhPQkT69OVzJxCF1lmQaNJx8OpBvp
-	 t/YE3e4Z2EiLyxj3hn4B8JiVhhIcTINyK5R0EjdrtnIx7LWxqqcp0b4v4g+2zEOiiSI2E
-	 GctKWzOdZZcvU43FqWth3ldyqU/0bo4QyYHtLOgaSnQwzlHsH5BeAD+pbuTttgpEg27CM
-	 NMhmRXJjgGF00mPcajGLsDW8PCb5p0fyunBdB1hnTY3LySebHJS0iWcAuIlCNQDJ19oxr
-	 j0UWByr2/IAKmPe/j1ahE6U2OxAgQXFQ+DCX8ywn0upCiGq3I/uDXyB9lpN2+aypL5A==
+	t=1794599124;
+	b=ebnAEsAZzK+sPOv2uDxc7MObjpYTldThPk7Bm7UHh+i6XZQECYasY9bTw+EE5AGAPBQ8
+	 hkUp/iTaLtQCkwd+QckdNJNkDJMiAkOBhpymX//Ykwa1bVd7nR0xCQfaD9I7GYhRjyeHc
+	 hz1x9fzIbOs0UKhHiKIYm3QUoMati013qW9BSwUIBmf2TPVjAhmdZd02mRAcNA8jEHFtZ
+	 HJuuzM7BEEVUiTEfUEWT80huWCw0n7rYp0/6GhtSJB/4X0q00l+S1sGn+XM3GeCoZViEH
+	 jq1lAGTeqEEy023TivSaTsVCSuWOeEStypcjPLWoBp949Ar5joF0ipxtUPft7fyO4/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794599095;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1hkKlKtceu81xADzhfc6vL02oI6BthsOy5fKPWsZIJY=;
-	b=P1v5s54GoPYS0IKPZk4eejFmX7zaGVf1IU+vNGIWmUHR+pWKSwPQ7Ws6M85Ca/4EhoVc
-	 ckjYLxn1tUSXHZ3P22FJCM1EDfNKw0k8zlRZPw/p3mqatVrZm7FY4IYBrj4nWcmGTXCRD
-	 wAQlLPsxnVXSpYXrWTN8wWCTYUXysK+cd0fUy6aVNoCXnwsL8MF0o4SXTBKZX3NvKA4qo
-	 EkCf7HFw7aA9fnGhTXwfRIC64ZQiGPmJKkaPfLhdf89l9NBXIR5Ltb7u+Ehy/HwD/fDKy
-	 1NNUVWKPlADok/E9rAAtRsjC+JLvA/OQaX2mEH2r6FyUAJivExYVCZDT8pqLpYfjfaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794599124;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=gjLy+MNfOWSbu5NtI+C6mzKEH0S8YN5kvQWQs6kfrkc=;
+	b=Q1ikH+MyIv5OpbgTihzexTLtIop8JJEkJOF5LEk9mAuhKmnz7U+tf1/U+eTBrmBEMCXF
+	 5o294EckSPJ9NoeV1BO+MC4zUXrkDemxZqJUZljb2cErlOEVvaGxq8Qjcu9nzx284Xkgq
+	 6hspP1UkZQSz/CGLZaYYjdsCZQG4SiLsc7QsAxTUYiK/TbbpoieGIoLgL397x6borPRWI
+	 bFO51AF2ZmtwqqSYHGw6nRZsQR2RGf2bPQsC7ENk6VFtMynt/Ehkbupa9NW7zl908cSlz
+	 k51WuHqO1WNSvlPF0rCJpuOIeRljPYJBqByuoOOqKuR5XKHdDhiUC/8ehcbS/eKkXhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SS7fNEgw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=YzISiqkl;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4C4606A327;
-	Fri, 13 Nov 2026 19:44:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CCC606A330;
+	Fri, 13 Nov 2026 19:45:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5CCC606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SS7fNEgw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC841F000C4;
-	Fri, 13 Nov 2026 19:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794599095;
-	bh=1hkKlKtceu81xADzhfc6vL02oI6BthsOy5fKPWsZIJY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SS7fNEgwUqd1R2B9tl+Jsq6VRDy/KSQ8d9QpdRorn9pOyrhKuD7PVpZb4cC+48V0z
-	 MWsAethHGASwiCBySmTsCnwLHhKOJ8rLMG/RAQgr25gefz6TWFxO+z8JM8uk8DCReu
-	 v+firPudEiRWUECH9CD6WBvOhBTXqNnNzLy5LL48kayJqgNTTAGTJTlwbkmTzHn1Aw
-	 hSqZ4HpgQch2TtsofFyLpz41nuuPoWiOElN3PPrzwtRfYJyw4nWeJXuyDSaZmwAQXE
-	 c2Nr8GRpyVLXMLbrQhZ92A5UJ0AvbXhVeKgi8idNM6M63fm0gFBhxj/Ulhu/s6pRiF
-	 BAglxN2hG+U4w==
-Date: Fri, 13 Nov 2026 19:44:50 +0000
-From: Lee Jones <lee@kernel.org>
-To: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v5 0/9] Congatec Board Controller: Add storage devices
- support
-Message-ID: <20261113194450.GM6323@joneslee-macbookpro.roam.internal>
-References: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=YzISiqkl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=gjLy+MNfOWSbu5NtI+C6mzKEH0S8YN5kvQWQs6kfrkc=; b=YzISiqklc3XmZrEQ4ktPVVJEkp
+	Cs6TrBIfJSI5GVzQaJ/BxOH7V9mOe6ECuhT9tR991M71QRZmMQbRkr3h5jYRETRQ1/NqAtljElDZy
+	ZK3Yn97v5vfAfW8turrQxs3YL0t2dKfAcAxEDEFgaQqKOpnyfIK+wlJltQMRvfKjQct8kqa5cBPSu
+	3/qdKKUa6v4PQrDIpsV+MzoTrOqFsqMwJwWHol9uio29w4LKmd2+5PbypGIl0kWmmAJ8SlOjzRxrL
+	nO+exbnLtFOurhTYJxZVDL2lXdeoETe9g1o7Kvf6PjbPLnlZ8Mhcx7fBSgFEk5Yi5tP+rgZ+DQEj2
+	Z9VNHkUw==;
+Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRxCo-000000052Uc-0jPI;
+	Fri, 13 Nov 2026 19:45:02 +0000
+Date: Fri, 13 Nov 2026 19:45:01 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nick Piggin <npiggin@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steve Sistare <steven.sistare@oracle.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	fuse-devel@lists.linux.dev, linux-arch@vger.kernel.org,
+	iommu@lists.linux.dev, netdev@vger.kernel.org,
+	Chris Mason <mason@kernel.org>, stable@vger.kernel.org,
+	Pedro Falcato <pfalcato@suse.de>
+Subject: Re: [PATCH v4 1/9] mm: limit pagecache folio refcount when mapping
+ pages
+Message-ID: <avdovRTVITLwuit_@casper.infradead.org>
+References: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
+ <20261112-refcount_overflow_stable-v4-1-ad3deef0bd23@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,123 +111,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
+In-Reply-To: <20261112-refcount_overflow_stable-v4-1-ad3deef0bd23@kernel.org>
 
-On Tue, 03 Nov 2026, Thomas Richard (congatec GmbH) wrote:
+On Thu, Nov 12, 2026 at 11:53:20PM +0100, David Hildenbrand (Arm) wrote:
+> Being able to overflow the refcount is not really big news, but it's about
+> time that we do something about it because some modern technology might
+> find ways to abuse it :)
 
-> In this v5, I re-ordered a bit the patches to fix I2C bus names first.
-> I also made an error message more user friendly.
-> 
-> Lee, this series conflicts with some other ongoing patches series:
-> - mfd: Assorted resource lifetime, teardown, and error-handling fixes [1]
-> - mfd: Constify mfd_cell arrays [2]
-> 
-> To make your life easier I rebased this series on top of them. Please let
-> me know if you want to proceed in an other way. 
+Yes.  My primary worry is actually it finding a path where we forget to
+put the refcount on a folio and that gets exploited into a UAF.  I'm not
+sure the "reserve for root" aspect really helps recover from that, but
+I'm not too opposed to it.
 
-I think these are all applied now - less my I2C patch, which you are
-free to collect.
+> As a short-term solution, let's introduce two folio refcount limits:
+> one for ordinary consumers and one for admins. Leave some headroom
+> before the refcount goes negative, which we really don't want (having
+> the mapcount go negative is also not expected).
 
-I'm ready to apply this set.
+I don't think a negative refcount or mapcount is really a problem.  What
+matters is that we don't get to zero from below (for the refcount)
+or that we don't get to 0xf000'0000 (for mapcount).
 
-Does this have to go in as a set or are the MFD patches orthogonal?
+> +/* Leave separate reserves for administrators and concurrent reference gains. */
+> +#define FOLIO_REF_COUNT_LIMIT		(INT_MAX - (1U << 26))
+> +#define FOLIO_REF_COUNT_ADMIN_LIMIT	(INT_MAX - (1U << 25))
 
-> [1] https://lore.kernel.org/all/20261027093306.2812695-1-lee@kernel.org/
-> [2] https://lore.kernel.org/all/20261030071137.100954-3-krzysztof.kozlowski@oss.qualcomm.com/
-> 
-> Best Regards,
-> Thomas
-> 
-> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-> ---
-> Changes in v5:
-> - mfd: fix error message in case we fail to get session handle.
-> - fix I2C bus names earlier in the series.
-> - Link to v4: https://patch.msgid.link/20261002-cgbc-i2c-storage-devices-support-v4-0-eb42e0f1df59@bootlin.com
-> 
-> Changes in v4:
-> - Fix struct cgbc_i2c_platform_data comment (kernel-doc warning)
-> - Move struct cgbc_i2c_platform_data from linux/platform_data/i2c-cgbc.h to
->   linux/mfd/cgbc.h
-> - Use MFD_CELL_NAME macros.
-> - Link to v3: https://patch.msgid.link/20260911-cgbc-i2c-storage-devices-support-v3-0-594b53fbc5ea@bootlin.com
-> 
-> Changes in v3:
-> - rebased on v7.3-rc2
-> - use PLATFORM_DEVID_AUTO for child devices
-> - move I2C bus and I2C device definition in the MFD driver
-> - Link to v2: https://patch.msgid.link/20260811-cgbc-i2c-storage-devices-support-v2-0-3efa998e0ef5@bootlin.com
-> 
-> Changes in v2:
-> - i2c: fix typo in CGBC BIOS EEPROM label.
-> - mfd: make cgbc_devs const
-> - Link to v1: https://patch.msgid.link/20260804-cgbc-i2c-storage-devices-support-v1-0-fed38510671c@bootlin.com
-> 
-> To: Thomas Richard <thomas.richard@bootlin.com>
-> To: Lee Jones <lee@kernel.org>
-> To: Andi Shyti <andi.shyti@kernel.org>
-> Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-> Cc: Werner Gartner <Werner.Gartner@congatec.com>
-> Cc: mfd@lists.linux.dev
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-i2c@vger.kernel.org
-> 
-> ---
-> Thomas Richard (congatec GmbH) (9):
->       mfd: cgbc: Fix use of negative error code as valid session handle
->       i2c: cgbc: Use real I2C bus names
->       mfd: cgbc: Add I2C platform data
->       i2c: cgbc: Use plateform data to get bus ID and adapter name
->       mfd: cgbc: Use PLATFORM_DEVID_AUTO for child device registration
->       i2c: cgbc: Add support for fixed frequency buses
->       mfd: cgbc: Add virtual I2C bus support
->       mfd: cgbc: Add virtual storage devices on the virtual I2C bus
->       i2c: cgbc: Register known I2C devices on the bus
-> 
->  drivers/i2c/busses/i2c-cgbc.c | 108 ++++++++++++------------
->  drivers/mfd/cgbc-core.c       | 187 +++++++++++++++++++++++++++++++++++++++---
->  include/linux/mfd/cgbc.h      |  16 ++++
->  3 files changed, 244 insertions(+), 67 deletions(-)
-> ---
-> base-commit: d3dfdb6b429a5b99bfd47176bf07cad0956f14ed
-> change-id: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
-> prerequisite-message-id: 20261027093306.2812695-1-lee@kernel.org
-> prerequisite-patch-id: 7d50ed21b2d5d1bb25290d19c46b4668073feddf
-> prerequisite-patch-id: 45cdf12f5527ab86a560ba98c02cc447bf6eee4e
-> prerequisite-patch-id: 6148da531ee7713f8afb7bec90fb3f548b562d28
-> prerequisite-patch-id: fb0c30c409ef451192973c417a0585f989f8917b
-> prerequisite-patch-id: 8403fcd8efcd44138f139767624773fa654a5a2f
-> prerequisite-patch-id: 434546741519ecd3032e19f3acf2c5370e9a454c
-> prerequisite-patch-id: 29540ca5739d6f6f3e2d3fe5b87893ad31f6c3ee
-> prerequisite-patch-id: a33adadb2e2efe82d2a14417c1c35c579bf212d0
-> prerequisite-patch-id: dd53f1e6db35d71b51061dad45de28dde9ebc70f
-> prerequisite-patch-id: 85a1da1285d64ce3fc78c8ae7969fbb0dc7c3cd7
-> prerequisite-patch-id: e9b952ebc380d058ac2144771c780a0b08c3b7c3
-> prerequisite-patch-id: 1f0dcc7a8c5df7ae1c8bfb5a1c8f62b441704286
-> prerequisite-patch-id: 077a4ef70d74321711e2efd4e016e01a1d41c818
-> prerequisite-patch-id: 4dcd6cc156bb6ba43684605972fb179557a3891e
-> prerequisite-patch-id: 62e87491674feaae09327a99a5ff1b4ed368f221
-> prerequisite-patch-id: ab1eac435fd40cdb3d9a8d453a12852a105f57c4
-> prerequisite-patch-id: 1cbcc3b666db27cbe9f3fa6c6ead2f49a0d459da
-> prerequisite-patch-id: ecb566a7bea44600e9d7e9617e280c994773e3dd
-> prerequisite-patch-id: 20e295db85a31587d342471a3c341615c8eb0fd7
-> prerequisite-patch-id: 06118bf6e5affc234e7edbdb5c0aae9b05412b33
-> prerequisite-patch-id: 17afeb13c5012348feee8eb739ff058e84ed2df8
-> prerequisite-patch-id: 27693bdeffbc7a0a295c165912b89af5ca3264aa
-> prerequisite-patch-id: 8313fe2293eaf0e69ffd2f0017e18fde64ca68f7
-> prerequisite-patch-id: fc53af34353efecb4490087ed066ccb256a74695
-> prerequisite-patch-id: 02ad8a3b1fddb4f4e806939d36ae642c01004c36
-> prerequisite-patch-id: 7b9b8460613f4240492ffe11ee7ee0e6c0b6ded8
-> prerequisite-patch-id: 699c068a32ac9d3171e7a494fb2ca5522045779a
-> prerequisite-message-id: 20261030140240.211786-3-krzysztof.kozlowski@oss.qualcomm.com
-> prerequisite-patch-id: f6cf975bf90acb029fa985ecd659b59076fdc0cd
-> prerequisite-patch-id: 4f16ad80662de796ae1454904c938e7e85115fbd
-> 
-> Best regards,
-> --  
-> Best Regards,
-> Thomas Richard
-> 
+I think these specific values will generate bad code.
 
--- 
-Lee Jones
+> +static inline bool folio_ref_count_over_limit(const struct folio *folio)
+> +{
+> +	const unsigned int ref_count = folio_ref_count(folio);
+> +
+> +	if (likely(ref_count < FOLIO_REF_COUNT_LIMIT))
+> +		return false;
+
+I would replace this with a simple signed comparison against 0.
+
+>  static inline void folio_get(struct folio *folio)
+>  {
+> -	VM_BUG_ON_FOLIO(folio_ref_zero_or_close_to_overflow(folio), folio);
+> +	VM_WARN_ON_FOLIO(folio_ref_count(folio) <= 0, folio);
+>  	folio_ref_inc(folio);
+>  }
+
+And I would drop this hunk.
+
+> diff --git a/mm/util.c b/mm/util.c
+> index 80f6c714844f2..c9c3dc4b490fa 100644
+> --- a/mm/util.c
+> +++ b/mm/util.c
+
+Now we have mm/folio.c, I think it should live in there.
+
+> @@ -791,6 +791,32 @@ int folio_mc_copy(struct folio *dst, struct folio *src)
+>  }
+>  EXPORT_SYMBOL(folio_mc_copy);
+>  
+> +bool folio_ref_count_over_limit_slowpath(const struct folio *folio,
+> +		unsigned int ref_count)
+> +{
+> +	if (ref_count >= FOLIO_REF_COUNT_ADMIN_LIMIT)
+> +		goto over_limit;
+
+Maybe let this go up to 0x8100'0000?
+
+> +	/* Background threads must not consume admin reserves. */
+> +	if (current->flags & PF_KTHREAD)
+> +		goto over_limit;
+> +	/* Neither must interrupt contexts on behalf of the interrupted task. */
+> +	if (!in_task())
+> +		goto over_limit;
+> +	/* Capability checks are not safe with IRQs disabled. */
+> +	if (irqs_disabled())
+> +		goto over_limit;
+> +	/* Use the task's credentials, which filesystem overrides cannot change. */
+> +	if (has_capability_noaudit(current, CAP_SYS_RESOURCE))
+> +		return false;
+> +
+> +over_limit:
+> +	pr_warn_ratelimited("folio:%p refcount:%d mapcount:%d mapping:%p reached refcount limit\n",
+> +			    folio, (int)ref_count, folio_mapcount(folio),
+> +			    folio_mapping(folio));
+
+If it's worth doing folio->mapping, maybe also print folio->index?
+In fact,
+
+        pr_warn("page: refcount:%d mapcount:%d mapping:%p index:%#lx pfn:%#lx\n",
+                        folio_ref_count(folio), mapcount, mapping,
+                        folio->index + idx, pfn);
+
+might be worth pulling out into a mini helper from __dump_folio()?
+
