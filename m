@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597012;
-	b=mqFeZocIzaaaZfq/x+in28pVduz+TmbUy+YVYuu2d6PVLgdIbQ/UNFz4emw75ogGdtZ9
-	 UgvroiZtNYPa/xgN7jwq3lWJLHWq4CBYAQhGGtn/Ae8AttdgawV4BIdCe0tXFJJAZoHNw
-	 vAW0+sDvTNCLuqvtOb0FV1havXY2iMYy/cEgVjgxmhVQDzljBYugZSTy92aa/+47vuE2y
-	 +c3qL51XxmMSq0R8vr7OafB/dlpIKyzZnao//CEFcu2hdY4+NUVT67QknIOYeAHQLESn9
-	 NPoi3hKpOljC4ZK3axSSDEk2Ft9ySQAacXxrooM6JIpNg6xR7wassdMvg0+1Gi1n+Bg==
+	t=1794597013;
+	b=OJQmyEIyKFL4J2zlIZoB7pl0MsCzDPdRwJeU9xnp9iiovRZmZXLobUxLiRHe9kI1CiHd
+	 wMOyfMoO5GTLLRYdFvj1T2Obj/LEfpfjxBNsZDXES6AbDd98bsQoxuotDa3IOlOr0Yhn0
+	 Nvl/PEJ19PwMM+hfRm5NAThGmZBDmd3pqP84/Sh7Fq5NiWh5eZWi64pvxh23a0VUjqZGJ
+	 wQJh/vpE33zoQxx+lokDv5N5jVJzuqxxln84r73YraDYZUCW9HB3iwiYyB9+ja8hGFvq4
+	 I4dpFD3umGGzofIT0Ouvf+6VNwW8mXxtdhzUOnnH9sL1rXjvyYXTEk8ljW4h3KGThgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597012;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597013;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iU1BPbr/khgFBD+mePW4FSh0xmwiXSk0eLgexYMeNuw=;
-	b=yuda4hlFt+mED3OCr+b7V4RMFW5Eg98nbYPbwAKAWtsaHq2LaGaZBZ58/T8H/Akr3v3G
-	 hm9fjFt/UwuwwQvMkKLvu86c8F1zHvHBevc4jhONQOJQYjffSYmZyHUJf7h82jGwN2DuY
-	 mH/IDsCQUK8QgPIkvFwhM9nKAq3hGT8abnuW2xsSX6nu8qT/oqH0Gs8OyHBD9miWT3uG1
-	 70PLGzgcWrxmSHhKHKdDC4ho8FSgnxPAhtsEd6YSCRze43odkBqnPz/v00ycPlxShnMi1
-	 qRpVPhHRQSc0RAALc7dXQJSVfZoEBFSGPbhrPkX71yxuxGMQlYrG1sEvYbXXbcpltbg==
+	bh=zabQJqh6t7uxEuYlIQWDR7cku3smA7px6dIU8SpBgYA=;
+	b=fN/kaNa41IRh7ZixtISv5Vs6q52Y016Ebrp8Cp7mFo1lAIZzxQUhq50LHWW7421qFefN
+	 DzI11Ekq+DrMBQopEhvGVIMi1LWZcpri0wN/jirdJbGCLZrMukecucNwQXHsRYHBx0NrM
+	 +G+yYgLwWBFLO/JCLnPNIkOTRsKZPylttpNp2oTCa2tBbocX1Ar9gpTMDrTz9nVaGE3mK
+	 hG1SH86UHWAjM5nzth6//+6hhBnB4XWvofNkcmj76BQ+zFCjYIi11qwcfn3przs1Dbrxe
+	 YWkrsmpLX6deC8Fziiz4CfFFteVX7p/eb/h6S98EuGY1HHA1X3Tgvz4262kfD7W7Knw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRB2sOBu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWTYQg0C;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA534606F313;
-	Fri, 13 Nov 2026 19:10:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD00A606F33D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:10:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRB2sOBu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6322F1F000C9;
-	Fri, 13 Nov 2026 19:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWTYQg0C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB43B1F000C7;
+	Fri, 13 Nov 2026 19:10:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597012;
-	bh=iU1BPbr/khgFBD+mePW4FSh0xmwiXSk0eLgexYMeNuw=;
+	s=k20260515; t=1794597013;
+	bh=zabQJqh6t7uxEuYlIQWDR7cku3smA7px6dIU8SpBgYA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XRB2sOBuVfNcU1pdRj7FoTWG/gDk0+UXRl+LYWij3StSJGeuXclE1OZ9+qd1rSVYb
-	 BbJFNRqZQ+0o8t0Cigr0pHeQm14B8Nwo3LnngdQOV6iefQREIdk5GKDKxB2mXA0QCM
-	 mDAvy8VziHiS6fPGEfe62dB2hMzyTfDkRQnsXezyVvI/c472Wzg6gsjjxUCzCSAP35
-	 RcavUVitoHoVE3Qd9eE5z7Ht8aHWsfawppQBm900iqe4EImAkrgheFWvj91HT0kxry
-	 uxDYxLHTJXYGksRiW+5O8zU1ffTps6HCKFcVc+O0iVTy1+9K39L5HRNoigQsWzLAWO
-	 ADwGA2XFAHh0A==
+	b=SWTYQg0CgR/xis3k3QzKwIhMJEwlNq0p3qBtiA8bOEVMxTYMo+tzuklGFY+7drVAi
+	 HfI5oWBuKY1tqR7EPRtqiVf8A+TdLMExZ6rbKIhg4EMBylI0fl0HplfyLPFWS3JRhD
+	 EsgFqbMQioG5krlMtyZjak7X0+SMrM6+tCKGeKhf8U5my6BhLc1LtwtAmyJw4YTpGE
+	 RVK/8K5E8VGr3VkICY8Q6d/sZxdxrTRyWqcdzP0KTW8fB/i/kay4R6KZlOViJj2CmP
+	 9q9nUu+gRpmM7U9RiDj/XDasZXz5/lMi33X4lJRcB0A2xSsdhG25kaCeZKCgAOJsLp
+	 0Imh7sydD26RA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	akpm@linux-foundation.org,
-	shuah@kernel.org,
-	liwang@redhat.com,
-	jackmanb@google.com,
-	linux-kernel@vger.kernel.org,
-	Vernon Yang <yanglincheng@kylinos.cn>,
-	Vernon Yang <vernon2gm@gmail.com>
-Subject: Re: [PATCH 6.12.y] selftests/mm: include kselftest.h in vm_util.h
-Date: Fri, 13 Nov 2026 14:09:56 -0500
-Message-ID: <draft-0006-revernonkselftest612@kernel.org>
+	dipietro.salvatore@gmail.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	linux-mm@kvack.org,
+	Salvatore Dipietro <dipiets@amazon.it>
+Subject: Re: [PATCH 6.18.y 0/3] mm/page_alloc: fix iomap buffered write regression from 5d8edfb900d5
+Date: Fri, 13 Nov 2026 14:09:57 -0500
+Message-ID: <draft-0007-redipietropagealloc6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113091000.382250-1-vernon2gm@gmail.com>
-References: <20261113091000.382250-1-vernon2gm@gmail.com>
+In-Reply-To: <20261113110259.2901456-1-dipiets@amazon.it>
+References: <20261113110259.2901456-1-dipiets@amazon.it>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,10 +65,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026, Vernon Yang wrote:
-> Subject: [PATCH 6.12.y] selftests/mm: include kselftest.h in vm_util.h
+On Fri, Nov 13, 2026, Salvatore Dipietro wrote:
+> Patches 1-2 are its prerequisites from the same mainline merge (Cc:
+> stable), only moved from mm/page_alloc.h to mm/internal.h. Patch 3 is
+> adjusted for this tree, see its changelog.
 
-Queued for 6.12, thanks.
+Patches 1/3 (6ee3d87b9408 ("mm: page_alloc: do not give all non-blocking
+requests reserve access")) and 2/3 (fe21f930d1e6 ("mm: page_alloc: remove
+ALLOC_NON_BLOCK from ALLOC_RESERVES")) only carry Johannes' and Andrew's
+Signed-off-by. Since you are the one sending them, they need your Signed-off-by
+as well; only 3/3 has it.
+
+Could you resend the series with your Signed-off-by added to patches 1/3 and
+2/3?
 
 -- 
 Thanks,
