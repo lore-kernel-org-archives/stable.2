@@ -1,57 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575432;
-	b=3ThGZdzqUFzVXU1gRnHEY3LFfJQGuSPtDZzmMtLOS6L4+v4pt1o+PB+H+LkDFtJAqaaj
-	 Ji7MNI/iRXVvWJzIm2kncBUxcL69kAhkohrZQ2XIybgCqkqZC9wo22kibbQU+lxIT01EF
-	 ZOMHXytqyEAPbYuYllmf60I3+twnLchx+K+WROb8GdulSOVf7GUS9sl2oY/7qSq5umtyL
-	 N7AX1ujlufGsU2x+IHEIMnNafC29JZsCLjZI+CPEFiaoSDTSmstKrN8fKQpNb35SmtD9v
-	 oDCaCkCQBidetsIc0D7lp4uCG2/tJ3sGNkDltENDuOKUtYIuQy2JznB29+QVcjXIwuQ==
+	t=1794575444;
+	b=DoYnKKn70u3oIg7rMeORQLJ3MmcBjRif34EFUebu7Ht6qnMRCT1xoUcsToQ7psjYJnHf
+	 eyr08T5bRXPCtoI0VVNOSmL81gQCc8dMoiyqRgITSUCcyjvXIFCZkuPRF/9K9zkBdsgoR
+	 vCHnjORR/AMTHi6mYKEqf7A6jHBsn4YuBx+PP9j9PVsSvwPJdPSSWsS92q3oeoWBbOtxm
+	 ohd4M60Xk8WuHlEo3khEiDkAfbr0AYzOekYx3aVVU8RD8W/v4QjT7ka4MVLhGXCQLuMxK
+	 +uUrLjSlxPWmjyAxiybOsfkwpt93/9oUL9nxU8crUYGVLub4d3rHv+BMw/WsNEuX0Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575432;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Tg50/tjCC0yxPNvcYkcYPCrnfp4Edqsj1ljJg67TVho=;
-	b=M4sYrjo1Hl00GPtdjZuImbHuYwj2DOw+TF2M9X8ibCFDszG4g0Iz4O6rHFhOlt5P3S3C
-	 lwftTdPYN/Ak9evykmaPuR4ZktW+hihGwpkqj1xyZEsuvyg1HIMKTsjANHZ9rKXzzFVK4
-	 FzliHN+kX/eSjnleZqB8oaN+nxlPmHdSYzEJ3XNLM37XyXjOivolZromPcl9i4IuOGw82
-	 TSG5k8ycOdAK1FE/H/Iu87X5wPAD0tmaba6D6Adpx9q45+8JRIJNF62iJc0SjgathRyFT
-	 M8m808mtHN2qu9eFuxJFcXj8NNcPPI5b0ZdHsHfRe2CgsyXDBQ+i4xRwIOfzkv9E4Eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575444;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UGOxoRNSfHEnbUMGAa0kQHhxwEo/ZMAj5RmH7SI98p4=;
+	b=5cgGQZVKBwkZoQx/vzuXaWemgBrXt/sryn2gsoiM8h9pWTaD07FpOm4TFzsF8BBugBtT
+	 YVi3Uc5NLlh5nZCu4kc6u38Wsr4t32NpaJSkAAikN2aGjw83sMY8gUF+OV5gMuFmRVjTe
+	 oULwj/9rB+oi/p06e9XW6U8wJf2dsT8sCinmbkjNO1TPdssvfZThP0yod9KWxt2a1JJaY
+	 mx1jnQcev6+oD3B/4tSEzz4gzscCFhqPTzRo/9Z8yRQ8YaQNe2wLhuwImOkSikyrRN77H
+	 xeQ+PDble5p2tcBmOCIIScXseOz2O7/hPb56+b2dj32I5tnB2eoWX7YjyhJ62T8I8Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KPmZk/aI";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=quCmY2Fk;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63ED7606A8AE
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:10:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B180D606A338;
+	Fri, 13 Nov 2026 13:10:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B180D606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KPmZk/aI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6611F000C8;
-	Fri, 13 Nov 2026 13:10:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794575432;
-	bh=Tg50/tjCC0yxPNvcYkcYPCrnfp4Edqsj1ljJg67TVho=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KPmZk/aI13ugrFvdp2hdlQcMm/0feWSAd9xNo+5KIZj46o81feu2BRb9iFdibF+Xm
-	 0DBKwbuDifTgqLFkqRz9j1GbVIaJ+arTgVEZwwt+MjFLtaO8FPG4tHYoaf5iR3vjaF
-	 LIauchE0ZKCfkNkjPz8n7nCKR3pNSVRu+B0kW8tEaG0PiVt1oANumUdaKcPwlDYpWE
-	 PXnXWCHBXbw+aGQblNL4bnUx/Y5IIjIyuKMgPHB85QBIQ5s3qkCYewrga+PI5ENQgo
-	 Xp9LUgV++hDG+KxXa3o+N3lf13xwFTn6qaJJ/c65V3hXu95FIkwPPRXL+Po5Y42Ny1
-	 YLHQ4tb/FZp0Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amdgpu: keep the CS user fence BO in GTT
-Date: Fri, 13 Nov 2026 08:10:30 -0500
-Message-ID: <20261113130527.988621-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201901-failed-6.1-7a56d929dc23@kernel.org>
-References: <20261109201901-failed-6.1-7a56d929dc23@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=quCmY2Fk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=UGOxoRNSfHEnbUMGAa0kQHhxwEo/ZMAj5RmH7SI98p4=; 
+	b=quCmY2Fk44wltT1SW8m2cAz/GyeHvLDs7vn8NEV8m7Ctey3IOf8WYJ7f8IoInD6VRI7cpB30zim
+	C81YvWBTycD6TBHD7Y18cop4q2H9S+s0hO19vUlPMjI8mTdRe5by2+GriRzTeGX8m6rh/XZNjRxTD
+	WwGHlcohn+wN1Qhcog5FCoEAxzlC3lNhleJWqLZ039tI6fWRyKiY5R4mzpO5q625sg1G3j8s9yO2Q
+	LirKmeSN9W3+H1ytoV4/SjbxBRdUsd5TVlmcqlw2fOrU8Jf1uuwRfqXRlLINBjIOjxkI8HTGn+D7i
+	7gsdJdbaVXGSDYarv1qUDtCSnvPf8tXQOMJw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xRr39-0000000EfOz-2C5L;
+	Fri, 13 Nov 2026 21:10:40 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 13 Nov 2026 21:10:39 +0800
+Date: Fri, 13 Nov 2026 21:10:39 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Xiang Lei <leixiang@kylinos.cn>
+Cc: Wei Liu <liuwei@kylinos.cn>, stable@vger.kernel.org,
+	Laurent Vivier <lvivier@redhat.com>,
+	Olivia Mackall <olivia@selenic.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	virtualization@lists.linux.dev, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwrng: virtio - fix copy_data() handling of partial reads
+Message-ID: <avcMT4v5mo4XT493@gondor.apana.org.au>
+References: <20261105071736.65932-1-leixiang@kylinos.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,73 +69,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105071736.65932-1-leixiang@kylinos.cn>
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+On Thu, Nov 05, 2026 at 03:17:33PM +0800, Xiang Lei wrote:
+> vi->data_avail is decremented on each read, so it holds the remaining
+> bytes rather than the total length. Subtracting vi->data_idx from it
+> again in commit e3046eeada29 ("hwrng: virtio: clamp device-reported
+> used.len at copy_data()") undercounts the bytes left after a partial
+> read. This can leave vi->data_avail nonzero without queuing a new
+> request, causing virtio_read() to hang on have_data.
+> 
+> Clamp vi->data_avail to sizeof(vi->data) - vi->data_idx instead.
+> 
+> Fixes: e3046eeada29 ("hwrng: virtio: clamp device-reported used.len at copy_data()")
+> Tested-by: Wei Liu <liuwei@kylinos.cn>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xiang Lei <leixiang@kylinos.cn>
+> ---
+>  drivers/char/hw_random/virtio-rng.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 
-[ Upstream commit 7a56d929dc2304edaa6231e1eb5eb82b7e8b74a9 ]
-
-The CS ioctl hands the GPU the GART address of the user fence BO, but
-since the BO keeps its own preferred and allowed domains, it no longer
-makes sure the BO is in GTT. A user fence in a VRAM BO, which only needs
-to be a page in size, gets its address from amdgpu_bo_gpu_offset(), which
-warns about non-contiguous VRAM. On navi31, a CS with a user fence in a
-4K VRAM BO, or in one created with AMDGPU_GEM_CREATE_VM_ALWAYS_VALID:
-
-  WARNING: amdgpu_object.c:1531 at amdgpu_bo_gpu_offset+0x86/0xb0 [amdgpu], CPU#11: cs_gem_checks/18393
-  RIP: 0010:amdgpu_bo_gpu_offset+0x86/0xb0 [amdgpu]
-  Call Trace:
-   <TASK>
-   amdgpu_cs_parser_bos.isra.0+0x4eb/0x850 [amdgpu]
-   amdgpu_cs_ioctl+0x97e/0x2510 [amdgpu]
-   drm_ioctl_kernel+0xac/0x110 [drm]
-   drm_ioctl+0x2c6/0x5b0 [drm]
-   __x64_sys_ioctl+0xa0/0xf0
-   do_syscall_64+0xa3/0x4d0
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-and BOs which can't be in GTT at all, like GWS or OA ones of a page in
-size, pass the checks as well.
-
-Only take BOs which can't be anywhere else than in GTT as user fence,
-which the CS then validates there along with its other BOs. While at it,
-detect userptrs with amdgpu_ttm_tt_is_userptr(); amdgpu_ttm_tt_get_usermm()
-returns NULL once the task which created the userptr is gone.
-
-v2: only take BOs which can only be in GTT instead of special casing the
-    user fence BO in the validation, use amdgpu_ttm_tt_is_userptr()
-    (Christian)
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit f16989def9561d04d0f2e77216f5319112d29bf1)
-Cc: stable@vger.kernel.org
-[ sashal: Replaced p->uf_bo references with the existing local bo pointer. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 894989f453fff..cac55781798cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -153,7 +153,12 @@ static int amdgpu_cs_p1_user_fence(struct amdgpu_cs_parser *p,
- 	if (size != PAGE_SIZE || data->offset > (size - 8))
- 		return -EINVAL;
- 
--	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
-+	if (amdgpu_ttm_tt_is_userptr(bo->tbo.ttm))
-+		return -EINVAL;
-+
-+	/* The GPU writes the user fence through the GART */
-+	if (bo->preferred_domains != AMDGPU_GEM_DOMAIN_GTT &&
-+	    bo->allowed_domains != AMDGPU_GEM_DOMAIN_GTT)
- 		return -EINVAL;
- 
- 	*offset = data->offset;
+Patch applied.  Thanks.
 -- 
-2.53.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
