@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794603700;
-	b=VlvSZpTkE0EGgvlKQmXYnGDbv9u9Xv9mr5l3RmKUufRf3tnfhslpvDV73gxlzbgvdCR9
-	 pO1a2e+GwoKvoLECxcoOir9Fwt6JdIWsHRiuYxN/iJpoUQYU+BhyRoy7v9z/D+ug2/kIB
-	 +7IvlKkdrtxiTBFIyUMjNHrP+BQUXOQVug7GuSYgyHPGbz92+EOBsO/fOte+Euk7OaNH2
-	 j8MVbj4tK3H2enGVvIVy3lPM3CvjkHle73eEdvkWN5/m4ReGyKzqBjdddYK7bYQc1226y
-	 hNcFQXTyQp3f8XINw/7i3+zOKu+k6QBmaZhwOHOm4RRZkrNuP5hFh3mO46bdDUjXJCg==
+	t=1794603703;
+	b=pG5R78oWQIty2BCTgWQt+NfkBlWyxNPnrANlVUa84YeUdSISLCixY0jEqvN7GaemoSgT
+	 JdaHMa+0dSb0DmvJxYSg7BdmBCit+hdPmIl+6W7FSSrnXyCjRvxR+RgSwxw7M6WNYggIU
+	 ol03pDKYznDAfXZI5Xz8UkQn0v5ZsTgcxmYfulbwzOBPoYhYXe4aJ2JgogRx3smbMBhO/
+	 7GCEkEdJ4uo+XVuqvFe37Zfi0vn7eofsTMI0W+U9+y+F2cdmC/lTd7fzO2EtVffoam6EX
+	 Nr8to4DejemtE/H8mzQFvDGGe4v9DX5hkuZ7PwxhMh1y4g8kLVQw1XhbfQmznpiCB8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794603700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794603703;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HaZnE72Q0gNnlC8fL4KmtglNgWDf78JmNKVaaW4zyUU=;
-	b=atKJ52495IheQCQmRkFhPVXTlutFD889mW2Tbllc6f4scEYehiQ8Bbu4p513HXZ5aoAJ
-	 xDUIMZT8Llqybcy8S85ao0c38imHHwWBi/28UI+yZLF8mFQyRZgetHNsDY/TbT6FeRndp
-	 JHqbaZ0X94NQfi+o8FcDOlRDxhxAs+odTMSNYL9dgs58jQTtdammkBNpn7fszDnTwCNvL
-	 n2qauhR6YdMQVdUj5a6aGPRg7n0JuS++1ZUo7F2Ly61tvYftjqJ6xuHnzZhMTyfxGO124
-	 K86FaC6ELe91lrNCr6DpOUjaeADinbLRhs1G4/IOFpJfOIBvHKkYpPJoId6LH1EjYNQ==
+	bh=6wqni+og4l+rhTlcxddl3L2qxHXHJSGgnHGb5W28yH0=;
+	b=3CUPq4YJM+ox/jxAL4c4qHR4a3NUd/q41o3UFIkIjAorSmftMs/vHyRvAXAHp5HgXCPE
+	 vJESUJNjVe9y7drzGQr8jDVNf+unGlom4ktaYCMQ+CFWJASxpshOVpOiX4L9KTcbM8P8t
+	 Rgi6nD9w95okrcMmoARM+6EnyQtnykzq6CQfebb3EtA4FfyDv3sSnjt9phv1Ph8O8U400
+	 9uZwhXC0fV0ff3OEPQpgP2mO85OHpW+K+vc+fdEOqwyQakLzTj1LQNoOafmnQHKN6e2Hs
+	 2MNZlOJ+pdPbFHOSSjyumPoaf8qYX+WLX1cIMQCAM8F6VhZ6v+EFupC+Z/lDamJBEPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T68uoIzC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSijpCPn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FCF606A333
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F043B606A334
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 21:01:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T68uoIzC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6BDF1F000C4;
-	Fri, 13 Nov 2026 21:01:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSijpCPn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1171F000C4;
+	Fri, 13 Nov 2026 21:01:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794603700;
-	bh=HaZnE72Q0gNnlC8fL4KmtglNgWDf78JmNKVaaW4zyUU=;
+	s=k20260515; t=1794603702;
+	bh=6wqni+og4l+rhTlcxddl3L2qxHXHJSGgnHGb5W28yH0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T68uoIzC/jhht4vLQ7cM9dz1ozLD9z8ZNqmz8l15yc6q6BurukcOrvg2HrOdVF+tH
-	 3Es54fdWZi4atbMq/mINj/Z/Ebc8ww4MlHiResLB5/VY8sKszjpigPMDBTzJWTeG31
-	 wIBHxYjLqfRPwTXpHSvYGIiKWKkQG4UFHEmWMYRJOBAXRTbpFOAJ6pVESnmryexQj9
-	 2yMMTlE1kcDYDXG1SesxpNd1VITsaHYcBFoWGdZpjNmmd2P6UNOtQpcW61FBzCAIDc
-	 71zfcc5pWzkRL9GfkN87GeflGfXYXG+1FrLdz5yDQ/I+j1+AJGkdlf3THfX/NrDDiz
-	 7nO5ONOLhNOJA==
+	b=mSijpCPnN2tk9zdBREXiIGk+b3JEecVFOOdsLg6GR83OMcfAwDxp6uB8JvF2N9DGr
+	 foENoy7qoCh/BySt72Jw7yT7rhqH6gQ2QEfNYBFHKuml9G1Am5dxozVj4lkfy583SS
+	 QPxWv6+8b9NUv35Vnvst3QIiGZDLdHrBx0spNg3gNXZ9pL6Tjala3rGLK4BF4fZIQQ
+	 3bQM8v+PIL5KaHjDGsbvNWyDuxAFpK8mUV0LwAABPjKMIwqgQJUzteIuCpBhucftOE
+	 v8kp/nME5MgEd/hTrXRFajrQ/AlIMHI2rqQ8fKdHUeUJ8F/fOFdV6SnY33Vo8JFuJ+
+	 7UOQ4jFrIu6tw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gregory Price <gourry@gourry.net>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Chris Mason <mason@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/userfaultfd: compare exact registration modes before skipping
-Date: Fri, 13 Nov 2026 16:01:38 -0500
-Message-ID: <20261113205811.2552513-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/shmem: make shmem_file() check the file's inode
+Date: Fri, 13 Nov 2026 16:01:40 -0500
+Message-ID: <20261113205805.2472530-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200502-failed-6.18-05f64f211a25@kernel.org>
-References: <20261109200502-failed-6.18-05f64f211a25@kernel.org>
+In-Reply-To: <20261109201552-failed-6.1-d3710111839d@kernel.org>
+References: <20261109201552-failed-6.1-d3710111839d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,43 +63,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gregory Price <gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 05f64f211a25f7d9771d4fde109aad97174a1cf3 ]
+[ Upstream commit d3710111839d11339e414b1bb3fea3d05ab83f6e ]
 
-Changing registration from MISSING|WP to WP returns success but leaves
-MISSING enabled. The no-op check sees that WP is already set and skips
-the update, so later accesses to missing pages still wait for userspace.
+shmem_file() only checks if file->f_mapping is a shmem mapping. This
+mapping can belong to another file, however, as with a Coda file backed
+by a tmpfs container after mmap().
 
-Skip the update only when the current and requested UFFD modes match
-exactly.
+So it does not guarantee that the file inode is an actual shmem inode.
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Seal handling and memfd preservation use this check before accessing
+shmem inode state, so they can access an inode of the wrong type.
+
+Let's make shmem_file() check the inode's file operations instead, to
+identify shmem inodes reliably. This will identify regular shmem inodes,
+including memfds and ordinary tmpfs files, independently of wrapper file
+operations.
+
+Use shmem_mapping() in collapse_file() instead to not change the behavior
+of collapse_file(): it operates on the page cache and uses mapping->host
+for shmem inode operations. Focusing on the file does not seem relevant.
+
+Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: apply fixup from Lorenzo ]
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-26-d6437171ecc3@kernel.org
+Reported-by: Chris Mason <mason@kernel.org>
+Suggested-by: Pratyush Yadav <pratyush@kernel.org>
+Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Replaced bitmap-based VMA flag helpers with a scalar vm_flags mask and equality comparison. ]
+[ sashal: adjusted surrounding context to preserve the existing inline shmem_mapping() implementation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/userfaultfd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/shmem_fs.h | 15 ++++++---------
+ mm/khugepaged.c          |  2 +-
+ mm/shmem.c               |  5 +++++
+ 3 files changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index d5467692e8c3b..afee33a97bc49 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2077,7 +2077,7 @@ int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		 * userfaultfd and with the right tracking mode too.
- 		 */
- 		if (vma->vm_userfaultfd_ctx.ctx == ctx &&
--		    (vma->vm_flags & vm_flags) == vm_flags)
-+		    (vma->vm_flags & __VM_UFFD_FLAGS) == vm_flags)
- 			goto skip;
+diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
+index d500ea967dc73..19a1965ff1175 100644
+--- a/include/linux/shmem_fs.h
++++ b/include/linux/shmem_fs.h
+@@ -75,12 +75,18 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags);
+ extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
+ #ifdef CONFIG_SHMEM
++bool shmem_file(struct file *file);
+ extern const struct address_space_operations shmem_aops;
+ static inline bool shmem_mapping(struct address_space *mapping)
+ {
+ 	return mapping->a_ops == &shmem_aops;
+ }
+ #else
++static inline bool shmem_file(struct file *file)
++{
++	return false;
++}
++
+ static inline bool shmem_mapping(struct address_space *mapping)
+ {
+ 	return false;
+@@ -123,15 +129,6 @@ static inline struct page *shmem_read_mapping_page(
+ 					mapping_gfp_mask(mapping));
+ }
  
- 		if (vma->vm_start > start)
+-static inline bool shmem_file(struct file *file)
+-{
+-	if (!IS_ENABLED(CONFIG_SHMEM))
+-		return false;
+-	if (!file || !file->f_mapping)
+-		return false;
+-	return shmem_mapping(file->f_mapping);
+-}
+-
+ /*
+  * If fallocate(FALLOC_FL_KEEP_SIZE) has been used, there may be pages
+  * beyond i_size's notion of EOF, which fallocate has committed to reserving:
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 9738b70bbd453..f3f9f9b54abf3 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1774,12 +1774,12 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 			 struct collapse_control *cc)
+ {
+ 	struct address_space *mapping = file->f_mapping;
++	const bool is_shmem = shmem_mapping(mapping);
+ 	struct page *hpage;
+ 	pgoff_t index, end = start + HPAGE_PMD_NR;
+ 	LIST_HEAD(pagelist);
+ 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+ 	int nr_none = 0, result = SCAN_SUCCEED;
+-	bool is_shmem = shmem_file(file);
+ 	int nr;
+ 
+ 	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 9db6a2488f456..1ed9c1e9abb99 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -239,6 +239,11 @@ static const struct inode_operations shmem_special_inode_operations;
+ static const struct vm_operations_struct shmem_vm_ops;
+ static struct file_system_type shmem_fs_type;
+ 
++bool shmem_file(struct file *file)
++{
++	return file && file_inode(file)->i_fop == &shmem_file_operations;
++}
++
+ bool vma_is_shmem(struct vm_area_struct *vma)
+ {
+ 	return vma->vm_ops == &shmem_vm_ops;
 -- 
 2.53.0
 
