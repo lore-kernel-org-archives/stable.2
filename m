@@ -1,59 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598484;
-	b=vlvC7QjHgIhO804xK3S4jG6Bjb9KgOGw+H5qoX8AFRnGctGtb2AhXZntFo4F/WfwgKnM
-	 T5aC2ZwIwvnUY3DSFUwWb4zandMII5V8b+GzQPLi88a3ZQ55ww7WYjBA+THH84Z/VZNtS
-	 jcdTMq/AyvOySS5esWBAUqJGMTO47Jly7MH1w1D7qv2isjhm6IobOh6yxA34jAa6xbqJI
-	 jZG1VbxpPdgCaJPerofOPewHXhIX7OGI/QsIbFBLOz6MQxWm4NQ3G9StTE0HCSeK2KpsR
-	 Mf2Gp3KT683B3iLcyE3ncUimnFOCdFJ9wa+RBU0Zbw904FuHULluD7aeIl2MJ0YJxug==
+	t=1794598487;
+	b=VuXRMztJS8GhWF9l8aXmIZy6tGNgGh0sitY7h5mZ7XdMCRoUZS7S/XD813zZcCv9I4pA
+	 uRDScsqfvN2qCFC9GCWV0QJxDkt9tbIq+Zn/js9/pTWesJm9GYGg9+K/IP32OC5r5Kr3K
+	 +n5XE8U9ll2aey/Geoolo6TjiMwZgKrqjFatHFDgqhZ0qUPCqSvPN8blCm4bB6C9kOcgo
+	 Czzy5XEcQPhOxdWYmW6CTlaCBMxu+q/tLStdifJNn/EjnHXyaNwjwd705w0aDMsgl/au/
+	 W8Ub6WTluAlUoRFXQJoCv8iEN9i87IC+EDSy/CBGunBQtM5MbGvZNTTa1l1/3Zu54Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598484;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598487;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KqwnOJltiqbNiZbmEj6MJnIguzlqCZ7mZruEGLOFPPM=;
-	b=4NfLKvG3rZ9kf97EnTpAE9pu5setJ0eAL6QloZZElakmOe9XTrF9EOQ+qCc6ZvH8eJhm
-	 f1pg02pw78i1rqJqahj21WZCrweZJyhJILD0gHyit/TlgUjL9i/SDRVd0UyoTA39+KJuf
-	 DaR+nIBQ8mArmmnfYvsCK9O62AJ9VJ+mpY6MjfmHma/DeazYa2j+krr4b6b1NN+yTXu09
-	 B9lYlXFzbQAkCXC10anaDTpMmX+xqBKjn1yDQSiK0M3UxxKLTfgIeygm98rE/KfRz4E4Z
-	 SarsiQa6bigwdCTNsrWQG0+Z/LJ7QwcNvyZyGUH1LRvUrSvp3pMHMFwNk4Z8Ad5p5yQ==
+	bh=e0R2iMvt2wXGQzNVmIBo7arISl/6gsu5ITwpGP/20Oo=;
+	b=H5F1AymtqoUP5Gk4mL7uR01QPPg5PthX9Trnlj2c2brJgpdtQtwYXWkk2c99pGI5YDuJ
+	 V6LhW5GJS7Sh/805kgIe8mGw7rw/LGy3pi/z9fOgkiKfNqBcqbUw1TVEZZhNB+LfdXk6I
+	 xCfdhzp65/913RKbg8ZvdKBuDyCFS1WL+lpqgReppi7QYoAKQXvUCJO5n1y0cAmp0HoD7
+	 8BEHUref7KbVis3Xxky0F80wDLMRQmrFD/wKgpw1DLM0/3OXgtI2PVVA6sM4jHpAMRh/T
+	 1aqmhB2LPnZjJVMbPRJDjgmkxTwg4w0yl8KWGHPlNw6vKW3vQ3MV9WyZPDqIY+3AFUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SZRr8FKi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzlLLpz6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED72C606A333
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:34:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51193606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:34:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SZRr8FKi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19C341F000C5;
-	Fri, 13 Nov 2026 19:34:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzlLLpz6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D402F1F000C4;
+	Fri, 13 Nov 2026 19:34:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794598483;
-	bh=KqwnOJltiqbNiZbmEj6MJnIguzlqCZ7mZruEGLOFPPM=;
+	s=k20260515; t=1794598486;
+	bh=e0R2iMvt2wXGQzNVmIBo7arISl/6gsu5ITwpGP/20Oo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SZRr8FKi+m8kqYdFUMI/rZjct/gb9mgYto7Dov34/A2+TviR/lW2uXpZZYsEV0gIj
-	 aO9jlisf+iQhMDvqHZ5xJ/Rp4SEkAZsi5AeCEIJNi749fqfInYzV786UfehM+MTDmY
-	 YijyhKPIeMeNRCMrCEvf1KYjY++J/Jur/8Fb6DRHa691RoT+D7EFoF0eAebWc0CtA8
-	 wM6vFjS9N1mJ8Ry0Zo/+4sVEdJOgjurVH0fT4xsEnGEFrWsJmXi4qvtH/sq3HLwqh+
-	 pIGzQyoK0UCXRpxbP4H3SRQ/iRf4zw8dhHpvxkg5ho0c39oYLoc8AJORQ1p9e3qAeg
-	 N9PFwLl1q9aJw==
+	b=GzlLLpz6RUcyoyvx6ds5SA0k7Z8Inu/tZmfqa0csnoU1CUBl6nFWf2+AdgmQ9ug7E
+	 SQXUPpdDnOXXswm/Wfujf75xxOrAu0Kqx1xh2eaqwpIn11becUSwZ2IwJG68oSbAm8
+	 0u81D50Up12QfnfX58TnjWBxUfIYw3/MGZwGnqbipmUz/HEkzIK4KLCbN9hHd/B2Co
+	 81QSgrX3cJdMY1IaTXnXll6bTEz2buQrwVhDHZuu3zTjKAnw+7abA5beFFKo1SyZlh
+	 pW0HhRWv0uEBs9yRyTiUrUgDEJFgcBDCmfsYFaIDRmctJQpr9FA+3WnBxbQ9dzpAID
+	 czIlOh1mRo0vA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: Eklavya Singh <eklavyasingh2106@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	Cen Zhang <zzzccc427@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] mm/memory: reject remote COW faults on PFN mappings
-Date: Fri, 13 Nov 2026 14:34:41 -0500
-Message-ID: <20261113192843.2425959-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
+Date: Fri, 13 Nov 2026 14:34:44 -0500
+Message-ID: <20261113192839.2275100-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113192843.2425959-1-sashal@kernel.org>
-References: <20261109201352-failed-6.6-8db6921cc07b@kernel.org>
- <20261113192843.2425959-1-sashal@kernel.org>
+In-Reply-To: <20261109202703-failed-5.10-0a8f258c0f01@kernel.org>
+References: <20261109202703-failed-5.10-0a8f258c0f01@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,72 +68,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+From: Eklavya Singh <eklavyasingh2106@gmail.com>
 
-[ Upstream commit 8db6921cc07b74197a3866d62ed262b68aeadcf3 ]
+[ Upstream commit 0a8f258c0f012314c36b9e4818cdc0178c68f891 ]
 
-When handling a COW fault without a normal source page (PFN mappings),
-__wp_page_copy_user() copies from the faulting user address. For remote
-faults, this accesses the wrong address space, resulting in wrong data
-getting copied.
+o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+is already started, but nothing stops two writers from doing that at
+the same time. configfs only serializes writes through the same open
+file, so two processes that each open the dev attribute can both get
+past the check:
 
-For example, user_events updates an enable bit in the registering
-process's memory. If that memory needs to be faulted in,
-user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
-item. Placing the enable bit in a private PFN mapping can trigger this
-remote COW path.
+  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+  B: start fails, fput(NULL)
 
-Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
-current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
+Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+so the error paths can free the slot data twice.
 
-The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
-the VM_UNPAGED logic"); likely, actual ways to get remote faults in
-there on COW PFN mappings appeared afterwards. But the fix is simple and
-straight forward.
+syzbot hit the fput(NULL) with an unbound loop device, where every
+start fails with -EIO. With four threads doing the same thing on a
+KASAN kernel I get both crashes within a second:
 
-Fix generated by an LLM and sent by Chris Mason in private.
+  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+  BUG: kernel NULL pointer dereference, address: 0000000000000158
 
-Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: simplify comment and description ]
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-35-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Add a mutex to the region and hold it in dev_store(), in the
+block_bytes, start_block and blocks stores, and in dev_show(), since
+they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+takes the mutex in a small wrapper rather than with guard(). The mutex
+is dropped while dev_store() waits for the heartbeat to become steady,
+which takes seconds, so a read of dev doesn't stall behind a start.
+hr_bdev_file is already set at that point, so other writers still get
+-EINVAL, and the cleanup after the wait retakes the mutex.
+
+With the patch the same test ran for 10 minutes with lockdep on and
+nothing was reported. So did a second one, with a working loop device,
+that interrupts starts during the wait while other threads read and
+write the attributes.
+
+Link: https://lore.kernel.org/20261020212339.46591-1-eklavyasingh2106@gmail.com
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: <syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: Cen Zhang <zzzccc427@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: replaced the wrapper/helper split with direct mutex locking in dev_store() and unlocking at its common exit ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memory.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ fs/ocfs2/cluster/heartbeat.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 2ad125baa9504..a3f48457a2446 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2837,6 +2837,13 @@ static inline int __wp_page_copy_user(struct page *dst, struct page *src,
- 		return 0;
- 	}
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 938425dce6e9a..9182b9a0dbe8d 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -268,6 +268,8 @@ struct o2hb_region {
+ 	/* Message key for negotiate timeout message. */
+ 	unsigned int		hr_key;
+ 	struct list_head	hr_handler_list;
++	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
++	struct mutex		hr_dev_mutex;
+ 
+ 	/* last hb status, 0 for success, other value for error. */
+ 	int			hr_last_hb_status;
+@@ -1607,6 +1609,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
+ 	unsigned long block_bytes;
+ 	unsigned int block_bits;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev)
+ 		return -EINVAL;
+ 
+@@ -1635,6 +1638,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
+ 	unsigned long long tmp;
+ 	char *p = (char *)page;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev)
+ 		return -EINVAL;
+ 
+@@ -1660,6 +1664,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 	unsigned long tmp;
+ 	char *p = (char *)page;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev)
+ 		return -EINVAL;
+ 
+@@ -1677,10 +1682,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 
+ static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+ {
++	struct o2hb_region *reg = to_o2hb_region(item);
+ 	unsigned int ret = 0;
+ 
+-	if (to_o2hb_region(item)->hr_bdev)
+-		ret = sprintf(page, "%s\n", to_o2hb_region(item)->hr_dev_name);
++	guard(mutex)(&reg->hr_dev_mutex);
++	if (reg->hr_bdev)
++		ret = sprintf(page, "%s\n", reg->hr_dev_name);
+ 
+ 	return ret;
+ }
+@@ -1803,6 +1810,7 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	ssize_t ret = -EINVAL;
+ 	int live_threshold;
+ 
++	mutex_lock(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev)
+ 		goto out;
+ 
+@@ -1903,9 +1911,15 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	reg->hr_task = hb_task;
+ 	spin_unlock(&o2hb_live_lock);
  
 +	/*
-+	 * __copy_from_user_inatomic() only works as expected for local faults.
-+	 * Reject remote faults.
++	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
++	 * hr_bdev is already set, so other writers still get -EINVAL.
 +	 */
-+	if (unlikely(mm != current->mm))
-+		return -EFAULT;
-+
- 	/*
- 	 * If the source page was a PFN mapping, we don't have
- 	 * a "struct page" for it. We do a best-effort copy by
-@@ -3127,6 +3134,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 				folio_put(old_folio);
++	mutex_unlock(&reg->hr_dev_mutex);
+ 	ret = wait_event_interruptible(o2hb_steady_queue,
+ 				atomic_read(&reg->hr_steady_iterations) == 0 ||
+ 				reg->hr_node_deleted);
++	mutex_lock(&reg->hr_dev_mutex);
+ 	if (ret) {
+ 		atomic_set(&reg->hr_steady_iterations, 0);
+ 		reg->hr_aborted_start = 1;
+@@ -1945,6 +1959,7 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ out2:
+ 	fdput(f);
+ out:
++	mutex_unlock(&reg->hr_dev_mutex);
+ 	return ret;
+ }
  
- 			delayacct_wpcopy_end();
-+			if (err == -EFAULT)
-+				return VM_FAULT_SIGBUS;
- 			return err == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
- 		}
- 		kmsan_copy_page_meta(&new_folio->page, vmf->page);
+@@ -2048,6 +2063,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 	}
+ 
+ 	INIT_LIST_HEAD(&reg->hr_all_item);
++	mutex_init(&reg->hr_dev_mutex);
+ 	INIT_LIST_HEAD(&reg->hr_handler_list);
+ 	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
+ 	if (!config_item_name(&reg->hr_item)) {
 -- 
 2.53.0
 
