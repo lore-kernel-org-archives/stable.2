@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794531735;
-	b=ZZtXZ/lTj1mNe7w//cDhyx/zZpnOtphondjQJVMh4lWg4O6X9mrpajiCZwJPMWrnEEkK
-	 lYwBRwEYVLSnVNVnkFiT5B1XPTK8U2B2N4tUSZ2ncEZpfdueIGnTkl82AlsPGf22JWp/e
-	 UAnWwm4jDSZCcYBwGvF1q0snCXKu8wpOvALylxYq4viZQEltf6k6hgaAbCfiVbOKpK71l
-	 rEpWH6tTCEepjiBNi3Po5PapG7YRh2u9KeWU1lObwHjDz87qlHnwEJzJlcKOUIQWj0dQi
-	 4DevsrQb7cxZwdBUKtK/Q2ysFG4axXsRM12ERtxcBI0YGwaXIkpYBjJn2lntndCWHIA==
+	t=1794531746;
+	b=ahWuaXCYyN3TSqArOH9ANJuBV5NHjOzrrZpPkuHE33pmBvEu5ZAXdOtViO/JopPgTZsg
+	 ERBuwZli5Bzh04zktgUOfOtqLHleeRKVE1A73400nU3NvZZUM3Ik+H3SLu6LA5GL9A4ek
+	 DvOohdzLRLe24YaAkOdvH9RtoT6UoqVg3D9/5VXtvjSEz/W0N4PiUMma01yilQNZmUiri
+	 47CE3giw+cAliN3qtbfIz43QD1eNrVJmDB4CZyZ9G2QaHgkM05enMhlG3mDxquGZaH428
+	 kb8XdOId2L7jTkdry+FX+tVKgedj+iUTetyHTcj5tzCpoTZ4nxuMw7BGOZx1sv4ClCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531735;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=M2BmOtP3ANGadgNMMoMdvK3Tl4DQVRCEz9+pFP9BABs=;
-	b=QdbmKtoim+3dZFHAwytrS0SK73gDgwe9gMaJmKINwn+xueWsepranofNh4pxULs1xM4Q
-	 3zYnlVQQIm/MaDf/Om9Zz9l7q96ssi40+8z+63AMUiRPKQyjMimQ5fvmJt9+dEkq8xHNT
-	 xgbggL9JGQamqb8AcjrB1dSBiLxjkF+SsTmgsA9Inj2Wx2IzSdM0AjOTtxtAFSGeA7bsU
-	 3MFbaNxPM3XznYM+QAwNKQE2+DhgAIkI9I9lPh18Y0cEyiCMBBlwqZcAdc+xhb14bmwdR
-	 VeUIi2aWa191WkoqPDj37Ot93qMH57AamBM3rL05YBL5611iYTvAMzNgm7Z0xv8AsDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531746;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Wr2360MUv187zwJdy1TqlPIL4TyuTyVm7wXb9LIgYWk=;
+	b=oqx2Tl3MGf/r7qZY4/fcjoF52pA1FiYf04/WMxJmlWA8KcrszC16jhW6eGGan9z6iGln
+	 +a53VpHR+iNCap3+sEekiPqj4YoNcA++qhZbR5hd/SuQd6GyQrQtHCbkuc1vr2kQMMRtJ
+	 RNZUfJMV3MMOqmc+LHEo4h6WzWQlbQBxTLSXep32EJaELBvd19XMyQw6qZYHs9Tms+YwH
+	 3HND2051S1kA+Sh6Nf3rSK2vF7AHF3/eeOf/0Y+JjwX/jdvRY+Q2vACbgfCPa4vSu91y8
+	 Oh2Bx6cbQSqeZGwrUjgIKnO5mocnju1snbYQL0mz2uBxUchCjzZkoxj7u7QTLSYJ47Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHWq5Vc2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aruCWX4y;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E84606A884
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:02:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A48D606A327;
+	Fri, 13 Nov 2026 01:02:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A48D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHWq5Vc2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B77E31F000C4;
-	Fri, 13 Nov 2026 01:02:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794531735;
-	bh=M2BmOtP3ANGadgNMMoMdvK3Tl4DQVRCEz9+pFP9BABs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YHWq5Vc2BPyu1k90gjRfJve0Hq5RFskOM64UJBZ/pK1iQF25rPxC9HujrrNfC4TRb
-	 JVi7vX2XqTQzTBRgVcROqXKCBVzpjg5TD/SBCVmgHDj6v4C+6gT5L3Cn2X+QvJGHer
-	 jbI/9WzQo66l/O5qYP2Cm0WHiso22OKY7SG0KO079rxSvUgrJYIFUtXcjKPu7IhtL4
-	 LliMWx38rFivgzfrrNG+1CGG+0tpVgdc0j/NmWF4vAkmhXXMq60WquU+JV6+Y0VQOQ
-	 4zAPwmeEeJ1Rqra1zQPpsMaDATHFCEXYCcXWJFy7waIKWCTENGu7vYYVt4C7NjRg3E
-	 iWlJq62VILZaw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	Josh Kasten <jkasten@gmail.com>,
-	Alex Hung <alex.hung@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] drm/amd/display: set allow_freesync before validating a new stream
-Date: Thu, 12 Nov 2026 20:02:13 -0500
-Message-ID: <20261113010155.393783-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201429-failed-6.6-ab18dd3061eb@kernel.org>
-References: <20261109201429-failed-6.6-ab18dd3061eb@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aruCWX4y
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794531742; h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type;
+	bh=Wr2360MUv187zwJdy1TqlPIL4TyuTyVm7wXb9LIgYWk=;
+	b=aruCWX4ykRNa/BHUv1EZe77sixNAkMkUZGO+HdCoY8fQjN7DgMWlzLMeaDwuKORQbhinOir+hdT1aQRCf7MJMxCLphbTn2oSyPDC0lQlvy4hckMqnmw7cn2nfWg8dj2e8xNoTIRkRQL5zqzaV0sTU93JCMAS/TX178gRv39nOgw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XEd9DxQ_1794531741;
+Received: from 30.221.145.53(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEd9DxQ_1794531741 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 13 Nov 2026 09:02:21 +0800
+Message-ID: <4f83b93d-3173-4e04-9b79-df2413c3be18@linux.alibaba.com>
+Date: Fri, 13 Nov 2026 09:02:20 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,74 +53,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: Re: [PATCH v2] NFS: don't raise i_size for DEALLOCATE in
+ _nfs42_proc_fallocate()
+To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103061654.2036827-1-joseph.qi@linux.alibaba.com>
+ <20261109113244.4136089-1-joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261109113244.4136089-1-joseph.qi@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Ping...
 
-[ Upstream commit ab18dd3061eb2d92e60c8bbf9a435c25962e449f ]
-
-After resume from S3, DC enables SubVP on a single FreeSync display at
-a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
-meant to keep SubVP off that configuration ("For single display cases,
-freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
-at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
-after boot and enabled after "rtcwake -m mem", and the memory clock
-starts switching.  It stays that way until a later commit re-validates
-the state; a CRTC gamma change (toggling Night Light) turns SubVP off
-again.
-
-The policy reads dc_stream_state::allow_freesync while the new state
-is validated, but amdgpu_dm sets that field only in
-amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
-the commit.  A stream created by a modeset is therefore validated as
-if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
-streams and forces a modeset, so the resumed state is validated
-without FreeSync.
-
-Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
-atomic check calls for every active CRTC and which already writes
-ignore_msa_timing_param to the stream.  It uses vrr_supported, the
-condition the flip-time value is derived from.  With this change the
-same TV keeps SubVP disabled across "rtcwake -m mem".
-
-On this machine SubVP is also what exposes the single-frame scanout
-corruption reported in the thread linked below, so the FreeSync
-setting stopped working as a workaround after every suspend.
-
-Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
-Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714#note_3736349
-Tested-by: Josh Kasten <jkasten@gmail.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 29793918b0eb63b6810b248a906f87dd79b70be5)
-Cc: stable@vger.kernel.org
-[ sashal: adjusted context for static get_freesync_config_for_crtc() instead of amdgpu_dm_get_freesync_config_for_crtc() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d79f39dd21ac5..900ded67a55ee 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9261,6 +9261,14 @@ static void get_freesync_config_for_crtc(
- 					vrefresh >= aconnector->min_vfreq &&
- 					vrefresh <= aconnector->max_vfreq;
- 
-+	/*
-+	 * DC reads allow_freesync while validating the new state, for example
-+	 * to keep SubVP off a single FreeSync display, but it is otherwise set
-+	 * only on the first flip after the commit.  Set it here, so that a
-+	 * stream created by this commit is not validated without it.
-+	 */
-+	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
-+
- 	if (new_crtc_state->vrr_supported) {
- 		new_crtc_state->stream->ignore_msa_timing_param = true;
- 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
--- 
-2.53.0
+On 11/9/26 7:32 PM, Joseph Qi wrote:
+> _nfs42_proc_fallocate() raises i_size to offset + len on success, so
+> that the cached size is not left stale when a delegation blocks the
+> post-op attribute refresh.  The helper is shared by all three
+> fallocate modes, but DEALLOCATE always carries FALLOC_FL_KEEP_SIZE
+> and never extends the file on the server, so punching a hole that
+> reaches past EOF now wrongly enlarges the cached i_size.
+> 
+> The post-op update would normally restore the size from the returned
+> attributes, but nfs_update_inode() applies a differing size only when
+> no delegation is held, and then only when no write is in flight or the
+> new size is larger:
+> 
+> 	if (new_isize != cur_isize && !have_delegation) {
+> 		if (!nfs_have_writebacks(inode) || new_isize > cur_isize)
+> 			i_size_write(inode, new_isize);
+> 	}
+> 
+> With a concurrent mmap writer (nrequests != 0) or any outstanding
+> delegation, the shrinking server size is therefore ignored and the
+> client keeps reporting a file larger than the server has, in violation
+> of KEEP_SIZE, until some later revalidation without writebacks happens
+> to fix it up.
+> 
+> Skip the i_size bump for the DEALLOCATE procedure.  ALLOCATE (mode 0)
+> and ZERO_RANGE (which nfs42_fallocate() accepts only without
+> FALLOC_FL_KEEP_SIZE) do extend the file when the range reaches past
+> EOF, so they keep the update.
+> 
+> Fixes: 35168eb947f2 ("NFS: fix eof updates after NFSv4.2 fallocate/zero-range")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> ---
+>  fs/nfs/nfs42proc.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/nfs/nfs42proc.c b/fs/nfs/nfs42proc.c
+> index ab86246fc364f..d76bface87f74 100644
+> --- a/fs/nfs/nfs42proc.c
+> +++ b/fs/nfs/nfs42proc.c
+> @@ -84,7 +84,9 @@ static int _nfs42_proc_fallocate(struct rpc_message *msg, struct file *filep,
+>  		loff_t newsize = offset + len;
+>  
+>  		spin_lock(&inode->i_lock);
+> -		if (newsize > i_size_read(inode))
+> +		/* DEALLOCATE implies KEEP_SIZE, so don't extend i_size */
+> +		if (msg->rpc_proc != &nfs4_procedures[NFSPROC4_CLNT_DEALLOCATE] &&
+> +		    newsize > i_size_read(inode))
+>  			i_size_write(inode, newsize);
+>  		nfs_set_cache_invalid(inode, NFS_INO_INVALID_BLOCKS);
+>  		if (nfs_should_remove_suid(inode))
 
