@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606439;
-	b=ViYP4K/hQZGgd/q78uk2MoqjhHwOUq8n6mUNZ/jnA4dHIQvVbuXrVdCqqqvnMqeZk7BZ
-	 P3s395DJH3oBG0PZJtVhep/tnXPXAVt4iyyYdbmTBjWvit47Mh37RswInitg6/MA55leb
-	 gNkvrylqpnm/Ig/rmzbF66Fjsub1FaJf4WJVmEDfSvUUrwxbNHe5djtfYCjyfczbzOoUO
-	 eACrJN0dszUiFl32infgz7oyWdAnYe89ORjMB1FhMHTQjzNhl0+Fb0CdC+SbQ5AL2Zpyg
-	 PMLfqUH46WY+8/nuScyglfsCEayBDJxbSRe7UIS+qd0ZyxaPyTZEhHBPCbUOChT40ng==
+	t=1794606459;
+	b=aOuEjQ2YoiWpmt9BvpFQGZp4XQ8SVYaOo5ybStJgea/VwYLpLdKT8dwOHcGzZfqhHBOT
+	 WGKRKKi4A4CSsHdHeCzkx0jADZJ90Iz9OH5ss4Q7OXQG2cuA8RO7g2zsQig4L8GT5D5l8
+	 FjHfHV3fTidwQh+9G64HIiWA6dmKAkgXYN2GAZRT76rMHaJ/WI/ACRwrg5bp0E3YkQIfk
+	 oYAKrpfA4IAS1R3hGSKwRT0ftCRoX4FrydxjBrIOjKSXi7IA8TYewvSSvM6vmaIzWHug/
+	 POiJBmgLFhipJzlC2WwmMGaWugqI/TWddnFKxVAKPKJI426JA8hkTnrCEppnh6m51XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606439;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606459;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=E4Aqk3iT1Oi/fEczmw1TcDEWRUX7zaDgOrezCzbiQY8=;
-	b=fUPTJlD9J60AP/1GXPyvrhGEcvwpZWk7Y5c6SOeAk6icb1PR9Qxl6G0lPeT/DCu6ri0d
-	 krkbzAPiY8/E8QP3k7q8qaH4to9s/biV+Kjq326hACm+WTty3wcfql93N4fZu7rUFESBS
-	 l5MtfTn3zBgFCmxW2ET0+fWXYYg3mViNFPNk4OYEMrhknj4D1edmJG13rBc4rc8lM5iHJ
-	 Kamfepb5riMy3stDz7o3CKnKeP1qf/7tgN+eTm7uuwF3LmCLl4laNdddcvHmzvOgpz558
-	 fhptyr6mx4mh8LazavdBMKNqUOiNAdOsm5SBB22fgkfs/Ha+Xe4eQakoNNJDkVVWn6g==
+	bh=EVGtKF6FKpBC0GQJpLurENXUpqk/PqZHogG9Hp2Cj40=;
+	b=aBuGEqY6CUboNjqOLqys4To3XqURRrLHy+aO3JgxQ7K0kQlunpiKyrFV6qrNV8Af8AQ7
+	 SPAHbCnhLx8tOo0gorQsqaswd+OH5enaDeOZOrPhr6wenE00x0b0ZGEEN74VdqDFsLuGF
+	 odQjDNsz0uXUeq9k9noPxu9qIFEZIW4sSjCTOrydqzUNbvTjmdzTRj+ABvRSmvIOG6qDS
+	 HLCadWgHROlg5fmQFPX84lev2pWkk9pPthkLZfc3tBLWVLYXe4B1N2PQC68HIpL8/c2k7
+	 xja1n41j5fb5EJdt0ekBfMiooh3iIAXVQ2uQ7mxDzxkyrpQfcyq8Fahy//JRXBdZLkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VpsKHxX2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/SJxPUK";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D73606A327;
-	Fri, 13 Nov 2026 21:47:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEBB606A884;
+	Fri, 13 Nov 2026 21:47:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VpsKHxX2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6D51F000C4;
-	Fri, 13 Nov 2026 21:47:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/SJxPUK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A00381F000C7;
+	Fri, 13 Nov 2026 21:47:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794606439;
-	bh=E4Aqk3iT1Oi/fEczmw1TcDEWRUX7zaDgOrezCzbiQY8=;
+	s=k20260515; t=1794606458;
+	bh=EVGtKF6FKpBC0GQJpLurENXUpqk/PqZHogG9Hp2Cj40=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VpsKHxX2AU+5/DCbWoy2fUQ+wtOkI+t+IJ/21DZmhIGF/sU3wj9+7HA633/W2O4Eg
-	 4JWFxHgH7IpvZuk3bBw3jCWGjJcOoAGtA0ObLmEVLuEAlJ5u4YP8LywYl96wmJuBzS
-	 BD2jqHZqtWs+CeaAMQ6uRsruhfKrEyjcegVW2pLVPmZMKhLVEMObs7qmKYBMBJ5Wel
-	 SxqnlEo6cGOzPyOIn6/C8hTAXsN8HyVFQuV3WuvRrCaLPZoGqVcrRqk6/8l7DWUznl
-	 twTHtxBk0359K6MfoZ4wGUxh1QnBpRIraPTdjSAcHc7Wcqlp4Uwroi4UaoptVEtYjb
-	 OW6z3EmId9CRA==
+	b=F/SJxPUKsWw9KwD6IhshhUpHjW6DHQkRPGFOfRnB+uMTJCuqi3lh9o8CkpYnXqZ5D
+	 kzK+WAmMR3/5AyZ6epsw2P4kUpiADuP3MqDbhkDChfX94ogsgCcIXm+xuk3fT49aDq
+	 yAztse6uk4GBW0X30ShIdtgRBoaB8FbeX4Oefc55jdTZAnQEZJfVp7A0yyMQKn+okC
+	 3Uq9JEJrEBNEV6yCYnPGGf3NPFg8+YsRlA2crfzjYVouGPx6BAu8qB2XPJduHjxzaQ
+	 XOzJrI0DtOUksjmqflimCbau3dGdkpMDFnUzzdspcWdQ3YT2fhiGdFw2vkMcC8ZnfC
+	 GQMK0vB6NFb+A==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 13 Nov 2026 21:45:28 +0000
-Subject: [PATCH v2 10/13] mm/migrate_device: refuse to migrate shadow
- stacks
+Date: Fri, 13 Nov 2026 21:45:30 +0000
+Subject: [PATCH v2 12/13] percpu: search the whole reserved chunk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-mason-migrate-et-al-fixes-v2-10-50a2ed382b61@kernel.org>
+Message-Id: <20261113-mason-migrate-et-al-fixes-v2-12-50a2ed382b61@kernel.org>
 References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
 In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
 To: David Hildenbrand <david@kernel.org>, 
@@ -86,52 +85,66 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Rick Edgecombe <rick.p.edgecombe@intel.com>, 
  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1490; i=ljs@kernel.org;
- h=from:subject:message-id; bh=d6aN2vWdVPIYwFHWomh3wqXyU/Zgbbc4Yfcyjsj4FMU=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+t/x0cw362LHnkgK3WJHNnKD9mqxhFxM1X7+Tf/JEx
- HB+1gXNjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkegPDP0vepb4v6oID7197
- sujayknrsrn/TViZvJ352LKgHe0nXn9j+CslJV9Xmz2hYEqWa9IagfsL3edmeMnfNmbXP+Zqsyt
- yPhcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2143; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=27veALNSCwRMr36dOVr3JSTW+zu8/EiCuojiMwW/dj0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+t/zKvKyy4bL4m7Alhqfv7PI/mJL01mCltpBt4Z3jN
+ 5nN9vhKd5SyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAi/y8y/A9e6Cy0vjXu4a+s
+ My/VnQszmGKvzg4Sai/i2PXyd/BdIWmGfwqsNqEhyXFcFs/WlW484dUoGi1vav7cR/vbJrPa4Ge
+ /OAE=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Chris Mason <mason@kernel.org>
+Loading a module with static percpu data can fail with -ENOMEM even
+though the reserved chunk has a free area that fits the data.
 
-The kernel blocks ordinary writes to a shadow stack. But pte_write() is
-true for a shadow stack entry, and migrate_vma_setup() sets
-MIGRATE_PFN_WRITE for each page where pte_write() is true.
+pcpu_find_block_fit() does not scan the allocation bitmap, rather it
+tests the request against hints, starting with the contig_hint of the
+chunk, which describes its largest free area. If that area is too small
+once aligned, the search gives up even if a smaller free area fits.
 
-Notably, the nouveau GPU driver takes that flag as permission to map its
-copy of the page writable for the GPU, meaning that the next CPU access
-migrates the page back into the shadow stack, and the page then holds what
-the GPU wrote.
+Consider:
 
-Be consistent and disallow this for migration.
+    request:      256 bytes, aligned to 256 bytes
+    contig_hint:  260 bytes, starts 4 bytes after a 256-byte boundary,
+                  so 8 bytes remain after alignment
+    also free:    256 bytes, starts on a 256-byte boundary
 
-Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+Ordinarily this is fine as the allocator moves on to the next chunk or
+creates a new one, but the static percpu data of modules can only come
+from the reserved chunk.
+
+Fix this by searching the allocation bitmap of the reserved chunk
+directly rather than using hints.
+
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: 13f966373f92 ("percpu: skip chunks if the alloc does not fit in the contig hint")
+Fixes: b4c2116cfae6 ("percpu: update pcpu_find_block_fit to use an iterator")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ ljs: removed unnecessary comment, refined commit msg ]
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
-Reviewed-by: Balbir Singh <balbirs@nvidia.com>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/migrate_device.c | 2 ++
- 1 file changed, 2 insertions(+)
+ mm/percpu.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index b4660eeb975a..e0bf6afe0768 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -759,6 +759,8 @@ int migrate_vma_setup(struct migrate_vma *args)
- 	/* The migrate_vma page walk has no hugetlb support. */
- 	if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma) || vma_is_dax(vma))
- 		return -EINVAL;
-+	if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
-+		return -EINVAL;
- 	if (nr_pages <= 0)
- 		return -EINVAL;
- 	if (args->start < vma->vm_start || args->start >= vma->vm_end)
+diff --git a/mm/percpu.c b/mm/percpu.c
+index dfd3ff0a1ac0..f87813e6ad73 100644
+--- a/mm/percpu.c
++++ b/mm/percpu.c
+@@ -1771,8 +1771,11 @@ void __percpu *pcpu_alloc_noprof(size_t size, size_t align, bool reserved,
+ 	if (reserved && pcpu_reserved_chunk) {
+ 		chunk = pcpu_reserved_chunk;
+ 
+-		off = pcpu_find_block_fit(chunk, bits, bit_align, is_atomic);
+-		if (off < 0) {
++		/* No other chunk to fall back on, so don't rely on hints. */
++		off = bitmap_find_next_zero_area(chunk->alloc_map,
++						 pcpu_chunk_map_bits(chunk), 0,
++						 bits, bit_align - 1);
++		if (off >= pcpu_chunk_map_bits(chunk)) {
+ 			err = "alloc from reserved chunk failed";
+ 			goto fail_unlock;
+ 		}
 
 -- 
 2.56.0
