@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794555174;
-	b=EbMyoxZ1IFSFqH2n4SgbdrQZBYqfj7eE2khHv0nJBeeWUlg/r2zeT7DZZMaHy2zAvCGg
-	 YQsT6XI+sABH9DqO/NP/S0y7rSt+gdM37ghA1eFVJDs8GwpIzzNrlUXdYwY7aOzFEnWb+
-	 b9jVG4mKognHbgXAw/jc+KPsEzUtzrJ73XaxVlLjcqGktpmcFOquQeRB0gm1v2Clb2W4K
-	 ZX2+GDJA6pq3Uct+tCVDaMsq9uZNZoGsgIOAWHg6XDtz9id1Sm4EVDshf4yfnHbUC2X4n
-	 TI1wNmaBEfNwjOpcFw4bCyhxifsaagz7OwS+pzIs81wBCR2B6Y+bo7MU40Xob/ckNRw==
+	t=1794555175;
+	b=nxvGj1wVHMsYs8w1Cc61Ou88hjvGh1LruTTuMf8ftJKQwocTMKAXSufNhdF/As3eGfgU
+	 KkJ/N2yeR/a7DopccNsRtomxYsZrQYjUB4ZsL7KGPd4e8vYP9IeYuXB+48pcZf8RJi8sN
+	 Qi8ojKYqcCHX8mmY6nzpWl/X0mCPnPiE+U8GSnZiyUD2IysOaIvWWqdr2zO+P9JjkQUmg
+	 ubH3B2VO1GTcl9OLAbXsFvgPJggjREZPu43XnPRbArDjQb0q7TT46QF/457qBoyuukpai
+	 oxKhq89UJj/ukBP+gFqgXOLEANsH6xjZI7B4ix9j9tvKzvI1jfuBCvxMdgYu2fj9wvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794555174;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794555175;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Jqp8TYr/BxJeYtd0GqFzJoVixzfcdiw2tIdD5ztXl7A=;
-	b=CtYSFBI4am2QKnasc8XmkzSzBLTOJqKSW3kWUObm1i+oL7fBWTPv2rq8fL3vyxl1o1Vl
-	 KfCnvpAMbp8yKd9I85FWxIeBMtxwlosS4flD0Vvb//+OlDXxGNkYpSAbFhyeT2mgj5YYH
-	 Q4nMagM9+upClK3C9+znooLrliJ36iB9Sa7Bix9UeiBo1jnQKIjNKHGuzCZOb0PQh/Lbq
-	 wuEizEiZOxERyHXK+Mpkd0OP2OltPH/LjgNVFm4w/hKWuHFqAMiLoakKgOhIXRzLidW0Z
-	 90oWMVH4PYzRJNP8Zib9RMsJ4+KaLVjWt6FUvtuooxXqyGKVIJ21ZYPYlBl5cxDWA0Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+S0kn7e/e8eb1jZgh+ha8xm/Lm8wUpKn755lAIdoRTY=;
+	b=nZ2OGOhID/hpW0Btp8oQVOrBRD/7SHYFwEgY9CshnSWC8xGaQzxszpA4azQFKXoLUClI
+	 4dTwai5xjSu6OyTLbiwqXP2DjbrdZrJ5lQe7HZRBday2zwRYxl6Pi09i/LlT6jQl8uOnZ
+	 eMkZ+9ABkgTAoMkMAlVzNTwgLKpu5YV6kisXlwudtpilteKPLEBgXs6dR/aNuyo3VQRmh
+	 m+e451uOXK/KObaqS1R0cFlYWAou+lO6QDXBIauV5l4MP1mQKLP+IpjepK1X6J7YZRR1D
+	 knbKDZPeSLsC42R6phaMWN6F6HvoMBFKVMmprchqmgGOIFn2tNaX4YC6jpZ+njZ2mSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jW6XVipS;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hwj7pfUC;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAFE606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3937606A332
 	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 07:32:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CAFE606A31C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3937606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jW6XVipS
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4919a880834so246366f8f.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hwj7pfUC
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4922523d1afso254357f8f.0
         for <stable@vger.kernel.org>; Thu, 12 Nov 2026 23:32:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794555172; x=1795159972; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jqp8TYr/BxJeYtd0GqFzJoVixzfcdiw2tIdD5ztXl7A=;
-        b=jW6XVipSXdMdRTxsiijSiJOltYY8enXMvCw0kLuEMKivD0O8Eam/rZsLu0qkRJmhMg
-         0gm77RI+ElgZgUSELzgGh6YYiZ3ekKa2Iuz3V9mzgQLTdzQ1er3kL+6npgfNMjUA3EOg
-         q7joZ8ii/JliPk8lGo3/CjkyjggwOpCH4MX048SSOnyj86C1TSRdGoOrVD4Tlp4TnR0C
-         nk7RjKDlnoCNZ8RN6LQKArv/horCrm2ZUhYVx8bFJKBCXmPCN1Ww1MgVtmpE+P7Q1q4Q
-         Rl+9xxVIEV5+xtc/WqOERzJsW1vxDTEHKmBw8t9dSspbCvVQHudFSzvWptu2E6uzTvLN
-         gxPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794555172; x=1795159972;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794555173; x=1795159973; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Jqp8TYr/BxJeYtd0GqFzJoVixzfcdiw2tIdD5ztXl7A=;
-        b=ZlfBkiNPpI+E83bNVMsm1nsNXIsXgFIZtRM3scH/LQlEBhfCrbI/ldmR367PXqbw0D
-         62WDpZtVPJAjnu4mmcLb4RuIVD017VtVdFfOqkw70cSSQ9arJQUJuY7FMXm55N9g844/
-         tH9Nvq0MZiL8G+jd9N9gXz74mt0C4bdA0s+7Ta9VvQt3unB+evSspnvGmzmFlhN8gBaM
-         XmWUQ+GaGqtsvzO9NuagAzAe4A5rU+oPgU5aupbPag8hkGPrHlUnd5bU/ADxSAxu72YA
-         k59fDRX5nkC8P/QJB9ce0DrNjdcdrpxa1m+K1gcrXRtRBLvVFIvlpSW5MWJdXIWBv+CJ
-         9Y8Q==
-X-Forwarded-Encrypted: i=1; AL+hErEA4Jf8UxNQBm8CucDKlcBbUzB2c5cAfSRLML2MTkcA+gGoMkasPxfesb2gfXKJDAlr0a87PM8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CWVccT3tUq8wF5WjITNV5aYwefA+QpFfTcgx0lBxiVjZ2fQDc
-	XqQVKo/xL0eO6V44PMsBVHtGt3Hg8AOPvrkGxZb2GMj9uLSBaEFX7Ggy
-X-Gm-Gg: AYBFou2rRZlx6UiuhkkfYHuqgB4h8E3Sj4QKxTuGbiDGQoR5pdQZeawR7kBwcT/Qguz
-	vDk65mfdlLl2VXqYuB3f2uki/z6tgdAa8gnz0K30IYj/1msN21rUI0VuYQWGnuGiUBdQ8PM35U6
-	q4NJKo4AmDHBKmGJBC1NzxBDSBMQu73ANWcqQ7nly7EuEVjNIKWOSBiaV8GPF2YdK0vFIZevo94
-	L2knOdJXpVDefer8m98MBy3zfr0mIGidx4gav2qgrV5AFHizlkuWYtiTU13iehczlt0qetj8r9P
-	SZYKukwy7R6BnfeCm3WWlLTqSpqHad02KNz6/+WyzT+5Wl11SQ01ZpPRWUW/lCb5udV72f73KyZ
-	RAmnEPrA3Yb7nc8YX/bUJJ07dFg7b4Co8DKyjHAffJ/yu5P3PtDyCO1PE1wovNc97cQuwUHvuPC
-	Rb7u/II/7kmo3Zni8+efUvJRVmtCln0nAumKlTYt/QFtvXToBR0y6ZUbbxcZ31cNMug0vIMHXQU
-	JvC2+hIqTpSgB2WBfDGili1qnD+CUg96nadpM19TzHJltTtn9c89Oa8sv65N1j7b9s59oAWPwrQ
-	EbYD6tKPIdTuXWWIoW98zG4cV898N+NKIhg=
-X-Received: by 2002:a05:6000:240b:b0:490:39ba:4359 with SMTP id ffacd0b85a97d-49c714a2db3mr3596058f8f.23.1794555172357;
-        Thu, 12 Nov 2026 23:32:52 -0800 (PST)
+        bh=+S0kn7e/e8eb1jZgh+ha8xm/Lm8wUpKn755lAIdoRTY=;
+        b=Hwj7pfUC1dvZhZwvhnfPkIfuostmed7pJJ3l3pdCgBHdzbxhSeTqW70YMzRljyUb9b
+         fzoPJnqs+IrGvnb8Ba/sWT2eWDlWqDSPhv9ftqIpii+h7z9CLGRL+wibdC/ijP4/+djG
+         jNiTk0s/LpOi7oPteseT+6wF0t9tk12nQ7N14jKypKAge1tabzgNnblOiKMJgG12wAyj
+         MnHJ5EBajX80JKPusnBvGB5okYbM9yM2t5SMcml0GQhWTXZWgFepbTciKxDTtuLMzo/V
+         n5JYdD0Jtkeh3YYXSvJ1eWeO8vbJLBV0QU5e4CxLHX+o8vFK7HIEojCA9QyLAd6/AqG6
+         VCdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794555173; x=1795159973;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+S0kn7e/e8eb1jZgh+ha8xm/Lm8wUpKn755lAIdoRTY=;
+        b=1MBErxjEyN8P6RDDP/mnwJVMrsY6kJNoCISDh6QzvpUDVftsUB9Mgm/bylPYgc+zoS
+         KucBbs8k1czqel18QAJAqapmsXTwlm34BgYddpFGLVqMg64fe3koYjuEbsHJiRwEj7tX
+         FISc20EdkvjuOnKV3zzafDKaSZBvlgtEVmVUkuVZQ8lmTnkXi3+E66wslf4Uep7CRHHU
+         nmyAzNtExE+nKyySVf5CuvVv+vdd0caCo6HB5jnOc9vt6+nW2IT5eQ6TunH4G2DLfFN9
+         P7KpjS2JKcfVfHiX0P+VhchplFRJKT6E3U9ZP5jNlZOGr329NGCOhmCfUke/Cb07Kf6k
+         J/JA==
+X-Forwarded-Encrypted: i=1; AL+hErHYJspJrT3uJOSe8mHTv9CQZzYPk6C0BWUSwuNvBNCbNBSzEFB3rPBd73+NR7z/GTDpi44xi58=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+k+49GhqoCYQBYoTFjDt9P5ACwnTrihthxeiohuz2VSH9qo8eM
+	JFGRDbERB63c9wmSTvIdGzTIC46dKoiUWy2c5lTptmqhDkKaZ/aWUIew
+X-Gm-Gg: AYBFou3Ut7iXVwIGkoO5qcBfvHLygBHbil1kjzIMaNLjimYsGhLTFpx1b1Q7/0sM5/c
+	xcCuRSZ2uWW10ygWjGBizHUyDAvuXjF4m3Kzo3mvm9bs7+kYzvlK2t5Abbx9jVCKjJhP4wY1q/e
+	VBpbR6p8SagmfY3b+tCwAB1N82oWMSRv2Vu5dFrhREbBIBtoywhi2d78dQ383hs9KAaQFfNwKkW
+	cyaF6Uyms0lJcp7IRXAt5ogphmYL4iB25FH+hueZ2/uLZ7faBi29QkpIn8NJbiIogVBowKYhdf+
+	+vuAhwM+PegD0bCJ5Nz0i5e25ott32JAOTjwmTtvtX0vUfl0VYGTBEx3C6rPiDelABJIlnKriPa
+	c+7Nc2tTAiOnlqH+taxYrnENTx89K6ZHZB/CD/zcMjyUKxPw8pPF4ZYKk7rrQCKiPMJE7HhtCdE
+	lD5qkabb4WwKS7Y15qkyK0KLRURL+QAxv6VDarTR3n6O+R3dpqNvzFo15M5r6LdgHLkoyZbnGPT
+	mtEVglT+URLKDjjxspod9HB+nVhKNugADiFuq5rgrqyBezftJevv7/Z+kpdwB3FmBLNT4lWqBlh
+	etXpYBXdQI7w/gg1FqKdoYbc6Axm35C7M54=
+X-Received: by 2002:a05:6000:29d3:b0:48e:7e1f:8cee with SMTP id ffacd0b85a97d-49c73259d1fmr2428976f8f.12.1794555173288;
+        Thu, 12 Nov 2026 23:32:53 -0800 (PST)
 Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm3799903f8f.8.2026.11.12.23.32.51
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm3799903f8f.8.2026.11.12.23.32.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 23:32:51 -0800 (PST)
+        Thu, 12 Nov 2026 23:32:52 -0800 (PST)
 From: Mehmet Fide <mehmet.fide@gmail.com>
 To: Andi Shyti <andi.shyti@kernel.org>,
 	Oleksij Rempel <o.rempel@pengutronix.de>
@@ -91,10 +92,12 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 0/2] i2c: imx: two fixes for a DMA write that is not acknowledged
-Date: Fri, 13 Nov 2026 08:32:48 +0100
-Message-ID: <20261113073250.1037215-1-mehmet.fide@gmail.com>
+Subject: [PATCH 1/2] i2c: imx: do not carry the interrupt status over to the next transfer
+Date: Fri, 13 Nov 2026 08:32:49 +0100
+Message-ID: <20261113073250.1037215-2-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113073250.1037215-1-mehmet.fide@gmail.com>
+References: <20261113073250.1037215-1-mehmet.fide@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,27 +111,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-A write of DMA_THRESHOLD bytes or more to an address that does not
-answer leaves the interrupt status behind, so that the next DMA read
-returns 0xff for every byte without an error (patch 1), and it blocks
-for DMA_TIMEOUT before it fails with -ETIMEDOUT instead of -ENXIO
-(patch 2). Patch 2 needs patch 1.
-
-Tested on a Colibri VF50 (i2c0 at 100 kHz, DMA) with v6.12.117, where
-the touched code is the same; on this base compile tested only (W=1,
-sparse). 200 rounds of failed write, 32 byte read and acknowledged
-18 byte write: 200 times ENXIO at once, no wrong read, every write
+In DMA mode the interrupt handler stores I2SR in i2c_imx->i2csr and only
+i2c_imx_trx_complete() clears it. A DMA transfer that fails returns
+without doing so, for example a DMA write whose address is not
 acknowledged.
 
-Mehmet Fide (2):
-  i2c: imx: do not carry the interrupt status over to the next transfer
-  i2c: imx: return -ENXIO at once when a DMA write is not acknowledged
+The stale status stays until the next DMA read. There
+i2c_imx_prepare_read() calls i2c_imx_trx_complete(), which finds IIF set
+and returns before the address byte has been sent, so the read returns
+0xff for every byte without an error:
 
- drivers/i2c/busses/i2c-imx.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+  i2ctransfer -a -y 0 w20@0x03 0x00-     # unused address, -ETIMEDOUT
+  i2ctransfer -y 0 w1@0x54 0x00 r32      # 32 times 0xff
+  i2ctransfer -y 0 w1@0x54 0x00 r32      # correct data
 
+Clear the status when a transfer starts.
 
-base-commit: 25e7ab89f4774b0f842cee0e8a20c11f755924d5
+Fixes: ce1a78840ff7 ("i2c: imx: add DMA support for freescale i2c driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+---
+ drivers/i2c/busses/i2c-imx.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+index ccf08cd63151..1987a0fd8132 100644
+--- a/drivers/i2c/busses/i2c-imx.c
++++ b/drivers/i2c/busses/i2c-imx.c
+@@ -1657,6 +1657,8 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 	if (result)
+ 		return result;
+ 
++	i2c_imx->i2csr = 0;
++
+ 	/* Start I2C transfer */
+ 	result = i2c_imx_start(i2c_imx, atomic);
+ 	if (result) {
 -- 
 2.56.0
 
