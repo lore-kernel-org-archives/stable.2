@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794584255;
-	b=rHfswgzZk86/m53IZZtsmk8A5TnmPAWfZl+cPFo4VPmY0iYWaZpFs12ltLmmJZWOygjE
-	 qsDgzz9kRXN9ZYb85tljr4NgqPzxFY+IKyXM3cS9oGwXuxNk6PVh2rDHKngHqBzLK7vF4
-	 COdHhv7B3rx4hisIpwXCoQcUfFRru6jAwp/tHobpyOPjzajb5WLPT0zrokUJQqnZ4r5T6
-	 tpqQQlE3/tX0+3UMJlIt5foLUQxRYHZgqxT/Ve5OOLvF06tU5juCTPq84Q+6dx7+NRXEy
-	 dF/TAVPWZ+lHPRBUoGhSDE8kuIgqEm69CGSxfqP8GHYxl+8MkfeLCx5H9An9ajNP2jw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584255;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=z9LVjNOdMQXy4dVc1hY5/8F3vca7YGl8VxbQdnJ9Aas=;
-	b=E+iM0KJ9By62DqjtWhunTxr3+bdFlpv10BRa7z5WZsgBSYRUX73u4bvXA3vT/DzFtIiJ
-	 FgwSWsLmmnMmT3eCel+yPlvF4mN5cW6gzlmr1HNYplQa7qTcFiGYjN7fS91w2LmKTO0Kc
-	 3W1cxy0c3ao/3ut5ARyEi5Vt7sVpxa3unENAZoec0OUTcHYfwfI2joqAsyMsdCXn/0FP6
-	 RGae2EaKhXdOqa/Evi+GRl/RMtqnr/2YFmzHmSsnXfdvRMAIrBz1m4ocd5426VceglyGX
-	 haBd++iGv/x5nEW3BOJLh/q8aTIf0Hd3XmbJGD1KuU3LJKmEUDmMSMR1eZJX2mmVEmg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O/m9T7WW";
-	arc=fail smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794584256;
+	b=hHBAtLlmE2OeUbP47xjFikeCP69amrubMBCnW3bHXaGBZxBr4iTqs+amApdDUJbzzmaV
+	 xQh/Mr6vuJcO1uUswmXu12nupixvBif4huxYWrHCc6lpnwZLjVAeJHfGAD6hzfl54DA4J
+	 Cj4YpIYMoTwtzagq39u5swf9sItx2pHHNX866VuBGhHzeiQma28lKsW0+cpPwRb0EAqvO
+	 EHNDdPe8IsA1WN24xdS0+YtiverGi4G0+2O0MfV3/qFvhEX/sT4QF/N88++fuJ/1/gVzo
+	 MOnqSb0/viL5qQIDmBXKZLp/JaoiR8atfxjH1FCEG+LeMiEESHwN9QkaPfq6xsfFoqQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584256;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YtI5ZvkhSdXM3gv6LxvMvZnIMiTfdQG+UvdR+EMOhB8=;
+	b=P5AaMxV3hk8kiRQ8q0anTnriqBYLPfCCPkUaoRCxdFtIM/mEulflVDB6qzI8apdnBhoY
+	 zt1/cEdLcSZ+fdk6aFNwsJADfyRNx5to2zFXpiOMKYZvq4ayFuMOfrLKlONMNCprHJq8X
+	 2JYuu+f7dHr1s52VNBWYddhteoHSxjETPnkhpyBL/8gfQFBem9rnmF/OsgIVIJwmaQF+p
+	 XfuerZ2pIpT4uIb9TOPlU7/glQtKnZCeoPe/Hv3EvfifKcnMslUb+wwGzEi/sw6O0aQ1J
+	 U3uMuBDH6LVm9Q0PaAUDy5kU2/EgNfJtloiBi53CLLW75EiRNqj32r8rqf4GJP11bPQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e7RJ/DW1";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E075606A336;
-	Fri, 13 Nov 2026 15:37:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0422606A884
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 15:37:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O/m9T7WW
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794584255;
-	b=SWcDpEnTo0gh8KhcWRutn+aKjJNHWsOvRjq4js2ajjkWfBadoO76wl8ci0tgu6w9te16
-	 1Oc9QO3/mE16SvBReQucpCXj6BKHcPUZGO6Cv0CTw/octbG58EU1vK3oSQ+IHsnwh3pyy
-	 myTD0dIC7CqUCAeUw+x3rLfLlAQblBHISbz9i2trW5hMk8lwf57jnnva5DwIQ70E1Xc39
-	 ZaFIv48TfyyFQ9cs5sAvLPwBSg4nfwSNsT4mybgA+oRIKLXNds3opJkAXgEcBn+Oz0AXx
-	 yAMwHSiq0zWfcaZxMRDGCCzaUBcOQFyJdj/w+lzVg1+6mOQpeBpl3j/+8Q9SdLIr1RQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794584255;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=z9LVjNOdMQXy4dVc1hY5/8F3vca7YGl8VxbQdnJ9Aas=;
-	b=UFHuuabwzj5VF361DebmmiEPCHTYVVo8qm+v/VqjuuI0SuT/5JkHPeMkS1dxlljU7tWT
-	 dFqWuq0HheXwwyg6+WwNSRbu7Nnmgy7G3gC7AdIC02+Z5BR3Xn70TbBuAyBSXLOJKUY8w
-	 oU1oqJE6VuC4nyoW0Gbopa83Aw614zsXJm1NddsjJKX3ostzDWkgBfIz6jrD1H2nxczeu
-	 VXYXNcsc2QKLgl3TUK3dXLpCIbLwxR6JhEHyFvHq7GM7qisdMCRGwaCuuOsMSwr4MicSs
-	 fwce/EhSmAueUqbiWm6O/1uakVSjvPgCeouhXDD6TnV/KWO+ifHYDR3Y006zkMVcrVA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CF9F81F000C5;
-	Fri, 13 Nov 2026 15:37:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7RJ/DW1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 200C91F000C6;
+	Fri, 13 Nov 2026 15:37:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794584255;
-	bh=z9LVjNOdMQXy4dVc1hY5/8F3vca7YGl8VxbQdnJ9Aas=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=O/m9T7WW4AEqsWLF7uaxMwMxRpD777I+sAHRhc01zMliCUR+mGoRCJw8imOl4kmM/
-	 ZhFvnMZWP+rx3TGUOjPUKHn8huQA9FfCNNwCDTxsgm9DP/WbG6RHFTURM8a4/mFHWB
-	 GeEejohPW7fBpJLvP1Eq+6OcMzgpGqBuDtoJlVcU18bAhHShr7WGBTKv9vHgIJffEW
-	 h85cNPu60Azp8OGSvtd1fxgGE5zfw/9kW4ZLGsdCg1xlVSwuLvKVQ6kWfCruWpSVFv
-	 96aItUSE39XxDm0uSTC+ms0u01tgbH8BufdfgbW6Vtwi0OFo+GnycNzOJK/p1vBmCd
-	 qMFLb55upvoUg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4F2D747810;
-	Fri, 13 Nov 2026 15:37:34 +0000 (UTC)
-From: Davide Vitturini via B4 Relay <devnull+mdvitturini.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:37:33 +0100
-Subject: [PATCH] media: staging: ipu7: isys: close the firmware stream when
- enabling the source fails
+	s=k20260515; t=1794584256;
+	bh=YtI5ZvkhSdXM3gv6LxvMvZnIMiTfdQG+UvdR+EMOhB8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e7RJ/DW196A0cAeFmnOXAUaAmokRFKacoDL5RVF7vqZBTyhyXgfkCAOY8tg8QtS5V
+	 jWmtKVxVNRZ6vam2b8qCfETikSifgQ1S22cjF5b2sAdw+f/Ch9WJN2Gz8WWobKd0Mz
+	 pmaJ9YCvRyiHSJ+wXKPQm409fiWzOEdi0b/X8Cdqmj7wlxdiyS8DHWL6Ad2z8jksgj
+	 D+nbxAaRsLribAuPWh2ri5snweRCE7j62lXnCPrnPhoiG99xjCuugWnYDEquRAvYac
+	 5tcFknebpFyvKG7smVnwIvztKT7kpsUV5/94EHG8/BzxooYt4QRIbzIoiy42X2RRiC
+	 7Sw8gK2arBMNQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Sashiko <sashiko-bot@kernel.org>,
+	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] hwmon: (coretemp) Fix 32-bit jiffies wraparound in show_temp()
+Date: Fri, 13 Nov 2026 10:37:35 -0500
+Message-ID: <20261113153710.1972639-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201149-failed-6.6-9a6aa085c94c@kernel.org>
+References: <20261109201149-failed-6.6-9a6aa085c94c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,110 +61,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-ipu7-isys-close-on-enable-failure-v1-1-3473e098115b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQrCMBBG4auUWTvQRIzWq0gXMf1jB0JSMrRUS
- u9ucPlt3jtIUQVKz+6gik1USm4wl47C7PMHLFMz2d46Y8yVZVnvLPpVDqkouGRG9u8Ejl7SWsF
- uCo/b4AYbg6XWWSqi7P/HazzPHxzY5tpzAAAA
-X-Change-ID: 20261113-ipu7-isys-close-on-enable-failure-6dc859692fc2
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Bingbu Cao <bingbu.cao@intel.com>, linux-media@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Davide Vitturini <mdvitturini@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794584253; l=3670;
- i=mdvitturini@gmail.com; s=20261113; h=from:subject:message-id;
- bh=7DM20gbywDQPpG7hvrpaxI9Untar2fwINYVnL+pTASQ=;
- b=VKTVo4DwVQ0O1UizNU9kjONMX6xMH8fLXv9Mrq1uBBdWzccM2fcNnM9aayAoDnRouxlybBsNt
- 4qOp0KGm3jGCleg8pTcAiBELvADcIZCceL9oj2i4FbV7/EZAo2jbnL8
-X-Developer-Key: i=mdvitturini@gmail.com; a=ed25519;
- pk=qHGCynxkIIOSj9Y1SqEb12yeOmEFSgLKtIUxOhZ2o2U=
-X-Endpoint-Received: by B4 Relay for mdvitturini@gmail.com/20261113 with
- auth_id=1511
-X-Original-From: Davide Vitturini <mdvitturini@gmail.com>
-Reply-To: mdvitturini@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Davide Vitturini <mdvitturini@gmail.com>
+From: Guenter Roeck <linux@roeck-us.net>
 
-ipu7_isys_video_set_streaming() opens and starts the firmware stream
-(start_stream_firmware(), which increments isys->stream_opened) before
-enabling the source subdevice. If v4l2_subdev_enable_streams() then
-fails, the error path only flushes the stream with
-stop_streaming_firmware(): the firmware stream is never closed and
-stream_opened is never decremented.
+[ Upstream commit 9a6aa085c94c7f2817c4d50a7264e6fb51286f40 ]
 
-Since isys_suspend() refuses to suspend while stream_opened is non-zero,
-a single failed stream start (e.g. a sensor that does not answer on I2C
-right after power-up) blocks system suspend with -EBUSY until the next
-reboot, even though no stream is open any more:
+show_temp() rate-limits MSR reads by storing tdata->last_updated as an
+unsigned long and comparing it against jiffies using
+time_after(jiffies, tdata->last_updated + HZ).
 
-  intel_ipu7_isys.isys intel_ipu7.isys.40: enable streams Intel IPU7 CSI2 2 failed with -121
-  ...
-  intel_ipu7_isys.isys intel_ipu7.isys.40: PM: failed to suspend: error -16
+time_after() relies on signed long subtraction, which only produces the
+expected result while the two timestamps are within LONG_MAX jiffies of
+each other. On 32-bit kernels, if tempX_input is not read for more than
+LONG_MAX jiffies (~24.85 days at HZ=1000), the signed difference flips
+sign and time_after() evaluates to false. Because tdata->last_updated is
+only refreshed when time_after() succeeds, subsequent reads remain
+blocked from refreshing for another ~24.85 days until jiffies wraps
+past tdata->last_updated + HZ again, returning either a stale cached
+temperature or -ENODATA if the sensor had never been read since
+initialization.
 
-Close the firmware stream in the error path too, mirroring the stream-off
-path (stop, disable source, close).
+Store tdata->last_updated as a u64 and use get_jiffies_64() with
+time_after64(), which does not wrap in any practical uptime.
 
-Observed on a Lenovo ThinkPad X1 Carbon Gen 14 (Panther Lake, IPU7.5) with
-the ST VD55G1 IR sensor: after five failed stream starts suspend was refused
-until reboot; with this patch applied suspend/resume works.
-
-The leak was found, and this fix written, with the help of an AI coding
-assistant (Claude Code, model Claude Opus 5.5) while debugging the failed
-suspend on this laptop. I reviewed the change and tested it on the
-hardware above.
-
-Fixes: a516d36bdc3d ("media: staging/ipu7: add IPU7 input system device driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: bebe467823c0 ("hwmon: New coretemp driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Davide Vitturini <mdvitturini@gmail.com>
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: Adjusted surrounding context to match the existing rdmsr_on_cpu()-based temperature handling. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-How this was tested (Lenovo ThinkPad X1 Carbon Gen 14, Ubuntu 26.04,
-kernel 7.0.0-43 with the staging ipu7 ISYS rebuilt with this patch):
-- Reproducer: a test-only module parameter in the out-of-tree vd55g1
-  driver makes the sensor's enable_streams() return -EIO, which drives
-  ipu7_isys_video_set_streaming() into the error path:
-    vd55g1 i2c-TBE20A1:00: test_fail_streams: failing this stream start
-    intel_ipu7_isys.isys intel_ipu7.isys.40: enable streams Intel IPU7 CSI2 2 failed with -5
-    intel_ipu7_isys.isys intel_ipu7.isys.40: stream stop time out
-    intel_ipu7_isys.isys intel_ipu7.isys.40: stream close time out
-  (The firmware does not acknowledge flush/close of a stream whose source
-  never started, so both calls time out; stream_opened is still dropped.)
-- The same capture node then streamed normally again (20 frames).
-- s2idle suspend/resume afterwards succeeded (suspend_stats: fail 0,
-  last_hw_sleep 8.4 s). Without the patch, real -121 failures of the same
-  kind made every later suspend fail with -EBUSY until reboot.
+ drivers/hwmon/coretemp.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-Build-tested on media-committers/next (W=1, allmodconfig, drivers/staging/media/ipu7/).
-
-AI assistance: the leak was found while debugging failed suspend with
-Claude Code (Claude Opus 5.5), which proposed the fix, the reproducer and
-this description; I reviewed and tested them.
----
- drivers/staging/media/ipu7/ipu7-isys-video.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/staging/media/ipu7/ipu7-isys-video.c b/drivers/staging/media/ipu7/ipu7-isys-video.c
-index 8c6730833..024d43f60 100644
---- a/drivers/staging/media/ipu7/ipu7-isys-video.c
-+++ b/drivers/staging/media/ipu7/ipu7-isys-video.c
-@@ -831,6 +831,7 @@ int ipu7_isys_video_set_streaming(struct ipu7_isys_video *av, int state,
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index 6c10349ea68a3..a8b16b6eeca73 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -71,7 +71,7 @@ MODULE_PARM_DESC(tjmax, "TjMax value in degrees Celsius");
+ struct temp_data {
+ 	int temp;
+ 	int tjmax;
+-	unsigned long last_updated;
++	u64 last_updated;
+ 	unsigned int cpu;
+ 	u32 cpu_core_id;
+ 	u32 status_reg;
+@@ -402,7 +402,7 @@ static ssize_t show_temp(struct device *dev,
  
- out_media_entity_stop_streaming_firmware:
- 	stop_streaming_firmware(av);
-+	close_streaming_firmware(av);
+ 	tjmax = get_tjmax(tdata, dev);
+ 	/* Check whether the time interval has elapsed */
+-	if (time_after(jiffies, tdata->last_updated + HZ)) {
++	if (time_after64(get_jiffies_64(), tdata->last_updated + HZ)) {
+ 		rdmsr_on_cpu(tdata->cpu, tdata->status_reg, &eax, &edx);
+ 		/*
+ 		 * Ignore the valid bit. In all observed cases the register
+@@ -411,7 +411,7 @@ static ssize_t show_temp(struct device *dev,
+ 		 * really help at all.
+ 		 */
+ 		tdata->temp = tjmax - ((eax >> 16) & 0x7f) * 1000;
+-		tdata->last_updated = jiffies;
++		tdata->last_updated = get_jiffies_64();
+ 	}
  
- 	return ret;
+ 	mutex_unlock(&tdata->update_lock);
+@@ -491,11 +491,8 @@ static struct temp_data *init_temp_data(unsigned int cpu, int pkg_flag)
+ 	tdata->cpu = cpu;
+ 	tdata->cpu_core_id = topology_core_id(cpu);
+ 	tdata->attr_size = MAX_CORE_ATTRS;
+-	/*
+-	 * A zero timestamp does not look stale on 32-bit, where jiffies
+-	 * starts just short of wrapping. Backdate it instead.
+-	 */
+-	tdata->last_updated = jiffies - HZ - 1;
++	/* Backdate to force a refresh on the first read */
++	tdata->last_updated = get_jiffies_64() - HZ - 1;
+ 	mutex_init(&tdata->update_lock);
+ 	return tdata;
  }
-
----
-base-commit: ad6549a46748d00818483b535e5cd2a704685c98
-change-id: 20261113-ipu7-isys-close-on-enable-failure-6dc859692fc2
-
-Best regards,
 -- 
-Davide Vitturini <mdvitturini@gmail.com>
-
+2.53.0
 
