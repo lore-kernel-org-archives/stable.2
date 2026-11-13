@@ -1,109 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.61
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794601036;
-	b=Z0JK+dHiz7XjMZcPwv+0JelDKeTi1CxpjU5wFGfi5HOYpVyCsOHac1e4HAdIAaPi/HIQ
-	 cb3c3s3h+ivnc5kJocYNFLxr91OhYwVANFOSAzFGX5pQJscx+fq+QJhc8z6JP2qtD2gC2
-	 i2ld6Y8QwnClSGdttOnhKHiQKUaJN1id+/IudSLSr4f7JBTlpksuEV3HZ/mT+x5JZfJmY
-	 RU5EQm1/fJPu0uWQMwsnDxUOA6ZEm2TXE61xFmQYblWIUPf8Cq/jMm8Dheg44RWUDH9we
-	 ZZPUkoMvBC7bNdXENwzMU6yT+Ol0shX7FzC9ZI1j2MR14NTMLVNeyuqEVIEMFPqUj8g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601036;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bG7Lv1aF9DL5QyrXho2P4rHtkOFEH0HKGIrzdBjIpp8=;
-	b=J6lUzVaNemLaNN9jBUBYbMp1bOBEohA+0m1G2vFLBgoibfl9CPHQh8+K2+MGtxLWTXYC
-	 71auHsphNWFBDYNnijVPp8XuA+vfn6RYsP8RgLcKI9FVbT/rYAUE241PfkmFBwjBN6Wur
-	 8ndviDqK6N/y3l/Up2fs3jyG9jG/ADzWLdshxcNZo0JI2NL7P8/5y3xnrSffMlApHYCup
-	 G7JdlYe3CSvSfa2YZfZq0e4BIAa+Xd96gdiJNaimRPhimXQtTV0lJCqa+qmxFmjEg/jqd
-	 wuEg8WmC40CWUDHySoRd9lR9LoTLF7tlbWTzZxmmPRnHeDejVErHks5h8SF15IDuB+w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EHZgQwLJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.61
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012061.outbound.protection.outlook.com [52.101.43.61])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794601133;
+	b=SM0CwUrruMrEyfcNV2qpfA6HefPjsoUikBdnVRAVpK8EhDKN3yu/py2E5yl8td6Gh+Hr
+	 zDP5PHBtoJJJpmipEYovq/EcphmtuP2gXKrq88+lRgZ35K/B8+weAfZF6pPvwZdspyFXK
+	 OGierj3fcp3oAvJGr2oQNnKMOui/tDwlK8Bo2bmiGad4Q58KrVPCKaLfPNZW+6DIMl1ge
+	 hvv+beKd0CaQzcW8On+0TMPEDl7w1kyk0nG3OiX7fZtq8bItj3KHtm8JdpEmYmQ/8HEU6
+	 Q3pfWcrhTPSskYKTp0333Krgdrzz3P6/nd34bYyLh7e/x06qMbnLRlJzSqMCRIRwXXw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601133;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RR3Y/NZUPFI501cKXclm/UeWrDA7HHS1VJgbIHKj7OI=;
+	b=xz4kGYcoi71H3AqPjKn2zUTMBut72Ba7w3QZpqsSMB8SfaEUt6izq0WQ871wtejYX3vR
+	 sHlggx2zu/VOm7PtnL7C9ZZQ78gXn/ECtVChezLnkB86htje+9vf++Q2JwY3HJgmxR1Ti
+	 25SfCpDw1rbLpPhOTuSpFZtMmJoOIfOtIlsAs6NyNxxJk0RYUjnNsDpwjnlur0WK57R2Y
+	 +bI1i5LUockhkmd6RqzKRAQKW+ysfT4JE0+uH8+7LlEnciTnwXVOwL8atIYqZPw8GWL1M
+	 ftn+k+HMzds8nCnDZxLuKgcpVq8lu6hgbjYR5EHiLNXbhJqktO4m3i0dwRYgR9jjzQQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIeOsCGd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580AD606A88B;
-	Fri, 13 Nov 2026 20:16:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 580AD606A88B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5BF606A323;
+	Fri, 13 Nov 2026 20:18:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EHZgQwLJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vylUrNcwLxbPkQZjrbiy2mMjymeU780DFl8YycezE2sSf4uZ3oIQ7cVKFpKsPYnSnD1nwYWWJK7/rLAWip9MiLQigtrGVJZ9ZN3Rq5k6ZTcz10YcZ0hbmDvgbnORm4EpUlFOnMcWqRV6shhrnnLInDXYBEksGT9GLHrN7zTz69+B6qMJGkCE1MTV9r/kXI88wk1n3F9Zk5FLU6NZwoXPOPc9Kl9WIpkyg6fBSNBEPJXywYnOuM5qxT73FL3wKjnqddzrTEN0TdDN3dWDcTdrVmSZIjRM+j5gORUAZJ68dJ+Tbc26lVmh4qdUAWv0fr4NSu3vDRqL1qvAcAbC2acPHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bG7Lv1aF9DL5QyrXho2P4rHtkOFEH0HKGIrzdBjIpp8=;
- b=VBTvJDzpDtdp2QyJNzltfhZW3JUw2KQLyM1XtU2//iKxtAfYCYl8ZN5hafMJFYzH99+bRJgzjc8cZhF7CQx5ZnTQ54fMOIZXGfBpGvJmU2N7X2gDLVVS6ANHP9KgpuWUtbQ3cVQ7LL3yNs4K5wXqXFvLGha8uYjwwTKMzqMZDUrZgxWRpxzhMfmEo1PJl8UkpoMDKUWimFsFHjU62bnodBJyudKp/uCq8YpKzCOtN4ct+I+CXLDL/b5sbcEe63D7KSnrGYov3GIFayAldCdIdS3iqyoUeFIsLnzvFo4nvwl10qTwG93EB2nzakiWlnSi8ZROc6uast6/AokV2fARwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bG7Lv1aF9DL5QyrXho2P4rHtkOFEH0HKGIrzdBjIpp8=;
- b=EHZgQwLJXE9eqMOOgaISf6aLNh46Pw87uQKDy+HywFp9juZVBvfYJunmMcuY06leHxFBOGzmnvldK35nwzOeKvvt0LGXtGPpUP5/Xmbw4danAtulwPbCci3ZOsBV5vQdGhpMLYl4WjOauFE+1FaLRR8BMHOvoGRG+OD4+0LKiQesDtA5fsy7n9XChpRzGsB3VLWuIz3NpA+yX+SggMRtbRPk/8fIrdu2Ym5kDHY8Tu9gFvBrErfe+MHS+6Cssr1Zrx7RF+JTiMfripGyiDMkGEpyStgSVEP+u0u2eDiayZO5gcFmGp+m4z9M0iFdvconnE7JJ21LatYRkEVJ2I74GA==
-Received: from MN2PR01CA0053.prod.exchangelabs.com (2603:10b6:208:23f::22) by
- FT1PR12MB035643.namprd12.prod.outlook.com (2603:10b6:170:3c::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 20:15:13 +0000
-Received: from BN7PEPF000000A0.namprd04.prod.outlook.com
- (2603:10b6:208:23f:cafe::8f) by MN2PR01CA0053.outlook.office365.com
- (2603:10b6:208:23f::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 20:15:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BN7PEPF000000A0.mail.protection.outlook.com (10.167.248.152) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 20:15:13 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 13 Nov
- 2026 10:45:01 -0800
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 13 Nov 2026 10:45:01 -0800
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
- Transport; Fri, 13 Nov 2026 10:45:00 -0800
-From: David Thompson <davthompson@nvidia.com>
-To: <linusw@kernel.org>, <brgl@kernel.org>, <davem@davemloft.net>,
-	<asmaa@nvidia.com>
-CC: <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, David Thompson <davthompson@nvidia.com>
-Subject: [PATCH v1] gpio: mlxbf2: Disable interrupts around the chip lock in direction ops
-Date: Fri, 13 Nov 2026 13:44:44 -0500
-Message-ID: <20261113184444.3431-1-davthompson@nvidia.com>
-X-Mailer: git-send-email 2.30.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIeOsCGd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AB0F1F000C4;
+	Fri, 13 Nov 2026 20:18:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794601133;
+	bh=RR3Y/NZUPFI501cKXclm/UeWrDA7HHS1VJgbIHKj7OI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fIeOsCGdnxwvFJMUPt1Xo/qhLodE1HQwNmuXbr31ALXJuAgdwOFGvA1kIxYMRvCXm
+	 iQYJ7uI8+01PbMxvv1/N+VJ2f/Ij34JTgImZrOPreMn7rFxr7up6YhexXClvbrXFzc
+	 ZBh9VpDIPrhnfN+Z/szMfhUI6Uxv8s773oYU5PJ3a4Sm8ojgXZASMPWrfJmYdBmNM4
+	 1agCsYuBHrOFItJBWni7s9sup8AV7IGF5rKr7MghgPF4lDQI0aP1eknDAP4pZdn4BP
+	 Z663i7PhxEMDA0xwRpaM8gJDgGwUZmUF8NZ9mM1uX/Rofjw0eyjbekqJohTFAeGemN
+	 E+h4vdmz0tOFA==
+Message-ID: <cc480b1f-6b90-44c8-9306-83d1c125a9cf@kernel.org>
+Date: Fri, 13 Nov 2026 21:18:46 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,173 +51,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: use PFN_PHYS() in phys_mem_access_prot()
+To: Ivan Ezequiel Rodriguez <ivanrwcm25@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261113193812.1239880-1-ivanrwcm25@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A0:EE_|FT1PR12MB035643:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe320021-40c4-45d8-2576-08df41c2d37d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|18002099003|3023799007|261009223027099003|11063799006|56012099006|261102123227099003|261028144727099003|10067099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	TUfK5yGoymHzAqiHqA+ykLgCRsoSUMzhS0DTaBSIQbvmanMu6RPR2n+OZ+DzPzbev1sk4+kk5FHxGHhKKuMATekJRgsVn2+ijvup2b+sJjTwGKX4H0kqvazUO22yYKRgBdOXxdbtHXjUeJ7YDHz4sgBC/UXWC5gRjFrZU9cYNuiiV/otgNe365L52q1cn516zLxINsmGc+g+jisXD0g/UtZbCoxnI7CU5ErJ/niv4+GylWe3mBCjxoyCfZfRbxMCRqt+jl6aDpIWzTgNgIXznmUNVv8khYefoXcLXSkPRxlgm8hhnq+vTRiY44EavnS0d/AvRboBeyesS+OsiiI01lHp2z1i54HsYuLYyTr/UIXbQWFqs/mBPArbGlH2cQP8kAQJ6b9etiO/7EEOhAKSWnDum22jTZ3tQKS4QWbqPrtS854nEs85lxlGzNxC7hbSEza0qlmTMOHzjlJ5056HtSv1xNV5sTCHg0qeA6PlNVUpnH0+EQj+zlzUD1sqxH8IsFBkYeEMmLtHc+S9yxSNykqx05a8r+hgZUYhCgsa1bXxVXFFJORvkThnddjOeTISNqmLb8buvLkhn1JuP/Auc9bbQ+CEVu9xkq8G6s3txQaEivO496f7RDE0Nvk+tXERTmkY2rJVWebSxMEgYhzRcW4MB/0azzaaUS01uWiSpkmwTfHqy1WEmNyU9PUIIuAcmKQin2Gkt02yR/mEnYnYgg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(18002099003)(3023799007)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261028144727099003)(10067099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VxxNFjCsUMFu6HUNEaBvbeOMOylku5maCbn0GYmDlvXZ5/7wWsVZggQ1vlGPNPiqglagvwb9O0FH7fyYJMFKRRAD2x4MXL5SiwpVteg+hkjmsrB7fjghUotdnCBEmacLSCNJfncvn6xlVYc3wd98UoSC4tmKNAcHgHpDeNao1FZHE0+LW6MekkwCWIV1j0KWI2u7D3XRCt/xjsDOYsfE30nqjiLYMaF7uu1DEPNGdnjTIFTNiNr9IhIkIBUGxMvgUFZCySCHYqdQPB7pbyKFKnD35hRQQSY6PKOzcyEOmrQ4TOlfGgCkUsnkB/dOA3xRAKfTOtH/dd0yOKR1xEtaxG4+dugCLhlopu0xcExWcFl5vWP3YjGmkGeUY3BJwkp2knZZ96qXdU/a9nQyUIXQxGpyjTxeufG3DpXS2td5tbz+3sf0C4G/0eSKH9cca6NW
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 20:15:13.5662
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe320021-40c4-45d8-2576-08df41c2d37d
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF000000A0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB035643
 
-mlxbf2_gpio_lock_acquire() takes the generic GPIO chip lock with
-gpio_generic_chip_lock(), a plain raw_spin_lock() that leaves
-interrupts enabled. The same lock is also taken with the irqsave
-variant by the IRQ callbacks (irq_set_type, irq_enable, irq_disable),
-which run with the IRQ descriptor lock held.
+On 11/13/26 20:38, Ivan Ezequiel Rodriguez wrote:
+> From: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+> 
+> phys_mem_access_prot() stores "pfn << PAGE_SHIFT" in a phys_addr_t.
+> The shift is evaluated as unsigned long, so on a 32-bit kernel with
+> CONFIG_PHYS_ADDR_T_64BIT an address above 4 GiB is truncated before
+> uncached_access() compares it with __pa(high_memory).
+> 
+> mmap_mem_prepare() already shifts in phys_addr_t, so the mapping is
+> accepted and then left cacheable. PFN_PHYS() casts before the shift.
+> 
+> On a MIPS32 XPA Malta guest, mmap of /dev/mem at 0xf00000000 without
+> O_DSYNC used the boot CCA. The same mapping with O_DSYNC was uncached.
+> With PFN_PHYS() both are uncached.
+> 
+> Fixes: 7e6735c3578e ("/dev/mem: use phys_addr_t for physical addresses")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+> ---
+>  mm/char-mem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/char-mem.c b/mm/char-mem.c
+> index c5761ddedbd7..53ce0034a4c1 100644
+> --- a/mm/char-mem.c
+> +++ b/mm/char-mem.c
+> @@ -272,7 +272,7 @@ static pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
+>  				     unsigned long size, pgprot_t vma_prot)
+>  {
+>  #ifdef pgprot_noncached
+> -	phys_addr_t offset = pfn << PAGE_SHIFT;
+> +	phys_addr_t offset = PFN_PHYS(pfn);
+>  
+>  	if (uncached_access(file, offset))
+>  		return pgprot_noncached(vma_prot);
 
-This creates a possible deadlock that lockdep reports as an IRQ lock
-inversion:
 
-  CPU0                              CPU1
-  ----                              ----
-  lock(&chip->lock)                 lock(irq_desc->lock)
-  <GPIO interrupt>                  lock(&chip->lock)
-    lock(irq_desc->lock)
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-If a GPIO interrupt arrives on CPU0 while it holds the chip lock during
-a direction change, the interrupt handler spins on the descriptor lock
-that CPU1 holds, while CPU1 spins on the chip lock held by CPU0.
+I'm relying on Andrew to pick this up.
 
-This was seen during probe of pwr-mlxbf. acpi_dev_gpio_irq_get() sets
-the pin to input through mlxbf2_gpio_direction_input(), and then
-irq_set_irq_type() runs with the descriptor lock held.
-
-Use the irqsave variant for the chip lock in mlxbf2_gpio_lock_acquire()
-and its release counterpart, and pass the saved flags from
-mlxbf2_gpio_direction_input() and mlxbf2_gpio_direction_output(). This
-matches the IRQ callbacks, so interrupts stay disabled for the whole
-ModeX update.
-
-Fixes: 2b725265cb08 ("gpio: mlxbf2: Introduce IRQ support")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Thompson <davthompson@nvidia.com>
----
- drivers/gpio/gpio-mlxbf2.c | 29 ++++++++++++++++++++---------
- 1 file changed, 20 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpio/gpio-mlxbf2.c b/drivers/gpio/gpio-mlxbf2.c
-index 70c19258a51d..c9e08a7c5eba 100644
---- a/drivers/gpio/gpio-mlxbf2.c
-+++ b/drivers/gpio/gpio-mlxbf2.c
-@@ -128,12 +128,20 @@ static int mlxbf2_gpio_get_lock_res(struct platform_device *pdev)
-  * Acquire the YU arm_gpio_lock to be able to change the direction
-  * mode. If the lock_active bit is already set, return an error.
-  */
--static int mlxbf2_gpio_lock_acquire(struct mlxbf2_gpio_context *gs)
-+static int mlxbf2_gpio_lock_acquire(struct mlxbf2_gpio_context *gs,
-+				    unsigned long *flags)
- {
- 	u32 arm_gpio_lock_val;
- 
- 	mutex_lock(yu_arm_gpio_lock_param.lock);
--	gpio_generic_chip_lock(&gs->chip);
-+	/*
-+	 * Disable interrupts before taking the chip lock. The GPIO irq
-+	 * callbacks take this lock while holding the irq descriptor lock,
-+	 * and the irq handler takes the descriptor lock in hardirq context.
-+	 * A plain spin_lock() here lets lockdep report an inversion, and
-+	 * can deadlock if a GPIO interrupt arrives on this CPU.
-+	 */
-+	gpio_generic_chip_lock_irqsave(&gs->chip, *flags);
- 
- 	arm_gpio_lock_val = readl(yu_arm_gpio_lock_param.io);
- 
-@@ -141,7 +149,7 @@ static int mlxbf2_gpio_lock_acquire(struct mlxbf2_gpio_context *gs)
- 	 * When lock active bit[31] is set, ModeX is write enabled
- 	 */
- 	if (YU_LOCK_ACTIVE_BIT(arm_gpio_lock_val)) {
--		gpio_generic_chip_unlock(&gs->chip);
-+		gpio_generic_chip_unlock_irqrestore(&gs->chip, *flags);
- 		mutex_unlock(yu_arm_gpio_lock_param.lock);
- 		return -EINVAL;
- 	}
-@@ -154,12 +162,13 @@ static int mlxbf2_gpio_lock_acquire(struct mlxbf2_gpio_context *gs)
- /*
-  * Release the YU arm_gpio_lock after changing the direction mode.
-  */
--static void mlxbf2_gpio_lock_release(struct mlxbf2_gpio_context *gs)
-+static void mlxbf2_gpio_lock_release(struct mlxbf2_gpio_context *gs,
-+				     unsigned long flags)
- 	__releases(&gs->chip.lock)
- 	__releases(yu_arm_gpio_lock_param.lock)
- {
- 	writel(YU_ARM_GPIO_LOCK_RELEASE, yu_arm_gpio_lock_param.io);
--	gpio_generic_chip_unlock(&gs->chip);
-+	gpio_generic_chip_unlock_irqrestore(&gs->chip, flags);
- 	mutex_unlock(yu_arm_gpio_lock_param.lock);
- }
- 
-@@ -185,20 +194,21 @@ static int mlxbf2_gpio_direction_input(struct gpio_chip *chip,
- 				       unsigned int offset)
- {
- 	struct mlxbf2_gpio_context *gs = gpiochip_get_data(chip);
-+	unsigned long flags;
- 	int ret;
- 
- 	/*
- 	 * Although the arm_gpio_lock was set in the probe function, check again
- 	 * if it is still enabled to be able to write to the ModeX registers.
- 	 */
--	ret = mlxbf2_gpio_lock_acquire(gs);
-+	ret = mlxbf2_gpio_lock_acquire(gs, &flags);
- 	if (ret < 0)
- 		return ret;
- 
- 	writel(BIT(offset), gs->gpio_io + YU_GPIO_MODE0_CLEAR);
- 	writel(BIT(offset), gs->gpio_io + YU_GPIO_MODE1_CLEAR);
- 
--	mlxbf2_gpio_lock_release(gs);
-+	mlxbf2_gpio_lock_release(gs, flags);
- 
- 	return ret;
- }
-@@ -212,6 +222,7 @@ static int mlxbf2_gpio_direction_output(struct gpio_chip *chip,
- 					int value)
- {
- 	struct mlxbf2_gpio_context *gs = gpiochip_get_data(chip);
-+	unsigned long flags;
- 	int ret = 0;
- 
- 	/*
-@@ -219,14 +230,14 @@ static int mlxbf2_gpio_direction_output(struct gpio_chip *chip,
- 	 * check again it is still enabled to be able to write to the
- 	 * ModeX registers.
- 	 */
--	ret = mlxbf2_gpio_lock_acquire(gs);
-+	ret = mlxbf2_gpio_lock_acquire(gs, &flags);
- 	if (ret < 0)
- 		return ret;
- 
- 	writel(BIT(offset), gs->gpio_io + YU_GPIO_MODE1_CLEAR);
- 	writel(BIT(offset), gs->gpio_io + YU_GPIO_MODE0_SET);
- 
--	mlxbf2_gpio_lock_release(gs);
-+	mlxbf2_gpio_lock_release(gs, flags);
- 
- 	return ret;
- }
 -- 
-2.43.2
+Cheers,
 
+David
