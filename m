@@ -1,90 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530774;
-	b=dJiyUSPZ+fQYUF3R8HaElMwKVHEuPXgwsq6N/HsRwwOd3J3B2yE1KO0yKyI1uSDJUXZN
-	 To1RJQa3B0oCWlf1mUmbXp15O76z98JLqzovLVXNznJwDwyyepdfAwXvOaNh790J+s57i
-	 708dTUWhh2BMJtqTKqtbeqTXyIxmWphfwvVe7kRSrVyqAL3OdgLNPQzLpMGXRMfhUCXPZ
-	 3q27g65bRe9dwSEZU6cZjpr/Q6EOWgdYd37T2bHSxS5OEjm8+RY0DZjXm8tRx9mTL7mru
-	 ofyIbxb9tWOLQrZwnc7kJNNgH9JRkSNPK4DqJ4fNDxWVjajV/QWZBmgtXy0R8KJ2TTQ==
+	t=1794530991;
+	b=UflQr62y0Xgje6LdP6dd1RYyx3OHzFRxEIVaWvGWNTG2SaOmLUDR+LRuoCco47P3gM7E
+	 hBWU//dGL3u6UZB2l6nVBtw/i+XvPeX5s/y3y7Q7yLU5TitmBu/bxBKxDM2WsohBhhIRR
+	 vXUOlhhCIKKX8X3Ta0zS3GbsOz8wv6qMB5gbJgy4/PKuZdbChXsb7b+IzOZtfmYNKIiGo
+	 E5FKL4BD1nuhFNrVi0EDPMbVuh+c1JmFa1Rbl7R2h0yf/YhUGXSsVarFAa6h+znarui4U
+	 rvpxg4rKbusILn/uvGYllicQRCPoFRbq97CJ2n9UqgjLZ+2IlXCkw/sIsHqMQP1SsJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530774;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ECyPyvXC/95TVpG8C1F8ZvcNpYFWdQKxsSElEdWhykU=;
-	b=3UGqeA52ZmjIeVttMqawjvnOTLf0hGfwkT86GzbRi/dseA8/cssUpO6WFia3S6ayRYoW
-	 +uLmwVZv9jDeqSOoInY5V2Uh1qLoNTViCiFLV1qoQfkGYAp4VPwcI5BZOEP0P2iVNZKet
-	 RD/gnF2WmWGD3yGu7/5BxFd+L8E+YHyzpTADY7ROtuBapxsPbUzJMfW9u3QixHG1WYMk8
-	 IOHRaegMUXE2vw6QcxJjtefVCqMqB597i7u+AcNaH2eDxinTlzfBRextSYHxcmowYJ+yZ
-	 W6twY9tcs2WQZGlSsKazLTQA4GbYV3Q3aWhMUsQdp30/7qc7BmLybpwGU+FPkPKRioQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530991;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=lerioq4d56SPhYkjt+RCN3wpafD+rha2cfoz6Qv82Dw=;
+	b=qhtzr1jeXbPY1JnfycMWGlJRgCJwXqhdcv6RmmnPgeYqXSimgnUGzl3H/Q92cik7b/tE
+	 3QF0JOdTPh9cuLPyGULOv+jwp2Iwo3ddThy5EnUsdTZVjA2Ex/bwcaWX+nh1560+nusSB
+	 5C8J9hC44hWhz4k6ZUYWM/fJcB+Q4OkQ2Pm77JxTs8M/VCboEojpVvgjNem3EXVMpGBqb
+	 TMHAwI1b4sPPKV2TUPBnv+0I8FUqXVvVr4ho3C7KkOXVaFn8TJwM5Fd0t6/G7UVhsLvmN
+	 wPgpE8pUoLET13RSY1PT7kqMs+LQytA6tE/URaZ7M9C/Lj+IEWtHEEPu7uhzhgxFmiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YvvnbJhp;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1Xqe5NW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A60B606A890;
-	Fri, 13 Nov 2026 00:46:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A60B606A890
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A29F0606A32D;
+	Fri, 13 Nov 2026 00:49:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YvvnbJhp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794530774; x=1826066774;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=oaJdx+9UqCQ4ZGLoGgzlp+vMwxz82WMtCK5tbgzGpx8=;
-  b=YvvnbJhpDGSUzR4gT9xACcIzBuFRPVdpxP7pCRNtLWVAiQLMA+E4c7XD
-   mqc2tOReIGkXDtMRJEoeSO1shxvtu9UxJqQHTVhh1h0N/j4p3Xe2yiPmh
-   2gBXE9lfovSKeNI7yRR1aXgZEUvO6HUNR1x1c78cmKc+OckaBr2+NfF8y
-   vNo1W6tkHFguz4CHK4Xh4sQdVnzpjNSJvj1EBTW/BCqYs5mMVJOVa2znL
-   4sH/hV6Hvi7SauyYdWkAffX4ozIRcDUwWJCuEogxrufI1BqvYhd/aEboo
-   aTWdGQBi6VhcBqqnqeXqMAAORq+gEC2STHSAVMsnDDAP27LVrz+TraSRi
-   w==;
-X-CSE-ConnectionGUID: KSiXO1sZS7egPz0enwA+jA==
-X-CSE-MsgGUID: NCl6S/LFSgOa/ieQMQlm9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3361695"
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="3361695"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:46:13 -0800
-X-CSE-ConnectionGUID: RMI4bo6iTyminHTuVrTUpg==
-X-CSE-MsgGUID: jmUQ8Pu6RhuFtoxUY9p86g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
-   d="scan'208";a="8724630"
-Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
-  by fmviesa004.fm.intel.com with ESMTP; 12 Nov 2026 16:46:14 -0800
-From: Tony Nguyen <anthony.l.nguyen@intel.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@kernel.org,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org
-Cc: Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	anthony.l.nguyen@intel.com,
-	mheib@redhat.com,
-	fballuch@redhat.com,
-	aleksandr.loktionov@intel.com,
-	richardcochran@gmail.com,
-	saikrishnag@marvell.com,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1Xqe5NW
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 011E91F000C4;
+	Fri, 13 Nov 2026 00:49:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794530991;
+	bh=lerioq4d56SPhYkjt+RCN3wpafD+rha2cfoz6Qv82Dw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P1Xqe5NWbSN3fIZBjJ4VgjIAr/miILeoBjAdI24rAPXf8HVuPXTge+5lE6YvRLAhz
+	 WptsUqO1L9RYLD6FXE52445PGGJ4f/GM8A2T77BBFTkPJcLyKmeoZDdVj0JY0BekM6
+	 3DCrW6Imij4bb3p8Lr+BvBe6rhxqAMHdn3F+OeBXvmhDZqPzf7rnjS67HIkKafPuUn
+	 ES3X8YHcbZcjiS1RGDo0icvzW0wC3yZUFgogfvL0hskTXdIw//MQ6Z6gQ/UqkUv7Zi
+	 Je4bKFSL1YpZr+Um0IGZ3axHa8AhU/97ERqN6lBfoXlxrgBAlEAzcXRdP5M/+DiD5W
+	 KGsCQXZP1FP7A==
+From: Joel Fernandes <jfern@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <jfern@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Guo Ren <guoren@kernel.org>
+Cc: rcu@vger.kernel.org,
+	Guenter Roeck <linux@roeck-us.net>,
 	stable@vger.kernel.org,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Rafal Romanowski <rafal.romanowski@intel.com>
-Subject: [PATCH net 6/6] iavf: add missing PTP adjustment callbacks
-Date: Thu, 12 Nov 2026 16:46:00 -0800
-Message-ID: <20261113004602.129864-7-anthony.l.nguyen@intel.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20261113004602.129864-1-anthony.l.nguyen@intel.com>
-References: <20261113004602.129864-1-anthony.l.nguyen@intel.com>
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	linux-csky@vger.kernel.org
+Subject: [PATCH for-v7.5 1/5] srcu: Select IRQ_WORK for Tiny SRCU
+Date: Thu, 12 Nov 2026 19:49:40 -0500
+Message-ID: <20261113004946.2758197-2-jfern@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261113004946.2758197-1-jfern@kernel.org>
+References: <20261113004946.2758197-1-jfern@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,62 +75,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Tiny SRCU uses irq_work_queue() to start grace periods and
+irq_work_sync() to wait for pending work. However, TINY_SRCU does not
+select IRQ_WORK, so configurations that do not otherwise enable it
+fail to link with undefined references to these functions.
 
-The PTP hardware clock documentation requires drivers to implement all
-callbacks and return -EOPNOTSUPP for unsupported features.
+Guenter reported this failure with csky tinyconfig on the 6.12 and
+6.6 stable trees. Current kernels enable IRQ_WORK indirectly through
+SLUB, but Tiny SRCU should declare its own dependency.
 
-The iavf driver registers a PHC without adjtime or adjfine callbacks.
-A userspace clock_adjtime(2) request reaches ptp_clock_adjtime(), where
-ADJ_SETOFFSET calls adjtime and ADJ_FREQUENCY calls adjfine. The missing
-callbacks can therefore cause a NULL dereference.
+Select IRQ_WORK from TINY_SRCU to ensure that its irq_work calls are
+supported independently of other configuration options.
 
-Provide both callbacks and return -EOPNOTSUPP for the unsupported
-operations.
-
-Fixes: d734223b2f0d ("iavf: add initial framework for registering PTP clock")
-Link: https://docs.kernel.org/driver-api/ptp.html#writing-clock-drivers
-Link: https://lore.kernel.org/all/20260826101004.100979-1-xuanqiang.luo@linux.dev/
+Fixes: a6fc88b22bc8 ("srcu: Use irq_work to start GP in tiny SRCU")
+Reported-by: Guenter Roeck <linux@roeck-us.net>
+Closes: https://lore.kernel.org/r/49da816c-8082-46f1-bb12-f0d6187bb06a@roeck-us.net/
+Suggested-by: Guenter Roeck <linux@roeck-us.net>
 Cc: stable@vger.kernel.org
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Acked-by: Jacob Keller <jacob.e.keller@intel.com>
-Tested-by: Rafal Romanowski <rafal.romanowski@intel.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+Signed-off-by: Joel Fernandes <jfern@kernel.org>
 ---
- drivers/net/ethernet/intel/iavf/iavf_ptp.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ kernel/rcu/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/intel/iavf/iavf_ptp.c b/drivers/net/ethernet/intel/iavf/iavf_ptp.c
-index 87b97e09df14..fcb273828bc1 100644
---- a/drivers/net/ethernet/intel/iavf/iavf_ptp.c
-+++ b/drivers/net/ethernet/intel/iavf/iavf_ptp.c
-@@ -252,6 +252,16 @@ static int iavf_ptp_gettimex64(struct ptp_clock_info *info,
- 	return iavf_read_phc_indirect(adapter, ts, sts);
- }
- 
-+static int iavf_ptp_adjfine(struct ptp_clock_info *info, long scaled_ppm)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static int iavf_ptp_adjtime(struct ptp_clock_info *info, s64 delta)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static int iavf_ptp_settime64(struct ptp_clock_info *info,
- 			      const struct timespec64 *ts)
- {
-@@ -326,6 +336,8 @@ static int iavf_ptp_register_clock(struct iavf_adapter *adapter)
- 		 KBUILD_MODNAME, dev_name(dev));
- 	ptp_info->owner = THIS_MODULE;
- 	ptp_info->gettimex64 = iavf_ptp_gettimex64;
-+	ptp_info->adjfine = iavf_ptp_adjfine;
-+	ptp_info->adjtime = iavf_ptp_adjtime;
- 	ptp_info->settime64 = iavf_ptp_settime64;
- 	ptp_info->do_aux_work = iavf_ptp_do_aux_work;
+diff --git a/kernel/rcu/Kconfig b/kernel/rcu/Kconfig
+index bc9483c0b5d8..b6d3597758fc 100644
+--- a/kernel/rcu/Kconfig
++++ b/kernel/rcu/Kconfig
+@@ -56,6 +56,7 @@ config RCU_EXPERT
+ config TINY_SRCU
+ 	bool
+ 	default y if TINY_RCU
++	select IRQ_WORK
+ 	help
+ 	  This option selects the single-CPU non-preemptible version of SRCU.
  
 -- 
-2.47.1
+2.54.0
 
