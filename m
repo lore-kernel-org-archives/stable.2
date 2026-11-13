@@ -1,68 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597729;
-	b=zkh0OZ6kavMNF+SgFwzn66M7gyOGeO9XI3OOaW6wgne1bc6SpI4cKiNu6ztyb3DF9fxb
-	 sCzQhVXrjask4W4Hb3Hof8VFJ8oxpcncXk5HPIAC409XOQXnD99v00Al8iWoM+7DCw1Xq
-	 irMR4AX7UqL/Q9KF1n50M2hlLX3RvyBA5ICZRSK/VL1AsQCqx/tY5OUgSatseMpxyW5qB
-	 /y4DRn5ZSVdmGWqtjyBSagP/RinllnXxPS43vG3UQ9O7epUJu8HzdQ/X0hhEPySTCLcsB
-	 Hmx02Op38YtiDOk2WoytHFp9kkz2+2nlBlEHxOCyR3sIt0E0pWXSpo/r1BksLKFePTw==
+	t=1794597732;
+	b=HkKB78wG7LvKoboR1Q6uwW9a3+V3/3PqtmsrRWckFSDFnYf4XBggsLuRJrKs0JIHqd9q
+	 Ey48oV9frA0KJcartBID57JHFisDeBRDYdNyhPg9zxw3cchkAZpnLKiElNXAZHHRyaBw+
+	 qTaZhCRiH1p+azzsmJk+cPi6Jr8lYunl+RBSNgj074moqkKuiWi6QoLixXwauz1cmD4iQ
+	 0OzTCjUvRFDb2nlZhhbtXSUxZNpEaG36vOVwb/CLgQHBMgG12ZoqoU7WK6TCsW7XuBFdk
+	 3tupPtMQBmp+2fSSN0EZtzY0jsd1tWp2m4mooTA+qMdljqUXa8cd2wVhdlgAuQ2eAwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597729;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IqKczo/Kf1/w2lyMd7VArM2SiybYGaD+66Xdpsa1e5w=;
-	b=I/8IQqx0Rx1LiSv84sFWcXbNKYhAXbna7WJhQfJ2V5udif10wLj7dCjCrWsuZGbvoxXL
-	 Uvvp/ZQyPHedEZENCzpFzXRNp6edsQ2O/Px2G0xX+kwZYQ9Zactz+ABiPncIr3WlNq/Zd
-	 AXA05GgFI57bC5SF5F7gfJ9nH3/KUqBXhspBJ2evA9669NXCKowzhqm/HP3qP1VZQqogC
-	 7GMGLBiVoedExVZyBPVBY4xA/hiawatasz6F8drX8NfDoBnAlo2CYvV7GKATa6hCSR5d4
-	 01vZqr8Vry7yMVTjotbWDKMn6+7l3rbcrovGOLn0Rr4qmz4N1fHjFbS9TvfCY2Ot77Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597732;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Fdl4VOJT6zViP7jtfnU1Xg3aoOGQL41O0hxbPwDlR+A=;
+	b=nIyV2fQezND2RRdbuMaUvbtTZiCj+TlgBR/g877ffslgzdabz5gIbn3Z8J8GBTJ1j8z5
+	 Vb8zAzi2cWHYYBdMqdDAVzUkcKo8+ah2Lel83/gCMjDffRxyBKUzWU0i7QKThpC25lwR2
+	 AlIVCd5Avi8TWBJxRW0uwv/yPXbpA10YmMNhKJavaGllyxq0zsF4dMcm2nbehHF5G2sEL
+	 SRCMHDiRb1rchL13uzr9HwaS/WE3PcyCikjsxzxAFQkh87KlzToxfOJxPh5AAzGq0L9DX
+	 vPWcSfBOBmH8qS47EULGndAK9iWV6B76Doa1RPDQl73DYPG5e5ImeFTjsMFjKibolLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1ZhTSPf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NX6l4vlx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECA7606A336
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:22:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AF3606A890;
+	Fri, 13 Nov 2026 19:22:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G1ZhTSPf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF331F000C4;
-	Fri, 13 Nov 2026 19:22:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NX6l4vlx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10861F000C8;
+	Fri, 13 Nov 2026 19:22:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597729;
-	bh=IqKczo/Kf1/w2lyMd7VArM2SiybYGaD+66Xdpsa1e5w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G1ZhTSPfNvT0mq7z3DnC/DGygE7Ebkn3WMWJHlVoMxVbk9chxevz6t2tMiOCNmlaB
-	 SCCbyXkzL/S3NizO1xOfnepkumglQ2HXHGgfYz/wBYrMWNldon6BnNLFe6Gl/OLCAf
-	 79P4YgHJLnTGujIKtdtYJUe33/1y8K/YdvZ7HI7bmptkbRC4syIIr2GH3JFqykY4yr
-	 JKlx3n7Ajuu/6VM3SC30QHEOX2M48XOyNf9HZgQFqrO9OpTciG1zOkhxGgCBSc34T2
-	 k1LiHWHCSF7wnPZ6KpYJ2sCWrAT0nHvp7iDYYMQOHmcAkhVpUIxhtpXcbG1HQaYqhf
-	 1i3R9mp0OfTaw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Hugh Dickins <hughd@google.com>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/khugepaged: flush deferred unmaps before dropping a failed folio
-Date: Fri, 13 Nov 2026 14:22:06 -0500
-Message-ID: <20261113192136.2318393-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201646-failed-6.1-854e5ff8b3ce@kernel.org>
-References: <20261109201646-failed-6.1-854e5ff8b3ce@kernel.org>
+	s=k20260515; t=1794597732;
+	bh=Fdl4VOJT6zViP7jtfnU1Xg3aoOGQL41O0hxbPwDlR+A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NX6l4vlxAsFOjaj+ZundCIjebkwjdIPIUBB6r6xto4qN1LhAmxdOJZlzrDEKEFlHX
+	 HE+RzVuSSPFuI5p/wzPEd1EWoL48luhiQrH5Fuylbug07Ef3zaiXlkH2raN+byKwcx
+	 ETtjAefB4pa1W94nXtaIlrAAzMDf7b2jtwqGkoqUv3j2kS3nzrIYUPM0FCJ6ZQ/TUH
+	 Pg9l/Ahp2pnUhstVIekqNTSYv5F0iZAVv+3d7lVWPZopB2q+jIlDKPVOg625y+x55w
+	 2HbExloMEtf2bl5fPgILQoRc23yrhUKrH3yaVEEApNzX0fSs170YpwQdkw5kr35VOZ
+	 TavaBPQLZKR1g==
+Date: Fri, 13 Nov 2026 19:22:06 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
+ uffd-armed VMAs
+Message-ID: <avdjMNNkOXm2khTW@gremlin>
+References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+ <0e3e876e-c3df-4660-ad89-a5f0fd7dedc8@kernel.org>
+ <avcNcL6svEOTg_3r@gremlin>
+ <0d6e29f8-54fc-427a-a979-1a8c6f4e3f06@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,81 +64,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0d6e29f8-54fc-427a-a979-1a8c6f4e3f06@kernel.org>
 
-From: Kyle Zeng <kylebot@openai.com>
+On Fri, Nov 13, 2026 at 08:15:34PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/13/26 14:59, Lorenzo Stoakes (ARM) wrote:
+> > On Fri, Nov 13, 2026 at 12:59:00AM +0100, David Hildenbrand (Arm) wrote:
+> >> On 11/12/26 18:38, Lorenzo Stoakes (ARM) wrote:
+> >>> In order to establish guard regions, guard markers are installed in the
+> >>> page tables of a mapped VMA.
+> >>>
+> >>> However, problems arise when one tries to combine this with registering a
+> >>> VMA for userfaultfd, as such operations may themselves need to install page
+> >>> table markers such as uffd-wp.
+> >>
+> >> How does this interact with UFFDIO_POISON markers that can outlive even
+> >> userfaultfd registration?
+> >
+> > The zap clears poison markers, as is standard. It's really horrible this logic.
+> >
+> > So the code path for zap used by the guard install (via zap_vma_range()) is:
+> >
+> > zap_vma_range()
+> >   -> zap_vma_range_batched() with NULL zap_details
+> >     -> __zap_vma_range()
+> >       -> zap_p4d_range()
+> >         ...
+> >         -> zap_pte_range()
+> >           -> do_zap_pte_range()
+> >             -> zap_nonpresent_ptes()
+> >
+> > And zap_details is NULL.
+> > > In zap_non_present_ptes():
+> >
+> > 	...
+> > 	} else if (softleaf_is_uffd_wp_marker(entry)) {
+> > 		if (... !zap_drop_markers(details))
+> > 			return 1;
+> > 	} else if (softleaf_is_guard_marker(entry)) {
+> > 		...
+> > 		if (!zap_drop_markers(details))
+> > 			return 1;
+> > 	} else if (softleaf_is_hwpoison(entry) ||
+> > 		   softleaf_is_poison_marker(entry)) {
+> > 		if (!should_zap_cows(details))
+> > 			return 1;
+> > 	} ...
+> >
+> > And zap_drop_markers() checks zap_details && zap_details->flags &
+> > ZAP_FLAG_DROP_MARKER.
+>
+> Right, my intuition tells me to just nuke that thing by setting
+> ZAP_FLAG_DROP_MARKER.
+>
+> MADV_GUARD, is just like munmap() another form of "zap it all and protect it".
+> >>> This is especially problematic because guard region installation causes the
+> >>> regions to be zapped first, meaning that the removal of userfaultfd-tracked
+> >>> ranges will not be logged in this case.
+> >>
+> >> Again, similar to trying to uffd-wp-protect'ing a hwpoison marker (which will be
+> >> ignored), and then zapping that.
+> >>
+> >> Isn't guard marker installation/removal just another form of zapping?
+> >
+> > I mean users being weird could decide to use it for that rather than
+> > MADV_DONTNEED, but zapping is a side effect really.
+> >
+> > Really the idea is that you might have users who, for whatever reason,
+> > faulted in some range, and now want to make that a guard range, so for
+> > convenience we zap it for them :)
+>
+> I think not just convenience. There was this problem with faultaround / THP
+> placement IIRC ...
+>
+> I'd just zap everything that's there. That's literally what the user asked for.
+>
+> >
+> >>
+> >> So to me this all sounds like "if user space does something stupid, it's user
+> >> space's fault".
+> >
+> > Unfortunately, as per Tal's series, there's more to it than that (linked in
+> > Closes: tags).
+> >
+> > You can get an infinite syscall restart (ugh) if you do this on a shmem
+> > range (Tal's 9/12) so it's a kernel bug that _has_ to be fixed.
+> >
+> > The other bits are just about a user losing track of uffd stuff if they
+> > guard/unguard, as you say.
+> >
+> > But every other zap code path does the uffd remove event stuff, so this is
+> > still an exception.
+> >
+> > If you support uffd, you have to add a whole bunch of horrifying, awful,
+> > terrible open-coded uffd crap, e.g. the userfaultfd_remove() etc. And you
+> > have to drop the bloody lock and reacquire it too and make sure all that
+> > works correctly (...!)
+> >
+> > Anyway there's basically 3 options here:
+> >
+> > 1. do something like what Tal's series does - add a TON of complexity for a
+> >    use case that nobody uses to get behaviour on something nobody sane
+> >    should care about (i.e. uffd/guard/unguard/expect uffd correctness).
+> >
+> > 2. Zap with ZAP_FLAG_DROP_MARKER, and silently lose uffd-wp state but
+> >   'support' uffd. It does fix the 9/12 bug but then subtly breaks uffd.
+>
+> Right, that's what I would do.
+>
+> MADV_GUARD_INSTALL zaps everything.
+>
+> It already zaps swap entries, migration entries, hwpoison entries ... so just
+> zap everything.
+>
+> [...]
+>
+> >
+> > If you're really concerned though, we could go with option 2, which will
+> > just make UFFD behave differently for guard regions.
+> >
+>
+> Not really concerned, it's just the most consistent one for me. Zap everything.
+> The user asks for it, like he would ask with munmap().
+>
+> > (I regret, obviously, ever allowing this for uffd ranges. And we _all_
+> >  regret that uffd was _ever_ allowed to be merged in this state...)
+> Yeah ...
 
-[ Upstream commit 854e5ff8b3ce2a776586cabebaeae645c992345b ]
+Ack will send a v2 doing that then :)
 
-collapse_file() can fail its reference-count or dirty-folio check after
-unmapping with TTU_BATCH_FLUSH.  Both paths put back the isolated folio,
-then unlock it and drop the lookup reference before reaching the common
-try_to_unmap_flush().
+Heads up that (naturally) the subject line will differ!
 
-The page-cache reference does not keep the folio stable once the lock is
-released.  Another collapse can replace and free it.  With its PTEs
-already gone, that collapse cannot flush the first task's per-task TLB
-batch, and retract_page_tables() skips short or unaligned VMAs.  A CPU can
-therefore retain a user translation to the freed folio.  This has been
-reproduced with unprivileged MADV_COLLAPSE on a memfd.
-
-Flush at out_unlock while the lookup reference and folio lock are still
-held.  The common flush continues to cover the accumulated pagelist on
-both success and rollback, preserving batching on successful collapses.
-
-Link: https://lore.kernel.org/20261007041001.43181-1-kylebot@openai.com
-Fixes: 6d9df8a5889c ("mm/thp: collapse_file() do try_to_unmap(TTU_BATCH_FLUSH)")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Acked-by: Hugh Dickins <hughd@google.com>
-Assisted-by: LLM
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: "Liam R. Howlett" <liam@infradead.org>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context and comments to use pages instead of folios ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/khugepaged.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 9738b70bbd453..f21b78228cb40 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2011,6 +2011,11 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 		WARN_ON_ONCE(xas_error(&xas));
- 		continue;
- out_unlock:
-+		/*
-+		 * The page may have been unmapped with TTU_BATCH_FLUSH.
-+		 * Flush before releasing the lock and our last reference.
-+		 */
-+		try_to_unmap_flush();
- 		unlock_page(page);
- 		put_page(page);
- 		goto xa_unlocked;
-@@ -2056,9 +2061,8 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- xa_unlocked:
- 
- 	/*
--	 * If collapse is successful, flush must be done now before copying.
--	 * If collapse is unsuccessful, does flush actually need to be done?
--	 * Do it anyway, to clear the state.
-+	 * Flush before copying the pages, or releasing them in rollback.
-+	 * This is a no-op if out_unlock already flushed the batch.
- 	 */
- 	try_to_unmap_flush();
- 
--- 
-2.53.0
-
+--
+Cheers, Lorenzo
