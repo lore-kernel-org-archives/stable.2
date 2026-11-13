@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794539846;
-	b=VVwb2o4xV1YCCzBBsSIOAOOFvYPlR70lhOIaOXM5DPix02H9U2wW5jI7zS4HHMz4hf5w
-	 54ddaWQMX0wc1dA4+ziIfAfiZqggDjxtiQ0wZ1RsFIxLoi2em6obCAVLsz9QDK9/yu8hF
-	 npgtFSzEY12QKx3FQnHLCtCxnJpeHvHe58yQf+rsS3laN1Wlcrs7zJyLCIbe2E0Kdh4mw
-	 /+wnzzFReGvF4fKJ562Vog5WxgoEYJqsWf+GMG1EckRnr/aMBK3rhHG9skhVZMA8+/eH8
-	 ZIwboY7z8/ukYr6jNsIdJQWUeAWP0dwSNBC18DcvOAEAfq6B9TKNE30cww/QC0CXHqQ==
+	t=1794539853;
+	b=l4SJQ98mSVq/afc0O/5udlXEcWalQb0t6qmm/bwb2YPqOCD6Y5k+7/hadzoy0qal7WXY
+	 Hv9d4BqsdIup9M5huXsB/ulYFwHvZcLV3XAzk+yj9c/i13nULPNAFgI8xe8raKVJsxV9E
+	 kZ2Z5xExvPbUn0QcWaSa/P2KDaAZOu1vuM36Ow3fNO0Votbw0FbBUVEY0MvE5qdpHsVx0
+	 KbNxCKgPyJG/VC8UlpC/8j67vgoGKPJQaXMs9UOdBFD9bwPffEPNec1ETpaVfoj9WSBkY
+	 yE3N9k40WjAvyfxnjFY1Kwzi6CN1+wtzpLXv8hIunEcNiwoULe7i5XQPskTxE7a/BXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794539846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794539853;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VH1JvbJ5DKEseDp0EiJhFAguvVeg4Ny3vVHdRa/BfIk=;
-	b=S2lFQ7C/AgnfkRcxjDgKIqOlPND/JfeAmcTVjFST0tUTYW4cLqXw6Ou9O8v6+PTUbTnW
-	 WEGFw2P1UObXJ/NpioXsNOZIwSYpqZRaKPqJT+zXifviVtOK5rUtx5Nf+mcJXUEmD4P0p
-	 KfCpu9dun0n0iFvvzD46nlQAWlg1yyTGd72vvrWorw20+bKl+RxnVnfmLKY1F+MU3FDjG
-	 re2Y8crbXRH+yqs7gGcuerfNzWpTSMpf5HcCzOBflaXpqx0d6RlXs2zzzPwtFeigcSbet
-	 JyM8kiE4Vmm/KTh/gUqQOz4RUwzn2gvcbY+IGBKjlIRr5P+dU6JtBRN422D0OLv91yA==
+	bh=su6QkInDduO7gTs4FbYCOCjXWdimumwsA10hLvIlDiU=;
+	b=RUqWQNl8Huhfc3WtPu2x2il8hzEuCox32/7jH3WiiMzN02fM62ippp6TX0egVNX6n9jy
+	 FSusb0AxEPFc57/+g6ckZ4vvJ6dS8XZm1HQAzl9A0X8OxKs8JaHR1OHKDSf2IE7FzI+M+
+	 Za1SSgGMFaLNlmDeuFzAh0DlkXbShs7fiqB0/7DnOooSUstng82G42WP4HhMHYKBDdrmA
+	 VM8UlRa2CaxpJFe14ZM+C4Qhghp35vbDfxvEL4GIoCYXjP3/FOBTZGbGjL9o1O8DfkrHN
+	 UxvWVeYPjIQLB7+prGOr5oUPDXUSDbQ3GM0nrmWSSI+TsO2a5DjZlRA23Yc89c3knVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXNM5xI9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEaavGeE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3306C606A32A
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:17:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24550606A31C
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:17:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXNM5xI9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590C41F000C6;
-	Fri, 13 Nov 2026 03:17:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEaavGeE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393931F000C4;
+	Fri, 13 Nov 2026 03:17:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794539845;
-	bh=VH1JvbJ5DKEseDp0EiJhFAguvVeg4Ny3vVHdRa/BfIk=;
+	s=k20260515; t=1794539852;
+	bh=su6QkInDduO7gTs4FbYCOCjXWdimumwsA10hLvIlDiU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CXNM5xI999BfYu0Pulpjlt1D4Qs1zX1DywUgDB2eHTs5DHcWDepr0C03rD9hrIEVN
-	 Z3nCeUdby7f4XZeRWgoI60kRCVbONxuONc3J2dck/RjF6e3jb3N7ia2JYA/7t3XxyO
-	 AfTrWCQDVmMIjAN7RLa0ZdqabPMKQgNvwfSmuTqolN6exQRQh3llQcotLTkE5Y9P55
-	 1Ou/2lq5Fx9oKLMqGPx7vhdHAE2+aQ3bN35AXEnjeO6/GqJnXVaXV+C2SOSmOx2+Jg
-	 bmVfJJFLkjtEn2gSRW0JjeDxYeQdQ0Sx2oEUU3TIlArdCKiTZ/28g4f7m+XwNRCLUp
-	 ljkC9utNuFfuw==
+	b=dEaavGeEqit1so94kAFHjENADSujE+ryp8KQfDR/sPYnQLTpY3d/pDehQA1XX/8Kw
+	 ajrkH++opmlt/Ovf03djk6KFtvHSG+TWsoq4kh7Q8UJm7N/IAuqKxee32yMd1likta
+	 LmRWGYacxRGie+cz/BgzxbQHRNLCdQ5ZQukzBMk8F7+6GkjEiKKi8ISSP/GUCYeuw0
+	 HwBo9ZjFG4wdx3TXqCw7ghdpYQt+tPr8ZpbRywSxftD/vkMsVIac30LIMm8UjhIzqs
+	 aYnOsVdz2YXgI6nPX//uiZgzEAfl7XsyeGHi38hTptlDOpcBqQGqYxpbiPEbgyuaMU
+	 nQ5MAOgFVsOVg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yuqiang Sun <izaiahsun@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Yuho Choi <oss.patchbox@gmail.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ALSA: usb-audio: qcom: Check the return value of qmi_handle_init()
-Date: Thu, 12 Nov 2026 22:17:23 -0500
-Message-ID: <20261113031717.979005-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] iommu/virtio: Reset device before deleting virtqueues on probe failure
+Date: Thu, 12 Nov 2026 22:17:30 -0500
+Message-ID: <20261113031716.982432-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113031717.979005-1-sashal@kernel.org>
-References: <20261109200549-failed-6.18-a3cf5ebab5f1@kernel.org>
- <20261113031717.979005-1-sashal@kernel.org>
+In-Reply-To: <20261109202243-failed-5.15-1f8efac19a08@kernel.org>
+References: <20261109202243-failed-5.15-1f8efac19a08@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,86 +61,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yuqiang Sun <izaiahsun@gmail.com>
+From: Yuho Choi <oss.patchbox@gmail.com>
 
-[ Upstream commit a3cf5ebab5f1db9e6f751e2a08df05a84f37ea57 ]
+[ Upstream commit 1f8efac19a0870cdfdf8477e447e5a07ddce9623 ]
 
-qc_usb_audio_probe() overwrites the return value of qmi_handle_init()
-with that of qmi_add_server() without checking it. When
-qmi_handle_init() fails, it has already freed the receive buffer and
-destroyed the workqueue, and qmi->sock may hold an error pointer. If
-QRTR is not available, qmi_handle_init() returns -EPROBE_DEFER and
-qmi->sock is ERR_PTR(-EAFNOSUPPORT), so qmi_add_server() passes it to
-kernel_sendmsg():
+viommu_probe() marks the device DRIVER_OK before populating the event
+virtqueue and registering the IOMMU device in sysfs.  viommu_fill_evtq()
+hands the device a set of device-writable buffers through
+virtqueue_add_inbuf(), so from that point on the device may write into
+them and into the rings.
 
-  BUG: unable to handle page fault for address: ffffffffffffffb7
-  RIP: 0010:selinux_socket_sendmsg+0xa0/0x590
-  Call Trace:
-   security_socket_sendmsg+0x29/0x50
-   __sock_sendmsg+0x43/0x150
-   kernel_sendmsg+0xd6/0x180
-   qmi_send_new_server+0x1b8/0x2b0
-   qmi_add_server+0x165/0x200
-   qc_usb_audio_probe+0xf4/0x2e0
-   really_probe+0x2b4/0x850
+If either step fails, the error path deletes the virtqueues without
+resetting the device first.  The event buffers are allocated with
+devm_kmalloc_array() and are released as probe unwinds, so the device can
+go on writing to memory that has been freed.
 
-Had the probe gone on, the error and remove paths would call
-qmi_handle_release() on the half-initialized handle, which destroys the
-workqueue and frees the receive buffer a second time.
+Reset the device before deleting the virtqueues, the way viommu_remove()
+already does.
 
-Return the error from qmi_handle_init(), so that -EPROBE_DEFER defers
-the probe, and check qmi_add_server() as well.
-
-The bug was found with kbound, a static analysis prototype for
-ownership mismatches at kernel interfaces, on v7.2.12; it is present in
-mainline.
-
-Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
-warnings. Run-tested on QEMU (x86_64, KVM) with KASAN and kmemleak, with
-the driver built in and a test module that registers the
-q6usb.qc-usb-audio-offload auxiliary device. Without QRTR, the probe
-crashes as above without this patch; with it the device is deferred and
-removing it again reports nothing. With QRTR the probe succeeds, and
-removal reports nothing either.
-
-Fixes: 326bbc348298 ("ALSA: usb-audio: qcom: Introduce QC USB SND offloading support")
+Fixes: edcd69ab9a32 ("iommu: Add virtio-iommu driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
-Link: https://patch.msgid.link/20261102035237.56253-1-izaiahsun@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-ID: <20261004182218.177343-1-oss.patchbox@gmail.com>
+[ sashal: replaced virtio_reset_device() with vdev->config->reset(vdev) after the existing err_unregister cleanup ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/qcom/qc_audio_offload.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/iommu/virtio-iommu.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
-index 62a57b8d171b8..3a0a0d8f4654b 100644
---- a/sound/usb/qcom/qc_audio_offload.c
-+++ b/sound/usb/qcom/qc_audio_offload.c
-@@ -1975,8 +1975,13 @@ static int qc_usb_audio_probe(struct auxiliary_device *auxdev,
- 			      QMI_UAUDIO_STREAM_REQ_MSG_V01_MAX_MSG_LEN,
- 			      &uaudio_svc_ops_options,
- 			      &uaudio_stream_req_handlers);
-+	if (ret)
-+		goto free_qmi_hdl;
-+
- 	ret = qmi_add_server(svc->uaudio_svc_hdl, UAUDIO_STREAM_SERVICE_ID_V01,
- 			     UAUDIO_STREAM_SERVICE_VERS_V01, 0);
-+	if (ret)
-+		goto release_qmi_hdl;
+diff --git a/drivers/iommu/virtio-iommu.c b/drivers/iommu/virtio-iommu.c
+index 80930ce04a168..f60a9d48f952b 100644
+--- a/drivers/iommu/virtio-iommu.c
++++ b/drivers/iommu/virtio-iommu.c
+@@ -1061,12 +1061,12 @@ static int viommu_probe(struct virtio_device *vdev)
+ 	/* Populate the event queue with buffers */
+ 	ret = viommu_fill_evtq(viommu);
+ 	if (ret)
+-		goto err_free_vqs;
++		goto err_reset_vdev;
  
- 	uaudio_svc = svc;
+ 	ret = iommu_device_sysfs_add(&viommu->iommu, dev, NULL, "%s",
+ 				     virtio_bus_name(vdev));
+ 	if (ret)
+-		goto err_free_vqs;
++		goto err_reset_vdev;
  
-@@ -1993,7 +1998,9 @@ static int qc_usb_audio_probe(struct auxiliary_device *auxdev,
+ 	iommu_device_register(&viommu->iommu, &viommu_ops, parent_dev);
  
- release_qmi:
- 	qc_usb_audio_cleanup_qmi_dev();
-+release_qmi_hdl:
- 	qmi_handle_release(svc->uaudio_svc_hdl);
-+free_qmi_hdl:
- 	kfree(svc->uaudio_svc_hdl);
- free_svc:
- 	kfree(svc);
+@@ -1101,6 +1101,8 @@ static int viommu_probe(struct virtio_device *vdev)
+ err_unregister:
+ 	iommu_device_sysfs_remove(&viommu->iommu);
+ 	iommu_device_unregister(&viommu->iommu);
++err_reset_vdev:
++	vdev->config->reset(vdev);
+ err_free_vqs:
+ 	vdev->config->del_vqs(vdev);
+ 
 -- 
 2.53.0
 
