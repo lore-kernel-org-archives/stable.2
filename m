@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598574;
-	b=S7oo3fQL9VHsGjcVc6f8bZVOdOE0pVH+Vy1UiQm9whYFanmFsGMTNMWwt6zD9sXNukRL
-	 lQGg2A9oN+eJplV0IvmAVFMxjZMFjHt/jnhWHzaJKAdB+8ZhI1SojkwLbHOb7wlfEroU8
-	 cVxbsk0bxsZYVJa1gdhu306uHW9vILa7I4YTNvhUqxZzFFmB8fyDh5B7c7gTfZDCLqw2V
-	 /qr8g414wSpwEZMxPwDvzjogC6o4cTz9JPoOCxjuxduWEMVrOMifYQutX3zTBsgwd2cJ6
-	 d/Zc9BKxXMy4OlGkfTh3DOiwpamkRBKS8buJnYH4K7kp5FPUOR3dZ5OLpexB25nQjHQ==
+	t=1794598580;
+	b=Qb/S3Ds/kXWH5+xMOuZHernFAnZRMY2fND0pSfBW9l0G0hBbsDbhEaLetcBZIbr15/kv
+	 0Rv+/gjcP6lYM+7UuTd64/5URymuimbBuA+EtkjpceavUn5IUDq0yCEYotp2r25EmWFRM
+	 IKpGhpUJvA+oqbU05xkvKoz92YbPuzsqJXhLk+q3Cj6oPX60/HwD2HUPd9zM+72Kotzob
+	 /bgFudf3eUC4HvaMbFwjTDL8J+6rO0HfdWeQh61pHWH8ssHM4hHbc2U1agTCKPJGp4+Zg
+	 n6P7UyoEAnIDcIl7XVVwwLnsc1b58ieGX4IVG9Gnj0ymHa4cLbMnm3PmkGcAb4iA9qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598580;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8xOqUV0cjI+1ELhzDdUu/YSrSTeMttRt8JyVyfccpK4=;
-	b=UyggB2rgMNh6RUBWB3I9/3DPw/oZse/VEJImT9OKQrtc+NbMJkrjY6gLgtlJoiNMf6bp
-	 mu6O2EbkudoFUvh96vz6JjRQ5iENBO97RpNIcXaf3I48K1yl8EtH/70gYDoIDIBvLXKF/
-	 f9WM/z1oi3h6udr+VUmksw/qJD0cdiW2mJkh0XKlaQx3u/HVqEJtoEyEhC5OruI8LzBRx
-	 CI0b3d6cDdVlJOj6xdZkP2FzDpvOxn/dwPBfb+9n1Ppdj/i3rzpYbtg0SheV7DuYY4Phv
-	 6CBySNAXtPQT/WDAl9vsdKDT3DwhgAXHeo91WffxV4n5FpEPcxZ5VydDFDFpJWNkhJQ==
+	bh=3btaDFzFg3AvVpdlTtk3uFKOC6fVO17Bzy75ueEGE/U=;
+	b=02owja5l3LmdSLFkFVQfEDpJacL6jqECNoYhpjj07aymD4ndFjEcbAuBLbm8wvstA7xz
+	 X8RwLdQqutgwPOxvl40IehmRCoCl+kZlQj/RsEBVzgnYoigXRRd5QOSut4VIXvJSGjIPW
+	 DPpAj3R0gWIGLlTbQqPRXPVevHSlW2Rt6EJfQE+X+kRiqIEvnSIB04xeli2VxLsnWePPx
+	 MtdfzmllvOzzp8mbPgmBMaqvC5aGQCHAbQgduhwgbyzMhSyJC5IW3qBgQWkZ3ad5e1NIQ
+	 FpnEayuqjJ4EJ8/WFCMLHCOm/pWdFVQWHFLk5UIxw1K33PY8jh6HzGkaISYb1S1R/dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcZoYpPn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ge8Iy3bd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709D1606A32E
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:36:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841C1606A32D
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:36:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcZoYpPn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4601F000C4;
-	Fri, 13 Nov 2026 19:36:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ge8Iy3bd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93BA61F000C4;
+	Fri, 13 Nov 2026 19:36:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794598574;
-	bh=8xOqUV0cjI+1ELhzDdUu/YSrSTeMttRt8JyVyfccpK4=;
+	s=k20260515; t=1794598580;
+	bh=3btaDFzFg3AvVpdlTtk3uFKOC6fVO17Bzy75ueEGE/U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gcZoYpPnilvrX1TeGuChJbUUrevfosDHigpRmVlKBCPGuxxfaOWofOilBpjYkVRdb
-	 kGRqQFF6wL9Ix1vZ8eseQodn6T3993NDatexkphPhIOGzt9hPFLzUNymlVWH4c6U5B
-	 8mgAZ+9msF5EPYCujmNc3dcInNhZYPZQ30EdfQTeKp3dqDb9iNuJg6Wr4iuetwbsTg
-	 +ZXVy06sjoxT6/OgdXVlB9AaTCfWL6be60wgsz39ey7YT2fmOnBfMHX5WQ9Iqx/+Qh
-	 auZmbiLEP7JzjB699PIjB9LX5xQrfFH0x/fGB9L80n93B/FdeprYMoqYWEGj4JBYto
-	 /sP0AoAHAxn4w==
+	b=ge8Iy3bdi7Fsp/dHEml82fzzK76FU4HD0rmNzs7DbyDd4zvIjHH1OnUH7Incqr/Jc
+	 ratYs0ZJcFHx/NC/WvkwXXOb4QNSV3O8g2aren1pUJ4lfzfRP3okTIy/uIsWUWvCUC
+	 yOakrHjcigvhMi9GwGNRX4E9IYhkNFWkL32+HuesP3+JMihugQUgfQ3WtjU2OAU7DI
+	 R6fh2sHauQ70o106WXKnoPfcfnM6GadmRvRrRn+/S64+RF3mEysbpqgQMrTecabKwb
+	 VIEjI0HrA+Lb9dCcBUXJ4mQxC3S26Vb/0PQtFNVyoN/dL9bEqstCGEG5eezBWSLD2Z
+	 ckU4PynCLG/fA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
+Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/shmem: make shmem_file() check the file's inode
-Date: Fri, 13 Nov 2026 14:36:12 -0500
-Message-ID: <20261113193425.2425211-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/2] ASoC: SDCA: export PM helpers keyed on sdca_class_drv
+Date: Fri, 13 Nov 2026 14:36:17 -0500
+Message-ID: <20261113193611.2457020-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201125-failed-6.6-d3710111839d@kernel.org>
-References: <20261109201125-failed-6.6-d3710111839d@kernel.org>
+In-Reply-To: <20261107050548-failed-7.3-d34a818a331f@kernel.org>
+References: <20261107050548-failed-7.3-d34a818a331f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,120 +62,236 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-[ Upstream commit d3710111839d11339e414b1bb3fea3d05ab83f6e ]
+[ Upstream commit 0985313a2a9d2e84d6a6b1041c88b5c57ee46dfa ]
 
-shmem_file() only checks if file->f_mapping is a shmem mapping. This
-mapping can belong to another file, however, as with a Coda file backed
-by a tmpfs container after mmap().
+The class PM callbacks pull sdca_class_drv out of drvdata, so the
+built-in class_sdw_driver owns the drvdata slot. That works for the
+generic case but blocks codec drivers that want to embed
+sdca_class_drv in their own private struct -- they need drvdata for
+their codec priv.
 
-So it does not guarantee that the file inode is an actual shmem inode.
+Split the four callbacks into exported helpers that take a
+struct sdca_class_drv * directly:
 
-Seal handling and memfd preservation use this check before accessing
-shmem inode state, so they can access an inode of the wrong type.
+  sdca_class_system_suspend()
+  sdca_class_system_resume()
+  sdca_class_runtime_suspend()
+  sdca_class_runtime_resume()
 
-Let's make shmem_file() check the inode's file operations instead, to
-identify shmem inodes reliably. This will identify regular shmem inodes,
-including memfds and ordinary tmpfs files, independently of wrapper file
-operations.
+Codec drivers can now compose these into their own dev_pm_ops without
+going through drvdata.
 
-Use shmem_mapping() in collapse_file() instead to not change the behavior
-of collapse_file(): it operates on the page cache and uses mapping->host
-for shmem inode operations. Focusing on the file does not seem relevant.
+For the built-in class_sdw_driver, add small dev_pm_ops wrappers that
+fetch drv from drvdata and wire them into sdca_class_pm_ops. The ops
+struct itself stays private to this file; codec drivers build their
+own dev_pm_ops from the four exported helpers above.
 
-Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
-Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adjusted context to preserve the existing inline shmem_mapping() helper and surrounding declarations. ]
+No functional change: the built-in class_sdw_driver keeps the same PM
+semantics; only the internal plumbing shifts to operate on
+sdca_class_drv instead of struct device *dev.
+
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://patch.msgid.link/20260925161049.758913-3-srinivas.kandagatla@oss.qualcomm.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: d34a818a331f ("ASoC: SDCA: re-enable IRQ on pm_runtime_force_suspend failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/shmem_fs.h | 15 ++++++---------
- mm/khugepaged.c          |  2 +-
- mm/shmem.c               |  5 +++++
- 3 files changed, 12 insertions(+), 10 deletions(-)
+ .../soc/sdca => include/sound}/sdca_class.h   | 14 ++++
+ sound/soc/sdca/sdca_class.c                   | 81 ++++++++++++++-----
+ sound/soc/sdca/sdca_class_function.c          |  2 +-
+ 3 files changed, 78 insertions(+), 19 deletions(-)
+ rename {sound/soc/sdca => include/sound}/sdca_class.h (58%)
 
-diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
-index 134c686c8676c..e4b24b4442bb9 100644
---- a/include/linux/shmem_fs.h
-+++ b/include/linux/shmem_fs.h
-@@ -93,12 +93,18 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags);
- extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
- #ifdef CONFIG_SHMEM
-+bool shmem_file(struct file *file);
- extern const struct address_space_operations shmem_aops;
- static inline bool shmem_mapping(struct address_space *mapping)
- {
- 	return mapping->a_ops == &shmem_aops;
- }
- #else
-+static inline bool shmem_file(struct file *file)
-+{
-+	return false;
-+}
+diff --git a/sound/soc/sdca/sdca_class.h b/include/sound/sdca_class.h
+similarity index 58%
+rename from sound/soc/sdca/sdca_class.h
+rename to include/sound/sdca_class.h
+index 57f7f8d08f497..8a6a34a8dd4c3 100644
+--- a/sound/soc/sdca/sdca_class.h
++++ b/include/sound/sdca_class.h
+@@ -32,4 +32,18 @@ struct sdca_class_drv {
+ 	struct work_struct boot_work;
+ };
+ 
++/*
++ * PM helpers.  Codec drivers embed sdca_class_drv in their own priv,
++ * own dev_set_drvdata(), and compose these into their own dev_pm_ops:
++ *
++ *	static int wcd_runtime_suspend(struct device *dev) {
++ *		struct wcd_priv *priv = dev_get_drvdata(dev);
++ *		return sdca_class_runtime_suspend(&priv->class);
++ *	}
++ */
++int sdca_class_runtime_suspend(struct sdca_class_drv *drv);
++int sdca_class_runtime_resume(struct sdca_class_drv *drv);
++int sdca_class_system_suspend(struct sdca_class_drv *drv);
++int sdca_class_system_resume(struct sdca_class_drv *drv);
 +
- static inline bool shmem_mapping(struct address_space *mapping)
- {
- 	return false;
-@@ -159,15 +165,6 @@ static inline struct page *shmem_read_mapping_page(
- 					mapping_gfp_mask(mapping));
+ #endif /* __SDCA_CLASS_H__ */
+diff --git a/sound/soc/sdca/sdca_class.c b/sound/soc/sdca/sdca_class.c
+index e0e7aff70f93d..c5d6cf9896545 100644
+--- a/sound/soc/sdca/sdca_class.c
++++ b/sound/soc/sdca/sdca_class.c
+@@ -20,7 +20,7 @@
+ #include <sound/sdca_function.h>
+ #include <sound/sdca_interrupts.h>
+ #include <sound/sdca_regmap.h>
+-#include "sdca_class.h"
++#include <sound/sdca_class.h>
+ 
+ #define CLASS_SDW_ATTACH_TIMEOUT_MS	5000
+ 
+@@ -199,30 +199,41 @@ static void class_sdw_remove(struct sdw_slave *sdw)
+ 	cancel_work_sync(&drv->boot_work);
  }
  
--static inline bool shmem_file(struct file *file)
--{
--	if (!IS_ENABLED(CONFIG_SHMEM))
--		return false;
--	if (!file || !file->f_mapping)
--		return false;
--	return shmem_mapping(file->f_mapping);
--}
+-static int class_suspend(struct device *dev)
++/**
++ * sdca_class_system_suspend - SDCA class system suspend helper
++ * @drv: caller-owned sdca_class_drv.
++ *
++ * Codec drivers compose this into their own dev_pm_ops.  Disables the
++ * SoundWire interrupt and forces runtime suspend of the underlying
++ * class regmap.
++ */
++int sdca_class_system_suspend(struct sdca_class_drv *drv)
+ {
+-	struct sdca_class_drv *drv = dev_get_drvdata(dev);
+ 	int ret;
+ 
+ 	disable_irq(drv->sdw->irq);
+ 
+-	ret = pm_runtime_force_suspend(dev);
++	ret = pm_runtime_force_suspend(drv->dev);
+ 	if (ret) {
+-		dev_err(dev, "failed to force suspend: %d\n", ret);
++		dev_err(drv->dev, "failed to force suspend: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_NS_GPL(sdca_class_system_suspend, "SND_SOC_SDCA_CLASS");
+ 
+-static int class_resume(struct device *dev)
++/**
++ * sdca_class_system_resume - SDCA class system resume helper
++ * @drv: caller-owned sdca_class_drv.
++ */
++int sdca_class_system_resume(struct sdca_class_drv *drv)
+ {
+-	struct sdca_class_drv *drv = dev_get_drvdata(dev);
+ 	int ret;
+ 
+-	ret = pm_runtime_force_resume(dev);
++	ret = pm_runtime_force_resume(drv->dev);
+ 	if (ret) {
+-		dev_err(dev, "failed to force resume: %d\n", ret);
++		dev_err(drv->dev, "failed to force resume: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+@@ -230,11 +241,14 @@ static int class_resume(struct device *dev)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_NS_GPL(sdca_class_system_resume, "SND_SOC_SDCA_CLASS");
+ 
+-static int class_runtime_suspend(struct device *dev)
++/**
++ * sdca_class_runtime_suspend - SDCA class runtime suspend helper
++ * @drv: caller-owned sdca_class_drv.
++ */
++int sdca_class_runtime_suspend(struct sdca_class_drv *drv)
+ {
+-	struct sdca_class_drv *drv = dev_get_drvdata(dev);
 -
- /*
-  * If fallocate(FALLOC_FL_KEEP_SIZE) has been used, there may be pages
-  * beyond i_size's notion of EOF, which fallocate has committed to reserving:
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index c0a3d09cfd976..dafa740e9bb2d 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1785,6 +1785,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 			 struct collapse_control *cc)
+ 	/*
+ 	 * Whilst the driver doesn't power the chip down here, going into runtime
+ 	 * suspend lets the SoundWire bus power down, which means the driver
+@@ -244,10 +258,14 @@ static int class_runtime_suspend(struct device *dev)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_NS_GPL(sdca_class_runtime_suspend, "SND_SOC_SDCA_CLASS");
+ 
+-static int class_runtime_resume(struct device *dev)
++/**
++ * sdca_class_runtime_resume - SDCA class runtime resume helper
++ * @drv: caller-owned sdca_class_drv.
++ */
++int sdca_class_runtime_resume(struct sdca_class_drv *drv)
  {
- 	struct address_space *mapping = file->f_mapping;
-+	const bool is_shmem = shmem_mapping(mapping);
- 	struct page *page;
- 	struct page *tmp, *dst;
- 	struct folio *folio, *new_folio;
-@@ -1793,7 +1794,6 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 	LIST_HEAD(pagelist);
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
- 	int nr_none = 0, result = SCAN_SUCCEED;
--	bool is_shmem = shmem_file(file);
+-	struct sdca_class_drv *drv = dev_get_drvdata(dev);
+ 	int ret;
  
- 	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
- 	VM_BUG_ON(start & (HPAGE_PMD_NR - 1));
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 0f7c7ec48837a..74517e446f63f 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -263,6 +263,11 @@ static const struct vm_operations_struct shmem_vm_ops;
- static const struct vm_operations_struct shmem_anon_vm_ops;
- static struct file_system_type shmem_fs_type;
+ 	ret = sdw_slave_wait_for_init(drv->sdw, CLASS_SDW_ATTACH_TIMEOUT_MS);
+@@ -270,10 +288,37 @@ static int class_runtime_resume(struct device *dev)
  
-+bool shmem_file(struct file *file)
+ 	return ret;
+ }
++EXPORT_SYMBOL_NS_GPL(sdca_class_runtime_resume, "SND_SOC_SDCA_CLASS");
++
++/*
++ * Convenience dev_pm_ops used by the built-in class_sdw_driver, which
++ * stashes its sdca_class_drv in drvdata directly.  Codec drivers that
++ * embed sdca_class_drv in their own priv compose their own dev_pm_ops
++ * using the sdca_class_*_suspend/resume helpers above.
++ */
++static int class_pm_system_suspend(struct device *dev)
 +{
-+	return file && file_inode(file)->i_fop == &shmem_file_operations;
++	return sdca_class_system_suspend(dev_get_drvdata(dev));
 +}
 +
- bool vma_is_anon_shmem(struct vm_area_struct *vma)
- {
- 	return vma->vm_ops == &shmem_anon_vm_ops;
++static int class_pm_system_resume(struct device *dev)
++{
++	return sdca_class_system_resume(dev_get_drvdata(dev));
++}
++
++static int class_pm_runtime_suspend(struct device *dev)
++{
++	return sdca_class_runtime_suspend(dev_get_drvdata(dev));
++}
++
++static int class_pm_runtime_resume(struct device *dev)
++{
++	return sdca_class_runtime_resume(dev_get_drvdata(dev));
++}
+ 
+-static const struct dev_pm_ops class_pm_ops = {
+-	SYSTEM_SLEEP_PM_OPS(class_suspend, class_resume)
+-	RUNTIME_PM_OPS(class_runtime_suspend, class_runtime_resume, NULL)
++static const struct dev_pm_ops sdca_class_pm_ops = {
++	SYSTEM_SLEEP_PM_OPS(class_pm_system_suspend, class_pm_system_resume)
++	RUNTIME_PM_OPS(class_pm_runtime_suspend, class_pm_runtime_resume, NULL)
+ };
+ 
+ static const struct sdw_device_id class_sdw_id[] = {
+@@ -287,7 +332,7 @@ MODULE_DEVICE_TABLE(sdw, class_sdw_id);
+ static struct sdw_driver class_sdw_driver = {
+ 	.driver = {
+ 		.name		= "sdca_class",
+-		.pm		= pm_ptr(&class_pm_ops),
++		.pm		= pm_ptr(&sdca_class_pm_ops),
+ 	},
+ 
+ 	.probe		= class_sdw_probe,
+diff --git a/sound/soc/sdca/sdca_class_function.c b/sound/soc/sdca/sdca_class_function.c
+index 610931ae5531f..616d5f9736716 100644
+--- a/sound/soc/sdca/sdca_class_function.c
++++ b/sound/soc/sdca/sdca_class_function.c
+@@ -26,7 +26,7 @@
+ #include <sound/soc-component.h>
+ #include <sound/soc-dai.h>
+ #include <sound/soc.h>
+-#include "sdca_class.h"
++#include <sound/sdca_class.h>
+ #include "sdca_function_device.h"
+ 
+ struct class_function_drv {
 -- 
 2.53.0
 
