@@ -1,94 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532726;
-	b=E9Sohq5Ie8JubBlkG8AyTTKTrrwKq/DjO7BM8s9So0oUae91qi3+E0VwmSVAPlF7hvcK
-	 ZrtU1XKhpdidnZzfUzqHMcURzhT9Ax1d1DziU3GfTJCqjUjLPQzCxs2nLcUK/+VTtuaNT
-	 0sPlEDReTJ1U71nb4L1t0o6+Sl/DOVfkk9fOtdd543wGSCYklzZaGilL2vPFXV8XGCQtw
-	 11JOnnzRdE1u8+DEha7c9yAUTUiOf9N/0UehQPZa8j87s6xMz4nMCuQZ9rszN1kYoP2LD
-	 579obArrf6kdl1U8nNHQgORYFkCX1ot2CjPePDGujJ269z0END63U9+FY9YH2lSnjLQ==
+	t=1794532763;
+	b=OgTbZwN8pPMZ2xMbW2uw9r1VfIHiQ1s1yrbFHzRgXrq2Kn1LQvSZWz2PbZNIcICFiopV
+	 tI6+84B5hPjhQTZdBxQqWDXR3OLSJ6mLRAeLh3mvEEnUFQwDAJEFA1ELSKKM6iaHqkIzK
+	 HXGazugcpVtnF26YF9P6dYCzzKaorrYcRFg07B1Sp2yvf78XbBQ71sBXeWrKJxCzA8eBk
+	 OM2lZ1n3CB79jYpSmlea9SNmq1E4K+8qgk/4QDcUBZgg48uBrkjPGClqQ3jClWGkJpTiH
+	 iXS3q2sflNG5TAtN46or21Yg2B53hkELE/qsxVglUw+++WBGPwUjevOBz31OzSatDhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532726;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532763;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=VasWpqSUZYD0V4VYxxbwomWuyZegnnIz6kc2wFLpprs=;
-	b=JTvO1MBAcVSxoPUm4QrP2ncE6CpPqWypGI1fRKegaKvji5sFb6T1AP/eKsSotv6AoQuG
-	 XrRtKQFTsmASN9eKkdpMoqUkfmjTjDHrq9bnPb+sBPd4RKbruEmuaZtFx0n1++OE9NIbg
-	 j3Zm+b8LpOEEiJSqpy8kNCzE+UOCXYN0QJ7AP6+Y8dWraoVXmO2EoJbjGwXLA/4JWAS3l
-	 K1s+rO+dbDZ8IwhxwXn6J4wb7ui3LD60kuWbtwe2l7+nqTxzUXGGrVkw/I7G9Iae01iE4
-	 Q+QiuolvBQzEF37TEPfWqpzxadesKHwaPbjkIKDI5sTMOwYU3Gk7E8lloOo4X3l7lCA==
+	bh=AK0AaGEwk4cMTiFqsZy64T6KJJduF/beo0b819eugg0=;
+	b=SDIPGaeK9Srt3/fUBbnJOx7LM7HQ21xPi6wi7kpRMCFzbWAO7rBzbsJJpHZeDGHJNB44
+	 ofvG/f+2oviV9Gsr2tpxUi7jJfVsb9qoLpVZyZtIr9GM4eMkYe7Ihy5N7mIGz9J/xI7IF
+	 BL+EyiiXm41nrdm2uRMwah69qThNaPaPf5EBY6gkJAiyM7A3xUk5QlmF+ynzT3sTk9Scq
+	 Trjyj7/Q8LheosaxDR4Hr58lFJ8ijP17WbAC1I33h7ej0NNafKjMBlLn8Qgyj10AXbOZ8
+	 jY+rx5xZRjiYKnlRXoptBt8JJdY6ldgDnM/YDpTiHRRjbQvXEj+mBumhK46BGsOQiIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gbwr0IK0;
-	arc=none smtp.remote-ip=209.85.210.49
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W2lev20e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29F9606A882
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:18:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A29F9606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E32606A32A
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:19:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gbwr0IK0
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-8241a56cd70so479838a34.3
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:18:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794532725; x=1795137525; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VasWpqSUZYD0V4VYxxbwomWuyZegnnIz6kc2wFLpprs=;
-        b=Gbwr0IK0qd1Y/y7HBMuf9IUXwTm1GD3GcGNZPmJ1lAYZJxS9CEQryMc6NhKoIJE+Bo
-         d/DETRVD7Yr2TJ8MnzMvwdJDeGO9PKieWKkwVjxjdFHx0x19ePXKYdMSqKnWlb6hb9nH
-         HLwKuCTlpOhDLIIzPqad5DgqCy+q7YvwdAH1w70j2nhoeD9L0veIb9fe7xqnNpLV+1Ro
-         hoy7/e9qlNO958nQJ5LfomK6a1419t6AZ6MEdEbyJ+YqNgg9rTUe1pRbBNLpgzyJt78S
-         wqm3q4S8sjeCQf1kBhJfKIWq/4VHU3brAqcQL8gYfp06+ntjJmGtD9NBGWRPEOwhXoQ+
-         ytDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794532725; x=1795137525;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VasWpqSUZYD0V4VYxxbwomWuyZegnnIz6kc2wFLpprs=;
-        b=20aIL2lvBHKEA4yzKLArJ8kQCorklk+EEesa0hksvtNPnizvV1+rzdg9p7cS0FVtEZ
-         +oHEq7ux9CMuRNpvXlDuSjZ27mhhm/dRufJ3vakFN9IFT2dKpeKuRPqphak7kOVrHSwt
-         ulR7K841w0GMlWTo2T2zplUxojO/kdEroRnIKtwWipkUyBCXA3QGKmdFCqT2jCGnw48h
-         hseiuqE371pQIVSX5Y5x1ySLnDzYMSiIrngSz71ZztihrL5v914NrdoEPVPw0LKrzg16
-         E/1XAvV2J1d42uj16A+Ds/ZXhLOFmqfAUWI5NRA6tMxdqmtO/UuJmNzVYgsE9SKuYuDj
-         KDHw==
-X-Forwarded-Encrypted: i=1; AL+hErEgfH7t2BYRK48WzNlRhrbr810v52yZ7HRrgdnsIDqxVXD0rnqdZ//O0fkT3LT/MCP45MxGmCw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8XCKPKatP5mEgdnUhkalj93BbMujcgE5cuJeFKzbQE+jhRCaaV
-	vrRz2qcgx47ZsmVjLLvedRuwk6zFSAruYW0pL/ba+7rLqyNoj9wnHyvS
-X-Gm-Gg: AYBFou2FPLeYawRJgCZNSw8awC7WwOIg0kAQ+FKzLTYinBSbemflvlBo8dBPrWM5htJ
-	56ykq4jTJfHGx7VCC+VP7StLPbeDR5KQhRg2NncE9g9DNC6URvroN/cbnWilC211OacAnoC8z1D
-	RehlralkZr2TDoK26aFOFVDoj1udHQmkMsLi0x9k9/ieObJZjdidWzfHzI9RzVn2jmIg9X5OLRb
-	hiZ7oQqcUr/TGonyWpIrWfmMo8R0O01LoGCPoBDRUwIhTeKzbUV+U6A88UdlWEgtPSvr3vdWR4D
-	bX92kGnzk4ZdWagWQlVBJV92qMtVh2Q23M4tcgqGqzABJxBCyTDeQazWIm51yHdFxXDuIc8mRrR
-	7nz7Il0Z3H7viloAxML7Jv6P7Th69Ue7kkX2niHDMuUFq637aG5sxWif/9Rwnjb5mY8jxqvrUWD
-	isjuSrm5C9K7u9Boy+sAOMNTChS8zxcu4TydOXAd1nosSM6Ib8nlTvm4ZW3SUsBbF4V0WSGBEtQ
-	XPRBUYNdxFDn6C2MnTAKSlz/bwjfXFrjEOfbzgemhuqP+FcYS3clLKYqIZW2IFrLWF1TtVfsVfw
-	fiQhvBX7lbxvzZFz/BC3GVmlq+qXvz8/q6mHaCoZ60db2oDt+S+uIY6CbmwVkw6aPbgOQQhsvZL
-	VWy6y84OCXMATLnE1MguGeRVnFyCt4lZ9eoDwq2VLGgOeWoO65D1cEbU=
-X-Received: by 2002:a05:6830:914:b0:843:8982:9532 with SMTP id 46e09a7af769-8628992d65cmr1277963a34.28.1794532724575;
-        Thu, 12 Nov 2026 17:18:44 -0800 (PST)
-Received: from cachyos-x8664 (fixed-186-96-141-48.totalplay.net. [186.96.141.48])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880a5298sm1230599a34.7.2026.11.12.17.18.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 17:18:44 -0800 (PST)
-From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>,
-	stable@vger.kernel.org,
-	syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
-Subject: [PATCH] media: em28xx: clear dev->v4l2 when v4l2 init fails
-Date: Thu, 12 Nov 2026 19:12:34 -0600
-Message-ID: <20261113011234.45270-1-diegomancera.dev@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W2lev20e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E429E1F000C4;
+	Fri, 13 Nov 2026 01:19:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794532763;
+	bh=AK0AaGEwk4cMTiFqsZy64T6KJJduF/beo0b819eugg0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=W2lev20eAiQqGUaQDGB7zvZDOtRNiwxmvEFpnkwPIbb1pGoJCxf9bE1FHF1DEeD/M
+	 bS/zfN8HEFUowOHr2kEjPNwxogKKQuJvod2yKoRI1JLFP1qdYlGCqPbasSLCX0iS7I
+	 WJ0UvuZGpLRQbiOlm98gfyn3riWyd1QKlXXkI1b7B5q7JP/4Cwsj523dTBctsALAMS
+	 EFErIIK86bzbHrRGQti4XvTHswtFcP3pktLiG+tGEI9R/85CchekJy7iJPfLGsTkhk
+	 H8K9MUe7WWfx3EDFCb7bv9PDuTM23yrN5NzuCcNblpMmLtQSuz+FixAIW6pGTPtV7B
+	 pU3e+xYSfefMA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] drm/amdgpu: don't walk the CS chunks when allocating them failed
+Date: Thu, 12 Nov 2026 20:19:21 -0500
+Message-ID: <20261113011912.545798-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200547-failed-6.18-ade92d50aad6@kernel.org>
+References: <20261109200547-failed-6.18-ade92d50aad6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,53 +61,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In em28xx_v4l2_init(), if an error occurs after video_register_device()
-succeeds, the unregister_dev error path unregisters the video devices and
-drops the initial v4l2_dev reference, but leaves dev->v4l2 set.
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-An em28xx_v4l2_open() call already in progress (such as from v4l_id)
-that blocked on dev->lock while em28xx_v4l2_init() held it will then
-find dev->v4l2 still non-NULL and succeed on an unregistered node
-instead of returning -ENODEV. When the device is later disconnected,
-em28xx_v4l2_fini() also sees dev->v4l2 is still set and calls
-v4l2_device_put() a second time, dropping the refcount to zero and
-freeing v4l2 while v4l_id still holds it, causing a slab-use-after-free
-in v4l2_open().
+[ Upstream commit ade92d50aad6799a5a9d7e73cd1604fd0576e656 ]
 
-Fix this by clearing dev->v4l2 under dev->lock in the unregister_dev
-error path of em28xx_v4l2_init().
+amdgpu_cs_pass1() sets p->nchunks before allocating p->chunks, and the
+allocation failure path skips resetting it. amdgpu_cs_parser_fini() then
+frees the kdata of nchunks chunks from a NULL array. On navi48 with the
+chunk array allocation failed through failslab:
 
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:amdgpu_cs_parser_fini+0x35d/0x710 [amdgpu]
+   amdgpu_cs_ioctl+0xcae/0x7a20 [amdgpu]
+   drm_ioctl_kernel+0x180/0x320 [drm]
+
+Set nchunks once the array exists.
+
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 0c828445757b86aaa3ed2638832d76f450022bdf)
 Cc: stable@vger.kernel.org
-Reported-by: syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1a7507a194fff09e5c44
-Assisted-by: Gemini
-Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+[ sashal: Retained kvmalloc_array() with explicit element size and GFP_KERNEL in place of kvmalloc_objs(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Note: compile-tested drivers/media/usb/em28xx/em28xx_video.o with allmodconfig (no warnings); not runtime-tested locally against the syzbot reproducer.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
- drivers/media/usb/em28xx/em28xx-video.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 84424284d486..f78325a41124 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -3129,6 +3129,12 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 		vb2_video_unregister_device(&v4l2->vdev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 0f6505d4c958b..5a4e7a6623748 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -219,13 +219,14 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 	if (IS_ERR(chunk_array))
+ 		return PTR_ERR(chunk_array);
+ 
+-	p->nchunks = cs->in.num_chunks;
+-	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
++	/* parser_fini() walks nchunks chunks, set it once they exist */
++	p->chunks = kvmalloc_array(cs->in.num_chunks, sizeof(struct amdgpu_cs_chunk),
+ 			    GFP_KERNEL);
+ 	if (!p->chunks) {
+ 		ret = -ENOMEM;
+ 		goto free_chunk;
  	}
++	p->nchunks = cs->in.num_chunks;
  
-+	/*
-+	 * Clear dev->v4l2 to prevent an in-progress em28xx_v4l2_open() from
-+	 * succeeding on an unregistered node (returning -ENODEV instead) and
-+	 * to prevent em28xx_v4l2_fini() from tearing down the instance again.
-+	 */
-+	dev->v4l2 = NULL;
- 	mutex_unlock(&dev->lock);
- 
- 	/*
+ 	for (i = 0; i < p->nchunks; i++) {
+ 		struct drm_amdgpu_cs_chunk __user *chunk_ptr = NULL;
 -- 
-2.56.1
+2.53.0
 
