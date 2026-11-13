@@ -1,53 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794539895;
-	b=SJLVQD0DMjwLY8BjD6kwL0wSIty0efQtVuc5/sD+DCtBh+JKslFNiy5zsW24LqSzKxVk
-	 m0P3+pnta5wxmhm7XaxB9dVKzHIHi2cu5Xgv3wYGsPJY0EuaZEwaw9H+wz2UCYN2h73eX
-	 9TCnlfV54V3epIAy4CeWYPCQOkwpfHQtQvW3OnW6JE6hHZASydCUBRhmekNIULes4i+7H
-	 CMRNixzqvVvvpfSLVeJWFhiCa4X+FN+7p6xMQhn8pyvTo/veHN2VK6ZCe5kaUyAuyGFYv
-	 L0zBugbHJuKqU7EE3NFtijYI/6L/vX7kSjfg4bWsqtygGMMSQGvE/1t0WCBasUuaq+Q==
+	t=1794539991;
+	b=h1/L7KCPEUrOIgFwjDq20w/w049279w2dnTsqnvjA0/PEbbkDnBnvpiyu7fHs4rgx85J
+	 TKRKMGF24pRBc0BQvc6jq/RiDgeFddaophqv4Hes0n56Yc91Pukx+OVqOCmuesx8kNWOR
+	 lkdBkzDiaUiCwlOgSGkvsjiIZFfFc7OuoivuzQcaImhpW9jHM2x+D0i6HPOPuFSEIvK3t
+	 dBEalm1/zECmv7WBbGix6omQzzONy0Wdk7DedEIfgyRmU7826sCP7K6vWjHEFy0tRNoip
+	 p8wjqa9clfiHPS+bdUH8iffmQZ/qWMdd4uhko5AGjh6mwpg2ISWt3lTVT4x+lzx9IGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794539895;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=nWc0P3UFTmQDnMEzGX9xP/Vkt43l2zO1TjQschvRNFw=;
-	b=QsTyYcvxKjyDht2sz2TdqEbWCAxQNBI9Oz5pdwY3dJCgpKJI0J2Mj/ApoKbg5NPDLBmk
-	 jUhL1Ujr/MeNnr0TKpVT9DQrhp2Kn05oH2KNQ+qitBIGAMGIqrJOJPeVAys6nIIingFXk
-	 Em9BeQvbk/iBH444igCelQKZVOXoWTftVhk8WjU7vacGCTfhOFXJSLyX9WLBnRyWtXdQc
-	 4FgPD5jfTEXaIP1anlf12zLy1/PMMnSvLBN3DdKkCS5/i9xVbxANW4LXAfmB5+AGE8Xi2
-	 g8SQx75QanApLSWYYnljYkhH5DcSUNxUa6fIq0igtK/eD2l605G8qTdncOWKQpePRuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794539991;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=voIys8EwQkhUIwCPX9c3iOQmu5IoCkbo4OFDmG1MZKU=;
+	b=UgyaXTiFPaTfbn7pPSd8S6haBP/KOPLb0rWwkAFIqJS7m0tyUWoyPgQt/7p1y235P+IH
+	 /T3za+I9NyVhc/FeKGCKqJiCCowNDlLHTKHuy6P0tnaEX5R2MEeM5ksCdINDzszKul/6C
+	 jxoXsCB17yfj3vZmKPhY91xoRqTEWiwdQdQMP5OVyoyzPccrEmqI13jiFu3Wx5gygX3Dy
+	 lY3dxpXaD/AcYU2KXTEfKUDrRwOhL8XW7jrTPkcUa6Qf65bRpd8P6GHqldnjmFKFXmthY
+	 xQMj5j+punTD90l+GDQdCotwSbP91v8HEmZkUtvTWmKjcXxdhFPGIbBdJXaV/HCu9/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SkHtkpHe;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=inbDH7TG;
+	arc=none smtp.remote-ip=209.85.210.171
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DF2606A323;
-	Fri, 13 Nov 2026 03:18:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9DF2606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902CA606A31C
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:19:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 902CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SkHtkpHe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=nWc0P3UFTmQDnMEzGX9xP/Vkt43l2zO1TjQschvRNFw=;
-	b=SkHtkpHe9wM7wgDnQK6Qoe9I9l8fg5eO32VI8Z1bz2QqC/p1UyynDqK0mnEIhn
-	i85mUDWMKZBnnXr5UunAJ8OpoVbr3cIxsV5443gtc+PiMXz0gdEvkCCNParCD70U
-	QomXl5BziBGv/g6h/etTMqfTE/0Md0fnoxZg7kAF2awdw=
-From: Chaosheng Qu <quchaosheng000406@163.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: Robin van der Gracht <robin@protonic.nl>, Oleksij Rempel <o.rempel@pengutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>, Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH net v9 1/4] can: j1939: serialize cancel and rearm of the receive timer
-Date: Fri, 13 Nov 2026 11:17:24 +0800
-Message-ID: <179453984495.31919.9405526133383541519@163.com>
-In-Reply-To: <179453125694.488853.2205573161282115259@kernel.org>
-References: <20261111-j1939-edpo-v9-v9-1-e779ca334a81@163.com> <179453125694.488853.2205573161282115259@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=inbDH7TG
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a60f90a924so178971b3a.3
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 19:19:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794539991; x=1795144791; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=voIys8EwQkhUIwCPX9c3iOQmu5IoCkbo4OFDmG1MZKU=;
+        b=inbDH7TGQaS8YIhofdyopjaj2vvIPI0MTAVjELPvx6T6yv1rExDdkos8qLpXEzBV8s
+         rxjjuabXt9Yk1UQfzs/6nVzU8OqKotcTOuwtPs6quzFFqFvd3g26xehO7hCtbIFbEHvG
+         XzrnV0CaAiiDqw5y2bz09mWyTLLB4NlNw5oW3Uat+GXEqGRxgb0M2Z2FLdgXGNsKljLH
+         10Uf8DjwaXdkPK93j0BNkU2N/w3iGR3O+45l97ydQCR6qVMOqmYat9Sd6tFFdycaJT1n
+         sFDsiOm51XoRPLfzQWd5DVgadoQCH+7WGh+zac5y6UpmlEMd2ZANkGOEff2vVS9TWX0u
+         R75Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794539991; x=1795144791;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=voIys8EwQkhUIwCPX9c3iOQmu5IoCkbo4OFDmG1MZKU=;
+        b=gwE1eBoBtI4oPQ/NIBwY+VfUbQGAj2WpSjxLrwyX4OEGkmu0XdvGs0jMG/0PzPTEQA
+         aupdowoFaPmI/ebmTisGR/hy1QeX6u7hY7CRUT02tk/snmv8GQ2klvuEwyvDqc60ZJGp
+         r7yESHneT4xany2DWlyLq9tkwZQmsXwKL2wSQf0HyI54QZMrPVMJk6IfLmpwVXFsHNbR
+         fsy8etPIjAVDIqHVjybWHYep45zcqPQoNjh75rm7zYcz7iS2+7opKiyapVOe/ije4SYv
+         TcWxM7gwRSBCpfspxcqri/d93Zvcq7lc0GjEUii7fxuwvW0YXKgipSP+CipS2AhSu25t
+         9AEQ==
+X-Forwarded-Encrypted: i=1; AL+hErE61j/12k7kc/pZ4Y5ZHtOSXBTkjeiYFwf8rHV+5P5TcWhswvy58HMMnu+R6T7XMuUEAYTYRX8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EeIkG5ecgg7LP1oZqRVCDBznjji+7M31eSmQVMP+XX16Fp7Mw
+	GtAO7HZzmy0RBKlaRXGVN6SVHEmnLCP/hjGk44hZ9LBkoYj9L4a1ENOx
+X-Gm-Gg: AYBFou1H5ArC7PhEk6Q2j14iZuKi1GnRp4UG9Zxok7MN3crfSUrbar+K4UMQfeqHPAm
+	LagoT/XiiP0+Ijf2ECPdDLocMUAsur+evFbLarANbiSbILqH95KtLN/3+dQ7FJqkUEkgUhw4d+z
+	4pwPWOMtLmIxwneIiS065Oh+trwgWR8UBfxPcIYYORqYycpIxDREnMxMpdwk3E4+C8U52VURfqY
+	tQj1XcPXAyre2s6/jMvf5NVpVLcy825LBfZqWcs2N5DmAJjxEytB32VdRGXKKT/Fj66D7KRpSdM
+	wCGA6TUrqoVi3cN3sMKyVB8dKIAyoQ63lOpHstZ5AN2UcEjqltVWYsd5LGlMzgJFea8ugzDRLiH
+	NXKOxEteClBoeFG9YHuTmz6D1zY4j585XiXIFydiplPOdlhinIQ+yycbLXzQHdc895MgpxA7Cc+
+	DpOIq7ykVNCS/+IBxhXm4BtriXDyPsQNqA9Un8i/HxuLq6Y5LVqNmdKR8UcgNVn8OoGNhv8CzA+
+	9L5ahCjj/bJwXZXlXKnQFymGNfk4kVOZg+vVWaA+Vul2PH4phnZpON762RWGcJG9xXcCH6l9dVe
+	EcXL9pciz4eKCl83JQQ6YtE0tvlhnylMMDMzDCXQ0AkFyMqx
+X-Received: by 2002:a05:6a00:1989:b0:89e:33ba:54ce with SMTP id d2e1a72fcca58-8beb753d177mr1447093b3a.46.1794539990691;
+        Thu, 12 Nov 2026 19:19:50 -0800 (PST)
+Received: from rigel (106-68-220-184.tpgi.com.au. [106.68.220.184])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed243e643sm388162b3a.42.2026.11.12.19.19.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 19:19:50 -0800 (PST)
+Date: Fri, 13 Nov 2026 11:19:43 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] gpio: cdev: don't overwrite the whole flags field
+ when configuring lines
+Message-ID: <20261113031943.GA39484@rigel>
+References: <20261110-gpio-desc-flags-atomic-v3-0-2f463bce8086@oss.qualcomm.com>
+ <20261110-gpio-desc-flags-atomic-v3-5-2f463bce8086@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,85 +102,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P6ZYgfZq7eHFGw--.4133S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw47Cr13Kry8uF18Xr18Krg_yoWrJr1xpF
-	W3Kry7tr4DGr4F9w4xZF18XryS9r4fJr4fX3W7Kry3A398CF4jvFy5K3y0gFZrAr97u34a
-	9a1jg3sxWFs0ya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uelk3UUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BvORGr2gVs8wgAA3N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-gpio-desc-flags-atomic-v3-5-2f463bce8086@oss.qualcomm.com>
 
-Hi,
+On Tue, Nov 10, 2026 at 02:47:05PM +0100, Bartosz Golaszewski wrote:
+> linehandle_flags_to_desc_flags() and
+> gpio_v2_line_config_flags_to_desc_flags() read the flags word with
+> READ_ONCE(), modify the local copy and write it back with WRITE_ONCE().
+> 
+> The per-request config_mutex does not exclude sysfs, the irq core or
+> drivers touching the same descriptor, so bits they set or clear
+> concurrently can be lost.
+> 
+> Build the mask of bits owned by the line configuration and their new
+> values locally and apply them with gpiod_update_flags(). The whole
+> group changes in a single atomic step.
+> 
+> While at it: rename the functions whose semantics changed from
+> "conversion" to "flags update" accordingly.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: b7adfb6076ff ("gpio: cdev: update flags at once when reconfiguring from user-space")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
 
-Replying once for the series rather than per patch.
+Reviewed-by: Kent Gibson <warthog618@gmail.com>
 
-1/4
+for the series.
 
-The High holds. hrtimer_try_to_cancel() returns -1 while the callback runs
-and leaves alone a timer that was requeued from inside it, so an arm that
-races the expiry still takes a second reference for a single queued timer.
-The list lock does not help, because the running callback sits on the other
-side of it.
-
-The three Mediums hold as well. Deactivating on a WAITING_ABORT cancel does
-leave the abort rxtimer queued on a DONE session, and that expiry takes the
-generic else branch and queues a second RX_ABORT. j1939_tp_rxtimer() reads
-session->state before taking the lock, and with try_to_cancel() no longer
-waiting, a concurrent cancel can change state underneath it; the callback
-then calls __j1939_session_cancel() again, which puts a second abort frame on
-the bus and overwrites session->err. And the message is wrong in two places:
-before this patch j1939_session_cancel() called j1939_tp_set_rxtimeout(), it
-did not hand-roll get + hrtimer_start(), only j1939_tp_rxtimer() did; and it
-replaces the 1809c82aa073 workaround without saying so.
-
-The pre-existing txtimer leak is real too: j1939_tp_schedule_txtimer() takes
-a reference per hrtimer_start() with no cancel in front, and the do_cts_eoma
-path in j1939_xtp_rx_dat_one() calls it that way, so duplicate DAT frames in
-one softirq batch leak the same reference.
-
-So 1/4 needs the reference pinned across the whole queued and running
-lifetime of the timer, not the queued part alone: a flag owned by
-active_session_list_lock, where the clear-to-set transition takes the
-reference and the callback drops it, and both armers and the callback test it
-under the lock. That also fixes the state check in j1939_tp_rxtimer() and
-lets the WAITING_ABORT deactivate go away. It is a rewrite, not another pass
-at this hunk, so it will not be a v10 tomorrow. Zihan Xi is working the same
-reference-lifetime problem and Oleksij has asked him to sync with Tetsuo; I
-will see where that lands before sending and say so in the cover letter.
-
-2/4
-
-The abort code rests on a false premise. J1939_ECU_LOCAL_SRC is set from the
-source address alone in j1939_can_recv(), so a second node using our address,
-or a raw frame injected on the interface, is delivered to the transmitter
-session. It sent no CTS, yet the session is aborted with ECTS_TOO_BIG and
-that reason goes out on the bus. Once j1939_xtp_rx_cts_one() bounds the
-packet number, pkt.tx_acked cannot exceed pkt.total - 1, so the next version
-uses BAD_EDPO_OFFSET for both roles and drops the split. The comment will
-name j1939_xtp_rx_cts_one() instead of "4/4", and the "bounds the
-receiver-side writer only" wording goes.
-
-4/4
-
-The changelog describes the wrong current behaviour. An oversized
-ETP.CM_CTS already ends in ECTS_TOO_BIG: j1939_xtp_rx_cts_one() stores pkt-1
-in pkt.tx_acked, j1939_session_tx_dpo() copies it into the DPO, and the local
-echo reaches the transmitter branch with session->transmission set. What
-changes is that the out-of-range DPO is no longer sent on the bus. The visible
-change is the TP case: there is no DPO, so pkt.tx >= pkt.total made
-j1939_session_tx_dat() return -ENOBUFS and the session ran until the 1250ms
-rxtimer aborted with TIMEOUT or the retry limit ended it with -ENETUNREACH.
-That leads the new changelog. The comment and the role split follow 2/4.
-
-3/4
-
-Both nits accepted: WARN_ON_ONCE(!se_skb) and session->err = -EBADMSG instead
-of the silent drop, and the comment in j1939_xtp_rx_dpo_one() rewritten as
-part of the EDPO patch.
-
-Thanks,
-Chaosheng
-
-pw-bot: cr
-
+Cheers,
+Kent.
