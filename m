@@ -1,55 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537214;
-	b=KSDNgKqxOpMpUHA7aNInScNwIoxqkSoEx11H2Cjth+S51ECB/d/8Io8/+clYP2wsULGx
-	 ONf8clzef4pERh0hxlBlGq05PVLXMnA0YT/sANFWn2GwORWiwq9vFFmuhJfgxAG/v/Xn4
-	 eK1Zv8UO1J6gVP+IwXTmPflh3Xh90FUyfInpmGaVkXx8aIQd8SQ+Rg3KOlkM+07TRIHfn
-	 Lh9EPF69uFTba99BG/hNq0fiYO4pXEUMtKMP5DaZf0ebrJ1SZQguD9pi4uZ/ljf/z0/Qt
-	 yQDoTWgQdIEKke3DtyhxI+7dmmlJdtuzG2vVDLWRU3hjWDfbd9OD1GMNhHEY7PA9Aqg==
+	t=1794537215;
+	b=JCYYE3bCpWn8KWonWPQVrSkqeVKx2hpHvr+FFRxBESQEMIvwBTUj5fmJBiBh5IM6G1Sp
+	 ILNHaLn3Hc1up3rOjsko8iY43gXr7a3XqlCywsVc/FFb6oLEQuM/REr3eQy5MKdAZLqOC
+	 hFEDKywXvioqY3J5/blczpNUQG1efFrIq7ZMkVNJExptp5CT/ef96NQWImx5Pu0AzWNUY
+	 t+nWCSkPOwuvEp2155lfCqlFu52Sqkhqi3rsKTYg0GQcUkarhQTwkhy+9/k9helud8M7t
+	 4jt9QQY1O8yjPYyX1CmRgTLHJJ+uFjA3XbFkCmSVZ/CbFqFKsuogYW+xz1jIxafinTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537214;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537215;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SxIW+plsCgY2R5l2VH9YPxDkVEMEyU9n92O+K6dC4g0=;
-	b=THsakNdFj44hsWl96Ps/kht9cbPkqwt2LnfwKKQRMQ3lnopy53RfQ1M9PvrQ8ITXumhY
-	 iVb/q6dwCYFZ3v2Pi44rcXnPyDXUnTYY4wwURk2GBEEhRDmu+Cp+7ecVf+QmBQ4PauSY7
-	 rsZP9wia/VEHofuyLzJUfhONrlPjjUbNcowCcaW1wE6IaMdHAGNLNsPmL8eZN9Gem7fO3
-	 Py2r1UYOV0IVfx3YbvZf17ID3qbtaW8q1IHcB89CFWDQJ8d1K+HWFCQbRf+MjHRisSBKR
-	 aIkF//jZt/ttCejXPx0+STCFoyC5xtiybbfG1fcQ3F9BiTHELWPDsrkC75khl5NeArw==
+	bh=KXBsLbHqbNY0tnMKABAel74HWjlwLz2G94116zY2phk=;
+	b=ViQ9wQNq+Acq/STi6qb70VBVZHc39OI6iRVGCJ4Cg/2Fip8Q98i31LiKLQFK/QdMrO7a
+	 SFQDLg31SKZAWr6vJ9A0CwvsjwuPB2FAA6mZT/l67P2Wo8wHmYBQtyMa8RINb8MUEFrmT
+	 5gNn3DgqlHDOn+zIWb/9Nl/TLccYEKvLctdmz+lGo+mRpxX/RoOSBSIC6n3Rwoja+2qdh
+	 X0DeFpkgpT4X61vTV5WzrPrTC0dyfr1sg0G8Ac9FfKUabsO3cf/tyt9a+QDPHExmhaW4a
+	 QPn4WDMDoRcDCEXeeB4CEGq5KAhT9yt9iLQ80yRY3v5p0t8Nyr/vm85nyeqAwgE8XjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9wlFzEx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T3u/Jidc";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1437D606A33E
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A26606A33F;
+	Fri, 13 Nov 2026 02:33:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9wlFzEx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5491F000C7;
-	Fri, 13 Nov 2026 02:33:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T3u/Jidc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320E91F000C6;
+	Fri, 13 Nov 2026 02:33:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794537213;
-	bh=SxIW+plsCgY2R5l2VH9YPxDkVEMEyU9n92O+K6dC4g0=;
+	s=k20260515; t=1794537215;
+	bh=KXBsLbHqbNY0tnMKABAel74HWjlwLz2G94116zY2phk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g9wlFzExC+9dRXDn1K8QcDufe6YdxsAK1UhifICdzqjhG5nO8IKtnvUAWT9iy3Yfg
-	 skaLinQA3ca7p6A65jnbOGHWeBcz68liJLh39fDnxDYieenfOQ4VomEBzNL3avMyQc
-	 YTcZw2VbrhncFMOfDx6onzTpX+f9DwyO0nk+pdphFfXsoRktC6mP+Qknwvo0PKUQa6
-	 QYhZF3TUhaYeVRlXTDSZWJc/Jo6KtQCeBybYq/Ud/csIl2lc/4u3rRwz1rcJR8AWpw
-	 1t5MBMDjbHTjHdzW8a9BFCikO34O75ALol36We7mwyUo/9YjwwuSXM8Z0DGUhqb4li
-	 MqAu5BSDJEWlQ==
+	b=T3u/Jidc7xu8JsGU6dv4NwbO97Wf1optilw/vxJkmlS2KkX5EFyRAVq3Z/PQkz1ry
+	 rnrOGnHp5JlyShIK089TBkZWk/PS4A1uIhJynPInptR5Js/oTAEjMIhgkRmn8rHTBG
+	 Kf+zZ3E8IQPqhGqmKMQO4n072F0rPqb7t/WZMVtOYyhELPqbg/Ny1jLvjqlN3f2j3k
+	 UiVhZfjzJxbYe93CyK4UU13rkmjxUqbQFAP59fTykCIu9gBXqdx1CXoMXQGDtgkcl2
+	 EZWIXg7EVE3JpfAISneQYtpz/tOo9eTcyNVPJv0eF3Odvq+9VheQjjytuefra/T7Bs
+	 YqUYUtMDT7sug==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Siwei Zhang <oss@fourdim.xyz>
-Subject: Re: [PATCH 5.15.y v4 0/3] Bluetooth: L2CAP: signalling response fixes
-Date: Thu, 12 Nov 2026 21:33:13 -0500
-Message-ID: <daily-reply-2026-11-12-6477997587@kernel.org>
+	gregkh@linuxfoundation.org,
+	yeoreum.yun@arm.com,
+	suzuki.poulose@arm.com,
+	leo.yan@arm.com,
+	coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	xueshuai@linux.alibaba.com
+Subject: Re: [PATCH] coresight/etm4: fix missing disable active config
+Date: Thu, 12 Nov 2026 21:33:14 -0500
+Message-ID: <daily-reply-2026-11-12-2154998661@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111220745.3075256-1-oss@fourdim.xyz>
-References: <20261111220745.3075256-1-oss@fourdim.xyz>
+In-Reply-To: <20261112135406.71749-1-xueshuai@linux.alibaba.com>
+References: <20261112135406.71749-1-xueshuai@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,13 +67,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 2026-11-11, Siwei Zhang wrote:
-> [PATCH 5.15.y v4 0/3] Bluetooth: L2CAP: signalling response fixes
-> Backports of
->   6320736af7dc ("Bluetooth: L2CAP: Reject signalling responses in invalid states")
->   a518b9a9ef6e ("Bluetooth: L2CAP: Only accept connection responses to outstanding requests")
+On 2026-11-12, Shuai Xue wrote:
+> [PATCH] coresight/etm4: fix missing disable active config
+> When etm4 device is disabled via sysfs, it should disable its active
+> count.
+> Fixes: 7ebd0ec6cf94 ("coresight: configfs: Allow configfs to activate configuration")
 
-Queued the series for 5.15 and 5.10, thanks.
+Queued for 6.12 and 6.6, thanks.
 
 
 -- 
