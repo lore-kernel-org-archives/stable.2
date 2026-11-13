@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597521;
-	b=fcQiuLfSbqER+1fho3+HAT0cS4gNqX3mVZd1PHHcOZNTXEqF2XnoFaioA8srr0NEZBrq
-	 Fy8hnq/NX643OZiuMVGdQcxq3GjdRuK10jl2dXMkAb9+C5/bhVCRoW7jPGl+LjA+IEf3H
-	 pZY4yelKj6eNXzCw7EREaZiGqFBn2+HljDCcfBrnbRdN/RH4uYy1qlmEOE6IqGuX2lzrP
-	 tCkZ/eJOFOFJDxYRWMrLldz5XRdZFx/isN5Q0Pe/yNzrRhTTjG/Gq3KiLAeQwt2HMFl/S
-	 ybefXfmM/of4PsvsH3tBqZ0DGj/6UPgDrYd3VMceqdGV0tpetf4n1QHo4rUfu2mB/kg==
+	t=1794597536;
+	b=QwogY4tTYJDJx832Rv4XIW4h+xWFkScxWvdUeN3v7ENSmBqBAWljZn089E8EqJqogwnt
+	 j6+0CfflaUW5IT/noiQ5c94ePZ28N9UMVTOae6pyDkbzrDI/AuBYssF4g/YdEMUupRgt4
+	 FkHMBSRxHUCUPJ9hRk8tdzHTIeXcAb4W5n02+2pVOUwzLldFyVxx/tqmCY+7HViRqqG1d
+	 wF4vXCJd/9aIzNR/hAxUIrL2Rck8QePKjDcP/4JrMj7MgG+MCLW0qPcBXMW0aW3DJhdhj
+	 fenG0eaMTHedmn9z54Ei+xogn5PAiZYdnvlmmTrJkNcOUPqvvKtazfqft3uRgPMpsHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597521;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597536;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=99nr6QI50LIlQ88wC6Fbs0ELH2VisIZKxL8EMfLU5Tc=;
-	b=DY2cAPaWbTeuCgFeSZlAVkUsWLVTp2P6UWMnkIdhSTk7CS50B8OXQo+OPqNv2Z4NV4lz
-	 5jk6Xvw6sL8zwWY7vPOnr5rwn9qEwEceoxT+ONgd1ZLk0mPrmu+rpR0PCe/el0GSd4ljA
-	 Z59+7JFNcgjrpUVL73Uk6Whm4AIlVCrdNBv9vIaqwpDPryHCTeKnPMOKXHroWwxl518Uw
-	 1v5LUChlwiZL6Ly4v/U8Z/qPzzdXzZpQhgrncqOC5OBDMAG3T7Q0cLRzGscRiaO8co87P
-	 Tin+O0Go9oAL0qKfi5V/IWusKZjve48Poa3yOiMzxDtvQT0JmwxguRgiD9QKP6GASlw==
+	bh=aJB/2X8l5COcDY86rIjqmviE06415T7DkW3kaDyXJZo=;
+	b=Gf9sH/kAHJcmIy66i+7//EN6vXPlXRv5Xm0pnwLUj/K3KkoXpVeQsLPwu/RrActpc9Nc
+	 U+cpWxo/+cLFsSCcEc37L/3HRf8kw0JEHE/NhieMUVSvExmE7nXuZEVOBd0s8FSX/329G
+	 yq70pap/MgWIF5HbDQlQejbQefVThK9iSE6VY4PzbmxHVTpsgHNYKXTSyEJE66wLNR3h2
+	 mlBDAZS6UZQPrG0bdb+NrNH/jrRA1SDtbqgiBSmgcjxJadh+Zs058pxciWrewvDaj3NwJ
+	 GvParvRpp14+RyQqOH8YkaSkNAT24OGU/MLqjRefYtmX7z7Fj8CfDWc2P/1e9c+Gh4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mxHZ8ia3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJYxfArd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5677C606A32E
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:18:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B64606A331
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:18:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mxHZ8ia3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577481F000C4;
-	Fri, 13 Nov 2026 19:18:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJYxfArd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B430A1F000C4;
+	Fri, 13 Nov 2026 19:18:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597521;
-	bh=99nr6QI50LIlQ88wC6Fbs0ELH2VisIZKxL8EMfLU5Tc=;
+	s=k20260515; t=1794597536;
+	bh=aJB/2X8l5COcDY86rIjqmviE06415T7DkW3kaDyXJZo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mxHZ8ia35223jZ7kvO2jmS4qhxtMO3GW/r7qHGlSjPR6SZnCcdQ4EomolZkyDKzHd
-	 E/fXd6aB/PdW/B6oXmjuPEIdguYEVLwIrN2yhkiFz7uQEyUh6dZ2Elj4Ys1PLwQe5O
-	 t+kQVeTHHOGpOX03gYbgrBdq0g+RG3m3+wuOyNw/mHhwyuWX+sSfdlRUhy1WkQ7O5Q
-	 fsCLVoVCB9rDGDhIRPz0E8kr8EXkgsCI2j7hmxHCa7jjrM98xXQgNUv2hXGC3xEQsf
-	 XzcLqPI293e9EBiZFD33RxC2iRSwkZ8XlLKbSz8trNWZ+IMjOo+QmjctMU8cAh9jpU
-	 Tb2HuJfej9Phg==
+	b=PJYxfArdNDry1W9BvR/ur4gTBptwDVFbaUmWh3mXqHp6HPW29AvmOit5jtQgQ4pph
+	 3GZ5kQ9VR0yWQnFdfwbKqd9UpFJW4sjkQBeUIVEbvIfuBKq0FMtE5rgnHfXKdtpm18
+	 gd06dK6pgrTvENqlK5Y9ymHNXiTfSYH0m2G+WEa48SWFT2ID70YcKlb45zHoeoZ0Rg
+	 wNN6cfHUB8g0/QJjESc7qiNJI6GJyfxC+NJrAJBlZTmufZB56+YPetnP9aAsvCIyiO
+	 uzk11J0XbtLSAp7bFS6oWZ6vE/pU4Rcc9Rxk3RKOUbz8TErg6vOfQJMj0GfK6qy7U6
+	 theheJDSeEToA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
@@ -48,12 +48,12 @@ Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
 	"Harry Yoo (Meta)" <harry@kernel.org>,
 	Muhammad Usama Anjum <usama.anjum@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/vma: don't leak the charge for stack growth
-Date: Fri, 13 Nov 2026 14:18:39 -0500
-Message-ID: <20261113191807.2276968-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/vma: don't leak the charge for stack growth
+Date: Fri, 13 Nov 2026 14:18:54 -0500
+Message-ID: <20261113191520.2246763-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202349-failed-5.15-b1ee87802111@kernel.org>
-References: <20261109202349-failed-5.15-b1ee87802111@kernel.org>
+In-Reply-To: <20261109201853-failed-6.1-b1ee87802111@kernel.org>
+References: <20261109201853-failed-6.1-b1ee87802111@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,17 +87,17 @@ Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Link: https://patch.msgid.link/20261031-fixes_core-v3-44-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: replaced vma_test() with a direct vm_flags check for VM_ACCOUNT ]
+[ sashal: Replaced vma_test(vma, VMA_ACCOUNT_BIT) with a direct vma->vm_flags & VM_ACCOUNT check. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  mm/mmap.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/mm/mmap.c b/mm/mmap.c
-index 3737febcb8768..a315134dcdfec 100644
+index 471dbff3e11de..4138cc91827c2 100644
 --- a/mm/mmap.c
 +++ b/mm/mmap.c
-@@ -2373,7 +2373,8 @@ static int acct_stack_growth(struct vm_area_struct *vma,
+@@ -1974,7 +1974,8 @@ static int acct_stack_growth(struct vm_area_struct *vma,
  	 * Overcommit..  This must be the final test, as it will
  	 * update security statistics.
  	 */
