@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585350;
-	b=bQ2p5pm3IPYVftYXMhB/zPWij4YU8Vruxuim2K9qvRQW9TGqxmaKmdCzjKacZqTAT5M3
-	 r0zSn+khzkO6S9Pd5VgaDdZrL6iud3c0AriC5YCu6LMqJG8WeKcNaNlEUaOQsdh7F7u77
-	 yAhPSR0q7z3UWigS6vaSq1dyNCyHjVyl6cDmKGqjcw/q34u9DG3DYuXZ0vko3I/Rq5U6f
-	 hWDXzjS4wZNGj3Z7QAH7C2jOZu00qes+aJECihLl0keKH63JqpActd/LA7Y9h2Lr4h7NG
-	 DLwQkjBI8phB2iV9SlJ23wbAeGQONd5rRMgTBql1jPVYY3NWvUfKlf15ZOz6ZZFovSQ==
+	t=1794585355;
+	b=krV6AfuJDpjFXePbU//TKzEsgMxAbxiuOQcQOFpzq9E2Tisgwud7+QlCK6nTlE+6K5c/
+	 y4zLlzUJt3+Bn3OQLJ8RAImjtSBb0P0B8hJ8fvxIUK/zk1OEvRXAJd8MQulsFEcRoluBp
+	 rRd/n+bUhJez6DERw7cymA1oVkuI7MOp3fyeU+w1/DXZbYR8okxaaJWsfagf7gAJX55an
+	 YyKjbQft4VOTcSQVgUe7Ij7WgI0aSvHYpxqxjYc64R+jgFvUpPgdqQVieKRjIE9+OcKNK
+	 yULr3hYuaLTUTRqT+MWWvrBX/FV1B6evfuxQerxCC0h/gyvnZvMxEGxgwENdvmBeFGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585350;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585355;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=1Xr3g6JplAfEAcs3cPyh2xrpTV778hnXbtSBieGBxtI=;
-	b=FBsAznU17KeCnc+7KrLpmDMurKhJrYux+nPNJxuQIQOVvnTC1gPG6PaRYbAH5jOkbqna
-	 7+tSlqPAOqRBaLtfogatSIPcTLWX3Mq+PfdU+11NrWKdDhMB8k7bnJ/esNjj1RUhyxrVa
-	 3ojGsbQyo2STUna0JWzgzcscWewSJ86FTIRJJMlyohOfZ02+5/XtkyHLp4gDsGjmRRl6o
-	 YB+fFJjTiYkLC/pmNk7o+roufhD0H9JZh2MJ7bJNidZEQK1NSmRDcAdI4vsxFC7VTEDPc
-	 r2PNIpfSRcs7La0BXK+STkdOHYBglr+R4pTzFW/M9M+FjG/pHRjTNFPWMhrO5XZQ1EQ==
+	bh=mYSSQkRdWNmiw9BSIM88I7+blRRZkI4i6BY93cqCK88=;
+	b=MTGWVPe8erbwKGgtEvbI5IZDFr9anWrsP80thaJ7KrlBVXbtZSU8UVsBc3eka0jF3sFF
+	 38+w/5OqBSCysi8bdUkQxWnwI4GRPUTMGW0SbMhK9lqzHJCbckGsiMvmn/BpVmhXWT94i
+	 qJsVCj/Wt3aHxi0TGvT1FbgsvnJbBPTHlxF6lorbzlSjHqZ94J8PbgymOshekSw87DcPW
+	 dKFuYZs14vNhNcRB8SaMs/FdQiT+NjoOh0G9wNkZ8cP9gbvTxc5KSBCTtbbiI7f6pkwQD
+	 V6DINZQ53ABb1H8rCXRDOIQL9zuSKBxwgN7AOOcN6MMX6MHe/1JGF4KNweyg3R99OGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RACEo2dB;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GWVB7R2c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414FA606A8A2;
-	Fri, 13 Nov 2026 15:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B0C60A5BE7;
+	Fri, 13 Nov 2026 15:55:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RACEo2dB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3B6A1F000CB;
-	Fri, 13 Nov 2026 15:55:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GWVB7R2c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03DA31F00937;
+	Fri, 13 Nov 2026 15:55:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794585349;
-	bh=1Xr3g6JplAfEAcs3cPyh2xrpTV778hnXbtSBieGBxtI=;
+	s=korg; t=1794585355;
+	bh=mYSSQkRdWNmiw9BSIM88I7+blRRZkI4i6BY93cqCK88=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RACEo2dBrI6NG+uTSFmd6Ai9a211dKcLYkriILkGK19VGHaU24SM49kWXMECaHpWU
-	 UrOB2zNsCOel95wB5gKOIyVecX15bJV7ehD349TXQrxOx/HGwJtSO3ka1l0HosWWr6
-	 90y70gyiTjD9IuDWSwZPaGw5KTWfmfdj0mJZY6wA=
+	b=GWVB7R2cZKXE2nL8ml2vYqtd+zw+mDoXsfxMVnkEJrbcKqFwFHatOM0txUJzeavO1
+	 o66+10WPflwskSx5dxJ7EweyBOlhWFXk6TE/x0d89tkl3f5FwsvL8D4pp9Am2sugyp
+	 61jvc244BuPj3tshjcR4ra4IAd61UlOzxRuhPiSI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 031/507] mm/damon/core: remove unreachable damos charge_{target,addr}_from
-Date: Fri, 13 Nov 2026 10:45:35 -0500
-Message-ID: <20261113153754.437820308@linuxfoundation.org>
+Subject: [PATCH 7.3 035/507] ACPI: CPPC: Accept requests to retain immutable autonomous selection
+Date: Fri, 13 Nov 2026 10:45:39 -0500
+Message-ID: <20261113153754.662912869@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
 References: <20261113153753.358973689@linuxfoundation.org>
@@ -68,84 +69,247 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: SJ Park <sj@kernel.org>
+From: Christian Loehle <christian.loehle@arm.com>
 
-[ Upstream commit 5695abc4e742b947f586bfb6a080a80ad9957e5d ]
+commit 4bcc60d326c5acaa28c5913259decb22a33a83a1 upstream.
 
-damos_quota->charge_{target,addr}_from saves the target and region the
-scheme's quota limit is reached.  damos_skip_charged_region() skips the
-target and regions before the point.  The target that was assigned to
-charge_target_from could be dynamically removed from the context by the
-runtime parameters update (aka commit) feature.  In this case,
-damos_skip_charged_region() cannot find if the point is passed or not,
-so the scheme is effectively disabled.
+ACPI permits Autonomous Selection Enable to be Integer 1 when the platform
+always selects performance autonomously. cppc_get_auto_sel() returns that
+value, but cppc_set_auto_sel() rejects the Integer even when asked to keep
+autonomous selection enabled. AMD shared-memory initialization consequently
+fails in active or guided mode after successfully reading the capability.
 
-Similarly, the user could also remove all the regions of the target
-using the runtime parameters update feature.  It would be uncommon to do
-that, but it is a supported feature.  Because the skip pointer detection
-logic (damos_skip_charged_region()) works for each region of targets,
-this result in the logic is entirely skipped and the scheme is
-effectively disabled again.
+Accept a request to keep this immutable field enabled without issuing a
+register access. Expose the immutable encoding to callers, separately from
+the current value of a writable register.
 
-The user impact is that the DAMOS scheme could suddenly stop working
-under certain uses of the runtime parameters update feature.  It could
-surprise users. No crash or leak happens though.  Users could also
-simply work around by re-installing the scheme.
+Before an AMD shared-memory transition to passive mode, reject immutable
+autonomous selection on any present CPU. Otherwise a guided-to-passive
+transition ignores the failed disable and reports the wrong mode, while
+active-to-passive unregisters the working driver before passive policy
+initialization fails. Check under the driver mode lock before invoking
+either transition, including known offline CPUs.
 
-Catch the corner cases in damos_adjust_quota() and reset the pointers.
+Serialize this capability query with descriptor publication and removal.
+ACPI processor removal drops the descriptor before taking the CPU hotplug
+write lock, so the caller's cpus_read_lock() alone cannot protect the
+lookup. Unpublish under the same mutex before releasing a descriptor,
+including when adding its kobject fails.
 
-Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
-Cc: <stable@vger.kernel.org> # 5.19.x
-Signed-off-by: SJ Park <sj@kernel.org>
+The cppc-cpufreq auto_select attribute can also request one while
+autonomous selection is already enabled. If the subsequent bounds update
+fails, its rollback requests zero and clears the cached mode regardless
+of the previous state. For an immutable field the disable request fails,
+leaving the cached mode wrong. Save and restore the previous mode instead.
+This also avoids disabling an already-enabled writable control on that
+error path.
+
+Fixes: c984f5d5d45b ("ACPI: CPPC: Add auto select register read/write support")
+Fixes: ea3db45ae476 ("cpufreq: cppc: Update MIN_PERF/MAX_PERF in target callbacks")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Tested-by: Sumit Gupta <sumitg@nvidia.com>
+Link: https://patch.msgid.link/20260916162805.1039247-19-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/damon/core.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/acpi/cppc_acpi.c       | 48 ++++++++++++++++++++++++++++++++--
+ drivers/cpufreq/amd-pstate.c   | 25 ++++++++++++++----
+ drivers/cpufreq/cppc_cpufreq.c |  5 ++--
+ include/acpi/cppc_acpi.h       |  6 +++++
+ 4 files changed, 75 insertions(+), 9 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index e018635774be5..229ab1674b4c1 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3200,6 +3200,26 @@ static void damos_trace_esz(struct damon_ctx *c, struct damos *s,
- 	trace_damos_esz(cidx, sidx, quota->esz);
- }
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index dc9e1c1fb071e..9079ddf2ead1c 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -36,6 +36,7 @@
+ #include <linux/delay.h>
+ #include <linux/iopoll.h>
+ #include <linux/ktime.h>
++#include <linux/mutex.h>
+ #include <linux/rwsem.h>
+ #include <linux/wait.h>
+ #include <linux/topology.h>
+@@ -93,6 +94,16 @@ static DEFINE_PER_CPU(int, cpu_pcc_subspace_idx);
+  */
+ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
  
-+static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
-+		struct damos *s)
-+{
-+	struct damos_quota *quota;
-+	struct damon_target *t;
++/* Protect immutable capability queries against descriptor removal. */
++static DEFINE_MUTEX(cpc_desc_lock);
 +
-+	quota = &s->quota;
-+	if (!quota->charge_target_from)
-+		return;
-+	damon_for_each_target(t, c) {
-+		if (t == quota->charge_target_from) {
-+			if (damon_nr_regions(t) > 0)
-+				return;
-+			break;
-+		}
-+	}
-+	quota->charge_target_from = NULL;
-+	quota->charge_addr_from = 0;
++static void cpc_set_desc(unsigned int cpu, struct cpc_desc *desc)
++{
++	mutex_lock(&cpc_desc_lock);
++	per_cpu(cpc_desc_ptr, cpu) = desc;
++	mutex_unlock(&cpc_desc_lock);
 +}
 +
- static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- {
- 	struct damos_quota *quota = &s->quota;
-@@ -3235,6 +3255,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- 			damos_trace_esz(c, s, quota);
+ /* pcc mapped address + header size + offset within PCC subspace */
+ #define GET_PCC_VADDR(offs, pcc_ss_id) (pcc_data[pcc_ss_id]->pcc_channel->shmem + \
+ 						0x8 + (offs))
+@@ -999,12 +1010,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
  	}
  
-+	damos_fix_stale_charge_pointers(c, s);
-+
- 	if (!c->ops.get_scheme_score)
+ 	/* Plug PSD data into this CPU's CPC descriptor. */
+-	per_cpu(cpc_desc_ptr, pr->id) = cpc_ptr;
++	cpc_set_desc(pr->id, cpc_ptr);
+ 
+ 	ret = kobject_init_and_add(&cpc_ptr->kobj, &cppc_ktype, &cpu_dev->kobj,
+ 			"acpi_cppc");
+ 	if (ret) {
+-		per_cpu(cpc_desc_ptr, pr->id) = NULL;
++		cpc_set_desc(pr->id, NULL);
+ 		kobject_put(&cpc_ptr->kobj);
+ 		goto out_free;
+ 	}
+@@ -1056,6 +1067,8 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
+ 	if (!cpc_ptr)
  		return;
  
++	cpc_set_desc(pr->id, NULL);
++
+ 	/* Free all the mapped sys mem areas for this CPU */
+ 	for (i = 2; i < cpc_ptr->num_entries; i++) {
+ 		addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
+@@ -1402,6 +1415,11 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
+ 
+ 	reg = &cpc_desc->cpc_regs[reg_idx];
+ 
++	/* Integer 1 describes autonomous selection that is always enabled. */
++	if (reg_idx == AUTO_SEL_ENABLE && reg->type == ACPI_TYPE_INTEGER &&
++	    reg->cpc_entry.int_value == 1)
++		return val == 1 ? 0 : -EOPNOTSUPP;
++
+ 	/* if a register is writeable, it must be a buffer and not null */
+ 	if ((reg->type != ACPI_TYPE_BUFFER) || IS_NULL_REG(&reg->cpc_entry.reg)) {
+ 		pr_debug("CPC register is not supported\n");
+@@ -1926,6 +1944,32 @@ int cppc_get_auto_sel(int cpu, bool *enable)
+ }
+ EXPORT_SYMBOL_GPL(cppc_get_auto_sel);
+ 
++/**
++ * cppc_auto_sel_is_immutable - Check for always-enabled autonomous selection.
++ * @cpu: CPU whose _CPC descriptor to check.
++ *
++ * Context: Process context.
++ * Return: true for Integer 1, false for a register or an absent descriptor.
++ */
++bool cppc_auto_sel_is_immutable(int cpu)
++{
++	struct cpc_desc *cpc_desc;
++	struct cpc_register_resource *reg;
++	bool immutable = false;
++
++	mutex_lock(&cpc_desc_lock);
++	cpc_desc = per_cpu(cpc_desc_ptr, cpu);
++	if (cpc_desc) {
++		reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
++		immutable = reg->type == ACPI_TYPE_INTEGER &&
++			    reg->cpc_entry.int_value == 1;
++	}
++	mutex_unlock(&cpc_desc_lock);
++
++	return immutable;
++}
++EXPORT_SYMBOL_GPL(cppc_auto_sel_is_immutable);
++
+ /**
+  * cppc_set_auto_sel - Write autonomous selection register.
+  * @cpu    : CPU to which to write register.
+diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+index 6e00d200920aa..28b9d4d062b98 100644
+--- a/drivers/cpufreq/amd-pstate.c
++++ b/drivers/cpufreq/amd-pstate.c
+@@ -1796,7 +1796,7 @@ EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_get_status);
+ 
+ int amd_pstate_update_status(const char *buf, size_t size)
+ {
+-	int mode_idx;
++	int cpu, mode_idx, ret = 0;
+ 
+ 	if (size > strlen("passive") || size < strlen("active"))
+ 		return -EINVAL;
+@@ -1805,12 +1805,27 @@ int amd_pstate_update_status(const char *buf, size_t size)
+ 	if (mode_idx < 0)
+ 		return mode_idx;
+ 
+-	if (mode_state_machine[cppc_state][mode_idx]) {
+-		guard(mutex)(&amd_pstate_driver_lock);
+-		return mode_state_machine[cppc_state][mode_idx](mode_idx);
++	guard(mutex)(&amd_pstate_driver_lock);
++
++	if (!mode_state_machine[cppc_state][mode_idx])
++		return 0;
++
++	if (mode_idx == AMD_PSTATE_PASSIVE &&
++	    !cpu_feature_enabled(X86_FEATURE_CPPC)) {
++		cpus_read_lock();
++		/* Check offline CPUs too, before changing or removing the driver. */
++		for_each_present_cpu(cpu) {
++			if (cppc_auto_sel_is_immutable(cpu)) {
++				ret = -EOPNOTSUPP;
++				break;
++			}
++		}
++		cpus_read_unlock();
++		if (ret)
++			return ret;
+ 	}
+ 
+-	return 0;
++	return mode_state_machine[cppc_state][mode_idx](mode_idx);
+ }
+ EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_update_status);
+ 
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 5f20c4a7ba2f2..951db2a6afb58 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -890,6 +890,7 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
+ 				 const char *buf, size_t count)
+ {
+ 	struct cppc_cpudata *cpu_data = policy->driver_data;
++	bool old_auto_sel = cpu_data->perf_ctrls.auto_sel;
+ 	bool val;
+ 	int ret;
+ 
+@@ -918,8 +919,8 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
+ 		if (ret) {
+ 			cpu_data->perf_ctrls.min_perf = old_min_perf;
+ 			cpu_data->perf_ctrls.max_perf = old_max_perf;
+-			cppc_set_auto_sel(policy->cpu, false);
+-			cpu_data->perf_ctrls.auto_sel = false;
++			cppc_set_auto_sel(policy->cpu, old_auto_sel);
++			cpu_data->perf_ctrls.auto_sel = old_auto_sel;
+ 			return ret;
+ 		}
+ 	}
+diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
+index 94a6277edab27..a32b09ec33948 100644
+--- a/include/acpi/cppc_acpi.h
++++ b/include/acpi/cppc_acpi.h
+@@ -188,6 +188,7 @@ extern int cppc_set_epp(int cpu, u64 epp_val);
+ extern int cppc_get_auto_act_window(int cpu, u64 *auto_act_window);
+ extern int cppc_set_auto_act_window(int cpu, u64 auto_act_window);
+ extern int cppc_get_auto_sel(int cpu, bool *enable);
++bool cppc_auto_sel_is_immutable(int cpu);
+ extern int cppc_set_auto_sel(int cpu, bool enable);
+ extern int cppc_get_perf_limited(int cpu, u64 *perf_limited);
+ extern int cppc_set_perf_limited(int cpu, u64 bits_to_clear);
+@@ -289,6 +290,11 @@ static inline int cppc_get_auto_sel(int cpu, bool *enable)
+ {
+ 	return -EOPNOTSUPP;
+ }
++static inline bool cppc_auto_sel_is_immutable(int cpu)
++{
++	return false;
++}
++
+ static inline int cppc_set_auto_sel(int cpu, bool enable)
+ {
+ 	return -EOPNOTSUPP;
 -- 
 2.53.0
 
