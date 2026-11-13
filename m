@@ -1,73 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597338;
-	b=VAt7+V0/wF2WS02CmODfRV9k08gclGVLLkL4uKRJOcyu0UkzExBPsUx8cNAUwB3QCsYC
-	 wT1iNgkv6wRoTnI4ojSuA+jK1ODvj5ZXiDpAEPfkGtLR0Pe7Z2lBIsWLG6v0r8zcBBrrN
-	 59BRrdQ3LUGLqNIAfGSc+bIPe6/cATpLhjaq/VX+RoVb+j9AW1b6Y+L0/tuwuSJOJWjRG
-	 Ltr9EcIPkc6hnLXxFU3ScnmmXbYbOtedUwRQKsbD+umsb4uwc8PbeY1uRAnV962piQZ65
-	 TxrFkuIDDTiLgCOZP7c/nobEvhRd+Y4O4BLRbH6+6G9N7d9/J35WMYZPHJDo6jx6LFA==
+	t=1794597339;
+	b=SHcgkgcJAm6Ryux/D+atIfEhpoF5NQoP8DxUAXWpcDBkXZslOsONZkstcrvHR/eSNXeT
+	 drP5A3FtkMrfPlq0ny+Uoewe0/1AQ3c8ereDNc9+WMTS5bpMRJx0DgowcvwrIdC7qJpS1
+	 gYi5BQ9k+A9G4geWSesEWUmqT2S4CPOkQETIf+j0XssS2tyFWh8pQ7G4UkgdXvzdou43L
+	 GFkH1Aak2dX+8FDslbkue68To5DXUFNdkLe2DCA8uWhT/WYb2VvX+BIFetgdoim/D0ZbA
+	 x6ZnQOL6A1oJnPphED7gs9X6ncxiFEq1+8XG9V2FZ0pOsZCaUgp3w2YuwoLMUXS3CfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597338;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597339;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oUXHx/WEQfFmdr7mA6vXbE8EgdVFAMZfaOIHh2S3Hlg=;
-	b=2EcstFhT2IwnY3beiup7m1I/lDZjBqshYictw78bLAb3way9WHALNV4OoDpc2eVBfiQm
-	 W6dHZk5omxr3Um8oA0BpIBUglxijYLGO0Q/Oj78XE0roRPP8q7TGUKOKxoEnxReDnY7Fi
-	 HKNxFahqICqJxAA69YcXDxb7s6BSs371DhRFY/DhyfYGEY9R9K5NqutOuYAfxPh3kSRyG
-	 zeiH06xLgSAHShDDJj178RgmRQ+oMgk3Z5rSAgp5ZTrh7NNwbybsAcvLX3cWHCQ3/f09F
-	 73qD3sBI3ACxKeDe03wY0DUH5hXdEeNDE+6aniBbq1SaGc+TnTxXJPPxk94abx1SNkw==
+	bh=FUq6MCIKArwognRj3cxXOhA3B4ITT6AfCYBI735+Kag=;
+	b=FKb2Lg7T6zYW+b3BosvZM/BQBc/LuRvytO2A8L0sD4YOLoddzM6pALm+4CnGCOKRw0QT
+	 0/7JUJXmHin+Iq+SQZOBzHrSvW9XQgJOxkYf/0e+EAzQPNm7+YjTHex89vjIGLTBQ9EX0
+	 V7DTVr0PPu5qNqyty2ytFTs4pexsF+402Jdbzatvc6hYhT6T0FozBP0KLUoBj5aums7DF
+	 og2XBjQpvIwfZQTFM2wXsQISt4k/AdLbCdynO+rEfH+09sLTaLAucY48uhXR7R/z0vjOH
+	 spUp+pAmeqG8xNSh8O/TPooEGNe5xrv1AKemCpnaByYYjyk5x8/yAbTRth6UmY6wveA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ze5XEWRO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2xC7MbD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF80606A330
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:15:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE81606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ze5XEWRO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F3F21F000C5;
-	Fri, 13 Nov 2026 19:15:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2xC7MbD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D20B81F000C7;
+	Fri, 13 Nov 2026 19:15:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597337;
-	bh=oUXHx/WEQfFmdr7mA6vXbE8EgdVFAMZfaOIHh2S3Hlg=;
+	s=k20260515; t=1794597339;
+	bh=FUq6MCIKArwognRj3cxXOhA3B4ITT6AfCYBI735+Kag=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ze5XEWRO5h6ddRlcnmWRvuZJFufSxO7oAod9m99D8HpbICWiYPjRA6qNeoB7TXnVu
-	 HLQNEiuVjg9HC763DeTLQdp1Xw8nrb/UxiRjvg9ELDS2SnZSbztsZZQQhME45hJdee
-	 TQXurRww7lUp0L3qgiKAz6A2UvB2fUnvP0r0UO06Kb9JAzBWoGoBhj02LwOc8w6VVG
-	 R9gLSQtHU3tK/o2NqTcJP7OBZ46SZ8L+54WgsWoyIhGFJvOMWqgvjjYU4/gOsUSL0K
-	 yO4b1gi2v2E1+9dvK/OdF3fKTeIzKMqMOsuHncqZOgH1sSXa9BBb47N18iIEZ3Y4DH
-	 jhOrUbx+ysdBg==
+	b=h2xC7MbDCPRogo2UytAabKh2DhQl5EMOjRoNBNu5Zi4HtaB61feKZQCpjO7XPBhCv
+	 jnLgGrVzX69FYxpcAXCLmua+Mlyg4JFZy+OCVbs6l5f8BMfEXUVcSAbe73pPNk9Uf0
+	 +F3mpZv2vZ8T7+7t4CWTsG6UEaN+levO11YV/117DR4OBwOMTe0VYyBy/Ym26U6xSx
+	 3JR20PMW6mgVF6nh67DFCT5AsSrH/9bzEScCFjnsZQeMm7BGIW6ZjDANiAm4ccjqbn
+	 R3z1oGvVnabpRTgbIvqgGuSxFS8fF0jtGs+9QG+lcJB5hqUln/7qsVaQlEVK+ZSdGx
+	 5SUzYRKQyLFGg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Mason <mason@kernel.org>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
 	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Lance Yang <lance.yang@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
 	"Liam R. Howlett" <liam@infradead.org>,
 	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Oscar Salvador <osalvador@suse.de>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Adam Litke <agl@us.ibm.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Rik van Riel <riel@surriel.com>,
-	Peter Xu <peterx@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
 	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jann Horn <jannh@google.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	SJ Park <sj@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Colin Cross <ccross@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/hugetlb: don't clear the resv_map of a VMA whose lock is held
-Date: Fri, 13 Nov 2026 14:15:34 -0500
-Message-ID: <20261113191045.2222415-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names
+Date: Fri, 13 Nov 2026 14:15:36 -0500
+Message-ID: <20261113191106.2227436-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052555-failed-6.12-d42032c0fe3c@kernel.org>
-References: <20261107052555-failed-6.12-d42032c0fe3c@kernel.org>
+In-Reply-To: <20261109200138-failed-7.3-652f15be3c11@kernel.org>
+References: <20261109200138-failed-7.3-652f15be3c11@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,98 +74,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit d42032c0fe3ca007986c1229128775af0340fbec ]
+[ Upstream commit 652f15be3c11415725694ccea317c51e35c0b582 ]
 
-Since commit bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private
-VMAs") the lock of a private hugetlb VMA that owns a reservation is the
-rw_sema of its resv_map.  The hugetlb_vma_*lock*() helpers find it through
-vma->vm_private_data, anew for every lock and every unlock.
+When changing the anonymous VMA name, madvise_update_vma() calls
+vma_modify_name() to possibly merge with adjacent VMAs. We don't call
+vma_modify_flags() and consequently don't obtain the new VMA flags.
 
-At the end of mremap() the old VMA has to let go of the resv_map, which
-now belongs to the new VMA: clear_vma_resv_huge_pages() stores NULL into
-vm_private_data.  mremap() holds mmap_lock for writing and has write
-locked the VMA, which keeps away everybody who comes through the mm.  It
-does not keep away those who find the VMA through the file.  For hole
-punch and truncation hugetlb_vmdelete_list() does
+Later in the function we update the VMA flags to the stale new_vma_flags
+we obtained before. This can result in us losing the VMA_SOFTDIRTY_BIT
+flag set on a VMA we just merged with.
 
-	hugetlb_vma_trylock_write(vma);		locks resv_map->rw_sema
-	unmap_hugepage_range(vma, ...);
-						vm_private_data = NULL
-	hugetlb_vma_unlock_write(vma);		no resv_map: does nothing
+There is no need to update the VMA flags at all, so just exit early. This
+skips calling khugepaged_enter_vma(), but since the flags didn't change
+this is fine.
 
-and the rw_sema stays write locked for ever:
-
-  WARNING: lock held when returning to user space!
-  mremap_punch/116 is leaving the kernel with locks still held!
-  locks held by mremap_punch/116: 1, last CPU#1:
-   #0: (&resv_map->rw_sema){+.+.}-{4:4}, at:
-                                       hugetlb_vmdelete_list+0x46/0x160
-
-The next fault in the new VMA sleeps in hugetlb_vma_lock_read(),
-uninterruptibly, and it holds its entry of hugetlb_fault_mutex_table[].
-That table is global, so a fault of any other process on a page that
-hashes to the same entry sleeps uninterruptibly as well.
-
-All those who take the lock of a private VMA without taking the mmap/vma
-lock are affected: rmap walks. So hold i_mmap_rwsem around the clearing
-of the resv_map.
-
-No change of behaviour, other than that mremap() of a hugetlb VMA takes
-i_mmap_rwsem once more.
-
-Original fix generated by an LLM and sent in private by Josef.
-
-[david: avoid local variable, move and refine comment, description cleanups+simplifications]
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-5-42796911043b@kernel.org
-Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ljs@kernel.org: minor edit of commit message, rebased]
+Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-3-8ff4fae1fc85@kernel.org
+Fixes: 9a10064f5625 ("mm: add a field to store names for private anonymous memory")
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Chris Mason <mason@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Adam Litke <agl@us.ibm.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
 Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: SJ Park <sj@kernel.org>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Colin Cross <ccross@google.com>
 Cc: <stable@vger.kernel.org>
-[ sashal: applied the change around the existing clear_vma_resv_huge_pages() call in move_vma() because fixup_hugetlb_reservations() is absent ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mremap.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ mm/madvise.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index d4666f1ab5939..206ddd250b805 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -806,7 +806,14 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 	}
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 9d64e15dfdb48..7291d03d66928 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -177,6 +177,9 @@ static int madvise_update_vma(vm_flags_t new_flags,
  
- 	if (is_vm_hugetlb_page(vma)) {
-+		/*
-+		 * Rmap walks might still find this VMA and take the lock
-+		 * inside the reservation map for __vma_private_lock(). Don't clear
-+		 * the reservation map while that is possible.
-+		 */
-+		i_mmap_lock_write(vma->vm_file->f_mapping);
- 		clear_vma_resv_huge_pages(vma);
-+		i_mmap_unlock_write(vma->vm_file->f_mapping);
- 	}
+ 	/* vm_flags is protected by the mmap_lock held in write mode. */
+ 	vma_start_write(vma);
++	if (set_new_anon_name)
++		return replace_anon_vma_name(vma, anon_name);
++
+ 	vma_overwrite_flags(vma, new_vma_flags);
+ 	/*
+ 	 * If the vma become good for khugepaged to scan,
+@@ -186,9 +189,6 @@ static int madvise_update_vma(vm_flags_t new_flags,
+ 	if (vma_flags_test(&new_vma_flags, VMA_HUGEPAGE_BIT))
+ 		khugepaged_enter_vma(vma, vma_flags_to_legacy(new_vma_flags));
  
- 	/* Conceal VM_ACCOUNT so old reservation is not undone */
+-	if (set_new_anon_name)
+-		return replace_anon_vma_name(vma, anon_name);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
