@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581376;
-	b=wlBlLNCLlUfUORThUKk+fSXQvsKOZYr+fAmelT3Jsg/o5MgmBpnSH6GxuTGlZbKU2tiu
-	 ftGsna2lyNBUu1K8M025WOkTM03Kgu/xSAAK/JxdFSiKtSIvfBa1qQx1VKHlqF2XUCIVY
-	 3JMmI7UIV6CaEDRb/VSQa5CNNKtcTdOhWGYoZiXF145er4LiDWnlLf8sU6MMnCtKUZtlc
-	 C7MhnEVCI5JGO4z92otJaCVGHS8FG31Q0PfPAWnAEAtq2aGppXOMkpj6bQ4Ii7THgiJfG
-	 ay/iNjtCy/P6969qH5s1QfmuVBPyBDrsIAhxf2nmBazyIR/XFUIJUQnPJO8QPPl0o0w==
+	t=1794581380;
+	b=hM13RyISbpQLL6ojdzLms5g90cPv0OMVfW84x9uc1Os0oPdxVKykHA8CkGA8unuvB/G9
+	 RIRh7K30A2YjhXoSLN+rgsAq5SbjVujiYw1+zH8r/ESKZm2vu5op47UBZekGm2O22IYFI
+	 JYQ7sSYH+rO2+5UAnWvBMV1ZkCGMp/ShosHRN+e4HYsq9svp0jc6Pi0a7Ct6ha8nIysvU
+	 Gznj1KIHoAWQL5Ylmf5v7xh4jz8PlnSBHbdJDI5VeQ2r6FJUqa/4Zvk+E+BkkkhYaOBwm
+	 OcrowHlav+YC/zWH7xB852u5iPLQ4TWA36c4+cw8JiO82Hp26WKlSfWwg5HHPtN8jjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581380;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=srK0w/cmw2mJNexBx8hSGmi5p18Ny6faLXC3JZaczrk=;
-	b=REHzMg3p6sRAjc/yxQkb+NISUeSAwHARgWR5ShHSOYTwUXYCzUZmamm2hTdQ1ddg/wyk
-	 Rr6FYLdoTm5tYqhnBd7z1Pb2KgBlOOM44VEqpRez7x1RZvlbRAiaFw9WIJ8SjdmpMG8fV
-	 kPD1VVuyJFRWgX8yS7+LCT6XQtiT6SebJAQuPenPdQvQhMQGLFk3yQU39uxtUOOlbB9ex
-	 yzPupLO33//WNXu7ccsvNgLdH7+qR5XlRoR2VkkFrmlIybCth9bZAU5PLjtFuhFK9reAE
-	 YApv74ecygVWnCOUyGiunChGjmlbfio4hUmhNsA2AoZN/Nj7XXpAPCiRnSBjuYzoahQ==
+	bh=/+CqgD5EqPpO/LXf+S4Z7/jR2aD0DOfSHaoLJytMuYk=;
+	b=tyJPEGsOzjQQG5zMZnjPayHivmMV4YnicKg0ZRLVeYLXS3ezPTPTJeuTDD0jFnAKAbVZ
+	 uMCAN4ZZQM3VXbYsLyx4K7Ari8bDfMOifIZQt2wNy7xza/BNMF8zw5CoF4pf+1BEq1GHK
+	 tgUfdr7bV5M3B2HoYUShW1D6CW9pSKt172B5SFMVbu7wID/bex4oc0QtwUsW3EcEYh64u
+	 66Fv0j1+EWdmG2QB/uHQvc4FNZwu4PW4waLP0z6QWnWH+hZkNdN79G5XZNEG5m1RwAFVH
+	 dDXcBR/jOUKHS7C8bx+EPWcSO92sMd7JgoHwbx9CbxNgwAu/M5cFa+SzBv8b5zu39zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R5itCGuP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOXSwMhW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7732606A323
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:49:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A79E606A327
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:49:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R5itCGuP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF9FF1F000C4;
-	Fri, 13 Nov 2026 14:49:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOXSwMhW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921F41F000C4;
+	Fri, 13 Nov 2026 14:49:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794581376;
-	bh=srK0w/cmw2mJNexBx8hSGmi5p18Ny6faLXC3JZaczrk=;
+	s=k20260515; t=1794581380;
+	bh=/+CqgD5EqPpO/LXf+S4Z7/jR2aD0DOfSHaoLJytMuYk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R5itCGuPApvbMz2z1QrRFJB2AXHYWGgChwJMfJqum7x4Ta+hOuNFdX1BSGZuKExxF
-	 mzch6O6Jg86AejV2A5L29lFFxt9OVe9JYJbVs6Bf4m3tEBSpbbwM4AqflzS2o6Rx74
-	 +yoUAFDnmkY4BxPMuSsXoAQ1b8MmgZoixAs5NqHhvGu60hZiONDJDq1CVic+VCy+iZ
-	 uTtTk4dIf5nyKfVYzMb70pVUtNS/TbDvoQB0V3CGtigffAMfTIY43TTHvZ7CUfzRrx
-	 0ne4sP51V0nk+z6Qhznlropf9G3CZT4OG24SruCgub2wVlcOuj22JsSCzxia/vaGTO
-	 l/AwPbJeD+awA==
+	b=bOXSwMhW671/Yd5CJVIKWL6OOzVaQKhh4IJdSUd54wvFE3V+uPZ8ufgbKbnr+OVlv
+	 aFwy2NAvrUoUd8GidQbr6uEAm3IlrjkW6aMiJYR07Jv9FaTgH9HTgtULuI4d2Zpt6X
+	 4gkAed/mVjMGw4s/KwRMRiIYiHax7aJC8A1d86UQZo8DXz/FugFIZ6w9+XbN1AN2/s
+	 r1H7IP0IyJrVbEMUodj8Iw4cq6tlF589UZXq0mJa4wR/Imc6Jh/uuUjyK2wiO6wbr3
+	 dX33rekPl5xoXvctX463jn4wkcfvksnSL3/GSZW0u+O2XzKE1EP9zBJkBSpsY/9cEa
+	 wXMXE1k5qxHzg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: Kevin Wang <kevin.wang@amd.com>,
+	Kenneth Feng <kenneth.feng@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] nvme: unregister when pr_register() is given a zero new key
-Date: Fri, 13 Nov 2026 09:49:34 -0500
-Message-ID: <20261113144740.1216543-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/amd/pm: populate unique ID for smu 13.0.7
+Date: Fri, 13 Nov 2026 09:49:38 -0500
+Message-ID: <20261113144742.1494555-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202150-failed-5.15-a9d431124fb2@kernel.org>
-References: <20261109202150-failed-5.15-a9d431124fb2@kernel.org>
+In-Reply-To: <20261109201431-failed-6.6-079f9103d9cd@kernel.org>
+References: <20261109201431-failed-6.6-079f9103d9cd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,50 +62,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daejun Park <daejun7.park@samsung.com>
+From: Kevin Wang <kevin.wang@amd.com>
 
-[ Upstream commit a9d431124fb2e58215daf0299d6fcf47bbc2d6b1 ]
+[ Upstream commit 079f9103d9cde68fb2ccc414e94520f43ee102de ]
 
-The block layer PR API defines a zero new_key in pr_register() as
-unregistering old_key. nvme_pr_register() sends Replace Reservation
-Key with a zero NRKEY instead. The host stays registered with key 0,
-and its next registration with another key fails with Reservation
-Conflict.
+The smu 13.0.7 backend does not register get_unique_id, leaving
+adev->unique_id at zero and KFD topology without the stable GPU
+identifier consumed by HIP.
 
-The pNFS SCSI layout client unregisters this way at umount. A later
-mount cannot register and sends all I/O through the metadata server.
+The failure is observed at:
+    auto ierr = hipDeviceGetUuid(&uuid, 0);
 
-Send Unregister Reservation Key when new_key is zero.
-
-Fixes: 1d277a637a71 ("NVMe: Add persistent reservation ops")
+Fixes: 113cc31dde66 ("drm/amd/pm: add SMU_13_0_7 ppt_funcs for SMU_13_0_7")
+Signed-off-by: Kevin Wang <kevin.wang@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 5e2585daaf8336d9ce1bf52e55a9b7a8cdbf625b)
 Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: adapted reservation action selection to use numeric codes and the existing old/new parameter names ]
+[ sashal: Adjusted placement of the get_unique_id callback and its registration because newer surrounding functions and table entries are absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/core.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index ae98572008370..9d6cb96f70784 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2089,7 +2089,12 @@ static int nvme_pr_register(struct block_device *bdev, u64 old,
- 	if (flags & ~PR_FL_IGNORE_KEY)
- 		return -EOPNOTSUPP;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index b97015fc3c8a4..5b56819f26ecd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -2177,6 +2177,25 @@ static int smu_v13_0_7_set_df_cstate(struct smu_context *smu,
+ 					       NULL);
+ }
  
--	cdw10 = old ? 2 : 0;
-+	if (!new)
-+		cdw10 = 1;
-+	else if (old)
-+		cdw10 = 2;
-+	else
-+		cdw10 = 0;
- 	cdw10 |= (flags & PR_FL_IGNORE_KEY) ? 1 << 3 : 0;
- 	cdw10 |= (1 << 30) | (1 << 31); /* PTPL=1 */
- 	return nvme_pr_command(bdev, cdw10, old, new, nvme_cmd_resv_register);
++static void smu_v13_0_7_get_unique_id(struct smu_context *smu)
++{
++	SmuMetricsExternal_t metrics_external;
++	SmuMetrics_t *metrics = &metrics_external.SmuMetrics;
++	struct amdgpu_device *adev = smu->adev;
++	u32 upper32 = 0, lower32 = 0;
++	int ret;
++
++	ret = smu_cmn_get_metrics_table(smu, &metrics_external, false);
++	if (ret)
++		goto out;
++
++	upper32 = metrics->PublicSerialNumberUpper;
++	lower32 = metrics->PublicSerialNumberLower;
++
++out:
++	adev->unique_id = ((u64)upper32 << 32) | lower32;
++}
++
+ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.get_allowed_feature_mask = smu_v13_0_7_get_allowed_feature_mask,
+ 	.set_default_dpm_table = smu_v13_0_7_set_default_dpm_table,
+@@ -2245,6 +2264,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.set_mp1_state = smu_v13_0_7_set_mp1_state,
+ 	.set_df_cstate = smu_v13_0_7_set_df_cstate,
+ 	.gpo_control = smu_v13_0_gpo_control,
++	.get_unique_id = smu_v13_0_7_get_unique_id,
+ };
+ 
+ void smu_v13_0_7_set_ppt_funcs(struct smu_context *smu)
 -- 
 2.53.0
 
