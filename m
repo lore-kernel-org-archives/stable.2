@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578703;
-	b=1dEOjeyuFS2esNzbG0bBwACU8LMJfkRuc6MOWOR7pSIX46ejMkcIJr0Id1rTa6btwTf+
-	 jo+gemix3yV8N7Z5RK8gUx4X98Y4+9Wfii4MInnRmbN0KssFLg4m/5ty4DNcjeti2/TyO
-	 hm5cE6GXnx2+HZZlRBu7MHeNNpHGeKG1c3aGil6aTBmqniX/DS1JAoBC5AxcbZRwAJUqb
-	 EOJoW7YgOleu8rTIs93n/kZjZgA4iuk6mYXQQSaMWAzSNG66novCTkNWpb3YdIEnjzogH
-	 lIo0OIABbHcPztsUuuVnFED0MB6ThMXLyrYvFPyxKcQ7TaI9er+DGQ3PnJogYF6IaJQ==
+	t=1794578704;
+	b=GAHNztrEJjCaWo4Y2n2yelRPyG85nT9SDsjcKu4lWS8jb5Xj0CADzfoj86F1cghiL3J6
+	 YIUlNUQCJzo88o6Mpw6DPFcU5hjDsD+z4ajVv9SP4JJ7g1N2WoCsI11D2LXBagaO4Q7+p
+	 DNYij4U425M5nEzMqbtsBsUS8HFjpTvGOAykMQbSlrl+eLjP/FcK+hb2LECsXiHNEiSO6
+	 nTnZd8ABdnIqRidCBteUSmuezRJRvFuynFEIqMOWGFI9dNAwcCh6n1m4pIyJXwiAhyc6/
+	 8nz7C0vOtm79yF85c3akHDGdRJsOoZaCNM7uz/h9hgsU5U930sms3zz2Y/ytyodBBaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578704;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3SJ6jlHevLb8f+vzUSMjghyh91T9ryOrPPzYS/YN2RA=;
-	b=c+Qx/psTOjpTE5psDNCXeSlUkcfsOSYweX4e97F6RbLCZSEGgsCKp+cn7oZFEnVQ5b3t
-	 42cWUjZ4BDZK3SbM++YMwCT+jh4QIY+dABFd/uyLD9hzgEEhirJkKwyDC1AVh4GSYv9RI
-	 l+XC9Rj90mGQQlW7cmCFMtBcO9qltZDPYK4ngsS1E+844z2g/RMlfdgZq3bmOU6oEQdhk
-	 94UBzciVGXqmnrtsN14pTO0iKI8abUwAr/Ut2sRdv9vGP58ZVMmh52mw5EtElzT2GGyXV
-	 DAj0FIezTkZILMXbt57BATXEqFeiyTb64a0sVXqwt/T7jPVujQjmLjUFG4t2Bc7DMCA==
+	bh=LI/XbCRGCKEshqe8SziMiE2Kvw2sKLDM5+xU8FeZ1u4=;
+	b=YQvjJybXFDfkEKBgJdQgx0XBYyckRghfOMWgkZbWJKRatQxZ8A6rlsF9a7Mo+AkDzxVn
+	 U80+pGVQg1FLG+ARfyIk4+ShhZBuD2sDr9hsZO6kVHh/m/5JIDe5iU0ueHnvx0vjH/SQA
+	 PkO+ATchDKZWkW8qQSH2tBVFHONqLViBPRHhRE9rDdAsE5nQdLa2BdFt3mDZQqyvuCn8s
+	 1VMX2H+3BwZffomGO1QOl+hSzs9OQXSacsIOL0Ua0ROtIU94pGs3Bgn/GCiRAfoTKPUuv
+	 XlIDgU7dNU2ksRsm6WckrQ0UTjLP1Etw1jFHSW2wWLq4zlBqQPB8OA7K6xSlkjNRggA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Z/qabVby";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYO9izgP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4FF606A323
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA49606A323
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:05:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z/qabVby
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B1F1F000C4;
-	Fri, 13 Nov 2026 14:05:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYO9izgP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFCB01F000C5;
+	Fri, 13 Nov 2026 14:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794578703;
-	bh=3SJ6jlHevLb8f+vzUSMjghyh91T9ryOrPPzYS/YN2RA=;
+	s=k20260515; t=1794578704;
+	bh=LI/XbCRGCKEshqe8SziMiE2Kvw2sKLDM5+xU8FeZ1u4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z/qabVbyVLtSoLrEpwHfR5oU0XgDgvhyKQnEV87GSyvIKwkysKw+SjBlMwM5efehp
-	 CXh45fLj07q7IXFT0qTtt46N74E341uZ0Dpuzj6jNG8d5MS7czvSuydGJ2u8Moqd/g
-	 0wj6faLs9qkVq6OqpvtttUyzdV8CS66fhDkcFGvPk97u4ns1oNwClgmfiiu+zxoCko
-	 /E25611x4W0mvmijAkPxy6ak3wRsmymyo2HgM/kNWXR+gMRKMFKjpmboHE4gq6O4kV
-	 HnMbq966GilFxkZI91EoXO3xOgCA4O3LlQV8P78MOqPY6vg5Jafh1EBvHPt4T7uFRj
-	 2dsHzYSDd3P4w==
+	b=dYO9izgPBiBAbn3c+5q+S2sxXKTEYYQFmaLdVdJ1K5K3HYqFc1XHnB3UiISHTTIoq
+	 1+i4+kw9cLkRkG08OQmNI2ZsIW61fuhQNZ8sKdmzl79F9lac7fByltbtX68eDkq8wz
+	 7Sic4p+YdrFcmWSr26lN2GAwv3kgY1cqKlXxlHz1tWijEAHM2YTO6gDDGMa4CbomSK
+	 h804jOgxtGLmuv2sLH+RhoYUE/WPalJvN8arCIj0/7emHxueHF3S6/omEmOCj3DqCN
+	 fMYdzSImoE/HiInnW3UlhJ8cmZF8VvjXj082cPt/90RRa81X/3c8CnAghdTcMXVLcJ
+	 ooXF3waLkZwlg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Qu Wenruo <wqu@suse.com>,
 	Boris Burkov <boris@bur.io>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/5] btrfs: replace btrfs_repair_io_failure() to use bio for page iteration
-Date: Fri, 13 Nov 2026 09:04:57 -0500
-Message-ID: <20261113135926.1497314-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/5] btrfs: enhance btrfs_data_csum_ok() to use bio for page iteration
+Date: Fri, 13 Nov 2026 09:04:58 -0500
+Message-ID: <20261113135926.1497314-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050424-failed-7.3-d00b85308abe@kernel.org>
+In-Reply-To: <20261113135926.1497314-1-sashal@kernel.org>
 References: <20261107050424-failed-7.3-d00b85308abe@kernel.org>
+ <20261113135926.1497314-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,33 +65,31 @@ Content-Transfer-Encoding: 8bit
 
 From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit 15ed4a938b30fcb72e96187f36e2c4ff0e6e2227 ]
+[ Upstream commit 3e4a083bf0c8bb727517ae781052b80167443077 ]
 
-Currently btrfs_repair_io_failure() uses a @paddrs[] array to iterate
-pages.
+Currently btrfs_data_csum_ok() requires a @paddr[] array to iterate all
+possible pages for bs > ps cases.
 
-Such a parameter is required for bs > ps cases, as one fs block crosses
-several pages.
+However for all btrfs_data_csum_ok() call sites, we already have a
+btrfs_bio, and the bio infrastructure has many flexible ways to iterate
+multiple pages already.
 
-However there is a much simpler and existing way to iterate pages: bio
-and bvec_iter.
+Change btrfs_data_csum_ok() to make full use of btrfs_bio by:
 
-This changes btrfs_repair_io_failure() by:
+- Change the parameter list to require a @bvec_iter pointer
+  And remove @bio_offset, which can be calculated through @bvec_iter and
+  bbio->saved_iter.
 
-- Use a const @bvec_iter pointer to locate where the pages are
-- Extract file offset/logical from the @bbio
-- Require no @step parameter
-  Above features allow us to shorten the parameter list.
+  Also remove paddrs[], we will iterate all the pages using bio
+  interfaces.
 
-- Rename the function to btrfs_repair_bbio_failure()
+- Make the same parameter changes to repair_one_sector()
 
-- Change the caller in btrfs_repair_eb_io_failure() to allocate a bbio
-  Unlike the data read path, we do not have a handy bbio in that case.
-  So we need to allocate one just for btrfs_repair_bbio_failure().
+- Use bio interfaces to iterate pages from a bio
 
-- Change the error reporting in btrfs_repair_bbio_failure() to include
-  root id and use inode number directly
-  Now for btree inode we will report a proper inode number (1).
+- Rename the function to btrfs_bio_data_csum_ok()
+
+- Remove on-stack paddrs[] array usage
 
 Reviewed-by: Boris Burkov <boris@bur.io>
 Signed-off-by: Qu Wenruo <wqu@suse.com>
@@ -98,193 +97,265 @@ Signed-off-by: David Sterba <dsterba@suse.com>
 Stable-dep-of: d00b85308abe ("btrfs: raid56: do not verify the content if there is no data checksum")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/bio.c     | 61 ++++++++++++++++++++++++++--------------------
- fs/btrfs/bio.h     |  5 ++--
- fs/btrfs/disk-io.c | 25 +++++++++++++------
- 3 files changed, 55 insertions(+), 36 deletions(-)
+ fs/btrfs/bio.c         | 82 +++++++++++++++---------------------------
+ fs/btrfs/btrfs_inode.h |  4 +--
+ fs/btrfs/inode.c       | 49 +++++++++++++++++++------
+ 3 files changed, 70 insertions(+), 65 deletions(-)
 
 diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
-index cc0bd03048bae..f8d4c2d550073 100644
+index f8d4c2d550073..19b4855969f53 100644
 --- a/fs/btrfs/bio.c
 +++ b/fs/btrfs/bio.c
-@@ -186,7 +186,6 @@ static void btrfs_end_repair_bio(struct btrfs_bio *repair_bbio,
- 	 */
- 	struct bvec_iter saved_iter = repair_bbio->saved_iter;
- 	const u32 step = min(fs_info->sectorsize, PAGE_SIZE);
--	const u64 logical = repair_bbio->saved_iter.bi_sector << SECTOR_SHIFT;
- 	const u32 nr_steps = repair_bbio->saved_iter.bi_size / step;
+@@ -180,29 +180,13 @@ static void btrfs_end_repair_bio(struct btrfs_bio *repair_bbio,
+ 	struct btrfs_failed_bio *fbio = repair_bbio->private;
+ 	struct btrfs_inode *inode = repair_bbio->inode;
+ 	struct btrfs_fs_info *fs_info = inode->root->fs_info;
+-	/*
+-	 * We can not move forward the saved_iter, as it will be later
+-	 * utilized by repair_bbio again.
+-	 */
+-	struct bvec_iter saved_iter = repair_bbio->saved_iter;
+-	const u32 step = min(fs_info->sectorsize, PAGE_SIZE);
+-	const u32 nr_steps = repair_bbio->saved_iter.bi_size / step;
  	int mirror = repair_bbio->mirror_num;
- 	phys_addr_t paddrs[BTRFS_MAX_BLOCKSIZE / PAGE_SIZE];
-@@ -220,9 +219,8 @@ static void btrfs_end_repair_bio(struct btrfs_bio *repair_bbio,
+-	phys_addr_t paddrs[BTRFS_MAX_BLOCKSIZE / PAGE_SIZE];
+-	phys_addr_t paddr;
+-	unsigned int slot = 0;
  
- 	do {
- 		mirror = prev_repair_mirror(fbio, mirror);
--		btrfs_repair_io_failure(fs_info, btrfs_ino(inode),
--				  repair_bbio->file_offset, fs_info->sectorsize,
--				  logical, paddrs, step, mirror);
-+		btrfs_repair_bbio_failure(repair_bbio, &repair_bbio->saved_iter,
-+					  fs_info->sectorsize, mirror);
- 	} while (mirror != fbio->bbio->mirror_num);
+-	/* Repair bbio should be eaxctly one block sized. */
++	/* Repair bbio should be exactly one block sized. */
+ 	ASSERT(repair_bbio->saved_iter.bi_size == fs_info->sectorsize);
  
- done:
-@@ -925,21 +923,23 @@ void btrfs_submit_bbio(struct btrfs_bio *bbio, int mirror_num)
-  * The I/O is issued synchronously to block the repair read completion from
-  * freeing the bio.
-  *
-- * @ino:	Offending inode number
-- * @fileoff:	File offset inside the inode
-+ * @bbio:	Original bbio where the repair is needed
-+ * @orig_iter:	Points to where the repair start is
-  * @length:	Length of the repair write
-- * @logical:	Logical address of the range
-- * @paddrs:	Physical address array of the content
-- * @step:	Length of for each paddrs
-  * @mirror_num: Mirror number to write to. Must not be zero
+-	btrfs_bio_for_each_block(paddr, &repair_bbio->bio, &saved_iter, step) {
+-		ASSERT(slot < nr_steps);
+-		paddrs[slot] = paddr;
+-		slot++;
+-	}
+-
+ 	if (repair_bbio->bio.bi_status ||
+-	    !btrfs_data_csum_ok(repair_bbio, dev, 0, paddrs)) {
++	    !btrfs_bio_data_csum_ok(repair_bbio, &repair_bbio->saved_iter, dev)) {
+ 		bio_reset(&repair_bbio->bio, NULL, REQ_OP_READ);
+ 		repair_bbio->bio.bi_iter = repair_bbio->saved_iter;
+ 
+@@ -236,25 +220,21 @@ static void btrfs_end_repair_bio(struct btrfs_bio *repair_bbio,
+  * read succeeded to restore the redundancy.
   */
--int btrfs_repair_io_failure(struct btrfs_fs_info *fs_info, u64 ino, u64 fileoff,
--			    u32 length, u64 logical, const phys_addr_t paddrs[],
--			    unsigned int step, int mirror_num)
-+int btrfs_repair_bbio_failure(struct btrfs_bio *bbio, const struct bvec_iter *orig_iter,
-+			      u32 length, int mirror_num)
+ static struct btrfs_failed_bio *repair_one_sector(struct btrfs_bio *failed_bbio,
+-						  u32 bio_offset,
+-						  phys_addr_t paddrs[],
++						  const struct bvec_iter *orig_iter,
+ 						  struct btrfs_failed_bio *fbio)
  {
--	const u32 nr_steps = DIV_ROUND_UP_POW2(length, step);
-+	struct btrfs_inode *inode = bbio->inode;
-+	struct btrfs_fs_info *fs_info = inode->root->fs_info;
- 	struct btrfs_io_stripe smap = { 0 };
--	struct bio *bio = NULL;
+ 	struct btrfs_inode *inode = failed_bbio->inode;
+ 	struct btrfs_fs_info *fs_info = inode->root->fs_info;
+-	const u32 sectorsize = fs_info->sectorsize;
+-	const u32 step = min(fs_info->sectorsize, PAGE_SIZE);
+-	const u32 nr_steps = sectorsize / step;
+-	/*
+-	 * For bs > ps cases, the saved_iter can be partially moved forward.
+-	 * In that case we should round it down to the block boundary.
+-	 */
+-	const u64 logical = round_down(failed_bbio->saved_iter.bi_sector << SECTOR_SHIFT,
+-				       sectorsize);
+ 	struct btrfs_bio *repair_bbio;
+ 	struct bio *repair_bio;
 +	struct bvec_iter iter = *orig_iter;
-+	struct bio *repair_bio = NULL;
-+	const u64 logical = iter.bi_sector << SECTOR_SHIFT;
-+	const u64 fileoff = bbio->file_offset +
-+			    ((iter.bi_sector - bbio->saved_iter.bi_sector) << SECTOR_SHIFT);
++	const u32 sectorsize = fs_info->sectorsize;
++	const u32 bio_offset = ((iter.bi_sector - failed_bbio->saved_iter.bi_sector) <<
++				SECTOR_SHIFT);
++	const u64 logical = (iter.bi_sector << SECTOR_SHIFT);
+ 	int num_copies;
+ 	int mirror;
 +	u32 cur = 0;
- 	int ret = 0;
  
- 	BUG_ON(!mirror_num);
-@@ -950,8 +950,9 @@ int btrfs_repair_io_failure(struct btrfs_fs_info *fs_info, u64 ino, u64 fileoff,
- 	ASSERT(IS_ALIGNED(fileoff, fs_info->sectorsize));
- 	/* Either it's a single data or metadata block. */
- 	ASSERT(length <= BTRFS_MAX_BLOCKSIZE);
--	ASSERT(step <= length);
--	ASSERT(is_power_of_2(step));
-+
-+	/* Our current iter should not be before the original bbio saved_iter. */
-+	ASSERT(iter.bi_sector >= bbio->saved_iter.bi_sector);
+ 	btrfs_debug(fs_info, "repair read error: read error at %llu",
+ 		    failed_bbio->file_offset + bio_offset);
+@@ -275,17 +255,21 @@ static struct btrfs_failed_bio *repair_one_sector(struct btrfs_bio *failed_bbio,
  
- 	/*
- 	 * The fs either mounted RO or hit critical errors, no need
-@@ -979,15 +980,22 @@ int btrfs_repair_io_failure(struct btrfs_fs_info *fs_info, u64 ino, u64 fileoff,
- 		goto out_counter_dec;
- 	}
+ 	atomic_inc(&fbio->repair_count);
  
--	bio = bio_alloc(smap.dev->bdev, nr_steps, REQ_OP_WRITE | REQ_SYNC, GFP_NOFS);
--	bio->bi_iter.bi_sector = smap.physical >> SECTOR_SHIFT;
+-	repair_bio = bio_alloc_bioset(NULL, nr_steps, REQ_OP_READ, GFP_NOFS,
+-				      &btrfs_repair_bioset);
++	repair_bio = bio_alloc_bioset(NULL, max(1, sectorsize >> PAGE_SHIFT),
++				      REQ_OP_READ, GFP_NOFS, &btrfs_repair_bioset);
+ 	repair_bio->bi_iter.bi_sector = logical >> SECTOR_SHIFT;
 -	for (int i = 0; i < nr_steps; i++) {
--		ret = bio_add_page(bio, phys_to_page(paddrs[i]), step, offset_in_page(paddrs[i]));
--		/* We should have allocated enough slots to contain all the different pages. */
--		ASSERT(ret == step);
-+	repair_bio = bio_alloc(smap.dev->bdev, max(1, length >> PAGE_SHIFT),
-+			       REQ_OP_WRITE | REQ_SYNC, GFP_NOFS);
-+	repair_bio->bi_iter.bi_sector = smap.physical >> SECTOR_SHIFT;
-+	while (cur < length) {
-+		struct page *page = bio_iter_page(&bbio->bio, iter);
-+		const u32 pg_off = bio_iter_offset(&bbio->bio, iter);
-+		const u32 cur_len = min(bio_iter_len(&bbio->bio, iter), length - cur);
-+
++	while (cur < sectorsize) {
++		struct page *page = bio_iter_page(&failed_bbio->bio, iter);
++		const u32 pg_off = bio_iter_offset(&failed_bbio->bio, iter);
++		const u32 cur_len = min(bio_iter_len(&failed_bbio->bio, iter),
++					sectorsize - cur);
+ 		int ret;
+ 
+-		ASSERT(offset_in_page(paddrs[i]) + step <= PAGE_SIZE);
 +		ret = bio_add_page(repair_bio, page, cur_len, pg_off);
 +		ASSERT(ret == cur_len);
-+		bio_advance_iter_single(&bbio->bio, &iter, cur_len);
+ 
+-		ret = bio_add_page(repair_bio, phys_to_page(paddrs[i]), step,
+-				   offset_in_page(paddrs[i]));
+-		ASSERT(ret == step);
++		bio_advance_iter_single(&failed_bbio->bio, &iter, cur_len);
 +		cur += cur_len;
  	}
--	ret = submit_bio_wait(bio);
--	bio_put(bio);
-+
-+	ret = submit_bio_wait(repair_bio);
-+	bio_put(repair_bio);
- 	if (ret) {
- 		/* try to remap that extent elsewhere? */
- 		btrfs_dev_stat_inc_and_print(smap.dev, BTRFS_DEV_STAT_WRITE_ERRS);
-@@ -995,8 +1003,9 @@ int btrfs_repair_io_failure(struct btrfs_fs_info *fs_info, u64 ino, u64 fileoff,
- 	}
  
- 	btrfs_info_rl(fs_info,
--		"read error corrected: ino %llu off %llu (dev %s sector %llu)",
--			     ino, fileoff, btrfs_dev_name(smap.dev),
-+		"read error corrected: root %llu ino %llu off %llu (dev %s sector %llu)",
-+			     btrfs_root_id(inode->root), btrfs_ino(inode), fileoff,
-+			     btrfs_dev_name(smap.dev),
- 			     smap.physical >> SECTOR_SHIFT);
- 	ret = 0;
- 
-diff --git a/fs/btrfs/bio.h b/fs/btrfs/bio.h
-index 303ed6c7103d9..b7bd377a01624 100644
---- a/fs/btrfs/bio.h
-+++ b/fs/btrfs/bio.h
-@@ -126,8 +126,7 @@ void btrfs_bio_end_io(struct btrfs_bio *bbio, blk_status_t status);
- 
- void btrfs_submit_bbio(struct btrfs_bio *bbio, int mirror_num);
- void btrfs_submit_repair_write(struct btrfs_bio *bbio, int mirror_num, bool dev_replace);
--int btrfs_repair_io_failure(struct btrfs_fs_info *fs_info, u64 ino, u64 fileoff,
--			    u32 length, u64 logical, const phys_addr_t paddrs[],
--			    unsigned int step, int mirror_num);
-+int btrfs_repair_bbio_failure(struct btrfs_bio *bbio, const struct bvec_iter *orig_iter,
-+			      u32 length, int mirror_num);
- 
- #endif
-diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
-index dc7ad92876c0b..0f3e8e74b7682 100644
---- a/fs/btrfs/disk-io.c
-+++ b/fs/btrfs/disk-io.c
-@@ -176,19 +176,24 @@ static int btrfs_repair_eb_io_failure(const struct extent_buffer *eb,
- 				      int mirror_num)
- {
- 	struct btrfs_fs_info *fs_info = eb->fs_info;
--	const u32 step = min(fs_info->nodesize, PAGE_SIZE);
--	const u32 nr_steps = eb->len / step;
+ 	repair_bbio = btrfs_bio(repair_bio);
+@@ -303,18 +287,16 @@ static void btrfs_check_read_bio(struct btrfs_bio *bbio, struct btrfs_device *de
+ 	struct btrfs_inode *inode = bbio->inode;
+ 	struct btrfs_fs_info *fs_info = inode->root->fs_info;
+ 	const u32 sectorsize = fs_info->sectorsize;
+-	const u32 step = min(sectorsize, PAGE_SIZE);
+-	const u32 nr_steps = sectorsize / step;
+-	struct bvec_iter *iter = &bbio->saved_iter;
++	struct bvec_iter iter;
+ 	blk_status_t status = bbio->bio.bi_status;
+ 	struct btrfs_failed_bio *fbio = NULL;
 -	phys_addr_t paddrs[BTRFS_MAX_BLOCKSIZE / PAGE_SIZE];
-+	struct btrfs_bio *bbio;
-+	int ret;
+-	phys_addr_t paddr;
+-	u32 offset = 0;
  
- 	if (sb_rdonly(fs_info->sb))
- 		return -EROFS;
+ 	/* Read-repair requires the inode field to be set by the submitter. */
+ 	ASSERT(inode);
  
-+	/*
-+	 * This bbio is only to queue all pages for btrfs_repair_bbio_failure().
-+	 * Thus it will never get its endio called.
-+	 */
-+	bbio = btrfs_bio_alloc(max(1, fs_info->nodesize >> PAGE_SHIFT), REQ_OP_READ,
-+			       BTRFS_I(fs_info->btree_inode), eb->start, NULL, NULL);
-+	bbio->bio.bi_iter.bi_sector = eb->start >> SECTOR_SHIFT;
- 	for (int i = 0; i < num_extent_pages(eb); i++) {
- 		struct folio *folio = eb->folios[i];
++	/* The original bbio should be sectorsize aligned. */
++	ASSERT(IS_ALIGNED(bbio->saved_iter.bi_size, sectorsize));
++
+ 	/*
+ 	 * Hand off repair bios to the repair code as there is no upper level
+ 	 * submitter for them.
+@@ -327,16 +309,10 @@ static void btrfs_check_read_bio(struct btrfs_bio *bbio, struct btrfs_device *de
+ 	/* Clear the I/O error. A failed repair will reset it. */
+ 	bbio->bio.bi_status = BLK_STS_OK;
  
- 		/* No large folio support yet. */
- 		ASSERT(folio_order(folio) == 0);
--		ASSERT(i < nr_steps);
- 
- 		/*
- 		 * For nodesize < page size, there is just one paddr, with some
-@@ -197,11 +202,17 @@ static int btrfs_repair_eb_io_failure(const struct extent_buffer *eb,
- 		 * For nodesize >= page size, it's one or more paddrs, and eb->start
- 		 * must be aligned to page boundary.
- 		 */
--		paddrs[i] = page_to_phys(&folio->page) + offset_in_page(eb->start);
-+		ret = bio_add_page(&bbio->bio, &folio->page, min(PAGE_SIZE, fs_info->nodesize),
-+				   offset_in_page(eb->start));
-+		ASSERT(ret == min(PAGE_SIZE, fs_info->nodesize));
+-	btrfs_bio_for_each_block(paddr, &bbio->bio, iter, step) {
+-		paddrs[(offset / step) % nr_steps] = paddr;
+-		offset += step;
+-
+-		if (IS_ALIGNED(offset, sectorsize)) {
+-			if (status ||
+-			    !btrfs_data_csum_ok(bbio, dev, offset - sectorsize, paddrs))
+-				fbio = repair_one_sector(bbio, offset - sectorsize,
+-							 paddrs, fbio);
+-		}
++	for (iter = bbio->saved_iter; iter.bi_size;
++	     bio_advance_iter(&bbio->bio, &iter, sectorsize)) {
++		if (status || !btrfs_bio_data_csum_ok(bbio, &iter, dev))
++			fbio = repair_one_sector(bbio, &iter, fbio);
  	}
-+	/* Since the bbio is never submitted, we have to save the iter manually. */
-+	bbio->saved_iter = bbio->bio.bi_iter;
+ 	if (bbio->csum != bbio->csum_inline)
+ 		kvfree(bbio->csum);
+@@ -924,7 +900,7 @@ void btrfs_submit_bbio(struct btrfs_bio *bbio, int mirror_num)
+  * freeing the bio.
+  *
+  * @bbio:	Original bbio where the repair is needed
+- * @orig_iter:	Points to where the repair start is
++ * @orig_iter:	Points to where the repair starts
+  * @length:	Length of the repair write
+  * @mirror_num: Mirror number to write to. Must not be zero
+  */
+diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+index 1082fa92c1457..171f96bdb8aa7 100644
+--- a/fs/btrfs/btrfs_inode.h
++++ b/fs/btrfs/btrfs_inode.h
+@@ -513,8 +513,8 @@ void btrfs_calculate_block_csum_pages(struct btrfs_fs_info *fs_info,
+ 				      const phys_addr_t paddrs[], u8 *dest);
+ int btrfs_check_block_csum(struct btrfs_fs_info *fs_info, phys_addr_t paddr, u8 *csum,
+ 			   const u8 * const csum_expected);
+-bool btrfs_data_csum_ok(struct btrfs_bio *bbio, struct btrfs_device *dev,
+-			u32 bio_offset, const phys_addr_t paddrs[]);
++bool btrfs_bio_data_csum_ok(struct btrfs_bio *bbio, const struct bvec_iter *orig_iter,
++			    struct btrfs_device *dev);
+ noinline int can_nocow_extent(struct btrfs_inode *inode, u64 offset, u64 *len,
+ 			      struct btrfs_file_extent *file_extent,
+ 			      bool nowait);
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index aa1201fe4d7f8..f842884722081 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -3551,27 +3551,31 @@ int btrfs_check_block_csum(struct btrfs_fs_info *fs_info, phys_addr_t paddr, u8
+  * different noncontiguous pages.
+  *
+  * @bbio:	btrfs_io_bio which contains the csum
+- * @dev:	device the sector is on
+- * @bio_offset:	offset to the beginning of the bio (in bytes)
+- * @paddrs:	physical addresses which back the fs block
++ * @orig_iter:	bvec iter pointing to the start of the block
++ * @dev:	device the sector is on (optional)
+  *
+  * Check if the checksum on a data block is valid.  When a checksum mismatch is
+  * detected, report the error and fill the corrupted range with zero.
+  *
+  * Return %true if the sector is ok or had no checksum to start with, else %false.
+  */
+-bool btrfs_data_csum_ok(struct btrfs_bio *bbio, struct btrfs_device *dev,
+-			u32 bio_offset, const phys_addr_t paddrs[])
++bool btrfs_bio_data_csum_ok(struct btrfs_bio *bbio,
++			    const struct bvec_iter *orig_iter,
++			    struct btrfs_device *dev)
+ {
+ 	struct btrfs_inode *inode = bbio->inode;
+ 	struct btrfs_fs_info *fs_info = inode->root->fs_info;
++	struct bvec_iter iter = *orig_iter;
++	struct btrfs_csum_ctx cctx;
+ 	const u32 blocksize = fs_info->sectorsize;
+-	const u32 step = min(blocksize, PAGE_SIZE);
+-	const u32 nr_steps = blocksize / step;
++	const u32 bio_offset = (iter.bi_sector - bbio->saved_iter.bi_sector) << SECTOR_SHIFT;
+ 	u64 file_offset = bbio->file_offset + bio_offset;
+ 	u64 end = file_offset + blocksize - 1;
+ 	u8 *csum_expected;
+ 	u8 csum[BTRFS_CSUM_SIZE];
++	u32 cur = 0;
++
++	ASSERT(iter.bi_sector >= bbio->saved_iter.bi_sector);
  
--	return btrfs_repair_io_failure(fs_info, 0, eb->start, eb->len,
--				       eb->start, paddrs, step, mirror_num);
-+	ret = btrfs_repair_bbio_failure(bbio, &bbio->saved_iter, fs_info->nodesize,
-+					mirror_num);
-+	bio_put(&bbio->bio);
-+	return ret;
+ 	if (!bbio->csum)
+ 		return true;
+@@ -3587,7 +3591,22 @@ bool btrfs_data_csum_ok(struct btrfs_bio *bbio, struct btrfs_device *dev,
+ 
+ 	csum_expected = bbio->csum + (bio_offset >> fs_info->sectorsize_bits) *
+ 				fs_info->csum_size;
+-	btrfs_calculate_block_csum_pages(fs_info, paddrs, csum);
++	btrfs_csum_init(&cctx, fs_info->csum_type);
++	while (cur < blocksize) {
++		struct page *page = bio_iter_page(&bbio->bio, iter);
++		const u32 pg_off = bio_iter_offset(&bbio->bio, iter);
++		const u32 cur_len = min(bio_iter_len(&bbio->bio, iter), blocksize - cur);
++		void *kaddr;
++
++		kaddr = kmap_local_page(page) + pg_off;
++		btrfs_csum_update(&cctx, kaddr, cur_len);
++		kunmap_local(kaddr);
++
++		bio_advance_iter_single(&bbio->bio, &iter, cur_len);
++		cur += cur_len;
++	}
++	btrfs_csum_final(&cctx, csum);
++
+ 	if (unlikely(memcmp(csum, csum_expected, fs_info->csum_size) != 0))
+ 		goto zeroit;
+ 	return true;
+@@ -3597,8 +3616,18 @@ bool btrfs_data_csum_ok(struct btrfs_bio *bbio, struct btrfs_device *dev,
+ 				    bbio->mirror_num);
+ 	if (dev)
+ 		btrfs_dev_stat_inc_and_print(dev, BTRFS_DEV_STAT_CORRUPTION_ERRS);
+-	for (int i = 0; i < nr_steps; i++)
+-		memzero_page(phys_to_page(paddrs[i]), offset_in_page(paddrs[i]), step);
++	cur = 0;
++	iter = *orig_iter;
++	while (cur < blocksize) {
++		struct page *page = bio_iter_page(&bbio->bio, iter);
++		const u32 pg_off = bio_iter_offset(&bbio->bio, iter);
++		const u32 cur_len = min(bio_iter_len(&bbio->bio, iter), blocksize - cur);
++
++		memzero_page(page, pg_off, cur_len);
++
++		bio_advance_iter_single(&bbio->bio, &iter, cur_len);
++		cur += cur_len;
++	}
+ 	return false;
  }
  
- /*
 -- 
 2.53.0
 
