@@ -1,42 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575159;
-	b=puY6CSQ2+enxX/JXTMTTVvzEhaXtFNHg2d6xaXDPCsfa+QDERz9Afmp9+VZwFsdVuHTI
-	 h72yoeHMKkd1E7nz3ZM3RwCG3+ehhqv/yQ61iv/KjGONwByNcM0zLwnti3dIHc+++18yD
-	 oeb+MfUbc8DRs04LjY5xAIwePK8fyqlqWb9nxJoNfg4ML17+ssSCg0Nrpu2JL417w+CEM
-	 vGAImaFKkTjV5brJyRah7aQ99FM9cGqTNqhbEVD26IpAHwLkPuZLK+8B7wdB48k+X9d/O
-	 V0nD6z1mgWaA2iC9+kh7ZRNRu1QsjGbHf7RRYRYixcnXJ5yt2TWoX59xteOxEYPZGaA==
+	t=1794575177;
+	b=fDE7VI74L2fBy5tQYNJ02UrmLX5pfmu9pMXWSAQDaw+R12N8TDkHjL9eKUXPdqy/b7CK
+	 Ut2Wb+WJhxemCevwm6WpEq6XJaT5Qmu25Q9VSQu8EkaOoU/EHn1hmLNWJ7oIHKVpo6NXf
+	 oa0xNPbGZs8iaqRBAYZbJi/Xw/r7O1y2SV2AAznZ6HRTzi1njJ497rSXmCOVUzigDvchL
+	 sfTAaiIb0sV5cwrAOk88K5jkasjMJbbtElNOZTxQd5PABV1RSYC93NdaaUgSgGH3h12Yh
+	 RcYAp2gPOlQPzPiFW6g304MnI/WYynYUs3+mjOxM+Yczw8gzGoFnh69DFO5wdK9BJ+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575159;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=aiU7YpUNUAZuaQGy2Cr174pJ6pqbfFE6NlTdxg8gOOc=;
-	b=X44sl/f5K067drHAN0dFBEKVwI5mU0jV6Cw+9YtLgRj8QAp2vMDYSa08n4ULNb3bu+TD
-	 55/JYsRisBqBJawDepOvcurRtZmBV0ZKQh0993aIgAWfBp91CQW0mlzMNFk1p4Td3FRPE
-	 HQiCcNpdZPQSFc9q7S5OxTttK/O8hd6RphPv1RbkkK230GyQmbvGfaEslc8fMkGorMlhX
-	 aoGgHAFJTClkePjTygZ7qbBVP0+B870YO/1iDk2ZQL/ugog2gFRVULuSAnB4Ze/MXz4Wp
-	 K2nhVazNPWNwhB31bcIhZ5nHka5VOUw+55B2czyZw4SgxhrPZxjRuWE9bRaGPp+vL1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575177;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=IEx4WFv5zRyoef/ZWpcPGipQSPgKlCPIgV9QMGzoM7o=;
+	b=yDjhxhBwYTm++1o083TteHr8ELHjM6jB1MNl6DyfVS2bXnUQOBHCnUyJ8cSlhjrVYguQ
+	 ANt7qZpoR8fkJiEX0AuL44jZx8cqDqFYBTdZy2hTZrzXQnPvAZo4lCasNhuB/xmodlhFP
+	 JUEc3dGGEclvPG2YZhLCvIzH5VPgQ7R62C7hflGKIN8ZOeAGQJavYX8u0yGY/Rpt9FV3d
+	 dWjjSwQUbelcnVQhWWTxUziGoMY2DyMua623/glY2dCYTFstjyBSsupsYe7KX10xnS7BT
+	 uh53mbkO65E/KyUIKEtcWNFRA/mkEpgxTF8iHJouF9PRK8xWoNvdZSWgDLuEygCIy1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a+/IHOBT";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1312860A5BCE;
-	Fri, 13 Nov 2026 13:05:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1312860A5BCE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [127.0.1.1] (unknown [223.166.93.97])
-	by APP-03 (Coremail) with SMTP id rQCowAAnLY4WC_dq1RfzAA--.14404S2;
-	Fri, 13 Nov 2026 21:05:31 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-Date: Fri, 13 Nov 2026 21:05:08 +0800
-Subject: [PATCH] drm/ast: Clear VGASR1 screen disable on CRTC enable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297FD606A897
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+/IHOBT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9761F000C5;
+	Fri, 13 Nov 2026 13:06:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794575176;
+	bh=IEx4WFv5zRyoef/ZWpcPGipQSPgKlCPIgV9QMGzoM7o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=a+/IHOBTolNLx8d4gvUiy/SbzM2U4+yfsnvjOog6U4iZFpk/gjnG3m4DseyHC4mvc
+	 KWBDSclcVLQQTgpQ9E25ik9ADkiq69E25tXW+bFrMx125w43a1IhsaWHbaNXjhzR7i
+	 2PELYOffo9B+0ttl3zEPAIW1rx4zOrhcPy6isWu2fqmdWBuJpCoa4kC3fKgRnJ8NBD
+	 EXi/6Vm2t6ZD+6sufGd5YNKCGFbULk98Y15FCpsPsq7KHMpTGLeyUb7i6UJ9iOQ928
+	 tsSfmyEEwvbyVaBTD4hK8A4l+Oc1oaaaQ2hkpR30VrWVvn5eTjdaySYIRuphA5I10F
+	 SBfmOSyLn/6Uw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Sashiko <sashiko-bot@kernel.org>,
+	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] hwmon: (coretemp) Set nr_cores only after core_data allocation succeeds
+Date: Fri, 13 Nov 2026 08:06:14 -0500
+Message-ID: <20261113130525.1058475-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200339-failed-6.18-95638f1f05ce@kernel.org>
+References: <20261109200339-failed-6.18-95638f1f05ce@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -46,79 +61,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-ast-vgasr1-sd-v1-1-0f9e7d727c06@iscas.ac.cn>
-X-B4-Tracking: v=1; b=H4sIAAML92oC/x3MMQqAMAxA0atIZgOmYi1eRRyqjZpFpZEiFO9uc
- XzD/xmUo7DCUGWInETlPAqormDZ/bExSigG0xhLRC16vTFtXiOhBpyNC9x31jF5KM0VeZXn/43
- T+34XnSRlXwAAAA==
-X-Change-ID: 20261113-ast-vgasr1-sd-b28de7568e1a
-To: Dave Airlie <airlied@redhat.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: Han Gao <rabenda.cn@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.14.2
-X-CM-TRANSID:rQCowAAnLY4WC_dq1RfzAA--.14404S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw13CF4xKr18Kr1ktr4ruFg_yoW8AFW5pF
-	47AayI9r45J3ZFkayUAa1ruay3Gay3KrWfWF1kCa4SvrnxtryxZr45uasrWFyUXFZ7Aa4f
-	tFnrtr13XFy29aUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
-	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBgMKDGr22px3DQAAsj
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Commit 6f719373b943 ("drm/ast: Blank with VGACR17 sync enable, always
-clear VGACRB6 sync off") stopped clearing the SD bit in VGASR1 when
-enabling the CRTC, as SD was thought to only disable access to video
-memory. On AST2600, SD also blanks the display output, including the
-picture captured by the BMC for remote KVM.
+From: Guenter Roeck <linux@roeck-us.net>
 
-Nothing else clears SD, as ast_set_std_reg() preserves the bit. If
-firmware or a previous kernel, such as one that started this kernel with
-kexec, left SD set, the display stays blank. Clear SD on CRTC enable.
+[ Upstream commit 95638f1f05ced75a82e83f610cd01b636d2a21b1 ]
 
-Fixes: 6f719373b943 ("drm/ast: Blank with VGACR17 sync enable, always clear VGACRB6 sync off")
-Cc: stable@vger.kernel.org # v6.7+
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+In init_temp_data(), pdata->nr_cores is populated from
+topology_num_cores_per_package() before allocating pdata->core_data. If
+that allocation fails, init_temp_data() returns NULL with
+pdata->core_data still NULL and pdata->nr_cores set to a positive value.
+
+coretemp_add_core() logs the error without failing coretemp_cpu_online(),
+so the CPU still comes online with pdata->hwmon_dev registered. When the
+CPU is later taken offline (or the module is unloaded),
+coretemp_cpu_offline() calls get_temp_data(pd, cpu), which loops up to
+pdata->nr_cores and dereferences the NULL pdata->core_data pointer.
+
+Store the core count in a local variable and assign pdata->nr_cores only
+after pdata->core_data is allocated, preserving the invariant that
+pdata->nr_cores is zero whenever pdata->core_data is NULL.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 1a793caf6f69 ("hwmon: (coretemp) Use dynamic allocated memory for core temp_data")
+Cc: stable@vger.kernel.org
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: Used NUM_REAL_CORES and kcalloc() instead of topology_num_cores_per_package() and kzalloc_objs(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/ast/ast_mode.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/hwmon/coretemp.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_mode.c
-index 08db132acae85d19003b4361ade227454b6a0e3a..a42d0434cd7999ec2ef66a67cd9d81ff1dc9509a 100644
---- a/drivers/gpu/drm/ast/ast_mode.c
-+++ b/drivers/gpu/drm/ast/ast_mode.c
-@@ -857,6 +857,9 @@ static void ast_crtc_helper_atomic_enable(struct drm_crtc *crtc, struct drm_atom
- 
- 	ast_set_index_reg_mask(ast, AST_IO_VGACRI, 0x17, 0x7f, vgacr17);
- 	ast_set_index_reg_mask(ast, AST_IO_VGACRI, 0xb6, 0xfc, vgacrb6);
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index 25a9cf8feb311..03b40d643dccf 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -491,11 +491,13 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
+ 		 * Will replace hardcoded NUM_REAL_CORES with actual per package core count
+ 		 * when this information becomes available.
+ 		 */
+-		pdata->nr_cores = NUM_REAL_CORES;
+-		pdata->core_data = kcalloc(pdata->nr_cores, sizeof(struct temp_data *),
++		int nr_cores = NUM_REAL_CORES;
 +
-+	/* Firmware or a previous kernel may have left the screen disabled. */
-+	ast_set_index_reg_mask(ast, AST_IO_VGASRI, 0x01, (u8)~AST_IO_VGASR1_SD, 0x00);
- }
++		pdata->core_data = kcalloc(nr_cores, sizeof(struct temp_data *),
+ 					   GFP_KERNEL);
+ 		if (!pdata->core_data)
+ 			return NULL;
++		pdata->nr_cores = nr_cores;
+ 	}
  
- static void ast_crtc_helper_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261113-ast-vgasr1-sd-b28de7568e1a
-
-Best regards,
+ 	tdata = kzalloc(sizeof(struct temp_data), GFP_KERNEL);
 -- 
-Han Gao <gaohan@iscas.ac.cn>
+2.53.0
 
