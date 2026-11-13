@@ -1,47 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559562;
-	b=cleYV9/mHgaTcxI0p5qfL86aat6/5srRbihZ+IJ16ITwZueBDuUBMZYMB5YY7XneAsqZ
-	 uRNW9C5yHHoXTIEIBwYfUZt6TAJC16TL21ad2zuHjVeIRLNbxmTlkm8iNNm0laaI6Fn7W
-	 7+6E/P6LaU6Bh70icTwBMQed/mBQibJWEC/yVshPuVgdmDM40mu14i2+AWy2stYCsp7YR
-	 QBCpQ8LBJTsBZR8DniOhUdgdm8TLqF6LpCIGjJlOp8JgJO3bH3FKWe2umd3dz+YyJADT5
-	 Qq/vjH6MDfbE6P+KuKgD6Y+A2NSwPNB/idu4ZzbW2YyNGpanAMHeMk9mjIQj+W9pMQA==
+	t=1794559680;
+	b=Em1RV5ADw+1PgOt7qX9L3Ryq70Dl0oYuxsiO/Jx1clR/L7zznHxjjJwVj3ORYRzs33aO
+	 Z+NzrZ2UljOJ+NjvhLxdzQngPQPL06DTFkkCGCqpC7YNUoWQnHFgt5+VmoQOVwZnh75BW
+	 qPvKyY+QWAe2xcmt3ksl/nD+u+3o5JeuuQ2h3+lgRgy7Szy3fKguJv4iNVltMeQjOemo3
+	 CW0/TqyeCwkyiTSiNw15xP82M8ntLpV5X0Qoh5LkrER73i6lOtYQHIJk/AcsMePURELwB
+	 IyNtcwkwyTEhYwq6oj3iba9YSFIdJpLCmVFoMt2XIzdJj6wOXkXZ0nHuZwLIPTtHDZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559562;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=+uM+ZJu79iI/GTnBz7rZQfjffm0TQRskgZytweI8nI8=;
-	b=qNqIWZ9F/9TI6phxqeIqljIonjY/t1XVzvSvjFwAl54SQNsaArUHuNqBXrGcp59oQ4CO
-	 /hgYdcPs2CK0yAykawe82t9RxoLch/vg+QTOpchwBZNGYhbQkFAi7bUlSn95X+WJr1aQe
-	 nBrp6YRO1DOd//Ki+spZP71dn/7GW2kE46lweEIkxaq+khBnRUfQJxnWp1iRqyJ7huopG
-	 U9t6bW2zyF+Fe7CEB7nJ7cRC/06RC6gVgjd1ChEteBRjV9TKpDMEafASuSSRa/p2Jwull
-	 YeZfnPQRKUU6qjwaDdq4rLgLECS87YksE4jS6zHGPOGNoCj9hxI3zNBybanEcty8uvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559680;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=oKU2j8bN1o+Dr7cNQliLRr9DTF+HNjYHfrmyMONRynM=;
+	b=r1pImpZKh6Ga1P9gWyvw9ki8ryUoIbcpzmS8IsjSPIEW4tcc5NhVXdJSOIn/G4yJ26Z0
+	 rSq7LfI3Knj85JZgbz9dB1bZQfBVTbn/klvpmdWZpR8qzGtJ0U5KN5sUz2s+7mYOrvs76
+	 VjLsoi6FrkynbtCZMtkwNvD8J6mW0Mmzow+vKUJDSkfY2OJR8ihkAF3inFE0HFdIZccMY
+	 C7U11dbP0q/ZomH6ffoi6twdTEDyh6pFOashXBHGZsnFogHesFf+ePCf8dMgNCXAWK1ad
+	 64D8IxoAXLuR/rD+M62zgF+0/WWO4QwkuirI7fV+bvIusb0c/Z8Z4/JTdnJD+Pu95wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KW1FINwp;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=cuF1Ome9;
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD941606A321;
-	Fri, 13 Nov 2026 08:46:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD941606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1366B606B363;
+	Fri, 13 Nov 2026 08:47:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1366B606B363
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KW1FINwp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=+uM+ZJu79iI/GTnBz7rZQfjffm0TQRskgZytweI8nI8=;
-	b=KW1FINwpzed/XI8006sAlC6zQtBeRL+G16OYeQQfHbd39a6W1zJ8hIJ2/szfh3
-	wKryEDG1T9LmSJMBXWzAff09xS8mPPA8vxOkVzBImS6Gu//DhOzzvqhDipeZq8RZ
-	rMWOgZybUytPUjZsDjwrRjvTtgStR1WZhTOZ4Z2sxnkT8=
-Message-ID: <6e7fd20e-918a-49cd-9634-78fc01249825@163.com>
-Date: Fri, 13 Nov 2026 16:45:25 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=cuF1Ome9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794559639;
+	bh=oKU2j8bN1o+Dr7cNQliLRr9DTF+HNjYHfrmyMONRynM=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=cuF1Ome9t81fE5dJAWwUZBS0LXZGdGX54pK4EWH/FZLarTlsojx7Y23aHkhjnqdPz
+	 flRbLgrHP5WTls9hJ1DRHOg/QEYh3KVm6Hpod12JvuWYiVxuFzFfnZtN7x1L78H+Rp
+	 Jq1I555NaJJb00P0q0K3MtG6sDdlmj3SM3/9fy5E=
+X-QQ-mid: esmtpgz15t1794559624t5efbcce9
+X-QQ-Originating-IP: Do0zNIbIbBLllmWo7Po164zagHd9OJpsc0BMqtAS6xI=
+Received: from [10.10.7.69] ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 16:46:45 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 975368059114725145
+EX-QQ-RecipientCnt: 9
+From: Jinming Zhao <zhaojinming@uniontech.com>
+Date: Fri, 13 Nov 2026 16:46:38 +0800
+Subject: [PATCH] crypto: qce - use the mapped scatterlist count for ahash
+ requests
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,78 +63,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] exfat: fix iomap mapping when writeback races with
- truncate
-To: Youling Tang <youling.tang@linux.dev>, Namjae Jeon
- <linkinjeon@kernel.org>, Sungjong Seo <sj1557.seo@samsung.com>
-Cc: Yuezhang Mo <yuezhang.mo@sony.com>, exfat@lists.linux.dev,
- linux-kernel@vger.kernel.org, Youling Tang <tangyouling@kylinos.cn>,
- stable@vger.kernel.org
-References: <20261113080658.2440516-1-youling.tang@linux.dev>
- <20261113080658.2440516-2-youling.tang@linux.dev>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <20261113080658.2440516-2-youling.tang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3v74lzvZqbKqMGw--.46913S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KFWfAFykZFyxCFWkZw43ZFb_yoW8CFW8pr
-	Z8K3WrKF43Xa47uF4rWrs8Zw1Fv3Z7KF1UXw4F93y5u34DtF1SkF9F9Fy5u3W3Jw4kCF40
-	qFZ5Kr17WwnrCFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Us18PUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+AYVsmr2ziZguAAA31
+Message-Id: <20261113-qce-ahash-dma-count-v1-1-0423b54d75c8@uniontech.com>
+X-B4-Tracking: v=1; b=H4sIAG3O9moC/yXMQQ6CQAxA0auQrm1CESF6FcOilOqUhEGnYEwId
+ 3fU5Vv8v4FrMnW4FBskfZnbHDPoUIAEjndFG7KhKquGiI74FEUO7AGHiVHmNS5Yk9atnM49tQy
+ 5fCS92ft3vXZ/+9qPKst3Bfv+AQK3qxJ3AAAA
+X-Change-ID: 20261113-qce-ahash-dma-count-41e47c59b17a
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ LABBE Corentin <clabbe.montjoie@gmail.com>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Jinming Zhao <zhaojinming@uniontech.com>
+X-Mailer: b4 0.15.2
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NhUkPfKlCtQwFTwOjOKF1/E/X3z/goMPIr8h3Xdl6xZwpVj8DUDwVgHQ
+	9cKHq5M/ttesQck6JfLfqVvM4oN3L6sjpIukwY32RZuIQ5NujbBaG0+zEpZcEa/+mF1Chnv
+	XH5SKvxdfKoCeoMMgWTZayIg59uHh6LUuTiEbRCeurGfdbvag6jSObJ0k3brROy8fZ3VnmO
+	HX2LqjGT9nsHLa6K89JQ9A49gf2D0DJ327G11TsosMM6nd6txs8rT2nY0+Sz0joFhb7X/aq
+	RBgdcwB6ebxt6HQVrHDvSufVl3IIfxvURt2Poh7tchyJuBhjONjBbGUvPDjdbFFILYM/z1Y
+	i1AqzqX3ldndS4FO6fWya+LrrETby3j3w1N/4C86wTyr3szQeJ/RRlAKya14bdY/qdaAiG5
+	BbAGcOlk4RiMqCd9SCa6rV1RCIH48707ESET4vCX+itbQDiL+zcvWLZ9z9fH3xL2OiVy/7n
+	v3ItYbpUYhyIsqzJxrXcbi07nVteUK/k7faf7L6b78nzDTDK0+LRB/5uHUIYYoNoKW80SGI
+	p8ofZ/9Wkh+/Jw7ibcViJ7j/3RaZ+iRSZ1fD+ydYGlJ2w4I8GglRjYRbunAyrw6XbPa/I4F
+	hIFUvDraXUz5Ei7rzKSro2NWcqmA29PBYbH/fe/DsiPzJv3nE8ZRXP0dthI5xIiwaU0lv0+
+	I73wn6wOjFJ7uRi8r+DUlZ/CSYxLBA7pjyg1gBHuij0nUMvJyqGdCDKvQkZ8jZWjmD3gFty
+	GMIddM/utSG961eH7KwwyV0NJhwEUs9NwuFBhWiYQEzH8wlywrPit19+SGQ9NNCOy+UBurg
+	XrmvI8zm1xIHu2DflrRa0+OTQU7HpvVMeXSeluU4UTtHwpNujPPwQHHFpbZyuYGiSMRvV8L
+	/wNuVgl78KLJUTbIKwZBm9DbB51rbDwmuzCfwys2cm9YV/hm9IE6XTZkDoRAMa746rQzK+3
+	owOqb6wbzFNNZmx/cLG6EB335eqvgLV3cPJNKVm1TyCD5lk56Eash2uEpI1WxJ/DAxQkyj+
+	wnFDPJ8uEy7WY0hPH7fAGOIdJD/vv/tnhkjeBH4D/YtZgnKLkfC5tHQchFpY+qkyNr2aFkC
+	A==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-On 11/13/26 4:06 PM, Youling Tang wrote:
-> From: Youling Tang <tangyouling@kylinos.cn>
-> 
-> __exfat_iomap_begin() reads i_size twice: once to detect a range that
-> starts beyond EOF, and once to clamp the mapping to EOF.  A concurrent
-> truncate can shrink i_size between the two reads, so the clamp can
-> produce a negative length.  The unsigned cluster index subtraction then
-> underflows, making exfat_map_cluster() believe it has to allocate a huge
-> number of clusters and report a hole.
-> 
-> Fix this by reading i_size once for both the EOF check and the
-> block-aligned clamp.
-> 
-> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Youling Tang <tangyouling@kylinos.cn>
+qce_ahash_async_req_handle() maps the source scatterlist with
+dma_map_sg(), which returns the number of entries after the DMA mapper
+has coalesced them.  The driver keeps that value in ret but immediately
+overwrites it with the result of the second dma_map_sg() call for the
+result buffer, so qce_dma_prep_sgs() and the later unmaps use
+rctx->src_nents, the count from sg_nents_for_len() before mapping.
 
-Looks good to me:
+When the DMA mapper merges entries, the descriptor is prepared with more
+entries than were mapped, so the DMA engine may read sg_dma_address and
+sg_dma_len from entries that were never populated.  This can lead to
+IOMMU faults or memory corruption.  Store the mapped count in
+rctx->src_nents so the descriptor and both unmap paths use the count
+returned by dma_map_sg().
 
-Reviewed-by: Chi Zhiling <chizhiling@kylinos.cn>
+This issue was found in the Sashiko review of the "crypto: qce - fix CCM
+AAD buffer leak and AEAD error-path bugs" series.
 
-> ---
->   fs/exfat/iomap.c | 9 +++++----
->   1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
-> index 4e6f3ed9dcc8..11823591b3a8 100644
-> --- a/fs/exfat/iomap.c
-> +++ b/fs/exfat/iomap.c
-> @@ -51,8 +51,10 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
->   	bool balloc = false;
->   
->   	if (!may_alloc) {
-> +		loff_t isize = i_size_read(inode);
-> +
->   		/* Completely beyond EOF. Treat as hole */
-> -		if (i_size_read(inode) <= offset) {
-> +		if (offset >= isize) {
->   			iomap->type = IOMAP_HOLE;
->   			iomap->addr = IOMAP_NULL_ADDR;
->   			iomap->offset = offset;
-> @@ -61,9 +63,8 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
->   		}
->   
->   		/* Clamp length if the requested range goes beyond i_size */
-> -		if (offset + length > i_size_read(inode))
-> -			length = round_up(i_size_read(inode),
-> -					  i_blocksize(inode)) - offset;
-> +		if (offset + length > isize)
-> +			length = round_up(isize, i_blocksize(inode)) - offset;
->   	}
->   
->   	num_clusters = exfat_bytes_to_cluster_round_up(sbi,
+Link: https://sashiko.dev/#/patchset/20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com
+Fixes: fea40451530fe ("crypto: qce - dma_map_sg can handle chained SG")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jinming Zhao <zhaojinming@uniontech.com>
+---
+qce_ahash_async_req_handle() maps the source scatterlist with
+dma_map_sg(), which returns the number of entries after the DMA mapper
+has coalesced them.  The driver keeps that value in ret but then
+overwrites it with the result of the second dma_map_sg() call for the
+result buffer, so qce_dma_prep_sgs() and the later unmaps use the
+rctx->src_nents value computed before mapping.
+
+When the DMA mapper merges entries, the descriptor is prepared with more
+entries than were mapped, so the DMA engine may read sg_dma_address and
+sg_dma_len from entries that were never populated, which can lead to
+IOMMU faults or memory corruption.  Store the mapped count in
+rctx->src_nents so the descriptor and both unmap paths use the count
+returned by dma_map_sg().
+
+This issue was found in the Sashiko review of the "crypto: qce - fix CCM
+AAD buffer leak and AEAD error-path bugs" series:
+https://sashiko.dev/#/patchset/20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0%40uniontech.com
+---
+ drivers/crypto/qce/sha.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/crypto/qce/sha.c b/drivers/crypto/qce/sha.c
+index b67d749db05f..c53d0e53784e 100644
+--- a/drivers/crypto/qce/sha.c
++++ b/drivers/crypto/qce/sha.c
+@@ -97,6 +97,12 @@ static int qce_ahash_async_req_handle(struct crypto_async_request *async_req)
+ 	if (!ret)
+ 		return -EIO;
+ 
++	/*
++	 * dma_map_sg() can coalesce entries, so use the number of mapped
++	 * entries for the descriptor and for the later unmap.
++	 */
++	rctx->src_nents = ret;
++
+ 	sg_init_one(&rctx->result_sg, qce->dma.result_buf, QCE_RESULT_BUF_SZ);
+ 
+ 	ret = dma_map_sg(qce->dev, &rctx->result_sg, 1, DMA_FROM_DEVICE);
+
+---
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+change-id: 20261113-qce-ahash-dma-count-41e47c59b17a
+
+Best regards,
+--  
+Jinming Zhao <zhaojinming@uniontech.com>
 
