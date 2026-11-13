@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532116;
-	b=PEush5IVfN9aqBiLaOFh9Yhao7zM1bNqeONEk1i5/kRnYsgvTUEN+7BKzX6RP6P3N/Xd
-	 TpJ3OPx3otWqhHI7aExzns39PvA6I4TN7wUjHC/qaoJPvo+J2kvB7b8K6Toq6d52N/NBQ
-	 I+QRx0NHSRiY9P5Oy13zm6S1+QgiFESyfff1ml9qGG0/dByZdtY6IGonuXBQSDDn2Nt2L
-	 PXWReF2VvxfPoF6AlUka9R6hMP0/Ep2MCSje58OD7u+y4TMY5jbdGzcyjZS56G+G9yu7K
-	 jdfP12Tg1VQAc5U8IFd5utEj6jQsdTLutrobIUxSMJzMmsM34hIbuIW9SFeNZlM+/tw==
+	t=1794532118;
+	b=WijSebmJkcbAzllX9r6QZYG1L0XUnmwwQ+i5Kz2KnS40yCyLfVTkfJFZHi67pW66JocU
+	 Rvh3NBkVbiV9BVnW4UgLYtk88hMyIaC6Myva735FWJuHKoEolulN+tmnWkoIUrDwB23RO
+	 lf5uvP+pSzPHiFjGnAJYgtvWtpsZviaVTztBAahWpC7V6yYYYVJR+cwoAPKWeLFWlLG0j
+	 Y6T1pCWYWQ4EPTe4//2pal3pen1ukpahTXyOYBOWbKcC56XWnCUr//xugGyJlkhnWFKKn
+	 KsP+rocvcHPNQ0qSVk8cdbD2NlRxxjD33nvtIx1Zyb07X4d+N87afYKHNztvgA7XtJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532116;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532118;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Gk+kPP8lm6AY2IOfXaSY5B8VnQv17iLfHnGOIU09N6k=;
-	b=rhzjsZXpXMp/06f5a1LXv89ex0jUn6ZmD7SN6Cg2z98XZBr5hnZKsBRudh6pezvYWCxd
-	 kYfi3gMqOyST50tZNe2Ur6jh3eBaQYp09I9PpXLBVx9P7mYH5gsKFLNKmzXDC7wP6MWV+
-	 4pNJAb8gy2rClKepKfrk5irVTpKsIGXNffWhouuF7ZFmHsfyIFARfCXML8wC+WFgLNhkW
-	 hEwAzmGTYq7B8fQjWIxngUndciq/cNx2XTKtLCYqMdSIZpg/LeIpfULXAXrnOuwqG8wm5
-	 J2+iUBrJ9fkdQPol24Duzc5rY9DDQmCdUXUng+EWgbWmYHSWTNf9zZxo8Dbvi3g/TLg==
+	bh=zfEt7iAR+1yOYUIpeMBJ9ba2Y1mfDJ3Khxis2MRlWLw=;
+	b=YbL8yT1NhaIt0h4fyS2EkGDAHFrtCV7lII5efTy5PwhrxGlZfzY839sFDNqHhIV3lfA2
+	 FYwDhrijWBfiyKaZxNdRQt3CrwMqlC4xCE0aGqsTfk/lb+3UZvNyh8O+UrBDmfi0eYeVb
+	 eRK2pObcy3/a7en0z3H0h7NsB+nWiSno8LGTVYE/QFPxWplr8wFTDeBFth5fLWWFqUps7
+	 ojp6XSqbtG/joV7tNIWz7k5v0JhmBIH8YnSKZDvKYnYMHopgN71i1z1yQyvWoI0z4QSzp
+	 S5YJRMgTp85AykeIMpA/BRTY9Oz0arNDFhAAM+h1TSFtOywQxC6tjTLCv8cXu6n7dHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nw3TQX0P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Td8B+pR6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1792606A885
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:08:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F0C606A881
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:08:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nw3TQX0P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0201F000C9;
-	Fri, 13 Nov 2026 01:08:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Td8B+pR6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5F7E1F000C5;
+	Fri, 13 Nov 2026 01:08:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794532116;
-	bh=Gk+kPP8lm6AY2IOfXaSY5B8VnQv17iLfHnGOIU09N6k=;
+	s=k20260515; t=1794532117;
+	bh=zfEt7iAR+1yOYUIpeMBJ9ba2Y1mfDJ3Khxis2MRlWLw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nw3TQX0PuxitmT2hGQkijITYe+GRW25Oje8pVBG94wFuPh6ytngN98+XE/D2IXaZS
-	 /n0RGtyzXo5qhZirQzSN1snIKbZjcnsf8T1h2W2Jhc+EDyQhUtPzYucgIG5jd5LJC9
-	 tvl+mOW2QhRP2FMz1RXt73qWaRk6UyHGT6qT+N8bOalDHEjFFVCYZXG6riWy6e8/vj
-	 5fem+IzuEVJyqNyNFZZH2vGd6ckVB6832S7p4ThT4SKQ1huFlQWsjDm4ltuPR5wvLI
-	 JdWqev9RqS0nsrUhqmGTAdq9DVBqwIQ7ZnIaF+mIqK4JHqUSGyNBVvoXWlH0QXd16k
-	 LZ4aF80nL91pA==
+	b=Td8B+pR63fOYDQAOPfdGoOT7ZZisRrLPlVfSVCKDpUyxQmHfnrKfXrU2SBCDrwQZ+
+	 GVtP5jhBsbhfYH1g2wyx7acA4mGpVjJlpLsCaDRxCArIQ71qzbBfL9kF2ij5o6wTI5
+	 pUUdMSv8IDBSuC7zuQOMpDsLG2pRIyG36nSzth/rzoBHzRxfG6c6dqcbmOKXBjR8rH
+	 xsS12xU4FpFpNiHoJ9CdXQ4WRMyE6vDheLHbrl9+oh/fE3JVWozIGKpR2E64llSAWd
+	 Xo7Nain4LCl+NrDM7+MhjdsmPwPBDY52t34Q8+S2YgWukGURAzpEvWPkG5eUYfeUxH
+	 PbZYo0z6FgrcQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+Cc: Cen Zhang <zzzccc427@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
 	Mark Fasheh <mark@fasheh.com>,
 	Joel Becker <jlbec@evilplan.org>,
-	Junxiao Bi <junxiao.bi@oracle.com>,
-	Joseph Qi <jiangqi903@gmail.com>,
-	Changwei Ge <gechangwei@live.cn>,
-	Gang He <ghe@suse.com>,
-	Jun Piao <piaojun@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Jia-Ju Bai <baijiaju1990@gmail.com>,
+	jjzuming@gmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] ocfs2: constify struct ocfs2_lock_res_ops
-Date: Thu, 12 Nov 2026 20:08:33 -0500
-Message-ID: <20261113010827.549256-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] ocfs2: cache the mount context for dentry lock callbacks
+Date: Thu, 12 Nov 2026 20:08:34 -0500
+Message-ID: <20261113010827.549256-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202232-failed-5.15-5b4696e0bfc3@kernel.org>
+In-Reply-To: <20261113010827.549256-1-sashal@kernel.org>
 References: <20261109202232-failed-5.15-5b4696e0bfc3@kernel.org>
+ <20261113010827.549256-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,157 +68,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+From: Cen Zhang <zzzccc427@gmail.com>
 
-[ Upstream commit 3ebe69c0c3ae3ef5ecd1ad86aa98a3b7cbe3c7e9 ]
+[ Upstream commit 5b4696e0bfc358619adaeab25ad35b4979af8331 ]
 
-"struct ocfs2_lock_res_ops" are not modified in this driver.
+ocfs2_drop_dentry_lock() drops the inode reference before releasing the
+DENTRY lock.  This lets inode eviction release the local inode and open
+locks before a remote unlink can proceed past the DENTRY lock.
 
-Constifying this structure moves some data to a read-only section, so
-increase overall security.
+A DLM callback can still arrive before the DENTRY lock has been dropped.
+ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
+which can access a freed inode when the downconvert thread drops the
+last inode reference in its post-unlock callback:
 
-In order to do it, "struct ocfs2_lock_res" also needs to be adjusted to
-this new const qualifier.
+  Downconvert thread                     DLM callback thread
+  ------------------                     -------------------
+  ocfs2_process_blocked_lock()
+    ocfs2_dentry_post_unlock()
+      ocfs2_dentry_lock_put()
+        ocfs2_drop_dentry_lock()
+          iput(dl->dl_inode)
+          [inode reclaimed after RCU]
+                                         ocfs2_blocking_ast()
+                                           ocfs2_get_dentry_osb()
+                                             dl->dl_inode->i_sb
+          ocfs2_simple_drop_lockres()
 
-On a x86_64, with allmodconfig:
-Before:
-======
-   text	   data	    bss	    dec	    hex	filename
-  83038	   2632	    400	  86070	  15036	fs/ocfs2/dlmglue.o
+Store the mount context in the DENTRY lock resource's l_priv field and use
+the default mount-context lookup.  Recover the containing dentry lock with
+container_of(), as already done for refcount locks, and remove
+ocfs2_get_dentry_osb().  ocfs2_dismount_volume() shuts down the DLM before
+freeing the mount context, so callbacks can use it without accessing the
+inode.  Preserve the existing iput-before-unlock order to avoid delaying
+local inode and open lock release until after the DENTRY lock is released.
 
-After:
-=====
-   text	   data	    bss	    dec	    hex	filename
-  83806	   1992	    272	  86070	  15036	fs/ocfs2/dlmglue.o
-
-Link: https://lkml.kernel.org/r/43d3e2ae3a97d3cbe93d6ba6ce48ae5ec04d7526.1718382288.git.christophe.jaillet@wanadoo.fr
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com
+Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
 Cc: Mark Fasheh <mark@fasheh.com>
 Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Joseph Qi <jiangqi903@gmail.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Gang He <ghe@suse.com>
-Cc: Jun Piao <piaojun@huawei.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 5b4696e0bfc3 ("ocfs2: cache the mount context for dentry lock callbacks")
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/dlmglue.c | 28 ++++++++++++++--------------
- fs/ocfs2/ocfs2.h   |  2 +-
- 2 files changed, 15 insertions(+), 15 deletions(-)
+ fs/ocfs2/dcache.h  |  5 ++---
+ fs/ocfs2/dlmglue.c | 16 ++++------------
+ 2 files changed, 6 insertions(+), 15 deletions(-)
 
+diff --git a/fs/ocfs2/dcache.h b/fs/ocfs2/dcache.h
+index 7f246c5692d82..046ab9a807692 100644
+--- a/fs/ocfs2/dcache.h
++++ b/fs/ocfs2/dcache.h
+@@ -17,9 +17,8 @@ struct ocfs2_dentry_lock {
+ 	u64			dl_parent_blkno;
+ 
+ 	/*
+-	 * The ocfs2_dentry_lock keeps an inode reference until
+-	 * dl_lockres has been destroyed. This is usually done in
+-	 * ->d_iput() anyway, so there should be minimal impact.
++	 * The inode reference is dropped before dl_lockres is unlocked.
++	 * Callbacks must not use it to find the mount context during teardown.
+ 	 */
+ 	struct inode		*dl_inode;
+ 	struct ocfs2_lock_res	dl_lockres;
 diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-index dacf01536b529..ce61085f3b94b 100644
+index ce61085f3b94b..c8cda79945317 100644
 --- a/fs/ocfs2/dlmglue.c
 +++ b/fs/ocfs2/dlmglue.c
-@@ -222,12 +222,12 @@ struct ocfs2_lock_res_ops {
-  */
- #define LOCK_TYPE_USES_LVB		0x2
- 
--static struct ocfs2_lock_res_ops ocfs2_inode_rw_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_inode_rw_lops = {
- 	.get_osb	= ocfs2_get_inode_osb,
- 	.flags		= 0,
+@@ -56,7 +56,6 @@ struct ocfs2_mask_waiter {
+ #endif
  };
  
--static struct ocfs2_lock_res_ops ocfs2_inode_inode_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_inode_inode_lops = {
- 	.get_osb	= ocfs2_get_inode_osb,
- 	.check_downconvert = ocfs2_check_meta_downconvert,
- 	.set_lvb	= ocfs2_set_meta_lvb,
-@@ -235,50 +235,50 @@ static struct ocfs2_lock_res_ops ocfs2_inode_inode_lops = {
- 	.flags		= LOCK_TYPE_REQUIRES_REFRESH|LOCK_TYPE_USES_LVB,
+-static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres);
+ static struct ocfs2_super *ocfs2_get_inode_osb(struct ocfs2_lock_res *lockres);
+ static struct ocfs2_super *ocfs2_get_file_osb(struct ocfs2_lock_res *lockres);
+ static struct ocfs2_super *ocfs2_get_qinfo_osb(struct ocfs2_lock_res *lockres);
+@@ -256,7 +255,6 @@ static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
  };
  
--static struct ocfs2_lock_res_ops ocfs2_super_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_super_lops = {
- 	.flags		= LOCK_TYPE_REQUIRES_REFRESH,
- };
- 
--static struct ocfs2_lock_res_ops ocfs2_rename_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_rename_lops = {
- 	.flags		= 0,
- };
- 
--static struct ocfs2_lock_res_ops ocfs2_nfs_sync_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_nfs_sync_lops = {
- 	.flags		= 0,
- };
- 
--static struct ocfs2_lock_res_ops ocfs2_trim_fs_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_trim_fs_lops = {
- 	.flags		= LOCK_TYPE_REQUIRES_REFRESH|LOCK_TYPE_USES_LVB,
- };
- 
--static struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
- 	.flags		= LOCK_TYPE_REQUIRES_REFRESH|LOCK_TYPE_USES_LVB,
- };
- 
--static struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
- 	.get_osb	= ocfs2_get_dentry_osb,
+ static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
+-	.get_osb	= ocfs2_get_dentry_osb,
  	.post_unlock	= ocfs2_dentry_post_unlock,
  	.downconvert_worker = ocfs2_dentry_convert_worker,
  	.flags		= 0,
- };
- 
--static struct ocfs2_lock_res_ops ocfs2_inode_open_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_inode_open_lops = {
- 	.get_osb	= ocfs2_get_inode_osb,
- 	.flags		= 0,
- };
- 
--static struct ocfs2_lock_res_ops ocfs2_flock_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_flock_lops = {
- 	.get_osb	= ocfs2_get_file_osb,
- 	.flags		= 0,
- };
- 
--static struct ocfs2_lock_res_ops ocfs2_qinfo_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_qinfo_lops = {
- 	.set_lvb	= ocfs2_set_qinfo_lvb,
- 	.get_osb	= ocfs2_get_qinfo_osb,
- 	.flags		= LOCK_TYPE_REQUIRES_REFRESH | LOCK_TYPE_USES_LVB,
- };
- 
--static struct ocfs2_lock_res_ops ocfs2_refcount_block_lops = {
-+static const struct ocfs2_lock_res_ops ocfs2_refcount_block_lops = {
- 	.check_downconvert = ocfs2_check_refcount_downconvert,
- 	.downconvert_worker = ocfs2_refcount_convert_worker,
- 	.flags		= 0,
-@@ -511,7 +511,7 @@ static inline void ocfs2_init_start_time(struct ocfs2_mask_waiter *mw)
- static void ocfs2_lock_res_init_common(struct ocfs2_super *osb,
- 				       struct ocfs2_lock_res *res,
- 				       enum ocfs2_lock_type type,
--				       struct ocfs2_lock_res_ops *ops,
-+				       const struct ocfs2_lock_res_ops *ops,
- 				       void *priv)
+@@ -307,7 +305,7 @@ static inline struct ocfs2_dentry_lock *ocfs2_lock_res_dl(struct ocfs2_lock_res
  {
- 	res->l_type          = type;
-@@ -554,7 +554,7 @@ void ocfs2_inode_lock_res_init(struct ocfs2_lock_res *res,
- 			       unsigned int generation,
- 			       struct inode *inode)
+ 	BUG_ON(lockres->l_type != OCFS2_LOCK_TYPE_DENTRY);
+ 
+-	return (struct ocfs2_dentry_lock *)lockres->l_priv;
++	return container_of(lockres, struct ocfs2_dentry_lock, dl_lockres);
+ }
+ 
+ static inline struct ocfs2_mem_dqinfo *ocfs2_lock_res_qinfo(struct ocfs2_lock_res *lockres)
+@@ -608,13 +606,6 @@ static __u64 ocfs2_get_dentry_lock_ino(struct ocfs2_lock_res *lockres)
+ 	return be64_to_cpu(inode_blkno_be);
+ }
+ 
+-static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres)
+-{
+-	struct ocfs2_dentry_lock *dl = lockres->l_priv;
+-
+-	return OCFS2_SB(dl->dl_inode->i_sb);
+-}
+-
+ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
+ 				u64 parent, struct inode *inode)
  {
--	struct ocfs2_lock_res_ops *ops;
-+	const struct ocfs2_lock_res_ops *ops;
+@@ -622,6 +613,7 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
+ 	u64 inode_blkno = OCFS2_I(inode)->ip_blkno;
+ 	__be64 inode_blkno_be = cpu_to_be64(inode_blkno);
+ 	struct ocfs2_lock_res *lockres = &dl->dl_lockres;
++	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
  
- 	switch(type) {
- 		case OCFS2_LOCK_TYPE_RW:
-diff --git a/fs/ocfs2/ocfs2.h b/fs/ocfs2/ocfs2.h
-index 9de838f1ac555..fd57d798a8bae 100644
---- a/fs/ocfs2/ocfs2.h
-+++ b/fs/ocfs2/ocfs2.h
-@@ -154,7 +154,7 @@ struct ocfs2_lock_stats {
+ 	ocfs2_lock_res_init_once(lockres);
  
- struct ocfs2_lock_res {
- 	void                    *l_priv;
--	struct ocfs2_lock_res_ops *l_ops;
-+	const struct ocfs2_lock_res_ops *l_ops;
+@@ -650,9 +642,9 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
+ 	memcpy(&lockres->l_name[OCFS2_DENTRY_LOCK_INO_START], &inode_blkno_be,
+ 	       sizeof(__be64));
  
+-	ocfs2_lock_res_init_common(OCFS2_SB(inode->i_sb), lockres,
++	ocfs2_lock_res_init_common(osb, lockres,
+ 				   OCFS2_LOCK_TYPE_DENTRY, &ocfs2_dentry_lops,
+-				   dl);
++				   osb);
+ }
  
- 	struct list_head         l_blocked_list;
+ static void ocfs2_super_lock_res_init(struct ocfs2_lock_res *res,
 -- 
 2.53.0
 
