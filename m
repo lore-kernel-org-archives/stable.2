@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590037;
-	b=ijnB3CvpLl5apO8tj8RDXkwxxBdIikRYYEBY0ePQXa9u6B/1XTfDZJNdHzPmF5DSKHuZ
-	 3HhXuKDTrqhcnsuXcvUKxxPlA4ngmx3jwtlY8MmUjB7/Jow2Tvu+101vwOiwpmfOmglCJ
-	 r27IyW1OGhB2NQT9kpJf2TF3Dx7Y+PaXbIwETxgOHtb2ezloOPHpmkbOAeyhJiZI4rM42
-	 G2y0p5G0aaI+CH9mJPWpX3hlxptoZt2qfPuv7Gvi7lE5YYclfaw9JgvWuUDglPWsKp7FU
-	 TyxMR/XVogYI4xTGC0vD6iVv5esnts7N5elZlaNc/Hcan3VUTe2JuaouL/ZjbFOw/Ag==
+	t=1794590038;
+	b=TBYfXhextfCinRxHbbq+w6UUnp9yVhyHd99TlIoZoyaxkIwoCTgGmqbBHtvDtQ+eYSty
+	 f+1TbEEFfuGB63D5PtuQXr0K6sSnpZCx9QKj1aoKlZtHR+7zM3ELbNtnW01302jCD8c6P
+	 y7s1m3+uolTamHI0RKeMw90avc3Hy1E1NGg5WN/j+Sdt+FH0/A9iN/MnHcdnR4WeBcEI7
+	 kjDdlqkz00+iqORFUkbENg7lm/X6ifMXXcehjlA/5CnXgc6ZbIZO5Itn734hQdqGWP2oV
+	 ZanPo5UU7IFoKgXmbPITNlZWgQIs3Y36gPdLPpBNfxizOiAqEvuhm8JXKOhmVfENfvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590037;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590038;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=FPZPiM8QH0BFMbq1HP3A2wAZZcsYUxor6LPxWAbA/Po=;
-	b=fQk9uAj9bX72GCYySDGc6UvtDwijH/1MyyvGFw4htWS8EToAmoD/oLXlNxc49kHGT+8d
-	 zaUp7/ZdkKo9hJR435ktBLCfSfsiTrAWA8XhbkS/07r9TP0QfVh9E9Ya61ZMOslH3PfS8
-	 bp9YblfAfVk5wrbjMmlTzfhIAfxNQtLO2HJQY8fBstGICpLr46uDC3gL9u+RMzjw9ps0j
-	 VB9sMJwSf1RA4ko4CXuk+HxLvvRPPQLF/I3NKWiuiyuQm3Nldk4ZcApBxBAmPnjUss2js
-	 RZ+8qnSQ5RIGZrbUJTtpjrwhFgkFZ2+HWmjdnEKCNopkqyaldK/XwFVCg1Lx0sFjLpA==
+	bh=eLkCHdJToGFRtFbW2sSxnju9+7GAWK5cRHWznQP9wXg=;
+	b=Q3c3J9W99ulOCiliCw/gsLUYZyxvJhJsbqdaNk534iet6Bm3aozXYHWT2ONxTtJiAIg3
+	 JpgIR0SRabAj/auHoInlau4W8gzhL+vi8dpn/UuXD+zouBOHWM00ulz4AEIPkVCUlFtRk
+	 VXIOBu3j4DRo5z9c9VWeKNuoKde5SeXvIUi/AXyKrXQsgrvH9seTccLuRJe2ugdMeIZWF
+	 q9sZKJBTjEWQDn8bF0ZH2t1R/7kj+BRN0u5xxYlSeyeK9Ank48kHgg8aEe+gC0HqbY2cK
+	 IqNIX+ScwwLRbIiQDd9HJlI4c54LwlS4ertKoUI2WVgpVtm8GCGe2zeANbnHSPkdMmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v4v4gADK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="E7eFovs/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67276606A8BC;
-	Fri, 13 Nov 2026 17:13:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7C6606E234;
+	Fri, 13 Nov 2026 17:13:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v4v4gADK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 132831F000C5;
-	Fri, 13 Nov 2026 17:13:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E7eFovs/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4631F000C5;
+	Fri, 13 Nov 2026 17:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794590037;
-	bh=FPZPiM8QH0BFMbq1HP3A2wAZZcsYUxor6LPxWAbA/Po=;
+	s=korg; t=1794590038;
+	bh=eLkCHdJToGFRtFbW2sSxnju9+7GAWK5cRHWznQP9wXg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=v4v4gADKjpGHlOzytpegvqM3wb6xarzYejhT4LKcNCUg9sTrV/4ci0Q0yNKbqR6+8
-	 CbJIuB3nAMiyqx0xBeRT6a4hAX0vcpqwXZTUr+vjGH00MMxgek/+WC3g4dupYR7Wmd
-	 U1iLZ1zBBQhxah+lEE7x7uIwiJYcIS3dhwlksw5s=
+	b=E7eFovs/8f/rzYDQgeAd40QcOAy+ZBRNhd+FvD9VCiIlNLjdVS2xO4yolkD4hdH00
+	 6HA7PHWJ7Lo5YQE/rcNPbt58i2KH1qwdellcPgyC1+7TwjTmNs3rKJXHyQQCEIHQru
+	 CkgALXSSUg9GH/kfaAn7ZGfoWwt6+xVg8JC+5KO4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com,
-	Chuck Lever <cel@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 047/686] NFSD: Move the cld upcall message out of the callers stack frame
-Date: Fri, 13 Nov 2026 10:43:00 -0500
-Message-ID: <20261113153822.555574261@linuxfoundation.org>
+Subject: [PATCH 6.18 074/686] mm/damon/core: remove unreachable damos charge_{target,addr}_from
+Date: Fri, 13 Nov 2026 10:43:27 -0500
+Message-ID: <20261113153823.412537299@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
 References: <20261113153820.902362109@linuxfoundation.org>
@@ -68,86 +68,84 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Chuck Lever <cel@kernel.org>
+From: SJ Park <sj@kernel.org>
 
-[ Upstream commit c559b05610557fa3c6c30259261f6dae523b3f23 ]
+[ Upstream commit 5695abc4e742b947f586bfb6a080a80ad9957e5d ]
 
-__cld_pipe_upcall() builds its struct rpc_pipe_msg on the stack and
-hands it to rpc_queue_upcall(), which links it into a list the pipe
-owns until the message is released. Only the completion rules keep that
-frame alive for as long as the pipe refers to it, and the peer that
-drives those rules is an untrusted userspace daemon. The gss and idmap
-upcalls do not take that on: each keeps the message in the object it
-already allocates.
+damos_quota->charge_{target,addr}_from saves the target and region the
+scheme's quota limit is reached.  damos_skip_charged_region() skips the
+target and regions before the point.  The target that was assigned to
+charge_target_from could be dynamically removed from the context by the
+runtime parameters update (aka commit) feature.  In this case,
+damos_skip_charged_region() cannot find if the point is passed or not,
+so the scheme is effectively disabled.
 
-Do the same here and put the message in struct cld_upcall, beside the
-reply buffer it carries. cld_pipe_destroy_msg() then reaches the upcall
-from the message directly rather than through msg->data.
+Similarly, the user could also remove all the regions of the target
+using the runtime parameters update feature.  It would be uncommon to do
+that, but it is a supported feature.  Because the skip pointer detection
+logic (damos_skip_charged_region()) works for each region of targets,
+this result in the logic is entirely skipped and the scheme is
+effectively disabled again.
 
-Reported-by: syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d5c77cabf7a3492aa650
-Link: https://patch.msgid.link/20260901-alemi-v2-2-e163f94a3a6e@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Stable-dep-of: 2a83fcb50f3c ("NFSD: Complete a cld upcall when the daemon closes the pipe")
+The user impact is that the DAMOS scheme could suddenly stop working
+under certain uses of the runtime parameters update feature.  It could
+surprise users. No crash or leak happens though.  Users could also
+simply work around by re-installing the scheme.
+
+Catch the corner cases in damos_adjust_quota() and reset the pointers.
+
+Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
+Cc: <stable@vger.kernel.org> # 5.19.x
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4recover.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ mm/damon/core.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index d04a7d3aabbc8..b001d3277b9f9 100644
---- a/fs/nfsd/nfs4recover.c
-+++ b/fs/nfsd/nfs4recover.c
-@@ -711,6 +711,7 @@ struct cld_upcall {
- 	struct completion	 cu_done;
- 	/* daemon has read the whole upcall; protected by cn_lock */
- 	bool			 cu_inflight;
-+	struct rpc_pipe_msg	 cu_pipe_msg;
- 	union {
- 		struct cld_msg_hdr	 cu_hdr;
- 		struct cld_msg		 cu_msg;
-@@ -722,22 +723,22 @@ static int
- __cld_pipe_upcall(struct rpc_pipe *pipe, void *cmsg, struct nfsd_net *nn)
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 6f97b28eda634..33f47dcecc74b 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2269,6 +2269,26 @@ static void damos_trace_esz(struct damon_ctx *c, struct damos *s,
+ 	trace_damos_esz(cidx, sidx, quota->esz);
+ }
+ 
++static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
++		struct damos *s)
++{
++	struct damos_quota *quota;
++	struct damon_target *t;
++
++	quota = &s->quota;
++	if (!quota->charge_target_from)
++		return;
++	damon_for_each_target(t, c) {
++		if (t == quota->charge_target_from) {
++			if (damon_nr_regions(t) > 0)
++				return;
++			break;
++		}
++	}
++	quota->charge_target_from = NULL;
++	quota->charge_addr_from = 0;
++}
++
+ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
  {
- 	int ret;
--	struct rpc_pipe_msg msg;
- 	struct cld_upcall *cup = container_of(cmsg, struct cld_upcall, cu_u);
-+	struct rpc_pipe_msg *msg = &cup->cu_pipe_msg;
- 
--	memset(&msg, 0, sizeof(msg));
--	msg.data = cmsg;
--	msg.len = nn->client_tracking_ops->msglen;
-+	memset(msg, 0, sizeof(*msg));
-+	msg->data = cmsg;
-+	msg->len = nn->client_tracking_ops->msglen;
- 
--	ret = rpc_queue_upcall(pipe, &msg);
-+	ret = rpc_queue_upcall(pipe, msg);
- 	if (ret < 0) {
- 		goto out;
+ 	struct damos_quota *quota = &s->quota;
+@@ -2305,6 +2325,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 			damos_trace_esz(c, s, quota);
  	}
  
- 	wait_for_completion(&cup->cu_done);
++	damos_fix_stale_charge_pointers(c, s);
++
+ 	if (!c->ops.get_scheme_score)
+ 		return;
  
--	if (msg.errno < 0)
--		ret = msg.errno;
-+	if (msg->errno < 0)
-+		ret = msg->errno;
- out:
- 	return ret;
- }
-@@ -910,9 +911,8 @@ cld_pipe_downcall(struct file *filp, const char __user *src, size_t mlen)
- static void
- cld_pipe_destroy_msg(struct rpc_pipe_msg *msg)
- {
--	struct cld_msg *cmsg = msg->data;
--	struct cld_upcall *cup = container_of(cmsg, struct cld_upcall,
--						 cu_u.cu_msg);
-+	struct cld_upcall *cup = container_of(msg, struct cld_upcall,
-+						 cu_pipe_msg);
- 	struct cld_net *cn = cup->cu_net;
- 
- 	/*
 -- 
 2.53.0
 
