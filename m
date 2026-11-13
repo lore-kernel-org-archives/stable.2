@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794591077;
-	b=Ygrz04oSEMPv/B7/LGJWAZ3Qzfi6dt7C5nUoAPw/gmQt2idl27TWEmrE6aVCywnrUOqR
-	 lo1B+xJ/7g05Q4Trj+7v9KqMuPYrMXANMzlsUT4Dc1RbcWd0zx6ZZaau5KJe45MhlqGja
-	 KNyz9V1sUeUw1NxAc1cIymaoTm8gnE3kThpL0cSvNVX3Z6pYBedieMwjR86p781X4yepR
-	 nU+7TE6/SVxcS1R3jm72+IXU+OnKNttgjcwsyHugDCAzM8XvTDbRssYga+LEh4WgFMpYh
-	 xjt3ksK9bXH69vWoMME5pMtfdqPxIBYsRZf0NlgvMYlNDiMIuLc2YGAORwS4iZV77oQ==
+	t=1794591079;
+	b=vOJ/VBU1JoIZbOWz6NNs+mdHaGFpFtzPnGX4N18Ew7l9gXSnCTQtYZTAM70eiYUiQhOG
+	 r01ixoRiDAG/+hLKZc8St2WegLOhRIcs6QZJmjII+bNXJvuk6hI+Q/IiI5WKcTy1BhyY9
+	 Hw1I7U3srZOVpUCDPNxKrtZaTUkNG5lHgxkmAi9dBFods0fxziHGZhnFCqC4eRem0F1yN
+	 um5Kl8yMCCt/IasP+huPZWKjRRQs9GOCmVJNJ3C0t//hoz6JSlK3VRWt0e29LCtdlpfWc
+	 KjVYkutB5Nd7D/JdEwSfiOGPMaN7OhpEmqeA5/UFJPGIgQf6DDXuZfCrS5ENw9dmHlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794591077;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794591079;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=S2o8waxP5WWJPpwSBU45PxG+GhrtrmNhBml3nBHpPP8=;
-	b=5ilis1M0cVFydgwAU6H7db5cdhGuDrfaT11PE+5VUT3lgWjXyOWFruwj2wwnU+v5df1Q
-	 b6Z+0NoxIPU5sWWUDyFz5k2JFR6Va29mut3m7epJHr2MXzRPla5ENntBaQ2xh/gSCGd1s
-	 2+0OI+QJzCsgr+gzytD3hdvXE4jntbkwC3GLYNR5dHD/JhB6NiumzcSVOGioHpcp8V5F1
-	 dweD9BRFhyYqt7d33KQZwMFEYYWxYd1hVG0P2cZWsismkhsf06jN/7Tl+2LRNsKW1HYKp
-	 rxzSAIGiTnYZmqQwSMOn3zZjYAtf+wVx08kEH45TVs3kQEk+XZTbhGA+h2ozRSV1VuQ==
+	bh=cTMF8lTkqsqrqQdsL7R36QqUo86ObgSzLeA2H5QIncg=;
+	b=gvhB0T7AR111Tayc6R3LFRvLiK/AzjZObh4KDHPzAJDHK2EmNlr39sWGAjao+Ehbm1vU
+	 NDvWGVPLLJItti1LnIaRcUAEB6ucn0jLNQ87JsdjOuDyOLNo1uZ5P2Fu44MUrmEsfluMs
+	 8Tm+heCZgS0IMlgysWO6U8wE1nepT1xB1c532fwZ0H0Mh8K2mQTBm8GeDBxOREwvS8H4p
+	 kxd0uHZR8tWCcs1QVS6wcAm2SLOgVZoXQSAkLdbzR38cv9N3CrtKC9M+NoUmKlTIHCtEC
+	 z1kI9xuifnmqADhGOj6naFrKfcONv+CudmfYObgiCQSRfOHDlcxe3VsZdUwKH/rh+RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ym3mQESO;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0IhZvWE1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1905607321E;
-	Fri, 13 Nov 2026 17:31:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2290E6073215;
+	Fri, 13 Nov 2026 17:31:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ym3mQESO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83FC51F000C4;
-	Fri, 13 Nov 2026 17:31:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0IhZvWE1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BBA1F000C4;
+	Fri, 13 Nov 2026 17:31:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794591077;
-	bh=S2o8waxP5WWJPpwSBU45PxG+GhrtrmNhBml3nBHpPP8=;
+	s=korg; t=1794591079;
+	bh=cTMF8lTkqsqrqQdsL7R36QqUo86ObgSzLeA2H5QIncg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ym3mQESOP6UJcwuDYvWBOtpnfPqDEKftZYujRhjzsLlekFPz2MOmQJg0jMcIQPfsq
-	 BQOkYbsAxOx7eONxsgTLqjh/+zAaXJz1PvvW5cMSxH40cVQnZDzGtanNIgeA5dkanJ
-	 TJWmd9/uwsgbtpO4QpZS0Tn+f2HZybXfJxzwbrSU=
+	b=0IhZvWE1DBoxPQQ4YnhrPKys6Y8RxNgCYOrOaI6QL4VvJiu5P+VPYwvuzOu+bqpEG
+	 Gkbdnfyic21StV8cfWiN5yPXMA0doI7ai8oX48tCAZuyIRTRXZbBIhR2rafClP65QC
+	 yEGxCkuZsMRqfWVTrnsuXwnkooCqpWEQGaMUrsFU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Josef Bacik <josef@toxicpanda.com>,
-	Rik van Riel <riel@surriel.com>,
-	Pedro Falcato <pfalcato@suse.de>,
+	Chris Mason <mason@kernel.org>,
+	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
 	Muhammad Usama Anjum <usama.anjum@arm.com>,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 233/670] mm/filemap: dont lose a folio lock wakeup to a signal
-Date: Fri, 13 Nov 2026 10:46:37 -0500
-Message-ID: <20261113153819.762733698@linuxfoundation.org>
+Subject: [PATCH 6.12 234/670] mm/filemap: finish fault cleanup before dropping the fault lock
+Date: Fri, 13 Nov 2026 10:46:38 -0500
+Message-ID: <20261113153819.790309498@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
 References: <20261113153811.177190860@linuxfoundation.org>
@@ -71,70 +70,109 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: David Hildenbrand (Arm) <david@kernel.org>
 
-[ Upstream commit 8ccb6ded6a47b59b4907ed4f8c293cf8122de889 ]
+[ Upstream commit 97156a6c355c21f7122421915f05461bd11699a4 ]
 
-An exclusive waiter in folio_wait_bit_common() can leave the wait loop
-because of a fatal signal, then be woken by folio_unlock() before
-finish_wait(). If the waker did not hand over the lock, the waiter returns
--EINTR without trying to acquire it.
+On a retried fault, a fatal signal interrupting the folio lock wait
+makes lock_folio_maybe_drop_mmap() drop the fault lock without pinning
+the file. However, filemap_fault() may still need to release
+mapping->invalidate_lock. A concurrent munmap() can release the last
+file reference and free the mapping before that unlock.
 
-folio_wake_bit() stops after waking the first exclusive waiter, so this
-loses the wakeup and can leave other waiters asleep indefinitely on an
-unlocked folio.
+Defer dropping the fault lock to filemap_fault()'s retry cleanup, after
+releasing invalidate_lock. If the fault lock was already dropped for
+I/O, release the existing file reference instead. Keep the fault lock
+held for FAULT_FLAG_RETRY_NOWAIT as before.
 
-After finish_wait(), let a waiter woken without a lock handoff try once
-more to acquire the lock. If successful, return success so the caller's
-eventual unlock wakes the next waiter. Otherwise, the current lock owner
-will do so.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 5ef64cc8987a ("mm: allow a controlled amount of unfairness in the page lock")
+Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: clarify and simplify comment + description ]
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
+Reported-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-7-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-8-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/filemap.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ mm/filemap.c | 37 +++++++++++++------------------------
+ 1 file changed, 13 insertions(+), 24 deletions(-)
 
 diff --git a/mm/filemap.c b/mm/filemap.c
-index 64c2325b92389..d7eab05b28f4b 100644
+index d7eab05b28f4b..602106b329bc8 100644
 --- a/mm/filemap.c
 +++ b/mm/filemap.c
-@@ -1346,10 +1346,22 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
- 	 * return value based on that state without races.
- 	 *
- 	 * Also note that WQ_FLAG_WOKEN is sufficient for a non-exclusive
--	 * waiter, but an exclusive one requires WQ_FLAG_DONE.
-+	 * waiter, but an exclusive one must also acquire the bit.
- 	 */
--	if (behavior == EXCLUSIVE)
--		return wait->flags & WQ_FLAG_DONE ? 0 : -EINTR;
-+	if (behavior == EXCLUSIVE) {
-+		if (wait->flags & WQ_FLAG_DONE)
-+			return 0;
-+		/*
-+		 * We might have just been woken up and the waker will not
-+		 * wake up anybody else. If we ignore that now, the remaining
-+		 * waiters may not get woken up: take the bit now if it is
-+		 * still free.
-+		 */
-+		if ((wait->flags & WQ_FLAG_WOKEN) &&
-+		    !test_and_set_bit(bit_nr, folio_flags(folio, 0)))
-+			return 0;
-+		return -EINTR;
-+	}
+@@ -3108,11 +3108,11 @@ loff_t mapping_seek_hole_data(struct address_space *mapping, loff_t start,
+  * @folio - the folio to lock.
+  * @fpin - the pointer to the file we may pin (or is already pinned).
+  *
+- * This works similar to lock_folio_or_retry in that it can drop the
+- * mmap_lock.  It differs in that it actually returns the folio locked
+- * if it returns 1 and 0 if it couldn't lock the folio.  If we did have
+- * to drop the mmap_lock then fpin will point to the pinned file and
+- * needs to be fput()'ed at a later point.
++ * Returns 1 with the folio locked, or 0 if locking failed.
++ *
++ * On both entry and return, a non-NULL *fpin means the fault lock has
++ * already been dropped and the caller must eventually fput() the file.
++ * Otherwise the fault lock is still held, including on failure.
+  */
+ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+ 				     struct file **fpin)
+@@ -3129,21 +3129,9 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+ 		return 0;
  
- 	return wait->flags & WQ_FLAG_WOKEN ? 0 : -EINTR;
+ 	*fpin = maybe_unlock_mmap_for_io(vmf, *fpin);
+-	if (vmf->flags & FAULT_FLAG_KILLABLE) {
+-		if (__folio_lock_killable(folio)) {
+-			/*
+-			 * We didn't have the right flags to drop the
+-			 * fault lock, but all fault_handlers only check
+-			 * for fatal signals if we return VM_FAULT_RETRY,
+-			 * so we need to drop the fault lock here and
+-			 * return 0 if we don't have a fpin.
+-			 */
+-			if (*fpin == NULL)
+-				release_fault_lock(vmf);
+-			return 0;
+-		}
+-	} else
+-		__folio_lock(folio);
++	if (vmf->flags & FAULT_FLAG_KILLABLE)
++		return !__folio_lock_killable(folio);
++	__folio_lock(folio);
+ 
+ 	return 1;
  }
+@@ -3305,7 +3293,7 @@ static vm_fault_t filemap_fault_recheck_pte_none(struct vm_fault *vmf)
+  * vma->vm_mm->mmap_lock must be held on entry.
+  *
+  * If our return value has VM_FAULT_RETRY set, it's because the mmap_lock
+- * may be dropped before doing I/O or by lock_folio_maybe_drop_mmap().
++ * may be dropped before doing I/O or when aborting an interrupted wait.
+  *
+  * If our return value does not have VM_FAULT_RETRY set, the mmap_lock
+  * has not been released.
+@@ -3461,9 +3449,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
+ 
+ out_retry:
+ 	/*
+-	 * We dropped the mmap_lock, we need to return to the fault handler to
+-	 * re-find the vma and come back and find our hopefully still populated
+-	 * page.
++	 * With fpin set, the fault lock was already dropped. Otherwise it is
++	 * still held. Release invalidate_lock before dropping either protection.
+ 	 */
+ 	if (!IS_ERR(folio))
+ 		folio_put(folio);
+@@ -3471,6 +3458,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
+ 		filemap_invalidate_unlock_shared(mapping);
+ 	if (fpin)
+ 		fput(fpin);
++	else if (!(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
++		release_fault_lock(vmf);
+ 	return ret | VM_FAULT_RETRY;
+ }
+ EXPORT_SYMBOL(filemap_fault);
 -- 
 2.53.0
 
