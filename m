@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588059;
-	b=tVZ1tjAmrERqMIRnGaok3byVbVm/UfejTUUPKymRWd4AP+Me0bHpUN15Ah6C4lw/7yIU
-	 wVsasZStzM9br66wAXYW09jXB8MPHQzfaq0Cic5NaI2+Ff8iIIcDFq/BGFJ2ouW2EmiNs
-	 B67e+j/Fg1QkcU+kbaZlfQDwyEa5wNgJosyoHZUnCvwRHW05f3Ug3o7O21kM/AjclTVF2
-	 6COESnaLD/wMgGvB/gvReugxQ1TROdPQrJWW0srjNDTGW3oFWQIp4TznauWvdbet9E7El
-	 Ecq+ksPNdWozbU5VWjOFOLWfrEtirSON0vG3xeemTJktZh7wlPVZCB/vdywHCPKo6kw==
+	t=1794588060;
+	b=Rdzk1F1KmMsJse0Rp2QkO0cSBi6z2Gbp/HFMErwroh0iK+swwgrCFjIhbU7IQ9ED/jot
+	 U7lNibeyeLASmvR1pCdirSI1eK+w3J5mQhBxWAse4ansXu9REXp8AZ92opKZ8/OlvZowk
+	 eW8TtVbl1MBiObJDnx5LeKc/DlOcveNGcUv2g6XeDYn7Ob6Atlmb2NNgFOMam90ZzTz0Y
+	 8lWu8pakV6DcryH14Ischesm/OD0xHZCVxh5JtrdLpxnDb4m3wsQUVcb4DsokdmZ5jg84
+	 /R2P6/Ztrl0sebEjeeIhT4PKYRkzkQxG3O3t0+aAlw0srT9WgodAdNsnKUSc4wLE98w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588060;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=O+qYVAnFfn+Nzjp0W1p4js/IvrOSHVTxwtru5vHHvqk=;
-	b=jlU/5jDn/M+v1Fn8KNdgu8crgi19DJw+w347EgENTUqtU9ETrtufkV6RmC+5bRgkzmCh
-	 EqSuzVAreqTJRn+fSfIj5Aw7Y79gmTpmzkFwmkeoo1QMOrurztcJ+KqG8iigIzZgImhRl
-	 swe364NFs+Aji5PGeo2cl72iqMzEgbpEMjvJ8G+MKYSNYv6AmFPcxAaTBK4ZC1DIfWg8c
-	 +QsTwvQ9uluPhr0tPMQLaUYwQa3eGxOkGhWx3EEGJXJS5DL33dEm7vAJvlCREEASMU4/j
-	 FV77V63gDwyUPBT7SnrS0kBGEvVLtUc8wuhsIRKjI4YSCqNQ70cQoJHUQ8ASorZP/MA==
+	bh=o6lmapeQlS9x/gXBpGYE0aCxc6IaBwa8yng/lPkOKyE=;
+	b=ax6GShBK9fPupGbcmYWlPC5XwOotG5VeerkFrsJwTOmLsYz4orhEHl55FnAiKDD8iIfb
+	 0T05FACv8nN9BVi7fQew5K6sgmUJVfOVr/FU7+q1ifwF9UlOYXnwDzEaYWty/u5XWTga+
+	 sZtJj30M7dbuQPZ4dp3uQnBghfjaGy5bqD1kaomu4XaLt/Qn8IP8qJ7Nv3UDfabBiEOkl
+	 g+Ji8XZ7jzfPp1joMBg8e8q3Ve8gYZJJZcotbTRpAo2GdtlfLLTC5/0JIEIhUwDVPwedn
+	 X/lqmseYF318tQTzcVDhg35EsEuLSg1gu21oC+lNZdSYaoJh6qj0lcnPCmscbogyl+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n8RHQ9xa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSMmFO65;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C257B606E230
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 16:40:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA42606E230
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 16:41:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n8RHQ9xa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295861F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSMmFO65
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E289E1F000C6;
 	Fri, 13 Nov 2026 16:40:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794588059;
-	bh=O+qYVAnFfn+Nzjp0W1p4js/IvrOSHVTxwtru5vHHvqk=;
+	s=k20260515; t=1794588060;
+	bh=o6lmapeQlS9x/gXBpGYE0aCxc6IaBwa8yng/lPkOKyE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n8RHQ9xaD2Ajx4eDzJG5NY+kXr3oPEz6S4RnoUwBHeoad49Ed8O8rQlViNWqBSdNu
-	 mriidH1r1XhV9zPE63fsvv5dXTkVxbyJH61MsKD2e6njia1tdwBZSxr6nrPhehuPDI
-	 /Nsc9LusnyjHY+E1SRG2D12T1TQ8JCg+/JbqeS1OJ49E4vsdIufowbcpfaVVSFK70F
-	 OnkhNwR4ELWFcNrqZZmmqlornp0aNGPL6hfeEZtvj3y2XFnUzkWGTRJ9dSsY7t2i/i
-	 XGPZ/AB3kpLevsVdk5CmUkZoFE6j7BSmKfvDAzk/zlx3l1bmq4esPdQMk31Ujj0QRP
-	 IQT+5ggWVpTAw==
+	b=nSMmFO65WweGQDjXPZVIUH+60L/+uSRGk4Kv1W860TSXyhMavLKRYbyZItR/9yxaY
+	 ErbmdL/Uj0neXMVCVPmbsq47kwIQd4Zyj+MYQD5btH375pDnqBgI5Arkq4hkdt29hQ
+	 NwgxuBvHc1nKidLSflZ0GonC8ep1ZTioklmf/4z9sSWNEM2oLQzcQxzeimhsV/MK0f
+	 oWIbNjtNjrIrz0dyrGFDa4HxLMjYBuZ0DsPHjnZIc2HFrNWxS5oV8eaxnhdjMmqclp
+	 8fqmUVzg44pKz9xXknv/VGYi7vinzz3roIbAty1MoDZszCJQ5ZiNbAjsc1jqpzKNln
+	 TMHB4EaU/qguA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Giovanni Di Santi <giovanni.disanti.lkl@gmail.com>,
 	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/3] fbdev: kyro: Use devm_ioremap() for mmio registers
-Date: Fri, 13 Nov 2026 11:40:55 -0500
-Message-ID: <20261113164024.2109768-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/3] fbdev: kyro: Use devm_ioremap_wc() for screen mem
+Date: Fri, 13 Nov 2026 11:40:56 -0500
+Message-ID: <20261113164024.2109768-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062153-failed-5.10-d3bc005a6294@kernel.org>
+In-Reply-To: <20261113164024.2109768-1-sashal@kernel.org>
 References: <20261107062153-failed-5.10-d3bc005a6294@kernel.org>
+ <20261113164024.2109768-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,10 +64,10 @@ Content-Transfer-Encoding: 8bit
 
 From: Giovanni Di Santi <giovanni.disanti.lkl@gmail.com>
 
-[ Upstream commit e0bf12a43243e6afc5a03fc55c58ec48aba48088 ]
+[ Upstream commit 32dfb6112ea3ca143636832cd34234f2be4830bb ]
 
-Replace the manual ioremap() call for the MMIO registers with the
-device-managed devm_ioremap() variant.
+Replace the manual pci_ioremap_wc() call for mapping screen memory with the
+device-managed devm_ioremap_wc() variant.
 
 This simplifies the driver's resource management by ensuring the memory is
 automatically unmapped when the driver detaches from the device.
@@ -76,47 +77,50 @@ Signed-off-by: Helge Deller <deller@gmx.de>
 Stable-dep-of: d3bc005a6294 ("fbdev: kyro: Release WC setup on registration failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/video/fbdev/kyro/fbdev.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/video/fbdev/kyro/fbdev.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/video/fbdev/kyro/fbdev.c b/drivers/video/fbdev/kyro/fbdev.c
-index 4979339dbc008..7441d48faea77 100644
+index 7441d48faea77..b298e9a1b4510 100644
 --- a/drivers/video/fbdev/kyro/fbdev.c
 +++ b/drivers/video/fbdev/kyro/fbdev.c
-@@ -713,13 +713,14 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	kyro_fix.mmio_len   = pci_resource_len(pdev, 1);
- 
- 	currentpar->regbase = deviceInfo.pSTGReg =
--		ioremap(kyro_fix.mmio_start, kyro_fix.mmio_len);
-+		devm_ioremap(&pdev->dev, kyro_fix.mmio_start,
-+			     kyro_fix.mmio_len);
+@@ -718,7 +718,8 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
  	if (!currentpar->regbase)
  		goto out_free_fb;
  
- 	info->screen_base = pci_ioremap_wc_bar(pdev, 0);
+-	info->screen_base = pci_ioremap_wc_bar(pdev, 0);
++	info->screen_base = devm_ioremap_wc(&pdev->dev, kyro_fix.smem_start,
++					    kyro_fix.smem_len);
  	if (!info->screen_base)
--		goto out_unmap_regs;
+ 		goto out_free_fb;
+ 
+@@ -756,7 +757,7 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	fb_memset(info->screen_base, 0, size);
+ 
+ 	if (register_framebuffer(info) < 0)
+-		goto out_unmap;
 +		goto out_free_fb;
  
- 	if (!nomtrr)
- 		currentpar->wc_cookie = arch_phys_wc_add(kyro_fix.smem_start,
-@@ -768,8 +769,6 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	fb_info(info, "%s frame buffer device, at %dx%d@%d using %ldk/%ldk of VRAM\n",
+ 		info->fix.id,
+@@ -767,8 +768,6 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
  
- out_unmap:
- 	iounmap(info->screen_base);
--out_unmap_regs:
--	iounmap(currentpar->regbase);
+ 	return 0;
+ 
+-out_unmap:
+-	iounmap(info->screen_base);
  out_free_fb:
  	framebuffer_release(info);
  
-@@ -792,7 +791,6 @@ static void kyrofb_remove(struct pci_dev *pdev)
+@@ -790,8 +789,6 @@ static void kyrofb_remove(struct pci_dev *pdev)
+ 	deviceInfo.ulNextFreeVidMem = 0;
  	deviceInfo.ulOverlayOffset = 0;
  
- 	iounmap(info->screen_base);
--	iounmap(par->regbase);
- 
+-	iounmap(info->screen_base);
+-
  	arch_phys_wc_del(par->wc_cookie);
  
+ 	unregister_framebuffer(info);
 -- 
 2.53.0
 
