@@ -1,75 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577759;
-	b=wzFNcY+E9TD7hYdnnr5izlDjlZ5D0oGLVX4q7rms4ozyqR2OEpTGxlttIFAZUZMqcHj0
-	 4yyZ0OsM3i0zHQpyykToVDaXUY7g0+kpJqmom3UCiFyICu2GD2TkfgpUxYXaBhgogaIBt
-	 INFgEK6svkc2dZCTL8JN92sP5IdtWoA8JBrVBa0WbuvC8aUCFKTsnuXCOEMC6RXMJ0JJz
-	 rGwXYhhgDE91Vcd85IEfMYtRuSFk2m1HcSny9vvq/BVyiBxbYfNqzv2DGGErEU715ji7Y
-	 i7fJlWgobwu+9/eTlzJvVGwx3p/1LMK8uh+6Ru7Y0JRyrvyv6k9w9Hg84HSj/WwCNPw==
+	t=1794578400;
+	b=Tb6p9MubvSzbxJcnrkcNsjF4Q6JmQv71nDL2Gl3jjN+BLMAziSnap0vMgrzGIFUmQI17
+	 eqgmT4xOAxO6mXBB1vA70I4UDqOJVwzWABf6ZWGDGEz8NghHm8Yq7msttcvY4eU9QNalg
+	 Xh2+wFWSZlvLYMJphWIp/PCR3083e63GfizKMeY9YGfyG3nZRam9WxAX6ETLR66W1cJc8
+	 wg0sSwpb7vYhqhzkkfOxrmlpzwn5ZecPF7QoPmMdPbR9eKtB6OSNQLOIQQoza+hASRcyI
+	 nj/mVcVx9XJweK27zH7eBIiQtAfGAZYY5481xhBTZ5PXCW8v2Pimy6TmKhoCoiJMCBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577759;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=iaZEgFBO0oN7uYyRNO34L79aitowmvFZR4PRL3xrbhA=;
-	b=mEvEGzPurN/aalkRq4rH8q/ob/cbVzaOji7Zqr4SH2RDuJy2qACDdYXbPVzzgk4flrN3
-	 xXwfOIxHLokC6zHGUB1gIAOoarzYggDxcrwoI7Zp5MzkD13JmxYUwo4rphl0DFFUf4rj2
-	 hGOfg1bYvrZKGx6Ie4tMx0ZnhQylc8cDK+mbSI0HR9SZ134+O+OKDvlCdWRjjAetnn6cH
-	 Gk2QIihrJqXI53IgmnsknTh5P9hjtKKGRjL3dwnzhSfuVvM0dTLUYtWKfoehaCa9D4djW
-	 wv9O2RcPtiPv44J90C/yK+79rz3D+wMmf0nA+AAeUYplGUxUlY5TMvzZNRmwbe3suNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578400;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=etnvj+JpgQdzFYHD+qJZ07knY/Y3hXQM/Aj2QDnzPPA=;
+	b=3Ovkn0Jx8yu6neHG9exQNixkK+ambLRlqPUYhhL9x+V1qoZNIzr0DjQRO3KxEYR223n8
+	 bpsHkHs3j0QNA2KTn079VMSIkZ1bZdZ2kDawF86IBO8w7NoOi/mj+HTkZa8ovWV/qDibO
+	 dTlLAx9I3uE9/vv5HqAlhF8Rrs1tshiKw9L6QIDJdcD1Gy67KGEarEiGBk07gnC/luVfs
+	 t3KO+Vv3I3eFx66764tm0VTf1I/A2RbTxVUSKpQXI9kpC4eA3DTt/Mtg8OpGkKTlXS4hF
+	 HehE+w4iF2SnhQipRtyOWpbtq4QxD6LEsuGEv7il64EoaqHM9S8lOFfrtFrGYtSzgKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ldea60Y7;
-	arc=none smtp.remote-ip=209.85.216.72
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nkcpuIX/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55AC606A880
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:49:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D55AC606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6628F606A887;
+	Fri, 13 Nov 2026 14:00:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ldea60Y7
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3acc98e3b3cso656145a91.3
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 05:49:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794577758; x=1795182558; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iaZEgFBO0oN7uYyRNO34L79aitowmvFZR4PRL3xrbhA=;
-        b=ldea60Y77L8XdLaoFVYj7SbvCOAQT3aoZ3sqpFSGcD2f4plIFiedS905Gt0APcYH0k
-         jRhtDQqE6zKe+9LpBG1ufAX2UgJMZjkqk6JGSV8hTx/qi4J7v2zC1shw6z9KhL2i9V2b
-         COfWUvBauXn5tC0VJRNPvD+YpGN95+acz9kH3Q54VDHOFSsvQkEGUBWscp23gYhPByLb
-         X9VousiCKXhv0SVOSb/7ukmkTOeSMoLk82UfSBOgUCbuJcBSvf3sdZ9ezWcb/g3E6yAZ
-         t7JEj0yWX9AIjqbrPiYqbbyU6GyuC6f0LvWDWgtr1feCG8ugz3F8FjfCbPziVJh6A0+6
-         P2aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577758; x=1795182558;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iaZEgFBO0oN7uYyRNO34L79aitowmvFZR4PRL3xrbhA=;
-        b=O/2Wz7gSEt8uVDUTFLqnUK5r9tFCn3bHzgKl69BCxev6Vsm6SKvVtmhxydlHsKNf5n
-         9OPWdp0Cp0TV4Db7MM+8+ALiZV5sxXuTPuwXQTCrtZnRtn8VZ1x0fgpydZHW+Fuq7Lh5
-         O71XXXl8PTqtbnaPPNGzgz+uT9sRjCZA0gHsWQmrQdwWKvPe9sV8Tzi9nm/9x6Antxl6
-         lFHLOQaNznNPEWpHKRW5dUPmrXOMRljwdBzLCFN4A1JQXnN1GgUC8N6idm7yUYoJkWOY
-         Bgk0RyR2mMwuePixwRGOcTuFNBkG/eOuJgKBqzRrQaE3LHTj/EzZu8N7W74bo3FUgk9A
-         v2tg==
-X-Forwarded-Encrypted: i=1; AL+hErE2e41Pm0znrhPwnbqcPYNRSWYwGPCKesbU1DBtEz9ki6dEXf0dTpspB4CL2GZvVnx2dRUZGuA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pP2rgyAUodErft+4Btx8FoUPMcVlK4cIG/VqHEMC7W3VA7akB
-	KDd3+nXBI4ZokfiSN3BPL94iPc6W5YXp/Twv9VVS+k3ppwkEIe9nD18FQ9+/Enl3QDNqbiLb95V
-	0Lw6anA==
-X-Received: from pjbov12.prod.google.com ([2002:a17:90b:258c:b0:3b0:ac19:f886])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:54cb:b0:3b1:832b:bb3d
- with SMTP id 98e67ed59e1d1-3b1b0ba66d9mr2028281a91.57.1794577757932; Fri, 13
- Nov 2026 05:49:17 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:46:38 -0800
-In-Reply-To: <20261006093354.590415-1-bruno.produit@trailofbits.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nkcpuIX/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97B711F000C4;
+	Fri, 13 Nov 2026 13:59:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794578400;
+	bh=etnvj+JpgQdzFYHD+qJZ07knY/Y3hXQM/Aj2QDnzPPA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nkcpuIX/hkjOJiARgEwaRBrnD0nUe+XNzRzHsWN2UnVLWwMWj+pw+6ethAkRONvx9
+	 axQgvhJKZMaDkI4WgZjMjC7qbTWAZ/0PbWTT+AIJuRsaA5+S2t1gSpgukGd1mjtBKu
+	 pPuwar1JLlxyUmfxwaDJCN171SuztT1SAURIbeZNEXds7GTJUpGrYqJUDgt7Vo4rTs
+	 mQjmE9zbcYr4jvL3+89weq9Kx0R/AVUoXVtTa/kb+S5IBu53cAAUx6/kCdqzsi4ZOw
+	 2POlwbzlsB8tGQg8xYz6MDFovOoQPmuenp6of0f+M27wjXYcpIBR71Qf7j5lU1AMdA
+	 ADOc8KC+feT0g==
+Date: Fri, 13 Nov 2026 13:59:53 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: disallow guard region installation in
+ uffd-armed VMAs
+Message-ID: <avcNcL6svEOTg_3r@gremlin>
+References: <20261112-disallow-uffd-guard-install-v1-1-bcf8b1aaa72e@kernel.org>
+ <0e3e876e-c3df-4660-ad89-a5f0fd7dedc8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,37 +61,167 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261006093354.590415-1-bruno.produit@trailofbits.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441841896.82698.8297015734174614821.b4-ty@b4>
-Subject: Re: [PATCH v2] KVM: x86: Cancel PIT timer on failed creation
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
-	Bruno Produit <bruno.produit@trailofbits.com>
-Cc: kvm@vger.kernel.org, Kyle Zeng <kylebot@openai.com>, linux-kernel@vger.kernel.org, 
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0e3e876e-c3df-4660-ad89-a5f0fd7dedc8@kernel.org>
 
-On Tue, 06 Oct 2026 11:33:54 +0200, Bruno Produit wrote:
-> Cancel the PIT hrtimer if PIT creation fails after registering the PIO
-> device.  This matches normal teardown and ensures the timer no longer
-> uses the PIT before its memory is freed.
-> 
-> KVM registers the PIT's PIO device before registering the optional dummy
-> speaker device.  If speaker registration fails, a vCPU can have already
-> programmed channel 0 and armed pit_state.timer through the published PIT
-> device.  When I/O bus registration became fallible, its cleanup did not
-> cancel the timer before freeing the PIT.
-> 
-> [...]
+On Fri, Nov 13, 2026 at 12:59:00AM +0100, David Hildenbrand (Arm) wrote:
+> On 11/12/26 18:38, Lorenzo Stoakes (ARM) wrote:
+> > In order to establish guard regions, guard markers are installed in the
+> > page tables of a mapped VMA.
+> >
+> > However, problems arise when one tries to combine this with registering a
+> > VMA for userfaultfd, as such operations may themselves need to install page
+> > table markers such as uffd-wp.
+>
+> How does this interact with UFFDIO_POISON markers that can outlive even
+> userfaultfd registration?
 
-Applied to kvm-x86 misc, thanks!
+The zap clears poison markers, as is standard. It's really horrible this logic.
 
-[1/1] KVM: x86: Cancel PIT timer on failed creation
-      https://github.com/kvm-x86/linux/commit/381a21cfe810
+So the code path for zap used by the guard install (via zap_vma_range()) is:
+
+zap_vma_range()
+  -> zap_vma_range_batched() with NULL zap_details
+    -> __zap_vma_range()
+      -> zap_p4d_range()
+        ...
+        -> zap_pte_range()
+          -> do_zap_pte_range()
+            -> zap_nonpresent_ptes()
+
+And zap_details is NULL.
+
+In zap_non_present_ptes():
+
+	...
+	} else if (softleaf_is_uffd_wp_marker(entry)) {
+		if (... !zap_drop_markers(details))
+			return 1;
+	} else if (softleaf_is_guard_marker(entry)) {
+		...
+		if (!zap_drop_markers(details))
+			return 1;
+	} else if (softleaf_is_hwpoison(entry) ||
+		   softleaf_is_poison_marker(entry)) {
+		if (!should_zap_cows(details))
+			return 1;
+	} ...
+
+And zap_drop_markers() checks zap_details && zap_details->flags &
+ZAP_FLAG_DROP_MARKER.
+
+However the poison markers only guards against !should_zap_cows(), which
+returns true if NULL details.
+
+What a mess...!
+
+But obviously this patch doesn't change any of that.
+
+>
+> I'd assume it's just the same thing, just like having proper hwpoison marker in
+> anon mappings, so it just works (uffd-wp will skip, guard installation will zap).
+
+For poison markers yes, as per above.
+
+>
+> >
+> > When this installation is attempted the guard marker prevents these markers
+> > being applied, which can lead to unexpected results (especially if the
+> > guard regions are later removed.)
+> >
+> > This is especially problematic because guard region installation causes the
+> > regions to be zapped first, meaning that the removal of userfaultfd-tracked
+> > ranges will not be logged in this case.
+>
+> Again, similar to trying to uffd-wp-protect'ing a hwpoison marker (which will be
+> ignored), and then zapping that.
+>
+> Isn't guard marker installation/removal just another form of zapping?
+
+I mean users being weird could decide to use it for that rather than
+MADV_DONTNEED, but zapping is a side effect really.
+
+Really the idea is that you might have users who, for whatever reason,
+faulted in some range, and now want to make that a guard range, so for
+convenience we zap it for them :)
+
+>
+> So to me this all sounds like "if user space does something stupid, it's user
+> space's fault".
+
+Unfortunately, as per Tal's series, there's more to it than that (linked in
+Closes: tags).
+
+You can get an infinite syscall restart (ugh) if you do this on a shmem
+range (Tal's 9/12) so it's a kernel bug that _has_ to be fixed.
+
+The other bits are just about a user losing track of uffd stuff if they
+guard/unguard, as you say.
+
+But every other zap code path does the uffd remove event stuff, so this is
+still an exception.
+
+If you support uffd, you have to add a whole bunch of horrifying, awful,
+terrible open-coded uffd crap, e.g. the userfaultfd_remove() etc. And you
+have to drop the bloody lock and reacquire it too and make sure all that
+works correctly (...!)
+
+Anyway there's basically 3 options here:
+
+1. do something like what Tal's series does - add a TON of complexity for a
+   use case that nobody uses to get behaviour on something nobody sane
+   should care about (i.e. uffd/guard/unguard/expect uffd correctness).
+
+2. Zap with ZAP_FLAG_DROP_MARKER, and silently lose uffd-wp state but
+  'support' uffd. It does fix the 9/12 bug but then subtly breaks uffd.
+
+3. Disallow uffd.
+
+1 is totally unacceptable + will likely expose us to new bugs (dropping the
+lock is just... yeah no thanks), 2 just seems broken, so 3 (which is what
+this does) seems the right way to do things.
+
+Basically, right now, anybody using uffd + guard regions in this way is
+experiencing silent bugs.
+
+So option 3 is by far the best course of action. And no action isn't an
+option.
+
+>
+> >
+> > Therefore, disallow this.
+> >
+> > This makes sense as conceptually, guard regions mark a part of a VMA as
+> > effectively unmapped at the page table level, and removing the markers is
+> > like mapping the VMA again, over which operation uffd markers would in any
+> > case be lost.
+>
+> Right, but that to me just says "on the parts of the VMA where you mess with
+> guard markers, your uffd-wp protection is similarly ignored".
+
+As per above on unfortunate need to do something here.
+
+>
+> So disallowing it entirely for a VMA, I am not sure. I could see use cases for
+> that, although you might argue that user space should then register uffd-wp on
+> the separate pieces. But then you get multiple VMAs again.
+
+I did a survey of open source software out there - glibc, android,
+tcmalloc, CRIU - and none of them rely on this.
+
+So in general there's no signs that anybody actually does this, and if they
+do, it's literally currently broken. And we've had no bug reports for some
+time now.
+
+So I think it's fine (IOW this patch is fine :P)
+
+If you're really concerned though, we could go with option 2, which will
+just make UFFD behave differently for guard regions.
+
+(I regret, obviously, ever allowing this for uffd ranges. And we _all_
+ regret that uffd was _ever_ allowed to be merged in this state...)
 
 --
-https://github.com/kvm-x86/linux/tree/next
+Cheers, Lorenzo
