@@ -1,57 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537222;
-	b=hLRKp/VGlHNDl1uCI/5xsoCejkBDc+NuVJozHJAtmgcVdiPVmFuSqJnltQFvEqNm/dOe
-	 QWZunPUhbpalayKPuFm0olRrZgSWJYtea8Q55CYYyG95L0msG6huExgcOp2oUrW2lwX7S
-	 PqUHrIL5ggb7j/sQSuTULphlTbfr3GWBe9p93Ov20XBDoUxMAxoktdTHKmZC4MkWz/o24
-	 YiOq0iOOjciJFg02m86q/QKYmLObtGvqORQRZNsj9wXa5xxeM13i04QmhHOph+UvYE7nD
-	 N3E5drXN6r3QSvI52b+0xBTqsIN55qxodk5qfxnnwE0TBAdjytKoR/5FyyPNmqD4MYg==
+	t=1794537224;
+	b=nx3ubccA1w2WYzeugSQZuTQ/5Jx3TZ1jL1bP7060KLeHBzLyp9GYE2jUvVDanHx3o8aS
+	 7Vy47/4N81/HrrH2YLQO2HIpZGmMsTbZH3OeSWDCK4OYPO717p9xw1jkp4bB1B7BiocSw
+	 8X4A99XufYkmwvo5AlfjH2/qEXsZPx/5drtNqZPmh6mf/FJwCBzwu3SEcKs1Qfrighkyl
+	 XerZKAtC2p8rzvB2Ysi1MBG06tN5ZgQ/f+JbwK0pDKkikMYSVg+zwt1AVZohSX/f8XnQR
+	 QhxA9Uao2EWxeDXwYHKssvx39Qh7UqKyXlsqxCpYPmkOr/WvPtAmPYNpdwiRf7DNMCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537224;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6X5QnbyDVBxyazjoaxsxoxAQpPHcQ6RmSftc5tKZOGw=;
-	b=WpHNwby5yN/1dN1aLQd/xWfswe1F0NLasPDeb5NM+1+W8b7XuXk6rvguhtePmu6LmSu1
-	 VdXJxsaKEYy5JpNVYDThBsLnXeExKM1LJEANqveRPiGZ8tdNvg9CKYVCwumIKyJkpK3Xk
-	 cE98+oNV2ItoXnOjeUVzWbKUMWsn3XCU+VY3oGQE1IwmkmWyiWbUrLfCQV5nFDeREf0SN
-	 JEJ+8ttyPAS03s06eRGTqZQsiO1rOfpJA9UdksmuabCDnEi7glHvU/KHpnXrW3fM7QpFa
-	 Gppk49E6s114poYYShDnl0KvYySsSadzDgW1wqTZmgqm5dyA8nI8/F0YVMPFr9HczhQ==
+	bh=K5mRZnhIei6FHFF34hxmFAN7wjJ9hwFen5TdwA3GQs4=;
+	b=0VhQgPLMSnimKkExd2pGEVwTM+5bsj8xM/Vm2f3AtA6owTqMKo4vVkSBh6V8RrfdITwt
+	 GhekqXZHazw91gpNacPooPaqaapqVlmB5Q54R2WERs5pc7jPiICtbJYH/t4K2BrUvKzbM
+	 DcLyE/0HfuCrvETGiygBg3zj4+KlbTW40+WY49NKNyLvQ5jUhCToO3BBMro3E5f1YH70Q
+	 b4BwH1qZkYEV+KM4wcNsDu3hahYzTATMG/W93wZeNl2qTNyzMz0b9TdqVJqCvXXUQnRPO
+	 jOGZwlWXyaHTQGHDycFUDwEL4wPNUL816g5gq1nz8Dojsno5XdrxWxY2SFcvws3YNkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZjVIV2f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5a49off;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A402E606A8B6
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:33:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843D0606A330
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZjVIV2f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDFFE1F000C7;
-	Fri, 13 Nov 2026 02:33:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5a49off
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE0771F000C4;
+	Fri, 13 Nov 2026 02:33:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794537222;
-	bh=6X5QnbyDVBxyazjoaxsxoxAQpPHcQ6RmSftc5tKZOGw=;
+	s=k20260515; t=1794537224;
+	bh=K5mRZnhIei6FHFF34hxmFAN7wjJ9hwFen5TdwA3GQs4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gZjVIV2fhwH171oiUZQf/YbtOFNy8G4L3SYvnndBgJrl+qbYDNtNe2oM2SSgJOA0S
-	 +oaDcfNC8aMD/QbFINjnHP0wgucmZGKExx0EXSnye/xBiKKe8/Im4c0ue5B09dIq0p
-	 toMVoxq0LX7SfEzQXl3SGjeKDxSJcn52LuXWQSEjo32FeFAX4WSOlfm9iNCbkzBwhV
-	 cBs22cZrkVQBnF45k9jmlKasgz70j9+ndYxkY3zd3aJgjuGpFCwX8Dp2Lo3x2GsMny
-	 XS6eOxhxkYTFIIYuLf2FeuP/E347oSEjO0bP4ot+bZu51TqRRqCuG2sj6G/hFIwvar
-	 svpjI2yDsboGw==
+	b=T5a49offNEqJo506OAS6l1n0YgsQef+xfXh39mbk7wt3HGxqrkRTPMYcFUQYSZw8a
+	 xperS2hl7EHpVBj7AqOd1sfm8xSm9b/v5JpeXasGhuFHzY4UpEn1xxh+gdgp3LtD8G
+	 mF6DAxlmr6k1dDmp8o/QYeNXNf19A6oMutoQQGIZ+MObkFWcfgCI4D6TQPxw0gdqjt
+	 QsNjxKJOGNmqCcl6NpFef2Xv/7+1oLJcjxuqEYFJdZCMyqlfyMUcX+MUKIDJnau90d
+	 a2uYT5GSROLPD4ossDZluqeIAlCWi1zjZSjuS8Cd/zicrxphCh6Zn3EqqShBM5T6j7
+	 13ua8d+HoZIpA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Will Deacon <will@kernel.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Marco Schirrmeister <mschirrmeister@gmail.com>
-Subject: Re: [6.18.y] Request: 10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI structures")
-Date: Thu, 12 Nov 2026 21:33:22 -0500
-Message-ID: <daily-reply-2026-11-12-4571868778@kernel.org>
+	Hungyu Lin <dennylin0707@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	David Hildenbrand <david@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	odys.yuan@gmail.com
+Subject: Re: [PATCH 6.1.y] mm/migrate: untag addresses when querying page nodes
+Date: Thu, 12 Nov 2026 21:33:23 -0500
+Message-ID: <daily-reply-2026-11-12-2299443806@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avT46huKpXTv09GB@eagle.home.marco.cx>
-References: <avT46huKpXTv09GB@eagle.home.marco.cx>
+In-Reply-To: <20261112081905.6095-1-dennylin0707@gmail.com>
+References: <20261112081905.6095-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,19 +74,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 2026-11-12, Marco Schirrmeister wrote:
-> [6.18.y] Request: 10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI structures")
-> Hi,
-> please backport upstream commit
->   10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI structures")
+On 2026-11-12, Hungyu Lin wrote:
+> [PATCH 6.1.y] mm/migrate: untag addresses when querying page nodes
+> When move_pages() is used with nodes == NULL, do_pages_stat_array()
+> uses each page address as-is for its VMA lookup. A valid tagged address
+> therefore gets -EFAULT in its status entry instead of the NUMA node
 
-10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI
-structures") only adds typedefs for d4bf9e08d412 ("arm64: uapi: Use __u128
-instead of __uint128_t in UAPI headers"), which no stable tree has, and nothing
-in them uses the new types.
-
-What breaks on 6.18.y without it? If it is the resolve_btfids build against
-distro uapi headers, please say so and we can look again.
+Queued for 6.1, 5.15 and 5.10, thanks.
 
 
 -- 
