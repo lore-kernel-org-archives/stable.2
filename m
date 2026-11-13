@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794539845;
-	b=0J0AnJ3ilnmQ/GLcIW64CLtuoGL8/dmXaMWEMgAQ7iibY+sgPh62/IEZatQI3DuUMVds
-	 /bnw78AzIYWeMHguNzDLqTCFvd2WpT4ON5E2/78orGiMiIXnQLbLYzkcxxKckVXs141S/
-	 sRN+TCPKk6hs4Ju1bnHPNpBMNRh3n0V4c3Bp/px11gmJFFp0/AKjQR5ykVLZxKUI3cuEl
-	 vCOTmogsnXRCzURUpic4Kc0/s2oDF8zXi4+d1bxW2zDp7o6DF+TyN8pVRvF2ejmNI9lh3
-	 ZamkwQvrokANwO4ZgF9RS+47GU0upXafBjjct4KFCaRnllmH2ORc0omeAh6Fcs7OoqA==
+	t=1794539846;
+	b=VVwb2o4xV1YCCzBBsSIOAOOFvYPlR70lhOIaOXM5DPix02H9U2wW5jI7zS4HHMz4hf5w
+	 54ddaWQMX0wc1dA4+ziIfAfiZqggDjxtiQ0wZ1RsFIxLoi2em6obCAVLsz9QDK9/yu8hF
+	 npgtFSzEY12QKx3FQnHLCtCxnJpeHvHe58yQf+rsS3laN1Wlcrs7zJyLCIbe2E0Kdh4mw
+	 /+wnzzFReGvF4fKJ562Vog5WxgoEYJqsWf+GMG1EckRnr/aMBK3rhHG9skhVZMA8+/eH8
+	 ZIwboY7z8/ukYr6jNsIdJQWUeAWP0dwSNBC18DcvOAEAfq6B9TKNE30cww/QC0CXHqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794539845;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794539846;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=J4B0ABZfnPAAzeN1jVcHT5tGATdVjhKe1CWL3mCcuXM=;
-	b=yAJC8g0bOwzsfPQr687lMItsQGVuDK+F0qqyMxG/+6yWLTKJcvUEXLyJ5cS7NOqo2hRf
-	 dMSj3IfMdw/Zpzks7duCshwoqFokSdn1kDbdL4luireLJhaALCMmPkVZ48/iWePYTyzYc
-	 475/+ihMU+GARUAmEt1CNSFn4HEoMEV+tSYyt5NoEiwg1hhlRYpoSjpIHT/V/9e0donGh
-	 5jZD6qCdQFqlV4GTKB33k+ZCym8IDhH1I+fa8uA86/OvTlLP1pNf0mGmJNtku6dycKBXO
-	 kUT0U6se45rKxzAnWPn64Wr/M1pEL2e4UbI6XqjKa0i8vOxZUKaZdoAhZ89tqF8Uqtg==
+	bh=VH1JvbJ5DKEseDp0EiJhFAguvVeg4Ny3vVHdRa/BfIk=;
+	b=S2lFQ7C/AgnfkRcxjDgKIqOlPND/JfeAmcTVjFST0tUTYW4cLqXw6Ou9O8v6+PTUbTnW
+	 WEGFw2P1UObXJ/NpioXsNOZIwSYpqZRaKPqJT+zXifviVtOK5rUtx5Nf+mcJXUEmD4P0p
+	 KfCpu9dun0n0iFvvzD46nlQAWlg1yyTGd72vvrWorw20+bKl+RxnVnfmLKY1F+MU3FDjG
+	 re2Y8crbXRH+yqs7gGcuerfNzWpTSMpf5HcCzOBflaXpqx0d6RlXs2zzzPwtFeigcSbet
+	 JyM8kiE4Vmm/KTh/gUqQOz4RUwzn2gvcbY+IGBKjlIRr5P+dU6JtBRN422D0OLv91yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=arCyxmeR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXNM5xI9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFAE606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3306C606A32A
 	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 03:17:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=arCyxmeR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98C871F000C4;
-	Fri, 13 Nov 2026 03:17:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXNM5xI9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590C41F000C6;
+	Fri, 13 Nov 2026 03:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794539845;
-	bh=J4B0ABZfnPAAzeN1jVcHT5tGATdVjhKe1CWL3mCcuXM=;
+	bh=VH1JvbJ5DKEseDp0EiJhFAguvVeg4Ny3vVHdRa/BfIk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=arCyxmeRN2XyAWPPan0IF7zES9V1KklwSblMr0B30hTKGnzdAABoKykZ9IZ5F0DeB
-	 i9VAofxUnB1eRUa8Gh9LYBj5OiTYVx0FdXlA1togL4zFfor4J409h3DV9vkFyvyIx3
-	 de8yJZpt5sQVJN3bkjJowjJQu7hTP4njhq3ZfzVxzxflxPZni2k0mP+RlPuqVVEA2O
-	 3jH1mL5u/3/SCeB8oSNy/hJlhQhtarqp58h1lqhzVL+XS7PLJrXjy/fFzZTLJ5jN31
-	 XScx5lVWS+4Tgp9ejsUGRpxzVZkFSw8/4hSfpgLP9qlq7CE5lRLYxLGQ+Igstxdn3h
-	 +pkeYaDUeIzUQ==
+	b=CXNM5xI999BfYu0Pulpjlt1D4Qs1zX1DywUgDB2eHTs5DHcWDepr0C03rD9hrIEVN
+	 Z3nCeUdby7f4XZeRWgoI60kRCVbONxuONc3J2dck/RjF6e3jb3N7ia2JYA/7t3XxyO
+	 AfTrWCQDVmMIjAN7RLa0ZdqabPMKQgNvwfSmuTqolN6exQRQh3llQcotLTkE5Y9P55
+	 1Ou/2lq5Fx9oKLMqGPx7vhdHAE2+aQ3bN35AXEnjeO6/GqJnXVaXV+C2SOSmOx2+Jg
+	 bmVfJJFLkjtEn2gSRW0JjeDxYeQdQ0Sx2oEUU3TIlArdCKiTZ/28g4f7m+XwNRCLUp
+	 ljkC9utNuFfuw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xu Rao <raoxu@uniontech.com>,
+Cc: Yuqiang Sun <izaiahsun@gmail.com>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] ALSA: usb-audio: qcom: Free QMI handle
-Date: Thu, 12 Nov 2026 22:17:22 -0500
-Message-ID: <20261113031717.979005-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] ALSA: usb-audio: qcom: Check the return value of qmi_handle_init()
+Date: Thu, 12 Nov 2026 22:17:23 -0500
+Message-ID: <20261113031717.979005-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200549-failed-6.18-a3cf5ebab5f1@kernel.org>
+In-Reply-To: <20261113031717.979005-1-sashal@kernel.org>
 References: <20261109200549-failed-6.18-a3cf5ebab5f1@kernel.org>
+ <20261113031717.979005-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,53 +62,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Yuqiang Sun <izaiahsun@gmail.com>
 
-[ Upstream commit b8ff1f3578f83dedf5feb796d97a3f67c1bea58f ]
+[ Upstream commit a3cf5ebab5f1db9e6f751e2a08df05a84f37ea57 ]
 
-qc_usb_audio_probe() allocates svc->uaudio_svc_hdl separately from the
-uaudio_qmi_svc object.
+qc_usb_audio_probe() overwrites the return value of qmi_handle_init()
+with that of qmi_add_server() without checking it. When
+qmi_handle_init() fails, it has already freed the receive buffer and
+destroyed the workqueue, and qmi->sock may hold an error pointer. If
+QRTR is not available, qmi_handle_init() returns -EPROBE_DEFER and
+qmi->sock is ERR_PTR(-EAFNOSUPPORT), so qmi_add_server() passes it to
+kernel_sendmsg():
 
-qmi_handle_release() releases the resources owned by an initialized QMI
-handle, but does not free the memory containing the struct qmi_handle
-itself. The probe error path and the remove path currently release the
-handle and then free svc, losing the last pointer to the separately
-allocated handle.
+  BUG: unable to handle page fault for address: ffffffffffffffb7
+  RIP: 0010:selinux_socket_sendmsg+0xa0/0x590
+  Call Trace:
+   security_socket_sendmsg+0x29/0x50
+   __sock_sendmsg+0x43/0x150
+   kernel_sendmsg+0xd6/0x180
+   qmi_send_new_server+0x1b8/0x2b0
+   qmi_add_server+0x165/0x200
+   qc_usb_audio_probe+0xf4/0x2e0
+   really_probe+0x2b4/0x850
 
-This leaks one struct qmi_handle on each affected probe unwind and on
-each successful probe/remove cycle.
+Had the probe gone on, the error and remove paths would call
+qmi_handle_release() on the half-initialized handle, which destroys the
+workqueue and frees the receive buffer a second time.
 
-Free the handle after qmi_handle_release() in both paths.
+Return the error from qmi_handle_init(), so that -EPROBE_DEFER defers
+the probe, and check qmi_add_server() as well.
 
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Link: https://patch.msgid.link/9108EC860F3F87DF+20260623071308.2549182-1-raoxu@uniontech.com
+The bug was found with kbound, a static analysis prototype for
+ownership mismatches at kernel interfaces, on v7.2.12; it is present in
+mainline.
+
+Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
+warnings. Run-tested on QEMU (x86_64, KVM) with KASAN and kmemleak, with
+the driver built in and a test module that registers the
+q6usb.qc-usb-audio-offload auxiliary device. Without QRTR, the probe
+crashes as above without this patch; with it the device is deferred and
+removing it again reports nothing. With QRTR the probe succeeds, and
+removal reports nothing either.
+
+Fixes: 326bbc348298 ("ALSA: usb-audio: qcom: Introduce QC USB SND offloading support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
+Link: https://patch.msgid.link/20261102035237.56253-1-izaiahsun@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: a3cf5ebab5f1 ("ALSA: usb-audio: qcom: Check the return value of qmi_handle_init()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/qcom/qc_audio_offload.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/usb/qcom/qc_audio_offload.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
-index da2759f2ee866..62a57b8d171b8 100644
+index 62a57b8d171b8..3a0a0d8f4654b 100644
 --- a/sound/usb/qcom/qc_audio_offload.c
 +++ b/sound/usb/qcom/qc_audio_offload.c
-@@ -1994,6 +1994,7 @@ static int qc_usb_audio_probe(struct auxiliary_device *auxdev,
+@@ -1975,8 +1975,13 @@ static int qc_usb_audio_probe(struct auxiliary_device *auxdev,
+ 			      QMI_UAUDIO_STREAM_REQ_MSG_V01_MAX_MSG_LEN,
+ 			      &uaudio_svc_ops_options,
+ 			      &uaudio_stream_req_handlers);
++	if (ret)
++		goto free_qmi_hdl;
++
+ 	ret = qmi_add_server(svc->uaudio_svc_hdl, UAUDIO_STREAM_SERVICE_ID_V01,
+ 			     UAUDIO_STREAM_SERVICE_VERS_V01, 0);
++	if (ret)
++		goto release_qmi_hdl;
+ 
+ 	uaudio_svc = svc;
+ 
+@@ -1993,7 +1998,9 @@ static int qc_usb_audio_probe(struct auxiliary_device *auxdev,
+ 
  release_qmi:
  	qc_usb_audio_cleanup_qmi_dev();
++release_qmi_hdl:
  	qmi_handle_release(svc->uaudio_svc_hdl);
-+	kfree(svc->uaudio_svc_hdl);
++free_qmi_hdl:
+ 	kfree(svc->uaudio_svc_hdl);
  free_svc:
  	kfree(svc);
- 
-@@ -2018,6 +2019,7 @@ static void qc_usb_audio_remove(struct auxiliary_device *auxdev)
- 	qc_usb_audio_cleanup_qmi_dev();
- 
- 	qmi_handle_release(svc->uaudio_svc_hdl);
-+	kfree(svc->uaudio_svc_hdl);
- 	kfree(svc);
- 	uaudio_svc = NULL;
- }
 -- 
 2.53.0
 
