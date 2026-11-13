@@ -1,68 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585797;
-	b=Xq7yOD5Br3K2C8CemerTdn5pdhmXZdpVPBcDe4KzAsFDzvD9yQIZJeBix9IdVOjO8vn5
-	 VNqnkReE6bshuvp/JLFDY4L54de6JvtLU+QA3hhdvJrBJ2iJh8Hs0yDY0QJZwokPR8He+
-	 Fpq66WoEBgZ5CkKiC2HoVEpdsMWwfglikElOSFhtDQMcOpCmtog7VEqc/hJslBdwl/Ynm
-	 ke5bWdehBSG4shak1tik8AzWRouQgB3haz6SphxDqfHRc+rgTCYvQvwXCLgFOGltryHZJ
-	 kdCJ37bIkZH3L105ithmTP1sPwpXp9m8pkgR2xrokgSzMMIuBlQDjl6nsLHoHtqXBRw==
+	t=1794585798;
+	b=TW9Yle8C0Qk8idFD9Bzdq1TJvr8V9xGUzqibORNdZoohdcSjBtt8/Jy5NAKcYr6ks8CA
+	 1dOKPMb3+zIhfuj9AdwWdqxgsXmekgs8pUo3EwSKzbySov5mCwXYn6Ctui/6NK8IcDZnA
+	 SEnW3mL+AeEG2bNVIfKdmvWFOLHpIAF6EzvZC4y9Yzple7MznyrtJLRC6M/JeLxV0LbPr
+	 SHHq6+L1RSVxbESvGhYhPT1T52vGZyHh5SyLm3HAW9ZDlccueqpb1lK5QpwxHXLTMj2ZK
+	 UxBQaimeI0s4eMs4+rckxBTAe6/Bp4DN9CiZoBMPELZc9dTtlR3Z6pzV34VWkq8Tidg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585797;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585798;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=290jak9Pw55jCjJrq4EWYyUnmK24UEZ1TDvSeafpV04=;
-	b=inNFQUDGT8Wyfrq/CCBKyB4YVYyvtNMz1XGNNiL+L3r5rKAJkPA8gUUlTi1RcSCHPiuz
-	 dzz+badcnYT9KZaFWiZyPsWsppirUlE/4dPaNfvWavysINkDIVe7rvh+a6bgxjqgZ1Y5s
-	 t38r0sr7bgZo13vyycZjIaBAfwxTjvxYxSbSWPjbqETaqR+VwZUi4zqjHCzIpOq/2Ltlh
-	 iLek08llOvesVfRQMVwb3oaXrDM6608XECl0X6qk6JN8/6DNMA/lJIGM/XDqtdPLPzkDw
-	 x6MetNeWyIbv6DbAssNuCgRDFSEX31do8Fk5MZoRMD78Btcbh2FfAevjti6cZESva5w==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+t5AmN4ABFeLrmsXZLdQt7Jo69sqn6NnTE1AuL9nY04=;
+	b=sHEu5Ya2ENjs9VoeMGkrqNg3TCuc6SR11THba1TuzxwiaaeZ1rw3/L8vIy9Mbm5WKfu3
+	 7GRBeSo9Gmfgt1/9xwNESznotEZGZ+ZOx46z8c87Qz9YQ18NXN+VMULn7xYl/Rd7fdRv/
+	 8+b8G7Kzl8DyV4GInV9Dv8BaHsk6qbVVx2q5kz6IKgq9Cp22HX+xhGokiQTLTCCN47HEO
+	 qgHulMVPdzc4rJr1fwNvauErhdt+sQYXkra3RoFBDZadIAAaz8yqCtV6FdLeRY7VZZJpA
+	 gUAloWbRnbOLs1oEZDdKSMKfcMZqlgNcDHJPTG1CO1rrfZJPLpzlwNgQSXefOJ1/5YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnzZvdfB;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Cg6N2TLg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F271660A2608
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 16:03:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0005660A260B;
+	Fri, 13 Nov 2026 16:03:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnzZvdfB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2357A1F000C4;
-	Fri, 13 Nov 2026 16:03:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794585796;
-	bh=290jak9Pw55jCjJrq4EWYyUnmK24UEZ1TDvSeafpV04=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Cg6N2TLg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FBA21F000C4;
+	Fri, 13 Nov 2026 16:03:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794585797;
+	bh=+t5AmN4ABFeLrmsXZLdQt7Jo69sqn6NnTE1AuL9nY04=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gnzZvdfBpkJNEfV9y+EzBtdC0ct9ao6HMaiYUIyj1bJvvdE6xZIac8NQTpe5p9gev
-	 MakJfsnZsaGv1yMU1ohq769x1y404odhNtzcG5Kp31nvqRDs+W3ZY8LxknT2rtM5Pp
-	 ErDhqx+nGAndxxPzvPdnbL1yUJnFPRSbRCAgveyiKvTC5mwKLvZyJLlxfaXpUP/La1
-	 vs5OpAWE3uqfQE6S70fqoY7bLrArE7hLnUvE0f6jgA94tC1gJZtU72Xy4Ru+aOgyTt
-	 PCu3NVEj0zx4kSAFhBN5LXTJFS1njJnGdFYbp+52dNhR6Fj07DWT41Eq06AyUg28C9
-	 UiEjgEspEVSYw==
-From: Sasha Levin <sashal@kernel.org>
+	b=Cg6N2TLgXFF6i/x26JW81RNgyMsdvngMHEUOCJUe8URzTR8eIyslCpbBs6vkMt+FU
+	 rd8X1z+/V1ejA3m3wAF9Lrb1aRD6GHWPoGPc8WEAt4LNzuN6L6VOhMw4BD8P/w0Lrc
+	 ewxv/wjrZTvasju/HOQPZbKdQWoJmT7Xu+27Qw0M=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jann Horn <jannh@google.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	SJ Park <sj@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Colin Cross <ccross@google.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Chris Mason <mason@kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/vma: avoid losing atomic VMA flags when setting sticky VMA flags
-Date: Fri, 13 Nov 2026 11:03:13 -0500
-Message-ID: <20261113152545.1862500-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200426-failed-6.18-c386d799f423@kernel.org>
-References: <20261109200426-failed-6.18-c386d799f423@kernel.org>
+Subject: [PATCH 7.3 385/507] ovl: look up the index by the decoded origin
+Date: Fri, 13 Nov 2026 10:51:29 -0500
+Message-ID: <20261113153809.527610596@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
+References: <20261113153753.358973689@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,202 +64,154 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit c386d799f423685952138cab8d89f0331825bdee ]
+------------------
 
-vma_merge_existing_range() merges an existing VMA (middle) when its
-attributes have changed to match those of one or both adjacent VMAs.
+From: Chris Mason <mason@kernel.org>
 
-Sticky flags are propagated if they are set in any of the merged VMAs. They
-are initialised from vmg->vma_flags, which is assumed to contain middle's
-sticky flags when the function is invoked.
+[ Upstream commit 520ef67f47f69255695859b0008281a384d0bc20 ]
 
-However, the VMA write lock is not held for middle when they are first
-populated, so concurrent updates to atomic VMA flags may occur, which will
-be lost upon merge.
+A file opened by file handle on an overlay with nfs_export=on can show
+the stale lower data of a file that was copied up to the upper layer.
+While the file opened this way stays in the inode cache, a lookup of the
+copied up file by path fails with ESTALE for all users. The open can
+also succeed for a file that was removed, where it has to fail with
+ESTALE. This happens with a handle that has one byte changed. The handle
+comes from an NFS client, or from a process that calls
+open_by_handle_at() with CAP_DAC_READ_SEARCH in the initial user
+namespace.
 
-This can result in fork failing to propagate guard region markers and (if
-file-backed) THP collapse discarding them.
+When a file in a lower layer is about to be modified, overlayfs first
+copies it to the upper layer (copy up). With nfs_export=on, each copy up
+also creates an entry in the index directory, a directory that overlayfs
+keeps for itself on the upper filesystem.
 
-Resolve this by propagating the sticky flags after middle is locked.
+The handle of an overlay file that comes from a lower layer wraps the
+handle of its lower inode. Overlayfs calls this lower inode the origin.
+The overlay handle stays valid after a copy up.
 
-Make life easier by factoring this into propagate_sticky_flags(), which
-treats vmg->vma_flags as its base (in case any sticky flags are set there),
-updating it as sticky flags are accumulated from merged VMAs.
+To decode such a handle, ovl_lower_fh_to_d() first decodes the wrapped
+handle to the origin. If no overlay inode is cached for the origin, it
+looks in the index directory:
 
-Also update vma_expand() to use propagate_sticky_flags() so all merge paths
-utilise it.
+- An index entry there leads to the upper file.
+- A whiteout, the marker that overlayfs uses for a removed file, means
+  that the overlay file was removed.
 
-propagate_sticky_flags() also asserts that the VMA write lock is held for
-the VMA whose sticky flags are being read, with a comment explaining why.
+The name of an index entry is the handle that copy up encoded for the
+origin, as a hex string.
 
-Another means by which atomic VMA flags can fail to be observed is when the
-merge is finalised in commit_merge().
+ovl_lower_fh_to_d() builds the name for this lookup from the bytes that
+the caller passed in. But handles with different bytes can decode to the
+same inode:
 
-rmap locks are dropped in vma_complete() before the sticky flags are
-written, meaning an rmap walker can observe the VMA without sticky flags
-set, which can also result in retract_page_tables() discarding guard
-markers.
+- Overlayfs ignores some flag bits of the handle.
+- A lower filesystem can accept a different fid type, extra bytes, or
+  generation 0 for any generation.
 
-Resolve this by assigning the sticky flags before dropping rmap locks,
-factored into commit_sticky_flags() with a write assert on the VMA being
-written to.
+Such a handle decodes to the origin but misses the index entry or the
+whiteout. So the decode returns an overlay inode that has only the lower
+file.
 
-Also remove the vma_set_flags_mask() invocation at the end of
-vma_merge_existing_range() as this was introduced by commit
-64212ba02e66 ("mm: implement sticky VMA flags") to propagate sticky flags,
-which is now redundant with the introduction of commit_sticky_flags().
+While that inode is cached, a path lookup of a copied up file fails with
+ESTALE, since the upper file that the lookup finds does not match the
+cached inode, which has none.
 
-The vma_set_flags_mask() invocation at the end of vma_expand() setting
-sticky flags only is also removed for the same reason.
+Reproduced on tmpfs and on ext4 with open_by_handle_at(), after a copy
+up and a mount cycle. A handle in which one flag bit, the fid type, the
+length or the generation was changed read the old lower data, and path
+lookups returned ESTALE.
 
-Also update vma_merge_existing_range()'s comment to reflect the fact that
-vmg->vma_flags gets updated.
+Fix this by re-encoding the decoded origin and building the index name
+from that handle.
 
-Finally, update the userland VMA tests to reflect a previously missed
-const-ification in vma_assert_write_locked() which would otherwise cause a
-warning when building them.
-
-Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-4-8ff4fae1fc85@kernel.org
-Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
-Fixes: 49e14dabed7a ("mm: set the VM_MAYBE_GUARD flag on guard region install")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
-Cc: SJ Park <sj@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Colin Cross <ccross@google.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: Replaced bitmap-based VMA flag helpers with equivalent scalar vm_flags operations inline in existing functions. ]
+Fixes: f71bd9cfb692 ("ovl: decode indexed non-dir file handles")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/vma.c | 33 +++++++++++++++++++--------------
- 1 file changed, 19 insertions(+), 14 deletions(-)
+ Documentation/filesystems/overlayfs.rst |  3 ++-
+ fs/overlayfs/export.c                   |  4 ++--
+ fs/overlayfs/namei.c                    | 13 ++++++++++---
+ fs/overlayfs/overlayfs.h                |  2 +-
+ 4 files changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 0d4f344956642..6151a54699694 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -756,6 +756,9 @@ static int commit_merge(struct vma_merge_struct *vmg)
- 		return -ENOMEM;
+diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
+index 16c35b491dad4..4c241d220bc23 100644
+--- a/Documentation/filesystems/overlayfs.rst
++++ b/Documentation/filesystems/overlayfs.rst
+@@ -731,7 +731,8 @@ When decoding an overlay file handle, the following steps are followed:
  
- 	vma_prepare(&vp);
-+	/* Must be made visible before vma_complete() for rmap walkers. */
-+	vma_assert_write_locked(vmg->target);
-+	vm_flags_set(vmg->target, vmg->vm_flags & VM_STICKY);
- 	/*
- 	 * THP pages may need to do additional splits if we increase
- 	 * middle->vm_start.
-@@ -794,8 +797,8 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
-  * merge.
-  *
-  * As part of this operation, if a merge occurs, the @vmg object will have its
-- * vma, start, end, and pgoff fields modified to execute the merge. Subsequent
-- * calls to this function should reset these fields.
-+ * vma, start, end, pgoff and vm_flags fields modified to execute the merge.
-+ * Subsequent calls to this function should reset these fields.
-  *
-  * Returns: The merged VMA if merge succeeds, or NULL otherwise.
-  *
-@@ -809,7 +812,6 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
- static __must_check struct vm_area_struct *vma_merge_existing_range(
- 		struct vma_merge_struct *vmg)
+  1. Find underlying layer by UUID and path type information.
+  2. Decode the underlying filesystem file handle to underlying dentry.
+- 3. For a lower file handle, lookup the handle in index directory by name.
++ 3. For a lower file handle, encode the decoded underlying inode again and
++    lookup that handle in index directory by name.
+  4. If a whiteout is found in index, return ESTALE. This represents an
+     overlay object that was deleted after its file handle was encoded.
+  5. For a non-directory, instantiate a disconnected overlay dentry from the
+diff --git a/fs/overlayfs/export.c b/fs/overlayfs/export.c
+index 9aae20c59608a..bd998a3d8b95c 100644
+--- a/fs/overlayfs/export.c
++++ b/fs/overlayfs/export.c
+@@ -713,9 +713,9 @@ static struct dentry *ovl_lower_fh_to_d(struct super_block *sb,
+ 		}
+ 	}
+ 
+-	/* Then lookup indexed upper/whiteout by origin fh */
++	/* Then lookup indexed upper/whiteout by origin */
+ 	if (ovl_indexdir(sb)) {
+-		index = ovl_get_index_fh(ofs, fh);
++		index = ovl_get_index_origin(ofs, origin.dentry);
+ 		err = PTR_ERR(index);
+ 		if (IS_ERR(index)) {
+ 			index = NULL;
+diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
+index c6127edb9be95..64d63b260709c 100644
+--- a/fs/overlayfs/namei.c
++++ b/fs/overlayfs/namei.c
+@@ -781,14 +781,21 @@ int ovl_get_index_name(struct ovl_fs *ofs, struct dentry *origin,
+ 	return err;
+ }
+ 
+-/* Lookup index by file handle for NFS export */
+-struct dentry *ovl_get_index_fh(struct ovl_fs *ofs, struct ovl_fh *fh)
++/*
++ * Lookup index by decoded origin for NFS export.
++ *
++ * The name of an index is the hex of the file handle that copy up encoded.
++ * The bytes of the handle to decode cannot be used as the name, because a
++ * lower fs may decode many handles to the same inode.  For example, it may
++ * ignore the fid type, extra fid bytes or a zero generation.
++ */
++struct dentry *ovl_get_index_origin(struct ovl_fs *ofs, struct dentry *origin)
  {
--	vm_flags_t sticky_flags = vmg->vm_flags & VM_STICKY;
- 	struct vm_area_struct *middle = vmg->middle;
- 	struct vm_area_struct *prev = vmg->prev;
- 	struct vm_area_struct *next;
-@@ -904,17 +906,22 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 	struct dentry *index;
+ 	struct qstr name;
+ 	int err;
  
- 	/* No matter what happens, we will be adjusting middle. */
- 	vma_start_write(middle);
-+	/* Write lock prevents concurrent atomic VMA flag updates. */
-+	vma_assert_write_locked(middle);
-+	vmg->vm_flags |= middle->vm_flags & VM_STICKY;
+-	err = ovl_get_index_name_fh(fh, &name);
++	err = ovl_get_index_name(ofs, origin, &name);
+ 	if (err)
+ 		return ERR_PTR(err);
  
- 	if (merge_right) {
- 		vma_start_write(next);
- 		vmg->target = next;
--		sticky_flags |= (next->vm_flags & VM_STICKY);
-+		vma_assert_write_locked(next);
-+		vmg->vm_flags |= next->vm_flags & VM_STICKY;
- 	}
- 
- 	if (merge_left) {
- 		vma_start_write(prev);
- 		vmg->target = prev;
--		sticky_flags |= (prev->vm_flags & VM_STICKY);
-+		vma_assert_write_locked(prev);
-+		vmg->vm_flags |= prev->vm_flags & VM_STICKY;
- 	}
- 
- 	if (merge_both) {
-@@ -984,7 +991,6 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
- 	if (err || commit_merge(vmg))
- 		goto abort;
- 
--	vm_flags_set(vmg->target, sticky_flags);
- 	khugepaged_enter_vma(vmg->target, vmg->vm_flags);
- 	vmg->state = VMA_MERGE_SUCCESS;
- 	return vmg->target;
-@@ -1176,20 +1182,14 @@ int vma_expand(struct vma_merge_struct *vmg)
- 	struct vm_area_struct *target = vmg->target;
- 	struct vm_area_struct *next = vmg->next;
- 	int ret = 0;
--	vm_flags_t sticky_flags;
--
--	sticky_flags = vmg->vm_flags & VM_STICKY;
--	sticky_flags |= target->vm_flags & VM_STICKY;
- 
- 	VM_WARN_ON_VMG(!target, vmg);
- 
- 	mmap_assert_write_locked(vmg->mm);
- 	vma_start_write(target);
- 
--	if (next && target != next && vmg->end == next->vm_end) {
--		sticky_flags |= next->vm_flags & VM_STICKY;
-+	if (next && target != next && vmg->end == next->vm_end)
- 		remove_next = true;
--	}
- 
- 	/* We must have a target. */
- 	VM_WARN_ON_VMG(!target, vmg);
-@@ -1202,6 +1202,9 @@ int vma_expand(struct vma_merge_struct *vmg)
- 	VM_WARN_ON_VMG(target->vm_start < vmg->start ||
- 		       target->vm_end > vmg->end, vmg);
- 
-+	vma_assert_write_locked(target);
-+	vmg->vm_flags |= target->vm_flags & VM_STICKY;
-+
- 	/*
- 	 * If we are removing the next VMA or copying from a VMA
- 	 * (e.g. mremap()'ing), we must propagate anon_vma state.
-@@ -1219,11 +1222,13 @@ int vma_expand(struct vma_merge_struct *vmg)
- 	if (remove_next) {
- 		vma_start_write(next);
- 		vmg->__remove_next = true;
-+
-+		vma_assert_write_locked(next);
-+		vmg->vm_flags |= next->vm_flags & VM_STICKY;
- 	}
- 	if (commit_merge(vmg))
- 		goto nomem;
- 
--	vm_flags_set(target, sticky_flags);
- 	return 0;
- 
- nomem:
+diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+index b32089a104291..a5aa22cc79a83 100644
+--- a/fs/overlayfs/overlayfs.h
++++ b/fs/overlayfs/overlayfs.h
+@@ -748,7 +748,7 @@ int ovl_verify_index(struct ovl_fs *ofs, struct dentry *index);
+ int ovl_get_index_name_fh(const struct ovl_fh *fh, struct qstr *name);
+ int ovl_get_index_name(struct ovl_fs *ofs, struct dentry *origin,
+ 		       struct qstr *name);
+-struct dentry *ovl_get_index_fh(struct ovl_fs *ofs, struct ovl_fh *fh);
++struct dentry *ovl_get_index_origin(struct ovl_fs *ofs, struct dentry *origin);
+ struct dentry *ovl_lookup_index(struct ovl_fs *ofs, struct dentry *upper,
+ 				struct dentry *origin, bool verify);
+ int ovl_path_next(int idx, struct dentry *dentry, struct path *path,
 -- 
 2.53.0
+
+
 
