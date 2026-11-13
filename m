@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575956;
-	b=Ot0q8WV1rYpscOVGM5JMfQjLkMGWm4NQCnU+aDpwkteRrviEzMB9GdTinPWXEX34I+2H
-	 Yn+UJ+xR05uVqZ8OXhvOQPr0BH2OuKjPC9cHZFInBGT6icNM/RBPEoqFVSk+lI0E2nplD
-	 QKT5zPGY/p/PbYk2qyLz9fod/M4G95PK2Gp935bLfWcxRYhQgYaLl2NwwAoK7nGTiRAan
-	 JgsQ4jQE0EpKfpknljMUVI7VtjDnLJAk+Bms3mrvf5OuH8gfI/pBR8VLv8ndxFBlleJ6x
-	 zLDrYpCYKnwLoml/iLWVqxWsI2pv4goIsv6jJmV9uFVFyVeaU6fCTnamUNR/JQKSHOQ==
+	t=1794575957;
+	b=JuoTtyuHR1WX/IXa4XxhlBbpWUxA8qj0bXkztkBLolr0Y0J0vOSQi2zvO06fGmJRRCce
+	 tOw1uCoXBFfuIY7UHDD69g4FXsESgkAL7Jdt52+Ha495B0OICQI3s8LRwq3qrm/jrcQxJ
+	 RGmqytn2RzJyfClzDcCujg2xSctVVWOEya6EacUw2E8cg0ElNLgKJ35FrHPchzWQqk/OJ
+	 H/2Hdu3fjlJN+VWfU+33hHJyL7u/8o/Z3gpJci/oSZTAOG8Isvr88xFrizzOOnkwb6gp/
+	 4Ix1nx4Zt0MTAyeMyvOUc3BjsCqA5VMDPLN77WWlT8hngKmF1yLgBVdmSzeJwgEW9ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575956;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575957;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=rvc8V6tMkpwX750VfmxtJXX879RUjLM/1sI2Y+JFcqM=;
-	b=XVzlsGquMshPPvBHVYSzZcuHpYMUA2YyVqVKdzBPOukPin3KyDOIwa+zcfX0J6QGodZB
-	 cOAV2hca66pvsKBA9en9Az0YR7LkAG8gAnS3NxdcGuTD8zBEXNuyyboNx8iODzVZ+/dBI
-	 wHjM+m8x3eKKATZExHKcZMqsuRUoGhPoCY2lJJRFqcX0NcdBGXse2uZfo5NVGaapSebjY
-	 39FHJbhtQvQnSYWoI8bSo9iRDTueOoVkUrjpqIZTMUgWUHOMWFVX+GNfCKUATw0rvx/2M
-	 VRjzpmUjjVbRKHtXZf3s9DaDBf04RaMKkRfJfJpQTt/98Q8rs3CErgDT88FhQGF5TNQ==
+	bh=V6G0bPzKPqW9y5CcOLYbTf+p7g3V14XBJCbAwz7OwwM=;
+	b=xgZwzqfEuEUutxaXAaExCqrIm2DfNbRsCwNJJ4wW+DqhWd5JyaQdewJNYSEyf18Y1G44
+	 H/flcUEKjBiaMp06ustml4cr0ABqp4jT2bl5I2fwTNl1QmcE7ja6Bl37VEztb7KOzi63N
+	 ifLmqXMVkRNK4shJkRuLnhWe8N9zMcJXn2xlGvfJlWtLAoOgGlGo/dZ2122koe4Q48y7o
+	 onwm+N95Kx9WlLHkZYbBlPMat6CsnRTK2GwxcDvAACEgsvWEOmgKtmFa+b1rmEmihz5zN
+	 lxKamBRjvbl4pnPfTU8FOdw7zuZZYmBpcTzTGuBlCBkwDDM1WqMhjRlMEEx+R+9V4QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Boh0H29Z;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=X8cJyEAv;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C21606A323;
-	Fri, 13 Nov 2026 13:19:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3C21606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881A9606A330;
+	Fri, 13 Nov 2026 13:19:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 881A9606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Boh0H29Z
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=X8cJyEAv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794575948;
-	bh=rvc8V6tMkpwX750VfmxtJXX879RUjLM/1sI2Y+JFcqM=;
+	s=smtpout1; t=1794575949;
+	bh=V6G0bPzKPqW9y5CcOLYbTf+p7g3V14XBJCbAwz7OwwM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Boh0H29Zy3W6/iojzvMBugxCcXuZoZT3to+7u1/yHQKomKH3AKEIAXwnGB/7mHayf
-	 PIW+JgUgn4DoIBNp8rJ+Q8KNmJpezZ18gHlfgErrTvfk70hXhJ1zZbsiQ4N9T7FRKr
-	 N0sNMyi+nLnBg/5F7/oeDU3GAOQUARkN4uS2wAhr6I8sVRA/4Pg09kQA7ADLhNwGbC
-	 j5wjLPysp4cxWqM/aJRyC9XwZ3GrOUPER7eoDc9B4ml9amdSP+L4nuckccvb5GBknu
-	 jHmUvGdWxFo/A7LfUJ1wRw2sLdJ9iZvtzDTIp7bZiAKJ9Rck0yWINC98sJilvopKFl
-	 /yUOxT2LoZaWA==
+	b=X8cJyEAvdMWB71Tx5hYHbX9rgjIzRtn8e8WljOb6kbBjAJRhCppqLMlzblBT84BpS
+	 5t5XEneMR04259TaXcu7brlD7exXU8OdKknO6REXSWgXX7zcAVeD3JF4/s1t/ZP0U7
+	 jf/Ws0yxqDnkpjI4f3YE5RwDc/Wl6SOiodXJHhMjZ4INF+PIk/gbGt71GD8DLae5dU
+	 ERyWsM3Aw2wIDyAi5wSFdKln0zJ5I5ty1Qiwv9D3OLerH+HQO6XVK2AuJOxOtunMdH
+	 4udFKcw+CmrF1RqutBd3gAm7D6gvCufrIKUqxSVLdZRG8Xxf6ysWn/cx+PmhZHatou
+	 pUO6qcX8nAbDw==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jQyWw3t30zP36;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jQyWw64mfzPxK;
 	Fri, 13 Nov 2026 08:19:08 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Peter Zijlstra <peterz@infradead.org>,
@@ -125,9 +125,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	linux-trace-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [RFC PATCH 01/16] sched/membarrier: Fix stale runqueue state after a lazy mm switch
-Date: Fri, 13 Nov 2026 08:18:48 -0500
-Message-Id: <20261113131903.157186-2-mathieu.desnoyers@efficios.com>
+Subject: [RFC PATCH 02/16] sched/membarrier: Report only completed registrations
+Date: Fri, 13 Nov 2026 08:18:49 -0500
+Message-Id: <20261113131903.157186-3-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261113131903.157186-1-mathieu.desnoyers@efficios.com>
 References: <20261113131903.157186-1-mathieu.desnoyers@efficios.com>
@@ -142,137 +142,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MEMBARRIER_CMD_GLOBAL_EXPEDITED sends an IPI to each CPU which runs
-a registered process. It finds those CPUs with rq->membarrier_state,
-a per-runqueue copy of the membarrier state of the mm.
+MEMBARRIER_CMD_GET_REGISTRATIONS returns the registration commands
+which the process issued.
 
-Commit 227a4aadc75b ("sched/membarrier: Fix p->mm->membarrier_state
-racy load") added the copy. The scheduler updates it when it switches
-between two mm. A registration sends an IPI to update the runqueues
-which keep running the mm.
+Each registration has two state bits: one is set when the registration
+starts and the "ready" one when it completes. The command reports a
+registration when either bit is set.
 
-membarrier_switch_mm() compares the previous active_mm with the next
-mm. So it also skips the update when the previous task only borrowed
-the mm. This is a kernel thread in lazy TLB mode, or a task past
-exit_mm(). The copy can be stale in two such cases.
+The sync core and rseq registrations also set
+MEMBARRIER_STATE_PRIVATE_EXPEDITED, without its "ready" bit. They set
+it because their commands need the same scheduler barriers as
+MEMBARRIER_CMD_PRIVATE_EXPEDITED. So a process which only issued
+MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ is reported as having
+issued MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED as well. Yet
+MEMBARRIER_CMD_PRIVATE_EXPEDITED returns -EPERM for that process.
 
-Case 1: a process registers while a lazy TLB kernel thread borrows
-its mm on another CPU. T is a thread of a process with mm M, which is
-not registered yet. S is a thread of another process.
+A registration which failed with -ENOMEM would be reported the same
+way.
 
-  CPU 0                                        CPU 1
+User-space gets a wrong registration mask. The command was added for
+CRIU, which saves the registrations of a process at checkpoint. A
+restored process would carry a registration which the original
+process did not issue. A program which trusts the mask would issue
+MEMBARRIER_CMD_PRIVATE_EXPEDITED and get -EPERM.
 
-  T runs in user-space
-    rq->membarrier_state == 0
-  T migrates to CPU 1
-  context_switch(T -> idle)
-    idle borrows M as its active_mm
-                                               context_switch(-> T)
-                                               T: MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED
-                                                 sets the state of M
-                                                 sets rq->membarrier_state of CPU 1
-                                                 CPU 0 runs idle: no IPI
-                                               T migrates to CPU 0
-  context_switch(idle -> T)
-    membarrier_switch_mm(rq, idle->active_mm, T->mm)
-      prev_mm == next_mm: no update
-  T runs in user-space
-    rq->membarrier_state == 0 (stale)
-                                               S: MEMBARRIER_CMD_GLOBAL_EXPEDITED
-                                                 CPU 0: state not set, no IPI
+Fix this by reporting a registration only when its "ready" bit is
+set.
 
-Case 2: a thread exits and the CPU then runs another thread of the
-same process. A and B are threads of a registered process with mm M.
-S is a thread of another process.
+This changes the mask which user-space reads.
+MEMBARRIER_CMD_GET_REGISTRATIONS no longer reports
+MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED for a process which only
+issued the sync core or the rseq registration. The result of every
+other command is unchanged.
 
-  CPU 0                                        CPU 1
-
-  B exits
-  exit_mm()
-    B->mm = NULL
-    membarrier_update_current_mm(NULL)
-      rq->membarrier_state = 0
-  context_switch(B -> A)
-    membarrier_switch_mm(rq, B->active_mm, A->mm)
-      prev_mm == next_mm: no update
-  A runs in user-space
-    rq->membarrier_state == 0 (stale)
-                                               S: MEMBARRIER_CMD_GLOBAL_EXPEDITED
-                                                 CPU 0: state not set, no IPI
-
-kthread_unuse_mm() clears the copy in the same way as exit_mm().
-
-In both cases, the registered process runs without the promised
-memory barrier. This lasts until the CPU switches to the process from
-another mm.
-
-User-space sees this as a memory ordering failure. The registered
-processes omit memory barriers from their fast paths. The caller
-issues MEMBARRIER_CMD_GLOBAL_EXPEDITED where it needs those barriers.
-An example is RCU-like synchronization over shared memory. Without the
-IPI, the caller would miss a recent store of a registered process. It
-would then, for example, free memory which that process still uses.
-A thread exit in a registered multi-threaded process is enough to
-trigger case 2.
-
-Both cases were reproduced on v7.4-rc2: 1000 commands send no IPI to
-the registered process.
-
-Fix this by passing prev->mm rather than prev->active_mm. It is NULL
-for a kernel thread and for an exited task, which forces the update.
-The update is still skipped between two user tasks of the same mm.
-
-Fixes: 227a4aadc75b ("sched/membarrier: Fix p->mm->membarrier_state racy load")
+Fixes: 544a4f2ecd45 ("sched/membarrier: Introduce MEMBARRIER_CMD_GET_REGISTRATIONS")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/core.c  |  6 +++++-
- kernel/sched/sched.h | 15 +++++++++++++++
- 2 files changed, 20 insertions(+), 1 deletion(-)
+ kernel/sched/membarrier.c | 29 ++++++++++++++---------------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1a088d4576f5..df6d15cf7109 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -5551,7 +5551,11 @@ context_switch(struct rq *rq, struct task_struct *prev,
- 		else
- 			prev->active_mm = NULL;
- 	} else {					// to user
--		membarrier_switch_mm(rq, prev->active_mm, next->mm);
-+		/*
-+		 * Pass prev->mm, not prev->active_mm: see
-+		 * membarrier_switch_mm().
-+		 */
-+		membarrier_switch_mm(rq, prev->mm, next->mm);
- 		/*
- 		 * sys_membarrier() requires an smp_mb() between setting
- 		 * rq->curr / membarrier_switch_mm() and returning to userspace.
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 1d76950dbb0a..68353796a7f9 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -3907,6 +3907,21 @@ static inline bool sched_energy_enabled(void) { return false; }
-  * - prior user-space memory accesses and store to rq->membarrier_state,
-  * - store to rq->membarrier_state and following user-space memory accesses.
-  * In the same way it provides those guarantees around store to rq->curr.
-+ *
-+ * @prev_mm is the mm of the previous task. It is NULL for a kernel
-+ * thread and for a task past exit_mm().
-+ *
-+ * The update is skipped only between two user tasks of the same mm.
-+ * rq->membarrier_state is up to date in that case. It was set when
-+ * the first of those tasks was scheduled in, or later by the
-+ * registration IPI.
-+ *
-+ * It must not be skipped when the previous task only borrowed the mm
-+ * as its active_mm. rq->membarrier_state can be stale then:
-+ *
-+ * - exit_mm() and kthread_unuse_mm() clear it,
-+ * - a registration does not send an IPI to a CPU which runs a lazy
-+ *   TLB kernel thread.
-  */
- static inline void membarrier_switch_mm(struct rq *rq,
- 					struct mm_struct *prev_mm,
+diff --git a/kernel/sched/membarrier.c b/kernel/sched/membarrier.c
+index cb957b8f1946..46e823a3d668 100644
+--- a/kernel/sched/membarrier.c
++++ b/kernel/sched/membarrier.c
+@@ -566,15 +566,17 @@ static int membarrier_get_registrations(void)
+ 	struct task_struct *p = current;
+ 	struct mm_struct *mm = p->mm;
+ 	int registrations_mask = 0, membarrier_state, i;
+-	static const int states[] = {
+-		MEMBARRIER_STATE_GLOBAL_EXPEDITED |
+-			MEMBARRIER_STATE_GLOBAL_EXPEDITED_READY,
+-		MEMBARRIER_STATE_PRIVATE_EXPEDITED |
+-			MEMBARRIER_STATE_PRIVATE_EXPEDITED_READY,
+-		MEMBARRIER_STATE_PRIVATE_EXPEDITED_SYNC_CORE |
+-			MEMBARRIER_STATE_PRIVATE_EXPEDITED_SYNC_CORE_READY,
+-		MEMBARRIER_STATE_PRIVATE_EXPEDITED_RSEQ |
+-			MEMBARRIER_STATE_PRIVATE_EXPEDITED_RSEQ_READY
++	/*
++	 * Only the "ready" state tells that a registration command
++	 * completed. The other state of each pair is not specific to
++	 * one registration command: the sync core and rseq
++	 * registrations also set MEMBARRIER_STATE_PRIVATE_EXPEDITED.
++	 */
++	static const int ready_states[] = {
++		MEMBARRIER_STATE_GLOBAL_EXPEDITED_READY,
++		MEMBARRIER_STATE_PRIVATE_EXPEDITED_READY,
++		MEMBARRIER_STATE_PRIVATE_EXPEDITED_SYNC_CORE_READY,
++		MEMBARRIER_STATE_PRIVATE_EXPEDITED_RSEQ_READY
+ 	};
+ 	static const int registration_cmds[] = {
+ 		MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED,
+@@ -582,16 +584,13 @@ static int membarrier_get_registrations(void)
+ 		MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE,
+ 		MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ
+ 	};
+-	BUILD_BUG_ON(ARRAY_SIZE(states) != ARRAY_SIZE(registration_cmds));
++	BUILD_BUG_ON(ARRAY_SIZE(ready_states) != ARRAY_SIZE(registration_cmds));
+ 
+ 	membarrier_state = atomic_read(&mm->membarrier_state);
+-	for (i = 0; i < ARRAY_SIZE(states); ++i) {
+-		if (membarrier_state & states[i]) {
++	for (i = 0; i < ARRAY_SIZE(ready_states); ++i) {
++		if (membarrier_state & ready_states[i])
+ 			registrations_mask |= registration_cmds[i];
+-			membarrier_state &= ~states[i];
+-		}
+ 	}
+-	WARN_ON_ONCE(membarrier_state != 0);
+ 	return registrations_mask;
+ }
+ 
 -- 
 2.47.3
 
