@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794598483;
-	b=fUj4RykHxoeUSG8u2SvxR+Enmlbce69ca9kQsWlryv7anFzK2ssrfD6/mbpoE8mxSk5X
-	 XBpyQ51tYTROAwiCvrfnePb48fCxyS5PWgGUrg5jjHV5LNjld4FLxa57iqw6CKAhoIqiZ
-	 tlKCo9a9P8DFwmTq1a2vkQq7+cVZNxbMS1th3LDXjtzytWHLT59EQFXCtntsppsC6eBDm
-	 Fbk9zIKkAyP4M79uoB3jqeQKv8UTYAKkFNu1IB45oZC8v2M5Op0YoVikT1Usk1JpMT6Xj
-	 Ecl9HTUWNuMks07ef4zfZo7RjRYpdc+z3ZzEF06gDJsJVbXIRN9/Qo7Z+wQizQ5XYpQ==
+	t=1794598484;
+	b=vlvC7QjHgIhO804xK3S4jG6Bjb9KgOGw+H5qoX8AFRnGctGtb2AhXZntFo4F/WfwgKnM
+	 T5aC2ZwIwvnUY3DSFUwWb4zandMII5V8b+GzQPLi88a3ZQ55ww7WYjBA+THH84Z/VZNtS
+	 jcdTMq/AyvOySS5esWBAUqJGMTO47Jly7MH1w1D7qv2isjhm6IobOh6yxA34jAa6xbqJI
+	 jZG1VbxpPdgCaJPerofOPewHXhIX7OGI/QsIbFBLOz6MQxWm4NQ3G9StTE0HCSeK2KpsR
+	 Mf2Gp3KT683B3iLcyE3ncUimnFOCdFJ9wa+RBU0Zbw904FuHULluD7aeIl2MJ0YJxug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794598483;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794598484;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3Tm6ky20NbdautqXgQTTifVFKqXqQLbVpH001XsB6AY=;
-	b=TWSAePHHO/18/4IrV8Qv23ApnwcWZr2Qv1y0hLroPh1IcbFaX2jTXarSMdbuSD6nUXRm
-	 yJcZGZpmWFQhDrfA1HIueGiQwwTQo60bg7jVwtJkVNjeOTUUiaFPa5zItrN2SH3GFm1NQ
-	 T0S5fCiBJUypnXeI4TL8diz82vxByq/scNUdHuy8zGb6LdCmamqcz4EuRVlhbW+ptpjQ5
-	 cxEVneto35meyxEgd9zxnDuQ6DCTmOOGH/fS0Efbwj8OfGY26Z8bXYn6SeVYk/XQ7PPTu
-	 DU2eIJABGZ64pyXCDmaGWeeRwJViuid8MQnLOzvCE7MoYyd80RPMPG3dwTiAaYyr8yQ==
+	bh=KqwnOJltiqbNiZbmEj6MJnIguzlqCZ7mZruEGLOFPPM=;
+	b=4NfLKvG3rZ9kf97EnTpAE9pu5setJ0eAL6QloZZElakmOe9XTrF9EOQ+qCc6ZvH8eJhm
+	 f1pg02pw78i1rqJqahj21WZCrweZJyhJILD0gHyit/TlgUjL9i/SDRVd0UyoTA39+KJuf
+	 DaR+nIBQ8mArmmnfYvsCK9O62AJ9VJ+mpY6MjfmHma/DeazYa2j+krr4b6b1NN+yTXu09
+	 B9lYlXFzbQAkCXC10anaDTpMmX+xqBKjn1yDQSiK0M3UxxKLTfgIeygm98rE/KfRz4E4Z
+	 SarsiQa6bigwdCTNsrWQG0+Z/LJ7QwcNvyZyGUH1LRvUrSvp3pMHMFwNk4Z8Ad5p5yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+11AyZu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SZRr8FKi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462B1606A330
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:34:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED72C606A333
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:34:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+11AyZu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2821F000C4;
-	Fri, 13 Nov 2026 19:34:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SZRr8FKi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19C341F000C5;
+	Fri, 13 Nov 2026 19:34:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794598482;
-	bh=3Tm6ky20NbdautqXgQTTifVFKqXqQLbVpH001XsB6AY=;
+	s=k20260515; t=1794598483;
+	bh=KqwnOJltiqbNiZbmEj6MJnIguzlqCZ7mZruEGLOFPPM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S+11AyZuxr4IGQv+skL5rIFdyw59xuotwocrHEMrAWgI63EpSg4gA1bkWljrs+f1K
-	 iCFPNWX6cd03vc862Y2y7qCmI6dimLgUSfcLt2fVzcCDdCUzQ/ToO0D5KuN9O7O1jC
-	 8vUig8jIk5lia7AOx07BWTn/5a7+9ogtJYrykzwzhEm36OzEI42jgCiqHzmF1QVbIu
-	 gAyyz4pNzuchm/XIRjJetrcXcVLCTlJgrheXrDGgItxLqbWYiVQl0DBmOv/7P3lutf
-	 /pjTBq7DXlesZrN9cR84R1dH9fDByfQei+EAM9yUVdoxNQ7EeZ1vAaxvuLX+/LPotB
-	 Vm0bfWH7nlgJg==
+	b=SZRr8FKi+m8kqYdFUMI/rZjct/gb9mgYto7Dov34/A2+TviR/lW2uXpZZYsEV0gIj
+	 aO9jlisf+iQhMDvqHZ5xJ/Rp4SEkAZsi5AeCEIJNi749fqfInYzV786UfehM+MTDmY
+	 YijyhKPIeMeNRCMrCEvf1KYjY++J/Jur/8Fb6DRHa691RoT+D7EFoF0eAebWc0CtA8
+	 wM6vFjS9N1mJ8Ry0Zo/+4sVEdJOgjurVH0fT4xsEnGEFrWsJmXi4qvtH/sq3HLwqh+
+	 pIGzQyoK0UCXRpxbP4H3SRQ/iRf4zw8dhHpvxkg5ho0c39oYLoc8AJORQ1p9e3qAeg
+	 N9PFwLl1q9aJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Chris Mason <mason@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] mm: call wp_page_copy() under the VMA lock
-Date: Fri, 13 Nov 2026 14:34:40 -0500
-Message-ID: <20261113192843.2425959-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] mm/memory: reject remote COW faults on PFN mappings
+Date: Fri, 13 Nov 2026 14:34:41 -0500
+Message-ID: <20261113192843.2425959-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201352-failed-6.6-8db6921cc07b@kernel.org>
+In-Reply-To: <20261113192843.2425959-1-sashal@kernel.org>
 References: <20261109201352-failed-6.6-8db6921cc07b@kernel.org>
+ <20261113192843.2425959-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,129 +65,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit 164b06f238b986317131e6b61b2f22aabcbc2cc0 ]
+[ Upstream commit 8db6921cc07b74197a3866d62ed262b68aeadcf3 ]
 
-It is usually safe to call wp_page_copy() under the VMA lock.  The only
-unsafe situation is when no anon_vma has been allocated for this VMA, and
-we have to look at adjacent VMAs to determine if their anon_vma can be
-shared.  Since this happens only for the first COW of a page in this VMA,
-the majority of calls to wp_page_copy() do not need to fall back to the
-mmap_sem.
+When handling a COW fault without a normal source page (PFN mappings),
+__wp_page_copy_user() copies from the faulting user address. For remote
+faults, this accesses the wrong address space, resulting in wrong data
+getting copied.
 
-Add vmf_anon_prepare() as an alternative to anon_vma_prepare() which will
-return RETRY if we currently hold the VMA lock and need to allocate an
-anon_vma.  This lets us drop the check in do_wp_page().
+For example, user_events updates an enable bit in the registering
+process's memory. If that memory needs to be faulted in,
+user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
+item. Placing the enable bit in a private PFN mapping can trigger this
+remote COW path.
 
-Link: https://lkml.kernel.org/r/20231006195318.4087158-3-willy@infradead.org
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 8db6921cc07b ("mm/memory: reject remote COW faults on PFN mappings")
+Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
+current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
+
+The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
+the VM_UNPAGED logic"); likely, actual ways to get remote faults in
+there on COW PFN mappings appeared afterwards. But the fix is simple and
+straight forward.
+
+Fix generated by an LLM and sent by Chris Mason in private.
+
+Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[ david: simplify comment and description ]
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-35-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memory.c | 39 ++++++++++++++++++++++++++-------------
- 1 file changed, 26 insertions(+), 13 deletions(-)
+ mm/memory.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/mm/memory.c b/mm/memory.c
-index 853400f26159b..2ad125baa9504 100644
+index 2ad125baa9504..a3f48457a2446 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -3050,6 +3050,21 @@ static inline void wp_page_reuse(struct vm_fault *vmf)
- 	count_vm_event(PGREUSE);
- }
+@@ -2837,6 +2837,13 @@ static inline int __wp_page_copy_user(struct page *dst, struct page *src,
+ 		return 0;
+ 	}
  
-+static vm_fault_t vmf_anon_prepare(struct vm_fault *vmf)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
++	/*
++	 * __copy_from_user_inatomic() only works as expected for local faults.
++	 * Reject remote faults.
++	 */
++	if (unlikely(mm != current->mm))
++		return -EFAULT;
 +
-+	if (likely(vma->anon_vma))
-+		return 0;
-+	if (vmf->flags & FAULT_FLAG_VMA_LOCK) {
-+		vma_end_read(vma);
-+		return VM_FAULT_RETRY;
-+	}
-+	if (__anon_vma_prepare(vma))
-+		return VM_FAULT_OOM;
-+	return 0;
-+}
-+
- /*
-  * Handle the case of a page which we actually need to copy to a new page,
-  * either due to COW or unsharing.
-@@ -3077,27 +3092,29 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 	pte_t entry;
- 	int page_copied = 0;
- 	struct mmu_notifier_range range;
--	int ret;
-+	vm_fault_t ret;
- 
- 	delayacct_wpcopy_start();
- 
- 	if (vmf->page)
- 		old_folio = page_folio(vmf->page);
--	if (unlikely(anon_vma_prepare(vma)))
--		goto oom;
-+	ret = vmf_anon_prepare(vmf);
-+	if (unlikely(ret))
-+		goto out;
- 
- 	if (is_zero_pfn(pte_pfn(vmf->orig_pte))) {
- 		new_folio = vma_alloc_zeroed_movable_folio(vma, vmf->address);
- 		if (!new_folio)
- 			goto oom;
- 	} else {
-+		int err;
- 		new_folio = vma_alloc_folio(GFP_HIGHUSER_MOVABLE, 0, vma,
- 				vmf->address, false);
- 		if (!new_folio)
- 			goto oom;
- 
--		ret = __wp_page_copy_user(&new_folio->page, vmf->page, vmf);
--		if (ret) {
-+		err = __wp_page_copy_user(&new_folio->page, vmf->page, vmf);
-+		if (err) {
- 			/*
- 			 * COW failed, if the fault was solved by other,
- 			 * it's fine. If not, userspace would re-fault on
-@@ -3110,7 +3127,7 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 	/*
+ 	 * If the source page was a PFN mapping, we don't have
+ 	 * a "struct page" for it. We do a best-effort copy by
+@@ -3127,6 +3134,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
  				folio_put(old_folio);
  
  			delayacct_wpcopy_end();
--			return ret == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
-+			return err == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
++			if (err == -EFAULT)
++				return VM_FAULT_SIGBUS;
+ 			return err == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
  		}
  		kmsan_copy_page_meta(&new_folio->page, vmf->page);
- 	}
-@@ -3220,11 +3237,13 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- oom_free_new:
- 	folio_put(new_folio);
- oom:
-+	ret = VM_FAULT_OOM;
-+out:
- 	if (old_folio)
- 		folio_put(old_folio);
- 
- 	delayacct_wpcopy_end();
--	return VM_FAULT_OOM;
-+	return ret;
- }
- 
- /**
-@@ -3449,12 +3468,6 @@ static vm_fault_t do_wp_page(struct vm_fault *vmf)
- 		return 0;
- 	}
- copy:
--	if ((vmf->flags & FAULT_FLAG_VMA_LOCK) && !vma->anon_vma) {
--		pte_unmap_unlock(vmf->pte, vmf->ptl);
--		vma_end_read(vmf->vma);
--		return VM_FAULT_RETRY;
--	}
--
- 	/*
- 	 * Ok, we need to copy. Oh, well..
- 	 */
 -- 
 2.53.0
 
