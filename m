@@ -1,69 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794592093;
-	b=sNdX5oNLatP+kBtxB4pAeIU3cZTc/XlPmhmO7ZJOFsnGt5u0OH+yTYMz/jl89wfoFfI1
-	 wSk6IEgUgW0pWxafURpYTnzLhFUvEx0zwGv8EdiIuO6/sUzJtqIWnWMyM6pTnbKAFFi5b
-	 Wn5itSW2gdgVErCS1vyGwCOP4Xmnc7FxM4oFAgqKJQuJbU7KtnXPN4WlLnVwleL/7773X
-	 pEKarOf0BBHff/HwVpOFS3iSOegaS6fJsV/ukpUV9ZZ6l9YlonoIV+vZpRpN5pW4r8+In
-	 /bqOLKwAvpVFmk4Mq08QIwR5oLy9q2Mkq0eR0JZRGkngBQm2hFWGKesO4hkW36eeMlg==
+	t=1794592094;
+	b=ftSkKLlsL7xqIR+nFlX7QWgHnA4gq0XNWi//wnimoXBmBFwyUfCvZceW8R9pHoWXfG2t
+	 4y64PCtZk1OSgR702Fp37siJeMXm6p7vsgYFG8AR3VtEwcFqTbud+I4f2C+XhdMaaubpv
+	 ltZ9qoPo8Dl13Mw0CoEaoYHpSRAWBPZNbZsQTNVWNPxZ5BeJqrsWgekyuipin6/5Wkk1O
+	 LVqQJadSPMU0r0xummUknJ+gAT9wppvQ1bVlSPyaokHDCUyNhA48UfUMoFt/bgNkBArSK
+	 AbF/syrZYULkQ+4IR1iiYz4Wg65dp59IVMHVNLeoVbakediJPfmRtAOAz4bDXpuLWGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794592093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794592094;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=vCR8WcZJeppmYgaHmqaRJ4J2KTAdxAIhRyZKmuC0DSY=;
-	b=fSdLcfwa872lhM9jC4kWfMjwuEyJ6My8HxGMHjdkN8i0iahwrUgRZbo1obsTD6xKnltE
-	 Sa3jkNQogUQm6agojsmuJQu4VtdejZfBRDCeU4hjxeJgs2ka0R9WXISlLgPCM7RSf71Jp
-	 0GCABib8RP/eTEMu5yiXZwJaQLg5bQJsqu/IX6aHZaedpJi7Xl3ABg5YrBjOVLeFWXRVO
-	 JTsAHpVvW3gxYGQlvdr5DV+Bo2C4e1/Dc/sscYfBrOy+35ktBtI7VSGADEXiw3JGE+np0
-	 vMTVoHWTneBoSo/X9Z0zMO+bFQ3tWO6dPz97u6KpCF5U/cK4V5fyihNqZy8mkwCgSJA==
+	bh=AG85S18GjTTSlvvhNL7wVvZHxbvPuPkCjya8LNRqRb0=;
+	b=VTolYJsFIXw8i+dDnMgwXwsrzbh0Y5c4hg1KmZbO82gVHEonlvnaZHTipJabW5Qp+rvX
+	 2VrbHKas6LW8LiFf3YeIogTAckKZcIb1r9GveWNY5FB3rGtLcYPhYx3Ur2HqJjOYG/jxC
+	 kyGQcIs5dT0rjtOB4uutIqNFAfz8KcWmENUhTopGGBnQzKogiqaUKU4/cDP0xUn6ZDez6
+	 BvmxW9jWSwzFDnBrXvfalkx3bmo/0VoFgXDJ1vi1YFUkzmXEG5Dbz4jjbw6c0CZIurrUR
+	 gasvt41WpeWrP/ddNK3Gjk2zxMY60pMcQhqDp6ZDZqVDB/Q9W3ZHDVY6nxS0FZ78XnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Zo9XC07l;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=rQsj3p+Q;
 	arc=none smtp.remote-ip=183.62.165.209
 Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF5160776CF;
-	Fri, 13 Nov 2026 17:48:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAF5160776CF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2CC60776D2;
+	Fri, 13 Nov 2026 17:48:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E2CC60776D2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Zo9XC07l
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=rQsj3p+Q
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jR4VD6Mykz52SG2;
-	Sat, 14 Nov 2026 01:48:04 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jR4VL03qnz52SG3;
+	Sat, 14 Nov 2026 01:48:10 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794592084;
-	bh=oI4yZZyQLBORK+4fJhw2TQ6SzMTob/7ulPJAej3ylUs=;
+	s=z202610; t=1794592090;
+	bh=T0kPgoQ44DRgnuAPYeYWd5znsN8o+xeNOXc6DPdoPRI=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=Zo9XC07lCiAj+4K90MOuS1LmeojHIbI/sAShCfjhdhnlnU/3NUI7Rp1JWPMw7IVxD
-	 EQwNZfJiU6uT4regNaN1IWMDH3XNj439Pqlxwd3S9ufnAJbzk30H7ZlvwYRCKXRTpd
-	 fYBM8wmoxwd7euMcFS4JIXMv5yXaU+/Qkdls8hToWub2DAVepFgM4Rm1T+Y1iNBFNb
-	 AlWDSEiyvO2xVhPVLN97G8S+VHeZuooY/7++g/UtITbj+zfNQpiH0ihLwyFKmWsOHv
-	 6k04TcIPfGXDsM2s8daG4b4fakEsEuUnBk2n4PHVE1PcyzL0psKS85SG6Bs/ltTM4q
-	 pVp+3H4GpVZbw==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6ADHlxA5060083;
-	Sat, 14 Nov 2026 01:48:00 +0800 (+08)
+	b=rQsj3p+QH/9bKKJEWxeAXkyfSamc2M66sSjb17Q1qqe8pD0g76tCjhK3t271Kj7JT
+	 x4oCzPcO8ZtHgXdcTJm+TlkxIP18g8gWScS9EZcE2WgWB6HWNTqfdt/z/LLX62NImq
+	 OJ01HnOyAL2fJdj8pxn5g7Yp337OTl9V76Z8PI5kTA9JnySXLH1BmMjSRynBV2vtlt
+	 qzm2h9noOTm8tNNeEwM8r4O5khdR6xb+5U/KHcZlgJZyauw2FP2bkenzaPJMNI/n5e
+	 YaejO2RkqSk0n2sawYNdF/cPYICSzKzxwgH2If/Z6zgbjgsxb7jl0NC7sAUj0xvr7u
+	 wS3gi7qlLgVbw==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6ADHm1jP060147;
+	Sat, 14 Nov 2026 01:48:01 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
+Received: from mapi (xaxapp02[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sat, 14 Nov 2026 01:48:03 +0800 (CST)
-X-Zmail-TransId: 2afb6af74d53836-0c785
+	Sat, 14 Nov 2026 01:48:05 +0800 (CST)
+X-Zmail-TransId: 2afa6af74d55d68-2dc96
 X-Mailer: Zmail v1.0
-Message-ID: <20261114014803857Bi1TV3JcmPJhHLNxcl72A@zte.com.cn>
+Message-ID: <20261114014805276Yh-v6gzLI5ycHJ-1WV-LW@zte.com.cn>
 In-Reply-To: <20261114014754440R7cZjW-DgggyExZ9u5t_q@zte.com.cn>
 References: 20261114014754440R7cZjW-DgggyExZ9u5t_q@zte.com.cn
-Date: Sat, 14 Nov 2026 01:48:03 +0800 (CST)
+Date: Sat, 14 Nov 2026 01:48:05 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,76 +76,143 @@ Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
 To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHY0IDMvNF0gYXRhOiBsaWJhdGEtc2NzaTogZ2VuZXJhdGUgU0FUIHNlbnNlIGRhdGEgZm9yIEFUQSBQQVNTLVRIUk9VR0goMzIp?=
+Subject: =?UTF-8?B?W1BBVENIIHY0IDQvNF0gYXRhOiBsaWJhdGEtc2NzaTogZml4IHJlbWFpbmluZyBwYXNzdGhydSBmaWVsZCBwb2ludGVycw==?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ADHlxA5060083
+X-MAIL:mse-fl2.zte.com.cn 6ADHm1jP060147
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 14 Nov 2026 01:48:04 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Sat, 14 Nov 2026 01:48:10 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF74D54.001/4jR4VD6Mykz52SG2
+X-Fangmail-MID-QID: 6AF74D5A.000/4jR4VL03qnz52SG3
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-ata_scsi_qc_complete() only recognizes ATA PASS-THROUGH(12) and (16).
-The 32-byte form takes the ordinary completion path, so CK_COND is
-ignored and errors lack the ATA Status Return descriptor. Successful
-commands with CK_COND set therefore complete GOOD instead of returning
-CHECK CONDITION with the ATA register values.
+Several error paths in ata_scsi_pass_thru() report field pointers for
+the 12- or 16-byte CDB when rejecting a 32-byte CDB. Initiators then
+receive INVALID FIELD IN CDB sense data pointing at an unrelated byte.
+READ/WRITE LONG also reports PROTOCOL when its sector count is invalid.
 
-Recognize ATA PASS-THROUGH(32) by its service action and read CK_COND
-from byte 11 instead of byte 2, which belongs to the variable-length
-CDB header.
+Use the PROTOCOL offset and record the FEATURES, SECTOR COUNT and
+COMMAND offsets for each CDB format. Report SECTOR COUNT separately
+from PROTOCOL when validating READ/WRITE LONG.
 
 Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
-Cc: stable@vger.kernel.org
+Suggested-by: Niklas Cassel <cassel@kernel.org>
 Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
 Changes in v4:
 - Code and commit message unchanged; retain Damien Le Moal's Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/20261112220122679csrHZJU28_17KSmt_fom7@zte.com.cn/
+Previous version: https://lore.kernel.org/all/20261112220124003NT-esXu4g2qMJ-uOMc-4G@zte.com.cn/
 
 Changes in v3:
 - Code unchanged; retain the Damien Le Moal Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/202611112231319337i08AK7ZzIXm9DYFhmtXx@zte.com.cn/
+Previous version: https://lore.kernel.org/all/20261111223133188VjHq0FbmnzuEZWakS-EYD@zte.com.cn/
 
 Changes in v2 (Niklas Cassel):
-- Move the unrelated invalid-PROTOCOL hunk to patch 1; this patch only
-  changes the completion path.
-- Regenerate with git format-patch so the index matches the diff.
-- Keep the Reviewed-by tag; apart from the moved hunk this patch is
-  unchanged from v1.
-v1: https://lore.kernel.org/all/202611042211545962bhKeo8yjWPGFgya4g6LG@zte.com.cn/
+- Add a separate patch for the remaining PROTOCOL, FEATURES, COMMAND
+  and READ/WRITE LONG sector-count field pointers.
+v1: https://lore.kernel.org/all/20261104220832716LXKf7OaS9dt1VJ8Q959AG@zte.com.cn/
 
 Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiled
-ata_scsi_qc_complete() verbatim with sense/completion stubs. For ATA_32,
-CK_COND in byte 11 now selected pass-through sense and CHECK CONDITION;
-CK_COND clear remained GOOD. Error and preexisting-sense paths selected
-the pass-through helpers, and byte 2 did not act as CK_COND. The short
-CDB paths and unsupported service-action control were also checked.
+the translation functions verbatim with SCSI/device stubs. The rejected
+32-byte DMA/NCQ and READ/WRITE LONG protocols passed field pointer 10 to
+the invalid-field helper, SET FEATURES passed 21, and TPM passed 25.
+Invalid READ/WRITE LONG sector counts passed 4, 6 and 23 for 12-, 16-
+and 32-byte CDBs. These are helper arguments observed in the harness.
 
- drivers/ata/libata-scsi.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/ata/libata-scsi.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index e2847fb32e78b93fd0c8fd3b57e78ae3b17654b6..374918eae53ef4cb082bccd903773f06e6c55fa1 100644
+index 374918eae53ef4cb082bccd903773f06e6c55fa1..a5947bd591df8905e6b06f9851f75a46954f2c22 100644
 --- a/drivers/ata/libata-scsi.c
 +++ b/drivers/ata/libata-scsi.c
-@@ -1888,9 +1888,12 @@ static void ata_scsi_qc_complete(struct ata_queued_cmd *qc)
- 	struct ata_link *link = qc->dev->link;
- 	struct scsi_cmnd *cmd = qc->scsicmd;
- 	u8 *cdb = cmd->cmnd;
-+	u16 cdb_offset = cdb[0] == VARIABLE_LENGTH_CMD ? 9 : 0;
- 	bool have_sense = qc->flags & ATA_QCFLAG_SENSE_VALID;
--	bool is_ata_passthru = cdb[0] == ATA_16 || cdb[0] == ATA_12;
--	bool is_ck_cond_request = cdb[2] & 0x20;
-+	bool is_ata_passthru = cdb[0] == ATA_16 || cdb[0] == ATA_12 ||
-+		(cdb[0] == VARIABLE_LENGTH_CMD &&
-+		 get_unaligned_be16(&cdb[8]) == ATA_32);
-+	bool is_ck_cond_request = cdb[2 + cdb_offset] & 0x20;
- 	bool is_error = qc->err_mask != 0;
+@@ -3383,6 +3383,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	struct ata_device *dev = qc->dev;
+ 	const u8 *cdb = scmd->cmnd;
+ 	u16 fp;
++	u8 feature_offset, nsect_offset, command_offset;
+ 	u16 cdb_offset = 0;
  
- 	/* For ATA pass thru (SAT) commands, generate a sense block if
+ 	/* 7Fh variable length cmd means a ata pass-thru(32) */
+@@ -3443,6 +3444,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 		tf->lbah = cdb[12];
+ 		tf->device = cdb[13];
+ 		tf->command = cdb[14];
++		feature_offset = 4;
++		nsect_offset = 6;
++		command_offset = 14;
+ 		break;
+ 	case ATA_12:
+ 		/*
+@@ -3457,6 +3461,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 		tf->lbah = cdb[7];
+ 		tf->device = cdb[8];
+ 		tf->command = cdb[9];
++		feature_offset = 3;
++		nsect_offset = 4;
++		command_offset = 9;
+ 		break;
+ 	default:
+ 		/*
+@@ -3482,6 +3489,9 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 		tf->device = cdb[24];
+ 		tf->command = cdb[25];
+ 		tf->auxiliary = get_unaligned_be32(&cdb[28]);
++		feature_offset = 21;
++		nsect_offset = 23;
++		command_offset = 25;
+ 		break;
+ 	}
+ 
+@@ -3499,8 +3509,12 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	case ATA_CMD_READ_LONG_ONCE:
+ 	case ATA_CMD_WRITE_LONG:
+ 	case ATA_CMD_WRITE_LONG_ONCE:
+-		if (tf->protocol != ATA_PROT_PIO || tf->nsect != 1) {
+-			fp = 1;
++		if (tf->protocol != ATA_PROT_PIO) {
++			fp = 1 + cdb_offset;
++			goto invalid_fld;
++		}
++		if (tf->nsect != 1) {
++			fp = nsect_offset;
+ 			goto invalid_fld;
+ 		}
+ 		qc->sect_size = scsi_bufflen(scmd);
+@@ -3566,13 +3580,13 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 
+ 	/* We may not issue DMA commands if no DMA mode is set */
+ 	if (tf->protocol == ATA_PROT_DMA && !ata_dma_enabled(dev)) {
+-		fp = 1;
++		fp = 1 + cdb_offset;
+ 		goto invalid_fld;
+ 	}
+ 
+ 	/* We may not issue NCQ commands to devices not supporting NCQ */
+ 	if (ata_is_ncq(tf->protocol) && !ata_ncq_enabled(dev)) {
+-		fp = 1;
++		fp = 1 + cdb_offset;
+ 		goto invalid_fld;
+ 	}
+ 
+@@ -3615,7 +3629,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	 */
+ 	if (tf->command == ATA_CMD_SET_FEATURES &&
+ 	    tf->feature == SETFEATURES_XFER) {
+-		fp = (cdb[0] == ATA_16) ? 4 : 3;
++		fp = feature_offset;
+ 		goto invalid_fld;
+ 	}
+ 
+@@ -3635,7 +3649,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	 * can turn off TC features of their system.
+ 	 */
+ 	if (tf->command >= 0x5C && tf->command <= 0x5F && !libata_allow_tpm) {
+-		fp = (cdb[0] == ATA_16) ? 14 : 9;
++		fp = command_offset;
+ 		goto invalid_fld;
+ 	}
