@@ -1,66 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564913;
-	b=L4i9GSXIahkBh5FmumKbHJ1wTWpMS8JPkPWQ9K+cEu96QZGGqi2LEmt/QsSRT/7ukA5/
-	 RQIBGUnhpneHkrEboRnZWesE+zxEB+e+nZCstqhcTIjnbqPbeJEvUjTqGdzWFgxprNsdF
-	 f5HsOfEyx+kb8vhvEG0Mtyz/5GKINcoenaGSAnPk5udKWO6LHBLa9ZLcREydmFZPpHIBF
-	 VpN3oQuw9QPoOy40GX8yYJk4ZGbjSOAP5fuddheby3r8Ms6QNpXhi1d7zEmqGOylX35Of
-	 +nUjlLBdKb5rP69aDF+lO5b5iF+YqIM0l1zBruuIG0JKaK1XgKvqqkwS4Gl0Gig8dSQ==
+	t=1794564950;
+	b=PVoFQ4knJV2/nY/X0ZYsA8S7s/oY/hNNgxi1KE33CBnPR6KgxwWvsOpJcwPh9vIdNl2n
+	 UqVbf7NS0u+b0JYtVa5p8raOmXR+5kkVjFD9YIkUaKmYTmPLYqKECvQuUmaPs2/fcr5GT
+	 Dxa6yCwaYGBJOJO4/mnfWfrfIuyRtzZHKyrq1VR0RrkoMDOHZng+0SuwKSeUj25/nAMuF
+	 +M3s+vs6vg8Ns/0p1w58mtwbv4/Ok+oXUirWZkgfd92LQJU7Xrb9x0baRVs6eI8/sg01N
+	 G2s3RHy+LZo6Hg0+NeKuqvU/LLUxcJbPvWMvmux2jdauOVnPMpHPHlBFzH46BkYfrvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564913;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=rMuyr457fqCWZXx15HHMmpYyTiHvK3jp03BAUYi6K/g=;
-	b=mqGZNa1KHmNilbTl0ELY/RgNolb2aTJJYOuNeONsrYrnZVVRzjGQVyVlTkfuyOU3sS5+
-	 +DlE0GWhVOM8PnYSNc4dzp1G55u+pZ6KAdqfCu5KwzPfH9Uua3lMp9mDsAnC245sXwT4q
-	 UMqfUfLvKqUVaFhCaZ52nlRCXKiip7RHJSCxNNLAgWG3w0HuWDbwG1ttg8ylHnrt0mUrD
-	 FJV4BcDvoU433xSk4Rr8AdWJV/JUY6SytnzKVWEE02k/ilFAYJ0xQzWBFkgYemYU6Db+r
-	 MJhT0Z/pPPwuA6J29GYn6IaFcLCN/kBhmE9ZHz0EqUsCaLoRdiQTzBgEjAG83+cWnFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564950;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=P5Qh9qW/+Ju810c4VDZfB+2DBWmN3dBrCSMEnmUX1RM=;
+	b=hMBC34g0hOgNFVH5F3NBMb0Nnitp/O1BoUIYAfVm3zQ27oteLxAMlaQ58J+GmBE0Prwm
+	 tELacM55jpS/lD1r//7w7EAj9vmOXjedM7ZtBm2Et2xsOBFkd5qFMAYQsQhV+xrnJ997z
+	 yK9Veq16xHm2/tzFOs7aOx9uKdVc4c3yhwQ6XZBav8q9HJTSr7rVNrexsnQ4WoXj8Qv1o
+	 +19Dypqh/5d/PVuH8XvsDiqn+4JJNxHxmpUQb3G1NIocfD+A83sXLPSowyBvV12NipHHi
+	 Qm/2Xi2JKbCOSvcZRoCBEags1ABjOvtjMbI1PDxALjaRtyUMi/sC6brunNzNn7xNJiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mugwqvhM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJnDaTl3;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD80606A894;
-	Fri, 13 Nov 2026 10:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1BB606A338;
+	Fri, 13 Nov 2026 10:15:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB1BB606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mugwqvhM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A811F000C4;
-	Fri, 13 Nov 2026 10:15:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794564912;
-	bh=rMuyr457fqCWZXx15HHMmpYyTiHvK3jp03BAUYi6K/g=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=mugwqvhM1NYSHmQVe1isbb+Lt7fz8+iLoYW5R22sMCGb3YuPbqdLN+KDfQCT8NvxU
-	 ms7URPHAVatE2sRnmNhqBJ8cJgyO3ACmQrMGrk5JAEDYq6p+Ep18MvT9fHEuMGZ/p0
-	 DTSm/kK1aZMBl0Bp2I2ZOLM7kRDi+pl2SyW7u4p6dG0ASRhvGyngVmkAwzdjR6dEtP
-	 Dclc8J2YE4U60LiGVPkGX6UKSyY2EcSphkWyfETBtsYYOeDp/X4SPrFn4VyR0E/oRn
-	 JFHNvcqIK3jLyDTAYxEEMAAZcwM62FV36r1CsTIlXyLB2bvy+QPTS6tjfjnrmoAsH9
-	 dCNgaq9OvQBiQ==
-From: David Hildenbrand <david@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Ye Liu <ye.liu@linux.dev>, 
- Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261110-fix-split_folio_to_order-race-v4-1-cc5042f33408@nvidia.com>
-References: <20261110-fix-split_folio_to_order-race-v4-1-cc5042f33408@nvidia.com>
-Subject: Re: [PATCH v4] mm/huge_memory: prevent losing PG_waiters in
- __split_folio_to_order()
-Message-Id: <179456490744.5856.15187695775214289167.b4-ty@b4>
-Date: Fri, 13 Nov 2026 11:15:07 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iJnDaTl3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794564949; x=1826100949;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eYzEcy33qmGlhN38956oty9IuuGWX2i7eY9WGNxoZvk=;
+  b=iJnDaTl3armevXS0nMGY17vqEf+RxLyDXI5mJ9Gpedht63mx9RoJrdh8
+   GUhHsipE88ly0me9Grpd4ptqzo+bB2SwY7oOtxG1y7yNjVr8ykfcVU6gS
+   VicH4mR5OUztSSNbDiJyR9Bi5eEUDqph3VPSJo3mYKKR0LtssLesTfGP4
+   6e094n93Vep9SPU9wJoq75NzSWxgPM4XEB8cZXe9jGxmgDymSR0NomViU
+   aciMVqyoVFV4PlWoAVqhjYuPHGRWI69kMtlh+EMxD0XasHjhnGU3bOC2c
+   yD4TZdHEkbThfV9zHHsGK01DdHGtMI+bT7dGoZeAADPOF5ghyLw4g4kPu
+   g==;
+X-CSE-ConnectionGUID: Wldz7em6Rt2V5lOnwJ4VZg==
+X-CSE-MsgGUID: Jk+T8IZ/RF2fUguXdghW3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3238321"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3238321"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 02:15:49 -0800
+X-CSE-ConnectionGUID: MHIuKf8mTWW1AtU3zCtbjQ==
+X-CSE-MsgGUID: 0bM3YITwRq+1sfDa+KSFwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9049891"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 13 Nov 2026 02:15:47 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 609A699; Fri, 13 Nov 2026 11:15:46 +0100 (CET)
+Date: Fri, 13 Nov 2026 11:15:46 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Changyul Lee <lcy8047@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] usb: typec: Check the alternate mode ID allocation
+Message-ID: <avbjUqq5P1Vrollc@black.igk.intel.com>
+References: <20261111154503.3621477-1-lcy8047@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,49 +81,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111154503.3621477-1-lcy8047@gmail.com>
 
-On Tue, 10 Nov 2026 22:19:25 -0500, Zi Yan wrote:
-> __split_folio_to_order() calls prep_compound_page() on each new head page
-> to create a compound page after clear_compound_head(). prep_compound_page()
-> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
-> and frozen and no one else is supposed to modify the folio's flags.
+On Wed, Nov 11, 2026 at 10:45:03AM -0500, Changyul Lee wrote:
+> typec_register_altmode() stores the return value of altmode_id_get()
+> in an unsigned int without checking it. When ida_alloc() fails, the
+> error code becomes the ID, and the alternate mode is registered under
+> a name such as "port0-partner.4294967284". A second failure on the same
+> partner then fails with a duplicate name:
 > 
-> However, code calling migration_entry_wait() can reach the folio by PFN,
-> then access its flags. It is because softleaf_entry_wait_on_locked() used
-> by migration_entry_wait() sets PG_waiters concurrently without taking a
-> reference and the frozen refcount during split cannot block it. Meanwhile,
-> __SetPageHead() does a plain read and write, so PG_waiters atomically set
-> by softleaf_entry_wait_on_locked() will be lost if the set happens after
-> __SetPageHead()'s read and before its write.
+>   [    0.423055] sysfs: cannot create duplicate filename '/devices/platform/altfail/typec/port0/port0-partner/port0-partner.4294967284'
 > 
-> [...]
+> Return the error when the ID allocation fails.
+> 
+> Fixes: 8a37d87d72f0 ("usb: typec: Bus type for alternate modes")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 
-Applied, thanks!
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-tree: mm/core.git
-branch: for-next-fixes
-
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/huge_memory: prevent losing PG_waiters in __split_folio_to_order()
-      https://git.kernel.org/mm/core/c/7183af7f
+> ---
+> Changes in v2:
+> - Add Cc: stable@vger.kernel.org
+> 
+> v1: https://lore.kernel.org/all/20261111041446.3072716-1-lcy8047@gmail.com/
+> 
+> Found with a static analysis tool we are developing.
+> 
+> Reproduced in QEMU (x86_64) with a test module that registers a port,
+> a partner and 63 partner alternate modes, and then two more with
+> failslab (task-filter) making ida_alloc() fail with -ENOMEM. Without
+> this patch, the first of the two is registered as
+> "port0-partner.4294967284" and the second fails with -EEXIST and the
+> error above. With it, both return -ENOMEM. Same result in three runs
+> each.
+> 
+>  drivers/usb/typec/class.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+> index 54c7810b563b..29fb13ca9f28 100644
+> --- a/drivers/usb/typec/class.c
+> +++ b/drivers/usb/typec/class.c
+> @@ -641,11 +641,14 @@ typec_register_altmode(struct device *parent,
+>  		       const struct typec_altmode_desc *desc,
+>  		       const struct device_type *type)
+>  {
+> -	unsigned int id = altmode_id_get(parent);
+> +	int id = altmode_id_get(parent);
+>  	bool is_port = is_typec_port(parent);
+>  	struct altmode *alt;
+>  	int ret;
+>  
+> +	if (id < 0)
+> +		return ERR_PTR(id);
+> +
+>  	alt = kzalloc_obj(*alt);
+>  	if (!alt) {
+>  		altmode_id_remove(parent, id);
+> 
+> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+> -- 
+> 2.43.0
 
 -- 
-Cheers,
-
-David
-
+heikki
