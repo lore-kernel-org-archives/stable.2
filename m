@@ -1,82 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.245.243.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567803;
-	b=bCLlVIxQDf7Db6M8U9fYyhNXu9SzoJIdQWVOuME5FpGIDVLG3GDcMLA5Wxqfyj5Dx2C1
-	 jFB+DtQhOkJkQRlYYdLXbfw/eeW2tTMGOwiaWcFknzSmx4TBj9cCPasBfbgOMyhGNolx2
-	 TDOfKAoZ628Flh30IIG5xvIrwQo2KTK9YdgLoNG5c7c4xjcYGV4MJakjjFSN8CTTKZwpu
-	 ubODzDe2JNqjE05qTPbWzcmbv93C1ZOpaMh1fBUx6kLxNLY/WWDu18f32qBdEc42H5YXI
-	 XfoinaeXF1lUGoZlvNHHO6L7BoKH3lffs4q0XYPdAW+H/6NDZqGqc3fmAPIypO+84IQ==
+	t=1794567802;
+	b=WUN/rMrL7wQepadWIe/vJuknglniM+iA9+afsMmA4BW0MycspdHupw14QTxiybAVKBzS
+	 BY2DW9fG3ZaPOyVCxV2/12j/9NkyubyhFz84hnPtiA7SOow0K2uu4pM5yuzbpEwA1B613
+	 FiPnFLQ50dCIbJQBRuVLN2OxCRuctHtHmYIi4FDDWOCcp91+R/qkTvFI8kXis8W4C1h7l
+	 7bi50Qhso6lmUkbNQCkrxJy0u5jW0HIKMjwrowBL/SXL9VH+1KpoeN5+oJd5sndf9d3rG
+	 IoNf7YJyys22THfgqcJhxqYGas9TWtsP/KQS00pe+pgPk932waqiOi17Cnb3NKPZDFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567803;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567802;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:X-Originating-IP:X-ClientProxiedBy:Content-Type:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 X-Originating-IP:X-ClientProxiedBy:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LBrctbWCr0zoW4q3CpOYQqWzbyJ/Y4Bqv54BvH7JL1M=;
-	b=FKDlnJRsd1UV2Tzoz+4XePPnJlZcmBcXbbaLEeX75QaenLgsn/DIC9Ic400WUiNoHSPY
-	 4RjHLH8235LjODE5jgNSHrIuGPkedooPrmxxg+Rusti9S2Y/JiQSg0EiFvTxM5Rp3g0ut
-	 0Hb85liDzpY5aZ4gMBBlSnfnOKOw+OjVF0FSvMwWoIoAJlE/vftxjTbV4ks7uqJL0chI8
-	 eWQrM/Ctc6cO0f5vjzwnuwUJC2NED7xU/1Fx5/agUyxAOKY/fju0/+OxxHAr53vY5Dm10
-	 DNgX9kbJ5g4cgYQ8iGnOWZ94ntI0BMlvV0valY48xP7K+XukrLMck+7MnVue2mxgoTA==
+	bh=rxpebwgxAi2rpMQVYH2/YieUDfApwWMHIlSz9atE37k=;
+	b=OooQTlXiJp/C83X3XKMbdrWtZ3UWGaGxqzKOwYuDp7tYYckPWG8Aw9vRes+cWJs82WcS
+	 R+xmZhwSOPVIGwkNZP57EjmcxsG46oWfvBqr3UWd+HKpcEcIaaxxW9Fz5dUkvE8kTCNXU
+	 J/NXt0ps41Jd1dYVAvXXc2guv3ZyAKOg4ftnF7Ip98H0hgvd9yYaZvADjgi0KXdKdGt8L
+	 YUXKz7C91IJ7P48+uZs8a5o+8WpAbn8o79rg0bBfSHzReSTd1OA5XMJUrrGLCvYVwelOD
+	 JxQRKkWqq8+2JpMSBPwVtjmSBzwsYtKt8B4pFv/OqMMAupvbLvKx1XWaVPlv5tRC05Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.it;
 	spf=pass smtp.mailfrom=amazon.it;
-	dkim=pass header.d=amazon.it header.i=@amazon.it header.a=rsa-sha256 header.s=amazoncorp2 header.b=n+AmwGCd;
-	arc=none smtp.remote-ip=52.34.181.151
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	dkim=pass header.d=amazon.it header.i=@amazon.it header.a=rsa-sha256 header.s=amazoncorp2 header.b=XLygVFfL;
+	arc=none smtp.remote-ip=44.245.243.92
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D7C606A331
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 11:03:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7D7C606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0793606A333
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 11:03:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0793606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.it header.i=@amazon.it header.a=rsa-sha256 header.s=amazoncorp2 header.b=n+AmwGCd
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.it header.i=@amazon.it header.a=rsa-sha256 header.s=amazoncorp2 header.b=XLygVFfL
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
-  t=1794567802; x=1826103802;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=LBrctbWCr0zoW4q3CpOYQqWzbyJ/Y4Bqv54BvH7JL1M=;
-  b=n+AmwGCdfrRdqCE6DtuczUps7PXOxLr5lKZOHL9SSj5yE+urGHhcYgxA
-   2Us+UI79uVge1mZBXA2MHp3+PB4+He9ShxfUFXoqhFHA1zjSGHBlSHpJf
-   OwZDTAMGBRdTYosdhdVEIhg40KEE2EzMtnwt1bd7wHJlPQTSrBu2wZ5qo
-   px3TXqiiUEsvK4e4bl5gzHkk3oKSwVDjVeiIpskf6x3Y+eXGgxQIKow5z
-   k9hZ4Mrcj05r8XNCebv2u1Xc6akkp0dATGJEmX5bEgBw5o83tVl8kIGA7
-   Uk+s3CYr+MWLe+Vdj4YBSHHhLDafBXD6smKQHZ5+V1YImtm4+s1Ppx5fG
-   g==;
-X-CSE-ConnectionGUID: dzx5j+V7SlyOc5phpvLg1w==
-X-CSE-MsgGUID: CJlgEYTrQ3GbNQnddhx25A==
+  t=1794567797; x=1826103797;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=rxpebwgxAi2rpMQVYH2/YieUDfApwWMHIlSz9atE37k=;
+  b=XLygVFfLpe4y9KKzCnXUGqGoe1Igvqhdp1igX/pwgQBSUDfgvb030DHD
+   dTe0OxV41ugNWA6GrljuAekuH+bPynaqo9lmSfmgTWfJ7vzGpBW6onAs7
+   jmeL4twgnWMhNG1nTWMLmblzaltS0zwQRmD3mXEaYnIdsr0cGitNfdDtK
+   n7RutUBptQdPa/q0ukuPUaOFTg03HVWuW0ZwDvYVwCSnr2gmFKrkBdH5r
+   f/GcRmZaY91HH2se6Ni4iVmfxjRiTUy778YKMm6JA3lKDIhz+lFdkVGdt
+   dGZlSpL1ysqtYf8jpQrHdtgAPGmXAGHook0mldLfyhTiaQVpQ5Ul68Qqo
+   w==;
+X-CSE-ConnectionGUID: iydCxRSzSXewt4ZzwzSvgg==
+X-CSE-MsgGUID: pE9VtNAcSJypVESQgYT0GQ==
 X-IronPort-AV: E=Sophos;i="6.27,211,1787011200"; 
-   d="scan'208";a="33872378"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 11:03:19 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:17871]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
- id fd0d30c5-6cbb-42e5-b507-e181ed6e2226; Fri, 13 Nov 2026 11:03:19 +0000 (UTC)
-X-Farcaster-Flow-ID: fd0d30c5-6cbb-42e5-b507-e181ed6e2226
+   d="scan'208";a="33389046"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 11:03:15 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:10011]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.142:2525] with esmtp (Farcaster)
+ id 961ba48b-c7a4-4592-bbd0-a0083439ac97; Fri, 13 Nov 2026 11:03:15 +0000 (UTC)
+X-Farcaster-Flow-ID: 961ba48b-c7a4-4592-bbd0-a0083439ac97
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 13 Nov 2026 11:03:18 +0000
+ Fri, 13 Nov 2026 11:03:14 +0000
 Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
  (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Fri, 13 Nov 2026
- 11:03:17 +0000
+ 11:03:13 +0000
 From: Salvatore Dipietro <dipiets@amazon.it>
 To: <stable@vger.kernel.org>
 CC: <dipietro.salvatore@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
 	Vlastimil Babka <vbabka@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
 	<linux-mm@kvack.org>
-Subject: [PATCH 6.18.y 3/3] mm/page_alloc: avoid direct reclaim and compaction for costly __GFP_NORETRY allocations
-Date: Fri, 13 Nov 2026 11:02:59 +0000
-Message-ID: <20261113110259.2901456-4-dipiets@amazon.it>
+Subject: [PATCH 6.18.y 0/3] mm/page_alloc: fix iomap buffered write regression from 5d8edfb900d5
+Date: Fri, 13 Nov 2026 11:02:56 +0000
+Message-ID: <20261113110259.2901456-1-dipiets@amazon.it>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261113110259.2901456-1-dipiets@amazon.it>
-References: <20261113110259.2901456-1-dipiets@amazon.it>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,136 +89,38 @@ X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-[ Upstream commit 0e05a469c29400eb6e35448ce7318581688a1806 ]
+Backport of 0e05a469c294 ("mm/page_alloc: avoid direct reclaim and
+compaction for costly __GFP_NORETRY allocations") to 6.18.y. It fixes a
+regression from 5d8edfb900d5 ("iomap: Copy larger chunks from userspace",
+v6.6), which slows buffered writes under memory fragmentation.
+Andrew and Vlastimil agreed it should go to stable [1].
 
-Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-introduced high-order folio allocations in the iomap buffered write path.
-When memory is fragmented, each failed costly-order allocation enters
-__alloc_pages_slowpath() which runs direct reclaim, direct compaction and
-drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL pgbench
-(simple-update) with 1024 clients on a 96-vCPU arm64 system.
+Patches 1-2 are its prerequisites from the same mainline merge (Cc:
+stable), only moved from mm/page_alloc.h to mm/internal.h. Patch 3 is
+adjusted for this tree, see its changelog. Acks from Vlastimil and
+Johannes on these adjustments would be appreciated.
 
-The root issue is that direct reclaim and direct compaction are too
-expensive for hot allocation paths that have fallbacks to smaller
-allocations.  __filemap_get_folio_mpol() already marks higher-order
-allocations with __GFP_NORETRY | __GFP_NOWARN, signalling that the caller
-can handle failure.  However, the page allocator still enters the full
-blocking slowpath for costly orders with __GFP_NORETRY, which is
-unnecessarily aggressive when the caller will simply retry at a lower
-order.
+Built, booted and tested with pgbench simple-update (PostgreSQL 18.6,
+1024 clients, 96 threads, 1200s) on m8g.24xlarge (96 vCPU arm64),
+12x io2 RAID0 XFS, mean of 3 runs:
 
-For costly-order allocations with __GFP_NORETRY, clear
-__GFP_DIRECT_RECLAIM at the very start of the slowpath, before
-can_direct_reclaim, can_compact and the nofail checks are evaluated.  This
-makes the entire slowpath treat the request as non-blocking: no direct
-reclaim, no direct compaction and no drain_all_pages() IPI across every
-CPU.  Reclaim and compaction move to the background instead: kswapd is
-still woken for reclaim, and it wakes kcompactd for defragmentation.  The
-system keeps its long-term health while the latency-critical direct
-allocation path no longer stalls.
+  v6.18.63               87,278 TPS
+  v6.18.63 + series     154,670 TPS  (+77.2%)
 
-Allocations that also request __GFP_THISNODE are exempted.  That flag
-pairing identifies the local-node-first THP attempt issued by
-alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
-form transparent huge pages.
+[1] https://lore.kernel.org/all/1fc0caa5-43b1-487f-94cf-0d1aff4c03fd@kernel.org/
 
-Clearing __GFP_DIRECT_RECLAIM makes these allocations reach the
-!can_direct_reclaim bailout, which since commit 4c0ed883e051
-("mm/page_alloc: fix defrag_mode for non-reclaimable allocations") drops
-ALLOC_NOFRAGMENT and retries instead of failing when defrag_mode is on.
-With vm.defrag_mode=1 a __GFP_NORETRY allocation could therefore succeed
-by fragmenting another migratetype's pageblock.  That is the wrong trade
-for a caller that has already communicated it can handle failure and has a
-cheap lower-order fallback, so exclude __GFP_NORETRY from the relaxation.
-The exclusion is not restricted to costly orders: any __GFP_NORETRY caller
-has said it can cope with failure, so failing is preferable to fragmenting
-for all of them.
+Johannes Weiner (2):
+  mm: page_alloc: do not give all non-blocking requests reserve access
+  mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
 
-Test environment:
-  Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
-             12x 1TB IO2 32000 IOPS RAID0 XFS
-  OS:        AL2023
-  Kernel:    v7.3-rc1
-  Database:  PostgreSQL 18.4
-  Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
+Salvatore Dipietro (1):
+  mm/page_alloc: avoid direct reclaim and compaction for costly
+    __GFP_NORETRY allocations
 
-Results (average of 3 runs, TPS):
+ mm/internal.h   | 14 ++++++++------
+ mm/page_alloc.c | 16 ++++++++++++++--
+ 2 files changed, 22 insertions(+), 8 deletions(-)
 
-  Config                                       Avg TPS   % vs baseline
-  v7.3-rc1 baseline (vm.defrag_mode=0)          58,602               -
-  v7.3-rc1 + this patch (vm.defrag_mode=0)     157,246         +168.3%
-  v7.3-rc1 baseline (vm.defrag_mode=1)         109,012               -
-  v7.3-rc1 + this patch (vm.defrag_mode=1)     157,778          +44.7%
-
-Link: https://lore.kernel.org/20261001082152.2879289-1-dipiets@amazon.it
-Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
-Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
-Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
-Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
-Link: https://lore.kernel.org/all/20260911142102.2294202-1-dipiets@amazon.it/T/#u [v5]
-Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>
-Cc: Dmitry Ilvokhin <d@ilvokhin.com>
-Cc: Hazem Mohamed Abuelfotoh <abuehaze@amazon.com>
-Cc: Ali Saidi <alisaidi@amazon.com>
-Cc: Geoff Blake <blakgeof@amazon.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: <dipietro.salvatore@gmail.com>
-Cc: Darrick J. Wong <djwong@kernel.org>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: <rvvandan@amazon.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: "Garg, Shivank" <shivankg@amd.com>
-[ Salvatore: backport to 6.18.y: can_direct_reclaim is initialised at
-  its declaration here, so assign it after clearing
-  __GFP_DIRECT_RECLAIM. Dropped the defrag_mode hunk: it targets
-  4c0ed883e051 ("mm/page_alloc: fix defrag_mode for non-reclaimable
-  allocations"), which is not in this tree, and without it the
-  !can_direct_reclaim bailout already fails instead of fragmenting. ]
----
- mm/page_alloc.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index fced085ae4a4..3cc4ccb722fe 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4733,7 +4733,7 @@ static inline struct page *
- __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 						struct alloc_context *ac)
- {
--	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-+	bool can_direct_reclaim;
- 	bool can_compact = gfp_compaction_allowed(gfp_mask);
- 	bool nofail = gfp_mask & __GFP_NOFAIL;
- 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
-@@ -4748,6 +4748,16 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 	unsigned int zonelist_iter_cookie;
- 	int reserve_flags;
- 
-+	/*
-+	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
-+	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
-+	 */
-+	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
-+	    !(gfp_mask & __GFP_THISNODE))
-+		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
-+
-+	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-+
- 	if (unlikely(nofail)) {
- 		/*
- 		 * We most definitely don't want callers attempting to
 -- 
 2.50.1
 
