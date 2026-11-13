@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542903;
-	b=puH4C1yq5oyr2Sagn+hG9ky3Tzvpuq+DoATwlmffiovBaeR+VNWgVxJiNGcBmWQ1zD17
-	 xg2o8qQd2a2kUvNZnMabovjOBnY5ESNrOrrNDOMfyrXUf1m/b9HTqz1ditojSdTxZiERx
-	 JBtBdJy3KlqzV8tWLHwnShIYt+cmaRsyzmlA+gu0hdfect88UikGxeQt6eSwo1JgPSGfj
-	 jJb3A3G9A23f3pYTtsL8ygoHPZpRvr6UC6OM2spO9n2PmVLfQ90ELqUJ4es9jwrsL0ntI
-	 1axToPiIVE7wTy9BQpZx5LLlZOGnmZ/GpzpmzsF4fQU7mbL+YJrwnyN0sdFB3LQ3MgQ==
+	t=1794543035;
+	b=kuFVeXEm+Q0d093jaPws6+asxsx6ojhuXd0BMqZ4cpA/8PHFh3I8N4gmAaKV6OnV/YZR
+	 CwYtPvazAlkzB3QA7dxdNPcmENWZF+djtHWyMJydoZ/XKaoPBr6I7A9e9R2OJ/JfiihlN
+	 9lJQCjMox1S4EUGCf+t8aLZAs2WyqgCADPeH0XPE4ax8kULFdCW64YazoM/ABIIBsoJAx
+	 NdPeZca3ygasUDRofRyxpcmZ0Hb0IXrFSt1CsmqDweU0J/000AdOIHQ5pWYwTH2U7tK95
+	 BEkQVl08Yx8H66ubCuITLdO3ZlOzCkoCYMTYIqEaI82EYgPZPJzY+Hhxrd0W+zgCTDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542903;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8YARFsfshi83KcJAZu11qEFspbOUXOBNNkYtX280ZF4=;
-	b=ml04ySx3lp3gX6TkhY1YCnoWEald4wsy1iuIE2EAyaGJE6iiO0F9Ropr6Repl+a+3nat
-	 zH7yjaGIT1COatpg3rlKPHxbqW40Z8eaFG3OCaTd6LoqRS0StP5e3HGJZZQhosCKRlRS6
-	 wsLZNwaLX29Z8guCw3aujGCnqNOsLJZaqA0hFCylXyJf7ECkkPSekWSGdBvOzf/F7XGHT
-	 jhq32z5Nh0HEEGsy88ZLOoWXk4FVWP+JEohFdVknYE3fPh7rJMl26exye/CXPdiSc0Xoj
-	 JuU1tsQRMc5MtJNdn4BJdUS9QuFZ6Es204Wfj37cmFYFacFtYdp2wAZnYKgdq6R5BYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794543035;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=on3EcKPOoXjp9xxw0marZwiD1755g1vyuv3zIkguhFg=;
+	b=XTKi9dUoFpJOGFBouvuKnhH14iyOBwvsgJNpAqPmgR/kWjWzsXPxcp7yKgm84YKxTnxs
+	 41ow990LVp1DZTkDI5nSOTWY2/3xGWj1bVW1xjgpHe4O7GorjCTU0vwXiXIo2AszaQrg+
+	 /5koGB5kb97/cdGx3Bz8khsZ7HETEUj+WSGFBiQW0Rhii6wusfr8MidkarukkP5S7s35h
+	 lQdEDQGeVCD5Y/sVYoZRubvseYSM+9rvED2ZqoK6xMbZPzZycAK6fe/fbP8nrabmv57uY
+	 sbdtBnDHWsSpJ0HhOelZAHrXYdFxTyXRLp6z7yA09hXiK9Bzy+wZF58FaXemUyoPJVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNlulHIL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AajkbTpy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D1F606A323;
-	Fri, 13 Nov 2026 04:08:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4635606A321
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 04:10:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNlulHIL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318871F000C4;
-	Fri, 13 Nov 2026 04:08:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AajkbTpy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8EA1F000C4;
+	Fri, 13 Nov 2026 04:10:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794542902;
-	bh=8YARFsfshi83KcJAZu11qEFspbOUXOBNNkYtX280ZF4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iNlulHIL2SCc/Ua0Dc/VeDfAjB02OCQvHD+MzXAmOhhxh+bZgS+UL96+x2DCtz1op
-	 264qXfZCs2EyN2TtlyLiDMruuz4hw2cNgl8y5RjXdjSy6kSGCM5C3R8Y6/jeBgjvlX
-	 hu5wQXOZ3CUF8bK7vd82ZaaDeBaI2Tr58/pnBQndI8uKpIvywufrXxRY2N9ykpFy9u
-	 MUWrdwXqo8TYz5kR6h8Q825vzr9LcUVa9oJlTsUajpP+rFujxdAMxV3XM3AW3NJ+BD
-	 1jyDoUy90T4f1LMR7Bhgmzref1+wEOAT6c2nTMqKC3NnCJx0d/FLlWMSe9Ftk4gTVS
-	 4seotPE5TqjcA==
-Date: Thu, 12 Nov 2026 20:08:20 -0800
-From: Eric Biggers <ebiggers@kernel.org>
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>, linux-mmc@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] ufs: ufs-qcom: Enable ICE before enabling crypto
- support
-Message-ID: <20261113040820.GE1742@sol>
-References: <20261112-qcom_ice_pm_enable-v2-0-177e454d6f22@oss.qualcomm.com>
- <20261112-qcom_ice_pm_enable-v2-2-177e454d6f22@oss.qualcomm.com>
+	s=k20260515; t=1794543035;
+	bh=on3EcKPOoXjp9xxw0marZwiD1755g1vyuv3zIkguhFg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AajkbTpyPwaiSZ2/h8A7lyUNPY+4PhuExukX6IV1v4HW+pQMeR9JMzUkOXpuGnoNi
+	 IJWYZSDDFM8mSTmzrL5GkXOUqs8NXuu6UobT5bm6JnBzzcQ0raNr6e4HaFVN8YQGjJ
+	 90ZAmMHmr908izmGXU8VFTb3AumGUSLhRUHCslKtpDXYtKJkspJg5ed1a9TgHcmCG8
+	 FFmReCp8HG2xfXNsa/ixA9fbeLsyFRE/SEjGTLvQoJ8JcTm7WwhtCW1mpoxx2kfFb9
+	 Ggroeu14B0KIr3Zar+foDFrYn6ITdSDTLbCIvhvV0ytbEvz5isl/DzYax5kWYbRHGm
+	 lgT5S9PNPu6MA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Melissa Wen <mwen@igalia.com>,
+	"Pierre-Loup A. Griffais" <pgriffais@valvesoftware.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP HDR
+Date: Thu, 12 Nov 2026 23:10:33 -0500
+Message-ID: <20261113041008.1079148-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201426-failed-6.6-81f923b06580@kernel.org>
+References: <20261109201426-failed-6.6-81f923b06580@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,47 +61,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-qcom_ice_pm_enable-v2-2-177e454d6f22@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 06:48:18PM +0530, Kuldeep Singh wrote:
-> ufs-qcom currently exposes UFS crypto profile and sets UFSHCD_CAP_CRYPTO
-> before enabling ICE. This leaves a window where blk-crypto can issue
-> keyslot programming calls before ufs-qcom has explicitly enabled ICE.
+From: Melissa Wen <mwen@igalia.com>
 
-Please be more specific about what actually goes wrong, and why.  During
-probe, the crypto profile hasn't actually been registered with the block
-layer yet.  So the above seems inaccurate.  Likewise in the MMC patch.
+[ Upstream commit 81f923b065801c7d30042bcda31ccb9449b4f58b ]
 
->  static int ufs_qcom_ice_init(struct ufs_qcom_host *host)
->  {
-> @@ -188,6 +190,12 @@ static int ufs_qcom_ice_init(struct ufs_qcom_host *host)
->  
->  	host->ice = ice;
->  
-> +	err = qcom_ice_enable(host->ice);
+Commit c2791297013e ("drm/amd/display: Add color bit info to freesync
+infoframe") created the app_tf interface for FreeSync HDR and commit
+c21a764a98cb ("drm/amd/display: Send PQ bit in AMD VSIF") used it to set
+PB9 bit 5 (PQ EOTF) in v2/v3 AMD Freesync infopacket. However, Linux
+never made use of this interface: DM ignores what userspace sets
+regarding HDR and always passes TRANSFER_FUNC_UNKNOWN as app_tf, so the
+PQ bit is never set in the infopacket received by the eDP panel.
 
-Use the 'ice' local variable.
+Check the EOTF in the HDR static metadata and set the PQ bit in Freesync
+infopacket for DP accordingly. This fixes gray-washed HDR on KDE/GNOME
+on Framework 13 Pro AI 9 HX 370 (DCN 3.5) and may fix similar issues on
+other VRR-capable panels that advertise Replay in its AMD VSDB.
 
-> @@ -636,12 +645,15 @@ static int ufs_qcom_hce_enable_notify(struct ufs_hba *hba,
->  		 * is initialized.
->  		 */
->  		err = ufs_qcom_enable_lane_clks(host);
-> +		if (err)
-> +			return err;
-> +
-> +		err = ufs_qcom_ice_enable(host);
->  		break;
->  	case POST_CHANGE:
->  		/* check if UFS PHY moved from DISABLED to HIBERN8 */
->  		err = ufs_qcom_check_hibern8(hba);
->  		ufs_qcom_enable_hw_clk_gating(hba);
-> -		ufs_qcom_ice_enable(host);
->  		ufs_qcom_config_ice_allocator(host);
->  		break;
+It doesn't affect color/EOTF bits on infopackets for SDR and native
+HDMI.
 
-Needs an explanation for why ufs_qcom_config_ice_allocator() and
-ufs_qcom_ice_enable() need to be called at different times.
+Reported-by: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3200
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit b318f3e13dd73781404670d3b3c6cf2177e0119c)
+Cc: stable@vger.kernel.org
+[ sashal: inlined dm_dp_in_hdr_mode() logic in the existing update_freesync_state_on_stream() function ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-- Eric
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d79f39dd21ac5..67fd21a32cebf 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7893,6 +7893,8 @@ static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+ 		      acrtc->crtc_id);
+ }
+ 
++#define DP_HDR_SDP_EOTF_IDX 2
++
+ static void update_freesync_state_on_stream(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dm_crtc_state *new_crtc_state,
+@@ -7908,6 +7910,8 @@ static void update_freesync_state_on_stream(
+ 	bool pack_sdp_v1_3 = false;
+ 	struct amdgpu_dm_connector *aconn;
+ 	enum vrr_packet_type packet_type = PACKET_TYPE_VRR;
++	enum color_transfer_func app_tf;
++	const struct dc_info_packet *hdr;
+ 
+ 	if (!new_stream)
+ 		return;
+@@ -7959,12 +7963,18 @@ static void update_freesync_state_on_stream(
+ 					&new_stream->adaptive_sync_infopacket);
+ 	}
+ 
++	hdr = &new_stream->hdr_static_metadata;
++	app_tf = dc_is_dp_signal(new_stream->signal) && hdr->valid &&
++		 hdr->sb[DP_HDR_SDP_EOTF_IDX] == HDMI_EOTF_SMPTE_ST2084 ?
++		 TRANSFER_FUNC_PQ2084 :
++		 TRANSFER_FUNC_UNKNOWN;
++
+ 	mod_freesync_build_vrr_infopacket(
+ 		dm->freesync_module,
+ 		new_stream,
+ 		&vrr_params,
+ 		packet_type,
+-		TRANSFER_FUNC_UNKNOWN,
++		app_tf,
+ 		&vrr_infopacket,
+ 		pack_sdp_v1_3);
+ 
+-- 
+2.53.0
+
