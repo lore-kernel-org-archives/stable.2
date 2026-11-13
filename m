@@ -1,88 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794534610;
-	b=iJ5So5XIvA+6qgv1c7GJlgCDIJ0qez/Cd5zW/DsyQf+ffoYi7phS2HErEbQ4YXptCIzy
-	 PWil/HwQ8lLZf763TDvBHiWcwNd/YT+dA9Q3ZpYPrrMxkcGD/U2qim/3X3NSa1OwagAEn
-	 vfBzhvDHEBh4KkRBf5iRQbPrZLMlsmQsfpD1DQPQisyZ97lZkPofmrI43eYsULhS4hBtY
-	 iG+B6gn16RVN+hH8tTYwZcMcCnEig4ijN83b4WK1aIjSaO4i9ymfuwx4e/o8G8wLbEVP7
-	 SkSJXf4GddA+LotDpL2I5lglmzo7L1yYtBJHHqU1U4Ip4/AA+I1fhEuZ0ccxVCAJkzg==
+	t=1794535441;
+	b=hLmQkYo8NkY1s1zp7RvNcz6w/UwBgrtCrPBIWLvGGAPCa/O8uj4ufzLdq/3YKjn79zsH
+	 XucnJEgyRoRfyRDh0QVBJTlnXz3L0Uha+Wqt6XbxbCTkKvs1Nn0mUIE+/WbZF4bIQIgip
+	 IneIsL56NVeYHQm/lZiWuzb3g77vISDRsp14lUlxvSUFGWaYuorjCew423xVEv6Te15Bx
+	 oEGFtcqC+gMkJOkxsCjZQpXzbENSANpFoV1spGmwGa4UVK+5HxZgIe6uv8dcNGYWwRUjm
+	 q0jveS+Hyl9RnWjH6L/zsDUC7qTYhjLS/dacsgcos2pUOxdPyzJzKO1OWIpdcraFI6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794534610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794535441;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QzinTeqzEqx9VDWaxVqJ4vfjVAjHu7CF3CCxvyfyEck=;
-	b=HTEspmQZaDH/hkilJ3mxUx7VYHX+fNq9zZ7fJiDQrkRAPtFE/jS2nYppqOlDOyylwvl8
-	 FCe38zYVwQB6YAPZxUWAAY1ssPdEaoYiB8/s4FkheivKIXP71gyhFl+xAakEx9W7mA1is
-	 FhXmkuwKPvRosXIesCTtYmnQ3XbUnd71ovb2T2AP/qVAJvYHjqvtiWGvwO30IqBg4bfS2
-	 iRIRMTNn3zk/0GLaeFkAXTW1AJJim8DgBSqnot/Dz/Mb4Nft5UHqvz968IJeX2/YXW4p9
-	 I3JxsmlsAG8MbofvBLMpHttHZT4cj7UWymhUwYAogkXOJWB/PqvCoSlC1bx+s6ixa4g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PLEPDne2vJUS2nr+kA6W1uSGTKTQlxTcQxZui7YSGzw=;
+	b=UWgJC4akW/9TRFTr70XPAg9aqTMuPOeFKVJgC8uNGeVp0L12JshXc6UxS1ST8yroum8t
+	 I53B5cvkBLsCHHe4IG9VQng9aCZue+7+PZdtsqR6h6Q/bVA4vvlAxBOlJrFvuw0jET6U4
+	 ERU0G3A6d3WAvpYKXP7cyHxKN1vaF/Qr2FLRdSWlrYnOyXTfV/bzUg6EnmKGLZ2IxTUSq
+	 he7YNd5RxmzW5U1WcittM6yDM10hwZ1NjHlcSZmmsfcsfGfopa1GCaJA4VBPzAGxwhnjw
+	 YSO/THVmHun85NLE/M1pFyZuKoNK+0nClHBqe6jsyx8rMbKN5s89JM1R2waonx+b5uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=nilk.net;
-	spf=none smtp.mailfrom=nilk.net;
-	dkim=pass header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=tWp0rI71;
-	arc=none smtp.remote-ip=74.125.231.135
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qq4tUlWx;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AEC606A321
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 01:50:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9AEC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD0B606A332
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 02:04:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BD0B606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=tWp0rI71
-Received: by mail-oo2-f7.google.com with SMTP id 46e09a7af769-8615bd716c4so221244a34.1
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 17:50:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qq4tUlWx
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so639975a91.3
+        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 18:04:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nilk.net; s=nilk; t=1794534609; x=1795139409; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QzinTeqzEqx9VDWaxVqJ4vfjVAjHu7CF3CCxvyfyEck=;
-        b=tWp0rI719UU142KQhb1yPGUl22F17Sh1JUxpA4NsFc6kEp0tYVQHnx5pXkb/LVfX1f
-         apiUvZt7erHl1d1SZQPcXchXhdJwr031RgMcmeLjD2AqxA/cjX+tXAMgMye2C4J01kmW
-         4VCNg4tNBzaeV2/xYB+XAyTMxKM8cJPuALGzU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794534609; x=1795139409;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794535440; x=1795140240; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QzinTeqzEqx9VDWaxVqJ4vfjVAjHu7CF3CCxvyfyEck=;
-        b=LT6RgClbp4ojWabxwTTPBXmLgWK7uzihKqLASu/7N5GRtcOslZYPqK4FmED2hKhnuw
-         uWiasBGGGEilncx5GJ0GE3go8gGH7z3DtzYGNWA5BuP6VVSwdYK1ESwK5gfR63mmXZvJ
-         d6Z6fBBXvnvu9I6ZAuDfLtBowqzxyqnGffYXkFOyHkVLjMSelDbMVLw/QdVLgeh6US2B
-         ktEwNeHGMQUrCaxY+av8LsdeIWcbMyUll6vDvjXMjXcE4GvWQrucB3SKe/BmGzOp/p3k
-         LWJuDDfHvchu8GFnVYiluboAR1FBbEo26Lm1a+pA8wJnoyWRVTZEeU9X0xw7AEua/zae
-         2CrA==
-X-Forwarded-Encrypted: i=1; AL+hErG760OujKpUHXK4P3NtD7UAzJVItSlfS0JTWLz1RL3c9/++JH4AGfxGUb+WecuvMIy4R3jOBzU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Fz05LIYaJWIKmWSAfjdSlP2v1Yi9msRGBoPL7TqjduTnVT5CX
-	+MWIZo1CD9U/Xl/em4Ba3QKIjrNX/5InRJL8AzHjFMEDa4e4kK5PSEJj1CiddKpa/w==
-X-Gm-Gg: AYBFou2MAtO39iO/iAysM2CoJaA8FzChqmmbGdYOXF07cLEkoHTbw+m/qMKM4HUAD6l
-	uLVuS9uLhMh/C7xMSFWa44VuWlSSTE8WdoPO5ZXhPXSRHhLZ3AMh06NzT+QE+0nRJkx9Bbl8B1B
-	MNCHyVu88QEO14ecj/7DCl9VJdHCae3BFYlM9Ad3tZq8MLG4w4gB530rsCzqTK/yZhBw6mLtN4D
-	8RJZNJac2zaIxPtzJCXoiWmqQw38dPMnw6axFsIaw2yxLLPHxKANIWvahR0wra3W6Tir4+RxchE
-	VLT04QsHoWclTR9Evfw6EbIYG/PGHdzNiePFV7h1OhB9JQ/SlzaMowJj5y3FKwAdo8O+O66Xhds
-	J4RMulVMptOGpLAfOo9Zr8wLUyWolWV2pw4AdR1Hi/oGDCgEQsBN81B9iVXpnmxRXjcNhcFf2tY
-	3ht4kNp56q4S7MGwft3aSywbQKsuUD+XRLuDrFR5OH6+/kUke/cTD0PCIcW5MSSwn3D/WeuH/Ky
-	YoUB7SZ4vAKwrTLUe51RUaLLNq2wx3GyeETigDDRPKejjb/FsBXOe3h6rVV4/8Gewi1hKsULtSe
-	O+hLT+d/w6n+V3F4PpdfXKnuCq988R2YPfMxanMYO03YyCKwponA8DlLydgqq/mJnUExeMUX0XZ
-	V2e/ikXhP3BLx4QsnEWCUVVidQR2h11u7GC6pa5tIJtbIV+CTjD6mYk5qcRnEfzLBmIJO3Q41Jk
-	sE3RR/V6JClAv1k80HBZduuas7pg4EFXpoZbTPmPnF900ClLpkP6Agm7ssz3utz57DCs/qGF0Ub
-	UbnYpcB
-X-Received: by 2002:a05:6808:23d3:b0:4f1:a873:6efc with SMTP id 5614622812f47-56e65a25c0dmr969736b6e.64.1794534608616;
-        Thu, 12 Nov 2026 17:50:08 -0800 (PST)
-Received: from [192.168.0.45] ([187.14.251.153])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e7044690dsm811902b6e.9.2026.11.12.17.50.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 17:50:06 -0800 (PST)
-Message-ID: <3e1c4b83-9eeb-4425-8231-216bf6c96038@nilk.net>
-Date: Thu, 12 Nov 2026 18:50:04 -0700
+        bh=PLEPDne2vJUS2nr+kA6W1uSGTKTQlxTcQxZui7YSGzw=;
+        b=qq4tUlWxgxvu9FuI3nMao3Sd6WxnuMAv3ieybIed6+2qd+w5MRDY4LP8+Lz4JJUrBI
+         sHe59g1WaSp8lRytNqzFMV8/dozA1HSVj8+PGlvMtJ9vr9ywpjEE6tQgWl5+FPiGD0WL
+         VOaro1bUbEmaZZVcEy/kysDVL5KzjLIeMtoANpZArCYQl9dkhRygkUKmy5ar0ROtorUD
+         UvZENy1uk4ELD2f4klmkH9IDP5NdrZdL2fS6eh5BZC13LmSgcw4yIzj6LXutNaCM8AF7
+         NtcAxuzqWFavjOnUsdN8R3X24iP7UjS5H0YaHtu+B7xuR6lVLtMrwqPJzm8tdiZ6XSlN
+         gAVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794535440; x=1795140240;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PLEPDne2vJUS2nr+kA6W1uSGTKTQlxTcQxZui7YSGzw=;
+        b=o5AkAqrjvkRWmcEqAPqtzj4xtgq2yaBrJq6qvX/oJJNNyneRWRFdgJwEu4XGKTAE6Y
+         h1CJALytclwJH2Ub+ex4/v+Re04CaJQKOSWuJpGx5gfK76jmKFeW4UX/1oyYoDVSsRCi
+         thuzKCYOEWRk80gAGzv4wtHdnlep5XTON+KDtVAh/5fRWkUeaalU+5TgTHG+bA7V10tn
+         nm+t198yAN7AZ3urqBMP8lCk8BIpcYz4IyFoFLp3BJ/trGOvtR3Yz80oYpHGWf6/eMOT
+         hPfmR69nSMsHEIhqeD47HLkngO9e1RW5nrMxejlfhZ8e945EB0HBaQ0JFzvlEnnjjR+u
+         GEXg==
+X-Forwarded-Encrypted: i=1; AL+hErH9+vlGbsVLZpI3E6urXMP3fVCs0S54VZCTj2Xw6PmWne69FdX8/TLK5lf3zSjAup8w8SeTgos=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HJdK6EQJM35g1gqTUqkmI/eypYUQI9ArUHZlgEAmf5tzSxLSg
+	Z8PlPPumm87n1SLptYZIgyM7INiu6qSYvIaSaEGPauCaAZGOtJ0YUgTT1DPhipql
+X-Gm-Gg: AYBFou0qAQZkHT+MqEAPBIg8zCejQDpr4JwUgRhHwwoJ3NobzANDlEvFyUbZo2rtKLG
+	ixHGVwTnuVf88qgEXKtYE4yXEBsOVEIf1W1yp7u/6fVjOIOyQcwA0SFzpVoPwENw6pFqqGoUofF
+	Yh+NAnUKkQw340Dss94u9LkXpvfk/sA1bBeJwyysunoSE3L3QWbMdrW/g0IKRf1zAHsYxbJbePk
+	PQuD1evVbYEQfaO0TMCJMBKnVZfQUsEw/1Xfhmav77ltJ5yZksTUNC4gaf7AxZAxP0K70a/zF9I
+	312lidTtf/QJY6fNtfQ73oY75vD+D2GYhj1n/HjLnhIGSLAwTBFxewsrJPRxOtILsQ9VTR5KFJR
+	Ur0ZaL8MbRT568nWd10UWtciqtIngleaz+2JE64+hlF5KdnF73diGYVp8ndekcsvSf7VFon9cY4
+	HKA7FA6jZGIRD+ao6tAywV/r3PWcp/P9h7Z4AMFLTemSHhoQM5JioEiXDnxzH9vEMOG5o1z0+aQ
+	sLkPd42UubKoEJK0dLeOmltHNDoHR7KThvjhNunq3RsXGIvlY81NUHnNHJGuVjRUCtWlLd2B6Lg
+	kLyq6XkBbvpU65cpPoga86wwqhbWU7IE9q5BmMB5vTFT0BWPD0nJK1T2zEkwOzB1S98SkGpN3DX
+	Nhe6Jn5cHEKE/A6JVsGQTpMjycNXWuZLR7liFfi3XC+VUbXRXMpm7nZVKt+BwJnBbQ9GQ7T4Xgs
+	F+tCqsyn5MVq9GEHRk1CpLh0Jkkhbi3xJ6RzDEy/mjhjQJ1pj1WiMIv7M1dfRfyj32FxYJifTXU
+	v1fTVXON7YyykzQQg==
+X-Received: by 2002:a17:90b:3890:b0:3a4:b061:2765 with SMTP id 98e67ed59e1d1-3b1b09e69f1mr825607a91.15.1794535440527;
+        Thu, 12 Nov 2026 18:04:00 -0800 (PST)
+Received: from josephctchan-96c-1t.c.googlers.com.com (145.247.125.34.bc.googleusercontent.com. [34.125.247.145])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d04336sm7167618a91.7.2026.11.12.18.03.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 18:04:00 -0800 (PST)
+From: Joseph CT Chan <jctchan@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Joseph CT Chan <josephctchan@google.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] spi: unoptimize message when queuing it fails
+Date: Fri, 13 Nov 2026 02:03:51 +0000
+Message-ID: <20261113020352.1741295-2-jctchan@gmail.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+In-Reply-To: <20261113020352.1741295-1-jctchan@gmail.com>
+References: <20261113020352.1741295-1-jctchan@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,43 +103,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: ipu6: Keep psys out of direct-complete on system
- suspend
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Antti Laakso <antti.laakso@linux.intel.com>,
- "Sapre, Sarang" <sarang.sapre@intel.com>,
- Divyamani Tripathi <divyamani.tripathi@intel.com>,
- Manik Bajpai <manik.bajpai@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261017-psys-ipu6-v1-1-56e333f6ed04@nilk.net>
-Content-Language: en-US
-From: Chris Simpson <chris@nilk.net>
-In-Reply-To: <20261017-psys-ipu6-v1-1-56e333f6ed04@nilk.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 04:13:38PM -0600, Chris Simpson wrote:
-> Since commit a1fa010b3c9f ("driver core: auxiliary bus: Drop
-> auxiliary_dev_pm_ops"), the auxiliary bus has no dev_pm_ops. The psys
-> auxiliary device has no driver in mainline, and its PM domain,
-> ipu6_bus_pm_domain, has only runtime PM callbacks. So
-> device_pm_check_callbacks() now sets power.no_pm_callbacks for psys,
-> and device_prepare() puts it in direct-complete.
+From: Joseph CT Chan <josephctchan@google.com>
 
-[...]
+spi_async() and spi_sync() optimize a message before they queue it.
+When queuing then fails, the message is never finalized, but finalizing
+is the only place where the core undoes its own optimization
+(spi_finalize_current_message() calls spi_maybe_unoptimize_message()).
+So the error paths leak the split transfers and the controller's
+optimize state, and leave msg->optimized set. A caller that resends the
+message then optimizes an already optimized message.
 
-Hi Sakari,
+This happens when spi_async() returns -EBUSY because another device
+holds spi_bus_lock() on the controller (for example mmc_spi), when the
+controller's message queue is stopped (-ESHUTDOWN), when the controller
+has no ->transfer() callback (-ENOTSUPP), and when __spi_sync() gets an
+error from a controller's legacy ->transfer() callback.
 
-Gentle ping on this one. It fixes a regression since v7.1, still
-applies cleanly to v7.4-rc2 and to media-committers next, and the code
-it touches is unchanged in both. Please let me know if you'd like any
-changes or a resend.
+Call spi_maybe_unoptimize_message() on these two error paths. It only
+acts on messages the core optimized itself, so messages optimized by
+the peripheral driver and controllers that defer optimization (such as
+spi-mux) are not affected. A queued message is never unoptimized here.
 
-Thanks,
-Chris
+Tested with KUnit (spi_core_optimize: spi_core_queue_error_test,
+added later in this series) on ARCH=um; builds with W=1 on x86_64.
+Not tested on hardware.
+
+Developed with help from the Claude and Gemini AI assistants.
+
+Fixes: 7b1d87af14d9 ("spi: add spi_optimize_message() APIs")
+Fixes: c86a918b1bdb ("spi: don't unoptimize message in spi_async()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joseph CT Chan <josephctchan@google.com>
+Reviewed-by: David Lechner <dlechner@baylibre.com>
+---
+v3: No changes.
+v2: Added Reviewed-by from David Lechner.
+
+ drivers/spi/spi.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index a1276d194465..a6a98f052809 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -4915,6 +4915,10 @@ int spi_async(struct spi_device *spi, struct spi_message *message)
+ 
+ 	spin_unlock_irqrestore(&ctlr->bus_lock_spinlock, flags);
+ 
++	/* The message was not queued, so it will not be finalized. */
++	if (ret)
++		spi_maybe_unoptimize_message(message);
++
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(spi_async);
+@@ -5018,6 +5022,9 @@ static int __spi_sync(struct spi_device *spi, struct spi_message *message)
+ 	if (status == 0) {
+ 		wait_for_completion(&done);
+ 		status = message->status;
++	} else {
++		/* The message was not queued, so it will not be finalized. */
++		spi_maybe_unoptimize_message(message);
+ 	}
+ 	message->complete = NULL;
+ 	message->context = NULL;
+-- 
+2.56.0.506.g506a7eabc5-goog
+
