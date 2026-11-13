@@ -1,84 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794579060;
-	b=fQoBKNhD/ITIfLbkzyA6dOhyD6ZOi364A9auc5Hnu77Ig0o42jatxtrLydcocUMwTo5U
-	 bDOzLyY/OaXNJbpiG0Pezpgbx6QjVeMxWJ6npibK4kWZM7iD4Xp46m5xcsD19YDWK0/ou
-	 BbHhJ1bCV1qIAGIqUhlE1ZuT07I0UCLLnIgGKu5nlSSDw7S1AAYUsc2m8N84Dw3FvjsV/
-	 jKazWdswjc4fWUYcYXhO/z860u8p6wn8T2KNMdODOpdoNagl6rtCQrq7lrPVazqTalayg
-	 0VLVCW4v40Uq0RawPIkd9sPVgkJBXIyGiVFDtcDjpdy3poHlHDjQG0ZdMm6+n34fpzg==
+	t=1794579061;
+	b=XAd+9gkWR/8qdDSuxUuBk/q1u+Xegh6ZV9l8/uQqm3PzqLKFx5Tj+7A7LnTU4ihM/YsI
+	 fG0sa67Uz2p7/ZvmE7goFKie8//bGAAx0O26YDurhEk9PEyD6GupBiwsTFWPuLj9h/OUl
+	 ux/m/vzPjEiUAYaO3GumaQv4cO5VPLoK6lxjWt26UgZE84SGccCnhJYHRkJhvxVtEmBd2
+	 Omsuv5tUPtsg+PfKakptNg/OboylfjSpSh6q45DPiK6iqaD9htOyziXWLVJPZiSpbToFy
+	 kqanwmspuhtvARge5lMzStND/CD8zLOqq2/6DbUOdwv0KnBNiPnF76d/EGoSTURw+Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794579060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794579061;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=mC4fMBWKV0Oje3y3GDCm0lAvhhLJQq6XB7p3R3kavjY=;
-	b=m0xJ8RBt4W4Yx8qltkd6VtbzD5p2di1dz2Vayoc1Id8DzsMOxSfs4B2aTIba78rkHWYi
-	 UFlY7FZEtdSffVx72nEa3NRS8soLxJl7yhwJ1ZYAPtpR0dQMgcCRjckknTnl6UsnfxCyQ
-	 H3Q3JcuumkJFzC0P/NOrLBZj1sHFOXLuo/AUVyoG87Hq7fct+3QWIg82z33AaqvLKMFMg
-	 u0pQ7B5O+gwMX/vaVk4M6Xzp4ZKkOUdlqNxvQafukS7xseqrNA+UnUaIbkW5PC14CIiKR
-	 Q0iKN9z1+JtWfr9x8yJgdJA9Rj6Y8NSJGR1BJ8kQEcQ+2Pw2qJLvvL2mSfWYRCyj6Vw==
+	bh=h5jK23s+1GcFPKw3btfKd6KaIgYOv4qBSoQrXdAhZEQ=;
+	b=dKQ8X32df33YT17w9YNqFzQPavnxuyZcVg4vc4byR9YvOuQQRj4bp80H9tiC3TmMLQJM
+	 DB1uhqaCrAstnXaB66gpOqK1uoW2hNpjtXevtx+5KIhfl7Tgo0+TU8JFtvu3nMKdhAr9Z
+	 EeR9ODf+A8mLYgltDmJv8ruUPtmWA5Ax8A4z1WVindBQv9L7GqzKU4l580gy4uvaRcraM
+	 0thH6r+57yFUXuVBuCadeWhf98cDVYsRbbL7DP9zxoNBET75uasgU5FlqjQCjpA1iE4CD
+	 rg3YPafMdXyZ3dqESSVSVz6pK4TthxwpBZgQswuvxaI42R6J0JaQE2jIcibThFYyw+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.ibm.com;
 	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JSIXcmzg;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=dJa01xIh;
 	arc=none smtp.remote-ip=148.163.156.1
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D7C606A89F
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:10:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D7C606A89F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF9F606A8A4
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:11:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEF9F606A8A4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JSIXcmzg
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCEBDa1248478
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:10:59 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=dJa01xIh
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCE69Y3085797
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:11:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=mC4fMBWKV0Oje3y3G
-	DCm0lAvhhLJQq6XB7p3R3kavjY=; b=JSIXcmzgJKBY6p1IGgDrIWD3TbKvubRdY
-	Nk9CewLpJtSGxsenOA7dB2xLL1BRp8Fu2aoxuERJNP506esbNnwJ9vajMqm87Fx4
-	kFj4bzC7dUsgA0WaKtsBXfxT01FGlrrop3IPmZE2uC0Y1zxE9KdNpvZTVM2QdAje
-	eirxEp/jKAIiLQzNG9IStYREPzMUMFaPKCeci+tpYe097YgfUQqE2gwd6XW6fxxG
-	GMeIBHFnNA6oO3Ys5Api9jDRX/3LeOeFnxkeqFN5UjnhFnYr7CA8evm/DntiQcIf
-	FZW5vIxfmEl1uWY9elO+lgpXroAlXWfREAAWwFRuPTXpdpeM5DFCA==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsuntm1uj-1
+	:mime-version:references:subject:to; s=pp1; bh=h5jK23s+1GcFPKw3b
+	tfKd6KaIgYOv4qBSoQrXdAhZEQ=; b=dJa01xIh0bXgDb2gZQnZpIrbCa7a0Eszd
+	8SOtnFMZ/EklJtpIscxWaJWEl57AJ1IAcTYaNfjxvAygWYhhNEnEQVf4aK1V/Aod
+	TbWsarAypwCRqagnDWO75izrgVTV2LznpeuuF36WAI720eAm2Jv35jJP1bBu4nlz
+	kU5zS0B2AB76POWq37Rh2PVGE3Rs7D0pFjQxHQrwSELwHlSswTuqE672jGuQIXcR
+	C/og7BI6wOouMVbLO6eWz2ETdcm6kofIG+1o+Y3CJCE/dvOK3G0gX+nowjtM8TKC
+	g0upKwV0rE3rh123ve5CrjBmaPhgYjpmsiyDbn1TwnPnjdGQr5GwQ==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug6m0vp-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
 	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:10:59 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADC5FZN2213387
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCKInn2305810
 	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:10:58 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hwegfc3t5-1
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hvkq11jn7-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
 	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:10:58 +0000 (GMT)
 Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ADEAuXZ31719986
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ADEAvtb16056882
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
 	Fri, 13 Nov 2026 14:10:57 GMT
 Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C6D515805D;
-	Fri, 13 Nov 2026 14:10:56 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 93C1758059;
+	Fri, 13 Nov 2026 14:10:57 +0000 (GMT)
 Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 82B2258057;
-	Fri, 13 Nov 2026 14:10:56 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 510BA58057;
+	Fri, 13 Nov 2026 14:10:57 +0000 (GMT)
 Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.92.80])
 	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 13 Nov 2026 14:10:56 +0000 (GMT)
+	Fri, 13 Nov 2026 14:10:57 +0000 (GMT)
 From: Anthony Krowiak <akrowiak@linux.ibm.com>
 To: jjherne@linux.ibm.com
 Cc: stable@vger.kernel.org
-Subject: [PATCH 16/20] s390/vfio-ap: do not pass through a queue not confirmed zeroized
-Date: Fri, 13 Nov 2026 09:10:38 -0500
-Message-ID: <20261113141049.3747719-17-akrowiak@linux.ibm.com>
+Subject: [PATCH 18/20] s390/vfio-ap: filter the matrix when KVM is set for an mdev
+Date: Fri, 13 Nov 2026 09:10:40 -0500
+Message-ID: <20261113141049.3747719-19-akrowiak@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261113141049.3747719-1-akrowiak@linux.ibm.com>
 References: <20261113141049.3747719-1-akrowiak@linux.ibm.com>
@@ -93,154 +93,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1NCBTYWx0ZWRfX21gjphHKbFmo
- OYnUB55TyPPebURmYWIK2JRqtj1RHghBZuuDsACuacuatZHc1syZ7zCorbkBeiR4RtGXrlcRTOI
- R2BAyM2yVfadYRRkP2wo27RrENY8cRa2D4ElUHiMNjyImvKAryWByDXm5aw5ZWIUwh9jdDMu9xm
- nQPjIhyPQJ70QVsH3u4j9CzLgjVXEFIgV8PgqjNci3gk3bS6imWz30VD1dxa/ngb53sCaEPYxnM
- 17N2Nk5hLnzzpnZv2X5oX2Xz4TwdJU9xO6fkJRZqY4DalAy397GBVneGbBy0rXVo4ANrpAVwvKt
- hooZlogMDcxz0ULO+kvONOeeKDDjTaKNIJUX5Mdwvq1NvvHrbQBKkbWPe89EfxOPAixtCwZpQww
- T0GboFjgDtHSsGGO4PtTUUAYlsj3I564Qa+R3ZTfZ+ioObzKYMFc44zd27e+k7iB1MXY6GLnq0n
- MqLZGL4GJCahXK5QLJw==
-X-Proofpoint-ORIG-GUID: h4xLpp3qOzVLaloZKUae0fR4B9I-MrhW
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1NCBTYWx0ZWRfXzPom75KMhb4H
- +RyyBPtTCxZT7cnkqGVZVMQjolhFXtyktYhy1wlAOEaVxO+IJrd2UNbrLq4LqEUTdKESgwbS3j6
- bfH3AsnFyXV5aZsgf/meimV8ko3lPtM=
-X-Authority-Analysis: v=2.4 cv=euZKXYpX c=1 sm=1 tr=0 ts=6af71a73 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+X-Proofpoint-ORIG-GUID: 1oaZk1Su4zHonr8a3blxxXklt9dWXGIM
+X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af71a73 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
  a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=n519WHjwvXCBqBGV3oQA:9
-X-Proofpoint-GUID: h4xLpp3qOzVLaloZKUae0fR4B9I-MrhW
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=NExPFj37_T3DjFEL6UIA:9
+X-Proofpoint-GUID: 1oaZk1Su4zHonr8a3blxxXklt9dWXGIM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1NCBTYWx0ZWRfX6cRc4/sqK8Wo
+ 6Jo3Fhzbp0cVUkeC9YrlfVpyhxSElanxBp49KAWfEucWpc0U1gLihByG3DXGhE9059sul+pBmP9
+ QA5jzA6wqvus1cFtND82KnpF/t2LdRzopJ3NyqHpsnoFBMBzMXLbtlslJ6/3INVZL4QY+20toKU
+ W2rmAbPVjeO5zvLiwgs10v4lJnptXX6fpIgQEjG1dAYQGus7sejL80d8yD2LT2Y++1mitm7bQjB
+ 7ULJnwaAoOQQ08sUPVXZHtCxwX38XGbJcDjCisRUVOpYb+OcN7bqosnqBZ/HpvPZXltoX4I6L/y
+ kABrBk5IYruvj5DEhRrcIgHa1fYBQuDv2CgFteHVfNHqU+wleI3GVizLKXZ6heLwuxhQBkvnyOh
+ qsOFQ/fPb86CxfdgsU2v0a7rTFhQCvf1L3pBfGTvjdmqEcpDWyPh1x51ZMk5AW3Rm8rqpQcpu05
+ Tx6uEHWYf4Wor29sU2A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1NCBTYWx0ZWRfXzlW/FXa3c7A2
+ Ug00O+yc15lj/qmX/794s3VGiI9a52XjwuweM9BhB9z0jBYY217G7l0EzrCUemoWlS8IcqvU0bJ
+ uyYl6iVypnB3VbXtHBG9O9lvgOlzsPA=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130054
 
-_queue_passable() accepted AP_RESPONSE_DECONFIGURED and
-AP_RESPONSE_CHECKSTOPPED as passable states in addition to
-AP_RESPONSE_NORMAL. Neither DECONFIGURED nor CHECKSTOPPED
-confirms that the queue was zeroized; only AP_RESPONSE_NORMAL
-(0) does. A queue not confirmed zeroized must not be passed
-through to a guest, as it may contain key material from a
-previous guest or host operation.
+The shadow APCB of an mdev reflects which of its assigned queues
+were operational the last time the matrix was filtered. A queue
+can become operational, or non-operational, after that and before
+the guest is started.
 
-_queue_passable() is therefore changed to a two-step check.
-First, reset_status.response_code is verified to be
-AP_RESPONSE_NORMAL; if not, the queue is not passable
-regardless of its current hardware state. Second, a live
-PQAP(TAPQ) is issued to detect state changes that occurred
-after the last reset - such as a subsequent deconfigure or
-checkstop - without requiring a callback from the AP bus.
-If TAPQ returns AP_RESPONSE_BUSY or AP_RESPONSE_RESET_IN_PROGRESS,
-the queue state cannot yet be determined, so the TAPQ is retried
-after a 10 ms sleep for up to 5 attempts. This avoids filtering a
-queue that is only transiently busy. If the queue is still busy
-after the last attempt, it is treated as not passable; since
-reset_status was NORMAL this is expected to be transient and the
-queue will be re-evaluated on the next filter_matrix call.
+Call vfio_ap_mdev_filter_matrix() in vfio_ap_mdev_set_kvm(), before
+the guest's APCB is updated, so that a queue which changed state
+since the shadow APCB was last updated is correctly admitted to or
+excluded from the guest when it boots. Any adapters that are newly
+filtered out are reset, as is done in the other callers, to prevent
+stale state from reaching the guest.
 
-Fixes: a681226c675c ("s390/vfio-ap: handle hardware checkstop state on queue reset operation")
+Fixes: 51dc562af09d ("s390/vfio-ap: allow hot plug/unplug of AP devices when assigned/unassigned")
 Cc: stable@vger.kernel.org
 Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
 ---
- drivers/s390/crypto/vfio_ap_ops.c | 60 +++++++++++++++++++++++++------
- 1 file changed, 50 insertions(+), 10 deletions(-)
+ drivers/s390/crypto/vfio_ap_ops.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 4c252e19304e..86eb48df27f1 100644
+index 19638fea0ed3..52bfe383cf43 100644
 --- a/drivers/s390/crypto/vfio_ap_ops.c
 +++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -32,6 +32,8 @@
- 
- #define AP_RESET_INTERVAL		20	/* Reset sleep interval (20ms)		*/
- #define AP_RESET_MAX_WAIT		2000	/* Maximum wait for reset (2000ms)	*/
-+#define AP_TAPQ_RETRIES			5	/* Max TAPQ attempts when busy		*/
-+#define AP_TAPQ_RETRY_INTERVAL		10	/* TAPQ retry sleep interval (10ms)	*/
- 
- static int vfio_ap_mdev_reset_queues(struct ap_matrix_mdev *matrix_mdev);
- static int vfio_ap_mdev_reset_qlist(struct list_head *qlist);
-@@ -891,19 +893,57 @@ static bool vfio_ap_mdev_filter_cdoms(struct ap_matrix_mdev *matrix_mdev)
- 			     AP_DOMAINS);
- }
- 
-+/**
-+ * _queue_passable:
-+ *
-+ * In order to prevent leaking of sensitive data to a guest, a queue must have
-+ * been reset before passing it through. If the status stored for the most
-+ * recent reset operation is anything other than AP_RESPONSE_NORMAL, then the
-+ * queue can not be passed through. On the other hand, the status of the queue
-+ * could have changed since the last reset; for example, the queue could have been
-+ * deconfigured via the HMC/SE or the sysfs config interface for a crypto card,
-+ * or something could have occurred - e.g., a hardware failure - that moved the
-+ * queue status to check stop state. To verify the queue is still passable,
-+ * the PQAP-TAPQ instruction will be executed to determine the current state
-+ * of the queue. If TAPQ returns AP_RESPONSE_BUSY or
-+ * AP_RESPONSE_RESET_IN_PROGRESS, the current state of the queue can not be
-+ * determined, so the instruction is re-executed after sleeping for
-+ * AP_TAPQ_RETRY_INTERVAL milliseconds, up to AP_TAPQ_RETRIES times. If the
-+ * queue is still busy after the last attempt, it is treated as not passable.
-+ *
-+ * @q:	the object containing the data associated with a queue bound to the
-+ *	vfio_ap device driver
-+ *
-+ * Returns:	true if the queue can be safely passed through to a guest;
-+ *		otherwise,returns false
-+ */
- static bool _queue_passable(struct vfio_ap_queue *q)
+@@ -2101,6 +2101,8 @@ static const struct attribute_group *vfio_ap_mdev_attr_groups[] = {
+ static int vfio_ap_mdev_set_kvm(struct ap_matrix_mdev *matrix_mdev,
+ 				struct file *kvm_file)
  {
-+	struct ap_queue_status status;
-+	int retries = AP_TAPQ_RETRIES;
++	DECLARE_BITMAP(apm_filtered, AP_DEVICES);
 +
- 	if (!q)
- 		return false;
+ 	struct kvm *kvm;
  
--	switch (q->reset_status.response_code) {
--	case AP_RESPONSE_NORMAL:
--	case AP_RESPONSE_DECONFIGURED:
--	case AP_RESPONSE_CHECKSTOPPED:
--		return true;
--	default:
-+	if (q->reset_status.response_code != AP_RESPONSE_NORMAL)
- 		return false;
--	}
-+
-+	do {
-+		status = ap_tapq(q->apqn, NULL);
-+
-+		switch (status.response_code) {
-+		case AP_RESPONSE_NORMAL:
-+			return true;
-+		case AP_RESPONSE_BUSY:
-+		case AP_RESPONSE_RESET_IN_PROGRESS:
-+			msleep(AP_TAPQ_RETRY_INTERVAL);
-+			break;
-+		default:
-+			return false;
-+		}
-+	} while (--retries);
-+
-+	return false;
- }
+ 	if (!kvm_file)
+@@ -2119,6 +2121,15 @@ static int vfio_ap_mdev_set_kvm(struct ap_matrix_mdev *matrix_mdev,
+ 		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
  
- /*
-@@ -2400,9 +2440,9 @@ static void apq_reset_check(struct work_struct *reset_work)
- 				 * the host kernel.
- 				 *
- 				 * Record the TAPQ status so the queue is marked
--				 * not-passable - _queue_passable() checks
--				 * reset_status.response_code == AP_RESPONSE_NORMAL -
--				 * and the queue is not passed through to a guest.
-+				 * not-passable: _queue_passable() first checks
-+				 * reset_status.response_code == AP_RESPONSE_NORMAL,
-+				 * and the queue will not be passed through to a guest.
- 				 */
- 				memcpy(&q->reset_status, &status, sizeof(status));
- 				return;
+ 		matrix_mdev->kvm = kvm;
++		/*
++		 * Filter the matrix to ensure the shadow_apcb reflects the
++		 * current operational state of all assigned queues. A queue
++		 * may have become operational (or non-operational) since the
++		 * shadow_apcb was last updated. Any adapters newly filtered
++		 * out are reset to prevent stale state from reaching the guest.
++		 */
++		if (vfio_ap_mdev_filter_matrix(matrix_mdev, apm_filtered))
++			reset_queues_for_apids(matrix_mdev, apm_filtered);
+ 		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
+ 		release_update_locks_for_kvm(kvm);
+ 	}
 -- 
 2.53.0
 
