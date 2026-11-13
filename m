@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597045;
-	b=ojWY5B4vInks+TnxBUlsntZBi3rIUKWL6HJKYk+lCP+0+6ZoUhhZJOY0A5Nvsot0Ow0c
-	 d9wozVz57rvY3jWPhzMX3qmC5MHRnlOU4D2SjqLxai4b87TZoyQMzXfVwqfLJQIsZT3Ia
-	 2J44qhALXjzNm3hRT4mvf5xUiAvbm4xN6Nl7WchZwQWYy4xba67pDSS6L+xHxVXaK7Jnp
-	 he7Uv1FcX5/MI5lUXBv8lmIYMjO7B2mJnnriUQyM+DzmZypYS9E/ENziSVpNo/6wHBwbD
-	 qTfG+JVmeYaqs+wKw5SjGZiAYSsBWeXkj00dtfBEmvKT7HQXp6lzxRRcgiNZWEamnRQ==
+	t=1794597055;
+	b=Nsb0gZjF3ycGiMXVzQaQr4yrmBgqNx4k8yk6P04WYTc132sdvl8oMokQzz0QluKffWvG
+	 Ov/fuwEaGHaoQR/GqdnFP9/8KYdU9vGzLRiIPsZCcpUCtkIJKW1l0jzbsyQpX5vDZgwv+
+	 Zi/0AmgkJ0kx4jLTXKAmWaXRmEP0Iw/Af3mkxbmNpjftL2vvj0mO9GQvMxLke7HF/AmH1
+	 1llw2+uxxB7FOoF+94SaMusvTMBkeo5JXYA5OMh3Lqcba6koEgTp8YrqCb74Hf1m9xbI5
+	 UfQ/D1nx7k3ACRSoJh7oQqtO5cilDrfOf7TmFiXKmRAuWCpy9aGozcfDmqhm7U4DzyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597045;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597055;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+6mgtOeE77hCx9dQEyWulri7nTtkEZeRSollDzOEkrM=;
-	b=T6ioyo2y7A2ME2MpfQzF0iwYoHIFtQC2grPMcHpCAENdTOB64H95RyYiZBNb7ay3E0EM
-	 wH4xfPKq3mw8tMHxkiqBUoSjqtsgipA49BSCHL/nAoXIqaUQ9dnERpUBTEUcpnSMDBTyS
-	 cA3b98FFB6M+uVWeG5uur6MMxP6XKJb+bmLq94/9FxhkHkgLz9QdCBar9V5UcrgUL9D8R
-	 /JJUw+90dAeFENEwagDd9QyR/lsvP4c+904R0kKPVCzHQ5yxWIl29xBjFztlH6INxF9Sl
-	 HpKJdcE0nZxeieGnWdomsazzWg3cuSpow3GBIVLb+SdcJwEuPd1q8+2GYD6DGP3pgLw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LS9qMcB7qDWiQ1zJy+ajNKLkItL9/upfcdWNLW+0hhk=;
+	b=rkbx5ban6+ATwYn2Abhrj+VNhsVFPnFCkCVyp4/GLhm09PEb3ybP+ufRglMlK8RksjrJ
+	 3Ug735iuV4NNVz+20SsIr8yWZ+Zt0y8V2Vh5JuXYRJNiA8XgV05GAvD0xFbwjLyPXnstP
+	 9MQXvcT3413O9YR61oDxm0txl+wd+ZdYp8N2jLBZl9E60xuKL5FzuzwcoVYgbf5B1YDJl
+	 xsbjTuchQ0vdAEiF2Wil9UNTLobuhjWkUfEAzWTVRlt5Q0vpG0XRKwd8rB0plSmuh60+L
+	 D8OPmisT36HSjIT15y0mpalQYUB4v2xYZdNpS0OBnZl8dpZ4xVqfl7wP4ZivWWNCiOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HfSZSvYO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WR0aYwLM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17546606A898
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:10:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CC3606A333
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 19:10:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HfSZSvYO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452F31F000C6;
-	Fri, 13 Nov 2026 19:10:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WR0aYwLM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3851F000C4;
+	Fri, 13 Nov 2026 19:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597044;
-	bh=+6mgtOeE77hCx9dQEyWulri7nTtkEZeRSollDzOEkrM=;
+	s=k20260515; t=1794597055;
+	bh=LS9qMcB7qDWiQ1zJy+ajNKLkItL9/upfcdWNLW+0hhk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HfSZSvYOJKN4ERbZBAGMtHXRcVL3jZG26HOOd3GKMKtb1rCxSoCSu9TK9r6N9WtQR
-	 zeuzNVJ+u92GQ/HI/O9xVGWe4oln6iJ7o2Fx+MZIhlz+IyKmEnzY0HYivFB9ylmC5N
-	 DpzlyrhFf2xZe4Slw8bTDusHyC1yITwfATwzfTCJN6G+F73viMmoYJubqNuWh+jH5+
-	 cVxje00bI7SEONUgjjaQmLFTkGztt5V3RQ3IzhtU0zJgLCbcL/IdNT9iMyoL9T89Lm
-	 aCXPCqoGh49zyJ7v+wXViwUK6tgR8iw3IhSXWP7aJ5c2B4Q/OCHS0Vvynmmt99TeeY
-	 y/8fZWUBNmb3w==
+	b=WR0aYwLML6Hd1ZqsZU6ZP6/s54uh7OqamA88AkVFq7H6YYgW8zY5REAXBz3yGsjSZ
+	 1lJCrkTFXfRAYJSKRcHUHU/VJA5XEJPEyLiQR0AY/44lNWUq7unVBVZr1XvQM0ifse
+	 pPOdB/5v31WmU7/5KukXo9ItyHi18lMWBUMH73DE+AwELixzNBdd9s5TxJbhc+U8ET
+	 FYE/KWTpQrxDqoY7AR5xl4iw5E5caO4re9fUxqlwNcNVVEqh4YeGKqM6ochJyMUSho
+	 g5VJjN97z/S1vB8aJxUBvdOPJSfOWvl/aDEjMKw4+KFwgfjbIvkWTmwXS1yxDFStwE
+	 7pC4Zs2oRoQbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Sashiko <sashiko-bot@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/shmem: make shmem_file() check the file's inode
-Date: Fri, 13 Nov 2026 14:10:43 -0500
-Message-ID: <20261113160251.1939291-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] hwmon: (tmp108) Fix initial conversion delay and wait until ready
+Date: Fri, 13 Nov 2026 14:10:53 -0500
+Message-ID: <20261113160253.1953753-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200312-failed-6.18-d3710111839d@kernel.org>
-References: <20261109200312-failed-6.18-d3710111839d@kernel.org>
+In-Reply-To: <20261109201622-failed-6.1-7cd60538073e@kernel.org>
+References: <20261109201622-failed-6.1-7cd60538073e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,118 +60,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit d3710111839d11339e414b1bb3fea3d05ab83f6e ]
+[ Upstream commit 7cd60538073e465310c94b2a2f0ea8d2f03768ef ]
 
-shmem_file() only checks if file->f_mapping is a shmem mapping. This
-mapping can belong to another file, however, as with a Coda file backed
-by a tmpfs container after mmap().
+In tmp108_common_probe(), the driver only adds the 30 ms conversion delay
+(TMP108_CONVERSION_TIME_MS) to ready_time if the sensor was previously in
+TMP108_MODE_SHUTDOWN. However, the TMP108 hardware defaults to continuous
+conversion mode (TMP108_MODE_CONTINUOUS) upon power-on reset, including
+immediately after enabling the vcc supply regulator during probe, while
+the temperature register retains its power-on reset value of 0x0000 (0°C)
+until the first conversion completes. Because the initial mode is not
+shutdown, the delay is bypassed and early reads via thermal zone
+registration or sysfs before the first conversion finishes return an
+uninitialized 0°C reading.
 
-So it does not guarantee that the file inode is an actual shmem inode.
+In addition, returning -EAGAIN from tmp108_read() while waiting for a
+conversion to complete after probe or resume can trigger an unnecessary
+tight retry loop in callers or fail initial reads.
 
-Seal handling and memfd preservation use this check before accessing
-shmem inode state, so they can access an inode of the wrong type.
+Unconditionally set ready_time to TMP108_CONVERSION_TIME_MS ahead in
+tmp108_common_probe(), track ready_time as ktime_t, and wait for the
+remaining conversion time in tmp108_read() using usleep_range() instead
+of returning -EAGAIN.
 
-Let's make shmem_file() check the inode's file operations instead, to
-identify shmem inodes reliably. This will identify regular shmem inodes,
-including memfds and ordinary tmpfs files, independently of wrapper file
-operations.
-
-Use shmem_mapping() in collapse_file() instead to not change the behavior
-of collapse_file(): it operates on the page cache and uses mapping->host
-for shmem inode operations. Focusing on the file does not seem relevant.
-
-Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
-Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adjusted context for the missing shmem_freeze() helper and combined integer declarations in collapse_file() ]
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: adapted tmp108_common_probe() changes to tmp108_probe() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/shmem_fs.h | 15 ++++++---------
- mm/khugepaged.c          |  2 +-
- mm/shmem.c               |  5 +++++
- 3 files changed, 12 insertions(+), 10 deletions(-)
+ drivers/hwmon/tmp108.c | 26 +++++++++++---------------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
 
-diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
-index 0e47465ef0fd5..2b49d4d1426ff 100644
---- a/include/linux/shmem_fs.h
-+++ b/include/linux/shmem_fs.h
-@@ -99,8 +99,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags);
- extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
- #ifdef CONFIG_SHMEM
-+bool shmem_file(struct file *file);
- bool shmem_mapping(const struct address_space *mapping);
- #else
-+static inline bool shmem_file(struct file *file)
-+{
-+	return false;
-+}
-+
- static inline bool shmem_mapping(const struct address_space *mapping)
- {
- 	return false;
-@@ -171,15 +177,6 @@ static inline struct page *shmem_read_mapping_page(
- 					mapping_gfp_mask(mapping));
+diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+index 4807c7e8fe609..0bdcb395f52ec 100644
+--- a/drivers/hwmon/tmp108.c
++++ b/drivers/hwmon/tmp108.c
+@@ -14,7 +14,7 @@
+ #include <linux/of.h>
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+-#include <linux/jiffies.h>
++#include <linux/ktime.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+ 
+@@ -73,7 +73,7 @@
+ struct tmp108 {
+ 	struct regmap *regmap;
+ 	u16 orig_config;
+-	u64 ready_time;
++	ktime_t ready_time;
+ };
+ 
+ /* convert 12-bit TMP108 register value to milliCelsius */
+@@ -94,6 +94,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
+ 	unsigned int regval;
+ 	int err, hyst;
++	s64 delay;
+ 
+ 	if (type == hwmon_chip) {
+ 		if (attr == hwmon_chip_update_interval) {
+@@ -123,12 +124,10 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+-		/* Is it too early to return a conversion ? */
+-		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
+-			dev_dbg(dev, "%s: Conversion not ready yet..\n",
+-				__func__);
+-			return -EAGAIN;
+-		}
++		/* Wait if it is too early to return a conversion */
++		delay = ktime_us_delta(tmp108->ready_time, ktime_get());
++		if (delay > 0)
++			usleep_range(delay, delay + 1000);
+ 		err = regmap_read(tmp108->regmap, TMP108_REG_TEMP, &regval);
+ 		if (err < 0)
+ 			return err;
+@@ -371,11 +370,8 @@ static int tmp108_probe(struct i2c_client *client)
+ 		return err;
+ 	}
+ 
+-	tmp108->ready_time = get_jiffies_64();
+-	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
+-	    TMP108_MODE_SHUTDOWN)
+-		tmp108->ready_time +=
+-			msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
+ 
+ 	err = devm_add_action_or_reset(dev, tmp108_restore_config, tmp108);
+ 	if (err) {
+@@ -405,8 +401,8 @@ static int tmp108_resume(struct device *dev)
+ 
+ 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
+ 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
+-	tmp108->ready_time = get_jiffies_64() +
+-			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
+ 	return err;
  }
  
--static inline bool shmem_file(struct file *file)
--{
--	if (!IS_ENABLED(CONFIG_SHMEM))
--		return false;
--	if (!file || !file->f_mapping)
--		return false;
--	return shmem_mapping(file->f_mapping);
--}
--
- /*
-  * If fallocate(FALLOC_FL_KEEP_SIZE) has been used, there may be pages
-  * beyond i_size's notion of EOF, which fallocate has committed to reserving:
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 6bff1096de7d8..9db84989334a0 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1860,6 +1860,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 			 struct collapse_control *cc)
- {
- 	struct address_space *mapping = file->f_mapping;
-+	const bool is_shmem = shmem_mapping(mapping);
- 	struct page *dst;
- 	struct folio *folio, *tmp, *new_folio;
- 	unsigned long new_pfn = -1;
-@@ -1867,7 +1868,6 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 	LIST_HEAD(pagelist);
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
- 	int nr_none = 0, result = SCAN_SUCCEED;
--	bool is_shmem = shmem_file(file);
- 
- 	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
- 	VM_BUG_ON(start & (HPAGE_PMD_NR - 1));
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 6828611bcdfe0..4f322dad7fbc0 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -275,6 +275,11 @@ static const struct vm_operations_struct shmem_vm_ops;
- static const struct vm_operations_struct shmem_anon_vm_ops;
- static struct file_system_type shmem_fs_type;
- 
-+bool shmem_file(struct file *file)
-+{
-+	return file && file_inode(file)->i_fop == &shmem_file_operations;
-+}
-+
- bool shmem_mapping(const struct address_space *mapping)
- {
- 	return mapping->a_ops == &shmem_aops;
 -- 
 2.53.0
 
