@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581282;
-	b=ftGZ4vRfkh4EAT/4SPCB6FDdGfRMBj3lPLayuojLE2T+7LHPTCdWW8b0E2J0UxwHN8DP
-	 ZjBZ1dn430+SNZWnFI7OhKVN6j8LdyZHLmeF4V8UVl4mJ2SfKGbvvZISl5e0VHPfS9aJc
-	 0l8DKhmttJhcDvogOpOIAVX5toUKfWHq4rqa3zZ7HnpiJf1C1NENTxdBGBHrBfTVS6cER
-	 S+VHmarhgi/HyUyUWsx2DYE3xhkpfZNZBK2AmFLMv931B1ykMQredvU0sh1+i+Wmih4dx
-	 JS1EzxhScW094Ea4NDhOpWS0x9RfmnvbKZjHjFlPGy70iCLsRfhguyD5feIyPLdmcDA==
+	t=1794581371;
+	b=Vr+DHX2yg6e2zsyJADPlfmKT2Xn6UNjAdjz73d7vMYjCCw57dRo/wlaH72WO8fOe4dNB
+	 ds8A1IpKcamf+NVc0OC6hqSePbO3KF3hnkwq9c7JZEjDWDn1FApafrFRw/53TaFRaGW/i
+	 O8sfLbTJNEpS9c8EIHYnfkrV1LgvQk4Fo2CW/oeA6T8FspwQHQI21pyDAls2Hv5JnRg2T
+	 tiT9kAy/WYcRaH0LlVLtGK/AOR/SV7xIuBOnCuozAiXjA1h3DxV+c5yIHj2PZdhRcwIf+
+	 l/Z4mWQFi9/zyRnaAaMhybXB8BINQPT1dm23IVzi0sGq3giUk17+KBlHr+bNkEw0S4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581282;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581371;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wUd59vy+t7BNnxnUhr2fKkMzMsXeEKOtpU9SL8Q2YUs=;
-	b=2J4ufimj9rh5QnOly9wf23s3Q0a7wkMqy9UYeXzZWWXYxrOaDyXQpplDcD5YlN1DWw/R
-	 +FPulx/7Dza9WOg6ZueSh4ITYcsejHZBJgrPf64GERMDOw1D5hcXUYtaICUp9BUYCU3TF
-	 R7LbTxUNoS0ovWzMGbPIS/z68495SDb1lGSXl8eIHvrh6uB71+Omvx/ZCE/T5uH5cr29H
-	 Kem2AdsyisItwN8WBWyOLSZUwRFjex/LmsU1LWoq+23HpkEM3ueZTWu0dNwQ3lOiqHEK2
-	 j8X5Gd+cYYX8fF4BwagoirMzPbSyvSR8ZqsPPAP+9IiKPsP/IPojDZiz4qVtMYTtwaA==
+	bh=+MEiDVDJQ9/X1ABzsySyUhN0JtjMH/LDWixekK6xAj0=;
+	b=4Y2Iuvk2u2Y/j4hw7hQi+Q0vP9dDZwVj6+SQabPRi50lcbKsYpzETEHWnKw1JP4mq22d
+	 uT9deSzYXoPCyOYMF11NhBkWDbeVsqRWXwTqdUY4TOx9ubp3cSjFt0C++OLOKWXjuX10s
+	 wH2TF+mp23sLwcFoWAogytf1YWw7//Mk/rJdTROE4IRfmvSXJk9hnlTMXAIilCbnJVIUl
+	 PzB+lH2xQcPtNseohgkZUK/orVfyBJ3kPB0uhfDGi7k5jaM4l620qjlDm1MJa6HcEk0Fy
+	 bCnzgEX/QHa0dDSdTDw19/jQoOWrCtULIgVJWX5fdlaiRl1obAOcQ7c7hqGRJe76x8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IMhujO9J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DprEdvRW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39059606A330
-	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:48:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46329606A323
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 14:49:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IMhujO9J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ACDE1F000C8;
-	Fri, 13 Nov 2026 14:48:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DprEdvRW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2CA1F000C4;
+	Fri, 13 Nov 2026 14:49:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794581282;
-	bh=wUd59vy+t7BNnxnUhr2fKkMzMsXeEKOtpU9SL8Q2YUs=;
+	s=k20260515; t=1794581370;
+	bh=+MEiDVDJQ9/X1ABzsySyUhN0JtjMH/LDWixekK6xAj0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IMhujO9J2TYsglNOesa1ksliZpYbQ539pLYHh84KsaDdhMuHp4MJIGmr6gANMSOOF
-	 z57yxOMERERjSIgdkzA5TW7GVJXnPJeRMGKauYgKZOreN8h/6SHZX9u+6LBXFHuRyO
-	 cnPEZyzLoj+vOCtmj2fb16HT4juVPItBFyG4cmyhq9CniIE19XvouTcm630rSn87TW
-	 JLxSW4fJv6DZhbQZ+4NWbxwXkbv0dKuGQwZPf2vSjH7eBJP55wRVnasRlh4XbvMjvH
-	 A1+NQAI+lck6iW+aCAAP52EsqVPscSS3Rvx3MrLUeeZwuWC9kKD1Y/QLmYyZq2Gn7P
-	 sZlzkXDi2az2A==
+	b=DprEdvRWZNXHGkFP5NhxrHVY+lhhx0c4BvD93VKBPjrAsa+tneup/TjD9VcoyBkGQ
+	 apx/nichzUq8+aOs7a2tCQI7+rIuCCf+TzA8aK0Qshijsfpq3vqLr9R7J7iG0G0FZL
+	 4OEPO9GzR32sW4ksjBYjhqRDgaLnCnWjPfsfWX5jZwvZ3bpTDSsjA45KqTUDBuJliP
+	 dqcfAO6CaKPsjwQMzmIkhPizWq5I3eyBsTxxadPdO96LtVs4iQcvc65LrU4QF+VIva
+	 xXGnWjAWqnNFyP6ZZT2xbM3DDoAIQqJDDO+80F62NLLC3VdduJQsXZmt5T7jnqdQW3
+	 T0OygiwxSeJPw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Dmitry Antipov <dmantipov@yandex.ru>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Changwei Ge <gechangwei@live.cn>,
+	Joel Becker <jlbec@evilplan.org>,
+	Jun Piao <piaojun@huawei.com>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] hwmon: chipcap2: serialize access to the alarm indicators
-Date: Fri, 13 Nov 2026 09:47:59 -0500
-Message-ID: <20261113135622.1498116-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] ocfs2: add extra flags check in ocfs2_ioctl_move_extents()
+Date: Fri, 13 Nov 2026 09:49:27 -0500
+Message-ID: <20261113144806.1427542-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113135622.1498116-1-sashal@kernel.org>
-References: <20261109200332-failed-6.18-bed5f0c075eb@kernel.org>
- <20261113135622.1498116-1-sashal@kernel.org>
+In-Reply-To: <20261109200438-failed-6.18-84db6619cb70@kernel.org>
+References: <20261109200438-failed-6.18-84db6619cb70@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,161 +67,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+From: Dmitry Antipov <dmantipov@yandex.ru>
 
-[ Upstream commit bed5f0c075eb99442fca6a61c009a32752eceda2 ]
+[ Upstream commit 41a5e8777093f7946fade3737363ef045303b8dc ]
 
-low_alarm and high_alarm are accessed from the threaded interrupt
-handlers and from sysfs without any locking, which can lead to lost
-alarms.
+In 'ocfs2_ioctl_move_extents()', add extra check whether only actually
+supported flags are passed via 'ioctl(..., OCFS2_IOC_MOVE_EXT, ...)',
+and reject anything beyond OCFS2_MOVE_EXT_FL_AUTO_DEFRAG and
+OCFS2_MOVE_EXT_FL_PART_DEFRAG with -EINVAL. In particular,
+OCFS2_MOVE_EXT_FL_COMPLETE may be set by the kernel only and
+should never be passed from userspace.
 
-Add a mutex to serialize the access to the alarm indicators and to
-process_irqs, which the handlers use to decide whether an interrupt
-belongs to an ongoing operation.
-
-Fixes: 3af350929e75 ("hwmon: Add support for Amphenol ChipCap 2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Link: https://patch.msgid.link/20261014-chipcap2_locks-v3-10-27ebfc2c5b9e@gmail.com
-[groeck: Dropped obsolete 'Assisted-by: tag]
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lkml.kernel.org/r/20251009102349.181126-1-dmantipov@yandex.ru
+Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 84db6619cb70 ("ocfs2: validate move extents against a stable EOF")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/chipcap2.c | 58 +++++++++++++++++++++++++---------------
- 1 file changed, 37 insertions(+), 21 deletions(-)
+ fs/ocfs2/move_extents.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/hwmon/chipcap2.c b/drivers/hwmon/chipcap2.c
-index a3d5d99bd57ea..49df66728ae9d 100644
---- a/drivers/hwmon/chipcap2.c
-+++ b/drivers/hwmon/chipcap2.c
-@@ -20,6 +20,7 @@
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
- #include <linux/irq.h>
-+#include <linux/mutex.h>
- #include <linux/module.h>
- #include <linux/unaligned.h>
- #include <linux/regulator/consumer.h>
-@@ -88,6 +89,8 @@ struct cc2_data {
- 	int irq_low;
- 	int irq_high;
- 	bool process_irqs;
-+	/* protects process_irqs and the alarm indicators */
-+	struct mutex irq_lock;
- 	bool regulator_enabled;
- };
+diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
+index 831c6c648f04f..f599978cbb9b1 100644
+--- a/fs/ocfs2/move_extents.c
++++ b/fs/ocfs2/move_extents.c
+@@ -1044,6 +1044,12 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+ 	if (range.me_threshold > i_size_read(inode))
+ 		range.me_threshold = i_size_read(inode);
  
-@@ -119,7 +122,8 @@ static int cc2_enable(struct cc2_data *data)
- 
- 	/* exclusive regulator, check in case a disable failed */
- 	if (data->regulator_enabled) {
--		data->process_irqs = true;
-+		scoped_guard(mutex, &data->irq_lock)
-+			data->process_irqs = true;
- 		return 0;
- 	}
- 
-@@ -134,7 +138,8 @@ static int cc2_enable(struct cc2_data *data)
- 
- 	usleep_range(CC2_STARTUP_TIME_US, CC2_STARTUP_TIME_US + 125);
- 
--	data->process_irqs = true;
-+	scoped_guard(mutex, &data->irq_lock)
-+		data->process_irqs = true;
- 
- 	return 0;
- }
-@@ -151,7 +156,8 @@ static void cc2_disable(struct cc2_data *data)
- 		synchronize_irq(data->irq_high);
- 
- 	/* ignore alarms triggered by voltage toggling when powering up */
--	data->process_irqs = false;
-+	scoped_guard(mutex, &data->irq_lock)
-+		data->process_irqs = false;
- 
- 	/* exclusive regulator, check in case an enable failed */
- 	if (!data->regulator_enabled)
-@@ -502,10 +508,12 @@ static irqreturn_t cc2_low_interrupt(int irq, void *data)
- {
- 	struct cc2_data *cc2 = data;
- 
--	if (cc2->process_irqs) {
--		hwmon_notify_event(cc2->hwmon, hwmon_humidity,
--				   hwmon_humidity_min_alarm, 0);
--		cc2->rh_alarm.low_alarm = true;
-+	scoped_guard(mutex, &cc2->irq_lock) {
-+		if (cc2->process_irqs) {
-+			hwmon_notify_event(cc2->hwmon, hwmon_humidity,
-+					   hwmon_humidity_min_alarm, 0);
-+			cc2->rh_alarm.low_alarm = true;
-+		}
- 	}
- 
- 	return IRQ_HANDLED;
-@@ -515,10 +523,12 @@ static irqreturn_t cc2_high_interrupt(int irq, void *data)
- {
- 	struct cc2_data *cc2 = data;
- 
--	if (cc2->process_irqs) {
--		hwmon_notify_event(cc2->hwmon, hwmon_humidity,
--				   hwmon_humidity_max_alarm, 0);
--		cc2->rh_alarm.high_alarm = true;
-+	scoped_guard(mutex, &cc2->irq_lock) {
-+		if (cc2->process_irqs) {
-+			hwmon_notify_event(cc2->hwmon, hwmon_humidity,
-+					   hwmon_humidity_max_alarm, 0);
-+			cc2->rh_alarm.high_alarm = true;
-+		}
- 	}
- 
- 	return IRQ_HANDLED;
-@@ -534,11 +544,13 @@ static int cc2_humidity_min_alarm_status(struct cc2_data *data, long *val)
- 	if (ret < 0)
- 		return ret;
- 
--	if (data->rh_alarm.low_alarm) {
--		*val = (measurement < min_hyst) ? 1 : 0;
--		data->rh_alarm.low_alarm = *val;
--	} else {
--		*val = 0;
-+	scoped_guard(mutex, &data->irq_lock) {
-+		if (data->rh_alarm.low_alarm) {
-+			*val = (measurement < min_hyst) ? 1 : 0;
-+			data->rh_alarm.low_alarm = *val;
-+		} else {
-+			*val = 0;
-+		}
- 	}
- 
- 	return 0;
-@@ -554,11 +566,13 @@ static int cc2_humidity_max_alarm_status(struct cc2_data *data, long *val)
- 	if (ret < 0)
- 		return ret;
- 
--	if (data->rh_alarm.high_alarm) {
--		*val = (measurement > max_hyst) ? 1 : 0;
--		data->rh_alarm.high_alarm = *val;
--	} else {
--		*val = 0;
-+	scoped_guard(mutex, &data->irq_lock) {
-+		if (data->rh_alarm.high_alarm) {
-+			*val = (measurement > max_hyst) ? 1 : 0;
-+			data->rh_alarm.high_alarm = *val;
-+		} else {
-+			*val = 0;
-+		}
- 	}
- 
- 	return 0;
-@@ -721,6 +735,8 @@ static int cc2_probe(struct i2c_client *client)
- 
- 	i2c_set_clientdata(client, data);
- 
-+	mutex_init(&data->irq_lock);
++	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
++			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
++		status = -EINVAL;
++		goto out_free;
++	}
 +
- 	data->client = client;
+ 	if (range.me_flags & OCFS2_MOVE_EXT_FL_AUTO_DEFRAG) {
+ 		context->auto_defrag = 1;
  
- 	data->regulator = devm_regulator_get_exclusive(dev, "vdd");
 -- 
 2.53.0
 
