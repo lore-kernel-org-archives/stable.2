@@ -1,70 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577392;
-	b=4eLyepQf4juKM/NLyYLZu+bIHynEbHhdbQ2qAw8XRVcUwZBMZ96fi/Cc50TbFU/gwkxB
-	 9IVsNxRDNznGBSqGMK9ZQWsb8Q3ZlZdcpILM8Kre4n+lQBkXNpZRC+ZSlRu1xB2rpapLr
-	 FJWsoHBogZsBxoczeQSSF37T7Jng29EiGCx/86WfW823I1pwcJUu6oZf/mqgnF1HpHIvD
-	 8Y8pEdFxRaKZ+xX40+cHzQZfXqQtGbVbJjhJPtt9N+wmW22OsXGiNA8K7rdVCYgaCDMy8
-	 qMLqQVEUCvCTnGPPhUL/KVpqZ+wTk32EIi6phrxfQpW8RsULvXPJpDsmZsSJ4M1qW3Q==
+	t=1794577571;
+	b=c7wY0zdwgg7vWHQZde48mo4Rb6o2q0Vee322GqeQjev0oj0lraEc+SbkeJUBL7+/Qtpa
+	 g/tE5ZIGvpGg3jFTI2uh1VehjTcQaiuBQpIcSTIsSOK79DVt31ES1lVo+IpqB2nK5W3X7
+	 N4zTMm14niFuL+Q1f/AtiX1p63W/qOoWYjGIyqTx12TyfC9cP60vq48uAHXoV5iUugcYY
+	 NEx98EFuqz3v03JYkE0oi7w5M2fJtQyqqnkUOIefUjKpk2jXL5WVPXosF7cQRqSQQRpCj
+	 XkMounMpBUPFpdlKFVLn+arjiJKDoveIUx+p7J9NOS3LnTlmht89h9Tb4g/3XBqHrjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577392;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=3kcrlVRBobTRT8jOtREfiBLM6vTtQc7X6ndLPnK4qOc=;
-	b=aaecWaCZiiuvsGMjvGcGY8Ejgyxcj7BjzH50sZRgXzyHt3s5zSIYUHACyn/Ew/JJp8yL
-	 5JvI3vWbmyKZCWPs1wekiTfDcNKqbW4SLbwDbeYaW1VGuC6oitik9h4W7FcviUZCNMU6l
-	 OMgU2aK5pcvvlanuoLXDZPFIjKinaImIaHASL3UqXmvkc+0bxQKrJwKbxnhwD4bKwgIFH
-	 UwCtCG2c52r5/QYRjlCu3OfCPJdxEOAaSf0a3aHLFzvQAeBqa2uW9zjWlzwZg4DvqDuBZ
-	 pnmvSPM8SmMLLvNOHKnHi/5WG1ohLzkwdT4FwYOeaeryQLGcFhtrvdGuWoLOrYdmwIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577571;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wke/lWZWJ5oe3v8HYY4hzKwu1F/KvP2xL6bsuJI2W+Q=;
+	b=s6GO+a/bKiXLaw0vN2v0wQUihQrVfRYX/qFJZYXLPYxAhGb78J4VRnpNetUbH7EeU5YP
+	 wXYeqRfJWU/m1PRsz+mD923GGYbXkROrHfnQbzJU0YC4GKMyhWHhy7IYGetRKqmuYdN19
+	 DSKMn+9XsmU8OaBzj2/gXpWZOZ9W478Bh2VMKRZvOqLlT8MX5GzH1I4xlXJr8Y7NipS0/
+	 hSFFjK51HO5j3AVFN+Kngz7VTV0OXPe07fMOdvBjrGRClet5+OdW0iwwnyeivqqByOM6a
+	 bVM7Yt/IO5wdKyzXpicS7kRaHoGb2cHyKeNxvDMDxKHjiRXkFVogVmqWoqDQ+ULKn4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=cKkX2C9T;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNFZeXja;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69324606A327;
-	Fri, 13 Nov 2026 13:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69324606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1468606A89F
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 13:46:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=cKkX2C9T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794577330;
-	bh=3kcrlVRBobTRT8jOtREfiBLM6vTtQc7X6ndLPnK4qOc=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=cKkX2C9TU/v7CMDu8ugevsUTc5a31S7buh2ror1VZhNiorOX6FXSVjxpppf7JpIOI
-	 grypYAyhUtU72O4aTG+Qe2pGBRWf8GnC3TKYnMe7+QWAWcHXZp5rE9Kox9jMBi6UBD
-	 T7FwdYUsE4487kmxajUaoXmD2tJ4bBMkjvbMoxiw=
-X-QQ-mid: zesmtpgz8t1794577305t88a9c797
-X-QQ-Originating-IP: UpGU27M314SgLzhWg8rwr6TRitp95Zs5/+Vkkk4Vmrk=
-Received: from uniontech.com ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 13 Nov 2026 21:41:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2692691757360946475
-EX-QQ-RecipientCnt: 10
-From: Yichong Chen <chenyichong@uniontech.com>
-To: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	linux-wpan@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhan Jun <zhanjun@uniontech.com>,
-	syzbot+8a8482d4c33cc58babb4@syzkaller.appspotmail.com,
-	stable@vger.kernel.org,
-	Yichong Chen <chenyichong@uniontech.com>
-Subject: [PATCH net] ieee802154: hwsim: free PIB after hardware unregister
-Date: Fri, 13 Nov 2026 21:41:41 +0800
-Message-ID: <0D7C088B45E7283A+20261113134141.2626113-1-chenyichong@uniontech.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNFZeXja
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92841F000C5;
+	Fri, 13 Nov 2026 13:46:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794577571;
+	bh=wke/lWZWJ5oe3v8HYY4hzKwu1F/KvP2xL6bsuJI2W+Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cNFZeXja6mwBGLZfwNbG6p/jb4C5sfQZTUxAI6/M6CvSaRtmpYG+e0PrFQgQ8flzv
+	 BO9IBJLFLjiTuUqNUzdi/MTEUPQ4nqpOBJRvGYmxB+kUq8aXb3sMLmEqRfoM+zLjcI
+	 FyLv6GmNHDN3MZnS/aRnk4sRXy1qroRMIBZJXzLEkDxGBKVDf7/6IzdR1Nd3jHKy5A
+	 AxvpId80yCG1SZNJDomgt7sdUIrIz/ElfwRJchmiAJubgz8lCT+A5NNX5J0gNWVXAJ
+	 1NRUAxk+Oh/Xv/NMXP0lgnIFTslEyB2ppTbMoV7/0GSd99ZwV0kva+rQqTSY3CnXB4
+	 luaLPNSVnr1fg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Kevin Wang <kevin.wang@amd.com>,
+	Kenneth Feng <kenneth.feng@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/amd/pm: populate unique ID for smu 13.0.7
+Date: Fri, 13 Nov 2026 08:46:09 -0500
+Message-ID: <20261113133445.1312722-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201004-failed-6.12-079f9103d9cd@kernel.org>
+References: <20261109201004-failed-6.12-079f9103d9cd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,75 +61,68 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OE2B1K8X9uN6TKRJknmgrzQ8Ba+/H4Q/PDI3pM1HiENumoaa+39xeTTP
-	Tb3HtFJN/ArQZA0ll4i+R4WEyv+c6UCgukuAk8Df64MNbytdWPzGcQUPvBwDpNTJbt60dcU
-	III9jEPFMPRX8i4v12nzJVqD45Jm6Orcl/xkko1a7n4LgMWUZ4Lo8I0lLFbnNt/YVk3mE2O
-	s/Acj07aTdfSmSvG3PnJo0gCwzZqJYb3kvLqvzVq6lhh1lV3F/VvddXutOyyb329czZg2hF
-	DJN+mZ28V/r/5lPnfswBad/GsJj9zxcnIXDla9xjHkBe8UHngaXQqZCzRMzNLFMxo1kxMnw
-	5DvXDUV8/wm3LeY/dRlHENfPuafH4BnYpnhsZSl1crSvwbz+P8rxjqSeuH9VZDHQXBHxRXI
-	4btkLfsxiVv4a3P3EfLHFb7Kos/LoA2Z+vPqI0RnJNyryyYCTBD4TVtUA4XTsG0zFfe8hXo
-	G/H7/4CAdxbVNNuVfj5bAPztQwparvcMq3NVfF7dfOaojHQK+C5V5QjsFtZGL9vxlntESpn
-	k8aphZgvGTFzkkq71RzItV5JXWfd6hty1IydJzPxVKHp2hvfE6oS1lD5EdnSkxgFOuQDiZ2
-	PjqV4PJz/lcOr9yHen/GZ4I5zD33mbHggQXBceteF13bS5/s36CQ7W6xp5lNa0Kszq9xOOJ
-	M7ZQCTDq25Ytx1OLx2XToAe4+QGWq44ijSUKincPQNlaQ3eiur+XUR2gD57WSNNOiY4oPkC
-	B49fVqrwqChZcy5iKc5JMFpVHakdMIFinx1pWB1hmpc6uCkKuJ2iZ2wNUFSdyiyGGY5jjFv
-	xyoiHZSEjW5ZuQ3IW7C/AdJVixecrZSH6MQ+UqvaAXpu9+Pw6VNqYZdJojN83QUGOoaB4ok
-	3BdjWjnsDZsNpgRvGRkvFhspAuHMtqLDgoHSq+U+7jdLjRnADdjBTvWVcuDDDs1DC+Hunm7
-	As5Sa7Z7p+Xv+jZ2H/c8hZ39SIgaNwWPzlLChPBne9uzkasqL9XddpgboT9dlTMG8/GI0g+
-	8ay/4x0XWcpbNc/i1Kl7oxzTZKYU+VsOkFvDslHd+IixAL02kg0PNKb6PXLASpmUlLcSpET
-	hM5gWN1QmPCddPvaq90oic=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
 
-From: Zhan Jun <zhanjun@uniontech.com>
+From: Kevin Wang <kevin.wang@amd.com>
 
-hwsim_del() queued the current PIB for RCU freeing before calling
-ieee802154_unregister_hw(). Unregistering the hardware closes its
-interfaces and aborts an in-progress scan; scan cleanup calls
-set_channel(), which replaces the same phy->pib and queues the old object
-for RCU freeing again. KASAN then reports an invalid free in
-hwsim_update_pib().
+[ Upstream commit 079f9103d9cde68fb2ccc414e94520f43ee102de ]
 
-Unregister the hardware first, then atomically detach the final PIB under
-pib_lock and queue only that current object for RCU freeing. This lets all
-driver callbacks finish before the PIB is reclaimed and avoids freeing a
-PIB that was already replaced during teardown.
+The smu 13.0.7 backend does not register get_unique_id, leaving
+adev->unique_id at zero and KFD topology without the stable GPU
+identifier consumed by HIP.
 
-Reported-by: syzbot+8a8482d4c33cc58babb4@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6af5f575.b350cda4.2b6a63.0000.GAE@google.com/T/
-Fixes: f25da51fdc38 ("ieee802154: hwsim: add replacement for fakelb")
+The failure is observed at:
+    auto ierr = hipDeviceGetUuid(&uuid, 0);
+
+Fixes: 113cc31dde66 ("drm/amd/pm: add SMU_13_0_7 ppt_funcs for SMU_13_0_7")
+Signed-off-by: Kevin Wang <kevin.wang@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 5e2585daaf8336d9ce1bf52e55a9b7a8cdbf625b)
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Jun <zhanjun@uniontech.com>
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
+[ sashal: Moved smu_v13_0_7_get_unique_id() immediately before smu_v13_0_7_ppt_funcs because the upstream neighboring functions are absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ieee802154/mac802154_hwsim.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/net/ieee802154/mac802154_hwsim.c b/drivers/net/ieee802154/mac802154_hwsim.c
-index a9bd1555d2dc..a65ae2afb789 100644
---- a/drivers/net/ieee802154/mac802154_hwsim.c
-+++ b/drivers/net/ieee802154/mac802154_hwsim.c
-@@ -1008,12 +1008,16 @@ static void hwsim_del(struct hwsim_phy *phy)
- 		list_del_rcu(&e->list);
- 		hwsim_free_edge(e);
- 	}
--	pib = rcu_dereference(phy->pib);
- 	rcu_read_unlock();
- 
-+	ieee802154_unregister_hw(phy->hw);
-+
-+	spin_lock_bh(&phy->pib_lock);
-+	pib = rcu_replace_pointer(phy->pib, NULL,
-+				  lockdep_is_held(&phy->pib_lock));
-+	spin_unlock_bh(&phy->pib_lock);
- 	kfree_rcu(pib, rcu);
- 
--	ieee802154_unregister_hw(phy->hw);
- 	ieee802154_free_hw(phy->hw);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 9467db88969c6..22420256750fa 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -2669,6 +2669,25 @@ static int smu_v13_0_7_set_power_limit(struct smu_context *smu,
+ 	return 0;
  }
  
++static void smu_v13_0_7_get_unique_id(struct smu_context *smu)
++{
++	SmuMetricsExternal_t metrics_external;
++	SmuMetrics_t *metrics = &metrics_external.SmuMetrics;
++	struct amdgpu_device *adev = smu->adev;
++	u32 upper32 = 0, lower32 = 0;
++	int ret;
++
++	ret = smu_cmn_get_metrics_table(smu, &metrics_external, false);
++	if (ret)
++		goto out;
++
++	upper32 = metrics->PublicSerialNumberUpper;
++	lower32 = metrics->PublicSerialNumberLower;
++
++out:
++	adev->unique_id = ((u64)upper32 << 32) | lower32;
++}
++
+ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.get_allowed_feature_mask = smu_v13_0_7_get_allowed_feature_mask,
+ 	.set_default_dpm_table = smu_v13_0_7_set_default_dpm_table,
+@@ -2739,6 +2758,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.enable_uclk_shadow = smu_v13_0_enable_uclk_shadow,
+ 	.set_wbrf_exclusion_ranges = smu_v13_0_set_wbrf_exclusion_ranges,
+ 	.interrupt_work = smu_v13_0_interrupt_work,
++	.get_unique_id = smu_v13_0_7_get_unique_id,
+ };
+ 
+ void smu_v13_0_7_set_ppt_funcs(struct smu_context *smu)
 -- 
-2.51.0
+2.53.0
 
