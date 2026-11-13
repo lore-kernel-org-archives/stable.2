@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590599;
-	b=aXpfo0BsA6dNsm166DU5aJakFTIbcEvFKAiSwIttNpg1DvVZOb/jLqFIfRZBbnNHvQge
-	 p9qJkscm8R3pHTsxpxT00XKJ/V+b5qMt7wX/BMXnj+5wcTmx/rSN9NoWPnf/RbXvdBMwT
-	 Fp/ujxatLudfHecYdRa9+7OICxeN2ZGn3ekWyaQAokhxGkUIkgegPwBeUSxjAzwlMZJwu
-	 +hTA78epgBV4ZzCZJXATAxyDXwhFlR5oj+k/R5VwMtD9uhPCO8ZA/60RkRMiXAjukFLy9
-	 Ob48Ow2Dq4NsjzBmVbXcr4vC+5kSN9EnVSpAqrHxV0TlurucA2KagXc+snGcB8DaWKQ==
+	t=1794590600;
+	b=KWmoKK+UouQ6qkOZa8rSjFCijXT5Tn119A4w5vbrySgdN8qP5SvQ95HfXu02aGL5UO4k
+	 PgkBMnAv7ML1A/cfl9gXpQOl/cc5zp8ok3uxKzeNvKDi2cgSuXeZ+NrgT/MKSkPvZtisZ
+	 IbWdMsMm/xpOuPx0DOdx4KXye0T/lPDE8F48xfXyOhSaHnMXzbMd5nVJKwURqsQqth8SS
+	 Mz+9oBn8x/lCMivhaVGP9nj3bXqjCDsvnaIzQcw1ce9LzopR26CD9GEc79QkB05sRvF88
+	 D5El8W3hx9qvARYee3gbLqIQ5JZgy/QdGQwFERxFsSQFnJHz4y7zlWkAzWVa2hgg5YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590599;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZrCKa8ra1k7wCJ/ysMx3XGJvDYpIL0Gvs+XQEDm92ys=;
-	b=3EOfv7QIINurlAMjnpDx30U9eIEW6Y0UUCbVhqmF+x+PWLj4kTMqgBIkbxcQAy4iegaL
-	 k4S+OMtT7x9isTx6Xd5cre2SFrB7oE/FaqxqUn+11jHwz5q4novOgvhOKsXEHwUttHmEE
-	 HAPYaSewcuWU1VLwdJHRS8hQA9499mWKerPjkuLb9eWVnS3UxweirkFPkKfmJ2g0zmoHY
-	 CnXFVgTAl66w6ijqlhdeqnGjTjYXMoWyavwa2nETRA8gf1RUeIPd1UlB330WlaXVgfKF/
-	 GmCa7UCsfDJuBwUs8elvKIGN48cTWl/X9JEo0AD6Yc18uwyFOr6Vm3k3IZMApJNMvzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590600;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2c+SwvVe+TYvB1ck0x9BFmui9dOGJzGDRlpiqG9Cfj0=;
+	b=VuKGhxn4AXnAWS3xPT2estbeSIiCbi39YtuCSNR6PeGoYQr9fyAQryt55pbzZNONaYxw
+	 tNjU7gNyEbzOXjdNj42zGqq/HnsnTC/t0fLVWOmWiyRwdA7sjHMYl4RuIodX9+VbbDCBs
+	 kNVK+CzqKNBXKGobZ550ZV4YQp0swsvMrxHi0dcoTzYCtlJSVU9zkzZdiAYO+ls+sl/PW
+	 syMuP2DA8mg7/yT+RpILZC2U4m0aJFqS3yrd/ph2Yatv6SUJMep8wDLP3VI9wJGytu1Nn
+	 Z8z2dAewevfHjdXtaabBzl9igQghE7YBgsaV0S08FKJDewiEmFWh3hCCV3MiUDWwOAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F1LGml0m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c/YJO4bh";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3605F606A887;
-	Fri, 13 Nov 2026 17:23:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD1C6073FD7
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:23:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F1LGml0m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6AAE1F000C4;
-	Fri, 13 Nov 2026 17:23:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794590599;
-	bh=ZrCKa8ra1k7wCJ/ysMx3XGJvDYpIL0Gvs+XQEDm92ys=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F1LGml0mw6ab1Owtqhff/1rJNtFPvBJ/nHmQCLovB5HCsl69MEoA0oY+xVjnXaL37
-	 EjxNxyJmwUvs6XZkSuWHqKI+Z0QfMEMXHUELr1x1jjbPc2MTs19xKx/2PIYTkPvep4
-	 uvVJNQ2xH5H8tFtHr5wr43jU6CNXjpnLitI6/1Cc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Marc Zyngier <maz@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 528/686] KVM: arm64: Pin the host vCPU before adjusting its PC under pKVM
-Date: Fri, 13 Nov 2026 10:51:01 -0500
-Message-ID: <20261113153839.024133474@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
-References: <20261113153820.902362109@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c/YJO4bh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 290691F000D3
+	for <stable@vger.kernel.org>; Fri, 13 Nov 2026 17:23:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794590600;
+	bh=2c+SwvVe+TYvB1ck0x9BFmui9dOGJzGDRlpiqG9Cfj0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=c/YJO4bhCrQWIhSM6EQGg1502+mq+by4yptqz28H6C2QAcVcxo/sv5SDoxBQPi1+y
+	 rzOHHIcEX1NvwpOu1r8J5FHs0ccpqC1d6zeN0+LYuTvlctR3ztCM8VVjeiVYrgp14C
+	 OIp/N0FawMMtckqcRN4VhblDLHRSNpdrpQQZ/Q6DXwI870gA3SD+bAfI55J58DzlE6
+	 eFLNGmVmhfR9N1sOd/QzaGwqCjAdUSacbRwPOtpTJ4srPN+GGxXELmx6ToYKiOBrJG
+	 WbaEz1fWYfaoaPxTLCGdfIUr3m53hxVLM380qbZboiGT3br3uDUtj6Cf+rlK6qDfip
+	 3Tc71H311BoCQ==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ae25c846edso13738411fa.2
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 09:23:20 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFPRsA1vZOXdQ9YWZWulolKzNH3Bihngs6OSZ76evRr99EcuQWrOGun8DreWlz517++MZ281uA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xy7gpEu5nsHIE9P+coCKCP3dq/GkQ7i0UN37KZs1ZdNaINYD3
+	EFgE+e96vABeuANyA59vIiIMzVAIrs23g+aEUy9UTcuyCIlZMAk+xmW2T4NsCbFo5FuWH67VLDV
+	zrHiQ67KIQvksStsbTSwFjFBguyLtS5E=
+X-Received: by 2002:a05:651c:1a2c:b0:3a3:5a01:a794 with SMTP id
+ 38308e7fff4ca-3ae2b48e201mr12006811fa.1.1794590598539; Fri, 13 Nov 2026
+ 09:23:18 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,82 +59,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110085125.2535508-1-johan@kernel.org> <20261110085125.2535508-2-johan@kernel.org>
+In-Reply-To: <20261110085125.2535508-2-johan@kernel.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 13 Nov 2026 18:23:06 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0j+GZ_v3=ji4Tcv9mahU3rBvX+WX0H5BwQ6kjhc6HpVpA@mail.gmail.com>
+X-Gm-Features: AclHuK8jFghVnxRICo3FkWZ1EaLI4NGbOw-Xw0BnT0rGkVeLLEHZH-dtxA8z2So
+Message-ID: <CAJZ5v0j+GZ_v3=ji4Tcv9mahU3rBvX+WX0H5BwQ6kjhc6HpVpA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/8] driver core: platform: fix swnode use-after-free
+ on device release
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev, 
+	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Nov 10, 2026 at 9:52=E2=80=AFAM Johan Hovold <johan@kernel.org> wro=
+te:
+>
+> When a device has a software node, device_remove_software_node() may
+> drop the last reference and free it during platform_device_release().
+> If the software node is the also the primary node then the device fwnode
 
-------------------
+s/is the also/is also/
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+> pointer is never cleared.
+>
+> Use a temporary variable to track whether the firmware node is a
+> software node to avoid a use-after-free in is_software_node() and having
+> fwnode_handle_put() call a function pointer via poisoned or reallocated
+> memory when the primary node is a software node.
+>
+> This issue was flagged by Sashiko when reviewing a related fix.
+>
+> Fixes: 7d80509ff0da ("driver core: platform: unify release path")
+> Closes: https://sashiko.dev/#/bug/linux-b860000b-f1d0-46a0-ab52-d47cec8ea=
+b99
+> Cc: stable@vger.kernel.org      # 7.3
+> Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit a2bb5f5c67a95ac97fcd6859dab51be421cf26fe ]
+I have not found any issues in it apart from the above, so
 
-Under pKVM, a page the host shares with EL2 is mapped at EL2 only while
-it's pinned, and the host vCPU is pinned at its first KVM_RUN.
-KVM_SET_VCPU_EVENTS with ext_dabt_pending reaches __kvm_adjust_pc() at
-EL2 before that, and dereferencing the unmapped host vCPU panics the
-hypervisor. Any process holding /dev/kvm on a pKVM host can trigger it.
+Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
-Pin the host vCPU around the adjustment when no hyp vCPU is loaded for
-it. A loaded hyp vCPU implies it's pinned. A pin fails only for memory
-the host isn't sharing, and the request is then dropped like any other
-bad host pointer.
-
-Fixes: efa1368ba9f4b ("KVM: arm64: Commit exceptions from KVM_SET_VCPU_EVENTS immediately")
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261001135711.1640520-4-fuad.tabba@linux.dev
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: Replaced the unavailable __get_host_hyp_vcpus() helper with equivalent inline checks in handle___kvm_adjust_pc(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 6e7547b7ca432..1363758035bd1 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -385,8 +385,34 @@ static void handle___pkvm_host_mkyoung_guest(struct kvm_cpu_context *host_ctxt)
- static void handle___kvm_adjust_pc(struct kvm_cpu_context *host_ctxt)
- {
- 	DECLARE_REG(struct kvm_vcpu *, vcpu, host_ctxt, 1);
-+	struct pkvm_hyp_vcpu *hyp_vcpu;
-+	struct kvm_vcpu *host_vcpu;
-+
-+	host_vcpu = kern_hyp_va(vcpu);
-+	if (unlikely(is_protected_kvm_enabled())) {
-+		hyp_vcpu = pkvm_get_loaded_hyp_vcpu();
-+
-+		if (!hyp_vcpu || hyp_vcpu->host_vcpu != host_vcpu)
-+			host_vcpu = NULL;
-+	}
-+
-+	if (host_vcpu) {
-+		__kvm_adjust_pc(host_vcpu);
-+		return;
-+	}
-+
-+	/*
-+	 * With no hyp vCPU loaded for it, the host vCPU may be unpinned,
-+	 * and so unmapped at EL2: its first run pins it. A pin fails only
-+	 * for memory the host isn't sharing, a bad pointer, so the request
-+	 * is dropped.
-+	 */
-+	host_vcpu = kern_hyp_va(vcpu);
-+	if (hyp_pin_shared_mem(host_vcpu, host_vcpu + 1))
-+		return;
- 
--	__kvm_adjust_pc(kern_hyp_va(vcpu));
-+	__kvm_adjust_pc(host_vcpu);
-+	hyp_unpin_shared_mem(host_vcpu, host_vcpu + 1);
- }
- 
- static void handle___kvm_flush_vm_context(struct kvm_cpu_context *host_ctxt)
--- 
-2.53.0
-
-
-
+> ---
+>  drivers/base/platform.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+> index 979593e5cca1..be5d2f315fdb 100644
+> --- a/drivers/base/platform.c
+> +++ b/drivers/base/platform.c
+> @@ -598,13 +598,14 @@ static void platform_device_release(struct device *=
+dev)
+>  {
+>         struct platform_object *pa =3D container_of(dev, struct platform_=
+object,
+>                                                   pdev.dev);
+> +       bool fwnode_is_software_node =3D is_software_node(dev_fwnode(dev)=
+);
+>
+>         device_remove_software_node(dev);
+>         /*
+> -        * If the primary firmware node is a software node, its reference=
+ count
+> -        * was already decreased by the call to device_remove_software_no=
+de().
+> +        * If the firmware node is a software node, its reference count
+> +        * was decremented by device_remove_software_node().
+>          */
+> -       if (!is_software_node(dev_fwnode(dev)))
+> +       if (!fwnode_is_software_node)
+>                 fwnode_handle_put(pa->pdev.dev.fwnode);
+>         kfree(pa->pdev.dev.platform_data);
+>         kfree(pa->pdev.mfd_cell);
+> --
+> 2.56.0
+>
