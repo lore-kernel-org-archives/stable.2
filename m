@@ -1,78 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590708;
-	b=IMasFPxuQM/V1E1d4GG9OihQkykbrpCvBMP2f8VsMR2UVPTwMxtbUUhTzg6XQm1fpbMt
-	 oht+1HksITnyErbRPJwmdLzslewg2EYsrNfQIhaaxhlHtQZiYHCOP2Ew4erZ9fx2S/qRl
-	 hRyuWhVRBjJTSJo9AgoGAVtGAsFrgQkFj5PHBxfs/bBoEnpzwz0q6ZGamJypQ0w6nd3oS
-	 3szkEA4fyu9boVvhevUOZLJUbhjVKMPaxEZqMya7/ahDCKsyRc0B5resvoXLreTJJ72NO
-	 IZE9dN20xXM6hwBzGa9B7dBqOBttzkQUogKo9t7+vyhymPRh3eycwwM/f1i2c3nPbhg==
+	t=1794590703;
+	b=e/8JlkecAQIFT8qQK/bX9Qep3AEOrWloOR/V5BP1ScLqj7vMdbhKVZe+d358KfJR4HBd
+	 ssayzRtnGhP0UuZZZs9IR4GLJHvt7dPakV65y/Dl9IDL0wPZtAn+RBXDDK3iY+6hiXlbh
+	 vUR/eT+gBHo9asldcBWUjQblgQvQMUoeqvx6V4V3XH+HGUcb4/0jJgHQ8uWv3/vkxo/wY
+	 dXebhNKxpjuPKTZzW0t47Jg/1wiZUkYjml8ZUxora+z7/z7XPMu6IPbqHBh2VRsbxkrV/
+	 SHsBdliE1o4PFQcPdnY9gNaXfq0zA45n/nUL15Uhjp1z649B2RbiHhUA9R9uD+lqJXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590708;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590703;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2m0ZEdk9tyqIU4f3VTkA8TKSiQMVZkViwFr+k0ZaPIE=;
-	b=k784wm3bpwrY/bCpCSl0yObjj6bWR5lCkTxWDWi5x1EXYZPXppqNjAdGXXqRft+c9Sek
-	 PziZCerw40oE/BDNjG/gUe8GAIKN6VX8w++iuhtM/RXBcYDaON0vXhyROydFDf7A5Xisg
-	 hdx8IaDfyJ3Cn4k8To5yRUhrgghqFN0SIN5N1Um9h6gtkT17N35tI9y7YdqCaqsNDnxmk
-	 wvh6bq7s+NFH8obOMnOBhNaOLJtHhY3q5G7EGWP7oYJ08HWzit+TZkKqoKN0Nw2eDDSTJ
-	 75029ln5758Y3QDM//0YoQma42IlDBX+EvgSOrD0uoBnU16ETMyBqHn1yIbIwyP/Viw==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Ys7rQiFu+Tp7JFzkA1fCgzcl1G1W8kgHiZJHMuFg/Cs=;
+	b=e+khKfkzrO/JBYequgoW3ebBZgTCgK6+eWhTVLTMkZQj1lAIjzfdunPzPQT/BPokuvFx
+	 EfUIfKxwUFWDGOwgzSpZdqnRImaiZEXmyPgKLFJ+/8dhpaAJOMmotQA5nGwoy4MQdEwHW
+	 +CIf0VYoJT0gGevfnyoKnmwKGZDiRUJ7K9Vwe6G88Yud6M5xDil4yfwqK6z/sBormX7RX
+	 B3p+B8fTWSCaB2b+5WMzz5zBVdp9IVgJiyjU1F8Coe5jyM2gnk2bAKNQBFFN+Uo3HjeIk
+	 GbE7uwKfxPJqvZUCSgJZEhE+2hjHNp15ckQZmjMy8Spu8fN1Tgat6c79yzgHCDMQDjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=suG9Z5mK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CUyIaOwl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918AE607A5DC;
-	Fri, 13 Nov 2026 17:25:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF7F607A5C9;
+	Fri, 13 Nov 2026 17:25:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=suG9Z5mK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BBA1F000C6;
-	Fri, 13 Nov 2026 17:25:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CUyIaOwl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7265C1F000C5;
+	Fri, 13 Nov 2026 17:25:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794590708;
-	bh=2m0ZEdk9tyqIU4f3VTkA8TKSiQMVZkViwFr+k0ZaPIE=;
+	s=korg; t=1794590703;
+	bh=Ys7rQiFu+Tp7JFzkA1fCgzcl1G1W8kgHiZJHMuFg/Cs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=suG9Z5mKTE0ZUvrBiHOv+an21cZ+04iw63Vk2DjMTIyHt6HtRcOi0KwiI5cmnwema
-	 0tNCIff556KUtd0L60xZtGIauekNvKiQNEJUPIHqbr3nHLBvG3kyj2aNHv5GJ28iVa
-	 7tps0ohrOfvXwbOKX8RQK43SgUi7Iisdipg/AkTA=
+	b=CUyIaOwl+LXDSlcl1iWWsAcz0youzhHZHhvEBLP3bPjpNtKCHe+AWqH4OVlhuG+ve
+	 Ez7H2JPxU3LyEoKbZGOdVS0oRiJXY2euoP1qtA2e5L5+YQCCNh2yvbzDzm7t0SNiJb
+	 dnDYjSiWtv44bokO/hNtyzFAkrqpVt2XpytV9GuI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ackerley Tng <ackerleytng@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Alex Shi <alexs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Frank van der Linden <fvdl@google.com>,
-	Hongxiang Lou <louhongxiang@huawei.com>,
-	James Houghton <jthoughton@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Ma Wupeng <mawupeng1@huawei.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Peter Xu <peterx@redhat.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vishal Annapurve <vannapurve@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
+	Navon John Lukose <navonjohnlukose@gmail.com>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Rong Zhang <i@rong.moe>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 618/686] mm: hugetlb: drop refcount before freeing on memcg charge failure
-Date: Fri, 13 Nov 2026 10:52:31 -0500
-Message-ID: <20261113153842.814684849@linuxfoundation.org>
+Subject: [PATCH 6.18 614/686] platform/x86: lenovo-wmi-capdata: Do not stop the AC notifier chain on error
+Date: Fri, 13 Nov 2026 10:52:27 -0500
+Message-ID: <20261113153842.690506864@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
 References: <20261113153820.902362109@linuxfoundation.org>
@@ -88,78 +65,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.18-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Ackerley Tng <ackerleytng@google.com>
+From: Rong Zhang <i@rong.moe>
 
-[ Upstream commit e95d29c5df84f19881cd30b491fc81aa98f44b45 ]
+[ Upstream commit 3b53e691e907086672b72d0544e4bf27efd4250d ]
 
-When mem_cgroup_charge_hugetlb(folio, gfp) returns -ENOMEM, the folio has
-its refcount set to 1 via folio_ref_unfreeze(folio, 1).
+Returning NOTIFY_BAD to the AC notifier chain stops it by preventing
+later notifier blocks from being called, but our error is non-fatal for
+other AC notifier blocks, which should continue to consume the event.
 
-The error path calls free_huge_folio(folio) directly, which expects a
-refcount of 0.  Hence, VM_BUG_ON_FOLIO(folio_ref_count(folio), folio) is
-triggered.
+Return NOTIFY_DONE and add a dev_warn() on error, so that the AC
+notifier chain continues. This also aligns with hp-wmi.
 
-Even with CONFIG_DEBUG_VM disabled, returning a folio with refcount 1 to
-the freelist can corrupt allocator state later.
+The function documentation was copied from elsewhere and makes no sense
+here, so correct it as well.
 
-Use folio_put(folio) instead of free_huge_folio(folio) to properly drop
-the reference before freeing it.
-
-Link: https://lore.kernel.org/20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-2-4b4a8a19a7f7@google.com
-Fixes: 991135774c0e ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Alex Shi <alexs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: David Rientjes <rientjes@google.com>
-Cc: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Frank van der Linden <fvdl@google.com>
-Cc: Hongxiang Lou <louhongxiang@huawei.com>
-Cc: James Houghton <jthoughton@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Ma Wupeng <mawupeng1@huawei.com>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vishal Annapurve <vannapurve@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Yanteng Si <si.yanteng@linux.dev>
-Cc: <stable@vger.kernel.org>
+Fixes: e1a5fe662b59 ("platform/x86: Add Lenovo Capability Data 01 WMI Driver")
+Cc: stable@vger.kernel.org
+Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Signed-off-by: Rong Zhang <i@rong.moe>
+Link: https://patch.msgid.link/20261019-lwmi-wmi-new-api-v5-2-71557d28d058@rong.moe
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/lenovo/wmi-capdata.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 1bfeaecf9b4fa..225c04d583adc 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -3133,7 +3133,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 	lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
+diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
+index ba843b6604b06..c7fa1c2969561 100644
+--- a/drivers/platform/x86/lenovo/wmi-capdata.c
++++ b/drivers/platform/x86/lenovo/wmi-capdata.c
+@@ -188,13 +188,11 @@ static int lwmi_cd_setup(struct lwmi_cd_priv *priv)
  
- 	if (ret == -ENOMEM) {
--		free_huge_folio(folio);
-+		folio_put(folio);
- 		/*
- 		 * Return -ENOSPC, since retrying the fault is futile:
- 		 * the OOM killer is not triggered for HugeTLB.
+ /**
+  * lwmi_cd01_notifier_call() - Call method for cd01 notifier.
+- * block call chain.
+- * @nb: The notifier_block registered to lenovo-wmi-events driver.
++ * @nb: The cd01 ACPI notifier_block.
+  * @action: Unused.
+  * @data: The ACPI event.
+  *
+- * For LWMI_EVENT_THERMAL_MODE, set current_mode and notify platform_profile
+- * of a change.
++ * Refresh cached capdata on AC status change.
+  *
+  * Return: notifier_block status.
+  */
+@@ -213,8 +211,16 @@ static int lwmi_cd01_notifier_call(struct notifier_block *nb, unsigned long acti
+ 	switch (event->type) {
+ 	case ACPI_AC_NOTIFY_STATUS:
+ 		ret = lwmi_cd_cache(priv);
+-		if (ret)
+-			return NOTIFY_BAD;
++		if (ret) {
++			dev_warn(&priv->wdev->dev,
++				 "failed to refresh capdata on AC change: %d\n", ret);
++
++			/*
++			 * Our error is non-fatal for others, and we still want
++			 * the other event consumers to process it.
++			 */
++			return NOTIFY_DONE;
++		}
+ 
+ 		return NOTIFY_OK;
+ 	default:
 -- 
 2.53.0
 
