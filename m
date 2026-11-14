@@ -1,60 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677358;
-	b=ytAGIRSYwUukXmZOjM1dX3MuDVoeAabZVFpVnFkD0RKAbm11DePbrpdKbSSoaKrAu+vi
-	 DKbpDn2OicE9viOYeXF8/ANX6uiidlnFN6UUPbugzREgBLYneczPKVpA3QkzoAvq/OCH0
-	 8KKndgL7hDuJ9W3EUlbyapSMuN/udDu5i5Va7Lzy4xRJ6JF5otyQcCqyFTEbNrT/Be7EH
-	 B2fJy0cWOqaL9AQOgxhFPuDlz/dhxPtbD5eXvEVHXa+yH4oFAO7XVSY1rG+lD+d/RaWpG
-	 bDm2ROCcuvOHXT9P4HljtHj/WwAdIjBxxRvF9XWq30GZHhPFgiUbAATgRm9BuPyprgg==
+	t=1794677426;
+	b=Dz2bSgm0nNDCjtRkflIYXePjMG2geH1oNs0w9KLDiRdTscyp6l+oupq5JjB0iCm2fn8P
+	 AyDhng/PUWDugagtBpcBsiiZD4peD4pfMbrJNhSZTtG2VfkIcJJbTT7JbQ/hKqaPhxV2I
+	 x3pDXHSV6b/d9ikR3FtENI/brRBYVD76jVkDfsJ3Js3nyTsFpYdUjvxkQ+kCzR153Npu8
+	 hbBZmPq5rdra1u6kpQ8JP6WJKXW5ML3Dj3+nUXWoHdN0btPpaYpNNEUl4QOrWaEhNzltP
+	 Y/UYAnmugTfmAzGcZ+nzcDPfeUVvVjKGoWCzI5S3nJPyyiKeVklMqGc50vO6GF8dHyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677358;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Ybh1orfb8A+hMu6JRpXnjbCXh3N9F/ZtSbUT1lv0xWw=;
-	b=DlTCQo/vm1xfKTBIHweixhi+g12FshpvHqvIA5bUVRBaEvaVkgrppX3wWOWybgGEyaZs
-	 KTP/gbEMSnrN3/KFCjCyBcF1nDktkqs7TdpDJfKo61BGSlJs51BFz2CwjiEWQ9Ie3rvc4
-	 +yYBmcKyv6JkxCou0DAKh77AXo0PZVjimzMBlKIrdib04bxrXAPohN8HIHR20lgW1CQS1
-	 V50HJDgidDduyK5s8C7gSzHHfbETl3IZcVo4es8GVFt05egjqKFOu4HMggOSIOjj0sEs2
-	 0gPzOJ6lYeWwig90fd0T6pR9iXGQxFH6vdSi5uk2CBDChg1bkI71oHli2xikI67TF/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677426;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vUdHoaBVYZmPnE/s62HT4yYg3gzMJTqDR+eMVLrtAyE=;
+	b=gqQ9VJgQSF9ycfp2N/Mg/dxXZQf8YKPtnQQVB++pNH5ZJjej+t9FyZxwPyc+7swqzK3U
+	 epxiROqRS1K3CSGmnGHtv0PDU3xqXhCMFlfUq+6PXrhEE3ZYk0p/gGg9iX5CmxC10EcIp
+	 YZH6z0SPIAzbPXYj/OoCul5mzW7RM4MrozB0/ZW0RNY57UgDRNb5AXKoWdJqvzN6mMdP/
+	 roxBszmaWznFa+sKsBdeP32LEXu/946dcauOKSb15kO9L+iOdjRtzq83Bj2MdtkiNUCpd
+	 SKaJnIx+C0J/m8N50KuBnCP5fHpmoNzBjBlObt2cPYEj+WFZH8Ozfg7AH1iPlWGXhqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=becholey.ch;
-	spf=pass smtp.mailfrom=becholey.ch;
-	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=fYImpxWX;
-	arc=none smtp.remote-ip=79.135.106.105
-Received: from mail-106105.protonmail.ch (mail-106105.protonmail.ch [79.135.106.105])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VO+j36SU;
+	arc=none smtp.remote-ip=74.125.227.136
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55220606A327
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:29:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55220606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C753E606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:30:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C753E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=fYImpxWX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1794677354; x=1794936554;
-	bh=Ybh1orfb8A+hMu6JRpXnjbCXh3N9F/ZtSbUT1lv0xWw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=fYImpxWXUXbRjLaY3xkxyYB/RZg38SNqRq3aXR5RxCH4pXIYQLWww1KNJY/fEjkCP
-	 mjI7qkAZjmQvM3tw9GeQDzx54oWS1eK9doEYKVboF6RgCSaIADX7T3gW9dzjn87msP
-	 iWsyfr3yzYeR3kOjGe7tnpUxAGwg8vaNqlVFwy/zKIvj9OgbNRitri1daJS+WGVVAe
-	 8ln3VxrAg9MOQmmeBp+4Ixha6LhWJlKJHmGKKcfXcc2KGfVtwZhAbvpF3hqjWVse7D
-	 luJ3hBk0YJHYgNHmyypJEjLHAj8eIzuF5ML4FpXIo+VNWiJPlYSRq/9oI/qtXFTr4I
-	 5VoPcCMxTbf6A==
-Date: Sat, 14 Nov 2026 17:29:09 +0000
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>
-From: Alexandre Becholey <alex@becholey.ch>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 5/5] ALSA: usx2y: us144mkii: do not restart the stream while stop_work runs
-Message-ID: <20261114172806.88710-6-alex@becholey.ch>
-In-Reply-To: <20261114172806.88710-1-alex@becholey.ch>
-References: <20261114172806.88710-1-alex@becholey.ch>
-Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: 38c2bad81bf20be97b7bd1c9ec524b2d54f4795c
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VO+j36SU
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ae93a86008so1301411a91.0
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 09:30:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794677425; x=1795282225; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vUdHoaBVYZmPnE/s62HT4yYg3gzMJTqDR+eMVLrtAyE=;
+        b=VO+j36SUqGGpA926liLeazEis4wYu8nJBE6tHFHArWkXpDn3VFtBMT6QC1l0bYtEOI
+         Dj+i2mY1RcFmAlKB8dqsmnesBBh6DND2Kb/NxEzsOfwHZbhykgX447qlv7DCgwS3IAcc
+         3ymje0s75BzSjpmsML2Fh+gZqsQpuKT+30uqWO+wnCK9FO4lypYS1AIQlkA0kBbIAbTR
+         PtSc3mhiNMw9HIwH+7LJDQ+HHUbXUoT8S+41HAEpjKUrIk5auPUA9m6HFvvcruALLMvB
+         U7WOJ0pL66WG9WoJIOSay5mWq2aI8/fAUN4eIVcGfQxj9a+1vfXi6eOeWdKMB4o7RcXc
+         wSZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794677425; x=1795282225;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vUdHoaBVYZmPnE/s62HT4yYg3gzMJTqDR+eMVLrtAyE=;
+        b=b8UlaZuiomYAmWT6pwj95c/y7mEJhHMIlZ1FmeMFJ/ux62qTXtaG2ayL50JSIKy/HR
+         FEkMbm+QILAowNA4e8DhzLo4YU/jvZR3eQ2Sp2Dl76VT+unYBarbO5csX55hJ+SMAMO7
+         DMzK3KWeGGpTYkItZzSHtUIhO9Skg48Diqmed3+xE5KjrnXvLhZYK8RXJSIrLGnuaUbz
+         R3m/C1rN6nZ2cZN920Nttvr7aBgECWP36UuyyQ8lyKS2lwmNiARbPZZeIIN8xFPMDZlp
+         Bfpx6vlXXHEfdXaMoWKQncKVvHOryIZ3l1P/E+E/7PaiO02jfAy8YRnC9o9yHWHMQz5m
+         F9lQ==
+X-Forwarded-Encrypted: i=1; AL+hErGt4o2hNrnL9OAL5GDPBTVwPvJbt1YU4fDQvXeTQG4mNzKY+dD3eNpCc/V6tMH1WsS30yueyYE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95ApCWA6bj1gEN20gPZ6CDNR+xpcYkt3NLAbhYwYOMs9SdS1rS
+	Xd8oX12Mlo1pyfP1NyMZrhAajjb1uyxiUcmYmI9ILNRZ/ycOdZyNMbAd5J9JTu/D49Y=
+X-Gm-Gg: AYBFou2NkZt0Bao4O3d82ee/QBEZG4m1/IRbAeUYM7jpp5iMsBm0NJSgAqlICOOovOk
+	UE14HAyPeFbGdHiV3e4kCjpKGPS98j0LZ4xMl9Co13JNkY1ZoJQGIk9SWbjhLE4FGeSPR0gXNW0
+	eckQHEe9Jt2q+c5gFm7H4Ayx3lF07762u5dE9v9E4JQ7unAFa8gt0kJbZQyEFxQajxj8UoaAGQl
+	W1p8NYYf95ZENmik8iAjXrx2a7JDfaVX6Kgn7CYxV5yr6WIziWEx0hcxD6lz0QkR3JM0I8qzwn7
+	0pOvci2hbt1yZcrWc8GjuIJRlcylILNEekYKeCI1IfPJjqrB0tEhVNyYje52H7uLcSe7IoSfPHO
+	HsOa5kZ0Da7hrJHC1bWWDPCM6uwmm0Z8YVWNqr8lAxw2QWdM8/STkXQmhIZikOb8U8kBfBHM8q7
+	EsQeI0Dgb2XvLopcv2PORqiEOLCodY5kHeG0rikXpwdDXfmNvVgcwJGPUKLo7kWllkDWG8oGQAM
+	O1NTtHoyRDgiP5uIkPYdKuJHQXXB0x6XqGQFeA+GIzoVHp+lqi0iggKoyB5XrDfwzdoVJXrfR8H
+	zh66sOOgj7ngaJLuPW4BIOvDISo3
+X-Received: by 2002:a17:90a:e7cc:b0:3a8:59d3:5317 with SMTP id 98e67ed59e1d1-3b1b0a1000dmr6177173a91.32.1794677425086;
+        Sat, 14 Nov 2026 09:30:25 -0800 (PST)
+Received: from ThinkPad ([192.220.23.71])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d282fdsm14799570a91.14.2026.11.14.09.30.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 09:30:23 -0800 (PST)
+From: Qiling Zhu <kmatzkaczor244@gmail.com>
+To: kmatzkaczor244@gmail.com
+Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/7] platform/x86: thinkpad_acpi: Report auto keyboard backlight mode as off
+Date: Sun, 15 Nov 2026 01:29:41 +0800
+Message-ID: <20261114172947.55381-2-kmatzkaczor244@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261114172947.55381-1-kmatzkaczor244@gmail.com>
+References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
+ <20261114172947.55381-1-kmatzkaczor244@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,333 +98,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-tascam_pcm_trigger(STOP) clears the stream flags and schedules
-stop_work, which kills the URBs and then sets active_urbs to 0.
-START only checks active_urbs > 0 before it anchors and submits the
-URBs again, and that check does not hold:
+The EC keyboard backlight level 3, which selects the auto mode, is
+passed to the LED classdev verbatim by kbdlight_sysfs_get().  The LED
+then reports a brightness of 3 with max_brightness 2, both through the
+brightness sysfs attribute and through brightness_hw_changed
+notifications.
 
- - START sets playback_active before the check, so when it fails with
-   -EAGAIN the PCM core undoes it with trigger(STOP), which schedules
-   stop_work again. If the work is running, it runs once more as soon
-   as it has finished, i.e. exactly when the next START passes the
-   check. That stale run kills the feedback URBs START has just
-   submitted, misses the playback URBs submitted behind it, and resets
-   active_urbs to 0 while they are in flight.
- - The START error path decrements active_urbs for the URB that failed
-   to submit, which was never counted.
- - A STOP of the other substream can schedule stop_work while START is
-   still submitting, as the submission is done without tascam->lock.
+This is not only cosmetic: UPower 1.91.x treats the out-of-range value as
+invalid and stops watching brightness_hw_changed altogether, so the desktop
+stops following the Fn+Space hotkey once auto mode has been entered.
 
-The next STOP and START then anchor and submit playback URBs that are
-still anchored and owned by the host controller, which corrupts the
-anchor list. Retrying START after a STOP from user space, which the
--EAGAIN invites, triggers it within seconds. On torvalds/master
-7e1392a42ea2:
+The auto mode is not a brightness level.  Map it to 0, the value it is
+reported as most of the time anyway, in line with what ideapad-laptop
+already does for its auto mode.
 
-  URB 00000000d35257ae submitted while active
-  WARNING: drivers/usb/core/urb.c:387 at usb_submit_urb+0x1318/0x1630, CPU#=
-0: repro/77
-
-and in another run, without the WARNING first, a "list_add double add"
-from usb_anchor_urb() in tascam_pcm_trigger():
-
-  kernel BUG at lib/list_debug.c:35!
-  Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-
-Track a queued or running stop_work in a new stop_pending flag, set
-with the STOP under tascam->lock and cleared by the work under the lock
-after the URBs are dead, and refuse START with -EAGAIN while it is set,
-without touching the stream flags. Submit the URBs with the lock held,
-so that a STOP cannot come in between, and on a failed submission stop
-through the same path instead of miscounting active_urbs. Flush
-stop_work instead of cancelling it on suspend, so stop_pending cannot
-be left set.
-
-The bug was found, and the reproducer and this fix were written, by AI
-agents (Claude Mythos and Claude Opus models). The analysis and the
-patch were reviewed by a human.
-
-Fixes: a2a2210f2c2e ("ALSA: usb-audio: us144mkii: Implement audio playback =
-and feedback")
+Fixes: bb28f3d51ff5 ("thinkpad_acpi: Add support for keyboard backlight")
+Reported-by: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>
+Closes: https://lore.kernel.org/r/CAENjc+w0Rqy=kDSew7XtNJCSvyPiXPJ5faWdmCr5RGYFhpunCA@mail.gmail.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexandre Becholey <alex@becholey.ch>
+Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
 ---
-Notes for reviewers (not part of the commit message):
+ drivers/platform/x86/lenovo/thinkpad_acpi.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Trigger: an emulated US-144MKII on an emulated xHCI controller, QEMU
-arm64, KASAN; the device only streams normally. A local program with
-access to the PCM device stops (DROP) a running playback substream and
-retries START in a loop while the driver answers -EAGAIN ("Cannot
-start, URBs still active"), then does one more DROP/PREPARE/START. A
-device can supply the STOP itself with bad feedback packets (the
-stop_pcm_work path of patch 1/5); that variant was seen in our tests
-of 1/5 over USB/IP but not reproduced on its own. The reproducer is
-available to maintainers on request.
-
-Decoded, torvalds/master 7e1392a42ea2:
-
-  WARNING: drivers/usb/core/urb.c:387 at usb_submit_urb+0x1318/0x1630, CPU#=
-0: repro/77
-  Call trace:
-   usb_submit_urb (drivers/usb/core/urb.c:387 (discriminator 12)) (P)
-   tascam_pcm_trigger (sound/usb/usx2y/us144mkii_pcm.c:320 (discriminator 1=
-))
-   snd_pcm_do_start (sound/core/pcm_native.c:1530 sound/core/pcm_native.c:1=
-523)
-   snd_pcm_action_single (sound/core/pcm_native.c:1384)
-   snd_pcm_action (sound/core/pcm_native.c:1467)
-   snd_pcm_common_ioctl (sound/core/pcm_native.c:1480 sound/core/pcm_native=
-.c:1584 sound/core/pcm_native.c:3526)
-   snd_pcm_ioctl (sound/core/pcm_native.c:3591)
-
-The list_add case is usb_anchor_urb() (drivers/usb/core/urb.c:132)
-from tascam_pcm_trigger() (us144mkii_pcm.c:318). On v7.3.1 the same
-program shows the WARNING at urb.c:379, and runs that continue past it
-end in "list_del corruption" in __usb_unanchor_urb().
-
-Testing, KASAN, panic_on_warn: without the patch the program hit the
-WARNING or the list corruption in every run (v7.3.1 1/1 in this test;
-16/16 in the verification on v7.3.1, 7e1392a42ea2 and v7.3.1 with
-patches 1/5..3/5). With the whole series applied: no report in 18
-runs (v7.3.1 14, 97d73c825122 4), 593 to 1114 STOP/START cycles per
-run, with the new stop_pending check refusing a START in about a
-third of the cycles of the main program. A control run that waits
-200 ms after each DROP streams normally: 187 of 187 STARTs succeed.
-
-Not changed here (pre-existing): the .open callbacks clear the
-*_active flags without stopping anything, and PAUSE_RELEASE is not
-handled although SNDRV_PCM_INFO_PAUSE is advertised; source reading
-only, not tested.
-
-Thanks,
-Alexandre Becholey
-
- sound/usb/usx2y/us144mkii.c     |   5 +-
- sound/usb/usx2y/us144mkii.h     |   2 +
- sound/usb/usx2y/us144mkii_pcm.c | 148 ++++++++++++++++----------------
- 3 files changed, 78 insertions(+), 77 deletions(-)
-
-diff --git a/sound/usb/usx2y/us144mkii.c b/sound/usb/usx2y/us144mkii.c
-index 58ef23146f20..8270e09281cb 100644
---- a/sound/usb/usx2y/us144mkii.c
-+++ b/sound/usb/usx2y/us144mkii.c
-@@ -266,7 +266,10 @@ void tascam_stop_work_handler(struct work_struct *work=
-)
- =09usb_kill_anchored_urbs(&tascam->playback_anchor);
- =09usb_kill_anchored_urbs(&tascam->feedback_anchor);
- =09usb_kill_anchored_urbs(&tascam->capture_anchor);
+diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+index 4f81855ad..2c3f8cf32 100644
+--- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
++++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+@@ -5102,6 +5102,9 @@ static struct ibm_struct video_driver_data = {
+  * Keyboard backlight subdriver
+  */
+ 
++/* EC level that selects the auto mode for the keyboard backlight */
++#define TPACPI_KBD_LIGHT_AUTO_LEVEL 3
 +
-+=09guard(spinlock_irqsave)(&tascam->lock);
- =09atomic_set(&tascam->active_urbs, 0);
-+=09tascam->stop_pending =3D false;
- }
-=20
- /*
-@@ -311,7 +314,7 @@ static int tascam_suspend(struct usb_interface *intf, p=
-m_message_t message)
-=20
- =09snd_pcm_suspend_all(tascam->pcm);
-=20
--=09cancel_work_sync(&tascam->stop_work);
-+=09flush_work(&tascam->stop_work);
- =09cancel_work_sync(&tascam->capture_work);
- =09cancel_work_sync(&tascam->midi_in_work);
- =09cancel_work_sync(&tascam->midi_out_work);
-diff --git a/sound/usb/usx2y/us144mkii.h b/sound/usb/usx2y/us144mkii.h
-index 95c4341f038a..852551e0b5d0 100644
---- a/sound/usb/usx2y/us144mkii.h
-+++ b/sound/usb/usx2y/us144mkii.h
-@@ -174,6 +174,7 @@ struct us144mkii_frame_pattern_observer {
-  *
-  * @lock: Main spinlock for protecting shared driver state.
-  * @active_urbs: Atomic counter for active URBs.
-+ * @stop_pending: stop_work is queued or running; protected by @lock.
-  * @current_rate: Currently configured sample rate of the device.
-  * @line_out_source: Source for Line Outputs (0: Playback 1-2, 1: Playback=
- 3-4).
-  * @digital_out_source: Source for Digital Outputs (0: Playback 1-2, 1: Pl=
-ayback
-@@ -232,6 +233,7 @@ struct tascam_card {
- =09atomic_t playback_active;
- =09atomic_t capture_active;
- =09atomic_t active_urbs;
-+=09bool stop_pending;
- =09int current_rate;
-=20
- =09/* --- Playback State --- */
-diff --git a/sound/usb/usx2y/us144mkii_pcm.c b/sound/usb/usx2y/us144mkii_pc=
-m.c
-index 5add9c1b253a..0890884a55eb 100644
---- a/sound/usb/usx2y/us144mkii_pcm.c
-+++ b/sound/usb/usx2y/us144mkii_pcm.c
-@@ -278,93 +278,89 @@ int tascam_pcm_trigger(struct snd_pcm_substream *subs=
-tream, int cmd)
- =09struct tascam_card *tascam =3D snd_pcm_substream_chip(substream);
- =09int err =3D 0;
- =09int i;
--=09bool do_start =3D false;
--=09bool do_stop =3D false;
--
--=09scoped_guard(spinlock_irqsave, &tascam->lock) {
--=09=09switch (cmd) {
--=09=09case SNDRV_PCM_TRIGGER_START:
--=09=09case SNDRV_PCM_TRIGGER_RESUME:
--=09=09=09if (!atomic_read(&tascam->playback_active)) {
--=09=09=09=09atomic_set(&tascam->playback_active, 1);
--=09=09=09=09atomic_set(&tascam->capture_active, 1);
--=09=09=09=09do_start =3D true;
--=09=09=09}
--=09=09=09break;
--=09=09case SNDRV_PCM_TRIGGER_STOP:
--=09=09case SNDRV_PCM_TRIGGER_SUSPEND:
--=09=09case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--=09=09=09if (atomic_read(&tascam->playback_active)) {
--=09=09=09=09atomic_set(&tascam->playback_active, 0);
--=09=09=09=09atomic_set(&tascam->capture_active, 0);
--=09=09=09=09do_stop =3D true;
--=09=09=09}
--=09=09=09break;
--=09=09default:
--=09=09=09err =3D -EINVAL;
--=09=09=09break;
--=09=09}
--=09}
-=20
--=09if (do_start) {
--=09=09if (atomic_read(&tascam->active_urbs) > 0) {
-+=09/*
-+=09 * Hold the lock while submitting, so that a STOP of the other
-+=09 * substream cannot schedule stop_work in the middle of a START.
-+=09 */
-+=09guard(spinlock_irqsave)(&tascam->lock);
-+
-+=09switch (cmd) {
-+=09case SNDRV_PCM_TRIGGER_START:
-+=09case SNDRV_PCM_TRIGGER_RESUME:
-+=09=09if (atomic_read(&tascam->playback_active))
-+=09=09=09return 0;
-+=09=09/*
-+=09=09 * stop_work kills the URBs of the previous run asynchronously;
-+=09=09 * they must not be anchored and submitted again before it is
-+=09=09 * done.
-+=09=09 */
-+=09=09if (tascam->stop_pending ||
-+=09=09    atomic_read(&tascam->active_urbs) > 0) {
- =09=09=09dev_warn(tascam->card->dev,
- =09=09=09=09 "Cannot start, URBs still active.\n");
- =09=09=09return -EAGAIN;
- =09=09}
-+=09=09atomic_set(&tascam->playback_active, 1);
-+=09=09atomic_set(&tascam->capture_active, 1);
-+=09=09break;
-+=09case SNDRV_PCM_TRIGGER_STOP:
-+=09case SNDRV_PCM_TRIGGER_SUSPEND:
-+=09case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+=09=09if (!atomic_read(&tascam->playback_active))
-+=09=09=09return 0;
-+=09=09goto stop;
-+=09default:
-+=09=09return -EINVAL;
-+=09}
-=20
--=09=09for (i =3D 0; i < NUM_FEEDBACK_URBS; i++) {
--=09=09=09usb_get_urb(tascam->feedback_urbs[i]);
--=09=09=09usb_anchor_urb(tascam->feedback_urbs[i],
--=09=09=09=09=09       &tascam->feedback_anchor);
--=09=09=09err =3D usb_submit_urb(tascam->feedback_urbs[i],
--=09=09=09=09=09=09     GFP_ATOMIC);
--=09=09=09if (err < 0) {
--=09=09=09=09usb_unanchor_urb(tascam->feedback_urbs[i]);
--=09=09=09=09usb_put_urb(tascam->feedback_urbs[i]);
--=09=09=09=09atomic_dec(&tascam->active_urbs);
--=09=09=09=09goto start_rollback;
--=09=09=09}
--=09=09=09atomic_inc(&tascam->active_urbs);
-+=09for (i =3D 0; i < NUM_FEEDBACK_URBS; i++) {
-+=09=09usb_get_urb(tascam->feedback_urbs[i]);
-+=09=09usb_anchor_urb(tascam->feedback_urbs[i],
-+=09=09=09       &tascam->feedback_anchor);
-+=09=09err =3D usb_submit_urb(tascam->feedback_urbs[i], GFP_ATOMIC);
-+=09=09if (err < 0) {
-+=09=09=09usb_unanchor_urb(tascam->feedback_urbs[i]);
-+=09=09=09usb_put_urb(tascam->feedback_urbs[i]);
-+=09=09=09goto start_rollback;
- =09=09}
--=09=09for (i =3D 0; i < NUM_PLAYBACK_URBS; i++) {
--=09=09=09usb_get_urb(tascam->playback_urbs[i]);
--=09=09=09usb_anchor_urb(tascam->playback_urbs[i],
--=09=09=09=09=09       &tascam->playback_anchor);
--=09=09=09err =3D usb_submit_urb(tascam->playback_urbs[i],
--=09=09=09=09=09=09     GFP_ATOMIC);
--=09=09=09if (err < 0) {
--=09=09=09=09usb_unanchor_urb(tascam->playback_urbs[i]);
--=09=09=09=09usb_put_urb(tascam->playback_urbs[i]);
--=09=09=09=09atomic_dec(&tascam->active_urbs);
--=09=09=09=09goto start_rollback;
--=09=09=09}
--=09=09=09atomic_inc(&tascam->active_urbs);
-+=09=09atomic_inc(&tascam->active_urbs);
-+=09}
-+=09for (i =3D 0; i < NUM_PLAYBACK_URBS; i++) {
-+=09=09usb_get_urb(tascam->playback_urbs[i]);
-+=09=09usb_anchor_urb(tascam->playback_urbs[i],
-+=09=09=09       &tascam->playback_anchor);
-+=09=09err =3D usb_submit_urb(tascam->playback_urbs[i], GFP_ATOMIC);
-+=09=09if (err < 0) {
-+=09=09=09usb_unanchor_urb(tascam->playback_urbs[i]);
-+=09=09=09usb_put_urb(tascam->playback_urbs[i]);
-+=09=09=09goto start_rollback;
- =09=09}
--=09=09for (i =3D 0; i < NUM_CAPTURE_URBS; i++) {
--=09=09=09usb_get_urb(tascam->capture_urbs[i]);
--=09=09=09usb_anchor_urb(tascam->capture_urbs[i],
--=09=09=09=09       &tascam->capture_anchor);
--=09=09=09err =3D usb_submit_urb(tascam->capture_urbs[i],
--=09=09=09=09=09     GFP_ATOMIC);
--=09=09=09if (err < 0) {
--=09=09=09=09usb_unanchor_urb(tascam->capture_urbs[i]);
--=09=09=09=09usb_put_urb(tascam->capture_urbs[i]);
--=09=09=09=09atomic_dec(&tascam->active_urbs);
--=09=09=09=09goto start_rollback;
--=09=09=09}
--=09=09=09atomic_inc(&tascam->active_urbs);
-+=09=09atomic_inc(&tascam->active_urbs);
-+=09}
-+=09for (i =3D 0; i < NUM_CAPTURE_URBS; i++) {
-+=09=09usb_get_urb(tascam->capture_urbs[i]);
-+=09=09usb_anchor_urb(tascam->capture_urbs[i],
-+=09=09=09       &tascam->capture_anchor);
-+=09=09err =3D usb_submit_urb(tascam->capture_urbs[i], GFP_ATOMIC);
-+=09=09if (err < 0) {
-+=09=09=09usb_unanchor_urb(tascam->capture_urbs[i]);
-+=09=09=09usb_put_urb(tascam->capture_urbs[i]);
-+=09=09=09goto start_rollback;
- =09=09}
--
--=09=09return 0;
--start_rollback:
--=09=09dev_err(tascam->card->dev,
--=09=09=09"Failed to submit URBs to start stream: %d\n", err);
--=09=09do_stop =3D true;
-+=09=09atomic_inc(&tascam->active_urbs);
- =09}
-=20
--=09if (do_stop)
--=09=09schedule_work(&tascam->stop_work);
-+=09return 0;
-+
-+start_rollback:
-+=09dev_err(tascam->card->dev,
-+=09=09"Failed to submit URBs to start stream: %d\n", err);
-+stop:
-+=09atomic_set(&tascam->playback_active, 0);
-+=09atomic_set(&tascam->capture_active, 0);
-+=09tascam->stop_pending =3D true;
-+=09schedule_work(&tascam->stop_work);
-=20
- =09return err;
- }
+ static enum led_brightness kbdlight_brightness;
+ static DEFINE_MUTEX(kbdlight_mutex);
+ 
+@@ -5191,7 +5194,8 @@ static enum led_brightness kbdlight_sysfs_get(struct led_classdev *led_cdev)
+ 	int level;
+ 
+ 	level = kbdlight_get_level();
+-	if (level < 0)
++	/* Auto mode is not a brightness level; report it as off. */
++	if (level < 0 || level == TPACPI_KBD_LIGHT_AUTO_LEVEL)
+ 		return 0;
+ 
+ 	return level;
+-- 
+2.56.1
 
