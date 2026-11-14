@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794686222;
-	b=kp50JrJgAGdY/swkEA8Lr2FR9zqeOP3zGEld1+B/TJ9Fh7OOhEciaEgVEwUHVm+Ygui0
-	 7R0GCH8fzxP9psEEBWxdHTC0Qvdp/nwpGmzat+4B84WOovzy0xe1b1Rr49Egz/gvt1V8D
-	 9lVo0JEp0cLQkeZv6Jr3r4e88O/6QCsygQeVdeBfmyRn49WNDFdq9HTIMWdckmrsRnQ04
-	 stCL0fy6BCwmbmjjValOse163opHNL5+tSpAW37Zok0cm1YQilUPvcWzjvgAYHewtLieq
-	 4pwzGkuOAdGd8Ka+gH/fmiSrwciRcciYX5/a1YACCWPekrleHDuLCvCmO5996RPTB/w==
+	t=1794686227;
+	b=xZRkJzt8cUNx/bIU59ujGMAO4yCSDkApwAKA/D7WijR+o8+95FyaXbyL10JxKfm6ekNX
+	 OYJHGxUpfpcI0/RPUxW4FgYastVEU5fgYOoIBYFjEJoYwIxkIY3QIxW94fEkx3oJKea+9
+	 fIj+k3mSJKvmcgSK6F2SLl4Sz/RrdINdMfjduWIzP1kYw0J8wGKaLxEpMMfaPQrQ4THfj
+	 490y6YTVLgTP8YuoJst8BeS5Zl8dv0WWjXBnUR0hWGPg5OH+S4Zo/I9wYlr1HYc/bK81k
+	 3wuEfCHF0YNFTfgkQiOqxwAi6O67JU+eaUHwjKhhF+ohXP5GwuXlQ7j4d92Jnm502tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794686222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794686227;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=ZCi4ttrWWQASeF1sPChkoEBldIkxl44ii+iYdI68IA8=;
-	b=L8RmDwHy2dLBgO5QjJWKLpb/Q5XC1TKoeQVTYzp9UDcL5ULs0idV8SRl+6bYrlA/GIWT
-	 8ybJXx57I+qITAo5c3yf6xTnwkryB68xMDWQsZ/94/mzB1oKhe1k4MwyTijrQG4j0Accw
-	 D8mHKM1iLxupJlph3IbonVGprGhmMQNtpxTr3jAXbla99wXm1r586A3lngzO4cvuAJeaZ
-	 AFzZ8SWhDNdUNc5Rb5S/zvCvnJC2u6XC/3xYtu0ZQdUKkjhEYmUwFw6eX8eXkP5eSc3Rm
-	 fU40jIZRBywnhau3sUHIcIr/5c5/YLIFzMCiOVJXo8yYbOymhhuA4iS01yx4gKYLL6w==
+	bh=OCVS5zlhrjN9ps/q5PiJQ1tTNBzYlAwbpXMt2B00TDw=;
+	b=F3SqaZz01HJm5wixtJydQSm0aN/Q6xZEJIZQegGamAcM7ZOOSOn/JgK8yA7VMst8qk/+
+	 jmhp6nsyHuHrCDk12s64zCQgQC5gjil4RLPmZFxIpWctvqY6WbdX7Ip4ndKHFY0p6O4mp
+	 OMpNqrBpgOH/BPqUJKmntgQpfP/0pQLAFGI5gP8MaHKIOeWS22TVLnC0Rp79sIdHGac9l
+	 w+wAuKCDN6oQOY1qBTGG0HaLIsMH0Y1vbA1ngaHOS/qmLxHaT7jy2nZC8s91RaF0CW3Ni
+	 LjfMucSNtRy84CCZg2YMksVPmLsDxEigPJ5DLaCnjvdYm//jazV2U5AIliNcKJMzRmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=M5pSj2rL;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=tKE5crcb;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DEF60A381C
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 19:57:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96DEF60A381C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2547960A3834
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 19:57:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2547960A3834
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=M5pSj2rL
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso1124573a91.2
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 11:57:02 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=tKE5crcb
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso1084915a91.1
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 11:57:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794686222; x=1795291022; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1794686225; x=1795291025; darn=vger.kernel.org;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZCi4ttrWWQASeF1sPChkoEBldIkxl44ii+iYdI68IA8=;
-        b=M5pSj2rL7/XmHVxGodQIkRrkhyJGom7e+lrSa8Tc4r65/JOyvj2hfEOUFEVsxY2zkR
-         y3Bm64q+qYfbc1jkOgXAN5XLm4oTPYuS/f8qLvwJ28JiuN4OvREKsD4VRCBE9X+SQMWT
-         EDC676u3b689aBT9Gyyg239YFPDYLCEsgeU1E=
+        bh=OCVS5zlhrjN9ps/q5PiJQ1tTNBzYlAwbpXMt2B00TDw=;
+        b=tKE5crcbDd+Y66qKVu1Vo3c+QvvnO/kxPzwoZf5v4mpLE2ZSeWaCIBA8P4Ywjwk8LE
+         6eAKD0Ql/Z8wrCqplLWn+PPZALQxAhRRDPVpspMArDyx0yyERP6CerQs47nTp/4HbwZT
+         CPItrLkJkt1N114ET2W8m0L40PB9j/iiLow4I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794686222; x=1795291022;
+        d=1e100.net; s=20260707; t=1794686225; x=1795291025;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZCi4ttrWWQASeF1sPChkoEBldIkxl44ii+iYdI68IA8=;
-        b=FF3Hq9WeTWw/nshlyEKFBG7TLAsn8Jf9UMD4SvZNXTb1m1tJdgZJbNoTflqul1WquW
-         cBPVF0L6E4K92TqE3Bo9N9xc65ZvQf0L8hnHfZKVUFVbbpOZz/31aQUJA6/BrrcIYh2r
-         RA3r/o21edM2eHtK317sAjcfZ/2Ufk9uxn49Ya8tcsDlY0UzLeMBKmaYcXVltXvpxkw4
-         /527sREdaa/+Y1XkcWyvpqi25jEvaBLHOXAfVqGjDxM9SzXEZUfrDALNuRiWYKTpGQf4
-         OW+6Yzexig0wVtL2+EtP228pWi6HtpKEljDvhdiZJyEigDe2CJcSNE3lOcghSUd5Nan3
-         sFOw==
-X-Forwarded-Encrypted: i=1; AL+hErFTWHBhl296ifQ2uWAxxweULsndsplDr1UnhKKApn2NqeQsrBDMsEHptrwMjEpFMYs+wYD+zdc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/iEMH1ioEgVFyZ6yqp+AwvGG8VyrRSlJXXGjRLqgax3MrhvfQc
-	mOlDHXDGwUS7rF40fiGKiWG4+w8yWfbg/TZg67qRk3Ujzxa+2KIJBksrumtWlw/EEXw=
-X-Gm-Gg: AYBFou3XSqI2XCKXuRC9x5QmTzUkcQOtFFkzXZ+pqxnEDd0odmy3mfbQ/4LgNpMJkqi
-	vssEzgHmSo8gbX396/lxXd7Bz/IPsBdYwEXK5Bn4M+yD1iaFjVrK+Ixao8hEZDAJbh5/Y+M1uUI
-	8MUXYZqkW8EKPTljJ7yb7HrZmCSpdCms3IMcm7Qtz6/wzpnQwCGKIwdinnSEle8zyqx8QKsQSZB
-	a5rMKTqLdC2fEySdfrBX5M5KRL79tX7e9tDmVmXuGi90B0K22xq6iXxHZjZGGC3yemewThOw2A2
-	fvyqZM2HXLZenUttrs75tcd6ENEUGuucxSJsc3ITR7uTbQEDCFwEYT1Dae9i7Pw0eGgMUD7ArFZ
-	/CkmnyXm1IZwBCkF4V9XiUG63NndJxye3Mij3lIaHM+ZEzNR0ci78vorF4JpCpgCcIPSsTFASKa
-	uimJHkUFlxqR+vZm/GC5QeAx0kxiP/TneRhAAFBH88Pa0i+68RNfizzEzCPT0dNXuRglxHCmxhg
-	PSnalPdOu2E+7YlWSolILogNS6D+M8rKYoSUOOtkstvSWK1SM07Syqvig6vmktcpsFUDy+FdIey
-	/QlFuDVW9buhfX8b27kNQPk2lCYp+NycAI8N6IjLRPdVie21qnvjDT8GHh68/zvxLhN9mWDcuUu
-	rAVEg95CBnfTALStKHC+HEJGsKzWxOAGfEhHRNvtN6Vq3yUQ4zni0iEvoHVvRUNwYI14UIK8NuY
-	w2cssfdvAI6rTnniF4mMnVnkI7EoMB7ANlSnBbex6ww+brp6oeUbwoEg==
-X-Received: by 2002:a17:90b:2642:b0:3ab:2737:3396 with SMTP id 98e67ed59e1d1-3b1b0b9cb54mr5682263a91.65.1794686221931;
-        Sat, 14 Nov 2026 11:57:01 -0800 (PST)
+        bh=OCVS5zlhrjN9ps/q5PiJQ1tTNBzYlAwbpXMt2B00TDw=;
+        b=UIMDxVUKMldCMLYNPOC/5M6y7CcYQFi0XEg/ewPqPfYFwgP32huzBbISFjqr+mh92r
+         FbhQVlL0rdecSPjKYgvWgd0mBDBcnRYS0WVITOTEf0FpfijSfO9zmAVS2v1i4Es9FVBE
+         dBDvN2F8dGnCvEpueD/5VgbwmbS4Pig6fWXHLGaELz4s8cCwEFV77ljt6A0t2PW6boze
+         X1aJ3HOZ+PwF5b8K0k/MuZt9qijWyAWr2uAWwnyIuMFsbWWm1cxGYRp3oppecsF3s+DY
+         Jt2IIIcmNnWWnRIFZ7wMDTs20p6rfhFEOv8UKOJB9LPfRpoxL7tsaNLwxaKFPeEW37Id
+         MEHQ==
+X-Forwarded-Encrypted: i=1; AL+hErE4bPZDfcpZJGVdsA+AGTE9SubE8pRi3IVpOnsMQsK4CromT2UQLna09vymq9sJHHPBmobDxvc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CBMs4tUh/sEkMdsXAlVVF07LcbQCztmPxoKc4NRy1l5ZpLoZL
+	pRO58PvimL/7p9xv72rR/1fjDkq5bos/cL4pN5/uI24LosxJ5sGlmRlEMRN0WK6TL58=
+X-Gm-Gg: AYBFou3stZ8cn05NP6bCzyru86qdDpBuE+PsHZw9ooGPZNiCuNiJXAsJ2pD63YDlUd5
+	uJdd7r05tKEAnFCSClG1a4rv4lhW+Qs5Iulr/b472Ni+VlAeHH6I7DW8joPM1GStswZ5KNX/v9A
+	0hDtR7evUD2vlUn9GfHitlCgjx5fTYdlulZcfB8sNG8wHhjPeNf3+xgIx7udq7htl8g9EqL96BE
+	tfnM7/Hm43+HSEAKuL8NxkwxynMymQTKoa1hRNnRm0TwP8gi0raMGamgBsTeXYXLDgmtyGcPjeN
+	4SbgCTJrHK/rjs/qDUcgOy/LZSJBzIK1Fr/rL21PtrCCQxIaU8uvQVx+dWh0tQgeqd7KfpuYoXm
+	DvlTg2Dvb1Tm9syb/CnNVHiNzn9bbjCQ8Ry9Ak7JK9me+4Z4uy3asAT8tmLfHKNNKSspntf7rvI
+	W8CUm09n43ZuDCWpUu6cFqZyMIUncFAuFuILpg97Ms7OJYQXp1hzb41nnGYPy8AJ8kTl7K0B+P1
+	aNKs8DePW+5fsGJSmeGwYjH1f7H+Zk+8kVoXGSmbDRip3SqXKA7nJ4+khOurHG9tiNUnS0/iiM9
+	oQpB83fI4kiJgzSk8o7pWYyymeEfsnpKdzMGYiruvKF5Osav7Rs71fjB93yiewEe4Fm9GfUKpgN
+	8wSkS/4iDfjJ7efXNTZVIP/JWuHHx6LXGnkIoNT3nCbmUqeILbGFm9EFxyL2zEkgPLUPXR1w/TM
+	XxkD61dW4vI0PGGeMThNwoWGUq1Ui9y5t0o/eUYNsPo9FUv9KYJS0bjAY=
+X-Received: by 2002:a17:90b:4c8f:b0:3a5:133:ca5f with SMTP id 98e67ed59e1d1-3b1b0b983efmr6301490a91.46.1794686225426;
+        Sat, 14 Nov 2026 11:57:05 -0800 (PST)
 Received: from [172.22.0.2] ([4.16.0.251])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce460csm14709280a91.5.2026.11.14.11.56.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec43699sm9589262a91.10.2026.11.14.11.57.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 11:57:00 -0800 (PST)
-Date: Sat, 14 Nov 2026 11:56:57 -0800
+        Sat, 14 Nov 2026 11:57:03 -0800 (PST)
+Date: Sat, 14 Nov 2026 11:57:01 -0800
 From: Chris Down <chris@chrisdown.name>
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 Cc: David Hildenbrand <david@kernel.org>,
@@ -105,11 +105,11 @@ Cc: David Hildenbrand <david@kernel.org>,
 	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>,
 	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
 	Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 08/13] mm/migrate_device: fix ksmd oops on a migrated
-	KSM page
-In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-8-50a2ed382b61@kernel.org>
+Subject: Re: [PATCH v2 09/13] mm/migrate_device: fix use-after-free of the
+	anon rmap
+In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-9-50a2ed382b61@kernel.org>
 References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
-	<20261113-mason-migrate-et-al-fixes-v2-8-50a2ed382b61@kernel.org>
+	<20261113-mason-migrate-et-al-fixes-v2-9-50a2ed382b61@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -121,25 +121,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-Message-ID: <20261114115657.f63de4714929f7af@chrisdown.name>
+Message-ID: <20261114115701.3a5f64e24081d09f@chrisdown.name>
 User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
 Hi Lorenzo,
 
-Lorenzo Stoakes (ARM) writes:
->[ ljs: tweak commit message, comment, also refuse device coherent ]
-
-Alistair's Reviewed-by on v1 came with the argument that KSM pages should
-still be able to go to device coherent memory [1], which is the opposite of
-what this does now, so it's probably worth checking that he's happy for it
-to be carried over. Going by what ksmd does with zone device pages, the
-change itself looks right to me.
-
-I've tested the device private case. Without this the process hangs the
-next time it touches one of the pages, and with it the migration is
-refused and the pages stay merged.
-
-[1] https://lore.kernel.org/r/avTu3LmscsttRVRp@nvdebian.thelocal
+Thanks! I've tested this with test_hmm evicting its device memory while
+the pages are being unmapped, and with this applied KASAN is quiet
+again.
 
 Reviewed-by: Chris Down <chris@chrisdown.name>
 Tested-by: Chris Down <chris@chrisdown.name>
