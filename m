@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794633276;
-	b=tXNXRH8ErPDvGg7O9IbOUN+6bAKGSyoDXEJOnrhxo7Bg4DaIREl/dyF4suaFm4CsL4NI
-	 Q+tZYsHKLTVs07ea2rA8Fstp5cknbK9Wtiw/vdjMFRZoStdv0W2MbOTmYf/Hj3TbyVzoO
-	 TXlx+G7UKYSF8xEX1+47pErZUx7p0pw9/8gtQcsSLDjl4/ErniQ2XS3YnUpHgVQcrD6vg
-	 i+2+NwpGRpUlWQMHUYrZaHbzsLf4jkknkivtpZMHNkXR2viTJjI7y427dDJuk/srIPYNe
-	 2rWdtQ1QiVHegc8IfMwINcx4JfRfnnIvLngKKLtTgduOCRoPDR/gEVb/VLn18jehucQ==
+	t=1794633277;
+	b=pWtz1mdgt+m7rNif1gWBA4IbKst5kPqoRNEpxr2hmueUkm2HJvvVfSz9E1cnaQIXMPsp
+	 BeGJxmAE6pzIr35ejhOgrpD2r7a89kuuCP5Zga0RoIpNRxXZZyhaok8xO9I+UK7Q5y5b2
+	 eiXiFjDh1Yv6W6SiQDRJ8RUn4r/GXutg0jRZZHl4cKaqz9ar1x6Xf3kEyKawsEWHFaQ5y
+	 hIKh3ExzLKrlRbeGCAIsW2FaFtI2Ptr7MLfbOujEno82clkIMVP+SDR7KMdWmDxgoCCQc
+	 JJg4ghX5Rj66VKWXxgodiXADWN/idvOd1vD8jH2d/Z185THL9mvMRa4Revxwt0lM4yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794633276;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794633277;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=le3Ad/W7wMBCh88fVeWo5fzPhFSsiH0B5r7LM417gRg=;
-	b=XvLWEDWeGJmHIZiZ6u2fd2noXw/g48KveekleNTxio9AN2yLursZGG38BwITig565rEV
-	 Z98odQkoRfzGUghoWOAptPuAJBdnPsHuCzVv607Ro3jHvtrKArQNH3VhTFmwuC8CJt1zn
-	 yrWCgMnXVxhRWouDezQ7AbOgS+fS8PyduuH63395ierA7spjsrOOAwO/+vtsOeXcP0fU+
-	 1Kwr0XNoH1KKB3SipGSiRWir+2M5s9i3kvciTvUfO90qTA1j5Lok2jFnr+ZVdK2154JMO
-	 15ovHZVRywPo2jlTaN3JdlpfPSDbll2ytvfrAERn61emFaA7lKrFMy8K/y76snSAtog==
+	bh=3c/gc7rtUePOps7C0Zp6KgVzpj0LdI7AD4+Lfz+RxX8=;
+	b=rUajtIYnVkMWjHMwDuzVZa7pd1jbg8DoKsRaWKZOG1Gg0j062PaNYjdk6bcLatV4emTK
+	 7qorrrccaOq79DaqlKi5ii+M8TQjrA/nscGoMv350lTb20t0cD4cLAug94AIWDxqZ6YZH
+	 bvatxINW8IYgkQUWK805jyH+3EaoWINw5bNRXCcv5PpoPoW3khgWunxKEw5CdVfu5Ju4n
+	 IliZfs+VuwHDA+SDf/FxNWKPsagh4kGJLZt28ZpagIB/lUHhaMEmdNR3nAj5IgIIFMfUG
+	 mqkadJ9huvyWwABQLtcMnOqfPNzwFytiVbMHNpUoomFYJPHzPbONc5xW6l3hxiIMpeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DS7VcYbO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f7IgepmE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3715F606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:14:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F11606A32D
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:14:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DS7VcYbO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2362D1F000C4;
-	Sat, 14 Nov 2026 05:14:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f7IgepmE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18C7D1F000C6;
+	Sat, 14 Nov 2026 05:14:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794633275;
-	bh=le3Ad/W7wMBCh88fVeWo5fzPhFSsiH0B5r7LM417gRg=;
+	s=k20260515; t=1794633277;
+	bh=3c/gc7rtUePOps7C0Zp6KgVzpj0LdI7AD4+Lfz+RxX8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DS7VcYbOhcoDX3ovFa4dr35y6kzYmuXm/xb7U2B/FxANQwP6IySwMuJjTchUuswJ2
-	 TBVS7BfHJoOxigJ6NgJ+SG2mYyGVqechTI8xPfB1NETKcG/WVsneYNQ66s10nHdoBF
-	 0H5UPHvxV9NZPny0a23DYbqB3Rq2oFtuwym9j/8nToV6ZKrrrsPXrt3SfzHwB87HaF
-	 DuQi6z60iB9tzKmqGGgqF3iIEI9KRfZWeajgLx9rm8N8krz9FYevH+ooY8I1gCgSnt
-	 0WD6CJ1vjNy7S1RXMWewtwj4L8d241AhaXLzIEvdIBKTaYk8n34RLPt+OJkcUUaaWq
-	 u8eeKzNoPtZsg==
+	b=f7IgepmEpM2Ioh/sbK2af7gQoznP1m4TUKTwipHyn4gpMclnNVeRb22GPx2uq9SdY
+	 9OVB2r5CzjoOO0AhMku8sCYMwn6Ik/ppGYeiCxo5AykMEzsIFQFZx53thlLL1uyL8L
+	 IlPlFzKNbRn2OchYa4Ki8IkDwz4iZ1nBvJLI/B5n1IIxQAlyEc7iAsxWCq63ffQhqS
+	 kyho3b+3EpkmqslJcumksN7YcD85Iqq5T1bvSQxcWyDHsM/L17XDZVZ6A5oXjNJ9Kd
+	 aphwn5yS77kTQyMJZ93GI4kS1K8ucpcnyyu4644PbwtIevanlAf5mWMmfhwDbk9h6f
+	 q6hNvlcoN6H2A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jinliang Zheng <alexjlzheng@gmail.com>,
-	Jinliang Zheng <alexjlzheng@tencent.com>,
-	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+Cc: Aditya Sharma <adi.sharma@zohomail.in>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Liam Howlett <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] mm: fix outdated incorrect code comments for handle_mm_fault()
-Date: Sat, 14 Nov 2026 00:14:31 -0500
-Message-ID: <20261114051414.3056118-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] mm/memory: update stale locking comments for fault handlers
+Date: Sat, 14 Nov 2026 00:14:32 -0500
+Message-ID: <20261114051414.3056118-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200745-failed-6.12-f681d4580d5c@kernel.org>
+In-Reply-To: <20261114051414.3056118-1-sashal@kernel.org>
 References: <20261109200745-failed-6.12-f681d4580d5c@kernel.org>
+ <20261114051414.3056118-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,35 +68,167 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jinliang Zheng <alexjlzheng@gmail.com>
+From: Aditya Sharma <adi.sharma@zohomail.in>
 
-[ Upstream commit 8e6173ccf7b87c1f855e1ad3d94fd50c51d1f46b ]
+[ Upstream commit 214f9ab72ce6e16120c20ad670389656f059e685 ]
 
-[akpm@linux-foundation.org: s/mmap_Lock/mmap_lock/, per Liam]
-Link: https://lkml.kernel.org/r/20241213031820.778342-1-alexjlzheng@tencent.com
-Signed-off-by: Jinliang Zheng <alexjlzheng@tencent.com>
-Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Update the comments for wp_page_copy(), do_wp_page(), do_swap_page(),
+do_anonymous_page(), __do_fault(), do_fault(), handle_pte_fault(),
+__handle_mm_fault(), and handle_mm_fault() to concisely clarify that they
+can be entered holding either the mmap_lock or the VMA lock, and that the
+lock may be released upon returning VM_FAULT_RETRY.
+
+Additionally, make the following corrections:
+- In do_anonymous_page(), correct the outdated claim that the function
+  is entered with the PTE "mapped but not yet locked". Since
+  handle_pte_fault() unmaps the empty PTE before routing to
+  do_pte_missing(), the comment now correctly states it is entered
+  with the PTE unmapped and unlocked.
+- In __do_fault(), update the stale reference from __lock_page_retry()
+  to __folio_lock_or_retry().
+
+Link: https://lore.kernel.org/20260424092217.263648-1-adi.sharma@zohomail.in
+Signed-off-by: Aditya Sharma <adi.sharma@zohomail.in>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Liam Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: f681d4580d5c ("mm: fix address wraparound when scanning large folio PTEs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memory.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/memory.c | 55 ++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 29 insertions(+), 26 deletions(-)
 
 diff --git a/mm/memory.c b/mm/memory.c
-index 38019497d8d4f..4e6c893b18b38 100644
+index 4e6c893b18b38..d7f74ee122328 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -6071,7 +6071,8 @@ static vm_fault_t sanitize_fault_flags(struct vm_area_struct *vma,
+@@ -3322,8 +3322,8 @@ vm_fault_t __vmf_anon_prepare(struct vm_fault *vmf)
+  * Handle the case of a page which we actually need to copy to a new page,
+  * either due to COW or unsharing.
+  *
+- * Called with mmap_lock locked and the old page referenced, but
+- * without the ptl held.
++ * Called with either the VMA lock or the mmap_lock held (see FAULT_FLAG_VMA_LOCK)
++ * and the old page referenced, but without the ptl held.
+  *
+  * High level logic flow:
+  *
+@@ -3657,9 +3657,9 @@ static bool wp_can_reuse_anon_folio(struct folio *folio,
+  * though the page will change only once the write actually happens. This
+  * avoids a few races, and potentially makes it more efficient.
+  *
+- * We enter with non-exclusive mmap_lock (to exclude vma changes,
+- * but allow concurrent faults), with pte both mapped and locked.
+- * We return with mmap_lock still held, but pte unmapped and unlocked.
++ * We enter with either the VMA lock or the mmap_lock held (see
++ * FAULT_FLAG_VMA_LOCK) and pte both mapped and locked. We return with
++ * the same lock still held, but pte unmapped and unlocked.
+  */
+ static vm_fault_t do_wp_page(struct vm_fault *vmf)
+ 	__releases(vmf->ptl)
+@@ -4199,12 +4199,12 @@ static struct folio *alloc_swap_folio(struct vm_fault *vmf)
+ static DECLARE_WAIT_QUEUE_HEAD(swapcache_wq);
+ 
+ /*
+- * We enter with non-exclusive mmap_lock (to exclude vma changes,
+- * but allow concurrent faults), and pte mapped but not yet locked.
++ * We enter with either the VMA lock or the mmap_lock held (see
++ * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
+  * We return with pte unmapped and unlocked.
+  *
+- * We return with the mmap_lock locked or unlocked in the same cases
+- * as does filemap_fault().
++ * When returning, the lock may have been released in the same cases
++ * as done by filemap_fault().
+  */
+ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ {
+@@ -4737,9 +4737,10 @@ static struct folio *alloc_anon_folio(struct vm_fault *vmf)
  }
  
  /*
-- * By the time we get here, we already hold the mm semaphore
-+ * By the time we get here, we already hold either the VMA lock or the
-+ * mmap_lock (FAULT_FLAG_VMA_LOCK tells you which).
-  *
-  * The mmap_lock may have been released depending on flags and our
+- * We enter with non-exclusive mmap_lock (to exclude vma changes,
+- * but allow concurrent faults), and pte mapped but not yet locked.
+- * We return with mmap_lock still held, but pte unmapped and unlocked.
++ * We enter with either the VMA lock or the mmap_lock held (see
++ * FAULT_FLAG_VMA_LOCK), and pte unmapped and unlocked.
++ * We return with the lock still held, but pte unmapped and unlocked.
++ * If VM_FAULT_RETRY is returned, the lock may have been released.
+  */
+ static vm_fault_t do_anonymous_page(struct vm_fault *vmf)
+ {
+@@ -4857,9 +4858,10 @@ static vm_fault_t do_anonymous_page(struct vm_fault *vmf)
+ }
+ 
+ /*
+- * The mmap_lock must have been held on entry, and may have been
+- * released depending on flags and vma->vm_ops->fault() return value.
+- * See filemap_fault() and __lock_page_retry().
++ * Either the VMA lock or the mmap_lock must have been held on entry
++ * (see FAULT_FLAG_VMA_LOCK) and may have been released depending on
++ * flags and vma->vm_ops->fault() return value.
++ * See filemap_fault() and __folio_lock_or_retry().
+  */
+ static vm_fault_t __do_fault(struct vm_fault *vmf)
+ {
+@@ -5423,11 +5425,11 @@ static vm_fault_t do_shared_fault(struct vm_fault *vmf)
+ }
+ 
+ /*
+- * We enter with non-exclusive mmap_lock (to exclude vma changes,
+- * but allow concurrent faults).
+- * The mmap_lock may have been released depending on flags and our
++ * We enter with either the VMA lock or the mmap_lock held (see
++ * FAULT_FLAG_VMA_LOCK).
++ * The lock may have been released depending on flags and our
   * return value.  See filemap_fault() and __folio_lock_or_retry().
+- * If mmap_lock is released, vma may become invalid (for example
++ * If the lock is released, vma may become invalid (for example
+  * by other thread calling munmap()).
+  */
+ static vm_fault_t do_fault(struct vm_fault *vmf)
+@@ -5755,10 +5757,11 @@ static vm_fault_t wp_huge_pud(struct vm_fault *vmf, pud_t orig_pud)
+  * with external mmu caches can use to update those (ie the Sparc or
+  * PowerPC hashed page tables that act as extended TLBs).
+  *
+- * We enter with non-exclusive mmap_lock (to exclude vma changes, but allow
+- * concurrent faults).
++ * On entry, we hold either the VMA lock or the mmap_lock
++ * (see FAULT_FLAG_VMA_LOCK).
+  *
+- * The mmap_lock may have been released depending on flags and our return value.
++ * The mmap_lock or VMA lock may have been released depending on flags
++ * and our return value.
+  * See filemap_fault() and __folio_lock_or_retry().
+  */
+ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+@@ -5841,8 +5844,8 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+ 
+ /*
+  * On entry, we hold either the VMA lock or the mmap_lock
+- * (FAULT_FLAG_VMA_LOCK tells you which).  If VM_FAULT_RETRY is set in
+- * the result, the mmap_lock is not held on exit.  See filemap_fault()
++ * (see FAULT_FLAG_VMA_LOCK).  If VM_FAULT_RETRY is set in
++ * the result, the lock is not held on exit.  See filemap_fault()
+  * and __folio_lock_or_retry().
+  */
+ static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
+@@ -6072,9 +6075,9 @@ static vm_fault_t sanitize_fault_flags(struct vm_area_struct *vma,
+ 
+ /*
+  * By the time we get here, we already hold either the VMA lock or the
+- * mmap_lock (FAULT_FLAG_VMA_LOCK tells you which).
++ * mmap_lock (see FAULT_FLAG_VMA_LOCK).
+  *
+- * The mmap_lock may have been released depending on flags and our
++ * The lock may have been released depending on flags and our
+  * return value.  See filemap_fault() and __folio_lock_or_retry().
+  */
+ vm_fault_t handle_mm_fault(struct vm_area_struct *vma, unsigned long address,
 -- 
 2.53.0
 
