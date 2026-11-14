@@ -1,48 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794696765;
-	b=fw599Yy/j9t3KRtB+O6dWjEvoSRz6KbFuAQQY9kYww+0Ol5SQUUk92703QCIGJKC/41Q
-	 NHHjcCB8rwlJok7CqciHP76ZNUBzLdcNjYf7r0FkP7vH70Y7ECvhSEkux+NLua7wiSvDL
-	 PwP+5R3KHWkoH0K8jtan4czD0iI4rJaE6xLL4eO4s+M0vVB/asmSeirQXSPoguyZCYRxE
-	 c2ShcVwMUFbtsakscDlYYLOCuMZiIrMx05sQunpHpA2TXKGKCxhZGrkm0pCEe3K6zk8Y1
-	 a2Gqc4v2W6/LkIlVOr15yEjnBTFo7+Y7lgt00yNOIEFTaRGpPL+2NWhrvXa0wYY/oJA==
+	t=1794699893;
+	b=KxwYyFzMz0jcbcgx+NEaUgQK3afYTzaBe+l9JJxupUfqTZ8DOBv3Bp2xZ5fLUbXbW9dd
+	 Zw/KNDXmOiI6rSJ0ylDkhJNa6G895dmedyhw8r2vjFJq5oLxADVxK7CmI1K77qVbnKoR8
+	 wrn4mM/IUl9Sb2dmRMX5HFv69n/mvi95TrC4185rQXpVNoQm0Ej0ZBaXN/JkB8cP3nEg0
+	 8Gm44z1M0BdrFgeUqz2zgLvIGsJJlKACiYZanVev2ocZEJg8RyKcTwDqgJ62uzJVqCxdE
+	 19fmk9xVSSIR48UCz28JDdYwsKrkv1ybWEQyFV4ze4eX0HI3FKGFb7bH4MuRnWxaXjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794696765;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=+1ShE89fdK1XdTrSTR3hrte1xDLJU7N1BjjU1XV5uxk=;
-	b=DHxq2xlVF8yb9kWG1PjKtSMxgRAWqhpqV80qG4OZObTND/5QyTz6ZiAw/jehNs4EL+tg
-	 hkCHgHRp0/eGNpKPw/BVz6j604mRTGk893mzQcoukmPAZOzl+upOhxZb3hv1QIVWY+Tff
-	 9e+9WoY5gHd+9jKRmcrm+UkegqY6yHcCwoPjZmSyWh0JD0fuEMkVnr1PkK8V6+XTQa/px
-	 Ny7QZmmYn6iUp9RtUrQjf9aiBgRORit2/1xIw3MqqfUsqt6Jx/f3enVGOk5wzmfj57nFD
-	 iGtWMN0tR3q0EJFHtN28/lixLwy0AAF2CwmvU4BgagPSiciP8WLu0UAVXUZg9eYjmAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794699893;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=vaNd3hjjK0RwNZ+3nKlLJJm9wJyFljAYjaDt+xbVY7A=;
+	b=ND4BpTpDPrDJ7R9kIOOXyc7WK/ONBgR2DhmFh2t7ObNS278oIZwbqN7lpX/go9wyFBUz
+	 gH3BhKwtCSZKFpKdFU9lXUSwCA5zl8PWDBSsvIjdK2m99uyDeVBDw275/MzHQzJhId0TX
+	 hRmyqkN0xU5jDAaaeA94ajgF8x+8zpSCeKcwKb5eDe0d2bup4BlDVyrqfIAentohKWZGO
+	 rCPI8IjSW+NjPSsnFd3ST2XO/MB6BmUlvcR9Rz7taLulLtNgAvRod1HLVw/1dN2eO+nPp
+	 ZGnirYxX1m/Wh+B6o5D2kA6PHSRSRsqZitFJsXJEO60MCN/JTTi95Bw7R3wauJm5V8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ACows8n5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UaByAHBJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AE7606A327;
-	Sat, 14 Nov 2026 22:52:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDA0606A327;
+	Sat, 14 Nov 2026 23:44:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ACows8n5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61BE1F000C4;
-	Sat, 14 Nov 2026 22:52:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794696764;
-	bh=+1ShE89fdK1XdTrSTR3hrte1xDLJU7N1BjjU1XV5uxk=;
-	h=Date:To:From:Subject;
-	b=ACows8n5XdzER8WMrOxbdNHYPHyGOgz5TgaU1MdRxCa6VaMq5ZkqvlbKtAfFojX9O
-	 LeJhIg34L+yxBXOEo2PNbfa8+IdoHrjd43JpleW7yPAlZF/+ZVSVcIfu9higoOL0WT
-	 8Jk+mhtb9xIbd2OqcNizLd1lkbm8tAecD3NsrRLM=
-Date: Sat, 14 Nov 2026 14:52:44 -0800
-To: mm-commits@vger.kernel.org,wangyang.guo@intel.com,
-	tim.c.chen@linux.intel.com,tianyou.li@intel.com,tglx@kernel.org,
-	stable@vger.kernel.org,dan.liang@intel.com,bp@alien8.de,
-	Vishal.Badole@amd.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + lib-group_cpus-snapshot-cluster-masks-to-keep-grouping-hotplug-invariant.patch added to mm-nonmm-unstable branch
-Message-Id: <20261114225244.B61BE1F000C4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UaByAHBJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED2F1F000C4;
+	Sat, 14 Nov 2026 23:44:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794699893;
+	bh=vaNd3hjjK0RwNZ+3nKlLJJm9wJyFljAYjaDt+xbVY7A=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UaByAHBJI2Xt3Qe1G/zWfClNWJiBP4cDIJ/39j7PDRxuLNmZR4xRpNOZqkqLASbBR
+	 V3u7gmgU9Yyrd4f/4tw+wBWANW2zkBWyEzWw7IH/RqlypLaGvQiPniDQeRXBr7Qc93
+	 od3cXKY/HbaoreAG6iALQgQJM39ImmJqzhMgoY39PUgFGvYMk11KE/8b8FeknQ6w6t
+	 2aNL1ouFY9MIs9vCnF02GKtYjNY+AYqL2gsAYyLz+ucTB0PB4Y1c/EJwNy4HvZZNYf
+	 fgd3CXVaaQBME090HpZo2e4oD6A0ZgI5phCDiA+HFlLXsYFomBsHS2DgSKNvulnt7i
+	 b25erJKmvLRKw==
+Subject: Re: [PATCH can-next v6 1/6] can: gs_usb: gs_make_candev(): check
+ can_rx_offload_add_manual() return value
+From: netdev-bot+sashiko@kernel.org
+To: mkl@pengutronix.de
+Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
+ max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, kuba@kernel.org
+Date: Sat, 14 Nov 2026 23:44:52 +0000
+Message-ID: <179469989234.488853.8740350173705893191@kernel.org>
+In-Reply-To: <20261113-gs_usb-fixes-v6-1-0c039e1bfd74@pengutronix.de>
+References: <20261113-gs_usb-fixes-v6-1-0c039e1bfd74@pengutronix.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,335 +63,74 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-The patch titled
-     Subject: lib/group_cpus: snapshot cluster masks to keep grouping hotplug invariant
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     lib-group_cpus-snapshot-cluster-masks-to-keep-grouping-hotplug-invariant.patch
+Low priority / nit picks for your consideration:
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/lib-group_cpus-snapshot-cluster-masks-to-keep-grouping-hotplug-invariant.patch
+- [Low] On the current tree the new error branch in gs_make_candev()
+  cannot be reached.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+--
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+can: gs_usb: gs_make_candev(): check can_rx_offload_add_manual() return value
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+This patch makes gs_make_candev() check the return value of
+can_rx_offload_add_manual(). On failure it now exits through the existing
+out_free_candev path. The commit message says the change prepares for an
+upcoming can_rx_offload series in which can_rx_offload_add_manual() can
+fail.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+Link: https://patch.msgid.link/20260907104942.17089-4-ciprianmarian.costea@oss.nxp.com
 
-------------------------------------------------------
-From: Vishal Badole <Vishal.Badole@amd.com>
-Subject: lib/group_cpus: snapshot cluster masks to keep grouping hotplug invariant
-Date: Sat, 14 Nov 2026 20:44:03 +0530
+> Fixes: 24bc41b45583 ("can: gs_usb: convert to NAPI/rx-offload to avoid OoO reception")
 
-group_cpus_evenly() builds the managed-IRQ affinity spread used by
-multi-queue devices such as NVMe.  That spread is meant to be a property
-of the static CPU topology: it walks cpu_present_mask and then
-cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
-including CPUs that are offline at the time.  A driver depends on that
-partition staying stable across re-computation - the CPUs a queue is given
-at probe must still describe the same queue after the device is later
-reset and its affinity recomputed.
+> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+> index 3b9b2f104d868..cac4ce323a1de 100644
+> --- a/drivers/net/can/usb/gs_usb.c
+> +++ b/drivers/net/can/usb/gs_usb.c
+> @@ -1487,7 +1487,10 @@ static struct gs_can *gs_make_candev(unsigned int channel,
+>  		dev->can.fd.data_bittiming_const = &dev->data_bt_const;
+>  	}
+>  
+> -	can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
+> +	rc = can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
+> +	if (rc)
+> +		goto out_free_candev;
+> +
 
-On an AMD system that stability breaks across an s2idle cycle.  CPUs 3-11
-are offlined before suspend, leaving only CPUs 0-2 online.  s2idle itself
-does not offline secondary CPUs.  The NVMe controller uses the
-simple-suspend quirk, so resume fully re-initialises it and recomputes the
-affinity spread while CPUs 3-11 remain offline.  The system then hangs for
-roughly two minutes and stays sluggish afterwards, the controller only
-making progress through its command-timeout poll:
+[Severity: Low]
+This isn't a bug, but can the new error branch be reached on the current
+tree?
 
-  nvme nvme0: I/O tag 898 (3382) QID 9 timeout, completion polled
-  nvme nvme0: I/O tag 398 (618e) QID 11 timeout, completion polled
+can_rx_offload_add_manual() in drivers/net/can/dev/rx-offload.c only
+fails when mailbox_read is set:
 
-QID 9 and QID 11 are the queues whose CPUs were offline when the spread
-was recomputed.  "completion polled" means the commands did finish in
-hardware, but their interrupts were never delivered to a CPU that was
-watching the queue, so nothing reaped them until the timeout fired.
+    if (offload->mailbox_read)
+        return -EINVAL;
 
-It happens because commit 89802ca36c96 ("lib/group_cpus: make group CPU
-cluster aware") derives the cluster groups from
-topology_cluster_cpumask(), which lists only the cluster siblings that are
-online when it is called.  The resulting partition therefore depends on
-the transient online mask rather than on the topology alone.  Recomputed
-on resume while CPUs 3-11 remain offline, it no longer matches the
-boot-time partition, and a queue is left with an affinity that does not
-cover the CPU it is meant to serve once that CPU comes back online.  The
-dependence is on the online mask, not on any AMD-specific behaviour, so
-the same stall is reproducible on Intel platforms as well.
+    return can_rx_offload_init_queue(dev, offload, weight);
 
-Fix this by snapshotting cluster and SMT masks together under
-cpus_read_trylock() when all present CPUs are online.  Latch the first
-capture attempt, permanently using CPU-order grouping if it fails, and
-propagate later allocation errors instead of switching algorithms.  This
-keeps successful spreads stable across CPU offline/online cycles for an
-unchanged group count, present/possible CPU sets and NUMA topology.
+gs_usb never sets mailbox_read. The private area returned by
+alloc_candev() is zeroed, so this check always passes.
 
-Link: https://lore.kernel.org/20261114151403.1379591-1-Vishal.Badole@amd.com
-Fixes: 89802ca36c96 ("lib/group_cpus: make group CPU cluster aware")
-Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Wangyang Guo <wangyang.guo@intel.com>
-Cc: Tianyou Li <tianyou.li@intel.com>
-Cc: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: Dan Liang <dan.liang@intel.com>
-Cc: <stable@vger.kernel.org>
+can_rx_offload_init_queue() always returns 0. It also sets up
+skb_irq_queue as an embedded struct sk_buff_head, so the
+"offload->skb_irq_queue == NULL" case only appears after the upcoming
+rx-offload rework.
 
- lib/group_cpus.c |  125 ++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 106 insertions(+), 19 deletions(-)
+The commit message does say this failure comes "In an upcoming series".
+Given that, would it be clearer to present this as preparation for that
+series rather than tag it with Fixes: 24bc41b45583? Today the check
+cannot trigger, so backporters may read the Fixes: tag as pointing to a
+bug users can hit.
 
---- a/lib/group_cpus.c~lib-group_cpus-snapshot-cluster-masks-to-keep-grouping-hotplug-invariant
-+++ a/lib/group_cpus.c
-@@ -6,11 +6,14 @@
- #include <linux/kernel.h>
- #include <linux/slab.h>
- #include <linux/cpu.h>
-+#include <linux/mutex.h>
- #include <linux/sort.h>
- #include <linux/group_cpus.h>
- 
- #ifdef CONFIG_SMP
- 
-+static cpumask_var_t *sibling_snapshot;
-+
- static void grp_spread_init_one(struct cpumask *irqmsk, struct cpumask *nmsk,
- 				unsigned int cpus_per_grp)
- {
-@@ -29,7 +32,7 @@ static void grp_spread_init_one(struct c
- 		cpus_per_grp--;
- 
- 		/* If the cpu has siblings, use them first */
--		siblmsk = topology_sibling_cpumask(cpu);
-+		siblmsk = sibling_snapshot ? sibling_snapshot[cpu] : cpumask_of(cpu);
- 		for (sibl = -1; cpus_per_grp > 0; ) {
- 			sibl = cpumask_next(sibl, siblmsk);
- 			if (sibl >= nr_cpu_ids)
-@@ -286,6 +289,84 @@ static void assign_cpus_to_groups(unsign
- 	}
- }
- 
-+/*
-+ * Cluster and SMT sibling masks change when CPUs go offline. Snapshot both
-+ * on the first spread if every present CPU is online. Latch the attempt even
-+ * on failure, so later spreads cannot enable a different grouping algorithm.
-+ *
-+ * Without a snapshot, use CPU order without cluster or SMT preference.
-+ * Successful spreads remain stable for the same group count, present/possible
-+ * CPU sets and NUMA topology. The snapshot is not refreshed for CPU hot-add.
-+ */
-+static cpumask_var_t *cluster_snapshot;
-+static bool cluster_snapshot_initialized;
-+static DEFINE_MUTEX(cluster_snapshot_lock);
-+
-+static void capture_cluster_snapshot(void)
-+{
-+	cpumask_var_t *snapshot, *siblings;
-+	unsigned int cpu;
-+
-+	/* Pairs with the smp_store_release() below. */
-+	if (smp_load_acquire(&cluster_snapshot_initialized))
-+		return;
-+
-+	mutex_lock(&cluster_snapshot_lock);
-+	if (cluster_snapshot_initialized)
-+		goto out;
-+
-+	/* Only capture when all present CPUs are online. */
-+	if (!data_race(cpumask_equal(cpu_present_mask, cpu_online_mask)))
-+		goto done;
-+
-+	snapshot = kcalloc(nr_cpu_ids, sizeof(*snapshot), GFP_KERNEL);
-+	if (!snapshot)
-+		goto done;
-+	siblings = kcalloc(nr_cpu_ids, sizeof(*siblings), GFP_KERNEL);
-+	if (!siblings)
-+		goto free_snapshot;
-+
-+	for_each_possible_cpu(cpu)
-+		if (!zalloc_cpumask_var(&snapshot[cpu], GFP_KERNEL) ||
-+		    !zalloc_cpumask_var(&siblings[cpu], GFP_KERNEL))
-+			goto free_snapshot;
-+
-+	/* Trylock: a caller may hold a lock the hotplug writer needs. */
-+	if (!cpus_read_trylock())
-+		goto free_snapshot;
-+
-+	/* Recheck with CPU hotplug excluded before copying the masks. */
-+	if (!data_race(cpumask_equal(cpu_present_mask, cpu_online_mask))) {
-+		cpus_read_unlock();
-+		goto free_snapshot;
-+	}
-+
-+	for_each_possible_cpu(cpu) {
-+		cpumask_copy(snapshot[cpu], topology_cluster_cpumask(cpu));
-+		cpumask_copy(siblings[cpu], topology_sibling_cpumask(cpu));
-+	}
-+	cpus_read_unlock();
-+
-+	cluster_snapshot = snapshot;
-+	sibling_snapshot = siblings;
-+	goto done;
-+
-+free_snapshot:
-+	/* Unallocated entries are NULL, which free_cpumask_var() ignores. */
-+	for_each_possible_cpu(cpu) {
-+		free_cpumask_var(snapshot[cpu]);
-+		if (siblings)
-+			free_cpumask_var(siblings[cpu]);
-+	}
-+	kfree(snapshot);
-+	kfree(siblings);
-+done:
-+	/* Publish the capture outcome, including failure, before grouping. */
-+	smp_store_release(&cluster_snapshot_initialized, true);
-+out:
-+	mutex_unlock(&cluster_snapshot_lock);
-+}
-+
- static int alloc_cluster_groups(unsigned int ncpus,
- 				unsigned int ngroups,
- 				struct cpumask *node_cpumask,
-@@ -307,7 +388,7 @@ static int alloc_cluster_groups(unsigned
- 		if (cpu >= nr_cpu_ids)
- 			break;
- 
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		if (!cpumask_weight(cluster_mask))
- 			goto no_cluster;
- 		/* Clean out CPUs on the same cluster. */
-@@ -322,7 +403,7 @@ static int alloc_cluster_groups(unsigned
- 	/* Allocate memory based on cluster number. */
- 	clusters = kzalloc_objs(*clusters, ncluster);
- 	if (!clusters)
--		goto no_cluster;
-+		return -ENOMEM;
- 	cluster_groups = kzalloc_objs(struct node_groups, ncluster);
- 	if (!cluster_groups)
- 		goto fail_cluster_groups;
-@@ -331,7 +412,7 @@ static int alloc_cluster_groups(unsigned
- 	cpumask_copy(msk, node_cpumask);
- 	for (n = 0; n < ncluster; n++) {
- 		cpu = cpumask_first(msk);
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		nc = cpumask_weight_and(cluster_mask, node_cpumask);
- 		clusters[n] = cluster_mask;
- 		cluster_groups[n].id = n;
-@@ -347,6 +428,7 @@ static int alloc_cluster_groups(unsigned
- 
-  fail_cluster_groups:
- 	kfree(clusters);
-+	return -ENOMEM;
-  no_cluster:
- 	return 0;
- }
-@@ -354,9 +436,9 @@ static int alloc_cluster_groups(unsigned
- /*
-  * Try group CPUs evenly for cluster locality within a NUMA node.
-  *
-- * Return: true if success, false otherwise.
-+ * Return: cluster count on success, 0 if inapplicable, or -ENOMEM on failure.
-  */
--static bool __try_group_cluster_cpus(unsigned int ncpus,
-+static int __try_group_cluster_cpus(unsigned int ncpus,
- 				     unsigned int ngroups,
- 				     struct cpumask *node_cpumask,
- 				     struct cpumask *masks,
-@@ -365,18 +447,20 @@ static bool __try_group_cluster_cpus(uns
- {
- 	struct node_groups *cluster_groups;
- 	const struct cpumask **clusters;
--	unsigned int ncluster;
--	bool ret = false;
-+	int ncluster;
- 	cpumask_var_t nmsk;
- 	unsigned int i, nc;
- 
-+	if (!cluster_snapshot)
-+		return 0;
-+
- 	if (!zalloc_cpumask_var(&nmsk, GFP_KERNEL))
--		goto fail_nmsk_alloc;
-+		return -ENOMEM;
- 
- 	ncluster = alloc_cluster_groups(ncpus, ngroups, node_cpumask, nmsk,
- 					&clusters, &cluster_groups);
- 
--	if (ncluster == 0)
-+	if (ncluster <= 0)
- 		goto fail_no_clusters;
- 
- 	for (i = 0; i < ncluster; i++) {
-@@ -392,13 +476,11 @@ static bool __try_group_cluster_cpus(uns
- 		assign_cpus_to_groups(nc, nmsk, nv, masks, curgrp, last_grp);
- 	}
- 
--	ret = true;
- 	kfree(cluster_groups);
- 	kfree(clusters);
-  fail_no_clusters:
- 	free_cpumask_var(nmsk);
-- fail_nmsk_alloc:
--	return ret;
-+	return ncluster;
- }
- 
- static int __group_cpus_evenly(unsigned int startgrp, unsigned int numgrps,
-@@ -442,6 +524,7 @@ static int __group_cpus_evenly(unsigned
- 	for (i = 0; i < nr_node_ids; i++) {
- 		unsigned int ncpus;
- 		struct node_groups *nv = &node_groups[i];
-+		int ret;
- 
- 		if (nv->ngroups == UINT_MAX)
- 			continue;
-@@ -454,14 +537,16 @@ static int __group_cpus_evenly(unsigned
- 
- 		WARN_ON_ONCE(nv->ngroups > ncpus);
- 
--		if (__try_group_cluster_cpus(ncpus, nv->ngroups, nmsk,
--					     masks, &curgrp, last_grp)) {
--			done += nv->ngroups;
--			continue;
-+		ret = __try_group_cluster_cpus(ncpus, nv->ngroups, nmsk,
-+					       masks, &curgrp, last_grp);
-+		if (ret < 0) {
-+			kfree(node_groups);
-+			return ret;
- 		}
- 
--		assign_cpus_to_groups(ncpus, nmsk, nv, masks, &curgrp,
--				      last_grp);
-+		if (!ret)
-+			assign_cpus_to_groups(ncpus, nmsk, nv, masks, &curgrp,
-+					      last_grp);
- 		done += nv->ngroups;
- 	}
- 	kfree(node_groups);
-@@ -496,6 +581,8 @@ struct cpumask *group_cpus_evenly(unsign
- 	if (numgrps == 0)
- 		return NULL;
- 
-+	capture_cluster_snapshot();
-+
- 	if (!zalloc_cpumask_var(&nmsk, GFP_KERNEL))
- 		return NULL;
- 
-_
+>  	SET_NETDEV_DEV(netdev, &intf->dev);
+>  
+>  	rc = register_candev(dev->netdev);
 
-Patches currently in -mm which might be from Vishal.Badole@amd.com are
-
-lib-group_cpus-snapshot-cluster-masks-to-keep-grouping-hotplug-invariant.patch
-
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-gs_usb-fixes-v6-0-0c039e1bfd74%40pengutronix.de
