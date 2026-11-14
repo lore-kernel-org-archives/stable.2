@@ -1,60 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794633915;
-	b=ZnQHRdjpr6oiWwuGJ+loNxAxhwBeBSOLI74tK84Q9qtEdUVK2ceNV8LqHVmEI9zuj4bU
-	 j4nC5xWaaG4pI8kz/kHXXthxsYLvWUr1xb9gH9HExWLLk0wPfU7dfraDp3uTP+OIE/mtV
-	 QOQsJWwGd8XAeXO6VAxZml76cUiSxa6wcc1vUqJZZi5FxWe91JBH+1svefW/1G+5q3AVw
-	 52heZhm/r1a+FEH1OA7T+Z1SywnsCFGSxV+uG29dKz1X735TiyGRGmlqnpiLufwstliR5
-	 4r9QszxAf/Ha6Npe2MQ3LMKT8BHupjIv3IruxUb+T0MqlY0ksZXdx/xtzgXi4dov0TA==
+	t=1794633951;
+	b=MpQpAtF8l87zMmwW/QfAcVX3Cal9JsdS0v+tFavt01uvV7sFYFb+BsNNxNUxvqlDYeQI
+	 9Z+wdTc81rRyGFMDs8S5huHu96CVSR16qpkD6hG6ZwJCkr9329M0fivUem8sH95bwn8Pc
+	 N4mGqJCwj2AW3nKBTXAWIrkfFs+RbXMBO8duinUNRpmGcQTJo9ID2t6RmYb7joIn5BnR0
+	 FGitbszQsDB0hI+2cUTiKqt3KxMs9UdPKtWARucDudd1Fk6eA1e1saxtsV59YJdhdR8LC
+	 Rm++7PzYOJvBOT5Ft87M1T1GqxCeb7+lzUhGrva2cluPN1krK9Qi/wGmreiEiDWANWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794633915;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=G957/sYSSjsxjXZ6xa/V+ZGQcypevMQZrpwRMmbz3rI=;
-	b=O2EW52T0krNFDxvhW6dwo8Y0Erp/UwrPWNXQHtEAAY9p8C7blaPmam1DGSQ8KGUg1rdg
-	 WRhBkR2GGkfYqVHHIa4BESGEIiklW8XMDtCRfYsxe5P+9ePu+K4//V6f3kHaUZbm+oBGD
-	 fN/8yLTv5k5/jYMIqSoCkUWbVvPYchA93Y1R6WtzyXnug1dpbezSQ/k9JXi8VSeh4k9vL
-	 CgzKDq4bfTYsC8pfq9Elv5KdATltvZup3Jg7BolAs5ItjZ5J2mhvsi267tOGdWuKYHTPD
-	 lP2Qa+bx2cu/iuEZQ8XSJxEVJUjqvzWDOO23e9L6Oje/AE0z9fc/rYnQmpS1NXEw+mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794633951;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Pt00E6EePNE8b8GKdGufzELxtl6phO/EBWMq4zxuXP4=;
+	b=2u4s0NfG5Qp2jfAWIV4krhaOg/+2mHJZ3CB7vviChTW2uNA9Jd3c1gkFDMiLxYQ+QwpD
+	 lh8KWyyuu5Rq+Pmi6wcilS4jP1j9KNPqfecoRsfPwqCgq7OszbPoU7FGD2mqWO5QPj5X6
+	 gTw5dtKTETcDvITICQ3qeiRbauJNcj+A++bGlFGcUn8fjj2nJrrs2nIMrii/IpQWdccB5
+	 n6iElt5lE6+jLqxBVQ4MlJk3p1IY97v9MYqQnXvCp8MKeksbzpbkydBnSlDYIexHGsDTb
+	 LVxP1jPOBNCF/hnw/a7pUs6FCU7QI7jh5epxj/vYDSS7A3VXlws93Vx2RVLR+c/mg7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=h3oMVmAo;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LxLOZiAG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E02606A329;
-	Sat, 14 Nov 2026 05:25:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6E02606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0045606A332
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:25:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=h3oMVmAo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1794633908; x=1794893108;
-	bh=G957/sYSSjsxjXZ6xa/V+ZGQcypevMQZrpwRMmbz3rI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=h3oMVmAopLQfnIYX/WY17dQfkb3DrY/KbOWg13XYhq7ETZuORtXvba358moIARq+f
-	 +ddUkJED1ugY8XVIU/aRwbJn9QF0nTKe1U7eBC5KnyuXGp8de9dtW9RkIAMrzsiyqt
-	 hAhscnTT82FkjBtYfJFZr0LSIQKYOVHdQdFTSFlrqT2RX7RcOtnpOEDA7uwahNZBKQ
-	 FFUDOgglCBiG58XPNs8ovWKWNT5jLgaO9vRRrzO8HnUgOSVpvIjdObttbRRcsqrXK5
-	 H2w4aGSQlp8kONtET/0Xtu6WY1ecIhGRlXyTaNKSTZfeUmkBQydwIU6f6swUCtk0BT
-	 ETCbGBNRtWiaA==
-Date: Sat, 14 Nov 2026 05:25:01 +0000
-To: Namhyung Kim <namhyung@kernel.org>
-From: Paul Moses <p@1g4.org>
-Cc: acme@kernel.org, peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org, atrajeev@linux.vnet.ibm.com, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] perf record: reject CPU indices equal to the mask size
-Message-ID: <IXvxC0HMcBQR9FfdoTQXA2g84e5zjblvs2JieHL43ZVk00pM5aBX4sAeleDdL2AYcb6YF0rxFcdcOOd4CKrT4kJBRgnrYaVv6Cqpqcc9-sE=@1g4.org>
-In-Reply-To: <au1_ow_duqzf7nyY@google.com>
-References: <20261030064825.2156317-1-p@1g4.org> <au1_ow_duqzf7nyY@google.com>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 6a3d9a7cbb06d8b5f2a4c2166ce1a1c097ee46c4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LxLOZiAG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457701F000C4;
+	Sat, 14 Nov 2026 05:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794633950;
+	bh=Pt00E6EePNE8b8GKdGufzELxtl6phO/EBWMq4zxuXP4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LxLOZiAG/eiMuSDo9y8qhQARdH38Q6HZbPeo3guOpGo3ymPhJhn1itN4lWKAja1AG
+	 k8aNLGKOnrdIa2xluxmzk5dQls5fJWH6r7qXSPfM1DoIYkJYSegmEhkY7BHH53nw45
+	 yKUAbNp5Tw1TZywvGNjirtAY1++H5TKiqSkRP71MZYde7UE4o3JRUFZqbXSQKr/SqE
+	 Y5jUe5geuVZsyydAK3v3PLGnLkINtlSGCK+rZD+xgFraTFEb8IfIFdDgg8zDQv7/Xv
+	 +Lmmed2Gg+Sbf/RifYRdziHUUh5fus9mKva2d5IiOJWisfOpDzkiUWBPePGWKUZ8fb
+	 Nkqjw+geUHKcw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Rik van Riel <riel@surriel.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Harry Yoo (Meta)" <harry@kernel.org>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] fork: take mmap_lock before copying mm_struct
+Date: Sat, 14 Nov 2026 00:25:47 -0500
+Message-ID: <20261114052533.3081626-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200703-failed-6.12-ef694e2d2101@kernel.org>
+References: <20261109200703-failed-6.12-ef694e2d2101@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,133 +68,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-On Friday, November 6th, 2026 at 1:20 AM, Namhyung Kim <namhyung@kernel.org=
-> wrote:
+[ Upstream commit ef694e2d210111cc08c52fd25da9ab130170bfa3 ]
 
-> On Fri, Oct 30, 2026 at 06:48:50AM +0000, Paul wrote:
-> > From: Paul Moses <p@1g4.org>
-> >
-> > record__mmap_cpu_mask_init() rejects CPU indices greater than nbits but
-> > accepts nbits itself. Valid indices end at nbits - 1. When nbits is a
-> > multiple of BITS_PER_LONG, __set_bit() accesses the word immediately pa=
-st
-> > the bitmap allocation.
-> >
-> > User specified recording thread masks reach this write before they are
-> > intersected with the selected CPU mask. For example, an affinity mask
-> > containing CPU 64 overruns a bitmap allocated for 64 possible CPUs.
->=20
-> What's the exact command line?
->=20
+dup_mm() copies the parent's mm_struct before dup_mmap() takes the
+mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
+and newer heap mappings, causing later brk() requests to fail.
 
-  mkdir -p /tmp/perf-asan-build
-  make -C /usr/src/linux-7.x/tools/perf O=3D/tmp/perf-asan-build -j"$(nproc=
-)" \
-    WERROR=3D0 NO_RUST=3D1 NO_SHELLCHECK=3D1 NO_LIBPYTHON=3D1 \
-    EXTRA_CFLAGS=3D'-fsanitize=3Daddress -fno-omit-frame-pointer -g' \
-    LDFLAGS=3D'-fsanitize=3Daddress' perf
+Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
+cause inconsistencies.
 
-  qemu-system-x86_64 -enable-kvm -cpu host -smp 64 -m 4G \
-    -kernel /boot/vmlinuz-$(uname -r) \
-    -initrd /tmp/perf-guest-sym.cpio.zst \
-    -append 'console=3DttyS0 rdinit=3D/init panic=3D-1 loglevel=3D4' \
-    -nographic -no-reboot
+As a simple and robust fix, grab the parent's mmap_lock earlier. This
+way we don't need to update individual mm fields in dup_mmap() and
+keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
+exec_vm, stack_vm), as that is now no longer required.
 
-  ASAN_SYMBOLIZER_PATH=3D/bin/llvm-symbolizer \
-  ASAN_OPTIONS=3Ddetect_leaks=3D0:abort_on_error=3D1:symbolize=3D1 \
-  /perf record -e cpu-clock -C 0 --threads=3D0/64 -o /tmp/perf.data -- slee=
-p 0.05
+Keep releasing the parent's mmap_lock in dup_mmap(), before
+userfaultfd completion, to avoid moving the userfaultfd handling into the
+caller. This should get cleaned up later.
 
-RUNNING: perf record -e cpu-clock -C 0 --threads=3D0/64
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-=3D=3D540=3D=3DERROR: AddressSanitizer: heap-buffer-overflow on address 0x6=
-c9cc78223b8 at pc 0x60af685bdb4d bp 0x7ffd1e954400 sp 0x7ffd1e9543f8
-READ of size 8 at 0x6c9cc78223b8 thread T0
-    #0 0x60af685bdb4c in ___set_bit /usr/src/linux-7.x/tools/include/asm-ge=
-neric/bitops/non-atomic.h:22:6
-    #1 0x60af685bdb4c in record__mmap_cpu_mask_init /usr/src/linux-7.x/tool=
-s/perf/builtin-record.c:3695:3
-    #2 0x60af685bde4d in record__mmap_cpu_mask_init_spec /usr/src/linux-7.x=
-/tools/perf/builtin-record.c:3710:6
-    #3 0x60af685bde4d in record__init_thread_masks_spec /usr/src/linux-7.x/=
-tools/perf/builtin-record.c:3819:9
-    #4 0x60af685b9bcc in record__init_thread_user_masks /usr/src/linux-7.x/=
-tools/perf/builtin-record.c:4015:8
-    #5 0x60af685b9bcc in record__init_thread_masks /usr/src/linux-7.x/tools=
-/perf/builtin-record.c:4075:9
-    #6 0x60af685b809a in cmd_record /usr/src/linux-7.x/tools/perf/builtin-r=
-ecord.c:4395:8
-    #7 0x60af686cc167 in run_builtin /usr/src/linux-7.x/tools/perf/perf.c:3=
-48:11
-    #8 0x60af686cb739 in main /usr/src/linux-7.x/tools/perf/perf.c
-    #9 0x707cd1a470b9  (/lib/ld-musl-x86_64.so.1+0x690b9) (BuildId: d1535db=
-89359be00fb635e9145a3a49d0cbd8261)
+Move uprobe_start_dup_mmap() to preserve the lock ordering.
 
-0x6c9cc78223b8 is located 0 bytes after 8-byte region [0x6c9cc78223b0,0x6c9=
-cc78223b8)
-allocated by thread T0 here:
-    #0 0x60af685506d2 in calloc (/perf+0xc266d2) (BuildId: c5c8ceb2947501d8=
-a08fbc5dd506840be170f336)
-    #1 0x60af685bdcd9 in bitmap_zalloc /usr/src/linux-7.x/tools/include/lin=
-ux/bitmap.h:121:9
-    #2 0x60af685bdcd9 in record__mmap_cpu_mask_alloc /usr/src/linux-7.x/too=
-ls/perf/builtin-record.c:3093:15
-    #3 0x60af685bdcd9 in record__thread_mask_alloc /usr/src/linux-7.x/tools=
-/perf/builtin-record.c:3117:8
-    #4 0x60af685bdcd9 in record__init_thread_masks_spec /usr/src/linux-7.x/=
-tools/perf/builtin-record.c:3807:8
-    #5 0x60af685b9bcc in record__init_thread_user_masks /usr/src/linux-7.x/=
-tools/perf/builtin-record.c:4015:8
-    #6 0x60af685b9bcc in record__init_thread_masks /usr/src/linux-7.x/tools=
-/perf/builtin-record.c:4075:9
-    #7 0x60af685b809a in cmd_record /usr/src/linux-7.x/tools/perf/builtin-r=
-ecord.c:4395:8
-    #8 0x60af686cc167 in run_builtin /usr/src/linux-7.x/tools/perf/perf.c:3=
-48:11
-    #9 0x60af686cb739 in main /usr/src/linux-7.x/tools/perf/perf.c
-    #10 0x707cd1a470b9  (/lib/ld-musl-x86_64.so.1+0x690b9) (BuildId: d1535d=
-b89359be00fb635e9145a3a49d0cbd8261)
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-2-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Retained mm->user_ns as the third argument to mm_init(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/fork.c | 30 ++++++++++++++++--------------
+ 1 file changed, 16 insertions(+), 14 deletions(-)
 
-SUMMARY: AddressSanitizer: heap-buffer-overflow /usr/src/linux-7.x/tools/in=
-clude/asm-generic/bitops/non-atomic.h:22:6 in ___set_bit
-Shadow bytes around the buggy address:
-  0x6c9cc7822100: fa fa fd fa fa fa 00 fa fa fa 00 fa fa fa fd fa
-  0x6c9cc7822180: fa fa 01 fa fa fa 00 fa fa fa fd fa fa fa 00 fa
-  0x6c9cc7822200: fa fa 00 fa fa fa 00 fa fa fa 00 fa fa fa 00 fa
-  0x6c9cc7822280: fa fa 02 fa fa fa 00 fa fa fa 03 fa fa fa fd fa
-  0x6c9cc7822300: fa fa fd fa fa fa 00 fa fa fa 00 fa fa fa 00 fa
-=3D>0x6c9cc7822380: fa fa 00 fa fa fa 00[fa]fa fa fd fd fa fa fd fa
-  0x6c9cc7822400: fa fa 00 02 fa fa 00 fa fa fa fa fa fa fa fa fa
-  0x6c9cc7822480: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x6c9cc7822500: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x6c9cc7822580: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x6c9cc7822600: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-Shadow byte legend (one shadow byte represents 8 application bytes):
-  Addressable:           00
-  Partially addressable: 01 02 03 04 05 06 07=20
-  Heap left redzone:       fa
-  Freed heap region:       fd
-  Stack left redzone:      f1
-  Stack mid redzone:       f2
-  Stack right redzone:     f3
-  Stack after return:      f5
-  Stack use after scope:   f8
-  Global redzone:          f9
-  Global init order:       f6
-  Poisoned by user:        f7
-  Container overflow:      fc
-  Array cookie:            ac
-  Intra object redzone:    bb
-  ASan internal:           fe
-  Left alloca redzone:     ca
-  Right alloca redzone:    cb
-=3D=3D540=3D=3DABORTING
-Aborted
-PERF_RC=3D134
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 140a615daf42e..af3c8be386efa 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -641,8 +641,7 @@ static __latent_entropy int dup_mmap(struct mm_struct *mm,
+ 	LIST_HEAD(uf);
+ 	VMA_ITERATOR(vmi, mm, 0);
+ 
+-	if (mmap_write_lock_killable(oldmm))
+-		return -EINTR;
++	mmap_assert_write_locked(oldmm);
+ 	flush_cache_dup_mm(oldmm);
+ 	uprobe_dup_mmap(oldmm, mm);
+ 	/*
+@@ -653,11 +652,6 @@ static __latent_entropy int dup_mmap(struct mm_struct *mm,
+ 	/* No ordering required: file already has been exposed. */
+ 	dup_mm_exe_file(mm, oldmm);
+ 
+-	mm->total_vm = oldmm->total_vm;
+-	mm->data_vm = oldmm->data_vm;
+-	mm->exec_vm = oldmm->exec_vm;
+-	mm->stack_vm = oldmm->stack_vm;
+-
+ 	/* Use __mt_dup() to efficiently build an identical maple tree. */
+ 	retval = __mt_dup(&oldmm->mm_mt, &mm->mm_mt, GFP_KERNEL);
+ 	if (unlikely(retval))
+@@ -824,7 +818,7 @@ static inline void mm_free_pgd(struct mm_struct *mm)
+ #else
+ static int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+ {
+-	mmap_write_lock(oldmm);
++	mmap_assert_write_locked(oldmm);
+ 	dup_mm_exe_file(mm, oldmm);
+ 	mmap_write_unlock(oldmm);
+ 	return 0;
+@@ -1705,12 +1699,19 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 	if (!mm)
+ 		goto fail_nomem;
+ 
++	uprobe_start_dup_mmap();
++	if (mmap_write_lock_killable(oldmm)) {
++		free_mm(mm);
++		goto fail_uprobe;
++	}
++
+ 	memcpy(mm, oldmm, sizeof(*mm));
+ 
+-	if (!mm_init(mm, tsk, mm->user_ns))
+-		goto fail_nomem;
++	if (!mm_init(mm, tsk, mm->user_ns)) {
++		mmap_write_unlock(oldmm);
++		goto fail_uprobe;
++	}
+ 
+-	uprobe_start_dup_mmap();
+ 	err = dup_mmap(mm, oldmm);
+ 	if (err)
+ 		goto free_pt;
+@@ -1729,9 +1730,10 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 	mm->binfmt = NULL;
+ 	mm_init_owner(mm, NULL);
+ 	mmput(mm);
+-	if (err)
+-		uprobe_end_dup_mmap();
+-
++	if (!err)
++		return NULL;
++fail_uprobe:
++	uprobe_end_dup_mmap();
+ fail_nomem:
+ 	return NULL;
+ }
+-- 
+2.53.0
 
