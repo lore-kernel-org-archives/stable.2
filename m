@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794669609;
-	b=yYlaJDMwrKGtv64SxSjDo5vRFTAP3JMrUmSH+ePtjq4pmC9b2p3lLyT1dY5xSBdA5efh
-	 dccYENeiOvy5Tcg9Zk1WTXF/ei8LOFr7TRsN674VsHRrncAyFRiy46NZLYQ4Qu0H8A+Xp
-	 z78L6dDad35Deqtay0KWIujrLnrbp6NC2NNyC6+VMEb9bgPy6GjuE1niEnOcaKWYQBOG2
-	 kz0LlnIQc0pEOVug1l1kKTX5ppOafnUiBmHZhZ5X//BX+4kpcOXQ/emjPlvp8FPm9SCpg
-	 5qfNeekLRqaFaWvbqsxAtAncZAAextYtnKtS+jrTv2Gf/UoEOZjw2HnzcJTeVJbgubw==
+	t=1794669754;
+	b=hNAt0m9hMmJGQQA3uOejYYrPM+Zwijk9QsIEJDl5Kro3kfpFxto7fqSNGyYpKVOVpz40
+	 Ha0p57RNdr2LaQTmmxxSD7ePZfmgvIwTUCHsnpyLWS80+HIuWtvuIFolbnDmVCh0gBokU
+	 rb9YOArK4zdrJfNwS9BX8x2ufVc7HDKVNAxOOsSeJwLAr8Y2RL5JjDvxKAjK7e3gq+FNf
+	 VGW//MijaGur4EJfTxo64gMIWmPuicYQbefLiNGghfkGSNKAhv3Ne1r2YowBm1G7cMIG1
+	 0rF6ed95B8NZ3qOlToI0nzZ4p2sR5eHtSdTB82bTyClGsOvgBBBrfE4gjkzDyFizptQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794669609;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794669754;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jmc1PnZ6TYkecLS9JD4bbaacj/hSCFLA6xjcVNa7baI=;
-	b=KAeA/J0B860z/V7ZCDzZym8ZsATok9dZCViYdzPXNfKMxo0S7OLUCaIxpZQ3wpf8Ja8P
-	 QLm+yqzGxz/v3fEHxVGbHL5tKEUI/4KIBOjXbzQwpl6Dth+L9TTU0bQ2U6G64uQyy4AVT
-	 W/V8sSYSmvFvlYJ6UBQA7vtNAWGuJ2cdEX0ZLLeq6rMsiXWIUmu+In+nx3uuboTW78clo
-	 Q+rJNdjAlu8W/SwzKhg3+uuz8DTENnjljy5pKRetIAaRwVkoN+/sIJI0+QvBUAtjaal46
-	 TzwnKix8lP56YDoioSWNM8jVYC0iW98UXIJiLjSASzz04dCZHqOcnX2+CC1YMsQJ2+A==
+	bh=57pbBa0vx+DD1XbJcUW5q6+zSSsd87uZsAWnBPzDGe8=;
+	b=KuLBeEo/OiZNJkePQBmu0k/R+euleW8zLL6bLa3g2Bgn/MZ1JOwCnKiNXKtFCX3tfKeJ
+	 DgDjcPhF/FqWLPtBLVYRgoXwwZlBzkiNlCAyEEUfo7LdmHQ3pC3qbhYPNMA2MCJ7lkD4p
+	 /VATI0QxB+1KnfRVPMUbXO6L9FmCshNF5kLDDmy34V0OkZzuyL8FIx43U8T4fA9EVDMfh
+	 g38ZrvztMR6PRbYgHecHKmlKK+S7P2h8YMJZR72YOqiudOKjjOZQj0iYTNF3GGlSFInZ/
+	 dtGK4P/AWtX3QfTyUxRADnnXAt3VnT4OX9Ta0l8xpRL6ChdLEzqn/drX4suZijjXZpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLQCiV8b;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0xDZfkm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C636606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:20:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56CA606A338
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLQCiV8b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71DD51F000C5;
-	Sat, 14 Nov 2026 15:20:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0xDZfkm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EED1F000C5;
+	Sat, 14 Nov 2026 15:22:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794669609;
-	bh=jmc1PnZ6TYkecLS9JD4bbaacj/hSCFLA6xjcVNa7baI=;
+	s=k20260515; t=1794669754;
+	bh=57pbBa0vx+DD1XbJcUW5q6+zSSsd87uZsAWnBPzDGe8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RLQCiV8b4Ub80HX/UoSGcoKf0h/dHk14rey6lx0xsSYn2pNUOvJS3OAHNqJMpuKaF
-	 UjttDclewhDJ97LLmn97dOtr7y+nYC59WV1ik2ArNEfVcMChGSr5wBtA7Bv52nCpl2
-	 FTXcmxLlfaLmC3eNmDoZK+cKkKzwtOvrIrsXILAPii14qMGHaJS5AAry8iMWYtOBxV
-	 16cva1Ficc6AK3XQie1w5tOYNrKJItKJH9zLtH8NjEWcXzTpFfIY8zDpGW7NOU4osB
-	 AMndjJ3us/o+Tlf/cMwycei79Eq3lcyGqK3jPwz+NfZZmrjchQutvLBFUbSpp+134J
-	 P4GVxOzF2aqTA==
+	b=O0xDZfkmHaqhReaTnplOpUL1yAFQ43l1sKP7A06owRHg6dsYOcaX5CV/bBV8x/9T/
+	 hogJESCDqbMgr2rtd98tkgPkLNAUgJJTLJM1CmW1wpYE966oMeDQOBqWo8lLgg943Q
+	 QFKaCluQgQ+iPpyShmwCkFYYzFR+ScYTt3PbNO/By3AjQRu6l5/FAaq7LMw1eR1Vtn
+	 p/B8N28qpLAUB8wCMrRcNpq4dAtQTJyT41SPmDzBqt6msdkFqlb2gfnVfaqWxG5TJW
+	 pSHU7huKhHa2OLKRLZlCAKp/EWHN7KGcWauJvlePhCMZODsosznJjaPwDURCICPUtf
+	 HuDmO1OEJ46yw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: Roman Li <Roman.Li@amd.com>,
+	Dillon Varone <dillon.varone@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Dan Wheeler <daniel.wheeler@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] mm/mmu_notifier: finish non-blocking interval invalidation on error
-Date: Sat, 14 Nov 2026 10:20:06 -0500
-Message-ID: <20261114151943.3437554-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] drm/amd/display: Reset DET of HUBPs without a plane before outstanding updates
+Date: Sat, 14 Nov 2026 10:22:32 -0500
+Message-ID: <20261114152208.3435000-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114151943.3437554-1-sashal@kernel.org>
-References: <20261109201336-failed-6.6-6d65925777ec@kernel.org>
- <20261114151943.3437554-1-sashal@kernel.org>
+In-Reply-To: <20261109200539-failed-6.18-f3afbf7d832a@kernel.org>
+References: <20261109200539-failed-6.18-f3afbf7d832a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,90 +66,143 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Roman Li <Roman.Li@amd.com>
 
-[ Upstream commit 6d65925777ecae9d7a571a327e41c63f3940a0c7 ]
+[ Upstream commit f3afbf7d832ab138655afc96bd42226775d03ce7 ]
 
-When an ordinary MMU notifier rejects a non-blocking invalidation, the
-interval invalidation started beforehand is left unfinished: the caller
-skips mmu_notifier_invalidate_range_end(). Subsequent interval notifier
-operations can then wait forever.
+[WHY]
+DC asserts with:
+WARNING: dc/hubbub/dcn401/dcn401_hubbub.c at dcn401_program_compbuf_segments
+Call Trace:
+<TASK>
+dcn401_program_outstanding_updates+0x36/0x60 [amdgpu]
+hwss_process_outstanding_hw_updates+0x33/0x40 [amdgpu]
+commit_planes_for_stream+0x171f/0x1ff0 [amdgpu]
+dc_update_state_execute+0xaa/0x170 [amdgpu]
+dc_update_planes_and_stream+0x42/0x70 [amdgpu]
+amdgpu_dm_atomic_commit_tail+0x16a9/0x4020 [amdgpu]
+commit_tail+0xc3/0x1b0 [drm_kms_helper]
 
-The only in-tree trigger is nouveau SVM, which uses both notifier types
-and rejects non-blocking invalidations. Reaping via the OOM reaper or
-process_mrelease() can therefore leave the GPU fault worker stuck,
-holding a reference that prevents the dying process's address space
-and memory from being freed.
+The DET left by the VBIOS on a HUBP without a plane can be larger than
+the DET planned for the new state. The compbuf is sized for the planned
+DET, so DET + compbuf can exceed the CRB size. Programming the compbuf
+then triggers the ASSERT and sets CONFIG_ERROR in hardware.
 
-End the interval invalidation when an ordinary notifier fails a
-non-blocking invalidation, like mn_itree_invalidate() already does when
-an interval notifier fails. Make that handling clearer in the
-documentation of mmu_notifier_invalidate_range_start_nonblock().
+[HOW]
+Release the DET of HUBPs without a plane before the compbuf is
+programmed.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
+Add hwss_reset_unused_det() and call it in the commit and flip paths,
+to cover both seamless and non-seamless boots.
 
-Fixes: 99cb252f5e68 ("mm/mmu_notifier: add an interval tree notifier")
+Fixes: 7a1eb6680939 ("drm/amd/display: Perform outstanding programming on full updates")
+Cc: Dillon Varone <dillon.varone@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit c93f6fc7175b445ba3b7c85a1fc31e4e4951bbc9)
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: simplify description, update function doc ]
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-28-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: added the missing header include to expose the complete struct hubbub definition ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mmu_notifier.h |  3 ++-
- mm/mmu_notifier.c            | 17 +++++++++++++----
- 2 files changed, 15 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  6 +++-
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 32 +++++++++++++++++++
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  3 ++
+ 3 files changed, 40 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
-index f349e08a9dfe1..0e8448c8f3924 100644
---- a/include/linux/mmu_notifier.h
-+++ b/include/linux/mmu_notifier.h
-@@ -462,7 +462,8 @@ mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
- /*
-  * This version of mmu_notifier_invalidate_range_start() avoids blocking, but it
-  * can return an error if a notifier can't proceed without blocking, in which
-- * case you're not allowed to modify PTEs in the specified range.
-+ * case you're not allowed to modify PTEs in the specified range or call
-+ * mmu_notifier_invalidate_range_end().
-  *
-  * This is mainly intended for OOM handling.
-  */
-diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
-index 7cf6c0228aaaa..38f2c95bbe267 100644
---- a/mm/mmu_notifier.c
-+++ b/mm/mmu_notifier.c
-@@ -537,16 +537,25 @@ int __mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
- {
- 	struct mmu_notifier_subscriptions *subscriptions =
- 		range->mm->notifier_subscriptions;
--	int ret;
-+	const bool has_itree = subscriptions->has_itree;
-+	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 1c312f2e128fc..6a6c4aa584d40 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2282,6 +2282,8 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 		 * update pending complete before optimizing bandwidth.
+ 		 */
+ 		hwss_wait_for_odm_update_pending_complete(dc, context);
++		/* No DET may stay allocated to a HUBP without a plane (e.g. left over from VBIOS) */
++		hwss_reset_unused_det(dc, context);
+ 		/* pplib is notified if disp_num changed */
+ 		dc->hwss.optimize_bandwidth(dc, context);
+ 		/* Need to do otg sync again as otg could be out of sync due to otg
+@@ -4089,8 +4091,10 @@ static void commit_planes_for_stream(struct dc *dc,
+ 	dc_exit_ips_for_hw_access(dc);
  
--	if (subscriptions->has_itree) {
-+	if (has_itree) {
- 		ret = mn_itree_invalidate(subscriptions, range);
- 		if (ret)
- 			return ret;
- 	}
- 	if (!hlist_empty(&subscriptions->list))
--		return mn_hlist_invalidate_range_start(subscriptions, range);
--	return 0;
-+		ret = mn_hlist_invalidate_range_start(subscriptions, range);
-+
-+	/*
-+	 * On error, the non-blocking caller is not allowed to call
-+	 * invalidate_range_end(), as in mn_itree_invalidate().
-+	 */
-+	if (ret && has_itree && !mmu_notifier_range_blockable(range))
-+		mn_itree_inv_end(subscriptions);
-+
-+	return ret;
+ 	dc_z10_restore(dc);
+-	if (update_type == UPDATE_TYPE_FULL && dc->optimized_required)
++	if (update_type == UPDATE_TYPE_FULL && dc->optimized_required) {
++		hwss_reset_unused_det(dc, dc->current_state);
+ 		hwss_process_outstanding_hw_updates(dc, dc->current_state);
++	}
+ 
+ 	if (update_type != UPDATE_TYPE_FAST && dc->res_pool->funcs->prepare_mcache_programming)
+ 		dc->res_pool->funcs->prepare_mcache_programming(dc, context);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index f28f61787f16e..277d7c1abbe2f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -32,6 +32,7 @@
+ #include "resource.h"
+ #include "dc_dmub_srv.h"
+ #include "dc_state_priv.h"
++#include "dchubbub.h"
+ 
+ #define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
+ #define MAX_NUM_MCACHE 8
+@@ -1194,6 +1195,37 @@ void hwss_wait_for_odm_update_pending_complete(struct dc *dc, struct dc_state *c
+ 	hwss_wait_for_all_blank_complete(dc, context);
  }
  
- static void
++void hwss_reset_unused_det(struct dc *dc, struct dc_state *context)
++{
++	struct hubbub *hubbub = dc->res_pool->hubbub;
++	unsigned int i, j;
++
++	if (!hubbub || !hubbub->funcs->program_det_segments)
++		return;
++
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct hubp *hubp = dc->res_pool->hubps[i];
++		bool hubp_in_use = false;
++
++		if (!hubp)
++			continue;
++
++		for (j = 0; j < dc->res_pool->pipe_count; j++) {
++			const struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[j];
++
++			/* A plane-less pipe renders from the DPG, its HUBP (assigned with the stream) needs no DET */
++			if (pipe->plane_state && pipe->plane_res.hubp &&
++					pipe->plane_res.hubp->inst == hubp->inst) {
++				hubp_in_use = true;
++				break;
++			}
++		}
++
++		if (!hubp_in_use)
++			hubbub->funcs->program_det_segments(hubbub, hubp->inst, 0);
++	}
++}
++
+ void hwss_wait_for_no_pipes_pending(struct dc *dc, struct dc_state *context)
+ {
+ 	int i;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index 619ac4dfff078..16251963cdf8d 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -566,6 +566,9 @@ void hwss_wait_for_odm_update_pending_complete(struct dc *dc,
+ void hwss_wait_for_no_pipes_pending(struct dc *dc,
+ 		struct dc_state *context);
+ 
++void hwss_reset_unused_det(struct dc *dc,
++		struct dc_state *context);
++
+ void hwss_wait_for_outstanding_hw_updates(struct dc *dc,
+ 		struct dc_state *dc_context);
+ 
 -- 
 2.53.0
 
