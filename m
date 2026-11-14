@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794647479;
-	b=ekwUF5/oGBIO3aPVnN0p+K6g7mGN9wd79KhZFyqCIfB6nTRaxy9nuMIlQtX8VSZjclW2
-	 ots+kIayzNtDH+DMM3mkYR6Kl5AZfBC8gF/8Hc3ZJTQMc9k/SXWZ0gQwkBJAfCtKclzHx
-	 83A36dAmPi2cIXOYZkHUSUlY4uYrL5VBzmqshx9zZPV0MngIgwa1ypirKwECLE0LF9UFk
-	 2rJZrLzQaBKeq86q7IJqK8tdBAmmJW5gbvTQ3WnnNqYfpXD+zxIA4D9syvgIOFwRdU2jF
-	 YwA2zOh1b2cMjYMvYEOERk2AhPq85c2ULDi9lLd5nttsWOEi9iUyUFRqf14xCrjcTIA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794647479;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RVX9MRa9dV1R7ULlZD8/sNmRw4/XsN2yz2JOSVUwTg4=;
-	b=oKHI1x/d1edySSDTZhxAJhC2x8/bMDkTn6FunXV1W7aLhtBP/Y++CoXSPhWfMaiUMo0Z
-	 BkOyhaJxiDY2C6ngbKKQkztm39RV2+NjwtAQrlIypnred+3Du215+m5SBN90ax/rRlSCN
-	 zDyXkeIDPK6w1u0Ough94mOnfW/5h/Kj0j0GtPtu+ZVVAva3chaYe9S6lPhTVR3xxtrZ8
-	 ml/1qZmj6EanyJXe+lA9271yQsNZr7Fqf0ColEEzKCfMHvVxhsEaJkbqeB5QaNX6zWIOk
-	 3pOXQNRDW2j3duKCAOjkj11aCcsk1V6dBNRZ4jH6NSH743jvMAt4IsIGtk3vHUL4zUA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=adkHNykx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.23
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013023.outbound.protection.outlook.com [40.93.196.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794647566;
+	b=KXvSwyeBHBzPQCiCnz3snakXXyFJraO8xXdAazhCykoKHLIbCv1/c86OloHczlqLC7H/
+	 QMBo0Nte5j7TKLWrDKtdleNSuGMI60uU4aLuNzgWnyzkbhK5vaP4xJNBh05NwdqIw+riT
+	 lWPyNFId+oGbqGCBBy1I89N/Xz0S8HX+IfvA0DHVKc3QHsgfESIkEjiwjFUXyaufrjmB2
+	 5pBHm2duqo3UfUXfYCJmaILPDH8+K61z14Ro48ZF4QYOa/r2g1v42jvEa7UoDyOP0n3pq
+	 5c/6WPc01+UO19QZaRAphBk3vjQER3dkA0HjmYT2aSAIdGaXz2bekayTS0LWvlxjzZQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794647566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QTbQToynBqwf3n1SZSg1pf/eN+ziaT5I0ox1EckFMS8=;
+	b=1WgBl+CRDWHOFS2/3bUuBg+A5pNABNjpM9SlUqqOVlOPWtFq76rF1zUUI+Xadycc88gM
+	 22RjYySUDdNeTtsOiBrkNCjtYjwZONGJQYPFnx0t/sVMuUn4jqW8j4dkkfAfwqXxLX20E
+	 j4QMv/gdRlwv96WBdf19F7Wr23hw+YhIie7IMYnd4D773zOCGkgSeBRRAOIjk0KVRzDiA
+	 sNzmJEIwLVpH4MsLD/ANfsKM3EjEjm6sHrSo0Sl2RR1UZQrWmoI8AmC+V6c07TrtBIh7D
+	 RsG4l5LddQgrlx1BkFsGIW74AMhpAvgBv9pPb8T/FiX0JYWe7EXIFmcGct688ea/w6g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RV6mQUGj;
+	arc=none smtp.remote-ip=74.125.227.137
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C59606A329;
-	Sat, 14 Nov 2026 09:11:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84C59606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C902860A2608
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 09:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C902860A2608
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=adkHNykx
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EI0tqvG3qbyyAD65RIX6453GTXpl9GRAg7keVFZhqBysH47Ncyb8cng2mE8R4hf1I91Tf8SlMXXWmkqxpIRBzDRm6XPcMN0KYmD4G/10hMDYnxx/p79z0brEiHspw1g1zCP3/cTSuc+qcJASguRzP4migr6rTThHWALAPGiGsyPTgV089lbuQwhqlGThxxDzgBI7gs8fWJ6jd6cdF6grOwOXufAHdYJukOTkBL4pmodghzeDAFTWlIGDx5UU9WsUhEcPdiQH3HiPXDWtJ7yqKfvrnD5ttuFqWAgC9t8F/OPdoJZjEvcKzraCnGG/q196aNg6NpXAK5WJeL4tz6tH+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RVX9MRa9dV1R7ULlZD8/sNmRw4/XsN2yz2JOSVUwTg4=;
- b=B41NEBm+Hyw9SYAovAYjxMICMM8ZhC/luVLpNLlLZyswglYaPJqEeFsGfJMPW7YuKWc/+392DGKnUnMpdocMmvs9F5Wm2BoGH62oxVQ5DgM5OKnGKAdIiHOFzd0sUYs44GF0qZU0SMdSFXpy42Jgx2xlwCfzj2efdC6QGvRLqE09BMEZ4j3YopZ99IjOe2Ea8NpaaaqtDKiFlnguJmlEyfhC3Fm5X7rJW4iqUYBPpk6FJZ7cn/XuReQGDug15e5Bn0zZw5xw3wuV1ZNzidqnclZpELHpxWyEUEsBmJs731mBczRBO2DX4m/w75OKk0mgeEU/vuO+eD4zf9zZfUw66g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RVX9MRa9dV1R7ULlZD8/sNmRw4/XsN2yz2JOSVUwTg4=;
- b=adkHNykxSQdd9gs31MwLjCP3lhJvHbZ04zM44/At4mwnupKYvG1yhaRRgc6T6MTg1/TwBteNw+ot/Penef8sBOnUJn9pGAuuyJkcqO8dToPUrYvc9WWumt6TxgztPz4oGdbBH4BBS0TuDsJZBT1+E8KoQteJl9FIbHFQFuW1hs9+HqDHNmxUc4NlMdb37BHUpDcegyMWfzEgoTeNnn19Vgoittv4d9c8u+fzj0ss2h0GnC0s/qBKMCwCf1lUWOvexnaypg6nuilj51liEFqPRmbVzlAMPTTARIC+VsTUBGdHFKuCXhHKlZ4bXB183HRpwvbWV/Xq/bK/uVlvNbPG6g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Sat, 14 Nov
- 2026 09:11:13 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0615.008; Sat, 14 Nov 2026
- 09:11:13 +0000
-Date: Sat, 14 Nov 2026 10:11:03 +0100
-From: Andrea Righi <arighi@nvidia.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Rik van Riel <riel@surriel.com>, Usama Arif <usama.arif@linux.dev>,
-	peterz@infradead.org, mingo@redhat.com, kprateek.nayak@amd.com,
-	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, samuelcrossley@gmail.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	kas@kernel.org, Arnav Aghav <aghav@meta.com>
-Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
- select_idle_capacity()"
-Message-ID: <avglp8nnc4u9OCb5@gpd4>
-References: <20261113153157.2495664-1-usama.arif@linux.dev>
- <eba9d3df71f3f37bf7a318854a1ab6bf1cfb1981.camel@surriel.com>
- <CAKfTPtCJLci=Yzq6B0-hK5L0m5iQPw1Y0NDQhKEaV6reg-690g@mail.gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKfTPtCJLci=Yzq6B0-hK5L0m5iQPw1Y0NDQhKEaV6reg-690g@mail.gmail.com>
-X-ClientProxiedBy: MI2PEPF00000B7A.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::40e) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RV6mQUGj
+Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3b1a38a5088so519005a91.1
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 01:12:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794647565; x=1795252365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QTbQToynBqwf3n1SZSg1pf/eN+ziaT5I0ox1EckFMS8=;
+        b=RV6mQUGj7+F93NrSqCxxKeUED01cOhim5hASqZ3AYiS1YT0y21Kl3GdKHKu1t9l44t
+         GSQ37UxZasL+fHnTpBsopAbYWA903/H4/llyno2eMbaCzFwjioBAJ3jm5EseGU8Oud3r
+         OwE5LQPoW2sTjoOPLTS7t5z6j/aTatIHwVuOjyFblgKtjfE8HVpYYHYcljsWeUC0zB2z
+         38H8L4C31ZV5BOP2BiGXW58+M7b1OgIt0VnoSK2dzT4vepwOIeVumpezx1CXurFoWicV
+         0bApP5+CmlF1jpQmgBpMhJUlu0DqVwao0lCMUtf3vwZ1iSNCAXUlGQ7ugD/V0VNLSluF
+         HHdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794647565; x=1795252365;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QTbQToynBqwf3n1SZSg1pf/eN+ziaT5I0ox1EckFMS8=;
+        b=bQLifY2V4LnRLiFvRvuggcF81HRoiEdkgvHNWBTsQC/jXotIAD2WoHlcIXw7iepT6K
+         9RinstRpODFCc2br7ZRhMvDPOtjEXrgbCoKnSn7mOhHULC3tZ7uZwlvCb+wVw1AspmoU
+         iAvH2cJWoJwcwJgXSvj1OZID+Aessk6pMlHchm29L12ko9WDZTw9E38qesYjirdpgTTr
+         4tJCO4ycg4ax83EZG1Jsa0+XTSjFYP30v+XbJWyxANEyOUCx7bQiBLRLd+rb1GM3loiC
+         BzDldBQnuEUm0pMw8iSfUnB4MA0nRPFWWMOvKwvlRA8jVRMcgVnCoK7siPofPzy+a8Yx
+         KGLQ==
+X-Forwarded-Encrypted: i=1; AL+hErGsbFVRnAiO8FsI51YS0Jy5ElG3avqtdJ79gGOGW+WlDl91Qf6L70LA7DYDldxneqkdnempQYg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8x1WB9drXIGxEEQcrUOAOyuJFKwXhqvLXOmv98k3JU0rLkkg9Q
+	kguHoDZJ23+poasFO12cWPuN7FYuIBTd36RFXRN3vc4UuWHszHgDKrrLkBt2fPSbR7Z1Lg==
+X-Gm-Gg: AYBFou3ysw8xZAbLcZe5wLMDlNQdy+Slm54pt76PfbRNBm4U8sez0pIIpqVI96hHGOc
+	oV4RCQkjVqLcAhQ+9bHdZsG2alSOlt0s8FANN7KYyOOz18PKgV6VIKHrGAaeMx16lNwvk25YYGE
+	4WQ5oD0mMLLwA1OpPgaE2C+QerKDRJGyQCbGekc+TFkX4fr4czs34VzBAFGO1kDANPP8ykJB/hh
+	l3NpAXLH93j8crOayORFXTdWUQ34VPL9/exHFGw/S8bOHw/Qzhb152hGZtjuYRAbMcAa3WO3KAH
+	npFeM1ppHPn5ApczhgRiLQNSywpN1vduL4O3uLM+Yr7NbZMKqz8sWaidNp+c/wtrHay7UtePy8p
+	+xdNl93ll6l9Nr/85gMpqvB/BUPXUf1UTlH5GEhC1kZJ7bNs+/topMEgkKfysdetQqlwF4J+84d
+	arerXuKEJwE7bsT9fxEl5hBWKOgvVcQu4VgSAg4M77ZqD/DYq4nHYxIVMKFrLxkKISJgTZCSWcU
+	lHeNoL1/hY+EdLT6JRFFmaku5ZG1yUx1b8tibhWbjz8bnReQCKww5Nc5NTXg9Zv1JjyIc/ca2LY
+	jhvEh7VO3muLg0t5/Nt/nudypWpMwb5dak70abGeEDFsp6hHLpNb
+X-Received: by 2002:a17:90a:c88b:b0:3ae:6fda:78b1 with SMTP id 98e67ed59e1d1-3b1b0b6049emr4722150a91.43.1794647565057;
+        Sat, 14 Nov 2026 01:12:45 -0800 (PST)
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:2b6e:fd48:7485:9720])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm8311897a91.4.2026.11.14.01.12.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 01:12:44 -0800 (PST)
+From: Yingjie Wang <flashhhhha@gmail.com>
+To: steffen.klassert@secunet.com
+Cc: herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	jhs@mojatatu.com,
+	netdev@vger.kernel.org,
+	ipsec@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH ipsec] xfrm: avoid wrapping AEVENT timer thresholds
+Date: Sat, 14 Nov 2026 17:12:39 +0800
+Message-ID: <20261114091239.780633-1-flashhhhha@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,151 +103,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DM4PR12MB7527:EE_
-X-MS-Office365-Filtering-Correlation-Id: cbe2c4ad-deb3-449b-2a5e-08df422f3b25
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|18002099003|22082099003|10067099003|261028144727099003|4143699003|11063799006|261026121527099003|261022075727099003|56012099006|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	NVX9FmDfTG8m1fnCzWUinyU91wtWljdbTjArl6vYEF/n6KXAwhFG0u9B09LDKTqwUCCzfR2OOcLoRjh7hj8bCbSahzpjvMKCc48dz3NRJGjirtyI0PWAi4X0jyarzClJWUho23r1MkYNE7qgSPzhBHQvUDf5Z4szTpc+j176LHg7hg2VgOHFnPX5zdo4D9QAygg5IJpfM2B2uiSxfvMEs05lVyee3r96DIL5IeCeP/NaccKcP2kz75yBGWNLooVQPNLKBoWm3FRtgRH0KORDVruXYMrruQ5xh5purlwPUvzBztqbYrBoXHcpMnOxCHkA/TcFaLIUkN5CDvBScrbGVODvpmGtxhDz6hxbLGv1kIA39WPaJHk4C75KDbx1BrX8zerOE60+4lkh4egImF+Mzq7pUTPp9MX6eCvXpaV4TVobLBChyfu0+BdKkusHVg9Gju6dYcF7KP0mOX5ZhApkEkExOmsLQf3YmrjK8SKcv0NgF6QTXKSShI36WN9FK6RdXX+EOhaJKyIJDXkOfR+uAsKUHUSq/pefr0pkqxwZviYsmpXfNdZvC3+rIRQgLinYj9pmSNimJC1b0/x/lcxbPh/s2SlXGJOYBossk+uElHCqsXt/zHlUjMm2+Vh/eVcxpmhmTi2aBbgC53n8aVpZ7H7Gchy0q0BTFaEVINC4qb0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(261028144727099003)(4143699003)(11063799006)(261026121527099003)(261022075727099003)(56012099006)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JJWOccdybl2EQMK37253pK8t9IDN3o7d/CHDi7ZWuJulJDII0Ts6a2HAOgfd?=
- =?us-ascii?Q?ogHwH7MPZ1kcDqJCN2eZ9QQPXo6RaMN8cgz9c/o4HbdDHFetIJo2KI8nckki?=
- =?us-ascii?Q?3v9C/l+BO19UHN7m+1VA1gZE4tAox3kDfjBOSJ3gAtuW2w1ZyETXzPzCzyS6?=
- =?us-ascii?Q?ijl7BzujPSFD/uUcJzlkVhz1+LkezrF9E12rUvnxLu4G8G5z4fZpsKHNL53w?=
- =?us-ascii?Q?E6Y0qjuiJEOeOWyqU1rsN6marAs0e0ccbyjZQUp5PWrgkvG1/LWFPVdIxu4Y?=
- =?us-ascii?Q?LXxThMA0qkdYbDicxJMdRoo5VU/iSTbPne9Bpwkh/vl9IEl7weJ5rx5FYJY7?=
- =?us-ascii?Q?/43RXVEgqXgp+3x+yPdv+tG8g2ptL5j7RGqBULhSgE/X4ybqHWIVgJ9KqE3L?=
- =?us-ascii?Q?WafjMWcGifQxbGYJlTmREzy1MsZ6yB6H7D6rIGa0T6+g679CAmcAShq4y3uF?=
- =?us-ascii?Q?d4TgttHMtaU6f1FlNdHUocMkH/mZMe+Shx72giqC02Qra2vzgjNeC/urYPMQ?=
- =?us-ascii?Q?LhxJ2r9QC16X+5+aWEwJSpACXHyFYz2iwqIdIlsJ9cBpEnGHqMYewee8oapQ?=
- =?us-ascii?Q?XEhy3C9hW/+2vfMrOVTrZFSyL58D+x805zGxPlexYTJErgQgh1q2t6kQIqlf?=
- =?us-ascii?Q?gELdCSXAGtrpNQuBallFPM9abxzWFyTD7+CHLJxJenaQ+RlhbrMvvyjkIFpd?=
- =?us-ascii?Q?vSYtLTg5cB9WlamdjHcloCUoNv4ThWXBr6LxeBtOifLr7/QZyBZaqW67jn3w?=
- =?us-ascii?Q?XD27JpSd4BAMJjElW3/heSheBYjywl6Dl+Yk22o7v6ZWe7B/Z4jOUbiQ8xtV?=
- =?us-ascii?Q?AkAOd1f5z0V2qX0yXAnTs3FBgh4ivBEC0UReEeSQ9R+Y/fMltpYGAYFK8sTV?=
- =?us-ascii?Q?qqOKmxT2nuUMgsR/FnxCX3HwzE9shPpEshRnJvUfoFVykYupwV5sX2ZGtF/a?=
- =?us-ascii?Q?/kLw5PcIdMzO6/vkusGu5mSqc0L3g7QR7hGtdWQIf92uF83UZ6Y9ky+8oRV9?=
- =?us-ascii?Q?WYi5NMtIYEs/TPGJGXJztTt1K3QloaBF5yZ6PkqK1aHhD4hwTf1/oFG9QTxn?=
- =?us-ascii?Q?ThiJhI8n3eGRxvG3+4+M4NfYbSsi6yYMSjRbSB8D8fTC2rpunv2OBF6uJDWN?=
- =?us-ascii?Q?F6NdUQ2uJn3dOVdkvcyNF6yhgc9FYH0HnIlc33fW5znuGRQSkUOK/BqUo22Z?=
- =?us-ascii?Q?ci1kk1gvk/wJ7KxU+odVqgtHmk4B8/ERTD+ijtGfK/OlOMJPcX4l2JVDyqUQ?=
- =?us-ascii?Q?AE81KqbsUbg1qtSKg6LjIzFTawhtCNzFh3NQfNRQrOvpjtOE/n/EBcxDiASG?=
- =?us-ascii?Q?eF2StidlR4UNhS/deQEYMqrIm5/pt5hZ4Uf0E8xB9u65PUiu5k7dNis57adL?=
- =?us-ascii?Q?Uq7m6MYAcI+rqzSE0qCoNQwOt0HHyXrK+RGjHwMzPO4FHp8PjRaJsNfXtYu7?=
- =?us-ascii?Q?JGT9nkDMBJjfIxpTUMLakcZy9pVyPeIEeAe7StcCPq9Kszg1yAg4xH6xAMOM?=
- =?us-ascii?Q?fFS65Ce5uPVKOpP2zPSrBQ/8AB+MKfT6gmQopF2xCc5dSk4ITRl3hQFAIgav?=
- =?us-ascii?Q?eALCDmiuBqEWcyCUgcJGnkTf69jK2BgI6fijaNyaShiUXlalcp3FwDvAyZKa?=
- =?us-ascii?Q?nN8qVf3Pi/bqFDQt3YqFe01DDy6jS28EkFkpHjcrM34rdqrfdKny71/rBOZK?=
- =?us-ascii?Q?6gFlqUvxSpnf28tIfnH2ffG83jr0MKCitFCWBSuC3hb8ruKkQRBd/oOEJm7v?=
- =?us-ascii?Q?Q8N8WRSqlQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cbe2c4ad-deb3-449b-2a5e-08df422f3b25
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 09:11:13.4611
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7rvA5fOoun/RdofZwYJikOns6JxXcH6AAyqLGL2F1R0qJBp1FrXlvIXpynRemjAdxzKmhZgM0qkX8Si1gcpQcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026 at 09:18:30AM +0100, Vincent Guittot wrote:
-> On Fri, 13 Nov 2026 at 20:32, Rik van Riel <riel@surriel.com> wrote:
-> >
-> > On Fri, 2026-11-13 at 07:31 -0800, Usama Arif wrote:
-> > >
-> > > On a 72-CPU NVIDIA grace arm64 server, small reported capacity
-> > > differences
-> > > (1013-1024) within the single LLC activate asymmetric selection. Both
-> > > the reference and affected kernels were observed with a zero scan
-> > > hint. The reference kernel ignored it and still searched the domain.
-> > > A latency-sensitive, wakeup-heavy production workload saw its
-> > > reported
-> > > minute p50 latencies average 129 ms on the reference kernel and 223
-> > > ms
-> > > on the affected kernel.
-> > >
-> > > Disabling SIS_UTIL reduced the aggregate involuntary context switch
-> > > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
-> > > raised the rate to 73.7k/s.
-> >
-> > Afaik, the asymmetrical selection is supposed
-> > to solve a very specific problem: when a task
-> > requires X amount of CPU capacity to run, we
-> > try to avoid scheduling it on a CPU that has
-> > only a fraction of X available.
-> >
-> > This creates the issue that a task that appears
-> > to "need" exactly X, because it's been running
-> > on a CPU with full available capacity, ends up
-> > not being scheduled at all when the available
-> > idle core has X-3% available capacity, because
-> > that CPU happens to spend 3% of its time handling
-> > interrupts, or running something else.
-> 
-> The task will be scheduled on this idle cpu/core of (X-3% capacity) if
-> no other idle CPU with X capacity is available.
-> The selection in select_idle_capacity is:
-> - Idle core with enough capacity
-> - Idle core with enough capacity but doesn't fullfill uclamp_min
-> - Idle core that doesn't fit
-> - Idle CPU with enough capacity
-> - Idle CPU with enough capacity but doesn't fullfill uclamp_min
-> - Idle CPU that doesn't fit
+net->xfrm.sysctl_aevent_etime is stored in 100ms units, but the
+conversion in xfrm_state_construct() multiplies it by HZ while it is
+still a u32. Large values can wrap before the division by
+XFRM_AE_ETH_M, disabling the replay timer or turning a long threshold
+into a short delay.
 
-Right, and when the scan budget is exhausted select_idle_capacity()
-returns the best idle candidate found so far, even if it doesn't fit.
+Do the conversion in u64 and clamp the resulting jiffies value to the
+range representable by replay_maxage and safe for jiffies comparisons.
+Use div_u64() so 32-bit builds do not require compiler runtime helpers
+for the u64 division. Use widened arithmetic when reporting
+XFRMA_ETIMER_THRESH as well, so large stored values do not wrap during
+readback.
 
-However, in the zero-budget case, we return before examining any
-candidates in the scan domain. Relaxing the capacity-fit rule inside
-that scan wouldn't change the outcome, because we never reach that
-check.
+On x86-64 with HZ=1000, setting xfrm_aevent_etime to 536870912 made
+XFRMA_ETIMER_THRESH read back as 0 on the base kernel and 42949672 with
+this fix. A normal value of 8 read back as 8 on both kernels.
 
-Maybe Rik's suggestion could instead help with the earlier checks in
-select_idle_sibling()? Accepting an idle target, previous or recently
-used CPU whose capacity is "close enough" could avoid reaching the
-zero-budget bailout.
+Fixes: d51d081d6504 ("[IPSEC]: Sync series - user")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yingjie Wang <flashhhhha@gmail.com>
+---
+ net/xfrm/xfrm_user.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-The tradeoff is that we'd accept a potentially weaker CPU immediately,
-without searching for a better one.
+diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
+index a5fbe38839c4..4a676a6aa53e 100644
+--- a/net/xfrm/xfrm_user.c
++++ b/net/xfrm/xfrm_user.c
+@@ -924,6 +924,14 @@ static void xfrm_smark_init(struct nlattr **attrs, struct xfrm_mark *m)
+ 	}
+ }
+ 
++static u32 xfrm_aevent_etime_to_jiffies(u32 etime)
++{
++	u64 maxage = min_t(u64, U32_MAX, MAX_JIFFY_OFFSET);
++	u64 j = div_u64((u64)etime * HZ, XFRM_AE_ETH_M);
++
++	return min_t(u64, j, maxage);
++}
++
+ static struct xfrm_state *xfrm_state_construct(struct net *net,
+ 					       struct xfrm_usersa_info *p,
+ 					       struct nlattr **attrs,
+@@ -1022,7 +1030,8 @@ static struct xfrm_state *xfrm_state_construct(struct net *net,
+ 	x->km.seq = p->seq;
+ 	x->replay_maxdiff = net->xfrm.sysctl_aevent_rseqth;
+ 	/* sysctl_xfrm_aevent_etime is in 100ms units */
+-	x->replay_maxage = (net->xfrm.sysctl_aevent_etime*HZ)/XFRM_AE_ETH_M;
++	x->replay_maxage =
++		xfrm_aevent_etime_to_jiffies(net->xfrm.sysctl_aevent_etime);
+ 
+ 	if ((err = xfrm_init_replay(x, extack)))
+ 		goto error;
+@@ -2782,8 +2791,10 @@ static int build_aevent(struct sk_buff *skb, struct xfrm_state *x, const struct
+ 			goto out_cancel;
+ 	}
+ 	if (id->flags & XFRM_AE_ETHR) {
++		u64 etime = div_u64((u64)x->replay_maxage * XFRM_AE_ETH_M, HZ);
++
+ 		err = nla_put_u32(skb, XFRMA_ETIMER_THRESH,
+-				  x->replay_maxage * 10 / HZ);
++				  min_t(u64, etime, U32_MAX));
+ 		if (err)
+ 			goto out_cancel;
+ 	}
+-- 
+2.43.0
 
-Thanks,
--Andrea
-
-> 
-> >
-> > In that situation, it will be better to run the
-> > task on the CPU with 97% capacity right now,
-> > than to not run the task until a CPU frees up
-> > later.
-> >
-> > Things like SMT and power-driven hardware
-> > scaling complicate the matter further, because
-> > we simply cannot see the full amount of capacity
-> > that is available on each CPU.
-> >
-> > That makes me wonder if we should simply accept
-> > any CPU that's "close enough to X" when dealing
-> > with asymmetrical placement.
-> >
-> > Say, anything that's above 3/4 of the capacity
-> > of X would be considered good enough to run the task.
-> >
-> > That still prevents us from placing a CPU intensive
-> > task on a little core in a big.LITTLE system, or
-> > from placing a task on a CPU that spends 80% of its
-> > time handling interrupts, but it will allow a task
-> > to run right now, when the capacity imbalance is small.
-> >
-> > Does that make sense, or am I forgetting something
-> > important?
-> >
-> > --
-> > All Rights Reversed.
