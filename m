@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794631400;
-	b=0HyFJtwpErQ47P1Vx8S708nfZvcRzVGiB7urkZI4iD9eVS82yLTI+ozRDxce6Tx9x7AX
-	 wcykgDnUQK9yypW/m6x+3IOHMM9Nut34+TD1kHTDGjWYW0Zw+GwGfz6jZRpwugxzNkC7g
-	 ytCh6A4cyIlE57D78y35jjl3mddWVn9nh3/Ag1AgDgPtslTGLCIWXJj+qqIGNqP+Y4RWT
-	 6l5rUZj7UOxqM2nwujkNIVoVR+qKoQtU5iLmgDlKiVS8yKnbgLvvO7uSqSfMdYSQ21diW
-	 Dxsw62sZ0/3zzj5jAwZeBD0VOQjoJsouzlcvbNW012U/IGbGKv/Uy43U3TuL1GSVHjQ==
+	t=1794631421;
+	b=dQCX61sL1YY872eFnzfbseOfbhYDa5nk1qJaE2FnzVhArx3lYsylfLkNBnu6Xy1JeDwY
+	 /3A2qfTVYTQwXU6kl3wYcGaB+90EKkOsP1pNMMS9DTFG5BzfzWvB4DU2DUcO5CUsYdln4
+	 QnrX93LKQuW9DDkyeZ2gjQwVj7Vc8Tv/VjjWmhTWVyRfXJ22LeB7u7J4QmMOkWghFj9zt
+	 WRMolwifgE++lhFwlHqVL+TDxNuxFHTETxTMy5l0U+Vxunx9B7LXp/Iu8Vlyjo03dX49F
+	 farOBd/rSgEnZfQuOKv2sPEHswl4vBvLmhhKAy0QOBv7ZZotncmMTPtH2NVoCaPKsjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794631400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794631421;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Y7t9REKgfGlB2cjuaCfWq0kJQ63PEYDXgFKtbJVJCwM=;
-	b=iMVt+LD1Pd0Szd16GiuoO9gKUte1YKMXH1Jz6FeAIK6E52JexxAtIbCQNGeLotRfmKJP
-	 dVImO8Ny5Owvk6cTbfX5uSq25oFP4GDmzVsRmQPNqS0fFwGQXQKzJwelFh+8Lsyjdep/v
-	 m9f75ixrk+ZOLOsxRQtTvuEcKeJqOlZPke6ftU8SrffBbHAK0VA2eXPo7L/JPFkIltFBe
-	 g5suN7VgIRMreCMNaq4aMn419R0kutJ8fn/fe7uXoiu9qByrJ6+HZiJJkgXgkrmNhXCnL
-	 HehaN3DB33L+n48u7zhvOE5E5Fg2ApunOmPbYmM44XWNLsOGn1xIUTq6rH+foOnGoMQ==
+	bh=Z5l2I/g15C40zdRIpivUZ35UI+Ba61AihNxJvVToEUY=;
+	b=pdx7X4l2HPV2mzRmabuZYPsPG2nY9lxFY+WaBO8H+sBLAda1NtUsUAlRjXMfflDaSprS
+	 kNHDOMlRHFmzto2vAcZj81roz9kdygVDaD2N8kKXCptmNSU4U1qDbryLV4AstAEvsqUJ7
+	 bK0zL/t5zTcT4eDNnc/hbEs8GN6YEqoaLgOtfsa5LWMU7CfY72FILF9FP37Dfq+UpfjY8
+	 wi7xp4gACJ7Sks11SM4eyxGK8S5FubDWYFoIIqL8Q677Dhdfp0+zLrB3am7a4MwVky/9W
+	 CZuWyoVCMR1f+1XZqM7UVy1p6VfJG/SBF94cbHCAUHlDgHuxbC6IfmZhQ0mv9hmUmRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VghrRu00;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVfyTBo5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B691606A337
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:43:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E0B606A33F
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:43:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VghrRu00
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894581F000C7;
-	Sat, 14 Nov 2026 04:43:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVfyTBo5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A36BF1F000C4;
+	Sat, 14 Nov 2026 04:43:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794631400;
-	bh=Y7t9REKgfGlB2cjuaCfWq0kJQ63PEYDXgFKtbJVJCwM=;
+	s=k20260515; t=1794631420;
+	bh=Z5l2I/g15C40zdRIpivUZ35UI+Ba61AihNxJvVToEUY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VghrRu00qhT0DhtcvbMxfjDGbuCfay6wrTPdeTLSbCPwZsyYzQLwBpUnvCGdPp/H8
-	 p5QQEn5yNjEnvgsFilmwi/UGBIneXboL3zk+PAfbkSP+AZLdSTpybvNceDOb3xPqEb
-	 YM0M0yi3uyxAc51H7ICzOSphV/+I13gj/6H46hcyR/zdoCpWSvk+0cpbL2WD2ZpEBP
-	 HF1tZ43Y6o4PN7BZVtQSzQR8O7kIwFaPIXnxh8km3ITbIbDixAYDBIomokPdvNTDlK
-	 Mi/OnU1RAVcn/c96bO6S9uQ+M/bRKHu/D87GXeqCjiUUB4Wwk55Z+FB5ylANxk0sFI
-	 HrQDeNzRPOrwQ==
+	b=nVfyTBo5u4owPJKErh8dr+vjvx5RzyWTxyqJEr1WZtDp/53zjX3SANfNzPChCnF+s
+	 vCoId1bqXz5tqB8huYlcjsJ6NHztMJXyIq2QI9uNcHR0mIvVLrhE0XX7+IBpBP1BaS
+	 5dTQcYHRq5O3d2ilR0eNGGURtG3ywgtPGqdZT5h/UGga1slIRmQ8EV//AN0nkho5KF
+	 AIALjcHPBVLlf2K0gOAFfsyJpN08v3tQ0DulPmStukAtrpN9XPk/8Luv0x3xw1lpep
+	 w/S/vSoX0uMnwUpHdl4c8eASlb+bSW2NcPZr69pHOOU/NmSFJskpswJfDQyG+a3AaT
+	 ZnwcV5vuK6+6A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: YouYou Yu <youyouyu@amazon.com>,
-	Dylan Johnson <dgj@amazon.com>,
-	Gunnar Kudrjavets <gunnarku@amazon.com>,
-	Jan Kara <jack@suse.cz>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	"Harry Yoo (Meta)" <harry@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] quota: initialize dquot cache before mounting rootfs
-Date: Fri, 13 Nov 2026 23:43:18 -0500
-Message-ID: <20261114044303.2954478-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/rmap: handle device-exclusive entries in folio_referenced_one()
+Date: Fri, 13 Nov 2026 23:43:38 -0500
+Message-ID: <20261114044309.2942263-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201027-failed-6.6-e21a6f39aa6d@kernel.org>
-References: <20261109201027-failed-6.6-e21a6f39aa6d@kernel.org>
+In-Reply-To: <20261109201127-failed-6.6-f3c493d2f42b@kernel.org>
+References: <20261109201127-failed-6.6-f3c493d2f42b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,134 +67,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: YouYou Yu <youyouyu@amazon.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 ]
+[ Upstream commit f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c ]
 
-On some systems, a tmpfs backed rootfs is extensively used throughout
-system's lifecycle. tmpfs quotas are needed to limit per user rootfs
-usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
-and "initramfs_options=usrquota" panics at boot:
+page_vma_mapped_walk() can return non-present device-exclusive entries,
+but folio_referenced_one() passes them to PTE young-bit accessors that
+require present PTEs.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:dqget+0x1ac/0x490
-  Call Trace:
-   __dquot_initialize
-   dquot_initialize
-   shmem_get_inode
-   shmem_fill_super
-   ...
-   mnt_init
-   vfs_caches_init
-   start_kernel
+We must neither call clear_flush_young_ptes_notify() nor
+folio_pte_batch() with non-present entries. For example, clearing the
+young bit on non-present PTEs can corrupt the entry: on arm64
+PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
+entry into an ordinary swap entry.
 
-The rootfs is mounted from mnt_init(), but the dquot hash table and
-cache are only set up later by dquot_init(), an fs_initcall. Creating
-the root inode of a quota enabled rootfs thus dereferences the NULL
-dquot_hash in dqget().
+folio_pte_batch() will VM_WARN_ON_FOLIO.
 
-Rename dquot_init() to dquot_cache_init() and call it from
-vfs_caches_init() before mnt_init(). The slab, percpu and early
-workqueue code it relies on is available there, and the workqueue
-rescuer and shrinker debugfs entries are set up later by their own
-subsystems. Keep the sysctl registration in an fs_initcall, as done
-for the dcache, inode and mount sysctls. This only moves existing
-allocations earlier in boot.
+Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
+treat these entries as old from the CPU's perspective and obtain their
+young state through the MMU notifier.
 
-Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
+Skip PTE batching and MGLRU look-around for non-present entries, and
+don't modify non-present PTEs.
+
+Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: YouYou Yu <youyouyu@amazon.com>
-Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
-Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
-Signed-off-by: Jan Kara <jack@suse.cz>
-[ sashal: adjusted patch context to match the existing quota initialization code ]
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-9-d6437171ecc3@kernel.org
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted batched PTE handling to single-PTE processing with the older MGLRU API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dcache.c              |  2 ++
- fs/quota/dquot.c         | 10 ++++++----
- include/linux/quotaops.h |  5 +++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ mm/rmap.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 023a9ab9c7574..c0d7ab8c5aab0 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -32,6 +32,7 @@
- #include <linux/bit_spinlock.h>
- #include <linux/rculist_bl.h>
- #include <linux/list_lru.h>
-+#include <linux/quotaops.h>
- #include "internal.h"
- #include "mount.h"
+diff --git a/mm/rmap.c b/mm/rmap.c
+index bdd32890d5487..2ae76b671825c 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -825,14 +825,25 @@ static bool folio_referenced_one(struct folio *folio,
+ 		}
  
-@@ -3357,6 +3358,7 @@ void __init vfs_caches_init(void)
- 	inode_init();
- 	files_init();
- 	files_maxfiles_init();
-+	dquot_cache_init();
- 	mnt_init();
- 	bdev_cache_init();
- 	chrdev_init();
-diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
-index 7562ee4ff2929..d6295b987ef5f 100644
---- a/fs/quota/dquot.c
-+++ b/fs/quota/dquot.c
-@@ -3030,15 +3030,13 @@ static struct ctl_table fs_dqstats_table[] = {
- 	{ },
- };
- 
--static int __init dquot_init(void)
-+void __init dquot_cache_init(void)
- {
- 	int i, ret;
- 	unsigned long nr_hash, order;
- 
- 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
- 
--	register_sysctl_init("fs/quota", fs_dqstats_table);
--
- 	dquot_cachep = kmem_cache_create("dquot",
- 			sizeof(struct dquot), sizeof(unsigned long) * 4,
- 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
-@@ -3075,7 +3073,11 @@ static int __init dquot_init(void)
- 					   WQ_UNBOUND | WQ_MEM_RECLAIM, WQ_MAX_ACTIVE);
- 	if (!quota_unbound_wq)
- 		panic("Cannot create quota_unbound_wq\n");
-+}
- 
-+static int __init init_fs_dquot_sysctls(void)
-+{
-+	register_sysctl_init("fs/quota", fs_dqstats_table);
- 	return 0;
- }
--fs_initcall(dquot_init);
-+fs_initcall(init_fs_dquot_sysctls);
-diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
-index a9be09f96b10e..9a4e5df8f52a2 100644
---- a/include/linux/quotaops.h
-+++ b/include/linux/quotaops.h
-@@ -40,6 +40,7 @@ void __quota_error(struct super_block *sb, const char *func,
- /*
-  * declaration of quota_function calls in kernel.
-  */
-+void dquot_cache_init(void);
- int dquot_initialize(struct inode *inode);
- bool dquot_initialize_needed(struct inode *inode);
- void dquot_drop(struct inode *inode);
-@@ -206,6 +207,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
- 	return 0;
- }
- 
-+static inline void dquot_cache_init(void)
-+{
-+}
+ 		if (pvmw.pte) {
+-			if (lru_gen_enabled() &&
+-			    pte_young(ptep_get(pvmw.pte))) {
++			pte_t pteval = ptep_get(pvmw.pte);
++			bool young = false;
 +
- static inline int dquot_initialize(struct inode *inode)
- {
- 	return 0;
++			if (lru_gen_enabled() && pte_present(pteval) &&
++			    pte_young(pteval)) {
+ 				lru_gen_look_around(&pvmw);
+ 				referenced++;
+ 			}
+ 
+-			if (ptep_clear_flush_young_notify(vma, address,
+-						pvmw.pte))
++			/*
++			 * PFN swap PTEs, such as device-exclusive ones, that
++			 * actually map pages are "old" from a CPU perspective.
++			 * The MMU notifier takes care of any device aspects.
++			 */
++			if (pte_present(pteval))
++				young = ptep_clear_flush_young(vma, address, pvmw.pte);
++			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
++							address + PAGE_SIZE);
++			if (young)
+ 				referenced++;
+ 		} else if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
+ 			if (pmdp_clear_flush_young_notify(vma, address,
 -- 
 2.53.0
 
