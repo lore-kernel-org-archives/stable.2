@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677961;
-	b=OhkgDgqw69soyza1+QxbFB0G+n25e/tOxLSkAM1B+/OGZs9ftsSocPXRduu1v6Ox3zul
-	 kmdCGlNeakPH4vzjkRtGrtO8M8xQ9dX2zBIOlN/J/ZBrJjEm+Hwv7v0jMsislh8wMJD9t
-	 nDO84s3z/ff9i0GJ0Ark+3mMnbqNdV5j8Bt94PbNbFhKk3OLAZ7Hz8kaYOlb458WSKWGJ
-	 CVhsbJg2hd6veQRNYNf7CD6BtFifjlaLs+rZrONX4RNeR4cYCn3yJAhBIuIPg5iqH5Fa3
-	 cYLB113h6STu6Y4UF6DRdbZfm68QzqvxXQkvzmsRBPE/MvzT1NtBHEaDiWu2Bfmvu+w==
+	t=1794678067;
+	b=kIE2Bj7ROHWRJ6TBtaL7heGu/j6G7b9DdPy9qugy5E/rbSaBPo5BIUJ4su+yut02Zjbd
+	 0peC1p3KWwaLQgUL2ApuIq0GXo3oTBID4eLSdppy0Imhelg2Ts1HFKbvyH5zWlHMCeQQJ
+	 6JfJc0k2pealpCP1cwm0SJJpYhbZjQjt2T3mnZf2n9oUdLr+4wWbZ33pdS4/x373M5FUk
+	 Vv7eCNzOkH+kQkXLZPJ9emWkdwb5CbR50Amo7HIyA4q8ZkhVZII29ToW1fvG6LOSiJExn
+	 AEl106B6PYSMRdpzuSxMG0dFY0obN7UCSyN7B+UPeDqrDT7yolayeQgGwjIhZF4egoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794678067;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=E375JMUregRqR9wSX/dM7UR2ya6XkJRDvPbgBfB7BaQ=;
-	b=uMGB2UHrHM7LEeXzRTJJm+DkMq4gs4Trrng+6V8YqBDPpIw9ys/B6914FU9aALWOt6I/
-	 jnsLQnnvghTX2kkFTw/VXjSFBUjMuyhnZaZuOKntb9d8VUucvzcQfKL4rWxoW82eJ4dIv
-	 OjNwpXzbVc6lRouYD3/+8G1qLDERWpQEiIwIcNp+S8IlcIxkDXIVBktw8ta9sE5z2jaeH
-	 dA28rfiyjtN2LH67dqgbtI6mIU+/UllNYfY5nD3uFm5lWgHk0IDlg4dYukurZO/CoTZhK
-	 taUq+uVp33FD9MsLkVBxZ2t8LPKOFSnn7e8W7fVguMvvjDON4cKAIp2FVXp/odBi37g==
+	bh=UO80MmRLeyMOa2KH/SAgFT76/LTjDkH5bGA2Qna/hN0=;
+	b=LnE5Gq2xxjJIjxvOrA30ghR+wNnCo2dxm/2v7zetbMmagUOBTTQ+qt2EeYTA59V5FXuJ
+	 qdPkPsg/AjKbHaIsd0+drwzy48cB0H8bLO+R4ahg//m6s7WnZRwhx1Dj0Ap4XueVoVVyj
+	 Dkohhc6FCCHMilmqD6CGdMpJWeLLLFkTGFqd4nay3yLJOyH8AEwjTPb83r8CdT8BWgdio
+	 LmmLUv+0USvQiqe/LOfGmO0KWkOUsOXhKsAUQVYIG4exFziQitS3e/P5dH5HuPhevoswa
+	 DFgTCt1p2oQcPr1yN7/g2hyTpZxcbbwfV0iuDtjEfsRtoaPOdTKCKVaLk+MeG/Rj6Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bht+j45B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQa5UXDY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79914606A32D
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0566A606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:41:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bht+j45B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709A11F000C4;
-	Sat, 14 Nov 2026 17:39:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQa5UXDY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0967B1F000C4;
+	Sat, 14 Nov 2026 17:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794677961;
-	bh=E375JMUregRqR9wSX/dM7UR2ya6XkJRDvPbgBfB7BaQ=;
+	s=k20260515; t=1794678066;
+	bh=UO80MmRLeyMOa2KH/SAgFT76/LTjDkH5bGA2Qna/hN0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bht+j45BUvcMfHy7q/mhs8S2/owXW00BdsQGyvyTJ9kVKv3yg9l2mSJMYnLspZTXW
-	 7O+e/NXiqka6hPRT8jxIGLs5DJRd4Sv0fX3elgSV5oM0bNqumg5IhSIHJi32lYuvZ8
-	 wrTIzF9kYGG7yZqm5lKboBudYkFmbOslKiHCHEdkr1P6+qcDnjm1JDWLr7l3Oj1cAb
-	 UaHGs78gwCj25UlbyMJ8AqSNwQ8ATE8rKSnRoZX9OkxfvGx23RTttOAyCm8Sfp5Phj
-	 KBuJIkljNrSqMEyUxBDSeB/FCF4+vYLM2zi7c82yzLrmNi6BKwx85eJCBEwKbSCBI9
-	 Xdm99H17vEVmQ==
+	b=RQa5UXDYvf+yQIOCnWfXf+ZdhYdeAVWy0JSVvjDgGu+GksYTeKO8ogUqYC2wmlQFd
+	 xZPoO28AWJpOIA67jmW88dcyKETydjhNUV0DW+xO6vfYc6NOOY4K2R2eozMsxhCKGf
+	 FiO8WKIo9DSNFG3AizhL4mRzZCZosSPmhCKiOhg3ZSwKAir4r3OV61AV8auVwkcSOt
+	 tvihZ7iwXaGDHZRmjy4kk/TnvPSFGYcalTQtS8K4WGtq9yjLqHZWYsL+htrHS+mxFY
+	 cRKhvSj+vHtuTOj1A3VvrwR4lLiLeHJpc1Nt/TKLcyWZYwo7HxYCKBI++Xa1+8P5Au
+	 ZKd9rdM4ijpzw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
-	Felix Kuehling <felix.kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Amir Goldstein <amir73il@gmail.com>,
+	Edvard Conrad <edvard@tuta.io>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] drm/amdkfd: use the queue's process info for the WPTR BO eviction fence
-Date: Sat, 14 Nov 2026 12:39:19 -0500
-Message-ID: <20261114173902.306494-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ovl: inherit FMODE_NONOTIFY when reading directory layers
+Date: Sat, 14 Nov 2026 12:41:04 -0500
+Message-ID: <20261114174046.4185066-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201421-failed-6.6-da2897ee8b81@kernel.org>
-References: <20261109201421-failed-6.6-da2897ee8b81@kernel.org>
+In-Reply-To: <20261109202354-failed-5.15-9ff338af0e00@kernel.org>
+References: <20261109202354-failed-5.15-9ff338af0e00@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,100 +61,177 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: Amir Goldstein <amir73il@gmail.com>
 
-[ Upstream commit da2897ee8b811945fd40ecc4aaf03291c14ce61c ]
+[ Upstream commit 9ff338af0e002fe217cfa16b1289b76f6b21fc72 ]
 
-amdgpu_amdkfd_map_gtt_bo_to_gart() removes the eviction fence of
-bo->vm_bo->vm->process_info from the WPTR BO of a new queue. bo->vm_bo
-is the VM which opened the BO last, not necessarily the KFD process' VM,
-and a render node VM has no process info.
+Listing a merged or impure overlay directory opens the real layer
+directories from ovl_dir_read(), when the readdir cache is filled.
+Those opens use plain ovl_path_open(), so when the directory fd is
+one that fanotify created for a permission event, they can still raise
+FS_OPEN_PERM.  A listener that also marks the backing filesystem and
+calls getdents() on the event fd before answering then deadlocks the
+same way as with the directory open fixed by the previous commit.
 
-On navi31, an unprivileged process which exports its WPTR BO with
-AMDKFD_IOC_EXPORT_DMABUF and imports it on a second render node fd
-oopses in AMDKFD_IOC_CREATE_QUEUE:
+Store the overlay user file in struct ovl_readdir_data and pass it to
+ovl_path_open_realfile() from ovl_dir_read(), for both the merged and
+the impure cache.  Internal readers such as ovl_check_empty_dir() and
+the mount-time workdir cleanup still pass no user file.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000060
-  RIP: 0010:amdgpu_amdkfd_map_gtt_bo_to_gart+0x86/0x1a0 [amdgpu]
-   init_user_queue.part.0+0x180/0x250 [amdgpu]
-   pqm_create_queue+0x32d/0x730 [amdgpu]
-   kfd_ioctl_create_queue+0x583/0x9f0 [amdgpu]
+A note about severity and real world impact: The FAN_OPEN_PERM event is
+traditionally used by anti-malware protection agents and security/audit
+agents. The scope that is often used in those use cases is FAN_MARK_MOUNT
+and agents typically monitor multiple mounts in a mount namespace.
+FAN_OPEN_PERM from directory open requires user opt-in with FAN_ONDIR.
+It is often not the case that anti-malware agents monitor open of
+directories. Security/audit engines are more likely to opt-into
+FAN_OPEN_PERM on directories, but are less likely to list the content
+of a directory within the scope of FAN_OPEN_PERM event, so the real
+world impact of this bug is likely not significant.
 
-Pass the process info of the queue instead. With the fix, the queue is
-created and destroyed normally.
-
-Fixes: 7f347e3f8217 ("drm/amdkfd: Fix NULL pointer error for GC 11.0.1 on mGPU")
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 6b4157498a176bd1c6083f6bb5aaf8a257a2027e)
+Reported-by: Edvard Conrad <edvard@tuta.io>
+Closes: https://lore.kernel.org/all/P5Qu3co--N-9@tuta.io/
 Cc: stable@vger.kernel.org
-[ sashal: adapted process_info passing to kfd_ioctl_create_queue() using p->kgd_process_info instead of pqm->process->kgd_process_info ]
+Tested-by: Edvard Conrad <edvard@tuta.io>
+Link: https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
+Co-developed-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[ sashal: replaced ovl_path_open_realfile() with ovl_path_open() using an inline FMODE_NONOTIFY check to set __FMODE_NONOTIFY ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       | 3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 +++++---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 3 ++-
- 3 files changed, 9 insertions(+), 5 deletions(-)
+ fs/overlayfs/readdir.c | 31 ++++++++++++++++++++-----------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 1be8c4a676096..938a29f8ad837 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -309,7 +309,8 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
- 					     void **kptr, uint64_t *size);
- void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index eef6c5d1b1f8b..2de2e433530ee 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -37,6 +37,7 @@ struct ovl_dir_cache {
  
--int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo);
-+int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo,
-+				     struct amdkfd_process_info *process_info);
- 
- int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
- 					    struct dma_fence **ef);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 05426ac8d9e14..ab04dce3c7ea9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2180,11 +2180,13 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
-  * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment reference count
-  * @adev: Device to which allocated BO belongs
-  * @bo: Buffer object to be mapped
-+ * @process_info: KFD process info of the queue the BO is for
-  *
-  * Before return, bo reference count is incremented. To release the reference and unpin/
-  * unmap the BO, call amdgpu_amdkfd_free_gtt_mem.
-  */
--int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo)
-+int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo,
-+				     struct amdkfd_process_info *process_info)
+ struct ovl_readdir_data {
+ 	struct dir_context ctx;
++	const struct file *user_file;
+ 	struct dentry *dentry;
+ 	bool is_lowest;
+ 	struct rb_root *root;
+@@ -295,9 +296,13 @@ static inline int ovl_dir_read(struct path *realpath,
+ 			       struct ovl_readdir_data *rdd)
  {
- 	int ret;
+ 	struct file *realfile;
++	int flags = O_RDONLY | O_LARGEFILE;
+ 	int err;
  
-@@ -2206,8 +2208,8 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_b
- 		goto err_map_bo_gart_failed;
+-	realfile = ovl_path_open(realpath, O_RDONLY | O_LARGEFILE);
++	if (rdd->user_file && (rdd->user_file->f_mode & FMODE_NONOTIFY))
++		flags |= __FMODE_NONOTIFY;
++
++	realfile = ovl_path_open(realpath, flags);
+ 	if (IS_ERR(realfile))
+ 		return PTR_ERR(realfile);
+ 
+@@ -341,12 +346,13 @@ static void ovl_dir_reset(struct file *file)
+ }
+ 
+ static int ovl_dir_read_merged(struct dentry *dentry, struct list_head *list,
+-	struct rb_root *root)
++	struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_merge,
++		.user_file = user_file,
+ 		.dentry = dentry,
+ 		.list = list,
+ 		.root = root,
+@@ -390,9 +396,10 @@ static void ovl_seek_cursor(struct ovl_dir_file *od, loff_t pos)
+ 	od->cursor = p;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
++static struct ovl_dir_cache *ovl_dir_cache_get(struct file *file)
+ {
+ 	int res;
++	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_dir_cache *cache;
+ 
+ 	cache = ovl_dir_cache(d_inode(dentry));
+@@ -411,7 +418,7 @@ static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
+ 	INIT_LIST_HEAD(&cache->entries);
+ 	cache->root = RB_ROOT;
+ 
+-	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root);
++	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -547,14 +554,15 @@ static int ovl_fill_plain(struct dir_context *ctx, const char *name,
+ 	return 0;
+ }
+ 
+-static int ovl_dir_read_impure(struct path *path,  struct list_head *list,
+-			       struct rb_root *root)
++static int ovl_dir_read_impure(struct path *path, struct list_head *list,
++			       struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+ 	struct ovl_cache_entry *p, *n;
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_plain,
++		.user_file = user_file,
+ 		.list = list,
+ 		.root = root,
+ 	};
+@@ -592,9 +600,10 @@ static int ovl_dir_read_impure(struct path *path,  struct list_head *list,
+ 	return 0;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get_impure(struct path *path)
++static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
+ {
+ 	int res;
++	struct path *path = &file->f_path;
+ 	struct dentry *dentry = path->dentry;
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+ 	struct ovl_dir_cache *cache;
+@@ -611,7 +620,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(struct path *path)
+ 	if (!cache)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
++	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -726,7 +735,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	dput(parent);
+ 
+ 	if (ovl_is_impure_dir(file)) {
+-		rdt.cache = ovl_cache_get_impure(&file->f_path);
++		rdt.cache = ovl_cache_get_impure(file);
+ 		if (IS_ERR(rdt.cache))
+ 			return PTR_ERR(rdt.cache);
  	}
+@@ -773,7 +782,7 @@ static int ovl_iterate(struct file *file, struct dir_context *ctx)
+ 	if (!od->cache) {
+ 		struct ovl_dir_cache *cache;
  
--	amdgpu_amdkfd_remove_eviction_fence(
--		bo, bo->vm_bo->vm->process_info->eviction_fence);
-+	/* bo->vm_bo can be the VM of any file which opened the BO */
-+	amdgpu_amdkfd_remove_eviction_fence(bo, process_info->eviction_fence);
+-		cache = ovl_cache_get(dentry);
++		cache = ovl_dir_cache_get(file);
+ 		err = PTR_ERR(cache);
+ 		if (IS_ERR(cache))
+ 			goto out;
+@@ -987,7 +996,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
+ 	const struct cred *old_cred;
  
- 	amdgpu_bo_unreserve(bo);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 44cd1b54d020e..a538331477085 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -375,7 +375,8 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 			goto err_wptr_map_gart;
- 		}
- 
--		err = amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_bo);
-+		err = amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_bo,
-+						    p->kgd_process_info);
- 		if (err) {
- 			pr_err("Failed to map wptr bo to GART\n");
- 			goto err_wptr_map_gart;
+ 	old_cred = ovl_override_creds(dentry->d_sb);
+-	err = ovl_dir_read_merged(dentry, list, &root);
++	err = ovl_dir_read_merged(dentry, list, &root, NULL);
+ 	revert_creds(old_cred);
+ 	if (err)
+ 		return err;
 -- 
 2.53.0
 
