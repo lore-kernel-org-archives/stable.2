@@ -1,71 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794616764;
-	b=g7VUeshkb8UwwQkVGR7SN6I4+KT5CL2r6LxUYnsVpI+znkBkiOlGvytI7knIQ/YggOSX
-	 WUcuTPwygm6+QaPIQOtM3K20dIo0NWZ5IeybAIUnzJ44Mdulnh18sw/BJigTtMsZY+Eip
-	 FHTQ/jtM1w+XcryOozrPVeD8yHVSnQTWJJkSonRNoXELUl9Yi1nv2Hsph2tCKp6r0JgT4
-	 RpEUO09rA3AtIoEWSAMxyi5T2wLUneEQZVKiZZe/qvPuAvsQwxHG1uCMJNj80E7ONES8J
-	 ahop3/zXQ/dUDJhZ+kL48cIwODaT/FY3WbXaX5pSbGoHuWstF+42kwk1VQys+CpqlNw==
+	t=1794617052;
+	b=eIKPjaYHukE4vuDZ5Lw2jBgjqwlXAU6I7zEuWeEy9K4u4oC4WyISCgmliLeKo7+HUbpe
+	 kJcoIiTVpYML4l8bBw6xF6CGbQr7SWtQGVRYoWe+m2t/i4BjSzo6B3x0m7J8LR1FPi7DG
+	 TwxpPiVvL0fUL54XZJ1ALp1dz+nZYwvn0OOIJ9ApW6bmzKE3Dgh4PaRMP90mwXpG0cyeo
+	 7WAN60QXeNvGK4dBMZQ7t2KTVmveAe7xcu+oKp3ZtypCel8QMn1eAzLcxepnMXXllIVdR
+	 f2tmxi3W/tHuMmCqZwrGsuLiAPYe6cNZCbRHp9RG1M49mtysuCR8e+/Qej1xaaF2uew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794616764;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TR03HYANH3JxjEWewr/Ab8mbFLXagZ4CIuGxSt6TVjM=;
-	b=sp8PjIElOfSyTZzNo6Gsi0lrvVqFx2+xw+rj/aprPZXT1G5igiGsGk6pExYydF3Fge2D
-	 /trwE8D9VgD2GVqIctQwDDrSRLnDqtBAed4DPt52BjXKCYDFsgkyIYZTJHdTafnN8TUXN
-	 PTyMcMxjBrbeoy9+NpPI9Hy12ItKl6srPvNnvpuKzJE58J/SMo82fMk/yNeMzqJcwFk1f
-	 8dmSJBCACsE+8K4s1Fuus3atfATG2q4o/l32vDPlHP9M3gkDfDR0XZXAep+lE5cJboyTv
-	 H4oeRTxaoK1GmLzMfAb3WzR3FaXQtTCN700u6GgP4MW3RIqXBjZvknKXOaYwLJoIX2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794617052;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=0xtAECFW3pXMdSq0lQxsNOUtdAywWPfdRsyXX2fdCbI=;
+	b=olUG7EGfypznWjb1a32cp0M4EENqjqcK/4fwUxg+I+0OzyXdgOv4h/zVq37ZOL+gNuXe
+	 Cn2h4X9a88Xad3FtfIeNpDNQEA3sUCfABA2bNBLiuh0BI0Zfc6jbc6ESD+wu/1ENLSGxB
+	 NPkmKt085BxdEeiTrZvDCwD7vyYqiDZ4yt4DqCA3XCOWhG6M1DYr027Eaogeb1+NabAKp
+	 2jDO3GXPfwFdzHcuBZR1RRXt4A2/BSlMwnqS1MtCGczj6TmINmP6RnU2SLXb7xwxc0js9
+	 WuajBE6ioYIpidlz/8orlS7Hdeg91fRSjxTnqDjyI5SDSSfWo7bkKch7IHeRlhXOtDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZXJ2vJR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WjUSNxfM;
+	arc=none smtp.remote-ip=95.215.58.7
+Received: from mta1.migadu.com (out-7.mta1.migadu.com [95.215.58.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28489606A329;
-	Sat, 14 Nov 2026 00:39:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3128F606A331
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 00:44:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3128F606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZXJ2vJR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0B51F000C4;
-	Sat, 14 Nov 2026 00:39:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794616763;
-	bh=TR03HYANH3JxjEWewr/Ab8mbFLXagZ4CIuGxSt6TVjM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eZXJ2vJRLbnEG/8DsfpS1WuvlhpDqKP5Ad7yHWSwzESZK0n3LldVDoj2CztwVoCBh
-	 WTyP444vnzXJIHBKOWers+5ZvvFHF0FcSQqh1ztHVQEnRDIYzGQ7Fsld0tRoOkG+md
-	 qMjOIFLT9TK9QF3l3iksNJzcJp1Vcv7aCWz13sEtAz2rq6sqNqdCrHH4YAPoOQDDX/
-	 V/liyDsiVNmhpiNwMmSQjiHF+gNZ+/mPG2yZwcEyUbOYevaxMdRiUuSG15wINfKhFc
-	 KcK+hIAcFVniTfpSyuSxGJFzfwl9hM1tMKtU8cX6G7+1T7DKRhIXJEwi0gI0gCSYQN
-	 8uBXHdzKeJP3A==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: 4ncienth@gmail.com,
-	akpm@linux-foundation.org,
-	azpijr@gmail.com,
-	corbet@lwn.net,
-	david@kernel.org,
-	jannh@google.com,
-	liam@infradead.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	patches@lists.linux.dev,
-	pfalcato@suse.de,
-	rdunlap@infradead.org,
-	rppt@kernel.org,
-	sashal@kernel.org,
-	shakeel.butt@linux.dev,
-	stable@vger.kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	linux-mm@kvack.org,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: Re: [PATCH 7.3 463/507] mm/vma: avoid spurious write locks when mm->mm_lock_seq overflows
-Date: Sat, 14 Nov 2026 01:39:12 +0100
-Message-ID: <20261114003912.82206-1-ojeda@kernel.org>
-In-Reply-To: <20261113153812.408825269@linuxfoundation.org>
-References: <20261113153812.408825269@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WjUSNxfM
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0xtAECFW3pXMdSq0lQxsNOUtdAywWPfdRsyXX2fdCbI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794617049; v=1; x=1795221849;
+ b=WjUSNxfMy0hDfRyJzKb819Vr/dago8ZhjlqIKxCsU5Eh/iEOn0k+mzOYY5mGr8iMuoO0hh+Z
+ K6oMia537VmqhKgK7nb3poZfl/2UCcThfNEtH191QPCFb2+U6W2hubc0GOWNCIPNBpfdwHU3AG3
+ l3v7d6oflc98U/ClmRZcbGjo=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 5500ac1b1da158ed;
+	Sat, 14 Nov 2026 00:44:07 +0000
+X-Mizu-Trace-ID: 5500ac1b1da158ed
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,58 +57,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH 00/15] mm/hugetlb: various fixes
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <835c18d0-bee3-41e8-aa46-05dc7c1ebc64@kernel.org>
+Date: Sat, 14 Nov 2026 08:43:44 +0800
+Cc: Oscar Salvador <osalvador@suse.de>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mel Gorman <mgorman@suse.de>,
+ Andy Whitcroft <apw@canonical.com>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Rik van Riel <riel@surriel.com>,
+ Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dave Airlie <airlied@redhat.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Peter Xu <peterx@redhat.com>,
+ Breno Leitao <leitao@debian.org>,
+ Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ linux-doc@vger.kernel.org,
+ linux-arch@vger.kernel.org,
+ linux-s390@vger.kernel.org,
+ luojiajun <luojiajun3@huawei.com>,
+ Josef Bacik <josef@toxicpanda.com>,
+ stable@kernel.org,
+ Chris Mason <mason@kernel.org>,
+ Daehyeon Ko <4ncienth@gmail.com>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6EDE76EC-0CD2-4C34-BD06-234E21C7BDEF@linux.dev>
+References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
+ <835c18d0-bee3-41e8-aa46-05dc7c1ebc64@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-On Fri, 13 Nov 2026 10:52:47 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> @@ -589,6 +593,16 @@ static inline void vma_end_write_all(struct mm_struct *mm)
->  {
->  	mmap_assert_write_locked(mm);
->  	mm_lock_seqcount_end(mm);
-> +
-> +	/*
-> +	 * VMA seqcounts are not updated on unlock, so once the mm seqcount has
-> +	 * wrapped, any VMA still carrying a sequence number from before the
-> +	 * wrap would satisfy __is_vma_write_locked() when that number comes
-> +	 * round again, and readers would not be excluded. Reset every VMA's
-> +	 * seqcount so that no stale value survives the wrap.
-> +	 */
-> +	if (unlikely(!mm->mm_lock_seq.sequence))
-> +		__mm_reset_vma_seqcounts(mm);
->  }
 
-In a UM ~defconfig build with LLVM:
 
-    In file included from arch/um/kernel/asm-offsets.c:8:
-    In file included from ./include/linux/audit.h:13:
-    In file included from ./include/linux/ptrace.h:10:
-    In file included from ./include/linux/pid_namespace.h:7:
-    In file included from ./include/linux/mm.h:18:
-    ./include/linux/mmap_lock.h:604:20: error: no member named 'mm_lock_seq' in 'struct mm_struct'
-      604 |         if (unlikely(!mm->mm_lock_seq.sequence))
-          |                       ~~  ^
-    ./include/linux/compiler.h:77:42: note: expanded from macro 'unlikely'
-       77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
-          |
+> On Nov 14, 2026, at 04:22, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> On 10/28/26 21:13, David Hildenbrand (Arm) wrote:
+>> These fixes almost finished me.
+>=20
+> Muchun, Oscar, should I respin with an un-rfc of patch #14?
 
-That exists only under `CONFIG_PER_VMA_LOCK` (commit 47e725702b0b ("mm:
-make per-VMA locks available universally") from Dave's series was not
-backported).
+Sure, please.
 
-I hope this helps!
+Thanks,
+Muchun
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-mm@kvack.org
+>=20
+> --=20
+> Cheers,
+>=20
+> David
 
-Cc: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-
-Cheers,
-Miguel
