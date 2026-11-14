@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632580;
-	b=DQND0VA3FhXKxBrwf4B/D2vyL8pFSO1MAvEeManuEx3yc+336tcsIXzmyKe6j/686zH6
-	 LVSqVAVYKJfFONc1H0LPly1gmrum5a+sVvrdqQh4YiuXij4hyM5L0r11NnERQzDrLDfn3
-	 b7ODlvydq1W67ioDRwXgqQqpZTd81Pwbbt05wmBKAyJF3Sl5tai3ouyMkewbQP1PwrmlV
-	 Lw/Vy5iKOYcCROylpLUB42RW7jVEBtjgscSZ21p6UrRGBHWSNVam+96hsqwrp04ADuEEy
-	 Zk1ulvHH5IYT8LIduRp05//iaj9DmjgyNTQ2H1GsfOQZHXnaAWqcdTCfXuG8yUw0Atg==
+	t=1794632623;
+	b=XUcrEy9cIrdkL/JGv2EmuVkHlQlHVlQaf8X5Ekup876DC9ALVhwwkORWcEniWbakQ74k
+	 7xeuqpUOXbTckznOVATbkgvmc63ufWsgWUZCCAgfCj4QrQUTu3qfDGJkK9FIE1IUBIdBq
+	 TvkIN+hJCXjjXlgCZ8wZhaetd96vmupbsyCP5CfSURM3OSuEnfIy4807OzVbUglEOAfsF
+	 w/FBUWmv8xEwj6sWKeYAru8s1P5Zq+4WC00nE/f7VPd3+6ezPjlKPSpKCdS4Pqm6VD4ha
+	 iZPW8IWx4gibKEOBAj6qaoNNWw+g4sg8l9rmEjjgf/Ywtv5wjMYrkZNHvgXI5HtYZ7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632580;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632623;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9GbIfhpLxSa13SKD4IGQeeTXA3nYSIFiijIAUtcJffg=;
-	b=uTSZs+ODRw6iuoLDxceqWR3H78F313hNoJ2r/o+42bChLWM7kWvPgaBSNJDegtwMXZ1+
-	 sxFfW9tSJgU1Ieb2b+sAHOHfgKzP0E/RjZMm6kB1gCEBDVNzb7/f2g3FyC0p4mHT7FCcs
-	 WLQbecgEe2zwbWDs1FjrNGrbIdbpJUTwZDxMhCh8q12wgM+SVY2MGRoFcBqO6ufiNnr/l
-	 +12mroGRq/Pmwhmvq2u4HjybhganorCk+PjBw9r84ZXHZJh2cdvzHsbhVXcjt47ZndNTt
-	 yIGGapsNiU02ptYeteBgrENwJT7d52YDLLLi4JYYK5VShqyKhWQl/1VrG0celUw35Kw==
+	bh=1tAduaOzKQlcJL3gHfyiK8lX4l1BVm9veymeI+3t3mw=;
+	b=Ssn5hrCOxlQroovEGSG9xXUWTAZ3wa8q4LpU49TTB+Yz1iOISVyxdajeuC2ZlZ8QhU1Y
+	 2CQJ57O/nKNAxVqNVAbCFA5W1izi1X22ydiOwp1x/mKfdmDd1gw6LmWI0aiLJLAPUATx5
+	 ejY+Xrpsp0Iz1h8/MAVjvdWJrnrhNe55odCfoUcCX+jn3S7G/mzs7HqTLhttrqNFGT1l7
+	 O9jjQC/JRwUgKv3xNnJrNjxrafn1hSzIrApNzphusHpZ2K5NQdF9rTrRf7YzhIdKGza8f
+	 ITIjNYeV5t53Xxc07nMocerx8hipq5wPaheuWEuLPIPOTVwvJjGrIXpy59q/cnajcKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j17KN5T4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLXPmayI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9C6606A330
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:03:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F28606A329
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j17KN5T4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903001F000C4;
-	Sat, 14 Nov 2026 05:02:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLXPmayI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D67221F000C5;
+	Sat, 14 Nov 2026 05:03:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794632580;
-	bh=9GbIfhpLxSa13SKD4IGQeeTXA3nYSIFiijIAUtcJffg=;
+	s=k20260515; t=1794632622;
+	bh=1tAduaOzKQlcJL3gHfyiK8lX4l1BVm9veymeI+3t3mw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j17KN5T4yV5cmTCwO5dPNAc1q6fkpRIot642m9mLFDQWsAjpXmbnf1cxYWOSfHlGJ
-	 XvdF86EE2iOO0MFXI2SZHIfnpS58r0PgHYnrxJ9gESM9tlwEMbeBFk3L0aNCG9zvdz
-	 P4zxpeuF8t+Wy1Ce22YLOEBfVYFrv2yiUECg0zGPsUzxryFuy0F+oVFWhs+gSfnEkf
-	 tkIL4P0wd+RBTaPNnlJ2VFTxQlNfnTGt0OIpR710IvcEPaf1tPuJLGtMYj36gaUjX7
-	 eiwvOJNPJ/CRolfF0CB4l/JRqKYlWrVTND+7J9IlHz9O/vxisd6OjOL4Of6ni4dVoL
-	 KdyjjOVgXcNOw==
+	b=QLXPmayIQpremGRlzvKRjdUWDhPwbwZd8rT/mmcQL3l0vOruhxQ0PYtW8ToUDMid6
+	 46iK2KA7k2p/i5B33Zn9+T+c9BIBGPs+Mi9aurnhfZklDTaMwPkiOQhP96FWFN7qBR
+	 xFWQayu3ZeOrY2WfTHAO9JKlKSRWcp6khB1J3Php4b+7hZ46bqpZEfOqPaQwpH9P9p
+	 afQV3TKsZiIGl9OGFkxfTJNFaurwgFcJuWic+EQ4+O4IZ+3X/BZTBamemaRMdrZ5Vf
+	 pQEiOYNdDABnShmiCXHLY9scMI5cCd0A08QxjJaoUYxEY2V5pAhy135l+ZPpv7QnGu
+	 6lbt7PnzeUxgQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yingjie Wang <1075151112@qq.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: YouYou Yu <youyouyu@amazon.com>,
+	Dylan Johnson <dgj@amazon.com>,
+	Gunnar Kudrjavets <gunnarku@amazon.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] nvmet: reject keep-alive timeouts that would overflow
-Date: Sat, 14 Nov 2026 00:02:58 -0500
-Message-ID: <20261114050234.2992167-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] quota: initialize dquot cache before mounting rootfs
+Date: Sat, 14 Nov 2026 00:03:40 -0500
+Message-ID: <20261114050329.2994867-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200838-failed-6.12-96ae13f40ce5@kernel.org>
-References: <20261109200838-failed-6.12-96ae13f40ce5@kernel.org>
+In-Reply-To: <20261109202008-failed-5.15-e21a6f39aa6d@kernel.org>
+References: <20261109202008-failed-5.15-e21a6f39aa6d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,112 +63,134 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yingjie Wang <1075151112@qq.com>
+From: YouYou Yu <youyouyu@amazon.com>
 
-[ Upstream commit 96ae13f40ce5930cd58c43128e385131476f2a66 ]
+[ Upstream commit e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 ]
 
-nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
-millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
-The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
-4294966296 ms wraps around and rounds to 0 seconds. A Set Features
-command with KATO 0xffffffff then succeeds but disables the keep-alive
-timer: Get Features returns 0 and Keep Alive fails with Keep Alive
-Timeout Invalid. A Connect command with such a KATO creates a controller
-without a keep-alive timer.
+On some systems, a tmpfs backed rootfs is extensively used throughout
+system's lifecycle. tmpfs quotas are needed to limit per user rootfs
+usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
+and "initramfs_options=usrquota" panics at boot:
 
-The converted value has more consumers that can overflow. Get Features
-multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
-and arm a delay that must not exceed MAX_JIFFY_OFFSET.
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:dqget+0x1ac/0x490
+  Call Trace:
+   __dquot_initialize
+   dquot_initialize
+   shmem_get_inode
+   shmem_fill_super
+   ...
+   mnt_init
+   vfs_caches_init
+   start_kernel
 
-Reject a KATO whose rounded value does not fit all of these. Return Keep
-Alive Timeout Invalid from both Set Features and Connect. Validate Set
-Features before stopping the current timer so a failed update leaves its
-timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
-meaning.
+The rootfs is mounted from mnt_init(), but the dquot hash table and
+cache are only set up later by dquot_init(), an fs_initcall. Creating
+the root inode of a quota enabled rootfs thus dereferences the NULL
+dquot_hash in dqget().
 
-Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
+Rename dquot_init() to dquot_cache_init() and call it from
+vfs_caches_init() before mnt_init(). The slab, percpu and early
+workqueue code it relies on is available there, and the workqueue
+rescuer and shrinker debugfs entries are set up later by their own
+subsystems. Keep the sysctl registration in an fs_initcall, as done
+for the dcache, inode and mount sysctls. This only moves existing
+allocations earlier in boot.
+
+Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
 Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: adapted nvmet_alloc_ctrl() error handling to the request-based API with direct NVMe status returns ]
+Assisted-by: LLM
+Co-developed-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: YouYou Yu <youyouyu@amazon.com>
+Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
+Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
+Signed-off-by: Jan Kara <jack@suse.cz>
+[ sashal: Retained register_sysctl_table(sys_table) instead of register_sysctl_init() to preserve the existing quota table hierarchy. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/admin-cmd.c | 7 ++++++-
- drivers/nvme/target/core.c      | 7 ++++++-
- drivers/nvme/target/nvmet.h     | 8 ++++++++
- 3 files changed, 20 insertions(+), 2 deletions(-)
+ fs/dcache.c              |  2 ++
+ fs/quota/dquot.c         | 10 ++++++----
+ include/linux/quotaops.h |  5 +++++
+ 3 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index 1cc2f57b53ffa..fdfcec2ca9b89 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -811,8 +811,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 89e38520f66c4..b8a8d4c9df552 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -32,6 +32,7 @@
+ #include <linux/bit_spinlock.h>
+ #include <linux/rculist_bl.h>
+ #include <linux/list_lru.h>
++#include <linux/quotaops.h>
+ #include "internal.h"
+ #include "mount.h"
+ 
+@@ -3283,6 +3284,7 @@ void __init vfs_caches_init(void)
+ 	inode_init();
+ 	files_init();
+ 	files_maxfiles_init();
++	dquot_cache_init();
+ 	mnt_init();
+ 	bdev_cache_init();
+ 	chrdev_init();
+diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
+index 6b53db7e9d6fb..de36d75d022ad 100644
+--- a/fs/quota/dquot.c
++++ b/fs/quota/dquot.c
+@@ -3043,15 +3043,13 @@ static struct ctl_table sys_table[] = {
+ 	{ },
+ };
+ 
+-static int __init dquot_init(void)
++void __init dquot_cache_init(void)
  {
- 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
+ 	int i, ret;
+ 	unsigned long nr_hash, order;
  
-+	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvme_common_command, cdw11);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+	}
+ 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
+ 
+-	register_sysctl_table(sys_table);
+-
+ 	dquot_cachep = kmem_cache_create("dquot",
+ 			sizeof(struct dquot), sizeof(unsigned long) * 4,
+ 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
+@@ -3083,7 +3081,11 @@ static int __init dquot_init(void)
+ 
+ 	if (register_shrinker(&dqcache_shrinker))
+ 		panic("Cannot register dquot shrinker");
++}
+ 
++static int __init init_fs_dquot_sysctls(void)
++{
++	register_sysctl_table(sys_table);
+ 	return 0;
+ }
+-fs_initcall(dquot_init);
++fs_initcall(init_fs_dquot_sysctls);
+diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
+index 8a1ad23da3a11..5f2e39226da60 100644
+--- a/include/linux/quotaops.h
++++ b/include/linux/quotaops.h
+@@ -39,6 +39,7 @@ void __quota_error(struct super_block *sb, const char *func,
+ /*
+  * declaration of quota_function calls in kernel.
+  */
++void dquot_cache_init(void);
+ int dquot_initialize(struct inode *inode);
+ bool dquot_initialize_needed(struct inode *inode);
+ void dquot_drop(struct inode *inode);
+@@ -204,6 +205,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
+ 	return 0;
+ }
+ 
++static inline void dquot_cache_init(void)
++{
++}
 +
- 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
--	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
-+	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
- 	nvmet_start_keep_alive_timer(req->sq->ctrl);
- 
- 	nvmet_set_result(req, req->sq->ctrl->kato);
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index fa011c16c9b1c..849cd6a5b4219 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1422,6 +1422,11 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 	int ret;
- 	u16 status;
- 
-+	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvmf_connect_command, kato);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+	}
-+
- 	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
- 	if (!subsys) {
-@@ -1487,7 +1492,7 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 		kato = NVMET_DISC_KATO_MS;
- 
- 	/* keep-alive timeout in seconds */
--	ctrl->kato = DIV_ROUND_UP(kato, 1000);
-+	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
- 
- 	ctrl->err_counter = 0;
- 	spin_lock_init(&ctrl->error_lock);
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index 2a1a848189bea..f1691750705e2 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -7,6 +7,7 @@
- #define _NVMET_H
- 
- #include <linux/dma-mapping.h>
-+#include <linux/jiffies.h>
- #include <linux/types.h>
- #include <linux/device.h>
- #include <linux/kref.h>
-@@ -586,6 +587,13 @@ bool nvmet_subsys_nsid_exists(struct nvmet_subsys *subsys, u32 nsid);
- #define NVMET_KAS		10
- #define NVMET_DISC_KATO_MS		120000
- 
-+/*
-+ * Largest keep-alive timeout in seconds that can be reported back in
-+ * milliseconds and converted to jiffies without overflowing.
-+ */
-+#define NVMET_MAX_KATO	\
-+	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
-+
- int __init nvmet_init_configfs(void);
- void __exit nvmet_exit_configfs(void);
- 
+ static inline int dquot_initialize(struct inode *inode)
+ {
+ 	return 0;
 -- 
 2.53.0
 
