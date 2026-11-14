@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794668213;
-	b=daLzH4nu1w514lWH212/FJhNgjP3kgwg54qJYXrZ/375u2Mrdn3byFP3DdOOJNgoVBQD
-	 zPW4MbMzq1udb+CENKWVTrzEidLp2TfPviBfjwt5xhFuWSEmZPbnbpfM0LoomZSAgkrdq
-	 2yGuoyyLTqFPg7ShmO3+ln7wtnHFG2sFUTsH5VzxKnqAyZFvBapp90eoY5kWtympUhpwp
-	 CMkG7wy8Uncamb2YMHH8sfo5AsmrnbxPWr1y8LW7TXzRp9MoU4HwMChagmKaYzAht+N6Z
-	 ARHp7QcYC+itW98rTw96ZFH/6DFXDwWO+El8ld/BijG1sNVtne90aH3/PqpMNq6clPg==
+	t=1794668526;
+	b=w413FDBnnhc3KiM3cqG8abMtYjVMZKOcz+Ev6rD0Y7OypJU0x4iok8hiRKaVMfsOyR8Q
+	 ctehWtysjtay1Wc8sn5YQqolhyQfKWgfM03UdJJxul8pwUaaF3EctvqUdBh0UjI7GDUAP
+	 HtsBHfEACRZmrQlXV1tZ2sW2DFUOu9XwEUBPs0SVqY6u+6ipkbSZXgoHUKBYiOpImVJw0
+	 U9Q8LCH93465vBpB0aFTYUlp0CzUbgFPly4b0aSvloxiUPZAjSRwxlg/3ks5+zy6secEA
+	 sS8WxRS7BDZgXp86HzFaqrZavyXWAWuasu8ZUxhWSoDpFZxkOIXlNPG74XW17LOP3/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794668213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794668526;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2Q3V3QeGvrIiFHzLIEZrnLyjkVq+A0recmdmHUWu7+M=;
-	b=h8VaGNmO2Oojy/pmsQLTYH8BfG/3cio420aJi/ZmhbfZVma/F6h7ovZ/3+UtnikDiC7I
-	 ykEQLXMrW40bokkOf6AnjuZUfc3NTyGmqa0KmBocLhtYqazA0Ud45FMnAFHlwgG213ef+
-	 GTWMzvLqmLEXALM7pMEvpq/rLVr2jNNfaalTS+lRt77D0e3VWg+Oger3VxAeZ4hhExn/P
-	 eZnbbH3LnXzjQeNsSDrRtODc6X+nAl3EFXkbtJQz3uJplkr3/VysVduFzE5wKywXvXi0R
-	 oU8cz1c8qtfIFd4+kzcCUSm3egf+L5ivM7QAMfXr/FFbEWOmHjS2fY4rFlrcvFmxQ6w==
+	bh=Xoblsgif3lTvF1FDDvh5AYAzBbx98jZP3WdicE+0lts=;
+	b=jgq8psxejfoYD1HFQ2WCHn3mHrph+SRJRYRDClqVOFu9YsqSq3IuxkFnREQcTZAcLNZL
+	 rjnsbhKjsVwEXEHw3WYImA0gv9zaWlWpMkspCqgEHmXf6j24jDB+CNZGGPbdPWe9W7isC
+	 Z5E3rIQo+vBkJulTsatMUWwpDKDTuvO3nULe7qAo+3fFlueafGwaguCcxUfxvgmMYJHT2
+	 Iywd6yaR+/0mJRPK1wvKAlclCITz64CgXZO7oXDI9UnG7e2tvr3VhTC5WkFUFIH8urVGR
+	 FtQ7p8n/KJ2P6dSPgcTqD/ojxIhtN6YSJAxYH2vXsU8OEorJVvOl+7dbWg4Fy/TYc0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cx6sL9LH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I4due+h7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BC8606A327
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 14:56:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CF0606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:02:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cx6sL9LH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C92E1F000C4;
-	Sat, 14 Nov 2026 14:56:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I4due+h7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F2931F000C4;
+	Sat, 14 Nov 2026 15:02:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794668213;
-	bh=2Q3V3QeGvrIiFHzLIEZrnLyjkVq+A0recmdmHUWu7+M=;
+	s=k20260515; t=1794668525;
+	bh=Xoblsgif3lTvF1FDDvh5AYAzBbx98jZP3WdicE+0lts=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cx6sL9LHRY7WQpgf4QyqXyAWXbc+Lf3PremxwAKsVb7M0ULk6+qU4pRFNGlNpzvXi
-	 wPPKwd8KmkEBKmp57TfA0TZRRfEeiKVVHLfqYjPFqTytQ+1pVHN3KBpZwzgBPxmYbN
-	 Pfh37gVhegga6lU6XyXbHmJAPiuAk2A9+j5f2n/5mW/tCXrESwLjC2PNYJ8n66u1pF
-	 HWjwAsUUJX3vVkZFFVurXavqdD5cdh7Wq2XiRBwiIO83ijpEeVoDVZAChk2H/bbdeh
-	 SlRyIcSvaa8uLJygOhzaTdhEuLFygV+DrrWWuid+qca/qCK6Ml+8ZaS1h04/inv3oC
-	 mlnbX6CMfLP6A==
+	b=I4due+h7MDvmCRiyOQBobfXQUvCTgnvKIDoX6Fnnj0bTZC9PpS6Ogj0wgD0iXUZqF
+	 CAmp08mRt05vAtm9Si8ccAsZFw03wOB2QCrkaMO14PlOX2Pamu+I9FCPz9lHhiLpWO
+	 xJWZQTJtMprYfIJ92TTeiN1LQIC+7sjWUpi9DAxXNhDBc+fCQM6cSh4yy/W6BTp2m3
+	 hDlZFVKQ6x/g6npBR7lFNwRus9l7CoFh4er+uSsx3qpXFAk20zfS7drVm3AcofpwM9
+	 fEAhcm3iFPd907EQ7XyxuWB/0D2DY5Iyepse5XQRwO9rtfxqpTFxZSS0jTKUDOdPkU
+	 TcsukTdI1dL8Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm: fix deadlock of mremap() against UFFDIO_MOVE
-Date: Sat, 14 Nov 2026 09:56:51 -0500
-Message-ID: <20261114145628.3437819-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] arm64: Fix cleared E0POE bit after cpu_suspend()/resume()
+Date: Sat, 14 Nov 2026 10:02:02 -0500
+Message-ID: <20261114150157.3428169-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200510-failed-6.18-d03df42ddae1@kernel.org>
-References: <20261109200510-failed-6.18-d03df42ddae1@kernel.org>
+In-Reply-To: <20261109201436-failed-6.6-beeec0404622@kernel.org>
+References: <20261109201436-failed-6.6-beeec0404622@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,379 +63,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+From: Yeoreum Yun <yeoreum.yun@arm.com>
 
-[ Upstream commit d03df42ddae196f20e9cfb775704e60269eb6b44 ]
+[ Upstream commit bdf3f4176092df5281877cacf42f843063b4784d ]
 
-With per-VMA locks, UFFDIO_MOVE can run concurrently with mremap()
-on different VMAs in the same mm. Those VMAs can share page tables, so
-both operations can acquire the same pair of page-table locks.
+TCR2_ELx.E0POE is set during smp_init().
+However, this bit is not reprogrammed when the CPU enters suspension and
+later resumes via cpu_resume(), as __cpu_setup() does not re-enable E0POE
+and there is no save/restore logic for the TCR2_ELx system register.
 
-UFFDIO_MOVE orders the locks by address, while mremap() takes the source
-lock first. These conflicting orders can deadlock; mremap() holding
-mmap_lock for writing no longer helps.
+As a result, the E0POE feature no longer works after cpu_resume().
 
-Move double_pt_lock() and double_pt_unlock() to mm/internal.h and use
-them for all page-table moves in mremap(). Preserve the source entry
-checks after acquiring both locks. Remove the comments claiming that
-exclusive mmap_lock makes lock ordering irrelevant.
+To address this, save and restore TCR2_EL1 in the cpu_suspend()/cpu_resume()
+path, rather than adding related logic to __cpu_setup(), taking into account
+possible future extensions of the TCR2_ELx feature.
 
-In move_ptes(), make sure to just recheck source and destination PMD
-after taking the locks and drop the overly-long comment.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-[ david: use new helpers consistently; simplify description and comments;
-         move_ptes() fixup ]
-
-Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-38-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: replaced pmd_is_huge() with the equivalent is_swap_pmd() || pmd_trans_huge() check ]
+Fixes: bf83dae90fbc ("arm64: enable the Permission Overlay Extension for EL0")
+Cc: <stable@vger.kernel.org> # 6.12.x
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Stable-dep-of: beeec0404622 ("arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/userfaultfd_k.h |  2 -
- mm/huge_memory.c              | 19 +++-----
- mm/hugetlb.c                  | 14 ++----
- mm/internal.h                 | 28 +++++++++++
- mm/mremap.c                   | 87 ++++++++++++++---------------------
- mm/userfaultfd.c              | 27 -----------
- 6 files changed, 72 insertions(+), 105 deletions(-)
+ arch/arm64/include/asm/suspend.h | 2 +-
+ arch/arm64/mm/proc.S             | 8 ++++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index d65effb5cbff2..ffbf643430bb0 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -140,8 +140,6 @@ extern long uffd_wp_range(struct vm_area_struct *vma,
- 			  unsigned long start, unsigned long len, bool enable_wp);
+diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
+index 0cde2f473971e..eb60c97355530 100644
+--- a/arch/arm64/include/asm/suspend.h
++++ b/arch/arm64/include/asm/suspend.h
+@@ -2,7 +2,7 @@
+ #ifndef __ASM_SUSPEND_H
+ #define __ASM_SUSPEND_H
  
- /* move_pages */
--void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2);
--void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2);
- ssize_t move_pages(struct userfaultfd_ctx *ctx, unsigned long dst_start,
- 		   unsigned long src_start, unsigned long len, __u64 flags);
- int move_pages_huge_pmd(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd, pmd_t dst_pmdval,
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 24f5887eb48ee..a122a71f04c3c 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2423,15 +2423,11 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
- 		return false;
- 	}
+-#define NR_CTX_REGS 13
++#define NR_CTX_REGS 14
+ #define NR_CALLEE_SAVED_REGS 12
  
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = __pmd_trans_huge_lock(old_pmd, vma);
--	if (old_ptl) {
--		new_ptl = pmd_lockptr(mm, new_pmd);
--		if (new_ptl != old_ptl)
--			spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+	old_ptl = pmd_lockptr(mm, old_pmd);
-+	new_ptl = pmd_lockptr(mm, new_pmd);
-+
-+	double_pt_lock(old_ptl, new_ptl);
-+	if (likely(is_swap_pmd(*old_pmd) || pmd_trans_huge(*old_pmd))) {
- 		pmd = pmdp_huge_get_and_clear(mm, old_addr, old_pmd);
- 		if (pmd_present(pmd))
- 			force_flush = true;
-@@ -2448,11 +2444,10 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
- 		set_pmd_at(mm, new_addr, new_pmd, pmd);
- 		if (force_flush)
- 			flush_pmd_tlb_range(vma, old_addr, old_addr + PMD_SIZE);
--		if (new_ptl != old_ptl)
--			spin_unlock(new_ptl);
--		spin_unlock(old_ptl);
-+		double_pt_unlock(old_ptl, new_ptl);
- 		return true;
- 	}
-+	double_pt_unlock(old_ptl, new_ptl);
- 	return false;
- }
+ /*
+diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+index 14fdf645edc88..51c48ac29ad5d 100644
+--- a/arch/arm64/mm/proc.S
++++ b/arch/arm64/mm/proc.S
+@@ -102,6 +102,10 @@ SYM_FUNC_START(cpu_do_suspend)
+ 	 * call stack.
+ 	 */
+ 	str	x18, [x0, #96]
++alternative_if ARM64_HAS_TCR2
++	mrs	x2, REG_TCR2_EL1
++	str	x2, [x0, #104]
++alternative_else_nop_endif
+ 	ret
+ SYM_FUNC_END(cpu_do_suspend)
  
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 32daea7b157fa..44d720da8f388 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5808,15 +5808,9 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
- 	spinlock_t *src_ptl, *dst_ptl;
- 	pte_t pte;
+@@ -144,6 +148,10 @@ SYM_FUNC_START(cpu_do_resume)
+ 	 */
+ 	disable_daif
+ 	msr	mdscr_el1, x10
++alternative_if ARM64_HAS_TCR2
++	ldr	x2, [x0, #104]
++	msr	REG_TCR2_EL1, x2
++alternative_else_nop_endif
  
--	dst_ptl = huge_pte_lock(h, mm, dst_pte);
-+	dst_ptl = huge_pte_lockptr(h, mm, dst_pte);
- 	src_ptl = huge_pte_lockptr(h, mm, src_pte);
--
--	/*
--	 * We don't have to worry about the ordering of src and dst ptlocks
--	 * because exclusive mmap_lock (or the i_mmap_lock) prevents deadlock.
--	 */
--	if (src_ptl != dst_ptl)
--		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-+	double_pt_lock(dst_ptl, src_ptl);
- 
- 	pte = huge_ptep_get_and_clear(mm, old_addr, src_pte, sz);
- 
-@@ -5832,9 +5826,7 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
- 		set_huge_pte_at(mm, new_addr, dst_pte, pte, sz);
- 	}
- 
--	if (src_ptl != dst_ptl)
--		spin_unlock(src_ptl);
--	spin_unlock(dst_ptl);
-+	double_pt_unlock(dst_ptl, src_ptl);
- }
- 
- unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
-diff --git a/mm/internal.h b/mm/internal.h
-index e0adafc45c8c3..c6c1f5c0a3951 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -467,6 +467,34 @@ static inline void force_page_cache_readahead(struct address_space *mapping,
- 	force_page_cache_ra(&ractl, nr_to_read);
- }
- 
-+/*
-+ * Take two page table locks at the same level in address order such that
-+ * we cannot deadlock.
-+ */
-+static inline void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2)
-+	__acquires(ptl1)
-+	__acquires(ptl2)
-+{
-+	if (ptl1 > ptl2)
-+		swap(ptl1, ptl2);
-+	spin_lock(ptl1);
-+	if (ptl1 != ptl2)
-+		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
-+	else
-+		__acquire(ptl2);
-+}
-+
-+static inline void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2)
-+	__releases(ptl1)
-+	__releases(ptl2)
-+{
-+	spin_unlock(ptl1);
-+	if (ptl1 != ptl2)
-+		spin_unlock(ptl2);
-+	else
-+		__release(ptl2);
-+}
-+
- unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
- unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 9f7f45281b487..8ac23a56e210e 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -198,7 +198,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 	struct mm_struct *mm = vma->vm_mm;
- 	pte_t *old_ptep, *new_ptep;
- 	pte_t old_pte, pte;
--	pmd_t dummy_pmdval;
-+	pmd_t old_pmdval, new_pmdval;
- 	spinlock_t *old_ptl, *new_ptl;
- 	bool force_flush = false;
- 	unsigned long old_addr = pmc->old_addr;
-@@ -230,31 +230,30 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 	if (pmc->need_rmap_locks)
- 		take_rmap_locks(vma);
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * pte locks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptep = pte_offset_map_lock(mm, old_pmd, old_addr, &old_ptl);
-+	old_ptep = pte_offset_map_rw_nolock(mm, old_pmd, old_addr, &old_pmdval,
-+					    &old_ptl);
- 	if (!old_ptep) {
- 		err = -EAGAIN;
- 		goto out;
- 	}
--	/*
--	 * Now new_pte is none, so hpage_collapse_scan_file() path can not find
--	 * this by traversing file->f_mapping, so there is no concurrency with
--	 * retract_page_tables(). In addition, we already hold the exclusive
--	 * mmap_lock, so this new_pte page is stable, so there is no need to get
--	 * pmdval and do pmd_same() check.
--	 */
--	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &dummy_pmdval,
--					   &new_ptl);
-+	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &new_pmdval,
-+					    &new_ptl);
- 	if (!new_ptep) {
--		pte_unmap_unlock(old_ptep, old_ptl);
-+		pte_unmap(old_ptep);
-+		err = -EAGAIN;
-+		goto out;
-+	}
-+
-+	double_pt_lock(old_ptl, new_ptl);
-+	if (unlikely(!pmd_same(old_pmdval, pmdp_get_lockless(old_pmd)) ||
-+		     !pmd_same(new_pmdval, pmdp_get_lockless(new_pmd)))) {
-+		double_pt_unlock(old_ptl, new_ptl);
-+		pte_unmap(new_ptep);
-+		pte_unmap(old_ptep);
- 		err = -EAGAIN;
- 		goto out;
- 	}
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+
- 	flush_tlb_batched_pending(vma->vm_mm);
- 	arch_enter_lazy_mmu_mode();
- 
-@@ -304,10 +303,9 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 	arch_leave_lazy_mmu_mode();
- 	if (force_flush)
- 		flush_tlb_range(vma, old_end - len, old_end);
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 	pte_unmap(new_ptep - 1);
--	pte_unmap_unlock(old_ptep - 1, old_ptl);
-+	pte_unmap(old_ptep - 1);
- out:
- 	if (pmc->need_rmap_locks)
- 		drop_rmap_locks(vma);
-@@ -382,14 +380,9 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
- 	if (WARN_ON_ONCE(!pmd_none(*new_pmd)))
- 		return false;
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = pmd_lock(mm, old_pmd);
-+	old_ptl = pmd_lockptr(mm, old_pmd);
- 	new_ptl = pmd_lockptr(mm, new_pmd);
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+	double_pt_lock(old_ptl, new_ptl);
- 
- 	pmd = *old_pmd;
- 
-@@ -405,9 +398,7 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
- 	pmd_populate(mm, new_pmd, pmd_pgtable(pmd));
- 	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PMD_SIZE);
- out_unlock:
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
--	spin_unlock(old_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 
- 	return res;
- }
-@@ -439,14 +430,10 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
- 	if (WARN_ON_ONCE(!pud_none(*new_pud)))
- 		return false;
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = pud_lock(mm, old_pud);
-+	old_ptl = pud_lockptr(mm, old_pud);
- 	new_ptl = pud_lockptr(mm, new_pud);
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+
-+	double_pt_lock(old_ptl, new_ptl);
- 
- 	pud = *old_pud;
- 	if (unlikely(pud_none(pud)))
-@@ -460,9 +447,7 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
- 	pud_populate(mm, new_pud, pud_pgtable(pud));
- 	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PUD_SIZE);
- out_unlock:
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
--	spin_unlock(old_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 
- 	return true;
- }
-@@ -490,16 +475,14 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
- 	if (WARN_ON_ONCE(!pud_none(*new_pud)))
- 		return false;
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = __pud_trans_huge_lock(old_pud, vma);
--	if (unlikely(!old_ptl))
--		return false;
-+	old_ptl = pud_lockptr(mm, old_pud);
- 	new_ptl = pud_lockptr(mm, new_pud);
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+
-+	double_pt_lock(old_ptl, new_ptl);
-+	if (unlikely(!pud_trans_huge(*old_pud))) {
-+		double_pt_unlock(old_ptl, new_ptl);
-+		return false;
-+	}
- 
- 	/* Clear the pud */
- 	pud = pudp_huge_get_and_clear(mm, pmc->old_addr, old_pud);
-@@ -510,9 +493,7 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
- 	/* mark soft_ditry when we add pud level soft dirty support */
- 	set_pud_at(mm, pmc->new_addr, new_pud, pud);
- 	flush_pud_tlb_range(vma, pmc->old_addr, pmc->old_addr + HPAGE_PUD_SIZE);
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
--	spin_unlock(old_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 
- 	return true;
- }
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index d5467692e8c3b..ea8ba52e95546 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -989,33 +989,6 @@ int mwriteprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
- }
- 
- 
--void double_pt_lock(spinlock_t *ptl1,
--		    spinlock_t *ptl2)
--	__acquires(ptl1)
--	__acquires(ptl2)
--{
--	if (ptl1 > ptl2)
--		swap(ptl1, ptl2);
--	/* lock in virtual address order to avoid lock inversion */
--	spin_lock(ptl1);
--	if (ptl1 != ptl2)
--		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
--	else
--		__acquire(ptl2);
--}
--
--void double_pt_unlock(spinlock_t *ptl1,
--		      spinlock_t *ptl2)
--	__releases(ptl1)
--	__releases(ptl2)
--{
--	spin_unlock(ptl1);
--	if (ptl1 != ptl2)
--		spin_unlock(ptl2);
--	else
--		__release(ptl2);
--}
--
- static inline bool is_pte_pages_stable(pte_t *dst_pte, pte_t *src_pte,
- 				       pte_t orig_dst_pte, pte_t orig_src_pte,
- 				       pmd_t *dst_pmd, pmd_t dst_pmdval)
+ 	msr	sctlr_el1, x12
+ 	set_this_cpu_offset x13
 -- 
 2.53.0
 
