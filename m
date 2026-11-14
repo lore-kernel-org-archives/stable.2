@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794630761;
-	b=Sh3cKP2XNe/m3AhTX7tSfyWwX5BMOEMkURM5YcnwVXHMW8ipT9isIGRkFLq8Sc0G8mdS
-	 iMEqTVuQQ17NJMzmO3lWM9R6lUojYOsykRckpRhXhc0V0pIB6rxo4kM3vKo7V7l8MdQUW
-	 Ni6jfYwoump4/8k6VjSPevw2/J2j8Zpkx6CPtJFYPmszXB27OP+PqJDLEwn1lG/HsKHhb
-	 6WndBz2opoC966QvcvTTuCAfcptrNbRZeP3AL8u+KBo/5dYwIh6vY+0rNNqVZWqCxNs/9
-	 PTCWuN3Kb/kjPVzMC/rks4hhPxmY+4dNW+sEDA8Kx59DJD17QY/+jCTofGkpkwyH6Uw==
+	t=1794630899;
+	b=j6PJ4iRvD/WkIKcHY28F3kfNbyfyE9HjO7Hax+Px5caa+w+H2RB+md8Ccw9FSNdOH62a
+	 RxZeOai6ghaGQHo/h4mAONAPkCg9xoVUjkuac0HVoNq8ivsrN54PZT92K9sB+aBB1qrnj
+	 ZlGoL+Y/a+9WGyULli8vpQZT7VVLvbNJ/q+mZ76wRkBgxmtkqhOIGZBMC8WEOvZKNjGEI
+	 yAeFIb6eMWWI5sZqW+whcqqauIXk1YMiIrTtVVAWHr/lnypD5Anm3w/3KkdiZwLWxo6qL
+	 b6o6RXsN9ogx/R35A/7erxN6GvgOXQiROO0AMkE6LI3As+kIBLcVO8R0c51tjhyqWQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794630761;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794630899;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rUDtpGvWiJFYHdFOYuGZNchwlTnQhy0ujviPe6R/iX8=;
-	b=iiNuhoG4flr9uMjgbeBY8NA+w3NelZTODNSpbAzXHqTylufGAUNIkB+ntQ0GIIqfTDrr
-	 ZE22vdCw/UCBUXTfNOJnhToDvEsgWEmRjSfyCGnvXKpRZIick1taW5t+zzO0WxxQLbS0G
-	 aUxXciotWuTVMHdfH/oEV3nTCG16SElwA7ipmXG6PGWGHP8o8rXVq9Tcd5/0MTqe2zIvq
-	 ur0v3WsUDPGku1NpyG8emdcjjT1gesymuTSJWEYOF8voHZ1TYYfinPW2ZvpXTAc/PHofP
-	 cumrqdbgdLaPbXNX6sUN4cXcqjzvhj2/g9dbp/6c3nEg2jywAqRjjBwwwdedkIkRnSg==
+	bh=z1dI1lwhC/v1AtDh5bc2rZ68x9BVam9BM/VhZAp6kG4=;
+	b=fWeYkSfaTcBHBi2vyxe9esCUmScqK4FNq5zg01o5IWtDMAC8axmyMLC3YD7nZuqu7HjC
+	 kSldTASFRMGrMPMJ7L7b9w67ez3q5FBXkL5W4nUzsjYf6I7pSePaqajbcrktrwoCKFmNe
+	 SXcirLy4jcspMx4Kpmx0+IgtTA/17+NiXZTla1FAWBDLA98v014TQsjYG1v1AaBRJ6WH9
+	 Ny+e8zHovPRAmH6rAxZf52kYlFPyIDrAzZrwQaaBjuZatUP0JjWzDwFxiyHijH5+a+Ncu
+	 pgpUIh/MWzo2iX6cXX/6yTrqRVuLjzt6IP42KCaKRP+fD26et3Ri5oRhMv9c+epd27w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FS0reEBF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eEGcrLdk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F8D606A330
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B196606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:34:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FS0reEBF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5011F000C4;
-	Sat, 14 Nov 2026 04:32:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eEGcrLdk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53D0A1F000C4;
+	Sat, 14 Nov 2026 04:34:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794630761;
-	bh=rUDtpGvWiJFYHdFOYuGZNchwlTnQhy0ujviPe6R/iX8=;
+	s=k20260515; t=1794630899;
+	bh=z1dI1lwhC/v1AtDh5bc2rZ68x9BVam9BM/VhZAp6kG4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FS0reEBFrBXarmzVlAs8fpi0rMB2fYWQ1cvahGT2H2r/XK8RSkkrUZcBdqk1yygo9
-	 bxz4kGLUQvycaOQJoaz8p3CCCZoQ+6VWBz/VOVxDEKOQkbi8qB+0BK4VITmmj9HMPY
-	 eavYtGAVR45d2Oon1qE8TMY9VC3bY8F0fsq0vYYIKt7e37XXu0ASgLC2y63s/5Yr2J
-	 5R2jZiRYkG59Cr+t7xBdU178xz+PhgAaUgJHGit1SppfCcuk23XEgmlg8PQ82x1Eok
-	 ehdIbneXBfpKFKyqwR7UziXV86HlTyv+sLJ399h+yhrClUcJab2G9/3LgB2C4k4Gx5
-	 0YiZuHz7lKPuQ==
+	b=eEGcrLdk2oZxkDBsHySMVc2jAiwT0bXhtVzeWKw3jjRYuJYizO/dJ99eRIJ0jVs2G
+	 6EboGyEC02FiCw0ZnHy9m3z5JSCiYbCl8czFshQ1C8Z11p69l6bBPV/dCtUZpVYoG5
+	 jmN+iwWXBfXrpxRU+8l8ekytZZAFQjGtDTMKEWQ4YBULqtMsJlYAAiUpnVZ4tCsnuQ
+	 ALyP3KtbqMXJFNkuTTPoGc+iP065gR1ogu/ppMYYUey2/pp0sKJItGGQzbz0GLqejC
+	 7PPthmNxoOeB45x3syOitqCAjTKWe4BqGZ42Xi/8hZibDWr/JOKkl3Lpr/ZqRoSJzY
+	 i2o6486HYJFAQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chris Mason <mason@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] aio: fix NULL deref when a fault races ring truncation
-Date: Fri, 13 Nov 2026 23:32:39 -0500
-Message-ID: <20261114042622.2837414-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/memory: reject remote COW faults on PFN mappings
+Date: Fri, 13 Nov 2026 23:34:57 -0500
+Message-ID: <20261114035329.2627555-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107063059-failed-5.10-d53b5aa5cfae@kernel.org>
-References: <20261107063059-failed-5.10-d53b5aa5cfae@kernel.org>
+In-Reply-To: <20261109202346-failed-5.15-8db6921cc07b@kernel.org>
+References: <20261109202346-failed-5.15-8db6921cc07b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,93 +66,71 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit d53b5aa5cfae27e4d236fc0ab9581085d27f7d33 ]
+[ Upstream commit 8db6921cc07b74197a3866d62ed262b68aeadcf3 ]
 
-The aio ring lives in a file on the aio pseudo filesystem and the ring
-VMA uses filemap_fault(). aio_ctx_aops doesn't have a ->read_folio
-because aio_setup_ring() puts all folios of the ring into the page
-cache. So a fault on the ring only works as long as it finds its folio
-in the page cache. If it doesn't, filemap_fault() calls ->read_folio
-without checking and we jump to NULL.
+When handling a COW fault without a normal source page (PFN mappings),
+__wp_page_copy_user() copies from the faulting user address. For remote
+faults, this accesses the wrong address space, resulting in wrong data
+getting copied.
 
-We already fixed this twice this year. A forked child could inherit the
-ring mapping, fixed by commit c03ce4173c7b ("fs: aio: set
-VMA_DONTCOPY_BIT in mmap to fix NULL-pointer-dereference error"). And a
-partial mremap() could leave part of the ring mapped, fixed by
-commit 3adf7ae18bf4 ("fs: aio: reject partial mremap to avoid
-Null-pointer-dereference error"). Both times a VMA outlived the ring and
-the ring file was truncated under it.
+For example, user_events updates an enable bit in the registering
+process's memory. If that memory needs to be faulted in,
+user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
+item. Placing the enable bit in a private PFN mapping can trigger this
+remote COW path.
 
-There's a third way to get there. kill_ioctx() and the error path of
-ioctx_alloc() unmap the ring with vm_munmap() and ignore the return
-value. If vm_munmap() has to wait for mmap_lock and a fatal signal is
-pending it returns -EINTR and the VMA stays. free_ioctx() then calls
-put_aio_ring_file() which truncates the ring file to zero. A fault that
-passed the i_size check in filemap_fault() before that doesn't find its
-folio anymore, allocates a new one and calls ->read_folio:
+Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
+current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
 
-    fault on the ring                 io_destroy() with SIGKILL pending
-    =================                 =================================
-                                      vm_munmap() returns -EINTR
-    filemap_fault()
-      i_size check passes
-                                      free_ioctx()
-                                        put_aio_ring_file()
-                                          truncate_setsize(inode, 0)
-      no folio, allocate a new one
-      filemap_read_folio()
-        ->read_folio == NULL
+The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
+the VM_UNPAGED logic"); likely, actual ways to get remote faults in
+there on COW PFN mappings appeared afterwards. But the fix is simple and
+straight forward.
 
-All that's needed is a second process that shares the mm. If a CLONE_VM
-child calls io_destroy() and gets SIGKILLed while it waits for mmap_lock
-the ring stays mapped for the threads of the parent. Any user can do
-that.
+Fix generated by an LLM and sent by Chris Mason in private.
 
-Instead of plugging the routes one by one give the ring a ->read_folio
-that unlocks the folio and returns -EIO. All folios of a live ring are
-in the page cache so a fault can only end up there if the ring was
-truncated. The fault now gets SIGBUS. Nothing else reads the ring file
-and the aio filesystem uses noop_backing_dev_info so there's no
-readahead either.
-
-Making vm_munmap() unkillable in those two places would only close this
-one route and bring back what commit ae7987835643 ("mm: make vm_munmap
-killable") fixed.
-
-Fixes: 36bc08cc0170 ("fs/aio: Add support to aio ring pages migration")
+Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chris Mason <mason@kernel.org>
-Link: https://patch.msgid.link/20261029-work-fs-ai-fixes-v1-1-88f22792f6f7@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adapted the folio-based read_folio callback to page-based readpage using unlock_page() ]
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[ david: simplify comment and description ]
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-35-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted wp_page_copy() error handling to use ret instead of err ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/aio.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ mm/memory.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/fs/aio.c b/fs/aio.c
-index 16ceed755b7e5..8ba65b4ec8fc2 100644
---- a/fs/aio.c
-+++ b/fs/aio.c
-@@ -455,7 +455,18 @@ static int aio_migratepage(struct address_space *mapping, struct page *new,
- }
- #endif
+diff --git a/mm/memory.c b/mm/memory.c
+index 4ca2f4c076a9a..b8882b1f9d75c 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2808,6 +2808,13 @@ static inline int cow_user_page(struct page *dst, struct page *src,
+ 		return 0;
+ 	}
  
-+/*
-+ * filemap_fault() reads a page that it did not find in the page cache. All
-+ * pages of a live ring are there, so the ring was truncated under the fault.
-+ */
-+static int aio_readpage(struct file *file, struct page *page)
-+{
-+	unlock_page(page);
-+	return -EIO;
-+}
++	/*
++	 * __copy_from_user_inatomic() only works as expected for local faults.
++	 * Reject remote faults.
++	 */
++	if (unlikely(mm != current->mm))
++		return -EFAULT;
 +
- static const struct address_space_operations aio_ctx_aops = {
-+	.readpage	= aio_readpage,
- 	.set_page_dirty = __set_page_dirty_no_writeback,
- #if IS_ENABLED(CONFIG_MIGRATION)
- 	.migratepage	= aio_migratepage,
+ 	/*
+ 	 * If the source page was a PFN mapping, we don't have
+ 	 * a "struct page" for it. We do a best-effort copy by
+@@ -3071,6 +3078,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 			if (old_page)
+ 				put_page(old_page);
+ 
++			if (ret == -EFAULT)
++				return VM_FAULT_SIGBUS;
+ 			return ret == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
+ 		}
+ 	}
 -- 
 2.53.0
 
