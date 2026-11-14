@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794630939;
-	b=RF11d1pdD+xH3AK2VhFgYb8wN9JVT46OEHa2eqZ6dws9wS8InxZwXtsLXrkJqgd+Q9Fy
-	 sAcZ4Nwg3awXiCNF0s0ihIzyFebZA3ADQXmvoPtiL73P1uJ1RjRxgu4RDpBfU5NwRluxt
-	 vv2umDWAJTkvVTmBreOM/T8FQJ7PMe3TZkPDVz8afsvLWK6uOTx4+EQDuEdtPnC4+tmqj
-	 /d8G3215B39ZLC7idQqOsY2+KRf3nMFiRrPimeYGI4j2SuhWdV7RlDAj/gUgN5p11MwOy
-	 3gGA/5GPx7LPvvIXxuR/+sLSyvK09wuNQmTVEff6M96vBI7aFUQVjfqj9bU+7P531HQ==
+	t=1794630943;
+	b=Omx8eE2hK9AA/BqxzcM1f+7oJMZSih0TqgAxeEMecUppowqsodTHFSaLGaWZrnAEV/Mg
+	 ck0Ed4MMcq53GXrTAL1Ox2kGkDmrtVjl4j+MsdsnRPvp4V5pVUkO3NrKpnfbEa4lJ+nvD
+	 i28Z8kwjVqmsCe0D2zG2UyAZrxMoOj9k7ZewiGIGks6LLcUWsMgZH4H7xeGRhBc9OAdEN
+	 0xTXOR5Q7xxGOfGwx/VK0Yyo+o4Yk1uAxg3+/kqi5XlKTQn+lGSMDFHdG4296HUkJrhnj
+	 ToLtE3XhHI6kmFKlJBuFTZnHVxk0dWZkEez/1UGIhyY6VqeARk6ZTRiiyGhVQnj80hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794630939;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794630943;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qiW5EsyMhvM/T+7WTNOJmmFgLaE+Y6fQGJrEN+loHe4=;
-	b=zSrQXg2875Lqn85dx7kUYTjBafX6wmL2DyKxUjgmqWk76Cd/W/9ahl0MqUAF4JtFodWF
-	 crAlmK/f76ao5WoIxGE7EJZvuHMMEgyw3HkdH19ZqcOMIAcCSLAAmOd1PXvrR4afgEdZn
-	 wUT908HCZGFOBqyx7H/Zg0cm5PVg1lMAMxlpOUi/d/B1bLksmTe7NeBGuxArwk7zV4PjW
-	 kqAEMhhHcxZom9QSQ7xOdhFSWNng5RIznbYu+GNfofj8iU7qElUkoK+O2kvZfr5+iIeXp
-	 UpVBmUxH8K7TVwR44FoaTvpcWF3HRC9NsszKONTW41d1gqeT2P4iEvcWTLzCtGL3Acg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UU1PVy+t0ft+3E+0Qc94jUs2EjiskHrBXbsDGPqWZls=;
+	b=v6lrQVA4C47qex7gbTLxFiVqhn/LQ67Nn29PrmBnR3CFbxAzm9tq4Xtqo9JcRnuAp07m
+	 aRJPDeE2Uhs1LddLQ5QJupXcIWhPaWrf+kmNXLo2aUfzG8ixxJgt/Xi6TJo1VSEq7yJ8C
+	 E1cykYHXX6lm5XFGy58D5Kcc4Zhl9Ov/8wuuNaecd0JZLefFOUpbAKGfbtfBmbwQ7mDQG
+	 /YZBPa/MXvo77OJLbozjKWr+xXaB4bO1A+jY5honjmPRQRu0HYw0KFdW81O8+AdO1FEFI
+	 qvYsxmM5rjlDITKqC50UCBu7fd0lC04+H0/l0Q7ET9L6EJgiTFN38X4WeNgoae3SIrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UMda+HX2;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qcUKM2dJ;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589CD606A331
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:35:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 589CD606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6819A606A339
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:35:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6819A606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UMda+HX2
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3146190eec.0
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 20:35:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qcUKM2dJ
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15ea896ddc8so2343386c88.0
+        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 20:35:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794630938; x=1795235738; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qiW5EsyMhvM/T+7WTNOJmmFgLaE+Y6fQGJrEN+loHe4=;
-        b=UMda+HX2vxyRAAv2yaCE6FBNtDKdZdeEhlTP7g2fj4RCAL9KonoCdNMRaKLFBxgtcL
-         eXncfrWmrpOc2roZBgQapI3R6QldTXOvDPX5UYwBlWuNlQovmMmxhJQ27l3/4Gx2zMy2
-         va6DmpFg56tISWeWhS85DkDxJcu9pD/Uxr9PozhIM3EDFB1m4D0IlvBoA3l3holrURuu
-         l0RSY22dzkui603y44pPamNYsCrXwF2cxuQcAuraE9wqbdZdfGxYl6DT/8POLU4uLNpT
-         xmci5NpOQgJGjKIPdITpcql+WR0RCYvrACR0ITk54U5OhOtuf1GaSusadFUalrZNzSqQ
-         0XJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794630938; x=1795235738;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794630942; x=1795235742; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qiW5EsyMhvM/T+7WTNOJmmFgLaE+Y6fQGJrEN+loHe4=;
-        b=CzGoq9TxUk0f2b4tV3j/hIciD8ziRClaPWpW+byy9tI8nZE5mxUoQbnHrMBDUVJB1p
-         RBlrK3IWQeEKKxbcWxAQXtlbuGR8w0imG9lhNr74Elx1cVcwIYdFDT2xQ16hhL9H7vM+
-         Bd3yNKqgVkvcCLGAvQ1D4nNMuiSPC+TlFi+k3sdsJXFQYxPhXr//pPkf0QzqRrSF7Uw1
-         HVbmf/Ow7A9kDTzmGh4I1kHx22VyehTPTJ2zRBgDYDV5oIuOF3B4bA9uIymkXD0NsEsh
-         nOiuC0Z7/nTJcOZhEqWw1by3T90emwEo5IFCa8Wq+A3oP0hHB7wIF9/UpOjGqFysMBLR
-         f66A==
-X-Forwarded-Encrypted: i=1; AL+hErELGNkQCp1ARU3OoL2eB69XZG3le2M3VajcvcFC5DHinCWNckA5nQD8MGbACZeUIDlye7u9V1Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fN1aVfTNyFF5P6y+qKMeT0VtZT9STcDj808FeX4gRhicQlYEP
-	0nebmatcpiWdIta8T3R0TzQjJlp5MfY8qIRaEzYImOaEjQoqE5NRIwrH
-X-Gm-Gg: AYBFou13hunIqxiNqx1KIK9tFyq+jCNMO2p4elinlkS7o3IgcA94lA73yHYESCp3bAt
-	J6qk3WOPkBD/99eOmdClFxWLiPOLNf8qekj0PUAeG09e3E0q24FoqpyUz++A/yAy7eZklP+ZFUu
-	aQdyFpKNaouIQ7AH/xjqcCSoXdu4p2Jf5ju1Ez8ntpbkXEy97Dz/MF5VNfahI2ijY8K47qx69AK
-	cK0KS8Qy2lYpIqJz7AJ1m79Cx0gQwP1fg+iwQiMRKzQnop3YhnOi1wVZy9T7CKdh/4LBxG1xsiD
-	MLRN/sqd7FQyNIcql0c/UeI53aG45Zu70Ibek3uXeDWGYZTOiqXG5W6tkCQPPe15tzJgDg/o/Jo
-	CaZuguRGaO5PeAc0lMmFH2hBqgZR9XIfZrLQPU2lmo9GESKNlCqBnSTg7jVW76LXjTA1WTtVDDg
-	6GhVqwu3DxlIsoZFzEsEH9hxC54vvipy6SMCPcPsg6QwuyqZUBcrVn24VYGdOyFF7HmSZXuaUlo
-	RIvuKF9g9eKzoU6c/86APixnSHw39YKdBbPrEQsauf3SDlph38vHTeaNE/1XlH/efKHqhjmFp26
-	k2B/nSJCj+RI2tp0Ls9oBfJp/ak//bzxCgtUnwuvyqn5jRl/eZHzUpEHPeoOB/24joL2npvxb+V
-	JLNEA26zpLN5hh/q+qvOJ9FWrYOU=
-X-Received: by 2002:a05:7301:4287:b0:36e:53bc:4681 with SMTP id 5a478bee46e88-3796731594bmr3469347eec.37.1794630938255;
-        Fri, 13 Nov 2026 20:35:38 -0800 (PST)
+        bh=UU1PVy+t0ft+3E+0Qc94jUs2EjiskHrBXbsDGPqWZls=;
+        b=qcUKM2dJY+hVn7ZYZN8ifpz+9VYU7Z/gJE7VN33MuMkDOFME7v//gFnu/X7cmdXxOL
+         m3bsuQnBFNmE+8narU/7oX0ZQY3zT/67SXywHGW7HG/896aSHHarSAz/wTfzkcRvYgE4
+         iUhQxMZVbcrJVebkID0ctja/eL2+ZuKhmcLNEpEBI593uCtMkn5d3c/0l+yO3FflPq0X
+         FcIaTrg3gk1mkr2EVoQDrkh6yM6tfTQM/4HGtp6Qe162xbf71j053I5gLPG7Wo1iNYOd
+         oANEuyhbhbctujjPuaDNMp4bcq/WXuJ8d3RhQ5FC7oFenBegwmmqMOKFBMEXDM9smEIu
+         XI1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794630942; x=1795235742;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UU1PVy+t0ft+3E+0Qc94jUs2EjiskHrBXbsDGPqWZls=;
+        b=21xXvVXFWPuJ47k6SXgIcW6dzcr3zA6DSLUbjUnrtEC+LgYTPVqvwF4CfJgPJlX3if
+         XIA4ZFy+rFjYUNicRaRicwb8r7c8eqyYFwgbsHgQVY3LN71qWAPhqhx7OoU7yahQ6jgy
+         sl5M7m64tBCntQ5uhSdWYJBUThMorj/zQLHRmdvIsKn4RWsKFOPMNF8f0v8907zUcCDp
+         wKJCx4iLCKk4VOoQcmrFeQBkbxQiaPXl4igogGFqpzua7GIJtFiJ3mnEaKEBl204ba7t
+         N3rvfMPEh+L6M47b92lGMC7G2XomBfx3TjLm9dCTTyu14HR9cJtlN7wrRgMMdStN/ooi
+         fK1g==
+X-Forwarded-Encrypted: i=1; AL+hErFFGDK5vhYupAk25XZ5uXcEGtoru1OFZpHgEmAHcBr28DejSuBColy6x6PQpid8F8zqKqde7bE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9onbq7dWFDmuaZXX1Vy2iEXBYQnpUiRKRGXUKIo92NQgyP7xCc
+	as3WY82YCdW8HZ5jkjH4563UlNgFkb3tMmIc9NPYUJY5g/G95etmMZfb
+X-Gm-Gg: AYBFou2duSxk7k/kGX8ugWrfkRAAZWBzEbxXZ+QFcFMh89XABeNKNiRRKtfIiko8Yji
+	ykGiG3ZF2rFPBJUQBfloeDhy3OG+2lQZfJHAV/rTo1B08AqczkS25/vyIsYSIoPoSHTB1jof22v
+	HiUehv4idSAFBXs0eLScRwfZN28mpyw2HRhyJ+EgfTPYe9EQZLUyFGIHvly9c9z9MF4R8dJNJSu
+	Eb9DIgEq9r8r5T3CmEPSrnJ+t+TqIbomXPHYViZQQaBUUFxTLQ+R2in6FDoIIpbRqLU8HxvL3Tn
+	Pgrjho2stgdLszyWkQuEwZ2BeFtLZsCWU2B1s6wjJsnAdeeWptPvA9annp99AkZqDpvtY4bG41Q
+	SF8MjShaWsET2MKaxPOmUfuqxWq36c9RYAlMncS++hfDJ67tVoqD+9w3b0HdRs3iclLX8tbZ+wi
+	Fj0Hlky0Kjio4EcAUER0p5iphTwKqV45WCBCr1zW8ctjlBBPUpBrC0RIFoNwlb8Qnb+SKIax0Gc
+	KsZSKsLn6HyKGUD2+glQWRnYPLt1DAJI7esgIG4qoF5sZIYuhoYzKA9uroab6GX7A/9LWJrvtye
+	3GgZDWd1JzPIW45SKQFE2WVfHQ+jKDfeixGRPE4YxjDRnC41EMyQlLRInLJXuJVZBeGxwTTako9
+	eQQzDoQzWFXYAf7LWUo1E80RBs5U=
+X-Received: by 2002:a05:7301:4604:b0:36a:532e:4abe with SMTP id 5a478bee46e88-379681c9ee0mr4421901eec.35.1794630942458;
+        Fri, 13 Nov 2026 20:35:42 -0800 (PST)
 Received: from localhost.localdomain ([2601:646:4300:d042:796f:2855:533:1bb3])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f02ff0sm11744106eec.16.2026.11.13.20.35.36
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f02ff0sm11744106eec.16.2026.11.13.20.35.41
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 13 Nov 2026 20:35:37 -0800 (PST)
+        Fri, 13 Nov 2026 20:35:42 -0800 (PST)
 From: ozgun kultekin <ozgunkultekin@gmail.com>
 To: slava@dubeyko.com,
 	glaubitz@physik.fu-berlin.de,
@@ -86,10 +87,12 @@ Cc: linux-fsdevel@vger.kernel.org,
 	ozgun kultekin <ozgunkultekin@gmail.com>,
 	Guikun Yang <yangguikun19@qq.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] hfsplus: bound btree keys by the tree's max_key_len in hfs_bnode_read_key()
-Date: Fri, 13 Nov 2026 20:35:21 -0800
-Message-ID: <20261114043522.48764-1-ozgunkultekin@gmail.com>
+Subject: [PATCH 2/2] hfs: bound btree keys by the tree's max_key_len in hfs_bnode_read_key()
+Date: Fri, 13 Nov 2026 20:35:22 -0800
+Message-ID: <20261114043522.48764-2-ozgunkultekin@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114043522.48764-1-ozgunkultekin@gmail.com>
+References: <20261114043522.48764-1-ozgunkultekin@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,27 +104,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hfs_bnode_read_key() reads the key length of leaf records (and of all
-records of variable-key and attributes trees) from disk and only checks
-it against sizeof(hfsplus_btree_key), 518 bytes. The destination is
-always one of the two key buffers hfs_find_init() allocates, each
-tree->max_key_len + 2 bytes long. For the extents tree max_key_len is
-fixed at 10, so the whole allocation is 24 bytes and a crafted leaf key
-writes up to 516 attacker-controlled bytes into kmalloc-32. The error
-path has the same problem: it clears 518 bytes of the 24-byte buffer.
-
-hfs_brec_insert() reaches this with an unvalidated key: when the tree
-root is 0 it reads the key of record 0 of the leaf it inserts into, and
-after a split it reads the first key of the new node. A read-write mount
-that extends the catalog (creating the private data directory), or an
-append to a file whose extents spill into the extents tree, is enough;
-no other file operation is needed.
-
-The 518-byte bound was added by commit bb5e07cb9277 ("hfs/hfsplus: fix
-slab-out-of-bounds in hfs_bnode_read_key"); it covers the catalog and
-attributes buffers but not the extents buffer. Bound the key length by
-the tree's own maximum, which btree.c already validates per tree, and
-only clear the bytes the buffer actually has.
+The classic HFS variant of the same bug: hfs_bnode_read_key() accepts
+an on-disk key length up to sizeof(hfs_btree_key), while the key buffers
+from hfs_find_init() hold tree->max_key_len + 2 bytes (18 bytes in total
+for the extents tree). Bound the length by the tree's maximum and clear
+only the buffer's own size on error.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Fixes: bb5e07cb9277 ("hfs/hfsplus: fix slab-out-of-bounds in hfs_bnode_read_key")
@@ -130,24 +117,20 @@ Closes: https://lore.kernel.org/all/tencent_F85118A9AFDF9B230D4E8FA672510A3E2F08
 Cc: stable@vger.kernel.org
 Signed-off-by: ozgun kultekin <ozgunkultekin@gmail.com>
 ---
-diff --git a/fs/hfsplus/bnode.c b/fs/hfsplus/bnode.c
-index 3a1a1fa..f414020 100644
---- a/fs/hfsplus/bnode.c
-+++ b/fs/hfsplus/bnode.c
-@@ -84,8 +84,13 @@ void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off)
+diff --git a/fs/hfs/bnode.c b/fs/hfs/bnode.c
+index fcb5b9c..f678eed 100644
+--- a/fs/hfs/bnode.c
++++ b/fs/hfs/bnode.c
+@@ -83,8 +83,9 @@ void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off)
  	else
- 		key_len = tree->max_key_len + 2;
+ 		key_len = tree->max_key_len + 1;
  
--	if (key_len > sizeof(hfsplus_btree_key) || key_len < 1) {
--		memset(key, 0, sizeof(hfsplus_btree_key));
-+	/*
-+	 * The key buffers come from hfs_find_init() and hold
-+	 * tree->max_key_len + 2 bytes each, which is far less than
-+	 * sizeof(hfsplus_btree_key) for the extents tree.
-+	 */
-+	if (key_len > tree->max_key_len + 2 || key_len < 1) {
+-	if (key_len > sizeof(hfs_btree_key) || key_len < 1) {
+-		memset(key, 0, sizeof(hfs_btree_key));
++	/* hfs_find_init() sizes each key buffer as tree->max_key_len + 2 */
++	if (key_len > tree->max_key_len + 1 || key_len < 1) {
 +		memset(key, 0, tree->max_key_len + 2);
- 		pr_err("hfsplus: Invalid key length: %u\n", key_len);
+ 		pr_err("hfs: Invalid key length: %u\n", key_len);
  		return;
  	}
 --
