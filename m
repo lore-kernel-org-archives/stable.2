@@ -1,42 +1,42 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794689421;
-	b=nLS0mqJ365y25CPByDlzUq6bf9kHbWo162ZaeaYgRaQW9k7hqj1EpGqp64+5sva4UX2B
-	 GHoeSeV6unFugZAdpqccbwcFO2ydy/ieWwBjDhuhYnxgst63JRR1tO4bK6P3Pdn72SMI7
-	 +iVaZGjk6hBH6OaemBU++ZAKnrZBDT79dgNlvLPNm7pnxsxvjNpssL2JqX0pG7UJiqn7t
-	 bIbIechtoQyvk3p40mmoDPYdWCZGHmZ79PRBmcRm+1lCIiRl7ZTWEQLyTc3eN6qHO7p9P
-	 pDmSScw66knLaxZrtVI0qmSejJNoRrpH6hNRvFSAB0Pza4/fne52icDapWpdYXT/7bw==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794689418;
+	b=MzROtlRw07PHsqiKOKbL9JigdAa0to63Cy5MkbOnjN9ol8Ie+Vdig5ympafNTIy+Ix90
+	 v0fFK6agY6O5vqq/aGul6vEwaWSVF/mjz+yWk05WgroZsEoW9bpQM6wrchgFgBObCR0Fn
+	 4Vm4riYH26Q33LbwQB13WlwPBai4ViQcMhZMJG+C2wWW7qo670EO8mREddyhf8lEUphef
+	 FESJ0Qj+ieNTHNleJ/uYZclR3xBi831MAQqO+BB7Zg9iu5DuoX6Ppgop2h0V3Qfq5YZgg
+	 /5ERFbp24a4ZPeVFv77ISFQgIheW+kbi1LimArplXx/Qbtm/CKoTgOIX0telIuJf6Uw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794689421;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794689418;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=QaMupe0EerkwHQZi6TM4Ix6MSYbYjEL2qHaJJvKXP/U=;
-	b=pnGFyjjLA6SYcw1S8ZQLJD8o9F0Mt9TjmHGeTQkyt3gmMOK0lB4kugdNoX3Hwj4qF+MN
-	 mVm1cinLt7Ug0PYsBo67LfDJNcJUMbybeLeh8k0BojLcNAl176MDySC3OWTJLnWxtf+0z
-	 +MGEMP2I2+ojfF1JtYRilHaNVq1GB3oQdZftp7V5lxSh+uxmRUj1wIYZHdRPqB70Cx6cv
-	 U+QxRR0CVxnyU/SWtad2dKKIKpuGjYVZKXnm4D06UL2vhS9d2cpA2r/DfHN90jiADBVST
-	 KopLdnd9pPCoyEvyWHBVW5Kp7Yb1Q8jubiyXSSDQZd4B5pZap7I15IceuQ0dkHZitrw==
+	bh=Ti0JWkIkKPgSVJO+xE5HKdSUB2nbIRtCDPD5HTD8o0Y=;
+	b=c76AzYi8beF4B9bBm3D0G2+1TMmmsOjQ5HxwVC2NiwZeF6GPKf9yfDdK1XfrwFRKCywK
+	 d8/niS8rCdzg5J5LYtUTTBLmfRshicCMmBP4k/x0hQ7F7sRrZVbqjBmWgqnQeZOLWM+jk
+	 w/3gGzai0hNXzTyX1uouiK4u+XOEwCyeKKLIuuagzc/0ksGQI8YtpLYwXA8RoucTAKZMT
+	 k6y8bU/RXRhv+sJ8v0uMCbns5WIc3/tdxVkb35MXg32FlkoIH97FbrRw7g2r7jUJnXcQP
+	 WgKZXI6ujV1LkNCOB7rvq70gurEneIMUb/nUyy3TUF2GF/fE9LEVtofHhOF0wk1W+HA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Uqr6Ldot;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=LxBUgqKW;
+	arc=fail smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BF7606A331;
-	Sat, 14 Nov 2026 20:50:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05BF7606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DB1606A329;
+	Sat, 14 Nov 2026 20:50:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71DB1606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Uqr6Ldot
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=LxBUgqKW
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 95BB320245F;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6D5822022EA;
 	Sat, 14 Nov 2026 21:50:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794689415;
@@ -44,31 +44,31 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QaMupe0EerkwHQZi6TM4Ix6MSYbYjEL2qHaJJvKXP/U=;
-	b=Uqr6Ldot3P+XqwfkuUFhgKRF7D5epeMqFBjidA5kzt3Or9XzjFFTb0JAcrHc9d7rfGipQ6
-	fJXNf76aNYuefz0qimH5dvOq/Up1es8x2mnfLIm7eoNdS8A9xubp7z5L3zC4KSwR+3yLgL
-	qTxeOfW4/ow/Xko7J5fu4bwRsT+e7nfZzZO3ee9n5qLNtZWCjUMXeU+itc+uWpPMGj7YoN
-	pbYD7cfVChSD20BkpeqEVS3nxnWayX16UafYKYU/L1LBvsIH4sjofx9IV9ism8jsKElGWP
-	dTdw4VFo0+WYUeiRVknXdE0YDe0oiSMPRg6OdjKRlP3p7w5sm1zGqe54CGcJsA==
+	bh=Ti0JWkIkKPgSVJO+xE5HKdSUB2nbIRtCDPD5HTD8o0Y=;
+	b=LxBUgqKWmDSXZSi0182q69XSK0cZr7XQrr+Y2IDKkjiF4VWztyVDilVpYRoroYOCDtsZVS
+	wxeyATRf+DTaFzu6w3t8s+S+qw5LNBhNTQYckXOWlxhh8qfDpYD/dFCmoGF+MhKrVvphVN
+	TF7i6gehPhHGN1slCi5qr59bNQL0AKgL7X+zDdO1/50R36t/i5GPfU2XyCID+lU2iG9+1v
+	5PLDd8a71AtoSw0Cne+tpxwqkyFRjv/ACcxMK92iNGPS08P5ftyZsDHdrGMfn7TlkgZx8B
+	kDsPhe0rzXnBuIEQqxicyRnlj8sHYWiK/3Veshi+XPjF8xwJhOA7nPBd6x94Tw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794689415;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QaMupe0EerkwHQZi6TM4Ix6MSYbYjEL2qHaJJvKXP/U=;
-	b=E+tcsR0BpOD2/ufBcwoZ+RxITMUvGz0MjqygAjQ/+4PjZ83hI6F6m+2jTHgGdjp8WpVawV
-	tjMBJrGnI5Z7E/oa0P8YDqqWSCQ8h2v0odSOjFtJ1aoDCYrKWm25Xluk/yxI5SESpslcMc
-	s8hQFapKjS4hKA5M8gbrWANW35FcsCjGASIe85e5XQRh+z0OM+6TiypCzTyrZSVKWn7uKa
-	M2yeiRejFSsJ/O/90xBKOD5xdBoMh4J5YT6itYbliMh3ibo1Ns7opjm+N+lw52SdfCFx1L
-	aZ4nc4OQDyxTey1vv4Wr6MsuaskAaNWHp5P6W45e41f/pDSvucKsL1+43hU/TA==
+	bh=Ti0JWkIkKPgSVJO+xE5HKdSUB2nbIRtCDPD5HTD8o0Y=;
+	b=MvKDxKUW/vcZ6SEMJ3F0Q41pFoUW8zEx6ek5sRo7DQ1/GiIAT3O1HiEMDvzjQeYADpnTnk
+	5bb7ExlW9cFQzCnA0x4sVMtV1/nvlHEX/RjmO44UUx/CL039UL2d84OK+htulVx1IBRC5q
+	WsUBqnCbriyQZO/s/quB9Eudp5KwuZJDR7jyzdQ0pHb+pn5AG55Zi533hVFQR+awVrYos5
+	YH60563VsNsccbxAlp1mGV/09mXmDrUKxeHauOB+Kshw5lZf0k+5nndj0XLrOgbUHjqp40
+	R7jT+dQ5+YOYYAfFbfCFQLow6FW62BTOqVFVvmYVkBnbCLncby71oPuYbfklLg==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794689415; a=rsa-sha256;
 	cv=none;
-	b=cG07Ac0VC80XTQl16ZdECsT9LeVx+RxZlVC5BHgcHiLDC4REXCi1QvRTHz3wr1hEGj0wQ8
-	IM6z3wKZeQtj5cPNXOZDbbnXXubeLxItO++AuIxdPCWIuYAcKaINNNqf4WZlQf2g3Zvumn
-	Sg+LlONJQt6RyfFnrA4D59wyZT8PCdL67zOPhNsiFeMpjatLmLT3dvC/p2/opAwYDiGvL8
-	erI/k3xvtesCKv4m1QKy7sYWge8C2S67IG9EyNM7gDoZPgVujDtXqo3/oNgOOO9xoV5qjj
-	V/BY8LDqRdV370pyHayGIQaoQ0diM82Hp0I3qhk/+x3I6EKCOdIJxsMLVPYbFg==
+	b=gM0fRy/dp1sf+kg3v4qk3HWeedobLL5/YgvDZPLCRRHSW0GGeVPVkiShzmkIgaGhG0o7Di
+	PZqBzzgP3HUGWYQlfweKQaB6ry72rPUoQfVqatR1D6vylBkiLWUMyQ61PHzX3P9qWJtK51
+	yg4rsngYkGXLRT8Vw21BbCbpF05v7j9uilbP0Mbet2aAe+eU9fbltqBxSMSrJ6DM+pXsvl
+	gJO4IC96AWjH1HkPawO39MjFr4tDRjJFKOG763fGVMoJT2WnRB7kMi4m1cezZ3B5TYViRU
+	Js8qtj8605EgsTOrVNuyX7rHyeh85hZvypsNvviJHXxQulMjWq7Aewpv+YhLKQ==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
@@ -76,19 +76,19 @@ Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjor
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xSKhT-004BfQ-1a;
+	id 1xSKhT-004BfK-0x;
 	Sat, 14 Nov 2026 21:50:15 +0100
 Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 30A795EBD73;
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 097065EBD70;
 	Sat, 14 Nov 2026 20:50:15 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Date: Sat, 14 Nov 2026 21:49:59 +0100
-Subject: [PATCH can-next v8 5/7] can: gs_usb: fix hardware timestamp state
- for mixed channels
+Date: Sat, 14 Nov 2026 21:49:56 +0100
+Subject: [PATCH can-next v8 2/7] can: gs_usb: gs_usb_probe(): init netdev
+ completely before register_candev()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,7 +100,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-gs_usb-fixes-v8-5-f615502b005b@pengutronix.de>
+Message-Id: <20261114-gs_usb-fixes-v8-2-f615502b005b@pengutronix.de>
 References: <20261114-gs_usb-fixes-v8-0-f615502b005b@pengutronix.de>
 In-Reply-To: <20261114-gs_usb-fixes-v8-0-f615502b005b@pengutronix.de>
 To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
@@ -108,238 +108,149 @@ To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>,
  Maximilian Schneider <max@schneidersoft.net>, 
  Wolfgang Grandegger <wg@grandegger.com>
 Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
- Marc Kleine-Budde <mkl@pengutronix.de>, 
- Shuangpeng Bai <shuangpeng.kernel@gmail.com>, stable@vger.kernel.org, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>
+ Marc Kleine-Budde <mkl@pengutronix.de>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-d7211
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7706; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=64DSKvzEMNmBrtBAnhstdvXNF8q6ewU0JvfWmFcWHAg=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6cbLptF7v9TWHBf5dEjk7T07hp7F74vOV6SnRz84ee
- ac36Y7xxo5SFgYxLgZZMUWWpT9OKAoEOpT2vkyYBDOHlQlkCAMXpwBMpJSN4X+C1yKbrU8WnrOf
- uyw8YbXylH4Vx6iN9vd38uyfL7VohZA3I8Opx3vcrTn5L1s+ZF/9sMHyo/5yu+7Dsf/aj8vbr/t
- 5SJEJAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4199; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=HP0EDW+WYKMQf1wWMtYGpxOpElxHWNwuHeeJfWjuVy8=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6cbK+++fknFeWOfvuTnPs4zlkMXvxoodG0lvyCtjlb
+ UpPCpmHdJSyMIhxMciKKbIs/XFCUSDQobT3ZcIkmDmsTCBDGLg4BWAi01MZGS6/qNI43fk7fouW
+ ktziOXrLjZovee+dP2W+wc9JDEue7VzLyLD03qV1Xs7mDQm5s2bd8JaPC1yukP/05O006Z88RxN
+ KDjECAA==
 X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
  fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+In gs_usb_probe(), gs_make_candev() is called to allocate and set up the
+CAN channel, as well as to call register_candev(). However, gs_usb_probe()
+defers the assignment of dev->parent and parent->hf_size_rx until after
+gs_make_candev() returns. This opens a race window for the user space to
+bring up the CAN interface, while it's not completely setup.
 
-For hardware timestamping, the driver manages the infrastructure
-(cyclecounter/timecounter) for the entire USB interface, for now assuming
-that all channels share a common time base, even though each channel
-individually indicates support for hardware timestamping via the
-GS_CAN_FEATURE_HW_TIMESTAMP flag.
+To close the race window, initialize all CAN interfaces in a first loop and
+then register them in a second loop: Don't call register_candev() from
+gs_make_candev() but explicitly from gs_usb_probe(). Adjust
+gs_destroy_candev() likewise, move unregister_candev() to
+gs_usb_disconnect() and the error paths in gs_usb_probe(), to keep it
+inverse to symmetric to gs_make_candev().
 
-Currently both the initialization and shutdown of the HW timestamping
-infrastructure is tied to the flags of the first channel opened
-respectively last channel closed. This leads to problems if the first
-channel opened doesn't have the timestamping feature, but the second
-channel has.
-
-Keep the initialization of the HW timestamping infrastructure in
-gs_usb_timestamp_init(), and move initial time init and the initial
-scheduling of the delayed worker into gs_usb_timestamp_start().
-
-Initialize the HW timestamping infrastructure in gs_usb_probe() using
-gs_usb_timestamp_init() if at least one channel has the
-GS_CAN_FEATURE_HW_TIMESTAMP flag set.
-
-Start and sync the timestamping infrastructure when opening the first
-channel of a device that supports HW timestamps and stop it if the last
-channel closes. Avoid the race window during timecounter_init()
-(gs_usb_timestamp_read() drops the struct gs_usb::tc_lock) by reading the
-initial time stamp prior taking the lock.
-
-To simplify backporting, the next patch will switch to the new
-{enable,disable}_delayed_work() API to avoid self-rescheduling of the
-timestamp worker. That API has been added with v6.10, commit 86898fa6b8cd
-("workqueue: Implement disable/enable for (delayed) work items").
-
-To simplify backporting, support for context analysis is added in a later
-patch.
-
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Closes: https://sashiko.dev/#/bug/linux-b39360f9-6cd8-4f47-83bb-f0f78331f308
-Closes: https://sashiko.dev/#/bug/linux-5f8ecd4e-344e-4ceb-9b46-886f4942a5f6
-Fixes: 5886e4d5ecec ("can: gs_usb: fix time stamp counter initialization")
+Closes: https://sashiko.dev/#/bug/linux-be54de7d-0b75-408c-b3ee-dd90c9756857
+Closes: https://sashiko.dev/#/bug/linux-71076d59-0843-4749-a5ab-fdd98a08582f
+Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
 Cc: stable@vger.kernel.org
-Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Co-developed-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/usb/gs_usb.c | 74 ++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 64 insertions(+), 10 deletions(-)
+ drivers/net/can/usb/gs_usb.c | 64 +++++++++++++++++++++++++++-----------------
+ 1 file changed, 40 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index 980c4a748c94..6b65f4d9e8f9 100644
+index cac4ce323a1d..6997cc8a6b2d 100644
 --- a/drivers/net/can/usb/gs_usb.c
 +++ b/drivers/net/can/usb/gs_usb.c
-@@ -324,6 +324,10 @@ struct gs_can {
- 	atomic_t active_tx_urbs;
- };
+@@ -1493,18 +1493,8 @@ static struct gs_can *gs_make_candev(unsigned int channel,
  
-+enum gs_usb_parent_flags {
-+	GS_USB_PARENT_FLAGS_HW_TIMESTAMP = BIT(0),
-+};
-+
- /* usb interface struct */
- struct gs_usb {
- 	struct usb_anchor rx_submitted;
-@@ -332,11 +336,13 @@ struct gs_usb {
- 	/* time counter for hardware timestamps */
- 	struct cyclecounter cc;
- 	struct timecounter tc;
--	spinlock_t tc_lock; /* spinlock to guard access tc->cycle_last */
-+	u32 timestamp_initial;
-+	spinlock_t tc_lock; /* spinlock to guard access cc, tc, timestamp_initial */
- 	struct delayed_work timestamp;
+ 	SET_NETDEV_DEV(netdev, &intf->dev);
  
- 	unsigned int hf_size_rx;
- 	u8 active_channels;
-+	u8 flags;
- 	u8 channel_cnt;
- 
- 	unsigned int pipe_in;
-@@ -423,6 +429,13 @@ static inline int gs_usb_get_timestamp(const struct gs_usb *parent,
- 	return 0;
- }
- 
-+static u64 gs_usb_timestamp_read_initial(struct cyclecounter *cc)
-+{
-+	const struct gs_usb *parent = container_of(cc, struct gs_usb, cc);
-+
-+	return parent->timestamp_initial;
-+}
-+
- static u64 gs_usb_timestamp_read(struct cyclecounter *cc) __must_hold(&dev->tc_lock)
- {
- 	struct gs_usb *parent = container_of(cc, struct gs_usb, cc);
-@@ -475,19 +488,44 @@ static void gs_usb_timestamp_init(struct gs_usb *parent)
- {
- 	struct cyclecounter *cc = &parent->cc;
- 
--	cc->read = gs_usb_timestamp_read;
- 	cc->mask = CYCLECOUNTER_MASK(32);
- 	cc->shift = 32 - bits_per(NSEC_PER_SEC / GS_USB_TIMESTAMP_TIMER_HZ);
- 	cc->mult = clocksource_hz2mult(GS_USB_TIMESTAMP_TIMER_HZ, cc->shift);
- 
- 	spin_lock_init(&parent->tc_lock);
--	spin_lock_bh(&parent->tc_lock);
--	timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
--	spin_unlock_bh(&parent->tc_lock);
- 
- 	INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
-+
-+	parent->flags |= GS_USB_PARENT_FLAGS_HW_TIMESTAMP;
-+}
-+
-+static int gs_usb_timestamp_start(struct gs_usb *parent)
-+{
-+	u32 timestamp = 0;
-+	int err;
-+
-+	/* read current timestamp, might be used later for initial time stamp */
-+	err = gs_usb_get_timestamp(parent, &timestamp);
-+	if (err)
-+		return err;
-+
-+	scoped_guard(spinlock_bh, &parent->tc_lock) {
-+		struct cyclecounter *cc = &parent->cc;
-+
-+		/* gs_usb_timestamp_read() will drop the struct gs_usb::tc_lock. Avoid the race
-+		 * window by using gs_usb_timestamp_read_initial() to read the initial timestamp in
-+		 * timecounter_init(), switch to gs_usb_timestamp_read() afterwards.
-+		 */
-+		parent->timestamp_initial = timestamp;
-+		cc->read = gs_usb_timestamp_read_initial;
-+		timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
-+		cc->read = gs_usb_timestamp_read;
-+	}
-+
- 	schedule_delayed_work(&parent->timestamp,
- 			      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
-+
-+	return 0;
- }
- 
- static void gs_usb_timestamp_stop(struct gs_usb *parent)
-@@ -988,9 +1026,15 @@ static int gs_can_open(struct net_device *netdev)
- 
- 	can_rx_offload_enable(&dev->offload);
- 
-+	/* rely on RTNL to serialize concurrent ifup/ifdown */
-+	ASSERT_RTNL();
-+
- 	if (!parent->active_channels) {
--		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
--			gs_usb_timestamp_init(parent);
-+		if (parent->flags & GS_USB_PARENT_FLAGS_HW_TIMESTAMP) {
-+			rc = gs_usb_timestamp_start(parent);
-+			if (rc)
-+				goto out_can_rx_offload_disable;
-+		}
- 
- 		for (i = 0; i < GS_MAX_RX_URBS; i++) {
- 			u8 *buf;
-@@ -1105,10 +1149,10 @@ static int gs_can_open(struct net_device *netdev)
- 	if (!parent->active_channels) {
- 		usb_kill_anchored_urbs(&parent->rx_submitted);
- 
--		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
-+		if (parent->flags & GS_USB_PARENT_FLAGS_HW_TIMESTAMP)
- 			gs_usb_timestamp_stop(parent);
- 	}
+-	rc = register_candev(dev->netdev);
+-	if (rc) {
+-		dev_err(&intf->dev,
+-			"Couldn't register candev for channel %d (%pe)\n",
+-			channel, ERR_PTR(rc));
+-		goto out_can_rx_offload_del;
+-	}
 -
-+out_can_rx_offload_disable:
- 	can_rx_offload_disable(&dev->offload);
- 	close_candev(netdev);
+ 	return dev;
  
-@@ -1158,12 +1202,15 @@ static int gs_can_close(struct net_device *netdev)
+-out_can_rx_offload_del:
+-	can_rx_offload_del(&dev->offload);
+ out_free_candev:
+ 	free_candev(dev->netdev);
+ 	return ERR_PTR(rc);
+@@ -1512,7 +1502,6 @@ static struct gs_can *gs_make_candev(unsigned int channel,
  
- 	netif_stop_queue(netdev);
+ static void gs_destroy_candev(struct gs_can *dev)
+ {
+-	unregister_candev(dev->netdev);
+ 	can_rx_offload_del(&dev->offload);
+ 	free_candev(dev->netdev);
+ }
+@@ -1590,21 +1579,16 @@ static int gs_usb_probe(struct usb_interface *intf,
  
-+	/* rely on RTNL to serialize concurrent ifup/ifdown */
-+	ASSERT_RTNL();
-+
- 	/* Stop polling */
- 	parent->active_channels--;
- 	if (!parent->active_channels) {
- 		usb_kill_anchored_urbs(&parent->rx_submitted);
+ 	for (i = 0; i < icount; i++) {
+ 		unsigned int hf_size_rx = 0;
++		struct gs_can *dev;
  
--		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
-+		if (parent->flags & GS_USB_PARENT_FLAGS_HW_TIMESTAMP)
- 			gs_usb_timestamp_stop(parent);
- 	}
+-		parent->canch[i] = gs_make_candev(i, intf, &dconf);
+-		if (IS_ERR_OR_NULL(parent->canch[i])) {
++		dev = gs_make_candev(i, intf, &dconf);
++		if (IS_ERR_OR_NULL(dev)) {
+ 			/* save error code to return later */
+-			rc = PTR_ERR(parent->canch[i]);
++			rc = PTR_ERR(dev);
  
-@@ -1525,6 +1572,7 @@ static int gs_usb_probe(struct usb_interface *intf,
- 		.byte_order = cpu_to_le32(0x0000beef),
- 	};
- 	struct gs_device_config dconf;
-+	bool hw_ts_supported = false;
- 	unsigned int icount, i;
- 	int rc;
- 
-@@ -1599,6 +1647,9 @@ static int gs_usb_probe(struct usb_interface *intf,
- 		parent->canch[i] = dev;
+-			/* on failure destroy previously created candevs */
+-			icount = i;
+-			for (i = 0; i < icount; i++)
+-				gs_destroy_candev(parent->canch[i]);
+-
+-			usb_kill_anchored_urbs(&parent->rx_submitted);
+-			kfree(parent);
+-			return rc;
++			goto out_gs_destroy_candev;
+ 		}
++		parent->canch[i] = dev;
  		parent->canch[i]->parent = parent;
  
-+		if (parent->canch[i]->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
-+			hw_ts_supported = true;
-+
  		/* set RX packet size based on FD and if hardware
- 		 * timestamps are supported.
- 		 */
-@@ -1616,6 +1667,9 @@ static int gs_usb_probe(struct usb_interface *intf,
+@@ -1624,7 +1608,37 @@ static int gs_usb_probe(struct usb_interface *intf,
  		parent->hf_size_rx = max(parent->hf_size_rx, hf_size_rx);
  	}
  
-+	if (hw_ts_supported)
-+		gs_usb_timestamp_init(parent);
++	for (i = 0; i < icount; i++) {
++		struct gs_can *dev = parent->canch[i];
 +
- 	for (i = 0; i < icount; i++) {
- 		struct gs_can *dev = parent->canch[i];
++		rc = register_candev(dev->netdev);
++		if (rc) {
++			const unsigned int cur = i;
++
++			dev_err(&intf->dev,
++				"Couldn't register candev for channel %d (%pe)\n",
++				i, ERR_PTR(rc));
++
++			for (i = 0; i < cur; i++)
++				unregister_candev(parent->canch[i]->netdev);
++
++			goto out_gs_destroy_candev;
++		}
++	}
++
+ 	return 0;
++
++out_gs_destroy_candev:
++	for (i = 0; i < parent->channel_cnt; i++) {
++		if (!parent->canch[i])
++			continue;
++
++		gs_destroy_candev(parent->canch[i]);
++	}
++
++	kfree(parent);
++
++	return rc;
+ }
  
+ static void gs_usb_disconnect(struct usb_interface *intf)
+@@ -1640,8 +1654,10 @@ static void gs_usb_disconnect(struct usb_interface *intf)
+ 	}
+ 
+ 	for (i = 0; i < parent->channel_cnt; i++)
+-		if (parent->canch[i])
+-			gs_destroy_candev(parent->canch[i]);
++		unregister_candev(parent->canch[i]->netdev);
++
++	for (i = 0; i < parent->channel_cnt; i++)
++		gs_destroy_candev(parent->canch[i]);
+ 
+ 	kfree(parent);
+ }
 
 -- 
 2.53.0
