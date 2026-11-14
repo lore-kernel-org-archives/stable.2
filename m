@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794671668;
-	b=RipOAPALRDuyyZhHLCeMUQedFLtIaUjNYRrd3yI0pTP7/5twetqdQpkGzexQY3NhuFs9
-	 2zYwrEbiLF+beFmbbd6sNDrq+FHOko9xuNkVOWCEn9WBqymKJ+IVNkSAg0bIWYo60H5mz
-	 iq1dAVYFR1RrhgvW614y5c0LPwZxmNTQTWGCLfqHyVZ64sJAjDlRccpfN9Fq4Cvcl2w/F
-	 P0hukb3n9ToTSjj5p5eW3ltQgrQoz76mDufmbGg4rI+iMjfLr8gyKQdjIaz84zwCTdnNL
-	 sZPGGpNqc7ZVFdgysmaFAuGagJ6whUk+fbOwkIswGvt13AK/sP//mhqc8ebrmkgL+vw==
+	t=1794671793;
+	b=x473R5XVy1FBRUCy1qKXre2jUNoSwigVFh2uvuWZTVOfsFxGOqMbhIsmPLAW5A9fzCG4
+	 MlsuRJj+if2GfC+NRQZ/8O8cLCh715gS/LPQk7yTH+ulwGj00mqvIuBdmq8vZJiRzsR0U
+	 ExuI3SrfEx8BGVbrpmbFR9OdjEKkgcXozrsnEOU2Kvh1jNLmpPeGotILwSFdKAQGnRI8k
+	 AiAZ13V+DQoxj0di0GslkQr1097GfdzcbvWpUNz3qYubj6EKAzAOJYf9oZhEsfMljIIGj
+	 AEOWLnB3GFyDRM6WBRY/ObiuirlqQGLfWPb3faXXv0YXeP3rt1LJM0S97U0Bono1j/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794671668;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794671793;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NDkXXUC59zOBbqtv/YqOxb3/MqroMx9uVAQeIkpNyLs=;
-	b=GyTeP+Vyftl6i3AqS/Lk6Oz4Q83Cy4hPFB0JeoJ7jmK5kQYlSCFQt3N7uIVcTnvwV1iv
-	 5RU9JiMmiDs58RMLSEg3ETGJWO7QCZhEsIvsWYKr6Cghx/ISWI3EDrohe78PFlT2tPUO1
-	 1wtGwQK/ze+gBf5SLDHnl/x1wUr+collqoFpTc6eWdqizNKK4uXwmiMHJkHoKJN1s4usS
-	 4vbbiOh6Mx/knyHrDhxmzx+mVqid0Yzj0OnKKUQptN18OtAHABhO8AIyD/HHoz7ZEwldg
-	 Z3X7184RJT3zAiU1vm0V7Mmus/HAzLykO4RKRChm+jZHNl9dXf2PrGG2nLrKAilJenQ==
+	bh=9Z3YFFT+4SwUXIGi4O/XCXBAt5O0Gb1PjEAjwURDTF8=;
+	b=1I+Gqdi64bO7eNeAxfS7QGO/CNi7BoCSo2zp/xmyIsSsAHR9k2iLeUcyUUHXURo0wY8C
+	 wRzjNtoGfIajVKADEdiQtP8JakT420DMu6UKjWMy2MzZ+O9mLE8OZ7ZT4d7g3PdKBBYRY
+	 kZWT+ixmtUhXO4YL2108gLnELCwJZQdTY7N23wa0h9JH9WHdQeMnFpapBVE3XQtewNTaY
+	 Wnh6fh8gcU7D3Ul+U3B/W8WDP/VDXmluEpAfR3Wn5gd0Bx9Qlk4xTCdwso8sM2LA5TPaQ
+	 nQl8ckI4MOqcmMDTOYmuKb58tFfi66cbXEfb2Icysn3Fv4YH/zjpraOjAkiO/kEEzTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2RaSYk9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Olh30kls;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AF2606A332
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:54:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B6D606A32E
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:56:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2RaSYk9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8291F000C5;
-	Sat, 14 Nov 2026 15:54:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Olh30kls
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE54A1F000C6;
+	Sat, 14 Nov 2026 15:56:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794671668;
-	bh=NDkXXUC59zOBbqtv/YqOxb3/MqroMx9uVAQeIkpNyLs=;
+	s=k20260515; t=1794671793;
+	bh=9Z3YFFT+4SwUXIGi4O/XCXBAt5O0Gb1PjEAjwURDTF8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K2RaSYk9RHcFI/88LkMhdYBnebPPjxGEa7FH9B3WI0CUsT8904sZ56I2muPHjhhaA
-	 9eEj3BIVuQfM2xnMFtwwZn/YIEVPqGELnAr/K4t4k4fXtEGmf5Omr0xiBdfKseSYAB
-	 G8R6uYoGy617F0iNhLHZexGcI/MqNbYUmTlVx1OSpvLPMztXTp4ZFTw7rXNzbOD/8z
-	 mBY3ldsup+R452UtrX0RmO3GO8+eIhglFguvjoPr6UVyGEd4Jyz5H7CsIv1dVH4hq5
-	 vNwv97x4hn/BtxS78U5rSW2kh96uzik06QGSwG3ymfymVrL4gb5+Zy5qriG0NI7hA9
-	 taptvKqM4gkLg==
+	b=Olh30klsUXfPZZ6XPBFKJpvs7FzGfSMGfCU9BI1JRBr26ujIJv/xvt8gu0/b8FNSC
+	 XPdohrZUiNpwe//I6E8ca8/D/sB1L9f7fYYEGL5aDDpxau9Fh46ly1jVAiiDRwyHUT
+	 1lAKIii1yRRQ8XKEpw9wm+rJQZGEGgF1JXk0kh6A2OysZX0WQHMdbWl0sR8jmYzLnS
+	 q43SMofgteHCnvyw1LoZo5SLQxQRB4+faMp1H5IBX/9yrXM3GbJG3YgL0vfmqMfYnO
+	 vWtZPQGn2b+Jx1RghfvGPE/RqzLwzWbUzXFVqRDvhgFPYf7OJslgeE5VPjqD46G8P/
+	 QYtStYo6lGPOw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Roman Li <Roman.Li@amd.com>,
-	Dillon Varone <dillon.varone@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Alex Hung <alex.hung@amd.com>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
+Cc: Yingjie Wang <1075151112@qq.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] drm/amd/display: Reset DET of HUBPs without a plane before outstanding updates
-Date: Sat, 14 Nov 2026 10:54:25 -0500
-Message-ID: <20261114155316.3656278-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] nvmet: reject keep-alive timeouts that would overflow
+Date: Sat, 14 Nov 2026 10:56:31 -0500
+Message-ID: <20261114154530.3477922-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114155316.3656278-1-sashal@kernel.org>
-References: <20261109200958-failed-6.12-f3afbf7d832a@kernel.org>
- <20261114155316.3656278-1-sashal@kernel.org>
+In-Reply-To: <20261109202739-failed-5.10-96ae13f40ce5@kernel.org>
+References: <20261109202739-failed-5.10-96ae13f40ce5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,142 +62,124 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Roman Li <Roman.Li@amd.com>
+From: Yingjie Wang <1075151112@qq.com>
 
-[ Upstream commit f3afbf7d832ab138655afc96bd42226775d03ce7 ]
+[ Upstream commit 96ae13f40ce5930cd58c43128e385131476f2a66 ]
 
-[WHY]
-DC asserts with:
-WARNING: dc/hubbub/dcn401/dcn401_hubbub.c at dcn401_program_compbuf_segments
-Call Trace:
-<TASK>
-dcn401_program_outstanding_updates+0x36/0x60 [amdgpu]
-hwss_process_outstanding_hw_updates+0x33/0x40 [amdgpu]
-commit_planes_for_stream+0x171f/0x1ff0 [amdgpu]
-dc_update_state_execute+0xaa/0x170 [amdgpu]
-dc_update_planes_and_stream+0x42/0x70 [amdgpu]
-amdgpu_dm_atomic_commit_tail+0x16a9/0x4020 [amdgpu]
-commit_tail+0xc3/0x1b0 [drm_kms_helper]
+nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
+millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
+The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
+4294966296 ms wraps around and rounds to 0 seconds. A Set Features
+command with KATO 0xffffffff then succeeds but disables the keep-alive
+timer: Get Features returns 0 and Keep Alive fails with Keep Alive
+Timeout Invalid. A Connect command with such a KATO creates a controller
+without a keep-alive timer.
 
-The DET left by the VBIOS on a HUBP without a plane can be larger than
-the DET planned for the new state. The compbuf is sized for the planned
-DET, so DET + compbuf can exceed the CRB size. Programming the compbuf
-then triggers the ASSERT and sets CONFIG_ERROR in hardware.
+The converted value has more consumers that can overflow. Get Features
+multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
+and arm a delay that must not exceed MAX_JIFFY_OFFSET.
 
-[HOW]
-Release the DET of HUBPs without a plane before the compbuf is
-programmed.
+Reject a KATO whose rounded value does not fit all of these. Return Keep
+Alive Timeout Invalid from both Set Features and Connect. Validate Set
+Features before stopping the current timer so a failed update leaves its
+timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
+meaning.
 
-Add hwss_reset_unused_det() and call it in the commit and flip paths,
-to cover both seamless and non-seamless boots.
-
-Fixes: 7a1eb6680939 ("drm/amd/display: Perform outstanding programming on full updates")
-Cc: Dillon Varone <dillon.varone@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Roman Li <Roman.Li@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit c93f6fc7175b445ba3b7c85a1fc31e4e4951bbc9)
+Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
 Cc: stable@vger.kernel.org
-[ sashal: added a missing header include to provide the complete struct hubbub definition ]
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ sashal: Adapted controller allocation error handling to return status directly and set req->error_loc. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  6 +++-
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 32 +++++++++++++++++++
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |  3 ++
- 3 files changed, 40 insertions(+), 1 deletion(-)
+ drivers/nvme/target/admin-cmd.c | 7 ++++++-
+ drivers/nvme/target/core.c      | 7 ++++++-
+ drivers/nvme/target/nvmet.h     | 8 ++++++++
+ include/linux/nvme.h            | 1 +
+ 4 files changed, 21 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 0975616b53004..282de24961710 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2062,6 +2062,8 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 		 * update pending complete before optimizing bandwidth.
- 		 */
- 		hwss_wait_for_odm_update_pending_complete(dc, context);
-+		/* No DET may stay allocated to a HUBP without a plane (e.g. left over from VBIOS) */
-+		hwss_reset_unused_det(dc, context);
- 		/* pplib is notified if disp_num changed */
- 		dc->hwss.optimize_bandwidth(dc, context);
- 		/* Need to do otg sync again as otg could be out of sync due to otg
-@@ -3802,8 +3804,10 @@ static void commit_planes_for_stream(struct dc *dc,
- 	dc_exit_ips_for_hw_access(dc);
- 
- 	dc_z10_restore(dc);
--	if (update_type == UPDATE_TYPE_FULL && dc->optimized_required)
-+	if (update_type == UPDATE_TYPE_FULL && dc->optimized_required) {
-+		hwss_reset_unused_det(dc, dc->current_state);
- 		hwss_process_outstanding_hw_updates(dc, dc->current_state);
-+	}
- 
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 5dcb0fb2f66a5..f7dd6e9114c20 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -32,6 +32,7 @@
- #include "resource.h"
- #include "dc_dmub_srv.h"
- #include "dc_state_priv.h"
-+#include "dchubbub.h"
- 
- #define NUM_ELEMENTS(a) (sizeof(a) / sizeof((a)[0]))
- 
-@@ -1056,6 +1057,37 @@ void hwss_wait_for_odm_update_pending_complete(struct dc *dc, struct dc_state *c
- 	hwss_wait_for_all_blank_complete(dc, context);
- }
- 
-+void hwss_reset_unused_det(struct dc *dc, struct dc_state *context)
-+{
-+	struct hubbub *hubbub = dc->res_pool->hubbub;
-+	unsigned int i, j;
-+
-+	if (!hubbub || !hubbub->funcs->program_det_segments)
-+		return;
-+
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct hubp *hubp = dc->res_pool->hubps[i];
-+		bool hubp_in_use = false;
-+
-+		if (!hubp)
-+			continue;
-+
-+		for (j = 0; j < dc->res_pool->pipe_count; j++) {
-+			const struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[j];
-+
-+			/* A plane-less pipe renders from the DPG, its HUBP (assigned with the stream) needs no DET */
-+			if (pipe->plane_state && pipe->plane_res.hubp &&
-+					pipe->plane_res.hubp->inst == hubp->inst) {
-+				hubp_in_use = true;
-+				break;
-+			}
-+		}
-+
-+		if (!hubp_in_use)
-+			hubbub->funcs->program_det_segments(hubbub, hubp->inst, 0);
-+	}
-+}
-+
- void hwss_wait_for_no_pipes_pending(struct dc *dc, struct dc_state *context)
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index 835ff574f80b9..93efea9de3259 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -739,8 +739,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
  {
- 	int i;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index 9ae6259f2db17..44df0067d8ccc 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -537,6 +537,9 @@ void hwss_wait_for_odm_update_pending_complete(struct dc *dc,
- void hwss_wait_for_no_pipes_pending(struct dc *dc,
- 		struct dc_state *context);
+ 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
  
-+void hwss_reset_unused_det(struct dc *dc,
-+		struct dc_state *context);
++	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvme_common_command, cdw11);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_SC_DNR;
++	}
 +
- void hwss_wait_for_outstanding_hw_updates(struct dc *dc,
- 		struct dc_state *dc_context);
+ 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
+-	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
++	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
+ 	nvmet_start_keep_alive_timer(req->sq->ctrl);
+ 
+ 	nvmet_set_result(req, req->sq->ctrl->kato);
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index 61e96097bfe9c..068e490098aa9 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -1325,6 +1325,11 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
+ 	int ret;
+ 	u16 status;
+ 
++	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvmf_connect_command, kato);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_SC_DNR;
++	}
++
+ 	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_SC_DNR;
+ 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
+ 	if (!subsys) {
+@@ -1401,7 +1406,7 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
+ 		kato = NVMET_DISC_KATO_MS;
+ 
+ 	/* keep-alive timeout in seconds */
+-	ctrl->kato = DIV_ROUND_UP(kato, 1000);
++	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
+ 
+ 	ctrl->err_counter = 0;
+ 	spin_lock_init(&ctrl->error_lock);
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index ef162b64fabef..90bb5352c4cc8 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -7,6 +7,7 @@
+ #define _NVMET_H
+ 
+ #include <linux/dma-mapping.h>
++#include <linux/jiffies.h>
+ #include <linux/types.h>
+ #include <linux/device.h>
+ #include <linux/kref.h>
+@@ -503,6 +504,13 @@ void nvmet_add_async_event(struct nvmet_ctrl *ctrl, u8 event_type,
+ #define NVMET_KAS		10
+ #define NVMET_DISC_KATO_MS		120000
+ 
++/*
++ * Largest keep-alive timeout in seconds that can be reported back in
++ * milliseconds and converted to jiffies without overflowing.
++ */
++#define NVMET_MAX_KATO	\
++	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
++
+ int __init nvmet_init_configfs(void);
+ void __exit nvmet_exit_configfs(void);
+ 
+diff --git a/include/linux/nvme.h b/include/linux/nvme.h
+index 5727185ffe423..ff756283b9230 100644
+--- a/include/linux/nvme.h
++++ b/include/linux/nvme.h
+@@ -1485,6 +1485,7 @@ enum {
+ 	NVME_SC_SGL_INVALID_OFFSET	= 0x16,
+ 	NVME_SC_SGL_INVALID_SUBTYPE	= 0x17,
+ 
++	NVME_SC_KA_TIMEOUT_INVALID	= 0x1A,
+ 	NVME_SC_SANITIZE_FAILED		= 0x1C,
+ 	NVME_SC_SANITIZE_IN_PROGRESS	= 0x1D,
  
 -- 
 2.53.0
