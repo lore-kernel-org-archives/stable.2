@@ -1,59 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794678159;
-	b=FRT0+0Wc+kXl6uYgsYiwr4Q5RYlxxqZpQOSgPlpGGK/fxj82paEvoiCfaB27jVxAVTBc
-	 On37YOE9+1hL4D6uj/7MWI1Q0owKfCAumGssNPuMrcInfUAcQcp5btMgfQBhDDxqD45cJ
-	 hCX+/NhJ1eCxmqkbj7IClo5fWAAt9ltjfjTesQMd0YtoREAK7AU2G9LAdBjUcS+Lq70Ac
-	 dPdTEl2Q2+QcD1GVXfYE2vwEQ7IrK8QPSqUyYWLHIAO9FHUzuuQFslaMDFzbZ6QE3wOHv
-	 GKOUNx/F8/fNMeBiKt52oRq7x1gLZMtW50g9TPYVtE0WyG5hkkzKZxkm/Fha6C1dcdg==
+	t=1794678156;
+	b=bmblkd7FbEJGmDzUU8A+ghOGMf0BwYVhC8vLmpi5qkI1C0zD31yhEefpmCwC5txOBcW+
+	 3FpbpMO9L7Jrg+R20pYraD1N+l5p7RxMm++mSlUgdQk7zRfZOXWzdl+3Btby7fWSRLDzs
+	 x8uG2agwJMrdvx/3RyxMQccDemMANqPkgYQO82PK/YqhOy4Zm6YkpXuWNmEZvKglofif5
+	 SBfXoK1AsB22RK0WZ3WP+XBygLCI3HZJXlahvhAcq1eFebC8W+f720ClMOLYtcKWHya//
+	 TjWHXZ9ElGc9rEJbEEX0AlgUbLIbPMHx23tptTH0CMq3kHsFWLCEp8QfBgEufjwKjCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794678159;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794678156;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gqa0FzeWxF+NdVIavyzYQpx7SrVw5PS23jn8ZooNPKo=;
-	b=zmxZvxBBTwA/83X53drRmM/RKNV5HZ99WGWB0/2w2g6PiRPcHIC6bm991kKtPy95pYBS
-	 W2FYCioEX6DiaDSvlmv3/QSSNdwG9eizOv6hs526vNB26I3w/vjwsKeNp906+mm72rpuN
-	 Fl8uOi3DmFiWZlzw1HXXN71bnhZTYDgaDxuQrx26iWIXYJL/K8SqOxrR6bcMeswdf8j+Z
-	 Kd+kqcHt2wbNYPXDiavaZ7bKE0Fz3MwmxzHCspo3eGC/VI0EYrOK9EVpQ7BWrW0qKrEYQ
-	 n0ndk1hvXhCdrzSJceYct4T5EKwwFURWs+3R7jITIZ7r9cZt+rIGfaF0BNZDwidbUQA==
+	bh=HtJYtgROtdGCoMRM0DSu7ITj/G1KdynVsDgrtLNJ9w0=;
+	b=xno/jTYH47G0SAXCjF7yH9m1HxK3YEuVDIvQwjXMs0xGJ2mBp/lR/NZlMm6hwntrwg4v
+	 aHz9JSARd0uQ5xG7U80xyjC/2hsPkHeftk7skRxloJaVnXJNK+ei+zAYKtrV7IjbXvYJp
+	 DGCOt+XqX49iTMZstx/M0KcEKMeXSjw8q9ouYHtgtykAmtSrlnhTSBtXMYsvPxT7tYKBM
+	 i1+77JlUtXpOipZgc6drEi7s/8xeITsATinQioRi2zgktJYKnyMSaz99cJjm5pPj4C4SA
+	 xKy0/0evAf4ZAeC9oDK9jVohocCqfhT4mgQCc7A71p9011pC1z4D/Gx0f8T76qeuoOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jGQNHSLJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeHAFnLj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F337F606A8B8
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:42:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B67606A332;
+	Sat, 14 Nov 2026 17:42:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jGQNHSLJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43381F000C5;
-	Sat, 14 Nov 2026 17:42:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeHAFnLj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A161F000C9;
+	Sat, 14 Nov 2026 17:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794678158;
-	bh=gqa0FzeWxF+NdVIavyzYQpx7SrVw5PS23jn8ZooNPKo=;
+	s=k20260515; t=1794678155;
+	bh=HtJYtgROtdGCoMRM0DSu7ITj/G1KdynVsDgrtLNJ9w0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jGQNHSLJaRMpNWaKocOb5kVC1u8T6ym5tspwQCNo28G8KEHUB0n+aWcXjBr/AAsvC
-	 b6XmShoXN0W7vdh2RQ48t8St2Lt9hfRfa59KmbMo1dfPsBFt8ZZMKAdpXfi14186sj
-	 MPwCRI8MViVbDQY4mc/ZbRbTv09loMvCd0GPh6PH3bvQAc0ZekrECsHw/VTfdWizCq
-	 CFP75JSOGM7L8zCGtidO+1vz2Lt9em12PIE2im7h4CkpT2+sNwlYla6G1CjketcsG3
-	 Fio09EVTMRbJn0zG9342FQtwikFjc9ymAX02BhIujq+ilEF7U+c/P2v2D3zv93g6gB
-	 NgPgGU21JZY9g==
+	b=HeHAFnLjjgJ7xVGh6nHTYL18M3cImWBWBn8+POcOP8326sGeDaspl+g70rSiHmhJr
+	 eR1CGHrn0CfFkcIQgxi/4pi0ryrpz6k0Ny5gd3xhdndvYM+nokidjFsAvfVLi4jtDS
+	 ON+yH9VxTKNmhnfh5QneakEBEKg6odggqqGns3fIgc/U8n7XuOnRywChRecAch6WyN
+	 5NgB+LsRhowvucBz0LQIzAqg3RFb/ttTg8GhgQcQp8u3aq6x7vUh3fz4hBdAonMm3w
+	 FvWc87dk8WDJIp3WprSHXCExE6m5eNTM6CzYoQoXcMLPQNlfdD6RuEgk/XkXFyXAsk
+	 aF5sBRAG1dXjA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Mike Rapoport <rppt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>
 Cc: Sasha Levin <sashal@kernel.org>,
-	dipietro.salvatore@gmail.com,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	linux-mm@kvack.org,
-	Salvatore Dipietro <dipiets@amazon.it>
-Subject: Re: [PATCH 6.18.y 0/3] mm/page_alloc: fix iomap buffered write regression from 5d8edfb900d5
-Date: Sat, 14 Nov 2026 12:42:22 -0500
-Message-ID: <draft-agent5-0011-re-page-alloc-iomap-618@kernel.org>
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Salvatore Bonaccorso <carnil@debian.org>
+Subject: Re: [REGRESSION 6.12.117] CPA detected W^X violation: 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 - 0xffffffffc0477fff PFN 109c1f and WARNING at arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
+Date: Sat, 14 Nov 2026 12:42:19 -0500
+Message-ID: <draft-agent5-0008-re-pat-wx-regression-612@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113110259.2901456-1-dipiets@amazon.it>
-References: <20261113110259.2901456-1-dipiets@amazon.it>
+In-Reply-To: <avdb9EPXBv2hRCzQ@eldamar.lan>
+References: <avdb9EPXBv2hRCzQ@eldamar.lan>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,16 +72,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 2026-11-13, Salvatore Dipietro <dipiets@amazon.it> wrote:
-> Patches 1-2 are its prerequisites from the same mainline merge (Cc:
-> stable), only moved from mm/page_alloc.h to mm/internal.h.
+On 2026-11-13, Salvatore Bonaccorso <carnil@debian.org> wrote:
+> One followup to this. Reverting 
+>
+> Fixes: 091c44b2d3c3 ("x86/mm/pat: Use pr_warn() for early W^X warnings")
+> Fixes: 11d1ba991c07 ("x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()")
 
-6ee3d87b9408 ("mm: page_alloc: do not give all non-blocking requests reserve
-access") is now queued for 6.18, 6.12, 6.6, 6.1 and 5.15 from a separate
-backport, so you can leave it out. A v2 only needs fe21f930d1e6 ("mm:
-page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES") and 0e05a469c294
-("mm/page_alloc: avoid direct reclaim and compaction for costly __GFP_NORETRY
-allocations"), with your Signed-off-by on both.
+Thanks for testing. Queued reverts of both for 6.12.
+
+The same two patches are also dropped from the 6.6 and 6.1 queues, where they
+had not been released yet. 7.3 and 6.18 keep them, since there the check only
+prints a pr_warn.
 
 -- 
 Thanks,
