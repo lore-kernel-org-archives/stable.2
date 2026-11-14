@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794670209;
-	b=wT22kkdD2tgjVyfvT5bNqCkYcoSzOaJhnjkwyyClsNk3vooJS4XvvTxFZV/iibV3lkuG
-	 xTrhJETyb0CXCrD9rmCHNCCyL4U+1q0e2C5QKv3jVi/S35OYV6Q0jN5WecKFF06cPXTFT
-	 i9RS4gKBa4MBRLeRo2fYBh4XgyWz9SJm8G5lTGIDRntT/i79Eggcn7qUNVpkHPktg5QlY
-	 Hi1twSaDexu9FDpZ8eK8J/Aw4od5hh9HkbF0W2fvggLYmJ1JezGIY8V8nqk83R1765AdD
-	 9zG9x86B7Xc8tSn8PE2219elqOAzJ4NES5IauT0p03VojGFcCOAj/HC4p1xfagde+Zw==
+	t=1794670210;
+	b=1iPP4q8gfhvt376hTvIkbn65Gs8gct3bDpVkpfqetSbBSpclgfZMfCYPsNi/i5KGb9f5
+	 BLEW1T06pOpIlph8wYgOIPRDHn2IHry+a+E6LcHvo2t+VlcQsrpM+vs3F+8Lwl3fygBAN
+	 20Hy/EGsdpUgOt+rGdKB+5YafY7MJe3rbVhLs9JZ8aqlar6nzY/cK0c6pOsAa0BHB07bM
+	 x4bnbkI80z7FeW4KNsBB06K3KwQILwESQEKhM9Hd9qKVSFUI7QXc+WYqORgY9upq5MPZP
+	 2KubChqC/I/hcjdGT7B9OkOmoD0+BlCqOwY5E1RSJwSJ3bqOyajyPNUwCeUkmbIkUsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794670209;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794670210;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=56cliN4TQxqhSneJ/qvnavyy3hLIEsS8KDk9lKUC9/A=;
-	b=Lmq1VQjv/6Ty2jNIPm1pNy04h7PUZxc0hZ2YpH8mXilqoykRzYnBgfAeFctUSi9lzq5F
-	 +diSU4Hft5qREkZEBD3HbEssJ8EbnAYwP+pl1fLQ6IUNxAb8+0ti8Giowz1LlCUaXs29w
-	 y3gHipmwihymsjkjFb7vAOC2JQVa2xntUd1U6zGwlVymEbbu+qEopqNuHl8VAhnUo+814
-	 Ph82kAo6sngt1/BJ+A4i9LPn9UzKFimOiPWbIP4aSB4CBOTixy+aSzzgh+U8D7uY3CN7b
-	 GoETW384toG1lzrbLuC+PVNixPTI9/Q5Ktm85tw/IIoaalcIWHhQxK+wUYhrV9gG6IA==
+	bh=FJAyGy2r/Ry6JhP/LGNq8QjbEDk4nCk2OMDyeiGQIKs=;
+	b=ziFsEyfjiPFgYqa1wXQVIOtDBMN4VwcKCeBEQ+w5yywsEYNqTUqkmrDhvksRJYGsB+b4
+	 2v9sJfVBPZApFckn4zM9Lt9q1adHomedUw6dIHxQnUf/p7gmyF3clGb3uyfrb7GpI9H6z
+	 FjmYQcQQODoyqjyrLFwDT30sntj6fdRVro/msdCQhlpNCK6TDmtjSpma/SkbLnZQ6Jw4F
+	 uF7+KNwcE4YjKFcSD/ATSzWO6WrpmlCk7MjIgYQV3EcPFwEqB1XG6OOw9bD41W1VTL9i1
+	 RMoH9EL5lCzVaZu+zMSZU3C8gA65zwXwZkRvRUaIEBMWP50cB4D3rruiZXDl1a6HJVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YIHQIByb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGfv1fW3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D81606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:30:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6344F606A336
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YIHQIByb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8650F1F000C5;
-	Sat, 14 Nov 2026 15:30:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGfv1fW3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81E411F000C7;
+	Sat, 14 Nov 2026 15:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794670209;
-	bh=56cliN4TQxqhSneJ/qvnavyy3hLIEsS8KDk9lKUC9/A=;
+	s=k20260515; t=1794670210;
+	bh=FJAyGy2r/Ry6JhP/LGNq8QjbEDk4nCk2OMDyeiGQIKs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YIHQIBybZF7zUvd8rCQ39NdzKqj0Jr8YR1cVAEV3GOi+KaiKiEc+gEhtkYfdbmS29
-	 6tEwrVHmQWdZy/krr1OtU8dLMZLqiZldrxLlSebuynrjwAaMitzlbf7o/xLiarhAhw
-	 ybBjfF3SIzcX6RKaSpAvVprCSQHrSonpsut5QBMHJicFw06JZT9+fkr3NIVNc9lVez
-	 Ww4ppZjiS2fF/xS7HCLGKzrVPpYaMRyUXaVqiIdgS3e6HVqoW+bEDy/1+aGV+WFKNz
-	 0TsPuZcYo9QGBLIwncixwnadBuQfXooJbMqjMg477tzzXi7Q3rj4w6NvL1SSHL0cOQ
-	 JCUcGo7m5WXSA==
+	b=JGfv1fW3D8iio8ARcCRtczWilyq6+ZB1nrmPQYSrjwXRbV0vU7yu+Jcs48edbh+pO
+	 yw1W6gdHdq3dP4c3QGblsmGGiEK5ouhe3ahRY9e2RYvmJvUakQ8Boc6uh6WEhWQWEZ
+	 erJE7s69AixZmR+jVs2AmBPf5TMLHmT0sgzETTc/GgiAGqNLsV/8WCTaqIjM4dYHe/
+	 fEFEkv5POQs9HGO6EG4DH4zAbNgT7UT4LELq5F94KLhUvvBjQ1KMYogjvQVgyGYCSY
+	 YYgMpGFGo7t5fxlv05iRHrGB7Nd+qJXWi/24ui8uOs+3+YJfi25r0858iNAhC4k8zY
+	 5Q4DSkFElfMCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] mm: document mmu_notifier_invalidate_range_start_nonblock()
-Date: Sat, 14 Nov 2026 10:30:06 -0500
-Message-ID: <20261114152948.3648455-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] mm/mmu_notifier: finish non-blocking interval invalidation on error
+Date: Sat, 14 Nov 2026 10:30:07 -0500
+Message-ID: <20261114152948.3648455-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201831-failed-6.1-6d65925777ec@kernel.org>
+In-Reply-To: <20261114152948.3648455-1-sashal@kernel.org>
 References: <20261109201831-failed-6.1-6d65925777ec@kernel.org>
+ <20261114152948.3648455-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,45 +64,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jann Horn <jannh@google.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 7ced098fcfe596feab3cea4f40128b0119c7bf1a ]
+[ Upstream commit 6d65925777ecae9d7a571a327e41c63f3940a0c7 ]
 
-Document what mmu_notifier_invalidate_range_start_nonblock() is for.  Also
-add a __must_check annotation to signal that callers must bail out if a
-notifier vetoes the operation.
+When an ordinary MMU notifier rejects a non-blocking invalidation, the
+interval invalidation started beforehand is left unfinished: the caller
+skips mmu_notifier_invalidate_range_end(). Subsequent interval notifier
+operations can then wait forever.
 
-Link: https://lkml.kernel.org/r/20230918201832.265108-1-jannh@google.com
-Signed-off-by: Jann Horn <jannh@google.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 6d65925777ec ("mm/mmu_notifier: finish non-blocking interval invalidation on error")
+The only in-tree trigger is nouveau SVM, which uses both notifier types
+and rejects non-blocking invalidations. Reaping via the OOM reaper or
+process_mrelease() can therefore leave the GPU fault worker stuck,
+holding a reference that prevents the dying process's address space
+and memory from being freed.
+
+End the interval invalidation when an ordinary notifier fails a
+non-blocking invalidation, like mn_itree_invalidate() already does when
+an interval notifier fails. Make that handling clearer in the
+documentation of mmu_notifier_invalidate_range_start_nonblock().
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: 99cb252f5e68 ("mm/mmu_notifier: add an interval tree notifier")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: simplify description, update function doc ]
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-28-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mmu_notifier.h | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ include/linux/mmu_notifier.h |  3 ++-
+ mm/mmu_notifier.c            | 17 +++++++++++++----
+ 2 files changed, 15 insertions(+), 5 deletions(-)
 
 diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
-index d6c06e1402771..7c81de8e381e2 100644
+index 7c81de8e381e2..e4ca5dd63bdd0 100644
 --- a/include/linux/mmu_notifier.h
 +++ b/include/linux/mmu_notifier.h
-@@ -461,7 +461,14 @@ mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
- 	lock_map_release(&__mmu_notifier_invalidate_range_start_map);
+@@ -464,7 +464,8 @@ mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
+ /*
+  * This version of mmu_notifier_invalidate_range_start() avoids blocking, but it
+  * can return an error if a notifier can't proceed without blocking, in which
+- * case you're not allowed to modify PTEs in the specified range.
++ * case you're not allowed to modify PTEs in the specified range or call
++ * mmu_notifier_invalidate_range_end().
+  *
+  * This is mainly intended for OOM handling.
+  */
+diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+index fa5b60f51e463..6deeb5d0ed25a 100644
+--- a/mm/mmu_notifier.c
++++ b/mm/mmu_notifier.c
+@@ -537,16 +537,25 @@ int __mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
+ {
+ 	struct mmu_notifier_subscriptions *subscriptions =
+ 		range->mm->notifier_subscriptions;
+-	int ret;
++	const bool has_itree = subscriptions->has_itree;
++	int ret = 0;
+ 
+-	if (subscriptions->has_itree) {
++	if (has_itree) {
+ 		ret = mn_itree_invalidate(subscriptions, range);
+ 		if (ret)
+ 			return ret;
+ 	}
+ 	if (!hlist_empty(&subscriptions->list))
+-		return mn_hlist_invalidate_range_start(subscriptions, range);
+-	return 0;
++		ret = mn_hlist_invalidate_range_start(subscriptions, range);
++
++	/*
++	 * On error, the non-blocking caller is not allowed to call
++	 * invalidate_range_end(), as in mn_itree_invalidate().
++	 */
++	if (ret && has_itree && !mmu_notifier_range_blockable(range))
++		mn_itree_inv_end(subscriptions);
++
++	return ret;
  }
  
--static inline int
-+/*
-+ * This version of mmu_notifier_invalidate_range_start() avoids blocking, but it
-+ * can return an error if a notifier can't proceed without blocking, in which
-+ * case you're not allowed to modify PTEs in the specified range.
-+ *
-+ * This is mainly intended for OOM handling.
-+ */
-+static inline int __must_check
- mmu_notifier_invalidate_range_start_nonblock(struct mmu_notifier_range *range)
- {
- 	int ret = 0;
+ static void
 -- 
 2.53.0
 
