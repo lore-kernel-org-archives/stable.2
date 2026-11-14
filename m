@@ -1,87 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665806;
-	b=Z8mMgBdwDW7eGl/0I5ZpEK0O9OPakv3BOr8wiu198BcDDO3OqUQbv02spZTZ/QLWRiIu
-	 xFh+XpuE3+aTDR7xGAe9XaAjPTw3xNs7BY+jPG6rI6tLlePK+ZyJSxiK5w0UUOUMw3niW
-	 5nK6nxmCy3jsD7YIBy7oFMJSN1u8LKyt78kbv9fV/I2tgl1P8Rhv4Bmy7LRPLMaVRyLlm
-	 yarKFdN0Kyj4FdVA8ykBzBAyoN7EoUQwD5ruWpVQyq3iT1Ns+Na+WlG8mlHFrGt7WOhdz
-	 7bvxVYByuQHGvhGja+qeLxk8barPe1SQ30I4V2woSFykvIK3VC63ddkEhGfBaX6r1hQ==
+	t=1794665944;
+	b=NzhZHI1hK78Ahy065Oerhtl4OBvUEH+NJmLq+LBJtuJobXtrYteNMKoQElS7noAg9vPU
+	 nXX9G+JeasiGrOGNCGfbLxuMuanG1Kbw5uTXdEJqlaCGOnW8X+k467loX7PGjDwn6wm5F
+	 T97g8mD3nWtc0e0jw4ohrTcW4Dvm/vOTn21daj++kffTthd9nK6q7IGXilYqV6FfwkjCW
+	 cZ8qFezb0snqmCF09y3rWm4fcsjPxIYi9OTusHR3AWTBp1BeGuOx+QfqLxZnzx2Hpf02y
+	 oFZ2Tndd4UhMDIJJVQjx2mjEUkC0QAeYqiiVtxxhgBf+nP5TqN1ktMCeMdt4OXrn7bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665806;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665944;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Rsh3PSgy5EeLZfkj2Ume/HSuLoP9g7O08oXc9D5ZzEE=;
-	b=w0D9MR9BrgoaRtVxmIYf63ItkZlfkFNFHoJu/cwIX1Vy4uCdZIRuEcRACADAevnNWNoP
-	 6S8zZQsAQlcjXfWENOxzreF4fscmADp3B4e6b0xGDlffJuN1xI/RkeAPXOQqYIptJKPDq
-	 4eX/TONYH5JGcY0JqnIm3GPTJeVzpq5eUYUlZD5tGUB85eGNlAxHohrJfLdM1OLQEiWG0
-	 l9RBclEjIw2qf9Kt1cZtT2h48NpAeIeIRg5sSP4Hj9URHVG4DxM3uedSGeg/++j/37WC2
-	 3gGZ2fqas2k79kOAqKCAWXQeUOPIU7NC4/NpzHPcpnPmb6S1kWxCIfIld/HfsNpsq4g==
+	bh=994O5G9ZxUQ8jqNBdTBnXMOuXg5Iwc5e9f/ldhdma60=;
+	b=x5diMVa7i+ZCtr/cJvj0+aKBqacR74R6lkZAIu6NXE4tSStbM49FTW5QLGR9APh9ELch
+	 kS2cC9v6HbXB6pVbdjc73JM9LhJH1F5C/odsZjdK28gcaarsaiktUF63cxz1e2BX8fo4/
+	 zURIRWLiO0WnHDDPWzrRxzOlCUbm+HOIYGedsOplMcMF4x+hMM43Vv68y1xvf1763OgZd
+	 AUwTP8dLNq2JEghKyMHHL0uc7eyb+k2DxGUU2WC4/Ha5pj+nozGvXVM4HejbEzu03S7RA
+	 qQ87sIjyRVv+Qx3jeYfMGWk77gxeus3wMyH6S+1GQwmkLuqqZ17I11I5AplXjC5Tmsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c5nFMdk;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="U/UIVKlY";
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826A0606A32D
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 14:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 826A0606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14688606A329
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 14:19:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14688606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c5nFMdk
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so1034061a91.0
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:16:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U/UIVKlY
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3719e3cb82bso228725eec.3
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:19:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794665806; x=1795270606; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rsh3PSgy5EeLZfkj2Ume/HSuLoP9g7O08oXc9D5ZzEE=;
-        b=0c5nFMdk+yWbf+C71VnSAz6BsODM7dxwkDZmx2JZm5IkItwZpYWzZfIvg6VsN8404b
-         HTmIIYJuqYP2sCa26kYtaDGmw6/fSO7ma0s4eNBzdDrUw3NI2mgBJn6HxyZACOODKRbJ
-         bBZJb8UzWt3pXG97XUG3hFsbegZjKtfiU5HgKEYcOGj1LdurgttVu+PCFtUoacel/GXa
-         zKWYHFe572C1e/q2OkehmmkkAFBLAmY6X/Qu0lQGzE+2FU6SrMxsAsjFV+jPxQNxVGMJ
-         kxtKQovgbBec4A8Y6J4uilYZFLQB1yzzBSyO3jfoToPvImCHJOga22LziUdcDaYNuwu1
-         5aCA==
+        d=gmail.com; s=20260707; t=1794665943; x=1795270743; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=994O5G9ZxUQ8jqNBdTBnXMOuXg5Iwc5e9f/ldhdma60=;
+        b=U/UIVKlYNtUJHaFeYSNk1Squ9DtUOMUNBXdocSmtTNj3Rh8h2BTlPE023tj183unzW
+         6rk73stKj5FvDnaZsppNJ9tBZS7Gx8wAgNd0R7kTSE4yXgLBYi/4V8IZP1vINPyc0Ixk
+         byUHLZUWhxbwe5kOoRV6Hh0Jon41ww9LO97285jbq0ZSNshA8tYyd7HNDyi1spBFf5x7
+         c5XrIarqjsLqUU8nU7V5Xz26PL1+5FrLzjRD55NgdkwW3IgFGkVc8DTedWn9Vx66GYr8
+         F96fSBLB9mekI/6Q7p6I3gzZCo/VgzyqGat0jF4onF4ELPVN2nuzwIn6YaNE9g+05VcD
+         GiKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794665806; x=1795270606;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794665943; x=1795270743;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Rsh3PSgy5EeLZfkj2Ume/HSuLoP9g7O08oXc9D5ZzEE=;
-        b=zf28Os1A7N6QadCGNQFREsyhx8N8lYbkpCU9anVIqFaKSA+DjQ/e9Y/7/TeT5cKbcp
-         UjfUTvysNYsCIh5uckVHOAObk5dzf2cKc/WBcSbwx/57Kz6zrcWVuHUrt8bHWiYIw5dI
-         8tAP6Imo3kT2G1gbaxH0TWGY4cqAg0KGRmkJHld8cu7rdvwka8cSYBNQAv6LmrIxL3Gp
-         iO9d1QevGOzk5mvjA/eBn/zNkQ86zfG3bgxeXVpJ/M/lUGph44bzLNYqbWMyxwePAGpH
-         MoB+LmrBVS55hKvA0y/17lCIFPYvKzZw4fhvRgf+GkPXiiBiVWy1igBzY1Zy1O03Ii5t
-         4QWA==
-X-Forwarded-Encrypted: i=1; AL+hErH0zB9zxyUMrKuui8D+zpcf379FLqC+/0gfr5vO75SKJvFKjVBsj5OMioYMz9xZ8dae8V2YKVs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CIjtE58tknK1W5wxA3zbrZp4FX3B8H+t5CjBVh/Ty0+YAr4VS
-	U3DKUmyQuucsXaKZ82tLD1YYNPGbsfkb72wRbR4HF2nIv6qAOyNSmWPQ
-X-Gm-Gg: AYBFou3nmeGLPCH3h/ttLFDHVC2ZK8A7YUbUYmADtg8aulhd8fU6G0GnAG4fVOjcQiG
-	Tfht5dE+peUVcFwYnT5jsi8svfVQGeVdcTTCL+VlTG2pibg+Je8x2AmpLTHtj8YvfdaHbtuTA95
-	2Tqii9J4fzCpskhdzTfgpqG1C6xYEkCLAWjPcp2DRYJLgzgm3POXDLvOIaQXBEizJJl0rhJTDy6
-	r2QHTwTcJBJKP4hYp6HSYZuDdJh3RHT3WFgfIfwUrq9V+3cq1lQ6V2g0bZr5+vdKVQtCWxEYQ3f
-	pDXfKzOrVoqps9pDayAtexjMSi3L3UIu7yq0f1I4jqeCkThGlRZFMBtSI7cMX6ZBw0hmir4v/fJ
-	6bZjpFJfgnZo1CYyouWDq5Ryjc8h66W8gGxt6nhjhVKlGsPJJUSp1E12psydBKiCwX2Pi0FZfMx
-	5saffdq1SJhnxI2UpG3KHOEZdxFgvYNegpV6vQXMR4ByqJ8G6a092zFNn3SWJ0d8/lpYRl8c2Pm
-	H5kgwqDWWx4LuMc9Ls4gBTlgPl7uHIZSjnL6qUdW4+vizLogWmhEci7A+kfWiOKxFJP/mphVjYe
-	S6cEpCA660524LqXbSVlZoDN5lPoKaqmmK+j2uzm872lwDTTlvfu0dxDN/VjCeWgIvg=
-X-Received: by 2002:a17:90b:440b:b0:3ac:adce:60a8 with SMTP id 98e67ed59e1d1-3b1b07ef8bbmr5367145a91.5.1794665805884;
-        Sat, 14 Nov 2026 06:16:45 -0800 (PST)
-Received: from [192.168.35.40] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b245f0c3sm4377768a91.0.2026.11.14.06.16.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 06:16:45 -0800 (PST)
-Message-ID: <94a65d65-e81f-4942-b119-51b71e8eabb4@gmail.com>
-Date: Sat, 14 Nov 2026 23:16:41 +0900
+        bh=994O5G9ZxUQ8jqNBdTBnXMOuXg5Iwc5e9f/ldhdma60=;
+        b=oLbr9750b8VP+JjQc/s9gKVGg1jdXHV0uuP74k+Hv2Jh2JKz9i9lGIx4M1GlFoW8pj
+         xz4ItDWfIdYIhzPzyxtyg28CeOPBROjnnGeXVnCOJWsaKGi0Jc9NHmCYx7gNp5DFM491
+         CxljdwwpsShnEk80MukXAzWGtWuya7nun4fWRvVssYWsTsLfFPZiEKZVd4jAfSLrYkpe
+         lFF/ufN7oDhh859aONNpsUTdtbFQd4CdtcruILhUNjUySgwE4TRiLUisXZejpajsQpLG
+         +hCsBExf3hyq6iVC76kLqnKk8d1vntUy40+UFwGWagR7OAJ/5AorJc12bYAW2AXXvaO6
+         s53g==
+X-Forwarded-Encrypted: i=1; AL+hErGDBv3F8rSlvFVxAg5xFeTqgVXYhjbirp6A06Bv9/kV1sK9+D/92NO+k0ECdS/02/tNtqm96KI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9bBHbKOcTn8VgqoduwjjI/eenwXn3ooSTckBwNT9MkBuVpXmXL
+	CMvD3aMP1SZa50fJk7RAm356/M5KTQbOT5eLTfkDWoWx+xoCIouNrcbw
+X-Gm-Gg: AYBFou3ParGG7mVO5zZclqtXTC9is5zXKxKcIaoZ/Koh5aUzTdDWmnNAP3IrJcJex6K
+	W8ZHBZQu0UTExcXym2+sKvElCrKtOjMYYVDDsZ4XPiqwmMukPPV+zeyquJBWFQN8lgq05WuVHq9
+	a9PWAlVMyNXdp2njuwa4MoxewhZboZUCIriCEJgkUJPjzUB1NZxH2IuhZwGkdtLecy3DcHrB7AH
+	UZ6yq2+XljD5daTYOJhGpp4F8xWMxtonC3DRg5cQmwHPYXMjzVUH//cUgqHSZhHRgvsY938suUN
+	AANZ1BDuiiR8h5kMbQFfFMdzwaEAl9/PqtO5Sl7ASURnOV2VyOkJOpPwCT5luwz9jqGt00d4Txd
+	Ff1Y5VvXCiWhNknv5SdEtNsF7k9gVUPYTvWxMwstcBNdyBfq6Leb7iaukNb8NdUMF/kB63SWf+j
+	CR4avjdWC20W3a+UguRpWq97/EvrdAqhWpMp41r0/upQV2U5UX7bZqo3jWVTQwIKY9rtGqLihge
+	wkWXjU6glsE1st5xwUA4IySkBIjnWOnZm/xMfkUCff90mj9e7iV+e9cmS5LYaG+Yg/eLMiENv52
+	qWFtO41n/I4W5uDMkyAD8X8VuqVzwQrME2ifF6PmlcG+2pJ6muUzO0mi54mKw2qahfVamIWEb05
+	tvJM=
+X-Received: by 2002:a05:7022:158e:b0:183:d275:cf76 with SMTP id a92af1059eb24-1b5030dcb27mr9272048c88.2.1794665942684;
+        Sat, 14 Nov 2026 06:19:02 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm14745032c88.13.2026.11.14.06.18.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 06:19:02 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+	Julius Bairaktaris <julius@bairaktaris.de>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 0/3] drm/msm: Fix VM_BIND job, queue and entity lifetimes
+Date: Sat, 14 Nov 2026 23:18:48 +0900
+Message-ID: <20261114141851.134290-1-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,112 +109,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM / devfreq: governor_userspace: Guard against NULL
- governor_data during switch
-Content-Language: ko
-To: Finley Xiao <finley.xiao@rock-chips.com>, heiko@sntech.de,
- linux-pm@vger.kernel.org
-Cc: cw00.choi@samsung.com, myungjoo.ham@samsung.com, kant@allwinnertech.com,
- kyungmin.park@samsung.com, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, tony.xie@rock-chips.com,
- huangtao@rock-chips.com, stable@vger.kernel.org
-References: <20261022022109.642339-1-finley.xiao@rock-chips.com>
-From: Choi Chanwoo <cwchoi00@gmail.com>
-In-Reply-To: <20261022022109.642339-1-finley.xiao@rock-chips.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+These fix what happens to VM_BIND jobs, queues and entities when the
+file or a VM_BIND queue is closed while jobs are still pending.
+
+Patch 1 makes a VM_BIND job that the scheduler kills before it runs
+apply its queued unmaps before it drops the references that keep the
+unmapped pages alive, release its BO pins, and mark the VM unusable,
+as the VM no longer matches its pgtables. Patch 2 destroys the VM_BIND
+entity when its queue is closed, instead of on the final put, which can
+come after the VM's scheduler has been torn down. Patch 3 puts the
+queue last when a job is freed, as the queue may hold the last
+reference to the VM.
+
+Changes in v3:
+- Patch 1: only apply the queued ops of a job that the scheduler frees
+  after killing it, once its dependencies and the previous job of its
+  entity are done. The error path of msm_ioctl_vm_bind() frees the job
+  right away, so v2 could apply its unmaps too early and out of order
+  (Sashiko). That path is left as it is in mainline, and the title now
+  says which jobs the patch is about.
+- Patch 3: rebased on patch 1, title adjusted.
+
+Changes in v2:
+- New patch 1, for an issue that Sashiko reported on v1 patch 1, which
+  that patch makes easier to hit.
+- Patch 2: changelog refers to patch 1.
+
+v2: https://lore.kernel.org/r/20261114081902.1669-1-arpe1618@gmail.com
+v1: https://lore.kernel.org/r/20261114062541.2001-1-arpe1618@gmail.com
+
+Jiwoo Kim (3):
+  drm/msm: Release the pins and ops of a killed VM_BIND job
+  drm/msm: Destroy the VM_BIND entity when its queue is closed
+  drm/msm: Put the VM_BIND queue last when freeing a VM_BIND job
+
+ drivers/gpu/drm/msm/msm_gem_vma.c     | 99 +++++++++++++++++++++++----
+ drivers/gpu/drm/msm/msm_gpu.h         |  6 ++
+ drivers/gpu/drm/msm/msm_submitqueue.c | 50 ++++++++++----
+ 3 files changed, 128 insertions(+), 27 deletions(-)
 
 
-
-On 10/22/2026 11:21 AM, Finley Xiao wrote:
-> The userspace governor is the only one that uses devfreq->governor_data,
-> allocated in its DEVFREQ_GOV_START handler (userspace_init()) and freed
-> in its DEVFREQ_GOV_STOP handler (userspace_exit()).
-> 
-> When switching governors via sysfs (governor_store in devfreq.c), the
-> sequence is:
-> 
-> STOP(old) -> df->governor = userspace -> START(userspace) -> userspace_init
-> 
-> Between the df->governor assignment and userspace_init() completing,
-> governor_data is still NULL (the previous governor never touched it,
-> and the core does not clear or pre-allocate it). During that window,
-> asynchronous paths that call update_devfreq() outside of the driver's
-> control -- the OPP notifier (devfreq.c:686) and the pm_qos notifier
-> (devfreq.c:707) -- run devfreq_update_target() under df->lock and reach
-> devfreq_userspace_func(), which dereferences governor_data without a
-> NULL check, causing:
-> 
->   Unable to handle kernel access to user memory outside uaccess routines
->   pc : devfreq_userspace_func+0xc/0x28
->   lr : devfreq_update_target+0x58/0x158
-> 
-> Add a NULL check in devfreq_userspace_func() and fall back to
-> previous_freq, which is the same behaviour as the existing "no user
-> frequency specified yet" branch. This closes the race for all callers
-> since every path ultimately goes through get_target_freq.
-> 
-> Additionally, take devfreq->lock around the kfree()/NULL assignment in
-> userspace_exit(). Without it, a concurrent OPP/pm_qos notifier running
-> under devfreq->lock could read governor_data after it is freed but
-> before it is set to NULL, constituting a use-after-free.
-> 
-> Fixes: 5fdded844892 ("PM/devfreq: governor: Add a private governor_data for governor")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
-> 
-> Link: https://lore.kernel.org/linux-pm/20260723080806.1451-1-finley.xiao@rock-chips.com/
-> ---
-> Changes in v2:
-> - Add Fixes: tag and Cc: stable@vger.kernel.org
-> 
->  drivers/devfreq/governor_userspace.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
-> index 3906ebedbae8..f7a485c43fd7 100644
-> --- a/drivers/devfreq/governor_userspace.c
-> +++ b/drivers/devfreq/governor_userspace.c
-> @@ -24,7 +24,7 @@ static int devfreq_userspace_func(struct devfreq *df, unsigned long *freq)
->  {
->  	struct userspace_data *data = df->governor_data;
->  
-> -	if (data->valid)
-> +	if (data && data->valid)
->  		*freq = data->user_frequency;
->  	else
->  		*freq = df->previous_freq; /* No user freq specified yet */
-> @@ -110,8 +110,10 @@ static void userspace_exit(struct devfreq *devfreq)
->  	if (devfreq->dev.kobj.sd)
->  		sysfs_remove_group(&devfreq->dev.kobj, &dev_attr_group);
->  
-> +	mutex_lock(&devfreq->lock);
->  	kfree(devfreq->governor_data);
->  	devfreq->governor_data = NULL;
-> +	mutex_unlock(&devfreq->lock);
->  }
->  
->  static int devfreq_userspace_handler(struct devfreq *devfreq,
-
-Hi,
-
-Looks good to me.
-
-I think that it is needed to lock  on usrespace_init.
-
-diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
-index f7a485c43fd7..cfbd72892598 100644
---- a/drivers/devfreq/governor_userspace.c
-+++ b/drivers/devfreq/governor_userspace.c
-@@ -94,7 +94,9 @@ static int userspace_init(struct devfreq *devfreq)
- 		goto out;
- 	}
- 	data->valid = false;
-+	mutex_lock(&devfreq->lock);
- 	devfreq->governor_data = data;
-+	mutex_unlock(&devfreq->lock);
- 
- 	err = sysfs_create_group(&devfreq->dev.kobj, &dev_attr_group);
- out:
+base-commit: 1e59855738454b14021b64115f0090eafc7526ae
+-- 
+2.43.0
 
