@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794639028;
-	b=CNFj0opW3wfycGgi38E/5Y74s0vP7bdGdGb4/YuaHViLH+4hAI7scZM2XFbkWGfS9fdX
-	 8K3bd/evhmGiBtnd3cF0lyGFAByZLg/phwMDcniZnL3BihkkjLDdj8XBOodKWYBXimVxb
-	 i0NcPCMNtXiyKJrfOS/S/v56WJs4R5YHDRQtYW/qVlNzd2ZHwGKxwQhyGwua7WTKTr3FR
-	 ukgN8ZNPEBaNmjBnhEfisjjcgnTmfr9zn3jVIRUutIYTbEIVsb/H4Fc7Uo5R/EVSOfstx
-	 qnnRzLTrnUH9eMzdXZnOJ20bACuWX9/wN0G8/+ekRoRsuHCeD+6mDmTA7/wLzrZs2pw==
+	t=1794639275;
+	b=jDW4zNLbRLRL8TjM9qZQ6ixbTJwKFfdP36kd14iJnPuFM+UtlQTDjRjeDdyuxeXi106a
+	 3bXG1IQCjcw2CjNh1xtV/gDfSlz2z1Fvs8YA6K7l14noXbi+v7ovYgTwIBq3hnvF3++u7
+	 aPusVHewk7Wcj/4FOa4AQrdhHgdsy+LVAhPBA2wSq9JVqjnyCN7tFmXEVea1lAumThB57
+	 gow8Tn+ek0eleemKl4kAijR57sBQFTzdvTgspopgFJ1WjV3fvCbeUgRIz0LZU6UZy5fUO
+	 Dcq3hBHkzi5p1SAQetOcGQSSs0AyJuJLilfDs9ng31mbis33g3FYI3cKC8rqm8xQWog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794639028;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794639275;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9YEl5BPuj1BJ1vy/FM3kTlD5HQ8FT9SYFa9+/D0ZCHo=;
-	b=BXy0HIRj2XKJFZn989bSt8YUdxrWmuCuD363A/ROuaQbZ6csWk9V1gao1sh/7hoxMKNG
-	 l6x0mga82pffgBTsjBVR81XkC/ptjbAN3gVbXCWh8MJhpDlSdZPDB2umRb7x2CYDi6Dz3
-	 E6Al3sdlcTw2Hf3nEvA0XXZjOV4SuwBJD6J+u80rJ9h516Gx0KHYli9owy9VP2Hv840lx
-	 PYHeg8vkhU5/IfaH/dujON2qHvdd0hOhcZ+CxOe9UyozwVk3wP4/sFaix3pjyEDuhadNt
-	 PtQEYhj3ds4MmEY/ElDpECVgGtfpRp5+oucXd1d6QEK3NFViKYlKGoGH+ia2eCuR1Eg==
+	bh=ycHCcdUHWrn+GaE0uYs82yaSGynjsNWlDW3ZbB+W3jE=;
+	b=cSMEKTALY0PwIi/MQvTqP77VFiYiJcIacfdN7pd970uuQKkR7l/dAfe4ePkBpkklx3+z
+	 m0AsJmGSMPpM16busMVFMCVS5xJHEHszYt9YoyE5nrm8fNsuq0AqtmloxGgtXsNkO3+3N
+	 ukHu9+etgYrQzPdVngq4S0WaLwId9y95Hgex3iiw5Wa2g4ZtwL/wSFLN1nZzoK77z7Z4k
+	 x9cWgSfVizS9FOjpKiXyyM8yP1qmAgWvwXEpYH5ssrrXwf4HRdwllQXB6JrQlfgjI1p7H
+	 I2xd6nNUMgT53wrPxtM7UMdnSulrvntEi2wjMA0oGb/SYgN+R+cOPLxvKh2oR7Ehv4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lW/ZdIQk";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mvsBZaul;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF240606A330
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:50:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52BAC606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:54:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lW/ZdIQk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080341F000C5;
-	Sat, 14 Nov 2026 06:50:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mvsBZaul
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F5A1F000C4;
+	Sat, 14 Nov 2026 06:54:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794639028;
-	bh=9YEl5BPuj1BJ1vy/FM3kTlD5HQ8FT9SYFa9+/D0ZCHo=;
+	s=k20260515; t=1794639275;
+	bh=ycHCcdUHWrn+GaE0uYs82yaSGynjsNWlDW3ZbB+W3jE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lW/ZdIQk9dICsk9GI8NdSWOV447/pEfil5CcT6VpjFz3bRiXK0RLeIhrbLlCWiFIQ
-	 7rlwnWoNFiQ2x2o1eUNbLMSkgKWhyDt44r6Tg7aYI5GKTIb4sPrTHaTmg2AC2S54H9
-	 roOtIAC3hY1kbAccJ/rfP4eDiW8EiOGTP7D6QykmSczW2qExDgIr2C48YK8zPVqNQr
-	 GdYdeqwRINVpoVMG7Kc30CbXCIQxSnIK092mPhFeZyV7V4kYwWpOwff/lBuLGoVjVr
-	 BZM5a7XiivsmqCcoqc5lpwHytAQ5dM1FY3gh3ve4MZbmbTQe+34uzmXSVXOs//HoBI
-	 Hl9uwaETudoWQ==
+	b=mvsBZaul0hMxXOOysmbepQD7Jtb4PutF1LxadSaivExZLqnLVckjDnT+bX+I/90Pk
+	 5xdrjQ8Dk4ANFdnUUXD+j9vbzcp5RMYf+eX8NXS4wUAAYDHO9pVDpMVd2ZuO7C3uHv
+	 61x3CT3yVt14KjL3hh+V3q1ut4OjTLV0w/+2Np4RQ1A4qW7rgZxF0y3DCfjM84Bjkz
+	 1lhttjUMYNYs9X696hw0k19t3thPNX5ge7sQtj6lkpbSN+2SSAwPrI2WEIW2qak/hK
+	 VDPQjj/tU9PiW10EBUZltrX4aGN+n2FI5AvtAUku7kIIFkUWPfoBEQ8A/YZtBR/cP5
+	 ciRzde5j0uQBw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Stefan Teodorescu <fane@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Anderson Ferneda <anderson.ferneda@braza.com.br>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] KVM: x86: Conditionally resched when restarting REP string emulation
-Date: Sat, 14 Nov 2026 01:50:25 -0500
-Message-ID: <20261114065019.3231096-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] ocfs2: use the stored hash when checking xattr bucket collision
+Date: Sat, 14 Nov 2026 01:54:31 -0500
+Message-ID: <20261114065240.3232541-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114065019.3231096-1-sashal@kernel.org>
-References: <20261109202643-failed-5.10-ae85ac25eb67@kernel.org>
- <20261114065019.3231096-1-sashal@kernel.org>
+In-Reply-To: <20261109202227-failed-5.15-e8de099f2958@kernel.org>
+References: <20261109202227-failed-5.15-e8de099f2958@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,56 +65,124 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-[ Upstream commit ae85ac25eb671d174811cc3101549448671fd505 ]
+[ Upstream commit e39baff18b85cf8956aee138d7944b6581e8ba36 ]
 
-When restarting emulation, e.g. of a REP-prefixed string instruction,
-conditionally reschedule as emulating guest writes can be deceptively slow
-and expensive, e.g. when shadow paging is in use and each write can trigger
-write tracking.
+ocfs2_check_xattr_bucket_collision() decides whether splitting a full
+bucket can make room for the entry being set by recomputing the hash of
+the name:
 
-In a perfect world, restarting emulation (or not) would be less arbitrary,
-e.g. would honor not only host events (NEED_RESCHED, signals, etc.) but
-also guest events (e.g. by checking kvm_vcpu_has_events()).  Unfortunately,
-as pointed out by Sashiko, pio_in_emulated()'s read-ahead logic is baked
-into the restart logic, as KVM relies on restarting emulation to drain the
-cache and avoid duplicate reads from the I/O port.  I.e. re-entering the
-guest on kvm_vcpu_has_events() or __xfer_to_guest_mode_work_pending() would
-introduce architecturally-incorrect, guest-visible changes.
+	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
 
-Fixes: 5cd21917da24 ("KVM: x86 emulator: restart string instruction without going back to a guest.")
-Cc: stable@vger.kernel.org
-Cc: David Woodhouse <dwmw2@infradead.org>
-Reported-by: Stefan Teodorescu <fane@google.com>
-Suggested-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20261028173638.1765329-1-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
+		return 0;
+
+For a new entry that is the hash it will be stored under, so comparing it
+is correct.  An existing entry keeps the hash it already has: an update
+never rewrites xe_name_hash, since ocfs2_xa_add_entry() is the only
+writer of that field for a real entry and ocfs2_xa_prepare_entry() calls
+it only when loc->xl_entry is NULL.
+
+An entry stored by a kernel that sign-extended the name bytes when
+hashing can still be updated, because ocfs2_xattr_find_entry() searches
+a non-indexed xattr block by memcmp on the name and never looks at
+xe_name_hash.  Growing it past the space left in the block converts the
+block into a tree, ocfs2_cp_xattr_block_to_bucket() fills the bucket in
+stored hash order, and the update runs out of room in the bucket too.
+The collision check then compares the unsigned hash against the legacy
+hashes in the bucket and reports no collision.
+
+ocfs2_xattr_set_entry_index_block() goes on to allocate a bucket that
+ocfs2_divide_xattr_bucket() cannot fill: a bucket whose entries all share
+one hash has no divide position, so all it does is append an empty bucket
+with a sentinel hash one above the last entry's.
+
+The re-search that follows depends on where the unsigned hash sorts.
+Below the legacy ones, it comes back to the full bucket and the set fails
+with -ENOSPC, having grown the tree for nothing.  Above them, it lands on
+the new empty bucket, which ocfs2_xattr_bucket_find() handles explicitly
+and ocfs2_find_xe_in_bucket() scans zero times, so the set stores a second
+copy of the entry under the unsigned hash and returns success.  The
+original stays in the full bucket, listxattr reports the name twice and
+getxattr returns the new copy.
+
+Pass the hash the entry is stored under instead: the stored one for an
+existing entry, the unsigned one for a new entry.  A tree whose entries
+are all stored under the unsigned hash sees no change, since there the
+two are the same value.
+
+Link: https://lore.kernel.org/20261009083002.2621201-3-joseph.qi@linux.alibaba.com
+Fixes: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Cc: Anderson Ferneda <anderson.ferneda@braza.com.br>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: <stable@vger.kernel.org> # 6.2+
+Stable-dep-of: e8de099f2958 ("ocfs2: do not read the entry array of an empty xattr bucket")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/x86.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ fs/ocfs2/xattr.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index d7236e8467316..58660d5de1413 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -7720,10 +7720,12 @@ int x86_emulate_instruction(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
- 	} else if (vcpu->arch.complete_userspace_io) {
- 		writeback = false;
- 		r = 0;
--	} else if (r == EMULATION_RESTART)
-+	} else if (r == EMULATION_RESTART) {
-+		cond_resched();
- 		goto restart;
--	else
-+	} else {
- 		r = 1;
-+	}
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index 8d15b0e824cdf..fca9ed94ca17a 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -5601,16 +5601,14 @@ static int ocfs2_rm_xattr_cluster(struct inode *inode,
  
- 	if (writeback) {
- 		unsigned long rflags = kvm_x86_ops.get_rflags(vcpu);
+ /*
+  * check whether the xattr bucket is filled up with the same hash value.
+- * If we want to insert the xattr with the same hash, return -ENOSPC.
+- * If we want to insert a xattr with different hash value, go ahead
+- * and ocfs2_divide_xattr_bucket will handle this.
++ * If the entry being set carries that same hash, return -ENOSPC, since
++ * ocfs2_divide_xattr_bucket() has no divide position to work with.
++ * Otherwise go ahead and ocfs2_divide_xattr_bucket() will handle this.
+  */
+-static int ocfs2_check_xattr_bucket_collision(struct inode *inode,
+-					      struct ocfs2_xattr_bucket *bucket,
+-					      const char *name)
++static int ocfs2_check_xattr_bucket_collision(struct ocfs2_xattr_bucket *bucket,
++					      u32 name_hash)
+ {
+ 	struct ocfs2_xattr_header *xh = bucket_xh(bucket);
+-	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
+ 
+ 	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
+ 		return 0;
+@@ -5707,6 +5705,7 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
+ 					     struct ocfs2_xattr_search *xs,
+ 					     struct ocfs2_xattr_set_ctxt *ctxt)
+ {
++	u32 name_hash;
+ 	int ret;
+ 
+ 	trace_ocfs2_xattr_set_entry_index_block(xi->xi_name);
+@@ -5726,10 +5725,18 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
+ 	 * the maximum number of collisions we will allow for then is
+ 	 * one bucket's worth, so check it here whether we need to
+ 	 * add a new bucket for the insert.
++	 *
++	 * An existing entry keeps the hash it was stored under, and that is
++	 * the hash a split has to work with.  A new entry is stored under the
++	 * unsigned one, which is what ocfs2_xa_add_entry() will write.
+ 	 */
+-	ret = ocfs2_check_xattr_bucket_collision(inode,
+-						 xs->bucket,
+-						 xi->xi_name);
++	if (xs->not_found)
++		name_hash = ocfs2_xattr_name_hash(inode, xi->xi_name,
++						  xi->xi_name_len);
++	else
++		name_hash = le32_to_cpu(xs->here->xe_name_hash);
++
++	ret = ocfs2_check_xattr_bucket_collision(xs->bucket, name_hash);
+ 	if (ret) {
+ 		mlog_errno(ret);
+ 		goto out;
 -- 
 2.53.0
 
