@@ -1,66 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794683874;
-	b=N+Zpq9GJiT8MqGNR0Xg97hbKg9cVayCx4bKkL9Fr4Sg9aO9n2XkZybfH4nkrN7kHDrZD
-	 q2ig94X3+wTmnUnGZHkqs5855uHGC1Hk5F5fwwJQMAUs5hYqTuhnz/OP6hV1Tqt+ftH4E
-	 gjlW9PEHNOj/67cS5mmToDcaXIMiPf8Wr5vgd9+FcSmtvQh0Odv38tfmklvbWQl69k257
-	 SYmvwzzx2yXvMPQyooFSZtpjNrxFBS0OTetbnsqEcopBj9XZTdan8ATeH7fcgE429PuAw
-	 CkQHxtiB7yx0O68yD2HNDEPovOUEZn280kBW7+CzNP4XftSCJaawlB9xFxqvdTLQbzQ==
+	t=1794685030;
+	b=b/X2YppUXnzr0MLBtL9DtZJgBQ1Qijx3IOMy5eDD1yqvF94divgo55K4h0uL70k5CZCW
+	 lvQmM0c4qCi5ZwrKDxikHK0/2h5B8/8imOJZSB6b7+Yh39T3wijo9IVRC/Szz7KHQBXvT
+	 sEI0sw0YpYw+ZSoCDoFblbAMQFx0PxyqAepgFimqMc8mgKqtMITTm/J6D1RNH0O0pZixX
+	 jrpTxXCEi/9WGGF2PcMi8g6Ow4U8uDWYFP9gXWOlmkGWPIDeZFmlFlWLsy8w8SLmJxrhF
+	 g4tqzsBV57Lun+hjJ1A7TNEK9pRErplddjmjl+VkSpsIwyLfKVwz11NeX3uLLhYvJHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794683874;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=en8oIneNJAmjOzu+xMV6SYXy5/gd3CUstwgbCCSBQCs=;
-	b=fRrhFFaWJpJjYVacywIhBSw0xs02GPN0OMCR/Rzrfr4SaEav/E6kaPSfXckmeCMP98xO
-	 6q0JXon0/4QYt4B1YWecBbzRlGgJ+LlwnAbZ+TjKrmm2mrGRdFRl6Eelig80TKasfsFqR
-	 OG5Q3xs2KhFLdmEs+nXRgqdeZWkMyXtCezMOl5kU0MkI59Q2haQe1AHILT2h+ekEvStJt
-	 ZDj7u5bQ/qqMmEBDEUAc1RISOtoKz8CFA4tJUXZ+sQqOXgkTuSF3TzrxfDpi0z/QAoN7n
-	 sDnPeqgVjAiDC7CLIsQsbev3StuQO4nKIS+739EYUD67fnokwmWrx9viYl+ocDeJNYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794685030;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=I0LV/JQpN8yDGYTTWcI8HQY8CmcG+PtzomAV8QbPhzo=;
+	b=A0kIDkP3vT4/lYDtQIzkHu1WsJezNzLMUYWjglMeltPWv/WDthMsj2UqvA7C79pM6IaU
+	 wDyxEcN2jOYXlpFDiTWWeI5LYwddf6fcNYMFYgNBIDtOnAjbAJkQzXnb25XoQBIg3iMfr
+	 Wkt3po6z5Rv4j7yxpJ/Z81DR5Deq+e+UHPw8jcLZQejU5opkgjBAKHaBFae5t6R1NadOs
+	 i2UaqN/+iQm22C7zXny0EUQ3wZPx8moeVffwlQRJ9zPuvyYIPOwuqdZvnTomzrpxdMMc4
+	 0Y2QHRP6dSFr+Q1uE+vAA+BlArpZhNfdFweGHmpiUHo6QFDWIKzyUkx1rJ1xxuYmDJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=G5c171lD;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8M7ZqcX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59BC606A329;
-	Sat, 14 Nov 2026 19:17:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C59BC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3FD60606A88A;
+	Sat, 14 Nov 2026 19:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=G5c171lD
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jRkRH11bDzlfclg;
-	Sat, 14 Nov 2026 19:17:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794683860; x=1797275861; bh=en8oIneNJAmjOzu+xMV6SYXy
-	5/gd3CUstwgbCCSBQCs=; b=G5c171lD1cJQCBvC4Tauk8/KXImHWnIzwSgADQCS
-	kSRECFe805Q9sWHLREEOTzx/RlsUVN/AIQNOsi2tAYwoMu4CwLOF+1PIEDtXhLvc
-	91eCTpcmXBqrdHqQ5sQ1M4Cw6jRmXk/8EgRYjHmjPlM2rqivp/DJYxcr0LSvNknd
-	D7Cv9oE6Yjfe15TzsODmpBGXruXwYcXv7TQziCnuXVBoGyvAgJaDHkU3/G3BmZTX
-	cKd19497FsToUe9rQcsO2n+MWY+pji9pBa+BoeUZ9EHlnUn3bzs1ghXwSTs3nGPX
-	ywFs9SNn+VwJMbIYRBtR70fmC3VZAYykN+9bNaqxWJXU8g==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 0QpjjgwETs-d; Sat, 14 Nov 2026 19:17:40 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jRkR81tj8zlkvQ5;
-	Sat, 14 Nov 2026 19:17:40 +0000 (UTC)
-Message-ID: <426d5936-54aa-4b4a-b70f-73f506c5a902@acm.org>
-Date: Sat, 14 Nov 2026 11:17:38 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8M7ZqcX
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 35DA71F000C9;
+	Sat, 14 Nov 2026 19:37:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794685029;
+	bh=I0LV/JQpN8yDGYTTWcI8HQY8CmcG+PtzomAV8QbPhzo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=I8M7ZqcXPaYP+mdRZNhZxMYywPZJiUvQb+iwmSYQzDymdOdCzutZNYY6iv7UAsLlU
+	 nkWOay5VHOv8GIiILtN1Gn0rByfzGhcthv+PFQXY8SQj15bp29vuvoOoMvIobKQBxY
+	 Ovilwdvw1CMKMxql3+68f5fJCK2OfhNsIU2rB4Mh93Rlx76jJubbwBfwGtiwQxQz8w
+	 1DkLel2vyVYIEaA2nrs9QONzWYUMuh/MGUx8sUp19ovIn3J2hJq1yGbheMoVPNDwHB
+	 qXFXivGOpOlF0sFNj39/AhCvUVIIT4cyVza+onJQwUx7IEg2/YARGsZqnXRKf8Cn/6
+	 UlG5OP0dsHgmw==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	bpf@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	fsverity@lists.linux.dev,
+	keyrings@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Alex Shi <alexs@kernel.org>,
+	Anastasia Eskova <anastasia.eskova@ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Ignat Korchagin <ignat@linux.win>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	James Morris <jmorris@namei.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Peter Oberparleiter <oberpar@linux.ibm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Song Liu <song@kernel.org>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH v13 1/7] s390/cert_store: Pin the user session keyring
+Date: Sat, 14 Nov 2026 21:36:25 +0200
+Message-ID: <20261114193631.731615-2-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261114193631.731615-1-jarkko@kernel.org>
+References: <20261114193631.731615-1-jarkko@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,98 +105,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nbd: do not reinitialize a live socket lock when
- reclassifying
-To: Aibing Chen <chenaibing@cmss.chinamobile.com>, josef@toxicpanda.com,
- axboe@kernel.dk
-Cc: edumazet@kernel.org, kuniyu@google.com, pabeni@redhat.com,
- willemb@google.com, davem@davemloft.net, kuba@kernel.org, horms@kernel.org,
- linux-block@vger.kernel.org, nbd@other.debian.org,
- linux-kernel@vger.kernel.org,
- syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20261114150547.842-1-chenaibing@cmss.chinamobile.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261114150547.842-1-chenaibing@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/14/26 07:05, Aibing Chen wrote:
- > +#define sock_lock_reclassify_and_name(sk, sname, skey, name, key)	\
- > +do {									\
- > +	sk_owner_set(sk, THIS_MODULE);					\
- > +	lockdep_set_class_and_name(&(sk)->sk_lock.slock,		\
- > +				   (skey), (sname));			\
- > +	lockdep_init_map(&(sk)->sk_lock.dep_map, (name), (key), 0);	\
- > +} while (0)
+The user session keyring stays alive only because the session keyring is
+pinned by current_cred().
 
-Unlike the other callers of sock_lock_init_class_and_name(), which run
-on freshly created in-kernel sockets before the socket is bound,
-connected, or exposed to userspace, NBD operates on an already-connected
-socket whose file descriptor is still held by userspace. Removing
-spin_lock_init() is not sufficient to make reclassifying a live socket
-safe:
+Pin the reference at:
 
-1. Unsynchronized lockdep_init_map_type() on a live lock is racy.
-    sock_allow_reclassification() is an unsynchronized check and
-    nbd_reclassify_socket() holds no lock on sk and does not disable
-    BH/IRQs. Both lockdep_set_class_and_name() and lockdep_init_map()
-    call lockdep_init_map_type(), which clears lock->class_cache[],
-    writes lock->name, and then writes lock->key without synchronization.
+1. find_cs_keyring()
+2. cleanup_cs_keys()
+3. create_cs_keyring()
 
-    If another CPU (via a syscall on the shared socket fd or a concurrent
-    NBD_SET_SOCK on another /dev/nbdX device) or a softirq/timer
-    (bh_lock_sock_nested()) concurrently acquires sk->sk_lock or
-    sk->sk_lock.slock, look_up_lock_class() can observe a torn
-    (lock->name, lock->key) pair and trigger:
+Cc: David Howells <dhowells@redhat.com>
+Cc: stable@vger.kernel.org # v6.1+
+Fixes: 8cf57d7217c3 ("s390: add support for user-defined certificates")
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ arch/s390/kernel/cert_store.c | 27 +++++++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
-      WARN_ONCE(class->name != lock->name &&
-                lock->key != &__lockdep_no_validate__,
-                "Looking for class \"%s\" with key %ps, but found a 
-different class \"%s\" with the same key\n", ...)
+diff --git a/arch/s390/kernel/cert_store.c b/arch/s390/kernel/cert_store.c
+index 998f2da56175..bb218b42a2c9 100644
+--- a/arch/s390/kernel/cert_store.c
++++ b/arch/s390/kernel/cert_store.c
+@@ -307,7 +307,6 @@ static struct key *get_user_session_keyring(void)
+ 			   PTR_ERR(us_keyring_ref));
+ 		return ERR_PTR(-ENOKEY);
+ 	}
+-	key_ref_put(us_keyring_ref);
+ 	return key_ref_to_ptr(us_keyring_ref);
+ }
+ 
+@@ -352,11 +351,17 @@ static int invalidate_keyring_keys(struct key *keyring)
+ static struct key *find_cs_keyring(void)
+ {
+ 	key_ref_t cs_keyring_ref;
++	struct key *us_keyring;
+ 	struct key *cs_keyring;
+ 
+-	cs_keyring_ref = keyring_search(make_key_ref(get_user_session_keyring(), true),
++	us_keyring = get_user_session_keyring();
++	if (IS_ERR(us_keyring))
++		return NULL;
++
++	cs_keyring_ref = keyring_search(make_key_ref(us_keyring, true),
+ 					&key_type_keyring, CERT_STORE_KEYRING_NAME,
+ 					false);
++	key_put(us_keyring);
+ 	if (!IS_ERR(cs_keyring_ref)) {
+ 		cs_keyring = key_ref_to_ptr(cs_keyring_ref);
+ 		key_ref_put(cs_keyring_ref);
+@@ -373,6 +378,7 @@ static struct key *find_cs_keyring(void)
+ 
+ static void cleanup_cs_keys(void)
+ {
++	struct key *us_keyring;
+ 	struct key *cs_keyring;
+ 
+ 	cs_keyring = find_cs_keyring();
+@@ -390,20 +396,33 @@ static void cleanup_cs_keys(void)
+ 	keyring_clear(cs_keyring);
+ 	key_invalidate(cs_keyring);
+ 	key_put(cs_keyring);
+-	key_unlink(get_user_session_keyring(), cs_keyring);
++
++	us_keyring = get_user_session_keyring();
++	if (IS_ERR(us_keyring))
++		return;
++
++	key_unlink(us_keyring, cs_keyring);
++	key_put(us_keyring);
+ }
+ 
+ static struct key *create_cs_keyring(void)
+ {
+ 	static struct key *cs_keyring;
++	struct key *us_keyring;
+ 
+ 	/* Cleanup previous cs_keyring and all associated keys if any. */
+ 	cleanup_cs_keys();
++
++	us_keyring = get_user_session_keyring();
++	if (IS_ERR(us_keyring))
++		return NULL;
++
+ 	cs_keyring = keyring_alloc(CERT_STORE_KEYRING_NAME, GLOBAL_ROOT_UID,
+ 				   GLOBAL_ROOT_GID, current_cred(),
+ 				   (KEY_POS_ALL & ~KEY_POS_SETATTR) | KEY_USR_VIEW | KEY_USR_READ,
+ 				   KEY_ALLOC_NOT_IN_QUOTA | KEY_ALLOC_SET_KEEP,
+-				   NULL, get_user_session_keyring());
++				   NULL, us_keyring);
++	key_put(us_keyring);
+ 	if (IS_ERR(cs_keyring)) {
+ 		pr_dbf_msg("Can't allocate cert_store keyring");
+ 		return NULL;
+-- 
+2.47.3
 
-    or permanently register the global af_family_* key with the NBD class
-    name.
-
-    Additionally, lock_sock_nested() calls
-    mutex_acquire(&sk->sk_lock.dep_map, ...) before acquiring
-    sk->sk_lock.slock or setting sk->sk_lock.owned = 1, and keeps
-    dep_map acquired in lockdep while sleeping in __lock_sock().
-    Reinitializing dep_map while another task holds it in lockdep also
-    breaks match_held_lock() when hlock->references is non-zero.
-
-2. sk_owner_set(sk, THIS_MODULE) leaks module references on repeated
-    calls. When CONFIG_PROVE_LOCKING && CONFIG_MODULES is enabled,
-    sk_owner_set() unconditionally calls __module_get(owner) and
-    overwrites sk->sk_owner, while sk_prot_free() only calls
-    sk_owner_put(sk) once when the socket is freed. Because userspace
-    retains the socket fd, passing the same fd to NBD_SET_SOCK multiple
-    times (e.g. in an NBD_SET_SOCK / NBD_CLEAR_SOCK loop as in the syzbot
-    reproducer, or across multiple NBD devices) leaks a module reference
-    on THIS_MODULE on every call after the first.
-
-3. Because userspace retains the socket fd, reclassifying the socket to
-    sk_lock-AF_INET-NBD does not prevent userspace from calling
-    sendmsg()/sendto() on that fd and faulting in user pages
-    (&mm->mmap_lock) while holding sk_lock-AF_INET-NBD. That recreates
-    the exact sk_lock-AF_INET-NBD -> &mm->mmap_lock -> fs_reclaim ->
-    sk_lock-AF_INET-NBD circular dependency that commit d532cddb6c60
-    ("nbd: Reclassify sockets to avoid lockdep circular dependency")
-    attempted to avoid, as already reported by syzbot:
-  
-https://lore.kernel.org/lkml/6aec646f.aca85a03.3b899.0000.GAE@google.com/
-
-A possible solution is as follows:
-* Revert both commit d532cddb6c60 ("nbd: Reclassify sockets to avoid
-   lockdep circular dependency") and 9280e6edf656 ("nbd: don't warn when
-   reclassifying a busy socket lock") because live sockets can be
-   reclassified safely.
-* Defer socket TX and shutdown from nbd_queue_rq() to a workqueue.
-   Make nbd_queue_rq() enqueue the request onto a TX queue and schedule a
-   work item on an unbound workqueue allocated without WQ_MEM_RECLAIM,
-   similar to lo->workqueue in loop.c or nvme_tcp_wq in tcp.c.
-
-Thanks,
-
-Bart.
