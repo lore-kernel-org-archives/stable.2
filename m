@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794635048;
-	b=pmUzycrI6hiVxeVt1NfstJ5cRXvcSdWOLlwyg6XgfcMmBG3i9IdnPffg3ebmlOiHyflD
-	 oRpfJ3siYzyHTc21zUeYc6p34L6rNdjHgsy+H5CruCw7lk9Ot9ZDp55/KB6g1Y8vUFdbN
-	 8GlPSu+HIzdJCycqqsYZNrQjpIlkF6vIPxJK91d+qpdkm58T9OHo7AZo20Y3DmdwBtccL
-	 mMbWvDmp3rjUXtXQxE7Yow+vDi/K+d8wql6rE6kSHz0SsTEuLu8VojxjsIjU1mB6VAZb1
-	 swlM7Ni/gCNWajjC955MfZ4okq9QSubEy0FPcfnKWZlp5f/fJe1WXv4pIUOmxYIZwGw==
+	t=1794635120;
+	b=O8dErP4dgkRZRNDRWZeGuDnOVqaLnW5neaonPHo+lp1Hq9Xtb1nlG/AciiCi8RCLQagB
+	 yLRI/Ol+fm1tJkVV81LBefH7d2WdYLYZdFNVT2NGyfDhaQuDV+NRt+BkK7R0PdFmR/Ml3
+	 jL8kr4r2jmVNIspeLJQV0+/CJzH1cNNyJas6YHsBLowksaSDPVhI+ZmO7T+onmWkB7QIP
+	 z6JSqDAqlgs1eNq89pAQ4izInh0vC3cTqY2Q5wUlznPy/R2Mq65Ho4VuO60184cDnVgWp
+	 Y8ysHIkNHLnLDuBRkrUIc1z7u9G8lqu9zJLpgJ5ZriPMg8zad3GbleNxyVdUHJK82bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794635048;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794635120;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ZveeTRcBdhnoEXQBCn5Kuya4uFnBRKxSZ+SylUMxXmc=;
-	b=ki9Gxx1rXvlYPdMrym2s/svzHtJtqMYfz762nbYyfP6h33t5Glb6a+HCv2rdsEkCs93V
-	 YyysMKIituwbB3scq7JqUY6GC8NZ+SjLee2eKVjqb6h2tDZGurt+uYYL9/dvqQ90sEznc
-	 xHs4uf78iXKBqPUJXMvG018vndV28JAW6H74ZVUTxj5O7rsh7pKkEp7xHmJv4ivnKhcga
-	 YPTgoMGALUFiDvJKYQurFUe6Y48bVkTXBSZZapQuhsNArC8oBvPFO16xV17ZhsmE6NX38
-	 XyxIfy+DTx8liny2XF3zknIHe27BZ7OHxcxsvZd8j3+vnUWywsiqDXNzAZP8KJ1onYQ==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=lA+eN+CFT+rVNKSmAQYOghySrSYytfUb5z7K1Gp4krs=;
+	b=mJnq1o391qLWJzfk6vumQgxUpbXhLkIiZSde8siC+aVKr+M520CrvLdr9z5VOnXE5ain
+	 VGFU2iltPmMCH6TZKabK5PSyXzqeONGYGdi/mIpaf7YyfXx4C966F2o7NSGxsw7k/bqyD
+	 iHqYpLHPuOO4JxHrC93fUZZjvGWQGxaDZcClarzjOxWKEo3sUDi7IHK8C08NHK7vHzzAz
+	 pnvywTsXuD7k1wfCxTrjhwemNZzfTJ0Ms1m9jREpn73GvqVKPX3bJq9GAeWeCITX2HnMJ
+	 4W/0qb9hrEcqy4WgsPySFJpn9NVte3Nf4NNI5xOgPKMTmrpi1jsU3N8rK7kPuh3unQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZ3CJ3mB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiEAr2Er;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EAF606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:44:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E879606A32D
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:45:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZ3CJ3mB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45BF11F000C4;
-	Sat, 14 Nov 2026 05:44:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiEAr2Er
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7592E1F000C4;
+	Sat, 14 Nov 2026 05:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794635048;
-	bh=ZveeTRcBdhnoEXQBCn5Kuya4uFnBRKxSZ+SylUMxXmc=;
+	s=k20260515; t=1794635120;
+	bh=lA+eN+CFT+rVNKSmAQYOghySrSYytfUb5z7K1Gp4krs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gZ3CJ3mBmI3PQr6UGS4swv8V2FoIDVsmxMge1Nf+PksieYPatyUCR8ASjU4weHYk6
-	 +YdSD1gFOc9ZzGZ6xz3KZSEYcyqV8CX/ct+WiGiKi71QVK5rf4U5X26lSt/D/M8tZh
-	 /+4foq5NAotvy06PLPubLlTrQfolix+Oh8wOsWl/pJf2W1L+ElMpvF/BLGFAuYVK5R
-	 hg2SPcerVGHyvRhMvfxndvVd+JyQxaXYJkQ5rdID6ewRQdwOEAs+cKW0qxP17MNxKd
-	 D5+EfoTgXb3vLlQUkCSNGFI6gEJB1bpacrt2RKm8ut/eY9IStINtqq+cJ2d5Pe78lg
-	 052ty0F3sHn3w==
+	b=JiEAr2Era8Tr1HcFwD2qRco4+nm5cvFC/UYnbZtD91nhCzZdMnpNspDIH9WFJFmFF
+	 puSxcJDqaU11qd01TOdG6zbU0VB/2pJGNblTuUSWzYKeLVvr8flx/0pwJ3sq2aLoWP
+	 iG6pXB7GKnnu6tvFx1gaiLBgKLbLEAb51ksAhkR+afFOJ/d+WjiCYFVuKc4WFShazi
+	 XfgnYqdqOAY+WpCQ/XV2A8pO8YmiehK9k+copdJLXZkyoxTPLPIpNzfB5Ede3I59Vm
+	 3/cbEM/4+hP8tE5+uWUcpTQbPP6kvxPf2VLxVlYSKoFVTC24Cn7HLLZcoA+mriRiy+
+	 Ha5fDlJrRiuSQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Sashiko <sashiko-bot@kernel.org>,
+	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/memory: reject remote COW faults on PFN mappings
-Date: Sat, 14 Nov 2026 00:44:05 -0500
-Message-ID: <20261114054349.2940578-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] hwmon: (coretemp) Check for NULL platform device in hotplug callbacks
+Date: Sat, 14 Nov 2026 00:45:18 -0500
+Message-ID: <20261114054507.3138666-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202816-failed-5.10-8db6921cc07b@kernel.org>
-References: <20261109202816-failed-5.10-8db6921cc07b@kernel.org>
+In-Reply-To: <20261109201632-failed-6.1-0f9c7ed3b500@kernel.org>
+References: <20261109201632-failed-6.1-0f9c7ed3b500@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,136 +61,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit 8db6921cc07b74197a3866d62ed262b68aeadcf3 ]
+[ Upstream commit 0f9c7ed3b5009a037e5533eac03a0d4d45ecf1f0 ]
 
-When handling a COW fault without a normal source page (PFN mappings),
-__wp_page_copy_user() copies from the faulting user address. For remote
-faults, this accesses the wrong address space, resulting in wrong data
-getting copied.
+coretemp_get_pdev() returns NULL when topology_logical_die_id(cpu) is
+negative (such as -ENODEV or -ERANGE from topology_get_logical_id() on a
+firmware/hardware APIC ID mismatch) or exceeds max_zones (for example,
+under asymmetric or anomalous ACPI die topologies where
+topology_max_packages() * topology_max_dies_per_package() is smaller
+than the logical die count).
 
-For example, user_events updates an enable bit in the registering
-process's memory. If that memory needs to be faulted in,
-user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
-item. Placing the enable bit in a private PFN mapping can trigger this
-remote COW path.
+Commit 6d03bbff456b ("hwmon: (coretemp) Simplify platform device
+handling") pre-allocated zone_devices[0 .. max_zones - 1] during module
+init and dropped the NULL checks on pdev in coretemp_cpu_online() and
+coretemp_cpu_offline(), passing pdev unconditionally to
+platform_get_drvdata(). When coretemp_get_pdev() returns NULL,
+platform_get_drvdata(pdev) dereferences &pdev->dev and triggers a kernel
+NULL pointer dereference.
 
-Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
-current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
+Check for a NULL pdev and return 0 in both coretemp_cpu_online() and
+coretemp_cpu_offline() before calling platform_get_drvdata(). Returning
+0 in coretemp_cpu_online() ignores the unmapped CPU without blocking CPU
+bringup or tearing down valid thermal zones on other dies.
 
-The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
-the VM_UNPAGED logic"); likely, actual ways to get remote faults in
-there on COW PFN mappings appeared afterwards. But the fix is simple and
-straight forward.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 6d03bbff456b ("hwmon: (coretemp) Simplify platform device handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: simplify comment and description ]
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-35-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: converted cow_user_page() from boolean to errno returns to match the upstream __wp_page_copy_user() interface ]
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: Placed the NULL check after the thermal-feature check because coretemp_cpu_online() lacks the upstream housekeeping check. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memory.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+ drivers/hwmon/coretemp.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index ad8184041a75b..ba72c16b1fb46 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2648,10 +2648,10 @@ static inline int pte_unmap_same(struct mm_struct *mm, pmd_t *pmd,
- 	return same;
- }
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index c0aa6bfa66b24..b0dce8a0d95d6 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -618,6 +618,9 @@ static int coretemp_cpu_online(unsigned int cpu)
+ 	if (!cpu_has(c, X86_FEATURE_DTHERM))
+ 		return -ENODEV;
  
--static inline bool cow_user_page(struct page *dst, struct page *src,
-+static inline int cow_user_page(struct page *dst, struct page *src,
- 				 struct vm_fault *vmf)
- {
--	bool ret;
-+	int ret;
- 	void *kaddr;
- 	void __user *uaddr;
- 	bool locked = false;
-@@ -2661,9 +2661,16 @@ static inline bool cow_user_page(struct page *dst, struct page *src,
- 
- 	if (likely(src)) {
- 		copy_user_highpage(dst, src, addr, vma);
--		return true;
++	if (!pdev)
 +		return 0;
- 	}
- 
-+	/*
-+	 * __copy_from_user_inatomic() only works as expected for local faults.
-+	 * Reject remote faults.
-+	 */
-+	if (unlikely(mm != current->mm))
-+		return -EFAULT;
 +
- 	/*
- 	 * If the source page was a PFN mapping, we don't have
- 	 * a "struct page" for it. We do a best-effort copy by
-@@ -2688,7 +2695,7 @@ static inline bool cow_user_page(struct page *dst, struct page *src,
- 			 * and update local tlb only
- 			 */
- 			update_mmu_tlb(vma, addr, vmf->pte);
--			ret = false;
-+			ret = -EAGAIN;
- 			goto pte_unlock;
- 		}
+ 	pdata = platform_get_drvdata(pdev);
+ 	if (!pdata->hwmon_dev) {
+ 		struct device *hwmon;
+@@ -669,6 +672,9 @@ static int coretemp_cpu_offline(unsigned int cpu)
+ 		return 0;
  
-@@ -2713,7 +2720,7 @@ static inline bool cow_user_page(struct page *dst, struct page *src,
- 		if (!likely(pte_same(*vmf->pte, vmf->orig_pte))) {
- 			/* The PTE changed under us, update local tlb */
- 			update_mmu_tlb(vma, addr, vmf->pte);
--			ret = false;
-+			ret = -EAGAIN;
- 			goto pte_unlock;
- 		}
- 
-@@ -2732,7 +2739,7 @@ static inline bool cow_user_page(struct page *dst, struct page *src,
- 		}
- 	}
- 
--	ret = true;
-+	ret = 0;
- 
- pte_unlock:
- 	if (locked)
-@@ -2908,12 +2915,15 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 		if (!new_page)
- 			goto oom;
- 	} else {
-+		int err;
+ 	/* If the physical CPU device does not exist, just return */
++	if (!pdev)
++		return 0;
 +
- 		new_page = alloc_page_vma(GFP_HIGHUSER_MOVABLE, vma,
- 				vmf->address);
- 		if (!new_page)
- 			goto oom;
- 
--		if (!cow_user_page(new_page, old_page, vmf)) {
-+		err = cow_user_page(new_page, old_page, vmf);
-+		if (err) {
- 			/*
- 			 * COW failed, if the fault was solved by other,
- 			 * it's fine. If not, userspace would re-fault on
-@@ -2923,6 +2933,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 			put_page(new_page);
- 			if (old_page)
- 				put_page(old_page);
-+			if (err == -EFAULT)
-+				return VM_FAULT_SIGBUS;
- 			return 0;
- 		}
- 	}
+ 	pd = platform_get_drvdata(pdev);
+ 	if (!pd->hwmon_dev)
+ 		return 0;
 -- 
 2.53.0
 
