@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794671793;
-	b=x473R5XVy1FBRUCy1qKXre2jUNoSwigVFh2uvuWZTVOfsFxGOqMbhIsmPLAW5A9fzCG4
-	 MlsuRJj+if2GfC+NRQZ/8O8cLCh715gS/LPQk7yTH+ulwGj00mqvIuBdmq8vZJiRzsR0U
-	 ExuI3SrfEx8BGVbrpmbFR9OdjEKkgcXozrsnEOU2Kvh1jNLmpPeGotILwSFdKAQGnRI8k
-	 AiAZ13V+DQoxj0di0GslkQr1097GfdzcbvWpUNz3qYubj6EKAzAOJYf9oZhEsfMljIIGj
-	 AEOWLnB3GFyDRM6WBRY/ObiuirlqQGLfWPb3faXXv0YXeP3rt1LJM0S97U0Bono1j/g==
+	t=1794672038;
+	b=WXBwswEjpkZt+peA/qlyB9Xstwyqe8IxggpbV7xpPOba6ZLkk9qShLzO0ckibYPu5Fb2
+	 1IKsNkcwN/+mHdb/h0msGwXfUlsFflpgEOT/w//nTJgVTQkCvHCLL9nCuJLtAFBfkha29
+	 1YGp1OmqEQxsjW0bnsBq/DzX1U1rtwessJ746IHxL9FVFBKKfg3JUTCDF6hfn6yZrtyLk
+	 cDkb7qTvAtaAKDnkXYXX2ujIX04QkzbHhH0UnJRwacca8AVS0we2EjcNQhJ8XEZBvVS+U
+	 3QRtaG8m7logqW2SioKNcPk8TWsxKJ3C/W/Jessd/di4+WmXebmJRAap2q3oMkNgNBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794671793;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672038;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9Z3YFFT+4SwUXIGi4O/XCXBAt5O0Gb1PjEAjwURDTF8=;
-	b=1I+Gqdi64bO7eNeAxfS7QGO/CNi7BoCSo2zp/xmyIsSsAHR9k2iLeUcyUUHXURo0wY8C
-	 wRzjNtoGfIajVKADEdiQtP8JakT420DMu6UKjWMy2MzZ+O9mLE8OZ7ZT4d7g3PdKBBYRY
-	 kZWT+ixmtUhXO4YL2108gLnELCwJZQdTY7N23wa0h9JH9WHdQeMnFpapBVE3XQtewNTaY
-	 Wnh6fh8gcU7D3Ul+U3B/W8WDP/VDXmluEpAfR3Wn5gd0Bx9Qlk4xTCdwso8sM2LA5TPaQ
-	 nQl8ckI4MOqcmMDTOYmuKb58tFfi66cbXEfb2Icysn3Fv4YH/zjpraOjAkiO/kEEzTQ==
+	bh=lsmxITMmSW0elYEZ5EsLhhdo35zyPEVkSkFGzD291ag=;
+	b=X6GxYbZqoesewBpTH6j/McfPRg+EWrCJEvYrlGvhHzMYXQLzHT8ul7Kvuj86fXH9ZTm7
+	 yUl23O/WGjYLnF7d8zZfA73ug41oBdqQ0KBV+KykHAHXz/xeX+ZOahivDQY05+LN4KQ6N
+	 xesTyhOlt6DhO4BFAvYKMNJldvhaQ4W8YhaMjHBAadBx9f/Q8rSlif6LlfBqtL169b7ea
+	 ZGSSTSyIMlEooBQHTp4+ZUCdBurzCduEQrTEu2hBfk9Mfsbm2RwPxU6t3nc12voM3N+PO
+	 EwzRYG9epYNp66qU9vnRqg/0KjTZLyM2GX5ccOUN5xB5zUlvTbJClOJqGVID/pejUmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Olh30kls;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIl1Tn27;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B6D606A32E
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:56:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1455B606A32E
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:00:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Olh30kls
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE54A1F000C6;
-	Sat, 14 Nov 2026 15:56:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIl1Tn27
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB14E1F000C4;
+	Sat, 14 Nov 2026 16:00:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794671793;
-	bh=9Z3YFFT+4SwUXIGi4O/XCXBAt5O0Gb1PjEAjwURDTF8=;
+	s=k20260515; t=1794672037;
+	bh=lsmxITMmSW0elYEZ5EsLhhdo35zyPEVkSkFGzD291ag=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Olh30klsUXfPZZ6XPBFKJpvs7FzGfSMGfCU9BI1JRBr26ujIJv/xvt8gu0/b8FNSC
-	 XPdohrZUiNpwe//I6E8ca8/D/sB1L9f7fYYEGL5aDDpxau9Fh46ly1jVAiiDRwyHUT
-	 1lAKIii1yRRQ8XKEpw9wm+rJQZGEGgF1JXk0kh6A2OysZX0WQHMdbWl0sR8jmYzLnS
-	 q43SMofgteHCnvyw1LoZo5SLQxQRB4+faMp1H5IBX/9yrXM3GbJG3YgL0vfmqMfYnO
-	 vWtZPQGn2b+Jx1RghfvGPE/RqzLwzWbUzXFVqRDvhgFPYf7OJslgeE5VPjqD46G8P/
-	 QYtStYo6lGPOw==
+	b=aIl1Tn27N+LYxtIyWE/LinlqJRZkaW2LpIvXJKHiOlr89QJyfwGS0//92rok9Q5VD
+	 q9coLQXsUV294Qaubj6iGQ8qwB6yNffVYZJ4Re29xLP4uWOKLLnCyw+w4Y2i8y5csk
+	 IZ3+Aqf6XiYYg5jgvke9wYwgVmnajuvwFAfvAqs5kNR7V2Us54g+o2OL4o1v3F5S7I
+	 IGzA55LEuw1exl67zXFnni6Da1hWdaLpqoGML1tOxFgJhH6b23oQJdGt/2Kwsux64V
+	 iFrvHlUBzGhvJiI/z0hm5ppaVKxulxXBsRX3SfBxEcDICVthTixp1uA/W5rYAgL+Zw
+	 AMlpEJAe2KUvw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yingjie Wang <1075151112@qq.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] nvmet: reject keep-alive timeouts that would overflow
-Date: Sat, 14 Nov 2026 10:56:31 -0500
-Message-ID: <20261114154530.3477922-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/shmem: fix accounting of swapin-error markers
+Date: Sat, 14 Nov 2026 11:00:35 -0500
+Message-ID: <20261114160024.3870080-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202739-failed-5.10-96ae13f40ce5@kernel.org>
-References: <20261109202739-failed-5.10-96ae13f40ce5@kernel.org>
+In-Reply-To: <20261109200307-failed-6.18-66ce68a249f4@kernel.org>
+References: <20261109200307-failed-6.18-66ce68a249f4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,124 +62,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yingjie Wang <1075151112@qq.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 96ae13f40ce5930cd58c43128e385131476f2a66 ]
+[ Upstream commit 66ce68a249f4ac56cd6968aa6d8ded20fb4b7d09 ]
 
-nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
-millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
-The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
-4294966296 ms wraps around and rounds to 0 seconds. A Set Features
-command with KATO 0xffffffff then succeeds but disables the keep-alive
-timer: Get Features returns 0 and Keep Alive fails with Keep Alive
-Timeout Invalid. A Connect command with such a KATO creates a controller
-without a keep-alive timer.
+A failed swap read replaces the swap entry with a swapin-error marker in
+the page-cache and subtracts its pages from "alloced" and "swapped";
+however, it leaves their block charge in place.
 
-The converted value has more consumers that can overflow. Get Features
-multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
-and arm a delay that must not exceed MAX_JIFFY_OFFSET.
+Removing the marker during truncate then subtracts from "swapped" again.
+This can underflow the counters or make swapped reach zero while other
+pages remain swapped out, causing swapoff to loop without finding them.
 
-Reject a KATO whose rounded value does not fit all of these. Return Keep
-Alive Timeout Invalid from both Set Features and Connect. Validate Set
-Features before stopping the current timer so a failed update leaves its
-timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
-meaning.
+When installing the marker, subtract only from "swapped" and let
+shmem_recalc_inode() reduce "alloced" and release the block charge.
 
-Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
+Make shmem_free_swap() report successful removal separately from the
+number of swap pages freed, so removing a swapin-error marker does not
+subtract from "swapped" again.
+
+It's a bit confusing, but replacing a swapped out page by a swapin-error
+marker in shmem_set_folio_swapin_error() behaves as follows:
+
+Initially:
+	alloced=1, swapped=1, nrpages=0
+Calling shmem_recalc_inode(inode, 0, -1)
+	-> swapped = 0
+	-> freed =  1 - 0 - 0 = 1
+	-> alloced -= freed
+	-> alloced=0, swapped=0, block charge released
+
+Fixes: 6cec2b95dadf ("mm/shmem: fix infinite loop when swap in shmem error at swapoff time")
 Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: Adapted controller allocation error handling to return status directly and set req->error_loc. ]
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261029-fixes_shmem-v4-14-392fc715d8f6@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted swap-entry handling to !non_swap_entry() and the existing swap-release APIs ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/admin-cmd.c | 7 ++++++-
- drivers/nvme/target/core.c      | 7 ++++++-
- drivers/nvme/target/nvmet.h     | 8 ++++++++
- include/linux/nvme.h            | 1 +
- 4 files changed, 21 insertions(+), 2 deletions(-)
+ mm/shmem.c | 31 ++++++++++++++-----------------
+ 1 file changed, 14 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index 835ff574f80b9..93efea9de3259 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -739,8 +739,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 6828611bcdfe0..eb052b1dad252 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -940,12 +940,11 @@ static void shmem_delete_from_page_cache(struct folio *folio, void *radswap)
+ }
+ 
+ /*
+- * Remove swap entry from page cache, free the swap and its page cache. Returns
+- * the number of pages being freed. 0 means entry not found in XArray (0 pages
+- * being freed).
++ * Remove a swap entry or swapin-error marker wholly within [index, end].
++ * Return whether it was removed, counting freed swap pages in nr_swaps_freed.
+  */
+-static long shmem_free_swap(struct address_space *mapping,
+-			    pgoff_t index, pgoff_t end, void *radswap)
++static bool shmem_free_swap(struct address_space *mapping,
++		pgoff_t index, pgoff_t end, void *radswap, long *nr_swaps_freed)
  {
- 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
+ 	XA_STATE(xas, &mapping->i_pages, index);
+ 	const swp_entry_t swp = radix_to_swp_entry(radswap);
+@@ -966,8 +965,10 @@ static long shmem_free_swap(struct address_space *mapping,
+ 	xas_unlock_irq(&xas);
  
-+	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvme_common_command, cdw11);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_SC_DNR;
+ 	/* A swapin-error marker holds no swap slot, so just drop it. */
+-	if (nr_pages && !non_swap_entry(swp))
++	if (nr_pages && !non_swap_entry(swp)) {
+ 		free_swap_and_cache_nr(swp, nr_pages);
++		*nr_swaps_freed += nr_pages;
 +	}
-+
- 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
--	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
-+	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
- 	nvmet_start_keep_alive_timer(req->sq->ctrl);
  
- 	nvmet_set_result(req, req->sq->ctrl->kato);
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 61e96097bfe9c..068e490098aa9 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1325,6 +1325,11 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 	int ret;
- 	u16 status;
+ 	return nr_pages;
+ }
+@@ -1120,8 +1121,8 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
+ 			if (xa_is_value(folio)) {
+ 				if (unfalloc)
+ 					continue;
+-				nr_swaps_freed += shmem_free_swap(mapping, indices[i],
+-								  end - 1, folio);
++				shmem_free_swap(mapping, indices[i], end - 1,
++						folio, &nr_swaps_freed);
+ 				continue;
+ 			}
  
-+	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvmf_connect_command, kato);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_SC_DNR;
-+	}
-+
- 	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_SC_DNR;
- 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
- 	if (!subsys) {
-@@ -1401,7 +1406,7 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 		kato = NVMET_DISC_KATO_MS;
+@@ -1188,13 +1189,11 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
  
- 	/* keep-alive timeout in seconds */
--	ctrl->kato = DIV_ROUND_UP(kato, 1000);
-+	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
+ 			if (xa_is_value(folio)) {
+ 				int order;
+-				long swaps_freed;
  
- 	ctrl->err_counter = 0;
- 	spin_lock_init(&ctrl->error_lock);
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index ef162b64fabef..90bb5352c4cc8 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -7,6 +7,7 @@
- #define _NVMET_H
+ 				if (unfalloc)
+ 					continue;
+-				swaps_freed = shmem_free_swap(mapping, indices[i],
+-							      end - 1, folio);
+-				if (!swaps_freed) {
++				if (!shmem_free_swap(mapping, indices[i], end - 1,
++						     folio, &nr_swaps_freed)) {
+ 					pgoff_t base = indices[i];
  
- #include <linux/dma-mapping.h>
-+#include <linux/jiffies.h>
- #include <linux/types.h>
- #include <linux/device.h>
- #include <linux/kref.h>
-@@ -503,6 +504,13 @@ void nvmet_add_async_event(struct nvmet_ctrl *ctrl, u8 event_type,
- #define NVMET_KAS		10
- #define NVMET_DISC_KATO_MS		120000
+ 					order = shmem_confirm_swap(mapping, indices[i],
+@@ -1215,7 +1214,6 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
+ 					index = base;
+ 					break;
+ 				}
+-				nr_swaps_freed += swaps_freed;
+ 				continue;
+ 			}
  
-+/*
-+ * Largest keep-alive timeout in seconds that can be reported back in
-+ * milliseconds and converted to jiffies without overflowing.
-+ */
-+#define NVMET_MAX_KATO	\
-+	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
-+
- int __init nvmet_init_configfs(void);
- void __exit nvmet_exit_configfs(void);
- 
-diff --git a/include/linux/nvme.h b/include/linux/nvme.h
-index 5727185ffe423..ff756283b9230 100644
---- a/include/linux/nvme.h
-+++ b/include/linux/nvme.h
-@@ -1485,6 +1485,7 @@ enum {
- 	NVME_SC_SGL_INVALID_OFFSET	= 0x16,
- 	NVME_SC_SGL_INVALID_SUBTYPE	= 0x17,
- 
-+	NVME_SC_KA_TIMEOUT_INVALID	= 0x1A,
- 	NVME_SC_SANITIZE_FAILED		= 0x1C,
- 	NVME_SC_SANITIZE_IN_PROGRESS	= 0x1D,
+@@ -2238,11 +2236,10 @@ static void shmem_set_folio_swapin_error(struct inode *inode, pgoff_t index,
+ 	if (!skip_swapcache)
+ 		swap_cache_del_folio(folio);
+ 	/*
+-	 * Don't treat swapin error folio as alloced. Otherwise inode->i_blocks
+-	 * won't be 0 when inode is released and thus trigger WARN_ON(i_blocks)
+-	 * in shmem_evict_inode().
++	 * Let shmem_recalc_inode() reduce alloced and release the block charge
++	 * for the freed swap pages.
+ 	 */
+-	shmem_recalc_inode(inode, -nr_pages, -nr_pages);
++	shmem_recalc_inode(inode, 0, -nr_pages);
+ 	swap_free_nr(swap, nr_pages);
+ }
  
 -- 
 2.53.0
