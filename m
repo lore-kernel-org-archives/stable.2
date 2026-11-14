@@ -1,102 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794664824;
-	b=v7LoB09HrQDAtvCecDuvRUCMb4pz+NuHTQRpxEqw3zaqeZkYsM8M6ZhR7b7tmu9X9Kpw
-	 vbTpw4JKqgc3ijJ6JWbwJmcUGYPCa9y12UBtR/GIcllf3qyYquBP68a8jg0saKf9fcWIJ
-	 55kiWNn+aqK+skntRN4ORWchYm2rcXHIUMAu6v8bP19AaNl0tTyDvx2F0J3z6vvFa9U7e
-	 OEQvdZvrJi0Gc+/PTf13NgwS+4hFTfVcC4UTYzvM4WHYFxXVMPgHZR4BxYV35xu5MGbUp
-	 VC/wMSy7/Rpet/iyPHpq3UOHa9/RsjHQBpLBJ+jabnijTU0s/wn2QcijeSFdB7CU6dA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794664824;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=1dpTcg8HyfSHsl+XvtGX2FlBQQEU6hsYdR9t/FaQ0zQ=;
-	b=k8uwKflGxmaNxTzoCSvjF2gKesY0di+t5jKr571blrOSkGI1Ow9aWDr2qiSsIgJ5gBOC
-	 NteaF7/veq/8POjX22uqfrVY5CsXiM/YBdv7DL4IT5lqWG8/3BqgRqqbV5CyFY6cA9AMX
-	 HxcwYjzGRf0qILTSJuk67+l/JhrrqjhxnhwFmm3F0pCuV3qJvwYvhSa/4C+tXd1F8GHGL
-	 gvH/lGKLO8C5Fo8QB7elGdlVw3TAZOD7+Fy0W6oQaM6rnk3q0uv5aC3tL7vVsP8gF/c2a
-	 XefPiUX0frQD/8aoPHBra0x5BgQnIIePoJ+NlzAr0ie+5Mu8LliN7HBbk0d1GqPZPkw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XdRyzMuI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794665368;
+	b=3+nRyA852+QkgxulsAOus9A5uBphUqSDhQVll8OKDkqje4yAmYaFLKDrWVaHKMQrx7oO
+	 RLhDUQCJ+qMC/l4228k8n9lXcbpgamcVBj9Q9xcOLBX4p3HZGgjzZ62mB93SgaWOimtNl
+	 4d49ZaEukiQaiPhhhTobE/DE+wmSLAF56t/flAqU7k3q8qmhYphSfFkLPrz+w0jOKoXZZ
+	 hP9x29u9ntzJmQYAEoVz8PyXV191Kwh5j3ClBVEHsAETB+/UKauN+K4FRFroe+6NzJnOh
+	 u5nOoCDGtEn5LEFYHTYF0di67urPqAmH6ewJi8oiBXtOtSx4GT7jSqZJE+j5hSlBvfg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665368;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=KnQiD6fX/r8PsqpObs5NkuGJ85feklMhNeGaXyI/6aU=;
+	b=WBRinwRQrIr77sX+YAmqgRoOZYGoq4A25G/cHvRaseUpn+2loN8YoxVCw5pwArFBML0g
+	 aSKzErMfOLa9JLNoJ5UnRYBSNwMYJ1vI9dJmdzDzeeggu2wRbp5AN0P1vVNWjdGCzDeij
+	 zWFJZZiZ/UCPLb1xSKLdy0LqMRAhY0/wIxWN4cvC6Uf5ASUMEs6RqkWKVcXSAEBDIOu11
+	 JpSUkbi9+Wa9l+aI1ygy9Utd+zuK6arkjPTp6K6bwhhcEiag4GeiY+50SalPcSJEcKXnU
+	 AP1nt3cGq57DpiXvaC07SZQdukiKWCundLqHnelCoSc2zsk785qVJmYSg1CZ3BGuiaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TC5FL2lT;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88C3606A329;
-	Sat, 14 Nov 2026 14:00:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D88C3606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB069606A327;
+	Sat, 14 Nov 2026 14:09:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB069606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XdRyzMuI
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7C89D201CE0;
-	Sat, 14 Nov 2026 15:00:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794664820;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1dpTcg8HyfSHsl+XvtGX2FlBQQEU6hsYdR9t/FaQ0zQ=;
-	b=XdRyzMuI0icxAFx8JBPICCXqHQhP7Q6+sBy/Xeu12M1iCwzqlFSAB4W/lRmz2cAjslx+le
-	ZnG/wg+7t1UAxj3pX2i8TI8I6Tz2eP5H4z0An4HdJDPZ5+tE+yy5dSsaPrzgPyidSbZ4xN
-	cWt+v6vnpZqhWrWQYnsOoUtEjuQZl0Ypo7YMZohoOywRkk9EZuOW2eRRZqFmVX65IvBHnz
-	BkhtoRCC1f/apqESfCxsvAynkZ1Yvq6j+NuDd8DHxNKi7mlSPHaBGRzBd4jorLen9fFWBM
-	LrzLgxDzWeJm3y6RCVhoksj+1ZgoF8PjOS9CeimNRjQ2sZHzhZL2t7PBJuSyOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794664820;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1dpTcg8HyfSHsl+XvtGX2FlBQQEU6hsYdR9t/FaQ0zQ=;
-	b=AGwy/al9BvNtOxxSpWuPfXxueIlXpc26x/EdulXEAX+Mdt90BuhgJr+TLuIcEAj+HXmx2U
-	YBQ7HvYdkV6+aCpGWfko9kibXS2xv8J9iLKk8MkXGH6RwbQt7VUPyyFKXynJUvttZREfQV
-	PzQLjmcYAn54QSvTR0eOSk/3B+FeSv2HrRqN4E2MkecarFYyPoR9u/pV7AzpUUnUYUHOSu
-	cBsiE4ACnaxHC3+6pFoMyAK75VAH9Ie+y186g4IANkGCpn9Nd+R3p3OUbT3rozYSO6NxS2
-	tXl9VaBpxr6CaXqYhZ7BAz5P+KVm1XrR6tZJ1tbNcDQ9SMQnr6wHn0z6AmFFpg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794664820; a=rsa-sha256;
-	cv=none;
-	b=ONVrIgef4hdTZTuTg2ysDJY10hubKZV7+QjzIGcZzvignb2VyzVNy75gJH8rCydVpjHRCy
-	RRgFOEDvSS5r99WmGyIkHwgJDUKIgp53Aw80fKQNp6FU8cyPcP6i1HgBB65ZhI5x2HBwkz
-	mUfaHGZ3kbJQ/t2W5GnqJT7pxahXmlbACn+ZAqxiH7LGqfZoREecgWcsfXYcaNmXY1E/JK
-	DVEOoFyXlIliZ+RnyqPtcXQDiMxKxRgiANY1aV5nJtHZoKeThtKYuNxODFGJ3qLTDsl/hU
-	5JpooL6Tzgu6icdUbJUUOan1yUZoFCCVTq3v5wbqVK9FFhUq+QNt5JAuZuQSzw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xSEIm-0049Bq-1G;
-	Sat, 14 Nov 2026 15:00:20 +0100
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TC5FL2lT
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 17ED45EBA9B;
-	Sat, 14 Nov 2026 14:00:20 +0000 (UTC)
-Date: Sat, 14 Nov 2026 15:00:19 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
-	Eric Evenchick <eric@evenchick.com>, Maximilian Schneider <max@schneidersoft.net>, 
-	Wolfgang Grandegger <wg@grandegger.com>, kernel@pengutronix.de, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Shuangpeng Bai <shuangpeng.kernel@gmail.com>, 
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jRbbL0P5RzKvsY;
+	Sat, 14 Nov 2026 15:09:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794665358;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KnQiD6fX/r8PsqpObs5NkuGJ85feklMhNeGaXyI/6aU=;
+	b=TC5FL2lT2lS0S2qysNX9Bkq/CtcVfSLBCXp51OuofG0N4qs10oP46L9CPPniucJT6fgJWX
+	944MV4eXnzTN393hLcj4S+ZhOlh1fTzphFgXAtUHcUne4AKXej8S0kAt6r/HHtl2XFn1YP
+	3xxZ7Pj3Do6U1jdXqffJzzWbGg8KHMzECZcgBK+sVXO04LEQ/58OM7Q8k95/n36Z/Fnl3p
+	bN3ATPBDQzoGcsuVeB8JFDOJCpMc/RCWlTdPd9faNHpP5mRlgKoSIIoXpKpisvzMuLMCyU
+	EnhNTThhHtJb5VLNWVaPy3MEYa8OoSWZ4DrtLqkI5Abqd9bqkInMWvr/NS2Hwg==
+Date: Sat, 14 Nov 2026 15:09:10 +0100
+From: Lukas Beckmann <lbckmnn@mailbox.org>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Thomas Renninger <trenn@suse.com>, Shuah Khan <shuah@kernel.org>,
+	"John B. Wyatt IV" <jwyatt@redhat.com>,
+	John Kacur <jkacur@redhat.com>,
+	Dominik Brodowski <linux@dominikbrodowski.net>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH can-next v5 6/6] can: gs_usb: fix hardware timestamp
- state for mixed channels
-Message-ID: <20261114-impossible-cuttlefish-of-witchcraft-5e882e-mkl@pengutronix.de>
-References: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
- <20261108-gs_usb-fixes-v5-6-d52dd4940d46@pengutronix.de>
- <b2c7d556-a6f2-4b3c-b141-49c3b558da87@linux.dev>
- <20261109-singing-lyrebird-of-bloom-ed3c85-mkl@pengutronix.de>
+Subject: Re: [PATCH] cpupower: fix use-after-free and stale limits in
+ frequency-set
+Message-ID: <avhrhuLjzi9-V7ZY@lukas-arch>
+References: <20261112-cpupower-freq-set-use-after-free-v1-1-4e0034927b3f@mailbox.org>
+ <1bb7b407-0e69-421d-8ee3-81489abd1dda@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,112 +73,158 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oszfdmhn34udnkmf"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109-singing-lyrebird-of-bloom-ed3c85-mkl@pengutronix.de>
+In-Reply-To: <1bb7b407-0e69-421d-8ee3-81489abd1dda@linuxfoundation.org>
+X-MBO-RS-ID: 7b4a42c4232717da541
+X-MBO-RS-META: 8p5mh6jypdesokf6ojzqinwjy49keb1n
 
-
---oszfdmhn34udnkmf
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH can-next v5 6/6] can: gs_usb: fix hardware timestamp
- state for mixed channels
-MIME-Version: 1.0
-
-On 09.11.2026 13:58:32, Marc Kleine-Budde wrote:
-> On 09.11.2026 12:40:14, Vadim Fedorenko wrote:
-> > > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_us=
-b.c
-> > > index 6327069f63c9..0a1cd14c940c 100644
-> > > --- a/drivers/net/can/usb/gs_usb.c
-> > > +++ b/drivers/net/can/usb/gs_usb.c
-> > > @@ -337,6 +337,7 @@ struct gs_usb {
-> > >   	unsigned int hf_size_rx;
-> > >   	u8 active_channels;
-> > > +	u8 active_timestamp_channels;
-> > >   	u8 channel_cnt;
-> > >   	unsigned int pipe_in;
-> > > @@ -481,18 +482,35 @@ static void gs_usb_timestamp_init(struct gs_usb=
- *parent)
-> > >   	cc->mult =3D clocksource_hz2mult(GS_USB_TIMESTAMP_TIMER_HZ, cc->sh=
-ift);
-> > >   	spin_lock_init(&parent->tc_lock);
-> > > -	spin_lock_bh(&parent->tc_lock);
-> > > -	timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
-> > > -	spin_unlock_bh(&parent->tc_lock);
-> > >   	INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
-> > > +	disable_delayed_work(&parent->timestamp);
-> > > +}
-> > > +
-> > > +static void gs_usb_timestamp_start(struct gs_usb *parent)
-> > > +{
-> > > +	scoped_guard(spinlock_bh, &parent->tc_lock) {
-> > > +		parent->active_timestamp_channels++;
-> > > +		if (parent->active_timestamp_channels > 1)
-> > > +			return;
-> > > +
-> > > +		timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
-> > > +	}
-> > > +
-> > > +	enable_delayed_work(&parent->timestamp);
-> > >   	schedule_delayed_work(&parent->timestamp,
-> > >   			      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
-> > >   }
-> > >   static void gs_usb_timestamp_stop(struct gs_usb *parent)
-> > >   {
-> > > -	cancel_delayed_work_sync(&parent->timestamp);
-> > > +	scoped_guard(spinlock_bh, &parent->tc_lock) {
-> > > +		parent->active_timestamp_channels--;
-> > > +		if (parent->active_timestamp_channels > 0)
-> > > +			return;
-> > > +	}
-> > > +
-> > > +	disable_delayed_work_sync(&parent->timestamp);
-> > >   }
-> >
-> > That's quite defensive code. You have both disable/enable delayed_work
-> > and active_timestamp_channels counter just to be sure to schedule
-> > timestamp worker only once.
+On Fri, Nov 13, 2026 at 04:09:23PM -0700, Shuah Khan wrote:
+> On 11/12/26 12:49, Lukas Beckmann wrote:
+> > cmd_freq_set() currently has two issues:
+> > 
+> > 1. use-after-free
+> > 
+> > When cmd_freq_set() is invoked with --max and --min, it eventually calls
+> > do_new_policy() for every selected CPU with the same cpufreq_policy
+> > struct. do_new_policy() first retrieves the current policy and copies
+> > the governor pointer to new_pol.governor. After that the policy is
+> > applied and cur_pol (including the string to which new_pol.governor is
+> > pointing) is freed. For the next CPU, cpufreq_set_policy() reads that
+> > already freed memory leading to an error message (because verify_gov()
+> > fails).
+> > 
+> 
+> > 2. max/min is not retrieved for each individual CPU:
+> > 
+> > If cmd_freq_set() is invoked with e.g. --min and --governor, max is set
+> > by do_new_policy() on the first selected CPU by retrieving it from the
+> > current policy. Since the same struct is passed to the next selected
+> > CPU, it is not retrieved again, resulting in writing the first CPU's
+> > max to all selected CPUs.
+> > 
+> > Fix both issues by using a local copy in do_new_policy().
+> 
+> Good find. The change log is rather long and confusing to follow.
 >
-> disable is needed to stop the worker from self-scheduling.
+
+Thanks for the review,
+
+I will try to come up with a better changelog for V2 (including your
+feedback below).
+
+> > Issue 2:
+> > Minimal example without the patch:
+> > 
+> >      echo 2000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+> >      echo 3000000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
+> >      2000000
+> >      3000000
+> > 
+> >      ./cpupower -c 0,1 frequency-set --min 1GHz -g performance
+> >      Setting cpu: 0
+> >      Setting cpu: 1
+> > 
+> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
+> >      2000000
+> >      2000000
+> > 
+> > The maximum of CPU1 is set to the one of CPU0.
+> > 
+> 
+> The real issue here is not that the maximum of CPU1 is set to
+> the one of CPU0.
+> 
+> The real problem is that stale new_pol is used for all cpus
+> from do_one_cpu() slow path when more than one policy value
+> changes.
+> 
+> Please re-write this in your own words in a simplifies way
+> describing what lead to the problem.
+> 
+> 
+> > Minimal example with the patch:
+> > 
+> >      echo 2000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+> >      echo 3000000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
+> >      2000000
+> >      3000000
+> > 
+> >      ./cpupower -c 0,1 frequency-set --min 1GHz -g performance
+> >      Setting cpu: 0
+> >      Setting cpu: 1
+> > 
+> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
+> >      2000000
+> >      3000000
+> > 
+> > The maximum of CPU1 is no longer set to the maximum of CPU0.
+> > 
+> > [1] https://lore.kernel.org/all/20250827-power-memoryleak-v1-1-e4baf7b59a41@uniontech.com/
+> 
+> The above patch doesn't make sense. I need more information
+> to determine, if it is needed.
 >
-> Sadly workers only support multiple levels of disable, but not of
-> enable. So we have use active_timestamp_channels, too.
->
-> > Just wonder cannot we keep this worker running regardless of channels?
->
-> For proper power management (on the Linux and on the =C2=B5C side) I don't
-> want to keep it running if the interface is down.
+The memory-leak is of course not noticeable by "normal usage".
 
-But for now, we can start the timestamp worker when bringing up the
-first channel, if any of the channels of the device uses hw timestamps.
+However, tools like ASAN still report it, so the main benefit of fixing
+this would be, that someone who is using e.g. ASAN to find a different
+issue, is not side-tracked by this. I will drop this in V2.
 
-Good idea, thanks.
+> > ---
+> >   tools/power/cpupower/utils/cpufreq-set.c | 17 +++++++++--------
+> >   1 file changed, 9 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/tools/power/cpupower/utils/cpufreq-set.c b/tools/power/cpupower/utils/cpufreq-set.c
+> > index 06cd4b280132..d9f6ca522fe5 100644
+> > --- a/tools/power/cpupower/utils/cpufreq-set.c
+> > +++ b/tools/power/cpupower/utils/cpufreq-set.c
+> > @@ -141,9 +141,10 @@ static unsigned long string_to_frequency(const char *str)
+> >   	}
+> >   }
+> > -static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
+> > +static int do_new_policy(unsigned int cpu, const struct cpufreq_policy *new_pol)
+> >   {
+> >   	struct cpufreq_policy *cur_pol = cpufreq_get_policy(cpu);
+> > +	struct cpufreq_policy pol = *new_pol;
+> 
+> Don't assign new_pol to pol.
+> 
+> 
+> >   	int ret;
+> >   	if (!cur_pol) {
+> > @@ -151,16 +152,16 @@ static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
+> >   		return -EINVAL;
+> >   	}
+> > -	if (!new_pol->min)
+> > -		new_pol->min = cur_pol->min;
+> 		pol->min = cur_pol->min;
+> 
+> Use new_pol in the if logic using pol as temp - changing
+> pol to temp_pol
+> 
 
-> There are also (more or less) gs_usb compatible devices which implement
-> (more or less) independent USB interfaces. All of those interfaces have
-> a common clock, so I want to share the HW timestamp infrastructure
-> between them.
+Okay, I will do that in V2.
 
-Marc
+> > +	if (!pol.min)
+> > +		pol.min = cur_pol->min;
+> > -	if (!new_pol->max)
+> > -		new_pol->max = cur_pol->max;
+> > +	if (!pol.max)
+> > +		pol.max = cur_pol->max;
+> > -	if (!new_pol->governor)
+> > -		new_pol->governor = cur_pol->governor;
+> > +	if (!pol.governor)
+> > +		pol.governor = cur_pol->governor;
+> > -	ret = cpufreq_set_policy(cpu, new_pol);
+> > +	ret = cpufreq_set_policy(cpu, &pol);
+> >   	cpufreq_put_policy(cur_pol);
+> 
+> 
+> thanks,
+> -- Shuah
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---oszfdmhn34udnkmf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCavhpcQAKCRDMOmT6rpmt
-0uxJAP454aqOQ+vBZ4DpCn+WSjY7G3GCvYV8sO9sDMhcyk8FHQEA7wcXxYce21+4
-AQsT/v/nB1AaSbsorKB+lqnHbyej/Qk=
-=v4YI
------END PGP SIGNATURE-----
-
---oszfdmhn34udnkmf--
+thanks,
+Lukas
