@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794657556;
-	b=TNICQ0IDTA9qPwcVlc30rsSfS+P3Pa8r57tbXHG1i2ANcukm263gNl3m8YHm0jLphbD7
-	 m3cYvmHmTAcIKwb8Vk1oZMp3bxdot7o4RQE8rZZmZVTXqDmHL6PTodWVdEu+aFrulwnpx
-	 MXjB1wSitzhyPULtC4DbploJLUaqgh5HBsmNXISKKDklLaCYvmOUdwGqagi3YGRWEHkx0
-	 hUZyUSygSSJFWf1/Xz5Gn4Y2BE5dCumvYdK2iIn5Xvs+HQhJuRloP22vMnzksZlqkeZ+I
-	 BHCTLeHc8eE+9SYh66SEljT1zjEtpl7nIN7GWB+uSEFH25c+tTcKf7eoJXW4a1g8Kxw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657556;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SPA37YGgureDWQIEB+9Q3nNARSqEbSpJ8VBl+t4Y6c0=;
-	b=bO8FQm4cnqrznax8Uxxd4351/qfrxM/It0tgX4btEmheEXYdSewVvTQunM0ObS/bMO+u
-	 2IciqUHYarg8VT/0ZE8LfbeYFKy9R9yT/TBe/Rks6jMvHOvzF7WjtHm4KviKlR6+OGHMB
-	 38GExhT/z48p8MJI9XT2Wc4EwgZB7u2SF24ZJjy0bBcs7KxPd8H0XRI5zqUCTrMKMNyGH
-	 1V6GRbI9EKEIUpw+zz/npHDmAe5dTxk+9zzPj6o7foE3tpzJxIR/MNLDbBe7wkO/ieXfu
-	 DpnE0WOtCNHMydlQy8djR4nauQZLsfBYZUiZGvKQuUUrBMnyRYfVncLP+9Q3Lc7G6ag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CevO0zI9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9DFB606A32D;
-	Sat, 14 Nov 2026 11:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CevO0zI9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794657556;
-	b=p/pZCm9V8cQECLPtC31Xd4kFiHuQCC5KRti7cN41qfuRqHJhVlu+jixRURel9tbJlwsG
-	 tYBdNGSEADiMVjL8IOGaA0sG5FxtpoCXHifawNHulO/idZ3O/zwt1YiA06XsrojQ6tQ7V
-	 ksVLEDGJEgqsRF48FTZ+YiDe8bThH/x/qXNUrizTd99u377OCXgk8w7l4I/nn3r2PGMQR
-	 2XJ6rEF8RhVU/FKCOIMrv+HtsTjBWtXYyFT8eEb1tPghDXe1vaav9HEEXENsUQYMu5WIG
-	 23+PVDAi7/flgrkV7ql85eYlck5fO4UepN2OjPcRyFJjh4Y5xRK5Wck0/j+PhB9qOmg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794657556;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SPA37YGgureDWQIEB+9Q3nNARSqEbSpJ8VBl+t4Y6c0=;
-	b=snO2mjW8B5GJI/TZKtVZ+mH1apuTj6PWJd37kxKeEIgJeCBgfRoF3KUUaL3NovK+vmF5
-	 Z/z+ZtdUvUhjpR45ZlxwocLAAyNOk/tjZxAp0FzYyJjeSFKktSsgcVR0Q8xBCGQVEOY/R
-	 JHAUmPH2N5dvf5zDqBx0gRvFjZP/7G/+F3C52XZQdLsLbQDpxO4k8fVaF/Ume3/oudkjS
-	 uGome2E3jiBIxo4itRy5ngPzwS5e/MwCnzTyXw46coNLlC1D2fEdR9gt5sox33VUlXnZm
-	 8WMnDYFkj2/LKdQdK41Vcz288ZecOSuEWi787nM/91tvSVoQgZ2Coh1Do/hD4gdLTtw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794658799;
+	b=eZbh/nrvrOcYxWc7s9rIGQ6aFC23Y+oD0G2bwL46He5IiTKI3WQwqiOt+EXrdYgHw7MF
+	 kLL8P4lIhI9WeymH2ZnWkpkApkvid7DX+10GfOD4w1cm3eDZQhC2Ia9qQ1JEL5Tra73O6
+	 K9gQLp7xtmEQRlIkCLlbIGKoDeY5ZAnuPdn5r8ustTeoAc2pmHv+cZkQ/7MLaJoevxQUv
+	 vQgySlPQKpZPHKgXvWNfAdhGW7TbV6D9ubV6iw8UoryKSlV9TxgoVvUmDdzT99H7/2RNa
+	 D5yXogNvWjJRnehJXZa42mOg6n3glA0+IKHERjFWP70MRObjaSBjXfH7+xS2DTCJ7vQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794658799;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=nkM3J4QAu8kIsGHpB1EKb0NRF0JxtY2T/gqGpQ/nt0Q=;
+	b=A0dTZS71XvyVEs3TTo0kHI0/f78TXDjFz2lr3jP7XTfscFmRDBLR7lFngZ1EMBzPbOpr
+	 Tfr+OZZ8PGmBqZNIFIP8gNkQrkrkPEdl+b8v9aIBm34bgmSmJTNIOaGMYEo9ARjel3kL6
+	 8OFnsyjajKjP73Cxa3eDF0Q1wOGacerQ4qmgvzszGVMTdGK5OLoK7xeMZShcleMmbkvYX
+	 hj8glj9i+zVG0C3ZahHeT5j5imA8r4Edo55+izB9iM6MK7GR/qhA82FEPMs0EEoRwDsQl
+	 H2Q4nu5mjuZ6vwRko7y7nAwdCfOwVY9+FVUdNBqzj/I1wnBT9voFMlVPr2pKkmqDSqA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zvg2B30u;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B97C71F000C4;
-	Sat, 14 Nov 2026 11:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794657556;
-	bh=SPA37YGgureDWQIEB+9Q3nNARSqEbSpJ8VBl+t4Y6c0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=CevO0zI92EWJyvfjonwAAn27fhnxW/S162JefscfA0lJxAgQ42AE2n2aVFgoG2mam
-	 H1U/JRQCoeqc2CoZbOwYQ4r9U+PzFVMIEyX1a+PXx6rJvoj+lCca8x6jd5Rb0JAuTx
-	 15m7Il5j913U3XmiGAbqDV/e5l1br7qEG//qKh6WxGlfwu8qXlVEAL1/Nx3d8IQX6H
-	 0ang5g7/bI/EoIns0BgupGAgDmftevmWIeY2DXC8gKn47v8gajgstT7n7MAIGNQx8Y
-	 6G7PItujaOzjwWM2bxDbA3hVXUXFz+WWaEIAk3+iOFQczIIoU+P75OwXN7+HX5n3Zx
-	 cwRahjn0VgmpQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 30FAB49D76;
-	Sat, 14 Nov 2026 11:59:15 +0000 (UTC)
-From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
-Date: Sat, 14 Nov 2026 12:59:14 +0100
-Subject: [PATCH net v6 1/2] vsock/bpf: fix zero-length, MSG_OOB and
- MSG_ERRQUEUE reads
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A6A606A335
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 12:19:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A6A606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zvg2B30u
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c169ae1cb26so387166166b.1
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:19:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794658797; x=1795263597; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nkM3J4QAu8kIsGHpB1EKb0NRF0JxtY2T/gqGpQ/nt0Q=;
+        b=Zvg2B30uBzOFFo54OpfHCzqSK6TOyxTRmwNZV7t2nfrBwunaCrRH+5tI09/jIosXZS
+         GdYk6iMfyO0nJ3moVzjaSKnXCCWxcV1Ye+R/4YjiwdwGG8ofIv4PWH24MjP/VV4CkNiq
+         nSM7j6UNEdEDdNWpjUjn43q9YL/wt1IFltOrsPhL2VYrn8g/yyR7Uz6PFelA0j1tolIT
+         QTqiv37OCVMy+5oEwlNBsw2cKiejzgZGAC7AZW2QPAu9cR2dMcfIteYf8vq02JyCIN53
+         /PYiFz/vA+fp7KPo0fCiRfu55fCeLd5qLFIcUMGbAUVH1mkivaDzQTprXnn5n1PDT9pn
+         6ZTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794658797; x=1795263597;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nkM3J4QAu8kIsGHpB1EKb0NRF0JxtY2T/gqGpQ/nt0Q=;
+        b=k3JdSgJcE58B9xdailSLSDosIwlqzTlSC1QJtC4/v05smLg9ajF58AAN96XQboDhFJ
+         7vHVyCz4MspLr3LPnwF9WKgjhUnRGg01JJpJVdoQ5FXiDupSIy8HeQhW280hxAZapMxp
+         Q3gOMD8piQ2dQ/Dv783balAB2Yy+kuypZWZFEkHbheBoCmaJKicV/HkoOirEdqtQlGaD
+         PwTW1bjSq9KLV8D5YmXqV9kZMChLKBuh0VANGAMeLERGough4cacT2CORck0+gGbPG7U
+         vnIOsnT3f4NAnbVXmJY4TIc6KqjiTBE+8TzGzsfnXH+dTWN0ULYdnZypN3M2Ij+XauKS
+         YKRw==
+X-Forwarded-Encrypted: i=1; AL+hErFke7NgaYAMpRr1DWjCcg+20Fx6BEYF/IIix7YAcKSpKVD3TH4OjlIJDQo/GPKuv/nTk8Y/quY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8XOKvsHpDvPJmtezOlJotH8gHiFEtndM55n7Hkm3KFdhM+Q9yG
+	hZOY/ct0/ofHsxzDVjsQtfE7mUBaVNVQ9ejFNtgevLwajUgMzfUI1Vzo
+X-Gm-Gg: AYBFou0KoMuJgIFjIbTDsJ1OP+9jk0kLKuNsqGUGyuPhC08Orr7GFYScZ0rIOyagIhl
+	aKFhloa3XLuK3vQ7oTqnFPPi5oRNmDPdmg6fyYbpqJ4upJx5B5jDPyBJpIv/K8Q7ft5oMDKwx1D
+	MohC2BM+jCu9Vvw5tzDv8JtTsbxzaPijYxyhi+0m/JTH65CMVaHo/8EWSh71hmqJatZBkr5a6/0
+	HLzw155BvebiuRhVPSmSREFnRA+BxwojcvWhoc1Q3GQJ5Szi1pwjMx6VYwee2lsCDYOi9k1eSct
+	sQqSYeIwSfG05c4cbZGFOx7EqyOTrO3CdhsiXjOx+akdN6tUx0+Iytaoy6RSH6GlzqNu0zYhFOS
+	I54PVrW7SpNmqMOblVxUqMiRAYenayvOawbdlUtr9ATrcps8MDj3IgMzglZU8pe+G5TLyLgHFmU
+	Tpgq3WMer4/kA3fuD+tMAUikUAh6pYWHhGejIwFgGSvak2uK6O1syD5Mm/81E4aJ/f3v7qzTQCj
+	3mm8t1HCFcN9HAz5bwowXCkMJ9U9n3GO0oQtJ6TtDVqBY3YkRVAwl6sqUGlXr+X4Gk0INO3UNLS
+	ItD/dnBzbCaRAOI0LKzJIiVc1v3GSxpSLqiZoQvBjyme+TQQQPCRms0tcJiLMuS+zfDPloiKg1I
+	xIhs38PdPN0nh
+X-Received: by 2002:a17:906:1001:10b0:c41:4512:560d with SMTP id a640c23a62f3a-c5096387b02mr309942166b.16.1794658797424;
+        Sat, 14 Nov 2026 04:19:57 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b5ac2asm211518966b.55.2026.11.14.04.19.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 04:19:56 -0800 (PST)
+Date: Sat, 14 Nov 2026 13:19:56 +0100
+From: Amir Goldstein <amir73il@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Shakeel Butt <shakeel.butt@linux.dev>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
+	linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org, linux-unionfs@vger.kernel.org,
+	bpf@vger.kernel.org, linux-nfs@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 10/12] ovl: take freeze protection when storing the uuid
+Message-ID: <avhR7DbNbVDCyPDO@amir-ThinkPad-T480>
+References: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
+ <20261114-work-fs-frozen_writes-v1-10-f5ae61c898b1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,85 +105,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-kbh3-1-022-fix-v2-v6-1-96b6029bbffa@eldare.de>
-References: <20261114-kbh3-1-022-fix-v2-v6-0-96b6029bbffa@eldare.de>
-In-Reply-To: <20261114-kbh3-1-022-fix-v2-v6-0-96b6029bbffa@eldare.de>
-To: Stefano Garzarella <sgarzare@redhat.com>, 
- Bobby Eshleman <bobbyeshleman@meta.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
- Alexei Starovoitov <ast@kernel.org>
-Cc: Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657554; l=2260;
- i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
- bh=HNk00rg3w34p5I+aJL5/O9foUQOvgErOJTc5nh/GqmQ=;
- b=swjcV4jiYBjHRD+LmXnkm4bBMz5vy4M5McoYob0jJlTaEfRXY+ad6xFFFFtcLe4OhoOT/wnJ0
- SohR0mWWn1DAy4oT/UEDBgfmmzhcdpCtcLvSj+7BIusfI3+jsD7ehrY
-X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
- pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
-X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
- auth_id=1075
-X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
-Reply-To: jrmmhm.kernel@eldare.de
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114-work-fs-frozen_writes-v1-10-f5ae61c898b1@kernel.org>
 
-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+On Sat, Nov 14, 2026 at 11:47:17AM +0100, Christian Brauner wrote:
+> ovl_init_uuid_xattr() stores the persistent uuid in an xattr on the
+> upper root. That happens after ovl_make_workdir() dropped its write
+> access to the upper mount and before ovl_get_indexdir() takes it
+> again. So a freeze of the upper filesystem that lands in between lets
+> the mount modify a frozen filesystem.
+> 
+> Take write access to the upper mount around the xattr update.
+> 
+> Fixes: d9544c1b0d9e ("ovl: store persistent uuid/fsid with uuid=on")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-On a vsock socket in a sockmap, vsock_bpf_recvmsg() sends zero-length,
-MSG_OOB and MSG_ERRQUEUE reads down the sockmap path whenever the psock
-queue has data or nothing is queued at all. That path copies from the
-psock queue and waits for data, and it handles none of these reads:
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 
- - a zero-length read with data in the psock queue spins with the
-   socket lock held, and the delivery worker blocks on that lock;
- - MSG_ERRQUEUE consumes stream bytes from the psock queue, and the
-   zero-length MSG_ERRQUEUE read that MSG_ZEROCOPY users make to collect
-   completions gets -EAGAIN or blocks instead of reading the error
-   queue;
- - MSG_OOB consumes ordinary stream bytes or waits for data, where a
-   connected native socket returns -EOPNOTSUPP.
+Thanks,
+Amir.
 
-Hand these reads to __vsock_recvmsg(), the path of a socket outside a
-sockmap, which does not wait for any of them. They now take one path,
-so the order of the checks no longer matters.
-
-The MSG_ERRQUEUE case was found with the help of Anthropic's Claude,
-its stream-byte and MSG_ZEROCOPY parts by Stefano, and the zero-length
-and MSG_OOB cases by the netdev Sashiko reviews. Each was reproduced in
-a VM with a vsock-loopback socket in a sockmap, without kernel changes
-or error injection. With this patch alone they behave as on a native
-socket. The vsock vmtest.sh single-VM tests and the BPF sockmap
-selftests pass with the series; I did not run them on this patch alone.
-
-Fixes: 634f1a7110b4 ("vsock: support sockmap")
-Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
----
- net/vmw_vsock/vsock_bpf.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-index 9049d2648646..c9b399f37720 100644
---- a/net/vmw_vsock/vsock_bpf.c
-+++ b/net/vmw_vsock/vsock_bpf.c
-@@ -80,6 +80,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
- 	struct vsock_sock *vsk;
- 	int copied;
- 
-+	if (unlikely(!len || (flags & (MSG_OOB | MSG_ERRQUEUE))))
-+		return __vsock_recvmsg(sk, msg, len, flags);
-+
- 	psock = sk_psock_get(sk);
- 	if (unlikely(!psock))
- 		return __vsock_recvmsg(sk, msg, len, flags);
-
--- 
-2.56.0
-
+> ---
+>  fs/overlayfs/util.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+> index 521717209b2e4..67aa7b71e9c83 100644
+> --- a/fs/overlayfs/util.c
+> +++ b/fs/overlayfs/util.c
+> @@ -829,8 +829,12 @@ bool ovl_init_uuid_xattr(struct super_block *sb, struct ovl_fs *ofs,
+>  
+>  	/* Try to store persistent uuid */
+>  	set = true;
+> -	res = ovl_setxattr(ofs, upperpath->dentry, OVL_XATTR_UUID, uuid.b,
+> -			   UUID_SIZE);
+> +	res = mnt_want_write(ovl_upper_mnt(ofs));
+> +	if (!res) {
+> +		res = ovl_setxattr(ofs, upperpath->dentry, OVL_XATTR_UUID,
+> +				   uuid.b, UUID_SIZE);
+> +		mnt_drop_write(ovl_upper_mnt(ofs));
+> +	}
+>  	if (res)
+>  		goto fail;
+>  
+> 
+> -- 
+> 2.53.0
+> 
 
