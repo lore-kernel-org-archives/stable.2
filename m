@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794640618;
-	b=DsNmIOAdg627K9l1tqeigwGn4Ut5Fvw+keFmfDHh/Dc4iqHEPUBmrdK9sNs9mOvOEhRo
-	 O4oOgD0WWmSggN1zhHuKAoehLH6xmyjs2jjA9/2z6LuveEtpU6UlbcMw1yWEQ2mdX4d6X
-	 gso9YmDpWulfFCef1XI1UF4F/7fiaK14Sf76TI7YVWbYuDwCLCYsKSk1HUZBEsdo6hs1/
-	 SEAfCLGyFFkfhC/V8tFv0w3qQeQ1W0H2Qtav/KWOlPXa8+KA0x8y326ghdZO0nJ19J4Yr
-	 O8hXoHobCOUI4Eh6w5pWAe+ZVj0AqaRsWp7Fbowz2qFABDROyorg/L6k5BFrSriLbvA==
+	t=1794640913;
+	b=jKzF6r5bBNGSbzSF3qyxIqEG7FBlzzBN2xB7G5zOs0tsgw6be7OvV+5VBL437ffMDe4i
+	 0LN3WIYfVmKnB+9lwh8FrlpWviGzU+wCszAkRKTRX6zcvcEEMIwyjPp9l/6f62mVp0OyI
+	 mwFGs/23BRKmqwz45PRy4coz+3QucC5cQsIZxE1RRT3Ee3Eictx/TAwuBq3XwcPR7rpmn
+	 LOT0D0bg1uKi4BcXjJsem4fzgRHOmmf253RXQm0/PPfSaSI3fKiAkm+aK/ZiWddMIDYD7
+	 Ae5uQxhtSVej9xGXkexsB0WJW+hlrMYExoiL6IESswI8ZBEwxmmfuaJ2TzDg80Hk5Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794640618;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=A7n5WM5eoUe84bcsKGLlc35N+LnxPZjMUgreXGX2s48=;
-	b=1rWgjDchBp+NNRHu7SV2DIw2D12MI4LSjXF6s0CCqqI750Dpd9qdaguneWthvH6EwhlP
-	 VOcYHrXtKmpy0pmDJ1zfqCQ7H0G97b4Rf0KDzw+EbXtEu0JYu0YfBC60hLoX+3Lie6k7q
-	 KbW8/n9izrjS5sZ7sVdPgmg2AaS3UhZ+Ehm55CyecS80DCz9HAv7Y3OwfLadXwpLgHPfl
-	 Ji9newHlPeDHyJ7u1w6fJnLostGCeKbrpXOIvJZVeU7ctlstYhsqQ3bLM/oznb03YYVMf
-	 IiHt/NP+4LrFRRAjVLPoS8kRl9YFjDE+vzzgpwOHnBtvE3Dt6zqCBvAJN79S6PDXiJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794640913;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=e/1h3TRUoPe5w3C/cUUxtBoA+L+aWqZ5paqVgP/ZCnk=;
+	b=yqf+ScnAy/W8qvyeoPTYiahR1JWR6kgDP5TGBxwJ1o1drTgcw1zuKQuMzc7RWaoZFkEA
+	 HbO3SMPaAj9eNAIlI0poLF2iPznJm/x6927fOCHPv/i4SUCdqa9SuDdqbsJ6Q2AQO3iTq
+	 a9XVCy7DYlMWKrGK2PaO2+D+iosfW3SYinZUrEUPvWC9/amzfe27pAsYVevEj/NqcwMLd
+	 T/6522nWdROcn8Td2ssMnjCU1FbrqCUT6QTfr3eFRoPE/KEnEzGSunTRsWHiR23JKqo/1
+	 v8A56baIeDHSqDg4djcA7HG2KAg2xrITJs4M453U96S0h74/q+Oz2/hJMBKAmQ1XI8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LzTRyBbS;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=An8wNdYt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86D8606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 07:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B86D8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C541606A330
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 07:21:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LzTRyBbS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794640618; x=1826176618;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=2zycnUAnU720S400NhnYzs+dFnikglYbF7hfXGIyrZQ=;
-  b=LzTRyBbSfZzyA05WFWFd+6kINPZ/A5xdAHQDL3ZRocFgbz+yP9uCPafR
-   huedLD/MdJtfxwfAbAdwueNnsIayu23i3qUuKnRE6j/C4fMx7xeu7wqlV
-   nMLsq4z1+UZdHUd/+dyZbt0Ix6H808TRn1YdUXXAGAMHL+TJ2nDkpKyiu
-   hJlJl9PXlm+RGfg9Z6s6PPeJMYZqDuyQsuxzuvevU9HdhN4NE/Wg7bRsd
-   j7NCbxiKH9r4CwKaZVeTjmqQpSmhXnCFvsXGatnrZ32Ksh2shl4bvX6LV
-   OXlEjd6ogB29e2CQU7tlhd4wjXsdiVO/HpX4TxXmS1MUVaaGOwne8TJ8j
-   A==;
-X-CSE-ConnectionGUID: l7N5IDfNQAuj+e5nCvSjVw==
-X-CSE-MsgGUID: vKVzciDsRRSIZ1ovw1M8tw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3366147"
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="3366147"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 23:16:57 -0800
-X-CSE-ConnectionGUID: dc1kbF9uSty/02xzcMt5SQ==
-X-CSE-MsgGUID: n2UNkuk0Rxu1QGN7elkeqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="9110541"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 23:16:55 -0800
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: suraj.kandpal@intel.com,
-	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
-	Krzysztof Karas <krzysztof.karas@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] drm/i915/dsc: Fix the helper range_bpg_offset()
-Date: Sat, 14 Nov 2026 12:31:14 +0530
-Message-ID: <20261114070114.3308451-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261016101713.230013-3-ankit.k.nautiyal@intel.com>
-References: <20261016101713.230013-3-ankit.k.nautiyal@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=An8wNdYt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67DAC1F000C4;
+	Sat, 14 Nov 2026 07:21:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794640912;
+	bh=e/1h3TRUoPe5w3C/cUUxtBoA+L+aWqZ5paqVgP/ZCnk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=An8wNdYtxlE8MMEQdFcEY9lOxIu+caYRmIYu2hP3XbSyLc2pLf/h0+YvIPXAoOBnx
+	 Ef1GHKyHoHHiJNgyIxvIK8nRFR3zWCM3rgMOyHMO+VLjogBaT27/sGQwQdhXJ8AQlS
+	 VgPOjS6lunXs62tC+8qn0ssb7nrptnqY/z64yXufO1dOnwJSDN7q4qr0vlYaOVWIJr
+	 my2+yRttzn2xXEcRsRrIPZdhxm9foLxjRF/h0uTlQtJww8pg5THHZmutSG0stxx/da
+	 nbU097c0boac4klsvMz1yW82pchAixX4udIUnxZaeQuX0yeQcx9EBFGiuHgG8YbxS0
+	 cS1IciyV8SWrA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: renpanpan <renpanpan@kylinos.cn>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/amdgpu: Only enable HDMI audio if display supports it
+Date: Sat, 14 Nov 2026 02:21:51 -0500
+Message-ID: <20261114072136.3213626-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202431-failed-5.15-0de95c96655c@kernel.org>
+References: <20261109202431-failed-5.15-0de95c96655c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,37 +61,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The helper used to compute range_bpg_offset() uses an incorrect divisor,
-causing the interpolation to occur in the reverse direction. This can
-result in incorrect DSC parameters and visual corruption on some panels.
+From: renpanpan <renpanpan@kylinos.cn>
 
-Correct the divisor used by the helper.
+[ Upstream commit 0de95c96655c8a12df62e47871016f49e5cd8618 ]
 
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9247
-Fixes: 3abe2824e1af ("drm/i915/dsc: Use helper to calculate range_bpg_offset")
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Cc: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: <stable@vger.kernel.org> # v6.15+
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
+audio_enable(pin, true) at the end of afmt_setmode(), regardless of
+whether the connected display advertises audio support in its EDID.
+
+This causes a phantom HDMI audio output to appear for displays that
+have no audio capability (no basic audio bit, no Audio Data Block in
+EDID), because the GPU sets the AUDIO_ENABLED register bit, which
+drives the HDA codec's ELDV pin sense, making the codec report the
+jack as audio-available.
+
+The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
+display_info.has_audio. Apply the same check to amdgpu's DCE
+afmt_setmode functions.
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: renpanpan <renpanpan@kylinos.cn>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 842a45c68e0355eea47796551c8761c0c77e8ce0)
+Cc: stable@vger.kernel.org
+[ sashal: Replaced unavailable connector->display_info.has_audio checks with drm_detect_monitor_audio(amdgpu_connector_edid(connector)). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 5 +++--
+ 3 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index a6556a6e45b7..7a6452557a0c 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -122,7 +122,7 @@ static int
- get_range_bpg_offset(int bpp_low, int offset_low, int bpp_high, int offset_high, int bpp)
- {
- 	return offset_low + DIV_ROUND_UP((offset_high - offset_low) * (bpp - bpp_low),
--					 (bpp_low - bpp_high));
-+					 (bpp_high - bpp_low));
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 0b872bc71b70d..d77daf89a9dd9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1738,8 +1738,9 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
+ 
+-	/* enable audio after to setting up hw */
+-	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (drm_detect_monitor_audio(amdgpu_connector_edid(connector)))
++		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
  }
  
- /*
+ static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 5e21eb88b2e71..429c97751e5ca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -1702,8 +1702,9 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
+ 		dce_v6_0_audio_dp_enable(encoder, 1);
+ 	}
+ 
+-	/* enable audio after setting up hw */
+-	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (drm_detect_monitor_audio(amdgpu_connector_edid(connector)))
++		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+ }
+ 
+ static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index f3b0642f9d9d2..dc72c04d9b7f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1667,8 +1667,9 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+ 
+-	/* enable audio after setting up hw */
+-	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (drm_detect_monitor_audio(amdgpu_connector_edid(connector)))
++		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+ }
+ 
+ static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
 -- 
-2.50.1
+2.53.0
 
