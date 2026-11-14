@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632568;
-	b=koBRn5BnfdmllI5NQVknGxnVL9k5Be6nKeBT3Tc4RSkj1UiCSShmvMAuXt2IqqRkJ1EI
-	 4T47DoPancvecXknyRgHmK2Ox5MlAIyuTylBdliaEBVM6aRjLGSRiO109Iiy9+sNhImrf
-	 eWLqPN7koKmA8QyJjAuEzdNFpT8Yp9QTMYcgWwJ0Q4q8qCiSWKz/XIXKZmgOpWzhSxy5r
-	 t/d+gPac0Hw9Im+AdIISXcTcykSYTKv/rQYfoufM43QFzxvxftixUJJhqJpTEdI0xiE1/
-	 /fyHrVY8e7G56M3NqlkEaPCzH1pHYlRZHpI0AajMkTrGzJyzqkWZa8cUxJigV+enOTA==
+	t=1794632580;
+	b=DQND0VA3FhXKxBrwf4B/D2vyL8pFSO1MAvEeManuEx3yc+336tcsIXzmyKe6j/686zH6
+	 LVSqVAVYKJfFONc1H0LPly1gmrum5a+sVvrdqQh4YiuXij4hyM5L0r11NnERQzDrLDfn3
+	 b7ODlvydq1W67ioDRwXgqQqpZTd81Pwbbt05wmBKAyJF3Sl5tai3ouyMkewbQP1PwrmlV
+	 Lw/Vy5iKOYcCROylpLUB42RW7jVEBtjgscSZ21p6UrRGBHWSNVam+96hsqwrp04ADuEEy
+	 Zk1ulvHH5IYT8LIduRp05//iaj9DmjgyNTQ2H1GsfOQZHXnaAWqcdTCfXuG8yUw0Atg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632568;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632580;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Q7d8MkeTfCosGM5tuoxtliBEXw8jkDKyBMHBATpXCU4=;
-	b=RBzx1uFjUqLJfKDMbF+aiKL0sNw/kGQBztffLj7ynCjNUNCCQEfH6XA3DvG0DmKE0RFY
-	 nN2dvtKSWrCh4ZALFJHqzY820ox47M3OrBxf2SLFFejBcbeBOQzXkeYUM/hDZMn8qlY7g
-	 d1tNMCu7zqxX7jTiR3oOEpA5WOa4nEmzQCyHrm3G+cNHqfU0jL3J2a9lGT6BNBINA2g6o
-	 QMOiHWwnrKY48kqVmCllew/QfVMaEq0y4bHG3Am1PxKvWN1Cp0fOZbWyfseBQD+2Xob3Q
-	 HRrBPLSElqncDUjMS53TFyvUGutaKXVPQGiqn1gWA+uHPInqmVW5r/Z+iVOgdcL5qPw==
+	bh=9GbIfhpLxSa13SKD4IGQeeTXA3nYSIFiijIAUtcJffg=;
+	b=uTSZs+ODRw6iuoLDxceqWR3H78F313hNoJ2r/o+42bChLWM7kWvPgaBSNJDegtwMXZ1+
+	 sxFfW9tSJgU1Ieb2b+sAHOHfgKzP0E/RjZMm6kB1gCEBDVNzb7/f2g3FyC0p4mHT7FCcs
+	 WLQbecgEe2zwbWDs1FjrNGrbIdbpJUTwZDxMhCh8q12wgM+SVY2MGRoFcBqO6ufiNnr/l
+	 +12mroGRq/Pmwhmvq2u4HjybhganorCk+PjBw9r84ZXHZJh2cdvzHsbhVXcjt47ZndNTt
+	 yIGGapsNiU02ptYeteBgrENwJT7d52YDLLLi4JYYK5VShqyKhWQl/1VrG0celUw35Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fJ3KQkpf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j17KN5T4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A40BA606AB4D
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:02:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9C6606A330
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:03:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fJ3KQkpf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1952D1F000C5;
-	Sat, 14 Nov 2026 05:02:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j17KN5T4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903001F000C4;
+	Sat, 14 Nov 2026 05:02:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794632568;
-	bh=Q7d8MkeTfCosGM5tuoxtliBEXw8jkDKyBMHBATpXCU4=;
+	s=k20260515; t=1794632580;
+	bh=9GbIfhpLxSa13SKD4IGQeeTXA3nYSIFiijIAUtcJffg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fJ3KQkpf/K45hYtSu0FO8GyxfrT0oZKcfBUnTeqekoBvoCfCWxh5+ydPAxqu7v8ss
-	 xCht9J03UrOtK45L0vTQPdQQrYcllO5QDI4RNUOCSrXCr+elWLDsNXqijhEVjMAMEH
-	 S/j9j+xPLocu4Z07H2wHGx1Gc9wZZ9OOFzkDEeQhAnMkxAjpa62ASZSMQDwnlvFWvF
-	 95QaaG5fAN6BZjWJ1xUkdkFlV2gTjsJEf25E/J2BeQz1u1Xqy53abGcGJDA8z3ib9K
-	 rO7FXmVqhpRnxtxJXVGNed83FQ19wiZ1NbW8quYB6XE2mQQXdALH2XAfKcRjVX5qhX
-	 1d08xKTklkl6w==
+	b=j17KN5T4yV5cmTCwO5dPNAc1q6fkpRIot642m9mLFDQWsAjpXmbnf1cxYWOSfHlGJ
+	 XvdF86EE2iOO0MFXI2SZHIfnpS58r0PgHYnrxJ9gESM9tlwEMbeBFk3L0aNCG9zvdz
+	 P4zxpeuF8t+Wy1Ce22YLOEBfVYFrv2yiUECg0zGPsUzxryFuy0F+oVFWhs+gSfnEkf
+	 tkIL4P0wd+RBTaPNnlJ2VFTxQlNfnTGt0OIpR710IvcEPaf1tPuJLGtMYj36gaUjX7
+	 eiwvOJNPJ/CRolfF0CB4l/JRqKYlWrVTND+7J9IlHz9O/vxisd6OjOL4Of6ni4dVoL
+	 KdyjjOVgXcNOw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"Harry Yoo (Meta)" <harry@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
+Cc: Yingjie Wang <1075151112@qq.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/rmap: handle device-exclusive entries in folio_referenced_one()
-Date: Sat, 14 Nov 2026 00:02:45 -0500
-Message-ID: <20261114050221.2996655-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] nvmet: reject keep-alive timeouts that would overflow
+Date: Sat, 14 Nov 2026 00:02:58 -0500
+Message-ID: <20261114050234.2992167-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202116-failed-5.15-f3c493d2f42b@kernel.org>
-References: <20261109202116-failed-5.15-f3c493d2f42b@kernel.org>
+In-Reply-To: <20261109200838-failed-6.12-96ae13f40ce5@kernel.org>
+References: <20261109200838-failed-6.12-96ae13f40ce5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,72 +62,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Yingjie Wang <1075151112@qq.com>
 
-[ Upstream commit f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c ]
+[ Upstream commit 96ae13f40ce5930cd58c43128e385131476f2a66 ]
 
-page_vma_mapped_walk() can return non-present device-exclusive entries,
-but folio_referenced_one() passes them to PTE young-bit accessors that
-require present PTEs.
+nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
+millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
+The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
+4294966296 ms wraps around and rounds to 0 seconds. A Set Features
+command with KATO 0xffffffff then succeeds but disables the keep-alive
+timer: Get Features returns 0 and Keep Alive fails with Keep Alive
+Timeout Invalid. A Connect command with such a KATO creates a controller
+without a keep-alive timer.
 
-We must neither call clear_flush_young_ptes_notify() nor
-folio_pte_batch() with non-present entries. For example, clearing the
-young bit on non-present PTEs can corrupt the entry: on arm64
-PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
-entry into an ordinary swap entry.
+The converted value has more consumers that can overflow. Get Features
+multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
+and arm a delay that must not exceed MAX_JIFFY_OFFSET.
 
-folio_pte_batch() will VM_WARN_ON_FOLIO.
+Reject a KATO whose rounded value does not fit all of these. Return Keep
+Alive Timeout Invalid from both Set Features and Connect. Validate Set
+Features before stopping the current timer so a failed update leaves its
+timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
+meaning.
 
-Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
-treat these entries as old from the CPU's perspective and obtain their
-young state through the MMU notifier.
-
-Skip PTE batching and MGLRU look-around for non-present entries, and
-don't modify non-present PTEs.
-
-Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-9-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted folio_referenced_one() changes to page_referenced_one() using single-PTE operations because batching and MGLRU are absent ]
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ sashal: adapted nvmet_alloc_ctrl() error handling to the request-based API with direct NVMe status returns ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/rmap.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/nvme/target/admin-cmd.c | 7 ++++++-
+ drivers/nvme/target/core.c      | 7 ++++++-
+ drivers/nvme/target/nvmet.h     | 8 ++++++++
+ 3 files changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 24da8320a6015..544999a055c49 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -797,8 +797,19 @@ static bool page_referenced_one(struct page *page, struct vm_area_struct *vma,
- 		}
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index 1cc2f57b53ffa..fdfcec2ca9b89 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -811,8 +811,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
+ {
+ 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
  
- 		if (pvmw.pte) {
--			if (ptep_clear_flush_young_notify(vma, address,
--						pvmw.pte)) {
-+			pte_t pteval = ptep_get(pvmw.pte);
-+			bool young = false;
++	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvme_common_command, cdw11);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
++	}
 +
-+			/*
-+			 * PFN swap PTEs, such as device-exclusive ones, that
-+			 * actually map pages are "old" from a CPU perspective.
-+			 * The MMU notifier takes care of any device aspects.
-+			 */
-+			if (pte_present(pteval))
-+				young = ptep_clear_flush_young(vma, address, pvmw.pte);
-+			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
-+								address + PAGE_SIZE);
-+			if (young) {
- 				/*
- 				 * Don't treat a reference through
- 				 * a sequentially read mapping as such.
+ 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
+-	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
++	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
+ 	nvmet_start_keep_alive_timer(req->sq->ctrl);
+ 
+ 	nvmet_set_result(req, req->sq->ctrl->kato);
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index fa011c16c9b1c..849cd6a5b4219 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -1422,6 +1422,11 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
+ 	int ret;
+ 	u16 status;
+ 
++	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvmf_connect_command, kato);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
++	}
++
+ 	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
+ 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
+ 	if (!subsys) {
+@@ -1487,7 +1492,7 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
+ 		kato = NVMET_DISC_KATO_MS;
+ 
+ 	/* keep-alive timeout in seconds */
+-	ctrl->kato = DIV_ROUND_UP(kato, 1000);
++	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
+ 
+ 	ctrl->err_counter = 0;
+ 	spin_lock_init(&ctrl->error_lock);
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index 2a1a848189bea..f1691750705e2 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -7,6 +7,7 @@
+ #define _NVMET_H
+ 
+ #include <linux/dma-mapping.h>
++#include <linux/jiffies.h>
+ #include <linux/types.h>
+ #include <linux/device.h>
+ #include <linux/kref.h>
+@@ -586,6 +587,13 @@ bool nvmet_subsys_nsid_exists(struct nvmet_subsys *subsys, u32 nsid);
+ #define NVMET_KAS		10
+ #define NVMET_DISC_KATO_MS		120000
+ 
++/*
++ * Largest keep-alive timeout in seconds that can be reported back in
++ * milliseconds and converted to jiffies without overflowing.
++ */
++#define NVMET_MAX_KATO	\
++	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
++
+ int __init nvmet_init_configfs(void);
+ void __exit nvmet_exit_configfs(void);
+ 
 -- 
 2.53.0
 
