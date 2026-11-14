@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674318;
-	b=ERqH3y+8PMWrpMmlhYmK64abDaYg3E7r+gNAjmGFD0rxV/LcRPC+/2BUcuBUSACYx4ir
-	 b/vrKt+QgxZ+kOmU113bilY8ewJNhnNYvGz+px791ZLxa/Endw0fhpmpQomU36JV+jbxq
-	 APyxZN8M3eJB8J8iV0tNciKZahBRCHw/Tmidg/1yrSoEMcClSI4bAsO1LIoyFDaS9BHZN
-	 ggCua9T0QCUFCdYWKYVHzRZKY8Hegt43pa3+qZMN8yve9bXE6dxM4c59cg0WpJxC5hYMR
-	 xWGB0PBhS8Ug6M3chQhb1qlxPyD/KbDrnPRTmd8eVpPvnjEyS+srTAjh14UywXocKOg==
+	t=1794674319;
+	b=YFBwBV6aEBzV0qy6iYBFthY0HTxRBEH8874mHWBSVFYJRJK+humI7bToFJjCGBeBFKwS
+	 6fxzW6Smrh1nYPKKe2uzSxv4QfT7stwwtk/NekUWXhSYIj3EQ2dOYqfKRKS8AYSGDNqhi
+	 0eakRmQ2kPh//YaLlBfcXalSZaFjfWhG/N1OFn2MLVfjOQoDOZCy56cG20KwB5f2ySnht
+	 zScHlkHTtykz4SQY5bVwv06tNdmvnhoDBe0dy0jMu7N5E3eC4f6vzWoy8gC9v3VBtMhRx
+	 vyOsDxQe1vz4y5ppXsGv0uX9s0rizVzhS5M/EDgc+6DIvccIh0/KWrVHqhjLKmJ6aOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674318;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674319;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mlXICMOXX+H9lkSL2rmOSdBQGtb03rOmdR75jVFuoNs=;
-	b=XWmWmGV53ozzIe2oGrZ7/dfxqYsSfcfb+JIbfhteE2GoJCpHuMksRXqjrV+9DfrSYc/h
-	 VzvsE6DSnmhCZEuVRY+cB8x/bZtX8SB48sLZRi89oe2RZFFwa7QtgacGc9cMWOexMkFQ9
-	 2poraKZ8Bl+7XiHgEqH5WTsryh+ZeyHiST3J6Rmi0eizXti4n1xgX5ZAP0DrV2bKquEoy
-	 noP43MSRWfjtZ9daA4Bf39VLZtSue4On1I/wUsjU5kY0Q+DEh20HHd2Oh7cUG2XhSP1Ip
-	 f0Bs0lNrfvrOi8Uo49CdtHDM2raNfSdprLqxwItN7/KfPJNTKdph0kc7hYbMf5LSrpQ==
+	bh=fMavHn7Bjss/yzteB8SkRMxtQPsRqN22VL98nEGcAvw=;
+	b=VYQVl29MFBuwIFDgD3fAAZNW7DamBW53yEYOpxuEvG+E/SZY4RHxHA9SlOhhY/ehf/yx
+	 djbdEAIJN/DkDvRsr2hJYdfgrHjfXl0lfRJHW2CS3jGnwoHfMUUX1KBc1sYs8pdKTvJ7z
+	 EHMtFyQvjRzfvNfjTtHdIXwDi4Xezye6MAFkQg3alFpM5fi9f3Qz01AgDvaoVEFxfSRwZ
+	 05b7i9/XQlw04CCQf9svG26yvIed8PHSvOphSOzE3ERcEGPjcaZzXFj7D8124FzugBRZf
+	 oS03ZRBXafaHSzPNpgW+mds3CEW3Cts+VGplElCqdHXBKhWytoAX6WTnOAz7mKEb4lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQ+lsT1n;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzUUBFKq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BCC606A327
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757A1606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:38:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQ+lsT1n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D178A1F000C4;
-	Sat, 14 Nov 2026 16:38:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzUUBFKq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33AF1F000C5;
+	Sat, 14 Nov 2026 16:38:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794674318;
-	bh=mlXICMOXX+H9lkSL2rmOSdBQGtb03rOmdR75jVFuoNs=;
+	s=k20260515; t=1794674319;
+	bh=fMavHn7Bjss/yzteB8SkRMxtQPsRqN22VL98nEGcAvw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fQ+lsT1nDwqb3cc4BVxTwOugf/KvRG1Th8ClvQP726qNHmCrfJo6XqTTz7uTKqCCX
-	 O8+0s9Qp3sx3Dp7tJSR+SjN2S7b53N2s0xpomwM0XpX9ssV5NIuYOOJuqB+hCtQmhL
-	 ULvacazeilOBOX/9+zfYstzRO9KPyMnyQUrVCuXoAdYwKKuF0cv0TXcZ3n5CWVuUX4
-	 t70O/065Xe3tFyG7711eK9nZe2BiC2/TwsRizKPmjGWBMDIdQRM23v4ZhdS3Sutgid
-	 0D+SjHHuNMRWTfaseCnPDRm0gAgR0Ir7jtXSnifeLfMR/J9B7dIWxiWURfYhNUHcyd
-	 Kjimu7p/5HIpQ==
+	b=WzUUBFKqt2RBEi1TnJhNEDzzJVJknSaaN6bEC+MGlvIpujW/0grhHdTHQWtpidYEw
+	 2NtRTyZNZnHuZpvSN/a6eU1mYfJotQ8Zv0M6aLbafJibUcojbNkifUyk6jz2I66vwY
+	 9OAQNl6SiE6aiE/SxJaQtwUu0etTlkD8Q/180CwegrMBZDmxLG4bKe4hGx1R3bk/S9
+	 kW2zGtC29fcuI2HUcEyGXD+rDe1qKpKyK8EDAxcxv3Yqfikuhp2QR26YiYOvo1oZ/4
+	 W6DxurklUVgwjENhT+NtT83UJh4aPIjMU4Kq4V1gI7DFHbhD2HXDBRAjhvdgiPtxS9
+	 QBnVzQj7gQDqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Lang Yu <lang.yu@amd.com>,
-	Felix Kuehling <Felix.Kuehling@amd.com>,
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] drm/amdkfd: Map wptr BO to GART unconditionally
-Date: Sat, 14 Nov 2026 11:38:35 -0500
-Message-ID: <20261114163823.4070300-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] drm/amdkfd: use the queue's process info for the WPTR BO eviction fence
+Date: Sat, 14 Nov 2026 11:38:36 -0500
+Message-ID: <20261114163823.4070300-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200953-failed-6.12-da2897ee8b81@kernel.org>
+In-Reply-To: <20261114163823.4070300-1-sashal@kernel.org>
 References: <20261109200953-failed-6.12-da2897ee8b81@kernel.org>
+ <20261114163823.4070300-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,79 +63,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lang Yu <lang.yu@amd.com>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit 30837a49bd0aba0f311d4056cd48753955f60d40 ]
+[ Upstream commit da2897ee8b811945fd40ecc4aaf03291c14ce61c ]
 
-For simulation C models that don't run CP FW where adev->mes.sched_version
-is not populated correctly. This causes NULL dereference in
-amdgpu_amdkfd_free_gtt_mem(dev->adev, (void **)&pqn->q->wptr_bo_gart)
-and warning on unpinned BO in amdgpu_bo_gpu_offset(q->properties.wptr_bo).
+amdgpu_amdkfd_map_gtt_bo_to_gart() removes the eviction fence of
+bo->vm_bo->vm->process_info from the WPTR BO of a new queue. bo->vm_bo
+is the VM which opened the BO last, not necessarily the KFD process' VM,
+and a render node VM has no process info.
 
-Compared with adding version check here and there,
-always map wptr BO to GART simplifies things.
+On navi31, an unprivileged process which exports its WPTR BO with
+AMDKFD_IOC_EXPORT_DMABUF and imports it on a second render node fd
+oopses in AMDKFD_IOC_CREATE_QUEUE:
 
-v2: Add NULL check in amdgpu_amdkfd_free_gtt_mem.(Philip)
+  BUG: kernel NULL pointer dereference, address: 0000000000000060
+  RIP: 0010:amdgpu_amdkfd_map_gtt_bo_to_gart+0x86/0x1a0 [amdgpu]
+   init_user_queue.part.0+0x180/0x250 [amdgpu]
+   pqm_create_queue+0x32d/0x730 [amdgpu]
+   kfd_ioctl_create_queue+0x583/0x9f0 [amdgpu]
 
-Signed-off-by: Lang Yu <lang.yu@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Pass the process info of the queue instead. With the fix, the queue is
+created and destroyed normally.
+
+Fixes: 7f347e3f8217 ("drm/amdkfd: Fix NULL pointer error for GC 11.0.1 on mGPU")
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Stable-dep-of: da2897ee8b81 ("drm/amdkfd: use the queue's process info for the WPTR BO eviction fence")
+(cherry picked from commit 6b4157498a176bd1c6083f6bb5aaf8a257a2027e)
+Cc: stable@vger.kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  3 +++
- .../amd/amdkfd/kfd_process_queue_manager.c    | 23 ++++++++-----------
- 2 files changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h             | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c       | 8 +++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 3 ++-
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 1a92f04c63ace..2de2895e3850b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -368,6 +368,9 @@ void amdgpu_amdkfd_free_gtt_mem(struct amdgpu_device *adev, void **mem_obj)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index b921587d428cc..f5374b6f2501b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -324,7 +324,8 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
+ 					     void **kptr, uint64_t *size);
+ void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
+ 
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart);
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart,
++				     struct amdkfd_process_info *process_info);
+ 
+ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
+ 					    struct dma_fence __rcu **ef);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 55834719e9848..318d731bf9ecd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2248,11 +2248,13 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
+  * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment reference count
+  * @bo: Buffer object to be mapped
+  * @bo_gart: Return bo reference
++ * @process_info: KFD process info of the queue the BO is for
+  *
+  * Before return, bo reference count is incremented. To release the reference and unpin/
+  * unmap the BO, call amdgpu_amdkfd_free_gtt_mem.
+  */
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart)
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart,
++				     struct amdkfd_process_info *process_info)
  {
- 	struct amdgpu_bo **bo = (struct amdgpu_bo **) mem_obj;
+ 	int ret;
  
-+	if (!bo || !*bo)
-+		return;
-+
- 	(void)amdgpu_bo_reserve(*bo, true);
- 	amdgpu_bo_kunmap(*bo);
- 	amdgpu_bo_unpin(*bo);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 445fba8e4bbdd..4a3ed391b3c7b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -278,20 +278,17 @@ static int init_user_queue(struct process_queue_manager *pqm,
- 		/* Starting with GFX11, wptr BOs must be mapped to GART for MES to determine work
- 		 * on unmapped queues for usermode queue oversubscription (no aggregated doorbell)
- 		 */
--		if (((dev->adev->mes.sched_version & AMDGPU_MES_API_VERSION_MASK)
--		    >> AMDGPU_MES_API_VERSION_SHIFT) >= 2) {
--			if (dev->adev != amdgpu_ttm_adev(q_properties->wptr_bo->tbo.bdev)) {
--				pr_err("Queue memory allocated to wrong device\n");
--				retval = -EINVAL;
--				goto free_gang_ctx_bo;
--			}
-+		if (dev->adev != amdgpu_ttm_adev(q_properties->wptr_bo->tbo.bdev)) {
-+			pr_err("Queue memory allocated to wrong device\n");
-+			retval = -EINVAL;
-+			goto free_gang_ctx_bo;
-+		}
- 
--			retval = amdgpu_amdkfd_map_gtt_bo_to_gart(q_properties->wptr_bo,
--								  &(*q)->wptr_bo_gart);
--			if (retval) {
--				pr_err("Failed to map wptr bo to GART\n");
--				goto free_gang_ctx_bo;
--			}
-+		retval = amdgpu_amdkfd_map_gtt_bo_to_gart(q_properties->wptr_bo,
-+							  &(*q)->wptr_bo_gart);
-+		if (retval) {
-+			pr_err("Failed to map wptr bo to GART\n");
-+			goto free_gang_ctx_bo;
- 		}
+@@ -2274,8 +2276,8 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo
+ 		goto err_map_bo_gart_failed;
  	}
  
+-	amdgpu_amdkfd_remove_eviction_fence(
+-		bo, bo->vm_bo->vm->process_info->eviction_fence);
++	/* bo->vm_bo can be the VM of any file which opened the BO */
++	amdgpu_amdkfd_remove_eviction_fence(bo, process_info->eviction_fence);
+ 
+ 	amdgpu_bo_unreserve(bo);
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 4a3ed391b3c7b..819c7f5fb16f8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -285,7 +285,8 @@ static int init_user_queue(struct process_queue_manager *pqm,
+ 		}
+ 
+ 		retval = amdgpu_amdkfd_map_gtt_bo_to_gart(q_properties->wptr_bo,
+-							  &(*q)->wptr_bo_gart);
++							  &(*q)->wptr_bo_gart,
++							  pqm->process->kgd_process_info);
+ 		if (retval) {
+ 			pr_err("Failed to map wptr bo to GART\n");
+ 			goto free_gang_ctx_bo;
 -- 
 2.53.0
 
