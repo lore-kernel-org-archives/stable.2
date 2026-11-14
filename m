@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794667752;
-	b=pKTElPZ7AVYeTVEJX5iUeBC7VyCA64r0exEpoauNTpOKhaDufujEAWVEzU7kOL/KE58r
-	 W+k4+U8WQdsovcZOZBbNSFroVsZ12DAT1oBKt+N1MCUYu3ccVARR2v318bl4D1imN8reM
-	 9S3lJ23b9gX1DyMaUF8fUOod2lvkXxJJrmFORMSf96Vedu5kqNW2bZaj0VWI930uqz/tR
-	 wK2jPafNL8ja+nn2wmwMu3YQ7gTJuqt4NbjE8JqtJWU/FHUTXbdZrFuJynBBGbGnGT16P
-	 XN5XIlyXqLAzZEII5tbIVBfsp74l5f+blWi+J1mW0sHUzmJFRHBI5/QbBmAIteydI2Q==
+	t=1794668213;
+	b=daLzH4nu1w514lWH212/FJhNgjP3kgwg54qJYXrZ/375u2Mrdn3byFP3DdOOJNgoVBQD
+	 zPW4MbMzq1udb+CENKWVTrzEidLp2TfPviBfjwt5xhFuWSEmZPbnbpfM0LoomZSAgkrdq
+	 2yGuoyyLTqFPg7ShmO3+ln7wtnHFG2sFUTsH5VzxKnqAyZFvBapp90eoY5kWtympUhpwp
+	 CMkG7wy8Uncamb2YMHH8sfo5AsmrnbxPWr1y8LW7TXzRp9MoU4HwMChagmKaYzAht+N6Z
+	 ARHp7QcYC+itW98rTw96ZFH/6DFXDwWO+El8ld/BijG1sNVtne90aH3/PqpMNq6clPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794667752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794668213;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FEu2mfq5bJfj6w010Q8gRlOZcF8hb/pEE55HP0S2WUM=;
-	b=fcNSuCGrdBrwYOzVZ3YUyZfq8sx+6Tz49z25aKZA4GFzS4TaFi2KaLcL10W2ir15Y/u5
-	 b92bfJ6o73LGcQbGNhtcHB+NgT5XyHBu9AGpOSLZPXfCsVINTgtp5Mpvjd6igsK+RWVjg
-	 N0pkvTBbG7E878TpVxjjVoz/rAxue/KPty4/2kIYAk2GSrsvF5kFeq67atO57ByBZ2tML
-	 RXmoUZofcMd/lJEeTIYyKICYmawj9McfSSDJNXogeDjwEoYE3oIjasis5mgpkwhoaVFkt
-	 0lpsU+DB9GhYIZb8VOYKoXoq7yscO3xxrrRUfKVZew5II7maATQTpiiuqHKoyEVkuPQ==
+	bh=2Q3V3QeGvrIiFHzLIEZrnLyjkVq+A0recmdmHUWu7+M=;
+	b=h8VaGNmO2Oojy/pmsQLTYH8BfG/3cio420aJi/ZmhbfZVma/F6h7ovZ/3+UtnikDiC7I
+	 ykEQLXMrW40bokkOf6AnjuZUfc3NTyGmqa0KmBocLhtYqazA0Ud45FMnAFHlwgG213ef+
+	 GTWMzvLqmLEXALM7pMEvpq/rLVr2jNNfaalTS+lRt77D0e3VWg+Oger3VxAeZ4hhExn/P
+	 eZnbbH3LnXzjQeNsSDrRtODc6X+nAl3EFXkbtJQz3uJplkr3/VysVduFzE5wKywXvXi0R
+	 oU8cz1c8qtfIFd4+kzcCUSm3egf+L5ivM7QAMfXr/FFbEWOmHjS2fY4rFlrcvFmxQ6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDXt8hDz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cx6sL9LH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77BD606A33F
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 14:49:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BC8606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 14:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDXt8hDz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85271F000C8;
-	Sat, 14 Nov 2026 14:49:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cx6sL9LH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C92E1F000C4;
+	Sat, 14 Nov 2026 14:56:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794667752;
-	bh=FEu2mfq5bJfj6w010Q8gRlOZcF8hb/pEE55HP0S2WUM=;
+	s=k20260515; t=1794668213;
+	bh=2Q3V3QeGvrIiFHzLIEZrnLyjkVq+A0recmdmHUWu7+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BDXt8hDzox52ir88NTrwWdWBNjK7v71OGilNVpoGrG3CVYUphsPLtmw1MxOdDJcKg
-	 R5cr6PFuYkyOb91ufKvt53euyuHw5P3xJwH5KAYXFyNbP5jkIozU2XjWrwK85yTgap
-	 Ln9E7n9gQaq9ohpkYGfpHMVBNGmyGRirFujLRgzC/ELHWhhxfBuASl/T2aDFVA2vq+
-	 eRGHJvCS0aDjsWQuvICcBRvRg85Q/n+FR49icTWZH04KBrkn035NzLkKXNsCMVaOLl
-	 IupPWwP53bnCHUlFA1/cdjrlvCFdby+j4C0yxmfm0nz4vU4h4Jp9lB4pPGeuuAIkdK
-	 qUoFMwN9HBEyw==
+	b=Cx6sL9LHRY7WQpgf4QyqXyAWXbc+Lf3PremxwAKsVb7M0ULk6+qU4pRFNGlNpzvXi
+	 wPPKwd8KmkEBKmp57TfA0TZRRfEeiKVVHLfqYjPFqTytQ+1pVHN3KBpZwzgBPxmYbN
+	 Pfh37gVhegga6lU6XyXbHmJAPiuAk2A9+j5f2n/5mW/tCXrESwLjC2PNYJ8n66u1pF
+	 HWjwAsUUJX3vVkZFFVurXavqdD5cdh7Wq2XiRBwiIO83ijpEeVoDVZAChk2H/bbdeh
+	 SlRyIcSvaa8uLJygOhzaTdhEuLFygV+DrrWWuid+qca/qCK6Ml+8ZaS1h04/inv3oC
+	 mlnbX6CMfLP6A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yingjie Wang <1075151112@qq.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: Chris Mason <mason@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] nvmet: reject keep-alive timeouts that would overflow
-Date: Sat, 14 Nov 2026 09:49:10 -0500
-Message-ID: <20261114144614.3192989-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm: fix deadlock of mremap() against UFFDIO_MOVE
+Date: Sat, 14 Nov 2026 09:56:51 -0500
+Message-ID: <20261114145628.3437819-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202305-failed-5.15-96ae13f40ce5@kernel.org>
-References: <20261109202305-failed-5.15-96ae13f40ce5@kernel.org>
+In-Reply-To: <20261109200510-failed-6.18-d03df42ddae1@kernel.org>
+References: <20261109200510-failed-6.18-d03df42ddae1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,112 +65,379 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yingjie Wang <1075151112@qq.com>
+From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit 96ae13f40ce5930cd58c43128e385131476f2a66 ]
+[ Upstream commit d03df42ddae196f20e9cfb775704e60269eb6b44 ]
 
-nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
-millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
-The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
-4294966296 ms wraps around and rounds to 0 seconds. A Set Features
-command with KATO 0xffffffff then succeeds but disables the keep-alive
-timer: Get Features returns 0 and Keep Alive fails with Keep Alive
-Timeout Invalid. A Connect command with such a KATO creates a controller
-without a keep-alive timer.
+With per-VMA locks, UFFDIO_MOVE can run concurrently with mremap()
+on different VMAs in the same mm. Those VMAs can share page tables, so
+both operations can acquire the same pair of page-table locks.
 
-The converted value has more consumers that can overflow. Get Features
-multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
-and arm a delay that must not exceed MAX_JIFFY_OFFSET.
+UFFDIO_MOVE orders the locks by address, while mremap() takes the source
+lock first. These conflicting orders can deadlock; mremap() holding
+mmap_lock for writing no longer helps.
 
-Reject a KATO whose rounded value does not fit all of these. Return Keep
-Alive Timeout Invalid from both Set Features and Connect. Validate Set
-Features before stopping the current timer so a failed update leaves its
-timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
-meaning.
+Move double_pt_lock() and double_pt_unlock() to mm/internal.h and use
+them for all page-table moves in mremap(). Preserve the source entry
+checks after acquiring both locks. Remove the comments claiming that
+exclusive mmap_lock makes lock ordering irrelevant.
 
-Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
+In move_ptes(), make sure to just recheck source and destination PMD
+after taking the locks and drop the overly-long comment.
+
+Fix generated by an LLM and sent by Chris Mason in private.
+
+[ david: use new helpers consistently; simplify description and comments;
+         move_ptes() fixup ]
+
+Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
 Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: adapted nvmet_alloc_ctrl() error handling to return status directly and set req->error_loc instead of using args ]
+Signed-off-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-38-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: replaced pmd_is_huge() with the equivalent is_swap_pmd() || pmd_trans_huge() check ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/admin-cmd.c | 7 ++++++-
- drivers/nvme/target/core.c      | 7 ++++++-
- drivers/nvme/target/nvmet.h     | 8 ++++++++
- 3 files changed, 20 insertions(+), 2 deletions(-)
+ include/linux/userfaultfd_k.h |  2 -
+ mm/huge_memory.c              | 19 +++-----
+ mm/hugetlb.c                  | 14 ++----
+ mm/internal.h                 | 28 +++++++++++
+ mm/mremap.c                   | 87 ++++++++++++++---------------------
+ mm/userfaultfd.c              | 27 -----------
+ 6 files changed, 72 insertions(+), 105 deletions(-)
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index 7c1fc6310599b..9df4107318ede 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -808,8 +808,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
- {
- 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
+diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
+index d65effb5cbff2..ffbf643430bb0 100644
+--- a/include/linux/userfaultfd_k.h
++++ b/include/linux/userfaultfd_k.h
+@@ -140,8 +140,6 @@ extern long uffd_wp_range(struct vm_area_struct *vma,
+ 			  unsigned long start, unsigned long len, bool enable_wp);
  
-+	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvme_common_command, cdw11);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+	}
+ /* move_pages */
+-void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2);
+-void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2);
+ ssize_t move_pages(struct userfaultfd_ctx *ctx, unsigned long dst_start,
+ 		   unsigned long src_start, unsigned long len, __u64 flags);
+ int move_pages_huge_pmd(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd, pmd_t dst_pmdval,
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 24f5887eb48ee..a122a71f04c3c 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2423,15 +2423,11 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
+ 		return false;
+ 	}
+ 
+-	/*
+-	 * We don't have to worry about the ordering of src and dst
+-	 * ptlocks because exclusive mmap_lock prevents deadlock.
+-	 */
+-	old_ptl = __pmd_trans_huge_lock(old_pmd, vma);
+-	if (old_ptl) {
+-		new_ptl = pmd_lockptr(mm, new_pmd);
+-		if (new_ptl != old_ptl)
+-			spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
++	old_ptl = pmd_lockptr(mm, old_pmd);
++	new_ptl = pmd_lockptr(mm, new_pmd);
 +
- 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
--	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
-+	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
- 	nvmet_start_keep_alive_timer(req->sq->ctrl);
++	double_pt_lock(old_ptl, new_ptl);
++	if (likely(is_swap_pmd(*old_pmd) || pmd_trans_huge(*old_pmd))) {
+ 		pmd = pmdp_huge_get_and_clear(mm, old_addr, old_pmd);
+ 		if (pmd_present(pmd))
+ 			force_flush = true;
+@@ -2448,11 +2444,10 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
+ 		set_pmd_at(mm, new_addr, new_pmd, pmd);
+ 		if (force_flush)
+ 			flush_pmd_tlb_range(vma, old_addr, old_addr + PMD_SIZE);
+-		if (new_ptl != old_ptl)
+-			spin_unlock(new_ptl);
+-		spin_unlock(old_ptl);
++		double_pt_unlock(old_ptl, new_ptl);
+ 		return true;
+ 	}
++	double_pt_unlock(old_ptl, new_ptl);
+ 	return false;
+ }
  
- 	nvmet_set_result(req, req->sq->ctrl->kato);
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 34e7b86c7d0f9..5dd23446a91a7 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1355,6 +1355,11 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 	int ret;
- 	u16 status;
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 32daea7b157fa..44d720da8f388 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5808,15 +5808,9 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
+ 	spinlock_t *src_ptl, *dst_ptl;
+ 	pte_t pte;
  
-+	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvmf_connect_command, kato);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+	}
-+
- 	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
- 	if (!subsys) {
-@@ -1432,7 +1437,7 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 		kato = NVMET_DISC_KATO_MS;
+-	dst_ptl = huge_pte_lock(h, mm, dst_pte);
++	dst_ptl = huge_pte_lockptr(h, mm, dst_pte);
+ 	src_ptl = huge_pte_lockptr(h, mm, src_pte);
+-
+-	/*
+-	 * We don't have to worry about the ordering of src and dst ptlocks
+-	 * because exclusive mmap_lock (or the i_mmap_lock) prevents deadlock.
+-	 */
+-	if (src_ptl != dst_ptl)
+-		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
++	double_pt_lock(dst_ptl, src_ptl);
  
- 	/* keep-alive timeout in seconds */
--	ctrl->kato = DIV_ROUND_UP(kato, 1000);
-+	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
+ 	pte = huge_ptep_get_and_clear(mm, old_addr, src_pte, sz);
  
- 	ctrl->err_counter = 0;
- 	spin_lock_init(&ctrl->error_lock);
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index 4ab5b5580856e..666f33e010dc5 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -7,6 +7,7 @@
- #define _NVMET_H
+@@ -5832,9 +5826,7 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
+ 		set_huge_pte_at(mm, new_addr, dst_pte, pte, sz);
+ 	}
  
- #include <linux/dma-mapping.h>
-+#include <linux/jiffies.h>
- #include <linux/types.h>
- #include <linux/device.h>
- #include <linux/kref.h>
-@@ -519,6 +520,13 @@ void nvmet_add_async_event(struct nvmet_ctrl *ctrl, u8 event_type,
- #define NVMET_KAS		10
- #define NVMET_DISC_KATO_MS		120000
+-	if (src_ptl != dst_ptl)
+-		spin_unlock(src_ptl);
+-	spin_unlock(dst_ptl);
++	double_pt_unlock(dst_ptl, src_ptl);
+ }
+ 
+ unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
+diff --git a/mm/internal.h b/mm/internal.h
+index e0adafc45c8c3..c6c1f5c0a3951 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -467,6 +467,34 @@ static inline void force_page_cache_readahead(struct address_space *mapping,
+ 	force_page_cache_ra(&ractl, nr_to_read);
+ }
  
 +/*
-+ * Largest keep-alive timeout in seconds that can be reported back in
-+ * milliseconds and converted to jiffies without overflowing.
++ * Take two page table locks at the same level in address order such that
++ * we cannot deadlock.
 + */
-+#define NVMET_MAX_KATO	\
-+	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
++static inline void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2)
++	__acquires(ptl1)
++	__acquires(ptl2)
++{
++	if (ptl1 > ptl2)
++		swap(ptl1, ptl2);
++	spin_lock(ptl1);
++	if (ptl1 != ptl2)
++		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
++	else
++		__acquire(ptl2);
++}
 +
- int __init nvmet_init_configfs(void);
- void __exit nvmet_exit_configfs(void);
++static inline void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2)
++	__releases(ptl1)
++	__releases(ptl2)
++{
++	spin_unlock(ptl1);
++	if (ptl1 != ptl2)
++		spin_unlock(ptl2);
++	else
++		__release(ptl2);
++}
++
+ unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
+ 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
+ unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 9f7f45281b487..8ac23a56e210e 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -198,7 +198,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	pte_t *old_ptep, *new_ptep;
+ 	pte_t old_pte, pte;
+-	pmd_t dummy_pmdval;
++	pmd_t old_pmdval, new_pmdval;
+ 	spinlock_t *old_ptl, *new_ptl;
+ 	bool force_flush = false;
+ 	unsigned long old_addr = pmc->old_addr;
+@@ -230,31 +230,30 @@ static int move_ptes(struct pagetable_move_control *pmc,
+ 	if (pmc->need_rmap_locks)
+ 		take_rmap_locks(vma);
  
+-	/*
+-	 * We don't have to worry about the ordering of src and dst
+-	 * pte locks because exclusive mmap_lock prevents deadlock.
+-	 */
+-	old_ptep = pte_offset_map_lock(mm, old_pmd, old_addr, &old_ptl);
++	old_ptep = pte_offset_map_rw_nolock(mm, old_pmd, old_addr, &old_pmdval,
++					    &old_ptl);
+ 	if (!old_ptep) {
+ 		err = -EAGAIN;
+ 		goto out;
+ 	}
+-	/*
+-	 * Now new_pte is none, so hpage_collapse_scan_file() path can not find
+-	 * this by traversing file->f_mapping, so there is no concurrency with
+-	 * retract_page_tables(). In addition, we already hold the exclusive
+-	 * mmap_lock, so this new_pte page is stable, so there is no need to get
+-	 * pmdval and do pmd_same() check.
+-	 */
+-	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &dummy_pmdval,
+-					   &new_ptl);
++	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &new_pmdval,
++					    &new_ptl);
+ 	if (!new_ptep) {
+-		pte_unmap_unlock(old_ptep, old_ptl);
++		pte_unmap(old_ptep);
++		err = -EAGAIN;
++		goto out;
++	}
++
++	double_pt_lock(old_ptl, new_ptl);
++	if (unlikely(!pmd_same(old_pmdval, pmdp_get_lockless(old_pmd)) ||
++		     !pmd_same(new_pmdval, pmdp_get_lockless(new_pmd)))) {
++		double_pt_unlock(old_ptl, new_ptl);
++		pte_unmap(new_ptep);
++		pte_unmap(old_ptep);
+ 		err = -EAGAIN;
+ 		goto out;
+ 	}
+-	if (new_ptl != old_ptl)
+-		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
++
+ 	flush_tlb_batched_pending(vma->vm_mm);
+ 	arch_enter_lazy_mmu_mode();
+ 
+@@ -304,10 +303,9 @@ static int move_ptes(struct pagetable_move_control *pmc,
+ 	arch_leave_lazy_mmu_mode();
+ 	if (force_flush)
+ 		flush_tlb_range(vma, old_end - len, old_end);
+-	if (new_ptl != old_ptl)
+-		spin_unlock(new_ptl);
++	double_pt_unlock(old_ptl, new_ptl);
+ 	pte_unmap(new_ptep - 1);
+-	pte_unmap_unlock(old_ptep - 1, old_ptl);
++	pte_unmap(old_ptep - 1);
+ out:
+ 	if (pmc->need_rmap_locks)
+ 		drop_rmap_locks(vma);
+@@ -382,14 +380,9 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
+ 	if (WARN_ON_ONCE(!pmd_none(*new_pmd)))
+ 		return false;
+ 
+-	/*
+-	 * We don't have to worry about the ordering of src and dst
+-	 * ptlocks because exclusive mmap_lock prevents deadlock.
+-	 */
+-	old_ptl = pmd_lock(mm, old_pmd);
++	old_ptl = pmd_lockptr(mm, old_pmd);
+ 	new_ptl = pmd_lockptr(mm, new_pmd);
+-	if (new_ptl != old_ptl)
+-		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
++	double_pt_lock(old_ptl, new_ptl);
+ 
+ 	pmd = *old_pmd;
+ 
+@@ -405,9 +398,7 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
+ 	pmd_populate(mm, new_pmd, pmd_pgtable(pmd));
+ 	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PMD_SIZE);
+ out_unlock:
+-	if (new_ptl != old_ptl)
+-		spin_unlock(new_ptl);
+-	spin_unlock(old_ptl);
++	double_pt_unlock(old_ptl, new_ptl);
+ 
+ 	return res;
+ }
+@@ -439,14 +430,10 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
+ 	if (WARN_ON_ONCE(!pud_none(*new_pud)))
+ 		return false;
+ 
+-	/*
+-	 * We don't have to worry about the ordering of src and dst
+-	 * ptlocks because exclusive mmap_lock prevents deadlock.
+-	 */
+-	old_ptl = pud_lock(mm, old_pud);
++	old_ptl = pud_lockptr(mm, old_pud);
+ 	new_ptl = pud_lockptr(mm, new_pud);
+-	if (new_ptl != old_ptl)
+-		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
++
++	double_pt_lock(old_ptl, new_ptl);
+ 
+ 	pud = *old_pud;
+ 	if (unlikely(pud_none(pud)))
+@@ -460,9 +447,7 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
+ 	pud_populate(mm, new_pud, pud_pgtable(pud));
+ 	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PUD_SIZE);
+ out_unlock:
+-	if (new_ptl != old_ptl)
+-		spin_unlock(new_ptl);
+-	spin_unlock(old_ptl);
++	double_pt_unlock(old_ptl, new_ptl);
+ 
+ 	return true;
+ }
+@@ -490,16 +475,14 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
+ 	if (WARN_ON_ONCE(!pud_none(*new_pud)))
+ 		return false;
+ 
+-	/*
+-	 * We don't have to worry about the ordering of src and dst
+-	 * ptlocks because exclusive mmap_lock prevents deadlock.
+-	 */
+-	old_ptl = __pud_trans_huge_lock(old_pud, vma);
+-	if (unlikely(!old_ptl))
+-		return false;
++	old_ptl = pud_lockptr(mm, old_pud);
+ 	new_ptl = pud_lockptr(mm, new_pud);
+-	if (new_ptl != old_ptl)
+-		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
++
++	double_pt_lock(old_ptl, new_ptl);
++	if (unlikely(!pud_trans_huge(*old_pud))) {
++		double_pt_unlock(old_ptl, new_ptl);
++		return false;
++	}
+ 
+ 	/* Clear the pud */
+ 	pud = pudp_huge_get_and_clear(mm, pmc->old_addr, old_pud);
+@@ -510,9 +493,7 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
+ 	/* mark soft_ditry when we add pud level soft dirty support */
+ 	set_pud_at(mm, pmc->new_addr, new_pud, pud);
+ 	flush_pud_tlb_range(vma, pmc->old_addr, pmc->old_addr + HPAGE_PUD_SIZE);
+-	if (new_ptl != old_ptl)
+-		spin_unlock(new_ptl);
+-	spin_unlock(old_ptl);
++	double_pt_unlock(old_ptl, new_ptl);
+ 
+ 	return true;
+ }
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index d5467692e8c3b..ea8ba52e95546 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -989,33 +989,6 @@ int mwriteprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
+ }
+ 
+ 
+-void double_pt_lock(spinlock_t *ptl1,
+-		    spinlock_t *ptl2)
+-	__acquires(ptl1)
+-	__acquires(ptl2)
+-{
+-	if (ptl1 > ptl2)
+-		swap(ptl1, ptl2);
+-	/* lock in virtual address order to avoid lock inversion */
+-	spin_lock(ptl1);
+-	if (ptl1 != ptl2)
+-		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
+-	else
+-		__acquire(ptl2);
+-}
+-
+-void double_pt_unlock(spinlock_t *ptl1,
+-		      spinlock_t *ptl2)
+-	__releases(ptl1)
+-	__releases(ptl2)
+-{
+-	spin_unlock(ptl1);
+-	if (ptl1 != ptl2)
+-		spin_unlock(ptl2);
+-	else
+-		__release(ptl2);
+-}
+-
+ static inline bool is_pte_pages_stable(pte_t *dst_pte, pte_t *src_pte,
+ 				       pte_t orig_dst_pte, pte_t orig_src_pte,
+ 				       pmd_t *dst_pmd, pmd_t dst_pmdval)
 -- 
 2.53.0
 
