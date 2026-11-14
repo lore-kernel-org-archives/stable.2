@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794640549;
-	b=xCwu5aZRvoWqe7rQOZnOt28it85deZFLNIgc1FUhR6ceQoI/2LQlCF1mgvUG5MwHTNky
-	 7PkcfH2BJdM0TjRGxWlRnb62psUO8LRpIVxKw5rRRiFRtgLeXgxaKZ+Dk31ByGOdC/Izx
-	 /YcJX/HTE7Mwm4GvCuilzAPO9WagUMX62PYxJ+fuEMqNJk4YG+D9FNzgvim1SXehHjRXR
-	 DXFwrH0MNBMGw/POQ8RWsb0CRbq/bS6ObJ2mleuBWJ53C6b/TyiGHc+J9HGxXqcQzPIUt
-	 qkWWRkEdvSwLZUp3AxiDOPWAuzU1f/NraB27PCQcWfS3ECsJGaHYqeZ1lK2jQ7l5pbQ==
+	t=1794640618;
+	b=DsNmIOAdg627K9l1tqeigwGn4Ut5Fvw+keFmfDHh/Dc4iqHEPUBmrdK9sNs9mOvOEhRo
+	 O4oOgD0WWmSggN1zhHuKAoehLH6xmyjs2jjA9/2z6LuveEtpU6UlbcMw1yWEQ2mdX4d6X
+	 gso9YmDpWulfFCef1XI1UF4F/7fiaK14Sf76TI7YVWbYuDwCLCYsKSk1HUZBEsdo6hs1/
+	 SEAfCLGyFFkfhC/V8tFv0w3qQeQ1W0H2Qtav/KWOlPXa8+KA0x8y326ghdZO0nJ19J4Yr
+	 O8hXoHobCOUI4Eh6w5pWAe+ZVj0AqaRsWp7Fbowz2qFABDROyorg/L6k5BFrSriLbvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794640549;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oJMFC0cKupkqGNA9MRXSW8uromdE8tN8qxytTh5esVY=;
-	b=vP7DLYf38KDwn/tty6zngcWy0VjTBQodmAxVa0jkP24hcYwXU0o0D7MSjSACUenNBlUx
-	 c/K/4KLMQo6LgdpeYRd7rN+H92x7wUgLJvkzNVePX1UR7uZioBB+ZTWhWl5BMnlQ+OdEf
-	 3ZFJ/Bb5otoQIXz0R3Whu4IJqBjqwFrBKXGZaKyhcwmoYHL3gZJS1qy4vsFYbo3CvTb8O
-	 tDlt/lk/pZkCmWIzf0QF9zRkVwudnC46S4oljXfsxjsIfUYHpM+IiEcESKPJyj9p2IXkr
-	 tUXMA4uju8+E1rYkZfCcUiACr8b53Wh7GE7w/PaiA+xBLCIDHjoprwfqy665z3B7VWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794640618;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=A7n5WM5eoUe84bcsKGLlc35N+LnxPZjMUgreXGX2s48=;
+	b=1rWgjDchBp+NNRHu7SV2DIw2D12MI4LSjXF6s0CCqqI750Dpd9qdaguneWthvH6EwhlP
+	 VOcYHrXtKmpy0pmDJ1zfqCQ7H0G97b4Rf0KDzw+EbXtEu0JYu0YfBC60hLoX+3Lie6k7q
+	 KbW8/n9izrjS5sZ7sVdPgmg2AaS3UhZ+Ehm55CyecS80DCz9HAv7Y3OwfLadXwpLgHPfl
+	 Ji9newHlPeDHyJ7u1w6fJnLostGCeKbrpXOIvJZVeU7ctlstYhsqQ3bLM/oznb03YYVMf
+	 IiHt/NP+4LrFRRAjVLPoS8kRl9YFjDE+vzzgpwOHnBtvE3Dt6zqCBvAJN79S6PDXiJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NcIlAIXT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LzTRyBbS;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917DC606A327
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 07:15:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86D8606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 07:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B86D8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NcIlAIXT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570511F000C4;
-	Sat, 14 Nov 2026 07:15:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794640549;
-	bh=oJMFC0cKupkqGNA9MRXSW8uromdE8tN8qxytTh5esVY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NcIlAIXTR+ms2s5uFLvAPrntnRkIEgR9AWHJbgRASA+hittQLSZ5he7VJlbplmXWj
-	 twmoth4haGq5+QqDjYQ47wnd6AB/MEoWchYmd/0HWG5dbXJe5sm/31DS+VnWhGvJh1
-	 qFBO2u69hFXqSkcdgvD1/e9U/DWWf/Rx355AZfIF4eOqqNNyxWsip04iqJH4xaQVd4
-	 RmZuhZVDMf88VzSAdAdKDeMv1S7zJ8VqCURIrYvC3JTD/s/xA8pWLa/HKoNzQu98o1
-	 0wzKBQmSaDvnmXUkAw2cPBNwnJ43NSAhrW3XfsjmC/camQclfHm+ECn8umijOROfQ6
-	 wRjKcXKHm7GUg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Alex Hung <alex.hung@amd.com>,
-	Jerry Zuo <jerry.zuo@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amd/display: Avoid closing unowned DDC pins
-Date: Sat, 14 Nov 2026 02:15:46 -0500
-Message-ID: <20261114071531.3241195-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201913-failed-6.1-e7ba638b8116@kernel.org>
-References: <20261109201913-failed-6.1-e7ba638b8116@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LzTRyBbS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794640618; x=1826176618;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=2zycnUAnU720S400NhnYzs+dFnikglYbF7hfXGIyrZQ=;
+  b=LzTRyBbSfZzyA05WFWFd+6kINPZ/A5xdAHQDL3ZRocFgbz+yP9uCPafR
+   huedLD/MdJtfxwfAbAdwueNnsIayu23i3qUuKnRE6j/C4fMx7xeu7wqlV
+   nMLsq4z1+UZdHUd/+dyZbt0Ix6H808TRn1YdUXXAGAMHL+TJ2nDkpKyiu
+   hJlJl9PXlm+RGfg9Z6s6PPeJMYZqDuyQsuxzuvevU9HdhN4NE/Wg7bRsd
+   j7NCbxiKH9r4CwKaZVeTjmqQpSmhXnCFvsXGatnrZ32Ksh2shl4bvX6LV
+   OXlEjd6ogB29e2CQU7tlhd4wjXsdiVO/HpX4TxXmS1MUVaaGOwne8TJ8j
+   A==;
+X-CSE-ConnectionGUID: l7N5IDfNQAuj+e5nCvSjVw==
+X-CSE-MsgGUID: vKVzciDsRRSIZ1ovw1M8tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3366147"
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="3366147"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 23:16:57 -0800
+X-CSE-ConnectionGUID: dc1kbF9uSty/02xzcMt5SQ==
+X-CSE-MsgGUID: n2UNkuk0Rxu1QGN7elkeqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="9110541"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 23:16:55 -0800
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: suraj.kandpal@intel.com,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+	Krzysztof Karas <krzysztof.karas@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 2/2] drm/i915/dsc: Fix the helper range_bpg_offset()
+Date: Sat, 14 Nov 2026 12:31:14 +0530
+Message-ID: <20261114070114.3308451-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261016101713.230013-3-ankit.k.nautiyal@intel.com>
+References: <20261016101713.230013-3-ankit.k.nautiyal@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,54 +85,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alex Hung <alex.hung@amd.com>
+The helper used to compute range_bpg_offset() uses an incorrect divisor,
+causing the interpolation to occur in the reverse direction. This can
+result in incorrect DSC parameters and visual corruption on some panels.
 
-[ Upstream commit e7ba638b8116cb5f1a5690f543052371215f1626 ]
+Correct the divisor used by the helper.
 
-[WHY]
-dal_ddc_open() cleans up pins it acquires on later failures. If the
-data-pin open fails, this attempt acquired nothing. If opening the
-clock pin or configuring fails, dal_ddc_open() closes the pins it
-opened. An extra dal_ddc_close() is unnecessary and unsafe:
-GPIO_RESULT_ALREADY_OPENED can mean AUX owns the existing handles,
-and closing them here would disrupt AUX.
-
-[HOW]
-Remove the extra dal_ddc_close() from the failed-open path.
-
-Cc: Jerry Zuo <jerry.zuo@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 175ae7772b68757b4932f34ff862923cab7abe21)
-Cc: stable@vger.kernel.org
-[ sashal: Applied the edit to dc_link_is_dp_sink_present() instead of dp_is_sink_present(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9247
+Fixes: 3abe2824e1af ("drm/i915/dsc: Use helper to calculate range_bpg_offset")
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: <stable@vger.kernel.org> # v6.15+
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index f0db2d58fd6b8..9282b065a90a2 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -399,12 +399,8 @@ bool dc_link_is_dp_sink_present(struct dc_link *link)
- 	 * which indicates we need additional delay
- 	 */
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index a6556a6e45b7..7a6452557a0c 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -122,7 +122,7 @@ static int
+ get_range_bpg_offset(int bpp_low, int offset_low, int bpp_high, int offset_high, int bpp)
+ {
+ 	return offset_low + DIV_ROUND_UP((offset_high - offset_low) * (bpp - bpp_low),
+-					 (bpp_low - bpp_high));
++					 (bpp_high - bpp_low));
+ }
  
--	if (dal_ddc_open(ddc, GPIO_MODE_INPUT,
--			 GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK) {
--		dal_ddc_close(ddc);
--
-+	if (dal_ddc_open(ddc, GPIO_MODE_INPUT, GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK)
- 		return present;
--	}
- 
- 	/*
- 	 * Read GPIO: DP sink is present if both clock and data pins are zero
+ /*
 -- 
-2.53.0
+2.50.1
 
