@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672391;
-	b=SMBkhYDBngsycT0e+trcgt4uaVATHtmqMZY3pJ5fT1Yf7f1SGY3tFKRirlfQMiFgYp1V
-	 RBShND98sj+jThaDTv+sZ6ZPc+ZeSztlSq0yahHSByIpdcwZS7kqfz8DcV4RDQZ79duhj
-	 EppQPBvmxnbqtO0rKEEhjnqlHCprTQgyQzsxtc1NTXr9sYBIayvybK+j9DxtlS+b42kQd
-	 gh/nAVXq60WuShHaTrMisxs02DN+1MNVVHGYpc+JDEzokcuL3rhq9DOvdFKpXwsNHjZ6J
-	 mHryz4KrvAkA00FJyDBYVMiDB5b0cMwD78b6dEav4SNR3T/EyVRnVkSmkO4G4iACMHg==
+	t=1794672451;
+	b=oLsvgmM0089tdD2cxPCSDPpBRb49BiorD8GRUjdO2Dsx4QGKKkTyFrsOplH6/QlVku9z
+	 tMzlzifWSjNFKoHtv4aCLgolrwyjHrv3aApdFlhm/CDhqXzZDsF3tq7qr+3PSJwTO0gQD
+	 WEUWazSl+VRf4JfxJOCXZq/3WVFwuGef4zXKQnG3lkNUY3zwtoQxrXaoWE92uhMwEFYWn
+	 3O00V8yWJLS2aCbk+0LNtyf79plAXSG2sm7tFGzAY5IS+j/MyncHMmwxEo2udcJTccZ5W
+	 p3DrFKpHxZG76+pwwvk49BeKZie8sIJ3GW3Ky5Sr6AdXeX2OALvSuc7gUSEIutgXvzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672391;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672451;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kqw9WlbZT/kZem3h7hLiB2TK8H4u+LSwhfYFZZ4FIFc=;
-	b=DH/wJcHV1P3Vllnfnf5KLOTieX/qqiHDBxQK9zI2IGUg1xt9j3zhBA7tPhzkd91MXAH9
-	 hJXQ5BNf/CXXKzdK38R9u6dOPmDqsZX/F3uJdA/FbgPBkWSRzMfS78gDLGuBaF4mPfiQG
-	 TNpZ6OVDAHaa3vciQs8V9BomcXQSXgkR/lguHygaBf3vl0SNEbvRimWroka0zyHTIENGL
-	 QMxp9gyivQrZeECzBRp8i5dcTyITyC4GtFSFNDCyyV5eLUdX83D1JQ9jAYwqfAkTau2o9
-	 LwZ4DYiQ8PwKlOdsd/jX6UFogRWcQ5aLdgVn3+8OOFrMBcoW5OEY0ZLzOM+mXLi2QCw==
+	bh=9mUl2zxE6mFs8HLJKZ7tBZmSIV1Pw+lKUFmyiKwdUJo=;
+	b=Z5Apjq9DrHycikDqk4GQmgTr3Ni0EHvnlhCb0mywAnf+hgKz7hj+6Ok4W3FdlzWlxMsM
+	 RmCXlUVgQcAhsxDuFAwycG8ireUwBPZU013bJXUKUrLadf2Dh7Sy1ay3DgP4MBCbgDRwf
+	 /gBYGBg615GcAEdlTZLImF5jWXfRMZaT+XsRFfYrA8gntfbsDJuD6DHHpScSCr/WKfkWl
+	 v0wKkM9Nc6M7XzFDSle3ykaI+fLKcNxe6lyfrQk2NOovgckHht4tyNgyB2q/AEH3dpsxk
+	 PEcb1p+C8f13tSgmDXXPkvj4foLrkPQ6vWe6skuEoIJXGweCwMqKFgTfnSjQ1sZOL0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QkpwhChy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zy4eGhvN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40957606A881
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:06:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E97606A32E
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:07:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QkpwhChy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82EB01F000C6;
-	Sat, 14 Nov 2026 16:06:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zy4eGhvN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 013F51F000C4;
+	Sat, 14 Nov 2026 16:07:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794672391;
-	bh=kqw9WlbZT/kZem3h7hLiB2TK8H4u+LSwhfYFZZ4FIFc=;
+	s=k20260515; t=1794672451;
+	bh=9mUl2zxE6mFs8HLJKZ7tBZmSIV1Pw+lKUFmyiKwdUJo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QkpwhChyj9cspfIJD5pds01c9ugteZDIGb4f2v8c6Q6zUcsO9cS++KoXAPJepI+cs
-	 rmDbQ9qggEmQW4bpoNIxahlA+WuxFVkCyU5A7m10/dEHcE86QpvGeOYzVIgKKhl+NQ
-	 Ik+Mo0XyDn74hzVGRTU/mmfwER6lua2vA0rxinwl+tUvPprO6Gn46yc1risXmffJUX
-	 Xy1jkWu6DTyqRR7wi7L5Q2wdh4cF198+keuCrIaJny55Cuz7IZPb+jIL22/G2ozlga
-	 zFvRFpFTfBYsZ+2eNtjiVONOng8Zl9ZwyqGXQCFjYRN0q74t3RdYlbXSBqApoXhWQZ
-	 eupVmgo4GGXUg==
+	b=Zy4eGhvN1MhuSL9N4qCuM50bYavsZU2imCseaHxHQ1Ece59PvIedFDiAAvs8cDTQ5
+	 3+UaM1oklbMdaMsqmerYONhsTaugROE+zH6WBdAxBim3CHVErj1MRCYQIKgIYblJmz
+	 9huzpCP7NbcH9ytLZHAL0DHdAOpN6QjLkszJIaNt5ct2Q3IRQMOepdPPdLLgSArZQn
+	 PcPv3Nl/X1U8E4G053RD7GUXLfmXpAF/VueG7FZ0MpA95xkhr4d25f/0QQ1mEdUlnS
+	 bUJeQkyq+sOcM/6eCvLKPnbDOgWS0ZpG/oLB1SpwU4qD5fH0yLIJf+J5zYAIo7RhLK
+	 RDueo2JI1trWA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhe Liu <liuzhe1@kylinos.cn>,
-	Tejun Heo <tj@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Hongbin Wang <wh_bin@126.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] blk-iocost: account flush sequence latency only once
-Date: Sat, 14 Nov 2026 11:06:28 -0500
-Message-ID: <20261114160621.3951063-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] xfrm: Drop unused argument
+Date: Sat, 14 Nov 2026 11:07:28 -0500
+Message-ID: <20261114160719.3922066-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114160621.3951063-1-sashal@kernel.org>
-References: <20261109202727-failed-5.10-e9804489e27d@kernel.org>
- <20261114160621.3951063-1-sashal@kernel.org>
+In-Reply-To: <20261109202003-failed-5.15-868f63c8bfaf@kernel.org>
+References: <20261109202003-failed-5.15-868f63c8bfaf@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,50 +61,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhe Liu <liuzhe1@kylinos.cn>
+From: Hongbin Wang <wh_bin@126.com>
 
-[ Upstream commit e9804489e27dd6e33aec5511fe3780ff3009f57f ]
+[ Upstream commit 0de1978852dff8643a80f20a8f44cef3f16c2db0 ]
 
-A flush sequence with a DATA phase can complete its original request
-twice. Both completions invoke ioc_rqos_done(), causing the request to
-contribute two latency samples and adding the same queue wait time
-twice. This gives such requests disproportionate weight compared to
-ordinary writes, distorting the device-wide latency and queue wait
-feedback used to adjust iocost's virtual time rate.
+Drop unused argument from xfrm_policy_match,
+__xfrm_policy_eval_candidates and xfrm_policy_eval_candidates.
+No functional changes intended.
 
-Skip requests marked RQF_FLUSH_SEQ in ioc_rqos_done(). The flag is set
-when the request enters the flush machinery and is still set when the
-data phase completes; blk_flush_restore_request() clears it before the
-final completion, so accounting happens only once, after the whole
-sequence finishes. The remaining sample covers the request's lifetime
-through any postflush, and its queue wait time is accumulated only
-once.
-
-Fixes: 7caa47151ab2e ("blkcg: implement blk-iocost")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
-Acked-by: Tejun Heo <tj@kernel.org>
-Link: https://patch.msgid.link/20261102061802.408173-1-liuzhe1@kylinos.cn
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Hongbin Wang <wh_bin@126.com>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+Stable-dep-of: 868f63c8bfaf ("xfrm: retry inexact policy lookup after node reinsertion")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/blk-iocost.c | 3 +++
- 1 file changed, 3 insertions(+)
+ net/xfrm/xfrm_policy.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/block/blk-iocost.c b/block/blk-iocost.c
-index f7e6590d66d9b..e5f7f1edc3b6f 100644
---- a/block/blk-iocost.c
-+++ b/block/blk-iocost.c
-@@ -2786,6 +2786,9 @@ static void ioc_rqos_done(struct rq_qos *rqos, struct request *rq)
- 	if (!ioc->enabled || !rq->alloc_time_ns || !rq->start_time_ns)
- 		return;
+diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+index 15d50b5a22ef1..9e18e8d2c1c5c 100644
+--- a/net/xfrm/xfrm_policy.c
++++ b/net/xfrm/xfrm_policy.c
+@@ -1908,7 +1908,7 @@ EXPORT_SYMBOL(xfrm_policy_walk_done);
+  */
+ static int xfrm_policy_match(const struct xfrm_policy *pol,
+ 			     const struct flowi *fl,
+-			     u8 type, u16 family, int dir, u32 if_id)
++			     u8 type, u16 family, u32 if_id)
+ {
+ 	const struct xfrm_selector *sel = &pol->selector;
+ 	int ret = -ESRCH;
+@@ -2033,7 +2033,7 @@ static struct xfrm_policy *
+ __xfrm_policy_eval_candidates(struct hlist_head *chain,
+ 			      struct xfrm_policy *prefer,
+ 			      const struct flowi *fl,
+-			      u8 type, u16 family, int dir, u32 if_id)
++			      u8 type, u16 family, u32 if_id)
+ {
+ 	u32 priority = prefer ? prefer->priority : ~0u;
+ 	struct xfrm_policy *pol;
+@@ -2047,7 +2047,7 @@ __xfrm_policy_eval_candidates(struct hlist_head *chain,
+ 		if (pol->priority > priority)
+ 			break;
  
-+	if (unlikely(rq->rq_flags & RQF_FLUSH_SEQ))
-+		return;
-+
- 	switch (req_op(rq)) {
- 	case REQ_OP_READ:
- 		pidx = QOS_RLAT;
+-		err = xfrm_policy_match(pol, fl, type, family, dir, if_id);
++		err = xfrm_policy_match(pol, fl, type, family, if_id);
+ 		if (err) {
+ 			if (err != -ESRCH)
+ 				return ERR_PTR(err);
+@@ -2072,7 +2072,7 @@ static struct xfrm_policy *
+ xfrm_policy_eval_candidates(struct xfrm_pol_inexact_candidates *cand,
+ 			    struct xfrm_policy *prefer,
+ 			    const struct flowi *fl,
+-			    u8 type, u16 family, int dir, u32 if_id)
++			    u8 type, u16 family, u32 if_id)
+ {
+ 	struct xfrm_policy *tmp;
+ 	int i;
+@@ -2080,8 +2080,7 @@ xfrm_policy_eval_candidates(struct xfrm_pol_inexact_candidates *cand,
+ 	for (i = 0; i < ARRAY_SIZE(cand->res); i++) {
+ 		tmp = __xfrm_policy_eval_candidates(cand->res[i],
+ 						    prefer,
+-						    fl, type, family, dir,
+-						    if_id);
++						    fl, type, family, if_id);
+ 		if (!tmp)
+ 			continue;
+ 
+@@ -2120,7 +2119,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+ 
+ 	ret = NULL;
+ 	hlist_for_each_entry_rcu(pol, chain, bydst) {
+-		err = xfrm_policy_match(pol, fl, type, family, dir, if_id);
++		err = xfrm_policy_match(pol, fl, type, family, if_id);
+ 		if (err) {
+ 			if (err == -ESRCH)
+ 				continue;
+@@ -2139,7 +2138,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+ 		goto skip_inexact;
+ 
+ 	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
+-					  family, dir, if_id);
++					  family, if_id);
+ 	if (pol) {
+ 		ret = pol;
+ 		if (IS_ERR(pol))
 -- 
 2.53.0
 
