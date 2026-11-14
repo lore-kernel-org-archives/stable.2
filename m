@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794635257;
-	b=aj8MckVsL8sgxguAtj1VACSWvwKUN2kwMFYkTpPZh1t+h6H2nI7jIUfb7iimA6EOyBiq
-	 FWsfCXCQKL5Lx7yJMunhd1lMJmk3h8U5CD8AdDja2i+UsczBmoRiOTXb37QC+PGjlaRX7
-	 SpeA+HzzuLcvWXQ1ijJw1q8+ya+OdADqmPeRyq9Sz/pf0a0jt7dabADOUGEpgmUdKy7sW
-	 kwYiIryWvC939IR98tI6CKBbxF4voD+la1FqpIHcPHSqtpjp7HznzzCtYbTwQ1lWsgRG4
-	 AZ1vtUtNsKcXqlHjQzFGa3VLy0bs1XKESAVPl3LjbLTzRoK1Uy6/EFtkuT34qIAs8oQ==
+	t=1794635394;
+	b=Vs8QnLnVAGSK0fDjKlMJjuVTDZBbq/CoPhKjOme4l97LaAqpQegGvR9tn0bRIYLsUOOC
+	 pzUz85J58s3NXcSAKHm5muIGUUgkYWq6YnEwnuwwhSy0t+ql16cSTrnEr9XX3CH4QZ8VG
+	 M73fjkBFgVSu/a+rI+cNXfqnr2mk/WPi1uJbaSujGTbWByAXpA2haVaRPHCJ4va5pFeVX
+	 JH2pudnrw23Dtrq6Yr8BuD43Q4p2onXipu++4mp4IwTUomXULVaLpN/KLUikHgJ6HPvsX
+	 6VBNPXghiMefb0li3EF/UU3y4XXgIZPDkg01/o3z1OWNfWloyzq7QKclU5EWK0A2Udw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794635257;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794635394;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=07AAezUwL4m6C5l2a/llFCGxkX5eZpNMYah8yhiTu8E=;
-	b=5sjP4yKu7aJj6NgqcUuUQONl+6r9lSxSpOjTdEoJO+xI94dFB7iGuUgiKBVOM+T8e93B
-	 QC6Tp2wV80hFa5emIMglFqEu1FghqfTbEDT8fGwEBqaITSS8DMIgNaSIfaJy/zbtHE6SM
-	 IaLkm9pN8dwM8zmDla+e8b8Cnq4/fqDe5GydKtq/IyrYjnCjeq9QavXb3X9/TyB8gysie
-	 KsbE5wdGa1ZIrzJiSd7m4tarXtQs7/B4CBiqZ+gy4BE9GNA1gf2lXtr9gblmRyR2daygv
-	 6ZFFoLlFJv++UXZ8yh3Dq+3bpCuJjjFYFTr08E38ojHYXRu/64JH7V1Y4VKVCLUc8Wg==
+	bh=m3ElQ2ttuOlxP5wC6SRZrwyVtuv0UAwaUwmgApN7iVE=;
+	b=rPGHubcLXJNu+7zo3q2ITXXnHOZrINM0o9DPbkgTptD4cWxzEy/dxn+0XIER7vRtq3LW
+	 Z6cl4emubHL5jyGv4IMX0uS8hGd25W2wCGt7RPIdvAE+sWGR+4DschwWfXg6xAHxlTiIB
+	 7oH/6hRuzrnpEbX8B7nOlixoooqrJMBT5W7FJqMYA6cTEDuSMFM8Nz5mUvGtNiApwEJXL
+	 MmA3E2EGYE7ErvAnBOiRxgLGxYyszprr7i+ude+S16xvgJjxca6m2ZnbMxt7RNVeLgVeZ
+	 /tAomNZcHj6DEYUx/yWtnwElMi0hK5UxqlAT98XIrIj94JxV0kw7s/cHsUwjvmqGWZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNAWYbl8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jW0u/SPf";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6EC606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:47:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3A8606A32D
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNAWYbl8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9EB1F000C4;
-	Sat, 14 Nov 2026 05:47:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jW0u/SPf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097871F000C4;
+	Sat, 14 Nov 2026 05:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794635256;
-	bh=07AAezUwL4m6C5l2a/llFCGxkX5eZpNMYah8yhiTu8E=;
+	s=k20260515; t=1794635393;
+	bh=m3ElQ2ttuOlxP5wC6SRZrwyVtuv0UAwaUwmgApN7iVE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cNAWYbl8KaE35Hy7f1vSnzRsExXhh4BfsbFBBjFdPWUJtCbChYVqVTEFiKfxMIHuY
-	 vg4PmDQNOG4P6b34zFLkvsAN8+KKf8eXs8L6W+MwRTIL9kKHRa1xA4I9Q3R/dSUV/1
-	 VG/uwq9PB1MIO2acAt1DapbXXGxm8ez+Teg/9RdBWJ49uA+M9U/Go6wQVN6PuUpac/
-	 Fol/s+g4MNYMK53dfhtWK5UXPMXOgQgmZJwWH3d5UFTuXanbrrAvGpctvnGV6++RUC
-	 rtiqX7llX+QhSgHyunR9ZGwMO0qNdakbaCGJkbv2ALuRZWNlUohVZVJgDi5HOBtUzS
-	 c0x9fPPALkWbQ==
+	b=jW0u/SPfgg28hucV+Gcv0wOU938ASq8rpVMEZrGu+d5dL9kt4Jtn7XmgjSxosSjJ9
+	 mWJXeRMbqBBAyvXbk6k/Y8FRENsBL109kYANW9ajFHn48Yz1iiAh8yYVMpNrEfSd8r
+	 H/ivR5MuhQDpXrEMUdJ2K/I7JtPFcZTKxwQrMgW5CB6EVJUzt6kYBqDrOnRz/NLFhG
+	 bRJl5xkRnfE8X5LeTz9P0UbAOe7W3tEM9S2lH39wCGEZq0zg6cPYuykAIabWDZN5sr
+	 NNTj9X6muGIowdZ3V73MA+tCZJJQCU6QpKtnI1+MR8UMfEdliIQHmXpIRv2e2Pd2O1
+	 2bw0/Tmmudx5Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Guenter Roeck <linux@roeck-us.net>,
 	Sashiko <sashiko-bot@kernel.org>,
 	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] hwmon: (coretemp) Check for NULL platform device in hotplug callbacks
-Date: Sat, 14 Nov 2026 00:47:35 -0500
-Message-ID: <20261114054723.3173254-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] hwmon: (coretemp) Check for NULL platform device in hotplug callbacks
+Date: Sat, 14 Nov 2026 00:49:51 -0500
+Message-ID: <20261114054940.3177143-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202142-failed-5.15-0f9c7ed3b500@kernel.org>
-References: <20261109202142-failed-5.15-0f9c7ed3b500@kernel.org>
+In-Reply-To: <20261109202636-failed-5.10-0f9c7ed3b500@kernel.org>
+References: <20261109202636-failed-5.10-0f9c7ed3b500@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,7 +93,7 @@ Fixes: 6d03bbff456b ("hwmon: (coretemp) Simplify platform device handling")
 Cc: stable@vger.kernel.org
 Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adjusted insertion context from the housekeeping check to the existing DTHERM feature check ]
+[ sashal: adjusted context to use the DTHERM feature check instead of the housekeeping check ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  drivers/hwmon/coretemp.c | 6 ++++++
