@@ -1,69 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665368;
-	b=3+nRyA852+QkgxulsAOus9A5uBphUqSDhQVll8OKDkqje4yAmYaFLKDrWVaHKMQrx7oO
-	 RLhDUQCJ+qMC/l4228k8n9lXcbpgamcVBj9Q9xcOLBX4p3HZGgjzZ62mB93SgaWOimtNl
-	 4d49ZaEukiQaiPhhhTobE/DE+wmSLAF56t/flAqU7k3q8qmhYphSfFkLPrz+w0jOKoXZZ
-	 hP9x29u9ntzJmQYAEoVz8PyXV191Kwh5j3ClBVEHsAETB+/UKauN+K4FRFroe+6NzJnOh
-	 u5nOoCDGtEn5LEFYHTYF0di67urPqAmH6ewJi8oiBXtOtSx4GT7jSqZJE+j5hSlBvfg==
+	t=1794665806;
+	b=Z8mMgBdwDW7eGl/0I5ZpEK0O9OPakv3BOr8wiu198BcDDO3OqUQbv02spZTZ/QLWRiIu
+	 xFh+XpuE3+aTDR7xGAe9XaAjPTw3xNs7BY+jPG6rI6tLlePK+ZyJSxiK5w0UUOUMw3niW
+	 5nK6nxmCy3jsD7YIBy7oFMJSN1u8LKyt78kbv9fV/I2tgl1P8Rhv4Bmy7LRPLMaVRyLlm
+	 yarKFdN0Kyj4FdVA8ykBzBAyoN7EoUQwD5ruWpVQyq3iT1Ns+Na+WlG8mlHFrGt7WOhdz
+	 7bvxVYByuQHGvhGja+qeLxk8barPe1SQ30I4V2woSFykvIK3VC63ddkEhGfBaX6r1hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665368;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=KnQiD6fX/r8PsqpObs5NkuGJ85feklMhNeGaXyI/6aU=;
-	b=WBRinwRQrIr77sX+YAmqgRoOZYGoq4A25G/cHvRaseUpn+2loN8YoxVCw5pwArFBML0g
-	 aSKzErMfOLa9JLNoJ5UnRYBSNwMYJ1vI9dJmdzDzeeggu2wRbp5AN0P1vVNWjdGCzDeij
-	 zWFJZZiZ/UCPLb1xSKLdy0LqMRAhY0/wIxWN4cvC6Uf5ASUMEs6RqkWKVcXSAEBDIOu11
-	 JpSUkbi9+Wa9l+aI1ygy9Utd+zuK6arkjPTp6K6bwhhcEiag4GeiY+50SalPcSJEcKXnU
-	 AP1nt3cGq57DpiXvaC07SZQdukiKWCundLqHnelCoSc2zsk785qVJmYSg1CZ3BGuiaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665806;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Rsh3PSgy5EeLZfkj2Ume/HSuLoP9g7O08oXc9D5ZzEE=;
+	b=w0D9MR9BrgoaRtVxmIYf63ItkZlfkFNFHoJu/cwIX1Vy4uCdZIRuEcRACADAevnNWNoP
+	 6S8zZQsAQlcjXfWENOxzreF4fscmADp3B4e6b0xGDlffJuN1xI/RkeAPXOQqYIptJKPDq
+	 4eX/TONYH5JGcY0JqnIm3GPTJeVzpq5eUYUlZD5tGUB85eGNlAxHohrJfLdM1OLQEiWG0
+	 l9RBclEjIw2qf9Kt1cZtT2h48NpAeIeIRg5sSP4Hj9URHVG4DxM3uedSGeg/++j/37WC2
+	 3gGZ2fqas2k79kOAqKCAWXQeUOPIU7NC4/NpzHPcpnPmb6S1kWxCIfIld/HfsNpsq4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TC5FL2lT;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c5nFMdk;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB069606A327;
-	Sat, 14 Nov 2026 14:09:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB069606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826A0606A32D
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 14:16:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 826A0606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TC5FL2lT
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jRbbL0P5RzKvsY;
-	Sat, 14 Nov 2026 15:09:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794665358;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KnQiD6fX/r8PsqpObs5NkuGJ85feklMhNeGaXyI/6aU=;
-	b=TC5FL2lT2lS0S2qysNX9Bkq/CtcVfSLBCXp51OuofG0N4qs10oP46L9CPPniucJT6fgJWX
-	944MV4eXnzTN393hLcj4S+ZhOlh1fTzphFgXAtUHcUne4AKXej8S0kAt6r/HHtl2XFn1YP
-	3xxZ7Pj3Do6U1jdXqffJzzWbGg8KHMzECZcgBK+sVXO04LEQ/58OM7Q8k95/n36Z/Fnl3p
-	bN3ATPBDQzoGcsuVeB8JFDOJCpMc/RCWlTdPd9faNHpP5mRlgKoSIIoXpKpisvzMuLMCyU
-	EnhNTThhHtJb5VLNWVaPy3MEYa8OoSWZ4DrtLqkI5Abqd9bqkInMWvr/NS2Hwg==
-Date: Sat, 14 Nov 2026 15:09:10 +0100
-From: Lukas Beckmann <lbckmnn@mailbox.org>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Thomas Renninger <trenn@suse.com>, Shuah Khan <shuah@kernel.org>,
-	"John B. Wyatt IV" <jwyatt@redhat.com>,
-	John Kacur <jkacur@redhat.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] cpupower: fix use-after-free and stale limits in
- frequency-set
-Message-ID: <avhrhuLjzi9-V7ZY@lukas-arch>
-References: <20261112-cpupower-freq-set-use-after-free-v1-1-4e0034927b3f@mailbox.org>
- <1bb7b407-0e69-421d-8ee3-81489abd1dda@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c5nFMdk
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so1034061a91.0
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:16:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794665806; x=1795270606; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rsh3PSgy5EeLZfkj2Ume/HSuLoP9g7O08oXc9D5ZzEE=;
+        b=0c5nFMdk+yWbf+C71VnSAz6BsODM7dxwkDZmx2JZm5IkItwZpYWzZfIvg6VsN8404b
+         HTmIIYJuqYP2sCa26kYtaDGmw6/fSO7ma0s4eNBzdDrUw3NI2mgBJn6HxyZACOODKRbJ
+         bBZJb8UzWt3pXG97XUG3hFsbegZjKtfiU5HgKEYcOGj1LdurgttVu+PCFtUoacel/GXa
+         zKWYHFe572C1e/q2OkehmmkkAFBLAmY6X/Qu0lQGzE+2FU6SrMxsAsjFV+jPxQNxVGMJ
+         kxtKQovgbBec4A8Y6J4uilYZFLQB1yzzBSyO3jfoToPvImCHJOga22LziUdcDaYNuwu1
+         5aCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794665806; x=1795270606;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rsh3PSgy5EeLZfkj2Ume/HSuLoP9g7O08oXc9D5ZzEE=;
+        b=zf28Os1A7N6QadCGNQFREsyhx8N8lYbkpCU9anVIqFaKSA+DjQ/e9Y/7/TeT5cKbcp
+         UjfUTvysNYsCIh5uckVHOAObk5dzf2cKc/WBcSbwx/57Kz6zrcWVuHUrt8bHWiYIw5dI
+         8tAP6Imo3kT2G1gbaxH0TWGY4cqAg0KGRmkJHld8cu7rdvwka8cSYBNQAv6LmrIxL3Gp
+         iO9d1QevGOzk5mvjA/eBn/zNkQ86zfG3bgxeXVpJ/M/lUGph44bzLNYqbWMyxwePAGpH
+         MoB+LmrBVS55hKvA0y/17lCIFPYvKzZw4fhvRgf+GkPXiiBiVWy1igBzY1Zy1O03Ii5t
+         4QWA==
+X-Forwarded-Encrypted: i=1; AL+hErH0zB9zxyUMrKuui8D+zpcf379FLqC+/0gfr5vO75SKJvFKjVBsj5OMioYMz9xZ8dae8V2YKVs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/CIjtE58tknK1W5wxA3zbrZp4FX3B8H+t5CjBVh/Ty0+YAr4VS
+	U3DKUmyQuucsXaKZ82tLD1YYNPGbsfkb72wRbR4HF2nIv6qAOyNSmWPQ
+X-Gm-Gg: AYBFou3nmeGLPCH3h/ttLFDHVC2ZK8A7YUbUYmADtg8aulhd8fU6G0GnAG4fVOjcQiG
+	Tfht5dE+peUVcFwYnT5jsi8svfVQGeVdcTTCL+VlTG2pibg+Je8x2AmpLTHtj8YvfdaHbtuTA95
+	2Tqii9J4fzCpskhdzTfgpqG1C6xYEkCLAWjPcp2DRYJLgzgm3POXDLvOIaQXBEizJJl0rhJTDy6
+	r2QHTwTcJBJKP4hYp6HSYZuDdJh3RHT3WFgfIfwUrq9V+3cq1lQ6V2g0bZr5+vdKVQtCWxEYQ3f
+	pDXfKzOrVoqps9pDayAtexjMSi3L3UIu7yq0f1I4jqeCkThGlRZFMBtSI7cMX6ZBw0hmir4v/fJ
+	6bZjpFJfgnZo1CYyouWDq5Ryjc8h66W8gGxt6nhjhVKlGsPJJUSp1E12psydBKiCwX2Pi0FZfMx
+	5saffdq1SJhnxI2UpG3KHOEZdxFgvYNegpV6vQXMR4ByqJ8G6a092zFNn3SWJ0d8/lpYRl8c2Pm
+	H5kgwqDWWx4LuMc9Ls4gBTlgPl7uHIZSjnL6qUdW4+vizLogWmhEci7A+kfWiOKxFJP/mphVjYe
+	S6cEpCA660524LqXbSVlZoDN5lPoKaqmmK+j2uzm872lwDTTlvfu0dxDN/VjCeWgIvg=
+X-Received: by 2002:a17:90b:440b:b0:3ac:adce:60a8 with SMTP id 98e67ed59e1d1-3b1b07ef8bbmr5367145a91.5.1794665805884;
+        Sat, 14 Nov 2026 06:16:45 -0800 (PST)
+Received: from [192.168.35.40] ([218.50.238.131])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b245f0c3sm4377768a91.0.2026.11.14.06.16.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 06:16:45 -0800 (PST)
+Message-ID: <94a65d65-e81f-4942-b119-51b71e8eabb4@gmail.com>
+Date: Sat, 14 Nov 2026 23:16:41 +0900
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,158 +91,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1bb7b407-0e69-421d-8ee3-81489abd1dda@linuxfoundation.org>
-X-MBO-RS-ID: 7b4a42c4232717da541
-X-MBO-RS-META: 8p5mh6jypdesokf6ojzqinwjy49keb1n
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PM / devfreq: governor_userspace: Guard against NULL
+ governor_data during switch
+Content-Language: ko
+To: Finley Xiao <finley.xiao@rock-chips.com>, heiko@sntech.de,
+ linux-pm@vger.kernel.org
+Cc: cw00.choi@samsung.com, myungjoo.ham@samsung.com, kant@allwinnertech.com,
+ kyungmin.park@samsung.com, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, tony.xie@rock-chips.com,
+ huangtao@rock-chips.com, stable@vger.kernel.org
+References: <20261022022109.642339-1-finley.xiao@rock-chips.com>
+From: Choi Chanwoo <cwchoi00@gmail.com>
+In-Reply-To: <20261022022109.642339-1-finley.xiao@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 04:09:23PM -0700, Shuah Khan wrote:
-> On 11/12/26 12:49, Lukas Beckmann wrote:
-> > cmd_freq_set() currently has two issues:
-> > 
-> > 1. use-after-free
-> > 
-> > When cmd_freq_set() is invoked with --max and --min, it eventually calls
-> > do_new_policy() for every selected CPU with the same cpufreq_policy
-> > struct. do_new_policy() first retrieves the current policy and copies
-> > the governor pointer to new_pol.governor. After that the policy is
-> > applied and cur_pol (including the string to which new_pol.governor is
-> > pointing) is freed. For the next CPU, cpufreq_set_policy() reads that
-> > already freed memory leading to an error message (because verify_gov()
-> > fails).
-> > 
-> 
-> > 2. max/min is not retrieved for each individual CPU:
-> > 
-> > If cmd_freq_set() is invoked with e.g. --min and --governor, max is set
-> > by do_new_policy() on the first selected CPU by retrieving it from the
-> > current policy. Since the same struct is passed to the next selected
-> > CPU, it is not retrieved again, resulting in writing the first CPU's
-> > max to all selected CPUs.
-> > 
-> > Fix both issues by using a local copy in do_new_policy().
-> 
-> Good find. The change log is rather long and confusing to follow.
->
 
-Thanks for the review,
 
-I will try to come up with a better changelog for V2 (including your
-feedback below).
+On 10/22/2026 11:21 AM, Finley Xiao wrote:
+> The userspace governor is the only one that uses devfreq->governor_data,
+> allocated in its DEVFREQ_GOV_START handler (userspace_init()) and freed
+> in its DEVFREQ_GOV_STOP handler (userspace_exit()).
+> 
+> When switching governors via sysfs (governor_store in devfreq.c), the
+> sequence is:
+> 
+> STOP(old) -> df->governor = userspace -> START(userspace) -> userspace_init
+> 
+> Between the df->governor assignment and userspace_init() completing,
+> governor_data is still NULL (the previous governor never touched it,
+> and the core does not clear or pre-allocate it). During that window,
+> asynchronous paths that call update_devfreq() outside of the driver's
+> control -- the OPP notifier (devfreq.c:686) and the pm_qos notifier
+> (devfreq.c:707) -- run devfreq_update_target() under df->lock and reach
+> devfreq_userspace_func(), which dereferences governor_data without a
+> NULL check, causing:
+> 
+>   Unable to handle kernel access to user memory outside uaccess routines
+>   pc : devfreq_userspace_func+0xc/0x28
+>   lr : devfreq_update_target+0x58/0x158
+> 
+> Add a NULL check in devfreq_userspace_func() and fall back to
+> previous_freq, which is the same behaviour as the existing "no user
+> frequency specified yet" branch. This closes the race for all callers
+> since every path ultimately goes through get_target_freq.
+> 
+> Additionally, take devfreq->lock around the kfree()/NULL assignment in
+> userspace_exit(). Without it, a concurrent OPP/pm_qos notifier running
+> under devfreq->lock could read governor_data after it is freed but
+> before it is set to NULL, constituting a use-after-free.
+> 
+> Fixes: 5fdded844892 ("PM/devfreq: governor: Add a private governor_data for governor")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
+> 
+> Link: https://lore.kernel.org/linux-pm/20260723080806.1451-1-finley.xiao@rock-chips.com/
+> ---
+> Changes in v2:
+> - Add Fixes: tag and Cc: stable@vger.kernel.org
+> 
+>  drivers/devfreq/governor_userspace.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
+> index 3906ebedbae8..f7a485c43fd7 100644
+> --- a/drivers/devfreq/governor_userspace.c
+> +++ b/drivers/devfreq/governor_userspace.c
+> @@ -24,7 +24,7 @@ static int devfreq_userspace_func(struct devfreq *df, unsigned long *freq)
+>  {
+>  	struct userspace_data *data = df->governor_data;
+>  
+> -	if (data->valid)
+> +	if (data && data->valid)
+>  		*freq = data->user_frequency;
+>  	else
+>  		*freq = df->previous_freq; /* No user freq specified yet */
+> @@ -110,8 +110,10 @@ static void userspace_exit(struct devfreq *devfreq)
+>  	if (devfreq->dev.kobj.sd)
+>  		sysfs_remove_group(&devfreq->dev.kobj, &dev_attr_group);
+>  
+> +	mutex_lock(&devfreq->lock);
+>  	kfree(devfreq->governor_data);
+>  	devfreq->governor_data = NULL;
+> +	mutex_unlock(&devfreq->lock);
+>  }
+>  
+>  static int devfreq_userspace_handler(struct devfreq *devfreq,
 
-> > Issue 2:
-> > Minimal example without the patch:
-> > 
-> >      echo 2000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-> >      echo 3000000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
-> >      2000000
-> >      3000000
-> > 
-> >      ./cpupower -c 0,1 frequency-set --min 1GHz -g performance
-> >      Setting cpu: 0
-> >      Setting cpu: 1
-> > 
-> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
-> >      2000000
-> >      2000000
-> > 
-> > The maximum of CPU1 is set to the one of CPU0.
-> > 
-> 
-> The real issue here is not that the maximum of CPU1 is set to
-> the one of CPU0.
-> 
-> The real problem is that stale new_pol is used for all cpus
-> from do_one_cpu() slow path when more than one policy value
-> changes.
-> 
-> Please re-write this in your own words in a simplifies way
-> describing what lead to the problem.
-> 
-> 
-> > Minimal example with the patch:
-> > 
-> >      echo 2000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-> >      echo 3000000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
-> >      2000000
-> >      3000000
-> > 
-> >      ./cpupower -c 0,1 frequency-set --min 1GHz -g performance
-> >      Setting cpu: 0
-> >      Setting cpu: 1
-> > 
-> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
-> >      2000000
-> >      3000000
-> > 
-> > The maximum of CPU1 is no longer set to the maximum of CPU0.
-> > 
-> > [1] https://lore.kernel.org/all/20250827-power-memoryleak-v1-1-e4baf7b59a41@uniontech.com/
-> 
-> The above patch doesn't make sense. I need more information
-> to determine, if it is needed.
->
-The memory-leak is of course not noticeable by "normal usage".
+Hi,
 
-However, tools like ASAN still report it, so the main benefit of fixing
-this would be, that someone who is using e.g. ASAN to find a different
-issue, is not side-tracked by this. I will drop this in V2.
+Looks good to me.
 
-> > ---
-> >   tools/power/cpupower/utils/cpufreq-set.c | 17 +++++++++--------
-> >   1 file changed, 9 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/tools/power/cpupower/utils/cpufreq-set.c b/tools/power/cpupower/utils/cpufreq-set.c
-> > index 06cd4b280132..d9f6ca522fe5 100644
-> > --- a/tools/power/cpupower/utils/cpufreq-set.c
-> > +++ b/tools/power/cpupower/utils/cpufreq-set.c
-> > @@ -141,9 +141,10 @@ static unsigned long string_to_frequency(const char *str)
-> >   	}
-> >   }
-> > -static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
-> > +static int do_new_policy(unsigned int cpu, const struct cpufreq_policy *new_pol)
-> >   {
-> >   	struct cpufreq_policy *cur_pol = cpufreq_get_policy(cpu);
-> > +	struct cpufreq_policy pol = *new_pol;
-> 
-> Don't assign new_pol to pol.
-> 
-> 
-> >   	int ret;
-> >   	if (!cur_pol) {
-> > @@ -151,16 +152,16 @@ static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
-> >   		return -EINVAL;
-> >   	}
-> > -	if (!new_pol->min)
-> > -		new_pol->min = cur_pol->min;
-> 		pol->min = cur_pol->min;
-> 
-> Use new_pol in the if logic using pol as temp - changing
-> pol to temp_pol
-> 
+I think that it is needed to lock  on usrespace_init.
 
-Okay, I will do that in V2.
+diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
+index f7a485c43fd7..cfbd72892598 100644
+--- a/drivers/devfreq/governor_userspace.c
++++ b/drivers/devfreq/governor_userspace.c
+@@ -94,7 +94,9 @@ static int userspace_init(struct devfreq *devfreq)
+ 		goto out;
+ 	}
+ 	data->valid = false;
++	mutex_lock(&devfreq->lock);
+ 	devfreq->governor_data = data;
++	mutex_unlock(&devfreq->lock);
+ 
+ 	err = sysfs_create_group(&devfreq->dev.kobj, &dev_attr_group);
+ out:
 
-> > +	if (!pol.min)
-> > +		pol.min = cur_pol->min;
-> > -	if (!new_pol->max)
-> > -		new_pol->max = cur_pol->max;
-> > +	if (!pol.max)
-> > +		pol.max = cur_pol->max;
-> > -	if (!new_pol->governor)
-> > -		new_pol->governor = cur_pol->governor;
-> > +	if (!pol.governor)
-> > +		pol.governor = cur_pol->governor;
-> > -	ret = cpufreq_set_policy(cpu, new_pol);
-> > +	ret = cpufreq_set_policy(cpu, &pol);
-> >   	cpufreq_put_policy(cur_pol);
-> 
-> 
-> thanks,
-> -- Shuah
-
-thanks,
-Lukas
