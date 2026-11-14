@@ -1,64 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794631328;
-	b=bv4UibCZdlWAiruV4M0997xNBVB550dcmwNGJqXxXEbRDs9HvQSZs6tDNJIj1HHjV0mM
-	 ClMgwm/bzzDHNO2mNTyKWyFIjc0JiJ7fI7Mn9FcTuWC8Yvq796pTJYWf3GIxN/23LIAK6
-	 DkAoBP6S8R/Hpu4KClhMHgvRoz9DitWtDVhyopjV7Q4vm38c1KEBciDsJNC/Rqi0blc2W
-	 xqCyT2AP6uP+j80n0OYpUfd5jmfkYBGudbHfS9bzxj22x75TGTmKzouioQHsepzWRK3lx
-	 C2VuxmS9yFFV6vS5cDgki3Lpj7G6lvLccxvCLqjUFVBUMobwss74dz5xe7uA2VU++iA==
+	t=1794631392;
+	b=LiyJc+pupwSJ7m9BaUJs+OadsK3AaiGF4Uro8CrXfM45wAQE9xdza4dHV/8nLIgwqLpP
+	 8N2tn+r5QKcozggdN0uEY1I8V03jSIMrpWIYgYn2EJEfOFqTslUxcvPxAocX8EB/sWLua
+	 MOszfkhHUv5yCN2U9jXE9ip6T4WvuRw+DtmQVe2p67ULqM7gRAtuu3oj2E1o4xPYJ9By8
+	 LmzkBqzgJ/ZjaK+nWQfH7ov4RhlcH1hHbFwBK7nWU6zSveJwHXSQSeX0PcSCQFMD9m2+j
+	 4E/5cVpC/3A6SSOkOxdIjnn2TznXCkxdP2tME9n59dO+j9hYxqnnezpKqgT9ts9sP5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794631328;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794631392;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=L86jyJR+ZjcagGTCcjTTrEKePgJry3Z9JRZkwsYXnrs=;
-	b=LdkRWjoRzqop5hg2/HBmr/JmIxrlz+hnrMwhwnPEdKVRcfN62cMW86IIzcJlerw37ZPI
-	 7a/VKNim6AXbygFIfuyMn++GEKs+SZj+AjysnIT1+RJne7FjBaRuxxA1osmtLGdYgXC8j
-	 oZhcSNDrBBJrAQIxRnbKEeTi1fjvXM5llAr+xQlEmgs4iX4+xeS43uPjFZDccKy+lRTPY
-	 bIKwqGEYOJz3zhA0YcoZJ4ch2hnVUl7966MR6eq0vzWa7et6wxlQQCocbus1w9WZeF+xw
-	 rNarBkHZnOE8ROTYK8xOBZNjW2d7vJPYqfEVOg86dVMN9BU1aDR1KtNLuRND/TlSnzQ==
+	bh=rKi8yYYVtSnfS6ryEqVMufvuvaferXyW9UbHfZcmAMk=;
+	b=yfVy2dKZ3ur2jYTkxyg0jgQp1m1XA7iCdY6o/XD8BHMonRstumcAP5JWNMd68LYdQoBb
+	 e7GxIG+I97X8DnRpQ1V6T7OXn3ESrPAyaYYA92nvFgF5X228uxuf/RUmE/lsy0wjw0DSP
+	 7U58uJBhIL20NFInDltCyzzDtoUI1XznhcQjX6NMWvTLnAt7xMqoiK/pBh/fzGVF5noD6
+	 oYCJqS9FDpqxXJAgyyybTXLtdCnxxpEWNeOlyJMKHKj+w+9qcgSIIFgT6Dv9+5/n3yvil
+	 6FHYchj//Hg5i+eUr1Y1xwR6KnpDBm6BtiOGzyWvPYLF0xxKq73GLz1Njn2EVZvAMcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akl6AsjN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEhE7Kh1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0CB606A32E
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:42:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF590606A32D
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akl6AsjN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD52A1F000C4;
-	Sat, 14 Nov 2026 04:42:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEhE7Kh1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B6EA1F000C4;
+	Sat, 14 Nov 2026 04:43:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794631328;
-	bh=L86jyJR+ZjcagGTCcjTTrEKePgJry3Z9JRZkwsYXnrs=;
+	s=k20260515; t=1794631391;
+	bh=rKi8yYYVtSnfS6ryEqVMufvuvaferXyW9UbHfZcmAMk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=akl6AsjNIhfW0/B4JL6lFulHatiFOZRdrby1V94PicKYaRmMRRlYHP6yvp7ISJgSQ
-	 wO5lovfRYyej8Sq8k3T/JDfsKNllInBd3zpF93t0ke7/oYWXy0JQClSpJluDsaIjCm
-	 wDYBdfVkWxBl5XnA64GrJ992J2X+HLh/Oeh8vZyXpsuaSHWcJEPzjk0JzsnPOzKmEM
-	 I8dqCHgNpSTndEhQdO7qxhIW1aUKzvidVOJPm26K/B0zYwZMay//H+48fp/n8SbjQe
-	 W2zOdkvH/80xZpcBEKWNPN7nogN6vU8qEYjPv08f9YZHi7VYv0vRYOyLJrMdUNxJ5v
-	 Uyi8/S8R/S49A==
+	b=WEhE7Kh1j4r8pAUWptz/ksVvzTIDObQKFGowGspE2HR5mZztqQMH1RqShKco3sz2N
+	 B5mtxUWYvSwd9Xj02GXP/VtCTbcUkohitFno1IwSDULP7aG9zzLOWmzoNebAignHxY
+	 dysAd9fl5dKVW83U4bgfp6kf2/sgzkP/TjpXWSoAoDjbr2vu+DGmJtfPE6w84uLvIJ
+	 rHbZFwJK57BGz5f0m47VWSgEg1XN2Sgam84PHjhApCIe5I04xXMhKw8JFpqj2H2Plt
+	 jfJnBDzJr+McfR9FzwY9MMx9Mw6vMwR2za6WotDFE+wM/D+ZwYq7f1eLd1COoGdW+t
+	 XIQr6Xegr5K0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	SJ Park <sj@kernel.org>,
+Cc: Misha Nasledov <misha@nasledov.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] fs/proc/task_mmu: fix missed VMAs when reading /proc/PID/maps and friends
-Date: Fri, 13 Nov 2026 23:42:05 -0500
-Message-ID: <20261114044150.2913829-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/amd/display: Drop clock requirements on DCN32 when no displays are active
+Date: Fri, 13 Nov 2026 23:43:09 -0500
+Message-ID: <20261114044246.2910453-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200413-failed-6.18-ee1afc5539b6@kernel.org>
-References: <20261109200413-failed-6.18-ee1afc5539b6@kernel.org>
+In-Reply-To: <20261109201918-failed-6.1-bba4dc330648@kernel.org>
+References: <20261109201918-failed-6.1-bba4dc330648@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,288 +62,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Misha Nasledov <misha@nasledov.com>
 
-[ Upstream commit ee1afc5539b6fe03569a5855b6041b13343b0993 ]
+[ Upstream commit bba4dc3306483335ddbe065c05b2d8359ec387a4 ]
 
-Reading /proc/PID/maps under per-VMA locks can skip continuously mapped
-address ranges during concurrent VMA splits or merges. This violates the
-guarantee in Documentation/filesystems/proc.rst:
+amdgpu_dm builds the new dc_state as a copy of the old one. When the last
+stream is removed, dml1_validate() returns early on pipe_cnt == 0 and
+never reaches dcn32_calculate_dlg_params(), so bw.dcn.clk keeps the
+dramclk/dcfclk/fclk requirements of the display that was just turned off.
+dcn32_update_clocks() then keeps those hard minimums applied.
 
-"If there is something at a given vaddr during the entirety of the
-life of the smaps/maps walk, there will be some output for it."
+On an RX 7900 XTX this leaves UCLK at 456 MHz and DCFCLK at 637 MHz with
+the monitor off, and the board idles at 28.4 W. With this change they
+drop to 96 MHz and 145 MHz and board power falls to 15.3 W.
 
-lock_next_vma() reuses a tree iterator across calls under RCU. The iterator
-remembers the range of its last entry. When its node is replaced,
-mas_next_slot() walks the tree again at the last index of that range, then
-advances past the entry containing that index. If VMA boundaries changed,
-this can skip a range that has not been reported:
+Reset the clock requirements in that case, as calculate_dlg_params()
+already does when no HUBP is active and as the DML2 path does for
+stream_count == 0.
 
-- A lookup finds [A, C), then mprotect() splits it into [A, B) and [B, C)
-  before vma_start_read() locks the first VMA. The reader reports [A, B),
-  but the iterator still covers [A, C). The next call starts from B yet
-  advances past C, omitting [B, C).
-
-- The reader reports [A, B) and unlocks it. A concurrent mprotect() then
-  merges it with [B, C). On the next call, the iterator resumes at B - 1,
-  which now belongs to [A, C), and advances past C. Again, [B, C) is lost.
-
-Checking the mmap_lock sequence only within the next call misses writers
-that completed before that call began. Also, a NULL result is currently
-accepted without validation, so a race can terminate the walk early.
-
-Even a fresh lookup can skip a mapping. Suppose it finds a gap before
-[B, C). A writer inserts an adjacent VMA at the end of that gap, then
-merges it into [B, C), replacing the node. The lookup resumes at the old
-gap's last index, now inside the merged VMA, and steps past it. The
-original [B, C) remains mapped throughout. Repeating the forward lookup
-is insufficient: another merge can make it skip the same mapping again,
-returning the same later VMA or NULL.
-
-The fresh-lookup race also affects /proc/PID/smaps, numa_maps and
-smaps_rollup. Resetting the iterator after gathering each VMA's statistics
-does not prevent a merge during the next lookup. Fixing lock_next_vma()
-also prevents omitted entries and incomplete rollup statistics.
-
-Tie VMA iterator state with the current mm and the write generation at the
-point of last mm speculation in vma_rcu_iter, whose values we call 'rvmi'.
-
-This allows us to neatly abstract the existing priv->iter logic alongside
-query_vma_find_by_addr() which uses its own VMA iterator.
-
-Then, provide helpers that act on the rvmi - vma_rcu_iter_[maybe_changed,
-may_have_skipped]() to determine whether any VMAs may have
-been altered since last mm speculation.
-
-Additionally introduce vma_range_is_empty(), used by
-vma_rcu_iter_may_have_skipped(), to determine conclusively whether VMAs
-exist in a set range, needing to be traversed.
-
-Original fix generated by an LLM and sent by Josef Bacik in private, then
-amended by David Hildenbrand, and Lorenzo Stoakes added additional
-abstraction.
-
-Link: https://lore.kernel.org/20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org
-Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-Fixes: ea3085dd7a4e ("fs/proc/task_mmu: read proc/pid/{smaps|numa_maps} under per-vma lock")
-Fixes: 0e985559d72a ("proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock")
-Fixes: d9d1c2d81797 ("fs/proc/task_mmu: execute PROCMAP_QUERY ioctl under per-vma locks")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: kept show_smaps_rollup() unchanged under mmap_lock while moving vma_rcu_iter_init() outside CONFIG_PER_VMA_LOCK. ]
+Signed-off-by: Misha Nasledov <misha@nasledov.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 0261a0ef89f37ef962fbc9dbc724ebf65fe681cf)
+Cc: stable@vger.kernel.org
+[ sashal: applied the change in dcn32_validate_bandwidth() instead of dml1_validate() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/proc/internal.h        |  1 +
- fs/proc/task_mmu.c        |  9 +++---
- include/linux/mmap_lock.h | 22 ++++++++++++--
- mm/mmap_lock.c            | 61 +++++++++++++++++++++++++++++----------
- 4 files changed, 70 insertions(+), 23 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index 77c347d3b6ad2..ff47feecba59e 100644
---- a/fs/proc/internal.h
-+++ b/fs/proc/internal.h
-@@ -391,6 +391,7 @@ struct proc_maps_private {
- 	struct inode *inode;
- 	struct task_struct *task;
- 	struct vma_iterator iter;
-+	struct vma_rcu_iter rvmi;
- 	loff_t last_pos;
- 	struct proc_maps_locking_ctx lock_ctx;
- #ifdef CONFIG_NUMA
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 823e8ee1b0953..f706477899f14 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -189,7 +189,7 @@ static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
- 		return vma_next(&priv->iter);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index 9f5425e6474fb..3195fe12fc1b9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -1870,8 +1870,21 @@ bool dcn32_validate_bandwidth(struct dc *dc,
+ 	if (fast_validate)
+ 		dcn32_restore_mall_state(dc, context, &mall_temp_config);
  
- 	unlock_ctx_vma(lock_ctx);
--	vma = lock_next_vma(lock_ctx->mm, &priv->iter, last_pos);
-+	vma = lock_next_vma(&priv->rvmi, last_pos);
- 	if (!IS_ERR_OR_NULL(vma))
- 		lock_ctx->locked_vma = vma;
- 
-@@ -308,7 +308,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
- 	 */
- 	if (last_addr > 0)
- 		*ppos = last_addr = priv->last_pos;
--	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
-+	vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, (unsigned long)last_addr);
- 	hold_task_mempolicy(priv);
- 	if (last_addr == SENTINEL_VMA_GATE)
- 		return get_gate_vma(mm);
-@@ -552,6 +552,7 @@ static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ct
- 	struct mm_struct *mm = lock_ctx->mm;
- 	struct vm_area_struct *vma;
- 	struct vma_iterator vmi;
-+	struct vma_rcu_iter rvmi;
- 
- 	if (lock_ctx->mmap_locked)
- 		return find_vma(mm, addr);
-@@ -559,8 +560,8 @@ static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ct
- 	/* Unlock previously locked VMA and find the next one under RCU */
- 	unlock_ctx_vma(lock_ctx);
- 	rcu_read_lock();
--	vma_iter_init(&vmi, mm, addr);
--	vma = lock_next_vma(mm, &vmi, addr);
-+	vma_rcu_iter_init(&rvmi, mm, &vmi, addr);
-+	vma = lock_next_vma(&rvmi, addr);
- 	rcu_read_unlock();
- 
- 	if (!vma)
-diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-index 81c4d552bfab6..6a59e791c74ea 100644
---- a/include/linux/mmap_lock.h
-+++ b/include/linux/mmap_lock.h
-@@ -17,6 +17,13 @@ extern int rcuwait_wake_up(struct rcuwait *w);
- #define MMAP_LOCK_INITIALIZER(name) \
- 	.mmap_lock = __RWSEM_INITIALIZER((name).mmap_lock),
- 
-+/* Tie a VMA iterator to mm write lock state at iterator initialisation. */
-+struct vma_rcu_iter {
-+	struct mm_struct *mm;
-+	struct vma_iterator *vmi;
-+	unsigned int mm_wr_seq;
-+};
-+
- DECLARE_TRACEPOINT(mmap_lock_start_locking);
- DECLARE_TRACEPOINT(mmap_lock_acquire_returned);
- DECLARE_TRACEPOINT(mmap_lock_released);
-@@ -261,9 +268,8 @@ struct vm_area_struct *lock_vma_under_rcu(struct mm_struct *mm,
-  * Returns either a valid locked VMA, NULL if no more VMAs or -EINTR if the
-  * process was interrupted.
-  */
--struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
--				     struct vma_iterator *iter,
--				     unsigned long address);
-+struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
-+				     unsigned long from_addr);
- 
- #else /* CONFIG_PER_VMA_LOCK */
- 
-@@ -306,6 +312,16 @@ static inline void vma_assert_locked(struct vm_area_struct *vma)
- 
- #endif /* CONFIG_PER_VMA_LOCK */
- 
-+static inline void vma_rcu_iter_init(struct vma_rcu_iter *rvmi,
-+		struct mm_struct *mm, struct vma_iterator *vmi,
-+		unsigned long addr)
-+{
-+	vma_iter_init(vmi, mm, addr);
-+	rvmi->mm = mm;
-+	rvmi->vmi = vmi;
-+	rvmi->mm_wr_seq = UINT_MAX; /* Start odd so changed by default. */
-+}
-+
- static inline void mmap_write_lock(struct mm_struct *mm)
- {
- 	__mmap_lock_trace_start_locking(mm, true);
-diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
-index 42e3dde73e741..9977b64340591 100644
---- a/mm/mmap_lock.c
-+++ b/mm/mmap_lock.c
-@@ -13,6 +13,8 @@
- #include <linux/trace_events.h>
- #include <linux/local_lock.h>
- 
-+#include "internal.h"
-+
- EXPORT_TRACEPOINT_SYMBOL(mmap_lock_start_locking);
- EXPORT_TRACEPOINT_SYMBOL(mmap_lock_acquire_returned);
- EXPORT_TRACEPOINT_SYMBOL(mmap_lock_released);
-@@ -294,21 +296,53 @@ static struct vm_area_struct *lock_next_vma_under_mmap_lock(struct mm_struct *mm
- 	return vma;
- }
- 
--struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
--				     struct vma_iterator *vmi,
-+/* Is there no VMA in [start, last]? */
-+static bool vma_range_is_empty(struct mm_struct *mm, unsigned long start,
-+		unsigned long last)
-+{
-+	VMA_ITERATOR(vmi, mm, start);
-+
-+	return !vma_iter_load(&vmi) && vma_iter_end(&vmi) - 1 >= last;
-+}
-+
-+/* Might the VMA tree have been modified since last mm speculation? */
-+static bool vma_rcu_iter_maybe_changed(const struct vma_rcu_iter *rvmi)
-+{
-+	return (rvmi->mm_wr_seq & 1) || /* Odd implies write-lock. */
-+	       mmap_lock_speculate_retry(rvmi->mm, rvmi->mm_wr_seq);
-+}
-+
-+/* Could the VMA iterator have skipped a VMA due to the tree changing? */
-+static bool vma_rcu_iter_may_have_skipped(const struct vma_rcu_iter *rvmi,
-+		unsigned long from, unsigned long to)
-+{
-+	return vma_rcu_iter_maybe_changed(rvmi) &&
-+	       !vma_range_is_empty(rvmi->mm, from, to);
-+}
-+
-+struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
- 				     unsigned long from_addr)
- {
-+	struct mm_struct *mm = rvmi->mm;
-+	struct vma_iterator *vmi = rvmi->vmi;
- 	struct vm_area_struct *vma;
--	unsigned int mm_wr_seq;
--	bool mmap_unlocked;
- 
- 	RCU_LOCKDEP_WARN(!rcu_read_lock_held(), "no rcu read lock held");
- retry:
--	/* Start mmap_lock speculation in case we need to verify the vma later */
--	mmap_unlocked = mmap_lock_speculate_try_begin(mm, &mm_wr_seq);
-+	/* Only trust the iterator's position if the tree cannot have changed. */
-+	if (vma_rcu_iter_maybe_changed(rvmi)) {
-+		vma_iter_set(vmi, from_addr);
-+		mmap_lock_speculate_try_begin(mm, &rvmi->mm_wr_seq);
-+	}
- 	vma = vma_next(vmi);
--	if (!vma)
--		return NULL;
-+	if (!vma) {
-+		/* No reason to fallback if nothing left in range. */
-+		if (!vma_rcu_iter_may_have_skipped(rvmi, from_addr, ULONG_MAX))
-+			return NULL;
-+
-+		rcu_read_unlock();
-+		goto fallback;
+-	if (pipe_cnt == 0)
++	if (pipe_cnt == 0) {
++		/* The context is a copy of the previous state, so without this the
++		 * clocks the last display needed stay applied with all displays off.
++		 */
++		context->bw_ctx.bw.dcn.clk.socclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dcfclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dramclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.fclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
++		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = true;
++		context->bw_ctx.bw.dcn.clk.num_ways = 0;
+ 		goto validate_out;
 +	}
  
- 	vma = vma_start_read(mm, vma);
- 	if (IS_ERR_OR_NULL(vma)) {
-@@ -337,14 +371,9 @@ struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
- 	 * installed ahead of it. Otherwise we might observe a gap that should
- 	 * not be there.
- 	 */
--	if (from_addr < vma->vm_start) {
--		/* Verify only if the address space might have changed since vma lookup. */
--		if (!mmap_unlocked || mmap_lock_speculate_retry(mm, mm_wr_seq)) {
--			vma_iter_set(vmi, from_addr);
--			if (vma != vma_next(vmi))
--				goto fallback_unlock;
--		}
--	}
-+	if (from_addr < vma->vm_start &&
-+	    vma_rcu_iter_may_have_skipped(rvmi, from_addr, vma->vm_start - 1))
-+		goto fallback_unlock;
- 
- 	return vma;
- 
+ 	if (!out)
+ 		goto validate_fail;
 -- 
 2.53.0
 
