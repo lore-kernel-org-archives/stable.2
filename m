@@ -1,66 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674833;
-	b=IEQKBZ+D39yt387DNWDL9e8CwhTs1+Onxk690/i8ypdNXB8P+gHEC66oyoARhw9GTer4
-	 5RAB25UIcmspLGoSkrYDsoU+DlCPdfsnPVr+0a2HAaH+7uJI+ew3ESWMgkPdKLKjFVeWi
-	 ZB8IDe4HvSXI7bj1cU34RIzgGriFRM9BcfeLCIdW5aHhf70cigtozDR/ovP7kvOpryQT3
-	 axEN1XxSFYEDmnUJUwfrOwEIiuYphih7IYntwNUT8Gg9GE28LUZJ+q3CmwIxbiy6UhmRW
-	 pbNGyKXBgEiCnMEuVdObDQChh+AbIU8hIOU/rtibI/Gxd9JY1Ksxn1/Vja9R7xchfDA==
+	t=1794674980;
+	b=ByzmZT12KcTrqSX7DEPYOU0TvO2bNIPS3y8KJVMQRx83qAyubQ7h9Gq+YTB20sxyqUVO
+	 0FoFc50ctqWP69lyOLTD39yqLE0/pcsYDBz2AbXHaB3BvH5vYSMdZ6KwHK2X7GQO7XAzV
+	 XsiAeYU7Wqlf4xMm7v3+Xk21NQQ0zt3Jsv7fW5caZWgMC6qUh8sy9i4plcJr0u+vlAJc4
+	 MmbjZngaTzA5pSTtqkKfhewKCb9nzowuRU78TNmFmUXb0WzKld2kn2l/BBgo7vIW1vaVm
+	 8M4L6Rs5gbCD/9jO5OyHNe/4+Qqdbu3dIjNZmP7IkGrF0JivyWItAlEhG6wfPbewElw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674833;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=3hUxEq/IvGMPH4orR2xxUUl7Ver4vX91WAzWKMjwqzw=;
-	b=e9q82GvSx7gr1owHjTsKfvIbAmyZVIP2MymhHNASFCChnVKErgUcudiqnytH2k6yY2DP
-	 DeNhjXzyHLLDP3ZSltwLsO46E0yaZgpjG3C62tbsGMDHoH8mtADKXGh5y7TiDbM+KGwby
-	 Dtr2iAnNvcItmyEcyeKcR0NdAm3lObGQc5lm8fLClPNXvw43jpB/b7uk+m7EeL3fghxu+
-	 rNNh/oH2NXLrWSC+xRz8AaYio2hxzBKj5ww136xU85s4EZQWZzdZR477LtwV9RQBXPNgH
-	 yzEb9zXqeH3Bf9otKUFYJYTFEiPUDE0Pjfu2D+9RnhjmgnC9fb6EqnJbO3nFgGh9Kvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674980;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4MfgnZUAxYtPMdkCLogJEqW5pilJx/+POXbl7hayrsw=;
+	b=xksljc8TLPYZedHBPbOJrO4EMp6urW1gi48sqgEf33CJiFn+Q0Aush3SviYhT+plfwX8
+	 8qrhw/zm1KZ/JX5+4tEJZX5vKMTAewO0OPApKrFBQ3mjHLnlM02TNUvKTTmskuGIN2+P0
+	 ckraZywRxTwTQqSRukSEZLFohWIIF4ZKWvggX/r8vdR0g4bcXkTir0oslldlaJiO5xvDw
+	 8qjwBt5X2uS8YnVWhScd9Uhtmio9janZ+sDHbi2lcps4QxI5I2PKlSZTCrbm4o3ga9gVa
+	 4OtM9dwTzZLwDlUWAzKQiB5sHSdgq122d28g6ZRwrw1XbPlZmgM/USll+SOQJmXKleQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=d5WctLGt;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TdxsQxDx;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E00606A8A5;
-	Sat, 14 Nov 2026 16:47:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3E00606A8A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C50606A8A9
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:49:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C50606A8A9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=d5WctLGt
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRg5W5ZLNz8Xrrc;
-	Sun, 15 Nov 2026 00:47:11 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794674831;
-	bh=82Oq4yUJw3E3mVI/PSeEhm5HUr49865y/wRCd0KxSDI=;
-	h=Date:From:To:Cc:Subject;
-	b=d5WctLGt3lfVyY2zfccMFvPVnqtmqo4kItpOGdIogRfz9VkueqVgET673ZqNuUin4
-	 3O/dJyi2/9jmPzW2KBg6C5PJA5Boaz3HRT2reYfhw025graaUrTCEb+qrUjFMJyowm
-	 V/yTGU4Y8OGL9jDDdzlGwG3R3lviCgH/gEFy9bpxn6nZdsakCJ14dA06XZkuRWSo6z
-	 QkeVDZkY4H2Gcq2qiqiRxtX2Pm5jYw0JvV/9u6gN/2RcSrSRn2ytlMHob/h9QPNRhv
-	 K8yGOGZsYwgHkyjvOMwGRxQywepDsBZ2a7whX74Vmmla29AEtI1ccHYVrBvBSNDXX/
-	 p8p3vohkDXozw==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6AEGl28e094567;
-	Sun, 15 Nov 2026 00:47:02 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sun, 15 Nov 2026 00:47:04 +0800 (CST)
-X-Zmail-TransId: 2afa6af89088e94-30e64
-X-Mailer: Zmail v1.0
-Message-ID: <20261115004704544fuMEkcx0F4A1sNBAzz46-@zte.com.cn>
-Date: Sun, 15 Nov 2026 00:47:04 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TdxsQxDx
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-49a92144733so770586f8f.0
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 08:49:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794674978; x=1795279778; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4MfgnZUAxYtPMdkCLogJEqW5pilJx/+POXbl7hayrsw=;
+        b=TdxsQxDxZc0T9Cps6oqeJyMpBITPAEyoh+qpULe++WfWK+v6XZXF45CGxiluV9d3CE
+         MVbEGey/x66s7G07TrCz9wReJwNoKcKgGqY7Sl3QUCKg1c8N3FAe66sBJ1rQzKBsNL3g
+         Gxsye2duxBnaElcU9Py721YBQQrG1X8a7JH23KREZ1bOARkGNJ7ATX6K3f050R2/YIiC
+         /E4L9/iHY7Z6o7RCNWg/RO2vq0t5LAxplcFAtvraVMUfchP8gK03JOxIc1fDBX1UvtoL
+         jshd6CJm+X5WZiI9oEj3N8JpRm/VvnT7kvJdcHkIvi03KWLgkyzSbi70GVEqwiregruT
+         MchA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794674978; x=1795279778;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4MfgnZUAxYtPMdkCLogJEqW5pilJx/+POXbl7hayrsw=;
+        b=D5oDedAAJerDfy9jt4hcFc4RXCGYMfy7+EpVCLbO8QDZb4xcW3uNvxOzT7hIgu5boM
+         MiH0ek4/PuTlPs+RPobtp8bY9EJyN4UkRxIrPs0BbL5LpVVwm4QsaZNaHfmBVJHua1My
+         5x3FF+5tI3hElDhvxvzOiMaGKdI6yMjQZmsS5v7DnyqzqtZ6c5KdPoO7M7Yy52PObdW6
+         Ixb7pwqR2upBfUJoPsVl8E+QfMFVTh8ZueG8Ulsz7ZYBUAG1kqBYH0K64HiWPbAK+mns
+         OlgoTKlyWywybgL/j5Cj3gdtkWCE5MKwhwv8C3HVw3p4LahwF2AkRZBsDxHKZYkITqG5
+         v4eg==
+X-Forwarded-Encrypted: i=1; AL+hErHC36wiY2heKl05+rWOTEmBs22ZEOUbI1yU76oGMLhdKWc+QzW0jbru5kwDhwkC6BXPMkjvpiY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+oDBBVHwNO++otXJwh/Wi6yELBF9LwOirtoopXamv5vsIdxYMw
+	Y2n7na043c1+7vWQcC0+5eO57BQc6NTiD7/cLa6E1e4k3KBfu8xU1+Xu
+X-Gm-Gg: AYBFou1yyMmRZ3NSKNlnV/Dw7bQYZeo893twzvH/kMq6chbHjmYMgQjpyPIZB3i3PQE
+	XhSuy6JFgCb6XitBXmxO7cecOId/HJh96R8UWlGl3Y4cAHQg8TBreryNbO4F1BK3o3pY6d6lHv2
+	bYJ1ifEGZC5xNpsu35sDgQcCmEn/Tge2SufmtfNkLfp5V9YdgrUjfE5Zkb8EjzJkGxiEb6BVaGU
+	TZZ8WSCV5oLeg5J3i++X0578ditjaRXfRSMvrTN9fHjtVWIdazSKW28nCMtQNoJ3qX4hSRIJhvo
+	jiLuXJQW7EDkn5G13+pB3Et2OzW20EZ0qwBvZLro/bwSRx+uaLIBWiX13em7WSbxqh11EZ4Iyw1
+	Dj9fdvcRihKJNn4PNIFRRYacDB9707bLsa5TNr4onPbyOOG2f9Lbag4Sy6RE+lPrYX4hc7yH6Vv
+	zzVs/MV+rNKvdNXY1byq1Jr5WiflcXZSDmup3QND/1t1YD398owdiqxayXW1M4UQDCrAC/FJByS
+	8CDH+94FI17xAqSwNzxgBF/cwLV9/ZFa4e2YAfPJkM3gqUqvXYx3p5BQuMN91ImyY21LBFN5bJ3
+	HykezrZAacBN6YFDz7cWmV9bdOWktVOG/hLW4Hd2NwDwP4mMQL4lbI1WSp0Ik90XhTd1wUf8oxj
+	jBj8Jjqj+MWSszQ==
+X-Received: by 2002:a05:6000:4918:b0:493:2eb8:e7fb with SMTP id ffacd0b85a97d-49c72ab0a38mr12067465f8f.41.1794674977448;
+        Sat, 14 Nov 2026 08:49:37 -0800 (PST)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60d9fff8sm12107798f8f.52.2026.11.14.08.49.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 08:49:37 -0800 (PST)
+From: David Carlier <devnexen@gmail.com>
+To: linux-media@vger.kernel.org,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Nayden Kanchev <nayden.kanchev@arm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mali-c55: Serialise the ISP enable in the params and stats paths
+Date: Sat, 14 Nov 2026 16:49:33 +0000
+Message-ID: <20261114164933.2657337-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,65 +101,70 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <akpm@linux-foundation.org>, <rppt@kernel.org>
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBtbS9leGVjbWVtOiBjaGVjayBleGVjbWVtX3Jlc3RvcmVfcm94KCkgZmFpbHVyZSBpbiBleGVjbWVtX2NhY2hlX2ZyZWUoKQ==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AEGl28e094567
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sun, 15 Nov 2026 00:47:11 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF8908F.001/4jRg5W5ZLNz8Xrrc
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+Only the capture devices hold isp->capture_lock around the
+mali_c55_pipeline_ready() check and the ISP enable or disable. When the
+last two queues to start are on different video devices, both can see
+a ready pipeline and both enable the ISP. The second call fails with
+-EALREADY and its queue's start_streaming_called flag is cleared, so
+the ISP is never disabled again and every later start fails.
 
-mm/execmem: check execmem_restore_rox() failure in execmem_cache_free()
+Take capture_lock in the params and stats paths too.
 
-__execmem_cache_free() checks execmem_force_rw(), but ignores the
-matching execmem_restore_rox() result before adding the block to the
-free ROX cache. A failed restore can leave permissions only partially
-updated, so a later cache allocation can return memory that is not ROX.
-The cache allocation path does not reapply permissions.
-
-Check the restore result and return the error. The existing callers keep
-failed frees pending and retry them through delayed work. This prevents
-a block whose ROX restoration failed from entering the free cache, and
-matches the error handling in execmem_vmalloc_rox().
-
-Fixes: 187fd8521dd8 ("execmem: rework execmem_cache_free()")
-Cc: stable@vger.kernel.org # 6.17
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
-Build-tested mm/execmem.o with W=1 and CONFIG_ARCH_HAS_EXECMEM_ROX=y
-on x86_64. The pending-free error path was reviewed statically.
-No natural CPA restore failure or BPF execution fault was reproduced.
+ drivers/media/platform/arm/mali-c55/mali-c55-params.c | 4 ++++
+ drivers/media/platform/arm/mali-c55/mali-c55-stats.c  | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-
- mm/execmem.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/mm/execmem.c b/mm/execmem.c
-index 349cadd874863a8b82052470e3b0e7b0df2e0ba7..4a48e9f445a02f783ca4dd501559cded54892dd8 100644
---- a/mm/execmem.c
-+++ b/mm/execmem.c
-@@ -351,7 +351,9 @@ static int __execmem_cache_free(struct ma_state *mas, void *ptr, gfp_t gfp_mask)
- 		return err;
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+index 16e895e3488e..6515c78c1bb2 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
+@@ -762,6 +762,8 @@ static int mali_c55_params_start_streaming(struct vb2_queue *q,
+ 	struct mali_c55 *mali_c55 = params->mali_c55;
+ 	int ret;
  
- 	execmem_fill_trapping_insns(ptr, size);
--	execmem_restore_rox(ptr, size);
-+	err = execmem_restore_rox(ptr, size);
-+	if (err)
-+		return err;
++	guard(mutex)(&mali_c55->isp.capture_lock);
++
+ 	ret = pm_runtime_resume_and_get(mali_c55->dev);
+ 	if (ret)
+ 		goto err_return_buffers;
+@@ -796,6 +798,8 @@ static void mali_c55_params_stop_streaming(struct vb2_queue *q)
+ 	struct mali_c55 *mali_c55 = params->mali_c55;
+ 	struct mali_c55_isp *isp = &mali_c55->isp;
  
- 	err = execmem_cache_add_locked(ptr, size, gfp_mask);
- 	if (err)
-
-base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
++	guard(mutex)(&isp->capture_lock);
++
+ 	if (mali_c55_pipeline_ready(mali_c55)) {
+ 		if (v4l2_subdev_is_streaming(&isp->sd))
+ 			v4l2_subdev_disable_streams(&isp->sd,
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+index a9c28b090b2a..cbd2a2f77da3 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
+@@ -146,6 +146,8 @@ static int mali_c55_stats_start_streaming(struct vb2_queue *q,
+ 	struct mali_c55 *mali_c55 = stats->mali_c55;
+ 	int ret;
+ 
++	guard(mutex)(&mali_c55->isp.capture_lock);
++
+ 	ret = pm_runtime_resume_and_get(mali_c55->dev);
+ 	if (ret)
+ 		goto err_return_buffers;
+@@ -180,6 +182,8 @@ static void mali_c55_stats_stop_streaming(struct vb2_queue *q)
+ 	struct mali_c55 *mali_c55 = stats->mali_c55;
+ 	struct mali_c55_isp *isp = &mali_c55->isp;
+ 
++	guard(mutex)(&isp->capture_lock);
++
+ 	if (mali_c55_pipeline_ready(mali_c55)) {
+ 		if (v4l2_subdev_is_streaming(&isp->sd))
+ 			v4l2_subdev_disable_streams(&isp->sd,
 -- 
-2.43.0
+2.55.0
+
