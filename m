@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632623;
-	b=XUcrEy9cIrdkL/JGv2EmuVkHlQlHVlQaf8X5Ekup876DC9ALVhwwkORWcEniWbakQ74k
-	 7xeuqpUOXbTckznOVATbkgvmc63ufWsgWUZCCAgfCj4QrQUTu3qfDGJkK9FIE1IUBIdBq
-	 TvkIN+hJCXjjXlgCZ8wZhaetd96vmupbsyCP5CfSURM3OSuEnfIy4807OzVbUglEOAfsF
-	 w/FBUWmv8xEwj6sWKeYAru8s1P5Zq+4WC00nE/f7VPd3+6ezPjlKPSpKCdS4Pqm6VD4ha
-	 iZPW8IWx4gibKEOBAj6qaoNNWw+g4sg8l9rmEjjgf/Ywtv5wjMYrkZNHvgXI5HtYZ7Q==
+	t=1794632690;
+	b=PS+gvuJRPiLpmcKCWAtL50DuJXhK0BajW4aNaj7Gm7eO/c8dqE/s6ToJzRxqeQnrKszt
+	 BMC5Renp9fCqujaza20IfWs1rNy+d15VaMRsE4A6cdBsUj4cluuFW89Y68UK7ZsJwue0/
+	 UuneBQD80nmZsbkPfWLSPWpZ4cH3BH4iGrfb8shX8TE3xcrkihXVYb8CWg6b0R1atxYa+
+	 gtNizNzWZp7aYYVnlO7EmrMNYmHEJdvxWJJfZHFqDLl9YIlskBo/0bblLSKKGUW9uh3/K
+	 tE+GCfM35jSXaTrPzHmihR7tI0NG+8JRCOtNAZPuEiCA94RjoPjMDDWdz9BXTOziYyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632690;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1tAduaOzKQlcJL3gHfyiK8lX4l1BVm9veymeI+3t3mw=;
-	b=Ssn5hrCOxlQroovEGSG9xXUWTAZ3wa8q4LpU49TTB+Yz1iOISVyxdajeuC2ZlZ8QhU1Y
-	 2CQJ57O/nKNAxVqNVAbCFA5W1izi1X22ydiOwp1x/mKfdmDd1gw6LmWI0aiLJLAPUATx5
-	 ejY+Xrpsp0Iz1h8/MAVjvdWJrnrhNe55odCfoUcCX+jn3S7G/mzs7HqTLhttrqNFGT1l7
-	 O9jjQC/JRwUgKv3xNnJrNjxrafn1hSzIrApNzphusHpZ2K5NQdF9rTrRf7YzhIdKGza8f
-	 ITIjNYeV5t53Xxc07nMocerx8hipq5wPaheuWEuLPIPOTVwvJjGrIXpy59q/cnajcKg==
+	bh=zXWA4Qn5OUCZBV4Ixxiop+LSnnrJCJE7w3Q5gsg9qJY=;
+	b=W1tgkPUPWIEnQD5o5pL2JfTZ0NZg4EQ3PdksIJTCWRwlDFam2fnVs4hOgaTAzWkW8vR7
+	 QJDHcCUx8KGqv3hF4l+GWMQeTWKP2Ipb7XOdKnFVIhKLlxrb7pvgLK6Y+D3Lpo0GvLr9e
+	 eVtDFmNEx7Ed/SvJ7lHeg+oHsN8PQqIeaxWStj9c/trrKnalWls2VanSV5hZsHpq7zhsV
+	 jP/5dzFzBYrWMwPLGZZc7SILgSTn2dG4g0Ov0iY7w1WcLWZPT/M+x6y4LfTqBJ9y81P3o
+	 YSvl7Q0pB0Bb5DsNwXvJC8i6tihdmZapE0mNOw1XhUWTDFkkDFu6K9qLr1qm1jy9OYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLXPmayI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3Fl44Cy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F28606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:03:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9D9606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:04:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLXPmayI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D67221F000C5;
-	Sat, 14 Nov 2026 05:03:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3Fl44Cy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73F6F1F000C4;
+	Sat, 14 Nov 2026 05:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794632622;
-	bh=1tAduaOzKQlcJL3gHfyiK8lX4l1BVm9veymeI+3t3mw=;
+	s=k20260515; t=1794632690;
+	bh=zXWA4Qn5OUCZBV4Ixxiop+LSnnrJCJE7w3Q5gsg9qJY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QLXPmayIQpremGRlzvKRjdUWDhPwbwZd8rT/mmcQL3l0vOruhxQ0PYtW8ToUDMid6
-	 46iK2KA7k2p/i5B33Zn9+T+c9BIBGPs+Mi9aurnhfZklDTaMwPkiOQhP96FWFN7qBR
-	 xFWQayu3ZeOrY2WfTHAO9JKlKSRWcp6khB1J3Php4b+7hZ46bqpZEfOqPaQwpH9P9p
-	 afQV3TKsZiIGl9OGFkxfTJNFaurwgFcJuWic+EQ4+O4IZ+3X/BZTBamemaRMdrZ5Vf
-	 pQEiOYNdDABnShmiCXHLY9scMI5cCd0A08QxjJaoUYxEY2V5pAhy135l+ZPpv7QnGu
-	 6lbt7PnzeUxgQ==
+	b=B3Fl44CymFEcziKu+r+k9+pQm5ghnxZILXBw0EQsgzwVYZPrDikK+Emj35otoFXwo
+	 WnfODPnfVEAqn+UtOdugfWJRxwn7QuiFKuHi+Ig5F8Z22wDLN5ell7cxhF07B/q0OS
+	 M/fDBeesxo8jMcCUHG6dinbcPeuXBQjRJd0+OllHRe6YpYa4LFQu8n46UUWfRfJGNp
+	 jIqq5FhDUOZp3MwNCCwP9z7iiN8pt9nG1V3NpqCUgtwBI1pUII5lNMccRVrJI0aIuJ
+	 fXA3XV/XTozOmknh4hiZBhBaWyV9C5KVQL+AvTTi8mDdXvVXJ4/tV5HJTYqHrECsNk
+	 9m4oNFe9usWlQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: YouYou Yu <youyouyu@amazon.com>,
-	Dylan Johnson <dgj@amazon.com>,
-	Gunnar Kudrjavets <gunnarku@amazon.com>,
-	Jan Kara <jack@suse.cz>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Rik van Riel <riel@surriel.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Zi Yan <ziy@nvidia.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] quota: initialize dquot cache before mounting rootfs
-Date: Sat, 14 Nov 2026 00:03:40 -0500
-Message-ID: <20261114050329.2994867-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/filemap: read mapping->a_ops->free_folio under i_lock
+Date: Sat, 14 Nov 2026 00:04:48 -0500
+Message-ID: <20261114050437.3014185-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202008-failed-5.15-e21a6f39aa6d@kernel.org>
-References: <20261109202008-failed-5.15-e21a6f39aa6d@kernel.org>
+In-Reply-To: <20261109202614-failed-5.10-dc24e273244e@kernel.org>
+References: <20261109202614-failed-5.10-dc24e273244e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,134 +64,132 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: YouYou Yu <youyouyu@amazon.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 ]
+[ Upstream commit dc24e273244e9d712257d5a6c20a32c7f5ca84e6 ]
 
-On some systems, a tmpfs backed rootfs is extensively used throughout
-system's lifecycle. tmpfs quotas are needed to limit per user rootfs
-usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
-and "initramfs_options=usrquota" panics at boot:
+memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
+after the inode has been freed. Once the folio is deleted from the
+pagecache it no longer pins the mapping, so after i_lock is dropped
+e.g., a concurrent final iput() can evict and free the inode before
+filemap_free_folio() looks up mapping->a_ops->free_folio.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:dqget+0x1ac/0x490
-  Call Trace:
-   __dquot_initialize
-   dquot_initialize
-   shmem_get_inode
-   shmem_fill_super
-   ...
-   mnt_init
-   vfs_caches_init
-   start_kernel
+Most callers hold a reference on the inode, but not all.
 
-The rootfs is mounted from mnt_init(), but the dquot hash table and
-cache are only set up later by dquot_init(), an fs_initcall. Creating
-the root inode of a quota enabled rootfs thus dereferences the NULL
-dquot_hash in dqget().
+Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
+must not assume the original address_space mapping still exists.
 
-Rename dquot_init() to dquot_cache_init() and call it from
-vfs_caches_init() before mnt_init(). The slab, percpu and early
-workqueue code it relies on is available there, and the workqueue
-rescuer and shrinker debugfs entries are set up later by their own
-subsystems. Keep the sysctl registration in an fs_initcall, as done
-for the dcache, inode and mount sysctls. This only moves existing
-allocations earlier in boot.
+Fix it by loading ->free_folio while i_lock is still held, similar to
+what folio_unmap_invalidate() does.
 
-Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
+Inline filemap_free_folio() into its remaining caller such that
+delete_from_page_cache_batch() also just loads the callback before
+dropping the i_lock.
+
+The bug was found by code inspection and has not been reproduced.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: YouYou Yu <youyouyu@amazon.com>
-Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
-Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
-Signed-off-by: Jan Kara <jack@suse.cz>
-[ sashal: Retained register_sysctl_table(sys_table) instead of register_sysctl_init() to preserve the existing quota table hierarchy. ]
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: get rid of filemap_free_folio() entirely; improve patch description ]
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted free_folio handling to freepage with callback lookup protected by i_pages instead of i_lock ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dcache.c              |  2 ++
- fs/quota/dquot.c         | 10 ++++++----
- include/linux/quotaops.h |  5 +++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ mm/filemap.c | 44 ++++++++++++++++++++++++--------------------
+ 1 file changed, 24 insertions(+), 20 deletions(-)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 89e38520f66c4..b8a8d4c9df552 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -32,6 +32,7 @@
- #include <linux/bit_spinlock.h>
- #include <linux/rculist_bl.h>
- #include <linux/list_lru.h>
-+#include <linux/quotaops.h>
- #include "internal.h"
- #include "mount.h"
+diff --git a/mm/filemap.c b/mm/filemap.c
+index b98af5680bb9c..f8a28274828f3 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -239,23 +239,6 @@ void __delete_from_page_cache(struct page *page, void *shadow)
+ 	page_cache_delete(mapping, page, shadow);
+ }
  
-@@ -3283,6 +3284,7 @@ void __init vfs_caches_init(void)
- 	inode_init();
- 	files_init();
- 	files_maxfiles_init();
-+	dquot_cache_init();
- 	mnt_init();
- 	bdev_cache_init();
- 	chrdev_init();
-diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
-index 6b53db7e9d6fb..de36d75d022ad 100644
---- a/fs/quota/dquot.c
-+++ b/fs/quota/dquot.c
-@@ -3043,15 +3043,13 @@ static struct ctl_table sys_table[] = {
- 	{ },
- };
- 
--static int __init dquot_init(void)
-+void __init dquot_cache_init(void)
- {
- 	int i, ret;
- 	unsigned long nr_hash, order;
- 
- 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
- 
--	register_sysctl_table(sys_table);
+-static void page_cache_free_page(struct address_space *mapping,
+-				struct page *page)
+-{
+-	void (*freepage)(struct page *);
 -
- 	dquot_cachep = kmem_cache_create("dquot",
- 			sizeof(struct dquot), sizeof(unsigned long) * 4,
- 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
-@@ -3083,7 +3081,11 @@ static int __init dquot_init(void)
- 
- 	if (register_shrinker(&dqcache_shrinker))
- 		panic("Cannot register dquot shrinker");
-+}
- 
-+static int __init init_fs_dquot_sysctls(void)
-+{
-+	register_sysctl_table(sys_table);
- 	return 0;
- }
--fs_initcall(dquot_init);
-+fs_initcall(init_fs_dquot_sysctls);
-diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
-index 8a1ad23da3a11..5f2e39226da60 100644
---- a/include/linux/quotaops.h
-+++ b/include/linux/quotaops.h
-@@ -39,6 +39,7 @@ void __quota_error(struct super_block *sb, const char *func,
- /*
-  * declaration of quota_function calls in kernel.
-  */
-+void dquot_cache_init(void);
- int dquot_initialize(struct inode *inode);
- bool dquot_initialize_needed(struct inode *inode);
- void dquot_drop(struct inode *inode);
-@@ -204,6 +205,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
- 	return 0;
- }
- 
-+static inline void dquot_cache_init(void)
-+{
-+}
-+
- static inline int dquot_initialize(struct inode *inode)
+-	freepage = mapping->a_ops->freepage;
+-	if (freepage)
+-		freepage(page);
+-
+-	if (PageTransHuge(page) && !PageHuge(page)) {
+-		page_ref_sub(page, thp_nr_pages(page));
+-		VM_BUG_ON_PAGE(page_count(page) <= 0, page);
+-	} else {
+-		put_page(page);
+-	}
+-}
+-
+ /**
+  * delete_from_page_cache - delete page from page cache
+  * @page: the page which the kernel is trying to remove from page cache
+@@ -267,14 +250,23 @@ static void page_cache_free_page(struct address_space *mapping,
+ void delete_from_page_cache(struct page *page)
  {
- 	return 0;
+ 	struct address_space *mapping = page_mapping(page);
++	void (*freepage)(struct page *page);
+ 	unsigned long flags;
+ 
+ 	BUG_ON(!PageLocked(page));
+ 	xa_lock_irqsave(&mapping->i_pages, flags);
+ 	__delete_from_page_cache(page, NULL);
++	freepage = mapping->a_ops->freepage;
+ 	xa_unlock_irqrestore(&mapping->i_pages, flags);
+ 
+-	page_cache_free_page(mapping, page);
++	if (freepage)
++		freepage(page);
++	if (PageTransHuge(page) && !PageHuge(page)) {
++		page_ref_sub(page, thp_nr_pages(page));
++		VM_BUG_ON_PAGE(page_count(page) <= 0, page);
++	} else {
++		put_page(page);
++	}
+ }
+ EXPORT_SYMBOL(delete_from_page_cache);
+ 
+@@ -343,6 +335,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
+ void delete_from_page_cache_batch(struct address_space *mapping,
+ 				  struct pagevec *pvec)
+ {
++	void (*freepage)(struct page *page);
+ 	int i;
+ 	unsigned long flags;
+ 
+@@ -356,10 +349,21 @@ void delete_from_page_cache_batch(struct address_space *mapping,
+ 		unaccount_page_cache_page(mapping, pvec->pages[i]);
+ 	}
+ 	page_cache_delete_batch(mapping, pvec);
++	freepage = mapping->a_ops->freepage;
+ 	xa_unlock_irqrestore(&mapping->i_pages, flags);
+ 
+-	for (i = 0; i < pagevec_count(pvec); i++)
+-		page_cache_free_page(mapping, pvec->pages[i]);
++	for (i = 0; i < pagevec_count(pvec); i++) {
++		struct page *page = pvec->pages[i];
++
++		if (freepage)
++			freepage(page);
++		if (PageTransHuge(page) && !PageHuge(page)) {
++			page_ref_sub(page, thp_nr_pages(page));
++			VM_BUG_ON_PAGE(page_count(page) <= 0, page);
++		} else {
++			put_page(page);
++		}
++	}
+ }
+ 
+ int filemap_check_errors(struct address_space *mapping)
 -- 
 2.53.0
 
