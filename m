@@ -1,63 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794621501;
-	b=okzL+d64QoNIzP01Y7sY6TczKyL9IkemWMUYhPn2S8Ly/ODWJNB4mwSRIYasNeG/LyBx
-	 UcS8gd6s33/LsXoNLqsnUxj7DeryKQ3B2aD7MBfKN1lHfxsyuDrakayu+zFtKUPhuukHq
-	 F2BtBuu6onqGD8aUKA3t+DYKMhjmdV7rdVefXWOslKiZGvkl9gN5cY0zNu2a53A/1HhIe
-	 HQ0MOHnk/o4o7yVBSO7CKwLI9GkJXJUEnxXhIvDBB9hqlgjXhV55N3mgINUDqvmVhZRxw
-	 QNc9qbUrOab0Tli/STiw5yWu38aFm3bKMbYupeBaBFK8hCja1bR+IybZSI7GQ3Bb8Yg==
+	t=1794621621;
+	b=lWugCvlgjNFs3jCm2rUeTLRHr51X9A+rmK8whyxKXW3RvdVQW+95a+Gm7G9uP3Og8AD1
+	 I+dkrCVz/WlOHWeywNaPgmD3nFhI8vW540NqGgyoM0UlPcz+/PVAsoblswVeAvzqtGP2S
+	 ZT2yA4Sd2DEn/RDpMKLb9MvkBKfsgcklYYuDOTOolAjSWeBMq2lE1nlredHxE66Kp+7ti
+	 dHkPiiXm8lDWj/m/K3UpqK6OxWMdFUpRevn3DZGUUUuTsFeSmGpS0Nxz2nZBFF/7Z3VB1
+	 x9793YxKNWHo88T+edC+Sntlf82Wva7QsiouBAdrhNlpiYxCz7Tx6R+A3/ySXveQShA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794621501;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Ps3dmenyy5Kz+Ld8FFyPnRbKN1BblcpmGxOsdgzLlkg=;
-	b=Ii6FDbYQnRGIs0vL895bCcQuaIa+XuIlf267cv8Z8FB0FXwLDy67WvhvljFRd5B0c0U4
-	 cGoa7rcP85DwmNXyB7kw78UlKZi9ZXssbJuIgcm/0f4s+Fcle43qF61DouG669yiGknyu
-	 iBUASHR755j2SF73ed69xHId/FmDa/5mYrr4fguWNbCp/N0DOSrMAUEfuaLYC7QPZAc8w
-	 XcadxjKv+qAl9TZ44saq1HFcYqQynhd3XNq2HcvGMY1Rk5TIhFQlnXuqeZ2ZPX557W2JO
-	 O7NCd2Bnsi6JmBmoNhBBXUh6xpNHPzX4OE05gajciMG++9WBsoT+Jw4bvfTeZtc6Wcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794621621;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xoFXsjXLKjXD/H4olKCJ+X+jvlc5wR5AHwlRcd4Ub+0=;
+	b=PaoPOVo6polPYF/Fmz3PMMvuAQGzCoUGduE06hOZjYFUjNruWVXyCkz9kKaZ37QYzjnG
+	 a9D0Vd1Zh+lSdz6aNi2Z8fbSSG4jLnCCx4m5xzeACQlvDbrXTR98foUk3QVpGQg9WchtS
+	 LmYAWv/QdEW6X0keVv2pEn6Xk6t42a9y2RysZbnLnboSGclQX73iwBbe/tl5NMLQlVaa0
+	 dJADlP3nPZcmf4imhv5eNIVZjKPU7nIWAwzikEMx5Es12AteHcwg4S0FjTXJPdTdmibMT
+	 z8oF5ybjqDPe5N8JoNu07RUkysr9a2sWclNJXYzUXnnrDhHeIbxNRmLGzZd6/Z85hSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sdiioxly;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ifh8gdb+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437CE606A333;
-	Sat, 14 Nov 2026 01:58:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEDF606A338;
+	Sat, 14 Nov 2026 02:00:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sdiioxly
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146DD1F000C4;
-	Sat, 14 Nov 2026 01:58:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794621500;
-	bh=Ps3dmenyy5Kz+Ld8FFyPnRbKN1BblcpmGxOsdgzLlkg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sdiioxly7NjwFRO575POppKZvua3L6WryftyguGqSYZamdJsAojMHIkMmxVFp/WNU
-	 H11hZPL1loqMrPcgNMIObTCzDN/d+3JZAhV6qS6+qU0Zi4nge1AKK8jHoqEHcbgbrS
-	 JszJ5sF2FyY/XmcApaHlAFQU7Q9Wsk5CakCfoT7+Go+rxOSdAXTbhHHoSOw4jzACop
-	 cztjbReNHN7gII6vEbqAbtU9WxXIp9iWIewja+SU7FfvjTgWOjeIKZ/NxPYWNw5Ms+
-	 9ezlAnYa4JJTxUYRklbQGmxKWLeuahQB5NUrtbmkKiUSrAE0hDM6o/5NMF0yCibrje
-	 9W1GVttm762lQ==
-From: netdev-bot+sinfo@kernel.org
-To: Zxyan Zhu <zxyan0222@gmail.com>
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, horms@kernel.org,
- 0x1207@gmail.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: re-enable on-chip parity checkers for
- XGMAC ASP 0x2
-Date: Sat, 14 Nov 2026 01:58:19 +0000
-Message-ID: <179462149962.2168702.2687296647559611353@kernel.org>
-In-Reply-To: <20261114015554.2187341-1-zxyan0222@gmail.com>
-References: <20261114015554.2187341-1-zxyan0222@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ifh8gdb+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160661F000C4;
+	Sat, 14 Nov 2026 02:00:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794621621;
+	bh=xoFXsjXLKjXD/H4olKCJ+X+jvlc5wR5AHwlRcd4Ub+0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ifh8gdb+dPcTYXRBX0r4StppInPy9SLHfiCuCVthVRM6UGThIex/T6apM7OyMVP7n
+	 PsHBA3I1ENMUt//7BZDNSnCAS2qAjfNg0LSgBvcW2InK6bpF9lLO8bWmApiBK68FGS
+	 AiAYFPmH6iy/k6Mz1S3uRwswx0RnrMo3SiMXE6nk=
+Date: Fri, 13 Nov 2026 21:00:19 -0500
+From: Greg KH <gregkh@linuxfoundation.org>
+To: dev@rebasedinc.com
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+	Jens Axboe <axboe@kernel.dk>, Yufan Chen <yufan.chen@linux.dev>
+Subject: Re: Subject: io_uring/eventfd: registered eventfd signals only once
+ after the cd305ee3633a backport (6.18.y, 6.12.y, Ubuntu 26.04)
+Message-ID: <2026111310-pointer-citric-2f11@gregkh>
+References: <oMhla8VwCWoihfrmgn8znIy60W1QXI8g_v2OyB9i6sWESIDlVJlwoGGOLylJgIHRARNoieXUVRGqzeB__KvHMdXgnCfPPovs8vLMOzaMPEw=@rebasedinc.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,22 +55,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <oMhla8VwCWoihfrmgn8znIy60W1QXI8g_v2OyB9i6sWESIDlVJlwoGGOLylJgIHRARNoieXUVRGqzeB__KvHMdXgnCfPPovs8vLMOzaMPEw=@rebasedinc.com>
 
-Hi!
+On Fri, Nov 13, 2026 at 11:22:38PM +0000, dev@rebasedinc.com wrote:
+> While working on my own async runtime on io_uring, I found what looks like a defect in the stable backports. I first saw it on Ubuntu 26.04's kernel, and I can't find any existing report of it.
+> 
+> A registered io_uring eventfd stops signaling after its first deferred signal on kernels that carry the backport of cd305ee3633a ("io_uring: defer eventfd signaling when queued from a wakeup handler") but not 04fe9aeb4f3c ("io_uring/eventfd: reset deferred signal state").
+> 
+> What I see, on Ubuntu 26.04 7.0.0-1016-aws, x86_64 and arm64. Ubuntu's 7.0 kernel took the cd305ee3633a backport through the 6.18.49 stable update:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Please test the real kernel.org 6.18.y release.  6.18.49 is very old.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+If that still has a problem, please let us know and ideally send us a
+backported patch.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account.
+thanks,
 
-*IMPORTANT*: If you do repost (for other reasons) - please include
-the relevant info in the cover letter or commit messages.
--- 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+greg k-h
