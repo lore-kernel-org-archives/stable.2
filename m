@@ -1,101 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794685041;
-	b=tCgjSl/m4LZlE/zEm2o8lsRlITSZh83+k4z+locpfQGe++lzpmzftdxbOLhY0wofz1GH
-	 Gcc0LhXVGS2XzwA0P7eA5q6E7eZxBjGwkUL5lGOw4WRVUgwUhRN3P2VRvPoeZ/IS9uU6n
-	 UaY0Q9rfrm1uX8MKHC2lUyMJZT0YymrvmmUYWXtDfwRdiXJrQtWglTt+Awt3jQvtpkLqR
-	 rSreHEvbiNMHLFYc0JjlN6FSoyAVdfg8WKW16DuE6o0I/xrHoUeRr6V+0AvLXDMvblmgf
-	 vcxkYM77qNmq1WzMDoxlxdDJaScWrEx9QlcPpFMhZZ3Y5GTac2xBZOZjZXJDjjvqpAw==
+	t=1794685434;
+	b=auaQsXGrvwDSMKiZtZkwt9EIecfJcq/yjaCHdiVM8Bl/2sY67aQjED/1SA0xEH43cTNA
+	 IT/7ZYdFAKlNdOhIISORREg+ppnQVeq+9C4i06h37JiI3IcoKiBhWMegBHRUEQnbHvbD4
+	 3akbL5DdAmqEpqEdA5phH3qyo+QnlVbak1n/3/1Yg1ncR4/G6r5SU0YO1Dw3iBUbT/7gd
+	 0WKUxQe0Z2XxfmbuieGGJtG2NG0jjX67zgC81ZuCq8RHz4EGhUWLd4gko1EhEGwjJAQl1
+	 km/7y/Df1THQyGU91iIVHH7xNT41tkMeCak1HGPaLvcTnBROfiJZjGWFZjenblKywrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794685041;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794685434;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=K9K7bqq7xK+KT7MgV6hqZn0DRh0a3ePkLyyaTd2Fqn8=;
-	b=VOokwV0rf1hcKMKuPpzbk3uYyaxiwFXhBo7n+OJGJIvYXhm+Mh3F8sAeV1L2osxvnqZH
-	 hSScUI5p/JRtRqN0yuzYFS8hU9Z+vZLnhwQW2cAB5ZPWE+xV/O1Zlv9pjhs+riSX4DeO6
-	 gLwc7JfMg/jNwmA0WVXzgXpspNXhYLXUeIyYFJGPQYVeZLR6aC1GNIZ9pLqqF1XwEdQ0c
-	 M70+ltoF1A4fOoRiXGQBrNxNC8wtPTWF/j5YYQBPll7A2/cLeyyZen3wlnk0BgEQLZ3VI
-	 qCDr34P+Hke9/kZx7Y1M2EASqNGrugY6Tpyrmjsi7u4t38G/7ckR4Mx4A7ZSEws+cVA==
+	bh=rsXZ7d4QFn0NUg+8/La6gaeSrqv6Sy38QEAOiwgBoiI=;
+	b=u+Uu6Mb67qVol1I5M7WHdALhS6wLmdiVCA01HCBkWjp2a3iGgpLH+ZWruRxsg9k+Pf/T
+	 YrkbCO45PhM8Bt9yAoIfjW/bu40OFVh6bbo6rLsXnHsPNhllLxB4gXNN73JPwpw141WCE
+	 u5YkKwOlvh06sfjDDHyPUwwqh/+pN5XYaAonv2144cZuZO8ezoY171n222S4y//i+7yWL
+	 njGCTs1Dax7c69T+LL0vT4wJ1e4vhrvO7WDwfq/VDWa4gXW/N+h6J2CgiljOpiqjo0OLT
+	 /DJBeVxbwTg5vltehdeIGo8mrcThGUWKmZQohxcX37p44CiaDy1s9JEg+MhJjfP9O/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHpcVMrS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lpm6ElOH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B09A4606A89F;
-	Sat, 14 Nov 2026 19:37:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F58606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 19:43:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHpcVMrS
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A30101F000C6;
-	Sat, 14 Nov 2026 19:37:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lpm6ElOH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B901F000C4;
+	Sat, 14 Nov 2026 19:43:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794685041;
-	bh=K9K7bqq7xK+KT7MgV6hqZn0DRh0a3ePkLyyaTd2Fqn8=;
+	s=k20260515; t=1794685433;
+	bh=rsXZ7d4QFn0NUg+8/La6gaeSrqv6Sy38QEAOiwgBoiI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SHpcVMrSi7UbyrGVVXGvlWEc8UDn2o4HmbUkyBepV6cxUgSUdVSCfK0yfibs5GEoG
-	 rzWn74sw+VxL+A48nKkHQXtkNcHfsly/B+vDo5SbWI9HkpphA9HeSjz+ANAfRVAIfU
-	 BSy2x2Api8pZRFazGQi9VashXZfmT9zNwVfmijfy8XZOxS8b59mFQdG8T+msUZJH4r
-	 P+jy7yvbsFkyS2jrWVCqqj3Ha8jzzdBpZIyDCIMwcfzCAq1TIQ/qa2YaseW73556pE
-	 79SIgCapUPJoYePABLOE9jyz0b7JtUSjWJeh1AXqdRHMT1fGb3u/1cqnITohFqmQKU
-	 Tv+BZGjWJ86eA==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	bpf@vger.kernel.org,
-	dm-devel@lists.linux.dev,
-	fsverity@lists.linux.dev,
-	keyrings@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Alex Shi <alexs@kernel.org>,
-	Anastasia Eskova <anastasia.eskova@ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ignat Korchagin <ignat@linux.win>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	James Morris <jmorris@namei.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Song Liu <song@kernel.org>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH v13 4/7] s390/cert_store: Read-lock keyring semaphore in invalidate_keyring_keys()
-Date: Sat, 14 Nov 2026 21:36:28 +0200
-Message-ID: <20261114193631.731615-5-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261114193631.731615-1-jarkko@kernel.org>
-References: <20261114193631.731615-1-jarkko@kernel.org>
+	b=Lpm6ElOHD0235euwr3EvfumLL96ZT2EvX6Bl+aUJNhIjqqmpLcL8EljNagOQXzGZB
+	 LhIw7uDc/zBm5cKVIaRjZbuEHImrPZFAfGtHB0b8rprM0C0/bw2Ull8bJmX3ndi1dX
+	 XqGdV5WAHOQmrOxyl0GAhFI2++pH+0tsBwkXVO33DQFB5JPjdY6/mRzM2tqA33blIr
+	 uAukdZbjUlxJc7f4zQhpVwHC/wOCXCKiZDik7so/ZmbYONXHiHnGEA6r44tg2tJB45
+	 bC6/jqW1SJMFXpgP+y5YvSOwRKl+fpxdNtxDOZAnL5Vh/LyL+Mi5B0Ao4+dHQDlKoK
+	 jyJv1ySVoca+g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Qiliang Yuan <odys.yuan@gmail.com>,
+	Christoph Hellwig <hch@lst.de>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Keith Busch <kbusch@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] srcu: Add list_splice_init_srcu()
+Date: Sat, 14 Nov 2026 14:43:51 -0500
+Message-ID: <20261114194327.449275-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201944-failed-6.1-d06917d0ba22@kernel.org>
+References: <20261109201944-failed-6.1-d06917d0ba22@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,42 +63,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-key_type->read() requires the caller to hold key->sem for reading.
-Acquire keyring->sem across the two key_type_keyring.read() calls in
-invalidate_keyring_keys() so the keyring cannot be modified between the
-size query and the payload read.
+From: Qiliang Yuan <odys.yuan@gmail.com>
 
-Cc: David Howells <dhowells@redhat.com>
-Cc: stable@vger.kernel.org # v6.6+
-Fixes: 8cf57d7217c3 ("s390: add support for user-defined certificates")
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ Upstream commit d06917d0ba226206dbd606330d73a8eb1e3029c1 ]
+
+list_splice_init_rcu() makes a list look empty to new readers, waits for
+the current ones with the given sync function, and only then links the
+entries into the new list. The sync function takes no argument, so it
+can wait for RCU readers but not for the readers of an srcu_struct.
+
+Passing synchronize_rcu() for a list read under SRCU still builds, but
+leaves SRCU readers on the entries while the last one's next pointer is
+moved onto the new list head. nvme_remove_namespaces() does this today.
+
+Add list_splice_init_srcu(), which waits for the readers of the given
+srcu_struct instead.
+
+Cc: stable@vger.kernel.org
+Suggested-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ sashal: Placed list_splice_init_srcu() after existing polling declarations because synchronize_srcu_atomic() is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/kernel/cert_store.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/arch/s390/kernel/cert_store.c b/arch/s390/kernel/cert_store.c
-index bec95991edae..7d339fe2f6fc 100644
---- a/arch/s390/kernel/cert_store.c
-+++ b/arch/s390/kernel/cert_store.c
-@@ -319,13 +319,17 @@ static int invalidate_keyring_keys(struct key *keyring)
- 	struct key *current_key;
- 	int rc;
+diff --git a/include/linux/srcu.h b/include/linux/srcu.h
+index f9e1fa7ff86fc..676dc3490c058 100644
+--- a/include/linux/srcu.h
++++ b/include/linux/srcu.h
+@@ -18,6 +18,7 @@
  
-+	down_read(&keyring->sem);
- 	keyring_payload_len = key_type_keyring.read(keyring, NULL, 0);
- 	num_keys = keyring_payload_len / sizeof(key_serial_t);
- 	key_array = kzalloc_objs(key_serial_t, num_keys);
--	if (!key_array)
-+	if (!key_array) {
-+		up_read(&keyring->sem);
- 		return -ENOMEM;
-+	}
+ #include <linux/mutex.h>
+ #include <linux/rcupdate.h>
++#include <linux/rculist.h>
+ #include <linux/workqueue.h>
+ #include <linux/rcu_segcblist.h>
  
- 	rc = key_type_keyring.read(keyring, (char *)key_array, keyring_payload_len);
-+	up_read(&keyring->sem);
- 	if (rc != keyring_payload_len) {
- 		pr_dbf_msg("Couldn't read keyring payload");
- 		goto out;
+@@ -64,6 +65,41 @@ unsigned long get_state_synchronize_srcu(struct srcu_struct *ssp);
+ unsigned long start_poll_synchronize_srcu(struct srcu_struct *ssp);
+ bool poll_state_synchronize_srcu(struct srcu_struct *ssp, unsigned long cookie);
+ 
++/**
++ * list_splice_init_srcu - splice an SRCU-protected list into an existing list
++ * @list:	the SRCU-protected list to splice
++ * @head:	the place in the existing list to splice the first list into
++ * @ssp:	the srcu_struct that readers of @list use
++ *
++ * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
++ * instead of RCU ones, so that none of them can follow a next pointer
++ * onto @head.
++ *
++ * Note that this function blocks, and that the caller must prevent any
++ * other updates to @list.
++ */
++static inline void list_splice_init_srcu(struct list_head *list,
++					 struct list_head *head,
++					 struct srcu_struct *ssp)
++{
++	struct list_head *first = list->next;
++	struct list_head *last = list->prev;
++	struct list_head *next = head->next;
++
++	if (list_empty(list))
++		return;
++
++	INIT_LIST_HEAD_RCU(list);
++	synchronize_srcu(ssp);
++	ASSERT_EXCLUSIVE_ACCESS(*first);
++	ASSERT_EXCLUSIVE_ACCESS(*last);
++
++	last->next = next;
++	rcu_assign_pointer(list_next_rcu(head), first);
++	first->prev = head;
++	next->prev = last;
++}
++
+ #ifdef CONFIG_SRCU
+ void srcu_init(void);
+ #else /* #ifdef CONFIG_SRCU */
 -- 
-2.47.3
+2.53.0
 
