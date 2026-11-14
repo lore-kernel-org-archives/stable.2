@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794633159;
-	b=qWALw7r6eRAXYFBDY4oRo0Ni24AzZOIrQ52mYtmg6VVxJklBcx0RqXFP1Uda2pUcAI4e
-	 Obt0ZSI8CFjZ0CXz2KIPndSt4UtnF953u27LSRIysdxmVxMDMxPUtCj3Tf1kQ+DmESh+4
-	 k1JBirmOntz4BWsVW8q1kBILhZJXkBArPq3QSnaEFGAV/UMcC966V/ZqOIkNj1LwluKrz
-	 dbL0p45zKWONxeQN+kggI+l/bT3RhQMVpQAwUGIBnCLnlJRU2z2YFDE90xx2BHKRUnjFp
-	 bmhpI3YJw63T9ZaLw6pxA6teiTBH2nfdy69RU1FmZy10uY66a1K5eqn5p2bHnBGtSFA==
+	t=1794633230;
+	b=LPGF2hp2SZnqUdwsKJRr3qg3+0XUA/7qakAYfWZtmq42tvBQmdPF1XbRe+VnF43rxxqS
+	 +zc4La76Bl74gn34D9bsZiP0dqNFJKIBMDoRhY1ZmG/kwH0zIzNiZBsI3hEoBCXMRajGj
+	 0BaYhfMx73RSYb04PLK3T2fJwQ81HKC6cKoXLAYwRZj/kpUSbee/OUHZihCiWl0PztxdE
+	 wy5304iNpST5R+X3Bpurm1z4BpxuEllTdR4f6rvgq6ekWppFieRy3ISY78qzcrWcB1CId
+	 gglubcvPUFyyAa9SG9oOKatvOVukCO8MhZ3YG+5dM41ckpmE3Jy0s9Ff8vrbrt2QWMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794633159;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794633230;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VPvgsVjJBvQZHd1Dpf5O6iMHcD5W3kdhrUaJtUSMJKM=;
-	b=fr83m40iZyPN1VmaukRrvIK+p09JJiWD3/8kzv70m4q50GIG83tp66RrolTrDkpILD3O
-	 XB70HCitbF6LoHTffZX4hQFCJI6GW7rtTDMLI27qMj1GZPAOUOr4bDrMFZDWT702USZA/
-	 ypoCgn80ZuLLyQc2X0NQYWMmtwMa90JI37uTCy+f8R0/RjSze+a1Xv3yA00CaD1y2d4/w
-	 RiB9FAi/7kiPsPbunEYIYA8J6CinUBoAeGAbpq3IKCynY/tudZbk5lyd3fuM5vFJaxTOL
-	 U+htON7N4nivkciNJZvKoSNaCmb51bzDeWWixx9Aa8RcLWk5AWWN9emGgXO84NdVBGA==
+	bh=ml+bNfw5Z8U0R3bNexvw0F7bSXS4TpdvNjfIS+l1JNU=;
+	b=aicWhovvPgFrcm3pzko0In+4nGTLeKVv3SB98reG2aN04Bs6Sp/e0pfmIzmbg9nmhOCt
+	 FGUK1OQsWmvy1zX9tEypYZfCfRqqpjmmpY7SiKJt+FuYOuWUtaXlV2oZ74g9UuB/q1/YW
+	 +ikQhMYEph5Gm8IvTgLufMBI7CBbKv9rJY6bLWU6OP7q2/qL1Ser5iwx9TDa4A5hgOGjB
+	 g9cJJ2HnOOAx1ngXBJSyLnyJXVLqXLvVPuMOBmJIIQjA7JbKbEOns2EDeC170jjMSNTOA
+	 sF2NQaCa/zJKajKdVgiKkvFu6/joI999H2m/0eZ/mrcK27ckb6S3JOHAxhT83pSK8mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ML+kppzn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYSMdUIy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3C3606A332
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:12:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8725A606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ML+kppzn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9EEA1F000C4;
-	Sat, 14 Nov 2026 05:12:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYSMdUIy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732D01F000C4;
+	Sat, 14 Nov 2026 05:13:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794633159;
-	bh=VPvgsVjJBvQZHd1Dpf5O6iMHcD5W3kdhrUaJtUSMJKM=;
+	s=k20260515; t=1794633230;
+	bh=ml+bNfw5Z8U0R3bNexvw0F7bSXS4TpdvNjfIS+l1JNU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ML+kppznB2svKwIslF+lKUrogpvLyPbFVDdAUYLJdfNaj9V220PmzMY+0JluM1ant
-	 ZD6Zh1EMw4WGTmV7SeFfc32e7ltRTeCNgqmS3XIypzP94ltcvaBIPpOK5qQZRUY4+w
-	 AtSK+Nj0UB+QVCyNSV1gN5U3FMsmZSmwLoCwgX11L1pMKY4TH5EYoF59Yn440SSabR
-	 t12XpmAyLKfHxssFZ/Bpu1qcSbEHfwg+zjIbIsQ35Gw53C++uIGseMGrWgXXtFMEmz
-	 DdiNiZk68LRG0gTUsZohVgyIqHHr9WetEUckG8pegqSZJXfpwN44ZnIiZMY3gCwcc9
-	 9M+EiyP2kYLhA==
+	b=jYSMdUIyKxP3+ntAOXZ52lVetjehmNoOsxNUB5T0Ti5/52C5jT+mJ5PYgRfEGZZ+o
+	 ns3a3xsZwVS9WU5zk1p343wPzC8ght88KQz7RpP8bBFnTqAaA8vYy5igqPidmWNzO3
+	 MSOJbGQ6VoB423MmBHimbjxXe3eVRTjjYbiWdR4ofr32z6LujR/2dbDs2EdMk3NxTp
+	 sjlsyTXAyE/1x6hF37BBsDc+mE77/XdecTwGVyv3x7kRxzJs6J6hpxN6Ed8TnoQLv5
+	 Ter95sgLTchuyhmzlvPhK2OQQF6QdM8J2TuB2uysiaGp/0r7rlFSlATxJnfEY/Tl3q
+	 wOTwPqNYwqXoA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thorsten Blum <blum@kernel.org>,
-	PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
+Cc: Gregory Price <gourry@gourry.net>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] hwrng: virtio - prevent use-after-free after a failed restore
-Date: Sat, 14 Nov 2026 00:12:37 -0500
-Message-ID: <20261114051224.3056271-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/userfaultfd: compare exact registration modes before skipping
+Date: Sat, 14 Nov 2026 00:13:48 -0500
+Message-ID: <20261114051339.3071292-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202722-failed-5.10-0f7bf47f5a0c@kernel.org>
-References: <20261109202722-failed-5.10-0f7bf47f5a0c@kernel.org>
+In-Reply-To: <20261109200908-failed-6.12-05f64f211a25@kernel.org>
+References: <20261109200908-failed-6.12-05f64f211a25@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,64 +62,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thorsten Blum <blum@kernel.org>
+From: Gregory Price <gourry@gourry.net>
 
-[ Upstream commit 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74 ]
+[ Upstream commit 05f64f211a25f7d9771d4fde109aad97174a1cf3 ]
 
-remove_common() frees the driver data during freeze, but does not clear
-vdev->priv, which points to freed memory. If probe_common() then fails
-during restore, a later remove or freeze can dereference the dangling
-pointer.
+Changing registration from MISSING|WP to WP returns success but leaves
+MISSING enabled. The no-op check sees that WP is already set and skips
+the update, so later accesses to missing pages still wait for userspace.
 
-Clear vdev->priv on the probe_common() error cleanup path and before
-freeing the driver data in remove_common(). Also reset the device and
-return early from remove_common() if vdev->priv is already NULL for a
-safe teardown after a failed restore.
+Skip the update only when the current and requested UFFD modes match
+exactly.
 
-Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
 Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <blum@kernel.org>
-Reviewed-by: PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>.
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20261016103640.4989-2-blum@kernel.org>
-[ sashal: replaced virtio_reset_device(vdev) with vdev->config->reset(vdev) ]
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+[ david: apply fixup from Lorenzo ]
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-26-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: replaced vma_flags_t helpers with a direct vm_flags bitmask comparison ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/char/hw_random/virtio-rng.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ mm/userfaultfd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
-index f6c0de82c22bc..72c99fa35e78d 100644
---- a/drivers/char/hw_random/virtio-rng.c
-+++ b/drivers/char/hw_random/virtio-rng.c
-@@ -186,6 +186,7 @@ static int probe_common(struct virtio_device *vdev)
- err_find:
- 	ida_simple_remove(&rng_index_ida, index);
- err_ida:
-+	vdev->priv = NULL;
- 	kfree(vi);
- 	return err;
- }
-@@ -194,6 +195,11 @@ static void remove_common(struct virtio_device *vdev)
- {
- 	struct virtrng_info *vi = vdev->priv;
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 10685c46f0866..6a575335bc6f0 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -1979,7 +1979,7 @@ int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		 * userfaultfd and with the right tracking mode too.
+ 		 */
+ 		if (vma->vm_userfaultfd_ctx.ctx == ctx &&
+-		    (vma->vm_flags & vm_flags) == vm_flags)
++		    (vma->vm_flags & __VM_UFFD_FLAGS) == vm_flags)
+ 			goto skip;
  
-+	if (!vi) {
-+		vdev->config->reset(vdev);
-+		return;
-+	}
-+
- 	vi->hwrng_removed = true;
- 	vi->data_avail = 0;
- 	vi->data_idx = 0;
-@@ -203,6 +209,7 @@ static void remove_common(struct virtio_device *vdev)
- 		hwrng_unregister(&vi->hwrng);
- 	vdev->config->del_vqs(vdev);
- 	ida_simple_remove(&rng_index_ida, vi->index);
-+	vdev->priv = NULL;
- 	kfree(vi);
- }
- 
+ 		if (vma->vm_start > start)
 -- 
 2.53.0
 
