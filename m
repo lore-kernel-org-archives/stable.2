@@ -1,69 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674021;
-	b=qD7Ets6u7ao3RKkVtgjjXrvA/jniY75V4Egez3Vs43bbWwBnDVAJeikIIR2FKo673ssB
-	 ZRQ9gkQCeZZLSVKd3WCmamn125OrMYGZ4U911y7uNHFpzYOTMTvgBbua9+2/jUn/wGwZr
-	 fpCjSCVCH3sUi5fhaDO3agp1BGKylZW2Y37f8iPAx/mwQERBN2L2dwmlEyVYLQhYrPP5P
-	 1nKdtIbJSJPxnnANTtr8A++vtQ4BD3Z7SmjnEJEHMHcQyU0z1BYemSvu9I83h3ZnlqAZi
-	 dXvO49RZA1aa96VzHkrtqGq5gd90sbXTgOFHKsp+/qnPJ2S4SqGL6Y/kSYPSZSDgTlA==
+	t=1794674018;
+	b=b/G/orZm+BYMoiWU0mnfXEW1+jjjk1yl1ptPPa2JsIWPmJoVgf5xEzfoWHylEDxnMRM+
+	 QTQrFANfvaADmxv7DX4kkC3Lo9CQFi4/iQPzw+kw/5pLqFXKJcUUbaUwCnabEbH5ll4/n
+	 70nG/cBXFJewlbqU0PMFtcqmpgo3k/BG8b29VXG02ePiLk33pAAM4niBEBb69KYVeTND8
+	 nUOX5oiTOnmoFlDcLW7Zsr9JZzR3QES8888AqCMa6jG0upr8bq0YR3Zp3uI5SoReEJzvN
+	 5sgND/o7AGjEKWWg4uZRl5Ib5jHXzdaM+ldwq2K+VW/itSkrtR3ZcXpyI6mmmY+uSMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674021;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674018;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=CXusS3WynsuamluNFyCP0oICY5fs8xPh6HyTsyP8xPo=;
-	b=Sj3FLKcdLVcrx5iei14b2cJl0g1iWWhbwDIPxXbeEDGrXD90r0o8mIaYzGHw6wmApZb/
-	 afM8dX/0P4fSb42hETBN6YojdDdgqpKtZ6oDraHK7dUSs1FHn9WYU8xLU1g0IXmdhaECl
-	 9fmu90nMBwyI5SoeVl4CYwFgu8uJLuMeZkkbrJ2KvTAl2l7yxflbpGENe8PHb86m4PtLt
-	 pcXke0pSJRZ0nsWhaMVH2YcMI7wsd78FV+gWxf1AayZe6/yBPaFne1M/+OFknotkHXJos
-	 CTKqXGBq2g9tLMbEsg6ULzM23v9rAeUB0GoW9ClAwu0rVpwoKQbCFKqrqKPTNKpa1BA==
+	bh=O1ypsRd6FRvicI7GlxnFvXQAIUrzQn7pYeX/tyFhz58=;
+	b=tp/ApatIr+0zwCfmZQ19D3FSoyXfwsrFKc3oI4if9m9e4OGq/ThNv+hBSjOFw0CdXlzs
+	 CdGYVR0NDWzPkZvI7gArWb2yMIZa9zssqtVuHYqJVV+VykSxB4Q4YdNXT3mii+wMmBJfD
+	 4plEveg+mZOyPDZpLRYDmc3ODlwZsBYFNt10M5OE0/8jkkHcw7H0E8z2Vt4YxFKMRZuEv
+	 Lzno6Qv/s/VTsTdMJzHcMGt7O9s+/C42UJqg2fQNKIRyJgzWGhefPlaCkkR4Dki0pzeU5
+	 xImRP1KYadJMSOqIf564cgA6+7N3ltGsSPLnanQ+TWNHowlkBNQglPsRvUW/R2NaXiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=A4HjaOYb;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=hhCbeuir;
 	arc=none smtp.remote-ip=160.30.148.35
 Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E16C606A330;
-	Sat, 14 Nov 2026 16:33:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E16C606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18009606A327;
+	Sat, 14 Nov 2026 16:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18009606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=A4HjaOYb
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=hhCbeuir
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRfnn6ptXz8XrrM;
-	Sun, 15 Nov 2026 00:33:33 +0800 (CST)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRfnj3GZ9z8XrrJ;
+	Sun, 15 Nov 2026 00:33:29 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794674014;
-	bh=ZDkF8FVy3XgTS5h082PmBKS9ATXs63gctDS/GVHZMyE=;
+	s=z202610; t=1794674009;
+	bh=9KKuBsgULhFyR6UGS3Hdz+ySlJV1lthvy6+g/2Qjygk=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=A4HjaOYbOHSjBSEsKZ9pgZrD4QKzl1GT09CvOVpKo71ivE/iLMzb7/k+qgo1evZ+D
-	 jhttp3duJzL/cyNiCM7y2MH9lUPufdotwX2e9GC0y8Iy2oB9BCE9X+SOtqjKzhY+6E
-	 25MOMzK1/6fo7UEsye0jTLdakV27/9USZvV2fe0APM/gdv2D4XDzFf1gRiCKUiaj2j
-	 /qNvweoQfTGvpEjbTpFxsW3jcnLW+26le2RnZF2WMGeIOyTmszBSbkvnHWyah5YaQM
-	 IbX0Xq4+oT4Ata2Kq2Joj+tUxhZfqceICCsJxmkAnDvEcXl6zdE4eSR5S7/yOyX5Hx
-	 jNyMoLWm7jUPw==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6AEGXOMk085602;
-	Sun, 15 Nov 2026 00:33:24 +0800 (+08)
+	b=hhCbeuirI/lofoMlskbhwv9eOM5OMtLIuwI63pT028pt0Ewo9QcUcrR+b1cc2QJY1
+	 dkx8ZXccN11zKn5SBgPrMyGyRbx4AyYvNAPzztfeBA350xXmn3SfTw4apLRVwin9GT
+	 9hpk3bdxHmMotBjiOHhKZ3y0MHKDSV7l7ZC2/MgSO7yaflM3XDB93LWYlJBOJYSbmm
+	 ETXEbpRhvWmatZ7t3qp4DUdXs51wZk7OEyNpuJP5RSCLlzaLdFUdKFA+TakBfw67RS
+	 IhrThmJXrNe1KNhwjWgBLqWs8oPuZfmtFYLDdDwL2EgPzMEnxrqDAgLXMb9BfNbTnV
+	 EkuzeBaXUg3Hg==
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 6AEGXMml085601;
+	Sun, 15 Nov 2026 00:33:22 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
+Received: from mapi (xaxapp05[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sun, 15 Nov 2026 00:33:27 +0800 (CST)
-X-Zmail-TransId: 2afa6af88d57166-25141
+	Sun, 15 Nov 2026 00:33:25 +0800 (CST)
+X-Zmail-TransId: 2afc6af88d55e27-24e03
 X-Mailer: Zmail v1.0
-Message-ID: <20261115003327071py2fApRTKzNRqgeSpm03u@zte.com.cn>
+Message-ID: <20261115003325701HiO0_fpaadYMDT3t4amep@zte.com.cn>
 In-Reply-To: <20261115003324243qi0CFfSksizkJybVkq3QH@zte.com.cn>
 References: 20261115003324243qi0CFfSksizkJybVkq3QH@zte.com.cn
-Date: Sun, 15 Nov 2026 00:33:27 +0800 (CST)
+Date: Sun, 15 Nov 2026 00:33:25 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,67 +76,113 @@ Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
 To: <axboe@kernel.dk>, <linux-block@vger.kernel.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDIvMl0gejJyYW06IHJldHVybiB0aGUgYWxsb2NhdGVkIFpvcnJvIFJBTSBjaHVua3Mgb24gdW5sb2Fk?=
+Subject: =?UTF-8?B?W1BBVENIIDEvMl0gejJyYW06IGNvcHkgZXZlcnkgc2VnbWVudCBiZWZvcmUgY29tcGxldGluZyBhIHJlcXVlc3Q=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AEGXOMk085602
+X-MAIL:mse-fl2.zte.com.cn 6AEGXMml085601
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sun, 15 Nov 2026 00:33:34 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Sun, 15 Nov 2026 00:33:29 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF88D5D.000/4jRfnn6ptXz8XrrM
+X-Fangmail-MID-QID: 6AF88D59.000/4jRfnj3GZ9z8XrrJ
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-get_z2ram() collects whichever chunks are available in
-zorro_unused_z2ram, clearing their original bits and storing their
-addresses in z2ram_map. Those chunks need not form a prefix of the
-Zorro RAM area: chunks already used by the system remain unavailable.
+z2_queue_rq() copies only blk_rq_cur_bytes() from the first bio and then
+completes the entire request. The blk-mq conversion removed the loop
+that used __blk_end_request_cur() to advance through each segment.
+Multi-segment reads consequently leave data untouched, while writes
+silently discard all but the first segment.
 
-z2_exit() instead sets bits 0 through z2_count - 1. With holes in the
-original bitmap this marks memory owned by other users as available
-and leaves some of the driver's own chunks reserved. A later allocation
-can then reuse memory that is still in use.
+Walk all request segments and map each one for the copy. Advance the
+buffer within a segment when crossing a Zorro RAM chunk boundary, and
+check the size of the whole request against the backing storage before
+copying anything.
 
-Recover each original chunk number from its saved address when
-returning it to the bitmap. Keep advancing the map index so the
-following Chip RAM cleanup still starts after the Zorro entries.
-
+Fixes: 8535fd6f702a ("z2ram: convert to blk-mq")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
 Testing:
-Built with W=1 using m68k amiga_defconfig. Exercised the actual
-allocation and unload functions in a host test program with substitutes
-for the Zorro bitmap, memory addresses and unrelated device teardown.
-Of eight bitmaps, the base code returns four incorrectly; the fixed code
-restores the original bits in all eight. Cases include holes, entries
-above bit 63, empty and prefix controls, and all chunks available.
-No Amiga hardware test was performed.
+Built with W=1 using m68k amiga_defconfig. Exercised the actual request
+function in a host test program with substitutes for requests, segment
+iteration and page mapping. Read and write tests cover one segment,
+three segments, and copies crossing a backing chunk boundary. The base
+function loses or corrupts data in six of eight scenarios; the fixed
+function matches the full-buffer oracle in all eight. The ordinary
+single-segment controls pass in both versions. No Amiga hardware test
+was performed.
 
-The incorrect bit restoration is already present in the initial Linux
-git snapshot; its original introducing commit has not been identified.
-
- drivers/block/z2ram.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/block/z2ram.c | 39 +++++++++++++++++++++++----------------
+ 1 file changed, 23 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/block/z2ram.c b/drivers/block/z2ram.c
-index 15ef92a9744414b9387f4520dc3c7b2f42bebc87..57df672f62a1a2d3db0149ecfbfc0d213aa5f016 100644
+index b216cba1c3bf2b750aaae59a6793bade44c857bd..15ef92a9744414b9387f4520dc3c7b2f42bebc87 100644
 --- a/drivers/block/z2ram.c
 +++ b/drivers/block/z2ram.c
-@@ -395,7 +395,11 @@ static void __exit z2_exit(void)
- 		i = 0;
+@@ -36,6 +36,7 @@
+ #include <linux/mutex.h>
+ #include <linux/slab.h>
+ #include <linux/pgtable.h>
++#include <linux/highmem.h>
  
- 		for (j = 0; j < z2_count; j++) {
--			set_bit(i++, zorro_unused_z2ram);
-+			unsigned long chunk = (z2ram_map[i++] -
-+				(unsigned long)ZTWO_VADDR(Z2RAM_START)) >>
-+				Z2RAM_CHUNKSHIFT;
+ #include <asm/setup.h>
+ #include <asm/amigahw.h>
+@@ -70,11 +71,12 @@ static blk_status_t z2_queue_rq(struct blk_mq_hw_ctx *hctx,
+ {
+ 	struct request *req = bd->rq;
+ 	unsigned long start = blk_rq_pos(req) << 9;
+-	unsigned long len = blk_rq_cur_bytes(req);
++	struct req_iterator iter;
++	struct bio_vec bv;
+ 
+ 	blk_mq_start_request(req);
+ 
+-	if (start + len > z2ram_size) {
++	if (start > z2ram_size || blk_rq_bytes(req) > z2ram_size - start) {
+ 		pr_err(DEVICE_NAME ": bad access: block=%llu, "
+ 		       "count=%u\n",
+ 		       (unsigned long long)blk_rq_pos(req),
+@@ -84,20 +86,25 @@ static blk_status_t z2_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 
+ 	spin_lock_irq(&z2ram_lock);
+ 
+-	while (len) {
+-		unsigned long addr = start & Z2RAM_CHUNKMASK;
+-		unsigned long size = Z2RAM_CHUNKSIZE - addr;
+-		void *buffer = bio_data(req->bio);
+-
+-		if (len < size)
+-			size = len;
+-		addr += z2ram_map[start >> Z2RAM_CHUNKSHIFT];
+-		if (rq_data_dir(req) == READ)
+-			memcpy(buffer, (char *)addr, size);
+-		else
+-			memcpy((char *)addr, buffer, size);
+-		start += size;
+-		len -= size;
++	rq_for_each_segment(bv, req, iter) {
++		unsigned long len = bv.bv_len;
++		char *buffer = bvec_kmap_local(&bv);
++		char *ptr = buffer;
 +
-+			set_bit(chunk, zorro_unused_z2ram);
- 		}
++		while (len) {
++			unsigned long offset = start & Z2RAM_CHUNKMASK;
++			unsigned long size = min(len, Z2RAM_CHUNKSIZE - offset);
++			unsigned long addr = z2ram_map[start >> Z2RAM_CHUNKSHIFT];
++
++			if (rq_data_dir(req) == READ)
++				memcpy(ptr, (char *)addr + offset, size);
++			else
++				memcpy((char *)addr + offset, ptr, size);
++			start += size;
++			ptr += size;
++			len -= size;
++		}
++		kunmap_local(buffer);
+ 	}
  
- 		for (j = 0; j < chip_count; j++) {
+ 	spin_unlock_irq(&z2ram_lock);
 -- 
 2.43.0
