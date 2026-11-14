@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794633873;
-	b=NLBUkB8SAs94CvTxEAbCyAhvk4h+/H1l5JZTybW8SzP0cXvZt9iyjPLOU4i9TQ4QDOnd
-	 ZisYVN7ObQnFQzYXSIpzn77CIXfeKl5GmiadorgoxWPgcaz5AcXDmvpjTclmUk+sMdouC
-	 m7AMzIkaGx0RdfB0iFT5+zKnnjh0PcIiNdFSRXFFar/d2awaOHlIhTDOCklp7GqykiOoa
-	 HGXJ+E3ESmho9S4OmFAgpdw4YCEILcPCPsHUEqQ6HMH+7bZIZuDX6QwPd6vYnGiI2O3M3
-	 AeRT2mdKlfmK65m6b7OPYD4Z2w/b+91b4usYi3kaWIpeztEKzoSZtjyglKg+YeJyP5g==
+	t=1794633915;
+	b=ZnQHRdjpr6oiWwuGJ+loNxAxhwBeBSOLI74tK84Q9qtEdUVK2ceNV8LqHVmEI9zuj4bU
+	 j4nC5xWaaG4pI8kz/kHXXthxsYLvWUr1xb9gH9HExWLLk0wPfU7dfraDp3uTP+OIE/mtV
+	 QOQsJWwGd8XAeXO6VAxZml76cUiSxa6wcc1vUqJZZi5FxWe91JBH+1svefW/1G+5q3AVw
+	 52heZhm/r1a+FEH1OA7T+Z1SywnsCFGSxV+uG29dKz1X735TiyGRGmlqnpiLufwstliR5
+	 4r9QszxAf/Ha6Npe2MQ3LMKT8BHupjIv3IruxUb+T0MqlY0ksZXdx/xtzgXi4dov0TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794633873;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BVB7ix7F4VBYSAJD9n4i202XmjW/NzQ8C90iGjtdjgU=;
-	b=VBw9GIO3FodDVeX+Kxg529LNnyOdesY2+uRVjgHdy3VGSBQze4ROC0L+6ljEM1KVvSh+
-	 wKI83gd+hQrQIyf7cnu5+qlpBMjHq3MhY2HpCrUD8DNhU2nb1ubJwy9avrcFdmqblZmhU
-	 eyBStC0hkaW6yTRBuP3Yc4P12BVmT8/VTSw6oXp1P/qLTIzCIJ2R7g+qTX9Q4qWFA69dc
-	 3lFvMnp2dDg9cyuGr8Wa55VV6XVdr0Du/KfL4Bh9wB2qs7oZ+NCjbVZo3E2842RIShlEE
-	 kULnWQUxwn0HR0hHty4tAWVS+iVJVKPuLKnh31c9PX6xiCSMTZLOh1gOi7KGQoHerCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794633915;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=G957/sYSSjsxjXZ6xa/V+ZGQcypevMQZrpwRMmbz3rI=;
+	b=O2EW52T0krNFDxvhW6dwo8Y0Erp/UwrPWNXQHtEAAY9p8C7blaPmam1DGSQ8KGUg1rdg
+	 WRhBkR2GGkfYqVHHIa4BESGEIiklW8XMDtCRfYsxe5P+9ePu+K4//V6f3kHaUZbm+oBGD
+	 fN/8yLTv5k5/jYMIqSoCkUWbVvPYchA93Y1R6WtzyXnug1dpbezSQ/k9JXi8VSeh4k9vL
+	 CgzKDq4bfTYsC8pfq9Elv5KdATltvZup3Jg7BolAs5ItjZ5J2mhvsi267tOGdWuKYHTPD
+	 lP2Qa+bx2cu/iuEZQ8XSJxEVJUjqvzWDOO23e9L6Oje/AE0z9fc/rYnQmpS1NXEw+mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="g+YW/3k4";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=1g4.org;
+	spf=pass smtp.mailfrom=1g4.org;
+	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=h3oMVmAo;
+	arc=none smtp.remote-ip=185.70.43.20
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9370606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:24:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E02606A329;
+	Sat, 14 Nov 2026 05:25:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6E02606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+YW/3k4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288281F000C4;
-	Sat, 14 Nov 2026 05:24:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794633872;
-	bh=BVB7ix7F4VBYSAJD9n4i202XmjW/NzQ8C90iGjtdjgU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g+YW/3k4wHmoLgDYh51tE2jZKS6byAlMGUh2SOS86/GnOWWBcYwMXDP7VEKu7jHK5
-	 CBMBd7C0EWGpy2YIxN9MhEicpMkUaFzHzukz70W5HJUQS1cK5oXrXMTs4xhM5K0ErP
-	 Wo05Z0hG9UjjzGElCh6rqr4ch3JPJpcIche65qVBgJugebNh3q4AGvWN39zNPRwAx7
-	 ts1Zo3q7x5J7VlTZeZ/D9LgJM7UdRPaujv6wevhPvlRieDLzwgC4HgGjioGfiU1mhZ
-	 oqgLvHy1t/jgWTbQbPGW6xBLa7TRaRzLI34HoaVDk0syAUwrOljn9Likv0gWDToFv7
-	 qrt36UNH52y3A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yingjie Wang <1075151112@qq.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] nvmet: reject keep-alive timeouts that would overflow
-Date: Sat, 14 Nov 2026 00:24:30 -0500
-Message-ID: <20261114052405.3045068-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201307-failed-6.6-96ae13f40ce5@kernel.org>
-References: <20261109201307-failed-6.6-96ae13f40ce5@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=h3oMVmAo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
+	s=protonmail; t=1794633908; x=1794893108;
+	bh=G957/sYSSjsxjXZ6xa/V+ZGQcypevMQZrpwRMmbz3rI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=h3oMVmAopLQfnIYX/WY17dQfkb3DrY/KbOWg13XYhq7ETZuORtXvba358moIARq+f
+	 +ddUkJED1ugY8XVIU/aRwbJn9QF0nTKe1U7eBC5KnyuXGp8de9dtW9RkIAMrzsiyqt
+	 hAhscnTT82FkjBtYfJFZr0LSIQKYOVHdQdFTSFlrqT2RX7RcOtnpOEDA7uwahNZBKQ
+	 FFUDOgglCBiG58XPNs8ovWKWNT5jLgaO9vRRrzO8HnUgOSVpvIjdObttbRRcsqrXK5
+	 H2w4aGSQlp8kONtET/0Xtu6WY1ecIhGRlXyTaNKSTZfeUmkBQydwIU6f6swUCtk0BT
+	 ETCbGBNRtWiaA==
+Date: Sat, 14 Nov 2026 05:25:01 +0000
+To: Namhyung Kim <namhyung@kernel.org>
+From: Paul Moses <p@1g4.org>
+Cc: acme@kernel.org, peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org, atrajeev@linux.vnet.ibm.com, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] perf record: reject CPU indices equal to the mask size
+Message-ID: <IXvxC0HMcBQR9FfdoTQXA2g84e5zjblvs2JieHL43ZVk00pM5aBX4sAeleDdL2AYcb6YF0rxFcdcOOd4CKrT4kJBRgnrYaVv6Cqpqcc9-sE=@1g4.org>
+In-Reply-To: <au1_ow_duqzf7nyY@google.com>
+References: <20261030064825.2156317-1-p@1g4.org> <au1_ow_duqzf7nyY@google.com>
+Feedback-ID: 8253658:user:proton
+X-Pm-Message-ID: 6a3d9a7cbb06d8b5f2a4c2166ce1a1c097ee46c4
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,114 +64,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Yingjie Wang <1075151112@qq.com>
 
-[ Upstream commit 96ae13f40ce5930cd58c43128e385131476f2a66 ]
+On Friday, November 6th, 2026 at 1:20 AM, Namhyung Kim <namhyung@kernel.org=
+> wrote:
 
-nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
-millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
-The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
-4294966296 ms wraps around and rounds to 0 seconds. A Set Features
-command with KATO 0xffffffff then succeeds but disables the keep-alive
-timer: Get Features returns 0 and Keep Alive fails with Keep Alive
-Timeout Invalid. A Connect command with such a KATO creates a controller
-without a keep-alive timer.
+> On Fri, Oct 30, 2026 at 06:48:50AM +0000, Paul wrote:
+> > From: Paul Moses <p@1g4.org>
+> >
+> > record__mmap_cpu_mask_init() rejects CPU indices greater than nbits but
+> > accepts nbits itself. Valid indices end at nbits - 1. When nbits is a
+> > multiple of BITS_PER_LONG, __set_bit() accesses the word immediately pa=
+st
+> > the bitmap allocation.
+> >
+> > User specified recording thread masks reach this write before they are
+> > intersected with the selected CPU mask. For example, an affinity mask
+> > containing CPU 64 overruns a bitmap allocated for 64 possible CPUs.
+>=20
+> What's the exact command line?
+>=20
 
-The converted value has more consumers that can overflow. Get Features
-multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
-and arm a delay that must not exceed MAX_JIFFY_OFFSET.
+  mkdir -p /tmp/perf-asan-build
+  make -C /usr/src/linux-7.x/tools/perf O=3D/tmp/perf-asan-build -j"$(nproc=
+)" \
+    WERROR=3D0 NO_RUST=3D1 NO_SHELLCHECK=3D1 NO_LIBPYTHON=3D1 \
+    EXTRA_CFLAGS=3D'-fsanitize=3Daddress -fno-omit-frame-pointer -g' \
+    LDFLAGS=3D'-fsanitize=3Daddress' perf
 
-Reject a KATO whose rounded value does not fit all of these. Return Keep
-Alive Timeout Invalid from both Set Features and Connect. Validate Set
-Features before stopping the current timer so a failed update leaves its
-timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
-meaning.
+  qemu-system-x86_64 -enable-kvm -cpu host -smp 64 -m 4G \
+    -kernel /boot/vmlinuz-$(uname -r) \
+    -initrd /tmp/perf-guest-sym.cpio.zst \
+    -append 'console=3DttyS0 rdinit=3D/init panic=3D-1 loglevel=3D4' \
+    -nographic -no-reboot
 
-Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: adapted nvmet_alloc_ctrl() error handling to return status directly and set req->error_loc instead of using args ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/nvme/target/admin-cmd.c | 7 ++++++-
- drivers/nvme/target/core.c      | 7 ++++++-
- drivers/nvme/target/nvmet.h     | 8 ++++++++
- 3 files changed, 20 insertions(+), 2 deletions(-)
+  ASAN_SYMBOLIZER_PATH=3D/bin/llvm-symbolizer \
+  ASAN_OPTIONS=3Ddetect_leaks=3D0:abort_on_error=3D1:symbolize=3D1 \
+  /perf record -e cpu-clock -C 0 --threads=3D0/64 -o /tmp/perf.data -- slee=
+p 0.05
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index a033d8dce5aab..18987d9cf94a6 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -801,8 +801,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
- {
- 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
- 
-+	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvme_common_command, cdw11);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+	}
-+
- 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
--	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
-+	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
- 	nvmet_start_keep_alive_timer(req->sq->ctrl);
- 
- 	nvmet_set_result(req, req->sq->ctrl->kato);
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 8e0da771fc1cb..e3dd453025751 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1415,6 +1415,11 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 	int ret;
- 	u16 status;
- 
-+	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvmf_connect_command, kato);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+	}
-+
- 	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
- 	if (!subsys) {
-@@ -1479,7 +1484,7 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 		kato = NVMET_DISC_KATO_MS;
- 
- 	/* keep-alive timeout in seconds */
--	ctrl->kato = DIV_ROUND_UP(kato, 1000);
-+	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
- 
- 	ctrl->err_counter = 0;
- 	spin_lock_init(&ctrl->error_lock);
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index 56b9bbe8c6026..b62f9300c0e64 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -7,6 +7,7 @@
- #define _NVMET_H
- 
- #include <linux/dma-mapping.h>
-+#include <linux/jiffies.h>
- #include <linux/types.h>
- #include <linux/device.h>
- #include <linux/kref.h>
-@@ -564,6 +565,13 @@ bool nvmet_subsys_nsid_exists(struct nvmet_subsys *subsys, u32 nsid);
- #define NVMET_KAS		10
- #define NVMET_DISC_KATO_MS		120000
- 
-+/*
-+ * Largest keep-alive timeout in seconds that can be reported back in
-+ * milliseconds and converted to jiffies without overflowing.
-+ */
-+#define NVMET_MAX_KATO	\
-+	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
-+
- int __init nvmet_init_configfs(void);
- void __exit nvmet_exit_configfs(void);
- 
--- 
-2.53.0
+RUNNING: perf record -e cpu-clock -C 0 --threads=3D0/64
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=3D=3D540=3D=3DERROR: AddressSanitizer: heap-buffer-overflow on address 0x6=
+c9cc78223b8 at pc 0x60af685bdb4d bp 0x7ffd1e954400 sp 0x7ffd1e9543f8
+READ of size 8 at 0x6c9cc78223b8 thread T0
+    #0 0x60af685bdb4c in ___set_bit /usr/src/linux-7.x/tools/include/asm-ge=
+neric/bitops/non-atomic.h:22:6
+    #1 0x60af685bdb4c in record__mmap_cpu_mask_init /usr/src/linux-7.x/tool=
+s/perf/builtin-record.c:3695:3
+    #2 0x60af685bde4d in record__mmap_cpu_mask_init_spec /usr/src/linux-7.x=
+/tools/perf/builtin-record.c:3710:6
+    #3 0x60af685bde4d in record__init_thread_masks_spec /usr/src/linux-7.x/=
+tools/perf/builtin-record.c:3819:9
+    #4 0x60af685b9bcc in record__init_thread_user_masks /usr/src/linux-7.x/=
+tools/perf/builtin-record.c:4015:8
+    #5 0x60af685b9bcc in record__init_thread_masks /usr/src/linux-7.x/tools=
+/perf/builtin-record.c:4075:9
+    #6 0x60af685b809a in cmd_record /usr/src/linux-7.x/tools/perf/builtin-r=
+ecord.c:4395:8
+    #7 0x60af686cc167 in run_builtin /usr/src/linux-7.x/tools/perf/perf.c:3=
+48:11
+    #8 0x60af686cb739 in main /usr/src/linux-7.x/tools/perf/perf.c
+    #9 0x707cd1a470b9  (/lib/ld-musl-x86_64.so.1+0x690b9) (BuildId: d1535db=
+89359be00fb635e9145a3a49d0cbd8261)
+
+0x6c9cc78223b8 is located 0 bytes after 8-byte region [0x6c9cc78223b0,0x6c9=
+cc78223b8)
+allocated by thread T0 here:
+    #0 0x60af685506d2 in calloc (/perf+0xc266d2) (BuildId: c5c8ceb2947501d8=
+a08fbc5dd506840be170f336)
+    #1 0x60af685bdcd9 in bitmap_zalloc /usr/src/linux-7.x/tools/include/lin=
+ux/bitmap.h:121:9
+    #2 0x60af685bdcd9 in record__mmap_cpu_mask_alloc /usr/src/linux-7.x/too=
+ls/perf/builtin-record.c:3093:15
+    #3 0x60af685bdcd9 in record__thread_mask_alloc /usr/src/linux-7.x/tools=
+/perf/builtin-record.c:3117:8
+    #4 0x60af685bdcd9 in record__init_thread_masks_spec /usr/src/linux-7.x/=
+tools/perf/builtin-record.c:3807:8
+    #5 0x60af685b9bcc in record__init_thread_user_masks /usr/src/linux-7.x/=
+tools/perf/builtin-record.c:4015:8
+    #6 0x60af685b9bcc in record__init_thread_masks /usr/src/linux-7.x/tools=
+/perf/builtin-record.c:4075:9
+    #7 0x60af685b809a in cmd_record /usr/src/linux-7.x/tools/perf/builtin-r=
+ecord.c:4395:8
+    #8 0x60af686cc167 in run_builtin /usr/src/linux-7.x/tools/perf/perf.c:3=
+48:11
+    #9 0x60af686cb739 in main /usr/src/linux-7.x/tools/perf/perf.c
+    #10 0x707cd1a470b9  (/lib/ld-musl-x86_64.so.1+0x690b9) (BuildId: d1535d=
+b89359be00fb635e9145a3a49d0cbd8261)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /usr/src/linux-7.x/tools/in=
+clude/asm-generic/bitops/non-atomic.h:22:6 in ___set_bit
+Shadow bytes around the buggy address:
+  0x6c9cc7822100: fa fa fd fa fa fa 00 fa fa fa 00 fa fa fa fd fa
+  0x6c9cc7822180: fa fa 01 fa fa fa 00 fa fa fa fd fa fa fa 00 fa
+  0x6c9cc7822200: fa fa 00 fa fa fa 00 fa fa fa 00 fa fa fa 00 fa
+  0x6c9cc7822280: fa fa 02 fa fa fa 00 fa fa fa 03 fa fa fa fd fa
+  0x6c9cc7822300: fa fa fd fa fa fa 00 fa fa fa 00 fa fa fa 00 fa
+=3D>0x6c9cc7822380: fa fa 00 fa fa fa 00[fa]fa fa fd fd fa fa fd fa
+  0x6c9cc7822400: fa fa 00 02 fa fa 00 fa fa fa fa fa fa fa fa fa
+  0x6c9cc7822480: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x6c9cc7822500: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x6c9cc7822580: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x6c9cc7822600: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07=20
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+=3D=3D540=3D=3DABORTING
+Aborted
+PERF_RC=3D134
 
