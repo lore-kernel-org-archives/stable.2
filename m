@@ -1,92 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794669478;
-	b=vE7dkgjsPIkh6Qm0RRfe2sE0PUCxuYHx7dclreUSEST/4jD0OPCE1c+Tx8ryi+MFLj1G
-	 BEB5dr7cPHqIboj5Jkp6bXkhs1uDE9Y73x6M7eLiCvQLZuVG79uTfYYwDFVKh3f9Mo+ls
-	 xRpenotcxfJT5aqRCt9mQ5BBSb1Ze3UKicLYxHNnw+k1vyHZkdfIykKeIWr0sj7uNnN3T
-	 RlaD36kN0cfAyXBJBOrhdaJA0hn5ZxHipCl/c45wywIMZyUPw9+zqqdxHbiErrlFaktH1
-	 x7xVsg35tLQ/OwDF6ysmAYOsiVDf9gGoes+dCEfbI5B56Xyv7Ggxf5keQLVim6UKS8g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794669478;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=hGfcpMZoPCPDGfi8c/bBBkA6J2WYhjKbx804Qu8O10U=;
-	b=VJQhZxwTBlUF7GPaHr1h32F/aP198u0kCdPl1Y8rimvJRmJ3+bBnvpPXgsbaR/mHrMNW
-	 La+afUgBghNjbFI4ifz+svYz2SSh2KKvFFN9ZElrmu18tFd0mAjspmH2G0UScuL7vh8+h
-	 xCriiBKLxYrzXMp8Y11TGGmZSN4njZ/SPV/KvJYIZg8J0+/2EqmyfwCQlxziyQ5ruvKta
-	 fVOrUlpUuWN9CdIrfeLIqCpnzDTbE5HYmEgyzX3iA7iXVzz9KtguTwfW2WlzS4z/EGUOJ
-	 D7EXOXIfvEG36c5hO9xRxW2pxmVsJlDEyHrr8UdF3L9bFiSRCzVFUzRyVNeRW6+wycQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=c730pjlk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794669597;
+	b=ucV76o1M2JT4HNqgx671wgPZRsuBwKxwFo1FEwS4lRQ6WPTr9b2QibgSar+w+m6pgoLx
+	 7wT5Sukp2uFqBcexbFuFOxi9udnvtZqICeZNDtu2fOxVgyb/5ryUNaUUWdfM+uWPk0JIn
+	 WHs/EYJeee7jaa5iQXX0T4YoYE7rw2+cze8xtHER9VhvtecyL3DBNDV5bOAIkS2GjzAEY
+	 kaWEoxUMzro6i2VH3U69i9jpz8CizdZ17nU9djk1JEPTXRNAD9iS5Dlcf+DRyoAOy1DqN
+	 AX+KCA7PUQuI24bbJb//G38xW/qXCIhtjIp3xacjXZ8yFZ+X9MyRjV6Nl2O8VSettRg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794669597;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=O43KhNj/rILGfD9+jbPiKhcv5yPxjs1K9MtO2LtKnH4=;
+	b=JmkAWDIV1f2MUg2yB1Dhj6Txtu+zfH4zYVgkIi2rEbbu9OqeJ6vBnFjg6wF63PdNvLzp
+	 lK4O984TF7CP5l9bbZDQkHBNKwMy0dWSrVwZ6ZQJOnuznNpsByo3k5gFufH8KK939aEAq
+	 rzifyPFEzl4/oOps1yFuSGJtuFQStSbASNHqwqgmn4Hor4mvJJZlcpaFO8VNAKLo/DN8S
+	 zjHyTeKbjksY003IFZjKe1VJMWrVZdm6vmIyy3iX838UNydu5UrXu/tHSEcBPR7U3bskd
+	 Fla4gWRQqd+hTCApdpBy4qvoVcakoc/K1i0rDnIlsrvS+U+Cu352l6kk+McpdEFfAVg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gLwLtsG9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90321606A32E;
-	Sat, 14 Nov 2026 15:17:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90321606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FBB606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:19:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=c730pjlk
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3B72C201FF7;
-	Sat, 14 Nov 2026 16:17:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794669474;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=hGfcpMZoPCPDGfi8c/bBBkA6J2WYhjKbx804Qu8O10U=;
-	b=c730pjlkINeTdEe3EbRxtpXedxz40tfgQW5rtX5Mti57g84L+ADuW69neN92962yN81VTl
-	5VL+OYMssf15M78vOzNLxQ0+AliNlRtoX7x3bqDot59eDz40XYEEXlTvdO+mULAF7cAn23
-	RaLgtd5kSHkxM6rxqHdoo+T/F78tMAAuurYc5GaLm1N7d3rnvk3GGpAv/qHJgbNfou9ET4
-	7r/LhlwImrc1HfPRHV0n2MSpwei83sPpDi8LJsHF2jl/22Uqx6rVFtt5wIzjasDoNmURnW
-	jd/84qRLTURf52EK5Ti6TAskbgMHmW6B5omsSt0HcUE/yCVkWp2RcXePuK22wQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794669474;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=hGfcpMZoPCPDGfi8c/bBBkA6J2WYhjKbx804Qu8O10U=;
-	b=T2ppW7afIJQfaovdnqqLiniiuZODw2kZANQSZ/2xziBLWLC3R2of8BQZGd75mD2+5uMjVi
-	4hNeNJG8w0urGN4AVa50VQ7lFh5kolJVIk1s2kZp7wz+OP18iCyJZJxN2sD+jIbi7ta5YL
-	5iGcpwLCBAUnlC0T5Gest7JzBTD1ag6J3DGuEdgfBGj+2FfUR+Rta+F/4K0Xl6p+Kv4sK3
-	2ivLMnxWbAlv5fEVG6hEuIocSUFQDzEUJwTsipDrT6YTb/ict9kCp7ZJNQdOOtyTAvZZjl
-	wcX/6AqTMrzLI4ZQRYUm+McPlZLdtPzYJYTfDCzZuBCzSFdgosS3d8Q240t6Jg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794669474; a=rsa-sha256;
-	cv=none;
-	b=NhVrXpGm9vO3/StlyFfMJcX6AB7aS90T8CiqCt+xZbI8lwQ8L19+MaowZrvznJ5DoYvsPZ
-	VGfl2fCgy/JblqLaMuWCzn1B9o5K1WMsKIe6esbGD8ZLG1RzIle9l6+xylZwg+SKva3kZj
-	vXlM8iYEErs4jMK624K4CnvT91yYDafkUhjRZDPAyhWF0wmFwBTH7xkni7OlICVMxC7p5w
-	4LGeoVD/4+K+BACPYQ64lh5l4CrTgaGrcBEmrLToZzDnRfK5ysRTV8zyNCCh9u2i4BO8SF
-	KPHrvzZb4Me8KMTf8HH9le//m/b1koI76D5vHElEqTcBg//j/dxRk5wRAwj0bw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xSFVq-0049oB-0S;
-	Sat, 14 Nov 2026 16:17:54 +0100
-Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id D1B2E5EBB2E;
-	Sat, 14 Nov 2026 15:17:53 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH can-next v7 0/6] gs_usb: fixes
-Date: Sat, 14 Nov 2026 16:17:39 +0100
-Message-Id: <20261114-gs_usb-fixes-v7-0-58b6341b1c08@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gLwLtsG9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 804101F000C4;
+	Sat, 14 Nov 2026 15:19:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794669597;
+	bh=O43KhNj/rILGfD9+jbPiKhcv5yPxjs1K9MtO2LtKnH4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gLwLtsG99BXbv7jyRbVk4JWF3e0tXa7YT5HhWVqO+IeHAZWzkYKZKwnFoGo7Zcvy8
+	 Buq1o2hIDeD4aEEQXsa+lNM8hW+xo8muWi7qqTEmR4vbF7M+Cob7PSPSvycTQ+pShp
+	 Sm7LHS+QCEHLe5zZHoN1DeTlPBcuuZKIq8KngNWcLpHCuByfwj7TZcWJxkK02VMuP7
+	 RzKcgmulcl0KJlvSmVI0DE/KpvjKpRQF6sC1aFSkUvB/brE8ieK3+N5GIPdzsCAvPb
+	 jde/hWHqwmDF/nZdK5pQJq40ej7Nhd4KfyQoSuM+5ZtF3UobvvjuE3DjpO+PBHygsN
+	 0hxHTQhubGm0Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "chenglong.ma" <longpareto@gmail.com>,
+	Xie Yongji <xieyongji@bytedance.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Claude Code <noreply@anthropic.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] vduse: fix VA/PA confusion in the coherent page fault path
+Date: Sat, 14 Nov 2026 10:19:55 -0500
+Message-ID: <20261114151931.3517070-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201745-failed-6.1-bb2e6f166547@kernel.org>
+References: <20261109201745-failed-6.1-bb2e6f166547@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,107 +61,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33SUW+DIBAH8K/S8Dw24AC1T/sey7KIHJYlYidoX
- Jp+96FdssaZPl6O/+8Ix4VEHDxGcjxcyICTj74PuSieDqQ51aFF6m2uiWBCcyYUbePHGA11fsZ
- IhWIOyhKAs4LkyHnAtZETb6SpAw04J/J+68TRfGKTFm05e/Ix9cP3Onnia2J/yMQpo66QaIyVt
- gb9esbQjmnog5+fLa7+JB4JIgsKlJWKVYUrxK4A94LeCJAFqHXpuNOi5LAryEeCXO5QIRgNmjG
- 1L6g/gbNyI6gsWCWslZVkVu6/g74TOGwEnQXWMKiQG2cL+U+43lY14NeYv0L63aSpI9Km7zqfj
- oeAaV3rS1f7kBPXHyXNYhpEAgAA
-X-Change-ID: 20261025-gs_usb-fixes-250f38833107
-To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
- Eric Evenchick <eric@evenchick.com>, 
- Maximilian Schneider <max@schneidersoft.net>, 
- Wolfgang Grandegger <wg@grandegger.com>
-Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
- Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>, 
- stable@vger.kernel.org, Shuangpeng Bai <shuangpeng.kernel@gmail.com>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>
-X-Mailer: b4 0.17-dev-d7211
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3107; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=FqBOB595rLcnOqUrh525RBoZTVVEcrGTCz+VLIfFfmc=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6UT3j/+X57gIPFwitaL+x8HDjzupXDX47L4gdeKe2b
- M3nOxpTIjpKWRjEuBhkxRRZlv44oSgQ6FDa+zJhEswcViaQIQxcnAIwkde/Gf6KiM7+LJJwJeHq
- aYGAzFmyZ5iFX73s3/fhKLvS3ediO+6aMDLsN4jkOfXSaLFPx4R9W5bPLTIrW3/7pdgflfXyZcb
- nG29yAQA=
-X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
- fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: "chenglong.ma" <longpareto@gmail.com>
 
-this series contains fixes for issues found by sashiko. Also picked up the
-patches by Ciprian Marian Costea and Shuangpeng Bai and integrated them
-into the series.
+[ Upstream commit bb2e6f166547838fd7c320b01c90918b736f76e2 ]
 
-regards,
-Marc
+vduse_domain_get_coherent_page() assumes that iotlb entries above
+bounce_size were installed by vduse_domain_alloc_coherent(), so it
+treats map->addr as a physical address. But vduse registers with
+use_va = true, and when the device is bound to vhost_vdpa,
+vhost_vdpa_va_map() stores a userspace virtual address in map->addr,
+which vduse_domain_set_map() then copies into the same iotlb. A
+process holding the domain file descriptor across a rebind can
+therefore fault in an arbitrary physical page with read/write
+access, ignoring the entry permissions.
 
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Additionally, since the domain file mmap lacks VM_IO, the domain
+file itself can be mapped and passed to vhost_vdpa_va_map(),
+producing self-referential entries that bypass the coherent path
+check.
+
+To fix, only translate entries whose backing file is the domain
+file itself in vduse_domain_get_coherent_page(), reject such
+entries in vduse_domain_set_map() since only external mappings
+should be imported, and set VM_IO on the domain file mmap so
+vhost_vdpa_va_map() refuses to map it in the first place.
+
+Fixes: 8c773d53fb7b ("vduse: Implement an MMU-based software IOTLB")
+Cc: Xie Yongji <xieyongji@bytedance.com>
+Cc: stable@vger.kernel.org
+Reported-by: chenglong.ma <longpareto@gmail.com>
+Signed-off-by: chenglong.ma <longpareto@gmail.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Co-Authored-By: Claude Code <noreply@anthropic.com>
+[ sashal: replaced vm_flags_set() with a direct vma->vm_flags |= update because the helper is unavailable ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v7:
-- patch #1: update patch description (sashiko)
-- patch #2: moved to linux-can
-- patch #5: update function's locking annotation
-- patch #5: drop active_timestamp_channels, use active_channels again
-- patch #5: remove testing against IFF_UP (sashiko)
-- patch #5: annotate that driver relied on RTNL for synchronization
-  (sashiko)
-- patch #6: new: move use of new {enable,disable}_delayed_work() API here
-- Link to v6: https://patch.msgid.link/20261113-gs_usb-fixes-v6-0-0c039e1bfd74@pengutronix.de
+ drivers/vdpa/vdpa_user/iova_domain.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-Changes in v6:
-- patch #5: add missing initialization hw_ts_supported in
-  gs_usb_probe() (sashiko)
-- patch #5: work around race window in gs_usb_timestamp_start() (sashiko)
-- patch #5: start time stamping worker if the device supports HW time
-  stamping, if least one interface is brought up
-- Link to v5: https://patch.msgid.link/20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de
-
-Changes in v5:
-- patch #1: add new patch
-- patch #3: gs_usb_disconnect(): first unregister_candev() all CAN
-  interfaces, then call gs_destroy_candev()
-- patch #4: update Fixes tag (sashiko)
-- patch #4: use stats pointer directly (sashiko)
-- patch #5: add new patch
-- Link to v4: https://patch.msgid.link/20261026-gs_usb-fixes-v4-0-59e3b6360053@pengutronix.de
-
-Changes in v4:
-- patch #2: fix cleanup if register_candev() fails (sashiko)
-- Link to v3: https://patch.msgid.link/20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de
-
-Changes in v3:
-- patch #2: fix cleanup if register_candev() fails (sashiko)
-- Link to v2: https://patch.msgid.link/20261025-gs_usb-fixes-v2-0-535d45097f72@pengutronix.de
-
-Changes in v2:
-- patch #2: add missing cleanup if register_candev() fails (sashiko)
-- patch #3: do not increase rx_errors during OOM (sashiko)
-- Link to v1: https://patch.msgid.link/20261025-gs_usb-fixes-v1-0-f74ebbd4da36@pengutronix.de
-
----
-Ciprian Marian Costea (1):
-      can: gs_usb: gs_make_candev(): check can_rx_offload_add_manual() return value
-
-Marc Kleine-Budde (4):
-      can: gs_usb: gs_usb_probe(): init netdev completely before register_candev()
-      can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation fails
-      can: gs_usb: gs_usb_receive_bulk_callback(): add missing call to can_rx_offload_irq_finish
-      can: gs_usb: properly shut down timestamp worker
-
-Shuangpeng Bai (1):
-      can: gs_usb: fix hardware timestamp state for mixed channels
-
- drivers/net/can/usb/gs_usb.c | 170 ++++++++++++++++++++++++++++++++-----------
- 1 file changed, 128 insertions(+), 42 deletions(-)
----
-base-commit: 573af801552999954caa8347e4490b04cf4763f0
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/mkl/linux-can-next.git master
-change-id: 20261025-gs_usb-fixes-250f38833107
-
-Best regards,
---  
-Marc Kleine-Budde <mkl@pengutronix.de>
+diff --git a/drivers/vdpa/vdpa_user/iova_domain.c b/drivers/vdpa/vdpa_user/iova_domain.c
+index e60a2b4065af9..a0c6835019a63 100644
+--- a/drivers/vdpa/vdpa_user/iova_domain.c
++++ b/drivers/vdpa/vdpa_user/iova_domain.c
+@@ -76,6 +76,10 @@ int vduse_domain_set_map(struct vduse_iova_domain *domain,
+ 	for (map = vhost_iotlb_itree_first(iotlb, start, last); map;
+ 	     map = vhost_iotlb_itree_next(map, start, last)) {
+ 		map_file = (struct vdpa_map_file *)map->opaque;
++		if (!map_file || map_file->file == domain->file) {
++			ret = -EINVAL;
++			goto err;
++		}
+ 		ret = vduse_iotlb_add_range(domain, map->start, map->last,
+ 					    map->addr, map->perm,
+ 					    map_file->file,
+@@ -222,6 +226,7 @@ vduse_domain_get_coherent_page(struct vduse_iova_domain *domain, u64 iova)
+ {
+ 	u64 start = iova & PAGE_MASK;
+ 	u64 last = start + PAGE_SIZE - 1;
++	struct vdpa_map_file *map_file;
+ 	struct vhost_iotlb_map *map;
+ 	struct page *page = NULL;
+ 
+@@ -230,6 +235,10 @@ vduse_domain_get_coherent_page(struct vduse_iova_domain *domain, u64 iova)
+ 	if (!map)
+ 		goto out;
+ 
++	map_file = (struct vdpa_map_file *)map->opaque;
++	if (!map_file || map_file->file != domain->file)
++		goto out;
++
+ 	page = pfn_to_page((map->addr + iova - map->start) >> PAGE_SHIFT);
+ 	get_page(page);
+ out:
+@@ -565,7 +574,7 @@ static int vduse_domain_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+ 	struct vduse_iova_domain *domain = file->private_data;
+ 
+-	vma->vm_flags |= VM_DONTDUMP | VM_DONTEXPAND;
++	vma->vm_flags |= VM_IO | VM_DONTDUMP | VM_DONTEXPAND;
+ 	vma->vm_private_data = domain;
+ 	vma->vm_ops = &vduse_domain_mmap_ops;
+ 
+-- 
+2.53.0
 
