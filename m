@@ -1,120 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794694113;
-	b=YzSETVfsHVm4VwNJkQtVki7f/OKYcsrEc+Ii+tupaTu8h+6p+tSNSLcoPfo8XHSlTIz0
-	 4ogcPbC+UcPkQxEkUoZDX2httA5fk6EeoE+ysQG2ztYlVi7VHukqJU/mUX+itVpB3GGVf
-	 iop6c+d3uTBDZGnRnFpK+TBcpDI/4txqdaZ5VRZsp8o32/sGeNYqZB25Xjnwu4qO+4l42
-	 V2KIAj5TjyqNWV9BKb1ThTHgrCmMEYHqoHRRtnJVWeAayBSyLPwYVQGI39bXiB/aQYbqd
-	 NsU9iE3rUupgcDAzRkiPS87msnXVmv9vEpEasJUtqF5YvZDJCa9AXxDy25jePZI1OGQ==
+	t=1794696686;
+	b=wRzFlcW21vttZe4FaTwX1ipgCnnPenuttatQ1D47mYmzWSwjDs/c06J1EB8cevkhpuFP
+	 +m6kctftj87ysB72kL12f1UUWiE464WZN9cKT/DMT+ggBgEgy7fuwhqogrFwfGEZL2rfG
+	 atPF+XqhBMBqd+Gvc4bKQiI1qKb0nq1WXMPpJ9IL4+VfmlipSCBG59taI3YCAq3rOfYM4
+	 A5x2XHxXX5D/+otpfdYsNnY8LlzmhWls6ekEysvC6SGP+KCqNydvwymrNrEyIxS18tP3t
+	 AnNGVZYiflvQ5jlRgBkOrOzLKFCSLXgh6NzkKttyeneMUhyjzvoBs5ykT0feHnqDVqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794694113;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794696686;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Ug/apgAda5Acmym7YFj02vW4YgAYTbiXYAURle9bFHI=;
-	b=cAK2p0pUFz1yWgeKjy3pWRwJzNhkIQRKCgwI4XO4iBWqy1zgMhEuUudeWGJfDFSCI94k
-	 jFUz+0HrJOaF9IvTihQjCLePEZIKV9vnxBaRN8G0QH52fm6+oPyqnZB1CXNF+61zSfA63
-	 aQ/ZNT9QHkgdc6Oz+EXpe2XOGXBb8YQRIxcuujocbnyEIzVyQDYC/UEpWFcCq8pad+fj9
-	 4tuKhWuBIAWqZE+21AcNGr3iP9Y6w2hdiu6KMAKs088KN/v5F4kAhSZxHRvHcq5tmwXy1
-	 QMD+pp9gvpNyZV3k3M1/V+sLGB0ORZGWToBpATRMQNEwuDDjiLGrLps6Icgpp5Pi+7g==
+	bh=8I+d8kSTWHJBJJCFqS/8OkD4oU5p8mbEKtP4Uq0QdFk=;
+	b=rZ2+bc9PYSMaQ4I6KtE3VyhFg+fDl47BVKZsnTMIEF2JJbV5q2PedorPHXttnWv7O0Rv
+	 +NgGrFna4+vzBICmfDogwC1O6UIdw7i/B3p1z+VntleaDDxAV3gpeQipeKx/WQT3yEFVK
+	 A1BqLPWp/9IRpdot7cBrQ6riXfw5K2Tl2WYz9HQZ7vfz7qt9OvNU6z7d/xeVh+9JqC2Iu
+	 hf63K2VJx0MXZpYVql+pMgT2cvi+GNHOrX5aUWcy1Jw4uv8+eVJJ/gspvHSfiKBbvrvDy
+	 FfLPAutc7PnhMwWERU1e9MgrwJQ7H2HcXPHfhmGGToiNen7J51/es7HDvtaDFpuExRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.com;
-	spf=pass smtp.mailfrom=fastmail.com;
-	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=QUJvRXP+;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4KKpqMkK;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=hifYwju4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A9D606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 22:08:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91A9D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD23606A327;
+	Sat, 14 Nov 2026 22:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=QUJvRXP+;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4KKpqMkK
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailflow.phl.internal (Postfix) with ESMTP id 962EA1381C40
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:08:31 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Sat, 14 Nov 2026 17:08:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1794694111; x=1794701311; bh=Ug/apgAda5Acmym7YFj02
-	vW4YgAYTbiXYAURle9bFHI=; b=QUJvRXP++LBrm5IOwGRYgskb0dJNHybkgN9Ra
-	EhM1cxMc4efHf7wdlfBROq8VjXFhyggQX89IFqyVDiySPa9dB9xnDV4fLlKHMI2T
-	ltnBnjWpRgpuanNWV/CCTIOIA3Kc3VydoaVaap0cY72X5PuBKHBOSZImoikOWJq/
-	Kqny2BAU6UQr5HJT+g3wZyj+pog1iYX01iiqn9XNpr9QGPdUxSFOJZMkjgTULvOm
-	24kAeug05Hre7eaB7mqfu+cXI+WFwfthAhWSuabLpfsiRoCoRHocT3qYUBz0oVGC
-	n5Id+f/3ZLnAUQ58P1niv4lEbSOZwrP5KnfhuAO0m/TAHakDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794694111; x=1794701311; bh=Ug/apgAda5Acmym7YFj02vW4YgAYTbiXYAU
-	Rle9bFHI=; b=4KKpqMkKIe5wC5dCD6LCz4bGesqE11RVca2/cj/yF1pmf69g5gt
-	JIlEfPSCp78M418SMeUNHwmv7nptwx768CVMCcxeNcE2OjQ/e6f8oXNTrC5UqPx7
-	WpS5WPazBG+y5a5PduFdLl58ercQH95sO9ccVH6UPk28YkyU2C8l5sBGlbwfrKtr
-	IL40ABIKVFqLj4zXxRaPt7pNGA6Wo7ZmcVL21115LslIf3FJSQiIdZV1hAQ0nnhM
-	WNTyD8J1YkUA8U0D7SV1kjYJXGX4HfBPxCUM0kN7/qzmZdJ3zecr4m4uKOF5S3uM
-	E0JFkoRCp6WUYub8BMkX0Xf9SKjvzTpMBSQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794694111; d=fastmail.com;
-	mf=PGdyZWVuLmtvYWxhMjk3OUBmYXN0bWFpbC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:leove+zORZA9TlpGuwsJC03yCucgfuQegC7mnxnk+66QJQT
-	pW9LWHX++rXWgAHei0xO0WreGwuDf4xB/CH9UUm/vl3hxSt78GLUVH1q+7Cp7AoF
-	Oi4epVI+gE6+RW375JCMZCTqsmAeNkJKSZs0miZ+Ld94/hEU0HgwtXk8o2SocF3A
-	RwMxeChxEQ9rJ3CyklHpCrP3yBTQ4gPMfeiKmgvvtcnejmEZy3A0hSlJ+tzHPJ2U
-	cNcrpc99hjf7evvSF3GRalZ4gDfTUKo/3IOkqetMh3ACYDMrt4tRRAi3vUoiCS1G
-	ZZTHk7a9tcQQPN+Aibj5QPznbUIOyaPNRGRdAOw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:bMVwpMwupdCv5a7P2o3qZ5L6a5uZykSM1kN4mGRoVLA=:bfUyrCu7q4t5KUyVezGHvAbrac7U/YzxFFt9zw7WK6g=;
-X-ME-Sender: <xms:39v4avGsCpauFV2-z1Q3qk1cIQ1Wvylp5iAe7eR-EYAvbfFCFDhCqw>
-    <xme:39v4anRHSHV3saclplY9BvoAunNZNDMxYg81kuTlzfnN9X1LDtlN0Fmx2QNc2zK3Y
-    NTZtfGlbSNIcSKuide_8RAkbytIJYtLui30FFjSvJAdyg0Ya8otyNXR>
-X-ME-Received: <xmr:39v4agIb8WTCXjBUkHFGPWEQWmMSeGQe9a83DLG8-JoJymgfaAVqNLy0G9jc-WSqws-sZKgNMwUNXyCqI1JqFxwirnPWrMtA1SlBaLJAPTDf2ZI>
-X-ME-Proxy-Cause: dmFkZTGO7qDD20ztsvp8S9i6TU/49ndJrybpS1KO5n6TdTAnyqpsy+ETATuq2hoKGMiNoe
-    sfGBCfIaCTXv+7IVUoN6k0KokiFL/Qy2RWMQwTL05rAoaJ2IcQtmBnhcgVSdP/X53SgHx6
-    Frqz/xlf21fx0WXOKbQn/HdXvMK5/J9xCeO+kIvORkRRIc6B+xlp4CvkNtkPjH4HOY4zR+
-    u3Fm159sFlA+ZChoCaw/hGBnSP9ggsZmSkbce5efhN0uFKVT6+BbQxu5ueepQ/7073sUzF
-    gJClykGmqR2voUmUD5xWNyfu6fJSdQSgpZwZSqLIgdKLg+fg6FWJYZIm+tw+AHB6pruplB
-    AfQdwFw8pFNRnUtMLuYZJ9gRm+5j4Rz+bVnfW4Z4Ct4s7L5d7110cPKPLJV5Tp7nxnGiPl
-    dWZ/ifzjukrgJvXnvZwtRcSWYO638q1FUP08tUbuQ+z54FtTo//TCgmwUSMUF0Ew76CFTy
-    uBJinbqPZf1iLhFbDV6zBfwb8kehrGXEQWh+op/T9Q+EDpUdzYFMx+aBt4q2Arroj47z/I
-    /E+/c1cpuy6k1glpohqqO3mSDtt/zFlaOoBcOf/74Cc/sJNtFPqe+KGJzxuqUr05pgxG27
-    Ynyy7ya0C+uyD51Cb2fHJYOHTWjvyeyvTijqfz/+mhPC0pXIYO7NJC387OZA
-X-ME-Proxy: <xmx:39v4aiZQkjlIS15nWQx8VlJEvx3myQ_FPH9DOdfx4BXb8U3RAYKprA>
-    <xmx:39v4ai8gmrmy-uV_SfZFgIQJEeQGIDY5PK6WA8JJBhZQy5N5maZkGA>
-    <xmx:39v4ajZcjXso2amdtFfVYOTw4tscg6s5_n9E9EF_X373Zmh5uj4AsA>
-    <xmx:39v4amObhblumtMfWig-3fVqRRVAbuy3blqi1DPVmSFawEEZfDdIzw>
-    <xmx:39v4asfSLGzM-3aVbCoyqzb1a84SmLmVqZCH7GvRq23pCkz9ic1Sk8nR>
-Feedback-ID: ib51446d9:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 17:08:30 -0500 (EST)
-From: Ana Veto <green.koala2979@fastmail.com>
-To: rafael@kernel.org
-Cc: Ana Veto <green.koala2979@fastmail.com>,
-	Len Brown <lenb@kernel.org>,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ACPI: battery: Handle a negated 16-bit discharge rate
-Date: Sat, 14 Nov 2026 22:05:38 +0000
-Message-ID: <20261114220739.10496-1-green.koala2979@fastmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=hifYwju4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045071F000C4;
+	Sat, 14 Nov 2026 22:51:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794696686;
+	bh=8I+d8kSTWHJBJJCFqS/8OkD4oU5p8mbEKtP4Uq0QdFk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hifYwju48xT3WwvLglgQ/Ta7uyydtWrd3Cbth20eg1H2dE367VN0wrtOM6FMrZd+v
+	 yu0OoHBfyDqo/0QiZBqgWkzPgDIRK0ZWE408NcpvzLYTJ29/nSjy9JUa5AStVEFbI2
+	 ndrBXMMt2BfV7yh9720VHZgxA6oHcZ6ZItsSiRXI=
+Date: Sat, 14 Nov 2026 14:51:25 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Vishal Badole <Vishal.Badole@amd.com>
+Cc: <tglx@kernel.org>, <linux-kernel@vger.kernel.org>, <bp@alien8.de>,
+ <wangyang.guo@intel.com>, <tianyou.li@intel.com>,
+ <tim.c.chen@linux.intel.com>, <dan.liang@intel.com>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH v8] lib/group_cpus: Snapshot cluster masks to keep
+ grouping hotplug invariant
+Message-Id: <20261114145125.42667165f9dc7231bea477e3@linux-foundation.org>
+In-Reply-To: <20261114151403.1379591-1-Vishal.Badole@amd.com>
+References: <20261114151403.1379591-1-Vishal.Badole@amd.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -123,54 +58,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On the MSI Claw 8 EX AI+ (MS-1T91, BIOS E1T91IMS.10D), _BST reports the
-discharge rate as 0xffff03a6 while 934 mA flow. The DSDT reads the EC's
-signed 16-bit current (0xfc5a, -934 mA) zero-extended, negates it with
-"~Local1 + 1" and does not mask the result to 16 bits. The magnitude is
-left in the low 16 bits (0x03a6) and the upper bits are set, so the
-int rate_now is negative (-64602).
+On Sat, 14 Nov 2026 20:44:03 +0530 Vishal Badole <Vishal.Badole@amd.com> wrote:
 
-The existing quirk checks only the sign of the low 16 bits, which are
-positive here, so the value passes through: current_now reads about
--64.6 A while discharging, battery overlays compute about 1055 W from
-it, and upower shows no energy rate and no time to empty.
+> group_cpus_evenly() builds the managed-IRQ affinity spread used by
+> multi-queue devices such as NVMe. That spread is meant to be a property
+> of the static CPU topology: it walks cpu_present_mask and then
+> cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
+> including CPUs that are offline at the time. A driver depends on that
+> partition staying stable across re-computation - the CPUs a queue is
+> given at probe must still describe the same queue after the device is
+> later reset and its affinity recomputed.
+> 
+> On an AMD system that stability breaks across an s2idle cycle. CPUs 3-11
+> are offlined before suspend, leaving only CPUs 0-2 online. s2idle itself
+> does not offline secondary CPUs. The NVMe controller uses the
+> simple-suspend quirk, so resume fully re-initialises it and recomputes the
+> affinity spread while CPUs 3-11 remain offline. The system then hangs for
+> roughly two minutes and stays sluggish afterwards, the controller only
+> making progress through its command-timeout poll:
+> 
+>   nvme nvme0: I/O tag 898 (3382) QID 9 timeout, completion polled
+>   nvme nvme0: I/O tag 398 (618e) QID 11 timeout, completion polled
+> 
+> QID 9 and QID 11 are the queues whose CPUs were offline when the spread
+> was recomputed. "completion polled" means the commands did finish in
+> hardware, but their interrupts were never delivered to a CPU that was
+> watching the queue, so nothing reaped them until the timeout fired.
+> 
+> It happens because commit 89802ca36c96 ("lib/group_cpus: make group CPU
+> cluster aware") derives the cluster groups from topology_cluster_cpumask(),
+> which lists only the cluster siblings that are online when it is called.
+> The resulting partition therefore depends on the transient online mask
+> rather than on the topology alone. Recomputed on resume while CPUs 3-11
+> remain offline, it no longer matches the boot-time partition, and a
+> queue is left with an affinity that does not cover the CPU it is meant to
+> serve once that CPU comes back online. The dependence is on the online
+> mask, not on any AMD-specific behaviour, so the same stall is reproducible
+> on Intel platforms as well.
+> 
+> Fix this by snapshotting cluster and SMT masks together under
+> cpus_read_trylock() when all present CPUs are online. Latch the first
+> capture attempt, permanently using CPU-order grouping if it fails, and
+> propagate later allocation errors instead of switching algorithms. This
+> keeps successful spreads stable across CPU offline/online cycles for an
+> unchanged group count, present/possible CPU sets and NUMA topology.
 
-Also take abs((s16)rate_now) when rate_now as a whole is negative.
+updated, thanks.
 
-Tested on the device with a v7.3.3-based kernel: current_now reads
-624000 uA at 14668000 uV while discharging (9.2 W), and battery overlays
-show a normal wattage.
+> Changes in v8:
+> - Check for a snapshot before allocating the temporary cluster mask.
 
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Ana Veto <green.koala2979@fastmail.com>
----
- drivers/acpi/battery.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+here's the v7->v8 delta:
 
-diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
-index 43a7543..45a4db5 100644
---- a/drivers/acpi/battery.c
-+++ b/drivers/acpi/battery.c
-@@ -703,11 +703,13 @@ static int acpi_battery_get_state(struct acpi_battery *battery)
+ lib/group_cpus.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- a/lib/group_cpus.c~lib-group_cpus-snapshot-cluster-masks-to-keep-grouping-hotplug-invariant-v8
++++ a/lib/group_cpus.c
+@@ -380,9 +380,6 @@ static int alloc_cluster_groups(unsigned
+ 	const struct cpumask **clusters;
+ 	struct node_groups *cluster_groups;
  
- 	/* For buggy DSDTs that report negative 16-bit values for either
- 	 * charging or discharging current and/or report 0 as 65536
--	 * due to bad math.
-+	 * due to bad math, or that negate the zero-extended 16-bit value
-+	 * (0xfc5a becomes 0xffff03a6), which leaves the magnitude in the
-+	 * low 16 bits and makes the rate negative.
- 	 */
- 	if (battery->power_unit == ACPI_BATTERY_POWER_UNIT_MA &&
- 		battery->rate_now != ACPI_BATTERY_VALUE_UNKNOWN &&
--		(s16)(battery->rate_now) < 0) {
-+		((s16)(battery->rate_now) < 0 || battery->rate_now < 0)) {
- 		battery->rate_now = abs((s16)battery->rate_now);
- 		pr_warn_once(FW_BUG "(dis)charge rate invalid.\n");
- 	}
--- 
-2.56.0
+-	if (!cluster_snapshot)
+-		goto no_cluster;
+-
+ 	cpumask_copy(msk, node_cpumask);
+ 
+ 	/* Probe how many clusters in this node. */
+@@ -454,6 +451,9 @@ static int __try_group_cluster_cpus(unsi
+ 	cpumask_var_t nmsk;
+ 	unsigned int i, nc;
+ 
++	if (!cluster_snapshot)
++		return 0;
++
+ 	if (!zalloc_cpumask_var(&nmsk, GFP_KERNEL))
+ 		return -ENOMEM;
+ 
+_
 
