@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672451;
-	b=oLsvgmM0089tdD2cxPCSDPpBRb49BiorD8GRUjdO2Dsx4QGKKkTyFrsOplH6/QlVku9z
-	 tMzlzifWSjNFKoHtv4aCLgolrwyjHrv3aApdFlhm/CDhqXzZDsF3tq7qr+3PSJwTO0gQD
-	 WEUWazSl+VRf4JfxJOCXZq/3WVFwuGef4zXKQnG3lkNUY3zwtoQxrXaoWE92uhMwEFYWn
-	 3O00V8yWJLS2aCbk+0LNtyf79plAXSG2sm7tFGzAY5IS+j/MyncHMmwxEo2udcJTccZ5W
-	 p3DrFKpHxZG76+pwwvk49BeKZie8sIJ3GW3Ky5Sr6AdXeX2OALvSuc7gUSEIutgXvzA==
+	t=1794672452;
+	b=z58tGJmUwBRj/5oDkFlEKkZP85lOtiXDYJuvSd3zvdJrQDzyA2GuyH6/roMp7kXz/ry1
+	 tMphNW3RjnSk6p9DF5ATE1OweW3Bm4b9eGrA+e2/TpQR58MyexvvMB6pN+AGY+PpcZTWx
+	 8Tgf2O2oz5HNF0qXxsekKHUZnv7L1g/cTZIRABf6Rq4vYwqm5z5svzAFaz3gF2BrB9WAn
+	 LK2i8I8xRlBp2CzgbA6Ad3Sp6gH/8oSKQk2RrIlWV/f7UxzLmgjS2nxIM3qWFXO3K8OXM
+	 R0RsRlMnu9+tzFQ2zNtympBLqS2eYWduzhHYhjAq6qBbO2Ye4i4ETvasZYjzo4Jl2hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672451;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672452;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9mUl2zxE6mFs8HLJKZ7tBZmSIV1Pw+lKUFmyiKwdUJo=;
-	b=Z5Apjq9DrHycikDqk4GQmgTr3Ni0EHvnlhCb0mywAnf+hgKz7hj+6Ok4W3FdlzWlxMsM
-	 RmCXlUVgQcAhsxDuFAwycG8ireUwBPZU013bJXUKUrLadf2Dh7Sy1ay3DgP4MBCbgDRwf
-	 /gBYGBg615GcAEdlTZLImF5jWXfRMZaT+XsRFfYrA8gntfbsDJuD6DHHpScSCr/WKfkWl
-	 v0wKkM9Nc6M7XzFDSle3ykaI+fLKcNxe6lyfrQk2NOovgckHht4tyNgyB2q/AEH3dpsxk
-	 PEcb1p+C8f13tSgmDXXPkvj4foLrkPQ6vWe6skuEoIJXGweCwMqKFgTfnSjQ1sZOL0g==
+	bh=J5eOfzQmafq77zZV0B+BOpxLyvPTWUCJaTlDrefVNro=;
+	b=vpmB5YCTOmF+HnhZLLUrxSiJLYQoTmwg0ggKKJNcxjwjIOsB+aKIiZ5j9MyeHCEmB+Bg
+	 PAVrWTb3VhWMCaE+O9xr2E8ObdcwNx6Pudp1/tTIrlwNrRCFw7sbwSNksveCzvrBPPTbV
+	 WxIjz1Uk7wPCr3DzEQ4I5pzHMTLZFHt6f+Fk+Tz0vjC+n5zMdveVZYqmzK8KkvLtTuo3Q
+	 g5aGX7omP15Jfoi/cdoypGp1CPOjY1MSUcFsxuKqHog7zP0ociZKeIJQ1P73vKzvUNvYN
+	 Fsy7tt09OM9vnktsjJmjQ+mJtFHmb1cHJfKOKNOXICTcRioe7i32rtAeJ9xf/DgB2Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zy4eGhvN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E+D/ohyn";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E97606A32E
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:07:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A6D606A32D
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:07:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zy4eGhvN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 013F51F000C4;
-	Sat, 14 Nov 2026 16:07:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E+D/ohyn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEFFC1F000C5;
+	Sat, 14 Nov 2026 16:07:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794672451;
-	bh=9mUl2zxE6mFs8HLJKZ7tBZmSIV1Pw+lKUFmyiKwdUJo=;
+	s=k20260515; t=1794672452;
+	bh=J5eOfzQmafq77zZV0B+BOpxLyvPTWUCJaTlDrefVNro=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zy4eGhvN1MhuSL9N4qCuM50bYavsZU2imCseaHxHQ1Ece59PvIedFDiAAvs8cDTQ5
-	 3+UaM1oklbMdaMsqmerYONhsTaugROE+zH6WBdAxBim3CHVErj1MRCYQIKgIYblJmz
-	 9huzpCP7NbcH9ytLZHAL0DHdAOpN6QjLkszJIaNt5ct2Q3IRQMOepdPPdLLgSArZQn
-	 PcPv3Nl/X1U8E4G053RD7GUXLfmXpAF/VueG7FZ0MpA95xkhr4d25f/0QQ1mEdUlnS
-	 bUJeQkyq+sOcM/6eCvLKPnbDOgWS0ZpG/oLB1SpwU4qD5fH0yLIJf+J5zYAIo7RhLK
-	 RDueo2JI1trWA==
+	b=E+D/ohynis+/yrW4hsAWphi4ZDjPVKja3JoF0L+RbEaqfFh5qG/n8LC/B6L1k52Hk
+	 JX77DD4cxpPKcPMKCWZ6XN2YWWmDG/HCexDwFMNFr30BsIxj8nOnuvE6SXxifomQSr
+	 TomCwVMv4N+2mfo2ylPU2KcE/AZHx39ubhFnNyrbX6X/dpknRBxsttEDy3UpZDd0Zn
+	 ctw94ru9yfDhkRjlZD9Dlc2/6QZz3UN96vTJOiB2uWeeJgsIlzw+KgejhXdZSPmN1h
+	 c9XUiDKx2LNN7DRFy36en5hk/KQTgWNkAFyoht5UYmjDY0eof22X9ibXR/slmiz1L2
+	 WIggdx/8dUj4g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hongbin Wang <wh_bin@126.com>,
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
 	Steffen Klassert <steffen.klassert@secunet.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] xfrm: Drop unused argument
-Date: Sat, 14 Nov 2026 11:07:28 -0500
-Message-ID: <20261114160719.3922066-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] xfrm: retry inexact policy lookup after node reinsertion
+Date: Sat, 14 Nov 2026 11:07:29 -0500
+Message-ID: <20261114160719.3922066-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202003-failed-5.15-868f63c8bfaf@kernel.org>
+In-Reply-To: <20261114160719.3922066-1-sashal@kernel.org>
 References: <20261109202003-failed-5.15-868f63c8bfaf@kernel.org>
+ <20261114160719.3922066-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,87 +62,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hongbin Wang <wh_bin@126.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit 0de1978852dff8643a80f20a8f44cef3f16c2db0 ]
+[ Upstream commit 868f63c8bfafa9b827168c9126f85264c39c02ec ]
 
-Drop unused argument from xfrm_policy_match,
-__xfrm_policy_eval_candidates and xfrm_policy_eval_candidates.
-No functional changes intended.
+An inexact policy lookup first records pointers to candidate hlist heads
+and then traverses the lists.  A concurrent policy insertion can merge
+inexact tree nodes between those operations:
 
-Signed-off-by: Hongbin Wang <wh_bin@126.com>
+  lookup                         policy insertion
+  ------                         ----------------
+  find inexact candidates
+    save obsolete hlist head
+                                 write_seqcount_begin(&bin->count)
+                                 merge inexact tree nodes
+                                   hlist_del_rcu(&policy->bydst)
+                                   reinsert policy->bydst in survivor
+                                 write_seqcount_end(&bin->count)
+  evaluate saved candidate list
+    miss the moved policy
+
+The merge immediately reinserts the same hlist node into the surviving
+tree node.  RCU keeps the policy alive, but it does not provide a
+consistent view while its list node is moved.  A lookup that selected the
+obsolete list can observe it empty.  A lookup already traversing a moved
+policy can instead follow the next pointer rewritten by the reinsertion.
+Either case can return an incorrect IPsec policy result.
+
+The per-bin sequence counter already brackets calls to
+xfrm_policy_inexact_insert_node(), including node merges.  The read side,
+however, currently validates the counter only while searching an
+individual rb-tree.  A successful search returns without validation, and
+the later candidate-list traversal is outside that read-side section.
+
+Snapshot the per-bin sequence before discovering candidate heads and
+validate it after evaluating all candidate lists.   Retry the lookup if
+the inexact policy tree changes while it is being searched.
+
+Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-Stable-dep-of: 868f63c8bfaf ("xfrm: retry inexact policy lookup after node reinsertion")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/xfrm_policy.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ net/xfrm/xfrm_policy.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 15d50b5a22ef1..9e18e8d2c1c5c 100644
+index 9e18e8d2c1c5c..c48315afead13 100644
 --- a/net/xfrm/xfrm_policy.c
 +++ b/net/xfrm/xfrm_policy.c
-@@ -1908,7 +1908,7 @@ EXPORT_SYMBOL(xfrm_policy_walk_done);
-  */
- static int xfrm_policy_match(const struct xfrm_policy *pol,
- 			     const struct flowi *fl,
--			     u8 type, u16 family, int dir, u32 if_id)
-+			     u8 type, u16 family, u32 if_id)
- {
- 	const struct xfrm_selector *sel = &pol->selector;
- 	int ret = -ESRCH;
-@@ -2033,7 +2033,7 @@ static struct xfrm_policy *
- __xfrm_policy_eval_candidates(struct hlist_head *chain,
- 			      struct xfrm_policy *prefer,
- 			      const struct flowi *fl,
--			      u8 type, u16 family, int dir, u32 if_id)
-+			      u8 type, u16 family, u32 if_id)
- {
- 	u32 priority = prefer ? prefer->priority : ~0u;
- 	struct xfrm_policy *pol;
-@@ -2047,7 +2047,7 @@ __xfrm_policy_eval_candidates(struct hlist_head *chain,
- 		if (pol->priority > priority)
- 			break;
+@@ -2102,6 +2102,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+ 	struct xfrm_pol_inexact_bin *bin;
+ 	struct xfrm_policy *pol, *ret;
+ 	struct hlist_head *chain;
++	unsigned int inexact_sequence;
+ 	unsigned int sequence;
+ 	int err;
  
--		err = xfrm_policy_match(pol, fl, type, family, dir, if_id);
-+		err = xfrm_policy_match(pol, fl, type, family, if_id);
- 		if (err) {
- 			if (err != -ESRCH)
- 				return ERR_PTR(err);
-@@ -2072,7 +2072,7 @@ static struct xfrm_policy *
- xfrm_policy_eval_candidates(struct xfrm_pol_inexact_candidates *cand,
- 			    struct xfrm_policy *prefer,
- 			    const struct flowi *fl,
--			    u8 type, u16 family, int dir, u32 if_id)
-+			    u8 type, u16 family, u32 if_id)
- {
- 	struct xfrm_policy *tmp;
- 	int i;
-@@ -2080,8 +2080,7 @@ xfrm_policy_eval_candidates(struct xfrm_pol_inexact_candidates *cand,
- 	for (i = 0; i < ARRAY_SIZE(cand->res); i++) {
- 		tmp = __xfrm_policy_eval_candidates(cand->res[i],
- 						    prefer,
--						    fl, type, family, dir,
--						    if_id);
-+						    fl, type, family, if_id);
- 		if (!tmp)
- 			continue;
- 
-@@ -2120,7 +2119,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 
- 	ret = NULL;
- 	hlist_for_each_entry_rcu(pol, chain, bydst) {
--		err = xfrm_policy_match(pol, fl, type, family, dir, if_id);
-+		err = xfrm_policy_match(pol, fl, type, family, if_id);
- 		if (err) {
- 			if (err == -ESRCH)
- 				continue;
-@@ -2139,7 +2138,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+@@ -2133,12 +2134,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+ 		}
+ 	}
+ 	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
+-	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
+-							 daddr))
++	if (!bin)
++		goto skip_inexact;
++
++	inexact_sequence = read_seqcount_begin(&bin->count);
++	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
  		goto skip_inexact;
  
  	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
--					  family, dir, if_id);
-+					  family, if_id);
+ 					  family, if_id);
++	if (read_seqcount_retry(&bin->count, inexact_sequence))
++		goto retry;
++
  	if (pol) {
  		ret = pol;
  		if (IS_ERR(pol))
