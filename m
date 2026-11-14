@@ -1,58 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794681972;
-	b=o2dEHeuI4fGyMktIwLr3CdWrrAWKg/+EGNCzWtNgJJBTzztRF4ANOrPalPZj0RI20GjD
-	 9tjAnCG/dg1jPFwnFsVXVKae7dOT7SMf5qOh6gba/5CCeomz8xPbZjfVKH2SG0ZRbMtz7
-	 v9un+L5wgkXslzKqQtqsyMUkLG+scNYsV9LpQI4Bk73R9kHqeJ0R8F8ZEcBKYiOyN8ekr
-	 vv4Q0jsF6Lk+0YSwl27rxYT7cFPGdkgJoQuPH5Ak985sydevJZpPg4Jk4yQA9v12XwhsY
-	 iKrf+tiDJ8x2NOX+lIjNKVpuNoUAripr87QR+u6Aedlatv/zsPIo2gyOW6Ru/uBfd1w==
+	t=1794682212;
+	b=1UuXkcb5plrk3tZhhJ7Eghmt0cOlFc3gmnSI0DgTzxqHO6PjzrEdd5pnrejtgTEqtYYa
+	 rP3PGZhjQvk+u8xQDUMZ1s9z3H9G23/jNS3r5JYoycytKtciAKJXUg8G43yGKeJPvv6ob
+	 ln3QAKj1hAbzrZpQxBVbZg5N1dVdHRoDdlUn1z/bQt+iLiMWQb0It4vVhcnPgT8a0fvvz
+	 J0hYTYLABWFBTUcKb2oJWWIlhGIdjDkoZwkdk+xtJny/39csTz3btyy1+9utx7mSPbwp7
+	 6wrLsKdS8/aeJBalY/8pIRsXaYx+ImXLrr+lw9jUE400LMN8dAQFcrgo9fW6e3Y997w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681972;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XGbbjkNmSZUpCU01+r6dxta9Jyu8/XGvQryK5VL8oKE=;
-	b=gSKV/zCeXL6+r6CNQnkXB5gdTlj3M9aj688DBdaWfrhUWM+eN3xcgst//YYQTX7Yq/ly
-	 AIETSPb2AXssZ2yRwy2UHBtXLoCEPixRM6nU26uOAXW6mwG75vxMuuiEjH7WAQb4gV4xG
-	 InfepWj3qmwTyeb4IU3ce3sVQPQolwDDnSA+T9/xMfGDNSz6etQsWtcFSRroJ06aD7U38
-	 wV6pywJM8WX5PwOBxf89uACdwAXebR2u2iMbU28eqo5c5dQYPctWozpgukERpEZcais+n
-	 O0em6I2W+I4Jnb8AQZHutgtaBQTZ+NkwFoSlsnoZf2HMkbJaaCX8kxkpui3UU5ib76A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794682212;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=fEnV7meHeIXrbVFY6btGf5S6ZSC7MZxfBU/Gv7848Sg=;
+	b=qPV17k2RDCzhaqCbrezkXq0JA15HG8+QrKETsB5m9HE/qBLgPru8Y3a4gFNeqH9Uqs7F
+	 Y46X2bl/hO44oMV2tEwZ81N3lGHJOmtAe8Dgn93KJEcP1IJp9D782e/la8SdpWpJxRUhS
+	 nro4xsOT7UG/wAaU7kW5eJWL9/YOmFHZN+4Ygn+njFjLWvrjk0Q2s45Ot/3SMs5bXNebp
+	 8dTQBOTQUNPvTeBL3K2DHCP0bAzEXdz4F1d72YDh6uUel2xcgzjM+qjhHhdshGrRrdoy9
+	 IpuFeMAWNN7MCB1SsG+uV5L0RfE80JWPYGD1yp9exihv1wMBs1/RtEd613y+ayh7VvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dn9il0zL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FvFmHS+5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18B6606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 18:46:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B75606A33D;
+	Sat, 14 Nov 2026 18:50:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dn9il0zL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7121F000C5;
-	Sat, 14 Nov 2026 18:46:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FvFmHS+5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE0E91F000C4;
+	Sat, 14 Nov 2026 18:50:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794681971;
-	bh=XGbbjkNmSZUpCU01+r6dxta9Jyu8/XGvQryK5VL8oKE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dn9il0zL0X7KVWNLUUDzn6aqMeOvnmD/NmhnzBvVOCfNrcSeEjsBX0Al/PXhZNTm6
-	 GTJ0xInZMM5OhGww8GjOwAbCxv3F4cvZ4FjsHxczfSRqWdCN0Xq4v5+ut2g4UwlKWq
-	 r/hJh6U7xdmouspS8ZZxw39acMDhFSBnqcIPfgs5e1KNBRIqdy7xFMxGqSHChwRLGi
-	 QhMG+E/QpL/UVF6U/pcXD+A0r2wUKtI7F4Umz30knyQLjVTFMP8ws4iFOZdTn8tneS
-	 Ib0BpnlgMTurkgxjX5ALF+NOsGux3b/qgJutgbHLDA9z8D0HAubMN6bIey9YPdcAqG
-	 fuvYIP/0k+ZpQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Qiliang Yuan <odys.yuan@gmail.com>,
-	Christoph Hellwig <hch@lst.de>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Keith Busch <kbusch@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] srcu: Add list_splice_init_srcu()
-Date: Sat, 14 Nov 2026 13:46:09 -0500
-Message-ID: <20261114184544.402778-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114184544.402778-1-sashal@kernel.org>
-References: <20261109201443-failed-6.6-d06917d0ba22@kernel.org>
- <20261114184544.402778-1-sashal@kernel.org>
+	s=k20260515; t=1794682211;
+	bh=fEnV7meHeIXrbVFY6btGf5S6ZSC7MZxfBU/Gv7848Sg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=FvFmHS+5+QWxgtOwZTk/Y0D+SqDIHf0VYPzmVLeWjONAqHuW/t2jQRbuoPckf452l
+	 2yis/DCXEOZ9/JqbF+uxZlSCtivMICeIQooAoDxqULDSBs0OxwFYXDesotmA4wAw+S
+	 IjGw9IZ2u+lRuiU9RSUm4R3yBcth0yk9hkT9MYkJ/9NZC9tjcx0V/ndN5YMc7yDec6
+	 MOg9RZ4G+Z1dsEWgdUTV3zUnQReGYUUKIi2D0B4NWWLALLpkklZp7BAQ/zMqLTEcCd
+	 oktWRpJjtMyOPVI1rFDu7AcfWUr0TRrcBOS2A31nbCYNqgDJkEeDuZjyj8dloqZ0g2
+	 Gj0pgfLPikesQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B4411380821F;
+	Sat, 14 Nov 2026 18:50:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,89 +54,47 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] bpf: fix verifier model mismatch on __sk_buff.remote_port
+ narrow read
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179468221032.2337414.16612050775582398663.git-patchwork-notify@kernel.org>
+Date: Sat, 14 Nov 2026 18:50:10 +0000
+References: <20261105060331.1912252-1-bsdhenrymartin@gmail.com>
+In-Reply-To: <20261105060331.1912252-1-bsdhenrymartin@gmail.com>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, john.fastabend@gmail.com,
+ bpf@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org
 
-From: Qiliang Yuan <odys.yuan@gmail.com>
+Hello:
 
-[ Upstream commit d06917d0ba226206dbd606330d73a8eb1e3029c1 ]
+This patch was applied to bpf/bpf.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-list_splice_init_rcu() makes a list look empty to new readers, waits for
-the current ones with the given sync function, and only then links the
-entries into the new list. The sync function takes no argument, so it
-can wait for RCU readers but not for the readers of an srcu_struct.
+On Thu,  5 Nov 2026 14:03:31 +0800 you wrote:
+> On little endian, the ctx access conversion for __sk_buff.remote_port
+> loads the 16-bit skc_dport and shifts it left by 16, producing a
+> 4-byte value of up to 0xffff0000.  It reports its width through
+> bpf_target_off() as 2, the member size.
+> 
+> A 2-byte read is a narrower load of this 4-byte ctx field, but the
+> fixup pass only masks the result when the access size is smaller
+> than the reported width, so the masking is skipped.  The verifier
+> models the register as [0, 0xffff] while the runtime value is
+> [0, 0xffff0000].  Arithmetic the verifier folds to a constant can
+> therefore take any 16-bit port value at runtime, enabling
+> out-of-bounds reads and writes relative to map values.
+> 
+> [...]
 
-Passing synchronize_rcu() for a list read under SRCU still builds, but
-leaves SRCU readers on the entries while the last one's next pointer is
-moved onto the new list head. nvme_remove_namespaces() does this today.
+Here is the summary with links:
+  - bpf: fix verifier model mismatch on __sk_buff.remote_port narrow read
+    https://git.kernel.org/bpf/bpf/c/4722bac72de6
 
-Add list_splice_init_srcu(), which waits for the readers of the given
-srcu_struct instead.
-
-Cc: stable@vger.kernel.org
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: Adjusted helper placement to follow existing SRCU declarations because synchronize_srcu_atomic() is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
-
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index f664cba7a80c2..7b5be712a79f5 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -18,6 +18,7 @@
- 
- #include <linux/mutex.h>
- #include <linux/rcupdate.h>
-+#include <linux/rculist.h>
- #include <linux/workqueue.h>
- #include <linux/rcu_segcblist.h>
- 
-@@ -61,6 +62,41 @@ unsigned long get_state_synchronize_srcu(struct srcu_struct *ssp);
- unsigned long start_poll_synchronize_srcu(struct srcu_struct *ssp);
- bool poll_state_synchronize_srcu(struct srcu_struct *ssp, unsigned long cookie);
- 
-+/**
-+ * list_splice_init_srcu - splice an SRCU-protected list into an existing list
-+ * @list:	the SRCU-protected list to splice
-+ * @head:	the place in the existing list to splice the first list into
-+ * @ssp:	the srcu_struct that readers of @list use
-+ *
-+ * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
-+ * instead of RCU ones, so that none of them can follow a next pointer
-+ * onto @head.
-+ *
-+ * Note that this function blocks, and that the caller must prevent any
-+ * other updates to @list.
-+ */
-+static inline void list_splice_init_srcu(struct list_head *list,
-+					 struct list_head *head,
-+					 struct srcu_struct *ssp)
-+{
-+	struct list_head *first = list->next;
-+	struct list_head *last = list->prev;
-+	struct list_head *next = head->next;
-+
-+	if (list_empty(list))
-+		return;
-+
-+	INIT_LIST_HEAD_RCU(list);
-+	synchronize_srcu(ssp);
-+	ASSERT_EXCLUSIVE_ACCESS(*first);
-+	ASSERT_EXCLUSIVE_ACCESS(*last);
-+
-+	last->next = next;
-+	rcu_assign_pointer(list_next_rcu(head), first);
-+	first->prev = head;
-+	next->prev = last;
-+}
-+
- // Maximum number of unsigned long values corresponding to
- // not-yet-completed SRCU grace periods.
- #define NUM_ACTIVE_SRCU_POLL_OLDSTATE 2
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
