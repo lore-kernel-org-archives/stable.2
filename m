@@ -1,108 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665957;
-	b=mpqSjMs2QGwTGevS7c7ZloX8sKjEeaIXWXTWlHBvbFDkOagf72cg6i/DLVDEosvxcxUr
-	 7RekTKJt4ULxRLT2LiDy9h/S55vpaTC5B22DO8jUuzi0SsmR0opGZVw2wxUM3nxT9bTCm
-	 LEVX08Er8RCmbSplAEU3rV5MAknT1vR48xgarrtyEUFgmPIgMVIw1fmof6yn93NClBv5D
-	 +GWwDyPi5JlFzwu4nxoK65JnA7NicJboany2d6gv4PBouRKHxdG0ane6w1QZ+/qElkOJ/
-	 4rrMrzPd7dinxSZrWuYdWyUkHgzHP6if9UztlXBGWBZ5Tgbgq0ihlglttyaGGuKqAfg==
+	t=1794667752;
+	b=pKTElPZ7AVYeTVEJX5iUeBC7VyCA64r0exEpoauNTpOKhaDufujEAWVEzU7kOL/KE58r
+	 W+k4+U8WQdsovcZOZBbNSFroVsZ12DAT1oBKt+N1MCUYu3ccVARR2v318bl4D1imN8reM
+	 9S3lJ23b9gX1DyMaUF8fUOod2lvkXxJJrmFORMSf96Vedu5kqNW2bZaj0VWI930uqz/tR
+	 wK2jPafNL8ja+nn2wmwMu3YQ7gTJuqt4NbjE8JqtJWU/FHUTXbdZrFuJynBBGbGnGT16P
+	 XN5XIlyXqLAzZEII5tbIVBfsp74l5f+blWi+J1mW0sHUzmJFRHBI5/QbBmAIteydI2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665957;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QjbH7+OnTujQtkedXacpeWPzVbsofxl7bIa9QcXu1+I=;
-	b=x8SdSOsYrODtf3mBzTLIFDC7hjqexC2WcywUONjYCbmeOg+oWcZvNH+tOHbttkW2sbRD
-	 T8kDL/XD0TF4ipkjEzSt4BiCkb33fj9Jhi5NPHZXJMYCnmug3h568W4oKMGgncku/dppE
-	 abiSkoDbO6fn9zyYs8FCFuboASvqUYZOARi0rsEKuQLfy0gxsF0PqXoWdBNAXmpIZajMA
-	 qfEUIsKE9l3whVYbhzOaOY+tt/T8Li2ljfi8SUKxdcIVgkNfNLL7zATYq9GLe8346mOHS
-	 9mhjf0z8MxKL3/pwmiRORsT1snEfGqckYKzFvep8713P5k66ey1jtptGh2Q/PPUrH6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794667752;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=FEu2mfq5bJfj6w010Q8gRlOZcF8hb/pEE55HP0S2WUM=;
+	b=fcNSuCGrdBrwYOzVZ3YUyZfq8sx+6Tz49z25aKZA4GFzS4TaFi2KaLcL10W2ir15Y/u5
+	 b92bfJ6o73LGcQbGNhtcHB+NgT5XyHBu9AGpOSLZPXfCsVINTgtp5Mpvjd6igsK+RWVjg
+	 N0pkvTBbG7E878TpVxjjVoz/rAxue/KPty4/2kIYAk2GSrsvF5kFeq67atO57ByBZ2tML
+	 RXmoUZofcMd/lJEeTIYyKICYmawj9McfSSDJNXogeDjwEoYE3oIjasis5mgpkwhoaVFkt
+	 0lpsU+DB9GhYIZb8VOYKoXoq7yscO3xxrrRUfKVZew5II7maATQTpiiuqHKoyEVkuPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JGaonD2E;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDXt8hDz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B0B606A883
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 14:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46B0B606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77BD606A33F
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 14:49:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JGaonD2E
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3af3aea85so12811c88.0
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:19:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794665956; x=1795270756; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QjbH7+OnTujQtkedXacpeWPzVbsofxl7bIa9QcXu1+I=;
-        b=JGaonD2EVegvZ7RR/LnBg7cajt/DQt3tdYO0cSZhVgHTcYXCYg1RTKKhS9J8P0VIaF
-         U+3mUILGSgAnXIz78m35cLzKZ9Tg4LxxGfLyUGdxPfRiWEsC+9I3wvM3PKCJwMJD2qbR
-         3FNtjGAvupblQLi4qpyTN5HzEmruo4LJrYiaAPIq37cdrXaooQXpoi1MLeoYip5yH+BO
-         1Ok87M7m2t1WJJf7lgha94zYcuRG4CjImCEnCuYPKlo0Q2msrKkn57h7hj2eFAbtY8P0
-         v/fgsL0r/6h/A9rTFIRKY8tNg2f98hFF7fpZvIQkdgU7RhtxdXckcCAqnr1UhGeAqVjv
-         ITfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794665956; x=1795270756;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QjbH7+OnTujQtkedXacpeWPzVbsofxl7bIa9QcXu1+I=;
-        b=E7A67fHs3eXyGrjteA/U1K5lpHLLiSNVV6LOjkvJvfT+h7cOo6o8INbKdkY7X6F/iO
-         upIVaJTjYzwZ2qfDeD3paQXwCjFot6aCpi4IVcu/ZSMS7d9gRKhE19OtRd8wOZVMV+EM
-         tpQotbr3y/rw3OsEcIl6d+s73VVzRs/Jhjt9heduYSOovjW6GaidssinXn93XZYjMHXI
-         qe5LBTkbLPpePSyzDQsYBLM23w2ZUg0LhE0o8iwEYmeqKkV7BhUZApq4fgpetw62Lryn
-         l4Rr9pEioN7PhJ03eEBVRTbuaheXCO+bO+/JaTYU95LzcFPErPW1kn/uaAVfWCT/RZA/
-         ZUQw==
-X-Forwarded-Encrypted: i=1; AL+hErGGez/LxC/Drp1hocNNs4PgCoWvHidhV3IFx+7El70zqf07benq0tl5ss4yxARi7tOxXsx4ajI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9pTaYJLmgyQBh8IrPEvHfyL4DXmciG11B9WkKsH3bqELdk3H2M
-	8y0EYqh0vqskx1k9Bb+c4SuptupH+s1YY63Z1G7EZBl5414kuwxuaOMy
-X-Gm-Gg: AYBFou1YSJRWrDn6PDl1/BcWitMhlwI7mabWMt4n1njN1GOvfpLS8RIR4LpK4t97p7P
-	yCg3JI2XFltpKxPtE+RH/0LgJl7yk/mH/kl+XUf6HuFjgfojmM4LGdXXCKrAD8jnXRl/NN6aJ5R
-	/Fx3y5ZO1LBPc0AefZHw6/a9wL3K8B9xA+gSjF0+lr0/OcBAJTguxhow31kJDGlbJeimwEEKg+1
-	mMdEQR4buMovv8mIp9vr/1lzY9JBsxnnBY43Nd0Dc/4QdvfkrgqHyfuKdwzhOmmq1O41WurlX3t
-	886qejBL3P+uH/J+nYezMeyOndJKllM1gI65k40xct4zJTAamwRdmL3+kkygdSmiLGAfRNrSSSQ
-	BM7TLAEqM7xWRZRrpM5uD7pAL0HRx2TS+zFOybj4K4lAE/ZgRWlJR4kho4S64quCOoNmfMHwy0V
-	Ww8ISZjLuhlTjbqL+m5a1DjC63+gohGMBL25PJZaahLROlw1JvKn+HUmknVZHWGtG+kMRcUJNU0
-	p+4iGs+2jkY3G5vXiwy6so7n5B4CNvnKxItCDCq9+uoCE9wKXx7Y9fwIw0TKjqk3h6QVcuMGoWe
-	zOlBdnSnxY7cObE9Bxh+iwdtnVnPEHOuESBpgCRdkTnWJDaB0t0fwkYTNFkiZyg+vMjhCBwGK4Z
-	ImI0=
-X-Received: by 2002:a05:701b:4508:20b0:147:d430:7322 with SMTP id a92af1059eb24-1b5030d2df3mr8446285c88.1.1794665956061;
-        Sat, 14 Nov 2026 06:19:16 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm14745032c88.13.2026.11.14.06.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 06:19:15 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-	Julius Bairaktaris <julius@bairaktaris.de>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 3/3] drm/msm: Put the VM_BIND queue last when freeing a VM_BIND job
-Date: Sat, 14 Nov 2026 23:18:51 +0900
-Message-ID: <20261114141851.134290-4-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261114141851.134290-1-arpe1618@gmail.com>
-References: <20261114141851.134290-1-arpe1618@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDXt8hDz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85271F000C8;
+	Sat, 14 Nov 2026 14:49:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794667752;
+	bh=FEu2mfq5bJfj6w010Q8gRlOZcF8hb/pEE55HP0S2WUM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BDXt8hDzox52ir88NTrwWdWBNjK7v71OGilNVpoGrG3CVYUphsPLtmw1MxOdDJcKg
+	 R5cr6PFuYkyOb91ufKvt53euyuHw5P3xJwH5KAYXFyNbP5jkIozU2XjWrwK85yTgap
+	 Ln9E7n9gQaq9ohpkYGfpHMVBNGmyGRirFujLRgzC/ELHWhhxfBuASl/T2aDFVA2vq+
+	 eRGHJvCS0aDjsWQuvICcBRvRg85Q/n+FR49icTWZH04KBrkn035NzLkKXNsCMVaOLl
+	 IupPWwP53bnCHUlFA1/cdjrlvCFdby+j4C0yxmfm0nz4vU4h4Jp9lB4pPGeuuAIkdK
+	 qUoFMwN9HBEyw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yingjie Wang <1075151112@qq.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] nvmet: reject keep-alive timeouts that would overflow
+Date: Sat, 14 Nov 2026 09:49:10 -0500
+Message-ID: <20261114144614.3192989-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202305-failed-5.15-96ae13f40ce5@kernel.org>
+References: <20261109202305-failed-5.15-96ae13f40ce5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,58 +62,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vm_bind_job_free() puts the job's submitqueue and then wakes up
-vm->prealloc_throttle.wait. The job does not hold a reference to the
-VM of its own: the VM is kept alive by the context, which the queue
-holds a reference to. When the job holds the last reference to the
-queue, as it can once the file has been closed, for example when a
-killed job is freed, the put can drop the last reference to the VM,
-and the wakeup then uses a VM that msm_gem_vm_free() has released.
+From: Yingjie Wang <1075151112@qq.com>
 
-Since commit 01c8d1f385f7 ("drm/msm: RCU-free the scheduler-containing
-ring and VM objects"), msm_gem_vm_free() frees the VM with kfree_rcu(),
-but vm_bind_job_free() is not in an RCU read-side critical section, so
-a grace period can still end before the wakeup, e.g. if the task is
-preempted in between. Before that commit, the VM was freed right away.
+[ Upstream commit 96ae13f40ce5930cd58c43128e385131476f2a66 ]
 
-Put the queue only after the last use of the VM.
+nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
+millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
+The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
+4294966296 ms wraps around and rounds to 0 seconds. A Set Features
+command with KATO 0xffffffff then succeeds but disables the keep-alive
+timer: Get Features returns 0 and Keep Alive fails with Keep Alive
+Timeout Invalid. A Connect command with such a KATO creates a controller
+without a keep-alive timer.
 
-This was found with an AI coding assistant, which also drafted this
-patch and its changelog. It has not been reproduced, and the change
-has only been compile-tested.
+The converted value has more consumers that can overflow. Get Features
+multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
+and arm a delay that must not exceed MAX_JIFFY_OFFSET.
 
-Fixes: b74fae5492d1 ("drm/msm: Add VM_BIND throttling")
+Reject a KATO whose rounded value does not fit all of these. Return Keep
+Alive Timeout Invalid from both Set Features and Connect. Validate Set
+Features before stopping the current timer so a failed update leaves its
+timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
+meaning.
+
+Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ sashal: adapted nvmet_alloc_ctrl() error handling to return status directly and set req->error_loc instead of using args ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/msm_gem_vma.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/nvme/target/admin-cmd.c | 7 ++++++-
+ drivers/nvme/target/core.c      | 7 ++++++-
+ drivers/nvme/target/nvmet.h     | 8 ++++++++
+ 3 files changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index ce9d97582df5..07f427c4afad 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -810,7 +810,6 @@ vm_bind_job_free(struct msm_vm_bind_job *job)
- 	job_foreach_bo (obj, job)
- 		drm_gem_object_put(obj);
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index 7c1fc6310599b..9df4107318ede 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -808,8 +808,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
+ {
+ 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
  
--	msm_submitqueue_put(job->queue);
- 	dma_fence_put(job->fence);
- 
- 	/* In error paths, we could have unexecuted ops: */
-@@ -823,6 +822,12 @@ vm_bind_job_free(struct msm_vm_bind_job *job)
- 
- 	wake_up(&vm->prealloc_throttle.wait);
- 
-+	/*
-+	 * The queue may hold the last reference to the context, and so to the
-+	 * VM, so put it only once we are done with the VM.
-+	 */
-+	msm_submitqueue_put(job->queue);
++	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvme_common_command, cdw11);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
++	}
 +
- 	kfree(job);
- }
+ 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
+-	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
++	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
+ 	nvmet_start_keep_alive_timer(req->sq->ctrl);
+ 
+ 	nvmet_set_result(req, req->sq->ctrl->kato);
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index 34e7b86c7d0f9..5dd23446a91a7 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -1355,6 +1355,11 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
+ 	int ret;
+ 	u16 status;
+ 
++	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvmf_connect_command, kato);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
++	}
++
+ 	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
+ 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
+ 	if (!subsys) {
+@@ -1432,7 +1437,7 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
+ 		kato = NVMET_DISC_KATO_MS;
+ 
+ 	/* keep-alive timeout in seconds */
+-	ctrl->kato = DIV_ROUND_UP(kato, 1000);
++	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
+ 
+ 	ctrl->err_counter = 0;
+ 	spin_lock_init(&ctrl->error_lock);
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index 4ab5b5580856e..666f33e010dc5 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -7,6 +7,7 @@
+ #define _NVMET_H
+ 
+ #include <linux/dma-mapping.h>
++#include <linux/jiffies.h>
+ #include <linux/types.h>
+ #include <linux/device.h>
+ #include <linux/kref.h>
+@@ -519,6 +520,13 @@ void nvmet_add_async_event(struct nvmet_ctrl *ctrl, u8 event_type,
+ #define NVMET_KAS		10
+ #define NVMET_DISC_KATO_MS		120000
+ 
++/*
++ * Largest keep-alive timeout in seconds that can be reported back in
++ * milliseconds and converted to jiffies without overflowing.
++ */
++#define NVMET_MAX_KATO	\
++	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
++
+ int __init nvmet_init_configfs(void);
+ void __exit nvmet_exit_configfs(void);
  
 -- 
-2.43.0
+2.53.0
 
