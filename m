@@ -1,64 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794635635;
-	b=cyksv8qvr5LU292HnT27gnO3lZvSyyC1ObP16h+UXdxVoUUgtOlof7lRubyt8Huo56K5
-	 8thRGpUBKVPr5Pir7vh6xftyitXuoYAqOjtVbGalNLKNAVs70vLscvNeAbOumuOZf10Ik
-	 r83ZrRlkl8aP305Jq2RpJBP1/S9KhqKBmQpOB4fIQfcL2AM7R9WmijTF+Ia6FadCBFCU7
-	 ktyyxN5S6nMgdQ8DLxMk0nyg+UT+c598GE5LJtXwkJoeFLzIxo+IFMF0+Jvr322viaUU0
-	 4Hd1cqdd4AH0TTmoxYBo2qnlvzMOyx5/yU1ZhIfFAvCdS3sUhtU1cn2sjcUXoAj731g==
+	t=1794635698;
+	b=I2hqlbGDHsQE1aSHZiz3thKFmmMmq3Iyst7LytIbSMi5Jpl4NN6No2RbgY7tHVviwWmM
+	 HIgnx8XXAYsmCxlcpLChacMtpcEG/gT8+mv6zlHon39Mkh/9HSrDvQSOY0muhDrbBbgQF
+	 xxVYitNEU3oppu0odHGvXD7ji2sA06HZrZpUyaNLMxB80kjQR+NCCIaUfyDqYY3JWC8og
+	 wkU67drTdKo8JYMPi4VNh04H4VqmGmVOYf4Z75AP4y4eZoz7wbD1hY+EdWFfvo36cBU/0
+	 y55uL1LOtVSxuKaKjXyql/X4fl4/YU/ZqQnINVu6Crgg5EnStZn4knQU3mfIXVx1SYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794635635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794635698;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FmMwO0w87fdXeOxEYTgSpJTzGstYLRm3a6PfF/BMWDs=;
-	b=ukAhTmGXEPhN/6kHObJTM0U42sKlqGisaEGi9jEuULqo9C3NriCrTTr5gFDjRSIvSUWB
-	 wmjqZ54ieUZultGMX3rafOht7gek7Uu2m2aGDbLxuMx7T+T3IB0g4dX4CDEtZBGWqcH+N
-	 7WfrLtYBVwC+fwBFDms9QYqEnkLjxvUc1V9AiJzxQBFk/OMPQ1YOHAQdvKHzTgWWXChcg
-	 wFMlPEQ5kRcsKmGABXJfQjOZco78HMR7677/wSPKHESYJ7P+KEtjwg7XPej2NsKxE7MNT
-	 WLhjE8X6OatdtUwrZ9IVVI/EaN0e4xgoBNvx0nlztWfShjWy5+x9CDyQIPZG/5uk7PQ==
+	bh=Fx5AeYPMgitO4jaK8EGw/oxO0BNF1P4PRcbaR89DyLQ=;
+	b=mQQM51Opkz/f3HeoNffpWm0uKu8ePffVqleZaIEnwV7X/HqYb0p/EUsO/ENnlmJA9pJi
+	 GTGgeYBC9YJk11YjjSYJrVZ0g+s482Hy77d/4RmEXjQ6iTuLqKWLFCs5ZjpCo0a40W/ff
+	 SAs5iOs42TbeCSmuZ4WkgEhV4eNUrcgYnkrWiYoHwwISh69RKWgIFDu/f8qGH2O3KbEOn
+	 +WhdhdbbFYd439SGZFqO2t/heG+2oK1jfSE2DivMWgknuqK9HxfBLmFwQ4oiywPhLftbd
+	 wkDMmEgdanHBjFkaCT6z41GzBlIEV5vkxMt7Pv8F1gvcFPIAbHXndXn4g3G09hqHmcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mi+YzcPq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=miF4g2Mo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A564606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:53:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06A5606A329
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mi+YzcPq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FB921F000C4;
-	Sat, 14 Nov 2026 05:53:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=miF4g2Mo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41E01F000C4;
+	Sat, 14 Nov 2026 05:54:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794635634;
-	bh=FmMwO0w87fdXeOxEYTgSpJTzGstYLRm3a6PfF/BMWDs=;
+	s=k20260515; t=1794635698;
+	bh=Fx5AeYPMgitO4jaK8EGw/oxO0BNF1P4PRcbaR89DyLQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mi+YzcPqMMFK8lpf4PX2oWIAMyAYEkclxOltNzPhLIaSAfg+0G/HnR1wkep9w3tl4
-	 z9R1UYhWvflS83jTN7gcjkgDlvRf7BkjWOpaacyP7bpaoYubic1adKa+gLWVLYbSR6
-	 T9dtA4BtcXsrQhjTWJO4UXGhM2RziU+OB3kQ7TL7pXj8i/aWJvpBn+0T3HAbYm/xoG
-	 Sh0YDde7xSvXLUtakY967Q6vtHRkjKsYaUqus3vbESF0unv4SY9/BRPWqo4fXYl6iA
-	 8bei+yhy8o1bMhmwXAdSZBZ0Q5pmVAYTL24KnQBYb/LVdRd4QbGWw9DWZ8oUbLrVZv
-	 VsjPthuqYIKHw==
+	b=miF4g2MolJBXctc8KMwBbncOasfB8QTUNyqoUVCh42gJh58oPdwICWJe81/1Btgin
+	 YCegEWNJ3ELuMcNLB2M8kG/VaLNaICYym7I7rM0Ou0Bmm5UyEMk7ApRqCl3UJttPpd
+	 K13CB7AUdxO07ks/YMXvb3fnTo38vD2KmAnkyePgwhe3shGhRUQVsiCi4CL3xEIAk9
+	 uRV//zHOcOkA6oog3rekZwXUW5AtMr7wES/fdyIxy8Gqn2KC0CYFCCDF+jsCDMuQBy
+	 5CWNSUvJCTllRMvJzaKBsqAI4lunH7lBCba1lrr3hZ4JOW5D9ZLAtcnEY+4J+hlrr7
+	 0tUKFB0gOxZKw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Rik van Riel <riel@surriel.com>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Harry Yoo (Meta)" <harry@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	SJ Park <sj@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Yingjie Wang <1075151112@qq.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] fork: take mmap_lock before copying mm_struct
-Date: Sat, 14 Nov 2026 00:53:52 -0500
-Message-ID: <20261114055337.3174933-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] nvmet: reject keep-alive timeouts that would overflow
+Date: Sat, 14 Nov 2026 00:54:56 -0500
+Message-ID: <20261114055435.3111329-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202604-failed-5.10-ef694e2d2101@kernel.org>
-References: <20261109202604-failed-5.10-ef694e2d2101@kernel.org>
+In-Reply-To: <20261109201758-failed-6.1-96ae13f40ce5@kernel.org>
+References: <20261109201758-failed-6.1-96ae13f40ce5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,126 +62,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Yingjie Wang <1075151112@qq.com>
 
-[ Upstream commit ef694e2d210111cc08c52fd25da9ab130170bfa3 ]
+[ Upstream commit 96ae13f40ce5930cd58c43128e385131476f2a66 ]
 
-dup_mm() copies the parent's mm_struct before dup_mmap() takes the
-mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
-and newer heap mappings, causing later brk() requests to fail.
+nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
+millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
+The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
+4294966296 ms wraps around and rounds to 0 seconds. A Set Features
+command with KATO 0xffffffff then succeeds but disables the keep-alive
+timer: Get Features returns 0 and Keep Alive fails with Keep Alive
+Timeout Invalid. A Connect command with such a KATO creates a controller
+without a keep-alive timer.
 
-Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
-cause inconsistencies.
+The converted value has more consumers that can overflow. Get Features
+multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
+and arm a delay that must not exceed MAX_JIFFY_OFFSET.
 
-As a simple and robust fix, grab the parent's mmap_lock earlier. This
-way we don't need to update individual mm fields in dup_mmap() and
-keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
-exec_vm, stack_vm), as that is now no longer required.
+Reject a KATO whose rounded value does not fit all of these. Return Keep
+Alive Timeout Invalid from both Set Features and Connect. Validate Set
+Features before stopping the current timer so a failed update leaves its
+timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
+meaning.
 
-Keep releasing the parent's mmap_lock in dup_mmap(), before
-userfaultfd completion, to avoid moving the userfaultfd handling into the
-caller. This should get cleaned up later.
-
-Move uprobe_start_dup_mmap() to preserve the lock ordering.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-2-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adjusted dup_mm() failure handling for existing uprobe cleanup in dup_mmap() to avoid a double unlock. ]
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ sashal: adapted nvmet_alloc_ctrl() error handling to set req->error_loc and return status directly instead of updating args fields and returning NULL ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/fork.c | 29 +++++++++++++++--------------
- 1 file changed, 15 insertions(+), 14 deletions(-)
+ drivers/nvme/target/admin-cmd.c | 7 ++++++-
+ drivers/nvme/target/core.c      | 7 ++++++-
+ drivers/nvme/target/nvmet.h     | 8 ++++++++
+ 3 files changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index c39de3ee8f537..93da8037f1ed1 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -478,11 +478,7 @@ static __latent_entropy int dup_mmap(struct mm_struct *mm,
- 	unsigned long charge;
- 	LIST_HEAD(uf);
- 
--	uprobe_start_dup_mmap();
--	if (mmap_write_lock_killable(oldmm)) {
--		retval = -EINTR;
--		goto fail_uprobe_end;
--	}
-+	mmap_assert_write_locked(oldmm);
- 	flush_cache_dup_mm(oldmm);
- 	uprobe_dup_mmap(oldmm, mm);
- 	/*
-@@ -493,11 +489,6 @@ static __latent_entropy int dup_mmap(struct mm_struct *mm,
- 	/* No ordering required: file already has been exposed. */
- 	RCU_INIT_POINTER(mm->exe_file, get_mm_exe_file(oldmm));
- 
--	mm->total_vm = oldmm->total_vm;
--	mm->data_vm = oldmm->data_vm;
--	mm->exec_vm = oldmm->exec_vm;
--	mm->stack_vm = oldmm->stack_vm;
--
- 	rb_link = &mm->mm_rb.rb_node;
- 	rb_parent = NULL;
- 	pprev = &mm->mmap;
-@@ -608,7 +599,6 @@ static __latent_entropy int dup_mmap(struct mm_struct *mm,
- 	flush_tlb_mm(oldmm);
- 	mmap_write_unlock(oldmm);
- 	dup_userfaultfd_complete(&uf);
--fail_uprobe_end:
- 	uprobe_end_dup_mmap();
- 	return retval;
- fail_nomem_anon_vma_fork:
-@@ -636,7 +626,7 @@ static inline void mm_free_pgd(struct mm_struct *mm)
- #else
- static int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index b62f40d0899e1..6d028b497c5f9 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -814,8 +814,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
  {
--	mmap_write_lock(oldmm);
-+	mmap_assert_write_locked(oldmm);
- 	RCU_INIT_POINTER(mm->exe_file, get_mm_exe_file(oldmm));
- 	mmap_write_unlock(oldmm);
- 	return 0;
-@@ -1375,10 +1365,18 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	if (!mm)
- 		goto fail_nomem;
+ 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
  
-+	uprobe_start_dup_mmap();
-+	if (mmap_write_lock_killable(oldmm)) {
-+		free_mm(mm);
-+		goto fail_uprobe;
++	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvme_common_command, cdw11);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
 +	}
 +
- 	memcpy(mm, oldmm, sizeof(*mm));
+ 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
+-	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
++	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
+ 	nvmet_start_keep_alive_timer(req->sq->ctrl);
  
--	if (!mm_init(mm, tsk, mm->user_ns))
--		goto fail_nomem;
-+	if (!mm_init(mm, tsk, mm->user_ns)) {
-+		mmap_write_unlock(oldmm);
-+		goto fail_uprobe;
+ 	nvmet_set_result(req, req->sq->ctrl->kato);
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index ed92999609c7f..ca4fd4e88e116 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -1414,6 +1414,11 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
+ 	int ret;
+ 	u16 status;
+ 
++	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvmf_connect_command, kato);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
 +	}
++
+ 	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
+ 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
+ 	if (!subsys) {
+@@ -1478,7 +1483,7 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
+ 		kato = NVMET_DISC_KATO_MS;
  
- 	err = dup_mmap(mm, oldmm);
- 	if (err)
-@@ -1397,7 +1395,10 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	mm->binfmt = NULL;
- 	mm_init_owner(mm, NULL);
- 	mmput(mm);
-+	return NULL;
+ 	/* keep-alive timeout in seconds */
+-	ctrl->kato = DIV_ROUND_UP(kato, 1000);
++	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
  
-+fail_uprobe:
-+	uprobe_end_dup_mmap();
- fail_nomem:
- 	return NULL;
- }
+ 	ctrl->err_counter = 0;
+ 	spin_lock_init(&ctrl->error_lock);
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index cc74886cb3b0a..be8affa1aab18 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -7,6 +7,7 @@
+ #define _NVMET_H
+ 
+ #include <linux/dma-mapping.h>
++#include <linux/jiffies.h>
+ #include <linux/types.h>
+ #include <linux/device.h>
+ #include <linux/kref.h>
+@@ -561,6 +562,13 @@ bool nvmet_subsys_nsid_exists(struct nvmet_subsys *subsys, u32 nsid);
+ #define NVMET_KAS		10
+ #define NVMET_DISC_KATO_MS		120000
+ 
++/*
++ * Largest keep-alive timeout in seconds that can be reported back in
++ * milliseconds and converted to jiffies without overflowing.
++ */
++#define NVMET_MAX_KATO	\
++	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
++
+ int __init nvmet_init_configfs(void);
+ void __exit nvmet_exit_configfs(void);
+ 
 -- 
 2.53.0
 
