@@ -1,81 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794663462;
-	b=qVeIB14PptkVTo0o+vtvRPV+Z5bQpT5JI/haVGyt62QqW0xjxXIypcvB+JhGKKm+Aqr5
-	 XAQpDDxQJBYpv0FU+hEEz63bKs1kgCESHIyJJFPrTWm81p343if2VgFzXDYjhQST2ZLG+
-	 Jp2vRZnwQ2GyY4Tp53w/91ZtPKaRlM/vucUAvLEiZg6/zgkEcuZZZKjZfQfsNvrHt7qHQ
-	 iaM+nxXdiLpIx7WwrdCk7dQPx3gZPPY0bkPgp5RNnHidLYH3nwAe2Tc0rjQFtDAPMrL6a
-	 8QUTHwb4A7sFm+U7zG1KOEVV89Ts5V95VYIAubprdtmdydlT7EeKpgUAkR+YcAHV0Cg==
+	t=1794664104;
+	b=RAAUf33QIYeORx+u6zbEPvVg70IZ22q9I3trC+pl+8bBjHEsS2Cgvnjfchq6odAOG6hC
+	 LDgtDIiNpZjjJk/AyBejxokINCpIiQjuTFC1dWCl65ZHLEWjCnuH6ZAhwiDI+GxxtzPk8
+	 JaTFt0QsHcfbO5I9Ve0iOjXhtXOrfypRP+JtsMbu3RWUfRUCkByeIAYmF4d8OZVvDbMH7
+	 Gfda8TyJIWICM4Gn/AW5hSkLFqZYQrgVMOwEBqA90wPnj+3Ea+fd9sOlY0ntlSZKfusHU
+	 O9z8GxaFEoynTZ1l4K781436/+q4ecKNBhsHVEYydAqOy4IdxIrNWuJlqDEp6bWxhdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794663462;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=1aisXE/Mnz/GaVHezDHTY2TUxsmFNrmsLepJDfVkiso=;
-	b=OjebPHHC0US04+Th8tPceEqMbFhS+YJOndbLkAJ3NMZ0s15TP/N4RAdXCrAZLC+P8x0g
-	 WGEMyrz0DwjVuY9JvU+vbzVVShuFW0OVsrSAR3rHnN1QlnufHJg+6xtu7dp9iKvtCFcoV
-	 aexle2i/CDWVx6Kzzj4WXJyyjjB051zXoxybSTXRDwFi5u6dzgPIcqKCttb69qN/+YxC4
-	 KbNi9EWSZ+N7wSTXNNpYEtsfvhtumYDcvSRHgBQfi+Wo5C+6ppf5YHa6v362xYfD8io5x
-	 OZ2ZmtT2Ug2n/I3w9peaUAd1347jcrks9Rro0phRjPMYVX8B8U5jyl8ofGd7bpW/hdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794664104;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=sTtJShm6kz41I4Yj0S715Z77CNoUEBmcRU05Q30aoJ0=;
+	b=arVjAh7iu7H7bM4jqRFor2mmbA3RkfRW5LtV98CYmp8dkO8urjC5RiaSTsQOX7WEydAo
+	 YZCtINAJKYiSIof5NADPpcGCupKdcSwo0mKHCNYzv8dondQk54EEzFXT0v0Ynq6eNhacX
+	 derJHbvQg3xK+FY7FXJiv9a5JMSLsp+5CX18m7kCjs09P+Kp+floBo/WnbCXtjRL46fQg
+	 /PIJAomITgs1C/CQYBg85xZkA7PYfMWhHI8WhKl41OxWhrg4LephUU4ekeDiVAuXLeLAO
+	 9+ASzKHIqIRzGMY9EHZg8h9SAB028SHvkpWX4QofNeJN6LE8hV7+/esT2f9eR40wNtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=etPTyJVP;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4B0606A32D
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 13:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF4B0606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9ED5606A32E
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 13:48:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9ED5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so23800085e9.2
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:37:41 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=etPTyJVP
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c505b2e1cb9so327065966b.2
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:48:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794664102; x=1795268902; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sTtJShm6kz41I4Yj0S715Z77CNoUEBmcRU05Q30aoJ0=;
+        b=etPTyJVPFLrjxK9f/QMKnsF23AfDr/jXmoolk1SORo17Sq8JiJJprSAhxb3TefyC3F
+         NZO80RATPYVbFYH0bsTolGFRPqfHJq2iVn+Gu6oSt4bpptYPrSVEtw6QiM2Gv82DZy+y
+         eoikJhY1vdoIt3hxrjXffHZQtIeEmoTqelQHf/ken+3RtpQ51Pb3gA1dqcQikhsc3UuU
+         QfhHRts+3OnfzcNNHQi3E1Yp/DsDvMEbi0xYalx9SplH7i/S4BooPmnyPQoRwuL5G7XR
+         l73cTHmLjBW2ISqqWIIVoC5YioIvxz9HAvH6KQZAewL+FisBYEKC5uhexEy/dzZ+r4+R
+         q3Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794663460; x=1795268260;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1aisXE/Mnz/GaVHezDHTY2TUxsmFNrmsLepJDfVkiso=;
-        b=LQ4XvKsMQo3Dm4z8q3kzgj2MN/xbtMTBJbdKspblxoQZc6IlXlOkK7kZb/oEOHQNO9
-         0GlAvLIfuY0jFit+OWP2q+8mbosIFLei/1pjkBmbQpeqrYOT1QZTqqIyV0ujWIUo2ZFG
-         6r5OnhYqil7M2WCGWiYyppesjD1HOTh2PcV5l/a54IwaUDTF3/3JQUYNx7Kr8qkGhJ7i
-         gN5Z/mZUCCLSn+7ZVoGacCy+BuW6Uc14qTP26Vu0LKnezv6Yfv+JiXsMCS1GFAOdf/nq
-         Iz8XFW1FTwdIEtGx1fBBp8Lz/2ZzgbLAmTfMAa8OFgBbg2J41mQRNGbI/ss9+/2zc8tQ
-         zj6w==
-X-Gm-Message-State: APuU4Z+jlB5QCyKjqcFx0zR9N+nSQy+7C0N+01HrkjZg8ZjSeAPasJbR
-	DwrOo6Y0Jyetpmu8Z6wzTucd/+1sDYYsmU+SuvGGjvMlWAKcV5C+FtiK
-X-Gm-Gg: AYBFou07JEaqacIajKIX5dMcw+uJHD862VrFews6uj3i5W5UtoBeuYz1mKQbU8vY/F4
-	Od/rK+e4P1WwPNQQz/sh8wWGHPIFEWkQL2GAjp53OrHjZOgOQmKjrqPEKElnRYiGZqw1fuDrzLp
-	DcdRsSEQVEiTxBXjllECklC+9eND6sp3i2B0lis6TqR1B7s227OqkvE92KTY1rwNFMiArfyIYKx
-	3bhRxb1YVGJHlaBqiwPcSrJ1TWqheFo2zyO9TAXB0+yvIT3QPqQghHq+5scXJoiQcUm+rcpk0R6
-	7QZs6XxWM56KMuYFcnGb0/fRtAvkSKNhzE3Lu8lyq9Axayr+Pxsqd8xtNCaxZ+StPFiqCFqA5qb
-	JGw5yhewGrpkI4us7aAoPLbu8JrwxYM3mi34fGJ6P06cu1C6pA/hYHAo5QxKE7Px8ZJAS1mOVCk
-	4QP4EVnjwiP99VnB8AfuAXwUzC5zx/S8PMNetHQWVUUGOWX6jXlKgrStyqgFT6U6fLc7LfKaI1f
-	iHHed6q5uIUjN+BkqLVJvWdb4UHpBrYcgvj6tmUPALh1aQgFVn4FPBh4YU1k/qyOH60NKFKy4f7
-	4IvUWJRujnjnAeliyr2xuxtDrDHwUmKx6P9VUrk3L+/NoiBKSThUxtZmguouMU8GSjub8aeeClo
-	CmCkWFJYwDXqGzS1JDE8AXyaT
-X-Received: by 2002:a05:600c:8905:b0:4ba:4395:5755 with SMTP id 5b1f17b1804b1-4bb55a6a5fbmr77311935e9.5.1794663460057;
-        Sat, 14 Nov 2026 05:37:40 -0800 (PST)
-Received: from threads.localdomain ([84.70.166.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55a68c5asm131315015e9.1.2026.11.14.05.37.39
+        d=1e100.net; s=20260707; t=1794664102; x=1795268902;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sTtJShm6kz41I4Yj0S715Z77CNoUEBmcRU05Q30aoJ0=;
+        b=M2zaYwLc8/BLqWL+OXCQHAWa9WPW2OxzkKKLbIWUVzt+DF784IoZRjj5iIGUTHYL/H
+         cD8EPmz1cMZygkZEl7/Gc2v/OowuxC2WHwyOarUetip5ZHqBimcDqlbGH5tnkn+oZPgV
+         GkZd4gj18Fdj6taEZ9GQb3Z76MYpd2cTs7Z9tiFF+v166F4gxthqEVrYAZH4rYEfxu0c
+         3mmkyJFidCf8Y5ny721NqpL3rQKn9xt55dsrHf+exaGBVr/3blFHNtybsVVrGp4SL35j
+         bwZbVPP9qtuSuo+u+KZsHkUBt9brfoazx4Gh2rY2kkHiYOaQ2pyZ32JMS5nMrH9E4BJD
+         GaZA==
+X-Forwarded-Encrypted: i=1; AL+hErFit+DGCtzNCLVNe52Fqk1/zVOAOtX3JzxQd+rCrkGkzUcQuGCiXOpWu2iwHnXaJKv9OJ/PxCM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9R4M8dw9UtB2aP2Srk0HNDB0fKvdtIpLJq28uLRZYbiIntUEb
+	55omHPHhuuGSLH9fzvfPNzDrRizOvnIEEp1F4oL9LZftpMe4j51cDfmO
+X-Gm-Gg: AYBFou2PH2fRHc+WsvG4bfJRhth/CnNQKrI5P4RDX8x0JhTm3inT8lDl+O9raJmpEbZ
+	rPfD/5Qufcft/qbFZ+8QbTYWA9cWJdIs/JlON8DA5NLN/Jq4tNgQqfA69pO+xWHtLjdDLJEVBap
+	s4Q/nPFiI9TJpcWWN480MFtEImxjLjla18KyP8ZgG30zctI7+D5ckXbNjENvVqnK/PGDkbyV8Hu
+	xFagvuas1BZda6Mj9dXBahnj/Bg/xRtsn01dSt+hEGTkhkwZmYAuwX8UDIznMD7vnJS3VtiOTGX
+	Dk0oJR9HbkvsIEaWunHqi9uldFxjw4K7A7vsMqxCwicsVx3aBmQZNGK2Clo6Y39sttck2jWI4LR
+	i9y78vtNMEJLtS90t3SeoZkODxg+vkstH0JfV70Lv0gW2Ykb5fI2Ggi1EbfdVuZ+pab9BOeC/wd
+	9QX1zxlry4XhEaevQfDbe3PDledZELWapGFqJgvpTk+fG312ZH6jwyDASTSwobklQjm0JTIhFKh
+	Yu58j4getkK9KL5IxZkzz9wK5EIqykQoten8K3rDzxeZ5Y7eWVVGjrR9h8bwFb4jgAn4Q==
+X-Received: by 2002:a17:907:3e06:b0:c50:5186:a429 with SMTP id a640c23a62f3a-c50963c2b24mr502945666b.37.1794664102098;
+        Sat, 14 Nov 2026 05:48:22 -0800 (PST)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c50957c6c1fsm219264066b.0.2026.11.14.05.48.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 05:37:39 -0800 (PST)
-From: Lucas Tanure <tanure@linux.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	iommu@lists.linux.dev (open list:IOMMU SUBSYSTEM),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Rockchip SoC support),
-	linux-rockchip@lists.infradead.org (open list:ARM/Rockchip SoC support),
-	linux-kernel@vger.kernel.org (open list)
-Cc: stable@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>
-Subject: [PATCH] iommu/rockchip: do not walk the page tables of a disabled MMU
-Date: Sat, 14 Nov 2026 13:37:37 +0000
-Message-ID: <20261114133738.52817-1-tanure@linux.com>
-X-Mailer: git-send-email 2.56.1
+        Sat, 14 Nov 2026 05:48:21 -0800 (PST)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Sat, 14 Nov 2026 14:48:18 +0100
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	"Liam R. Howlett (Google)" <liam@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] mm: kvmalloc: Bail if called with soft or hard IRQs
+ disabled
+Message-ID: <avhmosPSEJOFCvK_@milan>
+References: <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
+ <aurAxRpCwzeyXeVj@gondor.apana.org.au>
+ <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
+ <aurJZ81qnbiHH_P1@gondor.apana.org.au>
+ <ausS3LQNkdc6lBy3@milan>
+ <auxDm_YO4oACA_d2@gondor.apana.org.au>
+ <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
+ <auy-7TvVzJ-VCrG4@milan>
+ <avcKfEvln8_2a7fJ@gondor.apana.org.au>
+ <CAHk-=wg9baZ9EDhZr7ONxjuO65+vvWFo5E2hgxt+3rYo1vnhyA@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,195 +119,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wg9baZ9EDhZr7ONxjuO65+vvWFo5E2hgxt+3rYo1vnhyA@mail.gmail.com>
 
-A page fault handler running while another CPU detaches the same IOMMU
-can read a cleared RK_MMU_DTE_ADDR, turn it into a linear-map pointer
-and dereference it, which panics the machine. A dummy or firmware-left
-address is as unsafe.
+On Fri, Nov 13, 2026 at 09:47:13AM -0800, Linus Torvalds wrote:
+> On Fri, 13 Nov 2026 at 05:03, Herbert Xu <herbert@gondor.apana.org.au> wrote:
+> >
+> > OK let's try this patch:
+> 
+> I don't think this is wrong, but I do wonder if we should at least
+> have *some* way to detect these cases and report them.
+> 
+> Also, it turns out that in __get_vm_area_node(), we have
+> 
+>         BUG_ON(in_nmi() || in_hardirq());
+> 
+> so this call sequence already has a *limited* test for this all. It's
+> just that it explicitly allows softirqs, probably because it used that
+> bogus BUG_ON() pattern, so it wasn't a debug aid, it was a "the
+> machine is dead"
+> 
+> I wish people would stop using BUG_ON() and friends. They are *only*
+> valid for things where "something bad happened, I can't recover".
+> 
+> That __get_vm_area_node() is not such a case. That function has a
+> perfectly well-defined "what to do in case of errors". It already does
+> it for lots of other cases: just return NULL.
+> 
+> So using BUG_ON() is wrong, wrong, WRONG. Commit 04aa71da5f35
+> ("mm/vmalloc: do not trigger BUG() on BH disabled context") was simply
+> not the correct thing to do.
+> 
+> The correct thing to do was to replace the buggy sh*t-for-brains
+> BUG_ON() with the right sequence:
+> 
+> -       BUG_ON(in_interrupt());
+> +       if (WARN_ON_ONCE(in_interrupt())
+> +               return NULL;
+> 
+I agree with this. The vmalloc() used to BUG_ON() if in_interrupt().
+The easiest is to restore the old context restriction and replace
+BUG_ON() with WARN_ON_ONCE() followed by returning NULL.
 
-Seen on PX30 at reboot: the display controller still fetched an
-unmapped framebuffer, its IOMMU sat in a page fault, ignored the stall
-and paging-disable commands, and had RK_MMU_DTE_ADDR cleared during
-the handler's second run.
+That would not stop machine but would show invalid callers.
+If there are no objections i can send a patch.
 
-No wait works: the master shares the line, the RK3588 NPU driver
-detaches from its interrupt thread, where synchronize_irq() deadlocks,
-and synchronize_hardirq() skips a force-threaded handler. A spinlock
-orders the walk against the register clear.
-
-6.1 vendor kernel log, rk_pagefault_done is the walk, per CPU:
-
-  CPU 1, init, reboot path:
-  [ 1069.789374][    T1] rk_iommu ff460f00.iommu: Enable stall request timed out, retry_count = 0, status: 0x0002cb
-  [ 1069.791314][    T1] rk_iommu ff460f00.iommu: Disable paging request timed out, retry_count = 0, status: 0x0002cb
-  [ 1069.830197][    T1] Call trace:
-  [ 1069.830922][    T1]  iommu_detach_device+0xd0/0xdc
-  [ 1069.831483][    T1]  rockchip_drm_dma_detach_device+0x1c/0x34
-  [ 1069.832033][    T1]  vop_crtc_atomic_disable+0xb0c/0xc44
-  [ 1069.832751][    T1]  drm_atomic_helper_commit_modeset_disables+0x348/0x690
-  ...
-  [ 1069.836601][    T1]  drm_atomic_helper_shutdown+0xa0/0x158
-  [ 1069.837152][    T1]  rockchip_drm_platform_shutdown+0x18/0x2c
-  [ 1069.837870][    T1]  platform_shutdown+0x3c/0x54
-  [ 1069.838599][    T1]  device_shutdown+0x194/0x260
-  [ 1069.839160][    T1]  kernel_restart+0x40/0x128
-
-  CPU 0, page fault handler:
-  [ 1069.790364][    C0] rk_iommu ff460f00.iommu: Page fault at 0x00000000ffee0000 of type read
-  [ 1069.792129][    C0] rk_iommu ff460f00.iommu: Page fault while iommu not attached to domain?
-  [ 1069.792184][    C0] rk_iommu ff460f00.iommu: Page fault at 0x00000000ffee0280 of type read
-  [ 1069.794604][    C0] Unable to handle kernel paging request at virtual address ffffff8000000ffc
-  [ 1069.805998][    C0] Internal error: Oops: 0000000096000006 [#1] PREEMPT SMP
-  [ 1069.809484][    C0] pc : rk_pagefault_done+0x1b4/0x3c8
-  [ 1069.810548][    C0] lr : rk_pagefault_done+0x19c/0x3c8
-  [ 1069.832390][    C0] Call trace:
-  [ 1069.833116][    C0]  rk_pagefault_done+0x1b4/0x3c8
-  [ 1069.833844][    C0]  rk_iommu_irq+0x64/0xc8
-  [ 1069.834395][    C0]  __handle_irq_event_percpu+0xe8/0x2ac
-  [ 1069.834945][    C0]  handle_irq_event+0x40/0xbc
-  [ 1069.835675][    C0]  handle_fasteoi_irq+0x118/0x28c
-  [ 1069.836404][    C0]  generic_handle_domain_irq+0x44/0x6c
-  [ 1069.836954][    C0]  gic_handle_irq+0x60/0xf0
-  [ 1069.837505][    C0]  call_on_irq_stack+0x3c/0x5c
-  [ 1069.838235][    C0]  do_interrupt_handler+0x4c/0x94
-  [ 1069.838963][    C0]  el1_interrupt+0x44/0xa8
-  [ 1069.839446][    C0]  el1h_64_irq_handler+0x18/0x2c
-  [ 1069.839997][    C0]  el1h_64_irq+0x78/0x7c
-  [ 1071.215224][    C0] Kernel panic - not syncing: Oops: Fatal exception in interrupt
-
-Fixes: c68a292152d3 ("iommu/rockchip: rk3288 iommu driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lucas Tanure <tanure@linux.com>
----
- drivers/iommu/rockchip-iommu.c | 28 ++++++++++++++++++++++------
- 1 file changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-index 1fa3110b142a..0f40d9678344 100644
---- a/drivers/iommu/rockchip-iommu.c
-+++ b/drivers/iommu/rockchip-iommu.c
-@@ -115,6 +115,7 @@ struct rk_iommu {
- 	struct iommu_device iommu;
- 	struct list_head node; /* entry in rk_iommu_domain.iommus */
- 	struct iommu_domain *domain; /* domain to which iommu is attached */
-+	spinlock_t lock;
- 	const struct rk_iommu_ops *rk_ops;
- };
- 
-@@ -543,7 +544,8 @@ static int rk_iommu_force_reset(struct rk_iommu *iommu)
- 	return 0;
- }
- 
--static void log_iova(struct rk_iommu *iommu, int index, dma_addr_t iova)
-+static void log_iova(struct rk_iommu *iommu, struct iommu_domain *domain,
-+		     int index, dma_addr_t iova)
- {
- 	void __iomem *base = iommu->bases[index];
- 	u32 dte_index, pte_index, page_offset;
-@@ -563,6 +565,12 @@ static void log_iova(struct rk_iommu *iommu, int index, dma_addr_t iova)
- 
- 	mmu_dte_addr = rk_iommu_read(base, RK_MMU_DTE_ADDR);
- 	mmu_dte_addr_phys = iommu->rk_ops->pt_address(mmu_dte_addr);
-+	if (domain == &rk_identity_domain ||
-+	    mmu_dte_addr_phys != to_rk_domain(domain)->dt_dma) {
-+		dev_err(iommu->dev, "iova = %pad: page directory %#x is not the attached domain's, not walked\n",
-+			&iova, mmu_dte_addr);
-+		return;
-+	}
- 
- 	dte_addr_phys = mmu_dte_addr_phys + (4 * dte_index);
- 	dte_addr = phys_to_virt(dte_addr_phys);
-@@ -593,6 +601,7 @@ static void log_iova(struct rk_iommu *iommu, int index, dma_addr_t iova)
- static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- {
- 	struct rk_iommu *iommu = dev_id;
-+	struct iommu_domain *domain;
- 	u32 status;
- 	u32 int_status;
- 	dma_addr_t iova;
-@@ -606,6 +615,8 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- 	if (WARN_ON(clk_bulk_enable(iommu->num_clocks, iommu->clocks)))
- 		goto out;
- 
-+	spin_lock(&iommu->lock);
-+	domain = READ_ONCE(iommu->domain);
- 	for (i = 0; i < iommu->num_mmu; i++) {
- 		int_status = rk_iommu_read(iommu->bases[i], RK_MMU_INT_STATUS);
- 		if (int_status == 0)
-@@ -625,15 +636,15 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- 				&iova,
- 				str_write_read(flags == IOMMU_FAULT_WRITE));
- 
--			log_iova(iommu, i, iova);
-+			log_iova(iommu, domain, i, iova);
- 
- 			/*
- 			 * Report page fault to any installed handlers.
- 			 * Ignore the return code, though, since we always zap cache
- 			 * and clear the page fault anyway.
- 			 */
--			if (iommu->domain != &rk_identity_domain)
--				report_iommu_fault(iommu->domain, iommu->dev, iova,
-+			if (domain != &rk_identity_domain)
-+				report_iommu_fault(domain, iommu->dev, iova,
- 						   flags);
- 			else
- 				dev_err(iommu->dev, "Page fault while iommu not attached to domain?\n");
-@@ -651,6 +662,7 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- 
- 		rk_iommu_write(iommu->bases[i], RK_MMU_INT_CLEAR, int_status);
- 	}
-+	spin_unlock(&iommu->lock);
- 
- 	clk_bulk_disable(iommu->num_clocks, iommu->clocks);
- 
-@@ -921,16 +933,19 @@ static struct rk_iommu *rk_iommu_from_dev(struct device *dev)
- /* Must be called with iommu powered on and attached */
- static void rk_iommu_disable(struct rk_iommu *iommu)
- {
-+	unsigned long flags;
- 	int i;
- 
- 	/* Ignore error while disabling, just keep going */
- 	WARN_ON(clk_bulk_enable(iommu->num_clocks, iommu->clocks));
- 	rk_iommu_enable_stall(iommu);
- 	rk_iommu_disable_paging(iommu);
-+	spin_lock_irqsave(&iommu->lock, flags);
- 	for (i = 0; i < iommu->num_mmu; i++) {
- 		rk_iommu_write(iommu->bases[i], RK_MMU_INT_MASK, 0);
- 		rk_iommu_write(iommu->bases[i], RK_MMU_DTE_ADDR, 0);
- 	}
-+	spin_unlock_irqrestore(&iommu->lock, flags);
- 	rk_iommu_disable_stall(iommu);
- 	clk_bulk_disable(iommu->num_clocks, iommu->clocks);
- }
-@@ -997,7 +1012,7 @@ static int rk_iommu_identity_attach(struct iommu_domain *identity_domain,
- 	if (iommu->domain == identity_domain)
- 		return 0;
- 
--	iommu->domain = identity_domain;
-+	WRITE_ONCE(iommu->domain, identity_domain);
- 
- 	spin_lock_irqsave(&rk_domain->iommus_lock, flags);
- 	list_del_init(&iommu->node);
-@@ -1051,7 +1066,7 @@ static int rk_iommu_attach_device(struct iommu_domain *domain,
- 	if (ret)
- 		return ret;
- 
--	iommu->domain = domain;
-+	WRITE_ONCE(iommu->domain, domain);
- 
- 	spin_lock_irqsave(&rk_domain->iommus_lock, flags);
- 	list_add_tail(&iommu->node, &rk_domain->iommus);
-@@ -1227,6 +1242,7 @@ static int rk_iommu_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	iommu->domain = &rk_identity_domain;
-+	spin_lock_init(&iommu->lock);
- 
- 	platform_set_drvdata(pdev, iommu);
- 	iommu->dev = dev;
--- 
-2.56.1
-
+--
+Uladzislau Rezki
