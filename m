@@ -1,55 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794678457;
-	b=gwNOBQqYyuaYN5ZOGxPUlFz2sUI9x2p9pdsA/v0JGEAeoIZucRXBXWFjkLRcNUYIGdd9
-	 U6XH7c2Nq7BJ7HyQmuDhXjlTi+Fl1uY7iVhnfRH+S53gsLZM1Eze9Z/io5S5iF2U+YZU5
-	 W1uNVi7ypmY76XuPyaeN8WfskCTHoF9l6qUdZ46z2K5ItFxDNT+LmfUUzyPPy+HoyUHu+
-	 FrYIvjXESINJPukpEaDOtXQIp54DsTxsS4yuo3WQCru1U4t/Xyb+WhUejcKAfPTDEbsoS
-	 J9/Ro+jxi9ohGUTZI58OIGMqma0gEsVlMUY6JL9iv6H2kRPoz3tcH40Suh7/Q1/RP2w==
+	t=1794678574;
+	b=P0k95USqzyKXWUCgiiefhPQkVq+qlxbFyAa+SAmmACPsd+pY9Lwabuf5S1vzIt/Qlqw/
+	 /NJjjHCiKpvwteOJB8VKJIi+huGMcl9dKbSm4aev0Q4RFJvSxkkoB/TmXenPyDRnG26hP
+	 rOUsWfpeQvBy6hMC9KT6wRqD93b7V+3PyBMivDfI7c7gVrBYWi3wTPoljE6vfgYzaIZTl
+	 1WNYY99KRfo/IzXfTAWhBqnK4vIuMrQ7II0cSRRpvDcWAvfe/ViX+jD3J11wQNK2EzG6V
+	 DYn4iMnFKC1bZ1DVxHpy5rkCtCnWJARsQtdD1U8P2rXwl6U7xoqvs2sxDtzdwlA4SfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794678457;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KD6cT7xbJORmX6NN+HAfkkcNMNiV25TVGfS/Qrqok3Y=;
-	b=V1FaKk5lnt+ZzcaDOpyesJ/bTwGNZ2ZzFrdqVxmULljdho6HyF6FhdkUmfMOFmh0vyv+
-	 8Jn1r1jM4Oyi3t4ofSB9OKhurx9nHdBoveQQUsy/1rjGFz673MIaNfeSzHP/a3KBOBy8R
-	 3o+CVMGkRRTNEpYQSt5pHMbOQWReYkGHN0k/o06tOPrEXZCd9mHXF3f5obOmaElZYi24d
-	 CG2iwXkw0ZcWQ4Nxtm+hB4oQr44MVRBqzn7sHe/Dx/obGYz5AjpR2BffoY8hxoyunkKip
-	 Rm3LlfW9c+wveouhvUwQ4TOPdADY53509M+Qy4E4oIbWbXdOOE8RsQfjNJmP+UQ0DPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794678574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9R09EBO85yEAu2wLYOFxIwiGkMThX542L/v6PDwTZg8=;
+	b=qWLnESpy2KbpHGjxl4igYH8JKqjsNXVl3ZA+DfM7ahCA8cUCM+FZoNJGsBrmrpU2429Q
+	 gV51w39yBCFFX8NM+BVoFq5SWrbh+LmL4dl2aBnBSyQEluahx/xXz6Oj72qL+6rZdMUkQ
+	 I3q8rkbl3FKlcbOvsOVewjO6FLLFLFhSn+lLW1DdDWF3jAI47Z+76g5OP/O4MTDAYLvTE
+	 Y/ysRzoXXln+eTgqApnwn/TV8Jh89In5WKw7TPNQcE/rsjkNBIUPvdAsKOyjf1XJxgeNV
+	 sa1r3uDrlGUmlOXOWdCZ9QdDShxtaHHMl8ZPJxHThfQ6hscNe5vuviMo8x/9wO69YYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lU4wMqeZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CLCz7127;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C43606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:47:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9C0606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:49:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F9C0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lU4wMqeZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C92C1F000C4;
-	Sat, 14 Nov 2026 17:47:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794678456;
-	bh=KD6cT7xbJORmX6NN+HAfkkcNMNiV25TVGfS/Qrqok3Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lU4wMqeZRH94AqveVSmfMaqBpDJ/Bmyo1Pke4SOdjwjc+KfdBSjC+txOoIgC7HrMU
-	 LiVGeN+x1N/pWjXkwaHAFwbnVl0P9wdhN1pv+aWdc5DOT5dNpJ/iScGdjH20Qm3zH0
-	 Q/NEbFjE0BvNCu26yAGKwcI2VJZSP51N5CNfRJjk5CShJBWz+H7erZWEai0m/yOU/J
-	 BtlmB437eXWnQ9kap9OSd11lvkf46KFLwkB8dG2wqIj4Xxxg827fjyoc8VQ4GUa5QG
-	 HsSHciUoo7bUtOV3vBRAEof45YsMfb8u7/iD9IZ9KIrjBl++ICLX8el/636HAg3hMG
-	 j9ENFGmrDR3vA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	Edvard Conrad <edvard@tuta.io>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ovl: inherit FMODE_NONOTIFY when reading directory layers
-Date: Sat, 14 Nov 2026 12:47:35 -0500
-Message-ID: <20261114174716.362180-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202819-failed-5.10-9ff338af0e00@kernel.org>
-References: <20261109202819-failed-5.10-9ff338af0e00@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CLCz7127
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4919a880834so995377f8f.0
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 09:49:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794678573; x=1795283373; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9R09EBO85yEAu2wLYOFxIwiGkMThX542L/v6PDwTZg8=;
+        b=CLCz7127R0ADKRCNZV1Xd/7yL75XewT7Nl6X33+OYYwwyu713kQlMFo/4eiShsUV6g
+         x9MUEiVIERNfgDq0ca18nbaJ0wfrBqnI2JszxRYt9Oqz72iqyQ33QWtwz6U5IBZ9Aw99
+         ZWCZFIK5oY5URStKUN6V70mkrxxGNSLlsNKE3/I5PNLQVICGW710Nj4Q8fJjkQ75BBRw
+         DnbR1p2wy7GqEB6UIC0xWq/6H+qFHgma9JrlmIEyzIKVMJkfwofCinTpBMVQrmuBaUTx
+         /4g4M1H9pZkYQSd0ny8vjATLvgQfOkjabcZOIpt6BKoSr5pG0OfNr+E9YAfHWtXsCAK9
+         Rpsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794678573; x=1795283373;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9R09EBO85yEAu2wLYOFxIwiGkMThX542L/v6PDwTZg8=;
+        b=ErFiWHrTY36JJJgxkGIs3ZFaew2wRQa57o7NvQvxn3jih21ntL/ZSaGjXhJ7K30STR
+         GII+hT2j3zaZ5hVV0/2opPhqny5LAx4UQvwNkRjBKYo5hXorxI4u33qmMSxNXhFx8asx
+         L9rb0Bd0ePMlyRiA9nYf33//wOFc2iLrkLaosMVCb2W7IFYIkQZhqtA8/ipqoI/geZea
+         E7zRgj2JNycpTdimwt3+ncT78rTfLqBZ5C7mzIvLIrYhT6jkfCfIMlqEEvvEadNu+ESY
+         9LlXFA7ZhQBbq+VHLpRYx/3wNwPD5fwi41/2a96YfXjz/25vho2UeImMa+GtMEZ1YUap
+         9hJg==
+X-Forwarded-Encrypted: i=1; AL+hErHUYtqzsnRQ5fzEEyKvpSwRhAB7ye2Xbg65ZygW0EdnAj8gJcBQa6TS9C+QwVNCUazLsSROUoI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ChhoBZWYu91oT7LUGDNpqW6ou16BRVWG1tRTK2tIbgqIXj+0V
+	fbFHb9wK1nnrM21g8+m/CacDY/1p6wjtKxB7p246SmSkxRUeLirl3kNe
+X-Gm-Gg: AYBFou2w9hLev3hWN6UYXtZ2WS4WAlKJuHw9G7nZYHIMwJWcN83ulqXHAnEL6UzKVQd
+	Efp9nGABAQFViQgHRGFbFmICZvzdPkIziio/4kYqXkWOZ0U39F/TdNdzqugZ3NkbIjqJbAOqfZ5
+	mzXrFAB0xM5n7Vlsx5qWGK2m7FSDQDrnS+9N2N2lWuUmluzmEz4yXQkccI8In6G3wY1cl97pqPF
+	ir6WXLxh4f3RLj5hjyQco/lNH13CrlPmhd9T3Bc8QLvNK2581KJoe1mskccf0i3a+d8U+Mu53wS
+	Vydk+1VcYgd76UCueAPWZWyahaQkXHsghNUCfrbklz3GwWhd61jdsqKvTUvLGeoWCqhcPkLeGUZ
+	5uFwt7F/41AwBSLv/vUKqSdleimAUqBbE5hMH6kqveqn3YHezOYz1mSeJgLYNIXS2iGqK5O/S4B
+	i9KX6OlVDwC1aQL1wNaQC7jadkAwY9i82gTi7ijFwPaYzYSpoBkjKhwlA5r7vLlgXi7ANx8j+RC
+	qfMLTNx81l+z5ysWlsU0WVJCF2QoazjcTvlnJkv/rTfS85S8xRkWEOEH4wt24ji5uRX8Nrh3mi6
+	RuRL4j5Vj7m2uig9U9cMJ0nZIXd8STI2BqwBBArl38V9PhLNCTgNzuIa/leQNRXbQpjFXE6FyyC
+	ySYo0LnHAS640a98uClHyAn7MIXMl1e1ZM9VS3R+f1p69snYqPkZWPcV0tbCFHRhKeKCO9F6mbd
+	C5jjL178+uEzJCwCK/ANAKvoG+86ZTQBnHxMNNeJ1TAj0Nq1hj6FqDxrzQQF6qDTzLRq0z5rnLU
+	F4Vk9Wj7v7VmX3BYRVc9EWujdzGxx8R8CXVLrOyisLpH4WgpQ==
+X-Received: by 2002:a05:6000:184d:b0:48e:e98:8b64 with SMTP id ffacd0b85a97d-49c70ed94d3mr14656470f8f.19.1794678572558;
+        Sat, 14 Nov 2026 09:49:32 -0800 (PST)
+Received: from localhost.localdomain ([2a0d:e487:413f:168f:fdf6:7a1f:cf13:6d8c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49dc430fa15sm6038203f8f.13.2026.11.14.09.49.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 14 Nov 2026 09:49:32 -0800 (PST)
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: stern@rowland.harvard.edu,
+	gregkh@linuxfoundation.org,
+	oneukum@suse.com,
+	usb-storage@lists.one-eyed-alien.net,
+	stable@vger.kernel.org,
+	Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Subject: [PATCH v4] usb: uas: ignore UAS for ASMT135x bridges (174c:55aa)
+Date: Sat, 14 Nov 2026 18:49:29 +0100
+Message-ID: <20261114174929.53871-1-olivier.kaloudoff@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,179 +102,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-From: Amir Goldstein <amir73il@gmail.com>
+The ASMedia chip detection in uas_use_uas_driver() assumes that every
+device with idVendor/idProduct 174c:5106 or 174c:55aa reporting a
+config.MaxPower of 0 is an ASM1153 with working UAS.
 
-[ Upstream commit 9ff338af0e002fe217cfa16b1289b76f6b21fc72 ]
+ASMT135x bridges (iProduct "ASMT135x") share the same 174c:55aa id and
+also report MaxPower == 0, so they take the "ASM1153, do nothing"
+path — but their UAS implementation is broken:
 
-Listing a merged or impure overlay directory opens the real layer
-directories from ovl_dir_read(), when the readdir cache is filled.
-Those opens use plain ovl_path_open(), so when the directory fd is
-one that fanotify created for a permission event, they can still raise
-FS_OPEN_PERM.  A listener that also marks the backing filesystem and
-calls getdents() on the event fd before answering then deadlocks the
-same way as with the directory open fixed by the previous commit.
+- The first READ(16) issued by sd probing times out after 30 s;
+  enumeration only completes after a uas_eh_abort_handler plus a full
+  uas_eh_host_reset_handler cycle:
 
-Store the overlay user file in struct ovl_readdir_data and pass it to
-ovl_path_open_realfile() from ovl_dir_read(), for both the merged and
-the impure cache.  Internal readers such as ovl_check_empty_dir() and
-the mount-time workdir cleanup still pass no user file.
+    scsi 3:0:0:0: Direct-Access  ASMT     ASMT135x        0  PQ: 0 ANSI: 6
+    sd 3:0:0:0: [sdb] tag#26 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD IN
+    sd 3:0:0:0: [sdb] tag#26 CDB: Read(16) 88 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00
+    scsi host3: uas_eh_host_reset_handler start
+    usb 6-2: reset SuperSpeed USB device number 2 using xhci_hcd
+    scsi host3: uas_eh_host_reset_handler success
 
-A note about severity and real world impact: The FAN_OPEN_PERM event is
-traditionally used by anti-malware protection agents and security/audit
-agents. The scope that is often used in those use cases is FAN_MARK_MOUNT
-and agents typically monitor multiple mounts in a mount namespace.
-FAN_OPEN_PERM from directory open requires user opt-in with FAN_ONDIR.
-It is often not the case that anti-malware agents monitor open of
-directories. Security/audit engines are more likely to opt-into
-FAN_OPEN_PERM on directories, but are less likely to list the content
-of a directory within the scope of FAN_OPEN_PERM event, so the real
-world impact of this bug is likely not significant.
+- Under concurrent load the bridge stalls: all inflight commands (20+
+  UAS tags in the captured incident, mixed READ(16)/WRITE(16)) hit the
+  30 s UAS timeout in the same event, forcing repeated abort/reset
+  cycles and eventually a USB disconnect.  Writes dropped mid-flight
+  during these resets returned zeros to the filesystem (observed as
+  XFS metadata corruption on the mounted volume).
 
-Reported-by: Edvard Conrad <edvard@tuta.io>
-Closes: https://lore.kernel.org/all/P5Qu3co--N-9@tuta.io/
-Cc: stable@vger.kernel.org
-Tested-by: Edvard Conrad <edvard@tuta.io>
-Link: https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
-Co-developed-by: Edvard Conrad <edvard@tuta.io>
-Signed-off-by: Edvard Conrad <edvard@tuta.io>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: replaced ovl_path_open_realfile() with ovl_path_open() using explicit __FMODE_NONOTIFY flag propagation ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+- Sequential-write throughput is ~45 MiB/s under UAS versus ~136 MiB/s
+  after disabling UAS (usb-storage BOT mode), which is fully stable:
+  several tens of GiB written without a single error.
+
+- Bulk reads of healthy LBA ranges do work under UAS (~190 MiB/s, no
+  errors); the failure pattern is command-timeout at enumeration and
+  under queue depth / write load, not a broken transfer path.
+
+An extended soak was also run at maintainer request: the device was
+rebound to uas and pushed with ~640 GiB of mixed I/O over ~2h45
+(randrw/seqwrite at queue depths 8-32, disk util ~100%).  Result: zero
+uas_eh events; the queue-depth wedge did not reproduce on demand.  The
+enumeration stall did reproduce once more at the first UAS probe and
+self-recovered via host reset.  Per the maintainer, an inconclusive
+load test still warrants the blacklist given the filesystem-loss risk.
+
+Since 174c:55aa is shared across several ASMedia bridges and enclosure
+rebrandings, distinguish the ASMT135x by its product string — the same
+approach used for the HIKSEMI MD202 check a few lines below.  The
+product strings of working bridges using the same id ("ASM1053E",
+"ASM1153", "ASM1153E", "ASM1351", vendor rebrands such as "YZWY_TECH")
+do not contain "ASMT135", so the match is safe.
+
+Verified on an ORICO C10 enclosure (iManufacturer "ASMT", iProduct
+"ASMT135x", bcdDevice 1.00, stock firmware) attached through an Alpine
+Ridge TB3 dock: with the equivalent usb-storage quirks parameter
+(174c:55aa:u) the device is completely stable.
+
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 ---
- fs/overlayfs/readdir.c | 31 ++++++++++++++++++++-----------
- 1 file changed, 20 insertions(+), 11 deletions(-)
+v4: resend at maintainer request (Oliver Neukum will ack); documented
+    the extended UAS soak results in the commit message.
+v3: add braces around the if-body (per Greg KH).
+v2: fix the comment block: added lines were missing the leading
+    tab, breaking the *-alignment with the rest of the block.
 
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index e3ff8828b5a8c..1b1cf16544130 100644
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
-@@ -37,6 +37,7 @@ struct ovl_dir_cache {
- 
- struct ovl_readdir_data {
- 	struct dir_context ctx;
-+	const struct file *user_file;
- 	struct dentry *dentry;
- 	bool is_lowest;
- 	struct rb_root *root;
-@@ -295,9 +296,13 @@ static inline int ovl_dir_read(struct path *realpath,
- 			       struct ovl_readdir_data *rdd)
- {
- 	struct file *realfile;
-+	int flags = O_RDONLY | O_LARGEFILE;
- 	int err;
- 
--	realfile = ovl_path_open(realpath, O_RDONLY | O_LARGEFILE);
-+	if (rdd->user_file && (rdd->user_file->f_mode & FMODE_NONOTIFY))
-+		flags |= __FMODE_NONOTIFY;
-+
-+	realfile = ovl_path_open(realpath, flags);
- 	if (IS_ERR(realfile))
- 		return PTR_ERR(realfile);
- 
-@@ -341,12 +346,13 @@ static void ovl_dir_reset(struct file *file)
- }
- 
- static int ovl_dir_read_merged(struct dentry *dentry, struct list_head *list,
--	struct rb_root *root)
-+	struct rb_root *root, const struct file *user_file)
- {
- 	int err;
- 	struct path realpath;
- 	struct ovl_readdir_data rdd = {
- 		.ctx.actor = ovl_fill_merge,
-+		.user_file = user_file,
- 		.dentry = dentry,
- 		.list = list,
- 		.root = root,
-@@ -390,9 +396,10 @@ static void ovl_seek_cursor(struct ovl_dir_file *od, loff_t pos)
- 	od->cursor = p;
- }
- 
--static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
-+static struct ovl_dir_cache *ovl_dir_cache_get(struct file *file)
- {
- 	int res;
-+	struct dentry *dentry = file->f_path.dentry;
- 	struct ovl_dir_cache *cache;
- 
- 	cache = ovl_dir_cache(d_inode(dentry));
-@@ -411,7 +418,7 @@ static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
- 	INIT_LIST_HEAD(&cache->entries);
- 	cache->root = RB_ROOT;
- 
--	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root);
-+	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root, file);
- 	if (res) {
- 		ovl_cache_free(&cache->entries);
- 		kfree(cache);
-@@ -545,14 +552,15 @@ static int ovl_fill_plain(struct dir_context *ctx, const char *name,
- 	return 0;
- }
- 
--static int ovl_dir_read_impure(struct path *path,  struct list_head *list,
--			       struct rb_root *root)
-+static int ovl_dir_read_impure(struct path *path, struct list_head *list,
-+			       struct rb_root *root, const struct file *user_file)
- {
- 	int err;
- 	struct path realpath;
- 	struct ovl_cache_entry *p, *n;
- 	struct ovl_readdir_data rdd = {
- 		.ctx.actor = ovl_fill_plain,
-+		.user_file = user_file,
- 		.list = list,
- 		.root = root,
- 	};
-@@ -590,9 +598,10 @@ static int ovl_dir_read_impure(struct path *path,  struct list_head *list,
- 	return 0;
- }
- 
--static struct ovl_dir_cache *ovl_cache_get_impure(struct path *path)
-+static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
- {
- 	int res;
-+	struct path *path = &file->f_path;
- 	struct dentry *dentry = path->dentry;
- 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
- 	struct ovl_dir_cache *cache;
-@@ -609,7 +618,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(struct path *path)
- 	if (!cache)
- 		return ERR_PTR(-ENOMEM);
- 
--	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
-+	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
- 	if (res) {
- 		ovl_cache_free(&cache->entries);
- 		kfree(cache);
-@@ -724,7 +733,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
- 	dput(parent);
- 
- 	if (ovl_is_impure_dir(file)) {
--		rdt.cache = ovl_cache_get_impure(&file->f_path);
-+		rdt.cache = ovl_cache_get_impure(file);
- 		if (IS_ERR(rdt.cache))
- 			return PTR_ERR(rdt.cache);
- 	}
-@@ -771,7 +780,7 @@ static int ovl_iterate(struct file *file, struct dir_context *ctx)
- 	if (!od->cache) {
- 		struct ovl_dir_cache *cache;
- 
--		cache = ovl_cache_get(dentry);
-+		cache = ovl_dir_cache_get(file);
- 		err = PTR_ERR(cache);
- 		if (IS_ERR(cache))
- 			goto out;
-@@ -986,7 +995,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
- 	const struct cred *old_cred;
- 
- 	old_cred = ovl_override_creds(dentry->d_sb);
--	err = ovl_dir_read_merged(dentry, list, &root);
-+	err = ovl_dir_read_merged(dentry, list, &root, NULL);
- 	revert_creds(old_cred);
- 	if (err)
- 		return err;
+ drivers/usb/storage/uas-detect.h | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/storage/uas-detect.h b/drivers/usb/storage/uas-detect.h
+index 4d3b49e5b..523a17cf0 100644
+--- a/drivers/usb/storage/uas-detect.h
++++ b/drivers/usb/storage/uas-detect.h
+@@ -78,6 +78,8 @@ static int uas_use_uas_driver(struct usb_interface *intf,
+         * ASM1051 - with broken (*) uas support
+         * ASM1053 - with working uas support, but problems with large xfers
+         * ASM1153 - with working uas support
++        * ASMT135x - broken uas support, shares the ASM1153 MaxPower == 0
++        *            signature, identify it by its product string
+         *
+         * Devices with these chips re-use a number of device-ids over the
+         * entire line, so the device-id is useless to determine if we're
+@@ -99,7 +101,11 @@ static int uas_use_uas_driver(struct usb_interface *intf,
+                        (le16_to_cpu(udev->descriptor.idProduct) == 0x5106 ||
+                         le16_to_cpu(udev->descriptor.idProduct) == 0x55aa)) {
+                if (udev->actconfig->desc.bMaxPower == 0) {
+-                       /* ASM1153, do nothing */
++                       if (udev->product && strstr(udev->product, "ASMT135")) {
++                               /* ASMT135x, broken uas */
++                               flags |= US_FL_IGNORE_UAS;
++                       }
++                       /* else ASM1153, do nothing */
+                } else if (udev->speed < USB_SPEED_SUPER) {
+                        /* No streams info, assume ASM1051 */
+                        flags |= US_FL_IGNORE_UAS;
 -- 
-2.53.0
-
+2.47.3
