@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794629595;
-	b=H7I6d5owrda1Qy+iHiKivPrlPdqgjeGydFw7/GbaLiZhmgisqTOvba753JveEAgHXiji
-	 Zvat+hQZfMfAGq4/5ONi32TFKfnkL5tOfc/0S1sHDqOYBS5sAGL/zRcAVfyQQVfXkN4mu
-	 jENSFEkzQlTvGB6NifA5zn5cvyTm6w/TkDU/5mjFCQc3gOtBJ/OWKzFtZ3i7zhaV19Ivo
-	 wFoG3o6AFe8RRQhWBEFLkPndI0EUHLOR7F7jF2sj0UfYVNQwDiy75ckfBwCeNmrE/X/TR
-	 kI+4t4YKbO9gnrENssX1meddHv02qByNpCZgTV6yEiwA9XG2wuhTU3Ud1ZyADrfqJvg==
+	t=1794629599;
+	b=UKhzuwdpwMLkIV3+mDHi5iLuGxB+Hzso3qFrP5gi8MfJxeCcO2ltYQ241FUWAHLzoqPz
+	 7R3iRABOVZRtwLmP6END5ywU2NfqC4qtQD8sbRi25L7WvKtxGJ3JOPa+NUdH04NMf7ZH5
+	 Q7WG/BzyIspkfinVhtdkzmQlvQ8hcgcmZpnOzQ13xy/EbxsrqAzf97xndyWfwOt1NIiub
+	 G6LviWoDKyvN7HRephz4l6855RpCYuVmMttmVZEfKFXpG3zrK3aMwyUIILOmK3kecIe5s
+	 hqdW1pWrbTnJFMbJFPVwE8Yoreqj1YCSoBj2ZWLxDOZZ6haJ+I0XOwO+/QE7+53p3hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794629595;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794629599;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iMNo6tuAe7SaitdPCFPKfii/XrdfXH0XRtnp+xEhqig=;
-	b=kkEjwUNRR03pBZzJhJZPwz4npAaImfjIp7gYu5vDD4mN0wJsjUqGJ0AAjjGkkDmxU0SU
-	 ZS9uyl11XSAVR8IkeRstqPuE3mETIBvk2OtyN1jokCjjRNxnQhfLs2IgL47L9PyBBgHVp
-	 a+ZRn4q8iHAtqIzW33BuPcHeJNr7DKoFjFi2n4g37VLr+SDFxHp54v8ErP2zD9tJpCizS
-	 RnYlJMGCL4OPel7ynH5FfoPl1JzCcxMbawxplFKqolho0Lo1HwqOGNrU7Vy/SGtieyFrs
-	 LBWLBcJRixJMj5EEWxdY2XlxVNz42NGzDxhkuPOXipdom9A8MpdM5iN0SlCL9CVscIg==
+	bh=tHB01mTlZiMahVMRA5ZCllm3iOdO8KFcrfBN05HIU4A=;
+	b=p0XyiXCEBj8A0FGHURHh0tBQD6T5qgCCD/2uHavheuTzgnoH9Mjwu7tpyihY/dbIQr/q
+	 DlzMexMMaFwt7WrTOL7YYFMzz9Etnc6Cb3oVGiMmvpKbhxUHXTBJTvxoASs87LTWOxs9o
+	 AnnaV15Te8FBlZ5SBoKvmBdEHsC8j+3ZIjmOoBCM4Lm5pVBTMwgevrfOcPAwvkFKgf4iN
+	 diQNsi94ftZbQxpsK3cLWR+09rX8HWF0DJ454q9B9JTZ0jqQxONmaWy66lLZPrayuho70
+	 oGq/Uuu3e0/z2cnPKvh92+wlxZ0/90huqPhvGmAOC0KfuAGdv4nlD8GtPM3GePn5oMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lcElcqCP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mU0W43/0";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46E8606A331
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:13:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C75F606A330
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lcElcqCP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0E9A1F000C4;
-	Sat, 14 Nov 2026 04:13:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mU0W43/0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5202F1F000C4;
+	Sat, 14 Nov 2026 04:13:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794629595;
-	bh=iMNo6tuAe7SaitdPCFPKfii/XrdfXH0XRtnp+xEhqig=;
+	s=k20260515; t=1794629599;
+	bh=tHB01mTlZiMahVMRA5ZCllm3iOdO8KFcrfBN05HIU4A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lcElcqCP+iVD5alX8GlK9xbmt8+7kYnxFsg6LzGiQxgBkXITMT7GSKnacWeRLkXcL
-	 2WPJOPTSG/vLYgh7bTx2t0KISDi6rp+a+mg3Ot7ByWtd92/9ZwOpG6YzgPIctDnd4Z
-	 GmgFGnOnt0HXJVGDws8loWh9tzd/J/k4a+9QjLfVJHP1qbl9ha883jKmcW3uRaxXGV
-	 on3NYYlTmlQSqH0VagpO3OKKbOJ1r/Xu6dhHfqYqczHfxkheu6pYu2eQUsegazR4oa
-	 nadSO22/JFmAQ361YO0DRDwAm945cNH6kfxoIA2q7n/mkrw8Ij3rFuGTUdWfGEUX0u
-	 vhhi5XzUKG8Ug==
+	b=mU0W43/05otlu+C9Yy32xmvpusvfDGJIzO3IbP3gdG2dvXDX5HbWx3aPVrHKnawil
+	 qWAhsN2hcSiejXSl0RWtJcenNJBIauWHPupKpEQLJHm8B92J6rGd8QimWLEKqqwbGW
+	 MbjTAnsj/4gPENlAeT2LWwfMAvc8NrmRpaLWr23vVmeyVPS140XaEod+3IIOSHrrr0
+	 j+X2Rxttmy6Jn479J+7gEPtXlG0BRmi/cMYKyEr2R9QMVB/bmUTYHws6NaNFgHaBDI
+	 qEiIAyv+U2PQmNr6leVVviTnY2Fpx1RgvMwQMGgqeMfjJ63vSe2kNDMXWnKorgORF8
+	 XXgeruJ4okzSw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Dev Jain <dev.jain@arm.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/shmem: preserve allocation errors when swapping in large entries
-Date: Fri, 13 Nov 2026 23:13:13 -0500
-Message-ID: <20261114035328.2743455-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs
+Date: Fri, 13 Nov 2026 23:13:16 -0500
+Message-ID: <20261114035316.2633742-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200304-failed-6.18-f4ce23b1feef@kernel.org>
-References: <20261109200304-failed-6.18-f4ce23b1feef@kernel.org>
+In-Reply-To: <20261109201836-failed-6.1-b4417d08034a@kernel.org>
+References: <20261109201836-failed-6.1-b4417d08034a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,59 +67,47 @@ Content-Transfer-Encoding: 8bit
 
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit f4ce23b1feef16d435aa1188b6c2a637a5373ed5 ]
+[ Upstream commit b4417d08034a7b4a3083e0e2d95429d4542524f2 ]
 
-shmem_swapin_folio() adjusts swap to the requested slot within a large
-swap entry before allocating a folio. If allocation or charging fails,
-the error path compares this adjusted value with the original entry
-still stored in the XArray in shmem_confirm_swap().
+move_huge_pud() reads the old PUD and clears it in separate operations.
+Hardware accessed or dirty updates between those operations can be lost
+when the saved entry is installed at the new address.
 
-Unless the index is at the start of the entry, this turns -ENOMEM into
--EEXIST even though nothing changed.
+The raw pud_clear() also bypasses page_table_check_pud_clear(), while
+set_pud_at() accounts for the destination mapping. This leaves the
+checker counts unbalanced for mappings tracked by page table checking.
 
-The caller retries -EEXIST, so persistent allocation failures can leave
-the task spinning instead of returning the error.
+To fix it, simply use pudp_huge_get_and_clear().
 
-Restore swap to index_entry on allocation failure so the existing error
-path checks the original entry. This preserves the allocation error if
-the entry is unchanged and still retries if it changed concurrently.
-
-Fixes: 91ab656ece13 ("mm/shmem, swap: tidy up swap entry splitting")
+Fixes: 7d846db7d0e2 ("mm/mremap: convert huge PUD move to separate helper")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-12-392fc715d8f6@kernel.org
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-30-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Duplicated the swap = index_entry assignment across separate direct and cached swap-in failure paths instead of one shared error block. ]
+[ sashal: Replaced pmc->old_addr with the direct old_addr parameter in pudp_huge_get_and_clear(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/shmem.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/mremap.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 6828611bcdfe0..e7c4d134b8255 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -2376,6 +2376,8 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
- 			if (IS_ERR(folio)) {
- 				error = PTR_ERR(folio);
- 				folio = NULL;
-+				/* Make sure to validate the original value. */
-+				swap = index_entry;
- 				goto failed;
- 			}
- 			skip_swapcache = true;
-@@ -2384,6 +2386,8 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
- 			folio = shmem_swapin_cluster(swap, gfp, info, index);
- 			if (!folio) {
- 				error = -ENOMEM;
-+				/* Make sure to validate the original value. */
-+				swap = index_entry;
- 				goto failed;
- 			}
- 		}
+diff --git a/mm/mremap.c b/mm/mremap.c
+index a13ad0e9c1f84..45341c045b3b4 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -393,8 +393,7 @@ static bool move_huge_pud(struct vm_area_struct *vma, unsigned long old_addr,
+ 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+ 
+ 	/* Clear the pud */
+-	pud = *old_pud;
+-	pud_clear(old_pud);
++	pud = pudp_huge_get_and_clear(mm, old_addr, old_pud);
+ 
+ 	VM_BUG_ON(!pud_none(*new_pud));
+ 
 -- 
 2.53.0
 
