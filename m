@@ -1,53 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677617;
-	b=ZakIzZOAGyBK6MaqubfOcQy9QVyREHpBxyEe7PWHhy8j/r+F4oCL9cXHQF3KeYHJXLU6
-	 EJLJegSYCH/VgyHhK677CY2kFf9gKlwKFRbBo2ZO4pOMDo0JfnN0NDUJvQEHalmJSv70c
-	 SkVdJYlcz3R8KyLIMo4dwMx2o4b6L+0QbaWBs3nrADKjuRS2YlhmY67iEKkpbVcvP7yqL
-	 t25+6JsDPXRpuru+8rKQ74YJRNBs8HM1jR2d+K/RZD16wwUmDUQS3/Y3CPMi5i+2ABFxi
-	 9j1474Zow4r7Vv/DOGQb53PKOolyCN0AJD+/X5RIJkPq1ttPZIGwcTyFAgf0ypjj/Vw==
+	t=1794677756;
+	b=FrFBxwR+7rtCEVH09WvSnGFk5Y4zFdmEJftBgKDW8zzdPS74sLzApb3z/v8hQS/txJZM
+	 /0VoPxKq38UHAH9KqHtXXHMq6xoXGvAkqCab7uLjtRPap7KEmCueNbyB80zFXuDufv43c
+	 enR3EJitdng/VfF+/SPMiIksWSzPeobdlVCLmAAMHgT7HN4bcK9m6HVqLWc8LCYSRYsp+
+	 ooa5+zS2Pnliam2tvV+qzYvZnC60ePMMpxCVKql1ayNGGPsxeBKpismABY1adGxNLV1jB
+	 U7g5QN4CtYWbKAqsLRUtsuoP2ldpuhQe3MVsLuKLfE1hftWwXGaSFd1tPq0fAgB3ENA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677617;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VMjHeqkDRZE8dhy1hqRxTcDbSg1/bFbdQHaCHWsCozw=;
-	b=0VklDvVTSy/LTbn37vmRZ31MbXaRRNItZCRLp9p7EKJfZcXzzauFrlWNWS66EpVq9QJS
-	 dFpCHfj+arCxzI9jBgIYcJk9ftr/m1fluQjsqYkpmTFzS5ioMZGg5R8e2sWkKGXJ0Adaq
-	 5MjxK114cKE42B9ctT38NAfLw54i5PCcwt4PG1vZMtoZJ+cdZS120J3l5ePeDaE3/YX2g
-	 9PrLcuOLxzESYCSkfi9VWdnmWzluztbkH/504FAQOxT8i9zdYDqndZUoUOUj/Hrcy8oAT
-	 ffBtZrdedGd2vAX0x0rKIIGi2frIe4HS2Tyy47Zgs0CMibFyxFvzzU/yzeaGG1S45Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677756;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=qK7SuyRaPZU4Zu8y5BHFfEAd1B/irS9odpnB5X268FU=;
+	b=VpFeWjlYDVhk+xor/hx+u87Enlky1DEWfO7ydXtHUAt68vSg3WS/yXP6Rq69yRrgWjPt
+	 tYzubwAaFGnPMxoZyMyQ8u6Q7X9HCTwCySt2PBSgZI170KkmnBSJ76OjVx9/FtxHmIsOw
+	 t5MvkwMfSfLA26ptuRDhV9sZ5A/GqJvSwyKSKyKjIaKoXBM81sTYzQ0Kv826BHn/E9P6m
+	 V5650gTOA85Dd9T5wMEHEexpSpKYyqIA3bM4lUtOhot+AepXw1SYpI/QHUQGqhEOuCXDX
+	 4KTi7oYvtJMGXHBHOt2gJUI6EyDhSJetKWiL9+ICy7Sm7J1djGfoxU+KGqwuKmWIchg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O19UBMrA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=justthetip.ca;
+	spf=pass smtp.mailfrom=justthetip.ca;
+	dkim=pass header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=v+0QoPX8;
+	arc=none smtp.remote-ip=91.218.175.22
+Received: from mta0.migadu.com (out-22.mta0.migadu.com [91.218.175.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D52D606A327;
-	Sat, 14 Nov 2026 17:33:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C949D606A334
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:35:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C949D606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O19UBMrA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3003A1F000C4;
-	Sat, 14 Nov 2026 17:33:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794677617;
-	bh=VMjHeqkDRZE8dhy1hqRxTcDbSg1/bFbdQHaCHWsCozw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O19UBMrAXkSoqPs2prqibtCjHeT2ADtnsEqYx5CwN2Oz2VgZ9KcZRHMdcNCOcdfgl
-	 ORgZffaPijVySmPmQ6Je7Leyt7vh8GDA4rqz4FakWw97AhfpzssLYjZupsgOQAZAAw
-	 rrsUb2D6bnRPbSgcp7Mrwd6/5MT3vLYsIs/m6OqPkVV7klRQMXXJtEbufp2JLV7xVv
-	 TH2lNKIi9KMJpq7YRLpHUuP6l7p+aka9NtHOoaViwLbdxP37X/QZV3kntbmTcqYy8e
-	 13Nj1AwEP17GmyWaTaNOEZA9ckwfLaHcaYngHulFXkulfjPwlvUstfQTsIBdPOscFI
-	 Lz6Ogx5In6jug==
-Date: Sat, 14 Nov 2026 17:33:32 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: shao.mingyin@zte.com.cn
-Cc: akpm@linux-foundation.org, rppt@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/execmem: check execmem_restore_rox() failure in
- execmem_cache_free()
-Message-ID: <avibYdE9NJKchXM-@gremlin>
-References: <20261115004704544fuMEkcx0F4A1sNBAzz46-@zte.com.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=v+0QoPX8
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2E6UwzKVw7xbUUzy4LRhSE/cy3bndWxPXfWiSHkxIRI=;
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794677753; v=1; x=1795282553;
+ b=v+0QoPX8dnT9S1HhuRc4W7BP60sTbojQ7gjTlfbKmjHx2O1ZdoQoQasPl/1gRvcgZmNdmB0S
+ nG/XsQvSG32fSAsMVhln1wwsjXQPkahZ2G3C/ZEIJSyoaClwzzvNPvuAhT5yH1B2F/SOBtFGdDt
+ NteqXejawRnA71OQ6cNaSzlJBa7YImTxAURHPYeDfY/5gze8jWCQoxwJQp4Hz/zsR1XEr8/pLY0
+ IdEIViFKOAfjBPHGi+vfqdf4G6O3JASzljz4+3RtvOs2AD8ucmSpQt1rVxjZdcpkmDsLzLZu2sB
+ E26mEUTgrckRsEIk8xXY6tHoMvIK0nxuE1tcXZfHWbuPA==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4af640e38ee65c47;
+	Sat, 14 Nov 2026 17:35:53 +0000
+X-Mizu-Trace-ID: 4af640e38ee65c47
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Hao Qin <hao.qin@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Chris Lu <chris.lu@mediatek.com>,
+	linux-bluetooth@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: [STABLE 6.6] Bluetooth MediaTek controller reset fixes
+Date: Sat, 14 Nov 2026 10:35:50 -0700
+Message-ID: <20261114173550.5736-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,41 +73,41 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115004704544fuMEkcx0F4A1sNBAzz46-@zte.com.cn>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 15, 2026 at 12:47:04AM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
->
-> mm/execmem: check execmem_restore_rox() failure in execmem_cache_free()
->
-> __execmem_cache_free() checks execmem_force_rw(), but ignores the
-> matching execmem_restore_rox() result before adding the block to the
-> free ROX cache. A failed restore can leave permissions only partially
-> updated, so a later cache allocation can return memory that is not ROX.
-> The cache allocation path does not reapply permissions.
->
-> Check the restore result and return the error. The existing callers keep
-> failed frees pending and retry them through delayed work. This prevents
-> a block whose ROX restoration failed from entering the free cache, and
-> matches the error handling in execmem_vmalloc_rox().
->
-> Fixes: 187fd8521dd8 ("execmem: rework execmem_cache_free()")
-> Cc: stable@vger.kernel.org # 6.17
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Hi,
 
-NAK.
+Please queue these two for 6.6.y, in this order:
 
-this is generated by some AI slopper's script, spamming the kernel. The
-patches I looked at were wrong/broken, so no to anything from this person.
+  a7208610761a ("Bluetooth: btmtk: Remove resetting mt7921 before
+                 downloading the fw")
+  33634e2ab7c6 ("Bluetooth: btmtk: Remove the resetting step before
+                 downloading the fw")
 
-They've sent 300 mails in under four weeks spanniing: ata, scsi, target,
-ufs, nvme/nvmet, ubifs, ublk, zloop, dm, md, mmc, virtio-blk, mfd, gpio,
-pwm, spi, PCI, ASoC, ACPI, net, vfs mount, block partitions, and now mm.
+6.6.145 brought in the controller reset they remove, as a dependency
+of another backport (1c770a550df2, upstream ccfc8948d7e4). 6.12.29 has
+both already [1].
 
-and 17 series across 7 subsystems over the past 23 hours.
+On 6.6.162 an MT7921AU USB adapter on a USB 3.0 port has no Bluetooth.
+Setup ends with
 
-We need a way to ban emails from people like this...
+  Bluetooth: hci1: Opcode 0x0c03 failed: -110
 
---
-Cheers, Lorenzo
+and the controller cannot be powered on. On a USB 2.0 port it works.
+
+  6.6.162, Alfa AWUS036AXML at USB 3.0    as released   with both
+  boot                                    0 of 1        1 of 1
+  plug-in                                 0 of 1        1 of 1
+  USB reset, then probe                   0 of 5        10 of 10
+  the same, Wi-Fi driver loaded           0 of 5        5 of 5
+
+With the Wi-Fi driver loaded, its probe also resets the device [2].
+The fixed kernel then still logs that line once per probe, and the
+controller comes up.
+
+Both apply to 6.6.162 unchanged.
+
+[1] https://lore.kernel.org/all/aBxdpIabalg073AU@m.b4.vu/
+[2] https://lore.kernel.org/all/20261112-mt7921u-bt-reset-v1-1-65587a4d7b81@flipper.net/
+
+Devin
