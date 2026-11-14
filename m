@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632758;
-	b=mwRGlcsEpIBjZGmaKmIv2DvaAGmyWuxFmPyP+uXSPetdXuahVsLQkRCRfzlpAbVMDJ2R
-	 bERQMttzuz3gOWP0TmfuXtAmR+rlCTT6Cn1KhLpSNWhq5kcQ197+tHMn/bkFMf6FJ6QAR
-	 Xtfyio7rQo0jniAOqlOm4p14A/20UbwdBvIbbw4j7Hfh6r49vKm1nKcp67cRMWFDsYqi8
-	 d9aU0RneMWJx/Acyq0DNLcJyJLStonzvLV06sZSGzKo9vIYEHffIXnl+dUesy9aNB1xJf
-	 BeZ2W9rbBQF7Al/SsY6FT3HaxgEJy8soY2ZptlV2oN4ozyY9BnDoKGO9pQNw8eJTZPQ==
+	t=1794632904;
+	b=MU7KT7fG9g040vNaPpr2fD0D3ng74lGkuy9BGBYh7qQe4xWC3BQ7z/cG8GCu30kbdi+5
+	 c6ljDvVeteZcRgIsqGW8D2BtXCQfGmTr0dYxi5ffuca7Wqit55rTbG0VWI05i9AThrsMX
+	 aZ3WQty+H4ltr4WMkv4s1P/ZXuz3DkHaXLVzIU1MyDi01pL6Ocp4o+ZfbTZDft7qnuBtZ
+	 YUL9jcDmB4/FOOY2oClTlZbsas0PhlCwNkRKhHE3D1wr9+6V7lRQ4lJgzorEn5Nf+HmmJ
+	 GC0RYXCX6vd/7WIv4HdT8Ue3fpGPVyEXuXGogF8iI/hRqSATnxiH5RVnmZ4qjpZ8dFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632904;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8wSTK/9zVZk3gY6DUDRG+4sxOyp711Jj/hgEln+dla8=;
-	b=0uqMXARyYNo0wxtSMyFYTs9y3eQGr925Ny+36lvmJarsYB4eDU+oMQxbUDja2oHgxLHn
-	 Iq7yewYKVUXnCk4FX8wPTpyBGO3K/waLLmK4Q93VZBichRmZm9+GNRzegc7m0Rk9mQzJB
-	 K8Bj0YPeVsdDnWE0jhQbnm7XgyCIjhdTPrjuL3nQIUKT770hpx4ddk/NjuMttE5X4aDlc
-	 NKMMcU0pQ3D5hyODyC6nvQKJqX41ash8eEgTAVefKftDrGAEhppxU04cm8+UiUPQQkuN6
-	 Oc501UijbxKGjq5go/cDmBoZWTqlBHCaIZQvl0yQurQibw+rSk676AwpirJwv/X/U5g==
+	bh=YljeQCxgLKjP6/gJnjCgjHj7JQlYfK4AJ/BGjQyqUjI=;
+	b=cf44ZoHHqive0ng42/5Gibk7bJfnEu8jVGqqoa5B7WCw7rKrL5wDfjmG5HAFvCq53+fl
+	 HMt4mGqrG05baNWtPsFVApNTGtZHxWBT5wyrC+reSJ6kdu09mlM2d8iDZRZFEzI+YKJwc
+	 VUVDsxztvP+TNR8U9OTHJrqO4pOdZPerrY/sqWUoVqxZwhgWwvK9sbf2SAHuQ0rHnpGi9
+	 071vZoastrWkHZWtwl+kO6+dTw4FGUN8hlqwMPlqoHXrAl3j4XAEWLh0KvcgiPEIBsXrB
+	 420F1UQpR6GeKZVNlbjeBd+Xf0Jfg7TGvN9XFZ35LpJ7hBDy2nMaGqsckIiAI2P+NVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j08YbWvQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhMTVLbS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73611606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:05:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D23606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:08:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j08YbWvQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EFBD1F000C4;
-	Sat, 14 Nov 2026 05:05:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhMTVLbS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24711F000C4;
+	Sat, 14 Nov 2026 05:08:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794632758;
-	bh=8wSTK/9zVZk3gY6DUDRG+4sxOyp711Jj/hgEln+dla8=;
+	s=k20260515; t=1794632903;
+	bh=YljeQCxgLKjP6/gJnjCgjHj7JQlYfK4AJ/BGjQyqUjI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j08YbWvQIilJ1Nz+A53DXzjXiUE0bXcF22ZUagnJnMCEj3Gcw0uRybRmOnne+qxdy
-	 m7374h/bcjFE3R1cTjTxn05ET36iJXKukd0njodFdSc3lIcqUupPDf7h8hnumHLoZ8
-	 fZl2qLBDQv4hjKmsiIwLtM9MLTdOqWH8h2h96YHHOeMqKyvSaytwEoAUVlcuaVT6V4
-	 H78A9tYbMV3Vqm2vZgEi+CvFp5ttUOt/PFsGAI3d5kpRlcQA1COdEC+tqwRBrF9rY7
-	 /SEY+/wWzdjUaVRF2feP/+hvz3rQt5kevgJeHpmVeo5iJTV7wis1t8upL+98pgz0Wh
-	 TzUDgPBBOCBKg==
+	b=EhMTVLbSu7NLcIDvsbnNHXp4vjdUCXOeXdGKysCu53TbEpMfhPYe00gOOQE484W+Y
+	 iQXxiAbq45PwLhrOuofa0qQM3sAmbTKQfH27ZkVdpvuzpksux65Yu0k0EDYPs4uCF8
+	 x44BkvFSYEboqU4EPZQBMJpC3zgGPJ3BGRNcUvOOPwaIGwefS4kSS8D4M0NX46SzPH
+	 oHl9jQBlRhUjFGfbkAjnnAkpiBu8VHHXPOkqnVrx6oWZeFM26rbORYSsL2FPfpaDAp
+	 KAD+aXqY9GGdODUpF16E3jVk79uEl9hx7HhA8TK2M4y4DLVzKU+Woap5FJ2Mgz2mtw
+	 JjQDryjbPDKXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: YouYou Yu <youyouyu@amazon.com>,
-	Dylan Johnson <dgj@amazon.com>,
-	Gunnar Kudrjavets <gunnarku@amazon.com>,
-	Jan Kara <jack@suse.cz>,
+Cc: Aditya Sharma <adi.sharma@zohomail.in>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Liam Howlett <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] quota: initialize dquot cache before mounting rootfs
-Date: Sat, 14 Nov 2026 00:05:56 -0500
-Message-ID: <20261114050544.3046819-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] mm/memory: update stale locking comments for fault handlers
+Date: Sat, 14 Nov 2026 00:08:20 -0500
+Message-ID: <20261114050807.3044739-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202523-failed-5.10-e21a6f39aa6d@kernel.org>
-References: <20261109202523-failed-5.10-e21a6f39aa6d@kernel.org>
+In-Reply-To: <20261109200351-failed-6.18-f681d4580d5c@kernel.org>
+References: <20261109200351-failed-6.18-f681d4580d5c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,134 +67,167 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: YouYou Yu <youyouyu@amazon.com>
+From: Aditya Sharma <adi.sharma@zohomail.in>
 
-[ Upstream commit e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 ]
+[ Upstream commit 214f9ab72ce6e16120c20ad670389656f059e685 ]
 
-On some systems, a tmpfs backed rootfs is extensively used throughout
-system's lifecycle. tmpfs quotas are needed to limit per user rootfs
-usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
-and "initramfs_options=usrquota" panics at boot:
+Update the comments for wp_page_copy(), do_wp_page(), do_swap_page(),
+do_anonymous_page(), __do_fault(), do_fault(), handle_pte_fault(),
+__handle_mm_fault(), and handle_mm_fault() to concisely clarify that they
+can be entered holding either the mmap_lock or the VMA lock, and that the
+lock may be released upon returning VM_FAULT_RETRY.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:dqget+0x1ac/0x490
-  Call Trace:
-   __dquot_initialize
-   dquot_initialize
-   shmem_get_inode
-   shmem_fill_super
-   ...
-   mnt_init
-   vfs_caches_init
-   start_kernel
+Additionally, make the following corrections:
+- In do_anonymous_page(), correct the outdated claim that the function
+  is entered with the PTE "mapped but not yet locked". Since
+  handle_pte_fault() unmaps the empty PTE before routing to
+  do_pte_missing(), the comment now correctly states it is entered
+  with the PTE unmapped and unlocked.
+- In __do_fault(), update the stale reference from __lock_page_retry()
+  to __folio_lock_or_retry().
 
-The rootfs is mounted from mnt_init(), but the dquot hash table and
-cache are only set up later by dquot_init(), an fs_initcall. Creating
-the root inode of a quota enabled rootfs thus dereferences the NULL
-dquot_hash in dqget().
-
-Rename dquot_init() to dquot_cache_init() and call it from
-vfs_caches_init() before mnt_init(). The slab, percpu and early
-workqueue code it relies on is available there, and the workqueue
-rescuer and shrinker debugfs entries are set up later by their own
-subsystems. Keep the sysctl registration in an fs_initcall, as done
-for the dcache, inode and mount sysctls. This only moves existing
-allocations earlier in boot.
-
-Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: YouYou Yu <youyouyu@amazon.com>
-Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
-Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
-Signed-off-by: Jan Kara <jack@suse.cz>
-[ sashal: adapted sysctl initialization to use register_sysctl_table(sys_table) instead of register_sysctl_init() ]
+Link: https://lore.kernel.org/20260424092217.263648-1-adi.sharma@zohomail.in
+Signed-off-by: Aditya Sharma <adi.sharma@zohomail.in>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Liam Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: f681d4580d5c ("mm: fix address wraparound when scanning large folio PTEs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dcache.c              |  2 ++
- fs/quota/dquot.c         | 10 ++++++----
- include/linux/quotaops.h |  5 +++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ mm/memory.c | 55 ++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 29 insertions(+), 26 deletions(-)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 52b7211cba915..ce6e4f41d252f 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -32,6 +32,7 @@
- #include <linux/bit_spinlock.h>
- #include <linux/rculist_bl.h>
- #include <linux/list_lru.h>
-+#include <linux/quotaops.h>
- #include "internal.h"
- #include "mount.h"
- 
-@@ -3248,6 +3249,7 @@ void __init vfs_caches_init(void)
- 	inode_init();
- 	files_init();
- 	files_maxfiles_init();
-+	dquot_cache_init();
- 	mnt_init();
- 	bdev_cache_init();
- 	chrdev_init();
-diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
-index b4326fc1d90fd..b9f66b38c5d18 100644
---- a/fs/quota/dquot.c
-+++ b/fs/quota/dquot.c
-@@ -3045,15 +3045,13 @@ static struct ctl_table sys_table[] = {
- 	{ },
- };
- 
--static int __init dquot_init(void)
-+void __init dquot_cache_init(void)
- {
- 	int i, ret;
- 	unsigned long nr_hash, order;
- 
- 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
- 
--	register_sysctl_table(sys_table);
--
- 	dquot_cachep = kmem_cache_create("dquot",
- 			sizeof(struct dquot), sizeof(unsigned long) * 4,
- 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
-@@ -3085,7 +3083,11 @@ static int __init dquot_init(void)
- 
- 	if (register_shrinker(&dqcache_shrinker))
- 		panic("Cannot register dquot shrinker");
-+}
- 
-+static int __init init_fs_dquot_sysctls(void)
-+{
-+	register_sysctl_table(sys_table);
- 	return 0;
- }
--fs_initcall(dquot_init);
-+fs_initcall(init_fs_dquot_sysctls);
-diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
-index 8a1ad23da3a11..5f2e39226da60 100644
---- a/include/linux/quotaops.h
-+++ b/include/linux/quotaops.h
-@@ -39,6 +39,7 @@ void __quota_error(struct super_block *sb, const char *func,
- /*
-  * declaration of quota_function calls in kernel.
+diff --git a/mm/memory.c b/mm/memory.c
+index e37ae367c8c19..c9597d7f8ba0a 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -3673,8 +3673,8 @@ vm_fault_t __vmf_anon_prepare(struct vm_fault *vmf)
+  * Handle the case of a page which we actually need to copy to a new page,
+  * either due to COW or unsharing.
+  *
+- * Called with mmap_lock locked and the old page referenced, but
+- * without the ptl held.
++ * Called with either the VMA lock or the mmap_lock held (see FAULT_FLAG_VMA_LOCK)
++ * and the old page referenced, but without the ptl held.
+  *
+  * High level logic flow:
+  *
+@@ -4075,9 +4075,9 @@ static bool wp_can_reuse_anon_folio(struct folio *folio,
+  * though the page will change only once the write actually happens. This
+  * avoids a few races, and potentially makes it more efficient.
+  *
+- * We enter with non-exclusive mmap_lock (to exclude vma changes,
+- * but allow concurrent faults), with pte both mapped and locked.
+- * We return with mmap_lock still held, but pte unmapped and unlocked.
++ * We enter with either the VMA lock or the mmap_lock held (see
++ * FAULT_FLAG_VMA_LOCK) and pte both mapped and locked. We return with
++ * the same lock still held, but pte unmapped and unlocked.
   */
-+void dquot_cache_init(void);
- int dquot_initialize(struct inode *inode);
- bool dquot_initialize_needed(struct inode *inode);
- void dquot_drop(struct inode *inode);
-@@ -204,6 +205,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
- 	return 0;
+ static vm_fault_t do_wp_page(struct vm_fault *vmf)
+ 	__releases(vmf->ptl)
+@@ -4605,12 +4605,12 @@ static struct folio *alloc_swap_folio(struct vm_fault *vmf)
+ static DECLARE_WAIT_QUEUE_HEAD(swapcache_wq);
+ 
+ /*
+- * We enter with non-exclusive mmap_lock (to exclude vma changes,
+- * but allow concurrent faults), and pte mapped but not yet locked.
++ * We enter with either the VMA lock or the mmap_lock held (see
++ * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
+  * We return with pte unmapped and unlocked.
+  *
+- * We return with the mmap_lock locked or unlocked in the same cases
+- * as does filemap_fault().
++ * When returning, the lock may have been released in the same cases
++ * as done by filemap_fault().
+  */
+ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ {
+@@ -5161,9 +5161,10 @@ static struct folio *alloc_anon_folio(struct vm_fault *vmf)
  }
  
-+static inline void dquot_cache_init(void)
-+{
-+}
-+
- static inline int dquot_initialize(struct inode *inode)
+ /*
+- * We enter with non-exclusive mmap_lock (to exclude vma changes,
+- * but allow concurrent faults), and pte mapped but not yet locked.
+- * We return with mmap_lock still held, but pte unmapped and unlocked.
++ * We enter with either the VMA lock or the mmap_lock held (see
++ * FAULT_FLAG_VMA_LOCK), and pte unmapped and unlocked.
++ * We return with the lock still held, but pte unmapped and unlocked.
++ * If VM_FAULT_RETRY is returned, the lock may have been released.
+  */
+ static vm_fault_t do_anonymous_page(struct vm_fault *vmf)
  {
- 	return 0;
+@@ -5281,9 +5282,10 @@ static vm_fault_t do_anonymous_page(struct vm_fault *vmf)
+ }
+ 
+ /*
+- * The mmap_lock must have been held on entry, and may have been
+- * released depending on flags and vma->vm_ops->fault() return value.
+- * See filemap_fault() and __lock_page_retry().
++ * Either the VMA lock or the mmap_lock must have been held on entry
++ * (see FAULT_FLAG_VMA_LOCK) and may have been released depending on
++ * flags and vma->vm_ops->fault() return value.
++ * See filemap_fault() and __folio_lock_or_retry().
+  */
+ static vm_fault_t __do_fault(struct vm_fault *vmf)
+ {
+@@ -5844,11 +5846,11 @@ static vm_fault_t do_shared_fault(struct vm_fault *vmf)
+ }
+ 
+ /*
+- * We enter with non-exclusive mmap_lock (to exclude vma changes,
+- * but allow concurrent faults).
+- * The mmap_lock may have been released depending on flags and our
++ * We enter with either the VMA lock or the mmap_lock held (see
++ * FAULT_FLAG_VMA_LOCK).
++ * The lock may have been released depending on flags and our
+  * return value.  See filemap_fault() and __folio_lock_or_retry().
+- * If mmap_lock is released, vma may become invalid (for example
++ * If the lock is released, vma may become invalid (for example
+  * by other thread calling munmap()).
+  */
+ static vm_fault_t do_fault(struct vm_fault *vmf)
+@@ -6176,10 +6178,11 @@ static vm_fault_t wp_huge_pud(struct vm_fault *vmf, pud_t orig_pud)
+  * with external mmu caches can use to update those (ie the Sparc or
+  * PowerPC hashed page tables that act as extended TLBs).
+  *
+- * We enter with non-exclusive mmap_lock (to exclude vma changes, but allow
+- * concurrent faults).
++ * On entry, we hold either the VMA lock or the mmap_lock
++ * (see FAULT_FLAG_VMA_LOCK).
+  *
+- * The mmap_lock may have been released depending on flags and our return value.
++ * The mmap_lock or VMA lock may have been released depending on flags
++ * and our return value.
+  * See filemap_fault() and __folio_lock_or_retry().
+  */
+ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+@@ -6272,8 +6275,8 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+ 
+ /*
+  * On entry, we hold either the VMA lock or the mmap_lock
+- * (FAULT_FLAG_VMA_LOCK tells you which).  If VM_FAULT_RETRY is set in
+- * the result, the mmap_lock is not held on exit.  See filemap_fault()
++ * (see FAULT_FLAG_VMA_LOCK).  If VM_FAULT_RETRY is set in
++ * the result, the lock is not held on exit.  See filemap_fault()
+  * and __folio_lock_or_retry().
+  */
+ static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
+@@ -6501,9 +6504,9 @@ static vm_fault_t sanitize_fault_flags(struct vm_area_struct *vma,
+ 
+ /*
+  * By the time we get here, we already hold either the VMA lock or the
+- * mmap_lock (FAULT_FLAG_VMA_LOCK tells you which).
++ * mmap_lock (see FAULT_FLAG_VMA_LOCK).
+  *
+- * The mmap_lock may have been released depending on flags and our
++ * The lock may have been released depending on flags and our
+  * return value.  See filemap_fault() and __folio_lock_or_retry().
+  */
+ vm_fault_t handle_mm_fault(struct vm_area_struct *vma, unsigned long address,
 -- 
 2.53.0
 
