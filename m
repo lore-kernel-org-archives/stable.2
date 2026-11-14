@@ -1,101 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674512;
-	b=2u1W/qhCIxapaB/SJs2cgrXupuvioWzAPEVeYaeMg/34mubpGwRcW8QWbiKVNRx0aL2L
-	 Ujl9VyC+CDxteZW0kAOe69CIQu5tsKRtdkzeAxCugSuqPt4F5cZqvTpCDFdRjIhrBtf8D
-	 WweUgyp3JKyWnDIQNEt/OHzBxV+sug2G7pk7rtEiujFhMED60kBB3iNLCsZTXsvGgks59
-	 FpCbgGN9Dmb4kfdEr0lxk1TUXmP+nea+mHKuRPU4fSDDjFaEZR984Ef0AdpgpkACRM+7y
-	 FypNJJ8NI0H2WeovyIlLTbpqVHbv2NDWMwz5NBEoRTSzxiddmaScEVn6lls38ZxLD7Q==
+	t=1794674662;
+	b=XaVq88gJ8mJuPzNvFws9rJGeGZGx8CpxVDkbIwYC3mBqRZoWj+9ym5n/1pxYRBAdfTeG
+	 WO6YTOw2gHlIO2q9eOyFamkwpf8FhwYgdlFfmYM6yWlVgywNR5SEQacsYLNIIxAGNw7ij
+	 Sgr8AOuT0W09P1kqjFnB+DiHRUNt+BgbdatT//GvVoZBHpvJDSfhDchWFMuVX4Ja2oLzz
+	 ExJLpofOuZtfF4lMim5StpAukIptgSn/pFjwhdVsLOmim1Y24XKadHwyB/nALKBpkOFuZ
+	 YyaHv71D3oj8/9SxiiVqQAYAjU/53sVs8CKdgAwdkRaVBeNkOUUHXfB6Za60qT8//uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674662;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QGLMHkLcEdF2cQ9KeUVnz9Zxaf64JhgkVwoMNMb4SIk=;
-	b=U/YL+Lq/qA1VYrKzr0B5qlkTQkWpGbObFxO3T03oNv18hZ0bGTVs4DqpVl5w8p0rzKIe
-	 Ns08vaEEKVGUVpQ8xvv7T+ArwlLzQ/1BZgcpyJPd+e5yUkIuIgroqFomGDTCVOkRSQUhK
-	 d+zj9ViVdsJJYIKp14jkLBFBFaGuexkJ2yUc22981Y7N95fq6ltMi3gj0fmMHnTlew2LH
-	 Agvcy0jO0LNAyHNLFTeCMRJTmdXwYQJPAVz2Qx/egpPeE3A9T26GBWvySrYFAB7aQB8g8
-	 dP/eCeo00zk+lP3Tc8httmx4sYLDWicCUTuMqTtHqCiJErflztoIg429FfY4mX+BH7Q==
+	bh=GKZPU2RuBFoCmLqvHIjJFs9zfkqhAXtbaF3mPdMLOCg=;
+	b=Yj1v5EYJLFN0GgscBZTjqJnqb01XeWpYPBCOy4/un79VFpTVgUCP5nwlgUjOVddxR3u1
+	 QMXKl5uKJb/s06q4sAFTaQchFX8nX/yFKgyyD8+SuaeuuqUzN4txdjHxFIE2ZiqIFFuLd
+	 ZV1VsuPTpfTvNSkAd6aYC02ZeitHVQCJQAo1+4wBal4JnA6DgxaGJWxoiUNB0vptMiC4K
+	 tUoHCw01OdQItXs1MGVgUZEz7ic4R1/9fobHTvNH8G9o4YVnE8DZX8lZ3TCshcDLoRxmM
+	 CGif5gjHTV78XQbmblfSHZr43qWU4T0bl6ZvmOlT8NlUJRIu03NdxN4kgpervq47yQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZ0MGD8t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOfg0BWa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 227FB606A33D;
-	Sat, 14 Nov 2026 16:41:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6004D606A329
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:44:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZ0MGD8t
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E75CB1F000C4;
-	Sat, 14 Nov 2026 16:41:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOfg0BWa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588461F000C4;
+	Sat, 14 Nov 2026 16:44:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794674511;
-	bh=QGLMHkLcEdF2cQ9KeUVnz9Zxaf64JhgkVwoMNMb4SIk=;
+	s=k20260515; t=1794674661;
+	bh=GKZPU2RuBFoCmLqvHIjJFs9zfkqhAXtbaF3mPdMLOCg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NZ0MGD8t01kk72mCJla/VVrWoluaDqTOvP6SZ+Y+60ujxKtpisUbPaW9j45PMkVuJ
-	 1qZ6hC352EpUHaxEgHm/Rwog7d/VBwdivckNXcWXyHLa3i4NI8TNmGZY5BQChkg8Y5
-	 CAauqkYQth8kWaZ1IjTOG/KAoN19CnLkkgxVsULLf9YAvyBHAmEeS0NGIyWGTcPchJ
-	 Kqx/MEOEhpelH35lyojH6W/CVJzffZjo8mxjaLaKNn4d9tYzVPUBqqz5I57i/NqCOE
-	 P61fGmOQ5fS5mGwq1sW8XlACbos//PXxoi6gAUJLqscp7rTCQOeM1CE2PQ15+zpr5q
-	 mWxKDjtEBhaqQ==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	bpf@vger.kernel.org,
-	dm-devel@lists.linux.dev,
-	fsverity@lists.linux.dev,
-	keyrings@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Alex Shi <alexs@kernel.org>,
-	Anastasia Eskova <anastasia.eskova@ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ignat Korchagin <ignat@linux.win>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	James Morris <jmorris@namei.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Song Liu <song@kernel.org>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH v12 2/6] s390/cert_store: Return an owned reference from find_cs_keyring()
-Date: Sat, 14 Nov 2026 18:41:35 +0200
-Message-ID: <20261114164139.429814-3-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261114164139.429814-1-jarkko@kernel.org>
-References: <20261114164139.429814-1-jarkko@kernel.org>
+	b=bOfg0BWahHqzEj9Oz4cHohZatXbnEwY7+R0RPlA8/vv283shyeqlRiIipx79hHMWx
+	 xynTf9/U07GBNhSXaGrms+DuqLk5W3z5VcU8JRH9YAJXJUUlv6Ax3y9qeNHIovLn6R
+	 50Xs6kE+WVM8DJT65fWmBWfAcl6qVS2hcuf1AQTIrNXvP0Cs13H05iT14hEo/+FALr
+	 seqb6DCRp5s+/ra1DmYHlRmlTe3n9MOQstmYE7Ujb6SWci6ip0LyApKVnEAnnZ3Vuy
+	 /5wvX8bgdx6c0+OSZywdo0XDobfAtXNUKUxsVuPw/qH6Xysu7t2NskrOFgCKAJ5g+5
+	 xFE/KABKEytaA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/shmem: fix accounting of swapin-error markers
+Date: Sat, 14 Nov 2026 11:44:19 -0500
+Message-ID: <20261114164402.4112032-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201550-failed-6.1-66ce68a249f4@kernel.org>
+References: <20261109201550-failed-6.1-66ce68a249f4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,77 +62,123 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Return an owned reference from find_cs_keyring() so that it will not get
-dropped.
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-Cc: David Howells <dhowells@redhat.com>
-Cc: stable@vger.kernel.org # v6.6+
-Fixes: 8cf57d7217c3 ("s390: add support for user-defined certificates")
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ Upstream commit 66ce68a249f4ac56cd6968aa6d8ded20fb4b7d09 ]
+
+A failed swap read replaces the swap entry with a swapin-error marker in
+the page-cache and subtracts its pages from "alloced" and "swapped";
+however, it leaves their block charge in place.
+
+Removing the marker during truncate then subtracts from "swapped" again.
+This can underflow the counters or make swapped reach zero while other
+pages remain swapped out, causing swapoff to loop without finding them.
+
+When installing the marker, subtract only from "swapped" and let
+shmem_recalc_inode() reduce "alloced" and release the block charge.
+
+Make shmem_free_swap() report successful removal separately from the
+number of swap pages freed, so removing a swapin-error marker does not
+subtract from "swapped" again.
+
+It's a bit confusing, but replacing a swapped out page by a swapin-error
+marker in shmem_set_folio_swapin_error() behaves as follows:
+
+Initially:
+	alloced=1, swapped=1, nrpages=0
+Calling shmem_recalc_inode(inode, 0, -1)
+	-> swapped = 0
+	-> freed =  1 - 0 - 0 = 1
+	-> alloced -= freed
+	-> alloced=0, swapped=0, block charge released
+
+Fixes: 6cec2b95dadf ("mm/shmem: fix infinite loop when swap in shmem error at swapoff time")
+Cc: stable@vger.kernel.org
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261029-fixes_shmem-v4-14-392fc715d8f6@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted newer swap-entry and accounting APIs to existing single-page swap handling with explicit inode locking ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/kernel/cert_store.c | 21 +++++++++------------
- 1 file changed, 9 insertions(+), 12 deletions(-)
+ mm/shmem.c | 32 ++++++++++++++++++--------------
+ 1 file changed, 18 insertions(+), 14 deletions(-)
 
-diff --git a/arch/s390/kernel/cert_store.c b/arch/s390/kernel/cert_store.c
-index bb218b42a2c9..0a10b31d68af 100644
---- a/arch/s390/kernel/cert_store.c
-+++ b/arch/s390/kernel/cert_store.c
-@@ -362,17 +362,13 @@ static struct key *find_cs_keyring(void)
- 					&key_type_keyring, CERT_STORE_KEYRING_NAME,
- 					false);
- 	key_put(us_keyring);
--	if (!IS_ERR(cs_keyring_ref)) {
--		cs_keyring = key_ref_to_ptr(cs_keyring_ref);
--		key_ref_put(cs_keyring_ref);
--		goto found;
--	}
-+	if (!IS_ERR(cs_keyring_ref))
-+		return key_ref_to_ptr(cs_keyring_ref);
-+
- 	/* Search default locations: thread, process, session keyrings */
- 	cs_keyring = request_key(&key_type_keyring, CERT_STORE_KEYRING_NAME, NULL);
- 	if (IS_ERR(cs_keyring))
- 		return NULL;
--	key_put(cs_keyring);
--found:
- 	return cs_keyring;
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 9db6a2488f456..40397c848b3d1 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -782,18 +782,24 @@ static void shmem_delete_from_page_cache(struct folio *folio, void *radswap)
  }
  
-@@ -395,14 +391,16 @@ static void cleanup_cs_keys(void)
+ /*
+- * Remove swap entry from page cache, free the swap and its page cache.
++ * Remove a swap entry or swapin-error marker at index.
++ * Return whether it was removed, counting freed swap pages in nr_swaps_freed.
+  */
+-static int shmem_free_swap(struct address_space *mapping,
+-			   pgoff_t index, void *radswap)
++static bool shmem_free_swap(struct address_space *mapping,
++		pgoff_t index, void *radswap, long *nr_swaps_freed)
+ {
++	const swp_entry_t swp = radix_to_swp_entry(radswap);
+ 	void *old;
  
- 	keyring_clear(cs_keyring);
- 	key_invalidate(cs_keyring);
--	key_put(cs_keyring);
- 
- 	us_keyring = get_user_session_keyring();
--	if (IS_ERR(us_keyring))
-+	if (IS_ERR(us_keyring)) {
-+		key_put(cs_keyring);
- 		return;
+ 	old = xa_cmpxchg_irq(&mapping->i_pages, index, radswap, NULL, 0);
+ 	if (old != radswap)
+-		return -ENOENT;
+-	free_swap_and_cache(radix_to_swp_entry(radswap));
+-	return 0;
++		return false;
++	/* A swapin-error marker holds no swap slot, so just drop it. */
++	if (!non_swap_entry(swp)) {
++		free_swap_and_cache(swp);
++		(*nr_swaps_freed)++;
 +	}
- 
- 	key_unlink(us_keyring, cs_keyring);
- 	key_put(us_keyring);
-+	key_put(cs_keyring);
++	return true;
  }
  
- static struct key *create_cs_keyring(void)
-@@ -729,13 +727,12 @@ static int fill_cs_keyring(void)
- 		goto cleanup_keys;
+ /*
+@@ -939,8 +945,8 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
+ 			if (xa_is_value(folio)) {
+ 				if (unfalloc)
+ 					continue;
+-				nr_swaps_freed += !shmem_free_swap(mapping,
+-							indices[i], folio);
++				shmem_free_swap(mapping, indices[i], folio,
++						&nr_swaps_freed);
+ 				continue;
+ 			}
  
- 	rc = add_certificates_to_keyring(vcssb, cs_keyring);
-+	key_put(cs_keyring);
- 	if (rc)
--		goto cleanup_cs_keyring;
-+		goto cleanup_keys;
+@@ -1009,12 +1015,12 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
+ 			if (xa_is_value(folio)) {
+ 				if (unfalloc)
+ 					continue;
+-				if (shmem_free_swap(mapping, index, folio)) {
++				if (!shmem_free_swap(mapping, index, folio,
++						     &nr_swaps_freed)) {
+ 					/* Swap was replaced by page: retry */
+ 					index--;
+ 					break;
+ 				}
+-				nr_swaps_freed++;
+ 				continue;
+ 			}
  
- 	goto out;
- 
--cleanup_cs_keyring:
--	key_put(cs_keyring);
- cleanup_keys:
- 	cleanup_cs_keys();
- out:
+@@ -1756,11 +1762,9 @@ static void shmem_set_folio_swapin_error(struct inode *inode, pgoff_t index,
+ 	delete_from_swap_cache(folio);
+ 	spin_lock_irq(&info->lock);
+ 	/*
+-	 * Don't treat swapin error folio as alloced. Otherwise inode->i_blocks won't
+-	 * be 0 when inode is released and thus trigger WARN_ON(inode->i_blocks) in
+-	 * shmem_evict_inode.
++	 * Let shmem_recalc_inode() reduce alloced and release the block charge
++	 * for the freed swap pages.
+ 	 */
+-	info->alloced--;
+ 	info->swapped--;
+ 	shmem_recalc_inode(inode);
+ 	spin_unlock_irq(&info->lock);
 -- 
-2.47.3
+2.53.0
 
