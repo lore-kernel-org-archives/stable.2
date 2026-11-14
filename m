@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672076;
-	b=3c+D2JjqjAZ5zsciAoDBz/Ekp3UGrW6zD40F9lv/qkaFp0PfLwZDHbSb6vQzLsT7vtom
-	 V/g/dB9p14L5yXs5takP1LvkIm45JYmRU9mn0SHJD8huayrMEUVWj0mTQVSWPeYIIpPxd
-	 cLyYfqCAqfVjKprCwTH2pe27NeSE0sX6Rf7up1uuEFZtvroWSs6KccEqBj6jRZxV/szOn
-	 zxE0MzSe6OwDreDGqKlLpXIlsboVo+JmcaCpnVBjKaql4kgGdRLccH/773Qqim+Okalck
-	 aic0/ys3B/ov0Ghq4Q91tGMkTd1fFxkLsWLhkOCQIWSXfJTCk1vLXHCA3FJ7SKooASQ==
+	t=1794672390;
+	b=bWlVo/dR7eP9y7Lha+NavR43BBY1Mw+a+yyUW28PP3yx0El5xG9IpSmXFie5n0hT/qxp
+	 3Zo3rezu1O/ZtTEqfqBw1BiKEkVrUC7owaHkf98wFiXYL/+pcOFvfP6EM4XL8dhppdlvs
+	 Qngvz6NG4bxETI00QgQBOJWe3h2S3pIxf8VwM9tnZ61y8ym1dvaQEo9LhtAtY8syLE/kP
+	 /epqCzrz/er9dVeyYXEhDQPQmp42YY/s3zwIRxaZFMXt/EwlAsxkaCf9LPxOhVgfsLEH/
+	 lGbJnDywH+2zf+upIDNkPY4vQKhyOaYmuBhQ0bM0OtC5PIaUHtjk1LuOJEvZecwqiFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672076;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672390;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=duAlRsjjXx0lR1tSM/FF0S/nv4vTi1hLuTLABcQsp5Y=;
-	b=wCvSALqu4hGgovYvd0Q7yvyhLjizphWLHtWI9Eq3FuOqSYW82OEFC9bnrV+5TyuxLLpS
-	 hF6O2lLO2ZnO5L/Kw/jt0VJhXdRMxtqmuZN48QeTFP+idROxWR3O7OS6VyQYN6jqQdEsy
-	 +NJhcc12k58ysTkbQfAmWg/bNUBAJyEN9Q5sQCLVt0CCHcChhq2PegAalToA+OH8Y+qWd
-	 wHycPBT/hbyDcga2RDhHFMz3Lg3GliQfmChAvhI85ZoQFkV8ulgwQ1YUJhNDlqADb+f94
-	 CX8gpzWLG+to7omkkvwidmJTpQaq/a/MC7aKDYq6jxjhVWHlzZ0VOFm8FIV5M+GnJCA==
+	bh=uYmRpK7KjdNVDD0j5IQrGsHGG2wwu4FNkYGG5KRf8Gg=;
+	b=bYI7Y8/EBnIu8KhXOAV6VbTdfkWh+eGIv2nE3mIVqjQVsrbm192ok9qxOO+pKA7Lb03J
+	 EdMONlxVa3XHg8Hd+gmEUUiMb8MyXMuLU/ODxVlDaSkM9yPuSmt1mdKDiqG8maC2Rmo1j
+	 GEQW7n4t9gea/mfMPHhuRzxgk9V/X5u0nIDGONwFitmefPVyo16Kkvt+eBUOUyLetw7hV
+	 y2xvoXr+XiYaTPtVblwl1IzkWNdPDaVgEg+JFvYWoObWJxqIyxbq6f9VEdkNWunUI0mVG
+	 br8T0zXZYgf4seXwXy8JX8q3Zj4tevO+TsG16KJ1cxwI2e578XMT1X+noczIR/OGg4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZDeSaFe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOdJYpbd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5110F606A330
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:01:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A59606A337
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:06:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZDeSaFe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A14C1F000C6;
-	Sat, 14 Nov 2026 16:01:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOdJYpbd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 911311F000C7;
+	Sat, 14 Nov 2026 16:06:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794672075;
-	bh=duAlRsjjXx0lR1tSM/FF0S/nv4vTi1hLuTLABcQsp5Y=;
+	s=k20260515; t=1794672390;
+	bh=uYmRpK7KjdNVDD0j5IQrGsHGG2wwu4FNkYGG5KRf8Gg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GZDeSaFer0sAyJKwaLgUWCsb30fRyMDKYClx6MJhDcOqH/V/r15WbnR6ZNJ507PbT
-	 /No7aw8WzFdBo/tHJHzkwsVK7fI6uTyU2ooVD91u+dSvyWLtij+UrbOXS1ncZ71w5I
-	 e5Hp7+/BM+v3+UI8qFQ8KbcwTOLHqGZ+HgiylNBp+3bNjA340boobIH6usd3yPde/C
-	 p80o8AQW4DNOo3RmZLumpI57BDQBmdIPUFAQXV1oB7DpEhvIaWZaADzhMEjgPcy7SW
-	 o2yG9eAN79ixe0ZcTg04kvxJRYzliBb9x0vjIMCil4yW9bEh3unQVxDps1CWHP6nUL
-	 4ixmvBrlYBChQ==
+	b=IOdJYpbdr8LRpfEXC840LdtijV07Ew30DlPov6lQIWIiC43fAyVtBO4JQnbCTzxlt
+	 OVNGrfApQMt/avdx3RsffXUuGqTy7C5cGEIRIOGLhM73GrHinRmDMNgeKlTq2dwYfL
+	 duwLtSsoFWdBE4zzT4l+XjI6EhoaW62ZJSrAPLKQ5q8HLNr44uvWKQcrm2UxXxsTof
+	 xJAJKtaIwYqXx6ScKnwasCAMH7KR45XVNBmIC7xg3hMsMOMTN9p1bUTJvVA5H35iJ8
+	 iDKw6NUn1JU2kix55J/GCYzA1FEZUJ2NgGbld2GqwRigZrAhNq/kIhnZkNTwoeiX0W
+	 aoTnyiCsGcVrw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhe Liu <liuzhe1@kylinos.cn>,
+Cc: Bart Van Assche <bvanassche@acm.org>,
 	Tejun Heo <tj@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] blk-iocost: account flush sequence latency only once
-Date: Sat, 14 Nov 2026 11:01:13 -0500
-Message-ID: <20261114160106.3688025-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] blk-iocost: Simplify ioc_rqos_done()
+Date: Sat, 14 Nov 2026 11:06:27 -0500
+Message-ID: <20261114160621.3951063-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114160106.3688025-1-sashal@kernel.org>
-References: <20261109202255-failed-5.15-e9804489e27d@kernel.org>
- <20261114160106.3688025-1-sashal@kernel.org>
+In-Reply-To: <20261109202727-failed-5.10-e9804489e27d@kernel.org>
+References: <20261109202727-failed-5.10-e9804489e27d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,50 +63,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhe Liu <liuzhe1@kylinos.cn>
+From: Bart Van Assche <bvanassche@acm.org>
 
-[ Upstream commit e9804489e27dd6e33aec5511fe3780ff3009f57f ]
+[ Upstream commit 62c159a03da92121b1b909fd8039028de97885fc ]
 
-A flush sequence with a DATA phase can complete its original request
-twice. Both completions invoke ioc_rqos_done(), causing the request to
-contribute two latency samples and adding the same queue wait time
-twice. This gives such requests disproportionate weight compared to
-ordinary writes, distorting the device-wide latency and queue wait
-feedback used to adjust iocost's virtual time rate.
+Leave out the superfluous "& REQ_OP_MASK" code. The definition of req_op()
+shows that that code is superfluous:
 
-Skip requests marked RQF_FLUSH_SEQ in ioc_rqos_done(). The flag is set
-when the request enters the flush machinery and is still set when the
-data phase completes; blk_flush_restore_request() clears it before the
-final completion, so accounting happens only once, after the whole
-sequence finishes. The remaining sample covers the request's lifetime
-through any postflush, and its queue wait time is accumulated only
-once.
+ #define req_op(req) ((req)->cmd_flags & REQ_OP_MASK)
 
-Fixes: 7caa47151ab2e ("blkcg: implement blk-iocost")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
+Compile-tested only.
+
+Cc: Tejun Heo <tj@kernel.org>
 Acked-by: Tejun Heo <tj@kernel.org>
-Link: https://patch.msgid.link/20261102061802.408173-1-liuzhe1@kylinos.cn
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://lore.kernel.org/r/20220615225549.1054905-2-bvanassche@acm.org
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: e9804489e27d ("blk-iocost: account flush sequence latency only once")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/blk-iocost.c | 3 +++
- 1 file changed, 3 insertions(+)
+ block/blk-iocost.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/block/blk-iocost.c b/block/blk-iocost.c
-index 2c3047d2c80e1..eb19e92e8e5bc 100644
+index 46f2b01c782a3..f7e6590d66d9b 100644
 --- a/block/blk-iocost.c
 +++ b/block/blk-iocost.c
-@@ -2808,6 +2808,9 @@ static void ioc_rqos_done(struct rq_qos *rqos, struct request *rq)
+@@ -2786,7 +2786,7 @@ static void ioc_rqos_done(struct rq_qos *rqos, struct request *rq)
  	if (!ioc->enabled || !rq->alloc_time_ns || !rq->start_time_ns)
  		return;
  
-+	if (unlikely(rq->rq_flags & RQF_FLUSH_SEQ))
-+		return;
-+
- 	switch (req_op(rq)) {
+-	switch (req_op(rq) & REQ_OP_MASK) {
++	switch (req_op(rq)) {
  	case REQ_OP_READ:
  		pidx = QOS_RLAT;
+ 		rw = READ;
 -- 
 2.53.0
 
