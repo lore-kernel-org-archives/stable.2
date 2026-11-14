@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794683861;
-	b=QDsdzu0wCu59C2BYeIbe0FRcF54SpL03lpCABE23nzxphVuTsNAe5mb0FYTQ2iNy+Bg1
-	 0/8VyxHNqsqpvS+NW+rVS9GZ3mbsybnlRiUrktatbUwFLwjkFhx8ENv0VlKOdZz9VYKSF
-	 yhHhYhck96MMuiiZJYedJmvJs2lr01kRU9nhj0+tCOtTaZZtPHQlSELhxcRCmylvvh4CE
-	 fUuXyhn81p5WJOS/RukPrv9+bDf5JH0t+w1vOEsX09hAzrQ5NKkTU3pPBk8f3ib6lJuI2
-	 YDByKO/4Q516ih7g4X8LmsGu9yP1NkrCf/iWUKoaFUnCoMMQ/7j6/hFupwsMSXkprGg==
+	t=1794683865;
+	b=OoL6z/dD6R49ysK6c9DWE28Wblsa09Rayf8Zhtcy9/sLqtVZxO9zWqkK1tbkootuKOtU
+	 oO5AvkmyUulWmQruINbbNxMpz3n1pHXU7lfRtUdZLm0kllmQSm3vbI1AHjADAt2uzuyy9
+	 gs7ykiEikCDxFsdWBd+oOMCbZ3fMIyRPiOcaghBb5rYam09CgtjYsNtBIqpYw8IUka0VH
+	 6YdkrbOaa7bQAKPKkQaqP+Yqj/jSZmkNBCdSv8ciJ0CrEKRBmwF5j10p2KePGUxUnEaCJ
+	 EockIqDBXzhVG0Bj4+rkCqYnzpk4H/ITGoeqQj2i16gyalwupVN5fCz4PD5NYr9RqSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794683861;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794683865;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=9UOfmzsBx0M5MgXdktTVXL3AIGVLqh/cwmMMDmYu9Mc=;
-	b=rgwQ7Tkz7KwBn1faCwP7KUaEbogcVQdue5QkYZsN3QT62jY7zrnHNU9mW+taff4qGZWt
-	 aias6GvY2BNS1/rPC/DLMyBJJGte31FnUjVKTBmwZ2swnfIqJoEIUC5g2DGZ7fhCnCeoQ
-	 We18LVJRzZnPysWsIfK578VY1t1S88P491cydx6dmk9Js1pE//d0IeG32uUWZuffR0cwd
-	 IAweeywIh7jin0p1V+MQGCNBC1sra78IFElwTfrs+IFmzzPXXfNx4JwreOLXzVkl3wZah
-	 Bd1seyXbVgaLZhNngeA0XoKEqw++QzlaVN8nqjXUYYxclaatsYU0yUqQJZ9aOUPN7Kg==
+	bh=x08eFSJWECdpEB1+Nn1Ri1/1VsyIJ9XcTh8PmWDvozU=;
+	b=rgRfDthHTXdPsXB43K5YzWjnHT+nF/utC1fxdpjockq1gASfkwiwpaZ2/vKvXRYzqDIX
+	 lR50ymQa29JOLlSaq61S5J7wdSXLH2MBnAzWtNPzOow/aVQNBe4+mcCtjnDQoPd8rbfNJ
+	 m7pV3PA3C5wm2x2PcPsxjtxuGl7x+dHWF+9s8kSapnXIPwrXb4JGlOA0waGONjpvoFQLo
+	 vTyKvD34g8g/WTpJWbIxAlD5fOyn2981MhqwaFKaZj0gR9+gxIbuqMvTynME93ighr3/2
+	 V1KSdk95sZIiGmSDGf50cGumIRimYOyrrNwBtdh79xEINRuycf1wiGNoh8b0NQMxR7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=igalia.com;
 	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=rfivfK6g;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=FCr1n6LK;
 	arc=none smtp.remote-ip=213.97.179.56
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1889B606A327
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 19:17:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1889B606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3941D606A329
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 19:17:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3941D606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=rfivfK6g
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=FCr1n6LK
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
 	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=9UOfmzsBx0M5MgXdktTVXL3AIGVLqh/cwmMMDmYu9Mc=; t=1794683860; x=2110043860; 
-	b=rfivfK6gDlrowqTqf0wALgaRLAWeN2nLDgTuSm69kimWzSiAoeXRRFhjQthBYgLHzcitgR/5E3/
-	Hd0dLBDFoaqfaAsxQEJbQTUHGaZvo0KY42TIKVY7mQH12ba4tyV+gvmjqLU/SqsShsfXjtw9/TkEL
-	OdBfi5khU0uRZxF3c3k2SvUqOcNMBSYxePh4aOi5fo6QMVVUJ/6I/4bDf00f9zeSVkmDczDFGcsW7
-	p4Hm0vmo8A6Dvhdfqd3VI3+vBQUdRqdYnhyLPOqYyjGjD2lv6ldFYoEIn+es/a71yeHfn7SgE5Vs3
-	fXfzbMLUEKUivg5xEMmqjt2KWppgMElH3/hQ==;
+	bh=x08eFSJWECdpEB1+Nn1Ri1/1VsyIJ9XcTh8PmWDvozU=; t=1794683865; x=2110043865; 
+	b=FCr1n6LKrbI8oW3DrBFZ4LhPRslQschdejCoxAWWg3CtCBZUY71iyYWz+BjyqEbqi+q9KX6XHuu
+	ykNAZOd2flns+FSXyrZX0hLblt77EDkb0y9CYGxXkFeMiJJXiqXCsqUTQvskxNZwSg5hiIGZPKr6H
+	DOX9xsyaNekgoAFWGOELNbwyWGk4VMnGp/i/ZS2NnVeg/LTyGSlbq8uWgyoj5Ow4MfLKnkBXftAv7
+	Mc9e2if63cMdGMzLnXCmVRae2fMkP7ByM6YPPBCXApcnrh9fzZBBPwpl3HxLmeHF7vXZTtPLBgBsu
+	G4FVfDWzZN09PoIVO7EOpJxlIv/NcqxU1TqA==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xSJFq-00AgZ4-IO; Sat, 14 Nov 2026 20:17:38 +0100
+	id 1xSJFu-00AgZ4-SQ; Sat, 14 Nov 2026 20:17:43 +0100
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sat, 14 Nov 2026 16:16:51 -0300
-Subject: [PATCH v2 2/3] drm/vc4: Complete async page flips from an ordered
- workqueue
+Date: Sat, 14 Nov 2026 16:16:52 -0300
+Subject: [PATCH v2 3/3] drm/vc4: Look up the async page flip fence before
+ committing the flip
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,7 +61,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261114-vc4-async-flip-fixes-v2-2-d33cbe99ed5d@igalia.com>
+Message-Id: <20261114-vc4-async-flip-fixes-v2-3-d33cbe99ed5d@igalia.com>
 References: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
 In-Reply-To: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
 To: Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>, 
@@ -74,189 +74,106 @@ To: Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7146; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=mClXEr9M3umNFUXl4EN2EBxBZyJw7V2qov0GnhV657w=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq+LPGtY72eAXRRk8k0L4plYjSGqPCRQmZ3W4bO
- nvs6KGUmeSJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCavizxgAKCRA/8w6Kdoj6
- qu8IB/44nvV9Ekm+QHyZaYw8GdWNvZZ3oxwj5EVi6e8jIKA1z1RpnA8jrkMxySctio8AMybltA1
- YH/bG49qh9/MgPTOjuYe0iEXhTMoDWDeB08pEhP94cEYjfqi6ri3Kt5jfMea+B1lHw5L5t1JHq2
- rLjXvQCcxQ0/PA2Nr6htwOBYs10l/QDTONIQhNNXMc7/49lwQr1zQ8ISc/T3GNpFAH5pTYBNucw
- VNaZYJ8xhFizkB14bDch2LgYJf7NCEZ1+5FyRH+cJq7zXKqWVCHfMmNbBtRH7/aqndTNGO5DwsN
- OYxdbKLQQv6COT+kTyzmHwCUBh06kBImBslY9K4Lz2gFnH83
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3015; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=iY87qOAF9o9B2cQ2c/WuwCK7gklnYq3GKs6xfJt0rec=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq+LPGFGQK+Ts+Q9W/z9l7YlnBkebPiiauWJvJ/
+ NiY0fTuNYGJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCavizxgAKCRA/8w6Kdoj6
+ qg/HCADavdu8w7AprOBdACwdQeIFfuLHReLgHNMoHGfGkF+UsJGJhaCBFfndDVZID19clXMY010
+ c6T7IytB0RPZxxVSGem/ahNCfbLDWfpcSKxyFwk3lB8C78oUj5XhMQnP8Ld+4KrNzAuSCKF1Zub
+ AvkMRbsp15uj0sIbyuWeVBZ5Cgey8lFmJvsZ7Fgtw3NaAX4LNdiSvq4mHV0xAU/YLnvF+FftsSb
+ lrCB1hVlxubDg8+s40zLegCX90x87gy+sSKrdi+h6qE+kCtdtZV4a0nEF/pVy+P6yvlLhMTkiEI
+ wfDR42RsGE+Wip/m2jdxoDnyNVaIUs6Zoa5dHP9m1jbj3iSy
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-Async page flips complete from a dma_fence callback, which runs in the
-fence signaling context: the VC4 render job IRQ handler on RPi 0-3 since
-commit e8941ac97f28 ("drm/vc4: Remove BOs seqnos"), and the V3D IRQ
-handler on RPi 4-5 since commit d19e00ee06a9 ("drm/vc4: crtc: Fix out of
-order frames during asynchronous page flips").
+vc4_async_page_flip_common() ignores dma_resv_get_singleton() failures.
+By then the plane state already points at the new framebuffer, so the
+flip is never completed. So, its state leaks, the vblank reference is
+never dropped and the event is never sent.
 
-Completing the flip may sleep: on RPi 0-3, vc4_bo_dec_usecnt() takes
-bo->madv_lock, and on all platforms, dropping the last framebuffer
-reference takes fb_lock and can free the BO. When running the kernel
-with CONFIG_DEBUG_ATOMIC_SLEEP=y on RPi 3, this triggers the following
-warning:
-
-[ 2511.636319] BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
-[ 2511.636667] in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 0, name: swapper/0
-[ 2511.636681] preempt_count: 1000002, expected: 0
-[ 2511.636689] RCU nest depth: 0, expected: 0
-[ 2511.636698] locks held by swapper/0/0: 1, on CPU#0:
-[ 2511.636711]  #0: ffff000037183198 (&fence->inline_lock){-...}-{3:3}, at: dma_fence_signal+0x88/0xec
-<snip>
-[ 2511.636892] Hardware name: Raspberry Pi 3 Model B Plus Rev 1.3 (DT)
-[ 2511.636899] Call trace:
-<snip>
-[ 2511.636991]  mutex_lock_nested+0x24/0x30
-[ 2511.637002]  vc4_bo_dec_usecnt+0x40/0x124 [vc4]
-[ 2511.637070]  vc4_async_page_flip_complete_with_cleanup+0xa0/0xc4 [vc4]
-[ 2511.637102]  dma_fence_signal_timestamp_locked+0x118/0x290
-[ 2511.637116]  dma_fence_signal+0x9c/0xec
-[ 2511.637126]  vc4_irq_render_job_done+0x24/0x114 [vc4]
-[ 2511.637158]  vc4_irq+0x16c/0x274 [vc4]
-
-Make the fence callback only queue a work item on a per-CRTC ordered
-workqueue and complete the flip from it. Flips with no fence or an already
-signaled one still complete inline, but only after flushing that workqueue,
-so they can't complete before earlier flips on the same CRTC whose fence
-already signaled.
+Look up the fence before changing any state, so the error can be properly
+returned to userspace.
 
 Cc: stable@vger.kernel.org
 Fixes: d19e00ee06a9 ("drm/vc4: crtc: Fix out of order frames during asynchronous page flips")
-Fixes: e8941ac97f28 ("drm/vc4: Remove BOs seqnos")
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_crtc.c | 51 ++++++++++++++++++++++++++----------------
- drivers/gpu/drm/vc4/vc4_drv.h  |  6 +++++
- 2 files changed, 38 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/vc4/vc4_crtc.c | 27 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_crtc.c b/drivers/gpu/drm/vc4/vc4_crtc.c
-index c558b527c7e6..177ee27ab6d1 100644
+index 177ee27ab6d1..4b6d4a5f7bc9 100644
 --- a/drivers/gpu/drm/vc4/vc4_crtc.c
 +++ b/drivers/gpu/drm/vc4/vc4_crtc.c
-@@ -884,15 +884,18 @@ struct vc4_async_flip_state {
- 	struct drm_framebuffer *fb;
- 	struct drm_framebuffer *old_fb;
- 	struct drm_pending_vblank_event *event;
-+	struct dma_fence *fence;
- 	struct dma_fence_cb cb;
-+	struct work_struct work;
- };
- 
--/* Called when the V3D execution for the BO being flipped to is done, so that
-- * we can actually update the plane's address to point to it.
-+/* Executed when the V3D execution for the BO being flipped to is done, so
-+ * that we can actually update the plane's address to point to it.
-  */
--static void
--vc4_async_page_flip_complete(struct vc4_async_flip_state *flip_state)
-+static void vc4_async_page_flip_work(struct work_struct *work)
- {
-+	struct vc4_async_flip_state *flip_state =
-+		container_of(work, struct vc4_async_flip_state, work);
- 	struct drm_crtc *crtc = flip_state->crtc;
- 	struct drm_device *dev = crtc->dev;
- 	struct vc4_dev *vc4 = to_vc4_dev(dev);
-@@ -930,17 +933,19 @@ vc4_async_page_flip_complete(struct vc4_async_flip_state *flip_state)
- 		drm_framebuffer_put(flip_state->old_fb);
- 	}
- 
-+	dma_fence_put(flip_state->fence);
- 	kfree(flip_state);
+@@ -948,33 +948,22 @@ static void vc4_async_page_flip_fence_cb(struct dma_fence *fence,
+ 	queue_work(vc4_crtc->async_flip_wq, &flip_state->work);
  }
  
--static void vc4_async_page_flip_fence_complete(struct dma_fence *fence,
--					       struct dma_fence_cb *cb)
-+static void vc4_async_page_flip_fence_cb(struct dma_fence *fence,
-+					 struct dma_fence_cb *cb)
+-static int vc4_async_set_fence_cb(struct drm_device *dev,
+-				  struct vc4_async_flip_state *flip_state)
++static void vc4_async_set_fence_cb(struct vc4_async_flip_state *flip_state)
  {
- 	struct vc4_async_flip_state *flip_state =
- 		container_of(cb, struct vc4_async_flip_state, cb);
-+	struct vc4_crtc *vc4_crtc = to_vc4_crtc(flip_state->crtc);
+-	struct drm_framebuffer *fb = flip_state->fb;
+-	struct drm_gem_dma_object *dma_bo = drm_fb_dma_get_gem_obj(fb, 0);
+ 	struct vc4_crtc *vc4_crtc = to_vc4_crtc(flip_state->crtc);
+-	int ret;
  
--	vc4_async_page_flip_complete(flip_state);
--	dma_fence_put(fence);
-+	/* Completing the flip may sleep, so defer it to a worker. */
-+	queue_work(vc4_crtc->async_flip_wq, &flip_state->work);
+ 	INIT_WORK(&flip_state->work, vc4_async_page_flip_work);
+ 
+-	ret = dma_resv_get_singleton(dma_bo->base.resv, DMA_RESV_USAGE_READ,
+-				     &flip_state->fence);
+-	if (ret)
+-		return ret;
+-
+ 	if (flip_state->fence &&
+ 	    !dma_fence_add_callback(flip_state->fence, &flip_state->cb,
+ 				    vc4_async_page_flip_fence_cb))
+-		return 0;
++		return;
+ 
+ 	/* No fence or the fence has already signaled. Complete the flip
+ 	 * immediately, after earlier queued flips.
+ 	 */
+ 	flush_workqueue(vc4_crtc->async_flip_wq);
+ 	vc4_async_page_flip_work(&flip_state->work);
+-
+-	return 0;
  }
  
- static int vc4_async_set_fence_cb(struct drm_device *dev,
-@@ -948,23 +953,26 @@ static int vc4_async_set_fence_cb(struct drm_device *dev,
+ static int
+@@ -983,14 +972,22 @@ vc4_async_page_flip_common(struct drm_crtc *crtc,
+ 			   struct drm_pending_vblank_event *event,
+ 			   uint32_t flags)
  {
- 	struct drm_framebuffer *fb = flip_state->fb;
- 	struct drm_gem_dma_object *dma_bo = drm_fb_dma_get_gem_obj(fb, 0);
--	struct dma_fence *fence;
-+	struct vc4_crtc *vc4_crtc = to_vc4_crtc(flip_state->crtc);
- 	int ret;
+-	struct drm_device *dev = crtc->dev;
++	struct drm_gem_dma_object *dma_bo = drm_fb_dma_get_gem_obj(fb, 0);
+ 	struct drm_plane *plane = crtc->primary;
+ 	struct vc4_async_flip_state *flip_state;
++	int ret;
  
--	ret = dma_resv_get_singleton(dma_bo->base.resv, DMA_RESV_USAGE_READ, &fence);
-+	INIT_WORK(&flip_state->work, vc4_async_page_flip_work);
-+
+ 	flip_state = kzalloc_obj(*flip_state);
+ 	if (!flip_state)
+ 		return -ENOMEM;
+ 
 +	ret = dma_resv_get_singleton(dma_bo->base.resv, DMA_RESV_USAGE_READ,
 +				     &flip_state->fence);
- 	if (ret)
- 		return ret;
- 
--	/* If there's no fence, complete the page flip immediately */
--	if (!fence) {
--		vc4_async_page_flip_fence_complete(fence, &flip_state->cb);
-+	if (flip_state->fence &&
-+	    !dma_fence_add_callback(flip_state->fence, &flip_state->cb,
-+				    vc4_async_page_flip_fence_cb))
- 		return 0;
--	}
- 
--	/* If the fence has already been completed, complete the page flip */
--	if (dma_fence_add_callback(fence, &flip_state->cb,
--				   vc4_async_page_flip_fence_complete))
--		vc4_async_page_flip_fence_complete(fence, &flip_state->cb);
-+	/* No fence or the fence has already signaled. Complete the flip
-+	 * immediately, after earlier queued flips.
-+	 */
-+	flush_workqueue(vc4_crtc->async_flip_wq);
-+	vc4_async_page_flip_work(&flip_state->work);
- 
- 	return 0;
- }
-@@ -990,7 +998,7 @@ vc4_async_page_flip_common(struct drm_crtc *crtc,
- 
- 	/* Save the current FB before it's replaced by the new one in
- 	 * drm_atomic_set_fb_for_plane(). We'll need the old FB in
--	 * vc4_async_page_flip_complete() to decrement the BO usecnt and keep
-+	 * vc4_async_page_flip_work() to decrement the BO usecnt and keep
- 	 * it consistent.
- 	 * FIXME: we should move to generic async-page-flip when it's
- 	 * available, so that we can get rid of this hand-made cleanup_fb()
-@@ -1395,6 +1403,11 @@ int __vc4_crtc_init(struct drm_device *drm,
- 
- 	drm_crtc_helper_add(crtc, crtc_helper_funcs);
- 
-+	vc4_crtc->async_flip_wq = drmm_alloc_ordered_workqueue(drm, "%s-async-flip",
-+							       0, crtc->name);
-+	if (IS_ERR(vc4_crtc->async_flip_wq))
-+		return PTR_ERR(vc4_crtc->async_flip_wq);
++	if (ret) {
++		kfree(flip_state);
++		return ret;
++	}
 +
- 	if (vc4->gen == VC4_GEN_4) {
- 		drm_mode_crtc_set_gamma_size(crtc, ARRAY_SIZE(vc4_crtc->lut_r));
- 		drm_crtc_enable_color_mgmt(crtc, 0, false, crtc->gamma_size);
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
-index 09134809bf15..f68486be08a6 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.h
-+++ b/drivers/gpu/drm/vc4/vc4_drv.h
-@@ -596,6 +596,12 @@ struct vc4_crtc {
- 	 * access to that value.
+ 	drm_framebuffer_get(fb);
+ 	flip_state->fb = fb;
+ 	flip_state->crtc = crtc;
+@@ -1016,7 +1013,7 @@ vc4_async_page_flip_common(struct drm_crtc *crtc,
  	 */
- 	unsigned int current_hvs_channel;
-+
-+	/**
-+	 * @async_flip_wq: Ordered workqueue completing the CRTC's async
-+	 * page flips.
-+	 */
-+	struct workqueue_struct *async_flip_wq;
- };
+ 	drm_atomic_set_fb_for_plane(plane->state, fb);
  
- #define to_vc4_crtc(_crtc)					\
+-	vc4_async_set_fence_cb(dev, flip_state);
++	vc4_async_set_fence_cb(flip_state);
+ 
+ 	/* Driver takes ownership of state on successful async commit. */
+ 	return 0;
 
 -- 
 2.56.0
