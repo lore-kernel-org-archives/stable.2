@@ -1,68 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794683292;
-	b=xu5oQ9G18OxM8C8mxZ6uytWFVHQnuY1xJY4FS2Vnb8FqCu6dSiRyVOy8YYDs1ZKaVg4a
-	 TJ8+TJgMylY5xcwpWD6dKT0u9gGTM9RYbWwo0j+UJ+uFQi8S6wvc/dc8KsEedBu9cB2g1
-	 q+boBIRMJ0UlkenMhb69FUdt9ZXgHMOmaXxEBE1SNbY65/dvj5PLXi41KPdbZkFQ51/Ha
-	 wJ4840j8Q4KGzUd3pylm0alEZvKAQ+roX8oFNojaExM6jmkawYdDFaT5EUaUcaig1C7sW
-	 fl58Tdya8P5e+tK9y7lw/ZzBWi3NGPYui4IwjY4DSoUfU+z8P3EK+zpTGkqVVqU7guw==
+	t=1794683381;
+	b=BfSXJ61SoFUmxJP/pD3rzam3PmvXpVIso+qthY1C/claMoEHItxolzlPAPiu7olQhdNx
+	 67edjQvIgsPChi8+EZ2fcUC7UrQeXIWYuFzmqhKnIbnyeKl6YI3jYLcXpoq1+r89w0wm9
+	 BLyPTlWBa3Jiw0guLY2yZFqpSMGOAupiEDdLJVvUo6VPKVqi6271KXpW2ssTpm9rke2cu
+	 OXEGvPxyBnoIZQow3ibliauynu2IDhH5AdDxUgSGajOEuPDIkXqeUc7w15CWtDvoJAuRQ
+	 oXlrF9hg3Ii2wrDVSTVnNNJJuULSqiZWy5QARc375jnk+lYRdakdkSkW75OMDR8t51w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794683292;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=jrpYg7S3w1u/s304fksd+9WkuwgFpjkNMJMjxnYOktE=;
-	b=d5wSaGyIB36OuT7VPDHbcSpm61Bdw+uLFnXiFs5axHZlGHjiHL2enVeRXywmHmhwE5Ox
-	 Mcnd5iGMKNoBw0rBwh6QqUD6UJ+T8l6q9GsXhVZlJ/gBfN5UTTLmd+f2mAMMgJMR4Y1ik
-	 TaWzrp/8rEtqfteU2CeZWi+XDRk9Ts3Gq8lyMTiJdYPNixzw4MBfUcc3NO2eJv2oK2p8/
-	 2OyGWbBhbyPM6PR8wcAKs/iR05VIOddG9cyovLraPi8NCfL8eEPL6Nmw9X6e0gyfnTphH
-	 V8n8ZNQSszMRLEX2+zmG60iat+rjEa8hXDL/Xm5NxCfh7VRZLywQh4v7KudoDbCCHsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794683381;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6LU9l0nHGVJDOR3C2dz8HNXstt18I9bFrlhpUlm1Sjc=;
+	b=5iuQ5FuFR9o7ohIn8Fm53OJOUbhdzHvXmkW4y6ml7M1oUFCrFgYmmVu+nroGCcLxdiRR
+	 Um18nb55NI2Q7kYWCHgu4TbPhPQdzUH9SdloVpF9CEEN9u9ffpw1Cde1K8kle6r6Php8L
+	 bL89zDOlceX74eqbxQ18q1D1g1JCJdzGswKObB1wBbQKp0NChCtrSyLKJovf3COoKjAhB
+	 50cF/XQLMSypZ90OWOZMd0trkmC8lQ3XM8kJLSJcOAibmtdtH1DXk/53PVYYB3oTXNv6B
+	 Fg6yr1Iw+vbvsYUr1GhXmOiZbTeWb7DRg1kdVLH0rVAem2NcBwpXD8ueDWH8Bn7D0tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYNoTnXj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW4LF9Ve;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93AA606A323;
-	Sat, 14 Nov 2026 19:08:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F267606A897
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 19:09:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYNoTnXj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2531F000C4;
-	Sat, 14 Nov 2026 19:08:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW4LF9Ve
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB8291F000C6;
+	Sat, 14 Nov 2026 19:09:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794683292;
-	bh=jrpYg7S3w1u/s304fksd+9WkuwgFpjkNMJMjxnYOktE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QYNoTnXjjZhBPnpa8pOfyk2yFfApF74bnIOvALp/oKYkwpyK77UolVRCAS9PWBwUT
-	 vTBNeJc2BT3hD65bSUXiJIzuZRodbsdX1fnL8/SMLFCYNn/+H570eO0UW2ZwVw9sWk
-	 GMxUycxR4kFYE/1x4BsPOWM6QfVcHWY7lAkRzLGYC2spj4KtaAwckhv3IaoPq1c+i0
-	 7WJXBqF1BvvLoxaDFl2abs10ZuIiJ39Ub7KZHMiai60iJ0e/m7v+0PTgqGv8kiifml
-	 yLA7l8Fl3UguxEqgTAbhHe6k1GakSXqMGY5FQ9ZyVqlS8LVqbDnHwiqz6bl9cWiY9E
-	 wqQgRo+ur+kWQ==
-Date: Sat, 14 Nov 2026 19:08:02 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>, 
-	Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
-	Rik van Riel <riel@redhat.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org, 
-	Felix Kuehling <Felix.Kuehling@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Chris Mason <mason@kernel.org>
-Subject: Re: [PATCH 5/5] mm: check permissions and bounds for vm_ops->access
-Message-ID: <aviwYZhpXFczMwRR@gremlin>
-References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
- <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
+	s=k20260515; t=1794683380;
+	bh=6LU9l0nHGVJDOR3C2dz8HNXstt18I9bFrlhpUlm1Sjc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OW4LF9VeZoxVIzcmvH2WB9rXig+udVrZgce/tYO81CiRQllU9gignSGh5m8OEPazf
+	 3Ew+Jlk/cz2vCmuuJ5iiG4UktFfWOOz7aTjV7xTEVyuRhk38/G4oHReu4VdClPxkLR
+	 xTmpxS0UuBZ+pEV1cE1e85UTls25Vvg4qn2ewW3rDXSOu/F0jDHpJ8vkVL88fIrBNh
+	 r0kO6OKn0X45EQx4MXWYn/w77528TMHtHcRslUdtCjv8lX4e4bH4h8lzXvo395+kKP
+	 w4PXoiBNsbEmm9i415Cz7Adi9lXSWj3qDkW1a4hODb+62BXLJw5RbYd+nYuo/+KK90
+	 6Cx65BYj2EXYw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Rik van Riel <riel@surriel.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/filemap: don't lose a folio lock wakeup to a signal
+Date: Sat, 14 Nov 2026 14:09:38 -0500
+Message-ID: <20261114190919.462977-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202611-failed-5.10-8ccb6ded6a47@kernel.org>
+References: <20261109202611-failed-5.10-8ccb6ded6a47@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,106 +62,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
 
-On Thu, Nov 12, 2026 at 11:09:01PM +0100, David Hildenbrand (Arm) wrote:
-> GUP rejects VM_IO and VM_PFNMAP mappings early. __access_remote_vm() then
-> falls back to vm_ops->access without checking VMA permissions and without
-> limiting the request to the VMA size.
->
-> Consequently, /proc/<pid>/mem can bypass protections even without
-> FOLL_FORCE, or cross into another mapping without checking its
-> permissions.
->
-> Check VMA permissions before calling ->access and limit each request to
-> the current VMA. Implement similar access permission checks as GUP,
-> however:
->  (1) Reject writes to CoW mappings because the callbacks access backing
->      memory directly and cannot handle CoW.
->  (2) Allow forced writes to non-CoW mappings with VM_MAYWRITE.
->
-> This intentionally breaks forced writes through legacy amdgpu PROT_NONE,
-> MAP_PRIVATE debugger mappings. The workaround in commit fa5239f2af98
-> ("drm/amdgpu: workaround failed COW checks for Thunk VMAs") cleared
-> VM_MAYWRITE to avoid CoW, but debugger writes still succeeded by
-> exploiting the missing access-permission checks fixed here. Reads remain
-> supported. Userspace must use MAP_SHARED instead; ROCm 5.5.0, released
-> in May 2023, already does so.
->
-> Link: https://github.com/ROCm/ROCT-Thunk-Interface/commit/fea44fab6e84eda52fcf6b419b35600c18f4c022
-> Fixes: 272ddc8b3735 ("proc: don't use FOLL_FORCE for reading cmdline and environment")
-> Cc: stable@vger.kernel.org
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Reported-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-LGTM, yikes at this in general :)
+[ Upstream commit 8ccb6ded6a47b59b4907ed4f8c293cf8122de889 ]
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+An exclusive waiter in folio_wait_bit_common() can leave the wait loop
+because of a fatal signal, then be woken by folio_unlock() before
+finish_wait(). If the waker did not hand over the lock, the waiter returns
+-EINTR without trying to acquire it.
 
-> ---
->  mm/memory.c | 25 +++++++++++++++++++++++--
->  1 file changed, 23 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d4370c1b331c9..9872f289c1e49 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -7362,6 +7362,7 @@ EXPORT_SYMBOL_GPL(generic_access_phys);
->  static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  			      void *buf, int len, unsigned int gup_flags)
->  {
-> +	const bool force = gup_flags & FOLL_FORCE;
->  	void *old_buf = buf;
->  	int write = gup_flags & FOLL_WRITE;
->
-> @@ -7401,15 +7402,35 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  			if (gup_flags & FOLL_ANON)
->  				break;
->
-> +			if (write) {
-> +				if (!vma_test(vma, VMA_MAYWRITE_BIT))
-> +					break;
-> +				if (!vma_test(vma, VMA_WRITE_BIT) && !force)
-> +					break;
-> +				/*
-> +				 * In contrast to GUP, we historically allowed
-> +				 * FOLL_FORCE write access to non-CoW mappings.
-> +				 * However, we must always reject CoW mappings
-> +				 * as we cannot CoW here.
-> +				 */
-> +				if (vma_is_cow_mapping(vma))
-> +					break;
-> +			} else if (!vma_test(vma, VMA_READ_BIT)) {
-> +				if (!force || !vma_test(vma, VMA_MAYREAD_BIT))
-> +					break;
-> +			}
-> +
->  			/*
->  			 * Check if this is a VM_IO | VM_PFNMAP VMA, which
->  			 * we can access using slightly different code.
->  			 */
->  			bytes = 0;
->  #ifdef CONFIG_HAVE_IOREMAP_PROT
-> -			if (vma->vm_ops && vma->vm_ops->access)
-> +			if (vma->vm_ops && vma->vm_ops->access) {
-> +				bytes = min_t(unsigned long, len, vma->vm_end - addr);
->  				bytes = vma->vm_ops->access(vma, addr, buf,
-> -							    len, write);
-> +							    bytes, write);
-> +			}
->  #endif
->  			if (bytes <= 0)
->  				break;
->
-> --
-> 2.43.0
->
+folio_wake_bit() stops after waking the first exclusive waiter, so this
+loses the wakeup and can leave other waiters asleep indefinitely on an
+unlocked folio.
 
---
-Cheers, Lorenzo
+After finish_wait(), let a waiter woken without a lock handoff try once
+more to acquire the lock. If successful, return success so the caller's
+eventual unlock wakes the next waiter. Otherwise, the current lock owner
+will do so.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: 5ef64cc8987a ("mm: allow a controlled amount of unfairness in the page lock")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: clarify and simplify comment + description ]
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-7-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Replaced folio_flags(folio, 0) with &page->flags to match the existing page-based wait function. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/filemap.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/mm/filemap.c b/mm/filemap.c
+index b98af5680bb9c..4114409856b5d 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -1324,10 +1324,22 @@ static inline int wait_on_page_bit_common(wait_queue_head_t *q,
+ 	 * return value based on that state without races.
+ 	 *
+ 	 * Also note that WQ_FLAG_WOKEN is sufficient for a non-exclusive
+-	 * waiter, but an exclusive one requires WQ_FLAG_DONE.
++	 * waiter, but an exclusive one must also acquire the bit.
+ 	 */
+-	if (behavior == EXCLUSIVE)
+-		return wait->flags & WQ_FLAG_DONE ? 0 : -EINTR;
++	if (behavior == EXCLUSIVE) {
++		if (wait->flags & WQ_FLAG_DONE)
++			return 0;
++		/*
++		 * We might have just been woken up and the waker will not
++		 * wake up anybody else. If we ignore that now, the remaining
++		 * waiters may not get woken up: take the bit now if it is
++		 * still free.
++		 */
++		if ((wait->flags & WQ_FLAG_WOKEN) &&
++		    !test_and_set_bit(bit_nr, &page->flags))
++			return 0;
++		return -EINTR;
++	}
+ 
+ 	return wait->flags & WQ_FLAG_WOKEN ? 0 : -EINTR;
+ }
+-- 
+2.53.0
+
