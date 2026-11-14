@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794629599;
-	b=UKhzuwdpwMLkIV3+mDHi5iLuGxB+Hzso3qFrP5gi8MfJxeCcO2ltYQ241FUWAHLzoqPz
-	 7R3iRABOVZRtwLmP6END5ywU2NfqC4qtQD8sbRi25L7WvKtxGJ3JOPa+NUdH04NMf7ZH5
-	 Q7WG/BzyIspkfinVhtdkzmQlvQ8hcgcmZpnOzQ13xy/EbxsrqAzf97xndyWfwOt1NIiub
-	 G6LviWoDKyvN7HRephz4l6855RpCYuVmMttmVZEfKFXpG3zrK3aMwyUIILOmK3kecIe5s
-	 hqdW1pWrbTnJFMbJFPVwE8Yoreqj1YCSoBj2ZWLxDOZZ6haJ+I0XOwO+/QE7+53p3hg==
+	t=1794629601;
+	b=yIdESzzNMQhU0qMmhhN9wXvmTMc+yujEgGSLwWKe3mHcYZsRgIPUQXJ+F1mdDxiufamO
+	 4wBXdHMBP/gtDsgyiV6lyFo1QlasskLbT3vjBBabA4XL5Vq3wGu1DjLVbfSQ/65ALG97P
+	 3s1ZyHO2S5uHLB4Y0TH55m+8yx6gyGwMc8V7p6QplN8vraTSYxt7yiKHRLHw6ahdU+6HM
+	 vWtpWe9TVSIOVgf7/2VtuMuajB6lTT22V+aolj6zs070A9YYe80XzNxZhZWbSBx1nHaJH
+	 KGIjHPVLdJQ3bsu+30gSAS3WxoNtjxy0Aao90u8CNmruwAr81tIzB5m71YAqx3hvLUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794629599;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794629601;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tHB01mTlZiMahVMRA5ZCllm3iOdO8KFcrfBN05HIU4A=;
-	b=p0XyiXCEBj8A0FGHURHh0tBQD6T5qgCCD/2uHavheuTzgnoH9Mjwu7tpyihY/dbIQr/q
-	 DlzMexMMaFwt7WrTOL7YYFMzz9Etnc6Cb3oVGiMmvpKbhxUHXTBJTvxoASs87LTWOxs9o
-	 AnnaV15Te8FBlZ5SBoKvmBdEHsC8j+3ZIjmOoBCM4Lm5pVBTMwgevrfOcPAwvkFKgf4iN
-	 diQNsi94ftZbQxpsK3cLWR+09rX8HWF0DJ454q9B9JTZ0jqQxONmaWy66lLZPrayuho70
-	 oGq/Uuu3e0/z2cnPKvh92+wlxZ0/90huqPhvGmAOC0KfuAGdv4nlD8GtPM3GePn5oMg==
+	bh=3rk8/J0bKQKTDFlliqi3TsJmwj2V7q8PLLBSnubbtTg=;
+	b=ILWKbK00aprlX4kv/cpT7JR9NrreIQVPbd5KJLN32N8CAHKzSW6wkqlrH7xLYd9OtGML
+	 dTwaha1EDM+dwtFSLWBMnmJ446nGdWUfM/MOqdnbAFeZ/nixkMGK7zrcd7N69dlyl3H6W
+	 TAWJCqwFA6he5NjFtqsb11SAxTr8znVzJvMCiSIyHziAsDSNLHIUV5daSls4HhX27LqHx
+	 BCb11+8udl4Aikva7Feg2Ca8o1J5ffVDKEklObqCm5iXzZHV191eG73og4QMBadEZPB2K
+	 KI4dfQzRlehl6+zqj++ElZCLUjp7BWz0CMbLj4Ahdloi6qZuQ3eTeW9FvySQaDXZHmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mU0W43/0";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AABRiEL7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C75F606A330
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:13:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8C0606A333
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:13:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mU0W43/0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5202F1F000C4;
-	Sat, 14 Nov 2026 04:13:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AABRiEL7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF891F000C4;
+	Sat, 14 Nov 2026 04:13:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794629599;
-	bh=tHB01mTlZiMahVMRA5ZCllm3iOdO8KFcrfBN05HIU4A=;
+	s=k20260515; t=1794629600;
+	bh=3rk8/J0bKQKTDFlliqi3TsJmwj2V7q8PLLBSnubbtTg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mU0W43/05otlu+C9Yy32xmvpusvfDGJIzO3IbP3gdG2dvXDX5HbWx3aPVrHKnawil
-	 qWAhsN2hcSiejXSl0RWtJcenNJBIauWHPupKpEQLJHm8B92J6rGd8QimWLEKqqwbGW
-	 MbjTAnsj/4gPENlAeT2LWwfMAvc8NrmRpaLWr23vVmeyVPS140XaEod+3IIOSHrrr0
-	 j+X2Rxttmy6Jn479J+7gEPtXlG0BRmi/cMYKyEr2R9QMVB/bmUTYHws6NaNFgHaBDI
-	 qEiIAyv+U2PQmNr6leVVviTnY2Fpx1RgvMwQMGgqeMfjJ63vSe2kNDMXWnKorgORF8
-	 XXgeruJ4okzSw==
+	b=AABRiEL7CM1SJX9sYq9jO2QsvzABcLvkNwKtZo3SkShSxpFaSEkDdRz6rFOESuTzh
+	 8arUoXya+qjKqE1CWA2N4z4YwOyGcQi+TiSvsDjcz367o0ruh6WAO0LJZnq+nVH33u
+	 PatWVe4c0tugZuoUxSop0jBAG4p1zNp10KAuzmXj3Zmhh5MgarIkqbSG5r83BLDMnF
+	 mG1+hQzNA6+8e/oF6q7ktME6je5QUJAtw1f/e00ig4WYWHrYGEjIZmMMJqgOGJXdK5
+	 Tsk0xV1rdu3QhDcL+sxI1quWRX1gj0JGuhwHqmPL62TexeisYACtcLoQSxURwiA20x
+	 DMBynUy7ZV8vQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Dev Jain <dev.jain@arm.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
+Cc: Lai Jiangshan <laijs@linux.alibaba.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs
-Date: Fri, 13 Nov 2026 23:13:16 -0500
-Message-ID: <20261114035316.2633742-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/5] KVM: X86: Don't reset mmu context when X86_CR4_PCIDE 1->0
+Date: Fri, 13 Nov 2026 23:13:15 -0500
+Message-ID: <20261114041301.2801291-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201836-failed-6.1-b4417d08034a@kernel.org>
-References: <20261109201836-failed-6.1-b4417d08034a@kernel.org>
+In-Reply-To: <20261109202153-failed-5.15-c7c288d178cb@kernel.org>
+References: <20261109202153-failed-5.15-c7c288d178cb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,48 +62,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Lai Jiangshan <laijs@linux.alibaba.com>
 
-[ Upstream commit b4417d08034a7b4a3083e0e2d95429d4542524f2 ]
+[ Upstream commit 552617382c197949ff965a3559da8952bf3c1fa5 ]
 
-move_huge_pud() reads the old PUD and clears it in separate operations.
-Hardware accessed or dirty updates between those operations can be lost
-when the saved entry is installed at the new address.
+X86_CR4_PCIDE doesn't participate in kvm_mmu_role, so the mmu context
+doesn't need to be reset.  It is only required to flush all the guest
+tlb.
 
-The raw pud_clear() also bypasses page_table_check_pud_clear(), while
-set_pud_at() accounts for the destination mapping. This leaves the
-checker counts unbalanced for mappings tracked by page table checking.
-
-To fix it, simply use pudp_huge_get_and_clear().
-
-Fixes: 7d846db7d0e2 ("mm/mremap: convert huge PUD move to separate helper")
-Cc: stable@vger.kernel.org
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-30-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Replaced pmc->old_addr with the direct old_addr parameter in pudp_huge_get_and_clear(). ]
+Signed-off-by: Lai Jiangshan <laijs@linux.alibaba.com>
+Reviewed-by: Sean Christopherson <seanjc@google.com>
+Message-Id: <20210919024246.89230-2-jiangshanlai@gmail.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: c7c288d178cb ("KVM: x86: Unconditionally reset MMU context when emulating INIT")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mremap.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ arch/x86/kvm/x86.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index a13ad0e9c1f84..45341c045b3b4 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -393,8 +393,7 @@ static bool move_huge_pud(struct vm_area_struct *vma, unsigned long old_addr,
- 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 34ca96e302c38..8e40f44714c9b 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -1086,9 +1086,10 @@ static bool kvm_is_valid_cr4(struct kvm_vcpu *vcpu, unsigned long cr4)
  
- 	/* Clear the pud */
--	pud = *old_pud;
--	pud_clear(old_pud);
-+	pud = pudp_huge_get_and_clear(mm, old_addr, old_pud);
- 
- 	VM_BUG_ON(!pud_none(*new_pud));
+ void kvm_post_set_cr4(struct kvm_vcpu *vcpu, unsigned long old_cr4, unsigned long cr4)
+ {
+-	if (((cr4 ^ old_cr4) & KVM_MMU_CR4_ROLE_BITS) ||
+-	    (!(cr4 & X86_CR4_PCIDE) && (old_cr4 & X86_CR4_PCIDE)))
++	if ((cr4 ^ old_cr4) & KVM_MMU_CR4_ROLE_BITS)
+ 		kvm_mmu_reset_context(vcpu);
++	else if (!(cr4 & X86_CR4_PCIDE) && (old_cr4 & X86_CR4_PCIDE))
++		kvm_make_request(KVM_REQ_TLB_FLUSH_GUEST, vcpu);
+ }
+ EXPORT_SYMBOL_GPL(kvm_post_set_cr4);
  
 -- 
 2.53.0
