@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794615256;
-	b=wEtrnENVUZrju39JnRIvLRHgQHrhA6pBNAlhFEPiTs9UNm0d6KQqHM8AK3ZhMx/YqQPN
-	 b1XLTpckUuKd+QO15Nami5vb7t/EohVusktVsSp69eiaPD+nZCWDHzsXaMayOjqhul9y8
-	 +qyNR78ix/J/usz8a5khdxsK6/L/3R2Q6cx5VDE3QTPsf0E8u51DDLOcE91BLaxkm/2Vd
-	 O5JRjdOGhRcjYhuKdbGswNsVgeYb3vQqKZL4angrzLse1Rd8G4fk+KGfKBE14OvnesTuT
-	 a2yg/fWEWtxnfXzu0vMArVKFkQPCBMMU9GwrM+X2LT8hnKYgbXqiRJPvzcGQCyroAHQ==
+	b=Ow6qIpq6SkY2dSzPjuKxPOgiEv8XjLaJ8lzk2ue7FoUMqYq/Y6hdOyqkhOXUT8JIQ9m9
+	 4aVea0Ki1VMR6HgpiRyasu+/u4yWIAg1sSuhMeh6+A9hw1fG8NBIU5NhYPT8rs27M0wmg
+	 cYy2j1gITGEfHGjUKgxBezUemYDV2Ff6uRRbFDwi94RT5kbQ5zau0wAUr+CRW5EfvpOLO
+	 advLAMIty64kfCRs4MhP6vJjwkt3PftKz1386AfPYaldIuL8FcsWdraqkSruGnKmLH3hI
+	 1FQg5tRzUan1zsf0JKI9wzPTtO/xCmrLhuSB8zKkr+K8zBPiZiaeefAwB3kCbpejHuQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794615256;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YXWqWTsUvzu6GfTNAs76N9VFY+Z2orZHnwJxeJ8LOlE=;
-	b=NopQB1UEnRaovouUaT81FjXwrgh04YGdC84fo3Wnj2CgIwmUP4SES5IG9PeaxuaY3M5O
-	 Lqu9r3xVorrnhM3JvtDQfBNTcfXuZiJIv4v6HCbyun18qztgtwABYH29j2VR1VyOsx//O
-	 yNqVJ3AVpkuruyGsLJrmMA8aPn/W2DEgUxbWjoW1A3u7Ljg5fS0ld11R/xusbVhZNyyLD
-	 fTgR/7OTr7wcSctUsdEB6V2nLzmv40oEn8E/hvVbJerOKmSqV+W69bIOd0v5Ucx4QCeoJ
-	 0PjwtTMtFFfFQ0QX8T+B3FtwYNLkkEUgn6L9tijnITuDf2WjCzIzgSJB12kKpYjdW1w==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=INCpImX/8ghfJXOT7zk4UXv6j0qgHeP3OUy1ZzJF0X4=;
+	b=KCUHT9f1E17pH9Wwe1xIv/sKDBOzWnNmUHAvZXj6J1oN0r8RmPXP464XJ9qwO3qxIZIE
+	 sLjCJ8MiMp2di8rwmI4Sei1CPO7pBgrN8wTA0WMmRFv+J2IqqaVCZQxzuJ7ZB1n8uAdhQ
+	 EhaYjvQqEMkFx3Tk40AaYhM8xpdUaSxKyX76zVIPfNitiyZ3ZQRK6ENwGrIdQGo+e1QYG
+	 sYzfZEBqpvOnxeZgdiN4SQs8bfFRjc+QVHimN8+82pOxv0NHZ1BQMpbpz6/61moywAsLz
+	 205yzEyqaQR+/S8rFMvIa0sfxtK5SkvVYj2KPI5QLSyHHS5O4kfu0Fasa2U46cORkMw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AkrayVJU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CoZKEJun;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE67606A89A;
-	Sat, 14 Nov 2026 00:14:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16920606A338;
+	Sat, 14 Nov 2026 00:14:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AkrayVJU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CoZKEJun
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794615255;
-	b=N8/GDuWvezJuoFG1dTFBQ9d/BuoT5Rxkke86oucdqjBieXf0wlaMvmY4Bx6IeoOEvqgj
-	 /aG70sGChyhVMnVphWkjglCn0UpHptbII5uel36bvX8g0RqcAZX0MJml7Fm58xYjyOiyp
-	 3JwRNP+N4275rDwxIQYuGpih5h0+HyE8hzhBE+PlKOdxBlrBvQeQb3XWq+kRizif6gUQe
-	 OJqGaSMzfUrovmt6Ic8mlie/oQxzV7gPxVnv0uodxhMHYy/u2So6ou0m5QmOBzkNUZkvZ
-	 v6ZRdjYNuQ2qxlcIZJGBZ82DwYc4A+zJl5WNJ8MZfGMrA9Avx+ud0k0HTfte7Hgl04w==
+	t=1794615256;
+	b=MM+u64tY9PTu88dwU6RhBaaEa/31DtOE70owRlF1ZbFTlaQXmasng7sOOIt87yjRiSat
+	 /zz0MdGGUHpa2zUM+wL+TvSYb6f9lHW1cjoTxpOzDJMWhV2R8Sl9ReqdhJx3nJAtIJkJL
+	 ZhQ/4neMrHS874ghk6RUKk76dNEVp3sCvw0rCrOrnD/5Mu9ldSNpFUqC8A/CMZEi9YzcY
+	 1hgbi7OHrOxXG7Adr9w+prfTLSLw2qbnvJMlqqcF1NHrpfNKvHUQqKoxE5uBlBilt7aZx
+	 16VnK62pqTUDeMCRmTk/7zHlUG8IAo8KRJAPEY85Vf+vDoXvdYLJ4sB3dVks5dh05Lw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794615255;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YXWqWTsUvzu6GfTNAs76N9VFY+Z2orZHnwJxeJ8LOlE=;
-	b=UJli94+zetiwthuvgbm/D2KZdDd4AKMji4Z4Cbe8uJntJTmNaZeWHR/WYshm18jtU0Ze
-	 4djCjWWYgdsPmwuunXFMebHdIfXYr/GZbUzw0kb2k1bryeF3Svv+C41Xisf3t5tbdvpPa
-	 oXfiSQuZ5UAuV+ETud54tiYARlsGY6TDRg0dDg+HcrFXB5n5A/AhSzNFYpGjonzBC5urm
-	 RAaeTANX3S6XkivgDPhIWrDQWwqb3ugCHX3ZN5NmeEivdzaJxdNDWTkpce4L/JRVbaEZ9
-	 +yOYe+ON7CTHOAqk+XUtmUQFmzh0Ci8R21KABYA6e0HmYO0XGiR5yNMupm2h7SKmbSA==
+	c=relaxed/relaxed; t=1794615256;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=INCpImX/8ghfJXOT7zk4UXv6j0qgHeP3OUy1ZzJF0X4=;
+	b=pyCBbO8mddy1RRUtwqr/UGyc+/m2iNreuvxLNxNIZO7vhdXElbhRR1+eRL5AbqqzjKmY
+	 gbB4w3zoErVEIAF6+9FKwFtscJDkjyk/WrU0Iyz9w1R9GlXn5TJuCgfcJb66VsfhZzzRq
+	 mWyFvNJC7+lNeLtVf6zrTyza7Q7eevWb7cZ665T32UVGitrtDDg/bL5ErKOyLB9r4adfs
+	 /Wcnb18ZJMKHgkugSYx5FXnkMI6nbsbQi53kFmeeHODZvyNkDgCf2Z4CI/3ztS6ZL2+m2
+	 CFflFnGlKhKr5sIwu5zKtYhPI4OmAsAshRNdS0Upvo4jHdH+UDPEPaQ6k5Sg/VzJQbA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 04DCA1F000C9;
-	Sat, 14 Nov 2026 00:14:13 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id CECB01F000C6;
+	Sat, 14 Nov 2026 00:14:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794615255;
-	bh=YXWqWTsUvzu6GfTNAs76N9VFY+Z2orZHnwJxeJ8LOlE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=AkrayVJUUEioWGqXReZaaN9DSSs9XCb2sIBGMD36JUI3kAXLqoFz8UBdZ6XW7qaYD
-	 XqBLsQD8J4NjwSfgk/h6XLa6QbGFFmQ+WQr4dgTlfxGNK8MkNRWrbuzWiLjT7CeL2A
-	 alodGjdvV8CrqBkRB7nkgLxHOK5Q5tJQnH+7xEQyalZUQO7p+nNclMPIhvlWom7rjc
-	 20P8VQqZ+VTulS2VZdAyRpmKnM3yBAP/CeRRZ3vURAQb1qnPHUh4q2+xbBPq5rnrCD
-	 29yPE1AcoWMWvtq559cKUmsINFLJ/wRhrLxscuGBetF8Pj0QxiNRRNFQOv5k/DXoaW
-	 vJXNS6fU/JI6g==
+	bh=INCpImX/8ghfJXOT7zk4UXv6j0qgHeP3OUy1ZzJF0X4=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=CoZKEJunXiYtNVAnfAHwH2kgQgEAHtQMCgGSPPiB2Bt3X93RoSPYYRVbK9I9M90o9
+	 Bq64ShKaLBFBYlk+jjhWCwPyUnuxAJKhQko3yVFC91dGXXMgrj7GzPXHK/wxfE+085
+	 QajA+II/h9fG4viu9dTx0B7/Tm5DsoCG7RPrwh/nR86Z85dJDIMfybPaK3xBkXAAXD
+	 Y3ve/Fg1B/awLYmDa/OA21OOeOEj88iuevvIPO+aHDbq5AOObRqq1l5/FdwEkozaxM
+	 7iURQKNet8zSDI21bhX7kg2An81HQaBfjm00ds6NXVXddwMYwc6/zp1jkn78PU+yvs
+	 iomdA7yogyMpg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8A85549BBF;
+	by lkml.kernel.org (Postfix) with ESMTP id 5F7AC49BAF;
 	Sat, 14 Nov 2026 00:14:12 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sat, 14 Nov 2026 00:14:13 +0000
-Subject: [PATCH 2/4] media: verisilicon: Set need_postproc before resetting
- the CAPTURE format
+Subject: [PATCH 0/4] media: verisilicon: Keep the CAPTURE format in line
+ with the decoder
+Date: Sat, 14 Nov 2026 00:14:11 +0000
+Message-Id: <20261114-hantro-fixes-v1-0-abb78264801e@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,9 +85,11 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-hantro-fixes-v1-2-abb78264801e@gmail.com>
-References: <20261114-hantro-fixes-v1-0-abb78264801e@gmail.com>
-In-Reply-To: <20261114-hantro-fixes-v1-0-abb78264801e@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMyw5AMBBFf0VmrUlbj4hfEYuqwVggHUTS+HeD5
+ Tk350ZgDIQMdRIh4ElM6yJg0gT85JYRFfXCYLUtjTGZErmHVQ10ISvnPOq8L2xZdSDJFvAbpGj
+ an/noZvT7+wH3/QCC6dXdcAAAAA==
+X-Change-ID: 20261113-hantro-fixes-aace04d5268b
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>, 
@@ -99,76 +102,63 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794615252; l=2134;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794615252; l=2262;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=K/OBfhFLZqelp4gN8EoRryPycBadFZf1ehuMruueJ3I=;
- b=K1Tm3Mg18Zf0xKACgdOObktcPQmZDw2LPUWDZZU4RmQjvmOo0nhAqHCKKwf2Cmh9SwV1NuYuw
- WHOKYE30lRXCA2c0N2BNt/yRi8N/w0JFlNf3RaOA43xllqFKr6SuasZ
+ bh=mnIntMiDrfV9YjjKOqzkuVqV2d/DXAOYr9w8YQ7vPoM=;
+ b=ZsXIqa4xz7yC6IWsADXwoKvhmpLUUwInD/83g5bAC8paxA1GqysIVovLKzvpVy9QYhtou1KQW
+ lwutzSb62cyBcN6mzhZIK8mzDa1LBKyD8rJ8JzdtETumKBE0HOfKaA/
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Pre-existing bugs where the decoder writes more than the CAPTURE format
+or an auxiliary buffer provides: the VP8 segment map when the format
+grows while streaming (1), the AV1 motion vector area after film grain
+is turned off (2), and an 8-bit CAPTURE format for a 10-bit stream
+(3, 4). Found by Sashiko on my hantro-dec-size-check v1 [1].
 
-hantro_reset_raw_fmt() stores need_postproc only after
-hantro_set_fmt_cap(), so hantro_try_fmt() sizes the new format with the
-old value. When an AV1 stream drops film grain, the post-processor goes
-away but the CAPTURE format still lacks the motion vector area the
-decoder then writes after the picture.
+Tested on an Orange Pi 5 (RK3588S) with a v7.3-based kernel, on the AV1
+decoder: after film grain is turned off, the CAPTURE format is the same
+as a fresh one (stock: 3133440 instead of 3525632 bytes); an 8-bit
+CAPTURE format set for a 10-bit sequence is replaced by the 10-bit one,
+and the 10-bit format comes back after the sequence is set again (stock:
+8-bit in both cases). VP8 and AV1 fluster: no new failures; no splats.
+HEVC and VP9 (G2) are not tested: the RK3588 has no G2 core, so AV1 is
+the only 10-bit path here.
+Patch 1 is not reproduced: the test kernel limits RK3588 VP8 to
+1920x1088, and frames up to that size fit the single page the map gets.
 
-Set the bit depth and need_postproc first and restore them on error.
-The next patch needs the bit depth set there too.
+Benjamin Gaignard's "[PATCH v1 5/7] media: verisilicon: vp8: Use
+alloc/free helpers for auxiliary buffers" (2026-09-16) has the lines
+patch 1 changes as context: a trivial conflict for whichever lands
+second.
 
-Found by Sashiko in its review of hantro-dec-size-check v1.
+Developed with Claude (Anthropic), which wrote the code and the commit
+messages. I reviewed every change.
 
-Fixes: 80c7373a456e ("media: verisilicon: Conditionally ignore native formats")
-Cc: stable@vger.kernel.org
+[1] https://lore.kernel.org/r/20261112-hantro-dec-size-check-v1-1-e5f1180b625f@gmail.com
+
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/hantro_v4l2.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+Arun Iyengar (4):
+      media: verisilicon: Size the VP8 segment map for the largest frame
+      media: verisilicon: Set need_postproc before resetting the CAPTURE format
+      media: verisilicon: Keep the CAPTURE format at the stream's bit depth
+      media: verisilicon: Set the bit depth again when its control is rewritten
 
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 83af9fa1ce94..2baab4cf3bbf 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -449,6 +449,8 @@ hantro_reset_raw_fmt(struct hantro_ctx *ctx, int bit_depth, bool need_postproc)
- {
- 	const struct hantro_fmt *raw_vpu_fmt;
- 	struct v4l2_pix_format_mplane raw_fmt, *encoded_fmt;
-+	bool old_need_postproc = ctx->need_postproc;
-+	int old_bit_depth = ctx->bit_depth;
- 	int ret;
- 
- 	raw_vpu_fmt = hantro_get_default_fmt(ctx, false, bit_depth, need_postproc);
-@@ -465,14 +467,18 @@ hantro_reset_raw_fmt(struct hantro_ctx *ctx, int bit_depth, bool need_postproc)
- 	hantro_reset_fmt(&raw_fmt, raw_vpu_fmt);
- 	raw_fmt.width = encoded_fmt->width;
- 	raw_fmt.height = encoded_fmt->height;
-+
-+	/* hantro_try_fmt() uses these. */
-+	ctx->bit_depth = bit_depth;
-+	ctx->need_postproc = need_postproc;
- 	if (ctx->is_encoder)
- 		ret = hantro_set_fmt_out(ctx, &raw_fmt, need_postproc);
- 	else
- 		ret = hantro_set_fmt_cap(ctx, &raw_fmt);
- 
--	if (!ret) {
--		ctx->bit_depth = bit_depth;
--		ctx->need_postproc = need_postproc;
-+	if (ret) {
-+		ctx->bit_depth = old_bit_depth;
-+		ctx->need_postproc = old_need_postproc;
- 	}
- 
- 	return ret;
+ drivers/media/platform/verisilicon/hantro_drv.c  | 14 ++++++++++++--
+ drivers/media/platform/verisilicon/hantro_v4l2.c | 20 +++++++++++++++++---
+ drivers/media/platform/verisilicon/hantro_vp8.c  |  6 +++---
+ 3 files changed, 32 insertions(+), 8 deletions(-)
+---
+base-commit: ad6549a46748d00818483b535e5cd2a704685c98
+change-id: 20261113-hantro-fixes-aace04d5268b
 
--- 
-2.55.0
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
