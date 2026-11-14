@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794645079;
-	b=hQGAbQA9U8tIKuEWsHdT0uekf9gIWoMjyUlrfE8DHkTJ2fvyFsXTHZ7SKzXsTqxYzoG0
-	 a5vpA3sR48trzvmAEfaTJsqHcU3SATdtE8wz4HmWeK6NelvQaNcsjfs5eth3tjfvanmhz
-	 KQehtaBWWVaRwe5Y0lvK6OXUhksZLwUZ0oje/XjVHUPv9C6zmd/3TSzqc7+YZ3IPEkHny
-	 SbhKkY5Va+x8LssdTJQCfkmdfTPy1gKyBrHlSpjt2Yb5PqSCDAy60+9Em0TagHqp3OFmD
-	 ks4x+tF5coHKJzVKQl9T8EyY4rHw7i8Rtvq/J6t3zACiFdGvGw3ZWmt57bd5n00EOpA==
+	t=1794645212;
+	b=1oipqdnY++lwBmVOFArAUIKMN/QfbQuOguKgD0hlo6rcFY0DTJAGsC1OFjWPzdwKRQ1B
+	 Ao8M8nW6yNcBpAxa/qt25ZtKxe8vAWNKrx46VyXapwE5vGPj4O/pCSRCqMnq/vOmBiyA7
+	 N8qDCOykGFQ5H6m8iRr5hCJhPMMbWeGf5nY9b153jaomWOcMDOmLu+KplVtfjI0NZcJ4g
+	 bHUab3auwShF6FEYN92zMmJhAc7oZ3yI4P6VDwzPrBK0MKtpnmkMDTuW2WUW1SarIvSKz
+	 rMfrYqobbQo+Winclqv/43JRljDFBk7UBkx/VdvA1urIwMefDKfo6dkodYTh8pnJwpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794645079;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794645212;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7bf74JBZJaiRPtSMX4QFCMUR0UG89iuIz4QHWAT2UNU=;
-	b=pYsnafh02HeWuXu00fkNLV18w5dmGg9S5Lo5WZufl5US8CAEUzdAiS962h9AvG0XFdR3
-	 Enz/h96Hm8rCv29Cmn7lSLXFlGTpph4nCmzK4QjSJUgpfAfJliHlnYTAEIkX4bshhaKdA
-	 wP2BvC2mC6ZuJJjvL9ogzNQWebcYrR5b9bZVGpgCxzMP/98hLiwuLI5iY9kDm9foTj31N
-	 lIRvgGkpSOfHHzimr6DCMgY+Mbh7j1t7Efi6ZBnWj3PCSp6fJgcGP3td/9iGCHhPVB6Bf
-	 EaR3jP2VxfeAEOGqXd1BVcoxmWp87eumZkj7agHcmXr9+MpgVehcSTUnTOptCxGPx+Q==
+	bh=QC5iG8Fvq0w0Cc03pgJd+iLfyOqr7ITsw0zOuCfILxM=;
+	b=RRfcVwoPrFuRSf8U9dJAePNz8prc5C8D8PD5DHXnIU4vXzl6jlT9XhpXXlUNMxDdhWeH
+	 sWyY74Pa4AOffJNpdxjj7QXAGher1eeryBlprtbkAs/ig1OZ/oKm4/Kf8LDyYP9CUZjGo
+	 57CR8Q8iDpVa42Hkj2NLuHuZML+zS/RspUBluXG2XActICEzYsPlK1aFsqgSAUDYKz/sf
+	 ZO7mpMKQCjNeOiRFALzjr5IQrSNuwwE1uh52ojkw/2FhS1jjExr2hbWVKKxc+KLUl9q6v
+	 k6pSkq/sK2VAMtSsRhN3sal1es62/2tHTN2ftvNvEiRjrQlnZ43QYSmrEd8zDL22P1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cOQUHZPx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQE6ZOBl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7014606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 08:31:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AE1606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 08:33:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cOQUHZPx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB4701F000C4;
-	Sat, 14 Nov 2026 08:31:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQE6ZOBl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37ACB1F000C4;
+	Sat, 14 Nov 2026 08:33:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794645078;
-	bh=7bf74JBZJaiRPtSMX4QFCMUR0UG89iuIz4QHWAT2UNU=;
+	s=k20260515; t=1794645211;
+	bh=QC5iG8Fvq0w0Cc03pgJd+iLfyOqr7ITsw0zOuCfILxM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cOQUHZPxKDbvIYrQ02c5y9GUO5TBPOewM7E1LuZvoHtoyKcbCKIOKqpt+vZNSGmqJ
-	 aXlDXjPXEk1zGqVTywz+jhnNBLuRLjLf9RmrPr5qf2LJLI9XactZdMrORv3EtreuzE
-	 8NolOEo1HmdXbiJzrpU2n9MUhVvL7gWFUgOhcSBSrwh6L9TuAAQYYqzLe3LvJsFQ9K
-	 2uNzvYEqjcr2UwsjtAJ9Fzs1y5NqNfZq0UJKMtBKFKy+6TGd25nooUMPffptRkaBhp
-	 DU0ftCNYz4FGjzSxHb1qk/ZFq1e/n0lofcTfduORuv8ZrTOUFxubR1zE19hzrqnUux
-	 Zl4Zzaq8Eei9w==
+	b=OQE6ZOBlj/42d+lQ2yJRPFOMCGU93y8TMf8J51yqwpWyul7Hbls2dojAzGDlzPqeV
+	 hAFAP0wPOwnrpGeVdMVIuZMhCoLmkOsiOkGzwsvhzDUBFF1cJiwZDPFIHnrpLVJjbg
+	 V7WuKFfIrcOJoyYHFblh0pGO/oGr1qgn1+x7nM28tHouy19gAUomKY1gba+ftxu3SN
+	 sCnopJuGglstqWsGiuYjvLwUep+x4P3d3F54lnBRPMVlpwO6C15RN3k5l3guEYSlV5
+	 h/aWv7viZ48XICGlrNwm6CKBZeblfQSbDvEbF7vk0Pwe79NbHkkHlt6+vBVnk+95LA
+	 qQ05jcLL3bGPg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alex Hung <alex.hung@amd.com>,
-	Jerry Zuo <jerry.zuo@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
+Cc: Matthias Goergens <matthias.goergens@gmail.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] drm/amd/display: Avoid closing unowned DDC pins
-Date: Sat, 14 Nov 2026 03:31:16 -0500
-Message-ID: <20261114083102.3256259-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] udf: fix preallocation discarding before an empty allocation extent
+Date: Sat, 14 Nov 2026 03:33:29 -0500
+Message-ID: <20261114083317.3274309-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202846-failed-5.10-e7ba638b8116@kernel.org>
-References: <20261109202846-failed-5.10-e7ba638b8116@kernel.org>
+In-Reply-To: <20261109202455-failed-5.15-0c52750caaac@kernel.org>
+References: <20261109202455-failed-5.15-0c52750caaac@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,54 +61,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alex Hung <alex.hung@amd.com>
+From: Matthias Goergens <matthias.goergens@gmail.com>
 
-[ Upstream commit e7ba638b8116cb5f1a5690f543052371215f1626 ]
+[ Upstream commit 0c52750caaaccee8b0e929450fe6538ec4985722 ]
 
-[WHY]
-dal_ddc_open() cleans up pins it acquires on later failures. If the
-data-pin open fails, this attempt acquired nothing. If opening the
-clock pin or configuring fails, dal_ddc_open() closes the pins it
-opened. An extra dal_ddc_close() is unnecessary and unsafe:
-GPIO_RESULT_ALREADY_OPENED can mean AUX owns the existing handles,
-and closing them here would disrupt AUX.
+udf_discard_prealloc() finds the last extent of a file by peeking at
+the next one with udf_next_aext() and stopping when that returns 0.
+The peek reads into eloc and elen, and the code then uses them as the
+last extent.  But when udf_next_aext() returns 0 they hold no defined
+value: if the extent list ends in a continuation descriptor that leads
+to an empty allocation extent, they describe that continuation, i.e.
+the block of the empty allocation extent, one block long.
 
-[HOW]
-Remove the extra dal_ddc_close() from the failed-open path.
+The kernel creates such lists itself: when udf_delete_aext() removes
+the only descriptor of the last allocation extent in a list, it leaves
+that allocation extent empty and the continuation to it in place.
 
-Cc: Jerry Zuo <jerry.zuo@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 175ae7772b68757b4932f34ff862923cab7abe21)
+If the last extent is a preallocation, udf_discard_prealloc() deletes
+it with udf_delete_aext(), which finds the following allocation extent
+empty, so it also removes the continuation and frees that allocation
+extent's block.  udf_discard_prealloc() then frees eloc and elen: that
+block a second time, instead of the preallocated blocks.  On a space
+bitmap the preallocated blocks leak and the free block count drifts.
+On an unallocated space table the second free adds a second free
+extent for the same block, which is later handed out twice: fsx as run
+by generic/091 and generic/263 ends up with two parts of its test file
+in one block and reads back bad data.
+
+Peek into separate variables, so that eloc and elen keep the last
+extent that udf_next_aext() returned with 1.
+
+Fixes: cfe4c1b25dd6 ("udf: Fix preallocation discarding at indirect extent boundary")
 Cc: stable@vger.kernel.org
-[ sashal: adjusted context for dc_link_is_dp_sink_present() instead of dp_is_sink_present() ]
+Suggested-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Link: https://patch.msgid.link/480eccd1264a4cea5226fc36ed108931b2c403fb.1793349907.git.matthias.goergens@gmail.com
+Signed-off-by: Jan Kara <jack@suse.cz>
+[ sashal: adapted udf_next_aext() calls to the older API that returns the extent type directly ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ fs/udf/truncate.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 62778ccea055b..b05e515236224 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -373,12 +373,8 @@ bool dc_link_is_dp_sink_present(struct dc_link *link)
- 	 * which indicates we need additional delay
- 	 */
+diff --git a/fs/udf/truncate.c b/fs/udf/truncate.c
+index 036ebd892b852..a0b61b0dcb973 100644
+--- a/fs/udf/truncate.c
++++ b/fs/udf/truncate.c
+@@ -122,8 +122,8 @@ void udf_discard_prealloc(struct inode *inode)
+ {
+ 	struct extent_position epos = {};
+ 	struct extent_position prev_epos = {};
+-	struct kernel_lb_addr eloc;
+-	uint32_t elen;
++	struct kernel_lb_addr eloc, tmpeloc;
++	uint32_t elen, tmpelen;
+ 	uint64_t lbcount = 0;
+ 	int8_t etype = -1, netype;
+ 	struct udf_inode_info *iinfo = UDF_I(inode);
+@@ -136,7 +136,8 @@ void udf_discard_prealloc(struct inode *inode)
+ 	epos.block = iinfo->i_location;
  
--	if (dal_ddc_open(ddc, GPIO_MODE_INPUT,
--			 GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK) {
--		dal_ddc_close(ddc);
--
-+	if (dal_ddc_open(ddc, GPIO_MODE_INPUT, GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK)
- 		return present;
--	}
- 
- 	/*
- 	 * Read GPIO: DP sink is present if both clock and data pins are zero
+ 	/* Find the last extent in the file */
+-	while ((netype = udf_next_aext(inode, &epos, &eloc, &elen, 0)) != -1) {
++	while ((netype = udf_next_aext(inode, &epos, &tmpeloc, &tmpelen,
++				       0)) != -1) {
+ 		brelse(prev_epos.bh);
+ 		prev_epos = epos;
+ 		if (prev_epos.bh)
 -- 
 2.53.0
 
