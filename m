@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632021;
-	b=XotpeSlX+uNdny3JfBwogQFyNfy+LAYbPr0sgeYT9Zo1J2+YoWDlpe+7TzsER+/U3e8u
-	 9UmBgfS6/BfhiVDJCmWBOQ6ksLKrajPD2xbM4jwFGVywGH4EyaXDPMwnFIl3vLCw9Nqf7
-	 r+u+vuj31midyriz3CC1rHdD9nj6QE7ZYFfq3X6uXOre6jVkImQFVGdjSRmVX9l1EWSPD
-	 U+V2tUFhkCnwpx/iUEA+/YaKhkUCV0yCNO0gd73uY2FPMEBw0afHReAuly9vhHXPpyU6k
-	 dxMnXd1H/jTBm+SxE2RTZ5ubB1+3hv50N8k8UZP/p4LQ3MeuXXX+vJdUWnWHM5h8LCA==
+	t=1794632206;
+	b=JFpwUVi25GKZ9pAn1IdhflQzuRTV2EOXmrszK0pilyAob2uUvz2VEzkJT6c77RzHMAcP
+	 6iRRXsJGkB3DXOADN1UVBkJ1lYABSf+KH0V5TsBbzI78YgAbzZrUOjIfSYhLLluQ0e/ru
+	 8B0Lz78HZdADDZIzZaSYilgJRvXRRl5XGdkqt7er3t1wgjtitsFUnKgW6KP1kwe7bnFQQ
+	 4YVbBxVAIRc7EqJTfXPI4l53L32RyVs7wi3uWvEnRz9jwAHv9raKHU9AdRm/c526iD7ch
+	 Vnem04z5xlzZDqIaZlBSdLRX5yhzGXdZl1H+aLSC+yfgJmRUKWBi+f20WV+2SF0GKwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632021;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632206;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Yti5qze33LbOqgNi3ZBWFbak05+I9zzYMvPdLNzCrF4=;
-	b=XJgGRDNKesLuLny5rYf6tckADO2bGbl3wREUUistNw0vGqAOEtpW6JQo1TC9QMg6ty/u
-	 R3zJyJ5fHzkqAil1TZrwv8VS1v0fGr3LPxZLBNX+46j4OzrYOeBXuHfOpewnbwB/s+nI+
-	 f0cauS/Og0ReFFWIz3lo8YOtE4vjVrO95n9lfgS5P6NGaPfSWuTEksvLJnIF3kcwuIzwV
-	 vWQrJs0Zg9NweapEX+9Loz2l3NEuTQw+O2SDbCDTKJj7F37QnOEhS3Wf8CMuRVIfW1vku
-	 ukOQ7cZ6mQoNJfUirGxf4sXADqBuBsZxhiIMr7ZPQqvFos7FA4haTEg1zLqdRh+2TSw==
+	bh=Fq38WdxYrlk7HWT9Rn7HOXfN4WWX6m7csVx9RyENc80=;
+	b=Tk0DqavG2uvRLJBP2Xpvk5JXpDGZYniKVQyo9PFk0S4bcGvw9GMfa1HRzTv4vDk+NYtB
+	 xLFBn+Q1ESHIpWB/xELNyXHPWZ/p4gPyQ64ZwStcUqW68GzmqJecnpc08LPMvNKODB6Mq
+	 uwqOKp9wMMleuRIcAsyZoH1+Ub19j1IruXFBixqp5udqL76cuKd/y4jVPjxLCBy8K4eT2
+	 fpetnMtblNr3Z7rOef3pYvAOykP8I0X1/y84B5kKNyTeQOSrApEAokYH8rwvLGzaE7J+j
+	 hvYtL1W3jhf1bKvLVZbSllU0Qm5XLcjmBZ6+3Alt5tAY5awfpJQbMxlDFDgXt3CIdRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgduWwdT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uc54yJYO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FDE606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:53:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCFA606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:56:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgduWwdT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84711F000C4;
-	Sat, 14 Nov 2026 04:53:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uc54yJYO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3BF81F000C4;
+	Sat, 14 Nov 2026 04:56:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794632020;
-	bh=Yti5qze33LbOqgNi3ZBWFbak05+I9zzYMvPdLNzCrF4=;
+	s=k20260515; t=1794632206;
+	bh=Fq38WdxYrlk7HWT9Rn7HOXfN4WWX6m7csVx9RyENc80=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jgduWwdTGuBS1smC88I1/V1wLcG/ye/Ft1IBEXbVUziJi35cTo7lifrObLfhb1EqY
-	 z8X03xa5fEKv9j1qg38ghk74Q7gH1BoFYpmRnUIbk7f6cRuxl/1NCyn93ovz6A2ThA
-	 LtHLbK43+9S1d8hKMbud+EVuAsgqReFb2v8RMjDVr4piQz8YT3sUHeSN6/+5vFmJoX
-	 frG8kk6l9vY5eTCeTZq6JMWFvtRzrDU2hyh6E41rKTni19kBGuYZxFa6QIDldK6p+j
-	 dEz+Rd56tn7L1wZ21/n9JenvzZxGRLBjtnwZJtHkkMQdkFQK0dPIXOolfWXaACD5x8
-	 1+8wmCMYxwu5g==
+	b=Uc54yJYO7GG0gTyY90CetBycirTCfAcGt7ZAMKCQevqq7bkoYcXnNzQ1EnCFUZet6
+	 RyI+OU50Kf2FUFobc4RrhQEA7rjFkqtSKbxbHdBeDNDYoipY1x+7XrhUibfs0HVIG7
+	 qJIwRrgEjUPO2wrM4hMQ/f6jXvHSHgBUCB4yyaFctfkWEzLZbjLIX9IScCRSfC4C0A
+	 E7VM4fQhPAGfZ5OHGxIA2UXQXwelAUVJCCzy77Ok+8CIPL4QhRhYobCGGaJYrDMC1h
+	 Mo4RFfLmHo+61hTTh9C2K5ngFbtP1Lj85zm//9Sm9u1jVigsftDg+9XwWDlNs+gOVT
+	 /qrmPV2/oq40Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"Harry Yoo (Meta)" <harry@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Rik van Riel <riel@surriel.com>,
 	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Zi Yan <ziy@nvidia.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/rmap: handle device-exclusive entries in folio_referenced_one()
-Date: Fri, 13 Nov 2026 23:53:38 -0500
-Message-ID: <20261114045314.2959343-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/filemap: read mapping->a_ops->free_folio under i_lock
+Date: Fri, 13 Nov 2026 23:56:44 -0500
+Message-ID: <20261114045632.2986009-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201603-failed-6.1-f3c493d2f42b@kernel.org>
-References: <20261109201603-failed-6.1-f3c493d2f42b@kernel.org>
+In-Reply-To: <20261109202107-failed-5.15-dc24e273244e@kernel.org>
+References: <20261109202107-failed-5.15-dc24e273244e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,80 +64,131 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c ]
+[ Upstream commit dc24e273244e9d712257d5a6c20a32c7f5ca84e6 ]
 
-page_vma_mapped_walk() can return non-present device-exclusive entries,
-but folio_referenced_one() passes them to PTE young-bit accessors that
-require present PTEs.
+memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
+after the inode has been freed. Once the folio is deleted from the
+pagecache it no longer pins the mapping, so after i_lock is dropped
+e.g., a concurrent final iput() can evict and free the inode before
+filemap_free_folio() looks up mapping->a_ops->free_folio.
 
-We must neither call clear_flush_young_ptes_notify() nor
-folio_pte_batch() with non-present entries. For example, clearing the
-young bit on non-present PTEs can corrupt the entry: on arm64
-PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
-entry into an ordinary swap entry.
+Most callers hold a reference on the inode, but not all.
 
-folio_pte_batch() will VM_WARN_ON_FOLIO.
+Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
+must not assume the original address_space mapping still exists.
 
-Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
-treat these entries as old from the CPU's perspective and obtain their
-young state through the MMU notifier.
+Fix it by loading ->free_folio while i_lock is still held, similar to
+what folio_unmap_invalidate() does.
 
-Skip PTE batching and MGLRU look-around for non-present entries, and
-don't modify non-present PTEs.
+Inline filemap_free_folio() into its remaining caller such that
+delete_from_page_cache_batch() also just loads the callback before
+dropping the i_lock.
 
-Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+The bug was found by code inspection and has not been reproduced.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: get rid of filemap_free_folio() entirely; improve patch description ]
+Reviewed-by: Rik van Riel <riel@surriel.com>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-9-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adapted batched PTE handling to the single-PTE flow using the older void-returning MGLRU helper. ]
+[ sashal: Adapted callback capture from free_folio under i_lock to freepage under i_pages. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/rmap.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ mm/filemap.c | 44 ++++++++++++++++++++++++--------------------
+ 1 file changed, 24 insertions(+), 20 deletions(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index dffd859bdeb96..4ade867a55cf9 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -827,14 +827,26 @@ static bool folio_referenced_one(struct folio *folio,
- 		}
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 9fec53a3f5505..eccc5318b6644 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -232,23 +232,6 @@ void __delete_from_page_cache(struct page *page, void *shadow)
+ 	page_cache_delete(mapping, page, shadow);
+ }
  
- 		if (pvmw.pte) {
--			if (lru_gen_enabled() && pte_young(*pvmw.pte) &&
-+			pte_t pteval = ptep_get(pvmw.pte);
-+			bool young = false;
+-static void page_cache_free_page(struct address_space *mapping,
+-				struct page *page)
+-{
+-	void (*freepage)(struct page *);
+-
+-	freepage = mapping->a_ops->freepage;
+-	if (freepage)
+-		freepage(page);
+-
+-	if (PageTransHuge(page) && !PageHuge(page)) {
+-		page_ref_sub(page, thp_nr_pages(page));
+-		VM_BUG_ON_PAGE(page_count(page) <= 0, page);
+-	} else {
+-		put_page(page);
+-	}
+-}
+-
+ /**
+  * delete_from_page_cache - delete page from page cache
+  * @page: the page which the kernel is trying to remove from page cache
+@@ -260,13 +243,22 @@ static void page_cache_free_page(struct address_space *mapping,
+ void delete_from_page_cache(struct page *page)
+ {
+ 	struct address_space *mapping = page_mapping(page);
++	void (*freepage)(struct page *page);
+ 
+ 	BUG_ON(!PageLocked(page));
+ 	xa_lock_irq(&mapping->i_pages);
+ 	__delete_from_page_cache(page, NULL);
++	freepage = mapping->a_ops->freepage;
+ 	xa_unlock_irq(&mapping->i_pages);
+ 
+-	page_cache_free_page(mapping, page);
++	if (freepage)
++		freepage(page);
++	if (PageTransHuge(page) && !PageHuge(page)) {
++		page_ref_sub(page, thp_nr_pages(page));
++		VM_BUG_ON_PAGE(page_count(page) <= 0, page);
++	} else {
++		put_page(page);
++	}
+ }
+ EXPORT_SYMBOL(delete_from_page_cache);
+ 
+@@ -335,6 +327,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
+ void delete_from_page_cache_batch(struct address_space *mapping,
+ 				  struct pagevec *pvec)
+ {
++	void (*freepage)(struct page *page);
+ 	int i;
+ 
+ 	if (!pagevec_count(pvec))
+@@ -347,10 +340,21 @@ void delete_from_page_cache_batch(struct address_space *mapping,
+ 		unaccount_page_cache_page(mapping, pvec->pages[i]);
+ 	}
+ 	page_cache_delete_batch(mapping, pvec);
++	freepage = mapping->a_ops->freepage;
+ 	xa_unlock_irq(&mapping->i_pages);
+ 
+-	for (i = 0; i < pagevec_count(pvec); i++)
+-		page_cache_free_page(mapping, pvec->pages[i]);
++	for (i = 0; i < pagevec_count(pvec); i++) {
++		struct page *page = pvec->pages[i];
 +
-+			if (lru_gen_enabled() && pte_present(pteval) &&
-+			    pte_young(pteval) &&
- 			    !(vma->vm_flags & (VM_SEQ_READ | VM_RAND_READ))) {
- 				lru_gen_look_around(&pvmw);
- 				referenced++;
- 			}
++		if (freepage)
++			freepage(page);
++		if (PageTransHuge(page) && !PageHuge(page)) {
++			page_ref_sub(page, thp_nr_pages(page));
++			VM_BUG_ON_PAGE(page_count(page) <= 0, page);
++		} else {
++			put_page(page);
++		}
++	}
+ }
  
--			if (ptep_clear_flush_young_notify(vma, address,
--						pvmw.pte)) {
-+			/*
-+			 * PFN swap PTEs, such as device-exclusive ones, that
-+			 * actually map pages are "old" from a CPU perspective.
-+			 * The MMU notifier takes care of any device aspects.
-+			 */
-+			if (pte_present(pteval))
-+				young = ptep_clear_flush_young(vma, address, pvmw.pte);
-+			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
-+								address + PAGE_SIZE);
-+			if (young) {
- 				/*
- 				 * Don't treat a reference through
- 				 * a sequentially read mapping as such.
+ int filemap_check_errors(struct address_space *mapping)
 -- 
 2.53.0
 
