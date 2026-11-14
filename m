@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.23
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794647200;
-	b=BAGFhG5eU5r9VOd7WUw9k2UElRh9VraxIGtfxetch96xN5M9IEDdxOOoZouIIxrc9g6d
-	 L7xfttI13KIrXJ9cnKGY5aLtncB9fREw6POrE5rj5EZZ/bQF42uHAAVtcHbpsaYbm5mNN
-	 jJKVql13vfbTx49xRxDCous8HK5fqKvoLog67fHXTX4VLTVjohiiKJbw3Ls5nNXGvvVrN
-	 4+W9i3res0oLzU0aVNrwM9p9yek6lioSjr0mIpC/d756Qv8tSMyUXLnXrfYpv76DryPg3
-	 xPq7ItbCTYIoPge3mBCEAJ/cDPwZcLsh//Tk8lekpp1YUM2TJQkGmzaTFiHgtPdiJKQ==
+	t=1794647479;
+	b=ekwUF5/oGBIO3aPVnN0p+K6g7mGN9wd79KhZFyqCIfB6nTRaxy9nuMIlQtX8VSZjclW2
+	 ots+kIayzNtDH+DMM3mkYR6Kl5AZfBC8gF/8Hc3ZJTQMc9k/SXWZ0gQwkBJAfCtKclzHx
+	 83A36dAmPi2cIXOYZkHUSUlY4uYrL5VBzmqshx9zZPV0MngIgwa1ypirKwECLE0LF9UFk
+	 2rJZrLzQaBKeq86q7IJqK8tdBAmmJW5gbvTQ3WnnNqYfpXD+zxIA4D9syvgIOFwRdU2jF
+	 YwA2zOh1b2cMjYMvYEOERk2AhPq85c2ULDi9lLd5nttsWOEi9iUyUFRqf14xCrjcTIA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794647200;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
-	b=YTnFzZ29QcgiaEZP4wKLH59UVacg3kjdor1GqeIGGDUwOVRbvRkKfqyGAHVgp4KsjLXp
-	 cZAgx3zGjPlcoLlhmFl0Gn9zqN+Ip0quUmAufY7Uf9XWBZZCaJFkKd9J3uhDfyzaoktlB
-	 OuO5IQS3bucb7TC8BVuQL7k1O0Tsi7s/E3RRuzJDyaPBuh4oZ6Hb+6TBbvxgC6+wXNbCg
-	 Kie9/PLxdKL9MRAQ3r1UzkAm0qen8Ixx0oCXIt2uWDtwIGMwq4hCCiIdBtZxlTgKezaDS
-	 wrfs3Omi4HS6KeRM/55ZUdA91wVLhUi4TffceXUyZkUNP9LYx6CoiolUA0drU9DgGgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794647479;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RVX9MRa9dV1R7ULlZD8/sNmRw4/XsN2yz2JOSVUwTg4=;
+	b=oKHI1x/d1edySSDTZhxAJhC2x8/bMDkTn6FunXV1W7aLhtBP/Y++CoXSPhWfMaiUMo0Z
+	 BkOyhaJxiDY2C6ngbKKQkztm39RV2+NjwtAQrlIypnred+3Du215+m5SBN90ax/rRlSCN
+	 zDyXkeIDPK6w1u0Ough94mOnfW/5h/Kj0j0GtPtu+ZVVAva3chaYe9S6lPhTVR3xxtrZ8
+	 ml/1qZmj6EanyJXe+lA9271yQsNZr7Fqf0ColEEzKCfMHvVxhsEaJkbqeB5QaNX6zWIOk
+	 3pOXQNRDW2j3duKCAOjkj11aCcsk1V6dBNRZ4jH6NSH743jvMAt4IsIGtk3vHUL4zUA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KAPee24q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=adkHNykx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.23
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013023.outbound.protection.outlook.com [40.93.196.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393DC606A8A1
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 09:06:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 393DC606A8A1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C59606A329;
+	Sat, 14 Nov 2026 09:11:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84C59606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KAPee24q
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b7221c0f2cso3169948a12.3
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 01:06:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794647198; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gbN3OZdQDytaH7aY/9HpvYWT/wUKPZXXVToA4hW7EgRqw8ciErhhA+7ZQFFoG/i50J
-         pCnk8K7PGZbA3nR2x5vpbxbCOUNDisR9Od1WL7+Fj121+2ddKn/6/+WU89EnZ6X+Iofu
-         snWtPscv4jAiqEHnN9VQ/U4DEgiruh2SEqiEb1oN23R7t+8cRfK0nTEwpWQEESGJkz1j
-         rvTG9GoRJRIp3ETQkXRdavQ/fmqIgMiMQiEbsRKnctPKpnqthoF8OWbDaSZFteQELPzP
-         z3Jbo2fFeU8mNDO2YT8OYj/sL8dULgIN1na9M60XPeILoN81NivaOpsXD/fSve+nOvrh
-         xRjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
-        fh=MGpDvn/rjac5ihmnqyOtD86Hm8ihZ4rA5/y0KDaI0EU=;
-        b=Fh2CjJxGRs2trX95MdwkistQ+e8XnC805Y7k/GkB6Wh2r6r6/J8toK0M4EcAtoJlFu
-         JBSi6jQRuyYJBxCKTM0BoA9mMAp15LmcHICrFnJY+N08hhufZT2ky62C1RcLhAP/MA6r
-         08h8seC1+mC3c3qCkjiedvqpQrJUXxxW+grG1b0yOiBeqMtEIoa8gnqg/XbSwfmeWz5c
-         ySe+TzFQofEnG3ireqYFqAXyYzXVbZdgCKQzqp9D6UvY7ocBfVHlBzfHbod8nztvmGka
-         msMcjI6rV05LXN/9gGTkF/nVQc99aVz0uaSdk3jgJSeGeANXOudyON/xYeclMwwor/C/
-         1pdQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794647198; x=1795251998; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
-        b=KAPee24q6sgn4tuwSJPcT5mLv4nmEJVkDQTJnS3b+A4tCcKaMvDPOKxx1Aj0rGa2QG
-         leV18YbE0vVTDhU6LlzF8ZTir96MSfp1D2V5a222yjeNBxo5wagZiO/Hvlp4pN2zlZEv
-         zjPCTuFUfgk6vHc1CIzwSsiGn7lPWY1kINJj1S8C8gFjTkfHPDCH1bWLsj1S7GvjH1Uw
-         kkP2Dpe85Kp+wwGyRSZPVJrpSiifJHeFp9Yvp1P3aUVrF41YQ4YzFYP7QidbmC3DxWva
-         vhXpThWJ6cLfCK9UzT26tub/pSdMc5opTCc+FAnKvTp8qMyme2PvTxUQdpWKoB8soGua
-         csMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794647198; x=1795251998;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
-        b=NNMarb/RH0edAdn0xMfHwhJ5tSVMd7DzTRsckLBDjPz6lx53BbMM6gzDM5HJjS2NWF
-         lIESXgBeDNwNTbKvRMTzDnMFFn14/S09ZfAlPVxAjlDV9qEnhehwzG+QstlvAEQroZIO
-         RUmIGXBcYJSCgQj2LN4AL5uKJ8oW/Bge+jfFtNiOhJHjllTBFFGixh01VcTpdrGKIdPY
-         OU8ccA/Q1m3wQsY7fQXJ6n+3U8axGtr44YoYrrjskwdcH59F0x2sJZKkqOCbYxtKq4L7
-         FYZZWIIJ/RPhoXd/D3zt2hgY+goxvUaxGIDTPI9oa37GDUihfeYcXen8bLtn/gxCRyH1
-         ZSqQ==
-X-Forwarded-Encrypted: i=1; AL+hErHuS0VtPG2WHlQapJ84UB/OJ0GEtVNXsqGlg29f55eMDJXxx1/qGGrf1HWFozlDOT0KQMQdnds=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3IV43huTOL7733XZfAavT2l/01Jh7ODpj175KfihpzWw7dax/
-	XmzM1u79Nt/ciouTeQZ+KB9VycjMK9B/Z64n9+9r70QrKiY+jN9gpWMp2E1VzDR6RmmBRLtagRy
-	CLVknwqF2pIuF/4LNe8ttT1tUdnld0fa7CJTz3WNnTg==
-X-Gm-Gg: AYBFou16x5VkGcmo5wx1PgguvJGKjG0KKqKFnfBo2Q0ORU19GXYJ1KrG2RzrOPwCcjH
-	Cq+DN1fFvdkwMGN/wcBjASrPRJanGK29RafUJ98nQ30gdueU+IzeNssqiiccHlIMJetk4bSbb+1
-	n8Y6+FKitmjwlJhs+tvbhQx5JW/Jv8jQajWDWtRjGCTrDPuV1U50lbXamOBSCVxKpyeLgmtH/I5
-	twV9owYvU8i42FOkMKpIAvAc1J0pOSZnKQG08DLAgxdxtDLPJ9uhazg/IEeOW5FAqCjWlAuo9ZZ
-	9UH1Fhb/1u8Jc08/P8fiQhlnD+xsQru/Wk0rI4AFeK9P8dhktUYT8kCWVhwP2WaSrS5BcIKd2hX
-	8TtPLBO2DfOJj9GE6Jj8uorS7MtGmTlA35ayJkDSD+P+8eZwSCjz9mrudmFnO+6e2Hvsv/xK3zr
-	UqlaXYZ+eURSMVhcQ=
-X-Received: by 2002:a05:6402:4506:b0:6b7:defd:acf9 with SMTP id
- 4fb4d7f45d1cf-6b7defdb6bemr1404551a12.34.1794647198143; Sat, 14 Nov 2026
- 01:06:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=adkHNykx
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EI0tqvG3qbyyAD65RIX6453GTXpl9GRAg7keVFZhqBysH47Ncyb8cng2mE8R4hf1I91Tf8SlMXXWmkqxpIRBzDRm6XPcMN0KYmD4G/10hMDYnxx/p79z0brEiHspw1g1zCP3/cTSuc+qcJASguRzP4migr6rTThHWALAPGiGsyPTgV089lbuQwhqlGThxxDzgBI7gs8fWJ6jd6cdF6grOwOXufAHdYJukOTkBL4pmodghzeDAFTWlIGDx5UU9WsUhEcPdiQH3HiPXDWtJ7yqKfvrnD5ttuFqWAgC9t8F/OPdoJZjEvcKzraCnGG/q196aNg6NpXAK5WJeL4tz6tH+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RVX9MRa9dV1R7ULlZD8/sNmRw4/XsN2yz2JOSVUwTg4=;
+ b=B41NEBm+Hyw9SYAovAYjxMICMM8ZhC/luVLpNLlLZyswglYaPJqEeFsGfJMPW7YuKWc/+392DGKnUnMpdocMmvs9F5Wm2BoGH62oxVQ5DgM5OKnGKAdIiHOFzd0sUYs44GF0qZU0SMdSFXpy42Jgx2xlwCfzj2efdC6QGvRLqE09BMEZ4j3YopZ99IjOe2Ea8NpaaaqtDKiFlnguJmlEyfhC3Fm5X7rJW4iqUYBPpk6FJZ7cn/XuReQGDug15e5Bn0zZw5xw3wuV1ZNzidqnclZpELHpxWyEUEsBmJs731mBczRBO2DX4m/w75OKk0mgeEU/vuO+eD4zf9zZfUw66g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RVX9MRa9dV1R7ULlZD8/sNmRw4/XsN2yz2JOSVUwTg4=;
+ b=adkHNykxSQdd9gs31MwLjCP3lhJvHbZ04zM44/At4mwnupKYvG1yhaRRgc6T6MTg1/TwBteNw+ot/Penef8sBOnUJn9pGAuuyJkcqO8dToPUrYvc9WWumt6TxgztPz4oGdbBH4BBS0TuDsJZBT1+E8KoQteJl9FIbHFQFuW1hs9+HqDHNmxUc4NlMdb37BHUpDcegyMWfzEgoTeNnn19Vgoittv4d9c8u+fzj0ss2h0GnC0s/qBKMCwCf1lUWOvexnaypg6nuilj51liEFqPRmbVzlAMPTTARIC+VsTUBGdHFKuCXhHKlZ4bXB183HRpwvbWV/Xq/bK/uVlvNbPG6g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Sat, 14 Nov
+ 2026 09:11:13 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0615.008; Sat, 14 Nov 2026
+ 09:11:13 +0000
+Date: Sat, 14 Nov 2026 10:11:03 +0100
+From: Andrea Righi <arighi@nvidia.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Rik van Riel <riel@surriel.com>, Usama Arif <usama.arif@linux.dev>,
+	peterz@infradead.org, mingo@redhat.com, kprateek.nayak@amd.com,
+	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, samuelcrossley@gmail.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	kas@kernel.org, Arnav Aghav <aghav@meta.com>
+Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
+ select_idle_capacity()"
+Message-ID: <avglp8nnc4u9OCb5@gpd4>
+References: <20261113153157.2495664-1-usama.arif@linux.dev>
+ <eba9d3df71f3f37bf7a318854a1ab6bf1cfb1981.camel@surriel.com>
+ <CAKfTPtCJLci=Yzq6B0-hK5L0m5iQPw1Y0NDQhKEaV6reg-690g@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKfTPtCJLci=Yzq6B0-hK5L0m5iQPw1Y0NDQhKEaV6reg-690g@mail.gmail.com>
+X-ClientProxiedBy: MI2PEPF00000B7A.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::40e) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,213 +103,151 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <avdIycF_mZV8CHKb@gpd4> <20261113182601.569981-1-usama.arif@linux.dev>
- <aveB5xbos9hRa3Nn@gpd4>
-In-Reply-To: <aveB5xbos9hRa3Nn@gpd4>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Sat, 14 Nov 2026 10:06:25 +0100
-X-Gm-Features: AclHuK_wLmstZb0WHt9M0jEhM6A8d8lYmDBXOAyA5nS1_mXmCAMCKdveqZ2jn3M
-Message-ID: <CAKfTPtCgzJakXU1o7C2EMEVTnD_mVS_xrdOJkQ9d_70U4_yCPg@mail.gmail.com>
-Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to select_idle_capacity()"
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Usama Arif <usama.arif@linux.dev>, peterz@infradead.org, mingo@redhat.com, 
-	kprateek.nayak@amd.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	samuelcrossley@gmail.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, kas@kernel.org, riel@surriel.com, 
-	Arnav Aghav <aghav@meta.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DM4PR12MB7527:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbe2c4ad-deb3-449b-2a5e-08df422f3b25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|18002099003|22082099003|10067099003|261028144727099003|4143699003|11063799006|261026121527099003|261022075727099003|56012099006|261022105027099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	NVX9FmDfTG8m1fnCzWUinyU91wtWljdbTjArl6vYEF/n6KXAwhFG0u9B09LDKTqwUCCzfR2OOcLoRjh7hj8bCbSahzpjvMKCc48dz3NRJGjirtyI0PWAi4X0jyarzClJWUho23r1MkYNE7qgSPzhBHQvUDf5Z4szTpc+j176LHg7hg2VgOHFnPX5zdo4D9QAygg5IJpfM2B2uiSxfvMEs05lVyee3r96DIL5IeCeP/NaccKcP2kz75yBGWNLooVQPNLKBoWm3FRtgRH0KORDVruXYMrruQ5xh5purlwPUvzBztqbYrBoXHcpMnOxCHkA/TcFaLIUkN5CDvBScrbGVODvpmGtxhDz6hxbLGv1kIA39WPaJHk4C75KDbx1BrX8zerOE60+4lkh4egImF+Mzq7pUTPp9MX6eCvXpaV4TVobLBChyfu0+BdKkusHVg9Gju6dYcF7KP0mOX5ZhApkEkExOmsLQf3YmrjK8SKcv0NgF6QTXKSShI36WN9FK6RdXX+EOhaJKyIJDXkOfR+uAsKUHUSq/pefr0pkqxwZviYsmpXfNdZvC3+rIRQgLinYj9pmSNimJC1b0/x/lcxbPh/s2SlXGJOYBossk+uElHCqsXt/zHlUjMm2+Vh/eVcxpmhmTi2aBbgC53n8aVpZ7H7Gchy0q0BTFaEVINC4qb0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(261028144727099003)(4143699003)(11063799006)(261026121527099003)(261022075727099003)(56012099006)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?JJWOccdybl2EQMK37253pK8t9IDN3o7d/CHDi7ZWuJulJDII0Ts6a2HAOgfd?=
+ =?us-ascii?Q?ogHwH7MPZ1kcDqJCN2eZ9QQPXo6RaMN8cgz9c/o4HbdDHFetIJo2KI8nckki?=
+ =?us-ascii?Q?3v9C/l+BO19UHN7m+1VA1gZE4tAox3kDfjBOSJ3gAtuW2w1ZyETXzPzCzyS6?=
+ =?us-ascii?Q?ijl7BzujPSFD/uUcJzlkVhz1+LkezrF9E12rUvnxLu4G8G5z4fZpsKHNL53w?=
+ =?us-ascii?Q?E6Y0qjuiJEOeOWyqU1rsN6marAs0e0ccbyjZQUp5PWrgkvG1/LWFPVdIxu4Y?=
+ =?us-ascii?Q?LXxThMA0qkdYbDicxJMdRoo5VU/iSTbPne9Bpwkh/vl9IEl7weJ5rx5FYJY7?=
+ =?us-ascii?Q?/43RXVEgqXgp+3x+yPdv+tG8g2ptL5j7RGqBULhSgE/X4ybqHWIVgJ9KqE3L?=
+ =?us-ascii?Q?WafjMWcGifQxbGYJlTmREzy1MsZ6yB6H7D6rIGa0T6+g679CAmcAShq4y3uF?=
+ =?us-ascii?Q?d4TgttHMtaU6f1FlNdHUocMkH/mZMe+Shx72giqC02Qra2vzgjNeC/urYPMQ?=
+ =?us-ascii?Q?LhxJ2r9QC16X+5+aWEwJSpACXHyFYz2iwqIdIlsJ9cBpEnGHqMYewee8oapQ?=
+ =?us-ascii?Q?XEhy3C9hW/+2vfMrOVTrZFSyL58D+x805zGxPlexYTJErgQgh1q2t6kQIqlf?=
+ =?us-ascii?Q?gELdCSXAGtrpNQuBallFPM9abxzWFyTD7+CHLJxJenaQ+RlhbrMvvyjkIFpd?=
+ =?us-ascii?Q?vSYtLTg5cB9WlamdjHcloCUoNv4ThWXBr6LxeBtOifLr7/QZyBZaqW67jn3w?=
+ =?us-ascii?Q?XD27JpSd4BAMJjElW3/heSheBYjywl6Dl+Yk22o7v6ZWe7B/Z4jOUbiQ8xtV?=
+ =?us-ascii?Q?AkAOd1f5z0V2qX0yXAnTs3FBgh4ivBEC0UReEeSQ9R+Y/fMltpYGAYFK8sTV?=
+ =?us-ascii?Q?qqOKmxT2nuUMgsR/FnxCX3HwzE9shPpEshRnJvUfoFVykYupwV5sX2ZGtF/a?=
+ =?us-ascii?Q?/kLw5PcIdMzO6/vkusGu5mSqc0L3g7QR7hGtdWQIf92uF83UZ6Y9ky+8oRV9?=
+ =?us-ascii?Q?WYi5NMtIYEs/TPGJGXJztTt1K3QloaBF5yZ6PkqK1aHhD4hwTf1/oFG9QTxn?=
+ =?us-ascii?Q?ThiJhI8n3eGRxvG3+4+M4NfYbSsi6yYMSjRbSB8D8fTC2rpunv2OBF6uJDWN?=
+ =?us-ascii?Q?F6NdUQ2uJn3dOVdkvcyNF6yhgc9FYH0HnIlc33fW5znuGRQSkUOK/BqUo22Z?=
+ =?us-ascii?Q?ci1kk1gvk/wJ7KxU+odVqgtHmk4B8/ERTD+ijtGfK/OlOMJPcX4l2JVDyqUQ?=
+ =?us-ascii?Q?AE81KqbsUbg1qtSKg6LjIzFTawhtCNzFh3NQfNRQrOvpjtOE/n/EBcxDiASG?=
+ =?us-ascii?Q?eF2StidlR4UNhS/deQEYMqrIm5/pt5hZ4Uf0E8xB9u65PUiu5k7dNis57adL?=
+ =?us-ascii?Q?Uq7m6MYAcI+rqzSE0qCoNQwOt0HHyXrK+RGjHwMzPO4FHp8PjRaJsNfXtYu7?=
+ =?us-ascii?Q?JGT9nkDMBJjfIxpTUMLakcZy9pVyPeIEeAe7StcCPq9Kszg1yAg4xH6xAMOM?=
+ =?us-ascii?Q?fFS65Ce5uPVKOpP2zPSrBQ/8AB+MKfT6gmQopF2xCc5dSk4ITRl3hQFAIgav?=
+ =?us-ascii?Q?eALCDmiuBqEWcyCUgcJGnkTf69jK2BgI6fijaNyaShiUXlalcp3FwDvAyZKa?=
+ =?us-ascii?Q?nN8qVf3Pi/bqFDQt3YqFe01DDy6jS28EkFkpHjcrM34rdqrfdKny71/rBOZK?=
+ =?us-ascii?Q?6gFlqUvxSpnf28tIfnH2ffG83jr0MKCitFCWBSuC3hb8ruKkQRBd/oOEJm7v?=
+ =?us-ascii?Q?Q8N8WRSqlQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbe2c4ad-deb3-449b-2a5e-08df422f3b25
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 09:11:13.4611
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7rvA5fOoun/RdofZwYJikOns6JxXcH6AAyqLGL2F1R0qJBp1FrXlvIXpynRemjAdxzKmhZgM0qkX8Si1gcpQcA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
 
-On Fri, 13 Nov 2026 at 22:32, Andrea Righi <arighi@nvidia.com> wrote:
->
-> On Fri, Nov 13, 2026 at 10:26:00AM -0800, Usama Arif wrote:
-> > On Fri, 13 Nov 2026 18:28:41 +0100 Andrea Righi <arighi@nvidia.com> wrote:
+On Sat, Nov 14, 2026 at 09:18:30AM +0100, Vincent Guittot wrote:
+> On Fri, 13 Nov 2026 at 20:32, Rik van Riel <riel@surriel.com> wrote:
 > >
-> > > Hi Usama,
+> > On Fri, 2026-11-13 at 07:31 -0800, Usama Arif wrote:
 > > >
-> >
-> > Hello Andrea!
-> >
-> > > On Fri, Nov 13, 2026 at 07:31:57AM -0800, Usama Arif wrote:
-> > > > This reverts commit 61ea17a63719 ("sched/fair: Add SIS_UTIL support to
-> > > > select_idle_capacity()").
-> > > >
-> > > > That commit applied the SIS_UTIL scan budget to select_idle_capacity().
-> > > > The early checks in select_idle_sibling() consider a few specific
-> > > > candidates: the target, previous and recently used CPUs. If none is
-> > > > selected, the asymmetric path calls select_idle_capacity() to search
-> > > > the allowed domain. With SIS_UTIL enabled, a zero scan budget makes it
-> > > > return -1 before that search. The caller then returns the selected
-> > > > target, even if an unexamined CPU in the domain is idle and fits the
-> > > > task.
+> > > On a 72-CPU NVIDIA grace arm64 server, small reported capacity
+> > > differences
+> > > (1013-1024) within the single LLC activate asymmetric selection. Both
+> > > the reference and affected kernels were observed with a zero scan
+> > > hint. The reference kernel ignored it and still searched the domain.
+> > > A latency-sensitive, wakeup-heavy production workload saw its
+> > > reported
+> > > minute p50 latencies average 129 ms on the reference kernel and 223
+> > > ms
+> > > on the affected kernel.
 > > >
-> > > Isn't this consistent with select_idle_cpu(), which also skips the scan
-> > > when the SIS_UTIL budget is zero? Missing an idle CPU is an intentional
-> > > tradeoff of that heuristic. Could you clarify why we should remove the
-> > > budget specifically from the asymmetric path?
-> > >
+> > > Disabling SIS_UTIL reduced the aggregate involuntary context switch
+> > > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
+> > > raised the rate to 73.7k/s.
 > >
-> > It is consistent.
+> > Afaik, the asymmetrical selection is supposed
+> > to solve a very specific problem: when a task
+> > requires X amount of CPU capacity to run, we
+> > try to avoid scheduling it on a CPU that has
+> > only a fraction of X available.
 > >
-> > Symmetric path also has this (I didnt check this before sending the patch).
-> > The service is running on Grace servers which report capacity differences
-> > and updating the kernel from 6.16 resulted in the problem I outlined below.
-> >
-> > Maybe the symmetric path needs to be audited as well?
-> >
-> > Or maybe this service should not have ever run with SIS_UTIL at all..
-> > (The only thing is that kernel upgrade caused a serious regression)
-> >
-> > (Should have made this patch RFC :))
-> >
-> > > >
-> > > > The budget is derived from aggregate CFS utilization. High aggregate
-> > > > utilization can coexist with idle CPUs when a task wakes.
-> > > >
-> > > > On a 72-CPU NVIDIA grace arm64 server, small reported capacity differences
-> > > > (1013-1024) within the single LLC activate asymmetric selection. Both
-> > > > the reference and affected kernels were observed with a zero scan
-> > > > hint. The reference kernel ignored it and still searched the domain.
-> > > > A latency-sensitive, wakeup-heavy production workload saw its reported
-> > > > minute p50 latencies average 129 ms on the reference kernel and 223 ms
-> > > > on the affected kernel.
-> > >
-> > > Have you tried forcing the symmetric idle-selection path through
-> > > select_idle_cpu(), with SIS_UTIL both enabled and disabled?
-> > >
-> >
-> > This cant be done from a running kernel, right? My understanding is
-> > that the cpu capacities come from firmware, so cant be changed at
-> > runtime to be constant across all CPUs in kernel?
-> >
-> > Changing kernel on a production service can be a bit of a process.
->
-> Yeah, this would require a patch and a reboot. Unfortunately there isn't
-> an existing runtime switch to force symmetric/asym idle selection.
->
-> >
-> > > It'd be useful to see whether disabling SIS_UTIL produces the same
-> > > improvement there and whether symmetric idle selection performs better
-> > > overall on this system.
-> > >
-> > > >
-> > > > Disabling SIS_UTIL reduced the aggregate involuntary context switch
-> > > > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
-> > > > raised the rate to 73.7k/s. A five-minute disabled run also reduced
-> > > > kernel CPU time per request by 10.9%. The available minute p50 samples
-> > > > averaged 149 ms, compared with 241 ms before the trial.
-> > > >
-> > > > These measurements come from disabling SIS_UTIL on the installed
-> > > > kernel. The feature toggle also disables the symmetric scan limit and
-> > > > shared scan-hint updates.
-> > > >
-> > > > Restore the search of the allowed domain, retaining the capacity,
-> > > > uclamp and SMT selection rules and their early returns. Domains with
-> > > > no suitable idle CPU can again require a full scan, potentially increasing
-> > > > scan CPU cost.
-> > >
-> > > Yeah, this is my main concern, full scans can become quite expensive on
-> > > large systems with lots of CPUs in the same LLC.
-> > >
-> >
-> > Yeah I imagine this was the reason for the initial patch.
-> >
-> > The same workload on 6.16 kernel placed 69% of wakeups on an idle CPU,
-> > the affected kernel with the patch that this is reverting only placed 7%.
->
-> That's a substantial difference, I agree the regression should be
-> addressed. Perhaps this points to a limitation of the SIS_UTIL
-> heuristic?
->
-> We could investigate incorporating observed idle CPU availability into
-> the SIS_UTIL budget calculation, rather than relying solely on aggregate
-> utilization. Periodic load balancing already collects idle CPU
-> statistics, which might help distinguish actual saturation from high
-> utilization with CPUs still available.
+> > This creates the issue that a task that appears
+> > to "need" exactly X, because it's been running
+> > on a CPU with full available capacity, ends up
+> > not being scheduled at all when the available
+> > idle core has X-3% available capacity, because
+> > that CPU happens to spend 3% of its time handling
+> > interrupts, or running something else.
+> 
+> The task will be scheduled on this idle cpu/core of (X-3% capacity) if
+> no other idle CPU with X capacity is available.
+> The selection in select_idle_capacity is:
+> - Idle core with enough capacity
+> - Idle core with enough capacity but doesn't fullfill uclamp_min
+> - Idle core that doesn't fit
+> - Idle CPU with enough capacity
+> - Idle CPU with enough capacity but doesn't fullfill uclamp_min
+> - Idle CPU that doesn't fit
 
-We want to keep same behavior for select_idle_cpu and
-select_idle_capacity with both using the same SIS_UTIL algorithm.
+Right, and when the scan budget is exhausted select_idle_capacity()
+returns the best idle candidate found so far, even if it doesn't fit.
 
-That being said, the current algorithm is probably a bit too cautious,
-particularly for systems with a small number of CPUs
+However, in the zero-budget case, we return before examining any
+candidates in the scan domain. Relaxing the capacity-fit rule inside
+that scan wouldn't change the outcome, because we never reach that
+check.
 
-And for a latency-sensitive workload, it would be good to consider
-setting a shorter slice to the latency sensistive task would run 1st
-even on a busy CPU
+Maybe Rik's suggestion could instead help with the earlier checks in
+select_idle_sibling()? Accepting an idle target, previous or recently
+used CPU whose capacity is "close enough" could avoid reaching the
+zero-budget bailout.
 
->
-> Prateek, do you have any thoughts on this? Do you see a way to improve
-> SIS_UTIL for this workload while keeping the symmetric and asymmetric
-> paths consistent?
->
+The tradeoff is that we'd accept a potentially weaker CPU immediately,
+without searching for a better one.
+
+Thanks,
+-Andrea
+
+> 
 > >
-> > Do you know how much CPU usage can be attributed to the scan on these
-> > large systems if you do full scans?
->
-> I don't have a measured CPU-cost figure for this case. My concern is
-> the worst-case scan cost under frequent wakeups when few or no CPUs
-> are idle.
->
-> Thanks,
-> -Andrea
->
+> > In that situation, it will be better to run the
+> > task on the CPU with 97% capacity right now,
+> > than to not run the task until a CPU frees up
+> > later.
 > >
-> > > Thanks,
-> > > -Andrea
-> > >
-> > > >
-> > > > Reported-by: Arnav Aghav <aghav@meta.com>
-> > > > Fixes: 61ea17a63719 ("sched/fair: Add SIS_UTIL support to select_idle_capacity()")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> > > > ---
-> > > >  kernel/sched/fair.c | 19 -------------------
-> > > >  1 file changed, 19 deletions(-)
-> > > >
-> > > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > > > index d4cc0caee6265..def5cda2e6bad 100644
-> > > > --- a/kernel/sched/fair.c
-> > > > +++ b/kernel/sched/fair.c
-> > > > @@ -9091,7 +9091,6 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
-> > > >   int fits, best_fits = ASYM_IDLE_THREAD_MISFIT;
-> > > >   int cpu, best_cpu = -1;
-> > > >   struct cpumask *cpus;
-> > > > - int nr = INT_MAX;
-> > > >
-> > > >   cpus = this_cpu_cpumask_var_ptr(select_rq_mask);
-> > > >   cpumask_and(cpus, sched_domain_span(sd), p->cpus_ptr);
-> > > > @@ -9100,28 +9099,10 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
-> > > >   util_min = uclamp_eff_value(p, UCLAMP_MIN);
-> > > >   util_max = uclamp_eff_value(p, UCLAMP_MAX);
-> > > >
-> > > > - if (sched_feat(SIS_UTIL) && sd->shared) {
-> > > > -         /*
-> > > > -          * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
-> > > > -          * the scan when not preferring an idle core.
-> > > > -          */
-> > > > -         nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
-> > > > -         /* overloaded domain is unlikely to have idle cpu/core */
-> > > > -         if (nr == 1)
-> > > > -                 return -1;
-> > > > - }
-> > > > -
-> > > >   for_each_cpu_wrap(cpu, cpus, target) {
-> > > >           bool preferred_core = !has_idle_core || is_core_idle(cpu);
-> > > >           unsigned long cpu_cap = capacity_of(cpu);
-> > > >
-> > > > -         /*
-> > > > -          * Stop when the nr_idle_scan is exhausted (mirrors
-> > > > -          * select_idle_cpu() logic).
-> > > > -          */
-> > > > -         if (!has_idle_core && --nr <= 0)
-> > > > -                 return best_cpu;
-> > > > -
-> > > >           if (!choose_idle_cpu(cpu, p))
-> > > >                   continue;
-> > > >
-> > > > --
-> > > > 2.53.1-Meta
-> > > >
-> > > >
-> > >
+> > Things like SMT and power-driven hardware
+> > scaling complicate the matter further, because
+> > we simply cannot see the full amount of capacity
+> > that is available on each CPU.
 > >
+> > That makes me wonder if we should simply accept
+> > any CPU that's "close enough to X" when dealing
+> > with asymmetrical placement.
+> >
+> > Say, anything that's above 3/4 of the capacity
+> > of X would be considered good enough to run the task.
+> >
+> > That still prevents us from placing a CPU intensive
+> > task on a little core in a big.LITTLE system, or
+> > from placing a task on a CPU that spends 80% of its
+> > time handling interrupts, but it will allow a task
+> > to run right now, when the capacity imbalance is small.
+> >
+> > Does that make sense, or am I forgetting something
+> > important?
+> >
+> > --
+> > All Rights Reversed.
