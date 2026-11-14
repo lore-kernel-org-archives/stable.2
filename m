@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794638687;
-	b=2rEzB8tRWKwA04IYtfSODRp8qObUX86fWos/aAemL3eW/CoOGwuaJLoPLNRKneDZSwG4
-	 w3hP1ED7pdoFg7b3WCjsaayaeXocXKnLWbyD6g8OGlK+0AUcfs7EM84g5jPl+YV/jl0l5
-	 FkvqovtoCNR+COsPFZKaBHF6T8KLlp5DXQ7bnv16yBxf75giobe7FQP35RwyMwazn5XLA
-	 LMIbPZf8jymhwFztANMZkCkqu8OvcST/GCVrxib/8zOly6a7TwEF6xh0NkMR6cS4DY6G5
-	 gVbUvjuMj0zRruBopVd7i7hxE2yv7NGmG07+c6RKifG0buxVTCo39RjHEMZ2BL7MwOw==
+	t=1794638724;
+	b=LctoaZ640uTVFVgc2waoUlHoctqxA5dWT+kZTE1doeIfhlEYDlKn+CQvsUxMDnntFGZE
+	 4He1nQbv+UgrPcOf7MKolOv3vIEzxurw4nOk9XG2+ZG8dbDo0+/PDMNVbo3LpwzANoyR+
+	 q1sxTxrmmHxhkuJVQzS6y6WpyyoGM8/a8AY7wN6RgmhwTqE7OaPhvVG93ltdczv6N9wLb
+	 hjY2asKzj7mtzD70D6kMUZbKBSWUJUwR4KOmXqIQxKspPFK8mc6Tp78cLpkmXl4JAL5jx
+	 Q18JmrKgco6Phvie8YBxfdL2Bb2YRngnPIkynOiu506Ll1q+ntG0CffIj/UoYIrAHXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794638687;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1uDuxo1+312DZu4wP1WaNsqpNH1ZgoDA4y25yIziRQ0=;
-	b=H36rjKmSfjz4LwMBP7Ql0JwkkGIRr/vaQy5pMvh535WgCmsTLtU5Yy4jkcICsNLkZg73
-	 aaqXDI4haOgo6ZMCv72VR8dBZNJDhAXoxxLMcOTb7TWwT1pz2ehCWgpPU0miyoYRtLXw0
-	 uzDQrQPZ+1DeK1ihhppwCaYL6PnKm0VuDly9n3izr0v3hH0TtfmnIkgDCmYYfFhH7DJjJ
-	 tJ41tdHlBOingO901CftTmyEcNpfwStML27tpXCQEAEwlywnIEziYBj/hjYXeqo0+k86h
-	 tSOvFB2upr8Gee5l/wQyq+5CQENVT18HbLdgX92ZRJm0S6IIxPyhBIqTRViYDIM/7Uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794638724;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DFKiZaCiaRePBzdaW+pavQKIZzCTa4ohuQMWJ3m4AbA=;
+	b=QmgbwQejg5r4zaKrpu0bE+fs6D7xYsVy2kNi/JGeDHncZp8AK9RQZgK3YALe7XNER/E9
+	 nXD/zkm72nBYqhbVUAeSTUuGEo+IvFggCik6rXt/mVOgLsTDgSVIlflhsMGJQHyj9tKJO
+	 h15RROJneTnbU1/B0jZcUrYMLZIE7AnYJzaE4+zjPAd7Hflbk/R5u6REQYGXXktacIMVg
+	 QCO88RY+Z81HEDGsrqmjWdoUjTh5skJCRd81i1OEANuAONoIzOpqJtLFyxQZGU9gi8+fe
+	 tJuzIaN4+/BBQMdh3QuR2MD5lWQ6c3xpb1abBxM/GR+MR7szfWrIqPMxcqqNBY7nGeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=g83ilvhJ;
-	arc=none smtp.remote-ip=185.70.43.103
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MltH0hxf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9445606A887
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:44:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9445606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADCD606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:45:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=g83ilvhJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794638685; x=1794897885;
-	bh=1uDuxo1+312DZu4wP1WaNsqpNH1ZgoDA4y25yIziRQ0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=g83ilvhJAMVenwUKV+PYJzqUOE3TSAhJMmJo8a/vKqzIh8HVBUMA0Tp63gsJuoAM/
-	 l835+Er3lSrslaJdPnrE38x18ChkZ3PkJXR79PECQdKIjJGUrK8hqS9NvoGJKcSQ6b
-	 f1iPzdp5n18yfhNc2vKgPUO2bKLRp/WJevZ02k/bZ/CvLziV84LqExx5DORc0KsdZ5
-	 wjQ47qpvLIgwFGnCIYPh9T+dcPBBMSdwR8Bpazk688jc3qyOgwRYnLie/YyF9ONfCz
-	 fir48sa2g4YQP35fkMejt+sQ7RFO+v7JpezObwwobZPtYFdfjgf/Ixrd9PlUO4ad35
-	 KRid9U0+1vlXA==
-Date: Sat, 14 Nov 2026 06:44:41 +0000
-To: Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-From: Soheyb Boulaa <soheyb_boulaa@proton.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Soheyb Boulaa <soheyb_boulaa@proton.me>, stable@vger.kernel.org
-Subject: [PATCH v3 3/3] phy: exynos5-usbdrd: fix HS phy init count imbalance on Exynos2200
-Message-ID: <20261114064400.45572-4-soheyb_boulaa@proton.me>
-In-Reply-To: <20261114064400.45572-1-soheyb_boulaa@proton.me>
-References: <20261114064400.45572-1-soheyb_boulaa@proton.me>
-Feedback-ID: 140697376:user:proton
-X-Pm-Message-ID: 626748be6b44fdafbe364f3603ef7f1b9ca684d1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MltH0hxf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B319F1F000C4;
+	Sat, 14 Nov 2026 06:45:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794638724;
+	bh=DFKiZaCiaRePBzdaW+pavQKIZzCTa4ohuQMWJ3m4AbA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MltH0hxfIMEqN9I2E4x6b8hLjsW2c5u8aj4JnLnPesJBVK9OSSakLw4f7ElYEGzZF
+	 KXFgXrauG3eqBzSewqzFAo1S27NwABKa6DeDRtIfjC10XGv48NWnHjNJ/hHq1YHtv6
+	 czqTzLSL4rUFKflOA/7nIGfJunER7sC28+WOioACEIp+FzD02Q5KJNzJsNJYFUB5yT
+	 3b88FrYcRR9tiY4QkpMEiQoImMoWyKXxOlZQqCLjbH9FSKxoIwSPKBxoJeO04I//Fl
+	 l0L/Ph92r9tpH5m3lv4sEnZlTKSQ4lslSEQfX66K7YaisqkPao62GQFCWyJQOlezSL
+	 MkkLGF1NfdJvw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yingjie Wang <x-professor@outlook.com>,
+	Yang Xiuwei <yangxiuwei@kylinos.cn>,
+	Bart Van Assche <bvanassche@acm.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] scsi: bsg: Report synchronous data copyback failures
+Date: Sat, 14 Nov 2026 01:45:22 -0500
+Message-ID: <20261114064511.3170394-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202554-failed-5.10-a52f2ad45726@kernel.org>
+References: <20261109202554-failed-5.10-a52f2ad45726@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,64 +61,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-exynos2200_usbdrd_utmi_init() calls phy_init() on the high-speed phy,
-but exynos2200_usbdrd_phy_exit() never calls phy_exit() on it. The init
-count of the high-speed phy therefore never drops back to zero: after
-the first init, every later phy_init() of it returns early, and its
-clocks and supplies stay enabled across an exit of the UTMI phy.
+From: Yingjie Wang <x-professor@outlook.com>
 
-When the high-speed phy loses power while the controller is suspended,
-it is thus not set up again on resume, and the DWC3 core soft reset
-times out:
+[ Upstream commit a52f2ad45726d788755b525adcf51f65a6b836ff ]
 
-  dwc3 11210000.usb: DWC3 controller soft reset failed
+scsi_bsg_sg_io_fn() ignores the result of blk_rq_unmap_user(). For a
+data-in command that uses a bounce buffer, unmapping copies the completed
+data to userspace. If that copy fails, SG_IO can report success despite the
+copyback failure.
 
-Exit the high-speed phy when the UTMI phy exits, last, once the rest of
-the exit has succeeded: the phy core counts a failed exit as no exit,
-so the high-speed phy has to stay initialized along with the UTMI phy.
+Capture the unmap status. Preserve an earlier sense-buffer copy error and
+otherwise return the data copyback error. This matches the error precedence
+used by scsi_complete_sghdr_rq().
 
-Fixes: cc52a697f87e ("phy: exynos5-usbdrd: support Exynos USBDRD 3.2 4nm co=
-ntroller")
+On x86_64, a virtio-scsi INQUIRY with an unaligned PROT_NONE destination
+made ioctl() return 0 in 20/20 runs before this change and return -1 with
+errno EFAULT in 20/20 runs afterward. Writable controls succeeded in 20/20
+runs on both kernels.
+
+Fixes: 10e8855b9451 ("bsg: add SG_IO to SG v4")
 Cc: stable@vger.kernel.org
-Signed-off-by: Soheyb Boulaa <soheyb_boulaa@proton.me>
+Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+Reviewed-by: Yang Xiuwei <yangxiuwei@kylinos.cn>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/2561d633cc8cef513d75eb1df260046a4971e783.1792772194.git.x-professor@outlook.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: applied the change after complete_rq() in shared bsg_sg_io() instead of the SCSI-specific scsi_bsg_sg_io_fn() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v3: full name in From and Signed-off-by.
-v2: the high-speed phy exits last, once the rest of the exit has
-succeeded, after Sashiko's review of v1; v1 exited it first. The comment
-is dropped, after Ivaylo's review of v1. His Acked-by of v1 is left
-out, since the exit has moved.
+ block/bsg.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung=
-/phy-exynos5-usbdrd.c
-index cf0597a..041a555 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -1510,8 +1510,15 @@ static int exynos2200_usbdrd_phy_exit(struct phy *ph=
-y)
- =09clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
-=20
- =09exynos5_usbdrd_phy_isol(inst, true);
--=09return regulator_bulk_disable(phy_drd->drv_data->n_regulators,
--=09=09=09=09      phy_drd->regulators);
-+=09ret =3D regulator_bulk_disable(phy_drd->drv_data->n_regulators,
-+=09=09=09=09     phy_drd->regulators);
-+=09if (ret)
-+=09=09return ret;
-+
-+=09if (inst->phy_cfg->id =3D=3D EXYNOS5_DRDPHY_UTMI)
-+=09=09return phy_exit(phy_drd->hs_phy);
-+
-+=09return 0;
- }
-=20
- static const struct phy_ops exynos2200_usbdrd_phy_ops =3D {
---=20
-2.56.0
-
+diff --git a/block/bsg.c b/block/bsg.c
+index 2cbc1fcc8247b..73d2544beca29 100644
+--- a/block/bsg.c
++++ b/block/bsg.c
+@@ -137,7 +137,7 @@ static int bsg_sg_io(struct request_queue *q, fmode_t mode, void __user *uarg)
+ 	struct request *rq;
+ 	struct bio *bio;
+ 	struct sg_io_v4 hdr;
+-	int ret;
++	int ret, unmap_ret;
+ 
+ 	if (copy_from_user(&hdr, uarg, sizeof(hdr)))
+ 		return -EFAULT;
+@@ -185,7 +185,9 @@ static int bsg_sg_io(struct request_queue *q, fmode_t mode, void __user *uarg)
+ 
+ 	blk_execute_rq(q, NULL, rq, !(hdr.flags & BSG_FLAG_Q_AT_TAIL));
+ 	ret = rq->q->bsg_dev.ops->complete_rq(rq, &hdr);
+-	blk_rq_unmap_user(bio);
++	unmap_ret = blk_rq_unmap_user(bio);
++	if (!ret)
++		ret = unmap_ret;
+ 
+ out_free_rq:
+ 	rq->q->bsg_dev.ops->free_rq(rq);
+-- 
+2.53.0
 
