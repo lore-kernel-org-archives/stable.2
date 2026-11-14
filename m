@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794636048;
-	b=l+LN/9NT4uPbjieqH0OxEpCU/dvONFxh4JpU5RGBSvfdGYvMR07ODcyEEXPoYQcJyexG
-	 wBU3z6UNukbHLBhVHxTtvna5GrzW+mDY2SSbVH3IzwLIEiLqamjyIPvzp2uydFZImaU6F
-	 FOs0ySbytXtm3lssdkwDkjq1OwWSrlGo2CGGZvohf1BuV3GG76ezNcOgqFxymGnezyXQB
-	 umfLf4yUyRIJk8T8ypE2Be122kNs9hQbgfLmHQidaHG7Gn7xTzyw11SYJCjT+vL6X7eFa
-	 gobf++tIczhbSlSOeIeo7qOdZTG7mfTyFcH8fGwacafCH+LrX6aH8S4qVVjBvlg8oIA==
+	t=1794636186;
+	b=ETpgq4KZUMEiJALyChXQ9pLUaCZEce5gc4GJBVd6I+XBUu/mbknvViDU+ylOA+OACSk4
+	 0uSMOtF4VtFL3yprD1exyV+L67REfsPrdGAknNXr7hYKzYaMCxx8S8vsbwU9q6hLFFXqD
+	 wNHwQ+lnJy3wwb63KmBfO1m4qLTtjH8Lc9IOu72vBoMHmO27DYE6oMMoQi0dTp6V+jKE5
+	 RqcX5J8uo2UGgh9fiqxmgHCUm5rKGKFKFpXT8+vP6rQKWQPCbu7e0KCIlnvSBTsD9cNoo
+	 UBRWmUgmSTkf2NG6eRV84lG21PQ4YnvZFXKOxzScObVkoaAhae5ithuUlED61QhH47Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794636048;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636186;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8tbvdHlJ5oYB0VgvsfjmGVGYKtd+kxpfRtJCKzPpzds=;
-	b=v+NiZUe0R6uYdtStiwS1IlFKSPVdctV5kdpOY8RxwfMQh3sSc4G6Isfrm/BWXIAADqIG
-	 M7xpTC/7CZIypELOJ4mDg13iBC0cv9yOquo2kUsJd3SlbjUmGkue3ixXHa12EJ45WK+XM
-	 c95DJ8CN1Wdfnflvu36Wf5pgIUFNiZOQdIB+Jmt7IQVKZABR4bIeP+drAMe36jfSxVm9F
-	 JBrh9u4Ci/uyeWipX/1zS4o2l2Tb9Y9Fw6f4yYHrNgNF6UMLEZrbzwVX6QcAqoKeafT4x
-	 mdJk7YhqJBE8mCx3hZvJy6i7QWw43p15kgpCBVzmXjPjsEPZsgdu6SU8o418c90R7gQ==
+	bh=2FE9OsMpDMg823a/yJwGbJcXU0vkqMKjNXZxUQwV3Zo=;
+	b=qAqXQnyDa+wqLgR1v/qEK/PZBr1DiVWegTu5rBPis2eNeDyA9cTC2pN4hBcdTmabRmp1
+	 SnfJvs7mnt8pmFJY76c8/zWcj2W5HAqixf6y8HaJXSteXhoSa5bWTdo5nkKmlXYsLQKnV
+	 f55yASlXUtD1kypjJ7fyVAoa814bUb1KLO4xa5umwrCKh7FUqzZRugDOqKo2HbdtIS1me
+	 +ib7UaTswOYOl945nWdsrOQFXSmHG3UXeJXsz7uwtqP+oo4dGf0U59Bjb0IPXxcmXYkZP
+	 xJ9LqSljXe+8h+B6jB21ntnt4ESM4neYkOT9nFPl/71mOxHKTVQItRK1EfIQR/Sul6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gEq3qXfx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8T91Dcu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0286A606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:00:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65FD606A32E
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:03:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gEq3qXfx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FFC61F000C4;
-	Sat, 14 Nov 2026 06:00:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8T91Dcu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8977F1F000C4;
+	Sat, 14 Nov 2026 06:03:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794636047;
-	bh=8tbvdHlJ5oYB0VgvsfjmGVGYKtd+kxpfRtJCKzPpzds=;
+	s=k20260515; t=1794636186;
+	bh=2FE9OsMpDMg823a/yJwGbJcXU0vkqMKjNXZxUQwV3Zo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gEq3qXfx31+KZFAtu3/yWbH01cUO/JvgYMxC7oOm7GfVSLItCnfNpTArc/ouNE9Kk
-	 H5S51Jk/p70y0TbQGsyn4ai84EpVXsVzgdBP3C9jd/2zGsqFBpTZ65bGQu1LL7fXQN
-	 SeeRk++VwM/G9Z3dTQGgmKrHHgtd5CcKUH2HQIlIK5yj1GGsz5Dl5vviLicDXNykxa
-	 j+dNvNBb91uw/Ertu2pTs71XQjp7OyRg/mklUrVN/kcifhpvK/1m6ddWQU3m846MV8
-	 eTSk4TPLiroY9rUgNNziHFeB4+94Bex2+Vgep8UVn027LPRLsp4NrW3pHODOAk7Hqx
-	 x1Z1Ofh+7Do1Q==
+	b=X8T91DcuVL89KSHuWm1twIAO86G82ffgIA2fxLHYkeqDUztIfnYvMATlFnmVMMIgZ
+	 W7q2ddpzPKAUf/r4G/B0q5hY4IcZ6c3WmzW8HEdNX2QUJtOLvreioqMbNNyXRatJuW
+	 DtILLsmf+ynTaU/zLFugk7FusTWWgplBI3RdXT9Pv4kwoM6CI24ZvP6AKdmmg5j484
+	 UMiR1wtvSb2FP2SWDhmXMguVGjSK7bGOlPDRVBoC/HFekZGpuSp06J1TJSqHjzvSuV
+	 i0Z6CqZU+2B6HEf6NqSxq7spdAIpy4nedOhEKrtXDPcliWDugg+9pM/jNNPs7JlQu3
+	 mvGZq1SWWK3SQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chris Mason <mason@kernel.org>,
@@ -48,12 +48,12 @@ Cc: Chris Mason <mason@kernel.org>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/huge_memory: fix truncate racing with PMD zapping
-Date: Sat, 14 Nov 2026 01:00:45 -0500
-Message-ID: <20261114060030.3191180-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/huge_memory: fix truncate racing with PMD zapping
+Date: Sat, 14 Nov 2026 01:03:04 -0500
+Message-ID: <20261114060252.3196314-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200457-failed-6.18-e6a07d29b0a6@kernel.org>
-References: <20261109200457-failed-6.18-e6a07d29b0a6@kernel.org>
+In-Reply-To: <20261109200855-failed-6.12-e6a07d29b0a6@kernel.org>
+References: <20261109200855-failed-6.12-e6a07d29b0a6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,17 +93,17 @@ Link: https://patch.msgid.link/20261031-fixes_core-v3-13-d6437171ecc3@kernel.org
 Reviewed-by: Zi Yan <ziy@nvidia.com>
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted zap_huge_pmd_folio() changes to the existing inline logic in zap_huge_pmd() ]
+[ sashal: adapted to inline zap_huge_pmd() logic with flush_needed replacing the is_present || is_device_private check ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  mm/huge_memory.c | 11 +++++++++--
  1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 24f5887eb48ee..eba9280ddb594 100644
+index ce4d17871ff43..6cd88cd4b33be 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -2327,8 +2327,6 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+@@ -2128,8 +2128,6 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
  			struct page *page = pmd_page(orig_pmd);
  
  			folio = page_folio(page);
@@ -112,8 +112,8 @@ index 24f5887eb48ee..eba9280ddb594 100644
  			VM_BUG_ON_PAGE(!PageHead(page), page);
  		} else if (thp_migration_supported()) {
  			swp_entry_t entry;
-@@ -2360,6 +2358,15 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 				folio_mark_accessed(folio);
+@@ -2154,6 +2152,15 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 				folio_mark_dirty(folio);
  		}
  
 +		/*
