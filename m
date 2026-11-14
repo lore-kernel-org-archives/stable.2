@@ -1,81 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794650774;
-	b=agOA1+Nqv5VHXiGGtRXA9gfXSucyGAkW7A58TisnTfB2tuBqKvjoBxaFz5idA9OUb2xY
-	 eNof9xBfvyUs3Dmz2iWAtXS/8mZJyYWpWF1oaTs/kulOdnpunJX6jAcnHBkCFFedJW3dX
-	 oJPlOPBSnbSZpgvBYwAzsUW4Ik93m7YfFKTTlbYLdUaTomleXfT38q+kHIxxKQNIsmMc1
-	 fFJ5eY6TWvKRVQOPRbacZXu/qkkUhpoXXK8olFWaRwa+xoqlEna2+me61CT7oLmfGN0/V
-	 o6robyo9mDU5r42DOywkO7GvNbXdqtK7CEnz22tC5RDxdI96f/X5AzkXy7nwF/nGPxg==
+	t=1794651240;
+	b=dSEZLVKh1Llp92LSrsW0GhCItxKAx88UlPODcYvnQjU4KVcB7qDb58OVVWx2XlcNFH59
+	 sRoNZpCMTiNawBiJRD2uKCK1cYrfw6tf6uYTZOR6XCjtPSRN7icGHpdVIowEGFUpCOlEE
+	 bkZ+0s6YtJvC/sYETdVhFsT3ZzhfVhBVXmXiet/nB22+RCfii05RpywGucuNqYELMfyKM
+	 HUKqi/YVHuIaO+4cUbXYsdMproaVWpPXmjA6mTq6vJ8OaeuMZHnabYrdORyPP/xfOm3ge
+	 Gf0tJrEke8qc95pQHwv6JyWYdmjEHvOlzVBwJDMl8owgfFlVCKuvGqQAPgLlSC7HnhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794650774;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Pl2hOz6BzMGr9Dpq8GYJiAgRRx0ylFIRGI3z7sZaMZs=;
-	b=ktttlSJs3U00eknDXPrgKn1otMCRjSLYDdvD+1B78iwwJT0z3TXEwy0Zc46pvCjQW7kz
-	 1XFRMJsf5xTOKzVGWlMC4PlXLQEboIDWnywGAVj2arIOJUbmsQ8V/wYifrgfhvSDBOpGV
-	 MWSjNu+M4eZv/v6wlV829SEi8ZX6fUlWrXA2+cnDNmzlm6DjPtf9vMWXCcB7YSMWheWIc
-	 2nRi4AYKgVZanfVKuGs+5wXUoy0BS0Hh5k5EAhkJX0CELYCxF/jie3A72jERtXTjcWCQ4
-	 eluYqNvhU0PJoOcImoaRa1ntcME4bmVzkNGQJdExbQJdnlCOqAgtrPPoawInGMCowKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794651240;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=CC8AtHwZZub26kjn5ZZpKA5wzTG30rrk88z324avJjY=;
+	b=J7G95gxltliwfCbFX3KXdnkDFKCEZ4AV9LWlJnzca4eOOS0TkGwmqnOYL8v2rxm/37Oe
+	 YZaQIRXC6C7ZRPLmkG3nN21rXnqV/gX9Fq3o0HkL1ijmgwLbx/uuvHRku9t+pgH8B8BNS
+	 SlTAqz9Zhca5NqAASm6l6apDWwVCAqwXLaHG4sCuFc5P7t4aWqW7A84ltF/dMyBjPT2IZ
+	 Z3/TqmsNF6img05FAmadCbEQgK6XjS10GB967SO6L7uQQGq7HJYdGhtbJGwFnt5aqaEVj
+	 jEB78V8UUDt4YQQXYMiA+VZHbjN79QySvO1ebGI5egK/BaPyGojzPxhylhqfL/eW6YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=simonwunderlich.de;
-	spf=pass smtp.mailfrom=simonwunderlich.de;
-	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=yqSHP3Np;
-	arc=none smtp.remote-ip=23.88.38.48
-Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Q5EjRVDW;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7FA9E606A334;
-	Sat, 14 Nov 2026 10:06:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA9E606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FFD606A327;
+	Sat, 14 Nov 2026 10:13:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87FFD606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=yqSHP3Np
-Received: from kero.packetmixer.de (unknown [IPv6:2a02:3037:6ed:dd6c:838:344b:3152:2d5e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id 578D7FA0B2;
-	Sat, 14 Nov 2026 11:06:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
-	s=09092022; t=1794650771;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Pl2hOz6BzMGr9Dpq8GYJiAgRRx0ylFIRGI3z7sZaMZs=;
-	b=yqSHP3NpQXlqj10CQ0FopwiVDN+5CY7Z2xafQRDZxF7Bc2dqQgAeBw3kNge0fSqpj4999J
-	LsDUAP1nNvjpm0hLtB2c6Y1A7oI0+n6zQQGioVZ1KG0/Gr6C386KhtyxTchsVgWrAaXYzx
-	t/u4OA8WDnEinmAlc4bg4X21/UiyisXRXVF6J9QDYtFJyRHTtI2QmT+0ac1AX2V+T1EnZ3
-	vwc8AePElrLdBNcJ7DWuRzhHyeDXeQAKhEzgy+TOnYbPc0W/y1v78TWNjcoHvGaH1HVvHL
-	bg4e0PGEB9HAcTVIZYVL1c//TNgoKPGvnaqrBwbPDeN3W9DljUkHU7NoRNoS2Q==
-From: Simon Wunderlich <sw@simonwunderlich.de>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	John Crispin <john@phrozen.org>,
-	Sebastien Decourriere <sebtx452@gmail.com>,
-	Yangtao Li <frank.li@vivo.com>,
-	linux-kernel@vger.kernel.org,
-	Simon Wunderlich <sw@simonwunderlich.de>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/5] mtd: maps: lantiq-flash: fix NULL pointer dereference on probe
-Date: Sat, 14 Nov 2026 11:06:03 +0100
-Message-ID: <20261114100608.3432120-2-sw@simonwunderlich.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261114100608.3432120-1-sw@simonwunderlich.de>
-References: <20261114100608.3432120-1-sw@simonwunderlich.de>
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Q5EjRVDW
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E353610EA56;
+	Sat, 14 Nov 2026 11:13:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794651227;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=CC8AtHwZZub26kjn5ZZpKA5wzTG30rrk88z324avJjY=;
+	b=Q5EjRVDWT3H/xWt3GrsIshGnhpWFrEavh+eY86S263kmWctWNZfRU81FhBHggWF4lOEiU8
+	msuBYOQeLmINg7TkyrL2pIE+U1NBKu7F0Cleq65rQLXW1ThqAgPvFjPojlt88O05F2wvGl
+	luNUArApXeMXrG78BtVFq+d7brCadobBVCAJAMkxTTNaiVhM55NGeLJUNyBj8pdzPTLXg3
+	ilhyqPcs1TJ2vmHg5758GYcaPugsyYvT2y3PXWH5pa2Rw9iX8hAPM6qtV/kHJpXSTfQtC5
+	ehI6eOc566dPy2zbwP4WWukIHfF4JJhP8VaNZ3tBr3WGhhB8XuT6y2AyxNpbnQ==
+Message-ID: <6fc041d3-f66d-47c9-9dc1-f47b4c416104@nabladev.com>
+Date: Sat, 14 Nov 2026 02:00:16 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,51 +56,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mmc: mmci: stm32: reset and restore SDMMC state on system
+ resume
+To: Christophe Kerello <christophe.kerello@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>, Ulf Hansson <ulfh@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261113-fix-resume-reset-v1-1-115b3da5764d@foss.st.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20261113-fix-resume-reset-v1-1-115b3da5764d@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Since commit 6145e07e9c77 ("mtd: lantiq-flash: Use
-devm_platform_get_and_ioremap_resource()"), ltq_mtd_probe() stores the
-ioremapped address in ltq_mtd->map->virt before ltq_mtd->map is
-allocated. ltq_mtd comes from devm_kzalloc(), so map is still NULL at
-that point and the probe dereferences a NULL pointer on every board
-with a "lantiq,nor" node.
+On 11/13/26 5:35 PM, Christophe Kerello wrote:
+> On standby exit, the bootrom may reuse the SDMMC instance used as boot
+> device, leaving the IP in a state not known by Linux.
+> 
+> STM32 variants do not set pwrreg_nopower, so MMCICLOCK, MMCIDATACTRL and
+> MMCIPOWER are neither saved nor restored by mmci_save()/mmci_restore():
+> their content is expected to be retained by the hardware.
+> 
+> Add a reset_on_resume variant flag. When set, and if the card is powered
+> off and a reset line is available, reset the IP on system resume and
+> restore the cached MMCICLOCK, MMCIDATACTRL and MMCIPOWER values.
+> 
+> This is done from a .resume_noirq callback, so that mmci_irq() cannot run
+> on a state left by the bootrom once device interrupts are re-enabled. It
+> also runs before pm_runtime_force_resume(), which does not resume the
+> device if it was already runtime suspended before system suspend. The
+> clock is therefore enabled locally for the duration of the sequence.
+> Clock and reset errors are reported to the PM core.
+> 
+> Enable the flag for all STM32 SDMMC variants.
+> 
+> Fixes: 46b723dd867d ("mmc: mmci: add stm32 sdmmc variant")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+Tested-by: Marek Vasut <marex@nabladev.com>
 
-Allocate the map before mapping the resource.
-
-Found by code inspection while porting a lantiq-flash change from
-OpenWrt, which replaces this probe function downstream.
-
-Fixes: 6145e07e9c77 ("mtd: lantiq-flash: Use devm_platform_get_and_ioremap_resource()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
----
- drivers/mtd/maps/lantiq-flash.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/mtd/maps/lantiq-flash.c b/drivers/mtd/maps/lantiq-flash.c
-index 80d467eba92a..5c2ace302b50 100644
---- a/drivers/mtd/maps/lantiq-flash.c
-+++ b/drivers/mtd/maps/lantiq-flash.c
-@@ -118,15 +118,15 @@ ltq_mtd_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, ltq_mtd);
- 
--	ltq_mtd->map->virt = devm_platform_get_and_ioremap_resource(pdev, 0, &ltq_mtd->res);
--	if (IS_ERR(ltq_mtd->map->virt))
--		return PTR_ERR(ltq_mtd->map->virt);
--
- 	ltq_mtd->map = devm_kzalloc(&pdev->dev, sizeof(struct map_info),
- 				    GFP_KERNEL);
- 	if (!ltq_mtd->map)
- 		return -ENOMEM;
- 
-+	ltq_mtd->map->virt = devm_platform_get_and_ioremap_resource(pdev, 0, &ltq_mtd->res);
-+	if (IS_ERR(ltq_mtd->map->virt))
-+		return PTR_ERR(ltq_mtd->map->virt);
-+
- 	ltq_mtd->map->phys = ltq_mtd->res->start;
- 	ltq_mtd->map->size = resource_size(ltq_mtd->res);
- 
--- 
-2.47.3
-
+Thanks
