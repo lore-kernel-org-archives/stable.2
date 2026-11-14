@@ -1,79 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794615266;
-	b=OmCpHLDeBYHoMv/GjXLyTUU5XONAh3HbXjsOkP/qCIon+cVi0hA2U09b39fs877qWixm
-	 vguGnoG4xJ9hG43OS6UweHVhvaNG8Lku0bTyZEdFjX4SN280B5MJSi9ooM3U1A2yFvkfi
-	 4+RI3qSCcW3sBNIJqR6l4OK0p697Gdlxx8JWIShKaUHz6/PAWZ85eqVS0ovJmiW8fokL3
-	 Hzxh8ozD6+tgi7gbjV2knJepjmwfjyKzueNG/RHqD4T8If1HG2ep26zXmKdip5tdZbjyb
-	 RG0T47V0j0jpyv7TlKNpvi3Oz6CBgtyD9qklENLZwkLv903zj0LrJ8KhgrTRRvPAHow==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794615266;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=EEE9bB9K2DCW7KL6LHJFbhKe8RM9wDKWB9b7e5VdtGE=;
-	b=tQz9LYY9TOB7tGZmgd/PxPldYlE1jMCUi3ExOga6BG9Z8ay+uufnvAl8zpRqqSbGqTXQ
-	 RmuncSFI0oNvrFNhyQ8PrU1JxpVSlLqjTXpucXu1JBK0EM0oWZph6E8qeBYNjlRibwWRv
-	 r8kUEoRKUYCq+vn7+uUuI7+JFzaf+RP42YeRdqod8s7uqpmGiiGHnA9tdvbBFSrzWrPCs
-	 MEbTouu6eLrPi/CIT6JEhgs5JfZuV1iWFF+4p3SLhPNpKnvnZ1ExPEr0DopNOkpB230eV
-	 OJCObedqUBg9jp0APxSWyy+um4XIPmHyA1B/SwSAnCCR5BSbKQGpURCMQaJKE4hE7oA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDnH0AuX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794615447;
+	b=GhYb0W+DdPWa8z8MliWmnLFCBCst/QUyAPCZRTatZvcmEq8r81rM2djced/fjQEMzjeX
+	 MEMeY6wrruHdjG3+KZ+kWBz8ERZfz5emllVjpx6GpnqQlkF9zBFVRAP8SlFfHUBTOsTW0
+	 IS13YzMM0NOw9TjWWuGDH6GfLfxyDTN19Ar5CT7Lh0XdCV2AjSMX3nL9y3iqwzH2f4vMo
+	 iCbCzGlYRSSKUIMifeRtWWj0EPbT47ry90Gaq/vYY/jIhHLQ5k+r3j0E4mgsQf9P8Z1/m
+	 n7pegjx7EWZhB8v8sOFLX8ABt6MaXXFGRiZHGJJ9ZX2sM4r3wsDQtsm8UyLbYGWDRbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794615447;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1wMRhrbmTEii9sWHb6CHYzvkuAeKaItkXANbq2kqpCs=;
+	b=GjekHdY8ZwgR4y6U9mqfnkYn1BUSQgAm6Opaed17Xv3H3ANIek+RsarImZMQzV+VOWRr
+	 gw4G3DZWFrfGQvowfSvX5bfdDzkKSrN9hOfdRJywMPCSllk9k4AXvSQMr+nmwJPE2W8IV
+	 QFEnqMRouLnnC4k/aphZ9KJ0EnZWdhnqPkSu1D69lXoU/GLOBPEIO5MKDUL4gdnToUgZp
+	 M9V2JE0q4X1+xsFFT8G3FlftzNcnHk3NJdHFJzC4j0r1S84kzHfAXTscA6tCj3vXJJX7z
+	 fhpBi5lh/9t+u/YPrNlOuXugO3ouynr7KzHV0jxgDnyM5HIq72L/yx6qmreTb4sFISQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dai8/6zz";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95EAD606A88B;
-	Sat, 14 Nov 2026 00:14:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C9C606A337;
+	Sat, 14 Nov 2026 00:17:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDnH0AuX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794615266;
-	b=eJupdazqZg7PEQMZvH1e2+alfYb50Lb7tMVrII3+Mtx5D+9qk3ek5OYEXt/8duWA392Z
-	 Ag/yI6TGqbhy0P7B4GIpD292+KKG3n1NIElg24gdg3eY5sxIyPhyiGBRpwC/5nAlKc2Eq
-	 kiyJjoi9UG4+k3xn3FO3s2WrHRfZVVx2yfxsprpC7fHWHOtNBrqDN9VfmZlugRsJDZdZN
-	 tpaVY972baokjpq5NJpNMDeRNeniYb1Id2wNrtuoHgKd+BuJX0VBDuraY9qml2X4Gh0dZ
-	 +YTCdhjf1Bj6SwkAjFcxtxbntFgR9wJNyHr5t9SXgkRk5ZAeLmTvf5UcMFr0ueaJ61w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794615266;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=EEE9bB9K2DCW7KL6LHJFbhKe8RM9wDKWB9b7e5VdtGE=;
-	b=S0Tj8CZ9czghulqnNSRor4THl+bqqncu0T8LIvmRAzEMuO9hnAXo0be59FnMYdhCIoef
-	 Sp6PjSwbRp9ucEQ7A0bxJiJqzK7HRYp9s6MylIbEQmYYJ0XtjoseF+WBZHIIFj075YN7S
-	 YyT2J5/60ybmY/b81FCWo/U2wxRByLftjFkaBudQNWDKe+Zb2pZYpex9AMG9Ow5Vl2OMH
-	 WGydXtPIiTCfUwhi0/6AeFzghXZXBpDPjJEyvIf1rVPa6uRcWauarPN09XbtDfOqVOZqD
-	 2iD99Fk2QQwzyZOWhyzYbC0jOevx9UBL15P5XIv/XFwNYRFIhOnj3OGpUWebsrk9NTQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D5EDB1F00925;
-	Sat, 14 Nov 2026 00:14:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dai8/6zz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF0E1F000C4;
+	Sat, 14 Nov 2026 00:17:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794615266;
-	bh=EEE9bB9K2DCW7KL6LHJFbhKe8RM9wDKWB9b7e5VdtGE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bDnH0AuXlEnl5buZlaBnI7xzDt655yteUAMEx0QuE1uPNArbRtKTSMhqmZtDjDohW
-	 7itZ3Cw7Ueg4wB0wi+fZcEoUChLd3N/cmbMCyKM8gZtLl1ZIOF22H+GzsG6pM/ulR+
-	 L4+6d0/bhA+DA0fZJa8sOyxrq8K8thVwdfldJ6urrre6mF3Gpktsou5EPIgORq8egm
-	 4xabw4xyA654c7xsCa3wvyCzTFx/VuqmobGU9s5Vjm7uCzOZHYEyyMjPdQ0mTqvqHg
-	 MEe8QTish0s+fWvcY8AOPYNOteLZVsGEKhAHi92943iFohkhWdgixzLJBjPITXdFm5
-	 OyC8Rq56yOO+g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6816E49BCB;
-	Sat, 14 Nov 2026 00:14:25 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sat, 14 Nov 2026 00:14:26 +0000
-Subject: [PATCH 2/3] iommu/vsi: Unlink the IOMMU from its old domain under
- that domain's lock
+	s=k20260515; t=1794615446;
+	bh=1wMRhrbmTEii9sWHb6CHYzvkuAeKaItkXANbq2kqpCs=;
+	h=From:To:Cc:Subject:Date;
+	b=dai8/6zz0cTDL1TkjO87VVScrWrM6nmnquvJWJ3p53QPTCbwsbc8NAxFu5E2u4vln
+	 /hFVpL4zm0WvPhkRTraVpGkmBSqjJLSCndlEvDDjsgK28PosRpZEB3YHZQFYClToue
+	 h15LFbhZb2/O8m8VDcL36VzLXQJbHqvzldg6yRjhXmQrYyKCdWouNpac8YMpa/9yUI
+	 M6ielT+NAmAw9jJP+6ILn4Xdeq+WpCGE5apG0WjXY7eh9C9FVoqGt+Fjc6VjjPioY5
+	 nD5nfk0kD6veVFw3x+33MmpJ5Qo7rMbpHk6JoZYKlM2Uk8g7/MRrGDJNzAUYcaal7U
+	 Y0sbNpLxhGwUA==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	rust-for-linux@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] objtool/rust: add more `noreturn` Rust functions for Rust 1.101.0
+Date: Sat, 14 Nov 2026 01:17:08 +0100
+Message-ID: <20261114001708.80599-1-ojeda@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,68 +69,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-iommu-vsi-fixes-v1-2-1fc7728dfd35@gmail.com>
-References: <20261114-iommu-vsi-fixes-v1-0-1fc7728dfd35@gmail.com>
-In-Reply-To: <20261114-iommu-vsi-fixes-v1-0-1fc7728dfd35@gmail.com>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794615264; l=1234;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=kspvKLgpotcfNu/d6d7HQui+izuIuODftxK9VojqQOs=;
- b=CmLw+MPs+6LaMoyRA5j4mUiHfYHHT2bNWj/ceD2ckX33Nt/dSBE3K89W2t2yW4zHy7jVTscFc
- Y2i5pFmAXoTCdmX80mSiR2pwibESzDrwUv/DKCgWQED+De3WSdFo6Tc
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Starting with Rust 1.101.0 (expected 2026-12-24), `objtool` may report:
 
-Attaching a paging domain moves iommu->node to the new domain's list
-holding only the new domain's lock. A concurrent map or unmap on the old
-domain walks the old list in vsi_iommu_flush_tlb() and can follow the
-moved node into the new list.
+    rust/kernel.o: warning: objtool: _R..._6kernel3pci2ioINtB7_6DeviceNtNtB9_6device5BoundE8cfg_size()
+    falls through to next function _R..._6kernel3oppNtB5_3OPP18from_raw_opp_owned()
 
-Unlink the IOMMU under the old domain's lock first.
+(and others) due to calls to the `noreturn` symbol:
 
-Fixes: 917ace84b770 ("iommu: Add verisilicon IOMMU driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206639@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+    core::panicking::unreachable_default_msg
+
+Rust now outlines the constant messages of the panicking macros [1],
+thus `unreachable!()` (i.e. without arguments) calls that new function
+instead of `core::panicking::panic`, which is already in the list.
+
+The same change introduced the equivalent `noreturn` functions for
+`panic!()`, `todo!()` and `unimplemented!()`, which lead to the same
+warning when those are used:
+
+    core::panicking::panic_default_msg
+    core::panicking::todo_default_msg
+    core::panicking::unimplemented_default_msg
+
+Thus add the mangled ones to the list so that `objtool` knows they are
+actually `noreturn`.
+
+See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
+for more details.
+
+Cc: stable@vger.kernel.org # 6.12.x (Rust is pinned in older LTSs)
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Link: https://github.com/rust-lang/rust/pull/163766 [1]
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- drivers/iommu/vsi-iommu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ tools/objtool/check.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/iommu/vsi-iommu.c b/drivers/iommu/vsi-iommu.c
-index 5156e8a2e7fc..8a0f253f2017 100644
---- a/drivers/iommu/vsi-iommu.c
-+++ b/drivers/iommu/vsi-iommu.c
-@@ -575,12 +575,13 @@ static int vsi_iommu_attach_device(struct iommu_domain *domain,
- 	if (ret < 0)
- 		return ret;
- 
-+	vsi_iommu_list_del(iommu);
-+
- 	spin_lock_irqsave(&vsi_domain->lock, flags);
- 	spin_lock(&iommu->lock);
- 
- 	vsi_iommu_enable(iommu, domain);
- 
--	list_del_init(&iommu->node);
- 	list_add_tail(&iommu->node, &vsi_domain->iommus);
- 
- 	iommu->domain = domain;
+diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+index 931c5c412f15..4ef5bf97d333 100644
+--- a/tools/objtool/check.c
++++ b/tools/objtool/check.c
+@@ -206,9 +206,13 @@ static bool is_rust_noreturn(const struct symbol *func)
+ 	       str_ends_with(func->name, "_4core9panicking9panic_fmt")					||
+ 	       str_ends_with(func->name, "_4core9panicking14panic_explicit")				||
+ 	       str_ends_with(func->name, "_4core9panicking14panic_nounwind")				||
++	       str_ends_with(func->name, "_4core9panicking16todo_default_msg")				||
++	       str_ends_with(func->name, "_4core9panicking17panic_default_msg")				||
+ 	       str_ends_with(func->name, "_4core9panicking18panic_bounds_check")			||
+ 	       str_ends_with(func->name, "_4core9panicking18panic_nounwind_fmt")			||
+ 	       str_ends_with(func->name, "_4core9panicking19assert_failed_inner")			||
++	       str_ends_with(func->name, "_4core9panicking23unreachable_default_msg")			||
++	       str_ends_with(func->name, "_4core9panicking25unimplemented_default_msg")			||
+ 	       str_ends_with(func->name, "_4core9panicking30panic_null_pointer_dereference")		||
+ 	       str_ends_with(func->name, "_4core9panicking32panic_null_reference_constructed")		||
+ 	       str_ends_with(func->name, "_4core9panicking36panic_misaligned_pointer_dereference")	||
 
+base-commit: ee83899302a0457a3ba47464a13e8682bd7ba27d
 -- 
-2.55.0
-
+2.56.0
 
