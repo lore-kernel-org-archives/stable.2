@@ -1,51 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794679714;
-	b=ugPt5DyiIKbnb6gpDExP9JML12427LAv3iNW6XgTRblFgdHkrNMGNEDWbU6Qtf0J5Off
-	 yKnB+7eagdtULDCrapdC46HbcQXZUTT6pgMi74GTUUqFFvR0pyCUtvdjd+ob5YWitZM0J
-	 ULppSvKJjzTxsKKK+P35dV0yAH5o36FhM43NnqWnXDwQD6nhCLV/tgn4y/nYvwHEpStac
-	 RlflzKMqIB38GiXeWNCPNo1GnyK5pYH9Waezx/GAMDdFMI4YujquVsGE7CR8lr2RA/egB
-	 CkrwYkdME6RlOC1K1p9TXdwDtGL2sUz9yZ6GJuPPaBZO9a9J6q8Q9TbYE7Zfu9w5VXw==
+	t=1794679740;
+	b=Vizvx2qZo7aAEOof4a215uqpsKEuc7bGLS90tu8fFnbTYJrd/1TNSXtwvR/++QqO6IZD
+	 GcXiv8pBLGSzPXqOmGBic+H3OJlrDcI5mJHuaR6oyBMZW8/xBX8c1ZjNjEh20cv9BQslE
+	 CuGRw+pX1gH/StGFOqdCFXWN+0JKXjwgKzDXXvaOnyECgRLp2IvhLNfIB4MnyJ56c90s5
+	 aRLtD+Xr8mN/FzKgdCupXO0FyC2bPQbOK359fPdYmalD8Z8xoVzYnc4E05U0SS0/zAZtU
+	 0jZtUXqRAdw3Ekq/auIu+j3mCfbdYAOXHmrMx4hS4JW4WmvfZmJjxaxtArhh5tBBPvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794679714;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794679740;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZprGxEgVqdOxzCm64/WrtA78UrLHQce785Q9kPFKlpY=;
-	b=M3/I/f+eU1th/TTegWdgn8qjfz+74d1GpmQDUffe2Ckc6awV3foypYfyO+3b+xMoCtKk
-	 dW5iHJx0uXsA2Y3HcWfUe7f55YTrsMi59GB73En3Hp4Jh13SId3tooiupyMvUwsOlI91z
-	 4r1C4/mPFGHRReddPN1gT9Dt3X9m1c5T1+LNjuNrncavuZ6oPzBl7pP4LJqJSiIXrkXCk
-	 9db/RfVUEi2/VP+T2Lm6O8nEtBYLCY7fE2Gz+dDpsK8gBPXlqCIJi9vkN0DcSRd4a2DAi
-	 Um279Eys8fPNMreF1ITKg5FP1LSf1JxVqcKzE4oDdVWJxFsjVXUSK2FAooXvc9vKRWA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=mDVfGMNKuKmMgPDUO0i3tvTJlQmoOmD1MigQIiDSGH0=;
+	b=tr8gabXT7w62j5h7he38mgQyCZmGn2gSr4+l6xOdWR2xPw7KKJxX6XsJ/kI79rD4aRbL
+	 AM3Vfu3EQtdH3GRQ1IwGHa2dYoSxrgBBKMkxbd05pVzj/mrgp/XNOtFZQ8JYETGguiES9
+	 CVBTLg0GAifoI5zMyLCgWLKSN0iZVQSlaH9Dct9VFuZvrEuXW4ekOYEIhWaBJJqKvK30C
+	 SBMwSs18Y+koYFuMPUOR2IT5SO8q3v94ads/oVjNJbLcyk0NdCx1eEK7OHPMW6mxQy7aQ
+	 lJ54oMQ3vwA/SlgMCHaky0Ypz6YV3QTTbh7ZDCsPob1Duu/ZHMdjvHsoww3xxVO1kAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTDIW0oz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOg1rcOH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA865606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 18:08:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA51606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 18:09:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTDIW0oz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3C741F000C4;
-	Sat, 14 Nov 2026 18:08:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOg1rcOH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14241F000C4;
+	Sat, 14 Nov 2026 18:08:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794679714;
-	bh=ZprGxEgVqdOxzCm64/WrtA78UrLHQce785Q9kPFKlpY=;
-	h=From:To:Cc:Subject:Date;
-	b=LTDIW0ozW8N8vXgaBipBdO7eEB3sjUodL7vOEJVQUsUyN2AwetpSU7RB0nvXkZhwA
-	 2fncDfrG5YOyP/1dB5Kxi4Wy0fUdH8hcJ9C8KcFdvXK0Pq0Fu2lKeY9nzsKA8GUpaG
-	 su2kQ5aIqnt7vHQJXgFZ1eazDGbFtOs7iLlbPolr5+WYyXv7gDqfN5oeMIC1wS3yWD
-	 na3WUPRcgJhCpSK5Nv8mZUmwHswp01PgLi6NEG9kaMW3+lJIGLchPoo8bgqMacvVDX
-	 EI1ynhkUnzwcTUlvN8CTvCk3oJNSKM9vT3dW66ALCG8A4zvyRhjx5yUiBo/LLoyHaw
-	 88ywpkhaUZWCg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+	s=k20260515; t=1794679740;
+	bh=mDVfGMNKuKmMgPDUO0i3tvTJlQmoOmD1MigQIiDSGH0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VOg1rcOHyW5zeZOtEIUGCXSTr8DcRBu/qydONyAEDKkJVy1hsMzK+VBrGU0JWVFz0
+	 JEMjHHmGdnnuiONsHsmbBK7XAlPpDHjsw1GzlG7/2JPeEVNggUvfV4KC1pzvlW+t+Y
+	 3CAB0QkGFXbNUupCRI3JCoOFZlrugI9BMCJS6IY5jwfpqwGUNjZCu5YfRi7usrEWp1
+	 tyohK8eFSTW5MdmoxMoIaiZ4ZX92IAwHxNZ0D0khesLsWPCGrleN+7bt9HKwc8akni
+	 FFAI8205nWw9eQH1wB+LBeVniHZ4NbIl84uFaFLNZ8R3oRGipE5A2K7ibXvD0+lTJY
+	 3rUwzTtGBFmxg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: ljs@kernel.org
-Subject: [PATCH 6.6.y] mm/vma: avoid spurious write locks when mm->mm_lock_seq overflows
-Date: Sat, 14 Nov 2026 18:08:30 +0000
-Message-ID: <20261114180830.55586-1-ljs@kernel.org>
-X-Mailer: git-send-email 2.56.0
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/amdkfd: use the queue's process info for the WPTR BO eviction fence
+Date: Sat, 14 Nov 2026 13:08:58 -0500
+Message-ID: <20261114180840.359293-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201925-failed-6.1-da2897ee8b81@kernel.org>
+References: <20261109201925-failed-6.1-da2897ee8b81@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,111 +62,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 7135a05838e85845e1bbf6caa6596a7e3b791a40 ]
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-A VMA is considered write locked if vma->vm_lock_seq equals
-mm->mm_lock_seq. The latter is incremented each time the mmap write lock is
-released or downgraded, while the former is not updated on unlock.
+[ Upstream commit da2897ee8b811945fd40ecc4aaf03291c14ce61c ]
 
-Both are ints, so after 2^32 such cycles mm->mm_lock_seq matches the stale
-vma->vm_lock_seq of a VMA which is not write locked. vma_start_write() then
-returns without taking the VMA lock, so readers are not excluded and a VMA
-can be modified with concurrent readers.
+amdgpu_amdkfd_map_gtt_bo_to_gart() removes the eviction fence of
+bo->vm_bo->vm->process_info from the WPTR BO of a new queue. bo->vm_bo
+is the VM which opened the BO last, not necessarily the KFD process' VM,
+and a render node VM has no process info.
 
-So far the assumption has been that this overflow is benign, resulting only
-in readers spuriously falling back to the mmap lock, however it turns out
-that this was an unsafe assumption.
+On navi31, an unprivileged process which exports its WPTR BO with
+AMDKFD_IOC_EXPORT_DMABUF and imports it on a second render node fd
+oopses in AMDKFD_IOC_CREATE_QUEUE:
 
-This deviates from the upstream patch, which resets every VMA's sequence
-number on overflow. That relies upon mm->mm_lock_seq being a seqcount,
-which it is not in this tree.
+  BUG: kernel NULL pointer dereference, address: 0000000000000060
+  RIP: 0010:amdgpu_amdkfd_map_gtt_bo_to_gart+0x86/0x1a0 [amdgpu]
+   init_user_queue.part.0+0x180/0x250 [amdgpu]
+   pqm_create_queue+0x32d/0x730 [amdgpu]
+   kfd_ioctl_create_queue+0x583/0x9f0 [amdgpu]
 
-Instead, make both sequence numbers long. In both vm_area_struct and
-mm_struct the field is followed by a pointer-aligned field, so on 64-bit
-this fills an existing hole and neither struct grows.
+Pass the process info of the queue instead. With the fix, the queue is
+created and destroyed normally.
 
-User facing effects are - dangerous races that could cause memory
-corruption or NULL pointer dereferences (especially on page table
-traversal) are avoided.
-
-Fixes: 5e31275cc997 ("mm: add per-VMA lock and helper functions to control it")
-Reported-by: Daehyeon Ko <4ncienth@gmail.com>
-Closes: https://lore.kernel.org/all/20261015143735.1630957-1-4ncienth@gmail.com/
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 7f347e3f8217 ("drm/amdkfd: Fix NULL pointer error for GC 11.0.1 on mGPU")
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 6b4157498a176bd1c6083f6bb5aaf8a257a2027e)
+Cc: stable@vger.kernel.org
+[ sashal: adapted the process_info argument to the existing adev-based mapping API in kfd_ioctl_create_queue() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mm.h       |  7 +++----
- include/linux/mm_types.h | 11 ++++++-----
- 2 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 +++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         | 3 ++-
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index c365c33b9c3a..8bce7f49b6e9 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -670,7 +670,6 @@ static inline bool vma_start_read(struct vm_area_struct *vma)
- 		return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index ba065f7887aad..ed0f5e76324e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -294,7 +294,8 @@ int amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(struct kgd_mem *mem,
+ 					     void **kptr, uint64_t *size);
+ void amdgpu_amdkfd_gpuvm_unmap_gtt_bo_from_kernel(struct kgd_mem *mem);
  
- 	/*
--	 * Overflow might produce false locked result.
- 	 * False unlocked result is impossible because we modify and check
- 	 * vma->vm_lock_seq under vma->vm_lock protection and mm->mm_lock_seq
- 	 * modification invalidates all existing locks.
-@@ -695,7 +694,7 @@ static inline void vma_end_read(struct vm_area_struct *vma)
- }
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo);
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo,
++				     struct amdkfd_process_info *process_info);
  
- /* WARNING! Can only be used if mmap_lock is expected to be write-locked */
--static bool __is_vma_write_locked(struct vm_area_struct *vma, int *mm_lock_seq)
-+static bool __is_vma_write_locked(struct vm_area_struct *vma, long *mm_lock_seq)
- {
- 	mmap_assert_write_locked(vma->vm_mm);
- 
-@@ -714,7 +713,7 @@ static bool __is_vma_write_locked(struct vm_area_struct *vma, int *mm_lock_seq)
+ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
+ 					    struct dma_fence **ef);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index eb4d652afbb60..49b9e0033be9e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2163,11 +2163,13 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
+  * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment reference count
+  * @adev: Device to which allocated BO belongs
+  * @bo: Buffer object to be mapped
++ * @process_info: KFD process info of the queue the BO is for
+  *
+  * Before return, bo reference count is incremented. To release the reference and unpin/
+  * unmap the BO, call amdgpu_amdkfd_free_gtt_mem.
   */
- static inline void vma_start_write(struct vm_area_struct *vma)
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo)
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo,
++				     struct amdkfd_process_info *process_info)
  {
--	int mm_lock_seq;
-+	long mm_lock_seq;
+ 	int ret;
  
- 	if (__is_vma_write_locked(vma, &mm_lock_seq))
- 		return;
-@@ -732,7 +731,7 @@ static inline void vma_start_write(struct vm_area_struct *vma)
+@@ -2189,8 +2191,8 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_b
+ 		goto err_map_bo_gart_failed;
+ 	}
  
- static inline void vma_assert_write_locked(struct vm_area_struct *vma)
- {
--	int mm_lock_seq;
-+	long mm_lock_seq;
+-	amdgpu_amdkfd_remove_eviction_fence(
+-		bo, bo->vm_bo->vm->process_info->eviction_fence);
++	/* bo->vm_bo can be the VM of any file which opened the BO */
++	amdgpu_amdkfd_remove_eviction_fence(bo, process_info->eviction_fence);
  
- 	VM_BUG_ON_VMA(!__is_vma_write_locked(vma, &mm_lock_seq), vma);
- }
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 91c10d8b00c0..b6f981c8d1d2 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -664,11 +664,12 @@ struct vm_area_struct {
- 	 * Can be read unreliably (using READ_ONCE()) for pessimistic bailout
- 	 * while holding nothing (except RCU to keep the VMA struct allocated).
- 	 *
--	 * This sequence counter is explicitly allowed to overflow; sequence
--	 * counter reuse can only lead to occasional unnecessary use of the
--	 * slowpath.
-+	 * This sequence counter must not be reused while a VMA still holds an
-+	 * old value, as that VMA would then be spuriously considered write
-+	 * locked and readers would not be excluded. It is therefore a long,
-+	 * which on 64-bit will not overflow in practice.
- 	 */
--	int vm_lock_seq;
-+	long vm_lock_seq;
- 	struct vma_lock *vm_lock;
+ 	amdgpu_bo_unreserve(bo);
  
- 	/* Flag to indicate areas detached from the mm->mm_mt tree */
-@@ -847,7 +848,7 @@ struct mm_struct {
- 		 * Can be read with ACQUIRE semantics if not holding write
- 		 * mmap_lock.
- 		 */
--		int mm_lock_seq;
-+		long mm_lock_seq;
- #endif
- #ifdef CONFIG_FUTEX
- 		atomic64_t futex_unique_id;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index a08c84556ace4..4212d8c77de3b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -368,7 +368,8 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 			goto err_wptr_map_gart;
+ 		}
+ 
+-		err = amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_bo);
++		err = amdgpu_amdkfd_map_gtt_bo_to_gart(dev->adev, wptr_bo,
++						    p->kgd_process_info);
+ 		if (err) {
+ 			pr_err("Failed to map wptr bo to GART\n");
+ 			goto err_wptr_map_gart;
 -- 
-2.56.0
+2.53.0
 
