@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794631395;
-	b=CBTxedZU4oHcx5Aq1FwrrTU9GHAp2cP4ETEHWQkv0Sa4AToyMp4U9Y/QsXsgA5Ng0FqW
-	 X9y/rIDN4Xc7nVNByb7g6QdRWKBE4PGuaRG8cbNaXhDU+ZofZ7/7o7mA9iD6KKMa5dRfE
-	 D3i51it+4svXvSUnsl94jjiwTelTknPvuM6bMg2O0CyBzAH5iZzyDQBIOUcIB+QDBEHzE
-	 iGxACSbzivV7cAgXBPyqIZFnneJYqyajs/7vIwi8yD2Xze3GSaSXmbu4Zwbie1ezq2qmw
-	 PMxj7lCsFyfwr7JoqHVyeClWg502NkAF0i2XlyqlOyUem/MpU7hZb5qoEU56Ui0+BHg==
+	t=1794631400;
+	b=0HyFJtwpErQ47P1Vx8S708nfZvcRzVGiB7urkZI4iD9eVS82yLTI+ozRDxce6Tx9x7AX
+	 wcykgDnUQK9yypW/m6x+3IOHMM9Nut34+TD1kHTDGjWYW0Zw+GwGfz6jZRpwugxzNkC7g
+	 ytCh6A4cyIlE57D78y35jjl3mddWVn9nh3/Ag1AgDgPtslTGLCIWXJj+qqIGNqP+Y4RWT
+	 6l5rUZj7UOxqM2nwujkNIVoVR+qKoQtU5iLmgDlKiVS8yKnbgLvvO7uSqSfMdYSQ21diW
+	 Dxsw62sZ0/3zzj5jAwZeBD0VOQjoJsouzlcvbNW012U/IGbGKv/Uy43U3TuL1GSVHjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794631395;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794631400;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7ZU7h0wlAuf8ircXlhWVxYk7TUSgoywsSbcV9zgliPo=;
-	b=JqroBMT22SJgylooXzgoYau0Tesg/XBRpOS1h+9P6x3xz5sEZDuWz98n2KKqWjGKB/oE
-	 h/J3yj2rdSu2kbgiEd4ppS3DnXKNMEkyTSUxWcSCp87vk5tYfPMiThFv9SsqjzVUdEphr
-	 feJmamjBYB63hId5iocLI05R9RPcNU/qkbxn+JQznQxO36hNhR9pcvxsTItPDxOkEXt6e
-	 OLQJQN19TJRuPscaUoyjGJf97gnq7FLh9IHQsnHpiRyqqjxnlksXU8ZNizZefO15Fh8r/
-	 yZmxQpkl423dG6VV39XI1KqUEyoxILxVJkC5HOOBHeLOfw8eNPBLA0CQRvdXKwiFSTg==
+	bh=Y7t9REKgfGlB2cjuaCfWq0kJQ63PEYDXgFKtbJVJCwM=;
+	b=iMVt+LD1Pd0Szd16GiuoO9gKUte1YKMXH1Jz6FeAIK6E52JexxAtIbCQNGeLotRfmKJP
+	 dVImO8Ny5Owvk6cTbfX5uSq25oFP4GDmzVsRmQPNqS0fFwGQXQKzJwelFh+8Lsyjdep/v
+	 m9f75ixrk+ZOLOsxRQtTvuEcKeJqOlZPke6ftU8SrffBbHAK0VA2eXPo7L/JPFkIltFBe
+	 g5suN7VgIRMreCMNaq4aMn419R0kutJ8fn/fe7uXoiu9qByrJ6+HZiJJkgXgkrmNhXCnL
+	 HehaN3DB33L+n48u7zhvOE5E5Fg2ApunOmPbYmM44XWNLsOGn1xIUTq6rH+foOnGoMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0VOiQwF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VghrRu00;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4278A606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:43:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B691606A337
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:43:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0VOiQwF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAFE11F000C4;
-	Sat, 14 Nov 2026 04:43:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VghrRu00
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894581F000C7;
+	Sat, 14 Nov 2026 04:43:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794631394;
-	bh=7ZU7h0wlAuf8ircXlhWVxYk7TUSgoywsSbcV9zgliPo=;
+	s=k20260515; t=1794631400;
+	bh=Y7t9REKgfGlB2cjuaCfWq0kJQ63PEYDXgFKtbJVJCwM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j0VOiQwFtved8T8iMMDBzKaA6yYMxr4oBE6MrgVNtLmgHQQZSoVMQAeD9eB6JJ/pe
-	 1+TR+l01rgB1M7UDIjxmM3tf4k/F1I1VopwuF/ooJBJ6P6p9NYir9R/SDtgXSdMcV5
-	 QRnc//c20ledQZPpCwMOpofWlJWeBO79uPTbVBTMkAZ3+9z5yAL/4lEeihiSh3dLjl
-	 76J7/dlwWWk0mtl+x1z9p3jxnyV1iHhZQn0Vf8WQ2oRLEotllEPFcZpazagIidn9NI
-	 LcQKoZUnEtd3iMMgdWQMot7OCGILrlglcmaB6eWr6dzB34GvMhztvFli2nsE9rWWzw
-	 6yuxxNgtT+qXQ==
+	b=VghrRu00qhT0DhtcvbMxfjDGbuCfay6wrTPdeTLSbCPwZsyYzQLwBpUnvCGdPp/H8
+	 p5QQEn5yNjEnvgsFilmwi/UGBIneXboL3zk+PAfbkSP+AZLdSTpybvNceDOb3xPqEb
+	 YM0M0yi3uyxAc51H7ICzOSphV/+I13gj/6H46hcyR/zdoCpWSvk+0cpbL2WD2ZpEBP
+	 HF1tZ43Y6o4PN7BZVtQSzQR8O7kIwFaPIXnxh8km3ITbIbDixAYDBIomokPdvNTDlK
+	 Mi/OnU1RAVcn/c96bO6S9uQ+M/bRKHu/D87GXeqCjiUUB4Wwk55Z+FB5ylANxk0sFI
+	 HrQDeNzRPOrwQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Rik van Riel <riel@surriel.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Zi Yan <ziy@nvidia.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: YouYou Yu <youyouyu@amazon.com>,
+	Dylan Johnson <dgj@amazon.com>,
+	Gunnar Kudrjavets <gunnarku@amazon.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/filemap: read mapping->a_ops->free_folio under i_lock
-Date: Fri, 13 Nov 2026 23:43:12 -0500
-Message-ID: <20261114044256.2942554-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] quota: initialize dquot cache before mounting rootfs
+Date: Fri, 13 Nov 2026 23:43:18 -0500
+Message-ID: <20261114044303.2954478-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201130-failed-6.6-dc24e273244e@kernel.org>
-References: <20261109201130-failed-6.6-dc24e273244e@kernel.org>
+In-Reply-To: <20261109201027-failed-6.6-e21a6f39aa6d@kernel.org>
+References: <20261109201027-failed-6.6-e21a6f39aa6d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,171 +63,134 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: YouYou Yu <youyouyu@amazon.com>
 
-[ Upstream commit dc24e273244e9d712257d5a6c20a32c7f5ca84e6 ]
+[ Upstream commit e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 ]
 
-memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
-after the inode has been freed. Once the folio is deleted from the
-pagecache it no longer pins the mapping, so after i_lock is dropped
-e.g., a concurrent final iput() can evict and free the inode before
-filemap_free_folio() looks up mapping->a_ops->free_folio.
+On some systems, a tmpfs backed rootfs is extensively used throughout
+system's lifecycle. tmpfs quotas are needed to limit per user rootfs
+usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
+and "initramfs_options=usrquota" panics at boot:
 
-Most callers hold a reference on the inode, but not all.
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:dqget+0x1ac/0x490
+  Call Trace:
+   __dquot_initialize
+   dquot_initialize
+   shmem_get_inode
+   shmem_fill_super
+   ...
+   mnt_init
+   vfs_caches_init
+   start_kernel
 
-Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
-must not assume the original address_space mapping still exists.
+The rootfs is mounted from mnt_init(), but the dquot hash table and
+cache are only set up later by dquot_init(), an fs_initcall. Creating
+the root inode of a quota enabled rootfs thus dereferences the NULL
+dquot_hash in dqget().
 
-Fix it by loading ->free_folio while i_lock is still held, similar to
-what folio_unmap_invalidate() does.
+Rename dquot_init() to dquot_cache_init() and call it from
+vfs_caches_init() before mnt_init(). The slab, percpu and early
+workqueue code it relies on is available there, and the workqueue
+rescuer and shrinker debugfs entries are set up later by their own
+subsystems. Keep the sysctl registration in an fs_initcall, as done
+for the dcache, inode and mount sysctls. This only moves existing
+allocations earlier in boot.
 
-Inline filemap_free_folio() into its remaining caller such that
-delete_from_page_cache_batch() also just loads the callback before
-dropping the i_lock.
-
-The bug was found by code inspection and has not been reproduced.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
+Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: get rid of filemap_free_folio() entirely; improve patch description ]
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: preserved single-reference HugeTLB accounting when inlining cleanup into existing callers, including invalidate_complete_folio2() ]
+Assisted-by: LLM
+Co-developed-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: YouYou Yu <youyouyu@amazon.com>
+Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
+Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
+Signed-off-by: Jan Kara <jack@suse.cz>
+[ sashal: adjusted patch context to match the existing quota initialization code ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/filemap.c  | 37 ++++++++++++++++++++-----------------
- mm/internal.h |  1 -
- mm/truncate.c | 10 +++++++++-
- 3 files changed, 29 insertions(+), 19 deletions(-)
+ fs/dcache.c              |  2 ++
+ fs/quota/dquot.c         | 10 ++++++----
+ include/linux/quotaops.h |  5 +++++
+ 3 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index aec7fb85775c3..db9499f6abd3d 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -225,20 +225,6 @@ void __filemap_remove_folio(struct folio *folio, void *shadow)
- 	page_cache_delete(mapping, folio, shadow);
- }
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 023a9ab9c7574..c0d7ab8c5aab0 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -32,6 +32,7 @@
+ #include <linux/bit_spinlock.h>
+ #include <linux/rculist_bl.h>
+ #include <linux/list_lru.h>
++#include <linux/quotaops.h>
+ #include "internal.h"
+ #include "mount.h"
  
--void filemap_free_folio(struct address_space *mapping, struct folio *folio)
--{
--	void (*free_folio)(struct folio *);
--	int refs = 1;
--
--	free_folio = mapping->a_ops->free_folio;
--	if (free_folio)
--		free_folio(folio);
--
--	if (folio_test_large(folio) && !folio_test_hugetlb(folio))
--		refs = folio_nr_pages(folio);
--	folio_put_refs(folio, refs);
--}
--
- /**
-  * filemap_remove_folio - Remove folio from page cache.
-  * @folio: The folio.
-@@ -250,6 +236,8 @@ void filemap_free_folio(struct address_space *mapping, struct folio *folio)
- void filemap_remove_folio(struct folio *folio)
+@@ -3357,6 +3358,7 @@ void __init vfs_caches_init(void)
+ 	inode_init();
+ 	files_init();
+ 	files_maxfiles_init();
++	dquot_cache_init();
+ 	mnt_init();
+ 	bdev_cache_init();
+ 	chrdev_init();
+diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
+index 7562ee4ff2929..d6295b987ef5f 100644
+--- a/fs/quota/dquot.c
++++ b/fs/quota/dquot.c
+@@ -3030,15 +3030,13 @@ static struct ctl_table fs_dqstats_table[] = {
+ 	{ },
+ };
+ 
+-static int __init dquot_init(void)
++void __init dquot_cache_init(void)
  {
- 	struct address_space *mapping = folio->mapping;
-+	void (*free_folio)(struct folio *folio);
-+	int refs = 1;
+ 	int i, ret;
+ 	unsigned long nr_hash, order;
  
- 	BUG_ON(!folio_test_locked(folio));
- 	spin_lock(&mapping->host->i_lock);
-@@ -258,9 +246,14 @@ void filemap_remove_folio(struct folio *folio)
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_add_lru(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
+ 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
  
--	filemap_free_folio(mapping, folio);
-+	if (free_folio)
-+		free_folio(folio);
-+	if (folio_test_large(folio) && !folio_test_hugetlb(folio))
-+		refs = folio_nr_pages(folio);
-+	folio_put_refs(folio, refs);
+-	register_sysctl_init("fs/quota", fs_dqstats_table);
+-
+ 	dquot_cachep = kmem_cache_create("dquot",
+ 			sizeof(struct dquot), sizeof(unsigned long) * 4,
+ 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
+@@ -3075,7 +3073,11 @@ static int __init dquot_init(void)
+ 					   WQ_UNBOUND | WQ_MEM_RECLAIM, WQ_MAX_ACTIVE);
+ 	if (!quota_unbound_wq)
+ 		panic("Cannot create quota_unbound_wq\n");
++}
+ 
++static int __init init_fs_dquot_sysctls(void)
++{
++	register_sysctl_init("fs/quota", fs_dqstats_table);
+ 	return 0;
  }
- 
+-fs_initcall(dquot_init);
++fs_initcall(init_fs_dquot_sysctls);
+diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
+index a9be09f96b10e..9a4e5df8f52a2 100644
+--- a/include/linux/quotaops.h
++++ b/include/linux/quotaops.h
+@@ -40,6 +40,7 @@ void __quota_error(struct super_block *sb, const char *func,
  /*
-@@ -320,6 +313,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
- void delete_from_page_cache_batch(struct address_space *mapping,
- 				  struct folio_batch *fbatch)
- {
-+	void (*free_folio)(struct folio *folio);
- 	int i;
- 
- 	if (!folio_batch_count(fbatch))
-@@ -337,10 +331,19 @@ void delete_from_page_cache_batch(struct address_space *mapping,
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_add_lru(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
- 
--	for (i = 0; i < folio_batch_count(fbatch); i++)
--		filemap_free_folio(mapping, fbatch->folios[i]);
-+	for (i = 0; i < folio_batch_count(fbatch); i++) {
-+		struct folio *folio = fbatch->folios[i];
-+		int refs = 1;
-+
-+		if (free_folio)
-+			free_folio(folio);
-+		if (folio_test_large(folio) && !folio_test_hugetlb(folio))
-+			refs = folio_nr_pages(folio);
-+		folio_put_refs(folio, refs);
-+	}
+  * declaration of quota_function calls in kernel.
+  */
++void dquot_cache_init(void);
+ int dquot_initialize(struct inode *inode);
+ bool dquot_initialize_needed(struct inode *inode);
+ void dquot_drop(struct inode *inode);
+@@ -206,6 +207,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
+ 	return 0;
  }
  
- int filemap_check_errors(struct address_space *mapping)
-diff --git a/mm/internal.h b/mm/internal.h
-index 03cfd9f736597..a918559e57661 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -180,7 +180,6 @@ unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
- unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
--void filemap_free_folio(struct address_space *mapping, struct folio *folio);
- int truncate_inode_folio(struct address_space *mapping, struct folio *folio);
- bool truncate_inode_partial_folio(struct folio *folio, loff_t start,
- 		loff_t end);
-diff --git a/mm/truncate.c b/mm/truncate.c
-index 6a82e981b63ce..bdb7f5fc94945 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -594,6 +594,9 @@ EXPORT_SYMBOL(invalidate_mapping_pages);
- static int invalidate_complete_folio2(struct address_space *mapping,
- 					struct folio *folio)
- {
-+	void (*free_folio)(struct folio *folio);
-+	int refs = 1;
++static inline void dquot_cache_init(void)
++{
++}
 +
- 	if (folio->mapping != mapping)
- 		return 0;
- 
-@@ -610,9 +613,14 @@ static int invalidate_complete_folio2(struct address_space *mapping,
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_add_lru(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
- 
--	filemap_free_folio(mapping, folio);
-+	if (free_folio)
-+		free_folio(folio);
-+	if (folio_test_large(folio) && !folio_test_hugetlb(folio))
-+		refs = folio_nr_pages(folio);
-+	folio_put_refs(folio, refs);
- 	return 1;
- failed:
- 	xa_unlock_irq(&mapping->i_pages);
+ static inline int dquot_initialize(struct inode *inode)
+ {
+ 	return 0;
 -- 
 2.53.0
 
