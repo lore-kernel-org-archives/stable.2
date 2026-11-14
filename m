@@ -1,108 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794638763;
-	b=xvwk/jl++5fYadkazK/6dTUkuEbsyvcFgVFyC3BXl55ptmM2j+Uo4IfsjZf6QvIpJvov
-	 QlS9r4oofIH8leBdhjDKupGIKxmRO4GWbvVxLnUdZrRLZqWaH+4YrnLP1Im5ov2jCiulT
-	 ohg2XReKHPXrUMqHJtnzHbwv4ulSHOSm3u1DXswXTAB97YWdJm38sVXqDiQBh0E/OjfZO
-	 PioV3C3htHqEByuKw19eJ61Q/+xB8vq8cwh/f5VsVAhSpHOMF4GxnArX3JRu1C5dqwvZY
-	 Dwfg/lcBBBW1EsV2+hKB+u38Ls8WBPtM+PsCupBVYVucxWgdhxw+k/updsAqU+u9mFg==
+	t=1794638837;
+	b=QZUYGXSCEa6L6V0t/QO/7tKf4DaypVQJcDY+EocOw+TtfdNN+zNxprat39omnPhK9DHd
+	 CA10vFjuRlmnknDAnDEz4w4uIlISwso1ROuqR/5WrGL8ANlMPF0iElYBLf74iB1VzhdfI
+	 pJ3Rxar8TFmBd5pDXotuazF4tR/QkPHR1IpOWrnZw5wJS9za5h5/LlE3PCTmgJDNEdEN0
+	 6wKM2A8Sfroq1bb5urxLcvqfLUM+KY+sKxkORmxXLZXei8020hKYY2O9tgMcwF4aK2ROs
+	 1EmrCrmUIOtFBmqPNW77xYr6iN6ro2z+iIM4zH6j1RG+k58wAuTo2XVReXZKzw7Ykxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794638763;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=iHbcITGOkxyEh3nCOC1u0s4lDXjvYPiyn4teM7lM8pk=;
-	b=4v5bqlVK5TKdmurjE7sc0aJi+XIl0OCuj/eCrmw5wYQOfe/BvUEZKGxaP041xr16cOyv
-	 noxneSkeEBhwzQUMA3KZXk6otBwbvQksi8kMm6sy9R5SK+NTfOqQ5jyKmaDIC8HeEGwjK
-	 ISQNcXtgD6HOv/6R0oC+HCferQzxtEQrxYO3tgjSVyKOGerDaMxbgPQfrdtwuN6pzv30u
-	 qQ9YPwj6qaCvsSRyWb8e+hvTcdTcayckSwTYw81NFRPX2/G/9W08lxcAFsXKIgGDiUSn8
-	 c53omxcDyC+7WjD/Oo7jO0le+hiAprhT32VqxQfkFNGwPBhFbHTok58K/1ZfuVuaJbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794638837;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ycHCcdUHWrn+GaE0uYs82yaSGynjsNWlDW3ZbB+W3jE=;
+	b=fncfV7vA11i5yt00DVdkw8Ljsl38pNgX0FKyXLO6fWBfzUEGtAywWxFiNKvx72uFhjjQ
+	 BkuHLn+8VIFc+AzSm8stVVWNFbs3Wqu2K8Dz3R3guTAQN+TN76H/bJnxSQsXiK7HsWQ/j
+	 qVZfnOOG7a+tbpwVqAt2tceiRaO34oo5T7SeRNO8sC92hcsOrbOT+jI88Z1Ij4OQfB9IB
+	 3KYEIDCg0CQVI9cbgFEi8+TwC1lcu+TY2qAjFWq/FNlLN3ub9/Hhr6CCzq7u6AC7aioi+
+	 JXsEz8CcIHoAJtgGXzJUOi1u8st3tB0DrVu0w8z2EQD0OyqZtLw39oubBC90GWNTv1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=eCN44lcA;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Z9JyRNti;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfasmZO3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27A6606A327
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:46:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B27A6606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF42606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:47:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=eCN44lcA;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Z9JyRNti
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794638761;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iHbcITGOkxyEh3nCOC1u0s4lDXjvYPiyn4teM7lM8pk=;
-	b=eCN44lcAmg8WWt7EytFdeuDTgnSkRBXZxj85YZi0/8+EJACmLeXPxzbIbddBZXtUyUd7gQ
-	b89sRnxuSf5jjRvbNLgy1M2HCZHgMBe0LstSMmAYqW1htqQbKWIdiIbQdLBhBCQ/KY1GBs
-	EFnTiKvrq9nz16mtdTLspXCV0btMCgk=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-594-Y_IK08zYPRGX967JbIeMnQ-1; Sat, 14 Nov 2026 01:46:00 -0500
-X-MC-Unique: Y_IK08zYPRGX967JbIeMnQ-1
-X-Mimecast-MFC-AGG-ID: Y_IK08zYPRGX967JbIeMnQ_1794638758
-Received: by mail-lf1-f70.google.com with SMTP id 2adb3069b0e04-5c157b6cb9fso964458e87.0
-        for <stable@vger.kernel.org>; Fri, 13 Nov 2026 22:45:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794638758; x=1795243558; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iHbcITGOkxyEh3nCOC1u0s4lDXjvYPiyn4teM7lM8pk=;
-        b=Z9JyRNtiGxsUxOTxjRXOUUYL5sZxLCCF7uohgZH+ACUBNaNK77Gws4JJTUmQ3BqRqf
-         xPtOeDPwvzrrQFs3XcIut12Z2E/NBeLooONPXp127Hddp42E0v0aDRUV1x2TdbaDl1Fz
-         uqWfRtEB4lnwiP4XohTTUhf3i9H/cscianavIn3W156zfyw1kO2VapArMQwLF3kppbgf
-         vCz47bV/WyrVsr+htOoMdeiTr9jOYiR41KXzCv3wzSsDrafgwfXq8b1xiG/tAq8JcW0h
-         ZPev1DfOrt8FGDMbwXd/KM66n6uXFpj1v7dYN2umDo1grMqdfnyhCyyZwR0bCahrCo5i
-         0b/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794638758; x=1795243558;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iHbcITGOkxyEh3nCOC1u0s4lDXjvYPiyn4teM7lM8pk=;
-        b=BwhmpJ2X1U/S4BAZLJXWjSs3CY7+Pqfwif1N5qINjXORv/+OtKjzo3b9AtlD809EQ5
-         1LcBY0Fv9syoWYHN16Yz4g5n8WCXLBoQFatlU9M7rUxdoBQrfv/ZePGnUZrtw6pMb2ZO
-         Fn4Ejh/QJQEIgTRkYwMHNXY+cj74Uqff6rnO1p7WAD3hbo+g2XVBnics/+HOk41LNIK1
-         1Zg1wSTl7qS90IS31j+ldTutJX+qk41w3awIv5jYU+KWjIgYVthFzjcKcCJn7rvk7IrU
-         4c5oo+7Ko4y3QaBPHKFhfeQD8DbSAWjJXPkk2QHOMzu7Wu3yQYkk3Ga6+gNyqzem0HnO
-         2V3A==
-X-Forwarded-Encrypted: i=1; AL+hErGuh0aIUhx9iV25KX5bK5cucjfpjZ6b5oDE8TIkkT0UQGe20ejw1ZeWkTZrVxcAkroEZb+pRTc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UrXDcxrcH5sP0s4Ex8/MnEBtnqv/A4s3Yyy8OxCf4mNPlUd+R
-	MkWyVK6hMmaWiv9CjFnf+Z69NW2yxsFvURpkvmZqytFmDYn0iFxJ7QzkIO3+1Zy97Yf/ZBnNNz6
-	SXzJYKvNUrELSskmhkCKXrWzhi0J3ngf8nJp6m2s8O1JHZjdyBXe3KEp4
-X-Gm-Gg: AYBFou0CyQNyymjJAqVx1rdWSecAAM5QSQqZV2fEgh1ahY7+Dgm1YHoAajgaM7wu1wl
-	NaHR9OPG6O6lQ5PhPqttV3rGzYbI97d5ttt2nwYFkB2udGLfxyVKkoM9DysDFyXynVg80tmEv34
-	1/lbEf176TK88j9V/jHeXCVhP0Z87J0tMPaAqzWwigRdFr+WGarVyvV2A08sj+nA4mcXB2ACovO
-	U1HXWEjwbs9oHJffcVGdeaVwZJF936kfY06wBTrqB+KVcUB6JE7XmsK9hLuK3pIYVFeaD/f3gRT
-	ospw+/353rmvwhdTAmIcPcHHcpwUW6zhL/q0eIWm63NwUKrhIACvudQFhLf2lSvJM+22cAv1syY
-	PwF9IprgslZjz4GjjwUmyb9ZzhpUXV7qRiNKBltJn29hsL6X75+uuaYPEdnSwjhvv7hGMKAsri2
-	gjnQsy
-X-Received: by 2002:ac2:4bc5:0:b0:5b6:4ae:5b83 with SMTP id 2adb3069b0e04-5c1709ca612mr1930535e87.33.1794638758288;
-        Fri, 13 Nov 2026 22:45:58 -0800 (PST)
-X-Received: by 2002:ac2:4bc5:0:b0:5b6:4ae:5b83 with SMTP id 2adb3069b0e04-5c1709ca612mr1930526e87.33.1794638757811;
-        Fri, 13 Nov 2026 22:45:57 -0800 (PST)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17133e3acsm1466215e87.45.2026.11.13.22.45.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 22:45:56 -0800 (PST)
-Message-ID: <8c79ce88-7730-44c4-92a0-d760d6f8e9e1@redhat.com>
-Date: Sat, 14 Nov 2026 08:45:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfasmZO3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EBA1F000C4;
+	Sat, 14 Nov 2026 06:47:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794638837;
+	bh=ycHCcdUHWrn+GaE0uYs82yaSGynjsNWlDW3ZbB+W3jE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NfasmZO3G+rFEC9MiiA+8yxYzjV4wgVDcCk0BvNmP7mhKRO7uBwR0MXRwiXCrQh2/
+	 c/k7MQmmtHWnM3wUcPRgQ4hOpt+C+OjN9h9CUq5Opk5tfrK/P7X93WKMAA2vswd+Zt
+	 S7OMXOEfKQPWY8pO5oosCig15CSikRB4PoNxmE19TM/Vct8knCHEl5SBfl0bTVjftx
+	 /G5RwpC6qnRhi2xk8w9jYpVU78S0rufsDicCrQozlov97i3+J2ohAUwDWVy2d33bv/
+	 ihAZSuJT7Ml0cQKv7svDzN5b9xU+VjBEmOn3PkSWsh59p7QuNDSfQvUOZ+bGgYA2tu
+	 aiQxoW0NrhpkQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Anderson Ferneda <anderson.ferneda@braza.com.br>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] ocfs2: use the stored hash when checking xattr bucket collision
+Date: Sat, 14 Nov 2026 01:47:14 -0500
+Message-ID: <20261114064224.3223276-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201729-failed-6.1-e8de099f2958@kernel.org>
+References: <20261109201729-failed-6.1-e8de099f2958@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,120 +63,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/13] mm/migrate_device: don't collect a range twice
-To: Balbir Singh <balbirs@nvidia.com>, "Lorenzo Stoakes (ARM)"
- <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>,
- =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>,
- Chris Mason <mason@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>,
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
- <20261113-mason-migrate-et-al-fixes-v2-5-50a2ed382b61@kernel.org>
- <avfrWjzLQdDcmXO6@parvat>
-Content-Language: en-US
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <avfrWjzLQdDcmXO6@parvat>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-On 11/14/26 07:09, Balbir Singh wrote:
-> On Fri, Nov 13, 2026 at 09:45:23PM +0000, Lorenzo Stoakes (ARM) wrote:
->> From: Josef Bacik <josef@toxicpanda.com>
->>
->> migrate_vma_collect_pmd() drops the page table lock to split a large folio
->> which it finds in the middle of a page table, and then starts over at the
->> "again" label. The entries for [start, addr) are in migrate->src[] and
->> migrate->dst[] by then.
->>
->> While the page table lock is dropped the page table can go away, in which
->> case the restarted walk invokes migrate_vma_collect_huge_pmd(). However
->> this is passed start rather than addr, so [start, addr) is collected a
->> second time.
->>
->> This can result in migrate->npages exceeding the number of pages the
->> caller asked for, and therefore in writes past the end of the
->> migrate->src[] and migrate->dst[] arrays.
->>
->> Fix this by only handing over what has not yet been collected,
->> page-by-page, and flush the TLB for those entries which have been
->> previously replaced, similar to the other returns in the function.
->>
->> Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->> [ ljs: cleanup commit message ]
->> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
->> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->> ---
->>  mm/migrate_device.c | 8 ++++++--
->>  1 file changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
->> index 9e5dab8e1b77..28ed706109da 100644
->> --- a/mm/migrate_device.c
->> +++ b/mm/migrate_device.c
->> @@ -257,13 +257,17 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
->>  	pte_t *ptep;
->>  
->>  again:
->> +	/* [start, addr) is collected if we get here after splitting a folio */
->>  	if (pmd_trans_huge(*pmdp) || !pmd_present(*pmdp)) {
->> -		int ret = migrate_vma_collect_huge_pmd(pmdp, start, end, walk, fault_folio);
->> +		int ret = migrate_vma_collect_huge_pmd(pmdp, addr, end, walk, fault_folio);
->>  
->>  		if (ret == -EAGAIN)
->>  			goto again;
->> -		if (ret == 0)
->> +		if (ret == 0) {
->> +			if (unmapped)
->> +				flush_tlb_range(walk->vma, start, end);
->>  			return 0;
->> +		}
->>  	}
->>  
->>  	ptep = pte_offset_map_lock(mm, pmdp, start, &ptl);
->>
-> Is the intended race a concurrent MADV_DONTNEED reclaiming the PTE table while
-> PTL is dropped for the split? That would leave pmd_none() true on retry, entering
-> migrate_vma_collect_huge_pmd() through !pmd_present() and taking its hole path.
+[ Upstream commit e39baff18b85cf8956aee138d7944b6581e8ba36 ]
 
-I think this is "ok" for the fix, the hole is collected from [addr, end). 
+ocfs2_check_xattr_bucket_collision() decides whether splitting a full
+bucket can make room for the entry being set by recomputing the hash of
+the name:
 
-But couple of things follow. It can't be possibly collected as
-MIGRATE_PFN_COMPOUND entry, only small pages. And the collected entries
-in [start, addr) are wrong ones.  Finalize will recover, but the
-migration will fail for those. These all are handled in the HMM walk
-based migration series.
+	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
 
---Mika
+	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
+		return 0;
 
+For a new entry that is the hash it will be stored under, so comparing it
+is correct.  An existing entry keeps the hash it already has: an update
+never rewrites xe_name_hash, since ocfs2_xa_add_entry() is the only
+writer of that field for a real entry and ocfs2_xa_prepare_entry() calls
+it only when loc->xl_entry is NULL.
 
->
-> Thanks,
-> Balbir
->
+An entry stored by a kernel that sign-extended the name bytes when
+hashing can still be updated, because ocfs2_xattr_find_entry() searches
+a non-indexed xattr block by memcmp on the name and never looks at
+xe_name_hash.  Growing it past the space left in the block converts the
+block into a tree, ocfs2_cp_xattr_block_to_bucket() fills the bucket in
+stored hash order, and the update runs out of room in the bucket too.
+The collision check then compares the unsigned hash against the legacy
+hashes in the bucket and reports no collision.
+
+ocfs2_xattr_set_entry_index_block() goes on to allocate a bucket that
+ocfs2_divide_xattr_bucket() cannot fill: a bucket whose entries all share
+one hash has no divide position, so all it does is append an empty bucket
+with a sentinel hash one above the last entry's.
+
+The re-search that follows depends on where the unsigned hash sorts.
+Below the legacy ones, it comes back to the full bucket and the set fails
+with -ENOSPC, having grown the tree for nothing.  Above them, it lands on
+the new empty bucket, which ocfs2_xattr_bucket_find() handles explicitly
+and ocfs2_find_xe_in_bucket() scans zero times, so the set stores a second
+copy of the entry under the unsigned hash and returns success.  The
+original stays in the full bucket, listxattr reports the name twice and
+getxattr returns the new copy.
+
+Pass the hash the entry is stored under instead: the stored one for an
+existing entry, the unsigned one for a new entry.  A tree whose entries
+are all stored under the unsigned hash sees no change, since there the
+two are the same value.
+
+Link: https://lore.kernel.org/20261009083002.2621201-3-joseph.qi@linux.alibaba.com
+Fixes: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Cc: Anderson Ferneda <anderson.ferneda@braza.com.br>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: <stable@vger.kernel.org> # 6.2+
+Stable-dep-of: e8de099f2958 ("ocfs2: do not read the entry array of an empty xattr bucket")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ocfs2/xattr.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index 8d15b0e824cdf..fca9ed94ca17a 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -5601,16 +5601,14 @@ static int ocfs2_rm_xattr_cluster(struct inode *inode,
+ 
+ /*
+  * check whether the xattr bucket is filled up with the same hash value.
+- * If we want to insert the xattr with the same hash, return -ENOSPC.
+- * If we want to insert a xattr with different hash value, go ahead
+- * and ocfs2_divide_xattr_bucket will handle this.
++ * If the entry being set carries that same hash, return -ENOSPC, since
++ * ocfs2_divide_xattr_bucket() has no divide position to work with.
++ * Otherwise go ahead and ocfs2_divide_xattr_bucket() will handle this.
+  */
+-static int ocfs2_check_xattr_bucket_collision(struct inode *inode,
+-					      struct ocfs2_xattr_bucket *bucket,
+-					      const char *name)
++static int ocfs2_check_xattr_bucket_collision(struct ocfs2_xattr_bucket *bucket,
++					      u32 name_hash)
+ {
+ 	struct ocfs2_xattr_header *xh = bucket_xh(bucket);
+-	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
+ 
+ 	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
+ 		return 0;
+@@ -5707,6 +5705,7 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
+ 					     struct ocfs2_xattr_search *xs,
+ 					     struct ocfs2_xattr_set_ctxt *ctxt)
+ {
++	u32 name_hash;
+ 	int ret;
+ 
+ 	trace_ocfs2_xattr_set_entry_index_block(xi->xi_name);
+@@ -5726,10 +5725,18 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
+ 	 * the maximum number of collisions we will allow for then is
+ 	 * one bucket's worth, so check it here whether we need to
+ 	 * add a new bucket for the insert.
++	 *
++	 * An existing entry keeps the hash it was stored under, and that is
++	 * the hash a split has to work with.  A new entry is stored under the
++	 * unsigned one, which is what ocfs2_xa_add_entry() will write.
+ 	 */
+-	ret = ocfs2_check_xattr_bucket_collision(inode,
+-						 xs->bucket,
+-						 xi->xi_name);
++	if (xs->not_found)
++		name_hash = ocfs2_xattr_name_hash(inode, xi->xi_name,
++						  xi->xi_name_len);
++	else
++		name_hash = le32_to_cpu(xs->here->xe_name_hash);
++
++	ret = ocfs2_check_xattr_bucket_collision(xs->bucket, name_hash);
+ 	if (ret) {
+ 		mlog_errno(ret);
+ 		goto out;
+-- 
+2.53.0
 
