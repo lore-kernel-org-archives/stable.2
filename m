@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794637474;
-	b=JDsXsHGj5aKAxDafAJI7YZcej0FZaNFMcM6wVPzbUoie6QBV2xEAyExuQBOeHFmyiCtb
-	 uWoPAtDTxlPmeqgERt4BigK5PcW+2/nIdPzNCoExSWHyUV3CkliFUMgbt+zae1v8JGWoq
-	 MkjN6SJze/CR15ksL3sJ8sYpTg6I++EePUmgcxs0G5d2LjHurgpj35sE19GU6I7C/qvMe
-	 OfDeRGLToBFw4j9gOTAcS3DLRrS9enlrroY4nrEdGELS0r6Qnd6PsnPQpIWYSU/dFj/zt
-	 9TwdQ5YrVI3kEPOc1pHDIay7KOm2DHMC2padbRx2IYnpgwVNKH8IrnpaFa4nBdjU4tg==
+	t=1794637475;
+	b=iFON1144w1zIDDvPCdACzLDsDgaQOrbtLcNaaJZdgqRWIU2XxHTFILuvSbRRfnICS4Dh
+	 j8DrA8UA/A9IpX0ug6437+sL5EtLH5EeyGdbqTEREleneUQDmsZlv8kqEZ2xQS0h8bbpy
+	 KJrPUpbKVneU0vOSpZ7v6X1x1t43IMXMovGhfxxVqFWczvxNx24Qf0hGxVaKCO6UHHnNo
+	 LnI3TlY8pgCVSNcFQM1DVMOdjaXZ6aEBzF7ZXflolcaxrl4Arqw2lB4fRqaPHA08cEwle
+	 m1p6gwi3+4uvVUWgFKtDrwUQdsduwpvdEvSFHSb6WVzLI4qYoCgThy6kiBRhhMt7ShA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794637474;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794637475;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=h9rOLP9hnYHI6KXsce+/vPC8CsvDGDJnkCxhR8LgTm4=;
-	b=rEGZU7HtymiSKBreq0IkkAUcUcHpIoGIDXt9B5o978asBV2wmXm3ojpF2G6B97U5Nc+9
-	 0G0nd3cEBXF9wvbUZ/qEX28lmooyFilKrfOcfu9VvwSS0bdndfcTSWGPh43oT/hUnJtBD
-	 a9RhFS9gHn4zGnl3I9a/IG1zGRivdwNvVdCMXadeizvPaprrC1jWFc2DWIrofHBGMiHQM
-	 OjfTHnJ8Yl/p16q7kJR/veotwYB4OTyxFME1oEAPlX17fvQu9i/ob6KWR+c2AdIggi9Rx
-	 9YAcPAFHR0xN8wctHyzisIYNbLUfU4R0cmW3U7CxvDpo6O2ONNCwHUJv+1ajXzO2JeQ==
+	bh=duduH1+m18Rqf7GcSTyJTCvLcEe8gwkIwgqF78GK3LM=;
+	b=KztLW2JGPbkkYQN3fiuVe5tp36rZCZmHnYLaJcLi3YDVkY1OiTqwyk9fpSnIypZzwVr9
+	 IEi4U+XYuSt4wrw+LV5RpETvFQRuBKulCF1+nTwh3qDgOMpMlt7zZ2yuuXFKb9+pLUTfp
+	 eTHGOfMop/OVeO4qTrLsk/u9ouRe2Yy850wSdKdiEtU+iNMKrsM3A8YF154/JzCvRs7wc
+	 vjG9hvuBYhsFMemCVlYH8GPwpEezrQhUcGtLCfYvunkxcwPK+GiBl29ttsL4WjAq3qyE0
+	 qEjQrhqddW/YkmKECpTRmKWtO9ubnqo0BI472qt1MzwmtFWQoGLt428+1qZ+GhckUQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD8rBjgv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jb9Fvg0h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71614606A32D
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:24:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B63A606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:24:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD8rBjgv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A416B1F000C7;
-	Sat, 14 Nov 2026 06:24:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jb9Fvg0h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85FAD1F000C5;
+	Sat, 14 Nov 2026 06:24:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794637474;
-	bh=h9rOLP9hnYHI6KXsce+/vPC8CsvDGDJnkCxhR8LgTm4=;
+	s=k20260515; t=1794637475;
+	bh=duduH1+m18Rqf7GcSTyJTCvLcEe8gwkIwgqF78GK3LM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bD8rBjgvzYtL14raxGyq7oJXidfIAn1r1J8djRCKzLvdo6k5XKstVoskhMvXTWj15
-	 jR/Q+sJfP1mJ+zctPg19Zoc7LaBvrrKcaK4ckSS39RLRcD6LpjraBsEhmyK8RxfKTC
-	 It9ZtXCwXcwXSq0KukgtY/m1eYQohBBf2idslfGKEHob04N6d/V6LEXsU09Ko5JMBd
-	 ei+CtJCtw8vrrIEtxL67Wm1519sZV93CWh4UVwkJ6+a90ln1/8q8MGdg0XOqj1TyM5
-	 ISueMrB0rWiqE0DaGPttGz6rChT9SHFefFORg3TLIqpMSwmdhEAPuRIxWRA03GV1tS
-	 hO6A0yuBnB6HQ==
+	b=Jb9Fvg0haZ2imFg5ZYImYuCCIzsw01UucmcoHO6X8QLfFpLh7IhACY9Tom8NoMJjM
+	 wPFv/jtPjvDWM0uH0Ts7JiVon0E8/fU/F+5MMJbdQHkZcFRNgRA1P2UscnKtxKV1xf
+	 OvS5qy6nWVh9QfVNPoUInpTSf5Bze06xVNPc9LqFZuJH9CbBBoDtotpOzdOyjetxmr
+	 GAOfkenA1TyQclCtbSsoPUFJYTRvIbMEUc33npcPaZktbgqgQpYokRygdZwd8EPYTz
+	 Cww3Jr1rYorl6vtrUZMESUNJge+6mpWkooJ0WtSbck3T1cVvBWQMH2r+JMwcdJQ5/6
+	 nGvzIOQ3A/stg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
-	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: renpanpan <renpanpan@kylinos.cn>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] drm/edid: parse display info has_audio similar to is_hdmi
-Date: Sat, 14 Nov 2026 01:24:30 -0500
-Message-ID: <20261114062408.3188357-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] drm/amdgpu: Only enable HDMI audio if display supports it
+Date: Sat, 14 Nov 2026 01:24:31 -0500
+Message-ID: <20261114062408.3188357-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261114062408.3188357-1-sashal@kernel.org>
 References: <20261109201928-failed-6.1-0de95c96655c@kernel.org>
@@ -63,75 +62,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jani Nikula <jani.nikula@intel.com>
+From: renpanpan <renpanpan@kylinos.cn>
 
-[ Upstream commit 0374ffa507d8106202a956f5951226f1d9eac22e ]
+[ Upstream commit 0de95c96655c8a12df62e47871016f49e5cd8618 ]
 
-Since we already iterate everything that's needed for determining audio,
-reduce the need to call drm_detect_monitor_audio() by storing has_audio
-to connector info.
+The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
+audio_enable(pin, true) at the end of afmt_setmode(), regardless of
+whether the connected display advertises audio support in its EDID.
 
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/391a93b25c6bcbb39854aaa2813570cfb1580ed9.1685437500.git.jani.nikula@intel.com
-Stable-dep-of: 0de95c96655c ("drm/amdgpu: Only enable HDMI audio if display supports it")
+This causes a phantom HDMI audio output to appear for displays that
+have no audio capability (no basic audio bit, no Audio Data Block in
+EDID), because the GPU sets the AUDIO_ENABLED register bit, which
+drives the HDA codec's ELDV pin sense, making the codec report the
+jack as audio-available.
+
+The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
+display_info.has_audio. Apply the same check to amdgpu's DCE
+afmt_setmode functions.
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: renpanpan <renpanpan@kylinos.cn>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 842a45c68e0355eea47796551c8761c0c77e8ce0)
+Cc: stable@vger.kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/drm_edid.c  | 6 ++++++
- include/drm/drm_connector.h | 8 ++++++++
- 2 files changed, 14 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 5 +++--
+ 3 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 511021179ecbd..52bf6755f36ea 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6032,6 +6032,9 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
- 			info->color_formats |= DRM_COLOR_FORMAT_YCBCR444;
- 		if (edid_ext[3] & EDID_CEA_YCRCB422)
- 			info->color_formats |= DRM_COLOR_FORMAT_YCBCR422;
-+		if (edid_ext[3] & EDID_BASIC_AUDIO)
-+			info->has_audio = true;
-+
- 	}
- 	drm_edid_iter_end(&edid_iter);
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index efc85aa157ddd..95a31e959cca6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1738,8 +1738,9 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
  
-@@ -6055,6 +6058,8 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
- 			drm_parse_hdr_metadata_block(connector, data);
- 		else if (cea_db_tag(db) == CTA_DB_VIDEO)
- 			parse_cta_vdb(connector, db);
-+		else if (cea_db_tag(db) == CTA_DB_AUDIO)
-+			info->has_audio = true;
- 	}
- 	cea_db_iter_end(&iter);
+-	/* enable audio after to setting up hw */
+-	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
  }
-@@ -6193,6 +6198,7 @@ static void drm_reset_display_info(struct drm_connector *connector)
- 	info->max_tmds_clock = 0;
- 	info->dvi_dual = false;
- 	info->is_hdmi = false;
-+	info->has_audio = false;
- 	info->has_hdmi_infoframe = false;
- 	info->rgb_quant_range_selectable = false;
- 	memset(&info->hdmi, 0, sizeof(info->hdmi));
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 5dfde32447798..a34d169549934 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -597,6 +597,14 @@ struct drm_display_info {
- 	 */
- 	bool is_hdmi;
  
-+	/**
-+	 * @has_audio: True if the sink supports audio.
-+	 *
-+	 * This field shall be used instead of calling
-+	 * drm_detect_monitor_audio() when possible.
-+	 */
-+	bool has_audio;
-+
- 	/**
- 	 * @has_hdmi_infoframe: Does the sink support the HDMI infoframe?
- 	 */
+ static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 6376a252e3f07..736bdeeb2bdcd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -1702,8 +1702,9 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
+ 		dce_v6_0_audio_dp_enable(encoder, 1);
+ 	}
+ 
+-	/* enable audio after setting up hw */
+-	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+ }
+ 
+ static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index e93931655243e..ed52451f3b74e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1667,8 +1667,9 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+ 
+-	/* enable audio after setting up hw */
+-	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+ }
+ 
+ static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
 -- 
 2.53.0
 
